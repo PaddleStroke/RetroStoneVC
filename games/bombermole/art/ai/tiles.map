@@ -1,5 +1,0 @@
-# Owner's AI tileset (seasonal-tileset.png): 17 tiles per season, no water.
-grass@spring grass_edge@spring soft_dirt@spring dirt_crack@spring hard_rock@spring stone@spring roots@spring tunnel@spring hole_down@spring hole_up@spring ladder@spring thin_floor@spring exit_closed@spring exit_open@spring puddle@spring frozen_dirt@spring leaves@spring
-grass@summer grass_edge@summer soft_dirt@summer dirt_crack@summer hard_rock@summer stone@summer roots@summer tunnel@summer hole_down@summer hole_up@summer ladder@summer thin_floor@summer exit_closed@summer exit_open@summer puddle@summer frozen_dirt@summer leaves@summer
-grass@autumn grass_edge@autumn soft_dirt@autumn dirt_crack@autumn hard_rock@autumn stone@autumn roots@autumn tunnel@autumn hole_down@autumn hole_up@autumn ladder@autumn thin_floor@autumn exit_closed@autumn exit_open@autumn puddle@autumn frozen_dirt@autumn leaves@autumn
-grass@winter grass_edge@winter soft_dirt@winter dirt_crack@winter hard_rock@winter stone@winter roots@winter tunnel@winter hole_down@winter hole_up@winter ladder@winter thin_floor@winter exit_closed@winter exit_open@winter puddle@winter frozen_dirt@winter leaves@winter

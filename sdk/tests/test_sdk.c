@@ -422,8 +422,48 @@ static void test_audio(void)
     rs_host_reset();
 }
 
+/* PPU stress: 4 full layers (two with per-line scroll, one with priority
+ * tiles), 128 sprites of 32x32 (max 32 on a line is exceeded on purpose in
+ * places), colour math on one layer. Prints the average render time. */
+static void bench_ppu(int frames)
+{
+    static int16_t wave2[240];
+    fresh();
+    for (int l = 0; l < 4; l++) {
+        rs_bg_setup(l, 64, 64, 0);
+        rs_bg_enable(l, 1);
+        for (int y = 0; y < 64; y++)
+            for (int x = 0; x < 64; x++)
+                rs_bg_put(l, x, y, RS_MAP(l == 3 ? 1 + (x + y) % 8 : 16 + ((x * 7 + y * 3 + l) % 3), l,
+                                          (x + y + l) & 1, x & 1, y & 1));
+    }
+    for (int i = 0; i < 240; i++) wave2[i] = (int16_t)((i * 5) % 16 - 8);
+    rs_bg_line_scroll(RS_BG2, wave2, NULL);
+    rs_bg_line_scroll(RS_BG3, NULL, wave2);
+    rs_math(RS_MATH_ADD | RS_MATH_HALF, RS_MATH_BG2, 0);
+    rs_obj_base(32);
+    uint64_t total = 0;
+    for (int f = 0; f < frames; f++) {
+        rs_oam_clear();
+        for (int i = 0; i < 128; i++)
+            rs_spr((i * 37 + f) % 336 - 16, (i * 53 + f / 2) % 256 - 16, 0, 32, 32, i & 7, i & 3, i & 3);
+        for (int l = 0; l < 4; l++) rs_bg_scroll(l, f * (l + 1), f / (l + 1));
+        uint64_t t0 = rs_host_time_us();
+        rs_host_render();
+        total += rs_host_time_us() - t0;
+    }
+    printf("PPU stress (4 layers 64x64, 2 with line scroll, colour math, 128 sprites 32x32): "
+           "%.1f us per frame over %d frames\n", (double)total / frames, frames);
+}
+
 int main(int argc, char **argv)
 {
+    for (int i = 1; i < argc; i++)
+        if (!strcmp(argv[i], "--bench")) {
+            rs_host_set_log(NULL);
+            bench_ppu(600);
+            return 0;
+        }
     for (int i = 1; i < argc; i++) {
         if (!strcmp(argv[i], "--update")) update = 1;
         else if (!strcmp(argv[i], "--golden") && i + 1 < argc) golden_dir = argv[++i];

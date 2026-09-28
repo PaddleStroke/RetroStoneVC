@@ -28,4 +28,6 @@ check "fall through a hole to depth 1" "depth=1 x=2 y=6" "$out"
 base=$($H --frames 10 --opt level=spring-2 --opt nointro=1 --opt dump=1 2>&1 | sed -n 's/.*rocks=\([0-9]*\).*/\1/p')
 out=$($H --frames 260 --opt level=spring-2 --opt nointro=1 --opt dump=1 --input $D/bomb.input 2>&1)
 check "a bomb breaks a rock ($base rocks before)" "rocks=$((base - 1)) " "$out"
+out=$($H --frames 400 --opt level=spring-1 --opt nointro=1 --opt dump=1 --input $D/selfblast.input 2>&1)
+check "own blast: knocked out, restart with 2 lives" "st=6 .*hearts=1 lives=2" "$out"
 exit $fail

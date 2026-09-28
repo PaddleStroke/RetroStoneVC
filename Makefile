@@ -13,6 +13,8 @@
 
 GAME      ?= bombermole
 GAME_NAME ?= BomberMole
+CHAR_SIZE ?= 16
+export BM_CHAR_SIZE := $(CHAR_SIZE)
 PYTHON    ?= python3
 JOBS      ?= $(shell nproc 2>/dev/null || echo 4)
 
@@ -83,12 +85,13 @@ sdk/src/rs_font.c: sdk/tools/gen_font.py
 	$(PYTHON) $< > $@
 
 # ---- game assets (generated C) ----------------------------------------------------
-GAME_ART    = $(wildcard games/$(GAME)/art/*.png)
+ART ?= art
+GAME_ART    = $(wildcard games/$(GAME)/$(ART)/*.png)
 GAME_LEVELS = $(wildcard games/$(GAME)/levels/*.txt)
 $(GAME_GEN): games/$(GAME)/tools/build_assets.py tools/rsasset.py tools/sheets.py $(GAME_ART) $(GAME_LEVELS) \
              $(wildcard games/$(GAME)/tools/*.py)
 	@mkdir -p $(dir $@)
-	$(PYTHON) games/$(GAME)/tools/build_assets.py --out $(dir $@)
+	$(PYTHON) games/$(GAME)/tools/build_assets.py --out $(dir $@) --art games/$(GAME)/$(ART)
 assets: $(GAME_GEN)
 
 GAME_OBJ_HOST  = $(call objs,host,$(GAME_SRC) $(GAME_GEN))
@@ -122,7 +125,7 @@ dist/windows/$(GAME_NAME).exe: $(GAME_OBJ_WIN) build/win64/sdk/frontends/sdl2/rs
 	$(WIN_CC) -o $@ $(filter %.o %.a,$(filter-out $(SDL2_MINGW)/lib/libSDL2.a,$^)) \
 	    -L$(SDL2_MINGW)/lib -static -lmingw32 -lSDL2main -lSDL2 -mwindows \
 	    -lm -ldinput8 -ldxguid -ldxerr8 -luser32 -lgdi32 -lwinmm -limm32 -lole32 -loleaut32 \
-	    -lshell32 -lversion -luuid -lsetupapi -static-libgcc
+	    -lshell32 -lversion -luuid -lsetupapi -static-libgcc -s
 	cp games/$(GAME)/dist/README-windows.txt dist/windows/README.txt
 	cp THIRD_PARTY.md dist/windows/THIRD_PARTY.md
 
@@ -141,13 +144,21 @@ dist: windows build/host/$(GAME)_libretro.so armhf
 # ---- tests -------------------------------------------------------------------------
 build/host/test_sdk: build/host/sdk/tests/test_sdk.o build/host/sdk/frontends/common/rs_desktop.o build/host/librs.a
 	$(HOST_CC) -o $@ $^ -lm
-test check: build/host/test_sdk build/host/$(GAME)_headless
+build/host/test_libretro: build/host/sdk/tests/test_libretro.o
+	$(HOST_CC) -o $@ $^ -ldl
+
+test check: build/host/test_sdk build/host/test_libretro build/host/$(GAME)_headless build/host/$(GAME)_libretro.so
 	./build/host/test_sdk --golden sdk/tests/golden --out build
+	./build/host/test_libretro build/host/$(GAME)_libretro.so 600
 	$(PYTHON) tools/tests/test_tools.py
+	$(PYTHON) tools/tests/test_art_sync.py
 	$(PYTHON) games/$(GAME)/tools/check_levels.py
 	sh games/$(GAME)/tests/smoke_test.sh build/host/$(GAME)_headless build
 golden: build/host/test_sdk
 	./build/host/test_sdk --update --golden sdk/tests/golden --out build
+
+art:
+	$(PYTHON) tools/art_sync.py sync
 
 placeholders:
 	$(PYTHON) tools/make_placeholders.py --out games/$(GAME)/art
@@ -155,8 +166,9 @@ placeholders:
 screenshots: build/host/$(GAME)_headless
 	sh games/$(GAME)/tools/screenshots.sh build/host/$(GAME)_headless docs/screenshots
 
-bench: build/host/$(GAME)_headless
+bench: build/host/$(GAME)_headless build/host/test_sdk
 	sh games/$(GAME)/tools/bench.sh build/host/$(GAME)_headless
+	./build/host/test_sdk --bench
 
 clean:
 	rm -rf build/host build/win64 build/armhf build/gen

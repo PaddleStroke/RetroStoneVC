@@ -53,15 +53,45 @@ def background_color(rgb):
     return np.median(b, axis=0)
 
 
-def foreground_mask(img, thresh=90.0):
+def despill(rgb, fg, edge):
+    """Magenta despill. AI images have pink anti-aliasing and pink halos (on
+    fire and explosions especially). Foreground pixels near the background
+    whose colour leans toward magenta (red and blue both above green) take
+    the colour of the nearest clean foreground pixel. Returns (rgb, count)."""
+    r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
+    spill = np.minimum(r, b) - g
+    near = dilate(~fg, edge) & fg
+    tinted = near & (spill > 25)
+    clean = fg & ~tinted
+    if not tinted.any() or not clean.any():
+        return rgb, 0
+    try:
+        from scipy import ndimage
+    except ImportError:            # without scipy: pull the colour toward green (simple despill)
+        out = rgb.copy()
+        k = np.clip(spill, 0, None)[..., None] * tinted[..., None]
+        out[..., 0:1] -= k
+        out[..., 2:3] -= k
+        return np.clip(out, 0, 255), int(tinted.sum())
+    idx = ndimage.distance_transform_edt(~clean, return_distances=False, return_indices=True)
+    out = rgb.copy()
+    out[tinted] = rgb[idx[0][tinted], idx[1][tinted]]
+    return out, int(tinted.sum())
+
+
+def foreground_mask(img, thresh=90.0, edge=None):
+    """(fg mask, despilled rgb, background colour) of an AI image."""
     a = np.asarray(img.convert("RGBA"), dtype=np.float32)
     rgb, alpha = a[..., :3], a[..., 3]
     bg = background_color(rgb)
     d = np.sqrt(((rgb - bg) ** 2).sum(-1))
     r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
-    # pink/purple fringes: a light mix of magenta and something else
+    # pixels close to magenta, and light mixes of magenta with something else, are background
     fringe = (r > g + 90) & (b > g + 90) & (np.abs(r - b) < 60) & (r > 150) & (b > 150)
     fg = (d > thresh) & ~fringe & (alpha >= 128)
+    if edge is None:
+        edge = max(2, int(round(min(fg.shape) / 250)))
+    rgb, _ = despill(rgb, fg, edge)
     return fg, rgb, bg
 
 

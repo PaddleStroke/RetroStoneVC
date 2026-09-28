@@ -15,7 +15,7 @@
 #define VR_BOX_FONT 700
 #define VR_BOX 800
 #define VR_PLAY 1024
-#define VR_WEATHER 640          /* relative to VR_PLAY */
+#define VR_WEATHER 1000         /* relative to VR_PLAY (the title logo uses 640..) */
 #define VR_OBJ 2048
 #define VR_BOSS 1536            /* relative to VR_OBJ */
 

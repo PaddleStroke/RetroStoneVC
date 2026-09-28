@@ -69,7 +69,8 @@ static int unlocked(int arc, int n)
 }
 
 /* ---- helpers -------------------------------------------------------------------------------------- */
-static void go(int s) { st = s; st_t = 0; cursor = 0; }
+static int st_changed;
+static void go(int s) { st = s; st_t = 0; cursor = 0; st_changed = 1; }
 static uint16_t pressed(void) { return rs_pad_pressed(0); }
 static int confirm(void) { return pressed() & (RS_BTN_A | RS_BTN_START); }
 static int back(void) { return pressed() & (RS_BTN_B | RS_BTN_SELECT); }
@@ -134,6 +135,22 @@ static void menu_scroll(void)
     rs_bg_line_scroll(RS_BG3, NULL, NULL);
 }
 
+static void show_logo(int on)
+{
+    if (!bm_logo_tile_count) return;
+    rs_bg_enable(RS_BG2, on);
+    if (!on) return;
+    rs_tiles_load(1024 + LOGO_TILE_BASE, bm_logo_tiles, bm_logo_tile_count);
+    for (int i = 1; i < 16; i++) rs_pal_set(RS_PAL_BG(5) + i, bm_logo_pal[i]);
+    rs_bg_setup(RS_BG2, 32, 32, 1024);
+    for (int y = 0; y < LOGO_H; y++)
+        for (int x = 0; x < LOGO_W; x++) rs_bg_put(RS_BG2, x, 2 + y, bm_logo_map[y * LOGO_W + x]);
+    rs_bg_scroll(RS_BG2, -32, 0);
+    rs_bg_line_scroll(RS_BG2, NULL, NULL);
+    rs_bg_window(RS_BG2, 0);
+    rs_math(RS_MATH_OFF, 0, 0);
+}
+
 static void title_update(void)
 {
     if (!title_ready) {
@@ -142,8 +159,8 @@ static void title_update(void)
     }
     menu_scroll();
     plain_text();
-    text_big(9, 5, "BOMBER MOLE");
-    if (st_t < 60 || (st == ST_TITLE && cursor < 0)) {}
+    if (bm_logo_tile_count) { if (st_t == 0) show_logo(1); }
+    else text_big(9, 5, "BOMBER MOLE");
     static const char *const items[] = {"PLAY", "OPTIONS", "CREDITS"};
     int c = menu_nav(3);
     for (int i = 0; i < 3; i++) {
@@ -154,6 +171,7 @@ static void title_update(void)
     if (confirm()) {
         sfx(SFX_MENU_OK);
         text_clear_all();
+        show_logo(0);
         if (c == 0) { go(ST_ARCS); cursor = sel_arc; }
         else if (c == 1) go(ST_OPTIONS);
         else go(ST_CREDITS);
@@ -619,6 +637,7 @@ static void game_init(void)
 static void game_update(void)
 {
     gt++;
+    st_changed = 0;
     switch (st) {
     case ST_TITLE: title_update(); break;
     case ST_ARCS: arcs_update(); break;
@@ -635,7 +654,7 @@ static void game_update(void)
     case ST_CLEAR: clear_update(); break;
     case ST_ARCDONE: arcdone_update(); break;
     }
-    st_t++;
+    if (!st_changed) st_t++;
     if (rs_option_int("transition", 0) && st == ST_PLAY && st_t == 30 && view_depth == 0) {
         /* debug: slide to the next depth for screenshots */
         begin_slide(0, 1);

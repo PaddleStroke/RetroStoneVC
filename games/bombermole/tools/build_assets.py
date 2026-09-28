@@ -159,6 +159,23 @@ def main():
     c.append("const uint16_t bm_boss_pals[BOSS_KINDS][16] = {{0}, %s};" % ", ".join(
         "{" + ", ".join("0x%04x" % v for v in p) + "}" for p in boss_pals))
 
+    # ---- title logo (art/title_logo.png, 256x64): BG tiles + map, one palette ------------------
+    logo_path = os.path.join(a.art, "title_logo.png")
+    h.append("#define LOGO_TILE_BASE 640\n#define LOGO_W 32\n#define LOGO_H 8")
+    h.append("extern const uint8_t bm_logo_tiles[];\nextern const int bm_logo_tile_count;")
+    h.append("extern const uint16_t bm_logo_pal[16];\nextern const uint16_t bm_logo_map[LOGO_W * LOGO_H];\n")
+    if os.path.exists(logo_path):
+        limg = rsasset.load(logo_path)
+        cells = [rsasset.cell(limg, x * 8, y * 8, 8, 8) for y in range(8) for x in range(32)]
+        r = rsasset.convert_bg(cells, 1, pal_base=5, tile_base=640)
+        c.append(rsasset.c_bytes("bm_logo_tiles", rsasset.tiles_bytes(r.tiles)))
+        c.append("const int bm_logo_tile_count = %d;" % len(r.tiles))
+        c.append(rsasset.c_u16("bm_logo_pal", rsasset.palette16(r.palettes[0])))
+        c.append(rsasset.c_u16("bm_logo_map", [m[0] for m in r.metas]))
+    else:
+        c.append("const uint8_t bm_logo_tiles[1];\nconst int bm_logo_tile_count = 0;")
+        c.append("const uint16_t bm_logo_pal[16];\nconst uint16_t bm_logo_map[LOGO_W * LOGO_H];")
+
     # ---- asset pack: levels and music -------------------------------------------------------
     music_dir = os.path.join(a.out, "music")
     subprocess.check_call([sys.executable, os.path.join(HERE, "make_music.py"), music_dir])

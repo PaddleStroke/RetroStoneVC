@@ -1,5 +1,4 @@
-# Owner's AI items sheet (bomb-effects-and-icons.png): 44 sprites, no HUD icons
-# except the digits (the placeholders keep the HUD icons).
+# bomb-effects-and-icons.png: 44 sprites (no HUD icons besides the digits)
 bomb bomb bomb
 expl_center expl_center expl_center expl_h expl_h expl_h expl_v expl_v expl_v
 expl_end_left expl_end_left expl_end_left expl_end_right expl_end_right expl_end_right

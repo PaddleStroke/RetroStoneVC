@@ -1,0 +1,271 @@
+# Bomber Mole art TODO
+
+Drop folder (this folder): `C:\Users\Pierre\Desktop\RetroStoneVC\games\bombermole\art\incoming`
+
+## Instructions for the image agent
+
+Workflow:
+1. Pick rows whose Status is **TODO** (top to bottom: the groups are in priority order) or **REJECTED**.
+2. Generate ONE PNG per row, named `<ID>.png`, in this folder. When you regenerate a row, first rename the old `<ID>.png` to `<ID>.v1.png` (then `.v2.png`, and so on), then write the new `<ID>.png`.
+3. Set the row's Status to **GENERATED** and write a short note in Notes if useful.
+4. For a **REJECTED** row, read the owner's note in Notes, regenerate taking it into account, then set the Status back to **GENERATED** (keep the owner's note, add yours after it).
+
+Rules:
+- Edit ONLY the Status and Notes cells of the rows you handle. Do not add, remove or reorder rows, and do not touch the other columns.
+- NEVER mark anything VALIDATED: only the owner validates (VALIDATED or REJECTED + a note).
+- One horizontal strip per PNG: the frames sit left to right in the order given, evenly spaced, all the same size.
+- Background: flat magenta `#FF00FF` everywhere around the drawings. Tiles are the exception: each tile fills its whole cell edge to edge, with no magenta inside.
+- Scale: draw at 8x the final size (a 16x16 frame about 128x128 pixels, a 32x32 frame about 256x256). The title logo is drawn at 4x (1024x256).
+- `tools/art_sync.py` imports VALIDATED rows into the game and writes `IMPORT_REPORT.md` here; it never edits this file.
+
+## Style guide
+
+- 16-bit SNES pixel art, top-down 3/4 view like Super Bomberman (characters seen slightly from above,
+  front-facing sprites show the face, side sprites the profile).
+- Crisp pixels: no blur, no anti-aliasing against the background, no gradients made of noise,
+  no soft shadows. Dark outlines (1 pixel at the final size, so about 8 pixels in the image).
+- A limited palette: at most about 15 colours per sprite, plus the magenta background.
+- Light comes from the top-left: highlights on the top-left, shading on the bottom-right.
+- Cute, readable silhouettes that still read when shrunk to 16x16 pixels: big heads, clear poses.
+- Background: flat magenta #FF00FF everywhere outside the drawing (sprites), no magenta inside a
+  drawing. Tiles fill their whole cell edge to edge (no magenta at all) and tile seamlessly.
+- Draw at 8x the final size: a 16x16 frame is about 128x128 pixels, a 32x32 frame about 256x256.
+  Frames of one strip sit in ONE horizontal row, evenly spaced, the same size, in the order given.
+
+### Model sheet
+
+- **The mole (hero)**: chubby, soft dark-brown fur, lighter tan belly, big pink star-shaped nose,
+  tiny black eyes, large pale pink digging claws, a small RED miner helmet with a round yellow lamp
+  on the front. Friendly and brave.
+- **The ferret (underground enemy)**: long slim body, cream fur with a dark-brown bandit mask
+  around the eyes, dark legs and tail, pink nose, sneaky grin.
+- **The cat (surface enemy)**: a lean tabby, grey fur with darker stripes, green eyes, pink nose,
+  white muzzle, tail up. Crouches low before pouncing.
+- **The barn cat (spring boss, 32x32)**: a huge fat grey (or orange) barn cat, scarred ear, yellow
+  eyes, grumpy; roars with big fangs.
+- **The farmer (summer boss, 32x32)**: a big man with a wide straw hat, a bushy RED beard, a red
+  checked shirt, blue overalls, brown boots; throws rotten tomatoes; red-faced when angry.
+- **The badger (summer mini-boss, 32x32)**: stocky grey body, black-and-white striped face, strong
+  digging claws.
+- **The fox (autumn boss, 32x32)**: sleek bright-orange fox, white chest and tail tip, black legs,
+  sly eyes; fast.
+- **The snowy owl (winter boss, 32x32)**: round white owl with grey speckles, big yellow eyes,
+  wide wings.
+- **The guard dog (ally)**: a friendly brown farm dog with floppy ears and a red collar.
+
+### Season palettes
+
+- **Spring**: fresh greens, rich brown soil, blue puddles, white and yellow flowers.
+- **Summer**: golden yellow-greens, dry sandy soil, warm light, corn and sunflowers.
+- **Autumn**: oranges, reds and browns, fallen leaves, dark wet soil.
+- **Winter**: blues and whites, snow on everything, frosty grey-blue soil, ice.
+
+
+## 1. Spring levels: the characters and the title logo
+
+| ID | Status | Sheet | Frame size | Frames | Description / prompt | Notes |
+|---|---|---|---|---|---|---|
+| title_logo | TODO | title logo | 256x64 | 1 | Title logo 'BOMBER MOLE': chunky SNES-style 3D letters (gold with a dark outline and a red shadow), the mole with its miner helmet peeking over the letters holding a lit bomb. Final size 256x64 pixels; draw it at 4x (1024x256) on flat magenta. It is downscaled as a whole (area filter + 15 colours), not cut into frames. |  |
+| mole_walk_down | GENERATED | characters.png | 16x16 | 3 | The mole walking toward the viewer (front view). 3 frames left to right, evenly spaced: 1) standing, both feet down; 2) left foot forward; 3) right foot forward. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| mole_walk_up | GENERATED | characters.png | 16x16 | 3 | The mole walking away from the viewer (back view, helmet seen from behind). 3 frames left to right, evenly spaced: 1) standing; 2) left foot forward; 3) right foot forward. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| mole_walk_left | GENERATED | characters.png | 16x16 | 3 | The mole walking LEFT (side view, nose pointing left). 3 frames left to right, evenly spaced: 1) standing; 2) left foot forward; 3) right foot forward. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| mole_walk_right | GENERATED | characters.png | 16x16 | 3 | The mole walking RIGHT (side view, nose pointing right). 3 frames left to right, evenly spaced: 1) standing; 2) left foot forward; 3) right foot forward. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| mole_dig_down | GENERATED | characters.png | 16x16 | 2 | The mole digging DOWNWARD (front view), claws scraping the ground in front, dirt clods flying. 2 frames left to right, evenly spaced: 1) claws raised; 2) claws down, dirt flying. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| mole_dig_up | GENERATED | characters.png | 16x16 | 2 | The mole digging UPWARD (back view), claws scraping above, dirt falling. 2 frames left to right, evenly spaced: 1) claws raised; 2) claws down, dirt flying. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| mole_dig_left | GENERATED | characters.png | 16x16 | 2 | The mole digging to the LEFT (side view), claws forward, dirt flying. 2 frames left to right, evenly spaced: 1) claws back; 2) claws forward, dirt flying. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| mole_dig_right | GENERATED | characters.png | 16x16 | 2 | The mole digging to the RIGHT (side view), claws forward, dirt flying. 2 frames left to right, evenly spaced: 1) claws back; 2) claws forward, dirt flying. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| mole_place_bomb | GENERATED | characters.png | 16x16 | 1 | The mole (front view) setting a round black bomb down in front of its feet. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| mole_hurt | GENERATED | characters.png | 16x16 | 1 | The mole (front view) hurt: flinching, eyes squeezed shut, small yellow stars around the helmet. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| mole_death | GENERATED | characters.png | 16x16 | 4 | The mole knocked out. 4 frames left to right, evenly spaced: 1) dazed, spiral eyes, stars; 2) tipping over backwards; 3) lying flat on its back; 4) a little ghost of the mole floating up with a halo. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| mole_victory | GENERATED | characters.png | 16x16 | 2 | The mole cheering (front view), both paws up. 2 frames left to right, evenly spaced: 1) paws up, mouth open; 2) jumping, paws up, sparkles. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| ferret_walk_down | GENERATED | characters.png | 16x16 | 2 | The ferret running toward the viewer. 2 frames left to right, evenly spaced: 1) left legs forward; 2) right legs forward. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| ferret_walk_up | GENERATED | characters.png | 16x16 | 2 | The ferret running away (back view, tail visible). 2 frames left to right, evenly spaced: 1) left legs forward; 2) right legs forward. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| ferret_walk_left | GENERATED | characters.png | 16x16 | 2 | The ferret running LEFT (side view, long body). 2 frames left to right, evenly spaced: 1) legs stretched; 2) legs gathered. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| ferret_walk_right | GENERATED | characters.png | 16x16 | 2 | The ferret running RIGHT (side view, long body). 2 frames left to right, evenly spaced: 1) legs stretched; 2) legs gathered. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| ferret_stunned | GENERATED | characters.png | 16x16 | 1 | The ferret stunned: sitting, dizzy spiral eyes, little stars circling its head. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| cat_walk_down | GENERATED | characters.png | 16x16 | 2 | The tabby cat walking toward the viewer. 2 frames left to right, evenly spaced: 1) left paw forward; 2) right paw forward. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| cat_walk_up | GENERATED | characters.png | 16x16 | 2 | The tabby cat walking away (back view, tail up). 2 frames left to right, evenly spaced: 1) left paw forward; 2) right paw forward. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| cat_walk_left | GENERATED | characters.png | 16x16 | 2 | The tabby cat walking LEFT (side view). 2 frames left to right, evenly spaced: 1) left paws forward; 2) right paws forward. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| cat_walk_right | GENERATED | characters.png | 16x16 | 2 | The tabby cat walking RIGHT (side view). 2 frames left to right, evenly spaced: 1) left paws forward; 2) right paws forward. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| cat_pounce | GENERATED | characters.png | 16x16 | 2 | The tabby cat pouncing to the RIGHT. 2 frames left to right, evenly spaced: 1) crouched low, ready to spring; 2) in mid-leap, legs stretched. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| boss | GENERATED | characters.png | 32x32 | 4 | The barn cat boss (spring), 32x32 frames, front view. 4 frames left to right, evenly spaced: 1) standing, grumpy; 2) walking, one paw lifted; 3) crouching, about to pounce; 4) roaring, fangs showing. Frame size 32x32 (draw each about 256x256). Flat magenta around the drawing. | from first-batch sheet |
+
+## 2. Spring tiles
+
+| ID | Status | Sheet | Frame size | Frames | Description / prompt | Notes |
+|---|---|---|---|---|---|---|
+| tile_spring_grass | GENERATED | tiles.png | 16x16 | 1 | Spring tile, grass: Surface floor: short grass (in WINTER: snow-covered ground), fills the cell, tiles seamlessly. One frame, 16x16 (draw about 128x128). Spring palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_spring_grass_edge | GENERATED | tiles.png | 16x16 | 1 | Spring tile, grass edge: Surface floor with a darker shadow band along the TOP edge (a wall stands above), fills the cell. One frame, 16x16 (draw about 128x128). Spring palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_spring_soft_dirt | GENERATED | tiles.png | 16x16 | 1 | Spring tile, soft dirt: A block of soft diggable soil, slightly raised (in SUMMER: dry cracked sandy soil), fills the cell. One frame, 16x16 (draw about 128x128). Spring palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_spring_dirt_crack | GENERATED | tiles.png | 16x16 | 1 | Spring tile, dirt crack: The same soil block, half dug: deep cracks, fills the cell. One frame, 16x16 (draw about 128x128). Spring palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_spring_hard_rock | GENERATED | tiles.png | 16x16 | 1 | Spring tile, hard rock: A hard grey boulder block (bombs only), fills the cell. One frame, 16x16 (draw about 128x128). Spring palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_spring_stone | GENERATED | tiles.png | 16x16 | 1 | Spring tile, stone: An unbreakable block: dark stone bricks, fills the cell. One frame, 16x16 (draw about 128x128). Spring palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_spring_roots | GENERATED | tiles.png | 16x16 | 1 | Spring tile, roots: Tangled tree roots across soil, blocking the way, fills the cell. One frame, 16x16 (draw about 128x128). Spring palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_spring_tunnel | GENERATED | tiles.png | 16x16 | 1 | Spring tile, tunnel: Underground tunnel floor: packed dark earth with pebbles, fills the cell, tiles seamlessly. One frame, 16x16 (draw about 128x128). Spring palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_spring_hole_down | GENERATED | tiles.png | 16x16 | 1 | Spring tile, hole down: A burrow hole going down: black hole with an earthen rim, on tunnel floor, fills the cell. One frame, 16x16 (draw about 128x128). Spring palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_spring_hole_up | GENERATED | tiles.png | 16x16 | 1 | Spring tile, hole up: A hole up: light falling from above onto the tunnel floor, fills the cell. One frame, 16x16 (draw about 128x128). Spring palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_spring_ladder | GENERATED | tiles.png | 16x16 | 1 | Spring tile, ladder: A wooden ladder going up, on tunnel floor, fills the cell. One frame, 16x16 (draw about 128x128). Spring palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_spring_thin_floor | GENERATED | tiles.png | 16x16 | 1 | Spring tile, thin floor: A thin floor: old cracked planks over a void, fills the cell. One frame, 16x16 (draw about 128x128). Spring palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_spring_exit_closed | GENERATED | tiles.png | 16x16 | 1 | Spring tile, exit closed: The exit molehill, closed: a mound of soil on grass, fills the cell. One frame, 16x16 (draw about 128x128). Spring palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_spring_exit_open | GENERATED | tiles.png | 16x16 | 1 | Spring tile, exit open: The exit molehill, open: the mound with a glowing golden hole, fills the cell. One frame, 16x16 (draw about 128x128). Spring palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_spring_puddle | GENERATED | tiles.png | 16x16 | 1 | Spring tile, puddle: A puddle of water on grass, fills the cell. One frame, 16x16 (draw about 128x128). Spring palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_spring_frozen_dirt | GENERATED | tiles.png | 16x16 | 1 | Spring tile, frozen dirt: Snow and frozen dirt: a frosty frozen soil block with snow on top (bombs only), fills the cell. One frame, 16x16 (draw about 128x128). Spring palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_spring_leaves | GENERATED | tiles.png | 16x16 | 1 | Spring tile, leaves: A pile of fallen leaves on grass (may hide an item), fills the cell. One frame, 16x16 (draw about 128x128). Spring palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_spring_water | TODO | tiles.png | 16x16 | 1 | Spring tile, water: Water (river), with small waves, fills the cell, tiles seamlessly. One frame, 16x16 (draw about 128x128). Spring palette. Must tile seamlessly; no magenta inside. |  |
+
+## 3. Items and explosions
+
+| ID | Status | Sheet | Frame size | Frames | Description / prompt | Notes |
+|---|---|---|---|---|---|---|
+| bomb | GENERATED | items_fx.png | 16x16 | 3 | A round black cartoon bomb with a short fuse and a spark. 3 frames left to right, evenly spaced: 1) small yellow spark; 2) bigger red-yellow spark, bomb slightly swollen; 3) white flash spark. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| grub | GENERATED | items_fx.png | 16x16 | 2 | A golden grub (the collectible): plump, segmented, shiny gold, cute face. 2 frames left to right, evenly spaced: 1) curled one way; 2) curled the other way. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| pu_bomb | GENERATED | items_fx.png | 16x16 | 1 | Power-up icon: a bomb with a '+' on a rounded blue tile. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| pu_fire | GENERATED | items_fx.png | 16x16 | 1 | Power-up icon: a flame on a rounded red tile. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| pu_speed | GENERATED | items_fx.png | 16x16 | 1 | Power-up icon: speed (mole claws or a winged shoe) on a rounded green tile. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| pu_remote | GENERATED | items_fx.png | 16x16 | 1 | Power-up icon: a remote detonator with a red button and an antenna on a rounded purple tile. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| pu_heart | GENERATED | items_fx.png | 16x16 | 1 | Power-up icon: a red heart on a rounded white tile. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| dust | GENERATED | items_fx.png | 16x16 | 3 | A puff of dust (digging, landing), light beige. 3 frames left to right, evenly spaced: 1) small puff; 2) bigger puff; 3) fading, breaking up. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| expl_center | GENERATED | items_fx.png | 16x16 | 3 | Explosion CENTRE piece: a plus-shaped blast whose four arms touch the four cell edges; white core, yellow, orange rim. 3 frames left to right, evenly spaced: 1) bright flash, thinner; 2) full blast; 3) fading, darker reds, thinner. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| expl_h | GENERATED | items_fx.png | 16x16 | 3 | Explosion HORIZONTAL arm: a band of fire going from the left edge to the right edge of the cell. 3 frames left to right, evenly spaced: 1) bright, thinner; 2) full; 3) fading, darker. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| expl_v | GENERATED | items_fx.png | 16x16 | 3 | Explosion VERTICAL arm: a band of fire going from the top edge to the bottom edge of the cell. 3 frames left to right, evenly spaced: 1) bright, thinner; 2) full; 3) fading, darker. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| expl_end_left | GENERATED | items_fx.png | 16x16 | 3 | Explosion arm END pointing LEFT: connects to the right edge, rounded tip on the left. 3 frames left to right, evenly spaced: 1) bright; 2) full; 3) fading. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| expl_end_right | GENERATED | items_fx.png | 16x16 | 3 | Explosion arm END pointing RIGHT: connects to the left edge, rounded tip on the right. 3 frames left to right, evenly spaced: 1) bright; 2) full; 3) fading. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| expl_end_up | GENERATED | items_fx.png | 16x16 | 3 | Explosion arm END pointing UP: connects to the bottom edge, rounded tip at the top. 3 frames left to right, evenly spaced: 1) bright; 2) full; 3) fading. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| expl_end_down | GENERATED | items_fx.png | 16x16 | 3 | Explosion arm END pointing DOWN: connects to the top edge, rounded tip at the bottom. 3 frames left to right, evenly spaced: 1) bright; 2) full; 3) fading. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+
+## 4. HUD and menus
+
+| ID | Status | Sheet | Frame size | Frames | Description / prompt | Notes |
+|---|---|---|---|---|---|---|
+| hud_heart | TODO | items_fx.png | 16x16 | 1 | HUD icon: a small red heart. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| hud_digit | GENERATED | items_fx.png | 16x16 | 10 | HUD digits 0 to 9: chunky, very readable, white or gold with a dark outline. 10 frames left to right, evenly spaced: 1) 0; 2) 1; 3) 2; 4) 3; 5) 4; 6) 5; 7) 6; 8) 7; 9) 8; 10) 9. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. | from first-batch sheet |
+| hud_bomb | TODO | items_fx.png | 16x16 | 1 | HUD icon: a small black bomb. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| hud_fire | TODO | items_fx.png | 16x16 | 1 | HUD icon: a small flame. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| hud_grub | TODO | items_fx.png | 16x16 | 1 | HUD icon: a small golden grub. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| hud_speed | TODO | items_fx.png | 16x16 | 1 | HUD icon: speed (claws or a winged shoe). One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| hud_slash | TODO | items_fx.png | 16x16 | 1 | HUD: a slash '/' in the style of the digits. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| hud_depth_surface | TODO | items_fx.png | 16x16 | 1 | HUD depth icon SURFACE: a tiny square picture of sky over grass over soil. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| hud_depth_under1 | TODO | items_fx.png | 16x16 | 1 | HUD depth icon UNDERGROUND 1: a tiny square picture of soil with one tunnel. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| hud_depth_under2 | TODO | items_fx.png | 16x16 | 1 | HUD depth icon UNDERGROUND 2: a tiny square picture of dark deep soil with a tunnel. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| hud_danger | TODO | items_fx.png | 16x16 | 1 | HUD icon: danger, a red warning triangle with a white '!'. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| hud_lock | TODO | items_fx.png | 16x16 | 1 | Menu icon: a grey padlock (locked level). One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| hud_check | TODO | items_fx.png | 16x16 | 1 | Menu icon: a green check mark (level cleared). One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| hud_cursor | TODO | items_fx.png | 16x16 | 1 | Menu cursor: a yellow arrow pointing right. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| hud_panel | TODO | items_fx.png | 16x16 | 1 | HUD panel background: a solid dark navy tile (fills the whole cell) with a lighter line at the bottom. One frame. Frame size 16x16 (draw each about 128x128). Fills the whole cell edge to edge, no magenta inside. |  |
+
+## 5. Spring gimmicks
+
+| ID | Status | Sheet | Frame size | Frames | Description / prompt | Notes |
+|---|---|---|---|---|---|---|
+| windmill | TODO | props.png | 32x32 | 4 | A small countryside windmill (spring signature), 32x32 frames: tower with a red roof, four white sails. 4 frames left to right, evenly spaced: 1) sails at 0 degrees; 2) sails turned 22 degrees; 3) sails turned 45 degrees; 4) sails turned 67 degrees. Frame size 32x32 (draw each about 256x256). Flat magenta around the drawing. |  |
+| wind | TODO | props.png | 16x16 | 3 | Wind gust streaks blowing to the RIGHT (white and pale curls). 3 frames left to right, evenly spaced: 1) streaks left; 2) streaks middle; 3) streaks right. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| sprinkler | TODO | props.png | 16x16 | 4 | A garden sprinkler head on a small base, nozzle turning. 4 frames left to right, evenly spaced: 1) spraying up; 2) spraying right; 3) spraying down; 4) spraying left. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| spray | TODO | props.png | 16x16 | 2 | Water spray droplets / stream current particles (light blue and white). 2 frames left to right, evenly spaced: 1) droplets; 2) droplets moved on. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| log | TODO | props.png | 16x16 | 1 | A floating log (horizontal), bark and a cut end. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| bridge | TODO | props.png | 16x16 | 1 | A wooden plank bridge seen from above, crossing water left to right (fills the cell). One frame. Frame size 16x16 (draw each about 128x128). Fills the whole cell edge to edge, no magenta inside. |  |
+| tall_grass | TODO | props.png | 16x16 | 1 | Tall grass, dense and green, seen from above (fills the cell). One frame. Frame size 16x16 (draw each about 128x128). Fills the whole cell edge to edge, no magenta inside. |  |
+| mud | TODO | props.png | 16x16 | 1 | Wet brown mud with puddles (fills the cell, tiles seamlessly). One frame. Frame size 16x16 (draw each about 128x128). Fills the whole cell edge to edge, no magenta inside. |  |
+| gate | TODO | props.png | 16x16 | 2 | A metal garden gate in a fence, seen from above (fills the cell). 2 frames left to right, evenly spaced: 1) closed; 2) open. Frame size 16x16 (draw each about 128x128). Fills the whole cell edge to edge, no magenta inside. |  |
+| plate | TODO | props.png | 16x16 | 2 | A stone pressure plate set in the ground (fills the cell). 2 frames left to right, evenly spaced: 1) up; 2) pressed down. Frame size 16x16 (draw each about 128x128). Fills the whole cell edge to edge, no magenta inside. |  |
+| lever | TODO | props.png | 16x16 | 2 | A lever on a small stone base (fills the cell). 2 frames left to right, evenly spaced: 1) off: tilted left, red knob; 2) on: tilted right, green knob. Frame size 16x16 (draw each about 128x128). Fills the whole cell edge to edge, no magenta inside. |  |
+| zzz | TODO | props.png | 16x16 | 2 | A sleeping 'Zz' bubble (white letters). 2 frames left to right, evenly spaced: 1) Zz low; 2) Zz higher. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| dog_walk_left | TODO | props.png | 16x16 | 2 | The guard dog running LEFT (side view). 2 frames left to right, evenly spaced: 1) legs stretched; 2) legs gathered. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| dog_walk_right | TODO | props.png | 16x16 | 2 | The guard dog running RIGHT (side view). 2 frames left to right, evenly spaced: 1) legs stretched; 2) legs gathered. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| dog_sleep | TODO | props.png | 16x16 | 1 | The guard dog curled up asleep. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+
+## 6. Summer, autumn and winter level 1
+
+| ID | Status | Sheet | Frame size | Frames | Description / prompt | Notes |
+|---|---|---|---|---|---|---|
+| tile_summer_grass | GENERATED | tiles.png | 16x16 | 1 | Summer tile, grass: Surface floor: short grass (in WINTER: snow-covered ground), fills the cell, tiles seamlessly. One frame, 16x16 (draw about 128x128). Summer palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_summer_grass_edge | GENERATED | tiles.png | 16x16 | 1 | Summer tile, grass edge: Surface floor with a darker shadow band along the TOP edge (a wall stands above), fills the cell. One frame, 16x16 (draw about 128x128). Summer palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_summer_soft_dirt | GENERATED | tiles.png | 16x16 | 1 | Summer tile, soft dirt: A block of soft diggable soil, slightly raised (in SUMMER: dry cracked sandy soil), fills the cell. One frame, 16x16 (draw about 128x128). Summer palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_summer_dirt_crack | GENERATED | tiles.png | 16x16 | 1 | Summer tile, dirt crack: The same soil block, half dug: deep cracks, fills the cell. One frame, 16x16 (draw about 128x128). Summer palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_summer_hard_rock | GENERATED | tiles.png | 16x16 | 1 | Summer tile, hard rock: A hard grey boulder block (bombs only), fills the cell. One frame, 16x16 (draw about 128x128). Summer palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_summer_stone | GENERATED | tiles.png | 16x16 | 1 | Summer tile, stone: An unbreakable block: dark stone bricks, fills the cell. One frame, 16x16 (draw about 128x128). Summer palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_summer_roots | GENERATED | tiles.png | 16x16 | 1 | Summer tile, roots: Tangled tree roots across soil, blocking the way, fills the cell. One frame, 16x16 (draw about 128x128). Summer palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_summer_tunnel | GENERATED | tiles.png | 16x16 | 1 | Summer tile, tunnel: Underground tunnel floor: packed dark earth with pebbles, fills the cell, tiles seamlessly. One frame, 16x16 (draw about 128x128). Summer palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_summer_hole_down | GENERATED | tiles.png | 16x16 | 1 | Summer tile, hole down: A burrow hole going down: black hole with an earthen rim, on tunnel floor, fills the cell. One frame, 16x16 (draw about 128x128). Summer palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_summer_hole_up | GENERATED | tiles.png | 16x16 | 1 | Summer tile, hole up: A hole up: light falling from above onto the tunnel floor, fills the cell. One frame, 16x16 (draw about 128x128). Summer palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_summer_ladder | GENERATED | tiles.png | 16x16 | 1 | Summer tile, ladder: A wooden ladder going up, on tunnel floor, fills the cell. One frame, 16x16 (draw about 128x128). Summer palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_summer_thin_floor | GENERATED | tiles.png | 16x16 | 1 | Summer tile, thin floor: A thin floor: old cracked planks over a void, fills the cell. One frame, 16x16 (draw about 128x128). Summer palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_summer_exit_closed | GENERATED | tiles.png | 16x16 | 1 | Summer tile, exit closed: The exit molehill, closed: a mound of soil on grass, fills the cell. One frame, 16x16 (draw about 128x128). Summer palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_summer_exit_open | GENERATED | tiles.png | 16x16 | 1 | Summer tile, exit open: The exit molehill, open: the mound with a glowing golden hole, fills the cell. One frame, 16x16 (draw about 128x128). Summer palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_summer_puddle | GENERATED | tiles.png | 16x16 | 1 | Summer tile, puddle: A puddle of water on grass, fills the cell. One frame, 16x16 (draw about 128x128). Summer palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_summer_frozen_dirt | GENERATED | tiles.png | 16x16 | 1 | Summer tile, frozen dirt: Snow and frozen dirt: a frosty frozen soil block with snow on top (bombs only), fills the cell. One frame, 16x16 (draw about 128x128). Summer palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_summer_leaves | GENERATED | tiles.png | 16x16 | 1 | Summer tile, leaves: A pile of fallen leaves on grass (may hide an item), fills the cell. One frame, 16x16 (draw about 128x128). Summer palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_summer_water | TODO | tiles.png | 16x16 | 1 | Summer tile, water: Water (river), with small waves, fills the cell, tiles seamlessly. One frame, 16x16 (draw about 128x128). Summer palette. Must tile seamlessly; no magenta inside. |  |
+| tile_autumn_grass | GENERATED | tiles.png | 16x16 | 1 | Autumn tile, grass: Surface floor: short grass (in WINTER: snow-covered ground), fills the cell, tiles seamlessly. One frame, 16x16 (draw about 128x128). Autumn palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_autumn_grass_edge | GENERATED | tiles.png | 16x16 | 1 | Autumn tile, grass edge: Surface floor with a darker shadow band along the TOP edge (a wall stands above), fills the cell. One frame, 16x16 (draw about 128x128). Autumn palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_autumn_soft_dirt | GENERATED | tiles.png | 16x16 | 1 | Autumn tile, soft dirt: A block of soft diggable soil, slightly raised (in SUMMER: dry cracked sandy soil), fills the cell. One frame, 16x16 (draw about 128x128). Autumn palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_autumn_dirt_crack | GENERATED | tiles.png | 16x16 | 1 | Autumn tile, dirt crack: The same soil block, half dug: deep cracks, fills the cell. One frame, 16x16 (draw about 128x128). Autumn palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_autumn_hard_rock | GENERATED | tiles.png | 16x16 | 1 | Autumn tile, hard rock: A hard grey boulder block (bombs only), fills the cell. One frame, 16x16 (draw about 128x128). Autumn palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_autumn_stone | GENERATED | tiles.png | 16x16 | 1 | Autumn tile, stone: An unbreakable block: dark stone bricks, fills the cell. One frame, 16x16 (draw about 128x128). Autumn palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_autumn_roots | GENERATED | tiles.png | 16x16 | 1 | Autumn tile, roots: Tangled tree roots across soil, blocking the way, fills the cell. One frame, 16x16 (draw about 128x128). Autumn palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_autumn_tunnel | GENERATED | tiles.png | 16x16 | 1 | Autumn tile, tunnel: Underground tunnel floor: packed dark earth with pebbles, fills the cell, tiles seamlessly. One frame, 16x16 (draw about 128x128). Autumn palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_autumn_hole_down | GENERATED | tiles.png | 16x16 | 1 | Autumn tile, hole down: A burrow hole going down: black hole with an earthen rim, on tunnel floor, fills the cell. One frame, 16x16 (draw about 128x128). Autumn palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_autumn_hole_up | GENERATED | tiles.png | 16x16 | 1 | Autumn tile, hole up: A hole up: light falling from above onto the tunnel floor, fills the cell. One frame, 16x16 (draw about 128x128). Autumn palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_autumn_ladder | GENERATED | tiles.png | 16x16 | 1 | Autumn tile, ladder: A wooden ladder going up, on tunnel floor, fills the cell. One frame, 16x16 (draw about 128x128). Autumn palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_autumn_thin_floor | GENERATED | tiles.png | 16x16 | 1 | Autumn tile, thin floor: A thin floor: old cracked planks over a void, fills the cell. One frame, 16x16 (draw about 128x128). Autumn palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_autumn_exit_closed | GENERATED | tiles.png | 16x16 | 1 | Autumn tile, exit closed: The exit molehill, closed: a mound of soil on grass, fills the cell. One frame, 16x16 (draw about 128x128). Autumn palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_autumn_exit_open | GENERATED | tiles.png | 16x16 | 1 | Autumn tile, exit open: The exit molehill, open: the mound with a glowing golden hole, fills the cell. One frame, 16x16 (draw about 128x128). Autumn palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_autumn_puddle | GENERATED | tiles.png | 16x16 | 1 | Autumn tile, puddle: A puddle of water on grass, fills the cell. One frame, 16x16 (draw about 128x128). Autumn palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_autumn_frozen_dirt | GENERATED | tiles.png | 16x16 | 1 | Autumn tile, frozen dirt: Snow and frozen dirt: a frosty frozen soil block with snow on top (bombs only), fills the cell. One frame, 16x16 (draw about 128x128). Autumn palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_autumn_leaves | GENERATED | tiles.png | 16x16 | 1 | Autumn tile, leaves: A pile of fallen leaves on grass (may hide an item), fills the cell. One frame, 16x16 (draw about 128x128). Autumn palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_autumn_water | TODO | tiles.png | 16x16 | 1 | Autumn tile, water: Water (river), with small waves, fills the cell, tiles seamlessly. One frame, 16x16 (draw about 128x128). Autumn palette. Must tile seamlessly; no magenta inside. |  |
+| tile_winter_grass | GENERATED | tiles.png | 16x16 | 1 | Winter tile, grass: Surface floor: short grass (in WINTER: snow-covered ground), fills the cell, tiles seamlessly. One frame, 16x16 (draw about 128x128). Winter palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_winter_grass_edge | GENERATED | tiles.png | 16x16 | 1 | Winter tile, grass edge: Surface floor with a darker shadow band along the TOP edge (a wall stands above), fills the cell. One frame, 16x16 (draw about 128x128). Winter palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_winter_soft_dirt | GENERATED | tiles.png | 16x16 | 1 | Winter tile, soft dirt: A block of soft diggable soil, slightly raised (in SUMMER: dry cracked sandy soil), fills the cell. One frame, 16x16 (draw about 128x128). Winter palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_winter_dirt_crack | GENERATED | tiles.png | 16x16 | 1 | Winter tile, dirt crack: The same soil block, half dug: deep cracks, fills the cell. One frame, 16x16 (draw about 128x128). Winter palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_winter_hard_rock | GENERATED | tiles.png | 16x16 | 1 | Winter tile, hard rock: A hard grey boulder block (bombs only), fills the cell. One frame, 16x16 (draw about 128x128). Winter palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_winter_stone | GENERATED | tiles.png | 16x16 | 1 | Winter tile, stone: An unbreakable block: dark stone bricks, fills the cell. One frame, 16x16 (draw about 128x128). Winter palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_winter_roots | GENERATED | tiles.png | 16x16 | 1 | Winter tile, roots: Tangled tree roots across soil, blocking the way, fills the cell. One frame, 16x16 (draw about 128x128). Winter palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_winter_tunnel | GENERATED | tiles.png | 16x16 | 1 | Winter tile, tunnel: Underground tunnel floor: packed dark earth with pebbles, fills the cell, tiles seamlessly. One frame, 16x16 (draw about 128x128). Winter palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_winter_hole_down | GENERATED | tiles.png | 16x16 | 1 | Winter tile, hole down: A burrow hole going down: black hole with an earthen rim, on tunnel floor, fills the cell. One frame, 16x16 (draw about 128x128). Winter palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_winter_hole_up | GENERATED | tiles.png | 16x16 | 1 | Winter tile, hole up: A hole up: light falling from above onto the tunnel floor, fills the cell. One frame, 16x16 (draw about 128x128). Winter palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_winter_ladder | GENERATED | tiles.png | 16x16 | 1 | Winter tile, ladder: A wooden ladder going up, on tunnel floor, fills the cell. One frame, 16x16 (draw about 128x128). Winter palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_winter_thin_floor | GENERATED | tiles.png | 16x16 | 1 | Winter tile, thin floor: A thin floor: old cracked planks over a void, fills the cell. One frame, 16x16 (draw about 128x128). Winter palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_winter_exit_closed | GENERATED | tiles.png | 16x16 | 1 | Winter tile, exit closed: The exit molehill, closed: a mound of soil on grass, fills the cell. One frame, 16x16 (draw about 128x128). Winter palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_winter_exit_open | GENERATED | tiles.png | 16x16 | 1 | Winter tile, exit open: The exit molehill, open: the mound with a glowing golden hole, fills the cell. One frame, 16x16 (draw about 128x128). Winter palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_winter_puddle | GENERATED | tiles.png | 16x16 | 1 | Winter tile, puddle: A puddle of water on grass, fills the cell. One frame, 16x16 (draw about 128x128). Winter palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_winter_frozen_dirt | GENERATED | tiles.png | 16x16 | 1 | Winter tile, frozen dirt: Snow and frozen dirt: a frosty frozen soil block with snow on top (bombs only), fills the cell. One frame, 16x16 (draw about 128x128). Winter palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_winter_leaves | GENERATED | tiles.png | 16x16 | 1 | Winter tile, leaves: A pile of fallen leaves on grass (may hide an item), fills the cell. One frame, 16x16 (draw about 128x128). Winter palette. Must tile seamlessly; no magenta inside. | from first-batch sheet |
+| tile_winter_water | TODO | tiles.png | 16x16 | 1 | Winter tile, water: Water (river), with small waves, fills the cell, tiles seamlessly. One frame, 16x16 (draw about 128x128). Winter palette. Must tile seamlessly; no magenta inside. |  |
+| steam_vent | TODO | props.png | 16x16 | 2 | A steam vent: a hole in rocky soil (fills the cell). 2 frames left to right, evenly spaced: 1) idle, faint wisp; 2) erupting, a burst of white steam. Frame size 16x16 (draw each about 128x128). Fills the whole cell edge to edge, no magenta inside. |  |
+| steam | TODO | props.png | 16x16 | 1 | A white puff of steam. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| corn | TODO | props.png | 16x16 | 1 | Corn plants seen from above, green stalks with yellow ears (fills the cell). One frame. Frame size 16x16 (draw each about 128x128). Fills the whole cell edge to edge, no magenta inside. |  |
+| ice | TODO | props.png | 16x16 | 1 | Slippery ice floor (fills the cell, tiles seamlessly), pale blue with white glints. One frame. Frame size 16x16 (draw each about 128x128). Fills the whole cell edge to edge, no magenta inside. |  |
+| thin_ice | TODO | props.png | 16x16 | 2 | Thin ice (fills the cell), darker blue-grey, water showing through. 2 frames left to right, evenly spaced: 1) intact; 2) cracked. Frame size 16x16 (draw each about 128x128). Fills the whole cell edge to edge, no magenta inside. |  |
+
+## 7. The other bosses
+
+| ID | Status | Sheet | Frame size | Frames | Description / prompt | Notes |
+|---|---|---|---|---|---|---|
+| farmer | TODO | props.png | 32x32 | 8 | The farmer (summer boss), 32x32, front view. 8 frames left to right, evenly spaced: 1) idle; 2) idle, breathing; 3) throw: arm up holding a tomato; 4) throw: arm forward, tomato released; 5) angry, red face; 6) angry, stomping; 7) hurt, dizzy; 8) hurt, hat askew. Frame size 32x32 (draw each about 256x256). Flat magenta around the drawing. |  |
+| tomato | TODO | props.png | 16x16 | 2 | A flying rotten tomato. 2 frames left to right, evenly spaced: 1) spinning, stem up; 2) spinning, stem sideways. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| tomato_shadow | TODO | props.png | 16x16 | 1 | A small dark oval shadow on the ground (where a tomato will land). One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| crate | TODO | props.png | 16x16 | 1 | A wooden crate full of red tomatoes (fills the cell). One frame. Frame size 16x16 (draw each about 128x128). Fills the whole cell edge to edge, no magenta inside. |  |
+| splat | TODO | props.png | 16x16 | 1 | A squashed tomato splat on the ground (fills the cell, on grass). One frame. Frame size 16x16 (draw each about 128x128). Fills the whole cell edge to edge, no magenta inside. |  |
+| badger | TODO | props.png | 32x32 | 4 | The badger (summer mini-boss), 32x32, front view. 4 frames left to right, evenly spaced: 1) walking; 2) walking, other paws; 3) digging, dirt flying; 4) hurt. Frame size 32x32 (draw each about 256x256). Flat magenta around the drawing. |  |
+| fox | TODO | props.png | 32x32 | 4 | The fox (autumn boss), 32x32, side view facing LEFT. 4 frames left to right, evenly spaced: 1) running; 2) running, other legs; 3) leaping; 4) hurt, eyes shut. Frame size 32x32 (draw each about 256x256). Flat magenta around the drawing. |  |
+| owl | TODO | props.png | 32x32 | 4 | The snowy owl (winter boss), 32x32, front view. 4 frames left to right, evenly spaced: 1) perched, wings folded; 2) flapping, wings half open; 3) swooping, wings spread; 4) hurt, eyes shut. Frame size 32x32 (draw each about 256x256). Flat magenta around the drawing. |  |
+
+## 8. Later gimmicks (planned levels)
+
+| ID | Status | Sheet | Frame size | Frames | Description / prompt | Notes |
+|---|---|---|---|---|---|---|
+| burnt | TODO | props.png | 16x16 | 1 | Burnt ground: black ash and charred grass (fills the cell). One frame. Frame size 16x16 (draw each about 128x128). Fills the whole cell edge to edge, no magenta inside. |  |
+| pipe | TODO | props.png | 16x16 | 1 | The opening of a big drain pipe in the ground, seen from above (fills the cell). One frame. Frame size 16x16 (draw each about 128x128). Fills the whole cell edge to edge, no magenta inside. |  |
+| beehive | TODO | props.png | 16x16 | 1 | A straw beehive on grass (fills the cell). One frame. Frame size 16x16 (draw each about 128x128). Fills the whole cell edge to edge, no magenta inside. |  |
+| well | TODO | props.png | 16x16 | 1 | A stone well with a wooden crank, seen from above (fills the cell). One frame. Frame size 16x16 (draw each about 128x128). Fills the whole cell edge to edge, no magenta inside. |  |
+| mushroom | TODO | props.png | 16x16 | 1 | A big red bouncy mushroom with white spots on moss (fills the cell). One frame. Frame size 16x16 (draw each about 128x128). Fills the whole cell edge to edge, no magenta inside. |  |
+| rails_h | TODO | props.png | 16x16 | 1 | Mine-cart rails on wooden sleepers, horizontal (fills the cell). One frame. Frame size 16x16 (draw each about 128x128). Fills the whole cell edge to edge, no magenta inside. |  |
+| rails_v | TODO | props.png | 16x16 | 1 | Mine-cart rails on wooden sleepers, vertical (fills the cell). One frame. Frame size 16x16 (draw each about 128x128). Fills the whole cell edge to edge, no magenta inside. |  |
+| apple_tree | TODO | props.png | 16x16 | 1 | A small apple tree seen from above with red apples (fills the cell). One frame. Frame size 16x16 (draw each about 128x128). Fills the whole cell edge to edge, no magenta inside. |  |
+| pumpkin | TODO | props.png | 16x16 | 1 | A big orange pumpkin. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| snowball | TODO | props.png | 16x16 | 2 | A snowball. 2 frames left to right, evenly spaced: 1) small; 2) big. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| icicle | TODO | props.png | 16x16 | 1 | An icicle hanging, pointing down. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| mine_cart | TODO | props.png | 16x16 | 1 | An empty mine cart. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| bucket | TODO | props.png | 16x16 | 1 | A wooden well bucket with a rope handle. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| apple | TODO | props.png | 16x16 | 1 | A falling red apple. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| bees | TODO | props.png | 16x16 | 2 | A small swarm of bees. 2 frames left to right, evenly spaced: 1) wings up; 2) wings down. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |

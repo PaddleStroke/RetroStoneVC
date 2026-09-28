@@ -1,0 +1,24 @@
+# characters-sprite-sheet.png: 51 sprites, same order as the table
+mole_walk_down mole_walk_down mole_walk_down
+mole_walk_up mole_walk_up mole_walk_up
+mole_walk_left mole_walk_left mole_walk_left
+mole_walk_right mole_walk_right mole_walk_right
+mole_dig_down mole_dig_down
+mole_dig_up mole_dig_up
+mole_dig_left mole_dig_left
+mole_dig_right mole_dig_right
+mole_place_bomb
+mole_hurt
+mole_death mole_death mole_death mole_death
+mole_victory mole_victory
+ferret_walk_down ferret_walk_down
+ferret_walk_up ferret_walk_up
+ferret_walk_left ferret_walk_left
+ferret_walk_right ferret_walk_right
+ferret_stunned
+cat_walk_down cat_walk_down
+cat_walk_up cat_walk_up
+cat_walk_left cat_walk_left
+cat_walk_right cat_walk_right
+cat_pounce cat_pounce
+boss boss boss boss

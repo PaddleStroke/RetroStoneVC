@@ -8,6 +8,7 @@ background. Frames of one entry are laid out left to right.
 
 MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
 """
+import os
 import sys
 from collections import namedtuple
 
@@ -156,6 +157,21 @@ ENTRIES = [
     E("badger", "props", 8, 8, 32, 32, 4, "boss_badger", "Summer mini-boss: the badger (walk x2, dig, hurt)"),
 ]
 
+# Character size (owner's choice pending): 16, 24 or 32. The characters sheet
+# uses cells of this size (the boss is 2x2 cells), everything else stays 16.
+# Set with the environment variable BM_CHAR_SIZE (make CHAR_SIZE=24).
+CHAR_SIZE = int(os.environ.get("BM_CHAR_SIZE", "16"))
+if CHAR_SIZE not in (16, 24, 32):
+    raise SystemExit("BM_CHAR_SIZE must be 16, 24 or 32")
+SHEETS["characters"]["cell"] = CHAR_SIZE
+ENTRIES = [e._replace(w=e.w * CHAR_SIZE // CELL, h=e.h * CHAR_SIZE // CELL) if e.sheet == "characters" else e
+           for e in ENTRIES]
+
+
+def cell_of(sheet):
+    return SHEETS[sheet].get("cell", CELL)
+
+
 BY_NAME = {e.name: e for e in ENTRIES}
 TERRAIN = [e.name for e in ENTRIES if e.sheet == "tiles"]
 
@@ -166,9 +182,10 @@ def entries(sheet):
 
 def frame_rects(e, season=0):
     """Pixel rectangles (x, y, w, h) of each frame of an entry."""
+    c = cell_of(e.sheet)
     row = season if e.row is None else e.row
-    cw = e.w // CELL
-    return [((e.col + i * cw) * CELL, row * CELL, e.w, e.h) for i in range(e.frames)]
+    cw = e.w // c
+    return [((e.col + i * cw) * c, row * c, e.w, e.h) for i in range(e.frames)]
 
 
 def reading_order(sheet):
@@ -188,7 +205,7 @@ def reading_order(sheet):
 
 def sheet_size(sheet):
     s = SHEETS[sheet]
-    return s["cols"] * CELL, s["rows"] * CELL
+    return s["cols"] * cell_of(sheet), s["rows"] * cell_of(sheet)
 
 
 def validate():
@@ -198,8 +215,9 @@ def validate():
         used = {}
         for e, f, s, (x, y, w, h) in reading_order(sheet):
             assert x + w <= W and y + h <= H, (e.name, "outside the sheet")
-            for cy in range(y // CELL, (y + h) // CELL):
-                for cx in range(x // CELL, (x + w) // CELL):
+            c = cell_of(sheet)
+            for cy in range(y // c, (y + h) // c):
+                for cx in range(x // c, (x + w) // c):
                     k = (cx, cy)
                     assert k not in used, (e.name, "overlaps", used[k])
                     used[k] = e.name
@@ -211,10 +229,11 @@ def markdown():
              "|---|---|---|---|---|---|---|---|"]
     for e in ENTRIES:
         row = "0-3 (one per season)" if e.row is None else str(e.row)
-        cols = str(e.col) if e.frames == 1 else "%d-%d" % (e.col, e.col + e.frames * (e.w // CELL) - 1)
-        if e.w > CELL:
-            cols = "%d-%d" % (e.col, e.col + e.frames * (e.w // CELL) - 1)
-            row = "%d-%d" % (e.row, e.row + e.h // CELL - 1)
+        c = cell_of(e.sheet)
+        cols = str(e.col) if e.frames == 1 else "%d-%d" % (e.col, e.col + e.frames * (e.w // c) - 1)
+        if e.w > c:
+            cols = "%d-%d" % (e.col, e.col + e.frames * (e.w // c) - 1)
+            row = "%d-%d" % (e.row, e.row + e.h // c - 1)
         lines.append("| %s | %s.png | %s | %s | %dx%d | %d | %s | %s |" %
                      (e.name, e.sheet, cols, row, e.w, e.h, e.frames, e.group, e.desc))
     return "\n".join(lines)

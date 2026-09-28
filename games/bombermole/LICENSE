@@ -1,0 +1,10 @@
+Bomber Mole
+Copyright (c) 2026 Pierre-Louis Boyer (8BCraft). All rights reserved.
+
+The game code, levels, design documents, art (placeholders and final art),
+music and sound in games/bombermole/ are NOT open source. No permission is
+granted to copy, modify or distribute them without written permission from
+8BCraft.
+
+The RetroStone VC SDK in sdk/ and the tools in tools/ are MIT licensed (see
+sdk/LICENSE); third-party code is listed in THIRD_PARTY.md.

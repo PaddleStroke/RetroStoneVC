@@ -655,7 +655,9 @@ def build_sheet(sheet):
     im = Image.new("RGBA", (W, H), MAG)
     for e, f, s, (x, y, w, h) in sheets.reading_order(sheet):
         cell = draw_entry(e, f, s)
-        assert cell.size == (w, h), (e.name, cell.size)
+        if cell.size != (w, h):              # characters at 24 or 32 px (BM_CHAR_SIZE)
+            cell = cell.resize((w, h), Image.NEAREST)
+
         im.paste(cell, (x, y))
     return im.convert("RGB")
 
