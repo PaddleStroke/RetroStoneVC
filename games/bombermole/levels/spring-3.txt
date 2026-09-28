@@ -1,0 +1,59 @@
+# Bomber Mole - spring 3. Gimmicks: river with a bridge (bomb it to cut the cat off) and a drifting log bridge,
+# tall grass (hides you from the cat, burns), a sleeping ferret woken by blasts.
+name: River Crossing
+season: spring
+arc: 1
+level: 3
+bombs: 1
+range: 2
+hint: Cats pounce on sight: hide in tall grass. The log drifts to the far bank.
+status: done
+
+legend:
+R = water + log + flow_right
+
+surface:
+####################
+#M......www......g.#
+#.......www........#
+#..ddd.......rrr...#
+#..dGd.......rgr...#
+#..ddd...v...r.r...#
+#..................#
+#R}}}}}}}=}}}}}}}}~#
+#..................#
+#..www.....C....ww.#
+#..www..........wwg#
+#.....ddd...E......#
+#.g...dxd..........#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#ddddd.........dddd#
+#ddddd.ddddddd.dddd#
+#dddd....^...d.dddd#
+#dddd.dd.d.d.d.dddd#
+#dddd.dd.dzd...dddd#
+#dddd.dd...g...dddd#
+#dddd..........dddd#
+#ddddddddGddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

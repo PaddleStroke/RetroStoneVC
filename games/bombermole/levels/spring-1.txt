@@ -1,0 +1,55 @@
+# Bomber Mole - spring 1. Gimmicks: digging, holes between depths, puddles (mud below), windmill wind lane.
+name: First Dig
+season: spring
+arc: 1
+level: 1
+bombs: 1
+range: 2
+hint: Hold a direction to dig. Holes take you down, and back up.
+status: done
+
+surface:
+####################
+#M.....p......W....#
+#.......dd....>>>>.#
+#.g....dddd........#
+#......dGdd....p...#
+#.......dd.....p...#
+#.v................#
+#..........ddd.....#
+#..pp......dgd.....#
+#..........d.d.....#
+#..........dvd.....#
+#...E......ddd.....#
+#..................#
+####################
+under1:
+####################
+#dddddd.ddddddddddd#
+#dddddd.ddddddddddd#
+#ddd......dddddgddd#
+#ddd.dddd.ddddd.ddd#
+#ddd.dddd.......ddd#
+#d^..dddddddddd.ddd#
+#dddddddddddd.d.ddd#
+#ddd..dddddd.....dd#
+#ddddddddddd.ddd.dd#
+#ddddddddddd^ddd.dd#
+#ddddddddddd.gdd.dd#
+#ddddddddddddddd.dd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

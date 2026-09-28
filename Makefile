@@ -145,7 +145,7 @@ test check: build/host/test_sdk build/host/$(GAME)_headless
 	./build/host/test_sdk --golden sdk/tests/golden --out build
 	$(PYTHON) tools/tests/test_tools.py
 	$(PYTHON) games/$(GAME)/tools/check_levels.py
-	sh games/$(GAME)/tools/smoke_test.sh build/host/$(GAME)_headless build
+	sh games/$(GAME)/tests/smoke_test.sh build/host/$(GAME)_headless build
 golden: build/host/test_sdk
 	./build/host/test_sdk --update --golden sdk/tests/golden --out build
 

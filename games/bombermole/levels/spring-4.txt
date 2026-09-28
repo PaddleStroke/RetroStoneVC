@@ -1,0 +1,59 @@
+# Bomber Mole - spring 4. Gimmicks: thin floors (a blast opens a hole; the rubble stuns what is below),
+# sealed chambers on both undergrounds, a pressure plate that opens a timed gate.
+name: Thin Floors
+season: spring
+arc: 1
+level: 4
+bombs: 2
+range: 2
+hint: Bomb a thin floor to open a hole. The plate opens the gate for a moment.
+status: done
+
+legend:
+T = gate + chan:1 + timed:20
+
+surface:
+####################
+#M.......#....g....#
+#........#.........#
+#..___...#..rrrrr..#
+#..___...#..r._.r..#
+#........#..rrrrr..#
+#####.####.........#
+#...........P......#
+#.ddd..............#
+#.dgd......###T###.#
+#.ddd......#.....#.#
+#..........#..E..#.#
+#...h......#######.#
+####################
+under1:
+####################
+#######dddddddddddd#
+#.....#dddddddddddd#
+#.g...#dd#######ddd#
+#..F..#dd#..g..#ddd#
+#...g.#dd#.....#ddd#
+#######dd#.._..#ddd#
+#ddddddddd#####dddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#ddddddddd#####dddd#
+#ddddddddd#.F.#dddd#
+#ddddddddd#g..#dddd#
+#ddddddddd#####dddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

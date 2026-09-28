@@ -1,0 +1,57 @@
+# Bomber Mole - spring 7 (signature: the windmills). Gimmicks: gusts push you and your bombs along two wind
+# lanes (time your crossings), two cats, a sleeping guard dog (a blast wakes it; it chases cats), tall grass.
+name: Windmill Hill
+season: spring
+arc: 1
+level: 7
+bombs: 2
+range: 3
+gust: 200 110 12
+hint: Gusts blow along the lanes. Wake the dog with a blast: it hates cats.
+status: done
+
+surface:
+####################
+#M...W......W......#
+#>>>>>>>>>>>>>>>>>.#
+#.www....ddd....ww.#
+#.wgw....dGd....wg.#
+#.www....ddd.......#
+#.....C........D...#
+#<<<<<<<<<<<<<<<<<.#
+#....ttt...rrr.....#
+#.v..tgt...rQr..C..#
+#....t.t...r.r.....#
+#.......www....E...#
+#.x.....wgw........#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#d.......dddddddddd#
+#d^......g..F....dd#
+#d........dddddd.dd#
+#dddddddd.......gdd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

@@ -1,0 +1,59 @@
+# Bomber Mole - winter 1 (signature: the frozen river). Gimmicks: slippery ice (you and your bombs slide until
+# something stops you), thin ice that breaks into water after two crossings, frozen dirt (bombs only), snow.
+name: Frozen River
+season: winter
+arc: 4
+level: 1
+bombs: 1
+range: 2
+hint: On ice you slide until you hit something. Thin ice breaks.
+status: done
+
+legend:
+J = frozen_dirt + grub
+
+surface:
+####################
+#M.....ff....ff....#
+#......fg....fJ....#
+#......ff....ff....#
+#iiiiiiiiiiiiiiiiii#
+#iiiijjjjiiiiiiiiii#
+#iiiiiiiiiiijjjjiii#
+#iiiiii.iiiiiiiiiii#
+#..................#
+#..fff....C...fff..#
+#..fJf........fJf..#
+#..f.f....E...f.f..#
+#...........v......#
+####################
+under1:
+####################
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffff..F....f#
+#ffffffffff..iig..f#
+#fffffffffff^......#
+####################
+under2:
+####################
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+####################

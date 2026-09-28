@@ -1,0 +1,56 @@
+# Bomber Mole - spring 5. Gimmicks: rock mazes and bomb chains, the remote detonator, garden sprinklers
+# (their spray defuses bombs), tossing a bomb into a hole (it explodes on the depth below).
+name: Chain Reaction
+season: spring
+arc: 1
+level: 5
+bombs: 2
+range: 2
+hint: Bombs set off bombs. Spray puts fuses out. Toss bombs into holes.
+status: done
+
+surface:
+####################
+#M..rrrrrrrrrrrr...#
+#...r..........r.o.#
+#.b.r.rrrrrrrr.r...#
+#...r.r......r.r...#
+#...r.r.rQrr.r.r...#
+#...r.r.r..r.r.r.k.#
+#.....r.r.gr.r.....#
+#.k...r.rrrr.r..v..#
+#.....r......r.....#
+#.....rrrrrrrr.....#
+#..x.........r..E..#
+#......k.....r.....#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#ddrrrrrrdddrrrrrrd#
+#ddr....rdddr....rd#
+#ddr.gg.r...r.Q..rd#
+#ddr....rrrrr....rd#
+#ddrrrr.......rrrrd#
+#dddddr.......rdddd#
+#dddddr..F....r.^dd#
+#dddddrrrrrrrrrdddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

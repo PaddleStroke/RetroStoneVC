@@ -1,0 +1,54 @@
+# STUB: a placeholder level. Replace it with a real design (see DESIGN.md).
+# Planned: steam-vent lifts through three depths
+name: Summer 5 (stub)
+season: summer
+arc: 2
+level: 5
+status: stub
+hint: A stub level: grab the grubs and reach the exit.
+
+surface:
+####################
+#M.................#
+#..................#
+#....ddd....www....#
+#....dgd....w.w....#
+#....ddd....www....#
+#..................#
+#..................#
+#.........v........#
+#..................#
+#..................#
+#.......E..........#
+#..................#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddd.......ddddd#
+#dddddd...^.g.ddddd#
+#dddddd.......ddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

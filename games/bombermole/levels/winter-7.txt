@@ -1,0 +1,54 @@
+# STUB: a placeholder level. Replace it with a real design (see DESIGN.md).
+# Planned: ice caves and glow-worms
+name: Winter 7 (stub)
+season: winter
+arc: 4
+level: 7
+status: stub
+hint: A stub level: grab the grubs and reach the exit.
+
+surface:
+####################
+#M.................#
+#..................#
+#....ddd....fff....#
+#....dgd....f.f....#
+#....ddd....fff....#
+#..................#
+#..................#
+#.........v........#
+#..................#
+#..................#
+#.......E..........#
+#..................#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddd.......ddddd#
+#dddddd...^.g.ddddd#
+#dddddd.......ddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

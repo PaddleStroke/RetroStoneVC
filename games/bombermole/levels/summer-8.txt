@@ -1,0 +1,59 @@
+# Bomber Mole - summer 8: BOSS TEST ROOM for the farmer (the real level 8 is still to be designed).
+# The farmer lobs tomatoes (the shadow shows where they land; a hit stuns, a splat slows). His 4 crates
+# shield him: blow them up and he gets angry (phase 2: he chases and throws faster, 3 hits).
+# Tomatoes that land in a hole splat on the depth below.
+name: Boss Test: The Farmer
+season: summer
+arc: 2
+level: 8
+bombs: 2
+range: 3
+boss: farmer
+hint: Blow up his tomato crates, then blast the angry farmer three times.
+status: stub
+
+surface:
+####################
+#M.................#
+#..c............c..#
+#..................#
+#.......wwww.......#
+#.......wKww.......#
+#.......wwww.......#
+#..................#
+#..c..........c....#
+#..................#
+#....v.............#
+#.......E..........#
+#..................#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#ddd.....dddddddddd#
+#ddd.^.g.dddddddddd#
+#ddd.....dddddddddd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

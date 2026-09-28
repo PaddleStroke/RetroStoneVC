@@ -96,7 +96,7 @@ void     rs_backdrop(rs_color c);
 void rs_tiles_load(int first, const uint8_t *packed4bpp, int count);
 void rs_tiles_load8(int first, const uint8_t *pixels, int count); /* 64 bytes/tile, values 0..15 */
 void rs_tile_pixel(int tile, int x, int y, int value);            /* poke one pixel */
-int  rs_tiles_used(void);           /* highest tile index written + 1 */
+int  rs_tiles_used(void);           /* number of distinct tiles written (VRAM accounting) */
 
 /* ---- Background layers ---------------------------------------------------
  * Map entry = SNES format: vhopppcc cccccccc

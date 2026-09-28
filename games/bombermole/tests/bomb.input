@@ -1,0 +1,6 @@
+# spring-2: at (1,1) walk right to (4,1) next to the rock at (5,1), drop a bomb, walk back left, wait
+5 RIGHT
+40 -
+45 tap B
+50 LEFT
+90 -

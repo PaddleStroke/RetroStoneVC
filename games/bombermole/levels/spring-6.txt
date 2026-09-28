@@ -1,0 +1,56 @@
+# Bomber Mole - spring 6. Gimmicks: ferret warrens on both undergrounds, a sleeping ferret nest (explosions
+# wake it, even from the depth above), a lever that opens the gates around the exit.
+name: Ferret Warren
+season: spring
+arc: 1
+level: 6
+bombs: 2
+range: 3
+hint: The exit is fenced in: find the lever. Blasts wake sleeping ferrets.
+status: done
+
+surface:
+####################
+#M.................#
+#.ddddd.....ddddd..#
+#.d.v.d.....d.v.d..#
+#.d...d..g..d...d..#
+#.dd.dd.....dd.dd..#
+#..................#
+#...w.w.w.w.w.w....#
+#..................#
+#.......|||........#
+#.......|E|....../.#
+#.......|||........#
+#..........h.......#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#d......dddd......d#
+#d.d^d.dddd.dd^d..d#
+#d.d.d.dddd.d...d.d#
+#d.....g....F.....d#
+#d.dd.dddddddd.dd.d#
+#d.......zz.......d#
+#d.dddddd..dddddd.d#
+#d.d..v.d..d.v..d.d#
+#d.dddddd..dddddd.d#
+#d.......g........d#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#ddd............ddd#
+#ddd.dddddddddd.ddd#
+#ddd.d^dddddd^d.ddd#
+#ddd.d.dddddd.d.ddd#
+#ddd..F..g....F.ddd#
+#dddddddddddddddddd#
+####################

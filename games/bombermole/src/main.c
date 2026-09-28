@@ -1,0 +1,723 @@
+/*
+ * Bomber Mole: game flow (title, menus, levels, transitions, save RAM).
+ * All rights reserved, 8BCraft.
+ */
+#include "bm.h"
+#include <stdio.h>
+#include <string.h>
+
+enum state {
+    ST_TITLE, ST_ARCS, ST_LEVELS, ST_OPTIONS, ST_CREDITS, ST_INTRO, ST_PLAY, ST_SLIDE, ST_PAUSE,
+    ST_DYING, ST_GAMEOVER, ST_OUTRO, ST_CLEAR, ST_ARCDONE
+};
+
+int opt_music = 1, opt_sfx = 1;
+static int st, st_t, cursor, sel_arc, sel_level, unlock_all;
+static level_def LV;
+static pstats carry[MAX_PLAYERS];
+static int view_depth, slide_from, slide_to, level_frames, forced_view = -1;
+static int title_ready;
+static uint32_t gt;
+
+/* ---- save RAM ------------------------------------------------------------------------------------ */
+typedef struct save_data {
+    char magic[4];
+    uint8_t version, pad0;
+    uint8_t cleared[4];
+    uint8_t opts;               /* bit0 music, bit1 sound, bit2 all unlocked */
+    uint8_t last_arc, last_level, pad1;
+    uint16_t best[4][8];        /* seconds, 0 = none */
+    uint16_t sum;
+} save_data;
+static save_data SV;
+
+static uint16_t save_sum(const save_data *s)
+{
+    const uint8_t *p = (const uint8_t *)s;
+    uint16_t sum = 0x4d42;
+    for (size_t i = 0; i < offsetof(save_data, sum); i++) sum = (uint16_t)(sum * 31 + p[i]);
+    return sum;
+}
+
+static void save_load(void)
+{
+    memcpy(&SV, rs_sram(), sizeof SV);
+    if (memcmp(SV.magic, "BMSV", 4) || SV.version != 1 || SV.sum != save_sum(&SV)) {
+        memset(&SV, 0, sizeof SV);
+        memcpy(SV.magic, "BMSV", 4);
+        SV.version = 1;
+        SV.opts = 3;
+    }
+    opt_music = SV.opts & 1;
+    opt_sfx = (SV.opts >> 1) & 1;
+    unlock_all = (SV.opts >> 2) & 1;
+}
+
+static void save_store(void)
+{
+    SV.opts = (uint8_t)(opt_music | (opt_sfx << 1) | (unlock_all << 2));
+    SV.sum = save_sum(&SV);
+    memcpy(rs_sram(), &SV, sizeof SV);
+    rs_sram_commit();
+}
+
+static int unlocked(int arc, int n)
+{
+    if (unlock_all) return 1;
+    if (arc > 0 && SV.cleared[arc - 1] < 8) return 0;
+    return SV.cleared[arc] >= n - 1;
+}
+
+/* ---- helpers -------------------------------------------------------------------------------------- */
+static void go(int s) { st = s; st_t = 0; cursor = 0; }
+static uint16_t pressed(void) { return rs_pad_pressed(0); }
+static int confirm(void) { return pressed() & (RS_BTN_A | RS_BTN_START); }
+static int back(void) { return pressed() & (RS_BTN_B | RS_BTN_SELECT); }
+
+static int menu_nav(int n)
+{
+    uint16_t p = pressed();
+    int old = cursor;
+    if (p & RS_BTN_UP) cursor = (cursor + n - 1) % n;
+    if (p & RS_BTN_DOWN) cursor = (cursor + 1) % n;
+    if (cursor != old) sfx(SFX_MENU_MOVE);
+    return cursor;
+}
+
+static void plain_text(void) { rs_text_setup(RS_BG1, 0, 0, 1); }
+
+static int center(const char *s) { return (40 - (int)strlen(s)) / 2; }
+
+/* ---- title and menus -------------------------------------------------------------------------------- */
+static int16_t hill_dx[240];
+
+static void title_raster(int line, void *u)
+{
+    (void)u;
+    /* sky gradient on the backdrop and a gold gradient on the title letters (per line, like HDMA) */
+    int k = line * 31 / 239;
+    rs_pal_set(0, RS_RGB(8 + k / 3, 14 + k / 3, 31 - k / 4));
+    if (line >= 40 && line < 72) {
+        int g = line - 40;
+        rs_pal_set(1, RS_RGB(31, 31 - g / 3, 12 + g / 4));
+    } else {
+        rs_pal_set(1, RS_HEX(0xffffff));
+    }
+    rs_window(0, 0, 0);
+    rs_window(1, 0, RS_SCREEN_W);
+}
+
+static void menu_backdrop(void)
+{
+    draw_title_vram();
+    const uint16_t (*T)[4] = bm_terrain_meta[SEASON_SPRING];
+    rs_bg_fill(RS_BG4, 0);
+    rs_bg_fill(RS_BG3, 0);
+    for (int x = 0; x < 32; x++) {
+        for (int y = 12; y < 16; y++) rs_bg_meta(RS_BG4, x, y, y == 12 ? T[T_GRASS] : (x + y) % 4 ? T[T_SOFT_DIRT] : T[T_HARD_ROCK]);
+        int h = 9 + ((x * 7) % 5 == 0) + ((x * 3) % 7 == 0);
+        for (int y = h; y < 16; y++) rs_bg_meta(RS_BG3, x, y, y == h ? T[T_GRASS_EDGE] : T[T_GRASS]);
+    }
+    rs_bg_enable(RS_BG2, 0);
+    rs_raster(title_raster, NULL);
+    rs_clip_black(0);
+    text_clear_all();
+    for (int x = 0; x < 64; x++) { rs_bg_put(RS_BG1, x, 0, 0); rs_bg_put(RS_BG1, x, 1, 0); }
+    title_ready = 1;
+}
+
+static void menu_scroll(void)
+{
+    rs_bg_scroll(RS_BG4, (int)(gt / 2), 0);
+    rs_bg_scroll(RS_BG3, (int)(gt / 5), 24);
+    for (int i = 0; i < 240; i++) hill_dx[i] = 0;
+    rs_bg_line_scroll(RS_BG3, NULL, NULL);
+}
+
+static void title_update(void)
+{
+    if (!title_ready) {
+        menu_backdrop();
+        music_play("title");
+    }
+    menu_scroll();
+    plain_text();
+    text_big(9, 5, "BOMBER MOLE");
+    if (st_t < 60 || (st == ST_TITLE && cursor < 0)) {}
+    static const char *const items[] = {"PLAY", "OPTIONS", "CREDITS"};
+    int c = menu_nav(3);
+    for (int i = 0; i < 3; i++) {
+        text_at(16, 15 + i * 2, i == c ? ">" : " ");
+        text_at(18, 15 + i * 2, items[i]);
+    }
+    text_at(center("(C) 2026 8BCRAFT - RETROSTONE VC"), 27, "(C) 2026 8BCRAFT - RETROSTONE VC");
+    if (confirm()) {
+        sfx(SFX_MENU_OK);
+        text_clear_all();
+        if (c == 0) { go(ST_ARCS); cursor = sel_arc; }
+        else if (c == 1) go(ST_OPTIONS);
+        else go(ST_CREDITS);
+    }
+}
+
+static void arcs_update(void)
+{
+    menu_scroll();
+    plain_text();
+    text_at(center("CHOOSE A SEASON"), 3, "CHOOSE A SEASON");
+    uint16_t p = pressed();
+    int old = cursor;
+    if (p & RS_BTN_LEFT) cursor = (cursor + 3) % 4;
+    if (p & RS_BTN_RIGHT) cursor = (cursor + 1) % 4;
+    if (cursor != old) sfx(SFX_MENU_MOVE);
+    static const char *const names[4] = {"SPRING", "SUMMER", "AUTUMN", "WINTER"};
+    for (int a = 0; a < 4; a++) {
+        int x = 2 + a * 10;
+        text_at(x, 8, a == cursor ? ">" : " ");
+        text_at(x + 1, 8, names[a]);
+        int ok = unlocked(a, 1);
+        textf_at(x + 1, 10, ok ? "%d/8   " : "LOCKED", SV.cleared[a]);
+        rs_bg_meta(RS_BG1, x / 2 + 1, 6, bm_hud_meta[ok ? (SV.cleared[a] == 8 ? HUD_CHECK : HUD_GRUB) : HUD_LOCK]);
+    }
+    text_at(center("A: OPEN   B: BACK"), 24, "A: OPEN   B: BACK");
+    if (confirm()) {
+        if (unlocked(cursor, 1)) {
+            sfx(SFX_MENU_OK);
+            sel_arc = cursor;
+            text_clear_all();
+            go(ST_LEVELS);
+            cursor = SV.last_arc == sel_arc ? SV.last_level : 0;
+        } else {
+            sfx(SFX_HURT);
+        }
+    }
+    if (back()) { text_clear_all(); go(ST_TITLE); cursor = 0; }
+}
+
+
+static void levels_update(void)
+{
+    menu_scroll();
+    plain_text();
+    static const char *const names[4] = {"SPRING", "SUMMER", "AUTUMN", "WINTER"};
+    textf_at(center("SPRING - CHOOSE A LEVEL"), 3, "%s - CHOOSE A LEVEL", names[sel_arc]);
+    uint16_t p = pressed();
+    int old = cursor;
+    if (p & RS_BTN_LEFT) cursor = (cursor + 7) % 8;
+    if (p & RS_BTN_RIGHT) cursor = (cursor + 1) % 8;
+    if (p & (RS_BTN_UP | RS_BTN_DOWN)) cursor = (cursor + 4) % 8;
+    if (cursor != old) sfx(SFX_MENU_MOVE);
+    /* tester cheat: hold L+R and press Select */
+    if ((rs_pad(0) & (RS_BTN_L | RS_BTN_R)) == (RS_BTN_L | RS_BTN_R) && (p & RS_BTN_SELECT)) {
+        unlock_all = 1;
+        save_store();
+        sfx(SFX_EXIT_OPEN);
+        return;
+    }
+    for (int n = 0; n < 8; n++) {
+        int cx = 4 + (n % 4) * 4, cy = 4 + (n / 4) * 3;
+        int icon = !unlocked(sel_arc, n + 1) ? HUD_LOCK : SV.cleared[sel_arc] > n ? HUD_CHECK : HUD_DIGIT + n + 1;
+        rs_bg_meta(RS_BG1, cx, cy, bm_hud_meta[icon]);
+        rs_bg_meta(RS_BG1, cx - 1, cy, bm_hud_meta[n == cursor ? HUD_CURSOR : HUD_PANEL]);
+    }
+    level_def *L = &LV;
+    static int shown = -1;
+    if (shown != sel_arc * 8 + cursor || st_t == 0) {
+        shown = sel_arc * 8 + cursor;
+        for (int y = 19; y < 26; y++) text_at(0, y, "                                        ");
+        if (!level_load(L, sel_arc, cursor + 1)) {
+            textf_at(center(L->name), 20, "%s", L->name);
+            int b = SV.best[sel_arc][cursor];
+            if (b) textf_at(14, 22, "BEST %2d:%02d", b / 60, b % 60);
+            if (L->stub) text_at(center("(STUB LEVEL - TO BE DESIGNED)"), 23, "(STUB LEVEL - TO BE DESIGNED)");
+        } else {
+            text_at(2, 20, L->error);
+        }
+    }
+    text_at(center("A: PLAY   B: BACK"), 26, "A: PLAY   B: BACK");
+    if (confirm()) {
+        if (unlocked(sel_arc, cursor + 1) && !level_load(L, sel_arc, cursor + 1)) {
+            sfx(SFX_MENU_OK);
+            sel_level = cursor + 1;
+            SV.last_arc = (uint8_t)sel_arc;
+            SV.last_level = (uint8_t)cursor;
+            for (int p2 = 0; p2 < MAX_PLAYERS; p2++) carry[p2].lives = 3;
+            title_ready = 0;
+            go(ST_INTRO);
+        } else {
+            sfx(SFX_HURT);
+        }
+    }
+    if (back()) {
+        text_clear_all();
+        go(ST_ARCS);
+        cursor = sel_arc;
+    }
+}
+
+static void options_update(void)
+{
+    menu_scroll();
+    plain_text();
+    text_at(center("OPTIONS"), 4, "OPTIONS");
+    int c = menu_nav(4);
+    textf_at(12, 9, "%c MUSIC      %s ", c == 0 ? '>' : ' ', opt_music ? "ON " : "OFF");
+    textf_at(12, 11, "%c SOUND      %s ", c == 1 ? '>' : ' ', opt_sfx ? "ON " : "OFF");
+    textf_at(12, 13, "%c ERASE SAVE     ", c == 2 ? '>' : ' ');
+    textf_at(12, 15, "%c BACK           ", c == 3 ? '>' : ' ');
+    if (confirm() || (pressed() & (RS_BTN_LEFT | RS_BTN_RIGHT))) {
+        sfx(SFX_MENU_OK);
+        if (c == 0) { opt_music ^= 1; audio_options(opt_music, opt_sfx); if (opt_music) music_play("title"); }
+        if (c == 1) { opt_sfx ^= 1; audio_options(opt_music, opt_sfx); }
+        if (c == 2 && confirm()) {
+            memset(SV.cleared, 0, sizeof SV.cleared);
+            memset(SV.best, 0, sizeof SV.best);
+            unlock_all = 0;
+            text_at(12, 18, "SAVE ERASED");
+        }
+        save_store();
+        if (c == 3 && confirm()) { text_clear_all(); go(ST_TITLE); cursor = 1; }
+    }
+    if (back()) { text_clear_all(); go(ST_TITLE); cursor = 1; }
+}
+
+static void credits_update(void)
+{
+    menu_scroll();
+    plain_text();
+    static const char *const lines[] = {
+        "BOMBER MOLE", "", "A GAME BY 8BCRAFT", "(PIERRE-LOUIS BOYER)", "",
+        "FOR THE RETROSTONE VIRTUAL CONSOLE", "", "MUSIC PLAYER: LIBXMP-LITE (MIT)",
+        "PLACEHOLDER ART AND SOUND", "GENERATED BY SCRIPTS", "", "PRESS A"};
+    for (unsigned i = 0; i < sizeof lines / sizeof lines[0]; i++)
+        text_at(center(lines[i]), 6 + (int)i * 1 + (i > 0 ? 1 : 0), lines[i]);
+    if (confirm() || back()) { text_clear_all(); go(ST_TITLE); cursor = 2; }
+}
+
+/* ---- level flow ------------------------------------------------------------------------------------- */
+static int player_screen_xy(int *x, int *y)
+{
+    actor *m = world_player(0);
+    if (!m) { *x = 160; *y = 128; return 0; }
+    *x = m->cx * CELL + (m->tx - m->cx) * m->prog / (SUB / CELL) + 8;
+    *y = HUD_H + m->cy * CELL + (m->ty - m->cy) * m->prog / (SUB / CELL) + 6;
+    return 1;
+}
+
+static void place_scene_bombs(void)
+{
+    /* debug scene for screenshots and benchmarks: a chain of bombs in the mole's row */
+    actor *m = world_player(0);
+    if (!m) return;
+    int n = 0;
+    for (int x = 1; x < GW - 1 && n < 7; x += 2) {
+        int y = m->cy;
+        if (!terrain_walkable(W.g[m->depth][y][x].t, 0) || (x == m->cx)) continue;
+        for (int i = 0; i < MAX_BOMBS; i++)
+            if (!W.b[i].active) {
+                bomb *b = &W.b[i];
+                memset(b, 0, sizeof *b);
+                b->active = 1; b->owner = 255; b->range = 3; b->depth = m->depth;
+                b->cx = b->tx = (int8_t)x; b->cy = b->ty = (int8_t)y;
+                b->fuse = (int16_t)(n == 0 ? 40 : 400);
+                break;
+            }
+        n++;
+    }
+    for (int y = 0; y < GH; y++)
+        for (int x = 0; x < GW; x++)
+            if (W.g[m->depth][y][x].t == TR_FLOOR && (x * 7 + y * 3) % 11 == 0 && n < 12) {
+                for (int i = 0; i < MAX_BOMBS; i++)
+                    if (!W.b[i].active) {
+                        bomb *b = &W.b[i];
+                        memset(b, 0, sizeof *b);
+                        b->active = 1; b->owner = 255; b->range = 2; b->depth = m->depth;
+                        b->cx = b->tx = (int8_t)x; b->cy = b->ty = (int8_t)y;
+                        b->fuse = (int16_t)(60 + n * 6);
+                        break;
+                    }
+                n++;
+            }
+    m->invul = 600;
+}
+
+static void start_level(void)
+{
+    draw_init_vram(LV.season, LV.boss);
+    world_start(&LV, carry);
+    view_depth = world_player_depth(0);
+    if (forced_view >= 0) view_depth = forced_view;
+    view_slot = 0;
+    draw_playfield_full(view_depth, view_slot);
+    set_scroll_slot(slot_y(view_slot));
+    text_clear_all();
+    level_frames = 0;
+    music_play(LV.music);
+    const char *scene = rs_option("scene");
+    if (scene && !strcmp(scene, "chain")) place_scene_bombs();
+}
+
+static void intro_update(void)
+{
+    if (st_t == 0) start_level();
+    int px, py;
+    player_screen_xy(&px, &py);
+    int r = st_t * 8;
+    iris_set(r < 420, px, py, r);
+    if (st_t < 150 && !rs_option_int("nointro", 0)) {
+        char a[40] = "", b[104];
+        snprintf(b, sizeof b, "%s", LV.hint);
+        /* split the hint on two lines at a space near the middle */
+        size_t n = strlen(b), cut = n;
+        if (n > 34) {
+            cut = n / 2;
+            while (cut < n && b[cut] != ' ') cut++;
+        }
+        snprintf(a, sizeof a, "%.*s", (int)(cut < 39 ? cut : 38), b);
+        const char *second = cut < n ? b + cut + 1 : "";
+        int w = (int)strlen(LV.name);
+        if ((int)strlen(a) > w) w = (int)strlen(a);
+        if ((int)strlen(second) > w) w = (int)strlen(second);
+        w = clampi(w + 4, 24, 40);
+        int x = (40 - w) / 2;
+        text_box(x, 11, w, LV.hint[0] ? 7 : 4);
+        textf_at(center(LV.name), 12, "%s", LV.name);
+        textf_at(center("SPRING 1-1"), 13, "%s %d-%d", season_name(LV.season), LV.arc ? LV.arc : sel_arc + 1, LV.num);
+        if (LV.hint[0]) {
+            textf_at(center(a), 15, "%s", a);
+            if (*second) textf_at(center(second), 16, "%s", second);
+        }
+        plain_text();
+    }
+    if (st_t >= 150 || (st_t > 20 && (confirm() || (pressed() & RS_BTN_B))) || rs_option_int("nointro", 0)) {
+        iris_set(0, 0, 0, 0);
+        text_clear_all();
+        go(ST_PLAY);
+    }
+}
+
+static void begin_slide(int from, int to)
+{
+    slide_from = from;
+    slide_to = to;
+    draw_playfield_full(to, view_slot ^ 1);
+    sfx(SFX_DEPTH);
+    go(ST_SLIDE);
+}
+
+static void play_update(void)
+{
+    if (pressed() & RS_BTN_START) { sfx(SFX_MENU_OK); go(ST_PAUSE); return; }
+    world_update();
+    level_frames++;
+    if (pending_depth >= 0) {
+        int from = pending_from, to = pending_depth;
+        pending_depth = pending_from = -1;
+        actor *m = world_player(0);
+        if (m) {
+            m->depth = (uint8_t)to;
+            m->moving = 0;
+            m->tx = m->cx;
+            m->ty = m->cy;
+        }
+        if (forced_view < 0) { begin_slide(from, to); return; }
+    }
+    if (W.events & EV_DEAD) {
+        carry[0].lives = W.ps[0].lives - 1;
+        go(ST_DYING);
+        return;
+    }
+    if (W.events & EV_EXIT) {
+        sfx(SFX_EXIT_OPEN);
+        go(ST_OUTRO);
+        return;
+    }
+    if (forced_view < 0) view_depth = world_player_depth(0);
+}
+
+static int ease(int t, int n) { return t * t * (3 * n - 2 * t) / (n * n); }  /* smoothstep, 0..n */
+
+static void slide_update(void)
+{
+    const int N = 36;
+    if (st_t >= N) {
+        view_slot ^= 1;
+        view_depth = slide_to;
+        set_scroll_slot(slot_y(view_slot));
+        go(ST_PLAY);
+    }
+}
+
+static void pause_update(void)
+{
+    static const char *const items[] = {"RESUME", "RESTART LEVEL", "QUIT TO MAP"};
+    int c = menu_nav(3);
+    text_box(12, 10, 16, 9);
+    text_at(center("PAUSED"), 11, "PAUSED");
+    for (int i = 0; i < 3; i++) textf_at(14, 13 + i * 2, "%c %s", i == c ? '>' : ' ', items[i]);
+    plain_text();
+    if (confirm() || (pressed() & RS_BTN_START)) {
+        text_clear_all();
+        rs_math(RS_MATH_ADD | RS_MATH_HALF, RS_MATH_BG2, 0);
+        sfx(SFX_MENU_OK);
+        if (c == 0 || (pressed() & RS_BTN_START && !(pressed() & RS_BTN_A))) { st = ST_PLAY; return; }
+        if (c == 1) { go(ST_INTRO); return; }
+        title_ready = 0;
+        go(ST_LEVELS);
+        cursor = sel_level - 1;
+        return;
+    }
+    if (back()) { text_clear_all(); rs_math(RS_MATH_ADD | RS_MATH_HALF, RS_MATH_BG2, 0); st = ST_PLAY; }
+}
+
+static void dying_update(void)
+{
+    int px, py;
+    player_screen_xy(&px, &py);
+    iris_set(1, px, py, 420 - st_t * 10);
+    if (st_t >= 42) {
+        iris_set(0, 0, 0, 0);
+        if (carry[0].lives > 0) go(ST_INTRO);
+        else go(ST_GAMEOVER);
+    }
+}
+
+static void gameover_update(void)
+{
+    if (st_t == 0) { rs_oam_clear(); text_clear_all(); iris_set(1, 160, 128, 0); rs_music_stop(); }
+    text_box(10, 9, 20, 10);
+    text_at(center("GAME OVER"), 10, "GAME OVER");
+    int c = menu_nav(2);
+    textf_at(13, 13, "%c CONTINUE", c == 0 ? '>' : ' ');
+    textf_at(13, 15, "%c QUIT", c == 1 ? '>' : ' ');
+    plain_text();
+    iris_set(0, 0, 0, 0);
+    rs_clip_black(0);
+    if (confirm()) {
+        text_clear_all();
+        if (c == 0) { carry[0].lives = 3; go(ST_INTRO); }
+        else { title_ready = 0; go(ST_LEVELS); cursor = sel_level - 1; }
+    }
+}
+
+static void outro_update(void)
+{
+    int px, py;
+    player_screen_xy(&px, &py);
+    iris_set(1, px, py, 420 - st_t * 12);
+    if (st_t >= 36) {
+        iris_set(0, 0, 0, 0);
+        int secs = level_frames / 60;
+        int a = sel_arc, n = sel_level - 1;
+        if (!SV.best[a][n] || secs < SV.best[a][n]) SV.best[a][n] = (uint16_t)(secs ? secs : 1);
+        if (SV.cleared[a] < sel_level) SV.cleared[a] = (uint8_t)sel_level;
+        save_store();
+        carry[0].lives = W.ps[0].lives;
+        go(ST_CLEAR);
+    }
+}
+
+static void clear_update(void)
+{
+    if (st_t == 0) { rs_oam_clear(); text_clear_all(); rs_clip_black(0); }
+    int secs = level_frames / 60, b = SV.best[sel_arc][sel_level - 1];
+    text_box(9, 8, 22, 11);
+    text_at(center("LEVEL CLEAR!"), 9, "LEVEL CLEAR!");
+    textf_at(center(LV.name), 11, "%s", LV.name);
+    textf_at(12, 13, "TIME   %2d:%02d", secs / 60, secs % 60);
+    textf_at(12, 14, "BEST   %2d:%02d", b / 60, b % 60);
+    textf_at(12, 15, "GRUBS  %2d", W.grubs_total);
+    text_at(center("PRESS A"), 17, "PRESS A");
+    plain_text();
+    rs_brightness(15);
+    if (st_t > 30 && confirm()) {
+        text_clear_all();
+        if (sel_level >= 8) { go(ST_ARCDONE); return; }
+        sel_level++;
+        if (!level_load(&LV, sel_arc, sel_level)) go(ST_INTRO);
+        else { title_ready = 0; go(ST_LEVELS); }
+    }
+}
+
+/* the arc final screen: a seasonal emblem spinning on the affine layer */
+static void arcdone_update(void)
+{
+    static rs_affine m;
+    if (st_t == 0) {
+        rs_oam_clear();
+        text_clear_all();
+        rs_bg_enable(RS_BG3, 0);
+        rs_bg_enable(RS_BG4, 0);
+        rs_bg_setup(RS_BG2, 32, 32, 1024);
+        rs_bg_enable(RS_BG2, 1);
+        rs_bg_window(RS_BG2, 0);
+        rs_bg_line_scroll(RS_BG2, NULL, NULL);
+        rs_math(RS_MATH_OFF, 0, 0);
+        const uint16_t (*T)[4] = bm_terrain_meta[LV.season];
+        for (int y = 0; y < 16; y++)
+            for (int x = 0; x < 16; x++) {
+                int dx = x * 2 - 15, dy = y * 2 - 15, r2 = dx * dx + dy * dy;
+                const uint16_t *mt = r2 < 30 ? T[T_EXIT_OPEN] : r2 < 90 ? T[T_GRASS] : r2 < 170 ? T[T_LEAVES] :
+                                     r2 < 230 ? T[T_STONE] : T[T_TUNNEL];
+                rs_bg_meta(RS_BG2, x, y, mt);
+            }
+        music_play("title");
+    }
+    /* integer sine table (8.8), 64 steps per turn */
+    static const int16_t S[16] = {0, 25, 50, 74, 98, 121, 142, 162, 181, 198, 213, 226, 237, 245, 251, 255};
+    int ang = (int)(st_t / 2) & 63, q = ang >> 4, i = ang & 15;
+    int s = q == 0 ? S[i] : q == 1 ? S[15 - i] : q == 2 ? -S[i] : -S[15 - i];
+    int c = q == 0 ? S[15 - i] : q == 1 ? -S[i] : q == 2 ? -S[15 - i] : S[i];
+    int zoom = 256 + 96 * ((st_t % 128) < 64 ? (st_t % 64) : 64 - (st_t % 64)) / 64;
+    m.a = c * 256 / zoom;
+    m.b = -s * 256 / zoom;
+    m.c = s * 256 / zoom;
+    m.d = c * 256 / zoom;
+    m.cx = 128;
+    m.cy = 128;
+    m.wrap = 1;
+    rs_bg_scroll(RS_BG2, 128 - 160, 128 - 128);
+    rs_bg_affine(RS_BG2, &m);
+    static const char *const names[4] = {"SPRING", "SUMMER", "AUTUMN", "WINTER"};
+    text_box(10, 24, 20, 4);
+    textf_at(center("SPRING COMPLETE!"), 25, "%s COMPLETE!", names[sel_arc]);
+    text_at(center("PRESS A"), 26, "PRESS A");
+    plain_text();
+    if (st_t > 60 && confirm()) {
+        rs_bg_affine(RS_BG2, NULL);
+        title_ready = 0;
+        text_clear_all();
+        go(ST_ARCS);
+        cursor = sel_arc < 3 ? sel_arc + 1 : 3;
+    }
+}
+
+/* ---- rs_game callbacks ---------------------------------------------------------------------------------- */
+static void game_init(void)
+{
+    save_load();
+    audio_options(opt_music, opt_sfx);
+    sfx_init();
+    if (rs_option_int("unlock", 0)) unlock_all = 1;
+    forced_view = rs_option_int("view", -1);
+    const char *lv = rs_option("level");
+    if (lv) {                                        /* "spring-3": jump straight into a level */
+        char season[16] = "";
+        int n = 1;
+        if (sscanf(lv, "%15[a-z]-%d", season, &n) == 2) {
+            for (int a = 0; a < SEASONS; a++)
+                if (!strcmp(season, season_name(a))) sel_arc = a;
+            sel_level = n;
+            for (int p = 0; p < MAX_PLAYERS; p++) carry[p].lives = 3;
+            if (!level_load(&LV, sel_arc, sel_level)) { go(ST_INTRO); return; }
+            rs_log("cannot start %s: %s", lv, LV.error);
+        }
+    }
+    go(ST_TITLE);
+}
+
+static void game_update(void)
+{
+    gt++;
+    switch (st) {
+    case ST_TITLE: title_update(); break;
+    case ST_ARCS: arcs_update(); break;
+    case ST_LEVELS: levels_update(); break;
+    case ST_OPTIONS: options_update(); break;
+    case ST_CREDITS: credits_update(); break;
+    case ST_INTRO: intro_update(); break;
+    case ST_PLAY: play_update(); break;
+    case ST_SLIDE: slide_update(); break;
+    case ST_PAUSE: pause_update(); break;
+    case ST_DYING: world_update(); dying_update(); break;
+    case ST_GAMEOVER: gameover_update(); break;
+    case ST_OUTRO: outro_update(); break;
+    case ST_CLEAR: clear_update(); break;
+    case ST_ARCDONE: arcdone_update(); break;
+    }
+    st_t++;
+    if (rs_option_int("transition", 0) && st == ST_PLAY && st_t == 30 && view_depth == 0) {
+        /* debug: slide to the next depth for screenshots */
+        begin_slide(0, 1);
+    }
+}
+
+static void draw_menu_sprites(void)
+{
+    rs_oam_clear();
+    /* a mole runs across the meadow, a ferret after it */
+    int x = (int)((gt * 2) % 460) - 60;
+    spr_draw(SPR_MOLE_WALK_RIGHT + (int[]){1, 0, 2, 0}[(gt / 6) % 4], x, 176, 0, 2);
+    spr_draw(SPR_FERRET_WALK_RIGHT + (gt / 8) % 2, x - 44, 176, 0, 2);
+    spr_draw(SPR_BOMB + (gt / 8) % 3, 40, 176, 0, 2);
+    spr_draw(SPR_GRUB + (gt / 16) % 2, 272, 176, 0, 2);
+}
+
+static void game_draw(void)
+{
+    switch (st) {
+    case ST_TITLE: case ST_ARCS: case ST_LEVELS: case ST_OPTIONS: case ST_CREDITS:
+        if (title_ready) draw_menu_sprites();
+        return;
+    case ST_GAMEOVER: case ST_CLEAR: case ST_ARCDONE:
+        return;
+    default:
+        break;
+    }
+    if (st == ST_SLIDE) {
+        const int N = 36;
+        int k = ease(st_t < N ? st_t : N, N);
+        int dir = slide_to > slide_from ? 1 : -1;
+        int off = k * 256 / N;
+        set_scroll_slot(slot_y(view_slot) + dir * off);
+        draw_cells_dirty(slide_to, view_slot ^ 1);
+        draw_world_sprites(slide_from, -dir * off, 1);
+        draw_world_sprites(slide_to, dir * (256 - off), 0);
+        draw_weather(0);
+    } else {
+        draw_cells_dirty(view_depth, view_slot);
+        set_scroll_slot(slot_y(view_slot));
+        draw_world_sprites(view_depth, W.shake ? ((W.shake & 1) ? 1 : -1) : 0, 1);
+        draw_weather(view_depth == 0);
+    }
+    for (int d = 0; d < NDEPTH; d++)
+        if (d != view_depth && !(st == ST_SLIDE && d == slide_to)) {
+            /* other depths redraw when shown; keep their dirty flags */
+        }
+    draw_hud();
+    if (st == ST_PAUSE)
+        rs_math(RS_MATH_SUB | RS_MATH_FIXED, RS_MATH_BG2 | RS_MATH_BG3 | RS_MATH_BG4 | RS_MATH_OBJ | RS_MATH_BACK,
+                RS_RGB(10, 10, 10));
+    /* dark levels: the helmet lamp */
+    if (LV.dark && st != ST_INTRO && st != ST_DYING && st != ST_OUTRO) {
+        int px, py;
+        player_screen_xy(&px, &py);
+        lamp_set(1, px, py, 60);
+    } else {
+        lamp_set(0, 0, 0, 0);
+    }
+}
+
+static void game_shutdown(void)
+{
+    if (!rs_option_int("dump", 0)) return;
+    actor *m = world_player(0);
+    int rocks = 0, dirt = 0, bombs = 0;
+    for (int d = 0; d < NDEPTH; d++)
+        for (int y = 0; y < GH; y++)
+            for (int x = 0; x < GW; x++) {
+                rocks += W.g[d][y][x].t == TR_ROCK;
+                dirt += W.g[d][y][x].t == TR_DIRT;
+            }
+    for (int i = 0; i < MAX_BOMBS; i++) bombs += W.b[i].active;
+    rs_log("state: st=%d level=%s grubs_left=%d/%d depth=%d x=%d y=%d hearts=%d lives=%d rocks=%d dirt=%d bombs=%d enemies=%d,%d,%d exit_open=%d",
+           st, LV.file, W.grubs_left, W.grubs_total, m ? m->depth : -1, m ? m->cx : -1, m ? m->cy : -1,
+           W.ps[0].hearts, W.ps[0].lives, rocks, dirt, bombs, world_enemies(0), world_enemies(1), world_enemies(2), W.exit_open);
+}
+
+const rs_game *rs_game_main(void)
+{
+    static const rs_game g = {"Bomber Mole", "bombermole", "0.1.0", game_init, game_update, game_draw,
+                              game_shutdown, bm_assets};
+    return &g;
+}

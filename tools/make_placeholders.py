@@ -19,6 +19,7 @@ from PIL import Image, ImageDraw
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sheets  # noqa: E402
+import placeholder_props  # noqa: E402
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "sdk", "tools"))
 from gen_font import G as FONT  # noqa: E402
 
@@ -607,6 +608,8 @@ def terrain(name, season):
 
 # ---------------------------------------------------------------------------
 def draw_entry(e, frame, season):
+    if e.sheet == "props":
+        return placeholder_props.draw(e, frame)
     n = e.name
     if n.startswith("mole_"):
         parts = n.split("_")

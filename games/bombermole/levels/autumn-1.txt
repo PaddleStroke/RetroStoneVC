@@ -1,0 +1,63 @@
+# Bomber Mole - autumn 1 (signature: strong wind). Gimmicks: gale lanes that push you and your bombs, leaf piles
+# that hide grubs and blow away in the gusts, a cat.
+name: Gale Force
+season: autumn
+arc: 3
+level: 1
+bombs: 1
+range: 2
+gust: 180 100 10
+hint: The gale blows the leaves away: watch for grubs underneath.
+status: done
+
+legend:
+A = leaves + push_right
+Z = leaves + grub + push_right
+N = leaves + push_left
+U = leaves + grub + push_left
+
+surface:
+####################
+#M......rrrr.......#
+#>>AA>>>>>>>>>>>>>.#
+#>>>>>Z>>>>A>>>>>>.#
+#>>>>>>>>>>>>>>>>>.#
+#..................#
+#..ll..C.....ll....#
+#..lL........lL..v.#
+#..................#
+#<<<<<<<<<<<<<<<<<.#
+#<<<N<<<<U<<<<<<<<.#
+#.....E............#
+#..................#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddd.....d#
+#ddddddddddd..g..^d#
+#ddddddddddd.F....d#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

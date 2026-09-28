@@ -1,0 +1,57 @@
+# Bomber Mole - spring 8: boss, the barn cat. Gimmicks: the boss (5 hits, holds the last grub), sprinklers,
+# puddles and tall grass in the arena, grubs underground.
+name: The Barn Cat
+season: spring
+arc: 1
+level: 8
+bombs: 2
+range: 3
+boss: barncat
+hint: The barn cat holds the last grub. Five blasts will do. Grubs lie below.
+status: done
+
+surface:
+####################
+#M.......p........v#
+#.rr...........rr..#
+#.r..w.....w....r..#
+#....w..k..w.......#
+#..........K.......#
+#.p....r.....r...p.#
+#......r.....r.....#
+#...w.....x....w...#
+#.rr....k.......rr.#
+#..r............r..#
+#.......E..........#
+#v.................#
+####################
+under1:
+####################
+#ddddddddddddddddd^#
+#ddddddddddddd.....#
+#ddddddddddddd.ddg.#
+#ddddddddddddd.dddd#
+#dddd.........F.ddd#
+#dddd.ddddddddd.ddd#
+#dddd.dddgddddd.ddd#
+#dddd...........ddd#
+#dddd.ddddddddd.ddd#
+#.ddd.ddddddddd.ddd#
+#..g..ddddddddd..g.#
+#^.................#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

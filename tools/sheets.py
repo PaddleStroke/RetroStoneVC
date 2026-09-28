@@ -19,6 +19,7 @@ SHEETS = {
     "characters": {"cols": 16, "rows": 6, "file": "characters.png"},
     "tiles": {"cols": 18, "rows": 4, "file": "tiles.png"},
     "items_fx": {"cols": 16, "rows": 4, "file": "items_fx.png"},
+    "props": {"cols": 16, "rows": 10, "file": "props.png"},
 }
 
 # name, sheet, col, row, w, h, frames, group (palette group), description
@@ -54,7 +55,7 @@ ENTRIES = [
     E("cat_walk_left", "characters", 4, 3, 16, 16, 2, "cat", "Cat walking left"),
     E("cat_walk_right", "characters", 6, 3, 16, 16, 2, "cat", "Cat walking right"),
     E("cat_pounce", "characters", 8, 3, 16, 16, 2, "cat", "Cat pounce: crouch, then leap (facing right; flipped in game)"),
-    E("boss", "characters", 0, 4, 32, 32, 4, "boss", "Boss (big cat in spring), 32x32: idle, walk, crouch, roar"),
+    E("boss", "characters", 0, 4, 32, 32, 4, "boss_cat", "Spring boss: the barn cat, 32x32: idle, walk, crouch, roar"),
     # ---- tiles.png: one row per season ---------------------------------------
     E("grass", "tiles", 0, None, 16, 16, 1, "terrain", "Surface floor: grass (snow in winter)"),
     E("grass_edge", "tiles", 1, None, 16, 16, 1, "terrain", "Surface floor with a shadow/edge along the top (below a wall)"),
@@ -105,6 +106,54 @@ ENTRIES = [
     E("hud_cursor", "items_fx", 6, 3, 16, 16, 1, "hud", "Menu cursor (arrow pointing right)"),
     E("hud_panel", "items_fx", 7, 3, 16, 16, 1, "hud", "HUD panel background (solid, dark)"),
     E("dust", "items_fx", 8, 3, 16, 16, 3, "bomb", "Dust puff (digging, landing), growing and fading"),
+    # ---- props.png: level gimmicks ("actuators") and extra bosses ------------------
+    # row 0-1: 16x16 terrain-like props (drawn on the terrain layer, BG palette 5)
+    E("bridge", "props", 0, 0, 16, 16, 1, "propbg", "Wooden bridge over water (a blast destroys it)"),
+    E("ice", "props", 1, 0, 16, 16, 1, "propbg", "Slippery ice (you slide until you hit something)"),
+    E("thin_ice", "props", 2, 0, 16, 16, 2, "propbg", "Thin ice: intact, cracked (breaks into water after 2 crossings)"),
+    E("mud", "props", 4, 0, 16, 16, 1, "propbg", "Mud (under a puddle; slows you)"),
+    E("tall_grass", "props", 5, 0, 16, 16, 1, "propbg", "Tall grass: cover, hides you from cats, burns"),
+    E("corn", "props", 6, 0, 16, 16, 1, "propbg", "Corn field (summer cover), burns"),
+    E("burnt", "props", 7, 0, 16, 16, 1, "propbg", "Burnt ground (after cover burns)"),
+    E("gate", "props", 8, 0, 16, 16, 2, "propbg", "Gate: closed, open"),
+    E("plate", "props", 10, 0, 16, 16, 2, "propbg", "Pressure plate: up, pressed"),
+    E("lever", "props", 12, 0, 16, 16, 2, "propbg", "Lever: off (left), on (right)"),
+    E("steam_vent", "props", 14, 0, 16, 16, 2, "propbg", "Steam vent (summer, depth 2): idle, erupting"),
+    E("pipe", "props", 0, 1, 16, 16, 1, "propbg", "Drain pipe opening (teleports to its twin)"),
+    E("crate", "props", 1, 1, 16, 16, 1, "propbg", "Tomato crate (farmer boss): breakable"),
+    E("splat", "props", 2, 1, 16, 16, 1, "propbg", "Tomato splat on the floor (slippery for a few seconds)"),
+    E("beehive", "props", 3, 1, 16, 16, 1, "propbg", "Beehive (summer): bomb it and bees chase the nearest creature"),
+    E("well", "props", 4, 1, 16, 16, 1, "propbg", "Well with crank (elevator surface <-> depth 2)"),
+    E("mushroom", "props", 5, 1, 16, 16, 1, "propbg", "Bouncy mushroom (autumn): launches you 2 tiles"),
+    E("rails_h", "props", 6, 1, 16, 16, 1, "propbg", "Mine-cart rails, horizontal"),
+    E("rails_v", "props", 7, 1, 16, 16, 1, "propbg", "Mine-cart rails, vertical"),
+    E("apple_tree", "props", 8, 1, 16, 16, 1, "propbg", "Apple tree (autumn): bomb it, apples fall and stun"),
+    # row 1-2: 16x16 sprites (sprite palette 6)
+    E("sprinkler", "props", 9, 1, 16, 16, 4, "prop", "Garden sprinkler, spraying up, right, down, left"),
+    E("spray", "props", 13, 1, 16, 16, 2, "prop", "Water spray / stream current particles"),
+    E("log", "props", 15, 1, 16, 16, 1, "prop", "Floating log (pushable bridge on water)"),
+    E("wind", "props", 0, 2, 16, 16, 3, "prop", "Wind gust particles (drawn blowing right; flipped)"),
+    E("pumpkin", "props", 3, 2, 16, 16, 1, "prop", "Pumpkin (autumn): push it to block enemies"),
+    E("snowball", "props", 4, 2, 16, 16, 2, "prop", "Snowball: small, big (rolls and grows when blasted)"),
+    E("icicle", "props", 6, 2, 16, 16, 1, "prop", "Icicle (falls after nearby blasts)"),
+    E("mine_cart", "props", 7, 2, 16, 16, 1, "prop", "Mine cart"),
+    E("bucket", "props", 8, 2, 16, 16, 1, "prop", "Well bucket (elevator)"),
+    E("tomato", "props", 9, 2, 16, 16, 2, "prop", "Thrown tomato (2-frame spin)"),
+    E("tomato_shadow", "props", 11, 2, 16, 16, 1, "prop", "Target shadow of a falling tomato"),
+    E("apple", "props", 12, 2, 16, 16, 1, "prop", "Falling apple"),
+    E("zzz", "props", 13, 2, 16, 16, 2, "prop", "Sleeping 'Zz' bubble"),
+    E("steam", "props", 15, 2, 16, 16, 1, "prop", "Steam puff (vents)"),
+    # row 3: critters (sprite palette 7)
+    E("dog_walk_left", "props", 0, 3, 16, 16, 2, "critter", "Guard dog (ally) running left"),
+    E("dog_walk_right", "props", 2, 3, 16, 16, 2, "critter", "Guard dog (ally) running right"),
+    E("dog_sleep", "props", 4, 3, 16, 16, 1, "critter", "Guard dog asleep"),
+    E("bees", "props", 5, 3, 16, 16, 2, "critter", "Swarm of bees"),
+    # rows 4-9: 32x32 (bosses: sprite palette 3, loaded per level; windmill: palette 6)
+    E("windmill", "props", 0, 4, 32, 32, 4, "prop", "Windmill (spring signature), sails turning (4 frames)"),
+    E("fox", "props", 8, 4, 32, 32, 4, "boss_fox", "Autumn boss: the fox (run, run, leap, hurt)"),
+    E("farmer", "props", 0, 6, 32, 32, 8, "boss_farmer", "Summer boss: the farmer: idle x2, throw x2, angry x2, hurt x2"),
+    E("owl", "props", 0, 8, 32, 32, 4, "boss_owl", "Winter boss: the snowy owl (perch, flap, swoop, hurt)"),
+    E("badger", "props", 8, 8, 32, 32, 4, "boss_badger", "Summer mini-boss: the badger (walk x2, dig, hurt)"),
 ]
 
 BY_NAME = {e.name: e for e in ENTRIES}

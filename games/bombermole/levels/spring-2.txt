@@ -1,0 +1,55 @@
+# Bomber Mole - spring 2. Gimmicks: bombs vs rock, a ladder, roots (they regrow, and dirt next to them regrows), first ferret.
+name: Rock Garden
+season: spring
+arc: 1
+level: 2
+bombs: 1
+range: 2
+hint: B drops a bomb. Rocks and roots need bombs. Mind the ferret below.
+status: done
+
+surface:
+####################
+#M...r.r.r...rrr...#
+#.rr.......r.rgr.t.#
+#.r..rrrrr.r.r.r.t.#
+#.r..r...r.....r.t.#
+#....r.g.r..rr.r...#
+#.v..rr.rr..rQ.....#
+#..........rrr..ttt#
+#.tt..p..........v.#
+#.tQt.p..rrrrr.....#
+#.ttt....r...r.....#
+#........r.E.r.....#
+#..........r.......#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#d......rrrr......d#
+#d.dddd.r..r.dddd.d#
+#d.dgdd...g..dddd.d#
+#d.dddd.r..r.dQdd.d#
+#d^.....rrrr......d#
+#dddddd......ddd..d#
+#ddd....dddd.ddd.Hd#
+#ddd....dF...ddd..d#
+#ddd....dddd......d#
+#dddddd.dddd.ddddgd#
+#dddddd......dddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

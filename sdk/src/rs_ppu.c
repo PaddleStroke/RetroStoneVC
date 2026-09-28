@@ -32,7 +32,8 @@ typedef struct bg_state {
 } bg_state;
 
 static uint8_t   g_tiles[RS_TILE_MAX][64] __attribute__((aligned(8)));
-static int       g_tiles_used;
+static int       g_tiles_used;          /* tiles written (VRAM accounting) */
+static uint8_t   g_tile_written[RS_TILE_MAX];
 static bg_state  g_bg[RS_BG_COUNT];
 static rs_color  g_cgram[256];
 static uint16_t  g_cg565[256];
@@ -72,6 +73,7 @@ void ppu_reset(void)
     memset(g_cg565, 0, sizeof g_cg565);
     memset(g_oam, 0, sizeof g_oam);
     g_tiles_used = 0;
+    memset(g_tile_written, 0, sizeof g_tile_written);
     g_obj_base = 0;
     g_obj_win = g_clip_win = 0;
     g_win_l[0] = g_win_l[1] = g_win_r[0] = g_win_r[1] = 0;
@@ -107,7 +109,7 @@ void rs_tiles_load(int first, const uint8_t *p, int count)
             d[i * 2] = p[i] >> 4;
             d[i * 2 + 1] = p[i] & 15;
         }
-        if (ti + 1 > g_tiles_used) g_tiles_used = ti + 1;
+        if (!g_tile_written[ti]) { g_tile_written[ti] = 1; g_tiles_used++; }
     }
 }
 void rs_tiles_load8(int first, const uint8_t *p, int count)
@@ -116,14 +118,14 @@ void rs_tiles_load8(int first, const uint8_t *p, int count)
         int ti = first + t;
         if ((unsigned)ti >= RS_TILE_MAX) return;
         for (int i = 0; i < 64; i++) g_tiles[ti][i] = p[i] & 15;
-        if (ti + 1 > g_tiles_used) g_tiles_used = ti + 1;
+        if (!g_tile_written[ti]) { g_tile_written[ti] = 1; g_tiles_used++; }
     }
 }
 void rs_tile_pixel(int tile, int x, int y, int v)
 {
     if ((unsigned)tile >= RS_TILE_MAX || (unsigned)x > 7 || (unsigned)y > 7) return;
     g_tiles[tile][y * 8 + x] = (uint8_t)(v & 15);
-    if (tile + 1 > g_tiles_used) g_tiles_used = tile + 1;
+    if (!g_tile_written[tile]) { g_tile_written[tile] = 1; g_tiles_used++; }
 }
 int rs_tiles_used(void) { return g_tiles_used; }
 

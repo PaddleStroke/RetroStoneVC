@@ -1,0 +1,5 @@
+# spring-1: walk down to (1,6) then step right onto the hole at (2,6): slide to depth 1
+5 DOWN
+66 -
+75 RIGHT
+85 -
