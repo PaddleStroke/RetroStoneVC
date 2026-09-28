@@ -1,0 +1,6 @@
+/build/
+/dist/
+*.srm
+screenshot-*.png
+__pycache__/
+*.pyc
