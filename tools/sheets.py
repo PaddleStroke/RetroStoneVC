@@ -241,6 +241,15 @@ def markdown():
 
 if __name__ == "__main__":
     validate()
+    if "--update-doc" in sys.argv:
+        # docs/art-sheets.md: replace everything after "## The table" with the current table
+        path = sys.argv[sys.argv.index("--update-doc") + 1]
+        text = open(path, encoding="utf-8").read()
+        head = text.split("## The table")[0]
+        with open(path, "w", encoding="utf-8", newline="\n") as f:
+            f.write(head + "## The table\n\n" + markdown() + "\n")
+        print("updated", path)
+        sys.exit(0)
     if "--markdown" in sys.argv:
         print(markdown())
     else:

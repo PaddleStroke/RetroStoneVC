@@ -1,0 +1,83 @@
+# RetroStone VC
+
+**RetroStone VC** is a virtual console (a "fantasy console") with the feel of a Super Nintendo: 320x240 at
+60 fps, RGB555 colours with 256 palette entries, four tile layers plus an affine layer, per-line raster
+effects, windows and colour math, 128 sprites, 8 sample voices with ADSR and echo, tracker music, 4 SNES pads
+and 32 KiB of battery RAM. The limits are **guidelines**: a game can go beyond them on purpose, and strict mode
+(debug builds) warns once per kind of excess. The full specification, with how each limit maps to the real
+SNES, is in [docs/spec.md](docs/spec.md).
+
+Games are written in C11 against a small SDK and run:
+- as **libretro cores** (`<game>_libretro.so`) on RetroStoneOS (the RetroStone2 handheld: Allwinner A20,
+  640x480 LCD, exactly 2x) and in RetroArch;
+- as **desktop programs** on Linux and Windows (SDL2);
+- **headless**, for tests, screenshots and benchmarks.
+
+The first game is **Bomber Mole** (`games/bombermole/`): you are a mole who drops bombs to open the way, on
+three depths at once (the grass surface and two undergrounds), through four seasons.
+Design: [games/bombermole/DESIGN.md](games/bombermole/DESIGN.md).
+
+| Screen | |
+|---|---|
+| ![title](docs/screenshots/title.png) | ![spring 6](docs/screenshots/spring6-surface.png) |
+| ![transition](docs/screenshots/depth-transition.png) | ![chain](docs/screenshots/explosion-chain.png) |
+
+More in [docs/screenshots/](docs/screenshots/).
+
+## Play on Windows
+Build it (below) or take `dist/windows/BomberMole.exe`: a single executable, SDL2 is linked in. Double-click
+it. Progress is saved in `bombermole.srm` next to the exe.
+
+| Keyboard | Gamepad (SNES layout) | Action |
+|---|---|---|
+| Arrows | D-pad / left stick | move; hold toward soft dirt to dig |
+| Z | B (bottom) | drop a bomb (facing a hole: toss it down) |
+| X | A (right) | detonate the oldest bomb (remote detonator power-up) |
+| A / S | Y / X | (unused) |
+| Q / W | L / R | (level select: L+R+Select unlocks everything) |
+| Enter | Start | pause menu, confirm |
+| Backspace / Right Shift | Select | back |
+| F11 or Alt+Enter, F12, Esc | | fullscreen, screenshot, quit |
+
+Options: `BomberMole.exe --scale 4`, `--fullscreen`, `--opt level=spring-3` (jump to a level). Levels can be
+edited without rebuilding: put a copy in `data\levels\` next to the exe.
+
+## Build (Linux or WSL)
+```
+sudo apt-get install build-essential libsdl2-dev mingw-w64 gcc-arm-linux-gnueabihf python3-pil python3-numpy python3-scipy
+make                 # build/host: bombermole (SDL2), bombermole_headless, bombermole_libretro.so
+make check           # all tests
+make dist            # dist/windows/BomberMole.exe, dist/libretro/bombermole_libretro.so (+ .armhf.so)
+make windows         # only the Windows exe (downloads the SDL2 mingw package once, tools/fetch_sdl2_mingw.sh)
+make armhf           # libretro core for the RetroStone2 (-mcpu=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=hard)
+make screenshots     # docs/screenshots/
+make bench           # per-frame cost of the heaviest scenes + a PPU stress test
+make art             # import the owner's validated art (tools/art_sync.py sync)
+make DEBUG=1         # -O0 -g, strict mode on
+make CHAR_SIZE=24    # 24x24 characters (16 by default); ART=<dir> builds with other art
+```
+Run: `./build/host/bombermole`, or load `bombermole_libretro.so` in RetroArch with "Start core" (no content).
+Headless: `./build/host/bombermole_headless --frames 300 --opt level=spring-1 --input script.txt --shot 299:out.png
+--bench` (see the file header of `sdk/frontends/headless/rs_headless.c`).
+
+## Repository
+| Path | Contents | Licence |
+|---|---|---|
+| `sdk/` | the SDK: `include/rs.h` (game API), `src/` (runtime, scanline renderer, audio, text), `frontends/` (libretro, SDL2, headless), `tests/` (golden images) | MIT, (c) 2026 Pierre-Louis Boyer (8BCraft) |
+| `sdk/third_party/` | libxmp-lite 4.7.3, stb_image(_write), libretro.h | MIT / public domain, see THIRD_PARTY.md |
+| `tools/` | asset tool, sheet layout, placeholders, AI sheet cutter, art sync, comparisons | MIT |
+| `games/bombermole/` | the game: code, levels, art, design | all rights reserved, 8BCraft |
+| `docs/` | [spec](docs/spec.md), [assets](docs/assets.md), [art sheets](docs/art-sheets.md), [art workflow](docs/art-workflow.md), screenshots, art previews | |
+
+## Tests
+`make check` runs: the SDK unit tests (renderer golden images for layers, flips, sprites, priorities, raster,
+affine, colour math, text; input edges; save RAM; RNG; audio), a libretro loader test (dlopen, 600 frames,
+video/audio/SRAM), the art tool tests (layout, placeholders, lossless tile round trip, the AI cutter on
+blurred and jittered 8x copies, the art sync end to end), the level checker (format and solvability of all 32
+levels) and the game smoke tests (every level runs; scripted inputs walk, collect, dig, bomb, change depth, die
+and restart).
+
+## Art
+Placeholder art is generated by `tools/make_placeholders.py`. Real art comes from an image-generation agent
+through `games/bombermole/art/incoming/TODO.md`: one PNG per animation strip, reviewed by the owner, imported by
+`tools/art_sync.py`. See [docs/art-workflow.md](docs/art-workflow.md).

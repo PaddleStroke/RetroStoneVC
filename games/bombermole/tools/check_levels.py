@@ -127,6 +127,8 @@ def check(path):
         raise LevelError("%s: needs exactly one exit, on the surface" % path)
     grubs = [(d, x, y) for d in range(3) for y in range(GH) for x in range(GW) if cells[d][y][x]["item"] == "grub"]
     boss = [(d, x, y) for d in range(3) for y in range(GH) for x in range(GW) if cells[d][y][x]["actor"] == "boss"]
+    if len(head.get("hint", "")) > 76:
+        raise LevelError("%s: hint longer than 76 characters" % path)
     if not grubs and not boss:
         raise LevelError("%s: needs at least one grub" % path)
     for d in range(3):

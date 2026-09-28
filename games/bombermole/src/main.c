@@ -142,10 +142,10 @@ static void show_logo(int on)
     if (!on) return;
     rs_tiles_load(1024 + LOGO_TILE_BASE, bm_logo_tiles, bm_logo_tile_count);
     for (int i = 1; i < 16; i++) rs_pal_set(RS_PAL_BG(5) + i, bm_logo_pal[i]);
-    rs_bg_setup(RS_BG2, 32, 32, 1024);
+    rs_bg_setup(RS_BG2, 64, 32, 1024);          /* 64 wide: the 256-px logo must not wrap on 320 px */
     for (int y = 0; y < LOGO_H; y++)
-        for (int x = 0; x < LOGO_W; x++) rs_bg_put(RS_BG2, x, 2 + y, bm_logo_map[y * LOGO_W + x]);
-    rs_bg_scroll(RS_BG2, -32, 0);
+        for (int x = 0; x < LOGO_W; x++) rs_bg_put(RS_BG2, 4 + x, 2 + y, bm_logo_map[y * LOGO_W + x]);
+    rs_bg_scroll(RS_BG2, 0, 0);
     rs_bg_line_scroll(RS_BG2, NULL, NULL);
     rs_bg_window(RS_BG2, 0);
     rs_math(RS_MATH_OFF, 0, 0);
