@@ -1,5 +1,9 @@
-# Bomber Mole - spring 6. Gimmicks: ferret warrens on both undergrounds, a sleeping ferret nest (explosions
-# wake it, even from the depth above), a lever that opens the gates around the exit.
+# Bomber Mole - spring 6. Idea: the molehill is fenced in and its lever lies at the very bottom of the warren,
+# two floors down between two sleeping ferrets: sneak in and bump it without a single blast.
+# Gimmicks: ferret warrens on both undergrounds, sleeping ferret nests (explosions wake them, even from the
+# depth above: the nest in the middle of depth 1 guards the way down, the pair by the lever guards the lever),
+# a lever on depth 2 that opens the gates around the exit on the surface. Enemies: tier 2: a grey cat on the
+# lawn, brown ferrets in the warrens, a sleepy ferret in the deep. Secret: a glowing block on depth 1.
 name: Ferret Warren
 season: spring
 arc: 1
@@ -14,18 +18,18 @@ a = floor + ferret:1
 
 surface:
 ####################
-#M.................#
+#M.......r.........#
 #.ddddd.....ddddd..#
-#.d.v.d.....d.v.d..#
-#.d...d..g..d...d..#
-#.dd.dd.....dd.dd..#
-#..................#
-#...w.w.w.w.w.w....#
-#..................#
-#.......|||........#
-#.......|E|....../.#
-#.......|||........#
-#..........h.......#
+#.d.v.d..g..d.v.d..#
+#.d...d.....d...d..#
+#.dd.dd.rr..dd.dd..#
+#........r.........#
+#..w.w.w..w.w.w.r..#
+#.r......p.......C.#
+#....r..|||..r..r..#
+#.dd....|E|.....ww.#
+#.dG..r.|||.r..rwg.#
+#.p.......h.....r..#
 ####################
 under1:
 ####################
@@ -40,16 +44,16 @@ under1:
 #d.d..v.d..d.v..d.d#
 #d.dddddd..dddddd.d#
 #d.......g........d#
-#dddddddddddddddddd#
+#dddddddddGdddddddd#
 ####################
 under2:
 ####################
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#ddddddd.....dddddd#
+#ddddddd.z/z.dddddd#
+#dddddddd...ddddddd#
 #ddd............ddd#
 #ddd.dddddddddd.ddd#
 #ddd.d^dddddd^d.ddd#

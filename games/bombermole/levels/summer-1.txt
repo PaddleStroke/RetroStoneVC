@@ -1,5 +1,10 @@
-# Bomber Mole - summer 1 (signature: steam vents). Gimmicks: steam vents on depth 2 lift you (and bombs and
-# enemies) one depth up when they erupt, dry soil that digs twice as fast, corn fields (cover).
+# Bomber Mole - summer 1 (signature: steam vents). Idea: geyser lifts into sealed rooms that no tunnel reaches:
+# ride a vent up into the walled garden on the surface, and fire a bomb up the deep vent first to clear the
+# ferret nest waiting in the stone room above it (or ride up and sneak past the sleepers).
+# Gimmicks: steam vents on both undergrounds (they lift you, bombs and enemies one depth up when they erupt;
+# the only ways into the walled garden and the stone room), holes back down from both sealed rooms, dry soil
+# that digs twice as fast, corn fields (cover). Enemies: tier 2: a grey cat in the corn, brown ferrets on both
+# undergrounds and the sleeping pair in the stone room (risk/reward: its grub).
 name: Steam Lift
 season: summer
 arc: 2
@@ -10,36 +15,33 @@ vent: 240 40
 hint: Dry soil digs fast. Stand on a vent in the deep: the geyser lifts you up.
 status: done
 
-legend:
-a = floor + cat:1
-
 surface:
 ####################
-#M..www.....www....#
-#...www..d..www..g.#
-#.......ddd........#
-#..v.....d.....www.#
-#..............wgw.#
-#.ww....C......www.#
-#.ww...............#
-#......ddddd.......#
-#......dGdGd....v..#
-#......ddddd.......#
-#...E..............#
-#...............a..#
+#M..www..d...#######
+#...www.ddd..#.www.#
+#.......dGd..#w..g.#
+#..v.....d...#.v.w.#
+#.r.....r....#ww..r#
+#.ww.........#######
+#.ww.ddd..C......r.#
+#....dgd.....ddd...#
+#..r.ddd..r..dGd.r.#
+#.....r....r.ddd...#
+#...E....ww.....r..#
+#.r......ww....r...#
 ####################
 under1:
 ####################
+#ddddddd#####dddddd#
+#ddddddd#.g.#dddddd#
+#dd.....#z.z#...V.d#
+#dd^.ddd#..v#dd^.dd#
+#ddd.ddd#####ddd.dd#
+#ddd.........F...dd#
+#ddddddddd.dddddddd#
+#dddddddddvdddddddd#
 #dddddddddddddddddd#
-#dddddddd####dddddd#
-#dddddddd#..#dddddd#
-#dd^.....#g.#dddddd#
-#ddddvddd#.v#dddddd#
-#dddd.ddd####dddddd#
-#dddd.g........dddd#
-#dddddddddddddd.ddd#
-#dddddddddddddd.Hdd#
-#dddddddddddddddddd#
+#dddGdddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 ####################
@@ -47,12 +49,12 @@ under2:
 ####################
 #dddddddddddddddddd#
 #dddddddddddddddddd#
-#ddd.......dddddddd#
-#ddd..ddddVdddddddd#
-#ddddHddddd^ddddddd#
-#dddddGdddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#dddddddddVdddddddd#
+#dddddddd..^.dddddd#
+#dddd.......F...ddd#
+#dddd.ddddddddd.ddd#
+#ddddgddddGdddd.ddd#
+#dddd.....^.....ddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#

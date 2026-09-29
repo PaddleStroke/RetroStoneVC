@@ -1,5 +1,9 @@
-# Bomber Mole - winter 1 (signature: the frozen river). Gimmicks: slippery ice (you and your bombs slide until
-# something stops you), thin ice that breaks into water after two crossings, frozen dirt (bombs only), snow.
+# Bomber Mole - winter 1 (signature: the frozen river). Idea: a frozen river you cross in one slide, with a frozen
+# island in the middle that only a kicked bomb can crack: drop a bomb on the ice and it slides into the island.
+# Gimmicks: slippery ice (you, cats and bombs slide until something stops you; rocks and stones are the
+# brakes), thin ice that breaks into water after two crossings, frozen dirt (bombs only; hides the grubs), an
+# ice cave below, a sleeping stoat in the deep den. Enemies: tier 3-4: a black cat and a siamese cat on the
+# south bank, a stoat in the ice cave, a sleeping stoat in the den (risk/reward: its grub, blast quietly).
 name: Frozen River
 season: winter
 arc: 4
@@ -15,18 +19,18 @@ J = frozen_dirt + grub
 
 surface:
 ####################
-#M.....ff....ff....#
-#......fg....fJ....#
-#......ff....ff....#
-#iiiiiiiiiiiiiiiiii#
-#iiiijjjjiiiiiiiiii#
-#iiiiiiiiiiijjjjiii#
-#iiiiii.iiiiiiiiiii#
-#...............q..#
+#M.....ff....ff..r.#
+#...r..fg....fJ....#
+#.f....ff..r.ff..f.#
+#iiiriiiiiiiiiiiiii#
+#iiiiijjjjfffiiiiii#
+#i#iiiiiiifJfiiiiii#
+#iiiiiiiiifffiiirii#
+#.....r.........q..#
 #..fff....C...fff..#
-#..fJf........fJf..#
+#..fJf..r.....fJf..#
 #..f.f....E...f.f..#
-#...........v......#
+#.r.........v....r.#
 ####################
 under1:
 ####################
@@ -36,12 +40,12 @@ under1:
 #ffffffffffffffffff#
 #ffffffffffffffffff#
 #ffffffffffffffffff#
-#ffffffffffffffffff#
-#ffffffffffffffffff#
-#ffffffffffffffffff#
-#ffffffffff..F....f#
-#ffffffffff..iig..f#
-#fffffffffff^......#
+#fffffffff.......ff#
+#fffJ.....f.iii..ff#
+#ffff.fff.f.iFi..ff#
+#ffff.fvf.f.iiig.ff#
+#ffff...........fff#
+#fffffffffff^ffffff#
 ####################
 under2:
 ####################
@@ -52,9 +56,9 @@ under2:
 #ffffffffffffffffff#
 #ffffffffffffffffff#
 #ffffffffffffffffff#
-#ffffffffffffffffff#
-#ffffffffffffffffff#
-#ffffffffffffffffff#
-#ffffffffffffffffff#
+#fffff.g...z.ffffff#
+#fffff.fffff.ffffff#
+#fffff.H.....ffffff#
+#fffffffffffJffffff#
 #ffffffffffffffffff#
 ####################

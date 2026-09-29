@@ -1,4 +1,9 @@
-# Bomber Mole - spring 2. Gimmicks: bombs vs rock, a ladder, roots (they regrow, and dirt next to them regrows), first ferret.
+# Bomber Mole - spring 2. Idea: a rock garden where every grub is walled in: bomb rock beds open on the grass,
+# then go two floors down to the root cellar, where the roots you blast grow back behind you.
+# Gimmicks: bombs vs rock (walls, and grubs hidden inside rock), roots (a hedge to blast and slip through before
+# it regrows; it also regrows dug dirt), a hole down to the cellar and ladders back up. Enemies: tier 1: a
+# ginger cat by the exit (risk/reward: the exit's back door faces its beat), 2 sleepy ferrets on depth 1,
+# one in the cellar.
 name: Rock Garden
 season: spring
 arc: 1
@@ -18,16 +23,16 @@ surface:
 #.v..rr.rr..rQ.....#
 #..........rrr..ttt#
 #.tt..p..........v.#
-#.tQt.p..rrrrr.....#
-#.ttt....r...r.....#
-#........r.E.r.....#
-#..........r.......#
+#.tQt.p..rrrrr..r..#
+#.ttt....r...r.pp..#
+#........r.E.r..C..#
+#..r.......r...r..r#
 ####################
 under1:
 ####################
 #dddddddddddddddddd#
 #d......rrrr..F...d#
-#d.dddd.r..r.dddd.d#
+#v.dddd.r..r.dddd.d#
 #d.dgdd...g..dddd.d#
 #d.dddd.r..r.dQdd.d#
 #d^.....rrrr......d#
@@ -41,11 +46,11 @@ under1:
 under2:
 ####################
 #dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#rrrrrrrrrrrrdddddd#
+#H.r.t....Q.rdddddd#
+#....t.r.F..rdddddd#
+#.r..t......rdddddd#
+#rrrrrrrrrrrrdddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#

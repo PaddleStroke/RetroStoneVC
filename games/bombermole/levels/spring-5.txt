@@ -1,5 +1,8 @@
-# Bomber Mole - spring 5. Gimmicks: rock mazes and bomb chains, the remote detonator, garden sprinklers
-# (their spray defuses bombs), tossing a bomb into a hole (it explodes on the depth below).
+# Bomber Mole - spring 5. Idea: a rock spiral too long for one bomb at a time: set bombs in a row so each blast
+# sets off the next, toss a bomb down the hole to clear the landing below, and keep bombs out of the spray.
+# Gimmicks: rock mazes and bomb chains, the remote detonator (in the far corner: a reward for the long way),
+# garden sprinklers (their spray defuses bombs: time your bombs to their turns), tossing a bomb into a hole
+# (it explodes on the depth below). Enemies: tier 2 brown ferrets below, a ginger cat by the exit.
 name: Chain Reaction
 season: spring
 arc: 1
@@ -22,10 +25,10 @@ surface:
 #...r.r.r..r.r.r.k.#
 #.....r.r.gr.r.....#
 #.k...r.rrrr.r..v..#
-#.....r......r..a..#
-#.....rrrrrrrr.....#
+#..p..r......r..a..#
+#.pp..rrrrrrrr.r.p.#
 #..x.........r..E..#
-#......k.....r.....#
+#......k.....r.r...#
 ####################
 under1:
 ####################
@@ -35,7 +38,7 @@ under1:
 #ddr.gg.r...r.Q..rd#
 #ddr....rrrrr....rd#
 #ddrrrr.......rrrrd#
-#dddddr.......rdddd#
+#dddddr...v...rdddd#
 #dddddr..F....r.^dd#
 #dddddrrrrrrrrrdddd#
 #dddddddddddddddddd#
@@ -47,13 +50,13 @@ under2:
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#ddddrrrrrrrrrrdddd#
+#ddddr.F..r...rdddd#
+#ddddr.rr.r.Q.rdddd#
+#ddddr..r.H...rdddd#
+#ddddrr.r..rr.rdddd#
+#ddddr..r..gr.rdddd#
+#ddddrrrrrrrrrrdddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 ####################

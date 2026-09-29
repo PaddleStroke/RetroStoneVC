@@ -1,57 +1,65 @@
-# STUB: a placeholder level. Replace it with a real design (see DESIGN.md).
-# Planned: the snowy owl (boss)
-name: Winter 8 (stub)
+# Bomber Mole - winter 8: boss, the snowy owl. Idea: a snowy clearing where no wall hides you (the owl flies over
+# them all): kick bombs along the two ice lanes to hit it from afar, and hide from it underground, where the grubs
+# lie in the frozen burrows.
+# Gimmicks: the boss (flies over obstacles, holds the last grub), two ice lanes (bombs dropped on them slide
+# like kicks), frozen dirt posts and a frozen grub in the middle of the clearing (bombs only), holes in two
+# corners down to a frozen burrow loop on depth 1 (an ice run in its tunnel) and a den on depth 2.
+# Enemies: the owl, tier 4 stoats below (one asleep by a grub, one asleep in the den).
+name: The Snowy Owl
 season: winter
 arc: 4
 level: 8
-status: stub
-hint: A stub level: grab the grubs and reach the exit.
+bombs: 2
+range: 3
+boss: owl
+hint: The owl flies over walls. Kick bombs along the ice lanes to reach it.
+status: done
 
 legend:
-a = floor + ferret:3
+J = frozen_dirt + grub
 
 surface:
 ####################
-#M.................#
-#..................#
-#....ddd....fff....#
-#....dgd....f.f....#
-#....ddd....fff....#
-#..................#
-#..................#
-#.........v........#
-#..................#
-#..................#
-#.......E......C...#
-#..................#
+#..f.....f.....f.v.#
+#..f..#.....#..f...#
+#.iiiiiiiiiiiiiiii.#
+#.f....r....r....f.#
+#..#.....K.....#...#
+#.....f.....f......#
+#..#.....J.....#...#
+#.f....r....r....f.#
+#.iiiiiiiiiiiiiiii.#
+####f.#.....#..f...#
+#..#..f..E..f......#
+#vM#f.....f.....f..#
 ####################
 under1:
 ####################
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddd.......ddddd#
-#dddddd...^.g.ddddd#
-#dddddd.....a.ddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#ffffffffffffffff^f#
+#ffffffffff.......f#
+#ffffffffff.fffff.f#
+#ffffffffffgfffff.f#
+#ffff..z....fffff.f#
+#ffffJfffffffffff.f#
+#ffffffffffffffff.f#
+#ffffffffffffffff.f#
+#ffffffff.v......Ff#
+#f..iiii..fffffffff#
+#f.ffffffffffffffff#
+#^.ffffffffffffffff#
 ####################
 under2:
 ####################
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#fffff.........ffff#
+#fffff.g..H....ffff#
+#fffff........zffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
 ####################

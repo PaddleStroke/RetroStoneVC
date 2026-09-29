@@ -1,5 +1,9 @@
-# Bomber Mole - spring 3. Gimmicks: river with a bridge (bomb it to cut the cat off) and a drifting log bridge,
-# tall grass (hides you from the cat, burns), a sleeping ferret woken by blasts.
+# Bomber Mole - spring 3. Idea: three ways across the river: the bridge (lure the cat over it, then blow it up
+# to strand the cat on the wrong bank), the drifting log, or the long way under the riverbed, two floors down.
+# Gimmicks: river with a bomb-able bridge and a drifting log, tall grass (hides you from the cat, burns; a grub
+# waits inside a patch), holes that loop the three depths, a sleeping ferret woken by blasts.
+# Enemies: tier 1: a ginger cat on the south bank, a sleeping ferret and a sleepy ferret on depth 1, a sleepy
+# ferret in the riverbed tunnel (risk/reward: the tunnel is safe from the cat but the ferret blocks it).
 name: River Crossing
 season: spring
 arc: 1
@@ -14,45 +18,45 @@ R = water + log + flow_right
 
 surface:
 ####################
-#M......www......g.#
-#.......www........#
-#..ddd.......rrr...#
-#..dGd.......rgr...#
-#..ddd...v...r.r...#
-#..................#
+#M....r...r....rrg.#
+#....dd..rr.....r..#
+#..ddd.....ww..rrr.#
+#..dGd..d..ww..rgr.#
+#..ddd..dv.....r.r.#
+#.r........r.......#
 #R}}}}}}}=}}}}}}}}~#
-#..................#
-#..www.....C....ww.#
-#..www..........wwg#
-#.....ddd...E......#
-#.g...dxd..........#
+#...r.....w.....r..#
+#..www..r......ww..#
+#..wgw.....C...wwg.#
+#.....ddd...E..r.v.#
+#.....dxd..r.......#
 ####################
 under1:
 ####################
 #dddddddddddddddddd#
 #dddddddddddddddddd#
-#ddddd.........dddd#
-#ddddd.ddddddd.dddd#
-#dddd....^...d.dddd#
-#dddd.dd.d.d.d.dddd#
-#dddd.dd.dzd...dddd#
-#dddd.dd...g...dddd#
-#dddd..........dddd#
-#ddddddddGddddddddd#
+#ddd.......dddddddd#
+#ddd.v.ddd.dd..dddd#
+#ddd...dd^..z.gdddd#
+#ddddddd.......dddd#
+####################
 #dddddddddddddddddd#
+#ddddd.....g..v.ddd#
+#ddddd.dddddd.F..dd#
+#ddddd.Gdddd.....Hd#
 #dddddddddddddddddd#
 ####################
 under2:
 ####################
 #dddddddddddddddddd#
 #dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#ddd...dddddddddddd#
+#ddd.H.dddddddddddd#
+#ddd...dddddddddddd#
+#ddddd.dddddddddddd#
+#ddddd..F.rr..ddddd#
+#dddddddddddd.ddddd#
+#dddddddddddg.H.ddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#

@@ -1,6 +1,9 @@
-# Bomber Mole - spring 4. Gimmicks: thin floors (a blast opens a hole; the rubble stuns what is below),
-# sealed chambers on both undergrounds, a timed gate with a pressure plate on EACH side (the first
-# version had the plate outside only: entering the exit enclosure early trapped the mole).
+# Bomber Mole - spring 4. Idea: trapdoors: the grubs lie in sealed chambers under thin floors; bomb a floor to
+# open a hole into the chamber below (and drop the rubble on the ferret waiting there), two floors deep.
+# Gimmicks: thin floors (a way in, and a weapon: the rubble stuns what is below), sealed chambers on both
+# undergrounds, a timed gate with a pressure plate on EACH side (the first version had the plate outside only:
+# entering the exit enclosure early trapped the mole). Enemies: tier 1: a ginger cat on the lawn, a sleepy
+# ferret in each chamber (risk/reward: drop in on it, or stun it first with the rubble).
 name: Thin Floors
 season: spring
 arc: 1
@@ -15,18 +18,18 @@ T = gate + chan:1 + timed:20
 
 surface:
 ####################
-#M.......#....g....#
-#........#.........#
+#M.......#....g..r.#
+#...p....#.w.......#
 #..___...#..rrrrr..#
-#..___...#..r._.r..#
-#........#..rrrrr..#
-#####.####.........#
-#...........P......#
-#.ddd..............#
-#.dgd......###T###.#
-#.ddd......#P....#.#
-#..........#..E..#.#
-#...h......#######.#
+#..___.r.#..r._.r..#
+#......r.#..rrrrr.w#
+#####.####......C..#
+#...r.......P...ww.#
+#.ddd..pp..r.......#
+#.dgd..p...###T###.#
+#.ddd..r...#P....#.#
+#......r...#..E..#r#
+#...h..r...#######.#
 ####################
 under1:
 ####################

@@ -99,7 +99,7 @@ def prop_families(head, cells, has_boss):
 
 def parse_spec(spec):
     out = {"t": "floor", "item": None, "actor": None, "chan": 0, "log": False, "push": None, "etype": None,
-           "timed": 0}
+           "timed": 0, "blow": None, "asleep": False}
     for tok in spec.replace("+", " ").split():
         if tok in TERRAIN:
             out["t"] = {"dirt": "soft_dirt", "rock": "hard_rock", "vent": "steam_vent", "corn": "tall_grass",
@@ -114,7 +114,9 @@ def parse_spec(spec):
             k, t = tok.split(":")
             out["actor"], out["etype"] = k, TYPE_OF[(k, max(1, min(4, int(t))))]
         elif tok == "asleep":
-            pass
+            out["asleep"] = True
+        elif tok[:5] == "blow_" and tok[5:] in ("up", "down", "left", "right"):
+            out["blow"] = tok[5:]               # a windmill's wind lane (points away from the windmill)
         elif tok == "log":
             out["log"] = True
         elif tok.startswith("chan:"):
@@ -366,7 +368,213 @@ def check(path):
             raise LevelError("%s: SOFTLOCK: from depth %d, %d,%d the %s at depth %d, %d,%d can no longer be "
                              "reached (a one-way gate?)" % (path, c[0], c[1], c[2],
                                                             "exit" if m in exits else "grub", m[0], m[1], m[2]))
+    design_rules(path, head, cells, g, seen, start, grubs, boss, exits)
     return head, len(grubs) + len(boss)
+
+
+# ---- design rules (DESIGN.md, "Level ideas") ------------------------------------------------------------
+ENEMY_START_DIST = 6        # no enemy closer than this (Manhattan, same depth) to the mole's start
+MAX_EMPTY_AREA = 20         # largest rectangle of plain floor (both sides 3 or more) on a playable depth
+SECTOR_W, SECTOR_H = 6, 6   # the 18x12 inside of a depth, cut into 3x2 sectors
+SECTOR_MIN_OPEN = 12        # a sector with at least this many open cells...
+SECTOR_MIN_FEATURES = 0.25  # ...needs this fraction of its cells to be something other than plain floor
+GIMMICK_POINT_DIST = 2      # a point gimmick lies within this many cells (Chebyshev) of a required path
+GIMMICK_AREA_DIST = 1       # an area gimmick (a patch, lane or sheet) touches a required path
+POINT_GIMMICKS = {"plate", "lever", "gate", "pipe", "steam_vent", "bridge", "sprinkler", "crate", "windmill",
+                  "thin_floor"}
+AREA_GIMMICKS = {"ice", "thin_ice", "tall_grass", "puddle", "mud"}      # plus pushed floors, currents, logs
+OPEN = {"floor", "puddle", "thin_floor", "exit", "bridge", "ice", "thin_ice", "mud", "tall_grass", "burnt",
+        "plate", "steam_vent", "hole_up", "ladder", "hole_down", "pipe"}
+ENTER_COST = {"soft_dirt": 3, "leaves": 2, "hard_rock": 5, "roots": 5, "frozen_dirt": 5, "crate": 5, "water": 2}
+BLOW = {"up": (0, -1), "down": (0, 1), "left": (-1, 0), "right": (1, 0)}
+
+
+def playable_depths(cells, seen, grubs, boss):
+    """A depth is playable when it holds a grub (or the boss) or an open walkable cell (a floor, not a
+    block to dig) the mole can reach; an all-solid depth that is never entered is not."""
+    out = set(t[0] for t in grubs + boss)
+    for (d, x, y) in seen:
+        if cells[d][y][x]["t"] in OPEN:
+            out.add(d)
+    return out
+
+
+def plain(c):
+    return c["t"] == "floor" and not c["item"] and c["actor"] in (None, "mole") and not c["push"]
+
+
+def empty_rect(cells, d):
+    """Area and box of the largest rectangle of plain floor with both sides of 3 cells or more."""
+    best = (0, None)
+    for top in range(1, GH - 1):
+        cols = [True] * GW
+        for bot in range(top, GH - 1):
+            for x in range(GW):
+                cols[x] = cols[x] and plain(cells[d][bot][x])
+            h = bot - top + 1
+            if h < 3:
+                continue
+            run = 0
+            for x in range(GW + 1):
+                if x < GW and cols[x]:
+                    run += 1
+                    continue
+                if run >= 3 and run * h > best[0]:
+                    best = (run * h, (x - run, top, run, h))
+                run = 0
+    return best
+
+
+def sector_density(cells, d):
+    """(fraction of non-plain cells, open cells, x, y) of each sector of the depth's 18x12 inside."""
+    out = []
+    for sy in range(1, GH - 1, SECTOR_H):
+        for sx in range(1, GW - 1, SECTOR_W):
+            box = [cells[d][y][x] for y in range(sy, min(sy + SECTOR_H, GH - 1))
+                   for x in range(sx, min(sx + SECTOR_W, GW - 1))]
+            n_open = sum(1 for c in box if c["t"] in OPEN)
+            feat = sum(1 for c in box if not plain(c))
+            out.append((feat / float(len(box)), n_open, sx, sy))
+    return out
+
+
+def dijkstra(g, src, cells, reverse=False):
+    import heapq
+    if reverse:
+        rg = {}
+        for a, outs in g.items():
+            for b in outs:
+                rg.setdefault(b, []).append(a)
+        g = rg
+    dist = {src: 0}
+    q = [(0, src)]
+    while q:
+        k, c = heapq.heappop(q)
+        if k > dist.get(c, 1e9):
+            continue
+        for n in g.get(c, ()):
+            # the cost of a move is the cost of entering its destination (reverse: of entering c)
+            dst = c if reverse else n
+            w = ENTER_COST.get(cells[dst[0]][dst[2]][dst[1]]["t"], 1)
+            if k + w < dist.get(n, 1e9):
+                dist[n] = k + w
+                heapq.heappush(q, (k + w, n))
+    return dist
+
+
+def required_cells(g, cells, start, grubs, boss, exits, extra_targets=()):
+    """Cells on a required path: a shortest path (digging costs more than walking) from the start to
+    each grub, the boss and the exit, and from each grub to the exit (the player's last leg)."""
+    req = set()
+    targets = grubs + boss + exits + list(extra_targets)
+    legs = [(start, t) for t in targets] + [(s, exits[0]) for s in grubs + list(extra_targets)]
+    fwd, back = {}, {}
+    for s, t in legs:
+        if s not in fwd:
+            fwd[s] = dijkstra(g, s, cells)
+        if t not in back:
+            back[t] = dijkstra(g, t, cells, reverse=True)
+        ds, dt = fwd[s], back[t]
+        if t not in ds:
+            continue
+        total = ds[t]
+        req.update(c for c, k in ds.items() if c in dt and k + dt[c] == total)
+    return req
+
+
+def design_rules(path, head, cells, g, seen, start, grubs, boss, exits):
+    """The design rules (DESIGN.md, "Level ideas"); raises one LevelError listing every problem."""
+    T = lambda d, x, y: cells[d][y][x]["t"]  # noqa: E731
+    errs = []
+    play = playable_depths(cells, seen, grubs, boss)
+    head["_playable"] = play
+    # 1. an enemy on every playable depth, none next to the start
+    for d in sorted(play):
+        foes = [(x, y) for y in range(GH) for x in range(GW)
+                if cells[d][y][x]["actor"] in ("ferret", "cat", "boss") and (d, x, y) in seen]
+        if not foes:
+            errs.append("NO ENEMY on playable depth %d (every depth with grubs or reachable floor needs one)" % d)
+        if d == start[0]:
+            for x, y in foes:
+                if abs(x - start[1]) + abs(y - start[2]) < ENEMY_START_DIST:
+                    errs.append("ENEMY AT START: the enemy at %d,%d is closer than %d cells to the mole" %
+                                (x, y, ENEMY_START_DIST))
+    # 2. no big empty areas
+    stats = []
+    for d in sorted(play):
+        area, box = empty_rect(cells, d)
+        dens = [s for s in sector_density(cells, d) if s[1] >= SECTOR_MIN_OPEN]
+        stats.append((d, area, min([s[0] for s in dens] or [1.0])))
+        if area > MAX_EMPTY_AREA:
+            errs.append("EMPTY AREA on depth %d: %dx%d cells of plain floor at %d,%d (max %d cells)" %
+                        (d, box[2], box[3], box[0], box[1], MAX_EMPTY_AREA))
+        for frac, n_open, sx, sy in dens:
+            if frac < SECTOR_MIN_FEATURES:
+                errs.append("EMPTY AREA on depth %d: the sector at %d,%d is %d%% plain floor (at most %d%%)" %
+                            (d, sx, sy, round(100 * (1 - frac)), round(100 * (1 - SECTOR_MIN_FEATURES))))
+    head["_density"] = stats
+    if "--stats" in sys.argv:
+        print("  %-12s %s" % (os.path.basename(path)[:-4], "  ".join("d%d: empty %2d, sectors %2d%%" % (d, a, round(100 * f))
+                                                                for d, a, f in stats)))
+    # 3. every gimmick matters: it lies on or near a required path
+    boss_kind = head.get("boss") or {"spring": "barncat", "summer": "farmer", "autumn": "fox",
+                                     "winter": "owl"}[head["season"]]
+    extra = []
+    if boss and boss_kind == "farmer":          # his crates shield him: blowing them up is required
+        extra = [(d, x, y) for d in range(3) for y in range(GH) for x in range(GW) if T(d, x, y) == "crate"]
+    req = required_cells(g, cells, start, grubs, boss, exits, extra)
+    head["_required"] = req
+
+    def near(d, x, y, r):
+        return any((d, x + dx, y + dy) in req for dx in range(-r, r + 1) for dy in range(-r, r + 1))
+    # a gate on a required path makes the plates and levers of its channel matter (wherever they are)
+    gates_ok = {cells[d][y][x]["chan"] for d in range(3) for y in range(GH) for x in range(GW)
+                if T(d, x, y) == "gate" and near(d, x, y, 1)}
+    for d in range(3):
+        for y in range(GH):
+            for x in range(GW):
+                c = cells[d][y][x]
+                t = c["t"]
+                if t in ("plate", "lever", "gate") and c["chan"] in gates_ok:
+                    continue
+                if t == "windmill" and c["blow"]:
+                    dx, dy = BLOW[c["blow"]]
+                    lx, ly, lane = x + dx, y + dy, []
+                    while 0 <= lx < GW and 0 <= ly < GH and (T(d, lx, ly) in OPEN or T(d, lx, ly) == "water"):
+                        lane.append((lx, ly))
+                        lx, ly = lx + dx, ly + dy
+                    if not near(d, x, y, GIMMICK_POINT_DIST) and \
+                            not any(near(d, a, b, GIMMICK_AREA_DIST) for a, b in lane):
+                        errs.append("USELESS GIMMICK: the windmill at depth %d, %d,%d blows a lane that no required "
+                                    "path crosses" % (d, x, y))
+                    continue
+                if t in POINT_GIMMICKS and not near(d, x, y, GIMMICK_POINT_DIST):
+                    errs.append("USELESS GIMMICK: %s at depth %d, %d,%d is more than %d cells from every required "
+                                "path (start to a grub or the exit)" % (t, d, x, y, GIMMICK_POINT_DIST))
+    # area gimmicks: each connected patch of one kind touches a required path
+    kind = lambda c: "wind/current" if c["push"] or c["log"] else (c["t"] if c["t"] in AREA_GIMMICKS else None)  # noqa: E731
+    done = set()
+    for d in range(3):
+        for y in range(GH):
+            for x in range(GW):
+                k = kind(cells[d][y][x])
+                if not k or (d, x, y) in done:
+                    continue
+                patch, todo = [], [(x, y)]
+                done.add((d, x, y))
+                while todo:
+                    a, b = todo.pop()
+                    patch.append((a, b))
+                    for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                        na, nb = a + dx, b + dy
+                        if 0 <= na < GW and 0 <= nb < GH and (d, na, nb) not in done and kind(cells[d][nb][na]) == k:
+                            done.add((d, na, nb))
+                            todo.append((na, nb))
+                if not any(near(d, a, b, GIMMICK_AREA_DIST) for a, b in patch):
+                    errs.append("USELESS GIMMICK: the %s patch at depth %d, %d,%d (%d cells) does not touch a "
+                                "required path" % (k, d, x, y, len(patch)))
+    if errs:
+        raise LevelError("%s: %s" % (path, "\n        ".join(errs)))
 
 
 def main():
