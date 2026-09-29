@@ -99,6 +99,7 @@ void sfx_init(void)
     static const tone splash[] = {{3, 600, 200, 80, 20}};
     static const tone fizz[] = {{1, 3000, 2500, 20, 10}};
     static const tone sw[] = {{0, 1500, 1500, 15, 40}, {0, 900, 900, 25, 40}};
+    static const tone lever[] = {{0, 2400, 2400, 6, 60}, {0, 700, 600, 22, 50}};   /* a mechanical clack */
     static const tone steam[] = {{3, 90, 90, 100, 15}};
     static const tone woof[] = {{0, 320, 200, 90, 55}, {0, 0, 0, 60, 0}, {0, 320, 200, 90, 55}};
     static const tone splat[] = {{3, 200, 80, 120, 60}};
@@ -125,6 +126,7 @@ void sfx_init(void)
     M(SFX_STEAM, steam, 650, 45, 1);
     M(SFX_WOOF, woof, 50, 30, 2);
     M(SFX_SPLAT, splat, 150, 60, 2);
+    M(SFX_LEVER, lever, 30, 70, 1);
 #undef M
     rs_echo(90, 30, 25);
 }

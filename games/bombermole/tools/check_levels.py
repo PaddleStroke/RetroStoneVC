@@ -122,6 +122,8 @@ def parse_spec(spec):
         elif tok.startswith("timed:"):
             out["timed"] = int(tok[6:])
             pass
+        elif tok[:5] == "blow_" and tok[5:] in ("up", "down", "left", "right"):   # windmill: where it blows
+            out["blow"] = tok
         elif tok[:5] in ("push_", "flow_") and tok[5:] in ("up", "down", "left", "right"):
             out["push"] = tok
         else:
@@ -295,10 +297,15 @@ def check(path):
                 c = cells[d][y][x]
                 if c["t"] == "plate" and (d, x, y) in region:
                     plates.setdefault(region[(d, x, y)], set()).add(c["chan"])
-                if c["t"] == "lever":                     # bumped from any side
+                if c["t"] == "lever":                     # bumped from any side, or hit by a blast
+                    rng = int(head.get("range", "2") or 2)
                     for dx, dy in DIRS:
-                        if (d, x + dx, y + dy) in region:
-                            levers.setdefault(region[(d, x + dx, y + dy)], set()).add(c["chan"])
+                        for r in range(1, rng + 1):       # a bomb r cells away, nothing unbreakable between
+                            p = (d, x + dx * r, y + dy * r)
+                            if not inside(p[1], p[2]) or T(*p) in SOLID_FOREVER or T(*p) == "gate":
+                                break
+                            if p in region:
+                                levers.setdefault(region[p], set()).add(c["chan"])
 
     def graph(lever_chans):
         """Directed moves between cells (gate cells included)."""

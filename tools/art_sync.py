@@ -119,6 +119,9 @@ def prompt(strip, brief, sheets):
         frames = (frames + ["frame %d" % (i + 1) for i in range(strip.frames)])[:strip.frames]
     fill = "Fills the whole cell edge to edge, no magenta inside. " if strip.group in FILL_GROUPS or \
         strip.id == "hud_panel" else "Flat magenta around the drawing. "
+    if strip.entry is not None and strip.group == "propbg" and sheets.is_overlay(strip.entry.name):
+        fill = ("Drawn OVER the ground (the game draws the grass, snow or water under it): flat "
+                "magenta around the object, no ground of its own. ")
     if strip.frames == 1:
         fr = "One frame"
     else:
@@ -543,6 +546,8 @@ def assemble_tiles_v2(sheets, strips, imported, written):
             sid = "tile_v2_%s_%s" % (season, name)
             if sid in imported:
                 im = cell_img(imported[sid])
+            elif name.startswith("dirt_mound"):   # left empty: the build cuts the soil block to a mound
+                continue
             else:
                 x, y, w, h = sheets.frame_rects(sheets.BY_NAME[src], si)[0]
                 im = base.crop((x, y, x + w, y + h))

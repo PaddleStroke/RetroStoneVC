@@ -45,13 +45,15 @@ def speckle(d, rng, colors, n):
 def prop_bg(name, frame):
     P = PB
     im, d = canvas()
-    if name == "bridge":
-        rect(d, 0, 0, 15, 15, P["water"])
+    if name in ("bridge", "bridge_v"):
+        # drawn over the water (magenta around): planks across the way, rails along it
         rect(d, 0, 2, 15, 13, P["wood"])
         for x in (3, 7, 11, 15):
             rect(d, x, 2, x, 13, P["wood_d"])
         rect(d, 0, 2, 15, 2, P["wood_d"])
         rect(d, 0, 13, 15, 13, P["wood_d"])
+        if name == "bridge_v":
+            im = im.transpose(Image.Transpose.TRANSPOSE)
     elif name == "ice":
         rect(d, 0, 0, 15, 15, P["ice"])
         d.line((2, 12, 6, 8), fill=P["white"])
@@ -70,15 +72,13 @@ def prop_bg(name, frame):
             ell(d, x - 2, y - 1, x + 2, y + 1, P["mud_l"])
     elif name in ("tall_grass", "corn"):
         c = P["green"] if name == "tall_grass" else P["corn"]
-        rect(d, 0, 0, 15, 15, P["green_d"])
         for x in range(0, 16, 3):
             d.line((x, 15, x + 1, 1), fill=c)
             px(d, x + 1, 0, P["corn"] if name == "corn" else c)
     elif name == "burnt":
         rect(d, 0, 0, 15, 15, P["mud"])
         speckle(d, random.Random(4), [P["dark"], P["grey"]], 20)
-    elif name == "gate":
-        rect(d, 0, 0, 15, 15, P["mud_l"])
+    elif name == "gate":     # drawn over the ground: magenta around
         if frame == 0:
             for x in (1, 5, 9, 13):
                 rect(d, x, 1, x + 1, 14, P["grey"])
@@ -87,13 +87,11 @@ def prop_bg(name, frame):
         else:
             rect(d, 0, 1, 1, 14, P["grey"])
             rect(d, 14, 1, 15, 14, P["grey"])
-    elif name == "plate":
-        rect(d, 0, 0, 15, 15, P["mud_l"])
+    elif name == "plate":     # drawn over the ground: magenta around
         d.rectangle((2, 2, 13, 13), fill=P["grey"] if frame == 0 else P["dark"], outline=P["dark"])
         if frame == 0:
             rect(d, 3, 3, 12, 3, P["white"])
-    elif name == "lever":
-        rect(d, 0, 0, 15, 15, P["mud_l"])
+    elif name == "lever":     # drawn over the ground: magenta around
         rect(d, 4, 11, 11, 14, P["grey"])
         if frame == 0:
             d.line((8, 11, 4, 3), fill=P["dark"], width=2)
@@ -101,48 +99,43 @@ def prop_bg(name, frame):
         else:
             d.line((8, 11, 12, 3), fill=P["dark"], width=2)
             ell(d, 11, 1, 14, 4, P["green"])
-    elif name == "steam_vent":
-        rect(d, 0, 0, 15, 15, P["mud"])
+    elif name == "steam_vent":     # drawn over the ground: magenta around
         ell(d, 2, 2, 13, 13, P["grey"], P["dark"])
         ell(d, 5, 5, 10, 10, P["dark"])
         if frame:
             ell(d, 4, 1, 11, 8, P["white"])
             ell(d, 6, 4, 9, 9, P["ice"])
-    elif name == "pipe":
-        rect(d, 0, 0, 15, 15, P["mud"])
+    elif name == "pipe":     # drawn over the ground: magenta around
         ell(d, 1, 1, 14, 14, P["grey"], P["dark"])
         ell(d, 4, 4, 11, 11, P["dark"])
     elif name == "crate":
-        rect(d, 0, 0, 15, 15, P["wood"])
-        d.rectangle((0, 0, 15, 15), outline=P["wood_d"])
-        d.line((0, 0, 15, 15), fill=P["wood_d"])
-        d.line((15, 0, 0, 15), fill=P["wood_d"])
+        rect(d, 1, 1, 14, 13, P["wood"])
+        d.rectangle((1, 1, 14, 13), outline=P["wood_d"])
+        d.line((1, 1, 14, 13), fill=P["wood_d"])
+        d.line((14, 1, 1, 13), fill=P["wood_d"])
+        for x in range(1, 15, 2):
+            px(d, x, 14, P["dark"])                          # contact shadow
         ell(d, 5, 5, 10, 10, P["red"])
-    elif name == "splat":
-        rect(d, 0, 0, 15, 15, P["mud_l"])
+    elif name == "splat":     # drawn over the ground: magenta around
         d.polygon([(8, 2), (10, 6), (14, 5), (11, 9), (13, 13), (8, 11), (3, 14), (5, 9), (1, 6), (6, 6)],
                   fill=P["red"])
-    elif name == "beehive":
-        rect(d, 0, 0, 15, 15, P["green"])
+    elif name == "beehive":     # drawn over the ground: magenta around
         ell(d, 3, 2, 12, 14, P["corn"], P["dark"])
         for y in (5, 8, 11):
             rect(d, 4, y, 11, y, P["wood_d"])
         rect(d, 7, 11, 8, 12, P["dark"])
-    elif name == "well":
-        rect(d, 0, 0, 15, 15, P["green"])
+    elif name == "well":     # drawn over the ground: magenta around
         ell(d, 1, 3, 14, 15, P["grey"], P["dark"])
         ell(d, 4, 6, 11, 12, P["water"])
         rect(d, 1, 0, 2, 8, P["wood_d"])
         rect(d, 13, 0, 14, 8, P["wood_d"])
         rect(d, 1, 0, 14, 1, P["wood"])
-    elif name == "mushroom":
-        rect(d, 0, 0, 15, 15, P["green_d"])
+    elif name == "mushroom":     # drawn over the ground: magenta around
         rect(d, 6, 8, 9, 14, P["white"])
         ell(d, 1, 2, 14, 10, P["red"], P["dark"])
         for (x, y) in ((4, 5), (9, 4), (11, 7)):
             px(d, x, y, P["white"])
-    elif name in ("rails_h", "rails_v"):
-        rect(d, 0, 0, 15, 15, P["mud"])
+    elif name in ("rails_h", "rails_v"):     # drawn over the ground: magenta around
         for k in (1, 5, 9, 13):
             if name == "rails_h":
                 rect(d, k, 3, k + 1, 12, P["wood_d"])
@@ -154,8 +147,7 @@ def prop_bg(name, frame):
         else:
             rect(d, 4, 0, 4, 15, P["grey"])
             rect(d, 11, 0, 11, 15, P["grey"])
-    elif name == "apple_tree":
-        rect(d, 0, 0, 15, 15, P["green"])
+    elif name == "apple_tree":     # drawn over the ground: magenta around
         rect(d, 7, 10, 8, 15, P["wood_d"])
         ell(d, 1, 0, 14, 11, P["green_d"], P["dark"])
         for (x, y) in ((4, 4), (10, 3), (7, 7), (11, 8)):
@@ -177,10 +169,16 @@ def prop_obj(name, frame):
             px(d, (x + frame * 2) % 16, y, P["water"])
             px(d, (x + frame * 2 + 1) % 16, y, P["white"])
     elif name == "log":
-        ell(d, 0, 4, 15, 12, P["wood"], P["wood_d"])
-        ell(d, 11, 5, 15, 11, P["wood_d"])
-        ell(d, 12, 6, 14, 10, P["wood"])
-        d.line((2, 7, 9, 7), fill=P["wood_d"])
+        # a short round log: bark with grain lines, both ends cut (light, with rings), no dark end
+        rect(d, 3, 4, 12, 12, P["wood"])
+        d.line((3, 4, 12, 4), fill=P["wood_d"])
+        d.line((3, 12, 12, 12), fill=P["wood_d"])
+        for y, x0, x1 in ((6, 4, 8), (8, 6, 11), (10, 4, 9)):
+            d.line((x0, y, x1, y), fill=P["wood_d"])
+        for cx in (2, 13):
+            ell(d, cx - 2, 4, cx + 2, 12, (226, 190, 130), P["wood_d"])
+            ell(d, cx - 1, 6, cx + 1, 10, (226, 190, 130), (170, 125, 70))
+            px(d, cx, 8, (170, 125, 70))
     elif name == "wind":
         for i, y in enumerate((4, 8, 12)):
             x0 = (frame * 4 + i * 5) % 10
@@ -248,6 +246,21 @@ def windmill(frame):
         d.polygon([(cx + 4 * math.cos(a), cy + 4 * math.sin(a)), (x1, y1),
                    (cx + 12 * math.cos(b), cy + 12 * math.sin(b))], fill=P["white"], outline=P["grey"])
     ell(d, 14, 9, 18, 13, P["wood"], P["dark"])
+    return im
+
+
+def windmill_side(frame):
+    """Side view: the tower, and the sails on its right side seen edge-on (they blow to the right)."""
+    P = PR
+    im, d = canvas(32, 32)
+    d.polygon([(9, 31), (21, 31), (19, 12), (11, 12)], fill=P["pale"], outline=P["dark"])
+    d.polygon([(9, 13), (21, 13), (16, 5)], fill=P["roof"], outline=P["dark"])
+    rect(d, 13, 24, 16, 31, P["wood_d"])
+    rect(d, 20, 9, 23, 12, P["wood_d"])                      # the shaft out of the roof, to the right
+    h = [13, 8, 3, 8][frame]                                 # the sails turn: edge-on, their height changes
+    rect(d, 24, 11 - h, 26, 11 + h, P["white"])
+    d.rectangle((24, 11 - h, 26, 11 + h), outline=P["grey"])
+    rect(d, 23, 10, 25, 12, P["wood"])
     return im
 
 
@@ -385,6 +398,8 @@ def draw(e, frame):
         return critter(e.name, frame)
     if e.name == "windmill":
         return windmill(frame)
+    if e.name == "windmill_side":
+        return windmill_side(frame)
     if e.w == 32 or e.group.startswith("boss_"):      # 48 or 64 px bosses are resized by the caller
         return boss32(e.name, frame)
     return prop_obj(e.name, frame)

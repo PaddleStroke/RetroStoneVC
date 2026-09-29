@@ -131,7 +131,8 @@ code to turn a whole sheet into strips.
 | hud_cursor | items_fx.png | 6 | 3 | 16x16 | 1 | hud | Menu cursor (arrow pointing right) |
 | hud_panel | items_fx.png | 7 | 3 | 16x16 | 1 | hud | HUD panel background (solid, dark) |
 | dust | items_fx.png | 8-10 | 3 | 16x16 | 3 | bomb | Dust puff (digging, landing), growing and fading |
-| bridge | props.png | 0 | 0 | 16x16 | 1 | propbg | Wooden bridge over water (a blast destroys it) |
+| bomb_remote | items_fx.png | 11-12 | 3 | 16x16 | 2 | bomb | Remote-controlled bomb: no fuse, a short antenna with a light, blinking (light off, light on) |
+| bridge | props.png | 0 | 0 | 16x16 | 1 | propbg | Wooden bridge crossed left to right: planks running up-down, rails along the top and bottom (drawn over the water; a blast destroys it) |
 | ice | props.png | 1 | 0 | 16x16 | 1 | propbg | Slippery ice (you slide until you hit something) |
 | thin_ice | props.png | 2-3 | 0 | 16x16 | 2 | propbg | Thin ice: intact, cracked (breaks into water after 2 crossings) |
 | mud | props.png | 4 | 0 | 16x16 | 1 | propbg | Mud (under a puddle; slows you) |
@@ -171,3 +172,5 @@ code to turn a whole sheet into strips.
 | farmer | props.png | 0-15 | 6-7 | 32x32 | 8 | boss_farmer | Summer boss: the farmer: idle x2, throw x2, angry x2, hurt x2 |
 | owl | props.png | 0-7 | 8-9 | 32x32 | 4 | boss_owl | Winter boss: the snowy owl (perch, flap, swoop, hurt) |
 | badger | props.png | 8-15 | 8-9 | 32x32 | 4 | boss_badger | Summer mini-boss: the badger (walk x2, dig, hurt) |
+| bridge_v | props.png | 0 | 3 | 16x16 | 1 | propbg | Wooden bridge crossed up and down: planks running left-right, rails along the left and right (drawn over the water; a blast destroys it) |
+| windmill_side | props.png | 0-7 | 10-11 | 32x32 | 4 | prop | Windmill seen from the side, sails on the RIGHT (it blows to the right; mirrored for the left), 4 frames of the sails turning |

@@ -70,6 +70,17 @@ int  rs_warn_count(int kind);                   /* excess events seen */
  * the game's embedded pack. Returns NULL if not found. The pointer stays
  * valid until rs_asset_free() or shutdown. */
 const void *rs_asset(const char *name, size_t *size);
+/* Development: forget the cached data-directory copy of an asset and look for it again (level
+ * editing without a rebuild). Falls back to the embedded asset. */
+const void *rs_asset_reload(const char *name, size_t *size);
+
+/* ---- Development aids (desktop frontends) --------------------------------- */
+/* The function key pressed this frame (1..10 for F1..F10; F11/F12 belong to the frontend), 0 = none.
+ * Consoles and the libretro core always return 0. */
+int rs_dev_key(void);
+/* Cost and sprite counts of the previous frame (host clock). */
+typedef struct rs_perf_info { uint32_t update_us, render_us; int sprites, max_sprites_line; } rs_perf_info;
+void rs_perf(rs_perf_info *out);
 
 /* ---- Colour ----------------------------------------------------------- */
 /* RGB555 in SNES CGRAM order: 0bbbbbgg gggrrrrr, 5 bits per channel. */

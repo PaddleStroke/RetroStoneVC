@@ -299,6 +299,19 @@ def bomb(frame):
     return im
 
 
+def bomb_remote(frame):
+    """A remote bomb: no fuse, a short antenna with a light that blinks."""
+    P = BOMB
+    im, d = canvas()
+    ell(d, 2, 4, 13, 15, P["black"], P["out"])
+    rect(d, 5, 7, 6, 8, P["hl"])
+    d.line((10, 5, 12, 1), fill=P["out"])
+    ell(d, 11, 0, 13, 2, P["red"] if frame else P["out"])
+    if frame:
+        px(d, 12, 0, P["yellow"])
+    return im
+
+
 def dust(frame):
     P = BOMB
     im, d = canvas()
@@ -635,6 +648,8 @@ def draw_entry(e, frame, season):
         return boss(frame)
     if n == "bomb":
         return bomb(frame)
+    if n == "bomb_remote":
+        return bomb_remote(frame)
     if n == "dust":
         return dust(frame)
     if n == "grub":

@@ -71,6 +71,8 @@ typedef struct cell {
     uint16_t timer;             /* regrow / timed gate / splat */
     uint8_t regrow;             /* terrain to restore when timer runs out (0 = none) */
     uint8_t timed;              /* gate: open time in 1/10 s when triggered (0 = follows channel) */
+    uint8_t blow;               /* windmill: DIR_* + 1 the wind blows (away from it; 0 = down) */
+    uint8_t lane;               /* 1 when pushdir comes from a windmill's lane (recomputed) */
 } cell;
 
 typedef struct spawn {
@@ -150,13 +152,16 @@ typedef struct world {
     uint8_t chan_on[NCHAN];              /* plates pressed / levers on */
     uint16_t chan_timer[NCHAN];          /* timed gates */
     uint8_t lever[NCHAN];
+    uint8_t chan_flash[NCHAN];           /* frames left of the linked-gate flash (lever toggled) */
+    int pickup;                          /* IT_* picked up this frame (EV_PICKUP) */
+    uint16_t wind_fx[4];                 /* wind streaks spawned per direction (tests) */
     int dirty[NDEPTH];                   /* map needs redraw */
     uint8_t cell_dirty[NDEPTH][GH][GW];
     int events;                          /* EV_* raised this frame (for the game flow) */
     int shake;
 } world;
 
-enum { EV_DEPTH = 1, EV_EXIT = 2, EV_DEAD = 4, EV_BOSS_DOWN = 8, EV_GRUB = 16, EV_EXIT_OPEN = 32 };
+enum { EV_DEPTH = 1, EV_EXIT = 2, EV_DEAD = 4, EV_BOSS_DOWN = 8, EV_GRUB = 16, EV_EXIT_OPEN = 32, EV_PICKUP = 64 };
 
 /* ---- level.c ---- */
 int  level_parse(level_def *L, const char *text, size_t len, const char *fname);
@@ -174,6 +179,7 @@ int  world_danger(int depth, int from_depth);
 int  world_enemies(int depth);
 int  world_gust_on(void);
 int  world_vent_on(void);
+int  world_wind_lanes(int counts[4]);            /* recompute the windmill lanes; cells per direction */
 extern int pending_depth, pending_from;          /* depth change requested by the player */
 
 /* ---- draw.c ---- */
@@ -202,19 +208,23 @@ extern int view_slot;
 /* ---- ui.c ---- */
 void ui_init_level(void);
 int  ui_grubs(int depth);
-void ui_pause_screen(int cursor);
+#define UI_DEV_ITEMS 6
+void ui_pause_screen(int cursor, int dev, int quit_ask);   /* quit_ask: 0, 1 = YES, 2 = NO highlighted */
+void ui_perf_overlay(void);
+extern int dev_god, dev_reveal, dev_perf;
 void ui_screen_done(void);
 void ui_banner_exit_open(void);
 void ui_level_banner(const level_def *L);
-const uint16_t *ui_glow_meta(void);
 void ui_glow_pulse(uint32_t t);
 void ui_play_overlays(int view_depth);
+void ui_pickup_banner(int item);
+void ui_hud_extras(void);
 
 /* ---- sfx.c ---- */
 enum sfx_id {
     SFX_BOMB_DROP, SFX_FUSE, SFX_BLAST, SFX_BREAK, SFX_DIG, SFX_GRUB, SFX_POWERUP, SFX_HURT,
     SFX_KO, SFX_EXIT_OPEN, SFX_DEPTH, SFX_ENEMY_DOWN, SFX_POUNCE, SFX_BOSS_HIT, SFX_MENU_MOVE,
-    SFX_MENU_OK, SFX_SPLASH, SFX_FIZZLE, SFX_SWITCH, SFX_STEAM, SFX_WOOF, SFX_SPLAT, SFX_COUNT
+    SFX_MENU_OK, SFX_SPLASH, SFX_FIZZLE, SFX_SWITCH, SFX_STEAM, SFX_WOOF, SFX_SPLAT, SFX_LEVER, SFX_COUNT
 };
 void sfx_init(void);
 void sfx(int id);

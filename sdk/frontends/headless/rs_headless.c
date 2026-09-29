@@ -18,6 +18,7 @@
  * Input script: one event per line, '#' starts a comment.
  *     <frame> [P1..P4] <BUTTONS|->       hold BUTTONS (B+UP...) from <frame>
  *     <frame> [P1..P4] tap <BUTTONS>     hold for 2 frames, then release
+ *     <frame> key F<n>                   press the development key Fn (rs_dev_key) at <frame>
  */
 #include "rs_desktop.h"
 #include <stdio.h>
@@ -65,6 +66,10 @@ static int load_script(const char *path)
             i = 2;
         }
         if (i >= k) continue;
+        if (!strcmp(t[i], "key") && i + 1 < k && (t[i + 1][0] == 'F' || t[i + 1][0] == 'f')) {
+            add_event(f, -1, (uint16_t)atoi(t[i + 1] + 1));
+            continue;
+        }
         if (!strcmp(t[i], "tap")) {
             if (i + 1 >= k) continue;
             add_event(f, port, rsd_buttons(t[i + 1]));
@@ -105,6 +110,7 @@ int main(int argc, char **argv)
         else if (!strcmp(a, "--png") && v) png = argv[++i];
         else if (!strcmp(a, "--scale") && v) scale = atoi(argv[++i]);
         else if (!strcmp(a, "--opt") && v) rsd_option(argv[++i]);
+        else if (!strcmp(a, "--dev")) rsd_option("dev=1");
         else if (!strcmp(a, "--data") && v) rsd_set_data_dir(argv[++i]);
         else if (!strcmp(a, "--sram") && v) sram = argv[++i];
         else if (!strcmp(a, "--wav") && v) wav = argv[++i];
@@ -131,7 +137,8 @@ int main(int argc, char **argv)
     int e = 0;
     for (int f = 0; f < frames; f++) {
         while (e < nev && ev[e].frame <= f) {
-            rs_host_set_pad(ev[e].port, ev[e].buttons, 1);
+            if (ev[e].port < 0) rs_host_set_dev_key(ev[e].buttons);
+            else rs_host_set_pad(ev[e].port, ev[e].buttons, 1);
             e++;
         }
         rs_host_frame();

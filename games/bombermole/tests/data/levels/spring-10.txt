@@ -1,0 +1,61 @@
+# Test arena for the wind tests (not a game level): four windmills, one per direction, each blowing into its
+# own sealed lane; the gust never stops. tests/feature_test.sh spawns the mole in front of each windmill and
+# checks that it ends up displaced AWAY from the windmill, in the direction of the streak particles.
+name: Wind Test
+season: spring
+arc: 1
+level: 10
+gust: 60 60 12
+status: stub
+
+legend:
+R = windmill + blow_right
+T = windmill + blow_left
+D = windmill + blow_down
+U = windmill + blow_up
+
+surface:
+####################
+####################
+#R.................#
+####################
+####################
+#.................T#
+####################
+###D##########.#####
+###.##########.#####
+###.##########.#####
+###.##########.#####
+###.##########.#####
+#M............U..gE#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

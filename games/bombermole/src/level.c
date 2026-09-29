@@ -76,6 +76,11 @@ static int parse_spec(const char *spec, legend_entry *e, char *err, size_t errn)
         else if (!strcmp(tok, "log")) e->log = 1;
         else if (!strncmp(tok, "chan:", 5)) e->c.chan = (uint8_t)clampi(atoi(tok + 5), 0, NCHAN - 1);
         else if (!strncmp(tok, "timed:", 6)) e->c.timed = (uint8_t)clampi(atoi(tok + 6), 1, 255);
+        else if (!strncmp(tok, "blow_", 5)) {           /* windmill: the direction the wind blows */
+            for (int d = 0; d < 4; d++)
+                if (!strcmp(tok + 5, DIR_NAMES[d])) { e->c.blow = (uint8_t)(d + 1); ok = 1; }
+            if (!ok) { snprintf(err, errn, "bad direction in '%s'", tok); return -1; }
+        }
         else if (!strncmp(tok, "push_", 5) || !strncmp(tok, "flow_", 5)) {
             for (int d = 0; d < 4; d++)
                 if (!strcmp(tok + 5, DIR_NAMES[d])) {

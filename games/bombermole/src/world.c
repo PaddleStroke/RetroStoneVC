@@ -336,7 +336,23 @@ static void collect(actor *a)
     case IT_REMOTE: ps->remote = 1; sfx(SFX_POWERUP); break;
     case IT_HEART: ps->hearts = clampi(ps->hearts + 1, 1, 3); sfx(SFX_POWERUP); break;
     }
+    if (c->item != IT_GRUB && a->kind == AK_MOLE) { W.events |= EV_PICKUP; W.pickup = c->item; }
     c->item = IT_NONE;
+}
+
+/* ---- switches: a lever flips its channel when the mole walks into it or a blast hits it ---------- */
+static void lever_toggle(int d, int x, int y)
+{
+    int ch = W.g[d][y][x].chan;
+    W.lever[ch] ^= 1;
+    for (int dd = 0; dd < NDEPTH; dd++)                 /* every lever of the channel shows the state */
+        for (int yy = 0; yy < GH; yy++)
+            for (int xx = 0; xx < GW; xx++) {
+                cell *c = &W.g[dd][yy][xx];
+                if (c->t == TR_LEVER && c->chan == ch) { c->state = W.lever[ch]; mark(dd, xx, yy); }
+            }
+    W.chan_flash[ch] = 60;                              /* the linked gates flash for 1 s */
+    sfx_at(SFX_LEVER, x * CELL);
 }
 
 /* ---- bombs -------------------------------------------------------------------------------- */
@@ -556,6 +572,7 @@ static void explode(bomb *b)
             if (!in_grid(nx, ny)) break;
             cell *c = &W.g[d][ny][nx];
             if (blast_stops(c)) {
+                if (c->t == TR_LEVER) lever_toggle(d, nx, ny);
                 if (c->t != TR_STONE && c->t != TR_PUDDLE && c->t != TR_SPRINKLER && c->t != TR_WINDMILL &&
                     c->t != TR_LEVER && c->t != TR_GATE) {
                     break_cell(d, nx, ny);
@@ -596,7 +613,7 @@ static void update_bombs(void)
 /* ---- blasts, hits ------------------------------------------------------------------------------ */
 static void hurt_player(actor *a)
 {
-    if (a->invul || !a->alive || a->state == 99 || rs_option_int("god", 0)) return;
+    if (a->invul || !a->alive || a->state == 99 || dev_god || rs_option_int("god", 0)) return;
     pstats *ps = &W.ps[a->player];
     ps->hearts--;
     if (ps->hearts <= 0) {
@@ -726,6 +743,56 @@ static void update_switches(void)
         if (W.chan_timer[ch] == 0xffff) W.chan_timer[ch] = 0;
 }
 
+/* ---- windmill lanes --------------------------------------------------------------------------------
+ * A windmill blows AWAY from itself, the way its sails face (cell.blow; front-view windmills blow down):
+ * its lane is the straight line of cells in front of it up to the first solid cell (a wall, a block, a
+ * closed gate...). Cells behind a block are sheltered. Recomputed every frame (a dug or blasted block
+ * lengthens the lane); cells with a push field of their own (the level's gale lanes) keep it. */
+static int wind_stops(const cell *c)
+{
+    switch (c->t) {
+    case TR_STONE: case TR_DIRT: case TR_ROCK: case TR_ROOTS: case TR_FROZEN: case TR_CRATE:
+    case TR_SPRINKLER: case TR_WINDMILL: case TR_LEVER:
+        return 1;
+    case TR_GATE:
+        return !c->state;
+    default:
+        return 0;
+    }
+}
+
+int world_wind_lanes(int counts[4])
+{
+    int n = 0;
+    if (counts) memset(counts, 0, 4 * sizeof counts[0]);
+    for (int d = 0; d < NDEPTH; d++)
+        for (int y = 0; y < GH; y++)
+            for (int x = 0; x < GW; x++) {
+                cell *c = &W.g[d][y][x];
+                if (c->lane) { c->lane = 0; c->pushdir = 0; c->pushkind = PUSH_NONE; }
+            }
+    for (int d = 0; d < NDEPTH; d++)
+        for (int y = 0; y < GH; y++)
+            for (int x = 0; x < GW; x++) {
+                const cell *w = &W.g[d][y][x];
+                if (w->t != TR_WINDMILL) continue;
+                int dir = w->blow ? w->blow - 1 : DIR_DOWN;
+                for (int nx = x + DX[dir], ny = y + DY[dir]; in_grid(nx, ny); nx += DX[dir], ny += DY[dir]) {
+                    cell *c = &W.g[d][ny][nx];
+                    if (wind_stops(c)) break;
+                    if (c->pushdir && !c->lane) continue;          /* a push field of its own */
+                    if (!c->lane) {
+                        c->pushdir = (uint8_t)(dir + 1);
+                        c->pushkind = PUSH_WIND;
+                        c->lane = 1;
+                        if (counts) counts[dir]++;
+                        n++;
+                    }
+                }
+            }
+    return n;
+}
+
 /* ---- push fields (wind, currents) -------------------------------------------------------------- */
 static void update_push(void)
 {
@@ -785,15 +852,25 @@ static void update_push(void)
                     mark(d, nx, ny);
                 }
 particles:
-    if ((gust && W.t % 6 == 0) || W.t % 12 == 0) {
-        int x = rs_rng_range(&rng, GW), y = rs_rng_range(&rng, GH);
+    /* streaks and spray on a few random push cells (their own random numbers: the game's stay as they are) */
+    static rs_rng fxrng;
+    if (W.t == 0) rs_rng_seed(&fxrng, 0xf00dcafeu);
+    if ((gust && W.t % 6 == 0) || W.t % 12 == 0) {   /* the game's random sequence stays as it was */
+        (void)rs_rng_range(&rng, GW);
+        (void)rs_rng_range(&rng, GH);
+    }
+    if ((gust && W.t % 3 == 0) || W.t % 12 == 0)
+    for (int k = 0; k < 10; k++) {
+        int x = rs_rng_range(&fxrng, GW), y = rs_rng_range(&fxrng, GH);
         for (int d = 0; d < NDEPTH; d++) {
             cell *c = &W.g[d][y][x];
             if (!c->pushdir) continue;
             if (c->pushkind == PUSH_WIND && !gust) continue;
             int dir = c->pushdir - 1;
+            if (c->pushkind == PUSH_WIND) W.wind_fx[dir]++;
             fx_add(c->pushkind == PUSH_WIND ? FXP_WIND : FXP_SPRAY, d, x * CELL, y * CELL, 32,
                    DX[dir] * (c->pushkind == PUSH_WIND ? 24 : 10), DY[dir] * (c->pushkind == PUSH_WIND ? 24 : 10));
+            k = 10;                                /* one particle per tick */
         }
     }
 }
@@ -1572,12 +1649,7 @@ static void update_player(actor *a)
         return;
     }
     if (c->t == TR_LEVER) {
-        if (pr & (RS_BTN_UP | RS_BTN_DOWN | RS_BTN_LEFT | RS_BTN_RIGHT)) {
-            W.lever[c->chan] ^= 1;
-            c->state = W.lever[c->chan];
-            mark(a->depth, nx, ny);
-            sfx(SFX_SWITCH);
-        }
+        if (pr & (RS_BTN_UP | RS_BTN_DOWN | RS_BTN_LEFT | RS_BTN_RIGHT)) lever_toggle(a->depth, nx, ny);
         return;
     }
     if (c->t == TR_DIRT || c->t == TR_LEAVES) {     /* moles dig */
@@ -1804,6 +1876,7 @@ void world_start(const level_def *L, const pstats *carry)
             }
     W.grubs_total += W.boss_alive;
     W.grubs_left = W.grubs_total;
+    world_wind_lanes(NULL);
     for (int d = 0; d < NDEPTH; d++) W.dirty[d] = 1;
     pending_depth = pending_from = -1;
 }
@@ -1815,6 +1888,9 @@ void world_update(void)
     for (int i = 0; i < W.na; i++) update_actor(&W.a[i]);
     update_bombs();
     update_logs();
+    world_wind_lanes(NULL);
+    for (int ch = 0; ch < NCHAN; ch++)
+        if (W.chan_flash[ch]) W.chan_flash[ch]--;
     update_push();
     update_sprinklers();
     update_vents();

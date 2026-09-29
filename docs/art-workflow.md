@@ -149,3 +149,15 @@ The terrain can come from three sets, chosen when building (`make TILESET=...`):
   `art_sync.py sync` assembles the imported rows into `<art>/tilesets/ai_v2/` (missing cells: the `ai` tiles).
 `make preview` renders `docs/art-preview/tiles-compare.png`: the current AI tiles against the preview's set,
 in the same three scenes, at 1x and 2x.
+
+## Objects over the ground
+The game draws only the base ground as full tiles (grass or snow, tunnel floor, water, ice; underground soil
+blocks and thin floors). Everything placed on it (rocks, stone, surface dirt mounds, frozen soil, roots, leaf
+piles, holes, ladders, the exit, crates, bridges, gates, plates, levers...) is drawn over it on the objects
+layer, so it sits on the season's ground (games/bombermole/DESIGN.md, "Ground and objects"). Such art should
+have flat magenta around the object. Art drawn on its own ground still works: when the game is built, an
+opaque object cell gets its background keyed out (the border's main colour, flood-filled from the edges) and
+a 1-px dithered contact shadow under it; a cell whose middle has the border's colour (a block that fills its
+cell, like stone bricks) is kept as it is. `tools/sheets.py is_overlay()` lists which cells are objects.
+Bridges exist in two orientations (`bridge`: crossed left-right; `bridge_v`: crossed up-down); the game picks
+one from the water around the bridge.

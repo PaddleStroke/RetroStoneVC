@@ -7,21 +7,28 @@
  * Drawn on BG1 with the font and a few tiles made here:
  *   BG1 tiles 100..309: the pause map (3 depths x 10x7 tiles, 4x4 pixels per cell)
  *   BG1 tiles 320..335: the objective arrow (4 metatiles: up, right, down, left)
- * The glow is a metatile on the explosion layer (BG3, tiles 900..903 of the playfield base) drawn with
- * BG palette 0 entry 15, whose colour cycles (SNES-style colour cycling: the pulse costs nothing).
+ *   BG1 tiles 340..343: the glow over a block hiding a grub, 344..347: the lever-link frame,
+ *   348: the remote's button glyph on the HUD
+ * The glow and the link frame are drawn on BG1 (low priority: under the sprites) over the playfield
+ * cells, every frame. The glow uses BG palette 0 entry 15, whose colour cycles (SNES-style colour
+ * cycling: the pulse costs nothing).
  * BG palette 0: 1 white, 2 dark, 3 box, 6-14 map and arrow colours, 15 the glow.
  */
 #include "bm.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #define T_MAP 100
 #define T_ARROW 320
-#define T_GLOW 900              /* relative to the playfield layers' base */
+#define T_GLOW 340
+#define T_LINK 344
+#define T_BUTTON 348
 enum { C_GOLD = 6, C_FLOOR, C_WALL, C_DIRT, C_WATER, C_HOLE, C_UP, C_EXIT, C_FOE, C_GLOW };
 
 extern int hud_pal_below;
-static int banner_t, level_t;
+static int banner_t, level_t, pickup_t;
+static char pickup_line[40];
 static char level_line1[48], level_line2[48];
 
 static int center(const char *s) { return (40 - (int)strlen(s)) / 2; }
@@ -80,18 +87,88 @@ void ui_init_level(void)
     for (int q = 0; q < 4; q++) {
         uint8_t t[64];
         for (int i = 0; i < 64; i++) t[i] = g[(q >> 1) * 8 + i / 8][(q & 1) * 8 + i % 8];
-        rs_tiles_load8(1024 + T_GLOW + q, t, 1);
+        rs_tiles_load8(T_GLOW + q, t, 1);
     }
-    banner_t = 0;
+    /* the lever link: white corner brackets with a dark edge around a gate or lever cell */
+    memset(g, 0, sizeof g);
+    for (int i = 0; i < 6; i++) {
+        g[0][i] = g[i][0] = g[0][15 - i] = g[i][15] = 1;
+        g[15][i] = g[15 - i][0] = g[15][15 - i] = g[15 - i][15] = 1;
+        g[1][i] = g[i][1] = g[1][15 - i] = g[i][14] = i < 5 ? 2 : 0;
+        g[14][i] = g[15 - i][1] = g[14][15 - i] = g[15 - i][14] = i < 5 ? 2 : 0;
+    }
+    for (int q = 0; q < 4; q++) {
+        uint8_t t[64];
+        for (int i = 0; i < 64; i++) t[i] = g[(q >> 1) * 8 + i / 8][(q & 1) * 8 + i % 8];
+        rs_tiles_load8(T_LINK + q, t, 1);
+    }
+    /* the remote's button: a gold disc with a dark "A" (the detonate button) */
+    {
+        static const char *const b[8] = {"..####..", ".##..##.", "##.##.##", "#.#..#.#",
+                                         "#.####.#", "#.#..#.#", ".##..##.", "..####.."};
+        uint8_t t[64];
+        for (int i = 0; i < 64; i++) t[i] = b[i / 8][i % 8] == '#' ? C_GOLD : (b[i / 8][i % 8] == '.' &&
+                                             i / 8 > 0 && i / 8 < 7 && i % 8 > 0 && i % 8 < 7) ? 2 : 0;
+        rs_tiles_load8(T_BUTTON, t, 1);
+    }
+    banner_t = pickup_t = 0;
     hud_pal_below = 0;
 }
 
-/* the metatile drawn on BG3 over a block hiding a grub (map entries, relative to the layer base) */
-const uint16_t *ui_glow_meta(void)
+/* a 16x16 BG1 metatile over playfield cell (x, y), under the sprites */
+static void cell_mark(int x, int y, int tile)
 {
-    static const uint16_t m[4] = {RS_MAP(T_GLOW, 0, 1, 0, 0), RS_MAP(T_GLOW + 1, 0, 1, 0, 0),
-                                  RS_MAP(T_GLOW + 2, 0, 1, 0, 0), RS_MAP(T_GLOW + 3, 0, 1, 0, 0)};
-    return m;
+    for (int q = 0; q < 4; q++)
+        rs_bg_put(RS_BG1, x * 2 + (q & 1), 2 + y * 2 + (q >> 1), RS_MAP(tile + q, 0, 0, 0, 0));
+}
+
+/* a block (dirt, rock, leaves...) that hides a golden grub glows; on Hard only near the mole */
+static int hidden_grub_glows(int d, int x, int y)
+{
+    const cell *c = &W.g[d][y][x];
+    if (c->item != IT_GRUB || terrain_walkable(c->t, 0) || c->t == TR_WATER) return 0;
+    if (W.diff == DIFF_HARD && !dev_reveal) {
+        const actor *m = world_player(0);
+        if (!m || m->depth != d || abs(m->cx - x) + abs(m->cy - y) > 3) return 0;
+    }
+    return 1;
+}
+
+/* ---- dev: the frame-time overlay --------------------------------------------------------------- */
+void ui_perf_overlay(void)
+{
+    rs_perf_info pi;
+    rs_perf(&pi);
+    int pals = 0;
+    for (int p = 0; p < 16; p++)
+        for (int i = 1; i < 16; i++)
+            if (rs_pal_get(p * 16 + i)) { pals++; break; }
+    textf_at(0, 28, "UPD %2d.%dMS REN %2d.%dMS SPR %3d L%2d PAL %2d", (int)(pi.update_us / 1000),
+             (int)(pi.update_us / 100 % 10), (int)(pi.render_us / 1000), (int)(pi.render_us / 100 % 10),
+             pi.sprites, pi.max_sprites_line, pals);
+    static const char *const names[RS_WARN_KIND_COUNT] = {"LINE", "OAM", "VRAM", "VOICES", "SAMPLES", "BANK",
+                                                           "CART", "SPRSIZE", "MAPSIZE"};
+    char w[48] = "";
+    for (int k = 0; k < RS_WARN_KIND_COUNT; k++)
+        if (rs_warn_count(k) && strlen(w) + strlen(names[k]) + 2 < sizeof w) { strcat(w, " "); strcat(w, names[k]); }
+    if (w[0]) textf_at(0, 29, "WARN:%s", w);
+}
+
+/* ---- power-up pickups: one line naming the power-up (and its button when it adds one) ------------ */
+void ui_pickup_banner(int item)
+{
+    /* the remote adds a control: name the button (A on a pad, the X key on a keyboard) */
+    static const char *const msg[IT_COUNT] = {"", "", "BOMB UP: ONE MORE BOMB", "FIRE UP: LONGER BLASTS",
+                                              "SPEED UP", "REMOTE: PRESS A (X KEY) TO BLOW", "HEART: ONE MORE HIT"};
+    if (item <= IT_GRUB || item >= IT_COUNT) return;
+    snprintf(pickup_line, sizeof pickup_line, "%s", msg[item]);
+    pickup_t = 90;                                              /* 1.5 s */
+}
+
+/* the HUD: while the remote is on, its button glyph sits on the bomb icon's corner */
+void ui_hud_extras(void)
+{
+    if (W.ps[0].remote) rs_bg_put(RS_BG1, 5, 1, RS_MAP(T_BUTTON, 0, 1, 0, 0));
 }
 
 /* the pulse: about 1 s, between a dim and a warm gold (one CGRAM entry per frame) */
@@ -154,7 +231,8 @@ static void build_map(void)
                     for (int i = 0; i < 4; i++) px[d][y * 4 + j][x * 4 + i] = (uint8_t)col;
                 int dot = 0;
                 if (W.g[d][y][x].item == IT_GRUB) dot = C_GOLD;          /* hidden ones too */
-                if (W.g[d][y][x].t == TR_EXIT && W.exit_open && (W.t / 10) % 2) dot = C_GOLD;
+                if (W.g[d][y][x].t == TR_EXIT && (W.exit_open || dev_reveal) && (W.t / 10) % 2) dot = C_GOLD;
+                if (dev_reveal && W.g[d][y][x].item > IT_GRUB) dot = 1;          /* dev: hidden power-ups */
                 if (dot)
                     for (int j = 1; j < 3; j++)
                         for (int i = 1; i < 3; i++) px[d][y * 4 + j][x * 4 + i] = (uint8_t)dot;
@@ -176,10 +254,11 @@ static void build_map(void)
             }
 }
 
-void ui_pause_screen(int cursor)
+void ui_pause_screen(int cursor, int dev, int quit_ask)
 {
     static const char *const names[NDEPTH] = {"SURFACE", "BELOW", "DEEP"};
-    text_box(1, 2, 38, 20);
+    text_clear_all();                                           /* no glow or link marks left over */
+    text_box(1, 2, 38, dev ? 23 : 20);
     textf_at(center(W.def->name), 3, "%s", W.def->name);
     /* the level's hint, as a subtitle: word-wrapped on two lines of 36 characters */
     const char *p = W.def->hint;
@@ -210,8 +289,23 @@ void ui_pause_screen(int cursor)
                 rs_bg_put(RS_BG1, x0 + tx, 11 + ty, RS_MAP(T_MAP + d * 70 + ty * 10 + tx, 0, 1, 0, 0));
     }
     text_at(center("GOLD GRUB  BLACK HOLE  ORANGE WAY UP"), 18, "GOLD GRUB  BLACK HOLE  ORANGE WAY UP");
-    static const char *const items[] = {"RESUME", "RESTART", "QUIT"};
-    for (int i = 0; i < 3; i++) textf_at(8 + i * 10, 20, "%c%s", i == cursor ? '>' : ' ', items[i]);
+    if (quit_ask) {
+        textf_at(8, 20, "QUIT TO TITLE?  %cYES  %cNO", quit_ask == 1 ? '>' : ' ', quit_ask == 2 ? '>' : ' ');
+    } else {
+        static const char *const items[] = {"RESUME", "RESTART", "QUIT"};
+        for (int i = 0; i < 3; i++) textf_at(8 + i * 10, 20, "%c%s", i == cursor ? '>' : ' ', items[i]);
+    }
+    if (dev) {                                       /* the developer's cheats (DESIGN.md "Dev mode") */
+        char it[UI_DEV_ITEMS][10];
+        snprintf(it[0], sizeof it[0], "GOD:%s", dev_god ? "ON" : "--");
+        snprintf(it[1], sizeof it[1], "POWER");
+        snprintf(it[2], sizeof it[2], "SKIP");
+        snprintf(it[3], sizeof it[3], "DEPTH");
+        snprintf(it[4], sizeof it[4], "SEE:%s", dev_reveal ? "ON" : "--");
+        snprintf(it[5], sizeof it[5], "MS:%s", dev_perf ? "ON" : "--");
+        for (int i = 0; i < UI_DEV_ITEMS; i++)
+            textf_at(8 + (i % 3) * 10, 22 + i / 3, "%c%s", 3 + i == cursor && !quit_ask ? '>' : ' ', it[i]);
+    }
     rs_text_setup(RS_BG1, 0, 0, 1);
 }
 
@@ -223,6 +317,23 @@ void ui_banner_exit_open(void) { banner_t = 90; }          /* 1.5 s */
 void ui_play_overlays(int view_depth)
 {
     text_clear_all();
+    /* under everything else: the glow of hidden grubs, the flash of the gates a lever just switched */
+    for (int y = 0; y < GH; y++)
+        for (int x = 0; x < GW; x++) {
+            const cell *c = &W.g[view_depth][y][x];
+            if ((c->t == TR_GATE || c->t == TR_LEVER) && W.chan_flash[c->chan] && (W.chan_flash[c->chan] / 6) % 2)
+                cell_mark(x, y, T_LINK);
+            else if (hidden_grub_glows(view_depth, x, y))
+                cell_mark(x, y, T_GLOW);
+        }
+    if (dev_perf) ui_perf_overlay();
+    if (pickup_t) {
+        pickup_t--;
+        int w = (int)strlen(pickup_line) + 4;
+        text_box((40 - w) / 2, 26, w, 3);
+        text_at(center(pickup_line), 27, pickup_line);
+        rs_text_setup(RS_BG1, 0, 0, 1);
+    }
     if (level_t) {
         level_t--;
         int y = 3 - (level_t < 18 ? (18 - level_t) / 6 : 0);  /* slides up out of the playfield */

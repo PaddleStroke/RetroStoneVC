@@ -20,7 +20,7 @@ SHEETS = {
     "characters": {"cols": 16, "rows": 6, "file": "characters.png"},
     "tiles": {"cols": 18, "rows": 4, "file": "tiles.png"},
     "items_fx": {"cols": 16, "rows": 4, "file": "items_fx.png"},
-    "props": {"cols": 16, "rows": 10, "file": "props.png"},
+    "props": {"cols": 16, "rows": 12, "file": "props.png"},
 }
 
 # name, sheet, col, row, w, h, frames, group (palette group), description
@@ -111,10 +111,14 @@ ENTRIES = [
     E("hud_cursor", "items_fx", 6, 3, 16, 16, 1, "hud", "Menu cursor (arrow pointing right)"),
     E("hud_panel", "items_fx", 7, 3, 16, 16, 1, "hud", "HUD panel background (solid, dark)"),
     E("dust", "items_fx", 8, 3, 16, 16, 3, "bomb", "Dust puff (digging, landing), growing and fading"),
+    E("bomb_remote", "items_fx", 11, 3, 16, 16, 2, "bomb",
+      "Remote-controlled bomb: no fuse, a short antenna with a light, blinking (light off, light on)"),
     # ---- props.png: level gimmicks ("actuators") and extra bosses ------------------
     # row 0-1: 16x16 terrain-like props (drawn on the terrain layer, one BG palette per colour
     # family: PROP_PALETTES below)
-    E("bridge", "props", 0, 0, 16, 16, 1, "propbg", "Wooden bridge over water (a blast destroys it)"),
+    E("bridge", "props", 0, 0, 16, 16, 1, "propbg",
+      "Wooden bridge crossed left to right: planks running up-down, rails along the top and bottom "
+      "(drawn over the water; a blast destroys it)"),
     E("ice", "props", 1, 0, 16, 16, 1, "propbg", "Slippery ice (you slide until you hit something)"),
     E("thin_ice", "props", 2, 0, 16, 16, 2, "propbg", "Thin ice: intact, cracked (breaks into water after 2 crossings)"),
     E("mud", "props", 4, 0, 16, 16, 1, "propbg", "Mud (under a puddle; slows you)"),
@@ -157,6 +161,13 @@ ENTRIES = [
     E("farmer", "props", 0, 6, 32, 32, 8, "boss_farmer", "Summer boss: the farmer: idle x2, throw x2, angry x2, hurt x2"),
     E("owl", "props", 0, 8, 32, 32, 4, "boss_owl", "Winter boss: the snowy owl (perch, flap, swoop, hurt)"),
     E("badger", "props", 8, 8, 32, 32, 4, "boss_badger", "Summer mini-boss: the badger (walk x2, dig, hurt)"),
+    # row 3: the other bridge; row 10: the side view of the windmill (a windmill blowing sideways)
+    E("bridge_v", "props", 0, 3, 16, 16, 1, "propbg",
+      "Wooden bridge crossed up and down: planks running left-right, rails along the left and right "
+      "(drawn over the water; a blast destroys it)"),
+    E("windmill_side", "props", 0, 10, 32, 32, 4, "prop",
+      "Windmill seen from the side, sails on the RIGHT (it blows to the right; mirrored for the left), "
+      "4 frames of the sails turning"),
 ]
 
 # Character size: 16, 24 or 32 (the owner's reference is 24). The characters sheet
@@ -204,7 +215,7 @@ PROP_PALETTES = [
     ("plants", ["tall_grass", "corn", "burnt", "gate", "apple_tree", "beehive", "mushroom"]),
     ("wood", ["crate", "splat", "well", "rails_h", "rails_v"]),
     ("stone", ["mud", "plate", "lever", "steam_vent", "pipe"]),
-    ("water", ["bridge", "ice", "thin_ice"]),
+    ("water", ["bridge", "bridge_v", "ice", "thin_ice"]),
 ]
 
 
@@ -221,6 +232,22 @@ def cell_of(sheet):
 
 
 BY_NAME = {e.name: e for e in ENTRIES}
+# The ground (BG4) is only the base ground: grass or snow, the tunnel floor, water, ice (and, underground,
+# the soil blocks and thin floors, which are the ground there). Every other terrain cell is an OBJECT drawn
+# over it on the objects layer (BG3) with transparent pixels, so it sits on the season's ground; its
+# art has flat magenta around it, and an opaque cell (AI art) gets its background keyed out when the
+# game is built (games/bombermole/tools/build_assets.py).
+GROUND_TILES = {"grass", "grass_edge", "soft_dirt", "dirt_crack", "tunnel", "thin_floor", "water"}
+GROUND_PROPS = {"ice", "thin_ice"}
+
+
+def is_overlay(name):
+    e = BY_NAME.get(name)
+    if e is None:
+        return name in ("dirt_mound", "dirt_mound_crack")
+    if e.sheet == "tiles":
+        return name not in GROUND_TILES
+    return e.group == "propbg" and name not in GROUND_PROPS
 TERRAIN = [e.name for e in ENTRIES if e.sheet == "tiles"]
 # Optional extra terrain cells of a tileset (tilesets/<name>/tiles_extra.png: one 16x16 cell per
 # column, one row per season): variants of the common tiles (the game picks one per cell with a
@@ -228,7 +255,8 @@ TERRAIN = [e.name for e in ENTRIES if e.sheet == "tiles"]
 # A tileset without the file gets copies of the base tiles (the water frame 2 is the water shifted).
 TILE_EXTRAS = [("grass_v2", "grass"), ("grass_v3", "grass"), ("soft_dirt_v2", "soft_dirt"),
                ("soft_dirt_v3", "soft_dirt"), ("tunnel_v2", "tunnel"), ("tunnel_v3", "tunnel"),
-               ("water_f2", "water"), ("water_edge", "water")]
+               ("water_f2", "water"), ("water_edge", "water"),
+               ("dirt_mound", "soft_dirt"), ("dirt_mound_crack", "dirt_crack")]
 TILE_EXTRA_DESC = {
     "grass_v2": "Surface floor grass, variant 2: same colours as the grass tile, the blade clusters elsewhere",
     "grass_v3": "Surface floor grass, variant 3: same colours as the grass tile, the blade clusters elsewhere",
@@ -238,6 +266,9 @@ TILE_EXTRA_DESC = {
     "tunnel_v3": "Tunnel floor, variant 3: the same floor with the pebbles elsewhere",
     "water_f2": "Water, second frame of the shimmer: the same water with the wave crests moved sideways",
     "water_edge": "Water bank: the water tile with a strip of grass bank along its TOP edge",
+    "dirt_mound": "Soft dirt on the SURFACE: a rounded mound of soil sitting on the ground, flat magenta "
+                  "around it (the grass or snow shows there)",
+    "dirt_mound_crack": "The same surface dirt mound, half dug: deep cracks",
 }
 # Right-facing character strips are DERIVED from the left strip by a horizontal flip (the OAM
 # h-flip, as SNES games do; it also saves VRAM). A family listed here opts out and keeps its own

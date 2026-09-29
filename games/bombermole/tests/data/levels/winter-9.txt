@@ -1,0 +1,52 @@
+# Showcase arena for docs/screenshots (not a game level): rocks, frozen soil, stone and a crate over the snow.
+name: Winter Showcase
+season: winter
+arc: 4
+level: 9
+status: stub
+
+surface:
+####################
+#M.....r.r.r.......#
+#..rrr......fff....#
+#..rgr..c...fGf..g.#
+#..r.r......fff....#
+#.......##.........#
+#.......##...rr....#
+#..ddd.......rQ....#
+#..dGd.............#
+#..ddd....c....ff..#
+#..............ff..#
+#....F......C......#
+#.........E........#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

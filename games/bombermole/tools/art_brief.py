@@ -230,6 +230,8 @@ GROUPS = [
     ("8. Later gimmicks (planned levels)", ["*"]),
     ("9. Title screen: hills and the grass top edge", ["grass_top_edge", "title_hills"]),
     ("10. Terrain tiles v2: very low detail (the game's TILESET=ai_v2 option)", ["tile_v2_*"]),
+    ("11. Bridges both ways, the windmill's side view, the remote bomb",
+     ["bridge_v", "windmill_side", "bomb_remote"]),
 ]
 
 LOGO = ("title_logo", "Title logo 'BOMBER MOLE': chunky SNES-style 3D letters (gold with a dark outline and a "

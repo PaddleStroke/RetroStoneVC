@@ -17,10 +17,27 @@ grass.
 
 | Layer | Use |
 |---|---|
-| BG1 | HUD and text (menus, messages); top priority |
+| BG1 | HUD and text (menus, messages); top priority. Its low-priority tiles, under the sprites, draw the glow of hidden grubs and the lever-link flash over the playfield cells |
 | BG2 | weather overlay on the surface (rain, pollen, leaves, snow), half-transparent (colour math) |
-| BG3 | explosions (metatiles on the cell grid) |
-| BG4 | terrain |
+| BG3 | **objects**: everything placed on the ground, with transparent pixels (below); explosions, which replace a burning cell's object for their 0.5 s |
+| BG4 | **ground**: only the base ground, full tiles |
+
+**Ground and objects.** Only the base ground is a full tile (BG4): grass (snow in winter) on the surface,
+the tunnel floor below, water, ice; underground, the soil blocks and thin floors are the ground too (their
+edges are lit and shaded like raised earth). Everything else is an object drawn over it on BG3, so it sits
+on the season's ground and a destroyed object leaves that ground: rocks, stone, the soft-dirt blocks of the
+surface (drawn as dirt mounds), frozen soil, roots, leaf piles, holes, ladders, the exit mound, puddles,
+crates, bridges, gates, plates, levers, vents, pipes, tall grass, mud, burnt ground, tomato splats. Rounded
+objects have a soft 1-px dithered contact shadow; the ground under a block's bottom edge is shaded too
+(grass and tunnel floor have a derived "shadow" variant). Object art has flat magenta around it; AI art
+drawn on its own ground (an opaque cell) gets that ground keyed out when the game is built (the border's
+main colour flood-filled from the edges, unless the object's middle has that colour too, like stone
+bricks). Sprites (the log, pumpkins, the windmill...) were transparent already. The objects keep their
+palettes (terrain palettes 1-4, prop families 5/7): the object layer costs no extra colours.
+**Bridges** are drawn according to the crossing: the planks run across the way and the rails along it;
+water left or right of a bridge means the river runs sideways, so the bridge is crossed up and down
+(`bridge_v`), otherwise left and right (`bridge`). The floating **log** is a short log with both ends cut
+(light wood with rings) and bark grain, so it cannot read as an animal.
 | OBJ | mole, enemies, bombs, items, dust (priority 2: above BG3/BG4, below the weather and HUD) |
 
 ### BG palettes (8 x 15 colours)
@@ -81,6 +98,16 @@ right next to a hole or ladder that leads to the mole's depth.
 | A | detonate your oldest bomb (with the remote detonator) |
 | Start | pause menu |
 | Select | (level select) with L+R held: unlock everything (tester cheat) |
+
+Keyboard (desktop): arrows, Z = B, X = A, S = X, A = Y, Q/W = L/R, Enter = Start, Esc or Backspace = Select
+(back), F11 fullscreen, F12 screenshot, F1-F7 dev keys (dev mode only). Picking up a power-up shows one line
+for 1.5 s naming it, and the button when it adds a control: "REMOTE: PRESS A (X KEY) TO BLOW". While the
+remote is on, a small A-button glyph sits on the HUD's bomb icon, and remote bombs look different: no fuse,
+a short antenna with a blinking light.
+
+**Pause menu**: Left/Right or Up/Down move the cursor, A or Start picks the highlighted item (the cursor
+starts on RESUME, so Start still resumes), B or Esc resumes. RESUME, RESTART (the level restarts), QUIT asks
+"QUIT TO TITLE? YES / NO" (NO first). In dev mode a second row holds the cheats.
 
 ## Rules
 - **Movement** is cell to cell (smooth, 1.25 px per frame at base speed). The mole can reverse
@@ -192,12 +219,12 @@ Every level mixes about three gimmicks so it feels unique beyond its layout; eac
 ### Generic systems (all implemented)
 | System | How it works | Level syntax |
 |---|---|---|
-| **Push fields** | wind (windmills) or an underground stream current push characters AND bombs one cell at a time on a rhythm; wind blows in gusts on a cycle (`gust: period active step`, in frames), currents always flow; particles show the direction; walking with the wind is faster, against it slower | `<` `>` `n` `u`: floor pushed left, right, up, down; `{` `}`: water with a current; legend words `push_*`, `flow_*` |
+| **Push fields** | wind or an underground stream current push characters AND bombs one cell at a time on a rhythm; wind blows in gusts on a cycle (`gust: period active step`, in frames), currents always flow; streak particles move the way the push goes; walking with the wind is faster, against it slower. A **windmill** blows AWAY from itself, the way its sails face: its lane is the straight line of cells in front of it up to the first solid cell (wall, block, crate, closed gate...); cells behind a block are sheltered, and a dug or blasted block lengthens the lane. A windmill blowing down or up is drawn from the front, one blowing sideways from the side (sails on the side the wind goes). Gales without a windmill (autumn) are push cells of their own | windmill: `W` (blows down) or a legend entry `windmill + blow_up/right/down/left` = **the direction the wind blows**; gale cells: `<` `>` `n` `u` = floor where the wind blows left, right, up, down; `{` `}`: water with a current; legend words `push_*`, `flow_*` (the direction of the push) |
 | **Water and bridges** | water blocks the way but not blasts; a bridge is blown away by a blast (cut an enemy's path); a floating **log** makes water walkable, drifts with currents and can be pushed along the water | `~` water, `=` bridge, `&` water + log |
 | **Ice** | you slide until you hit something (enemies too); a bomb dropped on ice slides away like a kick; **thin ice** cracks after one crossing and turns to water after two | `i` ice, `j` thin ice |
 | **Cross-depth** | a bomb tossed into a hole (drop it while facing the hole) or pushed or slid into one falls to the depth below and explodes there; a blast on a thin floor opens a hole and the rubble stuns the enemy below; an enemy standing on a floor that gets blasted open falls, stunned; puddles make mud on the depth below | `_` thin floor; `v`, `^`, `H` |
 | **Cover** | tall grass or corn hides the mole from cats (breaks their line of sight); it burns when bombed | `w` (corn in summer) |
-| **Switches** | pressure plates (pressed by anyone or a bomb) and levers (bump them) drive gates by channel; timed gates stay open for a while after a trigger. Mine-cart track switching: data hook | `P` plate, `/` lever, the bar character gate; legend words `chan:N`, `timed:N` (tenths of a second) |
+| **Switches** | pressure plates (step-on: the mole, an enemy, or a bomb sliding onto one) and levers drive gates by channel; a lever flips when the mole walks into it AND when a blast hits it (a click, the two-state lever turns left/right, and the gates it drives and every lever of its channel flash with white corner marks for 1 s, so the link shows); timed gates stay open for a while after a trigger. Mine-cart track switching: data hook | `P` plate, `/` lever, the bar character gate; legend words `chan:N`, `timed:N` (tenths of a second) |
 | **Noise** | explosions wake sleepers within 6 cells, or 4 cells on the depth right above or below: a guard dog (ally) or a sleeping ferret nest | `D` sleeping dog, `z` sleeping ferret |
 
 **Gate rule (no softlocks)**: every gate the player can walk through must be openable from both sides (a
@@ -341,6 +368,27 @@ Knocked out: lives left -> the level restarts; no lives -> **Game over** (Contin
 
 Save RAM (32 KiB, only 82 bytes used): magic `BMSV`, version, levels cleared per arc, options
 (music, sound, all unlocked), last arc/level, best times (seconds) per level, checksum.
+
+## Dev mode (for the owner)
+- **Turning it on**: `--dev` on the command line of the exe (or `--opt dev=1`), or on the title screen hold
+  L+R and press Start ("DEV MODE" shows under the menu). Options then shows "DEV: ALL LEVELS" (on by
+  default): every level is unlocked in level select.
+- **Cheats**, from the pause menu's second row or with keys: F1 / GOD invincibility, F2 / POWER all
+  power-ups (8 bombs, range 8, speed 3, remote, 3 hearts), F3 / SKIP the level (counts as cleared, not
+  saved), F4 / DEPTH jump to the next depth (the nearest open cell), F6 / SEE show hidden grubs, hidden
+  power-ups and the exit on the pause map (the glow of hidden grubs shows on Hard too), F7 / MS the
+  frame-time overlay (update and render ms of the last frame, sprites and the most on one line, palettes in
+  use, and the strict-mode guideline warnings seen so far).
+- **Level reload**: F5 reloads the current level from its text file and restarts it (no rebuild). The
+  desktop builds look for `games/bombermole/levels/` next to the exe (then in the working directory, and in
+  `data/`) and fall back to the embedded levels; a level with an error is not loaded (the log says why).
+- **Saves**: dev mode never writes the save's progress (cleared levels, best times); options are still saved.
+- The headless runner takes dev keys from input scripts: `<frame> key F5`.
+
+## Later ideas
+- **A crocodile** (summer or autumn river levels): it looks like a floating log until you are next to it;
+  it snaps at anything that stands on the water next to it and can be stunned with a blast. Not implemented
+  (the log is drawn so it cannot be mistaken for one).
 
 ## Multiplayer hooks
 The game keeps an array of 4 players and reads pad N for player N. Levels may place `2`, `3`,

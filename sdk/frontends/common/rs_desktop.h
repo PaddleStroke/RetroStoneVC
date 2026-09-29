@@ -7,6 +7,7 @@
 
 /* Directory used for the data override (NULL = none). */
 void  rsd_set_data_dir(const char *dir);
+void  rsd_add_data_dir(const char *dir);   /* more directories searched after the data directory */
 void *rsd_load_file(const char *path, size_t *size);
 int   rsd_save_file(const char *path, const void *data, size_t size);
 /* rs_file_fn for rs_host_set_file_loader: <data_dir>/<name>. */

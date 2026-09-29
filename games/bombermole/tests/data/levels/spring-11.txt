@@ -1,0 +1,53 @@
+# Showcase arena for docs/screenshots (not a game level): bridges in both orientations, objects over the
+# grass, a crate, a lever linked to a gate, a remote detonator next to the start.
+name: Showcase
+season: spring
+arc: 1
+level: 11
+status: stub
+
+surface:
+####################
+#M.o......~........#
+#.........~..g.....#
+#..rr..c..~...r.r..#
+#..rQ.....~........#
+#.........~.....#..#
+#...../...=....|...#
+#.........~.....#..#
+#.........~........#
+#~~~~=~~~~~~~~~~~~~#
+#..................#
+#...F.......C......#
+#.........E........#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

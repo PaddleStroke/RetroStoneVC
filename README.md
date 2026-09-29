@@ -36,12 +36,27 @@ it. Progress is saved in `bombermole.srm` next to the exe.
 | A / S | Y / X | (unused) |
 | Q / W | L / R | (level select: L+R+Select unlocks everything) |
 | Enter | Start | pause menu, confirm |
-| Backspace / Right Shift | Select | back |
-| F11 or Alt+Enter, F12, Esc | | fullscreen, screenshot, quit |
+| Backspace / Right Shift / Esc | Select | back; in the pause menu: resume |
+| F11 or Alt+Enter, F12 | | fullscreen, screenshot (close the window to quit) |
+| F1-F7 | | dev mode keys (below) |
 
 Difficulty (Easy, Normal, Hard) is in the Options menu. Command line: `BomberMole.exe --scale 4`, `--fullscreen`,
-`--opt level=spring-3` (jump to a level). Levels can be
-edited without rebuilding: put a copy in `data\levels\` next to the exe.
+`--opt level=spring-3` (jump to a level), `--dev` (dev mode). Levels can be edited without rebuilding: the
+exe loads `games\bombermole\levels\*.txt` next to it when that folder exists (or `data\levels\`), and falls
+back to the levels built in.
+
+### Dev mode
+For level work and testing. Turn it on with `BomberMole.exe --dev`, or on the title screen hold L+R (Q+W) and
+press Start. Then:
+- every level is unlocked in level select (Options: "DEV: ALL LEVELS" on/off);
+- keys, also in a second row of the pause menu: **F1** invincible, **F2** all power-ups, **F3** skip the level,
+  **F4** jump to the next depth, **F5** reload the level from its text file and restart it, **F6** show the
+  hidden grubs, power-ups and the exit on the pause map, **F7** frame-time overlay (update/render ms, sprites,
+  palettes, strict-mode warnings);
+- the save's progress (cleared levels, best times) is never written while dev mode is on.
+
+Workflow: copy `games\bombermole\levels\` next to the exe, run it with `--dev`, edit a level in a text
+editor, press F5. `python3 games/bombermole/tools/check_levels.py` validates the files (solvable, no softlock).
 
 ## Build (Linux or WSL)
 ```

@@ -172,6 +172,7 @@ test check: build/host/test_sdk build/host/test_libretro build/host/$(GAME)_head
 	$(PYTHON) tools/tests/test_art_review.py
 	$(PYTHON) games/$(GAME)/tools/check_levels.py
 	sh games/$(GAME)/tests/smoke_test.sh build/host/$(GAME)_headless build
+	sh games/$(GAME)/tests/feature_test.sh build/host/$(GAME)_headless
 	$(PYTHON) games/$(GAME)/tests/facing_capture.py build/host/$(GAME)_headless build/facing_capture.png
 golden: build/host/test_sdk
 	./build/host/test_sdk --update --golden sdk/tests/golden --out build

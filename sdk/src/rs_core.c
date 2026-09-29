@@ -114,6 +114,7 @@ int rs_option_int(const char *k, int fb)
 
 /* ---- assets ------------------------------------------------------------- */
 void rs_host_set_file_loader(rs_file_fn fn) { g_file_fn = fn; }
+static const void *rs_asset_reload_(const char *name, size_t *size, int again);
 const void *rs_asset(const char *name, size_t *size)
 {
     for (int i = 0; i < g_loaded_n; i++)
@@ -121,6 +122,34 @@ const void *rs_asset(const char *name, size_t *size)
             if (size) *size = g_loaded[i].size;
             return g_loaded[i].data;
         }
+    return rs_asset_reload_(name, size, 0);
+}
+
+static int g_dev_key;
+void rs_host_set_dev_key(int key) { g_dev_key = key; }
+int rs_dev_key(void) { return g_dev_key; }
+void rs_perf(rs_perf_info *out)
+{
+    out->update_us = g_stats.update_us;
+    out->render_us = g_stats.render_us;
+    out->sprites = g_stats.sprites;
+    out->max_sprites_line = g_stats.max_sprites_line;
+}
+
+const void *rs_asset_reload(const char *name, size_t *size)
+{
+    for (int i = 0; i < g_loaded_n; i++)
+        if (!strcmp(g_loaded[i].name, name)) {       /* drop the cached copy (the old data is kept:
+                                                        pointers to it may still be in use) */
+            g_loaded[i] = g_loaded[--g_loaded_n];
+            break;
+        }
+    return rs_asset_reload_(name, size, 1);
+}
+
+static const void *rs_asset_reload_(const char *name, size_t *size, int again)
+{
+    (void)again;
     if (g_file_fn && g_loaded_n < MAX_LOADED) {
         size_t sz = 0;
         void *d = g_file_fn(name, &sz);
@@ -253,6 +282,7 @@ void rs_host_frame(void)
     g_stats.audio_us = (uint32_t)(t3 - t2);
     g_stats.sprites = ppu_last_sprites();
     g_stats.max_sprites_line = ppu_last_max_line();
+    g_dev_key = 0;
     memcpy(g_pad_prev, g_pad, sizeof g_pad);
     g_frame++;
 }

@@ -45,12 +45,28 @@ int rsd_save_file(const char *path, const void *data, size_t size)
     return rename(tmp, path);
 }
 
+static char g_more_dirs[4][512];
+static int g_more_n;
+void rsd_add_data_dir(const char *dir)
+{
+    if (dir && g_more_n < 4) snprintf(g_more_dirs[g_more_n++], sizeof g_more_dirs[0], "%s", dir);
+}
+
 void *rsd_data_loader(const char *name, size_t *size)
 {
-    char p[1024];
-    if (!g_data_dir[0] || strstr(name, "..")) return NULL;
-    snprintf(p, sizeof p, "%s/%s", g_data_dir, name);
-    return rsd_load_file(p, size);
+    char p[2700];
+    if (strstr(name, "..")) return NULL;
+    if (g_data_dir[0]) {
+        snprintf(p, sizeof p, "%s/%s", g_data_dir, name);
+        void *d = rsd_load_file(p, size);
+        if (d) return d;
+    }
+    for (int i = 0; i < g_more_n; i++) {
+        snprintf(p, sizeof p, "%s/%s", g_more_dirs[i], name);
+        void *d = rsd_load_file(p, size);
+        if (d) return d;
+    }
+    return NULL;
 }
 
 int rsd_sram_load(const char *path)

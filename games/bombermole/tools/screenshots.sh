@@ -28,5 +28,17 @@ run --frames 60 --opt level=spring-2 --opt nointro=1 --input /tmp/bm_pause.input
 run --frames 60 --opt level=spring-1 --opt nointro=1 --opt opengrubs=1 --shot 50:$O/molehill-open-surface.png
 run --frames 60 --opt level=spring-1 --opt nointro=1 --opt opengrubs=1 --opt spawn=1,9,3 --shot 50:$O/molehill-open-below.png
 python3 -c "from PIL import Image; im = Image.open(\"$O/hud-in-play.png\"); im.crop((0, 0, 640, 32)).resize((1280, 64), Image.NEAREST).save(\"$O/hud-band-2x.png\")"
+# objects over the ground, bridges both ways, remote pickup, lever link, windmill lane (test arenas in tests/data)
+TD="$(dirname "$0")/../tests/data"
+run --frames 180 --data $TD --opt level=spring-11 --opt nointro=1 --shot 170:$O/bridges-and-objects-spring.png
+run --frames 180 --data $TD --opt level=winter-9 --opt nointro=1 --shot 170:$O/objects-over-snow-winter.png
+printf "160 RIGHT
+190 -
+" > /tmp/bm_remote.input
+run --frames 210 --data $TD --opt level=spring-11 --opt nointro=1 --input /tmp/bm_remote.input --shot 200:$O/remote-pickup-banner.png
+printf "160 tap RIGHT
+" > /tmp/bm_lever.input
+run --frames 180 --data $TD --opt level=spring-11 --opt nointro=1 --opt spawn=0,5,6 --opt god=1 --input /tmp/bm_lever.input --shot 177:$O/lever-linked-gate-flash.png
+run --frames 290 --opt level=spring-7 --opt nointro=1 --shot 280:$O/windmill-lanes.png
 python3 "$(dirname "$0")/glow_shot.py" "$H" "$O/hidden-grub-glow.png" spring-3
 ls "$O"

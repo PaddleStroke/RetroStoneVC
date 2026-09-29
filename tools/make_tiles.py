@@ -198,29 +198,45 @@ def block(ramp, seed, pebbles=3, top=None):
     return t
 
 
-def boulder(R):
-    t = floor(R["tunnel"], 3, pebbles=False)
-    d, m, l, h = R["hard_rock"]
-    o = R["outline"]
-    for y in range(16):
-        for x in range(16):
-            dx, dy = (x - 7.5) / 7.2, (y - 8.2) / 7.0
-            r = dx * dx + dy * dy
-            if r <= 1.0:
-                c = m
-                if dx + dy < -0.6:
-                    c = h if r < 0.55 else l            # highlight top-left
-                elif dx + dy > 0.7:
-                    c = d                               # shadow bottom-right
-                t.set(x, y, c, wrap=False)
-            elif r <= 1.28:
-                t.set(x, y, o, wrap=False)              # dark outline
-    for (x, y) in ((9, 6), (10, 7), (10, 8), (11, 9)):  # a crack
-        t.set(x, y, d, wrap=False)
+def contact_shadow(t, c):
+    """A soft 1-px contact shadow: dithered dark pixels under the lowest pixel of each column."""
+    for x in range(16):
+        ys = [y for y in range(16) if t.p[y][x] != MAG]
+        if ys and ys[-1] < 15 and (x + ys[-1]) % 2 == 0:
+            t.p[ys[-1] + 1][x] = c
     return t
 
 
+def ellipse_obj(ramp, o, cx=7.5, cy=8.5, rx=7.2, ry=6.6, light=-0.55, dark=0.65):
+    """A rounded object on transparent ground: lit top-left, shaded bottom-right, dark outline."""
+    d, m, l, h = ramp
+    t = Tile(MAG)
+    for y in range(16):
+        for x in range(16):
+            dx, dy = (x - cx) / rx, (y - cy) / ry
+            r = dx * dx + dy * dy
+            if r <= 1.0:
+                c = m
+                if dx + dy < light:
+                    c = h if r < 0.5 else l
+                elif dx + dy > dark:
+                    c = d
+                t.p[y][x] = c
+            elif r <= 1.3:
+                t.p[y][x] = o
+    return t
+
+
+def boulder(R):
+    t = ellipse_obj(R["hard_rock"], R["outline"], cy=8.0, rx=7.3, ry=6.8)
+    d = R["hard_rock"][0]
+    for (x, y) in ((9, 6), (10, 7), (10, 8), (11, 9)):  # a crack
+        t.set(x, y, d, wrap=False)
+    return contact_shadow(t, R["outline"])
+
+
 def bricks(R):
+    """Unbreakable stone: a block of bricks filling the cell (its corners rounded off)."""
     d, m, l, h = R["stone"]
     t = Tile(m)
     for row in range(2):
@@ -234,6 +250,8 @@ def bricks(R):
                 t.set(x0, y, l)                          # lit left
                 t.set(x0 + 7, y, R["black"])             # joint
             t.rect(x0 + 1, y0 + 6, x0 + 6, y0 + 6, d)    # shaded bottom
+    for (x, y) in ((0, 0), (15, 0), (0, 15), (15, 15)):
+        t.p[y][x] = MAG
     return t
 
 
@@ -256,7 +274,8 @@ def floor(ramp, seed, pebbles=True):
 
 
 def roots(R):
-    t = floor(R["soft_dirt"], 5, pebbles=False)
+    """Thick twisting roots across the cell, the ground showing between them."""
+    t = Tile(MAG)
     d, m, l, h = R["roots"]
     o = R["outline"]
     import math
@@ -279,7 +298,7 @@ def roots(R):
 
 
 def hole(R, up=False):
-    t = floor(R["tunnel"], 7)
+    t = Tile(MAG)
     d, m, l, h = R["soft_dirt"]
     for y in range(16):
         for x in range(16):
@@ -292,6 +311,8 @@ def hole(R, up=False):
                     t.set(x, y, R["black"], wrap=False)
                 elif r < 7.0:
                     t.set(x, y, l if y < 8 else d, wrap=False)
+                elif r < 7.6:
+                    t.set(x, y, R["outline"], wrap=False)
     if up:
         for (x, y) in ((1, 1), (14, 1), (1, 14), (14, 14), (2, 2), (13, 2), (2, 13), (13, 13)):
             t.set(x, y, (240, 214, 150), wrap=False)
@@ -299,7 +320,7 @@ def hole(R, up=False):
 
 
 def ladder(R):
-    t = floor(R["tunnel"], 9)
+    t = Tile(MAG)
     d, m, l, h = R["ladder"]
     o = R["outline"]
     for x in (3, 12):
@@ -309,6 +330,7 @@ def ladder(R):
     for y in (2, 7, 12):
         t.rect(4, y, 11, y, l)
         t.rect(4, y + 1, 11, y + 1, d)
+        t.rect(4, y + 2, 11, y + 2, o)                   # the rung's shadow on the floor
     return t
 
 
@@ -329,7 +351,8 @@ def thin_floor(R):
 
 
 def mound(R, open_):
-    t = grass(R, 13)
+    """The exit molehill: a mound of soil on the ground (transparent around it)."""
+    t = Tile(MAG)
     d, m, l, h = R["soft_dirt"]
     o = R["outline"]
     for y in range(16):
@@ -354,8 +377,26 @@ def mound(R, open_):
     return t
 
 
+def dirt_mound(R, seed, cracked=False):
+    """Soft dirt on the SURFACE: a rounded mound of soil sitting on the grass or snow."""
+    t = ellipse_obj(R["soft_dirt"], R["outline"], cy=8.2, rx=7.4, ry=7.0, light=-0.5, dark=0.6)
+    d, m, l, h = R["soft_dirt"]
+    rng = random.Random(seed)
+    for _ in range(3):                                   # a few pebbles
+        x, y = rng.randint(4, 10), rng.randint(6, 10)
+        t.set(x, y, l, wrap=False)
+        t.set(x, y + 1, d, wrap=False)
+    for x in range(3, 13):                               # a few crumbs of the top soil
+        if t.p[3][x] == m and x % 3 == 0:
+            t.p[3][x] = h
+    if cracked:
+        for (x, y) in ((4, 4), (5, 5), (6, 6), (6, 7), (7, 8), (9, 8), (10, 9), (11, 10), (7, 9), (6, 10), (6, 11)):
+            t.set(x, y, R["black"] if (x + y) % 2 else d, wrap=False)
+    return contact_shadow(t, R["outline"])
+
+
 def puddle(R):
-    t = grass(R, 17)
+    t = Tile(MAG)
     d, m, l, h = R["water"]
     for y in range(16):
         for x in range(16):
@@ -369,32 +410,36 @@ def puddle(R):
 
 
 def frozen(R):
-    t = block(R["frozen_dirt"], 21, pebbles=0)
+    """Frozen soil: a frosty mound of soil under a snow cap (bombs only)."""
+    t = ellipse_obj(R["frozen_dirt"], R["outline"], cy=8.4, rx=7.4, ry=7.0)
     d, m, l, h = R["frozen_dirt"]
-    for (x0, y0) in ((3, 9), (9, 12)):                     # ice streaks
+    for (x0, y0) in ((3, 10), (8, 12)):                    # ice streaks
         for i in range(4):
-            t.set(x0 + i, y0 - i // 2, h, wrap=False)
+            if t.p[y0 - i // 2][x0 + i] != MAG:
+                t.set(x0 + i, y0 - i // 2, h, wrap=False)
     snow, snow_s = (240, 246, 255), (196, 212, 236)
     for x in range(16):                                    # a snow cap with a wavy lower edge
+        ys = [y for y in range(16) if t.p[y][x] != MAG]
+        if not ys:
+            continue
         depth = 4 + (1 if x % 5 in (1, 2) else 0) - (1 if x % 7 == 4 else 0)
-        for y in range(depth):
-            t.set(x, y, snow if y < depth - 1 else snow_s, wrap=False)
-    return t
+        for y in range(ys[0], min(ys[-1], ys[0] + depth)):
+            t.p[y][x] = snow if y < ys[0] + depth - 1 else snow_s
+    return contact_shadow(t, R["outline"])
 
 
 def leaves(R):
-    t = grass(R, 23)
+    """A pile of fallen leaves on the ground (transparent between the leaves)."""
+    t = Tile(MAG)
     cols = R["leaves"]
     o = R["outline"]
-    rng = random.Random(5)
-    spots = [(3, 4), (8, 3), (12, 5), (5, 8), (10, 8), (2, 11), (7, 12), (12, 11), (8, 7)]
+    spots = [(3, 4), (8, 3), (12, 5), (5, 8), (10, 8), (2, 11), (7, 12), (12, 11), (8, 7), (4, 6), (11, 2)]
     for i, (x, y) in enumerate(spots):
         c = cols[1 + i % 3]
-        t.rect(x, y, x + 2, y + 1, c)
         t.set(x - 1, y + 1, o, wrap=False)
         t.set(x + 3, y, o, wrap=False)
+        t.rect(x, y, x + 2, y + 1, c)
         t.set(x + 1, y + 2, cols[0], wrap=False)
-        rng.random()
     return t
 
 
@@ -418,6 +463,78 @@ def water(R, frame=0, bank=False):
     return t
 
 
+# ---- props and sprites the code set redraws (tilesets/code/<entry>.png) --------------------------------
+WOOD = [(96, 60, 32), (140, 94, 52), (184, 132, 76), (220, 176, 112)]
+WOOD_O = (48, 30, 18)
+
+
+def bridge(vertical):
+    """Planks across the way, rails along it, posts at the ends on the banks; the water shows on the
+    two open sides (transparent). Drawn crossed up-down, turned for left-right."""
+    d, m, l, h = WOOD
+    t = Tile(MAG)
+    for y in range(16):                                   # planks: 3 px each, a dark gap
+        k = y % 4
+        c = h if k == 0 else l if k == 1 else m if k == 2 else d
+        t.rect(3, y, 12, y, c)
+    for x in (1, 14):                                     # rails along the way
+        t.rect(x, 0, x, 15, WOOD_O)
+    t.rect(2, 0, 2, 15, l)
+    t.rect(13, 0, 13, 15, d)
+    for y in (0, 1, 14, 15):                              # posts at the ends
+        for x in (1, 2, 13, 14):
+            t.p[y][x] = d if y in (0, 15) else m
+    if not vertical:
+        t.p = [[t.p[x][y] for x in range(16)] for y in range(16)]
+    return t
+
+
+def crate():
+    d, m, l, h = WOOD
+    t = Tile(MAG)
+    t.rect(1, 1, 14, 13, m)
+    t.rect(1, 1, 14, 1, h)
+    t.rect(1, 1, 1, 13, l)
+    t.rect(1, 13, 14, 13, d)
+    t.rect(14, 1, 14, 13, d)
+    for i in range(12):                                   # the diagonal brace
+        t.set(2 + i, 2 + i * 10 // 11, d, wrap=False)
+        t.set(3 + i, 2 + i * 10 // 11, l, wrap=False)
+    for x in range(0, 16):                                # outline
+        for y in (0, 14):
+            if 1 <= x <= 14:
+                t.p[y][x] = WOOD_O
+    for y in range(1, 14):
+        t.p[y][0] = t.p[y][15] = WOOD_O
+    return contact_shadow(t, WOOD_O)
+
+
+def log():
+    """The floating log: bark with grain lines, BOTH ends cut (light wood with rings): no dark end
+    that could read as a head."""
+    d, m, l, h = WOOD
+    ring, cut = (170, 120, 64), (232, 196, 140)
+    t = Tile(MAG)
+    t.rect(3, 4, 12, 12, m)
+    t.rect(3, 4, 12, 4, WOOD_O)
+    t.rect(3, 12, 12, 12, WOOD_O)
+    t.rect(3, 5, 12, 5, l)
+    t.rect(3, 11, 12, 11, d)
+    for y, x0, x1 in ((7, 4, 7), (8, 7, 11), (10, 5, 9)):  # bark grain
+        t.rect(x0, y, x1, y, d)
+    for cx in (2, 13):                                    # the two cut ends
+        for y in range(4, 13):
+            for x in range(cx - 2, cx + 3):
+                r = ((x - cx) / 2.3) ** 2 + ((y - 8) / 4.6) ** 2
+                if r <= 1.0:
+                    t.p[y][x] = cut if r > 0.25 else ring
+                    if 0.45 < r < 0.7:
+                        t.p[y][x] = ring
+                elif r <= 1.35:
+                    t.p[y][x] = WOOD_O
+    return t
+
+
 def season_tiles(R):
     tiles = {
         "grass": grass(R, 1), "grass_edge": grass_edge(R), "soft_dirt": block(R["soft_dirt"], 3),
@@ -435,7 +552,8 @@ def season_tiles(R):
         "grass_v2": grass(R, 2), "grass_v3": grass(R, 3), "soft_dirt_v2": block(R["soft_dirt"], 4, pebbles=2),
         "soft_dirt_v3": block(R["soft_dirt"], 5, pebbles=4), "tunnel_v2": floor(R["tunnel"], 6),
         "tunnel_v3": floor(R["tunnel"], 8, pebbles=False), "water_f2": water(R, frame=1),
-        "water_edge": water(R, bank=True),
+        "water_edge": water(R, bank=True), "dirt_mound": dirt_mound(R, 7),
+        "dirt_mound_crack": dirt_mound(R, 7, cracked=True),
     }
     return tiles, extra
 
@@ -460,11 +578,16 @@ def main():
             extra_img.paste(extra[name].image(), (i * 16, s * 16))
     sheet.save(os.path.join(a.out, "tiles.png"))
     extra_img.save(os.path.join(a.out, "tiles_extra.png"))
-    print("wrote", os.path.join(a.out, "tiles.png"), "and tiles_extra.png")
+    props = {"bridge": bridge(False), "bridge_v": bridge(True), "crate": crate(), "log": log()}
+    for name, t in props.items():
+        t.image().save(os.path.join(a.out, name + ".png"))
+    print("wrote", os.path.join(a.out, "tiles.png"), "tiles_extra.png and", ", ".join(n + ".png" for n in props))
     if a.preview:
-        both = Image.new("RGB", (W + 16 * len(EXTRA) + 8, H), (24, 24, 32))
+        both = Image.new("RGB", (W + 16 * len(EXTRA) + 8 + 16 * len(props) + 8, H), (24, 24, 32))
         both.paste(sheet, (0, 0))
         both.paste(extra_img, (W + 8, 0))
+        for i, t in enumerate(props.values()):
+            both.paste(t.image(), (W + 16 * len(EXTRA) + 16 + i * 16, 0))
         both.resize((both.width * 4, both.height * 4), Image.NEAREST).save(os.path.join(a.out, "preview_4x.png"))
 
 

@@ -1,5 +1,10 @@
-# Bomber Mole - spring 7 (signature: the windmills). Gimmicks: gusts push you and your bombs along two wind
-# lanes (time your crossings), two cats, a sleeping guard dog (a blast wakes it; it chases cats), tall grass.
+# Bomber Mole - spring 7 (signature: the windmills). Each windmill blows AWAY from itself along a straight
+# lane up to the first solid cell (DESIGN.md, "Push fields"): the top one blows right, the bottom one left.
+# Idea: ride and fight the gusts. Crossing a lane means timing the gusts; a bomb dropped in the top lane is
+# carried to the rock at its far end that holds a grub (the only way to reach it: stone shelters it).
+# Two cats and a sleeping guard dog on the meadow (a blast wakes the dog: it chases cats), ferrets below,
+# a hole down beside the rock and a ladder back up in the bottom-left corner; the deep cave holds a grub in
+# a rock and a remote detonator.
 name: Windmill Hill
 season: spring
 arc: 1
@@ -7,52 +12,54 @@ level: 7
 bombs: 2
 range: 3
 gust: 200 110 12
-hint: Gusts blow along the lanes. Wake the dog with a blast: it hates cats.
+hint: Windmills blow away from themselves. A gust carries a bomb down its lane.
 status: done
 
 legend:
 a = floor + cat:1
+R = windmill + blow_right
+T = windmill + blow_left
 
 surface:
 ####################
-#M...W......W......#
-#>>>>>>>>>>>>>>>>>.#
-#.www....ddd....ww.#
-#.wgw....dGd....wg.#
-#.www....ddd.......#
-#.....a........D...#
-#<<<<<<<<<<<<<<<<<.#
-#....ttt...rrr.....#
-#.v..tgt...rQr..C..#
-#....t.t...r.r.....#
-#.......www....E...#
-#.x.....wgw........#
+#M..d...ww...ttt..g#
+#...d.g.ww...t.t..##
+#R................Q#
+#.dd...ww...rr...###
+#.dGd..ww...rr....v#
+#..d...........C...#
+#.www.........www..#
+#.................T#
+#..rrr...dd..D..rr.#
+#..rgr...dd.....r..#
+#..r.r..a...ddd....#
+#.v...E.......d.b..#
 ####################
 under1:
 ####################
 #dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#d.......dddddddddd#
-#d^......g..F....dd#
-#d........dddddd.dd#
-#dddddddd.......gdd#
-#dddddddddddddddddd#
+#dd.g.....ddd....dd#
+#dd.dddd.rdd..dd.dd#
+#dd.d..d..d..F.d.dd#
+#dd...dd.dddd.dd..^#
+#dddd.dd.v..d..dddd#
+#dd.....tt..dv.Gddd#
+#dd.ddddd.ddd.ddddd#
+#dd.d...d.....ddddd#
+#dd...d.dddd.dddddd#
+#dd.ddd......z..ddd#
+#dH.dddddddd..ddddd#
 ####################
 under2:
 ####################
 #dddddddddddddddddd#
 #dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#ddddd.....dddddddd#
+#dddd..rQr..ddddddd#
+#dddd.......F.ddddd#
+#dddd.o..^....ddddd#
+#dddddd..ddd.H.dddd#
+#dddddddddddd.ddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#

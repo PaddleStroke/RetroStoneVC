@@ -4,6 +4,7 @@
  */
 #include "bm.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 enum state {
@@ -18,6 +19,9 @@ static pstats carry[MAX_PLAYERS];
 static int view_depth, slide_from, slide_to, level_frames, forced_view = -1;
 static int title_ready;
 static uint32_t gt;
+/* developer mode (DESIGN.md "Dev mode"): --dev, or hold L+R and press Start on the title screen */
+static int dev_mode, dev_unlock_all, dev_skip, restarts, pause_quit;
+int dev_god, dev_reveal, dev_perf;
 
 /* ---- save RAM ------------------------------------------------------------------------------------ */
 typedef struct save_data {
@@ -64,7 +68,7 @@ static void save_store(void)
 
 static int unlocked(int arc, int n)
 {
-    if (unlock_all) return 1;
+    if (unlock_all || (dev_mode && dev_unlock_all)) return 1;
     if (arc > 0 && SV.cleared[arc - 1] < 8) return 0;
     return SV.cleared[arc] >= n - 1;
 }
@@ -164,6 +168,12 @@ static void title_update(void)
     if (bm_logo_tile_count) { if (st_t == 0) show_logo(1); }
     else text_big(9, 5, "BOMBER MOLE");
     static const char *const items[] = {"PLAY", "OPTIONS", "CREDITS"};
+    if ((rs_pad(0) & (RS_BTN_L | RS_BTN_R)) == (RS_BTN_L | RS_BTN_R) && (pressed() & RS_BTN_START)) {
+        dev_mode = dev_unlock_all = 1;              /* the developer code */
+        sfx(SFX_EXIT_OPEN);
+        return;
+    }
+    if (dev_mode) text_at(center("DEV MODE"), 25, "DEV MODE");
     int c = menu_nav(3);
     for (int i = 0; i < 3; i++) {
         text_at(16, 15 + i * 2, i == c ? ">" : " ");
@@ -281,13 +291,14 @@ static void options_update(void)
     menu_scroll();
     plain_text();
     text_at(center("OPTIONS"), 4, "OPTIONS");
-    int c = menu_nav(5);
+    int n_items = dev_mode ? 6 : 5, c = menu_nav(n_items), back_item = n_items - 1;
     uint16_t p = pressed();
     textf_at(11, 9, "%c MUSIC       %s ", c == 0 ? '>' : ' ', opt_music ? "ON " : "OFF");
     textf_at(11, 11, "%c SOUND       %s ", c == 1 ? '>' : ' ', opt_sfx ? "ON " : "OFF");
     textf_at(11, 13, "%c DIFFICULTY  %s", c == 2 ? '>' : ' ', diffs[opt_diff]);
     textf_at(11, 15, "%c ERASE SAVE        ", c == 3 ? '>' : ' ');
-    textf_at(11, 17, "%c BACK              ", c == 4 ? '>' : ' ');
+    if (dev_mode) textf_at(11, 17, "%c DEV: ALL LEVELS %s ", c == 4 ? '>' : ' ', dev_unlock_all ? "ON " : "OFF");
+    textf_at(11, dev_mode ? 19 : 17, "%c BACK              ", c == back_item ? '>' : ' ');
     if (confirm() || (p & (RS_BTN_LEFT | RS_BTN_RIGHT))) {
         sfx(SFX_MENU_OK);
         if (c == 0) { opt_music ^= 1; audio_options(opt_music, opt_sfx); if (opt_music) music_play("title"); }
@@ -299,8 +310,9 @@ static void options_update(void)
             unlock_all = 0;
             text_at(11, 20, "SAVE ERASED");
         }
+        if (dev_mode && c == 4) dev_unlock_all ^= 1;
         save_store();
-        if (c == 4 && confirm()) { text_clear_all(); go(ST_TITLE); cursor = 1; }
+        if (c == back_item && confirm()) { text_clear_all(); go(ST_TITLE); cursor = 1; }
     }
     if (back()) { text_clear_all(); go(ST_TITLE); cursor = 1; }
 }
@@ -430,21 +442,12 @@ static void begin_slide(int from, int to)
 
 static void play_update(void)
 {
-    if (pressed() & RS_BTN_START) { sfx(SFX_MENU_OK); go(ST_PAUSE); cursor = 0; return; }
+    if (pressed() & RS_BTN_START) { sfx(SFX_MENU_OK); go(ST_PAUSE); cursor = 0; pause_quit = 0; return; }
     world_update();
     level_frames++;
     if (W.events & EV_EXIT_OPEN) ui_banner_exit_open();
-    if (W.diff == DIFF_HARD) {                       /* Hard: the glow shows only near the mole */
-        static int last = -1;
-        actor *m = world_player(0);
-        int here = m ? (m->depth * GH + m->cy) * GW + m->cx : -1;
-        if (here != last && m) {
-            last = here;
-            for (int y = 0; y < GH; y++)
-                for (int x = 0; x < GW; x++)
-                    if (W.g[m->depth][y][x].item == IT_GRUB) { W.cell_dirty[m->depth][y][x] = 1; W.dirty[m->depth] = 1; }
-        }
-    }
+    if (W.events & EV_PICKUP) ui_pickup_banner(W.pickup);
+    if (dev_skip) { dev_skip = 0; W.events |= EV_EXIT; }     /* dev: skip the level */
     if (pending_depth >= 0) {
         int from = pending_from, to = pending_depth;
         pending_depth = pending_from = -1;
@@ -486,28 +489,121 @@ static void slide_update(void)
     }
 }
 
+/* dev: move the mole to the next depth (the nearest open cell there) */
+static void dev_next_depth(void)
+{
+    actor *m = world_player(0);
+    if (!m || st != ST_PLAY) return;
+    int from = m->depth, to = (m->depth + 1) % NDEPTH, best = -1, bx = m->cx, by = m->cy;
+    for (int y = 0; y < GH; y++)
+        for (int x = 0; x < GW; x++) {
+            int t = W.g[to][y][x].t;
+            if (!terrain_walkable(t, 0) || t == TR_WATER) continue;
+            int dd = abs(x - m->cx) + abs(y - m->cy);
+            if (best < 0 || dd < best) { best = dd; bx = x; by = y; }
+        }
+    if (best < 0) return;
+    m->depth = (uint8_t)to;
+    m->cx = m->tx = (int8_t)bx;
+    m->cy = m->ty = (int8_t)by;
+    m->moving = 0;
+    text_clear_all();
+    begin_slide(from, to);
+}
+
+static void dev_all_powerups(void)
+{
+    pstats *ps = &W.ps[0];
+    ps->bombs = 8; ps->range = 8; ps->speed = 3; ps->remote = 1; ps->hearts = 3;
+    sfx(SFX_POWERUP);
+}
+
+/* dev: reload the level's text file (desktop: games/<id>/levels next to the exe, or the data dir) */
+static void dev_reload(void)
+{
+    static level_def tmp;
+    char name[64];
+    snprintf(name, sizeof name, "levels/%s-%d.txt", season_name(sel_arc), sel_level);
+    rs_asset_reload(name, NULL);
+    if (level_load(&tmp, sel_arc, sel_level)) { rs_log("reload %s: %s", name, tmp.error); sfx(SFX_HURT); return; }
+    LV = tmp;
+    rs_log("reloaded %s", name);
+    text_clear_all();
+    ui_screen_done();
+    rs_math(RS_MATH_ADD | RS_MATH_HALF, RS_MATH_BG2, 0);
+    go(ST_INTRO);
+}
+
+/* dev keys (desktop F1..F7): god, power-ups, skip, depth, reload, reveal, frame-time overlay */
+static void dev_keys(void)
+{
+    int k = rs_dev_key();
+    int in_level = st == ST_PLAY || st == ST_PAUSE || st == ST_SLIDE;
+    switch (k) {
+    case 1: dev_god ^= 1; sfx(SFX_MENU_OK); break;
+    case 2: if (in_level) dev_all_powerups(); break;
+    case 3: if (st == ST_PLAY) dev_skip = 1; break;
+    case 4: dev_next_depth(); break;
+    case 5: if (in_level || st == ST_INTRO) dev_reload(); break;
+    case 6: dev_reveal ^= 1; sfx(SFX_MENU_OK); break;
+    case 7: dev_perf ^= 1; break;
+    default: break;
+    }
+}
+
+static void pause_resume(void)
+{
+    text_clear_all();
+    ui_screen_done();
+    rs_math(RS_MATH_ADD | RS_MATH_HALF, RS_MATH_BG2, 0);
+    st = ST_PLAY;
+}
+
+/* Pause: Left/Right (and Up/Down) move the cursor, A or Start picks the highlighted item (the cursor
+ * starts on RESUME, so Start still resumes), B or Esc resumes. QUIT asks first. In dev mode a second
+ * row holds the cheats. */
 static void pause_update(void)
 {
     uint16_t p = pressed();
-    int old = cursor;
-    if (p & (RS_BTN_LEFT | RS_BTN_UP)) cursor = (cursor + 2) % 3;
-    if (p & (RS_BTN_RIGHT | RS_BTN_DOWN)) cursor = (cursor + 1) % 3;
-    if (cursor != old) sfx(SFX_MENU_MOVE);
-    int c = cursor;
-    ui_pause_screen(c);
-    if (confirm() || (p & RS_BTN_START)) {
-        text_clear_all();
-        ui_screen_done();
-        rs_math(RS_MATH_ADD | RS_MATH_HALF, RS_MATH_BG2, 0);
-        sfx(SFX_MENU_OK);
-        if (c == 0 || ((p & RS_BTN_START) && !(p & RS_BTN_A))) { st = ST_PLAY; return; }
-        if (c == 1) { go(ST_INTRO); return; }
-        title_ready = 0;
-        go(ST_LEVELS);
-        cursor = sel_level - 1;
+    int n = dev_mode ? 3 + UI_DEV_ITEMS : 3;
+    if (pause_quit) {                                /* "QUIT TO TITLE?" YES / NO (NO first) */
+        if (p & (RS_BTN_LEFT | RS_BTN_RIGHT | RS_BTN_UP | RS_BTN_DOWN)) { pause_quit ^= 3; sfx(SFX_MENU_MOVE); }
+        ui_pause_screen(cursor, dev_mode, pause_quit);
+        if (p & (RS_BTN_A | RS_BTN_START)) {
+            sfx(SFX_MENU_OK);
+            if (pause_quit == 1) {                   /* YES */
+                pause_resume();
+                title_ready = 0;
+                text_clear_all();
+                go(ST_TITLE);
+                return;
+            }
+            pause_quit = 0;
+        } else if (p & (RS_BTN_B | RS_BTN_SELECT)) {
+            pause_quit = 0;
+        }
         return;
     }
-    if (back()) { text_clear_all(); ui_screen_done(); rs_math(RS_MATH_ADD | RS_MATH_HALF, RS_MATH_BG2, 0); st = ST_PLAY; }
+    int old = cursor;
+    if (p & (RS_BTN_LEFT | RS_BTN_UP)) cursor = (cursor + n - 1) % n;
+    if (p & (RS_BTN_RIGHT | RS_BTN_DOWN)) cursor = (cursor + 1) % n;
+    if (cursor != old) sfx(SFX_MENU_MOVE);
+    ui_pause_screen(cursor, dev_mode, 0);
+    if (p & (RS_BTN_B | RS_BTN_SELECT)) { sfx(SFX_MENU_OK); pause_resume(); return; }
+    if (!(p & (RS_BTN_A | RS_BTN_START))) return;
+    sfx(SFX_MENU_OK);
+    switch (cursor) {
+    case 0: pause_resume(); return;
+    case 1: restarts++; pause_resume(); go(ST_INTRO); return;
+    case 2: pause_quit = 2; return;                  /* ask, with NO highlighted */
+    case 3: dev_god ^= 1; return;
+    case 4: dev_all_powerups(); return;
+    case 5: pause_resume(); dev_skip = 1; return;
+    case 6: pause_resume(); dev_next_depth(); return;
+    case 7: dev_reveal ^= 1; return;
+    case 8: dev_perf ^= 1; return;
+    default: return;
+    }
 }
 
 static void dying_update(void)
@@ -549,9 +645,11 @@ static void outro_update(void)
         iris_set(0, 0, 0, 0);
         int secs = level_frames / 60;
         int a = sel_arc, n = sel_level - 1;
-        if (!SV.best[a][n] || secs < SV.best[a][n]) SV.best[a][n] = (uint16_t)(secs ? secs : 1);
-        if (SV.cleared[a] < sel_level) SV.cleared[a] = (uint8_t)sel_level;
-        save_store();
+        if (!dev_mode) {                            /* dev mode never writes the save's progress */
+            if (!SV.best[a][n] || secs < SV.best[a][n]) SV.best[a][n] = (uint16_t)(secs ? secs : 1);
+            if (SV.cleared[a] < sel_level) SV.cleared[a] = (uint8_t)sel_level;
+            save_store();
+        }
         carry[0].lives = W.ps[0].lives;
         go(ST_CLEAR);
     }
@@ -597,8 +695,8 @@ static void arcdone_update(void)
         for (int y = 0; y < 16; y++)
             for (int x = 0; x < 16; x++) {
                 int dx = x * 2 - 15, dy = y * 2 - 15, r2 = dx * dx + dy * dy;
-                const uint16_t *mt = r2 < 30 ? T[T_EXIT_OPEN] : r2 < 90 ? T[T_GRASS] : r2 < 170 ? T[T_LEAVES] :
-                                     r2 < 230 ? T[T_STONE] : T[T_TUNNEL];
+                const uint16_t *mt = r2 < 30 ? T[T_EXIT_OPEN] : r2 < 90 ? T[T_GRASS] : r2 < 170 ? T[T_SOFT_DIRT] :
+                                     r2 < 230 ? T[T_ROOTS] : T[T_TUNNEL];
                 rs_bg_meta(RS_BG2, x, y, mt);
             }
         music_play("title");
@@ -639,6 +737,7 @@ static void game_init(void)
     audio_options(opt_music, opt_sfx);
     sfx_init();
     if (rs_option_int("unlock", 0)) unlock_all = 1;
+    if (rs_option_int("dev", 0)) dev_mode = dev_unlock_all = 1;
     if (rs_option("difficulty")) opt_diff = clampi(rs_option_int("difficulty", 1), 0, 2);
     forced_view = rs_option_int("view", -1);
     if (rs_option_int("spritetest", 0)) {             /* test screen: walk cycles (facing tests) */
@@ -668,6 +767,7 @@ static void game_update(void)
 {
     gt++;
     st_changed = 0;
+    if (dev_mode) dev_keys();
     switch (st) {
     case ST_TITLE: title_update(); break;
     case ST_ARCS: arcs_update(); break;
@@ -793,6 +893,14 @@ static void game_shutdown(void)
     rs_log("state: st=%d level=%s grubs_left=%d/%d depth=%d x=%d y=%d hearts=%d lives=%d rocks=%d dirt=%d bombs=%d enemies=%d,%d,%d exit_open=%d",
            st, LV.file, W.grubs_left, W.grubs_total, m ? m->depth : -1, m ? m->cx : -1, m ? m->cy : -1,
            W.ps[0].hearts, W.ps[0].lives, rocks, dirt, bombs, world_enemies(0), world_enemies(1), world_enemies(2), W.exit_open);
+    {
+        int lanes[4];
+        world_wind_lanes(lanes);
+        rs_log("wind: lanes=%d,%d,%d,%d particles=%d,%d,%d,%d", lanes[0], lanes[1], lanes[2], lanes[3],
+               W.wind_fx[0], W.wind_fx[1], W.wind_fx[2], W.wind_fx[3]);
+        rs_log("menu: restarts=%d dev=%d god=%d lever1=%d remote=%d", restarts, dev_mode, dev_god, W.lever[1],
+               W.ps[0].remote);
+    }
 }
 
 const rs_game *rs_game_main(void)

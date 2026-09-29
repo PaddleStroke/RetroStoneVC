@@ -5,7 +5,7 @@
  * VRAM (tile numbers):   0 font, 96 big font (menus), 512 HUD, 700 box font, 800 box tile  [BG1 base 0]
  *                     1024 terrain, +192 props, +384 explosions, +640 weather            [BG2-4 base 1024]
  *                     2048 sprites, +1536 the level's boss                                [OBJ base 2048]
- * Layers: BG1 HUD/text, BG2 weather, BG3 explosions, BG4 terrain (see DESIGN.md).
+ * Layers: BG1 HUD/text/glow, BG2 weather, BG3 objects + explosions, BG4 ground (see DESIGN.md).
  */
 #include "bm.h"
 #include <stdarg.h>
@@ -243,36 +243,68 @@ static int cell_variant(int d, int x, int y)
 
 static int water_frame(void) { return (W.t >> 5) & 1; }    /* the water shimmer: 2 frames, ~0.5 s each */
 
-static const uint16_t *cell_meta(int d, int x, int y)
+/* Two playfield layers (DESIGN.md, "Screen"):
+ *   BG4, the base ground, always there and season-dependent: grass or snow on the surface, the tunnel
+ *        floor below, water, ice; underground, the soil blocks and thin floors are the ground too;
+ *   BG3, EVERYTHING placed on it, drawn with transparent pixels: rocks, stone, dirt mounds (surface),
+ *        roots, leaves, holes, ladders, the exit, crates, bridges, gates, plates, levers, vents...
+ *        A destroyed object leaves the ground. Explosions use BG3 too: while a cell burns, the blast
+ *        replaces its object (a blast destroys what it covers, or passes over flat things for 0.5 s).
+ * The glow of hidden grubs and the lever-link flash are on BG1 (ui.c). */
+static const uint16_t *floor_meta(int d, int x, int y)
+{
+    const uint16_t (*T)[4] = bm_terrain_meta[g_season];
+    static const int grass_v[3] = {T_GRASS, T_GRASS_V2, T_GRASS_V3};
+    static const int tunnel_v[3] = {T_TUNNEL, T_TUNNEL_V2, T_TUNNEL_V3};
+    int shadow = y > 0 && blocks_light(W.g[d][y - 1][x].t);       /* the block above casts a shadow */
+    if (d == 0) return shadow ? T[T_GRASS_SHADOW] : T[grass_v[cell_variant(d, x, y)]];
+    return shadow ? T[T_TUNNEL_SHADOW] : T[tunnel_v[cell_variant(d, x, y)]];
+}
+
+static int is_water(int d, int x, int y)
+{
+    if (!in_grid(x, y)) return 0;
+    int t = W.g[d][y][x].t;
+    return t == TR_WATER || t == TR_BRIDGE;
+}
+
+static const uint16_t *ground_meta(int d, int x, int y)
 {
     const cell *c = &W.g[d][y][x];
     const uint16_t (*T)[4] = bm_terrain_meta[g_season];
-    static const int grass_v[3] = {T_GRASS, T_GRASS_V2, T_GRASS_V3};
     static const int dirt_v[3] = {T_SOFT_DIRT, T_SOFT_DIRT_V2, T_SOFT_DIRT_V3};
-    static const int tunnel_v[3] = {T_TUNNEL, T_TUNNEL_V2, T_TUNNEL_V3};
     switch (c->t) {
-    case TR_FLOOR:
-        if (c->state == 7 && c->timer && !c->regrow) return prop_meta[PB_SPLAT];
-        if (d == 0) return (y > 0 && blocks_light(W.g[d][y - 1][x].t)) ? T[T_GRASS_SHADOW] : T[grass_v[cell_variant(d, x, y)]];
-        return T[tunnel_v[cell_variant(d, x, y)]];
+    case TR_DIRT:                                   /* underground, the soil IS the ground */
+        if (d > 0) return c->state ? T[T_DIRT_CRACK] : T[dirt_v[cell_variant(d, x, y)]];
+        break;
+    case TR_THIN: return T[T_THIN_FLOOR];
+    case TR_WATER: case TR_BRIDGE:
+        if (y > 0 && !is_water(d, x, y - 1)) return T[T_WATER_EDGE];
+        return water_frame() ? T[T_WATER_F2] : T[T_WATER];
+    case TR_ICE: return prop_meta[PB_ICE];
+    case TR_THIN_ICE: return prop_meta[PB_THIN_ICE + (c->state ? 1 : 0)];
+    }
+    return floor_meta(d, x, y);
+}
+
+/* the object standing on the ground (BG3, transparent around it), or NULL */
+static const uint16_t *object_meta(int d, int x, int y)
+{
+    const cell *c = &W.g[d][y][x];
+    const uint16_t (*T)[4] = bm_terrain_meta[g_season];
+    switch (c->t) {
+    case TR_FLOOR: return (c->state == 7 && c->timer && !c->regrow) ? prop_meta[PB_SPLAT] : NULL;
+    case TR_DIRT: return d > 0 ? NULL : c->state ? T[T_DIRT_MOUND_CRACK] : T[T_DIRT_MOUND];   /* surface mound */
     case TR_STONE: return T[T_STONE];
-    case TR_DIRT: return c->state ? T[T_DIRT_CRACK] : T[dirt_v[cell_variant(d, x, y)]];
     case TR_ROCK: return T[T_HARD_ROCK];
     case TR_ROOTS: return T[T_ROOTS];
     case TR_FROZEN: return T[T_FROZEN_DIRT];
     case TR_LEAVES: return T[T_LEAVES];
-    case TR_WATER:
-        if (y > 0 && W.g[d][y - 1][x].t != TR_WATER && W.g[d][y - 1][x].t != TR_BRIDGE) return T[T_WATER_EDGE];
-        return water_frame() ? T[T_WATER_F2] : T[T_WATER];
     case TR_PUDDLE: return T[T_PUDDLE];
-    case TR_THIN: return T[T_THIN_FLOOR];
     case TR_HOLE_DOWN: return T[T_HOLE_DOWN];
     case TR_HOLE_UP: return T[T_HOLE_UP];
     case TR_LADDER: return T[T_LADDER];
     case TR_EXIT: return W.exit_open ? T[T_EXIT_OPEN] : T[T_EXIT_CLOSED];
-    case TR_BRIDGE: return prop_meta[PB_BRIDGE];
-    case TR_ICE: return prop_meta[PB_ICE];
-    case TR_THIN_ICE: return prop_meta[PB_THIN_ICE + (c->state ? 1 : 0)];
     case TR_MUD: return prop_meta[PB_MUD];
     case TR_COVER: return prop_meta[g_season == SEASON_SUMMER ? PB_CORN : PB_TALL_GRASS];
     case TR_BURNT: return prop_meta[PB_BURNT];
@@ -282,10 +314,13 @@ static const uint16_t *cell_meta(int d, int x, int y)
     case TR_VENT: return prop_meta[PB_STEAM_VENT + (c->state ? 1 : 0)];
     case TR_PIPE: return prop_meta[PB_PIPE];
     case TR_CRATE: return prop_meta[PB_CRATE];
-    case TR_SPRINKLER: case TR_WINDMILL:
-        return d == 0 ? T[T_GRASS] : T[T_TUNNEL];
+    case TR_BRIDGE:
+        /* the planks run across the way over the water: water left or right of the bridge means the
+           river runs sideways, so you cross it up/down (bridge_v); otherwise left/right (bridge) */
+        return (is_water(d, x - 1, y) || is_water(d, x + 1, y)) && !(is_water(d, x, y - 1) || is_water(d, x, y + 1))
+                   ? prop_meta[PB_BRIDGE_V] : prop_meta[PB_BRIDGE];
     }
-    return T[T_STONE];
+    return NULL;
 }
 
 static void put_meta(int layer, int mx, int my, const uint16_t *m)
@@ -293,30 +328,19 @@ static void put_meta(int layer, int mx, int my, const uint16_t *m)
     rs_bg_meta(layer, mx, my & 31, m);
 }
 
-/* a block (dirt, rock, leaves...) that hides a golden grub glows; on Hard only near the mole */
-static int hidden_grub_glows(int d, int x, int y)
-{
-    const cell *c = &W.g[d][y][x];
-    if (c->item != IT_GRUB || terrain_walkable(c->t, 0) || c->t == TR_WATER) return 0;
-    if (W.diff == DIFF_HARD) {
-        const actor *m = world_player(0);
-        if (!m || m->depth != d || abs(m->cx - x) + abs(m->cy - y) > 3) return 0;
-    }
-    return 1;
-}
-
 static void draw_cell(int d, int slot, int x, int y)
 {
     int my = slot * 16 + y;
-    put_meta(RS_BG4, x, my, cell_meta(d, x, y));
+    put_meta(RS_BG4, x, my, ground_meta(d, x, y));
     uint8_t b = W.blast[d][y][x];
     static const uint16_t none[4] = {0, 0, 0, 0};
+    const uint16_t *o = object_meta(d, x, y);
     if (b) {
         int frame = b > 20 ? 0 : b > 10 ? 1 : 2;
         if (b > 26) frame = 0;
         put_meta(RS_BG3, x, my, bm_fx_meta[W.shape[d][y][x] + frame]);
     } else {
-        put_meta(RS_BG3, x, my, hidden_grub_glows(d, x, y) ? ui_glow_meta() : none);
+        put_meta(RS_BG3, x, my, o ? o : none);
     }
 }
 
@@ -332,11 +356,14 @@ void draw_playfield_full(int d, int slot)
     /* the earth between two depths (seen during slides) and the unused columns */
     for (int y = GH; y < 16; y++)
         for (int x = 0; x < 32; x++) {
-            put_meta(RS_BG4, x, slot * 16 + y, ((x + y) % 5) ? T[T_SOFT_DIRT] : T[T_HARD_ROCK]);
-            put_meta(RS_BG3, x, slot * 16 + y, none);
+            put_meta(RS_BG4, x, slot * 16 + y, T[T_SOFT_DIRT]);
+            put_meta(RS_BG3, x, slot * 16 + y, ((x + y) % 5) ? none : T[T_HARD_ROCK]);
         }
     for (int y = 0; y < GH; y++)
-        for (int x = GW; x < 32; x++) put_meta(RS_BG4, x, slot * 16 + y, T[T_STONE]);
+        for (int x = GW; x < 32; x++) {
+            put_meta(RS_BG4, x, slot * 16 + y, T[T_SOFT_DIRT]);
+            put_meta(RS_BG3, x, slot * 16 + y, T[T_STONE]);
+        }
     memset(W.cell_dirty[d], 0, sizeof W.cell_dirty[d]);
     W.dirty[d] = 0;
 }
@@ -348,7 +375,7 @@ void draw_cells_dirty(int d, int slot)
         water_drawn[slot & 3] = water_frame();
         for (int y = 0; y < GH; y++)
             for (int x = 0; x < GW; x++)
-                if (W.g[d][y][x].t == TR_WATER) draw_cell(d, slot, x, y);
+                if (is_water(d, x, y)) draw_cell(d, slot, x, y);
     }
     if (!W.dirty[d]) return;
     for (int y = 0; y < GH; y++)
@@ -493,6 +520,10 @@ void draw_world_sprites(int d, int yoff, int first)
         if (!b->active || b->depth != d) continue;
         int x = b->cx * CELL + (b->tx - b->cx) * b->prog / (SUB / CELL);
         int y = b->cy * CELL + (b->ty - b->cy) * b->prog / (SUB / CELL);
+        if (b->owner < MAX_PLAYERS && W.ps[b->owner].remote && b->fuse > 4) {
+            spr_cell(SPR_BOMB_REMOTE + (t / 12) % 2, x, y, yoff, 0);     /* no fuse: a blinking antenna */
+            continue;
+        }
         int rate = b->fuse < 40 ? 3 : 8;
         spr_cell(SPR_BOMB + (t / rate) % 3, x, y, yoff, 0);
     }
@@ -506,8 +537,13 @@ void draw_world_sprites(int d, int yoff, int first)
             }
             if (c->t == TR_SPRINKLER) spr_cell(SPR_SPRINKLER + c->state, x * CELL, y * CELL, yoff, 0);
             if (c->t == TR_WINDMILL) {
-                int speed = world_gust_on() ? 3 : 10;
-                spr_cell(SPR_WINDMILL + (t / speed) % 4, x * CELL, y * CELL, yoff, 0);
+                /* front view when it blows down or up, side view (sails on the side the wind goes) otherwise */
+                int speed = world_gust_on() ? 3 : 10, dir = c->blow ? c->blow - 1 : DIR_DOWN;
+                if (dir == DIR_LEFT || dir == DIR_RIGHT)
+                    spr_cell(SPR_WINDMILL_SIDE + (t / speed) % 4, x * CELL, y * CELL, yoff,
+                             dir == DIR_LEFT ? RS_SPR_HFLIP : 0);
+                else
+                    spr_cell(SPR_WINDMILL + (t / speed) % 4, x * CELL, y * CELL, yoff, 0);
             }
         }
     for (int i = 0; i < MAX_LOGS; i++) {
@@ -525,7 +561,10 @@ void draw_world_sprites(int d, int yoff, int first)
         int x = f->x / 16, y = f->y / 16, s, flags = 0;
         switch (f->kind) {
         case FXP_DUST: s = SPR_DUST + clampi(f->t / 8, 0, 2); break;
-        case FXP_WIND: s = SPR_WIND + (f->t / 5) % 3; if (f->vx < 0) flags = RS_SPR_HFLIP; break;
+        case FXP_WIND:          /* streaks drawn blowing right (and down for the vertical ones) */
+            if (f->vy) { s = SPR_WIND_V + (f->t / 5) % 3; if (f->vy < 0) flags = RS_SPR_VFLIP; }
+            else { s = SPR_WIND + (f->t / 5) % 3; if (f->vx < 0) flags = RS_SPR_HFLIP; }
+            break;
         case FXP_SPRAY: case FXP_SPLASH: s = SPR_SPRAY + (f->t / 4) % 2; break;
         case FXP_STEAM: s = SPR_STEAM; break;
         case FXP_ZZZ: s = SPR_ZZZ + (f->t / 10) % 2; break;
@@ -547,7 +586,6 @@ void draw_hud(void)
     int pd = world_player_depth(0);
     hud_cell(0, HUD_HEART);   hud_cell(1, HUD_DIGIT + clampi(ps->hearts, 0, 9));
     hud_cell(2, HUD_BOMB);    hud_cell(3, HUD_DIGIT + clampi(ps->bombs, 0, 9));
-    if (ps->remote && (W.t / 30) % 2) hud_cell(2, HUD_PANEL);
     hud_cell(4, HUD_FIRE);    hud_cell(5, HUD_DIGIT + clampi(ps->range, 0, 9));
     hud_cell(6, HUD_SPEED);   hud_cell(7, HUD_DIGIT + clampi(ps->speed, 0, 9));
     hud_cell(8, HUD_GRUB);
@@ -566,6 +604,7 @@ void draw_hud(void)
         int n = ui_grubs(d);                                         /* grubs left there */
         hud_cell(x + 2, n ? HUD_DIGIT + clampi(n, 0, 9) : HUD_CHECK);
     }
+    ui_hud_extras();                    /* the remote's button glyph */
 }
 
 /* ---- weather ------------------------------------------------------------------------------------- */

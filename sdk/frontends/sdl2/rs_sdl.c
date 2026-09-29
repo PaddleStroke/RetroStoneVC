@@ -70,6 +70,7 @@ static uint16_t keyboard_state(void)
         {SDL_SCANCODE_Q, RS_BTN_L}, {SDL_SCANCODE_W, RS_BTN_R},
         {SDL_SCANCODE_RETURN, RS_BTN_START}, {SDL_SCANCODE_KP_ENTER, RS_BTN_START},
         {SDL_SCANCODE_RSHIFT, RS_BTN_SELECT}, {SDL_SCANCODE_BACKSPACE, RS_BTN_SELECT},
+        {SDL_SCANCODE_ESCAPE, RS_BTN_SELECT},       /* Esc = back / resume (close the window to quit) */
     };
     const Uint8 *k = SDL_GetKeyboardState(NULL);
     uint16_t b = 0;
@@ -94,6 +95,7 @@ int main(int argc, char **argv)
         else if (!strcmp(argv[i], "--fullscreen")) fullscreen = 1;
         else if (!strcmp(argv[i], "--data") && i + 1 < argc) data_dir = argv[++i];
         else if (!strcmp(argv[i], "--opt") && i + 1 < argc) rsd_option(argv[++i]);
+        else if (!strcmp(argv[i], "--dev")) rsd_option("dev=1");       /* the game's developer mode */
     }
     if (scale < 1) scale = 1;
 
@@ -112,6 +114,13 @@ int main(int argc, char **argv)
     path_in_base(sram_path, sizeof sram_path, name);
     path_in_base(data_default, sizeof data_default, "data");
     rsd_set_data_dir(data_dir ? data_dir : data_default);
+    {   /* games/<id>/ next to the exe (or in the working directory): edited levels without a rebuild */
+        char gd[1200], rel[200];
+        snprintf(rel, sizeof rel, "games/%s", g->id);
+        path_in_base(gd, sizeof gd, rel);
+        rsd_add_data_dir(gd);
+        rsd_add_data_dir(rel);
+    }
 
     rs_host_set_log(log_fn);
     rs_host_set_file_loader(rsd_data_loader);
@@ -154,7 +163,7 @@ int main(int argc, char **argv)
             else if (e.type == SDL_CONTROLLERDEVICEADDED || e.type == SDL_CONTROLLERDEVICEREMOVED) open_pads();
             else if (e.type == SDL_KEYDOWN && !e.key.repeat) {
                 SDL_Keycode k = e.key.keysym.sym;
-                if (k == SDLK_ESCAPE) running = 0;
+                if (k >= SDLK_F1 && k <= SDLK_F10) rs_host_set_dev_key((int)(k - SDLK_F1) + 1);
                 else if (k == SDLK_F11 || (k == SDLK_RETURN && (e.key.keysym.mod & KMOD_ALT))) {
                     fullscreen = !fullscreen;
                     SDL_SetWindowFullscreen(win, fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);

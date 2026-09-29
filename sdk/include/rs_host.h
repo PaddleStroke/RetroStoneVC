@@ -29,6 +29,8 @@ void rs_host_shutdown(void);
 void rs_host_reset(void);
 
 void rs_host_set_pad(int port, uint16_t buttons, int connected);
+/* Development function key for the next frame (1..10 = F1..F10, 0 = none): rs_dev_key(). */
+void rs_host_set_dev_key(int key);
 
 /* Runs one 1/60 s frame: update(), draw(), render, audio. */
 void rs_host_frame(void);
