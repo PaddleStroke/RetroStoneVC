@@ -1,7 +1,10 @@
-# Bomber Mole - spring 1. Teaches the basics in order: walk (the start room), dig (the soft dirt wall),
-# a hole to go down, collecting the golden grubs below, the ladder back up, the exit molehill.
-# Gimmicks: digging, holes and a ladder, a puddle, the windmill. Enemies: tier 1 only (2 sleepy ferrets
-# below, 1 ginger cat far from the path): they wander slowly and ignore bombs.
+# Bomber Mole - spring 1. Idea: out of the burrow, down the hole, along the tunnel under the meadow and up
+# the ladder into the hedged garden where the molehill waits. Teaches in order: walk (the burrow), dig (its
+# soft dirt wall), a hole down, the golden grubs below, a glowing block hiding a grub, the ladder back up,
+# the exit. The hedge has dirt gaps: dig one to loop back to the meadow.
+# Gimmicks: digging (walls, hidden grubs, hedge gaps), holes and a ladder, puddles (slow on the grass, mud in
+# the tunnel below), tall grass (hides you from the cat). Enemies: tier 1 only: 2 sleepy ferrets below, a
+# ginger cat in the garden (risk/reward: the garden grub lies on its beat, or sneak up through the grass).
 name: First Dig
 season: spring
 arc: 1
@@ -13,32 +16,32 @@ status: done
 
 surface:
 ####################
-#M...d.........W...#
-#....d.............#
-#....d.v...........#
-#....d.............#
-#....d.......p.....#
-######.............#
-#..................#
-#..................#
-#..................#
-#...........v......#
-#...............E..#
-#.....C............#
+#M...d...ddd.....r.#
+#....d...dGd..r....#
+#....d.v.....rr.p..#
+#....d..r.....pp...#
+#....d.rr.......p.r#
+######...r..ww....r#
+########d####d##d###
+#.r...w.......#..r.#
+#....www..pp..#....#
+#.g...w..pp.v.d..r.#
+#...r.....r.....E..#
+#......C....r...rr.#
 ####################
 under1:
 ####################
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddd^......g.ddd#
+#ddddddddddddd..ddd#
+#ddddddddrrdddd.ddd#
 #dddddddddddddd.ddd#
-#dddddddddddddd.ddd#
-#dddddddddddddd.ddd#
-#dddddddddddddd.ddd#
+#dddrdddddddddd.ddd#
 #dddGdddddddddd.ddd#
-#ddd...F..F.....ddd#
-#dddddddddddHg.dddd#
-#dddddddddddddddddd#
+#ddd.F..F.dd....ddd#
+#dddddddd.ddHg..ddd#
+#dddddddd..dddddddd#
 #dddddddddddddddddd#
 ####################
 under2:

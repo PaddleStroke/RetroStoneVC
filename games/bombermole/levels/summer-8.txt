@@ -1,8 +1,11 @@
-# Bomber Mole - summer 8: BOSS TEST ROOM for the farmer (the real level 8 is still to be designed).
+# Bomber Mole - summer 8: boss, the farmer. Idea: the farmer stands in his corn patch lobbing tomatoes; his four
+# crates stand in the corners of the field, so every crate run crosses his line of fire: weave between the corn
+# rows (cover) and dive down a hole to dodge (tomatoes follow you down as splats).
 # The farmer lobs tomatoes (the shadow shows where they land; a hit stuns, a splat slows). His 4 crates
-# shield him: blow them up and he gets angry (phase 2: he chases and throws faster, 3 hits).
-# Tomatoes that land in a hole splat on the depth below.
-name: Boss Test: The Farmer
+# shield him: blow them up and he gets angry (phase 2: he chases and throws faster, 3 hits). Tomatoes that
+# land in a hole splat on the depth below. Grubs wait in the tunnels under the field (and one in the den two
+# floors down) while he holds the last one. Enemies: the boss, tier 2 brown ferrets below.
+name: The Farmer
 season: summer
 arc: 2
 level: 8
@@ -10,36 +13,36 @@ bombs: 2
 range: 3
 boss: farmer
 hint: Blow up his tomato crates, then blast the angry farmer three times.
-status: stub
+status: done
 
 surface:
 ####################
-#M.................#
-#..c............c..#
-#..................#
-#.......wwww.......#
-#.......wKww.......#
-#.......wwww.......#
-#..................#
-#..c..........c....#
-#..................#
-#....v.............#
-#.......E..........#
-#..................#
+#M..r.....w.....v..#
+#.c..ww.......ww.c.#
+#....ww..r.r..ww...#
+#.r.....wwww.....r.#
+#...#...wKww...#...#
+#..v....wwww...r...#
+#.....r.#..r....#..#
+#.c..ww..ww...ww.c.#
+#....ww..r....ww...#
+#.r.......v.....r..#
+#...#...E....r.....#
+#..r...#...r.....r.#
 ####################
 under1:
 ####################
+#ddddddddddddddd^dd#
+#ddd....F........dd#
+#ddd.ddddgdddd.dddd#
+#ddd.ddddddddd.dddd#
+#ddd.ddddddddd.dddd#
+#dd^.ddddddddd.dddd#
+#ddd.ddddGdddd.dddd#
+#ddd..........F.ddd#
+#ddddddddd.ddddvddd#
+#ddddddddd^dddddddd#
 #dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#ddd.....dddddddddd#
-#ddd.^.g.dddddddddd#
-#ddd.....dddddddddd#
 #dddddddddddddddddd#
 ####################
 under2:
@@ -51,9 +54,9 @@ under2:
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#ddddddddddF.....dd#
+#dddddddddd.g..H.dd#
+#dddddddddd......dd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 ####################

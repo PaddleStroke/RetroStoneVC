@@ -1,5 +1,10 @@
-# Bomber Mole - spring 8: boss, the barn cat. Gimmicks: the boss (5 hits, holds the last grub), sprinklers,
-# puddles and tall grass in the arena, grubs underground.
+# Bomber Mole - spring 8: boss, the barn cat. Idea: a Bomberman barn floor: stone posts, hay bales and puddles,
+# with the barn cat hunting you between them; bait it into your bomb lanes (but keep bombs out of the sprinklers'
+# spray) after taking the grubs hidden two floors down under the barn.
+# Gimmicks: the boss (5 hits, holds the last grub), a pillar grid of blast lanes, sprinklers that defuse bombs,
+# puddles that slow you and stop blasts, tall grass that hides you, holes in two corners and a cellar below.
+# Quiet start: the mole starts walled in the hayloft corner; dig out when ready. Enemies: tier 2 brown ferrets
+# and a sleepy ferret below.
 name: The Barn Cat
 season: spring
 arc: 1
@@ -15,25 +20,25 @@ a = floor + ferret:1
 
 surface:
 ####################
-#M.......p........v#
-#.rr...........rr..#
-#.r..w.....w....r..#
-#....w..k..w.......#
-#..........K.......#
-#.p....r.....r...p.#
-#......r.....r.....#
-#...w.....x....w...#
-#.rr....k.......rr.#
-#..r............r..#
-#.......E..........#
-#v.................#
+#M.dd.....p.......v#
+#.#.#d#.#.#.#w#.#..#
+#d.d......k.....w..#
+#.#.#.#.#.#.#.#.#.r#
+#....w....K...p....#
+#.#.#.#.#.#.#.#.#..#
+#..p....d.....d....#
+#.#.#.#.#.#.#.#.#.w#
+#...w...k.....r....#
+#.#.#.#.#d#.#.#.#..#
+#....p.......E..r..#
+#v...r....w.....d..#
 ####################
 under1:
 ####################
 #ddddddddddddddddd^#
 #ddddddddddddd.....#
 #ddddddddddddd.ddg.#
-#ddddddddddddd.dddd#
+#ddddddddvdddd.dddd#
 #dddd.........F.ddd#
 #dddd.ddddddddd.ddd#
 #dddd.dddgddddd.ddd#
@@ -46,11 +51,11 @@ under1:
 under2:
 ####################
 #dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#ddddddrrrrrrdddddd#
+#ddddddr....rdddddd#
+#ddddddr.Hg.rdddddd#
+#ddddddr...Frdddddd#
+#ddddddrrrrrrdddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
