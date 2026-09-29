@@ -124,8 +124,6 @@ def parse_spec(spec):
         elif tok.startswith("timed:"):
             out["timed"] = int(tok[6:])
             pass
-        elif tok[:5] == "blow_" and tok[5:] in ("up", "down", "left", "right"):   # windmill: where it blows
-            out["blow"] = tok
         elif tok[:5] in ("push_", "flow_") and tok[5:] in ("up", "down", "left", "right"):
             out["push"] = tok
         else:
@@ -486,6 +484,20 @@ def design_rules(path, head, cells, g, seen, start, grubs, boss, exits):
     """The design rules (DESIGN.md, "Level ideas"); raises one LevelError listing every problem."""
     T = lambda d, x, y: cells[d][y][x]["t"]  # noqa: E731
     errs = []
+    # a windmill's lane (straight out to the first solid cell; the game recomputes it every frame) is a
+    # push field: its cells are features, not plain floor
+    for d in range(3):
+        for y in range(GH):
+            for x in range(GW):
+                c = cells[d][y][x]
+                if c["t"] != "windmill":
+                    continue
+                dx, dy = BLOW[c["blow"] or "down"]
+                lx, ly = x + dx, y + dy
+                while 0 <= lx < GW and 0 <= ly < GH and (T(d, lx, ly) in OPEN or T(d, lx, ly) == "water"):
+                    if not cells[d][ly][lx]["push"]:
+                        cells[d][ly][lx] = dict(cells[d][ly][lx], push="lane")   # cells share dicts
+                    lx, ly = lx + dx, ly + dy
     play = playable_depths(cells, seen, grubs, boss)
     head["_playable"] = play
     # 1. an enemy on every playable depth, none next to the start

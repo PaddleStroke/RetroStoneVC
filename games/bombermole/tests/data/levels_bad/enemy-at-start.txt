@@ -1,0 +1,54 @@
+# KNOWN BAD (test data): the summer 3 stub with a cat two cells from the mole. check_levels.py must report
+# ENEMY AT START: no enemy closer than 6 cells to the start.
+name: Summer 3 (stub)
+season: summer
+arc: 2
+level: 3
+status: stub
+hint: A stub level: grab the grubs and reach the exit.
+
+surface:
+####################
+#M....r......r.....#
+#..C.......www.r..r#
+#..ddd..r..wgw..r..#
+#..dGd.r...www.....#
+#..ddd....r.....v..#
+#....r...r....r...r#
+#.r...www..........#
+#...r.wxw..r.r..r..#
+#..r..www.....r..r.#
+#.r.......r....C...#
+#....r..E.....r..r.#
+#.r.r......r.r....r#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#ddddddddddGddddddd#
+#ddddd..........^dd#
+#ddddd.ddddddd.dddd#
+#ddddd.ddddddd.dddd#
+#ddddd....F.g..dddd#
+#dddddvdddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#ddd....r....dddddd#
+#ddd..H....g.dddddd#
+#dddr...r...Fdddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

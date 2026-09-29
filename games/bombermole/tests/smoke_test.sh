@@ -49,6 +49,12 @@ done
 # the softlock search catches a one-way gate (the pre-fix spring 4)
 out=$(python3 $D/../tools/check_levels.py $D/data/levels_bad/softlock-gate.txt 2>&1)
 check "check_levels finds the spring 4 gate softlock" "SOFTLOCK" "$out"
+# the design rules catch a depth without an enemy, a big empty area and a gimmick far from every path
+for c in "no-enemy NO.ENEMY" "enemy-at-start ENEMY.AT.START" "empty-area EMPTY.AREA" "useless-gimmick USELESS.GIMMICK"; do
+    set -- $c
+    out=$(python3 $D/../tools/check_levels.py $D/data/levels_bad/$1.txt 2>&1)
+    check "check_levels rejects $1" "$2" "$out"
+done
 # the objective bot (--opt bot=2) finishes spring 1 and 2 using only what the game shows
 for l in spring-1 spring-2; do
     out=$($H --frames 20000 --opt level=$l --opt nointro=1 --opt dump=1 --opt bot=2 2>&1)

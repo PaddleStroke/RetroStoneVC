@@ -1,43 +1,42 @@
-# STUB: a placeholder level. Replace it with a real design (see DESIGN.md).
+# STUB: a generated level (tools/make_stub_levels.py). Replace it with a real design (DESIGN.md).
 # Planned: drain pipes
+# Layout B, mirrored: three depths with a loop (two holes down, a ladder back), an enemy on each depth, a grub
+# hidden in a block on each depth (only its glow shows it), the season's feature near the paths.
 name: Autumn 7 (stub)
 season: autumn
 arc: 3
 level: 7
 status: stub
-hint: A stub level: grab the grubs and reach the exit.
-
-legend:
-a = floor + ferret:2
+hint: A generated level: three depths, a grub hidden on each.
 
 surface:
 ####################
-#M.................#
-#..................#
-#....ddd....lll....#
-#....dgd....l.l....#
-#....ddd....lll....#
-#..................#
-#..................#
-#.........v........#
-#..................#
-#..................#
-#.......E......C...#
-#..................#
+#g.....lll....rr..M#
+#..ddd.l.l.dd.Qr...#
+#..dGd.....dd.rr.d.#
+#..ddd.v..r......d.#
+#.........r..ll.dd.#
+#..C.rrr.....ll....#
+#....r.r..dd...rrr.#
+#.ll......dd...r.r.#
+#.ll.ddd.....v.rgr.#
+#....dGd...ll......#
+#..x.ddd...ll...dd.#
+#........E......dd.#
 ####################
 under1:
 ####################
 #dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddd.......ddddd#
-#dddddd...^.g.ddddd#
-#dddddd.....a.ddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#dddddd..ddd..g.ddd#
+#ddddd.d.ddd.dd.ddd#
+#dddd..^.....dd.ddd#
+#dddd.dd.rr.ddd..dd#
+#ddd..dd.Gr...dd.dd#
+#ddd.d......F.dd.dd#
+#ddd.dd.v.dd.ddd.dd#
+#ddd.dd...dd.Hdd.dd#
+#ddd....tt.......dd#
+#ddd.g.dd.ddd.ddddd#
 #dddddddddddddddddd#
 ####################
 under2:
@@ -46,12 +45,12 @@ under2:
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#ddddd.......dddddd#
+#ddddd...rQr.dddddd#
+#ddddd.F.r.r.dddddd#
+#ddddd..^....dddddd#
+#dddddd.ddd.ddddddd#
+#dddd.g...o..dddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 ####################

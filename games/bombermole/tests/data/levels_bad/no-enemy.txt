@@ -1,11 +1,12 @@
+# KNOWN BAD: no enemy on depth 1 (check_levels must say NO ENEMY).
 # STUB: a generated level (tools/make_stub_levels.py). Replace it with a real design (DESIGN.md).
-# Planned: badger mini-boss (underground)
+# Planned: corn maze and beehives
 # Layout A: three depths with a loop (two holes down, a ladder back), an enemy on each depth, a grub
 # hidden in a block on each depth (only its glow shows it), the season's feature near the paths.
-name: Summer 4 (stub)
+name: Bad No Enemy
 season: summer
 arc: 2
-level: 4
+level: 2
 status: stub
 hint: A generated level: three depths, a grub hidden on each.
 
@@ -29,7 +30,7 @@ under1:
 #dddddddddddddddddd#
 #dd.g....ddd...dddd#
 #dd.dddd.rdd.d..d^d#
-#dd.d..d..d..F.dd.d#
+#dd.d..d..d....dd.d#
 #dd...dd.dddd.dd..d#
 #dddd.dd.v..d..dddd#
 #dd.....tt..dd.Gddd#
@@ -45,7 +46,7 @@ under2:
 #dddddddddddddddddd#
 #ddddd.....dddddddd#
 #dddd..rQr..ddddddd#
-#dddd..r.r..F.ddddd#
+#dddd..r.r....ddddd#
 #dddd.b..^.....dddd#
 #dddddd..ddd.g.dddd#
 #dddddddddddddddddd#

@@ -1,54 +1,53 @@
-# STUB: a placeholder level. Replace it with a real design (see DESIGN.md).
+# STUB: a generated level (tools/make_stub_levels.py). Replace it with a real design (DESIGN.md).
 # Planned: thin-ice lake
+# Layout A: three depths with a loop (two holes down, a ladder back), an enemy on each depth, a grub
+# hidden in a block on each depth (only its glow shows it), the season's feature near the paths.
 name: Winter 2 (stub)
 season: winter
 arc: 4
 level: 2
 status: stub
-hint: A stub level: grab the grubs and reach the exit.
-
-legend:
-a = floor + ferret:3
+hint: A generated level: three depths, a grub hidden on each.
 
 surface:
 ####################
-#M.................#
-#..................#
-#....ddd....fff....#
-#....dgd....f.f....#
-#....ddd....fff....#
-#..................#
-#..................#
-#.........v........#
-#..................#
-#..................#
-#.......E......C...#
-#..................#
+#M..d...rr...fff..g#
+#...d.g.rr...f.f...#
+#dd.dd......ddd..v.#
+#..........r.dGd...#
+#.rr.ff.d..r.ddd...#
+#.rQ.ff.d......C...#
+#.rr....ddd.rr.....#
+#.....v.....rr.ff..#
+#.ddd......d....f..#
+#.dGd..ff..d..rr...#
+#.ddd..ff.....rg...#
+#.......E......d...#
 ####################
 under1:
 ####################
 #dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddd.......ddddd#
-#dddddd...^.g.ddddd#
-#dddddd.....a.ddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#dd.g....ddd...dddd#
+#dd.dddd.rdd.d..d^d#
+#dd.d..d..d..F.dd.d#
+#dd...dd.dddd.dd..d#
+#dddd.dd.v..d..dddd#
+#dd.....tt..dd.Gddd#
+#dd.ddHdd.ddd.ddddd#
+#dd.d...d.....ddddd#
+#dd...d.dddd.dddddd#
+#dd.ddd......r.gddd#
 #dddddddddddddddddd#
 ####################
 under2:
 ####################
 #dddddddddddddddddd#
 #dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#ddddd.....dddddddd#
+#dddd..rQr..ddddddd#
+#dddd..r.r..F.ddddd#
+#dddd.b..^.....dddd#
+#dddddd..ddd.g.dddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#

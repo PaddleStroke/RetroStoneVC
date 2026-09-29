@@ -1,43 +1,42 @@
-# STUB: a placeholder level. Replace it with a real design (see DESIGN.md).
+# STUB: a generated level (tools/make_stub_levels.py). Replace it with a real design (DESIGN.md).
 # Planned: harvester sweeping a row
+# Layout B: three depths with a loop (two holes down, a ladder back), an enemy on each depth, a grub
+# hidden in a block on each depth (only its glow shows it), the season's feature near the paths.
 name: Summer 3 (stub)
 season: summer
 arc: 2
 level: 3
 status: stub
-hint: A stub level: grab the grubs and reach the exit.
-
-legend:
-a = floor + ferret:1
+hint: A generated level: three depths, a grub hidden on each.
 
 surface:
 ####################
-#M.................#
-#..................#
-#....ddd....www....#
-#....dgd....w.w....#
-#....ddd....www....#
-#..................#
-#..................#
-#.........v........#
-#..................#
-#..................#
-#.......E......C...#
-#..................#
+#M..rr....www.....g#
+#...rQ.dd.w.w.ddd..#
+#.d.rr.dd.....dGd..#
+#.d......r..v.ddd..#
+#.dd.ww..r.........#
+#....ww.....rrr.C..#
+#.rrr...dd..r.r....#
+#.r.r...dd......ww.#
+#.rgr.v.....ddd.ww.#
+#......ww...dGd....#
+#.dd...ww...ddd.x..#
+#.dd......E........#
 ####################
 under1:
 ####################
 #dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddd.......ddddd#
-#dddddd...^.g.ddddd#
-#dddddd.....a.ddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#ddd.g..ddd..dddddd#
+#ddd.dd.ddd.d.ddddd#
+#ddd.dd.....^..dddd#
+#dd..ddd.rr.dd.dddd#
+#dd.dd...rG.dd..ddd#
+#dd.dd.F......d.ddd#
+#dd.ddd.dd.v.dd.ddd#
+#dd.ddH.dd...dd.ddd#
+#dd.......tt....ddd#
+#ddddd.ddd.dd.g.ddd#
 #dddddddddddddddddd#
 ####################
 under2:
@@ -46,12 +45,12 @@ under2:
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#dddddd.......ddddd#
+#dddddd.rQr...ddddd#
+#dddddd.r.r.F.ddddd#
+#dddddd....^..ddddd#
+#ddddddd.ddd.dddddd#
+#dddddd..o...g.dddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 ####################

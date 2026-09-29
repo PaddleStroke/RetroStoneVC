@@ -1,54 +1,53 @@
-# STUB: a placeholder level. Replace it with a real design (see DESIGN.md).
+# STUB: a generated level (tools/make_stub_levels.py). Replace it with a real design (DESIGN.md).
 # Planned: leaf storms
+# Layout A, mirrored: three depths with a loop (two holes down, a ladder back), an enemy on each depth, a grub
+# hidden in a block on each depth (only its glow shows it), the season's feature near the paths.
 name: Autumn 6 (stub)
 season: autumn
 arc: 3
 level: 6
 status: stub
-hint: A stub level: grab the grubs and reach the exit.
-
-legend:
-a = floor + ferret:2
+hint: A generated level: three depths, a grub hidden on each.
 
 surface:
 ####################
-#M.................#
-#..................#
-#....ddd....lll....#
-#....dgd....l.l....#
-#....ddd....lll....#
-#..................#
-#..................#
-#.........v........#
-#..................#
-#..................#
-#.......E......C...#
-#..................#
+#g..lll...rr...d..M#
+#...l.l...rr.g.d...#
+#.v..ddd......dd.dd#
+#...dGd.r..........#
+#...ddd.r..d.ll.rr.#
+#...C......d.ll.Qr.#
+#.....rr.ddd....rr.#
+#..ll.rr.....v.....#
+#..l....d......ddd.#
+#...rr..d..ll..dGd.#
+#...gr.....ll..ddd.#
+#...d......E.......#
 ####################
 under1:
 ####################
 #dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddd.......ddddd#
-#dddddd...^.g.ddddd#
-#dddddd.....a.ddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#dddd...ddd....g.dd#
+#d^d..d.ddr.dddd.dd#
+#d.dd.F..d..d..d.dd#
+#d..dd.dddd.dd...dd#
+#dddd..d..v.dd.dddd#
+#dddG.dd..tt.....dd#
+#ddddd.ddd.ddHdd.dd#
+#ddddd.....d...d.dd#
+#dddddd.dddd.d...dd#
+#dddg.r......ddd.dd#
 #dddddddddddddddddd#
 ####################
 under2:
 ####################
 #dddddddddddddddddd#
 #dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#dddddddd.....ddddd#
+#ddddddd..rQr..dddd#
+#ddddd.F..r.r..dddd#
+#dddd.....^..b.dddd#
+#dddd.g.ddd..dddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#

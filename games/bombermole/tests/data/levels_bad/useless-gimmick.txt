@@ -1,11 +1,12 @@
+# KNOWN BAD: a pressure plate far from every path (check_levels must say USELESS GIMMICK).
 # STUB: a generated level (tools/make_stub_levels.py). Replace it with a real design (DESIGN.md).
-# Planned: badger mini-boss (underground)
+# Planned: corn maze and beehives
 # Layout A: three depths with a loop (two holes down, a ladder back), an enemy on each depth, a grub
 # hidden in a block on each depth (only its glow shows it), the season's feature near the paths.
-name: Summer 4 (stub)
+name: Bad Gimmick
 season: summer
 arc: 2
-level: 4
+level: 2
 status: stub
 hint: A generated level: three depths, a grub hidden on each.
 
@@ -52,5 +53,5 @@ under2:
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
-#dddddddddddddddddd#
+#Pddddddddddddddddd#
 ####################

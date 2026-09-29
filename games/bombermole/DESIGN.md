@@ -426,3 +426,36 @@ state so co-op (shared grubs, shared exit) and battle (last mole standing, no gr
   everywhere, soil, tunnel and rock close in value), which hides what can be dug. Grass, soil and tunnel
   floor have 3 variants each, placed by a fixed hash of the cell; water shimmers (2 frames, ~0.5 s each) and
   shows a bank where the cell above is not water.
+
+## Level ideas
+Every level has one clear idea (below). `tools/check_levels.py` (in `make check`) enforces the design rules on
+every level, stubs included, on top of solvability and the softlock search:
+- **An enemy on every playable depth** (a depth with grubs, or with open floor the mole can reach), within the
+  level's tier curve, and none closer than 6 cells to the mole's start (a quiet start).
+- **No big empty areas**: on a playable depth, no rectangle of plain floor larger than 20 cells (both sides 3
+  or more), and each 6x6 sector with 12+ open cells has at least 25% of something other than plain floor
+  (blocks, items, enemies, gimmicks, push fields; a windmill's lane counts as a push field).
+- **Every gimmick matters**: a point gimmick (plate, lever, gate, pipe, vent, bridge, sprinkler, crate,
+  windmill, thin floor) lies within 2 cells of a required path, i.e. a shortest path (digging costs more than
+  walking) from the start to a grub, the boss or the exit, or from a grub to the exit; an area gimmick (ice,
+  thin ice, tall grass, puddles, mud, push fields, logs) touches one; plates and levers matter when their gate
+  does; the farmer's crates are required targets.
+- Known-bad levels in `tests/data/levels_bad/` must fail each rule (smoke test).
+
+| Level | Idea |
+|---|---|
+| Spring 1 First Dig | Out of the burrow, down the hole, along the tunnel and up the ladder into the hedged garden: teaches walking, digging, holes, a glowing hidden grub, the ladder, the exit (tier 1). |
+| Spring 2 Rock Garden | Every grub is walled in: bomb the rock beds on the grass, then two floors down to the root cellar where blasted roots grow back behind you. |
+| Spring 3 River Crossing | Three ways across the river: the bridge (lure the cat over, then blow it up), the drifting log, or the long way under the riverbed. |
+| Spring 4 Thin Floors | Trapdoors: bomb a thin floor to open a hole into a sealed chamber (and drop the rubble on the ferret waiting below), two floors deep. |
+| Spring 5 Chain Reaction | A rock spiral too long for one bomb: chain bombs, toss one down a hole to clear the landing, keep bombs out of the sprinklers' spray. |
+| Spring 6 Ferret Warren | The molehill is fenced in and its lever lies at the bottom of the warren between sleeping ferrets: sneak in without a single blast. |
+| Spring 7 Windmill Hill | Ride and fight the gusts: time the crossings of two windmill lanes, and let a gust carry a bomb to the sheltered rock that holds a grub. |
+| Spring 8 The Barn Cat | Boss arena: a Bomberman barn floor of posts, hay and puddles; bait the barn cat into bomb lanes after taking the grubs hidden under the barn. |
+| Summer 1 Steam Lift | Geysers lift you into sealed rooms no tunnel reaches; fire a bomb up the deep vent first to clear the nest above. |
+| Summer 8 The Farmer | Boss arena: his four crates stand in the corners of the corn field, so every crate run crosses his line of fire; weave through the corn and dive down holes. |
+| Autumn 1 Gale Force | Gale lanes push you and your bombs; the gusts blow the leaf piles away and uncover the grubs. |
+| Autumn 8 The Fox | Boss arena: an orchard crossed by two gale lanes; the fox rides the wind, and so do your bombs. |
+| Winter 1 Frozen River | Cross the frozen river in one slide; only a bomb kicked across the ice cracks the frozen island in the middle. |
+| Winter 8 The Snowy Owl | Boss arena: a clearing with no cover from the flying owl; kick bombs along two ice lanes and hide underground. |
+| Summer, autumn, winter 2-7 | Generated stubs (`tools/make_stub_levels.py`): two layouts (mirrored for levels 5-7) using all three depths with a loop (two holes down, a ladder back), an enemy on each depth, a grub hidden in a block on each depth (only its glow shows it), a riskier grub near the enemies and the season's feature. Still simple: to be designed. |
