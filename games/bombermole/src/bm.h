@@ -103,6 +103,11 @@ typedef struct actor {
     uint8_t state;
     uint8_t etype, pal;         /* enemy type, sprite palette slot */
     int16_t react;              /* bomb reaction countdown */
+    uint8_t chasing;            /* chase hysteresis */
+    uint8_t since_reverse;      /* tiles since the last turn-around */
+    uint8_t face, prev_face;    /* facing statistics (tests) */
+    uint16_t face_changes, tiles_moved, jitter;
+    uint32_t face_t;
 } actor;
 
 typedef struct bomb {

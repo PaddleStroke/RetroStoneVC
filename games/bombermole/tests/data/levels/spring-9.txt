@@ -1,0 +1,54 @@
+# Test arena for the chase tests (not a game level): a Bomberman pillar grid on depth 1,
+# where many shortest paths tie. Used with --data games/bombermole/tests/data --opt level=spring-9.
+name: Chase Test
+season: spring
+arc: 1
+level: 9
+tier: 2
+status: stub
+
+surface:
+####################
+#M.......g.........#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#...E..............#
+####################
+under1:
+####################
+#..................#
+#.#.#.#.#.#.#.#.#.##
+#..F...............#
+#.#.#.#.#.#.#.#.#.##
+#..................#
+#.#.#.#.#.#.#.#.#.##
+#..................#
+#.#.#.#.#.#.#.#.#.##
+#..................#
+#.#.#.#.#.#.#.#.#.##
+#..................#
+#.#.#.#.#.#.#.#.#.##
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

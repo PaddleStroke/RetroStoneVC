@@ -199,6 +199,23 @@ TILES = {
 }
 
 # priority groups, in order (what spring levels 1-8 need first)
+
+# Strips that are not cells of the four sheets: requested art the game still generates itself
+# at build time (tools/art_sync.py lists them in TODO.md but does not import them yet).
+# id, sheet label, width, height, frames, prompt
+EXTRAS = [
+    ("grass_top_edge", "extra", 16, 16, 4,
+     "The top edge of a grass area seen from the side-top (3/4 view): the grass tile's top rows with a "
+     "lighter grass rim and a 1-pixel dark outline above it, transparent magenta above the outline, no "
+     "dirt and no diagonal corner. 4 frames left to right, one per season: 1) spring green; 2) summer "
+     "golden green; 3) autumn orange-brown; 4) winter snow. Each tile repeats seamlessly side by side. "
+     "Frame size 16x16 (draw each about 128x128)."),
+    ("title_hills", "title background", 512, 96, 1,
+     "Title-screen background band: two rows of soft rounded green spring hills (far hills paler, near hills "
+     "brighter), grass tops with a light rim and a dark 1-pixel outline, a few flowers and bushes, no sky "
+     "(flat magenta above the hills). It scrolls sideways, so the left and right edges must join seamlessly. "
+     "Final size 512x96 pixels; draw it at 4x (2048x384)."),
+]
 GROUPS = [
     ("1. Spring levels: the characters and the title logo",
      ["title_logo", "mole_*", "ferret_*", "cat_*", "boss"]),
@@ -211,6 +228,7 @@ GROUPS = [
                                               "steam", "corn", "ice", "thin_ice"]),
     ("7. The other bosses", ["farmer", "tomato", "tomato_shadow", "crate", "splat", "badger", "fox", "owl"]),
     ("8. Later gimmicks (planned levels)", ["*"]),
+    ("9. Title screen: hills and the grass top edge", ["grass_top_edge", "title_hills"]),
 ]
 
 LOGO = ("title_logo", "Title logo 'BOMBER MOLE': chunky SNES-style 3D letters (gold with a dark outline and a "

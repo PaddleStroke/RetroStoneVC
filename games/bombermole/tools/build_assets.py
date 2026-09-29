@@ -53,6 +53,44 @@ def grass_shadow(grass, rows=(0.55, 0.72, 0.88)):
     return out
 
 
+HILL_CELLS = 8          # the title hills repeat every 8 cells (128 px)
+
+
+def hill_top(X):
+    """Height of the hill surface (pixels from the top of the cell) at x = X: rounded humps."""
+    import math
+    return 2 + int(round(10 * (1 - math.sin(math.pi * (X % (HILL_CELLS * 16)) / (HILL_CELLS * 16)) ** 0.8)))
+
+
+def title_hills(grass):
+    """Top cells of the title-screen hills, drawn from the season's grass (no dirt): transparent sky
+    above a rounded silhouette, a 1-px dark outline, a 2-px lighter rim, then the grass texture.
+    Colours are snapped to the grass tile's own colours (the palettes do not change)."""
+    cols = sorted({v for row in grass for v in row if v is not None})
+    rgb = [rsasset.rgb888(v) for v in cols]
+    lum = sorted(cols, key=lambda v: sum(rsasset.rgb888(v)))
+    dark, light = lum[0], lum[-1]
+    cells = []
+    for i in range(HILL_CELLS):
+        cell = [[None] * 16 for _ in range(16)]
+        for x in range(16):
+            top = hill_top(i * 16 + x)
+            for y in range(16):
+                if y < top - 1:
+                    continue
+                if y == top - 1:
+                    cell[y][x] = dark
+                elif y < top + 2:
+                    r, g, b = rsasset.rgb888(grass[y][x] if grass[y][x] is not None else light)
+                    cell[y][x] = cols[rsasset.nearest((min(255, r * 1.3), min(255, g * 1.3), min(255, b * 1.3)), rgb)]
+                    if y == top:
+                        cell[y][x] = light
+                else:
+                    cell[y][x] = grass[y][x]
+        cells.append(cell)
+    return cells
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
@@ -73,14 +111,17 @@ def main():
     # ---- terrain (one tile set per season) --------------------------------------------------
     terr = sheets.entries("tiles")
     # + T_GRASS_SHADOW: grass with the shadow of the wall above it, derived from each season's grass
-    h.append("enum { " + ", ".join("T_%s" % cname(e.name) for e in terr) + ", T_GRASS_SHADOW, T_COUNT };")
+    h.append("enum { " + ", ".join("T_%s" % cname(e.name) for e in terr) +
+             ", T_GRASS_SHADOW, T_HILL, T_COUNT = T_HILL + %d };" % HILL_CELLS)
     h.append("extern const uint8_t *const bm_terrain_tiles[4];\nextern const int bm_terrain_tile_count[4];")
     h.append("extern const uint16_t bm_terrain_pals[4][TERRAIN_PALS * 16];")
     h.append("extern const uint16_t bm_terrain_meta[4][T_COUNT][4];\n")
     metas, pals, counts = [], [], []
     for s in range(4):
         cells = [frames_of(img["tiles"], e, s)[0] for e in terr]
-        cells.append(grass_shadow(cells[[e.name for e in terr].index("grass")]))
+        grass = cells[[e.name for e in terr].index("grass")]
+        cells.append(grass_shadow(grass))
+        cells += title_hills(grass)             # T_HILL + 0..7: title-screen hill tops
         r = rsasset.convert_bg(cells, TERRAIN_PALS, pal_base=1, tile_base=0)
         if len(r.tiles) > PROPS_TILE_BASE:
             sys.exit("terrain of season %d needs %d tiles (max %d)" % (s, len(r.tiles), PROPS_TILE_BASE))

@@ -116,9 +116,10 @@ static void menu_backdrop(void)
     rs_bg_fill(RS_BG4, 0);
     rs_bg_fill(RS_BG3, 0);
     for (int x = 0; x < 32; x++) {
-        for (int y = 12; y < 16; y++) rs_bg_meta(RS_BG4, x, y, y == 12 ? T[T_GRASS] : (x + y) % 4 ? T[T_SOFT_DIRT] : T[T_HARD_ROCK]);
-        int h = 9 + ((x * 7) % 5 == 0) + ((x * 3) % 7 == 0);
-        for (int y = h; y < 16; y++) rs_bg_meta(RS_BG3, x, y, y == h ? T[T_GRASS_EDGE] : T[T_GRASS]);
+        /* near and far hills: rounded tops generated from the grass (T_HILL), grass below */
+        for (int y = 12; y < 16; y++) rs_bg_meta(RS_BG3, x, y, y == 12 ? T[T_HILL + (x + 4) % 8] : y < 15 ? T[T_GRASS] : T[T_SOFT_DIRT]);
+        int h = 9;
+        for (int y = h; y < 16; y++) rs_bg_meta(RS_BG4, x, y, y == h ? T[T_HILL + x % 8] : T[T_GRASS]);
     }
     rs_bg_enable(RS_BG2, 0);
     rs_raster(title_raster, NULL);
@@ -130,8 +131,8 @@ static void menu_backdrop(void)
 
 static void menu_scroll(void)
 {
-    rs_bg_scroll(RS_BG4, (int)(gt / 2), 0);
-    rs_bg_scroll(RS_BG3, (int)(gt / 5), 24);
+    rs_bg_scroll(RS_BG4, (int)(gt / 5), 24);        /* far hills */
+    rs_bg_scroll(RS_BG3, (int)(gt / 2), 0);         /* near hills (drawn in front) */
     for (int i = 0; i < 240; i++) hill_dx[i] = 0;
     rs_bg_line_scroll(RS_BG3, NULL, NULL);
 }
@@ -746,6 +747,17 @@ static void game_shutdown(void)
                 dirt += W.g[d][y][x].t == TR_DIRT;
             }
     for (int i = 0; i < MAX_BOMBS; i++) bombs += W.b[i].active;
+    {
+        int faces = 0, tiles = 0, jitter = 0;
+        for (int i = 0; i < W.na; i++) {
+            const actor *a = &W.a[i];
+            if (a->kind != AK_FERRET && a->kind != AK_CAT && a->kind != AK_BOSS && a->kind != AK_DOG) continue;
+            faces += a->face_changes;
+            tiles += a->tiles_moved;
+            jitter += a->jitter;
+        }
+        rs_log("facing: changes=%d tiles=%d jitter=%d", faces, tiles, jitter);
+    }
     rs_log("state: st=%d level=%s grubs_left=%d/%d depth=%d x=%d y=%d hearts=%d lives=%d rocks=%d dirt=%d bombs=%d enemies=%d,%d,%d exit_open=%d",
            st, LV.file, W.grubs_left, W.grubs_total, m ? m->depth : -1, m ? m->cx : -1, m ? m->cy : -1,
            W.ps[0].hearts, W.ps[0].lives, rocks, dirt, bombs, world_enemies(0), world_enemies(1), world_enemies(2), W.exit_open);

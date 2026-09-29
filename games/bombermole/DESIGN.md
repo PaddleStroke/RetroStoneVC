@@ -122,7 +122,11 @@ enemies behave like early Super Bomberman: slow, wandering at random, blind to b
 | siamese cat | 4 | 16 | patrol | 9, line of sight | avoids blasts | 0.1 s | 6 cells / 0.75 s | 2 |
 
 - Movement: *random wander* keeps its direction half of the time at each cell; *patrol* walks straight and
-  turns at walls; *chase* follows the shortest path to the mole when it is within the vision range.
+  turns at walls; *chase* follows the shortest path to the mole when it is within the vision range
+  (and gives up 3 cells beyond it). Moves are decided only at tile centres; the path comes from a
+  distance field with a stable tie-break (keep going straight, then the axis where the mole is farther),
+  and an enemy turns back only when nothing else keeps the distance or after 3 tiles, so sprites do
+  not flip left-right-left. The sprite faces the actual movement and keeps its facing when stopped.
 - Bomb awareness: an aware enemy standing in the future blast of a bomb it knows about waits for its
   reaction delay, then runs to the nearest safe cell; it also refuses to step into a known blast.
 - Tier-4 enemies take 2 hits (they blink after the first one).

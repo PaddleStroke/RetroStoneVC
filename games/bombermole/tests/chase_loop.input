@@ -1,0 +1,16 @@
+# the mole runs a rectangle for 10 s (chase test)
+0 LEFT
+40 UP
+80 RIGHT
+120 DOWN
+160 LEFT
+200 UP
+240 RIGHT
+280 DOWN
+320 LEFT
+360 UP
+400 RIGHT
+440 DOWN
+480 LEFT
+520 UP
+560 RIGHT

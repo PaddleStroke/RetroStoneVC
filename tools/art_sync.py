@@ -68,6 +68,11 @@ class Strip:
         self.w, self.h, self.frames, self.sheet, self.group = w, h, frames, sheet, group
 
 
+def brief_module():
+    import art_brief
+    return art_brief
+
+
 def all_strips(sheets):
     out = [Strip("title_logo", None, 0, LOGO_SIZE[0], LOGO_SIZE[1], 1, "title", "logo")]
     for e in sheets.ENTRIES:
@@ -77,10 +82,14 @@ def all_strips(sheets):
     for s, season in enumerate(sheets.SEASONS):
         for e in sheets.entries("tiles"):
             out.append(Strip("tile_%s_%s" % (season, e.name), e, s, e.w, e.h, 1, "tiles", "terrain"))
+    for sid, sheet, w, h, n, _ in getattr(brief_module(), "EXTRAS", []):
+        out.append(Strip(sid, None, 0, w, h, n, sheet, "extra"))
     return out
 
 
 def prompt(strip, brief, sheets):
+    if strip.group == "extra":
+        return {x[0]: x[5] for x in brief.EXTRAS}[strip.id]
     if strip.id == "title_logo":
         return brief.LOGO[1]
     if strip.sheet == "tiles":
@@ -107,7 +116,8 @@ def ordered(strips, brief):
     """Strips grouped under the brief's priority headings."""
     left = list(strips)
     groups = []
-    for title, pats in brief.GROUPS:
+    # the catch-all group ("*") takes only what no other group claims
+    for title, pats in sorted(brief.GROUPS, key=lambda g: g[1] == ["*"]):
         rows = []
         for p in pats:
             for s in list(left):
@@ -115,6 +125,7 @@ def ordered(strips, brief):
                     rows.append(s)
                     left.remove(s)
         groups.append((title, rows))
+    groups.sort(key=lambda g: [t for t, _ in brief.GROUPS].index(g[0]))
     if left:
         groups[-1][1].extend(left)
     return groups
@@ -181,7 +192,7 @@ def write_todo(path, incoming, strips, brief, sheets, keep):
             status = old["status"] if old and old["status"] in STATUSES else "TODO"
             notes = old["notes"] if old else ""
             desc = prompt(s, brief, sheets).replace("|", "/")
-            sheet = "title logo" if s.id == "title_logo" else s.sheet + ".png"
+            sheet = "title logo" if s.id == "title_logo" else s.sheet if s.group == "extra" else s.sheet + ".png"
             lines.append("| %s | %s | %s | %dx%d | %d | %s | %s |" % (s.id, status, sheet, s.w, s.h, s.frames,
                                                                     desc, notes.replace("|", "/")))
         lines.append("")
@@ -348,7 +359,7 @@ def sync(args, report_print=print):
     if not args.scale:
         for sid, r in rows.items():
             s = strips.get(sid)
-            if r["status"] not in take or not s or sid == "title_logo" or s.group in FILL_GROUPS:
+            if r["status"] not in take or not s or sid == "title_logo" or s.group in FILL_GROUPS or s.group == "extra":
                 continue
             path = os.path.join(incoming, sid + ".png")
             try:
@@ -359,6 +370,9 @@ def sync(args, report_print=print):
     report, imported, counts = [], {}, {"imported": 0, "missing": 0, "error": 0}
     for sid, r in rows.items():
         if r["status"] not in take or sid not in strips:
+            continue
+        if strips[sid].group == "extra":
+            report.append((sid, r["status"], "not imported: the game still draws this itself (import to be added)"))
             continue
         s = strips[sid]
         path = os.path.join(incoming, sid + ".png")

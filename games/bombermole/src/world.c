@@ -212,6 +212,8 @@ static int effective_speed(const actor *a)
 
 static void start_move(actor *a, int dir)
 {
+    if (dir == (a->dir + 2) % 4) a->since_reverse = 0;
+    else if (a->since_reverse < 255) a->since_reverse++;
     a->dir = (uint8_t)dir;
     a->tx = (int8_t)(a->cx + DX[dir]);
     a->ty = (int8_t)(a->cy + DY[dir]);
@@ -267,6 +269,7 @@ static int teleport_pipe(actor *a)
 static void arrive(actor *a)
 {
     int ox = a->cx, oy = a->cy;
+    a->tiles_moved++;
     a->cx = a->tx;
     a->cy = a->ty;
     a->prog = 0;
@@ -593,7 +596,7 @@ static void update_bombs(void)
 /* ---- blasts, hits ------------------------------------------------------------------------------ */
 static void hurt_player(actor *a)
 {
-    if (a->invul || !a->alive || a->state == 99) return;
+    if (a->invul || !a->alive || a->state == 99 || rs_option_int("god", 0)) return;
     pstats *ps = &W.ps[a->player];
     ps->hearts--;
     if (ps->hearts <= 0) {
@@ -922,6 +925,65 @@ static int bfs_step(const actor *a, int gx, int gy, int maxn)
     return -1;
 }
 
+/* Chase step with a stable choice. A distance field is built from the target (BFS on the grid);
+ * among the neighbours one step closer the actor prefers, in order: going straight on, the axis
+ * on which the target is farther, then the other. It turns back only when nothing else gets
+ * closer or keeps the distance, or after 3 tiles without turning back. Returns -1 when the
+ * target is farther than maxd. Recomputed only at tile centres. */
+static int chase_dir(actor *a, int gx, int gy, int maxd, int *dist_out)
+{
+    static int16_t dist[GH][GW];
+    static uint8_t qx[GW * GH], qy[GW * GH];
+    for (int y = 0; y < GH; y++)
+        for (int x = 0; x < GW; x++) dist[y][x] = -1;
+    if (!in_grid(gx, gy)) return -1;
+    int h = 0, t = 0;
+    dist[gy][gx] = 0;
+    qx[t] = (uint8_t)gx; qy[t] = (uint8_t)gy; t++;
+    while (h < t) {
+        int x = qx[h], y = qy[h];
+        h++;
+        if (x == a->cx && y == a->cy) break;
+        for (int k = 0; k < 4; k++) {
+            int nx = x + DX[k], ny = y + DY[k];
+            if (!in_grid(nx, ny) || dist[ny][nx] >= 0) continue;
+            if (!(nx == a->cx && ny == a->cy) && !cell_passable(a, a->depth, nx, ny)) continue;
+            dist[ny][nx] = (int16_t)(dist[y][x] + 1);
+            qx[t] = (uint8_t)nx; qy[t] = (uint8_t)ny; t++;
+        }
+    }
+    int d0 = dist[a->cy][a->cx];
+    if (d0 <= 0 || d0 > maxd) return -1;
+    if (dist_out) *dist_out = d0;
+    int dx = gx - a->cx, dy = gy - a->cy;
+    int hx = dx > 0 ? DIR_RIGHT : DIR_LEFT, vy = dy > 0 ? DIR_DOWN : DIR_UP;
+    int order[4], n = 0;
+    order[n++] = a->dir;
+    if (abs(dx) >= abs(dy)) { order[n++] = hx; order[n++] = vy; }
+    else { order[n++] = vy; order[n++] = hx; }
+    order[n++] = (a->dir + 2) % 4;
+    int back = (a->dir + 2) % 4, pick = -1;
+    for (int pass = 0; pass < 2 && pick < 0; pass++)          /* pass 0: closer, pass 1: not farther */
+        for (int i = 0; i < 4 && pick < 0; i++) {
+            int k = order[i], nx = a->cx + DX[k], ny = a->cy + DY[k];
+            if (!in_grid(nx, ny) || dist[ny][nx] < 0) continue;
+            if (!(nx == gx && ny == gy) && !cell_passable(a, a->depth, nx, ny)) continue;
+            if (dist[ny][nx] > d0 - 1 + pass) continue;
+            if (k == back && a->since_reverse < 3) {
+                /* hysteresis: turn back only if nothing else keeps the distance */
+                int other = 0;
+                for (int j = 0; j < 4; j++) {
+                    int mx = a->cx + DX[j], my = a->cy + DY[j];
+                    if (j != back && in_grid(mx, my) && dist[my][mx] >= 0 && dist[my][mx] <= d0 &&
+                        cell_passable(a, a->depth, mx, my)) other = 1;
+                }
+                if (other) continue;
+            }
+            pick = k;
+        }
+    return pick;
+}
+
 static int wander(actor *a)
 {
     if (rs_rng_range(&rng, 10) < 7 && cell_passable(a, a->depth, a->cx + DX[a->dir], a->cy + DY[a->dir]))
@@ -1000,7 +1062,7 @@ static void ai_cat(actor *a, int range, int pounce_cells, int rest)
     }
     a->speed = 0;
     if (a->kind == AK_BOSS && m && rs_rng_range(&rng, 4)) {
-        int k = bfs_step(a, m->cx, m->cy, 300);
+        int k = chase_dir(a, m->cx, m->cy, 40, NULL);
         if (k >= 0) { start_move(a, k); return; }
     }
     int k;
@@ -1098,14 +1160,19 @@ static int scaled_react(const enemy_type *T)
     return T->react * pct[clampi(W.diff, 0, 2)] / 100;
 }
 
-/* random wandering: at each cell, keep going half of the time */
+/* random wandering: at each cell keep going half of the time; turning back only at a dead end
+ * (or rarely), so the sprite does not flip left-right-left */
 static int wander_random(actor *a)
 {
     if (rs_rng_range(&rng, 2) && cell_passable(a, a->depth, a->cx + DX[a->dir], a->cy + DY[a->dir]))
         return a->dir;
-    int opts[4], n = 0;
-    for (int k = 0; k < 4; k++)
-        if (cell_passable(a, a->depth, a->cx + DX[k], a->cy + DY[k])) opts[n++] = k;
+    int opts[4], n = 0, back = (a->dir + 2) % 4, back_ok = 0;
+    for (int k = 0; k < 4; k++) {
+        if (!cell_passable(a, a->depth, a->cx + DX[k], a->cy + DY[k])) continue;
+        if (k == back) back_ok = 1;
+        else opts[n++] = k;
+    }
+    if (back_ok && (!n || (a->since_reverse >= 4 && rs_rng_range(&rng, 8) == 0))) return back;
     return n ? opts[rs_rng_range(&rng, n)] : -1;
 }
 
@@ -1131,19 +1198,21 @@ static void ai_typed(actor *a)
     }
     int k = -1;
     if (T->move == MOVE_CHASE && T->vision) {
+        /* hysteresis: start chasing within the vision range, stop 3 cells beyond it */
         actor *m = nearest_player(a, NULL);
-        if (m) {
-            int kk = bfs_step(a, m->cx, m->cy, 400);
-            if (kk >= 0 && bfs_len <= T->vision && cell_passable(a, a->depth, a->cx + DX[kk], a->cy + DY[kk]))
-                k = kk;
-        }
+        int d = 0;
+        if (m) k = chase_dir(a, m->cx, m->cy, T->vision + (a->chasing ? 3 : 0), &d);
+        a->chasing = k >= 0;
     }
     if (k < 0) k = T->move == MOVE_WANDER ? wander_random(a) : wander(a);
     if (k >= 0 && !safe_to_enter(a, k)) {
-        int opts[4], n = 0;
+        int opts[4], n = 0, back = (a->dir + 2) % 4;
         for (int j = 0; j < 4; j++)
             if (cell_passable(a, a->depth, a->cx + DX[j], a->cy + DY[j]) && safe_to_enter(a, j)) opts[n++] = j;
-        k = n ? opts[rs_rng_range(&rng, n)] : -1;
+        k = -1;
+        for (int j = 0; j < n && k < 0; j++)
+            if (opts[j] != back) k = opts[j];
+        if (k < 0 && n) k = opts[0];
     }
     if (k >= 0) start_move(a, k);
 }
@@ -1161,7 +1230,7 @@ static void ai_dog(actor *a)
         if (dd < bd) { bd = dd; target = c; }
     }
     int k = -1;
-    if (target) k = bfs_step(a, target->cx, target->cy, 400);
+    if (target) k = chase_dir(a, target->cx, target->cy, 60, NULL);
     else {
         int dist;
         actor *m = nearest_player(a, &dist);
@@ -1292,6 +1361,7 @@ static int bot_search(const actor *m, const actor *e)
             int tt = W.g[m->depth][ny][nx].t;
             if (tt == TR_HOLE_DOWN || tt == TR_HOLE_UP || tt == TR_LADDER || tt == TR_PIPE || tt == TR_VENT) continue;
             if (e && bot_unsafe(m, nx, ny)) continue;
+            if (!e && (W.blast[m->depth][ny][nx] || bot_enemy_near(m->depth, nx, ny))) continue;   /* flee paths too */
             from[ny][nx] = (int8_t)k;
             qx[t] = (uint8_t)nx; qy[t] = (uint8_t)ny; t++;
         }
@@ -1416,6 +1486,20 @@ static void update_player(actor *a)
     a->dig = 0;
 }
 
+/* facing statistics, for the chase tests: changes of the sprite direction, and left-right
+ * jitter (a change undone less than a tile later) */
+static void track_facing(actor *a)
+{
+    if (a->kind == AK_MOLE) return;
+    if (a->dir != a->face) {
+        if (a->face_changes && a->dir == a->prev_face && W.t - a->face_t < 16) a->jitter++;
+        a->prev_face = a->face;
+        a->face = a->dir;
+        a->face_changes++;
+        a->face_t = W.t;
+    }
+}
+
 static void update_actor(actor *a)
 {
     if (!a->alive) return;
@@ -1425,6 +1509,7 @@ static void update_actor(actor *a)
         if (a->prog >= SUB) arrive(a);
     }
     if (a->kind == AK_MOLE) { update_player(a); return; }
+    track_facing(a);
     if (a->invul) a->invul--;
     if (a->timer && a->kind != AK_CAT && a->kind != AK_BOSS) a->timer--;
     if (a->asleep) {
@@ -1537,6 +1622,10 @@ void world_start(const level_def *L, const pstats *carry)
             a->etype = (uint8_t)(s->etype >= 0 ? s->etype : enemy_type_for(s->kind, L->tier));
             a->hp = ENEMY_TYPES[a->etype].hits;
             a->dir = (uint8_t)rs_rng_range(&rng, 4);
+            a->face = a->prev_face = a->dir;
+            const char *force = rs_option("enemytype");       /* debug: every enemy of one type */
+            for (int t = 0; force && t < ET_COUNT; t++)
+                if (!strcmp(force, ENEMY_TYPES[t].name)) { a->kind = ENEMY_TYPES[t].kind; a->etype = (uint8_t)t; a->hp = ENEMY_TYPES[t].hits; }
         }
     }
     if (W.diff == DIFF_HARD) {

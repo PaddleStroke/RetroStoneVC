@@ -31,8 +31,21 @@ check "a bomb breaks a rock ($base rocks before)" "rocks=$((base - 1)) " "$out"
 out=$($H --frames 400 --opt level=spring-1 --opt nointro=1 --opt dump=1 --input $D/selfblast.input 2>&1)
 check "own blast: knocked out, restart with 2 lives" "st=6 .*hearts=1 lives=2" "$out"
 # a naive player (bomb in its path, walk away; --opt bot=1) beats the tier-1 ferrets of spring 2
-for s in 5,9 12,9; do
-    out=$($H --frames 3000 --opt level=spring-2 --opt nointro=1 --opt dump=1 --opt bot=1 --opt spawn=1,$s 2>&1)
+for s in 12,9 4,10; do
+    out=$($H --frames 6000 --opt level=spring-2 --opt nointro=1 --opt dump=1 --opt bot=1 --opt spawn=1,$s 2>&1)
     check "naive bot bombs both tier-1 ferrets of spring 2 (start 1,$s)" "depth=1 .*lives=3 .*enemies=0,0,0" "$out"
+done
+# chases: the facing of every enemy type stays steady (no left-right flip-flop)
+for t in sleepy_ferret brown_ferret polecat stoat ginger_cat grey_cat black_cat siamese_cat; do
+    for inp in none loop; do
+        extra=""
+        [ $inp = loop ] && extra="--input $D/chase_loop.input"
+        out=$($H --frames 600 --data $D/data --opt level=spring-9 --opt nointro=1 --opt dump=1 --opt god=1 \
+              --opt enemytype=$t --opt spawn=1,7,5 $extra 2>&1 | grep "facing:")
+        ch=$(echo "$out" | sed -n 's/.*changes=\([0-9]*\).*/\1/p'); ti=$(echo "$out" | sed -n 's/.*tiles=\([0-9]*\).*/\1/p')
+        ji=$(echo "$out" | sed -n 's/.*jitter=\([0-9]*\).*/\1/p')
+        if [ -n "$ch" ] && [ "$ji" -eq 0 ] && [ "$ch" -le "$ti" ]; then echo "  ok   chase $t ($inp mole): $ch facing changes over $ti tiles, no jitter"
+        else echo "  FAIL chase $t ($inp mole): $out"; fail=1; fi
+    done
 done
 exit $fail

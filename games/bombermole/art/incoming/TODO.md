@@ -269,3 +269,10 @@ Rules:
 | bucket | GENERATED | props.png | 16x16 | 1 | A wooden well bucket with a rope handle. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
 | apple | GENERATED | props.png | 16x16 | 1 | A falling red apple. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
 | bees | GENERATED | props.png | 16x16 | 2 | A small swarm of bees. 2 frames left to right, evenly spaced: 1) wings up; 2) wings down. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+
+## 9. Title screen: hills and the grass top edge
+
+| ID | Status | Sheet | Frame size | Frames | Description / prompt | Notes |
+|---|---|---|---|---|---|---|
+| grass_top_edge | TODO | extra | 16x16 | 4 | The top edge of a grass area seen from the side-top (3/4 view): the grass tile's top rows with a lighter grass rim and a 1-pixel dark outline above it, transparent magenta above the outline, no dirt and no diagonal corner. 4 frames left to right, one per season: 1) spring green; 2) summer golden green; 3) autumn orange-brown; 4) winter snow. Each tile repeats seamlessly side by side. Frame size 16x16 (draw each about 128x128). |  |
+| title_hills | TODO | title background | 512x96 | 1 | Title-screen background band: two rows of soft rounded green spring hills (far hills paler, near hills brighter), grass tops with a light rim and a dark 1-pixel outline, a few flowers and bushes, no sky (flat magenta above the hills). It scrolls sideways, so the left and right edges must join seamlessly. Final size 512x96 pixels; draw it at 4x (2048x384). |  |
