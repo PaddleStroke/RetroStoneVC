@@ -161,3 +161,13 @@ a 1-px dithered contact shadow under it; a cell whose middle has the border's co
 cell, like stone bricks) is kept as it is. `tools/sheets.py is_overlay()` lists which cells are objects.
 Bridges exist in two orientations (`bridge`: crossed left-right; `bridge_v`: crossed up-down); the game picks
 one from the water around the bridge.
+
+## Other games (--game)
+The same tools serve every game: `tools/art_sync.py --game <game> todo|sync`, `tools/art_review.py --game
+<game>` and `tools/make_placeholders.py --game <game>` hand over to `games/<game>/tools/art_game.py` (the
+game's strips, TODO writer and import) and `make_art.py` (its code-drawn placeholders); the cutting, scaling,
+palettes and outlines stay `tools/art_consistency.py`'s. A strip may set `anchor = "center"` (frames centred on
+the body, for rotated frames), `center_offsets` (per frame, the offset of the drawing's centre from the cell
+centre in the game's own frames), `reference` (the family's reference strip) and `target_h` (the reference
+frame's height in game pixels, for a character smaller than its cell). Leady Squid:
+`games/leadysquid/art/incoming/TODO.md` (see games/leadysquid/DESIGN.md, "Art").

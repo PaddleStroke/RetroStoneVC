@@ -168,8 +168,9 @@ def action_changes(rows, sid, action, note, png_exists):
 
 # ---- the review state (processing through art_consistency) ----------------------------------------------
 class Review:
-    def __init__(self, incoming, cache, char_size):
+    def __init__(self, incoming, cache, char_size, game=None):
         self.incoming, self.cache, self.char_size = incoming, cache, char_size
+        self.game = game                 # another game's art_game module (--game), None = Bomber Mole
         self.todo = os.path.join(incoming, "TODO.md")
         self.backups = os.path.join(cache, "backups")
         self.index, self.stamp, self.busy, self.error = {}, 0, False, None
@@ -196,9 +197,12 @@ class Review:
             t0 = time.time()
             import art_sync
             import art_consistency
-            sheets, _, _, _ = art_sync.load_modules(self.char_size)
             rows = art_sync.read_todo(self.todo)
-            strips = {s.id: s for s in art_sync.all_strips(sheets)}
+            if self.game:
+                strips = self.game.strips(self.char_size)
+            else:
+                sheets, _, _, _ = art_sync.load_modules(self.char_size)
+                strips = {s.id: s for s in art_sync.all_strips(sheets)}
             seen = self.mtimes()
             res = art_consistency.process(self.incoming, rows, strips, ("VALIDATED", "GENERATED", "REJECTED"))
             index = art_consistency.write_review(res, self.cache)
@@ -229,11 +233,11 @@ class Review:
             e.update(id=sid, status=r["status"], todo_notes=r["notes"], png=os.path.exists(self.png(sid)))
             out.append(e)
         bgs = []
-        for d in ("docs/art-preview", "docs/screenshots"):
+        for d in (self.game.BG_DIRS if self.game else ("docs/art-preview", "docs/screenshots")):
             p = os.path.join(ROOT, d)
             if os.path.isdir(p):
                 bgs += ["%s/%s" % (d, n) for n in sorted(os.listdir(p))
-                        if n.endswith(".png") and (d == "docs/screenshots" or n.startswith("ingame-ai-"))
+                        if n.endswith(".png") and (d.endswith("screenshots") or n.startswith("ingame-ai-"))
                         and "title" not in n and "transition" not in n and "iris" not in n]
         return {"rows": out, "stamp": self.stamp, "busy": self.busy, "error": self.error,
                 "stale": changed, "char_size": self.char_size, "backgrounds": bgs, "todo": self.todo}
@@ -280,14 +284,15 @@ def make_handler(review):
             p = u.path
             try:
                 if p == "/":
-                    return self.send(200, PAGE, "text/html; charset=utf-8")
+                    page = PAGE.replace("Bomber Mole", review.game.TITLE) if review.game else PAGE
+                    return self.send(200, page, "text/html; charset=utf-8")
                 if p == "/api/state":
                     return self.send(200, review.state())
                 m = re.match(r"^/(orig|proc)/([a-z0-9_]+)\.png$", p)
                 if m:
                     base = review.incoming if m.group(1) == "orig" else os.path.join(review.cache, "frames")
                     return self.file(os.path.join(base, m.group(2) + ".png"))
-                m = re.match(r"^/bg/(docs/(?:screenshots|art-preview)/[A-Za-z0-9_.-]+\.png)$", p)
+                m = re.match(r"^/bg/((?:games/[a-z0-9]+/)?docs/(?:screenshots|art-preview)/[A-Za-z0-9_.-]+\.png)$", p)
                 if m:
                     return self.file(os.path.join(ROOT, m.group(1)))
                 return self.send(404, {"error": "not found"})
@@ -326,13 +331,20 @@ def make_handler(review):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--incoming", default=os.path.join(ROOT, "games", "bombermole", "art", "incoming"))
+    ap.add_argument("--game", default="bombermole", help="another game (games/<game>/tools/art_game.py)")
+    ap.add_argument("--incoming", default=None, help="default games/<game>/art/incoming")
     ap.add_argument("--cache", default=os.path.join(ROOT, "build", "art-review"))
     ap.add_argument("--char-size", type=int, default=24)
     ap.add_argument("--host", default="127.0.0.1")
     ap.add_argument("--port", type=int, default=8765)
     a = ap.parse_args()
-    review = Review(os.path.abspath(a.incoming), os.path.abspath(a.cache), a.char_size)
+    game = None
+    if a.game != "bombermole":
+        import art_sync
+        game = art_sync.game_module(a.game)
+        a.cache = os.path.join(a.cache, a.game)
+    a.incoming = a.incoming or os.path.join(ROOT, "games", a.game, "art", "incoming")
+    review = Review(os.path.abspath(a.incoming), os.path.abspath(a.cache), a.char_size, game)
     print("art_review: TODO.md = %s" % review.todo, flush=True)
     review.process_async()
     srv = http.server.ThreadingHTTPServer((a.host, a.port), make_handler(review))

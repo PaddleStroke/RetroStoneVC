@@ -679,9 +679,17 @@ def build_sheet(sheet):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--out", default="games/bombermole/art")
+    ap.add_argument("--game", default="bombermole",
+                    help="another game: run games/<game>/tools/make_art.py with --out and --preview")
+    ap.add_argument("--out", default=None, help="default games/bombermole/art")
     ap.add_argument("--preview", action="store_true", help="also write 4x previews")
     a = ap.parse_args()
+    if a.game != "bombermole":
+        import subprocess
+        tool = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "games", a.game, "tools", "make_art.py")
+        raise SystemExit(subprocess.call([sys.executable, tool] + (["--out", a.out] if a.out else []) +
+                                         (["--preview"] if a.preview else [])))
+    a.out = a.out or "games/bombermole/art"
     os.makedirs(a.out, exist_ok=True)
     for sheet in sheets.SHEETS:
         im = build_sheet(sheet)
