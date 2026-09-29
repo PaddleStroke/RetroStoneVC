@@ -14,7 +14,8 @@ the sheets below from the validated strips.
   Column and row numbers in the table are in cells; x = column x cell size, y = row x cell size.
 - The frames of an entry run **left to right** from its first cell.
 - **Characters sheet**: its cell is the character size, `CHAR_SIZE` (16 by default; 24 or 32 with
-  `make CHAR_SIZE=24`), so the mole, ferret and cat are CHAR_SIZE square and the barn cat is 2x2 cells. In the
+  `make CHAR_SIZE=24`), so the mole, ferret, cat and guard dog are CHAR_SIZE square and the barn cat is 2x2
+  cells (the props bosses grow the same way, see art-workflow.md). In the
   game, sprites are anchored at the **bottom centre** of their 16x16 grid cell and overlap upwards (like SNES
   Bomberman), so 24- or 32-px characters need no level change.
 - **Tiles sheet**: one row per season (0 spring, 1 summer, 2 autumn, 3 winter). Tiles fill their cell edge to
@@ -24,7 +25,8 @@ the sheets below from the validated strips.
 - Tiles and sprites use the **palette group** of their row: 15 colours + transparent per group. A group is
   one SNES-style 16-colour palette in the game: `mole`, `ferret`, `cat`, `bomb` (bomb and dust), `pickup`
   (grub and power-ups), `prop` (sprite props), `critter` (dog and bees), `fx` (explosions), `hud`, `propbg`
-  (terrain-like props), and one palette per boss (`boss_cat`, `boss_farmer`, `boss_badger`, `boss_fox`,
+  (terrain-like props: one palette per colour family, plants / wood / stone / water, `PROP_PALETTES` in
+  tools/sheets.py; a level uses two at most, see DESIGN.md "BG palettes"), and one palette per boss (`boss_cat`, `boss_farmer`, `boss_badger`, `boss_fox`,
   `boss_owl`, loaded when that boss's level starts). The terrain of one season may use 4 palettes (60 colours).
 - Explosion pieces must reach the cell edges: the arms fill the cell across, the ends touch the edge on the
   centre's side (the cutter and art_sync stick them to that edge).
@@ -72,6 +74,9 @@ code to turn a whole sheet into strips.
 | ferret_walk_left | characters.png | 4-5 | 2 | 16x16 | 2 | ferret | Ferret running left (long body) |
 | ferret_walk_right | characters.png | 6-7 | 2 | 16x16 | 2 | ferret | Ferret running right (long body) |
 | ferret_stunned | characters.png | 8 | 2 | 16x16 | 1 | ferret | Ferret stunned: dizzy, stars over the head |
+| dog_walk_left | characters.png | 9-10 | 2 | 16x16 | 2 | critter | Guard dog (ally) running left |
+| dog_walk_right | characters.png | 11-12 | 2 | 16x16 | 2 | critter | Guard dog (ally) running right |
+| dog_sleep | characters.png | 13 | 2 | 16x16 | 1 | critter | Guard dog asleep |
 | cat_walk_down | characters.png | 0-1 | 3 | 16x16 | 2 | cat | Cat walking toward the viewer |
 | cat_walk_up | characters.png | 2-3 | 3 | 16x16 | 2 | cat | Cat walking away |
 | cat_walk_left | characters.png | 4-5 | 3 | 16x16 | 2 | cat | Cat walking left |
@@ -160,9 +165,6 @@ code to turn a whole sheet into strips.
 | apple | props.png | 12 | 2 | 16x16 | 1 | prop | Falling apple |
 | zzz | props.png | 13-14 | 2 | 16x16 | 2 | prop | Sleeping 'Zz' bubble |
 | steam | props.png | 15 | 2 | 16x16 | 1 | prop | Steam puff (vents) |
-| dog_walk_left | props.png | 0-1 | 3 | 16x16 | 2 | critter | Guard dog (ally) running left |
-| dog_walk_right | props.png | 2-3 | 3 | 16x16 | 2 | critter | Guard dog (ally) running right |
-| dog_sleep | props.png | 4 | 3 | 16x16 | 1 | critter | Guard dog asleep |
 | bees | props.png | 5-6 | 3 | 16x16 | 2 | critter | Swarm of bees |
 | windmill | props.png | 0-7 | 4-5 | 32x32 | 4 | prop | Windmill (spring signature), sails turning (4 frames) |
 | fox | props.png | 8-15 | 4-5 | 32x32 | 4 | boss_fox | Autumn boss: the fox (run, run, leap, hurt) |

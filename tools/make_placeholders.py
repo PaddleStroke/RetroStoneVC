@@ -608,7 +608,7 @@ def terrain(name, season):
 
 # ---------------------------------------------------------------------------
 def draw_entry(e, frame, season):
-    if e.sheet == "props":
+    if e.sheet == "props" or e.group == "critter":     # the guard dog lives on the characters sheet
         return placeholder_props.draw(e, frame)
     n = e.name
     if n.startswith("mole_"):

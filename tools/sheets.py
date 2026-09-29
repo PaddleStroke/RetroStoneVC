@@ -51,6 +51,10 @@ ENTRIES = [
     E("ferret_walk_left", "characters", 4, 2, 16, 16, 2, "ferret", "Ferret running left (long body)"),
     E("ferret_walk_right", "characters", 6, 2, 16, 16, 2, "ferret", "Ferret running right (long body)"),
     E("ferret_stunned", "characters", 8, 2, 16, 16, 1, "ferret", "Ferret stunned: dizzy, stars over the head"),
+    # the guard dog is a character (CHAR_SIZE like the mole); it shares the critter palette with the bees
+    E("dog_walk_left", "characters", 9, 2, 16, 16, 2, "critter", "Guard dog (ally) running left"),
+    E("dog_walk_right", "characters", 11, 2, 16, 16, 2, "critter", "Guard dog (ally) running right"),
+    E("dog_sleep", "characters", 13, 2, 16, 16, 1, "critter", "Guard dog asleep"),
     E("cat_walk_down", "characters", 0, 3, 16, 16, 2, "cat", "Cat walking toward the viewer"),
     E("cat_walk_up", "characters", 2, 3, 16, 16, 2, "cat", "Cat walking away"),
     E("cat_walk_left", "characters", 4, 3, 16, 16, 2, "cat", "Cat walking left"),
@@ -108,7 +112,8 @@ ENTRIES = [
     E("hud_panel", "items_fx", 7, 3, 16, 16, 1, "hud", "HUD panel background (solid, dark)"),
     E("dust", "items_fx", 8, 3, 16, 16, 3, "bomb", "Dust puff (digging, landing), growing and fading"),
     # ---- props.png: level gimmicks ("actuators") and extra bosses ------------------
-    # row 0-1: 16x16 terrain-like props (drawn on the terrain layer, BG palette 5)
+    # row 0-1: 16x16 terrain-like props (drawn on the terrain layer, one BG palette per colour
+    # family: PROP_PALETTES below)
     E("bridge", "props", 0, 0, 16, 16, 1, "propbg", "Wooden bridge over water (a blast destroys it)"),
     E("ice", "props", 1, 0, 16, 16, 1, "propbg", "Slippery ice (you slide until you hit something)"),
     E("thin_ice", "props", 2, 0, 16, 16, 2, "propbg", "Thin ice: intact, cracked (breaks into water after 2 crossings)"),
@@ -144,10 +149,7 @@ ENTRIES = [
     E("apple", "props", 12, 2, 16, 16, 1, "prop", "Falling apple"),
     E("zzz", "props", 13, 2, 16, 16, 2, "prop", "Sleeping 'Zz' bubble"),
     E("steam", "props", 15, 2, 16, 16, 1, "prop", "Steam puff (vents)"),
-    # row 3: critters (sprite palette 7)
-    E("dog_walk_left", "props", 0, 3, 16, 16, 2, "critter", "Guard dog (ally) running left"),
-    E("dog_walk_right", "props", 2, 3, 16, 16, 2, "critter", "Guard dog (ally) running right"),
-    E("dog_sleep", "props", 4, 3, 16, 16, 1, "critter", "Guard dog asleep"),
+    # row 3: critters (sprite palette 7; the guard dog is on the characters sheet)
     E("bees", "props", 5, 3, 16, 16, 2, "critter", "Swarm of bees"),
     # rows 4-9: 32x32 (bosses: sprite palette 3, loaded per level; windmill: palette 6)
     E("windmill", "props", 0, 4, 32, 32, 4, "prop", "Windmill (spring signature), sails turning (4 frames)"),
@@ -195,6 +197,24 @@ def _grow_props_bosses(entries):
 
 ENTRIES = _grow_props_bosses(ENTRIES)
 
+# Terrain-like props (group propbg) are drawn with one 15-colour BG palette per colour family
+# instead of one palette for all of them. A level loads the families its props need, at most
+# two: BG palette 5, and BG palette 7 below the HUD band (DESIGN.md, "BG palettes").
+PROP_PALETTES = [
+    ("plants", ["tall_grass", "corn", "burnt", "gate", "apple_tree", "beehive", "mushroom"]),
+    ("wood", ["crate", "splat", "well", "rails_h", "rails_v"]),
+    ("stone", ["mud", "plate", "lever", "steam_vent", "pipe"]),
+    ("water", ["bridge", "ice", "thin_ice"]),
+]
+
+
+def prop_palette(name):
+    """Index in PROP_PALETTES of a terrain-like prop's colour family."""
+    for i, (_, names) in enumerate(PROP_PALETTES):
+        if name in names:
+            return i
+    raise KeyError("propbg entry %s has no colour family in PROP_PALETTES" % name)
+
 
 def cell_of(sheet):
     return SHEETS[sheet].get("cell", CELL)
@@ -237,7 +257,10 @@ def sheet_size(sheet):
 
 
 def validate():
-    """No two frames overlap and all fit in their sheet."""
+    """No two frames overlap, all fit in their sheet, every terrain-like prop has a colour family."""
+    for e in ENTRIES:
+        if e.group == "propbg":
+            prop_palette(e.name)
     for sheet in SHEETS:
         W, H = sheet_size(sheet)
         used = {}

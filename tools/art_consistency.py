@@ -92,11 +92,18 @@ def display_family(s):
 
 
 def palette_key(s):
-    return ("terrain", s.season) if s.group == "terrain" else s.group
+    """The palette a strip is drawn with in the game: its sprite/BG group, a season row of
+    the terrain, or a colour family of the terrain-like props (sheets.PROP_PALETTES)."""
+    if s.group == "terrain":
+        return ("terrain", s.season)
+    if s.group == "propbg":
+        import sheets
+        return ("propbg", sheets.prop_palette(s.entry.name))
+    return s.group
 
 
 def palette_size(key):
-    return 60 if isinstance(key, tuple) else 15
+    return 60 if isinstance(key, tuple) and key[0] == "terrain" else 15
 
 
 def solid(s):

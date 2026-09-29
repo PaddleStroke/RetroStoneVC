@@ -34,6 +34,25 @@ static void load_pal(int first, const uint16_t *p, int n)
         if (i % 16) rs_pal_set(first + i, p[i]);
 }
 
+/* BG palettes (DESIGN.md, "BG palettes"): 0 font + weather, 1-4 the season's terrain,
+ * 5 props A, 6 explosions, 7 the HUD on lines 0-15 and props B below them (the raster
+ * callback rewrites it at line HUD_H and back at line 0, like an HDMA palette write).
+ * Props A and B are the colour families (PB_PALS) of the terrain-like props this level uses. */
+static uint16_t prop_meta[PB_COUNT][4];   /* bm_propbg_meta with this level's palette slots */
+static int prop_b = -1;                   /* family in palette 7 below the HUD band, or -1 */
+
+static void prop_pals_assign(int fa, int fb)
+{
+    int slot[PB_PALS];
+    for (int f = 0; f < PB_PALS; f++) slot[f] = PAL_PROPS;
+    if (fb >= 0) slot[fb] = PAL_HUD;
+    for (int i = 0; i < PB_COUNT; i++)
+        for (int k = 0; k < 4; k++)
+            prop_meta[i][k] = (uint16_t)((bm_propbg_meta[i][k] & ~(7 << 10)) | (slot[bm_propbg_family[i]] << 10));
+    load_pal(RS_PAL_BG(PAL_PROPS), bm_propbg_pals[fa], 16);
+    prop_b = fb;
+}
+
 
 /* ---- raster: HUD band, iris and lamp circles ------------------------------------------------ */
 static int isqrt(int v)
@@ -46,6 +65,8 @@ static int isqrt(int v)
 static void raster(int line, void *u)
 {
     (void)u;
+    if (prop_b >= 0 && (line == 0 || line == HUD_H))
+        load_pal(RS_PAL_BG(PAL_HUD), line ? bm_propbg_pals[prop_b] : bm_hud_pal, 16);
     rs_window(0, 0, (hud_lines && line < HUD_H) ? RS_SCREEN_W : 0);
     if (!iris_on && !lamp_on) return;
     int l = 0, r = RS_SCREEN_W;
@@ -149,7 +170,7 @@ void draw_init_vram(int season, int boss)
     rs_tiles_load(VR_PLAY, bm_terrain_tiles[season], bm_terrain_tile_count[season]);
     load_pal(RS_PAL_BG(1), bm_terrain_pals[season], TERRAIN_PALS * 16);
     rs_tiles_load(VR_PLAY + PROPS_TILE_BASE, bm_propbg_tiles, bm_propbg_tile_count);
-    load_pal(RS_PAL_BG(PAL_PROPS), bm_propbg_pal, 16);
+    prop_pals_assign(0, -1);                /* the level's families: draw_level_pals() */
     rs_tiles_load(VR_PLAY + FX_TILE_BASE, bm_fx_tiles, bm_fx_tile_count);
     load_pal(RS_PAL_BG(PAL_FX), bm_fx_pal, 16);
     rs_obj_base(VR_OBJ);
@@ -212,8 +233,8 @@ static const uint16_t *cell_meta(int d, int x, int y)
     const uint16_t (*T)[4] = bm_terrain_meta[g_season];
     switch (c->t) {
     case TR_FLOOR:
-        if (c->state == 7 && c->timer && !c->regrow) return bm_propbg_meta[PB_SPLAT];
-        if (d == 0) return (y > 0 && blocks_light(W.g[d][y - 1][x].t)) ? T[T_GRASS_EDGE] : T[T_GRASS];
+        if (c->state == 7 && c->timer && !c->regrow) return prop_meta[PB_SPLAT];
+        if (d == 0) return (y > 0 && blocks_light(W.g[d][y - 1][x].t)) ? T[T_GRASS_SHADOW] : T[T_GRASS];
         return T[T_TUNNEL];
     case TR_STONE: return T[T_STONE];
     case TR_DIRT: return c->state ? T[T_DIRT_CRACK] : T[T_SOFT_DIRT];
@@ -228,18 +249,18 @@ static const uint16_t *cell_meta(int d, int x, int y)
     case TR_HOLE_UP: return T[T_HOLE_UP];
     case TR_LADDER: return T[T_LADDER];
     case TR_EXIT: return W.exit_open ? T[T_EXIT_OPEN] : T[T_EXIT_CLOSED];
-    case TR_BRIDGE: return bm_propbg_meta[PB_BRIDGE];
-    case TR_ICE: return bm_propbg_meta[PB_ICE];
-    case TR_THIN_ICE: return bm_propbg_meta[PB_THIN_ICE + (c->state ? 1 : 0)];
-    case TR_MUD: return bm_propbg_meta[PB_MUD];
-    case TR_COVER: return bm_propbg_meta[g_season == SEASON_SUMMER ? PB_CORN : PB_TALL_GRASS];
-    case TR_BURNT: return bm_propbg_meta[PB_BURNT];
-    case TR_GATE: return bm_propbg_meta[PB_GATE + (c->state ? 1 : 0)];
-    case TR_PLATE: return bm_propbg_meta[PB_PLATE + (c->state ? 1 : 0)];
-    case TR_LEVER: return bm_propbg_meta[PB_LEVER + (c->state ? 1 : 0)];
-    case TR_VENT: return bm_propbg_meta[PB_STEAM_VENT + (c->state ? 1 : 0)];
-    case TR_PIPE: return bm_propbg_meta[PB_PIPE];
-    case TR_CRATE: return bm_propbg_meta[PB_CRATE];
+    case TR_BRIDGE: return prop_meta[PB_BRIDGE];
+    case TR_ICE: return prop_meta[PB_ICE];
+    case TR_THIN_ICE: return prop_meta[PB_THIN_ICE + (c->state ? 1 : 0)];
+    case TR_MUD: return prop_meta[PB_MUD];
+    case TR_COVER: return prop_meta[g_season == SEASON_SUMMER ? PB_CORN : PB_TALL_GRASS];
+    case TR_BURNT: return prop_meta[PB_BURNT];
+    case TR_GATE: return prop_meta[PB_GATE + (c->state ? 1 : 0)];
+    case TR_PLATE: return prop_meta[PB_PLATE + (c->state ? 1 : 0)];
+    case TR_LEVER: return prop_meta[PB_LEVER + (c->state ? 1 : 0)];
+    case TR_VENT: return prop_meta[PB_STEAM_VENT + (c->state ? 1 : 0)];
+    case TR_PIPE: return prop_meta[PB_PIPE];
+    case TR_CRATE: return prop_meta[PB_CRATE];
     case TR_SPRINKLER: case TR_WINDMILL:
         return d == 0 ? T[T_GRASS] : T[T_TUNNEL];
     }
@@ -556,9 +577,48 @@ void text_big(int x, int y, const char *s)
 
 void draw_frame_setup(void) {}
 
-/* the palette-swap variants of this level's enemies (after world_start) */
+/* the colour families of the terrain-like props this level uses (also those it can make:
+ * burnt cover, mud under puddles, the farmer's tomato splats) -> props A and props B.
+ * tools/check_levels.py checks that no level needs more than two. */
+static void draw_prop_pals(void)
+{
+    unsigned need = 0;
+#define USE(pb) (need |= 1u << bm_propbg_family[pb])
+    for (int d = 0; d < NDEPTH; d++)
+        for (int y = 0; y < GH; y++)
+            for (int x = 0; x < GW; x++)
+                switch (W.g[d][y][x].t) {
+                case TR_BRIDGE: USE(PB_BRIDGE); break;
+                case TR_ICE: USE(PB_ICE); break;
+                case TR_THIN_ICE: USE(PB_THIN_ICE); break;
+                case TR_MUD: case TR_PUDDLE: USE(PB_MUD); break;
+                case TR_COVER: USE(g_season == SEASON_SUMMER ? PB_CORN : PB_TALL_GRASS); USE(PB_BURNT); break;
+                case TR_BURNT: USE(PB_BURNT); break;
+                case TR_GATE: USE(PB_GATE); break;
+                case TR_PLATE: USE(PB_PLATE); break;
+                case TR_LEVER: USE(PB_LEVER); break;
+                case TR_VENT: USE(PB_STEAM_VENT); break;
+                case TR_PIPE: USE(PB_PIPE); break;
+                case TR_CRATE: USE(PB_CRATE); break;
+                default: break;
+                }
+    for (int i = 0; i < W.na; i++)
+        if (W.a[i].kind == AK_BOSS && g_boss == BOSS_FARMER) USE(PB_SPLAT);
+#undef USE
+    int fa = -1, fb = -1;
+    for (int f = 0; f < PB_PALS; f++) {
+        if (!(need & (1u << f))) continue;
+        if (fa < 0) fa = f;
+        else if (fb < 0) fb = f;
+        else rs_log("level: props of more than two colour families; family %d shares palette %d", f, PAL_PROPS);
+    }
+    prop_pals_assign(fa < 0 ? 0 : fa, fb);
+}
+
+/* the level's palettes after world_start: enemy variants (sprites) and prop families (BG) */
 void draw_variant_pals(void)
 {
     for (int v = 0; v < VAR_COUNT; v++)
         if (W.var_slot[v] >= 0) load_pal(RS_PAL_OBJ(W.var_slot[v]), bm_variant_pals[v], 16);
+    draw_prop_pals();
 }

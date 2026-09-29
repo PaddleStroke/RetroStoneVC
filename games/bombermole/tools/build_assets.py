@@ -38,6 +38,21 @@ def frames_of(img, e, season=0):
     return [rsasset.cell(img, x, y, w, h) for (x, y, w, h) in sheets.frame_rects(e, season)]
 
 
+def grass_shadow(grass, rows=(0.55, 0.72, 0.88)):
+    """Grass below a wall: the top rows darkened, each pixel snapped to the nearest colour
+    of the grass tile itself (no new colour, so the season's palettes are unchanged). Tiles
+    along a wall repeat seamlessly, whatever the art of the grass_edge cell looks like."""
+    cols = sorted({v for row in grass for v in row if v is not None})
+    rgb = [rsasset.rgb888(v) for v in cols]
+    out = [list(r) for r in grass]
+    for y, k in enumerate(rows):
+        for x, v in enumerate(out[y]):
+            if v is not None:
+                r, g, b = rsasset.rgb888(v)
+                out[y][x] = cols[rsasset.nearest((r * k, g * k, b * k), rgb)]
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
@@ -57,13 +72,15 @@ def main():
 
     # ---- terrain (one tile set per season) --------------------------------------------------
     terr = sheets.entries("tiles")
-    h.append("enum { " + ", ".join("T_%s" % cname(e.name) for e in terr) + ", T_COUNT };")
+    # + T_GRASS_SHADOW: grass with the shadow of the wall above it, derived from each season's grass
+    h.append("enum { " + ", ".join("T_%s" % cname(e.name) for e in terr) + ", T_GRASS_SHADOW, T_COUNT };")
     h.append("extern const uint8_t *const bm_terrain_tiles[4];\nextern const int bm_terrain_tile_count[4];")
     h.append("extern const uint16_t bm_terrain_pals[4][TERRAIN_PALS * 16];")
     h.append("extern const uint16_t bm_terrain_meta[4][T_COUNT][4];\n")
     metas, pals, counts = [], [], []
     for s in range(4):
         cells = [frames_of(img["tiles"], e, s)[0] for e in terr]
+        cells.append(grass_shadow(cells[[e.name for e in terr].index("grass")]))
         r = rsasset.convert_bg(cells, TERRAIN_PALS, pal_base=1, tile_base=0)
         if len(r.tiles) > PROPS_TILE_BASE:
             sys.exit("terrain of season %d needs %d tiles (max %d)" % (s, len(r.tiles), PROPS_TILE_BASE))
@@ -81,10 +98,45 @@ def main():
     c.append("const uint16_t bm_terrain_meta[4][T_COUNT][4] = {\n" + ",\n".join(
         "    {" + ", ".join("{" + ", ".join("0x%04x" % v for v in m) + "}" for m in ms) + "}" for ms in metas) + "};\n")
 
+    # ---- terrain-like props: one BG palette per colour family (sheets.PROP_PALETTES) -------------
+    # The metatiles say palette PAL_PROPS; the game sets the palette bits per level to the slot
+    # where the prop's family is loaded (BG palette 5, or 7 below the HUD band).
+    pents = [e for e in sheets.entries("props") if e.group == "propbg"]
+    names, fam, pcells = [], [], []
+    for e in pents:
+        names.append("PB_%s = %d" % (cname(e.name), len(fam)))
+        pcells += frames_of(img["props"], e)
+        fam += [sheets.prop_palette(e.name)] * e.frames
+    ptiles, ppals, pmetas = [], [], [None] * len(fam)
+    for f in range(len(sheets.PROP_PALETTES)):
+        ks = [k for k in range(len(fam)) if fam[k] == f]
+        if not ks:
+            ppals.append([])
+            continue
+        r = rsasset.convert_bg([pcells[k] for k in ks], 1, pal_base=PAL_PROPS,
+                               tile_base=PROPS_TILE_BASE + len(ptiles), reserve_blank=not ptiles)
+        ptiles += r.tiles
+        ppals.append(r.palettes[0] if r.palettes else [])
+        for k, m in zip(ks, r.metas):
+            pmetas[k] = m
+    if len(ptiles) > FX_TILE_BASE - PROPS_TILE_BASE:
+        sys.exit("terrain-like props need %d tiles (max %d)" % (len(ptiles), FX_TILE_BASE - PROPS_TILE_BASE))
+    h.append("enum { %s, PB_COUNT = %d };" % (", ".join(names), len(fam)))
+    h.append("enum { %s, PB_PALS };" % ", ".join("PBP_%s" % cname(n) for n, _ in sheets.PROP_PALETTES))
+    h.append("extern const uint8_t bm_propbg_tiles[];\nextern const int bm_propbg_tile_count;")
+    h.append("extern const uint16_t bm_propbg_pals[PB_PALS][16];\nextern const uint8_t bm_propbg_family[PB_COUNT];")
+    h.append("extern const uint16_t bm_propbg_meta[PB_COUNT][4];\n")
+    c.append(rsasset.c_bytes("bm_propbg_tiles", rsasset.tiles_bytes(ptiles)))
+    c.append("const int bm_propbg_tile_count = %d;" % len(ptiles))
+    c.append("const uint16_t bm_propbg_pals[PB_PALS][16] = {\n" + ",\n".join(
+        "    {" + ", ".join("0x%04x" % v for v in rsasset.palette16(p)) + "}" for p in ppals) + "};")
+    c.append("const uint8_t bm_propbg_family[PB_COUNT] = {%s};" % ", ".join(map(str, fam)))
+    c.append("const uint16_t bm_propbg_meta[PB_COUNT][4] = {\n" + ",\n".join(
+        "    {" + ", ".join("0x%04x" % v for v in m) + "}" for m in pmetas) + "};\n")
+
     # ---- BG groups from items_fx: explosions and HUD ------------------------------------------
     for group, prefix, pal, base, sheet in (("fx", "FX", PAL_FX, FX_TILE_BASE, "items_fx"),
-                                            ("hud", "HUD", PAL_HUD, HUD_TILE_BASE, "items_fx"),
-                                            ("propbg", "PB", PAL_PROPS, PROPS_TILE_BASE, "props")):
+                                            ("hud", "HUD", PAL_HUD, HUD_TILE_BASE, "items_fx")):
         ents = [e for e in sheets.entries(sheet) if e.group == group]
         cells, names, idx = [], [], 0
         for e in ents:

@@ -23,6 +23,29 @@ grass.
 | BG4 | terrain |
 | OBJ | mole, enemies, bombs, items, dust (priority 2: above BG3/BG4, below the weather and HUD) |
 
+### BG palettes (8 x 15 colours)
+| Palette | Contents | Chosen |
+|---|---|---|
+| 0 | font (white, shadow, box) and the 2 weather colours | fixed |
+| 1-4 | terrain: the season's row of tiles.png (60 colours) | per season |
+| 5 | **props A**: the first colour family of terrain-like props the level uses | per level |
+| 6 | explosions | fixed |
+| 7 | HUD icons on lines 0-15; **props B** on lines 16-239 | per level |
+
+Terrain-like props (bridge, ice, cover, gates...) have one 15-colour palette per **colour family**
+(`tools/sheets.py` `PROP_PALETTES`): *plants* (tall grass, corn, burnt ground, gate, apple tree, beehive,
+mushroom), *wood* (crate, tomato splat, well, rails), *stone* (mud, pressure plate, lever, steam vent, pipe)
+and *water* (bridge, ice, thin ice). When a level starts, the game lists the families of the props it uses
+and of those it can create (cover burns, puddles make mud below, the farmer's tomatoes splat) and loads
+them into palettes 5 and 7. Palette 7 is shared with the HUD like an HDMA palette write on the SNES: the
+raster callback loads the props-B colours at line 16 and the HUD colours back at line 0. A level may
+therefore use **two prop families**; `tools/check_levels.py` (part of `make check`) rejects a level that
+needs more, and the game logs it and shows the extra family with palette 5's colours.
+
+Sprite palettes: 0 mole, 1 ferret, 2 cat, 3 boss (loaded per level), 4 bomb and dust, 5 pick-ups,
+6 sprite props, 7 critters (guard dog, bees); the enemy variants take 1 and 2, plus 3 without a boss and
+7 without a dog (see "Enemies").
+
 ### HUD (20 cells of 16x16)
 `[heart][hits] [bomb][max bombs] [fire][range] [claws][speed] [grub][grubs left: 2 digits]`
 then, for each depth, `[marker][depth icon][enemies left]`. The marker shows the mole's depth.
@@ -312,4 +335,8 @@ state so co-op (shared grubs, shared exit) and battle (last mole standing, no gr
   Comparison images: docs/art-preview/. Recommendation: **24x24**. The AI characters keep their shading and
   expressions at 24 px, they still read as 16-px cells in the maze, and 24 px is SNES Bomberman's character
   height. At 16 px the mole's helmet and nose blur into a brown blob. At 32 px the characters hide the walls
-  around them, and the boss (64 px) takes half of the playfield's height.
+  around them, and the boss (64 px) takes half of the playfield's height. The guard dog is a character
+  too (on the characters sheet, CHAR_SIZE); the bosses are 2x2 characters (48 px at CHAR_SIZE 24).
+- **Grass below a wall** uses a shadow tile derived from the season's grass when the assets are built (the
+  top rows darkened with the grass tile's own colours), so a row of them along a wall repeats seamlessly;
+  the `grass_edge` cell of tiles.png is kept for the title screen's hills.

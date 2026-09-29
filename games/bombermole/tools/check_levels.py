@@ -70,6 +70,33 @@ class LevelError(Exception):
     pass
 
 
+# BG palette budget of the terrain-like props (DESIGN.md, "BG palettes"): each prop has a colour
+# family (tools/sheets.py PROP_PALETTES); a level may use two families (BG palettes 5 and 7).
+PROP_SLOTS = 2
+
+
+def prop_families(head, cells, has_boss):
+    """Colour families of the props a level uses, or can create (same rules as draw.c)."""
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(HERE))), "tools"))
+    import sheets
+    names = set()
+    for d in range(3):
+        for row in cells[d]:
+            for c in row:
+                t = c["t"]
+                if t in ("bridge", "ice", "thin_ice", "mud", "burnt", "gate", "plate", "lever", "steam_vent",
+                         "pipe", "crate"):
+                    names.add(t)
+                elif t == "puddle":                 # puddles make mud on the depth below
+                    names.add("mud")
+                elif t == "tall_grass":             # corn in summer; cover burns
+                    names.update(("corn" if head["season"] == "summer" else "tall_grass", "burnt"))
+    boss = head.get("boss") or {"spring": "barncat", "summer": "farmer", "autumn": "fox", "winter": "owl"}[head["season"]]
+    if has_boss and boss == "farmer":
+        names.add("splat")                      # the farmer's tomatoes splat on the floor
+    return {sheets.PROP_PALETTES[sheets.prop_palette(n)][0] for n in names}
+
+
 def parse_spec(spec):
     out = {"t": "floor", "item": None, "actor": None, "chan": 0, "log": False, "push": None, "etype": None}
     for tok in spec.replace("+", " ").split():
@@ -176,6 +203,11 @@ def check(path):
     if len(set(enemies)) > slots:
         raise LevelError("%s: %d enemy variants but only %d free sprite palettes" % (path, len(set(enemies)), slots))
     head["_enemies"] = enemies
+    fams = prop_families(head, cells, bool(boss))
+    if len(fams) > PROP_SLOTS:
+        raise LevelError("%s: terrain props of %d colour families (%s) but only %d BG palettes for props" %
+                         (path, len(fams), ", ".join(sorted(fams)), PROP_SLOTS))
+    head["_prop_families"] = fams
     if len(head.get("hint", "")) > 76:
         raise LevelError("%s: hint longer than 76 characters" % path)
     if not grubs and not boss:
