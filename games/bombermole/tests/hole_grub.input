@@ -1,0 +1,8 @@
+# spring-1: down 2, right through the dirt wall at (5,3) into the hole at (7,3); then along the
+# tunnel to the golden grub at (14,3) on depth 1
+5 DOWN
+30 -
+35 RIGHT
+150 -
+200 RIGHT
+285 -

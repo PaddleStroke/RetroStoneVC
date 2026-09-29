@@ -222,6 +222,26 @@ def main():
         rep = open(os.path.join(inc, "IMPORT_REPORT.md"), encoding="utf-8").read()
         check("mole_walk_left" in imported and "mole_walk_up" not in imported, "sync imports the good strips only")
         check("| mole_walk_up | GENERATED | error: frame-count mismatch" in rep, "sync reports the mismatch")
+
+        # 10. facing: a right strip whose frame 1 faces left is flagged; the built right strip is the
+        #     mirrored left strip (sheets.mirror_source)
+        left, right = src("cat_walk_left"), src("cat_walk_right")
+        make_strip(left, seed=21).save(os.path.join(inc, "cat_walk_left.png"))
+        make_strip([right[0].transpose(Image.FLIP_LEFT_RIGHT), right[1]], seed=22).save(
+            os.path.join(inc, "cat_walk_right.png"))
+        mark_generated(todo, inc)
+        rows = art_sync.read_todo(todo)
+        res = ac.process(inc, rows, strips, ("GENERATED",))
+        rf = [f for f in res["cat_walk_right"].frame_flags if "faces" in f]
+        lf = [f for f in res["cat_walk_left"].frame_flags if "faces" in f]
+        check(len(rf) == 1 and "frame 1 faces LEFT" in rf[0] and not lf,
+              "facing: right strip frame 1 drawn facing left is flagged (%s)" % (rf + lf))
+        check(sheets.mirror_source("cat_walk_right") == "cat_walk_left" and
+              sheets.mirror_source("cat_walk_left") is None, "right strips are mirrored from the left ones")
+        counts, imported = art_sync.sync(args, report_print=lambda s: None)
+        a = np.asarray(imported["cat_walk_right"][0][0])
+        b = np.asarray(imported["cat_walk_left"][0][0])[:, ::-1]
+        check(np.array_equal(a, b), "sync: the imported right strip is the mirrored left strip")
     print("art_consistency: %s" % ("all passed" if not failures else "%d FAILED" % failures))
     sys.exit(1 if failures else 0)
 

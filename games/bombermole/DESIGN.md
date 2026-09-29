@@ -48,10 +48,25 @@ Sprite palettes: 0 mole, 1 ferret, 2 cat, 3 boss (loaded per level), 4 bomb and 
 
 ### HUD (20 cells of 16x16)
 `[heart][hits] [bomb][max bombs] [fire][range] [claws][speed] [grub][grubs left: 2 digits]`
-then, for each depth, `[marker][depth icon][enemies left]`. The marker shows the mole's depth.
-A depth icon **blinks with a warning sign** when something is dangerous there for the mole's
-depth: a lit bomb or a blast, or an enemy right next to a hole or ladder that leads to the
-mole's depth.
+then, for each depth (surface, below, deep), `[marker][depth icon][grubs left there, or a tick]`.
+The marker and a blinking icon show the mole's depth. Another depth's icon **blinks with a warning
+sign** when something there is dangerous for the mole's depth: a lit bomb or a blast, or an enemy
+right next to a hole or ladder that leads to the mole's depth.
+
+### Making the objective obvious
+- **Intro card** (before play; the player presses A): the level name, "Collect N golden grubs" with
+  the count on each depth (icons: here, below, deep), "then enter the molehill", and the level's hint.
+- **Pause screen** (Start): the objective, a **map of the three depths** (remaining grubs in gold,
+  holes down in black, ladders and holes up in orange, the exit, the mole and the enemies), and the
+  **HUD legend** (each icon explained).
+- **Molehill open**: when the last grub is taken, a jingle, a "THE MOLEHILL IS OPEN!" banner and an
+  arrow: above the molehill on the surface, or at the top edge with "EXIT: SURFACE (GO UP)" below.
+- **Tutorial prompts** (spring 1-3 only, each shown once, saved): near soft dirt, a hole, a ladder or
+  hole up, a rock, and the first golden grub ("GOLDEN GRUB! N LEFT").
+- **Spring 1** teaches in order: walk (the start room), dig (its soft dirt wall), the hole down, the
+  grubs below, the ladder back up, the exit.
+- `--opt bot=2` is a test bot that plays a level with only this information (targets: the grubs on
+  the map, then the exit the arrow points to); `make check` has it clear spring 1 and 2.
 
 ## Controls (SNES pad)
 | Button | Action |
@@ -304,8 +319,8 @@ ladder (and the reverse), every grub reachable when breakable cells count as pas
 
 ## Game flow
 Title (press Start; menu: Play, Options (music, sound, difficulty, erase save), Credits) -> arc select (4 seasons, locked ones greyed) ->
-level select (1-8, cleared and locked marks, best time) -> level intro (iris opens on the mole,
-level name and hint) -> play -> **pause** (Resume / Restart / Quit) -> level clear (time, best time)
+level select (1-8, cleared and locked marks, best time) -> level intro card (the objective; iris opens on the mole,
+level name and hint) -> play -> **pause** (map, HUD legend; Resume / Restart / Quit) -> level clear (time, best time)
 -> next level. After level 8: the **arc final screen** (a rotating seasonal emblem on the affine
 layer, "Spring complete!") -> back to the arc select, next arc unlocked.
 Knocked out: lives left -> the level restarts; no lives -> **Game over** (Continue / Quit).

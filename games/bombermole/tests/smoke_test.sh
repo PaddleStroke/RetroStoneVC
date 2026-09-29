@@ -19,12 +19,10 @@ for f in "$L"/*.txt; do
     n=$((n + 1))
 done
 echo "  ok   $n levels load and run"
-out=$($H --frames 60 --opt level=spring-1 --opt nointro=1 --opt dump=1 --input $D/grub.input 2>&1)
-check "walk and collect a grub" "grubs_left=4/5 depth=0 x=2 y=3" "$out"
-out=$($H --frames 240 --opt level=spring-1 --opt nointro=1 --opt dump=1 --input $D/dig.input 2>&1)
-check "dig through soft dirt" "x=8 y=3" "$out"
-out=$($H --frames 160 --opt level=spring-1 --opt nointro=1 --opt dump=1 --input $D/hole.input 2>&1)
-check "fall through a hole to depth 1" "depth=1 x=2 y=6" "$out"
+out=$($H --frames 200 --opt level=spring-1 --opt nointro=1 --opt dump=1 --input $D/dig.input 2>&1)
+check "dig through the soft dirt wall" "depth=0 x=[6-9] y=1 " "$out"
+out=$($H --frames 330 --opt level=spring-1 --opt nointro=1 --opt dump=1 --input $D/hole_grub.input 2>&1)
+check "dig, go down the hole, collect a grub below" "grubs_left=2/3 depth=1 x=14 y=3" "$out"
 base=$($H --frames 10 --opt level=spring-2 --opt nointro=1 --opt dump=1 2>&1 | sed -n 's/.*rocks=\([0-9]*\).*/\1/p')
 out=$($H --frames 260 --opt level=spring-2 --opt nointro=1 --opt dump=1 --input $D/bomb.input 2>&1)
 check "a bomb breaks a rock ($base rocks before)" "rocks=$((base - 1)) " "$out"
@@ -47,5 +45,10 @@ for t in sleepy_ferret brown_ferret polecat stoat ginger_cat grey_cat black_cat 
         if [ -n "$ch" ] && [ "$ji" -eq 0 ] && [ "$ch" -le "$ti" ]; then echo "  ok   chase $t ($inp mole): $ch facing changes over $ti tiles, no jitter"
         else echo "  FAIL chase $t ($inp mole): $out"; fail=1; fi
     done
+done
+# the objective bot (--opt bot=2) finishes spring 1 and 2 using only what the game shows
+for l in spring-1 spring-2; do
+    out=$($H --frames 20000 --opt level=$l --opt nointro=1 --opt dump=1 --opt bot=2 2>&1)
+    check "objective bot clears $l (grubs, then the molehill)" "state: st=12 .*grubs_left=0" "$out"
 done
 exit $fail

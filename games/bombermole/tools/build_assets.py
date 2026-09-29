@@ -203,7 +203,7 @@ def main():
     boss_tiles, boss_pals = [], []
     variant_base = {}
     for g in OBJ_GROUPS + BOSSES:
-        ents = [e for e in sprite_entries if e.group == g]
+        ents = [e for e in sprite_entries if e.group == g and not sheets.mirror_source(e.name)]
         frames = []
         for e in ents:
             frames += frames_of(img[e.sheet], e)
@@ -230,20 +230,25 @@ def main():
             defs[e.name] = []
             for f in range(e.frames):
                 first, w, hh = r.frames[k]
-                defs[e.name].append((base + first, w, hh, pal, block))
+                defs[e.name].append((base + first, w, hh, pal, block, 0))
                 k += 1
         if g not in BOSSES:
             tiles += r.tiles
+    # mirrored right strips: the left frames with the h-flip bit (no tiles of their own)
+    for e in sprite_entries:
+        src = sheets.mirror_source(e.name)
+        if src:
+            defs[e.name] = [d[:5] + (1,) for d in defs[src]]
     spr_rows, idx = [], 0
     for e in sprite_entries:
         names.append("SPR_%s = %d" % (cname(e.name), idx))
         for d in defs[e.name]:
-            spr_rows.append("    {%d, %d, %d, %d, %d}" % d)
+            spr_rows.append("    {%d, %d, %d, %d, %d, %d}" % d)
             idx += 1
     h.append("enum { %s, SPR_COUNT = %d };" % (", ".join(names), idx))
     h.append("enum { " + ", ".join("OBJ_PAL_%s" % cname(g) for g in OBJ_GROUPS) + " };")
     h.append("enum { BOSS_NONE, " + ", ".join(cname(b) for b in BOSSES) + ", BOSS_KINDS };")
-    h.append("typedef struct bm_sprite_def { uint16_t tile; uint8_t w, h, pal, block; } bm_sprite_def;")
+    h.append("typedef struct bm_sprite_def { uint16_t tile; uint8_t w, h, pal, block, hflip; } bm_sprite_def;")
     h.append("extern const bm_sprite_def bm_spr[SPR_COUNT];")
     h.append("extern const uint8_t bm_obj_tiles[];\nextern const int bm_obj_tile_count;")
     h.append("extern const uint16_t bm_obj_pals[%d];" % len(obj_pals))

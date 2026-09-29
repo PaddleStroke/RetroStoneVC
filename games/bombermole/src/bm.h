@@ -199,6 +199,17 @@ int  slot_y(int slot);
 void hud_hide_lines(int on);
 extern int view_slot;
 
+/* ---- ui.c ---- */
+void ui_init_level(void);
+int  ui_grubs(int depth);
+void ui_intro_card(const level_def *L, int arc);
+void ui_pause_screen(int cursor);
+void ui_screen_done(void);
+void ui_banner_exit_open(void);
+void ui_prompt(const char *text);
+int  ui_prompt_busy(void);
+void ui_play_overlays(int view_depth);
+
 /* ---- sfx.c ---- */
 enum sfx_id {
     SFX_BOMB_DROP, SFX_FUSE, SFX_BLAST, SFX_BREAK, SFX_DIG, SFX_GRUB, SFX_POWERUP, SFX_HURT,

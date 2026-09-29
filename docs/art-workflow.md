@@ -123,3 +123,12 @@ images in `docs/art-preview/`:
 - `character_size_side_by_side_2x.png`: the three sizes side by side;
 - `character_size_ingame_1x.png` / `_2x.png`: real game builds at each size with the first-batch art, on
   spring 3, spring 8 (boss) and spring 2 underground (`tools/art_compare_ingame.sh`).
+
+## Left and right
+Right-facing character strips are **derived**: the build mirrors the left strip (the OAM h-flip, as SNES
+games do; the right frames use the left tiles, so they cost no VRAM). `art_sync.py sync` writes the mirrored
+left strip into the right cells, and a right strip drawn by the image agent is not used, unless its family
+is listed in `tools/sheets.py ASYMMETRIC_FAMILIES` (for art that must not be mirrored, such as a lamp that
+stays on one side). `tools/art_consistency.py` checks the facing of every frame of each left/right pair (the
+frames are split into two orientation groups from their full-resolution shapes and brightness profiles) and
+flags a frame that faces the wrong way; the flags show in the review tool.

@@ -425,6 +425,21 @@ def sync(args, report_print=print):
     if cons is not None:
         imported, report, counts = cons
 
+    # right-facing character strips are the mirrored left strips (sheets.mirror_source); when only
+    # the right strip was imported, the left one is its mirror, so a pair never disagrees
+    for s in list(strips.values()):
+        left = sheets.mirror_source(s.id)
+        if not left:
+            continue
+        flip = lambda frames: [(col[:, ::-1], alpha[:, ::-1]) for col, alpha in frames]  # noqa: E731
+        if left in imported:
+            if s.id in imported:
+                report.append((s.id, "", "right strip replaced by the mirrored %s" % left))
+            imported[s.id] = flip(imported[left])
+        elif s.id in imported:
+            imported[left] = flip(imported[s.id])
+            report.append((left, "", "mirrored from %s (no imported left strip)" % s.id))
+
     # assemble the sheets: placeholders + imported cells
     out_dir = args.out
     written = []

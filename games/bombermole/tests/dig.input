@@ -1,5 +1,3 @@
-# spring-1: walk to (6,3) then dig through the soft dirt at (7,3)
-5 DOWN
-30 -
-35 RIGHT
-230 -
+# spring-1: walk right from the start room and dig through the soft dirt wall at (5,1)
+5 RIGHT
+115 -

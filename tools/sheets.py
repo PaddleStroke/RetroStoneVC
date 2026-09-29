@@ -222,6 +222,23 @@ def cell_of(sheet):
 
 BY_NAME = {e.name: e for e in ENTRIES}
 TERRAIN = [e.name for e in ENTRIES if e.sheet == "tiles"]
+# Right-facing character strips are DERIVED from the left strip by a horizontal flip (the OAM
+# h-flip, as SNES games do; it also saves VRAM). A family listed here opts out and keeps its own
+# right strips (for art that is not symmetric, such as a helmet lamp that must stay on one side).
+ASYMMETRIC_FAMILIES = set()
+
+
+def mirror_source(name):
+    """The left strip a right strip is mirrored from, or None if the strip is drawn itself."""
+    if not name.endswith("_right"):
+        return None
+    left = name[:-len("_right")] + "_left"
+    e = BY_NAME.get(left)
+    if e is None or e.sheet != "characters" or name.split("_")[0] in ASYMMETRIC_FAMILIES:
+        return None
+    return left
+
+
 
 
 def entries(sheet):

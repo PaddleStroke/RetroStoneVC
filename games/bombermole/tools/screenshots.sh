@@ -18,4 +18,13 @@ run --frames 200 --opt level=spring-8 --opt nointro=1 --shot 150:$O/spring8-boss
 run --frames 260 --opt level=summer-8 --opt nointro=1 --shot 250:$O/summer-farmer-boss.png
 run --frames 200 --opt level=autumn-1 --opt nointro=1 --shot 150:$O/autumn1-gale.png
 run --frames 230 --opt level=summer-1 --opt nointro=1 --opt view=2 --shot 205:$O/summer1-steam-vents.png
+# objectives: intro card, HUD, pause screen (map + HUD legend), "molehill open" banner and arrow
+run --frames 70 --opt level=spring-2 --shot 60:$O/intro-card.png
+run --frames 160 --opt level=spring-6 --opt nointro=1 --shot 150:$O/hud-in-play.png
+printf "30 tap START
+" > /tmp/bm_pause.input
+run --frames 60 --opt level=spring-2 --opt nointro=1 --input /tmp/bm_pause.input --shot 50:$O/pause-map-and-legend.png
+run --frames 60 --opt level=spring-1 --opt nointro=1 --opt opengrubs=1 --shot 50:$O/molehill-open-surface.png
+run --frames 60 --opt level=spring-1 --opt nointro=1 --opt opengrubs=1 --opt spawn=1,9,3 --shot 50:$O/molehill-open-below.png
+python3 -c "from PIL import Image; im = Image.open(\"$O/hud-in-play.png\"); im.crop((0, 0, 640, 32)).resize((1280, 64), Image.NEAREST).save(\"$O/hud-band-2x.png\")"
 ls "$O"

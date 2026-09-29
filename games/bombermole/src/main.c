@@ -370,6 +370,16 @@ static void start_level(void)
     draw_init_vram(LV.season, LV.boss);
     world_start(&LV, carry);
     draw_variant_pals();
+    ui_init_level();
+    if (rs_option_int("opengrubs", 0)) {            /* debug: all grubs taken (screenshots) */
+        for (int d = 0; d < NDEPTH; d++)
+            for (int y = 0; y < GH; y++)
+                for (int x = 0; x < GW; x++)
+                    if (W.g[d][y][x].item == IT_GRUB) W.g[d][y][x].item = IT_NONE;
+        W.grubs_left = 0;
+        W.exit_open = 1;
+        ui_banner_exit_open();
+    }
     const char *sp = rs_option("spawn");             /* debug: "1,5,9" = depth, x, y of the mole */
     if (sp) {
         int d, x, y;
@@ -399,34 +409,13 @@ static void intro_update(void)
     player_screen_xy(&px, &py);
     int r = st_t * 8;
     iris_set(r < 420, px, py, r);
-    if (st_t < 150 && !rs_option_int("nointro", 0)) {
-        char a[40] = "", b[104];
-        snprintf(b, sizeof b, "%s", LV.hint);
-        /* split the hint on two lines at a space near the middle */
-        size_t n = strlen(b), cut = n;
-        if (n > 34) {
-            cut = n / 2;
-            while (cut < n && b[cut] != ' ') cut++;
-        }
-        snprintf(a, sizeof a, "%.*s", (int)(cut < 39 ? cut : 38), b);
-        const char *second = cut < n ? b + cut + 1 : "";
-        int w = (int)strlen(LV.name);
-        if ((int)strlen(a) > w) w = (int)strlen(a);
-        if ((int)strlen(second) > w) w = (int)strlen(second);
-        w = clampi(w + 4, 24, 40);
-        int x = (40 - w) / 2;
-        text_box(x, 11, w, LV.hint[0] ? 7 : 4);
-        textf_at(center(LV.name), 12, "%s", LV.name);
-        textf_at(center("SPRING 1-1"), 13, "%s %d-%d", season_name(LV.season), LV.arc ? LV.arc : sel_arc + 1, LV.num);
-        if (LV.hint[0]) {
-            textf_at(center(a), 15, "%s", a);
-            if (*second) textf_at(center(second), 16, "%s", second);
-        }
-        plain_text();
-    }
-    if (st_t >= 150 || (st_t > 20 && (confirm() || (pressed() & RS_BTN_B))) || rs_option_int("nointro", 0)) {
+    int skip = rs_option_int("nointro", 0);
+    if (!skip) ui_intro_card(&LV, sel_arc);
+    /* the card stays until the player presses a button: the objective must be read */
+    if (skip || (st_t > 20 && (confirm() || (pressed() & RS_BTN_B)))) {
         iris_set(0, 0, 0, 0);
         text_clear_all();
+        ui_screen_done();
         go(ST_PLAY);
     }
 }
@@ -440,11 +429,49 @@ static void begin_slide(int from, int to)
     go(ST_SLIDE);
 }
 
+/* tutorial prompts: spring 1-3 only, each shown once (bits in the save RAM) */
+enum { TUT_HOLE = 1, TUT_LADDER = 2, TUT_DIG = 4, TUT_ROCK = 8, TUT_GRUB = 16 };
+
+static void tutorial(void)
+{
+    if (sel_arc != 0 || sel_level > 3 || ui_prompt_busy()) return;
+    actor *m = world_player(0);
+    if (!m || m->moving) return;
+    int near[TR_COUNT] = {0};
+    for (int k = 0; k < 4; k++) {
+        int x = m->cx + DX[k], y = m->cy + DY[k];
+        if (in_grid(x, y)) near[W.g[m->depth][y][x].t] = 1;
+    }
+    static const struct { int bit, when; const char *text; } tips[] = {
+        {TUT_DIG, TR_DIRT, "HOLD THE D-PAD AGAINST SOFT DIRT TO DIG"},
+        {TUT_HOLE, TR_HOLE_DOWN, "WALK INTO A HOLE TO GO DOWN"},
+        {TUT_LADDER, TR_LADDER, "CLIMB THE LADDER TO GO UP"},
+        {TUT_LADDER, TR_HOLE_UP, "STEP INTO THE LIGHT TO GO UP"},
+        {TUT_ROCK, TR_ROCK, "ROCKS NEED A BOMB: PRESS B, RUN!"},
+    };
+    for (unsigned i = 0; i < sizeof tips / sizeof tips[0]; i++)
+        if (!(SV.pad1 & tips[i].bit) && near[tips[i].when]) {
+            ui_prompt(tips[i].text);
+            SV.pad1 |= (uint8_t)tips[i].bit;
+            save_store();
+            return;
+        }
+}
+
 static void play_update(void)
 {
-    if (pressed() & RS_BTN_START) { sfx(SFX_MENU_OK); go(ST_PAUSE); return; }
+    if (pressed() & RS_BTN_START) { sfx(SFX_MENU_OK); go(ST_PAUSE); cursor = 0; return; }
     world_update();
     level_frames++;
+    if (W.events & EV_EXIT_OPEN) ui_banner_exit_open();
+    if ((W.events & EV_GRUB) && sel_arc == 0 && sel_level <= 3 && !(SV.pad1 & TUT_GRUB) && W.grubs_left > 0) {
+        char s[40];
+        snprintf(s, sizeof s, "GOLDEN GRUB! %d LEFT", W.grubs_left);
+        ui_prompt(s);
+        SV.pad1 |= TUT_GRUB;
+        save_store();
+    }
+    tutorial();
     if (pending_depth >= 0) {
         int from = pending_from, to = pending_depth;
         pending_depth = pending_from = -1;
@@ -455,19 +482,22 @@ static void play_update(void)
             m->tx = m->cx;
             m->ty = m->cy;
         }
-        if (forced_view < 0) { begin_slide(from, to); return; }
+        if (forced_view < 0) { text_clear_all(); begin_slide(from, to); return; }
     }
     if (W.events & EV_DEAD) {
         carry[0].lives = W.ps[0].lives - 1;
+        text_clear_all();
         go(ST_DYING);
         return;
     }
     if (W.events & EV_EXIT) {
         sfx(SFX_EXIT_OPEN);
+        text_clear_all();
         go(ST_OUTRO);
         return;
     }
     if (forced_view < 0) view_depth = world_player_depth(0);
+    ui_play_overlays(view_depth);
 }
 
 static int ease(int t, int n) { return t * t * (3 * n - 2 * t) / (n * n); }  /* smoothstep, 0..n */
@@ -485,24 +515,26 @@ static void slide_update(void)
 
 static void pause_update(void)
 {
-    static const char *const items[] = {"RESUME", "RESTART LEVEL", "QUIT TO MAP"};
-    int c = menu_nav(3);
-    text_box(12, 10, 16, 9);
-    text_at(center("PAUSED"), 11, "PAUSED");
-    for (int i = 0; i < 3; i++) textf_at(14, 13 + i * 2, "%c %s", i == c ? '>' : ' ', items[i]);
-    plain_text();
-    if (confirm() || (pressed() & RS_BTN_START)) {
+    uint16_t p = pressed();
+    int old = cursor;
+    if (p & (RS_BTN_LEFT | RS_BTN_UP)) cursor = (cursor + 2) % 3;
+    if (p & (RS_BTN_RIGHT | RS_BTN_DOWN)) cursor = (cursor + 1) % 3;
+    if (cursor != old) sfx(SFX_MENU_MOVE);
+    int c = cursor;
+    ui_pause_screen(c);
+    if (confirm() || (p & RS_BTN_START)) {
         text_clear_all();
+        ui_screen_done();
         rs_math(RS_MATH_ADD | RS_MATH_HALF, RS_MATH_BG2, 0);
         sfx(SFX_MENU_OK);
-        if (c == 0 || (pressed() & RS_BTN_START && !(pressed() & RS_BTN_A))) { st = ST_PLAY; return; }
+        if (c == 0 || ((p & RS_BTN_START) && !(p & RS_BTN_A))) { st = ST_PLAY; return; }
         if (c == 1) { go(ST_INTRO); return; }
         title_ready = 0;
         go(ST_LEVELS);
         cursor = sel_level - 1;
         return;
     }
-    if (back()) { text_clear_all(); rs_math(RS_MATH_ADD | RS_MATH_HALF, RS_MATH_BG2, 0); st = ST_PLAY; }
+    if (back()) { text_clear_all(); ui_screen_done(); rs_math(RS_MATH_ADD | RS_MATH_HALF, RS_MATH_BG2, 0); st = ST_PLAY; }
 }
 
 static void dying_update(void)

@@ -258,6 +258,7 @@ class Result:
         self.cut, self.k, self.sc, self.found = None, 1.0, None, None
         self.idx, self.palette, self.windows, self.metrics = None, None, None, []
         self.logo = None
+        self.facing = None
 
     @property
     def imported(self):
@@ -284,7 +285,7 @@ class Result:
                 "flags": self.flags, "frame_flags": self.frame_flags, "notes": self.notes,
                 "ai_scale": round(self.sc, 2) if self.sc else None, "norm": round(self.k, 3),
                 "palette": [list(c) for c in self.palette] if self.palette else None,
-                "imported": self.imported}
+                "imported": self.imported, "facing": self.facing}
 
 
 def _fit(box, cw, ch, mw=1, mh=1):
@@ -489,7 +490,123 @@ def process(incoming, rows, strips, take, measure=("VALIDATED", "GENERATED"), fo
         if filled:
             r.notes.append("%d transparent pixel(s) inside the tile filled" % filled)
     flag_all(results)
+    check_facing(results)
     return results
+
+
+# ---- facing (left/right strips) ------------------------------------------------------------------
+def _shape(idx, pal, size=(16, 12)):
+    """A frame reduced to its bounding box, resized: (mask, luma) arrays for comparisons."""
+    a = idx > 0
+    ys, xs = np.nonzero(a)
+    if not len(xs):
+        return None
+    crop = idx[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+    lum = np.array([0.0] + [float(luma(np.array(c, np.float32))) for c in pal], np.float32)[crop]
+    m = Image.fromarray(((crop > 0) * 255).astype(np.uint8)).resize(size, Image.BILINEAR)
+    l = Image.fromarray(lum).resize(size, Image.BILINEAR)
+    return np.asarray(m, np.float32) / 255.0, np.asarray(l, np.float32)
+
+
+def _profile(shape):
+    """Mean brightness of each column of the drawing (pose-independent: a light face at one end
+    and a dark tail at the other tell the facing even when the tail is raised)."""
+    m, l = shape
+    cols = (m * l).sum(0) / np.maximum(m.sum(0), 1e-3)
+    return cols - cols.mean()
+
+
+def _similar(a, b):
+    ma, la = a
+    mb, lb = b
+    iou = (np.minimum(ma, mb).sum() + 1e-6) / (np.maximum(ma, mb).sum() + 1e-6)
+    w = np.minimum(ma, mb)
+    if w.sum() > 1:
+        x, y = la[w > 0.5] - la[w > 0.5].mean(), lb[w > 0.5] - lb[w > 0.5].mean()
+        corr = float((x * y).sum() / (np.sqrt((x * x).sum() * (y * y).sum()) + 1e-6)) if len(x) > 3 else 0.0
+    else:
+        corr = 0.0
+    pa, pb = _profile(a), _profile(b)
+    prof = float((pa * pb).sum() / (np.sqrt((pa * pa).sum() * (pb * pb).sum()) + 1e-6))
+    return float(iou) + 0.5 * corr + 1.5 * prof
+
+
+def facing_of(idx, pal, ref_left):
+    """'left', 'right' or None (unsure): compares the frame and its mirror with a left-facing reference."""
+    s = _shape(idx, pal)
+    if s is None or ref_left is None:
+        return None, 0.0
+    f = _shape(idx[:, ::-1], pal)
+    refs = ref_left if isinstance(ref_left, list) else [ref_left]
+    same, flip = max(_similar(s, r) for r in refs), max(_similar(f, r) for r in refs)
+    if abs(same - flip) < 0.04:
+        return None, same - flip
+    return ("left" if same > flip else "right"), same - flip
+
+
+def _shape_hr(rgb, mask, flip=False, size=(32, 20)):
+    """Like _shape, from the full-resolution AI drawing (the downscaled frame's redrawn outline
+    hides the light face / dark tail contrast)."""
+    ys, xs = np.nonzero(mask)
+    if not len(xs):
+        return None
+    y0, y1, x0, x1 = ys.min(), ys.max() + 1, xs.min(), xs.max() + 1
+    m = mask[y0:y1, x0:x1].astype(np.float32)
+    l = luma(rgb[y0:y1, x0:x1].astype(np.float32)) * m
+    if flip:
+        m, l = m[:, ::-1], l[:, ::-1]
+    mm = np.asarray(Image.fromarray((m * 255).astype(np.uint8)).resize(size, Image.BOX), np.float32) / 255.0
+    ll = np.asarray(Image.fromarray(l.astype(np.float32)).resize(size, Image.BOX), np.float32)
+    return mm, ll / np.maximum(mm, 1e-3)
+
+
+def _frame_shapes(r, i):
+    if r.cut is not None and i < len(r.cut.frames):
+        fr = r.cut.frames[i]
+        return _shape_hr(r.cut.rgb, fr.mask), _shape_hr(r.cut.rgb, fr.mask, flip=True)
+    return _shape(r.idx[i], r.palette), _shape(r.idx[i][:, ::-1], r.palette)
+
+
+def check_facing(results):
+    """Flag every frame of a *_left / *_right strip pair that faces the wrong way, without trusting
+    any single frame: all frames of the pair are split into two orientation groups so that frames
+    of the same group look alike and frames of different groups look alike once mirrored (best of
+    all splits); the group holding most frames labelled "left" is the left-facing one."""
+    import itertools
+    bases = sorted({r.id.rsplit("_", 1)[0] for r in results.values()
+                    if r.idx is not None and (r.id.endswith("_left") or r.id.endswith("_right"))})
+    for base in bases:
+        items = []
+        for side in ("left", "right"):
+            r = results.get(base + "_" + side)
+            if r is None or r.idx is None:
+                continue
+            r.facing = [None] * len(r.idx)
+            for i, fr in enumerate(r.idx):
+                s, f = _frame_shapes(r, i)
+                if s is not None:
+                    items.append((r, i, side, s, f))
+        n = len(items)
+        if n < 2 or n > 12:
+            continue
+        sim = {}
+        for a in range(n):
+            for b in range(a + 1, n):
+                sim[a, b] = (_similar(items[a][3], items[b][3]), _similar(items[a][3], items[b][4]))
+        best, best_o = None, None
+        for rest in itertools.product((0, 1), repeat=n - 1):
+            o = (0,) + rest
+            score = sum(v[0] if o[a] == o[b] else v[1] for (a, b), v in sim.items())
+            if best is None or score > best:
+                best, best_o = score, o
+        # which group faces left: the labelling that agrees with most strip labels
+        agree0 = sum((best_o[k] == 0) == (items[k][2] == "left") for k in range(n))
+        left_group = 0 if agree0 * 2 >= n else 1
+        for k, (r, i, side, s, f) in enumerate(items):
+            got = "left" if best_o[k] == left_group else "right"
+            r.facing[i] = got
+            if got != side:
+                r.frame_flags.append("frame %d faces %s (the strip should face %s)" % (i + 1, got.upper(), side))
 
 
 # ---- flags ------------------------------------------------------------------------------------------

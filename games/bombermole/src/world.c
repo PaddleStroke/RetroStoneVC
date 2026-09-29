@@ -1395,6 +1395,122 @@ static uint16_t world_bot(actor *m, uint16_t *pressed)
     return 0;
 }
 
+/* ---- objective bot (--opt bot=2): plays a whole level with what the game shows ---------------
+ * The targets are the remaining golden grubs (shown on the pause map and counted per depth on the
+ * HUD), then the exit molehill (shown by the objective arrow). A Dijkstra plan over the three depths
+ * walks, digs soft dirt, bombs rocks and roots, and takes holes and ladders; it waits out its own
+ * bombs and runs from blasts and enemies like the naive bot. */
+enum { ACT_WALK, ACT_DIG, ACT_BOMB };
+
+static int plan_step(const actor *m, int *act)
+{
+    static int16_t cost[NDEPTH][GH][GW];
+    static int8_t from[NDEPTH][GH][GW];           /* direction used to enter the node */
+    static uint8_t done[NDEPTH][GH][GW];
+    memset(cost, 0x7f, sizeof cost);
+    memset(from, -1, sizeof from);
+    memset(done, 0, sizeof done);
+    cost[m->depth][m->cy][m->cx] = 0;
+    int gd = -1, gx = -1, gy = -1;
+    for (;;) {
+        int bd = -1, bx = 0, by = 0, bc = 0x7fff;
+        for (int d = 0; d < NDEPTH; d++)
+            for (int y = 0; y < GH; y++)
+                for (int x = 0; x < GW; x++)
+                    if (!done[d][y][x] && cost[d][y][x] < bc) { bc = cost[d][y][x]; bd = d; bx = x; by = y; }
+        if (bd < 0) break;
+        done[bd][by][bx] = 1;
+        const cell *c = &W.g[bd][by][bx];
+        int goal = W.grubs_left > 0 ? c->item == IT_GRUB : (c->t == TR_EXIT && W.exit_open);
+        if (goal) { gd = bd; gx = bx; gy = by; break; }
+        for (int k = 0; k < 4; k++) {
+            int nx = bx + DX[k], ny = by + DY[k];
+            if (!in_grid(nx, ny)) continue;
+            const cell *n = &W.g[bd][ny][nx];
+            int step;
+            switch (n->t) {
+            case TR_STONE: case TR_WINDMILL: case TR_SPRINKLER: case TR_LEVER: case TR_VENT: case TR_PIPE:
+                continue;
+            case TR_WATER:
+                continue;
+            case TR_GATE:
+                if (!n->state) continue;
+                step = 1;
+                break;
+            case TR_DIRT: case TR_LEAVES: step = 5; break;
+            case TR_ROCK: case TR_ROOTS: case TR_FROZEN: case TR_CRATE: step = 16; break;
+            default: step = 1; break;
+            }
+            if (bot_enemy_near(bd, nx, ny)) step += 6;
+            int td = bd;
+            if (n->t == TR_HOLE_DOWN && bd < NDEPTH - 1) td = bd + 1;       /* walking in: the depth below */
+            if ((n->t == TR_HOLE_UP || n->t == TR_LADDER) && bd > 0) td = bd - 1;
+            if (n->t == TR_HOLE_DOWN || n->t == TR_HOLE_UP || n->t == TR_LADDER) {
+                /* the node reached is on the other depth; remember how we got there */
+                if (cost[td][ny][nx] > bc + step) {
+                    cost[td][ny][nx] = (int16_t)(bc + step);
+                    from[td][ny][nx] = (int8_t)(k | (bd << 3) | 0x40);
+                }
+                continue;
+            }
+            if (cost[bd][ny][nx] > bc + step) {
+                cost[bd][ny][nx] = (int16_t)(bc + step);
+                from[bd][ny][nx] = (int8_t)(k | (bd << 3));
+            }
+        }
+    }
+    if (gd < 0) return -1;
+    /* walk back to the first step from the mole */
+    int d = gd, x = gx, y = gy, k = -1;
+    while (!(d == m->depth && x == m->cx && y == m->cy)) {
+        int f = from[d][y][x];
+        if (f < 0) return -1;
+        k = f & 3;
+        int pd = (f >> 3) & 3;
+        x -= DX[k];
+        y -= DY[k];
+        d = pd;
+    }
+    if (k < 0) return -1;
+    int t = W.g[m->depth][m->cy + DY[k]][m->cx + DX[k]].t;
+    *act = (t == TR_DIRT || t == TR_LEAVES) ? ACT_DIG :
+           (t == TR_ROCK || t == TR_ROOTS || t == TR_FROZEN || t == TR_CRATE) ? ACT_BOMB : ACT_WALK;
+    return k;
+}
+
+static uint16_t world_bot_objective(actor *m, uint16_t *pressed)
+{
+    *pressed = 0;
+    if (m->moving) return DIR_BITS[m->dir];
+    if (bot_unsafe(m, m->cx, m->cy)) {
+        int k = bot_search(m, NULL);
+        if (k >= 0 && k < 4) { *pressed = DIR_BITS[k]; return DIR_BITS[k]; }
+        return 0;
+    }
+    for (int i = 0; i < MAX_BOMBS; i++)
+        if (W.b[i].active && W.b[i].owner == m->player) return 0;      /* wait for it */
+    for (int y = 0; y < GH; y++)                                        /* and for its blast to end */
+        for (int x = 0; x < GW; x++)
+            if (W.blast[m->depth][y][x]) return 0;
+    /* an enemy in line within 2 cells: bomb it first (then the flee rule walks away) */
+    for (int i = 0; i < W.na; i++) {
+        const actor *e = &W.a[i];
+        if (!e->alive || e->depth != m->depth || (e->kind != AK_FERRET && e->kind != AK_CAT)) continue;
+        if (bot_goal(m, m->cx, m->cy, e) || abs(e->cx - m->cx) + abs(e->cy - m->cy) == 1) {
+            *pressed = RS_BTN_B;
+            return 0;
+        }
+    }
+    int act = ACT_WALK;
+    int k = plan_step(m, &act);
+    if (k < 0) return 0;
+    int nx = m->cx + DX[k], ny = m->cy + DY[k];
+    if (act == ACT_BOMB) { *pressed = RS_BTN_B; return 0; }
+    if (act == ACT_WALK && bot_unsafe(m, nx, ny)) return 0;             /* let it pass */
+    *pressed = DIR_BITS[k];
+    return DIR_BITS[k];
+}
+
 static int pad_dir(uint16_t held, uint16_t pressed)
 {
     static const uint16_t bits[4] = {RS_BTN_UP, RS_BTN_RIGHT, RS_BTN_DOWN, RS_BTN_LEFT};
@@ -1408,7 +1524,7 @@ static int pad_dir(uint16_t held, uint16_t pressed)
 static void update_player(actor *a)
 {
     uint16_t held = rs_pad(a->player), pr = rs_pad_pressed(a->player);
-    if (bot_mode) held = world_bot(a, &pr);
+    if (bot_mode) held = bot_mode == 2 ? world_bot_objective(a, &pr) : world_bot(a, &pr);
     if (a->state == 99) {                           /* knocked out */
         if (--a->timer == 0) W.events |= EV_DEAD;
         return;

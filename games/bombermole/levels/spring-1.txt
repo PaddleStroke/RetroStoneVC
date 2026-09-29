@@ -1,43 +1,45 @@
-# Bomber Mole - spring 1. Gimmicks: digging, holes between depths, puddles (mud below), windmill wind lane.
-# Enemies: tier 1 only (2 sleepy ferrets below, 1 ginger cat): they wander slowly and ignore bombs.
+# Bomber Mole - spring 1. Teaches the basics in order: walk (the start room), dig (the soft dirt wall),
+# a hole to go down, collecting the golden grubs below, the ladder back up, the exit molehill.
+# Gimmicks: digging, holes and a ladder, a puddle, the windmill. Enemies: tier 1 only (2 sleepy ferrets
+# below, 1 ginger cat far from the path): they wander slowly and ignore bombs.
 name: First Dig
 season: spring
 arc: 1
 level: 1
 bombs: 1
 range: 2
-hint: Hold a direction to dig. B drops a bomb: blast the sleepy critters!
+hint: Dig through the soft dirt, go down the hole, find the golden grubs.
 status: done
 
 surface:
 ####################
-#M.....p......W....#
-#.......dd....>>>>.#
-#.g....dddd........#
-#......dGdd....p...#
-#.......dd.....p...#
-#.v................#
-#..........ddd.....#
-#..pp......dgd.....#
-#..........d.d.....#
-#..........dvd.....#
-#...E......ddd.....#
-#...............C..#
+#M...d.........W...#
+#....d.............#
+#....d.v...........#
+#....d.............#
+#....d.......p.....#
+######.............#
+#..................#
+#..................#
+#..................#
+#...........v......#
+#...............E..#
+#.....C............#
 ####################
 under1:
 ####################
-#dddddd.ddddddddddd#
-#dddddd.ddddddddddd#
-#ddd......dddddgddd#
-#ddd.dddd.ddddd.ddd#
-#ddd.dddd...F...ddd#
-#d^..dddddddddd.ddd#
-#dddddddddddd.d.ddd#
-#ddd..dddddd..F..dd#
-#ddddddddddd.ddd.dd#
-#ddddddddddd^ddd.dd#
-#ddddddddddd.gdd.dd#
-#ddddddddddddddd.dd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddd^......g.ddd#
+#dddddddddddddd.ddd#
+#dddddddddddddd.ddd#
+#dddddddddddddd.ddd#
+#dddddddddddddd.ddd#
+#dddGdddddddddd.ddd#
+#ddd...F..F.....ddd#
+#dddddddddddHg.dddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
 ####################
 under2:
 ####################

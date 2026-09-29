@@ -62,11 +62,13 @@ static int isqrt(int v)
     return r;
 }
 
+int hud_pal_below;      /* intro card / pause screen: HUD icons below the HUD band keep their palette */
+
 static void raster(int line, void *u)
 {
     (void)u;
     if (prop_b >= 0 && (line == 0 || line == HUD_H))
-        load_pal(RS_PAL_BG(PAL_HUD), line ? bm_propbg_pals[prop_b] : bm_hud_pal, 16);
+        load_pal(RS_PAL_BG(PAL_HUD), (line && !hud_pal_below) ? bm_propbg_pals[prop_b] : bm_hud_pal, 16);
     rs_window(0, 0, (hud_lines && line < HUD_H) ? RS_SCREEN_W : 0);
     if (!iris_on && !lamp_on) return;
     int l = 0, r = RS_SCREEN_W;
@@ -324,7 +326,7 @@ void spr_draw_pal(int spr, int x, int y, int flags, int prio, int pal)
 {
     const bm_sprite_def *s = &bm_spr[spr];
     int tile = s->block ? VR_BOSS + s->tile : s->tile;
-    rs_spr(x, y, tile, s->w, s->h, pal, prio, flags);
+    rs_spr(x, y, tile, s->w, s->h, pal, prio, flags ^ (s->hflip ? RS_SPR_HFLIP : 0));   /* right = mirrored left */
 }
 
 void spr_draw(int spr, int x, int y, int flags, int prio)
@@ -516,8 +518,12 @@ void draw_hud(void)
         int x = 11 + d * 3;
         hud_cell(x, d == pd ? HUD_CURSOR : HUD_PANEL);
         int danger = d != pd && world_danger(d, pd);
-        hud_cell(x + 1, danger && (W.t / 12) % 2 ? HUD_DANGER : icons[d]);
-        hud_cell(x + 2, HUD_DIGIT + clampi(world_enemies(d), 0, 9));
+        int icon = icons[d];
+        if (d == pd && (W.t / 16) % 4 == 3) icon = HUD_PANEL;           /* your depth blinks */
+        else if (danger && (W.t / 12) % 2) icon = HUD_DANGER;
+        hud_cell(x + 1, icon);
+        int n = ui_grubs(d);                                         /* grubs left there */
+        hud_cell(x + 2, n ? HUD_DIGIT + clampi(n, 0, 9) : HUD_CHECK);
     }
 }
 
