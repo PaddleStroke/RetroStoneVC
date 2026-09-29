@@ -8,3 +8,7 @@ echo "== spring 7, windmills (gusts, 2 cats, dog, wind particles, weather) =="
 $H --frames 600 --opt level=spring-7 --opt nointro=1 --bench 1 | sed -n '/^bench/,$p'
 echo "== winter 1 (snow layer, ice) =="
 $H --frames 400 --opt level=winter-1 --opt nointro=1 --bench 1 | sed -n '/^bench/,$p'
+echo "== summer: a corn field burning, two bee swarms, two harvesters (test arena) =="
+printf "180 tap B\n183 LEFT\n200 -\n" > /tmp/bm_bench_summer.input
+$H --frames 800 --data "$(dirname "$0")/../tests/data" --opt level=summer-15 --opt nointro=1 --opt spawn=0,10,6 \
+   --opt god=1 --input /tmp/bm_bench_summer.input --bench 330 | sed -n '/^bench/,$p'

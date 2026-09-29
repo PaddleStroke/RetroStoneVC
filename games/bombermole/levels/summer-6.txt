@@ -1,55 +1,62 @@
-# STUB: a generated level (tools/make_stub_levels.py). Replace it with a real design (DESIGN.md).
-# Planned: mine carts and levers
-# Layout A, mirrored: three depths with a loop (two holes down, a ladder back), an enemy on each depth, a grub
-# hidden in a block on each depth (only its glow shows it), the season's feature near the paths.
-name: Summer 6 (stub)
+# Bomber Mole - summer 6. Idea: dry tunnels. Far-apart rooms under a parched meadow, linked by drain pipes (each
+# pipe takes you to its twin, on any depth); gas pockets sit by the ferret nests: a blast releases a stun cloud
+# that spreads 3 cells and stuns everyone in it for 3 s (you too): gas the nest, then walk past.
+# Gimmicks: drain pipes (two pairs), gas pockets, dry soil that digs fast, sealed rooms, a loop through the holes,
+# a secret grub in the soil.
+# Enemies: tier 2: a cat on the meadow, ferret nests below (some asleep), a sleeping one in the deep room.
+name: Dry Tunnels
 season: summer
 arc: 2
 level: 6
-status: stub
-hint: A generated level: three depths, a grub hidden on each.
+bombs: 2
+range: 2
+hint: Pipes lead to their twin. Blast a gas pocket to stun a nest.
+status: done
+
+legend:
+q = pipe + chan:2
 
 surface:
 ####################
-#g..www...rr...d..M#
-#...w.w...rr.g.d...#
-#.v..ddd......dd.dd#
-#...dGd.r..........#
-#...ddd.r..d.ww.rr.#
-#...C......d.ww.Qr.#
-#.....rr.ddd....rr.#
-#..ww.rr.....v.....#
-#..w....d......ddd.#
-#...rr..d..ww..dGd.#
-#...gr.....ww..ddd.#
-#...d......E.......#
+#M..dd...r....dd..g#
+#..dGd.r...r..dd...#
+#....d..dd.@....r..#
+#.r.....r.d....r...#
+#...dd......C..dd.v#
+#.r.dd..r..r...dd..#
+#.....r....dd......#
+#..v....dd.dd..r...#
+#.r..r.......dd.r..#
+#....dd..r..dd...s.#
+#.g..dd.....dd.r...#
+#..r......E....dd..#
 ####################
 under1:
 ####################
 #dddddddddddddddddd#
-#dddd...ddd....g.dd#
-#d^d..d.ddr.dddd.dd#
-#d.dd.F..d..d..d.dd#
-#d..dd.dddd.dd...dd#
-#dddd..d..v.dd.dddd#
-#dddG.dd..tt.....dd#
-#ddddd.ddd.ddHdd.dd#
-#ddddd.....d...d.dd#
-#dddddd.dddd.d...dd#
-#dddg.r......ddd.dd#
+#d.....ddddddd....d#
+#d.g.z.ddddddd.F..d#
+#d.*...ddd@ddd..*.d#
+#d.....ddddddd....^#
+#dddd.dddddddddd.dd#
+#d....ddddddddd..qd#
+#d.^Fdd.r..r.dd.ddd#
+#dddddd..v.....dddd#
+#d.q.dddd.G.dd.ddd.#
+#d..zdddddddd..g...#
 #dddddddddddddddddd#
 ####################
 under2:
 ####################
 #dddddddddddddddddd#
 #dddddddddddddddddd#
-#dddddddd.....ddddd#
-#ddddddd..rQr..dddd#
-#ddddd.F..r.r..dddd#
-#dddd.....^..b.dddd#
-#dddd.g.ddd..dddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddd.......ddddd#
+#dddddd.r.r.*.ddddd#
+#dddddd.z...g.ddddd#
+#dddddd..^r...ddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#

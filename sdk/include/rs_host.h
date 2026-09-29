@@ -20,6 +20,8 @@ typedef void *(*rs_file_fn)(const char *name, size_t *size);
 
 void rs_host_set_log(rs_log_fn fn);
 void rs_host_set_file_loader(rs_file_fn fn);
+/* The file loader tells where the file it just returned came from (a folder), for rs_asset_origin(). */
+void rs_host_set_file_origin(const char *where);
 void rs_host_set_option(const char *key, const char *value);
 
 /* Starts the runtime and calls the game's init(). */

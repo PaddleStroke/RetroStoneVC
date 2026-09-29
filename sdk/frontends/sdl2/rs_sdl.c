@@ -120,6 +120,16 @@ int main(int argc, char **argv)
         path_in_base(gd, sizeof gd, rel);
         rsd_add_data_dir(gd);
         rsd_add_data_dir(rel);
+        /* developer mode (--dev): also the repository's copy, searching upwards from the exe's folder
+           (a shortcut to dist\windows\*.exe picks up the edited games/<id>/levels of the repo) */
+        if (rs_option_int("dev", 0)) {
+            char up[1500], seg[64] = "";
+            for (int k = 1; k <= 4; k++) {
+                strcat(seg, "../");
+                snprintf(up, sizeof up, "%s%s%s", base_dir, seg, rel);
+                rsd_add_data_dir(up);
+            }
+        }
     }
 
     rs_host_set_log(log_fn);

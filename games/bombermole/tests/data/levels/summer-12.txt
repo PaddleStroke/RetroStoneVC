@@ -1,0 +1,55 @@
+# Test arena (not a game level): the badger follows the mole down by digging its own hole, and charges
+# along its row into a rock (stunned).
+name: Badger Test
+season: summer
+arc: 2
+level: 12
+status: stub
+
+boss: badger
+
+surface:
+####################
+#M.................#
+#..................#
+#..................#
+#....r....K........#
+#..................#
+#..................#
+#..................#
+#..................#
+#.v................#
+#..................#
+#..........g....E..#
+#..................#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#.^................#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

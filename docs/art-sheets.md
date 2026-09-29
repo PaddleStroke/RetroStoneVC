@@ -172,5 +172,8 @@ code to turn a whole sheet into strips.
 | farmer | props.png | 0-15 | 6-7 | 32x32 | 8 | boss_farmer | Summer boss: the farmer: idle x2, throw x2, angry x2, hurt x2 |
 | owl | props.png | 0-7 | 8-9 | 32x32 | 4 | boss_owl | Winter boss: the snowy owl (perch, flap, swoop, hurt) |
 | badger | props.png | 8-15 | 8-9 | 32x32 | 4 | boss_badger | Summer mini-boss: the badger (walk x2, dig, hurt) |
+| gas_pocket | props.png | 1 | 3 | 16x16 | 1 | propbg | Gas pocket (summer, underground): a lump of soil with bubbles of swamp gas; a blast releases a stun cloud |
+| gas | props.png | 2-3 | 3 | 16x16 | 2 | prop | Stun gas cloud (a pale green puff, 2 frames of it churning) |
+| harvester | props.png | 8-11 | 10-11 | 32x32 | 2 | prop | Harvester (summer): a small red combine harvester seen from the side, driving RIGHT with its reel at the front (2 frames: the reel turning); mirrored for the left |
 | bridge_v | props.png | 0 | 3 | 16x16 | 1 | propbg | Wooden bridge crossed up and down: planks running left-right, rails along the left and right (drawn over the water; a blast destroys it) |
 | windmill_side | props.png | 0-7 | 10-11 | 32x32 | 4 | prop | Windmill seen from the side, sails on the RIGHT (it blows to the right; mirrored for the left), 4 frames of the sails turning |

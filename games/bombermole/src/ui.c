@@ -24,6 +24,7 @@
 #define T_GLOW 340
 #define T_LINK 344
 #define T_BUTTON 348
+#define T_HAZARD 352
 enum { C_GOLD = 6, C_FLOOR, C_WALL, C_DIRT, C_WATER, C_HOLE, C_UP, C_EXIT, C_FOE, C_GLOW };
 
 extern int hud_pal_below;
@@ -102,6 +103,18 @@ void ui_init_level(void)
         for (int i = 0; i < 64; i++) t[i] = g[(q >> 1) * 8 + i / 8][(q & 1) * 8 + i % 8];
         rs_tiles_load8(T_LINK + q, t, 1);
     }
+    /* the harvester's warning: red and dark stripes along the edges of the lane's cells */
+    memset(g, 0, sizeof g);
+    for (int i = 0; i < 16; i++) {
+        uint8_t c = ((i / 2) % 2) ? C_FOE : 2;
+        g[0][i] = g[1][i] = g[14][i] = g[15][i] = c;
+        g[i][0] = g[i][1] = g[i][14] = g[i][15] = c;
+    }
+    for (int q = 0; q < 4; q++) {
+        uint8_t t[64];
+        for (int i = 0; i < 64; i++) t[i] = g[(q >> 1) * 8 + i / 8][(q & 1) * 8 + i % 8];
+        rs_tiles_load8(T_HAZARD + q, t, 1);
+    }
     /* the remote's button: a gold disc with a dark "A" (the detonate button) */
     {
         static const char *const b[8] = {"..####..", ".##..##.", "##.##.##", "#.#..#.#",
@@ -152,6 +165,13 @@ void ui_perf_overlay(void)
     for (int k = 0; k < RS_WARN_KIND_COUNT; k++)
         if (rs_warn_count(k) && strlen(w) + strlen(names[k]) + 2 < sizeof w) { strcat(w, " "); strcat(w, names[k]); }
     if (w[0]) textf_at(0, 29, "WARN:%s", w);
+    {   /* where the level came from (dev: the repo's levels folder, for F5) */
+        char name[48];
+        snprintf(name, sizeof name, "levels/%s", W.def->file);
+        const char *o = rs_asset_origin(name);
+        size_t n = strlen(o);
+        textf_at(0, 27, "LEVEL FROM %s", n > 29 ? o + n - 29 : o);
+    }
 }
 
 /* ---- power-up pickups: one line naming the power-up (and its button when it adds one) ------------ */
@@ -211,7 +231,8 @@ static int cell_colour(int d, int x, int y)
     const cell *c = &W.g[d][y][x];
     switch (c->t) {
     case TR_STONE: case TR_WINDMILL: return C_WALL;
-    case TR_DIRT: case TR_ROCK: case TR_ROOTS: case TR_FROZEN: case TR_LEAVES: case TR_CRATE: return C_DIRT;
+    case TR_DIRT: case TR_ROCK: case TR_ROOTS: case TR_FROZEN: case TR_LEAVES: case TR_CRATE: case TR_HIVE:
+    case TR_GAS: return C_DIRT;
     case TR_WATER: case TR_PUDDLE: return C_WATER;
     case TR_HOLE_DOWN: return C_HOLE;
     case TR_HOLE_UP: case TR_LADDER: return C_UP;
@@ -323,6 +344,8 @@ void ui_play_overlays(int view_depth)
             const cell *c = &W.g[view_depth][y][x];
             if ((c->t == TR_GATE || c->t == TR_LEVER) && W.chan_flash[c->chan] && (W.chan_flash[c->chan] / 6) % 2)
                 cell_mark(x, y, T_LINK);
+            else if ((W.t / 6) % 2 && world_harvest_warning(view_depth, x, y))
+                cell_mark(x, y, T_HAZARD);
             else if (hidden_grub_glows(view_depth, x, y))
                 cell_mark(x, y, T_GLOW);
         }

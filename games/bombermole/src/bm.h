@@ -19,6 +19,9 @@
 #define MAX_FX 64
 #define MAX_LOGS 8
 #define MAX_PLAYERS 4
+#define MAX_SWARMS 4
+#define GAS_TIME 180            /* a gas cloud stuns for 3 s */
+#define MAX_HARV 4
 #define NCHAN 8
 
 enum { SEASON_SPRING, SEASON_SUMMER, SEASON_AUTUMN, SEASON_WINTER, SEASONS };
@@ -29,7 +32,7 @@ enum terrain {
     TR_FLOOR, TR_STONE, TR_DIRT, TR_ROCK, TR_ROOTS, TR_FROZEN, TR_LEAVES, TR_WATER, TR_PUDDLE,
     TR_THIN, TR_HOLE_DOWN, TR_HOLE_UP, TR_LADDER, TR_EXIT, TR_BRIDGE, TR_ICE, TR_THIN_ICE, TR_MUD,
     TR_COVER, TR_BURNT, TR_GATE, TR_PLATE, TR_LEVER, TR_VENT, TR_PIPE, TR_CRATE, TR_SPRINKLER,
-    TR_WINDMILL, TR_COUNT
+    TR_WINDMILL, TR_HIVE, TR_GAS, TR_COUNT
 };
 enum item { IT_NONE, IT_GRUB, IT_BOMB, IT_FIRE, IT_SPEED, IT_REMOTE, IT_HEART, IT_COUNT };
 enum actor_kind { AK_NONE, AK_MOLE, AK_FERRET, AK_CAT, AK_BOSS, AK_DOG };
@@ -93,6 +96,9 @@ typedef struct level_def {
     int nsp;
     struct { uint8_t depth, x, y; } logs[MAX_LOGS];
     int nlogs;
+    struct { uint8_t depth, x, y, dir; } harv[MAX_HARV];   /* harvesters: parking cell, first sweep */
+    int nharv;
+    int harvest_period, harvest_warn;                      /* frames between sweeps, warning time */
     char error[128];
 } level_def;
 
@@ -131,6 +137,21 @@ typedef struct logobj {
     int16_t prog;
 } logobj;
 
+/* a bee swarm out of a bombed hive: it chases the nearest creature for a while */
+typedef struct swarm {
+    uint8_t alive, depth;
+    int8_t cx, cy, tx, ty;
+    int16_t prog, life, target, cool;
+} swarm;
+
+/* a harvester: parked at one end of its lane, it warns (rumble, flashing lane) then sweeps it */
+enum { HV_IDLE, HV_WARN, HV_MOVE };
+typedef struct harvester {
+    uint8_t alive, depth, dir, state;
+    int8_t cx, cy, ex, ey;          /* current cell, end of the lane */
+    int16_t prog, timer;
+} harvester;
+
 typedef struct pstats { int bombs, range, speed, remote, hearts, lives, placed; } pstats;
 
 typedef struct world {
@@ -155,6 +176,11 @@ typedef struct world {
     uint8_t chan_flash[NCHAN];           /* frames left of the linked-gate flash (lever toggled) */
     int pickup;                          /* IT_* picked up this frame (EV_PICKUP) */
     uint16_t wind_fx[4];                 /* wind streaks spawned per direction (tests) */
+    uint8_t fire[NDEPTH][GH][GW];        /* burning corn: frames left */
+    uint8_t gas[NDEPTH][GH][GW];         /* stun gas: frames left (> GAS_TIME: not reached yet) */
+    swarm bees[MAX_SWARMS];
+    harvester harv[MAX_HARV];
+    struct { int burnt, stings, bee_kills, shaken, warns, crushed, gas_stuns, badger_holes, badger_stuns; } stat;
     int dirty[NDEPTH];                   /* map needs redraw */
     uint8_t cell_dirty[NDEPTH][GH][GW];
     int events;                          /* EV_* raised this frame (for the game flow) */
@@ -180,6 +206,9 @@ int  world_enemies(int depth);
 int  world_gust_on(void);
 int  world_vent_on(void);
 int  world_wind_lanes(int counts[4]);            /* recompute the windmill lanes; cells per direction */
+int  world_harvester_at(int d, int x, int y);    /* index of a harvester on that cell, or -1 */
+int  world_cats_seeing(void);                    /* cats that see the mole now (tests) */
+int  world_harvest_warning(int d, int x, int y); /* the cell lies in a lane about to be swept */
 extern int pending_depth, pending_from;          /* depth change requested by the player */
 
 /* ---- draw.c ---- */

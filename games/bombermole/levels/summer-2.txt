@@ -1,54 +1,62 @@
-# STUB: a generated level (tools/make_stub_levels.py). Replace it with a real design (DESIGN.md).
-# Planned: corn maze and beehives
-# Layout A: three depths with a loop (two holes down, a ladder back), an enemy on each depth, a grub
-# hidden in a block on each depth (only its glow shows it), the season's feature near the paths.
-name: Summer 2 (stub)
+# Bomber Mole - summer 2. Idea: the corn maze. Sneak along the rows of corn past the cats (corn hides you from
+# them); a bomb sets a field alight and opens a shortcut, but the fire spreads and the cover is gone for good.
+# Gimmicks: corn (cover, burns and spreads), dry soil that digs twice as fast, a sunken corner reached by a hole
+# (a loop through the dry tunnels and back up the ladder), a secret grub in a dirt mound (its glow).
+# Enemies: tier 1-2: a ginger cat and a grey cat in the maze, ferrets in the tunnels, a sleepy one in the den.
+# Risk/reward: the grub in the middle of the big field (burn your way in, or creep through the rows).
+name: Corn Maze
 season: summer
 arc: 2
 level: 2
-status: stub
-hint: A generated level: three depths, a grub hidden on each.
+bombs: 1
+range: 2
+hint: Cats cannot see you in the corn. Fire opens a way, and spreads.
+status: done
+
+legend:
+a = floor + cat:1
+q = floor + ferret:1
 
 surface:
 ####################
-#M..d...rr...www..g#
-#...d.g.rr...w.w...#
-#dd.dd......ddd..v.#
-#..........r.dGd...#
-#.rr.ww.d..r.ddd...#
-#.rQ.ww.d......C...#
-#.rr....ddd.rr.....#
-#.....v.....rr.ww..#
-#.ddd......d....w..#
-#.dGd..ww..d..rr...#
-#.ddd..ww.....rg...#
-#.......E......d...#
+#M..wwww..d..wwwwg.#
+#...w..w..d..w..w.v#
+#ww.w..wwwwwww..w..#
+#.w.w.....a....www.#
+#.w.wwwwww.www.....#
+#.w......w.g.w.dGd.#
+#.wwwww..wwwww.ddd.#
+#.....w..........r.#
+#.rr..w..C.....ww..#
+#.rQ..wwwww.v.wwww.#
+#......r......r..w.#
+#..www......E..w...#
 ####################
 under1:
 ####################
 #dddddddddddddddddd#
-#dd.g....ddd...dddd#
-#dd.dddd.rdd.d..d^d#
-#dd.d..d..d..F.dd.d#
-#dd...dd.dddd.dd..d#
-#dddd.dd.v..d..dddd#
-#dd.....tt..dd.Gddd#
-#dd.ddHdd.ddd.ddddd#
-#dd.d...d.....ddddd#
-#dd...d.dddd.dddddd#
-#dd.ddd......r.gddd#
+#ddddddddd.....ddd^#
+#ddddd.g.d.ddd.d...#
+#ddddd.d...d.q.d.dd#
+#dd....d.dd..d...dd#
+#dd.dddd.dd.dddd.dd#
+#dd.d..d.d...dd..dd#
+#dd.d.v..d.d.dd.ddd#
+#dd.dddddd.d....ddd#
+#dd.....r..dHdd.ddd#
+#dddddd.q......dddd#
 #dddddddddddddddddd#
 ####################
 under2:
 ####################
 #dddddddddddddddddd#
 #dddddddddddddddddd#
-#ddddd.....dddddddd#
-#dddd..rQr..ddddddd#
-#dddd..r.r..F.ddddd#
-#dddd.b..^.....dddd#
-#dddddd..ddd.g.dddd#
 #dddddddddddddddddd#
+#dddddddddddddddddd#
+#ddd.......dddddddd#
+#ddd.rQ...z.ddddddd#
+#ddd.r......ddddddd#
+#ddd..^.dG..ddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#

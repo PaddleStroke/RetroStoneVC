@@ -170,5 +170,7 @@ Measured on the build host (WSL2, x86-64) with `make bench`:
 | PPU stress: 4 layers 64x64 (2 with line scroll, colour math) + 128 sprites of 32x32 | 0.78 ms | 11.7-15.6 ms |
 | Bomber Mole spring 5, explosion chain (heaviest game scene), average | 0.42 ms | 6.3-8.4 ms |
 | Bomber Mole spring 5, worst frame | 0.86 ms | 12.9-17.2 ms |
+| Bomber Mole summer: a corn field burning, 2 bee swarms, 2 harvesters (test arena), average | 0.41 ms | 6.1-8.2 ms |
+| Bomber Mole summer, same scene, worst frame | 0.77 ms | 11.6-15.4 ms |
 
 The frame budget is 16.7 ms. Audio (libxmp + 8 voices) costs about 0.01 ms per frame on the host.

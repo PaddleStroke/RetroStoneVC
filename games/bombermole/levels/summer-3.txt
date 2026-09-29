@@ -1,42 +1,49 @@
-# STUB: a generated level (tools/make_stub_levels.py). Replace it with a real design (DESIGN.md).
-# Planned: harvester sweeping a row
-# Layout B: three depths with a loop (two holes down, a ladder back), an enemy on each depth, a grub
-# hidden in a block on each depth (only its glow shows it), the season's feature near the paths.
-name: Summer 3 (stub)
+# Bomber Mole - summer 3. Idea: busy bees. Hives stand by the enemies' dens: bomb a hive and the swarm goes for
+# the nearest creature, so blast it when a ferret or a cat is closer than you, then run for a puddle or the
+# corn (the bees lose you there). The puddles dry up in the sun: use them early.
+# Gimmicks: beehives (a weapon and a danger), puddles that evaporate, corn cover, a hive in the tunnels too (the
+# swarm can clear the ferret warren below), holes looping the three depths, a secret grub in a mound.
+# Enemies: tier 1-2: two cats around the hives, ferrets below, a sleeping ferret by the deep grub.
+name: Busy Bees
 season: summer
 arc: 2
 level: 3
-status: stub
-hint: A generated level: three depths, a grub hidden on each.
+bombs: 2
+range: 2
+hint: Bomb a hive when an enemy is nearer than you. Puddles and corn hide you.
+status: done
+
+legend:
+a = floor + cat:1
 
 surface:
 ####################
-#M..rr....www.....g#
-#...rQ.dd.w.w.ddd..#
-#.d.rr.dd.....dGd..#
-#.d......r..v.ddd..#
-#.dd.ww..r.........#
-#....ww.....rrr.C..#
-#.rrr...dd..r.r....#
-#.r.r...dd......ww.#
-#.rgr.v.....ddd.ww.#
-#......ww...dGd....#
-#.dd...ww...ddd.x..#
-#.dd......E........#
+#M...p..dd....ww..g#
+#.rr....dd.e.C.w...#
+#.rQ.p........ww.v.#
+#......wwww.......r#
+#.dd..ww..ww..rr...#
+#.dGd.w.g..w..e.a..#
+#.dd..ww..ww..rr...#
+#.r....wwww...p....#
+#.v........r....ww.#
+#..pp..e..ddd...wg.#
+#.r.a......d..r....#
+#..d.....E......r..#
 ####################
 under1:
 ####################
 #dddddddddddddddddd#
-#ddd.g..ddd..dddddd#
-#ddd.dd.ddd.d.ddddd#
-#ddd.dd.....^..dddd#
-#dd..ddd.rr.dd.dddd#
-#dd.dd...rG.dd..ddd#
-#dd.dd.F......d.ddd#
-#dd.ddd.dd.v.dd.ddd#
-#dd.ddH.dd...dd.ddd#
-#dd.......tt....ddd#
-#ddddd.ddd.dd.g.ddd#
+#ddddddddddddddd..d#
+#ddd.g...dddd...d^d#
+#ddd.ddd.d..F..dd.d#
+#ddd.d.....e...d..d#
+#ddd.d.dddd.dddd.dd#
+#ddd...d..G.d....dd#
+#d.dd..d.dd.d.dd.dd#
+#d^..F.....v..dd.dd#
+#dd.dddd.ddd.ddd..d#
+#dd......d.....g..d#
 #dddddddddddddddddd#
 ####################
 under2:
@@ -45,12 +52,12 @@ under2:
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
-#dddddd.......ddddd#
-#dddddd.rQr...ddddd#
-#dddddd.r.r.F.ddddd#
-#dddddd....^..ddddd#
-#ddddddd.ddd.dddddd#
-#dddddd..o...g.dddd#
+#dddddd.....ddddddd#
+#dddddd.rQr.ddddddd#
+#dddddd.z...ddddddd#
+#dddddd..g..ddddddd#
+#dddddd....^ddddddd#
+#dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 ####################

@@ -147,6 +147,11 @@ def prop_bg(name, frame):
         else:
             rect(d, 4, 0, 4, 15, P["grey"])
             rect(d, 11, 0, 11, 15, P["grey"])
+    elif name == "gas_pocket":     # drawn over the ground: magenta around
+        ell(d, 1, 3, 14, 15, P["mud_l"], P["dark"])
+        ell(d, 3, 5, 12, 13, P["mud"])
+        for (x, y, r) in ((5, 7, 2), (9, 9, 2), (7, 11, 1), (10, 6, 1)):
+            ell(d, x - r, y - r, x + r, y + r, P["green"], P["green_d"])
     elif name == "apple_tree":     # drawn over the ground: magenta around
         rect(d, 7, 10, 8, 15, P["wood_d"])
         ell(d, 1, 0, 14, 11, P["green_d"], P["dark"])
@@ -224,6 +229,10 @@ def prop_obj(name, frame):
             d.line((x, y, x + s, y), fill=P["white"])
             d.line((x + s, y, x, y + s), fill=P["white"])
             d.line((x, y + s, x + s, y + s), fill=P["white"])
+    elif name == "gas":
+        for (x, y, r) in ((5, 9, 4), (10, 7, 4), (8, 11, 3)):
+            ell(d, x - r + frame, y - r, x + r + frame, y + r, P["pale"], P["green"])
+        px(d, 6 + frame, 7, P["white"])
     elif name == "steam":
         ell(d, 2, 5, 9, 12, P["white"])
         ell(d, 6, 1, 13, 8, P["pale"])
@@ -261,6 +270,26 @@ def windmill_side(frame):
     rect(d, 24, 11 - h, 26, 11 + h, P["white"])
     d.rectangle((24, 11 - h, 26, 11 + h), outline=P["grey"])
     rect(d, 23, 10, 25, 12, P["wood"])
+    return im
+
+
+def harvester(frame):
+    """A small combine harvester driving right: the cab, the body, the reel in front (it turns)."""
+    P = PR
+    im, d = canvas(32, 32)
+    rect(d, 4, 12, 21, 26, P["red"])                       # the body
+    d.rectangle((4, 12, 21, 26), outline=P["dark"])
+    rect(d, 8, 5, 17, 12, P["roof"])                       # the cab
+    rect(d, 10, 7, 15, 10, P["water"])                     # its window
+    d.rectangle((8, 5, 17, 12), outline=P["dark"])
+    ell(d, 5, 22, 13, 30, P["dark"])                       # wheels
+    ell(d, 15, 24, 21, 30, P["dark"])
+    ell(d, 7, 24, 11, 28, P["grey"])
+    rect(d, 22, 14, 30, 26, P["orange"])                   # the header with its reel
+    d.rectangle((22, 14, 30, 26), outline=P["dark"])
+    for k in range(3):
+        y = 15 + ((k * 4 + frame * 2) % 11)
+        d.line((23, y, 29, y), fill=P["dark"])
     return im
 
 
@@ -400,6 +429,8 @@ def draw(e, frame):
         return windmill(frame)
     if e.name == "windmill_side":
         return windmill_side(frame)
+    if e.name == "harvester":
+        return harvester(frame)
     if e.w == 32 or e.group.startswith("boss_"):      # 48 or 64 px bosses are resized by the caller
         return boss32(e.name, frame)
     return prop_obj(e.name, frame)

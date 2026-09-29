@@ -1,0 +1,59 @@
+# Benchmark arena (not a game level): a burning corn field, two bee swarms and two harvesters at once
+# (tools/bench.sh: the heaviest summer scene).
+name: Summer Bench
+season: summer
+arc: 2
+level: 15
+range: 3
+harvest: 420 60
+status: stub
+
+legend:
+Z = floor + harvester:right
+Y = floor + harvester:left
+
+surface:
+####################
+#M....F.....C......#
+#wwwwwwwwwwwwwwwwww#
+#wwwwwwwwwwwwwwwwww#
+#wwwwwwwwwwwwwwwwww#
+#Z.......e..ez.....#
+#wwwwwwwwwwwwwwwwww#
+#wwwwwwwwwwwwwwwwww#
+#.....F..........CY#
+#wwwwwwwwwwwwwwwwww#
+#wwwwwwwwwwwwwwwwww#
+#wwwwwwwwwwwwwwwwww#
+#..........g....E..#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

@@ -40,5 +40,16 @@ printf "160 tap RIGHT
 " > /tmp/bm_lever.input
 run --frames 180 --data $TD --opt level=spring-11 --opt nointro=1 --opt spawn=0,5,6 --opt god=1 --input /tmp/bm_lever.input --shot 177:$O/lever-linked-gate-flash.png
 run --frames 290 --opt level=spring-7 --opt nointro=1 --shot 280:$O/windmill-lanes.png
+# summer: the levels 2-7 and the mechanics (test arenas in tests/data)
+for n in 2 3 4 5 6 7; do run --frames 180 --opt level=summer-$n --opt nointro=1 --shot 170:$O/summer-$n.png; done
+printf "5 tap B\n8 LEFT\n40 -\n" > /tmp/bm_s.input
+run --frames 200 --data $TD --opt level=summer-9 --opt nointro=1 --opt spawn=0,8,2 --opt god=1 --input /tmp/bm_s.input --shot 185:$O/summer-corn-fire.png
+run --frames 200 --data $TD --opt level=summer-10 --opt nointro=1 --opt spawn=0,8,3 --opt god=1 --input /tmp/bm_s.input --shot 185:$O/summer-bees.png
+run --frames 300 --data $TD --opt level=summer-11 --opt nointro=1 --shot 296:$O/summer-harvester-warning.png
+run --frames 350 --data $TD --opt level=summer-11 --opt nointro=1 --shot 345:$O/summer-harvester-sweep.png
+run --frames 290 --data $TD --opt level=summer-12 --opt nointro=1 --opt spawn=0,2,4 --opt god=1 --shot 262:$O/summer-badger-charge.png
+run --frames 200 --data $TD --opt level=summer-13 --opt nointro=1 --opt spawn=0,6,6 --opt god=1 --input /tmp/bm_s.input --shot 170:$O/summer-gas.png
+printf "180 tap B\n183 LEFT\n200 -\n" > /tmp/bm_b.input
+run --frames 460 --data $TD --opt level=summer-15 --opt nointro=1 --opt spawn=0,10,6 --opt god=1 --input /tmp/bm_b.input --shot 450:$O/summer-heavy-scene.png
 python3 "$(dirname "$0")/glow_shot.py" "$H" "$O/hidden-grub-glow.png" spring-3
 ls "$O"

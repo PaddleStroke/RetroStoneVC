@@ -30,12 +30,12 @@ DEFAULT = {
     'i': "ice", 'j': "thin_ice", 'm': "mud", 'w': "tall_grass", 'P': "plate+chan:1", '|': "gate+chan:1",
     '/': "lever+chan:1", 'V': "steam_vent", '@': "pipe+chan:1", 'c': "crate", 'k': "sprinkler",
     'W': "windmill", '<': "floor+push_left", '>': "floor+push_right", 'n': "floor+push_up",
-    'u': "floor+push_down", '{': "water+flow_left", '}': "water+flow_right",
+    'u': "floor+push_down", '{': "water+flow_left", '}': "water+flow_right", 'e': "beehive", '*': "gas_pocket",
 }
 TERRAIN = {"floor", "stone", "soft_dirt", "dirt", "hard_rock", "rock", "roots", "frozen_dirt", "leaves", "water",
            "puddle", "thin_floor", "hole_down", "hole_up", "ladder", "exit", "bridge", "ice", "thin_ice", "mud",
            "tall_grass", "corn", "cover", "burnt", "gate", "plate", "lever", "steam_vent", "vent", "pipe", "crate",
-           "sprinkler", "windmill"}
+           "sprinkler", "windmill", "beehive", "hive", "gas", "gas_pocket"}
 ITEMS = {"grub", "bomb", "fire", "speed", "remote", "heart"}
 ACTORS = {"mole", "p2", "p3", "p4", "ferret", "cat", "boss", "dog"}
 SOLID_FOREVER = {"stone", "windmill", "sprinkler", "lever"}
@@ -85,7 +85,7 @@ def prop_families(head, cells, has_boss):
             for c in row:
                 t = c["t"]
                 if t in ("bridge", "ice", "thin_ice", "mud", "burnt", "gate", "plate", "lever", "steam_vent",
-                         "pipe", "crate"):
+                         "pipe", "crate", "beehive", "gas_pocket"):
                     names.add(t)
                 elif t == "puddle":                 # puddles make mud on the depth below
                     names.add("mud")
@@ -102,7 +102,8 @@ def parse_spec(spec):
            "timed": 0, "blow": None, "asleep": False}
     for tok in spec.replace("+", " ").split():
         if tok in TERRAIN:
-            out["t"] = {"dirt": "soft_dirt", "rock": "hard_rock", "vent": "steam_vent", "corn": "tall_grass",
+            out["t"] = {"hive": "beehive", "gas": "gas_pocket",
+                        "dirt": "soft_dirt", "rock": "hard_rock", "vent": "steam_vent", "corn": "tall_grass",
                         "cover": "tall_grass"}.get(tok, tok)
         elif tok in ITEMS:
             out["item"] = tok
@@ -115,6 +116,8 @@ def parse_spec(spec):
             out["actor"], out["etype"] = k, TYPE_OF[(k, max(1, min(4, int(t))))]
         elif tok == "asleep":
             out["asleep"] = True
+        elif tok.startswith("harvester:") and tok[10:] in ("up", "down", "left", "right"):
+            out["harvester"] = tok[10:]         # a harvester parked here (its lane: DESIGN.md, "Summer")
         elif tok[:5] == "blow_" and tok[5:] in ("up", "down", "left", "right"):
             out["blow"] = tok[5:]               # a windmill's wind lane (points away from the windmill)
         elif tok == "log":
@@ -379,11 +382,14 @@ SECTOR_MIN_FEATURES = 0.25  # ...needs this fraction of its cells to be somethin
 GIMMICK_POINT_DIST = 2      # a point gimmick lies within this many cells (Chebyshev) of a required path
 GIMMICK_AREA_DIST = 1       # an area gimmick (a patch, lane or sheet) touches a required path
 POINT_GIMMICKS = {"plate", "lever", "gate", "pipe", "steam_vent", "bridge", "sprinkler", "crate", "windmill",
-                  "thin_floor"}
+                  "thin_floor", "beehive", "gas_pocket"}
 AREA_GIMMICKS = {"ice", "thin_ice", "tall_grass", "puddle", "mud"}      # plus pushed floors, currents, logs
 OPEN = {"floor", "puddle", "thin_floor", "exit", "bridge", "ice", "thin_ice", "mud", "tall_grass", "burnt",
         "plate", "steam_vent", "hole_up", "ladder", "hole_down", "pipe"}
-ENTER_COST = {"soft_dirt": 3, "leaves": 2, "hard_rock": 5, "roots": 5, "frozen_dirt": 5, "crate": 5, "water": 2}
+ENTER_COST = {"soft_dirt": 3, "leaves": 2, "hard_rock": 5, "roots": 5, "frozen_dirt": 5, "crate": 5, "water": 2,
+              "beehive": 5, "gas_pocket": 5}
+HARVEST_BLOCKS = {"hard_rock", "stone", "water", "frozen_dirt", "windmill", "sprinkler", "gate", "lever", "beehive",
+                  "gas_pocket", "steam_vent", "pipe", "hole_down", "hole_up", "ladder", "exit", "crate"}
 BLOW = {"up": (0, -1), "down": (0, 1), "left": (-1, 0), "right": (1, 0)}
 
 
@@ -490,6 +496,15 @@ def design_rules(path, head, cells, g, seen, start, grubs, boss, exits):
         for y in range(GH):
             for x in range(GW):
                 c = cells[d][y][x]
+                if c.get("harvester"):               # a harvester's lane (it sweeps it there and back)
+                    for way in (c["harvester"],):
+                        dx, dy = BLOW[way]
+                        lx, ly = x + dx, y + dy
+                        while 0 <= lx < GW and 0 <= ly < GH and T(d, lx, ly) not in HARVEST_BLOCKS:
+                            if not cells[d][ly][lx]["push"]:
+                                cells[d][ly][lx] = dict(cells[d][ly][lx], push="harvest")
+                            lx, ly = lx + dx, ly + dy
+                    continue
                 if c["t"] != "windmill":
                     continue
                 dx, dy = BLOW[c["blow"] or "down"]

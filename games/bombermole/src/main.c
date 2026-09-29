@@ -402,6 +402,11 @@ static void start_level(void)
             m->cy = m->ty = (int8_t)y;
         }
     }
+    if (dev_mode) {
+        char name[48];
+        snprintf(name, sizeof name, "levels/%s", LV.file);
+        rs_log("dev: level %s from %s", LV.file, rs_asset_origin(name));
+    }
     view_depth = world_player_depth(0);
     if (forced_view >= 0) view_depth = forced_view;
     view_slot = 0;
@@ -900,6 +905,13 @@ static void game_shutdown(void)
                W.wind_fx[0], W.wind_fx[1], W.wind_fx[2], W.wind_fx[3]);
         rs_log("menu: restarts=%d dev=%d god=%d lever1=%d remote=%d", restarts, dev_mode, dev_god, W.lever[1],
                W.ps[0].remote);
+        int boss_depth = -1;
+        for (int i = 0; i < W.na; i++)
+            if (W.a[i].kind == AK_BOSS && W.a[i].alive) boss_depth = W.a[i].depth;
+        rs_log("summer: burnt=%d stings=%d beekills=%d shaken=%d warns=%d crushed=%d gas=%d holes=%d bstuns=%d "
+               "boss_depth=%d catsee=%d", W.stat.burnt, W.stat.stings, W.stat.bee_kills, W.stat.shaken, W.stat.warns,
+               W.stat.crushed, W.stat.gas_stuns, W.stat.badger_holes, W.stat.badger_stuns, boss_depth,
+               world_cats_seeing());
     }
 }
 

@@ -1,42 +1,50 @@
-# STUB: a generated level (tools/make_stub_levels.py). Replace it with a real design (DESIGN.md).
-# Planned: harvest night (dark)
-# Layout B, mirrored: three depths with a loop (two holes down, a ladder back), an enemy on each depth, a grub
-# hidden in a block on each depth (only its glow shows it), the season's feature near the paths.
-name: Summer 7 (stub)
+# Bomber Mole - summer 7. Idea: the sprinkler garden. The grubs lie in flower beds guarded by sprinklers whose
+# spray puts out any fuse: time your bombs to the sprinklers' turns, or send them up from below: a bomb left on
+# a steam vent is lifted into the garden when the geyser erupts (so are you).
+# Gimmicks: sprinklers (they defuse bombs), steam vents (lifts from the tunnels into the walled beds), puddles
+# that dry up, corn cover, rock walls around the beds, holes looping the depths, a secret grub in a mound.
+# Enemies: tier 1-2: a ginger cat and a grey cat in the garden, ferrets below, a sleeping one in the deep.
+name: Sprinkler Garden
 season: summer
 arc: 2
 level: 7
-status: stub
-hint: A generated level: three depths, a grub hidden on each.
+bombs: 2
+range: 2
+vent: 240 40
+hint: Spray puts fuses out. A vent below lifts you, or a bomb, into a bed.
+status: done
+
+legend:
+a = floor + cat:1
 
 surface:
 ####################
-#g.....www....rr..M#
-#..ddd.w.w.dd.Qr...#
-#..dGd.....dd.rr.d.#
-#..ddd.v..r......d.#
-#.........r..ww.dd.#
-#..C.rrr.....ww....#
-#....r.r..dd...rrr.#
-#.ww......dd...r.r.#
-#.ww.ddd.....v.rgr.#
-#....dGd...ww......#
-#..x.ddd...ww...dd.#
-#........E......dd.#
+#M...p...ww...p...g#
+#..#####....rrrrr..#
+#..#.g.#.C..r.Q.r..#
+#..#vk.#....r.k.r..#
+#..#####....rrrrr..#
+#.....ww........v..#
+#dd......rr.....ww.#
+#dGd.v...rr...a....#
+#dd.....p....dd....#
+#...ww.......dd.rr.#
+#.r..rrrrr.......r.#
+#....r.g.r..E......#
 ####################
 under1:
 ####################
 #dddddddddddddddddd#
-#dddddd..ddd..g.ddd#
-#ddddd.d.ddd.dd.ddd#
-#dddd..^.....dd.ddd#
-#dddd.dd.rr.ddd..dd#
-#ddd..dd.Gr...dd.dd#
-#ddd.d......F.dd.dd#
-#ddd.dd.v.dd.ddd.dd#
-#ddd.dd...dd.Hdd.dd#
-#ddd....tt.......dd#
-#ddd.g.dd.ddd.ddddd#
+#dddddddddddddddddd#
+#ddd.V.dddddddddddd#
+#ddd^..ddddd.V.dddd#
+#ddd.d.........dddd#
+#ddd.d.dd.F.dd..^dd#
+#ddd...dd.ddd..dddd#
+#ddd.^.dd.d.d.ddddd#
+#dddd.....d.v..dddd#
+#dddd.F...d..g.dddd#
+#dddddd....dd..dddd#
 #dddddddddddddddddd#
 ####################
 under2:
@@ -45,12 +53,12 @@ under2:
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
-#ddddd.......dddddd#
-#ddddd...rQr.dddddd#
-#ddddd.F.r.r.dddddd#
-#ddddd..^....dddddd#
-#dddddd.ddd.ddddddd#
-#dddd.g...o..dddddd#
+#dddddddd......dddd#
+#dddddddd.rQr..dddd#
+#dddddddd.z....dddd#
+#dddddddd..g...dddd#
+#dddddddd...^..dddd#
+#dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 ####################

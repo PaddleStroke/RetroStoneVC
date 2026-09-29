@@ -401,3 +401,11 @@ Rules:
 | bridge_v | TODO | props.png | 16x16 | 1 | Wooden bridge crossed up and down: planks running left-right, rails along the left and right (drawn over the water; a blast destroys it). One frame. Frame size 16x16 (draw each about 128x128). Drawn OVER the ground (the game draws the grass, snow or water under it): flat magenta around the object, no ground of its own. |  |
 | windmill_side | TODO | props.png | 32x32 | 4 | Windmill seen from the side, sails on the RIGHT (it blows to the right; mirrored for the left), 4 frames of the sails turning. 4 frames left to right, evenly spaced: 1) frame 1; 2) frame 2; 3) frame 3; 4) frame 4. Frame size 32x32 (draw each about 256x256). Flat magenta around the drawing. |  |
 | bomb_remote | TODO | items_fx.png | 16x16 | 2 | Remote-controlled bomb: no fuse, a short antenna with a light, blinking (light off, light on). 2 frames left to right, evenly spaced: 1) frame 1; 2) frame 2. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+
+## 12. Summer: the harvester, gas pockets and their stun cloud
+
+| ID | Status | Sheet | Frame size | Frames | Description / prompt | Notes |
+|---|---|---|---|---|---|---|
+| harvester | TODO | props.png | 32x32 | 2 | Harvester (summer): a small red combine harvester seen from the side, driving RIGHT with its reel at the front (2 frames: the reel turning); mirrored for the left. 2 frames left to right, evenly spaced: 1) frame 1; 2) frame 2. Frame size 32x32 (draw each about 256x256). Flat magenta around the drawing. |  |
+| gas_pocket | TODO | props.png | 16x16 | 1 | Gas pocket (summer, underground): a lump of soil with bubbles of swamp gas; a blast releases a stun cloud. One frame. Frame size 16x16 (draw each about 128x128). Drawn OVER the ground (the game draws the grass, snow or water under it): flat magenta around the object, no ground of its own. |  |
+| gas | TODO | props.png | 16x16 | 2 | Stun gas cloud (a pale green puff, 2 frames of it churning). 2 frames left to right, evenly spaced: 1) frame 1; 2) frame 2. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |

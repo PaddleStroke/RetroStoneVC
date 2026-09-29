@@ -32,8 +32,16 @@ static rs_log_fn  g_log_fn;
 static rs_file_fn g_file_fn;
 static char     g_opt_key[MAX_OPTS][32], g_opt_val[MAX_OPTS][96];
 static int      g_opt_n;
-static struct { char name[96]; void *data; size_t size; } g_loaded[MAX_LOADED];
+static struct { char name[96]; void *data; size_t size; char origin[200]; } g_loaded[MAX_LOADED];
 static int      g_loaded_n;
+static char g_origin[200];
+void rs_host_set_file_origin(const char *where) { snprintf(g_origin, sizeof g_origin, "%s", where ? where : ""); }
+const char *rs_asset_origin(const char *name)
+{
+    for (int i = 0; i < g_loaded_n; i++)
+        if (!strcmp(g_loaded[i].name, name)) return g_loaded[i].origin[0] ? g_loaded[i].origin : "data folder";
+    return "embedded";
+}
 #ifdef RS_DEBUG
 static int      g_strict = 1;
 #else
@@ -157,8 +165,9 @@ static const void *rs_asset_reload_(const char *name, size_t *size, int again)
             snprintf(g_loaded[g_loaded_n].name, sizeof g_loaded[0].name, "%s", name);
             g_loaded[g_loaded_n].data = d;
             g_loaded[g_loaded_n].size = sz;
+            snprintf(g_loaded[g_loaded_n].origin, sizeof g_loaded[0].origin, "%s", g_origin);
             g_loaded_n++;
-            rs_log("asset %s loaded from the data directory (%u bytes)", name, (unsigned)sz);
+            rs_log("asset %s loaded from %s (%u bytes)", name, g_origin[0] ? g_origin : "the data directory", (unsigned)sz);
             if (size) *size = sz;
             return d;
         }

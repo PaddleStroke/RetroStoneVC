@@ -1,55 +1,64 @@
-# STUB: a generated level (tools/make_stub_levels.py). Replace it with a real design (DESIGN.md).
-# Planned: badger mini-boss (underground)
-# Layout A: three depths with a loop (two holes down, a ladder back), an enemy on each depth, a grub
-# hidden in a block on each depth (only its glow shows it), the season's feature near the paths.
-name: Summer 4 (stub)
+# Bomber Mole - summer 4. Idea: harvest time. Two harvesters sweep the field on a timer (the lane flashes red and
+# the engine rumbles 1.5 s before): time your crossings, and lure the cats and ferrets into a lane before it
+# comes. It mows the corn and digs up the soil in its way; a rock stops it.
+# Gimmicks: harvesters (a hazard and a weapon), corn in the lanes (cover until it is mown), dry soil, rock
+# posts that end the lanes, tunnels under the field with a loop back up, a secret grub in a mound.
+# Enemies: tier 2: two cats on the field, ferrets in the tunnels, a sleeping one in the deep.
+name: Harvest Time
 season: summer
 arc: 2
 level: 4
-status: stub
-hint: A generated level: three depths, a grub hidden on each.
+bombs: 2
+range: 2
+harvest: 420 90
+hint: A harvester's lane flashes before it comes. It crushes all in its path.
+status: done
+
+legend:
+Z = floor + harvester:right
+Y = floor + harvester:left
 
 surface:
 ####################
-#M..d...rr...www..g#
-#...d.g.rr...w.w...#
-#dd.dd......ddd..v.#
-#..........r.dGd...#
-#.rr.ww.d..r.ddd...#
-#.rQ.ww.d......C...#
-#.rr....ddd.rr.....#
-#.....v.....rr.ww..#
-#.ddd......d....w..#
-#.dGd..ww..d..rr...#
-#.ddd..ww.....rg...#
-#.......E......d...#
+#M..d..r...dd..r..g#
+#..dGd.r.C.....r...#
+#Z..ww...ddd.ww...r#
+#r..........r...v..#
+#..r.dd..rr....ww..#
+#.g..d..rQr..dd..r.#
+#..r.....r...dd....#
+#...ww..ddd..ww...Y#
+#r...........C.....#
+#.v.rr...ww...r..g.#
+#......dd...r......#
+#..ww.....E....rr..#
 ####################
 under1:
 ####################
 #dddddddddddddddddd#
-#dd.g....ddd...dddd#
-#dd.dddd.rdd.d..d^d#
-#dd.d..d..d..F.dd.d#
-#dd...dd.dddd.dd..d#
-#dddd.dd.v..d..dddd#
-#dd.....tt..dd.Gddd#
-#dd.ddHdd.ddd.ddddd#
-#dd.d...d.....ddddd#
-#dd...d.dddd.dddddd#
-#dd.ddd......r.gddd#
+#ddddddddddddd...dd#
+#dd.g.....dddd.d.dd#
+#dd.dddd..d..F.d^dd#
+#dd.d..d..dd.d...dd#
+#dd...rd....Gd.dddd#
+#dddd.dd.dd.dd..ddd#
+#d...F....d..v...dd#
+#d.dddd.ddd.dddd.dd#
+#d^...d.....d..g.dd#
+#ddd.dddddddd.ddddd#
 #dddddddddddddddddd#
 ####################
 under2:
 ####################
 #dddddddddddddddddd#
 #dddddddddddddddddd#
-#ddddd.....dddddddd#
-#dddd..rQr..ddddddd#
-#dddd..r.r..F.ddddd#
-#dddd.b..^.....dddd#
-#dddddd..ddd.g.dddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddd.....ddddd#
+#dddddddd.rQr.ddddd#
+#dddddddd.z..^ddddd#
+#dddddddd..g..ddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#

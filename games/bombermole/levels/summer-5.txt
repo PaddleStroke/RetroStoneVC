@@ -1,42 +1,47 @@
-# STUB: a generated level (tools/make_stub_levels.py). Replace it with a real design (DESIGN.md).
-# Planned: steam-vent lifts through three depths
-# Layout B, mirrored: three depths with a loop (two holes down, a ladder back), an enemy on each depth, a grub
-# hidden in a block on each depth (only its glow shows it), the season's feature near the paths.
-name: Summer 5 (stub)
+# Bomber Mole - summer 5: the badger (mini-boss). Idea: a burrow arena on three depths. The badger digs through
+# soil, charges along rows and columns, and digs its own holes to follow you to another depth: lead its
+# charges into the rock posts (it knocks itself out: bomb it then), 3 hits. It holds the last grub.
+# Gimmicks: the badger, rock posts (its weak point), soil walls it digs through, holes (and the ones it digs),
+# a grub in each depth's corner, a heart behind a mound.
+# Enemies: the badger, tier 2 ferrets in the burrows (one asleep).
+name: The Badger
 season: summer
 arc: 2
 level: 5
-status: stub
-hint: A generated level: three depths, a grub hidden on each.
+bombs: 2
+range: 2
+boss: badger
+hint: The badger charges in straight lines. Make it hit a rock, then bomb it.
+status: done
 
 surface:
 ####################
-#g.....www....rr..M#
-#..ddd.w.w.dd.Qr...#
-#..dGd.....dd.rr.d.#
-#..ddd.v..r......d.#
-#.........r..ww.dd.#
-#..C.rrr.....ww....#
-#....r.r..dd...rrr.#
-#.ww......dd...r.r.#
-#.ww.ddd.....v.rgr.#
-#....dGd...ww......#
-#..x.ddd...ww...dd.#
-#........E......dd.#
+#M...d......d..r.g.#
+#..r.d.r..r.d.r....#
+#..........K....p..#
+#dd.r..dd....dd.r.d#
+#....r......r....v.#
+#.g..d..r..r..d....#
+#..r....d..d....r..#
+#dd..r........r..dd#
+#....d.r....r.d..r.#
+#.v..p..dd.......g.#
+#..r.r..dd..r.r..d.#
+#..d.....E......r..#
 ####################
 under1:
 ####################
 #dddddddddddddddddd#
-#dddddd..ddd..g.ddd#
-#ddddd.d.ddd.dd.ddd#
-#dddd..^.....dd.ddd#
-#dddd.dd.rr.ddd..dd#
-#ddd..dd.Gr...dd.dd#
-#ddd.d......F.dd.dd#
-#ddd.dd.v.dd.ddd.dd#
-#ddd.dd...dd.Hdd.dd#
-#ddd....tt.......dd#
-#ddd.g.dd.ddd.ddddd#
+#dddd......ddddd..d#
+#dddd.r..r.d.g...dd#
+#dd.g.....d..dd..dd#
+#dd..rdd.....r.F.^d#
+#dddd.......d....dd#
+#dd..dd.r..v.dd.ddd#
+#dd.r...d.....r..dd#
+#d...F..d.dd.....dd#
+#d^....r....r..Y.dd#
+#dddddd.....ddddddd#
 #dddddddddddddddddd#
 ####################
 under2:
@@ -44,13 +49,13 @@ under2:
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
+#dddd.......ddddddd#
+#dddd.r.g.r.ddddddd#
+#dddd...z...ddddddd#
+#dddd.r...r^ddddddd#
+#dddd.......ddddddd#
 #dddddddddddddddddd#
-#ddddd.......dddddd#
-#ddddd...rQr.dddddd#
-#ddddd.F.r.r.dddddd#
-#ddddd..^....dddddd#
-#dddddd.ddd.ddddddd#
-#dddd.g...o..dddddd#
+#dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 ####################

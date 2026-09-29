@@ -74,5 +74,44 @@ echo "$out" | grep -q "dev=1 god=1" && ok "dev mode: F1 turns invincibility on" 
 printf "20 key F3\n" > $T/skip.input
 out=$($H --frames 120 --opt level=spring-1 --opt nointro=1 --opt dump=1 --opt dev=1 --input $T/skip.input 2>&1)
 echo "$out" | grep -q "state: st=1[12] " && ok "dev mode: F3 skips the level" || bad "dev F3: $(echo "$out" | grep state:)"
+
+# ---- summer ----------------------------------------------------------------------------------------------
+S() { $H --data $D/data --opt nointro=1 --opt dump=1 "$@" 2>&1; }
+out=$(S --frames 3 --opt level=summer-9 --opt spawn=0,8,5)
+echo "$out" | grep -q "catsee=1" && ok "corn: the cat sees the mole on its row" || bad "corn visible: $(echo "$out" | grep summer:)"
+out=$(S --frames 3 --opt level=summer-9 --opt spawn=0,9,5)
+echo "$out" | grep -q "catsee=0" && ok "corn: in the corn the cat does not see it" || bad "corn hidden: $(echo "$out" | grep summer:)"
+printf "5 tap B\n8 LEFT\n60 -\n" > $T/burn.input
+out=$(S --frames 420 --opt level=summer-9 --opt spawn=0,8,2 --opt god=1 --input $T/burn.input)
+echo "$out" | grep -q "burnt=9 " && ok "corn: a bomb sets the patch alight and the fire spreads to all 9 cells" \
+    || bad "corn burn: $(echo "$out" | grep summer:)"
+printf "5 tap B\n8 LEFT\n50 -\n" > $T/bees.input
+out=$(S --frames 420 --opt level=summer-10 --opt spawn=0,8,3 --opt god=1 --input $T/bees.input)
+k=$(field beekills "$out")
+[ "${k:-0}" -ge 1 ] && ok "bees: the swarm goes for the nearest creature (the ferret: $k down), not the mole" \
+    || bad "bees nearest: $(echo "$out" | grep "summer:\|state:")"
+printf "5 tap B\n8 LEFT\n60 -\n" > $T/shake.input
+out=$(S --frames 420 --opt level=summer-14 --opt spawn=0,9,6 --input $T/shake.input)
+echo "$out" | grep -q "shaken=1" && echo "$out" | grep -q "hearts=1" && ok "bees: a puddle shakes them off the mole" \
+    || bad "bees shaken: $(echo "$out" | grep "summer:\|state:")"
+base=$(field dirt "$(S --frames 5 --opt level=summer-11 | grep state:)")
+out=$(S --frames 300 --opt level=summer-11)
+echo "$out" | grep -q "warns=1 crushed=0" && ok "harvester: it warns first (lane flashing, rumble)" || bad "harvester warn: $(echo "$out" | grep summer:)"
+out=$(S --frames 520 --opt level=summer-11)
+dirt=$(field dirt "$(echo "$out" | grep state:)")
+echo "$out" | grep -q "crushed=1" && [ "$dirt" -eq $((base - 2)) ] && ok "harvester: then it crushes the ferret and digs up the soil in its lane" \
+    || bad "harvester sweep: $(echo "$out" | grep "summer:\|state:") (dirt before $base)"
+out=$(S --frames 600 --opt level=summer-12 --opt spawn=1,5,5 --opt god=1)
+echo "$out" | grep -q "boss_depth=1" && [ "$(field holes "$out")" -ge 1 ] && ok "badger: it digs its own hole to follow the mole below" \
+    || bad "badger dig: $(echo "$out" | grep summer:)"
+out=$(S --frames 480 --opt level=summer-12 --opt spawn=0,2,4 --opt god=1)
+[ "$(field bstuns "$out")" -ge 1 ] && ok "badger: it charges along the row and knocks itself out on the rock" \
+    || bad "badger charge: $(echo "$out" | grep summer:)"
+printf "5 tap RIGHT\n" > $T/pipe.input
+out=$(S --frames 40 --opt level=summer-13 --opt spawn=0,1,2 --input $T/pipe.input)
+echo "$out" | grep -q "depth=0 x=15 y=10 " && ok "drain pipe: it takes the mole to its twin" || bad "pipe: $(echo "$out" | grep state:)"
+printf "5 tap B\n8 LEFT\n60 -\n" > $T/gas.input
+out=$(S --frames 300 --opt level=summer-13 --opt spawn=0,6,6 --opt god=1 --input $T/gas.input)
+[ "$(field gas "$out")" -ge 1 ] && ok "gas pocket: the blast releases a cloud that stuns the ferret" || bad "gas: $(echo "$out" | grep summer:)"
 rm -rf $T
 exit $fail

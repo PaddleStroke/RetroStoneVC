@@ -1,0 +1,54 @@
+# Test arena (not a game level): a bombed hive; the swarm goes for the nearest creature (the ferret), and a
+# puddle shakes it off the mole (second room).
+name: Bee Test
+season: summer
+arc: 2
+level: 10
+status: stub
+range: 3
+
+surface:
+####################
+#M.................#
+#..................#
+#.........ez.......#
+####################
+#..................#
+#....p.....e.......#
+#..................#
+####################
+#..................#
+#..................#
+#..........g....E..#
+#..................#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

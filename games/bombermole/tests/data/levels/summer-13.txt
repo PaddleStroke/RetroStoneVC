@@ -1,0 +1,52 @@
+# Test arena (not a game level): drain pipes (a pair) and a gas pocket next to a sleeping ferret.
+name: Pipe Gas Test
+season: summer
+arc: 2
+level: 13
+status: stub
+
+surface:
+####################
+#M.................#
+#.@................#
+#..................#
+#..................#
+#..................#
+#.......*.z........#
+#..................#
+#..................#
+#..................#
+#..............@...#
+#..........g....E..#
+#..................#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

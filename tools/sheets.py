@@ -162,6 +162,12 @@ ENTRIES = [
     E("owl", "props", 0, 8, 32, 32, 4, "boss_owl", "Winter boss: the snowy owl (perch, flap, swoop, hurt)"),
     E("badger", "props", 8, 8, 32, 32, 4, "boss_badger", "Summer mini-boss: the badger (walk x2, dig, hurt)"),
     # row 3: the other bridge; row 10: the side view of the windmill (a windmill blowing sideways)
+    E("gas_pocket", "props", 1, 3, 16, 16, 1, "propbg",
+      "Gas pocket (summer, underground): a lump of soil with bubbles of swamp gas; a blast releases a stun cloud"),
+    E("gas", "props", 2, 3, 16, 16, 2, "prop", "Stun gas cloud (a pale green puff, 2 frames of it churning)"),
+    E("harvester", "props", 8, 10, 32, 32, 2, "prop",
+      "Harvester (summer): a small red combine harvester seen from the side, driving RIGHT with its reel at "
+      "the front (2 frames: the reel turning); mirrored for the left"),
     E("bridge_v", "props", 0, 3, 16, 16, 1, "propbg",
       "Wooden bridge crossed up and down: planks running left-right, rails along the left and right "
       "(drawn over the water; a blast destroys it)"),
@@ -214,7 +220,7 @@ ENTRIES = _grow_props_bosses(ENTRIES)
 PROP_PALETTES = [
     ("plants", ["tall_grass", "corn", "burnt", "gate", "apple_tree", "beehive", "mushroom"]),
     ("wood", ["crate", "splat", "well", "rails_h", "rails_v"]),
-    ("stone", ["mud", "plate", "lever", "steam_vent", "pipe"]),
+    ("stone", ["mud", "plate", "lever", "steam_vent", "pipe", "gas_pocket"]),
     ("water", ["bridge", "bridge_v", "ice", "thin_ice"]),
 ]
 

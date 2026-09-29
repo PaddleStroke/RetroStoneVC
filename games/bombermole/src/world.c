@@ -43,7 +43,7 @@ static int blast_stops(const cell *c)
 {
     switch (c->t) {
     case TR_STONE: case TR_DIRT: case TR_ROCK: case TR_ROOTS: case TR_FROZEN: case TR_LEAVES:
-    case TR_PUDDLE: case TR_CRATE: case TR_SPRINKLER: case TR_WINDMILL: case TR_LEVER:
+    case TR_PUDDLE: case TR_CRATE: case TR_SPRINKLER: case TR_WINDMILL: case TR_LEVER: case TR_HIVE: case TR_GAS:
         return 1;
     case TR_GATE:
         return !c->state;
@@ -102,6 +102,7 @@ static int cell_passable(const actor *a, int d, int x, int y)
         return 1;                                   /* the badger digs */
     if (!terrain_walkable(c->t, enemy)) return 0;
     if (bomb_at(d, x, y)) return 0;
+    if (world_harvester_at(d, x, y) >= 0) return 0;
     if (enemy && actor_at(d, x, y, a, 1)) return 0;
     return 1;
 }
@@ -225,6 +226,12 @@ static void start_move(actor *a, int dir)
 
 static void hurt_player(actor *a);
 static void enemy_down(actor *a);
+static void ai_badger(actor *a);
+static void ignite(int d, int x, int y);
+static void release_bees(int d, int x, int y);
+static void release_gas(int d, int x, int y);
+static void update_summer(void);
+static int wander(actor *a);
 static void collect(actor *a);
 static void explode(bomb *b);
 
@@ -511,8 +518,19 @@ static void break_cell(int d, int x, int y)
         set_regrow(d, x, y, TR_ROOTS, ROOT_REGROW);
         dust_at(d, x, y);
         break;
-    case TR_COVER:
-        c->t = TR_BURNT;
+    case TR_COVER:                                  /* the corn catches fire; it spreads */
+        c->t = TR_COVER;
+        ignite(d, x, y);
+        break;
+    case TR_HIVE:                                   /* the bees come out */
+        c->t = TR_FLOOR;
+        release_bees(d, x, y);
+        dust_at(d, x, y);
+        break;
+    case TR_GAS:                                    /* a stun cloud */
+        c->t = TR_FLOOR;
+        release_gas(d, x, y);
+        dust_at(d, x, y);
         break;
     case TR_BRIDGE:
         c->t = TR_WATER;
@@ -551,6 +569,7 @@ static void break_cell(int d, int x, int y)
     mark(d, x, y);
 }
 
+static void blast_cell(int d, int x, int y, int shape);
 static void blast_cell(int d, int x, int y, int shape)
 {
     W.blast[d][y][x] = BLAST_FRAMES;
@@ -1714,6 +1733,8 @@ static void update_actor(actor *a)
         if (W.def->boss == BOSS_FARMER) {
             if (a->timer) a->timer--;
             ai_farmer(a);
+        } else if (W.def->boss == BOSS_BADGER) {
+            ai_badger(a);
         } else {
             ai_cat(a, 6, 6, 70);
         }
@@ -1772,6 +1793,351 @@ static void update_fx(void)
     }
 }
 
+/* ---- summer: burning corn, bees, harvesters, gas, evaporating puddles -------------------------------- */
+#define FIRE_TIME 60            /* a corn cell burns 1 s; it sets its neighbours alight half-way */
+#define BEE_LIFE 360            /* a swarm chases for 6 s */
+
+static void ignite(int d, int x, int y)
+{
+    cell *c = &W.g[d][y][x];
+    if (c->t != TR_COVER) return;
+    c->t = TR_BURNT;
+    W.fire[d][y][x] = FIRE_TIME;
+    W.stat.burnt++;
+    mark(d, x, y);
+}
+
+static void release_bees(int d, int x, int y)
+{
+    for (int i = 0; i < MAX_SWARMS; i++)
+        if (!W.bees[i].alive) {
+            swarm *b = &W.bees[i];
+            memset(b, 0, sizeof *b);
+            b->alive = 1;
+            b->depth = (uint8_t)d;
+            b->cx = b->tx = (int8_t)x;
+            b->cy = b->ty = (int8_t)y;
+            b->life = BEE_LIFE;
+            b->target = -1;
+            sfx_at(SFX_STEAM, x * CELL);
+            return;
+        }
+}
+
+/* the gas spreads 3 cells (not through walls) in 0.3 s and stuns everyone in it for 3 s */
+static void release_gas(int d, int x, int y)
+{
+    static int8_t dist[GH][GW];
+    static uint8_t qx[GW * GH], qy[GW * GH];
+    memset(dist, -1, sizeof dist);
+    int h = 0, t = 0;
+    dist[y][x] = 0;
+    qx[t] = (uint8_t)x; qy[t] = (uint8_t)y; t++;
+    while (h < t) {
+        int cx = qx[h], cy = qy[h]; h++;
+        int g = GAS_TIME + dist[cy][cx] * 6;
+        if (W.gas[d][cy][cx] < g) W.gas[d][cy][cx] = (uint8_t)(g > 255 ? 255 : g);
+        if (dist[cy][cx] >= 3) continue;
+        for (int k = 0; k < 4; k++) {
+            int nx = cx + DX[k], ny = cy + DY[k];
+            if (!in_grid(nx, ny) || dist[ny][nx] >= 0) continue;
+            int tt = W.g[d][ny][nx].t;
+            if (!terrain_walkable(tt, 0) && tt != TR_WATER && tt != TR_HOLE_DOWN) continue;
+            dist[ny][nx] = (int8_t)(dist[cy][cx] + 1);
+            qx[t] = (uint8_t)nx; qy[t] = (uint8_t)ny; t++;
+        }
+    }
+    sfx_at(SFX_STEAM, x * CELL);
+}
+
+int world_cats_seeing(void)
+{
+    int n = 0, dir;
+    const actor *m = world_player(0);
+    for (int i = 0; m && i < W.na; i++)
+        if (W.a[i].alive && W.a[i].kind == AK_CAT && line_of_sight(&W.a[i], m, 12, &dir)) n++;
+    return n;
+}
+
+int world_harvester_at(int d, int x, int y)
+{
+    for (int i = 0; i < MAX_HARV; i++) {
+        const harvester *h = &W.harv[i];
+        if (h->alive && h->depth == d && h->cx == x && h->cy == y) return i;
+    }
+    return -1;
+}
+
+/* the lane a harvester sweeps: from its cell towards dir, up to the first rock, wall or water */
+static int harvest_blocks(int t)
+{
+    return t == TR_ROCK || t == TR_STONE || t == TR_WATER || t == TR_FROZEN || t == TR_WINDMILL ||
+           t == TR_SPRINKLER || t == TR_GATE || t == TR_LEVER || t == TR_HIVE || t == TR_GAS || t == TR_VENT ||
+           t == TR_PIPE || t == TR_HOLE_DOWN || t == TR_HOLE_UP || t == TR_LADDER || t == TR_EXIT || t == TR_CRATE;
+}
+
+static void harvest_lane_end(harvester *h)
+{
+    int x = h->cx, y = h->cy;
+    while (in_grid(x + DX[h->dir], y + DY[h->dir]) && !harvest_blocks(W.g[h->depth][y + DY[h->dir]][x + DX[h->dir]].t)) {
+        x += DX[h->dir];
+        y += DY[h->dir];
+    }
+    h->ex = (int8_t)x;
+    h->ey = (int8_t)y;
+}
+
+/* 1 = the cell (d, x, y) lies in a lane about to be swept (the flashing warning) */
+int world_harvest_warning(int d, int x, int y)
+{
+    for (int i = 0; i < MAX_HARV; i++) {
+        const harvester *h = &W.harv[i];
+        if (!h->alive || h->depth != d || h->state != HV_WARN) continue;
+        int lx = h->cx, ly = h->cy;
+        while (!(lx == h->ex && ly == h->ey)) {
+            lx += DX[h->dir];
+            ly += DY[h->dir];
+            if (lx == x && ly == y) return 1;
+        }
+    }
+    return 0;
+}
+
+static void harvest_cell(harvester *h, int x, int y)
+{
+    int d = h->depth;
+    cell *c = &W.g[d][y][x];
+    if (c->t == TR_DIRT || c->t == TR_COVER || c->t == TR_LEAVES || c->t == TR_BURNT) {   /* mown, dug up */
+        c->t = TR_FLOOR;
+        c->state = 0;
+        dust_at(d, x, y);
+        mark(d, x, y);
+    }
+    for (int i = 0; i < W.na; i++) {
+        actor *a = &W.a[i];
+        if (!a->alive || a->depth != d) continue;
+        int ax, ay;
+        actor_px(a, &ax, &ay);
+        if (abs(ax - x * CELL) < 12 && abs(ay - y * CELL) < 12) {
+            if (a->kind == AK_MOLE) hurt_player(a);
+            else if (a->kind != AK_BOSS) { enemy_down(a); W.stat.crushed++; }
+        }
+    }
+    bomb *b = bomb_at(d, x, y);
+    if (b && b->fuse > 2) b->fuse = 2;              /* a bomb in its way goes off */
+}
+
+static void update_harvesters(void)
+{
+    int period = W.def->harvest_period > 60 ? W.def->harvest_period : 480;
+    int warn = W.def->harvest_warn > 0 ? W.def->harvest_warn : 90;
+    for (int i = 0; i < MAX_HARV; i++) {
+        harvester *h = &W.harv[i];
+        if (!h->alive) continue;
+        switch (h->state) {
+        case HV_IDLE:
+            if (--h->timer <= 0) {
+                harvest_lane_end(h);
+                if (h->ex == h->cx && h->ey == h->cy) { h->dir = (uint8_t)((h->dir + 2) % 4); h->timer = 60; break; }
+                h->state = HV_WARN;
+                h->timer = (int16_t)warn;
+                W.stat.warns++;
+            }
+            break;
+        case HV_WARN:
+            if (h->timer % 20 == 0) sfx_at(SFX_FIZZLE, h->cx * CELL);   /* the engine rumbles */
+            if (--h->timer <= 0) { h->state = HV_MOVE; h->prog = 0; harvest_lane_end(h); }
+            break;
+        case HV_MOVE:
+            h->prog += 64;                           /* 4 cells a second */
+            harvest_cell(h, h->cx, h->cy);
+            if (h->prog >= SUB) {
+                h->prog = 0;
+                if (h->cx == h->ex && h->cy == h->ey) {
+                    h->state = HV_IDLE;
+                    h->timer = (int16_t)period;
+                    h->dir = (uint8_t)((h->dir + 2) % 4);  /* the next sweep comes back */
+                    break;
+                }
+                if (harvest_blocks(W.g[h->depth][h->cy + DY[h->dir]][h->cx + DX[h->dir]].t)) {
+                    h->ex = h->cx; h->ey = h->cy;    /* something new blocks the lane: stop here */
+                    break;
+                }
+                h->cx = (int8_t)(h->cx + DX[h->dir]);
+                h->cy = (int8_t)(h->cy + DY[h->dir]);
+                harvest_cell(h, h->cx, h->cy);
+            }
+            break;
+        }
+    }
+}
+
+/* bees chase the nearest creature they can see; tall grass or corn, a puddle, mud or a bridge (water)
+   shakes them off: they turn to the next nearest one, or give up */
+static int bee_hidden(const actor *a)
+{
+    int t = W.g[a->depth][a->cy][a->cx].t;
+    return t == TR_COVER || t == TR_PUDDLE || t == TR_MUD || t == TR_BRIDGE || t == TR_WATER;
+}
+
+static void update_bees(void)
+{
+    for (int i = 0; i < MAX_SWARMS; i++) {
+        swarm *b = &W.bees[i];
+        if (!b->alive) continue;
+        if (--b->life <= 0) { b->alive = 0; continue; }
+        if (b->cool) b->cool--;
+        if (b->prog) {                               /* flying to the next cell */
+            b->prog += SUB / 10;
+            if (b->prog >= SUB) { b->prog = 0; b->cx = b->tx; b->cy = b->ty; }
+            continue;
+        }
+        /* the nearest visible creature (the mole, a ferret, a cat, the dog) */
+        int best = -1, bd = 999;
+        for (int k = 0; k < W.na; k++) {
+            const actor *a = &W.a[k];
+            if (!a->alive || a->depth != b->depth || a->kind == AK_BOSS || a->state == 99) continue;
+            int dd = abs(a->cx - b->cx) + abs(a->cy - b->cy);
+            if (dd < bd && !bee_hidden(a)) { bd = dd; best = k; }
+        }
+        b->target = (int16_t)best;
+        if (best < 0) {                              /* nobody in sight: they give up */
+            if (b->life > 40) { b->life = 40; W.stat.shaken++; }
+            continue;
+        }
+        actor *a = &W.a[best];
+        if (bd == 0 && !b->cool) {                   /* sting */
+            W.stat.stings++;
+            b->cool = 40;
+            if (a->kind == AK_MOLE) hurt_player(a);
+            else if (a->kind == AK_DOG) a->stun = 120;
+            else { enemy_down(a); W.stat.bee_kills += !a->alive; }
+            continue;
+        }
+        int dx = a->cx - b->cx, dy = a->cy - b->cy;
+        int k1 = abs(dx) >= abs(dy) ? (dx > 0 ? DIR_RIGHT : DIR_LEFT) : (dy > 0 ? DIR_DOWN : DIR_UP);
+        int k2 = abs(dx) >= abs(dy) ? (dy > 0 ? DIR_DOWN : dy < 0 ? DIR_UP : -1) : (dx > 0 ? DIR_RIGHT : dx < 0 ? DIR_LEFT : -1);
+        for (int n = 0; n < 2; n++) {
+            int k = n ? k2 : k1;
+            if (k < 0 || (!dx && !dy)) continue;
+            int nx = b->cx + DX[k], ny = b->cy + DY[k];
+            if (!in_grid(nx, ny) || W.g[b->depth][ny][nx].t == TR_STONE) continue;   /* bees fly over the rest */
+            b->tx = (int8_t)nx; b->ty = (int8_t)ny; b->prog = 1;
+            break;
+        }
+    }
+}
+
+static void update_summer(void)
+{
+    /* burning corn: each burning cell keeps a blast going (it hurts, it sets bombs off) and sets the corn
+       next to it alight half-way through: a field burns out in about a second per few cells */
+    for (int d = 0; d < NDEPTH; d++)
+        for (int y = 0; y < GH; y++)
+            for (int x = 0; x < GW; x++) {
+                if (W.fire[d][y][x]) {
+                    uint8_t f = --W.fire[d][y][x];
+                    if (f % 8 == 0 && f) blast_cell(d, x, y, FX_CENTER);
+                    if (f == FIRE_TIME / 2)
+                        for (int k = 0; k < 4; k++)
+                            if (in_grid(x + DX[k], y + DY[k])) ignite(d, x + DX[k], y + DY[k]);
+                }
+                if (W.gas[d][y][x]) {
+                    W.gas[d][y][x]--;
+                    if (W.gas[d][y][x] <= GAS_TIME && W.gas[d][y][x] % 10 == 0)
+                        for (int i = 0; i < W.na; i++) {
+                            actor *a = &W.a[i];
+                            if (!a->alive || a->depth != d || a->cx != x || a->cy != y || a->state == 99) continue;
+                            if (a->stun < 20) W.stat.gas_stuns++;
+                            if (a->stun < 30) a->stun = 30;
+                        }
+                }
+                cell *c = &W.g[d][y][x];
+                if (c->t == TR_PUDDLE && c->timer && W.season == SEASON_SUMMER && !c->regrow) {
+                    if (--c->timer == 0) {                /* dried up by the sun */
+                        c->t = TR_FLOOR;
+                        mark(d, x, y);
+                    } else if (c->timer < 120 && c->timer % 30 == 0) {
+                        fx_add(FXP_STEAM, d, x * CELL, y * CELL - 4, 30, 0, -6);
+                    }
+                }
+            }
+    update_bees();
+    update_harvesters();
+}
+
+/* ---- the badger (summer mini-boss): digs through soil, charges along rows and columns (a rock stuns it),
+   and digs its own holes to follow the mole to another depth ------------------------------------------ */
+static void badger_dig_to(actor *a, int to)
+{
+    int d = a->depth, x = a->cx, y = a->cy;
+    int dd = to > d ? d + 1 : d - 1;
+    cell *here = &W.g[d][y][x], *there = &W.g[dd][y][x];
+    if (there->t == TR_STONE || there->t == TR_WATER || here->t == TR_EXIT || here->t == TR_WATER) return;
+    here->t = (uint8_t)(dd > d ? TR_HOLE_DOWN : TR_HOLE_UP);
+    there->t = (uint8_t)(dd > d ? TR_HOLE_UP : TR_HOLE_DOWN);
+    here->item = there->item == IT_GRUB ? here->item : here->item;
+    mark(d, x, y);
+    mark(dd, x, y);
+    dust_at(d, x, y);
+    dust_at(dd, x, y);
+    sfx_at(SFX_DIG, x * CELL);
+    W.stat.badger_holes++;
+    a->depth = (uint8_t)dd;
+    a->stun = 30;
+}
+
+static void ai_badger(actor *a)
+{
+    actor *m = world_player(0);
+    if (a->state == 1) {                             /* charging */
+        int nx = a->cx + DX[a->dir], ny = a->cy + DY[a->dir];
+        if (in_grid(nx, ny) && W.g[a->depth][ny][nx].t == TR_ROCK) {
+            a->state = 0;                            /* head first into the rock: stunned */
+            a->speed = 0;
+            a->stun = 150;
+            W.stat.badger_stuns++;
+            dust_at(a->depth, nx, ny);
+            sfx_at(SFX_BREAK, nx * CELL);
+            W.shake = 4;
+            return;
+        }
+        if (cell_passable(a, a->depth, nx, ny)) { a->speed = 44; start_move(a, a->dir); return; }
+        a->state = 0;
+        a->speed = 0;
+        a->timer = 40;
+        return;
+    }
+    a->speed = 0;
+    if (a->timer > 0) { a->timer--; return; }
+    if (!m || !m->alive) return;
+    if (m->depth != a->depth) {                      /* dig after the mole */
+        if (++a->aux > 120) { a->aux = 0; badger_dig_to(a, m->depth); }   /* 2 s of digging */
+        return;
+    }
+    a->aux = 0;
+    int dx = m->cx - a->cx, dy = m->cy - a->cy;
+    if ((!dx || !dy) && abs(dx) + abs(dy) <= 12 && (dx || dy)) {
+        int k = dx > 0 ? DIR_RIGHT : dx < 0 ? DIR_LEFT : dy > 0 ? DIR_DOWN : DIR_UP, clear = 1;
+        for (int i = 1; i < abs(dx) + abs(dy); i++) {
+            int t = W.g[a->depth][a->cy + DY[k] * i][a->cx + DX[k] * i].t;
+            if (t == TR_STONE || t == TR_WATER) clear = 0;
+        }
+        if (clear) {
+            a->state = 1;
+            a->dir = (uint8_t)k;
+            a->flip = k == DIR_LEFT ? 1 : k == DIR_RIGHT ? 0 : a->flip;
+            a->timer = 0;
+            sfx_at(SFX_POUNCE, a->cx * CELL);
+            return;
+        }
+    }
+    int dist;
+    int k = chase_dir(a, m->cx, m->cy, 40, &dist);
+    if (k < 0) k = wander(a);
+    if (k >= 0) start_move(a, k);
+}
+
 /* ---- public ------------------------------------------------------------------------------------- */
 void world_start(const level_def *L, const pstats *carry)
 {
@@ -1804,6 +2170,7 @@ void world_start(const level_def *L, const pstats *carry)
         has_dog |= s->kind == AK_DOG;
         if (s->kind == AK_BOSS) {
             a->hp = L->boss == BOSS_BADGER ? 3 : 5;
+            if (L->boss == BOSS_BADGER) a->timer = 240;      /* it wakes up after 4 s: a quiet start */
             W.boss_alive = 1;
         }
         if (is_enemy) {
@@ -1835,6 +2202,10 @@ void world_start(const level_def *L, const pstats *carry)
             }
         }
     }
+    /* bees use the critters' palette (7), like the dog */
+    for (int d = 0; d < NDEPTH; d++)
+        for (int y = 0; y < GH; y++)
+            for (int x = 0; x < GW; x++) has_dog |= W.g[d][y][x].t == TR_HIVE;
     /* sprite palettes of the enemy variants: slots 1 and 2, plus 3 without a boss and 7 without a dog */
     memset(W.var_slot, -1, sizeof W.var_slot);
     {
@@ -1876,6 +2247,20 @@ void world_start(const level_def *L, const pstats *carry)
             }
     W.grubs_total += W.boss_alive;
     W.grubs_left = W.grubs_total;
+    for (int i = 0; i < L->nharv; i++) {
+        harvester *h = &W.harv[i];
+        h->alive = 1;
+        h->depth = L->harv[i].depth;
+        h->cx = (int8_t)L->harv[i].x;
+        h->cy = (int8_t)L->harv[i].y;
+        h->dir = L->harv[i].dir;
+        h->timer = (int16_t)(240 + i * 150);         /* the first sweeps come after a quiet start */
+    }
+    if (W.season == SEASON_SUMMER)                   /* puddles dry up in the summer sun (25-40 s) */
+        for (int d = 0; d < NDEPTH; d++)
+            for (int y = 0; y < GH; y++)
+                for (int x = 0; x < GW; x++)
+                    if (W.g[d][y][x].t == TR_PUDDLE) W.g[d][y][x].timer = (uint16_t)(1500 + ((x * 7 + y * 13 + d * 5) % 10) * 90);
     world_wind_lanes(NULL);
     for (int d = 0; d < NDEPTH; d++) W.dirty[d] = 1;
     pending_depth = pending_from = -1;
@@ -1896,6 +2281,7 @@ void world_update(void)
     update_vents();
     update_switches();
     update_blasts();
+    update_summer();
     contacts();
     update_fx();
     W.t++;

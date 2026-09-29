@@ -314,6 +314,8 @@ static const uint16_t *object_meta(int d, int x, int y)
     case TR_VENT: return prop_meta[PB_STEAM_VENT + (c->state ? 1 : 0)];
     case TR_PIPE: return prop_meta[PB_PIPE];
     case TR_CRATE: return prop_meta[PB_CRATE];
+    case TR_HIVE: return prop_meta[PB_BEEHIVE];
+    case TR_GAS: return prop_meta[PB_GAS_POCKET];
     case TR_BRIDGE:
         /* the planks run across the way over the water: water left or right of the bridge means the
            river runs sideways, so you cross it up/down (bridge_v); otherwise left/right (bridge) */
@@ -546,6 +548,30 @@ void draw_world_sprites(int d, int yoff, int first)
                     spr_cell(SPR_WINDMILL + (t / speed) % 4, x * CELL, y * CELL, yoff, 0);
             }
         }
+    /* summer: bee swarms, stun gas, harvesters */
+    for (int i = 0; i < MAX_SWARMS; i++) {
+        const swarm *b = &W.bees[i];
+        if (!b->alive || b->depth != d) continue;
+        int x = b->cx * CELL + (b->tx - b->cx) * b->prog / (SUB / CELL);
+        int y = b->cy * CELL + (b->ty - b->cy) * b->prog / (SUB / CELL);
+        spr_cell(SPR_BEES + (int)(t / 4) % 2, x + ((t / 3) % 3) - 1, y - 4, yoff, 0);
+    }
+    for (int y = 0; y < GH; y++)
+        for (int x = 0; x < GW; x++)
+            if (W.gas[d][y][x] && W.gas[d][y][x] <= GAS_TIME)
+                spr_cell(SPR_GAS + (int)((t / 10 + x + y) % 2), x * CELL, y * CELL, yoff, ((x + y) & 1) ? RS_SPR_HFLIP : 0);
+    for (int i = 0; i < MAX_HARV; i++) {
+        const harvester *h = &W.harv[i];
+        if (!h->alive || h->depth != d) continue;
+        int x = h->cx * CELL, y = h->cy * CELL;
+        if (h->state == HV_MOVE && !(h->cx == h->ex && h->cy == h->ey)) {
+            x += DX[h->dir] * h->prog / (SUB / CELL);
+            y += DY[h->dir] * h->prog / (SUB / CELL);
+        }
+        int shake = h->state == HV_WARN ? (int)(t / 2) % 2 : 0;
+        spr_cell(SPR_HARVESTER + (h->state == HV_MOVE ? (int)(t / 4) % 2 : 0), x + shake, y, yoff,
+                 h->dir == DIR_LEFT ? RS_SPR_HFLIP : 0);
+    }
     for (int i = 0; i < MAX_LOGS; i++) {
         const logobj *l = &W.logs[i];
         if (!l->alive || l->depth != d) continue;
@@ -686,6 +712,8 @@ static void draw_prop_pals(void)
                 case TR_VENT: USE(PB_STEAM_VENT); break;
                 case TR_PIPE: USE(PB_PIPE); break;
                 case TR_CRATE: USE(PB_CRATE); break;
+                case TR_HIVE: USE(PB_BEEHIVE); break;
+                case TR_GAS: USE(PB_GAS_POCKET); break;
                 default: break;
                 }
     for (int i = 0; i < W.na; i++)

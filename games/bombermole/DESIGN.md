@@ -241,14 +241,27 @@ Also implemented: garden **sprinklers** (they turn every 2 s; their spray defuse
 that regrow (and regrow the dirt dug next to them), **dark levels** (`dark: 1`: the helmet lamp lights only a
 circle, made with a window), the **windmill** decoration that spins faster in gusts (`W`), tomato **crates** (`c`).
 
+### Summer mechanics (all implemented)
+| Mechanic | How it works | Level syntax |
+|---|---|---|
+| **Dry soil** | in summer soft dirt digs twice as fast (20 frames instead of 40) | the season |
+| **Corn** | cover: cats cannot see the mole in it (line of sight); a blast sets it alight: a cell burns 1 s, hurts whoever stands in it (and sets bombs off), and sets the corn next to it alight after 0.5 s, so a field burns out cell by cell; burnt ground stays (no cover) | `w` in summer |
+| **Beehive** | solid; a blast opens it and a swarm comes out: for 6 s it flies (over everything but stone) to the NEAREST creature it can see (the mole, a ferret, a cat, the dog; not the boss) and stings (a hit for the mole, knocked out for an enemy); a creature in corn or tall grass, a puddle, mud or on a bridge cannot be seen: the swarm turns to the next nearest one, or gives up | `e` beehive |
+| **Harvester** | parked at one end of its lane (a row or a column, up to the first rock, wall, water or other solid cell); every `harvest` period it warns (the engine rumbles and the lane flashes red for `warn` frames, 1.5 s), then sweeps the lane at 4 cells a second, crushing the mole and the enemies, mowing corn and digging up soft dirt; the next sweep comes back the other way; a rock stops it; a bomb in its way goes off; while parked it is solid | legend `floor + harvester:right` (up/down/left); header `harvest: period warn` (frames, default 480 90) |
+| **Puddles dry up** | in summer each puddle evaporates after 25-40 s (a wisp of steam first) | the season |
+| **Sprinklers** | as in spring: their spray puts fuses out | `k` |
+| **Badger** (summer 5 mini-boss) | digs through soft dirt; charges along a row or column at the mole it can see (nothing but stone or water between) and is stunned for 2.5 s when it runs head first into a rock; when the mole is on another depth for 2 s it digs its own hole (a hole down and a hole up, which stay) and follows; 3 hits; holds the last grub | `boss: badger` + `K` |
+| **Drain pipes** | a pipe takes the mole to the other pipe of its channel, on any depth | `@` (channel 1), legend `pipe + chan:N` |
+| **Gas pocket** | solid; a blast opens it and a stun cloud spreads 3 cells (not through walls) in 0.3 s; everyone in it (you too) is stunned while it lasts, 3 s | `*` gas pocket |
+
 ### Per season (about 3 per level; implemented ones in bold)
 | Season | Gimmicks | Signature |
 |---|---|---|
 | Spring | **river with a log bridge**, **rain puddles (mud below, slows)**, **roots that regrow dug dirt**, **rotating sprinklers whose spray defuses bombs**, **windmill** | **the windmill (gusts)** |
-| Summer | **dry soil (digs twice as fast)**, **corn field (cover)**, beehives (a bombed hive releases bees that chase the nearest creature), **steam vents on depth 2 (geyser lift one depth up)**, a harvester sweeping a row on a timer | **steam vents** |
+| Summer | **dry soil (digs twice as fast)**, **corn field (cover; it burns and the fire spreads)**, **beehives (a bombed hive releases bees that chase the nearest creature)**, **steam vents (geyser lift one depth up)**, **a harvester sweeping a row or column on a timer**, **puddles that dry up**, **the badger (mini-boss)** | **steam vents** |
 | Autumn | **leaf piles that hide grubs and blow around in the wind**, pumpkins to push (Sokoban-like), apple trees (bomb one: apples fall and stun), bouncy mushrooms (launch you 2 cells), fog (limited vision), **strong wind** | **strong wind** |
 | Winter | **frozen river with slippery ice**, **thin ice**, snowdrifts that slow you, snowballs that a blast rolls along (growing, crushing enemies), icicles that fall after nearby blasts, **frozen dirt (bombs only)**, **night (helmet lamp)** | **the frozen river** |
-| Underground, any season | mine carts on rails (fast travel, crush enemies, levers switch the track), gas pockets released by blasts (stun ferrets and you), glow-worms lighting dark caves, an ant column carrying grubs away, a well bucket (elevator surface to depth 2, turned with a crank), **drain pipes** | |
+| Underground, any season | mine carts on rails (fast travel, crush enemies, levers switch the track), **gas pockets released by blasts (stun ferrets and you)**, glow-worms lighting dark caves, an ant column carrying grubs away, a well bucket (elevator surface to depth 2, turned with a crank), **drain pipes** | |
 
 Gimmicks not implemented yet are **data hooks**: their art is in `props.png` (placeholders), their TODO rows
 exist, unknown header keys in level files are ignored, and the stub levels name the gimmick they are planned for.
@@ -256,18 +269,26 @@ exist, unknown header keys in level files are ignored, and the stub levels name 
 ### Where the gimmicks are used
 | Level | Gimmicks |
 |---|---|
-| Spring 1 First Dig | digging, holes, puddles with mud below, windmill wind lane |
-| Spring 2 Rock Garden | bombs vs rock, ladder, regrowing roots, first ferret |
-| Spring 3 River Crossing | river, bombable bridge, drifting log bridge, tall grass cover, first cat, sleeping ferret |
-| Spring 4 Thin Floors | thin floors opening holes into sealed chambers on both undergrounds, rubble stuns, plate and timed gate |
-| Spring 5 Chain Reaction | rock mazes and chains, remote detonator, sprinklers, bombs tossed into a hole |
-| Spring 6 Ferret Warren | warrens on two depths, sleeping ferret nest (noise), lever and gates around the exit |
-| Spring 7 Windmill Hill | windmills and gust lanes (they push you and your bombs), two cats, sleeping guard dog, tall grass |
-| Spring 8 The Barn Cat | boss, sprinklers, puddles, tall grass, grubs underground |
+| Spring 1 First Dig | digging (walls, hedge gaps, a glowing hidden grub), a hole down and a ladder back, puddles (mud below), tall grass |
+| Spring 2 Rock Garden | bombs vs rock (walls, grubs inside rock), regrowing roots, holes down to the root cellar, ladders |
+| Spring 3 River Crossing | river, bombable bridge, drifting log, tall grass cover, holes looping the three depths, sleeping ferret |
+| Spring 4 Thin Floors | thin floors opening holes into sealed chambers on both undergrounds, rubble stuns, a timed gate with a plate on each side |
+| Spring 5 Chain Reaction | rock spiral and bomb chains, remote detonator, sprinklers (spray defuses bombs), bombs tossed into a hole |
+| Spring 6 Ferret Warren | warrens on two depths, sleeping ferret nests (noise), a lever two floors down that opens the gates around the exit |
+| Spring 7 Windmill Hill | two windmills and their wind lanes (they push you and your bombs), two cats, a sleeping guard dog, tall grass |
+| Spring 8 The Barn Cat | the barn cat (boss), sprinklers, puddles, tall grass, grubs in the cellar |
 | Summer 1 Steam Lift | steam vents (signature), dry soil, corn |
-| Summer 8 (test room) | the farmer boss, crates, tomato splats, a hole for the cross-depth tomatoes |
+| Summer 2 Corn Maze | corn maze (cover, fire that spreads), dry soil, a sunken den |
+| Summer 3 Busy Bees | beehives (bees chase the nearest creature), puddles that dry up, corn cover |
+| Summer 4 Harvest Time | two harvesters on timed lanes, corn in the lanes, rock posts that end them |
+| Summer 5 The Badger | the badger (mini-boss): digs, charges, digs its own holes; rock posts stun it |
+| Summer 6 Dry Tunnels | drain pipes (two pairs), gas pockets (stun clouds), sealed rooms, dry soil |
+| Summer 7 Sprinkler Garden | sprinklers guarding stone-walled beds, steam vents lifting you or a bomb into them, drying puddles |
+| Summer 8 The Farmer | the farmer (boss), crates, tomato splats, corn, holes for the cross-depth tomatoes |
 | Autumn 1 Gale Force | strong wind lanes (signature), leaves hiding grubs and blowing away |
+| Autumn 8 The Fox | the fox (boss), two gale lanes, leaf piles, stone posts |
 | Winter 1 Frozen River | ice and thin ice (signature), frozen dirt, snow |
+| Winter 8 The Snowy Owl | the owl (boss), ice lanes for kicked bombs, frozen dirt |
 
 ## Seasons (arcs)
 4 arcs of 8 levels. Each has its palette row in tiles.png, its music and its twist:
@@ -288,9 +309,10 @@ Arc 1 (spring) difficulty curve: see "Where the gimmicks are used" above. The en
 ferret (2), a cat (3), sealed chambers (4), chains and sprinklers (5), a ferret warren (6), two cats and gusts
 (7) and the boss (8); the starting bombs and range grow from 1/2 to 2/3.
 
-Arcs 2-4: level 1 of each shows the season's signature; `summer-8` is the farmer boss test room; the other
-levels are **stubs** (`status: stub`, written by `tools/make_stub_levels.py`, which never overwrites a file):
-small playable placeholders with the right season, each naming its planned gimmick, ready to be replaced.
+Arc 2 (summer) is complete: level 1 shows the signature (steam vents), levels 2-7 each add one summer
+mechanic (corn fire, bees, harvesters, the badger, pipes and gas, sprinklers with vents) and level 8 is the
+farmer. Arcs 3-4: level 1 shows the season's signature and level 8 is the boss arena; levels 2-7 are **stubs**
+(`status: stub`, written by `tools/make_stub_levels.py`, which never overwrites a hand-made file).
 
 ### Level file format
 ```
@@ -346,10 +368,12 @@ Default legend (terrain `+` item `+` actor):
 | `c` | tomato crate | `W` | windmill |
 | `z` | sleeping ferret | `D` | sleeping guard dog |
 | `<` `>` `n` `u` | floor pushed left, right, up, down (wind) | `{` `}` | water with a current, left, right |
+| `e` | beehive | `*` | gas pocket |
 
 The gate is the vertical bar character (channel 1). Legend words for custom entries: every terrain name
 (`floor stone soft_dirt hard_rock roots frozen_dirt leaves water puddle thin_floor hole_down hole_up ladder exit
-bridge ice thin_ice mud tall_grass corn burnt gate plate lever steam_vent pipe crate sprinkler windmill`), items
+bridge ice thin_ice mud tall_grass corn burnt gate plate lever steam_vent pipe crate sprinkler windmill beehive
+gas_pocket`), `harvester:up|right|down|left`, items
 (`grub bomb fire speed remote heart`), actors (`mole p2 p3 p4 ferret cat boss dog`), `asleep`, `log`,
 `push_up/down/left/right`, `flow_up/down/left/right`, `chan:N`, `timed:N`.
 
@@ -381,7 +405,10 @@ Save RAM (32 KiB, only 82 bytes used): magic `BMSV`, version, levels cleared per
   use, and the strict-mode guideline warnings seen so far).
 - **Level reload**: F5 reloads the current level from its text file and restarts it (no rebuild). The
   desktop builds look for `games/bombermole/levels/` next to the exe (then in the working directory, and in
-  `data/`) and fall back to the embedded levels; a level with an error is not loaded (the log says why).
+  `data/`) and fall back to the embedded levels; a level with an error is not loaded (the log says why). With
+  `--dev` they also search upwards from the exe's folder (up to 4 levels, e.g. `../../games/bombermole/levels`
+  from `dist/windows`), so a desktop shortcut to the dist exe uses the repository's levels. The F7 overlay and the
+  log show the folder a level came from.
 - **Saves**: dev mode never writes the save's progress (cleared levels, best times); options are still saved.
 - The headless runner takes dev keys from input scripts: `<frame> key F5`.
 
@@ -434,9 +461,9 @@ every level, stubs included, on top of solvability and the softlock search:
   level's tier curve, and none closer than 6 cells to the mole's start (a quiet start).
 - **No big empty areas**: on a playable depth, no rectangle of plain floor larger than 20 cells (both sides 3
   or more), and each 6x6 sector with 12+ open cells has at least 25% of something other than plain floor
-  (blocks, items, enemies, gimmicks, push fields; a windmill's lane counts as a push field).
+  (blocks, items, enemies, gimmicks, push fields; a windmill's or a harvester's lane counts as a push field).
 - **Every gimmick matters**: a point gimmick (plate, lever, gate, pipe, vent, bridge, sprinkler, crate,
-  windmill, thin floor) lies within 2 cells of a required path, i.e. a shortest path (digging costs more than
+  windmill, thin floor, beehive, gas pocket) lies within 2 cells of a required path, i.e. a shortest path (digging costs more than
   walking) from the start to a grub, the boss or the exit, or from a grub to the exit; an area gimmick (ice,
   thin ice, tall grass, puddles, mud, push fields, logs) touches one; plates and levers matter when their gate
   does; the farmer's crates are required targets.
@@ -453,9 +480,15 @@ every level, stubs included, on top of solvability and the softlock search:
 | Spring 7 Windmill Hill | Ride and fight the gusts: time the crossings of two windmill lanes, and let a gust carry a bomb to the sheltered rock that holds a grub. |
 | Spring 8 The Barn Cat | Boss arena: a Bomberman barn floor of posts, hay and puddles; bait the barn cat into bomb lanes after taking the grubs hidden under the barn. |
 | Summer 1 Steam Lift | Geysers lift you into sealed rooms no tunnel reaches; fire a bomb up the deep vent first to clear the nest above. |
+| Summer 2 Corn Maze | Sneak along the rows of corn past the cats; a bomb burns a shortcut through a field, but the fire spreads and the cover is gone for good. |
+| Summer 3 Busy Bees | Hives stand by the enemies' dens: bomb one when an enemy is nearer than you, then run for a puddle or the corn (and the puddles dry up). |
+| Summer 4 Harvest Time | Two harvesters sweep the field on a timer: time your crossings of the flashing lanes, and lure the cats into them. |
+| Summer 5 The Badger | Mini-boss arena on three depths: lead the badger's charges into the rock posts, bomb it while it is dazed; it digs after you. |
+| Summer 6 Dry Tunnels | Far-apart rooms linked by drain pipes; blast the gas pockets by the ferret nests to stun them, then walk past. |
+| Summer 7 Sprinkler Garden | Grubs in stone-walled beds guarded by sprinklers; ride a vent up into a bed, or send a bomb up it, and time the spray. |
 | Summer 8 The Farmer | Boss arena: his four crates stand in the corners of the corn field, so every crate run crosses his line of fire; weave through the corn and dive down holes. |
 | Autumn 1 Gale Force | Gale lanes push you and your bombs; the gusts blow the leaf piles away and uncover the grubs. |
 | Autumn 8 The Fox | Boss arena: an orchard crossed by two gale lanes; the fox rides the wind, and so do your bombs. |
 | Winter 1 Frozen River | Cross the frozen river in one slide; only a bomb kicked across the ice cracks the frozen island in the middle. |
 | Winter 8 The Snowy Owl | Boss arena: a clearing with no cover from the flying owl; kick bombs along two ice lanes and hide underground. |
-| Summer, autumn, winter 2-7 | Generated stubs (`tools/make_stub_levels.py`): two layouts (mirrored for levels 5-7) using all three depths with a loop (two holes down, a ladder back), an enemy on each depth, a grub hidden in a block on each depth (only its glow shows it), a riskier grub near the enemies and the season's feature. Still simple: to be designed. |
+| Autumn, winter 2-7 | Generated stubs (`tools/make_stub_levels.py`): two layouts (mirrored for levels 5-7) using all three depths with a loop (two holes down, a ladder back), an enemy on each depth, a grub hidden in a block on each depth (only its glow shows it), a riskier grub near the enemies and the season's feature. Still simple: to be designed. |

@@ -73,6 +73,8 @@ const void *rs_asset(const char *name, size_t *size);
 /* Development: forget the cached data-directory copy of an asset and look for it again (level
  * editing without a rebuild). Falls back to the embedded asset. */
 const void *rs_asset_reload(const char *name, size_t *size);
+/* Where an asset was loaded from: the frontend's folder for it, or "embedded". */
+const char *rs_asset_origin(const char *name);
 
 /* ---- Development aids (desktop frontends) --------------------------------- */
 /* The function key pressed this frame (1..10 for F1..F10; F11/F12 belong to the frontend), 0 = none.

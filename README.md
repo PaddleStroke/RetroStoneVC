@@ -55,8 +55,11 @@ press Start. Then:
   palettes, strict-mode warnings);
 - the save's progress (cleared levels, best times) is never written while dev mode is on.
 
-Workflow: copy `games\bombermole\levels\` next to the exe, run it with `--dev`, edit a level in a text
-editor, press F5. `python3 games/bombermole/tools/check_levels.py` validates the files (solvable, no softlock).
+Workflow: run `dist\windows\BomberMole-preview.exe --dev` (a shortcut works too): with `--dev` the exe also
+looks upwards from its folder (up to 4 levels: `..\..\games\bombermole\levels\` from `dist\windows`) and uses
+the repository's levels; edit a level in a text editor, press F5. The F7 overlay and the console log show the
+folder the level came from ("embedded" when none was found). Without `--dev` the exe uses its built-in levels
+(or `games\bombermole\levels\` next to it, if you copy one there). `python3 games/bombermole/tools/check_levels.py` validates the files (solvable, no softlock).
 
 ## Build (Linux or WSL)
 ```

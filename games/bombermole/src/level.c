@@ -19,7 +19,8 @@ static const struct { const char *name; int t; } TERRAIN_NAMES[] = {
     {"tall_grass", TR_COVER}, {"corn", TR_COVER}, {"cover", TR_COVER}, {"burnt", TR_BURNT},
     {"gate", TR_GATE}, {"plate", TR_PLATE}, {"lever", TR_LEVER}, {"steam_vent", TR_VENT},
     {"vent", TR_VENT}, {"pipe", TR_PIPE}, {"crate", TR_CRATE}, {"sprinkler", TR_SPRINKLER},
-    {"windmill", TR_WINDMILL},
+    {"windmill", TR_WINDMILL}, {"beehive", TR_HIVE}, {"hive", TR_HIVE}, {"gas", TR_GAS},
+    {"gas_pocket", TR_GAS},
 };
 static const char *const ITEM_NAMES[IT_COUNT] = {"none", "grub", "bomb", "fire", "speed", "remote", "heart"};
 static const char *const DIR_NAMES[4] = {"up", "right", "down", "left"};
@@ -40,13 +41,13 @@ static const struct { char c; const char *spec; } DEFAULT_LEGEND[] = {
     {'w', "tall_grass"}, {'P', "plate+chan:1"}, {'|', "gate+chan:1"}, {'/', "lever+chan:1"},
     {'V', "steam_vent"}, {'@', "pipe+chan:1"}, {'c', "crate"}, {'k', "sprinkler"}, {'W', "windmill"},
     {'<', "floor+push_left"}, {'>', "floor+push_right"}, {'n', "floor+push_up"}, {'u', "floor+push_down"},
-    {'{', "water+flow_left"}, {'}', "water+flow_right"},
+    {'{', "water+flow_left"}, {'}', "water+flow_right"}, {'e', "beehive"}, {'*', "gas_pocket"},
 };
 
 typedef struct legend_entry {
     int used;
     cell c;
-    int actor, asleep, player, log, etype;
+    int actor, asleep, player, log, etype, harv;
 } legend_entry;
 
 static int parse_spec(const char *spec, legend_entry *e, char *err, size_t errn)
@@ -76,6 +77,11 @@ static int parse_spec(const char *spec, legend_entry *e, char *err, size_t errn)
         else if (!strcmp(tok, "log")) e->log = 1;
         else if (!strncmp(tok, "chan:", 5)) e->c.chan = (uint8_t)clampi(atoi(tok + 5), 0, NCHAN - 1);
         else if (!strncmp(tok, "timed:", 6)) e->c.timed = (uint8_t)clampi(atoi(tok + 6), 1, 255);
+        else if (!strncmp(tok, "harvester:", 10)) {     /* harvester parked here, first sweep that way */
+            for (int d = 0; d < 4; d++)
+                if (!strcmp(tok + 10, DIR_NAMES[d])) { e->harv = d + 1; ok = 1; }
+            if (!ok) { snprintf(err, errn, "bad direction in '%s'", tok); return -1; }
+        }
         else if (!strncmp(tok, "blow_", 5)) {           /* windmill: the direction the wind blows */
             for (int d = 0; d < 4; d++)
                 if (!strcmp(tok + 5, DIR_NAMES[d])) { e->c.blow = (uint8_t)(d + 1); ok = 1; }
@@ -138,6 +144,8 @@ int level_parse(level_def *L, const char *text, size_t len, const char *fname)
     snprintf(L->file, sizeof L->file, "%s", fname ? fname : "?");
     L->bombs = 1;
     L->range = 2;
+    L->harvest_period = 480;
+    L->harvest_warn = 90;
     L->gust_period = 240;
     L->gust_active = 100;
     L->gust_step = 16;
@@ -183,6 +191,13 @@ int level_parse(level_def *L, const char *text, size_t len, const char *fname)
                     sp->asleep = (uint8_t)e->asleep;
                     sp->player = (uint8_t)e->player;
                     sp->etype = (int8_t)e->etype;
+                }
+                if (e->harv && L->nharv < MAX_HARV) {
+                    L->harv[L->nharv].depth = (uint8_t)section;
+                    L->harv[L->nharv].x = (uint8_t)x;
+                    L->harv[L->nharv].y = (uint8_t)row;
+                    L->harv[L->nharv].dir = (uint8_t)(e->harv - 1);
+                    L->nharv++;
                 }
                 if (e->log && L->nlogs < MAX_LOGS) {
                     L->logs[L->nlogs].depth = (uint8_t)section;
@@ -238,6 +253,7 @@ int level_parse(level_def *L, const char *text, size_t len, const char *fname)
         else if (!strcmp(s, "tier")) L->tier = clampi(atoi(v), 1, 4);
         else if (!strcmp(s, "boss")) L->boss = boss_of(v);
         else if (!strcmp(s, "gust")) sscanf(v, "%d %d %d", &L->gust_period, &L->gust_active, &L->gust_step);
+        else if (!strcmp(s, "harvest")) sscanf(v, "%d %d", &L->harvest_period, &L->harvest_warn);
         else if (!strcmp(s, "vent")) sscanf(v, "%d %d", &L->vent_period, &L->vent_active);
         /* unknown keys are ignored: data hooks for later gimmicks */
     }
