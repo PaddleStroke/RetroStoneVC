@@ -177,8 +177,11 @@ static int base_speed(const actor *a)
     const int season = W.season;
     switch (a->kind) {
     case AK_MOLE: return 20 + W.ps[a->player].speed * 5;
-    case AK_FERRET: return (int[]){13, 15, 15, 18}[season];
-    case AK_CAT: return (int[]){12, 14, 13, 13}[season];
+    case AK_FERRET: case AK_CAT: {
+        static const int pct[3] = {85, 100, 115};        /* difficulty */
+        (void)season;
+        return ENEMY_TYPES[a->etype].speed * pct[clampi(W.diff, 0, 2)] / 100;
+    }
     case AK_DOG: return 22;
     case AK_BOSS:
         switch (W.def->boss) {
@@ -620,6 +623,14 @@ static void enemy_down(actor *a)
         W.events |= EV_BOSS_DOWN;
     }
     if (a->kind == AK_DOG) { a->stun = 120; return; }
+    if ((a->kind == AK_FERRET || a->kind == AK_CAT) && a->hp > 1) {   /* tier 4: two hits */
+        if (a->invul) return;
+        a->hp--;
+        a->invul = 60;
+        a->stun = 30;
+        sfx_at(SFX_BOSS_HIT, a->cx * CELL);
+        return;
+    }
     a->alive = 0;
     dust_at(a->depth, a->cx, a->cy);
     fx_add(FXP_STAR, a->depth, a->cx * CELL, a->cy * CELL - 8, 40, 0, -6);
@@ -876,6 +887,8 @@ static void update_vents(void)
 }
 
 /* ---- AI ---------------------------------------------------------------------------------------- */
+static int bfs_len;     /* length of the last path found by bfs_step */
+
 /* first step of a shortest path from a to (x, y) on its depth, or -1 */
 static int bfs_step(const actor *a, int gx, int gy, int maxn)
 {
@@ -889,11 +902,13 @@ static int bfs_step(const actor *a, int gx, int gy, int maxn)
         int x = qx[h], y = qy[h];
         h++;
         if (x == gx && y == gy) {
+            bfs_len = 1;
             while (1) {
                 int k = from[y][x];
                 int px = x - DX[k], py = y - DY[k];
                 if (px == a->cx && py == a->cy) return k;
                 x = px; y = py;
+                bfs_len++;
             }
         }
         for (int k = 0; k < 4; k++) {
@@ -951,7 +966,9 @@ static int line_of_sight(const actor *a, const actor *m, int range, int *dir)
 
 enum { CAT_PATROL, CAT_CROUCH, CAT_POUNCE, CAT_REST };
 
-static void ai_cat(actor *a, int range, int pounce_cells)
+static int safe_to_enter(const actor *a, int k);
+
+static void ai_cat(actor *a, int range, int pounce_cells, int rest)
 {
     int dist, dir;
     actor *m = nearest_player(a, &dist);
@@ -969,10 +986,11 @@ static void ai_cat(actor *a, int range, int pounce_cells)
         } else {
             a->speed = 0;
             a->state = CAT_REST;
-            a->timer = 70;
+            a->timer = (int16_t)rest;
         }
         return;
     }
+    if (a->kind == AK_CAT && range <= 0) m = NULL;
     if (m && line_of_sight(a, m, range, &dir)) {
         a->dir = (uint8_t)dir;
         a->flip = dir == DIR_LEFT;
@@ -988,16 +1006,145 @@ static void ai_cat(actor *a, int range, int pounce_cells)
     int k;
     if (cell_passable(a, a->depth, a->cx + DX[a->dir], a->cy + DY[a->dir]) && rs_rng_range(&rng, 8)) k = a->dir;
     else k = wander(a);
+    if (k >= 0 && a->kind == AK_CAT && !safe_to_enter(a, k)) k = -1;
     if (k >= 0) start_move(a, k);
 }
 
-static void ai_ferret(actor *a)
+/* ---- typed enemies (tiers) ------------------------------------------------------------------- */
+const enemy_type ENEMY_TYPES[ET_COUNT] = {
+    /*  name            kind       tier variant            speed move         vis los aware       fuse react pounce rest hits */
+    {"sleepy_ferret",  AK_FERRET, 1, VAR_SLEEPY_FERRET,  9, MOVE_WANDER, 0,  0, AWARE_NONE,   0,  0,  0, 0,   1},
+    {"brown_ferret",   AK_FERRET, 2, VAR_BROWN_FERRET,  13, MOVE_CHASE,  6,  0, AWARE_LATE,  60, 30,  0, 0,   1},
+    {"polecat",        AK_FERRET, 3, VAR_POLECAT,       16, MOVE_CHASE,  8,  0, AWARE_ALWAYS, 0, 12,  0, 0,   1},
+    {"stoat",          AK_FERRET, 4, VAR_STOAT,         19, MOVE_CHASE, 12,  0, AWARE_ALWAYS, 0,  6,  0, 0,   2},
+    {"ginger_cat",     AK_CAT,    1, VAR_GINGER_CAT,     9, MOVE_PATROL, 4,  1, AWARE_NONE,   0,  0,  2, 120, 1},
+    {"grey_cat",       AK_CAT,    2, VAR_GREY_CAT,      12, MOVE_PATROL, 7,  1, AWARE_LATE,  60, 30,  4, 70,  1},
+    {"black_cat",      AK_CAT,    3, VAR_BLACK_CAT,     14, MOVE_PATROL, 8,  1, AWARE_ALWAYS, 0, 12,  6, 60,  1},
+    {"siamese_cat",    AK_CAT,    4, VAR_SIAMESE_CAT,   16, MOVE_PATROL, 9,  1, AWARE_ALWAYS, 0,  6,  6, 45,  2},
+};
+
+int enemy_type_for(int kind, int tier)
 {
-    int dist;
-    actor *m = nearest_player(a, &dist);
+    tier = clampi(tier, 1, 4);
+    for (int i = 0; i < ET_COUNT; i++)
+        if (ENEMY_TYPES[i].kind == kind && ENEMY_TYPES[i].tier == tier) return i;
+    return kind == AK_CAT ? ET_GINGER_CAT : ET_SLEEPY_FERRET;
+}
+
+static const enemy_type *etype_of(const actor *a)
+{
+    return (a->kind == AK_FERRET || a->kind == AK_CAT) ? &ENEMY_TYPES[a->etype] : NULL;
+}
+
+/* is (x, y) in the blast of a bomb this enemy type knows about? */
+static int in_danger(int d, int x, int y, const enemy_type *T)
+{
+    if (!T || T->aware == AWARE_NONE) return 0;
+    if (W.blast[d][y][x]) return 1;
+    for (int i = 0; i < MAX_BOMBS; i++) {
+        const bomb *b = &W.b[i];
+        if (!b->active || b->depth != d) continue;
+        if (T->aware == AWARE_LATE && b->fuse >= T->aware_fuse) continue;
+        if (b->cx != x && b->cy != y) continue;
+        int dist = abs(b->cx - x) + abs(b->cy - y);
+        if (dist > b->range) continue;
+        int k = b->cx < x ? DIR_RIGHT : b->cx > x ? DIR_LEFT : b->cy < y ? DIR_DOWN : DIR_UP, clear = 1;
+        for (int s = 1; s < dist && clear; s++)
+            if (blast_stops(&W.g[d][b->cy + DY[k] * s][b->cx + DX[k] * s])) clear = 0;
+        if (clear) return 1;
+    }
+    return 0;
+}
+
+static int safe_to_enter(const actor *a, int k)
+{
+    const enemy_type *T = etype_of(a);
+    return !in_danger(a->depth, a->cx + DX[k], a->cy + DY[k], T);
+}
+
+/* first step toward the nearest cell outside every known blast */
+static int flee_step(const actor *a, const enemy_type *T)
+{
+    static int8_t from[GH][GW];
+    static uint8_t qx[GW * GH], qy[GW * GH];
+    memset(from, -1, sizeof from);
+    int h = 0, t = 0;
+    qx[t] = (uint8_t)a->cx; qy[t] = (uint8_t)a->cy; t++;
+    from[a->cy][a->cx] = 4;
+    while (h < t) {
+        int x = qx[h], y = qy[h];
+        h++;
+        if (!(x == a->cx && y == a->cy) && !in_danger(a->depth, x, y, T)) {
+            while (1) {
+                int k = from[y][x];
+                int px = x - DX[k], py = y - DY[k];
+                if (px == a->cx && py == a->cy) return k;
+                x = px; y = py;
+            }
+        }
+        for (int k = 0; k < 4; k++) {
+            int nx = x + DX[k], ny = y + DY[k];
+            if (!in_grid(nx, ny) || from[ny][nx] >= 0 || !cell_passable(a, a->depth, nx, ny)) continue;
+            from[ny][nx] = (int8_t)k;
+            qx[t] = (uint8_t)nx; qy[t] = (uint8_t)ny; t++;
+        }
+    }
+    return -1;
+}
+
+static int scaled_react(const enemy_type *T)
+{
+    static const int pct[3] = {150, 100, 70};
+    return T->react * pct[clampi(W.diff, 0, 2)] / 100;
+}
+
+/* random wandering: at each cell, keep going half of the time */
+static int wander_random(actor *a)
+{
+    if (rs_rng_range(&rng, 2) && cell_passable(a, a->depth, a->cx + DX[a->dir], a->cy + DY[a->dir]))
+        return a->dir;
+    int opts[4], n = 0;
+    for (int k = 0; k < 4; k++)
+        if (cell_passable(a, a->depth, a->cx + DX[k], a->cy + DY[k])) opts[n++] = k;
+    return n ? opts[rs_rng_range(&rng, n)] : -1;
+}
+
+static void ai_typed(actor *a)
+{
+    const enemy_type *T = etype_of(a);
+    /* bombs: notice them (after the reaction delay), then run out of the blast */
+    if (T->aware != AWARE_NONE) {
+        if (in_danger(a->depth, a->cx, a->cy, T)) {
+            if (!a->react) a->react = (int16_t)(scaled_react(T) + 1);
+            if (a->react > 1) a->react--;
+            if (a->react <= 1) {
+                int k = flee_step(a, T);
+                if (k >= 0) { a->speed = 0; start_move(a, k); return; }
+            }
+        } else {
+            a->react = 0;
+        }
+    }
+    if (a->kind == AK_CAT) {
+        ai_cat(a, T->vision, T->pounce, T->cooldown);
+        return;
+    }
     int k = -1;
-    if (m && rs_rng_range(&rng, 4) < 3) k = bfs_step(a, m->cx, m->cy, 400);
-    if (k < 0 || !cell_passable(a, a->depth, a->cx + DX[k], a->cy + DY[k])) k = wander(a);
+    if (T->move == MOVE_CHASE && T->vision) {
+        actor *m = nearest_player(a, NULL);
+        if (m) {
+            int kk = bfs_step(a, m->cx, m->cy, 400);
+            if (kk >= 0 && bfs_len <= T->vision && cell_passable(a, a->depth, a->cx + DX[kk], a->cy + DY[kk]))
+                k = kk;
+        }
+    }
+    if (k < 0) k = T->move == MOVE_WANDER ? wander_random(a) : wander(a);
+    if (k >= 0 && !safe_to_enter(a, k)) {
+        int opts[4], n = 0;
+        for (int j = 0; j < 4; j++)
+            if (cell_passable(a, a->depth, a->cx + DX[j], a->cy + DY[j]) && safe_to_enter(a, j)) opts[n++] = j;
+        k = n ? opts[rs_rng_range(&rng, n)] : -1;
+    }
     if (k >= 0) start_move(a, k);
 }
 
@@ -1057,7 +1204,7 @@ static void ai_farmer(actor *a)
             a->timer = 20;                          /* throw pose */
         }
     }
-    if (a->dig && !a->moving) ai_cat(a, 5, 3);
+    if (a->dig && !a->moving) ai_cat(a, 5, 3, 70);
 }
 
 static void tomato_land(fxp *f)
@@ -1085,6 +1232,99 @@ static void tomato_land(fxp *f)
 }
 
 /* ---- players ------------------------------------------------------------------------------------ */
+/* ---- test bot (--opt bot=1): a naive player for the "is it beatable" tests ---------------------
+ * Walks to a cell 2 cells in line with the nearest enemy, drops a bomb there
+ * (in the enemy's path), walks out of every blast and away from enemies,
+ * waits for the bomb, and starts again. Never uses holes, ladders or pipes. */
+static int bot_mode;
+static const enemy_type BOT_EYES = {"bot", 0, 0, 0, 0, MOVE_WANDER, 0, 0, AWARE_ALWAYS, 0, 0, 0, 0, 1};
+static const uint16_t DIR_BITS[4] = {RS_BTN_UP, RS_BTN_RIGHT, RS_BTN_DOWN, RS_BTN_LEFT};
+
+static int bot_enemy_near(int d, int x, int y)
+{
+    for (int i = 0; i < W.na; i++) {
+        const actor *a = &W.a[i];
+        if (!a->alive || a->depth != d || (a->kind != AK_FERRET && a->kind != AK_CAT)) continue;
+        if (abs(a->cx - x) + abs(a->cy - y) <= 1 || (a->moving && abs(a->tx - x) + abs(a->ty - y) <= 1)) return 1;
+    }
+    return 0;
+}
+
+static int bot_unsafe(const actor *m, int x, int y)
+{
+    return in_danger(m->depth, x, y, &BOT_EYES) || bot_enemy_near(m->depth, x, y);
+}
+
+static int bot_goal(const actor *m, int x, int y, const actor *e)
+{
+    if (!e) return !bot_unsafe(m, x, y);                 /* flee: any safe cell */
+    int ex = e->moving ? e->tx : e->cx, ey = e->moving ? e->ty : e->cy;
+    int dx = ex - x, dy = ey - y;
+    if ((dx && dy) || abs(dx) + abs(dy) != 2) return 0;
+    int mx = x + dx / 2, my = y + dy / 2;                /* the cell between must be open */
+    return terrain_walkable(W.g[m->depth][my][mx].t, 0) && !bot_unsafe(m, x, y);
+}
+
+/* first step toward the nearest goal cell, through safe cells only */
+static int bot_search(const actor *m, const actor *e)
+{
+    static int8_t from[GH][GW];
+    static uint8_t qx[GW * GH], qy[GW * GH];
+    memset(from, -1, sizeof from);
+    int h = 0, t = 0;
+    qx[t] = (uint8_t)m->cx; qy[t] = (uint8_t)m->cy; t++;
+    from[m->cy][m->cx] = 4;
+    while (h < t) {
+        int x = qx[h], y = qy[h];
+        h++;
+        if (bot_goal(m, x, y, e)) {
+            if (x == m->cx && y == m->cy) return 4;      /* already there */
+            while (1) {
+                int k = from[y][x];
+                int px = x - DX[k], py = y - DY[k];
+                if (px == m->cx && py == m->cy) return k;
+                x = px; y = py;
+            }
+        }
+        for (int k = 0; k < 4; k++) {
+            int nx = x + DX[k], ny = y + DY[k];
+            if (!in_grid(nx, ny) || from[ny][nx] >= 0 || !cell_passable(m, m->depth, nx, ny)) continue;
+            int tt = W.g[m->depth][ny][nx].t;
+            if (tt == TR_HOLE_DOWN || tt == TR_HOLE_UP || tt == TR_LADDER || tt == TR_PIPE || tt == TR_VENT) continue;
+            if (e && bot_unsafe(m, nx, ny)) continue;
+            from[ny][nx] = (int8_t)k;
+            qx[t] = (uint8_t)nx; qy[t] = (uint8_t)ny; t++;
+        }
+    }
+    return -1;
+}
+
+static uint16_t world_bot(actor *m, uint16_t *pressed)
+{
+    *pressed = 0;
+    if (m->moving) return DIR_BITS[m->dir];
+    if (bot_unsafe(m, m->cx, m->cy)) {                   /* run out of blasts and away from enemies */
+        int k = bot_search(m, NULL);
+        if (k >= 0 && k < 4) { *pressed = DIR_BITS[k]; return DIR_BITS[k]; }
+        return 0;
+    }
+    for (int i = 0; i < MAX_BOMBS; i++)
+        if (W.b[i].active && W.b[i].owner == m->player) return 0;      /* wait for it */
+    actor *e = NULL;
+    int bd = 999;
+    for (int i = 0; i < W.na; i++) {
+        actor *a = &W.a[i];
+        if (!a->alive || a->depth != m->depth || (a->kind != AK_FERRET && a->kind != AK_CAT)) continue;
+        int dd = abs(a->cx - m->cx) + abs(a->cy - m->cy);
+        if (dd < bd) { bd = dd; e = a; }
+    }
+    if (!e) return 0;
+    int k = bot_search(m, e);
+    if (k == 4) { *pressed = RS_BTN_B; return 0; }      /* in its path: bomb */
+    if (k >= 0) { *pressed = DIR_BITS[k]; return DIR_BITS[k]; }
+    return 0;
+}
+
 static int pad_dir(uint16_t held, uint16_t pressed)
 {
     static const uint16_t bits[4] = {RS_BTN_UP, RS_BTN_RIGHT, RS_BTN_DOWN, RS_BTN_LEFT};
@@ -1098,6 +1338,7 @@ static int pad_dir(uint16_t held, uint16_t pressed)
 static void update_player(actor *a)
 {
     uint16_t held = rs_pad(a->player), pr = rs_pad_pressed(a->player);
+    if (bot_mode) held = world_bot(a, &pr);
     if (a->state == 99) {                           /* knocked out */
         if (--a->timer == 0) W.events |= EV_DEAD;
         return;
@@ -1193,15 +1434,15 @@ static void update_actor(actor *a)
     if (a->stun) { a->stun--; return; }
     if (a->moving) return;
     switch (a->kind) {
-    case AK_FERRET: ai_ferret(a); break;
-    case AK_CAT: ai_cat(a, 7, 4); break;
+    case AK_FERRET: ai_typed(a); break;
+    case AK_CAT: ai_typed(a); break;
     case AK_DOG: ai_dog(a); break;
     case AK_BOSS:
         if (W.def->boss == BOSS_FARMER) {
             if (a->timer) a->timer--;
             ai_farmer(a);
         } else {
-            ai_cat(a, 6, 6);
+            ai_cat(a, 6, 6, 70);
         }
         break;
     }
@@ -1275,18 +1516,74 @@ void world_start(const level_def *L, const pstats *carry)
         W.ps[p].hearts = 1;
         W.ps[p].lives = carry ? carry[p].lives : 3;
     }
+    W.diff = opt_diff;
+    bot_mode = rs_option_int("bot", 0);
+    int typed = 0, has_dog = 0;
     for (int i = 0; i < L->nsp; i++) {
         const spawn *s = &L->sp[i];
         if (s->kind == AK_MOLE && s->player >= W.nplayers) continue;   /* 2-4 player starts: future */
+        int is_enemy = s->kind == AK_CAT || s->kind == AK_FERRET;
+        if (is_enemy && W.diff == DIFF_EASY && typed++ % 3 == 2) continue;   /* easy: a third fewer */
         actor *a = actor_new(s->kind, s->depth, s->x, s->y);
         if (!a) break;
         a->asleep = s->asleep;
         a->player = s->player;
+        has_dog |= s->kind == AK_DOG;
         if (s->kind == AK_BOSS) {
             a->hp = L->boss == BOSS_BADGER ? 3 : 5;
             W.boss_alive = 1;
         }
-        if (s->kind == AK_CAT || s->kind == AK_FERRET) a->dir = (uint8_t)rs_rng_range(&rng, 4);
+        if (is_enemy) {
+            a->etype = (uint8_t)(s->etype >= 0 ? s->etype : enemy_type_for(s->kind, L->tier));
+            a->hp = ENEMY_TYPES[a->etype].hits;
+            a->dir = (uint8_t)rs_rng_range(&rng, 4);
+        }
+    }
+    if (W.diff == DIFF_HARD) {
+        /* hard: one more enemy on each depth that has some, far from the mole */
+        int n0 = W.na;
+        for (int d = 0; d < NDEPTH; d++) {
+            const actor *first = NULL;
+            for (int i = 0; i < n0; i++)
+                if (W.a[i].depth == d && (W.a[i].kind == AK_CAT || W.a[i].kind == AK_FERRET)) { first = &W.a[i]; break; }
+            if (!first) continue;
+            const actor *m = world_player(0);
+            for (int tries = 0; tries < 200; tries++) {
+                int x = rs_rng_range(&rng, GW), y = rs_rng_range(&rng, GH);
+                if (W.g[d][y][x].t != TR_FLOOR || W.g[d][y][x].item || actor_at(d, x, y, NULL, 0)) continue;
+                if (m && m->depth == d && abs(m->cx - x) + abs(m->cy - y) < 7) continue;
+                actor *a = actor_new(first->kind, d, x, y);
+                if (a) { a->etype = first->etype; a->hp = first->hp; a->dir = (uint8_t)rs_rng_range(&rng, 4); }
+                break;
+            }
+        }
+    }
+    /* sprite palettes of the enemy variants: slots 1 and 2, plus 3 without a boss and 7 without a dog */
+    memset(W.var_slot, -1, sizeof W.var_slot);
+    {
+        int pool[4], np = 0, used = 0;
+        pool[np++] = OBJ_PAL_FERRET;
+        pool[np++] = OBJ_PAL_CAT;
+        if (!W.boss_alive) pool[np++] = OBJ_PAL_BOSS;
+        if (!has_dog) pool[np++] = OBJ_PAL_CRITTER;
+        for (int i = 0; i < W.na; i++) {
+            actor *a = &W.a[i];
+            if (a->kind != AK_CAT && a->kind != AK_FERRET) continue;
+            const enemy_type *T = &ENEMY_TYPES[a->etype];
+            if (W.var_slot[T->variant] < 0) {
+                if (used < np) {
+                    W.var_slot[T->variant] = (int8_t)pool[used++];
+                } else {                       /* out of palettes: share the closest variant of the kind */
+                    int best = -1, bd = 99;
+                    for (int t = 0; t < ET_COUNT; t++)
+                        if (ENEMY_TYPES[t].kind == T->kind && W.var_slot[ENEMY_TYPES[t].variant] >= 0 &&
+                            abs(ENEMY_TYPES[t].tier - T->tier) < bd) { bd = abs(ENEMY_TYPES[t].tier - T->tier); best = t; }
+                    W.var_slot[T->variant] = best >= 0 ? W.var_slot[ENEMY_TYPES[best].variant] : (int8_t)pool[0];
+                    rs_log("level %s: no free sprite palette for %s", L->file, T->name);
+                }
+            }
+            a->pal = (uint8_t)W.var_slot[T->variant];
+        }
     }
     for (int i = 0; i < L->nlogs; i++) {
         W.logs[i].alive = 1;

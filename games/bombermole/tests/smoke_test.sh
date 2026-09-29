@@ -30,4 +30,9 @@ out=$($H --frames 260 --opt level=spring-2 --opt nointro=1 --opt dump=1 --input 
 check "a bomb breaks a rock ($base rocks before)" "rocks=$((base - 1)) " "$out"
 out=$($H --frames 400 --opt level=spring-1 --opt nointro=1 --opt dump=1 --input $D/selfblast.input 2>&1)
 check "own blast: knocked out, restart with 2 lives" "st=6 .*hearts=1 lives=2" "$out"
+# a naive player (bomb in its path, walk away; --opt bot=1) beats the tier-1 ferrets of spring 2
+for s in 5,9 12,9; do
+    out=$($H --frames 3000 --opt level=spring-2 --opt nointro=1 --opt dump=1 --opt bot=1 --opt spawn=1,$s 2>&1)
+    check "naive bot bombs both tier-1 ferrets of spring 2 (start 1,$s)" "depth=1 .*lives=3 .*enemies=0,0,0" "$out"
+done
 exit $fail

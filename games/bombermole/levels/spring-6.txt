@@ -9,6 +9,9 @@ range: 3
 hint: The exit is fenced in: find the lever. Blasts wake sleeping ferrets.
 status: done
 
+legend:
+a = floor + ferret:1
+
 surface:
 ####################
 #M.................#
@@ -51,6 +54,6 @@ under2:
 #ddd.dddddddddd.ddd#
 #ddd.d^dddddd^d.ddd#
 #ddd.d.dddddd.d.ddd#
-#ddd..F..g....F.ddd#
+#ddd..a..g....F.ddd#
 #dddddddddddddddddd#
 ####################

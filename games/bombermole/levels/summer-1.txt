@@ -10,6 +10,9 @@ vent: 240 40
 hint: Dry soil digs fast. Stand on a vent in the deep: the geyser lifts you up.
 status: done
 
+legend:
+a = floor + cat:1
+
 surface:
 ####################
 #M..www.....www....#
@@ -23,7 +26,7 @@ surface:
 #......dGdGd....v..#
 #......ddddd.......#
 #...E..............#
-#..................#
+#...............a..#
 ####################
 under1:
 ####################

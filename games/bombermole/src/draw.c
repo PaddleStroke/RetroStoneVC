@@ -27,11 +27,6 @@ static int hud_lines = 1;
 static int16_t weather_dx[240];
 
 /* ---- colours ------------------------------------------------------------------------------- */
-static rs_color tint(rs_color c, int r, int g, int b)
-{
-    int cr = (c & 31) + r, cg = ((c >> 5) & 31) + g, cb = ((c >> 10) & 31) + b;
-    return RS_RGB(clampi(cr, 0, 31), clampi(cg, 0, 31), clampi(cb, 0, 31));
-}
 
 static void load_pal(int first, const uint16_t *p, int n)
 {
@@ -39,16 +34,6 @@ static void load_pal(int first, const uint16_t *p, int n)
         if (i % 16) rs_pal_set(first + i, p[i]);
 }
 
-static void seasonal_enemies(int season)
-{
-    /* seasonal variants: summer warmer, autumn darker, winter pale (stoats) */
-    static const int T[SEASONS][3] = {{0, 0, 0}, {3, 1, -2}, {-3, -3, -4}, {8, 8, 10}};
-    for (int pal = OBJ_PAL_FERRET; pal <= OBJ_PAL_CAT; pal++)
-        for (int i = 1; i < 16; i++) {
-            rs_color c = bm_obj_pals[pal * 16 + i];
-            rs_pal_set(RS_PAL_OBJ(pal) + i, tint(c, T[season][0], T[season][1], T[season][2]));
-        }
-}
 
 /* ---- raster: HUD band, iris and lamp circles ------------------------------------------------ */
 static int isqrt(int v)
@@ -174,7 +159,7 @@ void draw_init_vram(int season, int boss)
         rs_tiles_load(VR_OBJ + VR_BOSS, bm_boss_tiles[boss], bm_boss_tile_count[boss]);
         load_pal(RS_PAL_OBJ(3), bm_boss_pals[boss], 16);
     }
-    seasonal_enemies(season);
+
     rs_backdrop(RS_HEX(0x181c30));
 
     rs_bg_setup(RS_BG1, 64, 32, 0);
@@ -327,6 +312,12 @@ void spr_draw(int spr, int x, int y, int flags, int prio)
 }
 
 /* bottom-centre anchor on a 16x16 cell: sprites of 16, 24 or 32 px overlap upwards */
+static void spr_cell_pal(int spr, int px, int py, int yoff, int flags, int pal)
+{
+    const bm_sprite_def *s = &bm_spr[spr];
+    spr_draw_pal(spr, px + CELL / 2 - s->w / 2, HUD_H + py + CELL - s->h + yoff, flags, 2, pal);
+}
+
 static void spr_cell(int spr, int px, int py, int yoff, int flags)
 {
     const bm_sprite_def *s = &bm_spr[spr];
@@ -401,7 +392,13 @@ static void draw_actor(const actor *a, int yoff)
         else if (a->dir == DIR_RIGHT && W.def->boss == BOSS_FOX) flags = RS_SPR_HFLIP;
         break;
     }
-    if (spr >= 0) spr_cell(spr, x, y, yoff, flags);
+    if (spr < 0) return;
+    if (a->kind == AK_FERRET || a->kind == AK_CAT) {
+        if (a->invul && (a->invul / 4) % 2) return;     /* hit once (tier 4) */
+        spr_cell_pal(spr, x, y, yoff, flags, a->pal);
+    } else {
+        spr_cell(spr, x, y, yoff, flags);
+    }
 }
 
 void draw_world_sprites(int d, int yoff, int first)
@@ -558,3 +555,10 @@ void text_big(int x, int y, const char *s)
 }
 
 void draw_frame_setup(void) {}
+
+/* the palette-swap variants of this level's enemies (after world_start) */
+void draw_variant_pals(void)
+{
+    for (int v = 0; v < VAR_COUNT; v++)
+        if (W.var_slot[v] >= 0) load_pal(RS_PAL_OBJ(W.var_slot[v]), bm_variant_pals[v], 16);
+}

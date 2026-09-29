@@ -7,6 +7,9 @@ level: 3
 status: stub
 hint: A stub level: grab the grubs and reach the exit.
 
+legend:
+a = floor + ferret:2
+
 surface:
 ####################
 #M.................#
@@ -19,7 +22,7 @@ surface:
 #.........v........#
 #..................#
 #..................#
-#.......E..........#
+#.......E......C...#
 #..................#
 ####################
 under1:
@@ -32,7 +35,7 @@ under1:
 #dddddddddddddddddd#
 #dddddd.......ddddd#
 #dddddd...^.g.ddddd#
-#dddddd.......ddddd#
+#dddddd.....a.ddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#

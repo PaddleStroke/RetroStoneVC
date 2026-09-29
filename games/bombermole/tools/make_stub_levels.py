@@ -38,14 +38,14 @@ def stub(season, arc, n):
         "#.........v........#",
         "#..................#",
         "#..................#",
-        "#.......E..........#",
+        "#.......E......C...#",
         "#..................#",
         "####################",
     ]
     under1 = ["####################"] + ["#dddddddddddddddddd#"] * 6 + [
         "#dddddd.......ddddd#",
         "#dddddd...^.g.ddddd#",
-        "#dddddd.......ddddd#",
+        "#dddddd.....a.ddddd#",
     ] + ["#dddddddddddddddddd#"] * 3 + ["####################"]
     under2 = ["####################"] + ["#dddddddddddddddddd#"] * 12 + ["####################"]
     return "\n".join([
@@ -58,15 +58,20 @@ def stub(season, arc, n):
         "status: stub",
         "hint: A stub level: grab the grubs and reach the exit.",
         "",
+        "legend:",
+        "a = floor + ferret:%d" % max(1, arc - 1),
+        "",
         "surface:", *surface, "under1:", *under1, "under2:", *under2, ""])
 
 
 def main():
+    import sys
+    rewrite = "--rewrite-stubs" in sys.argv   # regenerate the files written by this script
     made = 0
     for a, season in enumerate(SEASONS):
         for n in range(1, 9):
             p = os.path.join(LEVELS, "%s-%d.txt" % (season, n))
-            if os.path.exists(p):
+            if os.path.exists(p) and not (rewrite and open(p).readline().startswith("# STUB:")):
                 continue
             with open(p, "w", newline="\n") as fh:
                 fh.write(stub(season, a + 1, n))

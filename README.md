@@ -39,7 +39,8 @@ it. Progress is saved in `bombermole.srm` next to the exe.
 | Backspace / Right Shift | Select | back |
 | F11 or Alt+Enter, F12, Esc | | fullscreen, screenshot, quit |
 
-Options: `BomberMole.exe --scale 4`, `--fullscreen`, `--opt level=spring-3` (jump to a level). Levels can be
+Difficulty (Easy, Normal, Hard) is in the Options menu. Command line: `BomberMole.exe --scale 4`, `--fullscreen`,
+`--opt level=spring-3` (jump to a level). Levels can be
 edited without rebuilding: put a copy in `data\levels\` next to the exe.
 
 ## Build (Linux or WSL)

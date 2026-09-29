@@ -11,6 +11,7 @@ hint: The gale blows the leaves away: watch for grubs underneath.
 status: done
 
 legend:
+q = floor + grey_cat
 A = leaves + push_right
 Z = leaves + grub + push_right
 N = leaves + push_left
@@ -29,7 +30,7 @@ surface:
 #<<<<<<<<<<<<<<<<<.#
 #<<<N<<<<U<<<<<<<<.#
 #.....E............#
-#..................#
+#..........q.......#
 ####################
 under1:
 ####################

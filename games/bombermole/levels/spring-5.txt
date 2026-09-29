@@ -9,6 +9,9 @@ range: 2
 hint: Bombs set off bombs. Spray puts fuses out. Toss bombs into holes.
 status: done
 
+legend:
+a = floor + cat:1
+
 surface:
 ####################
 #M..rrrrrrrrrrrr...#
@@ -19,7 +22,7 @@ surface:
 #...r.r.r..r.r.r.k.#
 #.....r.r.gr.r.....#
 #.k...r.rrrr.r..v..#
-#.....r......r.....#
+#.....r......r..a..#
 #.....rrrrrrrr.....#
 #..x.........r..E..#
 #......k.....r.....#

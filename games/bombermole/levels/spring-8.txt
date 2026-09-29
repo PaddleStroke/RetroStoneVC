@@ -10,6 +10,9 @@ boss: barncat
 hint: The barn cat holds the last grub. Five blasts will do. Grubs lie below.
 status: done
 
+legend:
+a = floor + ferret:1
+
 surface:
 ####################
 #M.......p........v#
@@ -34,7 +37,7 @@ under1:
 #dddd.........F.ddd#
 #dddd.ddddddddd.ddd#
 #dddd.dddgddddd.ddd#
-#dddd...........ddd#
+#dddd...a.......ddd#
 #dddd.ddddddddd.ddd#
 #.ddd.ddddddddd.ddd#
 #..g..ddddddddd..g.#

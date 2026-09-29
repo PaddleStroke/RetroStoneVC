@@ -42,12 +42,36 @@ SOLID_FOREVER = {"stone", "windmill", "sprinkler", "lever"}
 SEASONS = ["spring", "summer", "autumn", "winter"]
 
 
+# enemy types (games/bombermole/src/world.c ENEMY_TYPES): name -> (kind, tier)
+ENEMY_TYPES = {"sleepy_ferret": ("ferret", 1), "brown_ferret": ("ferret", 2), "polecat": ("ferret", 3),
+               "stoat": ("ferret", 4), "ginger_cat": ("cat", 1), "grey_cat": ("cat", 2), "black_cat": ("cat", 3),
+               "siamese_cat": ("cat", 4)}
+TYPE_OF = {(k, t): n for n, (k, t) in ENEMY_TYPES.items()}
+
+
+def default_tier(head):
+    """The difficulty curve: spring 1-4 tier 1, spring 5-8 and summer 2, autumn 3, winter 4."""
+    if head.get("tier"):
+        return int(head["tier"])
+    s = head["season"]
+    if s == "spring":
+        return 2 if int(head.get("level", 1)) >= 5 else 1
+    return {"summer": 2, "autumn": 3, "winter": 4}[s]
+
+
+def max_tier(head):
+    s = head["season"]
+    if s == "spring":
+        return 2 if int(head.get("level", 1)) >= 5 else 1
+    return {"summer": 2, "autumn": 3, "winter": 4}[s]
+
+
 class LevelError(Exception):
     pass
 
 
 def parse_spec(spec):
-    out = {"t": "floor", "item": None, "actor": None, "chan": 0, "log": False, "push": None}
+    out = {"t": "floor", "item": None, "actor": None, "chan": 0, "log": False, "push": None, "etype": None}
     for tok in spec.replace("+", " ").split():
         if tok in TERRAIN:
             out["t"] = {"dirt": "soft_dirt", "rock": "hard_rock", "vent": "steam_vent", "corn": "tall_grass",
@@ -56,6 +80,11 @@ def parse_spec(spec):
             out["item"] = tok
         elif tok in ACTORS:
             out["actor"] = tok
+        elif tok in ENEMY_TYPES:
+            out["actor"], out["etype"] = ENEMY_TYPES[tok][0], tok
+        elif tok.startswith("ferret:") or tok.startswith("cat:"):
+            k, t = tok.split(":")
+            out["actor"], out["etype"] = k, TYPE_OF[(k, max(1, min(4, int(t))))]
         elif tok == "asleep":
             pass
         elif tok == "log":
@@ -127,6 +156,26 @@ def check(path):
         raise LevelError("%s: needs exactly one exit, on the surface" % path)
     grubs = [(d, x, y) for d in range(3) for y in range(GH) for x in range(GW) if cells[d][y][x]["item"] == "grub"]
     boss = [(d, x, y) for d in range(3) for y in range(GH) for x in range(GW) if cells[d][y][x]["actor"] == "boss"]
+    # enemies: the tier curve and the sprite palette budget (one palette per variant)
+    dt = default_tier(head)
+    enemies = []
+    for d in range(3):
+        for y in range(GH):
+            for x in range(GW):
+                c = cells[d][y][x]
+                if c["actor"] in ("ferret", "cat"):
+                    enemies.append(c["etype"] or TYPE_OF[(c["actor"], dt)])
+    mt = max_tier(head)
+    for e in enemies:
+        if ENEMY_TYPES[e][1] > mt:
+            raise LevelError("%s: %s is tier %d; this level allows tier %d at most" % (path, e, ENEMY_TYPES[e][1], mt))
+    if head.get("season") == "spring" and int(head.get("level", 0)) == 1 and len(enemies) < 2:
+        raise LevelError("%s: spring 1 must teach bombing enemies (2 or more)" % path)
+    has_dog = any(cells[d][y][x]["actor"] == "dog" for d in range(3) for y in range(GH) for x in range(GW))
+    slots = 2 + (0 if boss else 1) + (0 if has_dog else 1)
+    if len(set(enemies)) > slots:
+        raise LevelError("%s: %d enemy variants but only %d free sprite palettes" % (path, len(set(enemies)), slots))
+    head["_enemies"] = enemies
     if len(head.get("hint", "")) > 76:
         raise LevelError("%s: hint longer than 76 characters" % path)
     if not grubs and not boss:
@@ -186,16 +235,26 @@ def check(path):
 
 
 def main():
-    files = sys.argv[1:] or sorted(glob.glob(os.path.join(LEVELS, "*.txt")))
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    files = args or sorted(glob.glob(os.path.join(LEVELS, "*.txt")))
     bad = 0
     stubs = 0
+    rows = []
     for f in files:
         try:
             head, g = check(f)
             stubs += head.get("status") == "stub"
+            en = head["_enemies"]
+            rows.append((os.path.basename(f)[:-4], head.get("status", ""), g, len(en),
+                         ", ".join("%dx %s" % (en.count(e), e) for e in sorted(set(en), key=lambda e: ENEMY_TYPES[e][1]))))
         except LevelError as e:
             print("  FAIL", e)
             bad += 1
+    if "--table" in sys.argv:
+        print("| Level | Status | Grubs | Enemies | Mix |\n|---|---|---|---|---|")
+        order = {"spring": 0, "summer": 1, "autumn": 2, "winter": 3}
+        for r in sorted(rows, key=lambda r: (order[r[0].split("-")[0]], int(r[0].split("-")[1]))):
+            print("| %s | %s | %d | %d | %s |" % r)
     print("levels: %d files, %d stubs, %s" % (len(files), stubs, "all valid" if not bad else "%d INVALID" % bad))
     sys.exit(1 if bad else 0)
 

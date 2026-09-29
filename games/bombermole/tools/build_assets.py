@@ -18,6 +18,7 @@ ROOT = os.path.abspath(os.path.join(GAME, "..", ".."))
 sys.path.insert(0, os.path.join(ROOT, "tools"))
 import sheets  # noqa: E402
 import rsasset  # noqa: E402
+import palette_variants  # noqa: E402
 
 TERRAIN_PALS = 4          # BG palettes 1..4
 PAL_PROPS = 5             # BG palette of the terrain-like props
@@ -107,6 +108,7 @@ def main():
     sprite_entries = [e for e in sheets.ENTRIES if e.group in OBJ_GROUPS or e.group in BOSSES]
     tiles, defs, obj_pals, names = [], {}, [], []
     boss_tiles, boss_pals = [], []
+    variant_base = {}
     for g in OBJ_GROUPS + BOSSES:
         ents = [e for e in sprite_entries if e.group == g]
         frames = []
@@ -116,6 +118,13 @@ def main():
             obj_pals += [0] * 16
             continue
         r = rsasset.convert_obj(frames)
+        if g in ("ferret", "cat"):          # base palettes of the palette-swap variants
+            cnt = [0] * len(r.palette)
+            for t in r.tiles:
+                for v in t:
+                    if v:
+                        cnt[v - 1] += 1
+            variant_base[g] = (r.palette, cnt)
         if g in BOSSES:
             block, pal, base = BOSSES.index(g) + 1, 3, 0
             boss_tiles.append(r.tiles)
@@ -158,6 +167,17 @@ def main():
     c.append("const int bm_boss_tile_count[BOSS_KINDS] = {0, %s};" % ", ".join(str(len(b)) for b in boss_tiles))
     c.append("const uint16_t bm_boss_pals[BOSS_KINDS][16] = {{0}, %s};" % ", ".join(
         "{" + ", ".join("0x%04x" % v for v in p) + "}" for p in boss_pals))
+
+    # ---- palette-swap enemy variants (one palette each, from the base sprite's ramps) ------------
+    vnames, vpals = [], []
+    for name, group, target, light in palette_variants.VARIANTS:
+        pal, cnt = variant_base[group]
+        vnames.append("VAR_%s" % cname(name))
+        vpals.append(rsasset.palette16(palette_variants.variant_palette(pal, cnt, target, light)))
+    h.append("enum { %s, VAR_COUNT };" % ", ".join(vnames))
+    h.append("extern const uint16_t bm_variant_pals[VAR_COUNT][16];\n")
+    c.append("const uint16_t bm_variant_pals[VAR_COUNT][16] = {\n" + ",\n".join(
+        "    {" + ", ".join("0x%04x" % v for v in p) + "}" for p in vpals) + "};")
 
     # ---- title logo (art/title_logo.png, 256x64): BG tiles + map, one palette ------------------
     logo_path = os.path.join(a.art, "title_logo.png")

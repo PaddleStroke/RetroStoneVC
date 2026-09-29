@@ -11,7 +11,7 @@ enum state {
     ST_DYING, ST_GAMEOVER, ST_OUTRO, ST_CLEAR, ST_ARCDONE
 };
 
-int opt_music = 1, opt_sfx = 1;
+int opt_music = 1, opt_sfx = 1, opt_diff = DIFF_NORMAL;
 static int st, st_t, cursor, sel_arc, sel_level, unlock_all;
 static level_def LV;
 static pstats carry[MAX_PLAYERS];
@@ -50,12 +50,13 @@ static void save_load(void)
     }
     opt_music = SV.opts & 1;
     opt_sfx = (SV.opts >> 1) & 1;
+    opt_diff = ((SV.opts >> 3) & 3) ? ((SV.opts >> 3) & 3) - 1 : DIFF_NORMAL;   /* 0 = not set: normal */
     unlock_all = (SV.opts >> 2) & 1;
 }
 
 static void save_store(void)
 {
-    SV.opts = (uint8_t)(opt_music | (opt_sfx << 1) | (unlock_all << 2));
+    SV.opts = (uint8_t)(opt_music | (opt_sfx << 1) | (unlock_all << 2) | ((opt_diff + 1) << 3));
     SV.sum = save_sum(&SV);
     memcpy(rs_sram(), &SV, sizeof SV);
     rs_sram_commit();
@@ -275,26 +276,30 @@ static void levels_update(void)
 
 static void options_update(void)
 {
+    static const char *const diffs[3] = {"EASY  ", "NORMAL", "HARD  "};
     menu_scroll();
     plain_text();
     text_at(center("OPTIONS"), 4, "OPTIONS");
-    int c = menu_nav(4);
-    textf_at(12, 9, "%c MUSIC      %s ", c == 0 ? '>' : ' ', opt_music ? "ON " : "OFF");
-    textf_at(12, 11, "%c SOUND      %s ", c == 1 ? '>' : ' ', opt_sfx ? "ON " : "OFF");
-    textf_at(12, 13, "%c ERASE SAVE     ", c == 2 ? '>' : ' ');
-    textf_at(12, 15, "%c BACK           ", c == 3 ? '>' : ' ');
-    if (confirm() || (pressed() & (RS_BTN_LEFT | RS_BTN_RIGHT))) {
+    int c = menu_nav(5);
+    uint16_t p = pressed();
+    textf_at(11, 9, "%c MUSIC       %s ", c == 0 ? '>' : ' ', opt_music ? "ON " : "OFF");
+    textf_at(11, 11, "%c SOUND       %s ", c == 1 ? '>' : ' ', opt_sfx ? "ON " : "OFF");
+    textf_at(11, 13, "%c DIFFICULTY  %s", c == 2 ? '>' : ' ', diffs[opt_diff]);
+    textf_at(11, 15, "%c ERASE SAVE        ", c == 3 ? '>' : ' ');
+    textf_at(11, 17, "%c BACK              ", c == 4 ? '>' : ' ');
+    if (confirm() || (p & (RS_BTN_LEFT | RS_BTN_RIGHT))) {
         sfx(SFX_MENU_OK);
         if (c == 0) { opt_music ^= 1; audio_options(opt_music, opt_sfx); if (opt_music) music_play("title"); }
         if (c == 1) { opt_sfx ^= 1; audio_options(opt_music, opt_sfx); }
-        if (c == 2 && confirm()) {
+        if (c == 2) opt_diff = (opt_diff + ((p & RS_BTN_LEFT) ? 2 : 1)) % 3;
+        if (c == 3 && confirm()) {
             memset(SV.cleared, 0, sizeof SV.cleared);
             memset(SV.best, 0, sizeof SV.best);
             unlock_all = 0;
-            text_at(12, 18, "SAVE ERASED");
+            text_at(11, 20, "SAVE ERASED");
         }
         save_store();
-        if (c == 3 && confirm()) { text_clear_all(); go(ST_TITLE); cursor = 1; }
+        if (c == 4 && confirm()) { text_clear_all(); go(ST_TITLE); cursor = 1; }
     }
     if (back()) { text_clear_all(); go(ST_TITLE); cursor = 1; }
 }
@@ -363,6 +368,17 @@ static void start_level(void)
 {
     draw_init_vram(LV.season, LV.boss);
     world_start(&LV, carry);
+    draw_variant_pals();
+    const char *sp = rs_option("spawn");             /* debug: "1,5,9" = depth, x, y of the mole */
+    if (sp) {
+        int d, x, y;
+        actor *m = world_player(0);
+        if (m && sscanf(sp, "%d,%d,%d", &d, &x, &y) == 3) {
+            m->depth = (uint8_t)clampi(d, 0, NDEPTH - 1);
+            m->cx = m->tx = (int8_t)x;
+            m->cy = m->ty = (int8_t)y;
+        }
+    }
     view_depth = world_player_depth(0);
     if (forced_view >= 0) view_depth = forced_view;
     view_slot = 0;
@@ -617,6 +633,7 @@ static void game_init(void)
     audio_options(opt_music, opt_sfx);
     sfx_init();
     if (rs_option_int("unlock", 0)) unlock_all = 1;
+    if (rs_option("difficulty")) opt_diff = clampi(rs_option_int("difficulty", 1), 0, 2);
     forced_view = rs_option_int("view", -1);
     const char *lv = rs_option("level");
     if (lv) {                                        /* "spring-3": jump straight into a level */

@@ -10,6 +10,9 @@ gust: 200 110 12
 hint: Gusts blow along the lanes. Wake the dog with a blast: it hates cats.
 status: done
 
+legend:
+a = floor + cat:1
+
 surface:
 ####################
 #M...W......W......#
@@ -17,7 +20,7 @@ surface:
 #.www....ddd....ww.#
 #.wgw....dGd....wg.#
 #.www....ddd.......#
-#.....C........D...#
+#.....a........D...#
 #<<<<<<<<<<<<<<<<<.#
 #....ttt...rrr.....#
 #.v..tgt...rQr..C..#

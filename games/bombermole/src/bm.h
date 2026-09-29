@@ -36,6 +36,30 @@ enum actor_kind { AK_NONE, AK_MOLE, AK_FERRET, AK_CAT, AK_BOSS, AK_DOG };
 enum push_kind { PUSH_NONE = 0, PUSH_WIND = 1, PUSH_FLOW = 2 };
 enum game_mode { MODE_SOLO, MODE_COOP, MODE_BATTLE };   /* multiplayer hooks */
 
+/* ---- data-driven enemy types (DESIGN.md, "Enemy tiers") ---- */
+enum { MOVE_WANDER, MOVE_PATROL, MOVE_CHASE };
+enum { AWARE_NONE, AWARE_LATE, AWARE_ALWAYS };
+typedef struct enemy_type {
+    const char *name;           /* level-file word */
+    uint8_t kind;               /* AK_FERRET or AK_CAT (the base sprite) */
+    uint8_t tier;               /* 1..4 */
+    uint8_t variant;            /* palette variant VAR_* */
+    int16_t speed;              /* progress per frame (the mole walks at 20) */
+    uint8_t move;               /* MOVE_* */
+    uint8_t vision;             /* cells; 0 = never chases */
+    uint8_t los;                /* 1: needs a clear straight line (cats); 0: path length (ferrets smell) */
+    uint8_t aware;              /* AWARE_*: bombs */
+    uint8_t aware_fuse;         /* AWARE_LATE: only bombs whose fuse is below this (frames) */
+    uint8_t react;              /* reaction delay before fleeing (frames) */
+    uint8_t pounce, cooldown;   /* cats: pounce length (cells), rest after a pounce (frames) */
+    uint8_t hits;               /* blasts to defeat */
+} enemy_type;
+enum { ET_SLEEPY_FERRET, ET_FERRET, ET_POLECAT, ET_STOAT, ET_GINGER_CAT, ET_GREY_CAT, ET_BLACK_CAT,
+       ET_SIAMESE_CAT, ET_COUNT };
+extern const enemy_type ENEMY_TYPES[ET_COUNT];
+int enemy_type_for(int kind, int tier);            /* the tier's type of a kind */
+enum { DIFF_EASY, DIFF_NORMAL, DIFF_HARD };
+
 /* One grid cell. */
 typedef struct cell {
     uint8_t t;                  /* enum terrain */
@@ -51,6 +75,7 @@ typedef struct cell {
 
 typedef struct spawn {
     uint8_t kind, depth, x, y, asleep, player;
+    int8_t etype;               /* ET_* or -1: the level's default tier */
 } spawn;
 
 typedef struct level_def {
@@ -60,6 +85,7 @@ typedef struct level_def {
     int vent_period, vent_active;
     int dark;                   /* night / dark caves: lamp radius only */
     int boss;                   /* BOSS_* from assets.h */
+    int tier;                   /* default enemy tier (1..4) for F and C */
     cell g[NDEPTH][GH][GW];
     spawn sp[64];
     int nsp;
@@ -75,6 +101,8 @@ typedef struct actor {
     int16_t speed;              /* progress per frame */
     int16_t stun, invul, timer, anim, hp, aux, dig;
     uint8_t state;
+    uint8_t etype, pal;         /* enemy type, sprite palette slot */
+    int16_t react;              /* bomb reaction countdown */
 } actor;
 
 typedef struct bomb {
@@ -100,7 +128,8 @@ typedef struct pstats { int bombs, range, speed, remote, hearts, lives, placed; 
 
 typedef struct world {
     const level_def *def;
-    int season, mode, nplayers;
+    int season, mode, nplayers, diff;
+    int8_t var_slot[VAR_COUNT];          /* OBJ palette slot of each variant in this level (-1 = unused) */
     cell g[NDEPTH][GH][GW];
     uint8_t blast[NDEPTH][GH][GW];       /* frames left */
     uint8_t shape[NDEPTH][GH][GW];       /* FX_* base */
@@ -178,7 +207,8 @@ void music_play(const char *name);
 void audio_options(int music_on, int sfx_on);
 
 /* ---- main.c ---- */
-extern int opt_music, opt_sfx;
+extern int opt_music, opt_sfx, opt_diff;
+void draw_variant_pals(void);
 
 static inline int clampi(int v, int lo, int hi) { return v < lo ? lo : v > hi ? hi : v; }
 static inline int in_grid(int x, int y) { return x >= 0 && y >= 0 && x < GW && y < GH; }

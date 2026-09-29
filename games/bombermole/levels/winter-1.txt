@@ -10,6 +10,7 @@ hint: On ice you slide until you hit something. Thin ice breaks.
 status: done
 
 legend:
+q = floor + black_cat
 J = frozen_dirt + grub
 
 surface:
@@ -21,7 +22,7 @@ surface:
 #iiiijjjjiiiiiiiiii#
 #iiiiiiiiiiijjjjiii#
 #iiiiii.iiiiiiiiiii#
-#..................#
+#...............q..#
 #..fff....C...fff..#
 #..fJf........fJf..#
 #..f.f....E...f.f..#

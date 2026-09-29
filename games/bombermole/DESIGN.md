@@ -74,15 +74,62 @@ dug or blasted). They last for the current level.
 ## Enemies and bosses
 | Enemy | Where | Behaviour |
 |---|---|---|
-| Ferret | underground | runs the tunnels; on the mole's depth it chases along the shortest tunnel path (3 times out of 4 at each crossing), else wanders. Cannot dig. May sleep in a nest until a blast wakes it. |
-| Cat | surface | patrols straight lines and turns at walls; when the mole is in its line of sight (same row or column, clear, up to 7 cells, not hidden in tall grass or corn) it crouches for half a second, then pounces up to 4 cells at 3 px per frame, then rests. |
+| Ferret | underground | runs the tunnels; its type (tier) decides its speed, whether it chases and how it treats bombs (see "Enemy tiers"). Cannot dig. May sleep in a nest until a blast wakes it. |
+| Cat | surface | patrols straight lines and turns at walls; when the mole is in its line of sight (same row or column, clear, within its vision, not hidden in tall grass or corn) it crouches for half a second, then pounces (length and rest by tier) at 3 px per frame. |
 | Guard dog | ally | sleeps until a blast wakes it, then chases the nearest cat on its depth and chases it away on contact; otherwise follows the mole. Blasts only stun it. |
 
-**Seasonal variants** (palette and tuning): summer enemies are warmer-coloured and faster, autumn ones darker,
-winter ferrets are white stoats (the fastest). Enemies stay on their depth unless a vent lifts them or a floor
+**Seasonal variants**: see the enemy tiers below (each season brings its tier and its palette variants);
+enemies stay on their depth unless a vent lifts them or a floor
 opens under them.
 
-**Bosses** (32x32, loaded with their own palette; the boss holds the last golden grub):
+## Enemy tiers (data-driven)
+Every ferret and cat has a **type** (table `ENEMY_TYPES` in `src/world.c`): speed, movement, vision, bomb
+awareness with a reaction delay, pounce and cooldown for cats, hits to defeat, and a palette variant. Early
+enemies behave like early Super Bomberman: slow, wandering at random, blind to bombs, easy to bomb.
+
+| Type | Tier | Speed (mole = 20) | Movement | Vision | Bombs | Reaction | Pounce / rest | Hits |
+|---|---|---|---|---|---|---|---|---|
+| sleepy ferret | 1 | 9 | random wander | none | ignores them | | | 1 |
+| ginger cat | 1 | 9 | patrol | 4 cells, line of sight | ignores them | | 2 cells / 2 s | 1 |
+| brown ferret | 2 | 13 | chases when it smells you (path of 6 cells or less) | 6 | notices bombs late (fuse under 1 s) | 0.5 s | | 1 |
+| grey cat | 2 | 12 | patrol | 7, line of sight | late (fuse under 1 s) | 0.5 s | 4 cells / 1.2 s | 1 |
+| polecat | 3 | 16 | chases | 8 | avoids blasts (every bomb) | 0.2 s | | 1 |
+| black cat | 3 | 14 | patrol | 8, line of sight | avoids blasts | 0.2 s | 6 cells / 1 s | 1 |
+| stoat | 4 | 19 | chases | 12 | avoids blasts | 0.1 s | | 2 |
+| siamese cat | 4 | 16 | patrol | 9, line of sight | avoids blasts | 0.1 s | 6 cells / 0.75 s | 2 |
+
+- Movement: *random wander* keeps its direction half of the time at each cell; *patrol* walks straight and
+  turns at walls; *chase* follows the shortest path to the mole when it is within the vision range.
+- Bomb awareness: an aware enemy standing in the future blast of a bomb it knows about waits for its
+  reaction delay, then runs to the nearest safe cell; it also refuses to step into a known blast.
+- Tier-4 enemies take 2 hits (they blink after the first one).
+
+**The curve.** A level's `F` and `C` take the level's default tier: spring 1-4 **tier 1**; spring 5-8 and
+summer **tier 2**; autumn **tier 3**; winter **tier 4** (`tier: N` in the header overrides it). Levels mix
+tiers with legend words (`sleepy_ferret`, `brown_ferret`, `polecat`, `stoat`, `ginger_cat`, `grey_cat`,
+`black_cat`, `siamese_cat`, or `ferret:N` / `cat:N`). `tools/check_levels.py` rejects an enemy above the
+level's allowed tier, a spring 1 without enemies to learn on (2 or more), and more variants than free sprite
+palettes; `check_levels.py --table` prints the mix of every level.
+
+**Palette-swap variants** (the owner's idea): each type is the base ferret or cat sprite with its own
+16-colour palette, so no new art is needed. `tools/palette_variants.py` splits the base palette into ramps
+(outline, fur, light parts, accents such as the nose and eyes) and maps the fur ramp onto the variant's colour
+by brightness, so the shading survives; it works on the placeholders and on imported AI art alike (the asset
+build computes the palettes from whatever art is in the sheets). Variants: sleepy ferret (pale cream), brown
+ferret, polecat (dark, light face), stoat (white); ginger tabby, grey, black, siamese (cream with dark points).
+Preview: `docs/art-preview/enemy_variants.png` (`tools/art_variants.py`). A level gets sprite palettes 1 and 2
+for its variants, plus 3 when there is no boss and 7 when there is no dog.
+
+**Difficulty** (Options, saved; Normal by default):
+
+| | Easy | Normal | Hard |
+|---|---|---|---|
+| Enemy speed | 85 % | 100 % | 115 % |
+| Reaction delay | 150 % | 100 % | 70 % |
+| Enemies | one in three removed | as designed | one more on each depth that has enemies |
+
+## Bosses
+32x32, loaded with their own palette; the boss holds the last golden grub:
 
 | Arc | Boss | Status | Behaviour |
 |---|---|---|---|
@@ -229,7 +276,7 @@ one mole start, an exit on the surface, at least one grub, every hole down above
 ladder (and the reverse), every grub reachable when breakable cells count as passable.
 
 ## Game flow
-Title (press Start; menu: Play, Options, Credits) -> arc select (4 seasons, locked ones greyed) ->
+Title (press Start; menu: Play, Options (music, sound, difficulty, erase save), Credits) -> arc select (4 seasons, locked ones greyed) ->
 level select (1-8, cleared and locked marks, best time) -> level intro (iris opens on the mole,
 level name and hint) -> play -> **pause** (Resume / Restart / Quit) -> level clear (time, best time)
 -> next level. After level 8: the **arc final screen** (a rotating seasonal emblem on the affine

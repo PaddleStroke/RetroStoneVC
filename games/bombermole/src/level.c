@@ -46,7 +46,7 @@ static const struct { char c; const char *spec; } DEFAULT_LEGEND[] = {
 typedef struct legend_entry {
     int used;
     cell c;
-    int actor, asleep, player, log;
+    int actor, asleep, player, log, etype;
 } legend_entry;
 
 static int parse_spec(const char *spec, legend_entry *e, char *err, size_t errn)
@@ -55,6 +55,7 @@ static int parse_spec(const char *spec, legend_entry *e, char *err, size_t errn)
     memset(e, 0, sizeof *e);
     e->used = 1;
     e->actor = AK_NONE;
+    e->etype = -1;
     snprintf(buf, sizeof buf, "%s", spec);
     for (char *tok = strtok(buf, "+ \t"); tok; tok = strtok(NULL, "+ \t")) {
         int ok = 0;
@@ -66,6 +67,8 @@ static int parse_spec(const char *spec, legend_entry *e, char *err, size_t errn)
         if (!strcmp(tok, "mole")) { e->actor = AK_MOLE; e->player = 0; }
         else if (tok[0] == 'p' && tok[1] >= '2' && tok[1] <= '4' && !tok[2]) { e->actor = AK_MOLE; e->player = tok[1] - '1'; }
         else if (!strcmp(tok, "ferret")) e->actor = AK_FERRET;
+        else if (!strncmp(tok, "ferret:", 7)) { e->actor = AK_FERRET; e->etype = (int8_t)enemy_type_for(AK_FERRET, atoi(tok + 7)); }
+        else if (!strncmp(tok, "cat:", 4)) { e->actor = AK_CAT; e->etype = (int8_t)enemy_type_for(AK_CAT, atoi(tok + 4)); }
         else if (!strcmp(tok, "cat")) e->actor = AK_CAT;
         else if (!strcmp(tok, "boss")) e->actor = AK_BOSS;
         else if (!strcmp(tok, "dog")) e->actor = AK_DOG;
@@ -81,9 +84,18 @@ static int parse_spec(const char *spec, legend_entry *e, char *err, size_t errn)
                     ok = 1;
                 }
             if (!ok) { snprintf(err, errn, "bad direction in '%s'", tok); return -1; }
-        } else {
-            snprintf(err, errn, "unknown legend word '%s'", tok);
-            return -1;
+        }
+        else if (!ok) {
+            for (int t = 0; t < ET_COUNT && !ok; t++)
+                if (!strcmp(tok, ENEMY_TYPES[t].name)) {
+                    e->actor = ENEMY_TYPES[t].kind;
+                    e->etype = t;
+                    ok = 1;
+                }
+            if (!ok) {
+                snprintf(err, errn, "unknown legend word '%s'", tok);
+                return -1;
+            }
         }
     }
     if (e->c.t == TR_GATE || e->c.t == TR_PLATE || e->c.t == TR_LEVER || e->c.t == TR_PIPE)
@@ -165,6 +177,7 @@ int level_parse(level_def *L, const char *text, size_t len, const char *fname)
                     sp->y = (uint8_t)row;
                     sp->asleep = (uint8_t)e->asleep;
                     sp->player = (uint8_t)e->player;
+                    sp->etype = (int8_t)e->etype;
                 }
                 if (e->log && L->nlogs < MAX_LOGS) {
                     L->logs[L->nlogs].depth = (uint8_t)section;
@@ -217,6 +230,7 @@ int level_parse(level_def *L, const char *text, size_t len, const char *fname)
         else if (!strcmp(s, "speed")) L->speed = clampi(atoi(v), 0, 3);
         else if (!strcmp(s, "status")) L->stub = !strcmp(v, "stub");
         else if (!strcmp(s, "dark")) L->dark = atoi(v);
+        else if (!strcmp(s, "tier")) L->tier = clampi(atoi(v), 1, 4);
         else if (!strcmp(s, "boss")) L->boss = boss_of(v);
         else if (!strcmp(s, "gust")) sscanf(v, "%d %d %d", &L->gust_period, &L->gust_active, &L->gust_step);
         else if (!strcmp(s, "vent")) sscanf(v, "%d %d", &L->vent_period, &L->vent_active);
@@ -228,6 +242,13 @@ int level_parse(level_def *L, const char *text, size_t len, const char *fname)
             snprintf(L->error, sizeof L->error, "%s: depth %d has %d rows (need %d)", L->file, d, rows[d], GH);
             return -1;
         }
+    if (!L->tier) {                             /* the difficulty curve (DESIGN.md) */
+        static const int by_season[SEASONS] = {1, 2, 3, 4};
+        L->tier = L->season == SEASON_SPRING && L->num >= 5 ? 2 : by_season[L->season];
+    }
+    for (int i = 0; i < L->nsp; i++)
+        if ((L->sp[i].kind == AK_FERRET || L->sp[i].kind == AK_CAT) && L->sp[i].etype < 0)
+            L->sp[i].etype = (int8_t)enemy_type_for(L->sp[i].kind, L->tier);
     if (L->boss < 0) {
         static const int by_season[SEASONS] = {BOSS_CAT, BOSS_FARMER, BOSS_FOX, BOSS_OWL};
         L->boss = by_season[L->season];
