@@ -1,0 +1,63 @@
+# Leady Squid (games/leadysquid): its make targets, included by the root Makefile.
+#
+#   make leadysquid                host builds: leadysquid (SDL2), leadysquid_headless, leadysquid_libretro.so
+#   make leadysquid-check          all its tests (SDK, libretro loader, physics, smoke, bot, determinism, art tools)
+#   make leadysquid-dist           dist/windows/LeadySquid.exe, dist/libretro/leadysquid_libretro.so (+ .armhf.so)
+#   make leadysquid-windows        only the Windows exe
+#   make leadysquid-armhf          the libretro core for the RetroStone2 (Cortex-A7)
+#   make leadysquid-screenshots    games/leadysquid/docs/screenshots/
+#   make leadysquid-bench          per-frame cost of a busy scene
+#   make leadysquid-placeholders   redraw the code-drawn art (tools/make_placeholders.py --game leadysquid)
+#   make leadysquid-todo           create / extend art/incoming/TODO.md for the image agent
+#   make leadysquid-art            import the owner's VALIDATED art (art_sync.py --game leadysquid sync)
+#   make leadysquid-art-review     the owner's review tool on http://localhost:8765
+#
+# All rights reserved, 8BCraft (the game); the rules below follow the root Makefile (MIT).
+
+LS_MAKE = $(MAKE) --no-print-directory GAME=leadysquid GAME_NAME=LeadySquid
+LS_DIR  = games/leadysquid
+
+.PHONY: leadysquid leadysquid-check leadysquid-windows leadysquid-armhf leadysquid-dist leadysquid-screenshots \
+        leadysquid-bench leadysquid-placeholders leadysquid-todo leadysquid-art leadysquid-art-review
+
+leadysquid:
+	+$(LS_MAKE) host
+leadysquid-windows:
+	+$(LS_MAKE) windows
+leadysquid-armhf:
+	+$(LS_MAKE) armhf
+leadysquid-dist:
+	+$(LS_MAKE) dist
+
+# the physics unit tests link the game rules (physics.c, world.c) alone
+build/host/leadysquid_test_physics: build/host/$(LS_DIR)/tests/test_physics.o build/host/$(LS_DIR)/src/physics.o \
+                                    build/host/$(LS_DIR)/src/world.o build/host/librs.a
+	$(HOST_CC) -o $@ $^ -lm
+
+leadysquid-check:
+	+$(LS_MAKE) host build/host/test_sdk build/host/test_libretro build/host/leadysquid_test_physics
+	./build/host/test_sdk --golden sdk/tests/golden --out build
+	./build/host/test_libretro build/host/leadysquid_libretro.so 600
+	./build/host/leadysquid_test_physics
+	sh $(LS_DIR)/tests/smoke_test.sh build/host/leadysquid_headless build
+	$(PYTHON) $(LS_DIR)/tests/test_art_tools.py
+
+leadysquid-screenshots:
+	+$(LS_MAKE) build/host/leadysquid_headless
+	sh $(LS_DIR)/tools/screenshots.sh build/host/leadysquid_headless $(LS_DIR)/docs/screenshots
+
+leadysquid-bench:
+	+$(LS_MAKE) build/host/leadysquid_headless
+	./build/host/leadysquid_headless --frames 3000 --opt bot=1 --opt seed=7 --opt music=1 --bench 300 | tail -4
+
+leadysquid-placeholders:
+	$(PYTHON) tools/make_placeholders.py --game leadysquid
+
+leadysquid-todo:
+	$(PYTHON) tools/art_sync.py --game leadysquid todo
+
+leadysquid-art:
+	$(PYTHON) tools/art_sync.py --game leadysquid sync
+
+leadysquid-art-review:
+	$(PYTHON) tools/art_review.py --game leadysquid

@@ -24,6 +24,18 @@ Design: [games/bombermole/DESIGN.md](games/bombermole/DESIGN.md).
 
 More in [docs/screenshots/](docs/screenshots/).
 
+The second game is **Leady Squid** (`games/leadysquid/`): a one-button "flap" game. A grumpy squid wearing
+far too many lead diving weights jets through the gaps between kelp, coral, ship masts and anchor chains.
+Design, balance sources and tuning: [games/leadysquid/DESIGN.md](games/leadysquid/DESIGN.md). Its targets are
+prefixed (`games/leadysquid/game.mk`): `make leadysquid`, `make leadysquid-check`, `make leadysquid-dist`
+(`dist/windows/LeadySquid.exe`, `dist/libretro/leadysquid_libretro.so` + `.armhf.so`),
+`make leadysquid-screenshots`, `make leadysquid-todo` / `leadysquid-art` / `leadysquid-art-review` (the art
+workflow below, with `--game leadysquid`). Keys: Z, X, Up or Enter swim; Backspace or Esc pause.
+
+| Leady Squid | |
+|---|---|
+| ![title](games/leadysquid/docs/screenshots/title.png) | ![coral](games/leadysquid/docs/screenshots/theme-coral.png) |
+
 ## Play on Windows
 Build it (below) or take `dist/windows/BomberMole.exe`: a single executable, SDL2 is linked in. Double-click
 it. Progress is saved in `bombermole.srm` next to the exe.
