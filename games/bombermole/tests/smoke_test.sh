@@ -46,6 +46,9 @@ for t in sleepy_ferret brown_ferret polecat stoat ginger_cat grey_cat black_cat 
         else echo "  FAIL chase $t ($inp mole): $out"; fail=1; fi
     done
 done
+# the softlock search catches a one-way gate (the pre-fix spring 4)
+out=$(python3 $D/../tools/check_levels.py $D/data/levels_bad/softlock-gate.txt 2>&1)
+check "check_levels finds the spring 4 gate softlock" "SOFTLOCK" "$out"
 # the objective bot (--opt bot=2) finishes spring 1 and 2 using only what the game shows
 for l in spring-1 spring-2; do
     out=$($H --frames 20000 --opt level=$l --opt nointro=1 --opt dump=1 --opt bot=2 2>&1)

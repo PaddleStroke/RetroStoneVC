@@ -55,7 +55,7 @@ HOST_CFLAGS = $(CSTD) $(OPT) $(WARN) -fPIC $(SDK_INC)
 WIN_CFLAGS  = $(CSTD) $(OPT) $(WARN) $(SDK_INC) -D__USE_MINGW_ANSI_STDIO=1
 ARM_CFLAGS  = $(CSTD) $(OPT) $(WARN) -fPIC $(ARM_FLAGS) $(SDK_INC)
 
-.PHONY: all host check test windows armhf dist screenshots bench clean assets placeholders golden preview art-review
+.PHONY: all host check test windows armhf dist screenshots bench clean assets placeholders golden preview art-review tiles-code tiles-compare
 all: host
 
 # ---- SDK static library --------------------------------------------------------
@@ -86,13 +86,29 @@ sdk/src/rs_font.c: sdk/tools/gen_font.py
 
 # ---- game assets (generated C) ----------------------------------------------------
 ART ?= art
-GAME_ART    = $(wildcard games/$(GAME)/$(ART)/*.png)
+# Terrain tileset: code = tools/make_tiles.py (drawn in code, colours from the AI tiles; default),
+# ai = the art's own tiles.png (placeholders + imported AI tiles), ai_v2 = the low-detail AI set
+# (tile_v2_* rows of the art TODO, assembled by art_sync into $(ART)/tilesets/ai_v2)
+TILESET ?= code
+TILESET_DIR_code  = games/$(GAME)/art/tilesets/code
+TILESET_DIR_ai    =
+TILESET_DIR_ai_v2 = games/$(GAME)/$(ART)/tilesets/ai_v2
+TILESET_DIR = $(TILESET_DIR_$(TILESET))
+TILESET_STAMP = build/gen/$(GAME)/tileset-$(TILESET).stamp
+GAME_ART    = $(wildcard games/$(GAME)/$(ART)/*.png) $(if $(TILESET_DIR),$(wildcard $(TILESET_DIR)/*.png))
 GAME_LEVELS = $(wildcard games/$(GAME)/levels/*.txt)
+$(TILESET_STAMP):
+	@mkdir -p $(dir $@); rm -f build/gen/$(GAME)/tileset-*.stamp; touch $@
 $(GAME_GEN): games/$(GAME)/tools/build_assets.py tools/rsasset.py tools/sheets.py $(GAME_ART) $(GAME_LEVELS) \
-             $(wildcard games/$(GAME)/tools/*.py)
+             $(wildcard games/$(GAME)/tools/*.py) $(TILESET_STAMP)
 	@mkdir -p $(dir $@)
-	$(PYTHON) games/$(GAME)/tools/build_assets.py --out $(dir $@) --art games/$(GAME)/$(ART)
+	$(PYTHON) games/$(GAME)/tools/build_assets.py --out $(dir $@) --art games/$(GAME)/$(ART) \
+	    $(if $(TILESET_DIR),--tileset $(TILESET_DIR))
 assets: $(GAME_GEN)
+# the code-drawn tileset (committed; redrawn when its script changes)
+tiles-code: games/$(GAME)/art/tilesets/code/tiles.png
+games/$(GAME)/art/tilesets/code/tiles.png: tools/make_tiles.py tools/sheets.py
+	$(PYTHON) tools/make_tiles.py --out $(dir $@)
 
 GAME_OBJ_HOST  = $(call objs,host,$(GAME_SRC) $(GAME_GEN))
 GAME_OBJ_WIN   = $(call objs,win64,$(GAME_SRC) $(GAME_GEN))
@@ -156,6 +172,7 @@ test check: build/host/test_sdk build/host/test_libretro build/host/$(GAME)_head
 	$(PYTHON) tools/tests/test_art_review.py
 	$(PYTHON) games/$(GAME)/tools/check_levels.py
 	sh games/$(GAME)/tests/smoke_test.sh build/host/$(GAME)_headless build
+	$(PYTHON) games/$(GAME)/tests/facing_capture.py build/host/$(GAME)_headless build/facing_capture.png
 golden: build/host/test_sdk
 	./build/host/test_sdk --update --golden sdk/tests/golden --out build
 
@@ -166,14 +183,20 @@ art:
 # dist/windows/BomberMole-preview.exe + docs/art-preview/ingame-ai-*.png; the normal build
 # (validated art + placeholders) is untouched: its generated assets are rebuilt afterwards.
 PREVIEW_CHAR ?= 24
+PREVIEW_TILESET ?= code
 PREVIEW_ART  := build/art-preview-$(PREVIEW_CHAR)
 preview:
 	$(PYTHON) tools/art_sync.py sync --include-generated --char-size $(PREVIEW_CHAR) \
 	    --out $(PREVIEW_ART) --report $(PREVIEW_ART)/REPORT.md
 	rm -f $(GAME_GEN)
-	$(MAKE) windows GAME_NAME=$(GAME_NAME)-preview ART=../../$(PREVIEW_ART) CHAR_SIZE=$(PREVIEW_CHAR)
-	$(MAKE) build/host/$(GAME)_headless ART=../../$(PREVIEW_ART) CHAR_SIZE=$(PREVIEW_CHAR)
+	$(MAKE) build/host/$(GAME)_headless ART=../../$(PREVIEW_ART) CHAR_SIZE=$(PREVIEW_CHAR) TILESET=ai
+	cp build/host/$(GAME)_headless build/host/$(GAME)_headless_tiles_ai
+	$(MAKE) windows GAME_NAME=$(GAME_NAME)-preview ART=../../$(PREVIEW_ART) CHAR_SIZE=$(PREVIEW_CHAR) TILESET=$(PREVIEW_TILESET)
+	$(MAKE) build/host/$(GAME)_headless ART=../../$(PREVIEW_ART) CHAR_SIZE=$(PREVIEW_CHAR) TILESET=$(PREVIEW_TILESET)
 	sh tools/art_preview_shots.sh build/host/$(GAME)_headless docs/art-preview
+	$(PYTHON) tools/tiles_compare.py build/host/$(GAME)_headless_tiles_ai "current AI tiles" \
+	    build/host/$(GAME)_headless "tileset $(PREVIEW_TILESET)" docs/art-preview/tiles-compare.png
+	$(PYTHON) games/$(GAME)/tests/facing_capture.py build/host/$(GAME)_headless docs/art-preview/facing-capture-ai.png
 	rm -f $(GAME_GEN)
 
 art-review:

@@ -234,8 +234,13 @@ def main():
         res = ac.process(inc, rows, strips, ("GENERATED",))
         rf = [f for f in res["cat_walk_right"].frame_flags if "faces" in f]
         lf = [f for f in res["cat_walk_left"].frame_flags if "faces" in f]
-        check(len(rf) == 1 and "frame 1 faces LEFT" in rf[0] and not lf,
+        check(len(rf) == 1 and "frame 1 faces LEFT" in rf[0] and "mirrored automatically" in rf[0] and not lf,
               "facing: right strip frame 1 drawn facing left is flagged (%s)" % (rf + lf))
+        fixed = res["cat_walk_right"].idx[0]
+        want = ac.process(inc, rows, strips, ("GENERATED",))["cat_walk_right"].idx[1]
+        sa, sb = ac._shape(fixed, res["cat_walk_right"].palette), ac._shape(want, res["cat_walk_right"].palette)
+        check(ac._similar(sa, sb) > ac._similar(ac._shape(fixed[:, ::-1], res["cat_walk_right"].palette), sb),
+              "facing: the wrong frame is mirrored in the imported strip (it now looks like frame 2)")
         check(sheets.mirror_source("cat_walk_right") == "cat_walk_left" and
               sheets.mirror_source("cat_walk_left") is None, "right strips are mirrored from the left ones")
         counts, imported = art_sync.sync(args, report_print=lambda s: None)

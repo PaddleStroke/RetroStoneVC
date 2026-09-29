@@ -9,6 +9,7 @@
  */
 #include "bm.h"
 #include <stdarg.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -229,22 +230,40 @@ void set_scroll_slot(int y)
 
 static int blocks_light(int t) { return !terrain_walkable(t, 0) && t != TR_WATER && t != TR_EXIT; }
 
+/* 0, 1 or 2: which variant of a common tile a cell shows (a fixed hash of its position, so a
+   redraw never changes it) */
+static int cell_variant(int d, int x, int y)
+{
+    uint32_t h = (uint32_t)x * 73856093u ^ (uint32_t)y * 19349663u ^ (uint32_t)(d + 1) * 83492791u;
+    h ^= h >> 13;
+    h *= 0x5bd1e995u;
+    h ^= h >> 15;
+    return (int)(h % 3u);
+}
+
+static int water_frame(void) { return (W.t >> 5) & 1; }    /* the water shimmer: 2 frames, ~0.5 s each */
+
 static const uint16_t *cell_meta(int d, int x, int y)
 {
     const cell *c = &W.g[d][y][x];
     const uint16_t (*T)[4] = bm_terrain_meta[g_season];
+    static const int grass_v[3] = {T_GRASS, T_GRASS_V2, T_GRASS_V3};
+    static const int dirt_v[3] = {T_SOFT_DIRT, T_SOFT_DIRT_V2, T_SOFT_DIRT_V3};
+    static const int tunnel_v[3] = {T_TUNNEL, T_TUNNEL_V2, T_TUNNEL_V3};
     switch (c->t) {
     case TR_FLOOR:
         if (c->state == 7 && c->timer && !c->regrow) return prop_meta[PB_SPLAT];
-        if (d == 0) return (y > 0 && blocks_light(W.g[d][y - 1][x].t)) ? T[T_GRASS_SHADOW] : T[T_GRASS];
-        return T[T_TUNNEL];
+        if (d == 0) return (y > 0 && blocks_light(W.g[d][y - 1][x].t)) ? T[T_GRASS_SHADOW] : T[grass_v[cell_variant(d, x, y)]];
+        return T[tunnel_v[cell_variant(d, x, y)]];
     case TR_STONE: return T[T_STONE];
-    case TR_DIRT: return c->state ? T[T_DIRT_CRACK] : T[T_SOFT_DIRT];
+    case TR_DIRT: return c->state ? T[T_DIRT_CRACK] : T[dirt_v[cell_variant(d, x, y)]];
     case TR_ROCK: return T[T_HARD_ROCK];
     case TR_ROOTS: return T[T_ROOTS];
     case TR_FROZEN: return T[T_FROZEN_DIRT];
     case TR_LEAVES: return T[T_LEAVES];
-    case TR_WATER: return T[T_WATER];
+    case TR_WATER:
+        if (y > 0 && W.g[d][y - 1][x].t != TR_WATER && W.g[d][y - 1][x].t != TR_BRIDGE) return T[T_WATER_EDGE];
+        return water_frame() ? T[T_WATER_F2] : T[T_WATER];
     case TR_PUDDLE: return T[T_PUDDLE];
     case TR_THIN: return T[T_THIN_FLOOR];
     case TR_HOLE_DOWN: return T[T_HOLE_DOWN];
@@ -274,6 +293,18 @@ static void put_meta(int layer, int mx, int my, const uint16_t *m)
     rs_bg_meta(layer, mx, my & 31, m);
 }
 
+/* a block (dirt, rock, leaves...) that hides a golden grub glows; on Hard only near the mole */
+static int hidden_grub_glows(int d, int x, int y)
+{
+    const cell *c = &W.g[d][y][x];
+    if (c->item != IT_GRUB || terrain_walkable(c->t, 0) || c->t == TR_WATER) return 0;
+    if (W.diff == DIFF_HARD) {
+        const actor *m = world_player(0);
+        if (!m || m->depth != d || abs(m->cx - x) + abs(m->cy - y) > 3) return 0;
+    }
+    return 1;
+}
+
 static void draw_cell(int d, int slot, int x, int y)
 {
     int my = slot * 16 + y;
@@ -285,14 +316,17 @@ static void draw_cell(int d, int slot, int x, int y)
         if (b > 26) frame = 0;
         put_meta(RS_BG3, x, my, bm_fx_meta[W.shape[d][y][x] + frame]);
     } else {
-        put_meta(RS_BG3, x, my, none);
+        put_meta(RS_BG3, x, my, hidden_grub_glows(d, x, y) ? ui_glow_meta() : none);
     }
 }
+
+static int water_drawn[4];     /* water frame shown in each slot */
 
 void draw_playfield_full(int d, int slot)
 {
     const uint16_t (*T)[4] = bm_terrain_meta[g_season];
     static const uint16_t none[4] = {0, 0, 0, 0};
+    water_drawn[slot & 3] = water_frame();
     for (int y = 0; y < GH; y++)
         for (int x = 0; x < GW; x++) draw_cell(d, slot, x, y);
     /* the earth between two depths (seen during slides) and the unused columns */
@@ -309,14 +343,21 @@ void draw_playfield_full(int d, int slot)
 
 void draw_cells_dirty(int d, int slot)
 {
+    /* the water shimmer: redraw the water cells when the frame changes */
+    if (water_drawn[slot & 3] != water_frame()) {
+        water_drawn[slot & 3] = water_frame();
+        for (int y = 0; y < GH; y++)
+            for (int x = 0; x < GW; x++)
+                if (W.g[d][y][x].t == TR_WATER) draw_cell(d, slot, x, y);
+    }
     if (!W.dirty[d]) return;
     for (int y = 0; y < GH; y++)
         for (int x = 0; x < GW; x++)
             if (W.cell_dirty[d][y][x]) {
                 W.cell_dirty[d][y][x] = 0;
                 draw_cell(d, slot, x, y);
-                /* grass edges depend on the cell above */
-                if (d == 0 && y + 1 < GH) draw_cell(d, slot, x, y + 1);
+                /* grass shadows and water banks depend on the cell above */
+                if (y + 1 < GH) draw_cell(d, slot, x, y + 1);
             }
     W.dirty[d] = 0;
 }

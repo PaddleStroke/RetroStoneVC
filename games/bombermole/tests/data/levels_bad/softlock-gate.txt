@@ -1,6 +1,7 @@
+# KNOWN BAD (test data): the pre-fix spring 4. The timed gate into the exit enclosure is opened only
+# by the plate outside: entered early, the enclosure traps the mole. check_levels.py must report it.
 # Bomber Mole - spring 4. Gimmicks: thin floors (a blast opens a hole; the rubble stuns what is below),
-# sealed chambers on both undergrounds, a timed gate with a pressure plate on EACH side (the first
-# version had the plate outside only: entering the exit enclosure early trapped the mole).
+# sealed chambers on both undergrounds, a pressure plate that opens a timed gate.
 name: Thin Floors
 season: spring
 arc: 1
@@ -24,7 +25,7 @@ surface:
 #...........P......#
 #.ddd..............#
 #.dgd......###T###.#
-#.ddd......#P....#.#
+#.ddd......#.....#.#
 #..........#..E..#.#
 #...h......#######.#
 ####################

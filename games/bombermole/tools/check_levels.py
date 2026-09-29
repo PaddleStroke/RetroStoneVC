@@ -98,7 +98,8 @@ def prop_families(head, cells, has_boss):
 
 
 def parse_spec(spec):
-    out = {"t": "floor", "item": None, "actor": None, "chan": 0, "log": False, "push": None, "etype": None}
+    out = {"t": "floor", "item": None, "actor": None, "chan": 0, "log": False, "push": None, "etype": None,
+           "timed": 0}
     for tok in spec.replace("+", " ").split():
         if tok in TERRAIN:
             out["t"] = {"dirt": "soft_dirt", "rock": "hard_rock", "vent": "steam_vent", "corn": "tall_grass",
@@ -119,6 +120,7 @@ def parse_spec(spec):
         elif tok.startswith("chan:"):
             out["chan"] = int(tok[5:])
         elif tok.startswith("timed:"):
+            out["timed"] = int(tok[6:])
             pass
         elif tok[:5] in ("push_", "flow_") and tok[5:] in ("up", "down", "left", "right"):
             out["push"] = tok
@@ -222,13 +224,28 @@ def check(path):
                     raise LevelError("%s: hole down at %d,%d (depth %d) needs a hole up or ladder below" % (path, x, y, d))
                 if t in ("hole_up", "ladder") and (d == 0 or T(d - 1, x, y) != "hole_down"):
                     raise LevelError("%s: hole up/ladder at %d,%d (depth %d) needs a hole down above" % (path, x, y, d))
-    # solvability (optimistic: anything breakable can be broken, logs can be moved along their river)
+    # Solvability AND softlocks. Abstraction of the game state:
+    #  - breakable cells (dirt, rock, roots, leaves, frozen dirt, crates) count as passable: digging and
+    #    bombing only ever open the way (items survive blasts);
+    #  - holes, ladders, pipes and thin floors (once broken: a hole down and a hole up) are two-way;
+    #    steam vents are one-way (up);
+    #  - water is passable where the depth has a log (logs can be moved along their river);
+    #  - lever gates stay as they are once opened, and only the lever's side can close them: they are
+    #    two-way as soon as a lever of their channel can be reached;
+    #  - plate gates and timed gates are open only while or shortly after a plate is pressed: a gate cell
+    #    can be entered only from a side whose region (gates closed) holds a plate of its channel; leaving
+    #    the gate cell is always possible. This is where one-way passages (and softlocks) come from.
+    # Rule: from EVERY reachable cell, every grub and the exit must still be reachable (so whatever the
+    # player did, the level can be finished).
     logs = {d for d in range(3) for y in range(GH) for x in range(GW) if cells[d][y][x]["log"]}
+    DIRS = ((1, 0), (-1, 0), (0, 1), (0, -1))
 
-    def passable(d, x, y):
-        c = cells[d][y][x]
-        t = c["t"]
-        if t in SOLID_FOREVER:
+    def inside(x, y):
+        return 0 <= x < GW and 0 <= y < GH
+
+    def walkable(d, x, y):
+        t = T(d, x, y)
+        if t in SOLID_FOREVER or t == "gate":
             return False
         if t == "water":
             return d in logs
@@ -239,30 +256,109 @@ def check(path):
             for x in range(GW):
                 if T(d, x, y) == "pipe":
                     pipes.setdefault(cells[d][y][x]["chan"], []).append((d, x, y))
-    start = moles[0]
-    seen, todo = {start}, [start]
-    while todo:
-        d, x, y = todo.pop()
-        nxt = []
-        for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-            nx, ny = x + dx, y + dy
-            if 0 <= nx < GW and 0 <= ny < GH and passable(d, nx, ny):
-                nxt.append((d, nx, ny))
+
+    def links(d, x, y, two_way=False):
+        """Moves from a walkable cell, gates excluded."""
+        out = [(d, x + dx, y + dy) for dx, dy in DIRS if inside(x + dx, y + dy) and walkable(d, x + dx, y + dy)]
         t = T(d, x, y)
         if t in ("hole_down", "thin_floor") and d < 2:
-            nxt.append((d + 1, x, y))
-        if t in ("hole_up", "ladder", "steam_vent") and d > 0:
-            nxt.append((d - 1, x, y))
+            out.append((d + 1, x, y))
+        if (t in ("hole_up", "ladder") or (t == "steam_vent" and not two_way)) and d > 0:
+            out.append((d - 1, x, y))
+        if d > 0 and T(d - 1, x, y) == "thin_floor":        # a broken thin floor above: a hole up
+            out.append((d - 1, x, y))
         if t == "pipe":
-            nxt += pipes.get(cells[d][y][x]["chan"], [])
-        for n in nxt:
-            if n not in seen:
-                seen.add(n)
-                todo.append(n)
-    for g in grubs + boss + exits:
-        if g not in seen:
+            out += [p for p in pipes.get(cells[d][y][x]["chan"], []) if p != (d, x, y)]
+        return out
+
+    # regions with every gate closed, and the triggers each region can use
+    region = {}
+    n_regions = 0
+    for d in range(3):
+        for y in range(GH):
+            for x in range(GW):
+                if (d, x, y) in region or not walkable(d, x, y):
+                    continue
+                stack = [(d, x, y)]
+                region[(d, x, y)] = n_regions
+                while stack:
+                    c = stack.pop()
+                    for n in links(*c, two_way=True):
+                        if n not in region:
+                            region[n] = n_regions
+                            stack.append(n)
+                n_regions += 1
+    plates, levers = {}, {}
+    for d in range(3):
+        for y in range(GH):
+            for x in range(GW):
+                c = cells[d][y][x]
+                if c["t"] == "plate" and (d, x, y) in region:
+                    plates.setdefault(region[(d, x, y)], set()).add(c["chan"])
+                if c["t"] == "lever":                     # bumped from any side
+                    for dx, dy in DIRS:
+                        if (d, x + dx, y + dy) in region:
+                            levers.setdefault(region[(d, x + dx, y + dy)], set()).add(c["chan"])
+
+    def graph(lever_chans):
+        """Directed moves between cells (gate cells included)."""
+        g = {}
+        for d in range(3):
+            for y in range(GH):
+                for x in range(GW):
+                    t = T(d, x, y)
+                    if walkable(d, x, y):
+                        out = list(links(d, x, y))
+                        r = region[(d, x, y)]
+                        for dx, dy in DIRS:
+                            nx, ny = x + dx, y + dy
+                            if not inside(nx, ny) or T(d, nx, ny) != "gate":
+                                continue
+                            ch = cells[d][ny][nx]["chan"]
+                            if ch in lever_chans or ch in plates.get(r, ()) or ch in levers.get(r, ()):
+                                out.append((d, nx, ny))
+                        g[(d, x, y)] = out
+                    elif t == "gate":
+                        out = []
+                        for dx, dy in DIRS:
+                            nx, ny = x + dx, y + dy
+                            if inside(nx, ny) and (walkable(d, nx, ny) or T(d, nx, ny) == "gate"):
+                                out.append((d, nx, ny))
+                        g[(d, x, y)] = out
+        return g
+
+    def reach(g, src):
+        seen, todo = {src}, [src]
+        while todo:
+            for n in g.get(todo.pop(), ()):
+                if n not in seen:
+                    seen.add(n)
+                    todo.append(n)
+        return seen
+    start = moles[0]
+    g = graph(set())
+    first = reach(g, start)
+    lever_chans = {ch for r, chans in levers.items() for ch in chans
+                   if any(region.get(c) == r for c in first)}
+    g = graph(lever_chans)
+    seen = reach(g, start)
+    for tgt in grubs + boss + exits:
+        if tgt not in seen:
             raise LevelError("%s: %s at depth %d, %d,%d cannot be reached" %
-                             (path, "exit" if g in exits else "grub", g[0], g[1], g[2]))
+                             (path, "exit" if tgt in exits else "grub", tgt[0], tgt[1], tgt[2]))
+    needed = set(grubs + boss + exits)
+    checked = {}
+    for c in sorted(seen):
+        r = region.get(c, ("gate", c))
+        if r in checked:
+            continue
+        missing = needed - reach(g, c)
+        checked[r] = True
+        if missing:
+            m = sorted(missing)[0]
+            raise LevelError("%s: SOFTLOCK: from depth %d, %d,%d the %s at depth %d, %d,%d can no longer be "
+                             "reached (a one-way gate?)" % (path, c[0], c[1], c[2],
+                                                            "exit" if m in exits else "grub", m[0], m[1], m[2]))
     return head, len(grubs) + len(boss)
 
 

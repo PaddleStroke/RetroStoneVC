@@ -46,7 +46,9 @@ sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(GAME, "tools"))
 
 STATUSES = ("TODO", "GENERATED", "VALIDATED", "REJECTED")
-FILL_GROUPS = ("terrain", "propbg")          # strips whose frames fill their cell
+FILL_GROUPS = ("terrain", "terrain_v2", "propbg")   # strips whose frames fill their cell
+V2_STYLE = ("very low detail, 3-4 flat shades per material, large clear shapes, no noise or texture "
+            "speckles, designed to be displayed at 16x16 pixels, strong silhouettes, seamless")
 LOGO_SIZE = (256, 64)
 
 
@@ -84,6 +86,12 @@ def all_strips(sheets):
             out.append(Strip("tile_%s_%s" % (season, e.name), e, s, e.w, e.h, 1, "tiles", "terrain"))
     for sid, sheet, w, h, n, _ in getattr(brief_module(), "EXTRAS", []):
         out.append(Strip(sid, None, 0, w, h, n, sheet, "extra"))
+    # the low-detail terrain set (TILESET=ai_v2): the 18 tiles and the extras of each season
+    for s, season in enumerate(sheets.SEASONS):
+        for e in sheets.entries("tiles"):
+            out.append(Strip("tile_v2_%s_%s" % (season, e.name), e, s, e.w, e.h, 1, "tilesets/ai_v2", "terrain_v2"))
+        for name, _ in sheets.TILE_EXTRAS:
+            out.append(Strip("tile_v2_%s_%s" % (season, name), None, s, 16, 16, 1, "tilesets/ai_v2", "terrain_v2"))
     return out
 
 
@@ -92,6 +100,14 @@ def prompt(strip, brief, sheets):
         return {x[0]: x[5] for x in brief.EXTRAS}[strip.id]
     if strip.id == "title_logo":
         return brief.LOGO[1]
+    if strip.group == "terrain_v2":
+        season = sheets.SEASONS[strip.season]
+        name = strip.entry.name if strip.entry else strip.id.split("_", 3)[3]
+        desc = brief.TILES[name] if strip.entry else sheets.TILE_EXTRA_DESC[name]
+        return ("%s tile v2, %s: %s. Style: %s. One frame, %dx%d (draw about %dx%d). %s palette, the same "
+                "colours as the other %s v2 tiles. Must tile seamlessly; no magenta inside." %
+                (season.capitalize(), name.replace("_", " "), desc, V2_STYLE, strip.w, strip.h, strip.w * 8,
+                 strip.h * 8, season.capitalize(), season))
     if strip.sheet == "tiles":
         season = sheets.SEASONS[strip.season]
         return ("%s tile, %s: %s. One frame, %dx%d (draw about %dx%d). %s palette. Must tile seamlessly; "
@@ -193,6 +209,8 @@ def write_todo(path, incoming, strips, brief, sheets, keep):
             notes = old["notes"] if old else ""
             desc = prompt(s, brief, sheets).replace("|", "/")
             sheet = "title logo" if s.id == "title_logo" else s.sheet if s.group == "extra" else s.sheet + ".png"
+            if s.group == "terrain_v2":
+                sheet = "tilesets/ai_v2/" + ("tiles.png" if s.entry else "tiles_extra.png")
             lines.append("| %s | %s | %s | %dx%d | %d | %s | %s |" % (s.id, status, sheet, s.w, s.h, s.frames,
                                                                     desc, notes.replace("|", "/")))
         lines.append("")
@@ -400,7 +418,7 @@ def sync(args, report_print=print):
         if sid == "title_logo":
             continue
         s = strips[sid]
-        key = (s.group, s.season) if s.group == "terrain" else s.group
+        key = (s.group, s.season) if s.group in ("terrain", "terrain_v2") else s.group
         groups.setdefault(key, []).append(sid)
     notes = {}
     for key, sids in groups.items():
@@ -461,6 +479,7 @@ def sync(args, report_print=print):
                 n += 1
         written.append((sheet, n, im))
     logo = imported.get("title_logo") or placeholder_logo()
+    v2 = assemble_tiles_v2(sheets, strips, imported, dict((k, im) for k, _, im in written))
 
     stamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     lines = ["# Art import report", "",
@@ -483,10 +502,57 @@ def sync(args, report_print=print):
     for sheet, n, im in written:
         im.save(os.path.join(out_dir, sheets.SHEETS[sheet]["file"]))
     logo.save(os.path.join(out_dir, "title_logo.png"))
+    if v2:
+        d = os.path.join(out_dir, "tilesets", "ai_v2")
+        os.makedirs(d, exist_ok=True)
+        v2[0].save(os.path.join(d, "tiles.png"))
+        v2[1].save(os.path.join(d, "tiles_extra.png"))
+        report_print("  tileset ai_v2 (%d low-detail tiles imported) -> %s" % (v2[2], d))
     rep = args.report or os.path.join(incoming, "IMPORT_REPORT.md")
     with open(rep, "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(lines) + "\n")
     return counts, imported
+
+
+def assemble_tiles_v2(sheets, strips, imported, written):
+    """The low-detail terrain set (TILESET=ai_v2): the tiles sheet just assembled with every imported
+    tile_v2 cell pasted over it, and its extras (variants, water frame 2, water bank; copies of the
+    tiles where a v2 extra is missing). None when no tile_v2 row was imported."""
+    v2 = [s for s in strips.values() if s.group == "terrain_v2" and s.id in imported]
+    if not v2:
+        return None
+
+    def cell_img(frames):
+        col, alpha = frames[0]
+        h, w = alpha.shape
+        im = Image.new("RGB", (w, h), sheets.MAGENTA)
+        px = im.load()
+        for j in range(h):
+            for i in range(w):
+                if alpha[j, i]:
+                    px[i, j] = tuple(int(v) for v in col[j, i])
+        return im
+    base = written["tiles"].convert("RGB").copy()
+    for s in v2:
+        if s.entry is not None:
+            x, y, w, h = sheets.frame_rects(s.entry, s.season)[0]
+            base.paste(cell_img(imported[s.id]), (x, y))
+    extra = Image.new("RGB", (16 * len(sheets.TILE_EXTRAS), 16 * len(sheets.SEASONS)), sheets.MAGENTA)
+    for si, season in enumerate(sheets.SEASONS):
+        for i, (name, src) in enumerate(sheets.TILE_EXTRAS):
+            sid = "tile_v2_%s_%s" % (season, name)
+            if sid in imported:
+                im = cell_img(imported[sid])
+            else:
+                x, y, w, h = sheets.frame_rects(sheets.BY_NAME[src], si)[0]
+                im = base.crop((x, y, x + w, y + h))
+                if name == "water_f2":        # the water shifted by 4 pixels
+                    im2 = im.copy()
+                    im2.paste(im.crop((4, 0, 16, 16)), (0, 0))
+                    im2.paste(im.crop((0, 0, 4, 16)), (12, 0))
+                    im = im2
+            extra.paste(im, (i * 16, si * 16))
+    return base, extra, len(v2)
 
 
 # ---- preview -----------------------------------------------------------------------------------------

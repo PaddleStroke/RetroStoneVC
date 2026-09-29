@@ -131,4 +131,21 @@ left strip into the right cells, and a right strip drawn by the image agent is n
 is listed in `tools/sheets.py ASYMMETRIC_FAMILIES` (for art that must not be mirrored, such as a lamp that
 stays on one side). `tools/art_consistency.py` checks the facing of every frame of each left/right pair (the
 frames are split into two orientation groups from their full-resolution shapes and brightness profiles) and
-flags a frame that faces the wrong way; the flags show in the review tool.
+flags a frame that faces the wrong way, then **mirrors it automatically** (the imported frame is flipped so
+the walk cycle never flip-flops in the game; the flag stays in the review tool so the strip still gets
+regenerated). `games/bombermole/tests/facing_capture.py` (in `make check` and `make preview`) captures the
+walk cycles in the game (`--opt spritetest=1`) and asserts the facing of every frame.
+
+## Terrain tilesets
+The terrain can come from three sets, chosen when building (`make TILESET=...`):
+- `code` (the default, and the preview's): `tools/make_tiles.py` draws every tile in code with 16x16
+  pixel-art technique (3-4 shades per material, large clear shapes, a lit top-left and a shaded
+  bottom-right, a dark outline on boulders) using each season's colours taken from the AI tiles in
+  `art/incoming/`. It also draws `tiles_extra.png`: two more variants of grass, soil and tunnel floor (the
+  game picks one per cell with a fixed hash), the water's second shimmer frame and the water bank. Output:
+  `games/bombermole/art/tilesets/code/` (`make tiles-code` redraws it).
+- `ai`: the art's own `tiles.png` (placeholders + imported AI tiles).
+- `ai_v2`: the low-detail AI set of the TODO's group 10 (`tile_v2_<season>_<tile>` rows, including the extras);
+  `art_sync.py sync` assembles the imported rows into `<art>/tilesets/ai_v2/` (missing cells: the `ai` tiles).
+`make preview` renders `docs/art-preview/tiles-compare.png`: the current AI tiles against the preview's set,
+in the same three scenes, at 1x and 2x.

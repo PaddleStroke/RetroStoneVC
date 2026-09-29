@@ -58,6 +58,7 @@ make preview         # dist/windows/BomberMole-preview.exe with ALL generated AI
 make art-review      # the owner's art review tool on http://localhost:8765 (tools/art_review.py)
 make DEBUG=1         # -O0 -g, strict mode on
 make CHAR_SIZE=24    # 24x24 characters (16 by default); ART=<dir> builds with other art
+make TILESET=ai      # terrain tileset: code (default, tools/make_tiles.py), ai (the art's tiles.png) or ai_v2
 ```
 Run: `./build/host/bombermole`, or load `bombermole_libretro.so` in RetroArch with "Start core" (no content).
 Headless: `./build/host/bombermole_headless --frames 300 --opt level=spring-1 --input script.txt --shot 299:out.png

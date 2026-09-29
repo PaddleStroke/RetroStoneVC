@@ -53,18 +53,23 @@ The marker and a blinking icon show the mole's depth. Another depth's icon **bli
 sign** when something there is dangerous for the mole's depth: a lit bomb or a blast, or an enemy
 right next to a hole or ladder that leads to the mole's depth.
 
-### Making the objective obvious
-- **Intro card** (before play; the player presses A): the level name, "Collect N golden grubs" with
-  the count on each depth (icons: here, below, deep), "then enter the molehill", and the level's hint.
-- **Pause screen** (Start): the objective, a **map of the three depths** (remaining grubs in gold,
-  holes down in black, ladders and holes up in orange, the exit, the mole and the enemies), and the
-  **HUD legend** (each icon explained).
-- **Molehill open**: when the last grub is taken, a jingle, a "THE MOLEHILL IS OPEN!" banner and an
-  arrow: above the molehill on the surface, or at the top edge with "EXIT: SURFACE (GO UP)" below.
-- **Tutorial prompts** (spring 1-3 only, each shown once, saved): near soft dirt, a hole, a ladder or
-  hole up, a rock, and the first golden grub ("GOLDEN GRUB! N LEFT").
-- **Spring 1** teaches in order: walk (the start room), dig (its soft dirt wall), the hole down, the
-  grubs below, the ladder back up, the exit.
+### Making the objective obvious (kept light)
+- **Level banner** (at the start, never blocking): the level name and "Collect N grubs to open the
+  molehill", about 2.5 s, then it slides away while the mole already plays. No "press A", no hint text.
+- **HUD**: the grubs left on each depth, a tick when a depth is done (above).
+- **Pause screen** (Start): the level name, its **hint as a subtitle** (the only place hints appear), the
+  objective, a **map of the three depths** (remaining grubs in gold, holes down in black, ladders and holes
+  up in orange, the exit, the mole, the enemies) and a one-line legend: "GOLD GRUB  BLACK HOLE  ORANGE WAY UP".
+- **Molehill open**: when the last grub is taken, a jingle, a "MOLEHILL OPEN!" banner for about 1.5 s,
+  and an arrow: above the molehill on the surface, or at the top edge with "EXIT: SURFACE" below.
+- **Hidden grubs glow**: a dirt, rock, root or frozen block, or an autumn pile of leaves, that hides a golden
+  grub shows a slow golden pulse (about 1 s; four corner marks and a centre twinkle drawn with a
+  colour-cycled palette entry, so it costs nothing). It is meant to be subtle, not to look like a power-up.
+  On **Hard** only blocks within 3 cells of the mole glow. The pause map shows hidden grubs as well.
+  Hidden **power-ups do not glow**: finding them stays a reward for digging and blasting, and a second,
+  fainter pulse would be read as "a grub, but smaller" and blur the one signal that matters for the goal.
+- There are no tutorial prompts: spring 1 teaches by its layout (walk, dig the soft dirt wall, the hole down,
+  the grubs below, the ladder back up, the exit). The tutorial flags of older saves are ignored.
 - `--opt bot=2` is a test bot that plays a level with only this information (targets: the grubs on
   the map, then the exit the arrow points to); `make check` has it clear spring 1 and 2.
 
@@ -106,8 +111,8 @@ right next to a hole or ladder that leads to the mole's depth.
 | Remote | bombs no longer explode by themselves; A detonates the oldest one |
 | Heart | +1 heart (max 3) |
 
-Power-ups can lie in the open or hidden inside dirt, rock or leaves (revealed when the cell is
-dug or blasted). They last for the current level.
+Power-ups can lie in the open or hidden inside dirt, rock or leaves (revealed when the cell is dug or blasted;
+unlike hidden grubs they do not glow). They last for the current level.
 
 ## Enemies and bosses
 | Enemy | Where | Behaviour |
@@ -195,6 +200,15 @@ Every level mixes about three gimmicks so it feels unique beyond its layout; eac
 | **Switches** | pressure plates (pressed by anyone or a bomb) and levers (bump them) drive gates by channel; timed gates stay open for a while after a trigger. Mine-cart track switching: data hook | `P` plate, `/` lever, the bar character gate; legend words `chan:N`, `timed:N` (tenths of a second) |
 | **Noise** | explosions wake sleepers within 6 cells, or 4 cells on the depth right above or below: a guard dog (ally) or a sleeping ferret nest | `D` sleeping dog, `z` sleeping ferret |
 
+**Gate rule (no softlocks)**: every gate the player can walk through must be openable from both sides (a
+plate or a lever on each side, or a latching lever gate), and a timed gate never closes while someone
+stands in its gateway. Restart (pause menu) always works. `tools/check_levels.py` enforces it with a
+softlock search: gates closed, it splits a level into regions, lets a plate or timed gate be entered only
+from a region holding a trigger of its channel (lever gates latch: two-way once their lever is reachable),
+and checks that from **every** reachable cell every grub and the exit can still be reached; a failure names
+the cell and the target (`SOFTLOCK: from depth d, x,y the exit ... can no longer be reached`).
+tests/data/levels_bad/softlock-gate.txt (the old spring 4) must fail it.
+
 Also implemented: garden **sprinklers** (they turn every 2 s; their spray defuses bombs; `k`), **steam vents**
 (summer signature; `V`), **drain pipes** (teleport to the pipe of the same channel, on any depth; `@`), roots
 that regrow (and regrow the dirt dug next to them), **dark levels** (`dark: 1`: the helmet lamp lights only a
@@ -235,7 +249,7 @@ exist, unknown header keys in level files are ignored, and the stub levels name 
 |---|---|---|
 | Spring | puddles: slow the mole to half speed, stop blasts, make mud below | rain |
 | Summer | dry soil: digging is twice as fast (20 frames); faster enemies | pollen |
-| Autumn | leaves cover the surface and hide items; dig (fast) or blast them; the wind blows them | falling leaves |
+| Autumn | leaves cover the surface and hide items (a pile hiding a grub glows like any block); dig (fast) or blast them; the wind blows them | falling leaves |
 | Winter | frozen dirt (bombs only); snow slows the mole on the surface to 3/4; ice | snow |
 
 ## Levels
@@ -319,8 +333,8 @@ ladder (and the reverse), every grub reachable when breakable cells count as pas
 
 ## Game flow
 Title (press Start; menu: Play, Options (music, sound, difficulty, erase save), Credits) -> arc select (4 seasons, locked ones greyed) ->
-level select (1-8, cleared and locked marks, best time) -> level intro card (the objective; iris opens on the mole,
-level name and hint) -> play -> **pause** (map, HUD legend; Resume / Restart / Quit) -> level clear (time, best time)
+level select (1-8, cleared and locked marks, best time) -> play, with a short level banner (name and objective)
+while the iris opens on the mole -> **pause** (map, level hint, one-line legend; Resume / Restart / Quit) -> level clear (time, best time)
 -> next level. After level 8: the **arc final screen** (a rotating seasonal emblem on the affine
 layer, "Spring complete!") -> back to the arc select, next arc unlocked.
 Knocked out: lives left -> the level restarts; no lives -> **Game over** (Continue / Quit).
@@ -359,3 +373,8 @@ state so co-op (shared grubs, shared exit) and battle (last mole standing, no gr
 - **Grass below a wall** uses a shadow tile derived from the season's grass when the assets are built (the
   top rows darkened with the grass tile's own colours), so a row of them along a wall repeats seamlessly;
   the `grass_edge` cell of tiles.png is kept for the title screen's hills.
+- **Terrain tileset**: `make TILESET=code|ai|ai_v2` (default `code`, see docs/art-workflow.md). The code-drawn
+  set won the comparison (docs/art-preview/tiles-compare.png): the AI tiles are noisy at 16x16 (speckles
+  everywhere, soil, tunnel and rock close in value), which hides what can be dug. Grass, soil and tunnel
+  floor have 3 variants each, placed by a fixed hash of the cell; water shimmers (2 frames, ~0.5 s each) and
+  shows a bank where the cell above is not water.

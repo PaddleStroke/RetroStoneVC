@@ -121,6 +121,24 @@ def main():
         check(match(got.crop((x, y, x + w, y + h)), ph["characters"].crop((x, y, x + w, y + h))) == 1.0,
               "cells without validated art keep their placeholder")
         check(os.path.exists(os.path.join(out, "title_logo.png")), "title logo (placeholder) written")
+        check(not os.path.exists(os.path.join(out, "tilesets", "ai_v2")), "no tile_v2 row imported: no ai_v2 tileset")
+        # the low-detail tileset (TILESET=ai_v2): a validated tile_v2 row lands in <art>/tilesets/ai_v2
+        st = sheets.BY_NAME["stone"]
+        x, y, w, h = sheets.frame_rects(st, 1)[0]
+        stone = ph["tiles"].crop((x, y, x + w, y + h))
+        canvas = Image.new("RGB", (200, 200), (250, 4, 250))
+        canvas.paste(stone.resize((128, 128), Image.NEAREST), (36, 34))
+        canvas.save(os.path.join(inc, "tile_v2_summer_stone.png"))
+        mark(todo, "tile_v2_summer_stone", "VALIDATED")
+        art_sync.sync(args, report_print=lambda s: None)
+        v2 = os.path.join(out, "tilesets", "ai_v2")
+        ok = os.path.exists(os.path.join(v2, "tiles.png")) and os.path.exists(os.path.join(v2, "tiles_extra.png"))
+        check(ok, "tile_v2 row imported: tilesets/ai_v2/tiles.png + tiles_extra.png")
+        if ok:
+            v = Image.open(os.path.join(v2, "tiles.png")).crop((x, y, x + w, y + h))
+            check(match(v, stone) >= 0.85, "ai_v2: the summer stone cell is the imported one (%.2f)" % match(v, stone))
+            ex = Image.open(os.path.join(v2, "tiles_extra.png"))
+            check(ex.size == (16 * len(sheets.TILE_EXTRAS), 64), "ai_v2 extras: one row per season")
         prev = os.path.join(tmp, "preview")
         pargs = argparse.Namespace(**vars(args))
         pargs.out = prev

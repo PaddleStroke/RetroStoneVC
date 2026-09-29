@@ -222,6 +222,23 @@ def cell_of(sheet):
 
 BY_NAME = {e.name: e for e in ENTRIES}
 TERRAIN = [e.name for e in ENTRIES if e.sheet == "tiles"]
+# Optional extra terrain cells of a tileset (tilesets/<name>/tiles_extra.png: one 16x16 cell per
+# column, one row per season): variants of the common tiles (the game picks one per cell with a
+# hash), the second frame of the water shimmer and the water bank (water below a non-water cell).
+# A tileset without the file gets copies of the base tiles (the water frame 2 is the water shifted).
+TILE_EXTRAS = [("grass_v2", "grass"), ("grass_v3", "grass"), ("soft_dirt_v2", "soft_dirt"),
+               ("soft_dirt_v3", "soft_dirt"), ("tunnel_v2", "tunnel"), ("tunnel_v3", "tunnel"),
+               ("water_f2", "water"), ("water_edge", "water")]
+TILE_EXTRA_DESC = {
+    "grass_v2": "Surface floor grass, variant 2: same colours as the grass tile, the blade clusters elsewhere",
+    "grass_v3": "Surface floor grass, variant 3: same colours as the grass tile, the blade clusters elsewhere",
+    "soft_dirt_v2": "Soft dirt block, variant 2: the same block with the pebbles elsewhere",
+    "soft_dirt_v3": "Soft dirt block, variant 3: the same block with the pebbles elsewhere",
+    "tunnel_v2": "Tunnel floor, variant 2: the same floor with the pebbles elsewhere",
+    "tunnel_v3": "Tunnel floor, variant 3: the same floor with the pebbles elsewhere",
+    "water_f2": "Water, second frame of the shimmer: the same water with the wave crests moved sideways",
+    "water_edge": "Water bank: the water tile with a strip of grass bank along its TOP edge",
+}
 # Right-facing character strips are DERIVED from the left strip by a horizontal flip (the OAM
 # h-flip, as SNES games do; it also saves VRAM). A family listed here opts out and keeps its own
 # right strips (for art that is not symmetric, such as a helmet lamp that must stay on one side).

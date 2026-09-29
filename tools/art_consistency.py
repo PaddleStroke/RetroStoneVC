@@ -48,7 +48,7 @@ ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 import art_frames  # noqa: E402
 
-FILL_GROUPS = ("terrain", "propbg")
+FILL_GROUPS = ("terrain", "terrain_v2", "propbg")
 SOLID_IDS = ("hud_panel",)
 EDGE_ANCHOR = {"expl_h": "X", "expl_v": "Y", "expl_end_left": "r", "expl_end_right": "l",
                "expl_end_up": "b", "expl_end_down": "t"}
@@ -88,14 +88,16 @@ def display_family(s):
         return f
     if s.sheet == "tiles":
         return "tiles_" + ["spring", "summer", "autumn", "winter"][s.season]
+    if s.group == "terrain_v2":
+        return "tiles_v2_" + ["spring", "summer", "autumn", "winter"][s.season]
     return {"pickup": "items", "prop": "props", "propbg": "terrain_props", "bomb": "bomb_dust"}.get(s.group, s.group)
 
 
 def palette_key(s):
     """The palette a strip is drawn with in the game: its sprite/BG group, a season row of
     the terrain, or a colour family of the terrain-like props (sheets.PROP_PALETTES)."""
-    if s.group == "terrain":
-        return ("terrain", s.season)
+    if s.group in ("terrain", "terrain_v2"):
+        return (s.group, s.season)
     if s.group == "propbg":
         import sheets
         return ("propbg", sheets.prop_palette(s.entry.name))
@@ -103,7 +105,7 @@ def palette_key(s):
 
 
 def palette_size(key):
-    return 60 if isinstance(key, tuple) and key[0] == "terrain" else 15
+    return 60 if isinstance(key, tuple) and key[0] in ("terrain", "terrain_v2") else 15
 
 
 def solid(s):
@@ -606,7 +608,9 @@ def check_facing(results):
             got = "left" if best_o[k] == left_group else "right"
             r.facing[i] = got
             if got != side:
-                r.frame_flags.append("frame %d faces %s (the strip should face %s)" % (i + 1, got.upper(), side))
+                r.frame_flags.append("frame %d faces %s (the strip should face %s): mirrored automatically, "
+                                     "regenerate it" % (i + 1, got.upper(), side))
+                r.idx[i] = np.ascontiguousarray(r.idx[i][:, ::-1])   # fixed in the build meanwhile
 
 
 # ---- flags ------------------------------------------------------------------------------------------

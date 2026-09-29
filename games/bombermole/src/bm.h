@@ -202,12 +202,12 @@ extern int view_slot;
 /* ---- ui.c ---- */
 void ui_init_level(void);
 int  ui_grubs(int depth);
-void ui_intro_card(const level_def *L, int arc);
 void ui_pause_screen(int cursor);
 void ui_screen_done(void);
 void ui_banner_exit_open(void);
-void ui_prompt(const char *text);
-int  ui_prompt_busy(void);
+void ui_level_banner(const level_def *L);
+const uint16_t *ui_glow_meta(void);
+void ui_glow_pulse(uint32_t t);
 void ui_play_overlays(int view_depth);
 
 /* ---- sfx.c ---- */

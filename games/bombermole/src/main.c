@@ -8,7 +8,7 @@
 
 enum state {
     ST_TITLE, ST_ARCS, ST_LEVELS, ST_OPTIONS, ST_CREDITS, ST_INTRO, ST_PLAY, ST_SLIDE, ST_PAUSE,
-    ST_DYING, ST_GAMEOVER, ST_OUTRO, ST_CLEAR, ST_ARCDONE
+    ST_DYING, ST_GAMEOVER, ST_OUTRO, ST_CLEAR, ST_ARCDONE, ST_SPRITETEST
 };
 
 int opt_music = 1, opt_sfx = 1, opt_diff = DIFF_NORMAL;
@@ -25,7 +25,7 @@ typedef struct save_data {
     uint8_t version, pad0;
     uint8_t cleared[4];
     uint8_t opts;               /* bit0 music, bit1 sound, bit2 all unlocked */
-    uint8_t last_arc, last_level, pad1;
+    uint8_t last_arc, last_level, pad1;   /* pad1: tutorial flags of an older version, ignored */
     uint16_t best[4][8];        /* seconds, 0 = none */
     uint16_t sum;
 } save_data;
@@ -404,18 +404,17 @@ static void start_level(void)
 
 static void intro_update(void)
 {
-    if (st_t == 0) start_level();
+    if (st_t == 0) {
+        start_level();
+        ui_level_banner(&LV);                       /* short, over the playfield, not blocking */
+    }
     int px, py;
     player_screen_xy(&px, &py);
     int r = st_t * 8;
     iris_set(r < 420, px, py, r);
-    int skip = rs_option_int("nointro", 0);
-    if (!skip) ui_intro_card(&LV, sel_arc);
-    /* the card stays until the player presses a button: the objective must be read */
-    if (skip || (st_t > 20 && (confirm() || (pressed() & RS_BTN_B)))) {
+    ui_play_overlays(view_depth);
+    if (r >= 420 || rs_option_int("nointro", 0)) {
         iris_set(0, 0, 0, 0);
-        text_clear_all();
-        ui_screen_done();
         go(ST_PLAY);
     }
 }
@@ -429,49 +428,23 @@ static void begin_slide(int from, int to)
     go(ST_SLIDE);
 }
 
-/* tutorial prompts: spring 1-3 only, each shown once (bits in the save RAM) */
-enum { TUT_HOLE = 1, TUT_LADDER = 2, TUT_DIG = 4, TUT_ROCK = 8, TUT_GRUB = 16 };
-
-static void tutorial(void)
-{
-    if (sel_arc != 0 || sel_level > 3 || ui_prompt_busy()) return;
-    actor *m = world_player(0);
-    if (!m || m->moving) return;
-    int near[TR_COUNT] = {0};
-    for (int k = 0; k < 4; k++) {
-        int x = m->cx + DX[k], y = m->cy + DY[k];
-        if (in_grid(x, y)) near[W.g[m->depth][y][x].t] = 1;
-    }
-    static const struct { int bit, when; const char *text; } tips[] = {
-        {TUT_DIG, TR_DIRT, "HOLD THE D-PAD AGAINST SOFT DIRT TO DIG"},
-        {TUT_HOLE, TR_HOLE_DOWN, "WALK INTO A HOLE TO GO DOWN"},
-        {TUT_LADDER, TR_LADDER, "CLIMB THE LADDER TO GO UP"},
-        {TUT_LADDER, TR_HOLE_UP, "STEP INTO THE LIGHT TO GO UP"},
-        {TUT_ROCK, TR_ROCK, "ROCKS NEED A BOMB: PRESS B, RUN!"},
-    };
-    for (unsigned i = 0; i < sizeof tips / sizeof tips[0]; i++)
-        if (!(SV.pad1 & tips[i].bit) && near[tips[i].when]) {
-            ui_prompt(tips[i].text);
-            SV.pad1 |= (uint8_t)tips[i].bit;
-            save_store();
-            return;
-        }
-}
-
 static void play_update(void)
 {
     if (pressed() & RS_BTN_START) { sfx(SFX_MENU_OK); go(ST_PAUSE); cursor = 0; return; }
     world_update();
     level_frames++;
     if (W.events & EV_EXIT_OPEN) ui_banner_exit_open();
-    if ((W.events & EV_GRUB) && sel_arc == 0 && sel_level <= 3 && !(SV.pad1 & TUT_GRUB) && W.grubs_left > 0) {
-        char s[40];
-        snprintf(s, sizeof s, "GOLDEN GRUB! %d LEFT", W.grubs_left);
-        ui_prompt(s);
-        SV.pad1 |= TUT_GRUB;
-        save_store();
+    if (W.diff == DIFF_HARD) {                       /* Hard: the glow shows only near the mole */
+        static int last = -1;
+        actor *m = world_player(0);
+        int here = m ? (m->depth * GH + m->cy) * GW + m->cx : -1;
+        if (here != last && m) {
+            last = here;
+            for (int y = 0; y < GH; y++)
+                for (int x = 0; x < GW; x++)
+                    if (W.g[m->depth][y][x].item == IT_GRUB) { W.cell_dirty[m->depth][y][x] = 1; W.dirty[m->depth] = 1; }
+        }
     }
-    tutorial();
     if (pending_depth >= 0) {
         int from = pending_from, to = pending_depth;
         pending_depth = pending_from = -1;
@@ -668,6 +641,13 @@ static void game_init(void)
     if (rs_option_int("unlock", 0)) unlock_all = 1;
     if (rs_option("difficulty")) opt_diff = clampi(rs_option_int("difficulty", 1), 0, 2);
     forced_view = rs_option_int("view", -1);
+    if (rs_option_int("spritetest", 0)) {             /* test screen: walk cycles (facing tests) */
+        draw_init_vram(SEASON_SPRING, 0);
+        for (int l = 0; l < 4; l++) rs_bg_enable(l, 0);
+        rs_backdrop(RS_HEX(0x203040));
+        go(ST_SPRITETEST);
+        return;
+    }
     const char *lv = rs_option("level");
     if (lv) {                                        /* "spring-3": jump straight into a level */
         char season[16] = "";
@@ -703,6 +683,7 @@ static void game_update(void)
     case ST_OUTRO: outro_update(); break;
     case ST_CLEAR: clear_update(); break;
     case ST_ARCDONE: arcdone_update(); break;
+    case ST_SPRITETEST: break;
     }
     if (!st_changed) st_t++;
     if (rs_option_int("transition", 0) && st == ST_PLAY && st_t == 30 && view_depth == 0) {
@@ -722,8 +703,26 @@ static void draw_menu_sprites(void)
     spr_draw(SPR_GRUB + (gt / 16) % 2, 272, 176, 0, 2);
 }
 
+/* test screen (--opt spritetest=1): rows = ferret, cat, mole, dog walk cycles; columns = left frames,
+ * then right frames, every 48 px from x = 8; rows every 48 px from y = 8 (bottom-aligned in 40 px) */
+static void draw_sprite_test(void)
+{
+    static const int rows[4][2] = {{SPR_FERRET_WALK_LEFT, SPR_FERRET_WALK_RIGHT}, {SPR_CAT_WALK_LEFT, SPR_CAT_WALK_RIGHT},
+                                   {SPR_MOLE_WALK_LEFT, SPR_MOLE_WALK_RIGHT}, {SPR_DOG_WALK_LEFT, SPR_DOG_WALK_RIGHT}};
+    static const int frames[4] = {2, 2, 3, 2};
+    rs_oam_clear();
+    for (int r = 0; r < 4; r++)
+        for (int side = 0; side < 2; side++)
+            for (int f = 0; f < frames[r]; f++) {
+                int s = rows[r][side] + f;
+                int col = side * frames[r] + f;
+                spr_draw(s, 8 + col * 48 + (40 - bm_spr[s].w) / 2, 8 + r * 48 + 40 - bm_spr[s].h, 0, 2);
+            }
+}
+
 static void game_draw(void)
 {
+    if (st == ST_SPRITETEST) { draw_sprite_test(); return; }
     switch (st) {
     case ST_TITLE: case ST_ARCS: case ST_LEVELS: case ST_OPTIONS: case ST_CREDITS:
         if (title_ready) draw_menu_sprites();
@@ -753,6 +752,7 @@ static void game_draw(void)
         if (d != view_depth && !(st == ST_SLIDE && d == slide_to)) {
             /* other depths redraw when shown; keep their dirty flags */
         }
+    ui_glow_pulse(W.t);
     draw_hud();
     if (st == ST_PAUSE)
         rs_math(RS_MATH_SUB | RS_MATH_FIXED, RS_MATH_BG2 | RS_MATH_BG3 | RS_MATH_BG4 | RS_MATH_OBJ | RS_MATH_BACK,
