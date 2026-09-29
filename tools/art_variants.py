@@ -64,35 +64,40 @@ def render(idx, pal, pv, Z=4, bg=(52, 56, 76)):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=os.path.join(ROOT, "docs", "art-preview", "enemy_variants.png"))
+    ap.add_argument("--char-size", type=int, default=24, help="character size (the owner's reference is 24)")
     a = ap.parse_args()
-    sheets, mp, cut, brief = art_sync.load_modules(16)
+    sheets, mp, cut, brief = art_sync.load_modules(a.char_size)
+    C = sheets.CHAR_SIZE
     import rsasset
     import palette_variants as pv
     sources = [("placeholder art", mp.build_sheet("characters").convert("RGBA"))]
     gen = os.path.join(ROOT, "build", "art-variants")
     args = argparse.Namespace(incoming=os.path.join(ROOT, "games", "bombermole", "art", "incoming"), out=gen,
                               report=os.path.join(gen, "report.md"), dry_run=False, include_generated=True,
-                              char_size=16, scale=None, filter="area")
+                              char_size=C, scale=None, filter="area")
     os.makedirs(gen, exist_ok=True)
     art_sync.sync(args, report_print=lambda s: None)
-    sources.append(("AI art (first batch, not validated)", Image.open(os.path.join(gen, "characters.png")).convert("RGBA")))
-    Z, cw = 4, 16 * 4 + 6
+    sources.append(("AI art (consistency pass, not validated)",
+                    Image.open(os.path.join(gen, "characters.png")).convert("RGBA")))
+    Z = 4
+    cw = C * Z + 6
     rows = []
     for name, group, target, light in pv.VARIANTS:
         rows.append((name, group, target, light))
     W = 170 + len(sources) * (3 * cw + 24)
-    H = 40 + len(rows) * (16 * Z + 10)
+    H = 40 + len(rows) * (C * Z + 10)
     out = Image.new("RGB", (W, H), (24, 24, 32))
     d = ImageDraw.Draw(out)
-    d.text((6, 4), "Enemy variants: one sprite, one palette swap each (tier in brackets)", fill=(255, 255, 255))
+    d.text((6, 4), "Enemy variants: one sprite, one palette swap each (tier in brackets), %d-px characters" % C,
+           fill=(255, 255, 255))
     base = {}
     for si, (label, img) in enumerate(sources):
         d.text((170 + si * (3 * cw + 24), 22), label, fill=(255, 220, 120))
         for g in ("ferret", "cat"):
             base[(si, g)] = group_art(img, sheets, rsasset, g)
     for ri, (name, group, target, light) in enumerate(rows):
-        y = 40 + ri * (16 * Z + 10)
-        d.text((6, y + 24), "%s [%d]" % (name, TIER[name]), fill=(220, 220, 220))
+        y = 40 + ri * (C * Z + 10)
+        d.text((6, y + C * Z // 2 - 6), "%s [%d]" % (name, TIER[name]), fill=(220, 220, 220))
         for si in range(len(sources)):
             pal, counts, frames = base[(si, group)]
             vpal = pv.variant_palette(pal, counts, target, light)

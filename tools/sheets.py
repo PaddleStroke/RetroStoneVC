@@ -157,8 +157,9 @@ ENTRIES = [
     E("badger", "props", 8, 8, 32, 32, 4, "boss_badger", "Summer mini-boss: the badger (walk x2, dig, hurt)"),
 ]
 
-# Character size (owner's choice pending): 16, 24 or 32. The characters sheet
-# uses cells of this size (the boss is 2x2 cells), everything else stays 16.
+# Character size: 16, 24 or 32 (the owner's reference is 24). The characters sheet
+# uses cells of this size (the boss is 2x2 cells), the props bosses grow the same way
+# (2x2 characters), everything else stays 16.
 # Set with the environment variable BM_CHAR_SIZE (make CHAR_SIZE=24).
 CHAR_SIZE = int(os.environ.get("BM_CHAR_SIZE", "16"))
 if CHAR_SIZE not in (16, 24, 32):
@@ -166,6 +167,33 @@ if CHAR_SIZE not in (16, 24, 32):
 SHEETS["characters"]["cell"] = CHAR_SIZE
 ENTRIES = [e._replace(w=e.w * CHAR_SIZE // CELL, h=e.h * CHAR_SIZE // CELL) if e.sheet == "characters" else e
            for e in ENTRIES]
+
+
+def _grow_props_bosses(entries):
+    """The bosses of props.png (farmer, fox, owl, badger) are 2x2 characters like the barn
+    cat: at CHAR_SIZE 24 or 32 they grow to 48 or 64 px, and rows 4 and below of props.png
+    are re-packed (shelf by shelf, in table order) on a sheet widened to fit the farmer's 8
+    frames. At CHAR_SIZE 16 the layout is unchanged."""
+    if CHAR_SIZE == CELL:
+        return entries
+    big = [e for e in entries if e.sheet == "props" and e.row >= 4]
+    size = 2 * CHAR_SIZE
+    cols = max([SHEETS["props"]["cols"]] + [e.frames * size // CELL for e in big if e.group.startswith("boss_")])
+    moved, x, y, shelf = {}, 0, 4, 0
+    for e in big:
+        if e.group.startswith("boss_"):
+            e = e._replace(w=size, h=size)
+        span = e.frames * e.w // CELL
+        if x + span > cols:
+            x, y, shelf = 0, y + shelf, 0
+        moved[e.name] = e._replace(col=x, row=y)
+        x += span
+        shelf = max(shelf, e.h // CELL)
+    SHEETS["props"]["cols"], SHEETS["props"]["rows"] = cols, y + shelf
+    return [moved.get(e.name, e) for e in entries]
+
+
+ENTRIES = _grow_props_bosses(ENTRIES)
 
 
 def cell_of(sheet):

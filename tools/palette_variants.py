@@ -67,6 +67,13 @@ def ramps(palette, counts):
     if best and best_share >= 0.25:
         fur = best
         light = [i for i in rest if i not in fur and info[i][1] < 0.12 and info[i][2] >= 0.72]
+        # richer (AI) art: the cream belly and muzzle share the fur's hue; bright, pale colours
+        # that are a minority of the coat are the light ramp (a mostly cream coat stays fur)
+        pale = [i for i in fur if info[i][2] >= 0.85 and info[i][1] <= 0.40]
+        if pale and len(pale) < len(fur) and \
+                sum(counts[i] for i in pale) < 0.45 * sum(counts[i] for i in fur):
+            fur = [i for i in fur if i not in pale]
+            light += pale
     else:                                # a grey sprite: the mid greys are the fur
         fur = [i for i in rest if info[i][1] < 0.12 and info[i][2] < 0.80]
         light = [i for i in rest if info[i][1] < 0.12 and info[i][2] >= 0.80]

@@ -338,6 +338,11 @@ def sync(args, report_print=print):
         raise SystemExit("no rows in %s (run: art_sync.py todo)" % todo)
     strips = {s.id: s for s in all_strips(sheets)}
     take = ("VALIDATED", "GENERATED") if args.include_generated else ("VALIDATED",)
+    cons = None
+    if getattr(args, "consistency", True):      # tools/art_consistency.py (the default import)
+        import art_consistency
+        cons = art_consistency.import_for_sync(incoming, rows, strips, take, args.scale)
+        rows = {}                                # skips the legacy import below
     # one scale per palette group, so the frames of a character keep one size across its strips
     group_scale = {}
     if not args.scale:
@@ -403,6 +408,8 @@ def sync(args, report_print=print):
             if before > after:
                 notes[sid] = "colours reduced from %d to %d" % (before, after)
     report = [(sid, st, msg + ("; " + notes[sid] if sid in notes else "")) for sid, st, msg in report]
+    if cons is not None:
+        imported, report, counts = cons
 
     # assemble the sheets: placeholders + imported cells
     out_dir = args.out
@@ -570,6 +577,8 @@ def main():
     ap.add_argument("--char-size", type=int, default=0, help="16, 24 or 32 (default: BM_CHAR_SIZE or 16)")
     ap.add_argument("--scale", type=float, help="force AI pixels per final pixel")
     ap.add_argument("--filter", choices=["area", "nearest"], default="area")
+    ap.add_argument("--legacy-import", dest="consistency", action="store_false",
+                    help="sync: the old import (one scale per group) instead of tools/art_consistency.py")
     ap.add_argument("--map", help="import-sheet: strip ids in reading order")
     ap.add_argument("--note", default="from first-batch sheet")
     a = ap.parse_args()

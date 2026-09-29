@@ -55,7 +55,7 @@ HOST_CFLAGS = $(CSTD) $(OPT) $(WARN) -fPIC $(SDK_INC)
 WIN_CFLAGS  = $(CSTD) $(OPT) $(WARN) $(SDK_INC) -D__USE_MINGW_ANSI_STDIO=1
 ARM_CFLAGS  = $(CSTD) $(OPT) $(WARN) -fPIC $(ARM_FLAGS) $(SDK_INC)
 
-.PHONY: all host check test windows armhf dist screenshots bench clean assets placeholders golden
+.PHONY: all host check test windows armhf dist screenshots bench clean assets placeholders golden preview art-review
 all: host
 
 # ---- SDK static library --------------------------------------------------------
@@ -152,6 +152,8 @@ test check: build/host/test_sdk build/host/test_libretro build/host/$(GAME)_head
 	./build/host/test_libretro build/host/$(GAME)_libretro.so 600
 	$(PYTHON) tools/tests/test_tools.py
 	$(PYTHON) tools/tests/test_art_sync.py
+	$(PYTHON) tools/tests/test_art_consistency.py
+	$(PYTHON) tools/tests/test_art_review.py
 	$(PYTHON) games/$(GAME)/tools/check_levels.py
 	sh games/$(GAME)/tests/smoke_test.sh build/host/$(GAME)_headless build
 golden: build/host/test_sdk
@@ -159,6 +161,23 @@ golden: build/host/test_sdk
 
 art:
 	$(PYTHON) tools/art_sync.py sync
+
+# ---- AI art preview: ALL generated art whatever its status, 24-px characters -------------------
+# dist/windows/BomberMole-preview.exe + docs/art-preview/ingame-ai-*.png; the normal build
+# (validated art + placeholders) is untouched: its generated assets are rebuilt afterwards.
+PREVIEW_CHAR ?= 24
+PREVIEW_ART  := build/art-preview-$(PREVIEW_CHAR)
+preview:
+	$(PYTHON) tools/art_sync.py sync --include-generated --char-size $(PREVIEW_CHAR) \
+	    --out $(PREVIEW_ART) --report $(PREVIEW_ART)/REPORT.md
+	rm -f $(GAME_GEN)
+	$(MAKE) windows GAME_NAME=$(GAME_NAME)-preview ART=../../$(PREVIEW_ART) CHAR_SIZE=$(PREVIEW_CHAR)
+	$(MAKE) build/host/$(GAME)_headless ART=../../$(PREVIEW_ART) CHAR_SIZE=$(PREVIEW_CHAR)
+	sh tools/art_preview_shots.sh build/host/$(GAME)_headless docs/art-preview
+	rm -f $(GAME_GEN)
+
+art-review:
+	$(PYTHON) tools/art_review.py
 
 placeholders:
 	$(PYTHON) tools/make_placeholders.py --out games/$(GAME)/art

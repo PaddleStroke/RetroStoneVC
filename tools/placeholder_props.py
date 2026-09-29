@@ -385,6 +385,6 @@ def draw(e, frame):
         return critter(e.name, frame)
     if e.name == "windmill":
         return windmill(frame)
-    if e.w == 32:
+    if e.w == 32 or e.group.startswith("boss_"):      # 48 or 64 px bosses are resized by the caller
         return boss32(e.name, frame)
     return prop_obj(e.name, frame)
