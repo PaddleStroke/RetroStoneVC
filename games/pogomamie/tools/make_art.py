@@ -114,16 +114,17 @@ MP_RGB = dict(MP)
 def mamie(pose):
     """One 24x32 frame, facing right; the pogo's tip at the bottom centre (x 11-12, row 31)."""
     cv = Canvas(24, 32, MP)
-    P = dict(body=0, spring=4, legs="bent", arms="bar", scarf=0, mouth="smile", eyes="open", tilt=0, bag=0, sq=1.0)
+    # body: how far down the figure sits (the headscarf's top is at 4 + body - 5); squash and stretch keep it in
+    # the cell: the stretched frames are drawn lower, then stretched upwards from the pogo's tip
+    P = dict(body=2, spring=4, legs="bent", arms="bar", scarf=0, mouth="smile", eyes="open", tilt=0, bag=0, sq=1.0)
     P.update({
-        "idle": {}, "squash1": dict(body=2, spring=2, legs="squat", sq=1.12),
-        "squash2": dict(body=3, spring=1, legs="squat", mouth="puff", sq=1.25),
-        "stretch": dict(body=-1, spring=6, legs="straight", sq=0.82),
-        "rise": dict(body=-1, spring=5, legs="tuck", scarf=1, sq=0.92),
-        "fall": dict(body=0, spring=4, legs="straight", scarf=-1, bag=-2), "big": dict(body=-1, spring=5,
-                                                                                         legs="kneeup", mouth="grin",
-                                                                                         bag=-3),
-        "stumble": dict(body=0, spring=4, legs="straight", arms="flail", eyes="wide", mouth="o", tilt=-1),
+        "idle": {}, "squash1": dict(body=4, spring=2, legs="squat", sq=1.12),
+        "squash2": dict(body=5, spring=1, legs="squat", mouth="puff", sq=1.25),
+        "stretch": dict(body=5, spring=5, legs="straight", sq=0.88),
+        "rise": dict(body=3, spring=5, legs="tuck", scarf=1, sq=0.95),
+        "fall": dict(body=2, spring=4, legs="straight", scarf=-1, bag=-2),
+        "big": dict(body=1, spring=5, legs="kneeup", mouth="grin", bag=-3),
+        "stumble": dict(body=2, spring=4, legs="straight", arms="flail", eyes="wide", mouth="o", tilt=-1),
     }.get(pose, {}))
     if pose in ("flail1", "flail2", "sit", "float", "hang"):
         return mamie_special(pose)

@@ -22,12 +22,14 @@ scenario() {
     else echo "  FAIL $name (fresh process):"; echo "$out" | grep "FAIL\|first"; fail=1; fi
 }
 
+# (skip=M: a run that starts M metres along never writes the battery save: a best distance written between the save
+# and the load would change the game-over panel, NEW BEST / BEST, since the battery save is not part of a state)
 # the title (the music plays, the cat taunts), then A, get ready, A: the run starts
 printf "150 tap A\n200 tap A\n" > "$O/pm-title.input"
 scenario title 60 300
 
 # one player (the bot) in each district and at night
-scenario run1p 700 600 bot=1 ready=1
+scenario run1p 700 600 bot=1 ready=1 skip=4
 scenario seine 900 500 bot=1 ready=1 skip=520 seed=21
 scenario haussmann 900 500 bot=1 ready=1 skip=1030 seed=22
 scenario eiffel 900 500 bot=1 ready=1 skip=1540 seed=23
@@ -48,14 +50,14 @@ while [ $i -lt 900 ]; do
     echo "$((i + 31)) P2 RIGHT" >> "$O/pm-race.input"
     i=$((i + 47))
 done
-scenario race 300 400
+scenario race 300 400 skip=4
 
 # two bots racing
-scenario run2p 500 500 bot=2 players=2 ready=1
+scenario run2p 500 500 bot=2 players=2 ready=1 skip=4
 
 # paused (Start) at the save, resumed after it
 printf "400 tap START\n520 tap START\n" > "$O/pm-paused.input"
-scenario paused 450 300 bot=1 ready=1
+scenario paused 450 300 bot=1 ready=1 skip=4
 
 # the fall (the bot gives up at 60 m), the café awning, the game-over panel, then a new run (skip: a best distance
 # written to the battery save between the save and the load would change the panel: "NEW BEST" / "BEST")
