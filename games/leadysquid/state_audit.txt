@@ -1,0 +1,7 @@
+# Save states (tools/state_audit.py): the mutable statics that are NOT saved, and why.
+# Everything else is registered in the game's *_state() functions (main.c game_state()).
+sfx.buf             sfx_init(): the synthesis buffer (the samples are made at start-up, not saved)
+sfx.noise_s         sfx_init(): the synthesiser's noise, used at start-up only
+bot.memo            the bot's search memo (5 MB, a cache): bot_state_loaded() invalidates it
+bot.stamp           the memo's validity stamps: cleared after a load (bot_state_loaded)
+main.SV             the battery save's copy (best scores, medals): stays in the .srm, a state never takes it back

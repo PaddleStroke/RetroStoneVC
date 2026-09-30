@@ -116,3 +116,21 @@ void rs_text_clear(int x, int y, int w, int h)
     for (int j = 0; j < h; j++)
         for (int i = 0; i < w; i++) rs_bg_put(g_layer, x + i, y + j, RS_MAP(g_first, g_pal, 0, 0, 0));
 }
+
+/* ---- save states ---------------------------------------------------------------------------------------------- */
+void text_state_save(rs_wr *w)
+{
+    wr_i32(w, g_layer); wr_i32(w, g_first); wr_i32(w, g_pal); wr_i32(w, g_prio);
+    wr_i32(w, g_big_first); wr_i32(w, g_loaded_big);
+}
+
+int text_state_load(rs_rd *r, int apply)
+{
+    int v[6];
+    for (int i = 0; i < 6; i++) v[i] = rd_i32(r);
+    if (r->err) return -1;
+    if (apply) {
+        g_layer = v[0]; g_first = v[1]; g_pal = v[2]; g_prio = v[3]; g_big_first = v[4]; g_loaded_big = v[5] ? 1 : 0;
+    }
+    return 0;
+}

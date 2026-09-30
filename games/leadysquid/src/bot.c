@@ -179,3 +179,15 @@ int bot_decide(int player)
                next ? next->gb : 0, margin + 1, d);
     return d & 1;
 }
+
+/* ---- save states (main.c). The search's memo (memo, stamp: 5 MB) is a cache and is not saved; after a load its
+   entries belong to another timeline, and one stamped with the next cur_stamp would be taken as valid: clear
+   them (a fresh process starts cleared too) ---- */
+#define S(v) rs_state_var("bot." #v, &(v), sizeof(v))
+void bot_state(void)
+{
+    S(seen); S(nseen); S(since_flap); S(est_y); S(est_ok); S(margin); S(cur_stamp);
+}
+#undef S
+
+void bot_state_loaded(void) { memset(stamp, 0, sizeof stamp); }

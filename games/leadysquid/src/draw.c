@@ -36,6 +36,7 @@ static uint32_t drawn_seed;               /* the course whose bodies are on BG2 
 static int big_chars[BIG_SLOTS], big_used;
 static rs_rng fx_rng;
 static int logo_on;
+static int last_dark = -1;                /* the darkness the reef palettes were last written for */
 
 int depth_level(void) { return depth; }
 
@@ -192,7 +193,6 @@ static void gradient_update(int theme, int target_depth)
         line_col[y] = RS_RGB8(rgb[0] + ((y & 4) ? 4 : 0), rgb[1] + ((y & 4) ? 2 : 0), rgb[2] + ((y & 4) ? 4 : 0));
     }
     /* the rays, the reef and the mid-ground darken with the water */
-    static int last_dark = -1;
     if (dark != last_dark) {
         last_dark = dark;
         for (int i = 1; i < 16; i++) {
@@ -568,3 +568,13 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     draw_caps(w);
     draw_fx(0);
 }
+
+/* ---- save states (main.c) ---- */
+#define S(v) rs_state_var("draw." #v, &(v), sizeof(v))
+void draw_state(void)
+{
+    S(back_dx); S(line_col); S(cur_rgb); S(depth); S(paused_now); S(drawn_index); S(cleared_col); S(drawn_seed);
+    S(big_chars); S(big_used); S(fx_rng); S(logo_on); S(last_dark); S(fx); S(shown_state); S(shown_best);
+    RS_STATE_RASTER(raster);
+}
+#undef S

@@ -23,6 +23,7 @@ int pending_depth = -1, pending_from = -1;
 #define SPLAT_TIME 240
 
 static rs_rng rng;
+static rs_rng fxrng;                                /* the wind particles' own random numbers */
 mp_setup MP = {MODE_SOLO, 1, {0, 1, 2, 3}, {0, 0, 0, 0}, {0, 1, 2, 3}, 0, 1, 0, 0, 1, 3, 90 * 60, 0};
 
 /* a mole goes to another depth: in solo the game flow slides the view (pending_depth); in multiplayer the mole
@@ -1053,7 +1054,6 @@ static void update_push(void)
                 }
 particles:
     /* streaks and spray on a few random push cells (their own random numbers: the game's stay as they are) */
-    static rs_rng fxrng;
     if (W.t == 0) rs_rng_seed(&fxrng, 0xf00dcafeu);
     if ((gust && W.t % 6 == 0) || W.t % 12 == 0) {   /* the game's random sequence stays as it was */
         (void)rs_rng_range(&rng, GW);
@@ -3898,3 +3898,17 @@ int world_danger(int depth, int from)
     }
     return 0;
 }
+
+/* ---- save states (main.c). The breadth-first searches' queues and the sudden-death spiral (sd_qx, rebuilt the
+   same from the arena's size) are scratch: see games/bombermole/state_audit.txt ---- */
+#define S(v) rs_state_var("world." #v, &(v), sizeof(v))
+void world_state(void)
+{
+    S(W); S(MP); S(rng); S(fxrng); S(pending_depth); S(pending_from);
+    S(blast_owner); S(owl_tx); S(owl_ty); S(bfs_len); S(bot_mode);
+    S(cpu_b); S(cpu_danger); S(cpu_enemy_depth);
+    RS_STATE_PTR(W.def);        /* the level: main.LV or mp.AL */
+    rs_state_ptr("world.cpu_rng", &cpu_rng);        /* into cpu_b */
+    rs_state_ptr("world.cpu_enemy", &cpu_enemy);    /* into W.a */
+}
+#undef S

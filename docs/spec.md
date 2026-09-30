@@ -175,6 +175,61 @@ minus the sound-effect voices, and the samples within ARAM.
 
 **SNES mapping.** Battery SRAM of 2-32 KiB (32 KiB = 256 kbit) on the cartridge.
 
+### Save states
+A state is the whole console at a frame boundary, like an emulator's: the runtime saves its own "hardware"
+(VRAM as packed 4bpp, the four maps in full, CGRAM, OAM, every PPU register, the viewports, the raster callback
+and line-scroll tables, the voices with their envelopes and positions, the echo buffer, the music, the text
+set-up, the frame counter, the global RNG, the pads and their previous state for the edges), and the game
+registers **its** objects from the `rs_game.state` callback:
+
+| Call | |
+|---|---|
+| `rs_state_var(name, ptr, size)`, `RS_STATE(v)` | an object saved and restored byte for byte |
+| `rs_state_ptr(name, &p)`, `RS_STATE_PTR(p)` | a pointer (alone, or inside a saved object): saved as (object, offset) |
+| `rs_state_ref(name, ptr, size)` | a constant table that saved pointers may point into (not saved itself) |
+| `rs_state_raster(name, fn)` | a raster callback the game installs (saved by number) |
+
+Rules:
+- `state` is called once, possibly before `init()` (a libretro frontend asks for the size first): register
+  static objects only. The size of a state is fixed for a build (libretro requires it): about 350 KB.
+- No raw pointers: a pointer the game keeps, or gives the runtime (raster user data, line-scroll tables), must
+  point into a registered object or reference, else saving fails and logs which one. Convert pointers into
+  constant tables to indices, or register the table with `rs_state_ref`.
+- Samples are not saved (a voice names its slot): load them in `init()`, the same at every start; a state
+  whose voices' samples differ is refused. The music is saved as the asset's name, its order position and row:
+  a load restarts the same module there (libxmp's voices are not restored: the notes held at the save start
+  again on the next row).
+- `rs_game.state_loaded` (may be NULL) runs after a load, to rebuild caches (Leady Squid's bot clears its
+  memo there).
+- **Save RAM is not in states.** Keep progress (unlocks, best times) in `rs_sram()` and do not register its
+  in-memory copy: loading an old state never takes progress back.
+- Name objects `<file>.<name>` (the source file's stem). `tools/state_audit.py` (in `make check`) lists every
+  writable static of the game's object files and fails when one is neither registered nor listed with a reason
+  in `games/<game>/state_audit.txt` (scratch buffers, caches rebuilt the same).
+- Bump `rs_game.state_version` when the meaning of saved data changes without its layout changing.
+
+**Format** (little-endian). A 64-byte header: `"RSVC"`, format version (u16, 1), header size (u16, 64), game id
+(20 bytes), game version (16 bytes), the game's `state_version` (u32), the **build hash** (u64: format, pointer
+size, endianness, id, version, every registered name and size, and the asset pack's contents), the payload size
+(u32) and an FNV-1a checksum of the payload (u32). Then tagged sections, always in this order, each a 4-char
+tag, a u32 size and the payload: `CORE`, `PPU `, `APU `, `MUS `, `TEXT`, `GAME` (the registered objects in
+order, with the pointers inside them zeroed), `PTRS` (each registered pointer as object number + offset),
+`END `. The rest of the fixed-size buffer is zero. A load checks the header, the checksum and every section
+(sizes, map sizes, voice positions, pointers, the music asset, the samples) before it changes anything: a
+state of another game, another version or build, truncated or corrupted is refused and the game goes on
+untouched. libretro: `retro_serialize_size` / `retro_serialize` / `retro_unserialize`; a state loaded before
+the first frame (resume at start-up) starts the game first; a save before the first frame returns false; the
+core declares the endian- and platform-dependent serialization quirks (the game's objects are raw).
+
+Tests: `sdk/tests/test_states.c` runs a game to a point, saves, plays on while hashing the state and the
+picture of every frame, loads, replays the same frames and compares; a fresh process loads the state (and the
+battery save of that moment) before its first frame and must match too; bad states (truncated, another game,
+version or build, a corrupted byte, invalid sections, fuzzed sections) must be refused with nothing changed.
+`games/<game>/tests/state_test.sh` runs it at many points of each game; `make SAN=1 check` runs everything
+under ASan and UBSan.
+
+**SNES mapping.** None: states are a frontend feature (a port keeps the battery save only).
+
 ## 10. Runtime services
 - Deterministic RNG (xorshift32), a global one seeded at start, and private ones.
 - Text: a built-in 5x7 font (96 ASCII glyphs) uploaded as tiles (ink = colour 1, shadow = colour 2), plus a

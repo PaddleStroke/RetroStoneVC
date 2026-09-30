@@ -406,6 +406,13 @@ void sfx_at(int id, int x);             /* panned by playfield x (pixels) */
 void music_play(const char *name);
 void audio_options(int music_on, int sfx_on);
 
+/* ---- save states: each file registers its objects (rs_state_var...), called from main.c ---- */
+void draw_state(void);
+void ui_state(void);
+void mp_state(void);
+void sfx_state(void);
+void world_state(void);
+
 /* ---- main.c ---- */
 extern int opt_music, opt_sfx, opt_diff;
 void draw_variant_pals(void);

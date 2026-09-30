@@ -809,13 +809,14 @@ void draw_weather_scroll(int *sx, int *sy)
 }
 
 /* multiplayer: palette 7 holds the HUD's colours (strips, boxes) or, in the play areas, the props B family */
+static int pal7_shown = -2;     /* what palette 7 holds: -1 the HUD's colours, >= 0 a props B family, -2 unknown */
 void draw_pal7(int hud)
 {
-    static const uint16_t *cur;
-    const uint16_t *want = (!hud && prop_b >= 0) ? bm_propbg_pals[prop_b] : bm_hud_pal;
-    if (want == cur && rs_pal_get(RS_PAL_BG(PAL_HUD) + 1) == want[1]) return;
+    int id = (!hud && prop_b >= 0) ? prop_b : -1;  /* an index, not a pointer: it goes into save states */
+    const uint16_t *want = id >= 0 ? bm_propbg_pals[id] : bm_hud_pal;
+    if (id == pal7_shown && rs_pal_get(RS_PAL_BG(PAL_HUD) + 1) == want[1]) return;
     load_pal(RS_PAL_BG(PAL_HUD), want, 16);
-    cur = want;
+    pal7_shown = id;
 }
 
 void draw_weather(int on)
@@ -965,3 +966,16 @@ void draw_variant_pals(void)
     draw_prop_pals();
     canopy_init();
 }
+
+/* ---- save states (main.c) ---- */
+#define S(v) rs_state_var("draw." #v, &(v), sizeof(v))
+void draw_state(void)
+{
+    S(view_slot); S(g_season); S(g_boss); S(hud_lines); S(hud_pal_below); S(weather_dx);
+    S(iris_on); S(iris_cx); S(iris_cy); S(iris_r); S(lamp_on); S(lamp_cx); S(lamp_cy); S(lamp_r);
+    S(fog_on); S(fog_cx); S(fog_cy); S(fog_r); S(g_fog_eyes); S(g_night);
+    S(prop_meta); S(prop_b); S(pal7_shown); S(canopy_meta); S(water_drawn);
+    S(cam_ox); S(cam_oy); S(cam_hud); S(cull_w); S(cull_h); S(weather_sx); S(weather_sy);
+    RS_STATE_RASTER(raster);
+}
+#undef S

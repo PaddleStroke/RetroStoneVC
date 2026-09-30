@@ -8,6 +8,7 @@
 #   make screenshots     headless screenshots into docs/screenshots/
 #   make bench           per-frame cost of the heaviest scenes
 #   make DEBUG=1 ...     -O0 -g and strict mode on by default
+#   make SAN=1 check     the tests under ASan + UBSan (after make clean)
 #
 # MIT licence (build system and SDK), (c) 2026 Pierre-Louis Boyer (8BCraft).
 
@@ -31,6 +32,13 @@ ifeq ($(DEBUG),1)
 OPT = -O0 -g -DRS_DEBUG
 else
 OPT = -O2
+endif
+
+# make SAN=1 ...: AddressSanitizer + UndefinedBehaviorSanitizer on the host builds (run make clean first)
+ifeq ($(SAN),1)
+HOST_CC := $(HOST_CC) -fsanitize=address,undefined -fno-omit-frame-pointer -g
+export ASAN_OPTIONS ?= detect_leaks=0
+export UBSAN_OPTIONS ?= print_stacktrace=1:halt_on_error=1
 endif
 
 WARN     = -Wall -Wextra -Wno-unused-parameter
@@ -162,8 +170,12 @@ build/host/test_sdk: build/host/sdk/tests/test_sdk.o build/host/sdk/frontends/co
 	$(HOST_CC) -o $@ $^ -lm
 build/host/test_libretro: build/host/sdk/tests/test_libretro.o
 	$(HOST_CC) -o $@ $^ -ldl
+build/host/$(GAME)_test_states: $(GAME_OBJ_HOST) build/host/sdk/tests/test_states.o \
+                                 build/host/sdk/frontends/common/rs_desktop.o build/host/librs.a
+	$(HOST_CC) -o $@ $^ -lm
 
-test check: build/host/test_sdk build/host/test_libretro build/host/$(GAME)_headless build/host/$(GAME)_libretro.so
+test check: build/host/test_sdk build/host/test_libretro build/host/$(GAME)_headless build/host/$(GAME)_libretro.so \
+            build/host/$(GAME)_test_states
 	./build/host/test_sdk --golden sdk/tests/golden --out build
 	./build/host/test_libretro build/host/$(GAME)_libretro.so 600
 	$(PYTHON) tools/tests/test_tools.py
@@ -174,6 +186,8 @@ test check: build/host/test_sdk build/host/test_libretro build/host/$(GAME)_head
 	sh games/$(GAME)/tests/smoke_test.sh build/host/$(GAME)_headless build
 	sh games/$(GAME)/tests/feature_test.sh build/host/$(GAME)_headless
 	$(PYTHON) games/$(GAME)/tests/facing_capture.py build/host/$(GAME)_headless build/facing_capture.png
+	sh games/$(GAME)/tests/state_test.sh build/host/$(GAME)_test_states build/states
+	$(PYTHON) tools/state_audit.py --game $(GAME) build/host/$(GAME)_test_states $(filter-out %/assets.o,$(GAME_OBJ_HOST))
 golden: build/host/test_sdk
 	./build/host/test_sdk --update --golden sdk/tests/golden --out build
 

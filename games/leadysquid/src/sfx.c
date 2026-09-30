@@ -71,6 +71,8 @@ static void store(int id, int ms)
 void sfx_init(void)
 {
     memset(buf, 0, sizeof buf);
+    noise_s = 0x5eed1234u;                  /* the same sounds at every start (a core restarted in the same process
+                                               too: save states check the samples) */
     /* bloop: a quick rising sine and a bubbly burble */
     tone(0, 220, 520, 90, 70, 60);
     tone(RATE * 30 / 1000, 700, 1100, 40, 18, 20);
@@ -142,4 +144,12 @@ void audio_set(int music, int sound)
     music_on = music;
     sound_on = sound;
     if (!music_on) { rs_music_stop(); music_started = 0; }
+}
+
+/* ---- save states (main.c): the sound options (the SDK restarts the tune where it was) ---- */
+void sfx_state(void)
+{
+    rs_state_var("sfx.music_on", &music_on, sizeof music_on);
+    rs_state_var("sfx.sound_on", &sound_on, sizeof sound_on);
+    rs_state_var("sfx.music_started", &music_started, sizeof music_started);
 }

@@ -104,6 +104,12 @@ int  bot_decide(int player);
 void bot_notify_flap(int player);
 void bot_reset(void);
 
+/* save states: each console-side file registers its objects (rs_state_var...), called from main.c */
+void draw_state(void);
+void sfx_state(void);
+void bot_state(void);
+void bot_state_loaded(void);
+
 extern int opt_bot, opt_botstop;
 
 /* main.c: test hook (tests/test_caps.c) */
