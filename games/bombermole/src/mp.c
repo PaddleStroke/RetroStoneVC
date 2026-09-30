@@ -50,36 +50,24 @@ static int humans(void)
     return n;
 }
 
-/* ---- the moles' colours: the first mole's palette with the fur recoloured (brown, grey, golden, black) and
-   the helmet colour of its player (red, blue, green, yellow) in entries 14-15 (the P1-P4 marker) ---- */
-static rs_color recolour(rs_color c, int colour)
+/* ---- the moles' colours: one art, only the miner's helmet changes colour (red, blue, green, yellow): the
+   helmet's red ramp is recoloured at build time (tools/palette_variants.py), the fur, nose, claws and lamp
+   never change. The P1-P4 markers use the same palette (the helmet's lightest shade on the outline). ---- */
+static void helmet_palette(int slot, int colour)
 {
-    int r = c & 31, g = (c >> 5) & 31, b = (c >> 10) & 31;
-    int fur = r > b + 3 && r >= g && g >= b - 1 && !(r > 24 && b > 13) && !(r > 26 && g > 22 && b < 14);
-    if (!fur || colour == 0) return c;
-    int l = (r * 3 + g * 6 + b) / 10;
-    switch (colour) {
-    case 1: { int v = clampi(l * 11 / 10 + 2, 0, 31); return RS_RGB(v, v, clampi(v + 2, 0, 31)); }   /* grey */
-    case 2: return RS_RGB(clampi(l * 15 / 10 + 5, 0, 31), clampi(l * 12 / 10 + 3, 0, 31), clampi(l * 3 / 10, 0, 31));
-    default: { int v = l * 4 / 10; return RS_RGB(v, v, clampi(v + 1, 0, 31)); }                    /* black */
-    }
+    for (int i = 1; i < 16; i++) rs_pal_set(RS_PAL_OBJ(slot) + i, bm_mole_helmet_pals[colour & 3][i]);
 }
 
-static const uint32_t HELMET[MAX_PLAYERS] = {0xe03030, 0x3070f0, 0x30c040, 0xf0d020};
-
-static void mole_palettes(void)
+void mp_mole_palettes(void)
 {
     for (int p = 0; p < W.nplayers; p++) {
         int slot = W.mole_pal[p];
         if (p > 0 && slot == OBJ_PAL_MOLE) continue;           /* no palette left: it shares the first mole's */
-        for (int i = 1; i < 14; i++) rs_pal_set(RS_PAL_OBJ(slot) + i, recolour(bm_obj_pals[OBJ_PAL_MOLE * 16 + i], MP.colour[p]));
-        uint32_t h = HELMET[p];
-        rs_pal_set(RS_PAL_OBJ(slot) + 15, RS_HEX(h));
-        rs_pal_set(RS_PAL_OBJ(slot) + 14, RS_HEX((h >> 2) & 0x3f3f3f));
+        helmet_palette(slot, MP.colour[p]);
     }
 }
 
-/* the P1..P4 markers: "P" and the digit from the font, helmet colour (15) with a dark outline (14) */
+/* the P1..P4 markers: "P" and the digit from the font, in the helmet's colour with a dark outline */
 static void marker_tiles(void)
 {
     for (int p = 0; p < MAX_PLAYERS; p++)
@@ -90,12 +78,12 @@ static void marker_tiles(void)
             for (int y = 0; y < 8; y++)
                 for (int x = 0; x < 8; x++)
                     if (rs_font_5x7[g][y] & (0x80 >> x)) {
-                        t[y * 8 + x] = 15;
+                        t[y * 8 + x] = MOLE_HELMET_INK;
                         for (int dy = -1; dy <= 1; dy++)
                             for (int dx = -1; dx <= 1; dx++) {
                                 int xx = x + dx, yy = y + dy;
                                 if (xx >= 0 && xx < 8 && yy >= 0 && yy < 8 && !t[yy * 8 + xx] &&
-                                    !(rs_font_5x7[g][yy] & (0x80 >> xx))) t[yy * 8 + xx] = 14;
+                                    !(rs_font_5x7[g][yy] & (0x80 >> xx))) t[yy * 8 + xx] = MOLE_OUTLINE;
                             }
                     }
             rs_tiles_load8(VR_OBJ_TILES + MP_MARK_TILE + p * 2 + k, t, 1);
@@ -191,7 +179,7 @@ void mp_level_start(void)
     rs_bg_setup(RS_BG3, 64, 128, 1024);
     rs_bg_setup(RS_BG1, 64, 128, 0);
     for (int d = 0; d < NDEPTH; d++) draw_playfield_full(d, d);
-    mole_palettes();
+    mp_mole_palettes();
     marker_tiles();
     merged = 0;
     for (int i = 0; i < MAX_PLAYERS; i++) { V[i].player = -1; V[i].slide = 0; }
@@ -472,7 +460,6 @@ void mp_dump(void)
 }
 
 /* ---- menus: the join screen ---- */
-static const char *const COLOUR_NAMES[4] = {"BROWN", "GREY", "GOLDEN", "BLACK"};
 static const char *const SKILL[4] = {"", "EASY", "NORMAL", "HARD"};
 static int join_port[MAX_PLAYERS], join_n, join_cpu, join_skill = 2, join_t;
 
@@ -483,16 +470,61 @@ static int colour_free(int c, int except)
     return 1;
 }
 
-void mp_join_begin(void)
+/* slot p's helmet: its own P-order colour when free, else the next free one */
+static void pick_colour(int p)
+{
+    int c = p & 3;
+    for (int k = 0; k < 4 && !colour_free(c, p); k++) c = (c + 1) % 4;
+    MP.colour[p] = (uint8_t)c;
+}
+
+static void add_cpu(void)
+{
+    if (join_n + join_cpu >= MAX_PLAYERS) return;
+    join_cpu++;
+    pick_colour(join_n + join_cpu - 1);
+}
+
+/* first_port: the pad that opened the screen, P1 already in (-1: nobody yet) */
+void mp_join_begin(int first_port)
 {
     join_n = 0;
     join_cpu = 0;
     join_t = 0;
     for (int p = 0; p < MAX_PLAYERS; p++) { join_port[p] = -1; MP.colour[p] = (uint8_t)p; }
+    if (first_port >= 0 && first_port < RS_PAD_MAX) { join_port[0] = first_port; join_n = 1; }
 }
 
-/* A joins (P1..P4 in the order the pads join), Left/Right choose the colour, B leaves; in battle P1 adds and
-   removes CPU moles with X/Y and sets their skill with L/R; Start begins. Returns 1 to start, -1 to go back. */
+static int join_start(int mode)
+{
+    if (mode == MODE_BATTLE) while (join_n + join_cpu < 2) add_cpu();       /* alone: against a CPU mole */
+    int total = join_n + join_cpu;
+    MP.mode = mode == MODE_BATTLE ? MODE_BATTLE : (join_n > 1 ? MODE_COOP : MODE_SOLO);
+    MP.nplayers = total;
+    for (int p = 0; p < MAX_PLAYERS; p++) {
+        MP.port[p] = (int8_t)(p < join_n ? join_port[p] : -1);
+        MP.cpu[p] = (uint8_t)(p >= join_n && p < total ? join_skill : 0);
+    }
+    prompt_port = MP.port[0];
+    rs_log("join: start mode=%d humans=%d cpus=%d ports=%d,%d,%d,%d colours=%d,%d,%d,%d", MP.mode, join_n, join_cpu,
+           MP.port[0], MP.port[1], MP.port[2], MP.port[3], MP.colour[0], MP.colour[1], MP.colour[2], MP.colour[3]);
+    sfx(SFX_MENU_OK);
+    return 1;
+}
+
+static const char *device_name(int port)
+{
+    static char s[16];
+    int d = rs_pad_device(port);
+    if (d == RS_DEVICE_KEYBOARD) return "KEYBOARD";
+    if (d == RS_DEVICE_KEYBOARD2) return "KEYBOARD 2";
+    snprintf(s, sizeof s, "PAD %d", port + 1);
+    return s;
+}
+
+/* A or Start joins any pad not in yet (P1..P4 in the order they join; when nobody is in, Start also starts),
+   Left/Right choose the helmet colour, B leaves; in battle P1 adds and removes CPU moles with X/Y and sets their
+   skill with L/R; Start from a player begins (a lone battler gets a CPU). Returns 1 to start, -1 to go back. */
 int mp_join_update(int mode)
 {
     join_t++;
@@ -503,13 +535,16 @@ int mp_join_update(int mode)
         uint16_t pr = rs_pad_pressed(port);
         int slot = -1;
         for (int p = 0; p < join_n; p++) if (join_port[p] == port) slot = p;
-        if (slot < 0 && (pr & RS_BTN_A) && join_n + join_cpu < MAX_PLAYERS) {
+        if (slot < 0 && (pr & (RS_BTN_A | RS_BTN_START)) && join_n < MAX_PLAYERS) {
+            int first = join_n == 0;
+            if (join_n + join_cpu >= MAX_PLAYERS) join_cpu--;           /* full of CPUs: a human takes one's place */
+            for (int k = join_n + join_cpu; k > join_n; k--) MP.colour[k] = MP.colour[k - 1];
             join_port[join_n] = port;
-            int c = 0;
-            while (!colour_free(c, join_n)) c++;
-            MP.colour[join_n] = (uint8_t)c;
             join_n++;
+            MP.colour[join_n - 1] = 255;
+            pick_colour(join_n - 1);
             sfx(SFX_MENU_OK);
+            if (first && (pr & RS_BTN_START)) return join_start(mode);   /* nobody was in: Start joins and starts */
             continue;
         }
         if (slot < 0) continue;
@@ -524,50 +559,57 @@ int mp_join_update(int mode)
         }
         if ((pr & RS_BTN_B) && join_t > 10) {               /* leave (the first player backs out) */
             if (slot == 0 && join_n == 1) return -1;
-            for (int p = slot; p < join_n - 1; p++) { join_port[p] = join_port[p + 1]; MP.colour[p] = MP.colour[p + 1]; }
+            for (int p = slot; p < join_n - 1; p++) join_port[p] = join_port[p + 1];
+            for (int p = slot; p < join_n + join_cpu - 1; p++) MP.colour[p] = MP.colour[p + 1];
             join_n--;
+            continue;
             sfx(SFX_MENU_MOVE);
         }
         if (slot == 0 && mode == MODE_BATTLE) {
-            if ((pr & RS_BTN_X) && join_n + join_cpu < MAX_PLAYERS) {
-                int c = 0;
-                while (!colour_free(c, join_n + join_cpu)) c++;
-                MP.colour[join_n + join_cpu] = (uint8_t)c;
-                join_cpu++;
-                sfx(SFX_MENU_OK);
-            }
+            if ((pr & RS_BTN_X) && join_n + join_cpu < MAX_PLAYERS) { add_cpu(); sfx(SFX_MENU_OK); }
             if ((pr & RS_BTN_Y) && join_cpu > 0) { join_cpu--; sfx(SFX_MENU_MOVE); }
             if (pr & RS_BTN_L) join_skill = join_skill > 1 ? join_skill - 1 : 3;
             if (pr & RS_BTN_R) join_skill = join_skill < 3 ? join_skill + 1 : 1;
         }
-        if ((pr & RS_BTN_START) && slot == 0) {
-            int total = join_n + join_cpu;
-            if (mode == MODE_BATTLE && total < 2) { sfx(SFX_HURT); continue; }
-            MP.mode = mode == MODE_BATTLE ? MODE_BATTLE : (join_n > 1 ? MODE_COOP : MODE_SOLO);
-            MP.nplayers = total;
-            for (int p = 0; p < MAX_PLAYERS; p++) {
-                MP.port[p] = (int8_t)(p < join_n ? join_port[p] : -1);
-                MP.cpu[p] = (uint8_t)(p >= join_n && p < total ? join_skill : 0);
-            }
-            sfx(SFX_MENU_OK);
-            return 1;
-        }
+        if (pr & RS_BTN_START) return join_start(mode);              /* any player in starts */
+    }
+    /* the empty slots name the A button of the pads not in yet (in port order), else a pad's */
+    int free_ports[RS_PAD_MAX], nfree = 0;
+    for (int port = 0; port < RS_PAD_MAX; port++) {
+        int in = 0;
+        for (int p = 0; p < join_n; p++) in |= join_port[p] == port;
+        if (!in && rs_pad_connected(port)) free_ports[nfree++] = port;
     }
     for (int p = 0; p < MAX_PLAYERS; p++) {
         int y = 7 + p * 4;
         text_box(4, y - 1, 32, 3);
-        if (p < join_n) textf_at(6, y, "P%d  PAD %d   < %-6s >", p + 1, join_port[p] + 1, COLOUR_NAMES[MP.colour[p]]);
-        else if (p < join_n + join_cpu) textf_at(6, y, "P%d  CPU %-6s  %-6s", p + 1, SKILL[join_skill], COLOUR_NAMES[MP.colour[p]]);
-        else textf_at(6, y, "P%d  %s", p + 1, (join_t / 30) % 2 ? "PRESS A TO JOIN" : "               ");
+        if (p < join_n) textf_at(6, y, "P%d  %-10s  < %-6s >", p + 1, device_name(join_port[p]), bm_helmet_names[MP.colour[p]]);
+        else if (p < join_n + join_cpu) textf_at(6, y, "P%d  CPU %-6s    %-6s", p + 1, SKILL[join_skill], bm_helmet_names[MP.colour[p]]);
+        else {
+            int k = p - join_n - join_cpu;
+            char s[32];
+            snprintf(s, sizeof s, "PRESS %s TO JOIN", btn_name(RS_BTN_A, k < nfree ? free_ports[k] : RS_PAD_MAX - 1));
+            textf_at(6, y, "P%d  %-26s", p + 1, (join_t / 30) % 2 ? s : "");
+        }
     }
     rs_text_setup(RS_BG1, 0, 0, 1);
+    int kp = join_n ? join_port[0] : prompt_port;                   /* the help speaks to P1 */
+    char s[48];
+    text_box(1, 21, 38, 6);                                         /* the help, readable over the hills */
+    snprintf(s, sizeof s, "LEFT/RIGHT: HELMET   %s: LEAVE", btn_name(RS_BTN_B, kp));
+    text_at((40 - (int)strlen(s)) / 2, 22, s);
     if (mode == MODE_BATTLE) {
-        text_at(3, 24, "P1: X/Y ADD/REMOVE A CPU, L/R SKILL");
-        text_at(3, 25, "START: CHOOSE THE ARENA (2+ MOLES)");
+        snprintf(s, sizeof s, "%s: ADD CPU  %s: REMOVE", btn_name(RS_BTN_X, kp), btn_name(RS_BTN_Y, kp));
+        text_at((40 - (int)strlen(s)) / 2, 23, s);
+        snprintf(s, sizeof s, "%s / %s: CPU SKILL", btn_name(RS_BTN_L, kp), btn_name(RS_BTN_R, kp));
+        text_at((40 - (int)strlen(s)) / 2, 24, s);
+        snprintf(s, sizeof s, "%s: CHOOSE THE ARENA", btn_name(RS_BTN_START, kp));
     } else {
-        text_at(3, 24, "LEFT/RIGHT: COLOUR   B: LEAVE");
-        text_at(3, 25, "START: PLAY (ALONE, OR 2-4 IN CO-OP)");
+        text_at((40 - 34) / 2, 23, "ALONE: THE STORY, 2-4 MOLES: CO-OP");
+        snprintf(s, sizeof s, "%s: PLAY", btn_name(RS_BTN_START, kp));
     }
+    text_at((40 - (int)strlen(s)) / 2, 25, s);
+    rs_text_setup(RS_BG1, 0, 0, 1);
     return 0;
 }
 
@@ -575,10 +617,8 @@ void mp_join_draw(void)
 {
     rs_oam_clear();
     for (int p = 0; p < join_n + join_cpu && p < MAX_PLAYERS; p++) {
-        /* a preview of each mole in its colour: the palettes of slots 0-3 while in the menu */
-        for (int i = 1; i < 14; i++) rs_pal_set(RS_PAL_OBJ(p) + i, recolour(bm_obj_pals[OBJ_PAL_MOLE * 16 + i], MP.colour[p]));
-        rs_pal_set(RS_PAL_OBJ(p) + 15, RS_HEX(HELMET[p]));
-        rs_pal_set(RS_PAL_OBJ(p) + 14, RS_HEX((HELMET[p] >> 2) & 0x3f3f3f));
+        /* a preview of each mole with its helmet: the palettes of slots 0-3 while in the menu */
+        helmet_palette(p, MP.colour[p]);
         int y = 7 * 8 + p * 32 - 4;
         spr_draw_pal(SPR_MOLE_WALK_DOWN + (int[]){1, 0, 2, 0}[(join_t / 8) % 4], 300 - 26, y - 4, 0, 3, p);
         rs_spr(300 - 26, y - 14, MP_MARK_TILE + p * 2, 16, 8, p, 3, 0);
@@ -679,6 +719,11 @@ int mp_battle_update(void)
         textf_at(6, 16, "%c FIGHT!", b_cursor == 4 ? '>' : ' ');
         text_at(4, 20, "BOMBS DROPPED INTO A HOLE FALL ON");
         text_at(4, 21, "THE DEPTH BELOW. LAST MOLE STANDING.");
+        {
+            char s[48];
+            snprintf(s, sizeof s, "%s: FIGHT!   %s: BACK", btn_name(RS_BTN_START, prompt_port), btn_name(RS_BTN_B, prompt_port));
+            text_at((40 - (int)strlen(s)) / 2, 24, s);
+        }
         if ((pr & (RS_BTN_A | RS_BTN_START)) && (b_cursor == 4 || (pr & RS_BTN_START))) {
             sfx(SFX_MENU_OK);
             text_clear_all();
@@ -697,9 +742,14 @@ int mp_battle_update(void)
         mp_update_views();
         return 0;
     case B_PAUSE:
-        box(22, 7);
+        box(34, 8);
         box_line(1, "PAUSED");
-        { char s[24]; snprintf(s, sizeof s, "%cRESUME   %cQUIT", b_quit == 0 ? '>' : ' ', b_quit == 1 ? '>' : ' '); box_line(4, s); }
+        { char s[24]; snprintf(s, sizeof s, "%cRESUME   %cQUIT", b_quit == 0 ? '>' : ' ', b_quit == 1 ? '>' : ' '); box_line(3, s); }
+        {
+            char s[48];
+            snprintf(s, sizeof s, "%s: OK   %s: RESUME", btn_name(RS_BTN_A, prompt_port), btn_name(RS_BTN_B, prompt_port));
+            box_line(5, s);
+        }
         rs_text_setup(RS_BG1, 0, 0, 1);
         if (pr & (RS_BTN_LEFT | RS_BTN_RIGHT)) { b_quit ^= 1; sfx(SFX_MENU_MOVE); }
         if (pr & RS_BTN_B) { mp_box_off(); b_state = B_PLAY; }
@@ -766,6 +816,11 @@ int mp_battle_update(void)
             textf_at(11, 10 + p * 2, "%c P%d %-6s  WINS %d", p == best ? '*' : ' ', p + 1,
                      MP.cpu[p] ? "CPU" : "PLAYER", battle_wins[p]);
         textf_at(12, 18, "P%d IS THE CHAMPION", best + 1);
+        {
+            char s[32];
+            snprintf(s, sizeof s, "PRESS %s", btn_name(RS_BTN_A, prompt_port));
+            text_at((40 - (int)strlen(s)) / 2, 21, s);
+        }
         if (b_t > 60 && (pr & (RS_BTN_A | RS_BTN_START))) { text_clear_all(); return 1; }
         return 0;
     }
@@ -782,16 +837,21 @@ void mp_start_box(const level_def *L)
     char goal[48];
     snprintf(goal, sizeof goal, "COLLECT %d GRUBS TOGETHER", W.grubs_total);
     box_line(3, goal);
-    box_line(5, "PRESS A");
+    char k[32];
+    snprintf(k, sizeof k, "PRESS %s", btn_name(RS_BTN_A, prompt_port));
+    box_line(5, k);
     rs_text_setup(RS_BG1, 0, 0, 1);
 }
 
 void mp_pause_box(int cursor, int quit_ask)
 {
-    box(34, 8);
+    box(34, 9);
     box_line(1, W.def->name);
     box_line(2, "PAUSED");
-    char s[40];
+    char s[48];
+    snprintf(s, sizeof s, "%s: OK   %s: %s", btn_name(RS_BTN_A, prompt_port), btn_name(RS_BTN_B, prompt_port),
+             quit_ask ? "NO" : "RESUME");
+    box_line(7, s);
     if (quit_ask) snprintf(s, sizeof s, "QUIT TO TITLE?  %cYES  %cNO", quit_ask == 1 ? '>' : ' ', quit_ask == 2 ? '>' : ' ');
     else snprintf(s, sizeof s, "%cRESUME  %cRESTART  %cQUIT", cursor == 0 ? '>' : ' ', cursor == 1 ? '>' : ' ',
                   cursor == 2 ? '>' : ' ');

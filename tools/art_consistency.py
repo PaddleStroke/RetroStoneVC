@@ -582,7 +582,9 @@ def _shape_hr(rgb, mask, flip=False, size=(32, 20)):
 def _frame_shapes(r, i):
     if r.cut is not None and i < len(r.cut.frames):
         fr = r.cut.frames[i]
-        return _shape_hr(r.cut.rgb, fr.mask), _shape_hr(r.cut.rgb, fr.mask, flip=True)
+        # the body only: an effect drawn next to it (a spark, a star) must not turn the frame round
+        m = fr.body_mask if fr.body_mask.any() else fr.mask
+        return _shape_hr(r.cut.rgb, m), _shape_hr(r.cut.rgb, m, flip=True)
     return _shape(r.idx[i], r.palette), _shape(r.idx[i][:, ::-1], r.palette)
 
 

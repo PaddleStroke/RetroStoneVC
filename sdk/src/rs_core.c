@@ -205,6 +205,12 @@ uint16_t rs_pad(int p) { return (unsigned)p < RS_PAD_MAX ? g_pad[p] : 0; }
 uint16_t rs_pad_pressed(int p) { return (unsigned)p < RS_PAD_MAX ? (uint16_t)(g_pad[p] & ~g_pad_prev[p]) : 0; }
 uint16_t rs_pad_released(int p) { return (unsigned)p < RS_PAD_MAX ? (uint16_t)(~g_pad[p] & g_pad_prev[p]) : 0; }
 int rs_pad_connected(int p) { return (unsigned)p < RS_PAD_MAX ? g_pad_conn[p] : 0; }
+static uint8_t g_pad_dev[RS_PAD_MAX];
+void rs_host_set_pad_device(int p, int d)
+{
+    if ((unsigned)p < RS_PAD_MAX && d >= RS_DEVICE_PAD && d <= RS_DEVICE_KEYBOARD2) g_pad_dev[p] = (uint8_t)d;
+}
+int rs_pad_device(int p) { return (unsigned)p < RS_PAD_MAX ? g_pad_dev[p] : RS_DEVICE_PAD; }
 
 /* ---- save RAM ------------------------------------------------------------ */
 uint8_t *rs_sram(void) { return g_sram; }

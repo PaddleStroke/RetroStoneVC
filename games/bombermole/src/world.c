@@ -1880,7 +1880,8 @@ static uint16_t world_cpu(actor *m, uint16_t *pressed);
 
 static void update_player(actor *a)
 {
-    int port = W.mode == MODE_SOLO ? a->player : MP.port[a->player];
+    int port = MP.port[a->player];                   /* solo: the pad that started the game (P1) */
+    if (W.mode == MODE_SOLO && port < 0) port = 0;
     uint16_t held = port >= 0 ? rs_pad(port) : 0, pr = port >= 0 ? rs_pad_pressed(port) : 0;
     if (W.mode == MODE_SOLO && bot_mode) held = bot_mode == 2 ? world_bot_objective(a, &pr) : world_bot(a, &pr);
     if (W.mode != MODE_SOLO && MP.cpu[a->player] && a->state != 99) held = world_cpu(a, &pr);

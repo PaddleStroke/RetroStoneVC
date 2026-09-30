@@ -317,7 +317,11 @@ def main():
         if not frames:                          # "boss" slot of the base palettes: filled per level
             obj_pals += [0] * 16
             continue
+        if g == "mole":                     # the players' helmets recolour this palette: the helmet's colours its own
+            frames, mole_helmet = palette_variants.helmet_frames(frames, rsasset.quantize)
         r = rsasset.convert_obj(frames)
+        if g == "mole":
+            mole_base = r.palette
         if g in ("ferret", "cat"):          # base palettes of the palette-swap variants
             cnt = [0] * len(r.palette)
             for t in r.tiles:
@@ -384,11 +388,30 @@ def main():
     for name, group, target, light in palette_variants.VARIANTS:
         pal, cnt = variant_base[group]
         vnames.append("VAR_%s" % cname(name))
-        vpals.append(rsasset.palette16(palette_variants.variant_palette(pal, cnt, target, light)))
+        vpals.append(rsasset.palette16(palette_variants.variant_palette(pal, cnt, target, light,
+                                                                        palette_variants.OUTLINES.get(name))))
     h.append("enum { %s, VAR_COUNT };" % ", ".join(vnames))
     h.append("extern const uint16_t bm_variant_pals[VAR_COUNT][16];\n")
     c.append("const uint16_t bm_variant_pals[VAR_COUNT][16] = {\n" + ",\n".join(
         "    {" + ", ".join("0x%04x" % v for v in p) + "}" for p in vpals) + "};")
+
+    # ---- the players' moles: the same art, only the helmet's red ramp recoloured (red, blue, green, yellow) ----
+    ramp = palette_variants.helmet_ramp(mole_base, mole_helmet)
+    if not 2 <= len(ramp) <= 5:
+        raise SystemExit("mole art: the red helmet ramp has %d colours (2-5 expected: the helmet's red shades)" % len(ramp))
+    val = [palette_variants._hsv(c)[2] for c in mole_base]
+    h.append("/* the moles of players 1-4: the mole palette with the helmet (entries %s) red, blue, green, yellow; */"
+             % ",".join(str(i + 1) for i in ramp))
+    h.append("/* the P1-P4 markers are drawn with the helmet's lightest shade on the darkest colour (the outline) */")
+    h.append("#define MOLE_HELMET_INK %d\n#define MOLE_OUTLINE %d" %
+             (max(ramp, key=lambda i: val[i]) + 1, min(range(len(val)), key=lambda i: val[i]) + 1))
+    h.append("extern const char *const bm_helmet_names[4];")
+    h.append("extern const uint16_t bm_mole_helmet_pals[4][16];\n")
+    c.append("const char *const bm_helmet_names[4] = {%s};" %
+             ", ".join('"%s"' % n for n, _ in palette_variants.HELMETS))
+    c.append("const uint16_t bm_mole_helmet_pals[4][16] = {\n" + ",\n".join(
+        "    {" + ", ".join("0x%04x" % v for v in rsasset.palette16(palette_variants.helmet_palette(mole_base, t, ramp))) + "}"
+        for _, t in palette_variants.HELMETS) + "};")
 
     # ---- title logo (art/title_logo.png, 256x64): BG tiles + map, one palette ------------------
     logo_path = os.path.join(a.art, "title_logo.png")

@@ -123,7 +123,10 @@ RETRO_API void retro_run(void)
 {
     if (!started) retro_reset();
     poll_cb();
-    for (unsigned p = 0; p < RS_PAD_MAX; p++) rs_host_set_pad((int)p, read_pad(p), 1);
+    for (unsigned p = 0; p < RS_PAD_MAX; p++) {
+        rs_host_set_pad((int)p, read_pad(p), 1);
+        rs_host_set_pad_device((int)p, RS_DEVICE_PAD);          /* a RetroPad: the buttons keep their names */
+    }
     rs_host_frame();
     video_cb(rs_host_framebuffer(), RS_SCREEN_W, RS_SCREEN_H, RS_SCREEN_W * 2);
     int n = 0;

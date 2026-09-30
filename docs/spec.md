@@ -160,6 +160,11 @@ minus the sound-effect voices, and the samples within ARAM.
 - Desktop: keyboard pad 1 = arrows, Z/X = B/A, C/V = Y/X, Q/E = L/R, Enter = Start, Right Shift/Backspace/Esc =
   Select; keyboard pad 2 = W A S D, G/H = B/A, T = Start, R = Select; game controllers by position (bottom = B,
   right = A, left = Y, top = X), on pads 1-4 in the order they are plugged in.
+- `rs_pad_device(port)` tells what drives a port, so a game can name its buttons: `RS_DEVICE_PAD`,
+  `RS_DEVICE_KEYBOARD` (the first key set: "A (X KEY)", "START (ENTER)") or `RS_DEVICE_KEYBOARD2` (the second:
+  H, G, T). The desktop runner reports the last one used on pads 1-2 (the keyboard until a controller is
+  used); the libretro core always reports a pad; the headless runner takes `--device P1=pad|kb|kb2`
+  (default: pad 1 the keyboard, pad 2 the second key set, pads 3-4 pads).
 - libretro: ports 1-4 are pads 1-4 (a multitap or four controllers in RetroArch / RetroStoneOS).
 
 **SNES mapping.** Identical bit layout (JOY1-JOY4 with a multitap).

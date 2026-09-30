@@ -34,6 +34,10 @@ static void open_pads(void)
                 slot++;
             }
         }
+    /* what drives each port (button names): its pad if one is plugged in, else the keyboard (ports 1-2);
+       then the last one used (frame loop) */
+    for (int p = 0; p < RS_PAD_MAX; p++)
+        rs_host_set_pad_device(p, pads[p] || p > 1 ? RS_DEVICE_PAD : p == 0 ? RS_DEVICE_KEYBOARD : RS_DEVICE_KEYBOARD2);
 }
 
 static uint16_t pad_state(SDL_GameController *c)
@@ -202,9 +206,12 @@ int main(int argc, char **argv)
         if (now + frame_ticks * 8 < next || now > next + frame_ticks * 8) next = now; /* resync */
         while (now >= next && steps < 4) {
             uint16_t kb1 = keyboard_state(KEYS_P1), kb2 = keyboard_state(KEYS_P2);
-            for (int p = 0; p < RS_PAD_MAX; p++)
-                rs_host_set_pad(p, (uint16_t)(pad_state(pads[p]) | (p == 0 ? kb1 : p == 1 ? kb2 : 0)),
-                                p <= 1 || pads[p]);
+            for (int p = 0; p < RS_PAD_MAX; p++) {
+                uint16_t pb = pad_state(pads[p]), kb = p == 0 ? kb1 : p == 1 ? kb2 : 0;
+                if (kb && !pb) rs_host_set_pad_device(p, p == 0 ? RS_DEVICE_KEYBOARD : RS_DEVICE_KEYBOARD2);
+                else if (pb && !kb) rs_host_set_pad_device(p, RS_DEVICE_PAD);
+                rs_host_set_pad(p, (uint16_t)(pb | kb), p <= 1 || pads[p]);
+            }
             rs_host_frame();
             if (dev) {
                 int n;

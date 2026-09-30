@@ -14,6 +14,8 @@
  *     --sram FILE         load (and save back) the save RAM
  *     --bench [FROM]      print frame-time statistics (frames >= FROM)
  *     --wav FILE.wav      record the audio
+ *     --device Pn=DEV     what drives port n: pad, kb (first key set) or kb2 (second key set);
+ *                         default: P1 kb, P2 kb2, P3-P4 pad (the desktop keyboard, no controller)
  *
  * Input script: one event per line, '#' starts a comment.
  *     <frame> [P1..P4] <BUTTONS|->       hold BUTTONS (B+UP...) from <frame>
@@ -96,6 +98,7 @@ int main(int argc, char **argv)
 {
     int frames = 60, scale = 1, bench = 0, bench_from = 0;
     const char *png = NULL, *sram = NULL, *wav = NULL;
+    int device[RS_PAD_MAX] = {RS_DEVICE_KEYBOARD, RS_DEVICE_KEYBOARD2, RS_DEVICE_PAD, RS_DEVICE_PAD};
     for (int i = 1; i < argc; i++) {
         const char *a = argv[i], *v = i + 1 < argc ? argv[i + 1] : NULL;
         if (!strcmp(a, "--frames") && v) frames = atoi(argv[++i]);
@@ -114,6 +117,12 @@ int main(int argc, char **argv)
         else if (!strcmp(a, "--data") && v) rsd_set_data_dir(argv[++i]);
         else if (!strcmp(a, "--sram") && v) sram = argv[++i];
         else if (!strcmp(a, "--wav") && v) wav = argv[++i];
+        else if (!strcmp(a, "--device") && v) {
+            const char *d = argv[++i];
+            int port = (d[0] == 'P' || d[0] == 'p') ? d[1] - '1' : -1;
+            if (port < 0 || port >= RS_PAD_MAX || d[2] != '=') { fprintf(stderr, "--device needs Pn=pad|kb|kb2\n"); return 1; }
+            device[port] = !strcmp(d + 3, "kb") ? RS_DEVICE_KEYBOARD : !strcmp(d + 3, "kb2") ? RS_DEVICE_KEYBOARD2 : RS_DEVICE_PAD;
+        }
         else if (!strcmp(a, "--bench")) {
             bench = 1;
             if (v && v[0] >= '0' && v[0] <= '9') bench_from = atoi(argv[++i]);
@@ -125,6 +134,7 @@ int main(int argc, char **argv)
     const rs_game *g = rs_game_main();
     rs_host_set_file_loader(rsd_data_loader);
     if (sram) rsd_sram_load(sram);
+    for (int p = 0; p < RS_PAD_MAX; p++) rs_host_set_pad_device(p, device[p]);
     rs_host_init(g);
 
     FILE *wf = NULL;

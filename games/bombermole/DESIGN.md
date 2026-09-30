@@ -106,8 +106,12 @@ right next to a hole or ladder that leads to the mole's depth.
 Keyboard (desktop), player 1: arrows, Z = B, X = A, C = Y, V = X, Q/E = L/R, Enter = Start, Esc or Backspace =
 Select (back); player 2 on the same keyboard: W A S D, G = B, H = A, T = Start, R = Select. F11 fullscreen, F12
 screenshot, F1-F7 dev keys (dev mode only). Game controllers are pads 1-4 by position; in multiplayer the
-players are numbered in the order their pads join (the join screen). Picking up a power-up shows one line
-for 1.5 s naming it, and the button when it adds a control: "REMOTE: PRESS A (X KEY) TO BLOW". While the
+players are numbered in the order their pads join (the join screen). The menus take any pad: the one that
+confirms on the title is P1. Every prompt names the button of the device in use (one helper, `btn_name()`,
+from the SDK's `rs_pad_device()`): "PRESS A (X KEY)", "START (ENTER)", "B (Z KEY)" on the keyboard, "H", "T",
+"G" on its second key set, plain "A", "START", "B" on a pad and in the libretro core; the pause screen, the
+boxes, the results and the remote banner all use it. Picking up a power-up shows one line for 1.5 s naming
+it, and the button when it adds a control: "REMOTE: PRESS A (X KEY) TO BLOW". While the
 remote is on, a small A-button glyph sits on the HUD's bomb icon, and remote bombs look different: no fuse,
 a short antenna with a blinking light.
 
@@ -210,7 +214,8 @@ palettes; `check_levels.py --table` prints the mix of every level.
 (outline, fur, light parts, accents such as the nose and eyes) and maps the fur ramp onto the variant's colour
 by brightness, so the shading survives; it works on the placeholders and on imported AI art alike (the asset
 build computes the palettes from whatever art is in the sheets). Variants: sleepy ferret (pale cream), brown
-ferret, polecat (dark, light face), stoat (white); ginger tabby, grey, black, siamese (cream with dark points).
+ferret, polecat (dark, light face), stoat (white, with grey-blue shading, a dark face mask and a darker,
+cooler outline so it reads on snow); ginger tabby, grey, black, siamese (cream with dark points).
 Preview: `docs/art-preview/enemy_variants.png` (`tools/art_variants.py`). A level gets sprite palettes 1 and 2
 for its variants, plus 3 when there is no boss and 7 when there is no dog.
 
@@ -494,20 +499,27 @@ Save RAM (32 KiB, only 82 bytes used): magic `BMSV`, version, levels cleared per
 
 ## Multiplayer
 1 to 4 players on one screen, split by the SDK's viewports (docs/spec.md, "Viewports"). The title menu has
-**STORY** (1-4 players: one player plays solo as before, 2-4 play co-op) and **BATTLE** (2-4 moles, humans and
-CPUs). Code: `src/mp.c` (views, cameras, HUD strips, join screen, battle rounds), `src/world.c` (the rules, the
+**STORY** (straight to the season select, alone: a lone player never sees the join screen; the season select
+has a **2-4 PLAYERS** entry that opens it for co-op) and **BATTLE** (2-4 moles, humans and CPUs). Code: `src/mp.c` (views, cameras, HUD strips, join screen, battle rounds), `src/world.c` (the rules, the
 CPUs, sudden death).
 
-**Join screen.** Each pad presses A to join: players are P1..P4 in join order (a pad's port can be any of the
-four: the keyboard is pad 1, WASD pad 2, then the game controllers). Left/Right choose the colour (unique), B
-leaves. In battle P1 adds a CPU with X, removes one with Y and sets their skill with L/R (easy, normal, hard).
-Start (P1) begins: STORY goes to the season select; BATTLE to the arena menu (arena, wins needed 1-5, round
-time, bombs into holes on/off).
+**Join screen.** The pad that opened it is P1, already in. A or Start from any pad not in yet joins it:
+players are P1..P4 in join order (a pad's port can be any of the four: the keyboard is pad 1, WASD pad 2, then
+the game controllers); when nobody is in, Start joins that pad as P1 and starts at once, so nobody is ever
+stuck. Left/Right choose the helmet colour (unique; red, blue, green, yellow in P order by default), B leaves.
+In battle P1 adds a CPU with X, removes one with Y and sets their skill with L/R (easy, normal, hard). Start
+from any player begins: STORY goes back to the season select (alone: solo, 2-4: co-op); BATTLE to the arena
+menu (arena, wins needed 1-5, round time, bombs into holes on/off), a lone battler getting a CPU mole.
 
-**Colours.** Four fur colours (brown, grey, golden, black) made by recolouring the mole's palette at run time
-(the browns only; nose, claws and eyes keep theirs), and a helmet colour per player (red, blue, green, yellow)
-in the palette's entries 14-15: a **P1..P4 marker** above each mole and on its HUD strip, drawn from the font in
-that colour. Each extra mole needs a sprite palette: the boss's or the critters' when the level has none, then
+**Colours.** The moles differ by their **miner's helmet only**: red, blue, green, yellow. The fur, nose, claws
+and lamp keep the art's colours. `tools/palette_variants.py` finds the helmet in the mole's frames (the true
+reds connected to its mid and light reds; a red also drawn elsewhere, like a dark red shading the AI mole's
+face, becomes two palette entries) and the asset build exports the mole palette four times with only those
+entries recoloured, keeping their shading (3 shades, hue-shifted: cooler shadows, warmer lights):
+`bm_mole_helmet_pals`. The placeholder mole wears a small red helmet with a yellow lamp. A **P1..P4 marker**
+above each mole and on its HUD strip is drawn from the font in the helmet's lightest shade on the outline
+colour. Preview: `docs/art-preview/mole-helmets.png` (`tools/mole_helmets.py`, the placeholder and the AI art,
+4x). Each extra mole needs a sprite palette: the boss's or the critters' when the level has none, then
 an enemy one while enough stay for the enemy variants; when none is left a mole shares P1's (the marker tells
 them apart). Battle arenas have no enemies: every mole has its own palette.
 
@@ -575,7 +587,7 @@ won.
 
 **Headless options** (tests, screenshots): `--opt mp=coop --opt players=N --opt level=spring-3` (co-op),
 `--opt mp=battle --opt players=4 --opt cpus=K --opt arena=NAME [--opt skill=1..3] [--opt sd=N: sudden death after N frames]`,
-`--opt battlesim=N --opt arena=NAME`, `--opt screen=join`, `--opt ff=1`, `--opt merge=1`, `--opt splith=1`,
+`--opt battlesim=N --opt arena=NAME`, `--opt screen=join` (nobody in; `--opt story=1`: the story's), `--opt ff=1`, `--opt merge=1`, `--opt splith=1`,
 `--opt map3=0`. Input scripts address the pads with `P1`..`P4`. The dump adds an `mp:` line (views, cameras,
 each mole's depth, cell, hearts and state).
 

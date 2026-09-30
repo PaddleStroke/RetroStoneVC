@@ -265,7 +265,7 @@ typedef struct mp_setup {
     int nplayers;                 /* moles: 1..4 (humans and CPUs) */
     int8_t port[MAX_PLAYERS];     /* the pad of each player (join order), -1 = a CPU */
     uint8_t cpu[MAX_PLAYERS];     /* 0 = human; CPU skill 1 easy, 2 normal, 3 hard */
-    uint8_t colour[MAX_PLAYERS];  /* 0 brown, 1 grey, 2 golden, 3 black */
+    uint8_t colour[MAX_PLAYERS];  /* the helmet: 0 red, 1 blue, 2 green, 3 yellow (the fur never changes) */
     uint8_t friendly_fire;        /* co-op: a teammate's blast hurts (off: it stuns 1 s) */
     uint8_t hole_bombs;           /* battle: bombs dropped into holes fall to the depth below */
     uint8_t merge;                /* co-op: one full-screen view while the moles stay together */
@@ -277,13 +277,14 @@ typedef struct mp_setup {
 } mp_setup;
 /* ---- mp.c ---- */
 void mp_level_start(void);                       /* after world_start: the 3 depths drawn, colours, markers */
+void mp_mole_palettes(void);                     /* each mole's palette: its player's helmet colour */
 void mp_update_views(void);                      /* after world_update: depth slides, cameras */
 void mp_draw_play(void);                         /* the split-screen picture */
 void mp_views_off(void);
 void mp_box_off(void);
 void mp_start_box(const level_def *L);
 void mp_pause_box(int cursor, int quit_ask);
-void mp_join_begin(void);
+void mp_join_begin(int first_port);              /* first_port: P1, already joined (-1: nobody yet) */
 void mp_join_enter(void);
 int  mp_join_update(int mode);                   /* 1: start, -1: back */
 void mp_join_draw(void);
@@ -388,6 +389,10 @@ void ui_start_box(const level_def *L);         /* the paused start box (name, ob
 void ui_boss_bar(void);                        /* boss health (and the farmer's crates) */
 int  world_crates(void);                       /* crates left on the boss's depth */
 void ui_hud_extras(void);
+/* Button names for the prompts, by what drives the port: "A" on a pad or the libretro core, "A (X KEY)" on the
+   desktop keyboard, "H" on its second key set. prompt_port: the port the menus' prompts speak to (the last used). */
+const char *btn_name(uint16_t button, int port);
+extern int prompt_port;
 
 /* ---- sfx.c ---- */
 enum sfx_id {

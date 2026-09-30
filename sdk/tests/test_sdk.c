@@ -344,6 +344,14 @@ static void test_input(void)
     CHECK(rsd_buttons("B+START+LEFT") == (RS_BTN_B | RS_BTN_START | RS_BTN_LEFT), "input: button names");
     rs_host_set_pad(3, RS_BTN_R, 1);
     CHECK(rs_pad(3) == RS_BTN_R && rs_pad_connected(3), "input: port 4");
+    CHECK(rs_pad_device(2) == RS_DEVICE_PAD, "input: a pad by default");
+    rs_host_set_pad_device(0, RS_DEVICE_KEYBOARD);
+    rs_host_set_pad_device(1, RS_DEVICE_KEYBOARD2);
+    rs_host_set_pad_device(2, 7);                        /* unknown: ignored */
+    CHECK(rs_pad_device(0) == RS_DEVICE_KEYBOARD && rs_pad_device(1) == RS_DEVICE_KEYBOARD2 &&
+          rs_pad_device(2) == RS_DEVICE_PAD && rs_pad_device(9) == RS_DEVICE_PAD, "input: the device of each port");
+    rs_host_set_pad_device(0, RS_DEVICE_PAD);
+    rs_host_set_pad_device(1, RS_DEVICE_PAD);
     rs_host_shutdown();
 }
 

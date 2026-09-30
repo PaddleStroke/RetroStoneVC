@@ -31,6 +31,8 @@ void rs_host_shutdown(void);
 void rs_host_reset(void);
 
 void rs_host_set_pad(int port, uint16_t buttons, int connected);
+/* What drives the port (RS_DEVICE_PAD, RS_DEVICE_KEYBOARD, RS_DEVICE_KEYBOARD2): rs_pad_device(). */
+void rs_host_set_pad_device(int port, int device);
 /* Development function key for the next frame (1..10 = F1..F10, 0 = none): rs_dev_key(). */
 void rs_host_set_dev_key(int key);
 

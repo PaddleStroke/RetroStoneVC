@@ -266,6 +266,12 @@ uint16_t rs_pad(int port);           /* held */
 uint16_t rs_pad_pressed(int port);   /* went down this frame */
 uint16_t rs_pad_released(int port);  /* went up this frame */
 int      rs_pad_connected(int port);
+/* What drives a port, so a game can name its buttons ("PRESS A (X KEY)"): a pad, or one of the
+ * desktop keyboard's two key sets (docs/spec.md "Input"). Set by the frontend; a pad by default. */
+#define RS_DEVICE_PAD       0
+#define RS_DEVICE_KEYBOARD  1        /* first key set: arrows, X = A, Z = B, Enter = Start */
+#define RS_DEVICE_KEYBOARD2 2        /* second key set: WASD, H = A, G = B, T = Start */
+int      rs_pad_device(int port);
 
 /* ---- Save RAM (battery) ------------------------------------------------ */
 #define RS_SRAM_SIZE 32768

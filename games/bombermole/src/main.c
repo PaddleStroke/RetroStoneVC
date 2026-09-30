@@ -82,14 +82,28 @@ static int unlocked(int arc, int n)
 /* ---- helpers -------------------------------------------------------------------------------------- */
 static int st_changed;
 static void go(int s) { st = s; st_t = 0; cursor = 0; st_changed = 1; }
-/* menus and pause: in multiplayer, any human player's pad */
+/* menus and pause: any pad in the menus and the solo game (whoever picks up a pad can play), any human player's
+   pad in multiplayer; the prompts name the buttons of the last one used (prompt_port) */
 static uint16_t pressed(void)
 {
-    if (MP.mode == MODE_SOLO) return rs_pad_pressed(0);
     uint16_t p = 0;
-    for (int i = 0; i < MP.nplayers; i++)
-        if (MP.port[i] >= 0) p |= rs_pad_pressed(MP.port[i]);
+    for (int i = 0; i < RS_PAD_MAX; i++) {
+        int ok = MP.mode == MODE_SOLO;
+        for (int k = 0; k < MP.nplayers && !ok; k++) ok = MP.port[k] == i;
+        uint16_t b = ok ? rs_pad_pressed(i) : 0;
+        if (b) { p |= b; prompt_port = i; }
+    }
     return p;
+}
+
+/* "A (X KEY): OPEN   B (Z KEY): BACK", centred on row y */
+static void keys_line(int y, const char *a, const char *b)
+{
+    char s[64];
+    if (b) snprintf(s, sizeof s, "%s: %s   %s: %s", btn_name(RS_BTN_A, prompt_port), a, btn_name(RS_BTN_B, prompt_port), b);
+    else snprintf(s, sizeof s, "PRESS %s", btn_name(RS_BTN_A, prompt_port));
+    text_at(0, y, "                                        ");
+    text_at((40 - (int)strlen(s)) / 2, y, s);
 }
 static int confirm(void) { return pressed() & (RS_BTN_A | RS_BTN_START); }
 static int back(void) { return pressed() & (RS_BTN_B | RS_BTN_SELECT); }
@@ -199,7 +213,20 @@ static void title_update(void)
         sfx(SFX_MENU_OK);
         text_clear_all();
         show_logo(0);
-        if (c == 0 || c == 1) { join_mode = c == 0 ? MODE_COOP : MODE_BATTLE; mp_join_begin(); mp_join_enter(); go(ST_JOIN); }
+        /* the pad that confirms is P1. Story: straight to the seasons, alone (2-4 PLAYERS is an entry there);
+           battle: the join screen, P1 already in */
+        if (c == 0) {
+            MP.mode = MODE_SOLO;
+            MP.nplayers = 1;
+            for (int p = 0; p < MAX_PLAYERS; p++) { MP.port[p] = (int8_t)(p ? -1 : prompt_port); MP.cpu[p] = 0; MP.colour[p] = (uint8_t)p; }
+            go(ST_ARCS);
+            cursor = sel_arc;
+        } else if (c == 1) {
+            join_mode = MODE_BATTLE;
+            mp_join_begin(prompt_port);
+            mp_join_enter();
+            go(ST_JOIN);
+        }
         else if (c == 2) go(ST_OPTIONS);
         else go(ST_CREDITS);
     }
@@ -212,10 +239,18 @@ static void arcs_update(void)
     text_at(center("CHOOSE A SEASON"), 3, "CHOOSE A SEASON");
     uint16_t p = pressed();
     int old = cursor;
-    if (p & RS_BTN_LEFT) cursor = (cursor + 3) % 4;
-    if (p & RS_BTN_RIGHT) cursor = (cursor + 1) % 4;
+    static int col;                                  /* the season under the cursor (cursor 4: 2-4 PLAYERS) */
+    if (cursor < 4) col = cursor;
+    if (cursor < 4 && (p & RS_BTN_LEFT)) cursor = (cursor + 3) % 4;
+    if (cursor < 4 && (p & RS_BTN_RIGHT)) cursor = (cursor + 1) % 4;
+    if (p & (RS_BTN_UP | RS_BTN_DOWN)) cursor = cursor < 4 ? 4 : col;
     if (cursor != old) sfx(SFX_MENU_MOVE);
     static const char *const names[4] = {"SPRING", "SUMMER", "AUTUMN", "WINTER"};
+    char pl[24];
+    if (MP.mode == MODE_COOP) snprintf(pl, sizeof pl, "%c PLAYERS: %d (CO-OP)", cursor == 4 ? '>' : ' ', MP.nplayers);
+    else snprintf(pl, sizeof pl, "%c 2-4 PLAYERS", cursor == 4 ? '>' : ' ');
+    text_at(0, 14, "                                        ");
+    text_at((40 - (int)strlen(pl)) / 2, 14, pl);
     for (int a = 0; a < 4; a++) {
         int x = 2 + a * 10;
         text_at(x, 8, a == cursor ? ">" : " ");
@@ -224,7 +259,16 @@ static void arcs_update(void)
         textf_at(x + 1, 10, ok ? "%d/8   " : "LOCKED", SV.cleared[a]);
         rs_bg_meta(RS_BG1, x / 2 + 1, 6, bm_hud_meta[ok ? (SV.cleared[a] == 8 ? HUD_CHECK : HUD_GRUB) : HUD_LOCK]);
     }
-    text_at(center("A: OPEN   B: BACK"), 24, "A: OPEN   B: BACK");
+    keys_line(24, "OPEN", "BACK");
+    if (confirm() && cursor == 4) {                  /* 2-4 PLAYERS: the join screen, this pad already P1 */
+        sfx(SFX_MENU_OK);
+        text_clear_all();
+        join_mode = MODE_COOP;
+        mp_join_begin(prompt_port);
+        mp_join_enter();
+        go(ST_JOIN);
+        return;
+    }
     if (confirm()) {
         if (unlocked(cursor, 1)) {
             sfx(SFX_MENU_OK);
@@ -279,7 +323,7 @@ static void levels_update(void)
             text_at(2, 20, L->error);
         }
     }
-    text_at(center("A: PLAY   B: BACK"), 26, "A: PLAY   B: BACK");
+    keys_line(26, "PLAY", "BACK");
     if (confirm()) {
         if (unlocked(sel_arc, cursor + 1) && !level_load(L, sel_arc, cursor + 1)) {
             sfx(SFX_MENU_OK);
@@ -346,9 +390,11 @@ static void credits_update(void)
     static const char *const lines[] = {
         "BOMBER MOLE", "", "A GAME BY 8BCRAFT", "(PIERRE-LOUIS BOYER)", "",
         "FOR THE RETROSTONE VIRTUAL CONSOLE", "", "MUSIC PLAYER: LIBXMP-LITE (MIT)",
-        "PLACEHOLDER ART AND SOUND", "GENERATED BY SCRIPTS", "", "PRESS A"};
-    for (unsigned i = 0; i < sizeof lines / sizeof lines[0]; i++)
+        "PLACEHOLDER ART AND SOUND", "GENERATED BY SCRIPTS", ""};
+    unsigned n = sizeof lines / sizeof lines[0];
+    for (unsigned i = 0; i < n; i++)
         text_at(center(lines[i]), 6 + (int)i * 1 + (i > 0 ? 1 : 0), lines[i]);
+    keys_line(6 + (int)n + 1, NULL, NULL);
     if (confirm() || back()) { text_clear_all(); go(ST_TITLE); cursor = 3; }
 }
 
@@ -357,7 +403,14 @@ static void join_update(void)
 {
     menu_scroll();
     int r = mp_join_update(join_mode);
-    if (r < 0) { text_clear_all(); MP.mode = MODE_SOLO; go(ST_TITLE); cursor = join_mode == MODE_BATTLE ? 1 : 0; return; }
+    if (r < 0) {                                     /* P1 backed out: battle to the title, story to the seasons, alone */
+        text_clear_all();
+        MP.mode = MODE_SOLO;
+        MP.nplayers = 1;
+        if (join_mode == MODE_BATTLE) { go(ST_TITLE); cursor = 1; }
+        else { go(ST_ARCS); cursor = 4; }
+        return;
+    }
     if (r == 0) return;
     text_clear_all();
     if (MP.mode == MODE_BATTLE) { go(ST_BATTLE); mp_battle_begin(); return; }
@@ -480,6 +533,7 @@ static void start_level(void)
     const char *scene = rs_option("scene");
     if (scene && !strcmp(scene, "chain")) place_scene_bombs();
     if (W.mode != MODE_SOLO) mp_level_start();          /* split screen: every depth drawn, a view per mole */
+    else mp_mole_palettes();                          /* alone: P1's helmet (red unless chosen on the join screen) */
 }
 
 static void intro_update(void)
@@ -756,7 +810,9 @@ static void clear_update(void)
     textf_at(12, 13, "TIME   %2d:%02d", secs / 60, secs % 60);
     textf_at(12, 14, "BEST   %2d:%02d", b / 60, b % 60);
     textf_at(12, 15, "GRUBS  %2d", W.grubs_total);
-    text_at(center("PRESS A"), 17, "PRESS A");
+    char k[32];
+    snprintf(k, sizeof k, "PRESS %s", btn_name(RS_BTN_A, prompt_port));
+    text_at(center(k), 17, k);
     plain_text();
     rs_brightness(15);
     if (st_t > 30 && confirm()) {
@@ -810,7 +866,9 @@ static void arcdone_update(void)
     static const char *const names[4] = {"SPRING", "SUMMER", "AUTUMN", "WINTER"};
     text_box(10, 24, 20, 4);
     textf_at(center("SPRING COMPLETE!"), 25, "%s COMPLETE!", names[sel_arc]);
-    text_at(center("PRESS A"), 26, "PRESS A");
+    char k[32];
+    snprintf(k, sizeof k, "PRESS %s", btn_name(RS_BTN_A, prompt_port));
+    text_at(center(k), 26, k);
     plain_text();
     if (st_t > 60 && confirm()) {
         rs_bg_affine(RS_BG2, NULL);
@@ -868,7 +926,14 @@ static void game_init(void)
         MP.mode = MODE_SOLO;
     }
     const char *scr = rs_option("screen");
-    if (scr && !strcmp(scr, "join")) { join_mode = MODE_BATTLE; mp_join_begin(); menu_backdrop(); mp_join_enter(); go(ST_JOIN); return; }
+    if (scr && !strcmp(scr, "join")) {               /* tests: the battle join screen, nobody in yet (story=1: story's) */
+        join_mode = rs_option_int("story", 0) ? MODE_COOP : MODE_BATTLE;
+        mp_join_begin(-1);
+        menu_backdrop();
+        mp_join_enter();
+        go(ST_JOIN);
+        return;
+    }
     const char *lv = rs_option("level");
     if (lv) {                                        /* "spring-3": jump straight into a level */
         char season[16] = "";
@@ -1011,6 +1076,15 @@ static void game_draw(void)
 static void game_shutdown(void)
 {
     if (!rs_option_int("dump", 0)) return;
+    {                                                /* the prompts' button names, per port (by its device) */
+        char s[160] = "buttons:";
+        for (int p = 0; p < RS_PAD_MAX; p++) {
+            char t[48];
+            snprintf(t, sizeof t, " P%d=%s|%s|%s", p + 1, btn_name(RS_BTN_A, p), btn_name(RS_BTN_B, p), btn_name(RS_BTN_START, p));
+            strcat(s, t);
+        }
+        rs_log("%s p1port=%d prompt=%d", s, MP.port[0], prompt_port);
+    }
     if (W.mode != MODE_SOLO) mp_dump();
     if (st == ST_JOIN) mp_join_dump();
     actor *m = world_player(0);

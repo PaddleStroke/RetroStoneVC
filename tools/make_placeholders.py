@@ -47,7 +47,26 @@ def ell(d, x0, y0, x1, y1, c, o=None):
 # characters
 MOLE = dict(out=(42, 26, 16), body=(107, 74, 47), light=(156, 115, 80), pink=(232, 160, 160),
             nose=(255, 111, 143), white=(255, 255, 255), eye=(10, 10, 10), yellow=(255, 210, 63),
-            claw=(240, 230, 210), dirt=(176, 124, 72))
+            claw=(240, 230, 210), dirt=(176, 124, 72),
+            # the miner's helmet: three reds (recoloured per player by tools/palette_variants.py), a yellow lamp
+            helmet_dk=(120, 16, 24), helmet=(206, 40, 40), helmet_lt=(247, 99, 82))
+
+
+def helmet(d, view, x0, y0):
+    """A small red miner's helmet on the head (top-left corner of the dome at x0, y0): a dome, a dark brim,
+    a highlight, the lamp in front (not on the back view)."""
+    P = MOLE
+    if view in ("down", "up"):
+        d.pieslice((x0, y0, x0 + 7, y0 + 7), 180, 360, fill=P["helmet"], outline=P["helmet_dk"])
+        rect(d, x0 - 1, y0 + 4, x0 + 8, y0 + 4, P["helmet_dk"])
+        px(d, x0 + 2, y0 + 1, P["helmet_lt"]); px(d, x0 + 1, y0 + 2, P["helmet_lt"])
+        if view == "down":
+            rect(d, x0 + 3, y0 + 1, x0 + 4, y0 + 2, P["yellow"])
+    else:                                   # facing left: the lamp at the front (left)
+        d.pieslice((x0, y0, x0 + 7, y0 + 7), 180, 360, fill=P["helmet"], outline=P["helmet_dk"])
+        rect(d, x0 - 1, y0 + 4, x0 + 7, y0 + 4, P["helmet_dk"])
+        px(d, x0 + 4, y0 + 1, P["helmet_lt"]); px(d, x0 + 5, y0 + 2, P["helmet_lt"])
+        rect(d, x0, y0 + 2, x0 + 1, y0 + 3, P["yellow"])
 
 
 def mole(view, frame=0, pose="walk"):
@@ -78,6 +97,7 @@ def mole(view, frame=0, pose="walk"):
             rect(d, 7, y0 + 6, 8, y0 + 7, P["nose"])
         else:
             rect(d, 7, y0 + 2, 8, 12 + bob, P["light"])
+        helmet(d, view, 4, y0 - 2)
         # paws
         if pose == "victory":
             rect(d, 1, y0 - 2, 2, y0 + 2, P["pink"]); rect(d, 13, y0 - 2, 14, y0 + 2, P["pink"])
@@ -106,6 +126,7 @@ def mole(view, frame=0, pose="walk"):
         ell(d2, 5, 9, 11, 13, P["light"])
         rect(d2, 1, 9, 3, 10, P["nose"])
         px(d2, 5, 8, P["eye"])
+        helmet(d2, "left", 3, 3)
         if pose == "dig":
             for i, y in enumerate((7, 10, 13)):
                 rect(d2, 0 + (frame if i != 1 else 1 - frame), y, 1 + (frame if i != 1 else 1 - frame), y, P["claw"])
@@ -123,12 +144,14 @@ def mole_death(frame):
     im, d = canvas()
     if frame == 0:
         ell(d, 3, 3, 12, 14, P["body"], P["out"])
+        helmet(d, "up", 4, 1)
         for (x, y) in ((5, 6), (7, 8), (5, 8), (7, 6), (6, 7), (8, 6), (10, 8), (8, 8), (10, 6), (9, 7)):
             px(d, x, y, P["eye"])
         rect(d, 7, 10, 8, 11, P["nose"])
         px(d, 2, 1, P["yellow"]); px(d, 13, 2, P["yellow"])
     elif frame == 1:
         ell(d, 2, 6, 13, 14, P["body"], P["out"])
+        helmet(d, "up", 4, 3)
         rect(d, 5, 9, 6, 9, P["eye"]); rect(d, 9, 9, 10, 9, P["eye"])
         rect(d, 7, 11, 8, 11, P["nose"])
         px(d, 4, 3, P["yellow"]); px(d, 7, 2, P["yellow"]); px(d, 10, 3, P["yellow"])

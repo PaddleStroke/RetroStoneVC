@@ -279,5 +279,46 @@ printf "10 P1 tap A\n20 P2 tap A\n30 P1 tap X\n40 P2 tap RIGHT\n" > $T/join.inpu
 out=$($H --frames 60 --opt screen=join --opt dump=1 --input $T/join.input 2>&1)
 echo "$out" | grep -q "join: humans=2 cpus=1 skill=2 colours=0,3,2," && ok "join screen: pads join in order, P1 adds a CPU, colours stay unique" \
     || bad "join: $(echo "$out" | grep join:)"
+
+# ---- the menus and any pad: the pad that confirms is P1; nobody is ever stuck on the join screen ----
+printf "30 tap START\n45 tap START\n60 tap START\n100 tap START\n" > $T/kb.input
+out=$($H --frames 200 --opt dump=1 --input $T/kb.input 2>&1)
+echo "$out" | grep -q "state: st=6 level=spring-1" && ok "keyboard: title to a level with Enter presses only (story alone: no join screen)" \
+    || bad "enter only: $(echo "$out" | grep state:)"
+printf "10 P2 tap START\n" > $T/j2.input
+out=$($H --frames 40 --opt screen=join --opt dump=1 --input $T/j2.input 2>&1)
+echo "$out" | grep -q "join: start mode=2 humans=1 cpus=1 ports=1,-1," \
+    && ok "join screen, nobody in: Start from any pad joins it as P1 and starts (a lone battler gets a CPU)" \
+    || bad "join start: $(echo "$out" | grep join:)"
+out=$($H --frames 40 --opt screen=join --opt story=1 --opt dump=1 --input $T/j2.input 2>&1)
+echo "$out" | grep -q "join: start mode=0 humans=1 cpus=0 ports=1,-1," && ok "story join, nobody in: Start plays alone" \
+    || bad "story join start: $(echo "$out" | grep join:)"
+printf "20 tap DOWN\n30 tap START\n50 tap START\n" > $T/b.input
+out=$($H --frames 80 --opt dump=1 --input $T/b.input 2>&1)
+echo "$out" | grep -q "join: start mode=2 humans=1 cpus=1 ports=0,-1," \
+    && ok "battle: the pad that opened the menu is P1, already in: one Start goes on" || bad "battle P1: $(echo "$out" | grep join:)"
+printf "20 tap START\n40 tap DOWN\n50 tap START\n70 P2 tap A\n90 tap START\n110 tap START\n130 tap START\n170 tap START\n" > $T/s.input
+out=$($H --frames 260 --opt dump=1 --input $T/s.input 2>&1)
+echo "$out" | grep -q "join: start mode=1 humans=2 cpus=0 ports=0,1," && echo "$out" | grep -q "mp: mode=1 players=2 " \
+    && ok "story: 2-4 PLAYERS opens the join screen (P1 in), P2 joins, the co-op level starts" \
+    || bad "story co-op: $(echo "$out" | grep "join:\|mp:")"
+out=$($H --frames 5 --opt dump=1 2>&1)
+echo "$out" | grep -q "buttons: P1=A (X KEY)|B (Z KEY)|START (ENTER) P2=H|G|T P3=A|B|START" \
+    && ok "button names: the keyboard's keys (X, Z, Enter; H, G, T for the second key set), A/B/START on pads" \
+    || bad "button names: $(echo "$out" | grep buttons:)"
+out=$($H --frames 5 --opt dump=1 --device P1=pad 2>&1)
+echo "$out" | grep -q "buttons: P1=A|B|START P2=H" && ok "button names: a pad on port 1 says A / START" \
+    || bad "button names (pad): $(echo "$out" | grep buttons:)"
+# the players' moles: only the helmet changes colour; the nose and the paws are not in its ramp
+out=$(python3 -c "
+import sys; sys.path.insert(0, '$D/../../../tools')
+import palette_variants as pv, rsasset, make_placeholders as mp
+M = mp.MOLE
+cols = [rsasset.to555(c) for c in M.values()]
+ramp = [cols[i] for i in pv.helmet_ramp(cols)]
+names = sorted(k for k, c in zip(M, cols) if c in ramp)
+print('helmet:', ','.join(names))" 2>&1)
+[ "$out" = "helmet: helmet,helmet_dk,helmet_lt" ] && ok "helmet ramp: the helmet's three reds only (not the pink nose or paws)" \
+    || bad "helmet ramp: $out"
 rm -rf $T
 exit $fail

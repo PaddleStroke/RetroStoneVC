@@ -202,6 +202,8 @@ preview:
 	$(PYTHON) tools/tiles_compare.py build/host/$(GAME)_headless "tileset $(PREVIEW_TILESET)" \
 	    build/host/$(GAME)_headless_tiles_ai_v2 "AI tiles v2" docs/art-preview/tiles-compare-v2.png all
 	$(PYTHON) games/$(GAME)/tests/facing_capture.py build/host/$(GAME)_headless docs/art-preview/facing-capture-ai.png
+	$(PYTHON) tools/mole_helmets.py --out docs/art-preview/mole-helmets.png
+	$(PYTHON) tools/art_variants.py --out docs/art-preview/enemy_variants.png
 	rm -f $(GAME_GEN)
 
 art-review:

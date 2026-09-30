@@ -100,7 +100,7 @@ def main():
         d.text((6, y + C * Z // 2 - 6), "%s [%d]" % (name, TIER[name]), fill=(220, 220, 220))
         for si in range(len(sources)):
             pal, counts, frames = base[(si, group)]
-            vpal = pv.variant_palette(pal, counts, target, light)
+            vpal = pv.variant_palette(pal, counts, target, light, pv.OUTLINES.get(name))
             for fi, key in enumerate(FRAMES[group]):
                 out.paste(render(frames[key], vpal, pv, Z), (170 + si * (3 * cw + 24) + fi * cw, y))
     os.makedirs(os.path.dirname(a.out), exist_ok=True)

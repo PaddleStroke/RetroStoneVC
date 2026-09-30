@@ -202,13 +202,30 @@ void ui_perf_overlay(void)
 /* ---- power-up pickups: one line naming the power-up (and its button when it adds one) ------------ */
 void ui_pickup_banner(int item)
 {
-    /* the remote adds a control: name the button (A on a pad, the X key on a keyboard) */
+    /* the remote adds a control: name its button (A on a pad, the X key on the keyboard) */
     static const char *const msg[IT_COUNT] = {"", "", "BOMB UP: ONE MORE BOMB", "FIRE UP: LONGER BLASTS",
-                                              "SPEED UP", "REMOTE: PRESS A (X KEY) TO BLOW", "HEART: ONE MORE HIT",
+                                              "SPEED UP", "REMOTE: PRESS %s TO BLOW", "HEART: ONE MORE HIT",
                                               "APPLE: ONE MORE HIT"};
     if (item <= IT_GRUB || item >= IT_COUNT) return;
-    snprintf(pickup_line, sizeof pickup_line, "%s", msg[item]);
+    if (item == IT_REMOTE) snprintf(pickup_line, sizeof pickup_line, msg[item], btn_name(RS_BTN_A, MP.port[0]));
+    else snprintf(pickup_line, sizeof pickup_line, "%s", msg[item]);
     pickup_t = 90;                                              /* 1.5 s */
+}
+
+/* ---- button names: the prompts name the button of the device in use ---- */
+int prompt_port;
+
+const char *btn_name(uint16_t b, int port)
+{
+    static const struct { uint16_t b; const char *pad, *kb, *kb2; } N[] = {
+        {RS_BTN_A, "A", "A (X KEY)", "H"},             {RS_BTN_B, "B", "B (Z KEY)", "G"},
+        {RS_BTN_START, "START", "START (ENTER)", "T"}, {RS_BTN_SELECT, "SELECT", "SELECT (ESC)", "R"},
+        {RS_BTN_X, "X", "X (V KEY)", "X"},             {RS_BTN_Y, "Y", "Y (C KEY)", "Y"},
+        {RS_BTN_L, "L", "L (Q KEY)", "L"},             {RS_BTN_R, "R", "R (E KEY)", "R"}};
+    int d = rs_pad_device(port < 0 ? 0 : port);
+    for (unsigned i = 0; i < sizeof N / sizeof N[0]; i++)
+        if (N[i].b == b) return d == RS_DEVICE_KEYBOARD ? N[i].kb : d == RS_DEVICE_KEYBOARD2 ? N[i].kb2 : N[i].pad;
+    return "?";
 }
 
 /* the HUD: while the remote is on, its button glyph sits on the bomb icon's corner */
@@ -307,7 +324,7 @@ void ui_pause_screen(int cursor, int dev, int quit_ask)
 {
     static const char *const names[NDEPTH] = {"SURFACE", "BELOW", "DEEP"};
     text_clear_all();                                           /* no glow or link marks left over */
-    text_box(1, 2, 38, dev ? 23 : 20);
+    text_box(1, 2, 38, dev ? 25 : 22);
     textf_at(center(W.def->name), 3, "%s", W.def->name);
     /* the level's hint, as a subtitle: word-wrapped on two lines of 36 characters */
     const char *p = W.def->hint;
@@ -355,6 +372,10 @@ void ui_pause_screen(int cursor, int dev, int quit_ask)
         for (int i = 0; i < UI_DEV_ITEMS; i++)
             textf_at(8 + (i % 3) * 10, 22 + i / 3, "%c%s", 3 + i == cursor && !quit_ask ? '>' : ' ', it[i]);
     }
+    char k[48];
+    snprintf(k, sizeof k, "%s: CHOOSE   %s: %s", btn_name(RS_BTN_A, prompt_port), btn_name(RS_BTN_B, prompt_port),
+             quit_ask ? "NO" : "RESUME");
+    text_at(center(k), dev ? 25 : 22, k);
     rs_text_setup(RS_BG1, 0, 0, 1);
 }
 
@@ -388,7 +409,9 @@ void ui_start_box(const level_def *L)
     text_at(center(L->name), y + 1, L->name);
     text_at(center(goal), y + 3, goal);
     if (hint) text_at(center(hint), y + 4, hint);
-    text_at(center("PRESS A"), y + h - 2, "PRESS A");
+    char k[32];
+    snprintf(k, sizeof k, "PRESS %s", btn_name(RS_BTN_A, prompt_port));
+    text_at(center(k), y + h - 2, k);
     rs_text_setup(RS_BG1, 0, 0, 1);
 }
 
