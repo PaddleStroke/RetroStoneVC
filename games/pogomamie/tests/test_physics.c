@@ -363,7 +363,8 @@ static void test_generator(void)
                 int wid = (int)(b->x1 - b->x0);
                 if (b->x0 % 8 || b->x1 % 8 || b->top % 8 || wid < BLD_W_MIN || b->x0 < a->x1 ||
                     (b->kind != BK_BARGE && (b->top < ROOF_MIN_Y || b->top > ROOF_MAX_Y)) ||
-                    (b->roof == RF_PITCH && wid % 32) || (b->roof == RF_MANSARD && wid < 64)) {
+                    (b->roof == RF_PITCH && wid % 32) || (b->roof == RF_MANSARD && wid < 64) ||
+                    b->top > bldg_surface(a, (int)a->x1 - 1) + MAX_DROP) {
                     bad_shape++;
                     if (printed++ < 8)
                         printf("  FAIL seed %d: building %d kind %d roof %d at %d..%d top %d (after %d..%d)\n", s,
@@ -452,7 +453,7 @@ static void test_generator(void)
                (d + 1) * DIFF_FULL_M / 8, b->gaps, mg, b->gap_max, 100.0 * b->nogap / b->roofs, pg, 100.0 * b->gusts / b->roofs,
                b->gaps ? (double)b->props / b->gaps : 0);
         if (mg < prev_gap - 2) mono_gap = 0;
-        if (pg < prev_pig - 0.03) mono_pig = 0;
+        if (pg < prev_pig - 0.05) mono_pig = 0;       /* (the districts mix narrow and wide roofs) */
         prev_gap = mg;
         prev_pig = pg;
     }

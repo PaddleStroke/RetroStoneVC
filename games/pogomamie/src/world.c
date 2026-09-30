@@ -340,7 +340,12 @@ static void landed(world *w, int p, const hit *h, int big)
     *ev |= EV_LAND;
     if (m->bounce == BN_BIG) { *ev |= EV_BIG; m->big_bounces++; }
     switch (h->kind) {
-    case SF_BUMP: add_stunt(w, p, PTS_CHIMNEY); break;
+    case SF_BUMP: {                     /* a chimney top: a stunt, once per chimney */
+        int32_t id = w->b[h->idx].index * 4 + h->sub;
+        if (id != m->last_bump) add_stunt(w, p, PTS_CHIMNEY);
+        m->last_bump = id;
+        break;
+    }
     case SF_PIGEON: {
         obj *o = &w->o[h->idx];
         o->state = 1;
@@ -473,6 +478,8 @@ static void step_player(world *w, int p, int dir, int a)
             m->vy = -V_NORMAL;
             m->bounce = BN_NORMAL;
             m->land_t = 0;
+            m->land_y = m->reel_y;
+            m->land_kind = SF_ROOF;
             *ev |= EV_LAND;
         } else {
             m->x += (tx - m->x) / left;
@@ -589,19 +596,20 @@ void world_camera(world *w, int snap)
     if (snap) w->camx = tx > 0 ? tx : 0;
     else if (tx > w->camx) w->camx += (tx - w->camx + CAM_SMOOTH_X - 1) / CAM_SMOOTH_X;
     if (w->camx < 0) w->camx = 0;
-    /* vertical: the roof she bounces on, and the next one if it is higher (tall buildings stay in view) */
+    /* vertical: centred on the roof she bounces on, then kept so that the roofs ahead (the highest and the
+     * lowest, a quay above the river or a barge below it) stay in view: tall buildings are never cut off */
     if (m->land_t == 0 && (m->state == MS_AIR || m->state == MS_READY)) w->cam_focus = m->land_y * 256;
-    int focus = (int)(w->cam_focus >> 8);
+    int focus = (int)(w->cam_focus >> 8), hi = focus, lo = focus;
     for (int i = 0; i < w->nb; i++) {
         const bldg *b = &w->b[i];
-        if (b->x0 > x + 16 && b->x0 < x + 200) {
-            int top = bldg_surface(b, (int)b->x0);
-            if (top < focus) focus = (focus + top) / 2;
-            break;
-        }
+        if (b->x1 < x - 16 || b->x0 > x + CAM_LOOK_AHEAD) continue;
+        int top = b->top, edge = bldg_surface(b, (int)b->x0);
+        hi = top < hi ? top : hi;
+        lo = edge > lo ? edge : lo;
     }
     int32_t ty = (int32_t)(focus - CAM_FEET_Y) * 256;
-    if (m->state == MS_FALL || m->state == MS_DOWN) ty = (int32_t)(feet - CAM_BOT_KEEP + 24) * 256;
+    if (ty > (int32_t)(hi - CAM_HI_KEEP) * 256) ty = (int32_t)(hi - CAM_HI_KEEP) * 256;
+    if (ty < (int32_t)(lo - CAM_LO_KEEP) * 256) ty = (int32_t)(lo - CAM_LO_KEEP) * 256;    if (m->state == MS_FALL || m->state == MS_DOWN) ty = (int32_t)(feet - CAM_BOT_KEEP + 24) * 256;
     if ((feet - 32) * 256 - ty < CAM_TOP_KEEP * 256) ty = (int32_t)(feet - 32 - CAM_TOP_KEEP) * 256;
     if (feet * 256 - ty > CAM_BOT_KEEP * 256) ty = (int32_t)(feet - CAM_BOT_KEEP) * 256;
     int32_t maxy = (int32_t)(WORLD_H - RS_SCREEN_H) * 256;

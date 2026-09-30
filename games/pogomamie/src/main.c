@@ -146,7 +146,7 @@ static void play_update(int allow_start)
     for (int p = 0; p < W.players; p++) {
         if (is_bot(p)) {
             bot_decide(p, &dir[p], &a[p]);
-            if (opt_botstop && W.m[p].dist_m >= opt_botstop) { dir[p] = -1; a[p] = 0; }
+            if (opt_botstop && W.m[p].dist_m >= opt_botstop) { dir[p] = 0; a[p] = 0; }   /* it lets go: cruise, no steering */
             ap[p] = allow_start && st_t == 30;
         } else {
             uint16_t b = rs_pad(p);
@@ -258,6 +258,10 @@ static void game_shutdown(void)
            st, W.players, W.m[0].dist_m, W.m[1].dist_m, W.m[0].score, SV.best_m, runs_done, W.m[0].state, W.m[1].state,
            (int)(W.m[0].x >> 16), (int)(W.m[0].y >> 16), world_camx(&W), world_camy(&W), paused, W.m[0].landings,
            W.m[0].big_bounces, W.m[0].pigeons, state_hash, list);
+    if (rs_option_int("dump", 0) >= 2)                /* the buildings around (debugging the course) */
+        for (int i = 0; i < W.nb; i++)
+            rs_log("  building %d: kind %d roof %d x %d..%d top %d", (int)W.b[i].index, W.b[i].kind, W.b[i].roof,
+                   (int)W.b[i].x0, (int)W.b[i].x1, W.b[i].top);
 }
 
 const world *pm_test_world(int *state)

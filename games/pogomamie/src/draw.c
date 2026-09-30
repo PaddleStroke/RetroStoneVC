@@ -32,8 +32,10 @@ static int sky_redrawn_n;
 static int scroll_x, scroll_y;
 static int night_blink;
 static rs_rng fx_rng;
+static int camx_i, camy_i;                      /* the camera of the last frame drawn (the shake included) */
 
 int draw_scroll_x(void) { return scroll_x; }
+void draw_camera(int *x, int *y) { *x = camx_i; *y = camy_i; }
 int draw_scroll_y(void) { return scroll_y; }
 
 /* ---- palettes ---------------------------------------------------------------------------------------------------- */
@@ -92,10 +94,13 @@ static void sky_lines(int camy)
     }
 }
 
+static int test_backdrop;                       /* tests: a flat magenta backdrop, so that no tile can match it */
+void draw_test_backdrop(int on) { test_backdrop = on; }
+
 static void raster(int line, void *user)
 {
     (void)user;
-    rs_pal_set(0, line_col[line]);
+    rs_pal_set(0, test_backdrop ? RS_RGB(31, 0, 31) : line_col[line]);
 }
 
 static void look_update(const world *w, int snap)
@@ -429,7 +434,6 @@ void fx_update(const world *w)
 }
 
 /* ---- sprites ---------------------------------------------------------------------------------------------------------- */
-static int camx_i, camy_i;
 
 static void spr_at(int id, int sx, int sy, int pal, int flags)
 {
@@ -638,7 +642,7 @@ void draw_frame(const world *w, int state, int st_t, int paused)
 void draw_state(void)
 {
     S(cur_look); S(tgt_look); S(shown_look); S(line_col); S(bg2_key); S(far_col); S(bg3_row); S(far_slot); S(sky_redrawn);
-    S(sky_redrawn_n); S(scroll_x); S(scroll_y); S(night_blink); S(fx_rng); S(fx); S(camx_i); S(camy_i);
+    S(sky_redrawn_n); S(test_backdrop); S(scroll_x); S(scroll_y); S(night_blink); S(fx_rng); S(fx); S(camx_i); S(camy_i);
     RS_STATE_RASTER(raster);
 }
 #undef S

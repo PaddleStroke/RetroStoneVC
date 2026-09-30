@@ -86,6 +86,7 @@ typedef struct mamie {
     int fall_phase;             /* the comic fall: 0 falling, 1 bounced off the café awning */
     int item_got, stunt_pts;    /* the last power-up taken, the last stunt's points (effects) */
     int line, line_x;           /* riding a clothesline: its object, where she landed on it */
+    int32_t last_bump;          /* the chimney of the last stunt (a stunt counts once per chimney) */
 } mamie;
 
 /* ---- the terrain, as the physics sees it (the world, or the bot's view of the screen) -------------------------------- */
@@ -192,6 +193,8 @@ void fx_event(const world *w, int p, int ev, const hit *h);
 void fx_update(const world *w);
 int  draw_scroll_x(void);            /* the BG2 scroll registers as last set (the bot reads the screen through them) */
 int  draw_scroll_y(void);
+void draw_camera(int *x, int *y);
+void draw_test_backdrop(int on);    /* tests: a flat magenta backdrop */   /* tests: the camera of the last frame drawn (world px, the shake included) */
 
 /* ui.c: text, panels, the title, the HUD (to move to games/common/house_ui) */
 void ui_init(void);

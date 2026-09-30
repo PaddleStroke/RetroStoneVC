@@ -333,7 +333,11 @@ static void gen_next(world *w)
     case BK_BRIDGE: wid = rnd8(w, 128, 224); top = rnd8(w, 280, 336); break;
     default: wid = rnd8(w, 96, 160); top = STREET_Y - 24; break;
     }
+    /* never a drop the camera cannot show: a barge only below a low enough quay, a roof at most MAX_DROP lower */
+    int prev_edge = bldg_surface(prev, (int)prev->x1 - 1);
+    if (nb.kind == BK_BARGE && top > prev_edge + MAX_DROP) { nb.kind = BK_QUAY; wid = rnd8(w, 96, 176); top = rnd8(w, 320, 368); }
     if (nb.kind != BK_BARGE) top = clampi(top, ROOF_MIN_Y, ROOF_MAX_Y);
+    if (top > prev_edge + MAX_DROP) top = (prev_edge + MAX_DROP) & ~7;
     top &= ~7;
     nb.style = (uint8_t)rnd(w, 4);
     int seine = dist == 1, min_gap = seine ? 32 : 0;
@@ -356,6 +360,7 @@ static void gen_next(world *w)
         int lo_top = nb.kind == BK_BARGE ? STREET_Y - 24 : ROOF_MAX_Y;       /* a roof never sinks below its range */
         if ((tries & 1) && gap > min_gap) gap = gap - 8 < GAP_MIN && !seine ? 0 : gap - 8;
         else if (top != prev->top && (top > prev->top || top + 8 <= lo_top)) top += top < prev->top ? 8 : -8;
+        if (top > prev_edge + MAX_DROP) top = (prev_edge + MAX_DROP) & ~7;
         else if (nb.roof != RF_FLAT) nb.roof = RF_FLAT;
         else if (gap > min_gap) gap -= 8;
     }

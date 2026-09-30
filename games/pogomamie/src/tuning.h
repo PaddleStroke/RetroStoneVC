@@ -111,6 +111,7 @@
 #define BLD_W_MIN     48
 #define TAKEOFF_MARGIN 8            /* the worst-case take-off: 8 px before the edge, from a standstill */
 #define LAND_MARGIN   12            /* ... and the landing must be this far past the next building's edge */
+#define MAX_DROP      96            /* a roof is at most this much lower than the one before: it is on screen */
 #define TAKEOFFS      {8, 24, 40}   /* the take-off points tried (px before the edge): kept free of hazards */
 #define EDGE_KEEP     48            /* antennas, skylights: this far from a roof's ends */
 #define PIGEON_KEEP_L 40            /* pigeons walk this far from the left end (a knock-back lands on the roof) */
@@ -138,7 +139,10 @@
 #define CAM_SMOOTH_X  8             /* 1/8 of the distance per frame */
 #define CAM_SMOOTH_Y  12
 #define CAM_FEET_Y    156           /* the feet at the last landing, on screen */
-#define CAM_TOP_KEEP  40            /* her head stays this far below the top edge */
+#define CAM_TOP_KEEP  8             /* her head stays this far below the top edge */
+#define CAM_LOOK_AHEAD 240          /* the roofs up to this far ahead stay in view: */
+#define CAM_HI_KEEP   56            /*   the highest this far below the top edge, */
+#define CAM_LO_KEEP   224           /*   the lowest no further down than this (screen y) */
 #define CAM_BOT_KEEP  216
 #define DROP_OUT_X    24            /* 2 players: this far off the left edge, a player drops out */
 

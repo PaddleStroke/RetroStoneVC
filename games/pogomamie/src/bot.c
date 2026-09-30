@@ -35,10 +35,11 @@ static int base_x, base_y;                               /* the planning frame's
 static mamie model[MAX_PLAYERS];
 static int model_ok[MAX_PLAYERS], prev_ox[MAX_PLAYERS], prev_oy[MAX_PLAYERS], plan_a[MAX_PLAYERS], seen_once[MAX_PLAYERS];
 static int sim_hazard;
+static int best_x[MAX_PLAYERS], stall[MAX_PLAYERS];         /* no progress for a while: take more risks */
 
 void bot_reset(void)
 {
-    for (int p = 0; p < MAX_PLAYERS; p++) model_ok[p] = seen_once[p] = plan_a[p] = 0;
+    for (int p = 0; p < MAX_PLAYERS; p++) model_ok[p] = seen_once[p] = plan_a[p] = stall[p] = 0, best_x[p] = -100000;
 }
 
 static int in_spr(int tile, int id, int frames)
@@ -276,6 +277,9 @@ void bot_decide(int p, int *dir, int *a)
     seen_once[p] = 1;
     prev_ox[p] = ox;
     prev_oy[p] = oy;
+    if (ox > best_x[p] + 16) { best_x[p] = ox; stall[p] = 0; }
+    else stall[p]++;
+    int stuck = stall[p] > 300;
     /* power-ups it can see on itself: the umbrella over its head */
     m->umbrella_t = 0;
     for (int i = 0; i < RS_OAM_MAX; i++) {
@@ -291,7 +295,7 @@ void bot_decide(int p, int *dir, int *a)
             landing r = simulate(*m, k, after, 240);
             if (!safe_kind(r.kind)) continue;
             int sc = r.x * 16 - edge_penalty(r.x) * 16;
-            if (r.kind == SF_BUMP || r.kind == SF_PIGEON) sc += 80;
+            if (!stuck && (r.kind == SF_BUMP || r.kind == SF_PIGEON)) sc += 80;
             if (sc > best) { best = sc; best_k = k; best_after = after; best_r = r; }
         }
     if (best == -1000000) {                                   /* nothing safe: brake and hope for a prop */
@@ -306,7 +310,8 @@ void bot_decide(int p, int *dir, int *a)
     if (safe_kind(best_r.kind) && best_r.t < 14) {
         int edge = edge_ahead(best_r.x);
         int need = edge - best_r.x < 40 && edge < W_ + base_x;
-        plan_a[p] = need && !hop_passes(best_r.x, best_r.y, best_r.vx, 0, edge) && hop_passes(best_r.x, best_r.y, best_r.vx, 1, edge);
+        plan_a[p] = (need && !hop_passes(best_r.x, best_r.y, best_r.vx, 0, edge) && hop_passes(best_r.x, best_r.y, best_r.vx, 1, edge)) ||
+                    (stuck && (stall[p] / 150) % 2);
     } else if (best_r.t >= 20) {
         plan_a[p] = 0;
     }
@@ -323,7 +328,7 @@ void bot_state(void)
 {
     S(land_y); S(wall_y); S(col_kind); S(props); S(boxes); S(nprops); S(nboxes); S(acc_x); S(acc_y); S(last_sx);
     S(last_sy); S(base_x); S(base_y); S(model); S(model_ok); S(prev_ox); S(prev_oy); S(plan_a); S(seen_once);
-    S(sim_hazard);
+    S(sim_hazard); S(best_x); S(stall);
 }
 #undef S
 
