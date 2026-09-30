@@ -262,7 +262,7 @@ rank them. The glide patterns score low because their windows are wide (the leaf
   every coin spot collectable; 1578 chainable pairs x 3 combinations all fair (830 pairs get a 1-beat bridge);
   2000 streams x 700 m and 60 x 3000 m (every tier, the night loop) solved end to end; the rolling 30-s mean rises
   from 11 to 38 over 2600 m; 97% of breathers are easier than the two patterns before them.
-- **The bot** (screen only), 10 seeds: 1338 to 2475 m, mean 1654 m (the test's target: 800 m). Over 20 more seeds
+- **The bot** (screen only), 10 seeds: 1241 to 2103 m, mean 1537 m (the test's target: 800 m). Over 20 more seeds
   (`make blueberrytumble-difficulty`): 1210 to 2159 m, mean 1602 m; its splats are mostly on pillars (13 of 20:
   landing on a one-block top from its own model of the berry). Rank correlation between the measured score and its
   failure rate: 0.29 (few failures: one per run).
