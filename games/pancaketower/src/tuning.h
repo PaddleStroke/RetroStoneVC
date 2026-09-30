@@ -1,6 +1,6 @@
 /*
  * Pancake Tower: THE tuning table. Every gameplay number is here.
- * (c) 2026 Pierre-Louis Boyer (8BCraft). All rights reserved: games/pancaketower/LICENSE.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/pancaketower/LICENSE.
  *
  * The reference numbers are first written in the reference's units (the MIT clone open-stack-game, which
  * measures the block in "units", and the published guides; DESIGN.md "Feel sources"), then converted to our

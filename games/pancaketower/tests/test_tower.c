@@ -2,7 +2,7 @@
  * Pancake Tower: unit tests of the rules (tower.c) against the tuning table: the slide, the cut maths, the
  * perfect window, the regrow, the speed steps, syrup, toppings, the score, the journey's events, 2 players,
  * determinism. No video or sound.
- * (c) 2026 Pierre-Louis Boyer (8BCraft). All rights reserved: games/pancaketower/LICENSE.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/pancaketower/LICENSE.
  */
 #include "pt.h"
 #include <math.h>

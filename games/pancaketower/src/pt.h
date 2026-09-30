@@ -1,6 +1,6 @@
 /*
  * Pancake Tower: shared declarations.
- * (c) 2026 Pierre-Louis Boyer (8BCraft). All rights reserved: games/pancaketower/LICENSE.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/pancaketower/LICENSE.
  *
  * tower.c is the game rules (no drawing, no sound, no RNG: the unit tests link it alone); draw.c, scene.c,
  * sfx.c, bot.c and main.c are the console side.

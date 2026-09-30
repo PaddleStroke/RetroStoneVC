@@ -2,7 +2,7 @@
  * Pancake Tower: the rules. One tower (the slider, the drop, the cut, the perfect window, the regrow, syrup,
  * toppings) and a match of one or two towers. No drawing, no sound and no randomness: the same presses give
  * the same game, and two players get exactly the same slide timings.
- * (c) 2026 Pierre-Louis Boyer (8BCraft). All rights reserved: games/pancaketower/LICENSE.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/pancaketower/LICENSE.
  */
 #include "pt.h"
 #include <string.h>

@@ -1,6 +1,6 @@
 # Pancake Tower: design
 
-(c) 2026 Pierre-Louis Boyer (8BCraft). All rights reserved (games/pancaketower/LICENSE). A RetroStone VC game
+(c) 2026 Pierre-Louis Boyer (8BCraft), CC BY-NC-SA 4.0 (games/pancaketower/LICENSE). A RetroStone VC game
 (docs/spec.md), in the house style of the family (docs/art-direction.md, Leady Squid's look).
 
 ## Pitch
@@ -39,25 +39,28 @@ top of the tower at screen y = 120 once it has climbed that high; it eases towar
 | BG1 | text and panels (the house UI: title logo, banners, the game-over panel, pause) | fixed |
 | OBJ | the sliding pancake, the top pancake (it squashes on landing), the cut-off pieces, the falling toppings, butter pats, sparkles, syrup drips, crumbs and plaster debris, birds, the cow and the moon, the chef, the score digits and medals | |
 
-Map sizes are kept small for the VRAM guideline: BG2 and BG3 are 64x32 (rows streamed as the camera climbs,
-a ring of 32 rows is more than the 31 rows on screen), BG4 64x32.
-The near scenery is made of **segments** of 256 px (32 rows), each with its own tile set (at most 384 tiles),
-loaded into one of two tile banks when it comes into view, as SNES games load an area's tiles. At most two
-segments are ever on screen.
+Map sizes are kept small for the VRAM guideline: BG2 32x32 (the tower's columns only; 2 players: a half
+each), BG3 64x32, BG4 32x32 (256 px wide, it repeats); rows are streamed as the camera climbs (a ring of 32
+rows is more than the 31 rows on screen).
+The near scenery is made of five **segments** of 256 px (32 rows) that share one tile set (at most 704
+tiles, all loaded at the start: in 2 players each viewport may show any segment); their map rows are streamed
+into the 32-row ring as the camera climbs.
 
 | Segment | World y | Contents |
 |---|---|---|
 | 0 kitchen | -64 .. 192 | the floor and the counter (the plate sits on it), the tiled wall with a window, shelves, hanging pans; the **ceiling slab** at 96..120 (the tower breaks through at its 13th layer: a comic crash); the attic (rafters, boxes, a round window, a cobweb); the **roof** at 168..192 (tiles fly off when the tower pokes out) |
 | 1 sky | 192 .. 448 | the open sky; the town's roofs far below (BG4); birds fly across (sprites) |
 | 2 clouds | 448 .. 704 | puffy clouds near and far (two layers of parallax) |
-| 3 stratosphere | 704 .. 960 | thin streaks, a weather balloon, the sky turns deep blue and violet; the Earth's curve (BG4) |
+| 3 stratosphere | 704 .. 960 | thin streaks, a weather balloon, the sky turns deep blue and violet; the first stars (BG4) |
 | 4 space | 960 .. | stars (repeating every 256 px), the moon, and **a cow jumping over the moon** now and then |
 
 ## Palettes
-BG: 0 text and panels (the house UI), 1 the tower (pancakes, toppings, syrup), 2-4 near scenery (per
-segment bank), 5-6 far scenery, 7 the logo on the title screen. OBJ: 0 pancakes (the same colours as BG 1),
-1 the chef, 2 the chef of player 2 (hue-swapped), 3 the UI (digits, medals, button glyph, from the house
-kit), 4 toppings and butter, 5 effects (sparkles, syrup, crumbs, debris), 6 birds, the cow, the moon.
+The house layout (docs/art-direction.md). BG: 0 the UI (the house kit; entry 0 the sky gradient), 1 the
+tower (pancakes, syrup, butter, the plate), 2 the toppings layers, 3, 4 and 6 the near scenery, 5 the title
+logo, 7 the far layer. OBJ: 0 the chef, 1 the chef of player 2 (his neckerchief and trousers recoloured), 2
+effects (plaster, dust, roof tiles, a star burst, sweat, broken edges), 3 the kit (digits, glyphs, sparkle), 4
+food (the pancakes drawn at run time, butter, syrup, the bottle, the portrait's plate; the same colours as
+BG 1), 5 the toppings (the same as BG 2), 6 birds, the balloon, the plane, the satellite, the moon, the cow.
 
 ## The core (the Stack feel)
 - The **slider**: a pancake of the current width slides at the level just above the tower (4 px above the
