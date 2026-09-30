@@ -1,0 +1,4 @@
+# Save states (tools/state_audit.py): the mutable statics that are NOT saved, and why.
+# Everything else is registered in the game's state functions (main.c game_state(), draw.c draw_state(),
+# ui.c ui_state(), sfx.c sfx_state(), bot.c bot_state(), the house kit's hu_state() and ha_state()).
+main.SV             the battery save's copy (best distance and score, medals): stays in the .srm, a state never takes it back

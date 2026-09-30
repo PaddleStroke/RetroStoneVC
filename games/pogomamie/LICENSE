@@ -1,0 +1,73 @@
+Pogo Mamie
+Copyright (c) 2026 Pierre-Louis Boyer (8BCraft)
+
+Pogo Mamie is under two licences: its code under the MIT licence, its
+assets (art, music, sound, design documents) under Creative Commons
+Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0).
+The paths below are relative to the root of the RetroStone VC repository.
+
+
+1. Assets: CC BY-NC-SA 4.0
+--------------------------
+
+  games/pogomamie/art/        the sprite sheet, the tiles, the mid-ground and
+                              the four district backdrops
+  games/pogomamie/docs/       pictures of the game (docs/screenshots/)
+  games/pogomamie/DESIGN.md   the design document
+  music and sound files       any music or sound file added to
+                              games/pogomamie/ (today the music and
+                              sounds are made by code:
+                              tools/make_music.py and src/sfx.c, MIT)
+
+The art in art/ is drawn by code (tools/make_art.py, MIT); the drawn
+sheets themselves are assets under CC BY-NC-SA 4.0. The title logo is drawn
+at run time by the house UI kit (games/common, MIT).
+
+You may share and adapt these assets for non-commercial purposes if you
+credit "Pogo Mamie by Pierre-Louis Boyer (8BCraft)", link to the licence,
+say what you changed, and share your adaptations under the same licence.
+Full legal code: LICENSE-CC-BY-NC-SA-4.0.txt at the root of the repository,
+or https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+
+
+2. Code: MIT
+------------
+
+Everything else in games/pogomamie/ is code under the MIT licence: src/,
+tools/, tests/, game.mk, state_audit.txt and dist/README-windows.txt.
+
+  Permission is hereby granted, free of charge, to any person obtaining a
+  copy of this software and associated documentation files (the
+  "Software"), to deal in the Software without restriction, including
+  without limitation the rights to use, copy, modify, merge, publish,
+  distribute, sublicense, and/or sell copies of the Software, and to permit
+  persons to whom the Software is furnished to do so, subject to the
+  following conditions:
+
+  The above copyright notice and this permission notice shall be included
+  in all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+  NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+  DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+  USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+The RetroStone VC SDK (sdk/) and tools (tools/) are MIT too (LICENSE-MIT);
+third-party code is listed in THIRD_PARTY.md.
+
+A built game (the libretro core, the Windows .exe) holds both the code and
+the assets, so both licences apply to it: it may not be sold or otherwise
+used commercially without 8BCraft's permission.
+
+
+3. Names and logos: not licensed
+--------------------------------
+
+The names and logos "Bomber Mole", "Leady Squid", "Pogo Mamie", "RetroStone"
+and "8BCraft" are not licensed by either licence above (CC BY-NC-SA 4.0
+excludes trademark rights in its section 2(b)(2); the MIT licence grants
+none). A modified version or a fork must use another name and logo, and must
+not suggest that 8BCraft made or endorses it.
