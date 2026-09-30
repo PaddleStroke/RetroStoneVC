@@ -385,6 +385,9 @@ static void start_level(void)
     world_start(&LV, carry);
     draw_variant_pals();
     ui_init_level();
+    if (rs_option_int("foxrest", 0))                /* debug: the fox starts resting (tests) */
+        for (int i = 0; i < W.na; i++)
+            if (W.a[i].kind == AK_BOSS) { W.a[i].state = 2; W.a[i].timer = 400; }
     if (rs_option_int("nocrates", 0))               /* debug: the farmer's crates are gone (screenshots) */
         for (int d = 0; d < NDEPTH; d++)
             for (int y = 0; y < GH; y++)
@@ -882,8 +885,12 @@ static void game_draw(void)
         int px, py;
         player_screen_xy(&px, &py);
         lamp_set(1, px, py, 60);
+    } else if (LV.fog && (st == ST_PLAY || st == ST_PAUSE || st == ST_SLIDE)) {   /* fog: a clear circle round the mole */
+        int px, py;
+        player_screen_xy(&px, &py);
+        fog_set(1, px, py, LV.fog);
     } else {
-        lamp_set(0, 0, 0, 0);
+        fog_set(0, 0, 0, 0);
     }
 }
 
@@ -928,6 +935,12 @@ static void game_shutdown(void)
                W.stat.crushed, W.stat.gas_stuns, W.stat.badger_holes, W.stat.badger_stuns, boss_depth,
                world_cats_seeing());
         rs_log("croc: bites=%d stuns=%d", W.stat.croc_bites, W.stat.croc_stuns);
+        extern int g_fog_eyes;
+        rs_log("autumn: pushes=%d smashes=%d plugs=%d apples=%d hops=%d bhops=%d rides=%d cartkills=%d anthome=%d "
+               "antdrop=%d dashes=%d rests=%d foxhits=%d eyes=%d leafblow=%d glowing=%d", W.stat.pushes, W.stat.smashes,
+               W.stat.plugs, W.stat.apple_stuns, W.stat.hops, W.stat.bomb_hops, W.stat.rides, W.stat.crushed_by_cart,
+               W.stat.ants_home, W.stat.ants_dropped, W.stat.fox_dashes, W.stat.fox_rests, W.stat.fox_hits, g_fog_eyes,
+               W.stat.leaves_blown, ui_glow_count(0));
     }
 }
 

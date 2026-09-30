@@ -60,4 +60,21 @@ run --frames 12 --data $TD --opt level=summer-9 --opt nointro=1 --opt spawn=0,10
 run --frames 70 --opt level=summer-8 --opt nointro=1 --opt nocrates=1 --opt god=1 --shot 63:$O/farmer-vulnerable-boss-bar.png
 run --frames 30 --data $TD --opt level=summer-16 --opt nointro=1 --opt spawn=0,9,4 --opt god=1 --shot 20:$O/croc-telegraph.png
 python3 "$(dirname "$0")/glow_shot.py" "$H" "$O/hidden-grub-glow.png" spring-3
+# autumn: the levels 2-8 and the mechanics (test arenas in tests/data)
+for n in 2 3 4 5 6 7 8; do run --frames 60 --opt level=autumn-$n --opt nointro=1 --shot 50:$O/autumn-$n.png; done
+printf "5 RIGHT\n150 -\n" > /tmp/bm_a.input
+run --frames 170 --data $TD --opt level=autumn-9 --opt nointro=1 --opt spawn=0,3,2 --input /tmp/bm_a.input --shot 165:$O/autumn-pumpkin-plug.png
+printf "5 tap B\n8 LEFT\n40 -\n" > /tmp/bm_a.input
+run --frames 200 --data $TD --opt level=autumn-9 --opt nointro=1 --opt spawn=0,2,6 --opt god=1 --input /tmp/bm_a.input --shot 190:$O/autumn-pumpkin-mush.png
+run --frames 200 --data $TD --opt level=autumn-10 --opt nointro=1 --opt spawn=0,4,3 --opt god=1 --input /tmp/bm_a.input --shot 175:$O/autumn-apples.png
+printf "5 tap RIGHT\n" > /tmp/bm_a.input
+run --frames 30 --data $TD --opt level=autumn-11 --opt nointro=1 --opt spawn=0,4,3 --input /tmp/bm_a.input --shot 22:$O/autumn-mushroom-hop.png
+run --frames 20 --data $TD --opt level=autumn-12 --opt nointro=1 --shot 10:$O/autumn-fog-eyes.png
+printf "5 tap UP\n" > /tmp/bm_a.input
+run --frames 60 --data $TD --opt level=autumn-13 --opt nointro=1 --opt spawn=0,1,3 --input /tmp/bm_a.input --shot 30:$O/autumn-mine-cart.png
+run --frames 120 --data $TD --opt level=autumn-14 --opt nointro=1 --opt spawn=0,1,8 --shot 100:$O/autumn-ants.png
+run --frames 60 --data $TD --opt level=autumn-16 --opt nointro=1 --shot 45:$O/autumn-leaves-gust.png
+run --frames 80 --data $TD --opt level=autumn-15 --opt nointro=1 --opt god=1 --opt foxrest=1 --shot 60:$O/autumn-fox-resting.png
+printf "5 tap RIGHT\n" > /tmp/bm_a.input
+run --frames 200 --data $TD --opt level=autumn-17 --opt nointro=1 --opt spawn=0,1,9 --opt god=1 --input /tmp/bm_a.input --shot 150:$O/autumn-heavy-scene.png
 ls "$O"

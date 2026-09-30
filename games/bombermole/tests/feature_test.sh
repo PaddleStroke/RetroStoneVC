@@ -129,5 +129,52 @@ echo "$out" | grep -q "state: st=5 " && ok "start box: the level waits behind it
 printf "60 tap A\n" > $T/box.input
 out=$($H --frames 120 --opt level=spring-3 --opt dump=1 --input $T/box.input 2>&1)
 echo "$out" | grep -q "state: st=6 " && ok "start box: A starts the level" || bad "start box A: $(echo "$out" | grep state:)"
+
+# ---- autumn ----------------------------------------------------------------------------------------------
+printf "5 RIGHT\n150 -\n" > $T/push.input
+out=$(S --frames 170 --opt level=autumn-9 --opt spawn=0,3,2 --input $T/push.input)
+[ "$(field pushes "$out")" -ge 2 ] && echo "$out" | grep -q "plugs=1" && ok "pumpkin: pushed along, it plugs the hole" \
+    || bad "pumpkin push: $(echo "$out" | grep autumn:)"
+printf "5 tap B\n8 LEFT\n40 -\n" > $T/smash.input
+out=$(S --frames 200 --opt level=autumn-9 --opt spawn=0,2,6 --opt god=1 --input $T/smash.input)
+echo "$out" | grep -q "smashes=1" && ok "pumpkin: a blast smashes it (mush)" || bad "pumpkin smash: $(echo "$out" | grep autumn:)"
+printf "5 tap B\n8 LEFT\n40 -\n" > $T/apple.input
+out=$(S --frames 230 --opt level=autumn-10 --opt spawn=0,4,3 --opt god=1 --input $T/apple.input)
+[ "$(field apples "$out")" -ge 1 ] && ok "apple tree: a blast next to it drops apples that stun" || bad "apples: $(echo "$out" | grep autumn:)"
+printf "5 tap RIGHT\n" > $T/hop.input
+out=$(S --frames 60 --opt level=autumn-11 --opt spawn=0,4,3 --input $T/hop.input)
+echo "$out" | grep -q "depth=0 x=7 y=3 " && ok "mushroom: the mole hops over the wall" || bad "hop: $(echo "$out" | grep "state:\|autumn:")"
+printf "5 tap LEFT\n25 tap RIGHT\n45 tap B\n50 LEFT\n80 -\n" > $T/bhop.input
+out=$(S --frames 120 --opt level=autumn-11 --opt spawn=0,4,6 --opt god=1 --input $T/bhop.input)
+echo "$out" | grep -q "bhops=1" && ok "mushroom: a bomb tossed onto it bounces over the wall" || bad "bomb hop: $(echo "$out" | grep autumn:)"
+out=$(S --frames 10 --opt level=autumn-12)
+[ "$(field eyes "$out")" -ge 1 ] && ok "fog: the far ferret shows only as eyes" || bad "fog far: $(echo "$out" | grep autumn:)"
+out=$(S --frames 10 --opt level=autumn-12 --opt spawn=0,14,8)
+echo "$out" | grep -q "eyes=0" && ok "fog: next to it, the ferret is seen" || bad "fog near: $(echo "$out" | grep autumn:)"
+printf "5 tap UP\n" > $T/cart1.input
+out=$(S --frames 150 --opt level=autumn-13 --opt spawn=0,1,3 --input $T/cart1.input)
+echo "$out" | grep -q "depth=0 x=14 y=2 " && [ "$(field cartkills "$out")" -ge 1 ] && \
+    ok "mine cart: a ride to the end of the line, running a ferret over" || bad "cart: $(echo "$out" | grep "state:\|autumn:")"
+printf "5 tap LEFT\n20 tap DOWN\n40 tap LEFT\n" > $T/cart2.input
+out=$(S --frames 200 --opt level=autumn-13 --opt spawn=0,2,1 --input $T/cart2.input)
+echo "$out" | grep -q "depth=0 x=8 y=7 " && ok "mine cart: the lever switches the junction (round the bend)" || bad "cart junction: $(echo "$out" | grep "state:\|menu:")"
+out=$(S --frames 700 --opt level=autumn-14 --opt spawn=0,1,8)
+echo "$out" | grep -q "anthome=1" && ok "ants: they carry the grub into their nest" || bad "ants home: $(echo "$out" | grep autumn:)"
+out=$(S --frames 200 --opt level=autumn-14 --opt spawn=0,7,3 --opt god=1)
+echo "$out" | grep -q "antdrop=1" && ok "ants: caught, they drop the grub" || bad "ants caught: $(echo "$out" | grep autumn:)"
+out=$(S --frames 80 --opt level=autumn-16)
+[ "$(field leafblow "$out")" -ge 1 ] && [ "$(field glowing "$out")" -ge 1 ] \
+    && ok "leaf pile: it glows over its grub, and the gusts blow it along the lane" \
+    || bad "leaves: $(echo "$out" | grep autumn:)"
+printf "5 tap RIGHT\n" > $T/ride.input
+out=$(S --frames 300 --opt level=autumn-17 --opt spawn=0,1,9 --opt god=1 --input $T/ride.input)
+[ "$(field cartkills "$out")" -ge 1 ] && ok "mine cart loop in the fog and the gale: it runs the ferrets over" \
+    || bad "gale drift: $(echo "$out" | grep autumn:)"
+out=$(S --frames 1500 --opt level=autumn-15 --opt god=1)
+[ "$(field dashes "$out")" -ge 3 ] && [ "$(field rests "$out")" -ge 1 ] && ok "fox: it dashes, and rests after 3 dashes" \
+    || bad "fox dash: $(echo "$out" | grep autumn:)"
+printf "5 tap B\n8 LEFT\n40 -\n" > $T/fox.input
+out=$(S --frames 200 --opt level=autumn-15 --opt foxrest=1 --opt spawn=0,9,6 --opt god=1 --input $T/fox.input)
+[ "$(field foxhits "$out")" -ge 1 ] && ok "fox: a bomb hits it while it rests" || bad "fox hit: $(echo "$out" | grep autumn:)"
 rm -rf $T
 exit $fail

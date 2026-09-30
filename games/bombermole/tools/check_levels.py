@@ -31,15 +31,17 @@ DEFAULT = {
     '/': "lever+chan:1", 'V': "steam_vent", '@': "pipe+chan:1", 'c': "crate", 'k': "sprinkler",
     'W': "windmill", '<': "floor+push_left", '>': "floor+push_right", 'n': "floor+push_up",
     'u': "floor+push_down", '{': "water+flow_left", '}': "water+flow_right", 'e': "beehive", '*': "gas_pocket",
-    '%': "water+croc",
+    '%': "water+croc", '0': "floor+pumpkin", 'T': "apple_tree", '!': "mushroom", '+': "rails", '$': "rails+cart",
+    'N': "ant_nest", 'A': "floor+grub+ants",
 }
 TERRAIN = {"floor", "stone", "soft_dirt", "dirt", "hard_rock", "rock", "roots", "frozen_dirt", "leaves", "water",
            "puddle", "thin_floor", "hole_down", "hole_up", "ladder", "exit", "bridge", "ice", "thin_ice", "mud",
            "tall_grass", "corn", "cover", "burnt", "gate", "plate", "lever", "steam_vent", "vent", "pipe", "crate",
-           "sprinkler", "windmill", "beehive", "hive", "gas", "gas_pocket"}
+           "sprinkler", "windmill", "beehive", "hive", "gas", "gas_pocket", "apple_tree", "tree", "mushroom", "rails",
+           "rail", "ant_nest", "nest"}
 ITEMS = {"grub", "bomb", "fire", "speed", "remote", "heart"}
-ACTORS = {"mole", "p2", "p3", "p4", "ferret", "cat", "boss", "dog", "croc"}
-SOLID_FOREVER = {"stone", "windmill", "sprinkler", "lever"}
+ACTORS = {"mole", "p2", "p3", "p4", "ferret", "cat", "boss", "dog", "croc", "ants"}
+SOLID_FOREVER = {"stone", "windmill", "sprinkler", "lever", "apple_tree"}
 SEASONS = ["spring", "summer", "autumn", "winter"]
 
 
@@ -86,12 +88,16 @@ def prop_families(head, cells, has_boss):
             for c in row:
                 t = c["t"]
                 if t in ("bridge", "ice", "thin_ice", "mud", "burnt", "gate", "plate", "lever", "steam_vent",
-                         "pipe", "crate", "beehive", "gas_pocket"):
+                         "pipe", "crate", "beehive", "gas_pocket", "apple_tree", "mushroom", "ant_nest"):
                     names.add(t)
+                elif t == "rails":
+                    names.add("rails_h")
                 elif t == "puddle":                 # puddles make mud on the depth below
                     names.add("mud")
                 elif t == "tall_grass":             # corn in summer; cover burns
                     names.update(("corn" if head["season"] == "summer" else "tall_grass", "burnt"))
+                if c.get("pumpkin"):
+                    names.add("mud")                # a smashed pumpkin leaves mush (mud)
     boss = head.get("boss") or {"spring": "barncat", "summer": "farmer", "autumn": "fox", "winter": "owl"}[head["season"]]
     if has_boss and boss == "farmer":
         names.add("splat")                      # the farmer's tomatoes splat on the floor
@@ -103,7 +109,7 @@ def parse_spec(spec):
            "timed": 0, "blow": None, "asleep": False}
     for tok in spec.replace("+", " ").split():
         if tok in TERRAIN:
-            out["t"] = {"hive": "beehive", "gas": "gas_pocket",
+            out["t"] = {"hive": "beehive", "gas": "gas_pocket", "tree": "apple_tree", "rail": "rails", "nest": "ant_nest",
                         "dirt": "soft_dirt", "rock": "hard_rock", "vent": "steam_vent", "corn": "tall_grass",
                         "cover": "tall_grass"}.get(tok, tok)
         elif tok in ITEMS:
@@ -123,6 +129,8 @@ def parse_spec(spec):
             out["blow"] = tok[5:]               # a windmill's wind lane (points away from the windmill)
         elif tok == "log":
             out["log"] = True
+        elif tok in ("pumpkin", "cart"):
+            out[tok] = True                     # objects: a pumpkin to push, a mine cart to ride
         elif tok.startswith("chan:"):
             out["chan"] = int(tok[5:])
         elif tok.startswith("timed:"):
@@ -283,6 +291,9 @@ def check(path):
             out.append((d - 1, x, y))
         if t == "pipe":
             out += [p for p in pipes.get(cells[d][y][x]["chan"], []) if p != (d, x, y)]
+        if t == "mushroom":                                 # launched 2 cells on, over the next cell
+            out += [(d, x + 2 * dx, y + 2 * dy) for dx, dy in DIRS
+                    if inside(x + 2 * dx, y + 2 * dy) and walkable(d, x + 2 * dx, y + 2 * dy)]
         return out
 
     # regions with every gate closed, and the triggers each region can use
@@ -361,6 +372,11 @@ def check(path):
                    if any(region.get(c) == r for c in first)}
     g = graph(lever_chans)
     seen = reach(g, start)
+    ant_depths = {d for d in range(3) for y in range(GH) for x in range(GW) if cells[d][y][x]["actor"] == "ants"}
+    nests = [(d, x, y) for d in ant_depths for y in range(GH) for x in range(GW) if T(d, x, y) == "ant_nest"]
+    if ant_depths and not nests:
+        raise LevelError("%s: ants on depth %s but no nest there" % (path, sorted(ant_depths)))
+    grubs = grubs + nests
     for tgt in grubs + boss + exits:
         if tgt not in seen:
             raise LevelError("%s: %s at depth %d, %d,%d cannot be reached" %
@@ -394,12 +410,12 @@ SECTOR_MIN_FEATURES = 0.25  # ...needs this fraction of its cells to be somethin
 GIMMICK_POINT_DIST = 2      # a point gimmick lies within this many cells (Chebyshev) of a required path
 GIMMICK_AREA_DIST = 1       # an area gimmick (a patch, lane or sheet) touches a required path
 POINT_GIMMICKS = {"plate", "lever", "gate", "pipe", "steam_vent", "bridge", "sprinkler", "crate", "windmill",
-                  "thin_floor", "beehive", "gas_pocket"}
+                  "thin_floor", "beehive", "gas_pocket", "apple_tree", "mushroom", "ant_nest"}
 AREA_GIMMICKS = {"ice", "thin_ice", "tall_grass", "puddle", "mud"}      # plus pushed floors, currents, logs
 OPEN = {"floor", "puddle", "thin_floor", "exit", "bridge", "ice", "thin_ice", "mud", "tall_grass", "burnt",
-        "plate", "steam_vent", "hole_up", "ladder", "hole_down", "pipe"}
+        "plate", "steam_vent", "hole_up", "ladder", "hole_down", "pipe", "mushroom", "rails"}
 ENTER_COST = {"soft_dirt": 3, "leaves": 2, "hard_rock": 5, "roots": 5, "frozen_dirt": 5, "crate": 5, "water": 2,
-              "beehive": 5, "gas_pocket": 5}
+              "beehive": 5, "gas_pocket": 5, "ant_nest": 5}
 HARVEST_BLOCKS = {"hard_rock", "stone", "water", "frozen_dirt", "windmill", "sprinkler", "gate", "lever", "beehive",
                   "gas_pocket", "steam_vent", "pipe", "hole_down", "hole_up", "ladder", "exit", "crate"}
 BLOW = {"up": (0, -1), "down": (0, 1), "left": (-1, 0), "right": (1, 0)}
@@ -416,7 +432,7 @@ def playable_depths(cells, seen, grubs, boss):
 
 
 def plain(c):
-    return c["t"] == "floor" and not c["item"] and c["actor"] in (None, "mole") and not c["push"]
+    return c["t"] == "floor" and not c["item"] and c["actor"] in (None, "mole") and not c["push"] and         not c.get("pumpkin")
 
 
 def empty_rect(cells, d):
@@ -604,6 +620,9 @@ def design_rules(path, head, cells, g, seen, start, grubs, boss, exits):
                         errs.append("USELESS GIMMICK: the windmill at depth %d, %d,%d blows a lane that no required "
                                     "path crosses" % (d, x, y))
                     continue
+                if (c.get("pumpkin") or c.get("cart")) and not near(d, x, y, GIMMICK_POINT_DIST + 1):
+                    errs.append("USELESS GIMMICK: the %s at depth %d, %d,%d is far from every required path" %
+                                ("pumpkin" if c.get("pumpkin") else "mine cart", d, x, y))
                 if t in POINT_GIMMICKS and not near(d, x, y, GIMMICK_POINT_DIST):
                     errs.append("USELESS GIMMICK: %s at depth %d, %d,%d is more than %d cells from every required "
                                 "path (start to a grub or the exit)" % (t, d, x, y, GIMMICK_POINT_DIST))

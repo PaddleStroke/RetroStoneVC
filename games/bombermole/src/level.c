@@ -20,9 +20,10 @@ static const struct { const char *name; int t; } TERRAIN_NAMES[] = {
     {"gate", TR_GATE}, {"plate", TR_PLATE}, {"lever", TR_LEVER}, {"steam_vent", TR_VENT},
     {"vent", TR_VENT}, {"pipe", TR_PIPE}, {"crate", TR_CRATE}, {"sprinkler", TR_SPRINKLER},
     {"windmill", TR_WINDMILL}, {"beehive", TR_HIVE}, {"hive", TR_HIVE}, {"gas", TR_GAS},
-    {"gas_pocket", TR_GAS},
+    {"gas_pocket", TR_GAS}, {"apple_tree", TR_TREE}, {"tree", TR_TREE}, {"mushroom", TR_SHROOM},
+    {"rails", TR_RAIL}, {"rail", TR_RAIL}, {"ant_nest", TR_NEST}, {"nest", TR_NEST},
 };
-static const char *const ITEM_NAMES[IT_COUNT] = {"none", "grub", "bomb", "fire", "speed", "remote", "heart"};
+static const char *const ITEM_NAMES[IT_COUNT] = {"none", "grub", "bomb", "fire", "speed", "remote", "heart", "apple"};
 static const char *const DIR_NAMES[4] = {"up", "right", "down", "left"};
 
 /* default legend: character -> spec */
@@ -42,12 +43,14 @@ static const struct { char c; const char *spec; } DEFAULT_LEGEND[] = {
     {'V', "steam_vent"}, {'@', "pipe+chan:1"}, {'c', "crate"}, {'k', "sprinkler"}, {'W', "windmill"},
     {'<', "floor+push_left"}, {'>', "floor+push_right"}, {'n', "floor+push_up"}, {'u', "floor+push_down"},
     {'{', "water+flow_left"}, {'}', "water+flow_right"}, {'e', "beehive"}, {'*', "gas_pocket"}, {'%', "water+croc"},
+    {'0', "floor+pumpkin"}, {'T', "apple_tree"}, {'!', "mushroom"}, {'+', "rails"}, {'$', "rails+cart"},
+    {'N', "ant_nest"}, {'A', "floor+grub+ants"},
 };
 
 typedef struct legend_entry {
     int used;
     cell c;
-    int actor, asleep, player, log, etype, harv;
+    int actor, asleep, player, log, etype, harv, pumpkin, cart;
 } legend_entry;
 
 static int parse_spec(const char *spec, legend_entry *e, char *err, size_t errn)
@@ -74,6 +77,9 @@ static int parse_spec(const char *spec, legend_entry *e, char *err, size_t errn)
         else if (!strcmp(tok, "boss")) e->actor = AK_BOSS;
         else if (!strcmp(tok, "dog")) e->actor = AK_DOG;
         else if (!strcmp(tok, "croc")) e->actor = AK_CROC;
+        else if (!strcmp(tok, "ants")) e->actor = AK_ANTS;
+        else if (!strcmp(tok, "pumpkin")) e->pumpkin = 1;
+        else if (!strcmp(tok, "cart")) e->cart = 1;
         else if (!strcmp(tok, "asleep")) e->asleep = 1;
         else if (!strcmp(tok, "log")) e->log = 1;
         else if (!strncmp(tok, "chan:", 5)) e->c.chan = (uint8_t)clampi(atoi(tok + 5), 0, NCHAN - 1);
@@ -193,6 +199,18 @@ int level_parse(level_def *L, const char *text, size_t len, const char *fname)
                     sp->player = (uint8_t)e->player;
                     sp->etype = (int8_t)e->etype;
                 }
+                if (e->pumpkin && L->npumpkins < MAX_PUMPKINS) {
+                    L->pumpkins[L->npumpkins].depth = (uint8_t)section;
+                    L->pumpkins[L->npumpkins].x = (uint8_t)x;
+                    L->pumpkins[L->npumpkins].y = (uint8_t)row;
+                    L->npumpkins++;
+                }
+                if (e->cart && L->ncarts < MAX_CARTS) {
+                    L->carts[L->ncarts].depth = (uint8_t)section;
+                    L->carts[L->ncarts].x = (uint8_t)x;
+                    L->carts[L->ncarts].y = (uint8_t)row;
+                    L->ncarts++;
+                }
                 if (e->harv && L->nharv < MAX_HARV) {
                     L->harv[L->nharv].depth = (uint8_t)section;
                     L->harv[L->nharv].x = (uint8_t)x;
@@ -257,6 +275,7 @@ int level_parse(level_def *L, const char *text, size_t len, const char *fname)
         else if (!strcmp(s, "harvest")) sscanf(v, "%d %d", &L->harvest_period, &L->harvest_warn);
         else if (!strcmp(s, "vent")) sscanf(v, "%d %d", &L->vent_period, &L->vent_active);
         else if (!strcmp(s, "croc")) L->croc_hp = atoi(v);
+        else if (!strcmp(s, "fog")) L->fog = atoi(v);
         /* unknown keys are ignored: data hooks for later gimmicks */
     }
     if (L->season < 0) { snprintf(L->error, sizeof L->error, "%s: missing or bad 'season'", L->file); return -1; }

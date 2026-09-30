@@ -1,54 +1,62 @@
-# STUB: a generated level (tools/make_stub_levels.py, seed 17596061). Replace it with a real design.
-# Planned: leaf storms
-name: Autumn 6 (stub)
+# Bomber Mole - autumn 6. Idea: the ant road. Columns of ants carry three of the grubs to their nests: catch
+# them on the way (touch them, or a blast) and they drop the grub; too late, and the grub is inside the nest
+# until you blast the nest open. Race them: one column on the surface, one in the tunnels.
+# Gimmicks: ants carrying grubs, ant nests, leaf piles, holes looping the depths.
+# Enemies: tier 2-3: cats on the surface, ferrets in the tunnels, a sleeping one by the queen's chamber.
+name: The Ant Road
 season: autumn
 arc: 3
 level: 6
-status: stub
-hint: A generated level: three depths, a grub hidden on each.
+bombs: 2
+range: 2
+hint: Ants carry grubs to their nest. Catch them, or blast the nest.
+status: done
+
+legend:
+a = floor + cat:2
 
 surface:
 ####################
-#M.........C....C..#
-#...d.r.d.d.....l.r#
-#.....l....x.dg....#
-#dr.d...d.d.ddl.d.r#
-#.......d....d.....#
-#.r.r.r.d.r.rddddd.#
-#.......d......g...#
-#.r.r.G.rvr.r.l...d#
-#..................#
-#.r.d.r.d.r.d.r...r#
-#...rC..........E..#
-#.r.r.d.l.r.d.r..vd#
+#M...r...l...r...g.#
+#.rr...r..d..r..rr.#
+#..d.A.....a...N.v.#
+#.r..r.rr.r..r.r..r#
+#..l..r....d..d....#
+#.rr..C..r..rr.....#
+#..r..d..r.....l.r.#
+#.d..rr.....C..rd..#
+#..l.r...rr..d...r.#
+#.v...r.......r.C..#
+#..rG...ll..rl...g.#
+#..r...E.d.r..r....#
 ####################
 under1:
 ####################
 #dddddddddddddddddd#
+#d...........dddddd#
+#d.ddddd.ddd.d..dHd#
+#d.dA..d.dGd.d..d.d#
+#d.dd..d.ddd.dd.d.d#
+#d.....d.........Fd#
+#ddddd.ddd.dd.ddddd#
+#dN..........v.dddd#
+#d..dddddd.dddd.ddd#
+#dH.F......g....ddd#
 #dddddddddddddddddd#
-#dddddddd....dddddd#
-#dddddddd....dddddd#
-#dddddddd.r.......d#
-#ddddddtv..r.dGdd.d#
-#ddddddgF..dddddd.d#
-#dddddd..Hg.......d#
-#dddddd.r..d.ddd..d#
-#ddddddddddd.ddd..d#
-#ddddddddddd.ddd.rF#
-#ddddddddddd....rH.#
+#dddddddddddddddddd#
 ####################
 under2:
 ####################
 #dddddddddddddddddd#
 #dddddddddddddddddd#
-#ddddddd....ddddddd#
-#dddd..z..ddddddddd#
-#dddd.....ddddddddd#
-#dddd..gH.ddddddddd#
-#ddddQ....ddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
+#dddddd.....ddddddd#
+#dddd.........ddddd#
+#dddd.z.r....Hddddd#
+#dddd.g......Qddddd#
+#ddddddd...dddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 ####################

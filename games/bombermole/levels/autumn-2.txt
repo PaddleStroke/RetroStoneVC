@@ -1,53 +1,62 @@
-# STUB: a generated level (tools/make_stub_levels.py, seed 16424039). Replace it with a real design.
-# Planned: pumpkins to push (Sokoban)
-name: Autumn 2 (stub)
+# Bomber Mole - autumn 2. Idea: the pumpkin patch. Push the pumpkins (walk into one): into the river they make
+# a stepping stone (the only other way over is the bridge the crocodile watches), onto a hole they plug it,
+# in a lane they block a cat. A blast smashes a pumpkin into mush that slows you (and opens a plugged gap).
+# Gimmicks: pumpkins to push (3 uses), a river with a crocodile (2 hits in autumn), the root cellar below with
+# a pond and its own crocodile. Enemies: tier 2-3: a grey cat and black cats in the patch, ferrets below.
+name: Pumpkin Patch
 season: autumn
 arc: 3
 level: 2
-status: stub
-hint: A generated level: three depths, a grub hidden on each.
+bombs: 2
+range: 2
+croc: 2
+hint: Walk into a pumpkin to push it. In the river it makes a stepping stone.
+status: done
+
+legend:
+a = floor + cat:2
 
 surface:
 ####################
-#r...g.d.d.....d.d.#
-#..E...dd..........#
-#r...llr.dCd.r.d...#
-#.l......g..rrrr...#
-#llC...r.r.d.d...l.#
-#.l......dddd......#
-#r.l.r.d.d.l.r.ddd.#
-#x.C....l.....v....#
-#..r.r.dld...r.r.r.#
-#..................#
-#r...d...r.r.G.d...#
-#....v............M#
+#M..d..0...rr..d..g#
+#..rrd.....r..0....#
+#d...r..0..d..rr.v.#
+#..0.r..rr....d..a.#
+#.rr....d..0.......#
+#~~~~%~~~=~~~~~~~~~#
+#..d..0..r..d...r..#
+#.r..C...rr....0...#
+#..rr..d.....C..rr.#
+#.v..r...0..d..d...#
+#..d..rr...C..r..g.#
+#.G....E.....d...r.#
 ####################
 under1:
 ####################
 #dddddddddddddddddd#
+#ddddddddddd.....dd#
+#dddddddddd..g.d.Hd#
+#ddd.......F...d.dd#
+#ddd.dd.dddd.d.d.dd#
+#ddd.dd.dGdd.d...dd#
+#d...dd.ddd..dddddd#
+#d.dddd.v.....F.ddd#
+#d.dd.......ddd.ddd#
+#dHdd.ddd.dddd..ddd#
+#d...g.....d......d#
 #dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#ddddddddddd..g.vdd#
-#ddd...dddd...H..dd#
-#ddd...dddd....F.dd#
-#dddg..dddd.ddddddd#
-#ddd..FdGdd.ddddddd#
-#ddd.H......ddddddd#
 ####################
 under2:
 ####################
 #dddddddddddddddddd#
 #dddddddddddddddddd#
+#ddddd.......dddddd#
+#ddddd.g.~~~.dddddd#
+#ddddd...~%~...dddd#
+#ddddd.z.~~~.Q.dddd#
+#dddddd...r...ddddd#
+#dddddddH.ddddddddd#
 #dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddd..QH.d#
-#dddddddddddd..z..d#
-#dddddddddddd.g...d#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#

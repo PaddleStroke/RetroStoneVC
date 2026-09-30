@@ -167,6 +167,9 @@ code to turn a whole sheet into strips.
 | zzz | props.png | 13-14 | 2 | 16x16 | 2 | prop | Sleeping 'Zz' bubble |
 | steam | props.png | 15 | 2 | 16x16 | 1 | prop | Steam puff (vents) |
 | bees | props.png | 5-6 | 3 | 16x16 | 2 | critter | Swarm of bees |
+| ant_nest | props.png | 4 | 3 | 16x16 | 1 | propbg | Ant nest (autumn): a mound of earth with ant holes and a few twigs; a blast opens it (the grubs inside come out). Drawn over the ground: flat magenta around it |
+| ants | props.png | 13-14 | 3 | 16x16 | 2 | critter | A column of ants carrying a golden grub, seen from above, walking RIGHT (2 frames: legs) |
+| eyes | props.png | 15 | 3 | 16x16 | 1 | prop | Two eyes glowing in the fog (a creature you cannot see): white with dark pupils, nothing else |
 | croc | props.png | 7-12 | 3 | 16x16 | 6 | critter | Crocodile in the water, seen from above, head RIGHT: swim x2, the tell (eyes and nostrils up, ripples), snap x2 (jaws open, jaws shut), stunned (belly up, stars) |
 | windmill | props.png | 0-7 | 4-5 | 32x32 | 4 | prop | Windmill (spring signature), sails turning (4 frames) |
 | fox | props.png | 8-15 | 4-5 | 32x32 | 4 | boss_fox | Autumn boss: the fox (run, run, leap, hurt) |

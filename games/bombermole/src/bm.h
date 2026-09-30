@@ -22,6 +22,8 @@
 #define MAX_SWARMS 4
 #define GAS_TIME 180            /* a gas cloud stuns for 3 s */
 #define MAX_HARV 4
+#define MAX_PUMPKINS 12
+#define MAX_CARTS 4
 #define NCHAN 8
 
 enum { SEASON_SPRING, SEASON_SUMMER, SEASON_AUTUMN, SEASON_WINTER, SEASONS };
@@ -32,10 +34,10 @@ enum terrain {
     TR_FLOOR, TR_STONE, TR_DIRT, TR_ROCK, TR_ROOTS, TR_FROZEN, TR_LEAVES, TR_WATER, TR_PUDDLE,
     TR_THIN, TR_HOLE_DOWN, TR_HOLE_UP, TR_LADDER, TR_EXIT, TR_BRIDGE, TR_ICE, TR_THIN_ICE, TR_MUD,
     TR_COVER, TR_BURNT, TR_GATE, TR_PLATE, TR_LEVER, TR_VENT, TR_PIPE, TR_CRATE, TR_SPRINKLER,
-    TR_WINDMILL, TR_HIVE, TR_GAS, TR_COUNT
+    TR_WINDMILL, TR_HIVE, TR_GAS, TR_TREE, TR_SHROOM, TR_RAIL, TR_NEST, TR_PLUG, TR_COUNT
 };
-enum item { IT_NONE, IT_GRUB, IT_BOMB, IT_FIRE, IT_SPEED, IT_REMOTE, IT_HEART, IT_COUNT };
-enum actor_kind { AK_NONE, AK_MOLE, AK_FERRET, AK_CAT, AK_BOSS, AK_DOG, AK_CROC };
+enum item { IT_NONE, IT_GRUB, IT_BOMB, IT_FIRE, IT_SPEED, IT_REMOTE, IT_HEART, IT_APPLE, IT_COUNT };
+enum actor_kind { AK_NONE, AK_MOLE, AK_FERRET, AK_CAT, AK_BOSS, AK_DOG, AK_CROC, AK_ANTS };
 enum push_kind { PUSH_NONE = 0, PUSH_WIND = 1, PUSH_FLOW = 2 };
 enum game_mode { MODE_SOLO, MODE_COOP, MODE_BATTLE };   /* multiplayer hooks */
 
@@ -90,6 +92,11 @@ typedef struct level_def {
     int vent_period, vent_active;
     int dark;                   /* night / dark caves: lamp radius only */
     int croc_hp;                /* crocodiles: hits to defeat (0 = cannot be defeated, only stunned) */
+    int fog;                    /* fog: the clear radius around the mole in pixels (0 = none) */
+    struct { uint8_t depth, x, y; } pumpkins[MAX_PUMPKINS];
+    int npumpkins;
+    struct { uint8_t depth, x, y; } carts[MAX_CARTS];
+    int ncarts;
     int boss;                   /* BOSS_* from assets.h */
     int tier;                   /* default enemy tier (1..4) for F and C */
     cell g[NDEPTH][GH][GW];
@@ -104,7 +111,7 @@ typedef struct level_def {
 } level_def;
 
 typedef struct actor {
-    uint8_t kind, depth, alive, dir, moving, forced, sliding, asleep, player, flip;
+    uint8_t kind, depth, alive, dir, moving, forced, sliding, asleep, player, flip, hop;
     int8_t cx, cy, tx, ty;      /* current cell, target cell while moving */
     int16_t prog;               /* 0..SUB while moving */
     int16_t speed;              /* progress per frame */
@@ -120,13 +127,13 @@ typedef struct actor {
 } actor;
 
 typedef struct bomb {
-    uint8_t active, depth, owner, range, moving, dir, falling;
+    uint8_t active, depth, owner, range, moving, dir, falling, hop;
     int8_t cx, cy, tx, ty;
     int16_t prog, fuse;
     uint16_t order;
 } bomb;
 
-enum fx_kind { FXP_DUST, FXP_WIND, FXP_SPRAY, FXP_STEAM, FXP_ZZZ, FXP_SPLASH, FXP_STAR, FXP_TOMATO };
+enum fx_kind { FXP_DUST, FXP_WIND, FXP_SPRAY, FXP_STEAM, FXP_ZZZ, FXP_SPLASH, FXP_STAR, FXP_TOMATO, FXP_APPLE, FXP_LEAF };
 typedef struct fxp {
     uint8_t kind, depth, flip, frame;
     int16_t x, y, t, life, vx, vy;   /* pixels (x16 for x,y) */
@@ -153,6 +160,20 @@ typedef struct harvester {
     int16_t prog, timer;
 } harvester;
 
+/* a pumpkin: pushed Sokoban-style; on a hole or in water it plugs it (walkable); a blast smashes it */
+typedef struct pumpkin {
+    uint8_t alive, depth, moving, dir, plug, under;
+    int8_t cx, cy, tx, ty;
+    int16_t prog;
+} pumpkin;
+
+/* a mine cart on its rails: walk into it to ride it to the end of the line; levers switch junctions */
+typedef struct cart {
+    uint8_t alive, depth, moving, dir, rider;   /* rider: 1 = the mole rides it */
+    int8_t cx, cy, tx, ty;
+    int16_t prog;
+} cart;
+
 typedef struct pstats { int bombs, range, speed, remote, hearts, lives, placed; } pstats;
 
 typedef struct world {
@@ -178,10 +199,17 @@ typedef struct world {
     int pickup;                          /* IT_* picked up this frame (EV_PICKUP) */
     uint16_t wind_fx[4];                 /* wind streaks spawned per direction (tests) */
     uint8_t fire[NDEPTH][GH][GW];        /* burning corn: frames left */
+    uint16_t apple_t[NDEPTH][GH][GW];    /* a fallen apple lies here for a while */
+    pumpkin pumps[MAX_PUMPKINS];
+    cart carts[MAX_CARTS];
+    int riding;                          /* the cart the mole rides, or -1 */
+    int apple_heart;                     /* the apple's heart is given once per level */
     uint8_t gas[NDEPTH][GH][GW];         /* stun gas: frames left (> GAS_TIME: not reached yet) */
     swarm bees[MAX_SWARMS];
     harvester harv[MAX_HARV];
-    struct { int burnt, stings, bee_kills, shaken, warns, crushed, gas_stuns, badger_holes, badger_stuns, croc_bites, croc_stuns; } stat;
+    struct { int burnt, stings, bee_kills, shaken, warns, crushed, gas_stuns, badger_holes, badger_stuns, croc_bites, croc_stuns,
+             pushes, smashes, plugs, apple_stuns, hops, bomb_hops, rides, crushed_by_cart, ants_home, ants_dropped,
+             fox_dashes, fox_rests, fox_hits, leaves_blown; } stat;
     int dirty[NDEPTH];                   /* map needs redraw */
     uint8_t cell_dirty[NDEPTH][GH][GW];
     int events;                          /* EV_* raised this frame (for the game flow) */
@@ -209,6 +237,8 @@ int  world_vent_on(void);
 int  world_wind_lanes(int counts[4]);            /* recompute the windmill lanes; cells per direction */
 int  world_harvester_at(int d, int x, int y);    /* index of a harvester on that cell, or -1 */
 int  world_cats_seeing(void);                    /* cats that see the mole now (tests) */
+int  world_pumpkin_at(int d, int x, int y);      /* index of a pumpkin standing on that cell, or -1 */
+int  world_cart_at(int d, int x, int y);         /* index of a cart on that cell, or -1 */
 int  world_harvest_warning(int d, int x, int y); /* the cell lies in a lane about to be swept */
 extern int pending_depth, pending_from;          /* depth change requested by the player */
 
@@ -220,6 +250,9 @@ void draw_cells_dirty(int depth, int slot);
 void draw_world_sprites(int depth, int yoff, int first);
 void draw_hud(void);
 void draw_canopy(int depth);                   /* corn and tall grass over the sprites (BG1, high priority) */
+void fog_set(int on, int cx, int cy, int r);   /* fog outside a circle around the mole */
+int  fog_hides(int d, int x, int y);           /* that cell is in the fog (sprites become eyes) */
+void fx_add_leaf(int d, int cx, int cy);       /* leaves rustle (the fox hiding) */
 void draw_weather(int on);
 void draw_frame_setup(void);
 void text_box(int x, int y, int w, int h);
@@ -242,6 +275,7 @@ int  ui_grubs(int depth);
 #define UI_DEV_ITEMS 6
 void ui_pause_screen(int cursor, int dev, int quit_ask);   /* quit_ask: 0, 1 = YES, 2 = NO highlighted */
 void ui_perf_overlay(void);
+int ui_glow_count(int d);                /* blocks glowing on depth d (a grub inside) */
 extern int dev_god, dev_reveal, dev_perf;
 void ui_screen_done(void);
 void ui_banner_exit_open(void);

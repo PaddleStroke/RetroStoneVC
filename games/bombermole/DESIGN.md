@@ -164,7 +164,8 @@ it (a bridge over it included), its eyes and nostrils rise with ripples for 0.6 
 rests 1 s after a snap. A blast on its cell stuns it for 3 s. Crossing a bridge is a timing game: cross while
 it is away, or stun it first. Tiers: spring and summer crocodiles cannot be defeated; autumn ones take 2 hits
 (`croc: 2`); in winter the rivers are frozen and the crocodile sleeps under the ice (absent). Levels: spring 3
-(the river), spring 5 and summer 2 (a river across the field, two bridges); planned for autumn river levels.
+(the river), spring 5 and summer 2 (a river across the field, two bridges), autumn 2 (the river and the cellar
+pond) and autumn 4 (a river with no bridge: the mushrooms hop you over it).
 
 ## Enemy tiers (data-driven)
 Every ferret and cat has a **type** (table `ENEMY_TYPES` in `src/world.c`): speed, movement, vision, bomb
@@ -224,7 +225,7 @@ for its variants, plus 3 when there is no boss and 7 when there is no dog.
 | Spring 8 | **The barn cat** | implemented | 5 hits, 1.5 s of invulnerability after each hit; chases, pounces from 6 cells |
 | Summer 8 | **The farmer** (owner's idea: tomato season) | implemented; playable test room in `summer-8` | stands in his vegetable garden and lobs rotten tomatoes in an arc; a shadow marks the target cell about 1 s ahead. A hit stuns the mole; a miss leaves a splat that slows it for 4 s. Tomatoes landing in a hole splat on the depth below. A tomato hit costs a heart, and touching him is a hit; he walks his field slowly. He cannot be hurt while his tomato crates stand (they flash, and the boss bar counts them): blow them up and he gets angry and vulnerable (he flashes gold; phase 2: 3 hits, he chases and throws faster). |
 | Summer 4 or 5 | **The badger** (mini-boss) | behaviour implemented (3 hits, digs through soft dirt), level to design | underground; digs through the soil; will also change depth |
-| Autumn 8 | **The fox** | placeholder behaviour (fast chaser) | fast; rides the wind (push fields do not slow it) |
+| Autumn 8 | **The fox** | implemented | runs fast (push fields do not slow it) and **dashes** along the gale lanes, or at the mole when it is in line: it cannot be hurt while it runs or dashes. It **hides in the leaf piles** (only the rustling shows). After **3 dashes it stops, panting** (steam puffs, 3 s): only then does a blast hurt it. **4 hits**, health bar; hint "Catch the fox when it stops to rest" |
 | Winter 8 | **The snowy owl** | placeholder behaviour (flies over obstacles) | swoops from above on the surface and drops icicles on the depth below |
 
 ## Level gimmicks ("actuators")
@@ -238,7 +239,7 @@ Every level mixes about three gimmicks so it feels unique beyond its layout; eac
 | **Ice** | you slide until you hit something (enemies too); a bomb dropped on ice slides away like a kick; **thin ice** cracks after one crossing and turns to water after two | `i` ice, `j` thin ice |
 | **Cross-depth** | a bomb tossed into a hole (drop it while facing the hole) or pushed or slid into one falls to the depth below and explodes there; a blast on a thin floor opens a hole and the rubble stuns the enemy below; an enemy standing on a floor that gets blasted open falls, stunned; puddles make mud on the depth below | `_` thin floor; `v`, `^`, `H` |
 | **Cover** | tall grass or corn hides the mole from cats (breaks their line of sight); it burns when bombed | `w` (corn in summer) |
-| **Switches** | pressure plates (step-on: the mole, an enemy, or a bomb sliding onto one) and levers drive gates by channel; a lever flips when the mole walks into it AND when a blast hits it (a click, the two-state lever turns left/right, and the gates it drives and every lever of its channel flash with white corner marks for 1 s, so the link shows); timed gates stay open for a while after a trigger. Mine-cart track switching: data hook | `P` plate, `/` lever, the bar character gate; legend words `chan:N`, `timed:N` (tenths of a second) |
+| **Switches** | pressure plates (step-on: the mole, an enemy, or a bomb sliding onto one) and levers drive gates by channel; a lever flips when the mole walks into it AND when a blast hits it (a click, the two-state lever turns left/right, and the gates it drives and every lever of its channel flash with white corner marks for 1 s, so the link shows); timed gates stay open for a while after a trigger. Levers also switch the mine-cart junctions of their channel | `P` plate, `/` lever, the bar character gate; legend words `chan:N`, `timed:N` (tenths of a second) |
 | **Noise** | explosions wake sleepers within 6 cells, or 4 cells on the depth right above or below: a guard dog (ally) or a sleeping ferret nest | `D` sleeping dog, `z` sleeping ferret |
 
 **Gate rule (no softlocks)**: every gate the player can walk through must be openable from both sides (a
@@ -268,14 +269,27 @@ circle, made with a window), the **windmill** decoration that spins faster in gu
 | **Drain pipes** | a pipe takes the mole to the other pipe of its channel, on any depth | `@` (channel 1), legend `pipe + chan:N` |
 | **Gas pocket** | solid; a blast opens it and a stun cloud spreads 3 cells (not through walls) in 0.3 s; everyone in it (you too) is stunned while it lasts, 3 s | `*` gas pocket |
 
+### Autumn mechanics (all implemented; placeholder art, TODO rows in `art/incoming/TODO.md`)
+| Mechanic | How it works | Level syntax |
+|---|---|---|
+| **Leaf piles** | dig them (fast) or blast them; a pile hiding a grub glows like any block; on a gale lane the gusts blow the piles along (and the grub inside with them) | `l`, `L` (grub inside), legend `leaves + push_right` |
+| **Strong wind** | gale lanes (push cells without a windmill) push the mole, the bombs, the ferrets and cats, and blow the leaf piles along; the fox dashes along them | `<` `>` `n` `u`, header `gust:` |
+| **Pumpkins** | pushed Sokoban-style: walk into one and hold for a moment; it slides one cell if the cell behind is free. It blocks the enemies' way; pushed onto a hole or into water it fills it (a plug you can walk over); a blast smashes it into mush that slows like mud (a smashed plug reopens the hole or the water) | `0` (floor + pumpkin), legend word `pumpkin` |
+| **Apple trees** | solid; a blast next to one shakes 2-3 apples down around it: whoever is under one (the mole too) is stunned 3 s; an apple left on the ground gives +1 heart, once per level | `T` |
+| **Bouncy mushrooms** | stepping on one launches the mole 2 cells on (a hop with a shadow), over a wall, a block or water, if the landing cell is free; a bomb dropped while facing a mushroom, or pushed onto one, bounces over the same way | `!` |
+| **Fog** | a window around the mole (radius in pixels) keeps the colours; outside, colour math blends the playfield 3/4 towards the fog colour, and the enemies there show only as two eyes | header `fog: 72` (4-5 cells) |
+| **Mine carts** | walk into a cart to climb in: it rolls along the rails to the end of the line (fast travel), running over any enemy in its way; at a junction (a rail cell with a channel) the lever of that channel sends it round the bend (on) or straight on (off) | `+` rails, `$` rails + cart, legend `rails + chan:N` for a junction, `/` or `lever + chan:N` |
+| **Ants** | a column of ants carries a grub to the nearest ant nest; touch them or blast them and they drop it; a grub carried home is inside the nest until a blast opens the nest (the grub comes out: never a softlock) | `A` (floor + grub + ants), `N` ant nest |
+| **Crocodile** | as in spring and summer, but it takes 2 hits in autumn | `%`, header `croc: 2` |
+
 ### Per season (about 3 per level; implemented ones in bold)
 | Season | Gimmicks | Signature |
 |---|---|---|
 | Spring | **river with a log bridge**, **rain puddles (mud below, slows)**, **roots that regrow dug dirt**, **rotating sprinklers whose spray defuses bombs**, **windmill** | **the windmill (gusts)** |
 | Summer | **dry soil (digs twice as fast)**, **corn field (cover; it burns and the fire spreads)**, **beehives (a bombed hive releases bees that chase the nearest creature)**, **steam vents (geyser lift one depth up)**, **a harvester sweeping a row or column on a timer**, **puddles that dry up**, **the badger (mini-boss)** | **steam vents** |
-| Autumn | **leaf piles that hide grubs and blow around in the wind**, pumpkins to push (Sokoban-like), apple trees (bomb one: apples fall and stun), bouncy mushrooms (launch you 2 cells), fog (limited vision), **strong wind** | **strong wind** |
+| Autumn | **leaf piles that hide grubs and blow around in the wind**, **pumpkins to push (Sokoban-like)**, **apple trees (bomb one: apples fall and stun)**, **bouncy mushrooms (launch you 2 cells)**, **fog (limited vision)**, **strong wind**, **the crocodile (2 hits)** | **strong wind** |
 | Winter | **frozen river with slippery ice**, **thin ice**, snowdrifts that slow you, snowballs that a blast rolls along (growing, crushing enemies), icicles that fall after nearby blasts, **frozen dirt (bombs only)**, **night (helmet lamp)** | **the frozen river** |
-| Underground, any season | mine carts on rails (fast travel, crush enemies, levers switch the track), **gas pockets released by blasts (stun ferrets and you)**, glow-worms lighting dark caves, an ant column carrying grubs away, a well bucket (elevator surface to depth 2, turned with a crank), **drain pipes** | |
+| Underground, any season | **mine carts on rails (fast travel, crush enemies, levers switch the track)**, **gas pockets released by blasts (stun ferrets and you)**, glow-worms lighting dark caves, **an ant column carrying grubs away**, a well bucket (elevator surface to depth 2, turned with a crank), **drain pipes** | |
 
 Gimmicks not implemented yet are **data hooks**: their art is in `props.png` (placeholders), their TODO rows
 exist, unknown header keys in level files are ignored, and the stub levels name the gimmick they are planned for.
@@ -300,7 +314,13 @@ exist, unknown header keys in level files are ignored, and the stub levels name 
 | Summer 7 Sprinkler Garden | sprinklers guarding stone-walled beds, steam vents lifting you or a bomb into them, drying puddles |
 | Summer 8 The Farmer | the farmer (boss), crates, tomato splats, corn, holes for the cross-depth tomatoes |
 | Autumn 1 Gale Force | strong wind lanes (signature), leaves hiding grubs and blowing away |
-| Autumn 8 The Fox | the fox (boss), two gale lanes, leaf piles, stone posts |
+| Autumn 2 Pumpkin Patch | pumpkins (stepping stones in the river, hole plugs, lane blockers), a river and a cellar pond with crocodiles (2 hits) |
+| Autumn 3 Orchard | apple trees on the cats' beats (apples stun, one heals), a mine cart on a bending line through the ferret tunnels |
+| Autumn 4 Mushroom Hop | mushrooms over the bridgeless river and over stone walls (bombs bounce too), a crocodile (2 hits), mushroom caverns |
+| Autumn 5 Foggy Morning | fog (cats as eyes), leaf piles hiding the path and grubs, tall grass cover |
+| Autumn 6 The Ant Road | two ant columns carrying grubs to their nests (surface and tunnels), leaf piles, holes looping the depths |
+| Autumn 7 Gale Mine | three gale lanes (you, bombs, leaves, cats drift), a mine-cart network with two junctions and their levers |
+| Autumn 8 The Fox | the fox (boss: dashes, hides in the leaves, rests), two gale lanes, leaf piles, stone posts |
 | Winter 1 Frozen River | ice and thin ice (signature), frozen dirt, snow |
 | Winter 8 The Snowy Owl | the owl (boss), ice lanes for kicked bombs, frozen dirt |
 
@@ -325,8 +345,11 @@ ferret (2), a cat (3), sealed chambers (4), chains and sprinklers (5), a ferret 
 
 Arc 2 (summer) is complete: level 1 shows the signature (steam vents), levels 2-7 each add one summer
 mechanic (corn fire, bees, harvesters, the badger, pipes and gas, sprinklers with vents) and level 8 is the
-farmer. Arcs 3-4: level 1 shows the season's signature and level 8 is the boss arena; levels 2-7 are **stubs**
-(`status: stub`, written by `tools/make_stub_levels.py`, which never overwrites a hand-made file).
+farmer. Arc 3 (autumn) is complete: level 1 shows the signature (strong wind), levels 2-7 each build on one
+autumn mechanic (pumpkins, apple trees and a mine cart, mushrooms, fog, ants, carts and junctions under the
+gale) and level 8 is the fox. Arc 4: level 1 shows the season's signature and level 8 is the boss arena;
+levels 2-7 are **stubs** (`status: stub`, written by `tools/make_stub_levels.py`, which never overwrites a
+hand-made file).
 
 ### Level file format
 ```
@@ -345,6 +368,8 @@ boss: barncat           # optional: barncat | farmer | badger | fox | owl (defau
 gust: 240 100 16        # optional: wind cycle, gust length, frames between pushes
 vent: 240 40            # optional: steam vent cycle and eruption length
 dark: 0                 # optional: 1 = night or dark cave (helmet lamp)
+fog: 72                 # optional: fog, the radius in pixels of the clear circle around the mole
+croc: 2                 # optional: hits to defeat the crocodile (0: it can only be stunned)
 
 legend:                 # optional: extra or overridden characters
 Z = soft_dirt + heart
@@ -383,12 +408,17 @@ Default legend (terrain `+` item `+` actor):
 | `z` | sleeping ferret | `D` | sleeping guard dog |
 | `<` `>` `n` `u` | floor pushed left, right, up, down (wind) | `{` `}` | water with a current, left, right |
 | `e` | beehive | `*` | gas pocket |
+| `%` | water with a crocodile | `0` | floor with a pumpkin |
+| `T` | apple tree | `!` | bouncy mushroom |
+| `+` | rails | `$` | rails with a mine cart |
+| `N` | ant nest | `A` | ants carrying a grub (on floor) |
 
 The gate is the vertical bar character (channel 1). Legend words for custom entries: every terrain name
 (`floor stone soft_dirt hard_rock roots frozen_dirt leaves water puddle thin_floor hole_down hole_up ladder exit
 bridge ice thin_ice mud tall_grass corn burnt gate plate lever steam_vent pipe crate sprinkler windmill beehive
-gas_pocket`), `harvester:up|right|down|left`, items
-(`grub bomb fire speed remote heart`), actors (`mole p2 p3 p4 ferret cat boss dog`), `asleep`, `log`,
+gas_pocket apple_tree mushroom rails ant_nest`), `harvester:up|right|down|left`, items
+(`grub bomb fire speed remote heart apple`), actors (`mole p2 p3 p4 ferret cat boss dog croc ants`), objects
+(`pumpkin cart`), `asleep`, `log`,
 `push_up/down/left/right`, `flow_up/down/left/right`, `chan:N`, `timed:N`.
 
 Rules checked by the loader and by `tools/check_levels.py` (part of `make check`): 14x20 grids, hints of
@@ -485,10 +515,14 @@ every level, stubs included, on top of solvability and the softlock search:
   or more), and each 6x6 sector with 12+ open cells has at least 25% of something other than plain floor
   (blocks, items, enemies, gimmicks, push fields; a windmill's or a harvester's lane counts as a push field).
 - **Every gimmick matters**: a point gimmick (plate, lever, gate, pipe, vent, bridge, sprinkler, crate,
-  windmill, thin floor, beehive, gas pocket) lies within 2 cells of a required path, i.e. a shortest path (digging costs more than
+  windmill, thin floor, beehive, gas pocket, apple tree, mushroom, ant nest) lies within 2 cells of a required path, i.e. a shortest path (digging costs more than
   walking) from the start to a grub, the boss or the exit, or from a grub to the exit; an area gimmick (ice,
   thin ice, tall grass, puddles, mud, push fields, logs) touches one; plates and levers matter when their gate
-  does; the farmer's crates are required targets.
+  does; the farmer's crates are required targets; a pumpkin or a mine cart lies within 3 cells of one.
+- **Autumn in the solver**: a mushroom is an edge 2 cells on (the hop); pumpkins do not count as plain floor;
+  the ant nests of a depth with ants are required targets (a grub may end up inside); apple trees are solid.
+- **At most 2 prop colour families**: the props a level uses (or makes: a pumpkin makes mush, a puddle mud)
+  must fit the 2 BG palettes for props.
 - Known-bad levels in `tests/data/levels_bad/` must fail each rule (smoke test).
 
 | Level | Idea |
@@ -510,7 +544,13 @@ every level, stubs included, on top of solvability and the softlock search:
 | Summer 7 Sprinkler Garden | Grubs in stone-walled beds guarded by sprinklers; ride a vent up into a bed, or send a bomb up it, and time the spray. |
 | Summer 8 The Farmer | Boss arena: his four crates stand in the corners of the corn field, so every crate run crosses his line of fire; weave through the corn and dive down holes. |
 | Autumn 1 Gale Force | Gale lanes push you and your bombs; the gusts blow the leaf piles away and uncover the grubs. |
-| Autumn 8 The Fox | Boss arena: an orchard crossed by two gale lanes; the fox rides the wind, and so do your bombs. |
+| Autumn 2 Pumpkin Patch | Sokoban in the patch: push pumpkins into the river as stepping stones (the only other way over is the bridge the crocodile watches), onto a hole to plug it, or into a lane to shut a cat out; a blast turns one into slowing mush. |
+| Autumn 3 Orchard | Apple trees along the cats' beats: bomb next to a tree when a cat walks under it (the apples stun it, and you, for 3 s; the first apple you pick up is a heart); below, ride the mine cart to run the ferrets over. |
+| Autumn 4 Mushroom Hop | No bridge: mushrooms on the banks hop you over the river (and the crocodile), others over stone walls; a bomb dropped facing a mushroom bounces over the wall onto what hides behind it. |
+| Autumn 5 Foggy Morning | You see only a circle around you; the cats are two eyes in the fog until they are close; the grubs' glow shows through the fog, the leaf piles hide the way, the tall grass hides you. |
+| Autumn 6 The Ant Road | A race: two ant columns carry grubs to their nests; catch them on the way (touch them or a blast), or blast the nest open afterwards. |
+| Autumn 7 Gale Mine | Gale lanes rake the surface (you, your bombs, the leaves and the cats drift); below, set the two junction levers to send the mine cart to the far rooms, running the ferrets over. |
+| Autumn 8 The Fox | Boss arena: two gale lanes and leaf piles; the fox dashes along the lanes and hides in the leaves; after 3 dashes it stops to pant: that is the moment to hit it (4 hits). |
 | Winter 1 Frozen River | Cross the frozen river in one slide; only a bomb kicked across the ice cracks the frozen island in the middle. |
 | Winter 8 The Snowy Owl | Boss arena: a clearing with no cover from the flying owl; kick bombs along two ice lanes and hide underground. |
-| Autumn, winter 2-7 | Generated stubs (`tools/make_stub_levels.py`): two layouts (mirrored for levels 5-7) using all three depths with a loop (two holes down, a ladder back), an enemy on each depth, a grub hidden in a block on each depth (only its glow shows it), a riskier grub near the enemies and the season's feature. Still simple: to be designed. |
+| Winter 2-7 | Generated stubs (`tools/make_stub_levels.py`): two layouts (mirrored for levels 5-7) using all three depths with a loop (two holes down, a ladder back), an enemy on each depth, a grub hidden in a block on each depth (only its glow shows it), a riskier grub near the enemies and the season's feature. Still simple: to be designed. |

@@ -1,54 +1,62 @@
-# STUB: a generated level (tools/make_stub_levels.py, seed 16717014). Replace it with a real design.
-# Planned: apple trees
-name: Autumn 3 (stub)
+# Bomber Mole - autumn 3. Idea: the orchard. Apple trees stand along the cats' beats: a blast next to a tree
+# shakes 2-3 apples down, stunning whoever they fall on (you too) for 3 s, and the first apple you pick up is a
+# heart. Below, a mine cart crosses the ferret tunnels and turns down to the far room: ride it to run them over.
+# Gimmicks: apple trees, a mine cart on a bending line, the root cave under the orchard.
+# Enemies: tier 2-3: cats in the orchard (one grey), ferrets on the rails, a sleeping one in the roots.
+name: Orchard
 season: autumn
 arc: 3
 level: 3
-status: stub
-hint: A generated level: three depths, a grub hidden on each.
+bombs: 2
+range: 2
+hint: Bomb next to a tree: the apples stun what they fall on.
+status: done
+
+legend:
+a = floor + cat:2
 
 surface:
 ####################
-#M.................#
-#...lr.d.r.d.l...l.#
-#...l..............#
-#..rlvdrC..d.d.r.rg#
-#..r..d............#
-#d.rCldd.d.dll.d.d.#
-#.C...d............#
-#r.r.d.r.d.r.r.d.r.#
-#....llll..d......d#
-#r.G.d.d.r.d.r....d#
-#..x.....g......E..#
-#r.r.r.r.d.l.l..v..#
+#M..T...d...T....g.#
+#.rr..r...rr...rr..#
+#..d..T..C.....T...#
+#.r..rr..r..d..r.v.#
+#..T...d....Tr.d...#
+#.dd.r...rr....r..d#
+#d.C...T..d..a..T..#
+#.r..dd.d.r..dd....#
+#..T..r..v...r..C.d#
+#.d...r...T.rd..r..#
+#..r..G.d..r...d.g.#
+#.T..r..E.....T....#
 ####################
 under1:
 ####################
 #dddddddddddddddddd#
-#ddF....ddddddddddd#
-#dd..t..ddddddddddd#
-#dd..Hg.........Gdd#
-#dd..r...ddddd..ddd#
-#ddddddd.ddd....ddd#
-#ddddddd.dddg...ddd#
-#ddddddd.....t..ddd#
-#ddddddd.r......ddd#
-#ddddddd....dd.....#
-#dddddddd.Fvdd....t#
-#ddddddddddddd..Ht.#
+#d.g..F.dddddddd..d#
+#d.....$+++++.....d#
+#dddd.ddddd.+ddd.Hd#
+#dddd.ddddd.+ddd..d#
+#d....dG..d.+d..F.d#
+#d.dddd.dd..+ddd..d#
+#d.d....v...+.....d#
+#d.ddddddH..+dd.ddd#
+#d........g.+.....d#
+#dddd..ddddd+dddd.d#
+#dddddddddddddddddd#
 ####################
 under2:
 ####################
 #dddddddddddddddddd#
 #dddddddddddddddddd#
-#ddddd..ddddddddddd#
-#dddddd.ddddddddddd#
-#dddddd.ddddddddddd#
-#dddddd.ddddddddddd#
-#dddddd.ddddddddddd#
-#dddddd.ddddddddddd#
-#ddddddgddddddddddd#
-#dddddd.d......dddd#
-#dddddd.z..H.Q.dddd#
-#dddddddd......dddd#
+#ddddddd...dddddddd#
+#dddddd..Q..ddddddd#
+#ddddd..t.t..dddddd#
+#ddddd.t.g.t.dddddd#
+#ddddd..t.t..dddddd#
+#dddddddH.z..dddddd#
+#dddddddd...ddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
 ####################

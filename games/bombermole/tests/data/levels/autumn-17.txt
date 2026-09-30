@@ -1,0 +1,60 @@
+# Test arena (not a game level): the heaviest autumn scene for the bench: fog, three gale lanes with leaves and ferrets drifting, cats, and the mole riding a mine cart round a loop.
+name: Autumn Bench
+season: autumn
+arc: 3
+level: 17
+status: stub
+fog: 72
+gust: 120 80 6
+
+legend:
+Q = leaves + push_right
+W = leaves + grub + push_left
+Y = floor + ferret + push_right
+X = floor + ferret + push_left
+
+surface:
+####################
+#M..r...r...r...g..#
+#..................#
+#>>Q>>Y>Q>>>>Q>>Y>.#
+#..r....C.....r....#
+#.<<W<<<X<<W<<<<<<.#
+#..r.....C....r....#
+#>>Q>>>>Q>>Y>>Q>>>.#
+#..................#
+#.$+++++++++++++++.#
+#.+.....E........+.#
+#.++++++++++++++++.#
+#..................#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

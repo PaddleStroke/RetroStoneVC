@@ -12,3 +12,7 @@ echo "== summer: a corn field burning, two bee swarms, two harvesters (test aren
 printf "180 tap B\n183 LEFT\n200 -\n" > /tmp/bm_bench_summer.input
 $H --frames 800 --data "$(dirname "$0")/../tests/data" --opt level=summer-15 --opt nointro=1 --opt spawn=0,10,6 \
    --opt god=1 --input /tmp/bm_bench_summer.input --bench 330 | sed -n '/^bench/,$p'
+echo "== autumn: fog, 3 gale lanes with leaves and drifting ferrets, the mole riding a cart loop (test arena) =="
+printf "5 tap RIGHT\n" > /tmp/bm_bench_autumn.input
+$H --frames 700 --data "$(dirname "$0")/../tests/data" --opt level=autumn-17 --opt nointro=1 --opt spawn=0,1,9 \
+   --opt god=1 --input /tmp/bm_bench_autumn.input --bench 100 | sed -n '/^bench/,$p'

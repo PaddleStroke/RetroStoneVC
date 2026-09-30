@@ -1,0 +1,55 @@
+# Test arena (not a game level): the fox: dashes along the gale lane and at the mole, rests after 3 dashes (then it can be hit).
+name: Fox Test
+season: autumn
+arc: 3
+level: 15
+status: stub
+boss: fox
+range: 2
+gust: 60 60 20
+
+surface:
+####################
+#M.................#
+#..................#
+#>>>>>>>>>>>>>>>>>.#
+#..................#
+#.......ll.........#
+#..........K.......#
+#..................#
+#..................#
+#..................#
+#..................#
+#..........g....E..#
+#..................#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

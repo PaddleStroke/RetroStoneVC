@@ -100,6 +100,25 @@ void iris_set(int on, int cx, int cy, int r)
     rs_clip_black((iris_on || lamp_on) ? RS_WIN2_OUT : 0);
 }
 
+static int fog_on, fog_cx, fog_cy, fog_r;
+int g_fog_eyes;                                     /* eyes drawn in the fog this frame (tests) */
+void fog_set(int on, int cx, int cy, int r)
+{
+    fog_on = on; fog_cx = cx; fog_cy = cy; fog_r = r;
+    lamp_set(on, cx, cy, r);                        /* the same circle (window 2) */
+    rs_clip_black(iris_on ? RS_WIN2_OUT : 0);        /* ...but grey, not black */
+    rs_fog(on && !iris_on ? RS_WIN2_OUT : 0, RS_HEX(0xb8b0a8), RS_MATH_BG2 | RS_MATH_BG3 | RS_MATH_BG4 | RS_MATH_BACK);
+}
+
+/* in the fog: out of the clear circle around the mole (x, y: the cell's top-left, playfield pixels) */
+int fog_hides(int d, int x, int y)
+{
+    (void)d;
+    if (!fog_on) return 0;
+    int dx = x + CELL / 2 - fog_cx, dy = y + CELL / 2 + HUD_H - fog_cy;
+    return dx * dx + dy * dy > fog_r * fog_r;
+}
+
 void lamp_set(int on, int cx, int cy, int r)
 {
     lamp_on = on; lamp_cx = cx; lamp_cy = cy; lamp_r = r;
@@ -278,6 +297,12 @@ static const uint16_t *ground_meta(int d, int x, int y)
         if (d > 0) return c->state ? T[T_DIRT_CRACK] : T[dirt_v[cell_variant(d, x, y)]];
         break;
     case TR_THIN: return T[T_THIN_FLOOR];
+    case TR_PLUG: {                                 /* a pumpkin in a gap: the gap below it */
+        for (int i = 0; i < MAX_PUMPKINS; i++)
+            if (W.pumps[i].alive && W.pumps[i].plug && W.pumps[i].depth == d && W.pumps[i].cx == x && W.pumps[i].cy == y)
+                return W.pumps[i].under == TR_WATER ? (water_frame() ? T[T_WATER_F2] : T[T_WATER]) : floor_meta(d, x, y);
+        return floor_meta(d, x, y);
+    }
     case TR_WATER: case TR_BRIDGE:
         if (y > 0 && !is_water(d, x, y - 1)) return T[T_WATER_EDGE];
         return water_frame() ? T[T_WATER_F2] : T[T_WATER];
@@ -315,6 +340,12 @@ static const uint16_t *object_meta(int d, int x, int y)
     case TR_PIPE: return prop_meta[PB_PIPE];
     case TR_CRATE: return prop_meta[PB_CRATE];
     case TR_HIVE: return prop_meta[PB_BEEHIVE];
+    case TR_TREE: return prop_meta[PB_APPLE_TREE];
+    case TR_SHROOM: return prop_meta[PB_MUSHROOM];
+    case TR_NEST: return prop_meta[PB_ANT_NEST];
+    case TR_RAIL:
+        return (in_grid(x - 1, y) && W.g[d][y][x - 1].t == TR_RAIL) || (in_grid(x + 1, y) && W.g[d][y][x + 1].t == TR_RAIL)
+                   ? prop_meta[PB_RAILS_H] : prop_meta[PB_RAILS_V];
     case TR_GAS: return prop_meta[PB_GAS_POCKET];
     case TR_BRIDGE:
         /* the planks run across the way over the water: water left or right of the bridge means the
@@ -464,6 +495,10 @@ static void draw_actor(const actor *a, int yoff)
         spr = dir_base(a->dir, SPR_CAT_WALK_DOWN, SPR_CAT_WALK_UP, SPR_CAT_WALK_LEFT, SPR_CAT_WALK_RIGHT) + walk % 2;
         if (a->stun && (a->anim / 4) % 2) return;
         break;
+    case AK_ANTS:
+        spr = SPR_ANTS + walk % 2;
+        if (a->dir == DIR_LEFT) flags = RS_SPR_HFLIP;
+        break;
     case AK_CROC:
         spr = a->stun ? SPR_CROC + 5 : a->state == 1 ? SPR_CROC + 2 : a->state == 2 ? SPR_CROC + 3 + (a->timer < 8)
                                                                          : SPR_CROC + walk % 2;
@@ -481,7 +516,13 @@ static void draw_actor(const actor *a, int yoff)
             else if (a->timer) spr = SPR_FARMER + 2 + (a->timer < 10);
             else spr = SPR_FARMER + (a->dig ? 4 : 0) + (a->anim / 20) % 2;
             break;
-        case BOSS_FOX: spr = SPR_FOX + (a->state == 2 ? 2 : walk % 2); break;
+        case BOSS_FOX:                                /* dashing: the leap; resting: panting */
+            if (W.g[a->depth][a->cy][a->cx].t == TR_LEAVES && a->state != 2) {   /* hidden in the leaves */
+                if ((W.t + a->cx) % 24 == 0) fx_add_leaf(a->depth, a->cx, a->cy);
+                return;
+            }
+            spr = SPR_FOX + (a->state == 1 ? 2 : a->state == 2 ? 3 : walk % 2);
+            break;
         case BOSS_OWL: spr = SPR_OWL + (a->state == 2 ? 2 : walk % 2); break;
         case BOSS_BADGER: spr = SPR_BADGER + (a->moving ? walk % 2 : 2); break;
         default: spr = SPR_BOSS + (a->state == 1 ? 2 : a->state == 2 ? 3 : a->moving ? 1 : 0); break;
@@ -491,6 +532,15 @@ static void draw_actor(const actor *a, int yoff)
         break;
     }
     if (spr < 0) return;
+    if (a->kind != AK_MOLE && fog_hides(a->depth, x, y)) {    /* in the fog: two eyes */
+        if (a->kind != AK_ANTS) { spr_cell(SPR_EYES, x, y - 2, yoff, (W.t / 90) % 2 ? RS_SPR_HFLIP : 0); g_fog_eyes++; }
+        return;
+    }
+    if (a->hop) {                                   /* a mushroom's hop: an arc over the cell, a shadow below */
+        int k = a->prog, h = k * (SUB - k) / (SUB * SUB / 64);    /* 16 px at the top */
+        spr_cell(SPR_TOMATO_SHADOW, x, y, yoff, 0);
+        y -= h;
+    }
     if (a->kind == AK_BOSS && W.def->boss == BOSS_FARMER && a->dig && (W.t / 6) % 2) {
         spr_cell_pal(spr, x, y, yoff, flags, OBJ_PAL_PICKUP);   /* angry and vulnerable: he flashes gold */
         return;
@@ -505,7 +555,7 @@ static void draw_actor(const actor *a, int yoff)
 
 void draw_world_sprites(int d, int yoff, int first)
 {
-    if (first) rs_oam_clear();
+    if (first) { rs_oam_clear(); g_fog_eyes = 0; }
     uint32_t t = W.t;
     /* actors: players first (in front) */
     for (int pass = 0; pass < 2; pass++)
@@ -535,6 +585,10 @@ void draw_world_sprites(int d, int yoff, int first)
             spr_cell(SPR_BOMB_REMOTE + (t / 12) % 2, x, y, yoff, 0);     /* no fuse: a blinking antenna */
             continue;
         }
+        if (b->hop) {                               /* bouncing off a mushroom */
+            spr_cell(SPR_TOMATO_SHADOW, x, y, yoff, 0);
+            y -= b->prog * (SUB - b->prog) / (SUB * SUB / 64);
+        }
         int rate = b->fuse < 40 ? 3 : 8;
         spr_cell(SPR_BOMB + (t / rate) % 3, x, y, yoff, 0);
     }
@@ -542,7 +596,9 @@ void draw_world_sprites(int d, int yoff, int first)
         for (int x = 0; x < GW; x++) {
             const cell *c = &W.g[d][y][x];
             if (c->item && terrain_walkable(c->t, 0)) {
-                static const int spr_of[IT_COUNT] = {0, SPR_GRUB, SPR_PU_BOMB, SPR_PU_FIRE, SPR_PU_SPEED, SPR_PU_REMOTE, SPR_PU_HEART};
+                static const int spr_of[IT_COUNT] = {0, SPR_GRUB, SPR_PU_BOMB, SPR_PU_FIRE, SPR_PU_SPEED, SPR_PU_REMOTE, SPR_PU_HEART,
+                                                     SPR_APPLE};
+                if (fog_hides(d, x * CELL, y * CELL)) continue;
                 int s = spr_of[c->item] + (c->item == IT_GRUB ? (int)(t / 16 + x) % 2 : 0);
                 spr_cell(s, x * CELL, y * CELL - ((t / 12 + x) % 4 == 0 ? 1 : 0), yoff, 0);
             }
@@ -557,6 +613,27 @@ void draw_world_sprites(int d, int yoff, int first)
                     spr_cell(SPR_WINDMILL + (t / speed) % 4, x * CELL, y * CELL, yoff, 0);
             }
         }
+    /* autumn: pumpkins (a plugged one sits low in its gap), mine carts, falling apples */
+    for (int i = 0; i < MAX_PUMPKINS; i++) {
+        const pumpkin *p = &W.pumps[i];
+        if (!p->alive || p->depth != d) continue;
+        int x = p->cx * CELL + (p->tx - p->cx) * p->prog / (SUB / CELL);
+        int y = p->cy * CELL + (p->ty - p->cy) * p->prog / (SUB / CELL);
+        spr_cell(SPR_PUMPKIN, x, y + (p->plug ? 4 : 0), yoff, 0);
+    }
+    for (int i = 0; i < MAX_CARTS; i++) {
+        const cart *c = &W.carts[i];
+        if (!c->alive || c->depth != d) continue;
+        int x = c->cx * CELL + (c->tx - c->cx) * c->prog / (SUB / CELL);
+        int y = c->cy * CELL + (c->ty - c->cy) * c->prog / (SUB / CELL);
+        spr_cell(SPR_MINE_CART, x, y + 3, yoff, c->dir == DIR_LEFT ? RS_SPR_HFLIP : 0);
+    }
+    for (int i = 0; i < MAX_FX; i++) {
+        const fxp *f = &W.fx[i];
+        if (!f->life || f->kind != FXP_APPLE || f->depth != d) continue;
+        spr_cell(SPR_TOMATO_SHADOW, f->vx * CELL, f->vy * CELL, yoff, 0);
+        spr_cell(SPR_APPLE, f->vx * CELL, f->vy * CELL - f->life * 3, yoff, 0);
+    }
     /* summer: bee swarms, stun gas, harvesters */
     for (int i = 0; i < MAX_SWARMS; i++) {
         const swarm *b = &W.bees[i];
@@ -592,7 +669,7 @@ void draw_world_sprites(int d, int yoff, int first)
     }
     for (int i = 0; i < MAX_FX; i++) {
         const fxp *f = &W.fx[i];
-        if (!f->life || f->depth != d || f->kind == FXP_TOMATO) continue;
+        if (!f->life || f->depth != d || f->kind == FXP_TOMATO || f->kind == FXP_APPLE) continue;   /* drawn above */
         int x = f->x / 16, y = f->y / 16, s, flags = 0;
         switch (f->kind) {
         case FXP_DUST: s = SPR_DUST + clampi(f->t / 8, 0, 2); break;
@@ -722,11 +799,17 @@ static void draw_prop_pals(void)
                 case TR_PIPE: USE(PB_PIPE); break;
                 case TR_CRATE: USE(PB_CRATE); break;
                 case TR_HIVE: USE(PB_BEEHIVE); break;
+                case TR_TREE: USE(PB_APPLE_TREE); break;
+                case TR_SHROOM: USE(PB_MUSHROOM); break;
+                case TR_NEST: USE(PB_ANT_NEST); break;
+                case TR_RAIL: USE(PB_RAILS_H); break;
                 case TR_GAS: USE(PB_GAS_POCKET); break;
                 default: break;
                 }
     for (int i = 0; i < W.na; i++)
         if (W.a[i].kind == AK_BOSS && g_boss == BOSS_FARMER) USE(PB_SPLAT);
+    for (int i = 0; i < MAX_PUMPKINS; i++)
+        if (W.pumps[i].alive) USE(PB_MUD);           /* a smashed pumpkin leaves mush (drawn as mud) */
 #undef USE
     int fa = -1, fb = -1;
     for (int f = 0; f < PB_PALS; f++) {

@@ -1,54 +1,65 @@
-# STUB: a generated level (tools/make_stub_levels.py, seed 17889053). Replace it with a real design.
-# Planned: drain pipes
-name: Autumn 7 (stub)
+# Bomber Mole - autumn 7. Idea: the gale mine. Gale lanes rake the surface (they push you, your bombs, the
+# leaves and the ferrets); below, a mine-cart network with two junctions links the far rooms: set the levers
+# to send the cart where you want, and run the ferrets over on the way.
+# Gimmicks: gale lanes, drifting leaves, mine carts, two junctions and their levers, a deep shaft.
+# Enemies: tier 3: black cats on the surface, ferrets on the rails, a sleeping one in the shaft.
+name: Gale Mine
 season: autumn
 arc: 3
 level: 7
-status: stub
-hint: A generated level: three depths, a grub hidden on each.
+bombs: 2
+range: 3
+gust: 180 100 12
+hint: The levers switch the cart's junctions. The gale drifts bombs.
+status: done
+
+legend:
+J = rails + chan:1
+K = rails + chan:2
+q = lever + chan:2
 
 surface:
 ####################
-#..d.d.r.d.d.d.l..M#
-#.......C...rrr....#
-#.Cr.r...d.d...r...#
-#d.......v.........#
-#d.rd..d.lld.l.r.G.#
-#d..d.ddd......g...#
-#r.ddd.r.r.r...l.r.#
-#C..d.............g#
-#l.d.d.l.l.r.l...d.#
-#............s...rr#
-#l.E.d.r.d.d.l.d.r.#
-#................v.#
+#M..r...d...r....g.#
+#..rr..C...rr..r.v.#
+#>>>>>>>>>>>>>>>>..#
+#..r...l...r...C...#
+#.r..d..r....d..r..#
+#..<<<<<<<<<<<<<<<.#
+#..r..r..C...r..d..#
+#.d..l.....r...r.d.#
+#>>>>>>>>>>>>.....r#
+#.v..r..l...Cl.r...#
+#..rG....r....r..g.#
+#..r...E....r...r..#
 ####################
 under1:
 ####################
 #dddddddddddddddddd#
+#d/..g.dddddddd..Hd#
+#d$+++++J++++++++.d#
+#ddddddd+dddddd.d.d#
+#ddddddd+dddddd.F.d#
+#dF..d..+..dd...ddd#
+#d...d..K+++++++.dd#
+#d.v.d..+q..dd..ddd#
+#d.d...d+d.G.d..ddd#
+#dH..d..+..d...gddd#
+#dddddd.+..dddddddd#
 #dddddddddddddddddd#
-#dddddddv..dddddddd#
-#ddddddd.H......ddd#
-#dddGdddtg.ddd..ddd#
-#ddd.F.dd.dddd..gdd#
-#ddd......dddd...dd#
-#ddd..Fddddddd...dd#
-#ddddddddddddd.r.dd#
-#dddddddddddddd.r..#
-#dddddddddddddd....#
-#dddddddddddddd..H.#
 ####################
 under2:
 ####################
 #dddddddddddddddddd#
-#dddddddddddd.z.ddd#
-#ddddd..H.....ddddd#
-#dddddg....dddddddd#
-#ddddd...Q.dddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
+#d...dddddddddddddd#
+#d.H.r..ddddddddddd#
+#d..z...ddddddddddd#
+#dd.Q.g.ddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 ####################

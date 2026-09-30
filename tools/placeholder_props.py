@@ -159,6 +159,13 @@ def prop_bg(name, frame):
         ell(d, 3, 5, 12, 13, P["mud"])
         for (x, y, r) in ((5, 7, 2), (9, 9, 2), (7, 11, 1), (10, 6, 1)):
             ell(d, x - r, y - r, x + r, y + r, P["green"], P["green_d"])
+    elif name == "ant_nest":       # drawn over the ground: magenta around
+        ell(d, 1, 4, 14, 15, P["mud_l"], P["dark"])
+        ell(d, 4, 6, 11, 12, P["mud"])
+        for (x, y) in ((5, 8), (9, 7), (8, 11)):
+            px(d, x, y, P["dark"])
+        d.line((3, 5, 1, 1), fill=P["wood_d"])
+        d.line((12, 5, 14, 2), fill=P["wood_d"])
     elif name == "apple_tree":     # drawn over the ground: magenta around
         rect(d, 7, 10, 8, 15, P["wood_d"])
         ell(d, 1, 0, 14, 11, P["green_d"], P["dark"])
@@ -240,6 +247,10 @@ def prop_obj(name, frame):
         for (x, y, r) in ((5, 9, 4), (10, 7, 4), (8, 11, 3)):
             ell(d, x - r + frame, y - r, x + r + frame, y + r, P["pale"], P["green"])
         px(d, 6 + frame, 7, P["white"])
+    elif name == "eyes":
+        for x0 in (3, 9):
+            ell(d, x0, 6, x0 + 3, 9, P["white"])
+            rect(d, x0 + 1, 7, x0 + 2, 8, P["dark"])
     elif name == "steam":
         ell(d, 2, 5, 9, 12, P["white"])
         ell(d, 6, 1, 13, 8, P["pale"])
@@ -320,6 +331,13 @@ def critter(name, frame):
         rect(d, 13, 4, 15, 5 + s, P["brown"])
         if name == "dog_walk_right":
             im = im.transpose(Image.FLIP_LEFT_RIGHT)
+    elif name == "ants":
+        for i in range(5):
+            x = 1 + i * 3
+            px(d, x, 10 + (i + frame) % 2, P["black"])
+            px(d, x + 1, 10 + (i + frame) % 2, P["black"])
+            px(d, x, 12, P["black"])
+        ell(d, 6, 4, 11, 8, P["yellow"], P["black"])           # the grub they carry
     elif name == "croc":
         G, Gd, Gl, W, K = (70, 140, 60), (30, 80, 40), (150, 200, 110), P["white"], P["black"]
         if frame == 5:                                   # stunned: belly up, stars

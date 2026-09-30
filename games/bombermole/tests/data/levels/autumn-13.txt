@@ -1,0 +1,56 @@
+# Test arena (not a game level): a mine cart: straight to the end of the line, or round the bend when the lever is on; it runs a ferret over.
+name: Cart Test
+season: autumn
+arc: 3
+level: 13
+status: stub
+
+legend:
+J = rails + chan:1
+Z = rails + ferret + asleep
+
+surface:
+####################
+#/.................#
+#$++++++J++Z+++....#
+#.......+..........#
+#.......+..........#
+#.......+..........#
+#.......+..........#
+#.......+..........#
+#..................#
+#M.................#
+#..................#
+#..........g....E..#
+#..................#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

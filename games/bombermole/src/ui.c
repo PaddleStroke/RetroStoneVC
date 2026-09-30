@@ -159,6 +159,14 @@ static int hidden_grub_glows(int d, int x, int y)
     return 1;
 }
 
+int ui_glow_count(int d)
+{
+    int n = 0;
+    for (int y = 0; y < GH; y++)
+        for (int x = 0; x < GW; x++) n += hidden_grub_glows(d, x, y);
+    return n;
+}
+
 /* ---- dev: the frame-time overlay --------------------------------------------------------------- */
 void ui_perf_overlay(void)
 {
@@ -191,7 +199,8 @@ void ui_pickup_banner(int item)
 {
     /* the remote adds a control: name the button (A on a pad, the X key on a keyboard) */
     static const char *const msg[IT_COUNT] = {"", "", "BOMB UP: ONE MORE BOMB", "FIRE UP: LONGER BLASTS",
-                                              "SPEED UP", "REMOTE: PRESS A (X KEY) TO BLOW", "HEART: ONE MORE HIT"};
+                                              "SPEED UP", "REMOTE: PRESS A (X KEY) TO BLOW", "HEART: ONE MORE HIT",
+                                              "APPLE: ONE MORE HIT"};
     if (item <= IT_GRUB || item >= IT_COUNT) return;
     snprintf(pickup_line, sizeof pickup_line, "%s", msg[item]);
     pickup_t = 90;                                              /* 1.5 s */
@@ -244,7 +253,7 @@ static int cell_colour(int d, int x, int y)
     switch (c->t) {
     case TR_STONE: case TR_WINDMILL: return C_WALL;
     case TR_DIRT: case TR_ROCK: case TR_ROOTS: case TR_FROZEN: case TR_LEAVES: case TR_CRATE: case TR_HIVE:
-    case TR_GAS: return C_DIRT;
+    case TR_GAS: case TR_TREE: case TR_NEST: return C_DIRT;
     case TR_WATER: case TR_PUDDLE: return C_WATER;
     case TR_HOLE_DOWN: return C_HOLE;
     case TR_HOLE_UP: case TR_LADDER: return C_UP;
@@ -354,7 +363,7 @@ static const char *boss_hint(int boss)
     case BOSS_CAT: return "BOMB THE BARN CAT 5 TIMES";
     case BOSS_FARMER: return "BLOW UP HIS CRATES, THEN BOMB HIM";
     case BOSS_BADGER: return "LURE ITS CHARGE INTO A ROCK, THEN BOMB IT";
-    case BOSS_FOX: return "THE FOX RIDES THE WIND: SO DO YOUR BOMBS";
+    case BOSS_FOX: return "CATCH THE FOX WHEN IT STOPS TO REST";
     case BOSS_OWL: return "KICK BOMBS ALONG THE ICE AT THE OWL";
     default: return NULL;
     }
@@ -384,7 +393,7 @@ void ui_boss_bar(void)
     for (int i = 0; i < W.na; i++)
         if (W.a[i].alive && W.a[i].kind == AK_BOSS) b = &W.a[i];
     if (!b || W.def->boss <= 0 || W.def->boss > 5) return;
-    int max = W.def->boss == BOSS_BADGER || W.def->boss == BOSS_FARMER ? 3 : 5;
+    int max = W.def->boss == BOSS_BADGER || W.def->boss == BOSS_FARMER ? 3 : W.def->boss == BOSS_FOX ? 4 : 5;
     char line[40];
     int shielded = W.def->boss == BOSS_FARMER && !b->dig;
     if (shielded) snprintf(line, sizeof line, "%s  CRATES LEFT %d/%d", names[W.def->boss], world_crates(), W.crates_total);

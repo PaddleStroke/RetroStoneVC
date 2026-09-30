@@ -172,6 +172,9 @@ void rs_window(int w, int left, int right);
 void rs_bg_window(int layer, int mask);
 void rs_obj_window(int mask);
 void rs_clip_black(int mask);   /* the final picture is black where the mask hides */
+/* Fog: where the window mask hides, the given layers (RS_MATH_BG1..BG4, RS_MATH_BACK) are blended 3/4
+ * towards the fog colour; sprites and the other layers stay clear. mask 0 = no fog. */
+void rs_fog(int mask, rs_color colour, int layers);
 
 #define RS_MATH_BG1   1
 #define RS_MATH_BG2   2

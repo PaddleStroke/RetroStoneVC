@@ -1,7 +1,8 @@
-# Bomber Mole - autumn 8: boss, the fox. Idea: an orchard crossed by two gale lanes: the fox rides the wind (it is
-# not slowed), but so do your bombs: drop one in a lane and the gust carries it into the fox's path.
-# Gimmicks: the boss (fast chaser, holds the last grub), two gale lanes (a gust pushes you and your bombs; the
-# upper one blows right, the lower one left), leaf piles hiding grubs, stone posts to break the fox's run,
+# Bomber Mole - autumn 8: boss, the fox. Idea: a field crossed by two gale lanes. The fox runs fast, dashes along
+# the lanes (it can't be hit while dashing) and hides in the leaf piles (you see them rustle). After 3 dashes it
+# stops, panting: that is when a blast hurts it. 4 hits.
+# Gimmicks: the boss (holds the last grub), two gale lanes (a gust pushes you and your bombs; the upper one
+# blows right, the lower one left), leaf piles hiding grubs and the fox, stone posts to break its run,
 # holes in two corners down to the burrows (a loop through depth 1 and a den on depth 2).
 # Enemies: the fox, tier 3 polecats below (one asleep by a grub, one asleep in the den).
 name: The Fox
@@ -12,7 +13,7 @@ bombs: 2
 range: 3
 boss: fox
 gust: 180 100 10
-hint: The fox rides the gale. So do your bombs: drop one in a lane.
+hint: Catch the fox when it stops to rest.
 status: done
 
 surface:

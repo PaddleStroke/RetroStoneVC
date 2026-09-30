@@ -208,6 +208,20 @@ void rs_window(int w, int l, int r)
 void rs_bg_window(int l, int mask) { if ((unsigned)l < RS_BG_COUNT) g_bg[l].win = mask; }
 void rs_obj_window(int mask) { g_obj_win = mask; }
 void rs_clip_black(int mask) { g_clip_win = mask; }
+static int g_fog_win, g_fog_layers;
+static uint16_t g_fog565;
+void rs_fog(int mask, rs_color colour, int layers)
+{
+    g_fog_win = mask;
+    g_fog_layers = mask ? layers : 0;
+    g_fog565 = to565(colour);
+}
+static uint16_t fog565(uint16_t c)
+{
+    unsigned r = ((c >> 11) + 3u * (g_fog565 >> 11)) / 4, g = (((c >> 5) & 63) + 3u * ((g_fog565 >> 5) & 63)) / 4,
+             b = ((c & 31) + 3u * (g_fog565 & 31)) / 4;
+    return (uint16_t)((r << 11) | (g << 5) | b);
+}
 void rs_math(int mode, int layers, rs_color fixed)
 {
     g_math_mode = mode;
@@ -384,10 +398,10 @@ RS_INLINE int win_hides(int mask, int w)
 
 /* generic (windowed and/or colour math) plane painter */
 static void paint_slow(uint16_t *o, const uint8_t *src, const uint8_t *prio, int want,
-                       int x0, int x1, int win, int math, int objmath)
+                       int x0, int x1, int win, int math, int objmath, int fog)
 {
-    uint8_t hide[4];
-    for (int w = 0; w < 4; w++) hide[w] = (uint8_t)win_hides(win, w);
+    uint8_t hide[4], fogged[4];
+    for (int w = 0; w < 4; w++) { hide[w] = (uint8_t)win_hides(win, w); fogged[w] = (uint8_t)(fog && win_hides(g_fog_win, w)); }
     for (int x = x0; x < x1; x++) {
         uint8_t b = src[x];
         if (!b) continue;
@@ -397,6 +411,7 @@ static void paint_slow(uint16_t *o, const uint8_t *src, const uint8_t *prio, int
         uint16_t c = g_cg565[prio ? b : (b & 0x7f)];
         if (math && (!objmath || b >= 192))
             c = blend565(c, (g_math_mode & RS_MATH_FIXED) ? g_math_fixed : o[x], g_math_mode);
+        if (fog && fogged[g_win[x]]) c = fog565(c);
         o[x] = c;
     }
 }
@@ -404,9 +419,9 @@ static void paint_slow(uint16_t *o, const uint8_t *src, const uint8_t *prio, int
 static void paint_bg(uint16_t *o, const bg_state *b, int layer, const uint8_t *src, int hi)
 {
     int want = hi ? 0x80 : 0;
-    int math = (g_math_layers >> layer) & 1;
-    if (b->win || math) {
-        paint_slow(o, src, NULL, want, 0, W, b->win, math, 0);
+    int math = (g_math_layers >> layer) & 1, fog = (g_fog_layers >> layer) & 1;
+    if (b->win || math || fog) {
+        paint_slow(o, src, NULL, want, 0, W, b->win, math, 0, fog);
         return;
     }
     const uint16_t *cg = g_cg565;
@@ -427,7 +442,7 @@ static void paint_obj(uint16_t *o, int p, int x0, int x1)
 {
     int math = (g_math_layers & RS_MATH_OBJ) != 0;
     if (g_obj_win || math) {
-        paint_slow(o, g_sline, g_sprio, p, x0, x1, g_obj_win, math, 1);
+        paint_slow(o, g_sline, g_sprio, p, x0, x1, g_obj_win, math, 1, 0);
         return;
     }
     for (int x = x0; x < x1; x++) {
@@ -485,7 +500,7 @@ void ppu_render(uint16_t *fb)
         if (n > max_line) max_line = n;
         if (n > 32) rs_warn(RS_WARN_SPRITES_PER_LINE, "%d sprites on line %d (guideline 32)", n, y);
 
-        int anywin = g_obj_win | g_clip_win;
+        int anywin = g_obj_win | g_clip_win | g_fog_win;
         for (int l = 0; l < RS_BG_COUNT; l++) anywin |= g_bg[l].win;
         if (anywin) {
             int l0 = g_win_l[0], r0 = g_win_r[0], l1 = g_win_l[1], r1 = g_win_r[1];
@@ -501,6 +516,11 @@ void ppu_render(uint16_t *fb)
             uint32_t bb = back | ((uint32_t)back << 16);
             uint32_t *o32 = (uint32_t *)o;
             for (int x = 0; x < W / 2; x++) o32[x] = bb;
+        }
+        if (g_fog_layers & RS_MATH_BACK) {
+            uint16_t fb = fog565(back);
+            for (int x = 0; x < W; x++)
+                if (win_hides(g_fog_win, g_win[x])) o[x] = fb;
         }
 
         /* Mode 0 order, back to front */

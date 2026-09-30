@@ -1,54 +1,63 @@
-# STUB: a generated level (tools/make_stub_levels.py, seed 17303103). Replace it with a real design.
-# Planned: fog
-name: Autumn 5 (stub)
+# Bomber Mole - autumn 5. Idea: the foggy morning. You see only a few cells around you; the cats are two eyes
+# in the fog until they are close. Leaf piles hide the path (and grubs: their glow shows through the fog), and
+# the tall grass hides you from the eyes.
+# Gimmicks: fog (a clear circle around the mole), leaf piles with grubs, tall grass, holes to the misty caves.
+# Enemies: tier 2-3: four cats in the fog, ferrets and a sleeping one in the den below.
+name: Foggy Morning
 season: autumn
 arc: 3
 level: 5
-status: stub
-hint: A generated level: three depths, a grub hidden on each.
+bombs: 2
+range: 2
+fog: 72
+hint: In the fog, cats are only two eyes. Leaf piles hide the way.
+status: done
+
+legend:
+a = floor + cat:2
 
 surface:
 ####################
-#M..r.d.r.r...l..sd#
-#.........l........#
-#...d.r...r.r.r.r..#
-#..d...l..l......d.#
-#.rdl.Clr.rdd.dC.dd#
-#......l..l......dd#
-#.r.d.llr.lgd.G.d.d#
-#.............g....#
-#...r.d.d.l.d.r.d.d#
-#..................#
-#vr.l.d.r...dCr.E.r#
-#.....v............#
+#M..ll...r..lll...g#
+#.r.l..a.r.....l.r.#
+#..ll.....ww.r.ll..#
+#.r...lLl.ww....r..#
+#..r..lll...C...v..#
+#.ll.....rr..ll....#
+#..l.r.ww....lLl.r.#
+#.C..r.ww..r.lll...#
+#..ll.....ll.....C.#
+#.v..rr..lLl..r.ll.#
+#..l......ll..r..g.#
+#..ll..E....C...l..#
 ####################
 under1:
 ####################
 #dddddddddddddddddd#
+#dd.....dddd...dddd#
+#dd.ddd.dddd.g.dddd#
+#dd.dGd...F....d.dd#
+#dd.ddd.ddddd.ddHdd#
+#dd.....dd..d.ddddd#
+#dddd.dddd.v...dddd#
+#dddd.dddd.dd.Fdddd#
+#d....ddd..dd.ddddd#
+#dH.dddd..ddd.dg.dd#
+#dd.......ddd....dd#
 #dddddddddddddddddd#
-#d...dddddddddddddd#
-#d...Gddddddddddddd#
-#d..rdddddddddddddd#
-#ddd.dddddddddddddd#
-#ddd.dddddddddddddd#
-#ddd.dddddddddddddd#
-#ddd.dddddddddddddd#
-#..d....ddddddddddd#
-#Hgd.vF.ddddddddddd#
-#F...gH.ddddddddddd#
 ####################
 under2:
 ####################
 #dddddddddddddddddd#
-#d..ddddddddddddddd#
-#dd.ddddddddddddddd#
-#dd.ddddddddddddddd#
-#dd.ddddddddddddddd#
-#dd.ddddddddddddddd#
-#ddgddddddddddddddd#
-#dd.ddddddddddddddd#
-#dd.z..dddddddddddd#
-#dd....dddddddddddd#
-#dd..H.dddddddddddd#
-#ddQ...dddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#ddddddddd..r..dddd#
+#ddddddddd.H..gdddd#
+#ddddddddd.r..zdddd#
+#dddddddddd...Qdddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
 ####################

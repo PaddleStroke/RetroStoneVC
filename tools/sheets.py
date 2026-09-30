@@ -155,6 +155,13 @@ ENTRIES = [
     E("steam", "props", 15, 2, 16, 16, 1, "prop", "Steam puff (vents)"),
     # row 3: critters (sprite palette 7; the guard dog is on the characters sheet)
     E("bees", "props", 5, 3, 16, 16, 2, "critter", "Swarm of bees"),
+    E("ant_nest", "props", 4, 3, 16, 16, 1, "propbg",
+      "Ant nest (autumn): a mound of earth with ant holes and a few twigs; a blast opens it (the grubs inside "
+      "come out). Drawn over the ground: flat magenta around it"),
+    E("ants", "props", 13, 3, 16, 16, 2, "critter",
+      "A column of ants carrying a golden grub, seen from above, walking RIGHT (2 frames: legs)"),
+    E("eyes", "props", 15, 3, 16, 16, 1, "prop",
+      "Two eyes glowing in the fog (a creature you cannot see): white with dark pupils, nothing else"),
     E("croc", "props", 7, 3, 16, 16, 6, "critter",
       "Crocodile in the water, seen from above, head RIGHT: swim x2, the tell (eyes and nostrils up, ripples), "
       "snap x2 (jaws open, jaws shut), stunned (belly up, stars)"),
@@ -222,7 +229,7 @@ ENTRIES = _grow_props_bosses(ENTRIES)
 # two: BG palette 5, and BG palette 7 below the HUD band (DESIGN.md, "BG palettes").
 PROP_PALETTES = [
     ("plants", ["tall_grass", "corn", "burnt", "gate", "apple_tree", "beehive", "mushroom"]),
-    ("wood", ["crate", "splat", "well", "rails_h", "rails_v"]),
+    ("wood", ["crate", "splat", "well", "rails_h", "rails_v", "ant_nest"]),
     ("stone", ["mud", "plate", "lever", "steam_vent", "pipe", "gas_pocket"]),
     ("water", ["bridge", "bridge_v", "ice", "thin_ice"]),
 ]

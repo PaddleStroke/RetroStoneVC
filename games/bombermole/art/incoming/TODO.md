@@ -417,3 +417,11 @@ Rules:
 | croc | TODO | props.png | 16x16 | 6 | Crocodile in the water, seen from above, head RIGHT: swim x2, the tell (eyes and nostrils up, ripples), snap x2 (jaws open, jaws shut), stunned (belly up, stars). 6 frames left to right, evenly spaced: 1) frame 1; 2) frame 2; 3) frame 3; 4) frame 4; 5) frame 5; 6) frame 6. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
 | corn_v2 | TODO | props (overlay) | 16x16 | 1 | Corn drawn as a TRANSPARENT OVERLAY (the game draws it over the ground AND over the characters): three tall stalks with long leaves and a yellow cob each, a tassel on top, flat magenta between the stalks (at least a third of the cell), so a mole or a cat in the corn shows through the gaps. No ground. Frame size 16x16 (draw about 128x128). |  |
 | tall_grass_v2 | TODO | props (overlay) | 16x16 | 1 | Tall grass drawn as a TRANSPARENT OVERLAY (over the ground and over the characters): tufts of long blades, flat magenta between them (at least a third of the cell). No ground. Frame size 16x16. |  |
+
+## 14. Autumn: ants, their nest, eyes in the fog
+
+| ID | Status | Sheet | Frame size | Frames | Description / prompt | Notes |
+|---|---|---|---|---|---|---|
+| ant_nest | TODO | props.png | 16x16 | 1 | Ant nest (autumn): a mound of earth with ant holes and a few twigs; a blast opens it (the grubs inside come out). Drawn over the ground: flat magenta around it. One frame. Frame size 16x16 (draw each about 128x128). Drawn OVER the ground (the game draws the grass, snow or water under it): flat magenta around the object, no ground of its own. |  |
+| ants | TODO | props.png | 16x16 | 2 | A column of ants carrying a golden grub, seen from above, walking RIGHT (2 frames: legs). 2 frames left to right, evenly spaced: 1) frame 1; 2) frame 2. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
+| eyes | TODO | props.png | 16x16 | 1 | Two eyes glowing in the fog (a creature you cannot see): white with dark pupils, nothing else. One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |

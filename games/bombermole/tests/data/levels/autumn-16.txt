@@ -1,0 +1,56 @@
+# Test arena (not a game level): leaf piles: a pile hiding a grub glows, and the gusts blow it along the gale lane.
+name: Leaves Test
+season: autumn
+arc: 3
+level: 16
+status: stub
+gust: 60 50 5
+
+legend:
+Z = leaves + grub + push_right
+
+surface:
+####################
+#M.................#
+#..................#
+#..................#
+#..................#
+#>>>>Z>>>>>>>>>>>>.#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..........g....E..#
+#..................#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

@@ -1,54 +1,63 @@
-# STUB: a generated level (tools/make_stub_levels.py, seed 17010111). Replace it with a real design.
-# Planned: bouncy mushrooms
-name: Autumn 4 (stub)
+# Bomber Mole - autumn 4. Idea: the mushroom hop. The river has no bridge: bouncy mushrooms on its banks launch
+# you 2 cells, over the water; others throw you over stone walls. Drop a bomb while facing a mushroom and the
+# bomb bounces over the wall too: bomb what hides behind it.
+# Gimmicks: mushrooms (you and your bombs hop), a river with a crocodile (2 hits), mushroom caverns below,
+# the grotto at the bottom. Enemies: tier 2-3: four cats on the banks, ferrets in the caverns.
+name: Mushroom Hop
 season: autumn
 arc: 3
 level: 4
-status: stub
-hint: A generated level: three depths, a grub hidden on each.
+bombs: 2
+range: 2
+croc: 2
+hint: Mushrooms launch you over a wall or the river. Bombs bounce on them too.
+status: done
+
+legend:
+a = floor + cat:2
 
 surface:
 ####################
-#r...r.l.d.r...d.d.#
-#..E..........v....#
-#r...r.d.r.r.rrr.r.#
-#.......C.....r...l#
-#r.r.d...r.l.dr....#
-#.ddd.........r....#
-#..r.C.r.d.d.d.d.r.#
-#...g.G............#
-#r...ddr.r...d.d.l.#
-#.....db...........#
-#r.g.ddl.r.r.d.r...#
-#lll....Cd.v.l....M#
+#M...r...d...r...g.#
+#.rr..!#...r..!#...#
+#..d.......C.......#
+#..r..!.....r..!...#
+#~~~~~~~~%~~~~~~~~~#
+#..d.....!.....d...#
+#.rr..a.rr..#!..r..#
+#..d..r......d...v.#
+#.v....C...rr...!#.#
+#..r.d...r....C....#
+#.G..r.!#..d..r..g.#
+#....d....E........#
 ####################
 under1:
 ####################
-#ddddddddddd.Fg.ddd#
-#dddddddddddr.H.ddd#
-#ddddddddddd...rddd#
-#dddddddddddd.ddddd#
-#dddddddddd...rdddd#
-#dddddddddd..r.dddd#
-#dddt..dddd.Fg.dddd#
-#ddd..tGdddt..tdddd#
-#ddd..r..dddd.ddddd#
-#ddd.t.d.dddd.ddddd#
-#ddddddd....v.ddddd#
-#ddddddd...Hr.ddddd#
+#dddddddddddddddddd#
+#ddd.......dddddddd#
+#ddd.rr!#..g..ddddd#
+#ddd.......ddd..ddd#
+#dddddd.F..d....ddd#
+#d.....dd..d.dd.ddd#
+#d.ddd..v....dd.ddd#
+#d...d.dddd.....dHd#
+#dH..d.#!.....F.ddd#
+#dd..G.....dddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
 ####################
 under2:
 ####################
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
+#dddd..r......ddddd#
+#dddd.!#.g.r..ddddd#
+#dddd...z..r..ddddd#
+#dddd..rH..Q..ddddd#
+#dddd......r..ddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#ddddddddd..Qg.dddd#
-#ddddddddd.z...dddd#
-#ddddddddd..H..dddd#
 #dddddddddddddddddd#
 ####################

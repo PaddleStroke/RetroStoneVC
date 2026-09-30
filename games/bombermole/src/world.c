@@ -30,7 +30,7 @@ int terrain_walkable(int t, int enemy)
     switch (t) {
     case TR_FLOOR: case TR_PUDDLE: case TR_THIN: case TR_EXIT: case TR_BRIDGE: case TR_ICE:
     case TR_THIN_ICE: case TR_MUD: case TR_COVER: case TR_BURNT: case TR_PLATE: case TR_VENT:
-    case TR_HOLE_UP: case TR_LADDER:
+    case TR_HOLE_UP: case TR_LADDER: case TR_SHROOM: case TR_RAIL: case TR_PLUG:
         return 1;
     case TR_HOLE_DOWN: case TR_PIPE:
         return !enemy;
@@ -44,6 +44,7 @@ static int blast_stops(const cell *c)
     switch (c->t) {
     case TR_STONE: case TR_DIRT: case TR_ROCK: case TR_ROOTS: case TR_FROZEN: case TR_LEAVES:
     case TR_PUDDLE: case TR_CRATE: case TR_SPRINKLER: case TR_WINDMILL: case TR_LEVER: case TR_HIVE: case TR_GAS:
+    case TR_TREE: case TR_NEST:
         return 1;
     case TR_GATE:
         return !c->state;
@@ -96,6 +97,9 @@ static int cell_passable(const actor *a, int d, int x, int y)
     int enemy = a && a->kind != AK_MOLE;
     if (a && a->kind == AK_CROC)
         return (c->t == TR_WATER || c->t == TR_BRIDGE) && !actor_at(d, x, y, a, 1) && log_at(d, x, y) < 0;
+    if (world_pumpkin_at(d, x, y) >= 0 || world_cart_at(d, x, y) >= 0) return 0;
+    if (a && a->kind == AK_ANTS && c->t == TR_NEST) return 1;
+    if (a && a->kind == AK_BOSS && W.def->boss == BOSS_FOX && c->t == TR_LEAVES) return 1;   /* it hides in them */
     if (c->t == TR_WATER) return log_at(d, x, y) >= 0;
     if (c->t == TR_GATE) return c->state;
     if (a && a->kind == AK_BOSS && W.def->boss == BOSS_OWL && c->t != TR_STONE && c->t != TR_WINDMILL)
@@ -128,6 +132,7 @@ static void fx_add(int kind, int d, int x, int y, int life, int vx, int vy)
 }
 
 static void dust_at(int d, int cx, int cy) { fx_add(FXP_DUST, d, cx * CELL, cy * CELL, 24, 0, 0); }
+void fx_add_leaf(int d, int cx, int cy) { fx_add(FXP_STAR, d, cx * CELL + 4, cy * CELL - 2, 16, 2, -6); }
 
 /* ---- actors ------------------------------------------------------------------------- */
 static actor *actor_new(int kind, int d, int x, int y)
@@ -187,6 +192,7 @@ static int base_speed(const actor *a)
     }
     case AK_DOG: return 22;
     case AK_CROC: return 9;
+    case AK_ANTS: return 7;
     case AK_BOSS:
         switch (W.def->boss) {
         case BOSS_FOX: return 20;
@@ -201,6 +207,7 @@ static int effective_speed(const actor *a)
 {
     int s = a->speed ? a->speed : base_speed(a);
     const cell *c = &W.g[a->depth][a->cy][a->cx];
+    if (a->hop) return 28;                          /* a mushroom's hop covers 2 cells */
     if (a->sliding) return 36;
     if (a->forced) return 32;
     if (c->t == TR_MUD || c->t == TR_PUDDLE) s /= 2;
@@ -231,6 +238,19 @@ static void hurt_player(actor *a);
 static void enemy_down(actor *a);
 static void ai_badger(actor *a);
 static void ai_croc(actor *a);
+static void ai_ants(actor *a);
+static void ai_fox(actor *a);
+static void ants_drop(actor *a);
+static void nest_break(int d, int x, int y);
+static void smash_pumpkin(int i);
+static void shake_tree(int d, int x, int y);
+static int push_pumpkin(int i, int dir);
+static int board_cart(actor *m, int i, int dir);
+static int hop_from(actor *a);
+static int bomb_hop(bomb *b, int dir);
+static int bomb_can_enter(int d, int x, int y);
+static int chase_dir(actor *a, int gx, int gy, int maxd, int *dist_out);
+static void apple_land(fxp *f);
 static void ignite(int d, int x, int y);
 static void release_bees(int d, int x, int y);
 static void release_gas(int d, int x, int y);
@@ -286,8 +306,10 @@ static void arrive(actor *a)
     a->prog = 0;
     a->moving = 0;
     a->forced = 0;
+    a->hop = 0;
     leave_cell(a, a->depth, ox, oy);
     cell *c = &W.g[a->depth][a->cy][a->cx];
+    if (hop_from(a)) return;
     /* ice: keep sliding while the next cell is free */
     if ((c->t == TR_ICE || c->t == TR_THIN_ICE) && a->kind != AK_BOSS) {
         int nx = a->cx + DX[a->dir], ny = a->cy + DY[a->dir];
@@ -346,6 +368,12 @@ static void collect(actor *a)
     case IT_SPEED: ps->speed = clampi(ps->speed + 1, 0, 3); sfx(SFX_POWERUP); break;
     case IT_REMOTE: ps->remote = 1; sfx(SFX_POWERUP); break;
     case IT_HEART: ps->hearts = clampi(ps->hearts + 1, 1, 3); sfx(SFX_POWERUP); break;
+    case IT_APPLE:
+        W.apple_t[a->depth][a->cy][a->cx] = 0;
+        if (!W.apple_heart) { W.apple_heart = 1; ps->hearts = clampi(ps->hearts + 1, 1, 3); }
+        else { c->item = IT_NONE; sfx(SFX_GRUB); return; }   /* only the first apple gives a heart */
+        sfx(SFX_POWERUP);
+        break;
     }
     if (c->item != IT_GRUB && a->kind == AK_MOLE) { W.events |= EV_PICKUP; W.pickup = c->item; }
     c->item = IT_NONE;
@@ -375,6 +403,7 @@ static int bomb_can_enter(int d, int x, int y)
     if (c->t == TR_GATE && !c->state) return 0;
     if (!terrain_walkable(c->t, 0)) return 0;
     if (bomb_at(d, x, y) || actor_at(d, x, y, NULL, 0)) return 0;
+    if (world_pumpkin_at(d, x, y) >= 0 || world_cart_at(d, x, y) >= 0) return 0;
     return 1;
 }
 
@@ -408,7 +437,9 @@ static void bomb_arrive(bomb *b)
     b->cy = b->ty;
     b->moving = 0;
     b->prog = 0;
+    b->hop = 0;
     cell *c = &W.g[b->depth][b->cy][b->cx];
+    if (c->t == TR_SHROOM && bomb_hop(b, b->dir)) return;
     if (c->t == TR_WATER && log_at(b->depth, b->cx, b->cy) < 0) {
         fx_add(FXP_SPLASH, b->depth, b->cx * CELL, b->cy * CELL, 20, 0, 0);
         bomb_fizzle(b);
@@ -432,6 +463,7 @@ static void place_bomb(actor *a)
     /* facing an open hole: toss the bomb down */
     int fx = x + DX[a->dir], fy = y + DY[a->dir];
     int toss = !a->moving && in_grid(fx, fy) && W.g[d][fy][fx].t == TR_HOLE_DOWN && d < NDEPTH - 1;
+    int bounce = !a->moving && in_grid(fx, fy) && W.g[d][fy][fx].t == TR_SHROOM;   /* onto a mushroom: it bounces */
     const cell *c = &W.g[d][y][x];
     if (!toss && (c->t == TR_HOLE_DOWN || c->t == TR_HOLE_UP || c->t == TR_LADDER || c->t == TR_PIPE ||
                   c->t == TR_EXIT || bomb_at(d, x, y)))
@@ -454,6 +486,11 @@ static void place_bomb(actor *a)
             b->depth = (uint8_t)d;
             b->cx = b->tx = (int8_t)x;
             b->cy = b->ty = (int8_t)y;
+        }
+        if (bounce) {
+            b->cx = b->tx = (int8_t)fx;
+            b->cy = b->ty = (int8_t)fy;
+            if (!bomb_hop(b, a->dir)) { b->cx = b->tx = (int8_t)x; b->cy = b->ty = (int8_t)y; }
         }
         ps->placed++;
         a->timer = 12;                              /* "place bomb" pose */
@@ -526,6 +563,15 @@ static void break_cell(int d, int x, int y)
         c->t = TR_COVER;
         ignite(d, x, y);
         break;
+    case TR_NEST:                                   /* the ants' grubs come out */
+        nest_break(d, x, y);
+        break;
+    case TR_PLUG: {                                 /* the pumpkin in the gap is smashed: the gap is back */
+        for (int i = 0; i < MAX_PUMPKINS; i++)
+            if (W.pumps[i].alive && W.pumps[i].plug && W.pumps[i].depth == d && W.pumps[i].cx == x && W.pumps[i].cy == y)
+                smash_pumpkin(i);
+        break;
+    }
     case TR_HIVE:                                   /* the bees come out */
         c->t = TR_FLOOR;
         release_bees(d, x, y);
@@ -594,9 +640,12 @@ static void explode(bomb *b)
             int nx = x + DX[k] * r, ny = y + DY[k] * r;
             if (!in_grid(nx, ny)) break;
             cell *c = &W.g[d][ny][nx];
+            int pk = world_pumpkin_at(d, nx, ny);
+            if (pk >= 0) { smash_pumpkin(pk); blast_cell(d, nx, ny, ends[k]); break; }
             if (blast_stops(c)) {
                 if (c->t == TR_LEVER) lever_toggle(d, nx, ny);
-                if (c->t != TR_STONE && c->t != TR_PUDDLE && c->t != TR_SPRINKLER && c->t != TR_WINDMILL &&
+                if (c->t == TR_TREE) shake_tree(d, nx, ny);
+                if (c->t != TR_STONE && c->t != TR_PUDDLE && c->t != TR_SPRINKLER && c->t != TR_WINDMILL && c->t != TR_TREE &&
                     c->t != TR_LEVER && c->t != TR_GATE) {
                     break_cell(d, nx, ny);
                     blast_cell(d, nx, ny, ends[k]);
@@ -636,7 +685,7 @@ static void update_bombs(void)
 /* ---- blasts, hits ------------------------------------------------------------------------------ */
 static void hurt_player(actor *a)
 {
-    if (a->invul || !a->alive || a->state == 99 || dev_god || rs_option_int("god", 0)) return;
+    if (a->invul || !a->alive || a->state == 99 || dev_god || rs_option_int("god", 0) || W.riding >= 0) return;
     pstats *ps = &W.ps[a->player];
     ps->hearts--;
     if (ps->hearts <= 0) {
@@ -655,6 +704,10 @@ static void enemy_down(actor *a)
     if (a->kind == AK_BOSS) {
         if (a->invul) return;
         if (W.def->boss == BOSS_FARMER && !a->dig) return;   /* shielded by his crates */
+        if (W.def->boss == BOSS_FOX) {              /* the fox: only while it rests, panting */
+            if (a->state != 2) return;
+            W.stat.fox_hits++;
+        }
         a->hp--;
         a->invul = 90;
         sfx(SFX_BOSS_HIT);
@@ -666,6 +719,8 @@ static void enemy_down(actor *a)
         W.events |= EV_BOSS_DOWN;
     }
     if (a->kind == AK_DOG) { a->stun = 120; return; }
+    if (a->kind == AK_ANTS) { ants_drop(a); return; }
+
     if (a->kind == AK_CROC) {                        /* stunned 3 s; defeated only if the level says so */
         if (a->invul) return;
         a->stun = 180;
@@ -880,6 +935,7 @@ static void update_push(void)
                     n->t = TR_LEAVES;
                     if (!n->item) { n->item = c->item; c->item = IT_NONE; }
                     c->t = TR_FLOOR;
+                    W.stat.leaves_blown++;
                     mark(d, x, y);
                     mark(d, nx, ny);
                 }
@@ -1677,6 +1733,7 @@ static void update_player(actor *a)
     }
     if (a->invul) a->invul--;
     if (a->timer) a->timer--;
+    if (W.riding >= 0) return;                      /* in a mine cart */
     if (a->stun) { a->stun--; return; }
     pstats *ps = &W.ps[a->player];
     if (pr & RS_BTN_B) place_bomb(a);
@@ -1711,6 +1768,16 @@ static void update_player(actor *a)
             }
             return;
         }
+    }
+    int pk = world_pumpkin_at(a->depth, nx, ny);
+    if (pk >= 0) {                                  /* push the pumpkin (hold a moment) */
+        if (a->dig++ > 8 && push_pumpkin(pk, dir)) a->dig = 0;
+        return;
+    }
+    int ck = world_cart_at(a->depth, nx, ny);
+    if (ck >= 0) {                                  /* climb in: it rolls */
+        if (terrain_walkable(W.g[a->depth][a->cy][a->cx].t, 0)) board_cart(a, ck, dir);
+        return;
     }
     if (cell_passable(a, a->depth, nx, ny)) {
         a->dig = 0;
@@ -1761,14 +1828,14 @@ static void update_actor(actor *a)
 {
     if (!a->alive) return;
     a->anim++;
-    if (a->moving) {
+    if (a->moving && !(a->kind == AK_MOLE && W.riding >= 0)) {   /* a riding mole moves with its cart */
         a->prog = (int16_t)(a->prog + effective_speed(a));
         if (a->prog >= SUB) arrive(a);
     }
     if (a->kind == AK_MOLE) { update_player(a); return; }
     track_facing(a);
     if (a->invul) a->invul--;
-    if (a->timer && a->kind != AK_CAT && a->kind != AK_BOSS && a->kind != AK_CROC) a->timer--;
+    if (a->timer && a->kind != AK_CAT && (a->kind != AK_BOSS || W.def->boss == BOSS_FOX) && a->kind != AK_CROC) a->timer--;
     if (a->asleep) {
         if (W.t % 40 == 0) fx_add(FXP_ZZZ, a->depth, a->cx * CELL + 4, a->cy * CELL - 8, 40, 4, -8);
         return;
@@ -1780,12 +1847,15 @@ static void update_actor(actor *a)
     case AK_CAT: ai_typed(a); break;
     case AK_DOG: ai_dog(a); break;
     case AK_CROC: ai_croc(a); break;
+    case AK_ANTS: ai_ants(a); break;
     case AK_BOSS:
         if (W.def->boss == BOSS_FARMER) {
             if (a->timer) a->timer--;
             ai_farmer(a);
         } else if (W.def->boss == BOSS_BADGER) {
             ai_badger(a);
+        } else if (W.def->boss == BOSS_FOX) {
+            ai_fox(a);
         } else {
             ai_cat(a, 6, 6, 70);
         }
@@ -1821,6 +1891,10 @@ static void contacts(void)
                 }
                 continue;
             }
+            if (a->kind == AK_ANTS) {                 /* caught: they drop the grub */
+                if (abs(ax - mx) < 12 && abs(ay - my) < 12) ants_drop(a);
+                continue;
+            }
             if (a->kind == AK_MOLE || a->kind == AK_CROC || a->stun) continue;   /* the croc only snaps */
             int r = a->kind == AK_BOSS ? 16 : 11;
             if (abs(ax - mx) < r && abs(ay - my) < r) hurt_player(m);
@@ -1835,6 +1909,10 @@ static void update_fx(void)
         if (!f->life) continue;
         if (f->kind == FXP_TOMATO) {
             if (--f->life == 0) tomato_land(f);
+            continue;
+        }
+        if (f->kind == FXP_APPLE) {
+            if (--f->life == 0) apple_land(f);
             continue;
         }
         f->x = (int16_t)(f->x + f->vx);
@@ -2250,6 +2328,338 @@ static void ai_badger(actor *a)
     if (k >= 0) start_move(a, k);
 }
 
+
+/* ---- autumn: pumpkins, apple trees, bouncy mushrooms, mine carts, ants, the fox ------------------------ */
+int world_pumpkin_at(int d, int x, int y)
+{
+    for (int i = 0; i < MAX_PUMPKINS; i++) {
+        const pumpkin *p = &W.pumps[i];
+        if (p->alive && !p->plug && p->depth == d &&
+            ((p->cx == x && p->cy == y) || (p->moving && p->tx == x && p->ty == y))) return i;
+    }
+    return -1;
+}
+
+int world_cart_at(int d, int x, int y)
+{
+    for (int i = 0; i < MAX_CARTS; i++) {
+        const cart *c = &W.carts[i];
+        if (c->alive && c->depth == d && ((c->cx == x && c->cy == y) || (c->moving && c->tx == x && c->ty == y))) return i;
+    }
+    return -1;
+}
+
+/* a pumpkin can be pushed onto a free cell, into a hole or into water (it plugs them) */
+static int pumpkin_can_enter(int d, int x, int y)
+{
+    if (!in_grid(x, y)) return 0;
+    int t = W.g[d][y][x].t;
+    if (t == TR_HOLE_DOWN || (t == TR_WATER && log_at(d, x, y) < 0)) return 1;
+    if (!terrain_walkable(t, 1) || t == TR_EXIT || t == TR_LADDER || t == TR_PLUG) return 0;
+    return !actor_at(d, x, y, NULL, 0) && !bomb_at(d, x, y) && world_pumpkin_at(d, x, y) < 0 &&
+           world_cart_at(d, x, y) < 0;
+}
+
+static int push_pumpkin(int i, int dir)
+{
+    pumpkin *p = &W.pumps[i];
+    int nx = p->cx + DX[dir], ny = p->cy + DY[dir];
+    if (p->moving || !pumpkin_can_enter(p->depth, nx, ny)) return 0;
+    p->moving = 1; p->dir = (uint8_t)dir; p->tx = (int8_t)nx; p->ty = (int8_t)ny; p->prog = 0;
+    W.stat.pushes++;
+    sfx_at(SFX_DIG, nx * CELL);
+    return 1;
+}
+
+static void smash_pumpkin(int i)
+{
+    pumpkin *p = &W.pumps[i];
+    cell *c = &W.g[p->depth][p->cy][p->cx];
+    p->alive = 0;
+    W.stat.smashes++;
+    if (p->plug) c->t = p->under;                   /* the hole (or the water) is open again */
+    else if (c->t == TR_FLOOR) c->t = TR_MUD;       /* pumpkin mush: it slows you like mud */
+    c->regrow = 0;
+    dust_at(p->depth, p->cx, p->cy);
+    sfx_at(SFX_SPLAT, p->cx * CELL);
+    mark(p->depth, p->cx, p->cy);
+}
+
+static void update_pumpkins(void)
+{
+    for (int i = 0; i < MAX_PUMPKINS; i++) {
+        pumpkin *p = &W.pumps[i];
+        if (!p->alive || !p->moving) continue;
+        p->prog += 24;
+        if (p->prog < SUB) continue;
+        p->cx = p->tx; p->cy = p->ty; p->moving = 0; p->prog = 0;
+        cell *c = &W.g[p->depth][p->cy][p->cx];
+        if (c->t == TR_HOLE_DOWN || c->t == TR_WATER) {  /* it plugs the gap: walkable now */
+            p->under = c->t;
+            p->plug = 1;
+            c->t = TR_PLUG;
+            W.stat.plugs++;
+            mark(p->depth, p->cx, p->cy);
+            sfx_at(SFX_SPLASH, p->cx * CELL);
+        }
+    }
+}
+
+/* apple trees: a blast next to one shakes 2-3 apples onto the cells around it; each stuns whoever it lands
+   on for 3 s (the mole too) and stays there a few seconds: the first one picked up is a heart */
+static void shake_tree(int d, int x, int y)
+{
+    cell *t = &W.g[d][y][x];
+    if (t->timer) return;                          /* it has just been shaken */
+    t->timer = 90;
+    int n = 2 + rs_rng_range(&rng, 2), placed = 0;
+    for (int tries = 0; tries < 20 && placed < n; tries++) {
+        int ax = x + rs_rng_range(&rng, 5) - 2, ay = y + rs_rng_range(&rng, 5) - 2;
+        if (!in_grid(ax, ay) || (ax == x && ay == y) || !terrain_walkable(W.g[d][ay][ax].t, 0)) continue;
+        for (int i = 0; i < MAX_FX; i++)
+            if (!W.fx[i].life) {
+                fxp *f = &W.fx[i];
+                memset(f, 0, sizeof *f);
+                f->kind = FXP_APPLE;
+                f->depth = (uint8_t)d;
+                f->vx = (int16_t)ax;
+                f->vy = (int16_t)ay;
+                f->life = f->t = (int16_t)(24 + placed * 6);
+                placed++;
+                break;
+            }
+    }
+    sfx_at(SFX_BREAK, x * CELL);
+}
+
+static void apple_land(fxp *f)
+{
+    int d = f->depth, x = f->vx, y = f->vy;
+    for (int i = 0; i < W.na; i++) {
+        actor *a = &W.a[i];
+        if (!a->alive || a->depth != d || a->cx != x || a->cy != y || a->kind == AK_BOSS) continue;
+        a->stun = 180;
+        W.stat.apple_stuns++;
+    }
+    cell *c = &W.g[d][y][x];
+    if (!c->item && terrain_walkable(c->t, 0)) { c->item = IT_APPLE; W.apple_t[d][y][x] = 300; }
+    sfx_at(SFX_SPLAT, x * CELL);
+}
+
+static void update_trees(void)
+{
+    for (int d = 0; d < NDEPTH; d++)
+        for (int y = 0; y < GH; y++)
+            for (int x = 0; x < GW; x++) {
+                cell *c = &W.g[d][y][x];
+                if (c->t == TR_TREE && c->timer) c->timer--;
+                if (W.apple_t[d][y][x] && --W.apple_t[d][y][x] == 0 && c->item == IT_APPLE) c->item = IT_NONE;
+            }
+}
+
+/* mushrooms: whoever walks onto one is launched 2 cells on, over the next cell, if it can land there */
+static int hop_from(actor *a)
+{
+    const cell *c = &W.g[a->depth][a->cy][a->cx];
+    if (c->t != TR_SHROOM || a->kind == AK_BOSS || a->kind == AK_ANTS || a->kind == AK_CROC) return 0;
+    int lx = a->cx + DX[a->dir] * 2, ly = a->cy + DY[a->dir] * 2;
+    if (!cell_passable(a, a->depth, lx, ly)) return 0;
+    a->tx = (int8_t)lx; a->ty = (int8_t)ly; a->prog = 0; a->moving = 1; a->hop = 1;
+    W.stat.hops++;
+    sfx_at(SFX_POUNCE, a->cx * CELL);
+    return 1;
+}
+
+static int bomb_hop(bomb *b, int dir)
+{
+    int lx = b->cx + DX[dir] * 2, ly = b->cy + DY[dir] * 2;
+    if (!bomb_can_enter(b->depth, lx, ly)) return 0;
+    b->moving = 1; b->hop = 1; b->dir = (uint8_t)dir; b->tx = (int8_t)lx; b->ty = (int8_t)ly; b->prog = 0;
+    W.stat.bomb_hops++;
+    sfx_at(SFX_POUNCE, b->cx * CELL);
+    return 1;
+}
+
+/* mine carts: they follow the rails; at a junction (a rail cell with a channel) a lever of that channel
+   sends them straight (off) or round the bend (on); they stop at the end of the line */
+static int rail_at(int d, int x, int y) { return in_grid(x, y) && W.g[d][y][x].t == TR_RAIL; }
+
+static int cart_next_dir(const cart *c)
+{
+    int back = (c->dir + 2) % 4, straight = rail_at(c->depth, c->cx + DX[c->dir], c->cy + DY[c->dir]) ? (int)c->dir : -1;
+    int side = -1;
+    for (int k = 0; k < 4; k++)
+        if (k != back && k != c->dir && rail_at(c->depth, c->cx + DX[k], c->cy + DY[k])) { side = k; break; }
+    const cell *here = &W.g[c->depth][c->cy][c->cx];
+    if (here->chan && straight >= 0 && side >= 0) return W.lever[here->chan] ? side : straight;
+    return straight >= 0 ? straight : side;
+}
+
+static int board_cart(actor *m, int i, int dir)
+{
+    cart *c = &W.carts[i];
+    if (c->moving) return 0;
+    c->dir = (uint8_t)dir;
+    int k = cart_next_dir(c);
+    if (k < 0) { c->dir = (uint8_t)((dir + 2) % 4); k = cart_next_dir(c); }
+    if (k < 0) return 0;
+    c->rider = 1;
+    W.riding = i;
+    m->cx = m->tx = c->cx; m->cy = m->ty = c->cy; m->moving = 0; m->prog = 0;
+    c->dir = (uint8_t)k;
+    c->tx = (int8_t)(c->cx + DX[k]); c->ty = (int8_t)(c->cy + DY[k]); c->moving = 1; c->prog = 0;
+    W.stat.rides++;
+    sfx_at(SFX_SWITCH, c->cx * CELL);
+    return 1;
+}
+
+static void update_carts(void)
+{
+    actor *m = world_player(0);
+    for (int i = 0; i < MAX_CARTS; i++) {
+        cart *c = &W.carts[i];
+        if (!c->alive || !c->moving) continue;
+        c->prog += 64;                               /* 4 cells a second */
+        if (c->prog >= SUB) {
+            c->cx = c->tx; c->cy = c->ty; c->prog = 0;
+            for (int k = 0; k < W.na; k++) {          /* it runs enemies over */
+                actor *a = &W.a[k];
+                if (a->alive && a->depth == c->depth && a->cx == c->cx && a->cy == c->cy &&
+                    a->kind != AK_MOLE && a->kind != AK_BOSS) { enemy_down(a); W.stat.crushed_by_cart++; }
+            }
+            int k = cart_next_dir(c);
+            if (k < 0) {                             /* the end of the line */
+                c->moving = 0;
+                if (c->rider && m) {
+                    c->rider = 0;
+                    W.riding = -1;
+                    m->cx = m->tx = c->cx; m->cy = m->ty = c->cy; m->moving = 0; m->prog = 0;
+                    m->invul = 30;
+                }
+                sfx_at(SFX_SWITCH, c->cx * CELL);
+            } else {
+                c->dir = (uint8_t)k;
+                c->tx = (int8_t)(c->cx + DX[k]); c->ty = (int8_t)(c->cy + DY[k]);
+            }
+        }
+        if (c->rider && m) {                         /* the mole rides along */
+            m->cx = c->cx; m->cy = c->cy; m->tx = c->tx; m->ty = c->ty; m->prog = c->prog;
+            m->moving = c->moving; m->dir = c->dir; m->depth = c->depth;
+        }
+    }
+}
+
+/* ants: a column carries a grub to the nearest nest; the mole touching them or a blast makes them drop it;
+   a grub in the nest comes out when the nest is blasted open */
+static void ants_drop(actor *a)
+{
+    cell *c = &W.g[a->depth][a->cy][a->cx];
+    if (a->aux && !c->item && terrain_walkable(c->t, 0)) { c->item = IT_GRUB; a->aux = 0; mark(a->depth, a->cx, a->cy); }
+    if (a->aux) {                                   /* no room here: on a free cell next to it */
+        for (int k = 0; k < 4 && a->aux; k++) {
+            int x = a->cx + DX[k], y = a->cy + DY[k];
+            if (in_grid(x, y) && !W.g[a->depth][y][x].item && terrain_walkable(W.g[a->depth][y][x].t, 0)) {
+                W.g[a->depth][y][x].item = IT_GRUB; a->aux = 0;
+            }
+        }
+    }
+    a->alive = 0;
+    W.stat.ants_dropped++;
+    dust_at(a->depth, a->cx, a->cy);
+}
+
+static void ai_ants(actor *a)
+{
+    if (!a->aux) { a->alive = 0; return; }
+    int best = -1, bx = 0, by = 0;
+    for (int y = 0; y < GH; y++)
+        for (int x = 0; x < GW; x++)
+            if (W.g[a->depth][y][x].t == TR_NEST) {
+                int dd = abs(x - a->cx) + abs(y - a->cy);
+                if (best < 0 || dd < best) { best = dd; bx = x; by = y; }
+            }
+    if (best < 0) return;
+    if (best == 0) {                                 /* home: the grub goes into the nest */
+        W.g[a->depth][a->cy][a->cx].state++;
+        a->alive = 0;
+        W.stat.ants_home++;
+        return;
+    }
+    int dist, k = chase_dir(a, bx, by, 80, &dist);
+    if (k >= 0) start_move(a, k);
+}
+
+static void nest_break(int d, int x, int y)
+{
+    cell *c = &W.g[d][y][x];
+    int n = c->state;
+    c->t = TR_FLOOR;
+    c->state = 0;
+    if (n && !c->item) { c->item = IT_GRUB; n--; }
+    for (int k = 0; k < 4 && n; k++) {
+        int nx = x + DX[k], ny = y + DY[k];
+        if (in_grid(nx, ny) && !W.g[d][ny][nx].item && terrain_walkable(W.g[d][ny][nx].t, 0)) {
+            W.g[d][ny][nx].item = IT_GRUB; n--; mark(d, nx, ny);
+        }
+    }
+    dust_at(d, x, y);
+}
+
+/* the fox (autumn 8): runs fast, dashes along the gale lanes and at the mole in line, hides in the leaf
+   piles; it cannot be hit while it runs and dashes: after 3 dashes it stops to rest, panting: bomb it then.
+   4 hits. */
+static void ai_fox(actor *a)
+{
+    actor *m = world_player(0);
+    if (a->state == 2) {                             /* resting, panting: the window */
+        if (a->timer % 20 == 0) fx_add(FXP_STEAM, a->depth, a->cx * CELL + 6, a->cy * CELL - 10, 20, 2, -4);
+        if (--a->timer > 0) return;
+        a->state = 0;
+        a->timer = 30;
+        return;
+    }
+    if (a->state == 1) {                             /* dashing */
+        int nx = a->cx + DX[a->dir], ny = a->cy + DY[a->dir];
+        if (cell_passable(a, a->depth, nx, ny)) { a->speed = 56; start_move(a, a->dir); return; }
+        a->speed = 0;
+        W.stat.fox_dashes++;
+        if (++a->aux >= 3) {
+            a->aux = 0;
+            a->state = 2;
+            a->timer = 360;                         /* about 3 s (the timer runs twice as fast at rest) */
+            W.stat.fox_rests++;
+            return;
+        }
+        a->state = 0;
+        a->timer = 40;
+        return;
+    }
+    a->speed = 0;
+    if (!m || m->depth != a->depth) {
+        int k = wander(a);
+        if (k >= 0) start_move(a, k);
+        return;
+    }
+    if (!a->timer) {
+        const cell *c = &W.g[a->depth][a->cy][a->cx];
+        int dir = -1;
+        if (c->pushdir && c->pushkind == PUSH_WIND) dir = c->pushdir - 1;      /* rides the gale */
+        int dx = m->cx - a->cx, dy = m->cy - a->cy;
+        if (dir < 0 && (!dx || !dy) && abs(dx) + abs(dy) <= 10 && (dx || dy))
+            dir = dx > 0 ? DIR_RIGHT : dx < 0 ? DIR_LEFT : dy > 0 ? DIR_DOWN : DIR_UP;
+        if (dir >= 0 && cell_passable(a, a->depth, a->cx + DX[dir], a->cy + DY[dir])) {
+            a->state = 1;
+            a->dir = (uint8_t)dir;
+            a->flip = dir == DIR_LEFT ? 1 : dir == DIR_RIGHT ? 0 : a->flip;
+            sfx_at(SFX_POUNCE, a->cx * CELL);
+            return;
+        }
+    }
+    int dist, k = chase_dir(a, m->cx, m->cy, 60, &dist);
+    if (k < 0) k = wander(a);
+    if (k >= 0) start_move(a, k);
+}
+
 /* ---- public ------------------------------------------------------------------------------------- */
 void world_start(const level_def *L, const pstats *carry)
 {
@@ -2284,6 +2694,7 @@ void world_start(const level_def *L, const pstats *carry)
         if (s->kind == AK_BOSS) {
             a->hp = L->boss == BOSS_BADGER ? 3 : 5;
             if (L->boss == BOSS_BADGER) a->timer = 240;      /* it wakes up after 4 s: a quiet start */
+            if (L->boss == BOSS_FOX) { a->hp = 4; a->timer = 120; }
             W.boss_alive = 1;
         }
         if (is_enemy) {
@@ -2319,7 +2730,7 @@ void world_start(const level_def *L, const pstats *carry)
     for (int d = 0; d < NDEPTH; d++)
         for (int y = 0; y < GH; y++)
             for (int x = 0; x < GW; x++) has_dog |= W.g[d][y][x].t == TR_HIVE;
-    for (int i = 0; i < W.na; i++) has_dog |= W.a[i].kind == AK_CROC;
+    for (int i = 0; i < W.na; i++) has_dog |= W.a[i].kind == AK_CROC || W.a[i].kind == AK_ANTS;
     /* sprite palettes of the enemy variants: slots 1 and 2, plus 3 without a boss and 7 without a dog */
     memset(W.var_slot, -1, sizeof W.var_slot);
     {
@@ -2362,6 +2773,23 @@ void world_start(const level_def *L, const pstats *carry)
     W.grubs_total += W.boss_alive;
     W.grubs_left = W.grubs_total;
     W.crates_total = world_crates();
+    W.riding = -1;
+    for (int i = 0; i < L->npumpkins; i++) {
+        pumpkin *p = &W.pumps[i];
+        p->alive = 1; p->depth = L->pumpkins[i].depth;
+        p->cx = p->tx = (int8_t)L->pumpkins[i].x; p->cy = p->ty = (int8_t)L->pumpkins[i].y;
+    }
+    for (int i = 0; i < L->ncarts; i++) {
+        cart *c = &W.carts[i];
+        c->alive = 1; c->depth = L->carts[i].depth;
+        c->cx = c->tx = (int8_t)L->carts[i].x; c->cy = c->ty = (int8_t)L->carts[i].y;
+    }
+    for (int i = 0; i < W.na; i++) {
+        actor *a = &W.a[i];
+        if (a->kind != AK_ANTS) continue;
+        cell *c = &W.g[a->depth][a->cy][a->cx];
+        if (c->item == IT_GRUB) { c->item = IT_NONE; a->aux = 1; }   /* they carry it */
+    }
     for (int i = 0; i < L->nharv; i++) {
         harvester *h = &W.harv[i];
         h->alive = 1;
@@ -2397,6 +2825,9 @@ void world_update(void)
     update_switches();
     update_blasts();
     update_summer();
+    update_pumpkins();
+    update_carts();
+    update_trees();
     contacts();
     update_fx();
     W.t++;
