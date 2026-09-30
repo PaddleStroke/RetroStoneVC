@@ -480,19 +480,34 @@ def car(ramp, pal, facing="down", length=24, bus=False):
                     if fy % 10 == 0 and 5 <= x <= 10:
                         col = ramp[2]
                 else:
-                    ws0, ws1 = L - 10, L - 7                         # the windscreen (front)
+                    # a bubble car: the bonnet, a wide windscreen, a domed roof, the rear window, the boot
+                    ws0, ws1 = L - 11, L - 8                         # the windscreen (towards the front)
                     rw0, rw1 = 4, 5                                  # the rear window
-                    if ws0 <= fy <= ws1 and 3.5 <= xc <= 12.5 + (fy - ws0) * 0.0:
-                        col = glass0 if xc < 8.5 else glass1
-                    elif rw0 <= fy <= rw1 and 4 <= xc <= 12:
-                        col = glass1 if xc > 8.5 else glass0
-                    elif rw1 < fy < ws0 and 4 <= xc <= 12:
-                        col = ramp[0] if xc < 7 else ramp[1]         # the roof
+                    inset = 1 if fy in (ws0, rw1) else 0             # the glass is narrower where it meets the roof
+                    if ws0 <= fy <= ws1 and 3.5 + inset <= xc <= 12.5 - inset:
+                        col = glass1
+                        if (xc - 3.5) + (fy - ws0) * 1.2 < 3.2 or 5.2 < (xc - 3.5) + (fy - ws0) * 1.2 < 6.4:
+                            col = glass0                             # the glint
+                    elif rw0 <= fy <= rw1 and 4.5 + inset <= xc <= 11.5 - inset:
+                        col = glass0 if xc < 6.5 else glass1
+                    elif rw1 < fy < ws0 and 3.5 <= xc <= 12.5:
+                        col = ramp[0] if xc < 6.5 and fy > rw1 + 1 else ramp[1] if xc < 11 else ramp[2]   # the roof
+                        if xc > 12.0 or (rw1 < fy < ws0 and xc < 4.0):
+                            col = ramp[2]
+                    elif fy == ws1 + 1 or fy == rw0 - 1:
+                        col = ramp[2] if 4 <= xc <= 12 else col      # the seams of the bonnet and the boot
                 cv.set(x, y, col)
+    if not bus:
+        # the side mirrors, a glint on the bonnet
+        my = (L - 12) if facing == "down" else 11
+        cv.set(1, my, ramp[2]), cv.set(14, my, ramp[2])
+        gy = L - 5 if facing == "down" else 4
+        cv.set(5, gy, hs.HOUSE["white"][0])
     # lights
     fy_front, fy_back = (L - 1, 0) if facing == "down" else (0, L - 1)
-    for x in (4, 11):
+    for x in (4, 5, 10, 11):
         cv.set(x, fy_front, head)
+    for x in (4, 11):
         cv.set(x, fy_back, tail)
     cv.outline(out)
     return cv
@@ -627,30 +642,36 @@ def lilypad(variant):
 
 
 def swan_boat(facing="down", frame=0):
-    """The swan paddle boat: a white swan hull, the neck and orange beak at the front, a blue canopy."""
+    """The swan paddle boat: a white swan from above, her wings raised along the sides, a blue bench between
+    them, the long neck reaching forward with the head and its orange beak; a paddle wheel splashing."""
     cv = Canvas(16, 32)
     white = [RIVER[11], RIVER[11], RIVER[12], RIVER[12]]
-    for y in range(32):
+    grey = RIVER[12]
+    fl = (lambda fy: fy) if facing == "down" else (lambda fy: 31 - fy)   # fy (0 = the tail) -> y
+    # the hull: an egg, pointed at the tail
+    for fy in range(1, 26):
+        half = 6.6 * math.sin(min(1.0, (fy + 1) / 19.0) * math.pi / 2) if fy < 19 else 6.6 - (fy - 19) * 0.75
         for x in range(16):
-            fy = y if facing == "down" else 31 - y               # 0 = back
-            xc = x + 0.5
-            half = 6.5 if fy > 6 else 3.5 + fy * 0.45
-            if fy > 24:
-                half = 6.5 - (fy - 24) * 0.8
-            if abs(xc - 8) <= half and 1 <= fy <= 30:
-                nx = (xc - 8) / 6.5
-                cv.set(x, y, shade4(nx, 0, white))
-            if 9 <= fy <= 19 and 4 <= x <= 11:                      # the canopy
-                cv.set(x, y, RIVER[14] if (x + fy // 3) % 2 else RIVER[12])
-    # the neck and head at the front, the beak
-    hy = 27 if facing == "down" else 4
-    hs.ellipse(cv, 8.0, hy + 0.5, 2.2, 2.2, white)
-    by = hy + 3 if facing == "down" else hy - 3
-    cv.set(8, by, RIVER[13]), cv.set(7, by, RIVER[13])
-    cv.set(9, hy, RIVER[5])
-    # the paddle wheel splashing on the side
-    wy = 12 + frame * 2 if facing == "down" else 17 - frame * 2
-    cv.set(0, wy, RIVER[12]), cv.set(15, wy + 1, RIVER[12])
+            if abs(x + 0.5 - 8) <= half:
+                cv.set(x, fl(fy), shade4((x + 0.5 - 8) / 6.6, -0.2, white))
+    # the wings raised along the sides: grey scallops
+    for fy in range(5, 20):
+        for side in (1, 14):
+            if (fy + (0 if side == 1 else 1)) % 3:
+                cv.set(side + (1 if side == 1 else -1), fl(fy), grey)
+    # the bench and its back
+    for fy in range(9, 17):
+        for x in range(5, 11):
+            cv.set(x, fl(fy), RIVER[14] if fy < 15 else grey)
+    # the neck, the head, the beak and the eye
+    for fy in range(24, 29):
+        cv.set(7, fl(fy), RIVER[11]), cv.set(8, fl(fy), RIVER[12])
+    hs.ellipse(cv, 8.0, fl(29) + 0.5, 2.0, 1.8, white)
+    cv.set(8, fl(31), RIVER[13]), cv.set(7, fl(31), RIVER[13])
+    cv.set(9, fl(29), RIVER[5])
+    # the paddle wheel splashing at the back
+    wy = fl(4 + frame)
+    cv.set(1, wy, RIVER[12]), cv.set(14, fl(5 - frame), RIVER[12])
     cv.outline(RIVER[5])
     return cv
 
