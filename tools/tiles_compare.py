@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Side-by-side comparison of two terrain tilesets in the game (make preview):
 
-    tiles_compare.py <headless A> <label A> <headless B> <label B> <out.png>
+    tiles_compare.py <headless A> <label A> <headless B> <label B> <out.png> [all]
 
-The same three scenes (spring surface, underground, winter) are captured with both headless
-runners; each row shows A and B at 1x, then the middle of the screen of A and B at 2x.
+The same scenes are captured with both headless runners: three (spring surface, underground,
+winter), or with "all" the surface and an underground of each season (8 rows); each row shows A
+and B at 1x, then the middle of the screen of A and B at 2x.
 MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
 """
 import os
@@ -17,6 +18,14 @@ from PIL import Image, ImageDraw
 SCENES = [("spring surface (spring-3)", ["--opt", "level=spring-3"]),
           ("underground (spring-6, depth 1)", ["--opt", "level=spring-6", "--opt", "view=1"]),
           ("winter (winter-1)", ["--opt", "level=winter-1"])]
+SCENES_ALL = [("spring surface (spring-3)", ["--opt", "level=spring-3"]),
+              ("spring underground (spring-6, depth 1)", ["--opt", "level=spring-6", "--opt", "view=1"]),
+              ("summer surface (summer-2)", ["--opt", "level=summer-2"]),
+              ("summer underground (summer-6, depth 1)", ["--opt", "level=summer-6", "--opt", "view=1"]),
+              ("autumn surface (autumn-2)", ["--opt", "level=autumn-2"]),
+              ("autumn underground (autumn-3, depth 1)", ["--opt", "level=autumn-3", "--opt", "view=1"]),
+              ("winter surface (winter-1)", ["--opt", "level=winter-1"]),
+              ("winter underground (winter-4, depth 1)", ["--opt", "level=winter-4", "--opt", "view=1"])]
 
 
 def shot(exe, args, path):
@@ -27,16 +36,17 @@ def shot(exe, args, path):
 
 def main():
     ea, la, eb, lb, out = sys.argv[1:6]
+    scenes = SCENES_ALL if len(sys.argv) > 6 and sys.argv[6] == "all" else SCENES
     tmp = tempfile.mkdtemp()
-    W, H, G, T = 256, 224, 8, 14
+    W, H, G, T = 320, 240, 8, 14
     CW, CH = 128, 112                           # 2x crop: the middle of the playfield
     width = 2 * W + 4 * CW + 4 * G
-    img = Image.new("RGB", (width, len(SCENES) * (H + T + G) + T), (24, 24, 32))
+    img = Image.new("RGB", (width, len(scenes) * (H + T + G) + T), (24, 24, 32))
     d = ImageDraw.Draw(img)
     heads = [(0, la + " 1x"), (W + G, lb + " 1x"), (2 * W + 2 * G, la + " 2x"), (2 * W + 3 * G + 2 * CW, lb + " 2x")]
     for x, t in heads:
         d.text((x + 2, 1), t, fill=(255, 255, 255))
-    for i, (name, args) in enumerate(SCENES):
+    for i, (name, args) in enumerate(scenes):
         y = T + i * (H + T + G)
         d.text((2, y), name, fill=(255, 220, 120))
         y += T

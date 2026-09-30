@@ -52,7 +52,10 @@ FILL_GROUPS = ("terrain", "terrain_v2", "propbg")
 SOLID_IDS = ("hud_panel",)
 EDGE_ANCHOR = {"expl_h": "X", "expl_v": "Y", "expl_end_left": "r", "expl_end_right": "l",
                "expl_end_up": "b", "expl_end_down": "t"}
-NO_OUTLINE_IDS = ("hud_panel", "tomato_shadow", "spray", "wind", "steam")
+NO_OUTLINE_IDS = ("hud_panel", "tomato_shadow", "spray", "wind", "steam", "corn_v2", "tall_grass_v2")
+# transparent overlays drawn in a props cell's place (tools/art_sync.py OVERLAYS): that prop's colour family,
+# no outline (thin stalks would turn into outline only)
+OVERLAY_OF = {"corn_v2": "corn", "tall_grass_v2": "tall_grass"}
 LOGO_SIZE = (256, 64)
 # tiles that are repeated next to each other in the levels: they must tile seamlessly
 SEAMLESS = {"grass": "hv", "soft_dirt": "hv", "tunnel": "hv", "water": "hv", "ice": "hv", "mud": "hv",
@@ -98,6 +101,9 @@ def palette_key(s):
     the terrain, or a colour family of the terrain-like props (sheets.PROP_PALETTES)."""
     if s.group in ("terrain", "terrain_v2"):
         return (s.group, s.season)
+    if s.id in OVERLAY_OF:
+        import sheets
+        return ("propbg", sheets.prop_palette(OVERLAY_OF[s.id]))
     if s.group == "propbg":
         import sheets
         return ("propbg", sheets.prop_palette(s.entry.name))

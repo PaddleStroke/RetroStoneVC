@@ -192,11 +192,15 @@ preview:
 	rm -f $(GAME_GEN)
 	$(MAKE) build/host/$(GAME)_headless ART=../../$(PREVIEW_ART) CHAR_SIZE=$(PREVIEW_CHAR) TILESET=ai
 	cp build/host/$(GAME)_headless build/host/$(GAME)_headless_tiles_ai
+	$(MAKE) build/host/$(GAME)_headless ART=../../$(PREVIEW_ART) CHAR_SIZE=$(PREVIEW_CHAR) TILESET=ai_v2
+	cp build/host/$(GAME)_headless build/host/$(GAME)_headless_tiles_ai_v2
 	$(MAKE) windows GAME_NAME=$(GAME_NAME)-preview ART=../../$(PREVIEW_ART) CHAR_SIZE=$(PREVIEW_CHAR) TILESET=$(PREVIEW_TILESET)
 	$(MAKE) build/host/$(GAME)_headless ART=../../$(PREVIEW_ART) CHAR_SIZE=$(PREVIEW_CHAR) TILESET=$(PREVIEW_TILESET)
 	sh tools/art_preview_shots.sh build/host/$(GAME)_headless docs/art-preview
 	$(PYTHON) tools/tiles_compare.py build/host/$(GAME)_headless_tiles_ai "current AI tiles" \
 	    build/host/$(GAME)_headless "tileset $(PREVIEW_TILESET)" docs/art-preview/tiles-compare.png
+	$(PYTHON) tools/tiles_compare.py build/host/$(GAME)_headless "tileset $(PREVIEW_TILESET)" \
+	    build/host/$(GAME)_headless_tiles_ai_v2 "AI tiles v2" docs/art-preview/tiles-compare-v2.png all
 	$(PYTHON) games/$(GAME)/tests/facing_capture.py build/host/$(GAME)_headless docs/art-preview/facing-capture-ai.png
 	rm -f $(GAME_GEN)
 

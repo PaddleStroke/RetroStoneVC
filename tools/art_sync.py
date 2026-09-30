@@ -47,6 +47,9 @@ sys.path.insert(0, os.path.join(GAME, "tools"))
 
 STATUSES = ("TODO", "GENERATED", "VALIDATED", "REJECTED")
 FILL_GROUPS = ("terrain", "terrain_v2", "propbg")   # strips whose frames fill their cell
+# transparent overlays (extras) that take the place of a props cell when they are imported: the game draws corn
+# and tall grass over the characters too, so the overlay must let them show through its gaps
+OVERLAYS = {"corn_v2": "corn", "tall_grass_v2": "tall_grass"}
 V2_STYLE = ("very low detail, 3-4 flat shades per material, large clear shapes, no noise or texture "
             "speckles, designed to be displayed at 16x16 pixels, strong silhouettes, seamless")
 LOGO_SIZE = (256, 64)
@@ -461,6 +464,15 @@ def sync(args, report_print=print):
             imported[left] = flip(imported[s.id])
             report.append((left, "", "mirrored from %s (no imported left strip)" % s.id))
 
+    # the transparent overlays replace the full-cell corn and tall grass (a tileset must not redraw them then:
+    # overlays.txt next to the sheets lists them for the asset build)
+    overlays = []
+    for v2, base in sorted(OVERLAYS.items()):
+        if v2 in imported and base in strips:
+            imported[base] = imported[v2]
+            overlays.append(base)
+            report.append((base, "", "replaced by the transparent overlay %s" % v2))
+
     # assemble the sheets: placeholders + imported cells
     out_dir = args.out
     written = []
@@ -505,6 +517,12 @@ def sync(args, report_print=print):
     for sheet, n, im in written:
         im.save(os.path.join(out_dir, sheets.SHEETS[sheet]["file"]))
     logo.save(os.path.join(out_dir, "title_logo.png"))
+    ov = os.path.join(out_dir, "overlays.txt")
+    if overlays:
+        with open(ov, "w", encoding="utf-8", newline="\n") as f:
+            f.write("\n".join(overlays) + "\n")
+    elif os.path.exists(ov):
+        os.remove(ov)
     if v2:
         d = os.path.join(out_dir, "tilesets", "ai_v2")
         os.makedirs(d, exist_ok=True)
