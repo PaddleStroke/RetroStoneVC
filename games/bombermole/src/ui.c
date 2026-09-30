@@ -253,7 +253,9 @@ static int cell_colour(int d, int x, int y)
     switch (c->t) {
     case TR_STONE: case TR_WINDMILL: return C_WALL;
     case TR_DIRT: case TR_ROCK: case TR_ROOTS: case TR_FROZEN: case TR_LEAVES: case TR_CRATE: case TR_HIVE:
-    case TR_GAS: case TR_TREE: case TR_NEST: return C_DIRT;
+    case TR_GAS: case TR_TREE: case TR_NEST: case TR_SNOW: return C_DIRT;
+    case TR_PERCH: case TR_CRANK: return C_WALL;
+    case TR_WELL: return C_UP;
     case TR_WATER: case TR_PUDDLE: return C_WATER;
     case TR_HOLE_DOWN: return C_HOLE;
     case TR_HOLE_UP: case TR_LADDER: return C_UP;
@@ -364,7 +366,7 @@ static const char *boss_hint(int boss)
     case BOSS_FARMER: return "BLOW UP HIS CRATES, THEN BOMB HIM";
     case BOSS_BADGER: return "LURE ITS CHARGE INTO A ROCK, THEN BOMB IT";
     case BOSS_FOX: return "CATCH THE FOX WHEN IT STOPS TO REST";
-    case BOSS_OWL: return "KICK BOMBS ALONG THE ICE AT THE OWL";
+    case BOSS_OWL: return "HIT THE OWL WHEN IT LANDS ON A PERCH";
     default: return NULL;
     }
 }
@@ -427,6 +429,10 @@ void ui_play_overlays(int view_depth)
                 cell_mark(x, y, T_HAZARD);
             else if (hidden_grub_glows(view_depth, x, y))
                 cell_mark(x, y, T_GLOW);
+            else if (g_night && c->item == IT_GRUB && terrain_walkable(c->t, 0))
+                cell_mark(x, y, T_GLOW);                 /* at night the grubs glow from afar */
+            else if (c->t == TR_THIN_ICE && c->state >= 2 && (W.t / 8) % 2)
+                cell_mark(x, y, T_HAZARD);               /* cracked twice: the next step breaks it */
         }
     if (dev_perf) ui_perf_overlay();
     if (pickup_t) {

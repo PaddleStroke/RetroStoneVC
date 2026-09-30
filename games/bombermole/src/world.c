@@ -30,7 +30,7 @@ int terrain_walkable(int t, int enemy)
     switch (t) {
     case TR_FLOOR: case TR_PUDDLE: case TR_THIN: case TR_EXIT: case TR_BRIDGE: case TR_ICE:
     case TR_THIN_ICE: case TR_MUD: case TR_COVER: case TR_BURNT: case TR_PLATE: case TR_VENT:
-    case TR_HOLE_UP: case TR_LADDER: case TR_SHROOM: case TR_RAIL: case TR_PLUG:
+    case TR_HOLE_UP: case TR_LADDER: case TR_SHROOM: case TR_RAIL: case TR_PLUG: case TR_SNOW:
         return 1;
     case TR_HOLE_DOWN: case TR_PIPE:
         return !enemy;
@@ -44,7 +44,7 @@ static int blast_stops(const cell *c)
     switch (c->t) {
     case TR_STONE: case TR_DIRT: case TR_ROCK: case TR_ROOTS: case TR_FROZEN: case TR_LEAVES:
     case TR_PUDDLE: case TR_CRATE: case TR_SPRINKLER: case TR_WINDMILL: case TR_LEVER: case TR_HIVE: case TR_GAS:
-    case TR_TREE: case TR_NEST:
+    case TR_TREE: case TR_NEST: case TR_WELL: case TR_CRANK: case TR_PERCH:
         return 1;
     case TR_GATE:
         return !c->state;
@@ -90,14 +90,23 @@ static actor *actor_at(int d, int x, int y, const actor *except, int enemies_onl
     return NULL;
 }
 
+/* the crocodile swims in water, under bridges, and in winter under the river's ice */
+static int croc_swims(int d, int x, int y)
+{
+    if (!in_grid(x, y)) return 0;
+    const cell *c = &W.g[d][y][x];
+    return c->t == TR_WATER || c->t == TR_BRIDGE || ((c->t == TR_ICE || c->t == TR_THIN_ICE) && c->river);
+}
+
 static int cell_passable(const actor *a, int d, int x, int y)
 {
     if (!in_grid(x, y)) return 0;
     const cell *c = &W.g[d][y][x];
     int enemy = a && a->kind != AK_MOLE;
     if (a && a->kind == AK_CROC)
-        return (c->t == TR_WATER || c->t == TR_BRIDGE) && !actor_at(d, x, y, a, 1) && log_at(d, x, y) < 0;
-    if (world_pumpkin_at(d, x, y) >= 0 || world_cart_at(d, x, y) >= 0) return 0;
+        return croc_swims(d, x, y) && !actor_at(d, x, y, a, 1) && log_at(d, x, y) < 0;
+    if (world_pumpkin_at(d, x, y) >= 0 || world_cart_at(d, x, y) >= 0 || world_snowball_at(d, x, y) >= 0) return 0;
+    if (c->t == TR_WELL) return !enemy && world_bucket_at(d, x, y) > 0;   /* step into the bucket */
     if (a && a->kind == AK_ANTS && c->t == TR_NEST) return 1;
     if (a && a->kind == AK_BOSS && W.def->boss == BOSS_FOX && c->t == TR_LEAVES) return 1;   /* it hides in them */
     if (c->t == TR_WATER) return log_at(d, x, y) >= 0;
@@ -210,7 +219,7 @@ static int effective_speed(const actor *a)
     if (a->hop) return 28;                          /* a mushroom's hop covers 2 cells */
     if (a->sliding) return 36;
     if (a->forced) return 32;
-    if (c->t == TR_MUD || c->t == TR_PUDDLE) s /= 2;
+    if (c->t == TR_MUD || c->t == TR_PUDDLE || c->t == TR_SNOW) s /= 2;
     else if (c->timer && c->regrow == 0 && c->t == TR_FLOOR && c->state == 7) s = s * 2 / 3; /* tomato splat */
     else if (W.season == SEASON_WINTER && a->depth == 0 && a->kind == AK_MOLE && c->t == TR_FLOOR) s = s * 3 / 4;
     if (c->pushdir && c->pushkind == PUSH_WIND && world_gust_on() && a->moving) {
@@ -238,6 +247,7 @@ static void hurt_player(actor *a);
 static void enemy_down(actor *a);
 static void ai_badger(actor *a);
 static void ai_croc(actor *a);
+static void ai_owl(actor *a);
 static void ai_ants(actor *a);
 static void ai_fox(actor *a);
 static void ants_drop(actor *a);
@@ -251,6 +261,12 @@ static int bomb_hop(bomb *b, int dir);
 static int bomb_can_enter(int d, int x, int y);
 static int chase_dir(actor *a, int gx, int gy, int maxd, int *dist_out);
 static void apple_land(fxp *f);
+static void thin_ice_break(int d, int x, int y);
+static void ride_bucket(actor *m);
+static void icicles_fall(int d, int x, int y);
+static void icicle_land(fxp *f);
+static int snowball_kick(int i, int dir);
+static void crank_turn(int d, int x, int y);
 static void ignite(int d, int x, int y);
 static void release_bees(int d, int x, int y);
 static void release_gas(int d, int x, int y);
@@ -263,13 +279,8 @@ static void explode(bomb *b);
 static void leave_cell(actor *a, int d, int x, int y)
 {
     cell *c = &W.g[d][y][x];
-    if (c->t == TR_THIN_ICE) {
-        if (++c->state >= 2) {
-            c->t = TR_WATER;
-            c->state = 0;
-            fx_add(FXP_SPLASH, d, x * CELL, y * CELL, 20, 0, 0);
-            sfx_at(SFX_SPLASH, x * CELL);
-        }
+    if (c->t == TR_THIN_ICE && c->state < 2) {     /* a crossing cracks it; after 2 it cannot bear a third */
+        c->state++;
         mark(d, x, y);
     }
     (void)a;
@@ -309,6 +320,12 @@ static void arrive(actor *a)
     a->hop = 0;
     leave_cell(a, a->depth, ox, oy);
     cell *c = &W.g[a->depth][a->cy][a->cx];
+    if (c->t == TR_THIN_ICE && c->state >= 2 && a->kind != AK_BOSS && a->kind != AK_CROC) {
+        thin_ice_break(a->depth, a->cx, a->cy);     /* the third crossing: it gives way (drowning: world_update) */
+        W.stat.thin_breaks++;
+        return;
+    }
+    if (a->kind == AK_MOLE && c->t == TR_WELL) { ride_bucket(a); return; }
     if (hop_from(a)) return;
     /* ice: keep sliding while the next cell is free */
     if ((c->t == TR_ICE || c->t == TR_THIN_ICE) && a->kind != AK_BOSS) {
@@ -587,7 +604,19 @@ static void break_cell(int d, int x, int y)
         fx_add(FXP_SPLASH, d, x * CELL, y * CELL, 20, 0, 0);
         break;
     case TR_THIN_ICE:
+        thin_ice_break(d, x, y);
+        return;
+    case TR_ICE:                                    /* the river's ice opens (it freezes again in 8 s) */
+        if (!c->river) return;
         c->t = TR_WATER;
+        c->state = 0;
+        set_regrow(d, x, y, TR_ICE, 480);
+        fx_add(FXP_SPLASH, d, x * CELL, y * CELL, 20, 0, 0);
+        W.stat.ice_breaks++;
+        break;
+    case TR_SNOW:                                   /* a blast clears a snowdrift */
+        c->t = TR_FLOOR;
+        dust_at(d, x, y);
         break;
     case TR_THIN:
         /* the floor gives way: a hole down, a hole up below, rubble stuns what is below */
@@ -642,11 +671,14 @@ static void explode(bomb *b)
             cell *c = &W.g[d][ny][nx];
             int pk = world_pumpkin_at(d, nx, ny);
             if (pk >= 0) { smash_pumpkin(pk); blast_cell(d, nx, ny, ends[k]); break; }
+            int sb = world_snowball_at(d, nx, ny);
+            if (sb >= 0) { snowball_kick(sb, k); break; }     /* the blast rolls it away (or shatters it) */
+            if (c->t == TR_PERCH) { blast_cell(d, nx, ny, ends[k]); break; }   /* the owl's perch stands; the owl on it is hit */
             if (blast_stops(c)) {
                 if (c->t == TR_LEVER) lever_toggle(d, nx, ny);
                 if (c->t == TR_TREE) shake_tree(d, nx, ny);
                 if (c->t != TR_STONE && c->t != TR_PUDDLE && c->t != TR_SPRINKLER && c->t != TR_WINDMILL && c->t != TR_TREE &&
-                    c->t != TR_LEVER && c->t != TR_GATE) {
+                    c->t != TR_LEVER && c->t != TR_GATE && c->t != TR_WELL && c->t != TR_CRANK) {
                     break_cell(d, nx, ny);
                     blast_cell(d, nx, ny, ends[k]);
                 }
@@ -657,6 +689,7 @@ static void explode(bomb *b)
         }
     }
     break_cell(d, x, y);
+    icicles_fall(d, x, y);
     noise(d, x, y);
     W.shake = 6;
     sfx_at(SFX_BLAST, x * CELL);
@@ -683,9 +716,13 @@ static void update_bombs(void)
 }
 
 /* ---- blasts, hits ------------------------------------------------------------------------------ */
+/* ---- the snowy owl (winter 8) ---------------------------------------------------------------------- */
+static int owl_tx, owl_ty;                          /* the swoop's target, or the perch */
+static void owl_flee(actor *a);
+
 static void hurt_player(actor *a)
 {
-    if (a->invul || !a->alive || a->state == 99 || dev_god || rs_option_int("god", 0) || W.riding >= 0) return;
+    if (a->invul || !a->alive || a->state == 99 || dev_god || rs_option_int("god", 0) || W.riding >= 0 || W.in_bucket) return;
     pstats *ps = &W.ps[a->player];
     ps->hearts--;
     if (ps->hearts <= 0) {
@@ -708,12 +745,22 @@ static void enemy_down(actor *a)
             if (a->state != 2) return;
             W.stat.fox_hits++;
         }
+        if (W.def->boss == BOSS_OWL) {              /* the owl: only on its perch */
+            if (a->state != OWL_PERCHED) return;
+            W.stat.owl_hits++;
+        }
         a->hp--;
         a->invul = 90;
         sfx(SFX_BOSS_HIT);
+        if (W.def->boss == BOSS_OWL && a->hp > 0) owl_flee(a);
         if (a->hp > 0) return;
-        /* the boss drops the last grub */
-        cell *c = &W.g[a->depth][a->cy][a->cx];
+        /* the boss drops the last grub (the owl next to its perch) */
+        int gx = a->cx, gy = a->cy;
+        for (int k = 0; k < 4 && W.g[a->depth][gy][gx].t == TR_PERCH; k++)
+            if (in_grid(a->cx + DX[k], a->cy + DY[k]) && terrain_walkable(W.g[a->depth][a->cy + DY[k]][a->cx + DX[k]].t, 0)) {
+                gx = a->cx + DX[k]; gy = a->cy + DY[k];
+            }
+        cell *c = &W.g[a->depth][gy][gx];
         c->item = IT_GRUB;
         W.boss_alive = 0;
         W.events |= EV_BOSS_DOWN;
@@ -789,7 +836,16 @@ static void update_switches(void)
                 /* regrowth and splats */
                 if (c->timer) {
                     if (c->regrow && --c->timer == 0) {
-                        if (!actor_at(d, x, y, NULL, 0) && !bomb_at(d, x, y) && c->t == TR_FLOOR) {
+                        int freeze = c->t == TR_WATER && (c->regrow == TR_ICE || c->regrow == TR_THIN_ICE);
+                        if (freeze && (bomb_at(d, x, y) || log_at(d, x, y) >= 0)) {
+                            c->timer = 60;                  /* something floats there: try again in 1 s */
+                            continue;
+                        }
+                        if (freeze) {
+                            c->t = c->regrow;               /* the water freezes over again */
+                            c->state = 0;
+                            mark(d, x, y);
+                        } else if (!actor_at(d, x, y, NULL, 0) && !bomb_at(d, x, y) && c->t == TR_FLOOR) {
                             c->t = c->regrow;
                             dust_at(d, x, y);
                             mark(d, x, y);
@@ -1733,7 +1789,14 @@ static void update_player(actor *a)
     }
     if (a->invul) a->invul--;
     if (a->timer) a->timer--;
-    if (W.riding >= 0) return;                      /* in a mine cart */
+    if (W.riding >= 0 || W.in_bucket) return;      /* in a mine cart, in the well's bucket */
+    {
+        const cell *here = &W.g[a->depth][a->cy][a->cx];
+        if (!a->moving && terrain_walkable(here->t, 0) && here->t != TR_THIN_ICE && here->t != TR_HOLE_DOWN &&
+            here->t != TR_PIPE && !(here->t == TR_ICE && here->river)) {
+            W.safe_d = (int8_t)a->depth; W.safe_x = a->cx; W.safe_y = a->cy;
+        }
+    }
     if (a->stun) { a->stun--; return; }
     pstats *ps = &W.ps[a->player];
     if (pr & RS_BTN_B) place_bomb(a);
@@ -1788,6 +1851,10 @@ static void update_player(actor *a)
         if (pr & (RS_BTN_UP | RS_BTN_DOWN | RS_BTN_LEFT | RS_BTN_RIGHT)) lever_toggle(a->depth, nx, ny);
         return;
     }
+    if (c->t == TR_CRANK) {                         /* turn the crank: the bucket goes to the other end */
+        if (pr & (RS_BTN_UP | RS_BTN_DOWN | RS_BTN_LEFT | RS_BTN_RIGHT)) crank_turn(a->depth, nx, ny);
+        return;
+    }
     if (c->t == TR_DIRT || c->t == TR_LEAVES) {     /* moles dig */
         int need = c->t == TR_LEAVES ? LEAF_TIME : W.season == SEASON_SUMMER ? DIG_TIME_DRY : DIG_TIME;
         a->dig++;
@@ -1835,7 +1902,8 @@ static void update_actor(actor *a)
     if (a->kind == AK_MOLE) { update_player(a); return; }
     track_facing(a);
     if (a->invul) a->invul--;
-    if (a->timer && a->kind != AK_CAT && (a->kind != AK_BOSS || W.def->boss == BOSS_FOX) && a->kind != AK_CROC) a->timer--;
+    if (a->timer && a->kind != AK_CAT && (a->kind != AK_BOSS || W.def->boss == BOSS_FOX || W.def->boss == BOSS_OWL) &&
+        a->kind != AK_CROC) a->timer--;
     if (a->asleep) {
         if (W.t % 40 == 0) fx_add(FXP_ZZZ, a->depth, a->cx * CELL + 4, a->cy * CELL - 8, 40, 4, -8);
         return;
@@ -1856,6 +1924,8 @@ static void update_actor(actor *a)
             ai_badger(a);
         } else if (W.def->boss == BOSS_FOX) {
             ai_fox(a);
+        } else if (W.def->boss == BOSS_OWL) {
+            ai_owl(a);
         } else {
             ai_cat(a, 6, 6, 70);
         }
@@ -1896,6 +1966,7 @@ static void contacts(void)
                 continue;
             }
             if (a->kind == AK_MOLE || a->kind == AK_CROC || a->stun) continue;   /* the croc only snaps */
+            if (a->kind == AK_BOSS && W.def->boss == BOSS_OWL) continue;         /* the owl strikes with its swoop */
             int r = a->kind == AK_BOSS ? 16 : 11;
             if (abs(ax - mx) < r && abs(ay - my) < r) hurt_player(m);
         }
@@ -1913,6 +1984,11 @@ static void update_fx(void)
         }
         if (f->kind == FXP_APPLE) {
             if (--f->life == 0) apple_land(f);
+            continue;
+        }
+        if (f->kind == FXP_ICICLE) {
+            f->t++;
+            if (--f->life == 0) icicle_land(f);
             continue;
         }
         f->x = (int16_t)(f->x + f->vx);
@@ -2223,6 +2299,31 @@ static void ai_croc(actor *a)
 {
     actor *m = world_player(0);
     if (a->aux) a->aux--;
+    cell *here = &W.g[a->depth][a->cy][a->cx];
+    int under = here->t == TR_ICE || here->t == TR_THIN_ICE;
+    if (under) {                                     /* winter: under the river's ice, a dark shape */
+        if (a->state == 1) {                         /* the ice cracks over it... */
+            if (a->timer % 6 == 0)                   /* cracks spread round the mole's feet */
+                fx_add(FXP_CRACK, a->depth, a->cx * CELL + (a->timer * 5) % 17 - 8, a->cy * CELL + (a->timer * 7) % 13 - 4, 12, 0, 0);
+            if (--a->timer > 0) return;
+            here->t = TR_WATER;                      /* ...and gives way: it snaps (whoever stands there drowns) */
+            here->state = 0;
+            set_regrow(a->depth, a->cx, a->cy, TR_ICE, 480);
+            mark(a->depth, a->cx, a->cy);
+            fx_add(FXP_SPLASH, a->depth, a->cx * CELL, a->cy * CELL, 20, 0, 0);
+            sfx_at(SFX_POUNCE, a->cx * CELL);
+            W.stat.croc_cracks++;
+            if (m && m->alive && m->depth == a->depth && m->cx == a->cx && m->cy == a->cy) W.stat.croc_bites++;
+            a->state = 2;
+            a->timer = 16;
+            return;
+        }
+        if (m && m->alive && m->state != 99 && m->depth == a->depth && m->cx == a->cx && m->cy == a->cy && !m->moving) {
+            if (++a->dig >= 90) { a->dig = 0; a->state = 1; a->timer = CROC_TELL; }   /* 1.5 s over it */
+            return;
+        }
+        a->dig = 0;
+    }
     switch (a->state) {
     case 1:                                          /* the tell: eyes up, ripples */
         if (a->timer % 12 == 0) fx_add(FXP_SPLASH, a->depth, a->cx * CELL, a->cy * CELL, 12, 0, 0);
@@ -2240,14 +2341,13 @@ static void ai_croc(actor *a)
     default:
         break;
     }
-    if (!a->aux && croc_adjacent(a, m)) { a->state = 1; a->timer = CROC_TELL; return; }
+    if (!under && !a->aux && croc_adjacent(a, m)) { a->state = 1; a->timer = CROC_TELL; return; }
     if (!m || m->depth != a->depth) return;
     /* swim towards the mole's projection on the water */
     int best = -1, bx = a->cx, by = a->cy;
     for (int y = 0; y < GH; y++)
         for (int x = 0; x < GW; x++) {
-            int t = W.g[a->depth][y][x].t;
-            if (t != TR_WATER && t != TR_BRIDGE) continue;
+            if (!croc_swims(a->depth, x, y)) continue;
             int dd = abs(x - m->cx) + abs(y - m->cy);
             if (best < 0 || dd < best) { best = dd; bx = x; by = y; }
         }
@@ -2660,6 +2760,384 @@ static void ai_fox(actor *a)
     if (k >= 0) start_move(a, k);
 }
 
+/* ---- winter: thin ice, drowning, snowballs, icicles, the well's bucket, drifts, the owl ---------------- */
+#define THIN_REFREEZE 1200      /* broken thin ice freezes again after 20 s (no softlock) */
+#define ICICLE_FALL 30          /* 0.5 s from the blast to the fall (the shadow warns) */
+#define OWL_DROP 60             /* the owl's icicle: the ceiling cracks 1 s before it falls */
+#define BUCKET_TRIP 60
+
+static void thin_ice_break(int d, int x, int y)
+{
+    cell *c = &W.g[d][y][x];
+    c->t = TR_WATER;
+    c->state = 0;
+    set_regrow(d, x, y, TR_THIN_ICE, THIN_REFREEZE);
+    fx_add(FXP_SPLASH, d, x * CELL, y * CELL, 20, 0, 0);
+    sfx_at(SFX_SPLASH, x * CELL);
+    mark(d, x, y);
+}
+
+/* in the water (thin ice broken under it, the river opened, the crocodile): the mole loses a heart and
+   climbs out at its last safe cell; ferrets and cats drown */
+static void drown_check(void)
+{
+    for (int i = 0; i < W.na; i++) {
+        actor *a = &W.a[i];
+        if (!a->alive || a->kind == AK_CROC || a->kind == AK_BOSS || a->kind == AK_ANTS) continue;
+        int x = a->cx, y = a->cy;
+        if (a->moving && a->prog > SUB / 2) { x = a->tx; y = a->ty; }
+        const cell *c = &W.g[a->depth][y][x];
+        if (c->t != TR_WATER || log_at(a->depth, x, y) >= 0) continue;
+        fx_add(FXP_SPLASH, a->depth, x * CELL, y * CELL, 24, 0, 0);
+        sfx_at(SFX_SPLASH, x * CELL);
+        if (a->kind != AK_MOLE) {
+            if (a->kind == AK_DOG) { a->cx = a->tx = (int8_t)x; a->cy = a->ty = (int8_t)y; a->moving = 0; continue; }
+            a->alive = 0;
+            W.stat.enemies_drowned++;
+            continue;
+        }
+        if (a->state == 99) continue;
+        W.stat.drowned++;
+        a->moving = 0; a->sliding = 0; a->forced = 0; a->prog = 0; a->dig = 0;
+        a->depth = (uint8_t)W.safe_d;
+        a->cx = a->tx = W.safe_x;
+        a->cy = a->ty = W.safe_y;
+        if (dev_god || rs_option_int("god", 0)) continue;
+        pstats *ps = &W.ps[a->player];
+        if (--ps->hearts <= 0) { a->state = 99; a->timer = 90; sfx(SFX_KO); }
+        else { a->invul = INVUL; sfx(SFX_HURT); }
+    }
+}
+
+/* ---- snowballs ---- */
+int world_snowball_at(int d, int x, int y)
+{
+    for (int i = 0; i < MAX_SNOWBALLS; i++) {
+        const snowball *s = &W.balls[i];
+        if (s->alive && s->depth == d && ((s->cx == x && s->cy == y) || (s->moving && s->tx == x && s->ty == y))) return i;
+    }
+    return -1;
+}
+
+static int snowball_can_enter(int d, int x, int y, int self)
+{
+    if (!in_grid(x, y)) return 0;
+    const cell *c = &W.g[d][y][x];
+    if (!terrain_walkable(c->t, 1) || c->t == TR_HOLE_UP || c->t == TR_LADDER || c->t == TR_EXIT || c->t == TR_PLATE)
+        return 0;
+    int o = world_snowball_at(d, x, y);
+    if ((o >= 0 && o != self) || bomb_at(d, x, y) || world_pumpkin_at(d, x, y) >= 0 || world_cart_at(d, x, y) >= 0)
+        return 0;
+    return 1;
+}
+
+static void snowball_shatter(int i)
+{
+    snowball *s = &W.balls[i];
+    s->alive = 0;
+    dust_at(s->depth, s->cx, s->cy);
+    sfx_at(SFX_BREAK, s->cx * CELL);
+    W.stat.ball_shatters++;
+}
+
+/* a blast rolls the snowball the way the blast went; one that cannot roll shatters (never a softlock) */
+static int snowball_kick(int i, int dir)
+{
+    snowball *s = &W.balls[i];
+    if (s->moving) return 0;
+    if (!snowball_can_enter(s->depth, s->cx + DX[dir], s->cy + DY[dir], i)) { snowball_shatter(i); return 0; }
+    s->moving = 1; s->dir = (uint8_t)dir; s->prog = 0;
+    s->tx = (int8_t)(s->cx + DX[dir]); s->ty = (int8_t)(s->cy + DY[dir]);
+    W.stat.rolls++;
+    return 1;
+}
+
+static void update_snowballs(void)
+{
+    for (int i = 0; i < MAX_SNOWBALLS; i++) {
+        snowball *s = &W.balls[i];
+        if (!s->alive || !s->moving) continue;
+        /* it crushes whatever is in the cell it rolls into */
+        for (int k = 0; k < W.na; k++) {
+            actor *a = &W.a[k];
+            if (!a->alive || a->depth != s->depth || a->kind == AK_BOSS || a->kind == AK_CROC) continue;
+            int ax, ay;
+            actor_px(a, &ax, &ay);
+            int bx = s->cx * CELL + DX[s->dir] * s->prog / (SUB / CELL), by = s->cy * CELL + DY[s->dir] * s->prog / (SUB / CELL);
+            if (abs(ax - bx) >= 12 || abs(ay - by) >= 12) continue;
+            if (a->kind == AK_MOLE) hurt_player(a);
+            else if (a->kind != AK_DOG) { a->invul = 0; a->hp = 1; enemy_down(a); W.stat.ball_crushes++; }
+        }
+        s->prog += 40;
+        if (s->prog < SUB) continue;
+        s->cx = s->tx; s->cy = s->ty; s->prog = 0; s->moving = 0;
+        cell *c = &W.g[s->depth][s->cy][s->cx];
+        int drift = c->t == TR_SNOW;
+        if (drift) { c->t = TR_FLOOR; mark(s->depth, s->cx, s->cy); }
+        if (s->depth == 0 || drift) {              /* it gathers snow as it rolls: big after 3 cells */
+            if (++s->rolled >= 3 && !s->big) { s->big = 1; W.stat.ball_grows++; sfx_at(SFX_DIG, s->cx * CELL); }
+        }
+        if (c->t == TR_THIN_ICE && s->big) {       /* too heavy: it breaks through and sinks */
+            thin_ice_break(s->depth, s->cx, s->cy);
+            s->alive = 0;
+            continue;
+        }
+        if (c->t == TR_HOLE_DOWN) { s->alive = 0; dust_at(s->depth, s->cx, s->cy); continue; }   /* it falls apart below */
+        int nx = s->cx + DX[s->dir], ny = s->cy + DY[s->dir];
+        if (snowball_can_enter(s->depth, nx, ny, i)) {
+            s->moving = 1; s->tx = (int8_t)nx; s->ty = (int8_t)ny;
+        } else {
+            W.shake = 3;
+            sfx_at(SFX_BREAK, s->cx * CELL);
+        }
+    }
+}
+
+/* ---- icicles: a blast within 2 cells makes the icicles there fall (0.5 s, a shadow first) ---- */
+static void icicle_drop(int d, int x, int y, int life, int owl)
+{
+    for (int i = 0; i < MAX_FX; i++)
+        if (!W.fx[i].life) {
+            fxp *f = &W.fx[i];
+            memset(f, 0, sizeof *f);
+            f->kind = FXP_ICICLE;
+            f->depth = (uint8_t)d;
+            f->vx = (int16_t)x;
+            f->vy = (int16_t)y;
+            f->life = (int16_t)life;
+            f->frame = (uint8_t)owl;
+            return;
+        }
+}
+
+static void icicles_fall(int d, int x, int y)
+{
+    for (int yy = y - 2; yy <= y + 2; yy++)
+        for (int xx = x - 2; xx <= x + 2; xx++) {
+            if (!in_grid(xx, yy) || !W.g[d][yy][xx].icicle) continue;
+            W.g[d][yy][xx].icicle = 0;
+            W.stat.icicles_fallen++;
+            icicle_drop(d, xx, yy, ICICLE_FALL, 0);
+        }
+}
+
+static void icicle_land(fxp *f)
+{
+    int d = f->depth, x = f->vx, y = f->vy;
+    for (int i = 0; i < W.na; i++) {
+        actor *a = &W.a[i];
+        if (!a->alive || a->depth != d || a->kind == AK_BOSS || a->kind == AK_CROC) continue;
+        int ax, ay;
+        actor_px(a, &ax, &ay);
+        if (abs(ax - x * CELL) >= 12 || abs(ay - y * CELL) >= 12) continue;
+        W.stat.icicle_hits++;
+        if (a->kind == AK_MOLE) { hurt_player(a); a->stun = a->state == 99 ? 0 : 40; }
+        else { enemy_down(a); if (a->alive) a->stun = 180; }
+    }
+    dust_at(d, x, y);
+    sfx_at(SFX_BREAK, x * CELL);
+}
+
+/* ---- the well's bucket: surface <-> depth 2 ---- */
+int world_bucket_at(int d, int x, int y)
+{
+    for (int ch = 1; ch < NCHAN; ch++) {
+        const bucket *b = &W.buckets[ch];
+        if (b->used && !b->moving && b->at == d && b->x == x && b->y == y) return ch;
+    }
+    return 0;
+}
+
+static void crank_turn(int d, int x, int y)
+{
+    bucket *b = &W.buckets[W.g[d][y][x].chan % NCHAN];
+    if (!b->used || b->moving) return;
+    b->to = b->at == 0 ? 2 : 0;                     /* up if it is down, down if it is up */
+    b->moving = BUCKET_TRIP;
+    b->rider = 0;
+    W.stat.cranks++;
+    sfx_at(SFX_LEVER, x * CELL);
+}
+
+static void ride_bucket(actor *m)
+{
+    int ch = world_bucket_at(m->depth, m->cx, m->cy);
+    if (!ch) return;
+    bucket *b = &W.buckets[ch];
+    b->to = b->at == 0 ? 2 : 0;
+    b->moving = BUCKET_TRIP;
+    b->rider = 1;
+    W.in_bucket = ch;
+    m->moving = 0;
+    W.stat.bucket_rides++;
+    sfx_at(SFX_SWITCH, m->cx * CELL);
+}
+
+static void update_buckets(void)
+{
+    for (int ch = 1; ch < NCHAN; ch++) {
+        bucket *b = &W.buckets[ch];
+        if (!b->used || !b->moving) continue;
+        if (--b->moving > 0) continue;
+        b->at = b->to;
+        if (b->rider) {                             /* the mole climbs out at the other end */
+            actor *m = world_player(0);
+            b->rider = 0;
+            W.in_bucket = 0;
+            if (m) {
+                pending_from = m->depth;
+                pending_depth = b->at;
+                m->cx = m->tx = b->x;
+                m->cy = m->ty = b->y;
+            }
+        }
+        sfx_at(SFX_DEPTH, b->x * CELL);
+    }
+}
+
+/* ---- the blizzard: snow drifts pile up on the gale lanes (at most 14; blasts clear them) ---- */
+static void update_drifts(void)
+{
+    int gust = world_gust_on();
+    if (!gust || W.def->gust_step <= 0 || W.t % (uint32_t)(W.def->gust_step * 6) || W.drifts >= 14) return;
+    for (int tries = 0; tries < 12; tries++) {
+        int x = 1 + rs_rng_range(&rng, GW - 2), y = 1 + rs_rng_range(&rng, GH - 2);
+        cell *c = &W.g[0][y][x];
+        if (c->t != TR_FLOOR || !c->pushdir || c->pushkind != PUSH_WIND || c->lane || c->item) continue;
+        if (actor_at(0, x, y, NULL, 0) || bomb_at(0, x, y) || world_snowball_at(0, x, y) >= 0) continue;
+        c->t = TR_SNOW;
+        W.drifts++;
+        W.stat.drifts_made++;
+        mark(0, x, y);
+        return;
+    }
+}
+
+/* ---- the snowy owl: it flies over the surface; its shadow shows where it will swoop 1 s ahead; after 3 swoops
+   (or 3 icicles dropped on the tunnels while the mole hides there) it lands on a perch (a dead tree) for 3 s:
+   bomb it there. 5 hits; after 3 it swoops faster. ---- */
+static int owl_phase2(const actor *a) { return a->hp <= 2; }
+
+static void owl_fly_to(actor *a, int x, int y, int speed)
+{
+    x = clampi(x, 1, GW - 2);
+    y = clampi(y, 1, GH - 2);
+    int dx = x - a->cx, dy = y - a->cy;
+    if (!dx && !dy) return;
+    int dir = abs(dx) >= abs(dy) ? (dx > 0 ? DIR_RIGHT : DIR_LEFT) : (dy > 0 ? DIR_DOWN : DIR_UP);
+    a->speed = (int16_t)speed;
+    start_move(a, dir);
+}
+
+static void owl_flee(actor *a)
+{
+    a->state = OWL_FLY;
+    a->aux = 0;
+    a->timer = 90;
+    if (owl_phase2(a) && !W.stat.owl_phase2) W.stat.owl_phase2 = 1;
+}
+
+static int owl_perch(const actor *a, int *px, int *py)
+{
+    int best = -1;
+    for (int y = 1; y < GH - 1; y++)
+        for (int x = 1; x < GW - 1; x++) {
+            if (W.g[0][y][x].t != TR_PERCH) continue;
+            const actor *m = world_player(0);
+            int dd = abs(x - a->cx) + abs(y - a->cy) + (m ? (abs(x - m->cx) + abs(y - m->cy)) / 2 : 0);
+            if (best < 0 || dd < best) { best = dd; *px = x; *py = y; }
+        }
+    return best >= 0;
+}
+
+static void ai_owl(actor *a)
+{
+    actor *m = world_player(0);
+    int p2 = owl_phase2(a);
+    switch (a->state) {
+    case OWL_AIM:                                    /* hovering; the shadow marks the target */
+        if (a->timer) return;
+        a->state = OWL_SWOOP;
+        sfx_at(SFX_POUNCE, a->cx * CELL);
+        /* fall through */
+    case OWL_SWOOP:
+        if (a->cx != owl_tx || a->cy != owl_ty) { owl_fly_to(a, owl_tx, owl_ty, p2 ? 96 : 72); return; }
+        W.stat.owl_swoops++;
+        for (int i = 0; i < W.na; i++) {             /* the strike: whoever stands there */
+            actor *v = &W.a[i];
+            if (!v->alive || v->depth != a->depth || v == a || v->kind == AK_CROC) continue;
+            int vx, vy;
+            actor_px(v, &vx, &vy);
+            if (abs(vx - owl_tx * CELL) >= 12 || abs(vy - owl_ty * CELL) >= 12) continue;
+            if (v->kind == AK_MOLE) { if (!v->invul) W.stat.owl_swoop_hits++; hurt_player(v); }
+            else if (v->kind != AK_DOG) enemy_down(v);
+        }
+        dust_at(a->depth, a->cx, a->cy);
+        W.shake = 4;
+        if (++a->aux >= 3) { a->state = OWL_TO_PERCH; return; }
+        a->state = OWL_FLY;
+        a->timer = p2 ? 70 : 110;
+        return;
+    case OWL_TO_PERCH: {
+        int px = a->cx, py = a->cy;
+        if (!owl_perch(a, &px, &py)) { px = a->cx; py = a->cy; }
+        if (a->cx != px || a->cy != py) { owl_fly_to(a, px, py, 32); return; }
+        a->state = OWL_PERCHED;
+        a->timer = 180;                              /* 3 s on the perch: the window */
+        a->aux = 0;
+        W.stat.owl_perches++;
+        return;
+    }
+    case OWL_PERCHED:
+        if (a->timer % 30 == 0) fx_add(FXP_ZZZ, a->depth, a->cx * CELL + 6, a->cy * CELL - 20, 30, 2, -6);
+        if (a->timer) return;
+        owl_flee(a);
+        return;
+    default:
+        break;
+    }
+    /* OWL_FLY: over the mole; underground, it drops icicles on the tunnel below its position */
+    if (!m || m->state == 99) return;
+    if (m->depth == 0) {
+        if (!a->timer) {
+            owl_tx = m->cx; owl_ty = m->cy;
+            a->state = OWL_AIM;
+            a->timer = p2 ? 40 : 60;                 /* the shadow shows 1 s ahead (0.7 s when angry) */
+            return;
+        }
+        owl_fly_to(a, m->cx + ((W.t / 120) % 2 ? 3 : -3), m->cy < 5 ? m->cy + 2 : m->cy - 2, p2 ? 32 : 24);   /* in view */
+        return;
+    }
+    owl_fly_to(a, m->cx, m->cy, 24);
+    if (a->cx == clampi(m->cx, 1, GW - 2) && a->cy == clampi(m->cy, 1, GH - 2) && !a->timer) {
+        const cell *below = &W.g[1][a->cy][a->cx];
+        if (terrain_walkable(below->t, 0) && below->t != TR_WATER) {
+            icicle_drop(1, a->cx, a->cy, OWL_DROP, 1);
+            W.stat.owl_drops++;
+            if (++a->aux >= 3) { a->state = OWL_TO_PERCH; return; }
+        }
+        a->timer = p2 ? 80 : 120;
+    }
+}
+
+/* the owl's state and its target (the swoop's shadow), for the drawing */
+int world_owl(int *tx, int *ty)
+{
+    if (tx) *tx = owl_tx;
+    if (ty) *ty = owl_ty;
+    for (int i = 0; i < W.na; i++)
+        if (W.a[i].alive && W.a[i].kind == AK_BOSS && W.def->boss == BOSS_OWL) return W.a[i].state;
+    return -1;
+}
+
+static void update_winter(void)
+{
+    update_snowballs();
+    update_buckets();
+    if (W.season == SEASON_WINTER) update_drifts();
+    drown_check();
+}
+
 /* ---- public ------------------------------------------------------------------------------------- */
 void world_start(const level_def *L, const pstats *carry)
 {
@@ -2695,6 +3173,7 @@ void world_start(const level_def *L, const pstats *carry)
             a->hp = L->boss == BOSS_BADGER ? 3 : 5;
             if (L->boss == BOSS_BADGER) a->timer = 240;      /* it wakes up after 4 s: a quiet start */
             if (L->boss == BOSS_FOX) { a->hp = 4; a->timer = 120; }
+            if (L->boss == BOSS_OWL) { a->hp = 5; a->timer = 150; a->state = OWL_FLY; }
             W.boss_alive = 1;
         }
         if (is_enemy) {
@@ -2779,6 +3258,22 @@ void world_start(const level_def *L, const pstats *carry)
         p->alive = 1; p->depth = L->pumpkins[i].depth;
         p->cx = p->tx = (int8_t)L->pumpkins[i].x; p->cy = p->ty = (int8_t)L->pumpkins[i].y;
     }
+    for (int i = 0; i < L->nsnowballs; i++) {
+        snowball *s = &W.balls[i];
+        s->alive = 1; s->depth = L->snowballs[i].depth;
+        s->cx = s->tx = (int8_t)L->snowballs[i].x; s->cy = s->ty = (int8_t)L->snowballs[i].y;
+    }
+    for (int y = 0; y < GH; y++)                     /* wells: the bucket waits at the surface */
+        for (int x = 0; x < GW; x++)
+            if (W.g[0][y][x].t == TR_WELL) {
+                bucket *b = &W.buckets[W.g[0][y][x].chan % NCHAN];
+                b->used = 1; b->at = 0; b->x = (int8_t)x; b->y = (int8_t)y;
+            }
+    owl_tx = owl_ty = 0;
+    {
+        const actor *m0 = world_player(0);
+        if (m0) { W.safe_d = (int8_t)m0->depth; W.safe_x = m0->cx; W.safe_y = m0->cy; }
+    }
     for (int i = 0; i < L->ncarts; i++) {
         cart *c = &W.carts[i];
         c->alive = 1; c->depth = L->carts[i].depth;
@@ -2828,6 +3323,7 @@ void world_update(void)
     update_pumpkins();
     update_carts();
     update_trees();
+    update_winter();
     contacts();
     update_fx();
     W.t++;

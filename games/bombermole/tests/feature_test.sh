@@ -176,5 +176,62 @@ out=$(S --frames 1500 --opt level=autumn-15 --opt god=1)
 printf "5 tap B\n8 LEFT\n40 -\n" > $T/fox.input
 out=$(S --frames 200 --opt level=autumn-15 --opt foxrest=1 --opt spawn=0,9,6 --opt god=1 --input $T/fox.input)
 [ "$(field foxhits "$out")" -ge 1 ] && ok "fox: a bomb hits it while it rests" || bad "fox hit: $(echo "$out" | grep autumn:)"
+# ---- winter ----------------------------------------------------------------------------------------------
+wf() { echo "$1" | grep "winter:"; }
+printf "5 RIGHT\n50 LEFT\n100 RIGHT\n140 -\n" > $T/thin.input
+out=$(S --frames 170 --opt level=winter-10 --opt spawn=0,5,3 --opt god=1 --input $T/thin.input)
+echo "$out" | grep -q "thinbreaks=1" && echo "$out" | grep -q "drowned=1 " && echo "$out" | grep -q "depth=0 x=6 y=3 " \
+    && ok "thin ice: the third crossing breaks it; the mole climbs out at its last safe cell" || bad "thin ice: $(wf "$out")"
+out=$(S --frames 260 --opt level=winter-11 --opt spawn=0,9,4 --opt god=1)
+echo "$out" | grep -q "croccracks=1" && echo "$out" | grep -q "drowned=1 " \
+    && ok "frozen river: the crocodile cracks the ice under a mole standing still, it falls in" || bad "croc ice: $(wf "$out")"
+printf "5 tap B\n8 LEFT\n40 -\n" > $T/wb.input
+out=$(S --frames 200 --opt level=winter-11 --opt spawn=0,5,3 --opt god=1 --input $T/wb.input)
+[ "$(field icebreaks "$out")" -ge 1 ] && ok "frozen river: a blast opens the ice" || bad "river blast: $(wf "$out")"
+printf "5 RIGHT\n65 -\n" > $T/walk.input
+a=$(S --frames 70 --opt level=winter-12 --opt spawn=0,3,3 --input $T/walk.input | sed -n 's/.* x=\([0-9]*\) y=3 .*/\1/p')
+b=$(S --frames 70 --opt level=winter-12 --opt spawn=0,3,4 --input $T/walk.input | sed -n 's/.* x=\([0-9]*\) y=4 .*/\1/p')
+[ -n "$a" ] && [ -n "$b" ] && [ "$a" -lt "$b" ] && ok "snowdrifts: they slow the mole (x=$a through drifts, x=$b on snow)" \
+    || bad "drift slow: $a vs $b"
+printf "5 tap B\n8 UP\n40 -\n" > $T/wu.input
+out=$(S --frames 200 --opt level=winter-12 --opt spawn=0,6,6 --opt god=1 --input $T/wu.input)
+echo "$out" | grep -q "snow=9 " && ok "snowdrifts: a blast clears them" || bad "drift blast: $(wf "$out")"
+out=$(S --frames 220 --opt level=winter-13 --opt spawn=0,3,4 --opt god=1 --input $T/wu.input)
+echo "$out" | grep -q "rolls=1 grows=1 crushes=1 " && ok "snowball: a blast rolls it, it grows big and flattens the ferret" \
+    || bad "snowball: $(wf "$out")"
+out=$(S --frames 200 --opt level=winter-13 --opt spawn=0,17,7 --opt god=1 --input $T/wu.input)
+echo "$out" | grep -q "shatters=1 " && ok "snowball: against a wall a blast shatters it (never a softlock)" || bad "shatter: $(wf "$out")"
+out=$(S --frames 200 --opt level=winter-14 --opt spawn=1,6,3 --opt god=1 --input $T/wb.input)
+echo "$out" | grep -q "icicles=1 icehits=1 " && ok "icicles: a blast within 2 cells drops them on the stoat (the far one stays)" \
+    || bad "icicles: $(wf "$out")"
+printf "5 LEFT\n12 -\n" > $T/well.input
+out=$(S --frames 120 --opt level=winter-15 --opt spawn=0,6,5 --input $T/well.input)
+echo "$out" | grep -q "depth=2 x=5 y=5 " && echo "$out" | grep -q "rides=1 " && ok "well: the bucket takes the mole down to depth 2" \
+    || bad "well ride: $(echo "$out" | grep "state:\|winter:")"
+printf "5 tap RIGHT\n" > $T/crank.input
+out=$(S --frames 100 --opt level=winter-15 --opt spawn=2,3,5 --input $T/crank.input)
+echo "$out" | grep -q "cranks=1 " && echo "$out" | grep -q "bucket=2 " && ok "well: the crank at the bottom calls the bucket down" \
+    || bad "crank: $(wf "$out")"
+out=$(S --frames 10 --opt level=winter-16)
+[ "$(field eyes "$out")" -ge 1 ] && ok "night: out of the lamp's circle the ferret is two shining eyes" || bad "night far: $(echo "$out" | grep autumn:)"
+out=$(S --frames 10 --opt level=winter-16 --opt spawn=0,14,8)
+echo "$out" | grep -q "eyes=0" && ok "night: in the lamp's circle the ferret is seen" || bad "night near: $(echo "$out" | grep autumn:)"
+out=$(S --frames 170 --opt level=winter-17 --opt god=1)
+echo "$out" | grep -q "owl=1" && echo "$out" | grep -q "swoops=0 " && ok "owl: its shadow marks the target before the swoop" \
+    || bad "owl aim: $(wf "$out")"
+out=$(S --frames 450 --opt level=winter-17 --opt god=1)
+[ "$(field swoophits "$out")" -ge 1 ] && ok "owl: the swoop hits a mole that stays on the shadow" || bad "owl swoop: $(wf "$out")"
+out=$(S --frames 1100 --opt level=winter-17 --opt god=1)
+[ "$(field perches "$out")" -ge 1 ] && ok "owl: after 3 swoops it lands on a perch to rest" || bad "owl perch: $(wf "$out")"
+printf "5 tap B\n8 RIGHT\n40 -\n" > $T/owl.input
+out=$(S --frames 200 --opt level=winter-17 --opt owlperch=1 --opt spawn=0,13,6 --opt god=1 --input $T/owl.input)
+echo "$out" | grep -q "owlhits=1 " && ok "owl: a blast on its perch hits it" || bad "owl hit: $(wf "$out")"
+out=$(S --frames 200 --opt level=winter-17 --opt owlperch=1 --opt owlhp=3 --opt spawn=0,13,6 --opt god=1 --input $T/owl.input)
+echo "$out" | grep -q "phase2=1 " && ok "owl: after 3 hits it swoops faster (phase 2)" || bad "owl phase 2: $(wf "$out")"
+out=$(S --frames 600 --opt level=winter-17 --opt spawn=1,5,5 --opt god=1)
+[ "$(field drops "$out")" -ge 1 ] && [ "$(field icehits "$out")" -ge 1 ] \
+    && ok "owl: with the mole underground it drops icicles through the ceiling above it" || bad "owl drop: $(wf "$out")"
+out=$(S --frames 700 --opt level=winter-18)
+[ "$(field drifts "$out")" -ge 1 ] && ok "blizzard: snowdrifts pile up on the gale lanes" || bad "blizzard: $(wf "$out")"
 rm -rf $T
 exit $fail

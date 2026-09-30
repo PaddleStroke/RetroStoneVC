@@ -1,54 +1,62 @@
-# STUB: a generated level (tools/make_stub_levels.py, seed 24929030). Replace it with a real design.
-# Planned: icicles in the tunnels
-name: Winter 4 (stub)
+# Bomber Mole - winter 4. Idea: the icicle caves. The tunnels below the frozen field are hung with icicles over the
+# stoats' beats: a blast within 2 cells shakes the icicles loose (their shadow shows, 0.5 s) and they fall
+# on whoever is under them, you too. Bait a stoat under the icicles, then blast nearby.
+# Gimmicks: icicles (blast-triggered, cross the paths), frozen dirt, holes to two cave levels.
+# Enemies: tier 4: three siamese cats on the field, two stoats in the caves, a sleeping one in the grotto.
+name: Icicle Caves
 season: winter
 arc: 4
 level: 4
-status: stub
-hint: A generated level: three depths, a grub hidden on each.
+bombs: 2
+range: 2
+hint: Blasts shake icicles loose: drop them on the stoats below.
+status: done
+
+legend:
+J = frozen_dirt + grub
 
 surface:
 ####################
-#r.d.r....Cd.r.....#
-#...............E..#
-#rvr...C.r.d.d.....#
-#.....ddd.d..v.dddd#
-#d.d.r...rdd.d.r.rg#
-#.........d...g....#
-#f.r.f.sCd.r.r.f.d.#
-#....r....d....f...#
-#f.f.r.f.ddr.r.f.d.#
-#....r....d....f...#
-#....f.G..d..r.r.d.#
-#M...............dd#
+#M...f...r...f....J#
+#.ff..rr...ff..rr..#
+#..d...f...C.....f.#
+#.f..ff..d...ff..v.#
+#..r....C.....r....#
+#ff..ff..rr..ff..ff#
+#...d....v..r..d...#
+#.rr..f..d..f..rr..#
+#..f...C..r......f.#
+#.f..rr.r..f..rr...#
+#...f....d.r.f...r.#
+#.v..r....E.f.d....#
 ####################
 under1:
 ####################
-#.F..dddddddddddddd#
-#..r....ddd.....ddd#
-#.Ht.Fv.........Gdd#
-#..gt...ddd..Hg.ddd#
-#dddddddddd.....ddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#fffffffffffff....f#
+#ffff....I..I.f..Hf#
+#ffff.ffff.fff.f..f#
+#ffff..F..g...I...f#
+#fffffff.H.ff.fff.f#
+#fff.......I....v.f#
+#fff.fffffffff.ffff#
+#fffgI.F..I...Q.fff#
+#ffffffffffffff.fff#
+#fH......I.g.I..fff#
 ####################
 under2:
 ####################
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddd.HQ..ddddddddd#
-#dddd.....ddddddddd#
-#dddd...z.ddddddddd#
-#ddddddd.dddddddddd#
-#dddddddgdddddddddd#
-#ddddddd.dddddddddd#
-#ddddddd.dddddddddd#
-#ddddddd.dddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffff.....f#
+#ffffffffffff.I.I.f#
+#fffffffffffff..H.f#
+#ffffffffffff.gz..f#
+#ffffffffffff.....f#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
 ####################

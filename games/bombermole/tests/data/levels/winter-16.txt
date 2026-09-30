@@ -1,0 +1,53 @@
+# Test arena (not a game level): night: the helmet lamp's circle; outside it the ferret is only two eyes, the grub still glows.
+name: Night Test
+season: winter
+arc: 4
+level: 16
+status: stub
+night: 56
+
+surface:
+####################
+#M.................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..............z...#
+#..................#
+#..................#
+#..........g....E..#
+#..................#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

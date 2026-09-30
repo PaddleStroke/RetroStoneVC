@@ -24,6 +24,7 @@
 #define MAX_HARV 4
 #define MAX_PUMPKINS 12
 #define MAX_CARTS 4
+#define MAX_SNOWBALLS 12
 #define NCHAN 8
 
 enum { SEASON_SPRING, SEASON_SUMMER, SEASON_AUTUMN, SEASON_WINTER, SEASONS };
@@ -34,7 +35,8 @@ enum terrain {
     TR_FLOOR, TR_STONE, TR_DIRT, TR_ROCK, TR_ROOTS, TR_FROZEN, TR_LEAVES, TR_WATER, TR_PUDDLE,
     TR_THIN, TR_HOLE_DOWN, TR_HOLE_UP, TR_LADDER, TR_EXIT, TR_BRIDGE, TR_ICE, TR_THIN_ICE, TR_MUD,
     TR_COVER, TR_BURNT, TR_GATE, TR_PLATE, TR_LEVER, TR_VENT, TR_PIPE, TR_CRATE, TR_SPRINKLER,
-    TR_WINDMILL, TR_HIVE, TR_GAS, TR_TREE, TR_SHROOM, TR_RAIL, TR_NEST, TR_PLUG, TR_COUNT
+    TR_WINDMILL, TR_HIVE, TR_GAS, TR_TREE, TR_SHROOM, TR_RAIL, TR_NEST, TR_PLUG,
+    TR_SNOW, TR_WELL, TR_CRANK, TR_PERCH, TR_COUNT
 };
 enum item { IT_NONE, IT_GRUB, IT_BOMB, IT_FIRE, IT_SPEED, IT_REMOTE, IT_HEART, IT_APPLE, IT_COUNT };
 enum actor_kind { AK_NONE, AK_MOLE, AK_FERRET, AK_CAT, AK_BOSS, AK_DOG, AK_CROC, AK_ANTS };
@@ -78,6 +80,8 @@ typedef struct cell {
     uint8_t timed;              /* gate: open time in 1/10 s when triggered (0 = follows channel) */
     uint8_t blow;               /* windmill: DIR_* + 1 the wind blows (away from it; 0 = down) */
     uint8_t lane;               /* 1 when pushdir comes from a windmill's lane (recomputed) */
+    uint8_t river;              /* winter: ice over a river (a blast opens it; the crocodile swims under it) */
+    uint8_t icicle;             /* winter, tunnels: an icicle hangs above this cell */
 } cell;
 
 typedef struct spawn {
@@ -97,6 +101,9 @@ typedef struct level_def {
     int npumpkins;
     struct { uint8_t depth, x, y; } carts[MAX_CARTS];
     int ncarts;
+    struct { uint8_t depth, x, y; } snowballs[MAX_SNOWBALLS];
+    int nsnowballs;
+    int night;                  /* winter night: the helmet lamp's radius in pixels (0 = day) */
     int boss;                   /* BOSS_* from assets.h */
     int tier;                   /* default enemy tier (1..4) for F and C */
     cell g[NDEPTH][GH][GW];
@@ -133,7 +140,7 @@ typedef struct bomb {
     uint16_t order;
 } bomb;
 
-enum fx_kind { FXP_DUST, FXP_WIND, FXP_SPRAY, FXP_STEAM, FXP_ZZZ, FXP_SPLASH, FXP_STAR, FXP_TOMATO, FXP_APPLE, FXP_LEAF };
+enum fx_kind { FXP_DUST, FXP_WIND, FXP_SPRAY, FXP_STEAM, FXP_ZZZ, FXP_SPLASH, FXP_STAR, FXP_TOMATO, FXP_APPLE, FXP_LEAF, FXP_ICICLE, FXP_CRACK };
 typedef struct fxp {
     uint8_t kind, depth, flip, frame;
     int16_t x, y, t, life, vx, vy;   /* pixels (x16 for x,y) */
@@ -174,6 +181,20 @@ typedef struct cart {
     int16_t prog;
 } cart;
 
+/* a snowball: a blast rolls it; it grows over snow (big after 3 cells), crushes what it meets, stops at obstacles */
+typedef struct snowball {
+    uint8_t alive, depth, moving, dir, big, rolled;
+    int8_t cx, cy, tx, ty;
+    int16_t prog;
+} snowball;
+
+/* a well bucket: an elevator between the surface and depth 2 (the wells of one channel); a crank calls it */
+typedef struct bucket {
+    uint8_t used, at, to, rider;    /* at: the depth it is at (0 or 2); to: where it goes while moving */
+    int8_t x, y;                    /* the well's cell (the same on both depths) */
+    int16_t moving;                 /* frames left of the trip */
+} bucket;
+
 typedef struct pstats { int bombs, range, speed, remote, hearts, lives, placed; } pstats;
 
 typedef struct world {
@@ -204,12 +225,20 @@ typedef struct world {
     cart carts[MAX_CARTS];
     int riding;                          /* the cart the mole rides, or -1 */
     int apple_heart;                     /* the apple's heart is given once per level */
+    snowball balls[MAX_SNOWBALLS];
+    bucket buckets[NCHAN];
+    int in_bucket;                       /* the channel of the bucket the mole rides, or 0 */
+    int8_t safe_d, safe_x, safe_y;       /* the mole's last safe cell (drowning puts it back there) */
+    int drifts;                          /* snowdrifts the blizzard has made */
     uint8_t gas[NDEPTH][GH][GW];         /* stun gas: frames left (> GAS_TIME: not reached yet) */
     swarm bees[MAX_SWARMS];
     harvester harv[MAX_HARV];
     struct { int burnt, stings, bee_kills, shaken, warns, crushed, gas_stuns, badger_holes, badger_stuns, croc_bites, croc_stuns,
              pushes, smashes, plugs, apple_stuns, hops, bomb_hops, rides, crushed_by_cart, ants_home, ants_dropped,
-             fox_dashes, fox_rests, fox_hits, leaves_blown; } stat;
+             fox_dashes, fox_rests, fox_hits, leaves_blown,
+             drowned, enemies_drowned, thin_breaks, ice_breaks, croc_cracks, drift_slows, drifts_made, rolls, ball_grows,
+             ball_crushes, ball_shatters, icicles_fallen, icicle_hits, bucket_rides, cranks, owl_swoops, owl_swoop_hits,
+             owl_perches, owl_hits, owl_drops, owl_phase2; } stat;
     int dirty[NDEPTH];                   /* map needs redraw */
     uint8_t cell_dirty[NDEPTH][GH][GW];
     int events;                          /* EV_* raised this frame (for the game flow) */
@@ -239,6 +268,11 @@ int  world_harvester_at(int d, int x, int y);    /* index of a harvester on that
 int  world_cats_seeing(void);                    /* cats that see the mole now (tests) */
 int  world_pumpkin_at(int d, int x, int y);      /* index of a pumpkin standing on that cell, or -1 */
 int  world_cart_at(int d, int x, int y);         /* index of a cart on that cell, or -1 */
+int  world_snowball_at(int d, int x, int y);     /* index of a snowball on that cell, or -1 */
+int  world_bucket_at(int d, int x, int y);       /* channel of a bucket standing at that well, or 0 */
+int  world_owl(int *tx, int *ty);                /* the owl's state (OWL_*), its swoop target; -1: no owl */
+enum { OWL_FLY, OWL_AIM, OWL_SWOOP, OWL_TO_PERCH, OWL_PERCHED };
+extern int g_night;                              /* the night's lamp is on (draw.c) */
 int  world_harvest_warning(int d, int x, int y); /* the cell lies in a lane about to be swept */
 extern int pending_depth, pending_from;          /* depth change requested by the player */
 
@@ -251,6 +285,7 @@ void draw_world_sprites(int depth, int yoff, int first);
 void draw_hud(void);
 void draw_canopy(int depth);                   /* corn and tall grass over the sprites (BG1, high priority) */
 void fog_set(int on, int cx, int cy, int r);   /* fog outside a circle around the mole */
+void night_set(int on, int cx, int cy, int r); /* winter night: dark blue outside the helmet lamp */
 int  fog_hides(int d, int x, int y);           /* that cell is in the fog (sprites become eyes) */
 void fx_add_leaf(int d, int cx, int cy);       /* leaves rustle (the fox hiding) */
 void draw_weather(int on);

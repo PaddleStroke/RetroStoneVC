@@ -388,6 +388,12 @@ static void start_level(void)
     if (rs_option_int("foxrest", 0))                /* debug: the fox starts resting (tests) */
         for (int i = 0; i < W.na; i++)
             if (W.a[i].kind == AK_BOSS) { W.a[i].state = 2; W.a[i].timer = 400; }
+    if (rs_option_int("owlperch", 0))               /* debug: the owl starts on its perch (tests) */
+        for (int i = 0; i < W.na; i++)
+            if (W.a[i].kind == AK_BOSS) { W.a[i].state = OWL_PERCHED; W.a[i].timer = 600; }
+    if (rs_option_int("owlhp", 0))                  /* debug: the owl's health (tests: phase 2) */
+        for (int i = 0; i < W.na; i++)
+            if (W.a[i].kind == AK_BOSS) W.a[i].hp = (int16_t)rs_option_int("owlhp", 5);
     if (rs_option_int("nocrates", 0))               /* debug: the farmer's crates are gone (screenshots) */
         for (int d = 0; d < NDEPTH; d++)
             for (int y = 0; y < GH; y++)
@@ -885,6 +891,11 @@ static void game_draw(void)
         int px, py;
         player_screen_xy(&px, &py);
         lamp_set(1, px, py, 60);
+    } else if (LV.night && (st == ST_PLAY || st == ST_PAUSE || st == ST_SLIDE)) {  /* night: the helmet lamp flickers */
+        int px, py;
+        player_screen_xy(&px, &py);
+        int flicker = ((W.t * 37u) % 211u) < 9 ? -6 : (int)((W.t / 6) % 3) - 1;
+        night_set(1, px, py, LV.night + flicker);
     } else if (LV.fog && (st == ST_PLAY || st == ST_PAUSE || st == ST_SLIDE)) {   /* fog: a clear circle round the mole */
         int px, py;
         player_screen_xy(&px, &py);
@@ -898,11 +909,13 @@ static void game_shutdown(void)
 {
     if (!rs_option_int("dump", 0)) return;
     actor *m = world_player(0);
-    int rocks = 0, dirt = 0, bombs = 0;
+    int rocks = 0, dirt = 0, bombs = 0, snow = 0, thin = 0;
     for (int d = 0; d < NDEPTH; d++)
         for (int y = 0; y < GH; y++)
             for (int x = 0; x < GW; x++) {
                 rocks += W.g[d][y][x].t == TR_ROCK;
+                snow += W.g[d][y][x].t == TR_SNOW;
+                thin += W.g[d][y][x].t == TR_THIN_ICE;
                 dirt += W.g[d][y][x].t == TR_DIRT;
             }
     for (int i = 0; i < MAX_BOMBS; i++) bombs += W.b[i].active;
@@ -941,6 +954,14 @@ static void game_shutdown(void)
                W.stat.plugs, W.stat.apple_stuns, W.stat.hops, W.stat.bomb_hops, W.stat.rides, W.stat.crushed_by_cart,
                W.stat.ants_home, W.stat.ants_dropped, W.stat.fox_dashes, W.stat.fox_rests, W.stat.fox_hits, g_fog_eyes,
                W.stat.leaves_blown, ui_glow_count(0));
+        rs_log("winter: drowned=%d edrowned=%d thinbreaks=%d icebreaks=%d croccracks=%d drifts=%d rolls=%d grows=%d "
+               "crushes=%d shatters=%d icicles=%d icehits=%d rides=%d cranks=%d swoops=%d swoophits=%d perches=%d "
+               "owlhits=%d drops=%d phase2=%d bucket=%d safe=%d,%d,%d snow=%d thin=%d owl=%d", W.stat.drowned, W.stat.enemies_drowned,
+               W.stat.thin_breaks, W.stat.ice_breaks, W.stat.croc_cracks, W.stat.drifts_made, W.stat.rolls,
+               W.stat.ball_grows, W.stat.ball_crushes, W.stat.ball_shatters, W.stat.icicles_fallen, W.stat.icicle_hits,
+               W.stat.bucket_rides, W.stat.cranks, W.stat.owl_swoops, W.stat.owl_swoop_hits, W.stat.owl_perches,
+               W.stat.owl_hits, W.stat.owl_drops, W.stat.owl_phase2, W.buckets[1].at, W.safe_d, W.safe_x, W.safe_y,
+               snow, thin, world_owl(NULL, NULL));
     }
 }
 

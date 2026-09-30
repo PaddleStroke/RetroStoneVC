@@ -77,4 +77,21 @@ run --frames 60 --data $TD --opt level=autumn-16 --opt nointro=1 --shot 45:$O/au
 run --frames 80 --data $TD --opt level=autumn-15 --opt nointro=1 --opt god=1 --opt foxrest=1 --shot 60:$O/autumn-fox-resting.png
 printf "5 tap RIGHT\n" > /tmp/bm_a.input
 run --frames 200 --data $TD --opt level=autumn-17 --opt nointro=1 --opt spawn=0,1,9 --opt god=1 --input /tmp/bm_a.input --shot 150:$O/autumn-heavy-scene.png
+# winter: the levels 2-8 and the mechanics (test arenas in tests/data)
+for n in 2 3 4 5 6 7 8; do run --frames 60 --opt level=winter-$n --opt nointro=1 --shot 50:$O/winter-$n.png; done
+printf "5 RIGHT\n50 LEFT\n100 RIGHT\n140 -\n" > /tmp/bm_w.input
+run --frames 110 --data $TD --opt level=winter-10 --opt nointro=1 --opt spawn=0,5,3 --opt god=1 --input /tmp/bm_w.input --shot 100:$O/winter-thin-ice-cracked.png
+run --frames 60 --data $TD --opt level=winter-11 --opt nointro=1 --opt spawn=0,4,2 --opt god=1 --shot 50:$O/winter-croc-under-ice.png
+run --frames 240 --data $TD --opt level=winter-11 --opt nointro=1 --opt spawn=0,9,4 --opt god=1 --shot 145:$O/winter-ice-cracking.png
+printf "5 tap B\n8 UP\n40 -\n" > /tmp/bm_w.input
+run --frames 200 --data $TD --opt level=winter-13 --opt nointro=1 --opt spawn=0,3,4 --opt god=1 --input /tmp/bm_w.input --shot 180:$O/winter-snowball-big.png
+printf "5 tap B\n8 LEFT\n40 -\n" > /tmp/bm_w.input
+run --frames 200 --data $TD --opt level=winter-14 --opt nointro=1 --opt spawn=1,6,3 --opt god=1 --input /tmp/bm_w.input --shot 170:$O/winter-icicles-falling.png
+run --frames 20 --data $TD --opt level=winter-15 --opt nointro=1 --opt spawn=0,6,5 --shot 10:$O/winter-well-and-crank.png
+run --frames 20 --opt level=winter-5 --opt nointro=1 --shot 10:$O/winter-night-lamp.png
+run --frames 200 --data $TD --opt level=winter-17 --opt nointro=1 --opt god=1 --shot 185:$O/winter-owl-shadow.png
+run --frames 80 --data $TD --opt level=winter-17 --opt nointro=1 --opt owlperch=1 --opt god=1 --shot 40:$O/winter-owl-perched.png
+run --frames 700 --data $TD --opt level=winter-18 --opt nointro=1 --shot 690:$O/winter-blizzard-drifts.png
+printf "4 tap DOWN\n20 tap B\n24 tap DOWN\n40 tap DOWN\n56 tap B\n60 tap DOWN\n76 tap DOWN\n92 tap B\n96 tap DOWN\n" > /tmp/bm_w.input
+run --frames 260 --data $TD --opt level=winter-19 --opt nointro=1 --opt god=1 --input /tmp/bm_w.input --shot 250:$O/winter-heavy-scene.png
 ls "$O"

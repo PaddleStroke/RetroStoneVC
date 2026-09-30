@@ -1,0 +1,67 @@
+# Known-bad (smoke test): the owl has no perch to land on.
+# Bomber Mole - winter 8: boss, the snowy owl. Idea: a snowy clearing with three dead trees. The owl flies over
+# everything; its shadow shows where it will swoop 1 s ahead (step aside). After 3 swoops it lands on a dead tree
+# to rest for 3 s: bomb the tree (kick a bomb along an ice lane to get there in time). Hide underground and it
+# drops icicles through the ceiling above you (the ceiling cracks first). 5 hits; after 3 it swoops faster.
+# Gimmicks: the boss (holds the last grub), three perches, two ice lanes (bombs dropped on them slide like
+# kicks), frozen dirt posts and a frozen grub in the clearing (bombs only), holes in two corners down to a
+# frozen burrow loop on depth 1 (an ice run in its tunnel) and a den on depth 2.
+# Enemies: the owl, tier 4 stoats below (one asleep by a grub, one asleep in the den).
+name: The Snowy Owl
+season: winter
+arc: 4
+level: 8
+bombs: 2
+range: 3
+boss: owl
+hint: Hit the owl when it lands on a perch.
+status: done
+
+legend:
+J = frozen_dirt + grub
+
+surface:
+####################
+#..f.....f.....f.v.#
+#..f..#.....#..f...#
+#.iiiiiiiiiiiiiiii.#
+#rf....r....r....f.#
+#d.#.....K.....#...#
+#r....f....dfd.....#
+#d.#.....J.....#...#
+#.f....r....r....f.#
+#.iiiiiiiiiiiiiiii.#
+####f.#.....#..f...#
+#..#ddfd.E..f......#
+#vM#f.....fd.d..fr.#
+####################
+under1:
+####################
+#ffffffffffffffffHf#
+#fffffffffffffff..f#
+#ffff.......iiii..f#
+#ffff.ffffgffffff.f#
+#ffff.fffffffffff.f#
+#fz...fffJffffff..f#
+#f.ffffffffffffff.f#
+#f.ffffffff.......f#
+#f.fffffffv...F.fff#
+#f..iiiii.fffffffff#
+#f.ffffffffffffffff#
+#H.ffffffffffffffff#
+####################
+under2:
+####################
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffff..ffff#
+#fffffff.....g.ffff#
+#fffffff.fffff.ffff#
+#ffffff..fH...zffff#
+#ffffff.ffff.ffffff#
+#ffffff......ffffff#
+#ffffffffffffffffff#
+####################

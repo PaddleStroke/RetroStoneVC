@@ -166,6 +166,25 @@ def prop_bg(name, frame):
             px(d, x, y, P["dark"])
         d.line((3, 5, 1, 1), fill=P["wood_d"])
         d.line((12, 5, 14, 2), fill=P["wood_d"])
+    elif name == "snowdrift":      # drawn over the ground: magenta around
+        ell(d, 0, 6, 15, 15, P["white"], P["ice_d"])
+        ell(d, 3, 3, 12, 11, P["white"])
+        d.arc((0, 6, 15, 15), 20, 160, fill=P["ice_d"])
+        px(d, 5, 6, P["ice"])
+    elif name == "perch":          # a dead tree: drawn over the ground, magenta around
+        rect(d, 7, 5, 8, 15, P["grey"])
+        d.line((8, 8, 13, 3), fill=P["grey"])
+        d.line((7, 6, 2, 2), fill=P["grey"])
+        d.line((13, 3, 14, 1), fill=P["dark"])
+        rect(d, 1, 1, 3, 1, P["white"])
+        rect(d, 12, 2, 14, 2, P["white"])
+        rect(d, 6, 14, 9, 15, P["dark"])
+    elif name == "crank":          # drawn over the ground: magenta around
+        rect(d, 6, 4, 9, 15, P["wood"])
+        d.rectangle((6, 4, 9, 15), outline=P["wood_d"])
+        ell(d, 3, 1, 12, 8, P["grey"], P["dark"])
+        d.line((8, 4, 14, 2), fill=P["dark"], width=2)
+        ell(d, 5, 10, 10, 13, P["wood_d"])
     elif name == "apple_tree":     # drawn over the ground: magenta around
         rect(d, 7, 10, 8, 15, P["wood_d"])
         ell(d, 1, 0, 14, 11, P["green_d"], P["dark"])
@@ -247,6 +266,25 @@ def prop_obj(name, frame):
         for (x, y, r) in ((5, 9, 4), (10, 7, 4), (8, 11, 3)):
             ell(d, x - r + frame, y - r, x + r + frame, y + r, P["pale"], P["green"])
         px(d, 6 + frame, 7, P["white"])
+    elif name == "croc_ice":
+        S = P["dark"]                       # an existing colour of the prop sprites (palette budget)
+        ell(d, 2, 5, 12, 11, S)
+        d.polygon([(11, 6), (15, 8), (11, 10)], fill=S)
+        tail = 1 if frame else -1
+        d.polygon([(3, 7), (0, 8 + tail), (3, 9)], fill=S)
+        for x in (4, 8):
+            rect(d, x, 3, x + 1, 4, S)
+            rect(d, x, 12, x + 1, 13, S)
+    elif name == "ice_crack":
+        W, B = P["white"], P["dark"]
+        d.line((8, 8, 3, 5), fill=B)
+        d.line((8, 8, 12, 4), fill=W)
+        d.line((8, 8, 9, 13), fill=B)
+        if frame:
+            d.line((3, 5, 0, 7), fill=W)
+            d.line((12, 4, 15, 6), fill=B)
+            d.line((9, 13, 6, 15), fill=W)
+            d.line((8, 8, 14, 11), fill=B)
     elif name == "eyes":
         for x0 in (3, 9):
             ell(d, x0, 6, x0 + 3, 9, P["white"])
@@ -469,9 +507,22 @@ def boss32(name, frame):
     return im
 
 
+def snowball_big(frame):
+    P = PR
+    im, d = canvas(32, 32)
+    ell(d, 2, 4, 29, 31, P["white"], P["ice"])
+    for i, (x, y) in enumerate(((9, 12), (19, 9), (14, 21), (23, 20))):
+        if (i + frame) % 2:
+            ell(d, x - 2, y - 2, x + 2, y + 2, P["ice"])
+    d.arc((2, 4, 29, 31), 20, 160, fill=P["ice"])
+    return im
+
+
 def draw(e, frame):
     if e.group == "propbg":
         return prop_bg(e.name, frame)
+    if e.name == "snowball_big":
+        return snowball_big(frame)
     if e.group == "critter":
         return critter(e.name, frame)
     if e.name == "windmill":

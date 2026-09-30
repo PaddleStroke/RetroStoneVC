@@ -1,0 +1,53 @@
+# Test arena (not a game level): the frozen river: the crocodile swims under the ice to the mole and breaks it when the mole lingers; a bomb opens the river's ice.
+name: River Test
+season: winter
+arc: 4
+level: 11
+status: stub
+croc: 2
+
+surface:
+####################
+#M.................#
+#..................#
+#..................#
+#RRRRRRRRRRRRRRRRRR#
+#RRRRRRRR5RRRRRRRRR#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..........g....E..#
+#..................#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

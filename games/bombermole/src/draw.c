@@ -105,9 +105,20 @@ int g_fog_eyes;                                     /* eyes drawn in the fog thi
 void fog_set(int on, int cx, int cy, int r)
 {
     fog_on = on; fog_cx = cx; fog_cy = cy; fog_r = r;
+    g_night = 0;
     lamp_set(on, cx, cy, r);                        /* the same circle (window 2) */
     rs_clip_black(iris_on ? RS_WIN2_OUT : 0);        /* ...but grey, not black */
     rs_fog(on && !iris_on ? RS_WIN2_OUT : 0, RS_HEX(0xb8b0a8), RS_MATH_BG2 | RS_MATH_BG3 | RS_MATH_BG4 | RS_MATH_BACK);
+}
+
+int g_night;
+void night_set(int on, int cx, int cy, int r)
+{
+    fog_on = on; fog_cx = cx; fog_cy = cy; fog_r = r;
+    g_night = on;
+    lamp_set(on, cx, cy, r);
+    rs_clip_black(iris_on ? RS_WIN2_OUT : 0);
+    rs_fog(on && !iris_on ? RS_WIN2_OUT : 0, RS_HEX(0x0a1030), RS_MATH_BG2 | RS_MATH_BG3 | RS_MATH_BG4 | RS_MATH_BACK);
 }
 
 /* in the fog: out of the clear circle around the mole (x, y: the cell's top-left, playfield pixels) */
@@ -307,6 +318,7 @@ static const uint16_t *ground_meta(int d, int x, int y)
         if (y > 0 && !is_water(d, x, y - 1)) return T[T_WATER_EDGE];
         return water_frame() ? T[T_WATER_F2] : T[T_WATER];
     case TR_ICE: return prop_meta[PB_ICE];
+    case TR_WELL: if (d > 0) return T[T_TUNNEL]; break;
     case TR_THIN_ICE: return prop_meta[PB_THIN_ICE + (c->state ? 1 : 0)];
     }
     return floor_meta(d, x, y);
@@ -347,6 +359,10 @@ static const uint16_t *object_meta(int d, int x, int y)
         return (in_grid(x - 1, y) && W.g[d][y][x - 1].t == TR_RAIL) || (in_grid(x + 1, y) && W.g[d][y][x + 1].t == TR_RAIL)
                    ? prop_meta[PB_RAILS_H] : prop_meta[PB_RAILS_V];
     case TR_GAS: return prop_meta[PB_GAS_POCKET];
+    case TR_SNOW: return prop_meta[PB_SNOWDRIFT];
+    case TR_WELL: return d == 0 ? prop_meta[PB_WELL] : T[T_HOLE_UP];   /* the shaft's bottom: light from above */
+    case TR_CRANK: return prop_meta[PB_CRANK];
+    case TR_PERCH: return prop_meta[PB_PERCH];
     case TR_BRIDGE:
         /* the planks run across the way over the water: water left or right of the bridge means the
            river runs sideways, so you cross it up/down (bridge_v); otherwise left/right (bridge) */
@@ -471,6 +487,7 @@ static void draw_actor(const actor *a, int yoff)
     int walk = a->anim / 6;
     switch (a->kind) {
     case AK_MOLE:
+        if (W.in_bucket) return;                    /* in the well's bucket */
         if (a->state == 99) { spr = SPR_MOLE_DEATH + clampi((90 - a->timer) / 23, 0, 3); break; }
         if (a->invul && (a->invul / 4) % 2) return;
         if (a->stun) { spr = SPR_MOLE_HURT; break; }
@@ -500,6 +517,10 @@ static void draw_actor(const actor *a, int yoff)
         if (a->dir == DIR_LEFT) flags = RS_SPR_HFLIP;
         break;
     case AK_CROC:
+        if (W.g[a->depth][a->cy][a->cx].t == TR_ICE || W.g[a->depth][a->cy][a->cx].t == TR_THIN_ICE) {
+            spr_cell(SPR_CROC_ICE + walk % 2, x, y, yoff, a->dir == DIR_LEFT ? RS_SPR_HFLIP : 0);   /* under the ice */
+            return;
+        }
         spr = a->stun ? SPR_CROC + 5 : a->state == 1 ? SPR_CROC + 2 : a->state == 2 ? SPR_CROC + 3 + (a->timer < 8)
                                                                          : SPR_CROC + walk % 2;
         if (a->dir == DIR_LEFT) flags = RS_SPR_HFLIP;
@@ -523,7 +544,20 @@ static void draw_actor(const actor *a, int yoff)
             }
             spr = SPR_FOX + (a->state == 1 ? 2 : a->state == 2 ? 3 : walk % 2);
             break;
-        case BOSS_OWL: spr = SPR_OWL + (a->state == 2 ? 2 : walk % 2); break;
+        case BOSS_OWL: {                             /* in the air: high, with its shadow; on its perch: low */
+            int tx, ty, st = world_owl(&tx, &ty), alt = 22;
+            if (st == OWL_AIM && ((W.t / 4) % 2 || a->timer > 20)) {       /* the target: its shadow, 1 s ahead */
+                spr_cell(SPR_TOMATO_SHADOW, tx * CELL - 4, ty * CELL, yoff, 0);
+                spr_cell(SPR_TOMATO_SHADOW, tx * CELL + 4, ty * CELL, yoff, 0);
+            }
+            if (st == OWL_SWOOP) alt = clampi((abs(tx * CELL - x) + abs(ty * CELL - y)) / 3, 0, 22);
+            if (st == OWL_PERCHED) alt = 6;
+            else spr_cell(SPR_TOMATO_SHADOW, x, y, yoff, 0);
+            spr = a->invul ? SPR_OWL + 3 : st == OWL_PERCHED ? SPR_OWL : st == OWL_SWOOP ? SPR_OWL + 2 : SPR_OWL + 1;
+            spr_cell(spr, x, y - alt - (st == OWL_FLY || st == OWL_TO_PERCH ? (int)((W.t / 8) % 2) * 2 : 0), yoff,
+                     a->dir == DIR_LEFT ? RS_SPR_HFLIP : 0);
+            return;
+        }
         case BOSS_BADGER: spr = SPR_BADGER + (a->moving ? walk % 2 : 2); break;
         default: spr = SPR_BOSS + (a->state == 1 ? 2 : a->state == 2 ? 3 : a->moving ? 1 : 0); break;
         }
@@ -598,7 +632,7 @@ void draw_world_sprites(int d, int yoff, int first)
             if (c->item && terrain_walkable(c->t, 0)) {
                 static const int spr_of[IT_COUNT] = {0, SPR_GRUB, SPR_PU_BOMB, SPR_PU_FIRE, SPR_PU_SPEED, SPR_PU_REMOTE, SPR_PU_HEART,
                                                      SPR_APPLE};
-                if (fog_hides(d, x * CELL, y * CELL)) continue;
+                if (fog_hides(d, x * CELL, y * CELL) && !(g_night && c->item == IT_GRUB)) continue;
                 int s = spr_of[c->item] + (c->item == IT_GRUB ? (int)(t / 16 + x) % 2 : 0);
                 spr_cell(s, x * CELL, y * CELL - ((t / 12 + x) % 4 == 0 ? 1 : 0), yoff, 0);
             }
@@ -613,6 +647,37 @@ void draw_world_sprites(int d, int yoff, int first)
                     spr_cell(SPR_WINDMILL + (t / speed) % 4, x * CELL, y * CELL, yoff, 0);
             }
         }
+    /* winter: icicles hanging in the tunnels, snowballs, the well's bucket, falling icicles */
+    for (int y = 0; y < GH; y++)
+        for (int x = 0; x < GW; x++)
+            if (W.g[d][y][x].icicle && !fog_hides(d, x * CELL, y * CELL))
+                spr_cell(SPR_ICICLE, x * CELL, y * CELL - 9, yoff, 0);
+    for (int i = 0; i < MAX_SNOWBALLS; i++) {
+        const snowball *s = &W.balls[i];
+        if (!s->alive || s->depth != d) continue;
+        int x = s->cx * CELL + (s->tx - s->cx) * s->prog / (SUB / CELL);
+        int y = s->cy * CELL + (s->ty - s->cy) * s->prog / (SUB / CELL);
+        int roll = s->moving ? (int)(W.t / 4) % 2 : 0;
+        if (s->big) spr_cell(SPR_SNOWBALL_BIG + roll, x, y + 2, yoff, 0);
+        else spr_cell(SPR_SNOWBALL, x, y, yoff, roll ? RS_SPR_HFLIP : 0);
+    }
+    for (int ch = 1; ch < NCHAN; ch++) {
+        const bucket *b = &W.buckets[ch];
+        if (!b->used) continue;
+        int k = b->moving, dep = -1, lift = 0;
+        if (!k) dep = b->at;
+        else if (k > 40) { dep = b->at; lift = b->at == 0 ? (60 - k) / 2 : -(60 - k) / 2; }   /* going down or up */
+        else if (k < 20) { dep = b->to; lift = b->to == 0 ? k / 2 : -k / 2; }
+        if (dep == d) spr_cell(SPR_BUCKET, b->x * CELL, b->y * CELL + lift, yoff, 0);
+    }
+    for (int i = 0; i < MAX_FX; i++) {
+        const fxp *f = &W.fx[i];
+        if (!f->life || f->kind != FXP_ICICLE || f->depth != d) continue;
+        int fall = f->frame ? 16 : 30;              /* the owl's: the ceiling cracks first, then it falls */
+        if (f->life > fall) { spr_cell(SPR_ICE_CRACK + (f->t / 8) % 2, f->vx * CELL, f->vy * CELL - 6, yoff, 0); continue; }
+        spr_cell(SPR_TOMATO_SHADOW, f->vx * CELL, f->vy * CELL, yoff, 0);
+        spr_cell(SPR_ICICLE, f->vx * CELL, f->vy * CELL - f->life * 3, yoff, 0);
+    }
     /* autumn: pumpkins (a plugged one sits low in its gap), mine carts, falling apples */
     for (int i = 0; i < MAX_PUMPKINS; i++) {
         const pumpkin *p = &W.pumps[i];
@@ -669,7 +734,7 @@ void draw_world_sprites(int d, int yoff, int first)
     }
     for (int i = 0; i < MAX_FX; i++) {
         const fxp *f = &W.fx[i];
-        if (!f->life || f->depth != d || f->kind == FXP_TOMATO || f->kind == FXP_APPLE) continue;   /* drawn above */
+        if (!f->life || f->depth != d || f->kind == FXP_TOMATO || f->kind == FXP_APPLE || f->kind == FXP_ICICLE) continue;
         int x = f->x / 16, y = f->y / 16, s, flags = 0;
         switch (f->kind) {
         case FXP_DUST: s = SPR_DUST + clampi(f->t / 8, 0, 2); break;
@@ -680,6 +745,7 @@ void draw_world_sprites(int d, int yoff, int first)
         case FXP_SPRAY: case FXP_SPLASH: s = SPR_SPRAY + (f->t / 4) % 2; break;
         case FXP_STEAM: s = SPR_STEAM; break;
         case FXP_ZZZ: s = SPR_ZZZ + (f->t / 10) % 2; break;
+        case FXP_CRACK: s = SPR_ICE_CRACK + (f->t / 4) % 2; break;
         default: s = SPR_DUST + 2; break;
         }
         spr_cell(s, x, y, yoff, flags);
@@ -804,7 +870,14 @@ static void draw_prop_pals(void)
                 case TR_NEST: USE(PB_ANT_NEST); break;
                 case TR_RAIL: USE(PB_RAILS_H); break;
                 case TR_GAS: USE(PB_GAS_POCKET); break;
-                default: break;
+                case TR_SNOW: USE(PB_SNOWDRIFT); break;
+                case TR_WELL: USE(PB_WELL); break;
+                case TR_CRANK: USE(PB_CRANK); break;
+                case TR_PERCH: USE(PB_PERCH); break;
+                default:
+                    if (g_season == SEASON_WINTER && d == 0 && W.g[d][y][x].pushdir && W.g[d][y][x].pushkind == PUSH_WIND)
+                        USE(PB_SNOWDRIFT);                 /* the blizzard piles drifts on the gale lanes */
+                    break;
                 }
     for (int i = 0; i < W.na; i++)
         if (W.a[i].kind == AK_BOSS && g_boss == BOSS_FARMER) USE(PB_SPLAT);

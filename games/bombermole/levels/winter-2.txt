@@ -1,54 +1,65 @@
-# STUB: a generated level (tools/make_stub_levels.py, seed 24343025). Replace it with a real design.
-# Planned: thin-ice lake
-name: Winter 2 (stub)
+# Bomber Mole - winter 2. Idea: thin ice. A frozen lake of open water crossed by thin-ice bridges between two
+# islands: each bridge bears two crossings, the third step breaks it (you fall in, lose a heart and climb
+# out where you last stood safe; it freezes again after 20 s). Plan the order of the crossings; lure the
+# cats onto a cracked bridge and they drown. Below, an ice cave with a flooded pool and a hidden den.
+# Gimmicks: thin ice (limited crossings), open water, frozen dirt, holes looping the depths.
+# Enemies: tier 3-4: a black cat and two siamese cats, a polecat in the cave, a sleeping stoat in the den.
+name: Thin Ice
 season: winter
 arc: 4
 level: 2
-status: stub
-hint: A generated level: three depths, a grub hidden on each.
+bombs: 2
+range: 2
+hint: Thin ice bears two crossings. The third step breaks it.
+status: done
+
+legend:
+q = floor + black_cat
+a = floor + polecat
+J = frozen_dirt + grub
 
 surface:
 ####################
-#....f........d....#
-#r.E.r.f.d.r.rd....#
-#.........C........#
-#rCd.rGrfdfd.r.d.r.#
-#.....d......g.....#
-#r.r..df.r.d.f.r.r.#
-#.....d.........rr.#
-#d.f.r.r.d.r.d.b.r.#
-#..............d...#
-#r.f.r.d...d.d.r...#
-#....f.....C.g.....#
-#dvd.d...rvr.d.r..M#
+#M..r..f...r..d..J.#
+#.f...r..q...f...r.#
+#...d...r...d...f..#
+#..~~j~~~~~~j~~~~..#
+#..~~j~~~~~~j~~~~..#
+#..~~..jjjjj..~~~..#
+#..~~.g~~~~~g.~~~..#
+#..~~~j~~~~~~j~~~..#
+#..~~~j~~~~~~j~~~..#
+#.r..d...C...r..f..#
+#..f...r.v...f..r..#
+#.v.d..C..E..r..d..#
 ####################
 under1:
 ####################
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#ddddddFv.ddddddddd#
-#dddddd....dddddddd#
-#dddddd.....ddddddd#
-#F..ddddd...Gdddddd#
-#.Hg......Hgddddddd#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffff.........fffff#
+#ffff.~~~j~~~.fffff#
+#ffff.~~~j~~~.fffff#
+#ffff.~g.j.gj.fffff#
+#ffff.~~~j~~~.fffff#
+#ffff.....a...fffff#
+#ffffff.fffff.fffff#
+#ffffff.fff....v.ff#
+#ff.f...fH...ffffff#
+#fH....ffffffffffff#
 ####################
 under2:
 ####################
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddd.ddddddddd#
-#dddddddd.ddddddddd#
-#ddddd.Q....ddddddd#
-#ddddd....g.ddddddd#
-#ddddd......ddddddd#
-#dddddz.H...ddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffff.f#
+#fffffffffffff.g..f#
+#fffffffffffff.ff.f#
+#ffffffff.z....H..f#
+#ffffffff.fffffff.f#
+#ffffffff.........f#
 ####################

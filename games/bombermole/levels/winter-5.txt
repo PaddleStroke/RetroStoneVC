@@ -1,54 +1,63 @@
-# STUB: a generated level (tools/make_stub_levels.py, seed 25222052). Replace it with a real design.
-# Planned: night (helmet lamp)
-name: Winter 5 (stub)
+# Bomber Mole - winter 5. Idea: the long night. Your helmet lamp lights a small, flickering circle; everything else is
+# dark blue. The grubs glow from afar (follow them), the enemies are only a pair of shining eyes until
+# they are close: listen, and watch for eyes. A maze of frozen dirt and rocks, two tunnel levels below.
+# Gimmicks: night (the lamp's window and colour math), glowing grubs, frozen dirt, holes.
+# Enemies: tier 4: three siamese cats in the maze, two stoats in the tunnels, a sleeping one below.
+name: Long Night
 season: winter
 arc: 4
 level: 5
-status: stub
-hint: A generated level: three depths, a grub hidden on each.
+bombs: 2
+range: 2
+night: 60
+hint: Night: your lamp is all you see. Grubs glow, eyes shine.
+status: done
+
+legend:
+J = frozen_dirt + grub
 
 surface:
 ####################
-#..............g...#
-#.rrd.d.f.rdC.r.E.r#
-#..r.....v.d..x....#
-#.frd.d.f.ddd.r...r#
-#..r..v.......C....#
-#.d.f...f.r.d.ddr.r#
-#..............d...#
-#.f.rgd.r.r.r.rdd.d#
-#.......r......d...#
-#...r.r.r.d.r.d.d.G#
-#.....dd...........#
-#M..d.f.r.r.d.rCd.r#
+#M.f...f.....r....g#
+#.rf.r.f.rrr.r.ff..#
+#..f.r...r.....f...#
+#r...rrr.r.C.f.f.r.#
+#..f.....r...f...r.#
+#.rff.f.....fff.r..#
+#...f.f.C.r......v.#
+#rr...f...r.ff.rr..#
+#...r...f.....f....#
+#.f.r.fff.rr.C.f.r.#
+#.f...v.....r...f..#
+#...r....E..r..f..J#
 ####################
 under1:
 ####################
-#dddddd....dddddddd#
-#ddddddrF..dddddddd#
-#dddddd..Hrdddddddd#
-#ddd...g...dddddddd#
-#ddd..H..dddddddddd#
-#ddd.r..gdddddddddd#
-#dddddrv..rdddddddd#
-#dddddF....dddddddd#
-#ddddd.t..tdddddddd#
-#ddddd..r..dddddddd#
-#dddddddddGdddddddd#
-#dddddddddddddddddd#
+#ffffffffffffffffff#
+#ffff........ffffff#
+#ffff.fffff.fffffff#
+#ff.....f.g.f.....f#
+#ff.fffff.f.fffff.f#
+#ff.F.....f.......f#
+#fffff.ffff.ff.f.Hf#
+#fffff.....f....v.f#
+#fffff.fffffQffffff#
+#ff.....F...f.....f#
+#ff.ffH.ffff.....ff#
+#ff..........g....f#
 ####################
 under2:
 ####################
-#dddddddddddddddddd#
-#ddddddddddd..ddddd#
-#dddddddddddgdddddd#
-#ddddddddddd.dddddd#
-#ddddddddddd.dddddd#
-#ddddddddddd.dddddd#
-#dd..z.H.....dddddd#
-#dd..Q...dddddddddd#
-#dd......dddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffff...f#
+#ffffffffffffff.H.f#
+#fffffffffff......f#
+#fffffffffff.g.z..f#
+#fffffffffff......f#
+#ffffffffffffffffff#
 ####################

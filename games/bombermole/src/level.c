@@ -22,6 +22,8 @@ static const struct { const char *name; int t; } TERRAIN_NAMES[] = {
     {"windmill", TR_WINDMILL}, {"beehive", TR_HIVE}, {"hive", TR_HIVE}, {"gas", TR_GAS},
     {"gas_pocket", TR_GAS}, {"apple_tree", TR_TREE}, {"tree", TR_TREE}, {"mushroom", TR_SHROOM},
     {"rails", TR_RAIL}, {"rail", TR_RAIL}, {"ant_nest", TR_NEST}, {"nest", TR_NEST},
+    {"snowdrift", TR_SNOW}, {"drift", TR_SNOW}, {"well", TR_WELL}, {"crank", TR_CRANK}, {"perch", TR_PERCH},
+    {"dead_tree", TR_PERCH},
 };
 static const char *const ITEM_NAMES[IT_COUNT] = {"none", "grub", "bomb", "fire", "speed", "remote", "heart", "apple"};
 static const char *const DIR_NAMES[4] = {"up", "right", "down", "left"};
@@ -45,12 +47,14 @@ static const struct { char c; const char *spec; } DEFAULT_LEGEND[] = {
     {'{', "water+flow_left"}, {'}', "water+flow_right"}, {'e', "beehive"}, {'*', "gas_pocket"}, {'%', "water+croc"},
     {'0', "floor+pumpkin"}, {'T', "apple_tree"}, {'!', "mushroom"}, {'+', "rails"}, {'$', "rails+cart"},
     {'N', "ant_nest"}, {'A', "floor+grub+ants"},
+    {',', "snowdrift"}, {'8', "floor+snowball"}, {'I', "floor+icicle"}, {'R', "ice+river"}, {'5', "ice+river+croc"},
+    {'U', "well+chan:1"}, {'y', "crank+chan:1"}, {'7', "perch"},
 };
 
 typedef struct legend_entry {
     int used;
     cell c;
-    int actor, asleep, player, log, etype, harv, pumpkin, cart;
+    int actor, asleep, player, log, etype, harv, pumpkin, cart, snowball;
 } legend_entry;
 
 static int parse_spec(const char *spec, legend_entry *e, char *err, size_t errn)
@@ -80,6 +84,9 @@ static int parse_spec(const char *spec, legend_entry *e, char *err, size_t errn)
         else if (!strcmp(tok, "ants")) e->actor = AK_ANTS;
         else if (!strcmp(tok, "pumpkin")) e->pumpkin = 1;
         else if (!strcmp(tok, "cart")) e->cart = 1;
+        else if (!strcmp(tok, "snowball")) e->snowball = 1;
+        else if (!strcmp(tok, "river")) e->c.river = 1;
+        else if (!strcmp(tok, "icicle")) e->c.icicle = 1;
         else if (!strcmp(tok, "asleep")) e->asleep = 1;
         else if (!strcmp(tok, "log")) e->log = 1;
         else if (!strncmp(tok, "chan:", 5)) e->c.chan = (uint8_t)clampi(atoi(tok + 5), 0, NCHAN - 1);
@@ -116,7 +123,8 @@ static int parse_spec(const char *spec, legend_entry *e, char *err, size_t errn)
             }
         }
     }
-    if (e->c.t == TR_GATE || e->c.t == TR_PLATE || e->c.t == TR_LEVER || e->c.t == TR_PIPE)
+    if (e->c.t == TR_GATE || e->c.t == TR_PLATE || e->c.t == TR_LEVER || e->c.t == TR_PIPE || e->c.t == TR_WELL ||
+        e->c.t == TR_CRANK)
         if (!e->c.chan) e->c.chan = 1;
     return 0;
 }
@@ -211,6 +219,12 @@ int level_parse(level_def *L, const char *text, size_t len, const char *fname)
                     L->carts[L->ncarts].y = (uint8_t)row;
                     L->ncarts++;
                 }
+                if (e->snowball && L->nsnowballs < MAX_SNOWBALLS) {
+                    L->snowballs[L->nsnowballs].depth = (uint8_t)section;
+                    L->snowballs[L->nsnowballs].x = (uint8_t)x;
+                    L->snowballs[L->nsnowballs].y = (uint8_t)row;
+                    L->nsnowballs++;
+                }
                 if (e->harv && L->nharv < MAX_HARV) {
                     L->harv[L->nharv].depth = (uint8_t)section;
                     L->harv[L->nharv].x = (uint8_t)x;
@@ -276,6 +290,7 @@ int level_parse(level_def *L, const char *text, size_t len, const char *fname)
         else if (!strcmp(s, "vent")) sscanf(v, "%d %d", &L->vent_period, &L->vent_active);
         else if (!strcmp(s, "croc")) L->croc_hp = atoi(v);
         else if (!strcmp(s, "fog")) L->fog = atoi(v);
+        else if (!strcmp(s, "night")) L->night = atoi(v);
         /* unknown keys are ignored: data hooks for later gimmicks */
     }
     if (L->season < 0) { snprintf(L->error, sizeof L->error, "%s: missing or bad 'season'", L->file); return -1; }
@@ -323,6 +338,15 @@ int level_parse(level_def *L, const char *text, size_t len, const char *fname)
                     return -1;
                 }
             }
+    /* a well links the surface and depth 2: its two ends share a cell */
+    for (int y = 0; y < GH; y++)
+        for (int x = 0; x < GW; x++) {
+            int top = L->g[0][y][x].t == TR_WELL, bot = L->g[2][y][x].t == TR_WELL;
+            if (L->g[1][y][x].t == TR_WELL || top != bot) {
+                snprintf(L->error, sizeof L->error, "%s: a well at %d,%d needs its two ends, on the surface and depth 2", L->file, x, y);
+                return -1;
+            }
+        }
     if (moles != 1) { snprintf(L->error, sizeof L->error, "%s: needs exactly one mole start (M), found %d", L->file, moles); return -1; }
     if (exits != 1) { snprintf(L->error, sizeof L->error, "%s: needs exactly one exit, on the surface", L->file); return -1; }
     if (grubs + boss < 1) { snprintf(L->error, sizeof L->error, "%s: needs at least one grub", L->file); return -1; }

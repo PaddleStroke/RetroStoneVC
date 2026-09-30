@@ -1,0 +1,52 @@
+# Test arena (not a game level): snowballs: a blast rolls one along the snow; it grows big after 3 cells and crushes the ferret in its way; one against a wall shatters.
+name: Snowball Test
+season: winter
+arc: 4
+level: 13
+status: stub
+
+surface:
+####################
+#M.................#
+#..................#
+#..................#
+#...8.......z......#
+#..................#
+#..................#
+#.................8#
+#..................#
+#..................#
+#..................#
+#..........g....E..#
+#..................#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

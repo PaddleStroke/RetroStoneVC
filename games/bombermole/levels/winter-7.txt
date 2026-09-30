@@ -1,54 +1,63 @@
-# STUB: a generated level (tools/make_stub_levels.py, seed 25808041). Replace it with a real design.
-# Planned: ice caves and glow-worms
-name: Winter 7 (stub)
+# Bomber Mole - winter 7. Idea: the blizzard. Three gale lanes rake the field: in the gusts they push you, your bombs
+# and the cats along, and the snow piles up in drifts on them (they slow you; a blast clears them). Between
+# the lanes, sheets of ice: once you slide you do not stop. Below, an ice-slide tunnel and a den.
+# Gimmicks: gale lanes (gusts), snowdrifts forming, ice slides, bombs drifting in the wind, holes.
+# Enemies: tier 4: three siamese cats on the field, a stoat on the ice tunnel, a sleeping one in the den.
+name: Blizzard
 season: winter
 arc: 4
 level: 7
-status: stub
-hint: A generated level: three depths, a grub hidden on each.
+bombs: 2
+range: 3
+gust: 180 100 10
+hint: Gusts push you along the gale lanes and pile up snowdrifts.
+status: done
+
+legend:
+J = frozen_dirt + grub
 
 surface:
 ####################
-#r...f.d.d...rdrG..#
-#..E...........sC..#
-#d...f.r.d.d...d.rg#
-#.....r..C...d.....#
-#.vf.drd.d.r.r.f.d.#
-#...v.ddd..dddd....#
-#r.d.dC..d.d.f.ffr.#
-#..................#
-#d.d.f.r.r.f.d.d.r.#
-#..................#
-#d.d....dddf.rgd...#
-#.................M#
+#M..f...r...f...r.J#
+#.r...d...f...d...r#
+#>>>>>>>>>>>>>>>>..#
+#..iiii..r..iiii..d#
+#.f.iiii.C.iiii.r..#
+#..r....f....f...r.#
+#..<<<<<<<<<<<<<<<<#
+#d..r..iiiii...C.f.#
+#..f...iiiii..r....#
+#>>>>>>>>>>>>..v...#
+#.r..C..r..f..d..r.#
+#..v..f...E...r....#
 ####################
 under1:
 ####################
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#..rddddddddddddddd#
-#...ddddddddddddddd#
-#.H...dd..tgrdddddd#
-#t..H.dd...t..ddddd#
-#dd.......r...ddddd#
-#dddd...v.t..Fddddd#
-#ddddddddFg..tddddd#
-#dddddddddddGdddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#fff.iiiiiiiigfffff#
+#fff.ffffffff.fffff#
+#fff.ff.g.Q.f.fffff#
+#fff.fff...F...ffff#
+#fff.iiiiiiiiiiHvff#
+#fff.ffffffffffffff#
+#ffH.............ff#
 ####################
 under2:
 ####################
-#dddddddddddddddddd#
-#ddddgddddddddddddd#
-#dddd.ddddddddddddd#
-#dddd.ddddddddddddd#
-#dddd.ddddddddddddd#
-#ddddQ....ddddddddd#
-#dddd.....ddddddddd#
-#dddd...H.ddddddddd#
-#dddd..z..ddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#fffffffffffff....f#
+#fffffffffffff.gH.f#
+#fffffffffffff.z..f#
+#ffffffffffffffffff#
 ####################

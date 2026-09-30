@@ -33,15 +33,17 @@ DEFAULT = {
     'u': "floor+push_down", '{': "water+flow_left", '}': "water+flow_right", 'e': "beehive", '*': "gas_pocket",
     '%': "water+croc", '0': "floor+pumpkin", 'T': "apple_tree", '!': "mushroom", '+': "rails", '$': "rails+cart",
     'N': "ant_nest", 'A': "floor+grub+ants",
+    ',': "snowdrift", '8': "floor+snowball", 'I': "floor+icicle", 'R': "ice+river", '5': "ice+river+croc",
+    'U': "well+chan:1", 'y': "crank+chan:1", '7': "perch",
 }
 TERRAIN = {"floor", "stone", "soft_dirt", "dirt", "hard_rock", "rock", "roots", "frozen_dirt", "leaves", "water",
            "puddle", "thin_floor", "hole_down", "hole_up", "ladder", "exit", "bridge", "ice", "thin_ice", "mud",
            "tall_grass", "corn", "cover", "burnt", "gate", "plate", "lever", "steam_vent", "vent", "pipe", "crate",
            "sprinkler", "windmill", "beehive", "hive", "gas", "gas_pocket", "apple_tree", "tree", "mushroom", "rails",
-           "rail", "ant_nest", "nest"}
+           "rail", "ant_nest", "nest", "snowdrift", "drift", "well", "crank", "perch", "dead_tree"}
 ITEMS = {"grub", "bomb", "fire", "speed", "remote", "heart"}
 ACTORS = {"mole", "p2", "p3", "p4", "ferret", "cat", "boss", "dog", "croc", "ants"}
-SOLID_FOREVER = {"stone", "windmill", "sprinkler", "lever", "apple_tree"}
+SOLID_FOREVER = {"stone", "windmill", "sprinkler", "lever", "apple_tree", "crank", "perch"}
 SEASONS = ["spring", "summer", "autumn", "winter"]
 
 
@@ -92,6 +94,10 @@ def prop_families(head, cells, has_boss):
                     names.add(t)
                 elif t == "rails":
                     names.add("rails_h")
+                elif t in ("snowdrift", "well", "crank", "perch"):
+                    names.add(t)
+                elif head["season"] == "winter" and d == 0 and c["push"] and c["push"].startswith("push_"):
+                    names.add("snowdrift")          # the blizzard piles drifts on the gale lanes
                 elif t == "puddle":                 # puddles make mud on the depth below
                     names.add("mud")
                 elif t == "tall_grass":             # corn in summer; cover burns
@@ -110,6 +116,7 @@ def parse_spec(spec):
     for tok in spec.replace("+", " ").split():
         if tok in TERRAIN:
             out["t"] = {"hive": "beehive", "gas": "gas_pocket", "tree": "apple_tree", "rail": "rails", "nest": "ant_nest",
+                        "drift": "snowdrift", "dead_tree": "perch",
                         "dirt": "soft_dirt", "rock": "hard_rock", "vent": "steam_vent", "corn": "tall_grass",
                         "cover": "tall_grass"}.get(tok, tok)
         elif tok in ITEMS:
@@ -129,8 +136,8 @@ def parse_spec(spec):
             out["blow"] = tok[5:]               # a windmill's wind lane (points away from the windmill)
         elif tok == "log":
             out["log"] = True
-        elif tok in ("pumpkin", "cart"):
-            out[tok] = True                     # objects: a pumpkin to push, a mine cart to ride
+        elif tok in ("pumpkin", "cart", "snowball", "river", "icicle"):
+            out[tok] = True                     # objects: a pumpkin, a mine cart, a snowball; river ice; an icicle
         elif tok.startswith("chan:"):
             out["chan"] = int(tok[5:])
         elif tok.startswith("timed:"):
@@ -140,7 +147,7 @@ def parse_spec(spec):
             out["push"] = tok
         else:
             raise LevelError("unknown legend word %r" % tok)
-    if out["t"] in ("gate", "plate", "lever", "pipe") and not out["chan"]:
+    if out["t"] in ("gate", "plate", "lever", "pipe", "well", "crank") and not out["chan"]:
         out["chan"] = 1
     return out
 
@@ -203,8 +210,20 @@ def check(path):
                          ((path,) + ups[0]))
     crocs = [(d, x, y) for d in range(3) for y in range(GH) for x in range(GW) if cells[d][y][x]["actor"] == "croc"]
     for d, x, y in crocs:
-        if T(d, x, y) not in ("water", "bridge"):
-            raise LevelError("%s: the crocodile at depth %d, %d,%d is not in the water" % (path, d, x, y))
+        if T(d, x, y) not in ("water", "bridge") and not (T(d, x, y) in ("ice", "thin_ice") and cells[d][y][x].get("river")):
+            raise LevelError("%s: the crocodile at depth %d, %d,%d is not in the water (or under river ice)" % (path, d, x, y))
+    # wells: an end on the surface and on depth 2 (the same cell), a crank of the well's channel on both depths
+    for y in range(GH):
+        for x in range(GW):
+            ends = [d for d in range(3) if T(d, x, y) == "well"]
+            if ends and ends != [0, 2]:
+                raise LevelError("%s: the well at %d,%d needs its two ends, on the surface and on depth 2" % (path, x, y))
+            if ends:
+                ch = cells[0][y][x]["chan"]
+                for d in (0, 2):
+                    if not any(T(d, a, b) == "crank" and cells[d][b][a]["chan"] == ch for b in range(GH) for a in range(GW)):
+                        raise LevelError("%s: the well at %d,%d has no crank on depth %d (the bucket could not be "
+                                         "called back: a softlock)" % (path, x, y, d))
     grubs = [(d, x, y) for d in range(3) for y in range(GH) for x in range(GW) if cells[d][y][x]["item"] == "grub"]
     boss = [(d, x, y) for d in range(3) for y in range(GH) for x in range(GW) if cells[d][y][x]["actor"] == "boss"]
     # enemies: the tier curve and the sprite palette budget (one palette per variant)
@@ -291,6 +310,8 @@ def check(path):
             out.append((d - 1, x, y))
         if t == "pipe":
             out += [p for p in pipes.get(cells[d][y][x]["chan"], []) if p != (d, x, y)]
+        if t == "well":                                     # the bucket: surface <-> depth 2
+            out.append((2 if d == 0 else 0, x, y))
         if t == "mushroom":                                 # launched 2 cells on, over the next cell
             out += [(d, x + 2 * dx, y + 2 * dy) for dx, dy in DIRS
                     if inside(x + 2 * dx, y + 2 * dy) and walkable(d, x + 2 * dx, y + 2 * dy)]
@@ -410,12 +431,13 @@ SECTOR_MIN_FEATURES = 0.25  # ...needs this fraction of its cells to be somethin
 GIMMICK_POINT_DIST = 2      # a point gimmick lies within this many cells (Chebyshev) of a required path
 GIMMICK_AREA_DIST = 1       # an area gimmick (a patch, lane or sheet) touches a required path
 POINT_GIMMICKS = {"plate", "lever", "gate", "pipe", "steam_vent", "bridge", "sprinkler", "crate", "windmill",
-                  "thin_floor", "beehive", "gas_pocket", "apple_tree", "mushroom", "ant_nest"}
-AREA_GIMMICKS = {"ice", "thin_ice", "tall_grass", "puddle", "mud"}      # plus pushed floors, currents, logs
+                  "thin_floor", "beehive", "gas_pocket", "apple_tree", "mushroom", "ant_nest", "well", "crank"}
+AREA_GIMMICKS = {"ice", "thin_ice", "tall_grass", "puddle", "mud", "snowdrift"}   # plus pushed floors, currents, logs
+THIN_ICE_CROSSINGS = 2      # thin ice bears 2 crossings; the third step breaks it (it freezes again after 20 s)
 OPEN = {"floor", "puddle", "thin_floor", "exit", "bridge", "ice", "thin_ice", "mud", "tall_grass", "burnt",
-        "plate", "steam_vent", "hole_up", "ladder", "hole_down", "pipe", "mushroom", "rails"}
+        "plate", "steam_vent", "hole_up", "ladder", "hole_down", "pipe", "mushroom", "rails", "snowdrift", "well"}
 ENTER_COST = {"soft_dirt": 3, "leaves": 2, "hard_rock": 5, "roots": 5, "frozen_dirt": 5, "crate": 5, "water": 2,
-              "beehive": 5, "gas_pocket": 5, "ant_nest": 5}
+              "beehive": 5, "gas_pocket": 5, "ant_nest": 5, "snowdrift": 2}
 HARVEST_BLOCKS = {"hard_rock", "stone", "water", "frozen_dirt", "windmill", "sprinkler", "gate", "lever", "beehive",
                   "gas_pocket", "steam_vent", "pipe", "hole_down", "hole_up", "ladder", "exit", "crate"}
 BLOW = {"up": (0, -1), "down": (0, 1), "left": (-1, 0), "right": (1, 0)}
@@ -432,7 +454,8 @@ def playable_depths(cells, seen, grubs, boss):
 
 
 def plain(c):
-    return c["t"] == "floor" and not c["item"] and c["actor"] in (None, "mole") and not c["push"] and         not c.get("pumpkin")
+    return c["t"] == "floor" and not c["item"] and c["actor"] in (None, "mole") and not c["push"] and \
+        not c.get("pumpkin") and not c.get("snowball") and not c.get("icicle")
 
 
 def empty_rect(cells, d):
@@ -487,7 +510,8 @@ def dijkstra(g, src, cells, reverse=False):
         for n in g.get(c, ()):
             # the cost of a move is the cost of entering its destination (reverse: of entering c)
             dst = c if reverse else n
-            w = ENTER_COST.get(cells[dst[0]][dst[2]][dst[1]]["t"], 1)
+            cd = cells[dst[0]][dst[2]][dst[1]]
+            w = 5 if cd.get("snowball") else ENTER_COST.get(cd["t"], 1)
             if k + w < dist.get(n, 1e9):
                 dist[n] = k + w
                 heapq.heappush(q, (k + w, n))
@@ -620,9 +644,12 @@ def design_rules(path, head, cells, g, seen, start, grubs, boss, exits):
                         errs.append("USELESS GIMMICK: the windmill at depth %d, %d,%d blows a lane that no required "
                                     "path crosses" % (d, x, y))
                     continue
-                if (c.get("pumpkin") or c.get("cart")) and not near(d, x, y, GIMMICK_POINT_DIST + 1):
+                if (c.get("pumpkin") or c.get("cart") or c.get("snowball")) and not near(d, x, y, GIMMICK_POINT_DIST + 1):
                     errs.append("USELESS GIMMICK: the %s at depth %d, %d,%d is far from every required path" %
-                                ("pumpkin" if c.get("pumpkin") else "mine cart", d, x, y))
+                                ("pumpkin" if c.get("pumpkin") else "mine cart" if c.get("cart") else "snowball", d, x, y))
+                if c.get("icicle") and not near(d, x, y, GIMMICK_POINT_DIST):
+                    errs.append("USELESS GIMMICK: the icicle at depth %d, %d,%d is more than %d cells from every "
+                                "required path" % (d, x, y, GIMMICK_POINT_DIST))
                 if t in POINT_GIMMICKS and not near(d, x, y, GIMMICK_POINT_DIST):
                     errs.append("USELESS GIMMICK: %s at depth %d, %d,%d is more than %d cells from every required "
                                 "path (start to a grub or the exit)" % (t, d, x, y, GIMMICK_POINT_DIST))
@@ -648,8 +675,77 @@ def design_rules(path, head, cells, g, seen, start, grubs, boss, exits):
                 if not any(near(d, a, b, GIMMICK_AREA_DIST) for a, b in patch):
                     errs.append("USELESS GIMMICK: the %s patch at depth %d, %d,%d (%d cells) does not touch a "
                                 "required path" % (k, d, x, y, len(patch)))
+    # 4. winter: the owl's perches; thin ice bears 2 crossings (the plan may not rely on a refreeze)
+    if boss and boss_kind == "owl":
+        perches = [(x, y) for y in range(GH) for x in range(GW) if T(0, x, y) == "perch"]
+        usable = [(x, y) for x, y in perches if any((0, x + dx, y + dy) in seen for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))]
+        if len(usable) < 2:
+            errs.append("OWL PERCHES: the owl needs 2 or more perches (dead trees, '7') on the surface with a reachable "
+                        "cell next to them (found %d)" % len(usable))
+    thin = {(d, x, y) for d in range(3) for y in range(GH) for x in range(GW) if T(d, x, y) == "thin_ice"}
+    if thin:
+        bad = thin_ice_plan(g, cells, start, grubs + boss, exits[0], thin)
+        head["_thin_plan"] = bad is None
+        if bad:
+            errs.append("THIN ICE: no order of the grubs gets through with each thin-ice cell crossed %d times at "
+                        "most (stuck going to depth %d, %d,%d): the level would need a wait for the refreeze" %
+                        ((THIN_ICE_CROSSINGS,) + bad))
     if errs:
         raise LevelError("%s: %s" % (path, "\n        ".join(errs)))
+
+
+def thin_ice_plan(g, cells, start, targets, exit_, thin, budget=4000):
+    """Is there an order of the targets (then the exit) whose legs, each a cheapest path avoiding the thin
+    ice already crossed twice, cross no thin-ice cell a third time? None if so, else the first stuck target."""
+    import heapq
+    calls = [0]
+
+    def leg(src, dst, used):
+        calls[0] += 1
+        dist, prev, q = {src: 0}, {}, [(0, src)]
+        while q:
+            k, c = heapq.heappop(q)
+            if c == dst:
+                break
+            if k > dist.get(c, 1e18):
+                continue
+            for n in g.get(c, ()):
+                if n in thin and used.get(n, 0) >= THIN_ICE_CROSSINGS:
+                    continue
+                cd = cells[n[0]][n[2]][n[1]]
+                w = (1000 if n in thin else 0) + (5 if cd.get("snowball") else ENTER_COST.get(cd["t"], 1))
+                if k + w < dist.get(n, 1e18):
+                    dist[n] = k + w
+                    prev[n] = c
+                    heapq.heappush(q, (k + w, n))
+        if dst not in dist:
+            return None
+        path, c = [], dst
+        while c != src:
+            path.append(c)
+            c = prev[c]
+        return path
+    stuck = [None]
+
+    def go(cur, left, used):
+        if calls[0] > budget:
+            return False
+        order = sorted(left, key=lambda t: abs(t[1] - cur[1]) + abs(t[2] - cur[2]) + 20 * abs(t[0] - cur[0]))
+        for t in order + ([] if left else [exit_]):
+            p = leg(cur, t, used)
+            if p is None:
+                stuck[0] = stuck[0] or t
+                continue
+            u = dict(used)
+            for c in p:
+                if c in thin:
+                    u[c] = u.get(c, 0) + 1
+            if not left or t == exit_:
+                return True
+            if go(t, [x for x in left if x != t], u):
+                return True
+        return False
+    return None if go(start, list(targets), {}) else (stuck[0] or exit_)
 
 
 def layout_similarity(A, B):

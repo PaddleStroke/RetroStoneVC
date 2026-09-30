@@ -16,3 +16,7 @@ echo "== autumn: fog, 3 gale lanes with leaves and drifting ferrets, the mole ri
 printf "5 tap RIGHT\n" > /tmp/bm_bench_autumn.input
 $H --frames 700 --data "$(dirname "$0")/../tests/data" --opt level=autumn-17 --opt nointro=1 --opt spawn=0,1,9 \
    --opt god=1 --input /tmp/bm_bench_autumn.input --bench 100 | sed -n '/^bench/,$p'
+echo "== winter: night (the lamp's window + colour math), the owl swooping, big snowballs rolling (test arena) =="
+printf "4 tap DOWN\n20 tap B\n24 tap DOWN\n40 tap DOWN\n56 tap B\n60 tap DOWN\n76 tap DOWN\n92 tap B\n96 tap DOWN\n" > /tmp/bm_bench_winter.input
+$H --frames 800 --data "$(dirname "$0")/../tests/data" --opt level=winter-19 --opt nointro=1 --opt god=1 \
+   --input /tmp/bm_bench_winter.input --bench 150 | sed -n '/^bench/,$p'

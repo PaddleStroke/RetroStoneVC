@@ -181,3 +181,9 @@ code to turn a whole sheet into strips.
 | harvester | props.png | 8-11 | 10-11 | 32x32 | 2 | prop | Harvester (summer): a small red combine harvester seen from the side, driving RIGHT with its reel at the front (2 frames: the reel turning); mirrored for the left |
 | bridge_v | props.png | 0 | 3 | 16x16 | 1 | propbg | Wooden bridge crossed up and down: planks running left-right, rails along the left and right (drawn over the water; a blast destroys it) |
 | windmill_side | props.png | 0-7 | 10-11 | 32x32 | 4 | prop | Windmill seen from the side, sails on the RIGHT (it blows to the right; mirrored for the left), 4 frames of the sails turning |
+| snowdrift | props.png | 12 | 10 | 16x16 | 1 | propbg | Snowdrift (winter): a soft heap of fresh snow with a blue shadow on one side; it slows you, a blast clears it. Drawn over the ground: flat magenta around it |
+| perch | props.png | 13 | 10 | 16x16 | 1 | propbg | Dead tree (winter): the snowy owl's perch, a short grey trunk with two bare branches and a little snow on them. Drawn over the ground: flat magenta around it |
+| crank | props.png | 14 | 10 | 16x16 | 1 | propbg | Well crank (winter): a wooden post with a winch and its handle, a coil of rope; turn it to call the bucket. Drawn over the ground: flat magenta around it |
+| croc_ice | props.png | 12-13 | 11 | 16x16 | 2 | prop | The crocodile under the ice: its dark blue shadow seen from above through the ice, head RIGHT (2 frames: the tail swaying); no details, a silhouette |
+| ice_crack | props.png | 14-15 | 11 | 16x16 | 2 | prop | Cracks spreading in ice or in a tunnel's ceiling (2 frames: small, big): white and dark blue lines only |
+| snowball_big | props.png | 0-3 | 12-13 | 32x32 | 2 | prop | Big snowball (a snowball that rolled 3 cells over the snow), 2 frames rolling (the lumps turn) |

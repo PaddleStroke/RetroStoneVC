@@ -1,54 +1,65 @@
-# STUB: a generated level (tools/make_stub_levels.py, seed 25515039). Replace it with a real design.
-# Planned: frozen well bucket
-name: Winter 6 (stub)
+# Bomber Mole - winter 6. Idea: the old well. Its bucket is the only way down to the deep cellar: step into it and it
+# lowers you to depth 2; turn a crank to call it (one by the well, one at the bottom). Above, a frozen
+# pond with a grub on the ice and the crocodile under it: you slide across, and if you stand still over
+# it for more than 1.5 s the ice cracks and it snaps. The tunnels between link the holes.
+# Gimmicks: the well's bucket and its two cranks, river ice with the crocodile under it, ice slides.
+# Enemies: tier 4: three siamese cats, a stoat in the tunnels, a sleeping one in the cellar, the crocodile.
+name: The Old Well
 season: winter
 arc: 4
 level: 6
-status: stub
-hint: A generated level: three depths, a grub hidden on each.
+bombs: 2
+range: 2
+croc: 2
+hint: Turn the crank to call the bucket. Don't stand still on the pond.
+status: done
+
+legend:
+Z = ice + river + grub
+J = frozen_dirt + grub
 
 surface:
 ####################
-#..........C.......#
-#.d.d...r.r.d.d.E..#
-#..g...v...........#
-#x.rd.r...d.d.r.d.r#
-#.....d.........C..#
-#.d.r.f...rdd.d.d.d#
-#.v...dddddd......g#
-#.f.d.d.d.ddr.r.d.r#
-#..........G.......#
-#...f.d.d...d.r.rrf#
-#........d.........#
-#M..d.r.rdf.f.fCr..#
+#M..r...f....r...fJ#
+#.f...d...rr....d..#
+#..RRRRRRRRRRRRRR..#
+#.rRRRRRZrRRRRRRR..#
+#..RRRRRRRR5RRRRRr.#
+#..RRRRRRRRRRRRRR..#
+#.r..d..d...r..d...#
+#...f...f.C....f..r#
+#.d.yU..r.....C....#
+#..r....d..f.....r.#
+#.f..v....r..C..d..#
+#...r...E.r..f..v..#
 ####################
 under1:
 ####################
-#dddddddddddddddddd#
-#dddd...vFddddddddd#
-#dddd..H..ddddddddd#
-#dddd....gddddddddd#
-#ddGdd..ddddddddddd#
-#....d..ddddddddddd#
-#gH.....d.....ddddd#
-#....dd.......ddddd#
-#dddddddd....Fddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffJfffffffffff#
+#fff..........fffff#
+#fff.ffff.ffff.ffff#
+#fff.H..F..f..g.fff#
+#fff.........f..Hff#
 ####################
 under2:
 ####################
-#dddd.g....dddddddd#
-#dddd...H.Qdddddddd#
-#dddd....z.dddddddd#
-#ddddd.dddddddddddd#
-#dd....dddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ff.........fffffff#
+#ff.f.fff.f.fffffff#
+#ff.yU..z.g.fffffff#
+#ff.f.fff.f.fffffff#
+#ff....Q....fffffff#
+#ffffffffffffffffff#
 ####################

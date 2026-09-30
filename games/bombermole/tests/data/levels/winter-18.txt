@@ -1,0 +1,53 @@
+# Test arena (not a game level): the blizzard: snowdrifts pile up on the gale lanes.
+name: Blizzard Test
+season: winter
+arc: 4
+level: 18
+status: stub
+gust: 120 100 4
+
+surface:
+####################
+#M.................#
+#..................#
+#>>>>>>>>>>>>>>>>>.#
+#..................#
+#.<<<<<<<<<<<<<<<<<#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..........g....E..#
+#..................#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

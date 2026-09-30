@@ -20,7 +20,7 @@ SHEETS = {
     "characters": {"cols": 16, "rows": 6, "file": "characters.png"},
     "tiles": {"cols": 18, "rows": 4, "file": "tiles.png"},
     "items_fx": {"cols": 16, "rows": 4, "file": "items_fx.png"},
-    "props": {"cols": 16, "rows": 12, "file": "props.png"},
+    "props": {"cols": 16, "rows": 14, "file": "props.png"},
 }
 
 # name, sheet, col, row, w, h, frames, group (palette group), description
@@ -184,6 +184,23 @@ ENTRIES = [
     E("windmill_side", "props", 0, 10, 32, 32, 4, "prop",
       "Windmill seen from the side, sails on the RIGHT (it blows to the right; mirrored for the left), "
       "4 frames of the sails turning"),
+    # rows 10-13: winter
+    E("snowdrift", "props", 12, 10, 16, 16, 1, "propbg",
+      "Snowdrift (winter): a soft heap of fresh snow with a blue shadow on one side; it slows you, a blast "
+      "clears it. Drawn over the ground: flat magenta around it"),
+    E("perch", "props", 13, 10, 16, 16, 1, "propbg",
+      "Dead tree (winter): the snowy owl's perch, a short grey trunk with two bare branches and a little snow "
+      "on them. Drawn over the ground: flat magenta around it"),
+    E("crank", "props", 14, 10, 16, 16, 1, "propbg",
+      "Well crank (winter): a wooden post with a winch and its handle, a coil of rope; turn it to call the "
+      "bucket. Drawn over the ground: flat magenta around it"),
+    E("croc_ice", "props", 12, 11, 16, 16, 2, "prop",
+      "The crocodile under the ice: its dark blue shadow seen from above through the ice, head RIGHT "
+      "(2 frames: the tail swaying); no details, a silhouette"),
+    E("ice_crack", "props", 14, 11, 16, 16, 2, "prop",
+      "Cracks spreading in ice or in a tunnel's ceiling (2 frames: small, big): white and dark blue lines only"),
+    E("snowball_big", "props", 0, 12, 32, 32, 2, "prop",
+      "Big snowball (a snowball that rolled 3 cells over the snow), 2 frames rolling (the lumps turn)"),
 ]
 
 # Character size: 16, 24 or 32 (the owner's reference is 24). The characters sheet
@@ -229,9 +246,9 @@ ENTRIES = _grow_props_bosses(ENTRIES)
 # two: BG palette 5, and BG palette 7 below the HUD band (DESIGN.md, "BG palettes").
 PROP_PALETTES = [
     ("plants", ["tall_grass", "corn", "burnt", "gate", "apple_tree", "beehive", "mushroom"]),
-    ("wood", ["crate", "splat", "well", "rails_h", "rails_v", "ant_nest"]),
+    ("wood", ["crate", "splat", "well", "rails_h", "rails_v", "ant_nest", "perch", "crank"]),
     ("stone", ["mud", "plate", "lever", "steam_vent", "pipe", "gas_pocket"]),
-    ("water", ["bridge", "bridge_v", "ice", "thin_ice"]),
+    ("water", ["bridge", "bridge_v", "ice", "thin_ice", "snowdrift"]),
 ]
 
 

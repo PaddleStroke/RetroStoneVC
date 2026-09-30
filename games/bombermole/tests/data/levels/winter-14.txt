@@ -1,0 +1,55 @@
+# Test arena (not a game level): icicles in the tunnel: a blast within 2 cells makes them fall on the stoat below.
+name: Icicle Test
+season: winter
+arc: 4
+level: 14
+status: stub
+
+legend:
+Z = floor + icicle + stoat + asleep
+
+surface:
+####################
+#M.......v.........#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..........g....E..#
+#..................#
+####################
+under1:
+####################
+#ddddddddHddddddddd#
+#dd...............d#
+#dd...............d#
+#dd.....Z.........d#
+#dd.......I.......d#
+#dd...............d#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

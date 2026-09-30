@@ -243,6 +243,8 @@ GROUPS = [
     ("12. Summer: the harvester, gas pockets and their stun cloud", ["harvester", "gas_pocket", "gas"]),
     ("13. The crocodile, and corn and tall grass as overlays", ["croc", "corn_v2", "tall_grass_v2"]),
     ("14. Autumn: ants, their nest, eyes in the fog", ["ant_nest", "ants", "eyes"]),
+    ("15. Winter: snowdrifts, the owl's perch, the well's crank, the crocodile under the ice, cracks, the big snowball",
+     ["snowdrift", "perch", "crank", "croc_ice", "ice_crack", "snowball_big"]),
 ]
 
 LOGO = ("title_logo", "Title logo 'BOMBER MOLE': chunky SNES-style 3D letters (gold with a dark outline and a "

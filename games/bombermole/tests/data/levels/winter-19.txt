@@ -1,0 +1,58 @@
+# Test arena (not a game level): the heaviest winter scene for the bench: night (colour math), the owl swooping, snowballs rolling.
+name: Winter Bench
+season: winter
+arc: 4
+level: 19
+status: stub
+boss: owl
+night: 64
+bombs: 4
+
+legend:
+Z = perch + boss
+
+surface:
+####################
+#M.................#
+#.8.....z..........#
+#.................7#
+#.8..........z.....#
+#..................#
+#.8........Z.......#
+#.......z..........#
+#..................#
+#..................#
+#......7...........#
+#.................E#
+#..................#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

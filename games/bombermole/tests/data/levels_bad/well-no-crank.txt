@@ -1,0 +1,66 @@
+# Known-bad (smoke test): the well has no crank at the bottom: the bucket could be left below.
+# Bomber Mole - winter 6. Idea: the old well. Its bucket is the only way down to the deep cellar: step into it and it
+# lowers you to depth 2; turn a crank to call it (one by the well, one at the bottom). Above, a frozen
+# pond with a grub on the ice and the crocodile under it: you slide across, and if you stand still over
+# it for more than 1.5 s the ice cracks and it snaps. The tunnels between link the holes.
+# Gimmicks: the well's bucket and its two cranks, river ice with the crocodile under it, ice slides.
+# Enemies: tier 4: three siamese cats, a stoat in the tunnels, a sleeping one in the cellar, the crocodile.
+name: The Old Well
+season: winter
+arc: 4
+level: 6
+bombs: 2
+range: 2
+croc: 2
+hint: Turn the crank to call the bucket. Don't stand still on the pond.
+status: done
+
+legend:
+Z = ice + river + grub
+J = frozen_dirt + grub
+
+surface:
+####################
+#M..r...f....r...fJ#
+#.f...d...rr....d..#
+#..RRRRRRRRRRRRRR..#
+#.rRRRRRZrRRRRRRR..#
+#..RRRRRRRR5RRRRRr.#
+#..RRRRRRRRRRRRRR..#
+#.r..d..d...r..d...#
+#...f...f.C....f..r#
+#.d.yU..r.....C....#
+#..r....d..f.....r.#
+#.f..v....r..C..d..#
+#...r...E.r..f..v..#
+####################
+under1:
+####################
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffJfffffffffff#
+#fff..........fffff#
+#fff.ffff.ffff.ffff#
+#fff.H..F..f..g.fff#
+#fff.........f..Hff#
+####################
+under2:
+####################
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ffffffffffffffffff#
+#ff.........fffffff#
+#ff.f.fff.f.fffffff#
+#ff..U..z.g.fffffff#
+#ff.f.fff.f.fffffff#
+#ff....Q....fffffff#
+#ffffffffffffffffff#
+####################

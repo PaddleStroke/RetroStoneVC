@@ -1,0 +1,56 @@
+# Test arena (not a game level): the snowy owl: it swoops where its shadow shows, lands on the dead trees to rest (bomb it there), and drops icicles on the tunnel below it when the mole hides there.
+name: Owl Test
+season: winter
+arc: 4
+level: 17
+status: stub
+boss: owl
+
+legend:
+Z = perch + boss
+
+surface:
+####################
+#M.................#
+#..................#
+#..................#
+#.....7............#
+#..................#
+#..........Z.......#
+#..................#
+#..................#
+#..................#
+#......v...........#
+#.................E#
+#..................#
+####################
+under1:
+####################
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#......H...........#
+#..................#
+#..................#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
