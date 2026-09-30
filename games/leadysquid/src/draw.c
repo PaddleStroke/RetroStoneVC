@@ -52,16 +52,21 @@ static void glyph_tile(int c, int bg, int dst)
     rs_tiles_load8(dst, t, 1);
 }
 
-/* 2x glyphs with a full outline, uploaded on demand into a small cache */
-static int big_slot(char ch)
+/* 2x glyphs with a full outline, uploaded on demand into a small cache. Two styles: BIG_FREE, cream
+ * on a clear background (over the scene); BIG_BANNER, gold with an outline and a drop shadow on the
+ * panel colour (the game-over banner, which hides what is behind it). */
+enum { BIG_FREE, BIG_BANNER };
+
+static int big_slot(char ch, int style)
 {
     int c = ch - 32;
     if (c < 0 || c >= 96) c = 0;
+    int key = c | style << 8;
     for (int i = 0; i < big_used; i++)
-        if (big_chars[i] == c) return i;
+        if (big_chars[i] == key) return i;
     if (big_used >= BIG_SLOTS) return 0;
     int s = big_used++;
-    big_chars[s] = c;
+    big_chars[s] = key;
     uint8_t px[16][16];
     memset(px, 0, sizeof px);
     for (int y = 0; y < 7; y++)
@@ -77,10 +82,18 @@ static int big_slot(char ch)
                     if (yy >= 0 && yy < 16 && xx >= 0 && xx < 16 && px[yy][xx] == 1) px[y][x] = 2;
                 }
         }
+    if (style == BIG_BANNER) {
+        /* the drop shadow: one pixel down-right of the outline */
+        for (int y = 15; y > 0; y--)
+            for (int x = 15; x > 0; x--)
+                if (!px[y][x] && px[y - 1][x - 1] == 2) px[y][x] = 3;
+    }
+    /* palette 0: 1 cream, 2 outline, 3 panel fill, 5 shadow, 6 gold */
+    static const uint8_t col[2][4] = {{0, 1, 2, 0}, {3, 6, 2, 5}};
     for (int q = 0; q < 4; q++) {
         uint8_t t[64];
         for (int y = 0; y < 8; y++)
-            for (int x = 0; x < 8; x++) t[y * 8 + x] = px[(q >> 1) * 8 + y][(q & 1) * 8 + x];
+            for (int x = 0; x < 8; x++) t[y * 8 + x] = col[style][px[(q >> 1) * 8 + y][(q & 1) * 8 + x]];
         rs_tiles_load8(T_BIG + s * 4 + q, t, 1);
     }
     return s;
@@ -98,14 +111,16 @@ static void box_text(int x, int y, const char *s)
     rs_text(x, y, s);
 }
 
-static void big_text(int x, int y, const char *s)
+static void big_text_style(int x, int y, const char *s, int style)
 {
     for (; *s; s++, x += 2) {
         if (*s == ' ') continue;
-        int t = T_BIG + big_slot(*s) * 4;
+        int t = T_BIG + big_slot(*s, style) * 4;
         for (int q = 0; q < 4; q++) rs_bg_put(RS_BG1, x + (q & 1), y + (q >> 1), RS_MAP(t + q, 0, 1, 0, 0));
     }
 }
+
+static void big_text(int x, int y, const char *s) { big_text_style(x, y, s, BIG_FREE); }
 
 static int center(const char *s, int big) { return (40 - (int)strlen(s) * (big ? 2 : 1)) / 2; }
 
@@ -455,7 +470,9 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         }
         if (state == DS_READY) big_text(center("GET READY", 1), 6, "GET READY");
         if (state == DS_OVER) {
-            big_text(center("GAME OVER", 1), 5, "GAME OVER");
+            /* the title on its own banner, as wide as the score panel below it: nothing shows through */
+            panel(10, 4, 20, 4);
+            big_text_style(center("GAME OVER", 1), 5, "GAME OVER", BIG_BANNER);
             panel(10, 9, 20, 12);
             if (w->players == 1) {
                 box_text(12, 11, "SCORE");
