@@ -156,6 +156,7 @@ void world_init(world *w, int players, uint32_t seed, int skip_m)
     gen_reset(w);
     for (int p = 0; p < MAX_PLAYERS; p++) {
         mamie_reset(&w->m[p], w->skip_x + START_X - p * 24, START_TOP);
+        w->m[p].start_x = START_X;              /* the distance counts from the first roof of Paris (skip too) */
         if (p >= w->players) w->m[p].state = MS_OFF;
     }
     w->m[1].face = 1;
@@ -514,6 +515,7 @@ static void step_player(world *w, int p, int dir, int a)
     }
     if (m->state == MS_AIR || m->state == MS_SLING || m->state == MS_REEL) {
         int d = ((int)(m->x >> 16) - (int)m->start_x) / PX_PER_M;
+        d = d < 0 ? 0 : d;
         if (d > m->dist_m) m->dist_m = d;
     }
     m->score = m->dist_m + m->stunts;
@@ -593,6 +595,14 @@ void world_camera(world *w, int snap)
     int vxp = (int)(m->vx >> 8);                           /* Q8 px/frame */
     int32_t tx = (int32_t)(x - CAM_X_SLOW) * 256 + (int32_t)CAM_X_LEAD * vxp;
     if (m->state == MS_READY) tx = w->camx;
+    /* 2 players: the camera follows the leader but waits for the other one while the leader stays on screen */
+    for (int p = 0; p < w->players; p++) {
+        const mamie *o = &w->m[p];
+        if (p == w->leader || (o->state != MS_AIR && o->state != MS_SLING && o->state != MS_REEL)) continue;
+        int32_t wait = (int32_t)((o->x >> 16) - CAM_WAIT_X) * 256, lead_max = (int32_t)(x - CAM_LEADER_MAX_X) * 256;
+        if (wait < lead_max) wait = lead_max;
+        if (tx > wait) tx = wait;
+    }
     if (snap) w->camx = tx > 0 ? tx : 0;
     else if (tx > w->camx) w->camx += (tx - w->camx + CAM_SMOOTH_X - 1) / CAM_SMOOTH_X;
     if (w->camx < 0) w->camx = 0;
@@ -609,7 +619,9 @@ void world_camera(world *w, int snap)
     }
     int32_t ty = (int32_t)(focus - CAM_FEET_Y) * 256;
     if (ty > (int32_t)(hi - CAM_HI_KEEP) * 256) ty = (int32_t)(hi - CAM_HI_KEEP) * 256;
-    if (ty < (int32_t)(lo - CAM_LO_KEEP) * 256) ty = (int32_t)(lo - CAM_LO_KEEP) * 256;    if (m->state == MS_FALL || m->state == MS_DOWN) ty = (int32_t)(feet - CAM_BOT_KEEP + 24) * 256;
+    if (ty < (int32_t)(lo - CAM_LO_KEEP) * 256) ty = (int32_t)(lo - CAM_LO_KEEP) * 256;
+    if (m->state == MS_READY) ty = (int32_t)(focus - CAM_FEET_Y_READY) * 256;   /* the title: the sky for the text */
+    if (m->state == MS_FALL || m->state == MS_DOWN) ty = (int32_t)(feet - CAM_BOT_KEEP + 24) * 256;
     if ((feet - 32) * 256 - ty < CAM_TOP_KEEP * 256) ty = (int32_t)(feet - 32 - CAM_TOP_KEEP) * 256;
     if (feet * 256 - ty > CAM_BOT_KEEP * 256) ty = (int32_t)(feet - CAM_BOT_KEEP) * 256;
     int32_t maxy = (int32_t)(WORLD_H - RS_SCREEN_H) * 256;

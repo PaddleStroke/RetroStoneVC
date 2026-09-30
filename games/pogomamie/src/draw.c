@@ -128,7 +128,7 @@ static uint16_t T(int tile, int hf) { return RS_MAP(tile, pm_bg2_pal[tile], 0, h
 static uint16_t ground_tile(int x, int y)
 {
     int ty = (y - STREET_Y) / 8;
-    if (district_at(x) == 1) return ty == 0 ? T(T_WATER_TOP, 0) : T(((x / 8 + ty) & 3) ? T_WATER : T_WATER2, 0);
+    if (district_at(x) == 1) return ty == 0 ? T(T_WATER_TOP, (x / 8) & 1) : T(ty < 3 ? T_WATER : T_WATER2, ((x / 8 + ty) & 1));
     if (ty == 0) return T(T_WALK, 0);
     if (ty == 1) return T(T_CURB, 0);
     return T(((x / 8 * 3 + ty) % 5) ? T_ROAD : T_ROAD2, 0);
@@ -304,12 +304,15 @@ static void stream_bg2(const world *w, int camx, int camy)
 
 /* ---- the mid-ground: a virtual 64-row layer (sky, the roofs panorama, then its last row repeated: the city below)
  * scrolling at half the camera's speed, its rows streamed into the 32-row map as they come into view ------------------ */
+#define MID_TOP_ROWS (MID_Y + 16)               /* the virtual layer's sky rows above the roofs (room for the drop) */
+static int mid_drop;                            /* px the mid-ground sinks by (the Eiffel Tower district: the tower shows) */
+
 static void stream_bg3(int s3)
 {
     for (int v = s3 / 8; v <= s3 / 8 + RS_SCREEN_H / 8; v++) {
         if (bg3_row[v & 31] == v) continue;
         bg3_row[v & 31] = (int16_t)v;
-        int r = v - MID_Y;
+        int r = v - MID_TOP_ROWS;
         for (int x = 0; x < MID_W; x++)
             rs_bg_put(RS_BG3, x, v & 31, r < 0 ? 0 : pm_mid_map[(r < MID_H ? r : MID_H - 1) * MID_W + x]);
     }
@@ -623,8 +626,11 @@ void draw_frame(const world *w, int state, int st_t, int paused)
     scroll_x = camx & 511;
     scroll_y = camy & 255;
     rs_bg_scroll(RS_BG2, scroll_x, scroll_y);
-    stream_bg3(camy / 2);
-    rs_bg_scroll(RS_BG3, (camx / 2) & 511, (camy / 2) & 255);
+    int xc = camx + RS_SCREEN_W / 2, drop_to = district_at(xc) == 3 && !night_at(xc) ? 56 : 0;
+    mid_drop += mid_drop < drop_to ? 1 : mid_drop > drop_to ? -1 : 0;
+    int s3 = camy / 2 + 128 - mid_drop;
+    stream_bg3(s3);
+    rs_bg_scroll(RS_BG3, (camx / 2) & 511, s3 & 255);
     rs_bg_scroll(RS_BG4, (camx / 8) & 511, 40 + camy / 4);
     (void)paused;
     /* sprites, front to back: the UI (ui.c), the players, effects, the cat, things */
@@ -641,7 +647,7 @@ void draw_frame(const world *w, int state, int st_t, int paused)
 #define S(v) rs_state_var("draw." #v, &(v), sizeof(v))
 void draw_state(void)
 {
-    S(cur_look); S(tgt_look); S(shown_look); S(line_col); S(bg2_key); S(far_col); S(bg3_row); S(far_slot); S(sky_redrawn);
+    S(cur_look); S(tgt_look); S(shown_look); S(line_col); S(bg2_key); S(far_col); S(bg3_row); S(mid_drop); S(far_slot); S(sky_redrawn);
     S(sky_redrawn_n); S(test_backdrop); S(scroll_x); S(scroll_y); S(night_blink); S(fx_rng); S(fx); S(camx_i); S(camy_i);
     RS_STATE_RASTER(raster);
 }

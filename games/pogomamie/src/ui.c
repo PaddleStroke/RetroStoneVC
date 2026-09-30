@@ -25,7 +25,7 @@ void ui_init(void)
     shown_state = -1;
 }
 
-static const char *const medal_name[5] = {"NO MEDAL YET", "BRONZE WHISKERS", "SILVER WHISKERS", "GOLD WHISKERS",
+static const char *const medal_name[5] = {"NO MEDAL YET", "BRONZE WHISKER", "SILVER WHISKER", "GOLD WHISKER",
                                           "CAT CAUGHT!"};
 
 /* ---- BG1 --------------------------------------------------------------------------------------------------------- */
@@ -52,14 +52,15 @@ void ui_frame(const world *w, int state, int st_t, int best_m, int best_score, i
             hu_banner(4, "GAME OVER");
             hu_panel(10, 9, 20, 12);
             if (w->players == 1) {
+                int md = medal_of(m->dist_m);
                 hu_box_text(12, 11, "DISTANCE");
-                hu_box_text(12, 14, "SCORE");
+                hu_box_text(12, 13, "SCORE");
                 snprintf(s, sizeof s, "%d", m->score);
-                hu_box_text(28 - (int)strlen(s), 14, s);
-                hu_box_text(12, 16, new_best ? "NEW BEST!" : "BEST");
-                snprintf(s, sizeof s, "%d M", best_m);
-                hu_box_text(28 - (int)strlen(s), 16, s);
-                hu_box_text(12, 18, medal_name[medal_of(m->dist_m)]);
+                hu_box_text(29 - (int)strlen(s), 13, s);
+                hu_box_text(12, 15, new_best ? "NEW BEST!" : "BEST");
+                snprintf(s, sizeof s, "%d M", new_best ? m->dist_m : best_m);
+                hu_box_text(29 - (int)strlen(s), 15, s);
+                hu_box_text(md ? 15 : 12, 17, medal_name[md]);    /* the medal's sprite left of its name */
             } else {
                 hu_box_text(12, 11, "MAMIE");
                 hu_box_text(12, 14, "PAPI");
@@ -135,8 +136,8 @@ void ui_sprites(const world *w, int state, int st_t, int best_m)
             distance(w->m[0].dist_m, 24 * 8, 11 * 8 - 4 + oy);
             int md = medal_of(w->m[0].dist_m);
             if (md) {
-                spr(SPR_MEDAL + md - 1, 26 * 8 - 4, 15 * 8 - 2 + oy);
-                if ((st_t / 20) % 3 == 0) hu_sparkle(26 * 8 + 16, 15 * 8 - 4 + oy, (st_t / 10) % 2, 3);
+                spr(SPR_MEDAL + md - 1, 11 * 8 + 2, 16 * 8 - 3 + oy);
+                if ((st_t / 20) % 3 == 0) hu_sparkle(11 * 8 - 3, 16 * 8 - 1 + oy, (st_t / 10) % 2, 3);
             }
         } else {
             distance(w->m[0].dist_m, 24 * 8, 11 * 8 - 4 + oy);

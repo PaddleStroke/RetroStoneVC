@@ -139,15 +139,18 @@
 #define CAM_SMOOTH_X  8             /* 1/8 of the distance per frame */
 #define CAM_SMOOTH_Y  12
 #define CAM_FEET_Y    156           /* the feet at the last landing, on screen */
+#define CAM_FEET_Y_READY 226        /* on the title and "get ready": low, the sky for the text */
 #define CAM_TOP_KEEP  8             /* her head stays this far below the top edge */
 #define CAM_LOOK_AHEAD 240          /* the roofs up to this far ahead stay in view: */
 #define CAM_HI_KEEP   56            /*   the highest this far below the top edge, */
 #define CAM_LO_KEEP   224           /*   the lowest no further down than this (screen y) */
 #define CAM_BOT_KEEP  216
 #define DROP_OUT_X    24            /* 2 players: this far off the left edge, a player drops out */
+#define CAM_WAIT_X    32            /* 2 players: the camera keeps the other one at least this far in... */
+#define CAM_LEADER_MAX_X 272        /* ... as long as the leader stays left of this (screen x) */
 
 /* ---- flow ---------------------------------------------------------------------------------------------------------- */
-#define PANEL_DELAY   50            /* frames between landing in the street and the panel */
+#define PANEL_DELAY   80            /* frames between landing in the street and the panel (the cursing) */
 #define RETRY_LOCK    36            /* frames the panel ignores the button */
 #define SQUASH_T      10            /* squash and stretch frames after a landing */
 

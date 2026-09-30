@@ -1083,10 +1083,11 @@ def tile(name):
         R(0, 0, 7, 7, "water_m")
         cv.hline(0, 7, 0, "water_l")
         cv.set(2, 0, "foam"), cv.set(3, 0, "foam"), cv.set(6, 2, "water_l")
-    elif n in ("water", "water2"):
-        R(0, 0, 7, 7, "water_d" if n == "water2" else "water_m")
-        cv.set(1 + (4 if n == "water2" else 0), 3, "water_l")
-        cv.hline(4, 6, 6, "water_d" if n == "water" else "water_m")
+    elif n in ("water", "water2"):             # ripples: short light and dark dashes (the deep rows darker)
+        deep = n == "water2"
+        R(0, 0, 7, 7, "water_d" if deep else "water_m")
+        cv.hline(1, 3, 2, "water_m" if deep else "water_l")
+        cv.hline(5, 7, 5, "water_m" if deep else "water_d")
     elif n in ("deck", "deck_end"):
         R(0, 0, 7, 7, "hull_l")
         R(0, 0, 7, 2, "deck")

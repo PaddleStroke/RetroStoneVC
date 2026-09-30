@@ -12,7 +12,8 @@
  *   seed=N         a fixed course (default: from the frame the run starts)
  *   skip=M         start M metres along (skip=512 the Seine, 1024 Haussmann, 1536 the Eiffel Tower, 2048 night)
  *   players=2      start with Papi joined;  ready=1  skip the title (straight to "get ready")
- *   dump=1         log the final state at exit (tests); music=0, sound=0
+ *   dump=1         log the final state at exit (tests; dump=2: and the buildings); music=0, sound=0
+ *   evlog=1        log the big bounces, pigeons, falls, power-ups (screenshots); give=1 umbrella, 3 yarn, 4 croissant
  */
 #include "pm.h"
 #include "assets.h"
@@ -23,7 +24,7 @@
 #define GO_BUTTONS (RS_BTN_A | RS_BTN_B | RS_BTN_X | RS_BTN_Y)
 
 int opt_bot;
-static int opt_botruns, opt_botstop, opt_skip, opt_seed_fixed;
+static int opt_botruns, opt_botstop, opt_skip, opt_seed_fixed, opt_evlog, opt_give;
 static uint32_t opt_seed;
 static world W;
 static int st, st_t, paused, new_best, runs_done, players = 1;
@@ -99,7 +100,8 @@ static void game_over(void)
         if ((uint32_t)best_s > SV.best_score) SV.best_score = (uint32_t)best_s;
         if (W.players == 2 && (uint32_t)best_d > SV.best_race) SV.best_race = (uint32_t)best_d;
         save_store();
-    }    if (nrun_dists < 64) run_dists[nrun_dists++] = W.m[0].dist_m;
+    }
+    if (nrun_dists < 64) run_dists[nrun_dists++] = W.m[0].dist_m;
     runs_done++;
     rs_log("run %d over at frame %u: %d m, score %d (best %u m)", runs_done, rs_frame_count(), W.m[0].dist_m,
            W.m[0].score, SV.best_m);
@@ -114,6 +116,20 @@ static void sounds(int p)
     int ev = W.events[p], x = (int)(m->x >> 16) - world_camx(&W);
     hit h = {0, 0, 0, 0, 0};
     if (ev) fx_event(&W, p, ev, &h);
+    if (opt_evlog && (ev & (EV_BIG | EV_PIGEON | EV_DOOMED | EV_DOWN | EV_ITEM | EV_STUNT | EV_SPRING | EV_GLASS | EV_SLING |
+                            EV_POT | EV_BREAK | EV_SAVED | EV_KNOCK | EV_STUMBLE)))
+        rs_log("ev f=%u p=%d%s%s%s%s%s%s%s%s%s%s%s%s%s%s x=%d item=%d", rs_frame_count(), p, ev & EV_BIG ? " big" : "",
+               ev & EV_PIGEON ? " pigeon" : "", ev & EV_DOOMED ? " doomed" : "", ev & EV_DOWN ? " down" : "",
+               ev & EV_ITEM ? " item" : "", ev & EV_STUNT ? " stunt" : "", ev & EV_SPRING ? " spring" : "",
+               ev & EV_GLASS ? " glass" : "", ev & EV_SLING ? " sling" : "", ev & EV_POT ? " pot" : "",
+               ev & EV_BREAK ? " ledge" : "", ev & EV_SAVED ? " saved" : "", ev & EV_KNOCK ? " knock" : "",
+               ev & EV_STUMBLE ? " stumble" : "", (int)(m->x >> 16), m->item_got);
+    if ((ev & EV_START) && opt_give) {        /* debugging and screenshots: a power-up from the start */
+        mamie *mm = &W.m[p];
+        if (opt_give == 1) mm->umbrella_t = UMBRELLA_T;
+        if (opt_give == 3) mm->yarn = 1;
+        if (opt_give == 4) mm->croissant_t = CROISSANT_T;
+    }
     if (ev & EV_LAND) {
         if (m->state == MS_SLING) sfx_at(SFX_BOING, x, 0x0d00);
         else if (m->bounce == BN_SPRING) sfx_at(SFX_SPRING, x, 0);
@@ -171,9 +187,10 @@ static void play_update(int allow_start)
     if (st == DS_READY && W.started) go(DS_PLAY);
     if (st == DS_PLAY && !world_running(&W)) go(DS_FALL);
     if (st == DS_FALL && world_all_down(&W)) {
-        int t = 0;
-        for (int p = 0; p < W.players; p++) if (W.m[p].state == MS_DOWN && W.m[p].t > t) t = W.m[p].t;
-        if (t >= PANEL_DELAY || t == 0) game_over();
+        int t = 0, down = 0;
+        for (int p = 0; p < W.players; p++)
+            if (W.m[p].state == MS_DOWN) { down = 1; if (W.m[p].t > t) t = W.m[p].t; }
+        if (t >= PANEL_DELAY || !down) game_over();      /* (2 players both out: at once) */
     }
 }
 
@@ -246,6 +263,8 @@ static void game_init(void)
     opt_seed_fixed = rs_option("seed") != NULL;
     opt_seed = (uint32_t)rs_option_int("seed", 0x9090);
     players = clampi(rs_option_int("players", 1), 1, 2);
+    opt_evlog = rs_option_int("evlog", 0);
+    opt_give = rs_option_int("give", 0);
     new_run(rs_option_int("ready", 0) ? DS_READY : DS_TITLE);
 }
 
@@ -280,7 +299,7 @@ const world *pm_test_world(int *state)
 static void game_state(void)
 {
     S(W); S(st); S(st_t); S(paused); S(new_best); S(runs_done); S(players); S(state_hash); S(run_dists); S(nrun_dists);
-    S(opt_bot); S(opt_botruns); S(opt_botstop); S(opt_skip); S(opt_seed_fixed); S(opt_seed);
+    S(opt_bot); S(opt_botruns); S(opt_botstop); S(opt_skip); S(opt_seed_fixed); S(opt_seed); S(opt_evlog); S(opt_give);
     draw_state();
     ui_state();
     sfx_state();

@@ -287,6 +287,37 @@ static void test_collisions(void)
     }
     CHECK(glass && w.b[0].sky_broken && pit, "the skylight breaks, the attic's floor catches her");
     /* doomed: in a gap, below both roofs */
+    /* the props between the roofs: a clothesline sags and slingshots, a window box and crumbling tiles break
+     * after one bounce, a cradle catches her, the baguette bridges the next gap */
+    static const struct { int kind, sf, ev; } props[] = {{OB_LINE, SF_LINE, EV_SLING}, {OB_POT, SF_POT, EV_POT},
+                                                          {OB_LEDGE, SF_LEDGE, EV_BREAK}, {OB_CRADLE, SF_CRADLE, EV_LAND}};
+    for (unsigned k = 0; k < sizeof props / sizeof props[0]; k++) {
+        two_bldgs(&w, 96, 320);
+        w.no = 1;
+        memset(&w.o[0], 0, sizeof w.o[0]);
+        obj *o = &w.o[0];
+        o->kind = (uint8_t)props[k].kind; o->x = 216; o->w = 64; o->y = 350; o->b = 350; o->a = 8;
+        if (o->kind == OB_CRADLE) { o->a = 340; o->b = 380; o->pos = 350 * Q16_ONE; o->dir = 1; o->y = 320; }
+        if (o->kind == OB_LINE) { o->x = 200; o->w = 96; }
+        m->x = 244 * Q16_ONE; m->y = 300 * Q16_ONE; m->vx = 0; m->vy = Q16(1.0);
+        w.started = 1;
+        int seen = 0, on = 0, launched = 0;
+        for (int i = 0; i < 80; i++) {
+            int d0[2] = {-1, 0};
+            world_step(&w, d0, a, ap);
+            if ((w.events[0] & EV_LAND) && w.m[0].land_kind == props[k].sf) on = 1;
+            seen |= w.events[0] & props[k].ev;
+            if ((w.events[0] & EV_SLING) && w.m[0].vy == -V_SLING) launched = 1;
+            if (w.m[0].vy < 0 && on && w.m[0].state == MS_AIR) break;
+        }
+        CHECK(on && seen, "a prop (kind %d) catches her", props[k].kind);
+        if (props[k].kind == OB_LINE) CHECK(launched, "the clothesline slingshots her");
+        if (props[k].kind == OB_POT || props[k].kind == OB_LEDGE) CHECK(w.o[0].state == 1, "... and falls (kind %d)", props[k].kind);
+    }
+    two_bldgs(&w, 96, 320);
+    gen_add_baguette(&w, 100);
+    CHECK(w.no == 1 && w.o[0].kind == OB_BAGUETTE && w.o[0].x < 200 && w.o[0].x + w.o[0].w > 296 && w.o[0].y == 320,
+          "the baguette bridges the next gap");
     two_bldgs(&w, 96, 320);
     m->x = 240 * Q16_ONE; m->y = 330 * Q16_ONE; m->vy = Q16(1.0);
     CHECK(world_doomed(&w, m), "below both roofs in a gap: doomed");
