@@ -17,14 +17,15 @@
 #define POND_HIGH  106
 #define POND_LOGS  600
 
-/* the trunk on BG2 (a 32 x 64 map: tree p in rows 32p..32p+31): segment k's rows start at map y
- * TRUNK_MAP_Y0 - 24 (k + 1); the trunk's columns 8..13, the left branch 3..7, the right one 14..18 */
+/* the trunk on BG2 (a 32 x 32 map; player 2's tree 16 columns further, wrapping): segment k's rows start at map y
+ * TRUNK_MAP_Y0 - 24 (k + 1); the trunk's columns 8..13, the left branch 3..7, the right one 14..18 (+ 16 p) */
 #define TRUNK_MAP_Y0  248
 #define TRUNK_SCROLL_Y 48         /* map y - screen y */
 #define TRUNK_COL     8
 #define LBRANCH_COL   3
 #define RBRANCH_COL   14
-#define TRUNK_MAP_X   64          /* the trunk's left edge in the map */
+#define TRUNK_MAP_X   64          /* the trunk's left edge in the map (player 1) */
+#define TREE_COLS     16          /* player 2's tree: 16 columns (128 px) further */
 
 /* versus: the two views, and each view's sprites in OAM */
 #define VIEW_OAM      56

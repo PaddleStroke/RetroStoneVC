@@ -25,11 +25,11 @@ void bot_reset(uint32_t seed)
 /* the branch side of segment k of player p's tree, read from the BG2 map */
 static int seen_branch(int p, int k)
 {
-    int row = p * 32 + (TRUNK_MAP_Y0 - SEG_H * (k + 1)) / 8;
+    int row = (TRUNK_MAP_Y0 - SEG_H * (k + 1)) / 8, c0 = p * TREE_COLS;
     for (int r = 0; r < 3; r++)
         for (int c = 0; c < 5; c++) {
-            if (rs_bg_get(RS_BG2, LBRANCH_COL + c, row + r)) return SIDE_L;
-            if (rs_bg_get(RS_BG2, RBRANCH_COL + c, row + r)) return SIDE_R;
+            if (rs_bg_get(RS_BG2, (c0 + LBRANCH_COL + c) & 31, row + r)) return SIDE_L;
+            if (rs_bg_get(RS_BG2, (c0 + RBRANCH_COL + c) & 31, row + r)) return SIDE_R;
         }
     return SIDE_NONE;
 }

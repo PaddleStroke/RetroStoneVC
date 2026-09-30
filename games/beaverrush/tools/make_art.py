@@ -283,6 +283,20 @@ def log_frame(angle, size=48, L=22.0, R=10.0):
     return cv
 
 
+def crop_center(cv, w, h):
+    out = Canvas(w, h)
+    ox, oy = (cv.w - w) // 2, (cv.h - h) // 2
+    for y in range(h):
+        for x in range(w):
+            out.p[y][x] = cv.get(ox + x, oy + y)
+    return out
+
+
+def log_frames():
+    """0 and 90 degrees in 48x24 and 24x48 cells (VRAM), 30 and 60 in 48x48; 120 and 150 are 60 and 30 flipped"""
+    return [crop_center(log_frame(0), 48, 24), log_frame(30), log_frame(60), crop_center(log_frame(90), 24, 48)]
+
+
 def chip(k):
     cv = Canvas(8, 8)
     shapes = [[(2, 3), (3, 2), (4, 2), (5, 3), (4, 4), (3, 4), (5, 4)],
@@ -738,6 +752,9 @@ def banks():
     for y in range(128, 160):                       # the dam canvas (C draws it) is its own
         for x in range(dam_l, dam_r):
             cv.set(x, y, None)
+    for y in range(cv.h):                           # never shown (the lean is 6 px at most): no tiles
+        for x in list(range(0, PANO_X - 8)) + list(range(PANO_X + 328, PANO_W)):
+            cv.set(x, y, None)
     return cv
 
 
@@ -814,12 +831,12 @@ def sprites():
             beaver("bonk"), beaver("sleep"), beaver("cheer", 0), beaver("cheer", 1)]
     return [
         ("beaver", 0, beav),
-        ("log", 2, [log_frame(a) for a in (0, 30, 60, 90)]),          # 120, 150: 60, 30 flipped
+        ("log", 2, log_frames()),
         ("chip", 2, [chip(k) for k in range(3)]),
         ("floater", 2, [floater(False), floater(True)]),
         ("branch_piece", 2, [branch_piece(r) for r in range(2)]),     # 2, 3: 0, 1 turned over
         ("family", 0, [family("idle", 0), family("idle", 1), family("cheer", 0), family("cheer", 1)]),
-        ("woodpecker", 6, [woodpecker(0), woodpecker(1), woodpecker(0, "R"), woodpecker(1, "R")]),
+        ("woodpecker", 6, [woodpecker(0), woodpecker(1)]),                  # on the right: flipped
         ("sun", 4, [sun()]),
         ("moon", 4, [moon()]),
         ("star", 4, [star(0), star(1)]),

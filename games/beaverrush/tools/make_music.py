@@ -4,7 +4,7 @@
 3 fiddle), speed 6, 4 rows per beat.
 
 The tune has two 8-bar sections (A: the fiddle tune over the banjo; B: the banjo leads, the fiddle answers),
-each a module of its own, and each is rendered at four tempos (BPM 128, 136, 144, 152). The game plays A, B,
+each a module of its own, and each is rendered at four tempos (BPM 128, 144, 150, 160). The game plays A, B,
 A, B... and picks the tempo of the next section from the timer's drain level, so the music speeds up
 subtly as the game does (src/sfx.c music_update()).
 
@@ -22,7 +22,7 @@ ROOT = os.path.abspath(os.path.join(HERE, "..", "..", ".."))
 sys.path.insert(0, os.path.join(ROOT, "games", "common", "tools"))
 import house_music as hm  # noqa: E402
 
-TEMPOS = [128, 136, 144, 152]
+TEMPOS = [128, 144, 150, 160]           # 115200 / BPM frames per section: whole numbers (src/sfx.c)
 KEY = 7                                   # G
 S = hm.MAJOR
 

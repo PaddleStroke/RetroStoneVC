@@ -1,0 +1,5 @@
+# Save states (tools/state_audit.py): the mutable statics that are NOT saved, and why.
+# Everything else is registered in the game's state functions (main.c game_state(), draw.c draw_state(),
+# scene.c scene_state(), sfx.c sfx_state(), bot.c bot_state(), the house kit's hu_state() and ha_state()).
+sfx.snd_buf         sfx_init(): the synthesis buffer (the samples are made at start-up, not saved)
+main.SV             the battery save's copy (best scores, medals, versus wins): stays in the .srm, a state never takes it back

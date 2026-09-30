@@ -50,7 +50,7 @@ enum { FX_NONE, FX_LOG, FX_CHIP, FX_BRANCH, FX_SPLASH, FX_FLOAT, FX_RIPPLE, FX_Z
 static fx_obj fx[FX_MAX];
 static rs_rng fx_rng;
 static int shown_state = -1, shown_best = -1, shown_players = -1, shown_over_t = -1;
-static int banner_t = 1000, banner_stage;     /* the scene name shown after a milestone */
+static int banner_t = 1000, banner_stage, banner_on;   /* the scene name shown after a milestone */
 static int family_cheer;                        /* frames left of the family's cheer */
 static int views_on;
 
@@ -137,10 +137,11 @@ void draw_init(void)
     hc.obj_tile = 0;                /* the kit sprites first (HU_OBJ_TILES), ours from OBJ_FIRST */
     hc.obj_vram = VR_OBJ;
     hc.obj_pal = OPAL_KIT;
+    hc.box_glyphs = " SCOREBESTNWMDALPYIG12!:-RKH";   /* the panel's letters only (VRAM) */
     hu_init(&hc);
     bar_tiles();
     rs_bg_setup(RS_BG1, 64, 32, VR_BG1);
-    rs_bg_setup(RS_BG2, 32, 64, VR_BG2);
+    rs_bg_setup(RS_BG2, 32, 32, VR_BG2);
     rs_tiles_load(VR_BG2, br_bg2_tiles, br_bg2_tile_count);
     scene_init();
     for (int l = 0; l < 4; l++) rs_bg_enable(l, 1);
@@ -154,9 +155,9 @@ void draw_init(void)
 /* ---- the trunk ----------------------------------------------------------------------------------------------------- */
 static void tree_draw(int p, const tree *t)
 {
-    int r0 = p * 32;
+    int r0 = 0, c0 = p * TREE_COLS;
     for (int r = 0; r < 32; r++)
-        for (int c = LBRANCH_COL; c < RBRANCH_COL + 5; c++) rs_bg_put(RS_BG2, c, r0 + r, 0);
+        for (int c = LBRANCH_COL; c < LBRANCH_COL + TREE_COLS; c++) rs_bg_put(RS_BG2, (c0 + c) & 31, r0 + r, 0);
     for (int k = 0; k <= SEG_SHOWN; k++) {
         const seg *s = &t->s[k];
         int row = r0 + (TRUNK_MAP_Y0 - SEG_H * (k + 1)) / 8;
@@ -164,12 +165,12 @@ static void tree_draw(int p, const tree *t)
             for (int c = 0; c < 6; c++) {
                 uint16_t e = br_seg_map[s->look * 18 + r * 6 + c];
                 if (s->gold) e = (uint16_t)((e & ~0x1c00) | (PAL_GOLD << 10));
-                rs_bg_put(RS_BG2, TRUNK_COL + c, row + r, e);
+                rs_bg_put(RS_BG2, (c0 + TRUNK_COL + c) & 31, row + r, e);
             }
             if (s->branch) {
                 int b = (s->branch == SIDE_L ? 0 : 1) + (s->stolen ? 2 : 0);
                 int col = s->branch == SIDE_L ? LBRANCH_COL : RBRANCH_COL;
-                for (int c = 0; c < 5; c++) rs_bg_put(RS_BG2, col + c, row + r, br_branch_map[b * 15 + r * 5 + c]);
+                for (int c = 0; c < 5; c++) rs_bg_put(RS_BG2, (c0 + col + c) & 31, row + r, br_branch_map[b * 15 + r * 5 + c]);
             }
         }
     }
@@ -213,7 +214,7 @@ static void spawn_log(const world *w, int p, const beaver *b)
         f->flip = dir < 0;
         f->slot = (int16_t)(world_dam_logs(w) - 1);
     }
-    for (int i = 0; i < 5; i++) {                        /* chips from the bite */
+    for (int i = 0; i < (w->players == 2 ? 3 : 5); i++) {  /* chips from the bite */
         fx_obj *c = fx_new(FX_CHIP, p);
         if (!c) break;
         c->x = (cx - dir * 26 + rnd(6) - 3) << 8;
@@ -373,7 +374,7 @@ static void bird_step(const world *w, int p)
     v->bird_y += (ty - v->bird_y) / 4;
     int period = zigzag_shown(&b->tr) ? 8 : 16;
     v->bird_peck = (w->t % period) < 3;
-    if (p == 0 && (w->t % period) == 0 && b->tr.s[k].branch == b->side) sfx_pan(SFX_TOK, tree_cx(w), 0);
+    if (p == 0 && w->players == 1 && (w->t % period) == 0 && b->tr.s[k].branch == b->side) sfx_pan(SFX_TOK, 160, 0);
 }
 
 void draw_update(const world *w, int state)
@@ -437,7 +438,7 @@ static void draw_bird(const world *w, int p, int ox, int oy)
     if (!v->bird_on) return;
     int cx = tree_cx(w), left = v->bird_side == SIDE_L;
     int x = left ? cx - 24 - 13 : cx + 24 - 3;
-    spr(SPR_WOODPECKER + (left ? 0 : 2) + v->bird_peck, x + ox, (v->bird_y >> 8) - drop_px(v->drop_t) + oy, 2, -1, 0);
+    spr(SPR_WOODPECKER + v->bird_peck, x + ox, (v->bird_y >> 8) - drop_px(v->drop_t) + oy, 2, -1, left ? 0 : RS_SPR_HFLIP);
 }
 
 static void draw_fx(int view, int ox, int oy)
@@ -450,7 +451,8 @@ static void draw_fx(int view, int ox, int oy)
         case FX_LOG: {
             static const uint8_t fr[6] = {0, 1, 2, 3, 2, 1};
             int k = f->flip ? (6 - f->frame) % 6 : f->frame;
-            spr(SPR_LOG + fr[k], x - 12, y - 12, f->prio, f->pal, k > 3 ? RS_SPR_HFLIP : 0);
+            const br_sprite_def *d = &br_spr[SPR_LOG + fr[k]];
+            spr(SPR_LOG + fr[k], x + 12 - d->w / 2, y + 12 - d->h / 2, f->prio, f->pal, k > 3 ? RS_SPR_HFLIP : 0);
             break;
         }
         case FX_CHIP: spr(SPR_CHIP + f->frame, x - 4, y - 4, 2, f->pal, 0); break;
@@ -532,11 +534,11 @@ static void draw_family(const world *w, int t)
 }
 
 /* ---- the screens (the house kit) ---------------------------------------------------------------------------------- */
-static const char *scene_name(int stage)
+static const char *scene_name(int stage, char *s, size_t n)
 {
-    static const char *tod[4] = {"DAWN", "DAY", "SUNSET", "NIGHT"}, *sea[4] = {"SUMMER", "AUTUMN", "WINTER", "SPRING"};
-    static char s[24];
-    snprintf(s, sizeof s, "%s %s", sea[(stage / 4) % 4], tod[stage % 4]);
+    static const char *const tod[4] = {"DAWN", "DAY", "SUNSET", "NIGHT"};
+    static const char *const sea[4] = {"SUMMER", "AUTUMN", "WINTER", "SPRING"};
+    snprintf(s, n, "%s %s", sea[(stage / 4) % 4], tod[stage % 4]);
     return s;
 }
 
@@ -556,6 +558,7 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
     int redo = state != shown_state || best != shown_best || w->players != shown_players;
     if (redo) {
         hu_clear();
+        banner_on = 0;
         if (state == DS_TITLE) {
             hu_logo("BEAVER RUSH", title_ramps, 2, 2, 0);
             snprintf(s, sizeof s, "BEST %d", best);
@@ -595,9 +598,14 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         }
     }
     /* the scene's name after a milestone (1 player), for 1.5 s */
-    if (w->players == 1 && state == DS_PLAY) {
-        if (banner_t == 0) hu_big(hu_center(scene_name(banner_stage), 1), 7, scene_name(banner_stage), HU_BIG_FREE);
-        if (banner_t == 90) hu_clear_rows(7, 2);
+    int want = w->players == 1 && state == DS_PLAY && banner_t < 90;
+    if (want != banner_on) {
+        if (want) {
+            scene_name(banner_stage, s, sizeof s);
+            hu_big(hu_center(s, 1), 7, s, HU_BIG_FREE);
+        }
+        else hu_clear_rows(7, 2);
+        banner_on = want;
     }
 }
 
@@ -614,8 +622,8 @@ static void setup_views(const world *w, int state, int slide)
         rs_viewport *q = &v[p];
         q->sx[RS_BG1] = q->x;
         q->sy[RS_BG1] = 0;
-        q->sx[RS_BG2] = (int16_t)(TRUNK_MAP_X - (tree_cx(w) - TRUNK_W / 2));
-        q->sy[RS_BG2] = (int16_t)(TRUNK_SCROLL_Y + p * 256 + drop_px(PV[p].drop_t) - hu_shake_y());
+        q->sx[RS_BG2] = (int16_t)((TRUNK_MAP_X + p * TREE_COLS * 8 - (tree_cx(w) - TRUNK_W / 2)) & 255);
+        q->sy[RS_BG2] = (int16_t)(TRUNK_SCROLL_Y + drop_px(PV[p].drop_t) - hu_shake_y());
         q->sx[RS_BG2] -= (int16_t)hu_shake_x();
         q->sx[RS_BG3] = q->sx[RS_BG4] = PANO_X + VIEW_BG_X;
         q->sy[RS_BG3] = q->sy[RS_BG4] = 0;
@@ -656,7 +664,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     int sx = hu_shake_x(), sy = hu_shake_y();
     if (w->players == 1) {
         rs_bg_scroll(RS_BG2, (TRUNK_MAP_X - (160 - TRUNK_W / 2) - sx) & 255,
-                     (TRUNK_SCROLL_Y + drop_px(PV[0].drop_t) - sy) & 511);
+                     (TRUNK_SCROLL_Y + drop_px(PV[0].drop_t) - sy) & 255);
         scene_bg_scroll(PANO_X);
     }
     screen_text(w, state, st_t, best, new_best);
@@ -694,7 +702,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
 void draw_state(void)
 {
     S(PV); S(fx); S(fx_rng); S(shown_state); S(shown_best); S(shown_players); S(shown_over_t); S(banner_t);
-    S(banner_stage); S(family_cheer); S(views_on);
+    S(banner_stage); S(banner_on); S(family_cheer); S(views_on);
     scene_state();
 }
 #undef S

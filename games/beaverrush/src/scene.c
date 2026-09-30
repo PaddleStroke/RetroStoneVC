@@ -107,6 +107,9 @@ static void raster(int line, void *user)
     /* the pond covers the foot of the far layer */
     if (line == pond_line) rs_window(0, 0, RS_SCREEN_W);
     else if (line == DAM_Y || line == 0) rs_window(0, 0, 0);
+    /* below the stump's top the trunk layer is hidden (its map wraps there while the trunk drops) */
+    if (line == 0) rs_window(1, 0, 0);
+    else if (line == GROUND_Y) rs_window(1, 0, RS_SCREEN_W);
 }
 
 /* ---- the dam canvas -------------------------------------------------------------------------------------------- */
@@ -173,6 +176,7 @@ void scene_init(void)
     rs_bg_line_scroll(RS_BG3, bg3_dx, NULL);
     rs_bg_line_scroll(RS_BG4, bg4_dx, NULL);
     rs_bg_window(RS_BG4, RS_WIN1);
+    rs_bg_window(RS_BG2, RS_WIN2);
     rs_raster(raster, NULL);
     scene_from = scene_to = 0;
     fade_t = SCENE_FADE;

@@ -135,9 +135,16 @@ static void play_update(void)
         int ev = W.events[p];
         const beaver *b = &W.bv[p];
         int x = W.players == 2 ? (p ? 240 : 80) : (b->side == SIDE_L ? 130 : 190);
-        if (ev & EV_GNAW) sfx_pan(SFX_CHOMP, x, 0);
-        if (ev & EV_GOLD) sfx_pan(SFX_GOLD, x, 0);
-        if (ev & EV_MILESTONE) sfx_pan(SFX_CHEER, x, 0);
+        if ((ev & EV_GNAW) && !(ev & EV_BONK)) sfx_pan(SFX_CHOMP, x, 0);       /* a bonk replaces the bite */
+        if (ev & EV_GOLD) {
+            sfx_pan(SFX_GOLD, x, 0);
+            rs_log("player %d golden log at frame %u (score %d)", p + 1, rs_frame_count(), b->score);
+        }
+        if (ev & EV_MILESTONE) {
+            sfx_pan(SFX_CHEER, x, 0);
+            rs_log("player %d milestone %d at frame %u", p + 1, b->logs / STAGE_LOGS, rs_frame_count());
+        }
+        if (ev & EV_SENT) rs_log("player %d sends a branch to player %d at frame %u", p + 1, 2 - p, rs_frame_count());
         if (ev & (EV_SENT | EV_STOLEN)) sfx_pan(SFX_WHOOSH, x, 0);
         if (ev & EV_BONK) {
             sfx_pan(SFX_BONK, x, 0);
