@@ -85,17 +85,21 @@ static void game_over(void)
 {
     int best_d = world_dist(&W), best_s = 0;
     for (int p = 0; p < W.players; p++) best_s = W.m[p].score > best_s ? W.m[p].score : best_s;
-    SV.runs++;
-    if (W.players == 1) {
-        int m = medal_of(W.m[0].dist_m);
-        if (m) SV.medals[m - 1]++;
-        if (W.m[0].best_chain > SV.best_chain) SV.best_chain = (uint16_t)W.m[0].best_chain;
-    }
-    if ((uint32_t)best_d > SV.best_m) { SV.best_m = (uint32_t)best_d; new_best = 1; }
-    if ((uint32_t)best_s > SV.best_score) SV.best_score = (uint32_t)best_s;
-    if (W.players == 2 && (uint32_t)best_d > SV.best_race) SV.best_race = (uint32_t)best_d;
-    if (!opt_skip) save_store();              /* a skipped start (tests, screenshots) does not count */
-    if (nrun_dists < 64) run_dists[nrun_dists++] = W.m[0].dist_m;
+    new_best = (uint32_t)best_d > SV.best_m;
+    /* a skipped start (tests, screenshots) changes nothing, not even the in-memory copy (save states: the battery
+     * save is not part of a state, a replay must see the same one) */
+    if (!opt_skip) {
+        SV.runs++;
+        if (W.players == 1) {
+            int m = medal_of(W.m[0].dist_m);
+            if (m) SV.medals[m - 1]++;
+            if (W.m[0].best_chain > SV.best_chain) SV.best_chain = (uint16_t)W.m[0].best_chain;
+        }
+        if (new_best) SV.best_m = (uint32_t)best_d;
+        if ((uint32_t)best_s > SV.best_score) SV.best_score = (uint32_t)best_s;
+        if (W.players == 2 && (uint32_t)best_d > SV.best_race) SV.best_race = (uint32_t)best_d;
+        save_store();
+    }    if (nrun_dists < 64) run_dists[nrun_dists++] = W.m[0].dist_m;
     runs_done++;
     rs_log("run %d over at frame %u: %d m, score %d (best %u m)", runs_done, rs_frame_count(), W.m[0].dist_m,
            W.m[0].score, SV.best_m);

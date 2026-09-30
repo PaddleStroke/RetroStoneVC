@@ -57,12 +57,13 @@ scenario run2p 500 500 bot=2 players=2 ready=1
 printf "400 tap START\n520 tap START\n" > "$O/pm-paused.input"
 scenario paused 450 300 bot=1 ready=1
 
-# the fall (the bot gives up at 60 m), the café awning, the game-over panel, then a new run
-f=$($(dirname "$T")/pogomamie_headless --frames 4000 --opt music=0 --opt bot=1 --opt botstop=60 --opt ready=1 --opt seed=31 2>&1 |
-    sed -n 's/.*run 1 over at frame \([0-9]*\).*/\1/p')
+# the fall (the bot gives up at 60 m), the café awning, the game-over panel, then a new run (skip: a best distance
+# written to the battery save between the save and the load would change the panel: "NEW BEST" / "BEST")
+f=$($(dirname "$T")/pogomamie_headless --frames 4000 --opt music=0 --opt bot=1 --opt botstop=60 --opt ready=1 --opt seed=31 \
+    --opt skip=8 2>&1 | sed -n 's/.*run 1 over at frame \([0-9]*\).*/\1/p')
 if [ -n "$f" ]; then
-    scenario falling $((f - 90)) 200 bot=1 botstop=60 ready=1 seed=31
-    scenario over $((f + 20)) 400 bot=1 botstop=60 ready=1 seed=31 botruns=2
+    scenario falling $((f - 90)) 200 bot=1 botstop=60 ready=1 seed=31 skip=8
+    scenario over $((f + 20)) 400 bot=1 botstop=60 ready=1 seed=31 botruns=2 skip=8
 else
     echo "  FAIL no fall to save in"; fail=1
 fi
@@ -70,7 +71,7 @@ fi
 # random points of a long bot run: a state saved there continues exactly like the uninterrupted run
 for k in 1 2 3 4; do
     n=$(( (k * 7919 + 1237) % 5000 + 200 ))
-    scenario random$k $n 300 bot=1 ready=1 seed=$((40 + k))
+    scenario random$k $n 300 bot=1 ready=1 seed=$((40 + k)) skip=4
 done
 
 # a state of another game (if its tests ran) is refused
