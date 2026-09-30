@@ -17,6 +17,8 @@
 
 LS_MAKE = $(MAKE) --no-print-directory GAME=leadysquid GAME_NAME=LeadySquid
 LS_DIR  = games/leadysquid
+# the house style kit (games/common/src: the UI kit and the synthesiser) is compiled in
+HOUSE_UI_leadysquid = 1
 
 .PHONY: leadysquid leadysquid-check leadysquid-windows leadysquid-armhf leadysquid-dist leadysquid-screenshots \
         leadysquid-bench leadysquid-placeholders leadysquid-todo leadysquid-art leadysquid-art-review
@@ -36,7 +38,7 @@ build/host/leadysquid_test_physics: build/host/$(LS_DIR)/tests/test_physics.o bu
 	$(HOST_CC) -o $@ $^ -lm
 
 # the caps test runs the whole game (runtime, draw) with a scripted player and checks the picture
-LS_OBJ_HOST = $(patsubst %.c,build/host/%.o,$(wildcard $(LS_DIR)/src/*.c) build/gen/leadysquid/assets.c)
+LS_OBJ_HOST = $(patsubst %.c,build/host/%.o,$(wildcard $(LS_DIR)/src/*.c) $(HOUSE_SRC) build/gen/leadysquid/assets.c)
 build/host/$(LS_DIR)/tests/test_caps.o: build/gen/leadysquid/assets.c
 build/host/leadysquid_test_caps: build/host/$(LS_DIR)/tests/test_caps.o $(LS_OBJ_HOST) build/host/librs.a
 	$(HOST_CC) -o $@ $^ -lm

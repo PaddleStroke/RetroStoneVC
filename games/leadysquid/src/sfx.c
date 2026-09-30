@@ -3,117 +3,45 @@
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/leadysquid/LICENSE.
  */
 #include "ls.h"
-#include <string.h>
+#include "house_audio.h"
+#include <stdlib.h>
 
-#define RATE 32000
-#define MAXLEN (RATE / 2)
-
-static int16_t buf[MAXLEN];
-static uint32_t noise_s = 0x5eed1234u;
 static int music_on = 1, sound_on = 1, music_started;
 
-static int noise(void)
-{
-    noise_s ^= noise_s << 13;
-    noise_s ^= noise_s >> 17;
-    noise_s ^= noise_s << 5;
-    return (int)(noise_s & 0xffff) - 32768;
-}
-
-/* integer sine, phase 0..65535 -> -16384..16384 (a parabola per half wave) */
-static int isin(uint32_t ph)
-{
-    int p = (int)(ph & 0xffff);
-    int x = p < 32768 ? p : p - 32768;
-    int v = (int)((int64_t)x * (32768 - x) / 16384);
-    return p < 32768 ? v : -v;
-}
-
-static void put(int i, int v)
-{
-    v += buf[i];
-    buf[i] = (int16_t)(v > 32767 ? 32767 : v < -32768 ? -32768 : v);
-}
-
-/* a sine sweep f0 -> f1 (Hz) from sample `at`, `ms` long, volume 0..100, exponential-ish decay */
-static void tone(int at, int f0, int f1, int ms, int vol, int decay_ms)
-{
-    int n = ms * RATE / 1000;
-    uint32_t ph = 0;
-    for (int k = 0; k < n && at + k < MAXLEN; k++) {
-        int f = f0 + (f1 - f0) * k / (n ? n : 1);
-        ph += (uint32_t)(f * 65536 / RATE);
-        int att = k < 96 ? k * 256 / 96 : 256;
-        int dec = decay_ms ? 256 * decay_ms * RATE / 1000 / (decay_ms * RATE / 1000 + k) : 256;
-        int rel = n - k < 400 ? (n - k) * 256 / 400 : 256;
-        put(at + k, isin(ph) * vol / 100 * att / 256 * dec / 256 * rel / 256 * 2);
-    }
-}
-
-static void hiss(int at, int ms, int vol, int lp_shift)
-{
-    int n = ms * RATE / 1000, lp = 0;
-    for (int k = 0; k < n && at + k < MAXLEN; k++) {
-        lp += (noise() - lp) >> lp_shift;
-        int env = (n - k) * 256 / n;
-        put(at + k, lp * vol / 100 * env / 256 * env / 256);
-    }
-}
-
-static void store(int id, int ms)
-{
-    int n = ms * RATE / 1000;
-    if (n > MAXLEN) n = MAXLEN;
-    rs_sample_pcm16(id, buf, n, RATE, -1);
-    memset(buf, 0, sizeof buf);
-}
-
+/* The house synthesiser (games/common/src/house_audio.c): the house sounds (ding, thud, swish, sparkle = HA_MEDAL,
+ * join = HA_CONFIRM, pause) and Leady Squid's own (bloop, clank), in the order that keeps the noise the same. */
 void sfx_init(void)
 {
-    memset(buf, 0, sizeof buf);
-    noise_s = 0x5eed1234u;                  /* the same sounds at every start (a core restarted in the same process
-                                               too: save states check the samples) */
+    const int R = HA_RATE;
+    int16_t *buf = malloc(HA_RATE / 2 * sizeof *buf);
+    if (!buf) return;
+    ha_synth sy, *s = &sy;
+    ha_begin(s, buf, HA_RATE / 2, 0x5eed1234u);     /* the same sounds at every start (a core restarted in the same
+                                                       process too: save states check the samples) */
     /* bloop: a quick rising sine and a bubbly burble */
-    tone(0, 220, 520, 90, 70, 60);
-    tone(RATE * 30 / 1000, 700, 1100, 40, 18, 20);
-    tone(RATE * 55 / 1000, 900, 1400, 35, 12, 15);
-    hiss(0, 70, 10, 3);
-    store(SFX_BLOOP, 130);
-    /* ding: a soft bell, two partials */
-    tone(0, 1568, 1568, 420, 42, 90);
-    tone(0, 2349, 2349, 300, 18, 50);
-    tone(0, 3951, 3951, 120, 6, 20);
-    store(SFX_DING, 430);
-    /* thud: a low falling sine and a little noise */
-    tone(0, 120, 45, 240, 95, 120);
-    hiss(0, 90, 40, 2);
-    store(SFX_THUD, 250);
+    ha_tone(s, 0, 220, 520, 90, 70, 60);
+    ha_tone(s, R * 30 / 1000, 700, 1100, 40, 18, 20);
+    ha_tone(s, R * 55 / 1000, 900, 1400, 35, 12, 15);
+    ha_hiss(s, 0, 70, 10, 3);
+    ha_store(s, SFX_BLOOP, 130);
+    ha_store(s, SFX_DING, ha_make(s, HA_DING));      /* a soft bell, two partials */
+    ha_store(s, SFX_THUD, ha_make(s, HA_THUD));      /* a low falling sine and a little noise */
     /* clank: inharmonic metal partials, two hits */
     for (int hit = 0; hit < 2; hit++) {
-        int at = hit * RATE * 110 / 1000, v = hit ? 55 : 80;
-        tone(at, 820, 800, 160, v * 45 / 100, 40);
-        tone(at, 1178, 1160, 140, v * 35 / 100, 30);
-        tone(at, 1597, 1590, 110, v * 28 / 100, 25);
-        tone(at, 2311, 2300, 80, v * 18 / 100, 15);
-        hiss(at, 25, v / 2, 0);
+        int at = hit * R * 110 / 1000, v = hit ? 55 : 80;
+        ha_tone(s, at, 820, 800, 160, v * 45 / 100, 40);
+        ha_tone(s, at, 1178, 1160, 140, v * 35 / 100, 30);
+        ha_tone(s, at, 1597, 1590, 110, v * 28 / 100, 25);
+        ha_tone(s, at, 2311, 2300, 80, v * 18 / 100, 15);
+        ha_hiss(s, at, 25, v / 2, 0);
     }
-    store(SFX_CLANK, 300);
-    /* swish: filtered noise for the panel */
-    hiss(0, 180, 30, 4);
-    store(SFX_SWISH, 180);
-    /* sparkle: a quick high arpeggio */
-    tone(0, 2093, 2093, 70, 25, 30);
-    tone(RATE * 60 / 1000, 2637, 2637, 70, 25, 30);
-    tone(RATE * 120 / 1000, 3136, 3136, 160, 25, 50);
-    store(SFX_SPARKLE, 300);
-    /* join: two soft notes up */
-    tone(0, 523, 523, 110, 40, 60);
-    tone(RATE * 100 / 1000, 784, 784, 200, 40, 80);
-    store(SFX_JOIN, 300);
-    /* pause: a short low blip */
-    tone(0, 440, 330, 80, 40, 40);
-    store(SFX_PAUSE, 90);
-    rs_echo(110, 35, 30);
+    ha_store(s, SFX_CLANK, 300);
+    ha_store(s, SFX_SWISH, ha_make(s, HA_SWISH));    /* filtered noise for the panel */
+    ha_store(s, SFX_SPARKLE, ha_make(s, HA_MEDAL));  /* a quick high arpeggio */
+    ha_store(s, SFX_JOIN, ha_make(s, HA_CONFIRM));   /* two soft notes up */
+    ha_store(s, SFX_PAUSE, ha_make(s, HA_PAUSE));    /* a short low blip */
+    free(buf);
+    rs_echo(HA_ECHO_DELAY, HA_ECHO_FB, HA_ECHO_VOL);
 }
 
 void sfx_pan(int id, int x)
@@ -134,7 +62,7 @@ void music_start(void)
     size_t n;
     const void *m = rs_asset("music/tune.mod", &n);
     if (m && !rs_music_play(m, n, 1)) {
-        rs_music_volume(56);
+        rs_music_volume(HA_MUSIC_VOL);
         music_started = 1;
     }
 }
@@ -152,4 +80,5 @@ void sfx_state(void)
     rs_state_var("sfx.music_on", &music_on, sizeof music_on);
     rs_state_var("sfx.sound_on", &sound_on, sizeof sound_on);
     rs_state_var("sfx.music_started", &music_started, sizeof music_started);
+    ha_state();                 /* the house audio kit's objects (house_audio.*) */
 }

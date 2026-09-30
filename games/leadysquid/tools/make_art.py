@@ -28,57 +28,13 @@ GAME = os.path.dirname(HERE)
 ROOT = os.path.abspath(os.path.join(GAME, "..", ".."))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(ROOT, "sdk", "tools"))
+sys.path.insert(0, os.path.join(ROOT, "games", "common", "tools"))
 import ls_sheets  # noqa: E402
-from gen_font import G as FONT  # noqa: E402
+import house_style as hs  # noqa: E402  (the 8BCraft house style: docs/art-direction.md)
 
 MAG = ls_sheets.MAGENTA
-
-
-# ---- a tiny pixel canvas ------------------------------------------------------------------
-class Canvas:
-    def __init__(self, w, h):
-        self.w, self.h = w, h
-        self.p = [[None] * w for _ in range(h)]
-
-    def set(self, x, y, c):
-        if 0 <= x < self.w and 0 <= y < self.h:
-            self.p[y][x] = c
-
-    def get(self, x, y):
-        return self.p[y][x] if 0 <= x < self.w and 0 <= y < self.h else None
-
-    def rect(self, x0, y0, x1, y1, c):
-        for y in range(y0, y1 + 1):
-            for x in range(x0, x1 + 1):
-                self.set(x, y, c)
-
-    def outline(self, c, diag=False):
-        """1-px outline outside the drawing (transparent pixels touching a filled one)."""
-        add = []
-        for y in range(self.h):
-            for x in range(self.w):
-                if self.p[y][x] is not None:
-                    continue
-                nb = [(1, 0), (-1, 0), (0, 1), (0, -1)] + ([(1, 1), (-1, -1), (1, -1), (-1, 1)] if diag else [])
-                if any(self.get(x + dx, y + dy) not in (None, c) for dx, dy in nb):
-                    add.append((x, y))
-        for x, y in add:
-            self.p[y][x] = c
-
-    def image(self):
-        im = Image.new("RGB", (self.w, self.h), MAG)
-        px = im.load()
-        for y in range(self.h):
-            for x in range(self.w):
-                if self.p[y][x] is not None:
-                    px[x, y] = self.p[y][x]
-        return im
-
-    def paste(self, other, ox, oy):
-        for y in range(other.h):
-            for x in range(other.w):
-                if other.p[y][x] is not None:
-                    self.set(ox + x, oy + y, other.p[y][x])
+# the house kit (games/common/tools/house_style.py): the canvas, the shading helpers and the UI sprites
+Canvas, seg_dist, shade3 = hs.Canvas, hs.seg_dist, hs.shade3
 
 
 # ---- the squid --------------------------------------------------------------------------------
@@ -86,14 +42,6 @@ SQ = dict(out=(40, 16, 58), dark=(100, 46, 138), mid=(150, 82, 194), light=(194,
           hi=(234, 200, 250), spot=(222, 110, 176), white=(250, 250, 250), pupil=(18, 8, 26),
           lid=(118, 58, 152), ldark=(66, 70, 84), lmid=(118, 124, 140), llight=(178, 184, 198),
           buckle=(236, 198, 76))
-
-
-def seg_dist(px, py, ax, ay, bx, by):
-    vx, vy = bx - ax, by - ay
-    L = vx * vx + vy * vy
-    t = 0 if L == 0 else max(0.0, min(1.0, ((px - ax) * vx + (py - ay) * vy) / L))
-    dx, dy = px - (ax + t * vx), py - (ay + t * vy)
-    return math.hypot(dx, dy), t
 
 
 def body_hv(u, squeeze=1.0):
@@ -293,83 +241,13 @@ def weight(frame):
     return cv
 
 
-def sparkle(frame):
-    cv = Canvas(8, 8)
-    r = 3 if frame == 0 else 2
-    for i in range(-r, r + 1):
-        cv.set(4 + i, 4, FX["spark"])
-        cv.set(4, 4 + i, FX["spark"])
-    cv.set(4, 4, FX["white"])
-    if frame == 1:
-        for d in (-1, 1):
-            cv.set(4 + d, 4 + d, FX["spark"]), cv.set(4 + d, 4 - d, FX["spark"])
-    return cv
+sparkle = hs.sparkle          # the medal twinkle
 
 
-UI = dict(out=(22, 18, 40), white=(250, 250, 250), shade=(168, 200, 232), bd=(138, 76, 38), bl=(210, 142, 82),
-          sd=(128, 138, 156), sl=(222, 230, 238), gd=(186, 128, 22), gl=(252, 216, 72), pd=(200, 138, 170),
-          pl=(242, 202, 214), pearl=(255, 250, 238))
-
-
-def digit(n):
-    cv = Canvas(16, 16)
-    g = FONT[str(n)]
-    for y, row in enumerate(g[:7]):
-        for x, c in enumerate(row):
-            if c == "#":
-                for sy in range(2):
-                    for sx in range(2):
-                        cv.set(2 + x * 2 + sx, 1 + y * 2 + sy, UI["shade"] if y >= 5 else UI["white"])
-    cv.outline(UI["out"], diag=True)
-    return cv
-
-
-def shell(kind):
-    cv = Canvas(24, 24)
-    dark, light = [(UI["bd"], UI["bl"]), (UI["sd"], UI["sl"]), (UI["gd"], UI["gl"]), (UI["pd"], UI["pl"])][kind]
-    cx, cy = 12, 17
-    for y in range(24):
-        for x in range(24):
-            dx, dy = x + 0.5 - cx, y + 0.5 - cy
-            r = math.hypot(dx, dy)
-            ang = math.atan2(-dy, dx)
-            if 0.08 < ang < math.pi - 0.08 and r < 10.5 - 0.8 * abs(math.cos(ang * 7)):
-                rib = int((ang / math.pi) * 7 + 0.5)
-                edge = abs((ang / math.pi) * 7 - rib) < 0.16
-                col = dark if edge or r > 9.3 else light
-                if dx + dy < -6 and not edge:
-                    col = UI["white"] if r < 7 else light
-                cv.set(x, y, col)
-            # the hinge
-            if 16 <= y <= 19 and abs(dx) < 3.2:
-                cv.set(x, y, dark)
-    if kind == 3:                            # the pearl
-        for y in range(24):
-            for x in range(24):
-                if math.hypot(x + 0.5 - 12, y + 0.5 - 13) < 3.3:
-                    cv.set(x, y, UI["pearl"] if (x + y) > 22 else UI["white"])
-        cv.set(11, 12, UI["white"])
-    cv.outline(UI["out"])
-    return cv
-
-
-def hint(frame):
-    cv = Canvas(16, 16)
-    oy = 1 if frame else 0
-    for y in range(16):
-        for x in range(16):
-            d = math.hypot(x + 0.5 - 8, y + 0.5 - 7.5 - oy)
-            if d < 6.2:
-                cv.set(x, y, UI["sl"] if (x + y) < 14 else UI["sd"])
-            elif d < 7.2 and y > 8 and not frame:
-                cv.set(x, y, UI["sd"])
-    g = FONT["A"]
-    for y, row in enumerate(g[:7]):
-        for x, c in enumerate(row):
-            if c == "#":
-                cv.set(6 + x, 4 + y + oy, UI["out"])
-    cv.outline(UI["out"])
-    return cv
+UI = hs.UI
+digit = hs.digit              # the big score digits
+shell = hs.medal              # the medals: the house medal is Leady Squid's shell
+hint = hs.hint                # the A-button glyph of "PRESS A"
 
 
 # ---- obstacles (bodies are tiles, caps are sprites; one palette per theme) ----------------------
@@ -383,12 +261,6 @@ TH = {
     "chains": dict(out=(34, 18, 16), d=(100, 52, 36), m=(152, 84, 52), l=(198, 124, 74), h=(232, 172, 112),
                    b=(58, 62, 72), bl=(104, 110, 124), il=(160, 166, 180)),
 }
-
-
-def shade3(P, x, y, w, x0=0):
-    """Cylinder shading across a column: light on the left, dark on the right."""
-    f = (x - x0) / float(max(1, w - 1))
-    return P["h"] if f < 0.12 else P["l"] if f < 0.4 else P["m"] if f < 0.78 else P["d"]
 
 
 def kelp_body(v):
@@ -799,52 +671,17 @@ def backdrop():
 
 # ---- title logo (256x64): "LEADY" in lead, "SQUID" in purple ------------------------------------------------
 def logo():
-    im = Image.new("RGB", (256, 64), MAG)
-    px = im.load()
+    """The house logo (house_style.logo) with Leady Squid's extras: rivets on LEADY, bubbles around."""
     word1, word2 = "LEADY", "SQUID"
-    sc = 4
-    lead = [(208, 214, 226), (160, 166, 180), (116, 122, 138)]
-    purp = [(236, 196, 252), (190, 120, 228), (138, 70, 180)]
-    outc, shadow = (26, 16, 40), (20, 34, 70)
-    adv = 5 * sc + 2
-    total = (len(word1) + len(word2) + 1) * adv - 2
-    x0 = (256 - total) // 2
-    y0 = 14
-    mask = {}
-    for i, ch in enumerate(word1 + " " + word2):
-        g = FONT[ch]
-        pal = lead if i < len(word1) else purp
-        for y, row in enumerate(g[:7]):
-            for x, c in enumerate(row):
-                if c != "#":
-                    continue
-                for sy in range(sc):
-                    for sx in range(sc):
-                        X, Y = x0 + i * adv + x * sc + sx, y0 + y * sc + sy
-                        k = 0 if y * sc + sy < 8 else 1 if y * sc + sy < 18 else 2
-                        mask[(X, Y)] = pal[k]
-    for (X, Y) in mask:                                  # drop shadow
-        for d in (3, 4):
-            if (X + d // 2, Y + d) not in mask:
-                px[X + d // 2, Y + d] = shadow
-    for (X, Y), c in mask.items():
-        for dx in (-1, 0, 1):
-            for dy in (-1, 0, 1):
-                if (X + dx, Y + dy) not in mask:
-                    px[X + dx, Y + dy] = outc
-    for (X, Y), c in mask.items():
-        px[X, Y] = c
-    # rivets on LEADY
-    for i in range(len(word1)):
+    im, info = hs.logo([word1, word2], [hs.HOUSE["lead"], hs.ACCENTS["squid_logo"]])
+    px = im.load()
+    mask, x0, y0, adv, sc = info["mask"], info["x0"], info["y0"], info["adv"], info["scale"]
+    for i in range(len(word1)):                          # rivets on LEADY
         cx = x0 + i * adv + 2 * sc
         if (cx, y0 + 2) in mask:
             px[cx, y0 + 2] = (250, 250, 250)
-    # bubbles
-    for bx, by, r in ((20, 50, 3), (232, 12, 4), (240, 44, 2), (12, 18, 2)):
-        for y in range(by - r - 1, by + r + 2):
-            for x in range(bx - r - 1, bx + r + 2):
-                if abs(math.hypot(x - bx, y - by) - r) < 0.6:
-                    px[x, y] = (196, 238, 255)
+    for bx, by, r in ((20, 50, 3), (232, 12, 4), (240, 44, 2), (12, 18, 2)):   # bubbles
+        hs.bubble_ring(px, bx, by, r)
     return im
 
 

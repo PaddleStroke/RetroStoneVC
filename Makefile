@@ -59,9 +59,14 @@ XMP_DEFS = -DLIBXMP_CORE_PLAYER -DLIBXMP_STATIC -DLIBXMP_NO_DEPACKERS
 SDK_SRC  = $(wildcard sdk/src/*.c)
 XMP_SRC  = $(wildcard sdk/third_party/libxmp-lite/src/*.c) \
            $(wildcard sdk/third_party/libxmp-lite/src/loaders/*.c)
-GAME_SRC = $(wildcard games/$(GAME)/src/*.c)
+# The 8BCraft house style kit (games/common/src: house_ui.c, house_audio.c; docs/art-direction.md): compiled into
+# the games that opt in with a "HOUSE_UI_<game> = 1" line in their game.mk (Bomber Mole does not). The game.mk
+# files are included at the end, after the rules that list the objects: the flag is read from the file here.
+HOUSE_SRC = $(wildcard games/common/src/*.c)
+HOUSE_UI := $(if $(shell grep -qs '^HOUSE_UI_$(GAME) *[:?]*= *1' games/$(GAME)/game.mk && echo 1),1)
+GAME_SRC = $(wildcard games/$(GAME)/src/*.c) $(if $(HOUSE_UI),$(HOUSE_SRC))
 GAME_GEN = build/gen/$(GAME)/assets.c
-GAME_INC = -Igames/$(GAME)/src -Ibuild/gen/$(GAME)
+GAME_INC = -Igames/$(GAME)/src -Ibuild/gen/$(GAME) -Igames/common/src
 
 # ---- per-platform object lists ------------------------------------------------
 define objs

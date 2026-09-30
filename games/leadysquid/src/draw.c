@@ -5,22 +5,12 @@
  */
 #include "ls.h"
 #include "assets.h"
+#include "house_ui.h"
 #include <stdio.h>
 #include <string.h>
 
-extern const uint8_t rs_font_5x7[96][8];
-
-/* BG1 tiles (relative to 0): small font 0..95, font on the panel colour 96..191,
- * the 2x-glyph cache 192..287, the panel frame 288..296, the logo LOGO_TILE.. */
-#define T_BOXFONT 96
-#define T_BIG     192
-#define BIG_SLOTS 24
-#define T_PANEL   288
-
-/* palette 0 (text and panels) */
-static const rs_color text_pal[16] = {
-    0, RS_HEX(0xfff6dc), RS_HEX(0x101838), RS_HEX(0x2a4476), RS_HEX(0x78aad2), RS_HEX(0x0c142c),
-    RS_HEX(0xfad25a), RS_HEX(0x365488)};
+/* BG1 tiles (relative to 0): the house UI kit (games/common/src/house_ui.c: the font, the font on the panel
+ * colour, the 2x-glyph cache, the panel frame; HU_BG_TILES), then the logo at LOGO_TILE.. */
 
 /* water gradient per theme: surface colour, deep colour */
 static const uint32_t water[THEMES][2] = {
@@ -30,135 +20,13 @@ static int16_t back_dx[RS_SCREEN_H];
 static rs_color line_col[RS_SCREEN_H];
 static int cur_rgb[2][3];                 /* the gradient shown (lerps toward the theme's) */
 static int depth;                         /* 0..DEPTH_MAX */
-static int paused_now;
 static int drawn_index, cleared_col;
 static uint32_t drawn_seed;               /* the course whose bodies are on BG2 */
-static int big_chars[BIG_SLOTS], big_used;
 static rs_rng fx_rng;
 static int logo_on;
 static int last_dark = -1;                /* the darkness the reef palettes were last written for */
 
 int depth_level(void) { return depth; }
-
-/* ---- text ------------------------------------------------------------------------------------ */
-static void glyph_tile(int c, int bg, int dst)
-{
-    uint8_t t[64];
-    for (int y = 0; y < 8; y++)
-        for (int x = 0; x < 8; x++) {
-            int on = (rs_font_5x7[c][y] & (0x80 >> x)) != 0;
-            int sh = x > 0 && y > 0 && (rs_font_5x7[c][y - 1] & (0x80 >> (x - 1)));
-            t[y * 8 + x] = (uint8_t)(on ? 1 : sh ? 2 : bg);
-        }
-    rs_tiles_load8(dst, t, 1);
-}
-
-/* 2x glyphs with a full outline, uploaded on demand into a small cache. Two styles: BIG_FREE, cream
- * on a clear background (over the scene); BIG_BANNER, gold with an outline and a drop shadow on the
- * panel colour (the game-over banner, which hides what is behind it). */
-enum { BIG_FREE, BIG_BANNER };
-
-static int big_slot(char ch, int style)
-{
-    int c = ch - 32;
-    if (c < 0 || c >= 96) c = 0;
-    int key = c | style << 8;
-    for (int i = 0; i < big_used; i++)
-        if (big_chars[i] == key) return i;
-    if (big_used >= BIG_SLOTS) return 0;
-    int s = big_used++;
-    big_chars[s] = key;
-    uint8_t px[16][16];
-    memset(px, 0, sizeof px);
-    for (int y = 0; y < 7; y++)
-        for (int x = 0; x < 6; x++)
-            if (rs_font_5x7[c][y] & (0x80 >> x))
-                for (int k = 0; k < 4; k++) px[1 + y * 2 + (k >> 1)][1 + x * 2 + (k & 1)] = 1;
-    for (int y = 0; y < 16; y++)
-        for (int x = 0; x < 16; x++) {
-            if (px[y][x]) continue;
-            for (int dy = -1; dy <= 1; dy++)
-                for (int dx = -1; dx <= 1; dx++) {
-                    int yy = y + dy, xx = x + dx;
-                    if (yy >= 0 && yy < 16 && xx >= 0 && xx < 16 && px[yy][xx] == 1) px[y][x] = 2;
-                }
-        }
-    if (style == BIG_BANNER) {
-        /* the drop shadow: one pixel down-right of the outline */
-        for (int y = 15; y > 0; y--)
-            for (int x = 15; x > 0; x--)
-                if (!px[y][x] && px[y - 1][x - 1] == 2) px[y][x] = 3;
-    }
-    /* palette 0: 1 cream, 2 outline, 3 panel fill, 5 shadow, 6 gold */
-    static const uint8_t col[2][4] = {{0, 1, 2, 0}, {3, 6, 2, 5}};
-    for (int q = 0; q < 4; q++) {
-        uint8_t t[64];
-        for (int y = 0; y < 8; y++)
-            for (int x = 0; x < 8; x++) t[y * 8 + x] = col[style][px[(q >> 1) * 8 + y][(q & 1) * 8 + x]];
-        rs_tiles_load8(T_BIG + s * 4 + q, t, 1);
-    }
-    return s;
-}
-
-static void text(int x, int y, const char *s)
-{
-    rs_text_setup(RS_BG1, 0, 0, 1);
-    rs_text(x, y, s);
-}
-
-static void box_text(int x, int y, const char *s)
-{
-    rs_text_setup(RS_BG1, T_BOXFONT, 0, 1);
-    rs_text(x, y, s);
-}
-
-static void big_text_style(int x, int y, const char *s, int style)
-{
-    for (; *s; s++, x += 2) {
-        if (*s == ' ') continue;
-        int t = T_BIG + big_slot(*s, style) * 4;
-        for (int q = 0; q < 4; q++) rs_bg_put(RS_BG1, x + (q & 1), y + (q >> 1), RS_MAP(t + q, 0, 1, 0, 0));
-    }
-}
-
-static void big_text(int x, int y, const char *s) { big_text_style(x, y, s, BIG_FREE); }
-
-static int center(const char *s, int big) { return (40 - (int)strlen(s) * (big ? 2 : 1)) / 2; }
-
-static void clear_text(void)
-{
-    rs_bg_fill(RS_BG1, 0);
-}
-
-/* the panel frame: 3x3 tiles (corners, edges, fill) in palette 0 */
-static void panel_tiles(void)
-{
-    for (int k = 0; k < 9; k++) {
-        uint8_t t[64];
-        int kx = k % 3, ky = k / 3;
-        for (int y = 0; y < 8; y++)
-            for (int x = 0; x < 8; x++) {
-                int ex = kx == 0 ? x : kx == 2 ? 7 - x : 8;   /* distance to the outer edge */
-                int ey = ky == 0 ? y : ky == 2 ? 7 - y : 8;
-                int v = 3;
-                if (kx != 1 && ky != 1 && ex + ey < 3) v = 0;         /* rounded corner */
-                else if (ex == 0 || ey == 0 || (kx != 1 && ky != 1 && ex + ey == 3)) v = 5;
-                else if (ex == 1 || ey == 1 || (kx != 1 && ky != 1 && ex + ey == 4)) v = (ky == 2 || kx == 2) ? 5 : 4;
-                else if (ey == 2 && ky == 0) v = 7;
-                t[y * 8 + x] = (uint8_t)v;
-            }
-        rs_tiles_load8(T_PANEL + k, t, 1);
-    }
-}
-
-static void panel(int x0, int y0, int w, int h)
-{
-    for (int y = 0; y < h; y++)
-        for (int x = 0; x < w; x++) {
-            int kx = x == 0 ? 0 : x == w - 1 ? 2 : 1, ky = y == 0 ? 0 : y == h - 1 ? 2 : 1;
-            rs_bg_put(RS_BG1, x0 + x, y0 + y, RS_MAP(T_PANEL + ky * 3 + kx, 0, 1, 0, 0));
-        }
-}
 
 /* ---- raster: the water gradient, the additive rays band, the pause dim ----------------------------- */
 static void raster(int line, void *user)
@@ -209,12 +77,15 @@ static void gradient_update(int theme, int target_depth)
 /* ---- set-up ---------------------------------------------------------------------------------------- */
 void draw_init(void)
 {
-    rs_text_load(0, 0);
-    /* the font on the panel colour: only the glyphs the panel uses (VRAM) */
-    for (const char *p = " SCOREBESTNWMDALPYIG12!:-"; *p; p++) glyph_tile(*p - 32, 3, T_BOXFONT + *p - 32);
-    panel_tiles();
+    /* the house UI kit on BG1 (palette 0); the digits, the A glyph and the medals are sprites of the game's
+     * sheet (drawn by games/common/tools/house_style.py), so no kit sprites */
+    hu_config hc = hu_defaults();
+    hc.logo_tile = LOGO_TILE;
+    hc.logo_pal = PAL_LOGO;
+    hc.obj_tile = -1;
+    hc.box_glyphs = " SCOREBESTNWMDALPYIG12!:-";    /* only the glyphs the panel uses (VRAM) */
+    hu_init(&hc);
     rs_tiles_load(LOGO_TILE, ls_logo_tiles, ls_logo_tile_count);
-    rs_pal_load(RS_PAL_BG(0), text_pal, 16);
     rs_pal_load(RS_PAL_BG(PAL_SEABED), ls_seabed_pal, 16);
     for (int t = 0; t < THEMES; t++) rs_pal_load(RS_PAL_BG(PAL_THEME0 + t), ls_theme_bg_pal[t], 16);
     rs_pal_load(RS_PAL_BG(PAL_MID), ls_mid_pal, 16);
@@ -454,8 +325,7 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
 {
     char s[48];
     if (state != shown_state || (state == DS_OVER && st_t == RETRY_LOCK) || best != shown_best) {
-        clear_text();
-        big_used = 0;
+        hu_clear();
         logo_on = 0;
         if (state == DS_TITLE) {
             logo_on = 1;
@@ -463,45 +333,26 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
                 for (int x = 0; x < LOGO_W; x++) rs_bg_put(RS_BG1, 4 + x, 2 + y, ls_logo_map[y * LOGO_W + x]);
             rs_pal_load(RS_PAL_BG(PAL_LOGO), ls_logo_pal, 16);
             snprintf(s, sizeof s, "BEST %d", best);
-            if (best > 0) text(center(s, 0), 24, s);
-            text(center("(C) 2026 8BCRAFT - RETROSTONE VC", 0), 28, "(C) 2026 8BCRAFT - RETROSTONE VC");
+            if (best > 0) hu_text(hu_center(s, 0), 24, s);
+            hu_copyright(28);
         } else {
             rs_pal_load(RS_PAL_BG(PAL_LOGO), ls_theme_bg_pal[PAL_LOGO - PAL_THEME0], 16);
         }
-        if (state == DS_READY) big_text(center("GET READY", 1), 6, "GET READY");
+        if (state == DS_READY) hu_get_ready(6);
         if (state == DS_OVER) {
             /* the title on its own banner, as wide as the score panel below it: nothing shows through */
-            panel(10, 4, 20, 4);
-            big_text_style(center("GAME OVER", 1), 5, "GAME OVER", BIG_BANNER);
-            panel(10, 9, 20, 12);
-            if (w->players == 1) {
-                box_text(12, 11, "SCORE");
-                box_text(12, 14, new_best ? "NEW BEST" : "BEST");
-                box_text(12, 17, "MEDAL");
-            } else {
-                box_text(12, 11, "PLAYER 1");
-                box_text(12, 14, "PLAYER 2");
-                int a = w->sq[0].score, b = w->sq[1].score;
-                const char *win = a > b ? "P1 WINS!" : b > a ? "P2 WINS!" : "DRAW!";
-                box_text(20 - (int)strlen(win) / 2, 17, win);
-            }
+            hu_banner(4, "GAME OVER");
+            hu_gameover_panel(w->players, new_best, w->sq[0].score, w->sq[1].score);
         }
         shown_state = state;
         shown_best = best;
     }
     /* blinking lines */
-    int blink = (st_t / 30) % 2 == 0;
     if (state == DS_TITLE || state == DS_READY) {
-        const char *h = "PRESS A TO SWIM";
-        if (blink) text(center(h, 0) + 1, 21, h);
-        else rs_text_clear(0, 21, 40, 1);
-        if (w->players == 1 && state == DS_READY) text(center("P2: PRESS A ON PAD 2 TO JOIN", 0), 26, "P2: PRESS A ON PAD 2 TO JOIN");
-        if (w->players == 2) text(center("P2 JOINED - RACE!", 0), 26, "P2 JOINED - RACE!  ");
+        hu_prompt(21, "PRESS A TO SWIM", st_t);
+        if (w->players == 2 || state == DS_READY) hu_join_line(26, w->players, "RACE!");
     }
-    if (state == DS_OVER && st_t >= RETRY_LOCK) {
-        if (blink) box_text(13, 19, "A: SWIM AGAIN");
-        else box_text(13, 19, "             ");
-    }
+    if (state == DS_OVER) hu_retry_line(st_t, RETRY_LOCK, "A: SWIM AGAIN");
 }
 
 void draw_frame(const world *w, int state, int st_t, int best, int new_best, int paused)
@@ -525,15 +376,9 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     }
     screen_text(w, state, st_t, best, new_best);
     /* the game-over panel slides up */
-    int slide = 0;
-    if (state == DS_OVER && st_t < 20) slide = (20 - st_t) * (20 - st_t) * 200 / 400;
+    int slide = state == DS_OVER ? hu_slide_in(st_t, 20, 200) : 0;
     rs_bg_scroll(RS_BG1, 0, -slide);
-    rs_brightness(paused ? 9 : 15);
-    if (paused != paused_now) {
-        paused_now = paused;
-        if (paused) big_text(center("PAUSED", 1), 13, "PAUSED");
-        else rs_text_clear(0, 13, 40, 2);
-    }
+    hu_pause(paused, 13);
 
     rs_oam_clear();
     /* front to back: UI, squids, ink and weights, caps, bubbles */
@@ -554,7 +399,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
                 spr(SPR_MEDAL + m - 1, 22 * 8 - 4, 16 * 8 - 4 + oy, 3, -1);
                 if ((st_t / 20) % 3 == 0) spr(SPR_SPARKLE + (st_t / 10) % 2, 22 * 8 + 12, 16 * 8 - 4 + oy, 3, -1);
             } else {
-                box_text(22, 17, "-");
+                hu_box_text(22, 17, "-");
             }
         } else {
             number(w->sq[0].score, 25 * 8, 11 * 8 - 4 + oy, 3);
@@ -562,7 +407,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         }
     }
     if (state == DS_TITLE || state == DS_READY)
-        spr(SPR_HINT + ((t / 30) % 2), center("PRESS A TO SWIM", 0) * 8 - 12, 21 * 8 - 4, 3, -1);
+        spr(SPR_HINT + ((t / 30) % 2), hu_center("PRESS A TO SWIM", 0) * 8 - 12, 21 * 8 - 4, 3, -1);
     draw_squids(w);
     draw_fx(1);
     draw_caps(w);
@@ -573,8 +418,9 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
 #define S(v) rs_state_var("draw." #v, &(v), sizeof(v))
 void draw_state(void)
 {
-    S(back_dx); S(line_col); S(cur_rgb); S(depth); S(paused_now); S(drawn_index); S(cleared_col); S(drawn_seed);
-    S(big_chars); S(big_used); S(fx_rng); S(logo_on); S(last_dark); S(fx); S(shown_state); S(shown_best);
+    S(back_dx); S(line_col); S(cur_rgb); S(depth); S(drawn_index); S(cleared_col); S(drawn_seed);
+    S(fx_rng); S(logo_on); S(last_dark); S(fx); S(shown_state); S(shown_best);
     RS_STATE_RASTER(raster);
+    hu_state();                 /* the house UI kit's objects (house_ui.*) */
 }
 #undef S

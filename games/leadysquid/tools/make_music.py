@@ -1,59 +1,27 @@
 #!/usr/bin/env python3
 """Leady Squid music: a gentle underwater loop, a small 4-channel ProTracker MOD
-(played by libxmp-lite in the SDK). Synthesised samples: a soft sine pad, a
-round bass, a water-drop pluck and a breathy lead; slow tempo, D dorian.
+(played by libxmp-lite in the SDK). The house instrument set (games/common/tools/house_music.py):
+a soft sine pad, a round bass, a water-drop pluck and a breathy lead; slow tempo, D dorian.
 
     make_music.py OUTDIR       -> OUTDIR/tune.mod
 
 MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/leadysquid/LICENSE.
 """
-import math
 import os
 import random
-import struct
 import sys
 
-# ProTracker periods, C-1 .. B-3
-PERIODS = [856, 808, 762, 720, 678, 640, 604, 570, 538, 508, 480, 453,
-           428, 404, 381, 360, 339, 320, 302, 285, 269, 254, 240, 226,
-           214, 202, 190, 180, 170, 160, 151, 143, 135, 127, 120, 113]
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(HERE, "..", "..", "common", "tools"))
+import house_music as hm  # noqa: E402
+from house_music import cell, note  # noqa: E402
 
-
-def s8(v):
-    return max(-128, min(127, int(round(v))))
-
-
-def samples():
-    rng = random.Random(5)
-    pad = [s8(38 * math.sin(2 * math.pi * i / 64) + 12 * math.sin(4 * math.pi * i / 64 + 0.5)) for i in range(64)]
-    bass = [s8(70 * math.sin(2 * math.pi * i / 64) + 14 * math.sin(4 * math.pi * i / 64)) for i in range(64)]
-    drop, ph = [], 0.0
-    for i in range(2400):                      # a pluck: sine, a small upward bend, fast decay
-        ph += (1.0 / 16) * (1 + 0.25 * math.exp(-i / 120.0))
-        drop.append(s8(100 * math.sin(2 * math.pi * ph) * math.exp(-i / 520.0)))
-    lead = [s8(44 * math.sin(2 * math.pi * i / 32) + rng.uniform(-3, 3)) for i in range(32)]
-    # name, data, volume, loop start, loop length (samples; 0 = no loop)
-    return [("pad", pad, 22, 0, 64), ("bass", bass, 40, 0, 64), ("drop", drop, 34, 0, 0), ("lead", lead, 20, 0, 32)]
-
-
-KEY, SCALE = 2, [0, 2, 3, 5, 7, 9, 10]          # D dorian
+KEY, SCALE = 2, hm.DORIAN                        # D dorian
 CHORDS = [0, 6, 5, 6]                            # Dm, C, Bb, C (scale degrees)
 
 
-def note(n):
-    while n < 0:
-        n += 12
-    while n >= len(PERIODS):
-        n -= 12
-    return PERIODS[n]
-
-
 def deg(d, octave):
-    return KEY + 12 * octave + SCALE[d % 7] + 12 * (d // 7)
-
-
-def cell(smp=0, period=0, eff=0, par=0):
-    return bytes([(smp & 0xF0) | (period >> 8), period & 0xFF, ((smp & 0x0F) << 4) | eff, par])
+    return hm.deg(d, octave, KEY, SCALE)
 
 
 def pattern(rng, variant):
@@ -85,33 +53,9 @@ def pattern(rng, variant):
 
 def build():
     rng = random.Random(1993)
-    smp = samples()
-    out = bytearray()
-    out += b"leady squid".ljust(20, b"\0")
-    for i in range(31):
-        if i < len(smp):
-            n, data, vol, ls, ll = smp[i]
-            if len(data) % 2:
-                data = data + [0]
-            out += n.encode()[:22].ljust(22, b"\0")
-            out += struct.pack(">HBBHH", len(data) // 2, 0, vol, ls // 2, (ll // 2) if ll else 1)
-        else:
-            out += b"\0" * 22 + struct.pack(">HBBHH", 0, 0, 0, 0, 1)
-    orders = [0, 1, 0, 2]
-    out += bytes([len(orders), 127])
-    out += bytes(orders + [0] * (128 - len(orders)))
-    out += b"M.K."
+    smp = hm.instruments(seed=5)
     pats = [pattern(rng, 0), pattern(rng, 1), pattern(rng, 1)]
-    p0 = bytearray(pats[0])                      # speed 8 on the first row (channel 4, effect F)
-    p0[12:16] = bytes([p0[12], p0[13], (p0[14] & 0xF0) | 0xF, 8])
-    pats[0] = bytes(p0)
-    for p in pats:
-        out += p
-    for n, data, vol, ls, ll in smp:
-        if len(data) % 2:
-            data = data + [0]
-        out += bytes((v + 256) % 256 for v in data)
-    return bytes(out)
+    return hm.build_mod("leady squid", smp, pats, [0, 1, 0, 2], speed=8)
 
 
 def main():
