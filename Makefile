@@ -6,6 +6,8 @@
 #   make armhf           armhf cross-build of the libretro core (Cortex-A7, RetroStone2)
 #   make dist            all deliverables into dist/
 #   make screenshots     headless screenshots into docs/screenshots/
+#   make art-ai          regenerate the default art set (games/bombermole/art-ai/) from art/incoming
+#   make ART=art ...     the validated-only art (VALIDATED strips + placeholders, 16-px characters)
 #   make bench           per-frame cost of the heaviest scenes
 #   make DEBUG=1 ...     -O0 -g and strict mode on by default
 #
@@ -13,7 +15,14 @@
 
 GAME      ?= bombermole
 GAME_NAME ?= BomberMole
-CHAR_SIZE ?= 16
+# The art set: a folder of games/$(GAME)/ (or a path relative to it). The default is the game's committed
+# AI set, art-ai/, when it has one (make art-ai: every GENERATED and VALIDATED strip of art/incoming, the
+# placeholders for the TODO ones, never the REJECTED ones), else art/. ART=art is the validated-only look:
+# the owner's VALIDATED strips (make art) and the placeholders, with 16-px characters.
+ART       ?= $(if $(wildcard games/$(GAME)/art-ai),art-ai,art)
+# Character size (Bomber Mole: 16, 24 or 32). Each set is made at one size: art-ai at ART_AI_CHAR, art/ at 16.
+ART_AI_CHAR ?= 24
+CHAR_SIZE ?= $(if $(filter art-ai,$(ART)),$(ART_AI_CHAR),16)
 export BM_CHAR_SIZE := $(CHAR_SIZE)
 PYTHON    ?= python3
 JOBS      ?= $(shell nproc 2>/dev/null || echo 4)
@@ -55,7 +64,7 @@ HOST_CFLAGS = $(CSTD) $(OPT) $(WARN) -fPIC $(SDK_INC)
 WIN_CFLAGS  = $(CSTD) $(OPT) $(WARN) $(SDK_INC) -D__USE_MINGW_ANSI_STDIO=1
 ARM_CFLAGS  = $(CSTD) $(OPT) $(WARN) -fPIC $(ARM_FLAGS) $(SDK_INC)
 
-.PHONY: all host check test windows armhf dist screenshots bench clean assets placeholders golden preview art-review tiles-code tiles-compare
+.PHONY: all host check test windows armhf dist screenshots bench clean assets placeholders golden preview art art-ai art-review tiles-code tiles-compare
 all: host
 
 # ---- SDK static library --------------------------------------------------------
@@ -85,7 +94,7 @@ sdk/src/rs_font.c: sdk/tools/gen_font.py
 	$(PYTHON) $< > $@
 
 # ---- game assets (generated C) ----------------------------------------------------
-ART ?= art
+# (ART and CHAR_SIZE: at the top)
 # Terrain tileset: code = tools/make_tiles.py (drawn in code, colours from the AI tiles; default),
 # ai = the art's own tiles.png (placeholders + imported AI tiles), ai_v2 = the low-detail AI set
 # (tile_v2_* rows of the art TODO, assembled by art_sync into $(ART)/tilesets/ai_v2)
@@ -94,13 +103,15 @@ TILESET_DIR_code  = games/$(GAME)/art/tilesets/code
 TILESET_DIR_ai    =
 TILESET_DIR_ai_v2 = games/$(GAME)/$(ART)/tilesets/ai_v2
 TILESET_DIR = $(TILESET_DIR_$(TILESET))
-TILESET_STAMP = build/gen/$(GAME)/tileset-$(TILESET).stamp
-GAME_ART    = $(wildcard games/$(GAME)/$(ART)/*.png) $(if $(TILESET_DIR),$(wildcard $(TILESET_DIR)/*.png))
+# the asset build's settings: another art set, character size or tileset regenerates the assets
+ASSET_STAMP = build/gen/$(GAME)/config-$(TILESET)-$(CHAR_SIZE)-$(subst /,_,$(subst .,,$(ART))).stamp
+GAME_ART    = $(wildcard games/$(GAME)/$(ART)/*.png games/$(GAME)/$(ART)/overlays.txt) \
+              $(if $(TILESET_DIR),$(wildcard $(TILESET_DIR)/*.png))
 GAME_LEVELS = $(wildcard games/$(GAME)/levels/*.txt) $(wildcard games/$(GAME)/arenas/*.txt)
-$(TILESET_STAMP):
-	@mkdir -p $(dir $@); rm -f build/gen/$(GAME)/tileset-*.stamp; touch $@
+$(ASSET_STAMP):
+	@mkdir -p $(dir $@); rm -f build/gen/$(GAME)/config-*.stamp build/gen/$(GAME)/tileset-*.stamp; touch $@
 $(GAME_GEN): games/$(GAME)/tools/build_assets.py tools/rsasset.py tools/sheets.py $(GAME_ART) $(GAME_LEVELS) \
-             $(wildcard games/$(GAME)/tools/*.py) $(TILESET_STAMP)
+             $(wildcard games/$(GAME)/tools/*.py) $(ASSET_STAMP)
 	@mkdir -p $(dir $@)
 	$(PYTHON) games/$(GAME)/tools/build_assets.py --out $(dir $@) --art games/$(GAME)/$(ART) \
 	    $(if $(TILESET_DIR),--tileset $(TILESET_DIR))
@@ -177,12 +188,25 @@ test check: build/host/test_sdk build/host/test_libretro build/host/$(GAME)_head
 golden: build/host/test_sdk
 	./build/host/test_sdk --update --golden sdk/tests/golden --out build
 
+# the validated-only set, games/bombermole/art/ (16-px characters): the owner's VALIDATED strips
 art:
-	$(PYTHON) tools/art_sync.py sync
+	$(PYTHON) tools/art_sync.py sync --char-size 16
+
+# ---- the default art set: games/bombermole/art-ai/ (committed) ------------------------------------------
+# Every GENERATED and VALIDATED strip of art/incoming/TODO.md, the placeholders for the TODO rows, the
+# REJECTED rows left out; ART_AI_CHAR-px characters. Run it when new strips arrive or statuses change, then
+# commit art-ai/ (the sheets and REPORT.md; the strips stay in art/incoming, which the RetroStoneOS build
+# and its CI do not copy, so they build from art-ai/ as it is committed).
+ART_AI_DIR = games/bombermole/art-ai
+art-ai:
+	rm -rf $(ART_AI_DIR)
+	$(PYTHON) tools/art_sync.py sync --include-generated --char-size $(ART_AI_CHAR) \
+	    --out $(ART_AI_DIR) --report $(ART_AI_DIR)/REPORT.md
 
 # ---- AI art preview: ALL generated art whatever its status, 24-px characters -------------------
-# dist/windows/BomberMole-preview.exe + docs/art-preview/ingame-ai-*.png; the normal build
-# (validated art + placeholders) is untouched: its generated assets are rebuilt afterwards.
+# dist/windows/BomberMole-preview.exe + docs/art-preview/ingame-ai-*.png, straight from art/incoming
+# (the default build uses art-ai/, the same art as of the last make art-ai), with the tileset
+# comparisons; the normal build's generated assets are rebuilt afterwards.
 PREVIEW_CHAR ?= 24
 PREVIEW_TILESET ?= code
 PREVIEW_ART  := build/art-preview-$(PREVIEW_CHAR)
@@ -210,7 +234,7 @@ art-review:
 	$(PYTHON) tools/art_review.py
 
 placeholders:
-	$(PYTHON) tools/make_placeholders.py --out games/$(GAME)/art
+	BM_CHAR_SIZE=16 $(PYTHON) tools/make_placeholders.py --out games/$(GAME)/art
 
 screenshots: build/host/$(GAME)_headless
 	sh games/$(GAME)/tools/screenshots.sh build/host/$(GAME)_headless docs/screenshots

@@ -39,13 +39,14 @@ python3 tools/art_review.py                          # the owner's review tool: 
 python3 tools/art_sync.py todo                       # create / extend TODO.md
 python3 tools/art_sync.py sync --dry-run             # what would be imported
 python3 tools/art_sync.py sync                       # import VALIDATED rows -> games/bombermole/art/*.png
+make art-ai                                           # GENERATED + VALIDATED rows -> games/bombermole/art-ai/ (the default art)
 make                                                  # rebuild the game with the new sheets
 make preview                                          # dist/windows/BomberMole-preview.exe with ALL generated art
 python3 tools/art_consistency.py --verbose           # the consistency pass alone: per-family summary and flags
 python3 tools/art_sync.py preview --include-generated  # build/art-preview: contact_sheet.png + one GIF per strip (4x)
 ```
-`make art` runs `sync`. The characters are 24x24 and the bosses 48x48 (the owner's reference): build with
-`make CHAR_SIZE=24` after `art_sync.py sync --char-size 24` (`make preview` does both).
+`make art` runs `sync` (16-px characters, into `art/`). The characters are 24x24 and the bosses 48x48 (the
+owner's reference): the default set `art-ai/` is made at that size, and `make` builds it with CHAR_SIZE=24.
 
 ## Reviewing: tools/art_review.py
 A tiny local web server (Python standard library; the image work is `tools/art_consistency.py`). Run it from
@@ -99,18 +100,33 @@ For every **VALIDATED** row (with `--include-generated`, GENERATED rows too):
 The report (`IMPORT_REPORT.md`, next to TODO.md) lists every row taken: imported (frames, AI scale,
 normalisation, flags) / missing / error. `sync --legacy-import` runs the old import (one scale per group).
 
-## Playing with the AI art before validating it
-`make preview` imports every generated strip whatever its status (`art_sync.py sync --include-generated
---char-size 24 --out build/art-preview-24`), builds `dist/windows/BomberMole-preview.exe` with 24-px
-characters, and writes in-game screenshots to `docs/art-preview/ingame-ai-*.png` (title, spring surface,
-underground, the farmer room, winter). The normal build keeps validated art + placeholders.
+## The art sets: art-ai (default) and art (validated only)
+The owner decided that the generated AI art is the game's art until it is validated or rejected, so every
+build (host, `BomberMole.exe`, the libretro cores, the RetroStoneOS console) uses `games/bombermole/art-ai/`:
+- `make art-ai` = `art_sync.py sync --include-generated --char-size 24 --out games/bombermole/art-ai
+  --report games/bombermole/art-ai/REPORT.md`: every GENERATED and VALIDATED row, placeholders for the TODO
+  rows, the REJECTED rows left out (they fall back to their placeholder), 24-px characters. Only the
+  assembled sheets are kept (about 150 KB, with the `tilesets/ai_v2` set and `overlays.txt`).
+- Run it after the image agent delivers strips or the owner changes statuses, check `REPORT.md` and the
+  game, and **commit `art-ai/`**: the RetroStoneOS package (`rsos-vc-games`) and its CI copy the source
+  without `games/*/art/incoming`, so they build the committed set as it is.
+- The validated-only look: `make ART=art` (VALIDATED art + placeholders, from `make art`; CHAR_SIZE follows
+  the set, 16). `ART`, `CHAR_SIZE` and `TILESET` changes regenerate the assets on the next build.
+
+## Playing with the AI art before committing it
+`make preview` imports every generated strip whatever its status straight from `art/incoming`
+(`art_sync.py sync --include-generated --char-size 24 --out build/art-preview-24`), builds
+`dist/windows/BomberMole-preview.exe` with 24-px characters, and writes in-game screenshots to
+`docs/art-preview/ingame-ai-*.png` (title, spring surface, underground, the farmer room, winter) and the
+tileset comparisons. It is the same art as `art-ai/` once `make art-ai` has been run.
 
 ## The first batch
 The owner's first three AI sheets (whole sheets, made before this workflow) are in `incoming/first-batch/`.
 They were cut once into strips with `art_sync.py import-sheet` and the map files next to them
 (`characters.map`, `tiles.map`, `items_fx.map`: the strip IDs in reading order), which wrote 107 strips
 (`incoming/<ID>.png`) and marked those rows **GENERATED** with the note "from first-batch sheet".
-Nothing is validated yet, so the game still builds with the placeholders.
+Nothing is validated yet: `art/` is still the placeholders, and the game builds with the generated strips
+through `art-ai/`.
 
 ## Character size
 The owner's reference is **24x24 characters, 48x48 bosses** (the barn cat on the characters sheet, and the

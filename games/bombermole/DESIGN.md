@@ -607,7 +607,7 @@ each mole's depth, cell, hearts and state).
   `art/incoming/TODO.md`; see docs/art-workflow.md).
 - The owner's first AI batch (three whole sheets in `art/incoming/first-batch/`) was cut into 107 strips,
   all GENERATED, waiting for review.
-- **Character size**: 16x16 by default; the engine and the levels also take 24x24 or 32x32 characters on the
+- **Character size**: 24x24 in the default art set (`art-ai/`), 16x16 in `art/`; the engine and the levels take 16, 24 or 32-px characters on the
   16-px grid (bottom-centre anchor, overlapping upwards like SNES Bomberman): `make CHAR_SIZE=24`.
   Comparison images: docs/art-preview/. Recommendation: **24x24**. The AI characters keep their shading and
   expressions at 24 px, they still read as 16-px cells in the maze, and 24 px is SNES Bomberman's character

@@ -1,5 +1,5 @@
 BOMBER MOLE - RetroStone VC (Windows build)
-All rights reserved, 8BCraft (Pierre-Louis Boyer). Preview build with placeholder art and sound.
+All rights reserved, 8BCraft (Pierre-Louis Boyer). Preview build: AI-generated art under review (placeholders where none yet), placeholder sound.
 
 Run BomberMole.exe. No installation needed (SDL2 is built in).
 

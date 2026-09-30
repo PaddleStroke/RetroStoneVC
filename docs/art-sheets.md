@@ -13,8 +13,8 @@ the sheets below from the validated strips.
 - Every sheet is a grid of **16x16 cells** on a **magenta `#FF00FF`** background (magenta = transparent).
   Column and row numbers in the table are in cells; x = column x cell size, y = row x cell size.
 - The frames of an entry run **left to right** from its first cell.
-- **Characters sheet**: its cell is the character size, `CHAR_SIZE` (16 by default; 24 or 32 with
-  `make CHAR_SIZE=24`), so the mole, ferret, cat and guard dog are CHAR_SIZE square and the barn cat is 2x2
+- **Characters sheet**: its cell is the character size, `CHAR_SIZE` (16, 24 or 32: 16 in `art/`,
+  24 in the default set `art-ai/`; the table below is at 16), so the mole, ferret, cat and guard dog are CHAR_SIZE square and the barn cat is 2x2
   cells (the props bosses grow the same way, see art-workflow.md). In the
   game, sprites are anchored at the **bottom centre** of their 16x16 grid cell and overlap upwards (like SNES
   Bomberman), so 24- or 32-px characters need no level change.
