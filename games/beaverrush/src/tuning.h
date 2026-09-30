@@ -1,6 +1,6 @@
 /*
  * Beaver Rush: THE tuning table. Every gameplay number is here.
- * (c) 2026 Pierre-Louis Boyer (8BCraft). All rights reserved: games/beaverrush/LICENSE.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/beaverrush/LICENSE.
  *
  * The feel follows the reference (Timberman, 2014) as measured by its clones and described by reviews
  * (DESIGN.md "Feel sources"): the reference numbers are written first (REF_*), then converted. Time is

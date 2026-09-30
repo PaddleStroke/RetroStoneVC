@@ -1,6 +1,6 @@
 /*
  * Beaver Rush: shared declarations.
- * (c) 2026 Pierre-Louis Boyer (8BCraft). All rights reserved: games/beaverrush/LICENSE.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/beaverrush/LICENSE.
  *
  * rules.c + world.c are the game rules (no drawing, no sound: the unit tests link them alone);
  * draw.c, scene.c, sfx.c, bot.c and main.c are the console side.
@@ -90,6 +90,7 @@ void world_init(world *w, int players, uint32_t seed);
  * reroll: the seed that re-rolls the trees off screen at the first gnaw (0 = keep) */
 void world_step(world *w, const int press[MAX_PLAYERS], uint32_t reroll);
 int  world_dam_logs(const world *w);         /* logs of every beaver: the dam */
+void world_skip(world *w, int logs);         /* tests: start with logs gnawed safely (no events, the bar full) */
 int  world_stage(const world *w);            /* the scene: milestones reached by the best beaver */
 int  medal_of(int score);                    /* 0 none, 1..4 */
 
@@ -102,6 +103,7 @@ void sfx(int id);
 void sfx_pan(int id, int x, int pitch);
 void music_update(int level, int playing);
 void audio_set(int music, int sound);
+int  music_tempo(void);
 
 /* draw.c; the screens (game states) */
 enum { DS_TITLE, DS_READY, DS_PLAY, DS_END, DS_OVER };

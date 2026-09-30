@@ -1,7 +1,7 @@
 /*
  * Beaver Rush: a run, one beaver or two (versus): gnawing, the hits, the timer, milestones and stolen
  * chips. No drawing, no sound (tests/test_rules.c links it alone).
- * (c) 2026 Pierre-Louis Boyer (8BCraft). All rights reserved: games/beaverrush/LICENSE.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/beaverrush/LICENSE.
  */
 #include "br.h"
 #include <string.h>
@@ -117,6 +117,22 @@ void world_step(world *w, const int press[MAX_PLAYERS], uint32_t reroll)
     } else {
         w->winner = out0 ? 1 : 0;
         set_state(&w->bv[w->winner], BV_WIN);
+    }
+}
+
+void world_skip(world *w, int logs)
+{
+    for (int p = 0; p < w->players; p++) {
+        beaver *b = &w->bv[p];
+        for (int i = 0; i < logs; i++) {
+            const seg *s0 = &b->tr.s[0], *s1 = &b->tr.s[1];
+            if (s0->branch == b->side || s1->branch == b->side) b->side = other_side(b->side);
+            b->golds += s0->gold;
+            b->score += 1 + (s0->gold ? GOLD_BONUS : 0);
+            b->logs++;
+            tree_pop(&b->tr);
+        }
+        b->level = level_of(b->logs);
     }
 }
 

@@ -1,6 +1,6 @@
 /*
  * Beaver Rush: the trunk, its generator and the timer curve (pure functions: tests/test_rules.c).
- * (c) 2026 Pierre-Louis Boyer (8BCraft). All rights reserved: games/beaverrush/LICENSE.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/beaverrush/LICENSE.
  *
  * The generator lays the trunk out in small chunks (a single segment, a same-side stack, a zig-zag run),
  * then emits it one segment at a time under the fairness rule: a branch never sits right above a branch

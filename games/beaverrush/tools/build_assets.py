@@ -1,17 +1,247 @@
 #!/usr/bin/env python3
-"""Beaver Rush asset build (placeholder while the art is drawn): an empty asset pack.
-(c) 2026 Pierre-Louis Boyer (8BCraft). All rights reserved: games/beaverrush/LICENSE.
+"""Beaver Rush asset build: the code-drawn art (make_art.py) -> tiles, maps, sprites and the season
+palettes; the music (make_music.py) -> the asset pack. Writes build/gen/beaverrush/assets.c + assets.h.
+
+    build_assets.py --out build/gen/beaverrush [--art IGNORED] [--tileset IGNORED]
+
+Every colour of the art belongs to an explicit palette of make_art.py, so a tile's colours are looked up
+(never quantised) and the C side can swap the season ramps and tint the time of day by palette index.
+MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/beaverrush/LICENSE.
 """
 import argparse
+import glob
 import os
+import subprocess
+import sys
 
-ap = argparse.ArgumentParser()
-ap.add_argument("--out", required=True)
-ap.add_argument("--art", default="")
-ap.add_argument("--tileset", default="")
-a = ap.parse_args()
-os.makedirs(a.out, exist_ok=True)
-open(os.path.join(a.out, "assets.h"), "w").write(
-    "#ifndef BR_ASSETS_H\n#define BR_ASSETS_H\n#include \"rs.h\"\nextern const rs_asset_entry br_assets[];\n#endif\n")
-open(os.path.join(a.out, "assets.c"), "w").write(
-    "#include \"assets.h\"\nconst rs_asset_entry br_assets[] = {{0, 0, 0}};\n")
+HERE = os.path.dirname(os.path.abspath(__file__))
+GAME = os.path.dirname(HERE)
+ROOT = os.path.abspath(os.path.join(GAME, "..", ".."))
+sys.path.insert(0, HERE)
+sys.path.insert(0, os.path.join(ROOT, "tools"))
+import rsasset  # noqa: E402
+import make_art as A  # noqa: E402
+
+# VRAM (absolute tiles). BG1 = the house UI kit at 0 (font, panels, 2x cache, the logo at 320..639) and the
+# timer bar; the OBJ base holds the kit's sprites first (HU_OBJ_TILES = 110).
+VR_BG1, VR_BG2, VR_OBJ = 0, 1024, 3072   # BG3 and BG4 follow BG2 (their bases: multiples of 8)
+BAR_TILE = 700                  # relative to BG1: the timer bar tiles
+OBJ_FIRST = 112                 # our sprites, relative to VR_OBJ
+DAM_COL, DAM_ROW, DAM_W, DAM_H = 17, 16, 30, 4        # the dam canvas on BG3 (panorama tiles)
+
+
+class TileSet:
+    """tiles of one layer, deduplicated (with flips); tile 0 is blank"""
+
+    def __init__(self):
+        self.tiles = [[0] * 64]
+        self.index = {tuple([0] * 64): (0, 0, 0)}
+
+    def add(self, idx):
+        key = tuple(idx)
+        if key in self.index:
+            return self.index[key]
+        for hf, vf, f in ((1, 0, rsasset.hflip), (0, 1, rsasset.vflip), (1, 1, lambda t: rsasset.vflip(rsasset.hflip(t)))):
+            k2 = tuple(f(idx))
+            if k2 in self.index:
+                b = self.index[k2]
+                return (b[0], hf ^ b[1], vf ^ b[2])
+        self.tiles.append(list(idx))
+        self.index[key] = (len(self.tiles) - 1, 0, 0)
+        return self.index[key]
+
+
+def lookup(pal):
+    return {rsasset.to555(c): i for i, c in enumerate(pal) if c is not None}
+
+
+def tile_px(cv, tx, ty):
+    return [cv.get(tx * 8 + x, ty * 8 + y) for y in range(8) for x in range(8)]
+
+
+def bg_entries(cv, ts, pals, prio, name):
+    """a canvas (multiple of 8) -> map entries, row-major. pals: {palette number: colours}; each tile must use
+    the colours of one of them (the first that has them all)."""
+    looks = {p: lookup(c) for p, c in pals.items()}
+    out = []
+    for ty in range(cv.h // 8):
+        for tx in range(cv.w // 8):
+            px = tile_px(cv, tx, ty)
+            cols = {rsasset.to555(c) for c in px if c is not None}
+            if not cols:
+                out.append(0)
+                continue
+            p = next((p for p, lk in looks.items() if cols <= set(lk)), None)
+            if p is None:
+                raise SystemExit("%s: tile (%d, %d) mixes palettes: %s" % (name, tx, ty, sorted(cols)))
+            idx = [0 if c is None else looks[p][rsasset.to555(c)] for c in px]
+            t, hf, vf = ts.add(idx)
+            out.append(rsasset.rs_map(t, p, prio, hf, vf))
+    return out
+
+
+def obj_frame(cv, pal, name):
+    lk = lookup(pal)
+    tiles = []
+    for ty in range(cv.h // 8):
+        for tx in range(cv.w // 8):
+            idx = []
+            for c in tile_px(cv, tx, ty):
+                if c is None:
+                    idx.append(0)
+                elif rsasset.to555(c) in lk:
+                    idx.append(lk[rsasset.to555(c)])
+                else:
+                    raise SystemExit("%s: colour %s is not in its palette" % (name, c))
+            tiles.append(idx)
+    return tiles
+
+
+def pal16(colors):
+    return [0 if c is None else rsasset.to555(c) for c in (list(colors) + [None] * 16)[:16]]
+
+
+def arr(name, data, ctype="uint16_t", fmt="0x%04x"):
+    body = ", ".join(fmt % v for v in data)
+    return "const %s %s[%d] = {%s};" % (ctype, name, len(data), body)
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--out", required=True)
+    ap.add_argument("--art", default="")
+    ap.add_argument("--tileset", default="")
+    a = ap.parse_args()
+    os.makedirs(a.out, exist_ok=True)
+    c = ["/* Generated by games/beaverrush/tools/build_assets.py (code-drawn art: make_art.py). Do not edit. */",
+         '#include "assets.h"\n']
+    h = ["/* Generated by games/beaverrush/tools/build_assets.py. Do not edit. */",
+         "#ifndef BR_ASSETS_H\n#define BR_ASSETS_H\n#include <stdint.h>\n#include \"rs.h\"\n",
+         "#define VR_BG1 %d\n#define VR_BG2 %d\n#define VR_OBJ %d" % (VR_BG1, VR_BG2, VR_OBJ),
+         "#define BAR_TILE %d\n#define OBJ_FIRST %d\n#define PANO_X %d" % (BAR_TILE, OBJ_FIRST, A.PANO_X),
+         "#define DAM_COL %d\n#define DAM_ROW %d\n#define DAM_W %d\n#define DAM_H %d" % (DAM_COL, DAM_ROW, DAM_W, DAM_H),
+         "enum { PAL_UI = 0, PAL_TRUNK = 1, PAL_GOLD = 2, PAL_GROUND = 3, PAL_DAM = 4, PAL_LOGO = 5, "
+         "PAL_BANKS = 6, PAL_FAR = 7 };",
+         "enum { OPAL_BEAVER = 0, OPAL_BEAVER2 = 1, OPAL_WOOD = 2, OPAL_KIT = 3, OPAL_FX = 4, OPAL_GOLD = 5, "
+         "OPAL_BIRD = 6, OPAL_PART = 7 };"]
+    stats = []
+    s0 = A.bg_palettes(0)
+
+    # ---- BG2: the trunk: 4 segment looks (6x3 tiles), branches (5x3): left, right, stolen left, stolen right ----
+    ts = TileSet()
+    tp = A.trunk_parts()
+    segs = []
+    for k, sg in enumerate(tp["segments"]):
+        segs += bg_entries(sg, ts, {1: s0[1]}, 0, "segment %d" % k)
+    brs = []
+    for key in ("branch_l", "branch_r", "stolen_l", "stolen_r"):
+        brs += bg_entries(tp[key], ts, {1: s0[1]}, 0, key)
+    c.append(arr("br_seg_map", segs))
+    c.append(arr("br_branch_map", brs))
+    c.append(rsasset.c_bytes("br_bg2_tiles", rsasset.tiles_bytes(ts.tiles)))
+    c.append("const int br_bg2_tile_count = %d;" % len(ts.tiles))
+    h.append("extern const uint16_t br_seg_map[4 * 18];\nextern const uint16_t br_branch_map[4 * 15];")
+    h.append("extern const uint8_t br_bg2_tiles[];\nextern const int br_bg2_tile_count;")
+    stats.append("BG2 %d" % len(ts.tiles))
+    vr_bg3 = VR_BG2 + (len(ts.tiles) + 7) // 8 * 8
+
+    # ---- BG3: the banks and framing trees (rows 0..23), the near bank (rows 24..29), the dam canvas ----------------
+    ts = TileSet()
+    banks = bg_entries(A.banks(), ts, {6: s0[6]}, 1, "banks")
+    near = bg_entries(A.near_bank(), ts, {3: s0[3]}, 1, "near bank")
+    bg3 = banks + near
+    for r in range(DAM_H):
+        for x in range(DAM_W):
+            assert bg3[(DAM_ROW + r) * 64 + DAM_COL + x] == 0, "the dam canvas overlaps the banks"
+    dam_tile = len(ts.tiles)
+    c.append(arr("br_bg3_map", bg3))
+    c.append(rsasset.c_bytes("br_bg3_tiles", rsasset.tiles_bytes(ts.tiles)))
+    c.append("const int br_bg3_tile_count = %d;" % len(ts.tiles))
+    h.append("#define DAM_TILE %d   /* the dam canvas: DAM_W x DAM_H unique tiles from here (BG3) */" % dam_tile)
+    h.append("extern const uint16_t br_bg3_map[64 * 30];\nextern const uint8_t br_bg3_tiles[];\n"
+             "extern const int br_bg3_tile_count;")
+    stats.append("BG3 %d + dam %d" % (len(ts.tiles), DAM_W * DAM_H))
+    vr_bg4 = vr_bg3 + (len(ts.tiles) + DAM_W * DAM_H + 7) // 8 * 8
+    logs, crown = A.dam_logs()
+    lk = lookup(s0[4])
+    flat = []
+    for k in range(3):
+        flat += [lk[rsasset.to555(v)] for row in logs[k] for v in row]
+    c.append(arr("br_dam_log", flat, "uint8_t", "%d"))
+    c.append(arr("br_dam_crown", [lk[rsasset.to555(v)] for row in crown for v in row], "uint8_t", "%d"))
+    h.append("extern const uint8_t br_dam_log[3 * 3 * 8];   /* wood, mud, moss: 3 rows of 8 palette indices */")
+    h.append("extern const uint8_t br_dam_crown[2 * 40];")
+
+    # ---- BG4: clouds (rows 0..5, palette 7), mountains and forest (prio 1), the river's ripples (prio 0) ---------------
+    ts = TileSet()
+    cl = bg_entries(A.clouds(), ts, {7: s0[7]}, 1, "clouds")
+    far = A.far()
+    fa = bg_entries(far, ts, {7: s0[7]}, 1, "far")
+    bg4 = []
+    for r in range(24):
+        for x in range(64):
+            e = cl[r * 64 + x] if r < 8 and cl[r * 64 + x] else fa[r * 64 + x]
+            if r >= 20:
+                e &= ~0x2000                       # the ripples: under the floating logs
+            bg4.append(e)
+    c.append(arr("br_bg4_map", bg4))
+    c.append(rsasset.c_bytes("br_bg4_tiles", rsasset.tiles_bytes(ts.tiles)))
+    c.append("const int br_bg4_tile_count = %d;" % len(ts.tiles))
+    h.append("extern const uint16_t br_bg4_map[64 * 24];\nextern const uint8_t br_bg4_tiles[];\n"
+             "extern const int br_bg4_tile_count;")
+    stats.append("BG4 %d" % len(ts.tiles))
+    assert vr_bg4 + len(ts.tiles) <= VR_OBJ, "BG tiles overflow into the OBJ area"
+    h.append("#define VR_BG3 %d\n#define VR_BG4 %d\n#define VR_BG_END %d" % (vr_bg3, vr_bg4, vr_bg4 + len(ts.tiles)))
+
+    # ---- sprites ---------------------------------------------------------------------------------------------------
+    op = A.obj_palettes(0)
+    tiles, rows, names = [], [], []
+    idx = 0
+    for name, pal, frames in A.sprites():
+        names.append("SPR_%s = %d" % (name.upper(), idx))
+        for k, fr in enumerate(frames):
+            t = obj_frame(fr, op[pal], "%s %d" % (name, k))
+            rows.append("{%d, %d, %d, %d}" % (OBJ_FIRST + len(tiles), fr.w, fr.h, pal))
+            tiles += t
+            idx += 1
+    assert OBJ_FIRST + len(tiles) <= 1024, "OBJ tiles"
+    h.append("enum { %s, SPR_COUNT = %d };" % (", ".join(names), idx))
+    h.append("typedef struct br_sprite_def { uint16_t tile; uint8_t w, h, pal; } br_sprite_def;")
+    h.append("extern const br_sprite_def br_spr[SPR_COUNT];")
+    h.append("extern const uint8_t br_obj_tiles[];\nextern const int br_obj_tile_count;")
+    c.append("const br_sprite_def br_spr[SPR_COUNT] = {\n    " + ",\n    ".join(rows) + "};")
+    c.append(rsasset.c_bytes("br_obj_tiles", rsasset.tiles_bytes(tiles)))
+    c.append("const int br_obj_tile_count = %d;" % len(tiles))
+    stats.append("OBJ %d" % len(tiles))
+
+    # ---- palettes: [season][palette][16] (BG 0 and OBJ 3: the UI kit's, left at 0) --------------------------------------
+    bgp, objp = [], []
+    for s in range(4):
+        b, o = A.bg_palettes(s), A.obj_palettes(s)
+        for p in range(8):
+            bgp += pal16(b.get(p, []))
+            objp += pal16(o.get(p, []))
+    c.append(arr("br_bg_pals", bgp))
+    c.append(arr("br_obj_pals", objp))
+    h.append("extern const uint16_t br_bg_pals[4 * 8 * 16];   /* [season][palette][entry] */")
+    h.append("extern const uint16_t br_obj_pals[4 * 8 * 16];")
+
+    # ---- the asset pack: the music at four tempos -------------------------------------------------------------------
+    music_dir = os.path.join(a.out, "music")
+    subprocess.check_call([sys.executable, os.path.join(HERE, "make_music.py"), music_dir])
+    pack = [("music/" + os.path.basename(p), p) for p in sorted(glob.glob(os.path.join(music_dir, "*.mod")))]
+    entries = []
+    for i, (name, path) in enumerate(pack):
+        data = open(path, "rb").read()
+        c.append(rsasset.c_bytes("pack_%d" % i, data, static=True))
+        entries.append('    {"%s", pack_%d, %d}' % (name, i, len(data)))
+    c.append("const rs_asset_entry br_assets[] = {\n" + ",\n".join(entries) + ",\n    {0, 0, 0}};")
+    h.append("extern const rs_asset_entry br_assets[];\n#endif")
+
+    open(os.path.join(a.out, "assets.c"), "w").write("\n".join(c) + "\n")
+    open(os.path.join(a.out, "assets.h"), "w").write("\n".join(h) + "\n")
+    print("assets: tiles %s, %d pack files -> %s" % (", ".join(stats), len(pack), a.out))
+
+
+if __name__ == "__main__":
+    main()

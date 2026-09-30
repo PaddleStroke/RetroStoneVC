@@ -1,6 +1,7 @@
 # Beaver Rush: design
 
-(c) 2026 Pierre-Louis Boyer (8BCraft). All rights reserved (games/beaverrush/LICENSE). A game for the
+(c) 2026 Pierre-Louis Boyer (8BCraft): code MIT, assets (art, music, sound, this document) CC BY-NC-SA 4.0
+(games/beaverrush/LICENSE). A game for the
 RetroStone virtual console (docs/spec.md), in the 8BCraft house style (docs/art-direction.md, games/common).
 
 ## Pitch

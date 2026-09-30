@@ -1,6 +1,6 @@
 /*
  * Beaver Rush: unit tests of the game rules against the tuning table (rules.c, world.c; no video, no sound).
- * (c) 2026 Pierre-Louis Boyer (8BCraft). All rights reserved: games/beaverrush/LICENSE.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/beaverrush/LICENSE.
  *
  * The expected curves are computed here in floating point from the REFERENCE formula (DESIGN.md: the chop
  * rate that holds the bar at score s is s / (2 + 0.15 s) per second); the integer game must follow them.
