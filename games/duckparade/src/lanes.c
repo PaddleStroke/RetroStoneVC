@@ -348,7 +348,7 @@ static void make_road(lane *l, rs_rng *r, int32_t col, int ease)
     l->kind = LK_ROAD;
     l->down = (uint8_t)rs_rng_range(r, 2);
     l->v = (uint16_t)speed(r, CAR_V_MIN, CAR_V_START_MAX, CAR_V_MAX, col, ease);
-    int nmax = lerp(CARS_START_MAX, CARS_MAX, d) - ease / 2, nmin = 1 + (d >= 128);
+    int nmax = lerp(CARS_START_MAX, CARS_MAX, d) - ease / 2, nmin = 1 + (d >= D_TWO_CARS);
     if (nmax < 1) nmax = 1;
     if (nmin > nmax) nmin = nmax;
     l->n = (uint8_t)rr(r, nmin, nmax);
@@ -356,20 +356,20 @@ static void make_road(lane *l, rs_rng *r, int32_t col, int ease)
     if (kind < BIKE_CHANCE) {                       /* a bike lane: quick and short */
         l->v = (uint16_t)(l->v * BIKE_V_MUL_16 / 16);
         l->n = (uint8_t)(l->n + 1);
-        for (int i = 0; i < l->n; i++) { l->m[i].kind = MV_BIKE; l->m[i].len = 12; }
-        place_movers(l, r, 4 * CELL, 8 * CELL);
+        for (int i = 0; i < l->n; i++) { l->m[i].kind = MV_BIKE; l->m[i].len = BIKE_LEN; }
+        place_movers(l, r, BIKE_GAP_MIN * CELL, CAR_GAP_MAX * CELL);
         l->deco = 1;
         return;
     }
-    for (int i = 0; i < l->n; i++) { l->m[i].kind = (uint8_t)(MV_CAR0 + rs_rng_range(r, 6)); l->m[i].len = 22; }
+    for (int i = 0; i < l->n; i++) { l->m[i].kind = (uint8_t)(MV_CAR0 + rs_rng_range(r, 6)); l->m[i].len = CAR_LEN; }
     if (kind < BIKE_CHANCE + BUS_CHANCE) {          /* a bus among the cars: slower lane */
         l->v = (uint16_t)(l->v * BUS_V_MUL_16 / 16);
         if (l->v < CAR_V_MIN) l->v = CAR_V_MIN;
         l->m[0].kind = MV_BUS;
-        l->m[0].len = 40;
+        l->m[0].len = BUS_LEN;
         if (l->n > 2) l->n = 2;
     }
-    place_movers(l, r, CAR_GAP_MIN * CELL + (l->m[0].kind == MV_BUS ? CELL : 0), 8 * CELL);
+    place_movers(l, r, CAR_GAP_MIN * CELL + (l->m[0].kind == MV_BUS ? CELL : 0), CAR_GAP_MAX * CELL);
 }
 
 static void make_park(lane *l, rs_rng *r, int32_t col, int ease)
@@ -379,25 +379,25 @@ static void make_park(lane *l, rs_rng *r, int32_t col, int ease)
     l->down = (uint8_t)rs_rng_range(r, 2);
     if (rs_rng_range(r, 100) < MOWER_CHANCE) {
         l->v = MOWER_V;
-        l->n = (uint8_t)(1 + (d >= 160 && ease == 0));
-        for (int i = 0; i < l->n; i++) { l->m[i].kind = MV_MOWER; l->m[i].len = 20; }
-        place_movers(l, r, 9 * CELL, 14 * CELL);
+        l->n = (uint8_t)(1 + (d >= D_TWO_MOWERS && ease == 0));
+        for (int i = 0; i < l->n; i++) { l->m[i].kind = MV_MOWER; l->m[i].len = MOWER_LEN; }
+        place_movers(l, r, MOWER_GAP_MIN * CELL, MOWER_GAP_MAX * CELL);
         l->deco = 1;
         return;
     }
     l->v = (uint16_t)speed(r, JOG_V_MIN, (JOG_V_MIN + JOG_V_MAX) / 2, JOG_V_MAX, col, ease);
     /* groups of joggers: a group is 1..3 runners 14 px apart */
-    int groups = rr(r, 1, 2 + (d >= 128) - (ease >= 2)), n = 0;
+    int groups = rr(r, 1, 2 + (d >= D_JOG_GROUPS) - (ease >= 2)), n = 0;
     if (groups < 1) groups = 1;
     int p = rs_rng_range(r, LOOP_PX), span = LOOP_PX / groups;
     for (int g = 0; g < groups && n < MOVER_MAX; g++) {
-        int k = rr(r, 1, 2 + (d >= 96) - (ease >= 1));
+        int k = rr(r, 1, 2 + (d >= D_JOG_TRIOS) - (ease >= 1));
         if (k < 1) k = 1;
         int q = p + g * span + rs_rng_range(r, span / 3);
         for (int i = 0; i < k && n < MOVER_MAX; i++, n++) {
             l->m[n].kind = MV_JOGGER;
-            l->m[n].len = 12;
-            l->m[n].p0 = (int16_t)modi(q + i * 14, LOOP_PX);
+            l->m[n].len = JOGGER_LEN;
+            l->m[n].p0 = (int16_t)modi(q + i * JOGGER_SPACING, LOOP_PX);
         }
     }
     l->n = (uint8_t)n;
@@ -411,13 +411,13 @@ static void make_river(lane *l, rs_rng *r, int32_t col, int ease, int down)
     l->v = (uint16_t)speed(r, LOG_V_MIN, LOG_V_START_MAX, LOG_V_MAX, col, ease);
     int what = rs_rng_range(r, 100);
     /* the water between two platforms: a duck waits at most ~110 frames for the next one (or 2 cells) */
-    int gap_max = (int)((int64_t)l->v * 110 >> 8);
-    if (gap_max < 2 * CELL) gap_max = 2 * CELL;
-    if (gap_max > 5 * CELL) gap_max = 5 * CELL;
-    int gap_min = CELL + CELL / 2;
+    int gap_max = (int)((int64_t)l->v * LOG_WAIT_FRAMES >> 8);
+    if (gap_max < LOG_GAP_MIN_CAP * CELL) gap_max = LOG_GAP_MIN_CAP * CELL;
+    if (gap_max > LOG_GAP_MAX_CAP * CELL) gap_max = LOG_GAP_MAX_CAP * CELL;
+    int gap_min = LOG_GAP_MIN_PX;
     int pads = what < PADS_CHANCE, boat = !pads && what < PADS_CHANCE + BOAT_CHANCE;
-    int lmin = 3 - (d >= 128), lmax = 4 - (d >= 192);
-    if (ease) { lmin = 3; lmax = 4; }
+    int lmin = LOG_LEN_START - (d >= D_SHORT_LOGS), lmax = LOG_LEN_START + 1 - (d >= D_SHORTER_LOGS);
+    if (ease) { lmin = LOG_LEN_START; lmax = LOG_LEN_START + 1; }
     if (pads) { lmin = lmax = 1; gap_min = CELL / 2; gap_max = gap_max * 2 / 3 < CELL ? CELL : gap_max * 2 / 3; }
     /* platforms until the water left fits in the gaps (each gap <= gap_max) */
     int lens[MOVER_MAX], n = 0, sum = 0;
@@ -577,7 +577,7 @@ static void build_group(lanes *L, int ease)
     int mixed = col - MEADOW_COLS >= MIXED_FROM;
     for (int i = 0; i < n; i++) {
         int f = fam;
-        if (mixed && i > 0 && rs_rng_range(&g->rng, 100) < 35) f = pick_family(&g->rng);
+        if (mixed && i > 0 && rs_rng_range(&g->rng, 100) < MIXED_PCT) f = pick_family(&g->rng);
         make_lane(&g->pend[i], g, f, col + i, ease, prev_free);
         prev_free = lane_is_ground(&g->pend[i]) && g->pend[i].kind == LK_POND ? g->pend[i].block : (1 << ROWS) - 1;
     }
@@ -593,7 +593,7 @@ static void build_run(lanes *L)
     int nest = col - MEADOW_COLS >= g->next_nest_at - MEADOW_COLS && col >= g->next_nest_at;
     if (nest && n < 3) n = 3;
     int d = lanes_diff256(col);
-    int trees = TREE_PCT_MAX * ROWS / 100 * (128 + d / 2) / 256;
+    int trees = TREE_PCT_MAX * ROWS / 100 * (TREES_START_256 + d * (256 - TREES_START_256) / 256) / 256;
     lane *run = &g->pend[g->ngroup];
     for (int j = 0; j < n; j++) make_grass(&run[j], &g->rng, trees);
     if (nest) {

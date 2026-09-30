@@ -55,6 +55,11 @@
 #define BUS_V_MUL_16     11                              /* a bus: 0.7 x */
 #define BUS_CHANCE       12                              /* % of road lanes with a bus */
 #define BIKE_CHANCE      15                              /* % of road lanes that are bike lanes */
+#define CAR_LEN          22                              /* px along the lane (the 24-px sprite, 1 px rounded off each end) */
+#define BUS_LEN          40
+#define BIKE_LEN         12
+#define CAR_GAP_MAX      8                               /* cells between two cars' fronts at most (the clone: 8) */
+#define BIKE_GAP_MIN     4                               /* bikes ride closer together */
 
 /* rivers (clone: logs 0.02..0.07 tiles/frame, 2..3 per lane, 5..8 tiles apart) */
 #define REF_LOG_MIN      0.02
@@ -65,12 +70,21 @@
 #define LOG_LEN_START    3                               /* cells: 3..4 at lane 0, 2..3 at DIFF_LANES */
 #define PADS_CHANCE      20                              /* % of river lanes of drifting lily pads (1 cell) */
 #define BOAT_CHANCE      15                              /* % of river lanes with the swan paddle boat (2 cells) */
+#define LOG_WAIT_FRAMES  110                             /* the water between two platforms: a duck waits at most this long */
+#define LOG_GAP_MIN_CAP  2                               /* ... but the gap may always be 2 cells */
+#define LOG_GAP_MAX_CAP  5                               /* ... and never more than 5 */
+#define LOG_GAP_MIN_PX   24                              /* the shortest water between two logs */
 
 /* park paths: joggers (small groups) and a lawnmower */
 #define JOG_V_MIN        Q8(0.30)
 #define JOG_V_MAX        Q8(0.75)
 #define MOWER_V          Q8(0.25)
 #define MOWER_CHANCE     30
+#define JOGGER_LEN       12
+#define JOGGER_SPACING   14                              /* px between the runners of a group */
+#define MOWER_LEN        20
+#define MOWER_GAP_MIN    9                               /* cells between two mowers */
+#define MOWER_GAP_MAX    14
 
 /* lily ponds (clone: static pads, 2..3 per row, 2..3 apart, one in reach of the row before) */
 #define POND_PADS_MIN    4
@@ -93,6 +107,14 @@
 #define DIFF_LANES       300    /* d = lane / DIFF_LANES, capped at 1 */
 #define DIFF_EXTRA_LANES 600    /* past DIFF_LANES speeds grow up to +20% at this lane */
 #define DIFF_EXTRA_PCT   20
+/* steps of the difficulty d (0..256 over DIFF_LANES) */
+#define D_TWO_CARS       128    /* at least two cars per road lane from here */
+#define D_TWO_MOWERS     160    /* a second lawnmower */
+#define D_JOG_GROUPS     128    /* up to three groups of joggers */
+#define D_JOG_TRIOS      96     /* joggers in threes */
+#define D_SHORT_LOGS     128    /* logs of 2 cells appear */
+#define D_SHORTER_LOGS   192    /* no more 4-cell logs */
+#define TREES_START_256  128    /* the trees at lane 0: half of TREE_PCT_MAX, all of it at DIFF_LANES */
 #define MEADOW_COLS      8      /* the starting meadow: columns 0..7 */
 #define START_COL        6
 #define START_ROW        7
@@ -110,6 +132,7 @@
 #define GRASS_RUN_TWO    25     /* % of grass runs one column longer */
 #define GRASS_RUN_LONG   8      /* ... and one more */
 #define MIXED_FROM       120    /* lanes: groups may mix families from here */
+#define MIXED_PCT        35     /* ... each lane after the first takes another family this often */
 /* family weights (clone: grass, road-type, water 1/3 each; road-type = railway 1/4) */
 #define W_ROAD           25
 #define W_RAIL           8
