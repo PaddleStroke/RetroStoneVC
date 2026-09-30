@@ -7,7 +7,7 @@
  * (the slide is steady: it fits a line to the positions it saw, and remembers the speed of the last pass). It
  * commits to a press a little before the slider reaches the spot, and each press lands with a human-like
  * JITTER: a Gaussian spread (sigma BOT_SIGMA_Q4 / 16 frames), clamped, from its own seeded RNG (--opt seed=N).
- * It compensates the syrup's slide when it saw the syrup poured or splashed (it knows the feel: 6 px on, 4 px in
+ * It compensates the syrup's slide when it sees syrup shining on the top pancake (it knows the feel: 6 px on, 4 px in
  * 2 players), as a player learns to drop early.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/pancaketower/LICENSE.
  */
@@ -21,7 +21,7 @@
 #define BOT_CLAMP    2              /* ... clamped to +-2 frames */
 #define HIST 64
 
-typedef struct obs { int slider, sx, top, tx, syrup; } obs;   /* seen: slider (and x), top (and x), syrup */
+typedef struct obs { int slider, sx, top, tx, rx, syrup; } obs;   /* seen: slider (x), top (x), slider - top, syrup */
 
 typedef struct botp {
     obs hist[HIST];                 /* what was on screen, by frame */
@@ -58,7 +58,7 @@ static int in_spr(int tile, int id, int frames)
 
 static obs look(int p)
 {
-    obs o = {0, 0, 0, 0, 0};
+    obs o = {0, 0, 0, 0, 0, 0};
     int first = 0, count = RS_OAM_MAX;
     draw_view_oam(p, &first, &count);
     int slider_tile = OBJ_DYN_TILE + p * 96, top_tile = slider_tile + 16;
@@ -67,8 +67,10 @@ static obs look(int p)
         if (!s || !s->used || (s->flags & RS_SPR_HIDE)) continue;
         if (s->tile == slider_tile) { o.slider = 1; o.sx = s->x + 1; }   /* the box starts 1 px left of the pancake */
         if (s->tile == top_tile) { o.top = 1; o.tx = s->x + 1; }
-        if (in_spr(s->tile, SPR_BOTTLE, 2) || in_spr(s->tile, SPR_SPLASH, 2)) o.syrup = 1;
+        if (in_spr(s->tile, SPR_GLAZE, 1)) o.syrup = 1;                 /* syrup shines on the top pancake */
     }
+    /* where the slider is against the top: the tower's sway and a shake move both the same */
+    if (o.slider && o.top) o.rx = o.sx - o.tx;
     return o;
 }
 
@@ -91,7 +93,7 @@ int bot_decide(int p)
     int f = b->f++;
     if (f < BOT_DELAY) return 0;
     const obs *d = &b->hist[(f - BOT_DELAY) % HIST];           /* what it perceives now */
-    if (d->syrup) b->syrup = 1;
+    b->syrup = d->syrup;                                     /* it sees the syrup on the top (perceived late) */
     int stop = bot_stop_height();
     if (b->plan >= 0) {
         if (f >= b->plan) {
@@ -112,8 +114,8 @@ int bot_decide(int p)
     }
     /* the current pass: the perceived positions since the slider appeared or turned */
     const obs *pr = &b->hist[(f - BOT_DELAY - 1) % HIST];
-    int dir = pr->slider ? (d->sx > pr->sx) - (d->sx < pr->sx) : 0;
-    if (pr->slider && (dir == 0 || absi(d->sx - pr->sx) > 12)) {    /* it stopped (dropped), or a new one appeared */
+    int dir = pr->slider ? (d->rx > pr->rx) - (d->rx < pr->rx) : 0;
+    if (pr->slider && (dir == 0 || absi(d->rx - pr->rx) > 12)) {    /* it stopped (dropped), or a new one appeared */
         b->pass_n = 0;
         return 0;
     }
@@ -132,7 +134,7 @@ int bot_decide(int p)
     for (int k = 0; k < n; k++) {
         int fr = f - BOT_DELAY - k;
         const obs *o = &b->hist[fr % HIST];
-        st += -k, sx += o->sx, stt += (int64_t)k * k, stx += (int64_t)-k * o->sx;
+        st += -k, sx += o->rx, stt += (int64_t)k * k, stx += (int64_t)-k * o->rx;
     }
     int64_t den = (int64_t)n * stt - st * st;
     int32_t v = den ? (int32_t)(((int64_t)n * stx - st * sx) * 256 / den) : 0;
@@ -140,21 +142,25 @@ int bot_decide(int p)
      * is clearly faster or slower (the pace went up); then the position fitted with that slope */
     int32_t vf = absi(v);
     if (b->speed_q8) {
-        int close = n < 10 ? absi(vf - b->speed_q8) * 4 < b->speed_q8 : absi(vf - b->speed_q8) < 40;
-        if (close) {
+        /* a new pace: clearly faster (the steps are +8 %) on a long look; else the known speed, refined */
+        int dv = absi(vf - b->speed_q8) * 100 / b->speed_q8;       /* % */
+        int newpace = (n >= 12 && dv > 5) || (n >= 8 && dv > 12);
+        if (newpace) {
+            b->speed_q8 = vf;
+        } else {
             if (n >= 12) b->speed_q8 = (b->speed_q8 * 7 + vf) / 8;     /* refined, pass after pass */
             v = b->pass_dir * b->speed_q8;
-        } else if (n >= 10) {
-            b->speed_q8 = vf;                                     /* the pace went up */
         }
     } else if (n >= 10) {
         b->speed_q8 = vf;
+    } else {
+        return 0;                                                 /* too little seen yet */
     }
     if (absi(v) < 300) return 0;                               /* not a slider: a pancake sliding on syrup */
     int64_t x0 = (sx * 256 - (int64_t)v * st) / n;           /* Q8: the perceived position (k = 0) */
     /* where it must be: the top's left edge, minus the syrup's slide */
     int slip = pt_players() == 2 ? SYRUP_SLIP_2P : SYRUP_SLIP;
-    int32_t target = ((int32_t)d->tx << 8) - (b->syrup ? b->pass_dir * slip * 256 : 0);
+    int32_t target = -(b->syrup ? b->pass_dir * slip * 256 : 0);   /* relative to the top's left edge */
     /* frames from the perceived moment until the slider is there (the frame it perceives is BOT_DELAY old) */
     int32_t ahead = (int32_t)((target - x0) * 256 / v);       /* Q8 frames */
     if (ahead < 0) return 0;                                   /* passed: wait for the way back */

@@ -276,6 +276,19 @@ def bottle(frame):
     return cv
 
 
+def glaze():
+    """the syrup on the top pancake: a glossy amber puddle (the next pancake will slide on it)"""
+    cv = Canvas(16, 8)
+    for y in range(8):
+        for x in range(16):
+            dx, dy = (x + 0.5 - 8) / 7.0, (y + 0.5 - 5.5) / 2.6
+            if dx * dx + dy * dy <= 1.0:
+                cv.set(x, y, tc(T["sl"]) if dy < -0.2 else tc(T["sm"]))
+    cv.set(4, 4, tc(T["white"])), cv.set(5, 4, tc(T["hi"])), cv.set(3, 7, tc(T["sm"])), cv.set(12, 7, tc(T["sd"]))
+    cv.outline(tc(T["out"]))
+    return cv
+
+
 def stream():
     cv = Canvas(8, 8)
     for y in range(8):
@@ -589,6 +602,7 @@ def sprites():
     S.append(("drip", "food", [drip(i) for i in range(4)]))
     S.append(("bottle", "food", [bottle(0), bottle(1)]))
     S.append(("stream", "food", [stream()]))
+    S.append(("glaze", "food", [glaze()]))
     S.append(("splash", "food", [splash(0), splash(1)]))
     S.append(("plus", "food", [plus(1), plus(2)]))
     S.append(("crumbs", "food", [crumbs(0), crumbs(1)]))

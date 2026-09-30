@@ -35,7 +35,7 @@ void sfx_init(void)
     ha_synth s;
     ha_begin(&s, snd_buf, HA_RATE / 2, 0x5eed1234u);    /* the same sounds at every start (save states check them) */
     /* flop: a soft low thump and a short "fwup" of air */
-    ha_tone(&s, 0, 150, 70, 130, 80, 70);
+    ha_tone(&s, 0, 150, 70, 130, 58, 70);
     ha_tone(&s, 0, 300, 180, 50, 25, 20);
     ha_hiss(&s, 0, 70, 22, 4);
     store_half(&s, SFX_FLOP, 150);
@@ -50,17 +50,17 @@ void sfx_init(void)
     ha_hiss(&s, 0, 150, 18, 3);
     store_half(&s, SFX_SQUISH, 190);
     /* splat: the piece cut off */
-    ha_hiss(&s, 0, 110, 55, 2);
-    ha_tone(&s, 0, 210, 90, 120, 60, 45);
+    ha_hiss(&s, 0, 110, 40, 2);
+    ha_tone(&s, 0, 210, 90, 120, 46, 45);
     store_half(&s, SFX_SPLAT, 130);
     /* the ceiling crash: a big noise burst, a low boom, clattering bits */
-    ha_hiss(&s, 0, 420, 90, 1);
-    ha_tone(&s, 0, 95, 38, 380, 100, 160);
+    ha_hiss(&s, 0, 420, 55, 1);
+    ha_tone(&s, 0, 95, 38, 380, 62, 160);
     for (int k = 0; k < 5; k++) ha_tone(&s, ha_ms(90 + k * 55), 900 + k * 230, 820 + k * 200, 40, 26, 15);
     store_half(&s, SFX_CRASH, 460);
     /* the roof: tiles breaking and clinking */
-    ha_hiss(&s, 0, 220, 60, 2);
-    ha_tone(&s, 0, 140, 70, 200, 60, 80);
+    ha_hiss(&s, 0, 220, 42, 2);
+    ha_tone(&s, 0, 140, 70, 200, 44, 80);
     for (int k = 0; k < 4; k++) ha_tone(&s, ha_ms(40 + k * 50), 1900 + k * 260, 1850 + k * 250, 50, 28, 18);
     store_half(&s, SFX_ROOF, 300);
     /* plop: a topping lands */
@@ -93,7 +93,7 @@ void sfx_init(void)
 void sfx_play(int id, int x, int pitch_steps)
 {
     static const uint8_t vol[SFX_COUNT] = {HA_VOL_ACTION, HA_VOL_FEEDBACK, HA_VOL_FEEDBACK, HA_VOL_ACTION,
-                                           HA_VOL_CRASH, HA_VOL_CRASH - 10, HA_VOL_FEEDBACK, 60, HA_VOL_ACTION,
+                                           HA_VOL_CRASH - 24, HA_VOL_CRASH - 34, HA_VOL_FEEDBACK, 60, HA_VOL_ACTION,
                                            HA_VOL_ACTION, HA_VOL_FEEDBACK};
     if (!sound_on || id < 0 || id >= SFX_COUNT) return;
     int pan = clampi(24 + x * 80 / RS_SCREEN_W, 0, 127);

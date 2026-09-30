@@ -138,7 +138,7 @@ static void sounds(void)
     for (int p = 0; p < M.players; p++) {
         const tower *tw = &M.tw[p];
         int ev = tw->events, x = M.players == 1 ? RS_SCREEN_W / 2 : 80 + 160 * p;
-        if (ev & EV_LAND) sfx_play(SFX_FLOP, x, clampi(tw->pancakes / 6, 0, 12));
+        if ((ev & EV_LAND) && !(ev & (EV_CEILING | EV_ROOF))) sfx_play(SFX_FLOP, x, clampi(tw->pancakes / 6, 0, 12));
         if (ev & EV_PERFECT) sfx_play(SFX_DING, x, scale[clampi(tw->chain - 1, 0, 7)] + (tw->chain > 8 ? 2 : 0));
         if (ev & EV_REGROW) sfx_play(SFX_FANFARE, x, 0);
         if (ev & EV_CUT) sfx_play(SFX_SPLAT, x, clampi(12 - tw->cut.w / 4, 0, 12));
@@ -150,7 +150,7 @@ static void sounds(void)
         if (ev & EV_CEILING) { sfx_play(SFX_CRASH, x, 0); rs_log("player %d crashed through the ceiling at frame %u", p + 1, rs_frame_count()); }
         if (ev & EV_ROOF) { sfx_play(SFX_ROOF, x, 0); rs_log("player %d broke through the roof at frame %u", p + 1, rs_frame_count()); }
         if (ev & EV_TOPPING_LAND) rs_log("player %d topping %d landed at frame %u", p + 1, tower_top(tw)->kind, rs_frame_count());
-        if ((ev & EV_PERFECT) && tw->chain >= 5) rs_log("player %d perfect chain %d at frame %u", p + 1, tw->chain, rs_frame_count());
+        if ((ev & EV_PERFECT) && (tw->chain == 5 || tw->chain == 7 || tw->chain % 10 == 0)) rs_log("player %d perfect chain %d at frame %u", p + 1, tw->chain, rs_frame_count());
         if ((ev & (EV_LAND | EV_MISS)) && rs_option_int("botlog", 0))
             rs_log("land p%d f%u: h=%d w=%d cut=%d perfect=%d chain=%d syrupslip=%d", p + 1, rs_frame_count(), tw->pancakes,
                    tower_top(tw)->w, (ev & EV_CUT) ? tw->cut.w : 0, (ev & EV_PERFECT) != 0, tw->chain, tw->slip_dir);

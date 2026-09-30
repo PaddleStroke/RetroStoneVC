@@ -155,7 +155,7 @@ void draw_init(void)
 {
     hu_config hc = hu_defaults();       /* BG1 at VRAM 0, the kit at 0 on palette 0, the logo at 320 */
     hc.logo_pal = PAL_LOGO;
-    hc.box_glyphs = " 0123456789ABCDEGKLMNOPRSTWY!:-";   /* only the panel's glyphs (VRAM) */
+    hc.box_glyphs = " 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!:-.";   /* the panel font: capitals, digits (VRAM) */
     hc.obj_tile = KIT_OBJ_TILE;
     hc.obj_vram = VR_OBJ;
     hc.obj_pal = OBJ_KIT;
@@ -504,6 +504,10 @@ static void draw_layer_sprites(view *v, int p, const tower *tw, int t)
         spr(big ? SPR_BUTTER_BIG : SPR_BUTTER, v->sx0 + top->x + top->w / 2 - (big ? 12 : 8) + wtop + hu_shake_x(),
             sy - 7 + (v->top_squash > 0), 2, -1, 0, v->w);
     }
+    /* the syrup on the top: the next pancake will slide */
+    if (top->kind == LK_PANCAKE && (top->flags & LF_SYRUP) && tw->state != TS_MISSED)
+        spr(SPR_GLAZE, v->sx0 + top->x + top->w / 2 - 8 + (top->flags & LF_BUTTER ? 10 : 0) + wtop + hu_shake_x(),
+            sy - 5 + (v->top_squash > 0), 2, -1, 0, v->w);
     /* the slider */
     if (tw->state == TS_SLIDE || tw->state == TS_DROP || tw->state == TS_SLIP) {
         layer sl = {0, (int16_t)tw->sw, LK_PANCAKE, 0, (uint16_t)(tw->pancakes + 1)};

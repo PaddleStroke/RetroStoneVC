@@ -96,7 +96,7 @@ BG 1), 5 the toppings (the same as BG 2), 6 birds, the balloon, the plane, the s
   plop and becomes a topping layer of the same width (8 px, not cut, not scored); the next pancake lands on
   it and is cut against it. The chef cheers.
 - **Syrup**: after the 5th, 15th, 25th... pancake a syrup bottle pours a stream of syrup on the top pancake
-  (it drips down the edges: small animated drips). The **next** pancake lands on it slippery: after the drop
+  (a glossy puddle shines on it and drips run down its edges). The **next** pancake lands on it slippery: after the drop
   it slides `SYRUP_SLIP` = 6 px on in the direction it was moving, easing out over 12 frames, then it is
   cut. The slide is always the same, so the player can compensate (drop a little early). A perfect is
   judged after the slide.
@@ -108,7 +108,7 @@ BG 1), 5 the toppings (the same as BG 2), 6 birds, the balloon, the plane, the s
   stands on the kitchen floor at the left of the counter: he watches, **cheers** (arms up) on a perfect and
   a topping, **panics** (hands on his cheeks, sweat drops) when the pancake is narrow (under 24 px) or a
   big piece is cut off, and despairs at the game over. When the camera leaves the kitchen, he keeps
-  watching from a round portrait in the bottom-left corner.
+  watching from a plate-rimmed portrait in the bottom-left corner (the same frames).
 
 ## Score, medals, save
 - Score = the height in pancakes (toppings do not count) + a **perfect bonus**: +1 for each perfect,
@@ -123,16 +123,17 @@ BG 1), 5 the toppings (the same as BG 2), 6 birds, the balloon, the plane, the s
 2. **Ready**: the same scene without the logo; the first press drops the first pancake (the slider is
    already moving).
 3. **Play**.
-4. **Game over**: the missed pancake flops down the whole tower, the chef despairs, then the panel: GAME OVER on its banner, SCORE, BEST (NEW),
-   HEIGHT, the medal. After 0.6 s any face button retries at once (back to 2).
+4. **Game over**: the missed pancake flops down the whole tower, the chef despairs, then the house panel:
+   GAME OVER on its banner, SCORE (and the height in pancakes), BEST (NEW BEST), the fork medal. After 0.6 s
+   any face button retries at once (back to 2).
 
-**Pause**: Start during a run (the picture dims, PAUSED); Start again resumes.
+**Pause**: Start (or Select) during a run (the picture dims, PAUSED); Start or Select again resumes.
 
 ## Controls
 | Button | Action |
 |---|---|
 | A (or B, X, Y) | drop / start / retry |
-| Start | pause |
+| Start (or Select) | start on the title and the panel; pause in a run |
 | pad 2, a face button on the title or ready screen | player 2 joins (versus) |
 
 ## 2-player versus (split screen)
@@ -142,7 +143,7 @@ scenery (each viewport has its own scroll; the raster callback draws each viewpo
 Both towers follow the same rules and the same slide timings (the game is deterministic: the same height
 gives the same speed and the same side), in a geometry scaled by 2/3 so that a tower fits its half
 (64-px pancakes, the same times). **Syrup splash**: every 3rd perfect of a chain splashes syrup on the
-rival's top pancake, so their next pancake slides (6 px scaled). A player who misses stops (their tower
+rival's top pancake (it flies in from the rival's side), so their next pancake slides (4 px: 6 scaled). A player who misses stops (their tower
 stays, their chef despairs); when both have stopped, the tallest tower wins (a tie on height goes to the
 score). The panel shows both heights and the winner.
 
@@ -151,7 +152,11 @@ score). The panel shows both heights and the winner.
   short "fwup" of noise; its pitch rises a little with the height), a **ding** for a perfect (a round bell;
   the pitch climbs a major scale along a chain, as a Stack chain climbs its notes), a **syrup squish**, the
   **splat** of a cut-off piece, the **ceiling crash** (and a smaller roof crash), a plop for a topping, a
-  pour for the syrup bottle, a "whoosh-splat" for a syrup splash; the UI sounds are the house kit's.
+  pour for the syrup bottle, a "whoosh-splat" for a syrup splash, a slide-whistle fall for a miss, a jazzy
+  arpeggio for a topping and a regrow; the UI sounds are the house kit's (confirm, pause, medal, game over).
+  Made with the house synthesiser (house_audio.c ha_tone, ha_hiss) and stored at 16 kHz (they are low and
+  soft: half the sample memory, inside the 64-KiB guideline with the house set); mixed at the house
+  loudness (the same RMS as Leady Squid, no clipping).
 - Music (tools/make_music.py, 4-channel MODs played by libxmp-lite): a cosy **jazzy kitchen loop** (a
   swung walking bass, soft electric-piano chords, a brushed hi-hat, a little vibraphone melody) that evolves
   with the altitude: the same tune, re-voiced: **airy** in the sky and the clouds (pads and a flute, the bass
@@ -165,8 +170,15 @@ top-left, readable at 1x.
   outline); each pancake has its own edge variation (bumps, browned spots) from its number.
 - **Toppings**: strawberry slices (red with seeds, a pale core), blueberries (round, a highlight), banana
   slices (cream discs with a seed ring), chocolate chips (dark drops), whipped cream (white swirls).
-- **Syrup**: amber, glossy, drips as small animated sprites.
-- The chef (32x48 frames: idle, watch, cheer, panic, despair), the birds, the cow, the moon, the balloon.
+- **Syrup**: amber, glossy: a puddle on the top pancake, drips as small animated sprites, the bottle and its
+  stream, the splash of a rival.
+- The chef (32x48 frames: idle, blink, cheer, panic, despair), the birds, the plane, the balloon, the
+  satellite, the moon and the cow; plaster, dust, roof tiles, the broken edges; the golden-fork medals in the
+  house tiers.
+- **The house kit** (games/common): the UI is house_ui.c (the logo, GET READY, the prompt and the A glyph,
+  the copyright, the join line, the banner and game-over panel, pause, the digits, the sparkle, the slide-in,
+  the shake), the sounds house_audio.c, the art house_style.py (Canvas, outline, shading, ramps: the
+  "pancake" and "syrup" accents), the music house_music.py (the MOD writer and the instruments).
 - The scenery per segment (above).
 
 ## Feel sources
@@ -224,20 +236,47 @@ published guides and from clones that reproduce it.
   (the 8th perfect, the cap at the first width, a cut breaking the chain), the syrup slip (its distance,
   duration and direction, the perfect judged after it), the toppings' rotation and schedule, the score
   bonus, the segments by altitude; a determinism check (two identical games, the same events).
-- `tests/smoke_test.sh`: scripted runs: the title waits; one press drops a pancake; no press lets the slider
-  ping-pong forever (no game over by itself); a blind rhythm ends in a miss and the panel; pause; retry; the
-  best score persists in save RAM; player 2 joins; no strict-mode warning (VRAM, sprites, voices).
-- **The bot** (`--opt bot=1`): it plays from the **screen state only**: the sprites in OAM (the slider, the
-  top pancake, the syrup on it) and its own memory of what it saw. It times its presses from the slide
-  position like a person: it sees the screen with a **reaction delay** (it acts on what was on screen 12
-  frames earlier, extrapolated), and each press lands with a **jitter** (a deterministic, human-like Gaussian
-  spread: sigma 0.8 frame = 13 ms, clamped to +-2 frames, the timing spread of a practised player).
-  It must reach **60 pancakes on average over 10 seeds** (the jitter's seed).
-- **Determinism**: the same input script gives the same run (state and screenshot), twice; a bot run too.
-- `tests/ui_test.sh`: the UI screenshot test: the title, a run, the pause and the game-over panel are
-  rendered headless and checked (the panel and its text where they belong, the digits of the score in OAM,
-  nothing left of the previous screen).
-- `tests/state_test.sh`: save states (the SDK's test_states): at the title, in a run, paused, on the panel,
-  in 2 players.
-- `tools/screenshots.sh`: docs/screenshots/ (title, early stacking, a perfect chain, a topping, the ceiling
-  crash, sky, space, game over, 2 players).
+- `tests/smoke_test.sh`: scripted runs: the title waits; A on the title then A drops a pancake (cut to 32 px);
+  no press lets the next slider ping-pong forever (no game over by itself); a blind rhythm ends in a miss and
+  the panel; a far drop is a miss; the panel's retry lock and the one-button retry; pause (Start) and resume
+  (Select); the best score persists in save RAM; player 2 joins; the versus towers both grow; no
+  strict-mode warning (VRAM, sprites per line, voices, sample memory) on the title, in a long run and in 2
+  players; **determinism**: a scripted run, a bot run and a 2-player run twice, the same state and picture.
+- `tests/bot_test.sh`: **the bot** (`--opt bot=1`, src/bot.c) plays from the **screen state only**: the
+  sprites in OAM (the slider's and the top pancake's left edges, the syrup puddle on the top) and its memory
+  of what it saw. It times its presses from the slide position like a person: it sees the screen with a
+  **reaction delay** (it acts on what was on screen 12 frames = 200 ms earlier), fits a line to the slider's
+  position against the top pancake (the tower's sway moves both alike) and extrapolates, knows the speed from
+  the last passes (the rhythm), commits 6 frames ahead, and each press lands with a **jitter**: a
+  deterministic Gaussian spread, sigma 0.8 frame (13 ms), clamped to +-2 frames. It must reach **60 pancakes
+  on average over 10 seeds** (the jitter's seed). Measured: 77 83 74 78 88 98 88 85 82 85, **mean 83.8**, min
+  74, max 98; the jitters applied (frames -2..+2): 21, 204, 395, 208, 20.
+- `tests/ui_test.sh` + `ui_check.py`: the UI screenshot test: the title, ready (2 players), a run, the pause,
+  the versus and the game-over panel are rendered headless; each renders, they all differ, the title renders
+  the same twice, and each shows what it must (the logo's golden and syrup letters, the copyright line, the
+  gold GAME OVER and the navy panel, a fork medal, the dimmed pause and PAUSED, the split screen's divider,
+  READY on each half).
+- `tests/state_test.sh`: save states (the SDK's test_states): at the title, at six points of a run (the
+  syrup, the ceiling crash, the roof included), paused, on the panel, high up in space and in 2 players (bots,
+  and a human join): the replay after a load and a fresh process match frame by frame, bad states are refused;
+  `tools/state_audit.py` checks that every mutable static is saved (state_audit.txt lists the scratch ones).
+- `test_libretro`: the core loads and runs 600 frames in the SDK's libretro loader.
+- `tools/screenshots.sh`: docs/screenshots/ (title, early stacking, a perfect chain, the syrup, a topping,
+  the ceiling crash, the roof, sky, clouds, stratosphere, space and the cow, a miss, game over, pause, ready
+  and versus in 2 players, the 2-player game over).
+
+## Performance (make pancaketower-bench)
+Measured on the build host (WSL2, x86-64), per frame (update + draw + PPU + audio, the music on):
+
+| Scene | Host, average | Host, worst | A20 estimate (x15-x20), average |
+|---|---|---|---|
+| 1 player, a bot run from the kitchen to the sky | 0.34-0.36 ms | 0.89-0.90 ms | 5.1-7.1 ms |
+| 1 player in space (125 layers, stars, the moon, the cow, a tumbling piece) | 0.34-0.39 ms | 0.64-0.97 ms | 5.1-7.8 ms |
+| 2 players, split screen, both towers in the clouds | 0.40 ms | 0.91 ms | 6.0-7.9 ms |
+| 2 players, both crash through the ceiling at once | 0.36 ms | 0.83 ms | 5.4-7.2 ms |
+
+The budget is 16.7 ms: the heaviest average (0.40 ms: 6.0-7.9 ms on the A20) leaves more than half of it
+free. The worst frames change from one identical run to the next (host scheduling: 0.64 to 2.4 ms for the
+same space run), so they measure the host more than the game; the steady worst is about 0.9 ms (13.5-18 ms on
+the A20 at worst, a frame the PPU spends on a crowded line). The PPU is almost all of the cost; the game's
+own update and drawing (the run-time pancake tiles included) cost 4-6 us on average, 130 us at most.
