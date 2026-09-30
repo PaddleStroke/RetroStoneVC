@@ -109,9 +109,9 @@ Tower's lights twinkle). OBJ 0 Mamie, 1 Papi (Mamie's palette recoloured: grey h
 - **Every gap is reachable in the worst case**: the generator simulates, with the real physics and the wind, a
   bounce from a standstill 8, 24 or 40 px before the edge (normal or big), holding Right until past the next
   building's edge, then braking; while none lands on the next building, the gap narrows and the heights get
-  closer, down to a plain flat roof. The props never count (they are extras). The last 48 px of a roof (the
-  take-off points) and its first 40 are kept free of pigeons, antennas and skylights; a roof is at most 96 px lower
-  than the one before it (the camera shows both).
+  closer, down to a plain flat roof. The props never count (they are extras). The ends of a roof (the take-off
+  points and the landing zone: 40 to 48 px) are kept free of pigeons, antennas and skylights; a roof is at most
+  96 px lower than the one before it (the camera shows both).
 
 ## Score, medals, save
 - The distance in metres (8 px = 1 m, from the first roof), in the kit's big digits at the top.
@@ -235,3 +235,16 @@ video analysis and from clones tuned against it. We take their numbers only.
   the fall, the panel, 4 random points of runs), replayed in the same process and in a fresh one; bad states are
   refused; `tools/state_audit.py` checks every mutable static.
 - `make pogomamie-bench` (tools/bench.sh) and `make pogomamie-screenshots` (tools/screenshots.sh).
+
+## Performance (make pogomamie-bench)
+Measured on the build host (WSL2, x86-64), 3300 frames per scene after 300, music on; the A20 estimate is 15-20x
+(docs/spec.md "Performance"):
+
+| Scene | Host, per frame | A20 estimate |
+|---|---|---|
+| the Seine / Haussmann with gusts, the bot playing, average | 0.35 ms (the game and the bot 0.02 ms, the PPU 0.32 ms) | 5.2-7.0 ms |
+| night, 2 bots racing (the heaviest), average | 0.35 ms | 5.3-7.0 ms |
+| the game and the bot, worst frame (a new building generated and checked) | 0.21 ms | 3.1-4.2 ms |
+
+The frame budget is 16.7 ms. Worst whole frames on the host (about 1 ms) are the host's scheduling: the PPU's
+work is the same every frame (4 layers, at most 32 sprites, 16 on a line).

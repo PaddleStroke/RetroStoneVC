@@ -10,9 +10,10 @@ scene() {   # scene <name> <options...>
     out=$($H --frames 3600 --opt music=1 --opt ready=1 "$@" --bench 300 2>&1)
     avg=$(echo "$out" | sed -n 's/.*total *avg *\([0-9.]*\) us.*/\1/p')
     max=$(echo "$out" | sed -n 's/.*total .*max *\([0-9]*\) us.*/\1/p')
-    upd=$(echo "$out" | sed -n 's/.*update+draw *avg *\([0-9.]*\) us.*/\1/p')
+    upd=$(echo "$out" | sed -n 's/.*update+draw *avg *\([0-9.]*\) us *max *\([0-9]*\) us.*/\1, max \2/p')
+    ren=$(echo "$out" | sed -n 's/.*render (PPU) avg *\([0-9.]*\) us *max *\([0-9]*\) us.*/\1, max \2/p')
     spr=$(echo "$out" | sed -n 's/.*sprites max \([0-9]*\), max per line \([0-9]*\).*/\1 sprites, \2 per line/p')
-    printf "  %-34s avg %6s us (update+draw+bot %6s)  worst %5s us  %s\n" "$name" "$avg" "$upd" "$max" "$spr"
+    printf "  %-32s avg %6s us  worst %5s us  (game+bot %s; render %s)  %s\n" "$name" "$avg" "$max" "$upd" "$ren" "$spr"
 }
 echo "per frame on this host (budget 16667 us):"
 scene "Montmartre, the bot" --opt bot=1 --opt seed=7
