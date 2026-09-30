@@ -36,6 +36,18 @@ workflow below, with `--game leadysquid`). Keys: Z, X, Up or Enter swim; Backspa
 |---|---|
 | ![title](games/leadysquid/docs/screenshots/title.png) | ![coral](games/leadysquid/docs/screenshots/theme-coral.png) |
 
+**Pogo Mamie** (`games/pogomamie/`): Doodle Jump's auto-bounce turned sideways. Mamie chases her runaway cat
+across the rooftops of Paris on a pogo stick: steer in the air, hold A on a landing for a big bounce, from
+Montmartre to the Seine, the boulevards and the Eiffel Tower, then all night; a 2-player race with Papi. Design,
+feel sources and tuning: [games/pogomamie/DESIGN.md](games/pogomamie/DESIGN.md). Targets (`games/pogomamie/game.mk`):
+`make pogomamie`, `make pogomamie-check`, `make pogomamie-dist` (`dist/windows/PogoMamie.exe`,
+`dist/libretro/pogomamie_libretro.so` + `.armhf.so`), `make pogomamie-screenshots`, `make pogomamie-bench`,
+`make pogomamie-bot`. Keys: arrows steer, X (hold) big bounce, Enter start and pause.
+
+| Pogo Mamie | |
+|---|---|
+| ![title](games/pogomamie/docs/screenshots/title.png) | ![night](games/pogomamie/docs/screenshots/night.png) |
+
 **The house style.** The 8BCraft games share Leady Squid's look and sound: the rules are in
 [docs/art-direction.md](docs/art-direction.md), the kit in `games/common/` (the C UI kit and synthesiser
 `house_ui.c` / `house_audio.c`, compiled into the games whose game.mk sets `HOUSE_UI_<game> = 1`; the Python
@@ -109,13 +121,13 @@ Headless: `./build/host/bombermole_headless --frames 300 --opt level=spring-1 --
 | `sdk/` | the SDK: `include/rs.h` (game API), `src/` (runtime, scanline renderer, audio, text, save states), `frontends/` (libretro, SDL2, headless), `tests/` (golden images, save states) | MIT, (c) 2026 Pierre-Louis Boyer (8BCraft) |
 | `sdk/third_party/` | libxmp-lite 4.7.3, stb_image(_write), libretro.h | MIT / public domain, see THIRD_PARTY.md |
 | `tools/` | asset tool, sheet layout, placeholders, AI sheet cutter, art sync, comparisons | MIT |
-| `games/bombermole/`, `games/leadysquid/`: code | `src/`, `tools/`, `tests/`, `game.mk` | MIT, (c) 2026 Pierre-Louis Boyer (8BCraft) |
-| `games/bombermole/`, `games/leadysquid/`: assets | art (`art/`, `art-ai/`), levels and arenas, music and sound, `DESIGN.md`, the game screenshots | [CC BY-NC-SA 4.0](LICENSE-CC-BY-NC-SA-4.0.txt), (c) 2026 Pierre-Louis Boyer (8BCraft) |
+| `games/bombermole/`, `games/leadysquid/`, `games/pogomamie/`: code | `src/`, `tools/`, `tests/`, `game.mk` | MIT, (c) 2026 Pierre-Louis Boyer (8BCraft) |
+| `games/bombermole/`, `games/leadysquid/`, `games/pogomamie/`: assets | art (`art/`, `art-ai/`), levels and arenas, music and sound, `DESIGN.md`, the game screenshots | [CC BY-NC-SA 4.0](LICENSE-CC-BY-NC-SA-4.0.txt), (c) 2026 Pierre-Louis Boyer (8BCraft) |
 | `docs/` | [spec](docs/spec.md), [assets](docs/assets.md), [art sheets](docs/art-sheets.md), [art workflow](docs/art-workflow.md), screenshots, art previews | MIT; the screenshots and art previews: CC BY-NC-SA 4.0 |
 
 The exact code and asset paths of each game are in its `LICENSE` ([Bomber Mole](games/bombermole/LICENSE),
-[Leady Squid](games/leadysquid/LICENSE)). A built game holds both, so it may not be used commercially without
-8BCraft's permission. The names and logos "Bomber Mole", "Leady Squid", "RetroStone" and "8BCraft" are not
+[Leady Squid](games/leadysquid/LICENSE), [Pogo Mamie](games/pogomamie/LICENSE)). A built game holds both, so it may not be used commercially without
+8BCraft's permission. The names and logos "Bomber Mole", "Leady Squid", "Pogo Mamie", "RetroStone" and "8BCraft" are not
 licensed: a fork must use its own. Part of the Bomber Mole art was generated with AI tools and edited by hand.
 
 ## Tests
