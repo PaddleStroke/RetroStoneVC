@@ -90,7 +90,9 @@ colours as the theme's BG palette, from one shared 15-colour palette per theme).
 4. **Death**: hitting an obstacle or the seabed. The squid gets a dazed face (X eyes), a thud, the scroll
    stops, and it **sinks to the seabed** under the extra weight (a faster fall, the nose turning down);
    it lands with a **"clank-clank"** as lead weights fall off and bounce on the sand.
-5. **Game over panel** slides up: SCORE, BEST (with "NEW" when beaten), the shell medal. After 0.6 s any
+5. **Game over panel** slides up: "GAME OVER" in gold on its own banner (the panel's frame and colour, an
+   outline and a drop shadow, so no obstacle shows through the letters), then the panel: SCORE, BEST
+   (with "NEW" when beaten), the shell medal. After 0.6 s any
    flap button retries at once (back to 2). No choice to make.
 
 **Pause**: Select, during a run (the picture dims, "PAUSED"); Select again resumes.
@@ -121,12 +123,12 @@ either player.
   tempo, a soft pad, a round bass, a water-drop arpeggio; mixed low, with a little echo on the effects.
 
 ## Art
-- Placeholder art: code-drawn by `tools/make_placeholders.py --game leadysquid` (which runs
-  `games/leadysquid/tools/make_art.py`), in the clean NES/SNES style of Bomber Mole's code-drawn art: flat
-  shades (2-4 per material), 1-px dark outlines, light from the top-left, readable at size.
-- The BG tiles (obstacle bodies, seabed, reef, rays) stay **code-drawn by default**: AI tiles at 16x16 read
-  as noise (the Bomber Mole finding). Sprites, caps, mid-ground props and the logo go through the image
-  agent (art/incoming/TODO.md, the same format and workflow as Bomber Mole, docs/art-workflow.md).
+- **The art is final and code-drawn** (the owner's decision, 2026-09-30): `tools/make_placeholders.py
+  --game leadysquid` (which runs `games/leadysquid/tools/make_art.py`) draws every sheet, in the clean
+  NES/SNES style of Bomber Mole's code-drawn art: flat shades (2-4 per material), 1-px dark outlines, light
+  from the top-left, readable at size. (The tool keeps its shared "placeholders" name.)
+- Nothing goes through the image agent: art/incoming/TODO.md is kept only as a record of the sprite list.
+  The art workflow (`make leadysquid-art`, docs/art-workflow.md) still works if that ever changes.
 
 ## Balance sources
 The reference: Flappy Bird (dotGEARS, 2013, proprietary, never open-sourced). No source code of it exists

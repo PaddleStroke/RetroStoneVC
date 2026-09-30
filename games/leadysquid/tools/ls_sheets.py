@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Leady Squid: the sheet layout, the single source of truth.
 
-Used by make_art.py (the code-drawn placeholder art), build_assets.py (the
+Used by make_art.py (the code-drawn art, final), build_assets.py (the
 game's asset build) and art_game.py (the image agent's TODO.md, the import and
 the review tool). Sheets are PNGs on a magenta (#FF00FF) background; the frames
 of an entry sit left to right from (x, y).

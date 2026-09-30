@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Leady Squid: the code-drawn PLACEHOLDER art, in the final sheet format.
+"""Leady Squid: the code-drawn art (final: the owner's decision, 2026-09-30).
 
 Clean NES/SNES style (the one of Bomber Mole's code-drawn art): flat shades,
 2-4 per material, a 1-px dark outline, light from the top-left, readable at
