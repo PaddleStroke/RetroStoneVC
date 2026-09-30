@@ -27,11 +27,24 @@ static void course(world *w)
         add_obstacle(w);
 }
 
+/* The seeds of two runs often differ in their low bits only (the start frame is added), and the
+ * xorshift's first outputs keep the seed's high bits: mix every bit into all of them first, or the
+ * first gaps of a session would take a handful of heights only. */
+static uint32_t seed_mix(uint32_t x)
+{
+    x ^= x >> 16;
+    x *= 0x7feb352du;
+    x ^= x >> 15;
+    x *= 0x846ca68bu;
+    x ^= x >> 16;
+    return x ? x : 1;
+}
+
 static void new_course(world *w)
 {
     w->nob = 0;
     w->next_index = w->first_index;
-    rs_rng_seed(&w->rng, w->seed ? w->seed : 1);
+    rs_rng_seed(&w->rng, seed_mix(w->seed));
     course(w);
 }
 
