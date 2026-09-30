@@ -106,4 +106,7 @@ void bot_reset(void);
 
 extern int opt_bot, opt_botstop;
 
+/* main.c: test hook (tests/test_caps.c) */
+const world *ls_test_world(int *state);
+
 #endif

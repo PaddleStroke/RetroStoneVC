@@ -225,6 +225,13 @@ static void game_shutdown(void)
            (int)(W.sq[0].y >> 16), world_scroll_px(&W), paused, state_hash, list);
 }
 
+/* test hook (tests/test_caps.c): the run and the screen being shown */
+const world *ls_test_world(int *state)
+{
+    if (state) *state = st;
+    return &W;
+}
+
 const rs_game *rs_game_main(void)
 {
     static const rs_game g = {"Leady Squid", "leadysquid", "0.1.0", game_init, game_update, game_draw,

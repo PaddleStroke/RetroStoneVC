@@ -1,7 +1,8 @@
 # Leady Squid (games/leadysquid): its make targets, included by the root Makefile.
 #
 #   make leadysquid                host builds: leadysquid (SDL2), leadysquid_headless, leadysquid_libretro.so
-#   make leadysquid-check          all its tests (SDK, libretro loader, physics, smoke, bot, determinism, art tools)
+#   make leadysquid-check          all its tests (SDK, libretro loader, physics, caps on columns, smoke, bot,
+#                                  determinism, art tools)
 #   make leadysquid-dist           dist/windows/LeadySquid.exe, dist/libretro/leadysquid_libretro.so (+ .armhf.so)
 #   make leadysquid-windows        only the Windows exe
 #   make leadysquid-armhf          the libretro core for the RetroStone2 (Cortex-A7)
@@ -34,11 +35,19 @@ build/host/leadysquid_test_physics: build/host/$(LS_DIR)/tests/test_physics.o bu
                                     build/host/$(LS_DIR)/src/world.o build/host/librs.a
 	$(HOST_CC) -o $@ $^ -lm
 
+# the caps test runs the whole game (runtime, draw) with a scripted player and checks the picture
+LS_OBJ_HOST = $(patsubst %.c,build/host/%.o,$(wildcard $(LS_DIR)/src/*.c) build/gen/leadysquid/assets.c)
+build/host/$(LS_DIR)/tests/test_caps.o: build/gen/leadysquid/assets.c
+build/host/leadysquid_test_caps: build/host/$(LS_DIR)/tests/test_caps.o $(LS_OBJ_HOST) build/host/librs.a
+	$(HOST_CC) -o $@ $^ -lm
+
 leadysquid-check:
-	+$(LS_MAKE) host build/host/test_sdk build/host/test_libretro build/host/leadysquid_test_physics
+	+$(LS_MAKE) host build/host/test_sdk build/host/test_libretro build/host/leadysquid_test_physics \
+	    build/host/leadysquid_test_caps
 	./build/host/test_sdk --golden sdk/tests/golden --out build
 	./build/host/test_libretro build/host/leadysquid_libretro.so 600
 	./build/host/leadysquid_test_physics
+	sh $(LS_DIR)/tests/caps_test.sh build/host/leadysquid_test_caps build
 	sh $(LS_DIR)/tests/smoke_test.sh build/host/leadysquid_headless build
 	$(PYTHON) $(LS_DIR)/tests/test_art_tools.py
 

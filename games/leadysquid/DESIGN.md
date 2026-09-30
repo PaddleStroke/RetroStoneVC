@@ -186,6 +186,12 @@ publicly; its feel is known from video measurements and from clones built at the
   the fall time from the surface to the seabed, the speed cap, the flap that sets (not adds) the speed, the
   tilt timing, the hitboxes, the gap range and spacing over 10000 obstacles, collision cases (edges of the
   gap and of the column, the surface, the seabed) and scoring (one point per obstacle, at the centre).
+- `tests/test_caps.c` (run by `tests/caps_test.sh` for each theme and a 2-player race): the whole game
+  with a scripted player, 60 runs each started at a random frame (so a new course each time); after every
+  frame, each obstacle on screen must have its caps at the gap's exact height in OAM, no column body
+  (BG2, isolated by rendering the frame again without it) inside the gap, and its body right past each cap
+  within its 24 columns. Every gap value and every scroll phase is covered. (It caught the first obstacle
+  of a run keeping the tiles of the course drawn before the first flap re-rolled it.)
 - `tests/smoke_test.sh`: scripted runs (no input: sinks to the seabed with score 0; flapping at a fixed
   rhythm dies on an obstacle), pause, retry, save RAM (the best score persists), 2-player join.
 - **The bot** (`--opt bot=1`): it plays from the **screen state only**: the sprites in OAM (the squid's

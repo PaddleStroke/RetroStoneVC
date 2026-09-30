@@ -32,6 +32,7 @@ static int cur_rgb[2][3];                 /* the gradient shown (lerps toward th
 static int depth;                         /* 0..DEPTH_MAX */
 static int paused_now;
 static int drawn_index, cleared_col;
+static uint32_t drawn_seed;               /* the course whose bodies are on BG2 */
 static int big_chars[BIG_SLOTS], big_used;
 static rs_rng fx_rng;
 static int logo_on;
@@ -246,11 +247,17 @@ void draw_reset_course(const world *w)
     for (int y = 0; y < PLAY_H / 8; y++)
         for (int x = 0; x < 64; x++) rs_bg_put(RS_BG2, x, y, 0);
     drawn_index = w->first_index - 1;
-    cleared_col = 0;
+    drawn_seed = w->seed;
+    cleared_col = world_scroll_px(w) / 8 > 1 ? world_scroll_px(w) / 8 - 1 : 0;
 }
 
 static void course_tiles(const world *w)
 {
+    /* The course is drawn once per obstacle, but the first flap re-rolls it (a new seed from the
+     * start frame, world_step): the tiles of the obstacle already drawn during "get ready" (just
+     * off-screen) belonged to the old course, while its caps (sprites) follow the new gap. Redraw
+     * whenever the course changes. */
+    if (w->seed != drawn_seed) draw_reset_course(w);
     int sx = world_scroll_px(w);
     /* clear the columns that left the screen on the left */
     for (; cleared_col < sx / 8 - 1; cleared_col++)
