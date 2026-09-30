@@ -1,0 +1,15 @@
+Beaver Rush
+Copyright (c) 2026 Pierre-Louis Boyer (8BCraft). All rights reserved.
+
+Everything in games/beaverrush/ (the code in src/, tools/ and tests/, the
+code-drawn art, the music and sounds made by code, the design documents, the
+screenshots, game.mk and the release texts) belongs to 8BCraft. No licence is
+granted to copy, modify, distribute or sell it, in source or built form (the
+libretro cores, the Windows .exe), without 8BCraft's written permission.
+
+The RetroStone VC SDK (sdk/), the shared tools (tools/) and the house style
+module (games/common/) that Beaver Rush is built with keep their own licences
+(LICENSE-MIT at the root of the repository); third-party code is listed in
+THIRD_PARTY.md.
+
+The names and logos "Beaver Rush", "RetroStone" and "8BCraft" are 8BCraft's.
