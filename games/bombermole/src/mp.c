@@ -892,3 +892,15 @@ void mp_battle_sim(const char *arena, int rounds)
     rs_log("battlesim: arena=%s rounds=%d wins=%d,%d,%d,%d draws=%d avgframes=%ld suddendeaths=%d", arena, rounds,
            wins[0], wins[1], wins[2], wins[3], draws, frames / (rounds ? rounds : 1), sd);
 }
+
+/* ---- save states (main.c) ---- */
+#define S(v) rs_state_var("mp." #v, &(v), sizeof(v))
+void mp_state(void)
+{
+    S(V); S(nviews); S(merged); S(box_on); S(box_w); S(box_h); S(VP); S(vp_kind); S(vp_view); S(nvp);
+    S(battle_wins); S(round_no); S(round_left); S(lamp_x); S(lamp_y); S(lamp_r);
+    S(join_port); S(join_n); S(join_cpu); S(join_skill); S(join_t);
+    S(b_state); S(b_t); S(b_arena); S(b_cursor); S(b_winner); S(b_quit); S(AL);
+    RS_STATE_RASTER(mp_raster);
+}
+#undef S

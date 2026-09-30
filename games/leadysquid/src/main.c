@@ -232,9 +232,27 @@ const world *ls_test_world(int *state)
     return &W;
 }
 
+/* ---- save states: the SDK saves the console (VRAM, maps, palettes, sprites, voices, music, RNG, pads); here
+ * are the game's own objects (tools/state_audit.py checks that no mutable static is forgotten). Not saved: SV,
+ * the battery save's copy (best scores and medals stay in the .srm: a state never takes them back). ---- */
+#define S(v) rs_state_var("main." #v, &(v), sizeof(v))
+static void game_state(void)
+{
+    S(W); S(st); S(st_t); S(paused); S(new_best); S(runs_done); S(players); S(landed_fx); S(state_hash);
+    S(best_run_score); S(bot_scores); S(nbot_scores);
+    S(opt_bot); S(opt_botstop); S(opt_botruns); S(opt_skip); S(opt_seed_fixed); S(opt_seed);
+    draw_state();
+    sfx_state();
+    bot_state();
+}
+#undef S
+
+static void game_state_loaded(void) { bot_state_loaded(); }
+
 const rs_game *rs_game_main(void)
 {
+    /* state_version: bump it when the meaning of a saved object changes (its layout is checked) */
     static const rs_game g = {"Leady Squid", "leadysquid", "0.1.0", game_init, game_update, game_draw,
-                              game_shutdown, ls_assets};
+                              game_shutdown, ls_assets, game_state, game_state_loaded, 1};
     return &g;
 }

@@ -80,6 +80,8 @@ static void make(int id, const tone *t, int n, int nms, int nvol, int nlp)
 
 void sfx_init(void)
 {
+    noise_s = 0x1234567u;                           /* the same sounds at every start (a core restarted in the same
+                                                       process too: save states check the samples) */
     static const tone drop[] = {{3, 140, 60, 90, 90}};
     static const tone fuse[] = {{1, 2400, 2000, 20, 30}};
     static const tone blast[] = {{3, 70, 35, 450, 80}};
@@ -165,4 +167,12 @@ void audio_options(int m, int s)
     music_on = m;
     sfx_on = s;
     if (!m) { rs_music_stop(); current[0] = 0; }
+}
+
+/* ---- save states (main.c): the sound options and the track playing (the SDK restarts it where it was) ---- */
+void sfx_state(void)
+{
+    rs_state_var("sfx.music_on", &music_on, sizeof music_on);
+    rs_state_var("sfx.sfx_on", &sfx_on, sizeof sfx_on);
+    rs_state_var("sfx.current", current, sizeof current);
 }

@@ -22,6 +22,7 @@ typedef struct sample_t {
     int16_t *data;
     int frames, rate, loop;
     int mem;                    /* bytes counted against the guideline */
+    uint32_t hash;              /* of the data: a save state checks that the samples it refers to are the same */
 } sample_t;
 
 typedef struct voice_t {
@@ -44,6 +45,7 @@ static int      g_lp_l, g_lp_r;
 static xmp_context g_xmp;
 static int      g_music_on, g_music_loop, g_music_vol = 100, g_music_chn;
 static int16_t  g_mbuf[(RS_AUDIO_RATE / RS_FPS + 8) * 2];
+static const void *g_music_data;    /* the module playing (a save state names its asset) */
 
 static void sample_free(sample_t *s)
 {
@@ -59,6 +61,7 @@ static void music_unload(void)
     }
     g_music_on = 0;
     g_music_chn = 0;
+    g_music_data = NULL;
 }
 
 void apu_reset(void)
@@ -105,6 +108,8 @@ int rs_sample_pcm16(int slot, const int16_t *d, int frames, int rate, int loop)
     s->rate = rate > 0 ? rate : RS_AUDIO_RATE;
     s->loop = loop < frames ? loop : -1;
     s->mem = (frames + 1) / 2;  /* counted as ADPCM (4 bits per sample) */
+    s->hash = 2166136261u;
+    for (int i = 0; i <= frames; i++) s->hash = (s->hash ^ (uint16_t)s->data[i]) * 16777619u;
     check_sample_mem();
     return 0;
 }
@@ -250,6 +255,7 @@ int rs_music_play(const void *mod, size_t size, int loop)
         rs_warn(RS_WARN_VOICES, "module has %d channels (guideline %d voices)", g_music_chn, RS_VOICES);
     g_music_on = 1;
     g_music_loop = loop;
+    g_music_data = mod;
     return 0;
 }
 void rs_music_stop(void) { music_unload(); }
@@ -328,4 +334,124 @@ void apu_render(int16_t *out, int frames)
         out[f * 2] = (int16_t)(L > 32767 ? 32767 : L < -32768 ? -32768 : L);
         out[f * 2 + 1] = (int16_t)(R > 32767 ? 32767 : R < -32768 ? -32768 : R);
     }
+}
+
+/* ---- save states: voices (their sample as a slot number), echo, and the music track and position --------- */
+void apu_state_save(rs_wr *w)
+{
+    wr_u32(w, g_age);
+    wr_i32(w, g_sfx_vol); wr_i32(w, g_music_vol);
+    wr_i32(w, g_echo_len); wr_i32(w, g_echo_pos); wr_i32(w, g_echo_fb); wr_i32(w, g_echo_vol);
+    wr_i32(w, g_lp_l); wr_i32(w, g_lp_r);
+    for (int i = 0; i < RS_VOICE_MAX; i++) {
+        const voice_t *v = &g_v[i];
+        wr_u8(w, (uint8_t)(v->s ? v->s - g_smp + 1 : 0));
+        wr_u32(w, v->pos); wr_u32(w, v->step);
+        wr_i32(w, v->vol); wr_i32(w, v->pan); wr_i32(w, v->lg); wr_i32(w, v->rg);
+        wr_i32(w, v->env); wr_i32(w, v->state);
+        wr_i32(w, v->att); wr_i32(w, v->dec); wr_i32(w, v->sus); wr_i32(w, v->rel);
+        wr_i32(w, v->echo); wr_u32(w, v->age);
+    }
+    for (int i = 0; i < ECHO_MAX; i++) { wr_u16(w, (uint16_t)g_echo[i][0]); wr_u16(w, (uint16_t)g_echo[i][1]); }
+    for (int i = 0; i < RS_SAMPLE_MAX; i++) {         /* the samples are not saved: the game loads them in init() */
+        wr_u32(w, g_smp[i].data ? (uint32_t)g_smp[i].frames : 0);
+        wr_u32(w, g_smp[i].data ? g_smp[i].hash : 0);
+    }
+}
+
+static int vol_ok(int v) { return v >= 0 && v <= 127; }
+
+int apu_state_load(rs_rd *r, int apply)
+{
+    uint32_t age = rd_u32(r);
+    int sv = rd_i32(r), mv = rd_i32(r);
+    int elen = rd_i32(r), epos = rd_i32(r), efb = rd_i32(r), evol = rd_i32(r), lpl = rd_i32(r), lpr = rd_i32(r);
+    if (r->err || !vol_ok(sv) || !vol_ok(mv) || elen < 0 || elen > ECHO_MAX || epos < 0 || (elen && epos >= elen) ||
+        (!elen && epos) || !vol_ok(efb) || !vol_ok(evol))
+        return -1;
+    voice_t nv[RS_VOICE_MAX];
+    for (int i = 0; i < RS_VOICE_MAX; i++) {
+        voice_t *v = &nv[i];
+        int slot = rd_u8(r);
+        v->pos = rd_u32(r); v->step = rd_u32(r);
+        v->vol = rd_i32(r); v->pan = rd_i32(r); v->lg = rd_i32(r); v->rg = rd_i32(r);
+        v->env = rd_i32(r); v->state = rd_i32(r);
+        v->att = rd_i32(r); v->dec = rd_i32(r); v->sus = rd_i32(r); v->rel = rd_i32(r);
+        v->echo = rd_i32(r) ? 1 : 0; v->age = rd_u32(r);
+        if (r->err || slot > RS_SAMPLE_MAX || v->state < ENV_OFF || v->state > ENV_RELEASE) return -1;
+        if (!vol_ok(v->vol) || !vol_ok(v->pan) || !vol_ok(v->lg) || !vol_ok(v->rg) || v->env < 0 || v->env > ENV_MAX)
+            return -1;
+        v->s = slot ? &g_smp[slot - 1] : NULL;
+        if (v->state != ENV_OFF) {                   /* the mixer reads the sample: keep it in bounds */
+            const sample_t *s = v->s;
+            if (!s || !s->data) return -1;
+            /* a looping voice may be up to one loop past the end (the mixer wraps it once); a one-shot stops */
+            if (s->loop >= 0 && ((uint64_t)v->pos >= (uint64_t)(2 * s->frames - s->loop) << 12 ||
+                                 v->step > (uint32_t)(s->frames - s->loop) << 12))
+                return -1;
+        }
+    }
+    if (apply) {
+        g_age = age;
+        g_sfx_vol = sv; g_music_vol = mv;
+        g_echo_len = elen; g_echo_pos = epos; g_echo_fb = efb; g_echo_vol = evol; g_lp_l = lpl; g_lp_r = lpr;
+        memcpy(g_v, nv, sizeof g_v);
+        for (int i = 0; i < ECHO_MAX; i++) { g_echo[i][0] = (int16_t)rd_u16(r); g_echo[i][1] = (int16_t)rd_u16(r); }
+    } else {
+        rd_bytes(r, NULL, (size_t)ECHO_MAX * 4);
+    }
+    for (int i = 0; i < RS_SAMPLE_MAX; i++) {
+        uint32_t frames = rd_u32(r), hash = rd_u32(r);
+        uint32_t cf = g_smp[i].data ? (uint32_t)g_smp[i].frames : 0, ch = g_smp[i].data ? g_smp[i].hash : 0;
+        if (frames != cf || hash != ch) {
+            rs_log("state: sample slot %d differs from the saved one", i);
+            return -1;
+        }
+    }
+    return r->err ? -1 : 0;
+}
+
+static struct xmp_frame_info g_fi;
+
+void music_state_save(rs_wr *w)
+{
+    char name[64];
+    memset(name, 0, sizeof name);
+    int pos = 0, row = 0;
+    if (g_music_on) {
+        const char *n = core_asset_name(g_music_data);
+        if (n && strlen(n) < sizeof name) memcpy(name, n, strlen(n));
+        else rs_log("state: the music playing is not an asset: it will not be restored");
+        xmp_get_frame_info(g_xmp, &g_fi);
+        pos = g_fi.pos;
+        row = g_fi.row;
+    }
+    wr_u8(w, (uint8_t)g_music_on); wr_u8(w, (uint8_t)g_music_loop); wr_u8(w, 0); wr_u8(w, 0);
+    wr_bytes(w, name, sizeof name);
+    wr_i32(w, pos); wr_i32(w, row);
+}
+
+int music_state_load(rs_rd *r, int apply)
+{
+    char name[64];
+    int on = rd_u8(r), loop = rd_u8(r);
+    rd_u8(r); rd_u8(r);
+    rd_bytes(r, name, sizeof name);
+    int pos = rd_i32(r), row = rd_i32(r);
+    if (r->err || name[sizeof name - 1] || on > 1 || pos < 0 || row < 0) return -1;
+    size_t size = 0;
+    const void *mod = on && name[0] ? core_asset_find(name, &size) : NULL;
+    if (on && name[0] && !mod) {
+        rs_log("state: the music %s is not in this game", name);
+        return -1;
+    }
+    if (!apply) return 0;
+    /* the same module restarts at the saved order position and row (libxmp cannot restore its voices) */
+    if (!mod || rs_music_play(mod, size, loop)) {
+        music_unload();
+        return 0;
+    }
+    xmp_set_position(g_xmp, pos);                   /* returns -1 for position 0 (a restart): not an error */
+    xmp_set_row(g_xmp, row);
+    return 0;
 }

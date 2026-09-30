@@ -21,7 +21,7 @@ static const char *golden_dir = "sdk/tests/golden", *out_dir = "build";
     printf(__VA_ARGS__); printf("\n"); } } while (0)
 
 /* never called: the tests drive the runtime directly */
-const rs_game *rs_game_main(void) { static const rs_game g = {"SDK tests", "sdktest", "1", 0, 0, 0, 0, 0}; return &g; }
+const rs_game *rs_game_main(void) { static const rs_game g = {"SDK tests", "sdktest", "1", 0, 0, 0, 0, 0, 0, 0, 0}; return &g; }
 
 static uint16_t px(int x, int y) { return rs_host_framebuffer()[y * RS_SCREEN_W + x]; }
 static uint16_t c565(rs_color c)
@@ -333,7 +333,7 @@ static void t_update(void)
 static void test_input(void)
 {
     printf("input\n");
-    static const rs_game g = {"input", "input", "1", 0, t_update, 0, 0, 0};
+    static const rs_game g = {"input", "input", "1", 0, t_update, 0, 0, 0, 0, 0, 0};
     rs_host_init(&g);
     uint16_t seq[5] = {0, RS_BTN_B, RS_BTN_B | RS_BTN_UP, RS_BTN_UP, 0};
     for (int i = 0; i < 5; i++) { rs_host_set_pad(0, seq[i], 1); rs_host_frame(); }
@@ -410,7 +410,7 @@ static void test_audio(void)
     CHECK(rs_sample_pcm16(0, sq, 64, 32000, 0) == 0, "audio: load looping sample");
     rs_adsr env = {5, 20, 64, 30};
     rs_voice_play(0, 0, RS_PITCH_1, 127, 0, &env);   /* hard left */
-    static const rs_game g = {"audio", "audio", "1", 0, 0, 0, 0, 0};
+    static const rs_game g = {"audio", "audio", "1", 0, 0, 0, 0, 0, 0, 0, 0};
     (void)g;
     rs_host_frame();
     int n;
@@ -432,6 +432,116 @@ static void test_audio(void)
     rs_voice_echo(v, 1);
     rs_host_frame();
     CHECK(rs_music_play("not a module", 12, 1) != 0, "audio: bad module rejected");
+    rs_host_reset();
+}
+
+/* ---- save states ---------------------------------------------------------------------- */
+static struct { int counter; int16_t lines[RS_SCREEN_H]; int *cursor; } st_obj;
+static const int st_table[4] = {10, 20, 30, 40};
+static const int *st_pick;                          /* points into a reference (not saved) */
+static void st_raster(int line, void *u) { (void)u; if (line == 100) rs_pal_set(1, RS_RGB(31, 0, 0)); }
+static void st_register(void)
+{
+    rs_state_var("st_obj", &st_obj, sizeof st_obj);
+    rs_state_ptr("st_obj.cursor", &st_obj.cursor);
+    rs_state_ptr("st_pick", &st_pick);
+    rs_state_ref("st_table", st_table, sizeof st_table);
+    rs_state_raster("st_raster", st_raster);
+}
+static void st_update(void)
+{
+    st_obj.counter++;
+    st_obj.cursor = &st_obj.counter;
+    st_pick = &st_table[st_obj.counter & 3];
+    for (int i = 0; i < RS_SCREEN_H; i++) st_obj.lines[i] = (int16_t)((i + st_obj.counter) & 7);
+    rs_bg_scroll(RS_BG1, st_obj.counter, rs_rand_range(8));
+    rs_oam(0)->x = (int16_t)(st_obj.counter * 3);
+}
+static void st_init(void)
+{
+    rs_pal_set(0, RS_RGB(0, 0, 8));
+    for (int t = 1; t < 4; t++)
+        for (int y = 0; y < 8; y++)
+            for (int x = 0; x < 8; x++) rs_tile_pixel(t, x, y, (x + y + t) & 15);
+    for (int i = 1; i < 16; i++) rs_pal_set(i, RS_RGB(i * 2, 31 - i * 2, i));
+    rs_bg_setup(RS_BG1, 64, 32, 0);
+    for (int y = 0; y < 32; y++)
+        for (int x = 0; x < 64; x++) rs_bg_put(RS_BG1, x, y, RS_MAP(1 + (x + y) % 3, 0, 0, x & 1, 0));
+    rs_bg_enable(RS_BG1, 1);
+    rs_bg_line_scroll(RS_BG1, st_obj.lines, NULL);
+    rs_raster(st_raster, NULL);
+    rs_spr(40, 40, 2, 16, 16, 0, 2, 0);
+    static int16_t sq[64];
+    for (int i = 0; i < 64; i++) sq[i] = i < 32 ? 8000 : -8000;
+    rs_sample_pcm16(0, sq, 64, 32000, 0);
+    rs_voice_play(0, 0, RS_PITCH_1, 100, 64, NULL);
+    rs_echo(50, 40, 40);
+}
+
+static uint64_t fb_hash(void)
+{
+    uint64_t h = 0xcbf29ce484222325ull;
+    const uint8_t *p = (const uint8_t *)rs_host_framebuffer();
+    for (int i = 0; i < RS_SCREEN_W * RS_SCREEN_H * 2; i++) h = (h ^ p[i]) * 0x100000001b3ull;
+    return h;
+}
+
+static void test_states(void)
+{
+    printf("save states\n");
+    static const rs_game none = {"none", "none", "1", 0, 0, 0, 0, 0, 0, 0, 0};
+    CHECK(rs_host_state_size(&none) == 0, "states: a game without the state callback has none");
+    static const rs_game g = {"states", "statetest", "1", st_init, st_update, 0, 0, 0, st_register, 0, 3};
+    size_t size = rs_host_state_size(&g);
+    CHECK(size > 250000 && rs_host_state_size(&g) == size, "states: a fixed size (%u bytes)", (unsigned)size);
+    rs_host_init(&g);
+    for (int i = 0; i < 5; i++) rs_host_frame();
+    uint8_t *a = calloc(1, size), *b = calloc(1, size);
+    size_t used = rs_host_state_save(a, size);
+    CHECK(used > 250000 && used <= size && !memcmp(a, "RSVC", 4), "states: saved (%u bytes used)", (unsigned)used);
+    CHECK(rs_host_state_save(b, size - 1) == 0, "states: a buffer too small is refused");
+    rs_host_frame();
+    uint64_t h1 = fb_hash();
+    int c1 = st_obj.counter;
+    for (int i = 0; i < 7; i++) rs_host_frame();     /* everything moves on */
+    rs_pal_set(3, RS_RGB(1, 2, 3));
+    rs_tile_pixel(2, 0, 0, 9);
+    rs_bg_line_scroll(RS_BG1, NULL, NULL);
+    rs_raster(NULL, NULL);
+    CHECK(rs_host_state_load(a, size) == 0, "states: loaded");
+    CHECK(st_obj.cursor == &st_obj.counter && st_pick == &st_table[st_obj.counter & 3],
+          "states: pointers restored (into a saved object and into a reference)");
+    CHECK(rs_host_state_save(b, size) == used && !memcmp(a, b, size), "states: saving again gives the same bytes");
+    rs_host_frame();
+    CHECK(fb_hash() == h1 && st_obj.counter == c1, "states: the next frame is the same (line scroll, raster, OAM)");
+    CHECK(rs_frame_count() == 6, "states: frame counter restored (%u)", rs_frame_count());
+    /* registering outside the callback does nothing */
+    static int stray;
+    rs_state_var("stray", &stray, sizeof stray);
+    CHECK(rs_host_state_size(&g) == size, "states: registration outside rs_game.state is ignored");
+    /* pointers a state cannot express: saving fails */
+    static int16_t unregistered[RS_SCREEN_H];
+    rs_bg_line_scroll(RS_BG1, unregistered, NULL);
+    CHECK(rs_host_state_save(b, size) == 0, "states: a line-scroll table outside the saved objects: not saved");
+    rs_bg_line_scroll(RS_BG1, st_obj.lines + 10, NULL);   /* 240 entries do not fit after it */
+    CHECK(rs_host_state_save(b, size) == 0, "states: a line-scroll table overflowing its object: not saved");
+    rs_bg_line_scroll(RS_BG1, st_obj.lines, NULL);
+    int local;
+    st_obj.cursor = &local;
+    CHECK(rs_host_state_save(b, size) == 0, "states: a pointer to the stack: not saved");
+    st_obj.cursor = &st_obj.counter;
+    CHECK(rs_host_state_save(b, size) == used, "states: fixed, saved again");
+    /* the game, version and size checks */
+    a[8] ^= 1;
+    CHECK(rs_host_state_load(a, size) != 0, "states: another game id is refused");
+    a[8] ^= 1;
+    a[44] ^= 1;
+    CHECK(rs_host_state_load(a, size) != 0, "states: another state_version is refused");
+    a[44] ^= 1;
+    CHECK(rs_host_state_load(a, used - 1) != 0 && rs_host_state_load(a, used) == 0, "states: truncated refused, whole loaded");
+    free(a);
+    free(b);
+    rs_host_shutdown();
     rs_host_reset();
 }
 
@@ -609,6 +719,7 @@ int main(int argc, char **argv)
     test_sram();
     test_rng();
     test_audio();
+    test_states();
     printf("%d checks, %d failures\n", checks, failures);
     return failures ? 1 : 0;
 }

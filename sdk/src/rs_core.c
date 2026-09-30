@@ -302,6 +302,65 @@ void rs_host_frame(void)
     g_frame++;
 }
 
+/* ---- save states: the frame counter, the global RNG and the pads (their edges must survive) ----------------- */
+const rs_game *core_game(void) { return g_game; }
+
+const char *core_asset_name(const void *data)
+{
+    if (!data) return NULL;
+    for (int i = 0; i < g_loaded_n; i++)
+        if (g_loaded[i].data == data) return g_loaded[i].name;
+    if (g_game && g_game->assets)
+        for (const rs_asset_entry *e = g_game->assets; e->name; e++)
+            if (e->data == data) return e->name;
+    return NULL;
+}
+
+const void *core_asset_find(const char *name, size_t *size)
+{
+    for (int i = 0; i < g_loaded_n; i++)
+        if (!strcmp(g_loaded[i].name, name)) { *size = g_loaded[i].size; return g_loaded[i].data; }
+    if (g_game && g_game->assets)
+        for (const rs_asset_entry *e = g_game->assets; e->name; e++)
+            if (!strcmp(e->name, name)) { *size = e->size; return e->data; }
+    *size = 0;
+    return NULL;
+}
+
+void core_state_save(rs_wr *w)
+{
+    wr_u32(w, g_frame);
+    wr_u32(w, g_rng.s);
+    for (int p = 0; p < RS_PAD_MAX; p++) {
+        wr_u16(w, g_pad[p]);
+        wr_u16(w, g_pad_prev[p]);
+        wr_u8(w, (uint8_t)g_pad_conn[p]);
+    }
+}
+
+int core_state_load(rs_rd *r, int apply)
+{
+    uint32_t frame = rd_u32(r), rng = rd_u32(r);
+    uint16_t pad[RS_PAD_MAX], prev[RS_PAD_MAX];
+    uint8_t conn[RS_PAD_MAX];
+    for (int p = 0; p < RS_PAD_MAX; p++) {
+        pad[p] = rd_u16(r);
+        prev[p] = rd_u16(r);
+        conn[p] = rd_u8(r);
+    }
+    if (r->err || !rng) return -1;          /* xorshift never reaches 0 */
+    if (!apply) return 0;
+    g_frame = frame;
+    g_rng.s = rng;
+    for (int p = 0; p < RS_PAD_MAX; p++) {
+        g_pad[p] = pad[p];
+        g_pad_prev[p] = prev[p];
+        g_pad_conn[p] = conn[p] ? 1 : 0;
+    }
+    g_dev_key = 0;
+    return 0;
+}
+
 const uint16_t *rs_host_framebuffer(void) { return g_fb; }
 const int16_t *rs_host_audio(int *frames)
 {

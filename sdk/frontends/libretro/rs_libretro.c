@@ -139,9 +139,20 @@ RETRO_API void retro_run(void)
     }
 }
 
-RETRO_API size_t retro_serialize_size(void) { return 0; }
-RETRO_API bool retro_serialize(void *data, size_t size) { (void)data; (void)size; return false; }
-RETRO_API bool retro_unserialize(const void *data, size_t size) { (void)data; (void)size; return false; }
+/* Save states (docs/spec.md "Save states"): a fixed size per game build, 0 when the game has none. */
+RETRO_API size_t retro_serialize_size(void) { return rs_host_state_size(rs_game_main()); }
+RETRO_API bool retro_serialize(void *data, size_t size)
+{
+    /* before the first frame there is nothing to save (and starting now would read the save RAM too early) */
+    if (!started || !rs_host_state_size(rs_game_main())) return false;
+    return rs_host_state_save(data, size) != 0;
+}
+RETRO_API bool retro_unserialize(const void *data, size_t size)
+{
+    if (!rs_host_state_size(rs_game_main())) return false;
+    if (!started) retro_reset();            /* a state loaded before the first frame (resume at start-up) */
+    return rs_host_state_load(data, size) == 0;
+}
 RETRO_API void retro_cheat_reset(void) {}
 RETRO_API void retro_cheat_set(unsigned i, bool e, const char *c) { (void)i; (void)e; (void)c; }
 
@@ -152,6 +163,10 @@ RETRO_API bool retro_load_game(const struct retro_game_info *info)
     if (!env_cb(RETRO_ENVIRONMENT_SET_PIXEL_FORMAT, &fmt)) {
         log_bridge("[rs] RGB565 is not supported by the frontend");
         return false;
+    }
+    if (rs_host_state_size(rs_game_main())) {  /* the game's objects are saved raw: same platform only */
+        uint64_t quirks = RETRO_SERIALIZATION_QUIRK_ENDIAN_DEPENDENT | RETRO_SERIALIZATION_QUIRK_PLATFORM_DEPENDENT;
+        env_cb(RETRO_ENVIRONMENT_SET_SERIALIZATION_QUIRKS, &quirks);
     }
     /* The runtime starts at the first retro_run(), after the frontend has
      * loaded the save RAM into retro_get_memory_data(). */

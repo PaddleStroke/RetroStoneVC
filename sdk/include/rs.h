@@ -42,6 +42,10 @@ typedef struct rs_game {
     void (*draw)(void);         /* once per frame, after update() */
     void (*shutdown)(void);     /* may be NULL */
     const rs_asset_entry *assets; /* embedded asset pack, NULL-name terminated */
+    /* Save states (docs/spec.md "Save states"). state == NULL: the game has none. */
+    void (*state)(void);        /* registers the game's persistent state: rs_state_*() calls only */
+    void (*state_loaded)(void); /* after a state was loaded: rebuild caches (may be NULL) */
+    uint32_t state_version;     /* bump when the MEANING of the saved data changes (its layout is checked) */
 } rs_game;
 
 /* Implemented by the game (exactly one per binary). */
@@ -277,6 +281,23 @@ int      rs_pad_device(int port);
 #define RS_SRAM_SIZE 32768
 uint8_t *rs_sram(void);
 void     rs_sram_commit(void);       /* tell the frontend to persist it */
+
+/* ---- Save states ---------------------------------------------------------
+ * A state is the whole console (video and audio memory, registers, input edges, frame counter, the global
+ * RNG, the music track and its position) plus what the game registers here, from its rs_game.state
+ * callback only (called once, before init() may even have run: register static objects, do nothing else).
+ * Everything is saved byte for byte, so it must not contain pointers, except those declared with
+ * rs_state_ptr(): they are saved as (registered object, offset). Save RAM is NOT part of a state: keep
+ * progress (unlocks, best scores) in rs_sram() and do not register its in-memory copy.
+ * Details and the file format: docs/spec.md "Save states". */
+void rs_state_var(const char *name, void *data, size_t size);            /* saved and restored */
+void rs_state_ptr(const char *name, void *pointer_variable);             /* a pointer: (object, offset) */
+void rs_state_ref(const char *name, const void *data, size_t size);      /* not saved; pointers may aim here */
+void rs_state_raster(const char *name, rs_raster_fn fn);                 /* a raster callback the game installs */
+#define RS_STATE(v)        rs_state_var(#v, &(v), sizeof(v))
+#define RS_STATE_PTR(p)    rs_state_ptr(#p, &(p))
+#define RS_STATE_REF(v)    rs_state_ref(#v, &(v), sizeof(v))
+#define RS_STATE_RASTER(f) rs_state_raster(#f, f)
 
 /* ---- Deterministic RNG (xorshift32) ------------------------------------ */
 typedef struct rs_rng { uint32_t s; } rs_rng;

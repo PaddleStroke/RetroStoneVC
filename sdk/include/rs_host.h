@@ -49,6 +49,16 @@ const int16_t  *rs_host_audio(int *frames);
 uint8_t *rs_host_sram(void);
 int      rs_host_sram_dirty(int clear);
 
+/* Save states (docs/spec.md "Save states"), between two frames. The size is a fixed maximum for a game build
+ * (libretro requires it) and can be asked before rs_host_init(); 0 = the game has no save states.
+ * save: the bytes used (the rest of the buffer is zeroed), 0 on failure (the log says why).
+ * load: 0 = loaded; otherwise nothing was changed (wrong game, version or build, truncated, corrupted). */
+size_t rs_host_state_size(const rs_game *game);
+size_t rs_host_state_save(void *buf, size_t size);
+int    rs_host_state_load(const void *buf, size_t size);
+/* What the game registered (kind "var", "ptr", "ref" or "raster"; tests and tools/state_audit.py). */
+void   rs_host_state_list(void (*fn)(const char *kind, const char *name, size_t size));
+
 /* Profiling of the last frame, in microseconds (host clock). */
 typedef struct rs_host_stats {
     uint32_t update_us, render_us, audio_us;

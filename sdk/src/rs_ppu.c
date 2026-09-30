@@ -642,3 +642,143 @@ void ppu_render(uint16_t *fb)
 
 int ppu_last_sprites(void) { return g_last_sprites; }
 int ppu_last_max_line(void) { return g_last_max_line; }
+
+/* ---- save states: VRAM (packed 4bpp), maps, CGRAM, OAM, registers, viewports ------------------------------ */
+void ppu_state_save(rs_wr *w)
+{
+    uint8_t packed[32], bits[RS_TILE_MAX / 8];
+    for (int t = 0; t < RS_TILE_MAX; t++) {
+        for (int i = 0; i < 32; i++) packed[i] = (uint8_t)(g_tiles[t][i * 2] << 4 | (g_tiles[t][i * 2 + 1] & 15));
+        wr_bytes(w, packed, 32);
+    }
+    memset(bits, 0, sizeof bits);
+    for (int t = 0; t < RS_TILE_MAX; t++)
+        if (g_tile_written[t]) bits[t >> 3] |= (uint8_t)(1 << (t & 7));
+    wr_bytes(w, bits, sizeof bits);
+    wr_u32(w, (uint32_t)g_tiles_used);
+    for (int i = 0; i < 256; i++) wr_u16(w, g_cgram[i]);
+    for (int i = 0; i < RS_OAM_MAX; i++) {
+        const rs_sprite *s = &g_oam[i];
+        wr_u16(w, (uint16_t)s->x); wr_u16(w, (uint16_t)s->y); wr_u16(w, s->tile);
+        wr_u8(w, s->w); wr_u8(w, s->h); wr_u8(w, s->pal); wr_u8(w, s->prio); wr_u8(w, s->flags); /* +used below */
+    }
+    for (int i = 0; i < RS_OAM_MAX; i += 8) {        /* the used flags as bits */
+        uint8_t u = 0;
+        for (int k = 0; k < 8; k++) u |= (uint8_t)((g_oam[i + k].used ? 1 : 0) << k);
+        wr_u8(w, u);
+    }
+    wr_i32(w, g_obj_base); wr_i32(w, g_obj_win); wr_i32(w, g_clip_win);
+    wr_i32(w, g_win_l[0]); wr_i32(w, g_win_l[1]); wr_i32(w, g_win_r[0]); wr_i32(w, g_win_r[1]);
+    wr_i32(w, g_math_mode); wr_i32(w, g_math_layers); wr_u16(w, g_math_fixed);
+    wr_i32(w, g_bright); wr_i32(w, g_fog_win); wr_i32(w, g_fog_layers); wr_u16(w, g_fog565);
+    state_raster_put(w, g_raster);
+    state_ptr_put(w, g_raster_user, 0, "the raster callback's user pointer");
+    for (int l = 0; l < RS_BG_COUNT; l++) {
+        const bg_state *b = &g_bg[l];
+        wr_i32(w, b->mw); wr_i32(w, b->mh); wr_i32(w, b->base); wr_i32(w, b->enabled);
+        wr_i32(w, b->sx); wr_i32(w, b->sy);
+        state_ptr_put(w, b->ldx, H * sizeof(int16_t), "a line-scroll table (rs_bg_line_scroll)");
+        state_ptr_put(w, b->ldy, H * sizeof(int16_t), "a line-scroll table (rs_bg_line_scroll)");
+        wr_i32(w, b->win); wr_i32(w, b->affine);
+        wr_i32(w, b->aff.a); wr_i32(w, b->aff.b); wr_i32(w, b->aff.c); wr_i32(w, b->aff.d);
+        wr_i32(w, b->aff.cx); wr_i32(w, b->aff.cy); wr_i32(w, b->aff.wrap);
+        for (int i = 0; i < 128 * 128; i++) wr_u16(w, b->map[i]);
+    }
+    wr_i32(w, g_nviews);
+    wr_u16(w, g_div565);
+    for (int i = 0; i < RS_VIEW_MAX; i++) {
+        const rs_viewport *v = &g_views[i];
+        wr_u16(w, (uint16_t)v->x); wr_u16(w, (uint16_t)v->y); wr_u16(w, (uint16_t)v->w); wr_u16(w, (uint16_t)v->h);
+        for (int l = 0; l < 4; l++) { wr_u16(w, (uint16_t)v->sx[l]); wr_u16(w, (uint16_t)v->sy[l]); }
+        wr_u8(w, v->layers); wr_u8(w, v->objs); wr_u16(w, v->oam_first); wr_u16(w, v->oam_count);
+    }
+}
+
+int ppu_state_load(rs_rd *r, int apply)
+{
+    uint8_t packed[32], bits[RS_TILE_MAX / 8];
+    for (int t = 0; t < RS_TILE_MAX; t++) {
+        rd_bytes(r, packed, 32);
+        if (apply)
+            for (int i = 0; i < 32; i++) { g_tiles[t][i * 2] = packed[i] >> 4; g_tiles[t][i * 2 + 1] = packed[i] & 15; }
+    }
+    rd_bytes(r, bits, sizeof bits);
+    int used = rd_i32(r);
+    if (used < 0 || used > RS_TILE_MAX) return -1;
+    if (apply) {
+        for (int t = 0; t < RS_TILE_MAX; t++) g_tile_written[t] = (bits[t >> 3] >> (t & 7)) & 1;
+        g_tiles_used = used;
+    }
+    for (int i = 0; i < 256; i++) {
+        rs_color c = rd_u16(r);
+        if (apply) rs_pal_set(i, c);                /* CGRAM and its RGB565 copy */
+    }
+    for (int i = 0; i < RS_OAM_MAX; i++) {
+        rs_sprite s;
+        s.x = (int16_t)rd_u16(r); s.y = (int16_t)rd_u16(r); s.tile = rd_u16(r);
+        s.w = rd_u8(r); s.h = rd_u8(r); s.pal = rd_u8(r); s.prio = rd_u8(r); s.flags = rd_u8(r);
+        s.used = g_oam[i].used;
+        if (apply) g_oam[i] = s;
+    }
+    for (int i = 0; i < RS_OAM_MAX; i += 8) {
+        uint8_t u = rd_u8(r);
+        if (apply)
+            for (int k = 0; k < 8; k++) g_oam[i + k].used = (u >> k) & 1;
+    }
+    int regs[11];
+    uint16_t fixed, fog;
+    for (int i = 0; i < 9; i++) regs[i] = rd_i32(r);
+    fixed = rd_u16(r);
+    int bright = rd_i32(r), fog_win = rd_i32(r), fog_layers = rd_i32(r);
+    fog = rd_u16(r);
+    rs_raster_fn fn;
+    const void *user;
+    if (state_raster_get(r, &fn) || state_ptr_get(r, &user, 0)) return -1;
+    if (r->err || bright < 0 || bright > 15) return -1;
+    if (apply) {
+        g_obj_base = regs[0]; g_obj_win = regs[1]; g_clip_win = regs[2];
+        g_win_l[0] = regs[3]; g_win_l[1] = regs[4]; g_win_r[0] = regs[5]; g_win_r[1] = regs[6];
+        g_math_mode = regs[7]; g_math_layers = regs[8]; g_math_fixed = fixed;
+        g_bright = bright; g_fog_win = fog_win; g_fog_layers = fog_layers; g_fog565 = fog;
+        g_raster = fn;
+        g_raster_user = (void *)(uintptr_t)user;
+    }
+    for (int l = 0; l < RS_BG_COUNT; l++) {
+        bg_state *b = &g_bg[l];
+        int v[6];
+        for (int i = 0; i < 6; i++) v[i] = rd_i32(r);
+        const void *ldx, *ldy;
+        if (state_ptr_get(r, &ldx, H * sizeof(int16_t)) || state_ptr_get(r, &ldy, H * sizeof(int16_t))) return -1;
+        if ((uintptr_t)ldx % sizeof(int16_t) || (uintptr_t)ldy % sizeof(int16_t)) return -1;
+        int win = rd_i32(r), affine = rd_i32(r);
+        rs_affine aff;
+        aff.a = rd_i32(r); aff.b = rd_i32(r); aff.c = rd_i32(r); aff.d = rd_i32(r);
+        aff.cx = rd_i32(r); aff.cy = rd_i32(r); aff.wrap = rd_i32(r);
+        if (r->err || (v[0] != 32 && v[0] != 64 && v[0] != 128) || (v[1] != 32 && v[1] != 64 && v[1] != 128)) return -1;
+        if (apply) {
+            b->mw = v[0]; b->mh = v[1]; b->base = v[2]; b->enabled = v[3] ? 1 : 0; b->sx = v[4]; b->sy = v[5];
+            b->ldx = ldx; b->ldy = ldy;
+            b->win = win; b->affine = affine ? 1 : 0; b->aff = aff;
+            for (int i = 0; i < 128 * 128; i++) b->map[i] = rd_u16(r);
+        } else {
+            rd_bytes(r, NULL, 128 * 128 * 2);
+        }
+    }
+    int nviews = rd_i32(r);
+    uint16_t div = rd_u16(r);
+    if (r->err || nviews < 0 || nviews > RS_VIEW_MAX) return -1;
+    for (int i = 0; i < RS_VIEW_MAX; i++) {
+        rs_viewport v;
+        v.x = (int16_t)rd_u16(r); v.y = (int16_t)rd_u16(r); v.w = (int16_t)rd_u16(r); v.h = (int16_t)rd_u16(r);
+        for (int l = 0; l < 4; l++) { v.sx[l] = (int16_t)rd_u16(r); v.sy[l] = (int16_t)rd_u16(r); }
+        v.layers = rd_u8(r); v.objs = rd_u8(r); v.oam_first = rd_u16(r); v.oam_count = rd_u16(r);
+        if (apply) g_views[i] = v;
+    }
+    if (r->err) return -1;
+    if (apply) {
+        g_nviews = nviews;
+        g_div565 = div;
+        g_cur_view = -1;
+    }
+    return 0;
+}

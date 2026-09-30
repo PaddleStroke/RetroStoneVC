@@ -232,6 +232,9 @@ static void title_update(void)
     }
 }
 
+static int col;                                      /* the season under the cursor (cursor 4: 2-4 PLAYERS) */
+static int shown = -1;                               /* the level whose name the level select shows */
+
 static void arcs_update(void)
 {
     menu_scroll();
@@ -239,7 +242,6 @@ static void arcs_update(void)
     text_at(center("CHOOSE A SEASON"), 3, "CHOOSE A SEASON");
     uint16_t p = pressed();
     int old = cursor;
-    static int col;                                  /* the season under the cursor (cursor 4: 2-4 PLAYERS) */
     if (cursor < 4) col = cursor;
     if (cursor < 4 && (p & RS_BTN_LEFT)) cursor = (cursor + 3) % 4;
     if (cursor < 4 && (p & RS_BTN_RIGHT)) cursor = (cursor + 1) % 4;
@@ -310,7 +312,6 @@ static void levels_update(void)
         rs_bg_meta(RS_BG1, cx - 1, cy, bm_hud_meta[n == cursor ? HUD_CURSOR : HUD_PANEL]);
     }
     level_def *L = &LV;
-    static int shown = -1;
     if (shown != sel_arc * 8 + cursor || st_t == 0) {
         shown = sel_arc * 8 + cursor;
         for (int y = 19; y < 26; y++) text_at(0, y, "                                        ");
@@ -1144,9 +1145,33 @@ static void game_shutdown(void)
     }
 }
 
+/* ---- save states: the SDK saves the console (VRAM, maps, palettes, sprites, voices, music, RNG, pads); here
+ * are the game's own objects, every file its own (tools/state_audit.py checks that no mutable static is
+ * forgotten; games/bombermole/state_audit.txt lists the scratch buffers left out on purpose).
+ * Not saved: SV, the battery save's copy (progress stays in the .srm: a state never takes it back), and
+ * unlock_all, which follows it. ---- */
+#define S(v) rs_state_var("main." #v, &(v), sizeof(v))
+static void game_state(void)
+{
+    S(join_mode); S(opt_music); S(opt_sfx); S(opt_diff);
+    S(st); S(st_t); S(cursor); S(sel_arc); S(sel_level); S(st_changed); S(col); S(shown);
+    S(LV); S(carry); S(view_depth); S(slide_from); S(slide_to); S(level_frames); S(forced_view);
+    S(title_ready); S(gt);
+    S(dev_mode); S(dev_unlock_all); S(dev_skip); S(restarts); S(pause_quit); S(box_key);
+    S(dev_god); S(dev_reveal); S(dev_perf);
+    RS_STATE_RASTER(title_raster);
+    draw_state();
+    ui_state();
+    mp_state();
+    sfx_state();
+    world_state();
+}
+#undef S
+
 const rs_game *rs_game_main(void)
 {
+    /* state_version: bump it when the meaning of a saved object changes (its layout is checked) */
     static const rs_game g = {"Bomber Mole", "bombermole", "0.1.0", game_init, game_update, game_draw,
-                              game_shutdown, bm_assets};
+                              game_shutdown, bm_assets, game_state, NULL, 1};
     return &g;
 }

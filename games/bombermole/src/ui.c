@@ -526,3 +526,12 @@ void ui_play_overlays(int view_depth)
         rs_text_setup(RS_BG1, 0, 0, 1);
     }
 }
+
+/* ---- save states (main.c) ---- */
+#define S(v) rs_state_var("ui." #v, &(v), sizeof(v))
+void ui_state(void)
+{
+    S(banner_t); S(level_t); S(pickup_t); S(pickup_line); S(level_line1); S(level_line2);
+    S(mark_bx); S(mark_by); S(prompt_port);
+}
+#undef S

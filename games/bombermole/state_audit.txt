@@ -1,0 +1,21 @@
+# Save states (tools/state_audit.py): the mutable statics that are NOT saved, and why.
+# Everything else is registered in the game's *_state() functions (main.c game_state()).
+level.legend        level_parse()'s legend table: filled before use at each parse
+main.tmp            dev_reload(): the reloaded level before it is copied to LV
+main.m              arcdone_update(): the affine matrix, set every frame before rs_bg_affine() copies it
+mp.s                device_name(): the text it returns
+sfx.buf             sfx_init(): the synthesis buffer (the samples are made at start-up, not saved)
+sfx.noise_s         sfx_init(): the synthesiser's noise, used at start-up only
+ui.px               build_map(): the pause map's pixels, drawn from W each time
+world.from          the path searches' scratch (reset at each search)
+world.qx            the path searches' queues
+world.qy            the path searches' queues
+world.dist          the path searches' distances (reset at each search)
+world.cost          plan_step(): the search's costs (reset at each search)
+world.done          plan_step(): the search's visited set (reset at each search)
+world.sd_qx         the sudden-death spiral: computed once from the arena's size, the same every time
+world.sd_qy         the sudden-death spiral
+world.sd_qn         the sudden-death spiral's length (-1: not computed yet; recomputed the same)
+main.SV             the battery save's copy: progress stays in the .srm, a state never takes it back
+main.unlock_all     follows the battery save (SV) and the "unlock" option
+main.hill_dx        menu_scroll(): zeroed, never used as a line-scroll table (optimised away at -O2)

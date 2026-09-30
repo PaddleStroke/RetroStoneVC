@@ -1,7 +1,7 @@
 # Leady Squid (games/leadysquid): its make targets, included by the root Makefile.
 #
 #   make leadysquid                host builds: leadysquid (SDL2), leadysquid_headless, leadysquid_libretro.so
-#   make leadysquid-check          all its tests (SDK, libretro loader, physics, caps on columns, smoke, bot,
+#   make leadysquid-check          all its tests (SDK, libretro loader, physics, caps on columns, smoke, bot, save states,
 #                                  determinism, art tools)
 #   make leadysquid-dist           dist/windows/LeadySquid.exe, dist/libretro/leadysquid_libretro.so (+ .armhf.so)
 #   make leadysquid-windows        only the Windows exe
@@ -43,12 +43,14 @@ build/host/leadysquid_test_caps: build/host/$(LS_DIR)/tests/test_caps.o $(LS_OBJ
 
 leadysquid-check:
 	+$(LS_MAKE) host build/host/test_sdk build/host/test_libretro build/host/leadysquid_test_physics \
-	    build/host/leadysquid_test_caps
+	    build/host/leadysquid_test_caps build/host/leadysquid_test_states
 	./build/host/test_sdk --golden sdk/tests/golden --out build
 	./build/host/test_libretro build/host/leadysquid_libretro.so 600
 	./build/host/leadysquid_test_physics
 	sh $(LS_DIR)/tests/caps_test.sh build/host/leadysquid_test_caps build
 	sh $(LS_DIR)/tests/smoke_test.sh build/host/leadysquid_headless build
+	sh $(LS_DIR)/tests/state_test.sh build/host/leadysquid_test_states build/states
+	$(PYTHON) tools/state_audit.py --game leadysquid build/host/leadysquid_test_states $(filter-out %/assets.o,$(LS_OBJ_HOST))
 	$(PYTHON) $(LS_DIR)/tests/test_art_tools.py
 
 leadysquid-screenshots:
