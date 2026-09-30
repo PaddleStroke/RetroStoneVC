@@ -60,9 +60,14 @@ duckparade-screenshots:
 	+$(DP_MAKE) build/host/duckparade_headless
 	sh $(DP_DIR)/tools/screenshots.sh build/host/duckparade_headless $(DP_DIR)/docs/screenshots
 
+build/host/$(DP_DIR)/tests/bench_frames.o: build/gen/duckparade/assets.c
+build/host/duckparade_bench: build/host/$(DP_DIR)/tests/bench_frames.o $(DP_OBJ_HOST) \
+                             build/host/sdk/frontends/common/rs_desktop.o build/host/librs.a
+	$(HOST_CC) -o $@ $^ -lm
+
 duckparade-bench:
-	+$(DP_MAKE) build/host/duckparade_headless
-	sh $(DP_DIR)/tools/bench.sh build/host/duckparade_headless
+	+$(DP_MAKE) build/host/duckparade_headless build/host/duckparade_bench
+	sh $(DP_DIR)/tools/bench.sh build/host/duckparade_headless build/host/duckparade_bench
 
 duckparade-art:
 	$(PYTHON) $(DP_DIR)/tools/make_art.py

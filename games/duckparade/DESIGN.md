@@ -27,11 +27,16 @@ The screen is 320x240 (4:3 landscape), so the crossing runs **left to right**:
 
 | Layer | Contents | Scroll |
 |---|---|---|
-| backdrop | the house raster sky in the top band (one colour per line), then the grass colour | - |
-| BG1 | UI (house_ui: font, panels, banners, the title logo) | fixed |
-| BG2 | the lanes, top-down: grass with flowers and trees, asphalt with dashes and kerbs, rails on sleepers, gravel park paths, rapids with current streaks (palette-cycled per direction), lily ponds, nest ponds with reeds | camera |
-| BG3 | drifting cloud shadows over the field (colour math: subtract, halved) | camera + wind |
-| OBJ | ducks, ducklings, shadows, cars, bikes, buses, joggers, lawnmowers, logs, lily pads, the paddle boat, the train, the crossing lights, the fox, splashes, feathers, the HUD digits | |
+| BG1 | UI (the house kit: font, panels, banners, the title logo, the HUD's text; priority 1) | fixed |
+| BG2 | rows 0-1: the **sky band**, high priority, over the world's sprites (cars entering the field slide in under it); its sky entry is the house raster gradient (the raster callback sets it line by line) and a band of clouds drifts at 1/4 of the camera. Rows 2-29: **cloud shadows** drifting over the field, low priority, blended half and half with it (colour math) | band: per-line scroll; shadows: camera + wind |
+| BG3 | the lanes, top-down, drawn column by column into a 32-column ring as the camera moves: grass with flowers and trees, asphalt with dashes and kerbs, bike lanes, rails on sleepers, sandy park paths, rapids (the tiles shift with the current, like the logs), lily ponds, nest ponds with reeds and the nest | camera |
+| OBJ | ducks, ducklings, shadows, cars, bikes, buses, joggers, lawnmowers, logs, lily pads, the swan boat, the train, the crossing lights, the fox, splashes, feathers, hearts, the HUD digits and icons, the egg medals | |
+
+Palettes: BG 0 the UI (kit), 1 grass, 2 roads, 3 rapids, 4 railways and paths, 5 the logo (kit), 6 ponds, 7
+the sky band and the shadows. OBJ 0 Mother Duck, 1 Father Duck (the same tiles), 2 ducklings and effects, 3 the
+kit (digits, glyphs) and our egg medals (drawn with its palette), 4-5 traffic, 6 river things, 7 the train, the
+lights and the fox. The title hazes the field (colour math with a light fixed colour) behind the logo; a
+banking flashes it (added white, fading); the fox's warning tints the left edge red (the window and the fog).
 
 ## Controls
 | Button | Action |
@@ -66,7 +71,7 @@ Enter = Start (the SDK's mapping).
 | **river** (rapids) | the water: Mother is swept away | riding a **log**, a drifting **lily pad** or the **paddle boat** (a swan) |
 | **railway** | the train, telegraphed by a flashing light and a bell | none while the light flashes |
 | **park path** | joggers (in small groups), a lawnmower (slow, long) | none: time the gaps |
-| **lily pond** | the deep water (a pike lurks) | the static lily pads |
+| **lily pond** | the deep water | the static lily pads |
 | **nest pond** | none: calm shallow water, a reed island with the nest | every cell; entering it **banks** the parade |
 
 - Objects move at a constant speed along a **loop** of 22 cells (the clone's 22-tile wrap), of which the 14
@@ -82,8 +87,9 @@ Enter = Start (the SDK's mapping).
 ## The parade (the twist)
 - **Lost ducklings** wait on grass cells, peeping. Mother walks over one: it **joins the line right behind
   her** (a peep, a little hop of joy) and the whole line follows her **exact path, hop for hop**: duckling k
-  is where Mother was k hops ago (Snake's rule). Each duckling hops 2 frames after the one in front of it
-  (a ripple down the line). On a log, the path is kept relative to the log.
+  is where Mother was k hops ago (Snake's rule). The ducklings take off 2, 4 or 6 frames after her (a
+  marching ripple repeating down the line) and all land with her. On a log, the path is kept relative to the
+  log. A lost duckling waits on 28% of the grass columns (two of them on 15% of those).
 - Every duckling can be **hit**: a car, a bike, a bus, a jogger, a mower or the train **knocks it off the
   line** (a tumble, feathers, a horn): it flutters back to the nearest grass on screen (invulnerable while
   it flutters) and waits there to be picked up again. The ducklings behind it **stay with the line**: they
@@ -110,40 +116,50 @@ Standing still from Mother's usual place, the fox comes after **8 s** at the sta
 on (Crossy Road's eagle comes after about 5 s of idling). Hopping forward always pushes the edge back.
 
 ## Generator and fairness
-Lanes are made in **units**: a hazard group (1-5 lanes of one family, mixed families later on) followed by a
-grass run (1-3 grass columns, sometimes a nest pond). The first 8 columns are a safe meadow (a hedge on the
-left, trees on the top and bottom rows).
+Lanes are made in **units**: a hazard group (1-4 lanes of one family; from lane 120 a lane may take another
+family) followed by a grass run (1 grass column, 2 for 25% of the runs, 3 for 8%; a nest pond run is grass,
+nest, grass). The first 8 columns are a safe meadow (a hedge on the left, bushes on the top and bottom rows).
 
 Family mix (after the meadow), from the clone's row mix (grass 1/3, road-type 1/3 of which 1/4 railway,
 water 1/3), with park paths and ponds taken from the road and water shares: road 25%, railway 8%, park 9%,
-river 25%, lily pond 8%, and the grass runs between groups.
+river 25%, lily pond 8%, and the grass runs between groups. Measured over 2000 courses of 300 lanes (the
+fairness test): grass 47%, road 21%, river 17%, park 5%, railway 4%, lily pond 4%, nest ponds 2% (the early
+groups are short, so the first lanes are grassier than the clone's third).
 
 **Difficulty** d = lane / 300 (capped at 1; lanes past 300 add up to 20% more speed by lane 600):
 | | lane 0 | lane 300 |
 |---|---|---|
 | cars, speed (px/frame) | 0.32-0.70 | 0.32-1.28 (the clone: 0.02-0.08 tiles/frame) |
 | cars per loop | 1-2 | 2-3 (the clone: 1-2 per 22 tiles) |
-| road group | 1-2 lanes | 1-4 lanes (Frogger: 5) |
+| road group | 1-2 lanes | 2-4 lanes (Frogger: 5) |
 | logs, speed | 0.32-0.60 | 0.32-1.12 (the clone: 0.02-0.07) |
 | log length | 3-4 cells | 2-3 cells |
 | river group | 1-2 lanes | 1-3, alternating directions (Frogger's river) |
 | train period | 8-10 s | 5-8 s (the clone: 4.6 s) |
-| camera creep | 0.25 px/frame | 0.40 px/frame |
+| camera creep | 0.28 px/frame | 0.45 px/frame |
 
 **The judge** (lanes.c): every hazard group is checked before it is used, by an exact time-expanded
 reachability search over the duck's own moves (hop 12 frames in 4 directions, waiting, riding, snapping),
 on a pixel-accurate model of the lanes (bitsets of the 224 positions of each column, per frame):
 - the start set is every cell of the previous grass run that the duck can reach;
-- from **each of 4 start times** (spread over the traffic period) the group must be crossed into the next
-  grass run within **4 s** (the fox's grace is 5-8 s);
+- from **each of 4 start times**, spread over the group's longest traffic period (every phase of a slow
+  mower or a train is tried), the group must be crossed into the next grass run within **4 s** (the fox's
+  grace is 5-8 s);
+- the judge runs one start per frame at most (16 us on the host), columns are made about 14 ahead of the
+  screen, so the generator never costs a frame;
 - a group that fails is re-rolled (up to 4 tries, easier each time), then replaced by grass: the generator
   can never hand out an impossible pattern.
 - Constructive rules on top: trains are telegraphed 2 s ahead (>= 1 s is checked); adjacent river lanes flow
   in opposite directions; a lily pond keeps a pad in reach of the cells before it (the clone's rule); every
-  grass column keeps 4 free cells, and the free cells of a grass run are connected.
+  grass column keeps 4 free cells, the free cells of a grass run are connected, and the run's first column
+  has a row free straight ahead of a free cell of the column before the group (no crossing needs a long
+  walk up or down inside the traffic).
 
-The fairness test replays the generator over thousands of seeds with a stricter judge (every 5 frames of
-start time, from each single start cell, within 5 s) and checks the telegraph and the constructive rules.
+The fairness test (tests/test_rules.c) replays the generator over 2000 seeds x 300 lanes: every group is
+judged again from 4 random start times within 5 s, and on 50 seeds a strict judge tries a start every 5 frames
+and every single start cell (the whole grass run before the group in the search); the constructive rules and
+the train telegraph are checked. Result: no failure in 206 902 groups; crossing takes 30 frames on average,
+234-285 at worst. At run time (seed 42, 300 lanes) 1 group in 100 is re-rolled, none replaced by grass.
 
 ## Scoring, medals, save
 - **Score = lanes crossed (the furthest column) + banked points.** The HUD shows the score, the line length
@@ -170,24 +186,47 @@ hit is out (their ducklings scatter), and the run ends when both are out. The pa
 score and the family total (a friendly score, no winner).
 
 ## Audio
-- Sound effects synthesised in code at start-up (sfx.c): a **quack** per hop (four variants, pitch varied),
-  a **peep** when a duckling joins (rising with the line length), a **car horn** (two detuned squares) when a
-  duckling is knocked off, a **splash**, the **train bell** (a struck-metal ding, repeating), the **banking
-  fanfare** (a brass arpeggio), a camera click for the photo, a thud, the fox's growl, a bump, the UI sounds.
-- Music: a jaunty **marching-band** loop in D major, 112 BPM (tools/make_music.py, a 3-channel MOD: snare and
-  bass drum, tuba, fife melody) and **layers the game adds as the parade grows**, sequenced in step with the
-  module on their own voices (a row is exactly 8 frames): a trumpet counter-melody from 3 ducklings, a
-  glockenspiel from 8. Music + layers + sound effects stay within the 8 voices.
+- Sound effects synthesised in code at start-up with the house synthesiser (house_audio.h: ha_tone, ha_hiss;
+  src/sfx.c): a **quack** per hop (four voices, the pitch varied hop by hop, Father's lower), a **peep** when a
+  duckling joins (higher as the line grows), a **car horn** (two detuned brassy tones) when a duckling is
+  knocked off, a **splash** and a **plop**, the **train bell** (a struck bell, repeating while a light flashes
+  on screen), the **banking fanfare** (a brass arpeggio D5 F#5 A5 D6) and the photo's **click**, the fox's
+  **growl**, a thud, a bump; the UI sounds are the house kit's own (confirm, pause, medal, swish). The house
+  loudness targets and echo (on the wet sounds only). Pan by screen x.
+- Music: a jaunty **marching-band** loop in D major (tools/make_music.py with the house music kit: a 4-channel
+  MOD, fife, tuba oom-pah, bass drum and snare with rolls, hi-hat; speed 8 at 150 BPM, so a row is exactly
+  8 frames and a beat 32 frames: 112.5 beats a minute), and **layers the game adds as the parade grows**,
+  played in step with the module on their own voices: a **trumpet** counter-melody from 3 ducklings in the
+  line(s), a **glockenspiel** from 8 (the title plays the trumpet).
+- Voices (the 8-voice guideline counts the module's 4 channels): the layers take voices 3 and 2 while they
+  play, the effects share the rest of 0..3 (the oldest is stolen). Sample memory stays under the 64-KiB
+  guideline (the SNES ARAM): the quacks and the layers' instruments are kept at 16 kHz, and only the house
+  sounds the game uses are made. Strict mode reports nothing over a 6000-frame bot run.
 
 ## Art
 All code-drawn (tools/make_art.py, the house helpers of games/common/tools/house_style.py): flat shades, 1-px
-dark outlines, light from the top-left, readable at 1x.
-- Mother Duck, 16x16 top-down: a white body, an orange beak and feet, a blue wing speculum, a bonnet ribbon;
-  hop frames (stretch, squash), idle, bump, hit (flat), swept, caught. Father Duck: the mallard palette.
-- Ducklings, 10x10 in 16x16 cells: fluffy yellow, orange beaks; hop, peep, tumble, flutter, paddle.
-- Cars: cute rounded top-down cars (red, blue, yellow, green, pink, white), bikes, a bus; joggers, a
-  lawnmower; logs (3 lengths), lily pads, the swan paddle boat; the train (locomotive, carriages).
-- The fox (the warning pose and the pounce), splashes, feathers, the photo frame, egg medals.
+outlines outside the shape (never black: each material's darkest shade pushed towards violet), light from the
+top-left, readable at 1x. The lanes are seen from above; the characters in the classic 3/4 view of top-down
+games (from the side going right or left, from the front or the back going down or up).
+- Mother Duck, 16x16: a white farm duck, an orange bill and feet, a blue speculum, a pink ribbon; four
+  directions x rest, stretch (take-off), squash (landing), blink; hit (flattened, X eyes), swept (her head in
+  the rapids). Father Duck: the same tiles, OBJ palette 1: a **mallard drake** (green head, white collar,
+  grey-brown body, yellow bill, the ribbon becomes his curl).
+- Ducklings, about 10x10 in 16x16 cells: fluffy yellow, orange beak, a tuft; four directions x rest and hop,
+  peep (beak open), tumble (spinning), flutter (wings up), paddle (swimming, ripples).
+- Traffic from above, both directions drawn (the light stays top-left): cute rounded cars in six colours
+  (windscreen, roof, rear window, wheels, head and tail lights), a yellow bus, cyclists (red helmet), joggers
+  (3/4 view), a ride-on lawnmower with its gardener; logs (2-4 cells, cut rings at the ends), lily pads (one
+  with a flower), the **swan paddle boat**; the train (a green locomotive with its headlight, carriages), the
+  crossing light (two red lamps flashing in turn) and the nest pond's sign in the sky band.
+- The field: grass with tufts and flowers, round trees with their shadow, bushes with berries, rocks, the
+  hedge; asphalt with kerbs and lane dashes, bike lanes with their painted bike; rapids with foam streaks (16
+  shifts: the current moves with the logs) and banks; rails on sleepers; sandy park paths with grass edges;
+  lily ponds; the nest pond (reeds, the grassy island with the nest and its eggs). Drifting **cloud shadows**
+  (BG2, blended half and half) and a band of clouds in the sky.
+- Effects: splashes, feathers, dust puffs, hearts, peep notes, the fox's "!" bubble, checker-dithered shadows
+  under the hops. The **egg medals** use the kit's medal palette and tiers (bronze, silver, gold, pearl with
+  speckles). The fox (watching, pouncing, trotting off with Mother).
 
 ## Balance and feel sources
 | # | Source | Licence | What we took (numbers and facts only) |
@@ -207,17 +246,47 @@ dark outlines, light from the top-left, readable at 1x.
   camera creep gives 8 s at the start and 5 s from lane 300, with a telegraphed warning.
 - The clone's train shows 2.2 s after its light: our warning is 2 s (>= 1 s is tested).
 
+## The bot (--opt bot=1, bot=2 for both parents)
+It plays from the **screen only**: the sprites in OAM (its duck, the vehicles and their facing, the platforms,
+the trains, the crossing lights, the waiting ducklings), the lane cells in the BG3 map and the BG3 scroll
+register (which map column is on the left of the screen). Speeds are measured by following the sprites from
+frame to frame (a lane is kept out of until 16 frames are measured; margins shrink as the measure lengthens);
+what it cannot see is assumed dangerous (a vehicle may be just off screen; a lit crossing light is a train).
+When its duck stands (it decides one frame after a landing, on the picture of the landing), it turns what it
+sees into the rules' lanes and tries each move with the game's own search (lanes.c judge_run, the fairness
+judge): the furthest place where a duck can rest (grass, a nest pond, a lily pad) reached soonest wins; a lost
+duckling close by is worth a detour; a dead end (a pad with no way on) is remembered and the search looks
+much further. Result over seeds 1-10 (36 000 frames each, make duckparade-check): **319 lanes on average**,
+min 50, max 801 (364 180 206 50 280 538 801 247 313 219).
+
+## Performance (make duckparade-bench)
+A long bot run is recorded (--opt record=1) and replayed from its input script (the same game frame for frame,
+without the bot's thinking); tests/bench_frames.c renders each frame three times and keeps the cheapest.
+| Run (host: WSL2, x86-64) | average | median | 99% | 99.9% | worst |
+|---|---|---|---|---|---|
+| Mother Duck, seed 7 (748 lanes, 88 sprites at most) | 0.38 ms | 0.37 ms | 0.69 ms | 0.85 ms | 0.92 ms |
+| Mother and Father, seed 6 (461 lanes, 103 sprites) | 0.37 ms | 0.36 ms | 0.68 ms | 0.75 ms | 0.94 ms |
+The game's own update is about 5 us a frame (the judge runs one start per frame at most, 16 us). A20 estimate at
+x15-x20: **5.7-7.6 ms on average, 10-14 ms for 99% of the frames**, the very worst frames 14-19 ms (a busy
+screen: 20 columns of traffic, trains, the parades; the budget is 16.7 ms). The cloud shadows and the fox's red
+edge cost about 6% of the render.
+
 ## Tests (make duckparade-check)
-- `tests/test_rules.c`: the tuning table (hop timing, speeds converted from the sources, the loop, the fox
-  timing from creep), the hop and parade rules (following, the knock-off and the gap closing, banking, riding
-  and snapping), and the **fairness** of the generator over thousands of seeds (the strict judge, the train
-  telegraph, the constructive rules).
-- `tests/smoke_test.sh`: scripted runs (no input: the fox; a blind rhythm: hit), pause, retry, save RAM, the
-  2-player join, strict mode clean; **the bot** (`--opt bot=1`), which plays from the **screen only** (OAM and
-  the BG2 map: lane tiles, trees, vehicles, platforms, lights, ducklings) and must cross **150 lanes or more on
-  average over 10 seeds** (the distribution is printed); **determinism** (the same run twice: state and
-  picture).
-- `tests/test_ui.c` (via `tests/ui_test.sh`): the whole game with scripted input; the HUD, the title, the
-  banners, the panel and the pause checked on the rendered picture and the layers, with screenshots.
-- `tests/state_test.sh`: save states (sdk/tests/test_states.c) and tools/state_audit.py.
-- `tools/screenshots.sh`: docs/screenshots/.
+- `tests/test_rules.c`: the tuning table against its sources (hop timing, speeds, the loop, the fox's timing),
+  the lanes (loops, trains telegraphed, platforms), the hop (12 frames, the buffer, blocking, the arc and the
+  squash), roads, rivers and ponds (riding, being carried off, snapping), the parade (joining, following the
+  exact path, the knock-off, the gap closing, banking, the scattering), the camera and the fox, the judge
+  against the game (every straight crossing the game allows is seen by the judge: 6400 cases), the staged
+  generator equal to the unstaged one, and the **fairness** over 2000 seeds (above).
+- `tests/smoke_test.sh`: the title idles, strict mode clean, the start, the fox, a blind rhythm, retry, pause,
+  save RAM, Father's join, co-op scoring, **the bot on 10 seeds (>= 150 lanes on average)**, **determinism**
+  (a scripted run and a bot run, twice: same state and picture).
+- `tests/test_ui.c` (tests/ui_test.sh): the whole game on the real picture: the title (logo, prompt and glyph,
+  copyright, the marching family), get ready, the first hop, the HUD's score on every frame of a run, the
+  duckling count, the sky band hiding the world's sprites (the band is the same with them hidden), the
+  family photo after each banking, the pause (dimmed, PAUSED, frozen) and the resume, the game-over banner,
+  panel, score, best, the egg medal and the retry line; co-op: two scores and the family panel. Screenshots.
+- `tests/state_test.sh`: save states at the title, in a run, in co-op, paused, on the game-over panel and at 4
+  pseudo-random frames of long runs: the state continues exactly like the run that was not interrupted, in the
+  same process and in a fresh one; bad states refused; `tools/state_audit.py` checks every mutable static.
+- `tools/screenshots.sh` (make duckparade-screenshots): docs/screenshots/.

@@ -20,7 +20,7 @@
 #define GO_BUTTONS (RS_BTN_A | RS_BTN_START)
 
 int opt_bot;
-static int opt_botstop, opt_botruns, opt_seed_fixed, opt_music, opt_sound;
+static int opt_botstop, opt_botruns, opt_seed_fixed, opt_music, opt_sound, opt_scenes, opt_record;
 static uint32_t opt_seed;
 static world W;
 static int st, st_t, paused, new_best, runs_done, players = 1;
@@ -86,7 +86,9 @@ static int hop_pressed(int p)
 {
     if (is_bot(p)) {
         if (opt_botstop && world_score(&W, p) >= opt_botstop && st == DS_PLAY) return 0;
-        return bot_decide(p);
+        int b = bot_decide(p);
+        if (b && opt_record) rs_log("press %u P%d %s", rs_frame_count(), p + 1, b == HOP_FWD ? "RIGHT" : b == HOP_BACK ? "LEFT" : b == HOP_UP ? "UP" : "DOWN");
+        return b;
     }
     uint16_t b = rs_pad_pressed(p);
     if (b & (RS_BTN_RIGHT | RS_BTN_A)) return HOP_FWD;
@@ -178,6 +180,27 @@ static void sounds(void)
     }
 }
 
+/* --opt scenes=1: the first frame of each kind of scene (tools/screenshots.sh picks its frames from them) */
+static int scene_seen;
+static void log_scenes(void)
+{
+    const duck *d = &W.d[0];
+    const lane *l = world_lane(&W, d->at.col);
+    int cam = world_cam_px(&W), f = (int)rs_frame_count();
+    if (d->state != DK_ALIVE || !l) return;
+    int x = d->at.col * CELL - cam;
+    if (!(scene_seen & 1) && l->kind == LK_ROAD && !d->h.dir && x > 96 && x < 200) { scene_seen |= 1; rs_log("scene road %d", f); }
+    if (!(scene_seen & 2) && l->kind == LK_RIVER && !d->h.dir && d->nline >= 2) { scene_seen |= 2; rs_log("scene river %d", f); }
+    for (int32_t c = cam >> 4; c <= (cam >> 4) + SCREEN_COLS && !(scene_seen & 4); c++) {
+        const lane *r = world_lane(&W, c);
+        int y0, y1;
+        if (r && r->kind == LK_RAIL && train_at(r, W.t, &y0, &y1) == 2 && y0 > 40 && y1 < 200 && absi(c - d->at.col) <= 3) { scene_seen |= 4; rs_log("scene train %d", f); }
+    }
+    if (!(scene_seen & 8) && d->nline >= 8 && !d->h.dir) { scene_seen |= 8; rs_log("scene parade %d", f); }
+    if (!(scene_seen & 16) && (W.events[0] & EV_BANK) && W.ev_bank_n[0] >= 4) { scene_seen |= 16; rs_log("scene bank %d", f); }
+    if (!(scene_seen & 32) && d->fox_warn && x < 40) { scene_seen |= 32; rs_log("scene fox %d", f); }
+}
+
 static void play_update(void)
 {
     int press[MAX_PLAYERS] = {0, 0};
@@ -187,6 +210,7 @@ static void play_update(void)
     }
     world_step(&W, press);
     sounds();
+    if (opt_scenes) log_scenes();
     for (int p = 0; p < W.players; p++) {
         const duck *d = &W.d[p];
         state_hash = (state_hash ^ (uint32_t)(d->at.col * 977 + d->at.y * 13 + d->at.plat)) * 16777619u;
@@ -268,6 +292,8 @@ static void game_init(void)
     opt_bot = rs_option_int("bot", 0);
     opt_botruns = rs_option_int("botruns", 1);
     opt_botstop = rs_option_int("botstop", 0);
+    opt_scenes = rs_option_int("scenes", 0);
+    opt_record = rs_option_int("record", 0);   /* log the bot's presses as an input script (tools/bench.sh) */
     opt_seed_fixed = rs_option("seed") != NULL;
     opt_seed = (uint32_t)rs_option_int("seed", 0xd0c5eed);
     players = clampi(rs_option_int("players", 1), 1, 2);
@@ -302,7 +328,7 @@ const world *dp_test_world(int *state)
 static void game_state(void)
 {
     S(W); S(st); S(st_t); S(paused); S(new_best); S(runs_done); S(players); S(state_hash);
-    S(run_scores); S(run_lanes); S(nruns_logged); S(bell_t); S(click_t);
+    S(run_scores); S(run_lanes); S(nruns_logged); S(bell_t); S(click_t); S(scene_seen); S(opt_scenes); S(opt_record);
     S(opt_bot); S(opt_botstop); S(opt_botruns); S(opt_seed_fixed); S(opt_seed); S(opt_music); S(opt_sound);
     draw_state();
     sfx_state();

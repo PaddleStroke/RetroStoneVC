@@ -60,8 +60,8 @@ def tuba():
 
 
 def samples():
-    return [("fife", fife(), 30, 0, 16), ("tuba", tuba(), 40, 0, 64), ("kick", hm.kick(), 40, 0, 0),
-            ("snare", hm.snare(9), 30, 0, 0), ("hat", hm.hat(11), 14, 0, 0)]
+    return [("fife", fife(), 26, 0, 16), ("tuba", tuba(), 38, 0, 64), ("kick", hm.kick(), 34, 0, 0),
+            ("snare", hm.snare(9), 26, 0, 0), ("hat", hm.hat(11), 12, 0, 0)]
 
 
 def pattern(pi):
