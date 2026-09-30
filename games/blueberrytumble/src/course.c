@@ -131,16 +131,18 @@ static void place_build(bt_course *c, const pbuild *b, int pat, int tier, int co
     push_seg(c, c0, b->len, pat, tier, combo, score, target);
 }
 
+static pbuild place_scratch;       /* scratch: rebuilt for every placement (state_audit.txt) */
+
 int32_t course_place(bt_course *c, int pat, int tier, int combo, int coin, int target)
 {
-    static pbuild b;            /* scratch (not state: rebuilt every time) */
+    pbuild *bp = &place_scratch;
     int32_t c0 = c->next_col;
     if (pat == PAT_GATE) {
-        pat_build_gate(&b, course_biome_of_col(c0));
-        place_build(c, &b, PAT_GATE, tier, 0, 0, target);
+        pat_build_gate(bp, course_biome_of_col(c0));
+        place_build(c, bp, PAT_GATE, tier, 0, 0, target);
     } else {
-        pat_build(&b, pat, tier, combo, coin);
-        place_build(c, &b, pat, tier, combo, table_score(pat, tier, combo), target);
+        pat_build(bp, pat, tier, combo, coin);
+        place_build(c, bp, pat, tier, combo, table_score(pat, tier, combo), target);
     }
     return c0;
 }

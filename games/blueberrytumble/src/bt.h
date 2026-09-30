@@ -185,14 +185,15 @@ typedef struct world {
     bt_course course;
     berry b[MAX_PLAYERS];
     int players;
-    int32_t f;                  /* frames since the run started */
+    int32_t f;                  /* the course clock: frames rolled (it stops when every berry is down) */
+    int32_t t;                  /* frames since the run started (it goes on after the last splat) */
     int started;
     int coins[MAX_PLAYERS];     /* golden blueberries this run */
     int32_t metres[MAX_PLAYERS];
     int events[MAX_PLAYERS];
     step_info info[MAX_PLAYERS];
-    int32_t cam_y;              /* Q16: the camera's height (the berry's h at the top margin) */
-    int32_t dead_f[MAX_PLAYERS];
+    int32_t dead_f[MAX_PLAYERS];/* t at the splat */
+    int god;                    /* a test aid (screenshots, --opt god=1): the berries bounce off everything */
     uint32_t seed;
 } world;
 void world_init(world *w, int players, uint32_t seed);
@@ -205,6 +206,9 @@ int  world_score(const world *w, int p);
 void draw_init(void);
 void draw_frame(const world *w, int state, int st_t, int best, int new_best, int paused, int attempt, int medal);
 void draw_state(void);
+void draw_reset(void);                                      /* a new run */
+void draw_events(const world *w);                           /* the effects of this frame's events */
+void draw_view(int *hofs, int *vofs, int *c256);            /* the playfield registers (the bot reads them) */
 /* the bot reads the screen: these say what the playfield tiles are (draw.c) */
 int  draw_tile_kind(uint16_t map_entry);                    /* K_* for a solid/hazard tile, -1 = none; ground: 100 + G_* */
 

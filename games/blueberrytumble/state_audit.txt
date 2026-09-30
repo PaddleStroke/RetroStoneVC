@@ -1,0 +1,16 @@
+# Save states (tools/state_audit.py): the mutable statics that are NOT saved, and why.
+# Everything else is registered in the game's state functions (main.c game_state(), draw.c draw_state(),
+# bot.c bot_state(), the house kit's hu_state() and ha_state()).
+main.SV             the battery save's copy (best scores, medals): stays in the .srm, a state never takes it back
+sfx.snd_buf         sfx_init(): the synthesis buffer (the samples are made at start-up, not saved)
+course.place_scratch  course_place(): the pattern being built (rebuilt for every placement)
+director.len_scratch  pat_len(): a pattern built to measure its length (rebuilt every time)
+draw.kind_of        draw_tile_kind(): what each playfield tile shows, made from the constant metatiles
+draw.kind_ready     its flag (the cache is the same whenever it is made)
+bot.L               the course the bot sees: rebuilt from the screen on every decision
+bot.stack           the bot's plan search: scratch of one decision
+bot.memo_key        the plan's memo of dead states: only entries of the current decision count (bot.gen)
+bot.memo_gen        the same
+bot.gen             the memo's generation: bumped for every search, compared only within it
+bot.speed_q16       the speed of the decision being made (scratch)
+bot.x0q             the berry's x in the course it sees (scratch)

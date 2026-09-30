@@ -103,7 +103,11 @@ static void remember(bt_director *d, int pat)
 void director_start(bt_course *c, uint32_t seed)
 {
     bt_director *d = &c->dir;
-    rs_rng_seed(&d->rng, seed ? seed : 1);
+    uint32_t s = seed * 2654435761u ^ 0x9e3779b9u;     /* mixed: nearby seeds give unrelated courses */
+    s ^= s >> 15;
+    s *= 0x2c1b3c6du;
+    s ^= s >> 12;
+    rs_rng_seed(&d->rng, s ? s : 1);
     d->seed = seed;
     for (int i = 0; i < DIRECTOR_MEMORY; i++) d->recent[i] = -1;
     d->last = -1;
@@ -112,11 +116,13 @@ void director_start(bt_course *c, uint32_t seed)
     course_place_flat(c, -START_COL + START_CELLS, PAT_START);
 }
 
+static pbuild len_scratch;         /* scratch (state_audit.txt) */
+
 static int pat_len(int pat, int tier, int combo)
 {
-    static pbuild b;            /* scratch */
-    pat_build(&b, pat, tier, combo, 0);
-    return b.len;
+    pbuild *b = &len_scratch;
+    pat_build(b, pat, tier, combo, 0);
+    return b->len;
 }
 
 static void next_segment(bt_course *c)
