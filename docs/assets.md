@@ -63,8 +63,11 @@ level files and generates the placeholder music (`tools/make_music.py`, 4-channe
 - the title logo (BG tiles, map and palette);
 - the asset pack: `levels/*.txt`, `music/*.mod`.
 
-Build with other art: `make ART=path/relative/to/games/bombermole` (e.g. a folder written by
-`art_sync.py sync --out`), and with bigger characters: `make CHAR_SIZE=24`.
+The art set is `ART` (a folder of `games/bombermole/`): `art-ai` by default (the generated AI art, 24-px
+characters, `make art-ai`), `art` for the validated-only look (`make ART=art`, 16-px characters). Other art:
+`make ART=path/relative/to/games/bombermole CHAR_SIZE=<its size>` (e.g. a folder written by
+`art_sync.py sync --out`). Changing ART, CHAR_SIZE or TILESET regenerates the assets (a stamp in
+`build/gen/bombermole/`).
 
 ## Cutting AI images
 - Whole sheets: `tools/cut_ai_sheet.py` ([art-sheets.md](art-sheets.md)).

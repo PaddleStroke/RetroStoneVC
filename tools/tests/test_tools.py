@@ -20,6 +20,9 @@ from PIL import Image, ImageFilter
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
 sys.path.insert(0, os.path.join(ROOT, "tools"))
+# the layout at 16-px characters: the size of games/bombermole/art/ and of docs/art-sheets.md's table
+# (make exports BM_CHAR_SIZE=24 for the default art-ai set)
+os.environ["BM_CHAR_SIZE"] = "16"
 import sheets  # noqa: E402
 import rsasset  # noqa: E402
 import make_placeholders  # noqa: E402
