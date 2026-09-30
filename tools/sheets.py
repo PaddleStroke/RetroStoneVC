@@ -155,6 +155,9 @@ ENTRIES = [
     E("steam", "props", 15, 2, 16, 16, 1, "prop", "Steam puff (vents)"),
     # row 3: critters (sprite palette 7; the guard dog is on the characters sheet)
     E("bees", "props", 5, 3, 16, 16, 2, "critter", "Swarm of bees"),
+    E("croc", "props", 7, 3, 16, 16, 6, "critter",
+      "Crocodile in the water, seen from above, head RIGHT: swim x2, the tell (eyes and nostrils up, ripples), "
+      "snap x2 (jaws open, jaws shut), stunned (belly up, stars)"),
     # rows 4-9: 32x32 (bosses: sprite palette 3, loaded per level; windmill: palette 6)
     E("windmill", "props", 0, 4, 32, 32, 4, "prop", "Windmill (spring signature), sails turning (4 frames)"),
     E("fox", "props", 8, 4, 32, 32, 4, "boss_fox", "Autumn boss: the fox (run, run, leap, hurt)"),

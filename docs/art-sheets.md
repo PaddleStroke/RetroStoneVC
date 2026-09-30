@@ -167,6 +167,7 @@ code to turn a whole sheet into strips.
 | zzz | props.png | 13-14 | 2 | 16x16 | 2 | prop | Sleeping 'Zz' bubble |
 | steam | props.png | 15 | 2 | 16x16 | 1 | prop | Steam puff (vents) |
 | bees | props.png | 5-6 | 3 | 16x16 | 2 | critter | Swarm of bees |
+| croc | props.png | 7-12 | 3 | 16x16 | 6 | critter | Crocodile in the water, seen from above, head RIGHT: swim x2, the tell (eyes and nostrils up, ripples), snap x2 (jaws open, jaws shut), stunned (belly up, stars) |
 | windmill | props.png | 0-7 | 4-5 | 32x32 | 4 | prop | Windmill (spring signature), sails turning (4 frames) |
 | fox | props.png | 8-15 | 4-5 | 32x32 | 4 | boss_fox | Autumn boss: the fox (run, run, leap, hurt) |
 | farmer | props.png | 0-15 | 6-7 | 32x32 | 8 | boss_farmer | Summer boss: the farmer: idle x2, throw x2, angry x2, hurt x2 |

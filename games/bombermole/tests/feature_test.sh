@@ -88,7 +88,8 @@ echo "$out" | grep -q "burnt=9 " && ok "corn: a bomb sets the patch alight and t
 printf "5 tap B\n8 LEFT\n50 -\n" > $T/bees.input
 out=$(S --frames 420 --opt level=summer-10 --opt spawn=0,8,3 --opt god=1 --input $T/bees.input)
 k=$(field beekills "$out")
-[ "${k:-0}" -ge 1 ] && ok "bees: the swarm goes for the nearest creature (the ferret: $k down), not the mole" \
+[ "${k:-0}" -eq 1 ] && [ "$(field stings "$out")" -eq 1 ] && \
+    ok "bees: the swarm stings the nearest creature (a ferret), then flies off: 1 sting, the other ferret left alone" \
     || bad "bees nearest: $(echo "$out" | grep "summer:\|state:")"
 printf "5 tap B\n8 LEFT\n60 -\n" > $T/shake.input
 out=$(S --frames 420 --opt level=summer-14 --opt spawn=0,9,6 --input $T/shake.input)
@@ -113,5 +114,20 @@ echo "$out" | grep -q "depth=0 x=15 y=10 " && ok "drain pipe: it takes the mole 
 printf "5 tap B\n8 LEFT\n60 -\n" > $T/gas.input
 out=$(S --frames 300 --opt level=summer-13 --opt spawn=0,6,6 --opt god=1 --input $T/gas.input)
 [ "$(field gas "$out")" -ge 1 ] && ok "gas pocket: the blast releases a cloud that stuns the ferret" || bad "gas: $(echo "$out" | grep summer:)"
+# the crocodile: next to it, its eyes rise for 0.6 s (no bite yet), then it snaps; a blast stuns it
+out=$(S --frames 25 --opt level=summer-16 --opt spawn=0,9,4)
+echo "$out" | grep -q "hearts=1 " && echo "$out" | grep -q "bites=0" && ok "croc: next to it, it tells first (eyes up, no bite yet)" \
+    || bad "croc tell: $(echo "$out" | grep "state:\|croc:")"
+out=$(S --frames 90 --opt level=summer-16 --opt spawn=0,9,4 --opt god=1)
+echo "$out" | grep -q "bites=1" && ok "croc: then it snaps (a hit)" || bad "croc snap: $(echo "$out" | grep croc:)"
+printf "5 tap B\n8 UP\n40 -\n" > $T/croc.input
+out=$(S --frames 260 --opt level=summer-16 --opt spawn=0,10,3 --opt god=1 --input $T/croc.input)
+[ "$(field stuns "$out")" -ge 1 ] && ok "croc: a blast on the water stuns it" || bad "croc stun: $(echo "$out" | grep croc:)"
+# the start box: the game waits (paused) until A
+out=$($H --frames 200 --opt level=spring-3 --opt dump=1 2>&1)
+echo "$out" | grep -q "state: st=5 " && ok "start box: the level waits behind it" || bad "start box wait: $(echo "$out" | grep state:)"
+printf "60 tap A\n" > $T/box.input
+out=$($H --frames 120 --opt level=spring-3 --opt dump=1 --input $T/box.input 2>&1)
+echo "$out" | grep -q "state: st=6 " && ok "start box: A starts the level" || bad "start box A: $(echo "$out" | grep state:)"
 rm -rf $T
 exit $fail

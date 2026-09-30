@@ -94,6 +94,8 @@ static int cell_passable(const actor *a, int d, int x, int y)
     if (!in_grid(x, y)) return 0;
     const cell *c = &W.g[d][y][x];
     int enemy = a && a->kind != AK_MOLE;
+    if (a && a->kind == AK_CROC)
+        return (c->t == TR_WATER || c->t == TR_BRIDGE) && !actor_at(d, x, y, a, 1) && log_at(d, x, y) < 0;
     if (c->t == TR_WATER) return log_at(d, x, y) >= 0;
     if (c->t == TR_GATE) return c->state;
     if (a && a->kind == AK_BOSS && W.def->boss == BOSS_OWL && c->t != TR_STONE && c->t != TR_WINDMILL)
@@ -184,10 +186,11 @@ static int base_speed(const actor *a)
         return ENEMY_TYPES[a->etype].speed * pct[clampi(W.diff, 0, 2)] / 100;
     }
     case AK_DOG: return 22;
+    case AK_CROC: return 9;
     case AK_BOSS:
         switch (W.def->boss) {
         case BOSS_FOX: return 20;
-        case BOSS_FARMER: return a->dig ? 14 : 0;       /* dig = phase 2 */
+        case BOSS_FARMER: return a->dig ? 14 : 7;       /* dig = phase 2 (angry); phase 1: a slow walk */
         default: return 15;
         }
     }
@@ -227,6 +230,7 @@ static void start_move(actor *a, int dir)
 static void hurt_player(actor *a);
 static void enemy_down(actor *a);
 static void ai_badger(actor *a);
+static void ai_croc(actor *a);
 static void ignite(int d, int x, int y);
 static void release_bees(int d, int x, int y);
 static void release_gas(int d, int x, int y);
@@ -544,8 +548,8 @@ static void break_cell(int d, int x, int y)
         c->t = TR_HOLE_DOWN;
         if (d < NDEPTH - 1) {
             cell *b = &W.g[d + 1][y][x];
-            if (b->t != TR_HOLE_UP && b->t != TR_LADDER) {
-                b->t = TR_HOLE_UP;
+            if (b->t != TR_LADDER) {                 /* the way back up: a ladder */
+                b->t = TR_LADDER;
                 b->regrow = 0;
                 mark(d + 1, x, y);
             }
@@ -662,6 +666,15 @@ static void enemy_down(actor *a)
         W.events |= EV_BOSS_DOWN;
     }
     if (a->kind == AK_DOG) { a->stun = 120; return; }
+    if (a->kind == AK_CROC) {                        /* stunned 3 s; defeated only if the level says so */
+        if (a->invul) return;
+        a->stun = 180;
+        a->invul = 60;
+        a->state = 0;
+        W.stat.croc_stuns++;
+        sfx_at(SFX_BOSS_HIT, a->cx * CELL);
+        if (!W.def->croc_hp || --a->hp > 0) return;
+    }
     if ((a->kind == AK_FERRET || a->kind == AK_CAT) && a->hp > 1) {   /* tier 4: two hits */
         if (a->invul) return;
         a->hp--;
@@ -1369,7 +1382,20 @@ static void ai_farmer(actor *a)
             a->timer = 20;                          /* throw pose */
         }
     }
-    if (a->dig && !a->moving) ai_cat(a, 5, 3, 70);
+    if (a->dig && !a->moving) { ai_cat(a, 5, 3, 70); return; }
+    if (!a->moving && !a->timer && rs_rng_range(&rng, 4) == 0) {   /* phase 1: he walks his field slowly */
+        int k = wander(a);
+        if (k >= 0) start_move(a, k);
+    }
+}
+
+int world_crates(void)
+{
+    int n = 0;
+    for (int d = 0; d < NDEPTH; d++)
+        for (int y = 0; y < GH; y++)
+            for (int x = 0; x < GW; x++) n += W.g[d][y][x].t == TR_CRATE;
+    return n;
 }
 
 static void tomato_land(fxp *f)
@@ -1381,10 +1407,7 @@ static void tomato_land(fxp *f)
     if (m && m->alive && m->depth == d) {
         int px, py;
         actor_px(m, &px, &py);
-        if (abs(px - x * CELL) < 11 && abs(py - y * CELL) < 11) {
-            m->stun = 60;
-            sfx(SFX_HURT);
-        }
+        if (abs(px - x * CELL) < 11 && abs(py - y * CELL) < 11) hurt_player(m);   /* a hit, like any other */
     }
     cell *c = &W.g[d][y][x];
     if (c->t == TR_FLOOR && !c->regrow) {
@@ -1574,6 +1597,33 @@ static int plan_step(const actor *m, int *act)
     return k;
 }
 
+/* the objective bot bombs an enemy next to it only when it can then walk out of its own blast (a cell
+   out of the bomb's cross within 5 steps, through open cells) */
+static int bot_can_escape(const actor *m)
+{
+    static int8_t dist[GH][GW];
+    static uint8_t qx[GW * GH], qy[GW * GH];
+    memset(dist, -1, sizeof dist);
+    int range = W.ps[m->player].range, h = 0, t = 0, d = m->depth;
+    dist[m->cy][m->cx] = 0;
+    qx[t] = (uint8_t)m->cx; qy[t] = (uint8_t)m->cy; t++;
+    while (h < t) {
+        int x = qx[h], y = qy[h]; h++;
+        int in_cross = (x == m->cx && abs(y - m->cy) <= range) || (y == m->cy && abs(x - m->cx) <= range);
+        if (!in_cross && !bot_enemy_near(d, x, y)) return 1;   /* out of the blast, away from enemies */
+        if (dist[y][x] >= 5) continue;
+        for (int k = 0; k < 4; k++) {
+            int nx = x + DX[k], ny = y + DY[k];
+            if (!in_grid(nx, ny) || dist[ny][nx] >= 0) continue;
+            if (!terrain_walkable(W.g[d][ny][nx].t, 0) || W.g[d][ny][nx].t == TR_HOLE_DOWN) continue;
+            if (actor_at(d, nx, ny, m, 1) || bomb_at(d, nx, ny)) continue;
+            dist[ny][nx] = (int8_t)(dist[y][x] + 1);
+            qx[t] = (uint8_t)nx; qy[t] = (uint8_t)ny; t++;
+        }
+    }
+    return 0;
+}
+
 static uint16_t world_bot_objective(actor *m, uint16_t *pressed)
 {
     *pressed = 0;
@@ -1592,7 +1642,7 @@ static uint16_t world_bot_objective(actor *m, uint16_t *pressed)
     for (int i = 0; i < W.na; i++) {
         const actor *e = &W.a[i];
         if (!e->alive || e->depth != m->depth || (e->kind != AK_FERRET && e->kind != AK_CAT)) continue;
-        if (bot_goal(m, m->cx, m->cy, e) || abs(e->cx - m->cx) + abs(e->cy - m->cy) == 1) {
+        if ((bot_goal(m, m->cx, m->cy, e) || abs(e->cx - m->cx) + abs(e->cy - m->cy) == 1) && bot_can_escape(m)) {
             *pressed = RS_BTN_B;
             return 0;
         }
@@ -1601,7 +1651,7 @@ static uint16_t world_bot_objective(actor *m, uint16_t *pressed)
     int k = plan_step(m, &act);
     if (k < 0) return 0;
     int nx = m->cx + DX[k], ny = m->cy + DY[k];
-    if (act == ACT_BOMB) { *pressed = RS_BTN_B; return 0; }
+    if (act == ACT_BOMB) { if (bot_can_escape(m)) *pressed = RS_BTN_B; return 0; }   /* only with a way out */
     if (act == ACT_WALK && bot_unsafe(m, nx, ny)) return 0;             /* let it pass */
     *pressed = DIR_BITS[k];
     return DIR_BITS[k];
@@ -1718,7 +1768,7 @@ static void update_actor(actor *a)
     if (a->kind == AK_MOLE) { update_player(a); return; }
     track_facing(a);
     if (a->invul) a->invul--;
-    if (a->timer && a->kind != AK_CAT && a->kind != AK_BOSS) a->timer--;
+    if (a->timer && a->kind != AK_CAT && a->kind != AK_BOSS && a->kind != AK_CROC) a->timer--;
     if (a->asleep) {
         if (W.t % 40 == 0) fx_add(FXP_ZZZ, a->depth, a->cx * CELL + 4, a->cy * CELL - 8, 40, 4, -8);
         return;
@@ -1729,6 +1779,7 @@ static void update_actor(actor *a)
     case AK_FERRET: ai_typed(a); break;
     case AK_CAT: ai_typed(a); break;
     case AK_DOG: ai_dog(a); break;
+    case AK_CROC: ai_croc(a); break;
     case AK_BOSS:
         if (W.def->boss == BOSS_FARMER) {
             if (a->timer) a->timer--;
@@ -1770,7 +1821,7 @@ static void contacts(void)
                 }
                 continue;
             }
-            if (a->kind == AK_MOLE || a->stun) continue;
+            if (a->kind == AK_MOLE || a->kind == AK_CROC || a->stun) continue;   /* the croc only snaps */
             int r = a->kind == AK_BOSS ? 16 : 11;
             if (abs(ax - mx) < r && abs(ay - my) < r) hurt_player(m);
         }
@@ -1987,6 +2038,13 @@ static void update_bees(void)
         if (!b->alive) continue;
         if (--b->life <= 0) { b->alive = 0; continue; }
         if (b->cool) b->cool--;
+        if (b->target == -2) {                       /* leaving: up and away */
+            if (!b->prog && in_grid(b->cx, b->cy - 1) && W.g[b->depth][b->cy - 1][b->cx].t != TR_STONE) {
+                b->tx = b->cx; b->ty = (int8_t)(b->cy - 1); b->prog = 1;
+            }
+            if (b->prog) { b->prog += SUB / 10; if (b->prog >= SUB) { b->prog = 0; b->cx = b->tx; b->cy = b->ty; } }
+            continue;
+        }
         if (b->prog) {                               /* flying to the next cell */
             b->prog += SUB / 10;
             if (b->prog >= SUB) { b->prog = 0; b->cx = b->tx; b->cy = b->ty; }
@@ -2006,9 +2064,11 @@ static void update_bees(void)
             continue;
         }
         actor *a = &W.a[best];
-        if (bd == 0 && !b->cool) {                   /* sting */
+        if (bd == 0 && !b->cool) {                   /* one sting, then the swarm flies off and vanishes */
             W.stat.stings++;
             b->cool = 40;
+            b->target = -2;
+            b->life = 30;
             if (a->kind == AK_MOLE) hurt_player(a);
             else if (a->kind == AK_DOG) a->stun = 120;
             else { enemy_down(a); W.stat.bee_kills += !a->alive; }
@@ -2066,6 +2126,58 @@ static void update_summer(void)
     update_harvesters();
 }
 
+
+/* ---- the crocodile: it lives in the river and never leaves the water. It swims slowly to the water
+   cell nearest to the mole (the mole's projection on the river); when the mole stands next to it (or on
+   a bridge over it) its eyes rise for 0.6 s, then it snaps: a hit. A blast stuns it for 3 s; it is
+   defeated only in levels that say so (`croc: hits`). ------------------------------------------------ */
+#define CROC_TELL 36
+static int croc_adjacent(const actor *a, const actor *m)
+{
+    if (!m || !m->alive || m->state == 99 || m->depth != a->depth) return 0;
+    int mx, my, ax, ay;
+    actor_px(m, &mx, &my);
+    actor_px(a, &ax, &ay);
+    return abs(mx - ax) + abs(my - ay) <= CELL + 4;
+}
+
+static void ai_croc(actor *a)
+{
+    actor *m = world_player(0);
+    if (a->aux) a->aux--;
+    switch (a->state) {
+    case 1:                                          /* the tell: eyes up, ripples */
+        if (a->timer % 12 == 0) fx_add(FXP_SPLASH, a->depth, a->cx * CELL, a->cy * CELL, 12, 0, 0);
+        if (--a->timer > 0) return;
+        a->state = 2;
+        a->timer = 16;
+        sfx_at(SFX_POUNCE, a->cx * CELL);
+        if (croc_adjacent(a, m)) { hurt_player(m); W.stat.croc_bites++; }
+        return;
+    case 2:                                          /* jaws shut */
+        if (--a->timer > 0) return;
+        a->state = 0;
+        a->aux = 60;
+        return;
+    default:
+        break;
+    }
+    if (!a->aux && croc_adjacent(a, m)) { a->state = 1; a->timer = CROC_TELL; return; }
+    if (!m || m->depth != a->depth) return;
+    /* swim towards the mole's projection on the water */
+    int best = -1, bx = a->cx, by = a->cy;
+    for (int y = 0; y < GH; y++)
+        for (int x = 0; x < GW; x++) {
+            int t = W.g[a->depth][y][x].t;
+            if (t != TR_WATER && t != TR_BRIDGE) continue;
+            int dd = abs(x - m->cx) + abs(y - m->cy);
+            if (best < 0 || dd < best) { best = dd; bx = x; by = y; }
+        }
+    if (bx == a->cx && by == a->cy) return;
+    int dist, k = chase_dir(a, bx, by, 60, &dist);
+    if (k >= 0) start_move(a, k);
+}
+
 /* ---- the badger (summer mini-boss): digs through soil, charges along rows and columns (a rock stuns it),
    and digs its own holes to follow the mole to another depth ------------------------------------------ */
 static void badger_dig_to(actor *a, int to)
@@ -2074,8 +2186,8 @@ static void badger_dig_to(actor *a, int to)
     int dd = to > d ? d + 1 : d - 1;
     cell *here = &W.g[d][y][x], *there = &W.g[dd][y][x];
     if (there->t == TR_STONE || there->t == TR_WATER || here->t == TR_EXIT || here->t == TR_WATER) return;
-    here->t = (uint8_t)(dd > d ? TR_HOLE_DOWN : TR_HOLE_UP);
-    there->t = (uint8_t)(dd > d ? TR_HOLE_UP : TR_HOLE_DOWN);
+    here->t = (uint8_t)(dd > d ? TR_HOLE_DOWN : TR_LADDER);   /* holes go down, ladders go up */
+    there->t = (uint8_t)(dd > d ? TR_LADDER : TR_HOLE_DOWN);
     here->item = there->item == IT_GRUB ? here->item : here->item;
     mark(d, x, y);
     mark(dd, x, y);
@@ -2168,6 +2280,7 @@ void world_start(const level_def *L, const pstats *carry)
         a->asleep = s->asleep;
         a->player = s->player;
         has_dog |= s->kind == AK_DOG;
+        if (s->kind == AK_CROC) a->hp = (int16_t)(L->croc_hp > 0 ? L->croc_hp : 1);
         if (s->kind == AK_BOSS) {
             a->hp = L->boss == BOSS_BADGER ? 3 : 5;
             if (L->boss == BOSS_BADGER) a->timer = 240;      /* it wakes up after 4 s: a quiet start */
@@ -2206,6 +2319,7 @@ void world_start(const level_def *L, const pstats *carry)
     for (int d = 0; d < NDEPTH; d++)
         for (int y = 0; y < GH; y++)
             for (int x = 0; x < GW; x++) has_dog |= W.g[d][y][x].t == TR_HIVE;
+    for (int i = 0; i < W.na; i++) has_dog |= W.a[i].kind == AK_CROC;
     /* sprite palettes of the enemy variants: slots 1 and 2, plus 3 without a boss and 7 without a dog */
     memset(W.var_slot, -1, sizeof W.var_slot);
     {
@@ -2247,6 +2361,7 @@ void world_start(const level_def *L, const pstats *carry)
             }
     W.grubs_total += W.boss_alive;
     W.grubs_left = W.grubs_total;
+    W.crates_total = world_crates();
     for (int i = 0; i < L->nharv; i++) {
         harvester *h = &W.harv[i];
         h->alive = 1;

@@ -70,11 +70,18 @@ def prop_bg(name, frame):
         rect(d, 0, 0, 15, 15, P["mud"])
         for (x, y) in ((3, 4), (10, 3), (6, 10), (12, 12)):
             ell(d, x - 2, y - 1, x + 2, y + 1, P["mud_l"])
-    elif name in ("tall_grass", "corn"):
-        c = P["green"] if name == "tall_grass" else P["corn"]
-        for x in range(0, 16, 3):
-            d.line((x, 15, x + 1, 1), fill=c)
-            px(d, x + 1, 0, P["corn"] if name == "corn" else c)
+    elif name == "corn":            # tall stalks, long leaves, yellow cobs; transparent between the stalks
+        for sx in (2, 7, 12):
+            d.line((sx, 15, sx, 1), fill=P["green_d"])
+            d.line((sx + 1, 15, sx + 1, 2), fill=P["green"])
+            d.line((sx + 1, 6, sx + 4, 3), fill=P["green"])        # leaves
+            d.line((sx, 10, sx - 3, 7), fill=P["green_d"])
+            rect(d, sx + 1, 8, sx + 2, 11, P["corn"])               # a cob
+            px(d, sx, 0, P["corn"])                                  # the tassel
+    elif name == "tall_grass":      # tufts of long blades with gaps
+        for sx, top in ((1, 2), (4, 5), (7, 1), (10, 4), (13, 2)):
+            d.line((sx, 15, sx + 1, top), fill=P["green"])
+            d.line((sx + 1, 15, sx + 3, top + 3), fill=P["green_d"])
     elif name == "burnt":
         rect(d, 0, 0, 15, 15, P["mud"])
         speckle(d, random.Random(4), [P["dark"], P["grey"]], 20)
@@ -313,6 +320,30 @@ def critter(name, frame):
         rect(d, 13, 4, 15, 5 + s, P["brown"])
         if name == "dog_walk_right":
             im = im.transpose(Image.FLIP_LEFT_RIGHT)
+    elif name == "croc":
+        G, Gd, Gl, W, K = (70, 140, 60), (30, 80, 40), (150, 200, 110), P["white"], P["black"]
+        if frame == 5:                                   # stunned: belly up, stars
+            ell(d, 1, 5, 14, 11, (220, 210, 150), Gd)
+            for (x, y) in ((4, 2), (9, 1), (13, 3)):
+                px(d, x, y, P["yellow"])
+        else:
+            wig = frame % 2 if frame < 2 else 0
+            ell(d, 1, 5, 11, 11, G, Gd)                      # body
+            d.polygon([(0, 8), (-2 + wig, 6), (-2 + wig, 10)], fill=Gd)   # tail
+            if frame in (3,):                                # jaws open
+                d.polygon([(10, 5), (15, 2), (15, 5)], fill=Gl, outline=Gd)
+                d.polygon([(10, 11), (15, 14), (15, 11)], fill=Gl, outline=Gd)
+            else:
+                rect(d, 10, 6, 15, 10, Gl)                   # the snout
+                d.rectangle((10, 6, 15, 10), outline=Gd)
+            for x in (3, 6, 9):                              # scutes
+                px(d, x, 8, Gd)
+            if frame == 2:                                   # the tell: eyes up, ripples
+                rect(d, 9, 4, 10, 5, W); rect(d, 9, 11, 10, 12, W)
+                px(d, 10, 4, K); px(d, 10, 12, K)
+                d.arc((0, 2, 15, 14), 200, 340, fill=W)
+            else:
+                px(d, 9, 6, K); px(d, 9, 10, K)
     elif name == "bees":
         for (x, y) in ((3, 5), (9, 3), (6, 10), (12, 9)):
             x += frame if y < 8 else -frame

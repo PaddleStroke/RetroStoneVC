@@ -1,7 +1,5 @@
-# STUB: a generated level (tools/make_stub_levels.py). Replace it with a real design (DESIGN.md).
+# STUB: a generated level (tools/make_stub_levels.py, seed 17010111). Replace it with a real design.
 # Planned: bouncy mushrooms
-# Layout A: three depths with a loop (two holes down, a ladder back), an enemy on each depth, a grub
-# hidden in a block on each depth (only its glow shows it), the season's feature near the paths.
 name: Autumn 4 (stub)
 season: autumn
 arc: 3
@@ -11,46 +9,46 @@ hint: A generated level: three depths, a grub hidden on each.
 
 surface:
 ####################
-#M..d...rr...lll..g#
-#...d.g.rr...l.l...#
-#dd.dd......ddd..v.#
-#..........r.dGd...#
-#.rr.ll.d..r.ddd...#
-#.rQ.ll.d......C...#
-#.rr....ddd.rr.....#
-#.....v.....rr.ll..#
-#.ddd......d....l..#
-#.dGd..ll..d..rr...#
-#.ddd..ll.....rg...#
-#.......E......d...#
+#r...r.l.d.r...d.d.#
+#..E..........v....#
+#r...r.d.r.r.rrr.r.#
+#.......C.....r...l#
+#r.r.d...r.l.dr....#
+#.ddd.........r....#
+#..r.C.r.d.d.d.d.r.#
+#...g.G............#
+#r...ddr.r...d.d.l.#
+#.....db...........#
+#r.g.ddl.r.r.d.r...#
+#lll....Cd.v.l....M#
 ####################
 under1:
 ####################
-#dddddddddddddddddd#
-#dd.g....ddd...dddd#
-#dd.dddd.rdd.d..d^d#
-#dd.d..d..d..F.dd.d#
-#dd...dd.dddd.dd..d#
-#dddd.dd.v..d..dddd#
-#dd.....tt..dd.Gddd#
-#dd.ddHdd.ddd.ddddd#
-#dd.d...d.....ddddd#
-#dd...d.dddd.dddddd#
-#dd.ddd......r.gddd#
-#dddddddddddddddddd#
+#ddddddddddd.Fg.ddd#
+#dddddddddddr.H.ddd#
+#ddddddddddd...rddd#
+#dddddddddddd.ddddd#
+#dddddddddd...rdddd#
+#dddddddddd..r.dddd#
+#dddt..dddd.Fg.dddd#
+#ddd..tGdddt..tdddd#
+#ddd..r..dddd.ddddd#
+#ddd.t.d.dddd.ddddd#
+#ddddddd....v.ddddd#
+#ddddddd...Hr.ddddd#
 ####################
 under2:
 ####################
 #dddddddddddddddddd#
 #dddddddddddddddddd#
-#ddddd.....dddddddd#
-#dddd..rQr..ddddddd#
-#dddd..r.r..F.ddddd#
-#dddd.b..^.....dddd#
-#dddddd..ddd.g.dddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#ddddddddd..Qg.dddd#
+#ddddddddd.z...dddd#
+#ddddddddd..H..dddd#
 #dddddddddddddddddd#
 ####################

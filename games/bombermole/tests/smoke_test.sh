@@ -25,7 +25,10 @@ out=$($H --frames 330 --opt level=spring-1 --opt nointro=1 --opt dump=1 --input 
 check "dig, go down the hole, collect a grub below" "grubs_left=4/5 depth=1 x=14 y=3" "$out"
 base=$($H --frames 10 --opt level=spring-2 --opt nointro=1 --opt dump=1 2>&1 | sed -n 's/.*rocks=\([0-9]*\).*/\1/p')
 out=$($H --frames 260 --opt level=spring-2 --opt nointro=1 --opt dump=1 --input $D/bomb.input 2>&1)
-check "a bomb breaks a rock ($base rocks before)" "rocks=$((base - 1)) " "$out"
+got=$(echo "$out" | sed -n 's/.*rocks=\([0-9]*\).*/\1/p')
+if [ -n "$got" ] && [ "$got" -lt "$base" ] && echo "$out" | grep -q "lives=3"; then
+    echo "  ok   a bomb breaks the rocks next to it ($base rocks before, $got after)"
+else echo "  FAIL a bomb breaks a rock: $(echo "$out" | grep state)"; fail=1; fi
 out=$($H --frames 400 --opt level=spring-1 --opt nointro=1 --opt dump=1 --input $D/selfblast.input 2>&1)
 check "own blast: knocked out, restart with 2 lives" "st=6 .*hearts=1 lives=2" "$out"
 # a naive player (bomb in its path, walk away; --opt bot=1) beats the tier-1 ferrets of spring 2

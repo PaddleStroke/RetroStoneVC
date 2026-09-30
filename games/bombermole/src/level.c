@@ -41,7 +41,7 @@ static const struct { char c; const char *spec; } DEFAULT_LEGEND[] = {
     {'w', "tall_grass"}, {'P', "plate+chan:1"}, {'|', "gate+chan:1"}, {'/', "lever+chan:1"},
     {'V', "steam_vent"}, {'@', "pipe+chan:1"}, {'c', "crate"}, {'k', "sprinkler"}, {'W', "windmill"},
     {'<', "floor+push_left"}, {'>', "floor+push_right"}, {'n', "floor+push_up"}, {'u', "floor+push_down"},
-    {'{', "water+flow_left"}, {'}', "water+flow_right"}, {'e', "beehive"}, {'*', "gas_pocket"},
+    {'{', "water+flow_left"}, {'}', "water+flow_right"}, {'e', "beehive"}, {'*', "gas_pocket"}, {'%', "water+croc"},
 };
 
 typedef struct legend_entry {
@@ -73,6 +73,7 @@ static int parse_spec(const char *spec, legend_entry *e, char *err, size_t errn)
         else if (!strcmp(tok, "cat")) e->actor = AK_CAT;
         else if (!strcmp(tok, "boss")) e->actor = AK_BOSS;
         else if (!strcmp(tok, "dog")) e->actor = AK_DOG;
+        else if (!strcmp(tok, "croc")) e->actor = AK_CROC;
         else if (!strcmp(tok, "asleep")) e->asleep = 1;
         else if (!strcmp(tok, "log")) e->log = 1;
         else if (!strncmp(tok, "chan:", 5)) e->c.chan = (uint8_t)clampi(atoi(tok + 5), 0, NCHAN - 1);
@@ -255,6 +256,7 @@ int level_parse(level_def *L, const char *text, size_t len, const char *fname)
         else if (!strcmp(s, "gust")) sscanf(v, "%d %d %d", &L->gust_period, &L->gust_active, &L->gust_step);
         else if (!strcmp(s, "harvest")) sscanf(v, "%d %d", &L->harvest_period, &L->harvest_warn);
         else if (!strcmp(s, "vent")) sscanf(v, "%d %d", &L->vent_period, &L->vent_active);
+        else if (!strcmp(s, "croc")) L->croc_hp = atoi(v);
         /* unknown keys are ignored: data hooks for later gimmicks */
     }
     if (L->season < 0) { snprintf(L->error, sizeof L->error, "%s: missing or bad 'season'", L->file); return -1; }

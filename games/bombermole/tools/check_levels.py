@@ -31,13 +31,14 @@ DEFAULT = {
     '/': "lever+chan:1", 'V': "steam_vent", '@': "pipe+chan:1", 'c': "crate", 'k': "sprinkler",
     'W': "windmill", '<': "floor+push_left", '>': "floor+push_right", 'n': "floor+push_up",
     'u': "floor+push_down", '{': "water+flow_left", '}': "water+flow_right", 'e': "beehive", '*': "gas_pocket",
+    '%': "water+croc",
 }
 TERRAIN = {"floor", "stone", "soft_dirt", "dirt", "hard_rock", "rock", "roots", "frozen_dirt", "leaves", "water",
            "puddle", "thin_floor", "hole_down", "hole_up", "ladder", "exit", "bridge", "ice", "thin_ice", "mud",
            "tall_grass", "corn", "cover", "burnt", "gate", "plate", "lever", "steam_vent", "vent", "pipe", "crate",
            "sprinkler", "windmill", "beehive", "hive", "gas", "gas_pocket"}
 ITEMS = {"grub", "bomb", "fire", "speed", "remote", "heart"}
-ACTORS = {"mole", "p2", "p3", "p4", "ferret", "cat", "boss", "dog"}
+ACTORS = {"mole", "p2", "p3", "p4", "ferret", "cat", "boss", "dog", "croc"}
 SOLID_FOREVER = {"stone", "windmill", "sprinkler", "lever"}
 SEASONS = ["spring", "summer", "autumn", "winter"]
 
@@ -188,6 +189,14 @@ def check(path):
     exits = [(d, x, y) for d in range(3) for y in range(GH) for x in range(GW) if T(d, x, y) == "exit"]
     if len(exits) != 1 or exits[0][0] != 0:
         raise LevelError("%s: needs exactly one exit, on the surface" % path)
+    ups = [(d, x, y) for d in range(3) for y in range(GH) for x in range(GW) if T(d, x, y) == "hole_up"]
+    if ups:
+        raise LevelError("%s: HOLE UP at depth %d, %d,%d: holes only go down, the way up is a ladder (H)" %
+                         ((path,) + ups[0]))
+    crocs = [(d, x, y) for d in range(3) for y in range(GH) for x in range(GW) if cells[d][y][x]["actor"] == "croc"]
+    for d, x, y in crocs:
+        if T(d, x, y) not in ("water", "bridge"):
+            raise LevelError("%s: the crocodile at depth %d, %d,%d is not in the water" % (path, d, x, y))
     grubs = [(d, x, y) for d in range(3) for y in range(GH) for x in range(GW) if cells[d][y][x]["item"] == "grub"]
     boss = [(d, x, y) for d in range(3) for y in range(GH) for x in range(GW) if cells[d][y][x]["actor"] == "boss"]
     # enemies: the tier curve and the sprite palette budget (one palette per variant)
@@ -376,6 +385,9 @@ def check(path):
 # ---- design rules (DESIGN.md, "Level ideas") ------------------------------------------------------------
 ENEMY_START_DIST = 6        # no enemy closer than this (Manhattan, same depth) to the mole's start
 MAX_EMPTY_AREA = 20         # largest rectangle of plain floor (both sides 3 or more) on a playable depth
+MAX_EMPTY_SURFACE = 12      # ... on the surface: no open lawns
+SURFACE_MIN_STRUCTURE = 0.30  # the surface's inside: at least this share of cells that are not plain floor
+SIMILAR_MAX = 0.60          # two playable depths of different levels: at most this share of shared open cells
 SECTOR_W, SECTOR_H = 6, 6   # the 18x12 inside of a depth, cut into 3x2 sectors
 SECTOR_MIN_OPEN = 12        # a sector with at least this many open cells...
 SECTOR_MIN_FEATURES = 0.25  # ...needs this fraction of its cells to be something other than plain floor
@@ -532,14 +544,31 @@ def design_rules(path, head, cells, g, seen, start, grubs, boss, exits):
         area, box = empty_rect(cells, d)
         dens = [s for s in sector_density(cells, d) if s[1] >= SECTOR_MIN_OPEN]
         stats.append((d, area, min([s[0] for s in dens] or [1.0])))
-        if area > MAX_EMPTY_AREA:
+        cap = MAX_EMPTY_SURFACE if d == 0 else MAX_EMPTY_AREA
+        if area > cap:
             errs.append("EMPTY AREA on depth %d: %dx%d cells of plain floor at %d,%d (max %d cells)" %
-                        (d, box[2], box[3], box[0], box[1], MAX_EMPTY_AREA))
+                        (d, box[2], box[3], box[0], box[1], cap))
+        if d == 0:
+            inside = [cells[0][y][x] for y in range(1, GH - 1) for x in range(1, GW - 1)]
+            frac = sum(1 for c in inside if not plain(c)) / float(len(inside))
+            if frac < SURFACE_MIN_STRUCTURE:
+                errs.append("OPEN SURFACE: only %d%% of the surface is structure (walls, blocks, water, cover, "
+                            "items, enemies; at least %d%%)" % (round(100 * frac), round(100 * SURFACE_MIN_STRUCTURE)))
         for frac, n_open, sx, sy in dens:
             if frac < SECTOR_MIN_FEATURES:
                 errs.append("EMPTY AREA on depth %d: the sector at %d,%d is %d%% plain floor (at most %d%%)" %
                             (d, sx, sy, round(100 * (1 - frac)), round(100 * (1 - SECTOR_MIN_FEATURES))))
     head["_density"] = stats
+    # 1b. cats on the surface: the curve (spring 1-2: 1 or 2, then at least 3; boss levels as they are)
+    if not boss and head.get("season") in SEASONS:
+        s_i, n = SEASONS.index(head["season"]), int(head.get("level", "0") or 0)
+        need = 1 if (s_i == 0 and n <= 2) else 3        # spring 1-2 stay easy: one cat
+        cats = sum(1 for y in range(GH) for x in range(GW) if cells[0][y][x]["actor"] == "cat")
+        if cats < need:
+            errs.append("TOO FEW CATS on the surface: %d (this level needs %d or more)" % (cats, need))
+    # the open cells of each playable depth (the depth-similarity rule compares them across levels)
+    head["_open"] = {d: frozenset((x, y) for y in range(GH) for x in range(GW) if cells[d][y][x]["t"] in OPEN)
+                     for d in play}
     if "--stats" in sys.argv:
         print("  %-12s %s" % (os.path.basename(path)[:-4], "  ".join("d%d: empty %2d, sectors %2d%%" % (d, a, round(100 * f))
                                                                 for d, a, f in stats)))
@@ -604,15 +633,26 @@ def design_rules(path, head, cells, g, seen, start, grubs, boss, exits):
         raise LevelError("%s: %s" % (path, "\n        ".join(errs)))
 
 
+def layout_similarity(A, B):
+    """How alike two depths are: the Jaccard index of their rarer kind of cell (open cells in the tunnels,
+    structure on a lawn). A copied layout scores near 1, two different ones well under 0.6."""
+    inside = {(x, y) for y in range(1, GH - 1) for x in range(1, GW - 1)}
+    if len(A) + len(B) > len(inside):
+        A, B = inside - A, inside - B
+    return len(A & B) / float(max(1, len(A | B)))
+
+
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     files = args or sorted(glob.glob(os.path.join(LEVELS, "*.txt")))
     bad = 0
     stubs = 0
     rows = []
+    opens = {}
     for f in files:
         try:
             head, g = check(f)
+            opens[f] = head.get("_open", {})
             stubs += head.get("status") == "stub"
             en = head["_enemies"]
             rows.append((os.path.basename(f)[:-4], head.get("status", ""), g, len(en),
@@ -620,6 +660,33 @@ def main():
         except LevelError as e:
             print("  FAIL", e)
             bad += 1
+    # every depth is unique: no playable depth shares more than SIMILAR_MAX of its open cells with a depth
+    # of another level (Jaccard index of the open cells: template reuse fails)
+    others = dict(opens)
+    if args:                                   # a single file is compared with the game's levels too
+        for f in sorted(glob.glob(os.path.join(LEVELS, "*.txt"))):
+            if f not in others and os.path.abspath(f) not in [os.path.abspath(a) for a in args]:
+                try:
+                    others[f] = check(f)[0].get("_open", {})
+                except LevelError:
+                    pass
+    names = sorted(others)
+    for i, fa in enumerate(names):
+        if fa not in opens:
+            continue
+        for fb in names:
+            if fb == fa or (fb in opens and names.index(fb) < i):
+                continue
+            for da, A in others[fa].items():
+                for db, B in others[fb].items():
+                    if len(A) < 8 or len(B) < 8:
+                        continue
+                    sim = layout_similarity(A, B)
+                    if sim > SIMILAR_MAX:
+                        print("  FAIL %s: SIMILAR DEPTH: depth %d shares %d%% of its layout with %s depth %d "
+                              "(at most %d%%)" % (fa, da, round(100 * sim), os.path.basename(fb)[:-4], db,
+                                                  round(100 * SIMILAR_MAX)))
+                        bad += 1
     if "--table" in sys.argv:
         print("| Level | Status | Grubs | Enemies | Mix |\n|---|---|---|---|---|")
         order = {"spring": 0, "summer": 1, "autumn": 2, "winter": 3}

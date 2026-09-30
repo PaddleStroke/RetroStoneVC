@@ -1,7 +1,5 @@
-# STUB: a generated level (tools/make_stub_levels.py). Replace it with a real design (DESIGN.md).
+# STUB: a generated level (tools/make_stub_levels.py, seed 24929030). Replace it with a real design.
 # Planned: icicles in the tunnels
-# Layout A: three depths with a loop (two holes down, a ladder back), an enemy on each depth, a grub
-# hidden in a block on each depth (only its glow shows it), the season's feature near the paths.
 name: Winter 4 (stub)
 season: winter
 arc: 4
@@ -11,46 +9,46 @@ hint: A generated level: three depths, a grub hidden on each.
 
 surface:
 ####################
-#M..d...rr...fff..g#
-#...d.g.rr...f.f...#
-#dd.dd......ddd..v.#
-#..........r.dGd...#
-#.rr.ff.d..r.ddd...#
-#.rQ.ff.d......C...#
-#.rr....ddd.rr.....#
-#.....v.....rr.ff..#
-#.ddd......d....f..#
-#.dGd..ff..d..rr...#
-#.ddd..ff.....rg...#
-#.......E......d...#
+#r.d.r....Cd.r.....#
+#...............E..#
+#rvr...C.r.d.d.....#
+#.....ddd.d..v.dddd#
+#d.d.r...rdd.d.r.rg#
+#.........d...g....#
+#f.r.f.sCd.r.r.f.d.#
+#....r....d....f...#
+#f.f.r.f.ddr.r.f.d.#
+#....r....d....f...#
+#....f.G..d..r.r.d.#
+#M...............dd#
 ####################
 under1:
 ####################
+#.F..dddddddddddddd#
+#..r....ddd.....ddd#
+#.Ht.Fv.........Gdd#
+#..gt...ddd..Hg.ddd#
+#dddddddddd.....ddd#
 #dddddddddddddddddd#
-#dd.g....ddd...dddd#
-#dd.dddd.rdd.d..d^d#
-#dd.d..d..d..F.dd.d#
-#dd...dd.dddd.dd..d#
-#dddd.dd.v..d..dddd#
-#dd.....tt..dd.Gddd#
-#dd.ddHdd.ddd.ddddd#
-#dd.d...d.....ddddd#
-#dd...d.dddd.dddddd#
-#dd.ddd......r.gddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
 #dddddddddddddddddd#
 ####################
 under2:
 ####################
 #dddddddddddddddddd#
 #dddddddddddddddddd#
-#ddddd.....dddddddd#
-#dddd..rQr..ddddddd#
-#dddd..r.r..F.ddddd#
-#dddd.b..^.....dddd#
-#dddddd..ddd.g.dddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#dddd.HQ..ddddddddd#
+#dddd.....ddddddddd#
+#dddd...z.ddddddddd#
+#ddddddd.dddddddddd#
+#dddddddgdddddddddd#
+#ddddddd.dddddddddd#
+#ddddddd.dddddddddd#
+#ddddddd.dddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 ####################

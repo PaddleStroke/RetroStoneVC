@@ -25,6 +25,7 @@
 #define T_LINK 344
 #define T_BUTTON 348
 #define T_HAZARD 352
+#define T_BAR 356                /* boss bar: full, empty */
 enum { C_GOLD = 6, C_FLOOR, C_WALL, C_DIRT, C_WATER, C_HOLE, C_UP, C_EXIT, C_FOE, C_GLOW };
 
 extern int hud_pal_below;
@@ -114,6 +115,17 @@ void ui_init_level(void)
         uint8_t t[64];
         for (int i = 0; i < 64; i++) t[i] = g[(q >> 1) * 8 + i / 8][(q & 1) * 8 + i % 8];
         rs_tiles_load8(T_HAZARD + q, t, 1);
+    }
+    /* the boss bar: a red block with a dark edge, and an empty one */
+    {
+        uint8_t full[64], empty[64];
+        for (int i = 0; i < 64; i++) {
+            int x = i % 8, y = i / 8, edge = y == 1 || y == 6 || x == 7;
+            full[i] = (y < 1 || y > 6) ? 0 : edge ? 2 : C_FOE;
+            empty[i] = (y < 1 || y > 6) ? 0 : edge ? 2 : 3;
+        }
+        rs_tiles_load8(T_BAR, full, 1);
+        rs_tiles_load8(T_BAR + 1, empty, 1);
     }
     /* the remote's button: a gold disc with a dark "A" (the detonate button) */
     {
@@ -335,9 +347,67 @@ void ui_screen_done(void) { hud_pal_below = 0; }
 /* ---- during play: level banner, "molehill open" banner, exit arrow ------------------------------ */
 void ui_banner_exit_open(void) { banner_t = 90; }          /* 1.5 s */
 
+/* ---- the level's start: the game waits behind a box (name, objective, how to beat the boss) ------ */
+static const char *boss_hint(int boss)
+{
+    switch (boss) {
+    case BOSS_CAT: return "BOMB THE BARN CAT 5 TIMES";
+    case BOSS_FARMER: return "BLOW UP HIS CRATES, THEN BOMB HIM";
+    case BOSS_BADGER: return "LURE ITS CHARGE INTO A ROCK, THEN BOMB IT";
+    case BOSS_FOX: return "THE FOX RIDES THE WIND: SO DO YOUR BOMBS";
+    case BOSS_OWL: return "KICK BOMBS ALONG THE ICE AT THE OWL";
+    default: return NULL;
+    }
+}
+
+void ui_start_box(const level_def *L)
+{
+    char goal[48];
+    snprintf(goal, sizeof goal, "COLLECT %d GRUB%s TO OPEN THE MOLEHILL", W.grubs_total, W.grubs_total == 1 ? "" : "S");
+    const char *hint = W.boss_alive ? boss_hint(L->boss) : NULL;
+    const actor *m = world_player(0);
+    int y = (m && m->cy < GH / 2) ? 17 : 6;              /* away from the mole */
+    int h = hint ? 8 : 7;
+    text_box(1, y, 38, h);
+    text_at(center(L->name), y + 1, L->name);
+    text_at(center(goal), y + 3, goal);
+    if (hint) text_at(center(hint), y + 4, hint);
+    text_at(center("PRESS A"), y + h - 2, "PRESS A");
+    rs_text_setup(RS_BG1, 0, 0, 1);
+}
+
+/* the boss's health on the top wall; the farmer shows his crates while they shield him */
+void ui_boss_bar(void)
+{
+    static const char *const names[] = {"", "BARN CAT", "FARMER", "BADGER", "FOX", "OWL"};
+    const actor *b = NULL;
+    for (int i = 0; i < W.na; i++)
+        if (W.a[i].alive && W.a[i].kind == AK_BOSS) b = &W.a[i];
+    if (!b || W.def->boss <= 0 || W.def->boss > 5) return;
+    int max = W.def->boss == BOSS_BADGER || W.def->boss == BOSS_FARMER ? 3 : 5;
+    char line[40];
+    int shielded = W.def->boss == BOSS_FARMER && !b->dig;
+    if (shielded) snprintf(line, sizeof line, "%s  CRATES LEFT %d/%d", names[W.def->boss], world_crates(), W.crates_total);
+    else snprintf(line, sizeof line, "%s", names[W.def->boss]);
+    int w = (int)strlen(line) + (shielded ? 0 : max + 1) + 2, x0 = (40 - w) / 2;
+    text_box(x0, 2, w, 1);
+    text_at(x0 + 1, 2, line);
+    rs_text_setup(RS_BG1, 0, 0, 1);
+    if (!shielded)
+        for (int i = 0; i < max; i++)
+            rs_bg_put(RS_BG1, x0 + 2 + (int)strlen(line) + i, 2, RS_MAP(T_BAR + (i < b->hp ? 0 : 1), 0, 1, 0, 0));
+}
+
 void ui_play_overlays(int view_depth)
 {
     text_clear_all();
+    draw_canopy(view_depth);
+    /* the farmer's crates flash while they shield him: they are the key */
+    if (W.def->boss == BOSS_FARMER && W.boss_alive && (W.t / 20) % 2)
+        for (int y = 0; y < GH; y++)
+            for (int x = 0; x < GW; x++)
+                if (W.g[view_depth][y][x].t == TR_CRATE) cell_mark(x, y, T_LINK);
+    ui_boss_bar();
     /* under everything else: the glow of hidden grubs, the flash of the gates a lever just switched */
     for (int y = 0; y < GH; y++)
         for (int x = 0; x < GW; x++) {

@@ -19,17 +19,17 @@ U = leaves + grub + push_left
 
 surface:
 ####################
-#M......rrrr.......#
+#M.r....rrrr.......#
 #>>AA>>>>>>>>>>>>>.#
 #>>>>>Z>>>>A>>>>>>.#
 #>>>>>>>>>>>>>>>>>.#
-#..................#
+#...........C......#
 #..ll..C.....ll....#
-#..lL........lL..v.#
+#r.lL....d.d.lL..v.#
 #..................#
 #<<<<<<<<<<<<<<<<<.#
 #<<<N<<<<U<<<<<<<<.#
-#.....E............#
+#...d.E.........C..#
 #..........q.......#
 ####################
 under1:
@@ -40,7 +40,7 @@ under1:
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddd.....d#
-#ddddddddddd..g..^d#
+#ddddddddddd..g..Hd#
 #ddddddddddd.F....d#
 #dddddddddddddddddd#
 #dddddddddddddddddd#

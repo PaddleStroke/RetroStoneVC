@@ -1,7 +1,5 @@
-# STUB: a generated level (tools/make_stub_levels.py). Replace it with a real design (DESIGN.md).
+# STUB: a generated level (tools/make_stub_levels.py, seed 16717014). Replace it with a real design.
 # Planned: apple trees
-# Layout B: three depths with a loop (two holes down, a ladder back), an enemy on each depth, a grub
-# hidden in a block on each depth (only its glow shows it), the season's feature near the paths.
 name: Autumn 3 (stub)
 season: autumn
 arc: 3
@@ -11,46 +9,46 @@ hint: A generated level: three depths, a grub hidden on each.
 
 surface:
 ####################
-#M..rr....lll.....g#
-#...rQ.dd.l.l.ddd..#
-#.d.rr.dd.....dGd..#
-#.d......r..v.ddd..#
-#.dd.ll..r.........#
-#....ll.....rrr.C..#
-#.rrr...dd..r.r....#
-#.r.r...dd......ll.#
-#.rgr.v.....ddd.ll.#
-#......ll...dGd....#
-#.dd...ll...ddd.x..#
-#.dd......E........#
+#M.................#
+#...lr.d.r.d.l...l.#
+#...l..............#
+#..rlvdrC..d.d.r.rg#
+#..r..d............#
+#d.rCldd.d.dll.d.d.#
+#.C...d............#
+#r.r.d.r.d.r.r.d.r.#
+#....llll..d......d#
+#r.G.d.d.r.d.r....d#
+#..x.....g......E..#
+#r.r.r.r.d.l.l..v..#
 ####################
 under1:
 ####################
 #dddddddddddddddddd#
-#ddd.g..ddd..dddddd#
-#ddd.dd.ddd.d.ddddd#
-#ddd.dd.....^..dddd#
-#dd..ddd.rr.dd.dddd#
-#dd.dd...rG.dd..ddd#
-#dd.dd.F......d.ddd#
-#dd.ddd.dd.v.dd.ddd#
-#dd.ddH.dd...dd.ddd#
-#dd.......tt....ddd#
-#ddddd.ddd.dd.g.ddd#
-#dddddddddddddddddd#
+#ddF....ddddddddddd#
+#dd..t..ddddddddddd#
+#dd..Hg.........Gdd#
+#dd..r...ddddd..ddd#
+#ddddddd.ddd....ddd#
+#ddddddd.dddg...ddd#
+#ddddddd.....t..ddd#
+#ddddddd.r......ddd#
+#ddddddd....dd.....#
+#dddddddd.Fvdd....t#
+#ddddddddddddd..Ht.#
 ####################
 under2:
 ####################
 #dddddddddddddddddd#
 #dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddd.......ddddd#
-#dddddd.rQr...ddddd#
-#dddddd.r.r.F.ddddd#
-#dddddd....^..ddddd#
-#ddddddd.ddd.dddddd#
-#dddddd..o...g.dddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
+#ddddd..ddddddddddd#
+#dddddd.ddddddddddd#
+#dddddd.ddddddddddd#
+#dddddd.ddddddddddd#
+#dddddd.ddddddddddd#
+#dddddd.ddddddddddd#
+#ddddddgddddddddddd#
+#dddddd.d......dddd#
+#dddddd.z..H.Q.dddd#
+#dddddddd......dddd#
 ####################

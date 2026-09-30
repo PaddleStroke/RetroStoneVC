@@ -35,7 +35,7 @@ enum terrain {
     TR_WINDMILL, TR_HIVE, TR_GAS, TR_COUNT
 };
 enum item { IT_NONE, IT_GRUB, IT_BOMB, IT_FIRE, IT_SPEED, IT_REMOTE, IT_HEART, IT_COUNT };
-enum actor_kind { AK_NONE, AK_MOLE, AK_FERRET, AK_CAT, AK_BOSS, AK_DOG };
+enum actor_kind { AK_NONE, AK_MOLE, AK_FERRET, AK_CAT, AK_BOSS, AK_DOG, AK_CROC };
 enum push_kind { PUSH_NONE = 0, PUSH_WIND = 1, PUSH_FLOW = 2 };
 enum game_mode { MODE_SOLO, MODE_COOP, MODE_BATTLE };   /* multiplayer hooks */
 
@@ -89,6 +89,7 @@ typedef struct level_def {
     int gust_period, gust_active, gust_step;
     int vent_period, vent_active;
     int dark;                   /* night / dark caves: lamp radius only */
+    int croc_hp;                /* crocodiles: hits to defeat (0 = cannot be defeated, only stunned) */
     int boss;                   /* BOSS_* from assets.h */
     int tier;                   /* default enemy tier (1..4) for F and C */
     cell g[NDEPTH][GH][GW];
@@ -168,7 +169,7 @@ typedef struct world {
     logobj logs[MAX_LOGS];
     fxp fx[MAX_FX];
     pstats ps[MAX_PLAYERS];
-    int grubs_left, grubs_total, exit_open, boss_alive;
+    int grubs_left, grubs_total, exit_open, boss_alive, crates_total;
     uint32_t t;                          /* frames since level start */
     uint8_t chan_on[NCHAN];              /* plates pressed / levers on */
     uint16_t chan_timer[NCHAN];          /* timed gates */
@@ -180,7 +181,7 @@ typedef struct world {
     uint8_t gas[NDEPTH][GH][GW];         /* stun gas: frames left (> GAS_TIME: not reached yet) */
     swarm bees[MAX_SWARMS];
     harvester harv[MAX_HARV];
-    struct { int burnt, stings, bee_kills, shaken, warns, crushed, gas_stuns, badger_holes, badger_stuns; } stat;
+    struct { int burnt, stings, bee_kills, shaken, warns, crushed, gas_stuns, badger_holes, badger_stuns, croc_bites, croc_stuns; } stat;
     int dirty[NDEPTH];                   /* map needs redraw */
     uint8_t cell_dirty[NDEPTH][GH][GW];
     int events;                          /* EV_* raised this frame (for the game flow) */
@@ -218,6 +219,7 @@ void draw_playfield_full(int depth, int slot);
 void draw_cells_dirty(int depth, int slot);
 void draw_world_sprites(int depth, int yoff, int first);
 void draw_hud(void);
+void draw_canopy(int depth);                   /* corn and tall grass over the sprites (BG1, high priority) */
 void draw_weather(int on);
 void draw_frame_setup(void);
 void text_box(int x, int y, int w, int h);
@@ -247,6 +249,9 @@ void ui_level_banner(const level_def *L);
 void ui_glow_pulse(uint32_t t);
 void ui_play_overlays(int view_depth);
 void ui_pickup_banner(int item);
+void ui_start_box(const level_def *L);         /* the paused start box (name, objective, boss hint) */
+void ui_boss_bar(void);                        /* boss health (and the farmer's crates) */
+int  world_crates(void);                       /* crates left on the boss's depth */
 void ui_hud_extras(void);
 
 /* ---- sfx.c ---- */

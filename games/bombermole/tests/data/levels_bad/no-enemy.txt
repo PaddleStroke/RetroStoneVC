@@ -29,7 +29,7 @@ under1:
 ####################
 #dddddddddddddddddd#
 #dd.g....ddd...dddd#
-#dd.dddd.rdd.d..d^d#
+#dd.dddd.rdd.d..dHd#
 #dd.d..d..d....dd.d#
 #dd...dd.dddd.dd..d#
 #dddd.dd.v..d..dddd#
@@ -47,7 +47,7 @@ under2:
 #ddddd.....dddddddd#
 #dddd..rQr..ddddddd#
 #dddd..r.r....ddddd#
-#dddd.b..^.....dddd#
+#dddd.b..H.....dddd#
 #dddddd..ddd.g.dddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#

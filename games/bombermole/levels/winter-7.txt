@@ -1,7 +1,5 @@
-# STUB: a generated level (tools/make_stub_levels.py). Replace it with a real design (DESIGN.md).
+# STUB: a generated level (tools/make_stub_levels.py, seed 25808041). Replace it with a real design.
 # Planned: ice caves and glow-worms
-# Layout B, mirrored: three depths with a loop (two holes down, a ladder back), an enemy on each depth, a grub
-# hidden in a block on each depth (only its glow shows it), the season's feature near the paths.
 name: Winter 7 (stub)
 season: winter
 arc: 4
@@ -11,46 +9,46 @@ hint: A generated level: three depths, a grub hidden on each.
 
 surface:
 ####################
-#g.....fff....rr..M#
-#..ddd.f.f.dd.Qr...#
-#..dGd.....dd.rr.d.#
-#..ddd.v..r......d.#
-#.........r..ff.dd.#
-#..C.rrr.....ff....#
-#....r.r..dd...rrr.#
-#.ff......dd...r.r.#
-#.ff.ddd.....v.rgr.#
-#....dGd...ff......#
-#..x.ddd...ff...dd.#
-#........E......dd.#
+#r...f.d.d...rdrG..#
+#..E...........sC..#
+#d...f.r.d.d...d.rg#
+#.....r..C...d.....#
+#.vf.drd.d.r.r.f.d.#
+#...v.ddd..dddd....#
+#r.d.dC..d.d.f.ffr.#
+#..................#
+#d.d.f.r.r.f.d.d.r.#
+#..................#
+#d.d....dddf.rgd...#
+#.................M#
 ####################
 under1:
 ####################
 #dddddddddddddddddd#
-#dddddd..ddd..g.ddd#
-#ddddd.d.ddd.dd.ddd#
-#dddd..^.....dd.ddd#
-#dddd.dd.rr.ddd..dd#
-#ddd..dd.Gr...dd.dd#
-#ddd.d......F.dd.dd#
-#ddd.dd.v.dd.ddd.dd#
-#ddd.dd...dd.Hdd.dd#
-#ddd....tt.......dd#
-#ddd.g.dd.ddd.ddddd#
+#dddddddddddddddddd#
+#..rddddddddddddddd#
+#...ddddddddddddddd#
+#.H...dd..tgrdddddd#
+#t..H.dd...t..ddddd#
+#dd.......r...ddddd#
+#dddd...v.t..Fddddd#
+#ddddddddFg..tddddd#
+#dddddddddddGdddddd#
+#dddddddddddddddddd#
 #dddddddddddddddddd#
 ####################
 under2:
 ####################
 #dddddddddddddddddd#
+#ddddgddddddddddddd#
+#dddd.ddddddddddddd#
+#dddd.ddddddddddddd#
+#dddd.ddddddddddddd#
+#ddddQ....ddddddddd#
+#dddd.....ddddddddd#
+#dddd...H.ddddddddd#
+#dddd..z..ddddddddd#
 #dddddddddddddddddd#
-#dddddddddddddddddd#
-#dddddddddddddddddd#
-#ddddd.......dddddd#
-#ddddd...rQr.dddddd#
-#ddddd.F.r.r.dddddd#
-#ddddd..^....dddddd#
-#dddddd.ddd.ddddddd#
-#dddd.g...o..dddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 ####################

@@ -20,7 +20,7 @@ run --frames 200 --opt level=autumn-1 --opt nointro=1 --shot 150:$O/autumn1-gale
 run --frames 230 --opt level=summer-1 --opt nointro=1 --opt view=2 --shot 205:$O/summer1-steam-vents.png
 # objectives: level banner, HUD, pause screen (map + one-line legend), "molehill open" banner and arrow,
 # the glow of blocks hiding a grub
-run --frames 110 --opt level=spring-2 --shot 100:$O/level-banner.png
+run --frames 110 --opt level=spring-3 --shot 100:$O/level-start-box.png
 run --frames 160 --opt level=spring-6 --opt nointro=1 --shot 150:$O/hud-in-play.png
 printf "30 tap START
 " > /tmp/bm_pause.input
@@ -51,5 +51,13 @@ run --frames 290 --data $TD --opt level=summer-12 --opt nointro=1 --opt spawn=0,
 run --frames 200 --data $TD --opt level=summer-13 --opt nointro=1 --opt spawn=0,6,6 --opt god=1 --input /tmp/bm_s.input --shot 170:$O/summer-gas.png
 printf "180 tap B\n183 LEFT\n200 -\n" > /tmp/bm_b.input
 run --frames 460 --data $TD --opt level=summer-15 --opt nointro=1 --opt spawn=0,10,6 --opt god=1 --input /tmp/bm_b.input --shot 450:$O/summer-heavy-scene.png
+# the reworked surfaces, corn over the characters, the farmer when he is vulnerable, the crocodile's tell
+run --frames 20 --opt level=spring-3 --opt nointro=1 --shot 10:$O/spring3-surface.png
+run --frames 20 --opt level=summer-1 --opt nointro=1 --shot 10:$O/summer1-surface.png
+run --frames 20 --opt level=summer-3 --opt nointro=1 --shot 10:$O/summer3-surface.png
+run --frames 20 --opt level=summer-6 --opt nointro=1 --shot 10:$O/summer6-surface.png
+run --frames 12 --data $TD --opt level=summer-9 --opt nointro=1 --opt spawn=0,10,2 --opt god=1 --shot 8:$O/corn-overlay-mole-hidden.png
+run --frames 70 --opt level=summer-8 --opt nointro=1 --opt nocrates=1 --opt god=1 --shot 63:$O/farmer-vulnerable-boss-bar.png
+run --frames 30 --data $TD --opt level=summer-16 --opt nointro=1 --opt spawn=0,9,4 --opt god=1 --shot 20:$O/croc-telegraph.png
 python3 "$(dirname "$0")/glow_shot.py" "$H" "$O/hidden-grub-glow.png" spring-3
 ls "$O"

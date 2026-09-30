@@ -17,22 +17,22 @@ status: done
 
 surface:
 ####################
-#...ll...r....ll.v.#
+#...ll..rrr...ll.v.#
 #.l.....#..#.....l.#
 #....r..........r..#
 #>>>>>>>>>>>>>>>>>.#
-#..l..#......#..L..#
-#.r.....K.......r..#
-#..L..#......#..l..#
+#..l..#......#..L.r#
+#.r.....K.d.....r..#
+#..L..#...d..#d.l.d#
 #..r....#..#....r..#
 #.<<<<<<<<<<<<<<<<<#
 ####..........r....#
-#..#..#.E..#....ll.#
+#..#..#.E.d#..r.ll.#
 #vM#ll....r....l...#
 ####################
 under1:
 ####################
-#dddddddddddddddd^d#
+#ddddddddddddddddHd#
 #dddddddddd.......d#
 #dddddddddd.ddddd.d#
 #ddddddddddgddddd.d#
@@ -43,7 +43,7 @@ under1:
 #dddddddd.v......Fd#
 #d........ddddddddd#
 #d.dddddddddddddddd#
-#^.dddddddddddddddd#
+#H.dddddddddddddddd#
 ####################
 under2:
 ####################

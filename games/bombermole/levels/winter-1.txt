@@ -19,17 +19,17 @@ J = frozen_dirt + grub
 
 surface:
 ####################
-#M.....ff....ff..r.#
+#M.d.r.ffd.r.ffd.rC#
 #...r..fg....fJ....#
 #.f....ff..r.ff..f.#
 #iiiriiiiiiiiiiiiii#
 #iiiiijjjjfffiiiiii#
 #i#iiiiiiifJfiiiiii#
 #iiiiiiiiifffiiirii#
-#.....r.........q..#
-#..fff....C...fff..#
-#..fJf..r.....fJf..#
-#..f.f....E...f.f..#
+#.C...r.........q..#
+#..fffCr.....dfffd.#
+#..fJf..r...d.fJf..#
+#r.f.f....E..dfdf..#
 #.r.........v....r.#
 ####################
 under1:
@@ -45,7 +45,7 @@ under1:
 #ffff.fff.f.iFi..ff#
 #ffff.fvf.f.iiig.ff#
 #ffff...........fff#
-#fffffffffff^ffffff#
+#fffffffffffHffffff#
 ####################
 under2:
 ####################

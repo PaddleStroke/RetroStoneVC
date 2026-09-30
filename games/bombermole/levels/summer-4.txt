@@ -20,7 +20,7 @@ Y = floor + harvester:left
 
 surface:
 ####################
-#M..d..r...dd..r..g#
+#M..d..r...dd.Cr..g#
 #..dGd.r.C.....r...#
 #Z..ww...ddd.ww...r#
 #r..........r...v..#
@@ -38,13 +38,13 @@ under1:
 #dddddddddddddddddd#
 #ddddddddddddd...dd#
 #dd.g.....dddd.d.dd#
-#dd.dddd..d..F.d^dd#
+#dd.dddd..d..F.dHdd#
 #dd.d..d..dd.d...dd#
 #dd...rd....Gd.dddd#
 #dddd.dd.dd.dd..ddd#
 #d...F....d..v...dd#
 #d.dddd.ddd.dddd.dd#
-#d^...d.....d..g.dd#
+#dH...d.....d..g.dd#
 #ddd.dddddddd.ddddd#
 #dddddddddddddddddd#
 ####################
@@ -57,7 +57,7 @@ under2:
 #dddddddddddddddddd#
 #dddddddd.....ddddd#
 #dddddddd.rQr.ddddd#
-#dddddddd.z..^ddddd#
+#dddddddd.z..Hddddd#
 #dddddddd..g..ddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#

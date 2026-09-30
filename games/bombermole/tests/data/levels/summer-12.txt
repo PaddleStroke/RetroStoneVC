@@ -33,7 +33,7 @@ under1:
 #..................#
 #..................#
 #..................#
-#.^................#
+#.H................#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#

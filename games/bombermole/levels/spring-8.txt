@@ -35,7 +35,7 @@ surface:
 ####################
 under1:
 ####################
-#ddddddddddddddddd^#
+#dddddddddddddddddH#
 #ddddddddddddd.....#
 #ddddddddddddd.ddg.#
 #ddddddddvdddd.dddd#
@@ -46,7 +46,7 @@ under1:
 #dddd.ddddddddd.ddd#
 #.ddd.ddddddddd.ddd#
 #..g..ddddddddd..g.#
-#^.................#
+#H.................#
 ####################
 under2:
 ####################

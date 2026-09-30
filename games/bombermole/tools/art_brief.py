@@ -210,6 +210,14 @@ EXTRAS = [
      "dirt and no diagonal corner. 4 frames left to right, one per season: 1) spring green; 2) summer "
      "golden green; 3) autumn orange-brown; 4) winter snow. Each tile repeats seamlessly side by side. "
      "Frame size 16x16 (draw each about 128x128)."),
+    ("corn_v2", "props (overlay)", 16, 16, 1,
+     "Corn drawn as a TRANSPARENT OVERLAY (the game draws it over the ground AND over the characters): three "
+     "tall stalks with long leaves and a yellow cob each, a tassel on top, flat magenta between the stalks "
+     "(at least a third of the cell), so a mole or a cat in the corn shows through the gaps. No ground. "
+     "Frame size 16x16 (draw about 128x128)."),
+    ("tall_grass_v2", "props (overlay)", 16, 16, 1,
+     "Tall grass drawn as a TRANSPARENT OVERLAY (over the ground and over the characters): tufts of long "
+     "blades, flat magenta between them (at least a third of the cell). No ground. Frame size 16x16."),
     ("title_hills", "title background", 512, 96, 1,
      "Title-screen background band: two rows of soft rounded green spring hills (far hills paler, near hills "
      "brighter), grass tops with a light rim and a dark 1-pixel outline, a few flowers and bushes, no sky "
@@ -233,6 +241,7 @@ GROUPS = [
     ("11. Bridges both ways, the windmill's side view, the remote bomb",
      ["bridge_v", "windmill_side", "bomb_remote"]),
     ("12. Summer: the harvester, gas pockets and their stun cloud", ["harvester", "gas_pocket", "gas"]),
+    ("13. The crocodile, and corn and tall grass as overlays", ["croc", "corn_v2", "tall_grass_v2"]),
 ]
 
 LOGO = ("title_logo", "Title logo 'BOMBER MOLE': chunky SNES-style 3D letters (gold with a dark outline and a "

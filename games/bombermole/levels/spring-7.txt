@@ -29,7 +29,7 @@ surface:
 #.dGd..ww...rr....v#
 #..d...........C...#
 #.www.........www..#
-#.................T#
+#.........C.......T#
 #..rrr...dd..D..rr.#
 #..rgr...dd.....r..#
 #..r.r..a...ddd....#
@@ -41,7 +41,7 @@ under1:
 #dd.g.....ddd....dd#
 #dd.dddd.rdd..dd.dd#
 #dd.d..d..d..F.d.dd#
-#dd...dd.dddd.dd..^#
+#dd...dd.dddd.dd..H#
 #dddd.dd.v..d..dddd#
 #dd.....tt..dv.Gddd#
 #dd.ddddd.ddd.ddddd#
@@ -57,7 +57,7 @@ under2:
 #ddddd.....dddddddd#
 #dddd..rQr..ddddddd#
 #dddd.......F.ddddd#
-#dddd.o..^....ddddd#
+#dddd.o..H....ddddd#
 #dddddd..ddd.H.dddd#
 #dddddddddddd.ddddd#
 #dddddddddddddddddd#

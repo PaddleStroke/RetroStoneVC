@@ -17,17 +17,17 @@ status: done
 
 surface:
 ####################
-#M..www..d...#######
+#M.dwwwr.d.d.#######
 #...www.ddd..#.www.#
-#.......dGd..#w..g.#
+#r...d..dGdr.#w..g.#
 #..v.....d...#.v.w.#
-#.r.....r....#ww..r#
+#dr..d.rr..d.#ww.dr#
 #.ww.........#######
-#.ww.ddd..C......r.#
+#.ww.ddd..C....r.r.#
 #....dgd.....ddd...#
-#..r.ddd..r..dGd.r.#
-#.....r....r.ddd...#
-#...E....ww.....r..#
+#r.r.ddd.rr..dGd.r.#
+#.C...r....r.ddd...#
+#...E..r.wwr.dCdrd.#
 #.r......ww....r...#
 ####################
 under1:
@@ -35,7 +35,7 @@ under1:
 #ddddddd#####dddddd#
 #ddddddd#.g.#dddddd#
 #dd.....#z.z#...V.d#
-#dd^.ddd#..v#dd^.dd#
+#ddH.ddd#..v#ddH.dd#
 #ddd.ddd#####ddd.dd#
 #ddd.........F...dd#
 #ddddddddd.dddddddd#
@@ -50,11 +50,11 @@ under2:
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddVdddddddd#
-#dddddddd..^.dddddd#
+#dddddddd..H.dddddd#
 #dddd.......F...ddd#
 #dddd.ddddddddd.ddd#
 #ddddgddddGdddd.ddd#
-#dddd.....^.....ddd#
+#dddd.....H.....ddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#

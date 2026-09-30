@@ -35,7 +35,7 @@ under1:
 #v.dddd.r..r.dddd.d#
 #d.dgdd...g..dddd.d#
 #d.dddd.r..r.dQdd.d#
-#d^.....rrrr......d#
+#dH.....rrrr......d#
 #dddddd......ddd..d#
 #ddd....dddd.ddd.Hd#
 #ddd....dF...ddd..d#

@@ -464,6 +464,11 @@ static void draw_actor(const actor *a, int yoff)
         spr = dir_base(a->dir, SPR_CAT_WALK_DOWN, SPR_CAT_WALK_UP, SPR_CAT_WALK_LEFT, SPR_CAT_WALK_RIGHT) + walk % 2;
         if (a->stun && (a->anim / 4) % 2) return;
         break;
+    case AK_CROC:
+        spr = a->stun ? SPR_CROC + 5 : a->state == 1 ? SPR_CROC + 2 : a->state == 2 ? SPR_CROC + 3 + (a->timer < 8)
+                                                                         : SPR_CROC + walk % 2;
+        if (a->dir == DIR_LEFT) flags = RS_SPR_HFLIP;
+        break;
     case AK_DOG:
         if (a->asleep) { spr = SPR_DOG_SLEEP; break; }
         spr = (a->flip ? SPR_DOG_WALK_LEFT : SPR_DOG_WALK_RIGHT) + walk % 2;
@@ -486,6 +491,10 @@ static void draw_actor(const actor *a, int yoff)
         break;
     }
     if (spr < 0) return;
+    if (a->kind == AK_BOSS && W.def->boss == BOSS_FARMER && a->dig && (W.t / 6) % 2) {
+        spr_cell_pal(spr, x, y, yoff, flags, OBJ_PAL_PICKUP);   /* angry and vulnerable: he flashes gold */
+        return;
+    }
     if (a->kind == AK_FERRET || a->kind == AK_CAT) {
         if (a->invul && (a->invul / 4) % 2) return;     /* hit once (tier 4) */
         spr_cell_pal(spr, x, y, yoff, flags, a->pal);
@@ -729,10 +738,40 @@ static void draw_prop_pals(void)
     prop_pals_assign(fa < 0 ? 0 : fa, fb);
 }
 
+/* Corn and tall grass stand OVER the characters: their tiles are copied into BG1's tile space and drawn
+   there with high priority (above the sprites) every frame; the gaps between the stalks are transparent, so
+   a mole or a cat in the corn shows through them, half hidden. BG3 draws the same cover under the sprites
+   (seen during slides, when the overlays are off). */
+#define VR_CANOPY 360
+static uint16_t canopy_meta[2][4];
+
+static void canopy_init(void)
+{
+    static const int pbs[2] = {PB_CORN, PB_TALL_GRASS};
+    for (int k = 0; k < 2; k++)
+        for (int q = 0; q < 4; q++) {
+            uint16_t m = prop_meta[pbs[k]][q];
+            int t = RS_MAP_TILE(m) - PROPS_TILE_BASE;
+            if (t < 0 || t >= bm_propbg_tile_count) t = 0;
+            rs_tiles_load(VR_CANOPY + k * 4 + q, bm_propbg_tiles + t * 32, 1);
+            canopy_meta[k][q] = (uint16_t)((m & ~1023) | (VR_CANOPY + k * 4 + q) | RS_MAP_PRIO);
+        }
+}
+
+void draw_canopy(int d)
+{
+    const uint16_t *m = canopy_meta[g_season == SEASON_SUMMER ? 0 : 1];
+    for (int y = 0; y < GH; y++)
+        for (int x = 0; x < GW; x++)
+            if (W.g[d][y][x].t == TR_COVER)
+                for (int q = 0; q < 4; q++) rs_bg_put(RS_BG1, x * 2 + (q & 1), 2 + y * 2 + (q >> 1), m[q]);
+}
+
 /* the level's palettes after world_start: enemy variants (sprites) and prop families (BG) */
 void draw_variant_pals(void)
 {
     for (int v = 0; v < VAR_COUNT; v++)
         if (W.var_slot[v] >= 0) load_pal(RS_PAL_OBJ(W.var_slot[v]), bm_variant_pals[v], 16);
     draw_prop_pals();
+    canopy_init();
 }

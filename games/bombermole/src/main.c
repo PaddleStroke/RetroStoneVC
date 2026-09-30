@@ -21,6 +21,7 @@ static int title_ready;
 static uint32_t gt;
 /* developer mode (DESIGN.md "Dev mode"): --dev, or hold L+R and press Start on the title screen */
 static int dev_mode, dev_unlock_all, dev_skip, restarts, pause_quit;
+static int box_key = -1;        /* the level whose start box was seen (retries skip it) */
 int dev_god, dev_reveal, dev_perf;
 
 /* ---- save RAM ------------------------------------------------------------------------------------ */
@@ -273,6 +274,7 @@ static void levels_update(void)
             SV.last_level = (uint8_t)cursor;
             for (int p2 = 0; p2 < MAX_PLAYERS; p2++) carry[p2].lives = 3;
             title_ready = 0;
+            box_key = -1;
             go(ST_INTRO);
         } else {
             sfx(SFX_HURT);
@@ -383,6 +385,11 @@ static void start_level(void)
     world_start(&LV, carry);
     draw_variant_pals();
     ui_init_level();
+    if (rs_option_int("nocrates", 0))               /* debug: the farmer's crates are gone (screenshots) */
+        for (int d = 0; d < NDEPTH; d++)
+            for (int y = 0; y < GH; y++)
+                for (int x = 0; x < GW; x++)
+                    if (W.g[d][y][x].t == TR_CRATE) W.g[d][y][x].t = TR_FLOOR;
     if (rs_option_int("opengrubs", 0)) {            /* debug: all grubs taken (screenshots) */
         for (int d = 0; d < NDEPTH; d++)
             for (int y = 0; y < GH; y++)
@@ -421,17 +428,25 @@ static void start_level(void)
 
 static void intro_update(void)
 {
-    if (st_t == 0) {
-        start_level();
-        ui_level_banner(&LV);                       /* short, over the playfield, not blocking */
-    }
+    if (st_t == 0) start_level();
     int px, py;
     player_screen_xy(&px, &py);
     int r = st_t * 8;
     iris_set(r < 420, px, py, r);
     ui_play_overlays(view_depth);
-    if (r >= 420 || rs_option_int("nointro", 0)) {
+    if (rs_option_int("nointro", 0)) { iris_set(0, 0, 0, 0); go(ST_PLAY); return; }
+    /* the game waits behind the start box until A (or Start); a retry of the same level skips it */
+    int key = sel_arc * 16 + sel_level;
+    if (box_key == key) {
+        if (r >= 420) { iris_set(0, 0, 0, 0); go(ST_PLAY); }
+        return;
+    }
+    ui_start_box(&LV);
+    if (st_t > 20 && (pressed() & (RS_BTN_A | RS_BTN_START))) {
+        sfx(SFX_MENU_OK);
+        box_key = key;
         iris_set(0, 0, 0, 0);
+        text_clear_all();
         go(ST_PLAY);
     }
 }
@@ -912,6 +927,7 @@ static void game_shutdown(void)
                "boss_depth=%d catsee=%d", W.stat.burnt, W.stat.stings, W.stat.bee_kills, W.stat.shaken, W.stat.warns,
                W.stat.crushed, W.stat.gas_stuns, W.stat.badger_holes, W.stat.badger_stuns, boss_depth,
                world_cats_seeing());
+        rs_log("croc: bites=%d stuns=%d", W.stat.croc_bites, W.stat.croc_stuns);
     }
 }
 

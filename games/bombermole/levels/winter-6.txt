@@ -1,7 +1,5 @@
-# STUB: a generated level (tools/make_stub_levels.py). Replace it with a real design (DESIGN.md).
+# STUB: a generated level (tools/make_stub_levels.py, seed 25515039). Replace it with a real design.
 # Planned: frozen well bucket
-# Layout A, mirrored: three depths with a loop (two holes down, a ladder back), an enemy on each depth, a grub
-# hidden in a block on each depth (only its glow shows it), the season's feature near the paths.
 name: Winter 6 (stub)
 season: winter
 arc: 4
@@ -11,43 +9,43 @@ hint: A generated level: three depths, a grub hidden on each.
 
 surface:
 ####################
-#g..fff...rr...d..M#
-#...f.f...rr.g.d...#
-#.v..ddd......dd.dd#
-#...dGd.r..........#
-#...ddd.r..d.ff.rr.#
-#...C......d.ff.Qr.#
-#.....rr.ddd....rr.#
-#..ff.rr.....v.....#
-#..f....d......ddd.#
-#...rr..d..ff..dGd.#
-#...gr.....ff..ddd.#
-#...d......E.......#
+#..........C.......#
+#.d.d...r.r.d.d.E..#
+#..g...v...........#
+#x.rd.r...d.d.r.d.r#
+#.....d.........C..#
+#.d.r.f...rdd.d.d.d#
+#.v...dddddd......g#
+#.f.d.d.d.ddr.r.d.r#
+#..........G.......#
+#...f.d.d...d.r.rrf#
+#........d.........#
+#M..d.r.rdf.f.fCr..#
 ####################
 under1:
 ####################
 #dddddddddddddddddd#
-#dddd...ddd....g.dd#
-#d^d..d.ddr.dddd.dd#
-#d.dd.F..d..d..d.dd#
-#d..dd.dddd.dd...dd#
-#dddd..d..v.dd.dddd#
-#dddG.dd..tt.....dd#
-#ddddd.ddd.ddHdd.dd#
-#ddddd.....d...d.dd#
-#dddddd.dddd.d...dd#
-#dddg.r......ddd.dd#
+#dddd...vFddddddddd#
+#dddd..H..ddddddddd#
+#dddd....gddddddddd#
+#ddGdd..ddddddddddd#
+#....d..ddddddddddd#
+#gH.....d.....ddddd#
+#....dd.......ddddd#
+#dddddddd....Fddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
 #dddddddddddddddddd#
 ####################
 under2:
 ####################
+#dddd.g....dddddddd#
+#dddd...H.Qdddddddd#
+#dddd....z.dddddddd#
+#ddddd.dddddddddddd#
+#dd....dddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
-#dddddddd.....ddddd#
-#ddddddd..rQr..dddd#
-#ddddd.F..r.r..dddd#
-#dddd.....^..b.dddd#
-#dddd.g.ddd..dddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#
 #dddddddddddddddddd#

@@ -71,8 +71,12 @@ sign** when something there is dangerous for the mole's depth: a lit bomb or a b
 right next to a hole or ladder that leads to the mole's depth.
 
 ### Making the objective obvious (kept light)
-- **Level banner** (at the start, never blocking): the level name and "Collect N grubs to open the
-  molehill", about 2.5 s, then it slides away while the mole already plays. No "press A", no hint text.
+- **Start box** (the owner's playtest: a banner over a running game hid the mole): the GAME WAITS behind a
+  centred box, placed away from the mole: the level name, one objective line ("Collect 8 grubs to open the
+  molehill") and, in a boss level, one line on how to beat the boss ("Blow up his crates, then bomb him");
+  A, Enter or Start dismisses it. A retry of the same level (after a knock-out or a restart) skips it.
+- **Boss bar**: in every boss level, the boss's name and health on the top wall; the farmer shows
+  "CRATES LEFT n/4" while his crates shield him (and the crates flash), then his health.
 - **HUD**: the grubs left on each depth, a tick when a depth is done (above).
 - **Pause screen** (Start): the level name, its **hint as a subtitle** (the only place hints appear), the
   objective, a **map of the three depths** (remaining grubs in gold, holes down in black, ladders and holes
@@ -152,6 +156,16 @@ unlike hidden grubs they do not glow). They last for the current level.
 enemies stay on their depth unless a vent lifts them or a floor
 opens under them.
 
+## The crocodile
+Rivers have a crocodile (`%` = water with a crocodile; header `croc: hits` makes it defeatable, 0 or absent:
+only stunned). It never leaves the water: it swims slowly (speed 9, the mole walks at 20) to the water cell
+nearest to the mole, its projection on the river, and passes under the bridges. When the mole stands next to
+it (a bridge over it included), its eyes and nostrils rise with ripples for 0.6 s, then it snaps: a hit. It
+rests 1 s after a snap. A blast on its cell stuns it for 3 s. Crossing a bridge is a timing game: cross while
+it is away, or stun it first. Tiers: spring and summer crocodiles cannot be defeated; autumn ones take 2 hits
+(`croc: 2`); in winter the rivers are frozen and the crocodile sleeps under the ice (absent). Levels: spring 3
+(the river), spring 5 and summer 2 (a river across the field, two bridges); planned for autumn river levels.
+
 ## Enemy tiers (data-driven)
 Every ferret and cat has a **type** (table `ENEMY_TYPES` in `src/world.c`): speed, movement, vision, bomb
 awareness with a reaction delay, pounce and cooldown for cats, hits to defeat, and a palette variant. Early
@@ -208,7 +222,7 @@ for its variants, plus 3 when there is no boss and 7 when there is no dog.
 | Arc | Boss | Status | Behaviour |
 |---|---|---|---|
 | Spring 8 | **The barn cat** | implemented | 5 hits, 1.5 s of invulnerability after each hit; chases, pounces from 6 cells |
-| Summer 8 | **The farmer** (owner's idea: tomato season) | implemented; playable test room in `summer-8` | stands in his vegetable garden and lobs rotten tomatoes in an arc; a shadow marks the target cell about 1 s ahead. A hit stuns the mole; a miss leaves a splat that slows it for 4 s. Tomatoes landing in a hole splat on the depth below. He cannot be hurt while his 3-4 tomato crates stand: blow them up and he gets angry (phase 2: 3 hits, he chases and throws faster). |
+| Summer 8 | **The farmer** (owner's idea: tomato season) | implemented; playable test room in `summer-8` | stands in his vegetable garden and lobs rotten tomatoes in an arc; a shadow marks the target cell about 1 s ahead. A hit stuns the mole; a miss leaves a splat that slows it for 4 s. Tomatoes landing in a hole splat on the depth below. A tomato hit costs a heart, and touching him is a hit; he walks his field slowly. He cannot be hurt while his tomato crates stand (they flash, and the boss bar counts them): blow them up and he gets angry and vulnerable (he flashes gold; phase 2: 3 hits, he chases and throws faster). |
 | Summer 4 or 5 | **The badger** (mini-boss) | behaviour implemented (3 hits, digs through soft dirt), level to design | underground; digs through the soil; will also change depth |
 | Autumn 8 | **The fox** | placeholder behaviour (fast chaser) | fast; rides the wind (push fields do not slow it) |
 | Winter 8 | **The snowy owl** | placeholder behaviour (flies over obstacles) | swoops from above on the surface and drops icicles on the depth below |
@@ -245,8 +259,8 @@ circle, made with a window), the **windmill** decoration that spins faster in gu
 | Mechanic | How it works | Level syntax |
 |---|---|---|
 | **Dry soil** | in summer soft dirt digs twice as fast (20 frames instead of 40) | the season |
-| **Corn** | cover: cats cannot see the mole in it (line of sight); a blast sets it alight: a cell burns 1 s, hurts whoever stands in it (and sets bombs off), and sets the corn next to it alight after 0.5 s, so a field burns out cell by cell; burnt ground stays (no cover) | `w` in summer |
-| **Beehive** | solid; a blast opens it and a swarm comes out: for 6 s it flies (over everything but stone) to the NEAREST creature it can see (the mole, a ferret, a cat, the dog; not the boss) and stings (a hit for the mole, knocked out for an enemy); a creature in corn or tall grass, a puddle, mud or on a bridge cannot be seen: the swarm turns to the next nearest one, or gives up | `e` beehive |
+| **Corn** | cover: cats cannot see the mole in it (line of sight), and it is drawn OVER the characters (BG1, high priority, transparent between the stalks: a mole or a cat in the corn is half hidden, seen through the gaps; tall grass the same); a blast sets it alight: a cell burns 1 s, hurts whoever stands in it (and sets bombs off), and sets the corn next to it alight after 0.5 s, so a field burns out cell by cell; burnt ground stays (no cover) | `w` in summer |
+| **Beehive** | solid; a blast opens it and a swarm comes out: it flies (over everything but stone) to the NEAREST creature it can see (the mole, a ferret, a cat, the dog; not the boss) and stings it ONCE (a hit for the mole, knocked out for an enemy), then flies off and vanishes: one swarm, one target; a creature in corn or tall grass, a puddle, mud or on a bridge cannot be seen: the swarm turns to the next nearest one, or gives up (after 6 s at most) | `e` beehive |
 | **Harvester** | parked at one end of its lane (a row or a column, up to the first rock, wall, water or other solid cell); every `harvest` period it warns (the engine rumbles and the lane flashes red for `warn` frames, 1.5 s), then sweeps the lane at 4 cells a second, crushing the mole and the enemies, mowing corn and digging up soft dirt; the next sweep comes back the other way; a rock stops it; a bomb in its way goes off; while parked it is solid | legend `floor + harvester:right` (up/down/left); header `harvest: period warn` (frames, default 480 90) |
 | **Puddles dry up** | in summer each puddle evaporates after 25-40 s (a wisp of steam first) | the season |
 | **Sprinklers** | as in spring: their spray puts fuses out | `k` |
@@ -357,7 +371,7 @@ Default legend (terrain `+` item `+` actor):
 | `p` | puddle | `b` / `B` | bomb power-up (floor / in dirt) |
 | `_` | thin floor | `x` / `X` | fire power-up (floor / in dirt) |
 | `v` | hole down | `s` / `S` | claws (speed) (floor / in dirt) |
-| `^` | hole up | `o` / `O` | remote detonator (floor / in dirt) |
+| `^` | (obsolete: holes only go down; the way up is a ladder `H`) | `o` / `O` | remote detonator (floor / in dirt) |
 | `H` | ladder (up) | `h` / `Y` | heart (floor / in dirt) |
 | `E` | exit molehill (surface) | `2`-`4` | start of players 2-4 (future) |
 | `=` | bridge over water | `&` | water with a floating log |
@@ -459,6 +473,14 @@ Every level has one clear idea (below). `tools/check_levels.py` (in `make check`
 every level, stubs included, on top of solvability and the softlock search:
 - **An enemy on every playable depth** (a depth with grubs, or with open floor the mole can reach), within the
   level's tier curve, and none closer than 6 cells to the mole's start (a quiet start).
+- **Holes only go down, ladders only go up**: no hole up (`^`) anywhere; a hole down lands on a ladder.
+- **Busy surfaces** (the owner's playtest: open lawns were too easy): no rectangle of plain floor larger than
+  12 cells on the surface, at least 30% of the surface's inside is structure (walls, blocks, water, cover,
+  items, enemies), and at least 3 cats on the surface from spring 3 on (1 in spring 1-2, which stay easy);
+  boss levels as they are.
+- **Every depth is unique**: a playable depth may not share more than 60% of its layout with a depth of
+  another level (the Jaccard index of its rarer kind of cell: the open cells of a tunnel level, the structure
+  of a lawn), so a template cannot be reused.
 - **No big empty areas**: on a playable depth, no rectangle of plain floor larger than 20 cells (both sides 3
   or more), and each 6x6 sector with 12+ open cells has at least 25% of something other than plain floor
   (blocks, items, enemies, gimmicks, push fields; a windmill's or a harvester's lane counts as a push field).

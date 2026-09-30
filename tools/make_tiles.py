@@ -535,6 +535,43 @@ def log():
     return t
 
 
+CORN = [(30, 110, 30), (60, 170, 50), (60, 170, 50), (230, 200, 60), (120, 80, 40)]   # the plants family colours
+
+
+def corn():
+    """Corn over the ground AND over the characters: three tall stalks with long leaves, a yellow cob each,
+    a tassel on top; transparent between the stalks (a mole in the corn shows through the gaps)."""
+    dk, md, lt, cob, cobd = CORN
+    t = Tile(MAG)
+    for sx in (2, 7, 12):
+        for y in range(1, 16):
+            t.set(sx, y, dk, wrap=False)
+            t.set(sx + 1, y, md, wrap=False)
+        for i in range(4):                                   # a leaf up and right, one down and left
+            t.set(sx + 2 + i, 7 - i, lt if i < 3 else md, wrap=False)
+            t.set(sx - 1 - i, 11 - i // 2, md, wrap=False)
+        for y in range(8, 12):                               # the cob, husk on its side
+            t.set(sx + 2, y, cob, wrap=False)
+            t.set(sx + 3, y, cobd if y in (8, 11) else cob, wrap=False)
+        t.set(sx + 1, 0, cob, wrap=False)                    # tassel
+        t.set(sx, 0, cobd, wrap=False)
+    return t
+
+
+def tall_grass():
+    """Tall grass, the same way: long blades in tufts, gaps between them."""
+    dk, md, lt = CORN[0], CORN[1], CORN[2]
+    t = Tile(MAG)
+    for sx, top in ((1, 3), (5, 1), (9, 4), (13, 2)):
+        for y in range(top, 16):
+            lean = (15 - y) // 5
+            t.set(sx + lean, y, md if y > top + 2 else lt, wrap=False)
+            t.set(sx + 1 + lean, y, dk, wrap=False)
+        for y in range(top + 4, 16):                          # a second, leaning blade
+            t.set(sx + 3 - (15 - y) // 6, y, lt, wrap=False)
+    return t
+
+
 def season_tiles(R):
     tiles = {
         "grass": grass(R, 1), "grass_edge": grass_edge(R), "soft_dirt": block(R["soft_dirt"], 3),
@@ -578,7 +615,8 @@ def main():
             extra_img.paste(extra[name].image(), (i * 16, s * 16))
     sheet.save(os.path.join(a.out, "tiles.png"))
     extra_img.save(os.path.join(a.out, "tiles_extra.png"))
-    props = {"bridge": bridge(False), "bridge_v": bridge(True), "crate": crate(), "log": log()}
+    props = {"bridge": bridge(False), "bridge_v": bridge(True), "crate": crate(), "log": log(), "corn": corn(),
+             "tall_grass": tall_grass()}
     for name, t in props.items():
         t.image().save(os.path.join(a.out, name + ".png"))
     print("wrote", os.path.join(a.out, "tiles.png"), "tiles_extra.png and", ", ".join(n + ".png" for n in props))

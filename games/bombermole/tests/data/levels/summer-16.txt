@@ -1,0 +1,53 @@
+# Test arena (not a game level): a river with a bridge and a crocodile.
+name: Croc Test
+season: summer
+arc: 2
+level: 16
+range: 3
+status: stub
+
+surface:
+####################
+#M.................#
+#..................#
+#..................#
+#~~~~~~~%=~~~~~~~~~#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..........g....E..#
+#..................#
+####################
+under1:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################
