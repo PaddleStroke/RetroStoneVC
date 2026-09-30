@@ -70,9 +70,12 @@ static rs_color night_of(rs_color c)
 }
 
 /* the playfield and mid-ground palettes: each slot loaded for the biome (and loop) it shows next */
-static void load_slot_palettes(int32_t cam_col)
+static void load_slot_palettes(int32_t cam_x)
 {
-    int32_t b0 = cam_col < 0 ? 0 : cam_col / BIOME_CELLS;
+    /* the playfield shows the biomes from the camera's left edge on; the mid-ground (parallax 1/2) those of the
+     * world x from cam_x - 320 to cam_x + 320 (stream_mid) */
+    int32_t b0 = cam_x < 0 ? 0 : cam_x / (BIOME_CELLS * CELL);
+    int32_t bl = cam_x - RS_SCREEN_W < 0 ? 0 : (cam_x - RS_SCREEN_W) / (BIOME_CELLS * CELL);
     for (int s = 0; s < NBIOMES; s++) {
         int32_t bi = b0 + ((s - (int)(b0 % NBIOMES)) + NBIOMES) % NBIOMES;
         int loop = (int)(bi / NBIOMES);
@@ -84,7 +87,7 @@ static void load_slot_palettes(int32_t cam_col)
         }
     }
     for (int s = 0; s < 2; s++) {
-        int32_t bi = b0 + ((b0 & 1) == s ? 0 : 1);
+        int32_t bi = bl + ((bl & 1) == s ? 0 : 1);
         int loop = (int)(bi / NBIOMES), b = (int)(bi % NBIOMES);
         int key = loop * 16 + b + 1;
         if (pal_biome[PAL_MID + s] == key) continue;
@@ -552,7 +555,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     view_hofs = (camx - sxk) & (MAP_W * 8 - 1);
     stream_playfield(c, camx < 0 ? -((-camx + CELL - 1) / CELL) : camx / CELL);
     stream_mid(camx);
-    load_slot_palettes(pcol);
+    load_slot_palettes(camx);
     /* the beat pulse: player 1's x counts the beats (64 px each), the bar's downbeat is stronger */
     int32_t xpx = (int32_t)(xref >> 16);
     int since = (int)(((int64_t)(xpx & 63) * Q16_ONE) / (course_speed(c, w->f) + 1));

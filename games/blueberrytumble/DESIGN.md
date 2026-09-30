@@ -220,3 +220,56 @@ at start-up with the house synthesiser: squelch (splat), boing (pad), chime (dew
 - **The bot** (`--opt bot=1`, src/bot.c) plays from the **screen only** (the PPU's playfield map and scroll, and the
   OAM), like a player; its average distance over 10 seeds must reach a target.
 - `tests/ui_test.sh`: the screens; `tests/state_test.sh` and tools/state_audit.py: save states.
+
+## Pattern table
+The 21 patterns (src/patterns.c). Score = the measured difficulty (min / mean / max over the parameter combinations)
+at tier 2 (150 BPM); "window" = the tightest timing window over all tiers, frames. Coin = a golden-blueberry spot.
+The full table per tier (combinations, scores, windows, tails, heads, coin windows) is printed by
+`make blueberrytumble-difficulty` and `build/blueberrytumble-validate.txt`.
+
+| # | Pattern | Idea | Parameters (ranges) | Biomes | Score @150 BPM | Window |
+|---|---|---|---|---|---|---|
+| 1 | hop | thorn bushes on the beat | count 1-4, spacing 1 / 1.5 / 2 beats, single or double bushes | all | 12 / 22 / 35 | 5 |
+| 2 | rows | long thorn rows in one jump | rows 1-2, width 2 (3 at 160+ BPM), tight or loose | all | 25 / 26 / 27 (76 at 160) | 4 |
+| 3 | stairs | climb the rocks, drop off the top | steps 1-3, step 3-5 cells, a thorn at the bottom | all | 8 / 13 / 19 | 7 |
+| 4 | logs | roll along fallen logs over thorn pits | logs 1-3, length 3-5, pit 1-2 | forest+ | 4 / 10 / 17 | 14 |
+| 5 | pillars | hop from pillar to pillar over thorns | count 2-4 (3 at night), level / up-down / rising, spacing 3-4 | all | 37 / 55 / 71 | 3 |
+| 6 | gaps | jump the crevasses | count 1-3, width 2-3, spacing 4-7 | all | 8 / 19 / 31 | 7 |
+| 7 | islands | stepping stones over a long crevasse | stones 2-4, spacing 3-4 (+1 at 160+) | all | 37 / 54 / 79 | 3 |
+| 8 | mushroom | a pad launches over a wall or thorns | wall or thorn field, size 1-3 (by tier) | all | 0 (no input) | - |
+| 9 | padsteps | a pad throws the berry onto a ledge | height 2-3, length 3-6, thorns after | all | 0 / 0 / 0 | 14 |
+| 10 | dewdrop | a dew drop over a crevasse: jump again | width 4-6 (5 at 128), a bush on the far side | all | 25 / 44 / 67 | 3 |
+| 11 | dewchain | a rhythm of dew drops across the void | drops 2-3 (4 at night), level / zigzag / rising, a far bush | all | 53 / 65 / 72 | 3 |
+| 12 | cones | pine cones roll down at you | cones 1-3, spacing 6-10, slow or fast | forest+ | 21 / 24 / 29 | 12 |
+| 13 | conehop | a thorn bush and a cone | order, spacing 5-8, bush width 1-2 | forest+ | 23 / 31 / 43 | 7 |
+| 14 | ice | an icy patch: no grip, slide, then jump | ice 3-6 cells, icicles, the thorn 1-2 cells after | summit | 24 / 26 / 30 | 5 |
+| 15 | snowsmash | grow into a snowberry and smash through | smashables 2-5, rocks 0-2, cones | summit | 0 / 9 / 17 | 14 |
+| 16 | snowjumps | the heavy snowberry's low jumps | count 1-3, a rock instead of a gap, spacing 4-6 | summit | 0 / 2 / 9 | 12 |
+| 17 | leaftunnel | ride the leaf between floor and ceiling thorns | segments 2-4, height 5-7 blocks, floor or ceiling first | forest+ | 3 / 8 / 14 | 25 |
+| 18 | leafweave | glide through low and high openings | fences 2-4, opening 3-4 blocks, spacing 6-8 | forest+ | 13 / 38 / 52 | 8 |
+| 19 | ledge | run a rock ledge, hop its thorns, jump off | length 4-8, thorns 0-2, a drop over thorns | all | 6 / 16 / 55 | 4 |
+| 20 | phrase | a two-bar phrase of bushes and steps | 8 hand-written phrases, forwards or mirrored | all | 11 / 21 / 26 | 7 |
+| 21 | breather | open ground to breathe | 1-2 bars, a pebble | all | 0 / 2 / 6 | 12 |
+
+"all" = every biome; "forest+" = forest, meadows, village; the night loop takes every pattern. 1680 instances in all.
+Ranking (the mean score at 150 BPM): mushroom, padsteps, breather, snowjumps < leaftunnel, snowsmash, logs, stairs <
+ledge, gaps, phrase, hop, cones, rows, ice < conehop, leafweave, dewdrop < islands, pillars, dewchain: pads and snow
+(automatic) are the easiest, single thorns and gaps the core, orbs and precise landings the hardest, as a player would
+rank them. The glide patterns score low because their windows are wide (the leaf is forgiving).
+
+## Results (2026-10-01)
+- **Validator** (`build/blueberrytumble-validate.txt`): 1680 instances, all completable with every window >= 3 frames;
+  every coin spot collectable; 1578 chainable pairs x 3 combinations all fair (830 pairs get a 1-beat bridge);
+  2000 streams x 700 m and 60 x 3000 m (every tier, the night loop) solved end to end; the rolling 30-s mean rises
+  from 11 to 38 over 2600 m; 97% of breathers are easier than the two patterns before them.
+- **The bot** (screen only), 10 seeds: 1338 to 2475 m, mean 1654 m (the test's target: 800 m). Over 20 more seeds
+  (`make blueberrytumble-difficulty`): 1210 to 2159 m, mean 1602 m; its splats are mostly on pillars (13 of 20:
+  landing on a one-block top from its own model of the berry). Rank correlation between the measured score and its
+  failure rate: 0.29 (few failures: one per run).
+- **The curve**: docs/difficulty.png (5 seeds, 3200 m: the instances, their 300-m rolling mean, the target and its
+  waves, the gates).
+- **Cost** (`make blueberrytumble-bench`, a whole god-mode run through every biome and the night): 436 us per frame on
+  average on the development PC (425 us of it the PPU, the affine playfield included), 1122 us at worst (Leady
+  Squid: 451 / 1851 us). At 15-20x on the RetroStone2's A20: 6.5-8.7 ms on average, 17-22 ms for the single worst
+  frame (a host outlier, as Leady Squid's). VRAM (tiles and the 24 KiB of maps) under the 64 KiB guideline and
+  the sample memory under 64 KiB (the game's sounds are stored at 16 kHz): strict mode checks both in the smoke test.

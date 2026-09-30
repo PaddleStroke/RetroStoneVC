@@ -243,7 +243,7 @@ static void p_glideweave(pbuild *b, const int *v)
     flag(b, 1, F_LEAF);
     for (int i = 0; i < n; i++) {
         int lo = (i & 1) ? 4 : 1;                   /* the opening's bottom row */
-        for (int r = 0; r < 8; r++)
+        for (int r = 0; r < GLIDE_CEIL / CELL; r++)     /* up to the ceiling: only the openings go through */
             if (r < lo || r >= lo + open) put(b, c, r, K_LOG);
         c += s;
     }

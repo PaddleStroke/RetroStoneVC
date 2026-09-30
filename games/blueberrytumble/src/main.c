@@ -28,6 +28,7 @@ static uint32_t opt_seed;
 static world W;
 static int st, st_t, paused, new_best, runs_done, players = 1, medal;
 static int track = -1, music_wait;          /* the biome track playing; waiting for a bar to restart it */
+static int32_t log_seg = -1;                /* evlog: the segment player 1 was last logged in */
 static uint32_t state_hash = 2166136261u;
 
 /* ---- save RAM (house convention: checked, versioned, committed at each game over) --------------------------------- */
@@ -104,6 +105,7 @@ static void new_run(int state)
     bot_reset();
     new_best = 0;
     medal = 0;
+    log_seg = -1;
     track = -1;
     go(state);
 }
@@ -170,7 +172,9 @@ static void sounds_of(int p)
     if (ev & EV_DIE) {
         sfx_play(SFX_SQUELCH, x);
         hu_shake(3, 12);                    /* house rule: a shake on a hit only, <= 4 px, <= 16 frames */
-        rs_log("player %d splat at %d m (frame %u, cause %d)", p + 1, W.metres[p], rs_frame_count(), W.b[p].cause);
+        const bt_seg *sg = course_seg_at(&W.course, (int32_t)((W.b[p].x >> 16) / CELL));
+        rs_log("player %d splat at %d m (frame %u, cause %d, in %s)", p + 1, W.metres[p], rs_frame_count(), W.b[p].cause,
+               sg ? pat_name(sg->pat) : "?");
     }
 }
 
@@ -183,6 +187,14 @@ static void play_update(void)
     int32_t col = (int32_t)((course_x(&W.course, W.f) >> 16) / CELL);
     if (col != gate_before && (course_col(&W.course, col)->flags & F_GATE)) sfx_play(SFX_GATE, PIVOT_X);
     draw_events(&W);
+    if (opt_evlog) {
+        /* the pattern instances player 1 meets (tools/difficulty.py: the bot's failure rate per pattern) */
+        const bt_seg *sg = course_seg_at(&W.course, (int32_t)((W.b[0].x >> 16) / CELL));
+        if (sg && sg->col0 != log_seg && !W.b[0].dead) {
+            log_seg = sg->col0;
+            rs_log("seg %s score %d target %d tier %d at %d m", pat_name(sg->pat), sg->score, sg->target, sg->tier, (int)sg->col0);
+        }
+    }
     for (int p = 0; p < W.players; p++) {
         sounds_of(p);
         state_hash = (state_hash ^ (uint32_t)W.b[p].h) * 16777619u;
@@ -294,7 +306,7 @@ static void game_state(void)
 {
     S(W); S(st); S(st_t); S(paused); S(new_best); S(runs_done); S(players); S(medal); S(track); S(music_wait);
     S(state_hash); S(opt_bot); S(opt_botstop); S(opt_botruns); S(opt_seed_fixed); S(opt_seed); S(opt_music);
-    S(opt_sound); S(opt_god); S(opt_evlog);
+    S(opt_sound); S(opt_god); S(opt_evlog); S(log_seg);
     draw_state();
     bot_state();
     hu_state();

@@ -38,7 +38,7 @@ f=$(first glide 5); shot leaf-glider $((f + 40)) 5
 f=$(first grow 5); shot snowberry $((f + 30)) 5
 f=$(first die 11); shot splat $((f + 14)) 11
 f=$(first die 11); shot gameover-medal $((f + 140)) 11
-shot biome-gate 2720 3 --opt god=1
+shot biome-gate 2800 3 --opt god=1
 printf "600 tap SELECT\n" > "$O/pause.input"
 run --frames 640 --opt bot=1 --opt seed=7 --opt ready=1 --input "$O/pause.input" --shot 630:"$O/pause.png"
 run --frames 1400 --opt bot=2 --opt seed=9 --opt players=2 --opt ready=1 --shot 1390:"$O/race-2-players.png"

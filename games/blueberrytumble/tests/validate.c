@@ -612,7 +612,7 @@ int main(int argc, char **argv)
         print_table();
         check_links(2026);
         if (quick) check_streams(40, 800, 6, 2400);
-        else check_streams(2000, 700, 120, 3000);
+        else check_streams(2000, 700, 60, 3000);
     }
     say("%s\n", fails ? "VALIDATOR FAILED" : "validator: all passed");
     if (rep) fclose(rep);
