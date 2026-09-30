@@ -1,0 +1,15 @@
+Pancake Tower
+Copyright (c) 2026 Pierre-Louis Boyer (8BCraft). All rights reserved.
+
+Everything in games/pancaketower/ (the code in src/, tools/ and tests/, the
+code-drawn art, the music and sounds made by code, the design documents and
+the pictures of the game) and the built game (the libretro cores and the
+Windows .exe) belong to 8BCraft. No licence is granted to copy, modify,
+distribute, sell or otherwise use them without 8BCraft's written permission.
+
+The RetroStone VC SDK (sdk/) and tools (tools/) that the game is built with
+are under their own licence (LICENSE-MIT); third-party code is listed in
+THIRD_PARTY.md.
+
+The names and logos "Pancake Tower", "RetroStone" and "8BCraft" are not
+licensed.
