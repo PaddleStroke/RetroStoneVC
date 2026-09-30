@@ -567,21 +567,36 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         } else {
             hu_logo_hide();
         }
-        if (state == DS_READY) hu_get_ready(6);
+        if (state == DS_READY && w->players == 1) hu_get_ready(6);
+        if (state == DS_READY && w->players == 2) {        /* versus: each half its own lines */
+            for (int p = 0; p < 2; p++) {
+                hu_big(p * 20 + 5, 6, "READY", HU_BIG_FREE);
+                hu_text(p * 20 + 6, 26, p ? "PLAYER 2" : "PLAYER 1");
+            }
+        }
         if (state == DS_OVER) {
             hu_banner(4, "GAME OVER");
-            if (w->players == 1) hu_gameover_panel(1, new_best, w->bv[0].score, 0);
-            else versus_panel(w, new_best);
+            if (w->players == 1) {
+                hu_gameover_panel(1, new_best, w->bv[0].score, 0);
+                if (!hu_medal_of(w->bv[0].score, medal_scores)) hu_box_text(22, 17, "-");
+            } else {
+                versus_panel(w, new_best);
+            }
         }
         shown_state = state;
         shown_best = best;
         shown_players = w->players;
         for (int p = 0; p < MAX_PLAYERS; p++) PV[p].bar_px = -1;
     }
-    if (state == DS_TITLE || state == DS_READY) {
+    if ((state == DS_TITLE || state == DS_READY) && w->players == 1) {
         hu_prompt(21, "PRESS A TO GNAW", st_t);
-        if (state == DS_READY || w->players == 2) hu_join_line(26, w->players, "VERSUS!");
+        if (state == DS_READY) hu_join_line(26, w->players, "VERSUS!");
     }
+    if (state == DS_READY && w->players == 2)
+        for (int p = 0; p < 2; p++) {
+            if (hu_blink(st_t)) hu_text(p * 20 + 6, 21, "PRESS A");
+            else hu_text(p * 20 + 6, 21, "       ");
+        }
     if (state == DS_OVER) hu_retry_line(st_t, RETRY_LOCK, "A: GNAW AGAIN");
     /* the timer bars */
     if (state == DS_PLAY || state == DS_END || state == DS_READY) {
@@ -682,8 +697,16 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         if (state == DS_PLAY || state == DS_END) hu_number(w->bv[p].score, tree_cx(w), 10, 3);
         if (p == 0 && (state == DS_TITLE || state == DS_READY) && w->players == 1)
             hu_glyph(HU_BTN_A, hu_center("PRESS A TO GNAW", 0) * 8 - 12, 21 * 8 - 4, (st_t / 30) % 2, 3);
-        if (p == 0 && state == DS_OVER && w->players == 1)
-            hu_gameover_sprites(1, w->bv[0].score, 0, best, hu_medal_of(w->bv[0].score, medal_scores), st_t, slide);
+        if (p == 0 && state == DS_OVER && w->players == 1) {
+            /* the house panel's values; the medal is an acorn in the house tiers (bronze, silver, gold, pearl) */
+            int m = hu_medal_of(w->bv[0].score, medal_scores);
+            hu_number(w->bv[0].score, 25 * 8, 11 * 8 - 4 + slide, 3);
+            hu_number(best, 25 * 8, 14 * 8 - 4 + slide, 3);
+            if (m) {
+                spr(SPR_ACORN + m - 1, 22 * 8 - 4, 16 * 8 - 4 + slide, 3, OPAL_KIT, 0);
+                if ((st_t / 20) % 3 == 0) hu_sparkle(22 * 8 + 12, 16 * 8 - 4 + slide, (st_t / 10) % 2, 3);
+            }
+        }
         draw_fx(p, ox, oy);
         draw_beaver(w, p, ox, oy);
         draw_bird(w, p, ox, oy);

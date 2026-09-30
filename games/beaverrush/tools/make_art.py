@@ -101,6 +101,8 @@ PAL_BIRD = [None, (22, 18, 40), (40, 40, 52), (240, 240, 240), (150, 150, 160), 
 
 
 def pal_particle(s):
+    if s == 3:                                      # spring: blossom petals
+        return [None, (120, 40, 70), (255, 214, 230), (255, 176, 206), (214, 110, 150), (255, 255, 255)]
     return [None, (40, 30, 30), LEAF[s][0], LEAF[s][1], LEAF[s][3], ACCENT[s]]
 
 
@@ -112,7 +114,7 @@ def bg_palettes(s):
 
 
 def obj_palettes(s):
-    return {0: pal_beaver(), 1: pal_beaver(True), 2: pal_trunk(s), 4: PAL_FX, 5: pal_trunk(s, True), 6: PAL_BIRD,
+    return {0: pal_beaver(), 1: pal_beaver(True), 2: pal_trunk(s), 3: KIT, 4: PAL_FX, 5: pal_trunk(s, True), 6: PAL_BIRD,
             7: pal_particle(s)}
 
 
@@ -719,10 +721,14 @@ def banks():
         hs.ellipse(cv, x, y, 3.5, 2.5, [K[13], K[13], K[14], K[14]])
 
     def tree(cx, base, height, pine):
-        # the trunk
-        for y in range(base - height // 2, base):
-            for x in range(cx - 2, cx + 2):
-                cv.set(x, y, K[2] if x < cx else K[3])
+        # the trunk (a broadleaf's is thicker and forks under its crown)
+        tw = 2 if pine else 3
+        for y in range(base - (height // 2 if pine else height * 3 // 5), base):
+            for x in range(cx - tw, cx + tw):
+                cv.set(x, y, K[2] if x < cx - (0 if pine else 1) else K[3])
+        if not pine:
+            for i in range(10):
+                cv.set(cx - 3 - i // 2, base - height * 3 // 5 - i, K[3]), cv.set(cx + 2 + i // 2, base - height * 3 // 5 - i, K[3])
         if pine:
             for i in range(5):
                 ty = base - height + i * height // 7
@@ -733,8 +739,8 @@ def banks():
                         nd = lit((x - cx) / (ww + 1), (y - ty) / (height / 5.0) - 0.5)
                         cv.set(x, y, shade4(nd, foliage))
         else:
-            for (dx, dy, rx, ry) in [(0, -height + 14, 14, 12), (-9, -height + 24, 11, 9), (10, -height + 22, 12, 10),
-                                     (0, -height + 28, 13, 9)]:
+            for (dx, dy, rx, ry) in [(0, -height + 16, 15, 13), (-11, -height + 28, 12, 10), (11, -height + 26, 13, 11),
+                                     (-4, -height + 40, 13, 10), (7, -height + 46, 11, 9)]:
                 hs.ellipse(cv, cx + dx, base + dy, rx, ry, foliage)
         # leaf dots
         for _ in range(height * 2):
@@ -824,6 +830,36 @@ def clouds(period=256):
         out.paste(cv, k * period, 0)
     return out
 
+# ---- the medals: acorns in the four house tiers (bronze, silver, gold, pearl), on the kit's sprite palette ----------------
+KIT = [None, hs.UI["out"], hs.UI["white"], hs.UI["shade"], hs.UI["bd"], hs.UI["bl"], hs.UI["sd"], hs.UI["sl"],
+       hs.UI["gd"], hs.UI["gl"], hs.UI["pd"], hs.UI["pl"], hs.UI["pearl"], hs.SPARK["spark"], hs.SPARK["white"]]
+
+
+def acorn(tier):
+    """a 24x24 acorn medal: the nut in the tier's light shade with a glint, the scaly cap in its dark shade"""
+    dark, light = [(hs.UI["bd"], hs.UI["bl"]), (hs.UI["sd"], hs.UI["sl"]), (hs.UI["gd"], hs.UI["gl"]),
+                   (hs.UI["pd"], hs.UI["pl"])][tier]
+    nut = hs.UI["pearl"] if tier == 3 else light
+    cv = Canvas(24, 24)
+    for y in range(24):
+        for x in range(24):
+            dx, dy = (x + 0.5 - 12) / 6.6, (y + 0.5 - 14.5) / 7.2
+            if dx * dx + dy * dy <= 1.0 and y >= 9:
+                cv.set(x, y, nut if lit(dx, dy) > -0.35 else light if tier == 3 else dark)
+    cv.set(12, 22, dark), cv.set(11, 22, dark)
+    for y in range(3, 12):                          # the cap: a scaly dome
+        for x in range(24):
+            dx, dy = (x + 0.5 - 12) / 8.6, (y + 0.5 - 10.5) / 6.5
+            if dx * dx + dy * dy <= 1.0:
+                scale = (x + (y % 2) * 2) % 4 == 0 or y == 11
+                cv.set(x, y, light if scale and y < 11 else dark)
+    for y in range(0, 4):                           # the stem
+        cv.set(12 + (1 if y == 0 else 0), y, dark)
+    cv.set(9, 13, hs.UI["white"]), cv.set(9, 14, hs.UI["white"]), cv.set(10, 13, hs.UI["white"])
+    cv.outline(hs.UI["out"])
+    return cv
+
+
 # ---- everything, as build_assets.py wants it -----------------------------------------------------------------------
 def sprites():
     """(name, [frames]) in OBJ order, each with its palette number"""
@@ -847,6 +883,7 @@ def sprites():
         ("splash", 4, [splash(f) for f in range(4)]),
         ("ripple", 4, [ripple(f) for f in range(3)]),
         ("leaf", 7, [leaf(0), leaf(1)]),
+        ("acorn", 3, [acorn(k) for k in range(4)]),
     ]
 
 

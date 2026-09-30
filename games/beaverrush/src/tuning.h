@@ -69,10 +69,8 @@
 #define CHIP_SLOT        7      /* a stolen branch appears at segment 7 (the top of the trunk shown) */
 
 /* ---- flow (frames) ------------------------------------------------------------------------------- */
-#define HIT_STOP         10     /* the freeze on a bonk */
-#define PANEL_DELAY      50     /* from the end of a run to the panel */
+#define PANEL_DELAY      40     /* from the end of a run to the panel (house: 30-40) */
 #define RETRY_LOCK       36     /* the panel ignores the buttons this long (0.6 s) */
-#define VS_END_DELAY     70
 
 /* ---- score and medals --------------------------------------------------------------------------- */
 #define MEDAL_T1 50

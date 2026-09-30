@@ -58,20 +58,22 @@ characters, the screens, the sounds and the music are ours.
 Segments are made one at a time by a small generator with its own xorshift RNG (the seed is the run's; the
 2-player game gives both trees the same seed, so the same sequence). Per **stage** (every 50 logs):
 
-| Stage (logs) | Branch chance | Zig-zag runs | Notes |
+| Stage (segments) | Single-segment branch chance | Chunks | Branch share (measured, 2000 seeds) |
 |---|---|---|---|
-| 0 (0-49) | 40% (the reference's 2 in 5) | none | the first 4 segments are empty |
-| 1 (50-99) | 44% | none | |
-| 2 (100-149) | 48% | 10% | the woodpecker arrives |
-| 3.. | +4% per stage up to 60% | +4% per stage up to 26%, 3 to 6 branches | |
+| 0 (0-49) | 40% (the reference's 2 in 5) | singles only; the first 4 segments are empty | 39.5% |
+| 1 (50-99) | 44% | + same-side stacks of 2-3 (15% of the chunks) | 55% |
+| 2 (100-149) | 48% | + zig-zag runs (10% of the chunks), the woodpecker arrives | 57% |
+| 3.. | +4% per stage up to 60% | zig-zags +4% per stage up to 26%, 3 to 6 branches long | 56-58% |
 
 - A branch right above another one is always on the **same side** (a "stack"); otherwise the side is a coin
-  toss, and a same-side stack of 2-3 is chosen 15% of the time.
+  toss. When the next planned branch is on the other side of the one just made, an empty segment is put in
+  first (the fairness gap).
 - **Zig-zag runs**: branches alternating sides with exactly one empty segment between them (L . R . L), the
   fastest fair pattern: a side switch on every second gnaw.
 - At most 3 empty segments in a row (the rhythm never goes slack), at most 4 same-side branches in a row.
 - **Golden logs**: an empty segment turns golden with a 1-in-24 chance once at least 30 segments have passed
-  since the last one. Gnawing it: +5 logs (the golden log counts 5) and a quarter of the bar.
+  since the last one (measured: one in 87 segments). Gnawing it: 5 points instead of 1 and a quarter of the
+  bar; it floats to the dam as a golden log.
 
 ### Stages and the dam (the twist)
 - Every gnawed log splashes into the river and **floats to the dam** in the background; the dam visibly grows
@@ -86,20 +88,25 @@ Segments are made one at a time by a small generator with its own xorshift RNG (
   is on screen. A hint, not a rule: it never changes the game.
 
 ### Scoring, medals, save
-- Score = logs gnawed (a golden log counts 5). Big digits at the top.
-- Medals (the house medal tiers, docs/art-direction.md): bronze at 50, silver at 100, gold at 200, the top
-  tier at 300.
+- Score = logs gnawed (a golden log counts 5). Big digits at the top (the house digits).
+- Medals: **acorns** in the four house tiers and colours (docs/art-direction.md: bronze, silver, gold, pearl),
+  drawn by make_art.py on the kit's sprite palette: bronze at 50, silver at 100, gold at 200, a pearl
+  (crystal) acorn at 300. The milestones (scenes, dam sections) count logs; the score and medals count points.
 - Save RAM: the best score, the number of runs, the medals won, the versus wins of each pad.
 
 ## Flow
-1. **Title**: the logo "BEAVER RUSH", the beaver idle at the foot of the tree, the dam scene at dawn, the
-   blinking prompt, the best score, "(C) 2026 8BCRAFT".
-2. **Get ready**: the same scene, "GET READY". The first gnaw starts the run (and gnaws).
-3. **Play**.
-4. **Bonk** (a branch) or **out of breath** (the timer): the beaver's dizzy or sleepy face, a hit-stop, a
-   small screen shake, the bonk sound; the tree stays.
-5. **Game over** panel slides up (the house panel): SCORE, BEST (NEW BEST), MEDAL. After 0.6 s, any gnaw
-   button retries at once: back to 2 with a fresh tree (the dam and the scene are those of the new run).
+1. **Title** (the house layout): the logo "BEAVER RUSH" (BEAVER in the beaver accent, RUSH in gold), the scene
+   at summer dawn with the family on the bank, the beaver at the foot of the tree, the blinking "PRESS A TO
+   GNAW" with the A glyph, the best score, "(C) 2026 8BCRAFT - RETROSTONE VC". A gnaw starts the run at once
+   (and gnaws); Start goes to get ready.
+2. **Get ready** (after a run, or when player 2 joins): the same scene, "GET READY"; the first gnaw starts.
+3. **Play**: the score (house digits) and the timer bar at the top; after each milestone the scene's name
+   ("SUMMER DAY") for 1.5 s.
+4. **Bonk** (a branch) or **out of breath** (the timer): the dizzy face with stars circling, or the slumped
+   beaver with rising "z"s; the house shake (3 px, 12 frames) on a bonk; the world stops.
+5. **Game over**, 40 frames later: the house banner and panel slide up: SCORE, BEST (NEW BEST), MEDAL (the
+   acorn, a sparkle blinking by it). After 0.6 s any gnaw button retries at once: back to 2 with a fresh tree
+   (the dam, the pond and the scene start again).
 
 **Pause**: Start during a run (the house pause: dimmed picture, PAUSED); Start again resumes.
 
@@ -127,36 +134,60 @@ same number of chances; a stolen branch is visible as long as any other one.
 
 | Layer | Contents | Scroll |
 |---|---|---|
-| backdrop | the sky gradient (raster, one colour per line, per time of day), the pond and the river (water colours per line, shimmer) | - |
-| BG4 | clouds, far mountains, the far forest (the pond covers its foot as it rises: window per line) | per-line: clouds drift, mountains 1/8, forest 1/4 of the camera lean |
-| BG3 | the dam (a canvas of unique tiles: each log is drawn into them), the river banks, the near bank with the stump, framing trees | per-line: dam 1/2, near bank 1 |
-| BG2 | the trunk and its branches (redrawn on each gnaw; the drop is a vertical scroll) | the drop |
-| BG1 | the house UI: text, panels, the logo, the timer bar | fixed |
-| OBJ | the beaver(s), the tumbling log, chips, splashes, floating logs, the family, the woodpecker, sky objects (sun, moon, stars), weather particles, digits, medals | |
+| backdrop | the sky gradient (raster, one colour per line, per time of day, the house dither step), the pond and the river (water colours per line, a slow shimmer) | - |
+| BG4 | clouds, far mountains with snow caps, the far forest (the pond covers its foot as it rises: window 1 per line), the river's ripples | per line: clouds drift; mountains 1, forest 3/4 of the camera lean; ripples flow |
+| BG3 | the dam (a canvas of 120 unique tiles: each log is drawn into them, pixel by pixel), the far banks and their trees, the near bank with the stump (its cut rings show while the trunk drops) | per line: 1/2 of the lean above the near bank, 0 for it |
+| BG2 | the trunk and its branches (a 32 x 32 map redrawn on each gnaw; the drop is a vertical scroll in 4 frames; window 2 hides it under the stump) | the drop |
+| BG1 | the house UI (games/common house_ui): text, panels, the logo, the timer bar (tiles of its own) | fixed |
+| OBJ | the beaver(s), the tumbling log, chips, its branch, splashes, floating logs, the family, the woodpecker, the sun, moon and stars, the season's particles, the house digits, the acorns | |
 
-**Camera lean**: when the beaver changes side the camera eases 6 px toward it and the background layers follow
-at their depth (1/8 .. 1): a small parallax that makes the valley deep without moving the trunk.
+Priorities: the far layer and the banks are high-priority tiles, so the sun, the moon, the stars and the floating
+logs (sprites of priority 0) pass behind the mountains, the near bank and the dam; the log falling into the river
+switches to priority 0 behind the near bank.
 
-2 players: two viewports of 159 px (the SDK's standard left/right layout); the BG2 map holds the two trees side
-by side (x 0-255 and 256-511), each viewport scrolls to its own; the background is the same valley.
+**Camera lean**: when the beaver changes side the camera eases 6 px toward it and the background follows at its
+depth (the mountains the most, the dam half as much, the near bank not at all): a small parallax that makes the
+valley deep without moving the trunk. The clouds drift and the ripples flow all the time.
+
+**Palettes** (docs/art-direction.md): BG 0 the house UI (+ the timer bar in entries 11-14), 1 the trunk, 2 the
+golden trunk, 3 the near bank and stump, 4 the dam, 5 the title logo, 6 the banks and their trees, 7 the far layer;
+OBJ 0 the beaver, 1 player 2 (the same tiles, the fur's hue turned by house_style.hue_swap), 2 the wood (logs,
+chips), 3 the house kit and the acorns, 4 sky and water effects, 5 golden wood, 6 the woodpecker, 7 the season's
+particles. Every colour of the art belongs to these palettes (make_art.py): the C side swaps the season's ramps
+(foliage, grass, snow, blossoms) and tints every palette by the time of day (dawn pink, sunset orange, night blue
+at 46% brightness; sprites half as much; the sky effects not at all), fading over 1.5 s at a milestone.
+
+2 players: two viewports of 159 px (the SDK's standard left/right layout). The BG2 map holds both trees (player
+2's 16 columns further, wrapping), each viewport scrolls to its own; both show the middle of the same valley.
+On the result, two more viewports lay the house banner and panel over both halves.
 
 ## The beaver
-About 24x24 on screen (32x32 cells): brown fur, a lighter belly and muzzle, **big orange teeth**, a flat
-cross-hatched tail, small round ears. Frames: idle (2, a breath and a tail twitch), **gnaw** (3: wind-up,
-the bite with a squash, 20% wider and 15% lower, and the recovery), hop (the side change, 1), bonk (dizzy, with
-stars), out of breath (slumped, zzz), cheer (arms up). Player 2 is a darker, reddish beaver.
+About 24x24 on screen (32x32 cells), code-drawn with the house helpers (ellipses and capsules shaded from the
+top-left, the house eye, a 1-px dark brown outline): brown fur, a lighter belly and muzzle, **big orange
+teeth**, a flat cross-hatched paddle tail, a small round ear. Frames: idle (2: a blink and a tail twitch),
+**gnaw** (wind-up 0.96 x 1.04, the **bite squashed 1.12 x 0.9** with the head forward, the recovery), hop,
+bonk (X eyes, a bump, stars circling), out of breath (slumped, eyes shut, rising z's), cheer (2, arms up).
+Player 2 is the same beaver with a darker red-brown fur. The family on the bank: three 16x16 beavers (idle,
+cheer). The woodpecker: 16x16, black and white with a red cap, two frames (head back, the peck).
 
 ## Audio
-- Sound effects synthesised at start-up (src/sfx.c): **chomp** (a crunchy bite: a noise burst through a
-  resonant low-pass and a short wood knock; each gnaw plays it at a pitch varied +-6% by a tiny RNG), the
-  **log splash**, the **golden chime**, the **branch bonk** (a hollow wood knock and a boing), the **milestone
-  cheer** (a short rising arpeggio and a crowd-like noise swell), the breathless slump, the woodpecker's tok,
-  a stolen-chip whoosh; the house UI sounds (panel, pause, join, medal) come from games/common.
-- Music: a lively banjo/folk loop (tools/make_music.py: a 4-channel MOD, synthesised plucked banjo, a
-  double-bass walk, a fiddle-like lead, a brushed snare; G major). It is rendered at four tempos (BPM 128,
-  136, 144, 152); the game picks the next loop's tempo from the drain level, so the music speeds up subtly as
-  the timer does (the switch happens at the loop's end, every 8 bars).
-
+- Sound effects synthesised at start-up (src/sfx.c) with the house synthesiser (games/common house_audio):
+  **chomp** (three quick bright noise bursts over a falling wood knock; each bite plays at a pitch varied
+  +-6% by a small RNG), the **log splash** (a rush of low-passed noise and two bubbles), the **golden chime**
+  (C6 E6 G6 C7 bells), the **branch bonk** (a hollow knock, then a boing up and down), the **milestone cheer**
+  (G5 B5 D6 G6 over a swell of noise), the slump of the out-of-breath beaver, the woodpecker's tok, a whoosh for
+  a stolen branch; the UI sounds are the house's (confirm, pause, swish, medal, the game-over sting). The low
+  sounds are stored at 16 kHz to stay within the 64 KiB of sample memory.
+- Loudness (house): chomp 88, bonk 110, chime and cheer 70, splash 56, tok 34; echo on the wet sounds (splash,
+  chime). The voice budget: 8 voices with the music's 4; the frequent soft sounds (splash, tok) wait for their
+  last one, and one voice is always kept free for a bonk.
+- Music: a lively banjo/folk tune (tools/make_music.py with house_music.py): a 4-channel MOD in G major,
+  a Karplus-Strong banjo rolling 16ths, a plucked double bass (boom on 1, the fifth on 3, walks), kick,
+  brush and hat, a bowed fiddle tune with vibrato on its long notes. Two 8-bar sections (A: the fiddle tune,
+  B: the banjo leads), each rendered at four tempos, **BPM 128, 144, 150, 160**. The game plays A, B, A, B...
+  and picks the next section's tempo from the gnaws per second that hold the bar (under 5: 128, under 5.8: 144,
+  under 6.4: 150, then 160), so the music speeds up with the drain. A section lasts 115200 / BPM frames, a whole
+  number at these four tempos: the switch is counted in game frames, so a save state resumes it exactly.
 ## Feel sources
 The reference: Timberman (Digital Melody, 2014, proprietary). Its feel is described by reviews and guides,
 and several permissively licensed clones were tuned against it. Only numbers and rules were taken.
@@ -197,22 +228,48 @@ and several permissively licensed clones were tuned against it. Only numbers and
 | milestone | 50 chops (3DS) | 50 logs: a dam section, the next scene |
 
 ## Tests (make beaverrush-check)
-- `tests/test_rules.c`: the tuning curves (the level-0 bar lasts 360 frames, the refill, the break-even rate
-  of each level within 1% of R(20 L + 10), monotonic, the endgame ramp), the gnaw rules (hit A, hit B, the
-  drop), the timer (no drain before the first gnaw, empty = out), golden logs, milestones and the dam slots,
-  the generator's **fairness over 20000 seeds x 1000 segments** (the invariant, and a brute-force search over
-  every reachable beaver position), its statistics per stage (branch share, zig-zags, golden spacing), the
-  stolen-chip insertion (never unfair), and **determinism** (the same seed, the same trunk and run).
-- `tests/smoke_test.sh`: scripted runs (the title waits, a wrong press bonks, doing nothing after the start
-  runs out of breath), pause, retry, save RAM, player 2 joins, a versus round ends with a winner, strict
-  mode clean; **the bot** (`--opt bot=1`) plays from the **screen state only** (the BG2 map: which tiles are
-  branch tiles on each row; OAM: its beaver; BG1: the timer bar) at a human cadence (7 to 9 frames between
-  gnaws, 3 more to switch sides): over **10 seeds** it must average **300 logs or more** (the distribution
-  is printed); determinism (a scripted run and a bot run twice: the same state hash and picture).
-- `tests/test_ui.c` (the UI screenshot test): the game runs headless to the title, a run, a milestone, a
-  golden log, night, the game-over panel and a versus round; each picture is checked (the timer bar's
-  filled width matches the timer, the digits, the beaver on its side, the logo, the panel, the two halves
-  in versus) and written to build/beaverrush-ui/.
-- `tests/state_test.sh`: save states in a run, a versus round, paused, on the panel (sdk/tests/test_states.c).
-- `tools/screenshots.sh`: docs/screenshots/ (title, early play, a milestone, a golden log, night, game over,
-  2 players).
+- `test_libretro`: the core loads, runs 600 frames, sound, save RAM, save states through the libretro API.
+- `tests/test_rules.c` (14005 checks): the **timer curves** (a full bar lasts 360 frames at level 0; the refill
+  is 7/120; the break-even rate of every level 0..60 within 1% of R(20 L + 10) plus the endgame ramp, growing),
+  the **gnaw rules** (hit A, hit B, a branch leaving with its log, no drain before the first gnaw, out of breath
+  after 6 s, golden logs, milestones and levels, medals), the generator's **fairness over 20000 seeds x 1000
+  gnaws** (the invariant, and a brute-force check of the safe sides at every step; half the runs get stolen
+  branches inserted at random; the checker itself is shown an impossible pair), the **statistics** per stage
+  (the table above), the stolen-branch insertion, **determinism** (the same seed, the same trunk and run, in
+  versus too; a re-roll keeps the segments on screen) and a perfect player at fixed paces (5/s: out at 165
+  logs, 6/s: 450, 7.5/s: 721, 8.6/s: 888).
+- `tests/smoke_test.sh`: strict mode clean with the music (VRAM, sprites per line, voices, sample memory) in 1P
+  and versus; the title waits; one gnaw then nothing runs out of breath after 360 frames; one side only gets
+  bonked; B and A gnaw; retry in one press; Start pauses and resumes; the best score persists in save RAM;
+  player 2 joins; a versus round names a winner and a milestone sends a branch; the music's tempo rises with
+  the level; **the bot** over 10 seeds (below); determinism of a scripted, a bot and a versus run (the state
+  hash and the picture, twice).
+- **The bot** (`--opt bot=1`, bot.c) plays from the **screen state only**: the BG2 map (which rows of its tree
+  hold branch tiles, on which side) and OAM (its beaver's side, from the sprite's flip); it never reads the world.
+  It plays like a quick, careful human: 7 to 9 frames between gnaws, 3 more to switch sides. Result (seeds 1-10,
+  never bonked, always out of breath in the endgame ramp): **611 600 619 564 576 558 509 594 583 594, average
+  580** (min 509, max 619); the test requires an average of 300 or more.
+- `tests/ui_test.sh` + `tests/ui_check.py` (the UI screenshot test): ten screens shot at exact frames (title,
+  play, the first milestone, the first golden log, night, winter, pause, game over with a medal, versus and its
+  result) and checked against the run's state: the timer bar's filled pixels against the timer (to 1 px), the
+  score digits, the beaver's teeth on its side (with the time-of-day tint computed as scene.c does), the logo,
+  the prompt glyph, the copyright, the scene's name after the milestone, the golden log, the night sky, the
+  dimmed pause, the panel, GAME OVER in gold and the bronze acorn, the split screen's divider, a score and a bar
+  in each half, the result panel over both halves; the screens all differ; the title renders the same twice.
+- `tests/state_test.sh`: save states at the title, in a run, in versus (pads and bots, with stolen branches),
+  paused, over the panel and a retry, a winter night with the dam half built, and at five points of long runs:
+  the state and the picture replay the same frame by frame, in the same process and in a fresh one; bad and
+  foreign states are refused. `tools/state_audit.py`: every mutable static is saved or listed in state_audit.txt.
+
+## Performance
+`make beaverrush-bench` (tools/bench.sh, host: Ryzen 7 9800X3D under WSL2, music on): 1 player on a winter night
+(snow, the woodpecker, the dam half built, logs in flight and floating) **0.52 ms per frame on average**
+(PPU 0.51 ms), versus in two viewports **0.56-0.58 ms**; the worst frames measured 1.1-1.9 ms and move from run to
+run (host scheduling; the restart of a skipped test run redraws 560 dam logs at once). At the usual 15-20x for
+the A20 (Cortex-A7): **8-12 ms on average, 50-70% of the 16.7-ms frame**, with the rare worst frames at 17-38 ms.
+Sprites: 103 at most, 32 on a line at most (the guideline); VRAM, voices and sample memory within the guidelines.
+
+## Screenshots
+`make beaverrush-screenshots` (tools/screenshots.sh, 2x): docs/screenshots/ title, early-play, milestone,
+golden-log, night, autumn-sunset, winter, spring, pause, gameover-silver, get-ready-2-players, versus,
+versus-over.
