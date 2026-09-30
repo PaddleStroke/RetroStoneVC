@@ -665,11 +665,25 @@ def import_sheet(args):
     print("  wrote %d strips, marked GENERATED: %s" % (len(updates), args.note))
 
 
+def game_module(game):
+    """games/<game>/tools/art_game.py: another game's strips, TODO writer and import (it reuses this
+    file's helpers and tools/art_consistency.py). Used by --game here and in art_review.py."""
+    import importlib.util
+    path = os.path.join(ROOT, "games", game, "tools", "art_game.py")
+    if not os.path.exists(path):
+        raise SystemExit("no %s" % path)
+    sys.path.insert(0, os.path.dirname(path))
+    spec = importlib.util.spec_from_file_location("art_game_" + game, path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("command", choices=["todo", "sync", "preview", "import-sheet"])
     ap.add_argument("sheet", nargs="?", help="import-sheet: the whole AI sheet")
-    ap.add_argument("--incoming", default=os.path.join(GAME, "art", "incoming"))
+    ap.add_argument("--incoming", default=None, help="default games/<game>/art/incoming")
     ap.add_argument("--out", help="sync: sheets folder (default games/bombermole/art); preview: output folder")
     ap.add_argument("--report", help="sync: report path (default <incoming>/IMPORT_REPORT.md)")
     ap.add_argument("--dry-run", action="store_true")
@@ -681,7 +695,12 @@ def main():
                     help="sync: the old import (one scale per group) instead of tools/art_consistency.py")
     ap.add_argument("--map", help="import-sheet: strip ids in reading order")
     ap.add_argument("--note", default="from first-batch sheet")
+    ap.add_argument("--game", default="bombermole",
+                    help="another game: its games/<game>/tools/art_game.py handles todo and sync")
     a = ap.parse_args()
+    if a.game != "bombermole":
+        sys.exit(game_module(a.game).main(a))
+    a.incoming = a.incoming or os.path.join(GAME, "art", "incoming")
     if a.command == "todo":
         sheets, mp, cut, brief = load_modules(a.char_size)
         os.makedirs(a.incoming, exist_ok=True)

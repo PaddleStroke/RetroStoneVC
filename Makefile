@@ -217,3 +217,6 @@ clean:
 	rm -rf build/host build/win64 build/armhf build/gen
 
 -include $(shell find build -name '*.d' 2>/dev/null)
+
+# ---- other games: each brings its own targets (games/<game>/game.mk, e.g. make leadysquid-check) ----
+include $(wildcard games/*/game.mk)

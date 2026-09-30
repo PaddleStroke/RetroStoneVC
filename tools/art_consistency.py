@@ -294,12 +294,20 @@ def _fit(box, cw, ch, mw=1, mh=1):
     return max((box[2] - box[0]) / max(1.0, cw - mw), (box[3] - box[1]) / max(1.0, ch - mh))
 
 
-def window(s, fr, sc):
+def window(s, fr, sc, i=0):
     cw, ch = s.w, s.h
     ww, wh = cw * sc, ch * sc
     if solid(s):
         return tuple(float(v) for v in fr.box)
     b = fr.box
+    if character_like(s) and getattr(s, "anchor", "bottom") == "center":
+        # centred on the body (rotated frames, e.g. a swimming character at several angles), less the
+        # offset of that centre from the cell centre in the game's own frames (center_offsets, game px)
+        cx, cy = fr.body_centroid_x(), (fr.body[1] + fr.body[3]) / 2.0
+        off = getattr(s, "center_offsets", None)
+        if off and i < len(off):
+            cx, cy = cx - off[i][0] * sc, cy - off[i][1] * sc
+        return (cx - ww / 2.0, cy - wh / 2.0, cx + ww / 2.0, cy + wh / 2.0)
     if character_like(s):
         cx = fr.body_centroid_x()
         bot = fr.body[3]
@@ -337,9 +345,9 @@ def family_scales(results, forced=None):
         fams.setdefault(f, []).append(r)
     for f, members in fams.items():
         by = {r.id: r for r in members}
-        ref = None
+        ref = next((r for r in members if getattr(r.strip, "reference", False)), None)
         for cand in ("%s_walk_down" % f, "%s_walk_right" % f, "%s_walk_left" % f):
-            if cand in by:
+            if cand in by and not ref:
                 ref = by[cand]
                 break
         ref = ref or sorted(members, key=lambda r: r.id)[0]
@@ -368,6 +376,9 @@ def family_scales(results, forced=None):
         # family scale: the walking/digging bodies fit the cell (1 px of slack across)
         loco = [r for r in members if locomotion(r.strip)] or members
         S = max(_fit(fr.body, r.strip.w, r.strip.h, 1, 0) / r.k for r in loco for fr in r.cut.frames)
+        if getattr(ref.strip, "target_h", None):
+            # the reference frame's body has a set height in game pixels (a character smaller than its cell)
+            S = max(S, (f0.body[3] - f0.body[1]) / float(ref.strip.target_h))
         for r in members:
             r.sc = S * r.k
             need = max(_fit(fr.body, r.strip.w, r.strip.h, 1, 0) for fr in r.cut.frames)
@@ -420,7 +431,7 @@ def process(incoming, rows, strips, take, measure=("VALIDATED", "GENERATED"), fo
         if r.cut is None:
             continue
         s = r.strip
-        r.windows = [window(s, fr, r.sc) for fr in r.cut.frames]
+        r.windows = [window(s, fr, r.sc, i) for i, fr in enumerate(r.cut.frames)]
         cells[r.id] = [area_downscale(r.cut.rgb, fr.mask, win, s.w, s.h) for fr, win in zip(r.cut.frames, r.windows)]
         for i, (fr, win) in enumerate(zip(r.cut.frames, r.windows)):
             if solid(s):
