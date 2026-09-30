@@ -56,7 +56,7 @@ typedef struct piece {
     int on, player;
     int32_t x, y, vx, vy;           /* Q8: the centre, world coordinates */
     int a, va, t;                   /* rotation (64 steps per turn, Q4), speed */
-    int shown_a;
+    int shown_a, halves;
     cut_piece p;
 } piece;
 
@@ -155,6 +155,7 @@ void draw_init(void)
 {
     hu_config hc = hu_defaults();       /* BG1 at VRAM 0, the kit at 0 on palette 0, the logo at 320 */
     hc.logo_pal = PAL_LOGO;
+    hc.box_glyphs = " 0123456789ABCDEGKLMNOPRSTWY!:-";   /* only the panel's glyphs (VRAM) */
     hc.obj_tile = KIT_OBJ_TILE;
     hc.obj_vram = VR_OBJ;
     hc.obj_pal = OBJ_KIT;
@@ -204,12 +205,24 @@ static void reset_view(view *v, int p, int players)
 void draw_reset(const match *m)
 {
     nviews = m->players;
-    for (int p = 0; p < MAX_PLAYERS; p++) reset_view(&V[p], p, m->players);
+    for (int p = 0; p < MAX_PLAYERS; p++) {
+        reset_view(&V[p], p, m->players);
+        int target = tower_top_y(&m->tw[p]) - (240 - TOP_SCREEN_Y);     /* a pre-stacked tower (start=N) */
+        if (p < m->players && target > V[p].cam) V[p].cam = target;
+        if (p < m->players && tower_top_y(&m->tw[p]) > CEILING_Y) {
+            V[p].crashed = 1;
+            V[p].hole_x0 = -m->tw[p].g.w0 / 2, V[p].hole_x1 = m->tw[p].g.w0 / 2;
+        }
+        if (p < m->players && tower_top_y(&m->tw[p]) > ROOF_Y) {
+            V[p].roofed = 1;
+            V[p].roof_x0 = -m->tw[p].g.w0 / 2, V[p].roof_x1 = m->tw[p].g.w0 / 2;
+        }
+    }
     memset(PC, 0, sizeof PC);
     memset(FXS, 0, sizeof FXS);
     rs_bg_fill(RS_BG2, 0);
     rs_bg_fill(RS_BG3, 0);
-    rs_bg_fill(RS_BG4, 0);
+    rs_bg_setup(RS_BG4, m->players == 1 ? 32 : 64, 32, VR_BG4);    /* 1 player: 256 px that repeat (VRAM) */
     rs_bg_line_scroll(RS_BG2, V[0].wob_dx, NULL);
     shown_state = -1;
 }
@@ -244,8 +257,7 @@ static void stream_far(view *v)
         int kk = k;
         if (kk >= FAR_H) kk = FAR_H - FAR_REPEAT + (kk - FAR_H) % FAR_REPEAT;   /* the stars repeat */
         const uint16_t *src = pt_far_map + (FAR_H - 1 - kk) * FAR_W;
-        int n = nviews == 1 ? 64 : 32;
-        for (int c = 0; c < n; c++) rs_bg_put(RS_BG4, v->far_col0 + c, r, opt_nodraw_bg ? 0 : src[c & 31]);
+        for (int c = 0; c < 32; c++) rs_bg_put(RS_BG4, v->far_col0 + c, r, opt_nodraw_bg ? 0 : src[c & 31]);
     }
 }
 
@@ -302,7 +314,7 @@ static void debris(int p, int x0, int x1, int y, int kind, int n)
         f->frame = fx_rand(3);
         f->life = 90;
     }
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < (nviews > 1 ? 2 : 4); i++) {
         fx_obj *f = fx_new(FX_DUST, p, (i & 1) ? x0 - 6 : x1 + 6, y + 4 + i * 5);
         if (f) { f->life = 30; f->vx = (i & 1) ? -60 : 60; f->vy = 20; }
     }
@@ -389,14 +401,14 @@ void draw_events(const match *m)
             v->crashed = 1;
             v->hole_x0 = top->x, v->hole_x1 = top->x + top->w;
             hu_shake(3, 12);
-            debris(p, top->x, top->x + top->w, CEILING_Y + 6, FX_PLASTER, 12);
+            debris(p, top->x, top->x + top->w, CEILING_Y + 6, FX_PLASTER, nviews > 1 ? 5 : 8);
             chef_react(v, CH_PANIC, 60);
         }
         if (ev & EV_ROOF) {
             v->roofed = 1;
             v->roof_x0 = top->x, v->roof_x1 = top->x + top->w;
             hu_shake(2, 10);
-            debris(p, top->x, top->x + top->w, ROOF_Y + 6, FX_ROOFTILE, 10);
+            debris(p, top->x, top->x + top->w, ROOF_Y + 6, FX_ROOFTILE, nviews > 1 ? 4 : 7);
         }
         /* the holes widen if a wider layer passes through the slab */
         if (v->crashed && ty > CEILING_Y && ty <= CEILING_Y + 24 + 8) {
@@ -483,7 +495,7 @@ static void draw_layer_sprites(view *v, int p, const tower *tw, int t)
     pal = top->kind == LK_PANCAKE ? OBJ_FOOD : OBJ_TOPPING;
     int sx = v->sx0 + (box0 - v->bg2_cx) + wtop + hu_shake_x();
     int sy = line_of(v, (n - 1) * ROW_H + 7) + hu_shake_y();
-    for (int s = 0; s < 2; s++)
+    for (int s = 0; s < 2 && s * 64 < top->w + 2; s++)
         if (sx + s * 64 < v->w && sx + s * 64 > -64 && sy > -8 && sy < RS_SCREEN_H)
             rs_spr(sx + s * 64, sy, dyn_tile(p, 16) + s * 8, 64, 8, pal, 2, 0);
     /* the butter pat on a perfect top */
@@ -502,7 +514,7 @@ static void draw_layer_sprites(view *v, int p, const tower *tw, int t)
         }
         int x = v->sx0 + tower_slider_x(tw) - 1 + wtop + hu_shake_x();
         int y = line_of(v, tower_slider_y(tw) + 7) + hu_shake_y();
-        for (int s = 0; s < 2 && s * 64 < tw->sw + 8; s++) rs_spr(x + s * 64, y, dyn_tile(p, 0) + s * 8, 64, 8, OBJ_FOOD, 2, 0);
+        for (int s = 0; s < 2 && s * 64 < tw->sw + 2; s++) rs_spr(x + s * 64, y, dyn_tile(p, 0) + s * 8, 64, 8, OBJ_FOOD, 2, 0);
     }
 }
 
@@ -517,13 +529,13 @@ static void draw_pieces(view *v, int p)
         for (int k = 0; k < 32 && !render_piece_fits(pc->p.w, fit); k++) fit = (a < 32 ? a - k : a + k) & 63;
         if (!render_piece_fits(pc->p.w, fit)) fit = 0;
         if (fit != pc->shown_a) {
-            render_piece(dyn_tile(p, 32 + i * 32), &pc->p, fit);
+            pc->halves = render_piece(dyn_tile(p, 32 + i * 32), &pc->p, fit);
             pc->shown_a = fit;
         }
         int x = v->sx0 + pc->x / 256 - 64, y = line_of(v, pc->y / 256) - 8;
         int pal = pc->p.kind == LK_PANCAKE ? OBJ_FOOD : OBJ_TOPPING;
         for (int s = 0; s < 2; s++)
-            if (x + s * 64 < v->w && x + s * 64 > -64 && y > -16 && y < RS_SCREEN_H)
+            if (((pc->halves >> s) & 1) && x + s * 64 < v->w && x + s * 64 > -64 && y > -16 && y < RS_SCREEN_H)
                 rs_spr(x + s * 64, y, dyn_tile(p, 32 + i * 32) + s * 16, 64, 16, pal, 2, 0);
     }
 }
@@ -574,7 +586,7 @@ static void draw_holes(view *v, int n)
     if (v->roofed) {
         for (int s = 0; s < 2; s++) {
             int ex = s ? v->roof_x1 : v->roof_x0;
-            int top = 190 - absi(ex) * 42 / 100;
+            int top = 190 - absi(ex) / 2;
             spr(SPR_JAG_ROOF, v->sx0 + ex + (s ? -2 : -6) + hu_shake_x(), line_of(v, top), 2, -1, s ? RS_SPR_HFLIP : 0, v->w);
         }
     }
@@ -603,21 +615,21 @@ static void draw_critters(view *v, int t)
         int span = v->w + 600, x = (t / 3) % span;
         spr(SPR_SATELLITE, x - 32, line_of(v, 1110), 1, -1, 0, v->w);
     }
-    int mx = v->w - 70, my = 1040;
-    if (my + 48 > lo && my - 48 < hi) {
-        spr(SPR_MOON, mx, line_of(v, my + 48), 1, -1, 0, v->w);
+    int mx = v->w - 60, my = 1040;
+    if (my + 32 > lo && my - 48 < hi) {
+        spr(SPR_MOON, mx, line_of(v, my + 32), 1, -1, 0, v->w);
         /* the cow jumps over the moon every 6 s: a parabola from its left to its right */
         int ct = t % 360;
         if (ct < 120) {
-            int x = mx - 40 + ct * 128 / 120, h = ct * (120 - ct) * 4 * 70 / (120 * 120);
-            spr(SPR_COW + (ct > 20 && ct < 100), x, line_of(v, my + 20 + h), 1, -1, 0, v->w);
+            int x = mx - 44 + ct * 110 / 120, h = ct * (120 - ct) * 4 * 56 / (120 * 120);
+            spr(SPR_COW + (ct > 20 && ct < 100), x, line_of(v, my + 14 + h), 1, -1, 0, v->w);
         }
     }
 }
 
 static void draw_chef(view *v, int p, int t, int players)
 {
-    static const int body[4] = {0, 2, 3, 4}, head[4] = {0, 1, 2, 3};
+    static const int body[4] = {0, 2, 3, 4};
     int pose = v->chef_pose;
     int pal = p == 1 ? OBJ_CHEF2 : OBJ_CHEF;
     int kitchen_line = line_of(v, FLOOR_Y + 47);
@@ -630,15 +642,17 @@ static void draw_chef(view *v, int p, int t, int players)
         v->portrait_t = 0;
         return;
     }
-    /* the portrait: the chef keeps watching from a plate in the bottom-left corner (it slides in) */
+    /* the portrait: the chef keeps watching from a plate-rimmed frame in the bottom-left corner (it slides in) */
     if (v->portrait_t < 20) v->portrait_t++;
-    int ox = 2, oy = RS_SCREEN_H - 50 + hu_slide_in(v->portrait_t, 20, 60);
-    spr(SPR_HEAD + head[pose], ox + 8 + dx, oy + 8 + dy, 2, pal, 0, v->w);
+    int ox = 2, oy = RS_SCREEN_H - 66 + hu_slide_in(v->portrait_t, 20, 80);
+    int f = body[pose];
+    if (pose == CH_IDLE && (t % 180) < 8) f = 1;
+    spr(SPR_CHEF + f, ox + 8 + dx, oy + 10 + dy, 2, pal, 0, v->w);
     spr(SPR_RING, ox, oy, 2, -1, 0, v->w);
     spr(SPR_RING, ox + 24, oy, 2, -1, RS_SPR_HFLIP, v->w);
-    spr(SPR_RING, ox, oy + 24, 2, -1, RS_SPR_VFLIP, v->w);
-    spr(SPR_RING, ox + 24, oy + 24, 2, -1, RS_SPR_HFLIP | RS_SPR_VFLIP, v->w);
-    if (pose == CH_PANIC) spr(SPR_SWEAT, ox + 36, oy + 6 + (t / 8) % 4, 2, -1, 0, v->w);
+    spr(SPR_RING, ox, oy + 32, 2, -1, RS_SPR_VFLIP, v->w);
+    spr(SPR_RING, ox + 24, oy + 32, 2, -1, RS_SPR_HFLIP | RS_SPR_VFLIP, v->w);
+    if (pose == CH_PANIC) spr(SPR_SWEAT, ox + 36, oy + 10 + (t / 8) % 4, 2, -1, 0, v->w);
 }
 
 /* ---- the UI (the house kit) ------------------------------------------------------------------------------------- */
@@ -826,4 +840,29 @@ void draw_view_oam(int player, int *first, int *count)
     if (nviews < 2 || player >= nvps) { *first = 0; *count = RS_OAM_MAX; return; }
     *first = vps[player].oam_first;
     *count = vps[player].oam_count;
+}
+
+/* development: log the sprites of a line that has more than 32 (--opt oamlog=1) */
+static int oam_logged;
+void draw_oam_log(void)
+{
+    if (oam_logged || !rs_option_int("oamlog", 0)) return;
+    for (int y = 0; y < RS_SCREEN_H; y++) {
+        int n = 0;
+        for (int i = 0; i < RS_OAM_MAX; i++) {
+            rs_sprite *s = rs_oam(i);
+            int oy = 0;
+            for (int k = 0; k < nvps; k++)
+                if (i >= vps[k].oam_first && i < vps[k].oam_first + vps[k].oam_count) oy = vps[k].y;
+            if (s && s->used && y >= s->y + oy && y < s->y + oy + s->h) n++;
+        }
+        if (n > 32) {
+            oam_logged = 1;
+            for (int i = 0; i < RS_OAM_MAX; i++) {
+                rs_sprite *s = rs_oam(i);
+                if (s && s->used && y >= s->y && y < s->y + s->h) rs_log("oam %d: tile %d at %d,%d %dx%d", i, s->tile, s->x, s->y, s->w, s->h);
+            }
+            return;
+        }
+    }
 }

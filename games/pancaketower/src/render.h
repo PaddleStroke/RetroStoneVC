@@ -18,7 +18,7 @@ void render_clear_row(int ring_row, int col0, int ncols);
  * the box's left column, x0 = the layer's left in the same coordinates; *pal: 0 tower colours, 1 toppings */
 int  render_layer_sprite(int tile, const layer *l, int box_x0, int x0, int squash, int *pal);
 /* a falling piece rotated by a (64 steps per turn) into a 128x16 box (two 64x16 sprites) */
-void render_piece(int tile, const cut_piece *pc, int a);
+int  render_piece(int tile, const cut_piece *pc, int a);   /* returns which halves hold pixels (bits 0, 1) */
 int  render_piece_fits(int w, int a);
 int  pancake_px(int ax, int y, int x0, int w, int n, int flags, int sprite, int cut, int centre_tc);
 int  topping_px(int kind, int ax, int y, int x0, int w);

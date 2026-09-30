@@ -147,8 +147,10 @@ static void sounds(void)
         if (ev & EV_POUR) sfx_play(SFX_POUR, x, 0);
         if (ev & EV_TOPPING_LAND) { sfx_play(SFX_PLOP, x, 0); sfx_play(SFX_FANFARE, x, 5); }
         if (ev & EV_SPLASHED) sfx_play(SFX_SPLASH, x, 0);
-        if (ev & EV_CEILING) sfx_play(SFX_CRASH, x, 0);
-        if (ev & EV_ROOF) sfx_play(SFX_ROOF, x, 0);
+        if (ev & EV_CEILING) { sfx_play(SFX_CRASH, x, 0); rs_log("player %d crashed through the ceiling at frame %u", p + 1, rs_frame_count()); }
+        if (ev & EV_ROOF) { sfx_play(SFX_ROOF, x, 0); rs_log("player %d broke through the roof at frame %u", p + 1, rs_frame_count()); }
+        if (ev & EV_TOPPING_LAND) rs_log("player %d topping %d landed at frame %u", p + 1, tower_top(tw)->kind, rs_frame_count());
+        if ((ev & EV_PERFECT) && tw->chain >= 5) rs_log("player %d perfect chain %d at frame %u", p + 1, tw->chain, rs_frame_count());
         if ((ev & (EV_LAND | EV_MISS)) && rs_option_int("botlog", 0))
             rs_log("land p%d f%u: h=%d w=%d cut=%d perfect=%d chain=%d syrupslip=%d", p + 1, rs_frame_count(), tw->pancakes,
                    tower_top(tw)->w, (ev & EV_CUT) ? tw->cut.w : 0, (ev & EV_PERFECT) != 0, tw->chain, tw->slip_dir);
@@ -238,7 +240,11 @@ static void game_update(void)
     st_t++;
 }
 
-static void game_draw(void) { draw_frame(&M, st, st_t, SV.best, new_best, paused); }
+static void game_draw(void)
+{
+    draw_frame(&M, st, st_t, SV.best, new_best, paused);
+    draw_oam_log();
+}
 
 static void game_init(void)
 {
@@ -265,11 +271,13 @@ static void game_shutdown(void)
         size_t n = strlen(list);
         snprintf(list + n, sizeof list - n, "%s%d", i ? "," : "", bot_heights[i]);
     }
+    int jit[5];
+    bot_jitter_counts(jit);
     rs_log("state: st=%d players=%d height=%d score=%d height2=%d score2=%d best=%d runs=%d ts=%d,%d sx=%d "
-           "paused=%d cam=%d chain=%d hash=%08x heights=%s",
+           "paused=%d cam=%d chain=%d hash=%08x jitter=%d,%d,%d,%d,%d vramtiles=%d heights=%s",
            st, M.players, M.tw[0].pancakes, M.tw[0].score, M.tw[1].pancakes, M.tw[1].score, SV.best, runs_done,
            M.tw[0].state, M.tw[1].state, tower_slider_x(&M.tw[0]), paused, draw_camera(0), M.tw[0].best_chain,
-           state_hash, list);
+           state_hash, jit[0], jit[1], jit[2], jit[3], jit[4], rs_tiles_used(), list);
 }
 
 /* test hook: the match and the screen being shown */

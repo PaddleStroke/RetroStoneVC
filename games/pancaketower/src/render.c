@@ -297,8 +297,9 @@ int render_piece_fits(int w, int a)
     return half_h <= 7 && half_w <= 63;
 }
 
-void render_piece(int tile, const cut_piece *pc, int a)
+int render_piece(int tile, const cut_piece *pc, int a)
 {
+    int used = 0;                                 /* bit 0: the left 64 columns hold pixels, bit 1: the right ones */
     memset(sbuf, 0, 128 * 16);
     layer l = {0, (int16_t)pc->w, (uint8_t)pc->kind, 0, pc->n};
     /* the piece's inner end was cut: a piece that hung on the right was cut on its left */
@@ -312,7 +313,8 @@ void render_piece(int tile, const cut_piece *pc, int a)
             int lx = u + pc->w / 2, ly = v + 4;
             if (lx < 0 || lx >= pc->w || ly < 0 || ly > 7) continue;
             int col = layer_px(&l, 0, lx, ly, 1, cut, &p);
-            if (col) sbuf[by * 128 + bx] = (uint8_t)col;
+            if (col) { sbuf[by * 128 + bx] = (uint8_t)col; used |= bx < 64 ? 1 : 2; }
         }
     upload_box(tile, 128, 16);
+    return used;
 }
