@@ -140,11 +140,13 @@ void ui_init_level(void)
     hud_pal_below = 0;
 }
 
-/* a 16x16 BG1 metatile over playfield cell (x, y), under the sprites */
+/* a 16x16 BG1 metatile over playfield cell (x, y), under the sprites; the playfield's cell (0,0) is at BG1
+   tile (mark_bx, mark_by): (0, 2) in solo, below the HUD band */
+static int mark_bx, mark_by = 2;
 static void cell_mark(int x, int y, int tile)
 {
     for (int q = 0; q < 4; q++)
-        rs_bg_put(RS_BG1, x * 2 + (q & 1), 2 + y * 2 + (q >> 1), RS_MAP(tile + q, 0, 0, 0, 0));
+        rs_bg_put(RS_BG1, mark_bx + x * 2 + (q & 1), mark_by + y * 2 + (q >> 1), RS_MAP(tile + q, 0, 0, 0, 0));
 }
 
 /* a block (dirt, rock, leaves...) that hides a golden grub glows; on Hard only near the mole */
@@ -153,8 +155,11 @@ static int hidden_grub_glows(int d, int x, int y)
     const cell *c = &W.g[d][y][x];
     if (c->item != IT_GRUB || terrain_walkable(c->t, 0) || c->t == TR_WATER) return 0;
     if (W.diff == DIFF_HARD && !dev_reveal) {
-        const actor *m = world_player(0);
-        if (!m || m->depth != d || abs(m->cx - x) + abs(m->cy - y) > 3) return 0;
+        for (int p = 0; p < W.nplayers; p++) {
+            const actor *m = world_player(p);
+            if (m && m->depth == d && abs(m->cx - x) + abs(m->cy - y) <= 3) return 1;
+        }
+        return 0;
     }
     return 1;
 }
@@ -396,6 +401,7 @@ void ui_boss_bar(void)
         if (W.a[i].alive && W.a[i].kind == AK_BOSS) b = &W.a[i];
     if (!b || W.def->boss <= 0 || W.def->boss > 5) return;
     int max = W.def->boss == BOSS_BADGER || W.def->boss == BOSS_FARMER ? 3 : W.def->boss == BOSS_FOX ? 4 : 5;
+    if (W.mode == MODE_COOP && W.nplayers > 1) max += max * (W.nplayers - 1) / 2;   /* more moles, more health */
     char line[40];
     int shielded = W.def->boss == BOSS_FARMER && !b->dig;
     if (shielded) snprintf(line, sizeof line, "%s  CRATES LEFT %d/%d", names[W.def->boss], world_crates(), W.crates_total);
@@ -409,6 +415,37 @@ void ui_boss_bar(void)
             rs_bg_put(RS_BG1, x0 + 2 + (int)strlen(line) + i, 2, RS_MAP(T_BAR + (i < b->hp ? 0 : 1), 0, 1, 0, 0));
 }
 
+/* under everything else: the glow of hidden grubs, the flash of the gates a lever just switched, hazards */
+static void marks(int d)
+{
+    for (int y = 0; y < GH; y++)
+        for (int x = 0; x < GW; x++) {
+            const cell *c = &W.g[d][y][x];
+            if ((c->t == TR_GATE || c->t == TR_LEVER) && W.chan_flash[c->chan] && (W.chan_flash[c->chan] / 6) % 2)
+                cell_mark(x, y, T_LINK);
+            else if ((W.t / 6) % 2 && (world_harvest_warning(d, x, y) || world_sd_warning(d, x, y)))
+                cell_mark(x, y, T_HAZARD);
+            else if (hidden_grub_glows(d, x, y))
+                cell_mark(x, y, T_GLOW);
+            else if (g_night && c->item == IT_GRUB && terrain_walkable(c->t, 0))
+                cell_mark(x, y, T_GLOW);                 /* at night the grubs glow from afar */
+            else if (c->t == TR_THIN_ICE && c->state >= 2 && (W.t / 8) % 2)
+                cell_mark(x, y, T_HAZARD);               /* cracked twice: the next step breaks it */
+        }
+}
+
+/* multiplayer: the marks of depth d in its own BG1 region (cleared first) */
+void ui_marks(int d, int bx, int by)
+{
+    for (int y = 0; y < GH * 2; y++)
+        for (int x = 0; x < GW * 2; x++) rs_bg_put(RS_BG1, bx + x, by + y, 0);
+    mark_bx = bx; mark_by = by;
+    marks(d);
+    mark_bx = 0; mark_by = 2;
+}
+
+void ui_build_map(void) { build_map(); }
+
 void ui_play_overlays(int view_depth)
 {
     text_clear_all();
@@ -419,21 +456,7 @@ void ui_play_overlays(int view_depth)
             for (int x = 0; x < GW; x++)
                 if (W.g[view_depth][y][x].t == TR_CRATE) cell_mark(x, y, T_LINK);
     ui_boss_bar();
-    /* under everything else: the glow of hidden grubs, the flash of the gates a lever just switched */
-    for (int y = 0; y < GH; y++)
-        for (int x = 0; x < GW; x++) {
-            const cell *c = &W.g[view_depth][y][x];
-            if ((c->t == TR_GATE || c->t == TR_LEVER) && W.chan_flash[c->chan] && (W.chan_flash[c->chan] / 6) % 2)
-                cell_mark(x, y, T_LINK);
-            else if ((W.t / 6) % 2 && world_harvest_warning(view_depth, x, y))
-                cell_mark(x, y, T_HAZARD);
-            else if (hidden_grub_glows(view_depth, x, y))
-                cell_mark(x, y, T_GLOW);
-            else if (g_night && c->item == IT_GRUB && terrain_walkable(c->t, 0))
-                cell_mark(x, y, T_GLOW);                 /* at night the grubs glow from afar */
-            else if (c->t == TR_THIN_ICE && c->state >= 2 && (W.t / 8) % 2)
-                cell_mark(x, y, T_HAZARD);               /* cracked twice: the next step breaks it */
-        }
+    marks(view_depth);
     if (dev_perf) ui_perf_overlay();
     if (pickup_t) {
         pickup_t--;

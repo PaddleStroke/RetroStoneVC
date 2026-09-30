@@ -103,8 +103,10 @@ right next to a hole or ladder that leads to the mole's depth.
 | Start | pause menu |
 | Select | (level select) with L+R held: unlock everything (tester cheat) |
 
-Keyboard (desktop): arrows, Z = B, X = A, S = X, A = Y, Q/W = L/R, Enter = Start, Esc or Backspace = Select
-(back), F11 fullscreen, F12 screenshot, F1-F7 dev keys (dev mode only). Picking up a power-up shows one line
+Keyboard (desktop), player 1: arrows, Z = B, X = A, C = Y, V = X, Q/E = L/R, Enter = Start, Esc or Backspace =
+Select (back); player 2 on the same keyboard: W A S D, G = B, H = A, T = Start, R = Select. F11 fullscreen, F12
+screenshot, F1-F7 dev keys (dev mode only). Game controllers are pads 1-4 by position; in multiplayer the
+players are numbered in the order their pads join (the join screen). Picking up a power-up shows one line
 for 1.5 s naming it, and the button when it adds a control: "REMOTE: PRESS A (X KEY) TO BLOW". While the
 remote is on, a small A-button glyph sits on the HUD's bomb icon, and remote bombs look different: no fuse,
 a short antenna with a blinking light.
@@ -490,10 +492,92 @@ Save RAM (32 KiB, only 82 bytes used): magic `BMSV`, version, levels cleared per
   it snaps at anything that stands on the water next to it and can be stunned with a blast. Not implemented
   (the log is drawn so it cannot be mistaken for one).
 
-## Multiplayer hooks
-The game keeps an array of 4 players and reads pad N for player N. Levels may place `2`, `3`,
-`4` starts. Only 1 player is enabled now; `mode` (solo / coop / battle) is stored with the level
-state so co-op (shared grubs, shared exit) and battle (last mole standing, no grubs) can be added.
+## Multiplayer
+1 to 4 players on one screen, split by the SDK's viewports (docs/spec.md, "Viewports"). The title menu has
+**STORY** (1-4 players: one player plays solo as before, 2-4 play co-op) and **BATTLE** (2-4 moles, humans and
+CPUs). Code: `src/mp.c` (views, cameras, HUD strips, join screen, battle rounds), `src/world.c` (the rules, the
+CPUs, sudden death).
+
+**Join screen.** Each pad presses A to join: players are P1..P4 in join order (a pad's port can be any of the
+four: the keyboard is pad 1, WASD pad 2, then the game controllers). Left/Right choose the colour (unique), B
+leaves. In battle P1 adds a CPU with X, removes one with Y and sets their skill with L/R (easy, normal, hard).
+Start (P1) begins: STORY goes to the season select; BATTLE to the arena menu (arena, wins needed 1-5, round
+time, bombs into holes on/off).
+
+**Colours.** Four fur colours (brown, grey, golden, black) made by recolouring the mole's palette at run time
+(the browns only; nose, claws and eyes keep theirs), and a helmet colour per player (red, blue, green, yellow)
+in the palette's entries 14-15: a **P1..P4 marker** above each mole and on its HUD strip, drawn from the font in
+that colour. Each extra mole needs a sprite palette: the boss's or the critters' when the level has none, then
+an enemy one while enough stay for the enemy variants; when none is left a mole shares P1's (the marker tells
+them apart). Battle arenas have no enemies: every mole has its own palette.
+
+**Views and cameras.** One view per human (per mole when only CPUs play: a spectator screen). Layouts: 1 = full
+screen; 2 = left/right halves of 159x240 (option: top/bottom 320x119); 3 = four quadrants with a **live map** in
+the 4th (option: a top half and two bottom quarters); 4 = quadrants of 159x119. Each view has a 16-px HUD strip
+(its mole, hearts, bombs, flame, and the grubs left or the wins) and a play area with its own camera: a dead
+zone of 1/8 of the view, then a smooth catch-up (1/6 of the distance per frame), clamped to the level (a level
+smaller than the view is centred; the code works for bigger levels). A view shows **its mole's depth**: in
+multiplayer the three depths are drawn at once in their own 256-px slots of the BG3/BG4 maps (64x128), and a
+depth change slides that view alone from one slot to the other (0.6 s, the earth between them passing by).
+Shared information: in co-op a goal bar over the divider shows the grubs left on each depth; with 3 views the
+map shows the three depths, the moles and the counts; in battle a clock bar shows the round and the time left.
+Option (co-op, 2 players): **shared view** - while the two moles are on one depth and close together they
+share one full-screen view (two HUD strips side by side), and it splits again when they move apart (with
+hysteresis; the cameras glide). Night and fog work per view: each view's raster callback puts the lamp circle
+round its own mole.
+
+**Co-op story (2-4 players).** The same 32 levels. The grubs count for everyone; the molehill opens when all
+are found, and **the first mole to enter it clears the level for the team** (the others are taken along: no
+waiting at the door). Hearts and power-ups are per player. A knocked-out mole comes back after 5 s, with 1
+heart and a short invulnerability, next to a teammate who is still up (or at its start); the level is lost
+only when every mole is down at once (one shared life is lost, as in solo). Friendly fire is an option, off by
+default: a teammate's blast then only stuns for 1 s (your own bombs always hurt). More moles, more enemies:
+one more on each depth that has some per extra mole (like Hard), and the bosses get half their health again
+per extra mole. Progress is the story's save (shared). Pause: any player's Start pauses; the pause box has
+RESUME, RESTART and QUIT. Options (title menu): friendly fire, shared view, 2-player split.
+
+**Battle (2-4 moles).** Bomberman rules: last mole standing wins the round; first to N wins (3 by default)
+takes the battle, then a results screen with the tally. One heart each; soft blocks (dirt, leaves) drop a
+power-up 40% of the time when a blast breaks them (bomb 30%, fire 30%, speed 20%, heart 10%, remote 10%).
+Moles do not hurt each other by touch. A round lasts 90 s (menu: 30 s to 5 min), then **sudden death**: every
+hole, ladder, pipe and well closes (each mole stays on its depth) and stone blocks fall on all three depths,
+from the walls inwards along a spiral, the same cell in the four quarters at once (so no start is safer),
+one step every 0.2 s with a warning mark on the next ones: whatever they fall on is knocked out. A double
+knock-out within a second is a draw. **Bombs into holes**: a bomb dropped while facing a hole (or pushed,
+slid or blown into one) falls to the depth below, a cross-depth attack (menu option, on by default).
+**CPU moles** fill empty slots: they read the blasts they know about (fuses, chains, sudden-death marks) and
+never step into one; they bomb a mole in line or a soft block only when they can then walk out of the blast,
+hunt power-ups, chase the nearest mole (through holes and ladders to its depth), and dig or push through when
+stuck. Easy reacts every 0.25 s and misses half its chances, normal every 0.1 s, hard every frame and also
+tosses bombs down holes onto moles below.
+
+**Arenas** (`games/bombermole/arenas/*.txt`, the level format with `mode: battle`, the starts `M 2 3 4`, no
+grubs, no exit). Each is drawn as a top-left quarter mirrored left-right and top-bottom by `tools/make_arenas.py`
+(the files are plain text), so the four starts are the same place turned round:
+
+| Arena | Season | Identity |
+|---|---|---|
+| Molehill Maze | spring | the classic grid of stone posts and soft dirt, holes everywhere between the three depths |
+| River Duel | summer | a river across the middle, two bridges each side, the crocodile in the middle (it starts in one of the 4 mirrored cells, by luck); tunnels under the riverbed |
+| Windmill Wars | spring | gale lanes blowing towards the middle: a bomb dropped in a lane drifts into the other half |
+| Ice Rink | winter | ice sheets ringed by snowdrifts: slide, kick bombs across the ice; rocks are the brakes |
+| Mine Cart Mayhem | autumn | runaway carts (legend `rails + runaway`) race round a loop and flatten any mole on the rails |
+| Pumpkin Fort | autumn | each start is a fort of pumpkins: push them out as cover, or into a hole to seal it |
+
+`tools/check_levels.py` checks the arenas too: the 4 starts on the surface, holes that land on ladders, at
+least 4 holes on the surface and 2 on depth 1, no softlock (every start reaches the others and every depth,
+and from every cell it can reach, all the starts again), **fair starts** (the same cost to the nearest soft
+block and to the nearest opponent from every start, within 1) and **safe starts** (no other start within 10
+cells on foot without digging: 3 s or more; no enemy within 6 cells). `tests/data/levels_bad/arena-unfair.txt`
+must fail. The smoke test runs every arena with 4 CPUs in 4 views, then 200 rounds of 4 CPUs on each arena
+without the picture (`--opt battlesim=200`, about 1.5 s each): no start may win more than 40% of the rounds
+won.
+
+**Headless options** (tests, screenshots): `--opt mp=coop --opt players=N --opt level=spring-3` (co-op),
+`--opt mp=battle --opt players=4 --opt cpus=K --opt arena=NAME [--opt skill=1..3] [--opt sd=N: sudden death after N frames]`,
+`--opt battlesim=N --opt arena=NAME`, `--opt screen=join`, `--opt ff=1`, `--opt merge=1`, `--opt splith=1`,
+`--opt map3=0`. Input scripts address the pads with `P1`..`P4`. The dump adds an `mp:` line (views, cameras,
+each mole's depth, cell, hearts and state).
 
 ## Audio
 - Sound effects are synthesised at start-up (square waves, noise, sweeps): bomb drop, fuse tick,

@@ -11,6 +11,8 @@
  *        BG4L BG3L S0 BG4H BG3H S1 BG2L BG1L S2 BG2H BG1H S3
  *      writing RGB565 directly into the output row;
  *   5. clip-to-black windows and master brightness.
+ * With viewports (split screen), steps 1-5 run for each viewport crossing the line, on its columns only,
+ * with its own scroll, layers and sprites; the columns no viewport covers show the divider colour.
  * No floating point anywhere in this file.
  */
 #include "rs_internal.h"
@@ -48,9 +50,11 @@ static int       g_bright = 15;
 static rs_raster_fn g_raster;
 static void     *g_raster_user;
 static int       g_last_sprites, g_last_max_line;
+static int       g_nviews, g_cur_view;
 
-/* line buffers: 8 bytes of slack before the visible area for fine scroll */
-static uint8_t  g_line[RS_BG_COUNT][W + 16] __attribute__((aligned(8)));
+/* line buffers, indexed by the screen column: 16 bytes of slack before the visible area (fine scroll) */
+static uint8_t  g_line[RS_BG_COUNT][W + 32] __attribute__((aligned(8)));
+#define LINE(l) (g_line[l] + 16)
 static uint8_t  g_sline[W];
 static uint8_t  g_sprio[W];
 static uint8_t  g_win[W];
@@ -82,6 +86,8 @@ void ppu_reset(void)
     g_bright = 15;
     g_raster = NULL;
     g_raster_user = NULL;
+    g_nviews = 0;
+    g_cur_view = -1;
 }
 
 /* ---- palettes ---------------------------------------------------------- */
@@ -250,6 +256,64 @@ int rs_spr(int x, int y, int tile, int w, int h, int pal, int prio, int flags)
     return -1;
 }
 
+/* ---- viewports (split screen) ----------------------------------------------- */
+static rs_viewport g_views[RS_VIEW_MAX];
+static uint16_t  g_div565;
+
+void rs_viewports(int n, const rs_viewport *v, rs_color divider)
+{
+    if (n < 0 || !v) n = 0;
+    if (n > RS_VIEW_MAX) n = RS_VIEW_MAX;
+    if (n) memcpy(g_views, v, (size_t)n * sizeof *v);
+    g_nviews = n;
+    g_div565 = to565(divider);
+}
+int rs_viewport_count(void) { return g_nviews; }
+int rs_viewport_current(void) { return g_cur_view; }
+int rs_oam_next(void)
+{
+    for (int i = 0; i < RS_OAM_MAX; i++)
+        if (!g_oam[i].used) return i;
+    return RS_OAM_MAX;
+}
+
+static void view_rect(rs_viewport *v, int x, int y, int w, int h)
+{
+    memset(v, 0, sizeof *v);
+    v->x = (int16_t)x; v->y = (int16_t)y; v->w = (int16_t)w; v->h = (int16_t)h;
+    v->layers = 0x0f;
+    v->objs = 1;
+}
+
+int rs_viewport_layout(int players, int flags, rs_viewport *out)
+{
+    const int D = RS_VIEW_DIVIDER, hw = (W - D) / 2, hh = (H - D) / 2, x2 = W - hw, y2 = H - hh;
+    switch (players) {
+    case 2:
+        if (flags & RS_LAYOUT_HSPLIT) { view_rect(&out[0], 0, 0, W, hh); view_rect(&out[1], 0, y2, W, hh); }
+        else { view_rect(&out[0], 0, 0, hw, H); view_rect(&out[1], x2, 0, hw, H); }
+        return 2;
+    case 3:
+        if (!(flags & RS_LAYOUT_MAP)) {
+            view_rect(&out[0], 0, 0, W, hh);
+            view_rect(&out[1], 0, y2, hw, hh);
+            view_rect(&out[2], x2, y2, hw, hh);
+            return 3;
+        }
+        /* 4 quadrants, the 4th for a map */
+        /* fall through */
+    case 4:
+        view_rect(&out[0], 0, 0, hw, hh);
+        view_rect(&out[1], x2, 0, hw, hh);
+        view_rect(&out[2], 0, y2, hw, hh);
+        view_rect(&out[3], x2, y2, hw, hh);
+        return 4;
+    default:
+        view_rect(&out[0], 0, 0, W, H);
+        return 1;
+    }
+}
+
 /* ---- line decoding ------------------------------------------------------ */
 /* SWAR: expand 4 pixels (values 0..15) with attribute byte `hi` where non-zero. */
 RS_INLINE uint32_t attr4(uint32_t p, uint32_t hi4)
@@ -266,19 +330,18 @@ RS_INLINE uint32_t bswap32(uint32_t v)
 #endif
 }
 
-/* Returns bit0 = has low-priority tiles, bit1 = has high-priority tiles.
- * *out points to the pixel for screen x = 0. */
-static int decode_bg(const bg_state *b, int y, uint8_t *buf, const uint8_t **out)
+/* Decodes the layer pixels (lx, ly), (lx + 1, ly)... for the screen columns [x0, x0 + n) into `line`, indexed by
+ * the screen column (line[x0] = layer pixel lx). Returns bit0 = has low-priority tiles, bit1 = has high ones. */
+static int decode_bg(const bg_state *b, int lx, int ly, int x0, int n, uint8_t *line)
 {
-    int sx = b->sx + (b->ldx ? b->ldx[y] : 0);
-    int yy = (b->sy + (b->ldy ? b->ldy[y] : 0) + y) & (b->mh * 8 - 1);
+    int yy = ly & (b->mh * 8 - 1);
     const uint16_t *mrow = b->map + (yy >> 3) * b->mw;
     int fy = yy & 7;
     int wmask = b->mw - 1;
-    int tx = (sx >> 3) & wmask;
+    int tx = (lx >> 3) & wmask;
     int flags = 0;
-    uint8_t *d = buf;
-    for (int i = 0; i < W / 8 + 1; i++) {
+    uint8_t *d = line + x0 - (lx & 7);
+    for (int i = (n + (lx & 7) + 7) >> 3; i > 0; i--) {
         uint16_t e = mrow[tx];
         tx = (tx + 1) & wmask;
         const uint8_t *t = g_tiles[(b->base + (e & 1023)) & (RS_TILE_MAX - 1)] +
@@ -300,11 +363,10 @@ static int decode_bg(const bg_state *b, int y, uint8_t *buf, const uint8_t **out
         d += 8;
         flags |= (e & RS_MAP_PRIO) ? 2 : 1;
     }
-    *out = buf + (sx & 7);
     return flags;
 }
 
-static int decode_affine(const bg_state *b, int y, uint8_t *buf, const uint8_t **out)
+static int decode_affine(const bg_state *b, int y, uint8_t *buf)
 {
     const rs_affine *m = &b->aff;
     int hofs = b->sx + (b->ldx ? b->ldx[y] : 0);
@@ -332,32 +394,32 @@ static int decode_affine(const bg_state *b, int y, uint8_t *buf, const uint8_t *
         buf[x] = p ? (uint8_t)(p | hi) : 0;
         flags |= (e & RS_MAP_PRIO) ? 2 : 1;
     }
-    *out = buf;
     return flags;
 }
 
-/* Returns [x0, x1) span touched by sprites on this line, count in *n. */
-static int decode_sprites(int y, int *x0, int *x1)
+/* Rasterises the sprites [first, end) of OAM, moved by (ox, oy) and clipped to the columns [cx0, cx1). Returns
+ * the number of sprites on the line and the span [x0, x1) they touch. */
+static int decode_sprites(int y, int first, int end, int ox, int oy, int cx0, int cx1, int *x0, int *x1)
 {
-    int n = 0, lo = W, hi = 0;
-    for (int i = 0; i < RS_OAM_MAX; i++) {
+    int n = 0, lo = cx1, hi = cx0;
+    for (int i = first; i < end; i++) {
         const rs_sprite *s = &g_oam[i];
         if (!s->used || (s->flags & RS_SPR_HIDE)) continue;
-        int r = y - s->y;
+        int sx = s->x + ox, r = y - (s->y + oy);
         if ((unsigned)r >= s->h) continue;
         n++;
         if (s->flags & RS_SPR_VFLIP) r = s->h - 1 - r;
         int sw = s->w, tw = sw >> 3;
-        int xs = s->x < 0 ? -s->x : 0;
-        int xe = s->x + sw > W ? W - s->x : sw;
+        int xs = sx < cx0 ? cx0 - sx : 0;
+        int xe = sx + sw > cx1 ? cx1 - sx : sw;
         if (xs >= xe) continue;
-        if (s->x + xs < lo) lo = s->x + xs;
-        if (s->x + xe > hi) hi = s->x + xe;
+        if (sx + xs < lo) lo = sx + xs;
+        if (sx + xe > hi) hi = sx + xe;
         uint8_t col = (uint8_t)(128 + (s->pal & 7) * 16);
         uint8_t pr = s->prio & 3;
         int tbase = g_obj_base + s->tile + (r >> 3) * tw;
         int fy8 = (r & 7) * 8;
-        uint8_t *dl = g_sline + s->x, *dp = g_sprio + s->x;
+        uint8_t *dl = g_sline + sx, *dp = g_sprio + sx;
         if (s->flags & RS_SPR_HFLIP) {
             for (int px = xs; px < xe; px++) {
                 int c = sw - 1 - px;
@@ -416,22 +478,22 @@ static void paint_slow(uint16_t *o, const uint8_t *src, const uint8_t *prio, int
     }
 }
 
-static void paint_bg(uint16_t *o, const bg_state *b, int layer, const uint8_t *src, int hi)
+static void paint_bg(uint16_t *o, const bg_state *b, int layer, const uint8_t *src, int hi, int x0, int x1)
 {
     int want = hi ? 0x80 : 0;
     int math = (g_math_layers >> layer) & 1, fog = (g_fog_layers >> layer) & 1;
     if (b->win || math || fog) {
-        paint_slow(o, src, NULL, want, 0, W, b->win, math, 0, fog);
+        paint_slow(o, src, NULL, want, x0, x1, b->win, math, 0, fog);
         return;
     }
     const uint16_t *cg = g_cg565;
     if (hi) {
-        for (int x = 0; x < W; x++) {
+        for (int x = x0; x < x1; x++) {
             uint8_t v = src[x];
             if (v & 0x80) o[x] = cg[v & 0x7f];
         }
     } else {
-        for (int x = 0; x < W; x++) {
+        for (int x = x0; x < x1; x++) {
             uint8_t v = src[x];
             if (v && !(v & 0x80)) o[x] = cg[v];
         }
@@ -461,6 +523,73 @@ static void brightness_line(uint16_t *o)
     }
 }
 
+/* One line of the screen columns [x0, x1): the whole screen (v = NULL: global scroll, every sprite) or one
+ * viewport (its layers, scroll and sprites). Returns the sprites on the line. */
+static int render_span(uint16_t *o, int y, int x0, int x1, const rs_viewport *v)
+{
+    const uint8_t *src[RS_BG_COUNT] = {0};
+    int has[RS_BG_COUNT] = {0};
+    for (int l = 0; l < RS_BG_COUNT; l++) {
+        const bg_state *b = &g_bg[l];
+        if (!b->enabled || (v && !((v->layers >> l) & 1))) continue;
+        uint8_t *line = LINE(l);
+        if (b->affine) {
+            has[l] = decode_affine(b, y, line);
+        } else {
+            int dx = b->ldx ? b->ldx[y] : 0, dy = b->ldy ? b->ldy[y] : 0;
+            int lx = v ? v->sx[l] + (x0 - v->x) + dx : b->sx + dx + x0;
+            int ly = v ? v->sy[l] + (y - v->y) + dy : b->sy + y + dy;
+            has[l] = decode_bg(b, lx, ly, x0, x1 - x0, line);
+        }
+        src[l] = line;
+    }
+
+    int sx0 = 0, sx1 = 0, n = 0;
+    if (!v || v->objs) {
+        memset(g_sline + x0, 0, (size_t)(x1 - x0));
+        int first = v ? v->oam_first : 0, end = v ? v->oam_first + v->oam_count : RS_OAM_MAX;
+        if (end > RS_OAM_MAX) end = RS_OAM_MAX;
+        n = decode_sprites(y, first, end, v ? v->x : 0, v ? v->y : 0, x0, x1, &sx0, &sx1);
+    }
+
+    int anywin = g_obj_win | g_clip_win | g_fog_win;
+    for (int l = 0; l < RS_BG_COUNT; l++) anywin |= g_bg[l].win;
+    if (anywin) {
+        int l0 = g_win_l[0], r0 = g_win_r[0], l1 = g_win_l[1], r1 = g_win_r[1];
+        for (int x = x0; x < x1; x++)
+            g_win[x] = (uint8_t)((x >= l0 && x < r0) | ((x >= l1 && x < r1) << 1));
+    }
+
+    /* backdrop */
+    uint16_t back = g_cg565[0];
+    if ((g_math_layers & RS_MATH_BACK) && (g_math_mode & RS_MATH_FIXED))
+        back = blend565(back, g_math_fixed, g_math_mode);
+    for (int x = x0; x < x1; x++) o[x] = back;
+    if (g_fog_layers & RS_MATH_BACK) {
+        uint16_t fb = fog565(back);
+        for (int x = x0; x < x1; x++)
+            if (win_hides(g_fog_win, g_win[x])) o[x] = fb;
+    }
+
+    /* Mode 0 order, back to front */
+#define BG(l, hi) if (has[l] & ((hi) ? 2 : 1)) paint_bg(o, &g_bg[l], l, src[l], hi, x0, x1)
+#define OBJ(p) if (n) paint_obj(o, p, sx0, sx1)
+    BG(3, 0); BG(2, 0); OBJ(0);
+    BG(3, 1); BG(2, 1); OBJ(1);
+    BG(1, 0); BG(0, 0); OBJ(2);
+    BG(1, 1); BG(0, 1); OBJ(3);
+#undef BG
+#undef OBJ
+
+    if (g_clip_win) {
+        uint8_t hide[4];
+        for (int w = 0; w < 4; w++) hide[w] = (uint8_t)win_hides(g_clip_win, w);
+        for (int x = x0; x < x1; x++)
+            if (hide[g_win[x]]) o[x] = 0;
+    }
+    return n;
+}
+
 void ppu_render(uint16_t *fb)
 {
     int max_line = 0, total = 0;
@@ -483,62 +612,28 @@ void ppu_render(uint16_t *fb)
 
     for (int y = 0; y < H; y++) {
         uint16_t *o = fb + y * W;
-        if (g_raster) g_raster(y, g_raster_user);
-
-        const uint8_t *src[RS_BG_COUNT] = {0};
-        int has[RS_BG_COUNT] = {0};
-        for (int l = 0; l < RS_BG_COUNT; l++) {
-            const bg_state *b = &g_bg[l];
-            if (!b->enabled) continue;
-            has[l] = b->affine ? decode_affine(b, y, g_line[l], &src[l])
-                               : decode_bg(b, y, g_line[l], &src[l]);
+        int n = 0;
+        if (!g_nviews) {
+            g_cur_view = -1;
+            if (g_raster) g_raster(y, g_raster_user);
+            n = render_span(o, y, 0, W, NULL);
+        } else {
+            /* the divider shows where no viewport is; later viewports are drawn over earlier ones */
+            uint32_t dd = g_div565 | ((uint32_t)g_div565 << 16), *o32 = (uint32_t *)o;
+            for (int x = 0; x < W / 2; x++) o32[x] = dd;
+            for (int i = 0; i < g_nviews; i++) {
+                const rs_viewport *v = &g_views[i];
+                if (y < v->y || y >= v->y + v->h) continue;
+                int x0 = v->x < 0 ? 0 : v->x, x1 = v->x + v->w > W ? W : v->x + v->w;
+                if (x0 >= x1) continue;
+                g_cur_view = i;
+                if (g_raster) g_raster(y, g_raster_user);
+                n += render_span(o, y, x0, x1, v);
+            }
+            g_cur_view = -1;
         }
-
-        int sx0 = 0, sx1 = 0;
-        memset(g_sline, 0, sizeof g_sline);
-        int n = decode_sprites(y, &sx0, &sx1);
         if (n > max_line) max_line = n;
         if (n > 32) rs_warn(RS_WARN_SPRITES_PER_LINE, "%d sprites on line %d (guideline 32)", n, y);
-
-        int anywin = g_obj_win | g_clip_win | g_fog_win;
-        for (int l = 0; l < RS_BG_COUNT; l++) anywin |= g_bg[l].win;
-        if (anywin) {
-            int l0 = g_win_l[0], r0 = g_win_r[0], l1 = g_win_l[1], r1 = g_win_r[1];
-            for (int x = 0; x < W; x++)
-                g_win[x] = (uint8_t)((x >= l0 && x < r0) | ((x >= l1 && x < r1) << 1));
-        }
-
-        /* backdrop */
-        uint16_t back = g_cg565[0];
-        if ((g_math_layers & RS_MATH_BACK) && (g_math_mode & RS_MATH_FIXED))
-            back = blend565(back, g_math_fixed, g_math_mode);
-        {
-            uint32_t bb = back | ((uint32_t)back << 16);
-            uint32_t *o32 = (uint32_t *)o;
-            for (int x = 0; x < W / 2; x++) o32[x] = bb;
-        }
-        if (g_fog_layers & RS_MATH_BACK) {
-            uint16_t fb = fog565(back);
-            for (int x = 0; x < W; x++)
-                if (win_hides(g_fog_win, g_win[x])) o[x] = fb;
-        }
-
-        /* Mode 0 order, back to front */
-#define BG(l, hi) if (has[l] & ((hi) ? 2 : 1)) paint_bg(o, &g_bg[l], l, src[l], hi)
-#define OBJ(p) if (n) paint_obj(o, p, sx0, sx1)
-        BG(3, 0); BG(2, 0); OBJ(0);
-        BG(3, 1); BG(2, 1); OBJ(1);
-        BG(1, 0); BG(0, 0); OBJ(2);
-        BG(1, 1); BG(0, 1); OBJ(3);
-#undef BG
-#undef OBJ
-
-        if (g_clip_win) {
-            uint8_t hide[4];
-            for (int w = 0; w < 4; w++) hide[w] = (uint8_t)win_hides(g_clip_win, w);
-            for (int x = 0; x < W; x++)
-                if (hide[g_win[x]]) o[x] = 0;
-        }
         if (g_bright < 15) brightness_line(o);
     }
     g_last_sprites = total;

@@ -89,8 +89,26 @@ the other layers off while it shows.
   halved, with the pixel already drawn below (painter order) or with a fixed colour. Used for translucent
   weather, shadows, flashes and fades.
 
+### Viewports (split screen)
+- Up to **12 viewports** (`rs_viewports`), each a screen rectangle that draws the BG layers of its mask with
+  **its own scroll** (the layer pixel at its top-left corner) and **its own sprites** (a range of OAM, with
+  coordinates relative to the viewport), clipped to the rectangle. Later viewports are drawn over earlier ones
+  (an overlay box is a viewport); pixels no viewport covers show a **divider colour**.
+- The raster callback runs for each line **and each viewport** crossing it (`rs_viewport_current()`), so
+  windows, palette changes and math can differ per viewport (a lamp circle in each player's view).
+- Standard layouts (`rs_viewport_layout`): 1 player = full screen; 2 = left/right halves of 159x240 (or
+  top/bottom 320x119); 3 = a top half and two bottom quarters (or 4 quadrants, the 4th free for a map);
+  4 = quadrants of 159x119, with a 2-px divider.
+- Cost: the same pixels as one screen, plus one 8-px tile per layer and viewport on each line, and each
+  viewport scans only its own sprites. Measured: the PPU stress scene in 4 quadrants costs +4% (0.86 ms against
+  0.83 ms on the host); a 4-CPU Bomber Mole battle in 4 views costs the same as on one screen (0.51 ms).
+- Off (`rs_viewports(0, ...)`, the default): one full screen, the layers' global scroll, every sprite.
+
 **SNES mapping.** Two windows with per-layer masks and the colour window are the SNES registers W12SEL..WOBJLOG
-and CGWSEL. Colour math add/sub/half with a fixed colour is CGADSUB/COLDATA. "Blend with the pixel below"
+and CGWSEL. Colour math add/sub/half with a fixed colour is CGADSUB/COLDATA. Viewports have no register of
+their own on the SNES: a horizontal split (top/bottom) is an HDMA scroll change at the split line (cheap); a
+vertical split needs the two halves drawn into one layer each or a window per half with two layers per view,
+and sprites sorted per half by the game (the OAM range already does that). "Blend with the pixel below"
 maps to the sub screen: a port puts the layers under a translucent layer on the sub screen (TS register).
 One difference: our painter blends each translucent layer with what is under it, where the SNES blends only
 the front-most main-screen pixel with the sub screen.
@@ -139,7 +157,10 @@ minus the sound-effect voices, and the samples within ARAM.
 - Up to **4 pads**, SNES layout: D-pad, A B X Y, L R, Start Select.
 - `rs_pad(port)` returns the held buttons in the **SNES JOY1 bit order**
   (`B Y Select Start Up Down Left Right A X L R`); `rs_pad_pressed`/`released` give the edges.
-- Desktop: keyboard on pad 1, game controllers by position (bottom = B, right = A, left = Y, top = X).
+- Desktop: keyboard pad 1 = arrows, Z/X = B/A, C/V = Y/X, Q/E = L/R, Enter = Start, Right Shift/Backspace/Esc =
+  Select; keyboard pad 2 = W A S D, G/H = B/A, T = Start, R = Select; game controllers by position (bottom = B,
+  right = A, left = Y, top = X), on pads 1-4 in the order they are plugged in.
+- libretro: ports 1-4 are pads 1-4 (a multitap or four controllers in RetroArch / RetroStoneOS).
 
 **SNES mapping.** Identical bit layout (JOY1-JOY4 with a multitap).
 
@@ -172,5 +193,8 @@ Measured on the build host (WSL2, x86-64) with `make bench`:
 | Bomber Mole spring 5, worst frame | 0.86 ms | 12.9-17.2 ms |
 | Bomber Mole summer: a corn field burning, 2 bee swarms, 2 harvesters (test arena), average | 0.41 ms | 6.1-8.2 ms |
 | Bomber Mole summer, same scene, worst frame | 0.77 ms | 11.6-15.4 ms |
+| PPU stress in 4 viewports (quadrants, 32 sprites each) | 0.86 ms | 12.9-17.2 ms |
+| Bomber Mole battle, 4 CPUs in 4 viewports (Mine Cart Mayhem), average | 0.51 ms | 7.6-10.2 ms |
+| Bomber Mole battle, same, worst frame | 0.96 ms | 14.4-19.3 ms |
 
 The frame budget is 16.7 ms. Audio (libxmp + 8 voices) costs about 0.01 ms per frame on the host.

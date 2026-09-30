@@ -1,0 +1,56 @@
+# Bomber Mole battle arena: Pumpkin Fort. Each mole starts in a fort of pumpkins: push them out as
+# cover, or into a hole to seal a way down.
+name: Pumpkin Fort
+season: autumn
+arc: 0
+level: 0
+mode: battle
+bombs: 1
+range: 2
+status: done
+
+surface:
+####################
+#M.0.d.dd..dd.d.0.2#
+#.00d#d#d..d#d#d00.#
+#0.d.v.d.dd.d.v.d.0#
+#.d#d#d#.dd.#d#d#d.#
+#dd.v.d..00..d.v.dd#
+#d#d.d#d....d#d.d#d#
+#d#d.d#d....d#d.d#d#
+#dd.v.d..00..d.v.dd#
+#.d#d#d#.dd.#d#d#d.#
+#0.d.v.d.dd.d.v.d.0#
+#.00d#d#d..d#d#d00.#
+#3.0.d.dd..dd.d.0.4#
+####################
+under1:
+####################
+#dddd.dddddddd.dddd#
+#d.d.d.d.dd.d.d.d.d#
+#d..dH..v..v..Hd..d#
+#d.dddd.dddd.dddd.d#
+#.d.H.d.d..d.d.H.d.#
+#dd.d.d.d..d.d.d.dd#
+#dd.d.d.d..d.d.d.dd#
+#.d.H.d.d..d.d.H.d.#
+#d.dddd.dddd.dddd.d#
+#d..dH..v..v..Hd..d#
+#d.d.d.d.dd.d.d.d.d#
+#dddd.dddddddd.dddd#
+####################
+under2:
+####################
+#ffffffffffffffffff#
+#f.d.f.d.ff.d.f.d.f#
+#f...d..H..H..d...f#
+#f.dff.f....f.ffd.f#
+#f.d..d......d..d.f#
+#ff.f.f.f..f.f.f.ff#
+#ff.f.f.f..f.f.f.ff#
+#f.d..d......d..d.f#
+#f.dff.f....f.ffd.f#
+#f...d..H..H..d...f#
+#f.d.f.d.ff.d.f.d.f#
+#ffffffffffffffffff#
+####################

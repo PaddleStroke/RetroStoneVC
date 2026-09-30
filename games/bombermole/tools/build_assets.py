@@ -409,6 +409,8 @@ def main():
     pack = []
     for p in sorted(glob.glob(os.path.join(GAME, "levels", "*.txt"))):
         pack.append(("levels/" + os.path.basename(p), p))
+    for p in sorted(glob.glob(os.path.join(GAME, "arenas", "*.txt"))):     # battle arenas (multiplayer)
+        pack.append(("arenas/" + os.path.basename(p), p))
     for p in sorted(glob.glob(os.path.join(music_dir, "*.mod"))):
         pack.append(("music/" + os.path.basename(p), p))
     entries = []

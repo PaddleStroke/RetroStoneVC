@@ -1,0 +1,56 @@
+# Bomber Mole battle arena: Molehill Maze. The classic: a grid of stone posts and soft dirt, holes
+# everywhere between three depths.
+name: Molehill Maze
+season: spring
+arc: 0
+level: 0
+mode: battle
+bombs: 1
+range: 2
+status: done
+
+surface:
+####################
+#M.dddddd..dddddd.2#
+#.#d#d#d#dd#d#d#d#.#
+#dd.dvddddddddvd.dd#
+#d#d#d#.#dd#.#d#d#d#
+#dddvdd.d..d.ddvddd#
+#d#d#d#d#dd#d#d#d#d#
+#d#d#d#d#dd#d#d#d#d#
+#dddvdd.d..d.ddvddd#
+#d#d#d#.#dd#.#d#d#d#
+#dd.dvddddddddvd.dd#
+#.#d#d#d#dd#d#d#d#.#
+#3.dddddd..dddddd.4#
+####################
+under1:
+####################
+#dddd.dddddddd.dddd#
+#dr.rdr.rddr.rdr.rd#
+#d..dH..v..v..Hd..d#
+#dr.r.rdrddrdr.r.rd#
+#.d.H...dddd...H.d.#
+#drdrdrdr..rdrdrdrd#
+#drdrdrdr..rdrdrdrd#
+#.d.H...dddd...H.d.#
+#dr.r.rdrddrdr.r.rd#
+#d..dH..v..v..Hd..d#
+#dr.rdr.rddr.rdr.rd#
+#dddd.dddddddd.dddd#
+####################
+under2:
+####################
+#ffffffddddddffffff#
+#f..d.f.d..d.f.d..f#
+#f.dd.f.H..H.f.dd.f#
+#f.d....d..d....d.f#
+#f...d.d....d.d...f#
+#ff.d....dd....d.ff#
+#ff.d....dd....d.ff#
+#f...d.d....d.d...f#
+#f.d....d..d....d.f#
+#f.dd.f.H..H.f.dd.f#
+#f..d.f.d..d.f.d..f#
+#ffffffddddddffffff#
+####################

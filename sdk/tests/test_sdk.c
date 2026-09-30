@@ -14,7 +14,7 @@
 #define STBI_ONLY_PNG
 #include "stb_image.h"
 
-static int failures, checks, update;
+static int failures, checks, update, update_new;
 static const char *golden_dir = "sdk/tests/golden", *out_dir = "build";
 
 #define CHECK(c, ...) do { checks++; if (!(c)) { failures++; printf("  FAIL %s:%d: ", __FILE__, __LINE__); \
@@ -43,6 +43,11 @@ static void golden(const char *name)
     }
     int w, h, n;
     unsigned char *img = stbi_load(gp, &w, &h, &n, 3);
+    if (!img && update_new) {                    /* --new: write the goldens that do not exist yet */
+        rsd_write_png(gp, fb, 1);
+        printf("  created %s\n", gp);
+        return;
+    }
     checks++;
     if (!img) { failures++; printf("  FAIL golden %s missing (run with --update)\n", gp); rsd_write_png(ap, fb, 1); return; }
     int diff = 0;
@@ -422,6 +427,98 @@ static void test_audio(void)
     rs_host_reset();
 }
 
+/* ---- viewports (split screen) ------------------------------------------------------ */
+static int raster_views[RS_VIEW_MAX + 1];
+static void view_raster(int line, void *u)
+{
+    (void)u;
+    int v = rs_viewport_current();
+    if (line == 150) raster_views[v + 1]++;
+}
+
+/* a world of numbered tiles (64x64 map), 3 sprites per viewport */
+static void viewport_scene(int layout, int flags)
+{
+    fresh();
+    rs_bg_setup(RS_BG4, 64, 64, 0);
+    rs_bg_setup(RS_BG3, 64, 64, 0);
+    rs_bg_setup(RS_BG1, 64, 32, 0);
+    rs_bg_enable(RS_BG4, 1);
+    rs_bg_enable(RS_BG3, 1);
+    rs_bg_enable(RS_BG1, 1);
+    for (int y = 0; y < 64; y++)
+        for (int x = 0; x < 64; x++) {
+            rs_bg_put(RS_BG4, x, y, RS_MAP(1 + (x / 4 + y / 4) % 14, 0, 0, 0, 0));
+            if ((x + 2 * y) % 7 == 0) rs_bg_put(RS_BG3, x, y, RS_MAP(16, (x / 8) & 7, 0, x & 1, 0));
+        }
+    for (int x = 0; x < 20; x++) rs_bg_put(RS_BG1, x, 0, RS_MAP(18, 0, 1, 0, 0));   /* a HUD strip */
+    rs_viewport v[RS_VIEW_MAX];
+    int n = rs_viewport_layout(layout, flags, v);
+    rs_oam_clear();
+    for (int i = 0; i < n; i++) {
+        v[i].oam_first = (uint16_t)rs_oam_next();
+        for (int k = 0; k < 3; k++)                 /* relative to the viewport; the last one straddles its right edge */
+            rs_spr(k == 2 ? v[i].w - 8 : 8 + k * 24 + i * 4, 12 + k * 20, 32, 16, 16, (i + k) & 7, 2, 0);
+        v[i].oam_count = (uint16_t)(rs_oam_next() - v[i].oam_first);
+        for (int l = 0; l < 4; l++) { v[i].sx[l] = (int16_t)(i * 77); v[i].sy[l] = (int16_t)(i * 45 - 8); }
+        v[i].sx[RS_BG1] = 0;
+        v[i].sy[RS_BG1] = 0;
+    }
+    rs_viewports(n, v, RS_HEX(0x40ff40));
+}
+
+static void test_viewports(void)
+{
+    printf("viewports\n");
+    static const struct { int players, flags; const char *name; } L[] = {
+        {1, 0, "viewports_1"}, {2, 0, "viewports_2"}, {2, RS_LAYOUT_HSPLIT, "viewports_2h"},
+        {3, 0, "viewports_3"}, {3, RS_LAYOUT_MAP, "viewports_3map"}, {4, 0, "viewports_4"}};
+    for (unsigned k = 0; k < sizeof L / sizeof L[0]; k++) {
+        viewport_scene(L[k].players, L[k].flags);
+        rs_host_render();
+        golden(L[k].name);
+    }
+    /* 2 players: the divider between the halves, each half shows its own scroll */
+    viewport_scene(2, 0);
+    rs_host_render();
+    CHECK(px(159, 100) == c565(RS_HEX(0x40ff40)) && px(160, 100) == c565(RS_HEX(0x40ff40)),
+          "viewports: the divider at x=159..160 (%04x %04x)", px(159, 100), px(160, 100));
+    rs_viewport v[4];
+    rs_viewport_layout(2, 0, v);
+    CHECK(v[0].w == 159 && v[1].x == 161 && v[1].w == 159 && v[0].h == 240, "viewports: layout 2 = two 159x240 halves");
+    CHECK(rs_viewport_layout(4, 0, v) == 4 && v[3].x == 161 && v[3].y == 121 && v[3].h == 119, "viewports: layout 4 = quadrants");
+    CHECK(rs_viewport_layout(3, RS_LAYOUT_MAP, v) == 4, "viewports: layout 3 with a map = 4 rectangles");
+    /* the same world pixel in the left half at scroll (0,-8) and the right half at scroll (77,37) */
+    viewport_scene(2, 0);
+    rs_host_render();
+    uint16_t a = px(77, 53), b = px(161, 8);      /* both show the world pixel (77, 45) */
+    CHECK(a == b, "viewports: each viewport has its own scroll (%04x vs %04x)", a, b);
+    /* sprites are clipped to their viewport: the one on the left half's right edge stops at x=158 */
+    int spr_edge = 0;
+    for (int y = 52; y < 68; y++) spr_edge += px(159, y) == c565(RS_HEX(0x40ff40)) && px(160, y) == c565(RS_HEX(0x40ff40));
+    CHECK(spr_edge == 16, "viewports: a sprite straddling the edge is clipped at the divider (%d)", spr_edge);
+    /* the raster callback runs per viewport */
+    memset(raster_views, 0, sizeof raster_views);
+    viewport_scene(4, 0);
+    rs_raster(view_raster, NULL);
+    rs_host_render();
+    CHECK(raster_views[0] == 0 && raster_views[3] == 1 && raster_views[4] == 1,
+          "viewports: raster callback per viewport (line 150: views 2 and 3)");
+    /* an overlay viewport drawn over the others (a pause box) */
+    viewport_scene(4, 0);
+    rs_viewport o[5];
+    int n = rs_viewport_layout(4, 0, o);
+    memset(&o[n], 0, sizeof o[n]);
+    o[n].x = 100; o[n].y = 90; o[n].w = 120; o[n].h = 60; o[n].layers = 1 << RS_BG1;
+    rs_viewports(n + 1, o, RS_HEX(0x40ff40));
+    rs_host_render();
+    CHECK(px(160, 120) != c565(RS_HEX(0x40ff40)), "viewports: an overlay covers the divider");
+    golden("viewports_overlay");
+    rs_viewports(0, NULL, 0);
+    rs_host_render();
+    CHECK(rs_viewport_count() == 0, "viewports: off again");
+}
+
 /* PPU stress: 4 full layers (two with per-line scroll, one with priority
  * tiles), 128 sprites of 32x32 (max 32 on a line is exceeded on purpose in
  * places), colour math on one layer. Prints the average render time. */
@@ -454,6 +551,27 @@ static void bench_ppu(int frames)
     }
     printf("PPU stress (4 layers 64x64, 2 with line scroll, colour math, 128 sprites 32x32): "
            "%.1f us per frame over %d frames\n", (double)total / frames, frames);
+    /* the same scene in 4 viewports (quadrants), 32 of the sprites each */
+    rs_viewport v[4];
+    int n = rs_viewport_layout(4, 0, v);
+    uint64_t t4 = 0;
+    for (int f = 0; f < frames; f++) {
+        rs_oam_clear();
+        for (int i = 0; i < n; i++) {
+            v[i].oam_first = (uint16_t)rs_oam_next();
+            for (int k = 0; k < 32; k++)
+                rs_spr((k * 37 + f) % 176 - 16, (k * 53 + f / 2) % 136 - 16, 0, 32, 32, k & 7, k & 3, k & 3);
+            v[i].oam_count = 32;
+            for (int l = 0; l < 4; l++) { v[i].sx[l] = (int16_t)(f * (l + 1) + i * 80); v[i].sy[l] = (int16_t)(f / (l + 1) + i * 60); }
+        }
+        rs_viewports(n, v, 0);
+        uint64_t t0 = rs_host_time_us();
+        rs_host_render();
+        t4 += rs_host_time_us() - t0;
+    }
+    rs_viewports(0, NULL, 0);
+    printf("PPU stress in 4 viewports (quadrants, 32 sprites each): %.1f us per frame (%+.1f%%)\n",
+           (double)t4 / frames, 100.0 * ((double)t4 - (double)total) / (double)total);
 }
 
 int main(int argc, char **argv)
@@ -466,6 +584,7 @@ int main(int argc, char **argv)
         }
     for (int i = 1; i < argc; i++) {
         if (!strcmp(argv[i], "--update")) update = 1;
+        else if (!strcmp(argv[i], "--new")) update_new = 1;
         else if (!strcmp(argv[i], "--golden") && i + 1 < argc) golden_dir = argv[++i];
         else if (!strcmp(argv[i], "--out") && i + 1 < argc) out_dir = argv[++i];
     }
@@ -477,6 +596,7 @@ int main(int argc, char **argv)
     test_raster();
     test_affine_math();
     test_text();
+    test_viewports();
     test_input();
     test_sram();
     test_rng();

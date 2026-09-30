@@ -94,4 +94,13 @@ run --frames 80 --data $TD --opt level=winter-17 --opt nointro=1 --opt owlperch=
 run --frames 700 --data $TD --opt level=winter-18 --opt nointro=1 --shot 690:$O/winter-blizzard-drifts.png
 printf "4 tap DOWN\n20 tap B\n24 tap DOWN\n40 tap DOWN\n56 tap B\n60 tap DOWN\n76 tap DOWN\n92 tap B\n96 tap DOWN\n" > /tmp/bm_w.input
 run --frames 260 --data $TD --opt level=winter-19 --opt nointro=1 --opt god=1 --input /tmp/bm_w.input --shot 250:$O/winter-heavy-scene.png
+# multiplayer: 2-player co-op split screen, a 4-player battle in quadrants, the join screen, sudden death
+printf "5 P1 RIGHT\n40 P1 DOWN\n60 P1 -\n5 P2 DOWN\n30 P2 -\n" > /tmp/bm_m.input
+run --frames 90 --opt mp=coop --opt players=2 --opt level=spring-3 --opt nointro=1 --input /tmp/bm_m.input --shot 80:$O/mp-coop-2p-split.png
+run --frames 90 --opt mp=coop --opt players=3 --opt level=summer-2 --opt nointro=1 --shot 80:$O/mp-coop-3p-map.png
+run --frames 700 --opt mp=battle --opt players=4 --opt cpus=4 --opt arena=molehill-maze --shot 600:$O/mp-battle-4p-quadrants.png
+run --frames 600 --opt mp=battle --opt players=4 --opt cpus=4 --opt arena=mine-cart-mayhem --shot 400:$O/mp-battle-mine-carts.png
+printf "10 P1 tap A\n20 P2 tap A\n30 P1 tap X\n34 P1 tap X\n40 P2 tap RIGHT\n" > /tmp/bm_m.input
+run --frames 60 --opt screen=join --input /tmp/bm_m.input --shot 55:$O/mp-join.png
+run --frames 700 --opt mp=battle --opt players=4 --opt cpus=4 --opt arena=ice-rink --opt sd=420 --shot 620:$O/mp-battle-sudden-death.png
 ls "$O"

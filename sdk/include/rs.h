@@ -217,6 +217,36 @@ rs_sprite *rs_oam(int index);
 /* Convenience: returns the index used (next free slot), or -1 when full. */
 int        rs_spr(int x, int y, int tile, int w, int h, int pal, int prio, int flags);
 
+/* ---- Viewports (split screen) ---------------------------------------------
+ * Up to RS_VIEW_MAX screen rectangles. Each draws the BG layers of its mask with ITS OWN scroll (sx, sy: the
+ * layer pixel shown at the viewport's top-left corner) and the sprites of its OAM range [oam_first,
+ * oam_first + oam_count), whose coordinates are relative to the viewport's top-left corner, all clipped to
+ * the rectangle. Later viewports are drawn over earlier ones (an overlay box is a viewport); screen pixels
+ * that no viewport covers show the divider colour. The raster callback runs for each line AND each viewport
+ * crossing it (rs_viewport_current() tells which); windows stay in screen columns. Line-scroll tables still
+ * apply (by screen line); an affine layer ignores the viewports' scroll. n = 0 (the default) = one full screen
+ * with the layers' global scroll and every sprite. Cost: about the same pixels as one screen, plus one 8-px
+ * tile per layer and viewport on each line (docs/spec.md, "Viewports"). */
+#define RS_VIEW_MAX      12
+#define RS_VIEW_DIVIDER  2          /* px between the standard layouts' viewports */
+typedef struct rs_viewport {
+    int16_t  x, y, w, h;            /* screen rectangle */
+    int16_t  sx[4], sy[4];          /* per BG layer: the layer pixel at the viewport's top-left */
+    uint8_t  layers;                /* bit l: BG layer l drawn here (if enabled) */
+    uint8_t  objs;                  /* 1: this viewport's sprites are drawn */
+    uint16_t oam_first, oam_count;  /* its sprites */
+} rs_viewport;
+void rs_viewports(int n, const rs_viewport *views, rs_color divider);
+int  rs_viewport_count(void);
+int  rs_viewport_current(void);     /* in the raster callback: the viewport being drawn, -1 = none */
+int  rs_oam_next(void);             /* the first free OAM slot: where the next rs_spr() goes */
+/* The standard layouts (rectangles only; layers 0x0f, sprites on): 1 = full screen; 2 = left/right halves
+ * (RS_LAYOUT_HSPLIT: top/bottom); 3 = a top half and two bottom quarters (RS_LAYOUT_MAP: 4 quadrants, the
+ * 4th free for a map); 4 = quadrants. Returns the number of rectangles written. */
+#define RS_LAYOUT_HSPLIT 1
+#define RS_LAYOUT_MAP    2
+int  rs_viewport_layout(int players, int flags, rs_viewport *out);
+
 /* ---- Input ------------------------------------------------------------ */
 /* SNES pad layout, SNES bit order (JOY1 register). */
 #define RS_PAD_MAX   4

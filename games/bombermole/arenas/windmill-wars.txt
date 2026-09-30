@@ -1,0 +1,57 @@
+# Bomber Mole battle arena: Windmill Wars. Gale lanes blow towards the middle: a bomb dropped in a lane
+# drifts into the other half. Below, lanes of their own.
+name: Windmill Wars
+season: spring
+arc: 0
+level: 0
+mode: battle
+bombs: 1
+range: 2
+gust: 200 110 8
+status: done
+
+surface:
+####################
+#M.dd.ddd..ddd.dd.2#
+#.#d#.#d#dd#d#.#d#.#
+#>>>>>>>>><<<<<<<<<#
+#d#v#d#d#..#d#d#v#d#
+#dd.d.vd.dd.dv.d.dd#
+#d#d#d#d#dd#d#d#d#d#
+#d#d#d#d#dd#d#d#d#d#
+#dd.d.vd.dd.dv.d.dd#
+#d#v#d#d#..#d#d#v#d#
+#>>>>>>>>><<<<<<<<<#
+#.#d#.#d#dd#d#.#d#.#
+#3.dd.ddd..ddd.dd.4#
+####################
+under1:
+####################
+#dddd.dddddddd.dddd#
+#dr.r.r.rddr.r.r.rd#
+#d.....dd..dd.....d#
+#d.Hv>>>>><<<<<vH.d#
+#.d.r.H.dddd.H.r.d.#
+#drdrdr.r..r.rdrdrd#
+#drdrdr.r..r.rdrdrd#
+#.d.r.H.dddd.H.r.d.#
+#d.Hv>>>>><<<<<vH.d#
+#d.....dd..dd.....d#
+#dr.r.r.rddr.r.r.rd#
+#dddd.dddddddd.dddd#
+####################
+under2:
+####################
+#ffffffffffffffffff#
+#f.d...ff..ff...d.f#
+#f.d.dd......dd.d.f#
+#f..Hd.ff..ff.dH..f#
+#f.....f....f.....f#
+#ff.f.fff..fff.f.ff#
+#ff.f.fff..fff.f.ff#
+#f.....f....f.....f#
+#f..Hd.ff..ff.dH..f#
+#f.d.dd......dd.d.f#
+#f.d...ff..ff...d.f#
+#ffffffffffffffffff#
+####################

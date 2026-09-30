@@ -9,8 +9,9 @@
 
 enum state {
     ST_TITLE, ST_ARCS, ST_LEVELS, ST_OPTIONS, ST_CREDITS, ST_INTRO, ST_PLAY, ST_SLIDE, ST_PAUSE,
-    ST_DYING, ST_GAMEOVER, ST_OUTRO, ST_CLEAR, ST_ARCDONE, ST_SPRITETEST
+    ST_DYING, ST_GAMEOVER, ST_OUTRO, ST_CLEAR, ST_ARCDONE, ST_SPRITETEST, ST_JOIN, ST_BATTLE
 };
+static int join_mode;                           /* the join screen: MODE_COOP (story) or MODE_BATTLE */
 
 int opt_music = 1, opt_sfx = 1, opt_diff = DIFF_NORMAL;
 static int st, st_t, cursor, sel_arc, sel_level, unlock_all;
@@ -56,12 +57,16 @@ static void save_load(void)
     opt_music = SV.opts & 1;
     opt_sfx = (SV.opts >> 1) & 1;
     opt_diff = ((SV.opts >> 3) & 3) ? ((SV.opts >> 3) & 3) - 1 : DIFF_NORMAL;   /* 0 = not set: normal */
+    MP.friendly_fire = (SV.opts >> 5) & 1;          /* multiplayer options */
+    MP.merge = (SV.opts >> 6) & 1;
+    MP.split_h = (SV.opts >> 7) & 1;
     unlock_all = (SV.opts >> 2) & 1;
 }
 
 static void save_store(void)
 {
-    SV.opts = (uint8_t)(opt_music | (opt_sfx << 1) | (unlock_all << 2) | ((opt_diff + 1) << 3));
+    SV.opts = (uint8_t)(opt_music | (opt_sfx << 1) | (unlock_all << 2) | ((opt_diff + 1) << 3) | (MP.friendly_fire << 5) |
+                        (MP.merge << 6) | (MP.split_h << 7));
     SV.sum = save_sum(&SV);
     memcpy(rs_sram(), &SV, sizeof SV);
     rs_sram_commit();
@@ -77,7 +82,15 @@ static int unlocked(int arc, int n)
 /* ---- helpers -------------------------------------------------------------------------------------- */
 static int st_changed;
 static void go(int s) { st = s; st_t = 0; cursor = 0; st_changed = 1; }
-static uint16_t pressed(void) { return rs_pad_pressed(0); }
+/* menus and pause: in multiplayer, any human player's pad */
+static uint16_t pressed(void)
+{
+    if (MP.mode == MODE_SOLO) return rs_pad_pressed(0);
+    uint16_t p = 0;
+    for (int i = 0; i < MP.nplayers; i++)
+        if (MP.port[i] >= 0) p |= rs_pad_pressed(MP.port[i]);
+    return p;
+}
 static int confirm(void) { return pressed() & (RS_BTN_A | RS_BTN_START); }
 static int back(void) { return pressed() & (RS_BTN_B | RS_BTN_SELECT); }
 
@@ -168,25 +181,26 @@ static void title_update(void)
     plain_text();
     if (bm_logo_tile_count) { if (st_t == 0) show_logo(1); }
     else text_big(9, 5, "BOMBER MOLE");
-    static const char *const items[] = {"PLAY", "OPTIONS", "CREDITS"};
+    static const char *const items[] = {"STORY", "BATTLE", "OPTIONS", "CREDITS"};
+    MP.mode = MODE_SOLO;
     if ((rs_pad(0) & (RS_BTN_L | RS_BTN_R)) == (RS_BTN_L | RS_BTN_R) && (pressed() & RS_BTN_START)) {
         dev_mode = dev_unlock_all = 1;              /* the developer code */
         sfx(SFX_EXIT_OPEN);
         return;
     }
     if (dev_mode) text_at(center("DEV MODE"), 25, "DEV MODE");
-    int c = menu_nav(3);
-    for (int i = 0; i < 3; i++) {
-        text_at(16, 15 + i * 2, i == c ? ">" : " ");
-        text_at(18, 15 + i * 2, items[i]);
+    int c = menu_nav(4);
+    for (int i = 0; i < 4; i++) {
+        text_at(16, 14 + i * 2, i == c ? ">" : " ");
+        text_at(18, 14 + i * 2, items[i]);
     }
     text_at(center("(C) 2026 8BCRAFT - RETROSTONE VC"), 27, "(C) 2026 8BCRAFT - RETROSTONE VC");
     if (confirm()) {
         sfx(SFX_MENU_OK);
         text_clear_all();
         show_logo(0);
-        if (c == 0) { go(ST_ARCS); cursor = sel_arc; }
-        else if (c == 1) go(ST_OPTIONS);
+        if (c == 0 || c == 1) { join_mode = c == 0 ? MODE_COOP : MODE_BATTLE; mp_join_begin(); mp_join_enter(); go(ST_JOIN); }
+        else if (c == 2) go(ST_OPTIONS);
         else go(ST_CREDITS);
     }
 }
@@ -293,30 +307,36 @@ static void options_update(void)
     menu_scroll();
     plain_text();
     text_at(center("OPTIONS"), 4, "OPTIONS");
-    int n_items = dev_mode ? 6 : 5, c = menu_nav(n_items), back_item = n_items - 1;
+    int n_items = dev_mode ? 9 : 8, c = menu_nav(n_items), back_item = n_items - 1;
     uint16_t p = pressed();
-    textf_at(11, 9, "%c MUSIC       %s ", c == 0 ? '>' : ' ', opt_music ? "ON " : "OFF");
-    textf_at(11, 11, "%c SOUND       %s ", c == 1 ? '>' : ' ', opt_sfx ? "ON " : "OFF");
-    textf_at(11, 13, "%c DIFFICULTY  %s", c == 2 ? '>' : ' ', diffs[opt_diff]);
-    textf_at(11, 15, "%c ERASE SAVE        ", c == 3 ? '>' : ' ');
-    if (dev_mode) textf_at(11, 17, "%c DEV: ALL LEVELS %s ", c == 4 ? '>' : ' ', dev_unlock_all ? "ON " : "OFF");
-    textf_at(11, dev_mode ? 19 : 17, "%c BACK              ", c == back_item ? '>' : ' ');
+    textf_at(8, 7, "%c MUSIC           %s ", c == 0 ? '>' : ' ', opt_music ? "ON " : "OFF");
+    textf_at(8, 9, "%c SOUND           %s ", c == 1 ? '>' : ' ', opt_sfx ? "ON " : "OFF");
+    textf_at(8, 11, "%c DIFFICULTY      %s", c == 2 ? '>' : ' ', diffs[opt_diff]);
+    textf_at(8, 13, "%c FRIENDLY FIRE   %s ", c == 3 ? '>' : ' ', MP.friendly_fire ? "ON " : "OFF");
+    textf_at(8, 15, "%c SHARED VIEW     %s ", c == 4 ? '>' : ' ', MP.merge ? "ON " : "OFF");
+    textf_at(8, 17, "%c 2-PLAYER SPLIT  %s", c == 5 ? '>' : ' ', MP.split_h ? "TOP/BOTTOM" : "LEFT/RIGHT");
+    textf_at(8, 19, "%c ERASE SAVE            ", c == 6 ? '>' : ' ');
+    if (dev_mode) textf_at(8, 21, "%c DEV: ALL LEVELS     %s ", c == 7 ? '>' : ' ', dev_unlock_all ? "ON " : "OFF");
+    textf_at(8, dev_mode ? 23 : 21, "%c BACK                  ", c == back_item ? '>' : ' ');
     if (confirm() || (p & (RS_BTN_LEFT | RS_BTN_RIGHT))) {
         sfx(SFX_MENU_OK);
         if (c == 0) { opt_music ^= 1; audio_options(opt_music, opt_sfx); if (opt_music) music_play("title"); }
         if (c == 1) { opt_sfx ^= 1; audio_options(opt_music, opt_sfx); }
         if (c == 2) opt_diff = (opt_diff + ((p & RS_BTN_LEFT) ? 2 : 1)) % 3;
-        if (c == 3 && confirm()) {
+        if (c == 3) MP.friendly_fire ^= 1;
+        if (c == 4) MP.merge ^= 1;
+        if (c == 5) MP.split_h ^= 1;
+        if (c == 6 && confirm()) {
             memset(SV.cleared, 0, sizeof SV.cleared);
             memset(SV.best, 0, sizeof SV.best);
             unlock_all = 0;
-            text_at(11, 20, "SAVE ERASED");
+            text_at(10, 25, "SAVE ERASED");
         }
-        if (dev_mode && c == 4) dev_unlock_all ^= 1;
+        if (dev_mode && c == 7) dev_unlock_all ^= 1;
         save_store();
-        if (c == back_item && confirm()) { text_clear_all(); go(ST_TITLE); cursor = 1; }
+        if (c == back_item && confirm()) { text_clear_all(); go(ST_TITLE); cursor = 2; }
     }
-    if (back()) { text_clear_all(); go(ST_TITLE); cursor = 1; }
+    if (back()) { text_clear_all(); go(ST_TITLE); cursor = 2; }
 }
 
 static void credits_update(void)
@@ -329,7 +349,33 @@ static void credits_update(void)
         "PLACEHOLDER ART AND SOUND", "GENERATED BY SCRIPTS", "", "PRESS A"};
     for (unsigned i = 0; i < sizeof lines / sizeof lines[0]; i++)
         text_at(center(lines[i]), 6 + (int)i * 1 + (i > 0 ? 1 : 0), lines[i]);
-    if (confirm() || back()) { text_clear_all(); go(ST_TITLE); cursor = 2; }
+    if (confirm() || back()) { text_clear_all(); go(ST_TITLE); cursor = 3; }
+}
+
+/* ---- multiplayer menus: join (story or battle), the battle ---- */
+static void join_update(void)
+{
+    menu_scroll();
+    int r = mp_join_update(join_mode);
+    if (r < 0) { text_clear_all(); MP.mode = MODE_SOLO; go(ST_TITLE); cursor = join_mode == MODE_BATTLE ? 1 : 0; return; }
+    if (r == 0) return;
+    text_clear_all();
+    if (MP.mode == MODE_BATTLE) { go(ST_BATTLE); mp_battle_begin(); return; }
+    go(ST_ARCS);
+    cursor = sel_arc;
+}
+
+static void battle_update(void)
+{
+    if (!mp_battle_playing() && title_ready) menu_scroll();
+    if (mp_battle_update()) {
+        mp_views_off();
+        MP.mode = MODE_SOLO;
+        title_ready = 0;
+        text_clear_all();
+        go(ST_TITLE);
+        cursor = 1;
+    }
 }
 
 /* ---- level flow ------------------------------------------------------------------------------------- */
@@ -433,6 +479,7 @@ static void start_level(void)
     music_play(LV.music);
     const char *scene = rs_option("scene");
     if (scene && !strcmp(scene, "chain")) place_scene_bombs();
+    if (W.mode != MODE_SOLO) mp_level_start();          /* split screen: every depth drawn, a view per mole */
 }
 
 static void intro_update(void)
@@ -443,6 +490,14 @@ static void intro_update(void)
     int r = st_t * 8;
     iris_set(r < 420, px, py, r);
     ui_play_overlays(view_depth);
+    if (W.mode != MODE_SOLO) {                       /* co-op: a box over the views, any player starts */
+        iris_set(0, 0, 0, 0);
+        int key = sel_arc * 16 + sel_level;
+        if (rs_option_int("nointro", 0) || box_key == key) { mp_box_off(); go(ST_PLAY); return; }
+        mp_start_box(&LV);
+        if (st_t > 20 && (pressed() & (RS_BTN_A | RS_BTN_START))) { sfx(SFX_MENU_OK); box_key = key; mp_box_off(); go(ST_PLAY); }
+        return;
+    }
     if (rs_option_int("nointro", 0)) { iris_set(0, 0, 0, 0); go(ST_PLAY); return; }
     /* the game waits behind the start box until A (or Start); a retry of the same level skips it */
     int key = sel_arc * 16 + sel_level;
@@ -474,6 +529,7 @@ static void play_update(void)
     if (pressed() & RS_BTN_START) { sfx(SFX_MENU_OK); go(ST_PAUSE); cursor = 0; pause_quit = 0; return; }
     world_update();
     level_frames++;
+    if (W.mode != MODE_SOLO) mp_update_views();
     if (W.events & EV_EXIT_OPEN) ui_banner_exit_open();
     if (W.events & EV_PICKUP) ui_pickup_banner(W.pickup);
     if (dev_skip) { dev_skip = 0; W.events |= EV_EXIT; }     /* dev: skip the level */
@@ -502,7 +558,7 @@ static void play_update(void)
         return;
     }
     if (forced_view < 0) view_depth = world_player_depth(0);
-    ui_play_overlays(view_depth);
+    if (W.mode == MODE_SOLO) ui_play_overlays(view_depth);
 }
 
 static int ease(int t, int n) { return t * t * (3 * n - 2 * t) / (n * n); }  /* smoothstep, 0..n */
@@ -582,6 +638,7 @@ static void dev_keys(void)
 
 static void pause_resume(void)
 {
+    if (W.mode != MODE_SOLO) mp_box_off();
     text_clear_all();
     ui_screen_done();
     rs_math(RS_MATH_ADD | RS_MATH_HALF, RS_MATH_BG2, 0);
@@ -597,11 +654,13 @@ static void pause_update(void)
     int n = dev_mode ? 3 + UI_DEV_ITEMS : 3;
     if (pause_quit) {                                /* "QUIT TO TITLE?" YES / NO (NO first) */
         if (p & (RS_BTN_LEFT | RS_BTN_RIGHT | RS_BTN_UP | RS_BTN_DOWN)) { pause_quit ^= 3; sfx(SFX_MENU_MOVE); }
-        ui_pause_screen(cursor, dev_mode, pause_quit);
+        if (W.mode != MODE_SOLO) mp_pause_box(cursor, pause_quit);
+        else ui_pause_screen(cursor, dev_mode, pause_quit);
         if (p & (RS_BTN_A | RS_BTN_START)) {
             sfx(SFX_MENU_OK);
             if (pause_quit == 1) {                   /* YES */
                 pause_resume();
+                mp_views_off();
                 title_ready = 0;
                 text_clear_all();
                 go(ST_TITLE);
@@ -617,7 +676,8 @@ static void pause_update(void)
     if (p & (RS_BTN_LEFT | RS_BTN_UP)) cursor = (cursor + n - 1) % n;
     if (p & (RS_BTN_RIGHT | RS_BTN_DOWN)) cursor = (cursor + 1) % n;
     if (cursor != old) sfx(SFX_MENU_MOVE);
-    ui_pause_screen(cursor, dev_mode, 0);
+    if (W.mode != MODE_SOLO) mp_pause_box(cursor % 3, 0);
+    else ui_pause_screen(cursor, dev_mode, 0);
     if (p & (RS_BTN_B | RS_BTN_SELECT)) { sfx(SFX_MENU_OK); pause_resume(); return; }
     if (!(p & (RS_BTN_A | RS_BTN_START))) return;
     sfx(SFX_MENU_OK);
@@ -639,9 +699,10 @@ static void dying_update(void)
 {
     int px, py;
     player_screen_xy(&px, &py);
-    iris_set(1, px, py, 420 - st_t * 10);
+    if (W.mode == MODE_SOLO) iris_set(1, px, py, 420 - st_t * 10);
     if (st_t >= 42) {
         iris_set(0, 0, 0, 0);
+        if (W.mode != MODE_SOLO) mp_views_off();
         if (carry[0].lives > 0) go(ST_INTRO);
         else go(ST_GAMEOVER);
     }
@@ -669,9 +730,10 @@ static void outro_update(void)
 {
     int px, py;
     player_screen_xy(&px, &py);
-    iris_set(1, px, py, 420 - st_t * 12);
+    if (W.mode == MODE_SOLO) iris_set(1, px, py, 420 - st_t * 12);
     if (st_t >= 36) {
         iris_set(0, 0, 0, 0);
+        if (W.mode != MODE_SOLO) mp_views_off();
         int secs = level_frames / 60;
         int a = sel_arc, n = sel_level - 1;
         if (!dev_mode) {                            /* dev mode never writes the save's progress */
@@ -776,6 +838,37 @@ static void game_init(void)
         go(ST_SPRITETEST);
         return;
     }
+    const char *mpm = rs_option("mp");
+    if (mpm) {                                       /* multiplayer: "coop" (with level=) or "battle" (with arena=) */
+        int n = clampi(rs_option_int("players", 2), 1, MAX_PLAYERS), cpus = clampi(rs_option_int("cpus", 0), 0, n);
+        MP.mode = !strcmp(mpm, "battle") ? MODE_BATTLE : MODE_COOP;
+        MP.nplayers = n;
+        MP.friendly_fire = (uint8_t)rs_option_int("ff", 0);
+        MP.merge = (uint8_t)rs_option_int("merge", 0);
+        MP.split_h = (uint8_t)rs_option_int("splith", 0);
+        MP.map3 = (uint8_t)rs_option_int("map3", 1);
+        if (rs_option("rounds")) MP.rounds = clampi(rs_option_int("rounds", 3), 1, 9);
+        if (rs_option("roundtime")) MP.round_time = clampi(rs_option_int("roundtime", 90), 1, 600) * 60;
+        for (int p = 0; p < MAX_PLAYERS; p++) {
+            MP.port[p] = (int8_t)(p < n - cpus ? p : -1);
+            MP.cpu[p] = (uint8_t)(p >= n - cpus && p < n ? clampi(rs_option_int("skill", 2), 1, 3) : 0);
+            MP.colour[p] = (uint8_t)p;
+        }
+        if (MP.mode == MODE_BATTLE) {
+            const char *ar = rs_option("arena");
+            int ai = ar ? mp_arena_index(ar) : 0;
+            go(ST_BATTLE);
+            mp_battle_quick(ai < 0 ? 0 : ai);
+            return;
+        }
+    }
+    if (rs_option_int("battlesim", 0)) {             /* the fairness test: rounds of 4 CPUs, no picture */
+        const char *ar = rs_option("arena");
+        mp_battle_sim(ar ? ar : "molehill-maze", rs_option_int("battlesim", 0));
+        MP.mode = MODE_SOLO;
+    }
+    const char *scr = rs_option("screen");
+    if (scr && !strcmp(scr, "join")) { join_mode = MODE_BATTLE; mp_join_begin(); menu_backdrop(); mp_join_enter(); go(ST_JOIN); return; }
     const char *lv = rs_option("level");
     if (lv) {                                        /* "spring-3": jump straight into a level */
         char season[16] = "";
@@ -813,6 +906,8 @@ static void game_update(void)
     case ST_CLEAR: clear_update(); break;
     case ST_ARCDONE: arcdone_update(); break;
     case ST_SPRITETEST: break;
+    case ST_JOIN: join_update(); break;
+    case ST_BATTLE: battle_update(); break;
     }
     if (!st_changed) st_t++;
     if (rs_option_int("transition", 0) && st == ST_PLAY && st_t == 30 && view_depth == 0) {
@@ -856,11 +951,19 @@ static void game_draw(void)
     case ST_TITLE: case ST_ARCS: case ST_LEVELS: case ST_OPTIONS: case ST_CREDITS:
         if (title_ready) draw_menu_sprites();
         return;
+    case ST_JOIN:
+        mp_join_draw();
+        return;
+    case ST_BATTLE:
+        if (mp_battle_playing()) mp_draw_play();
+        else if (title_ready) draw_menu_sprites();
+        return;
     case ST_GAMEOVER: case ST_CLEAR: case ST_ARCDONE:
         return;
     default:
         break;
     }
+    if (W.mode != MODE_SOLO) { mp_draw_play(); return; }   /* co-op: the split screen */
     if (st == ST_SLIDE) {
         const int N = 36;
         int k = ease(st_t < N ? st_t : N, N);
@@ -908,6 +1011,8 @@ static void game_draw(void)
 static void game_shutdown(void)
 {
     if (!rs_option_int("dump", 0)) return;
+    if (W.mode != MODE_SOLO) mp_dump();
+    if (st == ST_JOIN) mp_join_dump();
     actor *m = world_player(0);
     int rocks = 0, dirt = 0, bombs = 0, snow = 0, thin = 0;
     for (int d = 0; d < NDEPTH; d++)
@@ -960,7 +1065,7 @@ static void game_shutdown(void)
                W.stat.thin_breaks, W.stat.ice_breaks, W.stat.croc_cracks, W.stat.drifts_made, W.stat.rolls,
                W.stat.ball_grows, W.stat.ball_crushes, W.stat.ball_shatters, W.stat.icicles_fallen, W.stat.icicle_hits,
                W.stat.bucket_rides, W.stat.cranks, W.stat.owl_swoops, W.stat.owl_swoop_hits, W.stat.owl_perches,
-               W.stat.owl_hits, W.stat.owl_drops, W.stat.owl_phase2, W.buckets[1].at, W.safe_d, W.safe_x, W.safe_y,
+               W.stat.owl_hits, W.stat.owl_drops, W.stat.owl_phase2, W.buckets[1].at, W.safe_d[0], W.safe_x[0], W.safe_y[0],
                snow, thin, world_owl(NULL, NULL));
     }
 }

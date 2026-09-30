@@ -121,6 +121,8 @@ void night_set(int on, int cx, int cy, int r)
     rs_fog(on && !iris_on ? RS_WIN2_OUT : 0, RS_HEX(0x0a1030), RS_MATH_BG2 | RS_MATH_BG3 | RS_MATH_BG4 | RS_MATH_BACK);
 }
 
+void fog_focus(int cx, int cy) { fog_cx = cx; fog_cy = cy; }
+
 /* in the fog: out of the clear circle around the mole (x, y: the cell's top-left, playfield pixels) */
 int fog_hides(int d, int x, int y)
 {
@@ -374,7 +376,7 @@ static const uint16_t *object_meta(int d, int x, int y)
 
 static void put_meta(int layer, int mx, int my, const uint16_t *m)
 {
-    rs_bg_meta(layer, mx, my & 31, m);
+    rs_bg_meta(layer, mx, my & (rs_bg_map_h(layer) / 2 - 1), m);   /* 2 depth slots in solo, 4 in multiplayer */
 }
 
 static void draw_cell(int d, int slot, int x, int y)
@@ -451,17 +453,22 @@ void spr_draw(int spr, int x, int y, int flags, int prio)
     spr_draw_pal(spr, x, y, flags, prio, bm_spr[spr].pal);
 }
 
+/* world sprites: relative to the camera in multiplayer, culled outside the view */
+static int cam_ox, cam_oy, cam_hud = HUD_H, cull_w, cull_h;
+void spr_camera(int ox, int oy, int hud, int w, int h) { cam_ox = ox; cam_oy = oy; cam_hud = hud; cull_w = w; cull_h = h; }
+
 /* bottom-centre anchor on a 16x16 cell: sprites of 16, 24 or 32 px overlap upwards */
 static void spr_cell_pal(int spr, int px, int py, int yoff, int flags, int pal)
 {
     const bm_sprite_def *s = &bm_spr[spr];
-    spr_draw_pal(spr, px + CELL / 2 - s->w / 2, HUD_H + py + CELL - s->h + yoff, flags, 2, pal);
+    int x = px + CELL / 2 - s->w / 2 - cam_ox, y = cam_hud + py + CELL - s->h + yoff - cam_oy;
+    if (cull_w && (x + s->w <= 0 || y + s->h <= 0 || x >= cull_w || y >= cull_h)) return;
+    spr_draw_pal(spr, x, y, flags, 2, pal);
 }
 
 static void spr_cell(int spr, int px, int py, int yoff, int flags)
 {
-    const bm_sprite_def *s = &bm_spr[spr];
-    spr_draw(spr, px + CELL / 2 - s->w / 2, HUD_H + py + CELL - s->h + yoff, flags, 2);
+    spr_cell_pal(spr, px, py, yoff, flags, bm_spr[spr].pal);
 }
 
 static void apx(const actor *a, int *x, int *y)
@@ -487,7 +494,7 @@ static void draw_actor(const actor *a, int yoff)
     int walk = a->anim / 6;
     switch (a->kind) {
     case AK_MOLE:
-        if (W.in_bucket) return;                    /* in the well's bucket */
+        if (W.in_bucket[a->player]) return;         /* in the well's bucket */
         if (a->state == 99) { spr = SPR_MOLE_DEATH + clampi((90 - a->timer) / 23, 0, 3); break; }
         if (a->invul && (a->invul / 4) % 2) return;
         if (a->stun) { spr = SPR_MOLE_HURT; break; }
@@ -582,6 +589,13 @@ static void draw_actor(const actor *a, int yoff)
     if (a->kind == AK_FERRET || a->kind == AK_CAT) {
         if (a->invul && (a->invul / 4) % 2) return;     /* hit once (tier 4) */
         spr_cell_pal(spr, x, y, yoff, flags, a->pal);
+    } else if (a->kind == AK_MOLE) {
+        spr_cell_pal(spr, x, y, yoff, flags, W.mole_pal[a->player]);
+        if (W.mode != MODE_SOLO && a->state != 99) {   /* P1..P4 above the mole, in its colour */
+            int mx = x - cam_ox, my = cam_hud + y - 10 + yoff - cam_oy;
+            if (!cull_w || (mx > -16 && my > -8 && mx < cull_w && my < cull_h))
+                rs_spr(mx, my, MP_MARK_TILE + a->player * 2, 16, 8, W.mole_pal[a->player], 3, 0);
+        }
     } else {
         spr_cell(spr, x, y, yoff, flags);
     }
@@ -729,7 +743,7 @@ void draw_world_sprites(int d, int yoff, int first)
         int x = l->cx * CELL + (l->tx - l->cx) * l->prog / (SUB / CELL);
         int y = l->cy * CELL + (l->ty - l->cy) * l->prog / (SUB / CELL);
         const bm_sprite_def *s = &bm_spr[SPR_LOG];
-        spr_draw(SPR_LOG, x, HUD_H + y + yoff, 0, 1);
+        spr_draw(SPR_LOG, x - cam_ox, cam_hud + y + yoff - cam_oy, 0, 1);
         (void)s;
     }
     for (int i = 0; i < MAX_FX; i++) {
@@ -786,6 +800,24 @@ void draw_hud(void)
 }
 
 /* ---- weather ------------------------------------------------------------------------------------- */
+static int weather_sx, weather_sy;
+void draw_weather_scroll(int *sx, int *sy)
+{
+    draw_weather(1);
+    *sx = weather_sx;
+    *sy = weather_sy;
+}
+
+/* multiplayer: palette 7 holds the HUD's colours (strips, boxes) or, in the play areas, the props B family */
+void draw_pal7(int hud)
+{
+    static const uint16_t *cur;
+    const uint16_t *want = (!hud && prop_b >= 0) ? bm_propbg_pals[prop_b] : bm_hud_pal;
+    if (want == cur && rs_pal_get(RS_PAL_BG(PAL_HUD) + 1) == want[1]) return;
+    load_pal(RS_PAL_BG(PAL_HUD), want, 16);
+    cur = want;
+}
+
 void draw_weather(int on)
 {
     rs_bg_enable(RS_BG2, on);
@@ -794,6 +826,8 @@ void draw_weather(int on)
     uint32_t t = W.t;
     int sx = (int)(t * (uint32_t)(V[g_season][0] + 8)) / 2 - (int)t * 4;
     int sy = -(int)(t * (uint32_t)(V[g_season][1] + 8)) / 2 + (int)t * 4;
+    weather_sx = sx;
+    weather_sy = sy;
     rs_bg_scroll(RS_BG2, sx, sy);
     if (g_season == SEASON_AUTUMN || g_season == SEASON_SUMMER) {
         /* drifting: a per-line wave (HDMA-style) */

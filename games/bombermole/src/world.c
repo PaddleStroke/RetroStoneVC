@@ -23,6 +23,41 @@ int pending_depth = -1, pending_from = -1;
 #define SPLAT_TIME 240
 
 static rs_rng rng;
+mp_setup MP = {MODE_SOLO, 1, {0, 1, 2, 3}, {0, 0, 0, 0}, {0, 1, 2, 3}, 0, 1, 0, 0, 1, 3, 90 * 60, 0};
+
+/* a mole goes to another depth: in solo the game flow slides the view (pending_depth); in multiplayer the mole
+   moves now and its own view slides (depth_event) */
+static void mole_depth(actor *a, int to, int force)
+{
+    if (W.mode == MODE_SOLO) {
+        if (!force && pending_depth >= 0) return;
+        pending_from = a->depth;
+        pending_depth = to;
+        return;
+    }
+    W.depth_event[a->player] = a->depth + 1;
+    a->depth = (uint8_t)to;
+    a->moving = 0;
+    a->tx = a->cx;
+    a->ty = a->cy;
+    a->prog = 0;
+}
+
+/* the mole an enemy or a boss goes after: in solo the player; in multiplayer the nearest one still up (on the
+   same depth first) */
+static actor *target_player(const actor *a)
+{
+    if (W.mode == MODE_SOLO) return world_player(0);
+    actor *best = NULL;
+    int bd = 1 << 20;
+    for (int p = 0; p < W.nplayers; p++) {
+        actor *m = world_player(p);
+        if (!m || !m->alive || m->state == 99) continue;
+        int dd = abs(m->cx - a->cx) + abs(m->cy - a->cy) + (m->depth != a->depth ? 1000 : 0);
+        if (dd < bd) { bd = dd; best = m; }
+    }
+    return best ? best : world_player(0);
+}
 
 /* ---- terrain properties ------------------------------------------------------------ */
 int terrain_walkable(int t, int enemy)
@@ -295,8 +330,8 @@ static int teleport_pipe(actor *a)
                 const cell *o = &W.g[d][y][x];
                 if (o->t == TR_PIPE && o->chan == c->chan && !(d == a->depth && x == a->cx && y == a->cy)) {
                     if (d != a->depth && a->kind == AK_MOLE) {
-                        pending_from = a->depth;
-                        pending_depth = d;
+                        if (W.mode == MODE_SOLO) { pending_from = a->depth; pending_depth = d; }
+                        else W.depth_event[a->player] = a->depth + 1;
                     }
                     a->depth = (uint8_t)d;
                     a->cx = a->tx = (int8_t)x;
@@ -342,12 +377,10 @@ static void arrive(actor *a)
     collect(a);
     switch (c->t) {
     case TR_HOLE_DOWN:
-        pending_from = a->depth;
-        pending_depth = a->depth + 1;
+        mole_depth(a, a->depth + 1, 1);
         break;
     case TR_HOLE_UP: case TR_LADDER:
-        pending_from = a->depth;
-        pending_depth = a->depth - 1;
+        mole_depth(a, a->depth - 1, 1);
         break;
     case TR_PIPE:
         teleport_pipe(a);
@@ -462,8 +495,10 @@ static void bomb_arrive(bomb *b)
         bomb_fizzle(b);
         return;
     }
-    if (c->t == TR_HOLE_DOWN && b->depth < NDEPTH - 1) {   /* falls to the depth below */
-        b->depth++;
+    if (c->t == TR_HOLE_DOWN && b->depth < NDEPTH - 1 && (W.mode != MODE_BATTLE || MP.hole_bombs)) {
+        b->depth++;                                 /* falls to the depth below */
+        dust_at(b->depth, b->cx, b->cy);
+        W.stat.hole_bombs++;
         sfx_at(SFX_DEPTH, b->cx * CELL);
         return;
     }
@@ -479,7 +514,8 @@ static void place_bomb(actor *a)
     int d = a->depth;
     /* facing an open hole: toss the bomb down */
     int fx = x + DX[a->dir], fy = y + DY[a->dir];
-    int toss = !a->moving && in_grid(fx, fy) && W.g[d][fy][fx].t == TR_HOLE_DOWN && d < NDEPTH - 1;
+    int toss = !a->moving && in_grid(fx, fy) && W.g[d][fy][fx].t == TR_HOLE_DOWN && d < NDEPTH - 1 &&
+               (W.mode != MODE_BATTLE || MP.hole_bombs);
     int bounce = !a->moving && in_grid(fx, fy) && W.g[d][fy][fx].t == TR_SHROOM;   /* onto a mushroom: it bounces */
     const cell *c = &W.g[d][y][x];
     if (!toss && (c->t == TR_HOLE_DOWN || c->t == TR_HOLE_UP || c->t == TR_LADDER || c->t == TR_PIPE ||
@@ -512,6 +548,7 @@ static void place_bomb(actor *a)
         ps->placed++;
         a->timer = 12;                              /* "place bomb" pose */
         sfx_at(toss ? SFX_DEPTH : SFX_BOMB_DROP, x * CELL);
+        if (toss) { W.stat.hole_bombs++; dust_at(d + 1, fx, fy); }   /* down the hole: it lands below */
         if (!toss && (c->t == TR_ICE || c->t == TR_THIN_ICE)) bomb_start_slide(b, a->dir);  /* kicked */
         return;
     }
@@ -566,6 +603,12 @@ static void break_cell(int d, int x, int y)
     case TR_DIRT: case TR_LEAVES: case TR_ROCK: case TR_FROZEN: case TR_CRATE:
         if (c->t == TR_DIRT && near_roots(d, x, y)) set_regrow(d, x, y, TR_DIRT, DIRT_REGROW);
         if (c->t == TR_CRATE) sfx_at(SFX_SPLAT, x * CELL);
+        if (W.mode == MODE_BATTLE && (c->t == TR_DIRT || c->t == TR_LEAVES) && !c->item && rs_rng_range(&rng, 100) < 40) {
+            static const uint8_t drop[10] = {IT_BOMB, IT_BOMB, IT_BOMB, IT_FIRE, IT_FIRE, IT_FIRE, IT_SPEED, IT_SPEED,
+                                             IT_HEART, IT_REMOTE};
+            c->item = drop[rs_rng_range(&rng, 10)];   /* a soft block drops a power-up */
+            W.stat.drops++;
+        }
         c->t = TR_FLOOR;
         c->state = 0;
         dust_at(d, x, y);
@@ -648,10 +691,12 @@ static void break_cell(int d, int x, int y)
     mark(d, x, y);
 }
 
+static int blast_owner = 255;                       /* the player whose bomb is exploding */
 static void blast_cell(int d, int x, int y, int shape);
 static void blast_cell(int d, int x, int y, int shape)
 {
     W.blast[d][y][x] = BLAST_FRAMES;
+    W.blast_owner[d][y][x] = (uint8_t)blast_owner;
     W.shape[d][y][x] = (uint8_t)shape;
     mark(d, x, y);
     bomb *o = bomb_at(d, x, y);
@@ -661,6 +706,7 @@ static void blast_cell(int d, int x, int y, int shape)
 static void explode(bomb *b)
 {
     int d = b->depth, x = b->cx, y = b->cy;
+    blast_owner = b->owner;
     bomb_remove(b);
     blast_cell(d, x, y, FX_CENTER);
     static const int ends[4] = {FX_END_UP, FX_END_RIGHT, FX_END_DOWN, FX_END_LEFT};
@@ -691,6 +737,7 @@ static void explode(bomb *b)
     break_cell(d, x, y);
     icicles_fall(d, x, y);
     noise(d, x, y);
+    blast_owner = 255;
     W.shake = 6;
     sfx_at(SFX_BLAST, x * CELL);
 }
@@ -722,13 +769,15 @@ static void owl_flee(actor *a);
 
 static void hurt_player(actor *a)
 {
-    if (a->invul || !a->alive || a->state == 99 || dev_god || rs_option_int("god", 0) || W.riding >= 0 || W.in_bucket) return;
+    if (a->invul || !a->alive || a->state == 99 || dev_god || rs_option_int("god", 0) || W.riding[a->player] >= 0 ||
+        W.in_bucket[a->player]) return;
     pstats *ps = &W.ps[a->player];
     ps->hearts--;
     if (ps->hearts <= 0) {
         a->state = 99;                              /* knocked out */
-        a->timer = 90;
+        a->timer = W.mode == MODE_COOP ? 300 : 90;  /* co-op: back in 5 s while a teammate is up */
         a->moving = 0;
+        if (W.mode == MODE_BATTLE) W.ko_order[a->player] = ++W.ko_seq;
         sfx(SFX_KO);
     } else {
         a->invul = INVUL;
@@ -815,7 +864,14 @@ static void update_blasts(void)
             hit = 1;
         }
         if (!hit) continue;
-        if (a->kind == AK_MOLE) hurt_player(a);
+        if (a->kind == AK_MOLE) {
+            int ow = in_grid(cx, cy) ? W.blast_owner[a->depth][cy][cx] : 255;
+            if (W.mode == MODE_COOP && ow < MAX_PLAYERS && ow != a->player && !MP.friendly_fire) {
+                if (!a->stun && !a->invul) { a->stun = 60; W.stat.ff_stuns++; }   /* a teammate's blast: stunned 1 s */
+            } else {
+                hurt_player(a);
+            }
+        }
         else enemy_down(a);
     }
 }
@@ -1099,7 +1155,7 @@ static void update_vents(void)
                     actor *a = &W.a[i];
                     if (!a->alive || a->moving || a->depth != d || a->cx != x || a->cy != y) continue;
                     if (a->kind == AK_MOLE) {
-                        if (pending_depth < 0) { pending_from = d; pending_depth = d - 1; }
+                        mole_depth(a, d - 1, 0);
                     } else {
                         a->depth--;
                         a->stun = 60;
@@ -1469,13 +1525,13 @@ static void ai_farmer(actor *a)
         for (int x = 0; x < GW; x++) crates += W.g[a->depth][y][x].t == TR_CRATE;
     if (!a->dig && crates == 0) {                    /* phase 2: angry and vulnerable */
         a->dig = 1;
-        a->hp = 3;
+        a->hp = (int16_t)(W.mode == MODE_COOP && W.nplayers > 1 ? 3 + 3 * (W.nplayers - 1) / 2 : 3);
         a->invul = 30;
         sfx(SFX_BOSS_HIT);
     }
     int rate = a->dig ? 70 : 110;
     if (W.t % (uint32_t)rate == 0) {
-        actor *m = world_player(0);
+        actor *m = target_player(a);
         if (m && m->alive && m->depth == a->depth) {
             int tx = m->moving ? m->tx : m->cx, ty = m->moving ? m->ty : m->cy;
             for (int i = 0; i < MAX_FX; i++)
@@ -1515,8 +1571,9 @@ static void tomato_land(fxp *f)
     int d = f->depth, x = f->vx, y = f->vy;
     if (!in_grid(x, y)) return;
     if (W.g[d][y][x].t == TR_HOLE_DOWN && d < NDEPTH - 1) d++;   /* falls down the hole */
-    actor *m = world_player(0);
-    if (m && m->alive && m->depth == d) {
+    for (int p = 0; p < W.nplayers; p++) {
+        actor *m = world_player(p);
+        if (!m || !m->alive || m->depth != d) continue;
         int px, py;
         actor_px(m, &px, &py);
         if (abs(px - x * CELL) < 11 && abs(py - y * CELL) < 11) hurt_player(m);   /* a hit, like any other */
@@ -1779,22 +1836,68 @@ static int pad_dir(uint16_t held, uint16_t pressed)
     return -1;
 }
 
+/* moles still in the game (not knocked out) */
+int world_moles_up(void)
+{
+    int n = 0;
+    for (int p = 0; p < W.nplayers; p++) {
+        const actor *m = world_player(p);
+        n += m && m->alive && m->state != 99;
+    }
+    return n;
+}
+
+/* co-op: a knocked-out mole comes back after 5 s next to a teammate who is still up; when every mole is down
+   at once, the level is lost (EV_DEAD) */
+static void coop_ko(actor *a)
+{
+    const actor *mate = NULL;
+    for (int p = 0; p < W.nplayers; p++) {
+        const actor *m = world_player(p);
+        if (m && m != a && m->alive && m->state != 99) { mate = m; break; }
+    }
+    if (!mate) {
+        if (a->timer > 90) a->timer = 90;
+        if (--a->timer <= 0) W.events |= EV_DEAD;
+        return;
+    }
+    if (--a->timer > 0) return;
+    int d = mate->depth, x = mate->cx, y = mate->cy;
+    if (!terrain_walkable(W.g[d][y][x].t, 0)) { d = W.start_d[a->player]; x = W.start_x[a->player]; y = W.start_y[a->player]; }
+    if (d != a->depth) W.depth_event[a->player] = a->depth + 1;
+    a->depth = (uint8_t)d;
+    a->cx = a->tx = (int8_t)x;
+    a->cy = a->ty = (int8_t)y;
+    a->moving = 0; a->prog = 0; a->stun = 0; a->dig = 0; a->timer = 0;
+    a->state = 0;
+    a->invul = INVUL * 2;
+    W.ps[a->player].hearts = 1;
+    W.respawns++;
+    sfx(SFX_POWERUP);
+}
+
+static uint16_t world_cpu(actor *m, uint16_t *pressed);
+
 static void update_player(actor *a)
 {
-    uint16_t held = rs_pad(a->player), pr = rs_pad_pressed(a->player);
-    if (bot_mode) held = bot_mode == 2 ? world_bot_objective(a, &pr) : world_bot(a, &pr);
+    int port = W.mode == MODE_SOLO ? a->player : MP.port[a->player];
+    uint16_t held = port >= 0 ? rs_pad(port) : 0, pr = port >= 0 ? rs_pad_pressed(port) : 0;
+    if (W.mode == MODE_SOLO && bot_mode) held = bot_mode == 2 ? world_bot_objective(a, &pr) : world_bot(a, &pr);
+    if (W.mode != MODE_SOLO && MP.cpu[a->player] && a->state != 99) held = world_cpu(a, &pr);
     if (a->state == 99) {                           /* knocked out */
+        if (W.mode == MODE_COOP) { coop_ko(a); return; }
+        if (W.mode == MODE_BATTLE) { if (a->timer > 0 && --a->timer == 0) a->alive = 0; return; }   /* out of the round */
         if (--a->timer == 0) W.events |= EV_DEAD;
         return;
     }
     if (a->invul) a->invul--;
     if (a->timer) a->timer--;
-    if (W.riding >= 0 || W.in_bucket) return;      /* in a mine cart, in the well's bucket */
+    if (W.riding[a->player] >= 0 || W.in_bucket[a->player]) return;   /* in a mine cart, in the well's bucket */
     {
         const cell *here = &W.g[a->depth][a->cy][a->cx];
         if (!a->moving && terrain_walkable(here->t, 0) && here->t != TR_THIN_ICE && here->t != TR_HOLE_DOWN &&
             here->t != TR_PIPE && !(here->t == TR_ICE && here->river)) {
-            W.safe_d = (int8_t)a->depth; W.safe_x = a->cx; W.safe_y = a->cy;
+            W.safe_d[a->player] = (int8_t)a->depth; W.safe_x[a->player] = a->cx; W.safe_y[a->player] = a->cy;
         }
     }
     if (a->stun) { a->stun--; return; }
@@ -1895,7 +1998,7 @@ static void update_actor(actor *a)
 {
     if (!a->alive) return;
     a->anim++;
-    if (a->moving && !(a->kind == AK_MOLE && W.riding >= 0)) {   /* a riding mole moves with its cart */
+    if (a->moving && !(a->kind == AK_MOLE && W.riding[a->player] >= 0)) {   /* a riding mole moves with its cart */
         a->prog = (int16_t)(a->prog + effective_speed(a));
         if (a->prog >= SUB) arrive(a);
     }
@@ -2297,7 +2400,7 @@ static int croc_adjacent(const actor *a, const actor *m)
 
 static void ai_croc(actor *a)
 {
-    actor *m = world_player(0);
+    actor *m = target_player(a);
     if (a->aux) a->aux--;
     cell *here = &W.g[a->depth][a->cy][a->cx];
     int under = here->t == TR_ICE || here->t == TR_THIN_ICE;
@@ -2379,7 +2482,7 @@ static void badger_dig_to(actor *a, int to)
 
 static void ai_badger(actor *a)
 {
-    actor *m = world_player(0);
+    actor *m = target_player(a);
     if (a->state == 1) {                             /* charging */
         int nx = a->cx + DX[a->dir], ny = a->cy + DY[a->dir];
         if (in_grid(nx, ny) && W.g[a->depth][ny][nx].t == TR_ROCK) {
@@ -2598,13 +2701,13 @@ static int cart_next_dir(const cart *c)
 static int board_cart(actor *m, int i, int dir)
 {
     cart *c = &W.carts[i];
-    if (c->moving) return 0;
+    if (c->moving || c->runaway) return 0;
     c->dir = (uint8_t)dir;
     int k = cart_next_dir(c);
     if (k < 0) { c->dir = (uint8_t)((dir + 2) % 4); k = cart_next_dir(c); }
     if (k < 0) return 0;
-    c->rider = 1;
-    W.riding = i;
+    c->rider = (uint8_t)(m->player + 1);
+    W.riding[m->player] = i;
     m->cx = m->tx = c->cx; m->cy = m->ty = c->cy; m->moving = 0; m->prog = 0;
     c->dir = (uint8_t)k;
     c->tx = (int8_t)(c->cx + DX[k]); c->ty = (int8_t)(c->cy + DY[k]); c->moving = 1; c->prog = 0;
@@ -2615,10 +2718,15 @@ static int board_cart(actor *m, int i, int dir)
 
 static void update_carts(void)
 {
-    actor *m = world_player(0);
     for (int i = 0; i < MAX_CARTS; i++) {
         cart *c = &W.carts[i];
+        if (c->alive && c->runaway && !c->moving && W.t > 120) {   /* a runaway cart sets off again */
+            int k = cart_next_dir(c);
+            if (k < 0) { c->dir = (uint8_t)((c->dir + 2) % 4); k = cart_next_dir(c); }
+            if (k >= 0) { c->dir = (uint8_t)k; c->tx = (int8_t)(c->cx + DX[k]); c->ty = (int8_t)(c->cy + DY[k]); c->moving = 1; c->prog = 0; }
+        }
         if (!c->alive || !c->moving) continue;
+        actor *m = c->rider ? world_player(c->rider - 1) : NULL;
         c->prog += 64;                               /* 4 cells a second */
         if (c->prog >= SUB) {
             c->cx = c->tx; c->cy = c->ty; c->prog = 0;
@@ -2626,13 +2734,15 @@ static void update_carts(void)
                 actor *a = &W.a[k];
                 if (a->alive && a->depth == c->depth && a->cx == c->cx && a->cy == c->cy &&
                     a->kind != AK_MOLE && a->kind != AK_BOSS) { enemy_down(a); W.stat.crushed_by_cart++; }
+                if (c->runaway && a->alive && a->kind == AK_MOLE && a->depth == c->depth && a->cx == c->cx &&
+                    a->cy == c->cy) { hurt_player(a); W.stat.crushed_by_cart++; }
             }
             int k = cart_next_dir(c);
             if (k < 0) {                             /* the end of the line */
                 c->moving = 0;
                 if (c->rider && m) {
                     c->rider = 0;
-                    W.riding = -1;
+                    W.riding[m->player] = -1;
                     m->cx = m->tx = c->cx; m->cy = m->ty = c->cy; m->moving = 0; m->prog = 0;
                     m->invul = 30;
                 }
@@ -2710,7 +2820,7 @@ static void nest_break(int d, int x, int y)
    4 hits. */
 static void ai_fox(actor *a)
 {
-    actor *m = world_player(0);
+    actor *m = target_player(a);
     if (a->state == 2) {                             /* resting, panting: the window */
         if (a->timer % 20 == 0) fx_add(FXP_STEAM, a->depth, a->cx * CELL + 6, a->cy * CELL - 10, 20, 2, -4);
         if (--a->timer > 0) return;
@@ -2799,9 +2909,9 @@ static void drown_check(void)
         if (a->state == 99) continue;
         W.stat.drowned++;
         a->moving = 0; a->sliding = 0; a->forced = 0; a->prog = 0; a->dig = 0;
-        a->depth = (uint8_t)W.safe_d;
-        a->cx = a->tx = W.safe_x;
-        a->cy = a->ty = W.safe_y;
+        a->depth = (uint8_t)W.safe_d[a->player];
+        a->cx = a->tx = W.safe_x[a->player];
+        a->cy = a->ty = W.safe_y[a->player];
         if (dev_god || rs_option_int("god", 0)) continue;
         pstats *ps = &W.ps[a->player];
         if (--ps->hearts <= 0) { a->state = 99; a->timer = 90; sfx(SFX_KO); }
@@ -2966,8 +3076,8 @@ static void ride_bucket(actor *m)
     bucket *b = &W.buckets[ch];
     b->to = b->at == 0 ? 2 : 0;
     b->moving = BUCKET_TRIP;
-    b->rider = 1;
-    W.in_bucket = ch;
+    b->rider = (uint8_t)(m->player + 1);
+    W.in_bucket[m->player] = ch;
     m->moving = 0;
     W.stat.bucket_rides++;
     sfx_at(SFX_SWITCH, m->cx * CELL);
@@ -2981,12 +3091,11 @@ static void update_buckets(void)
         if (--b->moving > 0) continue;
         b->at = b->to;
         if (b->rider) {                             /* the mole climbs out at the other end */
-            actor *m = world_player(0);
+            actor *m = world_player(b->rider - 1);
             b->rider = 0;
-            W.in_bucket = 0;
             if (m) {
-                pending_from = m->depth;
-                pending_depth = b->at;
+                W.in_bucket[m->player] = 0;
+                mole_depth(m, b->at, 1);
                 m->cx = m->tx = b->x;
                 m->cy = m->ty = b->y;
             }
@@ -3043,7 +3152,7 @@ static int owl_perch(const actor *a, int *px, int *py)
     for (int y = 1; y < GH - 1; y++)
         for (int x = 1; x < GW - 1; x++) {
             if (W.g[0][y][x].t != TR_PERCH) continue;
-            const actor *m = world_player(0);
+            const actor *m = target_player(a);
             int dd = abs(x - a->cx) + abs(y - a->cy) + (m ? (abs(x - m->cx) + abs(y - m->cy)) / 2 : 0);
             if (best < 0 || dd < best) { best = dd; *px = x; *py = y; }
         }
@@ -3052,7 +3161,7 @@ static int owl_perch(const actor *a, int *px, int *py)
 
 static void ai_owl(actor *a)
 {
-    actor *m = world_player(0);
+    actor *m = target_player(a);
     int p2 = owl_phase2(a);
     switch (a->state) {
     case OWL_AIM:                                    /* hovering; the shadow marks the target */
@@ -3138,15 +3247,385 @@ static void update_winter(void)
     drown_check();
 }
 
+/* ---- battle: sudden death. When the round's time is up, the holes and ladders close and stone blocks
+   fall from the top of each depth in a spiral, from the walls inwards, one every 4 frames (a warning mark
+   shows the next ones): whatever they fall on is knocked out. ---- */
+#define SD_EVERY 12              /* the 4 mirrored cells of one step, every 12 frames: about 11 s in all */
+static int sd_cell(int i, int *px, int *py)
+{
+    /* the i-th cell of the spiral over the 18x12 inside, from the top-left corner, clockwise, inwards */
+    int x0 = 1, y0 = 1, x1 = GW - 2, y1 = GH - 2;
+    while (x0 <= x1 && y0 <= y1) {
+        int ring = 2 * (x1 - x0 + 1) + 2 * (y1 - y0 + 1) - 4;
+        if (x0 == x1 || y0 == y1) ring = (x1 - x0 + 1) * (y1 - y0 + 1);
+        if (i < ring) {
+            int w = x1 - x0, h = y1 - y0;
+            if (i <= w) { *px = x0 + i; *py = y0; return 1; }
+            i -= w;
+            if (i <= h) { *px = x1; *py = y0 + i; return 1; }
+            i -= h;
+            if (i <= w) { *px = x1 - i; *py = y1; return 1; }
+            i -= w;
+            *px = x0; *py = y1 - i;
+            return 1;
+        }
+        i -= ring;
+        x0++; y0++; x1--; y1--;
+    }
+    return 0;
+}
+
+void world_sudden_death(void)
+{
+    if (W.sd_on) return;
+    W.sd_on = 1;
+    W.sd_step = 0;
+    for (int d = 0; d < NDEPTH; d++)                 /* the holes close: everyone stays on their depth */
+        for (int y = 0; y < GH; y++)
+            for (int x = 0; x < GW; x++) {
+                cell *c = &W.g[d][y][x];
+                if (c->t == TR_HOLE_DOWN || c->t == TR_HOLE_UP || c->t == TR_LADDER || c->t == TR_PIPE || c->t == TR_WELL) {
+                    c->t = TR_FLOOR;
+                    dust_at(d, x, y);
+                    mark(d, x, y);
+                }
+            }
+    sfx(SFX_EXIT_OPEN);
+}
+
+/* the spiral's cells in the top-left quarter, in order: each step fills one of them and its 3 mirror images, so
+   the four corners close in at the same pace (fair to every start) */
+static int8_t sd_qx[GW * GH], sd_qy[GW * GH];
+static int sd_qn = -1;
+static int sd_step_cell(int i, int *x, int *y)
+{
+    if (sd_qn < 0) {
+        sd_qn = 0;
+        int sx, sy;
+        for (int j = 0; sd_cell(j, &sx, &sy); j++)
+            if (sx <= GW / 2 - 1 && sy <= GH / 2 - 1) { sd_qx[sd_qn] = (int8_t)sx; sd_qy[sd_qn] = (int8_t)sy; sd_qn++; }
+    }
+    if (i < 0 || i >= sd_qn) return 0;
+    *x = sd_qx[i];
+    *y = sd_qy[i];
+    return 1;
+}
+
+static int sd_mirror_of(int x, int y, int qx, int qy)
+{
+    return (x == qx || x == GW - 1 - qx) && (y == qy || y == GH - 1 - qy);
+}
+
+int world_sd_warning(int d, int x, int y)
+{
+    if (!W.sd_on || W.g[d][y][x].t == TR_STONE) return 0;
+    for (int k = 0; k < 2; k++) {
+        int sx, sy;
+        if (sd_step_cell(W.sd_step + k, &sx, &sy) && sd_mirror_of(x, y, sx, sy)) return 1;
+    }
+    return 0;
+}
+
+static void update_sudden_death(void)
+{
+    if (!W.sd_on || W.t % SD_EVERY) return;
+    int qx, qy;
+    if (!sd_step_cell(W.sd_step, &qx, &qy)) return;
+    W.sd_step++;
+    for (int m = 0; m < 4; m++)
+    for (int d = 0; d < NDEPTH; d++) {
+        int x = m & 1 ? GW - 1 - qx : qx, y = m & 2 ? GH - 1 - qy : qy;
+        cell *c = &W.g[d][y][x];
+        if (c->t == TR_STONE) continue;
+        c->t = TR_STONE;
+        c->item = IT_NONE;
+        c->icicle = 0;
+        mark(d, x, y);
+        dust_at(d, x, y);
+        bomb *b = bomb_at(d, x, y);
+        if (b) bomb_remove(b);
+        int sb = world_snowball_at(d, x, y);
+        if (sb >= 0) W.balls[sb].alive = 0;
+        for (int i = 0; i < W.na; i++) {
+            actor *a = &W.a[i];
+            if (!a->alive || a->depth != d) continue;
+            int ax = a->moving && a->prog > SUB / 2 ? a->tx : a->cx, ay = a->moving && a->prog > SUB / 2 ? a->ty : a->cy;
+            if (ax != x || ay != y) continue;
+            if (a->kind == AK_MOLE) {
+                if (a->state == 99) continue;
+                a->invul = 0;
+                W.ps[a->player].hearts = 1;
+                hurt_player(a);
+                W.stat.sd_crushed++;
+            } else {
+                a->alive = 0;
+            }
+        }
+    }
+    W.shake = 2;
+    sfx_at(SFX_BREAK, qx * CELL);
+}
+
+/* ---- the CPU players (battle): they dodge the blasts they know about, hunt power-ups and the other moles
+   (through the holes too), and bomb a mole in line or a soft block only when they can then walk out of the
+   blast. Skill: easy reacts slowly and misses chances, hard reacts at once and tosses bombs down holes. ---- */
+typedef struct cpu_brain { uint16_t held; int wait, goal_t, dig_t, still, lx, ly, ld; rs_rng rng; } cpu_brain;
+static cpu_brain cpu_b[MAX_PLAYERS];
+static uint8_t cpu_danger[GH][GW];                   /* frames before a blast reaches the cell (255: never) */
+
+int world_cpu_count(void)
+{
+    int n = 0;
+    for (int p = 0; p < W.nplayers; p++) n += MP.cpu[p] != 0;
+    return n;
+}
+
+static void cpu_mark_bomb(int d, int bx, int by, int range, int fuse)
+{
+    if (fuse < cpu_danger[by][bx]) cpu_danger[by][bx] = (uint8_t)clampi(fuse, 0, 254);
+    for (int k = 0; k < 4; k++)
+        for (int r = 1; r <= range; r++) {
+            int x = bx + DX[k] * r, y = by + DY[k] * r;
+            if (!in_grid(x, y)) break;
+            const cell *c = &W.g[d][y][x];
+            if (c->t == TR_STONE) break;
+            if (fuse < cpu_danger[y][x]) cpu_danger[y][x] = (uint8_t)clampi(fuse, 0, 254);
+            if (blast_stops(c)) break;
+        }
+}
+
+static void cpu_danger_map(int d, int extra_x, int extra_y, int extra_range)
+{
+    memset(cpu_danger, 255, sizeof cpu_danger);
+    for (int y = 0; y < GH; y++)
+        for (int x = 0; x < GW; x++)
+            if (W.blast[d][y][x] || world_sd_warning(d, x, y)) cpu_danger[y][x] = 0;
+    for (int i = 0; i < MAX_BOMBS; i++) {
+        const bomb *b = &W.b[i];
+        if (b->active && b->depth == d) cpu_mark_bomb(d, b->moving ? b->tx : b->cx, b->moving ? b->ty : b->cy, b->range, b->fuse);
+    }
+    if (extra_x >= 0) cpu_mark_bomb(d, extra_x, extra_y, extra_range, FUSE);
+    /* chains: a bomb in another bomb's blast goes off with it */
+    for (int pass = 0; pass < 2; pass++)
+        for (int i = 0; i < MAX_BOMBS; i++) {
+            const bomb *b = &W.b[i];
+            if (!b->active || b->depth != d) continue;
+            int t = cpu_danger[b->cy][b->cx];
+            if (t < b->fuse) cpu_mark_bomb(d, b->cx, b->cy, b->range, t);
+        }
+}
+
+static int cpu_walkable(const actor *m, int x, int y)
+{
+    if (!in_grid(x, y)) return 0;
+    const cell *c = &W.g[m->depth][y][x];
+    if (c->t == TR_THIN_ICE && c->state >= 2) return 0;
+    return cell_passable(m, m->depth, x, y);
+}
+
+/* breadth-first search from the mole: the first step (DIR_*) towards the nearest cell where goal() holds,
+   through cells a blast does not reach before the mole passes; 4 = already there, -1 = none */
+typedef int (*cpu_goal_fn)(const actor *m, int x, int y);
+static rs_rng *cpu_rng;                             /* the searching CPU's luck */
+static int cpu_search(const actor *m, cpu_goal_fn goal, int maxd)
+{
+    static int8_t from[GH][GW];
+    static uint8_t dist[GH][GW], qx[GW * GH], qy[GW * GH];
+    memset(from, -1, sizeof from);
+    int h = 0, t = 0, per = SUB / (20 + W.ps[m->player].speed * 5) + 1;
+    qx[t] = (uint8_t)m->cx; qy[t] = (uint8_t)m->cy; t++;
+    from[m->cy][m->cx] = 4;
+    dist[m->cy][m->cx] = 0;
+    while (h < t) {
+        int x = qx[h], y = qy[h];
+        h++;
+        if (goal(m, x, y)) {
+            if (x == m->cx && y == m->cy) return 4;
+            while (1) {
+                int k = from[y][x];
+                int px = x - DX[k], py = y - DY[k];
+                if (px == m->cx && py == m->cy) return k;
+                x = px; y = py;
+            }
+        }
+        if (dist[y][x] >= maxd) continue;
+        int k0 = cpu_rng ? rs_rng_range(cpu_rng, 4) : 0;       /* no favourite direction: fair between mirrored starts */
+        for (int j = 0; j < 4; j++) {
+            int k = (k0 + j) & 3;
+            int nx = x + DX[k], ny = y + DY[k];
+            if (!in_grid(nx, ny) || from[ny][nx] >= 0 || !cpu_walkable(m, nx, ny)) continue;
+            int arrive_t = (dist[y][x] + 1) * per;
+            int dz = cpu_danger[ny][nx];
+            if (dz != 255 && dz <= arrive_t + per + 20 && dz + 40 >= arrive_t) continue;   /* a blast there as it passes */
+            from[ny][nx] = (int8_t)k;
+            dist[ny][nx] = (uint8_t)(dist[y][x] + 1);
+            qx[t] = (uint8_t)nx; qy[t] = (uint8_t)ny; t++;
+        }
+    }
+    return -1;
+}
+
+static int goal_safe(const actor *m, int x, int y)
+{
+    int t = W.g[m->depth][y][x].t;
+    return cpu_danger[y][x] == 255 && t != TR_HOLE_DOWN && t != TR_THIN_ICE;
+}
+
+static int goal_item(const actor *m, int x, int y)
+{
+    const cell *c = &W.g[m->depth][y][x];
+    return c->item && c->item != IT_GRUB && terrain_walkable(c->t, 0) && cpu_danger[y][x] == 255;
+}
+
+static const actor *cpu_enemy;                       /* the mole the CPU goes after */
+static int goal_line(const actor *m, int x, int y)
+{
+    /* a cell from which a bomb reaches the target along a clear line */
+    const actor *e = cpu_enemy;
+    if (!e || cpu_danger[y][x] != 255) return 0;
+    int dx = e->cx - x, dy = e->cy - y, r = W.ps[m->player].range;
+    if ((dx && dy) || abs(dx) + abs(dy) > r) return 0;
+    int k = dx > 0 ? DIR_RIGHT : dx < 0 ? DIR_LEFT : dy > 0 ? DIR_DOWN : DIR_UP;
+    for (int s = 1; s < abs(dx) + abs(dy); s++)
+        if (blast_stops(&W.g[m->depth][y + DY[k] * s][x + DX[k] * s])) return 0;
+    return 1;
+}
+
+static int cpu_enemy_depth;
+static int goal_stairs(const actor *m, int x, int y)
+{
+    /* a hole down or a ladder up towards the depth of the target */
+    int t = W.g[m->depth][y][x].t;
+    return cpu_danger[y][x] == 255 &&
+           ((cpu_enemy_depth > m->depth && t == TR_HOLE_DOWN) || (cpu_enemy_depth < m->depth && (t == TR_LADDER || t == TR_HOLE_UP)));
+}
+
+static int goal_block(const actor *m, int x, int y)
+{
+    /* a safe cell next to a soft block */
+    if (cpu_danger[y][x] != 255 || W.g[m->depth][y][x].t == TR_HOLE_DOWN) return 0;
+    for (int k = 0; k < 4; k++) {
+        int nx = x + DX[k], ny = y + DY[k];
+        if (in_grid(nx, ny) && (W.g[m->depth][ny][nx].t == TR_DIRT || W.g[m->depth][ny][nx].t == TR_LEAVES ||
+                                world_pumpkin_at(m->depth, nx, ny) >= 0)) return 1;
+    }
+    return 0;
+}
+
+/* would the mole get out of its own bomb's blast in time? */
+static int cpu_can_escape(const actor *m)
+{
+    if (W.ps[m->player].placed >= W.ps[m->player].bombs) return 0;
+    cpu_danger_map(m->depth, m->cx, m->cy, W.ps[m->player].range);
+    int k = cpu_search(m, goal_safe, 8);
+    return k >= 0 && k < 4;
+}
+
+static uint16_t world_cpu(actor *m, uint16_t *pressed)
+{
+    cpu_brain *c = &cpu_b[m->player];
+    int skill = clampi(MP.cpu[m->player], 1, 3);
+    cpu_rng = &c->rng;
+    *pressed = 0;
+    if (c->wait > 0) c->wait--;                     /* the reaction time runs while it moves too */
+    if (m->moving || m->stun) return c->held;
+    if (c->dig_t > 0) {                             /* digging through: hold the way (unless a blast comes) */
+        c->dig_t--;
+        cpu_danger_map(m->depth, -1, -1, 0);
+        if (cpu_danger[m->cy][m->cx] == 255) return c->held;
+        c->dig_t = 0;
+    }
+    if (c->wait > 0) return 0;                      /* thinking: it stands still (it never walks on blindly) */
+    /* stuck for 2 s in one place: dig (or push) through the soft block next to it */
+    if (m->cx == c->lx && m->cy == c->ly && m->depth == c->ld) c->still++;
+    else { c->still = 0; c->lx = m->cx; c->ly = m->cy; c->ld = (uint8_t)m->depth; }
+    if (c->still > 24) {
+        int opts[4], n = 0;
+        for (int j = 0; j < 4; j++) {
+            int nx = m->cx + DX[j], ny = m->cy + DY[j];
+            if (!in_grid(nx, ny)) continue;
+            int t = W.g[m->depth][ny][nx].t;
+            if (t == TR_DIRT || t == TR_LEAVES || world_pumpkin_at(m->depth, nx, ny) >= 0) opts[n++] = j;
+        }
+        c->still = 0;
+        if (n) {
+            int j = opts[rs_rng_range(&c->rng, n)];
+            c->held = DIR_BITS[j];
+            c->dig_t = 50;
+            return c->held;
+        }
+    }
+    c->wait = skill == 1 ? 14 : skill == 2 ? 5 : 1;
+    cpu_danger_map(m->depth, -1, -1, 0);
+    /* 1. in danger: run to the nearest safe cell */
+    if (cpu_danger[m->cy][m->cx] != 255) {
+        int k = cpu_search(m, goal_safe, 12);
+        c->held = k >= 0 && k < 4 ? DIR_BITS[k] : 0;
+        *pressed = c->held;
+        c->wait = 0;
+        return c->held;
+    }
+    /* the target: the nearest mole still up (the same depth first) */
+    const actor *e = NULL;
+    int bd = 1 << 20;
+    for (int p = 0; p < W.nplayers; p++) {
+        const actor *o = world_player(p);
+        if (!o || o == m || !o->alive || o->state == 99) continue;
+        int dd = abs(o->cx - m->cx) + abs(o->cy - m->cy) + (o->depth != m->depth ? 100 : 0);
+        if (dd < bd) { bd = dd; e = o; }
+    }
+    cpu_enemy = e && e->depth == m->depth ? e : NULL;
+    cpu_enemy_depth = e ? e->depth : m->depth;
+    int miss = skill == 1 ? 45 : skill == 2 ? 15 : 0;       /* chances it lets go */
+    /* 2. a mole in line within range, or a soft block next to it: bomb, if it can get away */
+    int in_line = cpu_enemy && goal_line(m, m->cx, m->cy);
+    int by_block = goal_block(m, m->cx, m->cy) && rs_rng_range(&c->rng, 100) < 35;
+    if ((in_line || by_block) && rs_rng_range(&c->rng, 100) >= miss && cpu_can_escape(m)) {
+        *pressed = RS_BTN_B;
+        W.stat.cpu_bombs++;
+        cpu_danger_map(m->depth, m->cx, m->cy, W.ps[m->player].range);
+        int k = cpu_search(m, goal_safe, 8);
+        c->held = k >= 0 && k < 4 ? DIR_BITS[k] : 0;
+        c->wait = 0;
+        return c->held;
+    }
+    /* hard: a mole on the depth below near a hole next to it: toss a bomb down */
+    if (skill == 3 && e && e->depth == m->depth + 1 && W.ps[m->player].placed < W.ps[m->player].bombs)
+        for (int k = 0; k < 4; k++) {
+            int hx = m->cx + DX[k], hy = m->cy + DY[k];
+            if (in_grid(hx, hy) && W.g[m->depth][hy][hx].t == TR_HOLE_DOWN && abs(e->cx - hx) + abs(e->cy - hy) <= 2) {
+                if (m->dir != k) { c->held = DIR_BITS[k]; *pressed = 0; m->dir = (uint8_t)k; return 0; }
+                *pressed = RS_BTN_B;
+                return 0;
+            }
+        }
+    /* 3. go: a power-up nearby, the target (a cell in line with it), the stairs to its depth, a soft block */
+    int k = cpu_search(m, goal_item, skill == 1 ? 4 : 8);
+    if ((k < 0 || k == 4) && cpu_enemy) k = cpu_search(m, goal_line, 30);
+    if ((k < 0 || k == 4) && e && e->depth != m->depth) k = cpu_search(m, goal_stairs, 40);
+    if (k < 0 || k == 4) k = cpu_search(m, goal_block, 30);
+    if (k < 0 || k == 4) {                           /* wander to a safe neighbour */
+        int opts[4], n = 0;
+        for (int j = 0; j < 4; j++)
+            if (cpu_walkable(m, m->cx + DX[j], m->cy + DY[j]) && cpu_danger[m->cy + DY[j]][m->cx + DX[j]] == 255 &&
+                W.g[m->depth][m->cy + DY[j]][m->cx + DX[j]].t != TR_HOLE_DOWN) opts[n++] = j;
+        k = n ? opts[rs_rng_range(&c->rng, n)] : -1;
+    }
+    /* soft blocks in the way: dig through leaves and dirt (hold the direction) */
+    c->held = k >= 0 && k < 4 ? DIR_BITS[k] : 0;
+    return c->held;
+}
+
 /* ---- public ------------------------------------------------------------------------------------- */
 void world_start(const level_def *L, const pstats *carry)
 {
     memset(&W, 0, sizeof W);
     W.def = L;
     W.season = L->season;
-    W.mode = MODE_SOLO;
-    W.nplayers = 1;
-    rs_rng_seed(&rng, 0x5eed1234u ^ (uint32_t)(L->arc * 97 + L->num * 13));
+    W.mode = MP.mode;
+    W.nplayers = MP.mode == MODE_SOLO ? 1 : clampi(MP.nplayers, 1, MAX_PLAYERS);
+    memset(W.blast_owner, 255, sizeof W.blast_owner);
+    rs_rng_seed(&rng, 0x5eed1234u ^ (uint32_t)(L->arc * 97 + L->num * 13) ^ (L->battle ? MP.seed * 2654435761u : 0u));
     memcpy(W.g, L->g, sizeof W.g);
     for (int p = 0; p < MAX_PLAYERS; p++) {
         W.ps[p].bombs = L->bombs;
@@ -3160,7 +3639,7 @@ void world_start(const level_def *L, const pstats *carry)
     int typed = 0, has_dog = 0;
     for (int i = 0; i < L->nsp; i++) {
         const spawn *s = &L->sp[i];
-        if (s->kind == AK_MOLE && s->player >= W.nplayers) continue;   /* 2-4 player starts: future */
+        if (s->kind == AK_MOLE && s->player >= W.nplayers) continue;   /* the starts of absent players */
         int is_enemy = s->kind == AK_CAT || s->kind == AK_FERRET;
         if (is_enemy && W.diff == DIFF_EASY && typed++ % 3 == 2) continue;   /* easy: a third fewer */
         actor *a = actor_new(s->kind, s->depth, s->x, s->y);
@@ -3174,6 +3653,8 @@ void world_start(const level_def *L, const pstats *carry)
             if (L->boss == BOSS_BADGER) a->timer = 240;      /* it wakes up after 4 s: a quiet start */
             if (L->boss == BOSS_FOX) { a->hp = 4; a->timer = 120; }
             if (L->boss == BOSS_OWL) { a->hp = 5; a->timer = 150; a->state = OWL_FLY; }
+            if (W.mode == MODE_COOP && W.nplayers > 1) a->hp = (int16_t)(a->hp + a->hp * (W.nplayers - 1) / 2);
+            W.boss_hp_max = a->hp;
             W.boss_alive = 1;
         }
         if (is_enemy) {
@@ -3186,8 +3667,37 @@ void world_start(const level_def *L, const pstats *carry)
                 if (!strcmp(force, ENEMY_TYPES[t].name)) { a->kind = ENEMY_TYPES[t].kind; a->etype = (uint8_t)t; a->hp = ENEMY_TYPES[t].hits; }
         }
     }
-    if (W.diff == DIFF_HARD) {
-        /* hard: one more enemy on each depth that has some, far from the mole */
+    /* battle: a lone crocodile starts in one of the 4 mirror images of its cell, by luck (fair to every start) */
+    if (L->battle)
+        for (int i = 0; i < W.na; i++) {
+            actor *a = &W.a[i];
+            if (a->kind != AK_CROC) continue;
+            int m = rs_rng_range(&rng, 4), x = m & 1 ? GW - 1 - a->cx : a->cx, y = m & 2 ? GH - 1 - a->cy : a->cy;
+            if (W.g[a->depth][y][x].t == TR_WATER) { a->cx = a->tx = (int8_t)x; a->cy = a->ty = (int8_t)y; }
+        }
+    /* co-op: the moles who have no start of their own start next to the first one */
+    for (int p = 1; p < W.nplayers; p++) {
+        if (world_player(p)) continue;
+        const actor *m0 = world_player(0);
+        if (!m0) break;
+        int best = -1, bx = m0->cx, by = m0->cy;
+        for (int y = 1; y < GH - 1; y++)
+            for (int x = 1; x < GW - 1; x++) {
+                const cell *c = &W.g[m0->depth][y][x];
+                if (c->t != TR_FLOOR || c->item || actor_at(m0->depth, x, y, NULL, 0)) continue;
+                int dd = abs(x - m0->cx) + abs(y - m0->cy);
+                if (dd && (best < 0 || dd < best)) { best = dd; bx = x; by = y; }
+            }
+        actor *a = actor_new(AK_MOLE, m0->depth, bx, by);
+        if (a) a->player = (uint8_t)p;
+    }
+    for (int p = 0; p < W.nplayers; p++) {
+        const actor *m = world_player(p);
+        if (m) { W.start_d[p] = (int8_t)m->depth; W.start_x[p] = m->cx; W.start_y[p] = m->cy; }
+    }
+    /* hard, and co-op with more moles: more enemies on each depth that has some, far from the moles */
+    int extra = (W.diff == DIFF_HARD) + (W.mode == MODE_COOP ? W.nplayers - 1 : 0);
+    for (int rep = 0; rep < extra; rep++) {
         int n0 = W.na;
         for (int d = 0; d < NDEPTH; d++) {
             const actor *first = NULL;
@@ -3210,14 +3720,30 @@ void world_start(const level_def *L, const pstats *carry)
         for (int y = 0; y < GH; y++)
             for (int x = 0; x < GW; x++) has_dog |= W.g[d][y][x].t == TR_HIVE;
     for (int i = 0; i < W.na; i++) has_dog |= W.a[i].kind == AK_CROC || W.a[i].kind == AK_ANTS;
-    /* sprite palettes of the enemy variants: slots 1 and 2, plus 3 without a boss and 7 without a dog */
+    /* sprite palettes of the enemy variants: slots 1 and 2, plus 3 without a boss and 7 without a dog; in
+       multiplayer the moles take theirs first (the boss's or the critters' when free, else an enemy one while
+       enough remain; a mole without one shares the first mole's) */
     memset(W.var_slot, -1, sizeof W.var_slot);
     {
-        int pool[4], np = 0, used = 0;
+        int pool[4], np = 0, used = 0, nvar = 0;
+        uint8_t seen[VAR_COUNT] = {0};
+        for (int i = 0; i < W.na; i++)
+            if ((W.a[i].kind == AK_CAT || W.a[i].kind == AK_FERRET) && !seen[ENEMY_TYPES[W.a[i].etype].variant]) {
+                seen[ENEMY_TYPES[W.a[i].etype].variant] = 1;
+                nvar++;
+            }
         pool[np++] = OBJ_PAL_FERRET;
         pool[np++] = OBJ_PAL_CAT;
         if (!W.boss_alive) pool[np++] = OBJ_PAL_BOSS;
         if (!has_dog) pool[np++] = OBJ_PAL_CRITTER;
+        W.mole_pal[0] = OBJ_PAL_MOLE;
+        for (int p = 1; p < MAX_PLAYERS; p++) {
+            W.mole_pal[p] = OBJ_PAL_MOLE;
+            if (p >= W.nplayers) continue;
+            int take = -1;                           /* from the end of the pool: boss, critters, then cat, ferret */
+            if (np > nvar || (np > 0 && W.mode == MODE_BATTLE)) take = --np;
+            if (take >= 0) W.mole_pal[p] = pool[take];
+        }
         for (int i = 0; i < W.na; i++) {
             actor *a = &W.a[i];
             if (a->kind != AK_CAT && a->kind != AK_FERRET) continue;
@@ -3252,7 +3778,7 @@ void world_start(const level_def *L, const pstats *carry)
     W.grubs_total += W.boss_alive;
     W.grubs_left = W.grubs_total;
     W.crates_total = world_crates();
-    W.riding = -1;
+    for (int p = 0; p < MAX_PLAYERS; p++) W.riding[p] = -1;
     for (int i = 0; i < L->npumpkins; i++) {
         pumpkin *p = &W.pumps[i];
         p->alive = 1; p->depth = L->pumpkins[i].depth;
@@ -3270,13 +3796,21 @@ void world_start(const level_def *L, const pstats *carry)
                 b->used = 1; b->at = 0; b->x = (int8_t)x; b->y = (int8_t)y;
             }
     owl_tx = owl_ty = 0;
-    {
-        const actor *m0 = world_player(0);
-        if (m0) { W.safe_d = (int8_t)m0->depth; W.safe_x = m0->cx; W.safe_y = m0->cy; }
+    for (int p = 0; p < MAX_PLAYERS; p++) {
+        memset(&cpu_b[p], 0, sizeof cpu_b[p]);
+        rs_rng_seed(&cpu_b[p].rng, 0xc0ffee11u ^ (uint32_t)(p * 7919 + L->num * 131 + rs_option_int("seed", 0) * 104729) ^
+                    MP.seed * 40503u);
+        W.in_bucket[p] = 0;
+    }
+    for (int p = 0; p < MAX_PLAYERS; p++) {
+        const actor *m0 = world_player(p);
+        if (m0) { W.safe_d[p] = (int8_t)m0->depth; W.safe_x[p] = m0->cx; W.safe_y[p] = m0->cy; }
     }
     for (int i = 0; i < L->ncarts; i++) {
         cart *c = &W.carts[i];
         c->alive = 1; c->depth = L->carts[i].depth;
+        c->runaway = L->runaway[i];
+        if (c->runaway) c->dir = (uint8_t)(L->carts[i].x < GW / 2 ? DIR_RIGHT : DIR_LEFT);   /* mirrored carts, mirrored runs */
         c->cx = c->tx = (int8_t)L->carts[i].x; c->cy = c->ty = (int8_t)L->carts[i].y;
     }
     for (int i = 0; i < W.na; i++) {
@@ -3324,6 +3858,7 @@ void world_update(void)
     update_carts();
     update_trees();
     update_winter();
+    update_sudden_death();
     contacts();
     update_fx();
     W.t++;

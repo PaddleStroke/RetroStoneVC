@@ -54,7 +54,7 @@ static const struct { char c; const char *spec; } DEFAULT_LEGEND[] = {
 typedef struct legend_entry {
     int used;
     cell c;
-    int actor, asleep, player, log, etype, harv, pumpkin, cart, snowball;
+    int actor, asleep, player, log, etype, harv, pumpkin, cart, snowball, runaway;
 } legend_entry;
 
 static int parse_spec(const char *spec, legend_entry *e, char *err, size_t errn)
@@ -84,6 +84,7 @@ static int parse_spec(const char *spec, legend_entry *e, char *err, size_t errn)
         else if (!strcmp(tok, "ants")) e->actor = AK_ANTS;
         else if (!strcmp(tok, "pumpkin")) e->pumpkin = 1;
         else if (!strcmp(tok, "cart")) e->cart = 1;
+        else if (!strcmp(tok, "runaway")) { e->cart = 1; e->runaway = 1; }
         else if (!strcmp(tok, "snowball")) e->snowball = 1;
         else if (!strcmp(tok, "river")) e->c.river = 1;
         else if (!strcmp(tok, "icicle")) e->c.icicle = 1;
@@ -214,6 +215,7 @@ int level_parse(level_def *L, const char *text, size_t len, const char *fname)
                     L->npumpkins++;
                 }
                 if (e->cart && L->ncarts < MAX_CARTS) {
+                    L->runaway[L->ncarts] = (uint8_t)e->runaway;
                     L->carts[L->ncarts].depth = (uint8_t)section;
                     L->carts[L->ncarts].x = (uint8_t)x;
                     L->carts[L->ncarts].y = (uint8_t)row;
@@ -291,6 +293,7 @@ int level_parse(level_def *L, const char *text, size_t len, const char *fname)
         else if (!strcmp(s, "croc")) L->croc_hp = atoi(v);
         else if (!strcmp(s, "fog")) L->fog = atoi(v);
         else if (!strcmp(s, "night")) L->night = atoi(v);
+        else if (!strcmp(s, "mode")) L->battle = !strcmp(v, "battle");
         /* unknown keys are ignored: data hooks for later gimmicks */
     }
     if (L->season < 0) { snprintf(L->error, sizeof L->error, "%s: missing or bad 'season'", L->file); return -1; }
@@ -348,8 +351,17 @@ int level_parse(level_def *L, const char *text, size_t len, const char *fname)
             }
         }
     if (moles != 1) { snprintf(L->error, sizeof L->error, "%s: needs exactly one mole start (M), found %d", L->file, moles); return -1; }
+    if (L->battle) {                            /* an arena: the starts of 4 moles, no exit, no grubs */
+        int starts = 0;
+        for (int i = 0; i < L->nsp; i++) starts += L->sp[i].kind == AK_MOLE;
+        if (starts != 4 || exits) {
+            snprintf(L->error, sizeof L->error, "%s: an arena needs 4 starts (M 2 3 4) and no exit", L->file);
+            return -1;
+        }
+    } else {
     if (exits != 1) { snprintf(L->error, sizeof L->error, "%s: needs exactly one exit, on the surface", L->file); return -1; }
     if (grubs + boss < 1) { snprintf(L->error, sizeof L->error, "%s: needs at least one grub", L->file); return -1; }
+    }
     /* puddles make mud on the depth below */
     for (int d = 0; d < NDEPTH - 1; d++)
         for (int y = 0; y < GH; y++)
@@ -358,6 +370,26 @@ int level_parse(level_def *L, const char *text, size_t len, const char *fname)
                     L->g[d + 1][y][x].t = TR_MUD;
     if (!L->name[0]) snprintf(L->name, sizeof L->name, "%s %d", season_name(L->season), L->num);
     if (!L->music[0]) snprintf(L->music, sizeof L->music, "%s", L->boss && boss ? "boss" : season_name(L->season));
+    if (L->battle) L->boss = 0;
+    return 0;
+}
+
+int arena_load(level_def *L, const char *name)
+{
+    char path[64];
+    size_t n = 0;
+    snprintf(path, sizeof path, "arenas/%s.txt", name);
+    const char *t = rs_asset(path, &n);
+    if (!t) {
+        memset(L, 0, sizeof *L);
+        snprintf(L->error, sizeof L->error, "%s not found", path);
+        return -1;
+    }
+    if (level_parse(L, t, n, path + 7)) {
+        rs_log("arena error: %s", L->error);
+        return -1;
+    }
+    if (!L->battle) { snprintf(L->error, sizeof L->error, "%s: not an arena (mode: battle)", path); return -1; }
     return 0;
 }
 

@@ -233,5 +233,51 @@ out=$(S --frames 600 --opt level=winter-17 --opt spawn=1,5,5 --opt god=1)
     && ok "owl: with the mole underground it drops icicles through the ceiling above it" || bad "owl drop: $(wf "$out")"
 out=$(S --frames 700 --opt level=winter-18)
 [ "$(field drifts "$out")" -ge 1 ] && ok "blizzard: snowdrifts pile up on the gale lanes" || bad "blizzard: $(wf "$out")"
+# ---- multiplayer (co-op test arena spring-12: M and P2 start 2 cells apart) --------------------------------
+mp() { echo "$1" | grep "mp:"; }
+MPC="--opt mp=coop --opt players=2 --opt level=spring-12"
+printf "5 P1 RIGHT\n40 P1 -\n5 P2 DOWN\n40 P2 -\n" > $T/mp1.input
+out=$(S --frames 50 $MPC --input $T/mp1.input)
+echo "$out" | grep -q "views=2 " && echo "$out" | grep -q "p1=0,4,1,1,0 p2=0,3,4,1,0" \
+    && ok "co-op: two moles, two views, each pad moves its own mole" || bad "co-op move: $(mp "$out")"
+printf "5 P2 DOWN\n31 P2 RIGHT\n110 P2 -\n" > $T/mp2.input
+out=$(S --frames 150 $MPC --input $T/mp2.input)
+echo "$out" | grep -q "cam0=0,0,0 cam1=[0-9]*,0,1 " && ok "co-op: P2 goes down a hole, only its view slides to depth 1" \
+    || bad "co-op depth: $(mp "$out")"
+printf "5 P1 tap UP\n8 P1 tap B\n12 P1 RIGHT\n24 P1 DOWN\n40 P1 -\n" > $T/mp3.input
+out=$(S --frames 200 $MPC --input $T/mp3.input)
+echo "$out" | grep -q "ffstuns=1 " && echo "$out" | grep -q "p2=0,3,1,1,1" \
+    && ok "co-op: a teammate's blast only stuns (friendly fire off)" || bad "co-op friendly fire: $(mp "$out")"
+out=$(S --frames 200 $MPC --opt ff=1 --input $T/mp3.input)
+echo "$out" | grep -q "ffstuns=0 " && echo "$out" | grep -q "p2=0,3,1,0,9" \
+    && ok "co-op: with friendly fire on, it knocks the teammate out" || bad "co-op friendly fire on: $(mp "$out")"
+printf "5 P2 tap B\n" > $T/mp4.input
+out=$(S --frames 520 $MPC --input $T/mp4.input)
+echo "$out" | grep -q "respawns=1 " && echo "$out" | grep -q "p2=0,1,1,1,0" \
+    && ok "co-op: a knocked-out mole comes back after 5 s next to its teammate" || bad "co-op respawn: $(mp "$out")"
+printf "5 P2 RIGHT\n45 P2 -\n50 P1 tap UP\n55 P1 tap B\n55 P2 tap B\n" > $T/mp5.input
+out=$(S --frames 320 $MPC --input $T/mp5.input)
+echo "$out" | grep -q "state: st=9 \|state: st=5 " && ok "co-op: both moles down at once: the level is lost" || bad "co-op all down: $(echo "$out" | grep "state:\|mp:")"
+printf "5 P1 tap B\n8 P1 RIGHT\n60 P1 -\n" > $T/mp6.input
+out=$(S --frames 200 $MPC --input $T/mp6.input)
+echo "$out" | grep -q "holebombs=1 " && ok "bombs tossed into a hole fall to the depth below" || bad "hole bomb: $(mp "$out")"
+out=$(S --frames 20 $MPC --opt spawn=0,18,12)
+echo "$out" | grep -q "cam0=161,0,0 cam1=0,0,0 " && ok "camera: clamped to the level (2 views: 159x224)" || bad "camera 2: $(mp "$out")"
+out=$(S --frames 20 --opt mp=coop --opt players=4 --opt level=spring-12 --opt spawn=0,18,12)
+echo "$out" | grep -q "views=4 .*cam0=161,121,0 cam1=0,0,0" && ok "camera: clamped to the level (4 quadrants: 159x103)" \
+    || bad "camera 4: $(mp "$out")"
+out=$(S --frames 20 $MPC --opt merge=1)
+echo "$out" | grep -q "views=1 merged=1 " && ok "co-op option: two moles close together share one view" || bad "merge: $(mp "$out")"
+out=$(S --frames 20 --opt mp=coop --opt players=3 --opt level=spring-12)
+echo "$out" | grep -q "views=3 .* vp=7 " && ok "3 players: 3 views and the live map in the 4th quadrant" || bad "3 views: $(mp "$out")"
+out=$($H --frames 150 --opt mp=battle --opt players=2 --opt arena=molehill-maze --opt sd=1 --opt dump=1 2>&1)
+echo "$out" | grep -q "sd=1 sdcrush=2 " && ok "battle: sudden death: the holes close and the blocks crush the moles in the corners" \
+    || bad "sudden death: $(mp "$out")"
+out=$($H --frames 900 --opt mp=battle --opt players=4 --opt cpus=4 --opt arena=molehill-maze --opt dump=1 2>&1)
+[ "$(field cpubombs "$out")" -ge 4 ] && ok "battle: 4 CPUs play (bombs placed, blocks broken, power-ups dropped)" || bad "cpu: $(mp "$out")"
+printf "10 P1 tap A\n20 P2 tap A\n30 P1 tap X\n40 P2 tap RIGHT\n" > $T/join.input
+out=$($H --frames 60 --opt screen=join --opt dump=1 --input $T/join.input 2>&1)
+echo "$out" | grep -q "join: humans=2 cpus=1 skill=2 colours=0,3,2," && ok "join screen: pads join in order, P1 adds a CPU, colours stay unique" \
+    || bad "join: $(echo "$out" | grep join:)"
 rm -rf $T
 exit $fail

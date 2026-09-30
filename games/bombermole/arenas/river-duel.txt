@@ -1,0 +1,56 @@
+# Bomber Mole battle arena: River Duel. A river splits the field: two bridges on each side and the
+# crocodile in the middle; tunnels run under the riverbed.
+name: River Duel
+season: summer
+arc: 0
+level: 0
+mode: battle
+bombs: 1
+range: 2
+status: done
+
+surface:
+####################
+#M.dd.dd....dd.dd.2#
+#.#d#.#d#dd#d#.#d#.#
+#dd.vd.d.dd.d.dv.dd#
+#d#d#.#v#dd#v#.#d#d#
+#.dd.ddd.dd.ddd.dd.#
+#~~=~~~~=%~=~~~~=~~#
+#~~=~~~~=~~=~~~~=~~#
+#.dd.ddd.dd.ddd.dd.#
+#d#d#.#v#dd#v#.#d#d#
+#dd.vd.d.dd.d.dv.dd#
+#.#d#.#d#dd#d#.#d#.#
+#3.dd.dd....dd.dd.4#
+####################
+under1:
+####################
+#ddd.dddddddddd.ddd#
+#dr...r.vddv.r...rd#
+#d.rH..d.dd.d..Hr.d#
+#d.r..rH.dd.Hr..r.d#
+#d.v.....dd.....v.d#
+#dddd.dd....dd.dddd#
+#dddd.dd....dd.dddd#
+#d.v.....dd.....v.d#
+#d.r..rH.dd.Hr..r.d#
+#d.rH..d.dd.d..Hr.d#
+#dr...r.vddv.r...rd#
+#ddd.dddddddddd.ddd#
+####################
+under2:
+####################
+#ffffffffffffffffff#
+#ff.d...HffH...d.ff#
+#f....d.ffff.d....f#
+#f.d..f......f..d.f#
+#f.H.d........d.H.f#
+#ff.fff.f..f.fff.ff#
+#ff.fff.f..f.fff.ff#
+#f.H.d........d.H.f#
+#f.d..f......f..d.f#
+#f....d.ffff.d....f#
+#ff.d...HffH...d.ff#
+#ffffffffffffffffff#
+####################

@@ -19,6 +19,25 @@ for f in "$L"/*.txt; do
     n=$((n + 1))
 done
 echo "  ok   $n levels load and run"
+# the battle arenas: each loads and runs a round of 4 CPUs (with the split screen)
+n=0
+for f in "$D"/../arenas/*.txt; do
+    name=$(basename "$f" .txt)
+    out=$($H --frames 400 --opt mp=battle --opt players=4 --opt cpus=4 --opt arena=$name --opt dump=1 --opt strict=1 2>&1)
+    if echo "$out" | grep -q "arena error\|battle:"; then echo "  FAIL arena $name: $(echo "$out" | grep error)"; fail=1; fi
+    if ! echo "$out" | grep -q "mp: mode=2 players=4 views=4"; then echo "  FAIL arena $name does not run: $(echo "$out" | grep mp:)"; fail=1; fi
+    n=$((n + 1))
+done
+echo "  ok   $n arenas load and run (4 CPUs, 4 views)"
+# fair arenas: 200 rounds of 4 CPUs on each, no start wins more than 40% of the rounds won
+for f in "$D"/../arenas/*.txt; do
+    name=$(basename "$f" .txt)
+    out=$($H --frames 2 --opt battlesim=200 --opt arena=$name 2>&1 | grep battlesim)
+    w=$(echo "$out" | sed -n 's/.*wins=\([0-9,]*\).*/\1/p')
+    ok=$(echo "$w" | awk -F, '{t=$1+$2+$3+$4; m=$1; for(i=2;i<=4;i++) if($i>m) m=$i; print (t > 0 && m * 100 <= 40 * t) ? 1 : 0}')
+    if [ "$ok" = 1 ]; then echo "  ok   battle $name: 200 rounds of 4 CPUs, wins by start $w (none over 40%)"
+    else echo "  FAIL battle $name: $out"; fail=1; fi
+done
 out=$($H --frames 200 --opt level=spring-1 --opt nointro=1 --opt dump=1 --input $D/dig.input 2>&1)
 check "dig through the soft dirt wall" "depth=0 x=[6-9] y=1 " "$out"
 out=$($H --frames 330 --opt level=spring-1 --opt nointro=1 --opt dump=1 --input $D/hole_grub.input 2>&1)
@@ -54,7 +73,7 @@ out=$(python3 $D/../tools/check_levels.py $D/data/levels_bad/softlock-gate.txt 2
 check "check_levels finds the spring 4 gate softlock" "SOFTLOCK" "$out"
 # the design rules catch a depth without an enemy, a big empty area and a gimmick far from every path
 for c in "no-enemy NO.ENEMY" "enemy-at-start ENEMY.AT.START" "empty-area EMPTY.AREA" "useless-gimmick USELESS.GIMMICK" \
-         "thin-ice-refreeze THIN.ICE" "owl-perches OWL.PERCHES" "well-no-crank no.crank"; do
+         "thin-ice-refreeze THIN.ICE" "owl-perches OWL.PERCHES" "well-no-crank no.crank" "arena-unfair UNFAIR"; do
     set -- $c
     out=$(python3 $D/../tools/check_levels.py $D/data/levels_bad/$1.txt 2>&1)
     check "check_levels rejects $1" "$2" "$out"

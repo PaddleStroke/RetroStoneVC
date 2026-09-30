@@ -1,0 +1,53 @@
+# Test arena (not a game level): co-op for 2-4 moles (M and 2 start near each other; 3 and 4 start
+# next to M): holes below M and at 8,3, grubs on both depths.
+name: Co-op Test
+season: spring
+arc: 1
+level: 12
+status: stub
+
+surface:
+####################
+#M.2..............E#
+#v.................#
+#.......v..........#
+#..................#
+#..................#
+#..................#
+#..................#
+#.........g........#
+#..................#
+#..................#
+#..................#
+#..................#
+####################
+under1:
+####################
+#..................#
+#H.................#
+#.......H..........#
+#.......g..........#
+#..................#
+#.............z....#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+####################
+under2:
+####################
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+#dddddddddddddddddd#
+####################

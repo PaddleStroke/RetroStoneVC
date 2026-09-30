@@ -20,3 +20,7 @@ echo "== winter: night (the lamp's window + colour math), the owl swooping, big 
 printf "4 tap DOWN\n20 tap B\n24 tap DOWN\n40 tap DOWN\n56 tap B\n60 tap DOWN\n76 tap DOWN\n92 tap B\n96 tap DOWN\n" > /tmp/bm_bench_winter.input
 $H --frames 800 --data "$(dirname "$0")/../tests/data" --opt level=winter-19 --opt nointro=1 --opt god=1 \
    --input /tmp/bm_bench_winter.input --bench 150 | sed -n '/^bench/,$p'
+echo "== battle: 4 CPUs in 4 viewports (split screen), Mine Cart Mayhem (runaway carts) =="
+$H --frames 700 --opt mp=battle --opt players=4 --opt cpus=4 --opt arena=mine-cart-mayhem --bench 100 | sed -n '/^bench/,$p'
+echo "== battle: the same round on one screen (1 human, 3 CPUs: 1 viewport), for the viewports' overhead =="
+$H --frames 700 --opt mp=battle --opt players=4 --opt cpus=3 --opt arena=mine-cart-mayhem --bench 100 | sed -n '/^bench/,$p'

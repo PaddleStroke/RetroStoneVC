@@ -96,7 +96,7 @@ TILESET_DIR_ai_v2 = games/$(GAME)/$(ART)/tilesets/ai_v2
 TILESET_DIR = $(TILESET_DIR_$(TILESET))
 TILESET_STAMP = build/gen/$(GAME)/tileset-$(TILESET).stamp
 GAME_ART    = $(wildcard games/$(GAME)/$(ART)/*.png) $(if $(TILESET_DIR),$(wildcard $(TILESET_DIR)/*.png))
-GAME_LEVELS = $(wildcard games/$(GAME)/levels/*.txt)
+GAME_LEVELS = $(wildcard games/$(GAME)/levels/*.txt) $(wildcard games/$(GAME)/arenas/*.txt)
 $(TILESET_STAMP):
 	@mkdir -p $(dir $@); rm -f build/gen/$(GAME)/tileset-*.stamp; touch $@
 $(GAME_GEN): games/$(GAME)/tools/build_assets.py tools/rsasset.py tools/sheets.py $(GAME_ART) $(GAME_LEVELS) \

@@ -1,0 +1,59 @@
+# Bomber Mole battle arena: Mine Cart Mayhem. Runaway carts race round loops on two depths and flatten any
+# mole on the rails: cross between them.
+name: Mine Cart Mayhem
+season: autumn
+arc: 0
+level: 0
+mode: battle
+bombs: 1
+range: 2
+status: done
+
+legend:
+R = rails + runaway
+
+surface:
+####################
+#M.dd.d.d..d.d.dd.2#
+#.#d#d#d#dd#d#d#d#.#
+#d.+R++++++++++R+.d#
+#d#+#v#d#dd#d#v#+#d#
+#dd+d.d.vddv.d.d+dd#
+#d#+#d#d#dd#d#d#+#d#
+#d#+#d#d#dd#d#d#+#d#
+#dd+d.d.vddv.d.d+dd#
+#d#+#v#d#dd#d#v#+#d#
+#d.+R++++++++++R+.d#
+#.#d#d#d#dd#d#d#d#.#
+#3.dd.d.d..d.d.dd.4#
+####################
+under1:
+####################
+#dddd.dddddddd.dddd#
+#d.d...d.dd.d...d.d#
+#d.d.v.d....d.v.d.d#
+#d.+RH+++..+++HR+.d#
+#.d+.d.dHddHd.d.+d.#
+#dd+dd.d.dd.d.dd+dd#
+#dd+dd.d.dd.d.dd+dd#
+#.d+.d.dHddHd.d.+d.#
+#d.+RH+++..+++HR+.d#
+#d.d.v.d....d.v.d.d#
+#d.d...d.dd.d...d.d#
+#dddd.dddddddd.dddd#
+####################
+under2:
+####################
+#ffffffffffffffffff#
+#fff.d.f....f.d.fff#
+#ff..H........H..ff#
+#f.d.d.ff..ff.d.d.f#
+#f....f.f..f.f....f#
+#ff.f.f.f..f.f.f.ff#
+#ff.f.f.f..f.f.f.ff#
+#f....f.f..f.f....f#
+#f.d.d.ff..ff.d.d.f#
+#ff..H........H..ff#
+#fff.d.f....f.d.fff#
+#ffffffffffffffffff#
+####################

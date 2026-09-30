@@ -4,8 +4,9 @@
  *
  *   <Game> [--scale N] [--fullscreen] [--data DIR] [--opt KEY=VALUE]...
  *
- * Keyboard (pad 1): arrows = D-pad, Z = B, X = A, A = Y, S = X, Q = L, W = R,
- * Enter = Start, Right Shift / Backspace = Select.
+ * Keyboard, pad 1: arrows = D-pad, Z = B, X = A, C = Y, V = X, Q = L, E = R, Enter = Start,
+ *                  Right Shift / Backspace / Esc = Select.
+ *           pad 2: W A S D = D-pad, G = B, H = A, T = Start, R = Select (a second player on one keyboard).
  * F11 or Alt+Enter = fullscreen, F12 = screenshot, Esc = quit.
  * Game controllers: up to 4, SNES positions (bottom = B, right = A, left = Y, top = X).
  */
@@ -60,22 +61,30 @@ static uint16_t pad_state(SDL_GameController *c)
     return b;
 }
 
-static uint16_t keyboard_state(void)
+typedef struct { SDL_Scancode k; uint16_t bit; } keymap;
+static const keymap KEYS_P1[] = {
+    {SDL_SCANCODE_UP, RS_BTN_UP}, {SDL_SCANCODE_DOWN, RS_BTN_DOWN},
+    {SDL_SCANCODE_LEFT, RS_BTN_LEFT}, {SDL_SCANCODE_RIGHT, RS_BTN_RIGHT},
+    {SDL_SCANCODE_Z, RS_BTN_B}, {SDL_SCANCODE_X, RS_BTN_A},
+    {SDL_SCANCODE_C, RS_BTN_Y}, {SDL_SCANCODE_V, RS_BTN_X},
+    {SDL_SCANCODE_Q, RS_BTN_L}, {SDL_SCANCODE_E, RS_BTN_R},
+    {SDL_SCANCODE_RETURN, RS_BTN_START}, {SDL_SCANCODE_KP_ENTER, RS_BTN_START},
+    {SDL_SCANCODE_RSHIFT, RS_BTN_SELECT}, {SDL_SCANCODE_BACKSPACE, RS_BTN_SELECT},
+    {SDL_SCANCODE_ESCAPE, RS_BTN_SELECT},           /* Esc = back / resume (close the window to quit) */
+    {SDL_SCANCODE_UNKNOWN, 0}};
+static const keymap KEYS_P2[] = {
+    {SDL_SCANCODE_W, RS_BTN_UP}, {SDL_SCANCODE_S, RS_BTN_DOWN},
+    {SDL_SCANCODE_A, RS_BTN_LEFT}, {SDL_SCANCODE_D, RS_BTN_RIGHT},
+    {SDL_SCANCODE_G, RS_BTN_B}, {SDL_SCANCODE_H, RS_BTN_A},
+    {SDL_SCANCODE_T, RS_BTN_START}, {SDL_SCANCODE_R, RS_BTN_SELECT},
+    {SDL_SCANCODE_UNKNOWN, 0}};
+
+static uint16_t keyboard_state(const keymap *map)
 {
-    static const struct { SDL_Scancode k; uint16_t bit; } map[] = {
-        {SDL_SCANCODE_UP, RS_BTN_UP}, {SDL_SCANCODE_DOWN, RS_BTN_DOWN},
-        {SDL_SCANCODE_LEFT, RS_BTN_LEFT}, {SDL_SCANCODE_RIGHT, RS_BTN_RIGHT},
-        {SDL_SCANCODE_Z, RS_BTN_B}, {SDL_SCANCODE_X, RS_BTN_A},
-        {SDL_SCANCODE_A, RS_BTN_Y}, {SDL_SCANCODE_S, RS_BTN_X},
-        {SDL_SCANCODE_Q, RS_BTN_L}, {SDL_SCANCODE_W, RS_BTN_R},
-        {SDL_SCANCODE_RETURN, RS_BTN_START}, {SDL_SCANCODE_KP_ENTER, RS_BTN_START},
-        {SDL_SCANCODE_RSHIFT, RS_BTN_SELECT}, {SDL_SCANCODE_BACKSPACE, RS_BTN_SELECT},
-        {SDL_SCANCODE_ESCAPE, RS_BTN_SELECT},       /* Esc = back / resume (close the window to quit) */
-    };
     const Uint8 *k = SDL_GetKeyboardState(NULL);
     uint16_t b = 0;
-    for (unsigned i = 0; i < sizeof map / sizeof map[0]; i++)
-        if (k[map[i].k]) b |= map[i].bit;
+    for (; map->bit; map++)
+        if (k[map->k]) b |= map->bit;
     return b;
 }
 
@@ -192,9 +201,10 @@ int main(int argc, char **argv)
         int steps = 0;
         if (now + frame_ticks * 8 < next || now > next + frame_ticks * 8) next = now; /* resync */
         while (now >= next && steps < 4) {
-            uint16_t kb = keyboard_state();
+            uint16_t kb1 = keyboard_state(KEYS_P1), kb2 = keyboard_state(KEYS_P2);
             for (int p = 0; p < RS_PAD_MAX; p++)
-                rs_host_set_pad(p, (uint16_t)(pad_state(pads[p]) | (p == 0 ? kb : 0)), p == 0 || pads[p]);
+                rs_host_set_pad(p, (uint16_t)(pad_state(pads[p]) | (p == 0 ? kb1 : p == 1 ? kb2 : 0)),
+                                p <= 1 || pads[p]);
             rs_host_frame();
             if (dev) {
                 int n;

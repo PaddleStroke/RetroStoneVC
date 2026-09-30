@@ -1,0 +1,56 @@
+# Bomber Mole battle arena: Ice Rink. A frozen rink ringed by snowdrifts: slide, and kick bombs across
+# the ice; rocks are the only brakes.
+name: Ice Rink
+season: winter
+arc: 0
+level: 0
+mode: battle
+bombs: 1
+range: 3
+status: done
+
+surface:
+####################
+#M.,,d,,,..,,,d,,.2#
+#.r.iiiiiiiiiiii.r.#
+#,.iiirii..iiriii.,#
+#d.iivii.dd.iivii.d#
+#,.iiiiv.,,.viiii.,#
+#d.r.iiii..iiii.r.d#
+#d.r.iiii..iiii.r.d#
+#,.iiiiv.,,.viiii.,#
+#d.iivii.dd.iivii.d#
+#,.iiirii..iiriii.,#
+#.r.iiiiiiiiiiii.r.#
+#3.,,d,,,..,,,d,,.4#
+####################
+under1:
+####################
+#ffff.ffffffff.ffff#
+#f.v...d.ff.d...v.f#
+#f.iii..d..d..iii.f#
+#f.i.H...ff...H.i.f#
+#.d.i..H.ff.H..i.d.#
+#fddf.f.f..f.f.fddf#
+#fddf.f.f..f.f.fddf#
+#.d.i..H.ff.H..i.d.#
+#f.i.H...ff...H.i.f#
+#f.iii..d..d..iii.f#
+#f.v...d.ff.d...v.f#
+#ffff.ffffffff.ffff#
+####################
+under2:
+####################
+#ffffffffffffffffff#
+#ffH.d.ffffff.d.Hff#
+#ff.....ffff.....ff#
+#f.d.d........d.d.f#
+#f................f#
+#ff.fff.f..f.fff.ff#
+#ff.fff.f..f.fff.ff#
+#f................f#
+#f.d.d........d.d.f#
+#ff.....ffff.....ff#
+#ffH.d.ffffff.d.Hff#
+#ffffffffffffffffff#
+####################

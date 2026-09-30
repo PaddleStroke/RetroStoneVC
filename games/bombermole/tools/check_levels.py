@@ -17,6 +17,7 @@ import sys
 GW, GH = 20, 14
 HERE = os.path.dirname(os.path.abspath(__file__))
 LEVELS = os.path.join(os.path.dirname(HERE), "levels")
+ARENAS = os.path.join(os.path.dirname(HERE), "arenas")
 
 DEFAULT = {
     '.': "floor", '#': "stone", 'd': "soft_dirt", 'r': "hard_rock", 't': "roots", 'f': "frozen_dirt",
@@ -136,6 +137,8 @@ def parse_spec(spec):
             out["blow"] = tok[5:]               # a windmill's wind lane (points away from the windmill)
         elif tok == "log":
             out["log"] = True
+        elif tok == "runaway":
+            out["cart"] = out["runaway"] = True     # a runaway cart (battle arenas)
         elif tok in ("pumpkin", "cart", "snowball", "river", "icicle"):
             out[tok] = True                     # objects: a pumpkin, a mine cart, a snowball; river ice; an icicle
         elif tok.startswith("chan:"):
@@ -195,8 +198,143 @@ def parse(path):
     return head, cells
 
 
+# ---- battle arenas (DESIGN.md "Multiplayer") -----------------------------------------------------------
+ARENA_SAFE_WALK = 10        # the other moles are at least this many cells away on foot (no digging): 3 s or more
+ARENA_FAIR = 1              # nearest soft block and nearest opponent: the same cost from every start, within this
+ARENA_HOLES = (4, 2)        # holes down at least on the surface and depth 1 (fights move between the depths)
+
+
+def check_arena(path, head, cells):
+    T = lambda d, x, y: cells[d][y][x]["t"]  # noqa: E731
+    errs = []
+    starts = {}
+    for d in range(3):
+        for y in range(GH):
+            for x in range(GW):
+                a = cells[d][y][x]["actor"]
+                if a in ("mole", "p2", "p3", "p4"):
+                    starts[a] = (d, x, y)
+                if T(d, x, y) == "exit":
+                    errs.append("an arena has no exit (found one at depth %d, %d,%d)" % (d, x, y))
+                if T(d, x, y) == "hole_up":
+                    errs.append("HOLE UP at depth %d, %d,%d: holes only go down" % (d, x, y))
+                if T(d, x, y) == "hole_down" and (d == 2 or T(d + 1, x, y) != "ladder"):
+                    errs.append("the hole down at depth %d, %d,%d needs a ladder below" % (d, x, y))
+                if T(d, x, y) == "ladder" and (d == 0 or T(d - 1, x, y) != "hole_down"):
+                    errs.append("the ladder at depth %d, %d,%d needs a hole down above" % (d, x, y))
+    if sorted(starts) != ["mole", "p2", "p3", "p4"] or any(s[0] != 0 for s in starts.values()):
+        raise LevelError("%s: an arena needs the 4 starts M 2 3 4 on the surface" % path)
+    for d, need in enumerate(ARENA_HOLES):
+        n = sum(1 for y in range(GH) for x in range(GW) if T(d, x, y) == "hole_down")
+        if n < need:
+            errs.append("FEW HOLES: %d holes down on depth %d (at least %d: the fights move between the depths)" % (n, d, need))
+    DIRS = ((1, 0), (-1, 0), (0, 1), (0, -1))
+
+    def inside(x, y):
+        return 0 <= x < GW and 0 <= y < GH
+
+    def passable(d, x, y, dig):
+        c = cells[d][y][x]
+        t = c["t"]
+        if t in SOLID_FOREVER or t == "gate":
+            return False
+        if t == "water":
+            return c["log"]
+        if not dig and (t in ENTER_COST and t != "water" or c.get("pumpkin") or c.get("snowball")):
+            return t in ("snowdrift",)
+        return True
+
+    def moves(n, dig):
+        d, x, y = n
+        out = [(d, x + dx, y + dy) for dx, dy in DIRS if inside(x + dx, y + dy) and passable(d, x + dx, y + dy, dig)]
+        if T(d, x, y) == "hole_down":
+            out.append((d + 1, x, y))
+        if T(d, x, y) == "ladder":
+            out.append((d - 1, x, y))
+        return out
+
+    def costs(src, dig=True):
+        import heapq
+        dist, q = {src: 0}, [(0, src)]
+        while q:
+            k, n = heapq.heappop(q)
+            if k > dist[n]:
+                continue
+            for m in moves(n, dig):
+                c = cells[m[0]][m[2]][m[1]]
+                w = 5 if (c.get("pumpkin") or c.get("snowball")) else ENTER_COST.get(c["t"], 1) if dig else 1
+                if k + w < dist.get(m, 1e9):
+                    dist[m] = k + w
+                    heapq.heappush(q, (k + w, m))
+        return dist
+    names = ["mole", "p2", "p3", "p4"]
+    all_cost = {s: costs(starts[s]) for s in names}
+    # no softlock: every start reaches the others and every depth; from every cell it reaches, all starts again
+    for s in names:
+        for o in names:
+            if starts[o] not in all_cost[s]:
+                errs.append("SOFTLOCK: %s cannot reach %s" % (s, o))
+        for d in range(3):
+            if not any(n[0] == d for n in all_cost[s]):
+                errs.append("DEPTH %d cannot be reached from %s" % (d, s))
+    back = {}
+    for s in names:
+        # reverse reachability: cells from which this start can be reached
+        rev = {}
+        for n in all_cost["mole"]:
+            for m in moves(n, True):
+                rev.setdefault(m, []).append(n)
+        seen, todo = {starts[s]}, [starts[s]]
+        while todo:
+            for m in rev.get(todo.pop(), ()):
+                if m not in seen:
+                    seen.add(m)
+                    todo.append(m)
+        back[s] = seen
+    for n in all_cost["mole"]:
+        for s in names:
+            if n not in back[s]:
+                errs.append("SOFTLOCK: from depth %d, %d,%d the start of %s can no longer be reached" % (n + (s,)))
+                break
+        else:
+            continue
+        break
+    # fair: the same cost to the nearest soft block (power-ups) and to the nearest opponent from every start
+    soft = [(d, x, y) for d in range(3) for y in range(GH) for x in range(GW) if T(d, x, y) in ("soft_dirt", "leaves")]
+    near_soft = {}
+    for s in names:
+        best = 1e9
+        for (d, x, y) in soft:
+            for dx, dy in DIRS:              # standing next to it
+                n = (d, x + dx, y + dy)
+                if n in all_cost[s] and passable(*n, True):
+                    best = min(best, all_cost[s][n])
+        near_soft[s] = best
+    near_foe = {s: min(all_cost[s].get(starts[o], 1e9) for o in names if o != s) for s in names}
+    for what, v in (("the nearest soft block", near_soft), ("the nearest opponent", near_foe)):
+        if max(v.values()) - min(v.values()) > ARENA_FAIR:
+            errs.append("UNFAIR STARTS: %s costs %s" % (what, ", ".join("%s %s" % (s, v[s]) for s in names)))
+    # safe: on foot (no digging) no other start within ARENA_SAFE_WALK cells, no enemy within 6
+    for s in names:
+        walk = costs(starts[s], dig=False)
+        for o in names:
+            if o != s and walk.get(starts[o], 1e9) < ARENA_SAFE_WALK:
+                errs.append("UNSAFE START: %s walks to %s in %d cells (at least %d)" % (s, o, walk[starts[o]], ARENA_SAFE_WALK))
+        d0, x0, y0 = starts[s]
+        for y in range(GH):
+            for x in range(GW):
+                if cells[d0][y][x]["actor"] in ("ferret", "cat", "croc", "boss") and abs(x - x0) + abs(y - y0) < 6:
+                    errs.append("UNSAFE START: an enemy at %d,%d is closer than 6 cells to %s" % (x, y, s))
+    head["_arena"] = {"soft": near_soft["mole"], "foe": near_foe["mole"]}
+    if errs:
+        raise LevelError("%s: %s" % (path, "\n        ".join(sorted(set(errs)))))
+    return head, 0
+
+
 def check(path):
     head, cells = parse(path)
+    if head.get("mode") == "battle":
+        return check_arena(path, head, cells)
     T = lambda d, x, y: cells[d][y][x]["t"]  # noqa: E731
     moles = [(d, x, y) for d in range(3) for y in range(GH) for x in range(GW) if cells[d][y][x]["actor"] == "mole"]
     if len(moles) != 1:
@@ -760,6 +898,18 @@ def layout_similarity(A, B):
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     files = args or sorted(glob.glob(os.path.join(LEVELS, "*.txt")))
+    arenas = [] if args else sorted(glob.glob(os.path.join(ARENAS, "*.txt")))
+    arena_bad = 0
+    for f in arenas:
+        try:
+            head, _ = check(f)
+            if "--stats" in sys.argv:
+                print("  %-18s nearest soft block %s, nearest opponent %s" % (os.path.basename(f)[:-4], head["_arena"]["soft"],
+                                                                            head["_arena"]["foe"]))
+        except LevelError as e:
+            print("  FAIL", e)
+            arena_bad += 1
+    files = [f for f in files if f not in arenas]
     bad = 0
     stubs = 0
     rows = []
@@ -767,6 +917,8 @@ def main():
     for f in files:
         try:
             head, g = check(f)
+            if head.get("mode") == "battle":
+                continue
             opens[f] = head.get("_open", {})
             stubs += head.get("status") == "stub"
             en = head["_enemies"]
@@ -808,7 +960,9 @@ def main():
         for r in sorted(rows, key=lambda r: (order[r[0].split("-")[0]], int(r[0].split("-")[1]))):
             print("| %s | %s | %d | %d | %s |" % r)
     print("levels: %d files, %d stubs, %s" % (len(files), stubs, "all valid" if not bad else "%d INVALID" % bad))
-    sys.exit(1 if bad else 0)
+    if arenas:
+        print("arenas: %d files, %s" % (len(arenas), "all valid" if not arena_bad else "%d INVALID" % arena_bad))
+    sys.exit(1 if bad or arena_bad else 0)
 
 
 if __name__ == "__main__":

@@ -22,8 +22,8 @@
 #define MAX_SWARMS 4
 #define GAS_TIME 180            /* a gas cloud stuns for 3 s */
 #define MAX_HARV 4
-#define MAX_PUMPKINS 12
-#define MAX_CARTS 4
+#define MAX_PUMPKINS 24
+#define MAX_CARTS 8
 #define MAX_SNOWBALLS 12
 #define NCHAN 8
 
@@ -104,6 +104,8 @@ typedef struct level_def {
     struct { uint8_t depth, x, y; } snowballs[MAX_SNOWBALLS];
     int nsnowballs;
     int night;                  /* winter night: the helmet lamp's radius in pixels (0 = day) */
+    int battle;                 /* a battle arena (mode: battle): starts for 2-4 moles, no grubs or exit */
+    uint8_t runaway[MAX_CARTS]; /* a runaway cart: it rolls on its own, round its loop, and crushes moles too */
     int boss;                   /* BOSS_* from assets.h */
     int tier;                   /* default enemy tier (1..4) for F and C */
     cell g[NDEPTH][GH][GW];
@@ -176,7 +178,8 @@ typedef struct pumpkin {
 
 /* a mine cart on its rails: walk into it to ride it to the end of the line; levers switch junctions */
 typedef struct cart {
-    uint8_t alive, depth, moving, dir, rider;   /* rider: 1 = the mole rides it */
+    uint8_t alive, depth, moving, dir, rider;   /* rider: 1 + the player riding it, 0 = none */
+    uint8_t runaway;                            /* it rolls on its own and crushes moles too (battle) */
     int8_t cx, cy, tx, ty;
     int16_t prog;
 } cart;
@@ -223,12 +226,21 @@ typedef struct world {
     uint16_t apple_t[NDEPTH][GH][GW];    /* a fallen apple lies here for a while */
     pumpkin pumps[MAX_PUMPKINS];
     cart carts[MAX_CARTS];
-    int riding;                          /* the cart the mole rides, or -1 */
+    int riding[MAX_PLAYERS];             /* the cart each mole rides, or -1 */
     int apple_heart;                     /* the apple's heart is given once per level */
     snowball balls[MAX_SNOWBALLS];
     bucket buckets[NCHAN];
-    int in_bucket;                       /* the channel of the bucket the mole rides, or 0 */
-    int8_t safe_d, safe_x, safe_y;       /* the mole's last safe cell (drowning puts it back there) */
+    int in_bucket[MAX_PLAYERS];          /* the channel of the bucket each mole rides, or 0 */
+    int8_t safe_d[MAX_PLAYERS], safe_x[MAX_PLAYERS], safe_y[MAX_PLAYERS];   /* last safe cells (drowning) */
+    /* multiplayer (DESIGN.md "Multiplayer") */
+    uint8_t blast_owner[NDEPTH][GH][GW]; /* the player whose bomb made the blast (255: none) */
+    int depth_event[MAX_PLAYERS];        /* 1 + the depth a mole just left (its view slides), or 0 */
+    int8_t start_d[MAX_PLAYERS], start_x[MAX_PLAYERS], start_y[MAX_PLAYERS];
+    int boss_hp_max;                     /* the boss's health at the start (the bar) */
+    int mole_pal[MAX_PLAYERS];           /* the sprite palette of each mole */
+    int sd_on, sd_step;                  /* battle: sudden death, cells filled so far */
+    int ko_seq, ko_order[MAX_PLAYERS];   /* battle: the order moles were knocked out (1 = first) */
+    int respawns;                        /* co-op: moles back in the game */
     int drifts;                          /* snowdrifts the blizzard has made */
     uint8_t gas[NDEPTH][GH][GW];         /* stun gas: frames left (> GAS_TIME: not reached yet) */
     swarm bees[MAX_SWARMS];
@@ -238,7 +250,7 @@ typedef struct world {
              fox_dashes, fox_rests, fox_hits, leaves_blown,
              drowned, enemies_drowned, thin_breaks, ice_breaks, croc_cracks, drift_slows, drifts_made, rolls, ball_grows,
              ball_crushes, ball_shatters, icicles_fallen, icicle_hits, bucket_rides, cranks, owl_swoops, owl_swoop_hits,
-             owl_perches, owl_hits, owl_drops, owl_phase2; } stat;
+             owl_perches, owl_hits, owl_drops, owl_phase2, ff_stuns, drops, hole_bombs, sd_crushed, cpu_bombs; } stat;
     int dirty[NDEPTH];                   /* map needs redraw */
     uint8_t cell_dirty[NDEPTH][GH][GW];
     int events;                          /* EV_* raised this frame (for the game flow) */
@@ -247,9 +259,55 @@ typedef struct world {
 
 enum { EV_DEPTH = 1, EV_EXIT = 2, EV_DEAD = 4, EV_BOSS_DOWN = 8, EV_GRUB = 16, EV_EXIT_OPEN = 32, EV_PICKUP = 64 };
 
+/* ---- multiplayer setup (mp.c; DESIGN.md "Multiplayer") ---- */
+typedef struct mp_setup {
+    int mode;                     /* MODE_SOLO, MODE_COOP (story), MODE_BATTLE */
+    int nplayers;                 /* moles: 1..4 (humans and CPUs) */
+    int8_t port[MAX_PLAYERS];     /* the pad of each player (join order), -1 = a CPU */
+    uint8_t cpu[MAX_PLAYERS];     /* 0 = human; CPU skill 1 easy, 2 normal, 3 hard */
+    uint8_t colour[MAX_PLAYERS];  /* 0 brown, 1 grey, 2 golden, 3 black */
+    uint8_t friendly_fire;        /* co-op: a teammate's blast hurts (off: it stuns 1 s) */
+    uint8_t hole_bombs;           /* battle: bombs dropped into holes fall to the depth below */
+    uint8_t merge;                /* co-op: one full-screen view while the moles stay together */
+    uint8_t split_h;              /* 2 views: top and bottom instead of left and right */
+    uint8_t map3;                 /* 3 views: 4 quadrants, the 4th a live map (else a top half + 2 quarters) */
+    int rounds;                   /* battle: wins needed */
+    int round_time;               /* battle: frames before the sudden death */
+    uint32_t seed;                /* battle: the round's luck (power-ups, the CPUs) */
+} mp_setup;
+/* ---- mp.c ---- */
+void mp_level_start(void);                       /* after world_start: the 3 depths drawn, colours, markers */
+void mp_update_views(void);                      /* after world_update: depth slides, cameras */
+void mp_draw_play(void);                         /* the split-screen picture */
+void mp_views_off(void);
+void mp_box_off(void);
+void mp_start_box(const level_def *L);
+void mp_pause_box(int cursor, int quit_ask);
+void mp_join_begin(void);
+void mp_join_enter(void);
+int  mp_join_update(int mode);                   /* 1: start, -1: back */
+void mp_join_draw(void);
+void mp_join_dump(void);
+void mp_battle_begin(void);
+void mp_battle_quick(int arena);
+int  mp_battle_update(void);                     /* 1: the battle is over */
+int  mp_battle_playing(void);
+int  mp_arena_index(const char *name);
+const char *mp_arena_name(int i);
+void mp_battle_sim(const char *arena, int rounds);
+void mp_dump(void);
+void draw_pal7(int hud);                         /* BG palette 7: the HUD's colours, or the props B family */
+void draw_weather_scroll(int *sx, int *sy);      /* the weather layer's scroll this frame */
+extern mp_setup MP;
+int  world_moles_up(void);                       /* moles still in the game (not knocked out) */
+void world_sudden_death(void);                   /* battle: start the sudden death */
+int  world_sd_warning(int d, int x, int y);      /* a sudden-death block falls here soon */
+int  world_cpu_count(void);
+
 /* ---- level.c ---- */
 int  level_parse(level_def *L, const char *text, size_t len, const char *fname);
 int  level_load(level_def *L, int arc, int num);   /* arc 0..3, num 1..8 */
+int  arena_load(level_def *L, const char *name);   /* games/bombermole/arenas/<name>.txt */
 const char *season_name(int s);
 
 /* ---- world.c ---- */
@@ -288,6 +346,11 @@ void fog_set(int on, int cx, int cy, int r);   /* fog outside a circle around th
 void night_set(int on, int cx, int cy, int r); /* winter night: dark blue outside the helmet lamp */
 int  fog_hides(int d, int x, int y);           /* that cell is in the fog (sprites become eyes) */
 void fx_add_leaf(int d, int cx, int cy);       /* leaves rustle (the fox hiding) */
+void fog_focus(int cx, int cy);                /* multiplayer: the circle's centre for fog_hides() in a view */
+/* multiplayer: world sprites are drawn relative to a camera (ox, oy) and culled outside a w x h view; hud = the
+   playfield's screen offset (HUD_H in solo, 0 in a viewport) */
+void spr_camera(int ox, int oy, int hud, int cull_w, int cull_h);
+#define MP_MARK_TILE 1400                      /* OBJ tiles of the P1..P4 markers (2 each), made by mp.c */
 void draw_weather(int on);
 void draw_frame_setup(void);
 void text_box(int x, int y, int w, int h);
@@ -311,6 +374,9 @@ int  ui_grubs(int depth);
 void ui_pause_screen(int cursor, int dev, int quit_ask);   /* quit_ask: 0, 1 = YES, 2 = NO highlighted */
 void ui_perf_overlay(void);
 int ui_glow_count(int d);                /* blocks glowing on depth d (a grub inside) */
+void ui_marks(int d, int bx, int by);    /* the glow/link/hazard marks of depth d on BG1, cell (0,0) at tile (bx, by) */
+void ui_build_map(void);                 /* the pause map's tiles (BG1 tiles 100..309, 10x7 per depth) */
+#define UI_T_MAP 100
 extern int dev_god, dev_reveal, dev_perf;
 void ui_screen_done(void);
 void ui_banner_exit_open(void);
