@@ -35,7 +35,7 @@ if [ -n "$f" ] && [ "$f" -ge 385 ] && [ "$f" -le 395 ]; then ok "... after 6 s (
 i=20; while [ $i -lt 1200 ]; do echo "$i tap LEFT" >> "$T/left.input"; i=$((i + 10)); done
 out=$(run --frames 1200 --opt ready=1 --opt seed=3 --input "$T/left.input")
 check "gnawing on one side only: bonked by a branch" "player 1 bonked" "$out"
-check "... the panel shows" "state: st=4 " "$out"
+check "... the panel shows (and the next gnaw button retries: runs=[2-9])" "run 1 over at frame.*state: .*runs=[2-9]" "$(echo "$out" | tr "\n" " ")"
 # B and A gnaw too (B = left, A = right)
 printf "30 tap B\n45 tap A\n60 tap A\n" > "$T/ba.input"
 out=$(run --frames 80 --opt ready=1 --opt seed=3 --input "$T/ba.input")
