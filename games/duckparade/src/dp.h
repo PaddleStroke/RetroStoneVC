@@ -101,6 +101,13 @@ int  lanes_diff256(int32_t col);                      /* difficulty 0..256 */
 int  judge_cross(const lane *cols, int ncols, uint16_t start_rows, uint32_t t0, int window);
 /* the same, the duck starting in column start_j of cols[] (e.g. a whole grass run before the group) */
 int  judge_cross_from(const lane *cols, int ncols, int start_j, uint16_t start_rows, uint32_t t0, int window);
+/* the search itself: start_px / goal_px are 7 words of bits (bit y = a duck's top at field y, 0..208), goal_px NULL =
+ * anywhere in column goal_j; arrival (n entries, or NULL) gets the first frame each column is reached (-1 never).
+ * Returns the frames to the goal, or -1 within the window. */
+#define JUDGE_WORDS 7
+void judge_set_land_delay(int frames);            /* a duck must stand this long after landing before a hop (bot: 1) */
+int  judge_run(const lane *cols, int ncols, int start_j, const uint32_t *start_px, uint32_t t0, int window,
+               int goal_j, const uint32_t *goal_px, int16_t *arrival);
 uint16_t lane_free_rows(const lane *l);               /* grass/nest: rows without a tree */
 
 /* ================================ world.c ========================================================== */

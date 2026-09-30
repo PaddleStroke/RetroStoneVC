@@ -1,0 +1,14 @@
+# Save states (tools/state_audit.py): the mutable statics that are NOT saved, and why.
+# Everything else is registered in the game's state functions (main.c game_state(), draw.c draw_state(),
+# sfx.c sfx_state(), bot.c bot_state(), the house kit's hu_state() and ha_state()).
+sfx.snd_buf         sfx_init(): the synthesis buffer (the samples are made at start-up, not saved)
+main.SV             the battery save's copy (best scores, medals): stays in the .srm, a state never takes it back
+bot.cls             the bot's tile class table: a cache, made again the same when needed
+bot.cls_ready       ... its flag (a fresh process builds it again)
+lanes.land_delay    set and reset within one bot decision: always 0 between two frames
+sfx.half_buf        sfx_init(): the 16-kHz scratch of the synthesis (start-up only)
+lanes.S             the judge's scratch (judge_run): cleared at the start of every search
+lanes.W             ... the positions carried to the next frame
+lanes.F             ... the positions that have just landed
+lanes.arr           ... the hops landing in the next frames
+lanes.vf            ... the free masks of the next frames

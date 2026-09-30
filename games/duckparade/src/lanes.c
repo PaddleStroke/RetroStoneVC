@@ -196,20 +196,29 @@ static int disp(const lane *l, uint32_t t0, uint32_t t1)
 }
 
 #define JMAX 16
+static int land_delay;           /* frames a duck that just landed must stand before hopping again (the bot: 1) */
+void judge_set_land_delay(int frames) { land_delay = frames; }
 #define VFR 16                  /* ring of free masks, frames t .. t + HOP_FRAMES */
-int judge_cross_from(const lane *cols, int n, int start_j, uint16_t start_rows, uint32_t t0, int window)
+int judge_run(const lane *cols, int n, int start_j, const uint32_t *start_px, uint32_t t0, int window,
+              int goal_j, const uint32_t *goal_px, int16_t *arrival)
 {
-    static pxs S[JMAX], W[JMAX], arr[HOP_FRAMES + 1][JMAX], vf[VFR][JMAX];
+    static pxs S[JMAX], W[JMAX], F[JMAX], arr[HOP_FRAMES + 1][JMAX], vf[VFR][JMAX];
     if (n > JMAX) n = JMAX;
+    if (goal_j < 0 || goal_j >= n) goal_j = n - 1;
     memset(arr, 0, sizeof arr);
     for (int j = 0; j < n; j++) {
         ps_clear(&S[j]);
+        ps_clear(&F[j]);
+        if (arrival) arrival[j] = -1;
         for (int k = 0; k < HOP_FRAMES; k++) free_mask(&vf[(t0 + k) % VFR][j], &cols[j], t0 + k);
     }
-    pxs tmp, tmp2, src, pos;
-    ps_rows(&S[start_j], start_rows);
+    pxs tmp, tmp2, src, pos, goal;
+    if (goal_px) memcpy(goal.w, goal_px, sizeof goal.w); else ps_all(&goal);
+    memcpy(S[start_j].w, start_px, sizeof S[start_j].w);
     safe_mask(&tmp, &cols[start_j], t0);
     ps_and(&S[start_j], &tmp);
+    if (arrival && ps_any(&S[start_j])) arrival[start_j] = 0;
+    if (land_delay) F[start_j] = S[start_j];     /* it has just landed there too */
     for (int step = 0; step < window; step++) {
         uint32_t t = t0 + step;
         for (int j = 0; j < n; j++) free_mask(&vf[(t + HOP_FRAMES) % VFR][j], &cols[j], t + HOP_FRAMES);
@@ -217,6 +226,8 @@ int judge_cross_from(const lane *cols, int n, int start_j, uint16_t start_rows, 
         for (int j = 0; j < n; j++) {
             if (!ps_any(&S[j])) { ps_clear(&W[j]); continue; }
             const lane *l = &cols[j];
+            pxs H = S[j];                   /* the positions that may hop now (not those that just landed) */
+            if (land_delay) for (int w = 0; w < PW; w++) H.w[w] &= ~F[j].w[w];
             int river = l->kind == LK_RIVER;
             pxs vsrc, vdst;
             ps_all(&vsrc);
@@ -225,7 +236,7 @@ int judge_cross_from(const lane *cols, int n, int start_j, uint16_t start_rows, 
             for (int dj = -1; dj <= 1; dj += 2) {
                 int j2 = j + dj;
                 if (j2 < 0 || j2 >= n) continue;
-                src = S[j];
+                src = H;
                 if (!river) ps_and(&src, &vsrc);
                 if (river && cols[j2].kind != LK_RIVER) ps_snap(&pos, &src);
                 else pos = src;
@@ -237,12 +248,12 @@ int judge_cross_from(const lane *cols, int n, int start_j, uint16_t start_rows, 
             /* up and down the lane */
             if (river) {
                 int d = disp(l, t, t + HOP_FRAMES);
-                ps_shift(&tmp, &S[j], -CELL + d);
-                ps_shift(&tmp2, &S[j], CELL + d);
+                ps_shift(&tmp, &H, -CELL + d);
+                ps_shift(&tmp2, &H, CELL + d);
                 ps_or(&tmp, &tmp2);
                 ps_or(&arr[slot][j], &tmp);
             } else {
-                src = S[j];
+                src = H;
                 ps_and(&src, &vsrc);
                 ps_all(&vdst);
                 for (int k = HOP_MID; k < HOP_FRAMES; k++) ps_and(&vdst, &vf[(t + k) % VFR][j]);
@@ -260,16 +271,28 @@ int judge_cross_from(const lane *cols, int n, int start_j, uint16_t start_rows, 
         int s1 = (int)(t1 % (HOP_FRAMES + 1));
         for (int j = 0; j < n; j++) {
             S[j] = W[j];
+            F[j] = arr[s1][j];
+            for (int w = 0; w < PW; w++) F[j].w[w] &= ~W[j].w[w];
             ps_or(&S[j], &arr[s1][j]);
             ps_clear(&arr[s1][j]);
             if (ps_any(&S[j])) {
                 safe_mask(&tmp, &cols[j], t1);
                 ps_and(&S[j], &tmp);
+                if (arrival && arrival[j] < 0 && ps_any(&S[j])) arrival[j] = (int16_t)(step + 1);
             }
         }
-        if (ps_any(&S[n - 1])) return step + 1;
+        tmp = S[goal_j];
+        ps_and(&tmp, &goal);
+        if (ps_any(&tmp)) return step + 1;
     }
     return -1;
+}
+
+int judge_cross_from(const lane *cols, int n, int start_j, uint16_t start_rows, uint32_t t0, int window)
+{
+    pxs s;
+    ps_rows(&s, start_rows);
+    return judge_run(cols, n, start_j, s.w, t0, window, n - 1, NULL, NULL);
 }
 
 /* ---- the generator --------------------------------------------------------------------------------------- */

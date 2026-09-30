@@ -601,7 +601,10 @@ static void land(world *w, int p)
     d->land_t = 0;
     if (l && l->kind == LK_RIVER) {
         d->at = on_river(w, d->h.to.col, y, w->t);
-        if (d->at.plat < 0 || y < 0 || y > FIELD_H - CELL) { die(w, p, DK_SWEPT); return; }
+        if (d->at.plat < 0 || y < 0 || y > FIELD_H - CELL) {
+            die(w, p, DK_SWEPT);
+            return;
+        }
         w->events[p] |= EV_RIDE;
         d->hist[0] = d->at;
     } else {

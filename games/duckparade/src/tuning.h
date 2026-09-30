@@ -144,8 +144,8 @@
 #define FLUTTER_SPEED    Q8(2.0)            /* a knocked-off duckling flies back to the grass */
 #define KNOCK_FRAMES     20     /* its tumble before it flutters */
 #define REJOIN_LOCK      30     /* frames before a returned duckling can be picked up again */
-#define DUCKLING_CHANCE  55     /* % of grass columns with a lost duckling */
-#define DUCKLING_PAIR    25     /* % of those with two */
+#define DUCKLING_CHANCE  28     /* % of grass columns with a lost duckling */
+#define DUCKLING_PAIR    15     /* % of those with two */
 #define NEST_EVERY_MIN   40     /* lanes between nest ponds */
 #define NEST_EVERY_RAND  11
 #define FIRST_NEST       30     /* the first nest pond (lanes) */
