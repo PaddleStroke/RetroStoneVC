@@ -175,9 +175,12 @@ static void test_perfect_regrow(void)
         CHECK(ev & EV_PERFECT, "perfect %d", k);
         CHECK(tw.chain == k, "chain %d (%d)", k, tw.chain);
         if (k >= REGROW_CHAIN && w < W0) {
-            int nw = w + REGROW_PX > W0 ? W0 : w + REGROW_PX;
+            int lo = x - REGROW_PX / 2 < -W0 / 2 ? -W0 / 2 : x - REGROW_PX / 2;
+            int hi = x + w + REGROW_PX / 2 > W0 / 2 ? W0 / 2 : x + w + REGROW_PX / 2;
+            int nw = hi - lo;
             CHECK((ev & EV_REGROW) && top_w(&tw) == nw, "perfect %d grows %d -> %d (%d)", k, w, nw, top_w(&tw));
-            CHECK(top_x(&tw) == x - (nw - w) / 2, "grows on both sides");
+            CHECK(top_x(&tw) == lo, "grows on both sides, within the first footprint (%d)", top_x(&tw));
+            CHECK(top_x(&tw) >= -W0 / 2 && top_x(&tw) + top_w(&tw) <= W0 / 2, "inside [-48, 48]");
             w = nw;
         } else {
             CHECK(!(ev & EV_REGROW) && top_w(&tw) == w, "perfect %d keeps %d (%d)", k, w, top_w(&tw));

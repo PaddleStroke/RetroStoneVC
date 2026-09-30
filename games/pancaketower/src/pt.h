@@ -52,7 +52,7 @@ enum {
     EV_SPAWN = 8192, EV_DROP = 16384, EV_SPEEDUP = 32768
 };
 
-typedef struct cut_piece { int x, w, side, kind; uint16_t n; } cut_piece;   /* side -1 left, +1 right */
+typedef struct cut_piece { int x, w, side, kind, whole; uint16_t n; } cut_piece;   /* side -1 left, +1 right; whole: a miss */
 
 typedef struct tower {
     geom g;
@@ -106,7 +106,7 @@ int  match_winner(const match *m);             /* 0 or 1; -1 = a draw */
 /* ---- console side --------------------------------------------------------------------------------------- */
 /* sfx.c */
 enum { SFX_FLOP, SFX_DING, SFX_SQUISH, SFX_SPLAT, SFX_CRASH, SFX_ROOF, SFX_PLOP, SFX_POUR, SFX_SPLASH,
-       SFX_WHOOSH, SFX_FANFARE, SFX_JOIN, SFX_PAUSE, SFX_OVER, SFX_COUNT };
+       SFX_WHOOSH, SFX_FANFARE, SFX_COUNT };        /* then the house set (house_audio.h HA_*) */
 void sfx_init(void);
 void sfx_play(int id, int x, int pitch_steps);   /* pitch in semitones (0 = as made) */
 void sfx(int id);
@@ -118,13 +118,18 @@ enum { DS_TITLE, DS_READY, DS_PLAY, DS_OVER };
 void draw_init(void);
 void draw_reset(const match *m);
 void draw_events(const match *m);               /* after each step: effects from the events */
+void draw_update(const match *m);               /* after each step: cameras, effects, the chef */
 void draw_frame(const match *m, int state, int st_t, int best, int new_best, int paused);
 int  draw_camera(int player);                    /* world y at the screen's bottom (tests) */
 extern int opt_nodraw_bg;                        /* tests */
 
 /* bot.c: plays from the screen (OAM) only */
-int  bot_decide(int player);
+int  bot_decide(int player);                     /* call it every frame (it watches the screen) */
 void bot_reset(uint32_t seed);
+void bot_jitter_counts(int out[5]);
+void draw_view_oam(int player, int *first, int *count);   /* the player's part of the screen (OAM range) */
+int  pt_players(void);
+int  bot_stop_height(void);
 
 /* save states: each console-side file registers its objects, called from main.c */
 void draw_state(void);

@@ -79,7 +79,8 @@ BG 1), 5 the toppings (the same as BG 2), 6 birds, the balloon, the plane, the s
     7.5 % of the width, between 3 and 4 px (a few pixels; never narrower than one frame of motion, so
     some frame always lands in it).
   - A **chain** of perfects rises the ding's pitch (a scale). From the **8th** perfect in a row, every
-    perfect also **grows the pancake back** by 16 px (8 px per side, never wider than the first pancake):
+    perfect also **grows the pancake back** by 16 px (8 px per side, never out of the first pancake's
+    footprint, as the clone clamps its growth):
     a bigger butter pat, a sparkle burst.
 - **Speed**: the slide speed rises with the height: +8 % every 15 pancakes, up to +40 % (from pancake 75
   on it stays the same).

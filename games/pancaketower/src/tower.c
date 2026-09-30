@@ -49,6 +49,7 @@ int cut_resolve(const geom *g, int x, int w, int bx, int bw, int *kx, int *kw, c
         piece->x = x;
         piece->w = w;
         piece->side = off < 0 ? -1 : 1;
+        piece->whole = 1;
         *kx = x;
         *kw = 0;
         return 0;
@@ -185,9 +186,12 @@ static void resolve(tower *tw)
         flags = LF_PERFECT | LF_BUTTER;
         tw->events |= EV_PERFECT;
         if (tw->chain >= REGROW_CHAIN && kw < tw->g.w0) {
-            int nw = kw + tw->g.regrow < tw->g.w0 ? kw + tw->g.regrow : tw->g.w0;
-            kx -= (nw - kw) / 2;
-            kw = nw;
+            /* each side grows by half, never out of the first pancake's footprint (the clone's maxExtents) */
+            int lo = kx - tw->g.regrow / 2, hi = kx + kw + tw->g.regrow / 2;
+            if (lo < -tw->g.w0 / 2) lo = -tw->g.w0 / 2;
+            if (hi > tw->g.w0 / 2) hi = tw->g.w0 / 2;
+            kx = lo;
+            kw = hi - lo;
             flags |= LF_BIG_BUTTER;
             tw->events |= EV_REGROW;
         }

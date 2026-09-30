@@ -91,7 +91,7 @@
 
 /* ---- the screen ------------------------------------------------------------------------------------------ */
 #define TOP_SCREEN_Y 120            /* the camera keeps the top of the tower here once it is that high */
-#define BASE_SCREEN_Y 196           /* the plate's top at the start */
+#define BASE_SCREEN_Y 192           /* the plate's top at the start */
 #define CAMERA_SPEED 2              /* px per frame at most */
 
 /* ---- wobble (visual only) -------------------------------------------------------------------------------- */
