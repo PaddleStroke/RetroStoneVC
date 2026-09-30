@@ -11,6 +11,7 @@
 #   make bench           per-frame cost of the heaviest scenes
 #   make DEBUG=1 ...     -O0 -g and strict mode on by default
 #   make SAN=1 check     the tests under ASan + UBSan (after make clean)
+#   make template-check  a throwaway game from games/_template (tools/new_game.py), its tests, then deleted
 #
 # MIT licence (build system and SDK), (c) 2026 Pierre-Louis Boyer (8BCraft).
 
@@ -272,3 +273,13 @@ clean:
 
 # ---- other games: each brings its own targets (games/<game>/game.mk, e.g. make leadysquid-check) ----
 include $(wildcard games/*/game.mk)
+
+# ---- the new-game template (games/_template, tools/new_game.py): make a throwaway game, test it, delete it ----
+TEMPLATE_TMP = zztemplate
+.PHONY: template-check
+template-check:
+	rm -rf games/$(TEMPLATE_TMP) build/gen/$(TEMPLATE_TMP) build/host/games/$(TEMPLATE_TMP)
+	$(PYTHON) tools/new_game.py $(TEMPLATE_TMP) "ZZ Template"
+	$(MAKE) --no-print-directory $(TEMPLATE_TMP)-check; rc=$$?; \
+	    rm -rf games/$(TEMPLATE_TMP) build/gen/$(TEMPLATE_TMP) build/host/games/$(TEMPLATE_TMP) build/host/$(TEMPLATE_TMP)*; \
+	    exit $$rc

@@ -555,6 +555,37 @@ def kit_sheet():
     return cv
 
 
+def shapes_sheet():
+    """The drawing helpers: a shaded ellipse and capsule, squash and stretch, the dithers, a panel with text."""
+    cv = Canvas(208, 80)
+    body = ACCENTS["pink"]
+    for i, k in enumerate((1.0, 1.25, 0.8)):
+        c = Canvas(32, 32)
+        ellipse(c, 16.0, 18.5, 9.5, 9.0, body)
+        eye(c, 15, 15, big=True), eye(c, 20, 15, big=True)
+        c = squash(c, k) if k != 1.0 else c
+        c.outline((40, 16, 58))
+        cv.paste(c, i * 34, 0)
+    c = Canvas(40, 32)
+    capsule(c, 8, 22, 32, 10, 5.5, HOUSE["wood"])
+    c.outline((34, 20, 12))
+    cv.paste(c, 104, 0)
+    for lvl in range(0, 17, 2):                         # the ordered dither, 0..16
+        for y in range(8):
+            for x in range(8):
+                if dither_ok(x, y, lvl):
+                    cv.set(146 + (lvl // 2) * 7 + x % 6, 2 + y, HOUSE["cream"][0])
+    for y in range(8):
+        for x in range(24):
+            if checker(x, y):
+                cv.set(146 + x, 14 + y, HOUSE["water"][1])
+    p = panel(16, 5)
+    p.paste(text_canvas("SCORE", "box"), 16, 16)
+    cv.paste(p, 0, 36)
+    cv.paste(text_canvas("OK", "banner"), 136, 40)
+    return cv
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description="write the house style reference sheets")
     ap.add_argument("--out", default=os.path.join(ROOT, "docs", "art-direction"))
@@ -563,7 +594,15 @@ def main(argv=None):
     os.makedirs(a.out, exist_ok=True)
     k = a.scale
     pal, _ = palette_sheet()
-    out = [("palette.png", pal), ("font.png", font_atlas()), ("ui-sprites.png", kit_sheet())]
+    lg, _info = logo(["HOUSE", "STYLE"], [ACCENTS["duck"][:3], ACCENTS["pink"][:3]])
+    lcv = Canvas(lg.width, lg.height)
+    lpx = lg.load()
+    for y in range(lg.height):
+        for x in range(lg.width):
+            if lpx[x, y] != MAGENTA:
+                lcv.set(x, y, lpx[x, y])
+    out = [("palette.png", pal), ("font.png", font_atlas()), ("ui-sprites.png", kit_sheet()),
+           ("shapes.png", shapes_sheet()), ("logo.png", lcv)]
     for name, cv in out:
         im = cv.image()
         im.resize((im.width * k, im.height * k), Image.NEAREST).save(os.path.join(a.out, name))

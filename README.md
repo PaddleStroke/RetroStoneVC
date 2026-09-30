@@ -36,6 +36,12 @@ workflow below, with `--game leadysquid`). Keys: Z, X, Up or Enter swim; Backspa
 |---|---|
 | ![title](games/leadysquid/docs/screenshots/title.png) | ![coral](games/leadysquid/docs/screenshots/theme-coral.png) |
 
+**The house style.** The 8BCraft games share Leady Squid's look and sound: the rules are in
+[docs/art-direction.md](docs/art-direction.md), the kit in `games/common/` (the C UI kit and synthesiser
+`house_ui.c` / `house_audio.c`, compiled into the games whose game.mk sets `HOUSE_UI_<game> = 1`; the Python
+`house_style.py` / `house_music.py` for the code-drawn art and the music). A new game starts from the template:
+`python3 tools/new_game.py ID "Name"`, then `make ID-check` (`make template-check` tests the template).
+
 ## Play on Windows
 Build it (below) or take `dist/windows/BomberMole.exe`: a single executable, SDL2 is linked in. Double-click
 it. Progress is saved in `bombermole.srm` next to the exe.
