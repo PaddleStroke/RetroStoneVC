@@ -142,7 +142,7 @@ dist/windows/$(GAME_NAME).exe: $(GAME_OBJ_WIN) build/win64/sdk/frontends/sdl2/rs
 	    -L$(SDL2_MINGW)/lib -static -lmingw32 -lSDL2main -lSDL2 -mwindows \
 	    -lm -ldinput8 -ldxguid -ldxerr8 -luser32 -lgdi32 -lwinmm -limm32 -lole32 -loleaut32 \
 	    -lshell32 -lversion -luuid -lsetupapi -static-libgcc -s
-	cp games/$(GAME)/dist/README-windows.txt dist/windows/README.txt
+	cp games/$(GAME)/dist/README-windows.txt dist/windows/README-$(GAME_NAME).txt
 	cp THIRD_PARTY.md dist/windows/THIRD_PARTY.md
 
 # ---- armhf (RetroStone2, Cortex-A7) --------------------------------------------------
