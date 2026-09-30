@@ -2,7 +2,7 @@
 # Bomber Mole feature tests (headless): windmill lanes in the 4 directions, the pause menu (resume, restart,
 # quit with its question), levers (walking into one, a blast), the remote pickup, dev mode.
 #   feature_test.sh <headless binary>
-# All rights reserved, 8BCraft.
+# MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/bombermole/LICENSE.
 H=$1
 D=$(dirname "$0")
 T=$(mktemp -d)

@@ -1,6 +1,6 @@
 # Bomber Mole art TODO
 
-Drop folder (this folder): `C:\Users\Pierre\Desktop\RetroStoneVC\games\bombermole\art\incoming`
+Drop folder (this folder): `<your checkout>\games\bombermole\art\incoming`
 
 ## Instructions for the image agent
 

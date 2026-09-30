@@ -163,6 +163,9 @@ dist/windows/$(GAME_NAME).exe: $(GAME_OBJ_WIN) build/win64/sdk/frontends/sdl2/rs
 	    -lshell32 -lversion -luuid -lsetupapi -static-libgcc -s
 	cp games/$(GAME)/dist/README-windows.txt dist/windows/README-$(GAME_NAME).txt
 	cp THIRD_PARTY.md dist/windows/THIRD_PARTY.md
+	cp games/$(GAME)/LICENSE dist/windows/LICENSE-$(GAME).txt
+	cp LICENSE-MIT dist/windows/LICENSE-MIT.txt
+	cp LICENSE-CC-BY-NC-SA-4.0.txt dist/windows/LICENSE-CC-BY-NC-SA-4.0.txt
 
 # ---- armhf (RetroStone2, Cortex-A7) --------------------------------------------------
 armhf: build/armhf/$(GAME)_libretro.so

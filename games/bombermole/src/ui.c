@@ -2,7 +2,7 @@
  * Bomber Mole: objectives on screen, kept light: a short level banner, the per-depth counts on the HUD,
  * the pause screen with the map, the "molehill open" banner with the exit arrow, and the golden glow on
  * blocks that hide a grub.
- * All rights reserved, 8BCraft.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/bombermole/LICENSE.
  *
  * Drawn on BG1 with the font and a few tiles made here:
  *   BG1 tiles 100..309: the pause map (3 depths x 10x7 tiles, 4x4 pixels per cell)

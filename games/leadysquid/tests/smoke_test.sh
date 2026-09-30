@@ -1,7 +1,7 @@
 #!/bin/sh
 # Leady Squid smoke tests: scripted runs through the headless runner, the bot and determinism.
 #   smoke_test.sh <headless binary> <tmp dir>
-# All rights reserved, 8BCraft.
+# MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/leadysquid/LICENSE.
 H=$1
 T=${2:-/tmp}/leadysquid-tests
 mkdir -p "$T"

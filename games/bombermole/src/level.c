@@ -1,6 +1,6 @@
 /*
  * Bomber Mole: level files (format in DESIGN.md).
- * All rights reserved, 8BCraft.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/bombermole/LICENSE.
  */
 #include "bm.h"
 #include <stdio.h>

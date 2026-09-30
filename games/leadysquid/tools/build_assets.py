@@ -6,7 +6,7 @@ sprites; music -> build/gen/leadysquid/assets.c + assets.h.
 
 The BG panoramas (seabed, backdrop) are code-drawn (make_art.py); the
 mid-ground is composed from the props sheet (so imported art flows in).
-All rights reserved, 8BCraft.
+MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/leadysquid/LICENSE.
 """
 import argparse
 import colorsys

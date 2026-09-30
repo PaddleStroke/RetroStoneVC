@@ -1,6 +1,6 @@
 /*
  * Leady Squid: shared declarations.
- * All rights reserved, 8BCraft.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/leadysquid/LICENSE.
  *
  * physics.c + world.c are the game rules (no drawing, no sound: the unit tests
  * link them alone); draw.c, sfx.c, bot.c and main.c are the console side.

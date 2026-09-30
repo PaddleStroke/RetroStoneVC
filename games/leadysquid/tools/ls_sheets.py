@@ -8,7 +8,7 @@ of an entry sit left to right from (x, y).
 
     python3 games/leadysquid/tools/ls_sheets.py      prints the table (Markdown)
 
-All rights reserved, 8BCraft.
+MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/leadysquid/LICENSE.
 """
 from collections import namedtuple
 

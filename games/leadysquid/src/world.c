@@ -1,7 +1,7 @@
 /*
  * Leady Squid: a run (the squids, the course of obstacles, the scroll, the
  * score). Pure game rules: no drawing or sound, events are reported instead.
- * All rights reserved, 8BCraft.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/leadysquid/LICENSE.
  */
 #include "ls.h"
 #include <string.h>

@@ -1,7 +1,7 @@
 #!/bin/sh
 # Leady Squid: the caps test (tests/test_caps.c) for each obstacle theme and for a 2-player race, in parallel.
 #   caps_test.sh <test_caps binary> <tmp dir> [runs]
-# All rights reserved, 8BCraft.
+# MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/leadysquid/LICENSE.
 B=$1
 T=${2:-/tmp}/leadysquid-caps
 R=${3:-60}

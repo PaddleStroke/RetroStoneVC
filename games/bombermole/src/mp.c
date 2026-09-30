@@ -2,7 +2,7 @@
  * Bomber Mole: multiplayer (DESIGN.md "Multiplayer"): the split-screen views (SDK viewports), a camera per
  * player, the per-player HUD strips, the shared goal and the live map, the moles' colours and P1-P4 markers,
  * the join screen, co-op story levels and battle rounds (arenas, sudden death, results).
- * All rights reserved, 8BCraft.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/bombermole/LICENSE.
  *
  * BG1 map in multiplayer (64 x 128 tiles):
  *   rows  0- 7  the HUD strips of P1..P4 (2 rows each, columns 0-19)

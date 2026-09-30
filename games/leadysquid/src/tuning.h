@@ -1,6 +1,6 @@
 /*
  * Leady Squid: THE tuning table. Every gameplay number is here.
- * All rights reserved, 8BCraft.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/leadysquid/LICENSE.
  *
  * Values are first written in the reference's units (the original flap game as
  * measured and cloned, see DESIGN.md "Balance sources"): pixels of its 288x512

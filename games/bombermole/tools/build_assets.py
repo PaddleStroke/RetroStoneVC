@@ -4,7 +4,7 @@ and music -> build/gen/bombermole/assets.c + assets.h.
 
     build_assets.py --out build/gen/bombermole [--art games/bombermole/art]
 
-All rights reserved, 8BCraft.
+MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/bombermole/LICENSE.
 """
 import argparse
 import glob

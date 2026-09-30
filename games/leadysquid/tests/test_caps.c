@@ -1,6 +1,6 @@
 /*
  * Leady Squid: the obstacle caps sit flush on their columns, on the real picture.
- * All rights reserved, 8BCraft.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/leadysquid/LICENSE.
  *
  * The whole game runs (runtime, draw, sound) with a scripted player: many runs,
  * each started after a random wait on the title or get-ready screen (so each

@@ -4,7 +4,7 @@ brightest (the pulse lasts ~1 s), 2x, side by side.
 
     glow_shot.py <headless binary> <out.png> [level]
 
-All rights reserved, 8BCraft.
+MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/bombermole/LICENSE.
 """
 import os
 import subprocess

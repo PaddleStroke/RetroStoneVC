@@ -1,7 +1,7 @@
 """Bomber Mole art brief: the style guide and one self-contained prompt per strip.
 
 tools/art_sync.py builds games/bombermole/art/incoming/TODO.md from this file
-and from the sheet layout (tools/sheets.py). All rights reserved, 8BCraft.
+and from the sheet layout (tools/sheets.py). MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/bombermole/LICENSE.
 """
 
 STYLE = """\

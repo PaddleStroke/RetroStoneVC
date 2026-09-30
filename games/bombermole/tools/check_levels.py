@@ -8,7 +8,7 @@ passable (dig/bomb), following holes, ladders, thin floors, pipes and vents.
 
     check_levels.py [files...]      (default: all of games/bombermole/levels)
 
-All rights reserved, 8BCraft.
+MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/bombermole/LICENSE.
 """
 import glob
 import os

@@ -1,7 +1,7 @@
 /*
  * Leady Squid: the physics of one squid and one obstacle (pure functions, no
  * drawing or sound). Every number comes from tuning.h.
- * All rights reserved, 8BCraft.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/leadysquid/LICENSE.
  */
 #include "ls.h"
 

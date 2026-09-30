@@ -11,7 +11,7 @@
  * depth-first search over flap / no flap for the next 112 frames against the
  * obstacles it can see (a 3-px margin, relaxed when needed); if no move is
  * safe it takes the one that lives longest.
- * All rights reserved, 8BCraft.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/leadysquid/LICENSE.
  */
 #include "ls.h"
 #include "assets.h"

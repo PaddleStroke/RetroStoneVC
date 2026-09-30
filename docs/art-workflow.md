@@ -1,7 +1,7 @@
 # Art workflow: image agent, owner, game
 
 Three parties share one folder: **`games/bombermole/art/incoming/`**
-(on the owner's PC: `C:\Users\Pierre\Desktop\RetroStoneVC\games\bombermole\art\incoming\`).
+(on Windows: `<your checkout>\games\bombermole\art\incoming\`).
 The folder is versioned in git: the generated PNGs are part of the art history.
 
 | Who | Does |
@@ -50,9 +50,9 @@ owner's reference): the default set `art-ai/` is made at that size, and `make` b
 
 ## Reviewing: tools/art_review.py
 A tiny local web server (Python standard library; the image work is `tools/art_consistency.py`). Run it from
-the checkout whose `TODO.md` is live, the one the image agent writes (`C:\Users\Pierre\Desktop\RetroStoneVC`):
+the checkout whose `TODO.md` is live, the one the image agent writes (`<your checkout>`); from Windows with WSL:
 ```
-wsl.exe -d Ubuntu-24.04 -- sh -c "cd /mnt/c/Users/Pierre/Desktop/RetroStoneVC && python3 tools/art_review.py"
+wsl.exe -d Ubuntu-24.04 -- sh -c "cd '<your checkout, as a /mnt/c/... path>' && python3 tools/art_review.py"
 ```
 then open **http://localhost:8765** in Windows (Ctrl+C stops it; `--port`, `--char-size 24`, `--incoming DIR`).
 Per TODO row: the original AI strip, the processed frames at 1x and 4x, the animation at game size and at 4x,

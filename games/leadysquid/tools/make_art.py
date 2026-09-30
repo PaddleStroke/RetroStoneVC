@@ -13,7 +13,7 @@ Writes, in the art folder (default games/leadysquid/art):
     python3 tools/make_placeholders.py --game leadysquid [--out DIR] [--preview]
     python3 games/leadysquid/tools/make_art.py [--out DIR] [--preview]
 
-All rights reserved, 8BCraft.
+MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/leadysquid/LICENSE.
 """
 import argparse
 import math

@@ -1,6 +1,6 @@
 /*
  * Leady Squid: sound effects synthesised at start-up, and the music.
- * All rights reserved, 8BCraft.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/leadysquid/LICENSE.
  */
 #include "ls.h"
 #include <string.h>

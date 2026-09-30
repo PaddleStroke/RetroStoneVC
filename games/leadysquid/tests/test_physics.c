@@ -1,7 +1,7 @@
 /*
  * Leady Squid: unit tests of the game rules against the tuning table
  * (physics.c, world.c; no video or sound).
- * All rights reserved, 8BCraft.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/leadysquid/LICENSE.
  *
  * The expected values are computed here from the REFERENCE numbers of tuning.h
  * (60 Hz, reference pixels), with the reference's own step order, and scaled:

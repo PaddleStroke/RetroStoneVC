@@ -1,6 +1,6 @@
 /*
  * Bomber Mole: video (VRAM layout, maps, sprites, HUD, text, transitions).
- * All rights reserved, 8BCraft.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/bombermole/LICENSE.
  *
  * VRAM (tile numbers):   0 font, 96 big font (menus), 512 HUD, 700 box font, 800 box tile  [BG1 base 0]
  *                     1024 terrain, +192 props, +384 explosions, +640 weather            [BG2-4 base 1024]

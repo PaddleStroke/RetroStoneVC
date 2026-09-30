@@ -5,7 +5,7 @@ round bass, a water-drop pluck and a breathy lead; slow tempo, D dorian.
 
     make_music.py OUTDIR       -> OUTDIR/tune.mod
 
-All rights reserved, 8BCraft.
+MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/leadysquid/LICENSE.
 """
 import math
 import os

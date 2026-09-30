@@ -5,7 +5,7 @@ start of the quarter's mole (M, 2, 3, 4 by quarter). A hole down v puts a ladder
 
     make_arenas.py [out dir]     (default: games/bombermole/arenas)
 
-All rights reserved, 8BCraft.
+MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/bombermole/LICENSE.
 """
 import sys
 

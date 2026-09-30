@@ -1,5 +1,5 @@
 LEADY SQUID - a RetroStone VC game for Windows
-All rights reserved, 8BCraft (Pierre-Louis Boyer).
+(c) 2026 Pierre-Louis Boyer (8BCraft). Code MIT, art/music/sound CC BY-NC-SA 4.0: see LICENSE-leadysquid.txt.
 
 A little squid put on far too many lead diving weights sinks like a stone.
 Every press squeezes its mantle and shoots a jet of water that sends it back

@@ -175,10 +175,8 @@ def read_todo(path):
 
 def write_todo(path, incoming, strips, brief, sheets, keep):
     lines = []
-    rel = os.path.abspath(incoming)
-    win = rel.replace("/mnt/c/", "C:/").replace("/", "\\") if rel.startswith("/mnt/") else rel
     lines += ["# Bomber Mole art TODO", "",
-              "Drop folder (this folder): `%s`" % win, "",
+              "Drop folder (this folder): `<your checkout>\\games\\bombermole\\art\\incoming`", "",
               "## Instructions for the image agent", "",
               "Workflow:",
               "1. Pick rows whose Status is **TODO** (top to bottom: the groups are in priority order) or "

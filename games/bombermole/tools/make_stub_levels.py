@@ -4,7 +4,7 @@
 Existing files are never overwritten: replace a stub by editing its file.
 Each stub shows its season's twist so the arc stays playable end to end.
 
-All rights reserved, 8BCraft.
+MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/bombermole/LICENSE.
 """
 import os
 

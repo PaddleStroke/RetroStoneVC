@@ -1,7 +1,7 @@
 /*
  * Leady Squid: video (VRAM, layers, raster effects, sprites) and the cosmetic
  * effects (bubbles, ink puffs, lead weights). Nothing here changes the game.
- * All rights reserved, 8BCraft.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/leadysquid/LICENSE.
  */
 #include "ls.h"
 #include "assets.h"

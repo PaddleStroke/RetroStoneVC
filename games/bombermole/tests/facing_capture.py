@@ -5,7 +5,7 @@ frame is the exact mirror of its left frame (right strips are mirrored in the bu
 
     facing_capture.py <headless binary> [out.png]
 
-All rights reserved, 8BCraft.
+MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/bombermole/LICENSE.
 """
 import os
 import subprocess

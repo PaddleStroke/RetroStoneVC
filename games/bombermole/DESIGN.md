@@ -1,6 +1,6 @@
 # Bomber Mole: design
 
-All rights reserved, 8BCraft. The first game for the RetroStone virtual console (docs/spec.md).
+(c) 2026 Pierre-Louis Boyer (8BCraft), CC BY-NC-SA 4.0 (games/bombermole/LICENSE). The first game for the RetroStone virtual console (docs/spec.md).
 
 ## Pitch
 You are a mole with a miner's helmet and a pocket full of bombs. Each level is a meadow with

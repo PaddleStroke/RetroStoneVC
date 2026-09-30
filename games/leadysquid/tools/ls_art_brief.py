@@ -2,7 +2,7 @@
 
 games/leadysquid/tools/art_game.py (run by `tools/art_sync.py --game leadysquid todo`) builds
 games/leadysquid/art/incoming/TODO.md from this file and from the sheet layout (ls_sheets.py).
-All rights reserved, 8BCraft.
+MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/leadysquid/LICENSE.
 """
 
 TITLE = "Leady Squid"

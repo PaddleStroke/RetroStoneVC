@@ -1,6 +1,6 @@
 /*
  * Bomber Mole: the world simulation (all three depths run at once).
- * All rights reserved, 8BCraft.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/bombermole/LICENSE.
  */
 #include "bm.h"
 #include <stdlib.h>

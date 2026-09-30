@@ -13,7 +13,7 @@
 #   make leadysquid-art            import the owner's VALIDATED art (art_sync.py --game leadysquid sync)
 #   make leadysquid-art-review     the owner's review tool on http://localhost:8765
 #
-# All rights reserved, 8BCraft (the game); the rules below follow the root Makefile (MIT).
+# MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/leadysquid/LICENSE; the rules below follow the root Makefile.
 
 LS_MAKE = $(MAKE) --no-print-directory GAME=leadysquid GAME_NAME=LeadySquid
 LS_DIR  = games/leadysquid

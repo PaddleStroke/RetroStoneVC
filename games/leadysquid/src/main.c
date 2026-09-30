@@ -1,7 +1,7 @@
 /*
  * Leady Squid: the game flow (title, get ready, play, death, game over), input,
  * save RAM, options and the test hooks.
- * All rights reserved, 8BCraft.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/leadysquid/LICENSE.
  *
  * Options (--opt key=value on the desktop runners):
  *   bot=1          the screen-reading bot plays player 1 (bot.c), bot=2 both players; botruns=N runs

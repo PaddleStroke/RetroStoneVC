@@ -4,7 +4,7 @@
 > code-drawn art is final. Image agents: do not generate or edit anything in this file. The rows
 > below are kept only as a record of the sprite list.
 
-Drop folder (this folder): `C:\Users\Pierre\Desktop\RetroStoneVC\games\leadysquid\art\incoming`
+Drop folder (this folder): `<your checkout>\games\leadysquid\art\incoming`
 
 ## Instructions for the image agent
 

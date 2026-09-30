@@ -7,7 +7,7 @@ chord progression. Played by libxmp-lite in the SDK.
 
     make_music.py OUTDIR       -> OUTDIR/<name>.mod
 
-All rights reserved, 8BCraft.
+MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/bombermole/LICENSE.
 """
 import math
 import os

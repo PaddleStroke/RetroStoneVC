@@ -7,7 +7,7 @@ the image processing is tools/art_consistency.py).
 
 then open http://localhost:8765 (from Windows too, when it runs in WSL).
 Run it from the checkout whose TODO.md is live (the one the image agent
-writes: C:\\Users\\Pierre\\Desktop\\RetroStoneVC), or pass --incoming.
+writes), or pass --incoming.
 
 Per TODO row it shows the original AI strip, the processed frames at 1x and
 4x, animations at game size and 4x, the sprite on a real level screenshot,

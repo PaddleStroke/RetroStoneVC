@@ -6,7 +6,7 @@
   palettised and pasted into the sheets; other cells keep their placeholder; the report is written;
 - the review tool (tools/art_review.py) processes the game's strips;
 - the placeholder tool (tools/make_placeholders.py --game leadysquid) runs.
-All rights reserved, 8BCraft.
+MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/leadysquid/LICENSE.
 """
 import argparse
 import os

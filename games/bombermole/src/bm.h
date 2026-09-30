@@ -1,6 +1,6 @@
 /*
  * Bomber Mole: shared definitions.
- * All rights reserved, 8BCraft.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/bombermole/LICENSE.
  */
 #ifndef BM_H
 #define BM_H

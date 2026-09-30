@@ -1,6 +1,6 @@
 # Leady Squid: design
 
-All rights reserved, 8BCraft (Pierre-Louis Boyer). The second game for the RetroStone virtual console
+(c) 2026 Pierre-Louis Boyer (8BCraft), CC BY-NC-SA 4.0 (games/leadysquid/LICENSE). The second game for the RetroStone virtual console
 (docs/spec.md).
 
 ## Pitch

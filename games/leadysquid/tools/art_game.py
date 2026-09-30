@@ -9,10 +9,9 @@ tools/art_consistency.py): the strips of TODO.md, the TODO writer and the import
 The workflow and the TODO.md format are Bomber Mole's (docs/art-workflow.md): one PNG per strip,
 TODO -> GENERATED (image agent) -> VALIDATED / REJECTED (owner), the consistency pass of
 tools/art_consistency.py, placeholders kept for every cell not imported.
-All rights reserved, 8BCraft.
+MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/leadysquid/LICENSE.
 """
 import datetime
-import re
 import fnmatch
 import os
 import sys
@@ -98,11 +97,8 @@ def ordered(all_strips):
 
 
 def write_todo(path, keep):
-    rel = os.path.abspath(os.path.dirname(path))
-    win = rel.replace("/mnt/c/", "C:/").replace("/", "\\") if rel.startswith("/mnt/") else rel
-    win = re.sub(r"RetroStoneVC-[^\\/]+", "RetroStoneVC", win)   # a git worktree: the owner's main checkout
     lines = ["# %s art TODO" % TITLE, "",
-             "Drop folder (this folder): `%s`" % win, "",
+             "Drop folder (this folder): `<your checkout>\\games\\leadysquid\\art\\incoming`", "",
              "## Instructions for the image agent", "",
              "Workflow:",
              "1. Pick rows whose Status is **TODO** (top to bottom: the groups are in priority order) or "

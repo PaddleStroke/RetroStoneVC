@@ -103,8 +103,14 @@ Headless: `./build/host/bombermole_headless --frames 300 --opt level=spring-1 --
 | `sdk/` | the SDK: `include/rs.h` (game API), `src/` (runtime, scanline renderer, audio, text, save states), `frontends/` (libretro, SDL2, headless), `tests/` (golden images, save states) | MIT, (c) 2026 Pierre-Louis Boyer (8BCraft) |
 | `sdk/third_party/` | libxmp-lite 4.7.3, stb_image(_write), libretro.h | MIT / public domain, see THIRD_PARTY.md |
 | `tools/` | asset tool, sheet layout, placeholders, AI sheet cutter, art sync, comparisons | MIT |
-| `games/bombermole/` | the game: code, levels, art, design | all rights reserved, 8BCraft |
-| `docs/` | [spec](docs/spec.md), [assets](docs/assets.md), [art sheets](docs/art-sheets.md), [art workflow](docs/art-workflow.md), screenshots, art previews | |
+| `games/bombermole/`, `games/leadysquid/`: code | `src/`, `tools/`, `tests/`, `game.mk` | MIT, (c) 2026 Pierre-Louis Boyer (8BCraft) |
+| `games/bombermole/`, `games/leadysquid/`: assets | art (`art/`, `art-ai/`), levels and arenas, music and sound, `DESIGN.md`, the game screenshots | [CC BY-NC-SA 4.0](LICENSE-CC-BY-NC-SA-4.0.txt), (c) 2026 Pierre-Louis Boyer (8BCraft) |
+| `docs/` | [spec](docs/spec.md), [assets](docs/assets.md), [art sheets](docs/art-sheets.md), [art workflow](docs/art-workflow.md), screenshots, art previews | MIT; the screenshots and art previews: CC BY-NC-SA 4.0 |
+
+The exact code and asset paths of each game are in its `LICENSE` ([Bomber Mole](games/bombermole/LICENSE),
+[Leady Squid](games/leadysquid/LICENSE)). A built game holds both, so it may not be used commercially without
+8BCraft's permission. The names and logos "Bomber Mole", "Leady Squid", "RetroStone" and "8BCraft" are not
+licensed: a fork must use its own. Part of the Bomber Mole art was generated with AI tools and edited by hand.
 
 ## Tests
 `make check` runs: the SDK unit tests (renderer golden images for layers, flips, sprites, priorities, raster,
