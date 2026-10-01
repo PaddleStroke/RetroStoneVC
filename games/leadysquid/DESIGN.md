@@ -32,7 +32,7 @@ y = 192, a 48-px sandy seabed band below (20% of the screen, like the 21% ground
 | BG4 | light rays and the surface shimmer (lines 0-111, **added** to the gradient with colour math, switched per line by the raster callback) and the far reef silhouettes (lines 112-191, opaque) | rays 1/8 with a slow sway (per-line scroll), reef 1/4 |
 | BG3 | mid-ground: rocks, a treasure chest, a shipwreck, coral and kelp clumps, an amphora | 1/2 |
 | BG2 | the obstacles (bodies) and the seabed in front | 1 |
-| BG1 | text: the title logo, "GET READY", the pause and game-over panels | fixed |
+| BG1 | text: the title logo and lines (the house kit's title: prompt, player slots, join line), the pause and game-over panels, the race's ranking | fixed |
 | OBJ | squid(s), obstacle end caps, bubbles, ink puffs, lead weights, score digits, shell medals | |
 
 Parallax uses per-line scroll tables (the reef and ray bands of BG4 scroll at different speeds, as SNES games
@@ -42,9 +42,12 @@ any height while the bodies stay tiles.
 
 ### Palettes
 BG: 0 text and panels, 1 seabed, 2-5 the four obstacle themes, 6 mid-ground, 7 rays + reef (the title logo
-borrows palette 5 on the title screen only, before any chain obstacle can show). OBJ: 0 squid (player 1),
-1 squid (player 2, pink), 2 bubbles, ink and weights, 3 digits and medals, 4-7 the obstacle caps (the same
-colours as the theme's BG palette, from one shared 15-colour palette per theme).
+borrows palette 5 on the title screen only, before any chain obstacle can show). OBJ: 0 squid (player 1, purple),
+1 squid (player 2, pink), 2 bubbles, ink and weights, 3 digits and medals, 4 and 5 squids 3 and 4 (the house rule,
+house_style.player_palettes: the purples turned to the two hues farthest from P1's purple and P2's pink: green and
+orange-yellow), 6 and 7 the obstacle caps (the same colours as the theme's BG palette, from one shared 15-colour
+palette per theme; a theme lasts 10 obstacles = 720 px, more than the course window, so two slots by theme parity
+hold the two themes that can show: draw.c loads a theme's palette into OBJ 6 + (theme & 1) when it appears).
 
 ## The squid
 - Purple, grumpy-cute: a big rounded mantle with two fins, a heavy-lidded frowning eye, a small pout,
@@ -82,18 +85,20 @@ colours as the theme's BG palette, from one shared 15-colour palette per theme).
 - The score is shown in big digits at the top (sprites), and on the game-over panel.
 
 ## Flow (no menus in the loop)
-1. **Title**: the "LEADY SQUID" logo, the squid bobbing gently in its "get ready" pose, bubbles, a blinking
-   A button and "PRESS A TO SWIM", the best score, "(C) 2026 8BCRAFT".
-2. **Get ready**: after a run, the same scene without the logo ("GET READY" instead). The first flap starts
-   the run (and is a flap).
-3. **Play**.
-4. **Death**: hitting an obstacle or the seabed. The squid gets a dazed face (X eyes), a thud, the scroll
+1. **Title** (the only menu: no "get ready" screen): the "LEADY SQUID" logo, the squids bobbing gently in their
+   ready pose, bubbles, a blinking A button and "PRESS A TO SWIM", the player slots (P1 .. P4, a small squid in
+   each joined player's colours pops in with a sparkle and the join sound), "P2 / P3 / P4: PRESS A TO JOIN", the
+   best score, "(C) 2026 8BCRAFT". P1's first flap (A, B, X, Y, Up or Start: its swim inputs) starts the run at
+   once (and is a flap).
+2. **Play**.
+3. **Death**: hitting an obstacle or the seabed. The squid gets a dazed face (X eyes), a thud, the scroll
    stops, and it **sinks to the seabed** under the extra weight (a faster fall, the nose turning down);
    it lands with a **"clank-clank"** as lead weights fall off and bounce on the sand.
-5. **Game over panel** slides up: "GAME OVER" in gold on its own banner (the panel's frame and colour, an
+4. **Game over panel** slides up: "GAME OVER" in gold on its own banner (the panel's frame and colour, an
    outline and a drop shadow, so no obstacle shows through the letters), then the panel: SCORE, BEST
    (with "NEW" when beaten), the shell medal. After 0.6 s any
-   flap button retries at once (back to 2). No choice to make.
+   flap button retries at once: the next run starts with that press (it is P1's first flap). Select goes back to
+   the title (to join or leave). 2-4 players: the race's ranking instead (below).
 
 **Pause**: Select, during a run (the picture dims, "PAUSED"); Select again resumes.
 
@@ -101,18 +106,22 @@ colours as the theme's BG palette, from one shared 15-colour palette per theme).
 | Button | Action |
 |---|---|
 | A, B, Up, Start (also X, Y) | flap / start / retry |
-| Select | pause |
-| Pad 2, a flap button on the title or get-ready screen | player 2 joins (race mode) |
+| Select | pause; on the game-over panel: back to the title |
+| Pads 2-4, A (or Start) on the title | that player joins (race mode); B leaves |
 
 Keyboard (desktop): Z, X, Up, Enter flap; Backspace or Right Shift pause (the SDK's SNES mapping).
 
-## Optional extra: 2-player race (shared screen)
-Separate from the core (a player count in the run; the one-player game is unchanged): player 2 joins from
-the title or get-ready screen by pressing a flap button on pad 2 ("P2 JOINED"). Both squids swim the same
-course at the same time (player 2 is pink and swims 32 px behind player 1), each flapping with its own pad
-and scoring its own obstacles. The scroll goes on while one of them is alive; a dead squid sinks, lies on
-the seabed and drifts away with it. The panel shows both scores and the winner. The best score counts
-either player.
+## Optional extra: the race, 2 to 4 squids (shared screen)
+Separate from the core (a player count in the run; the one-player game is unchanged, pixel for pixel): players
+2-4 join on the title with A on their pad (the house kit's lobby; B leaves). All the squids swim the same course
+at the same time, each flapping with its own pad and scoring its own obstacles; P1's first flap starts the race
+for everyone. 2 players: player 2 is pink and swims 32 px behind player 1. 3-4 players: 24 px apart (x 96, 72,
+48, 24) and they start at staggered heights (P1 +0, P2 -14, P3 +14, P4 -28 px) so no squid hides another; P3 is
+green, P4 orange-yellow. The scroll goes on while one of them is alive; a squid that dies sinks, lies on the
+seabed and drifts away with it, while the others continue. Scores: at the top (2 players) or in the corners with
+P1..P4 tags (3-4 players). When the last one has landed (30 frames later), the **results** rank the race: by
+score, then by who lasted longer; 1st gold shell, 2nd silver, 3rd bronze (ties share the place and the shell),
+the winner's name on the banner ("P3 WINS!" or "DRAW!"). The best score counts any player.
 
 ## Audio
 - Sound effects synthesised in code at start-up (sfx.c): **bloop** (a short rising sine with a bubbly
@@ -189,16 +198,23 @@ publicly; its feel is known from video measurements and from clones built at the
   tilt timing, the hitboxes, the gap range and spacing over 10000 obstacles, collision cases (edges of the
   gap and of the column, the surface, the seabed) and scoring (one point per obstacle, at the centre).
 - `tests/test_caps.c` (run by `tests/caps_test.sh` for each theme and a 2-player race): the whole game
-  with a scripted player, 60 runs each started at a random frame (so a new course each time); after every
+  with a scripted player, 60 runs each started at a random frame (the first from the title, the next by the
+  retry press: so a new course each time); after every
   frame, each obstacle on screen must have its caps at the gap's exact height in OAM, no column body
   (BG2, isolated by rendering the frame again without it) inside the gap, and its body right past each cap
   within its 24 columns. Every gap value and every scroll phase is covered. (It caught the first obstacle
   of a run keeping the tiles of the course drawn before the first flap re-rolled it.)
 - `tests/smoke_test.sh`: scripted runs (no input: sinks to the seabed with score 0; flapping at a fixed
-  rhythm dies on an obstacle), pause, retry, save RAM (the best score persists), 2-player join.
+  rhythm dies on an obstacle), pause, the retry straight into the next race, Select back to the title, the
+  start inputs, save RAM (the best score persists), joining and leaving on the title (only P1 starts), 4 scripted
+  pads racing (no strict-mode warning), 4 bots racing, the squids sinking one by one, determinism with 4 players.
+- `tests/ui_test.sh`: the title with 0-3 players joined, play, 2 and 4 squids racing, the 4-player results:
+  each renders, they differ, the same twice.
+- `tests/state_test.sh`: save states at the title (and with players joining and leaving), in 1-, 2- and
+  4-player races, paused, on the game-over panel and on the 4-player results.
 - **The bot** (`--opt bot=1`): it plays from the **screen state only**: the sprites in OAM (the squid's
   sprite and the obstacle caps, whose edges are the gaps) and its own flaps (from which it knows its speed,
   like a player). It must reach **30 or more** with the default settings: the game is fair and possible.
 - **Determinism**: the same input script gives the same run (state and screenshot hashes), twice.
 - `tools/screenshots.sh`: docs/screenshots/ (title, mid-flap, a dense section, game over with a medal, each
-  obstacle theme, pause, 2 players).
+  obstacle theme, pause, 2 and 4 players racing, the title with players joined, the 4-player results).

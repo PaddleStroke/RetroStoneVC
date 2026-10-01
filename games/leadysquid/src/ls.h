@@ -12,7 +12,7 @@
 #include "rs.h"
 #include "tuning.h"
 
-#define MAX_PLAYERS 2
+#define MAX_PLAYERS 4                   /* a 4-squid race (the house kit's HU_MAX_PLAYERS) */
 #define OB_MAX 16
 
 static inline int clampi(int v, int lo, int hi) { return v < lo ? lo : v > hi ? hi : v; }
@@ -68,9 +68,12 @@ typedef struct world {
     int first_index;            /* debug: start further along the course (--opt skip=N) */
     int fixed_seed;             /* the course does not depend on the start frame (--opt seed=N) */
     int events[MAX_PLAYERS];    /* EV_* of the last step */
+    int out_t[MAX_PLAYERS];     /* the frame (t) each squid was hit, 0 = still in: the race's ranking */
 } world;
 
 void world_init(world *w, int players, uint32_t seed, int first_index);
+int  squid_start_x(int players, int p);       /* where squid p swims (screen x of its hitbox centre) */
+int  squid_start_y(int players, int p);       /* the centre y it starts from */
 void world_step(world *w, const int flap[MAX_PLAYERS]);
 int  world_scroll_px(const world *w);
 int  world_running(const world *w);          /* the scroll moves (someone swims) */
@@ -89,7 +92,8 @@ void sfx_pan(int id, int x);
 void music_start(void);
 void audio_set(int music, int sound);
 
-/* draw.c; the screens (game states) */
+/* draw.c; the screens (game states). No "get ready": the title is the only menu (players 2-4 join there, P1's flap
+ * starts the race); DS_READY is only the --opt ready=1 test hook (a run waiting for its first flap, no text). */
 enum { DS_TITLE, DS_READY, DS_PLAY, DS_DEAD, DS_OVER };
 void draw_init(void);
 void draw_frame(const world *w, int state, int st_t, int best, int new_best, int paused);

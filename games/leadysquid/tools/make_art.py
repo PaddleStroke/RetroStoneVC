@@ -179,6 +179,21 @@ def squid_frame(angle_deg, pose="swim", frame=0, eyes="open"):
     return cv
 
 
+def squid_icon():
+    """16x16: the level squid at half size (each pixel the most common colour of its 2x2 block of the idle frame,
+    the outline drawn again): a player's icon on the title's slots and in the results."""
+    full = squid_frame(0, "idle", 0)
+    cv = Canvas(16, 16)
+    for y in range(16):
+        for x in range(16):
+            cols = [full.get(2 * x + i, 2 * y + j) for i in (0, 1) for j in (0, 1)]
+            cols = [c for c in cols if c is not None and c != SQ["out"]]
+            if len(cols) >= 2:
+                cv.set(x, y, max(sorted(set(cols)), key=cols.count))
+    cv.outline(SQ["out"])
+    return cv
+
+
 # ---- effects, UI ------------------------------------------------------------------------------
 FX = dict(ring=(196, 238, 255), fill=(112, 184, 226), white=(255, 255, 255), ink=(42, 26, 62),
           inkm=(84, 58, 114), inkl=(134, 104, 164), ldark=(60, 64, 76), lmid=(114, 120, 134),
@@ -703,6 +718,8 @@ def sprite_frame(e, i):
         return squid_frame(-90, "dead", i, eyes="x")
     if n == "squid_rest":
         return squid_frame(-90, "dead", 2, eyes="x")
+    if n == "squid_icon":
+        return squid_icon()
     if n == "digits":
         return digit(i)
     if n == "bubble":

@@ -20,12 +20,15 @@ GAME = os.path.dirname(HERE)
 ROOT = os.path.abspath(os.path.join(GAME, "..", ".."))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(ROOT, "tools"))
+sys.path.insert(0, os.path.join(ROOT, "games", "common", "tools"))
 import ls_sheets  # noqa: E402
+import house_style as hs  # noqa: E402
 import rsasset  # noqa: E402
 import make_art  # noqa: E402
 
 PAL_SEABED, PAL_THEME0, PAL_MID, PAL_BACK, PAL_LOGO = 1, 2, 6, 7, 5
-OBJ_PAL = {"squid": 0, "squid2": 1, "fx": 2, "ui": 3}
+OBJ_PAL = {"squid": 0, "squid2": 1, "fx": 2, "ui": 3, "squid3": 4, "squid4": 5}
+OBJ_CAPS = 6                          # the caps: OBJ 6 + theme parity (draw.c loads the two themes on screen)
 # VRAM (absolute tile numbers); each BG layer addresses 1024 tiles from its base
 VR_BG1, VR_BG2, VR_BG3, VR_BG4, VR_OBJ = 0, 1024, 1536, 2048, 3072
 LOGO_TILE = 320                      # relative to BG1 (font, panel font, 2x-glyph cache, panel frame)
@@ -174,6 +177,11 @@ def main():
         obj_pals[pal * 16:pal * 16 + 16] = p16
         if g == "squid":
             obj_pals[16:32] = [0] + pink_palette(p16[1:])
+            # players 3 and 4: the house rule (house_style.player_palettes: the purples turned to the two hues
+            # farthest from P1's purple and P2's pink)
+            sw = hs.player_palettes([rsasset.rgb888(v) for v in p16[1:]], 0.70, 0.86, 0.13)
+            for p, key in ((2, "squid3"), (3, "squid4")):
+                obj_pals[OBJ_PAL[key] * 16:OBJ_PAL[key] * 16 + 16] = [0] + [rsasset.to555(v) for v in sw[p]]
         k = 0
         for e in ents:
             names.append("SPR_%s = %d" % (cname(e.name), idx))
@@ -183,12 +191,13 @@ def main():
                 k += 1
                 idx += 1
         tiles += ro.tiles
-    for t, th in enumerate(ls_sheets.THEMES):       # the caps: OBJ palettes 4..7
+    cap_pals = []
+    for t, th in enumerate(ls_sheets.THEMES):       # the caps: OBJ palette 6 + theme parity, loaded by draw.c
         ro = rsasset.convert_obj([caps[th][0], caps[th][1]])
-        obj_pals[(4 + t) * 16:(5 + t) * 16] = rsasset.palette16(ro.palette)
+        cap_pals.append(rsasset.palette16(ro.palette))
         names.append("SPR_CAP_%s = %d" % (cname(th), idx))
         for first, w, hh in ro.frames:
-            rows.append("{%d, %d, %d, %d}" % (len(tiles) + first, w, hh, 4 + t))
+            rows.append("{%d, %d, %d, %d}" % (len(tiles) + first, w, hh, OBJ_CAPS + t % 2))
             idx += 1
         tiles += ro.tiles
     h.append("enum { %s, SPR_COUNT = %d };" % (", ".join(names), idx))
@@ -199,6 +208,9 @@ def main():
     c.append(rsasset.c_bytes("ls_obj_tiles", rsasset.tiles_bytes(tiles)))
     c.append("const int ls_obj_tile_count = %d;" % len(tiles))
     c.append(rsasset.c_u16("ls_obj_pals", obj_pals))
+    c.append("const uint16_t ls_cap_pals[4][16] = {%s};" % ", ".join(
+        "{" + ", ".join("0x%04x" % v for v in p) + "}" for p in cap_pals))
+    h.append("extern const uint16_t ls_cap_pals[4][16];\n#define OBJ_CAPS %d" % OBJ_CAPS)
     stats.append("OBJ %d" % len(tiles))
 
     # ---- title logo (256x64) on BG1 ------------------------------------------------------------------

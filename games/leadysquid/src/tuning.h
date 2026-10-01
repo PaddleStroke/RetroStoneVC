@@ -82,6 +82,8 @@
 #define SQUID_X        96       /* centre of the hitbox, screen x (the reference: 0.2 of the width) */
 #define SQUID_START_Y  ((PLAY_H / 2) - 8)   /* centre at the start of a run */
 #define P2_OFFSET_X    32       /* player 2 swims this far behind player 1 */
+#define P_OFFSET_4P    24       /* 3-4 players: each next squid this far behind (P4 at x 24) */
+#define P_STAGGER_4P   14       /* 3-4 players: start heights P1 +0, P2 -14, P3 +14, P4 -28 */
 /* get-ready bob: FlapPyBird +-8 px, 1 px per 30-fps frame (a 1.07-s period) */
 #define BOB_AMPL       4        /* 8 * K_V */
 #define BOB_PERIOD     64       /* frames */

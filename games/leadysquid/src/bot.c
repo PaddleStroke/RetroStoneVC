@@ -15,6 +15,7 @@
  */
 #include "ls.h"
 #include "assets.h"
+#include "house_ui.h"
 #include <string.h>
 
 #define HORIZON 112           /* frames: past the next obstacle and into the one after */
@@ -24,7 +25,7 @@ typedef struct { int x, gt, gb; } seen_ob;
 
 static seen_ob seen[SEEN_MAX];
 static int nseen;
-static int since_flap[MAX_PLAYERS] = {1000, 1000};
+static int since_flap[MAX_PLAYERS] = {1000, 1000, 1000, 1000};
 static int32_t est_y[MAX_PLAYERS];
 static int est_ok[MAX_PLAYERS];
 static int margin = 1;               /* px added above and below the hitbox in the search */
@@ -44,10 +45,10 @@ static int in(int tile, int id, int frames)
     return tile >= t0 && tile < t0 + n * frames;
 }
 
-/* reads OAM: the player's squid (x centre, y centre) and the gaps */
+/* reads OAM: the player's squid (x centre, y centre: the one in its colours) and the gaps */
 static int look(int player, int *cx, int *cy, int *moving)
 {
-    int found = 0;
+    int found = 0, pal = player ? hu_player_pal(player) : 0;
     nseen = 0;
     int ntop = 0, nbot = 0;
     seen_ob tops[SEEN_MAX], bots[SEEN_MAX];
@@ -55,7 +56,7 @@ static int look(int player, int *cx, int *cy, int *moving)
         rs_sprite *s = rs_oam(i);
         if (!s || !s->used || (s->flags & RS_SPR_HIDE)) continue;
         int t = s->tile;
-        if (s->pal == player && s->w == 32 &&
+        if (s->pal == pal && s->w == 32 &&
             (in(t, SPR_SQUID_TILT, 6) || in(t, SPR_SQUID_FLAP, 3) || in(t, SPR_SQUID_IDLE, 2))) {
             *cx = s->x + 16;
             *cy = s->y + 16;

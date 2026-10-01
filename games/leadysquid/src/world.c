@@ -8,6 +8,15 @@
 
 int world_scroll_px(const world *w) { return (int)(w->scroll >> 16); }
 
+int squid_start_x(int players, int p) { return SQUID_X - p * (players <= 2 ? P2_OFFSET_X : P_OFFSET_4P); }
+
+/* 3-4 players also start at staggered heights (P1 where it always starts): the squids do not hide each other */
+int squid_start_y(int players, int p)
+{
+    static const int8_t dy[MAX_PLAYERS] = {0, -P_STAGGER_4P, P_STAGGER_4P, -2 * P_STAGGER_4P};
+    return SQUID_START_Y + (players <= 2 ? 0 : dy[p & 3]);
+}
+
 static void add_obstacle(world *w)
 {
     obstacle o = obstacle_make(&w->rng, w->next_index);
@@ -55,7 +64,8 @@ void world_init(world *w, int players, uint32_t seed, int first_index)
     w->seed = seed;
     w->first_index = first_index;
     for (int p = 0; p < MAX_PLAYERS; p++) {
-        squid_reset(&w->sq[p], SQUID_X - p * P2_OFFSET_X);
+        squid_reset(&w->sq[p], squid_start_x(w->players, p));
+        w->sq[p].y = (int32_t)squid_start_y(w->players, p) * Q16_ONE;
         w->sq[p].next_ob = first_index;
         w->sq[p].score = first_index;
         if (p >= w->players) w->sq[p].state = SQ_OFF;
@@ -105,6 +115,7 @@ static void swim(world *w, int p, int flap)
             s->state = SQ_HIT;
             s->t = 0;
             *ev |= EV_HIT;
+            w->out_t[p] = w->t;
             return;
         }
     if (box_hits_seabed(b)) {
@@ -113,6 +124,7 @@ static void swim(world *w, int p, int flap)
         s->y = (int32_t)squid_rest_y(s) * Q16_ONE;
         s->tilt = TILT_MIN;
         *ev |= EV_HIT | EV_LAND;
+        w->out_t[p] = w->t;
         return;
     }
     /* score: the squid's centre passes the obstacle's centre */
@@ -154,7 +166,7 @@ void world_step(world *w, const int flap[MAX_PLAYERS])
         squid *s = &w->sq[p];
         switch (s->state) {
         case SQ_READY:
-            s->y = (int32_t)(SQUID_START_Y + bob_offset(s->t)) * Q16_ONE;
+            s->y = (int32_t)(squid_start_y(w->players, p) + bob_offset(s->t)) * Q16_ONE;
             s->flap_t++;
             break;
         case SQ_SWIM:

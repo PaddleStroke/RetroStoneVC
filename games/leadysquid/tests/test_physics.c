@@ -218,7 +218,7 @@ static void test_scoring(void)
     world w;
     world_init(&w, 1, 99, 0);
     w.fixed_seed = 1;
-    int flap[2] = {1, 0}, none[2] = {0, 0};
+    int flap[MAX_PLAYERS] = {1, 0}, none[MAX_PLAYERS] = {0, 0};
     world_step(&w, flap);
     CHECK(w.started && w.sq[0].state == SQ_SWIM, "the first flap starts the run");
     int prev = 0, bad = 0;
@@ -246,7 +246,7 @@ static void test_death_and_determinism(void)
     printf("death and determinism\n");
     world w;
     world_init(&w, 1, 5, 0);
-    int flap[2] = {1, 0}, none[2] = {0, 0};
+    int flap[MAX_PLAYERS] = {1, 0}, none[MAX_PLAYERS] = {0, 0};
     world_step(&w, flap);
     int t = 0, landed = 0;
     while (t < 600 && w.sq[0].state != SQ_REST) {
@@ -262,7 +262,7 @@ static void test_death_and_determinism(void)
         world_init(&w, 1, 777, 0);
         uint32_t hash = 2166136261u;
         for (int f = 0; f < 3000; f++) {
-            int in[2] = {(f % 23) == 0 || (f % 37) == 5, 0};
+            int in[MAX_PLAYERS] = {(f % 23) == 0 || (f % 37) == 5, 0};
             world_step(&w, in);
             hash = (hash ^ (uint32_t)w.sq[0].y ^ (uint32_t)w.scroll ^ (uint32_t)w.sq[0].score) * 16777619u;
             for (int i = 0; i < w.nob; i++) hash = (hash ^ (uint32_t)w.ob[i].gap_top) * 16777619u;

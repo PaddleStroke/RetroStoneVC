@@ -3,10 +3,10 @@
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/leadysquid/LICENSE.
  *
  * The whole game runs (runtime, draw, sound) with a scripted player: many runs,
- * each started after a random wait on the title or get-ready screen (so each
- * run's course comes from a different seed), a simple autopilot that swims
- * through a random number of obstacles and then gives up, and a retry at a
- * random moment. After every frame, every obstacle on screen is checked:
+ * the first started after a random wait on the title, the next ones by the retry
+ * press at a random moment on the game-over panel (it starts the next run at once:
+ * each run's course comes from a different seed), a simple autopilot that swims
+ * through a random number of obstacles and then gives up. After every frame, every obstacle on screen is checked:
  *   - OAM: its top cap sprite ends exactly at the gap top, its bottom cap starts
  *     exactly at the gap bottom (the caps are sprites at the gap's pixel height);
  *   - pixels: the picture is rendered again with BG2 (the column bodies) off,
@@ -198,10 +198,11 @@ int main(int argc, char **argv)
                 if (autopilot(w, p, give_up[p])) pad[p] = RS_BTN_A;
         } else if (st == DS_OVER) {
             if (wait == 1 << 30) wait = RETRY_LOCK + 1 + (int)(rnd() % 24);
-            if (--wait <= 0) {
+            if (--wait <= 0) {                   /* the retry: the next run starts at once (no get ready) */
                 pad[0] = RS_BTN_A;
+                for (int p = 0; p < MAX_PLAYERS; p++) give_up[p] = w->first_index + 1 + (int)(rnd() % (THEME_BAND - 1));
                 done++;
-                wait = 2 + (int)(rnd() % 64);
+                wait = 1 << 30;
             }
         }
         for (int p = 0; p < MAX_PLAYERS; p++) rs_host_set_pad(p, pad[p], 1);

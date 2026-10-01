@@ -14,7 +14,8 @@ them, so a new game gets them by using it:
 
 Pictures (drawn by the kit): `docs/art-direction/kit-*.png` (the template's screens, by house_ui.c), `palette.png`,
 `font.png`, `ui-sprites.png`, `shapes.png`, `logo.png` (by `house_style.py --out docs/art-direction`).
-The reference screens: `games/leadysquid/docs/screenshots/` (title, get-ready-2-players, pause, gameover-*).
+The reference screens: `games/leadysquid/docs/screenshots/` (title, title-4-players, race-4-players,
+results-4-players, pause, gameover-*).
 
 ![title](art-direction/kit-title.png) ![game over](art-direction/kit-gameover-medal.png)
 

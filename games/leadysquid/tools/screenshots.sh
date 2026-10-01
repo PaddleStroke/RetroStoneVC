@@ -28,8 +28,13 @@ f=$(sed -n 's/.*run 1 over at frame \([0-9]*\).*/\1/p' "$T/log.txt")
 run --frames $((f + 60)) --opt bot=1 --opt seed=5 --opt skip=40 --opt botstop=41 --shot $((f + 50)):$O/gameover-pearl-shell.png
 printf "600 tap SELECT\n" > "$T/pause.input"
 run --frames 640 --opt bot=1 --opt seed=7 --input "$T/pause.input" --shot 630:$O/pause.png
-# two players (the bot plays both)
+# two and four players (the bot plays them all); the title with players joined; the 4-player results
 run --frames 820 --opt bot=2 --opt seed=9 --opt players=2 --shot 800:$O/race-2-players.png
-run --frames 130 --opt ready=1 --opt players=2 --shot 120:$O/get-ready-2-players.png
+run --frames 820 --opt bot=4 --opt seed=9 --shot 800:$O/race-4-players.png
+printf "20 P2 tap A\n30 P3 tap A\n112 P4 tap A\n" > "$T/join.input"
+run --frames 130 --input "$T/join.input" --shot 50:$O/title-2-players.png --shot 120:$O/title-4-players.png
+run --frames 6000 --opt bot=4 --opt seed=5 --opt botstop=5
+f=$(sed -n 's/.*run 1 over at frame \([0-9]*\).*/\1/p' "$T/log.txt")
+run --frames $((f + 60)) --opt bot=4 --opt seed=5 --opt botstop=5 --shot $((f + 50)):$O/results-4-players.png
 rm -rf "$T"
 ls "$O"

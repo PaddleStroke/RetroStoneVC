@@ -86,6 +86,7 @@ Rules:
 | squid_hit | TODO | sprites.png | 32x32 | 1 | The squid just hit something: dazed X-shaped eye, tentacles splayed, level. One frame. Frame size 32x32 (draw each about 256x256). Flat magenta around the drawing. |  |
 | squid_sink | TODO | sprites.png | 32x32 | 2 | The dazed squid sinking nose-down (pointing straight down), X eye, limp tentacles trailing upward. 2 frames left to right, evenly spaced: 1) tentacles to the left; 2) tentacles to the right. Frame size 32x32 (draw each about 256x256). Flat magenta around the drawing. |  |
 | squid_rest | TODO | sprites.png | 32x32 | 1 | The dazed squid knocked out on the seabed, nose down in the sand, X eye. One frame. Frame size 32x32 (draw each about 256x256). Flat magenta around the drawing. |  |
+| squid_icon | TODO | sprites.png | 16x16 | 1 | a small squid, level: a player's icon on the title's slots and the results (in each player's colours). One frame. Frame size 16x16 (draw each about 128x128). Flat magenta around the drawing. |  |
 
 ## 2. Obstacle caps (sprites at the gap edges)
 

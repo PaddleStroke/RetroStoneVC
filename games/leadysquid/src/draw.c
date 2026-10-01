@@ -25,6 +25,9 @@ static uint32_t drawn_seed;               /* the course whose bodies are on BG2 
 static rs_rng fx_rng;
 static int logo_on;
 static int last_dark = -1;                /* the darkness the reef palettes were last written for */
+/* the caps' OBJ palettes: two slots (6 + theme parity) hold the two themes a course window can show (a theme lasts
+ * THEME_BAND obstacles = 720 px, more than the window): OBJ 4 and 5 are players 3 and 4 (the house rule) */
+static int cap_theme[2] = {-1, -1};
 
 int depth_level(void) { return depth; }
 
@@ -116,6 +119,7 @@ void draw_init(void)
     gradient_update(0, 0);
     drawn_index = -1;
     cleared_col = 0;
+    cap_theme[0] = cap_theme[1] = -1;
 }
 
 /* ---- the course on BG2 ------------------------------------------------------------------------------- */
@@ -286,7 +290,7 @@ static void draw_squids(const world *w)
         const squid *s = &w->sq[p];
         if (s->state == SQ_OFF) continue;
         int cy = (int)((s->y + Q16_ONE / 2) >> 16);
-        spr(squid_sprite(s, w->t), s->x - 16, cy - 16, 2, p == 1 ? 1 : -1);
+        spr(squid_sprite(s, w->t), s->x - 16, cy - 16, 2, p ? hu_player_pal(p) : -1);   /* P2-P4: OBJ 1, 4, 5 */
     }
 }
 
@@ -294,11 +298,18 @@ static void draw_caps(const world *w)
 {
     int sx = world_scroll_px(w);
     for (int i = 0; i < w->nob; i++) {
+        int th = w->ob[i].theme, k = th & 1;
+        if (cap_theme[k] != th) {
+            rs_pal_load(RS_PAL_OBJ(OBJ_CAPS + k), ls_cap_pals[th], 16);
+            cap_theme[k] = th;
+        }
+    }
+    for (int i = 0; i < w->nob; i++) {
         const obstacle *o = &w->ob[i];
         int x = o->x - sx;
         if (x <= -OBST_W || x >= RS_SCREEN_W) continue;
-        spr(SPR_CAP_KELP + o->theme * 2, x, o->gap_top - CAP_H, 2, -1);
-        spr(SPR_CAP_KELP + o->theme * 2 + 1, x, o->gap_top + GAP, 2, -1);
+        spr(SPR_CAP_KELP + o->theme * 2, x, o->gap_top - CAP_H, 2, OBJ_CAPS + (o->theme & 1));
+        spr(SPR_CAP_KELP + o->theme * 2 + 1, x, o->gap_top + GAP, 2, OBJ_CAPS + (o->theme & 1));
     }
 }
 
@@ -321,9 +332,20 @@ static void draw_fx(int prio_front)
 /* ---- per frame ---------------------------------------------------------------------------------------------- */
 static int shown_state = -1, shown_best = -1;
 
-static void screen_text(const world *w, int state, int st_t, int best, int new_best)
+/* the race's ranking (2-4 players): the score, then who lasted longer */
+static void standing(const world *w, hu_standing *s)
 {
-    char s[48];
+    int key[MAX_PLAYERS], val[MAX_PLAYERS];
+    for (int p = 0; p < w->players; p++) {
+        val[p] = w->sq[p].score;
+        int out = w->out_t[p];                   /* the frame it was hit; still in: the best */
+        key[p] = val[p] * 65536 + (out <= 0 ? 0xffff : out < 0xffff ? out : 0xfffe);
+    }
+    hu_rank(s, w->players, key, val);
+}
+
+static void screen_text(const world *w, int state, int st_t, int best, int new_best, const hu_standing *rs)
+{
     if (state != shown_state || (state == DS_OVER && st_t == RETRY_LOCK) || best != shown_best) {
         hu_clear();
         logo_on = 0;
@@ -332,34 +354,55 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
             for (int y = 0; y < LOGO_H; y++)
                 for (int x = 0; x < LOGO_W; x++) rs_bg_put(RS_BG1, 4 + x, 2 + y, ls_logo_map[y * LOGO_W + x]);
             rs_pal_load(RS_PAL_BG(PAL_LOGO), ls_logo_pal, 16);
-            snprintf(s, sizeof s, "BEST %d", best);
-            if (best > 0) hu_text(hu_center(s, 0), 24, s);
-            hu_copyright(28);
         } else {
             rs_pal_load(RS_PAL_BG(PAL_LOGO), ls_theme_bg_pal[PAL_LOGO - PAL_THEME0], 16);
         }
-        if (state == DS_READY) hu_get_ready(6);
+        if ((state == DS_PLAY || state == DS_DEAD) && w->players >= 3) hu_score_tags(w->players, 0);
         if (state == DS_OVER) {
-            /* the title on its own banner, as wide as the score panel below it: nothing shows through */
-            hu_banner(4, "GAME OVER");
-            hu_gameover_panel(w->players, new_best, w->sq[0].score, w->sq[1].score);
+            if (w->players == 1) {
+                /* the title on its own banner, as wide as the score panel below it: nothing shows through */
+                hu_banner(4, "GAME OVER");
+                hu_gameover_panel(1, new_best, w->sq[0].score, 0);
+            } else {
+                hu_results_panel(rs, NULL);           /* P3 WINS! and the ranking */
+            }
         }
         shown_state = state;
         shown_best = best;
     }
-    /* blinking lines */
-    if (state == DS_TITLE || state == DS_READY) {
-        hu_prompt(21, "PRESS A TO SWIM", st_t);
-        if (w->players == 2 || state == DS_READY) hu_join_line(26, w->players, "RACE!");
+    /* the title, every frame: the prompt (blinking), the player slots, BEST, the join line, the credits */
+    if (state == DS_TITLE) hu_title_draw(st_t, best);
+    if (state == DS_OVER) {
+        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, "A: SWIM AGAIN");
+        else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, "A: SWIM AGAIN");
     }
-    if (state == DS_OVER) hu_retry_line(st_t, RETRY_LOCK, "A: SWIM AGAIN");
+}
+
+static void number_at(int n, int x, int y, int align, int prio)
+{
+    char s[12];
+    snprintf(s, sizeof s, "%d", n);
+    int w = (int)strlen(s) * 12;
+    number(n, align < 0 ? x + w / 2 : align > 0 ? x - w / 2 : x, y, prio);
+}
+
+/* the title's player slots: a small squid in each joined player's colours, popping in with a sparkle */
+static void slot_icon(int p, int cx, int cy, int t, void *user)
+{
+    (void)user;
+    int age = hu_player_age(p);
+    if (age < 24) spr(SPR_SPARKLE + (age / 6) % 2, cx + 6, cy - 14, 3, -1);
+    spr(SPR_SQUID_ICON, cx - 8, cy - 8 + hu_bob(t + p * 16, 64, 1), 2, p ? hu_player_pal(p) : -1);
 }
 
 void draw_frame(const world *w, int state, int st_t, int best, int new_best, int paused)
 {
     int sx = world_scroll_px(w);
     int score = w->sq[0].score;
-    if (w->players == 2 && w->sq[1].score > score) score = w->sq[1].score;
+    for (int p = 1; p < w->players; p++)
+        if (w->sq[p].score > score) score = w->sq[p].score;
+    hu_standing rs;
+    standing(w, &rs);
     gradient_update(world_theme_at(w), score < DEPTH_MAX ? score : DEPTH_MAX);
     course_tiles(w);
     rs_bg_scroll(RS_BG2, sx & 511, 0);
@@ -374,7 +417,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
             back_dx[y] = (int16_t)((sx / 4) & 511);
         }
     }
-    screen_text(w, state, st_t, best, new_best);
+    screen_text(w, state, st_t, best, new_best, &rs);
     /* the game-over panel slides up */
     int slide = state == DS_OVER ? hu_slide_in(st_t, 20, 200) : 0;
     rs_bg_scroll(RS_BG1, 0, -slide);
@@ -383,10 +426,10 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     rs_oam_clear();
     /* front to back: UI, squids, ink and weights, caps, bubbles */
     if (state == DS_PLAY || state == DS_DEAD) {
-        if (w->players == 1) number(w->sq[0].score, RS_SCREEN_W / 2, 10, 3);
-        else {
-            number(w->sq[0].score, 80, 10, 3);
-            number(w->sq[1].score, 240, 10, 3);
+        /* 1 player: centred; 2: x 80 and 240; 3-4: the corners (the kit's chips, our digits) */
+        for (int p = 0; p < w->players; p++) {
+            hu_chip ch = hu_score_chip(w->players, p, 0);
+            number_at(w->sq[p].score, ch.x, ch.y, ch.align, 3);
         }
     }
     if (state == DS_OVER) {
@@ -402,12 +445,24 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
                 hu_box_text(22, 17, "-");
             }
         } else {
-            number(w->sq[0].score, 25 * 8, 11 * 8 - 4 + oy, 3);
-            number(w->sq[1].score, 25 * 8, 14 * 8 - 4 + oy, 3);
+            /* the ranking: the scores, the shells (1st gold, 2nd silver, 3rd bronze), the squids */
+            for (int i = 0; i < rs.n; i++) {
+                int y = hu_results_row(&rs, i) * 8 + oy, m = hu_results_medal(&rs, i), cx, cy;
+                number(rs.value[rs.order[i]], 24 * 8, y - 4, 3);
+                if (m) {
+                    spr(SPR_MEDAL + m - 1, 27 * 8, y - 8, 3, -1);
+                    if (rs.rank[i] == 0 && (st_t / 20) % 3 == 0) spr(SPR_SPARKLE + (st_t / 10) % 2, 27 * 8 + 18, y - 8, 3, -1);
+                }
+                hu_results_icon_pos(&rs, i, &cx, &cy);
+                spr(SPR_SQUID_ICON, cx - 8, cy - 8 + oy, 3, rs.order[i] ? hu_player_pal(rs.order[i]) : -1);
+            }
         }
     }
-    if (state == DS_TITLE || state == DS_READY)
-        spr(SPR_HINT + ((t / 30) % 2), hu_center("PRESS A TO SWIM", 0) * 8 - 12, 21 * 8 - 4, 3, -1);
+    if (state == DS_TITLE) {
+        int gx, gy;
+        if (hu_title_glyph(&gx, &gy) == HU_BTN_A) spr(SPR_HINT + ((t / 30) % 2), gx, gy, 3, -1);
+        hu_title_sprites(st_t, slot_icon, NULL);
+    }
     draw_squids(w);
     draw_fx(1);
     draw_caps(w);
@@ -419,7 +474,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
 void draw_state(void)
 {
     S(back_dx); S(line_col); S(cur_rgb); S(depth); S(drawn_index); S(cleared_col); S(drawn_seed);
-    S(fx_rng); S(logo_on); S(last_dark); S(fx); S(shown_state); S(shown_best);
+    S(fx_rng); S(logo_on); S(last_dark); S(fx); S(shown_state); S(shown_best); S(cap_theme);
     RS_STATE_RASTER(raster);
     hu_state();                 /* the house UI kit's objects (house_ui.*) */
 }

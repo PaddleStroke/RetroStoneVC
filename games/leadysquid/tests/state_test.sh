@@ -1,5 +1,6 @@
 #!/bin/sh
-# Leady Squid save states: at the title, in a 1-player run, a 2-player race, paused, and on the game-over panel,
+# Leady Squid save states: at the title (players joining), in a 1-player run, 2- and 4-player races, paused, and on the
+# game-over panel and the 4-player results,
 # save, play on, load, play the same frames again: the state and the picture must be the same frame by frame,
 # in this process and in a fresh one that loads the state before its first frame; bad states are refused
 # (sdk/tests/test_states.c).
@@ -46,6 +47,33 @@ scenario race 300 400
 # two bots racing
 : > "$O/run2p.input"
 scenario run2p 500 500 bot=2 players=2 ready=1
+
+# the title's lobby is saved: players join before and after the save, one leaves, then P1 starts the race
+cat > "$O/lobby.input" <<'EOF'
+20 P2 tap A
+50 P3 tap A
+90 P4 tap A
+110 P3 tap B
+130 P3 tap A
+150 tap A
+EOF
+scenario lobby 60 200
+
+# 4 scripted pads join and race
+printf "20 P2 tap A\n25 P3 tap A\n30 P4 tap A\n60 tap A\n" > "$O/race4.input"
+for p in 1 2 3 4; do
+    i=$((70 + p * 3)); while [ $i -lt 1200 ]; do
+        if [ $p = 1 ]; then echo "$i tap A"; else echo "$i P$p tap A"; fi
+        i=$((i + 14 + p * 2))
+    done >> "$O/race4.input"
+done
+scenario race4 300 400
+
+# four bots racing, then the 4-player results (after the game over: the battery save is not part of a state)
+: > "$O/run4p.input"
+scenario run4p 500 500 bot=4 ready=1
+: > "$O/results4.input"
+scenario results4 840 300 bot=4 botstop=1 ready=1 botruns=2      # the results show from frame 824
 
 # paused (Select) at the save, resumed after it
 cat > "$O/paused.input" <<'EOF'

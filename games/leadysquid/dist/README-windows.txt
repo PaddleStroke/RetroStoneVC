@@ -13,10 +13,12 @@ Controls                  Gamepad (SNES layout)      Keyboard
   swim, start, retry        A, Up or Start             X, Up or Enter
                             (B, X and Y swim too)      (Z, A and S too)
   pause / resume            Select                     Backspace or Esc
-  player 2 joins the race   pad 2: A on the title or "get ready" screen
+  players 2-4 join the race A on their pad, on the title (B leaves)
+  back to the title         Select on the game-over panel
 
-Two players race on the same course, each with their own pad; the panel at
-the end shows both scores and the winner.
+Up to four squids race on the same course, each with their own pad; a squid
+that hits something sinks while the others swim on; the results rank the
+race with shell medals.
 
 F11 or Alt+Enter: fullscreen. F12: screenshot. Close the window to quit.
 Options: LeadySquid.exe --scale 4 --fullscreen

@@ -44,6 +44,8 @@ ENTRIES = [
     Entry("bubble", "sprites", 160, 64, 8, 8, 4, "fx", "bubbles: small, medium, big, pop"),
     Entry("weight", "sprites", 192, 64, 8, 8, 2, "fx", "a lead diving weight: flat, tilted (bounces on the sand)"),
     Entry("sparkle", "sprites", 208, 64, 8, 8, 2, "fx", "medal sparkle, 2 frames"),
+    Entry("squid_icon", "sprites", 224, 64, 16, 16, 1, "squid",
+          "a small squid, level: a player's icon on the title's slots and the results (in each player's colours)"),
     Entry("ink", "sprites", 0, 80, 16, 16, 4, "fx", "the ink and bubble puff of a flap, fading in 4 frames"),
     Entry("hint", "sprites", 64, 80, 16, 16, 2, "ui", "the 'press A' button icon: up, pressed"),
     Entry("medal", "sprites", 0, 96, 24, 24, 4, "ui", "shell medals: bronze, silver, gold, pearl"),
@@ -71,10 +73,10 @@ MID_LAYOUT = [("rock_big", 8, 88), ("kelp_clump", 70, 90), ("chest", 96, 90), ("
               ("shipwreck", 200, 92), ("rock_small", 336, 90), ("amphora", 374, 92), ("kelp_clump", 400, 92),
               ("coral_clump", 428, 90), ("rock_small", 470, 88)]
 
-GROUPS = {"squid": "OBJ 0 (player 2: OBJ 1, recoloured pink)", "fx": "OBJ 2", "ui": "OBJ 3",
+GROUPS = {"squid": "OBJ 0 (players 2-4: OBJ 1, 4, 5, recoloured)", "fx": "OBJ 2", "ui": "OBJ 3",
           "mid": "BG 6"}
 for _t, _th in enumerate(THEMES):
-    GROUPS["theme_%s" % _th] = "BG %d (bodies) + OBJ %d (caps)" % (2 + _t, 4 + _t)
+    GROUPS["theme_%s" % _th] = "BG %d (bodies) + OBJ %d (caps)" % (2 + _t, 6 + _t % 2)
 
 
 def entry(name):
