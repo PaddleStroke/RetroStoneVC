@@ -3,7 +3,7 @@
  *   - the tuning table against its sources (DESIGN.md "Balance and feel sources");
  *   - the lanes (loops, trains, platforms), the hop, riding, snapping, blocking, the buffer;
  *   - the parade: joining, following the exact path, the knock-off and the gap, banking;
- *   - the camera and the fox;
+ *   - the camera and the fox; co-op: four parents, the camera following the group, the fox for a straggler;
  *   - the judge against the game (every simple strategy that crosses in the game is seen by the judge);
  *   - the generator's fairness over thousands of seeds (an independent re-judge, a strict judge on a subset,
  *     the train telegraph and the constructive rules).
@@ -36,7 +36,7 @@ static lane *put(world *w, int32_t col, int kind)
 
 static void step(world *w, int press)
 {
-    int pr[MAX_PLAYERS] = {press, 0};
+    int pr[MAX_PLAYERS] = {press};
     world_step(w, pr);
 }
 
@@ -381,6 +381,110 @@ static void test_fox(void)
     CHECK(x >= (CAM_ANCHOR_COL - 2) * CELL && x <= (CAM_ANCHOR_COL + 2) * CELL, "the camera keeps the duck near column %d (x %d)", CAM_ANCHOR_COL, x);
 }
 
+/* ---- co-op: 4 parents, one camera that follows the group, the fox for a straggler, the family score ---------------------- */
+/* the quiet meadow goes on ahead of the camera (the generator never gets a turn) */
+static void step_all(world *w, const int pr[MAX_PLAYERS])
+{
+    int32_t want = world_cam_px(w) / CELL + 40;
+    for (int32_t c = w->L.g.next_col; c < want; c++) put(w, c, LK_GRASS);
+    if (want > w->L.g.next_col) { w->L.g.next_col = want; w->L.g.start_col = want - 1; }
+    world_step(w, pr);
+}
+
+static void idle_all(world *w, int n)
+{
+    int pr[MAX_PLAYERS] = {0};
+    for (int i = 0; i < n; i++) step_all(w, pr);
+}
+
+static int screen_col(const world *w, int p) { return (w->d[p].at.col * CELL - world_cam_px(w)) / CELL; }
+
+static void test_coop(void)
+{
+    section("co-op: four parents");
+    quiet(&W, 4);
+    static const int rows[4] = {START_ROW, START_ROW + 2, START_ROW - 2, START_ROW + 4};
+    int ok = 1;
+    for (int p = 0; p < 4; p++) ok &= W.d[p].state == DK_READY && W.d[p].at.col == START_COL && W.d[p].at.y == rows[p] * CELL;
+    CHECK(ok && W.players == 4, "four parents line up in the start column (rows %d %d %d %d)", rows[0], rows[1], rows[2], rows[3]);
+    CHECK(line_cap(1) == 24 && line_cap(2) == 24 && line_cap(3) == 16 && line_cap(4) == 12, "lines of 24, 24, 16, 12 (48 for the family)");
+    /* the group walks together, a hop every 20 frames: the camera keeps the group's mean at the anchor, nobody is warned */
+    int warned = 0, maxdev = 0;
+    for (int i = 0; i < 60; i++) {
+        int pr[MAX_PLAYERS] = {HOP_FWD, HOP_FWD, HOP_FWD, HOP_FWD};
+        step_all(&W, pr);
+        for (int f = 0; f < 19; f++) {
+            idle_all(&W, 1);
+            for (int p = 0; p < 4; p++) warned |= W.d[p].fox_warn;
+        }
+        if (i > 30) {
+            int dev = absi(screen_col(&W, 0) - CAM_ANCHOR_COL);
+            if (dev > maxdev) maxdev = dev;
+        }
+    }
+    CHECK(!warned && W.d[3].state == DK_ALIVE, "walking together: no fox for anyone");
+    CHECK(maxdev <= 2, "the camera keeps the group near column %d (off by %d at most)", CAM_ANCHOR_COL, maxdev);
+    /* P4 stops: the others go on, a hop every 20 frames; the fox warns P4 (and only P4), then catches it */
+    int warn4 = -1, caught4 = -1, others_warned = 0, lead_max = 0, fox_target_ok = 1;
+    for (int i = 0; i < 3000 && caught4 < 0; i++) {
+        int pr[MAX_PLAYERS] = {0};
+        if (i % 20 == 0) pr[0] = pr[1] = pr[2] = HOP_FWD;
+        step_all(&W, pr);
+        for (int p = 0; p < 3; p++) others_warned |= W.d[p].fox_warn;
+        int target = -1;
+        if (warn4 < 0 && W.d[3].fox_warn) warn4 = i;
+        if (W.d[3].state == DK_ALIVE && W.d[3].fox_warn && (world_fox_state(&W, &target) != 1 || target != 3)) fox_target_ok = 0;
+        if (W.d[3].state == DK_CAUGHT) caught4 = i;
+        int lc = screen_col(&W, 0);
+        if (lc > lead_max) lead_max = lc;
+    }
+    printf("  P4 stops: the fox warns it after %.1f s, catches it after %.1f s; the leader at screen column %d at most\n",
+           warn4 / 60.0, caught4 / 60.0, lead_max);
+    CHECK(warn4 > 0 && caught4 > warn4 + 60, "the straggler is warned, then caught (%d, %d)", warn4, caught4);
+    CHECK(fox_target_ok, "the fox watches the straggler");
+    CHECK(!others_warned && W.d[0].state == DK_ALIVE && W.d[1].state == DK_ALIVE && W.d[2].state == DK_ALIVE,
+          "the others go on (no fox for them)");
+    idle_all(&W, DEATH_ANIM + 2);
+    CHECK(world_running(&W) && W.d[3].state == DK_OUT, "the run goes on with three parents");
+    /* the leader runs ahead (a hop every 12 frames) and the others wait: the leader is never past column 16, the
+     * ones who wait are caught */
+    quiet(&W, 4);
+    lead_max = 0;
+    int first_out = -1;
+    for (int i = 0; i < 1500; i++) {
+        int pr[MAX_PLAYERS] = {0};
+        if (i % HOP_FRAMES == 0) pr[0] = HOP_FWD;
+        step_all(&W, pr);
+        int x = W.d[0].at.col * CELL - world_cam_px(&W);
+        if (x > lead_max) lead_max = x;
+        if (first_out < 0 && W.d[1].state == DK_CAUGHT) first_out = i;
+    }
+    printf("  the leader running ahead: at x %d at most; the first one waiting caught after %.1f s\n", lead_max, first_out / 60.0);
+    CHECK(lead_max <= CAM_LEAD_MAX_COL * CELL, "the leader stays on screen (x %d <= %d)", lead_max, CAM_LEAD_MAX_COL * CELL);
+    CHECK(W.d[0].state == DK_ALIVE && W.d[1].state == DK_OUT && W.d[2].state == DK_OUT && W.d[3].state == DK_OUT,
+          "the ones who waited were caught, the leader goes on");
+    /* the lines: 12 ducklings each with 4 parents (Mother zigzags up and down a column of 14 lost ducklings) */
+    quiet(&W, 4);
+    for (int r = 0; r < ROWS; r++) add_loose(&W, START_COL + 1, r);
+    for (int i = 0; i < 21; i++) {
+        int pr[MAX_PLAYERS] = {i == 0 ? HOP_FWD : i <= 7 ? HOP_UP : HOP_DOWN};
+        step_all(&W, pr);
+        idle_all(&W, HOP_FRAMES);
+    }
+    idle_all(&W, 10);
+    CHECK(W.d[0].nline == 12, "a line holds 12 ducklings with four parents (%d)", W.d[0].nline);
+    /* the family score: the furthest lane any parent reached + everyone's banked points */
+    W.d[1].banked = 9;
+    W.d[2].banked = 4;
+    W.d[3].max_col = W.d[0].max_col + 3;
+    int fam = W.d[3].max_col - START_COL + W.d[0].banked + 13;
+    CHECK(world_total(&W) == fam, "the family score: furthest lane + all banked (%d = %d)", world_total(&W), fam);
+    CHECK(world_score(&W, 1) == W.d[1].max_col - START_COL + 9, "a parent's own score: its lanes + its banked");
+    quiet(&W, 1);
+    hop_n(&W, HOP_FWD, 3);
+    CHECK(world_total(&W) == world_score(&W, 0), "one parent: the family score is the score");
+}
+
 /* ---- the generator's fairness ------------------------------------------------------------------------------------------------ */
 static lane ALL[4096];
 
@@ -421,7 +525,7 @@ static int game_cross(const lane *cols, int n, int row, uint32_t t0, int wait)
     G.cam = -(1000 << 8);                /* no fox here */
     G.t = t0;
     for (int f = 0; f < wait + (n + 1) * HOP_FRAMES + 2; f++) {
-        int pr[2] = {f >= wait && !G.d[0].h.dir ? HOP_FWD : 0, 0};
+        int pr[MAX_PLAYERS] = {f >= wait && !G.d[0].h.dir ? HOP_FWD : 0};
         world_step(&G, pr);
         G.cam = -(1000 << 8);
         if (G.d[0].state != DK_ALIVE) return 0;
@@ -656,6 +760,7 @@ int main(int argc, char **argv)
     test_collisions();
     test_parade();
     test_fox();
+    test_coop();
     test_judge_vs_game();
     test_generator_stats();
     test_fairness(seeds, strict, lanes_n);

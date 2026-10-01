@@ -151,7 +151,7 @@
 #define STRICT_WINDOW    300    /* ... within 5 s, from every single start cell */
 
 /* ---- the camera and the fox (the Crossy Road eagle: ~5 s idle) --------------------------------------- */
-#define CAM_ANCHOR_COL   8      /* the camera keeps Mother at this screen column */
+#define CAM_ANCHOR_COL   8      /* the camera keeps Mother (co-op: the parents' mean) at this screen column */
 #define CAM_EASE_256     8      /* clone: CAMERA_EASING 0.03 per frame (8/256 = 0.031) */
 #define CREEP_START      Q8(0.28)  /* px/frame: 8 s of idling from the anchor to the edge */
 #define CREEP_MAX        Q8(0.45)  /* at DIFF_LANES: 5 s */
@@ -186,7 +186,20 @@ static inline int bank_points(int n) { return n * n; }
 #define DEATH_FREEZE     10     /* hit-stop */
 #define DEATH_ANIM       60     /* the death animation before the panel */
 #define RETRY_LOCK       36     /* frames the panel ignores the buttons */
-#define COOP_ANCHOR_LEAD 1      /* co-op: the camera follows the parent in front */
+
+/* ---- co-op: 2-4 parents, one camera, one family score (DESIGN.md "Co-op") ------------------------------ */
+/* The camera follows the GROUP: it eases (CAM_EASE_256) towards the mean column of the parents still in the
+ * run, at CAM_ANCHOR_COL, and still creeps; the leader is never pushed off the right edge: when it is past
+ * CAM_LEAD_COL the camera eases towards it much faster, and it is never past CAM_LEAD_MAX_COL. Solo: the mean is
+ * the duck: the camera of one player is the same as before. The fox is per parent: a parent within
+ * FOX_WARN_COLS of the left edge is warned, one whose centre crosses it is caught; the others go on. */
+#define CAM_LEAD_COL      12    /* co-op: the leader is eased back to this screen column ... */
+#define CAM_LEAD_EASE_256 32    /* ... an eighth of the distance a frame (4x the group's easing) */
+#define CAM_LEAD_MAX_COL  16    /* ... and is never right of this one (4 columns of view ahead) */
+/* The sprite budget: a line holds FAMILY_LINE / max(2, parents) ducklings: 24 for 1-2 parents (as before), 16 for
+ * 3, 12 for 4: the family's lines never hold more than 48 ducklings (2 x 24, the 2-player worst case). */
+#define FAMILY_LINE       48
+static inline int line_cap(int players) { int n = FAMILY_LINE / (players > 2 ? players : 2); return n < LINE_MAX ? n : LINE_MAX; }
 
 /* ---- music (a row = 8 frames: MOD speed 8 at tempo 150, one tick per frame) ---------------------------- */
 #define MUSIC_ROW_FRAMES 8

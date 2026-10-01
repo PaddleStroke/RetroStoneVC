@@ -41,6 +41,16 @@ static void frame(uint16_t p1, uint16_t p2)
 static void frames(int n) { for (int i = 0; i < n; i++) frame(0, 0); }
 static void tap(uint16_t b) { frame(b, 0); frame(b, 0); frame(0, 0); }
 
+/* a press on pad 1..3 (pads 3 and 4: players 3 and 4 join there) */
+static void pad_tap(int pad, uint16_t b)
+{
+    if (pad == 1) { frame(0, b); frame(0, 0); return; }
+    rs_host_set_pad(pad, b, 1);
+    frame(0, 0);
+    rs_host_set_pad(pad, 0, 1);
+    frame(0, 0);
+}
+
 static void shot(const char *name)
 {
     char path[512];
@@ -155,29 +165,40 @@ static void mode_title(void)
     int prompt = 0, glyph = 0;
     for (int i = 0; i < 60; i++) {
         frame(0, 0);
-        prompt |= bg1_text_is(14, 21, "PRESS A TO HOP");
+        prompt |= bg1_text_is(10, 21, "PRESS ANY ARROW TO HOP");
         for (int k = 0; k < RS_OAM_MAX; k++) {
             const rs_sprite *s = rs_oam(k);
-            if (s->used && s->pal == 3 && s->y == 21 * 8 - 4 && s->tile >= KIT_OBJ_TILE + 40 && s->tile < KIT_OBJ_TILE + 72) glyph = 1;
+            if (s->used && s->pal == 3 && s->y == 21 * 8 - 4 && s->tile >= KIT_OBJ_TILE && s->x < 10 * 8) glyph = 1;
         }
     }
-    CHECK(prompt, "PRESS A TO HOP on row 21 (it blinks)");
-    CHECK(glyph, "the A button glyph beside it");
+    CHECK(prompt, "PRESS ANY ARROW TO HOP on row 21 (it blinks)");
+    CHECK(glyph, "the D-pad glyph beside it");
     CHECK(bg1_text_is(4, 28, "(C) 2026 8BCRAFT - RETROSTONE VC"), "the copyright line on row 28");
+    CHECK(bg1_text_is(4, 18, "P1"), "P1's slot on row 18");
     CHECK(sprite_range(SPR_LING_RIGHT, 2, 2) >= 3 && sprite_range(SPR_DUCK_RIGHT, 4, 2) >= 1, "Mother and her ducklings march under the logo");
     shot("title");
-    if (!fails) OK("title: logo, prompt and glyph, copyright, the family");
+    /* parents 2, 3 and 4 join (A on their pads): their heads pop in on their slots, in their palettes */
+    static const char *names[3] = {"title-2-players", "title-3-players", "title-4-players"};
+    for (int p = 1; p < 4; p++) {
+        pad_tap(p, RS_BTN_A);
+        frames(30);
+        int heads = 0;
+        for (int k = 0; k < RS_OAM_MAX; k++) {
+            const rs_sprite *s = rs_oam(k);
+            if (s->used && s->tile >= dp_spr[SPR_DUCK_HEAD].tile && s->tile <= dp_spr[SPR_DUCK_HEAD + 1].tile && s->pal == (p == 1 ? 1 : p + 2)) heads++;
+        }
+        CHECK(heads == 1, "P%d joins: its head on its slot (palette %d)", p + 1, p == 1 ? 1 : p + 2);
+        shot(names[p - 1]);
+    }
+    if (!fails) OK("title: logo, prompt and glyph, copyright, the family, four parents join");
+    /* P2-P4 leave (B): back to Mother alone */
+    for (int p = 3; p >= 1; p--) { pad_tap(p, RS_BTN_B); frames(3); }
     tap(RS_BTN_A);
-    frames(10);
-    dp_test_world(&st);
-    CHECK(st == DS_READY, "A: get ready (st %d)", st);
-    CHECK(bg1_count(6, 7, 192, 287) >= 14, "GET READY in 2x glyphs on row 6");
-    CHECK(bg1_pal_count(2, 9, PAL_LOGO) == 0, "the logo is gone");
-    shot("get-ready");
-    tap(RS_BTN_RIGHT);
     frames(20);
     const world *w = dp_test_world(&st);
-    CHECK(st == DS_PLAY && w->started && w->d[0].max_col == START_COL + 1, "the first hop starts the run (st %d, col %d)", st, w->d[0].max_col);
+    CHECK(st == DS_PLAY && w->players == 1 && w->started && w->d[0].max_col == START_COL + 1,
+          "A starts the run and is the first hop (st %d, players %d, col %d)", st, w->players, w->d[0].max_col);
+    CHECK(bg1_pal_count(2, 9, PAL_LOGO) == 0, "the logo is gone");
     CHECK(digits_at(0, 100, 220) == world_score(w, 0), "the HUD shows the score (%d)", world_score(w, 0));
     long bright = luma();
     tap(RS_BTN_START);
@@ -260,20 +281,24 @@ static void mode_coop(int max_frames)
     for (int f = 0; f < max_frames; f++) {
         frame(0, 0);
         const world *w = dp_test_world(&st);
-        if (st == DS_PLAY && w->players == 2 && w->d[0].state == DK_ALIVE && w->d[1].state == DK_ALIVE) {
+        if (st == DS_PLAY && w->players >= 2 && w->d[0].state == DK_ALIVE && w->d[1].state == DK_ALIVE) {
             seen++;
-            if (digits_at(0, 40, 140) != world_score(w, 0) || digits_at(0, 180, 290) != world_score(w, 1)) bad++;
-            if (seen == 400) shot("coop");
+            if (digits_at(0, 100, 220) != world_total(w)) bad++;
+            if (seen == 400) shot(w->players == 4 ? "play-4-players" : "coop");
         }
         if (st == DS_OVER) {
             frames(45);
-            CHECK(bg1_box_is(12, 11, "MOTHER") && bg1_box_is(12, 14, "FATHER") && bg1_box_is(12, 17, "FAMILY"), "the family panel");
-            CHECK(digits_at(17 * 8 - 4, 150, 260) == world_total(w), "FAMILY shows the total (%d)", world_total(w));
-            shot("coop-gameover");
+            int fam = 8 + 3 * w->players + 4;           /* the family panel under the ranking */
+            CHECK(bg1_box_is(10, 10, "1ST"), "the ranking: 1ST on row 10");
+            CHECK(bg1_box_is(10, fam + 1, "FAMILY"), "the family panel (row %d)", fam + 1);
+            CHECK(digits_at((fam + 1) * 8 - 4, 150, 260) == world_total(w), "FAMILY shows the family score (%d)", world_total(w));
+            int heads = sprite_range(SPR_DUCK_HEAD, 2, 3);
+            CHECK(heads == w->players, "each parent's head by its place (%d)", heads);
+            shot(w->players == 4 ? "results-4-players" : "coop-gameover");
             break;
         }
     }
-    CHECK(seen > 200 && bad == 0, "two scores in the HUD (%d frames, %d wrong)", seen, bad);
+    CHECK(seen > 200 && bad == 0, "the family score in the HUD (%d frames, %d wrong)", seen, bad);
     CHECK(sprite_range(SPR_DUCK_RIGHT, 4, -1) >= 0, "Father Duck drawn");
 }
 

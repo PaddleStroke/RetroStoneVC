@@ -1,13 +1,18 @@
 /*
- * Duck Parade: the game flow (title, get ready, play, the death, game over, pause, Father Duck), input, sound
- * events, save RAM, options, save states and the test hooks.
+ * Duck Parade: the game flow (the title and its lobby, play, the death, game over and the results, pause), input,
+ * sound events, save RAM, options, save states and the test hooks.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/duckparade/LICENSE.
  *
+ * The title is the only menu (docs/art-direction.md "Title and players"): pads 2-4 join there with A (or Start) and
+ * leave with B (the house kit's lobby); P1 starts with any arrow or A, and that press is also Mother's first hop.
+ * On the game-over panel one press (an arrow, A or Start) starts the next run at once with the same parents (its
+ * press is a first hop too); Select goes back to the title.
+ *
  * Options (--opt key=value on the desktop runners):
- *   bot=1          the screen-reading bot plays Mother Duck (bot.c), bot=2 both parents; botruns=N runs
+ *   bot=N          the screen-reading bot plays parents 1..N (bot.c); botruns=N runs
  *   botstop=S      the bot stops hopping at score S (the fox then comes: screenshots of a game over)
- *   seed=N         a fixed course (default: from the frame of the first hop)
- *   players=2      start with Father Duck joined;  ready=1  skip the title
+ *   seed=N         a fixed course (default: from the frame the title (or the retry) made the run)
+ *   players=N      start with N parents joined (1..4; at least bot=N);  ready=1  skip the title
  *   dump=1         log the final state at exit (tests); music=0, sound=0; strict=1 (the SDK's)
  */
 #include "dp.h"
@@ -17,13 +22,14 @@
 #include <stdio.h>
 #include <string.h>
 
-#define GO_BUTTONS (RS_BTN_A | RS_BTN_START)
+#define START_INPUTS (HU_IN_DPAD | RS_BTN_A)               /* P1 starts from the title: a hop (the prompt says so) */
+#define RETRY_INPUTS (START_INPUTS | RS_BTN_START)         /* the game-over panel: one press, the next run */
 
 int opt_bot;
 static int opt_botstop, opt_botruns, opt_seed_fixed, opt_music, opt_sound, opt_scenes, opt_record;
 static uint32_t opt_seed;
 static world W;
-static int st, st_t, paused, new_best, runs_done, players = 1;
+static int st, st_t, paused, new_best, runs_done;
 static uint32_t state_hash = 2166136261u;
 static int run_scores[64], run_lanes[64], nruns_logged;
 static int bell_t;                        /* frames to the next crossing bell */
@@ -48,13 +54,19 @@ static uint16_t save_sum(const save_data *s)
     return sum;
 }
 
+/* version 2: best_coop is the family score of 2-4 parents (version 1 kept the sum of two parents' scores: that best
+ * is dropped, the rest kept) */
 static void save_load(void)
 {
     memcpy(&SV, rs_sram(), sizeof SV);
-    if (memcmp(SV.magic, "DUCK", 4) || SV.version != 1 || SV.sum != save_sum(&SV)) {
+    if (memcmp(SV.magic, "DUCK", 4) || (SV.version != 1 && SV.version != 2) || SV.sum != save_sum(&SV)) {
         memset(&SV, 0, sizeof SV);
         memcpy(SV.magic, "DUCK", 4);
-        SV.version = 1;
+        SV.version = 2;
+    }
+    if (SV.version == 1) {
+        SV.version = 2;
+        SV.best_coop = 0;
     }
 }
 
@@ -68,10 +80,10 @@ static void save_store(void)
 /* ---- flow ---------------------------------------------------------------------------------------------------------- */
 static void go(int s) { st = s; st_t = 0; }
 
-static void new_run(int state)
+/* a run with the lobby's parents; seed: the course (the title's world keeps its seed when P1 starts it) */
+static void new_run_seed(int state, uint32_t seed)
 {
-    uint32_t seed = opt_seed_fixed ? opt_seed : opt_seed ^ (uint32_t)rs_frame_count() * 2654435761u;
-    world_init(&W, players, seed);
+    world_init(&W, hu_players(), seed);
     W.fixed_seed = opt_seed_fixed;
     draw_reset(&W);
     bot_reset();
@@ -79,9 +91,14 @@ static void new_run(int state)
     go(state);
 }
 
-static int is_bot(int p) { return (p == 0 && opt_bot) || (p == 1 && opt_bot >= 2); }
+static void new_run(int state)
+{
+    new_run_seed(state, opt_seed_fixed ? opt_seed : opt_seed ^ (uint32_t)rs_frame_count() * 2654435761u);
+}
 
-/* the pad: Right or A hops forward, Left back, Up and Down along the lane */
+static int is_bot(int p) { return p < opt_bot; }
+
+/* the pad of parent p (the lobby maps players to pads): Right or A hops forward, Left back, Up and Down along the lane */
 static int hop_pressed(int p)
 {
     if (is_bot(p)) {
@@ -90,7 +107,7 @@ static int hop_pressed(int p)
         if (b && opt_record) rs_log("press %u P%d %s", rs_frame_count(), p + 1, b == HOP_FWD ? "RIGHT" : b == HOP_BACK ? "LEFT" : b == HOP_UP ? "UP" : "DOWN");
         return b;
     }
-    uint16_t b = rs_pad_pressed(p);
+    uint16_t b = rs_pad_pressed(hu_player_pad(p));
     if (b & (RS_BTN_RIGHT | RS_BTN_A)) return HOP_FWD;
     if (b & RS_BTN_UP) return HOP_UP;
     if (b & RS_BTN_DOWN) return HOP_DOWN;
@@ -109,7 +126,7 @@ static void game_over(void)
         if (s0 > SV.best) { SV.best = (uint16_t)s0; new_best = 1; }
         int lanes = W.d[0].max_col - START_COL;
         if (lanes > SV.best_lanes) SV.best_lanes = (uint16_t)lanes;
-    } else {
+    } else {                                         /* 2-4 parents: the family score */
         if (total > SV.best_coop) { SV.best_coop = (uint16_t)total; new_best = 1; }
     }
     for (int p = 0; p < W.players; p++)
@@ -120,8 +137,8 @@ static void game_over(void)
         run_lanes[nruns_logged++] = W.d[0].max_col - START_COL;
     }
     runs_done++;
-    rs_log("run %d over at frame %u: score %d lanes %d banked %d (best %d)", runs_done, rs_frame_count(), s0,
-           W.d[0].max_col - START_COL, W.d[0].banked, SV.best);
+    rs_log("run %d over at frame %u: score %d lanes %d banked %d (best %d) players %d family %d", runs_done,
+           rs_frame_count(), s0, W.d[0].max_col - START_COL, W.d[0].banked, SV.best, W.players, total);
     sfx(SFX_SWISH);
     if (W.players == 1 && hu_medal_of(s0, th)) sfx(SFX_SPARKLE);
     go(DS_OVER);
@@ -135,8 +152,9 @@ static void sounds(void)
         const duck *d = &W.d[p];
         int x = d->at.col * CELL - cam + CELL / 2;
         if (ev & EV_HOP) {
+            static const int16_t voice[MAX_PLAYERS] = {0, -600, 300, -300};   /* Father lower, P3 higher, P4 between */
             int q = (d->hops * 7 + p * 3) & 3;
-            sfx_at(SFX_QUACK0 + q, x, RS_PITCH_1 + ((d->hops * 37) % 9 - 4) * 48 + (p ? -600 : 0));
+            sfx_at(SFX_QUACK0 + q, x, RS_PITCH_1 + ((d->hops * 37) % 9 - 4) * 48 + voice[p]);
         }
         if (ev & EV_BUMP) sfx_at(SFX_BUMP, x, 0);
         if (ev & EV_PICK) sfx_at(SFX_PEEP, x, RS_PITCH_1 + clampi(W.ev_pick_n[p], 0, 16) * 96);
@@ -203,7 +221,7 @@ static void log_scenes(void)
 
 static void play_update(void)
 {
-    int press[MAX_PLAYERS] = {0, 0};
+    int press[MAX_PLAYERS] = {0};
     for (int p = 0; p < W.players; p++) {
         const duck *d = &W.d[p];
         if (d->state == DK_READY || d->state == DK_ALIVE) press[p] = hop_pressed(p);
@@ -225,13 +243,24 @@ static void play_update(void)
     if (st == DS_DEAD && world_all_out(&W)) game_over();
 }
 
-static void try_join(void)
+/* the title: parents join (A or Start on pads 2-4: a quack in their voice) and leave (B); P1's arrow or A starts the
+ * run with the title's course, and that press is also Mother's first hop (DS_READY: the run starts with the first
+ * hop that is not blocked) */
+static void title_update(void)
 {
-    /* Father Duck joins with A on pad 2, on the title or "get ready" */
-    if (players == 1 && (rs_pad_pressed(1) & GO_BUTTONS)) {
-        players = 2;
+    int ev = hu_title_update();
+    if (ev & HU_TITLE_JOINED) {
+        int p = hu_players() - 1;
+        static const int16_t voice[MAX_PLAYERS] = {0, -600, 300, -300};
         sfx(SFX_JOIN);
-        new_run(DS_READY);
+        sfx_at(SFX_QUACK0 + (p & 3), RS_SCREEN_W / 2, RS_PITCH_1 + voice[p & 3]);
+    }
+    if (ev & HU_TITLE_LEFT) sfx(SFX_BUMP);
+    if (opt_bot) {                                 /* the bot: straight into the run (it hops by itself) */
+        new_run_seed(DS_READY, W.seed);
+    } else if (ev & HU_TITLE_START) {
+        new_run_seed(DS_READY, W.seed);
+        play_update();                             /* the start press is the first hop */
     }
 }
 
@@ -246,29 +275,30 @@ static void game_update(void)
     hu_shake_step();
     switch (st) {
     case DS_TITLE:
-        try_join();
-        if (st == DS_TITLE && (opt_bot || (rs_pad_pressed(0) & (GO_BUTTONS | RS_BTN_RIGHT)))) {
-            sfx(SFX_JOIN);
-            go(DS_READY);
-        }
+        title_update();
         break;
     case DS_READY:
-        try_join();
-        play_update();
-        break;
     case DS_PLAY:
     case DS_DEAD:
         play_update();
         break;
     case DS_OVER: {
-        int again = 0;
+        int again = 0, back = 0, bot_again = 0;
         if (st_t >= RETRY_LOCK) {
-            for (int p = 0; p < W.players; p++) again |= (rs_pad_pressed(p) & GO_BUTTONS) != 0;
-            if (opt_bot && runs_done < opt_botruns && st_t == RETRY_LOCK + 10) again = 1;
+            for (int p = 0; p < W.players; p++) {
+                uint16_t b = rs_pad_pressed(hu_player_pad(p));
+                again |= (b & RETRY_INPUTS) != 0;
+                back |= (b & RS_BTN_SELECT) != 0;
+            }
+            if (opt_bot && runs_done < opt_botruns && st_t == RETRY_LOCK + 10) bot_again = 1;
         }
-        if (again) {                               /* house rule: one button, instant retry */
+        if (back) {                                /* Select: back to the title (parents join or leave there) */
+            sfx(SFX_BUMP);
+            new_run(DS_TITLE);
+        } else if (again || bot_again) {           /* house rule: one press, instant retry, the same parents */
             sfx(SFX_JOIN);
             new_run(DS_READY);
+            if (again) play_update();              /* the press is the first hop (an arrow or A) */
         }
         break;
     }
@@ -278,7 +308,8 @@ static void game_update(void)
 
 static void game_draw(void)
 {
-    draw_frame(&W, st, st_t, W.players == 1 ? SV.best : SV.best_coop, new_best, paused);
+    int coop = (st == DS_TITLE ? hu_players() : W.players) > 1;
+    draw_frame(&W, st, st_t, coop ? SV.best_coop : SV.best, new_best, paused);
 }
 
 static void game_init(void)
@@ -288,15 +319,19 @@ static void game_init(void)
     opt_sound = rs_option_int("sound", 1);
     sfx_init();
     audio_set(opt_music, opt_sound);
-    draw_init();
-    opt_bot = rs_option_int("bot", 0);
+    draw_init();                                   /* hu_init (draw.c) */
+    /* the title: P1 starts with an arrow or A ("PRESS ANY ARROW TO HOP", the D-pad glyph), up to 4 parents */
+    hu_title_cfg tc = {START_INPUTS, MAX_PLAYERS, "HOP", NULL, 0};
+    hu_title_setup(&tc);
+    opt_bot = clampi(rs_option_int("bot", 0), 0, MAX_PLAYERS);
     opt_botruns = rs_option_int("botruns", 1);
     opt_botstop = rs_option_int("botstop", 0);
     opt_scenes = rs_option_int("scenes", 0);
     opt_record = rs_option_int("record", 0);   /* log the bot's presses as an input script (tools/bench.sh) */
     opt_seed_fixed = rs_option("seed") != NULL;
     opt_seed = (uint32_t)rs_option_int("seed", 0xd0c5eed);
-    players = clampi(rs_option_int("players", 1), 1, 2);
+    int n = clampi(rs_option_int("players", 1), 1, MAX_PLAYERS);
+    hu_players_set(n > opt_bot ? n : opt_bot > 0 ? opt_bot : 1);   /* bot=N plays parents 1..N */
     new_run(rs_option_int("ready", 0) ? DS_READY : DS_TITLE);
 }
 
@@ -309,11 +344,15 @@ static void game_shutdown(void)
         snprintf(list + n, sizeof list - n, "%s%d", i ? "," : "", run_scores[i]);
         snprintf(lanes + m, sizeof lanes - m, "%s%d", i ? "," : "", run_lanes[i]);
     }
-    rs_log("state: st=%d players=%d score=%d score2=%d lanes=%d line=%d banked=%d best=%d runs=%d ds=%d,%d cam=%d "
-           "paused=%d hash=%08x judged=%d rerolls=%d fallbacks=%d runscores=%s runlanes=%s",
-           st, W.players, world_score(&W, 0), W.players > 1 ? world_score(&W, 1) : 0, W.d[0].max_col - START_COL,
-           W.d[0].nline, W.d[0].banked, SV.best, runs_done, W.d[0].state, W.d[1].state, world_cam_px(&W), paused,
-           state_hash, W.L.g.judged, W.L.g.rerolls, W.L.g.fallbacks, list, lanes);
+    rs_log("state: st=%d players=%d score=%d score2=%d score3=%d score4=%d family=%d lanes=%d line=%d banked=%d best=%d "
+           "runs=%d ds=%d,%d,%d,%d cols=%d,%d,%d,%d lines=%d,%d,%d,%d lobby=%d cam=%d paused=%d hash=%08x judged=%d "
+           "rerolls=%d fallbacks=%d bestcoop=%d runscores=%s runlanes=%s",
+           st, W.players, world_score(&W, 0), W.players > 1 ? world_score(&W, 1) : 0,
+           W.players > 2 ? world_score(&W, 2) : 0, W.players > 3 ? world_score(&W, 3) : 0, world_total(&W),
+           W.d[0].max_col - START_COL, W.d[0].nline, W.d[0].banked, SV.best, runs_done, W.d[0].state, W.d[1].state,
+           W.d[2].state, W.d[3].state, (int)W.d[0].at.col, (int)W.d[1].at.col, (int)W.d[2].at.col, (int)W.d[3].at.col,
+           W.d[0].nline, W.d[1].nline, W.d[2].nline, W.d[3].nline, hu_players(), world_cam_px(&W), paused, state_hash,
+           W.L.g.judged, W.L.g.rerolls, W.L.g.fallbacks, SV.best_coop, list, lanes);
 }
 
 /* test hook (tests/test_ui.c): the run and the screen being shown */
@@ -327,7 +366,7 @@ const world *dp_test_world(int *state)
 #define S(v) rs_state_var("main." #v, &(v), sizeof(v))
 static void game_state(void)
 {
-    S(W); S(st); S(st_t); S(paused); S(new_best); S(runs_done); S(players); S(state_hash);
+    S(W); S(st); S(st_t); S(paused); S(new_best); S(runs_done); S(state_hash);
     S(run_scores); S(run_lanes); S(nruns_logged); S(bell_t); S(click_t); S(scene_seen); S(opt_scenes); S(opt_record);
     S(opt_bot); S(opt_botstop); S(opt_botruns); S(opt_seed_fixed); S(opt_seed); S(opt_music); S(opt_sound);
     draw_state();
@@ -344,6 +383,6 @@ const rs_game *rs_game_main(void)
 {
     /* state_version: bump it when the meaning of a saved object changes (its layout is checked) */
     static const rs_game g = {"Duck Parade", "duckparade", "0.1.0", game_init, game_update, game_draw,
-                              game_shutdown, dp_assets, game_state, game_state_loaded, 1};
+                              game_shutdown, dp_assets, game_state, game_state_loaded, 2};
     return &g;
 }

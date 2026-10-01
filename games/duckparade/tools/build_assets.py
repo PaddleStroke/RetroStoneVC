@@ -7,8 +7,9 @@ the music (make_music.py: the march module and the layers the game adds) -> buil
 VRAM (absolute tiles): BG1 (the house kit, the logo) 0; BG3 the field 1024; BG2 the cloud shadows and BG4 the
 sky's clouds share 1536; OBJ 3072 (our sprites, then the kit's at KIT_OBJ_TILE).
 BG palettes: 0 UI (kit), 1 grass, 2 road, 3 rapids, 4 railway and park, 5 the logo (kit), 6 ponds, 7 clouds.
-OBJ palettes: 0 Mother Duck, 1 Father Duck (the same tiles), 2 ducklings and effects, 3 the kit (and the egg
-medals), 4-5 traffic, 6 river things, 7 the train, the lights and the fox.
+OBJ palettes: 0 Mother Duck, 1 Father Duck, 4 the buff duck, 5 the blue duck (players 1-4: the same tiles), 2
+ducklings and effects, 3 the kit (and the egg medals), 6 cars A, 7 the rest of the world (cars B, river things, the
+train, the lights and the fox).
 
 MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/duckparade/LICENSE.
 """
@@ -147,8 +148,9 @@ def main():
         slot = make_art.OBJ_PAL[g]
         if g != "kit":
             obj_pals[slot * 16:slot * 16 + 16] = rsasset.palette16(pal555)
-        if g == "duck":
-            obj_pals[16:32] = rsasset.palette16([rsasset.to555(v) for v in make_art.FATHER])
+        if g == "duck":                            # the other parents: the same tiles (OBJ 1, 4, 5)
+            for ps, cols in make_art.PLAYER_PALS.items():
+                obj_pals[ps * 16:ps * 16 + 16] = rsasset.palette16([rsasset.to555(v) for v in cols])
         k = 0
         for (name, w, hh, n, _g, _fn), x, y in ents:
             enum_names.append("SPR_%s = %d" % (cname(name), idx))

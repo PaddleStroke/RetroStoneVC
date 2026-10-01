@@ -290,3 +290,18 @@ edge cost about 6% of the render.
   pseudo-random frames of long runs: the state continues exactly like the run that was not interrupted, in the
   same process and in a fresh one; bad states refused; `tools/state_audit.py` checks every mutable static.
 - `tools/screenshots.sh` (make duckparade-screenshots): docs/screenshots/.
+
+## Remaining work
+
+Done in code and covered by `make duckparade-check`: the title-only flow (no "Get ready"), P1 starts with the D-pad or A
+(that press is the first hop), pads 2-4 join and leave on the title (hu_title_*), up to 4 parents in co-op with a shared
+camera and family score, the fox still working, one-press retry on the panel, Select back to the title.
+
+- This file still describes the old flow in "Controls", "Flow" and "Two players": rewrite them for the title lobby and
+  4 parents (positions, line cap 24/16/12 by parents, family score, camera mean + leader pull, results panel).
+- Balance of 3-4 parents (line caps, fox, camera pull, lane fairness for 4 rows apart) is not tuned by hand; only
+  bot runs (`bot=4`) were checked.
+- The title state test stops at one tap of A: a best score lives in the battery save, which a state does not take back,
+  so a game over inside the replayed frames differs in-process (the fresh-process resume is fine).
+- Look at the 12 saved screens (`build/duckparade-ui`) by eye: title with 1-4 parents, results with 2-4, HUD with 4.
+- Rebuild `make duckparade-dist` after any code change; dist/ is not tracked.

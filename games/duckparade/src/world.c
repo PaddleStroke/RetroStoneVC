@@ -109,15 +109,22 @@ void world_init(world *w, int players, uint32_t seed)
     lanes_init(&w->L, seed);
     lanes_generate(&w->L, SCREEN_COLS + 14, -1);
     take_spawns(w);
-    duck_place(w, &w->d[0], START_COL, START_ROW);
-    if (players > 1) {
-        lane *l = &w->L.ring[START_COL % RING];
-        l->block &= (uint16_t)~(3 << (START_ROW + 1));
-        duck_place(w, &w->d[1], START_COL, START_ROW + 2);
-    } else {
-        w->d[1].state = DK_OUT;
+    /* the parents line up in the start column: Mother in the middle, Father 2 rows below, P3 2 above, P4 4 below
+     * (the cells between them are cleared: the meadow stays connected) */
+    static const int8_t row_of[MAX_PLAYERS] = {START_ROW, START_ROW + 2, START_ROW - 2, START_ROW + 4};
+    lane *l = &w->L.ring[START_COL % RING];
+    for (int p = 0; p < MAX_PLAYERS; p++) {
+        if (p < players) {
+            if (p) {
+                int a = row_of[p] < START_ROW ? row_of[p] : START_ROW + 1, b = row_of[p] < START_ROW ? START_ROW - 1 : row_of[p];
+                for (int r = a; r <= b; r++) l->block &= (uint16_t)~(1 << r);
+            }
+            duck_place(w, &w->d[p], START_COL, row_of[p]);
+        } else {
+            w->d[p].state = DK_OUT;
+        }
+        w->bank_t[p] = -1;
     }
-    for (int p = 0; p < MAX_PLAYERS; p++) w->bank_t[p] = -1;
 }
 
 /* ---- queries ------------------------------------------------------------------------------------------------ */
@@ -148,9 +155,13 @@ int world_score(const world *w, int p)
 
 int world_total(const world *w)
 {
-    int s = 0;
-    for (int p = 0; p < w->players; p++) s += world_score(w, p);
-    return s;
+    int32_t far = START_COL;
+    int banked = 0;
+    for (int p = 0; p < w->players; p++) {
+        if (w->d[p].max_col > far) far = w->d[p].max_col;
+        banked += w->d[p].banked;
+    }
+    return (far - START_COL) + banked;
 }
 
 int world_line_total(const world *w)
@@ -163,10 +174,11 @@ int world_line_total(const world *w)
 int world_fox_state(const world *w, int *target)
 {
     int st = 0;
+    int32_t behind = 0;
     for (int p = 0; p < w->players; p++) {
         const duck *d = &w->d[p];
         if (d->state == DK_CAUGHT && d->t < DEATH_ANIM) { if (target) *target = p; return 2; }
-        if (alive(d) && d->fox_warn) { st = 1; if (target) *target = p; }
+        if (alive(d) && d->fox_warn && (!st || d->at.col < behind)) { st = 1; behind = d->at.col; if (target) *target = p; }
     }
     return st;
 }
@@ -341,7 +353,7 @@ static void join(world *w, int p, int li)
 {
     duck *d = &w->d[p];
     loose *q = &w->ls[li];
-    if (d->nline >= LINE_MAX) return;
+    if (d->nline >= line_cap(w->players)) return;         /* 24 a line; 16 with 3 parents, 12 with 4 (tuning.h) */
     /* the new duckling goes right behind the parent; the others keep their places (Snake grows at the head) */
     memmove(&d->line[1], &d->line[0], sizeof(duckling) * (size_t)d->nline);
     for (int k = 1; k <= d->nline; k++) d->line[k].lag++;
@@ -657,19 +669,33 @@ static void duck_step(world *w, int p, int press)
 static void camera_step(world *w)
 {
     if (!world_running(w)) return;
+    /* the group: the parents still in the run (a hopping parent counts where it lands) */
     int32_t lead = -1;
+    int64_t sum = 0;
+    int n = 0;
     for (int p = 0; p < w->players; p++) {
         const duck *d = &w->d[p];
         if (!alive(d)) continue;
         int32_t c = d->h.dir ? d->h.to.col : d->at.col;
         if (c > lead) lead = c;
+        sum += c;
+        n++;
     }
     if (lead < 0) return;
-    int32_t target = (lead - CAM_ANCHOR_COL) * CELL * 256;
+    /* ease towards the group's mean column at the anchor (solo: the duck), never backwards, always creeping */
+    int32_t target = (int32_t)(sum * CELL * 256 / n) - CAM_ANCHOR_COL * CELL * 256;
     int d256 = lanes_diff256(lead);
     int32_t creep = CREEP_START + (CREEP_MAX - CREEP_START) * d256 / 256;
     int32_t ease = (target - w->cam) * CAM_EASE_256 / 256;
-    w->cam += ease > creep ? ease : creep;
+    int32_t move = ease > creep ? ease : creep;
+    if (n > 1) {
+        /* co-op: the leader is not pushed off the right edge (a straggler does not hold the camera back) */
+        int32_t lead_cam = (lead - CAM_LEAD_COL) * CELL * 256;
+        int32_t pull = (lead_cam - w->cam) * CAM_LEAD_EASE_256 / 256;
+        if (pull > move) move = pull;
+    }
+    w->cam += move;
+    if (n > 1 && w->cam < (lead - CAM_LEAD_MAX_COL) * CELL * 256) w->cam = (lead - CAM_LEAD_MAX_COL) * CELL * 256;
 }
 
 static void fox_step(world *w)

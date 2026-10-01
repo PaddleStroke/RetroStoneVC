@@ -64,6 +64,30 @@ FATHER = [                                 # OBJ 1: Father Duck, a mallard drake
     (18, 8, 26),
     (250, 250, 250),                       # the white collar
 ]
+# Players 3 and 4 (OBJ 4 and 5, the house rule; the same tiles). Mother is white (no main hue for
+# house_style.player_palettes to turn) and Father is hand-made, so these two are hand-tuned in the rule's spirit:
+# their main colours sit on the hues farthest from Mother's pink ribbon and Father's green head (orange and blue),
+# the outline, the eyes and the speculum never change.
+BUFF = [                                   # OBJ 4: player 3, a buff duck: golden body, a chestnut head, a sky-blue bow
+    (58, 34, 40),
+    (255, 226, 158), (242, 192, 112), (208, 148, 74), (150, 98, 50),     # buff body
+    (226, 150, 84), (184, 102, 50), (128, 64, 34),                       # the chestnut head
+    (255, 178, 66), (222, 118, 34),        # bill and feet (orange, as Mother's)
+    (84, 124, 222),
+    (150, 214, 255), (64, 140, 222),       # the bow: sky blue
+    (18, 8, 26),
+    (255, 240, 196),                       # the collar: cream
+]
+BLUE = [                                  # OBJ 5: player 4, a blue Swedish duck: slate-blue body, a navy head, a white bib
+    (30, 30, 62),
+    (178, 196, 236), (132, 154, 210), (92, 110, 172), (60, 70, 124),     # slate-blue body
+    (104, 118, 196), (66, 74, 148), (40, 44, 100),                       # the navy head
+    (250, 214, 90), (206, 160, 40),        # a yellow bill (and feet)
+    (84, 124, 222),
+    (255, 222, 92), (222, 160, 30),        # the curl: gold
+    (18, 8, 26),
+    (250, 250, 250),                       # the white bib
+]
 D = {k: DUCK[i] for i, k in enumerate(
     ["out", "b0", "b1", "b2", "b3", "h0", "h1", "h2", "k0", "k1", "spec", "r0", "r1", "eye", "collar"])}
 
@@ -83,28 +107,36 @@ L_ = {k: LING[i] for i, k in enumerate(
     ["out", "y0", "y1", "y2", "y3", "beak", "eye", "w0", "w1", "shadow", "red", "pink", "white", "dust", "navy"])}
 LY = [L_["y0"], L_["y1"], L_["y2"], L_["y3"]]
 
-CARS_A = [                                 # OBJ 4: red, blue and yellow cars, the bus, the bikes
+CARS_A = [                                 # OBJ 6: red, blue and yellow cars, the bus, the bikes
     (30, 26, 44), (196, 230, 252), (92, 132, 176), (40, 40, 50), (255, 246, 190), (232, 44, 52),
     (252, 118, 104), (222, 58, 58), (150, 30, 46),
     (132, 192, 255), (64, 120, 222), (34, 62, 150),
     (255, 238, 124), (250, 196, 40), (196, 130, 22),
 ]
-CARS_B = [                                 # OBJ 5: green, pink and white cars, joggers, the lawnmower
-    (30, 26, 44), (196, 230, 252), (92, 132, 176), (40, 40, 50), (255, 246, 190),
-    (152, 232, 122), (76, 176, 70), (36, 110, 50),
-    (255, 178, 214), (236, 110, 170), (170, 56, 120),
-    (250, 250, 246), (192, 198, 210),
-    (255, 214, 180), (214, 150, 110),
+# OBJ 7 is shared by the green, orange and white cars, the joggers, the lawnmower, the river things, the train, the
+# crossing lights and the fox (they had OBJ 5, 6 and 7 before: OBJ 4 and 5 now hold players 3 and 4): 15 colours.
+# The three lists below keep their old entries (the drawing code indexes them), mapped onto these colours.
+W_ = dict(out=(26, 22, 38), g0=(148, 220, 104), g1=(76, 166, 70), g2=(34, 104, 50),
+          wood0=(212, 162, 102), wood1=(174, 122, 70), wood2=(130, 86, 46), wood3=(86, 52, 28),
+          fox0=(252, 172, 92), fox1=(232, 122, 42), red=(222, 62, 52), cream=(250, 236, 204),
+          blue=(108, 164, 226), grey=(182, 188, 204), white=(250, 250, 250))
+WORLD = list(W_.values())
+CARS_B = [                                 # green, orange and white cars, joggers, the lawnmower
+    W_["out"], W_["white"], W_["blue"], W_["out"], W_["cream"],
+    W_["g0"], W_["g1"], W_["g2"],
+    W_["fox0"], W_["fox1"], W_["wood2"],
+    W_["white"], W_["grey"],
+    W_["cream"], W_["wood0"],
 ]
-RIVER = [                                  # OBJ 6: logs, lily pads, the swan boat
-    (212, 162, 102), (174, 122, 70), (130, 86, 46), (86, 52, 28), (238, 204, 144), (46, 28, 16),
-    (152, 216, 92), (84, 168, 60), (40, 110, 44), (20, 64, 34), (255, 172, 202),
-    (250, 250, 250), (190, 198, 214), (250, 150, 40), (70, 130, 222),
+RIVER = [                                  # logs, lily pads, the swan boat
+    W_["wood0"], W_["wood1"], W_["wood2"], W_["wood3"], W_["cream"], W_["out"],
+    W_["g0"], W_["g1"], W_["g2"], W_["out"], W_["red"],
+    W_["white"], W_["grey"], W_["fox1"], W_["blue"],
 ]
-RAIL = [                                   # OBJ 7: the train, the crossing light, the fox
-    (24, 22, 36), (120, 204, 142), (50, 142, 92), (26, 86, 60), (222, 62, 52), (250, 236, 204),
-    (126, 184, 232), (152, 158, 172), (255, 64, 40), (92, 32, 32), (252, 172, 92), (232, 122, 42),
-    (170, 70, 32), (255, 236, 150),
+RAIL = [                                   # the train, the crossing light, the fox
+    W_["out"], W_["g0"], W_["g1"], W_["g2"], W_["red"], W_["cream"],
+    W_["blue"], W_["grey"], W_["red"], W_["wood3"], W_["fox0"], W_["fox1"],
+    W_["wood2"], W_["cream"],
 ]
 R_ = {k: RAIL[i] for i, k in enumerate(["out", "g0", "g1", "g2", "red", "cream", "glass", "steel", "lamp", "lampoff",
                                         "f0", "f1", "f2", "head"])}
@@ -274,6 +306,40 @@ def duck_swept(frame):
     cv.set(9, 7 + frame // 2, D["eye"]), cv.set(9, 8 + frame // 2, D["eye"])
     for x, y in ((5, 6), (5, 7), (4, 6)):
         cv.set(x, y + frame // 2, D["r0"])
+    cv.outline(D["out"])
+    return cv
+
+
+def duck_head(frame=0):
+    """A parent's head from the front, 16x16 (the title's player slots, the co-op HUD, the results), frame 1
+    quacking (the bill open). The same palette entries as the body sprites: each parent's palette recolours it."""
+    cv = Canvas(16, 16)
+    B = [D["b0"], D["b1"], D["b2"], D["b3"]]
+    H = [D["h0"], D["h1"], D["h1"], D["h2"]]
+    hs.ellipse(cv, 7.5, 15.2, 6.4, 3.4, B)                          # the shoulders
+    for x in range(2, 14):                                           # the collar (Father: the white ring)
+        if cv.get(x, 12) is not None:
+            cv.set(x, 12, D["collar"])
+    hs.ellipse(cv, 7.5, 6.6, 5.6, 5.4, H)                            # the head, round
+    for x in (4, 5, 10, 11):                                         # the eyes, a glint in each
+        cv.set(x, 5, D["eye"]), cv.set(x, 6, D["eye"])
+    cv.set(4, 5, D["h0"]), cv.set(10, 5, D["h0"])
+    if frame:                                                        # quacking: the bill open, the tongue dark
+        for x in range(5, 11):
+            cv.set(x, 8, D["k0"])
+        for x in range(6, 10):
+            cv.set(x, 9, D["eye"])
+        for x in range(5, 11):
+            cv.set(x, 10, D["k1"])
+        cv.set(4, 8, D["k1"]), cv.set(11, 8, D["k1"])
+    else:                                                            # the bill, wide and flat, from the front
+        for x in range(5, 11):
+            cv.set(x, 8, D["k0"]), cv.set(x, 9, D["k0"] if 6 <= x <= 9 else D["k1"])
+        cv.set(4, 9, D["k1"]), cv.set(11, 9, D["k1"])
+        for x in range(6, 10):
+            cv.set(x, 10, D["k1"])
+    for x, y in ((11, 1), (12, 1), (12, 2), (11, 0), (13, 2), (13, 3)):   # the bow (Father: the curl)
+        cv.set(x, y, D["r0"] if y < 2 else D["r1"])
     cv.outline(D["out"])
     return cv
 
@@ -821,6 +887,7 @@ def _duck_entries():
                   lambda k, f=f: duck_frame(f, ["rest", "stretch", "squash", "rest"][k], blink=(k == 3))))
     e.append(("duck_hit", 16, 16, 1, "duck", lambda k: duck_frame("right", "hit")))
     e.append(("duck_swept", 16, 16, 2, "duck", duck_swept))
+    e.append(("duck_head", 16, 16, 2, "duck", duck_head))
     return e
 
 
@@ -879,10 +946,14 @@ def _kit_entries():
     return [("egg", 24, 24, 4, "kit", egg_medal)]
 
 
+# OBJ palettes: 0 Mother (P1), 1 Father (P2), 4 the buff duck (P3), 5 the blue duck (P4): the same "duck" tiles
+# (house rule P1 OBJ 0, P2 OBJ 1, P3 OBJ 4, P4 OBJ 5); 2 the ducklings and the effects; 3 the kit (and the egg
+# medals); 6 cars A; 7 the rest of the world (WORLD: cars B, the river, the railway, the fox)
 GROUPS = ["duck", "ling", "cars_a", "cars_b", "river", "rail", "kit"]
-PALETTES = {"duck": DUCK, "ling": LING, "cars_a": CARS_A, "cars_b": CARS_B, "river": RIVER, "rail": RAIL,
+PALETTES = {"duck": DUCK, "ling": LING, "cars_a": CARS_A, "cars_b": WORLD, "river": WORLD, "rail": WORLD,
             "kit": KIT_ORDER}
-OBJ_PAL = {"duck": 0, "ling": 2, "kit": 3, "cars_a": 4, "cars_b": 5, "river": 6, "rail": 7}
+OBJ_PAL = {"duck": 0, "ling": 2, "kit": 3, "cars_a": 6, "cars_b": 7, "river": 7, "rail": 7}
+PLAYER_PALS = {1: FATHER, 4: BUFF, 5: BLUE}            # the duck tiles' other palettes: OBJ slot -> colours
 SHEET_W = 256
 
 

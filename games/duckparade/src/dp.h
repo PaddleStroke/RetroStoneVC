@@ -13,7 +13,7 @@
 #include "rs.h"
 #include "tuning.h"
 
-#define MAX_PLAYERS 2
+#define MAX_PLAYERS 4           /* Mother, Father and two more parents (house: 4 pads, 4 players) */
 
 static inline int clampi(int v, int lo, int hi) { return v < lo ? lo : v > hi ? hi : v; }
 static inline int absi(int v) { return v < 0 ? -v : v; }
@@ -198,7 +198,9 @@ void world_step(world *w, const int press[MAX_PLAYERS]);
 int  world_running(const world *w);          /* someone is alive and the run started */
 int  world_all_out(const world *w);          /* everyone is out and their death animation is done */
 int  world_cam_px(const world *w);           /* the camera's world px */
-int  world_score(const world *w, int p);
+int  world_score(const world *w, int p);     /* parent p: its own lanes (furthest column) + its banked points */
+/* the family score (shared): the furthest lane any parent reached + every parent's banked points (1 player: the
+ * player's score) */
 int  world_total(const world *w);
 const lane *world_lane(const world *w, int32_t col);
 /* the visual position of a duck (world px of the top-left, arc height) at this frame */
@@ -206,7 +208,7 @@ void duck_visual(const world *w, const duck *d, int *x, int *y, int *lift, int *
 void duckling_visual(const world *w, const duck *parent, const duckling *k, int *x, int *y, int *lift);
 int  place_field_y(const world *w, const place *p);   /* resolve a place to field px (top) now */
 int  world_line_total(const world *w);       /* ducklings in all lines */
-int  world_fox_state(const world *w, int *target);    /* 0 none, 1 warning, 2 pounce */
+int  world_fox_state(const world *w, int *target);    /* 0 none, 1 warning, 2 pounce; target: the parent furthest behind */
 int  medal_of(int score);                    /* 0 none, 1 bronze .. 4 pearl */
 
 /* ================================ console side ======================================================= */

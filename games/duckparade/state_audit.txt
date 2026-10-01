@@ -12,3 +12,9 @@ lanes.W             ... the positions carried to the next frame
 lanes.F             ... the positions that have just landed
 lanes.arr           ... the hops landing in the next frames
 lanes.vf            ... the free masks of the next frames
+draw.q              the sprite queue of one frame (draw_frame): emptied by spr_flush at the end of every frame
+draw.nq             ... its length (0 between two frames)
+draw.q_rank         ... the rank of the next queued sprite (RK_KEEP between two frames)
+draw.line_n         spr_flush's scratch: sprites per line, counted again every frame
+draw.keep           ... the sprites kept
+draw.order          ... the sprites sorted by rank

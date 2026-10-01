@@ -287,13 +287,66 @@ static void fx_step(const world *w)
         }
 }
 
-/* ---- sprites ---------------------------------------------------------------------------------------------------------------- */
+/* ---- sprites: a queue with a budget ------------------------------------------------------------------------------------------
+ * The game's sprites are queued in drawing order (front to back), each with a RANK; spr_flush() keeps them within the
+ * guideline (128 sprites, 32 on a line: strict mode stays quiet), counting the kit's sprites already in OAM, and
+ * drops the least important first: the shadows, then the effects and the flying ducklings, then the lines' ducklings
+ * from the tail (every parent's last duckling before anyone's second to last: four parades share the lines fairly).
+ * Rank 0 is never dropped in practice: the parents, the traffic, the platforms, the trains, the lights, the fox, the
+ * HUD and the UI. The kept sprites go to OAM in the drawing order. */
+enum { RK_KEEP = 0, RK_LING = 1, RK_WAITING = 3, RK_LOOSE = LINE_MAX + 2, RK_FX, RK_SHADOW, RK_COUNT };
+typedef struct qspr { int16_t x, y; uint16_t tile; uint8_t w, h, pal, prio, flags, rank; } qspr;
+#define Q_MAX 256
+static qspr q[Q_MAX];
+static int nq, q_rank;
+static int spr_dropped;            /* sprites dropped by the budget in the last frame (tests) */
+
+int draw_dropped(void) { return spr_dropped; }
+
 static void spr(int id, int x, int y, int prio, int pal, int flags)
 {
     const dp_sprite_def *d = &dp_spr[id];
-    if (x <= -(int)d->w || x >= RS_SCREEN_W || y <= -(int)d->h || y >= RS_SCREEN_H) return;
-    rs_spr(x, y, d->tile, d->w, d->h, pal >= 0 ? pal : d->pal, prio, flags);
+    if (x <= -(int)d->w || x >= RS_SCREEN_W || y <= -(int)d->h || y >= RS_SCREEN_H || nq >= Q_MAX) return;
+    qspr *s = &q[nq++];
+    s->x = (int16_t)x, s->y = (int16_t)y, s->tile = d->tile, s->w = d->w, s->h = d->h;
+    s->pal = (uint8_t)(pal >= 0 ? pal : d->pal), s->prio = (uint8_t)prio, s->flags = (uint8_t)flags;
+    s->rank = (uint8_t)clampi(q_rank, 0, RK_COUNT - 1);
 }
+
+static void spr_flush(void)
+{
+    static uint8_t line_n[RS_SCREEN_H];
+    static uint8_t keep[Q_MAX];
+    static uint16_t order[Q_MAX];
+    int count[RK_COUNT + 1] = {0}, total = 0;
+    memset(line_n, 0, sizeof line_n);
+    for (int i = 0; i < RS_OAM_MAX; i++) {          /* the kit's sprites, already in OAM */
+        const rs_sprite *s = rs_oam(i);
+        if (!s || !s->used || (s->flags & RS_SPR_HIDE)) continue;
+        total++;
+        for (int y = s->y < 0 ? 0 : s->y; y < s->y + s->h && y < RS_SCREEN_H; y++) line_n[y]++;
+    }
+    for (int i = 0; i < nq; i++) count[q[i].rank + 1]++;            /* a counting sort by rank (stable) */
+    for (int r = 0; r < RK_COUNT; r++) count[r + 1] += count[r];
+    for (int i = 0; i < nq; i++) order[count[q[i].rank]++] = (uint16_t)i;
+    spr_dropped = 0;
+    for (int k = 0; k < nq; k++) {
+        const qspr *s = &q[order[k]];
+        int y0 = s->y < 0 ? 0 : s->y, y1 = s->y + s->h > RS_SCREEN_H ? RS_SCREEN_H : s->y + s->h, ok = total < 128;
+        for (int y = y0; y < y1 && ok; y++) ok = line_n[y] < 32;
+        keep[order[k]] = (uint8_t)ok;
+        if (!ok) { spr_dropped++; continue; }
+        total++;
+        for (int y = y0; y < y1; y++) line_n[y]++;
+    }
+    for (int i = 0; i < nq; i++)
+        if (keep[i]) rs_spr(q[i].x, q[i].y, q[i].tile, q[i].w, q[i].h, q[i].pal, q[i].prio, q[i].flags);
+    nq = 0;
+    q_rank = RK_KEEP;
+}
+
+/* player p's sprite palette: the house rule (P1 OBJ 0 Mother, P2 OBJ 1 Father, P3 OBJ 4, P4 OBJ 5) */
+static int pal_of(int p) { return hu_player_pal(p); }
 
 static int dir_index(int dir) { return dir == HOP_BACK ? 1 : dir == HOP_UP ? 2 : dir == HOP_DOWN ? 3 : 0; }
 static const int duck_base[4] = {SPR_DUCK_RIGHT, SPR_DUCK_LEFT, SPR_DUCK_UP, SPR_DUCK_DOWN};
@@ -309,7 +362,7 @@ static int hop_dir_of(const hop *h)
 static void draw_duck(const world *w, int p, int cam, int sx, int sy, int t)
 {
     const duck *d = &w->d[p];
-    int pal = p == 1 ? 1 : 0;
+    int pal = pal_of(p);
     if (d->state == DK_OUT) return;
     if (d->state == DK_HIT) {
         if (d->t < DEATH_ANIM || (t & 4)) spr(SPR_DUCK_HIT, d->death_col - cam + sx, FIELD_Y + d->death_y + sy, 2, pal, 0);
@@ -327,7 +380,9 @@ static void draw_duck(const world *w, int p, int cam, int sx, int sy, int t)
     int frame = sq > 17 ? 1 : sq < 15 ? 2 : ((t + p * 40) % 180 < 6 && !d->h.dir ? 3 : 0);
     if (d->state == DK_READY) y += hu_bob(t + p * 16, 64, 1);
     spr(duck_base[di] + frame, x - cam + sx, FIELD_Y + y - lift + sy, 2, pal, 0);
+    q_rank = RK_SHADOW;
     if (lift > 1) spr(SPR_SHADOW + 1, x - cam + sx, FIELD_Y + y + 10 + sy, 2, -1, 0);
+    q_rank = RK_KEEP;
 }
 
 static void draw_line(const world *w, int p, int cam, int sx, int sy, int t)
@@ -348,9 +403,12 @@ static void draw_line(const world *w, int p, int cam, int sx, int sy, int t)
         const lane *l = world_lane(w, u->at.col);
         int swim = l && (l->kind == LK_NEST) && !u->h.dir;
         int id = swim ? SPR_LING_PADDLE + ((t / 16 + k) & 1) : ling_base[di] + (lift > 1);
+        q_rank = RK_LING + k;                     /* the budget drops the lines' tails first, everyone's alike */
         spr(id, x - cam + sx, FIELD_Y + y - lift + sy + (!u->h.dir && ((t / 16 + k) & 1) ? 0 : 0), 2, -1, 0);
+        q_rank = RK_SHADOW;
         if (lift > 2) spr(SPR_SHADOW, x - cam + sx, FIELD_Y + y + 10 + sy, 2, -1, 0);
     }
+    q_rank = RK_KEEP;
 }
 
 static void draw_loose(const world *w, int cam, int sx, int sy, int t)
@@ -358,6 +416,7 @@ static void draw_loose(const world *w, int cam, int sx, int sy, int t)
     for (int i = 0; i < LOOSE_MAX; i++) {
         const loose *q = &w->ls[i];
         int x = (q->x >> 8) - cam + sx, y = FIELD_Y + (q->y >> 8) + sy;
+        q_rank = q->state == LOOSE_WAIT ? RK_WAITING : RK_LOOSE;
         switch (q->state) {
         case LOOSE_WAIT: {
             int k = ((t + q->id * 23) / 20) % 6;
@@ -379,10 +438,12 @@ static void draw_loose(const world *w, int cam, int sx, int sy, int t)
             break;
         }
     }
+    q_rank = RK_KEEP;
 }
 
 static void draw_fx(int cam, int sx, int sy)
 {
+    q_rank = RK_FX;
     for (int i = 0; i < FX_MAX; i++) {
         const fx_obj *f = &fx[i];
         int x = (f->x >> 8) - cam + sx, y = FIELD_Y + (f->y >> 8) + sy;
@@ -394,6 +455,7 @@ static void draw_fx(int cam, int sx, int sy)
         case FX_NOTE: spr(SPR_NOTE, x, y, 2, -1, 0); break;
         }
     }
+    q_rank = RK_KEEP;
 }
 
 static int mover_sprite(int kind, int down, int t, int i, int *dy)
@@ -491,12 +553,22 @@ static void draw_fox(const world *w, int cam, int sx, int sy, int t)
 }
 
 /* ---- text and the HUD ---------------------------------------------------------------------------------------------------- */
+/* co-op HUD (2-4 parents), in the sky band: the FAMILY score in big digits in the middle; each parent's head icon
+ * (in its palette) with the ducklings in its line beside it, P1 and P2 on the left, P3 and P4 on the right */
+static const int16_t hud_icon_x[MAX_PLAYERS] = {2, 42, 236, 276};
+static int hud_count_col(int p) { return (hud_icon_x[p] + 27) / 8; }      /* 3, 8, 32, 37 */
+static int in_run(const duck *d) { return d->state == DK_READY || d->state == DK_ALIVE; }
+
 static void hud(const world *w, int state, int best)
 {
     char s[24];
     int line = world_line_total(w);
-    int score = world_score(w, 0), score2 = w->players > 1 ? world_score(w, 1) : -1;
-    if (line != hud_line || best != hud_best || score2 != hud_score2) {
+    int score = world_score(w, 0), sig = -1;
+    if (w->players > 1) {                          /* what the text shows: every parent's line and whether it is out */
+        sig = 0;
+        for (int p = 0; p < w->players; p++) sig = sig * 64 + (in_run(&w->d[p]) ? 1 + w->d[p].nline : 0);
+    }
+    if (line != hud_line || best != hud_best || sig != hud_score2) {
         hu_clear_rows(0, 1);
         hu_clear_rows(1, 1);
         if (state != DS_TITLE) {
@@ -506,15 +578,16 @@ static void hud(const world *w, int state, int best)
                 snprintf(s, sizeof s, "BEST %d", best);
                 hu_text(39 - (int)strlen(s), 1, s);
             } else {
-                snprintf(s, sizeof s, "%d", w->d[0].nline);
-                hu_text(3, 1, s);
-                snprintf(s, sizeof s, "%d", w->d[1].nline);
-                hu_text(38 - (int)strlen(s), 1, s);
+                for (int p = 0; p < w->players; p++) {
+                    if (!in_run(&w->d[p])) continue;
+                    snprintf(s, sizeof s, "%d", w->d[p].nline);
+                    hu_text(hud_count_col(p), 1, s);
+                }
             }
         }
         hud_line = line;
         hud_best = best;
-        hud_score2 = score2;
+        hud_score2 = sig;
     }
     hud_score = score;
 }
@@ -525,49 +598,66 @@ static void hud_sprites(const world *w, int t)
         hu_number(world_score(w, 0), RS_SCREEN_W / 2, 0, 3);
         spr(SPR_LING_RIGHT + ((t / 16) & 1), 4, 0, 3, -1, 0);
     } else {
-        hu_number(world_score(w, 0), 88, 0, 3);
-        hu_number(world_score(w, 1), 232, 0, 3);
-        spr(SPR_LING_RIGHT, 4, 0, 3, -1, 0);
-        spr(SPR_LING_LEFT, 316 - 24, 0, 3, -1, 0);
-        spr(SPR_DUCK_RIGHT, 40, 0, 3, 0, 0);
-        spr(SPR_DUCK_LEFT, 264, 0, 3, 1, 0);
+        hu_number(world_total(w), RS_SCREEN_W / 2, 0, 3);
+        for (int p = 0; p < w->players; p++)
+            if (in_run(&w->d[p])) spr(SPR_DUCK_HEAD + (w->bank_t[p] >= 0 && w->bank_t[p] < 30), hud_icon_x[p], 0, 3, pal_of(p), 0);
     }
 }
+
+/* a parent's head (the title's slots, the HUD, the results): hu_title_sprites calls it for each joined player */
+static void slot_icon(int p, int cx, int cy, int t, void *user)
+{
+    (void)user;
+    int age = hu_player_age(p), quack = age < 20 || (t + p * 37) % 150 < 10;
+    spr(SPR_DUCK_HEAD + quack, cx - 8, cy - 8 + (age >= 20 ? hu_bob(t + p * 16, 64, 1) : 0), 3, pal_of(p), 0);
+}
+
+/* the results of 2-4 parents: each one's own score ranked (the family score is shared: its own panel below) */
+static void standing(const world *w, hu_standing *s)
+{
+    int sc[MAX_PLAYERS];
+    for (int p = 0; p < w->players; p++) sc[p] = world_score(w, p);
+    hu_rank(s, w->players, sc, sc);
+}
+
+static int family_row(const hu_standing *s) { return 8 + 3 * s->n + 4; }   /* under the ranking's panel */
 
 static void screen_text(const world *w, int state, int st_t, int best, int new_best)
 {
     char s[48];
+    hu_standing rs;
+    if (state == DS_OVER && w->players > 1) standing(w, &rs);
     if (state != shown_state || best != shown_best || w->players != shown_players ||
         (state == DS_OVER && st_t == RETRY_LOCK)) {
         hu_clear();
         hud_line = -1;
-        if (state == DS_TITLE) {
-            hu_logo("DUCK PARADE", title_ramps, 2, 2, 0);
-            snprintf(s, sizeof s, "BEST %d", best);
-            if (best > 0) hu_text(hu_center(s, 0), 24, s);
-            hu_copyright(28);
-        }
-        if (state == DS_READY) hu_get_ready(6);
+        if (state == DS_TITLE) hu_logo("DUCK PARADE", title_ramps, 2, 2, 0);
         if (state == DS_OVER) {
-            hu_banner(4, "GAME OVER");
             if (w->players == 1) {
+                hu_banner(4, "GAME OVER");
                 hu_gameover_panel(1, new_best, world_score(w, 0), 0);
-            } else {
-                hu_panel(10, 9, 20, 12);
-                hu_box_text(12, 11, "MOTHER");
-                hu_box_text(12, 14, "FATHER");
-                hu_box_text(12, 17, "FAMILY");
+            } else {                                /* the parents ranked, the family score under them */
+                hu_results_panel(&rs, "GAME OVER");
+                int r = family_row(&rs);
+                hu_panel(8, r, 24, 4);
+                hu_box_text(10, r + 1, "FAMILY");
+                if (new_best) hu_box_text(10, r + 2, "NEW BEST!");
+                else {
+                    snprintf(s, sizeof s, "BEST %d", best);
+                    hu_box_text(10, r + 2, s);
+                }
             }
         }
         shown_state = state;
         shown_best = best;
         shown_players = w->players;
     }
-    if (state == DS_TITLE || state == DS_READY) {
-        hu_prompt(21, "PRESS A TO HOP", st_t);
-        if (state == DS_READY || w->players == 2) hu_join_line(26, w->players, "FAMILY WALK!");
+    /* the title, every frame: the prompt (PRESS ANY ARROW TO HOP), the parents' slots, BEST, the join line, credits */
+    if (state == DS_TITLE) hu_title_draw(st_t, best);
+    if (state == DS_OVER) {
+        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, "A: HOP AGAIN");
+        else hu_retry_line_at(hu_results_retry_row(&rs), st_t, RETRY_LOCK, "A: HOP AGAIN");
     }
-    if (state == DS_OVER) hu_retry_line(st_t, RETRY_LOCK, "A: HOP AGAIN");
 }
 
 /* the family photo after a banking: a small panel with the family in it, sliding down, then up */
@@ -587,7 +677,7 @@ static void photo(const world *w, int cam, int t)
     int n = photo_n > 9 ? 9 : photo_n;
     int x0 = 160 - (n + 1) * 7;
     int pop = hu_ease_back(k, 14, 8);
-    spr(SPR_DUCK_DOWN + ((t / 20) % 30 == 0 ? 3 : 0), x0 - 4, top + 8 - pop, 3, photo_p == 1 ? 1 : 0, 0);
+    spr(SPR_DUCK_DOWN + ((t / 20) % 30 == 0 ? 3 : 0), x0 - 4, top + 8 - pop, 3, pal_of(photo_p), 0);
     for (int i = 0; i < n; i++) {
         int pi = hu_ease_back(k - 3 - i * 2, 12, 8);
         if (k - 3 - i * 2 >= 0) spr(SPR_LING_DOWN + (((t / 10) + i) % 7 == 0), x0 + 12 + i * 14, top + 10 - pi, 3, -1, 0);
@@ -638,14 +728,20 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
             } else {
                 hu_box_text(22, 17, "-");
             }
-        } else {
-            hu_number(world_score(w, 0), 25 * 8, 11 * 8 - 4 + oy, 3);
-            hu_number(world_score(w, 1), 25 * 8, 14 * 8 - 4 + oy, 3);
-            hu_number(world_total(w), 25 * 8, 17 * 8 - 4 + oy, 3);
+        } else {                                    /* the ranking (medals by place), the parents' heads, the family */
+            hu_standing rs;
+            standing(w, &rs);
+            hu_results_sprites(&rs, st_t, oy);
+            for (int i = 0; i < rs.n; i++) {
+                int cx, cy;
+                hu_results_icon_pos(&rs, i, &cx, &cy);
+                spr(SPR_DUCK_HEAD + (rs.rank[i] == 0 && (st_t / 24) % 4 == 0), cx - 8, cy - 8 + oy, 3, pal_of(rs.order[i]), 0);
+            }
+            hu_number(world_total(w), 24 * 8, (family_row(&rs) + 1) * 8 - 4 + oy, 3);
+            if (new_best && (st_t / 20) % 3 == 0) hu_sparkle(27 * 8 + 4, (family_row(&rs) + 1) * 8 - 4 + oy, (st_t / 10) % 2, 3);
         }
     }
-    if (state == DS_TITLE || state == DS_READY)
-        hu_glyph(HU_BTN_A, hu_center("PRESS A TO HOP", 0) * 8 - 12, 21 * 8 - 4, (t / 30) % 2, 3);
+    if (state == DS_TITLE) hu_title_sprites(st_t, slot_icon, NULL);   /* the D-pad glyph, the parents popping in */
     if (state == DS_TITLE) {
         /* Mother and three ducklings march in place under the logo */
         int x = 128, y = 104;
@@ -674,6 +770,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     draw_loose(w, cam, sx, sy, t);
     draw_traffic(w, cam, sx, sy, t, 0);
     draw_traffic(w, cam, sx, sy, t, 1);
+    spr_flush();
 }
 
 /* ---- save states (main.c) ---- */
@@ -682,7 +779,7 @@ void draw_state(void)
 {
     S(line_col); S(bg2_dx); S(drawn_col); S(drawn_shift); S(shown_state); S(shown_best); S(shown_players); S(facing);
     S(math_mode); S(flash_k); S(fog_w); S(hud_score); S(hud_line); S(hud_best); S(hud_score2); S(photo_t); S(photo_n);
-    S(photo_p); S(scroll_reg); S(fx); S(fx_rng);
+    S(photo_p); S(scroll_reg); S(fx); S(fx_rng); S(spr_dropped);
     RS_STATE_RASTER(raster);
 }
 #undef S

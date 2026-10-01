@@ -22,14 +22,20 @@ scenario() {
     else echo "  FAIL $name (fresh process):"; echo "$out" | grep "FAIL\|first"; fail=1; fi
 }
 
-# the title (the music plays), then A and the first hop
-printf "150 tap A\n180 tap RIGHT\n" > "$O/duckparade-title.input"
+# the title (the music plays), then A and the first hop (it stops before the idle run is over: a best score is kept in the
+# battery save, which a state does not take back, so a game over inside the replayed frames would differ in-process)
+printf "150 tap A\n" > "$O/duckparade-title.input"
 scenario title 60 200
 # the bot far into a run: traffic, rivers, ducklings in the line
 scenario run 1500 600 bot=1 ready=1 seed=11
 # Mother and Father
 printf "20 P2 tap A\n" > "$O/duckparade-coop.input"
 scenario coop 900 500 bot=2 ready=1 seed=12
+# four parents: joined on the title (the lobby is saved), a run of 4 bots, 4 bots stopping at 20 (the fox, the results)
+printf "20 P2 tap A\n25 P3 tap A\n30 P4 tap A\n" > "$O/duckparade-join4.input"
+scenario join4 45 100
+scenario coop4 900 400 bot=4 ready=1 seed=12
+scenario over4 1700 300 bot=4 botstop=20 ready=1 seed=14
 # paused at the save (Start), resumed after it
 printf "600 tap START\n760 tap START\n" > "$O/duckparade-paused.input"
 scenario paused 700 300 bot=1 ready=1 seed=13

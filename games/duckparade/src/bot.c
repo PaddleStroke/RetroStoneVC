@@ -14,6 +14,7 @@
  */
 #include "dp.h"
 #include "assets.h"
+#include "house_ui.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -24,6 +25,7 @@ int draw_scroll_x(void);
 #define BEHIND 2
 #define HORIZON 160               /* frames of the search */
 #define HORIZON_LONG 420          /* ... when nothing ahead is in reach (a dead end: the way round is long) */
+#define CROWD_PENALTY 150         /* co-op: hopping onto another parent's cell costs this (in frames of the score) */
 
 enum { C_NONE, C_GRASS, C_BLOCK, C_ROAD, C_RAIL, C_PARK, C_POND, C_PAD, C_NEST, C_RIVER };
 static uint8_t cls[65536];        /* BG3 map entry (a cell's top-left) -> what it shows */
@@ -43,6 +45,7 @@ static int wait_frames[MAX_PLAYERS];
 static int last_press[MAX_PLAYERS];
 static uint16_t dead[32];         /* per map slot: rows found to be dead ends (lily pads with no way on) */
 static uint32_t dead_until[32];
+static uint32_t looked_at = 0xffffffffu;   /* the frame the screen was last looked at (one look a frame for all bots) */
 
 static int slot_of(int scroll, int j) { return ((scroll + j * 16 - (scroll & 15)) >> 4) & 31; }
 static int is_dead(int scroll, int j, int y)
@@ -57,6 +60,15 @@ void bot_reset(void)
     memset(tr, 0, sizeof tr);
     memset(dead, 0, sizeof dead);
     for (int p = 0; p < MAX_PLAYERS; p++) wait_frames[p] = 0, last_press[p] = 0;
+    looked_at = 0xffffffffu;
+}
+
+/* which parent a duck sprite is: its palette (the house rule: P1 OBJ 0, P2 OBJ 1, P3 OBJ 4, P4 OBJ 5) */
+static int parent_of_pal(int pal)
+{
+    for (int p = 0; p < MAX_PLAYERS; p++)
+        if (hu_player_pal(p) == pal) return p;
+    return -1;
 }
 
 static void build_cls(void)
@@ -104,7 +116,8 @@ static void look(int scroll)
         if (!s || !s->used || (s->flags & RS_SPR_HIDE)) continue;
         int t = s->tile, kind = -1, dir = 0, y = s->y - FIELD_Y, h = s->h;
         if (spr_in(t, SPR_DUCK_RIGHT, 4) || spr_in(t, SPR_DUCK_LEFT, 4) || spr_in(t, SPR_DUCK_UP, 4) || spr_in(t, SPR_DUCK_DOWN, 4)) {
-            if (s->prio == 2 && s->pal < MAX_PLAYERS) { me_x[s->pal] = s->x; me_y[s->pal] = s->y; me_found[s->pal] = 1; }
+            int p = parent_of_pal(s->pal);
+            if (s->prio == 2 && p >= 0) { me_x[p] = s->x; me_y[p] = s->y; me_found[p] = 1; }
             continue;
         }
         static const int cars[6] = {SPR_CAR0, SPR_CAR1, SPR_CAR2, SPR_CAR3, SPR_CAR4, SPR_CAR5};
@@ -281,7 +294,10 @@ int bot_decide(int player)
 {
     if (!cls_ready) build_cls();
     int scroll = draw_scroll_x();
-    if (player == 0 || opt_bot < 2) look(scroll);
+    if (looked_at != rs_frame_count()) {           /* the first bot to decide this frame looks for all of them */
+        look(scroll);
+        looked_at = rs_frame_count();
+    }
     if (wait_frames[player] > 0) { wait_frames[player]--; return 0; }
     if (!me_found[player]) return 0;
     int fine = scroll & 15;
@@ -336,6 +352,13 @@ int bot_decide(int player)
         if (any < 0) continue;
         int score = reach >= 0 ? reach * 1000 - when : -100000 + any * 1000 - any_when;
         if (f >= 0 && reach == n - 1) score += 500;
+        /* co-op: the other parents it sees on the screen: it would rather not land on one of them (four bots do not
+         * walk in one pile; alone, nothing changes) */
+        for (int q = 0; q < MAX_PLAYERS; q++) {
+            if (q == player || !me_found[q]) continue;
+            int jq = (me_x[q] + fine + 8) >> 4, rq = clampi((me_y[q] - FIELD_Y + CELL / 2) / CELL, 0, ROWS - 1);
+            if (moves[m] && j0 + j2 == jq && (y2 + CELL / 2) / CELL == rq) score -= CROWD_PENALTY;
+        }
         if (want_lost >= 0 && !fox_near) {
             uint32_t goal[JUDGE_WORDS] = {0};
             bits_set(goal, want_row * CELL);
@@ -378,6 +401,7 @@ int bot_decide(int player)
 void bot_state(void)
 {
     S(tr); S(wait_frames); S(last_press); S(seen); S(nseen); S(me_x); S(me_y); S(me_found); S(dead); S(dead_until);
+    S(looked_at);
 }
 #undef S
 
