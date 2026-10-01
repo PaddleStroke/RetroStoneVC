@@ -1,8 +1,8 @@
 # Pancake Tower (games/pancaketower): its make targets, included by the root Makefile.
 #
 #   make pancaketower                host builds: pancaketower (SDL2), pancaketower_headless, pancaketower_libretro.so
-#   make pancaketower-check          all its tests (the rules, libretro loader, smoke + bot + determinism, UI screens,
-#                                    save states and their audit)
+#   make pancaketower-check          all its tests (the rules, the breakthroughs frame by frame, libretro loader, smoke +
+#                                    bot + determinism, UI screens, save states and their audit)
 #   make pancaketower-dist           dist/windows/PancakeTower.exe, dist/libretro/pancaketower_libretro.so (+ .armhf.so)
 #   make pancaketower-windows        only the Windows exe
 #   make pancaketower-armhf          the libretro core for the RetroStone2 (Cortex-A7)
@@ -34,10 +34,15 @@ build/host/pancaketower_test_tower: build/host/$(PT_DIR)/tests/test_tower.o buil
 	$(HOST_CC) -o $@ $^ -lm
 
 PT_OBJ_HOST = $(patsubst %.c,build/host/%.o,$(wildcard $(PT_DIR)/src/*.c) $(HOUSE_SRC) build/gen/pancaketower/assets.c)
+# the breakthrough test runs the whole game (runtime, draw, the bot) and checks the picture against the world
+build/host/$(PT_DIR)/tests/test_break.o: build/gen/pancaketower/assets.c
+build/host/pancaketower_test_break: build/host/$(PT_DIR)/tests/test_break.o $(PT_OBJ_HOST) build/host/librs.a
+	$(HOST_CC) -o $@ $^ -lm
 
 pancaketower-check:
-	+$(PT_MAKE) host build/host/test_libretro build/host/pancaketower_test_states build/host/pancaketower_test_tower
+	+$(PT_MAKE) host build/host/test_libretro build/host/pancaketower_test_states build/host/pancaketower_test_tower 	    build/host/pancaketower_test_break
 	./build/host/pancaketower_test_tower
+	sh $(PT_DIR)/tests/break_test.sh build/host/pancaketower_test_break build
 	./build/host/test_libretro build/host/pancaketower_libretro.so 600
 	sh $(PT_DIR)/tests/smoke_test.sh build/host/pancaketower_headless build
 	sh $(PT_DIR)/tests/bot_test.sh build/host/pancaketower_headless build

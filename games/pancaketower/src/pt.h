@@ -142,5 +142,11 @@ extern int opt_bot;
 
 /* main.c: test hooks */
 const match *pt_test_match(int *state);
+/* draw.c: test hook (tests/test_break.c) */
+typedef struct pt_view_info {
+    int cam, w, h, x, y, sx0, pcol0, ncols, shx, shy, anchor;
+    int hole_on[2], hx0[2], hx1[2];       /* the ceiling's and the roof's holes (world x) */
+} pt_view_info;
+void draw_test_view(int p, pt_view_info *o);
 
 #endif

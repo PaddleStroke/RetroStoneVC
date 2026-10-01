@@ -77,17 +77,23 @@
 #define SYRUP_SLIP_2P   4
 #define SPLASH_EVERY    3           /* every 3rd perfect of a chain splashes syrup on the rival */
 
-/* ---- the journey (world y: 0 = the top of the plate, up) ------------------------------------------------ */
-#define CEILING_Y    96             /* the ceiling slab 96..120: the 13th layer crashes through it */
-#define ROOF_Y       168            /* the roof 168..192: the 22nd layer pokes out */
-#define SEG_H        256            /* a scenery segment */
-#define SEG_KITCHEN  0              /* -64 .. 192 */
-#define SEG_SKY      1              /* 192 .. 448 */
+/* ---- the journey (world y: 0 = the top of the plate, up; tools/make_art.py draws the house to these numbers) -------
+ * The kitchen fills the screen at the start, its ceiling at the top. The camera stays below each ceiling until the
+ * tower breaks through it (draw.c): what is above a ceiling is only seen once the tower is through. */
+#define FLOOR_Y      (-40)          /* the kitchen floor */
+#define CEILING_Y    152            /* the kitchen ceiling 152..192 (cornice, plaster, joists, the attic's boards): */
+#define CEILING_TOP  192            /*   the 20th layer crashes through it */
+#define ROOF_Y       288            /* the attic 192..288, then the roof in section 288..336 (boards, rafters, tiles): */
+#define ROOF_TOP     336            /*   the 37th layer breaks out through it */
+#define RIDGE_Y      396            /* the roof seen from above 336..396 (the chimney rises to 424), then the sky */
+#define SEG_H        256            /* a scenery segment (art): the house is segments 0 and 1 */
+#define SEG_BASE_Y   (-64)          /* the bottom of segment 0 */
+/* the zones of the journey (the music, the tests) */
+#define SEG_KITCHEN  0              /* the house, up to the roof's top */
+#define SEG_SKY      1              /* ROOF_TOP .. 448 */
 #define SEG_CLOUDS   2              /* 448 .. 704 */
 #define SEG_STRATO   3              /* 704 .. 960 */
 #define SEG_SPACE    4              /* 960 .. (repeats) */
-#define SEG_BASE_Y   (-64)          /* the bottom of segment 0 (the kitchen floor is at -40) */
-#define FLOOR_Y      (-40)
 
 /* ---- the screen ------------------------------------------------------------------------------------------ */
 #define TOP_SCREEN_Y 120            /* the camera keeps the top of the tower here once it is that high */

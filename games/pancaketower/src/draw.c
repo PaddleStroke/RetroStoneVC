@@ -23,6 +23,19 @@
 #define PIECES      2
 #define DYN_PER_PLAYER 96                          /* OBJ tiles: slider 16, top 16, 2 pieces x 32 */
 #define CHEF_X      (-132)                         /* the chef's left, world x (1 player, in the kitchen) */
+#define PANO_CX     160                            /* the plate's centre in the near panorama (px) */
+#define TOP_MARGIN  40                             /* the camera keeps this much of a ceiling above the tower */
+
+/* the holes the tower breaks: the kitchen ceiling and the roof. Their rows are carved at run time into copies of the
+ * scenery's tiles (BG3), pixel-exact around the layer that broke through, with a broken rim; the tower is held by
+ * them (no sway below a hole's top), so the hole and the tower always line up. */
+enum { H_CEIL, H_ROOF, HOLES };
+static const int HOLE_Y0[HOLES] = {CEILING_Y, ROOF_Y}, HOLE_Y1[HOLES] = {CEILING_TOP, ROOF_TOP};
+#define CARVE_ROWS  ((CEILING_TOP - CEILING_Y + ROOF_TOP - ROOF_Y) / 8)
+#define CARVE_SLOTS 4                              /* run-time tiles per carved row: 2 at each edge */
+#define JAG_MAX     3                              /* the broken rim reaches this far past the layer */
+#define SHAKE_MAX   3                              /* px: the largest screen shake (hu_shake) */
+static int floor8(int y) { return y >= 0 ? y / 8 : -((-y + 7) / 8); }
 
 /* the title logo: "PANCAKE" golden, "TOWER" syrup (house_style ACCENTS pancake, syrup) */
 static const rs_color title_ramps[2][3] = {
@@ -30,10 +43,14 @@ static const rs_color title_ramps[2][3] = {
     {RS_RGB8(236, 150, 84), RS_RGB8(196, 104, 44), RS_RGB8(140, 62, 26)}};
 
 /* ---- the views (one per player) --------------------------------------------------------------------------- */
+typedef struct hole { int on, x0, x1, seed; } hole;   /* x: the layer's extent that broke through (world x) */
+
 typedef struct view {
-    int cam;                        /* world y of the screen's bottom line (line 239 shows the strip cam) */
+    int cam;                        /* world y of the view's bottom line (line h - 1 shows the strip cam) */
     int sx0;                        /* screen x of the plate's centre (viewport coordinates) */
-    int w;                          /* the view's width */
+    int w, h, y0;                   /* the view's size, its top line on the screen */
+    int top_line;                   /* the camera keeps the tower's top on this line once it is that high */
+    hole hole[HOLES];
     int bg2_cx, bg2_col0, bg2_cols; /* BG2: the plate's centre (map px), the player's columns */
     int near_col0, near_pcol0, near_cols;   /* BG3: map columns <- panorama columns */
     int far_col0;
@@ -45,8 +62,6 @@ typedef struct view {
     int jiggle;                     /* frames since the last landing */
     int top_key, slider_key;        /* what the dynamic sprites were drawn for */
     int top_squash;
-    int crashed, roofed;            /* the ceiling / roof holes: their x extents */
-    int hole_x0, hole_x1, roof_x0, roof_x1;
     int chef_pose, chef_t, portrait_t;
     int bottle_t;
     int drip_t;
@@ -62,13 +77,15 @@ typedef struct piece {
 
 typedef struct fx_obj { int kind, player, t, life, frame; int32_t x, y, vx, vy; } fx_obj;
 enum { FX_NONE, FX_PLASTER, FX_DUST, FX_ROOFTILE, FX_BURST, FX_SPARK, FX_DRIP, FX_CRUMBS, FX_PLUS, FX_SPLASH_IN,
-       FX_SWEAT, FX_TOPPING };
+       FX_SWEAT, FX_TOPPING, FX_SPLINTER };
 enum { CH_IDLE, CH_CHEER, CH_PANIC, CH_DESPAIR };
 
 static view V[MAX_PLAYERS];
 static piece PC[MAX_PLAYERS][PIECES];
 static fx_obj FXS[FX_MAX];
 static int nviews, shown_state = -1, shown_best = -1, shown_players = -1, title_logo_on;
+static int near_pal_last;
+static int medals_loaded;                          /* the fork medals' tiles (VRAM: only when one is shown) */                          /* the last near palette is in BG palette 5 (not the logo's) */
 static rs_viewport vps[4];
 static int nvps;
 int opt_nodraw_bg;
@@ -81,7 +98,7 @@ static const int16_t SIN64[64] = {
     -4096, -4076, -4017, -3920, -3784, -3612, -3406, -3166, -2896, -2598, -2276, -1931, -1567, -1189, -799, -402};
 static int isin(int a) { return SIN64[a & 63]; }  /* Q12 */
 
-static int line_of(const view *v, int wy) { return 239 + v->cam - wy; }   /* the screen line showing strip wy */
+static int line_of(const view *v, int wy) { return v->h - 1 + v->cam - wy; }   /* the view line showing strip wy */
 
 static void spr(int id, int x, int y, int prio, int pal, int flags, int vw)
 {
@@ -92,12 +109,21 @@ static void spr(int id, int x, int y, int prio, int pal, int flags, int vw)
 
 static int dyn_tile(int p, int k) { return OBJ_DYN_TILE + p * DYN_PER_PLAYER + k; }
 
-/* the wobble of layer i of a tower of n layers (px, visual only) */
+/* the highest layer held still: the plate's, or the top layer inside a hole the tower broke (it holds the tower) */
+static int anchor_layer(const view *v)
+{
+    if (v->hole[H_ROOF].on) return ROOF_TOP / ROW_H - 1;
+    if (v->hole[H_CEIL].on) return CEILING_TOP / ROW_H - 1;
+    return 0;
+}
+
+/* the wobble of layer i of a tower of n layers (px, visual only): it sways above its anchor */
 static int wobble(const view *v, int i, int n, int t)
 {
-    if (i <= 0) return 0;
-    int amp = WOBBLE_MAX * 256 * (n < WOBBLE_FULL_H ? n : WOBBLE_FULL_H) / WOBBLE_FULL_H;   /* Q8 */
-    int h = n > 1 ? i * 256 / n : 256;                                    /* Q8: 0 at the plate, 1 at the top */
+    int a = anchor_layer(v), free = n - 1 - a;
+    if (i <= a || free <= 0) return 0;
+    int amp = WOBBLE_MAX * 256 * (free < WOBBLE_FULL_H ? free : WOBBLE_FULL_H) / WOBBLE_FULL_H;   /* Q8 */
+    int h = (i - a) * 256 / free;                                         /* Q8: 0 at the anchor, 1 at the top */
     int w = amp * h / 256 * h / 256 * isin(t * 64 / WOBBLE_PERIOD) / 4096;
     if (v->jiggle < JIGGLE_FRAMES) {
         int j = JIGGLE_PX * 256 * (JIGGLE_FRAMES - v->jiggle) / JIGGLE_FRAMES;
@@ -107,8 +133,9 @@ static int wobble(const view *v, int i, int n, int t)
 }
 
 /* ---- the sky: a colour per world height ---------------------------------------------------------------------- */
+/* a morning sky through the kitchen window, blue above the roof, a paler band in the clouds, then night */
 static const struct { int wy; uint32_t c; } SKY[] = {
-    {0, 0xe4f4fa}, {200, 0x96cef4}, {450, 0x60a8ec}, {600, 0x82bef4}, {760, 0x4664be}, {900, 0x242c78},
+    {40, 0xe4f4fa}, {RIDGE_Y, 0x9ed2f4}, {520, 0x62aaec}, {640, 0x82bef4}, {760, 0x4664be}, {900, 0x242c78},
     {1000, 0x121034}, {1100, 0x080818}};
 
 static void sky_colour(int wy, int rgb[3])
@@ -130,9 +157,9 @@ static void sky_update(view *v)
 {
     if (v->col_cam == v->cam) return;
     v->col_cam = v->cam;
-    for (int y = 0; y < RS_SCREEN_H; y++) {
-        int rgb[3];
-        sky_colour(v->cam + 239 - y, rgb);
+    for (int l = 0; l < v->h; l++) {
+        int rgb[3], y = v->y0 + l;
+        sky_colour(v->cam + v->h - 1 - l, rgb);
         /* house rule: a 2-line dither step every 8 lines keeps the RGB555 bands soft */
         int d = (y & 4) != 0;
         v->line_col[y] = RS_RGB8(clampi(rgb[0] + (d ? 4 : 0), 0, 255), clampi(rgb[1] + (d ? 2 : 0), 0, 255),
@@ -140,7 +167,7 @@ static void sky_update(view *v)
     }
 }
 
-/* the raster callback: the sky of the view being drawn, its wobble table */
+/* the raster callback: the sky of the view being drawn, its wobble table (both by screen line) */
 static void raster(int line, void *user)
 {
     (void)user;
@@ -151,6 +178,9 @@ static void raster(int line, void *user)
 }
 
 /* ---- set-up ------------------------------------------------------------------------------------------------ */
+static int void_tile0(void) { return pt_near_tile_count; }                      /* BG3, relative: a solid hole */
+static int carve_tile0(void) { return pt_near_tile_count + NEAR_PALS; }         /* BG3, relative: carved rows */
+
 void draw_init(void)
 {
     hu_config hc = hu_defaults();       /* BG1 at VRAM 0, the kit at 0 on palette 0, the logo at 320 */
@@ -166,6 +196,14 @@ void draw_init(void)
     rs_bg_setup(RS_BG4, 64, 32, VR_BG4);
     render_init();
     rs_tiles_load(VR_BG3, pt_near_tiles, pt_near_tile_count);
+    static const int void_idx[NEAR_PALS] = NEAR_VOID;
+    for (int k = 0; k < NEAR_PALS; k++) {        /* the inside of a hole, one per palette (the "dark" colour) */
+        uint8_t t[64];
+        memset(t, void_idx[k], sizeof t);
+        rs_tiles_load8(VR_BG3 + void_tile0() + k, t, 1);
+    }
+    if (carve_tile0() + MAX_PLAYERS * CARVE_ROWS * CARVE_SLOTS > BG3_TILES)
+        rs_log("draw: the carved holes overflow BG3's tiles (%d)", carve_tile0() + MAX_PLAYERS * CARVE_ROWS * CARVE_SLOTS);
     rs_tiles_load(VR_BG4, pt_far_tiles, pt_far_tile_count);
     rs_pal_load(RS_PAL_BG(PAL_TOWER), pt_tower_pal, 16);
     rs_pal_load(RS_PAL_BG(PAL_TOPPING), pt_topping_pal, 16);
@@ -175,7 +213,8 @@ void draw_init(void)
     for (int p = 0; p < 8; p++)
         if (p != OBJ_KIT) rs_pal_load(RS_PAL_OBJ(p), pt_obj_pals + p * 16, 16);
     rs_obj_base(VR_OBJ);
-    rs_tiles_load(VR_OBJ, pt_obj_tiles, pt_obj_tile_count);
+    /* the sprites, but the fork medals (the last group): they are loaded when a 1-player game-over panel shows one */
+    rs_tiles_load(VR_OBJ, pt_obj_tiles, pt_spr[SPR_MEDAL].tile);
     for (int l = 0; l < 4; l++) rs_bg_enable(l, 1);
     rs_raster(raster, NULL);
 }
@@ -186,6 +225,8 @@ static void reset_view(view *v, int p, int players)
     v->cam = CAM0;
     v->col_cam = NO_ROW;
     v->top_key = v->slider_key = -1;
+    v->h = RS_SCREEN_H;
+    v->top_line = TOP_SCREEN_Y;
     for (int r = 0; r < 32; r++) v->near_row[r] = v->far_row[r] = NO_ROW;
     if (players == 1) {
         v->w = RS_SCREEN_W;
@@ -202,21 +243,50 @@ static void reset_view(view *v, int p, int players)
     }
 }
 
+/* the highest the camera may go: the view's top line stays under a ceiling the tower has not broken yet (with
+ * TOP_MARGIN of it in view above the tower), so what lies above a ceiling is first seen once the tower is through */
+static int cam_limit(const view *v)
+{
+    if (!v->hole[H_CEIL].on) return CEILING_Y + TOP_MARGIN - v->h;
+    if (!v->hole[H_ROOF].on) return ROOF_Y + TOP_MARGIN - v->h;
+    return 1 << 30;
+}
+
+static int cam_target(const view *v, const tower *tw)
+{
+    int target = tower_top_y(tw) - (v->h - v->top_line);
+    int lim = cam_limit(v);
+    if (target > lim) target = lim;
+    return target < CAM0 ? CAM0 : target;
+}
+
 void draw_reset(const match *m)
 {
     nviews = m->players;
     for (int p = 0; p < MAX_PLAYERS; p++) {
-        reset_view(&V[p], p, m->players);
-        int target = tower_top_y(&m->tw[p]) - (240 - TOP_SCREEN_Y);     /* a pre-stacked tower (start=N) */
-        if (p < m->players && target > V[p].cam) V[p].cam = target;
-        if (p < m->players && tower_top_y(&m->tw[p]) > CEILING_Y) {
-            V[p].crashed = 1;
-            V[p].hole_x0 = -m->tw[p].g.w0 / 2, V[p].hole_x1 = m->tw[p].g.w0 / 2;
+        view *v = &V[p];
+        reset_view(v, p, m->players);
+        if (p >= m->players) continue;
+        const tower *tw = &m->tw[p];
+        /* a pre-stacked tower (start=N): the holes it made (its layers there, or the first width if they are gone
+         * from the ring), then the camera */
+        for (int h = 0; h < HOLES; h++) {
+            int i = HOLE_Y0[h] / ROW_H;
+            if (tw->nlayers <= i) continue;
+            hole *ho = &v->hole[h];
+            ho->on = 1;
+            ho->seed = (int)((uint32_t)(i * 2654435761u + (uint32_t)p * 40503u) >> 20);
+            if (i >= tw->nlayers - RING) ho->x0 = tower_layer(tw, i)->x, ho->x1 = ho->x0 + tower_layer(tw, i)->w;
+            else ho->x0 = -tw->g.w0 / 2, ho->x1 = tw->g.w0 / 2;
+            for (int j = i + 1; j < HOLE_Y1[h] / ROW_H && j < tw->nlayers; j++)
+                if (j >= tw->nlayers - RING) {
+                    const layer *l = tower_layer(tw, j);
+                    if (l->x < ho->x0) ho->x0 = l->x;
+                    if (l->x + l->w > ho->x1) ho->x1 = l->x + l->w;
+                }
         }
-        if (p < m->players && tower_top_y(&m->tw[p]) > ROOF_Y) {
-            V[p].roofed = 1;
-            V[p].roof_x0 = -m->tw[p].g.w0 / 2, V[p].roof_x1 = m->tw[p].g.w0 / 2;
-        }
+        int target = cam_target(v, tw);
+        if (target > v->cam) v->cam = target;
     }
     memset(PC, 0, sizeof PC);
     memset(FXS, 0, sizeof FXS);
@@ -229,10 +299,96 @@ void draw_reset(const match *m)
 
 int draw_camera(int player) { return V[player].cam; }
 
-/* ---- streaming the rows ---------------------------------------------------------------------------------------- */
-static void stream_near(view *v)
+/* ---- the holes: carved into BG3's rows ---------------------------------------------------------------------------- */
+/* how far the broken rim reaches past the layer, by pixel row (0..JAG_MAX): ragged, the same for a given hole */
+static int jag(const hole *ho, int wy, int side)
 {
-    int k0 = (v->cam >= 0 ? v->cam : v->cam - 7) / 8, k1 = (v->cam + 239) / 8 + 1;
+    static const uint8_t J[16] = {1, 2, 3, 2, 1, 0, 1, 2, 2, 3, 2, 1, 1, 0, 1, 2};
+    return J[(wy / 2 + side * 5 + ho->seed) & 15];
+}
+
+/* the run-time tile of a carved row: its world row k, the slot j of 4 */
+static int carve_slot(int p, int k, int j)
+{
+    int ci = k * ROW_H < ROOF_Y ? (k * ROW_H - CEILING_Y) / ROW_H : (CEILING_TOP - CEILING_Y + k * ROW_H - ROOF_Y) / ROW_H;
+    return carve_tile0() + (p * CARVE_ROWS + ci) * CARVE_SLOTS + j;
+}
+
+/* one 8x8 tile of the near panorama (world row k, panorama column pc), decoded: palette index per pixel */
+static uint16_t near_tile(int k, int pc, uint8_t pix[64])
+{
+    int seg = (k * 8 - SEG_BASE_Y) >> 8, row = 31 - ((k + 8) & 31);
+    if (seg > NEAR_SEGS - 1) seg = NEAR_SEGS - 1;
+    uint16_t e = seg >= 0 ? pt_near_map[(seg * NEAR_H + row) * NEAR_W + pc] : 0;
+    const uint8_t *t = pt_near_tiles + RS_MAP_TILE(e) * RS_TILE_BYTES;
+    for (int y = 0; y < 8; y++)
+        for (int x = 0; x < 8; x++) {
+            int sx = (e & RS_MAP_HFLIP) ? 7 - x : x, sy = (e & RS_MAP_VFLIP) ? 7 - y : y;
+            uint8_t b = t[sy * 4 + sx / 2];
+            pix[y * 8 + x] = (uint8_t)((sx & 1) ? b & 15 : b >> 4);
+        }
+    return e;
+}
+
+/* the hole's pixels in world row k (ring row r) of view v: inside the hole the "dark" colour, the broken rim around */
+static void carve_row(view *v, int p, int k, int r)
+{
+    static const int void_idx[NEAR_PALS] = NEAR_VOID, rim_idx[NEAR_PALS] = NEAR_RIM, slots[NEAR_PALS] = NEAR_PAL_SLOTS;
+    for (int h = 0; h < HOLES; h++) {
+        const hole *ho = &v->hole[h];
+        if (!ho->on || k * ROW_H < HOLE_Y0[h] || k * ROW_H >= HOLE_Y1[h]) continue;
+        int ax0 = PANO_CX + ho->x0, ax1 = PANO_CX + ho->x1, used = 0;
+        for (int c = 0; c < v->near_cols; c++) {
+            int pc = v->near_pcol0 + c, px0 = pc * 8;
+            if (px0 + 8 < ax0 - JAG_MAX - 1 || px0 > ax1 + JAG_MAX) continue;
+            uint8_t pix[64];
+            uint16_t e = near_tile(k, pc, pix);
+            int pk = 0;
+            while (pk < NEAR_PALS - 1 && slots[pk] != RS_MAP_PAL(e)) pk++;
+            int any = 0, all = 1;
+            for (int y = 0; y < 8; y++) {
+                int wy = k * ROW_H + 7 - y, lo = ax0 - jag(ho, wy, 0), hi = ax1 + jag(ho, wy, 1);
+                for (int x = 0; x < 8; x++) {
+                    int X = px0 + x, in = X >= lo && X < hi, rim = X == lo - 1 || X == hi;
+                    if (in) pix[y * 8 + x] = (uint8_t)void_idx[pk];
+                    else if (rim && pix[y * 8 + x]) pix[y * 8 + x] = (uint8_t)rim_idx[pk];
+                    any |= in || rim;
+                    all &= in;
+                }
+            }
+            if (!any) continue;
+            uint16_t ne;
+            if (all) ne = RS_MAP(void_tile0() + pk, RS_MAP_PAL(e), 0, 0, 0);
+            else {
+                if (used >= CARVE_SLOTS) continue;     /* cannot happen: at most 2 tiles at each edge */
+                int slot = carve_slot(p, k, used++);
+                rs_tiles_load8(VR_BG3 + slot, pix, 1);
+                ne = RS_MAP(slot, RS_MAP_PAL(e), 0, 0, 0);
+            }
+            rs_bg_put(RS_BG3, v->near_col0 + c, r, opt_nodraw_bg ? 0 : ne);
+        }
+    }
+}
+
+/* (re)carve the rows of hole h that are in the ring now */
+static void carve_hole(view *v, int p, int h)
+{
+    for (int k = HOLE_Y0[h] / ROW_H; k < HOLE_Y1[h] / ROW_H; k++) {
+        int r = (-(k + 1)) & 31;
+        if (v->near_row[r] != k) continue;
+        /* back to the scenery's tiles, then the hole (a hole that widens) */
+        int seg = (k * 8 - SEG_BASE_Y) >> 8, row = 31 - ((k + 8) & 31);
+        const uint16_t *src = pt_near_map + (seg * NEAR_H + row) * NEAR_W;
+        for (int c = 0; c < v->near_cols; c++)
+            rs_bg_put(RS_BG3, v->near_col0 + c, r, opt_nodraw_bg ? 0 : src[v->near_pcol0 + c]);
+        carve_row(v, p, k, r);
+    }
+}
+
+/* ---- streaming the rows ---------------------------------------------------------------------------------------- */
+static void stream_near(view *v, int p)
+{
+    int k0 = floor8(v->cam - SHAKE_MAX), k1 = floor8(v->cam + v->h - 1 + SHAKE_MAX);   /* the rows a shake may show */
     for (int k = k0; k <= k1; k++) {
         int r = (-(k + 1)) & 31;
         if (v->near_row[r] == k) continue;
@@ -242,6 +398,7 @@ static void stream_near(view *v)
         const uint16_t *src = seg >= 0 ? pt_near_map + (seg * NEAR_H + row) * NEAR_W : NULL;
         for (int c = 0; c < v->near_cols; c++)
             rs_bg_put(RS_BG3, v->near_col0 + c, r, src && !opt_nodraw_bg ? src[v->near_pcol0 + c] : 0);
+        carve_row(v, p, k, r);
     }
 }
 
@@ -249,7 +406,7 @@ static int far_base(const view *v) { return (v->cam - CAM0) / 4; }
 
 static void stream_far(view *v)
 {
-    int fb = far_base(v), k0 = fb / 8, k1 = (fb + 239) / 8 + 1;
+    int fb = far_base(v), k0 = fb / 8, k1 = (fb + v->h - 1) / 8 + 1;
     for (int k = k0; k <= k1; k++) {
         int r = (-(k + 1)) & 31;
         if (v->far_row[r] == k) continue;
@@ -265,7 +422,7 @@ static int layer_key(const layer *l, int i) { return (i * 131 + l->x * 7 + l->w 
 
 static void stream_tower(view *v, int p, const tower *tw)
 {
-    int k0 = (v->cam >= 0 ? v->cam : v->cam - 7) / 8, k1 = (v->cam + 239) / 8 + 1;
+    int k0 = floor8(v->cam - SHAKE_MAX), k1 = floor8(v->cam + v->h - 1 + SHAKE_MAX);
     for (int k = k0; k <= k1; k++) {
         int r = (-(k + 1)) & 31;
         int baked = k >= 0 && k < tw->nlayers - 1 && k >= tw->nlayers - RING;
@@ -303,21 +460,48 @@ static int fx_rand(int n)
     return (int)(fx_seed % (uint32_t)n);
 }
 
-static void debris(int p, int x0, int x1, int y, int kind, int n)
+/* the tower breaks through hole h ([x0, x1): the layer's extent): chunks of what the hole was made in burst out of its
+ * two edges (the ceiling's plaster and joists fall into the kitchen; the roof's tiles and splinters are thrown up),
+ * dust puffs at its mouth; big = the first break (a wider layer that widens it makes a smaller one) */
+static void break_through(int p, int h, int x0, int x1, int big)
 {
+    int n = big ? (nviews > 1 ? 6 : 10) : 2;
     for (int i = 0; i < n; i++) {
-        int left = i & 1;
-        fx_obj *f = fx_new(kind, p, left ? x0 - fx_rand(6) : x1 + fx_rand(6), y + fx_rand(20));
-        if (!f) return;
-        f->vx = (left ? -1 : 1) * (100 + fx_rand(260));
-        f->vy = 150 + fx_rand(300);
-        f->frame = fx_rand(3);
-        f->life = 90;
+        int left = i & 1, wy = HOLE_Y0[h] + fx_rand(HOLE_Y1[h] - HOLE_Y0[h]);
+        int kind = FX_PLASTER, frame = fx_rand(2);
+        if (h == H_CEIL && wy >= CEILING_Y + 20) kind = i % 3 ? FX_PLASTER : FX_SPLINTER, frame = kind == FX_PLASTER ? 2 : fx_rand(2);
+        if (h == H_ROOF) kind = wy >= ROOF_Y + 28 ? FX_ROOFTILE : FX_SPLINTER, frame = fx_rand(2);
+        fx_obj *f = fx_new(kind, p, left ? x0 - 7 - fx_rand(3) : x1 - 1 + fx_rand(3), wy + 4);
+        if (!f) break;
+        f->vx = (left ? -1 : 1) * (70 + fx_rand(200));
+        f->vy = h == H_CEIL ? 40 + fx_rand(180) : 280 + fx_rand(240);
+        f->frame = frame;
+        f->life = 110;
     }
-    for (int i = 0; i < (nviews > 1 ? 2 : 4); i++) {
-        fx_obj *f = fx_new(FX_DUST, p, (i & 1) ? x0 - 6 : x1 + 6, y + 4 + i * 5);
-        if (f) { f->life = 30; f->vx = (i & 1) ? -60 : 60; f->vy = 20; }
+    int y = h == H_CEIL ? HOLE_Y0[h] + 2 : HOLE_Y1[h] + 10;   /* the dust: under the ceiling, over the roof */
+    for (int i = 0; i < (big ? (nviews > 1 ? 2 : 4) : 2); i++) {
+        fx_obj *f = fx_new(FX_DUST, p, (i & 1) ? x0 - 10 : x1 - 6, y + (i / 2) * 6);
+        if (f) { f->life = 34; f->vx = (i & 1) ? -40 : 40; f->vy = h == H_CEIL ? -30 : 40; }
     }
+}
+
+/* the tower's top layer opens hole h, or widens it */
+static void open_hole(view *v, int p, int h, const layer *l, int index)
+{
+    hole *ho = &v->hole[h];
+    if (!ho->on) {
+        ho->on = 1;
+        ho->x0 = l->x, ho->x1 = l->x + l->w;
+        ho->seed = (int)((uint32_t)(index * 2654435761u + (uint32_t)p * 40503u) >> 20);
+        break_through(p, h, ho->x0, ho->x1, 1);
+    } else if (l->x < ho->x0 || l->x + l->w > ho->x1) {
+        if (l->x < ho->x0) ho->x0 = l->x;
+        if (l->x + l->w > ho->x1) ho->x1 = l->x + l->w;
+        break_through(p, h, ho->x0, ho->x1, 0);
+    } else {
+        return;
+    }
+    carve_hole(v, p, h);
 }
 
 static void piece_launch(int p, const tower *tw, int whole)
@@ -398,23 +582,14 @@ void draw_events(const match *m)
             if (f) { f->life = 24; f->vx = -from * 110 * 256 / 24; f->vy = -60 * 256 / 24; }
         }
         if (ev & EV_CEILING) {
-            v->crashed = 1;
-            v->hole_x0 = top->x, v->hole_x1 = top->x + top->w;
             hu_shake(3, 12);
-            debris(p, top->x, top->x + top->w, CEILING_Y + 6, FX_PLASTER, nviews > 1 ? 5 : 8);
             chef_react(v, CH_PANIC, 60);
         }
-        if (ev & EV_ROOF) {
-            v->roofed = 1;
-            v->roof_x0 = top->x, v->roof_x1 = top->x + top->w;
-            hu_shake(2, 10);
-            debris(p, top->x, top->x + top->w, ROOF_Y + 6, FX_ROOFTILE, nviews > 1 ? 4 : 7);
-        }
-        /* the holes widen if a wider layer passes through the slab */
-        if (v->crashed && ty > CEILING_Y && ty <= CEILING_Y + 24 + 8) {
-            if (top->x < v->hole_x0) v->hole_x0 = top->x;
-            if (top->x + top->w > v->hole_x1) v->hole_x1 = top->x + top->w;
-        }
+        if (ev & EV_ROOF) hu_shake(2, 10);
+        /* the top layer in a ceiling or the roof: it breaks through (EV_CEILING, EV_ROOF), or widens the hole */
+        if (ev & (EV_LAND | EV_TOPPING_LAND))
+            for (int h = 0; h < HOLES; h++)
+                if (ty - ROW_H >= HOLE_Y0[h] && ty - ROW_H < HOLE_Y1[h]) open_hole(v, p, h, top, tw->nlayers - 1);
     }
 }
 
@@ -424,8 +599,7 @@ void draw_update(const match *m)
     for (int p = 0; p < m->players; p++) {
         const tower *tw = &m->tw[p];
         view *v = &V[p];
-        int target = tower_top_y(tw) - (240 - TOP_SCREEN_Y);
-        if (target < CAM0) target = CAM0;
+        int target = cam_target(v, tw);
         if (v->cam < target) v->cam += (target - v->cam + 7) / 8 > CAMERA_SPEED ? CAMERA_SPEED : (target - v->cam + 7) / 8;
         if (v->jiggle < 1000) v->jiggle++;
         if (v->top_squash > 0) v->top_squash--;
@@ -457,7 +631,7 @@ void draw_update(const match *m)
         if (f->kind == FX_NONE) continue;
         f->t++;
         switch (f->kind) {
-        case FX_PLASTER: case FX_ROOFTILE: case FX_CRUMBS:
+        case FX_PLASTER: case FX_ROOFTILE: case FX_CRUMBS: case FX_SPLINTER:
             f->vy -= 26;
             break;
         case FX_DRIP:
@@ -561,6 +735,7 @@ static void draw_fx(view *v, int p, int t)
         case FX_PLUS: spr(SPR_PLUS + f->frame, x, y - 8, 2, -1, 0, v->w); break;
         case FX_SPLASH_IN: spr(SPR_SPLASH + (f->t / 6) % 2, x - 8, y - 8, 2, -1, 0, v->w); break;
         case FX_TOPPING: spr(SPR_TOPPING + f->frame, x, y - 16, 2, -1, 0, v->w); break;
+        case FX_SPLINTER: spr(SPR_SPLINTER + (f->frame + f->t / 5) % 2, x, y, 2, -1, (f->t / 10) % 2 ? RS_SPR_HFLIP : 0, v->w); break;
         default: break;
         }
     }
@@ -580,28 +755,24 @@ static void draw_bottle(view *v, const tower *tw, int t)
         for (int y = by + 8; y < line_of(v, ty) - 2; y += 8) spr(SPR_STREAM, bx - 3, y, 2, -1, 0, v->w);
 }
 
-static void draw_holes(view *v, int n)
+/* the chimney's smoke: puffs rise from the flue, grow and drift to the right (a function of the frame: no state) */
+static void draw_smoke(view *v, int t)
 {
-    if (v->crashed) {
-        int y = line_of(v, CEILING_Y + 23);
-        spr(SPR_JAG_CEILING, v->sx0 + v->hole_x0 - 6 + hu_shake_x(), y, 2, -1, 0, v->w);
-        spr(SPR_JAG_CEILING, v->sx0 + v->hole_x1 - 2 + hu_shake_x(), y, 2, -1, RS_SPR_HFLIP, v->w);
+    const int fx = CHIMNEY_X - PANO_CX, fy = CHIMNEY_TOP;
+    if (line_of(v, fy) < -8 || line_of(v, fy + 100) > v->h + 8) return;
+    for (int k = 0; k < 5; k++) {
+        int age = (t + k * 40) % 200;
+        int x = v->sx0 + fx - 8 + age / 6 + isin(age / 2 + k * 13) * 2 / 4096 + hu_shake_x();
+        int y = line_of(v, fy + 4 + age * 2 / 5) + hu_shake_y();
+        spr(SPR_SMOKE + clampi(age * 4 / 200, 0, 3), x, y - 12, 1, -1, 0, v->w);
     }
-    if (v->roofed) {
-        for (int s = 0; s < 2; s++) {
-            int ex = s ? v->roof_x1 : v->roof_x0;
-            int top = 190 - absi(ex) / 2;
-            spr(SPR_JAG_ROOF, v->sx0 + ex + (s ? -2 : -6) + hu_shake_x(), line_of(v, top), 2, -1, s ? RS_SPR_HFLIP : 0, v->w);
-        }
-    }
-    (void)n;
 }
 
 /* the sky's critters, behind the tower (priority 1: in front of the scenery, behind BG2) */
 static void draw_critters(view *v, int t)
 {
-    int lo = v->cam - 40, hi = v->cam + 280;
-    static const int birds[3][3] = {{250, 1, 90}, {335, -1, 140}, {415, 1, 70}};    /* world y, direction, speed */
+    int lo = v->cam - 40, hi = v->cam + v->h + 40;
+    static const int birds[3][3] = {{432, 1, 90}, {505, -1, 140}, {580, 1, 70}};    /* world y, direction, speed */
     for (int i = 0; i < 3; i++) {
         int wy = birds[i][0] + isin(t / 3 + i * 20) * 6 / 4096;
         if (wy < lo || wy > hi) continue;
@@ -638,7 +809,7 @@ static void draw_chef(view *v, int p, int t, int players)
     int pal = p == 1 ? OBJ_CHEF2 : OBJ_CHEF;
     int kitchen_line = line_of(v, FLOOR_Y + 47);
     int dx = pose == CH_PANIC ? ((t / 3) & 1) : 0, dy = pose == CH_CHEER ? -((t / 6) & 1) * 2 : 0;
-    if (players == 1 && kitchen_line < 200) {
+    if (players == 1 && kitchen_line < v->h - 40) {
         int f = body[pose];
         if (pose == CH_IDLE && (t % 180) < 8) f = 1;                    /* a blink */
         spr(SPR_CHEF + f, v->sx0 + CHEF_X + dx + hu_shake_x(), kitchen_line + dy + hu_shake_y(), 2, pal, 0, v->w);
@@ -648,7 +819,7 @@ static void draw_chef(view *v, int p, int t, int players)
     }
     /* the portrait: the chef keeps watching from a plate-rimmed frame in the bottom-left corner (it slides in) */
     if (v->portrait_t < 20) v->portrait_t++;
-    int ox = 2, oy = RS_SCREEN_H - 66 + hu_slide_in(v->portrait_t, 20, 80);
+    int ox = 2, oy = v->h - 66 + hu_slide_in(v->portrait_t, 20, 80);
     int f = body[pose];
     if (pose == CH_IDLE && (t % 180) < 8) f = 1;
     spr(SPR_CHEF + f, ox + 8 + dx, oy + 10 + dy, 2, pal, 0, v->w);
@@ -669,6 +840,7 @@ static void screen_text(const match *m, int state, int st_t, int best, int new_b
         if (state == DS_TITLE) {
             hu_logo("PANCAKE TOWER", title_ramps, 2, 2, 0);
             title_logo_on = 1;
+            near_pal_last = 0;                         /* the logo has BG palette 5 (the kitchen does not use it) */
             snprintf(s, sizeof s, "BEST %d", best);
             if (best > 0) hu_text(hu_center(s, 0), 24, s);
             hu_copyright(28);
@@ -734,10 +906,10 @@ static void draw_view_sprites(const match *m, int p, int state, int st_t, int t)
     if (state == DS_READY && m->players == 2) hu_glyph(HU_BTN_A, 40 - 12 + 0, 21 * 8 - 4, (t / 30) % 2, 3);
     draw_chef(v, p, t, m->players);
     draw_fx(v, p, t);
-    draw_holes(v, tw->nlayers);
     draw_layer_sprites(v, p, tw, t);
     draw_bottle(v, tw, t);
     draw_pieces(v, p);
+    draw_smoke(v, t);
     draw_critters(v, t);
 }
 
@@ -747,17 +919,22 @@ void draw_frame(const match *m, int state, int st_t, int best, int new_best, int
     for (int p = 0; p < m->players; p++) {
         view *v = &V[p];
         const tower *tw = &m->tw[p];
-        stream_near(v);
+        stream_near(v, p);
         stream_far(v);
         stream_tower(v, p, tw);
         sky_update(v);
         int n = tw->nlayers;
-        for (int y = 0; y < RS_SCREEN_H; y++) {
-            int wy = v->cam + 239 - y, i = wy >= 0 ? wy / ROW_H : -1;
-            v->wob_dx[y] = (int16_t)(i >= 0 && i < n ? -wobble(v, i, n, t) : 0);
+        for (int l = 0; l < v->h; l++) {               /* the table is by screen line */
+            int wy = v->cam + v->h - 1 - l, i = wy >= 0 ? wy / ROW_H : -1;
+            v->wob_dx[v->y0 + l] = (int16_t)(i >= 0 && i < n ? -wobble(v, i, n, t) : 0);
         }
     }
     screen_text(m, state, st_t, best, new_best);
+    if (!title_logo_on && !near_pal_last) {            /* the attic, the roof and the sky's palette */
+        static const int slots[NEAR_PALS] = NEAR_PAL_SLOTS;
+        rs_pal_load(RS_PAL_BG(slots[NEAR_PALS - 1]), pt_near_pals + (NEAR_PALS - 1) * 16, 16);
+        near_pal_last = 1;
+    }
     int slide = state == DS_OVER ? hu_slide_in(st_t, 20, 200) : 0;     /* the panel slides up, ease-out */
     hu_pause(paused, 13);
     int shx = hu_shake_x(), shy = hu_shake_y();
@@ -767,14 +944,19 @@ void draw_frame(const match *m, int state, int st_t, int best, int new_best, int
         view *v = &V[0];
         rs_viewports(0, NULL, 0);
         rs_bg_scroll(RS_BG1, 0, -slide);
-        rs_bg_scroll(RS_BG2, (v->bg2_cx - v->sx0 - shx) & 255, (-v->cam - 240 - shy) & 255);
-        rs_bg_scroll(RS_BG3, (-shx) & 511, (-v->cam - 240 - shy) & 255);
-        rs_bg_scroll(RS_BG4, 0, (-far_base(v) - 240) & 255);
+        rs_bg_scroll(RS_BG2, (v->bg2_cx - v->sx0 - shx) & 255, (-v->cam - v->h - shy) & 255);
+        rs_bg_scroll(RS_BG3, (-shx) & 511, (-v->cam - v->h - shy) & 255);
+        rs_bg_scroll(RS_BG4, 0, (-far_base(v) - v->h) & 255);
         rs_bg_line_scroll(RS_BG2, v->wob_dx, NULL);
         /* front to back: the UI, then the world */
         if (state == DS_OVER) {
             hu_gameover_sprites(1, m->tw[0].score, 0, best, 0, st_t, slide);
             int medal = fork_medal_tier(m->tw[0].score);
+            if (medal && !medals_loaded) {
+                int t0 = pt_spr[SPR_MEDAL].tile;
+                rs_tiles_load(VR_OBJ + t0, pt_obj_tiles + t0 * RS_TILE_BYTES, pt_obj_tile_count - t0);
+                medals_loaded = 1;
+            }
             if (medal) {
                 hu_box_text(22, 17, " ");               /* the kit wrote "-": our fork medal instead */
                 spr(SPR_MEDAL + medal - 1, 22 * 8 - 4, 16 * 8 - 4 + slide, 3, -1, 0, RS_SCREEN_W);
@@ -796,9 +978,9 @@ void draw_frame(const match *m, int state, int st_t, int best, int new_best, int
         vp->layers = 0x0f;
         vp->objs = 1;
         vp->sx[0] = vp->x, vp->sy[0] = 0;
-        vp->sx[1] = (int16_t)((v->bg2_cx - v->sx0 - shx) & 255), vp->sy[1] = (int16_t)((-v->cam - 240 - shy) & 255);
-        vp->sx[2] = (int16_t)((v->near_col0 * 8 - shx) & 511), vp->sy[2] = (int16_t)((-v->cam - 240 - shy) & 255);
-        vp->sx[3] = (int16_t)(v->far_col0 * 8 + 48), vp->sy[3] = (int16_t)((-far_base(v) - 240) & 255);
+        vp->sx[1] = (int16_t)((v->bg2_cx - v->sx0 - shx) & 255), vp->sy[1] = (int16_t)((-v->cam - v->h - shy) & 255);
+        vp->sx[2] = (int16_t)((v->near_col0 * 8 - shx) & 511), vp->sy[2] = (int16_t)((-v->cam - v->h - shy) & 255);
+        vp->sx[3] = (int16_t)(v->far_col0 * 8 + 48), vp->sy[3] = (int16_t)((-far_base(v) - v->h) & 255);
         vp->oam_first = (uint16_t)rs_oam_next();
         draw_view_sprites(m, p, state, st_t, t);
         vp->oam_count = (uint16_t)(rs_oam_next() - vp->oam_first);
@@ -830,6 +1012,7 @@ void draw_frame(const match *m, int state, int st_t, int best, int new_best, int
 void draw_state(void)
 {
     S(V); S(PC); S(FXS); S(nviews); S(shown_state); S(shown_best); S(shown_players); S(title_logo_on); S(vps); S(nvps);
+    S(near_pal_last); S(medals_loaded);
     S(fx_seed); S(opt_nodraw_bg);
     RS_STATE_RASTER(raster);
 }
@@ -869,4 +1052,17 @@ void draw_oam_log(void)
             return;
         }
     }
+}
+
+/* test hook (tests/test_break.c): where view p is on the screen, its camera and its holes */
+void draw_test_view(int p, pt_view_info *o)
+{
+    const view *v = &V[p];
+    memset(o, 0, sizeof *o);
+    o->cam = v->cam, o->w = v->w, o->h = v->h, o->sx0 = v->sx0, o->pcol0 = v->near_pcol0, o->ncols = v->near_cols;
+    o->x = nviews > 1 && p < nvps ? vps[p].x : 0;
+    o->y = nviews > 1 && p < nvps ? vps[p].y : 0;
+    o->shx = hu_shake_x(), o->shy = hu_shake_y();
+    o->anchor = anchor_layer(v);
+    for (int h = 0; h < HOLES; h++) o->hole_on[h] = v->hole[h].on, o->hx0[h] = v->hole[h].x0, o->hx1[h] = v->hole[h].x1;
 }

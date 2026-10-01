@@ -9,7 +9,7 @@ VRAM (absolute 8x8 tiles; docs/spec.md "Video memory"):
     BG1 (UI, the house kit)   0 ..  639   the kit's font, panels and 2x glyphs (0..296), the title logo (320..)
     BG2 (the tower)         640 ..  959   made at run time by src/render.c (21 shared tiles, 4 per row and player)
     BG3 (near scenery)      960 .. 1663   the five segments, all loaded at start (2 players may show any two)
-    BG4 (far scenery)      1664 .. 1919
+    BG4 (far scenery)      1664 .. 1983
     OBJ                    2048 ..        the sprites below, the run-time pancake tiles, the kit's sprites
 MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/pancaketower/LICENSE.
 """
@@ -29,9 +29,9 @@ import rsasset  # noqa: E402
 import make_art  # noqa: E402
 
 VR_BG1, VR_BG2, VR_BG3, VR_BG4, VR_OBJ = 0, 640, 960, 1664, 2048
-BG2_TILES, BG3_TILES, BG4_TILES = 320, 704, 256
+BG2_TILES, BG3_TILES, BG4_TILES = 320, 704, 320
 PAL_TOWER, PAL_TOPPING, PAL_FAR, PAL_LOGO = 1, 2, 7, 5
-NEAR_PAL_SLOTS = [3, 4, 6]                # the near scenery (BG 5 is the logo on the title screen)
+NEAR_PAL_SLOTS = [3, 4, 6, 5]             # the near scenery (BG 5 is the logo's on the title: the kitchen avoids it)
 NEAR_PALS = len(NEAR_PAL_SLOTS)
 # the house palettes (docs/art-direction.md): OBJ 0 the hero, 1 player 2, 2 effects, 3 the kit, 4-7 the game
 OBJ_PAL = {"chef": 0, "chef2": 1, "fx": 2, "food": 4, "topping": 5, "critter": 6, "medal": 7}
@@ -71,6 +71,66 @@ def pal555(rgbs):
     return [0] + [rsasset.to555(c) for c in rgbs[1:]]
 
 
+def convert_near(cells, palettes, kitchen_cells):
+    """The near scenery with its explicit palettes (make_art.NEAR_PALETTES): every 8x8 cell must fit one palette
+    exactly (the first that holds all its colours; the first kitchen_cells, the title's scenery, only the first two).
+    Tiles are shared with flips, like rsasset.convert_bg."""
+    pals = [[rsasset.to555(c) for c in p] for p in palettes]
+    for p in pals:
+        assert len(p) <= 15 and len(set(p)) == len(p), "a near palette has %d colours (or a repeat)" % len(p)
+    out = rsasset.BGSet()
+    out.palettes = pals
+    out.tiles.append([0] * 64)
+    index = {tuple([0] * 64): (0, 0, 0)}
+    bad = []
+    for ci, c in enumerate(cells):
+        cols = rsasset.colors_of(c)
+        allowed = 2 if ci < kitchen_cells else len(pals)
+        cand = [k for k, p in enumerate(pals[:allowed]) if cols <= set(p)]
+        if not cand:
+            bad.append((ci, sorted(rsasset.rgb888(v) for v in cols)))
+            cand = [0]
+        k = cand[0]
+        meta = []
+        for t in rsasset.split_tiles(c):
+            idx = [0 if v is None else (pals[k].index(v) + 1 if v in pals[k] else 1) for v in t]
+            key = tuple(idx)
+            hit = index.get(key)
+            if hit is None:
+                for hf, vf, f in ((1, 0, rsasset.hflip), (0, 1, rsasset.vflip),
+                                  (1, 1, lambda x: rsasset.vflip(rsasset.hflip(x)))):
+                    k2 = tuple(f(idx))
+                    if k2 in index:
+                        base = index[k2]
+                        hit = (base[0], hf ^ base[1], vf ^ base[2])
+                        break
+            if hit is None:
+                out.tiles.append(idx)
+                hit = (len(out.tiles) - 1, 0, 0)
+                index[key] = hit
+            meta.append(rsasset.rs_map(hit[0], k, 0, hit[1], hit[2]))
+        out.metas.append(meta)
+    for ci, cols in bad[:20]:
+        seg, rest = divmod(ci, 32 * 40)
+        print("near scenery: segment %d cell (%d, %d) fits no palette: %s" % (seg, rest % 40, rest // 40, cols),
+              file=sys.stderr)
+    assert not bad, "%d near cells do not fit the palettes" % len(bad)
+    return out
+
+
+def tuning():
+    """the #define NAME number lines of src/tuning.h (the art and the game share the house's heights)"""
+    out = {}
+    for line in open(os.path.join(GAME, "src", "tuning.h"), encoding="utf-8"):
+        f = line.split()
+        if len(f) >= 3 and f[0] == "#define":
+            try:
+                out[f[1]] = int(f[2].strip("()"))
+            except ValueError:
+                pass
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
@@ -105,7 +165,24 @@ def main():
     cells = []
     for seg in art["near"]:
         cells += canvas_cells(seg, 0, 0, 320, 256)
-    r = rsasset.convert_bg(cells, NEAR_PALS, pal_base=0, tile_base=0)
+    r = convert_near(cells, make_art.NEAR_PALETTES, kitchen_cells=40 * 32)
+    # the holes: draw.c breaks the ceiling's and the roof's rows at run time (copies of these tiles with the hole cut
+    # out, pixel-exact). The hole's inside is the KIT "dark" colour and its broken rim "wood3": every tile of those
+    # rows must have them in its palette (a hole drawn in another colour would clash).
+    tun = tuning()
+    for name in ("CEILING_Y", "CEILING_TOP", "ROOF_Y", "ROOF_TOP", "RIDGE_Y", "FLOOR_Y"):
+        assert getattr(make_art, name, tun[name]) == tun[name], "make_art.%s != tuning.h" % name
+    void555, rim555 = rsasset.to555(make_art.KIT["dark"]), rsasset.to555(make_art.KIT["wood3"])
+    near_void = [p.index(void555) + 1 if void555 in p else 0 for p in r.palettes]
+    near_rim = [p.index(rim555) + 1 if rim555 in p else 0 for p in r.palettes]
+    carve_rows = list(range(tun["CEILING_Y"], tun["CEILING_TOP"], 8)) + list(range(tun["ROOF_Y"], tun["ROOF_TOP"], 8))
+    for wy in carve_rows:
+        k = wy // 8
+        seg, row = (wy + 64) // 256, 31 - ((k + 8) & 31)
+        for col in range(40):
+            e = r.metas[(seg * 32 + row) * 40 + col][0]
+            pk = (e >> 10) & 7
+            assert near_void[pk] and near_rim[pk], "the hole's colours are not in near palette %d (row %d)" % (pk, wy)
     for m in r.metas:                     # palette k -> BG palette NEAR_PAL_SLOTS[k]
         for i, e in enumerate(m):
             m[i] = (e & ~(7 << 10)) | (NEAR_PAL_SLOTS[(e >> 10) & 7] << 10)
@@ -120,6 +197,10 @@ def main():
     c.append(arr("pt_near_pals", pals))
     h.append("#define NEAR_SEGS %d\n#define NEAR_W 40\n#define NEAR_H 32\n#define NEAR_PALS %d" % (len(art["near"]), NEAR_PALS))
     h.append("#define NEAR_PAL_SLOTS {%s}" % ", ".join(str(s) for s in NEAR_PAL_SLOTS))
+    h.append("#define NEAR_VOID {%s}\n#define NEAR_RIM {%s}" % (", ".join(map(str, near_void)), ", ".join(map(str, near_rim))))
+    h.append("#define BG3_TILES %d" % BG3_TILES)
+    h.append("#define CHIMNEY_X %d\n#define CHIMNEY_TOP %d   /* the chimney's flue (panorama x, world y) */" %
+             (make_art.CHIMNEY_X, make_art.CHIMNEY_TOP))
     h.append("extern const uint8_t pt_near_tiles[];\nextern const int pt_near_tile_count;")
     h.append("extern const uint16_t pt_near_map[NEAR_SEGS * NEAR_H * NEAR_W];\nextern const uint16_t pt_near_pals[16 * NEAR_PALS];")
     stats.append("BG3 %d (%d pals)" % (len(r.tiles), len(r.palettes)))

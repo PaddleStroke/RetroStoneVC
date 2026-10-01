@@ -75,8 +75,11 @@ int cut_resolve(const geom *g, int x, int w, int bx, int bw, int *kx, int *kw, c
 
 int segment_of(int world_y)
 {
-    int s = (world_y - SEG_BASE_Y) / SEG_H;
-    return clampi(s, SEG_KITCHEN, SEG_SPACE);
+    if (world_y < ROOF_TOP) return SEG_KITCHEN;   /* indoors: the kitchen and the attic */
+    if (world_y < 448) return SEG_SKY;
+    if (world_y < 704) return SEG_CLOUDS;
+    if (world_y < 960) return SEG_STRATO;
+    return SEG_SPACE;
 }
 
 int medal_of(int score)

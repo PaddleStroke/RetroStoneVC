@@ -29,12 +29,16 @@ journey upward, the screens, the medals, the sounds and the music are ours.
 320x240 at 60 Hz, fixed step. The world is a vertical column: y = 0 is the top of the plate (the tower's
 base), up is positive; a layer of the tower (a pancake or a topping) is **8 px** tall. The camera keeps the
 top of the tower at screen y = 120 once it has climbed that high; it eases toward it (at most 2 px per frame).
+**It never looks above a ceiling the tower has not broken**: the view's top line stays at most 40 px above the
+kitchen ceiling's underside, then the roof's, until the tower breaks through (the tower's top then reaches line
+40 at most, under the score); so the start is the whole kitchen, its ceiling at the top, and what lies above a
+ceiling (the attic, the roof from outside) is first seen when the camera rises through the hole.
 
 | Layer | Contents | Scroll |
 |---|---|---|
 | backdrop | the sky: one colour per line (raster callback, HDMA-like), a gradient that follows the altitude (a garden morning through the kitchen window, blue sky, a paler band in the clouds, deep blue then violet in the stratosphere, black in space) | - |
-| BG4 | far: the garden and the neighbour's house through the kitchen window, the town's roofs seen from above, far clouds, the curve of the Earth, far stars | 1/4 of the camera |
-| BG3 | near: the kitchen (tiled wall, window, shelves, pans, the counter), the ceiling slab, the attic, the roof, near clouds, cirrus streaks, stars | 1 (the tower's world) |
+| BG4 | far: the garden, the fence and the neighbours' houses (through the kitchen window), the neighbourhood's rooftops (through the attic window, then below the roof once the tower is out), the hills on the horizon, far clouds, far stars | 1/4 of the camera |
+| BG3 | near: the kitchen (tiled wall, window, shelves, pans, the lamp, the counter), its ceiling, the attic, the roof in section and seen from above, near clouds, cirrus streaks, stars; the holes the tower breaks are carved into its rows at run time | 1 (the tower's world) |
 | BG2 | the tower: every layer but the top one, drawn per row into the map (the edges of each row are tiles made at run time, pixel-exact); the **wobble** is a per-line scroll | 1 |
 | BG1 | text and panels (the house UI: title logo, banners, the game-over panel, pause) | fixed |
 | OBJ | the sliding pancake, the top pancake (it squashes on landing), the cut-off pieces, the falling toppings, butter pats, sparkles, syrup drips, crumbs and plaster debris, birds, the cow and the moon, the chef, the score digits and medals | |
@@ -42,22 +46,41 @@ top of the tower at screen y = 120 once it has climbed that high; it eases towar
 Map sizes are kept small for the VRAM guideline: BG2 32x32 (the tower's columns only; 2 players: a half
 each), BG3 64x32, BG4 32x32 (256 px wide, it repeats); rows are streamed as the camera climbs (a ring of 32
 rows is more than the 31 rows on screen).
-The near scenery is made of five **segments** of 256 px (32 rows) that share one tile set (at most 704
-tiles, all loaded at the start: in 2 players each viewport may show any segment); their map rows are streamed
-into the 32-row ring as the camera climbs.
+The near scenery is made of five **segments** of 256 px (32 rows) that share one tile set (355 tiles, all
+loaded at the start: in 2 players each viewport may show any segment); their map rows are streamed into the
+32-row ring as the camera climbs (with the rows a screen shake can reveal).
 
 | Segment | World y | Contents |
 |---|---|---|
-| 0 kitchen | -64 .. 192 | the floor and the counter (the plate sits on it), the tiled wall with a window, shelves, hanging pans; the **ceiling slab** at 96..120 (the tower breaks through at its 13th layer: a comic crash); the attic (rafters, boxes, a round window, a cobweb); the **roof** at 168..192 (tiles fly off when the tower pokes out) |
-| 1 sky | 192 .. 448 | the open sky; the town's roofs far below (BG4); birds fly across (sprites) |
-| 2 clouds | 448 .. 704 | puffy clouds near and far (two layers of parallax) |
+| 0 the kitchen | -64 .. 192 | the floor and the counter (the plate sits on it), the tiled backsplash, the wallpaper, a window with curtains (the garden and the neighbours through it), crocks on a shelf, two pans, a clock, a **lamp** hanging from the ceiling; the **ceiling** at 152..192 (a cornice, the plaster, the joists' cut ends, the attic's floorboards): the 20th layer crashes through it |
+| 1 the attic and the roof | 192 .. 448 | the attic 192..288 (plank walls, the roof sloping down into its corners, a round window, a trunk, boxes, a cobweb, a bare bulb); the **roof in section** 288..336 (the attic's ceiling boards, rafters and insulation, battens, the tiles): the 37th layer breaks out through it; the **roof seen from above** 336..396 (rows of tiles up to the ridge, a chimney with its smoke, a TV aerial), the neighbourhood's rooftops below it (BG4); the open sky |
+| 2 clouds | 448 .. 704 | puffy clouds near and far (two layers of parallax); birds fly across (sprites) |
 | 3 stratosphere | 704 .. 960 | thin streaks, a weather balloon, the sky turns deep blue and violet; the first stars (BG4) |
 | 4 space | 960 .. | stars (repeating every 256 px), the moon, and **a cow jumping over the moon** now and then |
+
+**The order of the views** (each transition is a hole or the camera): the whole kitchen, its ceiling and lamp at the
+top (the camera waits under the ceiling) -> the crash: the camera rises through the hole into the attic (the
+kitchen sinks below the cut ceiling) -> the attic, the roof's section at the top (the camera waits under it) -> the
+break-out: tiles fly, the camera rises and shows the roof from above with the tower sticking out of it, the chimney
+smoking, the neighbourhood's rooftops and the hills appearing behind the ridge as the house sinks -> the open sky,
+birds -> the clouds -> the stratosphere -> space.
+
+**The holes.** When a layer lands in the ceiling's rows (or the roof's), the hole is cut through the whole slab,
+**pixel-exact to that layer's extent** (a later wider layer widens it): draw.c copies the scenery's tiles of those
+rows (BG3) at run time, paints the inside with the "dark" of the house's palette and a ragged 0-3 px broken rim
+in "wood3" (both are checked to be in the palette of every tile there: no palette clash), and puts the copies
+in the map (4 run-time tiles per row and player, plus one solid tile per palette); a row streamed in later is
+carved the same way. The hole holds the tower: no sway at or below a hole's top (the wobble is anchored there), so
+the tower and its hole always line up, shake or not. The break: chunks of what the hole was made in burst out of its
+edges in the house's exact colours (plaster and joists fall into the kitchen; tiles and splinters are thrown up from
+the roof), dust puffs at its mouth, a short shake (hu_shake), the crash sound.
 
 ## Palettes
 The house layout (docs/art-direction.md). BG: 0 the UI (the house kit; entry 0 the sky gradient), 1 the
 tower (pancakes, syrup, butter, the plate), 2 the toppings layers, 3, 4 and 6 the near scenery, 5 the title
-logo, 7 the far layer. OBJ: 0 the chef, 1 the chef of player 2 (his neckerchief and trousers recoloured), 2
+logo, 7 the far layer. The near scenery has four explicit palettes (make_art.NEAR_PALETTES: every 8x8 cell must
+fit one exactly, nothing is quantised): the kitchen and its things (3, 4: the title's scenery uses only these),
+the attic (6), the roof and the sky (loaded into 5 once the title's logo is gone). OBJ: 0 the chef, 1 the chef of player 2 (his neckerchief and trousers recoloured), 2
 effects (plaster, dust, roof tiles, a star burst, sweat, broken edges), 3 the kit (digits, glyphs, sparkle), 4
 food (the pancakes drawn at run time, butter, syrup, the bottle, the portrait's plate; the same colours as
 BG 1), 5 the toppings (the same as BG 2), 6 birds, the balloon, the plane, the satellite, the moon, the cow.
@@ -100,10 +123,12 @@ BG 1), 5 the toppings (the same as BG 2), 6 birds, the balloon, the plane, the s
   it slides `SYRUP_SLIP` = 6 px on in the direction it was moving, easing out over 12 frames, then it is
   cut. The slide is always the same, so the player can compensate (drop a little early). A perfect is
   judged after the slide.
-- **The journey**: the camera rises through the kitchen (the counter, the wall, the window), the **ceiling**
-  (the 13th layer crashes through it: plaster chunks and dust fly, the screen shakes, a crash), the attic,
-  the **roof** (tiles fly off), the sky with birds, the clouds, the stratosphere, and space, where a cow
-  jumps over the moon. The backdrop, the far layer and the music change with the altitude.
+- **The journey**: the tower grows in the kitchen (the counter, the wall, the window, the lamp under the
+  ceiling), crashes through the **ceiling** with its 20th layer (plaster and joist chunks and dust fly, the
+  screen shakes, a crash), the camera rises into the attic, the 37th layer breaks out through the **roof** (tiles
+  and splinters fly up), the camera rises over the roof (the chimney smokes, the neighbourhood below), then the
+  sky with birds, the clouds, the stratosphere, and space, where a cow jumps over the moon. The backdrop, the far
+  layer and the music change with the altitude (the music leaves the kitchen tune as the camera clears the roof).
 - **The chef** (chubby, a tall white toque, a moustache, a red neckerchief, a round belly in an apron)
   stands on the kitchen floor at the left of the counter: he watches, **cheers** (arms up) on a perfect and
   a topping, **panics** (hands on his cheeks, sweat drops) when the pancake is narrow (under 24 px) or a
@@ -236,6 +261,15 @@ published guides and from clones that reproduce it.
   (the 8th perfect, the cap at the first width, a cut breaking the chain), the syrup slip (its distance,
   duration and direction, the perfect judged after it), the toppings' rotation and schedule, the score
   bonus, the segments by altitude; a determinism check (two identical games, the same events).
+- `tests/test_break.c` + `break_test.sh`: **the breakthroughs, frame by frame**: the whole game runs (the bot plays)
+  and after every frame the picture is checked against the world, in 1 player (two seeds), 2 players and from a
+  pre-stacked tower: the near scenery (BG3 rendered alone) is the art pixel for pixel on every line of every view
+  (no stray or misaligned tile, a streamed row at the right height whatever the scroll and the shake), except in a
+  hole; in a hole's rows the hole's colour inside, only the broken rim (at most 3 px and its outline) around, the
+  art beyond; the hole is exactly the union of the tower's layers in those rows (the one that broke through and the
+  ones after); the tower (BG2 rendered alone) has no pixel outside the hole, and each pancake baked there spans
+  exactly its layer (no sway). Measured: about 2000 frames with a hole in view per 1-player run (34 of them
+  shaking), 83 000 hole rows and 7 400 layers checked.
 - `tests/smoke_test.sh`: scripted runs: the title waits; A on the title then A drops a pancake (cut to 32 px);
   no press lets the next slider ping-pong forever (no game over by itself); a blind rhythm ends in a miss and
   the panel; a far drop is a miss; the panel's retry lock and the one-button retry; pause (Start) and resume

@@ -311,6 +311,6 @@ const rs_game *rs_game_main(void)
 {
     /* state_version: bump it when the meaning of a saved object changes (its layout is checked) */
     static const rs_game g = {"Pancake Tower", "pancaketower", "0.1.0", game_init, game_update, game_draw,
-                              game_shutdown, pt_assets, game_state, game_state_loaded, 1};
+                              game_shutdown, pt_assets, game_state, game_state_loaded, 2};
     return &g;
 }

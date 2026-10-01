@@ -276,7 +276,7 @@ static void test_score_journey(void)
     tower tw;
     tower_init(&tw, &GEOM_1P);
     int expect = 0, ceil_at = -1, roof_at = -1;
-    for (int k = 1; k <= 30; k++) {
+    for (int k = 1; k <= 40; k++) {
         int ev = drop_rel(&tw, k % 7 == 0 ? 5 : 0);
         if (ev & EV_CEILING) ceil_at = tw.nlayers;
         if (ev & EV_ROOF) roof_at = tw.nlayers;
@@ -290,9 +290,9 @@ static void test_score_journey(void)
         CHECK(tw.score == expect, "pancake %d: score %d (%d)", k, expect, tw.score);
         CHECK(tw.pancakes == k, "height %d", k);
     }
-    CHECK(ceil_at == CEILING_Y / ROW_H + 1, "the ceiling crash with the 13th layer (%d)", ceil_at);
-    CHECK(roof_at == ROOF_Y / ROW_H + 1, "the roof with the 22nd layer (%d)", roof_at);
-    CHECK(segment_of(0) == SEG_KITCHEN && segment_of(191) == SEG_KITCHEN && segment_of(192) == SEG_SKY &&
+    CHECK(ceil_at == CEILING_Y / ROW_H + 1 && ceil_at == 20, "the ceiling crash with the 20th layer (%d)", ceil_at);
+    CHECK(roof_at == ROOF_Y / ROW_H + 1 && roof_at == 37, "the roof with the 37th layer (%d)", roof_at);
+    CHECK(segment_of(0) == SEG_KITCHEN && segment_of(ROOF_TOP - 1) == SEG_KITCHEN && segment_of(ROOF_TOP) == SEG_SKY &&
           segment_of(450) == SEG_CLOUDS && segment_of(800) == SEG_STRATO && segment_of(5000) == SEG_SPACE, "segments");
     CHECK(medal_of(24) == 0 && medal_of(25) == 1 && medal_of(50) == 2 && medal_of(75) == 3 && medal_of(100) == 4,
           "medals at 25/50/75/100");
