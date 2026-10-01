@@ -299,6 +299,22 @@ published guides and from clones that reproduce it.
   the ceiling crash, the roof, sky, clouds, stratosphere, space and the cow, a miss, game over, pause, ready
   and versus in 2 players, the 2-player game over).
 
+## Remaining work
+- **Done** (031b834): the roof (the start is the whole kitchen with its ceiling and lamp; the camera never looks
+  above an unbroken ceiling; the attic; the roof seen from above, smoking chimney, the neighbourhood on BG4) and
+  the ceiling and roof breakthroughs (pixel-exact carved holes, held tower, matching debris, shake-safe
+  streaming), with tests/test_break.c. `make pancaketower-check` passes.
+- **Not done: the house flow and 4 players** (the kit has it since eea679b): drop the ready screen (title only,
+  `hu_title_setup` with start input A, "P2-P4: PRESS A TO JOIN", start on A, retry straight into play, Select to
+  the title); MAX_PLAYERS 4 in 2x2 quadrants (`hu_split` QUAD, 159x119) with a 1/2 geometry (48-px pancakes, slide
+  +-54); splash on the leader or the next standing player; score chips and tags (`hu_score_chip(s)`), the
+  ranking panel (`hu_results_*`) for 2-4 players; chef icons for the title slots and the results (P3/P4 colours
+  in OBJ 6/7 while critters are hidden); per-player tables in draw.c (views, rings: BG2 64 wide, BG3/BG4 128 wide in
+  3-4 players; BG2 and carved tiles shared modulo 16 rows; no vertical shake in quadrants); 4-player smoke,
+  determinism and save-state tests. Expect 4 players to exceed the 64-KiB VRAM guideline (measure, document).
+- **Not done: docs/screenshots** still show the old roof; re-render them (tools/screenshots.sh: the kitchen
+  start, the ceiling crash, the attic, the roof break-out) and rebuild the dist outputs.
+
 ## Performance (make pancaketower-bench)
 Measured on the build host (WSL2, x86-64), per frame (update + draw + PPU + audio, the music on):
 
