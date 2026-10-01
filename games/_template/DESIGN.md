@@ -28,17 +28,22 @@ TODO: the mechanics, with every number in src/game.h (the tuning table: one plac
 | backdrop | the sky (or water) gradient, one colour per line (raster callback) | - |
 | BG3 | the far layer: low-contrast silhouettes, no outline | 1/4 |
 | BG2 | the playfield front: ground, obstacles | 1 |
-| BG1 | the house UI kit: the logo, GET READY, the panels, PAUSED | fixed |
-| OBJ | the heroes (P2 = palette swap), props and effects, the kit's digits, glyphs and medals | |
+| BG1 | the house UI kit: the logo, the title's lines, the panels, PAUSED | fixed |
+| OBJ | the heroes (P2-P4 = palette swaps: OBJ 1, 4, 5), props and effects, the kit's digits, glyphs and medals | |
 
-## Screens (the house flow)
-title (the logo, the bobbing hero, PRESS A with the A glyph, BEST, the copyright line)
--> get ready (the 2P join line) -> play (the score at the top, Select pauses) -> the hit (hit-stop, a shake)
--> game over (the banner, the panel sliding up: score, best / new best, the medal) -> A: get ready again.
+## Screens (the house flow: no "get ready", the title is the only menu)
+title (the logo, the bobbing hero, the player slots, PRESS A with the A glyph, BEST, the join line, the copyright
+line) -> P1 presses one of the START INPUTS (main.c START_INPUTS: the game's natural play inputs; the press is
+also the first jump) -> play (the score at the top, Select pauses) -> the hit (hit-stop, a shake) -> game over
+(the banner, the panel sliding up: score, best / new best, the medal; 2-4 players: the ranking with medals)
+-> one press: the next run at once (Select: back to the title).
 
-## Two players
-Player 2 joins with A on pad 2 on the title or "get ready"; they play at the same time, player 2 is the hero
-with its palette swapped (tools/build_assets.py P2_HUE); the panel shows both scores and the winner.
+## Up to four players
+Pads 2-4 join with A on the title (B leaves; the house kit's lobby, docs/art-direction.md "Title and players");
+everyone plays at the same time on the same course, each a few steps behind the one before (P_OFFSET_X).
+Players 2-4 are the hero with its palette swapped (tools/build_assets.py: house_style.player_palettes, from
+P2_HUE); the title shows each joined player's icon (the hero_icon sprite); 3-4 players get score chips in the
+corners; the results rank everyone by score with medals.
 
 ## Art
 Code-drawn only (tools/make_art.py with games/common/tools/house_style.py): no image generation.
@@ -49,5 +54,7 @@ The house synthesiser (games/common/src/house_audio.c) for the effects, the hous
 (tools/make_music.py). TODO: the game's own sounds (main.c sound_init) and the tune's key, tempo and mood.
 
 ## Tests
-`make @ID@-check`: the libretro loader, the smoke tests (flow, pause, save RAM, player 2, the bot hook,
-determinism), the UI screens (tests/ui_test.sh), the save states and their audit.
+`make @ID@-check`: the libretro loader, the smoke tests (flow, start inputs, retry, pause, save RAM, joining and
+leaving, 4 players, the bot hook, determinism with 1 and 4 players), the UI screens (tests/ui_test.sh: the title
+with 0-3 players joined, play, 4 players, the results), the save states (the title's lobby, 4 players) and their
+audit.

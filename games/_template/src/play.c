@@ -33,13 +33,14 @@ static void spawn(world *w)
 void world_init(world *w, int players, uint32_t seed)
 {
     memset(w, 0, sizeof *w);
-    w->players = players;
     w->seed = seed;
     rs_rng_seed(&w->rng, seed ? seed : 1);
     w->next_x = RS_SCREEN_W + 32;
-    hero_reset(&w->h[0], HERO_X);
-    hero_reset(&w->h[1], HERO_X + P2_OFFSET_X);
-    if (players < 2) w->h[1].state = HS_OFF;
+    w->players = players < 1 ? 1 : players > MAX_PLAYERS ? MAX_PLAYERS : players;
+    for (int p = 0; p < MAX_PLAYERS; p++) {
+        hero_reset(&w->h[p], HERO_X + p * P_OFFSET_X);
+        if (p >= w->players) w->h[p].state = HS_OFF;
+    }
     spawn(w);
 }
 
@@ -88,14 +89,16 @@ void world_step(world *w, const int press[MAX_PLAYERS])
         h->air_t++;
         h->land_t++;
         if ((h->state == HS_READY || h->state == HS_RUN) && press[p] && hero_on_ground(h)) {
-            if (h->state == HS_READY) {
-                h->state = HS_RUN;
-                h->t = 0;
-                w->events[p] |= EV_START;
-                if (!w->started) {
-                    w->started = 1;
-                    running = 1;
-                }
+            if (!w->started) {
+                /* the first press starts the run: everyone runs from now on (only the presser jumps) */
+                w->started = 1;
+                running = 1;
+                for (int q = 0; q < w->players; q++)
+                    if (w->h[q].state == HS_READY) {
+                        w->h[q].state = HS_RUN;
+                        w->h[q].t = 0;
+                        w->events[q] |= EV_START;
+                    }
             }
             h->vy = JUMP_VY;
             h->air_t = 0;

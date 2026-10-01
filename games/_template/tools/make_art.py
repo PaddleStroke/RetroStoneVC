@@ -28,7 +28,7 @@ import house_style as hs  # noqa: E402
 
 Canvas = hs.Canvas
 SHEET_W, SHEET_H = 256, 64
-# name, x, y, w, h, frames, palette group (hero: OBJ 0, player 2 = OBJ 1 recoloured; props: OBJ 2)
+# name, x, y, w, h, frames, palette group (hero: OBJ 0, players 2-4 = OBJ 1, 4, 5 recoloured; props: OBJ 2)
 SPRITES = [
     ("hero_idle", 0, 0, 32, 32, 2, "hero"),
     ("hero_squash", 64, 0, 32, 32, 1, "hero"),
@@ -37,6 +37,7 @@ SPRITES = [
     ("hero_hit", 160, 0, 32, 32, 1, "hero"),
     ("crate", 192, 0, 16, 16, 1, "props"),
     ("puff", 208, 0, 8, 8, 3, "props"),
+    ("hero_icon", 0, 32, 16, 16, 1, "hero"),     # the title's player slots, the results
 ]
 PANORAMAS = {"ground": ("tiles/ground.png", 512, 48), "hills": ("tiles/hills.png", 512, 96)}
 
@@ -72,6 +73,18 @@ def hero(pose="idle", frame=0):
     return cv
 
 
+def hero_icon():
+    """The 16x16 icon of the title's player slots and the results: the hero's face (the same colours, so the
+    palette swaps of players 2-4 apply)."""
+    cv = Canvas(16, 16)
+    hs.ellipse(cv, 8.0, 8.5, 6.5, 6.0, HERO)
+    cv.set(4, 5, hs.HOUSE["white"][0])
+    hs.eye(cv, 7, 6, look=(1, 0))
+    hs.eye(cv, 10, 6, look=(1, 0))
+    cv.outline(OUT)
+    return cv
+
+
 def crate():
     P = hs.ramp_dict(hs.ramp("wood"))
     cv = Canvas(16, 16)
@@ -98,6 +111,8 @@ def puff(frame):
 
 
 def sprite_frame(name, i):
+    if name == "hero_icon":
+        return hero_icon()
     if name.startswith("hero_"):
         return hero(name[5:], i)
     if name == "crate":

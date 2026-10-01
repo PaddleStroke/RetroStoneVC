@@ -5,7 +5,8 @@
 
 ID is the folder and file-name id (lowercase letters and digits: pogomamie), the display name is shown in the
 frontends and drawn as the title logo ("Pogo Mamie"). It writes games/ID/ (game.mk with the ID, ID-check,
-ID-dist, ID-windows, ID-armhf, ID-screenshots and ID-art targets; src/ with the house flow; tools/ with
+ID-dist, ID-windows, ID-armhf, ID-screenshots and ID-art targets; src/ with the house flow (the title is the only
+menu: players 2-4 join there, P1 starts with the game's start inputs; up to 4 players; the results rank them); tools/ with
 make_art.py, make_music.py and build_assets.py on the house kit; tests/; DESIGN.md; README-windows.txt;
 art/incoming/TODO.md) and draws the art (tools/make_art.py). Then:
 

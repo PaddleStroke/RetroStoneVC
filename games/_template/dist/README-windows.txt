@@ -10,10 +10,11 @@ Controls                  Gamepad (SNES layout)      Keyboard
   play, start, retry        A (B, X, Y and Up too)     X, Up or Enter
                             Start starts and retries   (Z, A and S too)
   pause / resume            Select (or Start in a run) Backspace or Esc
-  player 2 joins            pad 2: A on the title or "get ready" screen
+  players 2-4 join          A on their pad, on the title (B leaves)
+  back to the title         Select on the results
 
-Two players race on the same course, each with their own pad; the panel at
-the end shows both scores and the winner.
+Up to four players race on the same course, each with their own pad; the
+results rank everyone with medals.
 
 F11 or Alt+Enter: fullscreen. F12: screenshot. Close the window to quit.
 Options: @EXE@.exe --scale 4 --fullscreen

@@ -23,10 +23,11 @@ import house_style as hs  # noqa: E402
 import make_art  # noqa: E402
 
 PAL_GROUND, PAL_HILLS, PAL_LOGO = 1, 2, 5
-OBJ_PAL = {"hero": 0, "hero2": 1, "props": 2}           # OBJ 3: the house kit sprites
+OBJ_PAL = {"hero": 0, "hero2": 1, "props": 2}           # OBJ 3: the house kit sprites; OBJ 4, 5: heroes 3, 4
 VR_BG1, VR_BG2, VR_BG3, VR_OBJ = 0, 1024, 1536, 3072
 KIT_OBJ_TILE = 512                                        # the kit's sprites (house_ui.h HU_OBJ_TILES) after ours
-# player 2: the hero's hue rotated (house_style.hue_swap); REPLACE the hue range with the hero's main colour's
+# players 2-4: the hero's hue rotated (house_style.player_palettes: P2 by P2_HUE, P3 and P4 to the hues farthest from
+# P1's and P2's); REPLACE the hue range with the hero's main colour's
 P2_HUE = (0.80, 1.00, -0.45)                              # pinks -> blues
 
 
@@ -71,7 +72,7 @@ def main():
 
     # ---- sprites ----------------------------------------------------------------------------------------------------
     sheet = rsasset.load(os.path.join(a.art, "sprites.png"))
-    tiles, rows, names, pals = [], [], [], [0] * 48
+    tiles, rows, names, pals = [], [], [], [0] * 96
     idx = 0
     for g in ("hero", "props"):
         ents = [e for e in make_art.SPRITES if e[6] == g]
@@ -83,7 +84,9 @@ def main():
         pals[OBJ_PAL[g] * 16:OBJ_PAL[g] * 16 + 16] = p16
         if g == "hero":
             rgb = [rsasset.rgb888(v) for v in p16[1:]]
-            pals[16:32] = [0] + [rsasset.to555(v) for v in hs.hue_swap(rgb, *P2_HUE)]
+            sw = hs.player_palettes(rgb, *P2_HUE)               # [P1, P2, P3, P4]
+            for p, slot in ((1, 1), (2, 4), (3, 5)):
+                pals[slot * 16:slot * 16 + 16] = [0] + [rsasset.to555(v) for v in sw[p]]
         k = 0
         for name, x, y, w, hh, n, _g in ents:
             names.append("SPR_%s = %d" % (name.upper(), idx))
@@ -97,7 +100,7 @@ def main():
     h.append("enum { %s, SPR_COUNT = %d };" % (", ".join(names), idx))
     h.append("typedef struct gm_sprite_def { uint16_t tile; uint8_t w, h, pal; } gm_sprite_def;")
     h.append("extern const gm_sprite_def gm_spr[SPR_COUNT];")
-    h.append("extern const uint8_t gm_obj_tiles[];\nextern const int gm_obj_tile_count;\nextern const uint16_t gm_obj_pals[48];")
+    h.append("extern const uint8_t gm_obj_tiles[];\nextern const int gm_obj_tile_count;\nextern const uint16_t gm_obj_pals[96];")
     c.append("const gm_sprite_def gm_spr[SPR_COUNT] = {\n    " + ",\n    ".join(rows) + "};")
     c.append(rsasset.c_bytes("gm_obj_tiles", rsasset.tiles_bytes(tiles)))
     c.append("const int gm_obj_tile_count = %d;" % len(tiles))

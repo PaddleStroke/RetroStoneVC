@@ -1,12 +1,16 @@
 /*
- * @NAME@: the game flow (title, get ready, play, game over, pause, player 2), input, sound, save RAM,
+ * @NAME@: the game flow (the title with players 2-4 joining, play, game over, pause), input, sound, save RAM,
  * options, save states and the test hooks.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/@ID@/LICENSE.
  *
+ * The house flow (docs/art-direction.md, "Title and players"): the title is the only menu. Pads 2-4 join with A
+ * (B leaves); P1 starts the run at once with one of the START INPUTS (this press is also its first move); one press
+ * on the game-over panel starts the next run at once with the same players; Select there goes back to the title.
+ *
  * Options (--opt key=value on the desktop runners):
- *   bot=1          the bot plays player 1 (bot_decide), bot=2 both players; botruns=N runs; botstop=S stops at S
+ *   bot=N          the bot plays players 1..N (bot_decide); botruns=N runs; botstop=S stops at S (P2-P4: S+2, S+4..)
  *   seed=N         a fixed course (default: from the frame of the first press)
- *   players=2      start with player 2 joined;  ready=1  skip the title
+ *   players=N      start with N players joined (1..4);  ready=1  skip the title (the run waits for a press)
  *   dump=1         log the final state at exit (tests); music=0, sound=0
  */
 #include "game.h"
@@ -16,14 +20,15 @@
 #include <stdio.h>
 #include <string.h>
 
-/* the house buttons: A (and B, X, Y, Up) acts, Start starts and retries, Select (or Start in a run) pauses */
-#define ACT_BUTTONS (RS_BTN_A | RS_BTN_B | RS_BTN_X | RS_BTN_Y | RS_BTN_UP)
-#define GO_BUTTONS  (ACT_BUTTONS | RS_BTN_START)
+/* the house buttons: A (and B, X, Y, Up) acts and starts (the start inputs), Select (or Start in a run) pauses */
+#define ACT_BUTTONS   (RS_BTN_A | RS_BTN_B | RS_BTN_X | RS_BTN_Y | RS_BTN_UP)
+#define START_INPUTS  (ACT_BUTTONS | RS_BTN_START)
 
 static int opt_bot, opt_botstop, opt_botruns, opt_seed_fixed, opt_music, opt_sound;
 static uint32_t opt_seed;
 static world W;
-static int st, st_t, paused, new_best, runs_done, players = 1;
+static int st, st_t, paused, new_best, runs_done;
+static int start_press;                       /* P1's start press on the title: also its first move */
 static uint32_t state_hash = 2166136261u;
 static int16_t snd_buf[HA_RATE / 2];          /* start-up scratch (state_audit.txt) */
 
@@ -31,7 +36,7 @@ static int16_t snd_buf[HA_RATE / 2];          /* start-up scratch (state_audit.t
 typedef struct save_data {
     char magic[4];
     uint8_t version, pad[3];
-    uint16_t best, best_race;
+    uint16_t best, best_multi;
     uint32_t runs;
     uint16_t medals[4];
     uint16_t sum;
@@ -93,7 +98,7 @@ int bot_decide(const world *w, int player)
     if (h->state == HS_READY) return (w->t % 40) == 20;
     if (!hero_on_ground(h)) return 0;
     int d = world_block_ahead(w, player);
-    return d >= 0 && d <= 22 + (w->t % 3);
+    return d >= 0 && d <= 22 + (w->t % 3) + player * 2;
 }
 
 /* ---- flow ----------------------------------------------------------------------------------------------------------- */
@@ -102,20 +107,21 @@ static void go(int s) { st = s; st_t = 0; }
 static void new_run(int state)
 {
     uint32_t seed = opt_seed_fixed ? opt_seed : opt_seed ^ (uint32_t)rs_frame_count() * 2654435761u;
-    world_init(&W, players, seed);
+    world_init(&W, hu_players(), seed);
     new_best = 0;
     go(state);
 }
 
-static int is_bot(int p) { return (p == 0 && opt_bot) || (p == 1 && opt_bot >= 2); }
+static int is_bot(int p) { return p < opt_bot; }
 
 static int act_pressed(int p)
 {
+    if (p == 0 && start_press) return 1;
     if (is_bot(p)) {
-        if (opt_botstop && W.h[p].score >= opt_botstop && st == ST_PLAY) return 0;
+        if (opt_botstop && W.h[p].score >= opt_botstop + 2 * p && st == ST_PLAY) return 0;   /* P2-P4: +2 each */
         return bot_decide(&W, p);
     }
-    return (rs_pad_pressed(p) & ACT_BUTTONS) != 0;
+    return (rs_pad_pressed(hu_player_pad(p)) & ACT_BUTTONS) != 0;
 }
 
 static void game_over(void)
@@ -128,7 +134,7 @@ static void game_over(void)
     int m = W.players == 1 ? hu_medal_of(W.h[0].score, medals) : 0;
     if (m) SV.medals[m - 1]++;
     if (best_now > SV.best) { SV.best = (uint16_t)best_now; new_best = 1; }
-    if (W.players == 2 && best_now > SV.best_race) SV.best_race = (uint16_t)best_now;
+    if (W.players >= 2 && best_now > SV.best_multi) SV.best_multi = (uint16_t)best_now;
     save_store();
     runs_done++;
     rs_log("run %d over at frame %u: score %d (best %d)", runs_done, rs_frame_count(), W.h[0].score, SV.best);
@@ -139,11 +145,12 @@ static void game_over(void)
 
 static void play_update(void)
 {
-    int press[MAX_PLAYERS] = {0, 0};
+    int press[MAX_PLAYERS] = {0};
     for (int p = 0; p < W.players; p++) {
         const hero *h = &W.h[p];
         if (h->state == HS_READY || h->state == HS_RUN) press[p] = act_pressed(p);
     }
+    start_press = 0;
     world_step(&W, press);
     for (int p = 0; p < W.players; p++) {
         int ev = W.events[p];
@@ -160,10 +167,7 @@ static void play_update(void)
         state_hash = (state_hash ^ (uint32_t)(h->score * 131 + h->state)) * 16777619u;
     }
     state_hash = (state_hash ^ (uint32_t)W.scroll) * 16777619u;
-    if (st == ST_READY) {
-        if (W.started) go(ST_PLAY);
-        return;
-    }
+    if (!W.started) return;                     /* ready=1: the run waits for its first press */
     if (st == ST_PLAY && !world_running(&W)) go(ST_DEAD);
     if (st == ST_DEAD && world_all_down(&W)) {
         int t = 0;
@@ -172,13 +176,22 @@ static void play_update(void)
     }
 }
 
-static void try_join(void)
+/* the title: players join and leave (the kit's lobby), P1 starts */
+static void title_update(void)
 {
-    /* player 2 joins with A on pad 2, on the title or "get ready" */
-    if (players == 1 && (rs_pad_pressed(1) & GO_BUTTONS)) {
-        players = 2;
+    int ev = hu_title_update();
+    if (ev & HU_TITLE_JOINED) ha_play(HA_CONFIRM);
+    if (ev & HU_TITLE_LEFT) ha_play(HA_SELECT);
+    if (ev & (HU_TITLE_JOINED | HU_TITLE_LEFT)) {
+        int t = st_t;
+        new_run(ST_TITLE);                      /* the world follows the players (the title shows their heroes) */
+        st_t = t;
+    }
+    if ((ev & HU_TITLE_START) || (opt_bot && st_t >= BOT_START)) {
         ha_play(HA_CONFIRM);
-        new_run(ST_READY);
+        new_run(ST_PLAY);
+        start_press = 1;                        /* the start press is also P1's first move */
+        play_update();
     }
 }
 
@@ -193,29 +206,30 @@ static void game_update(void)
     hu_shake_step();
     switch (st) {
     case ST_TITLE:
-        try_join();
-        if (st == ST_TITLE && (opt_bot || (rs_pad_pressed(0) & GO_BUTTONS))) {
-            ha_play(HA_CONFIRM);
-            go(ST_READY);
-        }
-        break;
-    case ST_READY:
-        try_join();
-        play_update();
+        title_update();
         break;
     case ST_PLAY:
     case ST_DEAD:
         play_update();
         break;
     case ST_OVER: {
-        int again = 0;
+        int again = 0, back = 0;
         if (st_t >= RETRY_LOCK) {
-            for (int p = 0; p < W.players; p++) again |= (rs_pad_pressed(p) & GO_BUTTONS) != 0;
+            for (int p = 0; p < W.players; p++) {
+                uint16_t b = rs_pad_pressed(hu_player_pad(p));
+                again |= (b & START_INPUTS) != 0;
+                back |= (b & RS_BTN_SELECT) != 0;
+            }
             if (opt_bot && runs_done < opt_botruns && st_t == RETRY_LOCK + 10) again = 1;
         }
-        if (again) {                            /* house rule: one button, instant retry */
+        if (back) {                             /* Select: back to the title (players join or leave there) */
+            ha_play(HA_SELECT);
+            new_run(ST_TITLE);
+        } else if (again) {                     /* house rule: one press, instant retry, straight into play */
             ha_play(HA_CONFIRM);
-            new_run(ST_READY);
+            new_run(ST_PLAY);
+            start_press = 1;
+            play_update();
         }
         break;
     }
@@ -231,32 +245,44 @@ static void game_init(void)
     opt_music = rs_option_int("music", 1);
     opt_sound = rs_option_int("sound", 1);
     sound_init();
-    draw_init();
+    draw_init();                                /* hu_init (draw.c) */
+    /* the title: P1's start inputs (the game's natural play inputs: the prompt shows them), up to 4 players */
+    hu_title_cfg tc = {START_INPUTS, MAX_PLAYERS, "PLAY", NULL, 0};
+    hu_title_setup(&tc);
     opt_bot = rs_option_int("bot", 0);
+    if (opt_bot > MAX_PLAYERS) opt_bot = MAX_PLAYERS;
     opt_botruns = rs_option_int("botruns", 1);
     opt_botstop = rs_option_int("botstop", 0);
     opt_seed_fixed = rs_option("seed") != NULL;
     opt_seed = (uint32_t)rs_option_int("seed", 0x5eed);
-    players = rs_option_int("players", 1) >= 2 ? 2 : 1;
-    new_run(rs_option_int("ready", 0) ? ST_READY : ST_TITLE);
+    int n = rs_option_int("players", 1);
+    hu_players_set(n > opt_bot ? n : opt_bot > 0 ? opt_bot : 1);
+    new_run(rs_option_int("ready", 0) ? ST_PLAY : ST_TITLE);
 }
 
 static void game_shutdown(void)
 {
     if (!rs_option_int("dump", 0)) return;
-    rs_log("state: st=%d players=%d score=%d score2=%d best=%d runs=%d hs=%d,%d y=%d scroll=%d paused=%d hash=%08x",
-           st, W.players, W.h[0].score, W.h[1].score, SV.best, runs_done, W.h[0].state, W.h[1].state,
-           (int)(W.h[0].y >> 16), (int)W.scroll, paused, state_hash);
+    char sc[48] = "", hs[48] = "";
+    for (int p = 0; p < W.players; p++) {
+        size_t a = strlen(sc), b = strlen(hs);
+        snprintf(sc + a, sizeof sc - a, "%s%d", p ? "," : "", W.h[p].score);
+        snprintf(hs + b, sizeof hs - b, "%s%d", p ? "," : "", W.h[p].state);
+    }
+    rs_log("state: st=%d players=%d score=%d score2=%d best=%d runs=%d hs=%s y=%d scroll=%d paused=%d hash=%08x "
+           "scores=%s",
+           st, W.players, W.h[0].score, W.h[1].score, SV.best, runs_done, hs, (int)(W.h[0].y >> 16), (int)W.scroll,
+           paused, state_hash, sc);
 }
 
 /* ---- save states: the SDK saves the console; here are the game's objects (tools/state_audit.py checks them) ---- */
 #define S(v) rs_state_var("main." #v, &(v), sizeof(v))
 static void game_state(void)
 {
-    S(W); S(st); S(st_t); S(paused); S(new_best); S(runs_done); S(players); S(state_hash);
+    S(W); S(st); S(st_t); S(paused); S(new_best); S(runs_done); S(start_press); S(state_hash);
     S(opt_bot); S(opt_botstop); S(opt_botruns); S(opt_seed_fixed); S(opt_seed); S(opt_music); S(opt_sound);
     draw_state();
-    hu_state();
+    hu_state();                                 /* the kit, with the title's lobby (who plays, on which pad) */
     ha_state();
 }
 #undef S

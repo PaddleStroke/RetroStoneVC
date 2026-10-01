@@ -3,7 +3,7 @@
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/@ID@/LICENSE.
  *
  * play.c is the game rules (no drawing, no sound: deterministic, testable alone); draw.c is the video,
- * main.c the flow (title, get ready, play, game over), input, save RAM, options and save states.
+ * main.c the flow (the title with the players joining, play, game over), input, save RAM, options and save states.
  * Made from games/_template (tools/new_game.py): the house style kit is games/common (docs/art-direction.md).
  */
 #ifndef GAME_H
@@ -12,12 +12,12 @@
 #include <stdint.h>
 #include "rs.h"
 
-#define MAX_PLAYERS 2
+#define MAX_PLAYERS 4                   /* the house kit's HU_MAX_PLAYERS: 4 pads */
 
 /* ---- tuning: every gameplay number is here ------------------------------------------------------------------- */
 #define GROUND_Y      192       /* the ground line (feet), screen y */
 #define HERO_X        96        /* player 1's centre, screen x */
-#define P2_OFFSET_X   (-40)     /* player 2 runs this far behind */
+#define P_OFFSET_X    (-26)     /* each next player runs this far behind */
 #define GRAVITY       (Q16_ONE * 30 / 100)
 #define JUMP_VY       (-Q16_ONE * 55 / 10)
 #define SCROLL_SPEED  2         /* px per frame */
@@ -29,7 +29,8 @@
 #define PANEL_DELAY   40        /* frames between the hit and the game-over panel */
 #define RETRY_LOCK    36        /* frames the panel ignores the button (no accidental retry) */
 #define HIT_FREEZE    8         /* hit-stop frames */
-#define READY_BOB     4         /* get-ready / title bob amplitude, px */
+#define READY_BOB     4         /* the title hero's bob amplitude, px */
+#define BOT_START     20        /* frames on the title before the bot starts the run */
 #define MEDAL_SCORES  {10, 20, 30, 40}           /* bronze, silver, gold, pearl */
 
 #define Q16_ONE 65536
@@ -65,7 +66,7 @@ int  world_block_ahead(const world *w, int player);   /* px to the next block's 
 int  hero_on_ground(const hero *h);
 
 /* ---- draw.c -------------------------------------------------------------------------------------------------------- */
-enum { ST_TITLE, ST_READY, ST_PLAY, ST_DEAD, ST_OVER };
+enum { ST_TITLE, ST_PLAY, ST_DEAD, ST_OVER };      /* no "get ready": the title is the only menu */
 void draw_init(void);
 void draw_frame(const world *w, int state, int st_t, int best, int new_best, int paused);
 void draw_state(void);
