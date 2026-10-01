@@ -33,26 +33,64 @@ static void cone(pbuild *b, int c, int k256)
 static void coin(pbuild *b, int c, int r) { if (b->coin) put(b, c, r, K_COIN); }
 static void end(pbuild *b, int len) { b->len = len; }
 
-/* ---- the patterns --------------------------------------------------------------------------------------------------- */
-/* 1. hop: thorn bushes on the beat; the count, the spacing (1, 1.5 or 2 beats) and single or double bushes */
-static void p_hop(pbuild *b, const int *v)
+/* ---- the micro-patterns: half a bar to a bar, one small idea each, chained closely ----------------------------------- *
+ * "sub" is the 16th of the first beat the key obstacle sits on (1: the press falls on the beat, 2 and 3: after it). */
+
+/* thorn: one bush, one or two wide */
+static void m_thorn(pbuild *b, const int *v)
 {
-    static const int sp[3] = {4, 6, 8};
-    int n = v[0], s = sp[v[1]], w = v[2];
-    for (int i = 0; i < n; i++) thorns(b, 1 + i * s, w);
-    end(b, 1 + (n - 1) * s + w + 3);
+    int s = v[0], w = v[1];
+    thorns(b, s, w);
+    end(b, s + w + 3);
 }
 
-/* 2. rows: long thorn rows (two or three bushes) to clear in one jump */
-static void p_rows(pbuild *b, const int *v)
+/* pebbles: a low pile of pebbles, one or two cells */
+static void m_pebble(pbuild *b, const int *v)
 {
-    int n = v[0], w = v[1], s = v[2] ? 12 : 8;
-    for (int i = 0; i < n; i++) thorns(b, 1 + i * s, w);
-    end(b, 1 + (n - 1) * s + w + 3);
+    int s = v[0], n = v[1];
+    for (int i = 0; i < n; i++) put(b, s + i, 0, K_PEBBLE);
+    end(b, s + n + 3);
 }
 
-/* 3. stairs: climb rock steps one block at a time, then drop off the top (over a thorn at the bottom) */
-static void p_stairs(pbuild *b, const int *v)
+/* two bushes: their widths and the gap between them (on the beat or off it; one more cell on the fast tiers) */
+static void m_two(pbuild *b, const int *v)
+{
+    static const int gap[4] = {3, 4, 5, 7};
+    int s = v[0], g = gap[v[1]] + (b->tier >= 2), w1 = v[2], w2 = v[3];
+    thorns(b, s, w1);
+    thorns(b, s + w1 + g, w2);
+    end(b, s + w1 + g + w2 + 3);
+}
+
+/* three: three single things a beat (or a beat and a 16th, or 1.5 beats) apart; one of them may be a pebble pile */
+static void m_three(pbuild *b, const int *v)
+{
+    static const int sp[3] = {4, 5, 6};
+    int s = v[0], d = sp[v[1]] + (b->tier >= 3 && v[1] == 0), peb = v[2];
+    for (int i = 0; i < 3; i++) put(b, s + i * d, 0, peb == i + 1 ? K_PEBBLE : K_THORN);
+    end(b, s + 2 * d + 4);
+}
+
+/* row: a long thorn row cleared in one jump */
+static void m_row(pbuild *b, const int *v)
+{
+    int s = v[0], w = v[1];
+    thorns(b, s, w);
+    end(b, s + w + 3);
+}
+
+/* block: hop onto a rock (1 to 4 long), roll off; a thorn just after it, or not */
+static void m_block(pbuild *b, const int *v)
+{
+    int s = v[0], L = v[1], th = v[2];
+    for (int i = 0; i < L; i++) pillar(b, s + i, 1, K_BLOCK);
+    if (th) thorns(b, s + L + 1, 1);
+    coin(b, s + L - 1, 3);
+    end(b, s + L + 1 + th * 2 + 3);
+}
+
+/* steps: climb two or three rock steps, drop off the top (over a thorn at the bottom, or not) */
+static void m_steps(pbuild *b, const int *v)
 {
     int n = v[0], L = v[1], drop_thorn = v[2], c = 1;
     for (int s = 0; s < n; s++) {
@@ -64,7 +102,134 @@ static void p_stairs(pbuild *b, const int *v)
     end(b, c + 4);
 }
 
-/* 4. logs: roll along fallen logs; thorns in the pits between them */
+/* gap: a crevasse two or three wide */
+static void m_gap(pbuild *b, const int *v)
+{
+    int s = v[0], w = v[1];
+    ground(b, s, w, G_GAP);
+    end(b, s + w + 3);
+}
+
+/* gap and thorn: a crevasse and a bush, in either order, a little apart */
+static void m_gapthorn(pbuild *b, const int *v)
+{
+    int order = v[0], sp = 3 + v[1] + (b->tier >= 2), w = v[2];
+    if (order == 0) {
+        ground(b, 1, w, G_GAP);
+        thorns(b, 1 + w + sp, 1);
+        end(b, 1 + w + sp + 4);
+    } else {
+        thorns(b, 1, 1);
+        ground(b, 2 + sp, w, G_GAP);
+        end(b, 2 + sp + w + 3);
+    }
+}
+
+/* pillar: hop onto a rock pillar (one or two high) over thorns, hop off over the thorns behind it */
+static void m_pillar(pbuild *b, const int *v)
+{
+    int h = v[0], before = v[1], after = v[2];
+    thorns(b, 1, before);
+    pillar(b, 1 + before, h, K_BLOCK);
+    thorns(b, 2 + before, after);
+    if (after == 2) coin(b, 1 + before, h + 2);     /* (over three thorns the hop off the top comes too early) */
+    end(b, 2 + before + after + 3);
+}
+
+/* two logs with a thorn pit between them (forest and below) */
+static void m_logpit(pbuild *b, const int *v)
+{
+    int L1 = v[0], pit = v[1], L2 = v[2], c = 1;
+    for (int j = 0; j < L1; j++) put(b, c + j, 0, K_LOG);
+    c += L1;
+    thorns(b, c, pit);
+    c += pit;
+    for (int j = 0; j < L2; j++) put(b, c + j, 0, K_LOG);
+    c += L2;
+    end(b, c + 3);
+}
+
+/* pad: a mushroom launches the berry over a tall wall or a long thorn field (no press needed) */
+static void m_pad(pbuild *b, const int *v)
+{
+    int kind = v[0], size = v[1];
+    put(b, 1, 0, K_PAD);
+    if (kind == 0) pillar(b, 4, 1 + size, K_BLOCK);
+    else thorns(b, 2, 1 + size);                /* right after the pad: the launch clears it */
+    if (kind == 0) coin(b, 3, 4);
+    end(b, 12);
+}
+
+/* dew drop: jump into a crevasse's air and press on the drop to jump again */
+static void m_orb(pbuild *b, const int *v)
+{
+    int w = v[0], far = v[1];
+    ground(b, 2, w, G_GAP);
+    put(b, 2 + w / 2, 2, K_ORB);
+    if (far) thorns(b, 2 + w + 3, 1);           /* a bush on the far side */
+    coin(b, 2 + w / 2 + 2, 4);                  /* near the top of the drop's jump */
+    end(b, 2 + w + 5);
+}
+
+/* cone: one pine cone rolls down at the berry (forest and below) */
+static void m_cone(pbuild *b, const int *v)
+{
+    int s = v[0], fast = v[1];
+    cone(b, 2 + s, fast ? CONE_FAST : CONE_SLOW);
+    end(b, 2 + s + 4);
+}
+
+/* overhang: hanging thorns over the path: do NOT jump under them; a bush just after them, or not */
+static void m_overhang(pbuild *b, const int *v)
+{
+    int L = v[0], th = v[1], d = v[2];
+    for (int i = 0; i < L; i++) { put(b, 1 + i, 3, K_BLOCK); put(b, 1 + i, 2, K_HANG); }
+    if (th) thorns(b, 1 + L + 1 + d, 1);
+    end(b, 1 + L + (th ? 2 + d : 0) + 3);
+}
+
+/* ledge: jump onto a rock ledge, hop the bush on it, roll off (over two thorns, or not) */
+static void m_ledge(pbuild *b, const int *v)
+{
+    int L = v[0], th = v[1], down = v[2];
+    for (int i = 0; i < L; i++) pillar(b, 1 + i, 1, K_BLOCK);
+    if (th) put(b, 1 + L / 2, 1, K_THORN);
+    if (down) thorns(b, 1 + L, 2);
+    end(b, 1 + L + 5);
+}
+
+/* four: four things a beat apart (or a beat and a 16th): a jump on every beat; one of them may be a double bush */
+static void m_four(pbuild *b, const int *v)
+{
+    int s = v[0], d = 4 + v[1], dbl = v[2], c = s;
+    for (int i = 0; i < 4; i++) {
+        thorns(b, c, dbl == i + 1 ? 2 : 1);
+        c += d + (dbl == i + 1);
+    }
+    end(b, c + 3);
+}
+
+/* rock between bushes: hop over a bush onto a rock, then over the bush behind it */
+static void m_rockthorns(pbuild *b, const int *v)
+{
+    int before = v[0], L = v[1], after = v[2];
+    thorns(b, 1, before);
+    for (int i = 0; i < L; i++) pillar(b, 1 + before + i, 1, K_BLOCK);
+    thorns(b, 1 + before + L, after);
+    end(b, 1 + before + L + after + 3);
+}
+
+/* two crevasses close together: two quick jumps */
+static void m_gapgap(pbuild *b, const int *v)
+{
+    int w1 = v[0], sp = 2 + v[1], w2 = v[2];
+    ground(b, 1, w1, G_GAP);
+    ground(b, 1 + w1 + sp, w2, G_GAP);
+    end(b, 1 + w1 + sp + w2 + 3);
+}
+
+/* ---- the set pieces: longer signature sections, rarer ---------------------------------------------------------------- */
+/* logs: roll along fallen logs; thorns in the pits between them */
 static void p_logs(pbuild *b, const int *v)
 {
     int n = v[0], L = v[1], pit = v[2], c = 1;
@@ -77,7 +242,7 @@ static void p_logs(pbuild *b, const int *v)
     end(b, c + 3);
 }
 
-/* 5. pillars: hop from rock pillar to rock pillar over thorns (flat, up-down or rising) */
+/* pillars: hop from rock pillar to rock pillar over thorns (flat, up-down or rising) */
 static void p_pillars(pbuild *b, const int *v)
 {
     int n = v[0], shape = v[1], c = 1;
@@ -93,15 +258,7 @@ static void p_pillars(pbuild *b, const int *v)
     end(b, c + 2);
 }
 
-/* 6. crevasses: jump the gaps in the mountainside */
-static void p_gaps(pbuild *b, const int *v)
-{
-    int n = v[0], w = v[1], s = v[2], c = 1;
-    for (int i = 0; i < n; i++) { ground(b, c, w, G_GAP); c += w + s; }
-    end(b, c + 1);
-}
-
-/* 7. islands: stepping stones across a long crevasse */
+/* islands: stepping stones across a long crevasse */
 static void p_islands(pbuild *b, const int *v)
 {
     int n = v[0], s = v[1] + (b->tier >= 3), c = 1;                  /* faster tiers: one more cell */
@@ -111,18 +268,7 @@ static void p_islands(pbuild *b, const int *v)
     end(b, c + n * s + s + 2);
 }
 
-/* 8. mushroom: a pad launches the berry over a tall wall or a long thorn field */
-static void p_mushroom(pbuild *b, const int *v)
-{
-    int kind = v[0], size = v[1];
-    put(b, 1, 0, K_PAD);
-    if (kind == 0) pillar(b, 4, 1 + size, K_BLOCK);
-    else thorns(b, 2, 1 + size);                /* right after the pad: the launch clears it */
-    if (kind == 0) coin(b, 3, 4);
-    end(b, 12);
-}
-
-/* 9. pad steps: a pad throws the berry onto a high ledge; roll along it and drop off over thorns */
+/* pad steps: a pad throws the berry onto a high ledge; roll along it and drop off over thorns */
 static void p_padsteps(pbuild *b, const int *v)
 {
     int h = v[0], L = v[1], th = v[2];
@@ -133,18 +279,7 @@ static void p_padsteps(pbuild *b, const int *v)
     end(b, 4 + L + 4);
 }
 
-/* 10. dew drop: jump into a crevasse's air and press on the drop to jump again */
-static void p_orb(pbuild *b, const int *v)
-{
-    int w = v[0], far = v[1];
-    ground(b, 2, w, G_GAP);
-    put(b, 2 + w / 2, 2, K_ORB);
-    if (far) thorns(b, 2 + w + 3, 1);           /* a bush on the far side */
-    coin(b, 2 + w / 2 + 2, 4);                  /* near the top of the drop's jump */
-    end(b, 2 + w + 5);
-}
-
-/* 11. dew chain: a rhythm of drops across a long crevasse (level, zigzag or rising) */
+/* dew chain: a rhythm of drops across a long crevasse (level, zigzag or rising) */
 static void p_orbchain(pbuild *b, const int *v)
 {
     /* the drops one jump apart: a jump lasts 21 frames, 3 cells at the slow tiers, 4 at the fast ones */
@@ -161,7 +296,7 @@ static void p_orbchain(pbuild *b, const int *v)
     end(b, 2 + w + 5);
 }
 
-/* 12. pine cones: cones roll down at the berry; jump each on its beat */
+/* pine cones: cones roll down at the berry; jump each on its beat */
 static void p_cones(pbuild *b, const int *v)
 {
     int n = v[0], s = v[1], fast = v[2];
@@ -169,7 +304,7 @@ static void p_cones(pbuild *b, const int *v)
     end(b, 2 + (n - 1) * s + 4);
 }
 
-/* 13. cone hop: a thorn bush and a cone, in either order */
+/* cone hop: a thorn bush and a cone, in either order */
 static void p_conehop(pbuild *b, const int *v)
 {
     int order = v[0], s = v[1], w = v[2];
@@ -178,7 +313,7 @@ static void p_conehop(pbuild *b, const int *v)
     end(b, 2 + s + w + 3);
 }
 
-/* 14. ice: jump onto an icy patch, slide (no grip, no jump) under icicles, jump as soon as it ends */
+/* ice: jump onto an icy patch, slide (no grip, no jump) under icicles, jump as soon as it ends */
 static void p_ice(pbuild *b, const int *v)
 {
     int L = v[0], icicles = v[1], after = v[2];
@@ -190,7 +325,7 @@ static void p_ice(pbuild *b, const int *v)
     end(b, 3 + L + after + 4);
 }
 
-/* 15. snow smash: roll through snow, grow into a snowberry, smash a row of small things, wash off in the stream */
+/* snow smash: roll through snow, grow into a snowberry, smash a row of small things, wash off in the stream */
 static void p_snowsmash(pbuild *b, const int *v)
 {
     int n = v[0], rocks = v[1], cones = v[2], c = 8;
@@ -205,7 +340,7 @@ static void p_snowsmash(pbuild *b, const int *v)
     end(b, c + 6);
 }
 
-/* 16. snow jumps: the heavy snowberry's low jumps over crevasses and rocks */
+/* snow jumps: the heavy snowberry's low jumps over crevasses and rocks */
 static void p_snowgaps(pbuild *b, const int *v)
 {
     int n = v[0], rock = v[1], s = v[2] + (b->tier <= 1), c = 8;     /* the slow tiers: one more cell */
@@ -219,7 +354,7 @@ static void p_snowgaps(pbuild *b, const int *v)
     end(b, c + 5);
 }
 
-/* 17. leaf tunnel: ride the maple leaf between floor thorns and hanging thorns */
+/* leaf tunnel: ride the maple leaf between floor thorns and hanging thorns */
 static void p_glidetunnel(pbuild *b, const int *v)
 {
     int n = v[0], H = v[1], first = v[2], c = 5;
@@ -236,7 +371,7 @@ static void p_glidetunnel(pbuild *b, const int *v)
     end(b, len + 2);
 }
 
-/* 18. leaf weave: glide through openings in log fences, low and high in turn */
+/* leaf weave: glide through openings in log fences, low and high in turn */
 static void p_glideweave(pbuild *b, const int *v)
 {
     int n = v[0], open = v[1], s = v[2], c = 6;
@@ -252,41 +387,7 @@ static void p_glideweave(pbuild *b, const int *v)
     end(b, c + 5);
 }
 
-/* 19. ledge: jump onto a rock ledge, hop the thorns along it, jump off the end */
-static void p_ledge(pbuild *b, const int *v)
-{
-    int L = v[0], th = v[1], down = v[2];
-    if (L < 6 && th == 2) th = 1;               /* two thorns need a long ledge */
-    if (down && L < 6) th = 0;                  /* a short ledge that drops over thorns: nothing on top */
-    if (down && th == 2) th = 1;
-    for (int i = 0; i < L; i++) pillar(b, 2 + i, 1, K_BLOCK);
-    if (th >= 1) put(b, 2 + L / 2, 1, K_THORN);
-    if (th >= 2) put(b, 2 + L - 1, 1, K_THORN);
-    if (down) thorns(b, 2 + L, 2);
-    end(b, 2 + L + 5);
-}
-
-/* 20. phrase: a two-bar musical phrase of bushes, doubles and steps (8 phrases, forwards or mirrored) */
-static void p_phrase(pbuild *b, const int *v)
-{
-    /* one symbol per beat: . nothing, t thorn, d double thorn, b a rock to step on, p pebble */
-    static const char *ph[8] = {"t.t.d...", "t.tt.d..", "b.t.b.t.", "tt.d.t..", "p.t.p.d.", "d..t.t..",
-                                "t.b..t.d", "tp.t.b.."};
-    const char *s = ph[v[0]];
-    int n = (int)strlen(s);
-    for (int i = 0; i < n; i++) {
-        int k = v[1] ? n - 1 - i : i, c = 1 + i * 4;
-        switch (s[k]) {
-        case 't': thorns(b, c, 1); break;
-        case 'd': thorns(b, c, 2); break;
-        case 'p': put(b, c, 0, K_PEBBLE); break;
-        case 'b': pillar(b, c, 1, K_BLOCK); break;
-        }
-    }
-    end(b, 1 + n * 4 + 1);
-}
-
-/* 21. breather: open ground and the scenery, sometimes one pebble; a golden blueberry up in the air */
+/* breather: open ground and the scenery, sometimes one pebble; a golden blueberry up in the air */
 static void p_breather(pbuild *b, const int *v)
 {
     int bars = v[0], pebble = v[1];
@@ -296,48 +397,74 @@ static void p_breather(pbuild *b, const int *v)
 }
 
 #define T5(a) {a, a, a, a, a}
+/* name, idea, biomes (bit b: biome b; the night takes any), breather, coin spot, weight (how often the director
+ * picks it among those that fit: micro-patterns are common, set pieces rare), parameters, builder */
 const pattern_def bt_patterns[] = {
-    {"hop", "thorn bushes on the beat", 15, 0, 0, 3,
-     {{"count", 1, T5(4)}, {"spacing", 0, T5(2)}, {"width", 1, T5(2)}}, p_hop},
-    {"rows", "long thorn rows in one jump", 15, 0, 0, 3,
-     {{"count", 1, T5(2)}, {"width", 2, {2, 2, 2, 3, 3}}, {"loose", 0, T5(1)}}, p_rows},
-    {"stairs", "climb the rocks, drop off the top", 15, 0, 1, 3,
-     {{"steps", 1, T5(3)}, {"step", 3, T5(5)}, {"thorn", 0, T5(1)}}, p_stairs},
-    {"logs", "roll along fallen logs over thorn pits", 14, 0, 1, 3,
-     {{"logs", 1, T5(3)}, {"length", 3, T5(5)}, {"pit", 1, T5(2)}}, p_logs},
-    {"pillars", "hop from pillar to pillar over thorns", 15, 0, 0, 3,
-     {{"count", 2, {4, 4, 4, 4, 3}}, {"shape", 0, T5(2)}, {"spacing", 3, T5(4)}}, p_pillars},
-    {"gaps", "jump the crevasses", 15, 0, 0, 3,
-     {{"count", 1, T5(3)}, {"width", 2, T5(3)}, {"spacing", 4, T5(7)}}, p_gaps},
-    {"islands", "stepping stones over a long crevasse", 15, 0, 1, 2,
-     {{"count", 2, T5(4)}, {"spacing", 3, T5(4)}}, p_islands},
-    {"mushroom", "a pad launches over a wall or thorns", 15, 0, 1, 2,
-     {{"kind", 0, T5(1)}, {"size", 1, {1, 1, 2, 2, 3}}}, p_mushroom},
-    {"padsteps", "a pad throws the berry onto a ledge", 15, 0, 1, 3,
-     {{"height", 2, T5(3)}, {"length", 3, T5(6)}, {"thorns", 0, T5(1)}}, p_padsteps},
-    {"dewdrop", "a dew drop over a crevasse: jump again", 15, 0, 1, 2,
-     {{"width", 4, {5, 6, 6, 6, 6}}, {"far", 0, T5(1)}}, p_orb},
-    {"dewchain", "a rhythm of dew drops across the void", 15, 0, 1, 3,
-     {{"count", 2, {3, 3, 3, 3, 4}}, {"shape", 0, {1, 2, 1, 1, 0}}, {"far", 0, T5(1)}}, p_orbchain},
-    {"cones", "pine cones roll down at you", 14, 0, 0, 3,
-     {{"count", 1, T5(3)}, {"spacing", 6, T5(10)}, {"fast", 0, T5(1)}}, p_cones},
-    {"conehop", "a thorn bush and a cone", 14, 0, 0, 3,
+    /* the micro-patterns */
+    {"thorn", "one bush, on a 16th of the beat", 15, 0, 0, 8, 2,
+     {{"sub", 1, T5(3)}, {"width", 1, T5(2)}}, m_thorn},
+    {"pebbles", "a low pile of pebbles", 15, 0, 0, 6, 2,
+     {{"sub", 1, T5(3)}, {"count", 1, T5(2)}}, m_pebble},
+    {"two", "two bushes, on or off the beat", 15, 0, 0, 8, 4,
+     {{"sub", 1, T5(2)}, {"gap", 0, T5(3)}, {"width1", 1, T5(2)}, {"width2", 1, T5(2)}}, m_two},
+    {"three", "three things a beat apart", 15, 0, 0, 6, 3,
+     {{"sub", 1, T5(2)}, {"spacing", 0, T5(2)}, {"pebble", 0, T5(3)}}, m_three},
+    {"row", "a thorn row in one jump", 15, 0, 0, 5, 2,
+     {{"sub", 1, T5(2)}, {"width", 2, {2, 2, 3, 3, 3}}}, m_row},
+    {"block", "hop onto a rock and off", 15, 0, 1, 7, 3,
+     {{"sub", 1, T5(3)}, {"length", 1, T5(4)}, {"thorn", 0, T5(1)}}, m_block},
+    {"steps", "climb rock steps, drop off", 15, 0, 1, 5, 3,
+     {{"steps", 2, T5(3)}, {"step", 2, T5(3)}, {"thorn", 0, T5(1)}}, m_steps},
+    {"gap", "a crevasse", 15, 0, 0, 7, 2,
+     {{"sub", 1, T5(3)}, {"width", 2, T5(3)}}, m_gap},
+    {"gapthorn", "a crevasse and a bush, either order", 15, 0, 0, 6, 3,
+     {{"order", 0, T5(1)}, {"spacing", 0, T5(2)}, {"width", 2, T5(3)}}, m_gapthorn},
+    {"pillar", "a pillar over thorns", 15, 0, 1, 5, 3,
+     {{"height", 1, T5(2)}, {"before", 0, T5(1)}, {"after", 2, T5(3)}}, m_pillar},
+    {"logpit", "two logs and a thorn pit", 14, 0, 0, 5, 3,
+     {{"log1", 2, T5(4)}, {"pit", 1, T5(2)}, {"log2", 2, T5(3)}}, m_logpit},
+    {"mushroom", "a pad over a wall or thorns", 15, 0, 1, 4, 2,
+     {{"kind", 0, T5(1)}, {"size", 1, {1, 1, 2, 2, 3}}}, m_pad},
+    {"dewdrop", "a dew drop over a crevasse", 15, 0, 1, 5, 2,
+     {{"width", 4, {5, 6, 6, 6, 6}}, {"far", 0, T5(1)}}, m_orb},
+    {"cone", "a pine cone rolls at you", 14, 0, 0, 5, 2,
+     {{"sub", 0, T5(2)}, {"fast", 0, T5(1)}}, m_cone},
+    {"overhang", "hanging thorns: do not jump", 15, 0, 0, 5, 3,
+     {{"length", 2, T5(4)}, {"thorn", 0, T5(1)}, {"dist", 0, T5(1)}}, m_overhang},
+    {"ledge", "a rock ledge with a bush on it", 15, 0, 0, 5, 3,
+     {{"length", 4, T5(6)}, {"thorn", 0, T5(1)}, {"down", 0, T5(1)}}, m_ledge},
+    {"conehop", "a thorn bush and a cone", 14, 0, 0, 4, 3,
      {{"order", 0, T5(1)}, {"spacing", 5, T5(8)}, {"width", 1, T5(2)}}, p_conehop},
-    {"ice", "an icy patch: no grip, slide, then jump", 1, 0, 0, 3,
+    {"four", "a jump on every beat", 15, 0, 0, 5, 3,
+     {{"sub", 1, T5(2)}, {"offbeat", 0, T5(1)}, {"double", 0, T5(4)}}, m_four},
+    {"rockthorns", "over a bush onto a rock, over the next", 15, 0, 0, 5, 3,
+     {{"before", 1, T5(2)}, {"length", 1, T5(2)}, {"after", 1, T5(2)}}, m_rockthorns},
+    {"gapgap", "two crevasses close together", 15, 0, 0, 5, 3,
+     {{"width1", 2, T5(3)}, {"spacing", 0, T5(2)}, {"width2", 2, T5(3)}}, m_gapgap},
+    /* the set pieces */
+    {"logs", "roll along fallen logs over thorn pits", 14, 0, 1, 2, 3,
+     {{"logs", 2, T5(3)}, {"length", 3, T5(5)}, {"pit", 1, T5(2)}}, p_logs},
+    {"pillars", "hop from pillar to pillar over thorns", 15, 0, 0, 2, 3,
+     {{"count", 2, {4, 4, 4, 4, 3}}, {"shape", 0, T5(2)}, {"spacing", 3, T5(4)}}, p_pillars},
+    {"islands", "stepping stones over a long crevasse", 15, 0, 1, 2, 2,
+     {{"count", 2, T5(4)}, {"spacing", 3, T5(4)}}, p_islands},
+    {"padsteps", "a pad throws the berry onto a ledge", 15, 0, 1, 2, 3,
+     {{"height", 2, T5(3)}, {"length", 3, T5(6)}, {"thorns", 0, T5(1)}}, p_padsteps},
+    {"dewchain", "a rhythm of dew drops across the void", 15, 0, 1, 2, 3,
+     {{"count", 2, {3, 3, 3, 3, 4}}, {"shape", 0, {1, 2, 1, 1, 0}}, {"far", 0, T5(1)}}, p_orbchain},
+    {"cones", "pine cones roll down at you", 14, 0, 0, 2, 3,
+     {{"count", 2, T5(3)}, {"spacing", 6, T5(10)}, {"fast", 0, T5(1)}}, p_cones},
+    {"ice", "an icy patch: no grip, slide, then jump", 1, 0, 0, 3, 3,
      {{"length", 3, T5(6)}, {"icicles", 0, T5(1)}, {"after", 1, T5(2)}}, p_ice},
-    {"snowsmash", "grow into a snowberry and smash through", 1, 0, 0, 3,
+    {"snowsmash", "grow into a snowberry and smash through", 1, 0, 0, 3, 3,
      {{"smash", 2, T5(5)}, {"rocks", 0, T5(2)}, {"cones", 0, T5(1)}}, p_snowsmash},
-    {"snowjumps", "the heavy snowberry's low jumps", 1, 0, 0, 3,
+    {"snowjumps", "the heavy snowberry's low jumps", 1, 0, 0, 3, 3,
      {{"count", 1, T5(3)}, {"rock", 0, T5(1)}, {"spacing", 4, T5(6)}}, p_snowgaps},
-    {"leaftunnel", "ride the leaf between floor and ceiling thorns", 14, 0, 1, 3,
+    {"leaftunnel", "ride the leaf between floor and ceiling thorns", 14, 0, 1, 2, 3,
      {{"count", 2, T5(4)}, {"height", 5, T5(7)}, {"first", 0, T5(1)}}, p_glidetunnel},
-    {"leafweave", "glide through low and high openings", 14, 0, 1, 3,
+    {"leafweave", "glide through low and high openings", 14, 0, 1, 2, 3,
      {{"count", 2, T5(4)}, {"open", 3, T5(4)}, {"spacing", 6, T5(8)}}, p_glideweave},
-    {"ledge", "run a rock ledge, hop its thorns, jump off", 15, 0, 0, 3,
-     {{"length", 4, T5(8)}, {"thorns", 0, T5(2)}, {"down", 0, T5(1)}}, p_ledge},
-    {"phrase", "a two-bar phrase of bushes and steps", 15, 0, 0, 2,
-     {{"phrase", 0, T5(7)}, {"mirror", 0, T5(1)}}, p_phrase},
-    {"breather", "open ground to breathe", 15, 1, 1, 2,
+    {"breather", "open ground to breathe", 15, 1, 1, 0, 2,
      {{"bars", 1, T5(2)}, {"pebble", 0, T5(1)}}, p_breather},
 };
 const int bt_npatterns = (int)(sizeof bt_patterns / sizeof bt_patterns[0]);

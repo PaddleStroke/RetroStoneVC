@@ -4,12 +4,15 @@
  *
  * Layers (docs/art-direction.md): the backdrop is the sky (a raster gradient per biome and time of day, pulsing
  * on the beat); BG4 the far mountains (1/4); BG3 the biome's mid-ground (1/2); BG2 the playfield, an AFFINE layer
- * sheared downward so the flat physics grid is drawn as a mountain slope (the map holds the grid as it is: 16-px
- * cells, the ground at map row GROUND_TROW); BG1 the house UI kit. Every sprite gets the playfield's shear at its
- * column, so everything sits on the slope. The playfield and the mid-ground are streamed column by column.
+ * sheared downward so the flat physics grid is drawn as a mountain slope; BG1 the house UI kit. On top of the shear,
+ * the slope has a PROFILE (the course's dy0/dy1, director.c): each column of the map is drawn that many px lower
+ * (whole tile rows), and the columns where the height changes are drawn with ramp strips (gentle, steep, a cliff),
+ * so the mountainside has steeper and gentler stretches, rises, dips, cliff edges and plateaus. The physics stays on
+ * the flat grid: every sprite is drawn with the shear AND the profile at its x, and the camera follows the profile
+ * under player 1. The playfield and the mid-ground are streamed column by column.
  * Palettes: BG 0 UI, 1-4 the playfield (one biome each: day, or night in the loop), 5 far, 6-7 mid-ground (by the
- * biome's parity); OBJ 0 berry, 1 raspberry, 2 dew and mushrooms, 3 the kit, 4 cones and leaves, 5-6 snowberries,
- * 7 golden blueberries.
+ * biome's parity); OBJ 0, 1, 4, 5 the four berries (blueberry, raspberry, blackberry, gooseberry: the kit's player
+ * palettes), 2 dew and mushrooms, 3 the kit, 6 cones and leaves, 7 the snowball and the golden blueberries.
  */
 #include "bt.h"
 #include "assets.h"
@@ -54,8 +57,10 @@ typedef struct fx { int16_t x, y, vx, vy, t, kind; } fx;   /* screen x, y in 1/1
 static fx fxs[FX_MAX];
 static int fx_n;
 static int view_hofs, view_vofs, view_c, view_camx;    /* the registers written this frame (the bot reads them) */
-static int dew_t[2] = {99, 99};             /* frames since each player's last dew-drop jump (the ring) */
-static int32_t dew_id[2];
+static int dew_t[MAX_PLAYERS] = {99, 99, 99, 99};       /* frames since each player's last dew-drop jump (the ring) */
+static int32_t dew_id[MAX_PLAYERS];
+static int cam_d16;                         /* the camera follows the profile under player 1 (px x 16) */
+static const bt_course *view_course;        /* the course drawn this frame (the sprites' profile) */
 
 /* ---- colour helpers ------------------------------------------------------------------------------------------------- */
 static rs_color rgb(uint32_t h) { return RS_HEX(h); }
@@ -180,8 +185,9 @@ void draw_reset(void)
     fx_n = 0;
     last_gate_col = -1;
     gate_t = 999;
-    dew_t[0] = dew_t[1] = 99;
+    for (int p = 0; p < MAX_PLAYERS; p++) dew_t[p] = 99;
     cam_up = 0;
+    cam_d16 = 0;
 }
 
 /* ---- the playfield map ------------------------------------------------------------------------------------------------ */
@@ -209,14 +215,49 @@ static void clear_cell(int32_t col, int trow)
 
 static int is_log(const bt_col *k, int r) { return r >= 0 && r < ROWS && k->cell[r] == K_LOG; }
 
+/* one 8x8 quarter of a metatile at map tile (tx, ty) */
+static void put_quarter(int32_t col, int half, int ty, int biome, int mt, int q)
+{
+    int tx = (int)((uint32_t)(col * 2 + half) & (MAP_W - 1));
+    rs_bg_put(RS_BG2, tx, ty & 63, mt < 0 ? 0 : gm_pf_meta[(biome * MT_COUNT + mt) * 4 + q]);
+}
+
+static int floor8(int v) { return v >= 0 ? v / 8 : -((-v + 7) / 8); }
+
+/* a column whose ground changes height: its ramp strip, the deep soil under it, nothing above */
+static int draw_ramp(int32_t col, int b, int dy0, int dy1)
+{
+    int base = floor8(dy0) * 8, s = dy0 - base, d = dy1 - dy0, i = 0;
+    while (i < RAMP_COUNT && !(gm_ramp[i][0] == s && gm_ramp[i][1] == d)) i++;
+    if (i == RAMP_COUNT) return 0;                  /* not a ramp the art has: drawn level */
+    int top = GROUND_TROW + base / 8 + gm_ramp[i][2];
+    for (int r = -38; r < 64 - 38; r++) {           /* the whole column: the sky, the strip, the soil (64 rows) */
+        int ty = top + r;
+        for (int h = 0; h < 2; h++) {
+            int tx = (int)((uint32_t)(col * 2 + h) & (MAP_W - 1));
+            uint16_t e = 0;
+            if (r >= 0 && r < RAMP_ROWS) e = gm_ramp_map[((b * RAMP_COUNT + i) * RAMP_ROWS + r) * 2 + h];
+            else if (r >= RAMP_ROWS) e = gm_pf_meta[(b * MT_COUNT + MT_DEEP) * 4 + ((ty & 1) << 1) + h];
+            rs_bg_put(RS_BG2, tx, ty & 63, e);
+        }
+    }
+    return 1;
+}
+
 static void draw_column(const bt_course *c, int32_t col)
 {
     const bt_col *k = course_col(c, col), *kl = course_col(c, col - 1), *kr = course_col(c, col + 1);
     int b = course_biome_of_col(col);
-    uint32_t hsh = hash32((uint32_t)col * 2654435761u);
-    for (int trow = 0; trow < GROUND_TROW - 2 * ROWS; trow += 2) clear_cell(col, trow);
+    /* the scenery varies with the run (the start, seen on the title, stays the same) */
+    uint32_t hsh = hash32((uint32_t)col * 2654435761u ^ (col >= START_CELLS ? c->dir.seed : 0));
+    if (k->dy0 != k->dy1 && draw_ramp(col, b, k->dy0, k->dy1)) return;
+    /* the column drawn k->dy0 px lower (whole tile rows), its 64 map rows: 20 of sky, 24 of cells, the surface (2),
+     * the soil (18) */
+    int g = GROUND_TROW + floor8(k->dy0);
+    for (int ty = g - 2 * ROWS - 20; ty < g - 2 * ROWS; ty++)
+        for (int h = 0; h < 2; h++) put_quarter(col, h, ty, b, -1, 0);
     for (int r = 0; r < ROWS; r++) {
-        int trow = GROUND_TROW - 2 * (r + 1), mt = -1;
+        int trow = g - 2 * (r + 1), mt = -1;
         int kind = (k->gone >> r) & 1 ? K_EMPTY : k->cell[r];
         switch (kind) {
         case K_BLOCK: mt = (r + 1 < ROWS && k->cell[r + 1] == K_BLOCK) ? MT_ROCK : MT_ROCK_TOP; break;
@@ -247,10 +288,10 @@ static void draw_column(const bt_course *c, int32_t col)
     else if (gr) surf = MT_EDGE_L;
     else if (gl) surf = MT_EDGE_R;
     else surf = MT_SURF0 + (int)((hsh >> 8) % 3);
-    put_meta(col, GROUND_TROW, b, surf);
-    for (int d = 1; GROUND_TROW + 2 * d < 64; d++) {
+    put_meta(col, g, b, surf);
+    for (int d = 1; d <= 9; d++) {
         int mt = gap ? MT_VOID : gr ? MT_WALL_L : gl ? MT_WALL_R : d <= 2 ? MT_DIRT0 + (int)((hsh >> (12 + d)) & 1) : MT_DEEP;
-        put_meta(col, GROUND_TROW + 2 * d, b, mt);
+        put_meta(col, g + 2 * d, b, mt);
     }
 }
 
@@ -304,7 +345,11 @@ static void spr(int id, int x, int y, int prio, int pal)
 }
 
 /* the screen y of a world point (height h px above the ground) at screen column sx: the playfield's shear there */
-static int screen_y(int h, int sx) { return GROUND_PY - h - view_vofs - ((view_c * (sx - PIVOT_X)) >> 8); }
+static int screen_y(int h, int sx)
+{
+    int d = view_course ? course_profile(view_course, sx + view_camx) : 0;
+    return GROUND_PY + d - h - view_vofs - ((view_c * (sx - PIVOT_X)) >> 8);
+}
 
 static int berry_frame(const berry *b)
 {
@@ -318,25 +363,26 @@ static int berry_frame(const berry *b)
 static void draw_berry(const world *w, int p, int state, int st_t)
 {
     const berry *b = &w->b[p];
-    int sx = (int)(b->x >> 16) - view_camx, h = b->h >> 16;
-    int bob = state == ST_READY || state == ST_TITLE ? hu_bob(st_t + p * 16, 64, 2) + 2 : 0;
+    int sx = (int)(b->x >> 16) - view_camx, h = b->h >> 16, pal = hu_player_pal(p);
+    int bob = state == ST_READY || state == ST_TITLE ? hu_bob(st_t + p * 16, 64, 2) + 2 : 0;    /* waiting: it bobs */
     if (b->dead) {
         int dt = w->t - w->dead_f[p];
-        if (dt <= HIT_FREEZE) spr(SPR_BERRY_HIT, sx - 8, screen_y(h, sx) - 15, 2, p ? 1 : 0);
-        else if (b->cause != D_FALL) spr(SPR_SPLAT + (dt < 14 ? 0 : dt < 24 ? 1 : 2), sx - 8, screen_y(h > 0 ? h : 0, sx) - 15, 2, p ? 1 : 0);
+        if (dt <= HIT_FREEZE) spr(SPR_BERRY_HIT, sx - 8, screen_y(h, sx) - 15, 2, pal);
+        else if (b->cause != D_FALL) spr(SPR_SPLAT + (dt < 14 ? 0 : dt < 24 ? 1 : 2), sx - 8, screen_y(h > 0 ? h : 0, sx) - 15, 2, pal);
         return;
     }
     if (b->mode == M_SNOW) {
-        spr(SPR_SNOWBERRY + (b->angle >> 14) % 4, sx - 12, screen_y(h, sx) - 23, 2, p ? 6 : 5);
+        spr(SPR_SNOWPATCH + (b->angle >> 14) % 4, sx - 12, screen_y(h, sx) - 23, 2, pal);   /* in front: the berry inside */
+        spr(SPR_SNOWBERRY + (b->angle >> 14) % 4, sx - 12, screen_y(h, sx) - 23, 2, -1);
         return;
     }
     if (b->mode == M_GLIDE) {
         int lf = b->vy > Q16_ONE ? 0 : b->vy < -Q16_ONE ? 2 : 1;
-        spr(SPR_BERRY, sx - 8, screen_y(h, sx) - 15 + 2, 2, p ? 1 : 0);
+        spr(SPR_BERRY, sx - 8, screen_y(h, sx) - 15 + 2, 2, pal);
         spr(SPR_LEAF + lf, sx - 16, screen_y(h, sx) - 8, 2, -1);
         return;
     }
-    spr(berry_frame(b), sx - 8, screen_y(h, sx) - 15 - bob, 2, p ? 1 : 0);
+    spr(berry_frame(b), sx - 8, screen_y(h, sx) - 15 - bob, 2, pal);
 }
 
 static void fx_add(int x, int y, int vx, int vy, int kind)
@@ -437,11 +483,27 @@ static void draw_props(const world *w, int t)
     }
 }
 
-/* ---- the UI (the house kit) ------------------------------------------------------------------------------------------------ */
-static void screen_text(const world *w, int state, int st_t, int best, int new_best, int attempt)
+/* ---- the UI (the house kit: the title is the only menu, up to 4 players; docs/art-direction.md "Title and players") -- */
+/* the title's player slots: each joined player's berry, rolling in its colours (hu_title_sprites calls it) */
+static void slot_icon(int p, int cx, int cy, int t, void *user)
+{
+    (void)user;
+    spr(SPR_BERRY + ((t / 3 + p * 4) & 15), cx - 8, cy - 8 + hu_bob(t + p * 16, 64, 1), 2, hu_player_pal(p));
+}
+
+/* the results of 2-4 players: ranked by score (metres + golden blueberries) */
+static void standing(const world *w, hu_standing *s)
+{
+    int score[MAX_PLAYERS];
+    for (int p = 0; p < w->players; p++) score[p] = world_score(w, p);
+    hu_rank(s, w->players, score, score);
+}
+
+static void screen_text(const world *w, int state, int st_t, int best, int new_best, int attempt, const hu_standing *rs)
 {
     char s[48];
-    if (state != shown_state || best != shown_best || w->players != shown_players) {
+    int screen = state == ST_DEAD ? ST_PLAY : state;
+    if (screen != shown_state || best != shown_best || w->players != shown_players) {
         hu_clear();
         rs_bg_scroll(RS_BG1, 0, 0);
         attempt_on = 0;
@@ -449,40 +511,37 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         if (state == ST_TITLE) {
             hu_logo(GAME_TITLE, title_ramps, 2, 2, 0);
             logo_on = 1;
-            snprintf(s, sizeof s, "BEST %d", best);
-            if (best > 0) hu_text(hu_center(s, 0), 24, s);
-            hu_copyright(28);
         } else if (logo_on) {
             hu_logo_hide();
             pal_loop[PAL_LOGO] = 0;             /* the logo borrowed that palette: load its biome again */
             logo_on = 0;
         }
-        if (state == ST_READY) hu_get_ready(6);
-        if (state == ST_PLAY) {
+        if (screen == ST_PLAY) {
             /* "ATTEMPT n", in the world: it rolls away with the ground */
             snprintf(s, sizeof s, "ATTEMPT %d", attempt);
             hu_text(22, 10, s);
             attempt_on = 1;
             attempt_x0 = view_camx;
+            if (w->players >= 3) hu_score_tags(w->players, 0);     /* P1..P4 by the corner chips */
         }
         if (state == ST_OVER) {
-            hu_banner(4, "GAME OVER");
-            hu_gameover_panel(w->players, new_best, world_score(w, 0), world_score(w, 1));
             if (w->players == 1) {
+                hu_banner(4, "GAME OVER");
+                hu_gameover_panel(1, new_best, world_score(w, 0), 0);
                 if (w->coins[0]) snprintf(s, sizeof s, "%d M  +%d GOLD", w->metres[0], w->coins[0]);
                 else snprintf(s, sizeof s, "%d M", w->metres[0]);
                 hu_box_text(12, 12, s);
+            } else {
+                hu_results_panel(rs, NULL);     /* P2 WINS! (or DRAW!) and the ranking */
             }
         }
-        shown_state = state;
+        shown_state = screen;
         shown_best = best;
         shown_players = w->players;
     }
-    if (state == ST_TITLE || state == ST_READY) {
-        hu_prompt(21, "PRESS A TO ROLL", st_t);
-        if (state == ST_READY || w->players == 2) hu_join_line(26, w->players, "RACE!");
-    }
-    if (state == ST_PLAY || state == ST_DEAD) {
+    /* the title, every frame: PRESS A TO ROLL (blinking), the player slots, BEST, P2 / P3 / P4: PRESS A TO JOIN */
+    if (state == ST_TITLE) hu_title_draw(st_t, best);
+    if (screen == ST_PLAY) {
         if (attempt_on) {
             int dx = view_camx - attempt_x0;
             if (dx > 420) {
@@ -509,7 +568,10 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         if (gate_t == 150) hu_clear_rows(6, 1);
         if (gate_t < 999) gate_t++;
     }
-    if (state == ST_OVER) hu_retry_line(st_t, RETRY_LOCK, "A: ROLL AGAIN");
+    if (state == ST_OVER) {
+        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, "A: ROLL AGAIN");
+        else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, "A: ROLL AGAIN");
+    }
 }
 
 /* ---- the frame ------------------------------------------------------------------------------------------------------------------ */
@@ -519,10 +581,16 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     int t = (int)rs_frame_count();
     const bt_course *c = &w->course;
     (void)medal;
-    /* the camera: player 1 (or the one still rolling) at the pivot; it rises when a berry goes high */
-    int lead = w->players == 2 && w->b[0].dead && !w->b[1].dead ? 1 : 0;
+    view_course = c;
+    hu_standing rs;
+    standing(w, &rs);
+    /* the camera: player 1 (or the first one still rolling) at the pivot; it rises when a berry goes high, and
+     * follows the profile under the pivot (the ground drops at a cliff: the view goes down with it) */
+    int lead = 0;
+    while (lead < w->players - 1 && w->b[lead].dead) lead++;
+    if (w->b[lead].dead) lead = 0;
     int64_t xref = course_x(c, w->f);
-    int camx = (int)(xref >> 16) - PIVOT_X - (lead ? P2_OFFSET : 0);
+    int camx = (int)(xref >> 16) - PIVOT_X - lead * P2_OFFSET;
     int top = 0;
     for (int p = 0; p < w->players; p++)
         if (!w->b[p].dead) {
@@ -532,11 +600,14 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     int want = top - (GROUND_SCREEN_Y - CAM_TOP_MARGIN);
     if (want < 0) want = 0;
     if (want > 72) want = 72;
+    int want_d16 = course_profile(c, camx + PIVOT_X) * 16;
     if (!paused) {
         int d = want - cam_up;
         cam_up += d / 6 + (d > 0) - (d < -5);
+        int dd = want_d16 - cam_d16;
+        cam_d16 += dd / 5 + (dd > 0) - (dd < 0);
     }
-    if (state == ST_TITLE || state == ST_READY) cam_up = 0;
+    if (state == ST_TITLE || state == ST_READY) { cam_up = 0; cam_d16 = want_d16; }
     int dx = camx - view_camx;
     /* the slope of the biome under the pivot, eased over the first 16 m after a gate */
     int32_t pcol = (camx + PIVOT_X) / CELL;
@@ -548,10 +619,10 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         int pb = (b + NBIOMES - 1) % NBIOMES;
         k256 = slope256[pb] + (slope256[b] - slope256[pb]) * (int)into / 16;
     }
-    int sxk = hu_shake_x(), syk = hu_shake_y();
+    int sxk = hu_shake_x(), syk = hu_shake_y(), cd = cam_d16 / 16;
     view_camx = camx;
     view_c = -k256;
-    view_vofs = GROUND_PY - GROUND_SCREEN_Y - cam_up - syk;
+    view_vofs = GROUND_PY - GROUND_SCREEN_Y - cam_up - syk + cd;
     view_hofs = (camx - sxk) & (MAP_W * 8 - 1);
     stream_playfield(c, camx < 0 ? -((-camx + CELL - 1) / CELL) : camx / CELL);
     stream_mid(camx);
@@ -565,17 +636,18 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     rs_affine m = {256, 0, view_c, 256, view_hofs + PIVOT_X, view_vofs, 1};
     rs_bg_scroll(RS_BG2, view_hofs, view_vofs);
     rs_bg_affine(RS_BG2, &m);
-    rs_bg_scroll(RS_BG3, (camx / 2 - sxk) & 511, MID_TROW * 8 - 132 - cam_up / 4);
-    rs_bg_scroll(RS_BG4, (camx / 4) & 511, FAR_TROW * 8 - 60 - cam_up / 8);
+    /* the far layers go down with the profile too, less (parallax): the drop of a cliff reads in depth */
+    rs_bg_scroll(RS_BG3, (camx / 2 - sxk) & 511, MID_TROW * 8 - 132 - cam_up / 4 + cd / 2);
+    rs_bg_scroll(RS_BG4, (camx / 4) & 511, FAR_TROW * 8 - 60 - cam_up / 8 + cd / 4);
 
-    screen_text(w, state, st_t, best, new_best, attempt);
+    screen_text(w, state, st_t, best, new_best, attempt, &rs);
     if (state == ST_OVER && st_t == RETRY_LOCK) shown_state = -1;      /* redraw once: the retry line appears */
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;
     if (state == ST_OVER) rs_bg_scroll(RS_BG1, 0, -slide);
     hu_pause(paused, 13);
     if (!paused) {
         fx_update(dx);
-        for (int p = 0; p < 2; p++)
+        for (int p = 0; p < MAX_PLAYERS; p++)
             if (dew_t[p] < 99) dew_t[p]++;
     }
 
@@ -589,16 +661,24 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
                 hu_number(w->coins[0], 296, 10, 3);
             }
         } else {
-            hu_number(w->metres[0], 80, 10, 3);
-            hu_number(w->metres[1], 240, 10, 3);
+            int score[MAX_PLAYERS];
+            for (int p = 0; p < w->players; p++) score[p] = world_score(w, p);
+            hu_score_chips(w->players, score, 0);   /* 2: x 80 / 240; 3-4: the corners, tagged P1..P4 */
         }
     }
     if (state == ST_OVER) {
-        int md = w->players == 1 ? hu_medal_of(w->metres[0], medals) : 0;
-        hu_gameover_sprites(w->players, world_score(w, 0), world_score(w, 1), best, md, st_t, slide);
+        if (w->players == 1) {
+            hu_gameover_sprites(1, world_score(w, 0), 0, best, hu_medal_of(w->metres[0], medals), st_t, slide);
+        } else {
+            hu_results_sprites(&rs, st_t, slide);
+            for (int i = 0; i < rs.n; i++) {
+                int cx, cy;
+                hu_results_icon_pos(&rs, i, &cx, &cy);
+                spr(SPR_BERRY + ((st_t / 3) & 15), cx - 8, cy - 8 + slide, 3, hu_player_pal(rs.order[i]));
+            }
+        }
     }
-    if (state == ST_TITLE || state == ST_READY)
-        hu_glyph(HU_BTN_A, hu_center("PRESS A TO ROLL", 0) * 8 - 12, 21 * 8 - 4, (t / 30) % 2, 3);
+    if (state == ST_TITLE) hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's A, the joined berries pop in */
     for (int p = w->players - 1; p >= 0; p--) draw_berry(w, p, state, st_t);
     fx_draw();
     draw_props(w, t);
@@ -659,6 +739,57 @@ int draw_tile_kind(uint16_t e)
     return kind_of[RS_MAP_TILE(e)];
 }
 
+/* where the ground line is on the playfield map at map x (px): its map y, read like the bot reads the screen: the
+ * first tile from the top that can show the ground (a surface's top row, a ramp strip), and in it the first drawn
+ * pixel of that pixel column; -1: none */
+static uint8_t ground_of[1024];     /* a cache made from the constant art (state_audit.txt) */
+static int ground_ready;
+
+static int pf_pixel(int tile, int x, int y)
+{
+    if (tile < 0 || tile >= gm_pf_tile_count) return 0;
+    uint8_t v = gm_pf_tiles[tile * 32 + y * 4 + x / 2];
+    return (x & 1) ? v & 15 : v >> 4;
+}
+
+int draw_ground_y(int map_x)
+{
+    if (!ground_ready) {
+        static const int tops[] = {MT_SURF0, MT_SURF1, MT_SURF2, MT_EDGE_L, MT_EDGE_R, MT_ICE, MT_SNOW, MT_WATER, MT_VOID_TOP};
+        memset(ground_of, 0, sizeof ground_of);
+        for (int b = 0; b < NBIOMES; b++) {
+            for (int i = 0; i < (int)(sizeof tops / sizeof tops[0]); i++)
+                for (int q = 0; q < 2; q++) ground_of[RS_MAP_TILE(gm_pf_meta[(b * MT_COUNT + tops[i]) * 4 + q]) & 1023] = 1;
+            for (int i = 0; i < RAMP_COUNT * RAMP_ROWS * 2; i++) {
+                int tile = RS_MAP_TILE(gm_ramp_map[b * RAMP_COUNT * RAMP_ROWS * 2 + i]), clear = 0;
+                for (int k = 0; k < 64 && !clear; k++) clear = !pf_pixel(tile, k & 7, k >> 3);
+                if (clear && tile) ground_of[tile] = 1;
+            }
+        }
+        /* a tile also drawn above the ground (rocks, logs, thorns, the sign, the decor) says nothing */
+        static const int above[] = {MT_ROCK_TOP, MT_ROCK, MT_LOG_L, MT_LOG_M, MT_LOG_R, MT_LOG_1, MT_LOG_V, MT_THORN,
+                                    MT_HANG, MT_PEBBLE, MT_SIGN, MT_DECO0, MT_DECO1, MT_DECO2};
+        for (int b = 0; b < NBIOMES; b++)
+            for (int i = 0; i < (int)(sizeof above / sizeof above[0]); i++)
+                for (int q = 0; q < 4; q++) ground_of[RS_MAP_TILE(gm_pf_meta[(b * MT_COUNT + above[i]) * 4 + q]) & 1023] = 0;
+        ground_of[0] = 0;
+        ground_ready = 1;
+    }
+    int tx = (map_x >> 3) & (MAP_W - 1), px = map_x & 7;
+    for (int ty = 0; ty < 64; ty++) {
+        uint16_t e = rs_bg_get(RS_BG2, tx, ty);
+        int tile = RS_MAP_TILE(e);
+        if (!ground_of[tile]) continue;
+        int x = (e & RS_MAP_HFLIP) ? 7 - px : px;
+        for (int y = 0; y < 8; y++)
+            if (pf_pixel(tile, x, (e & RS_MAP_VFLIP) ? 7 - y : y)) return ty * 8 + y;
+        /* the line runs just under this tile here: the next tile's top pixel */
+        uint16_t e2 = rs_bg_get(RS_BG2, tx, (ty + 1) & 63);
+        if (pf_pixel(RS_MAP_TILE(e2), (e2 & RS_MAP_HFLIP) ? 7 - px : px, (e2 & RS_MAP_VFLIP) ? 7 : 0)) return (ty + 1) * 8;
+    }
+    return -1;
+}
+
 /* ---- save states (main.c) ---- */
 #define S(v) rs_state_var("draw." #v, &(v), sizeof(v))
 void draw_state(void)
@@ -666,7 +797,7 @@ void draw_state(void)
     S(line_col); S(pf_col_lo); S(pf_col_hi); S(pf_gone); S(mid_col_hi); S(pal_loop); S(pal_biome); S(cam_up);
     S(shown_state); S(shown_best); S(shown_players); S(logo_on); S(attempt_on); S(attempt_x0); S(gate_t);
     S(gate_biome); S(last_gate_col); S(fxs); S(fx_n); S(view_hofs); S(view_vofs); S(view_c); S(view_camx);
-    S(dew_t); S(dew_id);
+    S(dew_t); S(dew_id); S(cam_d16);
     RS_STATE_RASTER(raster);
 }
 #undef S

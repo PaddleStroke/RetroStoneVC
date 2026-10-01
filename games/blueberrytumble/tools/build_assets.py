@@ -31,9 +31,23 @@ VR_BG1, VR_BG4, VR_BG3, VR_BG2, VR_OBJ = 0, 640, 768, 1280, 3072
 LOGO_TILE = 300                     # relative to BG1 (the kit uses 0..296)
 KIT_OBJ_TILE = 400                  # the kit's sprites after ours
 PAL_PF, PAL_FAR, PAL_MID, PAL_LOGO = 1, 5, 6, 4     # playfield 1-4 (a biome each), mid 6-7 (by biome parity)
-OBJ_PAL = {"berry": 0, "props": 2, "propsb": 4, "snow": 5, "gold": 7}     # 1, 6: player 2; 3: the kit
-P2_OF = {"berry": 1, "snow": 6}
-P2_HUE = (0.55, 0.78, 0.36)         # blues -> raspberry reds (house_style.hue_swap)
+# OBJ palettes: the berry group in the four players' palettes (the house rule, house_ui.h hu_player_pal: P1 OBJ 0,
+# P2 OBJ 1, P3 OBJ 4, P4 OBJ 5); props 2; the kit 3; props B 6; the snowball (shared) and the gold 7
+OBJ_PAL = {"berry": 0, "props": 2, "propsb": 6, "snowgold": 7}
+PLAYER_OBJ = [0, 1, 4, 5]
+P2_HUE = (0.55, 0.78, 0.36)         # blues -> raspberry reds (house_style.hue_swap): the berry's main material
+
+
+def berry_palettes(rgb):
+    """The four berries (house_style.player_palettes: the kit's palette swaps of the berry's blues): the blueberry,
+    the raspberry, then the blackberry (the purple one, darkened: a blackberry is nearly black) and the gooseberry
+    (the green one)."""
+    p1, p2, a, b = hs.player_palettes(rgb, *P2_HUE)
+    ha, hb = hs.main_hue(a, 0.0, 1.0), hs.main_hue(b, 0.0, 1.0)
+    dist = lambda h: min(abs(h - 0.78), 1 - abs(h - 0.78))      # nearest the purples: the blackberry
+    black, goose = (a, b) if dist(ha) <= dist(hb) else (b, a)
+    dark = [tuple(int(v * 0.62) for v in c) if c != o else c for c, o in zip(black, rgb)]
+    return [p1, p2, dark, goose]
 
 
 def cells8(img, x0, y0, w, h):
@@ -60,7 +74,9 @@ def main():
          "#define VR_BG1 %d\n#define VR_BG4 %d\n#define VR_BG3 %d\n#define VR_BG2 %d\n#define VR_OBJ %d" %
          (VR_BG1, VR_BG4, VR_BG3, VR_BG2, VR_OBJ),
          "#define LOGO_TILE %d\n#define KIT_OBJ_TILE %d" % (LOGO_TILE, KIT_OBJ_TILE),
-         "#define PAL_PF %d\n#define PAL_FAR %d\n#define PAL_MID %d\n#define PAL_LOGO %d" % (PAL_PF, PAL_FAR, PAL_MID, PAL_LOGO)]
+         "#define PAL_PF %d\n#define PAL_FAR %d\n#define PAL_MID %d\n#define PAL_LOGO %d" % (PAL_PF, PAL_FAR, PAL_MID, PAL_LOGO),
+         "#define PAL_PROPS %d\n#define PAL_PROPSB %d\n#define PAL_SNOWGOLD %d   /* OBJ palettes; the berries: hu_player_pal */" %
+         (OBJ_PAL["props"], OBJ_PAL["propsb"], OBJ_PAL["snowgold"])]
     stats = []
 
     # ---- the playfield: role-indexed metatiles shared by the biomes (palette = biome) ----------------------------
@@ -100,6 +116,22 @@ def main():
                 meta.append(rsasset.rs_map(hit[0], PAL_PF + b, 0, hit[1], hit[2]))
             row += meta
         metas += row
+    # ---- the slope's ramp strips (the profile, drawn only): the same roles, deduplicated with the metatiles' tiles --
+    rimg = rsasset.load(os.path.join(a.art, make_art.SHEETS["ramps"]))
+    ramps, rh = pals["ramps"], pals["ramp_h"]
+    rmap = []
+    for b in range(4):
+        role = {rsasset.to555(tuple(col)): i + 1 for i, col in enumerate(pals["pf"][b])}
+        for k in range(len(ramps)):
+            for t in rsasset.split_tiles(rsasset.cell(rimg, k * 16, b * rh, 16, rh)):
+                idx = [0 if v is None else role[v] for v in t]
+                key = tuple(idx)
+                hit = index.get(key)
+                if hit is None:
+                    tiles.append(idx)
+                    hit = (len(tiles) - 1, 0, 0)
+                    index[key] = hit
+                rmap.append(rsasset.rs_map(hit[0], PAL_PF + b, 0, hit[1], hit[2]))
     c.append(rsasset.c_bytes("gm_pf_tiles", rsasset.tiles_bytes(tiles)))
     c.append("const int gm_pf_tile_count = %d;" % len(tiles))
     c.append(arr16("gm_pf_meta", metas))
@@ -111,6 +143,13 @@ def main():
     h.append("extern const uint8_t gm_pf_tiles[];\nextern const int gm_pf_tile_count;")
     h.append("extern const uint16_t gm_pf_meta[4 * MT_COUNT * 4];   /* [biome][metatile][4 entries] */")
     h.append("extern const uint16_t gm_pf_pal[4 * 16];")
+    c.append(arr16("gm_ramp_map", rmap))
+    c.append("const int8_t gm_ramp[%d][3] = {%s};" % (len(ramps), ", ".join(
+        "{%d, %d, %d}" % (s, d, make_art.ramp_top_row(s, d)) for s, d in ramps)))
+    h.append("#define RAMP_COUNT %d\n#define RAMP_ROWS %d" % (len(ramps), rh // 8))
+    h.append("/* the slope's ramp strips: {start, delta, top tile row} (px, + = down; make_art.py RAMPS), and their map\n"
+             " * entries [biome][ramp][RAMP_ROWS rows x 2] */")
+    h.append("extern const int8_t gm_ramp[RAMP_COUNT][3];\nextern const uint16_t gm_ramp_map[4 * RAMP_COUNT * RAMP_ROWS * 2];")
     stats.append("playfield %d" % len(tiles))
 
     # ---- mid-ground: one 16 x 6 map per biome ------------------------------------------------------------------------
@@ -157,7 +196,7 @@ def main():
     sheet = rsasset.load(os.path.join(a.art, make_art.SHEETS["sprites"]))
     otiles, rows, snames, opals = [], [], [], [0] * 128
     idx = 0
-    for g in ("berry", "snow", "props", "propsb", "gold"):
+    for g in ("berry", "snowgold", "props", "propsb"):
         ents = [e for e in make_art.SPRITES if e[6] == g]
         frames = []
         for name, x, y, w, hh, n, _g in ents:
@@ -167,9 +206,10 @@ def main():
             raise SystemExit("sprite group %s: %d colours" % (g, len(ro.palette)))
         p16 = rsasset.palette16(ro.palette)
         opals[OBJ_PAL[g] * 16:OBJ_PAL[g] * 16 + 16] = p16
-        if g in P2_OF:
+        if g == "berry":                # the four players
             rgb = [rsasset.rgb888(v) for v in p16[1:]]
-            opals[P2_OF[g] * 16:P2_OF[g] * 16 + 16] = [0] + [rsasset.to555(v) for v in hs.hue_swap(rgb, *P2_HUE)]
+            for p, pal in enumerate(berry_palettes(rgb)):
+                opals[PLAYER_OBJ[p] * 16:PLAYER_OBJ[p] * 16 + 16] = [0] + [rsasset.to555(v) for v in pal]
         k = 0
         for name, x, y, w, hh, n, _g in ents:
             snames.append("SPR_%s = %d" % (name.upper(), idx))

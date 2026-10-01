@@ -47,6 +47,11 @@
 #define BIOME_CELLS  (BIOME_BARS * BAR_CELLS)   /* 384 m */
 /* the drawn slope per biome (the shear of the playfield), in 1/256 px down per px across */
 #define BIOME_SLOPE  {85, 64, 51, 32}           /* 1/3, 1/4, 1/5, 1/8 */
+/* the profile on top of it (drawing only; DESIGN.md "The slope"): within PROF_WINDOW columns (a screen) the ground's
+ * drawn height spans at most PROF_SPAN px (the playfield map's 64 rows); never more than PROF_MAX off level */
+#define PROF_WINDOW  24
+#define PROF_SPAN    32
+#define PROF_MAX     40
 
 /* ---- the berry's jump (sources 1, 3: fixed in time, 21 frames, about 2.2 blocks high) --------------------------- *
  * Step order: a jump sets vy; then every airborne frame vy -= GRAVITY, h += vy. So h(n) = n V - G n (n+1) / 2:
@@ -111,17 +116,22 @@
 /* ---- the director: the difficulty curve (DESIGN.md "Measured difficulty") ---------------------------------------- *
  * target(d) = DIFF_START + (DIFF_MAX - DIFF_START) * d / (d + DIFF_HALF_M)  +  a wave: over each DIFF_WAVE_M the
  * target rises from -DIFF_WAVE_AMP to +DIFF_WAVE_AMP (tension), then a breather. */
-#define DIFF_START     12
-#define DIFF_MAX       78
+#define DIFF_START     14
+#define DIFF_MAX       70
 #define DIFF_HALF_M    1400
 #define DIFF_WAVE_M    144      /* metres per wave (about 15 s) */
 #define DIFF_WAVE_AMP  8
-#define DIFF_BAND_LO   25       /* the band the director picks in: easier patterns stay in the mix */
-#define DIFF_BAND_HI   5
+#define DIFF_BAND_LO   16       /* the band the director picks in, around its aim: easier patterns stay in the mix */
+#define DIFF_BAND_HI   6
 #define DIFF_SPIKE     8        /* no instance above target + this */
+#define DIFF_STEER     12       /* the aim = the target + (target - the generated mean), at most this far off */
+#define DIFF_MEAN_K    5        /* the generated mean: a moving mean over about 2^K instances */
+#define DIFF_INTERLUDE 10       /* a pattern all easier than the band: this many times rarer (an interlude) */
 #define DIFF_EASY_M    256      /* the first 30 s: easy only */
 #define DIFF_EASY_MAX  30
-#define DIRECTOR_MEMORY 3
+#define DIRECTOR_MEMORY 6       /* patterns: the last ones are avoided (unless nothing else fits) */
+#define PAIR_MEMORY    24       /* pairs: "A then B" seen lately is avoided */
+#define INST_MEMORY    16       /* instances (a pattern with the same parameters) seen lately are avoided */
 #define COIN_CHANCE    16       /* in 256, for a pattern with a coin spot */
 #define COIN_MIN_M     150
 /* the score formula's weights (percent) and scales */
@@ -135,6 +145,6 @@
 #define DIFF_REACT_EASY 70      /* frames */
 #define DIFF_REACT_HARD 20
 #define MIN_WINDOW     3        /* the validator's requirement: every window >= 3 frames */
-#define LINK_MARGIN    16       /* frames added to tail(A) - head(B) when sizing a bridge */
+#define LINK_MARGIN    10       /* frames added to tail(A) - head(B) when sizing a bridge */
 
 #endif

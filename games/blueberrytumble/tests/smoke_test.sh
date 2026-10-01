@@ -23,14 +23,14 @@ if echo "$out" | grep -q "rs strict"; then ko "strict mode in a run: $(echo "$ou
 
 printf "30 tap A\n60 tap A\n" > "$T/start.input"
 out=$(run --frames 80 --input "$T/start.input")
-check "A on the title: get ready; A again: the run starts" "state: st=2 " "$out"
+check "A on the title: the run starts (no get ready)" "state: st=2 " "$out"
 out=$(run --frames 900 --input "$T/start.input")
 check "no more input: the berry splats, game over, one attempt" "state: st=4 .*runs=1 " "$out"
 check "  ... and the first thing it meets kills it early (< 80 m)" "state: st=4 .*m=[1-7]\?[0-9] " "$out"
 
 printf "30 tap A\n60 tap A\n860 tap A\n" > "$T/retry.input"
 out=$(run --frames 880 --input "$T/retry.input")
-check "retry: one button back to get ready" "state: st=1 .*runs=1 " "$out"
+check "retry: one press, straight into the next run" "state: st=2 .*runs=1 " "$out"
 
 printf "30 tap A\n60 tap A\n90 tap SELECT\n" > "$T/pause.input"
 a=$(run --frames 120 --input "$T/pause.input" | sed -n 's/.* f=\([0-9]*\) paused=\([0-9]\).*/\1 \2/p')
@@ -45,10 +45,17 @@ if [ -n "$best" ] && [ "$best" -ge 60 ] && echo "$out" | grep -q "best=$best run
 else ko "save RAM: best '$best': $(echo "$out" | grep state)"; fi
 
 printf "20 P2 tap A\n" > "$T/join.input"
-out=$(run --frames 60 --opt ready=1 --input "$T/join.input")
-check "player 2 joins from get ready" "players=2 " "$out"
+out=$(run --frames 60 --input "$T/join.input")
+check "player 2 joins on the title" "players=2 " "$out"
 out=$(run --frames 2500 --opt bot=2 --opt seed=6 --opt players=2 --opt ready=1)
 check "2 players: both berries roll on (the raspberry too)" "players=2 m=[1-9][0-9]* m2=[1-9][0-9]* " "$out"
+out=$(run --frames 2500 --opt bot=4 --opt seed=6 --opt players=4 --opt ready=1)
+check "4 players: a 4-berry race on one course" "players=4 m=[1-9][0-9]* m2=[1-9][0-9]* m3=[1-9][0-9]* m4=[1-9][0-9]* " "$out"
+for k in 1 2; do
+    run --frames 1500 --opt bot=4 --opt seed=5 --opt players=4 --opt ready=1 --png "$T/four$k.png" | grep "state:" > "$T/four$k.txt"
+done
+if cmp -s "$T/four1.txt" "$T/four2.txt" && cmp -s "$T/four1.png" "$T/four2.png"; then ok "determinism: a 4-player race twice, same state and picture"
+else ko "determinism (4 players)"; fi
 
 # determinism: the same inputs, the same run (state hash and picture), twice
 : > "$T/rhythm.input"

@@ -14,3 +14,6 @@ bot.memo_gen        the same
 bot.gen             the memo's generation: bumped for every search, compared only within it
 bot.speed_q16       the speed of the decision being made (scratch)
 bot.x0q             the berry's x in the course it sees (scratch)
+draw.view_course   draw_frame(): the course drawn this frame, set at its start before any use (a pointer to main.W)
+draw.ground_of     draw_ground_y(): which playfield tiles show the ground line, made from the constant art
+draw.ground_ready  its flag (the cache is the same whenever it is made)

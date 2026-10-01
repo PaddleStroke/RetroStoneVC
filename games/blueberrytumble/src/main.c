@@ -1,14 +1,15 @@
 /*
- * Blueberry Tumble: the game flow (title, get ready, the run, the splat, game over, pause, player 2), input, sound,
- * the music (one track per biome, started on the biome's first beat), save RAM, options, save states, test hooks.
+ * Blueberry Tumble: the game flow (the house flow: the title is the only menu, players 2-4 join there; the run, the
+ * splat, game over or the 2-4 player ranking, one press to retry, pause), input, sound, the music (one track per
+ * biome, started on the biome's first beat), save RAM, options, save states, test hooks.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/blueberrytumble/LICENSE.
  *
  * Options (--opt key=value on the desktop runners):
- *   bot=1          the bot plays player 1 (src/bot.c, from the screen), bot=2 both; botruns=N runs; botstop=M stops
- *                  pressing at M metres
- *   seed=N         a fixed course (default: from the frame of the first press)
- *   players=2      start with player 2 joined;  ready=1  skip the title;  god=1  the berries bounce off everything
- *                  (a screenshot aid: the run goes on)
+ *   bot=N          the bot plays players 1..N (src/bot.c, from the screen); botruns=N runs; botstop=M stops pressing
+ *                  at M metres
+ *   seed=N         a fixed course (default: from the frame of the press that starts the run and the save RAM)
+ *   players=N      start with N players joined (1..4);  ready=1  skip the title (the run waits for a press)
+ *   god=1          the berries bounce off everything (a screenshot aid: the run goes on)
  *   dump=1         log the final state at exit (tests); evlog=1 log the events (screenshots); music=0, sound=0
  */
 #include "bt.h"
@@ -19,14 +20,16 @@
 #include <stdio.h>
 #include <string.h>
 
-/* the house buttons: A (and B, X, Y, Up) jumps, Start starts and retries, Select (or Start in a run) pauses */
-#define ACT_BUTTONS (RS_BTN_A | RS_BTN_B | RS_BTN_X | RS_BTN_Y | RS_BTN_UP)
-#define GO_BUTTONS  (ACT_BUTTONS | RS_BTN_START)
+/* the house buttons: A (and B, X, Y, Up) jumps; the start inputs (A, Up: the house table) start from the title and
+ * retry on the game-over panel (Start too); Select (or Start in a run) pauses; Select on the panel: the title */
+#define ACT_BUTTONS  (RS_BTN_A | RS_BTN_B | RS_BTN_X | RS_BTN_Y | RS_BTN_UP)
+#define START_INPUTS (RS_BTN_A | RS_BTN_UP)
+#define RETRY_INPUTS (START_INPUTS | RS_BTN_START)
 
 static int opt_bot, opt_botstop, opt_botruns, opt_seed_fixed, opt_music, opt_sound, opt_god, opt_evlog;
 static uint32_t opt_seed;
 static world W;
-static int st, st_t, paused, new_best, runs_done, players = 1, medal;
+static int st, st_t, paused, new_best, runs_done, medal;
 static int track = -1, music_wait;          /* the biome track playing; waiting for a bar to restart it */
 static int32_t log_seg = -1;                /* evlog: the segment player 1 was last logged in */
 static uint32_t state_hash = 2166136261u;
@@ -96,10 +99,12 @@ static void music_update(void)
 /* ---- flow ----------------------------------------------------------------------------------------------------------- */
 static void go(int s) { st = s; st_t = 0; }
 
+/* the world for the players in the lobby: a placeholder course until the press that starts a run (the start is the
+ * same level ground whatever the seed: nothing visible changes) */
 static void new_run(int state)
 {
-    uint32_t seed = opt_seed_fixed ? opt_seed : opt_seed ^ (uint32_t)rs_frame_count() * 2654435761u;
-    world_init(&W, players, seed);
+    uint32_t seed = opt_seed_fixed ? opt_seed : run_seed(rs_frame_count(), SV.runs, 0);
+    world_init(&W, hu_players(), seed);
     W.god = opt_god;
     draw_reset();
     bot_reset();
@@ -110,7 +115,25 @@ static void new_run(int state)
     go(state);
 }
 
-static int is_bot(int p) { return (p == 0 && opt_bot) || (p == 1 && opt_bot >= 2); }
+/* a run starts now: its course comes from this press (its frame) and the save RAM (the runs played, the best, the
+ * golden blueberries): two runs, two sessions, never the same course (DESIGN.md "Seeds"). The press that starts it
+ * is not a jump. */
+static void start_run(void)
+{
+    uint32_t seed = opt_seed_fixed ? opt_seed : run_seed(rs_frame_count(), SV.runs, SV.best_metres ^ SV.golden << 20);
+    world_init(&W, hu_players(), seed);
+    W.god = opt_god;
+    W.started = 1;
+    draw_reset();
+    bot_reset();
+    new_best = 0;
+    medal = 0;
+    log_seg = -1;
+    track = -1;
+    go(ST_PLAY);
+}
+
+static int is_bot(int p) { return p < opt_bot; }
 
 static int held_now(int p)
 {
@@ -118,13 +141,7 @@ static int held_now(int p)
         if (opt_botstop && W.metres[p] >= opt_botstop && st == ST_PLAY) return 0;
         return bot_decide(p);
     }
-    return (rs_pad(p) & ACT_BUTTONS) != 0;
-}
-
-static int start_pressed(int p)
-{
-    if (is_bot(p)) return st_t == 20;
-    return (rs_pad_pressed(p) & GO_BUTTONS) != 0;
+    return (rs_pad(hu_player_pad(p)) & ACT_BUTTONS) != 0;
 }
 
 static void game_over(void)
@@ -141,7 +158,7 @@ static void game_over(void)
     if (medal) SV.medals[medal - 1]++;
     if ((uint32_t)best_now > SV.best_score) { SV.best_score = (uint32_t)best_now; new_best = 1; }
     if ((uint32_t)best_m > SV.best_metres) SV.best_metres = (uint32_t)best_m;
-    if (W.players == 2 && (uint32_t)best_now > SV.best_race) SV.best_race = (uint32_t)best_now;
+    if (W.players >= 2 && (uint32_t)best_now > SV.best_race) SV.best_race = (uint32_t)best_now;   /* races, 2-4 */
     save_store();
     runs_done++;
     rs_log("run %d over at frame %u: %d m, score %d (best %u), seed %u", runs_done, rs_frame_count(), W.metres[0],
@@ -180,7 +197,7 @@ static void sounds_of(int p)
 
 static void play_update(void)
 {
-    int held[MAX_PLAYERS] = {0, 0};
+    int held[MAX_PLAYERS] = {0};
     for (int p = 0; p < W.players; p++) held[p] = held_now(p);
     int32_t gate_before = (int32_t)((course_x(&W.course, W.f) >> 16) / CELL);
     world_step(&W, held);
@@ -206,17 +223,27 @@ static void play_update(void)
         track = -1;
         go(ST_DEAD);
     }
-    if (st == ST_DEAD && W.t - W.dead_f[0] >= PANEL_DELAY && (W.players < 2 || W.t - W.dead_f[1] >= PANEL_DELAY))
-        game_over();
+    if (st == ST_DEAD) {
+        int all = 1;
+        for (int p = 0; p < W.players; p++) all &= W.t - W.dead_f[p] >= PANEL_DELAY;
+        if (all) game_over();
+    }
 }
 
-static void try_join(void)
+/* the title: players 2-4 join and leave (the kit's lobby); P1's start inputs (A, Up) start the run */
+static void title_update(void)
 {
-    /* player 2 joins with A on pad 2, on the title or "get ready" */
-    if (players == 1 && (rs_pad_pressed(1) & GO_BUTTONS)) {
-        players = 2;
+    int ev = hu_title_update();
+    if (ev & HU_TITLE_JOINED) ha_play(HA_CONFIRM);
+    if (ev & HU_TITLE_LEFT) ha_play(HA_SELECT);
+    if (ev & (HU_TITLE_JOINED | HU_TITLE_LEFT)) {
+        int t = st_t;
+        new_run(ST_TITLE);                      /* the world follows the lobby: the joined berries wait on the slope */
+        st_t = t;
+    }
+    if ((ev & HU_TITLE_START) || (opt_bot && st_t == 30)) {
         ha_play(HA_CONFIRM);
-        new_run(ST_READY);
+        start_run();
     }
 }
 
@@ -232,19 +259,11 @@ static void game_update(void)
     hu_shake_step();
     switch (st) {
     case ST_TITLE:
-        try_join();
-        if (st == ST_TITLE && (start_pressed(0) || (opt_bot && st_t == 30))) {
-            ha_play(HA_CONFIRM);
-            go(ST_READY);
-        }
+        title_update();
         break;
     case ST_READY:
-        try_join();
-        if (start_pressed(0) || (W.players == 2 && start_pressed(1))) {
-            /* the run starts (the first press is not a jump); the attempt is counted at its game over */
-            W.started = 1;
-            go(ST_PLAY);
-        }
+        /* --opt ready=1 only (tests): the berries wait at the start for a start input (a bot: on frame 20) */
+        if ((opt_bot && st_t == 20) || (!opt_bot && (rs_pad_pressed(0) & RETRY_INPUTS))) start_run();
         break;
     case ST_PLAY:
     case ST_DEAD:
@@ -252,14 +271,22 @@ static void game_update(void)
         music_update();
         break;
     case ST_OVER: {
-        int again = 0;
+        int again = 0, back = 0;
         if (st_t >= RETRY_LOCK) {
-            for (int p = 0; p < W.players; p++) again |= !is_bot(p) && (rs_pad_pressed(p) & GO_BUTTONS) != 0;
+            for (int p = 0; p < W.players; p++) {
+                if (is_bot(p)) continue;
+                uint16_t b = rs_pad_pressed(hu_player_pad(p));
+                again |= (b & RETRY_INPUTS) != 0;
+                back |= (b & RS_BTN_SELECT) != 0;
+            }
             if (opt_bot && runs_done < opt_botruns && st_t == RETRY_LOCK + 10) again = 1;
         }
-        if (again) {                            /* house rule: one button, instant retry */
+        if (back) {                             /* Select: back to the title (players join or leave there) */
+            ha_play(HA_SELECT);
+            new_run(ST_TITLE);
+        } else if (again) {                     /* house rule: one press, instant retry, straight into the run */
             ha_play(HA_CONFIRM);
-            new_run(ST_READY);
+            start_run();
         }
         break;
     }
@@ -279,32 +306,38 @@ static void game_init(void)
     opt_sound = rs_option_int("sound", 1);
     sfx_init(opt_sound);
     if (opt_music) { music_play(0); rs_music_stop(); track = -1; }   /* the SDK then keeps "loop" set: every state says the same */
-    draw_init();
+    draw_init();                                /* hu_init (draw.c) resets the lobby to P1 alone */
+    /* the title: P1's start inputs (A, Up: the house table, the prompt shows the A), up to 4 players */
+    hu_title_cfg tc = {START_INPUTS, MAX_PLAYERS, "ROLL", NULL, 0};
+    hu_title_setup(&tc);
     opt_bot = rs_option_int("bot", 0);
+    if (opt_bot > MAX_PLAYERS) opt_bot = MAX_PLAYERS;
     opt_botruns = rs_option_int("botruns", 1);
     opt_botstop = rs_option_int("botstop", 0);
     opt_god = rs_option_int("god", 0);
     opt_evlog = rs_option_int("evlog", 0);
     opt_seed_fixed = rs_option("seed") != NULL;
     opt_seed = (uint32_t)rs_option_int("seed", 0x5eed);
-    players = rs_option_int("players", 1) >= 2 ? 2 : 1;
+    int n = rs_option_int("players", 1);
+    if (n < opt_bot) n = opt_bot;
+    hu_players_set(n < 1 ? 1 : n > MAX_PLAYERS ? MAX_PLAYERS : n);
     new_run(rs_option_int("ready", 0) ? ST_READY : ST_TITLE);
 }
 
 static void game_shutdown(void)
 {
     if (!rs_option_int("dump", 0)) return;
-    rs_log("state: st=%d players=%d m=%d m2=%d score=%d best=%u runs=%u done=%d coins=%d mode=%d h=%d f=%d paused=%d "
-           "hash=%08x",
-           st, W.players, W.metres[0], W.metres[1], world_score(&W, 0), SV.best_score, SV.runs, runs_done, W.coins[0],
-           W.b[0].mode, W.b[0].h >> 16, W.f, paused, state_hash);
+    rs_log("state: st=%d players=%d m=%d m2=%d m3=%d m4=%d score=%d best=%u runs=%u done=%d coins=%d mode=%d h=%d f=%d "
+           "paused=%d hash=%08x",
+           st, W.players, W.metres[0], W.metres[1], W.metres[2], W.metres[3], world_score(&W, 0), SV.best_score, SV.runs,
+           runs_done, W.coins[0], W.b[0].mode, W.b[0].h >> 16, W.f, paused, state_hash);
 }
 
 /* ---- save states: the SDK saves the console; here are the game's objects (tools/state_audit.py checks them) ---- */
 #define S(v) rs_state_var("main." #v, &(v), sizeof(v))
 static void game_state(void)
 {
-    S(W); S(st); S(st_t); S(paused); S(new_best); S(runs_done); S(players); S(medal); S(track); S(music_wait);
+    S(W); S(st); S(st_t); S(paused); S(new_best); S(runs_done); S(medal); S(track); S(music_wait);
     S(state_hash); S(opt_bot); S(opt_botstop); S(opt_botruns); S(opt_seed_fixed); S(opt_seed); S(opt_music);
     S(opt_sound); S(opt_god); S(opt_evlog); S(log_seg);
     draw_state();

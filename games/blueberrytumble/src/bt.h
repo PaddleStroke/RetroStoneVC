@@ -17,7 +17,7 @@
 #include "rs.h"
 #include "tuning.h"
 
-#define MAX_PLAYERS 2
+#define MAX_PLAYERS 4
 
 /* ---- the course ------------------------------------------------------------------------------------------------- */
 enum { K_EMPTY, K_BLOCK, K_LOG, K_THORN, K_HANG, K_PEBBLE, K_PAD, K_ORB, K_COIN, K_KINDS };
@@ -28,6 +28,8 @@ typedef struct bt_col {
     uint8_t cell[ROWS];         /* K_*: row 0 stands on the ground */
     uint16_t gone;              /* bit r: cell r smashed or collected (drawing only: the physics never reads it) */
     uint16_t seg;               /* the segment (pattern instance) this column belongs to, low 16 bits */
+    int8_t dy0, dy1;            /* the slope's profile (drawing only): the ground drawn this far lower (px) at the
+                                   column's left and right edges; equal (and a multiple of 8) unless it is a ramp */
 } bt_col;
 
 typedef struct bt_cone {
@@ -52,11 +54,19 @@ typedef struct bt_seg {
 typedef struct bt_director {
     rs_rng rng;
     uint32_t seed;
-    int recent[DIRECTOR_MEMORY];
-    int last;                   /* the last pattern placed (-1 none) */
-    int32_t breath_wave;        /* the last wave that got its breather */
-    int coins;                  /* coin spots placed */
-    int fixed_tier;             /* -1: tiers follow the biomes */
+    int recent[DIRECTOR_MEMORY];        /* the last patterns placed, newest first */
+    uint16_t pairs[PAIR_MEMORY];        /* the last pattern pairs (a * 256 + b), a ring */
+    uint32_t insts[INST_MEMORY];        /* the last instances (pattern << 16 | combo), a ring */
+    int npairs, ninsts;
+    int last, last_combo;               /* the last pattern placed (-1 none) and its parameters */
+    int32_t breath_wave;                /* the last wave that got its breather */
+    int coins;                          /* coin spots placed */
+    int fixed_tier;                     /* -1: tiers follow the biomes */
+    int32_t mean256;                    /* the generated difficulty, a moving mean (x 256): the director steers it */
+    rs_rng terrain;                     /* the slope's profile (drawing only, never the physics) */
+    int32_t prof_col;                   /* the profile is decided up to this column (exclusive) */
+    int prof_d, prof_half;              /* its state: the offset (px) now; the second half of a half-step ramp due */
+    int prof_feat, prof_step;           /* the landscape feature being drawn (-1 none) and its next step */
 } bt_director;
 
 typedef struct bt_course {
@@ -144,6 +154,7 @@ typedef struct pattern_def {
     uint8_t biomes;             /* bit b: may appear in biome b (0 summit .. 3 village); the night loop takes any */
     uint8_t breather;           /* 1: a breather (easy rest after a wave) */
     uint8_t coin_spot;          /* 1: has a golden blueberry spot */
+    uint8_t weight;             /* how often the director picks it among those that fit (micro-patterns: high) */
     uint8_t nparams;
     pat_param p[PAT_MAX_PARAMS];
     void (*build)(pbuild *b, const int *v);
@@ -167,12 +178,19 @@ typedef struct pat_tier_info {
 const pat_tier_info *table_info(int pat, int tier);         /* NULL: the table has no entry (stale) */
 int  table_score(int pat, int tier, int combo);             /* 0..100, or -1 */
 int  table_window(int pat, int tier, int combo);
-int  bridge_cells(int prev_pat, int next_pat, int tier);    /* flat cells between two patterns (whole beats) */
+int  table_tail(int pat, int tier, int combo);              /* this instance's tail and head (frames) */
+int  table_head(int pat, int tier, int combo);
+/* flat cells between two instances (whole beats): from the tail of the one and the head of the other */
+int  bridge_cells(int prev_pat, int prev_combo, int next_pat, int next_combo, int tier);
 extern const int bt_table_npatterns;
 
 /* ---- the director ------------------------------------------------------------------------------------------------------ */
 void director_start(bt_course *c, uint32_t seed);
+/* a run's seed: the frame of the press that starts it, the runs played (save RAM), a salt (more save RAM) */
+uint32_t run_seed(uint32_t press_frame, uint32_t runs, uint32_t salt);
 void director_fill(bt_course *c, int32_t upto_col);         /* generate columns up to upto_col (exclusive) */
+/* the slope's profile at world x (px, + = lower; drawing only): the columns' dy0..dy1, interpolated */
+int  course_profile(const bt_course *c, int32_t x);
 int  difficulty_target(int32_t metres);                     /* the curve (without the band) */
 int  difficulty_wave(int32_t metres);                       /* the wave index at that distance */
 /* place one pattern instance (the validator uses it to build test courses): returns its first column */
@@ -203,7 +221,7 @@ int  world_x(const world *w, int p);                        /* px */
 int  world_score(const world *w, int p);
 
 /* draw.c */
-void draw_init(void);
+void draw_init(void);                                       /* also the house kit (hu_init) */
 void draw_frame(const world *w, int state, int st_t, int best, int new_best, int paused, int attempt, int medal);
 void draw_state(void);
 void draw_reset(void);                                      /* a new run */
@@ -211,6 +229,7 @@ void draw_events(const world *w);                           /* the effects of th
 void draw_view(int *hofs, int *vofs, int *c256);            /* the playfield registers (the bot reads them) */
 /* the bot reads the screen: these say what the playfield tiles are (draw.c) */
 int  draw_tile_kind(uint16_t map_entry);                    /* K_* for a solid/hazard tile, -1 = none; ground: 100 + G_* */
+int  draw_ground_y(int map_x);                              /* the ground line's map y at map x (the profile), -1 none */
 
 /* sfx.c */
 enum { SFX_JUMP, SFX_LAND, SFX_SQUELCH, SFX_BOING, SFX_CHIME, SFX_WHOOSH, SFX_CRUNCH, SFX_GROW, SFX_SPLASH,

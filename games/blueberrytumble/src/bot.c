@@ -9,6 +9,7 @@
  */
 #include "bt.h"
 #include "assets.h"
+#include "house_ui.h"
 #include <string.h>
 
 #define PLAN_F 44                   /* frames looked ahead */
@@ -48,32 +49,34 @@ static int cell_kind(int tx, int ty)
     return best;
 }
 
-/* the berry's feet from its sprite: (screen x of the centre, height above the ground in px), the mode */
+/* the berry's feet from its sprite: (screen x of the centre, height above the ground in px), the mode. Player p's
+ * berry is drawn in its palette (hu_player_pal); a snowberry is a shared snowball with the berry showing through
+ * it in the player's palette (that patch sprite tells whose it is). */
 static int find_berry(int p, int hofs, int vofs, int c, int *sx, int *h, int *mode)
 {
-    (void)hofs;
-    int found = 0;
+    int found = 0, berry_pal = hu_player_pal(p);
     for (int i = 0; i < RS_OAM_MAX; i++) {
         const rs_sprite *s = rs_oam(i);
-        if (!s || !s->used) continue;
-        int berry_pal = p ? 1 : 0, snow_pal = p ? 6 : 5;
+        if (!s || !s->used || s->pal != berry_pal) continue;
         int off = -1, m = M_NORMAL;
-        if (s->pal == berry_pal && s->w == 16 && (in_range(s->tile, SPR_BERRY, 16) || in_range(s->tile, SPR_BERRY_SQUASH, 4) ||
-                                                  in_range(s->tile, SPR_BERRY_STRETCH, 4))) off = 15;
-        else if (s->pal == snow_pal && s->w == 24 && in_range(s->tile, SPR_SNOWBERRY, 4)) { off = 23; m = M_SNOW; }
+        if (s->w == 16 && (in_range(s->tile, SPR_BERRY, 16) || in_range(s->tile, SPR_BERRY_SQUASH, 4) ||
+                           in_range(s->tile, SPR_BERRY_STRETCH, 4))) off = 15;
+        else if (s->w == 24 && in_range(s->tile, SPR_SNOWPATCH, 4)) { off = 23; m = M_SNOW; }
         if (off < 0) continue;
         int x = s->x + s->w / 2;
         int ys = s->y + off;
         /* on a leaf? (the leaf sprite right under it) */
         for (int j = 0; j < RS_OAM_MAX; j++) {
             const rs_sprite *l = rs_oam(j);
-            if (l && l->used && l->w == 32 && l->pal == 4 && in_range(l->tile, SPR_LEAF, 3) && l->x == x - 16) {
+            if (l && l->used && l->w == 32 && l->pal == PAL_PROPSB && in_range(l->tile, SPR_LEAF, 3) && l->x == x - 16) {
                 m = M_GLIDE;
                 ys = s->y + 15 - 2;
             }
         }
+        int gy = draw_ground_y((hofs + x) & 511);  /* the ground line under it (the slope's profile) */
+        if (gy < 0) gy = GROUND_PY;
         *sx = x;
-        *h = GROUND_PY - vofs - ((c * (x - PIVOT_X)) >> 8) - ys;
+        *h = gy - vofs - ((c * (x - PIVOT_X)) >> 8) - ys;
         *mode = m;
         found = 1;
         break;
@@ -180,10 +183,12 @@ int bot_decide(int p)
         bt_col *k = course_col_w(&L, j);
         memset(k, 0, sizeof *k);
         int tx = ((col0 + j) * 2) & 63;
-        int g = cell_kind(tx, GROUND_TROW);
+        /* the column's ground row: where the ground line is drawn (the slope's profile lowers whole columns) */
+        int gy = draw_ground_y((((col0 + j) * 16) + 8) & 511), grow = gy < 0 ? GROUND_TROW : gy >> 3;
+        int g = cell_kind(tx, grow);
         k->ground = g >= 100 ? (uint8_t)(g - 100) : G_GROUND;
         for (int r = 0; r < ROWS; r++) {
-            int kk = cell_kind(tx, GROUND_TROW - 2 * (r + 1));
+            int kk = cell_kind(tx, grow - 2 * (r + 1));
             if (kk == K_BLOCK || kk == K_THORN || kk == K_HANG || kk == K_PEBBLE) k->cell[r] = (uint8_t)kk;
         }
     }
@@ -196,16 +201,17 @@ int bot_decide(int p)
         int j = ((hofs + cx) >> 4) - (mapx >> 4);
         if (j < -2 || j >= VIEW_COLS) continue;
         int ybot = s->y + s->h;
-        int hh = GROUND_PY - vofs - ((c * (cx - PIVOT_X)) >> 8) - ybot;
+        int gy = draw_ground_y((hofs + cx) & 511);
+        int hh = (gy < 0 ? GROUND_PY : gy) - vofs - ((c * (cx - PIVOT_X)) >> 8) - ybot;
         int r = hh / CELL;
         bt_col *k = course_col_w(&L, j);
-        if (s->pal == 2 && in_range(s->tile, SPR_MUSHROOM, 2) && r >= 0 && r < ROWS) k->cell[r] = K_PAD;
-        else if (s->pal == 2 && in_range(s->tile, SPR_DEW, 2)) {
+        if (s->pal == PAL_PROPS && in_range(s->tile, SPR_MUSHROOM, 2) && r >= 0 && r < ROWS) k->cell[r] = K_PAD;
+        else if (s->pal == PAL_PROPS && in_range(s->tile, SPR_DEW, 2)) {
             int rr = (hh + 8) / CELL;
             if (rr >= 0 && rr < ROWS) k->cell[rr] = K_ORB;
-        } else if (s->pal == 4 && s->w == 8 && in_range(s->tile, SPR_GUST, 2)) {
+        } else if (s->pal == PAL_PROPSB && s->w == 8 && in_range(s->tile, SPR_GUST, 2)) {
             k->flags |= mode == M_GLIDE ? F_LEAF_END : F_LEAF;
-        } else if (s->pal == 4 && s->w == 16 && in_range(s->tile, SPR_CONE, 4) && nc < 8) {
+        } else if (s->pal == PAL_PROPSB && s->w == 16 && in_range(s->tile, SPR_CONE, 4) && nc < 8) {
             cones_sx[nc++] = cx;
         }
     }

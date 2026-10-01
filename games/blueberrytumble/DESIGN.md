@@ -273,3 +273,13 @@ rank them. The glide patterns score low because their windows are wide (the leaf
   Squid: 451 / 1851 us). At 15-20x on the RetroStone2's A20: 6.5-8.7 ms on average, 17-22 ms for the single worst
   frame (a host outlier, as Leady Squid's). VRAM (tiles and the 24 KiB of maps) under the 64 KiB guideline and
   the sample memory under 64 KiB (the game's sounds are stored at 16 kHz): strict mode checks both in the smoke test.
+
+## Remaining work
+- Done in this pass (check passes): the berry has no face; the run seed varies (1000/1000 distinct runs in the first
+  30 s); smaller micro-patterns and more randomness (pattern/pair/instance memory); a non-linear slope profile
+  (drawing only, PROF_* in tuning.h); the title-only flow with up to 4 players (hu_title_* API).
+- DIFF_MAX was raised 60 -> 70 so that the director reaches the hardest pattern (dewchain) within 3000 m.
+- Not re-measured since the changes: the bot's distance (`make blueberrytumble-difficulty`), the bench numbers, the
+  difficulty chart (docs/difficulty.png), the screenshots (`make blueberrytumble-screenshots`). The "Results" section
+  above dates from before this pass.
+- Not played by a human yet: the 2-4 player title and the slope profile are only covered by the headless tests.

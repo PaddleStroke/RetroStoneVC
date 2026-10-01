@@ -286,7 +286,9 @@ static int walk(const sv_query *q, sv_result *r, sst s, int32_t f, int32_t seg, 
         int w = forced ? 999 : (int)(hi - lo + 1);
         if (strict && w < MIN_WINDOW) { r->fail_frame = f; return 0; }
         int32_t mid = forced ? f : (lo + hi) / 2;
-        int tries = strict && !forced ? 1 + 2 * ALTERNATIVES : 1;
+        /* strict: the middle first, then the other frames of the window outwards (a player may act anywhere in it) */
+        int half = (int)(hi - lo) / 2 + 1;
+        int tries = strict && !forced ? 1 + 2 * (half > ALTERNATIVES ? half : ALTERNATIVES) : 1;
         for (int k = 0; k < tries; k++) {
             int32_t m = mid + (k & 1 ? -(k + 1) / 2 : k / 2);
             if (m < lo || m > hi) continue;

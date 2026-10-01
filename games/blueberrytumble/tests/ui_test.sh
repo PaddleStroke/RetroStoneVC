@@ -24,7 +24,7 @@ shot() {    # shot <name> <frame> <seed> [opts...]: a bot run up to frame, scree
 }
 
 run --frames 130 --shot 120:"$O/title.png"
-run --frames 130 --opt ready=1 --opt players=2 --shot 120:"$O/get-ready-2-players.png"
+run --frames 130 --opt players=4 --shot 120:"$O/title-4-players.png"
 # the biomes (god mode: the run goes on whatever happens), one shot inside each, and the night loop
 shot biome-1-summit 900 3 --opt god=1
 shot biome-2-forest 3700 3 --opt god=1
@@ -42,8 +42,9 @@ shot biome-gate 2800 3 --opt god=1
 printf "600 tap SELECT\n" > "$O/pause.input"
 run --frames 640 --opt bot=1 --opt seed=7 --opt ready=1 --input "$O/pause.input" --shot 630:"$O/pause.png"
 run --frames 1400 --opt bot=2 --opt seed=9 --opt players=2 --opt ready=1 --shot 1390:"$O/race-2-players.png"
+run --frames 700 --opt bot=4 --opt seed=9 --opt players=4 --opt ready=1 --shot 690:"$O/race-4-players.png"
 n=0
-for s in title get-ready-2-players biome-1-summit biome-2-forest biome-3-meadows biome-4-village biome-5-night \
+for s in title title-4-players race-4-players biome-1-summit biome-2-forest biome-3-meadows biome-4-village biome-5-night \
          mushroom-pad dew-drop leaf-glider snowberry splat gameover-medal biome-gate pause race-2-players; do
     if [ -s "$O/$s.png" ]; then ok "screen: $s"; n=$((n + 1)); else ko "screen $s missing"; fi
 done

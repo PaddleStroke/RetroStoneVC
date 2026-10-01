@@ -51,32 +51,35 @@ SNOW_OUT = (40, 50, 96)
 JUICE = [(206, 96, 186), (150, 50, 150), (96, 28, 110)]
 
 SHEET_W, SHEET_H = 256, 128
-# name, x, y, w, h, frames, palette group (berry: OBJ 0, player 2 = OBJ 1 recoloured; props: OBJ 2; propsb: OBJ 4)
+# name, x, y, w, h, frames, palette group: berry = the players' palettes (the house rule: P1 OBJ 0, P2 OBJ 1, P3 OBJ 4,
+# P4 OBJ 5, kit palette swaps); props OBJ 2; propsb OBJ 6; snowgold OBJ 7 (the snowball, shared, and the gold)
 SPRITES = [
     ("berry", 0, 0, 16, 16, 16, "berry"),          # 16 angles of the roll
     ("berry_squash", 0, 16, 16, 16, 4, "berry"),   # landing, 4 angles
     ("berry_stretch", 64, 16, 16, 16, 4, "berry"),  # take-off, 4 angles
-    ("berry_hit", 128, 16, 16, 16, 1, "berry"),    # X eyes
-    ("snowberry", 0, 32, 24, 24, 4, "snow"),       # the snowball, 4 angles (OBJ 5, player 2: OBJ 6)
+    ("berry_hit", 128, 16, 16, 16, 1, "berry"),    # the hit: squashed, juice bursting out
+    ("snowberry", 0, 32, 24, 24, 4, "snowgold"),   # the snowball, 4 angles (the four players share it)
+    ("snowpatch", 160, 64, 24, 24, 4, "berry"),    # ... and the berry showing through it, in the player's colours
     ("juice", 96, 32, 8, 8, 3, "berry"),           # juice drops (the splat)
     ("splat", 128, 32, 16, 16, 3, "berry"),        # the splash on the ground
-    ("snowbit", 176, 32, 8, 8, 2, "snow"),         # snow flying off / smashed crumbs
+    ("snowbit", 176, 32, 8, 8, 2, "snowgold"),     # snow flying off / smashed crumbs
     ("dew", 0, 64, 16, 16, 2, "props"),            # the dew drop (a jump orb), shining
     ("dew_ring", 32, 64, 16, 16, 2, "props"),      # used: a ring of water
     ("mushroom", 64, 64, 16, 16, 2, "props"),      # the jump pad, squashed when used
-    ("golden", 96, 64, 16, 16, 2, "gold"),         # the golden blueberry (OBJ 7)
-    ("spark", 128, 64, 8, 8, 2, "gold"),
+    ("golden", 96, 64, 16, 16, 2, "snowgold"),     # the golden blueberry
+    ("spark", 128, 64, 8, 8, 2, "snowgold"),
     ("cone", 0, 96, 16, 16, 4, "propsb"),          # the pine cone, 4 angles
     ("leaf", 64, 96, 32, 16, 3, "propsb"),         # the maple leaf glider: nose up, level, down
     ("gust", 160, 96, 8, 8, 2, "propsb"),          # little leaves in the gust
 ]
-SHEETS = {"sprites": "sprites.png", "playfield": "tiles/playfield.png", "mid": "tiles/mid.png", "far": "tiles/far.png"}
+SHEETS = {"sprites": "sprites.png", "playfield": "tiles/playfield.png", "mid": "tiles/mid.png", "far": "tiles/far.png",
+          "ramps": "tiles/ramps.png"}
 
 
 # ---- the berry ----------------------------------------------------------------------------------------------------
-def berry_body(cv, cx, cy, r, angle, eyes="open", calyx=True):
-    """The body (fixed lighting), the calyx and stem at `angle` (radians, 0 = on top, turning clockwise as it rolls
-    right), the eyes looking ahead (they do not turn: a cartoon face)."""
+def berry_body(cv, cx, cy, r, angle, calyx=True):
+    """The body (fixed lighting) and the calyx and stem at `angle` (radians, 0 = on top, turning clockwise as it
+    rolls right). No face: the berry is a berry (the owner, 2026-10-01: fixed eyes on a rolling ball looked odd)."""
     hs.ellipse(cv, cx, cy, r, r, BERRY)
     # the bloom: a dusty highlight top-left (two pixels, never a white rim)
     bx, by = int(cx - r * 0.5), int(cy - r * 0.55)
@@ -98,48 +101,56 @@ def berry_body(cv, cx, cy, r, angle, eyes="open", calyx=True):
                 px, py = sx + rr * math.sin(a), sy - rr * math.cos(a)
                 cv.set(int(round(px - 0.5)), int(round(py - 0.5)), col)
         cv.set(int(round(sx - 0.5)), int(round(sy - 0.5)), CALYX[2])
-    if eyes == "open":
-        hs.eye(cv, int(cx + 0.5), int(cy - 2), look=(1, 0))
-        hs.eye(cv, int(cx + 3.5), int(cy - 2), look=(1, 0))
-    elif eyes == "x":
-        ink = hs.HOUSE["ink"][0]
-        for ex in (int(cx - 1), int(cx + 3)):
-            for d in range(3):
-                cv.set(ex + d, int(cy - 2) + d, ink)
-                cv.set(ex + 2 - d, int(cy - 2) + d, ink)
 
 
 def berry(angle_i, pose="roll", n=16):
     cv = Canvas(16, 16)
     a = angle_i * 2 * math.pi / n
-    berry_body(cv, 7.5, 8.5, 6.5, a, eyes="x" if pose == "hit" else "open")
+    berry_body(cv, 7.5, 8.5, 6.5, a)
     if pose == "squash":
         cv = hs.squash(cv, 1.22)
     elif pose == "stretch":
         cv = hs.squash(cv, 0.84)
+    elif pose == "hit":
+        # the moment it hits: squashed hard, juice bursting out of both sides
+        cv = hs.squash(cv, 1.4)
+        for x, y, c in ((0, 9, JUICE[0]), (1, 8, JUICE[1]), (15, 9, JUICE[0]), (14, 8, JUICE[1]), (2, 6, JUICE[0]),
+                        (13, 6, JUICE[0])):
+            cv.set(x, y, c)
     cv.outline(BERRY_OUT)
     return cv
 
 
+def snow_patches(angle_i):
+    """Where the berry shows through the snowball: drawn as its own sprite in the player's palette, over the snowball
+    (the snowball's palette is shared by the four players)."""
+    cv = Canvas(24, 24)
+    cx, cy, r = 11.5, 12.5, 10.5
+    turn = angle_i * 2 * math.pi / 20
+    for k in (0, 2):
+        a = turn + k * 2 * math.pi / 5
+        x, y = cx + 0.62 * r * math.sin(a), cy - 0.62 * r * math.cos(a)
+        hs.ellipse(cv, x, y, 1.7, 1.5, None, flat=BERRY[2])
+        cv.set(int(x - 0.5), int(y - 1.4), BERRY[1])
+    return cv
+
+
 def snowberry(angle_i):
-    """A snowball with the berry peeking through; the specks turn with the roll."""
+    """A snowball (the berry inside shows through: snow_patches); the clumps turn with the roll."""
     cv = Canvas(24, 24)
     cx, cy, r = 11.5, 12.5, 10.5
     hs.ellipse(cv, cx, cy, r, r, SNOW)
-    turn = angle_i * 2 * math.pi / 20          # 4 frames: a fifth of a turn (the specks repeat 5 times around)
+    turn = angle_i * 2 * math.pi / 20          # 4 frames: a fifth of a turn (the clumps repeat 5 times around)
     for k in range(5):
         a = turn + k * 2 * math.pi / 5
         for j, rr in enumerate((0.62, 0.3)):
+            if j == 0 and k in (0, 2):        # the berry's patches (their own sprite)
+                continue
             x, y = cx + rr * r * math.sin(a + j), cy - rr * r * math.cos(a + j)
-            if j == 0 and k in (0, 2):        # berry blue showing through
-                hs.ellipse(cv, x, y, 1.7, 1.5, None, flat=BERRY[2])
-                cv.set(int(x - 0.5), int(y - 1.4), BERRY[1])
-            else:                             # snow clumps
-                cv.set(int(x), int(y), SNOW[2])
-                cv.set(int(x) + 1, int(y), SNOW[2])
+            cv.set(int(x), int(y), SNOW[2])
+            cv.set(int(x) + 1, int(y), SNOW[2])
     cv.set(int(cx - 5), int(cy - 6), (255, 255, 255))
-    hs.eye(cv, int(cx + 1), int(cy - 4), look=(1, 0), big=True)
-    hs.eye(cv, int(cx + 5), int(cy - 4), look=(1, 0), big=True)
+    cv.set(int(cx - 4), int(cy - 6), (255, 255, 255))
     cv.outline(SNOW_OUT)
     return cv
 
@@ -328,7 +339,7 @@ def sprite_frame(name, i):
         return berry(i * 4, "stretch")
     if name == "berry_hit":
         return berry(0, "hit")
-    table = {"snowberry": snowberry, "juice": juice, "splat": splat, "snowbit": snowbit, "dew": dew,
+    table = {"snowberry": snowberry, "snowpatch": snow_patches, "juice": juice, "splat": splat, "snowbit": snowbit, "dew": dew,
              "dew_ring": dew_ring, "mushroom": mushroom, "golden": golden, "spark": spark, "cone": cone,
              "leaf": maple, "gust": gust}
     return table[name](i)
@@ -695,6 +706,56 @@ def build_playfield():
     return im
 
 
+# ---- the slope's profile: ramp strips (drawn only; src/draw.c, DESIGN.md "The slope") -----------------------------------
+# A ramp column carries the ground from one drawn height to another across its 16 px: (start, delta) in px, + = down,
+# start relative to the tile row its height rounds down to (0 or 4: the half-steps of the gentle ramps). The strip is
+# 16 x RAMP_H px from tile row ramp_top_row(start, delta); below it the deep soil goes on. Steep ramps (16 px or more
+# per column: the drops and the cliff) show a rock face instead of the crust.
+RAMPS = [(0, 4), (4, 4), (0, 8), (0, 16), (0, 32), (0, -4), (4, -4), (0, -8), (0, -16)]
+RAMP_H = 48
+
+
+def ramp_top_row(s, d):
+    return int(math.floor(min(s, s + d) / 8.0))
+
+
+def mt_ramp(b, s, d):
+    p = P(b)
+    tr = ramp_top_row(s, d)
+    cv = Canvas(16, RAMP_H)
+    crust = 5 if b != 3 else 6
+    steep = abs(d) >= 16
+    slope = d / 16.0
+    face = int(round(3 * math.sqrt(1 + slope * slope)))       # the rock face's band, measured vertically
+    for x in range(16):
+        yl = s + slope * (x + 0.5) - tr * 8                  # the ground line in strip px
+        ytop = int(math.floor(yl + 0.5))
+        for y in range(max(0, ytop), RAMP_H):
+            k = y - ytop
+            if steep:
+                c = p["rock_l"] if k == 0 else p["rock_m"] if k < face else p["rock_d"] if k < face + 2 else None
+                if c is not None and speck(x, y, 5) and k > 0:
+                    c = p["rock_d"]
+            else:
+                wob = int(round(0.6 * math.sin((x + y) * 0.9)))
+                c = (p["surf_l"] if k == 0 else p["surf_m"] if k < crust - 2 + wob else p["surf_d"] if k < crust + wob
+                     else p["dirt_d"] if k == crust + wob else None)
+            if c is None:
+                c = p["dirt_d"] if speck(x, y, 7) else p["dirt_m"]
+            cv.set(x, y, c)
+        if steep and ytop - 1 >= 0 and d > 0:
+            cv.set(x, ytop - 1, None)
+    return cv
+
+
+def build_ramps():
+    im = Image.new("RGB", (16 * len(RAMPS), RAMP_H * len(PF_BIOMES)), MAG)
+    for b in range(len(PF_BIOMES)):
+        for i, (s, d) in enumerate(RAMPS):
+            im.paste(mt_ramp(b, s, d).image(), (i * 16, b * RAMP_H))
+    return im
+
+
 # ---- mid-ground (BG3, parallax 1/2): one 128 x 48 band per biome, no outlines, low contrast ----------------------------
 MID_W, MID_H = 128, 48
 MID_PALS = [
@@ -755,7 +816,7 @@ def mid_band(b, family=True):
             x, y = rng.randint(0, MID_W - 2), rng.randint(MID_H - 16, MID_H - 3)
             if cv.get(x, y) is not None:
                 cv.set(x, y, pal[3]), cv.set(x + 1, y, pal[4])
-        fx = 84 if family else 999     # the family: four berries of different sizes with little faces (the cameo)
+        fx = 84 if family else 999     # the family: four big berries of different sizes on a bush (the cameo)
         for i, r in enumerate((4.5, 4.0, 2.8, 2.4)):
             cx = fx + [0, 10, 18, 24][i]
             cy = MID_H - 24 + (4.5 - r)
@@ -763,9 +824,8 @@ def mid_band(b, family=True):
                 for x in range(int(cx - r) - 1, int(cx + r) + 2):
                     if (x + 0.5 - cx) ** 2 + (y + 0.5 - cy) ** 2 <= r * r:
                         cv.set(x, y, pal[8] if x < cx - r * 0.3 and y < cy - r * 0.3 else pal[3])
-            cv.set(int(cx), int(cy - 1), pal[5]), cv.set(int(cx + 2), int(cy - 1), pal[5])
-            cv.set(int(cx) + 1, int(cy + 1), pal[6])
-            cv.set(int(cx), int(cy - r), pal[4])
+            cv.set(int(cx), int(cy - r), pal[4])              # the crown
+            cv.set(int(cx) + 1, int(cy - r), pal[4])
     else:           # the village: roofs, chimneys, lit windows, a steeple
         for x in range(MID_W):
             for y in range(38, MID_H):
@@ -825,7 +885,7 @@ def build_far():
 def write_all(out, preview=False):
     os.makedirs(os.path.join(out, "tiles"), exist_ok=True)
     files = {SHEETS["sprites"]: build_sheet(), SHEETS["playfield"]: build_playfield(), SHEETS["mid"]: build_mid(),
-             SHEETS["far"]: build_far()}
+             SHEETS["far"]: build_far(), SHEETS["ramps"]: build_ramps()}
     for f, im in files.items():
         im.save(os.path.join(out, f))
         if preview:
@@ -833,7 +893,7 @@ def write_all(out, preview=False):
             im.resize((im.width * 4, im.height * 4), Image.NEAREST).save(os.path.join(out, "preview", os.path.basename(f)))
     pals = {"pf_roles": PF_ROLES, "pf": [[list(P(b)[r]) for r in PF_ROLES] for b in range(4)],
             "mid": [[list(c) for c in m] for m in MID_PALS], "far": [list(c) for c in FAR_PAL],
-            "biome_names": BIOME_NAMES, "pf_tiles": PF_TILES}
+            "biome_names": BIOME_NAMES, "pf_tiles": PF_TILES, "ramps": [list(r) for r in RAMPS], "ramp_h": RAMP_H}
     with open(os.path.join(out, "palettes.json"), "w") as f:
         json.dump(pals, f, indent=1)
     return sorted(files) + ["palettes.json"]
