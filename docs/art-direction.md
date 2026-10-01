@@ -50,10 +50,11 @@ The reference screens: `games/leadysquid/docs/screenshots/` (title, get-ready-2-
 | BG 1-4 | the playfield: ground, obstacles, one palette per theme |
 | BG 5 | the title logo (per-game ramps) |
 | BG 6-7 | mid-ground and far layers |
-| OBJ 0 | the hero; **OBJ 1 = player 2, the same tiles with the hue rotated** (`hue_swap`, build_assets.py) |
+| OBJ 0 | the hero (player 1); **OBJ 1 = player 2, the same tiles with the hue rotated** (`hue_swap`, build_assets.py) |
 | OBJ 2 | effects and props |
 | OBJ 3 | the kit sprites (digits, glyphs, medals, sparkle) |
-| OBJ 4-7 | per-game (Leady Squid: the obstacle caps); only OBJ 4-7 take colour math |
+| OBJ 4-5 | **players 3 and 4** (the same tiles, `player_palettes`; see "Title and players") |
+| OBJ 6-7 | per-game (Leady Squid: the obstacle caps, two themes at a time); only OBJ 4-7 take colour math |
 
 ![palette](art-direction/palette.png) ![shapes](art-direction/shapes.png)
 
@@ -94,8 +95,9 @@ than the playfield; UI is always cream on navy; gold means "reward".
   colour (`hu_box_text`).
 - **Big** (2x, 16x16): cream with a full 1-px navy outline over the scene (`HU_BIG_FREE`: GET READY, PAUSED);
   gold with an outline and a dark drop shadow on the panel fill (`HU_BIG_BANNER`: GAME OVER).
-- Text is centred (`hu_center`); rows: logo 2-9, GET READY 6, PAUSED 13, PRESS A 21, BEST 24, 2P line 26,
-  copyright 28.
+- Text is centred (`hu_center`); rows: logo 2-9, player slots 18, PRESS A 21, BEST 24, join line 26,
+  copyright 28; PAUSED 13. Arrows: `HU_ARROW_LEFT` / `RIGHT` / `UP` / `DOWN` in a string draw an arrow (the kit
+  redraws `{ } ^ ~`).
 
 ![font](art-direction/font.png)
 
@@ -103,18 +105,66 @@ than the playfield; UI is always cream on navy; gold means "reward".
 
 | Screen | House layout | Kit |
 |---|---|---|
-| Title | the **logo** (rows 2-9), the hero bobbing under it (`hu_bob(t, 64, 4)`), **PRESS A TO <VERB>** on row 21 with the **A glyph** left of it (both blink, 30 frames on / 30 off), BEST n on row 24 (if > 0), `(C) 2026 8BCRAFT - RETROSTONE VC` on row 28 | `hu_logo`, `hu_prompt`, `hu_glyph`, `hu_copyright` |
+| Title | the only menu (no "get ready"): the **logo** (rows 2-9), the hero bobbing under it (`hu_bob(t, 64, 4)`), the **player slots** on row 18, **PRESS A TO <VERB>** on row 21 with the **A glyph** (or the D-pad glyph) left of it (both blink, 30 frames on / 30 off), BEST n on row 24 (if > 0), the **join line** on row 26, `(C) 2026 8BCRAFT - RETROSTONE VC` on row 28 | `hu_title_setup`, `hu_title_update`, `hu_title_draw`, `hu_title_sprites` (or `hu_logo`, `hu_prompt`, `hu_glyph`, `hu_copyright`) |
 | Logo | the title at 4x (3x if too long), each word a 3-shade ramp (light top band, mid, dark bottom band), 1-px outline `#1a1028` all round, navy `#142246` drop shadow 3-4 px down and half as far right (the 3D extrusion); extras per game (Leady Squid: rivets, bubbles) | `hu_logo`, `house_style.logo` |
-| Get ready | GET READY big cream on row 6, the prompt, the heroes bobbing at their start | `hu_get_ready` |
-| 2P join | row 26: `P2: PRESS A ON PAD 2 TO JOIN`, then `P2 JOINED - RACE!` (confirm sound) | `hu_join_line` |
-| In game | the score in big digits, centred at the top (y 10); 2 players: at x 80 and 240 | `hu_number` |
+| Join | row 26: `P2 / P3 / P4: PRESS A TO JOIN` (the free slots), then `P3 / P4: PRESS A TO JOIN - B: LEAVE`, `4 PLAYERS - B: LEAVE`; a joined player's icon pops in on its slot (row 18) with a sparkle and the confirm sound | `hu_title_*` |
+| In game | the score in big digits, centred at the top (y 10); 2 players: at x 80 and 240; 3-4 players: score chips in the corners (P1 top-left, P2 top-right, P3 bottom-left, P4 bottom-right) with a P1..P4 tag; split screens: one score per view | `hu_number`, `hu_score_chip(s)`, `hu_score_tags`, `hu_split` |
 | Pause | Select (and Start when it is not an action): brightness 9/15, PAUSED big on row 13, a blip | `hu_pause` |
-| Game over | the **banner** (a 20x4 panel at row 4, GAME OVER in gold), the **panel** (20x12 at row 9): SCORE, BEST or NEW BEST, MEDAL (1P) or PLAYER 1, PLAYER 2 and the winner (2P); both slide up 200 px in 20 frames (ease-out); `A: <VERB> AGAIN` blinks on row 19 after 36 frames | `hu_banner`, `hu_gameover_panel`, `hu_gameover_sprites`, `hu_retry_line`, `hu_slide_in` |
+| Game over | the **banner** (a 20x4 panel at row 4, GAME OVER in gold), the **panel** (20x12 at row 9): SCORE, BEST or NEW BEST, MEDAL (1P); both slide up 200 px in 20 frames (ease-out); `A: <VERB> AGAIN` blinks on row 19 after 36 frames | `hu_banner`, `hu_gameover_panel`, `hu_gameover_sprites`, `hu_retry_line`, `hu_slide_in` |
+| Results (2-4 players) | the banner on row 3 (`P3 WINS!` or `DRAW!`), the ranking panel (24 wide from row 8): one row per place, 3 rows apart: 1ST..4TH, the tag, the hero icon, the score, the medal (1st gold, 2nd silver, 3rd bronze, ties alike; a sparkle by the winner); the retry line under it | `hu_rank`, `hu_results_panel`, `hu_results_sprites`, `hu_results_icon_pos`, `hu_retry_line_at` |
 | Medals | 4 tiers at 10, 20, 30, 40: bronze, silver, gold, pearl; a sparkle blinks next to it; the medal jingle | `hu_medal`, `hu_medal_of`, `hu_sparkle` |
-| Buttons | a round silver button with its letter (A, B, X, Y), 16x16, a pressed frame 1 px lower | `hu_glyph` |
+| Buttons | a round silver button with its letter (A, B, X, Y), 16x16, a pressed frame 1 px lower; the D-pad cross (`HU_BTN_DPAD`) | `hu_glyph` |
 
-![kit sprites](art-direction/ui-sprites.png) ![get ready](art-direction/kit-get-ready-2-players.png)
-![pause](art-direction/kit-pause.png) ![race](art-direction/kit-race-2-players.png)
+![kit sprites](art-direction/ui-sprites.png) ![title, 4 players](art-direction/kit-title-4-players.png)
+![pause](art-direction/kit-pause.png) ![4 players](art-direction/kit-play-4-players.png)
+![results](art-direction/kit-results-4-players.png)
+
+### Title and players
+
+**No more "get ready" screen: the title is the only menu.** Up to 4 players in every game (the SDK has 4 pads).
+
+- **Start inputs.** P1 starts the game straight from the title with the game's natural play input, set per game
+  in `hu_title_cfg.start` (RS_BTN_* bits); the prompt shows the matching glyph or word, made by the kit:
+  `PRESS A TO <VERB>` (A glyph), `PRESS <-/-> TO <VERB>` (Left and Right: D-pad glyph), `PRESS ANY ARROW TO <VERB>`
+  (the whole D-pad: D-pad glyph). The words are in one table in house_ui.c (`words`: a translation replaces it).
+
+| Game | Start inputs | Prompt |
+|---|---|---|
+| Leady Squid | A, B, X, Y, Up, Start (its swim inputs) | PRESS A TO SWIM |
+| Beaver Rush | Left, Right, A, B | PRESS <-/-> TO GNAW |
+| Duck Parade | the D-pad, A | PRESS ANY ARROW TO HOP |
+| Pogo Mamie | the D-pad, A | PRESS ANY ARROW TO BOUNCE |
+| Pancake Tower | A | PRESS A TO DROP |
+| Blueberry Tumble | A, Up | PRESS A TO ROLL |
+
+- **Join and leave on the title.** Pads 2-4 join with A (or Start), leave with B. Players are numbered in the order
+  they joined (P1 is always pad 1; `hu_player_pad(p)` maps a player to its pad); the lobby stays between runs.
+  Each joined player's icon (the hero in its palette, drawn by the game's callback) pops up on its slot (row 18)
+  with a 10% overshoot and two sparkles; the game plays its join sound (house: `HA_CONFIRM`). Row 26 lists the
+  free slots: `P2 / P3 / P4: PRESS A TO JOIN`.
+- **After a game over**, one press retries at once with the same players (straight into play: instant retry);
+  Select goes back to the title (to join or leave).
+- **The four palettes** (`house_style.player_palettes`, `hu_player_pal`): P1 the hero's own palette (OBJ 0);
+  P2 the game's `hue_swap` of the hero's main material (OBJ 1, as before); P3 and P4 (OBJ 4 and 5) the same
+  material rotated to the two hues farthest from P1's and P2's on the colour wheel (on a 1/72 grid, so the four
+  main colours stay apart); outline, eyes, skin, metal and white highlights never change. The UI stays cream on
+  navy: the hero icon next to a tag is the player's colour. Example (the template's pink hero):
+
+![the four players](art-direction/players.png)
+
+- **HUD.** 1-2 players as before; 3-4 players on a shared screen: score chips in the corners (`hu_score_chip`,
+  `hu_score_tags` once, `hu_score_chips` each frame). Split screens (`hu_split`): 2x2 quadrants (`HU_SPLIT_QUAD`)
+  or 4 columns (`HU_SPLIT_COLUMNS`, 78 px each, the full height) with 2-px dividers; each view draws its sprites
+  between `hu_view_oam_begin` and `hu_view_oam_end`.
+- **Results** for 2-4 players: `hu_rank(&s, n, key, value)` (the key ranks: the score, how long a player lasted...;
+  equal keys share a rank), `hu_results_panel(&s, NULL)` (the banner names the winner, or DRAW!),
+  `hu_results_sprites(&s, t, slide)`, the game's hero icons at `hu_results_icon_pos`, the retry line at
+  `hu_results_retry_row`.
+- **Adopting it** (a game with the old flow): drop `hu_get_ready` and `hu_join_line` (deprecated, still built;
+  `-DHU_WARN_DEPRECATED` lists the calls), call `hu_title_setup` after `hu_init`, `hu_players_set(n)` for
+  `--opt players=N`, `hu_title_update()` every title frame (P1's `HU_TITLE_START` starts the run, its press may
+  also be the first move), `hu_title_draw(t, best)` and `hu_title_sprites(t, icon, user)`; read each player's
+  pad through `hu_player_pad(p)`; draw player p in `hu_player_pal(p)`. `games/_template` shows the whole flow.
 
 ## 6. Motion
 
@@ -144,12 +194,12 @@ than the playfield; UI is always cream on navy; gold means "reward".
 
 ## 8. Conventions
 
-- **One button, instant retry**: A (and B, X, Y, Up) acts, Start starts; on the game-over panel one press
-  goes back to GET READY.
+- **One button, instant retry**: A (and B, X, Y, Up) acts; the game's start inputs start it from the title; on
+  the game-over panel one press starts the next run at once (Select: back to the title).
 - **The best score in save RAM**: a struct with a 4-letter magic, a version and a checksum, written at each
   game over (`rs_sram_commit`); never part of a save state.
-- **Player 2** joins with A on pad 2 on the title or GET READY; the same hero with its palette hue-rotated
-  (OBJ 1); both play at once; the panel names the winner.
+- **Players 2-4** join with A on their pad on the title (B leaves); the same hero in the house palette swaps
+  (OBJ 1, 4, 5); all play at once; the results rank them (see "Title and players").
 - **Save states**: every mutable static is registered (`rs_state_var`) or listed in `state_audit.txt`; the kit
   registers its own (`hu_state()`, `ha_state()`).
 - **Credits line**: `(C) 2026 8BCRAFT - RETROSTONE VC` on the title.

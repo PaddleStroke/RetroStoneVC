@@ -26,6 +26,14 @@
 extern "C" {
 #endif
 
+/* Deprecated calls (the "get ready" flow, replaced by the title lobby below) still work; build with
+ * -DHU_WARN_DEPRECATED to have the compiler point at them. */
+#if defined(HU_WARN_DEPRECATED) && defined(__GNUC__)
+#define HU_DEPRECATED __attribute__((deprecated))
+#else
+#define HU_DEPRECATED
+#endif
+
 /* ---- the UI palette (a BG palette; house_style.py HOUSE "cream", "ui_navy", "ui_gold") ---------------------- */
 enum {
     HU_CREAM = 1,       /* text ink            #fff6dc */
@@ -46,7 +54,7 @@ extern const rs_color hu_obj_palette[16];
 /* ---- set-up --------------------------------------------------------------------------------------------------- */
 #define HU_BG_TILES   297       /* font, panel font, 2x cache, panel frame */
 #define HU_LOGO_TILES 320       /* the logo, at most (40 x 8 tiles) */
-#define HU_OBJ_TILES  110       /* the kit sprites */
+#define HU_OBJ_TILES  118       /* the kit sprites (110 before the D-pad glyph) */
 typedef struct hu_config {
     int layer;                  /* the UI BG layer (RS_BG1) */
     int vram_base;              /* the layer's tile base (absolute VRAM tile, as given to rs_bg_setup) */
@@ -68,6 +76,11 @@ const hu_config *hu_cfg(void);
 void hu_state(void);
 
 /* ---- text (tile coordinates, 40 x 30 on screen) -------------------------------------------------------------- */
+/* The kit draws four arrows over glyphs that games do not use: put them in strings with these. */
+#define HU_ARROW_LEFT  "{"
+#define HU_ARROW_RIGHT "}"
+#define HU_ARROW_UP    "^"
+#define HU_ARROW_DOWN  "~"
 void hu_text(int x, int y, const char *s);             /* cream, 1-px shadow, over the scene */
 void hu_box_text(int x, int y, const char *s);         /* the same on the panel fill */
 enum { HU_BIG_FREE, HU_BIG_BANNER };
@@ -80,17 +93,106 @@ void hu_clear_rows(int y, int h);                      /* blank rows (the free f
 void hu_panel(int x, int y, int w, int h);             /* rounded navy panel, w x h tiles (>= 2 x 2) */
 /* a titled banner: a 20 x 4 panel centred on row y with the title in gold 2x glyphs (GAME OVER, PAUSED...) */
 void hu_banner(int y, const char *title);
-void hu_get_ready(int y);                              /* "GET READY", 2x cream, centred */
+/* DEPRECATED (no more "get ready": the title is the only menu, see hu_title_*): "GET READY", 2x cream, centred */
+HU_DEPRECATED void hu_get_ready(int y);
 /* the blinking prompt "PRESS A TO <VERB>": returns the pixel x where the A glyph goes (hu_glyph) */
 int  hu_prompt(int y, const char *text, int blink_t);
 void hu_copyright(int y);                              /* (C) 2026 8BCRAFT - RETROSTONE VC */
-/* the 2-player line under "get ready": "P2: PRESS A ON PAD 2 TO JOIN" or "P2 JOINED - <what>!" */
-void hu_join_line(int y, int players, const char *joined);
+/* DEPRECATED (hu_title_draw shows the 4-player join line): "P2: PRESS A ON PAD 2 TO JOIN" or "P2 JOINED - <what>!" */
+HU_DEPRECATED void hu_join_line(int y, int players, const char *joined);
 /* the game-over score panel (below a hu_banner at row 4): labels on the left, values drawn as sprites by
- * hu_gameover_sprites(); 1 player: SCORE, BEST (NEW BEST), MEDAL; 2 players: PLAYER 1, PLAYER 2 and the winner */
+ * hu_gameover_sprites(); 1 player: SCORE, BEST (NEW BEST), MEDAL; 2 players: PLAYER 1, PLAYER 2 and the winner.
+ * 2-4 players: prefer the ranking (hu_results_*). */
 void hu_gameover_panel(int players, int new_best, int score1, int score2);
 void hu_gameover_sprites(int players, int score1, int score2, int best, int medal, int t, int slide_px);
-void hu_retry_line(int t, int lock, const char *text); /* the blinking "A: <AGAIN>" line once t >= lock */
+void hu_retry_line(int t, int lock, const char *text); /* the blinking "A: <AGAIN>" line once t >= lock (row 19) */
+void hu_retry_line_at(int row, int t, int lock, const char *text);
+
+/* ---- players and the title (the only menu: no "get ready") -------------------------------------------------------
+ * The title shows the logo, "PRESS <input> TO <VERB>" (P1 starts the game at once with one of its START INPUTS: the
+ * game's natural play inputs, e.g. the D-pad and A), the player slots (P1 .. P4: the joined players' icons pop in),
+ * the join line "P2 / P3 / P4: PRESS A TO JOIN", BEST and the credits. Pads 2-4 join with A (or Start) and leave
+ * with B. Players are numbered in the order they joined (P1 is always pad 1): hu_player_pad() maps a player to
+ * its pad. The lobby lives in the kit (saved by hu_state) and stays between runs: a retry keeps the players.
+ * Rows (house layout): slots 18, prompt 21, BEST 24, join line 26, copyright 28. */
+#define HU_MAX_PLAYERS 4
+#define HU_IN_DPAD (RS_BTN_UP | RS_BTN_DOWN | RS_BTN_LEFT | RS_BTN_RIGHT)
+#define HU_IN_LR   (RS_BTN_LEFT | RS_BTN_RIGHT)
+#define HU_JOIN_BUTTONS  (RS_BTN_A | RS_BTN_START)
+#define HU_LEAVE_BUTTONS RS_BTN_B
+enum { HU_ROW_SLOTS = 18, HU_ROW_PROMPT = 21, HU_ROW_BEST = 24, HU_ROW_JOIN = 26, HU_ROW_COPYRIGHT = 28 };
+typedef struct hu_title_cfg {
+    uint16_t start;             /* P1's start inputs (RS_BTN_*): Leady Squid A|B|X|Y|UP|START, Duck Parade HU_IN_DPAD|A */
+    int max_players;            /* 1..4 (1: no slots, no join line) */
+    const char *verb;           /* "SWIM" -> PRESS A TO SWIM */
+    const char *prompt;         /* NULL: made from start and verb (PRESS A / PRESS <-/-> / PRESS ANY ARROW TO <VERB>) */
+    int slot_row;               /* 0: HU_ROW_SLOTS */
+} hu_title_cfg;
+void hu_title_setup(const hu_title_cfg *c);            /* after hu_init (which resets the lobby to P1 alone) */
+void hu_players_set(int n);                            /* n players on pads 1..n (--opt players=N, tests) */
+int  hu_players(void);                                 /* 1..4 */
+int  hu_player_pad(int p);                             /* the pad (rs_pad_* port) of player p */
+int  hu_player_age(int p);                             /* frames since player p joined (capped at 255) */
+uint16_t hu_start_inputs(void);
+int  hu_start_pressed(int p);                          /* player p pressed one of the start inputs this frame */
+/* the default OBJ palette of player p (house rule, docs/art-direction.md: P1 OBJ 0, P2 OBJ 1, P3 OBJ 4, P4 OBJ 5) */
+int  hu_player_pal(int p);
+/* Call once per update on the title: joins (A / Start on a free pad), leaves (B on a joined pad 2-4), P1's start.
+ * Returns HU_TITLE_* bits: play the join sound (house: HA_CONFIRM) on JOINED, a tick on LEFT; start on START. */
+enum { HU_TITLE_JOINED = 1, HU_TITLE_LEFT = 2, HU_TITLE_START = 4 };
+int  hu_title_update(void);
+/* BG, every title frame: the prompt (blinking), the slot labels, BEST n (if > 0), the join line, the credits */
+void hu_title_draw(int t, int best);
+/* sprites, every title frame: the prompt's glyph (A button or D-pad) and, for each joined player, icon(p, cx, cy, t,
+ * user) at its slot (the game draws its hero icon in hu_player_pal(p); cy pops in with a bounce) and a sparkle as it
+ * joins. icon may be NULL. Front to back: call it before the scene's sprites. */
+typedef void (*hu_icon_fn)(int player, int cx, int cy, int t, void *user);
+void hu_title_sprites(int t, hu_icon_fn icon, void *user);
+/* where the title glyph goes (a game with its own glyph sprites): returns HU_BTN_A, HU_BTN_DPAD or -1 (none) */
+int  hu_title_glyph(int *x, int *y);
+void hu_slot_pos(int p, int *cx, int *cy);             /* the centre of player p's icon on the title */
+
+/* ---- 4-player HUD ------------------------------------------------------------------------------------------------- */
+/* Score chips: 1 player centred at the top (y 10), 2 players at x 80 and 240 (y 10), 3-4 players in the corners
+ * (P1 top-left, P2 top-right, P3 bottom-left, P4 bottom-right) with a P1..P4 tag; bottom_y is the digits' top y of
+ * the bottom chips (0: 220). */
+typedef struct hu_chip {
+    int x, y, align;            /* the digits: x (align -1: left edge, 0: centre, 1: right edge), top y */
+    int tag_x, tag_y;           /* the tag's tile (-1: no tag) */
+} hu_chip;
+hu_chip hu_score_chip(int players, int p, int bottom_y);
+void hu_score_tags(int players, int bottom_y);         /* BG: the tags (3-4 players), once when the run starts */
+void hu_score_chips(int players, const int score[], int bottom_y);   /* the kit digits, every frame */
+void hu_number_at(int n, int x, int y, int align, int prio);         /* big digits, aligned like a chip */
+/* Split screen (rs_viewports): 1 player the full screen, 2 halves side by side; 3-4 players HU_SPLIT_QUAD (2 x 2
+ * quadrants, 159 x 119; 3 players leave the 4th free) or HU_SPLIT_COLUMNS (n columns, 78 px wide for 4, the full
+ * height). 2-px dividers. Layers 0x0f, sprites on, oam_first / oam_count 0: bracket each view's sprites with
+ * hu_view_oam_begin / end. Returns the number of views. */
+enum { HU_SPLIT_QUAD, HU_SPLIT_COLUMNS };
+int  hu_split(int players, int mode, rs_viewport *out);
+void hu_view_oam_begin(rs_viewport *v);                /* the next rs_spr() calls belong to v ... */
+void hu_view_oam_end(rs_viewport *v);                  /* ... up to here */
+
+/* ---- results for 2-4 players: a ranking with medals --------------------------------------------------------------- */
+typedef struct hu_standing {
+    int n;                      /* players */
+    int order[HU_MAX_PLAYERS];  /* the players, first place first */
+    int rank[HU_MAX_PLAYERS];   /* the rank of each place (0 = 1st; equal keys share a rank) */
+    int value[HU_MAX_PLAYERS];  /* by player: the number shown */
+} hu_standing;
+/* rank n players by key (higher = better: the score, or the time a player lasted...); value[] is what is shown */
+void hu_rank(hu_standing *s, int n, const int key[], const int value[]);
+int  hu_winner(const hu_standing *s);                  /* the winning player, -1 when several share the 1st place */
+/* BG: the banner on row 3 (title, or NULL: "P2 WINS!" / "DRAW!") and the panel from row 8: one row per place, 3 rows
+ * apart: the rank (1ST..4TH) and the tag (P1..P4); the retry line goes on hu_results_retry_row() (hu_retry_line_at) */
+void hu_results_panel(const hu_standing *s, const char *title);
+/* sprites: the values (big digits) and the medals (1st gold, 2nd silver, 3rd bronze, ties alike), a sparkle by the
+ * winner; slide_px as for hu_gameover_sprites */
+void hu_results_sprites(const hu_standing *s, int t, int slide_px);
+void hu_results_icon_pos(const hu_standing *s, int place, int *cx, int *cy);   /* where the game draws a hero icon */
+int  hu_results_medal(const hu_standing *s, int place);                         /* its medal tier (0 none, 1..4) */
+int  hu_results_row(const hu_standing *s, int place);                           /* its text row */
+int  hu_results_retry_row(const hu_standing *s);
 
 /* ---- pause ------------------------------------------------------------------------------------------------------ */
 /* Call every frame: dims the screen (brightness 9) and shows PAUSED on row y while paused. */
@@ -98,8 +200,8 @@ void hu_pause(int paused, int y);
 
 /* ---- sprites (the kit's OBJ tiles; cfg.obj_tile >= 0) -------------------------------------------------------------- */
 void hu_number(int n, int cx, int y, int prio);        /* big digits centred on cx (12-px advance) */
-enum { HU_BTN_A, HU_BTN_B, HU_BTN_X, HU_BTN_Y };
-void hu_glyph(int button, int x, int y, int pressed, int prio);   /* 16x16 round pad button */
+enum { HU_BTN_A, HU_BTN_B, HU_BTN_X, HU_BTN_Y, HU_BTN_DPAD };
+void hu_glyph(int button, int x, int y, int pressed, int prio);   /* 16x16 round pad button, or the D-pad cross */
 void hu_medal(int tier, int x, int y, int prio);       /* tier 1 bronze .. 4 pearl, 24x24 */
 void hu_sparkle(int x, int y, int frame, int prio);    /* 8x8 */
 /* medal tier of a score: thresholds[0..3] = bronze, silver, gold, pearl (Leady Squid: 10, 20, 30, 40) */

@@ -23,10 +23,10 @@ import rsasset  # noqa: E402
 import make_art as A  # noqa: E402
 
 # VRAM (absolute tiles). BG1 = the house UI kit at 0 (font, panels, 2x cache, the logo at 320..639) and the
-# timer bar; the OBJ base holds the kit's sprites first (HU_OBJ_TILES = 110).
+# timer bar; the OBJ base holds the kit's sprites first (HU_OBJ_TILES = 118).
 VR_BG1, VR_BG2, VR_OBJ = 0, 1024, 3072   # BG3 and BG4 follow BG2 (their bases: multiples of 8)
 BAR_TILE = 700                  # relative to BG1: the timer bar tiles
-OBJ_FIRST = 112                 # our sprites, relative to VR_OBJ
+OBJ_FIRST = 128                 # our sprites, relative to VR_OBJ (after the kit's HU_OBJ_TILES)
 DAM_COL, DAM_ROW, DAM_W, DAM_H = 17, 16, 30, 4        # the dam canvas on BG3 (panorama tiles)
 
 

@@ -278,6 +278,54 @@ def hue_swap(rgbs, h_lo, h_hi, shift, sat_min=0.25, sat_mul=1.05):
     return out
 
 
+# ---- four players: the house palette swaps ------------------------------------------------------------------------
+# P1 is the hero's own palette (OBJ 0); P2 the game's hue_swap (OBJ 1); P3 and P4 (OBJ 4 and 5, house_ui.h
+# hu_player_pal) the same material rotated to the two hues farthest from P1's and P2's, so the four main colours
+# stay far apart on the colour wheel. Only the hero's main material turns (h_lo..h_hi): the outline, the eyes,
+# skin, metal and the white highlights never change.
+def main_hue(rgbs, h_lo, h_hi, sat_min=0.25):
+    """The mean hue (0..1) of the colours a hue_swap(rgbs, h_lo, h_hi, ...) would turn (None if none)."""
+    xs = ys = 0.0
+    n = 0
+    for c in rgbs:
+        h, _l, s = colorsys.rgb_to_hls(*[v / 255.0 for v in c])
+        if s > sat_min and h_lo < h < h_hi:
+            xs += math.cos(h * 2 * math.pi)
+            ys += math.sin(h * 2 * math.pi)
+            n += 1
+    if not n:
+        return None
+    return (math.atan2(ys, xs) / (2 * math.pi)) % 1.0
+
+
+def player_shifts(rgbs, h_lo, h_hi, p2_shift, sat_min=0.25):
+    """The hue shifts of players 1..4: [0, p2_shift, s3, s4]; s3 and s4 put P3's and P4's main hue in the largest
+    gaps left by P1, P2 (and P3), on a 1/72 grid (deterministic)."""
+    h1 = main_hue(rgbs, h_lo, h_hi, sat_min)
+    if h1 is None:
+        return [0.0, p2_shift, 1 / 3.0, 2 / 3.0]
+    taken = [h1, (h1 + p2_shift) % 1.0]
+    shifts = [0.0, p2_shift]
+    for _ in range(2):
+        best, best_d = 0.0, -1.0
+        for k in range(72):
+            h = (h1 + k / 72.0) % 1.0
+            d = min(min(abs(h - t), 1 - abs(h - t)) for t in taken)
+            if d > best_d + 1e-9:
+                best, best_d = k / 72.0, d
+        taken.append((h1 + best) % 1.0)
+        shifts.append(best)
+    return shifts
+
+
+def player_palettes(rgbs, h_lo, h_hi, p2_shift, sat_min=0.25, sat_mul=1.05):
+    """The four players' palettes of a hero palette (a list of RGB): [P1 (as is), P2, P3, P4] (house rule above)."""
+    out = [list(rgbs)]
+    for s in player_shifts(rgbs, h_lo, h_hi, p2_shift, sat_min)[1:]:
+        out.append(hue_swap(rgbs, h_lo, h_hi, s, sat_min, sat_mul))
+    return out
+
+
 # ---- the UI kit (sprites) ------------------------------------------------------------------------------------
 UI = dict(out=(22, 18, 40), white=(250, 250, 250), shade=(168, 200, 232), bd=(138, 76, 38), bl=(210, 142, 82),
           sd=(128, 138, 156), sl=(222, 230, 238), gd=(186, 128, 22), gl=(252, 216, 72), pd=(200, 138, 170),
@@ -350,6 +398,28 @@ def button_glyph(label="A", frame=0):
         for x, c in enumerate(row):
             if c == "#":
                 cv.set(6 + x, 4 + y + oy, UI["out"])
+    cv.outline(UI["out"])
+    return cv
+
+
+def dpad_glyph(frame=0):
+    """The 16x16 D-pad glyph (house_ui.c make_dpad): a silver cross with a dark centre, frame 1 = pressed. Shown
+    left of 'PRESS ANY ARROW' and 'PRESS <-/->' prompts."""
+    cv = Canvas(16, 16)
+    oy = 1 if frame else 0
+    for y in range(16):
+        for x in range(16):
+            yy = y - oy
+            inside = (6 <= x <= 9 and 2 <= yy <= 13) or (6 <= yy <= 9 and 2 <= x <= 13)
+            if inside:
+                cv.set(x, y, UI["sl"] if (x + yy) < 15 else UI["sd"])
+            elif not frame and yy == 14 and 6 <= x <= 9:
+                cv.set(x, y, UI["sd"])
+            elif not frame and yy == 10 and (2 <= x <= 5 or 10 <= x <= 13):
+                cv.set(x, y, UI["sd"])
+    for y in (7, 8):
+        for x in (7, 8):
+            cv.set(x, y + oy, UI["sd"])
     cv.outline(UI["out"])
     return cv
 
@@ -542,8 +612,8 @@ def palette_sheet():
 
 
 def kit_sheet():
-    """The UI sprites: digits, button glyphs, medals, sparkles."""
-    cv = Canvas(16 * 10, 16 + 16 + 24 + 8 + 12)
+    """The UI sprites: digits, button glyphs, medals, sparkles, the D-pad glyph."""
+    cv = Canvas(16 * 10, 16 + 16 + 24 + 8 + 16)
     for n in range(10):
         cv.paste(digit(n), n * 16, 0)
     for i, lab in enumerate("ABXY"):
@@ -552,6 +622,27 @@ def kit_sheet():
     for k in range(4):
         cv.paste(medal(k), k * 28, 36)
     cv.paste(sparkle(0), 116, 44), cv.paste(sparkle(1), 128, 44)
+    cv.paste(dpad_glyph(0), 0, 62), cv.paste(dpad_glyph(1), 17, 62)
+    return cv
+
+
+def players_sheet():
+    """The four players: a pink blob hero (the template's) in the P1..P4 palettes of the house rule."""
+    body = ACCENTS["pink"]
+    base = Canvas(24, 24)
+    ellipse(base, 12.0, 13.5, 8.5, 8.0, body)
+    eye(base, 11, 10, big=True), eye(base, 15, 10, big=True)
+    base.outline((40, 16, 58))
+    cols = sorted({c for row in base.p for c in row if c is not None})
+    pals = player_palettes(cols, 0.80, 1.00, -0.45)
+    cv = Canvas(4 * 28, 24)
+    for p, pal in enumerate(pals):
+        m = dict(zip(cols, pal))
+        for y in range(24):
+            for x in range(24):
+                c = base.get(x, y)
+                if c is not None:
+                    cv.set(p * 28 + x, y, m[c])
     return cv
 
 
@@ -602,7 +693,7 @@ def main(argv=None):
             if lpx[x, y] != MAGENTA:
                 lcv.set(x, y, lpx[x, y])
     out = [("palette.png", pal), ("font.png", font_atlas()), ("ui-sprites.png", kit_sheet()),
-           ("shapes.png", shapes_sheet()), ("logo.png", lcv)]
+           ("shapes.png", shapes_sheet()), ("logo.png", lcv), ("players.png", players_sheet())]
     for name, cv in out:
         im = cv.image()
         im.resize((im.width * k, im.height * k), Image.NEAREST).save(os.path.join(a.out, name))

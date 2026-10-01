@@ -278,8 +278,9 @@ include $(wildcard games/*/game.mk)
 TEMPLATE_TMP = zztemplate
 .PHONY: template-check
 template-check:
-	rm -rf games/$(TEMPLATE_TMP) build/gen/$(TEMPLATE_TMP) build/host/games/$(TEMPLATE_TMP)
+	rm -rf games/$(TEMPLATE_TMP) build/gen/$(TEMPLATE_TMP) build/host/games/$(TEMPLATE_TMP) build/host/build/gen/$(TEMPLATE_TMP)
 	$(PYTHON) tools/new_game.py $(TEMPLATE_TMP) "ZZ Template"
 	$(MAKE) --no-print-directory $(TEMPLATE_TMP)-check; rc=$$?; \
-	    rm -rf games/$(TEMPLATE_TMP) build/gen/$(TEMPLATE_TMP) build/host/games/$(TEMPLATE_TMP) build/host/$(TEMPLATE_TMP)*; \
+	    rm -rf games/$(TEMPLATE_TMP) build/gen/$(TEMPLATE_TMP) build/host/games/$(TEMPLATE_TMP) build/host/$(TEMPLATE_TMP)* \
+	        build/host/build/gen/$(TEMPLATE_TMP); \
 	    exit $$rc
