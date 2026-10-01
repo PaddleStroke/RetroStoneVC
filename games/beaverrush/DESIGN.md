@@ -273,3 +273,37 @@ Sprites: 103 at most, 32 on a line at most (the guideline); VRAM, voices and sam
 `make beaverrush-screenshots` (tools/screenshots.sh, 2x): docs/screenshots/ title, early-play, milestone,
 golden-log, night, autumn-sunset, winter, spring, pause, gameover-silver, get-ready-2-players, versus,
 versus-over.
+
+## Remaining work: the house title flow and the 4-player versus (owner request, unfinished)
+The game above still has the old flow (get ready, 2 players). A work-in-progress conversion sits on the branch
+`wip/beaverrush-4p` (commit d4e01eb, src/ and tools/ only). It builds and plays 1-4 players, but it does not pass
+`make beaverrush-check` yet. It contains:
+- the kit's title as the only menu (`hu_title_setup` with Left/Right/A/B: "PRESS <-/-> TO GNAW"; pads 2-4 join
+  with A and leave with B; the start press is P1's first gnaw), instant retry into play (the press gnaws), Select
+  on the results back to the title; `players=N` and `bot=N` up to 4;
+- the 4-player layout: **4 full-height columns** (`hu_split` HU_SPLIT_COLUMNS, 78 px; 3 players: 105 px). The
+  columns keep all 8 segments of look-ahead and the full-height scene (the raster sky, the windows and the line
+  scrolls are by screen line), where 2x2 quadrants (119 px tall) would show only 4 segments. The BG2 map is
+  64 x 32 (four trees 16 columns apart); in 4 columns the beaver stands 6 px closer to the trunk;
+- the palettes: one beaver palette (OBJ 0) for four beavers: the raster loads each viewport's player colours
+  (entries 1-5, `house_style.player_palettes`) per line; on the title OBJ 5 and 6 (gold, bird: unused there)
+  hold P3's and P4's colours for their icons; a 16x16 beaver-head icon (make_art.py `icon`);
+- the rules (world.c): the stolen branch goes to the leader among the other beavers still gnawing (ties: the
+  first after the sender in turn order; so the runner-up when the sender leads); a beaver out is out, the others
+  go on, the last one standing wins (all out at once: by score, else a draw); the ranking is the elimination
+  order, then the score (`world_rank_keys`, `hu_rank`), shown with `hu_results_panel` in overlay viewports.
+
+To finish:
+1. Adapt the tests to the new flow: smoke_test.sh (no get ready: st=1 is gone, `ready=1` now waits in play;
+   retry plays at once), ui_test.sh / ui_check.py (the title's D-pad glyph instead of the A glyph, the 2-player
+   results panel), state_test.sh; then add the 4-player ones (joins on the title, a 4-bot run, leave with B,
+   the stolen branch to the leader in test_rules.c, the last beaver standing, determinism and save states with 4
+   players, title shots with 0-3 players joined, 4-player play and results).
+2. Strict mode: VRAM is 66752 bytes on the branch (guideline 65536: the 64-wide BG2 map, the D-pad glyph, the
+   icon): trim about 1.3 KB (BG2 back to 32 x 32 with trees packed only as wide as a column shows, or fewer
+   logo tiles); 34 sprites on one line with 4 bots (fewer chips or weather sprites in 4 columns).
+3. Save RAM version 2 (vs_wins for 4 pads, version 1 read once) is in main.c: test it.
+4. Screenshots, DESIGN.md (flow, controls, versus, palettes, tests), dist/README-windows.txt, `make
+   beaverrush-dist`.
+5. Kit notes: `hu_results_sprites` draws at screen coordinates (a game showing the panel in an overlay viewport
+   must move the sprites itself); the kit draws its own medals (Beaver Rush draws its acorns at the kit's spots).
