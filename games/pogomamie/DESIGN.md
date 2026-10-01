@@ -248,3 +248,14 @@ Measured on the build host (WSL2, x86-64), 3300 frames per scene after 300, musi
 
 The frame budget is 16.7 ms. Worst whole frames on the host (about 1 ms) are the host's scheduling: the PPU's
 work is the same every frame (4 layers, at most 32 sprites, 16 on a line).
+## Remaining work
+Done and covered by `make pogomamie-check` (physics, generator fairness, align, states, bot): the D-pad and A start
+the game (`START_INPUTS` in src/main.c); the clothesline (Mamie lands on the rope and rides it; rope drawn from the
+load point); the harder hazards (antennas make her fall, flying pigeons knock her off while a stomp from above
+still bounces, hot-air balloons with basket and ropes make her fall, slanted roofs deflect the bounce), with the
+generator's fairness checks kept.
+Not done yet:
+- The title-only flow with up to 4 racers on the kit's `hu_title_*` API (docs/art-direction.md, "Title and
+  players"; games/leadysquid is the reference). The title and the 1-2 player race are still the older flow.
+- Re-tune the bot and the difficulty ramp after the new hazards (the bot mean is still above 1000 m, but it was not
+  re-balanced), then re-run `make pogomamie-screenshots` and `make pogomamie-bench` for the new sprites.

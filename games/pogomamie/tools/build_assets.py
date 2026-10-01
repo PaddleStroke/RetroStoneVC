@@ -203,9 +203,9 @@ def main():
     tiles, rows, enum, surf = [], [], [], []
     obj_pals = [0] * 128
     for pname, pi in S.OBJ_PAL_INDEX.items():
-        if pname == "papi":
+        if pname in S.PLAYER_PALS:          # the family: Mamie's palette recoloured
             base = dict(S.OBJ_PALS["mamie"])
-            base.update(S.PAPI)
+            base.update(S.PLAYER_PALS[pname])
             obj_pals[pi * 16:pi * 16 + 16] = rsasset.palette16([rsasset.to555(base[n]) for n, _ in S.OBJ_PALS["mamie"]])
         else:
             obj_pals[pi * 16:pi * 16 + 16] = rsasset.palette16(pal555(S.OBJ_PALS[pname]))

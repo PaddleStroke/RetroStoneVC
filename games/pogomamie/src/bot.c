@@ -18,7 +18,12 @@
 
 #define W_ RS_SCREEN_W
 #define NONE_Y 30000
-#define SEEN_MAX 24
+#define SEEN_MAX 48
+#define TRACK_MAX 12
+
+typedef struct { int x, y, x0, y0, x1, y1, vx, vy, seen, fly, walker, spent; } pg_track;
+static pg_track tracks[MAX_PLAYERS][TRACK_MAX];
+static int ntracks[MAX_PLAYERS], bot_frame, tumbled[MAX_PLAYERS];
 
 enum { K_GAP = 100, K_HAZARD = 101, K_FALL = 102 };
 
@@ -39,7 +44,8 @@ static int best_x[MAX_PLAYERS], stall[MAX_PLAYERS];         /* no progress for a
 
 void bot_reset(void)
 {
-    for (int p = 0; p < MAX_PLAYERS; p++) model_ok[p] = seen_once[p] = plan_a[p] = stall[p] = 0, best_x[p] = -100000;
+    for (int p = 0; p < MAX_PLAYERS; p++)
+        model_ok[p] = seen_once[p] = plan_a[p] = stall[p] = ntracks[p] = tumbled[p] = 0, best_x[p] = -100000;
 }
 
 static int in_spr(int tile, int id, int frames)
@@ -79,23 +85,61 @@ static void read_bg2(void)
     }
 }
 
+/* Pigeons are followed from frame to frame (bot coordinates): a flying one is avoided everywhere it has been seen
+ * and a little way along its motion; a walking one is a stunt target. */
+static void track_pigeon(int p, int cx, int feet, int flying)
+{
+    int bx = cx + base_x, by = feet + base_y, best = -1, bd = 9;
+    for (int i = 0; i < ntracks[p]; i++) {
+        pg_track *k = &tracks[p][i];
+        int d = iabs(k->x - bx) + iabs(k->y - by);
+        if (k->seen != bot_frame && d < bd) { bd = d; best = i; }
+    }
+    if (best < 0) {
+        if (ntracks[p] >= TRACK_MAX) return;
+        best = ntracks[p]++;
+        tracks[p][best] = (pg_track){bx, by, bx, by, bx, by, 0, 0, bot_frame, flying, !flying, 0};
+    }
+    pg_track *k = &tracks[p][best];
+    k->vx = bx - k->x;
+    k->vy = by - k->y;
+    k->x = bx;
+    k->y = by;
+    k->x0 = bx < k->x0 ? bx : k->x0;
+    k->x1 = bx > k->x1 ? bx : k->x1;
+    k->y0 = by < k->y0 ? by : k->y0;
+    k->y1 = by > k->y1 ? by : k->y1;
+    k->seen = bot_frame;
+    k->fly |= flying;
+    if (k->walker && flying) k->spent = 1;                 /* a walker taking off: it was hit, it flies away */
+}
+
 static int read_oam(int player, int *sx, int *feet, int *frame)
 {
     int found = 0;
     nprops = nboxes = 0;
+    bot_frame++;
     for (int i = 0; i < RS_OAM_MAX; i++) {
         rs_sprite *s = rs_oam(i);
         if (!s || !s->used || (s->flags & RS_SPR_HIDE)) continue;
         int t = s->tile;
-        if (in_spr(t, SPR_MAMIE, 13) && s->pal == player && !found) {
+        if (in_spr(t, SPR_MAMIE, 13) && s->pal == draw_player_pal(player) && !found) {
             *sx = s->x + 12;
             *feet = s->y + 32;
             *frame = (t - pm_spr[SPR_MAMIE].tile) / 12;
             found = 1;
-        } else if (in_spr(t, SPR_PIGEON, 3) && nboxes < SEEN_MAX) {
-            int cx = s->x + 8, f = s->y + 16;
-            boxes[nboxes++] = (seen_box){cx - PIGEON_W / 2, f - PIGEON_H + 2, cx + PIGEON_W / 2, f};
-            if (nprops < SEEN_MAX) props[nprops++] = (seen_prop){cx - PIGEON_W / 2, cx + PIGEON_W / 2, f - PIGEON_H, SF_PIGEON};
+        } else if (in_spr(t, SPR_PIGEON, 7)) {
+            int cx = s->x + 8, f = s->y + 16, fl = (t - pm_spr[SPR_PIGEON].tile) / 4 >= 3;
+            track_pigeon(player, cx, f, fl);
+            if (!fl && nprops < SEEN_MAX) props[nprops++] = (seen_prop){cx - PIGEON_W / 2, cx + PIGEON_W / 2, f - PIGEON_H, SF_PIGEON};
+        } else if (in_spr(t, SPR_BALLOON, 2) && nprops < SEEN_MAX) {
+            props[nprops++] = (seen_prop){s->x + BALLOON_TOP_X0, s->x + BALLOON_TOP_X1, s->y + SURF_BALLOON, SF_BALLOON};
+        } else if (in_spr(t, SPR_BASKET, 1) && nboxes < SEEN_MAX) {
+            boxes[nboxes++] = (seen_box){s->x - 2, s->y - 6, s->x + 18, s->y + 16};     /* the ropes and the basket */
+        } else if (in_spr(t, SPR_ROPE, 16) && nprops < SEEN_MAX) {
+            int sl = (t - pm_spr[SPR_ROPE].tile) / 2, y0 = (s->flags & RS_SPR_VFLIP) ? s->y + 15 : s->y;
+            int y7 = (s->flags & RS_SPR_VFLIP) ? y0 - sl * 7 / 8 : y0 + sl * 7 / 8;
+            props[nprops++] = (seen_prop){s->x, s->x + 8, y0 < y7 ? y0 : y7, SF_LINE};
         } else if (in_spr(t, SPR_ANTENNA, 3) && nboxes < SEEN_MAX) {
             int ax = s->x + 8, b = s->y + 32;
             boxes[nboxes++] = (seen_box){ax - ANTENNA_HALF, b - ANTENNA_H, ax + ANTENNA_HALF + 1, b};
@@ -106,6 +150,24 @@ static int read_oam(int player, int *sx, int *feet, int *frame)
             else if (in_spr(t, SPR_LEDGE, 3)) props[nprops++] = (seen_prop){s->x, s->x + 8, s->y + SURF_LEDGE, SF_LEDGE};
             else if (in_spr(t, SPR_BAGUETTE, 3)) props[nprops++] = (seen_prop){s->x, s->x + 8, s->y + SURF_BAGUETTE, SF_BAGUETTE};
         }
+    }
+    /* the pigeons: forget the ones gone, avoid the others where they have been and where they are going */
+    int k = 0;
+    for (int i = 0; i < ntracks[player]; i++)
+        if (bot_frame - tracks[player][i].seen <= 2) tracks[player][k++] = tracks[player][i];
+    ntracks[player] = k;
+    for (int i = 0; i < ntracks[player] && nboxes < SEEN_MAX; i++) {
+        const pg_track *g = &tracks[player][i];
+        if (g->spent) continue;
+        int x0 = g->x0, x1 = g->x1, y0 = g->y0, y1 = g->y1;
+        if (g->fly) {                                    /* and 20 frames along its motion */
+            int px = g->x + g->vx * 20, py = g->y + g->vy * 20;
+            x0 = px < x0 ? px : x0; x1 = px > x1 ? px : x1; y0 = py < y0 ? py : y0; y1 = py > y1 ? py : y1;
+        } else {
+            x0 = x1 = g->x; y0 = y1 = g->y;
+        }
+        boxes[nboxes++] = (seen_box){x0 - base_x - PIGEON_W / 2 - 1, y0 - base_y - PIGEON_H + 1, x1 - base_x + PIGEON_W / 2 + 1,
+                                     y1 - base_y + 1};
     }
     return found;
 }
@@ -174,12 +236,12 @@ static int hazard_hit(const mamie *m)
 }
 
 /* ---- simulation --------------------------------------------------------------------------------------------------- */
-typedef struct { int x, kind, t, vx, y; } landing;
+typedef struct { int x, kind, t, vx, y, slope; } landing;
 
 /* hold Right for k frames, then `after` (0: let go, -1: brake to a stop) until the landing */
 static landing simulate(mamie m, int k, int after, int limit)
 {
-    landing r = {0, K_FALL, 0, 0, 0};
+    landing r = {0, K_FALL, 0, 0, 0, 0};
     sim_hazard = 0;
     for (int t = 0; t < limit; t++) {
         int dir = t < k ? 1 : after < 0 ? (m.vx > Q16(0.1) ? -1 : 0) : after;
@@ -192,6 +254,7 @@ static landing simulate(mamie m, int k, int after, int limit)
             r.kind = h.kind;
             r.t = t;
             r.vx = m.vx;
+            r.slope = h.slope;
             return r;
         }
         if ((m.y >> 16) > base_y + RS_SCREEN_H + 24) { r.t = t; return r; }
@@ -223,7 +286,7 @@ static int edge_penalty(int x)
 }
 
 /* from a landing at (x, y) with speed vx: can a bounce of this kind (0 normal, 1 big) take her past `beyond`? */
-static int hop_passes(int x, int y, int32_t vx, int big, int beyond)
+static int hop_passes(int x, int y, int32_t vx, int slope, int big, int beyond)
 {
     static const int ks[] = {0, 8, 16, 24, 32, 44, 200};
     mamie m;
@@ -232,7 +295,7 @@ static int hop_passes(int x, int y, int32_t vx, int big, int beyond)
     m.x = (int32_t)x * Q16_ONE;
     m.y = (int32_t)y * Q16_ONE;
     m.vx = vx;
-    m.vy = -bounce_speed(big ? BN_BIG : BN_NORMAL);
+    slope_deflect(slope, bounce_speed(big ? BN_BIG : BN_NORMAL), &m.vx, &m.vy);
     for (unsigned i = 0; i < sizeof ks / sizeof ks[0]; i++) {
         landing r = simulate(m, ks[i], -1, 200);
         if (safe_kind(r.kind) && r.x > beyond) return 1;
@@ -257,8 +320,16 @@ void bot_decide(int p, int *dir, int *a)
     base_y = acc_y[p];
     if (!read_oam(p, &sx, &feet, &frame)) { model_ok[p] = 0; return; }
     int ox = sx + base_x, oy = feet + base_y;
+    /* a pigeon it just stomped on or bumped into flies away: no more a hazard */
+    if (frame == MF_SQUASH1 || frame == MF_SQUASH2 || frame == MF_FLAIL1 || frame == MF_FLAIL2)
+        for (int i = 0; i < ntracks[p]; i++)
+            if (iabs(tracks[p][i].x - ox) <= 16 && iabs(tracks[p][i].y - oy) <= 28) tracks[p][i].spent = 1;
     int controllable = frame <= MF_STUMBLE;
-    if (!controllable) { model_ok[p] = 0; seen_once[p] = 1; prev_ox[p] = ox; prev_oy[p] = oy; return; }
+    if (!controllable) {                                     /* knocked off (flailing): it waits to land */
+        tumbled[p] = frame == MF_FLAIL1 || frame == MF_FLAIL2;
+        model_ok[p] = 0; seen_once[p] = 1; prev_ox[p] = ox; prev_oy[p] = oy;
+        return;
+    }
     mamie *m = &model[p];
     /* follow its own motion: keep the guess while it matches the picture, else re-synchronise */
     if (!model_ok[p] || iabs((int)(m->x >> 16) - ox) > 1 || iabs((int)(m->y >> 16) - oy) > 1) {
@@ -268,8 +339,10 @@ void bot_decide(int p, int *dir, int *a)
         m->y = (int32_t)oy * Q16_ONE;
         m->vx = seen_once[p] ? (int32_t)(ox - prev_ox[p]) * Q16_ONE : VX_CRUISE;
         m->vy = seen_once[p] ? (int32_t)(oy - prev_oy[p]) * Q16_ONE + GRAVITY / 2 : 0;
-        if (frame == MF_SQUASH1 || frame == MF_SQUASH2) m->vy = -bounce_speed(plan_a[p] ? BN_BIG : BN_NORMAL);
+        if (frame == MF_SQUASH1 || frame == MF_SQUASH2)     /* (after a tumble: the weak hop of the recovery) */
+            m->vy = -bounce_speed(tumbled[p] ? BN_RECOVER : plan_a[p] ? BN_BIG : BN_NORMAL);
         model_ok[p] = 1;
+        tumbled[p] = 0;
     } else {
         if ((int)(m->x >> 16) != ox) m->x = (int32_t)ox * Q16_ONE + (m->x & 0xffff);
         if ((int)(m->y >> 16) != oy) m->y = (int32_t)oy * Q16_ONE + (m->y & 0xffff);
@@ -288,12 +361,14 @@ void bot_decide(int p, int *dir, int *a)
     }
     /* try the ways to finish this arc */
     int best = -1000000, best_k = 0, best_after = 0;
-    landing best_r = {0, K_FALL, 0, 0, 0};
+    landing best_r = {0, K_FALL, 0, 0, 0, 0};
     for (int after = 0; after >= -1; after--)
         for (int k = 0; k <= 72; k += 4) {
             if (after == 0 && k > 0 && k < 72 && (k % 8)) continue;
             landing r = simulate(*m, k, after, 240);
             if (!safe_kind(r.kind)) continue;
+            /* a slope that throws her back: the bounce after it must still land somewhere safe */
+            if (r.slope < 0 && r.kind == SF_ROOF && !hop_passes(r.x, r.y, r.vx, r.slope, 0, r.x - 48)) continue;
             int sc = r.x * 16 - edge_penalty(r.x) * 16;
             if (!stuck && (r.kind == SF_BUMP || r.kind == SF_PIGEON)) sc += 80;
             if (sc > best) { best = sc; best_k = k; best_after = after; best_r = r; }
@@ -303,14 +378,15 @@ void bot_decide(int p, int *dir, int *a)
         best_k = 0;
         best_after = -1;
         best_r = r;
-        if (!safe_kind(r.kind)) { best_k = 72; best_after = 0; }
+        if (!safe_kind(r.kind) && r.kind != K_HAZARD) { best_k = 72; best_after = 0; }   /* falling: rush for a prop */
     }
     *dir = best_k > 0 ? 1 : best_after < 0 ? (m->vx > Q16(0.1) ? -1 : 0) : 0;
     /* the next bounce: big only when a normal one could not pass the edge (or the wall) ahead of the landing */
     if (safe_kind(best_r.kind) && best_r.t < 14) {
         int edge = edge_ahead(best_r.x);
         int need = edge - best_r.x < 40 && edge < W_ + base_x;
-        plan_a[p] = (need && !hop_passes(best_r.x, best_r.y, best_r.vx, 0, edge) && hop_passes(best_r.x, best_r.y, best_r.vx, 1, edge)) ||
+        plan_a[p] = (need && !hop_passes(best_r.x, best_r.y, best_r.vx, best_r.slope, 0, edge) &&
+                     hop_passes(best_r.x, best_r.y, best_r.vx, best_r.slope, 1, edge)) ||
                     (stuck && (stall[p] / 150) % 2);
     } else if (best_r.t >= 20) {
         plan_a[p] = 0;
@@ -328,7 +404,7 @@ void bot_state(void)
 {
     S(land_y); S(wall_y); S(col_kind); S(props); S(boxes); S(nprops); S(nboxes); S(acc_x); S(acc_y); S(last_sx);
     S(last_sy); S(base_x); S(base_y); S(model); S(model_ok); S(prev_ox); S(prev_oy); S(plan_a); S(seen_once);
-    S(sim_hazard); S(best_x); S(stall);
+    S(sim_hazard); S(best_x); S(stall); S(tracks); S(ntracks); S(bot_frame); S(tumbled);
 }
 #undef S
 

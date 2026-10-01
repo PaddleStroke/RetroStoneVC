@@ -22,6 +22,7 @@
 #include <string.h>
 
 #define GO_BUTTONS (RS_BTN_A | RS_BTN_B | RS_BTN_X | RS_BTN_Y)
+#define START_INPUTS (GO_BUTTONS | RS_BTN_START | HU_IN_DPAD)    /* start: A or the D-pad (the house table) */
 
 int opt_bot;
 static int opt_botruns, opt_botstop, opt_skip, opt_seed_fixed, opt_evlog, opt_give;
@@ -139,7 +140,9 @@ static void sounds(int p)
     if (ev & EV_SLING) sfx_at(SFX_SPRING, x, 0x0c00);
     if (ev & EV_STUNT) sfx_at(SFX_STUNT, x, 0);
     if (ev & (EV_PIGEON | EV_KNOCK)) sfx_at(SFX_COO, x, 0);
-    if (ev & EV_KNOCK) hu_shake(2, 8);
+    if (ev & (EV_KNOCK | EV_STUMBLE | EV_BASKET)) hu_shake(2, 8);
+    if (ev & EV_BASKET) sfx_at(SFX_CLANG, x, 0x0b00);
+    if (ev & EV_RECOVER) sfx_at(SFX_THUMP, x, 0x1400);
     if (ev & EV_STUMBLE) sfx_at(SFX_CLANG, x, 0);
     if (ev & EV_GLASS) sfx_at(SFX_GLASS, x, 0);
     if (ev & (EV_POT | EV_BREAK)) sfx_at(SFX_CRACK, x, 0);
@@ -172,7 +175,7 @@ static void play_update(int allow_start)
             uint16_t b = rs_pad(p);
             dir[p] = (b & RS_BTN_RIGHT ? 1 : 0) - (b & RS_BTN_LEFT ? 1 : 0);
             a[p] = (b & GO_BUTTONS) != 0;
-            ap[p] = allow_start && (rs_pad_pressed(p) & (GO_BUTTONS | RS_BTN_START)) != 0;
+            ap[p] = allow_start && (rs_pad_pressed(p) & START_INPUTS) != 0;
         }
     }
     world_step(&W, dir, a, ap);
@@ -215,7 +218,7 @@ static void game_update(void)
             break;
         }
         if (st == DS_TITLE) {
-            int go_now = (rs_pad_pressed(0) & (GO_BUTTONS | RS_BTN_START)) != 0 || (opt_bot && st_t == 40);
+            int go_now = (rs_pad_pressed(0) & START_INPUTS) != 0 || (opt_bot && st_t == 40);
             if (go_now) { sfx(SFX_JOIN); go(DS_READY); break; }
             if (st_t % 300 == 150) sfx_at(SFX_MEOW, (int)W.c.x - world_camx(&W), 0);    /* the cat taunts */
             play_update(0);

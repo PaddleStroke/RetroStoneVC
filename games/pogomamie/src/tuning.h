@@ -52,11 +52,16 @@
 /* the awning is the reference's spring: 0.94 of the screen height (ref 2) = 226 px */
 #define APEX_SPRING   226
 #define V_SPRING      Q16(7.2329)   /* sqrt(2 x g x 226) */
-/* the clothesline sags, then slingshots her */
+/* the clothesline: it dips under her (an ease-out from her landing speed to a stop at the bottom), then slings her
+ * up from the bottom of the dip; then it recoils (a damped spring) and the clothes swing */
 #define APEX_SLING    150
 #define V_SLING       Q16(5.8926)   /* sqrt(2 x g x 150) */
-#define SLING_FRAMES  12            /* frames riding the line down */
-#define SLING_DEPTH   14            /* px it sags under her */
+#define SLING_FRAMES  10            /* frames riding the line down: released at the bottom of the dip */
+#define SLING_DEPTH   14            /* px it dips under her at the middle of a long line (w/4 at most on a short one;
+                                     * less near a pole: the dip of a loaded string, 4 k (w - k) / w^2) */
+#define LINE_REST_SAG(w) (2 + (w) / 16)   /* the rest sag at the middle (px): a shallow catenary (parabola) */
+#define LINE_K        21            /* the recoil: a spring of 21/256 per frame^2 (a 22-frame swing), */
+#define LINE_DAMP     232           /*   keeping 232/256 of its speed each frame */
 #define MAX_FALL      Q16(8.0)      /* terminal speed (the comic fall); a spring arc never reaches it */
 
 /* ---- air control (Left/Right) ------------------------------------------------------------------------------------ */
@@ -68,8 +73,14 @@
 #define ACCEL_X       Q16(0.125)
 #define BRAKE_X       Q16(0.1875)   /* braking bites harder than accelerating */
 #define RELAX_X       Q16(0.03125)  /* back to cruise speed with no input */
-#define NUDGE_45      Q16(0.5)      /* a landing on a 45-degree zinc slope pushes her down it */
-#define NUDGE_27      Q16(0.25)     /* on a 1:2 tiled slope */
+/* slopes deflect the bounce: it leaves along the half angle between straight up and the roof's normal (a mix of
+ * 1/2 and 1/2), so a 45-degree zinc slope deflects it by 22.5 degrees and a 1:2 tiled slope (26.57 degrees) by
+ * 13.28; the speed of the bounce is kept: vy = -V cos, vx += V sin downhill (forward or back) */
+#define SLOPE_SIN45   Q16(0.382683) /* sin 22.5 */
+#define SLOPE_COS45   Q16(0.923880)
+#define SLOPE_SIN27   Q16(0.229753) /* sin 13.28 = sin(atan(1/2) / 2) */
+#define SLOPE_COS27   Q16(0.973249)
+#define VX_SLOPE_MAX  Q16(3.0)      /* the deflection never pushes her faster than this */
 
 /* ---- Mamie's body ------------------------------------------------------------------------------------------------- */
 #define HALF_W        6             /* body box: 12 x 26 px above the feet (the sprite is 24 x 32) */
@@ -86,13 +97,37 @@
 #define YARN_REEL_T   36            /* frames reeling her up onto the ledge */
 
 /* ---- hazards ------------------------------------------------------------------------------------------------------ */
-#define PIGEON_W      12            /* the pigeon's box, on the roof */
+/* Hitting an antenna, a pigeon from the side or from below, or a balloon's basket or ropes breaks the bounce: she
+ * tumbles and drops (no control); landing on something she recovers with a weak hop; in a gap, below both roofs,
+ * it is the fall. */
+#define PIGEON_W      12            /* the pigeon's box */
 #define PIGEON_H      10
-#define PIGEON_SPEED  Q16(0.25)
-#define KNOCK_VX      Q16(-0.75)    /* hit from the side: pushed back with a hop */
-#define KNOCK_VY      Q16(-2.0)
+#define PIGEON_SPEED  Q16(0.25)     /* walking on a roof */
+#define TUMBLE_VX     Q16(1.5)      /* knocked away from what she hit (it dies away by 1/64 a frame) */
+#define TUMBLE_VY     Q16(0.5)      /* ... and dropping */
+#define V_RECOVER     Q16(3.042)    /* the landing after a tumble: a weak 40-px hop, sqrt(2 x g x 40) */
 #define ANTENNA_H     28
 #define ANTENNA_HALF  3
+#define ANTENNA_HOP   14            /* her feet this far before an antenna, she can always hop over it from a stop */
+/* flying pigeons (in the gaps): hovering (flapping in place), gliding back and forth, swooping (a U-shaped dive) */
+#define FLY_PERIOD_MIN 150          /* frames for one way and back */
+#define FLY_PERIOD_MAX 270
+#define FLY_HOVER_BOB 5             /* px up and down while flapping in place */
+#define FLY_SWOOP_MIN 24            /* px a swoop dives at its middle */
+#define FLY_SWOOP_MAX 48
+/* hot-air balloons drift left across the sky; the top of the envelope is a big bouncy platform (a spring and
+ * PTS_BALLOON), the basket and its ropes are a hazard; the basket stays at least BALLOON_CLEAR above every roof
+ * it drifts over, so a normal bounce never touches it (she can always wait for it to drift by) */
+#define BALLOON_W     32            /* the envelope (a 32x32 sprite; the basket 16x16 below it) */
+#define BALLOON_TOP_X0 8            /* the bouncy top: [x + 8, x + 24) at the envelope's first row */
+#define BALLOON_TOP_X1 24
+#define BALLOON_HAZ_X0 9            /* the ropes and the basket: [x + 9, x + 23) x [y + 26, y + 46) */
+#define BALLOON_HAZ_X1 23
+#define BALLOON_HAZ_Y0 26
+#define BALLOON_HAZ_Y1 46
+#define BALLOON_CLEAR 104           /* px from the basket's bottom down to the highest roof below: > 73 + 26 */
+#define BALLOON_V     Q16(0.25)     /* drift, px/frame (to the left) */
+#define BALLOON_BACK  1200          /* px behind its spawn point it can drift over before it leaves the screen */
 #define GUST_V        Q16(0.375)    /* wind drift, px/frame, added to her motion inside a gust zone */
 #define PIT_DEPTH     24            /* a broken skylight: she drops one floor */
 
@@ -113,24 +148,38 @@
 #define LAND_MARGIN   12            /* ... and the landing must be this far past the next building's edge */
 #define MAX_DROP      96            /* a roof is at most this much lower than the one before: it is on screen */
 #define TAKEOFFS      {8, 24, 40}   /* the take-off points tried (px before the edge): kept free of hazards */
-#define EDGE_KEEP     48            /* antennas, skylights: this far from a roof's ends */
-#define PIGEON_KEEP_L 40            /* pigeons walk this far from the left end (a knock-back lands on the roof) */
-#define PIGEON_KEEP_R 44            /* ... and clear of the take-off points */
-#define DIFF_FULL_M   3000          /* difficulty rises linearly to its maximum at 3000 m */
+#define EDGE_KEEP     48            /* skylights, and antennas from a roof's right end (the take-off points) */
+#define ANTENNA_KEEP_L 20           /* antennas from a roof's left end (the landing: checked by the generator) */
+#define ANTENNA_SPACE 56            /* between two antennas */
+#define PIGEON_KEEP_L 40            /* pigeons walk this far from the left end */
+#define PIGEON_KEEP_R 44            /* ... and from the right end */
+#define FLY_KEEP      4             /* a flying pigeon's centre stays this far inside its gap */
+#define DIFF_FULL_M   2000          /* difficulty rises linearly to its maximum at 2000 m (and beyond at night) */
 #define GAP_MIN       24
-#define GAP_MAX_EASY  56
+#define WARMUP_M      80            /* the first metres: no gap, a warm-up (height steps and hazards only) */
+#define GAP_MAX_EASY  72
 #define GAP_MAX_HARD  136
-#define NOGAP_EASY    35            /* % of neighbours with no gap (a height step) */
-#define NOGAP_HARD    10
-#define PIGEON_EASY   8             /* % of roofs with a pigeon */
-#define PIGEON_HARD   75
+#define NOGAP_EASY    25            /* % of neighbours with no gap (a height step) */
+#define NOGAP_HARD    5
+#define PIGEON_EASY   15            /* % of roofs with a pigeon walking on it */
+#define PIGEON_HARD   60
+#define FLYER_EASY    18            /* % of gaps with a flying pigeon (from FLYER_FROM_M) */
+#define FLYER_HARD    70
+#define FLYER_FROM_M  80
+#define ANTENNA_EASY  30            /* % of roofs with a TV antenna (a second one: half that, on wide roofs) */
+#define ANTENNA_HARD  80
+#define BALLOON_FROM_M 120          /* the first hot-air balloon, then one every BALLOON_EVERY_* m on average */
+#define BALLOON_EVERY_EASY 300
+#define BALLOON_EVERY_HARD 110
 #define GUST_EASY     0             /* % of buildings that start a gust zone (none before GUST_FROM_M) */
-#define GUST_FROM_M   400
-#define GUST_HARD     30
-#define HAZARD_EASY   15            /* % chance of a skylight, an antenna or a slope on a roof */
+#define GUST_FROM_M   300
+#define GUST_HARD     35
+#define HAZARD_EASY   20            /* % chance of a skylight on a roof */
 #define HAZARD_HARD   60
-#define PROP_EASY     55            /* % of gaps with a rescue prop (awning, pot, cradle, line, ledge) */
-#define PROP_HARD     20
+#define SLOPED_EASY   40            /* % of houses with a pitched roof (Haussmann buildings: mansards, 70%) */
+#define SLOPED_HARD   60
+#define PROP_EASY     45            /* % of gaps with a rescue prop (awning, pot, cradle, line, ledge) */
+#define PROP_HARD     15
 #define ITEM_EVERY    360           /* ~one power-up every this many metres */
 
 /* ---- camera -------------------------------------------------------------------------------------------------------- */
@@ -145,8 +194,8 @@
 #define CAM_HI_KEEP   56            /*   the highest this far below the top edge, */
 #define CAM_LO_KEEP   224           /*   the lowest no further down than this (screen y) */
 #define CAM_BOT_KEEP  216
-#define DROP_OUT_X    24            /* 2 players: this far off the left edge, a player drops out */
-#define CAM_WAIT_X    32            /* 2 players: the camera keeps the other one at least this far in... */
+#define DROP_OUT_X    24            /* 2-4 players: this far off the left edge, a player drops out */
+#define CAM_WAIT_X    32            /* 2-4 players: the camera keeps the others at least this far in... */
 #define CAM_LEADER_MAX_X 272        /* ... as long as the leader stays left of this (screen x) */
 
 /* ---- flow ---------------------------------------------------------------------------------------------------------- */
@@ -156,7 +205,9 @@
 
 /* ---- score ---------------------------------------------------------------------------------------------------------- */
 #define PTS_CHIMNEY   50            /* landing on a chimney top (or a bouquiniste's box) */
-#define PTS_PIGEON    100           /* bouncing on a pigeon's head */
+#define PTS_PIGEON    100           /* bouncing on a pigeon's head (walking) */
+#define PTS_PIGEON_FLY 150          /* ... on a flying one */
+#define PTS_BALLOON   300           /* bouncing on a balloon's top */
 #define CHAIN_MAX     8             /* stunts in a row multiply up to x8 */
 /* "cat catch" medals by distance (m): bronze, silver and gold whiskers, then the cat caught at the Eiffel Tower */
 #define MEDAL_BRONZE  250

@@ -85,8 +85,20 @@ int32_t vx_after_input(const mamie *m, int dir)
  * crossed on the way down stops her: EV_LAND, h filled). The bounce itself is mamie_bounce(). */
 int mamie_air_step(mamie *m, const terrain *T, int dir, hit *h)
 {
-    int ev = 0;
     m->vx = vx_after_input(m, dir);
+    return mamie_move(m, T, h);
+}
+
+/* a tumble: no control, the horizontal speed dies away */
+int mamie_tumble_step(mamie *m, const terrain *T, hit *h)
+{
+    m->vx -= m->vx / 64;
+    return mamie_move(m, T, h);
+}
+
+int mamie_move(mamie *m, const terrain *T, hit *h)
+{
+    int ev = 0;
     int umb = m->umbrella_t > 0 && m->vy > 0;
     m->vy += umb ? UMB_GRAVITY : GRAVITY;
     int32_t cap = umb ? UMB_MAX_FALL : MAX_FALL;
@@ -127,17 +139,35 @@ int32_t bounce_speed(int kind)
     case BN_BIG: return V_BIG;
     case BN_SPRING: return V_SPRING;
     case BN_SLING: return V_SLING;
+    case BN_RECOVER: return V_RECOVER;
     default: return V_NORMAL;
     }
 }
 
-/* the bounce off surface h: a SET speed, like the reference (the same arc whatever the fall before) */
+/* A slope deflects the bounce: speed v leaves along the half angle between straight up and the roof's normal
+ * (22.5 degrees off the vertical on a 45-degree zinc slope, 13.28 on a 1:2 tiled one), downhill: vy = -v cos,
+ * vx += v sin (forward on a slope going down to the right, back on one going down to the left). */
+void slope_deflect(int slope, int32_t v, int32_t *vx, int32_t *vy)
+{
+    if (!slope) { *vy = -v; return; }
+    int steep = iabs(slope) >= 2;
+    int32_t s = steep ? SLOPE_SIN45 : SLOPE_SIN27, c = steep ? SLOPE_COS45 : SLOPE_COS27;
+    int32_t kick = (int32_t)(((int64_t)v * s) >> 16);
+    *vy = -(int32_t)(((int64_t)v * c) >> 16);
+    *vx += slope > 0 ? kick : -kick;
+    if (*vx > VX_SLOPE_MAX) *vx = VX_SLOPE_MAX;
+    if (*vx < -VX_SLOPE_MAX) *vx = -VX_SLOPE_MAX;
+}
+
+/* the bounce off surface h: a SET speed, like the reference (the same arc whatever the fall before); a slope
+ * deflects it (slope_deflect) */
 void mamie_bounce(mamie *m, const hit *h, int big)
 {
-    int kind = h->kind == SF_AWNING ? BN_SPRING : big ? BN_BIG : BN_NORMAL;
-    m->vy = -bounce_speed(kind);
+    int kind = h->kind == SF_AWNING || h->kind == SF_BALLOON ? BN_SPRING : h->kind == SF_LINE ? BN_SLING
+             : big == 2 ? BN_RECOVER : big ? BN_BIG : BN_NORMAL;
+    slope_deflect(h->slope, bounce_speed(kind), &m->vx, &m->vy);
     m->bounce = kind;
-    if (h->slope) m->vx += (h->slope > 0 ? 1 : -1) * (iabs(h->slope) == 2 ? NUDGE_45 : NUDGE_27);
+    m->deflect = h->slope > 0 ? 1 : h->slope < 0 ? -1 : 0;
     m->land_t = 0;
     m->land_kind = h->kind;
     m->land_y = (int)h->y;

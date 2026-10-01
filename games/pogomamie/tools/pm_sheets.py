@@ -77,16 +77,32 @@ OBJ_PALS = {
            ("bl", (210, 142, 82)), ("sd", (128, 138, 156)), ("sl", (222, 230, 238)), ("gd", (186, 128, 22)),
            ("gl", (252, 216, 72)), ("pd", (200, 138, 170)), ("pl", (242, 202, 214)), ("pearl", (255, 250, 238)),
            ("spark", (255, 238, 150)), ("sparkw", (255, 255, 255))],
-    "cafe": [("out", (26, 24, 30)), ("green", (52, 128, 84)), ("green_d", (30, 84, 56)), ("cream", (244, 236, 214)),
-             ("cream_d", (200, 190, 168)), ("gold", (232, 190, 92)), ("ring_r", (226, 60, 60)), ("ring_w", (250, 248, 242))],
 }
-# the house layout (docs/art-direction.md): 0 the hero, 1 player 2, 2 effects, 3 the kit sprites, 4-7 the game's own
-OBJ_PAL_INDEX = {"mamie": 0, "papi": 1, "fx": 2, "ui": 3, "animals": 4, "props": 5, "items": 6, "cafe": 7}
+# The power-ups are drawn in the kit sprites' colours (OBJ 3) and the café in the props' (OBJ 7): two palettes free
+# for players 3 and 4. Their art keeps its own colour names, aliases of those palettes' colours.
+_UI, _PROPS = dict(OBJ_PALS["ui"]), dict(OBJ_PALS["props"])
+OBJ_PALS["items"] = [(k, _UI[v]) for k, v in (
+    ("out", "out"), ("umb_l", "shade"), ("umb_d", "sd"), ("handle", "bd"), ("bread_l", "gl"), ("bread_m", "bl"),
+    ("bread_d", "bd"), ("yarn_l", "pl"), ("yarn_d", "pd"), ("needle", "sl"), ("glow", "spark"), ("glow_d", "gd"),
+    ("white", "white"))]
+OBJ_PALS["cafe"] = [(k, _PROPS[v]) for k, v in (
+    ("out", "out"), ("green", "red"), ("green_d", "red_d"), ("cream", "white"), ("cream_d", "white_d"), ("gold", "blue"),
+    ("ring_r", "red"), ("ring_w", "white"))]
+# the house layout (docs/art-direction.md): players 1-4 on OBJ 0, 1, 4, 5; 2 effects, 3 the kit sprites (and our
+# power-ups), 6-7 the game's own
+OBJ_PAL_INDEX = {"mamie": 0, "papi": 1, "fx": 2, "ui": 3, "tata": 4, "tonton": 5, "animals": 6, "props": 7}
 
-# Papi (player 2): Mamie's palette recoloured: the headscarf -> grey hair under a navy beret overlay, the cardigan
-# -> a brown jacket, the handbag -> a baguette-coloured satchel
+# The family (players 2-4): Mamie's palette recoloured. Papi: the headscarf -> grey hair under a navy beret overlay,
+# the cardigan -> a brown jacket, the handbag -> a baguette-coloured satchel. Tata (the aunt): a sunflower
+# headscarf, a green cardigan. Tonton (the uncle): white hair under Papi's beret in bottle green, a brick jacket.
 PAPI = {"scarf_l": (206, 206, 216), "scarf_d": (150, 150, 166), "cardi_l": (150, 112, 76), "cardi_d": (98, 70, 48),
         "skirt": (58, 62, 84), "bag_l": (226, 180, 106), "bag_d": (168, 120, 60), "spring": (120, 200, 230)}
+TATA = {"scarf_l": (252, 214, 84), "scarf_d": (214, 156, 36), "cardi_l": (96, 176, 112), "cardi_d": (52, 116, 76),
+        "skirt": (92, 60, 48), "bag_l": (90, 120, 200), "bag_d": (52, 72, 140), "spring": (240, 120, 170)}
+TONTON = {"scarf_l": (236, 236, 240), "scarf_d": (180, 180, 192), "cardi_l": (214, 112, 72), "cardi_d": (150, 66, 46),
+          "skirt": (40, 92, 64), "bag_l": (160, 160, 172), "bag_d": (100, 100, 116), "spring": (150, 220, 100)}
+PLAYER_PALS = {"papi": PAPI, "tata": TATA, "tonton": TONTON}
+PLAYER_NAMES = ["MAMIE", "PAPI", "TATA", "TONTON"]
 
 
 def pal_rgb(pals, name):
@@ -141,21 +157,25 @@ SPRITES = [
     Sprite("mamie", 24, 32, 13, "mamie", -1,
            "Mamie on her pogo: idle, squash 1-2, stretch, rise, fall, big (knees up), stumble, flail 1-2, sit, "
            "afloat in a ring, hanging from the yarn"),
-    Sprite("papi_head", 16, 16, 1, "mamie", -1, "Papi's beret and moustache (drawn over Mamie's frames, palette 1)"),
-    Sprite("umbrella", 24, 16, 2, "items", -1, "the open umbrella over her head, 2 frames (sway)"),
+    Sprite("papi_head", 16, 16, 1, "mamie", -1, "Papi's (Tonton's) beret and moustache (over Mamie's frames)"),
+    Sprite("umbrella", 24, 16, 2, "ui", -1, "the open umbrella over her head, 2 frames (sway)"),
     Sprite("cat", 16, 16, 4, "animals", -1, "the cat: sitting looking back, tail flick, leaping, landing"),
-    Sprite("pigeon", 16, 16, 5, "animals", -1, "a pigeon: walk 1-2, peck, fly 1-2"),
+    Sprite("pigeon", 16, 16, 7, "animals", -1, "a pigeon: walk 1-2, peck, flap 1-2, glide, dive"),
     Sprite("awning", 24, 16, 2, "props", 0, "a striped awning over a window: taut, pressed"),
     Sprite("pot", 16, 16, 1, "props", 8, "a window box of geraniums (the box's top at row 8)"),
     Sprite("cradle", 32, 16, 1, "props", 0, "a window-cleaner's cradle"),
     Sprite("ledge", 8, 8, 3, "props", 0, "crumbling tiles: left end, middle, right end"),
-    Sprite("line", 8, 8, 5, "props", -1, "a clothesline segment falling 2, 1, 0, -1, -2 px over 8"),
-    Sprite("clothes", 8, 8, 4, "props", -1, "a shirt, a sock, bloomers, a towel"),
+    Sprite("rope", 8, 16, 16, "props", -1, "a clothesline chord falling 0..15 px over 8 (rising: v-flipped)"),
+    Sprite("hook", 8, 8, 1, "props", -1, "the clothesline's hook on a wall"),
+    Sprite("clothes", 8, 8, 12, "props", -1, "a shirt, a sock, bloomers, a towel: hanging, swinging left, right"),
     Sprite("antenna", 16, 32, 3, "props", -1, "a TV antenna: still, wobbling left, right"),
-    Sprite("baguette", 8, 8, 3, "items", 0, "the baguette plank: left end, middle, right end"),
-    Sprite("item", 16, 16, 4, "items", -1, "power-ups: umbrella, baguette, knitting yarn, croissant"),
-    Sprite("icon", 8, 8, 4, "items", -1, "small HUD icons of the power-ups"),
-    Sprite("glow", 16, 16, 2, "items", -1, "the glow around a power-up"),
+    Sprite("beacon", 8, 8, 2, "props", -1, "the antenna's warning light: lit, dim"),
+    Sprite("balloon", 32, 32, 2, "props", 0, "a hot-air balloon's envelope (the top is bouncy): round, pressed"),
+    Sprite("basket", 16, 16, 1, "props", -1, "the balloon's ropes and basket (a hazard)"),
+    Sprite("baguette", 8, 8, 3, "ui", 0, "the baguette plank: left end, middle, right end"),
+    Sprite("item", 16, 16, 4, "ui", -1, "power-ups: umbrella, baguette, knitting yarn, croissant"),
+    Sprite("icon", 8, 8, 4, "ui", -1, "small HUD icons of the power-ups"),
+    Sprite("glow", 16, 16, 2, "ui", -1, "the glow around a power-up"),
     Sprite("dust", 8, 8, 3, "fx", -1, "a dust puff (landing)"),
     Sprite("shard", 8, 8, 2, "fx", -1, "glass shards, tile debris"),
     Sprite("debris", 8, 8, 2, "fx", -1, "tile and pot debris"),
@@ -168,7 +188,8 @@ SPRITES = [
     Sprite("unit_m", 16, 16, 1, "ui", -1, "the 'm' after the distance, in the kit digits' style"),
     Sprite("medal", 24, 24, 4, "ui", -1, "cat-catch medals in the house tiers (bronze, silver, gold, pearl): whiskers"),
     Sprite("arrow", 8, 8, 1, "ui", -1, "Mamie above the screen: an arrow at the top edge"),
-    Sprite("cafe", 32, 16, 3, "cafe", -1, "the café awning below a fall: left, right half, pressed"),
+    Sprite("cafe", 32, 16, 3, "props", -1, "the café awning below a fall: left, right half, pressed"),
+    Sprite("feather", 8, 8, 2, "fx", -1, "a feather, drifting down"),
 ]
 SPRITE_SHEET_W = 320
 

@@ -23,14 +23,106 @@ int world_bldg_index_at(const world *w, int x)
     return -1;
 }
 
-/* ---- surfaces of the things between and on the roofs ------------------------------------------------------------- */
+/* ---- the clothesline --------------------------------------------------------------------------------------------- */
+/* Its shape between the two poles (o->x, o->y) and (o->x + o->w, o->b): the straight line, the rest sag (a shallow
+ * catenary: a parabola, o->a px at the middle) and the dip under a load at k = o->c (o->sag, Q8 px): a loaded
+ * string is two straight lines from the poles to the load. The picture draws exactly this (draw.c). */
 int obj_line_y(const obj *o, int x)
 {
-    int k = clampi(x - (int)o->x, 0, o->w);
-    int sag = o->a + o->t;
-    return o->y + (o->b - o->y) * k / o->w + sag * 4 * k * (o->w - k) / (o->w * o->w);
+    int w = o->w, k = clampi(x - (int)o->x, 0, w);
+    int y = o->y + (o->b - o->y) * k / w + o->a * 4 * k * (w - k) / (w * w);
+    if (o->sag) {
+        int L = clampi(o->c, 1, w - 1);
+        int32_t d = k <= L ? o->sag * k / L : o->sag * (w - k) / (w - L);
+        y += (int)((d + 128) >> 8);
+    }
+    return y;
 }
 
+/* the full dip under a load at k: SLING_DEPTH at the middle of a long line (w / 4 at most on a short one), less
+ * near a pole (a string's deflection under a point load: 4 k (w - k) / w^2) */
+int32_t line_dip_target(const obj *o, int k)
+{
+    int w = o->w, depth = SLING_DEPTH < w / 4 ? SLING_DEPTH : w / 4;
+    k = clampi(k, 1, w - 1);
+    return (int32_t)depth * 256 * 4 * k / w * (w - k) / w;
+}
+
+/* ---- pigeons ------------------------------------------------------------------------------------------------------- */
+int pigeon_period(const obj *o) { return o->var == PG_WALK ? 1 : o->b < 2 ? 2 : o->b; }
+
+/* 0..1024 along a flying pigeon's path at its clock t: out and back, easing at the ends */
+static int fly_s(const obj *o, int t)
+{
+    int P = pigeon_period(o), u = ((t % P) + P) % P;
+    int s = u < P / 2 ? u * 2048 / P : (P - u) * 2048 / P;     /* 0..1024..0 */
+    s = clampi(s, 0, 1024);
+    return s * s / 1024 * (3072 - 2 * s) / 1024;                /* smoothstep */
+}
+
+void pigeon_at_t(const obj *o, int t, int *cx, int *feet)
+{
+    int s;
+    switch (o->var) {
+    case PG_HOVER:
+        s = fly_s(o, t);
+        *cx = (int)o->x;
+        *feet = o->y + o->a * (2 * s - 1024) / 1024;
+        break;
+    case PG_GLIDE:
+        s = fly_s(o, t);
+        *cx = (int)o->x + o->w * s / 1024;
+        *feet = o->y + ((t / 12) % 4 == 1) - ((t / 12) % 4 == 3);      /* a little bob */
+        break;
+    case PG_SWOOP:
+        s = fly_s(o, t);
+        *cx = (int)o->x + o->w * s / 1024;
+        *feet = o->y + o->a * 4 * s / 1024 * (1024 - s) / 1024;       /* the dive, deepest in the middle */
+        break;
+    default:
+        *cx = (int)o->x + (o->pos >> 16);
+        *feet = o->y;
+        break;
+    }
+}
+
+void pigeon_at(const obj *o, int *cx, int *feet) { pigeon_at_t(o, o->t, cx, feet); }
+
+/* The boxes a pigeon can be in at any time of its loop (the generator's worst case does not know when she comes):
+ * its walk, or its flight cut into pieces over which it moves monotonically. */
+int pigeon_swept(const obj *o, hbox *out, int max)
+{
+    const int hw = PIGEON_W / 2, top = PIGEON_H - 2;
+    if (max < 1) return 0;
+    switch (o->var) {
+    case PG_HOVER:
+        out[0] = (hbox){(int)o->x - hw, o->y - o->a - top, (int)o->x + hw, o->y + o->a};
+        return 1;
+    case PG_GLIDE:
+        out[0] = (hbox){(int)o->x - hw, o->y - 1 - top, (int)o->x + o->w + hw, o->y + 1};
+        return 1;
+    case PG_SWOOP: {
+        int n = 0, px = 0, py = 0;
+        for (int k = 0; k <= 8 && n < max; k++) {
+            int s = k * 128;
+            int x = (int)o->x + o->w * s / 1024, y = o->y + o->a * 4 * s / 1024 * (1024 - s) / 1024;
+            if (k > 0) {
+                out[n++] = (hbox){px - hw, (py < y ? py : y) - top - 1, x + hw, (py > y ? py : y) + 1};
+            }
+            px = x;
+            py = y;
+        }
+        return n;
+    }
+    default:
+        out[0] = (hbox){(int)o->x + o->a - hw, o->y - top, (int)o->x + o->b + hw + 1, o->y};
+        return 1;
+    }
+}
+
+int balloon_x(const obj *o) { return (int)(o->pos >> 16); }
+
+/* ---- surfaces of the things between and on the roofs ------------------------------------------------------------- */
 /* the landing surface of a prop at x (its y), or INT_MIN when x is not on it */
 static int prop_surface(const obj *o, int x, int *slope)
 {
@@ -38,8 +130,9 @@ static int prop_surface(const obj *o, int x, int *slope)
     if (o->state) return INT_MIN;
     switch (o->kind) {
     case OB_PIGEON: {
-        int cx = (int)o->x + (o->pos >> 16);
-        return iabs(x - cx) <= PIGEON_W / 2 ? o->y - PIGEON_H : INT_MIN;
+        int cx, feet;
+        pigeon_at(o, &cx, &feet);
+        return iabs(x - cx) <= PIGEON_W / 2 ? feet - PIGEON_H : INT_MIN;
     }
     case OB_AWNING: case OB_POT: case OB_LEDGE: case OB_BAGUETTE:
         return x >= o->x && x < o->x + o->w ? o->y : INT_MIN;
@@ -47,6 +140,10 @@ static int prop_surface(const obj *o, int x, int *slope)
         return x >= o->x && x < o->x + o->w ? (int)(o->pos >> 16) : INT_MIN;
     case OB_LINE:
         return x > o->x && x < o->x + o->w ? obj_line_y(o, x) : INT_MIN;
+    case OB_BALLOON: {
+        int bx = balloon_x(o);
+        return x >= bx + BALLOON_TOP_X0 && x < bx + BALLOON_TOP_X1 ? o->y : INT_MIN;
+    }
     default:
         return INT_MIN;
     }
@@ -54,7 +151,18 @@ static int prop_surface(const obj *o, int x, int *slope)
 
 static const int prop_sf[OB_KINDS] = {
     [OB_PIGEON] = SF_PIGEON, [OB_AWNING] = SF_AWNING, [OB_POT] = SF_POT, [OB_CRADLE] = SF_CRADLE,
-    [OB_LINE] = SF_LINE, [OB_LEDGE] = SF_LEDGE, [OB_BAGUETTE] = SF_BAGUETTE};
+    [OB_LINE] = SF_LINE, [OB_LEDGE] = SF_LEDGE, [OB_BAGUETTE] = SF_BAGUETTE, [OB_BALLOON] = SF_BALLOON};
+
+/* a moving surface moved this frame: a little tolerance above it */
+static int prop_tol(const obj *o)
+{
+    switch (o->kind) {
+    case OB_CRADLE: case OB_BALLOON: return 1;
+    case OB_LINE: return 3;
+    case OB_PIGEON: return o->var == PG_WALK ? 0 : 2;
+    default: return 0;
+    }
+}
 
 static int land_impl(const world *w, int32_t y0, int32_t x1, int32_t y1, hit *h, int bonly)
 {
@@ -94,12 +202,11 @@ static int land_impl(const world *w, int32_t y0, int32_t x1, int32_t y1, hit *h,
             const obj *o = &w->o[i];
             if (!prop_sf[o->kind] || o->state) continue;
             int slope, sy = INT_MIN;
+            if (o->kind == OB_LINE) sy = prop_surface(o, fx, &slope);         /* the rope under the tip itself */
             for (int dx = -FOOT_HALF; dx <= FOOT_HALF && sy == INT_MIN; dx += FOOT_HALF)
-                sy = prop_surface(o, fx + (dx == 0 ? 0 : dx), &slope);
-            if (sy == INT_MIN) sy = prop_surface(o, fx, &slope);
+                sy = prop_surface(o, fx + dx, &slope);
             if (sy == INT_MIN) continue;
-            int tol = o->kind == OB_CRADLE ? 1 : 0;     /* it moved this frame */
-            if (y1 >= (int32_t)sy * Q16_ONE && y0 <= (int32_t)(sy + tol) * Q16_ONE && sy < best) {
+            if (y1 >= (int32_t)sy * Q16_ONE && y0 <= (int32_t)(sy + prop_tol(o)) * Q16_ONE && sy < best) {
                 best = sy;
                 h->kind = prop_sf[o->kind];
                 h->idx = i;
@@ -155,11 +262,10 @@ void world_init(world *w, int players, uint32_t seed, int skip_m)
     w->skip_x = (int32_t)skip_m * PX_PER_M;
     gen_reset(w);
     for (int p = 0; p < MAX_PLAYERS; p++) {
-        mamie_reset(&w->m[p], w->skip_x + START_X - p * 24, START_TOP);
+        mamie_reset(&w->m[p], w->skip_x + START_X - p * 20, START_TOP);
         w->m[p].start_x = START_X;              /* the distance counts from the first roof of Paris (skip too) */
         if (p >= w->players) w->m[p].state = MS_OFF;
     }
-    w->m[1].face = 1;
     w->camx = (int32_t)(w->skip_x + START_X - CAM_X_SLOW) * 256;
     if (w->camx < 0) w->camx = 0;
     w->cam_focus = START_TOP * 256;
@@ -178,8 +284,7 @@ static int leader_of(const world *w)
     for (int pass = 0; pass < 2 && best < 0; pass++)
         for (int p = 0; p < w->players; p++) {
             const mamie *m = &w->m[p];
-            int alive = m->state == MS_READY || m->state == MS_AIR || m->state == MS_SLING || m->state == MS_REEL;
-            if (m->state == MS_OFF || (pass == 0 && !alive)) continue;
+            if (m->state == MS_OFF || (pass == 0 && !MS_ALIVE(m->state))) continue;
             if (best < 0 || m->x > w->m[best].x) best = p;
         }
     return best < 0 ? 0 : best;
@@ -187,10 +292,8 @@ static int leader_of(const world *w)
 
 int world_running(const world *w)
 {
-    for (int p = 0; p < w->players; p++) {
-        int s = w->m[p].state;
-        if (s == MS_READY || s == MS_AIR || s == MS_SLING || s == MS_REEL) return 1;
-    }
+    for (int p = 0; p < w->players; p++)
+        if (MS_ALIVE(w->m[p].state)) return 1;
     return 0;
 }
 
@@ -253,41 +356,75 @@ static void take_item(world *w, int p, obj *o)
     }
 }
 
-/* pigeons (from the side), antennas, power-ups: the body box against theirs */
-static void touch(world *w, int p, int landed_on_pigeon)
+/* a pigeon flies off (stomped on, or bumped into): from wherever it is, as a walker taking off */
+static void pigeon_off(obj *o, int dir)
+{
+    int cx, feet;
+    pigeon_at(o, &cx, &feet);
+    o->x = cx;
+    o->pos = 0;
+    o->y = (int16_t)feet;
+    o->var = PG_WALK;
+    o->state = 1;
+    o->t = 0;
+    o->dir = (int16_t)dir;
+}
+
+/* knocked off her pogo by something at x = from_x: the bounce is broken, she tumbles and drops */
+static void knock_off(world *w, int p, int from_x, int kind, int ev)
+{
+    mamie *m = &w->m[p];
+    m->state = MS_TUMBLE;
+    m->t = 0;
+    m->vx = (m->x >> 16) < from_x ? -TUMBLE_VX : TUMBLE_VX;
+    if (m->vy < TUMBLE_VY) m->vy = TUMBLE_VY;
+    m->chain = 0;
+    m->tumbles++;
+    m->hit_kind = kind;
+    m->stumble_t = 0;
+    w->events[p] |= ev;
+}
+
+/* pigeons (any contact but a stomp), antennas, balloons' baskets and ropes, power-ups: the body box against theirs */
+static void touch(world *w, int p, int landed_on)
 {
     mamie *m = &w->m[p];
     int x = (int)(m->x >> 16), y = (int)(m->y >> 16);
     int bx0 = x - HALF_W, bx1 = x + HALF_W + 1, by0 = y - BODY_H, by1 = y;
-    for (int i = 0; i < w->no; i++) {
+    for (int i = 0; i < w->no && m->state == MS_AIR; i++) {
         obj *o = &w->o[i];
-        if (o->state) continue;
-        if (o->kind == OB_PIGEON && i != landed_on_pigeon) {
-            int cx = (int)o->x + (o->pos >> 16);
-            if (m->knock_t == 0 &&
-                box_overlap(bx0, by0, bx1, by1, cx - PIGEON_W / 2, o->y - PIGEON_H + 2, cx + PIGEON_W / 2, o->y)) {
-                int from_left = x < cx;
-                m->vx = from_left ? KNOCK_VX : -KNOCK_VX;
-                if (m->vy > KNOCK_VY) m->vy = KNOCK_VY;
-                m->knock_t = 24;
-                m->chain = 0;
-                o->state = 1;       /* it flies off */
-                o->t = 0;
-                o->dir = from_left ? 1 : -1;
-                w->events[p] |= EV_KNOCK;
+        if (o->state || i == landed_on) continue;
+        switch (o->kind) {
+        case OB_PIGEON: {
+            int cx, feet;
+            pigeon_at(o, &cx, &feet);
+            if (box_overlap(bx0, by0, bx1, by1, cx - PIGEON_W / 2, feet - PIGEON_H + 2, cx + PIGEON_W / 2, feet)) {
+                pigeon_off(o, x < cx ? 1 : -1);
+                knock_off(w, p, cx, OB_PIGEON, EV_KNOCK);
             }
-        } else if (o->kind == OB_ANTENNA) {
-            if (m->stumble_t == 0 &&
-                box_overlap(bx0, by0, bx1, by1, (int)o->x - ANTENNA_HALF, o->y - ANTENNA_H, (int)o->x + ANTENNA_HALF + 1,
+            break;
+        }
+        case OB_ANTENNA:
+            if (box_overlap(bx0, by0, bx1, by1, (int)o->x - ANTENNA_HALF, o->y - ANTENNA_H, (int)o->x + ANTENNA_HALF + 1,
                             o->y)) {
-                m->vx = 0;
-                m->stumble_t = 30;
-                m->chain = 0;
                 o->t = 40;          /* it wobbles */
-                w->events[p] |= EV_STUMBLE;
+                knock_off(w, p, (int)o->x, OB_ANTENNA, EV_STUMBLE);
             }
-        } else if (o->kind == OB_ITEM) {
+            break;
+        case OB_BALLOON: {
+            int bx = balloon_x(o);
+            if (box_overlap(bx0, by0, bx1, by1, bx + BALLOON_HAZ_X0, o->y + BALLOON_HAZ_Y0, bx + BALLOON_HAZ_X1,
+                            o->y + BALLOON_HAZ_Y1)) {
+                o->t = 24;          /* the basket swings */
+                knock_off(w, p, bx + BALLOON_W / 2, OB_BALLOON, EV_BASKET);
+            }
+            break;
+        }
+        case OB_ITEM:
             if (box_overlap(bx0, by0, bx1, by1, (int)o->x, o->y - 16, (int)o->x + 16, o->y)) take_item(w, p, o);
+            break;
+        default:
+            break;
         }
     }
 }
@@ -302,11 +439,13 @@ static void add_stunt(world *w, int p, int base)
     w->events[p] |= EV_STUNT;
 }
 
-/* a landing: what she landed on decides the bounce */
+/* a landing: what she landed on decides the bounce (after a tumble: the weak hop of the recovery) */
 static void landed(world *w, int p, const hit *h, int big)
 {
     mamie *m = &w->m[p];
     int *ev = &w->events[p];
+    int tumbled = m->state == MS_TUMBLE;
+    m->state = MS_AIR;
     m->landings++;
     switch (h->kind) {
     case SF_SKY: {                      /* the glass breaks: she drops one floor, slowed down */
@@ -317,28 +456,39 @@ static void landed(world *w, int p, const hit *h, int big)
         m->chain = 0;
         *ev |= EV_GLASS;
         m->land_kind = SF_SKY;
+        if (tumbled) m->state = MS_TUMBLE;
         return;
     }
-    case SF_LINE: {
+    case SF_LINE: {                     /* the clothesline dips under her, then slings her (MS_SLING) */
         obj *o = &w->o[h->idx];
+        if (o->rider && o->rider != p + 1) break;       /* someone else is riding it: a plain bounce */
+        int k = clampi((int)(m->x >> 16) - (int)o->x, 2, o->w - 2);
+        m->x = (int32_t)(o->x + k) * Q16_ONE + (m->x & 0xffff);
         m->state = MS_SLING;
         m->t = 0;
         m->line = h->idx;
-        m->line_x = (int)(m->x >> 16);
+        m->line_x = k;
+        m->line_sag0 = o->sag;
         m->vy = 0;
         m->vx = m->vx * 3 / 4;
-        o->t = 0;
+        o->rider = (int16_t)(p + 1);
+        o->c = (int16_t)k;
+        o->sagv = 0;
+        m->y = (int32_t)obj_line_y(o, (int)o->x + k) * Q16_ONE;
         m->land_t = 0;
         m->land_kind = SF_LINE;
-        m->land_y = h->y;
+        m->land_y = (int)(m->y >> 16);
+        m->deflect = 0;
         *ev |= EV_LAND;
         return;
     }
     default:
         break;
     }
-    mamie_bounce(m, h, big);
+    mamie_bounce(m, h, tumbled ? 2 : big);
     *ev |= EV_LAND;
+    if (h->slope) *ev |= EV_DEFLECT;
+    if (tumbled) { *ev |= EV_RECOVER; m->stumble_t = 24; }
     if (m->bounce == BN_BIG) { *ev |= EV_BIG; m->big_bounces++; }
     switch (h->kind) {
     case SF_BUMP: {                     /* a chimney top: a stunt, once per chimney */
@@ -349,11 +499,10 @@ static void landed(world *w, int p, const hit *h, int big)
     }
     case SF_PIGEON: {
         obj *o = &w->o[h->idx];
-        o->state = 1;
-        o->t = 0;
-        o->dir = m->face;
+        int flying = o->var != PG_WALK;
+        pigeon_off(o, m->face);
         m->pigeons++;
-        add_stunt(w, p, PTS_PIGEON);
+        add_stunt(w, p, flying ? PTS_PIGEON_FLY : PTS_PIGEON);
         *ev |= EV_PIGEON;
         break;
     }
@@ -361,6 +510,11 @@ static void landed(world *w, int p, const hit *h, int big)
         w->o[h->idx].t = 12;            /* the canvas gives */
         m->chain = 0;
         *ev |= EV_SPRING;
+        break;
+    case SF_BALLOON:                    /* the top of a balloon: a spring, and a stunt */
+        w->o[h->idx].t = 16;
+        add_stunt(w, p, PTS_BALLOON);
+        *ev |= EV_SPRING | EV_BALLOON;
         break;
     case SF_POT: case SF_LEDGE:
         w->o[h->idx].state = 1;         /* one bounce, then it falls */
@@ -414,10 +568,38 @@ static void start_fall(world *w, int p)
     m->state = MS_FALL;
     m->t = 0;
     m->fall_phase = 0;
-    m->reel_x = (int)(m->x >> 16);      /* the cafÃ© awning waits below */
+    m->reel_x = (int)(m->x >> 16);      /* the café awning waits below */
     m->down_kind = district_at(m->reel_x) == 1 && night_at(m->reel_x) >= 0 ? 1 : 0;
     m->umbrella_t = 0;
     w->events[p] |= EV_DOOMED;
+}
+
+/* riding the clothesline: an ease-out dip from her landing speed to a stop at the bottom (her feet on the rope,
+ * the load point following her), then the slingshot from the bottom of the dip */
+static void step_sling(world *w, int p)
+{
+    mamie *m = &w->m[p];
+    obj *o = &w->o[m->line];
+    m->x += m->vx / 4;
+    int k = clampi((int)(m->x >> 16) - (int)o->x, 2, o->w - 2);
+    m->x = (int32_t)(o->x + k) * Q16_ONE + (m->x & 0xffff);
+    int t = m->t < SLING_FRAMES ? m->t : SLING_FRAMES, r = SLING_FRAMES - t;
+    int32_t target = line_dip_target(o, k), e = 1024 - r * r * 1024 / (SLING_FRAMES * SLING_FRAMES);
+    int32_t sag = m->line_sag0 + (target - m->line_sag0) * e / 1024;
+    o->sagv = sag - o->sag;             /* the rope's speed (the clothes swing with it) */
+    o->sag = sag;
+    o->c = (int16_t)k;
+    m->y = (int32_t)obj_line_y(o, (int)o->x + k) * Q16_ONE;
+    if (m->t >= SLING_FRAMES) {         /* the bottom: she is slung up from here, the rope recoils */
+        m->state = MS_AIR;
+        m->vy = -V_SLING;
+        m->bounce = BN_SLING;
+        m->land_t = 0;
+        m->land_y = (int)(m->y >> 16);
+        o->sagv = 0;
+        o->rider = 0;
+        w->events[p] |= EV_SLING;
+    }
 }
 
 static void step_player(world *w, int p, int dir, int a)
@@ -429,7 +611,7 @@ static void step_player(world *w, int p, int dir, int a)
     m->t++;
     if (m->land_t < 1000) m->land_t++;
     switch (m->state) {
-    case MS_READY: {                    /* bouncing in place: the title and "get ready" */
+    case MS_READY: {                    /* bouncing in place: the title */
         m->vx = 0;
         int e = mamie_air_step(m, &T, 0, &h);
         m->vx = 0;
@@ -441,33 +623,29 @@ static void step_player(world *w, int p, int dir, int a)
         if (m->knock_t) m->knock_t--;
         if (m->umbrella_t) m->umbrella_t--;
         if (m->croissant_t) m->croissant_t--;
-        int e = mamie_air_step(m, &T, m->knock_t > 12 ? 0 : dir, &h);
+        int e = mamie_air_step(m, &T, dir, &h);
         *ev |= e & EV_BONK;
         clamp_left(w, m);
-        int pigeon = -1;
+        int on = -1;
         if (e & EV_LAND) {
-            if (h.kind == SF_PIGEON) pigeon = h.idx;
+            if (h.kind == SF_PIGEON || h.kind == SF_BALLOON || h.kind == SF_LINE) on = h.idx;
             landed(w, p, &h, a);
         }
-        if (m->state == MS_AIR) touch(w, p, pigeon);
+        if (m->state == MS_AIR) touch(w, p, on);
         if (m->state == MS_AIR && world_doomed(w, m)) start_fall(w, p);
         break;
     }
-    case MS_SLING: {                    /* riding the clothesline down, then the slingshot */
-        obj *o = &w->o[m->line];
-        m->x += m->vx / 4;
-        o->t = SLING_DEPTH * (m->t < SLING_FRAMES ? m->t : SLING_FRAMES) / SLING_FRAMES;
-        m->y = (int32_t)obj_line_y(o, (int)(m->x >> 16)) * Q16_ONE;
-        if (m->t >= SLING_FRAMES) {
-            m->state = MS_AIR;
-            m->vy = -V_SLING;
-            m->bounce = BN_SLING;
-            m->land_t = 0;
-            o->t = 0;
-            *ev |= EV_SLING;
-        }
+    case MS_TUMBLE: {                   /* knocked off: dropping, no control, until something catches her */
+        if (m->umbrella_t) m->umbrella_t--;
+        int e = mamie_tumble_step(m, &T, &h);
+        clamp_left(w, m);
+        if (e & EV_LAND) landed(w, p, &h, 0);
+        if (m->state == MS_TUMBLE && world_doomed(w, m)) start_fall(w, p);
         break;
     }
+    case MS_SLING:
+        step_sling(w, p);
+        break;
     case MS_REEL: {                     /* the yarn pulls her up to the ledge */
         int32_t tx = (int32_t)m->reel_x * Q16_ONE, ty = (int32_t)m->reel_y * Q16_ONE;
         int left = YARN_REEL_T - m->t;
@@ -496,7 +674,7 @@ static void step_player(world *w, int p, int dir, int a)
         int feet = (int)(m->y >> 16);
         if (m->down_kind == 0 && m->fall_phase == 0 && m->vy > 0 && feet >= STREET_Y - 24 &&
             iabs((int)(m->x >> 16) - m->reel_x) < 24) {
-            m->fall_phase = 1;          /* boing off the cafÃ© awning */
+            m->fall_phase = 1;          /* boing off the café awning */
             m->y = (int32_t)(STREET_Y - 24) * Q16_ONE;
             m->vy = -Q16(3.0);
             m->vx = m->face * Q16(0.75);
@@ -513,21 +691,23 @@ static void step_player(world *w, int p, int dir, int a)
     default:
         break;
     }
-    if (m->state == MS_AIR || m->state == MS_SLING || m->state == MS_REEL) {
+    if (m->state == MS_AIR || m->state == MS_SLING || m->state == MS_REEL || m->state == MS_TUMBLE) {
         int d = ((int)(m->x >> 16) - (int)m->start_x) / PX_PER_M;
         d = d < 0 ? 0 : d;
         if (d > m->dist_m) m->dist_m = d;
     }
     m->score = m->dist_m + m->stunts;
-    /* 2 players: too far behind the leader's camera, out */
+    /* 2-4 players: too far behind the leader's camera, out (a rider leaves her line first) */
     if (w->players > 1 && m->state != MS_OFF && m->state != MS_DOWN && (m->x >> 16) < world_camx(w) - DROP_OUT_X) {
+        if (m->state == MS_SLING) { w->o[m->line].rider = 0; w->o[m->line].sagv = 0; }
         m->state = MS_OFF;
         m->t = 0;
+        m->out_t = ++w->outs;
         *ev |= EV_OUT;
     }
 }
 
-/* ---- props, pigeons, the camera, the cat --------------------------------------------------------------------------- */
+/* ---- props, pigeons, balloons, the camera, the cat --------------------------------------------------------------- */
 static void step_objects(world *w)
 {
     for (int i = 0; i < w->no; i++) {
@@ -535,7 +715,11 @@ static void step_objects(world *w)
         o->t++;
         switch (o->kind) {
         case OB_PIGEON:
-            if (o->state == 0) {
+            if (o->state == 0 && o->var != PG_WALK) {
+                if (o->t >= pigeon_period(o)) o->t = 0;             /* its loop */
+                int u = o->t % pigeon_period(o);
+                o->dir = o->var == PG_HOVER ? ((o->t / 48) % 2 ? 1 : -1) : u < pigeon_period(o) / 2 ? 1 : -1;
+            } else if (o->state == 0) {
                 if ((o->t / 50) % 3 == 2) break;        /* stop and peck */
                 o->pos += o->dir * PIGEON_SPEED;
                 if ((o->pos >> 16) <= o->a) o->dir = 1;
@@ -552,8 +736,20 @@ static void step_objects(world *w)
             if ((o->pos >> 16) >= o->b) { o->pos = (int32_t)o->b * Q16_ONE; o->dir = -1; }
             break;
         }
-        case OB_AWNING: case OB_ANTENNA:
-            o->t -= 2;                                  /* (t counts down: the canvas, the wobble) */
+        case OB_LINE:                                   /* the recoil: a damped spring back to the rest */
+            o->t = 0;
+            if (o->rider || (!o->sag && !o->sagv)) break;
+            o->sagv -= o->sag * LINE_K / 256;
+            o->sagv = o->sagv * LINE_DAMP / 256;
+            o->sag += o->sagv;
+            if (iabs((int)o->sag) < 24 && iabs((int)o->sagv) < 24) o->sag = o->sagv = 0;
+            break;
+        case OB_BALLOON: case OB_AWNING: case OB_ANTENNA:
+            if (o->kind == OB_BALLOON) {
+                o->pos += o->dir * BALLOON_V;
+                o->x = balloon_x(o);
+            }
+            o->t -= 2;                                  /* (t counts down: the canvas, the wobble, the basket) */
             if (o->t < 0) o->t = 0;
             break;
         case OB_POT: case OB_LEDGE:
@@ -593,12 +789,14 @@ void world_camera(world *w, int snap)
     const mamie *m = &w->m[w->leader];
     int x = (int)(m->x >> 16), feet = (int)(m->y >> 16);
     int vxp = (int)(m->vx >> 8);                           /* Q8 px/frame */
+    if (m->state == MS_TUMBLE) vxp = 0;
     int32_t tx = (int32_t)(x - CAM_X_SLOW) * 256 + (int32_t)CAM_X_LEAD * vxp;
     if (m->state == MS_READY) tx = w->camx;
-    /* 2 players: the camera follows the leader but waits for the other one while the leader stays on screen */
+    /* 2-4 players: the camera follows the leader but waits for the others while the leader stays on screen */
     for (int p = 0; p < w->players; p++) {
         const mamie *o = &w->m[p];
-        if (p == w->leader || (o->state != MS_AIR && o->state != MS_SLING && o->state != MS_REEL)) continue;
+        if (p == w->leader || (o->state != MS_AIR && o->state != MS_SLING && o->state != MS_REEL &&
+                               o->state != MS_TUMBLE)) continue;
         int32_t wait = (int32_t)((o->x >> 16) - CAM_WAIT_X) * 256, lead_max = (int32_t)(x - CAM_LEADER_MAX_X) * 256;
         if (wait < lead_max) wait = lead_max;
         if (tx > wait) tx = wait;

@@ -143,8 +143,8 @@ static void check_frame(const world *w, int frame, int st)
             break;
         case OB_PIGEON:
             if (o->state) break;
-            sx = (int)o->x + (o->pos >> 16) - 8 - cx; sy = o->y - 16 - cy;
-            if (visible(sx, sy, 16, 16)) { sprites_checked++; ok = oam_has_any(SPR_PIGEON, 3, sx, sy); }
+            { int pcx, pfy; pigeon_at(o, &pcx, &pfy); sx = pcx - 8 - cx; sy = pfy - 16 - cy; }
+            if (visible(sx, sy, 16, 16)) { sprites_checked++; ok = oam_has_any(SPR_PIGEON, 7, sx, sy); }
             break;
         default:
             break;

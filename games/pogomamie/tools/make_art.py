@@ -364,8 +364,25 @@ def cat(frame):
 
 def pigeon(frame):
     cv = Canvas(16, 16, AP)
-    bob = [0, 1, 3, 0, 0][frame]
+    bob = [0, 1, 3, 0, 0, 0, 0][frame]
     shade = lambda dx, dy: "pg_l" if dy < -0.3 else "pg_m" if dy < 0.5 else "pg_d"  # noqa: E731
+    if frame == 5:                      # gliding: the wings spread flat, the tail fanned
+        cv.ellipse(8, 10, 5, 2.4, None, shade)
+        cv.ellipse(13, 9, 2, 2, "pg_l")
+        cv.set(14, 8, "eye"), cv.set(15, 9, "beak")
+        cv.line(2, 8, 12, 8, "pg_l", 1), cv.line(1, 7, 11, 7, "pg_m", 1)
+        cv.set(0, 6, "pg_d"), cv.set(3, 6, "pg_d"), cv.set(6, 6, "pg_d")
+        cv.line(3, 11, 0, 12, "pg_d", 2)
+        cv.outline("out")
+        return cv
+    if frame == 6:                      # diving: the wings swept back, the head down
+        cv.ellipse(8, 9, 5, 2.6, None, shade)
+        cv.ellipse(13, 11, 2, 2, "pg_l")
+        cv.set(14, 11, "eye"), cv.set(15, 12, "beak"), cv.set(14, 13, "beak")
+        cv.line(10, 8, 2, 4, "pg_m", 2), cv.line(9, 9, 1, 6, "pg_l", 1)
+        cv.line(4, 9, 0, 8, "pg_d", 2)
+        cv.outline("out")
+        return cv
     if frame < 3:                       # walking right / pecking
         cv.ellipse(7, 11, 5, 3.4, None, shade)
         cv.line(2, 11, 0, 9, "pg_d", 2)              # the tail
@@ -457,16 +474,31 @@ def ledge(frame):
     return cv
 
 
-def line_seg(k):
-    cv = Canvas(8, 8, PP)
-    s = [2, 1, 0, -1, -2][k]
-    for x in range(8):
-        y = 3 + (s * x) // 8 if s >= 0 else 3 + (s * x - 7) // 8 + 1
-        cv.set(x, y, "white_d")
+def rope_seg(s):
+    """A chord of the clothesline falling s px over 8 (0..15): the rope pixel of column i on row round(s i / 8),
+    a run down to the next column's row when steep; the C code v-flips it for a rising chord (so it is one pixel
+    thick, the same from above and below). The next chord starts on row s, column 8."""
+    cv = Canvas(8, 16, PP)
+    r = [(s * i + 4) // 8 for i in range(9)]
+    for i in range(8):
+        for y in range(r[i], max(r[i], r[i + 1] - 1) + 1):
+            cv.set(i, y, "white_d" if (i + y) % 4 else "wood_l")       # a twisted cord
     return cv
 
 
-def clothes(k):
+def hook():
+    """the iron hook in the wall the rope is tied to (drawn for the left pole; h-flipped for the right)"""
+    cv = Canvas(8, 8, PP)
+    cv.rect(0, 2, 3, 4, "metal_d")
+    cv.hline(0, 3, 2, "metal_l")
+    cv.set(5, 2, "metal_l"), cv.set(6, 3, "metal_l"), cv.set(5, 4, "metal_d"), cv.set(4, 3, "metal_d")
+    cv.outline("out")
+    return cv
+
+
+def clothes(frame):
+    """a garment pegged on the rope (its top row, the pegs at x 1 and 6): hanging, or swinging left or right"""
+    k, tilt = frame // 3, frame % 3
     cv = Canvas(8, 8, PP)
     if k == 0:                              # a shirt
         cv.rect(1, 0, 6, 6, "blue")
@@ -483,8 +515,81 @@ def clothes(k):
     else:                                   # a towel
         cv.rect(1, 0, 6, 7, "leaf_l")
         cv.hline(1, 6, 5, "white")
+    if tilt:                                # swinging: the lower rows shift sideways, the pegs stay
+        d = -1 if tilt == 1 else 1
+        src = Canvas(8, 8, PP)
+        src.p = [row[:] for row in cv.p]
+        for y in range(8):
+            sh = d * (y // 3)
+            for x in range(8):
+                cv.set(x, y, None)
+            for x in range(8):
+                c = src.get(x, y)
+                if c is not None and 0 <= x + sh < 8:
+                    super(Canvas, cv).set(x + sh, y, c)
     cv.set(1, 0, "wood_d"), cv.set(6, 0, "wood_d")
     cv.outline("out")
+    return cv
+
+
+def beacon(frame):
+    """the antenna's little red warning light (lit, dim)"""
+    cv = Canvas(8, 8, PP)
+    if frame == 0:
+        cv.rect(3, 1, 4, 3, "red")
+        cv.set(3, 1, "white")
+        cv.set(2, 2, "red_d"), cv.set(5, 2, "red_d")
+    else:
+        cv.rect(3, 2, 4, 3, "red_d")
+    return cv
+
+
+def balloon(frame):
+    """a hot-air balloon's envelope, 32x32: the top (row 0, x 8-23) is flat and bouncy, red and white gores with a
+    blue band, the skirt narrowing to the burner; pressed: the top squashed down 2 px"""
+    cv = Canvas(32, 32, PP)
+    press = 2 if frame == 1 else 0
+    for y in range(press, 28):
+        k = y - press
+        # a round crown (flat on top: the landing surface, x 8-23), then the envelope tapering to the skirt
+        half = [8, 11, 12.5, 13.5, 14.5, 15][k] if k < 6 else 15.5 if k < 15 else 15.5 - (k - 14) * 0.85
+        half = max(4.0, half)
+        for x in range(32):
+            dx = x + 0.5 - 16
+            if abs(dx) <= half:
+                gore = int((dx / max(half, 1.0) + 1.0) * 3.0)
+                c = "red" if gore % 2 == 0 else "white"
+                if 14 <= y - press <= 17:
+                    c = "blue"
+                if dx < -half + 2.5 and c != "blue":
+                    c = "red_d" if c == "red" else "white_d"
+                cv.set(x, y, c)
+    cv.rect(13, 28, 18, 29, "metal_d")       # the burner's ring
+    cv.set(12, 1 + press, "white"), cv.set(13, 1 + press, "white")      # the shine
+    cv.outline("out")
+    return cv
+
+
+def basket():
+    """the ropes and the wicker basket under the envelope (16x16 at the envelope's x + 8, y + 30)"""
+    cv = Canvas(16, 16, PP)
+    for k, x0 in enumerate((4, 11)):
+        cv.line(x0 + (1 if k == 0 else -1), 0, x0 - (1 if k == 0 else -1) + (0 if k == 0 else 0), 7, "wood_d")
+    cv.rect(2, 8, 13, 14, "wood_l")
+    cv.hline(2, 13, 8, "wood_d")
+    for x in range(3, 13, 3):
+        cv.vline(x, 9, 14, "wood_d")
+    cv.hline(2, 13, 14, "wood_d")
+    cv.outline("out")
+    return cv
+
+
+def feather(frame):
+    cv = Canvas(8, 8, S.OBJ_PALS["fx"])
+    if frame == 0:
+        cv.line(1, 6, 6, 1, "dust_l", 1), cv.line(2, 6, 6, 2, "dust_d", 1)
+    else:
+        cv.line(1, 2, 6, 5, "dust_l", 1), cv.line(1, 3, 5, 5, "dust_d", 1)
     return cv
 
 
@@ -761,12 +866,22 @@ def sprite_frame(name, i):
         return cradle()
     if name == "ledge":
         return ledge(i)
-    if name == "line":
-        return line_seg(i)
+    if name == "rope":
+        return rope_seg(i)
+    if name == "hook":
+        return hook()
     if name == "clothes":
         return clothes(i)
     if name == "antenna":
         return antenna(i)
+    if name == "beacon":
+        return beacon(i)
+    if name == "balloon":
+        return balloon(i)
+    if name == "basket":
+        return basket()
+    if name == "feather":
+        return feather(i)
     if name == "baguette":
         return baguette_plank(i)
     if name == "item":

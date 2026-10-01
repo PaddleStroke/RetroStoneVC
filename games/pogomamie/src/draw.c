@@ -366,7 +366,7 @@ void draw_init(void)
 
 /* ---- cosmetic effects ------------------------------------------------------------------------------------------------ */
 typedef struct fx_obj { int kind, t, life, frame, n; int32_t x, y, vx, vy; } fx_obj;
-enum { FX_NONE, FX_DUST, FX_SHARD, FX_DEBRIS, FX_STAR, FX_POP, FX_SPLASH, FX_FEATHER };
+enum { FX_NONE, FX_DUST, FX_SHARD, FX_DEBRIS, FX_STAR, FX_POP, FX_SPLASH, FX_FEATHER, FX_STREAK };
 #define FX_MAX 48
 static fx_obj fx[FX_MAX];
 
@@ -408,7 +408,16 @@ void fx_event(const world *w, int p, int ev, const hit *h)
     }
     if (ev & EV_GLASS) burst(FX_SHARD, x, y, 8, 20, 24);
     if (ev & (EV_POT | EV_BREAK)) burst(FX_DEBRIS, x, y + 4, 6, 18, 16);
-    if (ev & EV_PIGEON) burst(FX_FEATHER, x, y, 4, 16, 12);
+    if (ev & (EV_PIGEON | EV_KNOCK)) burst(FX_FEATHER, x, y - (ev & EV_KNOCK ? 20 : 0), 4, 16, 12);
+    if (ev & (EV_STUMBLE | EV_BASKET | EV_KNOCK)) burst(FX_STAR, x, y - 26, 3, 16, 10);   /* seeing stars */
+    if ((ev & EV_DEFLECT) && m->deflect) {          /* a slope bounce: streaks the way it throws her */
+        for (int k = 0; k < 2; k++) {
+            fx_obj *f = fx_new(FX_STREAK, x - 8 - m->deflect * 10, y - 12 - k * 9, 14);
+            if (f) { f->vx = m->deflect * 160; f->vy = -96; f->frame = m->deflect < 0; }
+        }
+        fx_obj *f = fx_new(FX_DUST, x - 4 - m->deflect * 6, y - 4, 12);
+        if (f) f->vx = -m->deflect * 96;
+    }
     if (ev & EV_STUNT) {
         fx_obj *f = fx_new(FX_POP, x - 8, y - 40, 40);
         if (f) { f->n = m->stunt_pts; f->frame = m->chain; f->vy = -64; }
@@ -447,12 +456,20 @@ static void spr_at(int id, int sx, int sy, int pal, int flags)
 
 static void spr_w(int id, int wx, int wy, int flags) { spr_at(id, wx - camx_i, wy - camy_i, -1, flags); }
 
+static void spr_w_prio(int id, int wx, int wy, int flags, int prio)
+{
+    const pm_sprite_def *d = &pm_spr[id];
+    int sx = wx - camx_i, sy = wy - camy_i;
+    if (sx <= -(int)d->w || sx >= RS_SCREEN_W || sy <= -(int)d->h || sy >= RS_SCREEN_H) return;
+    rs_spr(sx, sy, d->tile, d->w, d->h, d->pal, prio, flags);
+}
+
 static int mamie_frame(const mamie *m, int t)
 {
     switch (m->state) {
-    case MS_SLING: return MF_SQUASH2;
+    case MS_SLING: return m->t < 3 ? MF_SQUASH1 : MF_SQUASH2;
     case MS_REEL: return MF_HANG;
-    case MS_FALL: return (t / 6) & 1 ? MF_FLAIL2 : MF_FLAIL1;
+    case MS_FALL: case MS_TUMBLE: return (t / 6) & 1 ? MF_FLAIL2 : MF_FLAIL1;
     case MS_DOWN: return m->down_kind ? MF_FLOAT : MF_SIT;
     default: break;
     }
@@ -464,6 +481,11 @@ static int mamie_frame(const mamie *m, int t)
     return m->vy < 0 ? MF_RISE : MF_FALL;
 }
 
+/* the family: Mamie (OBJ 0), Papi (1, his beret over the headscarf), Tata (4) and Tonton (5, Papi's beret): the
+ * house players' palettes (docs/art-direction.md) */
+static const int player_pal[MAX_PLAYERS] = {0, 1, 4, 5};
+int draw_player_pal(int p) { return player_pal[p & 3]; }
+
 static void draw_player(const world *w, int p)
 {
     const mamie *m = &w->m[p];
@@ -474,16 +496,83 @@ static void draw_player(const world *w, int p)
     if (m->state == MS_DOWN && m->t > 12) {
         spr_at(SPR_CURSE + (m->t / 12) % 2, sx - 4, sy - 16, -1, 0);
     }
-    if (p == 1) {                                   /* Papi's beret over the headscarf */
+    if (p == 1 || p == 3) {                         /* Papi's (Tonton's) beret over the headscarf */
         int hx = pm_papi_head[f][0], hy = pm_papi_head[f][1];
-        spr_at(SPR_PAPI_HEAD, flip ? sx + 24 - hx - 16 : sx + hx, sy + hy, 1, flip);
+        spr_at(SPR_PAPI_HEAD, flip ? sx + 24 - hx - 16 : sx + hx, sy + hy, player_pal[p], flip);
     }
     if (m->umbrella_t > 0 && m->state == MS_AIR) {
         int blink = m->umbrella_t < 60 && (m->umbrella_t / 4) % 2;
         if (!blink) spr_at(SPR_UMBRELLA + ((w->t / 16) & 1), sx, sy - 12, -1, 0);
     }
-    spr_at(SPR_MAMIE + f, sx, sy, p == 1 ? 1 : 0, flip);
-    if (sy + 8 < 0 && m->state == MS_AIR) spr_at(SPR_ARROW, sx + 8, 2, -1, 0);       /* above the screen */
+    spr_at(SPR_MAMIE + f, sx, sy, player_pal[p], flip);
+    if (sy + 8 < 0 && (m->state == MS_AIR || m->state == MS_TUMBLE))
+        spr_at(SPR_ARROW, sx + 8, 2, -1, 0);       /* above the screen */
+}
+
+/* ---- the clothesline's rope: 8-px chords between points on its curve (obj_line_y), the points 8 px apart and
+ * aligned on the load point (where Mamie stands: her pogo's tip exactly on the rope), drawn behind the play layer
+ * (OBJ priority 1): the chords that reach past a pole go behind the wall ---------------------------------------- */
+int draw_line_points(const obj *o, int *xs, int *ys, int max)
+{
+    int x0 = (int)o->x, x1 = x0 + o->w;
+    int L = o->sag ? x0 + clampi(o->c, 1, o->w - 1) : x0;
+    int first = L - (L - x0 + 7) / 8 * 8, n = 0;
+    for (int x = first; n < max; x += 8) {
+        xs[n] = clampi(x, x0, x1);
+        ys[n] = obj_line_y(o, xs[n]);
+        n++;
+        if (x >= x1) break;
+    }
+    return n;
+}
+
+static void draw_rope(const obj *o, int i)
+{
+    int xs[24], ys[24], n = draw_line_points(o, xs, ys, 24);
+    int x0 = (int)o->x;
+    int first = xs[0] == x0 && n > 1 ? xs[1] - 8 : xs[0];
+    for (int k = 0; k + 1 < n; k++) {
+        /* the chord [xs[k], xs[k + 1]], drawn as an 8-px segment from sx (a short one at a pole is extended into
+         * the wall behind it) */
+        int sx = k == 0 ? first : xs[k], span = xs[k + 1] - xs[k];
+        if (span <= 0) continue;
+        int dy = ys[k + 1] - ys[k], s = dy * 8 / span;
+        s = clampi(s, -15, 15);
+        int sy = ys[k + 1] - s;                     /* the segment ends on the next point */
+        if (k > 0) sy = ys[k];                      /* ... and starts exactly on its own */
+        if (s >= 0) spr_w_prio(SPR_ROPE + s, sx, sy, 0, 1);
+        else spr_w_prio(SPR_ROPE - s, sx, sy - 15, RS_SPR_VFLIP, 1);
+    }
+    /* the hooks on the walls */
+    spr_w_prio(SPR_HOOK, x0 - 6, obj_line_y(o, x0) - 3, 0, 2);
+    spr_w_prio(SPR_HOOK, x0 + o->w - 2, obj_line_y(o, x0 + o->w) - 3, RS_SPR_HFLIP, 2);
+    /* the clothes, pegged on the rope every 16 px, swinging with it */
+    int sw = (int)o->sagv;
+    for (int j = 0, ax = x0 + 12; ax + 8 <= x0 + o->w; j++, ax += 16) {
+        int k = (j + i) % 4, tilt = 0;
+        int ph = sw + ((j & 1) ? 40 : -40) * (o->sag != 0);
+        if (ph > 60) tilt = 1;
+        else if (ph < -60) tilt = 2;
+        spr_w_prio(SPR_CLOTHES + k * 3 + tilt, ax - 4, obj_line_y(o, ax) + 1, 0, 1);
+    }
+}
+
+/* a pigeon's frame: walking, pecking, flapping, gliding, diving */
+static int pigeon_frame(const obj *o, int t)
+{
+    if (o->state) return 3 + (t / 4) % 2;
+    switch (o->var) {
+    case PG_HOVER: return 3 + (t / 3) % 2;
+    case PG_GLIDE: return (o->t / 20) % 5 == 0 ? 3 + (t / 4) % 2 : 5;
+    case PG_SWOOP: {
+        int x0, y0, x1, y1;
+        pigeon_at_t(o, o->t, &x0, &y0);
+        pigeon_at_t(o, o->t + 4, &x1, &y1);
+        return y1 > y0 ? 6 : 3 + (t / 4) % 2;
+    }
+    default:
+        return (o->t / 50) % 3 == 2 ? ((o->t / 10) % 2 ? 2 : 0) : (o->t / 8) % 2;
+    }
 }
 
 static void draw_cat(const world *w)
@@ -503,14 +592,21 @@ static void draw_objects(const world *w)
         if (o->state == 2) continue;
         switch (o->kind) {
         case OB_PIGEON: {
-            int cx = (int)o->x + (o->pos >> 16);
-            int f = o->state ? 3 + (t / 4) % 2 : (o->t / 50) % 3 == 2 ? ((o->t / 10) % 2 ? 2 : 0) : (o->t / 8) % 2;
-            spr_w(SPR_PIGEON + f, cx - 8, o->y - 16, o->dir < 0 ? RS_SPR_HFLIP : 0);
+            int cx, feet;
+            pigeon_at(o, &cx, &feet);
+            spr_w(SPR_PIGEON + pigeon_frame(o, t), cx - 8, feet - 16, o->dir < 0 ? RS_SPR_HFLIP : 0);
             break;
         }
         case OB_ANTENNA: {
             int f = o->t > 0 ? 1 + (o->t / 4) % 2 : 0;
+            spr_w(SPR_BEACON + ((t + (int)o->x) / 24) % 2, (int)o->x - 4 + (f == 1 ? -2 : f == 2 ? 2 : 0), o->y - 32, 0);
             spr_w(SPR_ANTENNA + f, (int)o->x - 8, o->y - 32, 0);
+            break;
+        }
+        case OB_BALLOON: {
+            int bx = balloon_x(o), sway = o->t > 16 ? ((o->t / 4) % 2 ? 1 : -1) : 0;
+            spr_w(SPR_BALLOON + (o->t > 0 && o->t <= 16), bx, o->y, 0);
+            spr_w(SPR_BASKET, bx + 8 + sway, o->y + 30, 0);
             break;
         }
         case OB_AWNING:
@@ -532,12 +628,7 @@ static void draw_objects(const world *w)
                 spr_w(SPR_BAGUETTE + (k == 0 ? 0 : k == o->w / 8 - 1 ? 2 : 1), (int)o->x + k * 8, o->y - SURF_BAGUETTE, 0);
             break;
         case OB_LINE:
-            for (int k = 0; k < (o->w + 7) / 8; k++) {
-                int x0 = (int)o->x + k * 8, y0 = obj_line_y(o, x0), y1 = obj_line_y(o, x0 + 8);
-                int s = clampi(y1 - y0, -2, 2);
-                spr_w(SPR_LINE + (2 - s), x0, y0 - 3, 0);
-                if (k % 2 == 1 && k * 8 + 8 < o->w) spr_w(SPR_CLOTHES + (k / 2 + i) % 4, x0, y0 + 1, 0);
-            }
+            draw_rope(o, i);
             break;
         case OB_ITEM: {
             int bob = ((t / 8) % 4 == 1) - ((t / 8) % 4 == 3);
@@ -571,7 +662,8 @@ static void draw_fx(void)
         case FX_DUST: spr_at(SPR_DUST + clampi(f->t * 3 / f->life, 0, 2), x, y, -1, 0); break;
         case FX_SHARD: spr_at(SPR_SHARD + f->frame, x, y, -1, 0); break;
         case FX_DEBRIS: spr_at(SPR_DEBRIS + f->frame, x, y, -1, 0); break;
-        case FX_FEATHER: spr_at(SPR_DUST, x, y, -1, 0); break;
+        case FX_FEATHER: spr_at(SPR_FEATHER + (f->t / 6) % 2, x, y, -1, 0); break;
+        case FX_STREAK: spr_at(SPR_WIND + (f->t / 4) % 2, x, y, -1, f->frame ? RS_SPR_HFLIP : 0); break;
         case FX_STAR: spr_at(SPR_STAR + (f->t / 4) % 2, x, y, -1, 0); break;
         case FX_SPLASH: spr_at(SPR_SPLASH + clampi(f->t * 3 / f->life, 0, 2), x, y, -1, 0); break;
         case FX_POP: {                                /* "+50", then "x2" for a chain */
