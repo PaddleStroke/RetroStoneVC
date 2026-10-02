@@ -139,8 +139,8 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
     /* the title, every frame: the prompt (blinking), the player slots, BEST, the join line, the credits */
     if (state == ST_TITLE) hu_title_draw(st_t, best);
     if (state == ST_OVER) {
-        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, "A: PLAY AGAIN");
-        else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, "A: PLAY AGAIN");
+        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, "A: TITLE");
+        else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, "A: TITLE");
     }
 }
 

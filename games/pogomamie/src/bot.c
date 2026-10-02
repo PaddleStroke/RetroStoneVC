@@ -367,6 +367,9 @@ void bot_decide(int p, int *dir, int *a)
             if (after == 0 && k > 0 && k < 72 && (k % 8)) continue;
             landing r = simulate(*m, k, after, 240);
             if (!safe_kind(r.kind)) continue;
+            /* A safe landing must leave a safe next bounce: fatal antennas cannot be recovered from. */
+            if (r.kind == SF_ROOF && !hop_passes(r.x, r.y, r.vx, r.slope, 0, r.x - 24) &&
+                !hop_passes(r.x, r.y, r.vx, r.slope, 1, r.x - 24)) continue;
             /* a slope that throws her back: the bounce after it must still land somewhere safe */
             if (r.slope < 0 && r.kind == SF_ROOF && !hop_passes(r.x, r.y, r.vx, r.slope, 0, r.x - 48)) continue;
             int sc = r.x * 16 - edge_penalty(r.x) * 16;
@@ -385,7 +388,10 @@ void bot_decide(int p, int *dir, int *a)
     if (safe_kind(best_r.kind) && best_r.t < 14) {
         int edge = edge_ahead(best_r.x);
         int need = edge - best_r.x < 40 && edge < W_ + base_x;
-        plan_a[p] = (need && !hop_passes(best_r.x, best_r.y, best_r.vx, best_r.slope, 0, edge) &&
+        int safe_normal = hop_passes(best_r.x, best_r.y, best_r.vx, best_r.slope, 0, best_r.x - 24);
+        int safe_big = hop_passes(best_r.x, best_r.y, best_r.vx, best_r.slope, 1, best_r.x - 24);
+        plan_a[p] = (!safe_normal && safe_big) ||
+                    (need && !hop_passes(best_r.x, best_r.y, best_r.vx, best_r.slope, 0, edge) &&
                      hop_passes(best_r.x, best_r.y, best_r.vx, best_r.slope, 1, edge)) ||
                     (stuck && (stall[p] / 150) % 2);
     } else if (best_r.t >= 20) {

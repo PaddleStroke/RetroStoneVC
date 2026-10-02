@@ -37,6 +37,57 @@ static uint32_t hash2(uint32_t a, uint32_t b)
 
 static int variant(int n, int tc) { return (int)(hash2((uint32_t)n, (uint32_t)(tc & 1023)) & 3); }
 
+/* Narrow views share identical end tiles. References keep an edge alive until every map row using it changes. */
+#define END_SLOTS (MAX_PLAYERS * RING_ROWS * 4)
+static uint8_t end_pixels[END_SLOTS][64];
+static uint16_t end_refs[END_SLOTS];
+static int16_t row_ends[MAX_PLAYERS][RING_ROWS][4];
+static int narrow;
+
+void render_reset(int players)
+{
+    narrow = players > 2;
+    memset(end_refs, 0, sizeof end_refs);
+    memset(row_ends, -1, sizeof row_ends);
+}
+
+static void release_ends(int p, int row)
+{
+    for (int k = 0; k < 4; k++) {
+        int slot = row_ends[p][row][k];
+        if (slot >= 0) end_refs[slot]--;
+        row_ends[p][row][k] = -1;
+    }
+}
+
+static int share_end(int p, int row, int k, const uint8_t *pixels)
+{
+    int free_slot = -1;
+    for (int s = 0; s < END_SLOTS; s++) {
+        if (!end_refs[s]) { if (free_slot < 0) free_slot = s; continue; }
+        if (!memcmp(end_pixels[s], pixels, 64)) {
+            end_refs[s]++;
+            row_ends[p][row][k] = (int16_t)s;
+            return BT_DYN + s;
+        }
+    }
+    /* There are at most END_SLOTS references; this row released its old ones before requesting replacements. */
+    if (free_slot < 0) return BT_BLANK;
+    memcpy(end_pixels[free_slot], pixels, 64);
+    end_refs[free_slot] = 1;
+    row_ends[p][row][k] = (int16_t)free_slot;
+    rs_tiles_load8(VR_BG2 + BT_DYN + free_slot, pixels, 1);
+    return BT_DYN + free_slot;
+}
+
+void render_state(void)
+{
+    rs_state_var("render.end_pixels", end_pixels, sizeof end_pixels);
+    rs_state_var("render.end_refs", end_refs, sizeof end_refs);
+    rs_state_var("render.row_ends", row_ends, sizeof row_ends);
+    rs_state_var("render.narrow", &narrow, sizeof narrow);
+}
+
 /* ---- the pancake ------------------------------------------------------------------------------------------ */
 #define END_ZONE 5                  /* px at each end drawn per row (the rounded end, its shading, the syrup) */
 static const uint8_t INSET[2][8] = {{2, 1, 0, 0, 0, 0, 1, 2}, {3, 1, 0, 0, 0, 0, 0, 2}};
@@ -203,6 +254,7 @@ static uint16_t middle_entry(const layer *l, int tc, int centre_tc)
 
 void render_row(int player, int ring_row, const layer *l, int centre_px, int col0, int ncols)
 {
+    if (narrow) release_ends(player, ring_row);
     int x0 = centre_px + l->x, x1 = x0 + l->w - 1, tx0 = x0 >> 3, tx1 = x1 >> 3, centre_tc = (x0 + l->w / 2) >> 3;
     int lz = (x0 + END_ZONE - 1) >> 3, rz = (x1 - END_ZONE + 1) >> 3;       /* the end zones' last / first tile */
     int pal = l->kind == LK_PANCAKE ? PAL_TOWER : PAL_TOPPING;
@@ -219,19 +271,21 @@ void render_row(int player, int ring_row, const layer *l, int centre_px, int col
                         int v = layer_px(l, x0, c * 8 + x, y, 0, 0, &p);
                         t[y * 8 + x] = (uint8_t)v;
                     }
-                rs_tiles_load8(VR_BG2 + slot, t, 1);
+                if (narrow) slot = share_end(player, ring_row, k, t);
+                else rs_tiles_load8(VR_BG2 + slot, t, 1);
                 e = RS_MAP(slot, pal, 0, 0, 0);
             } else {
                 e = middle_entry(l, c, centre_tc);
             }
         }
-        rs_bg_put(RS_BG2, c & 31, ring_row, e);
+        rs_bg_put(RS_BG2, c & (rs_bg_map_w(RS_BG2) - 1), ring_row, e);
     }
 }
 
 void render_clear_row(int ring_row, int col0, int ncols)
 {
-    for (int c = col0; c < col0 + ncols; c++) rs_bg_put(RS_BG2, c & 31, ring_row, 0);
+    if (narrow) release_ends(col0 / 16, ring_row);
+    for (int c = col0; c < col0 + ncols; c++) rs_bg_put(RS_BG2, c & (rs_bg_map_w(RS_BG2) - 1), ring_row, 0);
 }
 
 /* ---- sprites: a layer in a 128x8 box (16 tiles: two 64x8 sprites) ------------------------------------------------- */
@@ -250,7 +304,7 @@ static void upload_box(int tile, int w, int h)
             }
 }
 
-int render_layer_sprite(int tile, const layer *l, int box_x0, int x0, int squash, int *pal)
+int render_layer_sprite(int tile, const layer *l, int box_x0, int x0, int squash, int box_w, int *pal)
 {
     memset(sbuf, 0, 128 * 8);
     int p = 0;
@@ -264,13 +318,13 @@ int render_layer_sprite(int tile, const layer *l, int box_x0, int x0, int squash
         }
         layer ll = *l;
         ll.w = (int16_t)ww;
-        for (int x = 0; x < 128; x++) {
+        for (int x = 0; x < box_w; x++) {
             int ax = box_x0 + x;
             int v = layer_px(&ll, xx0, ax, sy, 1, 0, &p);
-            if (v) sbuf[y * 128 + x] = (uint8_t)v;
+            if (v) sbuf[y * box_w + x] = (uint8_t)v;
         }
     }
-    upload_box(tile, 128, 8);
+    upload_box(tile, box_w, 8);
     *pal = p;
     return 0;
 }
@@ -297,7 +351,7 @@ int render_piece_fits(int w, int a)
     return half_h <= 7 && half_w <= 63;
 }
 
-int render_piece(int tile, const cut_piece *pc, int a)
+int render_piece(int tile, const cut_piece *pc, int a, int box_w)
 {
     int used = 0;                                 /* bit 0: the left 64 columns hold pixels, bit 1: the right ones */
     memset(sbuf, 0, 128 * 16);
@@ -306,15 +360,15 @@ int render_piece(int tile, const cut_piece *pc, int a)
     int cut = pc->kind == LK_PANCAKE && !pc->whole ? (pc->side > 0 ? 1 : 2) : 0;
     int s = isin64(a), c = icos64(a), p;
     for (int by = 0; by < 16; by++)
-        for (int bx = 0; bx < 128; bx++) {
+        for (int bx = 0; bx < box_w; bx++) {
             /* box centre (64, 8); rotate the box pixel back into the piece (Q14) */
-            int dx = 2 * bx + 1 - 128, dy = 2 * by + 1 - 16;            /* half pixels */
+            int dx = 2 * bx + 1 - box_w, dy = 2 * by + 1 - 16;            /* half pixels */
             int u = (dx * c + dy * s) >> 15, v = (-dx * s + dy * c) >> 15;   /* pixels */
             int lx = u + pc->w / 2, ly = v + 4;
             if (lx < 0 || lx >= pc->w || ly < 0 || ly > 7) continue;
             int col = layer_px(&l, 0, lx, ly, 1, cut, &p);
-            if (col) { sbuf[by * 128 + bx] = (uint8_t)col; used |= bx < 64 ? 1 : 2; }
+            if (col) { sbuf[by * box_w + bx] = (uint8_t)col; used |= bx < 64 ? 1 : 2; }
         }
-    upload_box(tile, 128, 16);
+    upload_box(tile, box_w, 16);
     return used;
 }

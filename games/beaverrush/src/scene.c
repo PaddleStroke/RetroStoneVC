@@ -28,6 +28,13 @@ static int pond_line;                           /* its integer line */
 static int dam_drawn;                           /* logs drawn into the dam canvas */
 static int lean_q8;                             /* the camera lean, px Q8 */
 static int sky_dirty;
+/* the four players' beaver colours, tinted like the scene's sprites (load_palettes): OBJ 0 holds P1's; in a split
+ * screen the raster loads each viewport's player into OBJ 0 (one beaver palette for four beavers), and on the title
+ * OBJ 5 and 6 (gold and bird, unused there) hold P3's and P4's for their icons */
+static rs_color fur_tint[MAX_PLAYERS][16];
+static int title_pals;
+static int8_t view_fur[RS_VIEW_MAX];            /* the player whose colours OBJ 0 shows in each viewport */
+static int8_t line_fur[RS_SCREEN_H];            /* ... for a viewport of FUR_BY_LINE: by screen line */
 
 int scene_stage_shown(void) { return scene_to; }
 int scene_tod(void) { return (fade_t < SCENE_FADE / 2 ? scene_from : scene_to) % TIMES_OF_DAY; }
@@ -60,7 +67,7 @@ static void load_palettes(void)
             }
     }
     for (int p = 0; p < 8; p++) {
-        if (p == OPAL_KIT) continue;
+        if (p == OPAL_KIT || p == OPAL_BEAVER) continue;
         int glow = p == OPAL_FX;                    /* sun, moon, stars, fireflies, water: not darkened */
         for (int i = 1; i < 16; i++) {
             rs_color a = br_obj_pals[(sa * 8 + p) * 16 + i], b = br_obj_pals[(sb * 8 + p) * 16 + i];
@@ -68,6 +75,44 @@ static void load_palettes(void)
             rs_pal_set(RS_PAL_OBJ(p) + i, hu_lerp_color(a, b, k));
         }
     }
+    for (int q = 0; q < MAX_PLAYERS; q++)
+        for (int i = 1; i < 16; i++) {
+            rs_color c = br_fur_pals[q * 16 + i];
+            fur_tint[q][i] = hu_lerp_color(scene_color(c, scene_from, 1), scene_color(c, scene_to, 1), k);
+        }
+    rs_pal_load(RS_PAL_OBJ(OPAL_BEAVER) + 1, &fur_tint[0][1], 15);
+    if (title_pals) {
+        rs_pal_load(RS_PAL_OBJ(OPAL_GOLD) + 1, &fur_tint[2][1], 15);
+        rs_pal_load(RS_PAL_OBJ(OPAL_BIRD) + 1, &fur_tint[3][1], 15);
+    }
+}
+
+void scene_title_pals(int on)
+{
+    if (on == title_pals) return;
+    title_pals = on;
+    load_palettes();
+}
+
+int scene_player_pal(int p)
+{
+    static const uint8_t title[MAX_PLAYERS] = {OPAL_BEAVER, OPAL_BEAVER2, OPAL_GOLD, OPAL_BIRD};
+    return title_pals ? title[p & 3] : OPAL_BEAVER;
+}
+
+void scene_view_fur(int view, int player)
+{
+    if (view >= 0 && view < RS_VIEW_MAX) view_fur[view] = (int8_t)player;
+}
+
+void scene_line_fur(int y0, int y1, int player)
+{
+    for (int y = y0 < 0 ? 0 : y0; y < y1 && y < RS_SCREEN_H; y++) line_fur[y] = (int8_t)player;
+}
+
+static void fur_load(int p)
+{
+    rs_pal_load(RS_PAL_OBJ(OPAL_BEAVER) + FUR0, &fur_tint[p & 3][FUR0], FUR1 - FUR0);
 }
 
 static void sky_lines(int t)
@@ -110,6 +155,14 @@ static void raster(int line, void *user)
     /* below the stump's top the trunk layer is hidden (its map wraps there while the trunk drops) */
     if (line == 0) rs_window(1, 0, 0);
     else if (line == GROUND_Y) rs_window(1, 0, RS_SCREEN_W);
+    /* the beaver's colours: each viewport its player's (one screen: P1's) */
+    int v = rs_viewport_current();
+    if (v < 0) {
+        if (line == 0) fur_load(0);
+    } else {
+        int p = view_fur[v] == FUR_BY_LINE ? line_fur[line] : view_fur[v];
+        if (p >= 0) fur_load(p);
+    }
 }
 
 /* ---- the dam canvas -------------------------------------------------------------------------------------------- */
@@ -243,7 +296,7 @@ void scene_bg_scroll(int view_sx)
 void scene_state(void)
 {
     S(line_col); S(bg3_dx); S(bg4_dx); S(scene_from); S(scene_to); S(fade_t); S(water_q8); S(pond_line);
-    S(dam_drawn); S(lean_q8); S(sky_dirty);
+    S(dam_drawn); S(lean_q8); S(sky_dirty); S(fur_tint); S(title_pals); S(view_fur); S(line_fur);
     RS_STATE_RASTER(raster);
 }
 #undef S

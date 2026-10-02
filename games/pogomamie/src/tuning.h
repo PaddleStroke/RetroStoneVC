@@ -97,14 +97,15 @@
 #define YARN_REEL_T   36            /* frames reeling her up onto the ledge */
 
 /* ---- hazards ------------------------------------------------------------------------------------------------------ */
-/* Hitting an antenna, a pigeon from the side or from below, or a balloon's basket or ropes breaks the bounce: she
- * tumbles and drops (no control); landing on something she recovers with a weak hop; in a gap, below both roofs,
- * it is the fall. */
+/* Hitting an antenna, a pigeon from the side or from below, or a balloon's basket or ropes ENDS THE RUN: she is
+ * thrown back, tumbles for TUMBLE_T frames (no control, no roof catches her, whatever is below) and falls into the
+ * street (the river): the fall and the game-over panel. Only a stomp from above bounces. */
 #define PIGEON_W      12            /* the pigeon's box */
 #define PIGEON_H      10
 #define PIGEON_SPEED  Q16(0.25)     /* walking on a roof */
 #define TUMBLE_VX     Q16(1.5)      /* knocked away from what she hit (it dies away by 1/64 a frame) */
-#define TUMBLE_VY     Q16(0.5)      /* ... and dropping */
+#define TUMBLE_HOP    Q16(2.0)      /* ... popped up a little before dropping */
+#define TUMBLE_T      28            /* frames of tumbling before the fall */
 #define V_RECOVER     Q16(3.042)    /* the landing after a tumble: a weak 40-px hop, sqrt(2 x g x 40) */
 #define ANTENNA_H     28
 #define ANTENNA_HALF  3

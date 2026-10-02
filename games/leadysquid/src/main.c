@@ -191,26 +191,13 @@ static void game_update(void)
     case DS_DEAD:
         play_update();
         break;
-    case DS_OVER: {
-        int again = 0, back = 0;
-        if (st_t >= RETRY_LOCK) {
-            for (int p = 0; p < W.players; p++) {
-                uint16_t b = rs_pad_pressed(hu_player_pad(p));
-                again |= (b & FLAP_BUTTONS) != 0;
-                back |= (b & RS_BTN_SELECT) != 0;
-            }
-            if (opt_bot && runs_done < opt_botruns && st_t == RETRY_LOCK + 10) again = 1;
-        }
-        if (back) {                           /* Select: back to the title (to join or leave) */
-            sfx(SFX_PAUSE);
+    case DS_OVER:
+        if (st_t >= RETRY_LOCK && (hu_over_back() ||
+            (opt_bot && runs_done < opt_botruns && st_t == RETRY_LOCK + 10))) {
+            sfx(SFX_JOIN);
             new_run(DS_TITLE);
-        } else if (again) {                   /* one press: the next race at once, the press is P1's first flap */
-            new_run(DS_READY);
-            retry_flap = 1;
-            play_update();
         }
         break;
-    }
     }
     fx_update(&W);
     st_t++;

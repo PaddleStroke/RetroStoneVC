@@ -270,26 +270,13 @@ static void game_update(void)
         play_update();
         music_update();
         break;
-    case ST_OVER: {
-        int again = 0, back = 0;
-        if (st_t >= RETRY_LOCK) {
-            for (int p = 0; p < W.players; p++) {
-                if (is_bot(p)) continue;
-                uint16_t b = rs_pad_pressed(hu_player_pad(p));
-                again |= (b & RETRY_INPUTS) != 0;
-                back |= (b & RS_BTN_SELECT) != 0;
-            }
-            if (opt_bot && runs_done < opt_botruns && st_t == RETRY_LOCK + 10) again = 1;
-        }
-        if (back) {                             /* Select: back to the title (players join or leave there) */
-            ha_play(HA_SELECT);
-            new_run(ST_TITLE);
-        } else if (again) {                     /* house rule: one press, instant retry, straight into the run */
+    case ST_OVER:
+        if (st_t >= RETRY_LOCK && (hu_over_back() ||
+            (opt_bot && runs_done < opt_botruns && st_t == RETRY_LOCK + 10))) {
             ha_play(HA_CONFIRM);
-            start_run();
+            new_run(ST_TITLE);
         }
         break;
-    }
     }
     st_t++;
 }

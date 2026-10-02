@@ -144,9 +144,8 @@ void sfx_init(void)
 void sfx_at(int id, int x, int pitch)
 {
     if (!sound_on || id < 0 || id >= SFX_COUNT) return;
-    int pan = clampi(24 + x * 80 / RS_SCREEN_W, 0, 127);
-    int v = rs_sfx(sounds[id].slot, sounds[id].vol, pan, pitch ? pitch : sounds[id].pitch);
-    if (v >= 0 && sounds[id].echo) rs_voice_echo(v, 1);
+    ha_play_pitched(sounds[id].slot, sounds[id].vol, x,
+                    pitch ? pitch : sounds[id].pitch, sounds[id].echo);
 }
 
 void sfx(int id) { sfx_at(id, RS_SCREEN_W / 2, 0); }

@@ -165,14 +165,14 @@ static void mode_title(void)
     int prompt = 0, glyph = 0;
     for (int i = 0; i < 60; i++) {
         frame(0, 0);
-        prompt |= bg1_text_is(10, 21, "PRESS ANY ARROW TO HOP");
+        prompt |= bg1_text_is(14, 21, "PRESS A TO HOP");
         for (int k = 0; k < RS_OAM_MAX; k++) {
             const rs_sprite *s = rs_oam(k);
-            if (s->used && s->pal == 3 && s->y == 21 * 8 - 4 && s->tile >= KIT_OBJ_TILE && s->x < 10 * 8) glyph = 1;
+            if (s->used && s->pal == 3 && s->y == 21 * 8 - 4 && s->tile == KIT_OBJ_TILE + 40 && s->x == 92) glyph = 1;
         }
     }
-    CHECK(prompt, "PRESS ANY ARROW TO HOP on row 21 (it blinks)");
-    CHECK(glyph, "the D-pad glyph beside it");
+    CHECK(prompt, "PRESS A TO HOP on row 21 (it blinks)");
+    CHECK(glyph, "the A glyph beside it");
     CHECK(bg1_text_is(4, 28, "(C) 2026 8BCRAFT - RETROSTONE VC"), "the copyright line on row 28");
     CHECK(bg1_text_is(4, 18, "P1"), "P1's slot on row 18");
     CHECK(sprite_range(SPR_LING_RIGHT, 2, 2) >= 3 && sprite_range(SPR_DUCK_RIGHT, 4, 2) >= 1, "Mother and her ducklings march under the logo");
@@ -259,7 +259,7 @@ static void mode_run(int max_frames)
             CHECK(digits_at(14 * 8 - 4, 150, 260) >= s0, "BEST shows the best");
             int medal = medal_of(s0), egg = sprite_range(SPR_EGG, 4, 3);
             CHECK(medal ? egg == 1 : egg == 0, "the egg medal (tier %d, %d egg sprites)", medal, egg);
-            CHECK(bg1_box_is(14, 19, "A: HOP AGAIN") || bg1_box_is(14, 19, "            "), "the retry line on row 19");
+            CHECK(bg1_box_is(14, 19, "A: MAIN MENU") || bg1_box_is(14, 19, "            "), "the retry line on row 19");
             shot("gameover");
             over_checked = 1;
             printf("  the run: score %d, lanes %d, banked %d; %d frames checked\n", s0, w->d[0].max_col - START_COL, w->d[0].banked, hud_checks);

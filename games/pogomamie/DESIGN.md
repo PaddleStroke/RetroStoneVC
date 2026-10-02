@@ -8,7 +8,7 @@ Mamie, a Parisian grandmother in a headscarf, a cardigan and her handbag, is cha
 rooftops of Paris on a pogo stick. The cat is always a bit ahead, sitting on a chimney and looking back at her.
 The pogo bounces by itself on every landing: steer her in the air, hold A as she lands for a big bounce over the
 wide gaps, and keep going: Montmartre, the Seine, the Haussmann boulevards, the Eiffel Tower, then all night long.
-One button, instant retry, a best distance to beat.
+One button, quick return to title, a best distance to beat.
 
 It is Doodle Jump's auto-bounce turned sideways for the 4:3 landscape screen: the world scrolls to the right.
 Its mechanics follow the reference feel (a bounce on every landing that sets the same arc, air control with a
@@ -123,30 +123,22 @@ Tower's lights twinkle). OBJ 0 Mamie, 1 Papi (Mamie's palette recoloured: grey h
   the best chain. Never part of a save state.
 
 ## Flow
-1. **Title**: the kit's logo ("POGO" in lead grey, "MAMIE" in the pink accent), Mamie bouncing in place on her
-   roof, the cat on the next building looking back (it meows now and then), the blinking A glyph and PRESS A TO
-   BOUNCE, the best distance and score, the copyright line.
-2. **Get ready**: GET READY, the controls line, the 2P join line. A (or Start) starts: she sets off at cruise speed.
-3. **Play**. The cat leaps ahead from chimney to chimney whenever she gets close.
-4. **The fall** (above), then after 80 frames:
-5. **Game over**: the GAME OVER banner and the panel slide up (house kit): DISTANCE (big digits), SCORE, BEST
-   (NEW BEST!), the medal and its name. After 36 frames A or Start retries at once (back to 2).
-
-**Pause**: Start (or Select) during a run: the house pause (dimmed, PAUSED).
+The title is the only menu: Mamie, the cat, logo, PRESS A TO BOUNCE and the player lobby. A or the D-pad
+starts immediately. After a fatal contact or missed roof, the fall leads to the game-over panel. A returns
+to the title with the same lobby; the next A starts again. Start or Select pauses and resumes during play.
 
 ## Controls
 | Button | Action |
 |---|---|
-| Left / Right | steer in the air: accelerate, brake |
-| A (B, X, Y too), held on a landing | the big bounce |
-| A or Start | start, retry |
-| Start (or Select) | pause |
-| Pad 2: A on the title or get ready | Papi joins (a 2-player race) |
+| Left / Right | steer in the air |
+| A (B, X, Y too), held on landing | big bounce |
+| A on title / results | start / return to title |
+| Start or Select in play | pause / resume |
+| Pads 2-4, A or Start on title | join race; B leaves |
 
-## 2-player race
-Papi joins from the title or get ready. Both bounce on the same rooftops at once, each with its own pad; the
-camera follows the leader and waits for the other one while the leader stays on screen; a player left more than
-24 px off the left edge drops out. The run ends when both are down or out; the panel names the winner.
+## Two to four players (race)
+All racers share the rooftops with separate pads and player colours. The camera tracks the race; players
+left too far behind drop out. Survivors continue until everyone is down. Results rank distance and score.
 
 ## Audio
 - House sounds (games/common/src/house_audio.c): the confirm chime (start, join), the pause blip, the medal
@@ -157,9 +149,9 @@ camera follows the leader and waits for the other one while the leader stays on 
   arpeggio, a **splash** and Mamie's **grumbling**. Stored at a third of the house rate: the sample-memory guideline
   (64 KiB as ADPCM) holds with the house set.
 - Music (tools/make_music.py with the house MOD writer): **musette waltzes**, one per district and one for the
-  night: 3/4 at 160 beats per minute, oom (the house bass) on beat 1, pah-pah (the left hand's chord buttons, a
-  just-tuned major or minor triad) on 2 and 3, a brush tick, and the melody on the musette accordion: three detuned
-  reeds (in tune, sharp, flat) in one loop, the "wet" beating of the musette tuning. Montmartre in C major, the
+  night: 3/4 at a calmer tempo, oom (the house bass) on beat 1, pah-pah (the left hand's chord buttons, a
+  just-tuned major or minor triad) on 2 and 3, a brush tick, and the melody on the musette accordion: gently detuned
+  reeds with reduced upper harmonics. Montmartre in C major, the
   Seine in A minor, Haussmann in F major, the Eiffel Tower in G major, the night in D minor and slower. The house
   loudness (music 56, effects 70-110).
 
@@ -226,12 +218,17 @@ video analysis and from clones tuned against it. We take their numbers only.
   it, and the street at its height in the gaps; every prop, pigeon and antenna in view has its sprite at its world
   position minus the camera; on every landing Mamie's pogo tip is on the row above the surface. All 64 x/y scroll
   phases must be seen.
-- `tests/smoke_test.sh`: the flow (title, get ready, start), a fall with no steering, big bounces, retry, pause,
+- `tests/smoke_test.sh`: the flow (title, immediate start), a fall with no steering, big bounces, retry, pause,
   save RAM, Papi joining, a race, the bot (tests/bot_test.sh) and determinism (a script and a bot run twice: the
   same state and picture).
 - **The bot** (`--opt bot=1`, src/bot.c): it plays from the **screen only** (OAM, the BG2 map through its scroll
-  registers and the tiles' shapes); 10 seeds, one run each: the mean must reach 1000 m.
-- `tests/state_test.sh`: save states at 17 points (the title, each district, the night, a race, two bots, paused,
+  registers and the tiles' shapes); 10 seeds, one run each. With fatal hazards the retuned bot averages 459 m
+  (75..1290 m). The regression requires a 350-m mean and at least one 1000-m run; the older 1000-m mean relied
+  on recoveries after hits. The generator still validates every gap against hazard-free trajectories.
+- `tests/ui_test.py`: single-player and 2-4-player results; clear space between the winner banner and ranking,
+  no single-player dialog behind multiplayer results, readable scores and menu prompt, slide background,
+  hardware limits and return to the title with the same players.
+- `tests/state_test.sh`: save states (the title, each district, the night, a race, two bots, paused,
   the fall, the panel, 4 random points of runs), replayed in the same process and in a fresh one; bad states are
   refused; `tools/state_audit.py` checks every mutable static.
 - `make pogomamie-bench` (tools/bench.sh) and `make pogomamie-screenshots` (tools/screenshots.sh).
@@ -248,14 +245,11 @@ Measured on the build host (WSL2, x86-64), 3300 frames per scene after 300, musi
 
 The frame budget is 16.7 ms. Worst whole frames on the host (about 1 ms) are the host's scheduling: the PPU's
 work is the same every frame (4 layers, at most 32 sprites, 16 on a line).
-## Remaining work
-Done and covered by `make pogomamie-check` (physics, generator fairness, align, states, bot): the D-pad and A start
-the game (`START_INPUTS` in src/main.c); the clothesline (Mamie lands on the rope and rides it; rope drawn from the
-load point); the harder hazards (antennas make her fall, flying pigeons knock her off while a stomp from above
-still bounces, hot-air balloons with basket and ropes make her fall, slanted roofs deflect the bounce), with the
-generator's fairness checks kept.
-Not done yet:
-- The title-only flow with up to 4 racers on the kit's `hu_title_*` API (docs/art-direction.md, "Title and
-  players"; games/leadysquid is the reference). The title and the 1-2 player race are still the older flow.
-- Re-tune the bot and the difficulty ramp after the new hazards (the bot mean is still above 1000 m, but it was not
-  re-balanced), then re-run `make pogomamie-screenshots` and `make pogomamie-bench` for the new sprites.
+## Current completion
+The title is the only menu: A starts immediately; pads 2-4 join with A or Start, B leaves. After game over A
+returns to the title with the lobby retained. Up to four racers share the rooftops and a distance ranking panel.
+Hazard contacts end the run through a tumble and fall: roofs, steering, yarn and umbrellas cannot recover a hit.
+A pigeon stomp from above remains a bounce. The clothesline and slanted-roof changes are retained.
+Music uses a quieter, less detuned accordion, softer accompaniment, slower tempo and eight varied phrases.
+A WAV preview is included beside the Windows executable. Physics tests cover fatal contact and the stomp exception;
+lobby, four-player, state replay and rooftop alignment tests cover the flow and rendering.

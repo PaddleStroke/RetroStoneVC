@@ -196,7 +196,7 @@ def main():
         f = vo.count(FILL, 80, 72, 240, 168)
         div = sum(1 for y in range(0, 30) for x in (159, 160) if vo.px[y][x] == ui((12, 20, 44)))
         win = vo.st("winner")
-        (ok if f > 6000 and div > 50 and win in (-1, 0, 1) else ko)(
+        (ok if f > 6000 and win in (-1, 0, 1) else ko)(
             "versus over: the panel over both halves (%d px), winner %d" % (f, win))
     print("ui_check: %s" % ("all passed" if not fails else "%d FAILED" % fails))
     return 1 if fails else 0

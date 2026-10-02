@@ -44,14 +44,10 @@ void ui_frame(const world *w, int state, int st_t, int best_m, int best_score, i
             }
             hu_copyright(28);
         }
-        if (state == DS_READY) {
-            hu_get_ready(6);
-            hu_text(hu_center("LEFT/RIGHT STEER - HOLD A: BIG BOUNCE", 0), 9, "LEFT/RIGHT STEER - HOLD A: BIG BOUNCE");
-        }
         if (state == DS_OVER) {
-            hu_banner(4, "GAME OVER");
-            hu_panel(10, 9, 20, 12);
             if (w->players == 1) {
+                hu_banner(4, "GAME OVER");
+                hu_panel(10, 9, 20, 12);
                 int md = medal_of(m->dist_m);
                 hu_box_text(12, 11, "DISTANCE");
                 hu_box_text(12, 13, "SCORE");
@@ -62,21 +58,20 @@ void ui_frame(const world *w, int state, int st_t, int best_m, int best_score, i
                 hu_box_text(29 - (int)strlen(s), 15, s);
                 hu_box_text(md ? 15 : 12, 17, medal_name[md]);    /* the medal's sprite left of its name */
             } else {
-                hu_box_text(12, 11, "MAMIE");
-                hu_box_text(12, 14, "PAPI");
-                int a = w->m[0].dist_m, b = w->m[1].dist_m;
-                const char *win = a > b ? "MAMIE WINS!" : b > a ? "PAPI WINS!" : "DRAW!";
-                hu_box_text(20 - (int)strlen(win) / 2, 17, win);
+                hu_standing rank;
+                int values[MAX_PLAYERS], keys[MAX_PLAYERS];
+                for (int p = 0; p < w->players; p++)
+                    keys[p] = values[p] = w->m[p].dist_m;
+                hu_rank(&rank, w->players, keys, values);
+                hu_results_panel(&rank, NULL);
             }
         }
         shown_state = state;
         shown_best = best_m;
         shown_players = w->players;
     }
-    if (state == DS_TITLE || state == DS_READY) {
-        hu_prompt(21, "PRESS A TO BOUNCE", st_t);
-        if (w->players == 2 || state == DS_READY) hu_join_line(26, w->players, "RACE!");
-    }
+    if (state == DS_TITLE) hu_title_draw(st_t, best_m);
+    if ((state == DS_PLAY || state == DS_FALL) && w->players > 2) hu_score_tags(w->players, 0);
     if ((state == DS_PLAY || state == DS_FALL) && w->players == 1 && (m->score != shown_score || m->chain != shown_chain)) {
         if (m->chain > 1) snprintf(s, sizeof s, "SCORE %d  X%d", m->score, m->chain);
         else snprintf(s, sizeof s, "SCORE %d", m->score);
@@ -85,7 +80,13 @@ void ui_frame(const world *w, int state, int st_t, int best_m, int best_score, i
         shown_score = m->score;
         shown_chain = m->chain;
     }
-    if (state == DS_OVER) hu_retry_line(st_t, RETRY_LOCK, "A: BOUNCE AGAIN");
+    if (state == DS_OVER) {
+        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, "A: MAIN MENU");
+        else {
+            hu_standing rank = {.n = w->players};
+            hu_retry_line_at(hu_results_retry_row(&rank), st_t, RETRY_LOCK, "A: MAIN MENU");
+        }
+    }
     hu_pause(paused, 13);
     rs_bg_scroll(RS_BG1, 0, state == DS_OVER ? -hu_slide_in(st_t, 20, 200) : 0);
 }
@@ -124,10 +125,9 @@ void ui_sprites(const world *w, int state, int st_t, int best_m)
             distance(w->m[0].dist_m, RS_SCREEN_W / 2, 10 - 8);
             powerups(&w->m[0], 8, 6);
         } else {
-            distance(w->m[0].dist_m, 80, 10 - 8);
-            distance(w->m[1].dist_m, 240, 10 - 8);
-            powerups(&w->m[0], 8, 6);
-            powerups(&w->m[1], RS_SCREEN_W - 40, 6);
+            int values[MAX_PLAYERS];
+            for (int p = 0; p < w->players; p++) values[p] = w->m[p].dist_m;
+            hu_score_chips(w->players, values, 0);
         }
     }
     if (state == DS_OVER) {
@@ -140,14 +140,14 @@ void ui_sprites(const world *w, int state, int st_t, int best_m)
                 if ((st_t / 20) % 3 == 0) hu_sparkle(11 * 8 - 3, 16 * 8 - 1 + oy, (st_t / 10) % 2, 3);
             }
         } else {
-            distance(w->m[0].dist_m, 24 * 8, 11 * 8 - 4 + oy);
-            distance(w->m[1].dist_m, 24 * 8, 14 * 8 - 4 + oy);
+            hu_standing rank;
+            int values[MAX_PLAYERS];
+            for (int p = 0; p < w->players; p++) values[p] = w->m[p].dist_m;
+            hu_rank(&rank, w->players, values, values);
+            hu_results_sprites(&rank, st_t, oy);
         }
     }
-    if (state == DS_TITLE || state == DS_READY) {
-        int x = hu_center("PRESS A TO BOUNCE", 0) * 8 - 12;
-        if (hu_blink(st_t)) hu_glyph(HU_BTN_A, x, 21 * 8 - 4, (st_t / 15) % 2, 3);
-    }
+    if (state == DS_TITLE) hu_title_sprites(st_t, NULL, NULL);
 }
 
 /* ---- save states (main.c) ---- */

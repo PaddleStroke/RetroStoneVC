@@ -921,54 +921,20 @@ def house():
             return K["wall2"] if k < 6 else K["wall3"] if k < 9 else K["plaster"]
         if d < 32:                                        # the battens
             return K["dark"] if d == 28 or x % 16 >= 12 else K["wood3"]
-        # the tiles in section: overlapping curved tiles, 16 px apart
-        tx, ty = x % 16, d - 32                           # ty 0..15 (bottom up)
-        arc = 4 + int(3 * math.sin((tx + 0.5) / 16.0 * math.pi))
-        if ty < arc - 2:
-            return K["roof3"] if ty == 0 else K["roof2"]
-        if ty < arc:
-            return K["roof2"]
-        if ty < 15:
-            return K["roofhi"] if ty == 14 or (tx < 4 and ty > 10) else K["roof"]
-        return K["roof3"]
+        # side view: a dark eave and an overlapping terracotta tile lip
+        ty = d - 32
+        if ty < 8:
+            return K["wood3"] if ty == 0 else K["wood2"]
+        if ty < 10:
+            return K["roof3"]
+        if ty == 15:
+            return K["roofhi"]
+        return K["roof2"] if x % 16 == 0 else K["roof"]
     band(ROOF_Y, ROOF_TOP - 1, roof_section)
 
-    # ---- the roof seen from above (336 .. 395): rows of tiles receding to the ridge -------------------------------------
-    rows, y0 = [], ROOF_TOP
-    for h in (10, 9, 8, 7, 6, 5, 4):
-        rows.append((y0, h))
-        y0 += h
-    for i, (ry, h) in enumerate(rows):
-        step = 16 if i < 4 else 8                         # joints closer in the distance (periods on the 8-px grid)
-        off = (i % 2) * (step // 2)                       # staggered rows
-        for wy in range(ry, ry + h):
-            k = wy - ry                                   # 0 = the row's lower lip
-            for x in range(320):
-                jx = (x + off) % step
-                c = K["roof"]
-                if k == 0:
-                    c = K["roof3"]
-                elif k == 1:
-                    c = K["roof2"]
-                elif k == h - 1 and i < 4:
-                    c = K["roofhi"] if jx < step // 2 else K["roof"]
-                if jx == 0 and k > 0:
-                    c = K["roof3"] if k < h - 1 else K["roof2"]
-                cv.set(x, R(wy), c)
-    ridge = y0                                            # the ridge cap: a row of rounded tiles
-    for wy in range(ridge, ridge + 10):
-        k = wy - ridge
-        for x in range(320):
-            jx = x % 8
-            top = 7 + int(2 * math.sin((jx + 0.5) / 8.0 * math.pi))
-            if k > top:
-                continue
-            c = K["roof2"] if k < 3 else K["roof"]
-            if k == top or (k == top - 1 and jx < 3):
-                c = K["roofhi"]
-            if jx == 0 or k == 0:
-                c = K["roof3"]
-            cv.set(x, R(wy), c)
+    # The roof is seen from the side. Above the tile lip is open sky,
+    # rather than a second, perspective roof glued on top of the section.
+    # The chimney stays as a familiar silhouette while the roof drops below.
     # the chimney (it stands on the roof and rises above the ridge), smoke is a sprite
     cx0, cx1, cy0, cy1 = CHIMNEY_X - 12, CHIMNEY_X + 12, 350, CHIMNEY_TOP - 4
     for wy in range(cy0, cy1 + 1):
@@ -991,7 +957,7 @@ def house():
     for x in range(cx0 - 3, cx1 + 3):                     # flashing where it meets the roof
         cv.set(x, R(cy0), K["pan"]), cv.set(x, R(cy0 + 1), K["pan2"])
     # a TV aerial on the left
-    for wy in range(ridge + 2, 440):
+    for wy in range(ROOF_TOP + 2, 440):
         cv.set(AERIAL_X, R(wy), K["pan2"]), cv.set(AERIAL_X + 1, R(wy), K["pan"])
     for wy, half in ((436, 14), (428, 11), (420, 8)):
         for x in range(AERIAL_X - half, AERIAL_X + 2 + half):

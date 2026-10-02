@@ -7,7 +7,7 @@ RetroStone virtual console (docs/spec.md), in the 8BCraft house style (docs/art-
 Mother Duck has lost her ducklings all over town. Hop across endless roads, rivers, railways, park paths and
 lily ponds, pick up the lost ducklings on the grass, and lead them home in a line behind you, hop for hop,
 like the Snake game. A long parade is worth a lot at the next **nest pond**, but every duckling can be hit on
-the way. One hop per press, instant retry, a best score to beat; a friend can join as Father Duck.
+the way. One hop per press, quick return to title, a best score to beat; a friend can join as Father Duck.
 
 It is a "hop across the lanes" game in the family of Frogger (Konami, 1981) and Crossy Road (Hipster Whale,
 2014), crossed with Snake. Only their **mechanics** are used (a grid hop, lanes of traffic, logs to ride, an
@@ -45,8 +45,8 @@ banking flashes it (added white, fading); the fox's warning tints the left edge 
 | Up, Down | hop along the lane (sidestep) |
 | Left | hop back |
 | Start | pause / resume |
-| A, Start on the game-over panel | retry at once |
-| pad 2, A on the title or get-ready screen | Father Duck joins (co-op) |
+| A, Start on the game-over panel | return to the title |
+| Pads 2-4, A or Start on the title | join co-op; B leaves |
 
 One hop per press (no auto-repeat, as in Crossy Road); a press in the last 4 frames of a hop is buffered and
 starts the next hop on landing, so fast tapping never loses a press. Keyboard (desktop): arrows, X = A,
@@ -169,21 +169,15 @@ the train telegraph are checked. Result: no failure in 206 902 groups; crossing 
 - Save RAM: best score, best co-op score, the longest parade banked, runs, medals won.
 
 ## Flow
-1. **Title**: the house logo "DUCK PARADE", Mother and three ducklings marching in place, "PRESS A TO HOP",
-   the best score, the copyright line.
-2. **Get ready**: the meadow, "GET READY"; the first hop starts the run.
-3. **Play**.
-4. **Death**: a thud (hit: squashed flat, feathers), a splash (swept), or the fox's pounce; a short freeze,
-   the ducklings scatter peeping.
-5. **Game over**: the house banner and panel (score, best, medal); after 0.6 s, A or Start retries at once.
-**Pause**: Start during a run (house pause: dimmed, "PAUSED").
+The title is the only menu. A or the D-pad starts immediately with the first hop. Pads 2-4 join with A or
+Start and leave with B. After death, the game-over panel shows the scores and medal; A returns to the title
+with the same lobby. Start pauses and resumes during play.
 
-## Two players: Mother and Father Duck (co-op)
-Father Duck joins from the title or get-ready screen (pad 2, A). He is palette-swapped as a **mallard drake**:
-a green head, a white collar, a grey-brown body. Each parent has **their own parade** (a lost duckling joins
-whichever parent walks over it). They share the camera, which follows the parent in front; a parent who is
-hit is out (their ducklings scatter), and the run ends when both are out. The panel shows each parent's
-score and the family total (a friendly score, no winner).
+## Two to four parents (co-op)
+Each parent has their own parade and pad. Ducklings join the parent that collects them; eliminated parents
+scatter their ducklings while the remaining parents continue. The shared camera blends the parents' positions
+with a pull toward the leader. Line caps shrink for larger families. Results show each parent's score and the
+family total, without a competitive winner. Player colours distinguish all four parents.
 
 ## Audio
 - Sound effects synthesised in code at start-up with the house synthesiser (house_audio.h: ha_tone, ha_hiss;
@@ -291,17 +285,8 @@ edge cost about 6% of the render.
   same process and in a fresh one; bad states refused; `tools/state_audit.py` checks every mutable static.
 - `tools/screenshots.sh` (make duckparade-screenshots): docs/screenshots/.
 
-## Remaining work
-
-Done in code and covered by `make duckparade-check`: the title-only flow (no "Get ready"), P1 starts with the D-pad or A
-(that press is the first hop), pads 2-4 join and leave on the title (hu_title_*), up to 4 parents in co-op with a shared
-camera and family score, the fox still working, one-press retry on the panel, Select back to the title.
-
-- This file still describes the old flow in "Controls", "Flow" and "Two players": rewrite them for the title lobby and
-  4 parents (positions, line cap 24/16/12 by parents, family score, camera mean + leader pull, results panel).
-- Balance of 3-4 parents (line caps, fox, camera pull, lane fairness for 4 rows apart) is not tuned by hand; only
-  bot runs (`bot=4`) were checked.
-- The title state test stops at one tap of A: a best score lives in the battery save, which a state does not take back,
-  so a game over inside the replayed frames differs in-process (the fresh-process resume is fine).
-- Look at the 12 saved screens (`build/duckparade-ui`) by eye: title with 1-4 parents, results with 2-4, HUD with 4.
-- Rebuild `make duckparade-dist` after any code change; dist/ is not tracked.
+## Completion checks
+Title-only flow, A-start, four-parent co-op, UI, smoke and save-state checks pass. Save states preserve the
+visible record for their timeline while battery records retain the greatest score; the title replay test
+again includes a complete game over and return to title in the same process and a fresh process.
+Screenshots and Windows executables are refreshed. Human playtesting of three/four-player balance remains.

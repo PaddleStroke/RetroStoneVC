@@ -9,16 +9,17 @@ obstacle, shell medals at 10, 20, 30 and 40, and your best score is kept.
 
 Run LeadySquid.exe. No installation needed (SDL2 is built in).
 
-Controls                  Gamepad (SNES layout)      Keyboard
-  swim, start, retry        A, Up or Start             X, Up or Enter
-                            (B, X and Y swim too)      (Z, A and S too)
-  pause / resume            Select                     Backspace or Esc
-  players 2-4 join the race A on their pad, on the title (B leaves)
-  back to the title         Select on the game-over panel
+Controls (SNES gamepad layout)
+  A: start from the title.
+  A: flap (one flap per press).
+  After game over, A returns to the title; press A again to start.
+  Start or Select during play: pause/resume.
+  Pads 2-4: A or Start to join on the title, B to leave.
 
-Up to four squids race on the same course, each with their own pad; a squid
-that hits something sinks while the others swim on; the results rank the
-race with shell medals.
+Keyboard: X = A, Z = B, arrows = D-pad, Enter = Start,
+Backspace or Esc = Select. Other players use gamepads.
+
+Up to four squids race on one course, with separate scores and a final ranking.
 
 F11 or Alt+Enter: fullscreen. F12: screenshot. Close the window to quit.
 Options: LeadySquid.exe --scale 4 --fullscreen

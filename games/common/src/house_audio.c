@@ -129,14 +129,26 @@ void ha_init(int first_slot)
     rs_echo(HA_ECHO_DELAY, HA_ECHO_FB, HA_ECHO_VOL);
 }
 
-int ha_play_slot(int slot, int vol, int x, int echo)
+int ha_play_pitched(int slot, int vol, int x, int pitch, int echo)
 {
     if (!ha_sound) return -1;
     int pan = 24 + x * 80 / RS_SCREEN_W;
     pan = pan < 0 ? 0 : pan > 127 ? 127 : pan;
-    int v = rs_sfx(slot, vol, pan, RS_PITCH_1);
+    /* House music has four channels. Reuse a sounding effect at the limit instead of adding a ninth voice. */
+    int active = 0, replace = -1, budget = rs_music_playing() ? RS_VOICES - 4 : RS_VOICES;
+    for (int i = 0; i < RS_VOICES; i++)
+        if (rs_voice_active(i)) { active++; replace = i; }
+    int v;
+    if (active >= budget && replace >= 0) {
+        v = rs_voice_play(replace, slot, pitch, vol, pan, NULL) == 0 ? replace : -1;
+    } else v = rs_sfx(slot, vol, pan, pitch);
     if (v >= 0 && echo) rs_voice_echo(v, 1);
     return v;
+}
+
+int ha_play_slot(int slot, int vol, int x, int echo)
+{
+    return ha_play_pitched(slot, vol, x, RS_PITCH_1, echo);
 }
 
 int ha_play(int id)

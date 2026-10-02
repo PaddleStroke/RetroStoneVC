@@ -198,11 +198,11 @@ int main(int argc, char **argv)
                 if (autopilot(w, p, give_up[p])) pad[p] = RS_BTN_A;
         } else if (st == DS_OVER) {
             if (wait == 1 << 30) wait = RETRY_LOCK + 1 + (int)(rnd() % 24);
-            if (--wait <= 0) {                   /* the retry: the next run starts at once (no get ready) */
+            if (--wait <= 0) {                   /* back to the title, then a fresh press starts */
                 pad[0] = RS_BTN_A;
                 for (int p = 0; p < MAX_PLAYERS; p++) give_up[p] = w->first_index + 1 + (int)(rnd() % (THEME_BAND - 1));
                 done++;
-                wait = 1 << 30;
+                wait = 2;                       /* release A for a frame before starting on the title */
             }
         }
         for (int p = 0; p < MAX_PLAYERS; p++) rs_host_set_pad(p, pad[p], 1);

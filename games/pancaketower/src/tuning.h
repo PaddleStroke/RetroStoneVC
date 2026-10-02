@@ -77,6 +77,14 @@
 #define SYRUP_SLIP_2P   4
 #define SPLASH_EVERY    3           /* every 3rd perfect of a chain splashes syrup on the rival */
 
+/* 3-4 players: narrow columns, with the same traverse time and scaled forgiveness. */
+#define W0_4P           32
+#define SPAWN_DIST_4P   36
+#define SLIDE_SPEED0_4P Q16(2.0 * SPAWN_DIST_4P / TRAVERSE_FRAMES)
+#define PERFECT_MAX_4P  2
+#define REGROW_PX_4P    6
+#define SYRUP_SLIP_4P   2
+
 /* ---- the journey (world y: 0 = the top of the plate, up; tools/make_art.py draws the house to these numbers) -------
  * The kitchen fills the screen at the start, its ceiling at the top. The camera stays below each ceiling until the
  * tower breaks through it (draw.c): what is above a ceiling is only seen once the tower is through. */

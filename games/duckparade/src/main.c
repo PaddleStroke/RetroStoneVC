@@ -30,6 +30,8 @@ static int opt_botstop, opt_botruns, opt_seed_fixed, opt_music, opt_sound, opt_s
 static uint32_t opt_seed;
 static world W;
 static int st, st_t, paused, new_best, runs_done;
+/* The visible records belong to the saved timeline; battery records keep the greatest score even after a load. */
+static int shown_records[2];
 static uint32_t state_hash = 2166136261u;
 static int run_scores[64], run_lanes[64], nruns_logged;
 static int bell_t;                        /* frames to the next crossing bell */
@@ -119,15 +121,18 @@ static void game_over(void)
 {
     static const int th[4] = {MEDAL_BRONZE, MEDAL_SILVER, MEDAL_GOLD, MEDAL_PEARL};
     int s0 = world_score(&W, 0), total = world_total(&W);
+    int mode = W.players > 1, score = mode ? total : s0;
+    new_best = score > shown_records[mode];
+    if (new_best) shown_records[mode] = score;
     SV.runs++;
     if (W.players == 1) {
         int m = hu_medal_of(s0, th);
         if (m) SV.medals[m - 1]++;
-        if (s0 > SV.best) { SV.best = (uint16_t)s0; new_best = 1; }
+        if (s0 > SV.best) SV.best = (uint16_t)s0;
         int lanes = W.d[0].max_col - START_COL;
         if (lanes > SV.best_lanes) SV.best_lanes = (uint16_t)lanes;
     } else {                                         /* 2-4 parents: the family score */
-        if (total > SV.best_coop) { SV.best_coop = (uint16_t)total; new_best = 1; }
+        if (total > SV.best_coop) SV.best_coop = (uint16_t)total;
     }
     for (int p = 0; p < W.players; p++)
         if (W.d[p].bank_best > SV.bank_best) SV.bank_best = (uint16_t)W.d[p].bank_best;
@@ -282,26 +287,13 @@ static void game_update(void)
     case DS_DEAD:
         play_update();
         break;
-    case DS_OVER: {
-        int again = 0, back = 0, bot_again = 0;
-        if (st_t >= RETRY_LOCK) {
-            for (int p = 0; p < W.players; p++) {
-                uint16_t b = rs_pad_pressed(hu_player_pad(p));
-                again |= (b & RETRY_INPUTS) != 0;
-                back |= (b & RS_BTN_SELECT) != 0;
-            }
-            if (opt_bot && runs_done < opt_botruns && st_t == RETRY_LOCK + 10) bot_again = 1;
-        }
-        if (back) {                                /* Select: back to the title (parents join or leave there) */
-            sfx(SFX_BUMP);
-            new_run(DS_TITLE);
-        } else if (again || bot_again) {           /* house rule: one press, instant retry, the same parents */
+    case DS_OVER:
+        if (st_t >= RETRY_LOCK && (hu_over_back() ||
+            (opt_bot && runs_done < opt_botruns && st_t == RETRY_LOCK + 10))) {
             sfx(SFX_JOIN);
-            new_run(DS_READY);
-            if (again) play_update();              /* the press is the first hop (an arrow or A) */
+            new_run(DS_TITLE);
         }
         break;
-    }
     }
     st_t++;
 }
@@ -309,12 +301,14 @@ static void game_update(void)
 static void game_draw(void)
 {
     int coop = (st == DS_TITLE ? hu_players() : W.players) > 1;
-    draw_frame(&W, st, st_t, coop ? SV.best_coop : SV.best, new_best, paused);
+    draw_frame(&W, st, st_t, shown_records[coop], new_best, paused);
 }
 
 static void game_init(void)
 {
     save_load();
+    shown_records[0] = SV.best;
+    shown_records[1] = SV.best_coop;
     opt_music = rs_option_int("music", 1);
     opt_sound = rs_option_int("sound", 1);
     sfx_init();
@@ -366,7 +360,7 @@ const world *dp_test_world(int *state)
 #define S(v) rs_state_var("main." #v, &(v), sizeof(v))
 static void game_state(void)
 {
-    S(W); S(st); S(st_t); S(paused); S(new_best); S(runs_done); S(state_hash);
+    S(W); S(st); S(st_t); S(paused); S(new_best); S(runs_done); S(state_hash); S(shown_records);
     S(run_scores); S(run_lanes); S(nruns_logged); S(bell_t); S(click_t); S(scene_seen); S(opt_scenes); S(opt_record);
     S(opt_bot); S(opt_botstop); S(opt_botruns); S(opt_seed_fixed); S(opt_seed); S(opt_music); S(opt_sound);
     draw_state();

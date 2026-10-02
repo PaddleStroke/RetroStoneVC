@@ -28,14 +28,14 @@ sys.path.insert(0, os.path.join(ROOT, "games", "common", "tools"))
 import rsasset  # noqa: E402
 import make_art  # noqa: E402
 
-VR_BG1, VR_BG2, VR_BG3, VR_BG4, VR_OBJ = 0, 640, 960, 1664, 2048
-BG2_TILES, BG3_TILES, BG4_TILES = 320, 704, 320
+VR_BG1, VR_BG2, VR_BG3, VR_BG4, VR_OBJ = 0, 640, 1216, 2080, 2464
+BG2_TILES, BG3_TILES, BG4_TILES = 576, 864, 384
 PAL_TOWER, PAL_TOPPING, PAL_FAR, PAL_LOGO = 1, 2, 7, 5
 NEAR_PAL_SLOTS = [3, 4, 6, 5]             # the near scenery (BG 5 is the logo's on the title: the kitchen avoids it)
 NEAR_PALS = len(NEAR_PAL_SLOTS)
 # the house palettes (docs/art-direction.md): OBJ 0 the hero, 1 player 2, 2 effects, 3 the kit, 4-7 the game
 OBJ_PAL = {"chef": 0, "chef2": 1, "fx": 2, "food": 4, "topping": 5, "critter": 6, "medal": 7}
-OBJ_DYN_TILES = 192          # run-time pancake sprites (render.c): the slider, the top pancake, 2 falling pieces
+OBJ_DYN_TILES = 384          # run-time pancake sprites (render.c): the slider, the top pancake, 2 falling pieces
 P2_SWAP = {(226, 72, 66): (74, 146, 232), (150, 36, 44): (38, 84, 168), (92, 104, 138): (96, 146, 88),
            (56, 64, 94): (58, 98, 56)}
 

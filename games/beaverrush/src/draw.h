@@ -17,8 +17,9 @@
 #define POND_HIGH  106
 #define POND_LOGS  600
 
-/* the trunk on BG2 (a 32 x 32 map; player 2's tree 16 columns further, wrapping): segment k's rows start at map y
+/* the trunk on BG2 (a 64 x 32 map; player p's tree 16 p columns further): segment k's rows start at map y
  * TRUNK_MAP_Y0 - 24 (k + 1); the trunk's columns 8..13, the left branch 3..7, the right one 14..18 (+ 16 p) */
+#define BG2_MAP_W     64
 #define TRUNK_MAP_Y0  248
 #define TRUNK_SCROLL_Y 48         /* map y - screen y */
 #define TRUNK_COL     8
@@ -27,9 +28,8 @@
 #define TRUNK_MAP_X   64          /* the trunk's left edge in the map (player 1) */
 #define TREE_COLS     16          /* player 2's tree: 16 columns (128 px) further */
 
-/* versus: the two views, and each view's sprites in OAM */
-#define VIEW_OAM      56
-#define VIEW_BG_X     80          /* a versus view shows the panorama from PANO_X + 80 */
+/* versus: a view per player (2: halves; 3-4: columns, hu_split HU_SPLIT_COLUMNS), each its own OAM range; a view
+ * shows the middle of the panorama: from PANO_X + 160 - its width / 2 (2 players: PANO_X + 80) */
 
 /* scene.c */
 void scene_init(void);
@@ -46,5 +46,11 @@ void dam_add(int k);
 void dam_reset(int logs);
 int  dam_logs_drawn(void);
 void scene_state(void);
+/* the four beavers' colours (one beaver palette, OBJ 0, loaded per viewport by the raster; scene.c) */
+#define FUR_BY_LINE (-2)
+void scene_title_pals(int on);               /* the title: P3's and P4's colours in OBJ 5 and 6 (their icons) */
+int  scene_player_pal(int p);                /* the OBJ palette of player p's icon on the title */
+void scene_view_fur(int view, int player);   /* viewport view shows player's colours in OBJ 0 (-1: as it is) */
+void scene_line_fur(int y0, int y1, int player);   /* ... by line, for a viewport of FUR_BY_LINE */
 
 #endif

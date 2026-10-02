@@ -12,7 +12,7 @@
 #include "rs.h"
 #include "tuning.h"
 
-#define MAX_PLAYERS 2
+#define MAX_PLAYERS 4
 #define RING 64                     /* the last layers kept (the screen shows at most 31) */
 
 static inline int clampi(int v, int lo, int hi) { return v < lo ? lo : v > hi ? hi : v; }
@@ -25,7 +25,7 @@ typedef struct geom {
     int tol_min, tol_max;           /* the perfect window (px) */
     int regrow, slip;               /* px */
 } geom;
-extern const geom GEOM_1P, GEOM_2P;
+extern const geom GEOM_1P, GEOM_2P, GEOM_4P;
 
 enum layer_kind { LK_PANCAKE, LK_STRAWBERRY, LK_BLUEBERRY, LK_BANANA, LK_CHOCOLATE, LK_CREAM };
 enum layer_flag { LF_SYRUP = 1, LF_BUTTER = 2, LF_PERFECT = 4, LF_BIG_BUTTER = 8 };

@@ -1,13 +1,14 @@
 /*
  * Beaver Rush: video. The trunk (BG2, redrawn on each gnaw; the drop is a vertical scroll), the beavers, the
  * effects (the tumbling log, chips, splashes, logs floating to the dam), the woodpecker, the family, the sky and
- * the weather, the HUD and the screens (the house UI kit), and the versus split screen (SDK viewports).
+ * the weather, the HUD and the screens (the house UI kit), and the versus split screen (SDK viewports: 2 players
+ * side by side, 3-4 players in full-height columns, house_ui.c hu_split HU_SPLIT_COLUMNS).
  * Nothing here changes the game.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/beaverrush/LICENSE.
  *
  * Layers (docs/art-direction.md): BG1 the UI (the kit), BG2 the trunk, BG3 the dam, banks and near bank
- * (scene.c), BG4 the far layer; OBJ 0 the beaver, 1 player 2, 2 the wood, 3 the kit, 4 fx, 5 gold, 6 the bird,
- * 7 the season's particles.
+ * (scene.c), BG4 the far layer; OBJ 0 the beaver (each viewport its player's colours: scene.c), 1 player 2 (the
+ * title's icon), 2 the wood, 3 the kit, 4 fx, 5 gold, 6 the bird, 7 the season's particles.
  */
 #include "br.h"
 #include "draw.h"
@@ -53,6 +54,11 @@ static int shown_state = -1, shown_best = -1, shown_players = -1, shown_over_t =
 static int banner_t = 1000, banner_stage, banner_on;   /* the scene name shown after a milestone */
 static int family_cheer;                        /* frames left of the family's cheer */
 static int views_on;
+static int view_oam[MAX_PLAYERS][2];            /* the last frame's OAM range of each player's view (the bot) */
+
+/* in 4 columns (78 px) the beaver stands this much closer to the trunk, its teeth in the bark, so that more of it
+ * shows */
+#define NARROW_NUDGE 6
 
 /* ---- helpers ------------------------------------------------------------------------------------------------------ */
 static void spr(int id, int x, int y, int prio, int pal, int flags)
@@ -62,15 +68,42 @@ static void spr(int id, int x, int y, int prio, int pal, int flags)
     rs_spr(x, y, d->tile, d->w, d->h, pal >= 0 ? pal : d->pal, prio, flags);
 }
 
-static void oam_pad(int upto)
+/* the split screen: a full-height view per player (2: halves; 3-4: columns) */
+static int split(int players, rs_viewport *v) { return hu_split(players, HU_SPLIT_COLUMNS, v); }
+
+static int view_w(const world *w)
 {
-    while (rs_oam_next() < upto) rs_spr(0, -64, 0, 8, 8, 0, 0, RS_SPR_HIDE);
+    rs_viewport v[RS_VIEW_MAX];
+    if (w->players == 1) return RS_SCREEN_W;
+    split(w->players, v);
+    return v[0].w;
 }
 
-static int tree_cx(const world *w) { return w->players == 2 ? 80 : 160; }
+static int view_x0(const world *w, int p)
+{
+    rs_viewport v[RS_VIEW_MAX];
+    if (w->players == 1) return 0;
+    split(w->players, v);
+    return v[p & 3].x;
+}
 
-/* the panorama x shown at a view's left edge */
-static int view_bg_x(const world *w) { return w->players == 2 ? PANO_X + VIEW_BG_X : PANO_X + scene_lean() / 2; }
+/* the trunk's centre in a view (1 player: the screen's) */
+static int tree_cx(const world *w) { return w->players == 1 ? 160 : (view_w(w) + 1) / 2; }
+
+int draw_view_x(const world *w, int p)
+{
+    if (w->players == 1) return w->bv[0].side == SIDE_L ? 130 : 190;
+    return view_x0(w, p) + tree_cx(w);
+}
+
+void draw_view_oam(int p, int *first, int *count)
+{
+    *first = view_oam[p & 3][0];
+    *count = view_oam[p & 3][1];
+}
+
+/* the panorama x shown at a view's left edge: the middle of the valley, around the trunk */
+static int view_bg_x(const world *w) { return w->players == 1 ? PANO_X + scene_lean() / 2 : PANO_X + 160 - tree_cx(w); }
 
 static fx_obj *fx_new(int kind, int view)
 {
@@ -130,6 +163,22 @@ static void bar_draw(int col, int inner, int px, int low)
     rs_bg_put(RS_BG1, col + 1 + inner, BAR_ROW, RS_MAP(BAR_TILE + 1, PAL_UI, 1, 0, 0));
 }
 
+/* player p's bar: its left cap's column and its inner tiles, centred in its view (on the 8-px grid of BG1) */
+static void bar_geom(const world *w, int p, int *col, int *inner)
+{
+    if (w->players <= 2) {
+        *col = w->players == 1 ? 13 : p ? 25 : 5;
+        *inner = w->players == 1 ? 12 : 8;
+        return;
+    }
+    rs_viewport v[RS_VIEW_MAX];
+    split(w->players, v);
+    int x0 = v[p].x, x1 = v[p].x + v[p].w, m = 6;      /* the caps draw from +2 (left) and up to +5 (right) */
+    int c0 = (x0 + m - 2 + 7) / 8, c1 = (x1 - m - 6) / 8;
+    *col = c0;
+    *inner = clampi(c1 - c0 - 1, 1, 12);
+}
+
 /* ---- set-up ------------------------------------------------------------------------------------------------------ */
 void draw_init(void)
 {
@@ -137,11 +186,11 @@ void draw_init(void)
     hc.obj_tile = 0;                /* the kit sprites first (HU_OBJ_TILES), ours from OBJ_FIRST */
     hc.obj_vram = VR_OBJ;
     hc.obj_pal = OPAL_KIT;
-    hc.box_glyphs = " SCOREBESTNWMDALPYIG12!:-RKH";   /* the panel's letters only (VRAM) */
+    hc.box_glyphs = " SCOREBESTNWMDALPYIG1234!:-RKH";   /* the panels' letters only (VRAM) */
     hu_init(&hc);
     bar_tiles();
     rs_bg_setup(RS_BG1, 64, 32, VR_BG1);
-    rs_bg_setup(RS_BG2, 32, 32, VR_BG2);
+    rs_bg_setup(RS_BG2, BG2_MAP_W, 32, VR_BG2);       /* four trees, 16 columns apart */
     rs_tiles_load(VR_BG2, br_bg2_tiles, br_bg2_tile_count);
     scene_init();
     for (int l = 0; l < 4; l++) rs_bg_enable(l, 1);
@@ -155,9 +204,9 @@ void draw_init(void)
 /* ---- the trunk ----------------------------------------------------------------------------------------------------- */
 static void tree_draw(int p, const tree *t)
 {
-    int r0 = 0, c0 = p * TREE_COLS;
+    int r0 = 0, c0 = p * TREE_COLS, mw = BG2_MAP_W - 1;
     for (int r = 0; r < 32; r++)
-        for (int c = LBRANCH_COL; c < LBRANCH_COL + TREE_COLS; c++) rs_bg_put(RS_BG2, (c0 + c) & 31, r0 + r, 0);
+        for (int c = LBRANCH_COL; c < LBRANCH_COL + TREE_COLS; c++) rs_bg_put(RS_BG2, (c0 + c) & mw, r0 + r, 0);
     for (int k = 0; k <= SEG_SHOWN; k++) {
         const seg *s = &t->s[k];
         int row = r0 + (TRUNK_MAP_Y0 - SEG_H * (k + 1)) / 8;
@@ -165,12 +214,12 @@ static void tree_draw(int p, const tree *t)
             for (int c = 0; c < 6; c++) {
                 uint16_t e = br_seg_map[s->look * 18 + r * 6 + c];
                 if (s->gold) e = (uint16_t)((e & ~0x1c00) | (PAL_GOLD << 10));
-                rs_bg_put(RS_BG2, (c0 + TRUNK_COL + c) & 31, row + r, e);
+                rs_bg_put(RS_BG2, (c0 + TRUNK_COL + c) & mw, row + r, e);
             }
             if (s->branch) {
                 int b = (s->branch == SIDE_L ? 0 : 1) + (s->stolen ? 2 : 0);
                 int col = s->branch == SIDE_L ? LBRANCH_COL : RBRANCH_COL;
-                for (int c = 0; c < 5; c++) rs_bg_put(RS_BG2, (c0 + col + c) & 31, row + r, br_branch_map[b * 15 + r * 5 + c]);
+                for (int c = 0; c < 5; c++) rs_bg_put(RS_BG2, (c0 + col + c) & mw, row + r, br_branch_map[b * 15 + r * 5 + c]);
             }
         }
     }
@@ -186,6 +235,7 @@ static int drop_px(int t)
 void draw_new_run(const world *w)
 {
     memset(fx, 0, sizeof fx);
+    rs_bg_fill(RS_BG2, 0);                              /* no tree of a player who left */
     for (int p = 0; p < MAX_PLAYERS; p++) {
         PV[p].drawn_logs = -1;
         PV[p].drop_t = DROP_FRAMES;
@@ -214,7 +264,7 @@ static void spawn_log(const world *w, int p, const beaver *b)
         f->flip = dir < 0;
         f->slot = (int16_t)(world_dam_logs(w) - 1);
     }
-    for (int i = 0; i < (w->players == 2 ? 3 : 5); i++) {  /* chips from the bite */
+    for (int i = 0; i < (w->players == 1 ? 5 : w->players == 2 ? 3 : 1); i++) {   /* keep four simultaneous bites within the scanline budget */
         fx_obj *c = fx_new(FX_CHIP, p);
         if (!c) break;
         c->x = (cx - dir * 26 + rnd(6) - 3) << 8;
@@ -238,7 +288,7 @@ static void spawn_log(const world *w, int p, const beaver *b)
         }
     }
     if (gold)
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < (w->players >= 3 ? 2 : 6); i++) {
             fx_obj *s = fx_new(FX_SPARK, p);
             if (!s) break;
             s->x = (cx - 24 + rnd(48)) << 8;
@@ -285,7 +335,7 @@ static void fx_step(const world *w)
                 int x = (f->x >> 8) + 24;
                 fx_obj *s = fx_new(FX_SPLASH, f->view);
                 if (s) { s->x = (x - 16) << 8; s->y = (NEAR_Y - 10) << 8; s->prio = 0; s->life = 20; }
-                if (f->view == 0 || w->players == 2) sfx_pan(SFX_SPLASH, w->players == 2 ? (f->view ? 160 : 0) + x : x, 0);
+                sfx_pan(SFX_SPLASH, view_x0(w, f->view) + x, 0);
                 fx_obj *fl = fx_new(FX_FLOAT, f->view);
                 int sx, sy;
                 dam_slot(f->slot, &sx, &sy);
@@ -422,11 +472,12 @@ static void draw_beaver(const world *w, int p, int ox, int oy)
 {
     const beaver *b = &w->bv[p];
     int cx = tree_cx(w), right = b->side == SIDE_R;
-    int f = beaver_frame(b, w->t + p * 37);
-    int x = right ? cx + 24 : cx - 56, y = GROUND_Y - 31;
-    spr(SPR_BEAVER + f, x + ox, y + oy, 2, p == 1 ? OPAL_BEAVER2 : OPAL_BEAVER, right ? RS_SPR_HFLIP : 0);
+    int f = beaver_frame(b, w->t + p * 37), nudge = w->players >= 4 ? NARROW_NUDGE : 0;
+    int x = right ? cx + 24 - nudge : cx - 56 + nudge, y = GROUND_Y - 31;
+    /* OBJ 0: in a split screen the raster gives each view its player's colours (scene.c) */
+    spr(SPR_BEAVER + f, x + ox, y + oy, 2, OPAL_BEAVER, right ? RS_SPR_HFLIP : 0);
     if (b->state == BV_BONK)                            /* stars circling the bump */
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < (w->players >= 3 ? 1 : 3); i++) {
             int a = (w->t * 2 + i * 21) % 64, dx = a < 32 ? a - 16 : 48 - a, dy = (a < 16 || a >= 48) ? -3 : 3;
             spr(SPR_DIZZY + (w->t / 8 + i) % 2, x + 14 + dx / 2 + ox, y + 1 + dy + oy, 2, -1, 0);
         }
@@ -441,12 +492,15 @@ static void draw_bird(const world *w, int p, int ox, int oy)
     spr(SPR_WOODPECKER + v->bird_peck, x + ox, (v->bird_y >> 8) - drop_px(v->drop_t) + oy, 2, -1, left ? 0 : RS_SPR_HFLIP);
 }
 
-static void draw_fx(int view, int ox, int oy)
+static void draw_fx(int view, int ox, int oy, int players)
 {
+    /* Four columns share one scanline budget. Keep room for each beaver, bird and weather. */
+    uint8_t lines[RS_SCREEN_H] = {0};
     for (int i = 0; i < FX_MAX; i++) {
         const fx_obj *f = &fx[i];
         if (f->kind == FX_NONE || f->view != view) continue;
         int x = (f->x >> 8) + ox, y = (f->y >> 8) + oy;
+        int first = rs_oam_next();
         switch (f->kind) {
         case FX_LOG: {
             static const uint8_t fr[6] = {0, 1, 2, 3, 2, 1};
@@ -467,25 +521,33 @@ static void draw_fx(int view, int ox, int oy)
         case FX_ZZZ: spr(SPR_ZZZ + (f->t / 15) % 2, x, y, 2, -1, 0); break;
         case FX_SPARK: hu_sparkle(x, y, (f->t / 6) % 2, 2); break;
         }
+        if (players >= 3) {
+            for (int j = first; j < rs_oam_next(); j++) {
+                rs_sprite *s = rs_oam(j);
+                int y0 = clampi(s->y, 0, RS_SCREEN_H), y1 = clampi(s->y + s->h, 0, RS_SCREEN_H);
+                int room = 1;
+                for (int row = y0; row < y1; row++) if (lines[row] >= 4) room = 0;
+                if (!room) s->flags |= RS_SPR_HIDE;
+                else for (int row = y0; row < y1; row++) lines[row]++;
+            }
+        }
     }
 }
 
 /* the sky: the sun or the moon and stars (behind the mountains), and the season's weather */
 static void draw_sky(const world *w, int view_w, int t)
 {
-    int tod = scene_tod(), season = scene_season(), half = w->players == 2;
+    int tod = scene_tod(), season = scene_season(), k = w->players;     /* a view is about 1/k of the screen */
     static const int16_t stars[12][2] = {{12, 8}, {40, 30}, {70, 14}, {96, 40}, {122, 10}, {150, 26}, {182, 12},
                                         {206, 36}, {236, 18}, {262, 6}, {288, 30}, {310, 12}};
     if (tod == 3) {
-        spr(SPR_MOON, (half ? 24 : 54), 18, 0, -1, 0);
-        for (int i = 0; i < 12; i++) {
-            int x = half ? stars[i][0] / 2 : stars[i][0];
-            if (!half || i % 2 == 0) spr(SPR_STAR + ((t / 20 + i) % 5 == 0), x, stars[i][1] + 2 * (i % 3), 0, -1, 0);
-        }
+        spr(SPR_MOON, k == 2 ? 24 : 54 / k, 18, 0, -1, 0);
+        for (int i = 0; i < 12; i++)
+            if (i % k == 0) spr(SPR_STAR + ((t / 20 + i) % 5 == 0), stars[i][0] / k, stars[i][1] + 2 * (i % 3), 0, -1, 0);
     } else {
         static const int sun[3][2] = {{36, 64}, {244, 12}, {268, 60}};
         int sx = sun[tod][0], sy = sun[tod][1];
-        spr(SPR_SUN, half ? sx / 2 : sx, sy, 0, -1, 0);
+        spr(SPR_SUN, sx / k, sy, 0, -1, 0);
     }
     /* weather: stateless paths from the frame number */
     int n = 0, kind = -1;
@@ -493,7 +555,9 @@ static void draw_sky(const world *w, int view_w, int t)
     if (season == 2) { n = 14; kind = 1; }                /* snow */
     if (season == 3) { n = 7; kind = 0; }                 /* blossoms (the leaf sprite in spring's pink) */
     if (season == 0 && tod == 3) { n = 6; kind = 2; }      /* fireflies */
-    if (half) n = (n + 1) / 2;
+    n = (n + k - 1) / k;
+    /* Leave scanline room for four gnawing beavers, birds and log effects. */
+    if (k >= 3 && n > 2) n = 2;
     for (int i = 0; i < n; i++) {
         int speed = 1 + i % 3;
         if (kind == 2) {
@@ -542,45 +606,31 @@ static const char *scene_name(int stage, char *s, size_t n)
     return s;
 }
 
-static void versus_panel(const world *w, int new_best)
+/* the results of 2-4 players: the last beaver standing first, then the later out (world_rank_keys); scores shown */
+static void standing(const world *w, hu_standing *s)
 {
-    (void)new_best;
-    hu_panel(10, 9, 20, 12);
-    hu_box_text(12, 11, "PLAYER 1");
-    hu_box_text(12, 14, "PLAYER 2");
-    const char *win = w->winner == 0 ? "P1 WINS!" : w->winner == 1 ? "P2 WINS!" : "DRAW!";
-    hu_box_text(20 - (int)strlen(win) / 2, 17, win);
+    int key[MAX_PLAYERS], score[MAX_PLAYERS];
+    world_rank_keys(w, key);
+    for (int p = 0; p < MAX_PLAYERS; p++) score[p] = w->bv[p].score;
+    hu_rank(s, w->players, key, score);
 }
 
-static void screen_text(const world *w, int state, int st_t, int best, int new_best)
+static void screen_text(const world *w, int state, int st_t, int best, int new_best, const hu_standing *rs)
 {
     char s[48];
     int redo = state != shown_state || best != shown_best || w->players != shown_players;
     if (redo) {
         hu_clear();
         banner_on = 0;
-        if (state == DS_TITLE) {
-            hu_logo("BEAVER RUSH", title_ramps, 2, 2, 0);
-            snprintf(s, sizeof s, "BEST %d", best);
-            if (best > 0) hu_text(hu_center(s, 0), 24, s);
-            hu_copyright(28);
-        } else {
-            hu_logo_hide();
-        }
-        if (state == DS_READY && w->players == 1) hu_get_ready(6);
-        if (state == DS_READY && w->players == 2) {        /* versus: each half its own lines */
-            for (int p = 0; p < 2; p++) {
-                hu_big(p * 20 + 5, 6, "READY", HU_BIG_FREE);
-                hu_text(p * 20 + 6, 26, p ? "PLAYER 2" : "PLAYER 1");
-            }
-        }
+        if (state == DS_TITLE) hu_logo("BEAVER RUSH", title_ramps, 2, 2, 0);
+        else hu_logo_hide();
         if (state == DS_OVER) {
-            hu_banner(4, "GAME OVER");
             if (w->players == 1) {
+                hu_banner(4, "GAME OVER");
                 hu_gameover_panel(1, new_best, w->bv[0].score, 0);
                 if (!hu_medal_of(w->bv[0].score, medal_scores)) hu_box_text(22, 17, "-");
             } else {
-                versus_panel(w, new_best);
+                hu_results_panel(rs, NULL);            /* "P3 WINS!" (or DRAW!) and the ranking */
             }
         }
         shown_state = state;
@@ -588,21 +638,18 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         shown_players = w->players;
         for (int p = 0; p < MAX_PLAYERS; p++) PV[p].bar_px = -1;
     }
-    if ((state == DS_TITLE || state == DS_READY) && w->players == 1) {
-        hu_prompt(21, "PRESS A TO GNAW", st_t);
-        if (state == DS_READY) hu_join_line(26, w->players, "VERSUS!");
+    /* the title, every frame: PRESS <-/-> TO GNAW, the player slots, BEST, the join line, the credits */
+    if (state == DS_TITLE) hu_title_draw(st_t, best);
+    if (state == DS_OVER) {
+        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, "A: MAIN MENU");
+        else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, "A: MAIN MENU");
     }
-    if (state == DS_READY && w->players == 2)
-        for (int p = 0; p < 2; p++) {
-            if (hu_blink(st_t)) hu_text(p * 20 + 6, 21, "PRESS A");
-            else hu_text(p * 20 + 6, 21, "       ");
-        }
-    if (state == DS_OVER) hu_retry_line(st_t, RETRY_LOCK, "A: GNAW AGAIN");
-    /* the timer bars */
-    if (state == DS_PLAY || state == DS_END || state == DS_READY) {
+    /* the timer bars, one per view */
+    if (state == DS_PLAY || state == DS_END) {
         for (int p = 0; p < w->players; p++) {
             const beaver *b = &w->bv[p];
-            int inner = w->players == 1 ? 12 : 8, col = w->players == 1 ? 13 : (p == 0 ? 5 : 25);
+            int col, inner;
+            bar_geom(w, p, &col, &inner);
             int px = (int)((int64_t)b->bar * inner * 8 / BAR_FULL);
             int low = b->bar < BAR_FULL / 4 && (b->state != BV_PLAY || (w->t / 8) % 2);
             int key = px * 2 + low;
@@ -624,51 +671,53 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
     }
 }
 
-/* ---- per frame ------------------------------------------------------------------------------------------------------- */
-static void setup_views(const world *w, int state, int slide)
+/* the title's player slots: each joined player's beaver head pops in, in its colours (hu_title_sprites calls it) */
+static void slot_icon(int p, int cx, int cy, int t, void *user)
 {
-    if (w->players == 1) {
-        if (views_on) { rs_viewports(0, NULL, 0); views_on = 0; }
-        return;
-    }
-    rs_viewport v[4];
-    int n = rs_viewport_layout(2, 0, v);
-    for (int p = 0; p < 2; p++) {
-        rs_viewport *q = &v[p];
-        q->sx[RS_BG1] = q->x;
-        q->sy[RS_BG1] = 0;
-        q->sx[RS_BG2] = (int16_t)((TRUNK_MAP_X + p * TREE_COLS * 8 - (tree_cx(w) - TRUNK_W / 2)) & 255);
-        q->sy[RS_BG2] = (int16_t)(TRUNK_SCROLL_Y + drop_px(PV[p].drop_t) - hu_shake_y());
-        q->sx[RS_BG2] -= (int16_t)hu_shake_x();
-        q->sx[RS_BG3] = q->sx[RS_BG4] = PANO_X + VIEW_BG_X;
-        q->sy[RS_BG3] = q->sy[RS_BG4] = 0;
-        q->oam_first = (uint16_t)(p * VIEW_OAM);
-        q->oam_count = VIEW_OAM;
-    }
-    if (state == DS_OVER) {                     /* the banner and the panel over both halves */
-        rs_viewport *b = &v[n++], *pn = &v[n++];
-        memset(b, 0, sizeof *b);
-        memset(pn, 0, sizeof *pn);
-        b->x = pn->x = 80;
-        b->w = pn->w = 160;
-        b->y = (int16_t)(32 + slide); b->h = 32;
-        pn->y = (int16_t)(72 + slide); pn->h = 96;
-        b->layers = pn->layers = 1;
-        b->sx[RS_BG1] = pn->sx[RS_BG1] = 80;
-        b->sy[RS_BG1] = 32;
-        pn->sy[RS_BG1] = 72;
-        pn->objs = 1;
-        pn->oam_first = 2 * VIEW_OAM;
-        pn->oam_count = 16;
-    }
-    rs_viewports(n, v, RS_RGB8(12, 20, 44));
-    views_on = 1;
+    (void)user;
+    spr(SPR_ICON, cx - 8, cy - 8 + hu_bob(t + p * 16, 64, 1), 3, scene_player_pal(p), 0);
 }
 
+/* the results panel's sprites (2-4 players): the scores, an acorn per medal place (the house tiers, like the solo
+ * panel's), a sparkle by the winner and each player's icon; drawn at screen coordinates, then moved into the panel's
+ * viewport (x0, y0) */
+static void results_sprites(const hu_standing *rs, int st_t, int x0, int y0)
+{
+    int first = rs_oam_next();
+    for (int i = 0; i < rs->n; i++) {
+        int y = hu_results_row(rs, i) * 8, m = hu_results_medal(rs, i), cx, cy;
+        hu_number(rs->value[rs->order[i]], 24 * 8, y - 4, 3);
+        if (m) {
+            spr(SPR_ACORN + m - 1, 27 * 8, y - 8, 3, OPAL_KIT, 0);
+            if (rs->rank[i] == 0 && (st_t / 20) % 3 == 0) hu_sparkle(27 * 8 + 18, y - 8, (st_t / 10) % 2, 3);
+        }
+        hu_results_icon_pos(rs, i, &cx, &cy);
+        spr(SPR_ICON, cx - 8, cy - 8, 3, OPAL_BEAVER, 0);
+    }
+    for (int i = first; i < rs_oam_next(); i++) {
+        rs_sprite *s = rs_oam(i);
+        s->x = (int16_t)(s->x - x0);
+        s->y = (int16_t)(s->y - y0);
+    }
+}
+
+static void view_rect(rs_viewport *v, int x, int y, int w, int h, int sx, int sy)
+{
+    memset(v, 0, sizeof *v);
+    v->x = (int16_t)x; v->y = (int16_t)y; v->w = (int16_t)w; v->h = (int16_t)h;
+    v->layers = 1 << RS_BG1;
+    v->sx[RS_BG1] = (int16_t)sx;
+    v->sy[RS_BG1] = (int16_t)sy;
+}
+
+/* ---- per frame ------------------------------------------------------------------------------------------------------- */
 void draw_frame(const world *w, int state, int st_t, int best, int new_best, int paused)
 {
-    int t = w->t;
+    int t = w->t, multi = w->players >= 2;
     const beaver *b0 = &w->bv[0];
+    hu_standing rs;
+    standing(w, &rs);
+    scene_title_pals(state == DS_TITLE);
     int stage = state == DS_TITLE ? 0 : world_stage(w);
     scene_frame(stage, world_dam_logs(w), state == DS_TITLE ? 0 : b0->side, w->players, (int)rs_frame_count());
     for (int p = 0; p < w->players; p++)
@@ -676,48 +725,91 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
             tree_draw(p, &w->bv[p].tr);
             PV[p].drawn_logs = w->bv[p].logs;
         }
-    int sx = hu_shake_x(), sy = hu_shake_y();
-    if (w->players == 1) {
-        rs_bg_scroll(RS_BG2, (TRUNK_MAP_X - (160 - TRUNK_W / 2) - sx) & 255,
+    int sx = hu_shake_x(), sy = hu_shake_y(), cx = tree_cx(w), vw = view_w(w);
+    if (!multi) {
+        rs_bg_scroll(RS_BG2, (TRUNK_MAP_X - (160 - TRUNK_W / 2) - sx) & (BG2_MAP_W * 8 - 1),
                      (TRUNK_SCROLL_Y + drop_px(PV[0].drop_t) - sy) & 255);
         scene_bg_scroll(PANO_X);
     }
-    screen_text(w, state, st_t, best, new_best);
+    screen_text(w, state, st_t, best, new_best, &rs);
     int slide = state == DS_OVER ? hu_slide_in(st_t, 20, 200) : 0;
     rs_bg_scroll(RS_BG1, 0, -slide);
     hu_pause(paused, 13);
-    setup_views(w, state, slide);
 
+    rs_viewport v[RS_VIEW_MAX];
+    int nv = multi ? split(w->players, v) : 0;
     rs_oam_clear();
-    int vw = w->players == 2 ? 159 : RS_SCREEN_W;
+    /* front to back: the UI, the effects, the beaver, the bird, the sky */
+    if (state == DS_TITLE) hu_title_sprites(st_t, slot_icon, NULL);   /* the D-pad glyph, the players popping in */
+    if (!multi && state == DS_OVER) {
+        /* the house panel's values; the medal is an acorn in the house tiers (bronze, silver, gold, pearl) */
+        int m = hu_medal_of(w->bv[0].score, medal_scores);
+        hu_number(w->bv[0].score, 25 * 8, 11 * 8 - 4 + slide, 3);
+        hu_number(best, 25 * 8, 14 * 8 - 4 + slide, 3);
+        if (m) {
+            spr(SPR_ACORN + m - 1, 22 * 8 - 4, 16 * 8 - 4 + slide, 3, OPAL_KIT, 0);
+            if ((st_t / 20) % 3 == 0) hu_sparkle(22 * 8 + 12, 16 * 8 - 4 + slide, (st_t / 10) % 2, 3);
+        }
+    }
     for (int p = 0; p < w->players; p++) {
-        if (p == 1) oam_pad(VIEW_OAM);
+        if (multi) hu_view_oam_begin(&v[p]);
         int ox = sx, oy = sy;
-        /* front to back: the UI, the effects, the beaver, the bird, the sky */
-        if (state == DS_PLAY || state == DS_END) hu_number(w->bv[p].score, tree_cx(w), 10, 3);
-        if (p == 0 && (state == DS_TITLE || state == DS_READY) && w->players == 1)
-            hu_glyph(HU_BTN_A, hu_center("PRESS A TO GNAW", 0) * 8 - 12, 21 * 8 - 4, (st_t / 30) % 2, 3);
-        if (p == 0 && state == DS_OVER && w->players == 1) {
-            /* the house panel's values; the medal is an acorn in the house tiers (bronze, silver, gold, pearl) */
-            int m = hu_medal_of(w->bv[0].score, medal_scores);
-            hu_number(w->bv[0].score, 25 * 8, 11 * 8 - 4 + slide, 3);
-            hu_number(best, 25 * 8, 14 * 8 - 4 + slide, 3);
-            if (m) {
-                spr(SPR_ACORN + m - 1, 22 * 8 - 4, 16 * 8 - 4 + slide, 3, OPAL_KIT, 0);
-                if ((st_t / 20) % 3 == 0) hu_sparkle(22 * 8 + 12, 16 * 8 - 4 + slide, (st_t / 10) % 2, 3);
+        if (state == DS_PLAY || state == DS_END) {
+            hu_number(w->bv[p].score, cx, 10, 3);
+            if (multi) {                                /* whose view: the player's head by the score */
+                char d[12];
+                int len = snprintf(d, sizeof d, "%d", w->bv[p].score);
+                spr(SPR_ICON, cx - len * 6 - 19, 10, 3, OPAL_BEAVER, 0);
             }
         }
-        draw_fx(p, ox, oy);
+        draw_fx(p, ox, oy, w->players);
         draw_beaver(w, p, ox, oy);
         draw_bird(w, p, ox, oy);
-        if (w->players == 1) draw_family(w, t);
+        if (!multi) draw_family(w, t);
         draw_sky(w, vw, t);
+        if (multi) hu_view_oam_end(&v[p]);
+        view_oam[p][0] = multi ? v[p].oam_first : 0;
+        view_oam[p][1] = multi ? v[p].oam_count : RS_OAM_MAX;
     }
-    if (w->players == 2 && state == DS_OVER) {        /* the panel's numbers, in the panel's view */
-        oam_pad(2 * VIEW_OAM);
-        hu_number(w->bv[0].score, 25 * 8 - 80, 11 * 8 - 4 - 72, 3);
-        hu_number(w->bv[1].score, 25 * 8 - 80, 14 * 8 - 4 - 72, 3);
+    for (int p = w->players; p < MAX_PLAYERS; p++) view_oam[p][0] = view_oam[p][1] = 0;
+    if (!multi) {
+        if (views_on) { rs_viewports(0, NULL, 0); views_on = 0; }
+        return;
     }
+    /* the split screen: each view its tree, the middle of the valley, its sprites, its beaver's colours */
+    for (int p = 0; p < nv; p++) {
+        rs_viewport *q = &v[p];
+        q->sx[RS_BG1] = q->x;
+        q->sy[RS_BG1] = 0;
+        q->sx[RS_BG2] = (int16_t)((TRUNK_MAP_X + p * TREE_COLS * 8 - (cx - TRUNK_W / 2) - sx) & (BG2_MAP_W * 8 - 1));
+        q->sy[RS_BG2] = (int16_t)(TRUNK_SCROLL_Y + drop_px(PV[p].drop_t) - sy);
+        q->sx[RS_BG3] = q->sx[RS_BG4] = (int16_t)view_bg_x(w);
+        q->sy[RS_BG3] = q->sy[RS_BG4] = 0;
+        if (state == DS_OVER) q->layers &= (uint8_t)~(1 << RS_BG1);    /* the panel slides in its own views */
+        scene_view_fur(p, p);
+    }
+    int n = nv;
+    if (state == DS_OVER) {                     /* the banner and the ranking over the views, sliding up */
+        rs_viewport *bn = &v[n], *pn = &v[n + 1];
+        int rows = 3 * rs.n + 4;
+        view_rect(bn, 80, 24 + slide, 160, 32, 80, 24);
+        view_rect(pn, 64, 64 + slide, 192, rows * 8, 64, 64);
+        pn->objs = 1;
+        hu_view_oam_begin(pn);
+        results_sprites(&rs, st_t, 64, 64);
+        hu_view_oam_end(pn);
+        scene_view_fur(n, -1);
+        scene_view_fur(n + 1, FUR_BY_LINE);
+        scene_line_fur(0, RS_SCREEN_H, -1);
+        for (int i = 0; i < rs.n; i++) {
+            int icx, icy;
+            hu_results_icon_pos(&rs, i, &icx, &icy);
+            scene_line_fur(icy - 8 + slide, icy + 8 + slide, rs.order[i]);
+        }
+        n += 2;
+    }
+    rs_viewports(n, v, RS_RGB8(12, 20, 44));
+    views_on = 1;
 }
 
 /* ---- save states (main.c) ---- */
@@ -725,7 +817,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
 void draw_state(void)
 {
     S(PV); S(fx); S(fx_rng); S(shown_state); S(shown_best); S(shown_players); S(shown_over_t); S(banner_t);
-    S(banner_stage); S(banner_on); S(family_cheer); S(views_on);
+    S(banner_stage); S(banner_on); S(family_cheer); S(views_on); S(view_oam);
     scene_state();
 }
 #undef S

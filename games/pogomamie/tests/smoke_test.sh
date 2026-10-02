@@ -18,11 +18,14 @@ num() { echo "$2" | sed -n "s/.*state: .* $1=\([0-9]*\).*/\1/p"; }
 out=$(run --frames 300 --opt strict=1)
 check "title: nothing happens without input (Mamie bounces in place)" "state: st=0 .*dist=0 .*camx=0 " "$out"
 if echo "$out" | grep -q "rs strict"; then ko "strict mode warnings: $(echo "$out" | grep 'rs strict')"; else ok "no strict-mode warning (VRAM, sprites, voices, samples...)"; fi
+out=$(run --frames 4000 --opt strict=1 --opt bot=4 --opt players=4 --opt ready=1 --opt seed=5 --opt music=1)
+if echo "$out" | grep -q "rs strict"; then ko "four-player music warnings: $(echo "$out" | grep 'rs strict' | head -3)"
+else ok "four-player music and effects stay within hardware limits"; fi
 
 printf "30 tap A\n" > "$T/title.input"
 out=$(run --frames 60 --input "$T/title.input")
-check "A on the title: get ready" "state: st=1 " "$out"
-printf "30 tap A\n80 tap START\n" > "$T/go.input"
+check "A on the title: starts immediately" "state: st=2 " "$out"
+printf "30 tap A\n" > "$T/go.input"
 out=$(run --frames 120 --input "$T/go.input")
 check "... then A (or Start) starts the run" "state: st=2 " "$out"
 
@@ -45,7 +48,7 @@ f=$(echo "$out" | sed -n 's/.*run 1 over at frame \([0-9]*\).*/\1/p')
 if [ -n "$f" ]; then
     printf "30 tap A\n80 tap A\n100 RIGHT\n$((f + 10)) -\n$((f + 50)) tap A\n" > "$T/retry2.input"
     out=$(run --frames $((f + 60)) --input "$T/retry2.input" --opt seed=4)
-    check "retry: one button back to get ready" "state: st=1 .*runs=1 " "$out"
+    check "game over: one button back to the title" "state: st=0 .*runs=1 " "$out"
 else
     ko "holding Right: no game over in 3000 frames"
 fi
@@ -65,12 +68,12 @@ out=$(run --frames 10 --sram "$T/save.srm")
 if [ -n "$d" ] && echo "$out" | grep -q "best=$d "; then ok "save RAM: the best distance ($d m) persists"; else ko "save RAM: '$d' vs $(echo "$out" | grep state)"; fi
 
 printf "20 P2 tap A\n" > "$T/join.input"
-out=$(run --frames 60 --opt ready=1 --input "$T/join.input")
-check "Papi joins from get ready (race mode)" "players=2 " "$out"
+out=$(run --frames 60 --input "$T/join.input")
+check "Papi joins on the title" "players=2 " "$out"
 out=$(run --frames 2500 --opt bot=2 --opt seed=6 --opt players=2 --opt ready=1)
 check "race: both bounce along" "players=2 dist=[1-9][0-9]* dist2=[1-9][0-9]* " "$out"
 
-# the bot plays from the screen only: 10 seeds, the mean distance must reach 1000 m (tests/bot_test.sh)
+# the bot plays from the screen only: aggregate progress plus one long run under fatal hazards (tests/bot_test.sh)
 sh "$(dirname "$0")/bot_test.sh" "$H" "$T" || fail=1
 
 # determinism: the same inputs, the same run (state hash and picture), twice

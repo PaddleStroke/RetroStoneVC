@@ -225,6 +225,16 @@ def main():
     c.append(arr("br_obj_pals", objp))
     h.append("extern const uint16_t br_bg_pals[4 * 8 * 16];   /* [season][palette][entry] */")
     h.append("extern const uint16_t br_obj_pals[4 * 8 * 16];")
+    # the four players' beaver palettes (the house rule: house_style.player_palettes); entries FUR0..FUR1-1 differ
+    fur = []
+    for p in range(4):
+        pb = A.pal_beaver(p)
+        f0, f1 = A.FUR_ENTRIES
+        assert pb[:f0] + pb[f1:] == A.pal_beaver(0)[:f0] + A.pal_beaver(0)[f1:], "only the fur entries may differ"
+        fur += pal16(pb)
+    c.append(arr("br_fur_pals", fur))
+    h.append("extern const uint16_t br_fur_pals[4 * 16];   /* [player][entry] */")
+    h.append("#define FUR0 %d\n#define FUR1 %d" % A.FUR_ENTRIES)
 
     # ---- the asset pack: the music at four tempos -------------------------------------------------------------------
     music_dir = os.path.join(a.out, "music")

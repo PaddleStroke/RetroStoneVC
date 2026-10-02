@@ -111,7 +111,7 @@ than the playfield; UI is always cream on navy; gold means "reward".
 | Join | row 26: `P2 / P3 / P4: PRESS A TO JOIN` (the free slots), then `P3 / P4: PRESS A TO JOIN - B: LEAVE`, `4 PLAYERS - B: LEAVE`; a joined player's icon pops in on its slot (row 18) with a sparkle and the confirm sound | `hu_title_*` |
 | In game | the score in big digits, centred at the top (y 10); 2 players: at x 80 and 240; 3-4 players: score chips in the corners (P1 top-left, P2 top-right, P3 bottom-left, P4 bottom-right) with a P1..P4 tag; split screens: one score per view | `hu_number`, `hu_score_chip(s)`, `hu_score_tags`, `hu_split` |
 | Pause | Select (and Start when it is not an action): brightness 9/15, PAUSED big on row 13, a blip | `hu_pause` |
-| Game over | the **banner** (a 20x4 panel at row 4, GAME OVER in gold), the **panel** (20x12 at row 9): SCORE, BEST or NEW BEST, MEDAL (1P); both slide up 200 px in 20 frames (ease-out); `A: <VERB> AGAIN` blinks on row 19 after 36 frames | `hu_banner`, `hu_gameover_panel`, `hu_gameover_sprites`, `hu_retry_line`, `hu_slide_in` |
+| Game over | the **banner** (a 20x4 panel at row 4, GAME OVER in gold), the **panel** (20x12 at row 9): SCORE, BEST or NEW BEST, MEDAL (1P); both slide up 200 px in 20 frames (ease-out); `A: MAIN MENU` blinks on row 19 after 36 frames | `hu_banner`, `hu_gameover_panel`, `hu_gameover_sprites`, `hu_retry_line`, `hu_slide_in` |
 | Results (2-4 players) | the banner on row 3 (`P3 WINS!` or `DRAW!`), the ranking panel (24 wide from row 8): one row per place, 3 rows apart: 1ST..4TH, the tag, the hero icon, the score, the medal (1st gold, 2nd silver, 3rd bronze, ties alike; a sparkle by the winner); the retry line under it | `hu_rank`, `hu_results_panel`, `hu_results_sprites`, `hu_results_icon_pos`, `hu_retry_line_at` |
 | Medals | 4 tiers at 10, 20, 30, 40: bronze, silver, gold, pearl; a sparkle blinks next to it; the medal jingle | `hu_medal`, `hu_medal_of`, `hu_sparkle` |
 | Buttons | a round silver button with its letter (A, B, X, Y), 16x16, a pressed frame 1 px lower; the D-pad cross (`HU_BTN_DPAD`) | `hu_glyph` |
@@ -124,27 +124,26 @@ than the playfield; UI is always cream on navy; gold means "reward".
 
 **No more "get ready" screen: the title is the only menu.** Up to 4 players in every game (the SDK has 4 pads).
 
-- **Start inputs.** P1 starts the game straight from the title with the game's natural play input, set per game
-  in `hu_title_cfg.start` (RS_BTN_* bits); the prompt shows the matching glyph or word, made by the kit:
-  `PRESS A TO <VERB>` (A glyph), `PRESS <-/-> TO <VERB>` (Left and Right: D-pad glyph), `PRESS ANY ARROW TO <VERB>`
-  (the whole D-pad: D-pad glyph). The words are in one table in house_ui.c (`words`: a translation replaces it).
+- **A starts EVERY game.** The kit's start mask always includes A (`hu_title_setup` adds it); `hu_title_cfg.start` lists
+  only the EXTRA inputs the game's natural play adds (the D-pad, B, X, Y, Up...; 0: just Start). The prompt is always
+  `PRESS A TO <VERB>` with the A glyph. The words are in one table in house_ui.c (`words`).
 
-| Game | Start inputs | Prompt |
+| Game | Extra start inputs | Prompt |
 |---|---|---|
-| Leady Squid | A, B, X, Y, Up, Start (its swim inputs) | PRESS A TO SWIM |
-| Beaver Rush | Left, Right, A, B | PRESS <-/-> TO GNAW |
-| Duck Parade | the D-pad, A | PRESS ANY ARROW TO HOP |
-| Pogo Mamie | the D-pad, A | PRESS ANY ARROW TO BOUNCE |
-| Pancake Tower | A | PRESS A TO DROP |
-| Blueberry Tumble | A, Up | PRESS A TO ROLL |
+| Leady Squid | B, X, Y, Up, Start | PRESS A TO SWIM |
+| Beaver Rush | Left, Right, B | PRESS A TO GNAW |
+| Duck Parade | the D-pad | PRESS A TO HOP |
+| Pogo Mamie | the D-pad | PRESS A TO BOUNCE |
+| Pancake Tower | B, X, Y, Up, Start | PRESS A TO PLAY |
+| Blueberry Tumble | Up | PRESS A TO ROLL |
 
 - **Join and leave on the title.** Pads 2-4 join with A (or Start), leave with B. Players are numbered in the order
   they joined (P1 is always pad 1; `hu_player_pad(p)` maps a player to its pad); the lobby stays between runs.
   Each joined player's icon (the hero in its palette, drawn by the game's callback) pops up on its slot (row 18)
   with a 10% overshoot and two sparkles; the game plays its join sound (house: `HA_CONFIRM`). Row 26 lists the
   free slots: `P2 / P3 / P4: PRESS A TO JOIN`.
-- **After a game over**, one press retries at once with the same players (straight into play: instant retry);
-  Select goes back to the title (to join or leave).
+- **After a game over**, one press (A, Start, Select or a start input: `hu_over_back()`) goes BACK TO THE TITLE (the lobby stays,
+  so the same players start again from there with A); there is no instant retry and no get-ready page.
 - **The four palettes** (`house_style.player_palettes`, `hu_player_pal`): P1 the hero's own palette (OBJ 0);
   P2 the game's `hue_swap` of the hero's main material (OBJ 1, as before); P3 and P4 (OBJ 4 and 5) the same
   material rotated to the two hues farthest from P1's and P2's on the colour wheel (on a 1/72 grid, so the four
@@ -195,8 +194,8 @@ than the playfield; UI is always cream on navy; gold means "reward".
 
 ## 8. Conventions
 
-- **One button, instant retry**: A (and B, X, Y, Up) acts; the game's start inputs start it from the title; on
-  the game-over panel one press starts the next run at once (Select: back to the title).
+- **One button, title-only flow**: A acts and starts from the title; natural start inputs also work. On
+  the game-over panel A returns to the title with joined players retained.
 - **The best score in save RAM**: a struct with a 4-letter magic, a version and a checksum, written at each
   game over (`rs_sram_commit`); never part of a save state.
 - **Players 2-4** join with A on their pad on the title (B leaves); the same hero in the house palette swaps

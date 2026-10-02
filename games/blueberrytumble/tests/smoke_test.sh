@@ -30,7 +30,7 @@ check "  ... and the first thing it meets kills it early (< 80 m)" "state: st=4 
 
 printf "30 tap A\n60 tap A\n860 tap A\n" > "$T/retry.input"
 out=$(run --frames 880 --input "$T/retry.input")
-check "retry: one press, straight into the next run" "state: st=2 .*runs=1 " "$out"
+check "game over: one press returns to the title" "state: st=0 .*runs=1 " "$out"
 
 printf "30 tap A\n60 tap A\n90 tap SELECT\n" > "$T/pause.input"
 a=$(run --frames 120 --input "$T/pause.input" | sed -n 's/.* f=\([0-9]*\) paused=\([0-9]\).*/\1 \2/p')

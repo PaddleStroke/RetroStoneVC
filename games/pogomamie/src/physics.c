@@ -89,11 +89,16 @@ int mamie_air_step(mamie *m, const terrain *T, int dir, hit *h)
     return mamie_move(m, T, h);
 }
 
-/* a tumble: no control, the horizontal speed dies away */
-int mamie_tumble_step(mamie *m, const terrain *T, hit *h)
+/* a tumble (knocked off by a hazard): no control, nothing to land on and no wall (the run is over for her), the
+ * horizontal speed dies away */
+void mamie_tumble_step(mamie *m)
 {
     m->vx -= m->vx / 64;
-    return mamie_move(m, T, h);
+    m->vy = min32(m->vy + GRAVITY, MAX_FALL);
+    m->x += m->vx;
+    m->y += m->vy;
+    if (m->vx > Q16(0.25)) m->face = 1;
+    else if (m->vx < -Q16(0.25)) m->face = -1;
 }
 
 int mamie_move(mamie *m, const terrain *T, hit *h)

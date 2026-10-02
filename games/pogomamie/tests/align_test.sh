@@ -9,7 +9,7 @@ mkdir -p "$T"
 i=0
 for cfg in skip=0 skip=512 skip=1024 skip=1536 skip=2100 players=2; do
     i=$((i + 1))
-    ( "$B" --frames "$N" --opt $cfg --opt seed=$((i * 11)) --opt ready=1 > "$T/$i.txt" 2>&1; echo $? > "$T/$i.rc" ) &
+    ( "$B" --frames "$N" --opt $cfg --opt seed=$((i * 11 + (i == 5))) --opt ready=1 > "$T/$i.txt" 2>&1; echo $? > "$T/$i.rc" ) &
 done
 wait
 fail=0

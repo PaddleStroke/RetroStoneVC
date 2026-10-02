@@ -353,6 +353,41 @@ static void test_match(void)
     CHECK(match_winner(&m) == -1, "a draw");
 }
 
+static void test_four_players(void)
+{
+    match m;
+    match_init(&m, 4);
+    CHECK(m.players == 4 && m.tw[3].g.w0 == 32, "four narrow towers fit their columns");
+    for (int f = 0; f < 120; f++) {
+        int press[MAX_PLAYERS] = {0};
+        match_step(&m, press);
+    }
+    CHECK(!memcmp(&m.tw[0], &m.tw[3], sizeof(tower)), "identical inputs preserve four equal towers");
+    m.tw[0].pancakes = 9; m.tw[1].pancakes = 10; m.tw[2].pancakes = 11; m.tw[3].pancakes = 12;
+    CHECK(match_winner(&m) == 3, "player four can win");
+    m.tw[2].pancakes = 12;
+    CHECK(match_winner(&m) == -1, "equal height and score is a draw");
+    m.tw[3].score = 1;
+    CHECK(match_winner(&m) == 3, "score breaks a four-player height tie");
+    for (int p = 0; p < 3; p++) m.tw[p].state = TS_MISSED;
+    CHECK(!match_over(&m), "the fourth tower keeps the match running");
+    m.tw[3].state = TS_MISSED;
+    CHECK(match_over(&m), "the match ends when all four have missed");
+
+    match_init(&m, 4);
+    m.tw[1].state = TS_MISSED;
+    tower *t = &m.tw[0];
+    int splashed = 0;
+    for (int k = 0; k < 3; k++) {
+        for (int i = 0; i < 400 && t->state != TS_SLIDE; i++) { int z[MAX_PLAYERS] = {0}; match_step(&m, z); }
+        t->sx = (int32_t)top_x(t) << 16;
+        int pr[MAX_PLAYERS] = {1, 0, 0, 0};
+        match_step(&m, pr);
+        for (int i = 0; i < 20; i++) { int z[MAX_PLAYERS] = {0}; match_step(&m, z); splashed |= m.tw[2].events & EV_SPLASHED; }
+    }
+    CHECK(splashed && m.tw[2].syrup && !m.tw[3].syrup, "a splash skips an eliminated rival and reaches the next living player");
+}
+
 int main(void)
 {
     test_constants();
@@ -363,6 +398,7 @@ int main(void)
     test_syrup_toppings();
     test_score_journey();
     test_match();
+    test_four_players();
     printf("%s: %d checks, %d failed\n", fails ? "FAIL" : "ok", checks, fails);
     return fails != 0;
 }

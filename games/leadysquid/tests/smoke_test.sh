@@ -30,7 +30,7 @@ check "... and the panel shows (then the rhythm's next taps retry at once)" "run
 # no "get ready": the retry press starts the next race at once (it is P1's first flap)
 printf "30 tap A\n500 tap B\n560 tap START\n" > "$T/retry.input"
 out=$(run --frames 540 --input "$T/retry.input")
-check "retry: one press, straight into the next race" "state: st=2 .*runs=1 .*scroll=[1-9]" "$out"
+check "game over: one press returns to the title" "state: st=0 .*runs=1 .*scroll=0" "$out"
 out=$(run --frames 600 --input "$T/retry.input")
 check "... and the next flap swims (Start is a swim input)" "state: st=2 .*runs=1 " "$out"
 printf "30 tap A\n500 tap SELECT\n" > "$T/back.input"

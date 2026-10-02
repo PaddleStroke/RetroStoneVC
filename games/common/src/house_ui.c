@@ -56,6 +56,7 @@ static int paused_now;
 static int shake_amp, shake_t, shake_len, shake_dx, shake_dy;
 static lobby_t lobby;
 static uint8_t box_have[12];    /* bit g: the panel font's glyph g is in VRAM (hu_box_text uploads the others) */
+static uint8_t font_have[12];   /* ordinary glyphs are uploaded when used, just like the panel font */
 static uint8_t dpad_loaded;
 
 hu_config hu_defaults(void)
@@ -274,8 +275,8 @@ static void kit_sprites(void)
     for (int f = 0; f < 2; f++) { make_sparkle(f, &c); cv_upload(&c, S_SPARK + f); }
 }
 
-/* the D-pad glyph: only for the games whose title asks for it (VRAM) */
-static void dpad_sprites(void)
+/* the D-pad glyph (no title uses it any more: A starts every game; kept for a game that loads it itself) */
+__attribute__((unused)) static void dpad_sprites(void)
 {
     canvas c;
     if (dpad_loaded || cfg.obj_tile < 0) return;
@@ -288,6 +289,14 @@ static void box_glyph(int g)
     if (g < 0 || g >= 96 || (box_have[g >> 3] & (1 << (g & 7)))) return;
     glyph_tile(g, HU_FILL, T_BOX + g);
     box_have[g >> 3] |= (uint8_t)(1 << (g & 7));
+}
+
+static void font_glyph(int g)
+{
+    if (g < 0 || g >= 96) g = '?' - 32;
+    if (font_have[g >> 3] & (1 << (g & 7))) return;
+    glyph_tile(g, 0, T_FONT + g);
+    font_have[g >> 3] |= (uint8_t)(1 << (g & 7));
 }
 
 static void lobby_reset(void)
@@ -305,9 +314,8 @@ static void lobby_reset(void)
 void hu_init(const hu_config *c)
 {
     cfg = *c;
-    rs_text_load(cfg.vram_base + cfg.tile_base + T_FONT, 0);
-    for (int g = 0; g < 96; g++)                           /* the arrows over four unused glyphs */
-        if (arrow_of(g) >= 0) glyph_tile(g, 0, T_FONT + g);
+    memset(font_have, 0, sizeof font_have);
+    font_glyph(0);                                      /* hu_clear uses the space tile */
     /* the font on the panel colour (only the glyphs asked for: VRAM; hu_box_text adds the others when needed) */
     memset(box_have, 0, sizeof box_have);
     dpad_loaded = 0;
@@ -333,7 +341,7 @@ void hu_init(const hu_config *c)
 void hu_state(void)
 {
     S(cfg); S(big_chars); S(big_used); S(paused_now); S(shake_amp); S(shake_t); S(shake_len); S(shake_dx); S(shake_dy);
-    S(lobby); S(box_have); S(dpad_loaded);
+    S(lobby); S(box_have); S(font_have); S(dpad_loaded);
 }
 #undef S
 
@@ -342,6 +350,7 @@ static int bg_entry(int rel, int prio) { return RS_MAP(cfg.tile_base + rel, cfg.
 
 void hu_text(int x, int y, const char *s)
 {
+    for (const char *p = s; *p; p++) font_glyph((unsigned char)*p - 32);
     rs_text_setup(cfg.layer, cfg.tile_base + T_FONT, cfg.pal, 1);
     rs_text(x, y, s);
 }
@@ -638,6 +647,7 @@ int hu_logo(const char *title, const rs_color (*ramps)[3], int nramps, int ty, i
     memcpy(logo_px, tmp, sizeof(logo_buf));
     /* tiles: the blank ones map to the font's space */
     int used = 0;
+    uint8_t unique[HU_LOGO_TILES][64];
     for (int tyy = 0; tyy < LOGO_H / 8; tyy++)
         for (int tx = 0; tx < LOGO_W / 8; tx++) {
             uint8_t t[64];
@@ -646,9 +656,14 @@ int hu_logo(const char *title, const rs_color (*ramps)[3], int nramps, int ty, i
                 for (int x = 0; x < 8; x++) any |= (t[y * 8 + x] = logo_px[tyy * 8 + y][tx * 8 + x]);
             uint16_t e = (uint16_t)RS_MAP(cfg.tile_base + T_FONT, 0, 0, 0, 0);
             if (any && used < HU_LOGO_TILES) {
-                rs_tiles_load8(cfg.vram_base + cfg.logo_tile + used, t, 1);
-                e = (uint16_t)RS_MAP(cfg.logo_tile + used, cfg.logo_pal, 1, 0, 0);
-                used++;
+                int k = 0;
+                while (k < used && memcmp(unique[k], t, sizeof t)) k++;
+                if (k == used) {
+                    memcpy(unique[used], t, sizeof t);
+                    rs_tiles_load8(cfg.vram_base + cfg.logo_tile + used, t, 1);
+                    used++;
+                }
+                e = (uint16_t)RS_MAP(cfg.logo_tile + k, cfg.logo_pal, 1, 0, 0);
             }
             rs_bg_put(cfg.layer, tx, ty + tyy, e);
         }
@@ -775,19 +790,14 @@ static int clampi_(int v, int lo, int hi) { return v < lo ? lo : v > hi ? hi : v
 
 void hu_title_setup(const hu_title_cfg *c)
 {
-    lobby.start = c->start ? c->start : (RS_BTN_A | RS_BTN_START);
+    /* A ALWAYS starts the game (and the prompt always reads PRESS A TO <VERB>, with the A glyph); the game may add
+     * its natural inputs (the D-pad, B...) to cfg.start. */
+    lobby.start = (uint16_t)((c->start ? c->start : RS_BTN_START) | RS_BTN_A);
     lobby.max = (uint8_t)clampi_(c->max_players, 1, HU_MAX_PLAYERS);
     if (lobby.n > lobby.max) lobby.n = lobby.max;
     lobby.slot_row = (uint8_t)(c->slot_row > 0 ? c->slot_row : HU_ROW_SLOTS);
-    const char *what;
-    if ((lobby.start & HU_IN_DPAD) == HU_IN_DPAD) { what = words.any_arrow; lobby.glyph = HU_BTN_DPAD; }
-    else if ((lobby.start & HU_IN_LR) == HU_IN_LR) { what = HU_ARROW_LEFT "/" HU_ARROW_RIGHT; lobby.glyph = HU_BTN_DPAD; }
-    else if (lobby.start & RS_BTN_A) { what = "A"; lobby.glyph = HU_BTN_A; }
-    else if (lobby.start & RS_BTN_B) { what = "B"; lobby.glyph = HU_BTN_B; }
-    else { what = words.start; lobby.glyph = -1; }
-    if (lobby.glyph == HU_BTN_DPAD) dpad_sprites();
-    if (c->prompt) snprintf(lobby.prompt, sizeof lobby.prompt, "%s", c->prompt);
-    else snprintf(lobby.prompt, sizeof lobby.prompt, words.press_to, what, c->verb ? c->verb : "PLAY");
+    lobby.glyph = HU_BTN_A;
+    snprintf(lobby.prompt, sizeof lobby.prompt, words.press_to, "A", c->verb ? c->verb : "PLAY");
 }
 
 void hu_players_set(int n)
@@ -1018,4 +1028,11 @@ void hu_results_sprites(const hu_standing *s, int t, int slide_px)
             if (s->rank[i] == 0 && (t / 20) % 3 == 0) hu_sparkle(27 * 8 + 18, y - 8, (t / 10) % 2, 3);
         }
     }
+}
+
+int hu_over_back(void)
+{
+    for (int p = 0; p < lobby.n; p++)
+        if (rs_pad_pressed(lobby.pad[p]) & (lobby.start | RS_BTN_A | RS_BTN_START | RS_BTN_SELECT)) return 1;
+    return 0;
 }

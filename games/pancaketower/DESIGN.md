@@ -10,7 +10,7 @@ the side with a drip of syrup, and the next pancake is that much narrower. Drop 
 width, and a chain of perfect drops makes the pancakes grow back. Every tenth pancake a topping lands on
 the tower; syrup makes the next pancake slide a little. The camera climbs with the tower: through the
 kitchen ceiling, out of the roof, past the birds and the clouds, up to space, where a cow jumps over the moon.
-One button, instant retry, a best height to beat.
+One button, quick return to title, a best height to beat.
 
 It is a "Stack"-style timing game (Ketchapp, 2016). Its mechanics follow the genre's reference feel (a
 ping-pong slide, the cut of the overhang, a perfect-drop window, the regrow after a chain of perfects, a
@@ -143,34 +143,21 @@ BG 1), 5 the toppings (the same as BG 2), 6 birds, the balloon, the plane, the s
 - Medals, the shared house tiers (bronze, silver, gold, pearl): a **golden fork** set, at 25, 50, 75 and 100
   points.
 
-## Flow (no menus in the loop)
-1. **Title**: the logo, the kitchen, the chef, a pancake sliding, "PRESS A", the best score.
-2. **Ready**: the same scene without the logo; the first press drops the first pancake (the slider is
-   already moving).
-3. **Play**.
-4. **Game over**: the missed pancake flops down the whole tower, the chef despairs, then the house panel:
-   GAME OVER on its banner, SCORE (and the height in pancakes), BEST (NEW BEST), the fork medal. After 0.6 s
-   any face button retries at once (back to 2).
+## Flow and controls
+The title is the only menu. A starts play, and the next A drops the first pancake. Other face buttons and Up
+also drop; Start or Select pauses during play. After game over, A returns to the title, preserving the lobby.
+Pads 2-4 join with A or Start and leave with B. There is no Get Ready screen.
 
-**Pause**: Start (or Select) during a run (the picture dims, PAUSED); Start or Select again resumes.
+## Versus: 2-4 players
+Two players use 159-pixel halves and the existing 64-pixel pancakes. Three and four players use full-height
+columns (105/78 pixels) with 32-pixel pancakes, a 36-pixel slide distance, the same traverse time, a 2-pixel
+perfect window and syrup slip, and 6-pixel regrowth. Each tower has its own camera and carved ceiling/roof holes.
+The narrow views share identical end tiles with reference counts; 64-pixel dynamic sprite boxes reduce memory.
+Syrup targets the next living rival, skipping players who missed. When all towers stop, height wins, then score;
+the results panel ranks all joined players. Chefs use red, blue, green and orange clothing.
 
-## Controls
-| Button | Action |
-|---|---|
-| A (or B, X, Y) | drop / start / retry |
-| Start (or Select) | start on the title and the panel; pause in a run |
-| pad 2, a face button on the title or ready screen | player 2 joins (versus) |
-
-## 2-player versus (split screen)
-Player 2 joins from the title or ready screen with a face button on pad 2. The screen splits into two
-viewports (left and right halves, 159x240 each); each shows its own tower, its own camera and its own
-scenery (each viewport has its own scroll; the raster callback draws each viewport's sky and wobble).
-Both towers follow the same rules and the same slide timings (the game is deterministic: the same height
-gives the same speed and the same side), in a geometry scaled by 2/3 so that a tower fits its half
-(64-px pancakes, the same times). **Syrup splash**: every 3rd perfect of a chain splashes syrup on the
-rival's top pancake (it flies in from the rival's side), so their next pancake slides (4 px: 6 scaled). A player who misses stops (their tower
-stays, their chef despairs); when both have stopped, the tallest tower wins (a tie on height goes to the
-score). The panel shows both heights and the winner.
+The roof is a side-view section of joists, eaves and tiles with sky above it; the chimney and aerial remain.
+The tower opens a matching hole through it, then the roof drops below the climbing camera.
 
 ## Audio
 - Sound effects synthesised in code at start-up (src/sfx.c): a soft **flop** on landing (a low thump and a
@@ -285,35 +272,25 @@ published guides and from clones that reproduce it.
   deterministic Gaussian spread, sigma 0.8 frame (13 ms), clamped to +-2 frames. It must reach **60 pancakes
   on average over 10 seeds** (the jitter's seed). Measured: 77 83 74 78 88 98 88 85 82 85, **mean 83.8**, min
   74, max 98; the jitters applied (frames -2..+2): 21, 204, 395, 208, 20.
-- `tests/ui_test.sh` + `ui_check.py`: the UI screenshot test: the title, ready (2 players), a run, the pause,
+- `tests/ui_test.sh` + `ui_check.py`: the UI screenshot test: titles with 1-4 players, a run, the pause,
   the versus and the game-over panel are rendered headless; each renders, they all differ, the title renders
   the same twice, and each shows what it must (the logo's golden and syrup letters, the copyright line, the
   gold GAME OVER and the navy panel, a fork medal, the dimmed pause and PAUSED, the split screen's divider,
-  READY on each half).
+  the kitchen, golden pancakes and each chef's colour after players join and leave). Multiplayer results also
+  preserve the world during the slide, keep every score readable and place the menu prompt below the rankings.
 - `tests/state_test.sh`: save states (the SDK's test_states): at the title, at six points of a run (the
   syrup, the ceiling crash, the roof included), paused, on the panel, high up in space and in 2 players (bots,
   and a human join): the replay after a load and a fresh process match frame by frame, bad states are refused;
   `tools/state_audit.py` checks that every mutable static is saved (state_audit.txt lists the scratch ones).
 - `test_libretro`: the core loads and runs 600 frames in the SDK's libretro loader.
 - `tools/screenshots.sh`: docs/screenshots/ (title, early stacking, a perfect chain, the syrup, a topping,
-  the ceiling crash, the roof, sky, clouds, stratosphere, space and the cow, a miss, game over, pause, ready
+  the ceiling crash, the roof, sky, clouds, stratosphere, space and the cow, a miss, game over, pause, title
   and versus in 2 players, the 2-player game over).
 
-## Remaining work
-- **Done** (031b834): the roof (the start is the whole kitchen with its ceiling and lamp; the camera never looks
-  above an unbroken ceiling; the attic; the roof seen from above, smoking chimney, the neighbourhood on BG4) and
-  the ceiling and roof breakthroughs (pixel-exact carved holes, held tower, matching debris, shake-safe
-  streaming), with tests/test_break.c. `make pancaketower-check` passes.
-- **Not done: the house flow and 4 players** (the kit has it since eea679b): drop the ready screen (title only,
-  `hu_title_setup` with start input A, "P2-P4: PRESS A TO JOIN", start on A, retry straight into play, Select to
-  the title); MAX_PLAYERS 4 in 2x2 quadrants (`hu_split` QUAD, 159x119) with a 1/2 geometry (48-px pancakes, slide
-  +-54); splash on the leader or the next standing player; score chips and tags (`hu_score_chip(s)`), the
-  ranking panel (`hu_results_*`) for 2-4 players; chef icons for the title slots and the results (P3/P4 colours
-  in OBJ 6/7 while critters are hidden); per-player tables in draw.c (views, rings: BG2 64 wide, BG3/BG4 128 wide in
-  3-4 players; BG2 and carved tiles shared modulo 16 rows; no vertical shake in quadrants); 4-player smoke,
-  determinism and save-state tests. Expect 4 players to exceed the 64-KiB VRAM guideline (measure, document).
-- **Not done: docs/screenshots** still show the old roof; re-render them (tools/screenshots.sh: the kitchen
-  start, the ceiling crash, the attic, the roof break-out) and rebuild the dist outputs.
+## Completion checks
+The title-only flow, four-player rules, roof artwork and Windows builds are updated. Regression tests cover
+four-player winner/ties, splash targeting past an eliminated player, lobby join/leave, strict graphics/audio limits,
+save/load and pixel alignment through both house openings. Screenshots are regenerated from the current renderer.
 
 ## Performance (make pancaketower-bench)
 Measured on the build host (WSL2, x86-64), per frame (update + draw + PPU + audio, the music on):

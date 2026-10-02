@@ -7,7 +7,7 @@ virtual console (docs/spec.md), in the 8BCraft house style (docs/art-direction.m
 
 ## Pitch
 TODO: three sentences. Who the hero is, the one verb the button does, why one more try.
-One button, instant retry, a best score to beat.
+One button, a quick restart from the title, a best score to beat.
 
 ## Rules
 TODO: the mechanics, with every number in src/game.h (the tuning table: one place for every gameplay number).
@@ -33,10 +33,10 @@ TODO: the mechanics, with every number in src/game.h (the tuning table: one plac
 
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the logo, the bobbing hero, the player slots, PRESS A with the A glyph, BEST, the join line, the copyright
-line) -> P1 presses one of the START INPUTS (main.c START_INPUTS: the game's natural play inputs; the press is
+line) -> P1 presses A (or an extra start input in main.c START_INPUTS; the press is
 also the first jump) -> play (the score at the top, Select pauses) -> the hit (hit-stop, a shake) -> game over
 (the banner, the panel sliding up: score, best / new best, the medal; 2-4 players: the ranking with medals)
--> one press: the next run at once (Select: back to the title).
+-> one press: back to the title (hu_over_back; the same players start again with A).
 
 ## Up to four players
 Pads 2-4 join with A on the title (B leaves; the house kit's lobby, docs/art-direction.md "Title and players");

@@ -9,7 +9,7 @@ A young beaver has one job: gnaw the giant tree, log by log, before the river ru
 or Right hops the beaver to that side of the trunk and gnaws the bottom log away: the trunk drops by one,
 chips fly, and the log tumbles into the river, floats off and becomes part of the family's dam in the
 background. Branches come down with the trunk: never be under one. A timer bar drains faster and faster;
-only gnawing fills it. One life, instant retry, a best score to beat.
+only gnawing fills it. One life, quick return to title, a best score to beat.
 
 The mechanics follow the genre's reference feel (Timberman, Digital Melody, 2014): a trunk of stacked
 segments, a two-sided chop that also moves the player, a branch at head height after the drop kills, a
@@ -95,20 +95,9 @@ Segments are made one at a time by a small generator with its own xorshift RNG (
 - Save RAM: the best score, the number of runs, the medals won, the versus wins of each pad.
 
 ## Flow
-1. **Title** (the house layout): the logo "BEAVER RUSH" (BEAVER in the beaver accent, RUSH in gold), the scene
-   at summer dawn with the family on the bank, the beaver at the foot of the tree, the blinking "PRESS A TO
-   GNAW" with the A glyph, the best score, "(C) 2026 8BCRAFT - RETROSTONE VC". A gnaw starts the run at once
-   (and gnaws); Start goes to get ready.
-2. **Get ready** (after a run, or when player 2 joins): the same scene, "GET READY"; the first gnaw starts.
-3. **Play**: the score (house digits) and the timer bar at the top; after each milestone the scene's name
-   ("SUMMER DAY") for 1.5 s.
-4. **Bonk** (a branch) or **out of breath** (the timer): the dizzy face with stars circling, or the slumped
-   beaver with rising "z"s; the house shake (3 px, 12 frames) on a bonk; the world stops.
-5. **Game over**, 40 frames later: the house banner and panel slide up: SCORE, BEST (NEW BEST), MEDAL (the
-   acorn, a sparkle blinking by it). After 0.6 s any gnaw button retries at once: back to 2 with a fresh tree
-   (the dam, the pond and the scene start again).
-
-**Pause**: Start during a run (the house pause: dimmed picture, PAUSED); Start again resumes.
+The title is the only menu. A starts with a first gnaw; Left/Right/B remain natural start inputs. Pads 2-4 join
+with A or Start and leave with B. The lobby is retained after game over: A returns to the title, then A starts
+another run. Start or Select pauses during play. There is no Get Ready screen.
 
 ## Controls
 | Button | Action |
@@ -116,18 +105,15 @@ Segments are made one at a time by a small generator with its own xorshift RNG (
 | Left, B (also Y) | gnaw on the left |
 | Right, A (also X) | gnaw on the right |
 | Start | pause / resume (starts on the title) |
-| Pad 2, a gnaw button on the title or get-ready screen | player 2 joins (versus) |
+| Pads 2-4, A or Start on the title | join versus; B leaves |
 
-## 2-player versus
-Split screen (SDK viewports): the left half is player 1, the right half player 2, each with its tree, its
-beaver, its timer and score. Both trees have the **same seed** (the same branch and golden-log sequence) and
-the same timer rules: the timers race. The **last beaver standing wins** (a bonk or an empty bar ends that
-player; the round ends when one is out; both on the same frame: the higher score wins, else a draw).
-**Stolen chips**: each time a player reaches a milestone (every 50 logs) they send **one branch** to the
-rival: it appears at the top of the rival's visible trunk (segment 7, seven gnaws of warning, marked with a
-red ribbon), on the side where the rival stands, in the first empty segment from 7 up where the fairness rule
-still holds (it is never next to a branch of the other side, never on a golden log). Both players get the
-same number of chances; a stolen branch is visible as long as any other one.
+## Two to four players (versus)
+Full-height columns give each player a tree, beaver, timer and score. Trees share the same seed and timer
+rules. Play continues until the last survivor; simultaneous elimination ranks by score, with equal scores
+drawing. Results show all players. Four player colours remain visible in their respective viewports.
+Every 50 logs a stolen branch is sent to the leading living rival. Placement preserves trunk fairness and
+gives seven gnaws of warning. Cosmetic chips, gold sparkles and weather are reduced in narrow columns to
+preserve the sprite budget.
 
 ## Screen and layers
 320x240 at 60 Hz. Ground (the near bank) at y = 200; the trunk is 48 px wide, centred (x 136-184).
@@ -271,39 +257,14 @@ Sprites: 103 at most, 32 on a line at most (the guideline); VRAM, voices and sam
 
 ## Screenshots
 `make beaverrush-screenshots` (tools/screenshots.sh, 2x): docs/screenshots/ title, early-play, milestone,
-golden-log, night, autumn-sunset, winter, spring, pause, gameover-silver, get-ready-2-players, versus,
+golden-log, night, autumn-sunset, winter, spring, pause, gameover-silver, title-2-players, versus,
 versus-over.
 
-## Remaining work: the house title flow and the 4-player versus (owner request, unfinished)
-The game above still has the old flow (get ready, 2 players). A work-in-progress conversion sits on the branch
-`wip/beaverrush-4p` (commit d4e01eb, src/ and tools/ only). It builds and plays 1-4 players, but it does not pass
-`make beaverrush-check` yet. It contains:
-- the kit's title as the only menu (`hu_title_setup` with Left/Right/A/B: "PRESS <-/-> TO GNAW"; pads 2-4 join
-  with A and leave with B; the start press is P1's first gnaw), instant retry into play (the press gnaws), Select
-  on the results back to the title; `players=N` and `bot=N` up to 4;
-- the 4-player layout: **4 full-height columns** (`hu_split` HU_SPLIT_COLUMNS, 78 px; 3 players: 105 px). The
-  columns keep all 8 segments of look-ahead and the full-height scene (the raster sky, the windows and the line
-  scrolls are by screen line), where 2x2 quadrants (119 px tall) would show only 4 segments. The BG2 map is
-  64 x 32 (four trees 16 columns apart); in 4 columns the beaver stands 6 px closer to the trunk;
-- the palettes: one beaver palette (OBJ 0) for four beavers: the raster loads each viewport's player colours
-  (entries 1-5, `house_style.player_palettes`) per line; on the title OBJ 5 and 6 (gold, bird: unused there)
-  hold P3's and P4's colours for their icons; a 16x16 beaver-head icon (make_art.py `icon`);
-- the rules (world.c): the stolen branch goes to the leader among the other beavers still gnawing (ties: the
-  first after the sender in turn order; so the runner-up when the sender leads); a beaver out is out, the others
-  go on, the last one standing wins (all out at once: by score, else a draw); the ranking is the elimination
-  order, then the score (`world_rank_keys`, `hu_rank`), shown with `hu_results_panel` in overlay viewports.
-
-To finish:
-1. Adapt the tests to the new flow: smoke_test.sh (no get ready: st=1 is gone, `ready=1` now waits in play;
-   retry plays at once), ui_test.sh / ui_check.py (the title's D-pad glyph instead of the A glyph, the 2-player
-   results panel), state_test.sh; then add the 4-player ones (joins on the title, a 4-bot run, leave with B,
-   the stolen branch to the leader in test_rules.c, the last beaver standing, determinism and save states with 4
-   players, title shots with 0-3 players joined, 4-player play and results).
-2. Strict mode: VRAM is 66752 bytes on the branch (guideline 65536: the 64-wide BG2 map, the D-pad glyph, the
-   icon): trim about 1.3 KB (BG2 back to 32 x 32 with trees packed only as wide as a column shows, or fewer
-   logo tiles); 34 sprites on one line with 4 bots (fewer chips or weather sprites in 4 columns).
-3. Save RAM version 2 (vs_wins for 4 pads, version 1 read once) is in main.c: test it.
-4. Screenshots, DESIGN.md (flow, controls, versus, palettes, tests), dist/README-windows.txt, `make
-   beaverrush-dist`.
-5. Kit notes: `hu_results_sprites` draws at screen coordinates (a game showing the panel in an overlay viewport
-   must move the sprites itself); the kit draws its own medals (Beaver Rush draws its acorns at the kit's spots).
+## Four-player completion
+The saved conversion from wip/beaverrush-4p is integrated. Three/four players use full-height columns,
+with all eight upcoming logs visible. Player colours are applied per viewport; title slots use beaver-head icons.
+A stolen branch targets the highest-scoring living rival, with ties resolved in turn order after the sender.
+Eliminated players stay out; the last one standing wins. Results rank survival time, then score.
+Version-1 battery records migrate to version 2, retaining both original pads' win totals and the solo records.
+Identical logo tiles and text glyphs loaded on demand save VRAM; narrow columns use fewer wood chips.
+The four-player winter run and results are checked in strict mode, alongside lobby mapping and save/load tests.

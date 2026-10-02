@@ -81,7 +81,7 @@ static void new_run(int state)
     go(state);
 }
 
-static int is_bot(int p) { return (p == 0 && opt_bot) || (p == 1 && opt_bot >= 2); }
+static int is_bot(int p) { return p < opt_bot; }
 
 static void game_over(void)
 {
@@ -99,7 +99,7 @@ static void game_over(void)
         }
         if (new_best) SV.best_m = (uint32_t)best_d;
         if ((uint32_t)best_s > SV.best_score) SV.best_score = (uint32_t)best_s;
-        if (W.players == 2 && (uint32_t)best_d > SV.best_race) SV.best_race = (uint32_t)best_d;
+        if (W.players >= 2 && (uint32_t)best_d > SV.best_race) SV.best_race = (uint32_t)best_d;
         save_store();
     }
     if (nrun_dists < 64) run_dists[nrun_dists++] = W.m[0].dist_m;
@@ -172,10 +172,10 @@ static void play_update(int allow_start)
             if (opt_botstop && W.m[p].dist_m >= opt_botstop) { dir[p] = 0; a[p] = 0; }   /* it lets go: cruise, no steering */
             ap[p] = allow_start && st_t == 30;
         } else {
-            uint16_t b = rs_pad(p);
+            uint16_t b = rs_pad(hu_player_pad(p));
             dir[p] = (b & RS_BTN_RIGHT ? 1 : 0) - (b & RS_BTN_LEFT ? 1 : 0);
             a[p] = (b & GO_BUTTONS) != 0;
-            ap[p] = allow_start && (rs_pad_pressed(p) & START_INPUTS) != 0;
+            ap[p] = allow_start && (rs_pad_pressed(hu_player_pad(p)) & START_INPUTS) != 0;
         }
     }
     world_step(&W, dir, a, ap);
@@ -187,7 +187,7 @@ static void play_update(int allow_start)
         state_hash = (state_hash ^ (uint32_t)(m->score * 131 + m->state)) * 16777619u;
     }
     state_hash = (state_hash ^ (uint32_t)W.camx ^ (uint32_t)W.camy << 8) * 16777619u;
-    if (st == DS_READY && W.started) go(DS_PLAY);
+    if ((st == DS_READY || st == DS_TITLE) && W.started) go(DS_PLAY);
     if (st == DS_PLAY && !world_running(&W)) go(DS_FALL);
     if (st == DS_FALL && world_all_down(&W)) {
         int t = 0, down = 0;
@@ -208,39 +208,38 @@ static void game_update(void)
     int xc = world_camx(&W) + RS_SCREEN_W / 2;
     music_district(district_at(xc), night_at(xc) > 0);
     switch (st) {
-    case DS_TITLE:
-    case DS_READY: {
-        /* Papi joins with A on pad 2 */
-        if (players == 1 && (rs_pad_pressed(1) & GO_BUTTONS) && !opt_bot) {
-            players = 2;
+    case DS_TITLE: {
+        int ev = hu_title_update();
+        if (ev & (HU_TITLE_JOINED | HU_TITLE_LEFT)) {
+            players = hu_players();
+            int t = st_t;
+            new_run(DS_TITLE);
+            st_t = t;
             sfx(SFX_JOIN);
-            new_run(DS_READY);
-            break;
         }
-        if (st == DS_TITLE) {
-            int go_now = (rs_pad_pressed(0) & START_INPUTS) != 0 || (opt_bot && st_t == 40);
-            if (go_now) { sfx(SFX_JOIN); go(DS_READY); break; }
-            if (st_t % 300 == 150) sfx_at(SFX_MEOW, (int)W.c.x - world_camx(&W), 0);    /* the cat taunts */
-            play_update(0);
-        } else {
-            play_update(1);
-        }
+        if ((ev & HU_TITLE_START) || (opt_bot && st_t >= 40)) {
+            players = hu_players();
+            new_run(DS_PLAY);
+            int dir[MAX_PLAYERS] = {0}, held[MAX_PLAYERS] = {0}, press[MAX_PLAYERS] = {1};
+            world_step(&W, dir, held, press);
+            for (int p = 0; p < W.players; p++) sounds(p);
+        } else play_update(0);
         break;
     }
+    case DS_READY:
+        play_update(1);
+        break;
     case DS_PLAY:
     case DS_FALL:
         play_update(0);
         break;
-    case DS_OVER: {
-        int again = 0;
-        if (st_t >= RETRY_LOCK) {
-            for (int p = 0; p < W.players; p++) again |= (rs_pad_pressed(p) & (GO_BUTTONS | RS_BTN_START)) != 0;
-            if (opt_bot && runs_done < opt_botruns && st_t == RETRY_LOCK + 10) again = 1;
-        }
-        if (again) new_run(DS_READY);
-        else play_update(0);                  /* the world goes on behind the panel (the cat) */
+    case DS_OVER:
+        if (st_t >= RETRY_LOCK && (hu_over_back() ||
+            (opt_bot && runs_done < opt_botruns && st_t == RETRY_LOCK + 10))) {
+            players = hu_players();
+            new_run(DS_TITLE);
+        } else play_update(0);
         break;
-    }
     }
     fx_update(&W);
     st_t++;
@@ -259,13 +258,17 @@ static void game_init(void)
     sfx_init();
     draw_init();
     ui_init();
-    opt_bot = rs_option_int("bot", 0);
+    hu_title_cfg tc = {START_INPUTS, MAX_PLAYERS, "BOUNCE", NULL, 0};
+    hu_title_setup(&tc);
+    opt_bot = clampi(rs_option_int("bot", 0), 0, MAX_PLAYERS);
     opt_botruns = rs_option_int("botruns", 1);
     opt_botstop = rs_option_int("botstop", 0);
     opt_skip = clampi(rs_option_int("skip", 0), 0, 1000000);
     opt_seed_fixed = rs_option("seed") != NULL;
     opt_seed = (uint32_t)rs_option_int("seed", 0x9090);
-    players = clampi(rs_option_int("players", 1), 1, 2);
+    players = clampi(rs_option_int("players", 1), 1, MAX_PLAYERS);
+    if (players < opt_bot) players = opt_bot;
+    hu_players_set(players);
     opt_evlog = rs_option_int("evlog", 0);
     opt_give = rs_option_int("give", 0);
     new_run(rs_option_int("ready", 0) ? DS_READY : DS_TITLE);
@@ -315,6 +318,6 @@ static void game_state_loaded(void) { bot_state_loaded(); }
 const rs_game *rs_game_main(void)
 {
     static const rs_game g = {"Pogo Mamie", "pogomamie", "0.1.0", game_init, game_update, game_draw, game_shutdown,
-                              pm_assets, game_state, game_state_loaded, 1};
+                              pm_assets, game_state, game_state_loaded, 2};
     return &g;
 }

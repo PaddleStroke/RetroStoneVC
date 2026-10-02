@@ -40,8 +40,10 @@ scenario over 420 400 bot=1 botstop=3 ready=1 botruns=2 seed=4
 scenario space 200 400 bot=1 ready=1 start=110 seed=6
 # 2 players: the bots both stack (the syrup splashes), and a human join from ready
 scenario versus 600 500 bot=2 players=2 ready=1 seed=5
+printf "480 tap A\n520 tap A\n" > "$O/over2.input"
+scenario over2 300 350 bot=2 players=2 ready=1 botstop=3 seed=5
 printf "20 P2 tap A\n40 tap A\n47 P2 tap A\n" > "$O/join.input"
-scenario join 30 300 ready=1
+scenario join 30 300
 
 # a state of another game (if its tests ran) is refused
 for f in "$O"/leadysquid-*.state "$O"/bombermole-*.state; do
@@ -50,4 +52,8 @@ for f in "$O"/leadysquid-*.state "$O"/bombermole-*.state; do
     else echo "  FAIL a foreign state was not refused"; fail=1; fi
     break
 done
+printf "20 P2 tap A\n25 P3 tap A\n30 P4 tap A\n40 P3 tap B\n120 tap A\n" > "$O/join4.input"
+scenario join4 60 200 seed=5
+scenario four 600 400 bot=4 players=4 ready=1 seed=5
+scenario four-over 3000 300 bot=4 players=4 ready=1 seed=5 botstop=3
 exit $fail

@@ -122,10 +122,10 @@ void hu_retry_line_at(int row, int t, int lock, const char *text);
 #define HU_LEAVE_BUTTONS RS_BTN_B
 enum { HU_ROW_SLOTS = 18, HU_ROW_PROMPT = 21, HU_ROW_BEST = 24, HU_ROW_JOIN = 26, HU_ROW_COPYRIGHT = 28 };
 typedef struct hu_title_cfg {
-    uint16_t start;             /* P1's start inputs (RS_BTN_*): Leady Squid A|B|X|Y|UP|START, Duck Parade HU_IN_DPAD|A */
+    uint16_t start;             /* EXTRA start inputs for P1 (RS_BTN_*; 0: Start): A ALWAYS starts too, and the prompt is always PRESS A TO <VERB> */
     int max_players;            /* 1..4 (1: no slots, no join line) */
     const char *verb;           /* "SWIM" -> PRESS A TO SWIM */
-    const char *prompt;         /* NULL: made from start and verb (PRESS A / PRESS <-/-> / PRESS ANY ARROW TO <VERB>) */
+    const char *prompt;         /* unused (the prompt is always PRESS A TO <VERB>); keep NULL */
     int slot_row;               /* 0: HU_ROW_SLOTS */
 } hu_title_cfg;
 void hu_title_setup(const hu_title_cfg *c);            /* after hu_init (which resets the lobby to P1 alone) */
@@ -151,6 +151,9 @@ void hu_title_sprites(int t, hu_icon_fn icon, void *user);
 /* where the title glyph goes (a game with its own glyph sprites): returns HU_BTN_A, HU_BTN_DPAD or -1 (none) */
 int  hu_title_glyph(int *x, int *y);
 void hu_slot_pos(int p, int *cx, int *cy);             /* the centre of player p's icon on the title */
+/* On the game-over panel: a joined player pressed A, Start, Select or one of the start inputs: go BACK TO THE TITLE
+ * (house rule: after a game over the title is the only menu; the lobby stays, so the same players retry from there). */
+int  hu_over_back(void);
 
 /* ---- 4-player HUD ------------------------------------------------------------------------------------------------- */
 /* Score chips: 1 player centred at the top (y 10), 2 players at x 80 and 240 (y 10), 3-4 players in the corners

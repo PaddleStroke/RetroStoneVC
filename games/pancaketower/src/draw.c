@@ -6,7 +6,7 @@
  *   Sprites: the slider and the top pancake (render.c), the falling pieces, toppings, syrup, butter, the effects,
  *   the sky's critters, the chef, the kit's digits.
  * Two players: two viewports (each its own camera, scenery rows, wobble table and sky, switched by the raster
- * callback); the game-over panel is drawn in two more viewports over them.
+ * callback); each draws its portion of the shared title and results over the world.
  * Nothing here changes the game (tower.c): the cameras, wobble and effects are visual and deterministic.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/pancaketower/LICENSE.
  */
@@ -86,7 +86,7 @@ static fx_obj FXS[FX_MAX];
 static int nviews, shown_state = -1, shown_best = -1, shown_players = -1, title_logo_on;
 static int near_pal_last;
 static int medals_loaded;                          /* the fork medals' tiles (VRAM: only when one is shown) */                          /* the last near palette is in BG palette 5 (not the logo's) */
-static rs_viewport vps[4];
+static rs_viewport vps[RS_VIEW_MAX];
 static int nvps;
 int opt_nodraw_bg;
 
@@ -174,12 +174,37 @@ static void raster(int line, void *user)
     int vi = rs_viewport_current();
     if (vi < 0 || vi >= nviews) vi = 0;          /* 1 player, or the panel viewports */
     rs_pal_set(0, V[vi].line_col[line]);
+    if (nviews > 2 && shown_state != DS_TITLE) {
+        static const rs_color colors[4][2] = {
+            {RS_RGB8(226,72,66), RS_RGB8(150,36,44)},
+            {RS_RGB8(74,146,232), RS_RGB8(38,84,168)},
+            {RS_RGB8(108,200,96), RS_RGB8(52,116,56)},
+            {RS_RGB8(244,164,64), RS_RGB8(172,92,32)}};
+        const rs_color *base = pt_obj_pals;
+        for (int k = 1; k < 16; k++) {
+            rs_color c = base[k];
+            if (c == colors[0][0]) c = colors[vi][0];
+            else if (c == colors[0][1]) c = colors[vi][1];
+            rs_pal_set(RS_PAL_OBJ(0) + k, c);
+        }
+    }
     if (nviews > 1) rs_bg_line_scroll(RS_BG2, V[vi].wob_dx, NULL);
 }
 
 /* ---- set-up ------------------------------------------------------------------------------------------------ */
 static int void_tile0(void) { return pt_near_tile_count; }                      /* BG3, relative: a solid hole */
 static int carve_tile0(void) { return pt_near_tile_count + NEAR_PALS; }         /* BG3, relative: carved rows */
+
+/* The fixed sprite range is never reused. Transparent padding can retain the console's cleared VRAM. */
+static void load_obj_art(int first, int count)
+{
+    for (int t = first; t < first + count; t++) {
+        const uint8_t *data = pt_obj_tiles + t * RS_TILE_BYTES;
+        int any = 0;
+        for (int b = 0; b < RS_TILE_BYTES; b++) any |= data[b];
+        if (any) rs_tiles_load(VR_OBJ + t, data, 1);
+    }
+}
 
 void draw_init(void)
 {
@@ -191,7 +216,7 @@ void draw_init(void)
     hc.obj_pal = OBJ_KIT;
     hu_init(&hc);
     rs_bg_setup(RS_BG1, 64, 32, VR_BG1);
-    rs_bg_setup(RS_BG2, 32, 32, VR_BG2);
+    rs_bg_setup(RS_BG2, 64, 32, VR_BG2);
     rs_bg_setup(RS_BG3, 64, 32, VR_BG3);
     rs_bg_setup(RS_BG4, 64, 32, VR_BG4);
     render_init();
@@ -214,7 +239,7 @@ void draw_init(void)
         if (p != OBJ_KIT) rs_pal_load(RS_PAL_OBJ(p), pt_obj_pals + p * 16, 16);
     rs_obj_base(VR_OBJ);
     /* the sprites, but the fork medals (the last group): they are loaded when a 1-player game-over panel shows one */
-    rs_tiles_load(VR_OBJ, pt_obj_tiles, pt_spr[SPR_MEDAL].tile);
+    load_obj_art(0, pt_spr[SPR_MEDAL].tile);
     for (int l = 0; l < 4; l++) rs_bg_enable(l, 1);
     rs_raster(raster, NULL);
 }
@@ -235,11 +260,15 @@ static void reset_view(view *v, int p, int players)
         v->near_col0 = 0, v->near_pcol0 = 0, v->near_cols = 40;
         v->far_col0 = 0;
     } else {
-        v->w = RS_SCREEN_W / 2 - 1;
-        v->sx0 = 80;
+        rs_viewport layout[MAX_PLAYERS];
+        hu_split(players, HU_SPLIT_COLUMNS, layout);
+        v->w = layout[p].w;
+        v->sx0 = (v->w + 1) / 2;
         v->bg2_cx = 64 + 128 * p, v->bg2_col0 = 16 * p, v->bg2_cols = 16;
-        v->near_col0 = 32 * p, v->near_pcol0 = 10, v->near_cols = 20;
-        v->far_col0 = 32 * p;
+        v->near_col0 = (players > 2 ? 16 : 32) * p;
+        v->near_pcol0 = players > 2 ? (PANO_CX - v->sx0 - SHAKE_MAX) / 8 : 10;
+        v->near_cols = players > 2 ? 16 : 20;
+        v->far_col0 = (players > 2 ? 16 : 32) * p;
     }
 }
 
@@ -262,6 +291,7 @@ static int cam_target(const view *v, const tower *tw)
 
 void draw_reset(const match *m)
 {
+    render_reset(m->players);
     nviews = m->players;
     for (int p = 0; p < MAX_PLAYERS; p++) {
         view *v = &V[p];
@@ -290,6 +320,7 @@ void draw_reset(const match *m)
     }
     memset(PC, 0, sizeof PC);
     memset(FXS, 0, sizeof FXS);
+    rs_bg_setup(RS_BG2, m->players <= 2 ? 32 : 64, 32, VR_BG2);
     rs_bg_fill(RS_BG2, 0);
     rs_bg_fill(RS_BG3, 0);
     rs_bg_setup(RS_BG4, m->players == 1 ? 32 : 64, 32, VR_BG4);    /* 1 player: 256 px that repeat (VRAM) */
@@ -414,7 +445,8 @@ static void stream_far(view *v)
         int kk = k;
         if (kk >= FAR_H) kk = FAR_H - FAR_REPEAT + (kk - FAR_H) % FAR_REPEAT;   /* the stars repeat */
         const uint16_t *src = pt_far_map + (FAR_H - 1 - kk) * FAR_W;
-        for (int c = 0; c < 32; c++) rs_bg_put(RS_BG4, v->far_col0 + c, r, opt_nodraw_bg ? 0 : src[c & 31]);
+        int cols = nviews > 2 ? 16 : 32;
+        for (int c = 0; c < cols; c++) rs_bg_put(RS_BG4, v->far_col0 + c, r, opt_nodraw_bg ? 0 : src[c & 31]);
     }
 }
 
@@ -663,7 +695,7 @@ static void draw_layer_sprites(view *v, int p, const tower *tw, int t)
     int key = layer_key(top, n - 1) * 2 + (v->top_squash > 0);
     int pal = 0;
     if (key != v->top_key) {
-        render_layer_sprite(dyn_tile(p, 16), top, box0, mx0, v->top_squash > 0, &pal);
+        render_layer_sprite(dyn_tile(p, 16), top, box0, mx0, v->top_squash > 0, nviews > 2 ? 64 : 128, &pal);
         v->top_key = key;
     }
     pal = top->kind == LK_PANCAKE ? OBJ_FOOD : OBJ_TOPPING;
@@ -687,7 +719,7 @@ static void draw_layer_sprites(view *v, int p, const tower *tw, int t)
         layer sl = {0, (int16_t)tw->sw, LK_PANCAKE, 0, (uint16_t)(tw->pancakes + 1)};
         int skey = tw->sw * 4096 + tw->pancakes;
         if (skey != v->slider_key) {
-            render_layer_sprite(dyn_tile(p, 0), &sl, -1, 0, 0, &pal);
+            render_layer_sprite(dyn_tile(p, 0), &sl, -1, 0, 0, nviews > 2 ? 64 : 128, &pal);
             v->slider_key = skey;
         }
         int x = v->sx0 + tower_slider_x(tw) - 1 + wtop + hu_shake_x();
@@ -707,10 +739,10 @@ static void draw_pieces(view *v, int p)
         for (int k = 0; k < 32 && !render_piece_fits(pc->p.w, fit); k++) fit = (a < 32 ? a - k : a + k) & 63;
         if (!render_piece_fits(pc->p.w, fit)) fit = 0;
         if (fit != pc->shown_a) {
-            pc->halves = render_piece(dyn_tile(p, 32 + i * 32), &pc->p, fit);
+            pc->halves = render_piece(dyn_tile(p, 32 + i * 32), &pc->p, fit, nviews > 2 ? 64 : 128);
             pc->shown_a = fit;
         }
-        int x = v->sx0 + pc->x / 256 - 64, y = line_of(v, pc->y / 256) - 8;
+        int x = v->sx0 + pc->x / 256 - (nviews > 2 ? 32 : 64), y = line_of(v, pc->y / 256) - 8;
         int pal = pc->p.kind == LK_PANCAKE ? OBJ_FOOD : OBJ_TOPPING;
         for (int s = 0; s < 2; s++)
             if (((pc->halves >> s) & 1) && x + s * 64 < v->w && x + s * 64 > -64 && y > -16 && y < RS_SCREEN_H)
@@ -806,7 +838,7 @@ static void draw_chef(view *v, int p, int t, int players)
 {
     static const int body[4] = {0, 2, 3, 4};
     int pose = v->chef_pose;
-    int pal = p == 1 ? OBJ_CHEF2 : OBJ_CHEF;
+    int pal = players > 2 ? OBJ_CHEF : p == 1 ? OBJ_CHEF2 : OBJ_CHEF;
     int kitchen_line = line_of(v, FLOOR_Y + 47);
     int dx = pose == CH_PANIC ? ((t / 3) & 1) : 0, dy = pose == CH_CHEER ? -((t / 6) & 1) * 2 : 0;
     if (players == 1 && kitchen_line < v->h - 40) {
@@ -822,6 +854,10 @@ static void draw_chef(view *v, int p, int t, int players)
     int ox = 2, oy = v->h - 66 + hu_slide_in(v->portrait_t, 20, 80);
     int f = body[pose];
     if (pose == CH_IDLE && (t % 180) < 8) f = 1;
+    if (players > 2) {
+        spr(SPR_CHEF + f, 0, v->h - 48, 2, pal, 0, v->w);
+        return;
+    }
     spr(SPR_CHEF + f, ox + 8 + dx, oy + 10 + dy, 2, pal, 0, v->w);
     spr(SPR_RING, ox, oy, 2, -1, 0, v->w);
     spr(SPR_RING, ox + 24, oy, 2, -1, RS_SPR_HFLIP, v->w);
@@ -836,6 +872,24 @@ static void screen_text(const match *m, int state, int st_t, int best, int new_b
     char s[48];
     if (state != shown_state || best != shown_best || m->players != shown_players) {
         hu_clear();
+        /* Title chefs need independent colours across the shared player slots. */
+        rs_pal_load(RS_PAL_OBJ(OBJ_CHEF), pt_obj_pals + OBJ_CHEF * 16, 16);
+        rs_pal_load(RS_PAL_OBJ(6), pt_obj_pals + 6 * 16, 16);
+        rs_pal_load(RS_PAL_OBJ(7), pt_obj_pals + 7 * 16, 16);
+        if (state == DS_TITLE) {
+            static const rs_color colours[2][2] = {
+                {RS_RGB8(86,184,102), RS_RGB8(42,110,62)},
+                {RS_RGB8(242,168,62), RS_RGB8(162,96,30)}};
+            for (int p = 0; p < 2; p++) {
+                int pal = p ? 7 : 6;
+                rs_pal_load(RS_PAL_OBJ(pal), pt_obj_pals + OBJ_CHEF * 16, 16);
+                for (int k = 1; k < 16; k++) {
+                    rs_color c = pt_obj_pals[k];
+                    if (c == RS_RGB8(226,72,66)) rs_pal_set(RS_PAL_OBJ(pal) + k, colours[p][0]);
+                    if (c == RS_RGB8(150,36,44)) rs_pal_set(RS_PAL_OBJ(pal) + k, colours[p][1]);
+                }
+            }
+        }
         title_logo_on = 0;
         if (state == DS_TITLE) {
             hu_logo("PANCAKE TOWER", title_ramps, 2, 2, 0);
@@ -845,52 +899,39 @@ static void screen_text(const match *m, int state, int st_t, int best, int new_b
             if (best > 0) hu_text(hu_center(s, 0), 24, s);
             hu_copyright(28);
         }
-        if (state == DS_READY) {
-            if (m->players == 1) hu_get_ready(6);
-            else {
-                hu_big(5, 6, "READY", HU_BIG_FREE);
-                hu_big(25, 6, "READY", HU_BIG_FREE);
-            }
-        }
         if (state == DS_OVER) {
-            hu_banner(4, "GAME OVER");
             if (m->players == 1) {
+                hu_banner(4, "GAME OVER");
                 hu_gameover_panel(1, new_best, m->tw[0].score, 0);
                 snprintf(s, sizeof s, "%d PANCAKES", m->tw[0].pancakes);
                 hu_box_text(12, 12, s);
             } else {
-                /* the kit's 2-player panel, with our winner: the tallest tower (a tie on height: the score) */
-                hu_panel(10, 9, 20, 12);
-                hu_box_text(12, 11, "PLAYER 1");
-                hu_box_text(12, 14, "PLAYER 2");
-                int w = match_winner(m);
-                const char *win = w == 0 ? "P1 WINS!" : w == 1 ? "P2 WINS!" : "DRAW!";
-                hu_box_text(20 - (int)strlen(win) / 2, 17, win);
+                hu_standing rank;
+                int keys[MAX_PLAYERS], values[MAX_PLAYERS];
+                for (int p = 0; p < m->players; p++) {
+                    values[p] = m->tw[p].pancakes;
+                    keys[p] = values[p] * 100000 + m->tw[p].score;
+                }
+                hu_rank(&rank, m->players, keys, values);
+                hu_results_panel(&rank, NULL);
             }
         }
         shown_state = state;
         shown_best = best;
         shown_players = m->players;
     }
-    if (state == DS_TITLE || state == DS_READY) {
-        if (m->players == 1 || state == DS_TITLE) hu_prompt(21, "PRESS A TO DROP", st_t);
+    if (state == DS_TITLE) hu_title_draw(st_t, best);
+    if (state == DS_OVER) {
+        if (m->players == 1) hu_retry_line(st_t, RETRY_LOCK, "A: MAIN MENU");
         else {
-            if (hu_blink(st_t)) { hu_text(5, 21, "A: DROP"); hu_text(25, 21, "A: DROP"); }
-            else hu_clear_rows(21, 1);
+            hu_standing rank = {.n = m->players};
+            hu_retry_line_at(hu_results_retry_row(&rank), st_t, RETRY_LOCK, "A: MAIN MENU");
         }
-        if (state == DS_READY || m->players == 2) hu_join_line(26, m->players, "VERSUS!");
     }
-    if (state == DS_OVER) hu_retry_line(st_t, RETRY_LOCK, "A: STACK AGAIN");
 }
 
 /* the kit draws its sprites at screen coordinates; in a viewport they are relative to its corner */
-static void shift_oam(int first, int dx, int dy)
-{
-    for (int i = first; i < rs_oam_next(); i++) {
-        rs_sprite *s = rs_oam(i);
-        if (s && s->used) { s->x = (int16_t)(s->x - dx); s->y = (int16_t)(s->y - dy); }
-    }
-}
+
 
 static int fork_medal_tier(int score)
 {
@@ -898,13 +939,20 @@ static int fork_medal_tier(int score)
     return hu_medal_of(score, th);
 }
 
+static void title_chef(int p, int cx, int cy, int t, void *user)
+{
+    static const int pals[4] = {OBJ_CHEF, OBJ_CHEF2, 6, 7};
+    spr(SPR_CHEF + ((t % 180) < 8), cx - 16, cy - 52, 3, pals[p], 0, RS_SCREEN_W);
+    (void)user;
+}
+
 static void draw_view_sprites(const match *m, int p, int state, int st_t, int t)
 {
     view *v = &V[p];
     const tower *tw = &m->tw[p];
     if (state == DS_PLAY) hu_number(tw->pancakes, v->w / 2, 10, 3);
-    if (state == DS_READY && m->players == 2) hu_glyph(HU_BTN_A, 40 - 12 + 0, 21 * 8 - 4, (t / 30) % 2, 3);
-    draw_chef(v, p, t, m->players);
+
+    if (state != DS_TITLE) draw_chef(v, p, t, m->players);
     draw_fx(v, p, t);
     draw_layer_sprites(v, p, tw, t);
     draw_bottle(v, tw, t);
@@ -944,7 +992,7 @@ void draw_frame(const match *m, int state, int st_t, int best, int new_best, int
         view *v = &V[0];
         rs_viewports(0, NULL, 0);
         rs_bg_scroll(RS_BG1, 0, -slide);
-        rs_bg_scroll(RS_BG2, (v->bg2_cx - v->sx0 - shx) & 255, (-v->cam - v->h - shy) & 255);
+        rs_bg_scroll(RS_BG2, (v->bg2_cx - v->sx0 - shx) & 511, (-v->cam - v->h - shy) & 255);
         rs_bg_scroll(RS_BG3, (-shx) & 511, (-v->cam - v->h - shy) & 255);
         rs_bg_scroll(RS_BG4, 0, (-far_base(v) - v->h) & 255);
         rs_bg_line_scroll(RS_BG2, v->wob_dx, NULL);
@@ -954,7 +1002,7 @@ void draw_frame(const match *m, int state, int st_t, int best, int new_best, int
             int medal = fork_medal_tier(m->tw[0].score);
             if (medal && !medals_loaded) {
                 int t0 = pt_spr[SPR_MEDAL].tile;
-                rs_tiles_load(VR_OBJ + t0, pt_obj_tiles + t0 * RS_TILE_BYTES, pt_obj_tile_count - t0);
+                load_obj_art(t0, pt_obj_tile_count - t0);
                 medals_loaded = 1;
             }
             if (medal) {
@@ -965,44 +1013,47 @@ void draw_frame(const match *m, int state, int st_t, int best, int new_best, int
                 hu_box_text(22, 17, "-");
             }
         }
-        if (state == DS_TITLE || state == DS_READY)
-            hu_glyph(HU_BTN_A, hu_center("PRESS A TO DROP", 0) * 8 - 12, 21 * 8 - 4, (t / 30) % 2, 3);
+        if (state == DS_TITLE) hu_title_sprites(st_t, title_chef, NULL);
         draw_view_sprites(m, 0, state, st_t, t);
         return;
     }
-    /* two players: two viewports (and the game-over panel in two more over them) */
-    int nv = rs_viewport_layout(2, 0, vps);
-    for (int p = 0; p < 2; p++) {
+    /* Each column draws its portion of the shared title or results over the world. */
+    int nv = hu_split(m->players, HU_SPLIT_COLUMNS, vps);
+    for (int p = 0; p < m->players; p++) {
         view *v = &V[p];
         rs_viewport *vp = &vps[p];
         vp->layers = 0x0f;
         vp->objs = 1;
-        vp->sx[0] = vp->x, vp->sy[0] = 0;
-        vp->sx[1] = (int16_t)((v->bg2_cx - v->sx0 - shx) & 255), vp->sy[1] = (int16_t)((-v->cam - v->h - shy) & 255);
-        vp->sx[2] = (int16_t)((v->near_col0 * 8 - shx) & 511), vp->sy[2] = (int16_t)((-v->cam - v->h - shy) & 255);
-        vp->sx[3] = (int16_t)(v->far_col0 * 8 + 48), vp->sy[3] = (int16_t)((-far_base(v) - v->h) & 255);
+        vp->sx[0] = vp->x, vp->sy[0] = (int16_t)-slide;
+        vp->sx[1] = (int16_t)((v->bg2_cx - v->sx0 - shx) & 511), vp->sy[1] = (int16_t)((-v->cam - v->h - shy) & 255);
+        vp->sx[2] = (int16_t)((v->near_col0 * 8 + PANO_CX - v->sx0 - v->near_pcol0 * 8 - shx) & 511), vp->sy[2] = (int16_t)((-v->cam - v->h - shy) & 255);
+        vp->sx[3] = (int16_t)(v->far_col0 * 8 + (m->players > 2 ? (128 - v->w) / 2 : 48)), vp->sy[3] = (int16_t)((-far_base(v) - v->h) & 255);
         vp->oam_first = (uint16_t)rs_oam_next();
+        if (state == DS_TITLE || state == DS_OVER) {
+            /* Viewports replace pixels, rather than alpha-compositing over earlier views.
+             * Draw the shared UI inside each world view instead of an opaque UI-only overlay. */
+            vp->w = (int16_t)((p + 1 < m->players ? vps[p + 1].x : RS_SCREEN_W) - vp->x);
+            if (state == DS_TITLE) hu_title_sprites(st_t, title_chef, NULL);
+            else {
+                hu_standing rank;
+                int keys[MAX_PLAYERS], values[MAX_PLAYERS];
+                for (int i = 0; i < m->players; i++) {
+                    values[i] = m->tw[i].pancakes;
+                    keys[i] = values[i] * 100000 + m->tw[i].score;
+                }
+                hu_rank(&rank, m->players, keys, values);
+                hu_results_sprites(&rank, st_t, slide);
+            }
+            for (int i = vp->oam_first; i < rs_oam_next(); i++) {
+                rs_sprite *s = rs_oam(i);
+                s->x = (int16_t)(s->x - vp->x);
+                if (s->x + s->w <= 0 || s->x >= vp->w) s->flags |= RS_SPR_HIDE;
+            }
+        }
         draw_view_sprites(m, p, state, st_t, t);
         vp->oam_count = (uint16_t)(rs_oam_next() - vp->oam_first);
     }
     nvps = nv;
-    if (state == DS_OVER) {
-        static const int16_t rect[2][4] = {{80, 32, 160, 32}, {80, 72, 160, 96}};
-        for (int k = 0; k < 2; k++) {
-            rs_viewport *vp = &vps[nvps++];
-            memset(vp, 0, sizeof *vp);
-            vp->x = rect[k][0], vp->y = rect[k][1], vp->w = rect[k][2], vp->h = rect[k][3];
-            vp->layers = 1;
-            vp->sx[0] = vp->x, vp->sy[0] = (int16_t)(vp->y - slide);
-            vp->objs = (uint8_t)(k == 1);
-            if (k == 1) {
-                vp->oam_first = (uint16_t)rs_oam_next();
-                hu_gameover_sprites(2, m->tw[0].pancakes, m->tw[1].pancakes, 0, 0, st_t, slide);
-                shift_oam(vp->oam_first, vp->x, vp->y);
-                vp->oam_count = (uint16_t)(rs_oam_next() - vp->oam_first);
-            }
-        }
-    }
     rs_viewports(nvps, vps, RS_RGB8(22, 18, 40));
     (void)paused;
 }

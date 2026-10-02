@@ -49,6 +49,7 @@ pogomamie-check:
 	./build/host/pogomamie_test_physics
 	sh $(PM_DIR)/tests/align_test.sh build/host/pogomamie_test_align build
 	sh $(PM_DIR)/tests/smoke_test.sh build/host/pogomamie_headless build
+	$(PYTHON) $(PM_DIR)/tests/ui_test.py build/host/pogomamie_headless build/pogomamie-ui
 	sh $(PM_DIR)/tests/state_test.sh build/host/pogomamie_test_states build/states
 	$(PYTHON) tools/state_audit.py --game pogomamie build/host/pogomamie_test_states $(filter-out %/assets.o,$(PM_OBJ_HOST))
 

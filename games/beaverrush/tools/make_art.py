@@ -84,13 +84,20 @@ BEAVER_FUR = hs.ACCENTS["beaver"]
 BEAVER2_FUR = [(222, 150, 118), (180, 100, 70), (130, 62, 46), (82, 36, 30)]
 
 
-def pal_beaver(p2=False):
+def pal_beaver(player=0):
+    """the beaver of player 0..3: the house rule (house_style.player_palettes): P2 the fur's hue turned to a darker
+    red-brown (-0.045), P3 and P4 the fur turned to the two hues farthest from P1's and P2's; only the outline and
+    the fur (entries 1-5) turn, the belly, tail, teeth, eyes and nose never change"""
     pal = [None, (46, 24, 16)] + BEAVER_FUR + [(242, 214, 168), (214, 176, 128), (110, 82, 70), (74, 52, 44),
                                                (255, 190, 80), (214, 120, 34), (250, 250, 250), (18, 8, 26),
                                                (64, 30, 30), (214, 96, 96)]
-    if p2:      # player 2: the house palette swap, the fur's hue turned to a darker red-brown
-        pal = [None] + hs.hue_swap(pal[1:6], 0.02, 0.16, -0.045, sat_min=0.2, sat_mul=1.15) + pal[6:]
+    if player:
+        fur = hs.player_palettes(pal[1:6], 0.02, 0.16, -0.045, sat_min=0.2, sat_mul=1.15)[int(player)]
+        pal = [None] + fur + pal[6:]
     return pal
+
+
+FUR_ENTRIES = (1, 6)    # the entries of the beaver palette that differ between the players (C: scene.c)
 
 
 PAL_FX = [None, (22, 18, 40), (250, 250, 250), (196, 238, 255), (112, 184, 226), (60, 120, 180), (255, 240, 150),
@@ -114,7 +121,7 @@ def bg_palettes(s):
 
 
 def obj_palettes(s):
-    return {0: pal_beaver(), 1: pal_beaver(True), 2: pal_trunk(s), 3: KIT, 4: PAL_FX, 5: pal_trunk(s, True), 6: PAL_BIRD,
+    return {0: pal_beaver(), 1: pal_beaver(1), 2: pal_trunk(s), 3: KIT, 4: PAL_FX, 5: pal_trunk(s, True), 6: PAL_BIRD,
             7: pal_particle(s)}
 
 
@@ -466,6 +473,31 @@ def _reoutline(cv, out):
 
 def family(pose, frame=0):
     return beaver(pose, frame, 0.5)
+
+
+def icon():
+    """the player icon (the title's slots, the results): a 16x16 beaver head facing us, round ears, the big orange
+    teeth; on the beaver palette, so it takes each player's fur"""
+    C = B
+    out, fur, belly, teeth = C[1], C[2:6], (C[6], C[7]), (C[10], C[11])
+    white, ink, nose = C[12], C[13], C[14]
+    cv = Canvas(16, 16)
+    for ex in (3.6, 12.4):                                      # the ears
+        hs.ellipse(cv, ex, 3.6, 2.1, 2.1, None, fur[1] if ex < 8 else fur[2])
+        hs.ellipse(cv, ex, 3.9, 1.0, 1.0, None, fur[3])
+    hs.ellipse(cv, 8.0, 8.4, 6.3, 5.5, fur)                     # the head, lit from the top-left
+    hs.ellipse(cv, 8.0, 11.2, 3.9, 2.5, None, belly[0])         # the muzzle and its shade
+    hs.ellipse(cv, 8.0, 12.2, 2.8, 1.3, None, belly[1])
+    for x in (7, 8):                                            # the nose
+        cv.set(x, 9, nose)
+    cv.set(7, 10, nose), cv.set(8, 10, nose)
+    for x in (4, 10):                                           # the eyes: a glint over a 2x2 pupil
+        cv.set(x, 5, white), cv.set(x + 1, 5, ink), cv.set(x, 6, ink), cv.set(x + 1, 6, ink)
+    for y in (13, 14):                                          # two big incisors
+        cv.set(6, y, teeth[0]), cv.set(7, y, teeth[0]), cv.set(8, y, teeth[1]), cv.set(9, y, teeth[1])
+    cv.set(6, 13, white)
+    cv.outline(out)
+    return cv
 
 
 # ---- the woodpecker ------------------------------------------------------------------------------------------------
@@ -884,6 +916,7 @@ def sprites():
         ("ripple", 4, [ripple(f) for f in range(3)]),
         ("leaf", 7, [leaf(0), leaf(1)]),
         ("acorn", 3, [acorn(k) for k in range(4)]),
+        ("icon", 0, [icon()]),
     ]
 
 
@@ -918,6 +951,18 @@ def main():
     out = [("trunk", trunk), ("near-bank", near_bank()), ("banks", banks()), ("far", far()), ("clouds", clouds())]
     for name, pal, frames in sprites():
         out.append(("spr-" + name, sheet(frames)))
+    # the four players (the beaver and its icon in each palette)
+    looks = []
+    for p in range(4):
+        m = dict(zip(B[1:], pal_beaver(p)[1:]))
+        for cv in (beaver("idle", 0), icon()):
+            rc = Canvas(cv.w, cv.h)
+            for y in range(cv.h):
+                for x in range(cv.w):
+                    c = cv.get(x, y)
+                    rc.set(x, y, m.get(c, c) if c is not None else None)
+            looks.append(rc)
+    out.append(("players", sheet(looks, cols=2)))
     for name, cv in out:
         im = cv.image()
         im.resize((im.width * a.scale, im.height * a.scale), Image.NEAREST).save(os.path.join(a.out, name + ".png"))

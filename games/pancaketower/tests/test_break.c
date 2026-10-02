@@ -113,7 +113,7 @@ static void check_view(const match *m, int p, int frame)
         if (hole >= 0) ax0 = 160 + v.hx0[hole], ax1 = 160 + v.hx1[hole], any_hole = 1, rows_checked++;
         int left2 = 1 << 20, right2 = -(1 << 20);
         for (int i = 0; i < v.w; i++) {
-            int sx = v.x + i, X = v.pcol0 * 8 + i - v.shx;
+            int sx = v.x + i, X = 160 - v.sx0 + i - v.shx;
             if (sx < 0 || sx >= SW) continue;
             int o = sy * SW + sx;
             if (buf2[o] != buf0[o]) { if (X < left2) left2 = X; if (X > right2) right2 = X; }
@@ -177,7 +177,7 @@ int main(int argc, char **argv)
         const match *m = pt_test_match(&st);
         if (st == 3 && last != 3) runs++;
         last = st;
-        if (st == 3 && m->players > 1) continue;      /* the panel's viewports cover the views */
+        if ((st == DS_TITLE || st == DS_OVER) && m->players > 1) continue; /* menu overlays cover the play views */
         render(0x0, buf0);
         render(0x2, buf2);
         render(0x4, buf3);

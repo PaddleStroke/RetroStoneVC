@@ -303,6 +303,34 @@ static void test_determinism(void)
     }
 }
 
+static void test_four_players(void)
+{
+    world w;
+    world_init(&w, 4, 19);
+    CHECK(w.players == 4 && world_standing(&w) == 4, "four beavers start on equal trees");
+    for (int p = 1; p < 4; p++)
+        CHECK(!memcmp(&w.bv[0].tr, &w.bv[p].tr, sizeof(tree)), "P%d has the same tree", p + 1);
+    w.started = 1;
+    for (int p = 0; p < 4; p++) w.bv[p].state = BV_PLAY;
+    w.bv[1].score = 20; w.bv[2].score = 40; w.bv[3].score = 30;
+    CHECK(world_steal_target(&w, 0) == 2, "a stolen branch targets the leading rival");
+    w.bv[2].state = BV_SLEEP;
+    CHECK(world_steal_target(&w, 0) == 3, "an eliminated leader is skipped");
+    int none[MAX_PLAYERS] = {0};
+    world_step(&w, none, 0);
+    CHECK(!w.over && world_standing(&w) == 3, "one elimination leaves three playing");
+    w.bv[1].state = BV_BONK;
+    world_step(&w, none, 0);
+    CHECK(!w.over && world_standing(&w) == 2, "two eliminations leave two playing");
+    w.bv[0].state = BV_SLEEP;
+    world_step(&w, none, 0);
+    CHECK(w.over && w.winner == 3 && w.bv[3].state == BV_WIN, "the last beaver standing wins");
+    int key[MAX_PLAYERS];
+    world_rank_keys(&w, key);
+    CHECK(key[3] > key[0] && key[0] > key[1] && key[1] > key[2], "results rank survival before score");
+    CHECK(run_hash(11, 4, 8) == run_hash(11, 4, 8), "four-player match is deterministic");
+}
+
 int main(int argc, char **argv)
 {
     int seeds = 20000;
@@ -313,6 +341,7 @@ int main(int argc, char **argv)
     test_fairness(seeds);
     test_stats();
     test_determinism();
+    test_four_players();
     printf("%s: %d checks, %d failed\n", fails ? "FAIL" : "all passed", checks, fails);
     return fails ? 1 : 0;
 }

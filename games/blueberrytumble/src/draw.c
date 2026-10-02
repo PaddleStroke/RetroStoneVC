@@ -485,11 +485,7 @@ static void draw_props(const world *w, int t)
 
 /* ---- the UI (the house kit: the title is the only menu, up to 4 players; docs/art-direction.md "Title and players") -- */
 /* the title's player slots: each joined player's berry, rolling in its colours (hu_title_sprites calls it) */
-static void slot_icon(int p, int cx, int cy, int t, void *user)
-{
-    (void)user;
-    spr(SPR_BERRY + ((t / 3 + p * 4) & 15), cx - 8, cy - 8 + hu_bob(t + p * 16, 64, 1), 2, hu_player_pal(p));
-}
+
 
 /* the results of 2-4 players: ranked by score (metres + golden blueberries) */
 static void standing(const world *w, hu_standing *s)
@@ -569,8 +565,8 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         if (gate_t < 999) gate_t++;
     }
     if (state == ST_OVER) {
-        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, "A: ROLL AGAIN");
-        else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, "A: ROLL AGAIN");
+        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, "A: MAIN MENU");
+        else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, "A: MAIN MENU");
     }
 }
 
@@ -678,7 +674,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
             }
         }
     }
-    if (state == ST_TITLE) hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's A, the joined berries pop in */
+    if (state == ST_TITLE) hu_title_sprites(st_t, NULL, NULL);   /* the prompt's A, the joined berries pop in */
     for (int p = w->players - 1; p >= 0; p--) draw_berry(w, p, state, st_t);
     fx_draw();
     draw_props(w, t);

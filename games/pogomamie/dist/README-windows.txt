@@ -10,16 +10,17 @@ the Eiffel Tower, then all night long: how far can she go? Whisker medals at
 
 Run PogoMamie.exe. No installation needed (SDL2 is built in).
 
-Controls                  Gamepad (SNES layout)      Keyboard
-  steer in the air          Left / Right               Left / Right
-  big bounce (hold on       A (B, X, Y too)            X (Z, A and S too)
-  a landing); start, retry  A or Start                 X or Enter
-  pause / resume            Start (or Select)          Enter (or Backspace, Esc)
-  Papi joins the race       pad 2: A on the title or "get ready" screen
+Controls (SNES gamepad layout)
+  A: start from the title.
+  Left/Right: steer. Hold A on landing for a big bounce.
+  After game over, A returns to the title; press A again to start.
+  Start or Select during play: pause/resume.
+  Pads 2-4: A or Start to join on the title, B to leave.
 
-Two players race on the same rooftops, Mamie and Papi, each with their own pad;
-the camera follows the leader, and a player left behind drops out. The panel
-at the end names the winner.
+Keyboard: X = A, Z = B, arrows = D-pad, Enter = Start,
+Backspace or Esc = Select. Other players use gamepads.
+
+Up to four racers bounce on the same rooftops. Results rank their distances. An antenna, a pigeon hit from the side/below, or a balloon basket ends your run; stomping a pigeon from above still bounces.
 
 F11 or Alt+Enter: fullscreen. F12: screenshot. Close the window to quit.
 Options: PogoMamie.exe --scale 4 --fullscreen

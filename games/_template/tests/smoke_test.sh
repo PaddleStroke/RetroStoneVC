@@ -24,16 +24,22 @@ out=$(run --frames 40 --input "$T/start.input")
 check "A on the title starts the run at once (the press is the first jump)" "state: st=1 .*scroll=[1-9]" "$out"
 printf "30 tap UP\n" > "$T/up.input"
 out=$(run --frames 40 --input "$T/up.input")
-check "Up starts it too (a start input)" "state: st=1 " "$out"
+check "Up starts it too (an extra start input)" "state: st=1 " "$out"
 out=$(run --frames 900 --input "$T/start.input")
 check "no more input: the hero hits a crate, game over" "state: st=3 .*runs=1 " "$out"
 
 printf "30 tap A\n860 tap A\n" > "$T/retry.input"
 out=$(run --frames 870 --input "$T/retry.input")
-check "retry: one press, straight back into play" "state: st=1 .*runs=1 .*scroll=[1-9]" "$out"
+check "game over: one press goes back to the title (the only menu)" "state: st=0 .*runs=1 " "$out"
 printf "30 tap A\n860 tap SELECT\n" > "$T/back.input"
 out=$(run --frames 870 --input "$T/back.input")
-check "Select on the panel: back to the title" "state: st=0 .*runs=1 " "$out"
+check "Select on the panel: back to the title too" "state: st=0 .*runs=1 " "$out"
+printf "30 tap A
+860 tap A
+880 tap A
+" > "$T/again.input"
+out=$(run --frames 890 --input "$T/again.input")
+check "...and A on the title starts the next run" "state: st=1 .*runs=1 .*scroll=[1-9]" "$out"
 
 printf "30 tap A\n90 tap SELECT\n" > "$T/pause.input"
 a=$(run --frames 120 --input "$T/pause.input" | sed -n 's/.*scroll=\([0-9]*\) paused=\([0-9]\).*/\1 \2/p')

@@ -1,6 +1,6 @@
 /*
- * Beaver Rush: a run, one beaver or two (versus): gnawing, the hits, the timer, milestones and stolen
- * chips. No drawing, no sound (tests/test_rules.c links it alone).
+ * Beaver Rush: a run, one beaver or up to four (versus): gnawing, the hits, the timer, milestones, stolen
+ * branches and the last beaver standing. No drawing, no sound (tests/test_rules.c links it alone).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/beaverrush/LICENSE.
  */
 #include "br.h"
@@ -18,7 +18,8 @@ void world_init(world *w, int players, uint32_t seed)
         b->side = SIDE_L;
         b->bar = BAR_START;
         b->gnaw_t = 1000;
-        tree_init(&b->tr, seed);                 /* versus: the same seed, the same trunk */
+        b->sent_to = -1;
+        if (p < w->players) tree_init(&b->tr, seed);   /* versus: the same seed, the same trunk */
     }
 }
 
@@ -60,6 +61,33 @@ static void gnaw(world *w, int p, int side)
     }
 }
 
+int world_standing(const world *w)
+{
+    int n = 0;
+    for (int p = 0; p < w->players; p++) n += w->bv[p].state == BV_PLAY || w->bv[p].state == BV_READY;
+    return n;
+}
+
+int world_steal_target(const world *w, int p)
+{
+    int best = -1;
+    for (int k = 1; k < w->players; k++) {        /* p+1, p+2, ...: the first of equal scores keeps it */
+        int q = (p + k) % w->players;
+        if (w->bv[q].state != BV_PLAY) continue;
+        if (best < 0 || w->bv[q].score > w->bv[best].score) best = q;
+    }
+    return best;
+}
+
+void world_rank_keys(const world *w, int key[MAX_PLAYERS])
+{
+    for (int p = 0; p < MAX_PLAYERS; p++) {
+        const beaver *b = &w->bv[p];
+        int when = b->out_t ? b->out_t : w->t + 1;      /* still standing (or the winner): after everyone */
+        key[p] = p < w->players ? when * 4096 + clampi(b->score, 0, 4095) : -1;
+    }
+}
+
 void world_step(world *w, const int press[MAX_PLAYERS], uint32_t reroll)
 {
     w->t++;
@@ -70,7 +98,7 @@ void world_step(world *w, const int press[MAX_PLAYERS], uint32_t reroll)
         if (any) {
             w->started = 1;
             for (int p = 0; p < w->players; p++) {
-                if (reroll) tree_reroll(&w->bv[p].tr, reroll);
+                if (reroll) tree_reroll(&w->bv[p].tr, reroll);   /* the same re-roll: still the same trees */
                 set_state(&w->bv[p], BV_PLAY);
                 w->events[p] |= EV_START;
             }
@@ -92,15 +120,18 @@ void world_step(world *w, const int press[MAX_PLAYERS], uint32_t reroll)
             w->events[p] |= EV_SLEEP;
         }
     }
-    /* stolen chips: a milestone sends a branch to the rival */
-    if (w->players == 2)
-        for (int p = 0; p < 2; p++) {
-            beaver *r = &w->bv[1 - p];
-            if (!(w->events[p] & EV_MILESTONE) || w->bv[p].state != BV_PLAY || r->state != BV_PLAY) continue;
+    /* stolen branches: a milestone sends a branch to the leader among the others still gnawing */
+    if (w->players >= 2)
+        for (int p = 0; p < w->players; p++) {
+            if (!(w->events[p] & EV_MILESTONE) || w->bv[p].state != BV_PLAY) continue;
+            int q = world_steal_target(w, p);
+            if (q < 0) continue;
+            beaver *r = &w->bv[q];
             if (tree_insert_branch(&r->tr, CHIP_SLOT, r->side) >= 0) {
                 w->bv[p].stolen_sent++;
+                w->bv[p].sent_to = q;
                 w->events[p] |= EV_SENT;
-                w->events[1 - p] |= EV_STOLEN;
+                w->events[q] |= EV_STOLEN;
             }
         }
     if (w->over || !w->started) return;
@@ -108,16 +139,20 @@ void world_step(world *w, const int press[MAX_PLAYERS], uint32_t reroll)
         if (w->bv[0].state != BV_PLAY) w->over = 1;
         return;
     }
-    int out0 = w->bv[0].state != BV_PLAY, out1 = w->bv[1].state != BV_PLAY;
-    if (!out0 && !out1) return;
+    /* versus: a beaver out (bonked, out of breath) is out; the others go on; the last one standing wins */
+    for (int p = 0; p < w->players; p++)
+        if (w->bv[p].state != BV_PLAY && !w->bv[p].out_t) w->bv[p].out_t = w->t;
+    int left = world_standing(w);
+    if (left > 1) return;
     w->over = 1;
-    if (out0 && out1) {
-        int a = w->bv[0].score, b = w->bv[1].score;
-        w->winner = a > b ? 0 : b > a ? 1 : -1;
-    } else {
-        w->winner = out0 ? 1 : 0;
-        set_state(&w->bv[w->winner], BV_WIN);
+    int key[MAX_PLAYERS], best = 0, tie = 0;
+    world_rank_keys(w, key);
+    for (int p = 1; p < w->players; p++) {
+        if (key[p] > key[best]) { best = p; tie = 0; }
+        else if (key[p] == key[best]) tie = 1;
     }
+    w->winner = tie ? -1 : best;
+    if (left == 1) set_state(&w->bv[best], BV_WIN);   /* the one left standing */
 }
 
 void world_skip(world *w, int logs)

@@ -33,7 +33,7 @@ check "... game over (an arrow on the panel retries at once)" "runs=[1-9]" "$out
 
 printf "30 tap A\n800 tap A\n" > "$T/retry.input"
 out=$(run --frames 820 --input "$T/retry.input")
-check "retry: one press, straight into play (the press is the first hop)" "state: st=2 .*lanes=1 .*runs=1 " "$out"
+check "game over: one press returns to the title" "state: st=0 .*lanes=0 .*runs=1 " "$out"
 
 printf "30 tap A\n120 tap START\n" > "$T/pause.input"
 a=$(run --frames 150 --input "$T/pause.input" | sed -n 's/.*cam=\([0-9]*\) paused=\([0-9]\).*/\1 \2/p')

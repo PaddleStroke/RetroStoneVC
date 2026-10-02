@@ -370,14 +370,17 @@ static void pigeon_off(obj *o, int dir)
     o->dir = (int16_t)dir;
 }
 
-/* knocked off her pogo by something at x = from_x: the bounce is broken, she tumbles and drops */
+/* knocked off her pogo by something at x = from_x: the run is over for her. She is thrown back, tumbles for
+ * TUMBLE_T frames and falls (no roof catches her, whatever is below), then the existing fall into the street
+ * (the river). */
 static void knock_off(world *w, int p, int from_x, int kind, int ev)
 {
     mamie *m = &w->m[p];
     m->state = MS_TUMBLE;
     m->t = 0;
     m->vx = (m->x >> 16) < from_x ? -TUMBLE_VX : TUMBLE_VX;
-    if (m->vy < TUMBLE_VY) m->vy = TUMBLE_VY;
+    m->vy = -TUMBLE_HOP;
+    m->umbrella_t = 0;
     m->chain = 0;
     m->tumbles++;
     m->hit_kind = kind;
@@ -439,12 +442,11 @@ static void add_stunt(world *w, int p, int base)
     w->events[p] |= EV_STUNT;
 }
 
-/* a landing: what she landed on decides the bounce (after a tumble: the weak hop of the recovery) */
+/* a landing: what she landed on decides the bounce */
 static void landed(world *w, int p, const hit *h, int big)
 {
     mamie *m = &w->m[p];
     int *ev = &w->events[p];
-    int tumbled = m->state == MS_TUMBLE;
     m->state = MS_AIR;
     m->landings++;
     switch (h->kind) {
@@ -456,7 +458,6 @@ static void landed(world *w, int p, const hit *h, int big)
         m->chain = 0;
         *ev |= EV_GLASS;
         m->land_kind = SF_SKY;
-        if (tumbled) m->state = MS_TUMBLE;
         return;
     }
     case SF_LINE: {                     /* the clothesline dips under her, then slings her (MS_SLING) */
@@ -485,10 +486,9 @@ static void landed(world *w, int p, const hit *h, int big)
     default:
         break;
     }
-    mamie_bounce(m, h, tumbled ? 2 : big);
+    mamie_bounce(m, h, big);
     *ev |= EV_LAND;
     if (h->slope) *ev |= EV_DEFLECT;
-    if (tumbled) { *ev |= EV_RECOVER; m->stumble_t = 24; }
     if (m->bounce == BN_BIG) { *ev |= EV_BIG; m->big_bounces++; }
     switch (h->kind) {
     case SF_BUMP: {                     /* a chimney top: a stunt, once per chimney */
@@ -538,10 +538,10 @@ static void clamp_left(world *w, mamie *m)
     }
 }
 
-static void start_fall(world *w, int p)
+static void start_fall(world *w, int p, int rescue)
 {
     mamie *m = &w->m[p];
-    if (m->yarn) {                       /* the knitting yarn hooks the nearest ledge */
+    if (rescue && m->yarn) {                       /* the knitting yarn hooks the nearest ledge */
         int fx = (int)(m->x >> 16), bestd = INT_MAX;
         for (int i = 0; i < w->nb; i++) {
             const bldg *b = &w->b[i];
@@ -632,17 +632,13 @@ static void step_player(world *w, int p, int dir, int a)
             landed(w, p, &h, a);
         }
         if (m->state == MS_AIR) touch(w, p, on);
-        if (m->state == MS_AIR && world_doomed(w, m)) start_fall(w, p);
+        if (m->state == MS_AIR && world_doomed(w, m)) start_fall(w, p, 1);
         break;
     }
-    case MS_TUMBLE: {                   /* knocked off: dropping, no control, until something catches her */
-        if (m->umbrella_t) m->umbrella_t--;
-        int e = mamie_tumble_step(m, &T, &h);
-        clamp_left(w, m);
-        if (e & EV_LAND) landed(w, p, &h, 0);
-        if (m->state == MS_TUMBLE && world_doomed(w, m)) start_fall(w, p);
+    case MS_TUMBLE:                     /* knocked off: no control, nothing catches her, then the fall */
+        mamie_tumble_step(m);
+        if (m->t >= TUMBLE_T) start_fall(w, p, 0);      /* (the knitting yarn does not save her from a hit) */
         break;
-    }
     case MS_SLING:
         step_sling(w, p);
         break;

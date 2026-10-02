@@ -4,8 +4,8 @@
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/@ID@/LICENSE.
  *
  * The house flow (docs/art-direction.md, "Title and players"): the title is the only menu. Pads 2-4 join with A
- * (B leaves); P1 starts the run at once with one of the START INPUTS (this press is also its first move); one press
- * on the game-over panel starts the next run at once with the same players; Select there goes back to the title.
+ * (B leaves); P1 starts the run at once with A (or an extra START INPUT; this press is also its first move); one press
+ * on the game-over panel (hu_over_back) goes BACK TO THE TITLE, with the same players: the title is the only menu.
  *
  * Options (--opt key=value on the desktop runners):
  *   bot=N          the bot plays players 1..N (bot_decide); botruns=N runs; botstop=S stops at S (P2-P4: S+2, S+4..)
@@ -213,23 +213,14 @@ static void game_update(void)
         play_update();
         break;
     case ST_OVER: {
-        int again = 0, back = 0;
+        int back = 0;
         if (st_t >= RETRY_LOCK) {
-            for (int p = 0; p < W.players; p++) {
-                uint16_t b = rs_pad_pressed(hu_player_pad(p));
-                again |= (b & START_INPUTS) != 0;
-                back |= (b & RS_BTN_SELECT) != 0;
-            }
-            if (opt_bot && runs_done < opt_botruns && st_t == RETRY_LOCK + 10) again = 1;
+            back = hu_over_back();              /* house rule: after a game over, back to the title (the only menu) */
+            if (opt_bot && runs_done < opt_botruns && st_t == RETRY_LOCK + 10) back = 1;
         }
-        if (back) {                             /* Select: back to the title (players join or leave there) */
+        if (back) {
             ha_play(HA_SELECT);
             new_run(ST_TITLE);
-        } else if (again) {                     /* house rule: one press, instant retry, straight into play */
-            ha_play(HA_CONFIRM);
-            new_run(ST_PLAY);
-            start_press = 1;
-            play_update();
         }
         break;
     }

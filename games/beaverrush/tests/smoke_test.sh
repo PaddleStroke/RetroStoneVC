@@ -22,6 +22,22 @@ else ok "no strict-mode warning in a winter night run with the music (VRAM, spri
 out=$(run --frames 900 --opt strict=1 --opt bot=2 --opt players=2 --opt seed=5 --opt skip=560 --opt music=1)
 if echo "$out" | grep -q "rs strict"; then ko "strict mode warnings (versus): $(echo "$out" | grep 'rs strict' | head -3)"
 else ok "no strict-mode warning in versus"; fi
+for seed in 5 7 9; do
+    out=$(run --frames 2400 --opt strict=1 --opt bot=4 --opt players=4 --opt seed=$seed --opt skip=560 --opt music=1)
+    if echo "$out" | grep -q "rs strict"; then ko "four-player winter warnings (seed $seed): $(echo "$out" | grep 'rs strict' | head -3)"
+    else ok "four-player winter with music stays within hardware limits (seed $seed)"; fi
+done
+
+# Simultaneous wrong-side bites exercise the death stars as well as log particles.
+: > "$T/crowded.input"
+i=20; while [ $i -lt 1200 ]; do
+    for p in 1 2 3 4; do echo "$i P$p tap LEFT" >> "$T/crowded.input"; done
+    i=$((i + 10))
+done
+out=$(run --frames 1200 --opt strict=1 --opt players=4 --opt ready=1 --opt seed=3 --opt music=1 --input "$T/crowded.input")
+check "four simultaneous branch collisions" "player 4 bonked" "$out"
+if echo "$out" | grep -q "rs strict"; then ko "four-player collision effects exceed hardware limits: $(echo "$out" | grep 'rs strict' | head -3)"
+else ok "four-player collision effects stay within hardware limits"; fi
 
 # one gnaw, then nothing: the bar runs out (6 s at level 0)
 printf "30 tap RIGHT\n" > "$T/one.input"
@@ -46,7 +62,7 @@ printf "30 tap A\n480 tap A\n" > "$T/retry.input"
 out=$(run --frames 470 --opt ready=1 --input "$T/retry.input")
 check "the panel after the run" "state: st=4 .*runs=1 " "$out"
 out=$(run --frames 485 --opt ready=1 --input "$T/retry.input")
-check "retry: one press, back to get ready" "state: st=1 .*runs=1 .*logs=0 " "$out"
+check "game over: one press returns to the title" "state: st=0 .*runs=1 .*logs=0 " "$out"
 printf "30 tap A\n480 tap A\n500 tap B\n" > "$T/retry2.input"
 out=$(run --frames 520 --opt ready=1 --input "$T/retry2.input")
 check "... and the next press gnaws" "state: st=2 .*logs=1 " "$out"
@@ -68,8 +84,8 @@ check "save RAM: the best score (12) persists" "best=12 runs=0" "$out"
 
 # versus: player 2 joins; both race; the last beaver standing wins; milestones send branches
 printf "20 P2 tap A\n" > "$T/join.input"
-out=$(run --frames 60 --opt ready=1 --input "$T/join.input")
-check "player 2 joins from get ready (versus)" "players=2 " "$out"
+out=$(run --frames 60 --input "$T/join.input")
+check "player 2 joins on the title" "lobby=2 " "$out"
 out=$(run --frames 8000 --opt bot=2 --opt players=2 --opt seed=6)
 check "versus: both gnaw and a winner is named" "state: st=4 players=2 score=[1-9][0-9]* score2=[1-9][0-9]* .*winner=[01] " "$out"
 check "versus: a milestone sends a branch to the rival" "sends a branch to player" "$out"

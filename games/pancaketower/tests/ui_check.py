@@ -57,7 +57,41 @@ vs = load("versus-2-players")
 px = vs.load()
 div = [px[159, y] for y in range(0, 240, 8)] + [px[160, y] for y in range(0, 240, 8)]
 check(all(near(c, (22, 18, 40), 10) for c in div), "versus: the split screen's divider (x 159-160)")
-ready2 = load("get-ready-2-players")
-check(count(ready2, (40, 48, 120, 64), (255, 246, 220), 16) > 30 and count(ready2, (200, 48, 280, 64), (255, 246, 220), 16) > 30,
-      "ready, 2 players: READY on each half")
+title2 = load("title-2-players")
+check(count(title2, (0, 16, 320, 80), (240, 184, 96)) > 150,
+      "two players: the same title logo, no second menu")
+check(count(title2, (0, 208, 320, 216), (255, 246, 220), 16) > 40,
+      "two players: join/leave instructions on the title")
+colours = [(226, 72, 66), (74, 146, 232), (86, 184, 102), (242, 168, 62)]
+for name, players in [("title", 1), ("title-2-players", 2), ("title-3-players", 3),
+                      ("title-4-players", 4), ("join4", 4), ("leave3", 3), ("leave2", 2), ("leave1", 1)]:
+    im = load(name)
+    check(count(im, (0, 80, 320, 144), (255, 239, 206)) > 2500,
+          "%s: kitchen remains behind the menu" % name)
+    check(count(im, (0, 150, 320, 196), (240, 184, 96)) > 30,
+          "%s: pancakes retain their golden palette" % name)
+    for p in range(players):
+        cx = 60 + 72 * p
+        check(count(im, (cx - 16, 96, cx + 16, 144), (250, 250, 252)) > 80,
+              "%s: P%d chef is visible" % (name, p + 1))
+        check(count(im, (cx - 16, 96, cx + 16, 144), colours[p]) > 5,
+              "%s: P%d has their own colour" % (name, p + 1))
+for players in [2, 3, 4]:
+    im = load("results-%d" % players)
+    check(count(im, (80, 56, 240, 64), (42, 68, 118)) < 5,
+          "%d-player results: clear gap between winner banner and ranking panel" % players)
+    check(count(im, (0, 0, 320, 20), (165, 105, 57)) > 500,
+          "%d-player results: ceiling remains behind the panel" % players)
+    check(count(im, (66, 65, 254, (8 + 3 * players + 4) * 8 - 2), (42, 68, 118)) > 4500,
+          "%d-player results: ranking panel is visible" % players)
+    row = 10 + 3 * players
+    check(count(im, (100, row * 8, 220, row * 8 + 8), (255, 246, 220), 16) > 35,
+          "%d-player results: menu prompt is in the footer below every score" % players)
+    for place in range(players):
+        y = (10 + 3 * place) * 8
+        check(count(im, (180, y - 4, 198, y + 12), (255, 255, 255)) > 15,
+              "%d-player results: score %d remains readable" % (players, place + 1))
+    slide = load("results-%d-slide" % players)
+    check(count(slide, (0, 0, 320, 20), (165, 105, 57)) > 500,
+          "%d-player results: background remains during the slide" % players)
 sys.exit(1 if fails else 0)

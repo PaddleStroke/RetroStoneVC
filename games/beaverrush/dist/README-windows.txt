@@ -10,16 +10,17 @@ bonus and breath; acorn medals at 50, 100, 200 and 300, and your best is kept.
 
 Run BeaverRush.exe. No installation needed (SDL2 is built in).
 
-Controls                  Gamepad (SNES layout)      Keyboard
-  gnaw on the left          Left or B (Y too)          Left or Z
-  gnaw on the right         Right or A (X too)         Right or X
-  pause / resume            Start (in a run)           Enter
-  retry                     any gnaw button            any gnaw key
-  player 2 joins            pad 2: a gnaw button on the title or "get ready" screen
+Controls (SNES gamepad layout)
+  A: start from the title.
+  Left or B: gnaw left. Right or A: gnaw right.
+  After game over, A returns to the title; press A again to start.
+  Start or Select during play: pause/resume.
+  Pads 2-4: A or Start to join on the title, B to leave.
 
-Two players (versus): the screen splits, both trees grow the same branches and
-the timers race; the last beaver standing wins. Every 50 logs a player sends a
-branch (with a red ribbon) to the top of the rival's tree.
+Keyboard: X = A, Z = B, arrows = D-pad, Enter = Start,
+Backspace or Esc = Select. Other players use gamepads.
+
+Up to four beavers share identical trees in separate columns. The last beaver standing wins. Every 50 logs a stolen branch goes to the leading living rival.
 
 F11 or Alt+Enter: fullscreen. F12: screenshot. Close the window to quit.
 Options: BeaverRush.exe --scale 4 --fullscreen

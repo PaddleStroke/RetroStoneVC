@@ -12,13 +12,13 @@ beat of the music: one button, jump on the beat, splat, one more try. It grows i
 rides a maple leaf through the forest, and the further it rolls the faster the music gets.
 
 It is a rhythm auto-runner (the genre of Geometry Dash). Only the genre's **mechanics** are used: an automatic run,
-a one-button jump, obstacles on the beat, jump pads, mid-air jump orbs, a flying mode, an instant retry. Nothing is
+a one-button jump, obstacles on the beat, jump pads, mid-air jump orbs, a flying mode, an quick return to title. Nothing is
 taken from Geometry Dash (RobTop Games, proprietary): no name, icon, cube, level, layout, music, UI or text. Its
 feel is known from published measurements (see "Feel sources"); the numbers are converted to our grid, and all
 the code, art and music are ours.
 
 **Endless only** (the owner's decision, 2026-09-30): no levels, no course select, no practice mode. Like Leady
-Squid: title -> get ready -> the run -> splat -> game over (distance, best, medal) -> one button to retry.
+Squid: title -> the run -> splat -> game over (distance, best, medal) -> A returns to title.
 
 ## The grid (why jumps are exact and learnable)
 - A **block** (a cell) is 16 x 16 px, **1 metre** of distance. The berry is about one block.
@@ -50,7 +50,7 @@ Squid: title -> get ready -> the run -> splat -> game over (distance, best, meda
 | Button | Action |
 |---|---|
 | A (B, X, Y, Up too) | jump; held on the ground: jumps again on each landing; in the air on a dew drop: jump again; gliding: rise |
-| Start | start / retry |
+| A on title / game-over panel | start / return to title |
 | Select (or Start during a run) | pause |
 | Pad 2, A on the title or get ready | player 2 joins (race) |
 
@@ -182,19 +182,15 @@ still works (the **window**) and change in its middle. It proves:
 7. the committed src/tables.inc matches what the solver measures now (`make blueberrytumble-tables` regenerates it).
 
 ## Screens (the house flow, the games/common kit)
-title (the logo, the berry rolling in place under it, PRESS A TO ROLL with the A glyph, BEST, the copyright line)
--> get ready (the berry at the top of the first slope, the 2P join line) -> the run (the distance in big digits,
-the golden blueberries, "ATTEMPT n" in the world at the start, the biome's name at each gate) -> splat (hit-stop,
-shake, juice) -> game over (the GAME OVER banner, the panel sliding up: SCORE, BEST or NEW BEST, MEDAL, and the
-distance) -> A: get ready again.
+Title (one faceless berry on the uneven slope, logo, PRESS A TO ROLL, best and lobby) -> A starts the run
+immediately -> splat -> game-over panel (distance, score, best and medal) -> A returns to the title.
+The title retains joined players. Pads 2-4 join with A or Start and leave with B.
+Medals by distance: bronze 200 m, silver 500 m, gold 1000 m, pearl 1600 m. Score is metres plus 50 per golden
+blueberry. Save RAM retains best score/distance, attempts, golden blueberries and medals.
 
-- **Medals by distance** (the house tiers): bronze 200 m, silver 500 m, gold 1000 m, pearl 1600 m (the night).
-- **Score** = metres + 50 per golden blueberry. Save RAM: best score, best distance, runs (the attempt counter),
-  golden blueberries collected, medals won.
-
-## Two players (race)
-Player 2 joins with A on pad 2 on the title or get ready. The raspberry rolls the same course 28 px behind the
-blueberry, with its own pad; the scroll goes on while one is alive. The panel shows both scores and the winner.
+## Two to four players (race)
+Blueberry, raspberry, blackberry and gooseberry roll the same course with separate pads. The scroll continues
+while one is alive, and the results rank their distances and scores.
 
 ## Screen and layers
 | Layer | Contents | Scroll |
@@ -257,7 +253,7 @@ ledge, gaps, phrase, hop, cones, rows, ice < conehop, leafweave, dewdrop < islan
 (automatic) are the easiest, single thorns and gaps the core, orbs and precise landings the hardest, as a player would
 rank them. The glide patterns score low because their windows are wide (the leaf is forgiving).
 
-## Results (2026-10-01)
+## Earlier measurements (before the variety changes)
 - **Validator** (`build/blueberrytumble-validate.txt`): 1680 instances, all completable with every window >= 3 frames;
   every coin spot collectable; 1578 chainable pairs x 3 combinations all fair (830 pairs get a 1-beat bridge);
   2000 streams x 700 m and 60 x 3000 m (every tier, the night loop) solved end to end; the rolling 30-s mean rises
@@ -274,12 +270,10 @@ rank them. The glide patterns score low because their windows are wide (the leaf
   frame (a host outlier, as Leady Squid's). VRAM (tiles and the 24 KiB of maps) under the 64 KiB guideline and
   the sample memory under 64 KiB (the game's sounds are stored at 16 kHz): strict mode checks both in the smoke test.
 
-## Remaining work
-- Done in this pass (check passes): the berry has no face; the run seed varies (1000/1000 distinct runs in the first
-  30 s); smaller micro-patterns and more randomness (pattern/pair/instance memory); a non-linear slope profile
-  (drawing only, PROF_* in tuning.h); the title-only flow with up to 4 players (hu_title_* API).
-- DIFF_MAX was raised 60 -> 70 so that the director reaches the hardest pattern (dewchain) within 3000 m.
-- Not re-measured since the changes: the bot's distance (`make blueberrytumble-difficulty`), the bench numbers, the
-  difficulty chart (docs/difficulty.png), the screenshots (`make blueberrytumble-screenshots`). The "Results" section
-  above dates from before this pass.
-- Not played by a human yet: the 2-4 player title and the slope profile are only covered by the headless tests.
+## Current completion (2026-10-01)
+The faceless berry, varied seeds, shorter micro-patterns, pattern/pair/instance memory and uneven drawn slope
+are retained. The title-only lobby supports four players; A starts and game over returns to the title.
+Screenshots and difficulty.png are regenerated. The current 20-seed screen bot reaches 681-1691 m, mean
+1306 m; measured difficulty/failure rank correlation is 0.31. Validator and full checks pass.
+The earlier cost and difficulty figures above are historical; no new hardware performance measurement is claimed.
+Human playtesting of the slope and multiplayer balance remains.

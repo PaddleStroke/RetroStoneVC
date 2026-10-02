@@ -12,7 +12,7 @@
 #include "rs.h"
 #include "tuning.h"
 
-#define MAX_PLAYERS 2
+#define MAX_PLAYERS 4
 
 static inline int clampi(int v, int lo, int hi) { return v < lo ? lo : v > hi ? hi : v; }
 
@@ -58,7 +58,7 @@ int32_t drain_per_frame(int level);          /* BAR_FULL units */
 int     level_of(int logs);
 int     rate_q16(int level);                 /* gnaws per second that hold the bar, Q16 */
 
-/* ---- world.c: a run (one or two beavers) -------------------------------------------------------- */
+/* ---- world.c: a run (one to four beavers) ------------------------------------------------------- */
 enum beaver_state { BV_READY, BV_PLAY, BV_BONK, BV_SLEEP, BV_WIN, BV_OFF };
 enum { EV_GNAW = 1, EV_GOLD = 2, EV_BONK = 4, EV_SLEEP = 8, EV_MILESTONE = 16, EV_LEVEL = 32, EV_START = 64,
        EV_SENT = 128, EV_STOLEN = 256, EV_MOVE = 512 };
@@ -73,6 +73,8 @@ typedef struct beaver {
     int last_gnawed;            /* the segment gnawed last: its branch side | gold << 2 (cosmetic) */
     int bonk_hit;               /* 1 = hit A (the drop), 2 = hit B (walked in) */
     int stolen_sent;
+    int sent_to;                /* versus: the player its last stolen branch went to (-1 none) */
+    int out_t;                  /* versus: the frame it went out (bonk or out of breath), 0 = still standing */
     tree tr;
 } beaver;
 
@@ -81,8 +83,8 @@ typedef struct world {
     int players, t, started;
     uint32_t seed;
     int events[MAX_PLAYERS];
-    int over;                   /* the run is over (1 player: out; versus: one out) */
-    int winner;                 /* versus: 0/1, -1 draw */
+    int over;                   /* the run is over (1 player: out; versus: one beaver left standing, or none) */
+    int winner;                 /* versus: the winning player, -1 a draw */
 } world;
 
 void world_init(world *w, int players, uint32_t seed);
@@ -93,6 +95,14 @@ int  world_dam_logs(const world *w);         /* logs of every beaver: the dam */
 void world_skip(world *w, int logs);         /* tests: start with logs gnawed safely (no events, the bar full) */
 int  world_stage(const world *w);            /* the scene: milestones reached by the best beaver */
 int  medal_of(int score);                    /* 0 none, 1..4 */
+/* versus: who gets the stolen branch of sender p's milestone: the leader (the highest score) among the OTHER
+ * beavers still gnawing, ties to the first after p in turn order (p+1, p+2, ...); so when p leads it is the
+ * runner-up. -1: nobody left. */
+int  world_steal_target(const world *w, int p);
+/* versus: the ranking key of each player (higher = better): the last standing first, then the later out (the
+ * frame), equal frames by score; the results rank by it (hu_rank) */
+void world_rank_keys(const world *w, int key[MAX_PLAYERS]);
+int  world_standing(const world *w);         /* beavers still gnawing (BV_READY / BV_PLAY) */
 
 /* ---- console side ------------------------------------------------------------------------------- */
 /* sfx.c */
@@ -105,13 +115,16 @@ void music_update(int level, int playing);
 void audio_set(int music, int sound);
 int  music_tempo(void);
 
-/* draw.c; the screens (game states) */
-enum { DS_TITLE, DS_READY, DS_PLAY, DS_END, DS_OVER };
+/* draw.c; the screens (game states: the title is the only menu, no "get ready"; 1 is free, the old one) */
+enum { DS_TITLE = 0, DS_PLAY = 2, DS_END = 3, DS_OVER = 4 };
 void draw_init(void);
 void draw_frame(const world *w, int state, int st_t, int best, int new_best, int paused);
 void draw_new_run(const world *w);
 void draw_events(const world *w);            /* effects of the last step's events */
 void draw_update(const world *w, int state); /* cosmetic motion, once per update */
+int  draw_view_x(const world *w, int p);     /* the screen x of the centre of player p's tree (sound pan) */
+/* the OAM range that holds the sprites of player p's view in the last frame (the whole OAM with one player) */
+void draw_view_oam(int p, int *first, int *count);
 
 /* bot.c: plays from the screen (BG maps, OAM) only */
 int  bot_decide(int player);

@@ -126,7 +126,7 @@ enum { EV_LAND = 1, EV_BONK = 2, EV_BIG = 4, EV_START = 8, EV_STUNT = 16, EV_PIG
 void    mamie_reset(mamie *m, int32_t x, int y);
 int32_t vx_after_input(const mamie *m, int dir);            /* one frame of air control */
 int     mamie_air_step(mamie *m, const terrain *T, int dir, hit *h);   /* EV_LAND (h filled), EV_BONK */
-int     mamie_tumble_step(mamie *m, const terrain *T, hit *h);         /* knocked off: no control */
+void    mamie_tumble_step(mamie *m);                                    /* knocked off: no control, no landing */
 int     mamie_move(mamie *m, const terrain *T, hit *h);                 /* gravity and the move (no control) */
 int32_t bounce_speed(int kind);
 void    mamie_bounce(mamie *m, const hit *h, int big);       /* sets the speed of the bounce off surface h */

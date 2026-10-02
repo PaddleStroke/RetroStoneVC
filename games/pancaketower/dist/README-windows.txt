@@ -12,15 +12,17 @@ way to space. Golden fork medals at 25, 50, 75 and 100; your best is kept.
 
 Run PancakeTower.exe. No installation needed (SDL2 is built in).
 
-Controls                  Gamepad (SNES layout)      Keyboard
-  drop, start, retry        A (B, X, Y and Up too)     X, Up or Enter
-                            Start starts and retries   (Z, A and S too)
-  pause / resume            Start or Select in a run   Enter, Backspace or Esc
-  player 2 joins            pad 2: A on the title or the ready screen
+Controls (SNES gamepad layout)
+  A: start from the title.
+  A: drop a pancake. The first A starts play; the next A drops.
+  After game over, A returns to the title; press A again to start.
+  Start or Select during play: pause/resume.
+  Pads 2-4: A or Start to join on the title, B to leave.
 
-Two players stack side by side on a split screen, with the same slides; every
-third perfect in a row splashes syrup on the rival's tower. When both have
-missed, the tallest tower wins.
+Keyboard: X = A, Z = B, arrows = D-pad, Enter = Start,
+Backspace or Esc = Select. Other players use gamepads.
+
+Up to four chefs stack in separate columns. Every third perfect splashes the next living rival. When everyone has missed, height wins, then score.
 
 F11 or Alt+Enter: fullscreen. F12: screenshot. Close the window to quit.
 Options: PancakeTower.exe --scale 4 --fullscreen

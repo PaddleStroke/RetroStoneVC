@@ -376,19 +376,22 @@ static void test_hazards(void)
     printf("hazards: antennas, pigeons walking and flying, balloons\n");
     static world w;
     mamie *m = &w.m[0];
-    /* an antenna in the middle of a roof: knocked off, she drops onto the roof and recovers with a weak hop */
+    /* an antenna in the middle of a roof: the hit ends the run even with a roof below */
     two_bldgs(&w, 64, 320);
     obj *o = one_obj(&w, OB_ANTENNA);
     o->x = 120; o->y = 320; o->bld = 1;
     m->x = 108 * Q16_ONE; m->y = 316 * Q16_ONE; m->vx = VX_MAX; m->vy = -Q16(2.0);
     int ev = run_until(&w, EV_STUMBLE, 30, 1, 0);
-    CHECK((ev & EV_STUMBLE) && m->state == MS_TUMBLE && m->vy >= 0 && m->vx < 0 && m->chain == 0,
+    CHECK((ev & EV_STUMBLE) && m->state == MS_TUMBLE && m->vx < 0 && m->chain == 0,
           "an antenna: the bounce is broken, she tumbles back and drops (state %d)", m->state);
     int x_hit = (int)(m->x >> 16), steered = 0;
-    ev = run_until(&w, EV_RECOVER, 120, 1, 1);      /* Right and A held: no effect while tumbling */
+    m->yarn = 1;
+    m->umbrella_t = 100;
+    ev = run_until(&w, EV_DOWN, 180, 1, 1);      /* Right and A held: cannot recover */
     steered = (int)(m->x >> 16) > x_hit + 2;
-    CHECK((ev & EV_RECOVER) && m->state == MS_AIR && m->vy == -V_RECOVER && !steered && !(ev & EV_DOOMED),
-          "... onto the roof: she recovers with a weak hop (no control meanwhile)");
+    CHECK((ev & EV_DOWN) && !(ev & EV_RECOVER) && !(ev & EV_SAVED) && !steered &&
+          (m->state == MS_DOWN || m->state == MS_OFF),
+          "... the run ends; neither the roof, steering nor power-ups rescue a hazard hit");
     /* an antenna near the start of the next roof, hit coming in low over the gap: knocked back into the gap */
     two_bldgs(&w, 64, 320);
     o = one_obj(&w, OB_ANTENNA);

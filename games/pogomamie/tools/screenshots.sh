@@ -13,7 +13,7 @@ first() {   # first <event> <after frame>: the frame of the first such event aft
     sed -n "s/.*ev f=\([0-9]*\) p=0.* $1 .*/\1/p" "$T/log.txt" | awk -v a="$2" '$1 > a {print; exit}'
 }
 run --frames 200 --shot 190:$O/title.png
-run --frames 130 --opt ready=1 --opt players=2 --shot 120:$O/get-ready-2-players.png
+run --frames 130 --opt players=2 --shot 120:$O/title-2-players.png
 # the districts
 run --frames 900 --opt bot=1 --opt ready=1 --opt seed=7 --shot 880:$O/district-montmartre.png
 run --frames 900 --opt bot=1 --opt ready=1 --opt seed=12 --opt skip=526 --shot 880:$O/district-seine.png
@@ -21,9 +21,10 @@ run --frames 900 --opt bot=1 --opt ready=1 --opt seed=13 --opt skip=1030 --shot 
 run --frames 900 --opt bot=1 --opt ready=1 --opt seed=14 --opt skip=1500 --shot 880:$O/district-eiffel.png
 run --frames 900 --opt bot=1 --opt ready=1 --opt seed=15 --opt skip=2080 --shot 880:$O/night.png
 # a big bounce: 22 frames after the take-off, high over a gap
-run --frames 3000 --opt bot=1 --opt ready=1 --opt seed=7
-f=$(first big 200)
-[ -n "$f" ] && run --frames $((f + 24)) --opt bot=1 --opt ready=1 --opt seed=7 --shot $((f + 22)):$O/big-bounce.png
+printf "30 tap A\n80 tap A\n100 RIGHT+A\n" > "$T/big.input"
+run --frames 2000 --opt seed=5 --input "$T/big.input"
+f=$(first big 0)
+[ -n "$f" ] && run --frames $((f + 24)) --opt seed=5 --input "$T/big.input" --shot $((f + 22)):$O/big-bounce.png
 # a pigeon bounce: the stunt points pop up
 for s in 9 10 11 12 13 14 15 16 17 18; do
     run --frames 6000 --opt bot=1 --opt ready=1 --opt seed=$s --opt skip=900
@@ -44,12 +45,20 @@ if [ -n "$d" ] && [ -n "$w" ]; then
         --shot $((w + 40)):$O/fall-cafe-cursing.png
 fi
 # game over with a medal (the bot lets go at 520 m: silver whiskers)
-run --frames 20000 --opt bot=1 --opt ready=1 --opt seed=8 --opt botstop=520
+run --frames 20000 --opt bot=1 --opt ready=1 --opt seed=1 --opt botstop=520
 f=$(sed -n 's/.*run 1 over at frame \([0-9]*\).*/\1/p' "$T/log.txt")
-[ -n "$f" ] && run --frames $((f + 70)) --opt bot=1 --opt ready=1 --opt seed=8 --opt botstop=520 --shot $((f + 60)):$O/gameover-medal.png
-printf "30 tap A\n80 tap A\n600 tap START\n" > "$T/pause.input"
-run --frames 640 --opt seed=7 --input "$T/pause.input" --shot 630:$O/pause.png
+[ -n "$f" ] && run --frames $((f + 70)) --opt bot=1 --opt ready=1 --opt seed=1 --opt botstop=520 --shot $((f + 60)):$O/gameover-medal.png
+printf "600 tap START\n" > "$T/pause.input"
+run --frames 640 --opt bot=1 --opt ready=1 --opt seed=1 --input "$T/pause.input" --shot 630:$O/pause.png
 # the 2-player race (both bots)
 run --frames 1400 --opt bot=2 --opt seed=9 --opt players=2 --opt ready=1 --shot 1200:$O/race-2-players.png
+run --frames 130 --opt players=4 --shot 120:"$O/title-4-players.png"
+run --frames 1500 --opt bot=4 --opt players=4 --opt ready=1 --opt seed=9 --shot 800:"$O/play-4-players.png"
+for players in 2 3 4; do
+    run --frames 1800 --opt bot=$players --opt players=$players --opt ready=1 --opt seed=5 --opt botstop=3
+    f=$(sed -n 's/.*run 1 over at frame \([0-9]*\).*/\1/p' "$T/log.txt")
+    [ -n "$f" ] && run --frames $((f + 65)) --opt bot=$players --opt players=$players --opt ready=1 \
+        --opt seed=5 --opt botstop=3 --shot $((f + 62)):"$O/results-$players-players.png"
+done
 rm -rf "$T"
 ls "$O"

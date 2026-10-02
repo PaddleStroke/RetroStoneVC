@@ -11,7 +11,7 @@ run() { $H --scale 2 --opt music=0 --opt sound=0 "$@" > "$T/log.txt" 2>&1; }
 scene() { sed -n "s/.*scene $1 \([0-9]*\).*/\1/p" "$T/log.txt" | head -1; }
 
 run --frames 130 --shot 120:"$O/title.png"
-run --frames 60 --opt ready=1 --shot 50:"$O/get-ready.png"
+run --frames 60 --opt ready=1 --shot 50:"$O/opening-scene.png"
 # one long bot run: a road, a river with ducklings, a train, a long parade, a banking
 S=${SEED:-9}
 run --frames 30000 --opt bot=1 --opt ready=1 --opt seed=$S --opt scenes=1
@@ -48,6 +48,8 @@ printf "400 tap START\n" > "$T/pause.input"
 run --frames 440 --opt bot=1 --opt ready=1 --opt seed=7 --input "$T/pause.input" --shot 430:"$O/pause.png"
 # Mother and Father (the bot plays both)
 run --frames 1400 --opt bot=2 --opt players=2 --opt ready=1 --opt seed=6 --shot 1300:"$O/coop-2-players.png"
-run --frames 60 --opt ready=1 --opt players=2 --shot 50:"$O/get-ready-2-players.png"
+run --frames 130 --opt players=2 --shot 120:"$O/title-2-players.png"
+run --frames 130 --opt players=4 --shot 120:"$O/title-4-players.png"
+run --frames 900 --opt players=4 --opt bot=4 --opt ready=1 --opt seed=6 --shot 800:"$O/coop-4-players.png"
 rm -rf "$T"
 ls "$O"

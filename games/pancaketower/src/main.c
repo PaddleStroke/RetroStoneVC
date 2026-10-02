@@ -13,6 +13,7 @@
  */
 #include "pt.h"
 #include "assets.h"
+#include "render.h"
 #include "house_ui.h"
 #include "house_audio.h"
 #include <stdio.h>
@@ -96,12 +97,12 @@ static void new_run(int state)
     go(state);
 }
 
-static int is_bot(int p) { return (p == 0 && opt_bot) || (p == 1 && opt_bot >= 2); }
+static int is_bot(int p) { return p < opt_bot; }
 
 static int act_pressed(int p)
 {
     if (is_bot(p)) return bot_decide(p);
-    return (rs_pad_pressed(p) & ACT_BUTTONS) != 0;
+    return (rs_pad_pressed(hu_player_pad(p)) & ACT_BUTTONS) != 0;
 }
 
 static void game_over(void)
@@ -119,7 +120,7 @@ static void game_over(void)
         if (m) SV.medals[m - 1]++;
         if (M.players == 1 && best_now > SV.best) { SV.best = (uint16_t)best_now; new_best = 1; }
         if (height > SV.best_height) SV.best_height = (uint16_t)height;
-        if (M.players == 2 && height > SV.best_versus) SV.best_versus = (uint16_t)height;
+        if (M.players >= 2 && height > SV.best_versus) SV.best_versus = (uint16_t)height;
         if (chain > SV.best_chain) SV.best_chain = (uint16_t)chain;
         save_store();
     }
@@ -137,7 +138,7 @@ static void sounds(void)
     static const uint8_t scale[8] = {0, 2, 4, 5, 7, 9, 11, 12};    /* the perfect chain climbs a major scale */
     for (int p = 0; p < M.players; p++) {
         const tower *tw = &M.tw[p];
-        int ev = tw->events, x = M.players == 1 ? RS_SCREEN_W / 2 : 80 + 160 * p;
+        int ev = tw->events, x = M.players == 1 ? RS_SCREEN_W / 2 : (RS_SCREEN_W * (2 * p + 1)) / (2 * M.players);
         if ((ev & EV_LAND) && !(ev & (EV_CEILING | EV_ROOF))) sfx_play(SFX_FLOP, x, clampi(tw->pancakes / 6, 0, 12));
         if (ev & EV_PERFECT) sfx_play(SFX_DING, x, scale[clampi(tw->chain - 1, 0, 7)] + (tw->chain > 8 ? 2 : 0));
         if (ev & EV_REGROW) sfx_play(SFX_FANFARE, x, 0);
@@ -181,16 +182,6 @@ static void play_update(void)
     if (st == DS_PLAY && match_over(&M) && ++over_t >= OVER_DELAY) game_over();
 }
 
-static void try_join(void)
-{
-    /* player 2 joins with A on pad 2, on the title or ready */
-    if (players == 1 && (rs_pad_pressed(1) & GO_BUTTONS)) {
-        players = 2;
-        ha_play(HA_CONFIRM);
-        new_run(DS_READY);
-    }
-}
-
 static void game_update(void)
 {
     if (st == DS_PLAY && (rs_pad_pressed(0) & (RS_BTN_SELECT | RS_BTN_START))) {
@@ -207,34 +198,34 @@ static void game_update(void)
     hu_shake_step();
     switch (st) {
     case DS_TITLE: {
-        int pr[MAX_PLAYERS] = {0, 0};
-        match_step(&M, pr);                    /* the slider slides on the title */
-        try_join();
-        if (st == DS_TITLE && (opt_bot || (rs_pad_pressed(0) & GO_BUTTONS))) {
+        int ev = hu_title_update();
+        if (ev & (HU_TITLE_JOINED | HU_TITLE_LEFT)) {
+            players = hu_players();
+            int t = st_t;
+            new_run(DS_TITLE);
+            st_t = t;
             ha_play(HA_CONFIRM);
-            go(DS_READY);
+        }
+        if ((ev & HU_TITLE_START) || (opt_bot && st_t >= 30)) {
+            ha_play(HA_CONFIRM);
+            go(DS_PLAY);
         }
         break;
     }
     case DS_READY:
-        try_join();
         play_update();
         break;
     case DS_PLAY:
         play_update();
         break;
-    case DS_OVER: {
-        int again = 0;
-        if (st_t >= RETRY_LOCK) {
-            for (int p = 0; p < M.players; p++) again |= (rs_pad_pressed(p) & GO_BUTTONS) != 0;
-            if (opt_bot && runs_done < opt_botruns && st_t == RETRY_LOCK + 10) again = 1;
-        }
-        if (again) {                           /* house rule: one button, instant retry */
+    case DS_OVER:
+        if (st_t >= RETRY_LOCK && (hu_over_back() ||
+            (opt_bot && runs_done < opt_botruns && st_t == RETRY_LOCK + 10))) {
             ha_play(HA_CONFIRM);
-            new_run(DS_READY);
+            players = hu_players();
+            new_run(DS_TITLE);
         }
         break;
-    }
     }
     draw_update(&M);
     st_t++;
@@ -254,12 +245,16 @@ static void game_init(void)
     audio_set(opt_music, opt_sound);
     sfx_init();
     draw_init();
-    opt_bot = rs_option_int("bot", 0);
+    hu_title_cfg tc = {GO_BUTTONS, MAX_PLAYERS, "PLAY", NULL, 0};
+    hu_title_setup(&tc);
+    opt_bot = clampi(rs_option_int("bot", 0), 0, MAX_PLAYERS);
     opt_botruns = rs_option_int("botruns", 1);
     opt_botstop = rs_option_int("botstop", 0);
     opt_start = clampi(rs_option_int("start", 0), 0, 5000);
     opt_seed = (uint32_t)rs_option_int("seed", 1);
-    players = rs_option_int("players", 1) >= 2 ? 2 : 1;
+    players = clampi(rs_option_int("players", 1), 1, MAX_PLAYERS);
+    if (players < opt_bot) players = opt_bot;
+    hu_players_set(players);
     new_run(rs_option_int("ready", 0) ? DS_READY : DS_TITLE);
 }
 
@@ -301,6 +296,7 @@ static void game_state(void)
     draw_state();
     sfx_state();
     bot_state();
+    render_state();
     hu_state();
 }
 #undef S
@@ -311,6 +307,6 @@ const rs_game *rs_game_main(void)
 {
     /* state_version: bump it when the meaning of a saved object changes (its layout is checked) */
     static const rs_game g = {"Pancake Tower", "pancaketower", "0.1.0", game_init, game_update, game_draw,
-                              game_shutdown, pt_assets, game_state, game_state_loaded, 2};
+                              game_shutdown, pt_assets, game_state, game_state_loaded, 3};
     return &g;
 }

@@ -655,8 +655,8 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
     /* the title, every frame: the prompt (PRESS ANY ARROW TO HOP), the parents' slots, BEST, the join line, credits */
     if (state == DS_TITLE) hu_title_draw(st_t, best);
     if (state == DS_OVER) {
-        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, "A: HOP AGAIN");
-        else hu_retry_line_at(hu_results_retry_row(&rs), st_t, RETRY_LOCK, "A: HOP AGAIN");
+        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, "A: MAIN MENU");
+        else hu_retry_line_at(hu_results_retry_row(&rs), st_t, RETRY_LOCK, "A: MAIN MENU");
     }
 }
 

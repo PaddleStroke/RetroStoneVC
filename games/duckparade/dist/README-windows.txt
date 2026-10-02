@@ -10,15 +10,17 @@ parade. Egg medals at 50, 100, 200 and 300 points, and your best is kept.
 
 Run DuckParade.exe. No installation needed (SDL2 is built in).
 
-Controls                  Gamepad (SNES layout)      Keyboard
-  hop forward               Right or A                 Right or X
-  hop up / down / back      Up / Down / Left           Up / Down / Left
-  start, retry              A or Start                 X or Enter
-  pause / resume            Start (or Select)          Enter (or Backspace)
-  Father Duck joins         pad 2: A on the title or "get ready" screen
+Controls (SNES gamepad layout)
+  A: start from the title.
+  Arrows: hop in that direction. A also hops forward.
+  After game over, A returns to the title; press A again to start.
+  Start or Select during play: pause/resume.
+  Pads 2-4: A or Start to join on the title, B to leave.
 
-Two players walk the family together, each with their own pad and their own
-parade; the panel at the end shows Mother's, Father's and the family's score.
+Keyboard: X = A, Z = B, arrows = D-pad, Enter = Start,
+Backspace or Esc = Select. Other players use gamepads.
+
+Up to four parents guide their parades together. Results show individual and family scores.
 
 F11 or Alt+Enter: fullscreen. F12: screenshot. Close the window to quit.
 Options: DuckParade.exe --scale 4 --fullscreen

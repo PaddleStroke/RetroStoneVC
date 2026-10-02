@@ -72,4 +72,8 @@ for f in "$O"/leadysquid-*.state "$O"/bombermole-*.state; do
     else echo "  FAIL a state of another game was not refused"; fail=1; fi
     break
 done
+printf "20 P2 tap A\n25 P3 tap A\n30 P4 tap A\n40 P3 tap B\n120 tap A\n" > "$O/br-join4.input"
+scenario join4 60 200 seed=5
+scenario four 600 400 bot=4 players=4 ready=1 seed=5
+scenario four-over 3000 300 bot=4 players=4 ready=1 seed=5 botstop=3
 exit $fail

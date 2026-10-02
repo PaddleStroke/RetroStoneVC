@@ -12,17 +12,17 @@ your best score and your attempts are kept.
 
 Run BlueberryTumble.exe. No installation needed (SDL2 is built in).
 
-Controls                  Gamepad (SNES layout)      Keyboard
-  jump, start, retry        A, Up or Start             X, Up or Enter
-                            (B, X and Y jump too)      (Z, A and S too)
-  hold: jump on landing     hold A                     hold X
-  on a dew drop: jump again A in mid-air               X in mid-air
-  gliding: rise / sink      hold A / let go            hold X / let go
-  pause / resume            Select (or Start in a run) Backspace or Esc
-  player 2 joins the race   pad 2: A on the title or "get ready" screen
+Controls (SNES gamepad layout)
+  A: start from the title.
+  A: jump; hold on landing to jump again. Hold A to rise while gliding.
+  After game over, A returns to the title; press A again to start.
+  Select (or Start during play): pause/resume.
+  Pads 2-4: A or Start to join on the title, B to leave.
 
-Two players race down the same slope, each with their own pad (player 2 is a
-raspberry); the panel at the end shows both scores and the winner.
+Keyboard: X = A, Z = B, arrows = D-pad, Enter = Start,
+Backspace or Esc = Select. Other players use gamepads.
+
+Up to four berries race on the same slope: blueberry, raspberry, blackberry and gooseberry.
 
 F11 or Alt+Enter: fullscreen. F12: screenshot. Close the window to quit.
 Options: BlueberryTumble.exe --scale 4 --fullscreen

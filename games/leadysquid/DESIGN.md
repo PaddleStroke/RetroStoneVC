@@ -7,7 +7,7 @@
 A little squid put on far too many lead diving weights, so it sinks like a stone. Every tap squeezes its
 mantle and shoots a jet of water that sends it back up for a moment. Swim through the gaps between the
 obstacles of a sunken world (kelp, coral, the masts of a wreck, anchor chains) for as long as you can.
-One button, instant retry, a best score to beat.
+One button, quick return to title, a best score to beat.
 
 It is a one-button "flap" game. Its mechanics follow the genre's reference feel (the original Flappy Bird,
 2013): a constant gravity, a tap that **sets** the upward speed, a speed cap on the way down, a steady
@@ -97,15 +97,14 @@ hold the two themes that can show: draw.c loads a theme's palette into OBJ 6 + (
 4. **Game over panel** slides up: "GAME OVER" in gold on its own banner (the panel's frame and colour, an
    outline and a drop shadow, so no obstacle shows through the letters), then the panel: SCORE, BEST
    (with "NEW" when beaten), the shell medal. After 0.6 s any
-   flap button retries at once: the next run starts with that press (it is P1's first flap). Select goes back to
-   the title (to join or leave). 2-4 players: the race's ranking instead (below).
+   A returns to the title with the same lobby. The next flap starts a new run with P1's first flap. 2-4 players: the race's ranking instead (below).
 
 **Pause**: Select, during a run (the picture dims, "PAUSED"); Select again resumes.
 
 ## Controls
 | Button | Action |
 |---|---|
-| A, B, Up, Start (also X, Y) | flap / start / retry |
+| A, B, Up, Start (also X, Y) | flap / start; on results: return to title |
 | Select | pause; on the game-over panel: back to the title |
 | Pads 2-4, A (or Start) on the title | that player joins (race mode); B leaves |
 
@@ -205,7 +204,7 @@ publicly; its feel is known from video measurements and from clones built at the
   within its 24 columns. Every gap value and every scroll phase is covered. (It caught the first obstacle
   of a run keeping the tiles of the course drawn before the first flap re-rolled it.)
 - `tests/smoke_test.sh`: scripted runs (no input: sinks to the seabed with score 0; flapping at a fixed
-  rhythm dies on an obstacle), pause, the retry straight into the next race, Select back to the title, the
+  rhythm dies on an obstacle), pause, the return to title followed by the next race, Select back to the title, the
   start inputs, save RAM (the best score persists), joining and leaving on the title (only P1 starts), 4 scripted
   pads racing (no strict-mode warning), 4 bots racing, the squids sinking one by one, determinism with 4 players.
 - `tests/ui_test.sh`: the title with 0-3 players joined, play, 2 and 4 squids racing, the 4-player results:

@@ -65,6 +65,7 @@ void ha_init(int first_slot);
 /* play house sound id (at the house volume, centred) or a game slot panned by screen x (0..319) */
 int  ha_play(int id);
 int  ha_play_slot(int slot, int vol, int x, int echo);
+int  ha_play_pitched(int slot, int vol, int x, int pitch, int echo);
 void ha_sound_on(int on);
 /* start the game's music (an asset of its pack, e.g. "music/tune.mod") at the house volume, once; music_on 0 stops it */
 void ha_music(const char *asset, int music_on);

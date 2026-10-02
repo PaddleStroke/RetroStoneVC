@@ -31,15 +31,15 @@ s8 = hm.s8
 
 def reed(ph):
     """a reedy wave (odd harmonics strong, a little even), phase in cycles"""
-    return (math.sin(2 * math.pi * ph) + 0.45 * math.sin(4 * math.pi * ph + 0.3) + 0.55 * math.sin(6 * math.pi * ph) +
-            0.22 * math.sin(8 * math.pi * ph + 1.1) + 0.28 * math.sin(10 * math.pi * ph) + 0.12 * math.sin(14 * math.pi * ph))
+    return (math.sin(2 * math.pi * ph) + 0.12 * math.sin(4 * math.pi * ph + 0.3) + 0.18 * math.sin(6 * math.pi * ph) +
+            0.06 * math.sin(8 * math.pi * ph + 1.1) + 0.05 * math.sin(10 * math.pi * ph) + 0.02 * math.sin(14 * math.pi * ph))
 
 
 def samples():
     acc = []
     for i in range(2048):
-        v = reed(i * 64 / 2048.0) + 0.8 * reed(i * 65 / 2048.0 + 0.2) + 0.8 * reed(i * 63 / 2048.0 + 0.6)
-        acc.append(s8(v * 17))
+        v = reed(i * 64 / 2048.0) + 0.22 * reed(i * 65 / 2048.0 + 0.2) + 0.22 * reed(i * 63 / 2048.0 + 0.6)
+        acc.append(s8(v * 24))
     bass = hm.bass()                         # the house round bass
     maj = [s8(15 * (reed(i * 4 / 256.0) + reed(i * 5 / 256.0 + 0.3) + reed(i * 6 / 256.0 + 0.7))) for i in range(256)]
     mnr = [s8(15 * (reed(i * 10 / 640.0) + reed(i * 12 / 640.0 + 0.3) + reed(i * 15 / 640.0 + 0.7))) for i in range(640)]
@@ -49,8 +49,8 @@ def samples():
         lp += (rng.uniform(-1, 1) - lp) * 0.55
         tick.append(s8(lp * 90 * math.exp(-i / 90.0)))
     # name, data, volume, loop start, loop length (0 = one-shot)
-    return [("musette", acc, 40, 0, 2048), ("bass", bass, 40, 0, 64), ("major", maj, 26, 0, 256),
-            ("minor", mnr, 26, 0, 640), ("brush", tick, 22, 0, 0)]
+    return [("musette", acc, 26, 0, 2048), ("bass", bass, 30, 0, 64), ("major", maj, 18, 0, 256),
+            ("minor", mnr, 18, 0, 640), ("brush", tick, 12, 0, 0)]
 
 
 def cell(smp=0, note=None, eff=0, par=0):
@@ -115,8 +115,8 @@ def melody_bar(rng, key, mode, deg, motif, prev):
     return [up(2), None, up(1), None, up(0), None]      # "call": three long-ish notes
 
 
-MOTIFS_A = ["arp", "chrom", "turn", "long", "arp", "chrom", "arpdown", "call"]
-MOTIFS_B = ["chrom", "arp", "turn", "arpdown", "chrom", "turn", "arp", "call"]
+MOTIFS_A = ["long", "call", "arpdown", "long", "call", "long", "arpdown", "call"]
+MOTIFS_B = ["call", "long", "arpdown", "call", "long", "arpdown", "long", "call"]
 
 
 def pattern(name, key, mode, prog, rng, variant, tempo):
@@ -124,7 +124,7 @@ def pattern(name, key, mode, prog, rng, variant, tempo):
     prev = 24
     motifs = MOTIFS_A if variant == 0 else MOTIFS_B
     if variant == 2:
-        motifs = [rng.choice(["arp", "chrom", "turn", "long", "arpdown"]) for _ in range(7)] + ["call"]
+        motifs = [rng.choice(["call", "long", "arpdown"]) for _ in range(7)] + ["call"]
     for bar, (deg, q) in enumerate(prog):
         r0 = bar * 6
         # oom: the bass on beat 1 (the root, the fifth on even bars)
@@ -158,10 +158,9 @@ def build(name):
     key, mode, prog_a, prog_c, seed = TUNES[name]
     rng = random.Random(seed)
     smp = samples()
-    tempo = 72 if name == "night" else 80
-    pats = [pattern(name, key, mode, prog_a, rng, 0, tempo), pattern(name, key, mode, prog_a, rng, 1, tempo),
-            pattern(name, key, mode, prog_c, rng, 2, tempo)]
-    return hm.build_mod("pogo mamie " + name[:9], smp, pats, [0, 1, 2, 1])
+    tempo = 60 if name == "night" else 66
+    pats = [pattern(name, key, mode, prog_a if i < 4 else prog_c, rng, i % 3, tempo) for i in range(8)]
+    return hm.build_mod("pogo mamie " + name[:9], smp, pats, list(range(8)))
 
 
 NAMES = ["montmartre", "seine", "haussmann", "eiffel", "night"]

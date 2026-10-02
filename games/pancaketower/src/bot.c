@@ -156,10 +156,10 @@ int bot_decide(int p)
     } else {
         return 0;                                                 /* too little seen yet */
     }
-    if (absi(v) < 300) return 0;                               /* not a slider: a pancake sliding on syrup */
+    if (absi(v) < (pt_players() > 2 ? 120 : 300)) return 0;     /* narrow columns have slower sliders */
     int64_t x0 = (sx * 256 - (int64_t)v * st) / n;           /* Q8: the perceived position (k = 0) */
     /* where it must be: the top's left edge, minus the syrup's slide */
-    int slip = pt_players() == 2 ? SYRUP_SLIP_2P : SYRUP_SLIP;
+    int slip = pt_players() > 2 ? 2 : pt_players() == 2 ? SYRUP_SLIP_2P : SYRUP_SLIP;
     int32_t target = -(b->syrup ? b->pass_dir * slip * 256 : 0);   /* relative to the top's left edge */
     /* frames from the perceived moment until the slider is there (the frame it perceives is BOT_DELAY old) */
     int32_t ahead = (int32_t)((target - x0) * 256 / v);       /* Q8 frames */

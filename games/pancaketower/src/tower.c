@@ -8,6 +8,7 @@
 #include <string.h>
 
 const geom GEOM_1P = {W0, SPAWN_DIST, SLIDE_SPEED0, PERFECT_MIN, PERFECT_MAX, REGROW_PX, SYRUP_SLIP};
+const geom GEOM_4P = {W0_4P, SPAWN_DIST_4P, SLIDE_SPEED0_4P, PERFECT_MIN, PERFECT_MAX_4P, REGROW_PX_4P, SYRUP_SLIP_4P};
 const geom GEOM_2P = {W0_2P, SPAWN_DIST_2P, SLIDE_SPEED0_2P, PERFECT_MIN, PERFECT_MAX_2P, REGROW_PX_2P, SYRUP_SLIP_2P};
 
 /* ---- pure helpers --------------------------------------------------------------------------------------- */
@@ -294,15 +295,20 @@ void match_init(match *m, int players)
 {
     memset(m, 0, sizeof *m);
     m->players = clampi(players, 1, MAX_PLAYERS);
-    for (int p = 0; p < m->players; p++) tower_init(&m->tw[p], m->players == 2 ? &GEOM_2P : &GEOM_1P);
+    for (int p = 0; p < m->players; p++) tower_init(&m->tw[p], m->players > 2 ? &GEOM_4P : m->players == 2 ? &GEOM_2P : &GEOM_1P);
 }
 
 void match_step(match *m, const int press[MAX_PLAYERS])
 {
     for (int p = 0; p < m->players; p++) tower_step(&m->tw[p], press[p]);
-    if (m->players == 2)
-        for (int p = 0; p < 2; p++)
-            if (m->tw[p].events & EV_SPLASH) tower_splash(&m->tw[1 - p]);
+    if (m->players > 1)
+        for (int p = 0; p < m->players; p++)
+            if (m->tw[p].events & EV_SPLASH) {
+                for (int n = 1; n < m->players; n++) {
+                    int rival = (p + n) % m->players;
+                    if (tower_alive(&m->tw[rival])) { tower_splash(&m->tw[rival]); break; }
+                }
+            }
     m->t++;
 }
 
@@ -315,8 +321,12 @@ int match_over(const match *m)
 
 int match_winner(const match *m)
 {
-    const tower *a = &m->tw[0], *b = &m->tw[1];
-    if (a->pancakes != b->pancakes) return a->pancakes > b->pancakes ? 0 : 1;
-    if (a->score != b->score) return a->score > b->score ? 0 : 1;
-    return -1;
+    int winner = 0, tie = 0;
+    for (int p = 1; p < m->players; p++) {
+        const tower *a = &m->tw[winner], *b = &m->tw[p];
+        if (b->pancakes > a->pancakes || (b->pancakes == a->pancakes && b->score > a->score)) {
+            winner = p; tie = 0;
+        } else if (b->pancakes == a->pancakes && b->score == a->score) tie = 1;
+    }
+    return tie ? -1 : winner;
 }

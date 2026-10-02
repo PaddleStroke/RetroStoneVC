@@ -15,12 +15,15 @@ check() {   # check <name> <expected regexp> <output>
 run() { $H --opt music=0 --opt dump=1 "$@" 2>&1; }
 
 out=$(run --frames 300 --opt strict=1)
-check "title: nothing happens without input (the slider slides)" "state: st=0 .*height=0 score=0 .*runs=0 " "$out"
+check "title: waits for A" "state: st=0 .*height=0 score=0 .*runs=0 " "$out"
 if echo "$out" | grep -q "rs strict"; then ko "strict mode warnings on the title: $(echo "$out" | grep 'rs strict')"; else ok "no strict-mode warning on the title"; fi
 out=$(run --frames 4000 --opt strict=1 --opt bot=1 --opt seed=2)
 if echo "$out" | grep -q "rs strict"; then ko "strict mode warnings in a run: $(echo "$out" | grep 'rs strict')"; else ok "no strict-mode warning in a long run (VRAM, sprites, voices, samples)"; fi
 out=$(run --frames 3000 --opt strict=1 --opt bot=2 --opt players=2 --opt ready=1 --opt seed=2)
 if echo "$out" | grep -q "rs strict"; then ko "strict mode warnings in 2 players: $(echo "$out" | grep 'rs strict')"; else ok "no strict-mode warning in 2 players"; fi
+out=$(run --frames 2500 --opt strict=1 --opt bot=4 --opt players=4 --opt ready=1 --opt seed=5 --opt start=30)
+if echo "$out" | grep -q "rs strict"; then ko "strict mode warnings in 4 players: $(echo "$out" | grep 'rs strict')"; else ok "no strict-mode warning in 4 players through the roof"; fi
+check "four towers grow" "players=4 height=[4-9][0-9]* .*height2=[4-9][0-9]* " "$out"
 
 # A on the title: ready; A again at frame 60 drops the pancake 64 px right of the tower: cut to 32 px
 printf "30 tap A\n60 tap A\n" > "$T/start.input"
@@ -46,7 +49,7 @@ printf "30 tap A\n60 tap A\n65 tap A\n$((g + 20)) tap A\n$((g + 50)) tap A\n" > 
 out=$(run --frames $((g + 30)) --input "$T/retry.input")
 check "the panel ignores the button for $((36)) frames" "state: st=3 " "$out"
 out=$(run --frames $((g + 60)) --input "$T/retry.input")
-check "retry: one button back to ready (a new tower)" "state: st=1 .*height=0 .*runs=1 " "$out"
+check "game over: one press returns to the title" "state: st=0 .*height=0 .*runs=1 " "$out"
 
 printf "30 tap A\n60 tap A\n100 tap START\n" > "$T/pause.input"
 a=$(run --frames 130 --input "$T/pause.input" | sed -n 's/.*sx=\([-0-9]*\) paused=\([0-9]\).*/\1 \2/p')
@@ -64,8 +67,8 @@ if [ "${best:-0}" -gt 12 ]; then check "save RAM: the best score ($best) persist
 else ko "the bot run for the save test scored only $best"; fi
 
 printf "20 P2 tap A\n" > "$T/join.input"
-out=$(run --frames 60 --opt ready=1 --input "$T/join.input")
-check "player 2 joins from ready (versus)" "players=2 " "$out"
+out=$(run --frames 60 --input "$T/join.input")
+check "player 2 joins on the title" "players=2 " "$out"
 out=$(run --frames 2500 --opt bot=2 --opt seed=6 --opt players=2 --opt ready=1)
 check "versus: both towers grow" "players=2 height=[1-9][0-9]* score=[0-9]* height2=[1-9][0-9]* " "$out"
 

@@ -22,10 +22,10 @@ scenario() {
     else echo "  FAIL $name (fresh process):"; echo "$out" | grep "FAIL\|first"; fail=1; fi
 }
 
-# the title (the music plays), then A and the first hop (it stops before the idle run is over: a best score is kept in the
-# battery save, which a state does not take back, so a game over inside the replayed frames would differ in-process)
-printf "150 tap A\n" > "$O/duckparade-title.input"
-scenario title 60 200
+# Save at the title, then start, die, show the new record, return to the title and start again.
+# The battery record survives a load; the visible record and NEW BEST flag replay deterministically.
+printf "150 tap A\n600 tap A\n650 tap A\n" > "$O/duckparade-title.input"
+scenario title 60 800
 # the bot far into a run: traffic, rivers, ducklings in the line
 scenario run 1500 600 bot=1 ready=1 seed=11
 # Mother and Father

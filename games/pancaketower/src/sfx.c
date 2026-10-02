@@ -96,9 +96,8 @@ void sfx_play(int id, int x, int pitch_steps)
                                            HA_VOL_CRASH - 24, HA_VOL_CRASH - 34, HA_VOL_FEEDBACK, 60, HA_VOL_ACTION,
                                            HA_VOL_ACTION, HA_VOL_FEEDBACK};
     if (!sound_on || id < 0 || id >= SFX_COUNT) return;
-    int pan = clampi(24 + x * 80 / RS_SCREEN_W, 0, 127);
-    int v = rs_sfx(id, vol[id], pan, SEMI[clampi(pitch_steps, 0, 24)]);
-    if (v >= 0 && (id == SFX_DING || id == SFX_SQUISH || id == SFX_POUR)) rs_voice_echo(v, 1);
+    ha_play_pitched(id, vol[id], x, SEMI[clampi(pitch_steps, 0, 24)],
+                    id == SFX_DING || id == SFX_SQUISH || id == SFX_POUR);
 }
 
 void sfx(int id) { sfx_play(id, RS_SCREEN_W / 2, 0); }

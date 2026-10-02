@@ -42,6 +42,7 @@ beaverrush-check:
 	./build/host/test_libretro build/host/beaverrush_libretro.so 600
 	./build/host/beaverrush_test_rules
 	sh $(BR_DIR)/tests/smoke_test.sh build/host/beaverrush_headless build
+	$(PYTHON) $(BR_DIR)/tests/test_save_migration.py build/host/beaverrush_headless
 	sh $(BR_DIR)/tests/ui_test.sh build/host/beaverrush_headless build/beaverrush-ui
 	sh $(BR_DIR)/tests/state_test.sh build/host/beaverrush_test_states build/states
 	$(PYTHON) tools/state_audit.py --game beaverrush build/host/beaverrush_test_states $(BR_OBJ_HOST)

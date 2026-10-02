@@ -37,10 +37,13 @@ run --frames $((f + 60)) --opt bot=1 --opt seed=3 --opt ready=1 --opt botstop=30
 printf "600 tap START\n" > "$T/pause.input"
 run --frames 640 --opt bot=1 --opt seed=7 --opt ready=1 --input "$T/pause.input" --shot 630:"$O/pause.png"
 # two players (the bots play both)
-run --frames 130 --opt ready=1 --opt players=2 --shot 120:"$O/ready-2-players.png"
+run --frames 130 --opt players=2 --shot 120:"$O/title-2-players.png"
 run --frames 1500 --opt bot=2 --opt seed=9 --opt players=2 --opt ready=1 --shot 1480:"$O/versus-2-players.png"
 run --frames 20000 --opt bot=2 --opt seed=9 --opt players=2 --opt ready=1
 f=$(sed -n 's/.*run 1 over at frame \([0-9]*\).*/\1/p' "$T/log.txt")
 [ -n "$f" ] && run --frames $((f + 60)) --opt bot=2 --opt seed=9 --opt players=2 --opt ready=1 --shot $((f + 50)):"$O/gameover-2-players.png"
+run --frames 130 --opt players=4 --shot 120:"$O/title-4-players.png"
+run --frames 1500 --opt bot=4 --opt players=4 --opt ready=1 --opt seed=9 --shot 800:"$O/play-4-players.png"
+run --frames 4000 --opt bot=4 --opt players=4 --opt ready=1 --opt seed=5 --opt botstop=3 --shot 3900:"$O/results-4-players.png"
 rm -rf "$T"
 ls "$O"
