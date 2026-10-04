@@ -14,6 +14,8 @@
  *                  the controls at M metres (P2-P4: M+20, M+40...)
  *   seed=N         a fixed course (default: from the frame of the start)
  *   start=M        the course starts M metres in (its difficulty, its time of day)
+ *   only=KIND      the course has one kind of group only (twig, knot, gap, sap, web, pecker, cater, wind, cone, owl,
+ *                  fork, nuts): screenshots and tests
  *   players=N      start with N players joined (1..4);  ready=1  skip the title (the run waits for a press)
  *   dump=1         log the final state at exit (tests); music=0, sound=0
  */
@@ -30,7 +32,7 @@
 static int opt_bot, opt_botstop, opt_botruns, opt_seed_fixed, opt_music, opt_sound, opt_start;
 static uint32_t opt_seed;
 static world W;
-static int st, st_t, paused, new_best, runs_done;
+static int st, st_t, paused, new_best, runs_done, music_cur = -1;
 static uint32_t state_hash = 2166136261u;
 static int16_t snd_buf[HA_RATE * 7 / 10];     /* start-up scratch (state_audit.txt) */
 
@@ -198,7 +200,10 @@ static void play_update(void)
         }
         if (ev & (EV_HIT | EV_FALL)) {
             sfx_at(SFX_FALL, x);
-            rs_log("player %d out at frame %u: %d m (fall %d)", p + 1, rs_frame_count(), q->dist_m, q->fall_kind);
+            rs_log("player %d out at frame %u: %d m (fall %d: angle %d, angv %d, sap %d, wind %d, curve %d, speed %d, "
+                   "branch %d)", p + 1, rs_frame_count(), q->dist_m, q->fall_kind, (int)(q->ang / ANG(1)),
+                   (int)(q->angv * 100 / ANG(1)), q->on_sap, q->wind, (int)seg_curve(&W, q->s >> 8), (int)(q->speed >> 8),
+                   q->branch);
         }
         state_hash = (state_hash ^ (uint32_t)q->s) * 16777619u;
         state_hash = (state_hash ^ (uint32_t)q->ang) * 16777619u;
@@ -230,9 +235,22 @@ static void title_update(void)
     }
 }
 
+/* the music follows the time of day: the day tune, dusk (autumn afternoon, dusk), night (night, winter dawn) */
+static void music_update(void)
+{
+    static const char *const tunes[3] = {"music/tune.mod", "music/dusk.mod", "music/night.mod"};
+    int band = (int)(((W.lead_s >> 8) / UNITS_PER_M / BAND_M) % 6);
+    int want = st == ST_TITLE ? 0 : band / 2;
+    if (want != music_cur) {
+        ha_music(tunes[music_cur < 0 ? 0 : music_cur], 0);
+        music_cur = want;
+    }
+    ha_music(tunes[want], opt_music);
+}
+
 static void game_update(void)
 {
-    ha_music("music/tune.mod", opt_music);
+    music_update();
     if ((st == ST_PLAY || st == ST_DEAD) && (rs_pad_pressed(0) & (RS_BTN_SELECT | RS_BTN_START))) {
         paused = !paused;
         ha_play(HA_PAUSE);
@@ -279,6 +297,7 @@ static void game_init(void)
     opt_botruns = rs_option_int("botruns", 1);
     opt_botstop = rs_option_int("botstop", 0);
     opt_start = rs_option_int("start", 0);
+    gen_force = gen_kind_of(rs_option("only"));
     opt_seed_fixed = rs_option("seed") != NULL;
     opt_seed = (uint32_t)rs_option_int("seed", 0x5eed);
     int n = rs_option_int("players", 1);
@@ -289,6 +308,9 @@ static void game_init(void)
 static void game_shutdown(void)
 {
     if (!rs_option_int("dump", 0)) return;
+    /* VRAM: the tiles written and the maps of the layers (64x32 UI, 64x32 affine branch, 32x32 backdrop) */
+    rs_log("vram: %d tiles + maps = %d bytes (guideline 65536)", rs_tiles_used(),
+           rs_tiles_used() * 32 + (64 * 32 + 64 * 32 + 32 * 32) * 2);
     char sc[48] = "", ds[64] = "", hs[48] = "";
     for (int p = 0; p < W.players; p++) {
         size_t a = strlen(sc), b = strlen(ds), c = strlen(hs);
@@ -306,9 +328,10 @@ static void game_shutdown(void)
 #define S(v) rs_state_var("main." #v, &(v), sizeof(v))
 static void game_state(void)
 {
-    S(W); S(st); S(st_t); S(paused); S(new_best); S(runs_done); S(state_hash);
+    S(W); S(st); S(st_t); S(paused); S(new_best); S(runs_done); S(state_hash); S(music_cur);
     S(opt_bot); S(opt_botstop); S(opt_botruns); S(opt_seed_fixed); S(opt_seed); S(opt_music); S(opt_sound);
     S(opt_start);
+    rs_state_var("gen.gen_force", &gen_force, sizeof gen_force);
     draw_state();
     bot_state();
     hu_state();                                 /* the kit, with the title's lobby (who plays, on which pad) */

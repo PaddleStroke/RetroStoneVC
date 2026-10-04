@@ -361,9 +361,10 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
                 char s[24];
                 hu_banner(4, "GAME OVER");
                 hu_gameover_panel(1, new_best, w->q[0].dist_m, 0);
-                hu_box_text(12, 11, "METRES");
-                snprintf(s, sizeof s, "NUTS %d", w->q[0].score);
-                hu_box_text(12, 12, s);
+                hu_box_text(12, 11, "METRES  ");                    /* the house panel, our labels */
+                hu_box_text(12, 14, "NUTS    ");
+                snprintf(s, sizeof s, new_best ? "NEW BEST!" : "BEST %dM", best);
+                hu_box_text(12, 12, s);                              /* under METRES */
             } else {
                 hu_results_panel(rs, NULL);
             }
@@ -395,6 +396,7 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
 void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, int paused)
 {
     static const int medals[4] = MEDAL_METRES;
+    (void)best_m;
     int sx = hu_shake_x(), sy = hu_shake_y();
     road_project(w, &RV);
     band_palettes((w->lead_s >> 8) / UNITS_PER_M);
@@ -428,7 +430,16 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
     }
     if (state == ST_OVER) {
         if (w->players == 1) {
-            hu_gameover_sprites(1, w->q[0].dist_m, 0, best_m, hu_medal_of(w->q[0].dist_m, medals), st_t, slide);
+            /* the distance, the nuts, the medal (hu_gameover_sprites' layout, with the nuts on the second line) */
+            int medal = hu_medal_of(w->q[0].dist_m, medals);
+            hu_number(w->q[0].dist_m, 25 * 8, 11 * 8 - 4 + slide, 3);
+            hu_number(w->q[0].score, 25 * 8, 14 * 8 - 4 + slide, 3);
+            if (medal) {
+                hu_medal(medal, 22 * 8 - 4, 16 * 8 - 4 + slide, 3);
+                if ((st_t / 20) % 3 == 0) hu_sparkle(22 * 8 + 12, 16 * 8 - 4 + slide, (st_t / 10) % 2, 3);
+            } else {
+                hu_box_text(22, 17, "-");
+            }
         } else {
             hu_results_sprites(&rs, st_t, slide);
             for (int i = 0; i < rs.n; i++) {

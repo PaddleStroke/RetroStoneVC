@@ -30,6 +30,18 @@ run --frames 700 --opt bot=1 --opt seed=12 --opt ready=1 --opt start=820 --shot 
 run --frames 700 --opt bot=1 --opt seed=9 --opt ready=1 --opt start=1220 --shot 600:"$O/dusk.png"
 run --frames 700 --opt bot=1 --opt seed=5 --opt ready=1 --opt start=1620 --shot 600:"$O/night.png"
 run --frames 700 --opt bot=1 --opt seed=4 --opt ready=1 --opt start=2020 --shot 600:"$O/winter.png"
+# the traps, one kind at a time (--opt only=KIND)
+scene() { run --frames $(($3 + 5)) --opt bot=1 --opt seed=3 --opt ready=1 --opt only=$1 --opt start=$2 --shot $3:"$O/trap-$1.png"; }
+scene gap 700 150
+scene fork 700 150
+scene pecker 700 150
+scene web 700 150
+scene cater 700 270
+scene sap 700 150
+scene knot 700 270
+scene cone 700 150
+scene wind 700 150
+scene owl 1650 330
 run --frames 900 --opt bot=2 --opt seed=9 --opt ready=1 --shot 880:"$O/race-2-players.png"
 run --frames 900 --opt bot=4 --opt seed=9 --opt ready=1 --shot 880:"$O/play-4-players.png"
 # game over with a medal: the bot lets go of the controls at 260 m (bronze)
@@ -48,7 +60,7 @@ if [ -n "$f" ]; then
 else
     ko "the 4-player bot run for the results did not end"
 fi
-shots="title title-2-players title-3-players title-4-players play pause summer autumn dusk night winter race-2-players play-4-players gameover-medal results-4-players"
+shots="title title-2-players title-3-players title-4-players play pause summer autumn dusk night winter race-2-players play-4-players gameover-medal results-4-players trap-gap trap-fork trap-pecker trap-web trap-cater trap-sap trap-knot trap-cone trap-wind trap-owl"
 n=0
 for s in $shots; do
     n=$((n + 1))

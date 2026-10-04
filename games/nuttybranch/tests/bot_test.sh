@@ -1,19 +1,20 @@
 #!/bin/sh
 # Nutty Branch: the screen-only bot (bot.c reads OAM and the branch layer's per-line registers, never the world)
-# plays N courses (seeds 1..N, up to 4 minutes each); its distances are reported and its median must reach the
-# target (BOT_TARGET metres).
+# plays N courses (seeds 1..N, up to BOT_FRAMES frames each: 4 minutes, about 1700 m); its distances are reported
+# and its median must reach the target (BOT_TARGET metres, 1000).
 #   bot_test.sh <headless binary> <tmp dir> [runs] [verbose]
 # MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/nuttybranch/LICENSE.
 H=$1
 T=${2:-/tmp}/nuttybranch-bot
 N=${3:-12}
 V=$4
-TARGET=${BOT_TARGET:-300}
+TARGET=${BOT_TARGET:-1000}
+FRAMES=${BOT_FRAMES:-14400}
 mkdir -p "$T"
 : > "$T/dists.txt"
 i=1
 while [ $i -le "$N" ]; do
-    out=$($H --frames 14400 --opt music=0 --opt sound=0 --opt bot=1 --opt ready=1 --opt seed=$i --opt dump=1 2>&1)
+    out=$($H --frames $FRAMES --opt music=0 --opt sound=0 --opt bot=1 --opt ready=1 --opt seed=$i --opt dump=1 2>&1)
     d=$(echo "$out" | sed -n 's/.*state: .* dist=\([0-9]*\) score=\([0-9]*\).*fall=\([0-9]*\).*/\1 \2 \3/p')
     echo "$i $d" >> "$T/dists.txt"
     [ -n "$V" ] && echo "  seed $i: $d"

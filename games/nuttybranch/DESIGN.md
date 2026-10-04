@@ -134,13 +134,18 @@ than a jump plus `LAND_FRAMES`; a fork's dead branch is visibly broken long befo
 - Medals (house tiers) by distance: bronze 250 m, silver 500 m, gold 1000 m, pearl 1500 m (`MEDAL_METRES`).
 - Save RAM (`NUTB`, versioned, checksummed): the best distance, the best score, runs, medals; written at each game
   over, never in a save state.
+- Game over (1 player): the house banner and panel: METRES and NUTS in big digits, the MEDAL, then BEST n M or NEW
+  BEST!; one press goes back to the title.
 - Results with 2-4 players: ranked by distance (the last squirrel standing goes farthest), the distance shown.
 
 ## Up to four players: one shared screen
 The squirrels run on the **same branch, on one screen**, in the house palette swaps (P1 red, P2-P4 the hue
 rotations of house_style.player_palettes). The camera follows the leader; every squirrel runs at the course speed,
 a slowed one (a web) falls back and catches up at +6% once free, never more than `PACK_LAG` units behind (the
-bottom of the screen). A squirrel that slips off or crashes is out; the last one standing (the farthest) wins.
+bottom of the screen). Squirrels side by side **jostle**: within 12 units along the branch and 14 degrees round it
+they push each other apart (`BUMP_ACC`), so the pack spreads round the top and a shove can tip a neighbour toward the
+edge. A nut goes to whoever reaches it first. A squirrel that slips off or crashes is out; the last one standing (the
+farthest) wins.
 
 Why not a 2x2 split: the squirrels share one branch and one speed, so they are always within ~40 units of each
 other along it; a shared screen shows all of them at a readable size (the leader at 1.33 px per unit, the last at
@@ -149,16 +154,23 @@ quarter of the size (squirrels of 12 px, nuts of 3 px) and repeat the projection
 readable because each squirrel is its own colour, its P1-P4 tag is on the HUD and its balance meter sits under it.
 
 ## The squirrel
-24x24 seen from behind (a 32x32 cell): the body in 4 lean angles (0, 20, 40, 60 degrees: the body stands on the
-bark's normal, so it tilts as it goes round; left = the mirror), 2 run frames each; a separate **tail sprite**
-(5 angles, mirrored) that sways against the pull: tail angle = lean - `TAIL_K` x angular speed, so a balanced
-squirrel carries its tail upright and a slipping one flails it; the jump (tucked, tail streaming), the fall (two
-frames, tumbling off the side), the 16x16 head icon. Balance meter: a small arc under the squirrel (green, yellow,
-red) with a needle; shown beyond 18 degrees.
+About 24x24 seen from behind (head and tufted ears, shoulders, haunches, the hind feet showing their pale soles as
+they push off): the body in 4 lean angles (0, 20, 40, 60 degrees: it stands on the bark's normal, so it tilts as it
+goes round; left = the mirror), 2 run frames each, each frame cropped to its box (16 to 40 px wide); a separate
+**tail sprite** (6 angles, 0 to 90 degrees, mirrored), drawn in front of the body (we see its back), that sways
+against the motion: tail angle = lean - `TAIL_K` x angular speed, so a balanced squirrel carries its tail upright and
+a slipping one flails it; near the edge the body scrabbles (the lean frame flickers one step further, a 1-px
+shiver); the jump (stretched, then reaching), the fall (two tumbling frames, the cream belly showing), its shadow
+on the bark in the air, the 16x16 face icon (title slots, results). Balance meter: a small arc under the squirrel
+(green, yellow, red) with a white needle, shown beyond 18 degrees (`METER_ANG`).
 
 ## Audio
-Music (`tools/make_music.py`, the house kit): a playful woodland tune in G major at speed 5: pluck arpeggios,
-bass, pad and a whistled lead; patterns get busier with the distance band. Effects (`src/main.c sound_init`, the
+Music (`tools/make_music.py`, the house kit): a playful woodland tune that **evolves over the distance**: the game
+switches module with the time of day (`main.c music_update`): `tune.mod` for spring and summer (G major, speed 5,
+pluck arpeggios, a bouncy bass, the pad, a whistled lead, a counter-melody on the second pass), `dusk.mod` for the
+autumn afternoon and dusk (the same tune in E minor, speed 6), `night.mod` for the night and winter dawn (E dorian,
+speed 7, sparse dew-drop plucks, the lead an octave down). Loudness: the house constants (`HA_MUSIC_VOL`, the
+`HA_VOL_*` effect levels). Effects (`src/main.c sound_init`, the
 house synthesiser): the nut crunch (a crack of noise and a short pluck; its pitch rises a semitone per combo nut,
 up to 8), the jump (a quick upward chirp), the slip creak (a low wooden groan, repeated while beyond `WARN_ANG`),
 the fall (a falling whistle), the woodpecker ("tok tok", dry knocks), the wind (a long filtered hiss), the owl's

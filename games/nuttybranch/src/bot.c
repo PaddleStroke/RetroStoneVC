@@ -29,6 +29,7 @@ static int have_prev[MAX_PLAYERS], hold_left[MAX_PLAYERS], cool[MAX_PLAYERS];
 static int16_t prev_row[RS_SCREEN_H];
 static int32_t speed_est = Q8(5);
 static int dead_side;                         /* a fork's dead branch seen ahead: -1, 1, 0 */
+static int windy;                             /* leaves streaming across the screen: a gust */
 
 void bot_reset(void)
 {
@@ -73,6 +74,7 @@ static int32_t asin_q12(int32_t r)
 /* the branch on screen line y: the centre (px) nearest x and the half width (Q8 px), the line's z (Q8 units) */
 static int line_branch(int y, int x, int *xc, int32_t *hw, int32_t *z)
 {
+    *z = 0;
     if (y < 0 || y >= RS_SCREEN_H) return 0;
     int row = draw_line_row[y], a = draw_line_a[y];
     if (row >= TEX_H || a <= 0) return 0;
@@ -124,12 +126,14 @@ static int look(int player, int *fx, int *fy, int *air)
     int found = 0, pal = hu_player_pal(player);
     nsn = 0;
     dead_side = 0;
+    windy = 0;
     *air = 0;
-    int shx[8], shy[8], nsh = 0;
+    int shx[8], shy[8], nsh = 0, stump_y = -1;
     for (int i = 0; i < RS_OAM_MAX; i++) {
         rs_sprite *s = rs_oam(i);
         if (!s || !s->used || (s->flags & RS_SPR_HIDE)) continue;
         int t = s->tile, x, y;
+        if (in_spr(t, SPR_LEAF, NFR_LEAF)) { windy = 1; continue; }
         if (s->pal == pal && (in_spr(t, SPR_SQ_RUN, NFR_SQ_RUN) || in_spr(t, SPR_SQ_JUMP, NFR_SQ_JUMP))) {
             int id = in_spr(t, SPR_SQ_RUN, NFR_SQ_RUN) ? SPR_SQ_RUN + frame_of(t, SPR_SQ_RUN, NFR_SQ_RUN)
                                                        : SPR_SQ_JUMP + frame_of(t, SPR_SQ_JUMP, NFR_SQ_JUMP);
@@ -157,12 +161,16 @@ static int look(int player, int *fx, int *fy, int *air)
                 break;
             }
             anchor(s, K[k].id + f, &x, &y);
-            if (K[k].kind == K_STUMP) {
-                int xc;
-                int32_t hw, z;
-                if (line_branch(y, x, &xc, &hw, &z) && draw_line_row[y] >= ROW_FORK) dead_side = x < draw_line_x[y] ? -1 : 1;
-                else if (line_branch(y, x, &xc, &hw, &z)) dead_side = x < 160 ? -1 : 1;
+            if (K[k].kind == K_STUMP) {               /* the nearest broken end: which side is dead */
+                if (y > stump_y && y >= 0 && y < RS_SCREEN_H) {
+                    stump_y = y;
+                    dead_side = x < draw_line_x[y] ? -1 : 1;
+                }
                 break;
+            }
+            if (K[k].kind == K_OWL) {                 /* it flies: its size tells how high it is above the bark */
+                static const int lod_k[4] = {340, 230, 154, 97};
+                y += ((OWL_H + Q8(6)) >> 8) * lod_k[f % 4] >> 8;
             }
             add_seen(K[k].kind, x, y, K[k].half, K[k].h);
             break;
@@ -224,10 +232,17 @@ void bot_decide(int player, sq_input *in)
     int danger_t = 9999;
     /* a candidate target angle: clear of solids / holes / webs / sap reaching it within the next 70 frames */
     int32_t best = 0, best_cost = 1 << 30;
-    for (int32_t cand = -DEG(42); cand <= DEG(42); cand += DEG(3)) {
+    /* the forces it feels: a gust (the leaves), a curve (the branch bending away: its centre drifting between the
+     * near and the far lines) at speed: keep nearer the top then */
+    int32_t lim = DEG(42);
+    int bend = draw_line_row[200] < TEX_H && draw_line_row[130] < TEX_H ? draw_line_x[130] - draw_line_x[200] : 0;
+    if (bend < 0) bend = -bend;
+    if (windy) lim = DEG(24);
+    if (bend > 40 && v > Q8(8)) lim = lim < DEG(28) ? lim : DEG(28);
+    for (int32_t cand = -lim; cand <= lim; cand += DEG(3)) {
         static const int32_t lane[MAX_PLAYERS] = {0, -DEG(16), DEG(16), -DEG(30)};   /* each bot its own line */
         int64_t cost = (int64_t)iabs32(cand) / 64 + (int64_t)iabs32(cand - ang) / 160 +
-                       (int64_t)iabs32(cand - lane[player]) / 96;
+                       (int64_t)iabs32(cand - lane[player]) / 96 + (lim < DEG(42) ? (int64_t)iabs32(cand) / 12 : 0);
         if (dead_side && (cand > 0 ? 1 : -1) == dead_side) cost += 4000;
         if (dead_side && iabs32(cand) < DEG(12)) cost += 2000;
         for (int i = 0; i < nsn; i++) {
@@ -280,7 +295,8 @@ void bot_decide(int player, sq_input *in)
             }
             if (o->kind == K_NUT || o->kind == K_SAP || o->kind == K_WEB) continue;
             int32_t margin = o->half + SQ_HALF_ANG + DEG(3);
-            if (iabs32(pred - o->ang) >= margin && iabs32(ang - o->ang) >= margin) continue;
+            if (o->kind == K_CATER) margin += DEG(14);          /* it crawls: jump it rather than guess */
+            if (o->kind != K_OWL && iabs32(pred - o->ang) >= margin && iabs32(ang - o->ang) >= margin) continue;
             int big = o->h > Q8(16) || o->kind == K_HOLE;
             int at = big ? 15 : 11;
             if (t <= at && t >= at - 3) {
@@ -291,6 +307,10 @@ void bot_decide(int player, sq_input *in)
         }
         if (in->jump_pressed) cool[player] = 20;
     }
+    if (rs_option_int("botlog", 0))
+        rs_log("bot f%u p%d: feet (%d,%d) air %d ang %.1f angv %.2f v %.1f target %.1f steer %d jump %d dead %d seen %d",
+               rs_frame_count(), player, fx, fy, air, ang / 4096.0, angv / 4096.0, v / 256.0, best / 4096.0, in->steer,
+               in->jump_pressed, dead_side, nsn);
     (void)danger_t;
 }
 
@@ -299,6 +319,6 @@ void bot_decide(int player, sq_input *in)
 void bot_state(void)
 {
     S(sn); S(nsn); S(prev_ang); S(angv_est); S(have_prev); S(hold_left); S(cool); S(prev_row); S(speed_est);
-    S(dead_side);
+    S(dead_side); S(windy);
 }
 #undef S

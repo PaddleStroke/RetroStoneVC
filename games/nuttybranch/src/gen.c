@@ -198,8 +198,20 @@ static int32_t group(chunk_ctx *c, int kind, int32_t s)
     }
 }
 
+int gen_force = -1;
+
+int gen_kind_of(const char *name)
+{
+    static const char *names[G_KINDS] = {"nuts", "twig", "knot", "gap", "sap", "web", "pecker", "cater", "wind", "cone",
+                                         "owl", "fork"};
+    for (int k = 0; name && k < G_KINDS; k++)
+        if (!strcmp(name, names[k])) return k;
+    return -1;
+}
+
 static int pick_group(chunk_ctx *c)
 {
+    if (gen_force >= 0) return gen_force;           /* tests and screenshots: one kind of group only */
     int tot = 0, wts[G_KINDS];
     for (int k = 0; k < G_KINDS; k++) {
         wts[k] = c->m >= UNLOCK_M[k] ? WEIGHT[k] : 0;

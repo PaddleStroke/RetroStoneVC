@@ -14,6 +14,12 @@
 
 #define MAX_SPANS 8
 
+/* a fork's two branches are apart (more than a branch width between their centres) */
+static int sep_far_enough(int32_t s_q8, int32_t f_s)
+{
+    return (int64_t)(s_q8 - f_s * 256) * FORK_SPREAD_256 >> 8 > 2 * BRANCH_R * 256;
+}
+
 typedef struct span { int32_t s0, s1; int side; } span;
 
 static int32_t seg_floor(int32_t s) { return s >= 0 ? s / SEG_LEN : -((-s + SEG_LEN - 1) / SEG_LEN); }
@@ -152,13 +158,20 @@ void road_project(const world *w, road_view *v)
                 int live = -forks[i].side, j = (sep / 256 + FORK_STEP / 2) / FORK_STEP - 1;
                 if (j < 0) j = 0;
                 if (j > FORK_STEPS - 1) j = FORK_STEPS - 1;
-                int32_t sq = FORK_STEP * (j + 1);
-                int32_t a = z / FOCAL;
-                if (sep >= 64 * 256) a = (int32_t)((int64_t)a * sq * 256 / sep);   /* both centres land exactly */
-                /* the live branch is at xc; the pair's midpoint is half a separation toward the dead one */
-                int32_t mid = xc - (int32_t)((int64_t)live * sep / 2 * FOCAL / z);
+                int32_t sq = FORK_STEP * (j + 1), a = z / FOCAL;
+                /* the live branch is at xc, the dead one a separation away; the branch the camera follows lands
+                 * exactly, the other within 8 texels (the separations come in 16-texel steps) */
+                int32_t dead = xc - (int32_t)((int64_t)live * sep * FOCAL / z);
+                int32_t fx = lq->branch ? dead : xc, ox = lq->branch ? xc : dead;
+                if (z < (CAM_BACK - 8) * 256 && sep_far_enough(s_q8, forks[i].s0)) {
+                    /* near the camera (behind the leader) the other branch's steps would show as slabs: it has swung
+                     * away by then, only the followed one is drawn */
+                    L->xc = (int16_t)((fx + 128) >> 8);
+                    break;
+                }
+                int32_t half = (int32_t)((int64_t)sq / 2 * 256 * 256 / (a > 0 ? a : 1));     /* Q8 px */
+                int32_t mid = fx < ox ? fx + half : fx - half;
                 L->xc = (int16_t)((mid + 128) >> 8);
-                L->a = (int16_t)a;
                 L->row = (int16_t)(ROW_FORK + j * 8 + (s & 7));
                 break;
             }

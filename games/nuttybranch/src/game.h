@@ -119,6 +119,8 @@ int  hole_open(const world *w, const obj *o);                  /* 0..256 */
 int32_t ob_solid(const world *w, const obj *o, int32_t *ang, int32_t *half);   /* a solid's height (Q8) now, 0 = none */
 
 /* ---- gen.c ------------------------------------------------------------------------------------------------------- */
+extern int gen_force;                               /* --opt only=<kind>: one kind of group (tests, screenshots) */
+int  gen_kind_of(const char *name);                 /* nuts twig knot gap sap web pecker cater wind cone owl fork */
 void gen_init(world *w);
 void gen_fill(world *w, int32_t until_s);           /* generate the course up to s (units) */
 void gen_trim(world *w, int32_t behind_s);          /* drop the objects that are all behind s (units) */

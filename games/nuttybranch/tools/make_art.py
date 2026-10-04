@@ -342,13 +342,21 @@ def tail(ang_deg, frame=0):
         # up from the rump, bulging a little left, the tip curling back to the right
         x = 20 - 3.2 * math.sin(t * math.pi * 0.9) + 4.0 * max(0.0, t - 0.75) * 4
         y = 34 - 20.0 * t + 3.0 * max(0.0, t - 0.8) * 5
-        r = 1.8 + 4.4 * math.sin(min(1.0, t * 1.1) * math.pi * 0.82)
+        r = 1.9 + 5.0 * math.sin(min(1.0, t * 1.1) * math.pi * 0.82)
         s = Shape(x, y, r * 0.92, r, FUR)
         s.casts = False
         pts.append(s)
     ids, nrm = paint_ids(W, H, pts, a, (20, 34))
     shade_ids(cv, pts, ids, nrm, crease=False)
     rng = random.Random(7 + frame)
+    tufts = []                                                 # fluff: tufts poking out of the edge, away from the rump
+    for y in range(H):
+        for x in range(W):
+            if cv.get(x, y) is None and y < 30 and rng.random() < 0.22:
+                if any(cv.get(x + dx, y + dy) is not None for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))):
+                    tufts.append((x, y))
+    for x, y in tufts:
+        cv.set(x, y, HERO["f2"])
     for y in range(H):                                         # fur: light tips along the outer edge, a dark spine
         for x in range(W):
             if cv.get(x, y) is None:
@@ -433,12 +441,12 @@ def bark_ramp():
 def twig(k):
     """A short side shoot sticking up from the bark, a leaf on it."""
     cv, ax, ay = framed(16 * k, 12 * k)
-    B = bark_ramp()
+    B = [WOOD["grain"], WOOD["hz"], WOOD["a2"], WOOD["a3"]]     # pale, freshly broken wood: it stands out of the bark
     w = max(1.0, 1.8 * k)
     hs.capsule(cv, ax - 2 * k, ay, ax + 3 * k, ay - 9 * k, w, B)
     hs.capsule(cv, ax + 1 * k, ay - 5 * k, ax - 5 * k, ay - 8 * k, max(0.8, w * 0.7), B)
-    if k > 0.5:
-        hs.ellipse(cv, ax + 5 * k, ay - 10 * k, max(1.0, 2.6 * k), max(1.0, 1.4 * k), None, flat=WOOD["moss"])
+    if k > 0.3:
+        hs.ellipse(cv, ax + 5 * k, ay - 10 * k, max(1.0, 3.2 * k), max(1.0, 1.8 * k), None, flat=WOOD["moss"])
     hs.ellipse(cv, ax, ay - 0.2, max(1.0, 3.5 * k), max(0.6, 1.0 * k), B)
     cv.outline(WOOD["out"])
     return cv, ax, ay
@@ -858,19 +866,36 @@ def backdrop():
         h1 = HORIZON_ROW - 14 - int(8 * abs(math.sin(x * math.pi / 32)) + 4 * math.sin(x * 2 * math.pi / 64 + 1))
         for y in range(max(FOREST_Y0, h1), HORIZON_ROW + 8):
             T[y][x] = 5 if y - h1 < 3 else 6 if y < HORIZON_ROW else 7
-        for y in range(HORIZON_ROW + 8, HORIZON_ROW + 56):
-            yy = y - HORIZON_ROW - 8
-            bump = int(4 * abs(math.sin((x + yy * 7) * math.pi / 24)))
-            band = (yy + bump) // 12
-            c = [8, 9, 10, 13][min(3, band)]
-            if band >= 3 and not hs.dither_ok(x, y, 16 - (yy - 36) * 2):
-                c = 0
-            if band < 3 and (yy + bump) % 12 == 0:
-                c = 10 if c != 10 else 9
-            T[y][x] = c
+        for y in range(HORIZON_ROW + 6, HORIZON_ROW + 60):           # the shade between the crowns below
+            T[y][x] = 10 if y < HORIZON_ROW + 50 or hs.dither_ok(x, y, 16 - (y - HORIZON_ROW - 50) * 2) else 0
         if x % 32 in (5, 6) and h1 < HORIZON_ROW:                 # a far trunk now and then
             for y in range(h1 + 4, HORIZON_ROW + 8):
                 T[y][x] = 7
+    # the crowns of the forest far below: rows of round crowns, bigger as they come nearer, lit from the top-left
+    # (a 128-px pattern, far rows first), the lowest fading into the mist
+    for j in range(6):
+        r = 3.5 + 1.4 * j
+        yc = HORIZON_ROW + 9 + 7 * j + 0.5 * j * j
+        n = max(3, int(round(128 / (1.9 * r))))
+        for i in range(n):
+            bx = (i + 0.5 * (j % 2)) * 128.0 / n + (rng.random() - 0.5) * r * 0.6
+            by = yc + (rng.random() - 0.5) * 2
+            rr = r * (0.85 + 0.3 * rng.random())
+            for y in range(int(by - rr) - 1, int(by + rr) + 2):
+                if y < HORIZON_ROW + 4 or y >= HORIZON_ROW + 60:
+                    continue
+                for xx in range(int(bx - rr) - 1, int(bx + rr) + 2):
+                    dx, dy = (xx + 0.5 - bx) / rr, (y + 0.5 - by) / (rr * 0.8)
+                    if dx * dx + dy * dy > 1:
+                        continue
+                    if y >= HORIZON_ROW + 50 and not hs.dither_ok(xx, y, 16 - (y - HORIZON_ROW - 50) * 2):
+                        continue
+                    nd = dx * hs.LIGHT_DIR[0] + dy * hs.LIGHT_DIR[1]
+                    c = 8 if nd > 0.35 else 9 if nd > -0.3 else 10
+                    if j < 2:
+                        c = 13 if nd > 0.35 else 12 if c == 9 else 9         # the far rows in the haze
+                    for k in range(0, SCENE_W, 128):
+                        T[y][(xx % 128) + k] = c
     return T
 
 
