@@ -223,13 +223,13 @@ acorn's bonk, the rain's patter, the swinging branch's swish; the house set for 
 - smoke: the title flow (A and Left start, game over back to the title, pause, save RAM, joining and leaving),
   1-4 players, no strict-mode warning (VRAM 57 KB of 64, sample memory under 64 KB, at most 32 sprites a line), determinism of scripted and
   bot runs with 1 and 4 players (state hash and picture).
-- the bot (`src/bot.c`, the screen only: OAM and the branch layer's per-line registers): 40 seeds, up to 10 minutes
-  each (`BOT_FRAMES=36000 make nuttybranch-bot BOT_RUNS=40`): distance min 917 / median 5089 / mean 4630 / max
-  5119 m; 33 runs still going at 10 minutes, 6 slips, 1 crash. In the check: 12 seeds x 4 minutes, the median must
-  reach 1000 m (all 12 reach the 4-minute cap, about 1750 m). One kind at a time (`--opt only=KIND`, 4 seeds from
-  1500 m, 2 minutes): every kind survived, back-to-back gusts included.
+- the bot (`src/bot.c`, the screen only: OAM, recognised by the frame its tiles hold, and the branch layer's per-line
+  registers): 40 seeds, up to 10 minutes each (`BOT_FRAMES=36000 make nuttybranch-bot BOT_RUNS=40`): distance min
+  569 / median 1631 / mean 2069 / max 4414 m, every run ending in a crash (the new traps; before them 33 of 40 runs
+  lasted the 10 minutes). In the check: 12 seeds x 4 minutes, the median must reach 1000 m (1744 m, 7 runs at the
+  cap).
 - the UI screens (the title with 0-3 players joined, play, pause, the five times of day, 2 and 4 players, the
-  game over with a medal, the 4-player results, each trap), save states (title, lobby, a run, a race, 4 players,
+  game over with a medal, the 4-player results, each of the 18 traps, the scenery: 34 screens), save states (title, lobby, a run, a race, 4 players,
   deep in the night, paused, the game over, the results; replayed in the same and in a fresh process), the audit.
 - **Frame cost** (`tests/bench_test.sh`, `make nuttybranch-bench`, 2100 frames each, music on): 1 player 0.42 ms per
   frame on the host (update + draw 16 us, the PPU 0.39 ms: the affine branch layer decoded per pixel, clipped by
