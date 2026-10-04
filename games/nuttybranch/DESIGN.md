@@ -177,6 +177,38 @@ up to 8), the jump (a quick upward chirp), the slip creak (a low wooden groan, r
 the fall (a falling whistle), the woodpecker ("tok tok", dry knocks), the wind (a long filtered hiss), the owl's
 hoot; the house set for the UI.
 
+## Tests and measurements
+`make nuttybranch-check` (all pass):
+- `tests/test_physics.c`: the pull against the angle (= 0.21 x sin, symmetric, growing), the slip angle (the pull there
+  is 77% of the steer), the feel targets (a 2-degree nudge slips in 123 frames, full steer to 45 degrees in 25,
+  the slide halves in 9 frames, sap holds only up to 22 degrees), the curve force (a hard curve at top speed: 0.090
+  deg/frame^2 = 38% of the steer, x speed squared, mirrored), the jumps (tap 16.8 units / 29 frames, held 31.7 /
+  43), determinism (1 and 4 players, 3000 frames, the same world byte for byte), the projection; the **generator's
+  fairness**: 2000 seeds x 300 m from start distances 0-2400 m (4.4 million frames planned), all passable by the
+  planner (lateral speed 2 deg/frame, holding only where 75% of the steer beats the forces, running or tap / held
+  jumps without steering in the air), and the planner refuses an injected 60-frame gap and a wall of webs.
+- smoke: the title flow (A and Left start, game over back to the title, pause, save RAM, joining and leaving),
+  1-4 players, no strict-mode warning (VRAM 58.5 KB of 64, sample memory under 64 KB), determinism of scripted and
+  bot runs with 1 and 4 players (state hash and picture).
+- the bot (`src/bot.c`, the screen only: OAM and the branch layer's per-line registers): 40 seeds, up to 10 minutes
+  each (`BOT_FRAMES=36000 make nuttybranch-bot BOT_RUNS=40`): distance min 917 / median 5089 / mean 4630 / max
+  5119 m; 33 runs still going at 10 minutes, 6 slips, 1 crash. In the check: 12 seeds x 4 minutes, the median must
+  reach 1000 m (all 12 reach the 4-minute cap, about 1750 m). One kind at a time (`--opt only=KIND`, 4 seeds from
+  1500 m, 2 minutes): every kind survived, back-to-back gusts included.
+- the UI screens (the title with 0-3 players joined, play, pause, the five times of day, 2 and 4 players, the
+  game over with a medal, the 4-player results, each trap), save states (title, lobby, a run, a race, 4 players,
+  deep in the night, paused, the game over, the results; replayed in the same and in a fresh process), the audit.
+- **Frame cost** (`tests/bench_test.sh`, `make nuttybranch-bench`, 2100 frames each, music on): 1 player 0.27-0.30
+  ms per frame on the host (update + draw 8 us, the PPU 0.26-0.28 ms: the affine branch layer is decoded per pixel
+  on every line with branch), 4 players 0.31-0.32 ms; the A20 estimate (x15-20) is **4.1-6.5 ms of the 16.7 ms**
+  frame. The per-line work (one matrix, one scroll entry, a palette reload only when the ring or haze changes) is
+  a few register writes per line.
+
+## Screenshots
+`docs/screenshots/` (`make nuttybranch-screenshots`, 2x): title, title-2/3/4-players, play, pause, summer, autumn,
+dusk, night, winter, race-2-players, play-4-players, gameover-medal, results-4-players, and one per trap:
+trap-gap, trap-fork, trap-pecker, trap-web, trap-cater, trap-sap, trap-knot, trap-cone, trap-wind, trap-owl.
+
 ## Sources
 Numbers and techniques only; no code was copied.
 - Louis Gorenfeld, "Lou's Pseudo 3d Page" (http://www.extentofthejam.com/pseudo/): the z-map, curves by
