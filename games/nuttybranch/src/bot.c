@@ -229,7 +229,6 @@ void bot_decide(int player, sq_input *in)
     int32_t angv = angv_est[player];
     /* what is ahead: arrival time in frames */
     int32_t zs = zq;
-    int danger_t = 9999;
     /* a candidate target angle: clear of solids / holes / webs / sap reaching it within the next 70 frames */
     int32_t best = 0, best_cost = 1 << 30;
     /* the forces it feels: a gust (the leaves), a curve (the branch bending away: its centre drifting between the
@@ -289,7 +288,6 @@ void bot_decide(int player, sq_input *in)
                 if (t <= 2) {
                     in->jump_pressed = 1;
                     hold_left[player] = len > 20 ? JUMP_HOLD_MAX : 8;
-                    danger_t = t;
                 }
                 continue;
             }
@@ -302,7 +300,6 @@ void bot_decide(int player, sq_input *in)
             if (t <= at && t >= at - 3) {
                 in->jump_pressed = 1;
                 hold_left[player] = big ? JUMP_HOLD_MAX : 0;
-                danger_t = t;
             }
         }
         if (in->jump_pressed) cool[player] = 20;
@@ -311,7 +308,6 @@ void bot_decide(int player, sq_input *in)
         rs_log("bot f%u p%d: feet (%d,%d) air %d ang %.1f angv %.2f v %.1f target %.1f steer %d jump %d dead %d seen %d",
                rs_frame_count(), player, fx, fy, air, ang / 4096.0, angv / 4096.0, v / 256.0, best / 4096.0, in->steer,
                in->jump_pressed, dead_side, nsn);
-    (void)danger_t;
 }
 
 /* ---- save states (main.c) ---- */

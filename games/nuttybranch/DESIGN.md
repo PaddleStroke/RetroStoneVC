@@ -82,8 +82,9 @@ a gap (Celeste's grace windows).
   light top-left, dark right, a dark rim), 32 rows of bark detail along the length (knots, moss, cracks) that scroll
   toward the camera, end-grain and jagged rows for the broken ends, and the **fork rows**: two sections side by
   side, centre to centre 16..384 texels in 16-texel steps (8 identical rows each: the tiles deduplicate to the
-  plain branch's), for the forks. A fork line picks the nearest separation and rescales `a` slightly so both
-  centres land exactly.
+  plain branch's), for the forks. A fork line picks the nearest separation: the branch the camera follows lands
+  exactly, the other within 8 texels (a slight staircase on its far edge); below the leader, where those steps
+  would be widest, only the followed branch is drawn (the other has swung out of the way by then).
 - **Rings**: OutRun's alternating stripes, by palette: the raster callback loads one of 4 bark ramps per line by
   `(s / RING_LEN) & 3`, so darker rings rush at you, and one of 4 haze levels by distance blends the far bark into
   the sky.

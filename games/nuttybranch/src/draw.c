@@ -467,7 +467,7 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
         if (w->events[p] & EV_NUT) parts_spawn(ex, ey - 6, 0);
         if (w->events[p] & EV_LAND) parts_spawn(ex, ey - 2, 1);
     }
-    if (state != ST_TITLE || 1) parts_draw();
+    parts_draw();
     if (state != ST_TITLE) wind_leaves(w);
     /* the world, sorted near to far (the lower OAM index is in front) */
     drawable list[DRAW_MAX];
