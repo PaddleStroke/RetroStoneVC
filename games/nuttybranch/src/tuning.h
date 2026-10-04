@@ -80,17 +80,19 @@
 #define CAM_NEAR      24                   /* nothing nearer than this is projected */
 #define DRAW_SEGS     160                  /* 2560 units of branch drawn */
 #define CAM_TURN_SH   3                    /* the camera's heading follows the branch at 1/8 per frame */
-#define DROP_K_256    90                   /* things round the side sit lower: R (1 - cos) * F / z * 0.35 */
+#define DROP_K_256    50                   /* things round the side sit lower: R (1 - cos) * F / z * 0.2 */
 
 /* ---- the texture (tools/make_art.py branch_texture) ----------------------------------------------------------------- */
 #define TEX_W         512
 #define TEX_H         256
-#define TEX_CX        256                  /* the branch centre column */
-#define ROW_BARK      0                    /* 32 rows of bark along the length (period 32 units) */
-#define ROW_GRAIN     32                   /* 8 rows: the end grain (the far side of a gap) */
-#define ROW_JAGGED    40                   /* 8 rows: the broken end (the near side of a gap) */
-#define ROW_FORK      48                   /* 24 x 8 rows: two sections, centre to centre 16 * (k + 1) */
-#define FORK_STEPS    24
+#define TEX_CX        256                  /* the centre column of the fork, grain and jagged rows */
+#define TEX_VARIANTS  3                    /* three 64-row bark patches side by side (moss, a burl, a scar) ... */
+#define TEX_VAR_CX    {85, 256, 427}       /* ... centred on these columns, one picked per metre */
+#define ROW_BARK      0                    /* 64 rows of bark along the length (period 64 units: 1 m) */
+#define ROW_FORK      64                   /* 22 x 8 rows: two sections, centre to centre 16 * (k + 1) */
+#define FORK_STEPS    22
+#define ROW_GRAIN     240                  /* 8 rows: the end grain (the far side of a gap) */
+#define ROW_JAGGED    248                  /* 8 rows: the broken end (the near side of a gap) */
 #define FORK_STEP     16
 #define ROW_NONE      1000                 /* outside the texture: transparent */
 #define RING_LEN      40                   /* units per ring phase (4 phases: the bark palette per line) */
@@ -130,11 +132,19 @@
 #define UNLOCK_WIND   450
 #define UNLOCK_CONE   520
 #define UNLOCK_FORK   600
+#define UNLOCK_CROW   200
+#define UNLOCK_SHOWER 280
+#define UNLOCK_SNAKE  650
+#define UNLOCK_OWL    700                  /* any time of day now (by day a hawk-owl) */
+#define UNLOCK_SWING  760
+#define UNLOCK_RAIN   850
+#define UNLOCK_BEES   950
 
 /* obstacle sizes: half-width (angle) and height (units) */
-#define TWIG_HALF     ANG(9)
+#define TWIG_HALF     ANG(40)              /* a long side twig grows at 74 degrees and arches over to -6 ... */
+#define TWIG_SHORT_HALF ANG(22)            /* ... a short one to 30 (the centre of its span is its angle) */
 #define TWIG_H        Q8(10)
-#define KNOT_HALF     ANG(15)
+#define KNOT_HALF     ANG(16)
 #define KNOT_H        Q8(24)
 #define WEB_HALF      ANG(22)
 #define WEB_H         Q8(36)
@@ -148,6 +158,30 @@
 #define CONE_H        Q8(14)
 #define OWL_HALF      ANG(18)
 #define OWL_H         Q8(12)
+#define SNAKE_HALF    ANG(20)              /* a snake lies 44 units across the path ... */
+#define SNAKE_H       Q8(9)
+#define SNAKE_V       ANG(0.7)             /* ... and slithers across fast */
+#define SWING_HALF    ANG(14)              /* the swinging branch's leaves: 14 degrees wide ... */
+#define SWING_H       Q8(26)               /* ... up to 26 units over the bark (a held jump clears it) */
+#define SWING_PERIOD  150                  /* frames for a swing there and back */
+#define SWING_PIVOT   Q8(78)               /* its pivot over the bark; its lowest leaves at 3-17 units */
+#define SWING_AMP     45                   /* degrees each way */
+#define SWING_LEN     64                   /* units from the pivot to the leaves */
+#define BEE_HALF      ANG(15)              /* a bee swarm: 15 degrees wide ... */
+#define BEE_H         Q8(40)               /* ... too high to jump over: go round it */
+#define BEE_V         ANG(0.3)             /* it drifts across */
+#define SNOW_HALF     ANG(13)              /* a lump of snow (winter): a tap jump */
+#define SNOW_H        Q8(12)
+#define CROW_FLEE     90                   /* units: the crow flies off when a squirrel comes this near */
+#define CROW_EAT      14                   /* frames per nut it eats */
+#define DROP_FALL     32                   /* frames an acorn of a shower falls ... */
+#define DROP_EVERY    9                    /* ... one every 9 frames, landing 60-260 units ahead */
+#define DROP_REACH    ANG(9)               /* a falling acorn that lands on you: a bonk (a nudge, a moment slowed) */
+#define BONK_KICK     ANG(0.7)
+#define WET_GRIP_256  180                  /* wet bark (rain): steer x 0.7 ... */
+#define WET_DAMP_256  12                   /* ... damping x 0.6 ... */
+#define WET_PULL_256  294                  /* ... pull x 1.15 */
+#define RAIN_WARN     90                   /* frames of rain before the wet stretch */
 #define OB_LEN        8                    /* the length along the branch of a solid obstacle, units */
 
 /* ---- scoring, the flow ---------------------------------------------------------------------------------------------- */

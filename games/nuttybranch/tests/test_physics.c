@@ -240,8 +240,8 @@ static void test_world(void)
 #define BINS 61                                     /* -60..60 degrees, 2 degrees each */
 #define BIN_ANG(b) ANG(((b) - 30) * 2)
 #define PLAN_MAX 9000
-#define NCLS 7
-static const int32_t CLS_H[NCLS] = {CATER_H, TWIG_H, OWL_H, CONE_H, KNOT_H, WEB_H, Q8(1000)};   /* 1000: no floor */
+#define NCLS 10
+static const int32_t CLS_H[NCLS] = {CATER_H, SNAKE_H, TWIG_H, OWL_H, CONE_H, KNOT_H, SWING_H, WEB_H, BEE_H, Q8(1000)};   /* 1000: no floor */
 typedef uint64_t mask;
 static mask cls[PLAN_MAX][NCLS];                    /* bins blocked by a thing of each height (the last: no floor) */
 static mask holdm[PLAN_MAX], forkb[PLAN_MAX];
@@ -331,12 +331,12 @@ static plan_result plan(uint32_t seed, int start_m, int metres)
             int32_t ang = BIN_ANG(b);
             mask bit = (mask)1 << b;
             if (!floor_at(&w, s, ang, 0)) cls[N][NCLS - 1] |= bit;
-            int sap = 0;
+            int sap = grip_at(&w, s, ang);
             for (int i = 0; i < w.ob_count; i++) {
                 const obj *o = ob_get(&w, i);
                 if (o->s > s + 32) break;
                 int32_t ds = s - o->s;
-                if (o->kind == OB_SAP && s >= o->s && s < o->s + o->len && labs(ang - o->ang) < SAP_HALF) sap = 1;
+
                 if (o->kind == OB_WEB && labs(ds) <= SQ_HALF_LEN + OB_LEN / 2 && labs(ang - o->ang) < WEB_HALF + SQ_HALF_ANG)
                     cls[N][cls_of(WEB_H)] |= bit;
                 int32_t oa, half, hh = ob_solid(&w, o, &oa, &half);

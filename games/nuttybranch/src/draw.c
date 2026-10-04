@@ -2,13 +2,15 @@
  * Nutty Branch: video. The house layout (docs/art-direction.md), with the branch as an arcade road:
  *   BG1 the UI (the house kit, priority 1);
  *   BG2 the branch: the AFFINE layer, its matrix set by the raster callback on every line (road.c gives each line a
- *       texture row, a scale and the branch centre: the Mode 7 perspective trick), the bark palette per line (the
- *       rings rushing at you, the haze in the distance);
+ *       texture row, a bark patch, a scale and the branch centre: the Mode 7 perspective trick), the bark palette per
+ *       line (the rings rushing at you, the haze in the distance, wet bark after rain);
  *   BG3 the canopy (top) and the far forest (the horizon), one layer, two parallax speeds by a line-scroll table;
  *   the backdrop a raster gradient (the sky above the horizon, the misty depths below);
- *   sprites: the squirrels (body + tail; OBJ 0, players 2-4 OBJ 1, 4, 5), the wood props (OBJ 2), the kit (OBJ 3),
- *   the colourful props (OBJ 6), the birds and the balance meter (OBJ 7); every world sprite at its perspective
- *   size (5 pre-drawn sizes), far to near.
+ *   sprites: the squirrels (body + tail; OBJ 0, players 2-4 OBJ 1, 4, 5), the wood props and scenery (OBJ 2), the kit
+ *   (OBJ 3), the colourful props (OBJ 6), the birds and beasts and the balance meter (OBJ 7). Every world sprite is
+ *   drawn at the nearest of its 8 pre-drawn sizes (LODs) and, round the branch, its nearest tilt, far to near.
+ *   The world's sprite tiles are STREAMED: only the frames on screen are in VRAM, in a pool (the SNES way: DMA
+ *   of the sprite tiles each frame); the squirrels and the small effects stay resident.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/nuttybranch/LICENSE.
  */
 #include "game.h"
@@ -24,15 +26,21 @@ static const rs_color title_ramps[2][3] = {
 
 static road_view RV;                                  /* the projection of this frame (scratch: rebuilt each frame) */
 int16_t draw_line_x[RS_SCREEN_H], draw_line_a[RS_SCREEN_H], draw_line_row[RS_SCREEN_H];
-static int16_t bg2_dx[RS_SCREEN_H], bg3_dx[RS_SCREEN_H];
+static int16_t line_tcx[RS_SCREEN_H], bg2_dx[RS_SCREEN_H], bg3_dx[RS_SCREEN_H];
+static int16_t line_wl[RS_SCREEN_H], line_wr[RS_SCREEN_H];   /* window 1: the branch's span on the line */
 static rs_color sky[RS_SCREEN_H];
 static uint8_t bark_sel[RS_SCREEN_H];
-static rs_color bark_pal[HAZE_LEVELS * 4][16];
+static rs_color bark_pal[2 * HAZE_LEVELS * 4][16];    /* [wet][haze][ring] */
 static int last_sel;                                  /* raster scratch */
 static int shown_state = -1, shown_best = -1, band_now;
-typedef struct part { int16_t x, y, t, kind; } part;
-#define PARTS 16
+typedef struct part { int16_t x, y, t, kind, vx, vy; } part;
+#define PARTS 20
 static part parts[PARTS];
+/* the sprite tile pool: where each streamed frame sits (-1: not in VRAM), when it was last drawn */
+static int16_t pool_slot[SPR_COUNT];
+static uint16_t pool_stamp[SPR_COUNT];
+static uint8_t pool_used[POOL_TILES];
+static uint16_t pool_now;
 
 int draw_band(void) { return band_now; }
 
@@ -45,12 +53,20 @@ static void raster(int y, void *user)
         return;
     }
     rs_bg_enable(RS_BG2, 1);
-    rs_affine m = {draw_line_a[y], 0, 0, 0, TEX_CX, draw_line_row[y], 0};
+    rs_affine m = {draw_line_a[y], 0, 0, 0, line_tcx[y], draw_line_row[y], 0};
     rs_bg_affine(RS_BG2, &m);
+    rs_window(0, line_wl[y], line_wr[y]);             /* the other bark patches of the row stay hidden */
     if (y == 0 || bark_sel[y] != last_sel) {
         last_sel = bark_sel[y];
         rs_pal_load(RS_PAL_BG(PAL_BARK), bark_pal[last_sel], 16);
     }
+}
+
+static void pool_reset(void)
+{
+    for (int i = 0; i < SPR_COUNT; i++) pool_slot[i] = -1;
+    memset(pool_stamp, 0, sizeof pool_stamp);
+    memset(pool_used, 0, sizeof pool_used);
 }
 
 void draw_init(void)
@@ -72,11 +88,13 @@ void draw_init(void)
     rs_bg_enable(RS_BG3, 1);
     rs_bg_enable(RS_BG4, 0);
     rs_obj_base(VR_OBJ);
-    rs_tiles_load(VR_OBJ, gm_obj_tiles, gm_obj_tile_count);
+    rs_tiles_load(VR_OBJ, gm_obj_tiles, RES_TILES);           /* the resident sprites; the others are streamed */
+    pool_reset();
     rs_pal_load(RS_PAL_OBJ(0), gm_obj_pals, 48);              /* squirrels 1-2, the wood props */
-    rs_pal_load(RS_PAL_OBJ(4), gm_obj_pals + 64, 64);         /* squirrels 3-4, the colourful props, the birds */
+    rs_pal_load(RS_PAL_OBJ(4), gm_obj_pals + 64, 64);         /* squirrels 3-4, the colourful props, the beasts */
     rs_bg_line_scroll(RS_BG2, bg2_dx, NULL);
     rs_bg_line_scroll(RS_BG3, bg3_dx, NULL);
+    rs_bg_window(RS_BG2, RS_WIN1_OUT);
     for (int y = 0; y < RS_SCREEN_H; y++) draw_line_row[y] = ROW_NONE;
     rs_raster(raster, NULL);
 }
@@ -104,18 +122,22 @@ static void band_palettes(int32_t metres)
     rs_pal_load(RS_PAL_BG(PAL_SCENE), scene, 16);
     rs_pal_load(RS_PAL_OBJ(2), wood, 16);
     rs_pal_load(RS_PAL_OBJ(6), col, 16);
-    /* the bark: 4 ring phases (OutRun's stripes, by palette) x 4 haze levels toward the horizon's colour */
-    static const int ring_k[4] = {256, 256, 226, 240}, haze_k[HAZE_LEVELS] = {0, 64, 120, 176};
-    for (int hz = 0; hz < HAZE_LEVELS; hz++)
-        for (int r = 0; r < 4; r++) {
-            rs_color *p = bark_pal[hz * 4 + r];
-            for (int i = 0; i < 16; i++) {
-                rs_color c = bark[i];
-                if (i >= 2 && i <= 9 && hz < 3) c = hu_scale_color(c, ring_k[r]);
-                p[i] = mix(c, key[1], haze_k[hz]);
+    /* the bark: 4 ring phases (OutRun's stripes, by palette: subtle) x 4 haze levels toward the horizon's colour, dry
+     * and wet (after rain: the lit top shines, the shadows deepen, a cool cast) */
+    static const int ring_k[4] = {256, 256, 236, 246}, haze_k[HAZE_LEVELS] = {0, 64, 120, 176};
+    for (int wet = 0; wet < 2; wet++)
+        for (int hz = 0; hz < HAZE_LEVELS; hz++)
+            for (int r = 0; r < 4; r++) {
+                rs_color *p = bark_pal[(wet * HAZE_LEVELS + hz) * 4 + r];
+                for (int i = 0; i < 16; i++) {
+                    rs_color c = bark[i];
+                    if (wet && i >= 2 && i <= 4) c = mix(c, bark[15], 110 - (i - 2) * 30);
+                    if (wet && i >= 5 && i <= 8) c = mix(hu_scale_color(c, 200), RS_RGB8(40, 60, 90), 40);
+                    if (i >= 2 && i <= 8 && hz < 3) c = hu_scale_color(c, ring_k[r]);
+                    p[i] = mix(c, key[1], haze_k[hz]);
+                }
+                p[0] = 0;
             }
-            p[0] = 0;
-        }
     /* the sky above the horizon, the misty depths below; the house dither step every 8 lines */
     for (int y = 0; y < RS_SCREEN_H; y++) {
         rs_color c = y < HORIZON_Y ? mix(key[0], key[1], y * 256 / HORIZON_Y)
@@ -130,105 +152,251 @@ static void band_palettes(int32_t metres)
     }
 }
 
-/* ---- sprites --------------------------------------------------------------------------------------------------- */
-static int spr_at(int id, int sx, int sy, int prio, int pal, int hflip)
+/* ---- the sprite pool ----------------------------------------------------------------------------------------------- */
+static int pool_fit(int n)
 {
-    const gm_sprite_def *d = &gm_spr[id];
-    int x = hflip ? sx - (d->w - 1 - d->ax) : sx - d->ax, y = sy - d->ay;
-    if (x <= -(int)d->w || x >= RS_SCREEN_W || y <= -(int)d->h || y >= RS_SCREEN_H) return 0;
-    rs_spr(x, y, d->tile, d->w, d->h, pal >= 0 ? pal : d->pal, prio, hflip ? RS_SPR_HFLIP : 0);
+    for (int i = 0, run = 0; i < POOL_TILES; i++) {
+        run = pool_used[i] ? 0 : run + 1;
+        if (run == n) return i - n + 1;
+    }
+    return -1;
+}
+
+static void pool_free(int f)
+{
+    memset(pool_used + pool_slot[f] - RES_TILES, 0, gm_spr[f].ntiles);
+    pool_slot[f] = -1;
+}
+
+/* the VRAM tile (relative to VR_OBJ) of frame f: resident, or streamed into the pool now (-1: no room this frame) */
+static int pool_get(int f)
+{
+    const gm_sprite_def *d = &gm_spr[f];
+    if (d->resident) return d->tile;
+    if (pool_slot[f] >= 0) {
+        pool_stamp[f] = pool_now;
+        return pool_slot[f];
+    }
+    int at = pool_fit(d->ntiles);
+    if (at < 0) {                                      /* full: let go of what this frame has not drawn */
+        for (int i = 0; i < SPR_COUNT; i++)
+            if (pool_slot[i] >= 0 && pool_stamp[i] != pool_now) pool_free(i);
+        at = pool_fit(d->ntiles);
+        if (at < 0) {
+            if (rs_option_int("pooldebug", 0)) rs_log("pool full: frame %d (%d tiles) not drawn", f, d->ntiles);
+            return -1;
+        }
+    }
+    memset(pool_used + at, 1, d->ntiles);
+    pool_slot[f] = (int16_t)(RES_TILES + at);
+    pool_stamp[f] = pool_now;
+    rs_tiles_load(VR_OBJ + RES_TILES + at, gm_obj_tiles + (size_t)d->tile * RS_TILE_BYTES, d->ntiles);
+    return pool_slot[f];
+}
+
+/* a frame, anchored at (sx, sy), mirrored about the anchor when hflip: its pieces */
+static int spr_at(int f, int sx, int sy, int prio, int pal, int hflip)
+{
+    const gm_sprite_def *d = &gm_spr[f];
+    int any = 0;
+    for (int i = 0; i < d->npieces && !any; i++) {
+        const gm_piece *p = &gm_pieces[d->piece + i];
+        int x = hflip ? sx - p->dx - p->w : sx + p->dx, y = sy + p->dy;
+        any = x > -(int)p->w && x < RS_SCREEN_W && y > -(int)p->h && y < RS_SCREEN_H;
+    }
+    if (!any) return 0;
+    int base = pool_get(f);
+    if (base < 0) return 0;
+    for (int i = 0; i < d->npieces; i++) {
+        const gm_piece *p = &gm_pieces[d->piece + i];
+        int x = hflip ? sx - p->dx - p->w : sx + p->dx, y = sy + p->dy;
+        if (x <= -(int)p->w || x >= RS_SCREEN_W || y <= -(int)p->h || y >= RS_SCREEN_H) continue;
+        rs_spr(x, y, base + p->toff, p->w, p->h, pal >= 0 ? pal : d->pal, prio, hflip ? RS_SPR_HFLIP : 0);
+    }
     return 1;
 }
 
-/* a world sprite: mirrored ones are two halves (the left half drawn, the right one its flip) */
-static void spr_world(int id, int sx, int sy, int pal, int hflip)
+int draw_sprite_id(const rs_sprite *s, int *frame, int *ax, int *ay)
 {
-    const gm_sprite_def *d = &gm_spr[id];
-    if (!d->mirror) { spr_at(id, sx, sy, 2, pal, hflip); return; }
-    int y = sy - d->ay;
-    if (y <= -(int)d->h || y >= RS_SCREEN_H) return;
-    if (sx - d->w < RS_SCREEN_W && sx > 0) rs_spr(sx - d->w, y, d->tile, d->w, d->h, pal >= 0 ? pal : d->pal, 2, 0);
-    if (sx < RS_SCREEN_W && sx + d->w > 0) rs_spr(sx, y, d->tile, d->w, d->h, pal >= 0 ? pal : d->pal, 2, RS_SPR_HFLIP);
+    for (int f = 0; f < SPR_COUNT; f++) {
+        const gm_sprite_def *d = &gm_spr[f];
+        int base = d->resident ? d->tile : pool_slot[f];
+        if (base < 0 || s->tile < base || s->tile >= base + d->ntiles) continue;
+        for (int i = 0; i < d->npieces; i++) {
+            const gm_piece *p = &gm_pieces[d->piece + i];
+            int t0 = base + p->toff, n = p->w / 8 * (p->h / 8);
+            if (s->tile < t0 || s->tile >= t0 + n) continue;
+            *frame = f;
+            *ax = (s->flags & RS_SPR_HFLIP) ? s->x + p->dx + p->w : s->x - p->dx;
+            *ay = s->y - p->dy;
+            return 1;
+        }
+    }
+    return 0;
 }
 
-/* the pre-drawn size nearest a scale (Q8 px per unit): 1.33, 0.9, 0.6, 0.38, 0.22 */
+/* the pre-drawn size nearest a scale (Q8 px per unit): 1.6, 1.15, 0.83, 0.6, 0.43, 0.31, 0.22, 0.16 */
 static int lod_of(int scale)
 {
-    return scale > 280 ? 0 : scale > 188 ? 1 : scale > 122 ? 2 : scale > 74 ? 3 : 4;
+    static const int edge[LODS - 1] = {347, 250, 181, 130, 93, 67, 48};
+    int l = 0;
+    while (l < LODS - 1 && scale < edge[l]) l++;
+    return l;
 }
-
-typedef struct drawable { int32_t z; int16_t kind, idx; } drawable;
-#define DRAW_MAX 96
-enum { DK_OBJ, DK_SQ };
 
 static int32_t iabs32(int32_t v) { return v < 0 ? -v : v; }
 
+/* a frame of a tilted prop: its tilt (0, 18, 36 degrees: the nearest to its angle round the branch) and size */
+static int tilted(int base, int32_t ang, int lod) { int d = (int)(iabs32(ang) >> 12); return base + (d < 9 ? 0 : d < 27 ? 1 : 2) * LODS + lod; }
+
+/* the sides of the branch sit lower than its top (road_point drops them); what grows out of the silhouette is put
+ * back on the line of its place so that it meets the edge drawn by the texture */
+static int32_t undrop(int32_t ang)
+{
+    return (int32_t)(((int64_t)BRANCH_R * 256 * (16384 - cos_q14(ang)) >> 14) * DROP_K_256 / 256);
+}
+
+static int decor_lod(int lod) { return lod < 1 ? 0 : lod - 1; }   /* the scenery has no 1.6 size: 7 sizes */
+
+typedef struct drawable { int32_t z; int16_t kind, idx; } drawable;
+#define DRAW_MAX 200
+enum { DK_OBJ, DK_SQ, DK_DROP };
+
 static void draw_obj(const world *w, const obj *o)
 {
-    int sx, sy, sc, hid;
+    int sx, sy, sc, hid, l;
     int32_t ang = o->ang, h = 0;
     switch (o->kind) {
     case OB_ACORN: case OB_HAZEL: case OB_WALNUT: {
         if (o->taken || !road_point(w, &RV, o->s * 256, ang, 0, 0, &sx, &sy, &sc, &hid) || hid) return;
-        int l = lod_of(sc);
-        if (l > 3) return;
+        if ((l = lod_of(sc)) > 5) return;
         int id = o->kind == OB_ACORN ? SPR_ACORN : o->kind == OB_HAZEL ? SPR_HAZEL : SPR_WALNUT;
-        spr_world(id + l, sx, sy, -1, 0);
-        if (o->kind == OB_WALNUT && l <= 1 && (w->t / 12) % 3 == 0) hu_sparkle(sx + 4, sy - 14, (w->t / 6) % 2, 2);
+        spr_at(id + l, sx, sy, 2, -1, 0);
+        if (o->kind == OB_WALNUT && l <= 2 && (w->t / 12) % 3 == 0) hu_sparkle(sx + 4, sy - 14, (w->t / 6) % 2, 2);
         return;
     }
-    case OB_TWIG: case OB_KNOT: case OB_WEB: {
+    case OB_TWIG:
+        if (!road_point(w, &RV, o->s * 256, 0, 0, 0, &sx, &sy, &sc, &hid) || hid) return;
+        spr_at(SPR_TWIG + (o->len ? 0 : LODS) + lod_of(sc), sx, sy, 2, -1, o->side < 0);
+        return;
+    case OB_KNOT: case OB_WEB: case OB_SNOW: {
         if (!road_point(w, &RV, o->s * 256, ang, 0, 0, &sx, &sy, &sc, &hid) || hid) return;
-        int id = o->kind == OB_TWIG ? SPR_TWIG : o->kind == OB_KNOT ? SPR_KNOT : SPR_WEB;
-        spr_world(id + lod_of(sc), sx, sy, -1, o->kind == OB_TWIG && (o->s & 1));
+        int id = o->kind == OB_KNOT ? SPR_KNOT : o->kind == OB_WEB ? SPR_WEB : SPR_SNOW;
+        spr_at(tilted(id, ang, lod_of(sc)), sx, sy, 2, -1, ang < 0);
         return;
     }
     case OB_SAP:
         for (int32_t s = o->s + 14; s < o->s + o->len; s += 28) {
             if (!road_point(w, &RV, s * 256, ang, 0, 0, &sx, &sy, &sc, &hid) || hid) continue;
-            spr_world(SPR_SAP + lod_of(sc), sx, sy, -1, 0);
+            spr_at(tilted(SPR_SAP, ang, lod_of(sc)), sx, sy, 2, -1, ang < 0);
         }
         return;
-    case OB_CATER:
-        if (!cater_ang(w, o, &ang) || !road_point(w, &RV, o->s * 256, ang, 0, 0, &sx, &sy, &sc, &hid) || hid) return;
-        spr_world(SPR_CATER + lod_of(sc) + (o->t0 >= 0 && (w->t / 8) % 2 ? 5 : 0), sx, sy, -1, o->side < 0);
+    case OB_CATER: case OB_SNAKE: {
+        int on = o->kind == OB_CATER ? cater_ang(w, o, &ang) : snake_ang(w, o, &ang);
+        if (!on || !road_point(w, &RV, o->s * 256, ang, 0, 0, &sx, &sy, &sc, &hid) || hid) return;
+        int base = o->kind == OB_CATER ? SPR_CATER : SPR_SNAKE;
+        int fr = o->t0 >= 0 && (w->t / (o->kind == OB_CATER ? 8 : 5)) % 2 ? TILTS * LODS : 0;
+        /* it faces the way it goes; mirrored, the tilt mirrors too: the angle's sign decides the flip */
+        spr_at(tilted(base, ang, lod_of(sc)) + fr, sx, sy, 2, -1, o->side < 0);
         return;
+    }
     case OB_CONE: {
         if (!cone_h(w, o, &h)) return;
         if (!road_point(w, &RV, o->s * 256, ang, 0, 0, &sx, &sy, &sc, &hid) || hid) return;
-        int l = lod_of(sc);
-        if (h > 0) spr_world(SPR_SHADOW + l, sx, sy, -1, 0);
+        l = lod_of(sc);
+        if (h > 0) spr_at(SPR_SHADOW + l, sx, sy, 2, -1, 0);
         road_point(w, &RV, o->s * 256, ang, h, 0, &sx, &sy, &sc, &hid);
-        spr_world(SPR_CONE + l, sx, sy, -1, 0);
+        spr_at(tilted(SPR_CONE, ang, l), sx, sy, 2, -1, ang < 0);
         return;
     }
-    case OB_OWL:
-        if (!owl_ang(w, o, &ang) || !road_point(w, &RV, o->s * 256, ang, OWL_H + Q8(6), 0, &sx, &sy, &sc, &hid)) return;
-        if (lod_of(sc) <= 3) spr_world(SPR_OWL + lod_of(sc) + ((w->t / 6) % 2 ? 4 : 0), sx, sy, -1, 0);
+    case OB_OWL: {
+        if (!owl_ang(w, o, &ang)) return;
+        int bx, by, bs, bh;
+        if (road_point(w, &RV, o->s * 256, ang, OWL_H + Q8(6), 0, &sx, &sy, &sc, &hid))
+            spr_at(SPR_OWL + lod_of(sc) + ((w->t / 6) % 2 ? LODS : 0), sx, sy, 2, -1, 0);
+        if (road_point(w, &RV, o->s * 256, ang, 0, 0, &bx, &by, &bs, &bh) && !bh)
+            spr_at(SPR_BIGSHADOW + lod_of(bs), bx, by, 2, -1, 0);     /* its shadow sweeps over the bark */
         return;
+    }
     case OB_PECKER: {
         int open = hole_open(w, o);
         if (open > 0 && road_point(w, &RV, (o->s + HOLE_LEN / 2) * 256, ang, 0, 0, &sx, &sy, &sc, &hid) && !hid) {
-            int l = lod_of(sc) + (open < 128 ? 2 : open < 256 ? 1 : 0);
-            if (l <= 4) spr_world(SPR_HOLE + l, sx, sy, -1, 0);
+            l = lod_of(sc) + (open < 128 ? 2 : open < 256 ? 1 : 0);
+            if (l < LODS) spr_at(tilted(SPR_HOLE, ang, l), sx, sy, 2, -1, ang < 0);
         }
-        if (road_point(w, &RV, o->s * 256, o->side * ANG(68), 0, 0, &sx, &sy, &sc, &hid) && !hid) {
-            int l = lod_of(sc);
-            if (l > 3) l = 3;
+        if (road_point(w, &RV, o->s * 256, o->side * ANG(68), undrop(ANG(68)), 0, &sx, &sy, &sc, &hid) && !hid) {
             int peck = o->t0 >= 0 && w->t - o->t0 < HOLE_OPEN + 72 && (w->t - o->t0) % 24 < 6;
-            spr_world(SPR_PECKER + l + (peck ? 4 : 0), sx, sy, -1, o->side < 0);
+            spr_at(SPR_PECKER + lod_of(sc) + (peck ? LODS : 0), sx, sy, 2, -1, o->side < 0);
         }
         return;
     }
-    case OB_FORK:
-        /* the dead branch's broken end: splinters across its tip */
-        for (int i = -1; i <= 1; i++)
-            if (road_point(w, &RV, (o->s + o->len) * 256, i * ANG(38), 0, 1, &sx, &sy, &sc, &hid) && !hid)
-                spr_world(SPR_SPLINTER + lod_of(sc), sx, sy, -1, i > 0);
+    case OB_FORK:                                     /* the dead branch's broken end */
+        if (road_point(w, &RV, (o->s + o->len) * 256, 0, 0, 1, &sx, &sy, &sc, &hid) && !hid)
+            spr_at(SPR_BROKEN + lod_of(sc), sx, sy, 2, -1, 0);
         return;
+    case OB_GAP:                                      /* the torn end before it, the broken face across it */
+        if (road_point(w, &RV, (o->s + o->len) * 256, 0, 0, 0, &sx, &sy, &sc, &hid) && !hid)
+            spr_at(SPR_GAPFACE + lod_of(sc), sx, sy, 2, -1, 0);
+        if (road_point(w, &RV, o->s * 256, 0, 0, 0, &sx, &sy, &sc, &hid) && !hid)
+            spr_at(SPR_BROKEN + lod_of(sc), sx, sy, 2, -1, 0);
+        return;
+    case OB_SWING: {
+        if (!road_free(w, &RV, o->s * 256, 0, SWING_PIVOT, &sx, &sy, &sc)) return;
+        int deg = (int)(swing_deg(w, o) / 4096), ai = (deg + SWING_AMP + 7) / 15;
+        if (ai < 0) ai = 0;
+        if (ai > 6) ai = 6;
+        spr_at(SPR_SWING + ai * 7 + decor_lod(lod_of(sc)), sx, sy, 2, -1, 0);
+        return;
+    }
+    case OB_BEES: {
+        if (!bees_ang(w, o, &ang) || !road_point(w, &RV, o->s * 256, ang, Q8(14), 0, &sx, &sy, &sc, &hid)) return;
+        int r = sc * 14 >> 8;                         /* the swarm: 8 bees buzzing round its centre */
+        if (r < 2) r = 2;
+        for (int i = 0; i < 8; i++) {
+            uint32_t hsh = (uint32_t)(i * 2654435761u) ^ (uint32_t)((w->t / 3 + i * 7) * 40503u);
+            int dx = (int)(hsh % (2 * r + 1)) - r, dy = (int)((hsh >> 12) % (r + 1)) - r / 2;
+            spr_at(SPR_BEE + (w->t / 2 + i) % 2, sx + dx, sy + dy, 2, -1, 0);
+        }
+        return;
+    }
+    case OB_CROW: {
+        int32_t cs;
+        if (!crow_at(w, o, &cs, &h) || !road_point(w, &RV, cs * 256, ang, h, 0, &sx, &sy, &sc, &hid) || hid) return;
+        int state = o->t1 >= 0 ? 2 : o->t0 >= 0 && (w->t / 10) % 2 ? 1 : 0;
+        spr_at(SPR_CROW + state * LODS + lod_of(sc), sx, sy, 2, -1, 0);
+        return;
+    }
+    case OB_DECOR: {
+        int kind = (int)o->len;
+        if (kind <= DC_SIDE2 || kind == DC_MUSH) {
+            if (!road_point(w, &RV, o->s * 256, ang, undrop(ang), 0, &sx, &sy, &sc, &hid) || hid) return;
+            int base = kind == DC_MUSH ? SPR_MUSH : SPR_SIDE + (kind - DC_SIDE0) * 7;
+            spr_at(base + decor_lod(lod_of(sc)), sx, sy, 2, -1, o->side < 0);
+        } else {
+            if (!road_free(w, &RV, o->s * 256, ang, o->t0, &sx, &sy, &sc)) return;
+            int base = kind == DC_HIVE ? SPR_HIVE : SPR_OVER + (kind - DC_OVER0) * 7;
+            spr_at(base + decor_lod(lod_of(sc)), sx, sy, 2, -1, o->side < 0);
+        }
+        return;
+    }
     default:
         return;
     }
+}
+
+/* a shower's acorn: falling (its shadow growing under it), then lying on the bark */
+static void draw_drop(const world *w, const drop *d)
+{
+    int sx, sy, sc, hid;
+    if (!road_point(w, &RV, d->s * 256, d->ang, 0, 0, &sx, &sy, &sc, &hid) || hid) return;
+    int l = lod_of(sc);
+    if (d->t < DROP_FALL) {
+        int r = DROP_FALL - d->t;
+        int32_t h = (int32_t)((int64_t)Q8(130) * r * r / (DROP_FALL * DROP_FALL));
+        spr_at(SPR_SHADOW + l, sx, sy, 2, -1, 0);
+        road_point(w, &RV, d->s * 256, d->ang, h, 0, &sx, &sy, &sc, &hid);
+    }
+    if (l <= 5) spr_at(SPR_ACORN + l, sx, sy, 2, -1, 0);
 }
 
 static int body_frame(const squirrel *q, int t, int *hflip, int *lean_deg)
@@ -254,7 +422,7 @@ static int body_frame(const squirrel *q, int t, int *hflip, int *lean_deg)
     return SPR_SQ_RUN + b * 2 + (q->air ? 0 : (t / rate) % 2);
 }
 
-/* the squirrel: the tail (in front, from behind), the body, its shadow in the air, the balance meter */
+/* the squirrel: the tail (in front, from behind), the body, its shadow on the bark, the balance meter */
 static void draw_squirrel(const world *w, int p, int st_t)
 {
     const squirrel *q = &w->q[p];
@@ -266,7 +434,6 @@ static void draw_squirrel(const world *w, int p, int st_t)
     if (q->state == SQ_HIT) sx += (q->t % 2) ? 1 : -1;
     if (q->warn && q->state == SQ_RUN) sx += ((w->t / 2) % 2) ? 1 : 0;
     if (q->state == SQ_READY) sy += hu_bob(st_t + p * 16, 64, 1);
-    /* the meter (front), the tail, the body */
     if (q->state == SQ_RUN && (iabs32(q->ang) > METER_ANG || q->warn)) {
         spr_at(SPR_METER, sx, sy + 3, 2, -1, 0);
         int32_t f = (int32_t)((int64_t)q->ang * 15 / SLIP_ANG);
@@ -289,18 +456,20 @@ static void draw_squirrel(const world *w, int p, int st_t)
         spr_at(SPR_SQ_TAIL + ti, rx, ry, 2, pal, tail < 0);
     }
     spr_at(frame, sx, sy, 2, pal, hflip);
-    if (q->air) {
+    if (q->state == SQ_RUN || q->state == SQ_READY) {  /* the contact shadow (bigger and lighter in the air) */
         int bx, by, bs, bh;
-        if (road_point(w, &RV, q->s, q->ang, 0, q->branch, &bx, &by, &bs, &bh)) spr_at(SPR_SHADOW, bx, by, 2, -1, 0);
+        if (road_point(w, &RV, q->s, q->ang, 0, q->branch, &bx, &by, &bs, &bh)) { int l = lod_of(bs) + (q->air ? 1 : 0); spr_at(SPR_SHADOW + (l > LODS - 1 ? LODS - 1 : l), bx, by + 1, 2, -1, 0); }
     }
 }
 
-/* ---- particles: nut crumbs, landing puffs, the wind's leaves ------------------------------------------------------ */
-static void parts_spawn(int x, int y, int kind)
+/* ---- particles: nut crumbs, landing puffs, the wind's leaves, big leaves sweeping past, rain ------------------- */
+enum { PK_CRUMB, PK_PUFF, PK_FGLEAF };
+
+static void parts_spawn(int x, int y, int kind, int vx, int vy, int t)
 {
     for (int i = 0; i < PARTS; i++)
         if (parts[i].t <= 0) {
-            parts[i] = (part){(int16_t)x, (int16_t)y, 14, (int16_t)kind};
+            parts[i] = (part){(int16_t)x, (int16_t)y, (int16_t)t, (int16_t)kind, (int16_t)vx, (int16_t)vy};
             return;
         }
 }
@@ -311,28 +480,40 @@ static void parts_draw(void)
         part *p = &parts[i];
         if (p->t <= 0) continue;
         p->t--;
-        if (p->kind == 0) spr_at(SPR_CRUMB + (p->t < 7), p->x + (14 - p->t) * (i % 2 ? 1 : -1), p->y - (14 - p->t) / 2, 2, -1, 0);
-        else spr_at(SPR_PUFF + (14 - p->t) / 5, p->x, p->y, 2, -1, 0);
-    }
-}
-
-static void wind_leaves(const world *w)
-{
-    for (int i = 0; i < w->ob_count; i++) {
-        const obj *o = ob_get(w, i);
-        if (o->kind != OB_WIND || o->t0 < 0) continue;
-        if ((w->lead_s >> 8) > o->s + o->len + 64) continue;
-        int age = w->t - o->t0;
-        for (int k = 0; k < 10; k++) {
-            int x = (age * (5 + k % 3) + k * 41) % 400 - 40;
-            if (o->side < 0) x = RS_SCREEN_W - x;
-            int y = 30 + (k * 53) % 170 + ((age + k * 9) / 6) % 5;
-            spr_at(SPR_LEAF + ((age / 5 + k) % 2), x, y, 2, -1, 0);
+        if (p->kind == PK_CRUMB) spr_at(SPR_CRUMB + (p->t < 7), p->x + (14 - p->t) * (i % 2 ? 1 : -1), p->y - (14 - p->t) / 2, 2, -1, 0);
+        else if (p->kind == PK_PUFF) spr_at(SPR_PUFF + (14 - p->t) / 5, p->x, p->y, 2, -1, 0);
+        else {
+            p->x += p->vx;
+            p->y += p->vy;
+            spr_at(SPR_FGLEAF + (p->t / 6) % 3, p->x, p->y, 0, -1, p->vx < 0);
         }
     }
 }
 
-/* ---- the frame -------------------------------------------------------------------------------------------------- */
+static void weather(const world *w)
+{
+    int32_t lead = w->lead_s >> 8;
+    for (int i = 0; i < w->ob_count; i++) {
+        const obj *o = ob_get(w, i);
+        if (o->s > lead + 2600) break;
+        if (o->kind == OB_WIND && o->t0 >= 0 && lead <= o->s + o->len + 64) {
+            int age = w->t - o->t0;
+            for (int k = 0; k < 10; k++) {
+                int x = (age * (5 + k % 3) + k * 41) % 400 - 40;
+                if (o->side < 0) x = RS_SCREEN_W - x;
+                int y = 30 + (k * 53) % 170 + ((age + k * 9) / 6) % 5;
+                spr_at(SPR_LEAF + ((age / 5 + k) % 2), x, y, 2, -1, 0);
+            }
+        }
+        if (o->kind == OB_RAIN && o->t0 >= 0 && lead <= o->s + o->len) {
+            int age = w->t - o->t0;
+            for (int k = 0; k < 18; k++) {
+                int x = (k * 67 + age * 3) % 336 - 8, y = (k * 41 + age * 9) % 256 - 16;
+                spr_at(SPR_RAIN + (k + age / 4) % 2, x, y, 2, -1, 0);
+            }
+        }
+    }
+}
 static void slot_icon(int p, int cx, int cy, int t, void *user)
 {
     (void)user;
@@ -396,8 +577,8 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
 void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, int paused)
 {
     static const int medals[4] = MEDAL_METRES;
-    (void)best_m;
     int sx = hu_shake_x(), sy = hu_shake_y();
+    pool_now++;
     road_project(w, &RV);
     band_palettes((w->lead_s >> 8) / UNITS_PER_M);
     /* the per-line registers of the branch layer (the HDMA tables) and the backdrop's parallax */
@@ -407,9 +588,17 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
         draw_line_row[y] = L->row;
         draw_line_a[y] = L->a;
         draw_line_x[y] = (int16_t)(L->xc + sx);
-        bg2_dx[y] = (int16_t)(TEX_CX - L->xc - sx);
-        int ring = L->ring, hz = L->haze;
-        bark_sel[y] = (uint8_t)(hz * 4 + ring);
+        line_tcx[y] = L->tcx;
+        if (L->row < ROW_FORK && L->a > 0) {
+            int hw = BRANCH_R * 256 * 17 / 16 / L->a + 2;
+            line_wl[y] = (int16_t)(L->xc + sx - hw);
+            line_wr[y] = (int16_t)(L->xc + sx + hw);
+        } else {
+            line_wl[y] = 0;
+            line_wr[y] = RS_SCREEN_W;
+        }
+        bg2_dx[y] = (int16_t)(L->tcx - L->xc - sx);
+        bark_sel[y] = (uint8_t)((L->wet * HAZE_LEVELS + L->haze) * 4 + L->ring);
         bg3_dx[y] = (int16_t)((y < 64 ? canopy : forest) & 255);
     }
     rs_bg_scroll(RS_BG2, 0, -sy);
@@ -422,7 +611,7 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
     hu_pause(paused, 13);
 
     rs_oam_clear();
-    /* front to back: the UI, then the world near to far */
+    /* front to back: the UI, the big leaves sweeping past, then the world near to far */
     if (state == ST_PLAY || state == ST_DEAD) {
         int score[MAX_PLAYERS];
         for (int p = 0; p < w->players; p++) score[p] = w->q[p].score;
@@ -462,28 +651,40 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
     for (int p = 0; p < w->players; p++) {
         const squirrel *q = &w->q[p];
         int ex, ey, es, eh;
-        if (!(w->events[p] & (EV_NUT | EV_LAND))) continue;
+        if (!(w->events[p] & (EV_NUT | EV_LAND | EV_BONK))) continue;
         if (!road_point(w, &RV, q->s, q->ang, 0, q->branch, &ex, &ey, &es, &eh)) continue;
-        if (w->events[p] & EV_NUT) parts_spawn(ex, ey - 6, 0);
-        if (w->events[p] & EV_LAND) parts_spawn(ex, ey - 2, 1);
+        if (w->events[p] & (EV_NUT | EV_BONK)) parts_spawn(ex, ey - 6, PK_CRUMB, 0, 0, 14);
+        if (w->events[p] & EV_LAND) parts_spawn(ex, ey - 2, PK_PUFF, 0, 0, 14);
     }
     parts_draw();
-    if (state != ST_TITLE) wind_leaves(w);
+    if (state != ST_TITLE) weather(w);
     /* the world, sorted near to far (the lower OAM index is in front) */
     drawable list[DRAW_MAX];
     int n = 0;
     if (state != ST_TITLE)
         for (int p = 0; p < w->players && n < DRAW_MAX; p++)
             list[n++] = (drawable){w->q[p].s - w->cam_s - 1, DK_SQ, (int16_t)p};
+    for (int k = 0; k < DROPS && n < DRAW_MAX; k++)
+        if (w->drops[k].live) list[n++] = (drawable){w->drops[k].s * 256 - w->cam_s, DK_DROP, (int16_t)k};
     int32_t far = (DRAW_SEGS - 2) * SEG_LEN * 256;
     for (int i = 0; i < w->ob_count && n < DRAW_MAX; i++) {
         const obj *o = ob_get(w, i);
         int32_t z = o->s * 256 - w->cam_s;
         if (o->kind == OB_FORK) z += o->len * 256;
-        if (o->kind == OB_SAP || o->kind == OB_GAP || o->kind == OB_WIND) z += o->len * 128;
+        if (o->kind == OB_SAP) z += o->len * 128;
+        if (o->kind == OB_CROW) z += o->len * 256;
+        if (o->kind == OB_GAP) z += o->len * 256;          /* drawn with its far face */
         if (z < CAM_NEAR * 256 || z > far) continue;
         if (o->kind <= OB_WALNUT && (o->taken || z > 1400 * 256)) continue;
-        if (o->kind == OB_GAP || o->kind == OB_WIND) continue;
+        if (o->kind == OB_WIND || o->kind == OB_RAIN || o->kind == OB_SHOWER) continue;
+        if (o->kind == OB_DECOR && z < 60 * 256) continue;
+        /* the leaves overhead come in over the top of the screen: never over the far branch, where the traps show */
+        if (o->kind == OB_DECOR && (o->len == DC_OVER0 || o->len == DC_OVER1) && o->ang != 0 && z > 700 * 256) continue;
+        if (o->kind == OB_DECOR && o->len <= DC_SIDE2 && z > 1200 * 256) continue;   /* the far end stays clear */
+        /* an overhead clump passing over the camera sends a big leaf sweeping past the edge of the screen */
+        if (o->kind == OB_DECOR && (o->len == DC_OVER0 || o->len == DC_OVER1) && z < 150 * 256 && z >= 150 * 256 - w->speed &&
+            ((o->s * 7) & 3) != 0)
+            parts_spawn(o->side > 0 ? 300 : 20, 20 + (o->s & 63), PK_FGLEAF, o->side * 6, 5, 34);
         list[n++] = (drawable){z, DK_OBJ, (int16_t)i};
     }
     for (int i = 1; i < n; i++) {                       /* insertion sort, near first */
@@ -494,6 +695,7 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
     }
     for (int i = 0; i < n; i++) {
         if (list[i].kind == DK_SQ) draw_squirrel(w, list[i].idx, st_t);
+        else if (list[i].kind == DK_DROP) draw_drop(w, &w->drops[list[i].idx]);
         else draw_obj(w, ob_get(w, list[i].idx));
     }
 }
@@ -502,8 +704,9 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
 #define S(v) rs_state_var("draw." #v, &(v), sizeof(v))
 void draw_state(void)
 {
-    S(draw_line_x); S(draw_line_a); S(draw_line_row); S(bg2_dx); S(bg3_dx); S(sky); S(bark_sel); S(bark_pal);
-    S(shown_state); S(shown_best); S(band_now); S(parts);
+    S(draw_line_x); S(draw_line_a); S(draw_line_row); S(line_tcx); S(line_wl); S(line_wr); S(bg2_dx); S(bg3_dx); S(sky); S(bark_sel);
+    S(bark_pal); S(shown_state); S(shown_best); S(band_now); S(parts);
+    S(pool_slot); S(pool_stamp); S(pool_used); S(pool_now);
     RS_STATE_RASTER(raster);
 }
 #undef S

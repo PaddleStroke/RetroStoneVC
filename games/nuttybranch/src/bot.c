@@ -20,7 +20,7 @@
 #define DEG(x) ((x) * 4096)
 
 typedef struct seen { int kind; int32_t z, ang, half, h; } seen;   /* z Q8 units, ang Q12 deg */
-enum { K_NUT, K_TWIG, K_KNOT, K_WEB, K_SAP, K_HOLE, K_CATER, K_CONE, K_OWL, K_STUMP, K_GAP };
+enum { K_NUT, K_TWIG, K_KNOT, K_WEB, K_SAP, K_HOLE, K_CATER, K_CONE, K_OWL, K_STUMP, K_GAP, K_BEES, K_SWING };
 
 static seen sn[SEEN_MAX];
 static int nsn;
@@ -38,21 +38,6 @@ void bot_reset(void)
     memset(cool, 0, sizeof cool);
     for (int y = 0; y < RS_SCREEN_H; y++) prev_row[y] = ROW_NONE;
     speed_est = Q8(5);
-}
-
-static int in_spr(int tile, int id, int frames)
-{
-    int t0 = gm_spr[id].tile;
-    int last = gm_spr[id + frames - 1].tile + gm_spr[id + frames - 1].w / 8 * (gm_spr[id + frames - 1].h / 8);
-    return tile >= t0 && tile < last;
-}
-
-/* the frame index of a sprite id range a tile belongs to */
-static int frame_of(int tile, int id, int frames)
-{
-    for (int f = 0; f < frames; f++)
-        if (tile == gm_spr[id + f].tile) return f;
-    return -1;
 }
 
 static int32_t iabs32(int32_t v) { return v < 0 ? -v : v; }
@@ -100,25 +85,23 @@ static int32_t angle_at(int y, int x, int32_t *z)
     return asin_q12(r);
 }
 
-/* the anchor of an OAM sprite of def id: the point on the bark */
-static void anchor(const rs_sprite *s, int id, int *x, int *y)
-{
-    const gm_sprite_def *d = &gm_spr[id];
-    if (d->mirror) *x = (s->flags & RS_SPR_HFLIP) ? s->x : s->x + d->w;
-    else *x = (s->flags & RS_SPR_HFLIP) ? s->x + (d->w - 1 - d->ax) : s->x + d->ax;
-    *y = s->y + d->ay;
-}
 
-static void add_seen(int kind, int x, int y, int32_t half, int32_t h)
+static void add_seen(int kind, int x, int y, int32_t half, int32_t h, int has_ang, int32_t ang_given)
 {
     if (nsn >= SEEN_MAX) return;
     int32_t z;
     int32_t a = angle_at(y, x, &z);
     if (z == 0) return;
-    for (int i = 0; i < nsn; i++)                 /* the two halves of a mirrored sprite: one thing */
-        if (sn[i].kind == kind && iabs32(sn[i].z - z) < 256 && iabs32(sn[i].ang - a) < DEG(3)) return;
+    if (has_ang) a = ang_given;
+    for (int i = 0; i < nsn; i++)                 /* several pieces or sprites of one thing: once */
+        if (sn[i].kind == kind && iabs32(sn[i].z - z) < 256 * 3 && iabs32(sn[i].ang - a) < DEG(3)) return;
     sn[nsn++] = (seen){kind, z, a, half, h};
 }
+
+/* the scale (Q8 px per unit) of a sprite's pre-drawn size: what its size says about its distance */
+static const int lod_k[8] = {410, 294, 212, 154, 110, 79, 56, 41};
+
+static int in_set(int f, int id, int n) { return f >= id && f < id + n; }
 
 /* reads the screen: the player's squirrel (its feet, its lean) and the things on the branch */
 static int look(int player, int *fx, int *fy, int *air)
@@ -128,72 +111,70 @@ static int look(int player, int *fx, int *fy, int *air)
     dead_side = 0;
     windy = 0;
     *air = 0;
-    int shx[8], shy[8], nsh = 0, stump_y = -1;
+    *fx = *fy = 0;
+    int shx[12], shy[12], nsh = 0, stump_y = -1;
     for (int i = 0; i < RS_OAM_MAX; i++) {
         rs_sprite *s = rs_oam(i);
         if (!s || !s->used || (s->flags & RS_SPR_HIDE)) continue;
-        int t = s->tile, x, y;
-        if (in_spr(t, SPR_LEAF, NFR_LEAF)) { windy = 1; continue; }
-        if (s->pal == pal && (in_spr(t, SPR_SQ_RUN, NFR_SQ_RUN) || in_spr(t, SPR_SQ_JUMP, NFR_SQ_JUMP))) {
-            int id = in_spr(t, SPR_SQ_RUN, NFR_SQ_RUN) ? SPR_SQ_RUN + frame_of(t, SPR_SQ_RUN, NFR_SQ_RUN)
-                                                       : SPR_SQ_JUMP + frame_of(t, SPR_SQ_JUMP, NFR_SQ_JUMP);
-            if (id < 0) continue;
-            anchor(s, id, fx, fy);
-            if (in_spr(t, SPR_SQ_JUMP, NFR_SQ_JUMP)) *air = 1;
+        int f, x, y;
+        if (!draw_sprite_id(s, &f, &x, &y)) continue;
+        int flip = (s->flags & RS_SPR_HFLIP) != 0;
+        if (s->pal == pal && (in_set(f, SPR_SQ_RUN, NFR_SQ_RUN) || in_set(f, SPR_SQ_JUMP, NFR_SQ_JUMP))) {
+            *fx = x;
+            *fy = y;
+            if (in_set(f, SPR_SQ_JUMP, NFR_SQ_JUMP)) *air = 1;
             found = 1;
             continue;
         }
-        struct { int id, n, kind; int32_t half, h; } K[] = {
-            {SPR_ACORN, NFR_ACORN, K_NUT, 0, 0}, {SPR_HAZEL, NFR_HAZEL, K_NUT, 0, 0},
-            {SPR_WALNUT, NFR_WALNUT, K_NUT, 0, 0}, {SPR_TWIG, NFR_TWIG, K_TWIG, TWIG_HALF, TWIG_H},
-            {SPR_KNOT, NFR_KNOT, K_KNOT, KNOT_HALF, KNOT_H}, {SPR_WEB, NFR_WEB, K_WEB, WEB_HALF, WEB_H},
-            {SPR_SAP, NFR_SAP, K_SAP, SAP_HALF, 0}, {SPR_HOLE, NFR_HOLE, K_HOLE, HOLE_HALF, 0},
-            {SPR_CATER, NFR_CATER, K_CATER, CATER_HALF, CATER_H}, {SPR_CONE, NFR_CONE, K_CONE, CONE_HALF, CONE_H},
-            {SPR_SHADOW, NFR_SHADOW, K_CONE, CONE_HALF, CONE_H}, {SPR_OWL, NFR_OWL, K_OWL, OWL_HALF, OWL_H},
-            {SPR_SPLINTER, NFR_SPLINTER, K_STUMP, 0, 0}};
-        for (unsigned k = 0; k < sizeof K / sizeof K[0]; k++) {
-            if (!in_spr(t, K[k].id, K[k].n)) continue;
-            int f = frame_of(t, K[k].id, K[k].n);
-            if (f < 0) break;
-            if (K[k].id == SPR_SHADOW) {           /* a falling cone's, or a squirrel's in the air: sorted below */
-                anchor(s, K[k].id + f, &x, &y);
-                if (nsh < 8) { shx[nsh] = x; shy[nsh++] = y; }
-                break;
+        if (in_set(f, SPR_LEAF, NFR_LEAF) || in_set(f, SPR_RAIN, NFR_RAIN)) { windy = 1; continue; }
+        if (in_set(f, SPR_SHADOW, NFR_SHADOW)) {            /* a falling thing's, or a squirrel's own */
+            if (nsh < 12) { shx[nsh] = x; shy[nsh++] = y; }
+            continue;
+        }
+        if (in_set(f, SPR_BROKEN, NFR_BROKEN)) {             /* a broken end: off the centre line, a dead branch */
+            if (y >= 0 && y < RS_SCREEN_H && y > stump_y && iabs32(x - draw_line_x[y]) > 20) {
+                stump_y = y;
+                dead_side = x < draw_line_x[y] ? -1 : 1;
             }
-            anchor(s, K[k].id + f, &x, &y);
-            if (K[k].kind == K_STUMP) {               /* the nearest broken end: which side is dead */
-                if (y > stump_y && y >= 0 && y < RS_SCREEN_H) {
-                    stump_y = y;
-                    dead_side = x < draw_line_x[y] ? -1 : 1;
-                }
-                break;
-            }
-            if (K[k].kind == K_OWL) {                 /* it flies: its size tells how high it is above the bark */
-                static const int lod_k[4] = {340, 230, 154, 97};
-                y += ((OWL_H + Q8(6)) >> 8) * lod_k[f % 4] >> 8;
-            }
-            add_seen(K[k].kind, x, y, K[k].half, K[k].h);
-            break;
+            continue;
+        }
+        if (in_set(f, SPR_ACORN, NFR_ACORN) || in_set(f, SPR_HAZEL, NFR_HAZEL) || in_set(f, SPR_WALNUT, NFR_WALNUT))
+            add_seen(K_NUT, x, y, 0, 0, 0, 0);
+        else if (in_set(f, SPR_TWIG, NFR_TWIG)) {          /* it grows out of one side: its span by its look */
+            int lng = f - SPR_TWIG < LODS;
+            add_seen(K_TWIG, x, y, lng ? TWIG_HALF : TWIG_SHORT_HALF, TWIG_H, 1, (flip ? -1 : 1) * (lng ? DEG(34) : DEG(52)));
+        } else if (in_set(f, SPR_KNOT, NFR_KNOT)) add_seen(K_KNOT, x, y, KNOT_HALF, KNOT_H, 0, 0);
+        else if (in_set(f, SPR_WEB, NFR_WEB)) add_seen(K_WEB, x, y, WEB_HALF, WEB_H, 0, 0);
+        else if (in_set(f, SPR_SNOW, NFR_SNOW)) add_seen(K_KNOT, x, y, SNOW_HALF, SNOW_H, 0, 0);
+        else if (in_set(f, SPR_SAP, NFR_SAP)) add_seen(K_SAP, x, y, SAP_HALF, 0, 0, 0);
+        else if (in_set(f, SPR_HOLE, NFR_HOLE)) add_seen(K_HOLE, x, y, HOLE_HALF, 0, 0, 0);
+        else if (in_set(f, SPR_CATER, NFR_CATER)) add_seen(K_CATER, x, y, CATER_HALF, CATER_H, 0, 0);
+        else if (in_set(f, SPR_SNAKE, NFR_SNAKE)) add_seen(K_CATER, x, y, SNAKE_HALF, SNAKE_H, 0, 0);
+        else if (in_set(f, SPR_CONE, NFR_CONE)) add_seen(K_CONE, x, y, CONE_HALF, CONE_H, 0, 0);
+        else if (in_set(f, SPR_BIGSHADOW, NFR_BIGSHADOW)) add_seen(K_OWL, x, y, OWL_HALF, OWL_H, 0, 0);
+        else if (in_set(f, SPR_BEE, NFR_BEE)) add_seen(K_BEES, x, y + 4, BEE_HALF / 2, BEE_H, 0, 0);
+        else if (in_set(f, SPR_SWING, NFR_SWING)) {           /* hanging from its pivot: its frame is its swing */
+            int k = lod_k[1 + (f - SPR_SWING) % 7], ai = (f - SPR_SWING) / 7;
+            int deg = ai * 15 - SWING_AMP;
+            int32_t lat = (int32_t)((int64_t)SWING_LEN * sin_q14(DEG(deg)) / BRANCH_R);   /* Q14 */
+            add_seen(K_SWING, x, y + (((SWING_PIVOT >> 8) * k) >> 8), SWING_HALF, SWING_H, 1, asin_q12(lat));
         }
     }
-    /* its own shadow (below it, in the air) gives the line it is over; the others are falling pinecones */
+    /* its own shadow (just under its feet; below them in the air) gives the line it is over; the others are falling */
     int mine = -1;
     for (int i = 0; i < nsh && found; i++)
-        if (shx[i] > *fx - 12 && shx[i] < *fx + 12 && shy[i] > *fy && shy[i] < *fy + 64 && (mine < 0 || shy[i] < shy[mine]))
+        if (shx[i] > *fx - 12 && shx[i] < *fx + 12 && shy[i] >= *fy && shy[i] < *fy + 64 && (mine < 0 || shy[i] < shy[mine]))
             mine = i;
     for (int i = 0; i < nsh; i++)
-        if (i != mine) add_seen(K_CONE, shx[i], shy[i], CONE_HALF, CONE_H);
-    if (mine >= 0) { *fx = shx[mine]; *fy = shy[mine]; *air = 1; }
+        if (i != mine) add_seen(K_CONE, shx[i], shy[i], CONE_HALF, CONE_H, 0, 0);
+    if (mine >= 0 && shy[mine] > *fy + 3) { *fx = shx[mine]; *fy = shy[mine]; *air = 1; }
     /* the gaps: lines with no branch between lines with branch, near to far */
     int seen_bark = 0;
     int32_t z_near = 0;
     for (int y = RS_SCREEN_H - 1; y > 40; y--) {
-        int row = draw_line_row[y];
-        if (row < TEX_H && row >= ROW_GRAIN && row < ROW_FORK) row = ROW_GRAIN;  /* the gap's edges */
         if (draw_line_row[y] < TEX_H) {
-            if (seen_bark == 2 && nsn < SEEN_MAX) {
+            if (seen_bark == 2 && nsn < SEEN_MAX)
                 sn[nsn++] = (seen){K_GAP, z_near, 0, DEG(90), (int32_t)draw_line_a[y] * FOCAL};   /* h = the far edge */
-            }
             seen_bark = 1;
             z_near = (int32_t)draw_line_a[y] * FOCAL;
         } else if (seen_bark) {
@@ -255,7 +236,11 @@ void bot_decide(int player, sq_input *in)
                 if (d < DEG(10) && iabs32(cand) < DEG(46)) cost -= 120;
                 continue;
             }
-            if (o->kind == K_GAP) continue;
+            if (o->kind == K_GAP || o->kind == K_SWING) continue;     /* jumped, wherever they are */
+            if (o->kind == K_BEES) {
+                if (d < o->half + DEG(16)) cost += 3000 + (80 - t) * 30;
+                continue;
+            }
             int32_t margin = o->half + DEG(12) + (o->kind == K_CATER || o->kind == K_OWL ? DEG(10) : 0);
             if (o->kind == K_SAP) margin = o->half + DEG(6);
             if (d < margin) cost += (o->kind == K_SAP ? 600 : o->kind == K_WEB ? 1400 : 2500) + (80 - t) * 20;
@@ -291,12 +276,13 @@ void bot_decide(int player, sq_input *in)
                 }
                 continue;
             }
-            if (o->kind == K_NUT || o->kind == K_SAP || o->kind == K_WEB) continue;
+            if (o->kind == K_NUT || o->kind == K_SAP || o->kind == K_WEB || o->kind == K_BEES) continue;
             int32_t margin = o->half + SQ_HALF_ANG + DEG(3);
             if (o->kind == K_CATER) margin += DEG(14);          /* it crawls: jump it rather than guess */
-            if (o->kind != K_OWL && iabs32(pred - o->ang) >= margin && iabs32(ang - o->ang) >= margin) continue;
+            if (o->kind != K_OWL && o->kind != K_SWING && iabs32(pred - o->ang) >= margin && iabs32(ang - o->ang) >= margin)
+                continue;
             int big = o->h > Q8(16) || o->kind == K_HOLE;
-            int at = big ? 15 : 11;
+            int at = o->kind == K_SWING ? 20 : big ? 15 : 11;   /* the swinging leaves: be at the top of the jump */
             if (t <= at && t >= at - 3) {
                 in->jump_pressed = 1;
                 hold_left[player] = big ? JUMP_HOLD_MAX : 0;

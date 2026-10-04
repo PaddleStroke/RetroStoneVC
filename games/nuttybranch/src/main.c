@@ -15,7 +15,7 @@
  *   seed=N         a fixed course (default: from the frame of the start)
  *   start=M        the course starts M metres in (its difficulty, its time of day)
  *   only=KIND      the course has one kind of group only (twig, knot, gap, sap, web, pecker, cater, wind, cone, owl,
- *                  fork, nuts): screenshots and tests
+ *                  fork, snake, swing, bees, snow, crow, shower, rain, nuts): screenshots and tests
  *   players=N      start with N players joined (1..4);  ready=1  skip the title (the run waits for a press)
  *   dump=1         log the final state at exit (tests); music=0, sound=0
  */
@@ -74,6 +74,15 @@ static void save_store(void)
 }
 
 /* ---- sound: the game's own sounds (the house synthesiser), then the house set -------------------------------------- */
+/* the low, noisy or long sounds are kept at 16 kHz (half the sample memory: the house's 64 KiB of ARAM) */
+static void store16(ha_synth *s, int slot, int ms)
+{
+    int n = ha_ms(ms) / 2;
+    for (int i = 0; i < n; i++) s->buf[i] = (int16_t)((s->buf[2 * i] + s->buf[2 * i + 1]) / 2);
+    rs_sample_pcm16(slot, s->buf, n, HA_RATE / 2, -1);
+    memset(s->buf, 0, (size_t)s->len * sizeof s->buf[0]);
+}
+
 static void sound_init(void)
 {
     ha_synth s;
@@ -87,9 +96,9 @@ static void sound_init(void)
     ha_tone(&s, 0, 150, 112, 160, 46, 0);               /* creak: a low wooden groan, two voices beating */
     ha_tone(&s, 0, 158, 118, 160, 30, 0);
     ha_hiss(&s, 0, 150, 10, 4);
-    ha_store(&s, SFX_CREAK, 160);
+    store16(&s, SFX_CREAK, 160);
     ha_tone(&s, 0, 1300, 320, 290, 44, 0);              /* fall: a falling whistle */
-    ha_store(&s, SFX_FALL, 300);
+    store16(&s, SFX_FALL, 300);
     ha_tone(&s, 0, 950, 720, 18, 60, 6);                /* the woodpecker: tok tok */
     ha_hiss(&s, 0, 10, 30, 1);
     ha_tone(&s, ha_ms(120), 950, 720, 18, 52, 6);
@@ -97,15 +106,33 @@ static void sound_init(void)
     ha_store(&s, SFX_TOK, 150);
     ha_hiss(&s, 0, 300, 38, 3);                         /* the wind: a long filtered hiss */
     ha_tone(&s, 0, 300, 520, 300, 6, 0);
-    ha_store(&s, SFX_WIND, 300);
-    ha_tone(&s, 0, 430, 405, 180, 44, 0);               /* the owl: hoo-hooo */
+    store16(&s, SFX_WIND, 300);
+    ha_tone(&s, 0, 430, 405, 180, 44, 0);               /* the owl: hoo-hooo (by day, pitched up: a hawk-owl's screech) */
     ha_tone(&s, ha_ms(220), 400, 372, 200, 40, 0);
-    ha_store(&s, SFX_HOOT, 380);
+    store16(&s, SFX_HOOT, 380);
     ha_hiss(&s, 0, 50, 22, 3);                          /* land: a soft scuff */
     ha_store(&s, SFX_LAND, 60);
     ha_tone(&s, 0, 700, 420, 90, 30, 30);               /* web: a sticky fwip */
     ha_hiss(&s, 0, 80, 18, 2);
     ha_store(&s, SFX_WEB, 100);
+    ha_hiss(&s, 0, 260, 30, 0);                         /* the snake: a dry hiss */
+    store16(&s, SFX_HISS, 260);
+    ha_tone(&s, 0, 620, 520, 90, 40, 0);                /* the crow: caw caw */
+    ha_hiss(&s, 0, 90, 26, 1);
+    ha_tone(&s, ha_ms(150), 600, 500, 100, 38, 0);
+    ha_hiss(&s, ha_ms(150), 100, 24, 1);
+    store16(&s, SFX_CAW, 260);
+    ha_tone(&s, 0, 210, 230, 300, 22, 0);               /* the bees: a buzz, two close tones beating */
+    ha_tone(&s, 0, 222, 240, 300, 20, 0);
+    ha_hiss(&s, 0, 300, 8, 2);
+    store16(&s, SFX_BUZZ, 300);
+    ha_tone(&s, 0, 900, 500, 60, 50, 20);               /* an acorn on the head: bonk */
+    ha_store(&s, SFX_BONK, 70);
+    ha_hiss(&s, 0, 280, 26, 1);                         /* rain: a patter */
+    store16(&s, SFX_RAIN, 280);
+    ha_hiss(&s, 0, 160, 30, 3);                         /* the swinging branch: a leafy swish */
+    ha_tone(&s, 0, 200, 340, 160, 8, 0);
+    store16(&s, SFX_SWISH, 160);
     ha_init(SFX_HOUSE);                                 /* HA_CONFIRM, HA_PAUSE, HA_MEDAL, HA_GAMEOVER... */
     ha_sound_on(opt_sound);
 }
@@ -118,7 +145,7 @@ static int screen_x(const squirrel *q) { return 160 + (int)(q->ang / ANG(1)) * 8
 static void sfx_at(int id, int x)
 {
     static const uint8_t vol[SFX_COUNT] = {HA_VOL_ACTION, HA_VOL_FEEDBACK, HA_VOL_FEEDBACK, HA_VOL_CRASH, 60, 50,
-                                           60, 50, HA_VOL_FEEDBACK};
+                                           60, 50, HA_VOL_FEEDBACK, 60, 60, 50, HA_VOL_FEEDBACK, 40, 50};
     ha_play_slot(id, vol[id], x, 0);
 }
 
@@ -194,6 +221,7 @@ static void play_update(void)
         if (ev & EV_LAND) sfx_at(SFX_LAND, x);
         if (ev & EV_CREAK) sfx_at(SFX_CREAK, x);
         if (ev & EV_WEB) sfx_at(SFX_WEB, x);
+        if (ev & EV_BONK) sfx_at(SFX_BONK, x);
         if (ev & EV_HIT) {
             ha_play(HA_THUD);
             hu_shake(3, 12);                    /* house rule: shake on a hit only, <= 4 px, <= 16 frames */
@@ -201,9 +229,9 @@ static void play_update(void)
         if (ev & (EV_HIT | EV_FALL)) {
             sfx_at(SFX_FALL, x);
             rs_log("player %d out at frame %u: %d m (fall %d: angle %d, angv %d, sap %d, wind %d, curve %d, speed %d, "
-                   "branch %d)", p + 1, rs_frame_count(), q->dist_m, q->fall_kind, (int)(q->ang / ANG(1)),
+                   "branch %d, hit %d)", p + 1, rs_frame_count(), q->dist_m, q->fall_kind, (int)(q->ang / ANG(1)),
                    (int)(q->angv * 100 / ANG(1)), q->on_sap, q->wind, (int)seg_curve(&W, q->s >> 8), (int)(q->speed >> 8),
-                   q->branch);
+                   q->branch, q->hit_kind);
         }
         state_hash = (state_hash ^ (uint32_t)q->s) * 16777619u;
         state_hash = (state_hash ^ (uint32_t)q->ang) * 16777619u;
@@ -211,7 +239,15 @@ static void play_update(void)
     }
     if (W.ev_world & EVW_PECK) sfx_at(SFX_TOK, 200);
     if (W.ev_world & EVW_WIND) sfx_at(SFX_WIND, 160);
-    if (W.ev_world & EVW_HOOT) sfx_at(SFX_HOOT, 120);
+    if (W.ev_world & EVW_HOOT) {                /* a hoot at night; by day a screech (the same, an octave up) */
+        if (gen_band((W.lead_s >> 8) / UNITS_PER_M) >= 3) sfx_at(SFX_HOOT, 120);
+        else ha_play_pitched(SFX_HOOT, 60, 120, RS_PITCH_1 * 2, 0);
+    }
+    if (W.ev_world & EVW_HISS) sfx_at(SFX_HISS, 160);
+    if (W.ev_world & EVW_CAW) sfx_at(SFX_CAW, 200);
+    if (W.ev_world & EVW_BUZZ) sfx_at(SFX_BUZZ, 140);
+    if (W.ev_world & EVW_RAIN) sfx_at(SFX_RAIN, 160);
+    if (W.ev_world & EVW_SWISH) sfx_at(SFX_SWISH, 160);
     if (!W.started) return;                     /* ready=1: the run waits for its first press */
     if (st == ST_PLAY && !world_running(&W)) go(ST_DEAD);
     if (st == ST_DEAD && world_all_down(&W) && st_t >= PANEL_DELAY) game_over();

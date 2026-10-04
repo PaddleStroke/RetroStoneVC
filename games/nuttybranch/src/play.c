@@ -119,11 +119,85 @@ int cone_h(const world *w, const obj *o, int32_t *h)
     return 1;
 }
 
+int snake_ang(const world *w, const obj *o, int32_t *ang)
+{
+    if (o->kind != OB_SNAKE) return 0;
+    int k = o->t0 < 0 ? 0 : w->t - o->t0;
+    int32_t a = o->ang + o->side * SNAKE_V * k;
+    if (iabs(a) > ANG(75)) return 0;                 /* gone down the side */
+    *ang = a;
+    return 1;
+}
+
+int bees_ang(const world *w, const obj *o, int32_t *ang)
+{
+    if (o->kind != OB_BEES) return 0;
+    int k = o->t0 < 0 ? 0 : w->t - o->t0;
+    int32_t a = o->ang + o->side * BEE_V * k;
+    if (iabs(a) > ANG(80)) return 0;
+    *ang = a;
+    return 1;
+}
+
+/* the swinging branch: a pendulum, SWING_AMP degrees each way, SWING_PERIOD frames, from its wake-up */
+int32_t swing_deg(const world *w, const obj *o)
+{
+    int k = (o->t0 < 0 ? 0 : w->t - o->t0) + o->len;    /* len: its phase */
+    int32_t ph = (int32_t)((int64_t)ANG(360) * (k % SWING_PERIOD) / SWING_PERIOD);
+    return (int32_t)((int64_t)ANG(SWING_AMP) * sin_q14(ph) / 16384);
+}
+
+/* where its leaves are round the branch: lateral = SWING_LEN sin(deg), on a radius of BRANCH_R */
+int32_t swing_ang(const world *w, const obj *o)
+{
+    int32_t r = (int32_t)((int64_t)SWING_LEN * sin_q14(swing_deg(w, o)) / BRANCH_R), neg = r < 0;   /* Q14 */
+    if (neg) r = -r;
+    if (r >= 16384) return neg ? -ANG(90) : ANG(90);
+    int32_t lo = 0, hi = ANG(90);
+    while (hi - lo > 32) {
+        int32_t mid = (lo + hi) / 2;
+        if (sin_q14(mid) < r) lo = mid; else hi = mid;
+    }
+    return neg ? -lo : lo;
+}
+
+int crow_at(const world *w, const obj *o, int32_t *s, int32_t *h)
+{
+    if (o->kind != OB_CROW) return 0;
+    int32_t far = o->s + o->len;
+    int k = o->t0 < 0 ? 0 : w->t - o->t0;
+    int32_t walk = o->t1 >= 0 ? o->t1 - o->t0 : k;
+    *s = far - walk * 3 / 2;                         /* it walks down its line of nuts at 1.5 units a frame */
+    *h = 0;
+    if (o->t1 >= 0) {                                /* flown off: up and away */
+        int f = w->t - o->t1;
+        if (f > 60) return 0;
+        *h = Q8(2) * f + Q8(1) * f * f / 8;
+    }
+    return 1;
+}
+
+int grip_at(const world *w, int32_t s, int32_t ang)
+{
+    int g = 0;
+    for (int i = 0; i < w->ob_count; i++) {
+        const obj *o = ob_get(w, i);
+        if (o->s > s + 8) break;
+        if (o->kind == OB_SAP && s >= o->s && s < o->s + o->len && iabs(ang - o->ang) < SAP_HALF) return 1;
+        if (o->kind == OB_RAIN && s >= o->s && s < o->s + o->len) g = 2;
+    }
+    return g;
+}
+
 int32_t ob_solid(const world *w, const obj *o, int32_t *ang, int32_t *half)
 {
     *ang = o->ang;
     switch (o->kind) {
-    case OB_TWIG: *half = TWIG_HALF; return TWIG_H;
+    case OB_TWIG: *half = o->len ? TWIG_HALF : TWIG_SHORT_HALF; return TWIG_H;
+    case OB_SNAKE: *half = SNAKE_HALF; return snake_ang(w, o, ang) ? SNAKE_H : 0;
+    case OB_BEES: *half = BEE_HALF; return bees_ang(w, o, ang) ? BEE_H : 0;
+    case OB_SNOW: *half = SNOW_HALF; return SNOW_H;
+    case OB_SWING: *half = SWING_HALF; *ang = swing_ang(w, o); return SWING_H;
     case OB_KNOT: *half = KNOT_HALF; return KNOT_H;
     case OB_CATER: *half = CATER_HALF; return cater_ang(w, o, ang) ? CATER_H : 0;
     case OB_CONE: {
@@ -142,13 +216,13 @@ int32_t sq_angacc(const squirrel *q, int steer, int32_t curve, int wind, int sap
     int32_t acc = 0;
     if (!q->air) {
         int32_t pull = (int32_t)((int64_t)PULL * sin_q14(q->ang) / 16384);
-        if (sap) pull = pull * SAP_PULL_256 / 256;
+        if (sap) pull = pull * (sap == 2 ? WET_PULL_256 : SAP_PULL_256) / 256;
         acc += pull;
         acc -= (int32_t)((int64_t)curve * q->speed * q->speed / CENT_DIV);   /* a curve pushes to its outside */
     }
     int32_t st = STEER_ACC * steer;
     if (q->air) st = st * AIR_STEER_256 / 256;
-    else if (sap) st = st * SAP_GRIP_256 / 256;
+    else if (sap) st = st * (sap == 2 ? WET_GRIP_256 : SAP_GRIP_256) / 256;
     if (q->sticky_t > 0) st /= 2;
     acc += st + WIND_ACC * wind;
     return acc;
@@ -157,7 +231,7 @@ int32_t sq_angacc(const squirrel *q, int steer, int32_t curve, int wind, int sap
 void sq_physics(squirrel *q, int steer, int32_t curve, int wind, int sap)
 {
     q->angv += sq_angacc(q, steer, curve, wind, sap);
-    int damp = q->air ? DAMP_256 / 2 : sap ? SAP_DAMP_256 : DAMP_256;
+    int damp = q->air ? DAMP_256 / 2 : sap == 2 ? WET_DAMP_256 : sap ? SAP_DAMP_256 : DAMP_256;
     q->angv -= q->angv * damp / 256;
     q->ang += q->angv;
 }
@@ -252,6 +326,24 @@ static void wake(world *w)
             if (o->t0 >= 0 && d > -32 && (w->t - o->t0) % 24 == 0 && w->t - o->t0 < HOLE_OPEN + 72)
                 w->ev_world |= EVW_PECK;
             break;
+        case OB_SNAKE:
+            if (o->t0 < 0 && d <= 700) { o->t0 = w->t; w->ev_world |= EVW_HISS; }
+            break;
+        case OB_BEES:
+            if (o->t0 < 0 && d <= 900) o->t0 = w->t;
+            if (o->t0 >= 0 && d > -64 && (w->t - o->t0) % 40 == 0) w->ev_world |= EVW_BUZZ;
+            break;
+        case OB_SWING:
+            if (o->t0 < 0 && d <= 2200) o->t0 = w->t;
+            if (o->t0 >= 0 && d > 0 && d < 700 && (w->t - o->t0 + o->len) % (SWING_PERIOD / 2) == SWING_PERIOD / 4)
+                w->ev_world |= EVW_SWISH;
+            break;
+        case OB_CROW:
+            if (o->t0 < 0 && d + o->len <= 1100) { o->t0 = w->t; w->ev_world |= EVW_CAW; }
+            break;
+        case OB_RAIN:
+            if (o->t0 < 0 && (int64_t)d * 256 <= (int64_t)v * RAIN_WARN) { o->t0 = w->t; w->ev_world |= EVW_RAIN; }
+            break;
         case OB_WIND:
             if (o->t0 < 0 && (int64_t)d * 256 <= (int64_t)v * WIND_WARN) {
                 o->t0 = w->t;                        /* the leaves start streaming: the gust comes in 1 s */
@@ -261,6 +353,54 @@ static void wake(world *w)
         default:
             break;
         }
+    }
+}
+
+/* the crows eat their way down their nut lines until a squirrel comes near; the showers drop acorns */
+static void beasts(world *w)
+{
+    int32_t lead = w->lead_s >> 8;
+    for (int i = 0; i < w->ob_count; i++) {
+        obj *o = &w->ob[(w->ob_first + i) % OB_MAX];
+        if (o->s > lead + 2600) break;
+        if (o->kind == OB_CROW && o->t0 >= 0 && o->t1 < 0) {
+            int32_t cs, ch;
+            crow_at(w, o, &cs, &ch);
+            for (int p = 0; p < w->players; p++)
+                if (w->q[p].state <= SQ_HIT && iabs((w->q[p].s >> 8) - cs) < CROW_FLEE) {
+                    o->t1 = w->t;
+                    w->ev_world |= EVW_CAW;
+                }
+            for (int j = i + 1; j < w->ob_count && o->t1 < 0; j++) {     /* the nuts of its line it has reached */
+                obj *n = &w->ob[(w->ob_first + j) % OB_MAX];
+                if (n->s > o->s + o->len) break;
+                if (n->kind >= OB_ACORN && n->kind <= OB_WALNUT && !n->taken && n->s >= cs &&
+                    iabs(n->ang - o->ang) < ANG(12))
+                    n->taken = 2;
+            }
+        }
+        if (o->kind == OB_SHOWER && lead >= o->s - 300 && lead < o->s + o->len && w->t % DROP_EVERY == 0) {
+            drop *d = &w->drops[w->drop_next++ % DROPS];
+            d->s = lead + 60 + rs_rng_range(&w->rng, 200);
+            d->ang = ANG(rs_rng_range(&w->rng, 81) - 40);
+            d->t = 0;
+            d->live = 1;
+        }
+    }
+    for (int k = 0; k < DROPS; k++) {
+        drop *d = &w->drops[k];
+        if (!d->live) continue;
+        if (d->s < lead - 200) { d->live = 0; continue; }
+        if (d->t < DROP_FALL && ++d->t == DROP_FALL)       /* it lands: a bonk on whoever is under it */
+            for (int p = 0; p < w->players; p++) {
+                squirrel *q = &w->q[p];
+                if (q->state == SQ_RUN && iabs((q->s >> 8) - d->s) <= 10 && iabs(q->ang - d->ang) <= DROP_REACH &&
+                    q->h < Q8(12) && !w->ghost) {
+                    q->angv += q->ang >= d->ang ? BONK_KICK : -BONK_KICK;
+                    q->slow_t = WEB_RECOVER / 2;
+                    w->events[p] |= EV_BONK;
+                }
+            }
     }
 }
 
@@ -275,6 +415,7 @@ static void stretches(const world *w, squirrel *q)
         if (o->s > s + 8) break;
         if (o->kind == OB_SAP && !q->air && s >= o->s && s < o->s + o->len && iabs(q->ang - o->ang) < SAP_HALF)
             q->on_sap = 1;
+        if (o->kind == OB_RAIN && !q->air && !q->on_sap && s >= o->s && s < o->s + o->len) q->on_sap = 2;
         if (o->kind == OB_WIND && s >= o->s && s < o->s + o->len) q->wind = o->side;
     }
 }
@@ -291,6 +432,18 @@ static void fall(squirrel *q, int kind)
 static void contacts(world *w, squirrel *q, int p)
 {
     int32_t s = q->s >> 8;
+    for (int k = 0; k < DROPS; k++) {                /* a shower's acorns lying on the bark */
+        drop *d = &w->drops[k];
+        if (d->live && d->t >= DROP_FALL && iabs(s - d->s) <= SQ_HALF_LEN + 4 && iabs(q->ang - d->ang) <= NUT_REACH &&
+            q->h <= NUT_REACH_H) {
+            d->live = 0;
+            q->score += PTS_ACORN;
+            q->nuts++;
+            q->combo = q->combo_t > 0 && q->combo < COMBO_MAX ? q->combo + 1 : q->combo_t > 0 ? COMBO_MAX : 0;
+            q->combo_t = COMBO_FRAMES;
+            w->events[p] |= EV_NUT;
+        }
+    }
     for (int i = 0; i < w->ob_count; i++) {
         obj *o = &w->ob[(w->ob_first + i) % OB_MAX];
         if (o->s > s + 24) break;
@@ -318,6 +471,7 @@ static void contacts(world *w, squirrel *q, int p)
         int32_t ang, half, hh = ob_solid(w, o, &ang, &half);
         if (hh && iabs(ds) <= SQ_HALF_LEN + OB_LEN / 2 && iabs(q->ang - ang) < half + SQ_HALF_ANG && q->h < hh) {
             fall(q, FALL_CRASH);
+            q->hit_kind = o->kind;
             w->events[p] |= EV_HIT;
             return;
         }
@@ -432,6 +586,7 @@ void world_step(world *w, const sq_input in[MAX_PLAYERS])
     }
     w->speed = course_speed((w->lead_s >> 8) / UNITS_PER_M);
     wake(w);
+    beasts(w);
     for (int p = 0; p < w->players; p++) {
         squirrel *q = &w->q[p];
         q->t++;

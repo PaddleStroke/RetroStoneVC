@@ -8,7 +8,7 @@
 #include "game.h"
 #include <string.h>
 
-#define CHUNK_OBS 64
+#define CHUNK_OBS 96
 
 typedef struct chunk_ctx {
     world *w;
@@ -34,7 +34,18 @@ static void add(chunk_ctx *c, int kind, int32_t s, int32_t ang, int32_t len, int
     o->len = len;
     o->side = (int8_t)side;
     o->t0 = -1;
+    o->t1 = -1;
 }
+
+/* scenery: kind (decor_kind), side (-1 / 1), lateral (Q8 units from the centre line; side branches and fungi: their
+ * angle), height (Q8, over the bark: kept in t0, never woken) */
+static void decor(chunk_ctx *c, int kind, int32_t s, int side, int32_t lat, int32_t h)
+{
+    add(c, OB_DECOR, s, lat, kind, side);
+    if (c->n) c->ob[c->n - 1].t0 = h;
+}
+
+static int drnd(world *w, int n) { return n <= 1 ? 0 : rs_rng_range(&w->g.drng, n); }
 
 /* ---- the segments ------------------------------------------------------------------------------------------- */
 static void put_seg(world *w, int32_t curve, int32_t dh)
@@ -83,12 +94,15 @@ static void edge_nut(chunk_ctx *c, int32_t s)
 }
 
 /* ---- the groups ------------------------------------------------------------------------------------------------------ */
-enum { G_NUTS, G_TWIGS, G_KNOTS, G_GAP, G_SAP, G_WEB, G_PECKER, G_CATER, G_WIND, G_CONES, G_OWL, G_FORK, G_KINDS };
+enum { G_NUTS, G_TWIGS, G_KNOTS, G_GAP, G_SAP, G_WEB, G_PECKER, G_CATER, G_WIND, G_CONES, G_OWL, G_FORK,
+       G_SNAKE, G_SWING, G_BEES, G_SNOW, G_CROW, G_SHOWER, G_RAIN, G_KINDS };
 static const int UNLOCK_M[G_KINDS] = {0, 0, UNLOCK_KNOT, UNLOCK_GAP, UNLOCK_SAP, UNLOCK_WEB, UNLOCK_PECKER,
-                                      UNLOCK_CATER, UNLOCK_WIND, UNLOCK_CONE, 0, UNLOCK_FORK};
-static const int WEIGHT[G_KINDS] = {3, 6, 5, 5, 3, 3, 3, 3, 3, 3, 4, 3};
+                                      UNLOCK_CATER, UNLOCK_WIND, UNLOCK_CONE, UNLOCK_OWL, UNLOCK_FORK, UNLOCK_SNAKE,
+                                      UNLOCK_SWING, UNLOCK_BEES, 0, UNLOCK_CROW, UNLOCK_SHOWER, UNLOCK_RAIN};
+static const int WEIGHT[G_KINDS] = {3, 6, 5, 5, 3, 3, 3, 3, 3, 3, 2, 3, 3, 3, 2, 5, 3, 2, 2};
 
-static int night(int m) { return (m / BAND_M) % 6 == 4; }
+int gen_band(int32_t metres) { return (int)((metres < 0 ? 0 : metres) / BAND_M % 6); }
+static int night(int m) { return gen_band(m) == 4; }
 
 /* returns the units used by the group from s */
 static int32_t group(chunk_ctx *c, int kind, int32_t s)
@@ -107,10 +121,11 @@ static int32_t group(chunk_ctx *c, int kind, int32_t s)
     case G_TWIGS: {
         int n = 1 + rnd(w, 1 + c->diff / 80);
         for (int k = 0; k < n; k++) {
-            int32_t a = rnd_in(w, -ANG(34), ANG(34));
-            add(c, OB_TWIG, s, a, 0, 0);
-            /* acorns lead round it, on the side with more room */
-            int32_t ga = a > 0 ? a - ANG(26) : a + ANG(26);
+            /* a side twig grows out of the bark on one side at 74 degrees and arches over: a long one to -6 degrees
+             * (its span's centre at 34), a short one to 30 (centre 52); acorns lead round it on the other side */
+            int side = rnd(w, 2) ? 1 : -1, lng = rnd(w, 3) != 0;
+            add(c, OB_TWIG, s, side * (lng ? ANG(34) : ANG(52)), lng, side);
+            int32_t ga = -side * ANG(lng ? 30 : 10);
             acorn_line(c, s - F2U(c, 34), s - F2U(c, 10), ga / 2, ga);
             s += F2U(c, 48 + rnd(w, 30) - c->diff / 32);
         }
@@ -174,8 +189,8 @@ static int32_t group(chunk_ctx *c, int kind, int32_t s)
         /* the nuts upwind: lean into it */
         acorn_line(c, s + F2U(c, 10), s + len - F2U(c, 10), -side * ANG(8), -side * ANG(16));
         if (c->diff > 120) {
-            int32_t a = rnd_in(w, -ANG(20), ANG(20));
-            add(c, OB_TWIG, s + len / 2, a, 0, 0);
+            int ts = rnd(w, 2) ? 1 : -1;     /* a side twig in the gust (from the windward side: lean into it) */
+            add(c, OB_TWIG, s + len / 2, ts * ANG(52), 0, ts);
         }
         return len;
     }
@@ -186,6 +201,48 @@ static int32_t group(chunk_ctx *c, int kind, int32_t s)
             s += F2U(c, 44 + rnd(w, 20));
         }
         return s - s_start;
+    }
+    case G_SNAKE: {
+        int side = rnd(w, 2) ? 1 : -1;      /* it slithers toward `side` */
+        add(c, OB_SNAKE, s, -side * (ANG(15) + rnd(w, ANG(20))), 0, side);
+        return F2U(c, 40);
+    }
+    case G_SWING: {
+        add(c, OB_SWING, s, 0, rnd(w, SWING_PERIOD), 0);
+        decor(c, DC_OVER0, s, 1, 0, SWING_PIVOT + Q8(8));       /* the limb it hangs from */
+        acorn_line(c, s - F2U(c, 40), s - F2U(c, 12), 0, 0);
+        return F2U(c, 40);
+    }
+    case G_BEES: {
+        int side = rnd(w, 2) ? 1 : -1;      /* the swarm drifts toward `side` */
+        add(c, OB_BEES, s, -side * (ANG(30) + rnd(w, ANG(15))), 0, side);
+        decor(c, DC_HIVE, s - 40, -side, -side * Q8(96), Q8(72));   /* the hive it came out of */
+        return F2U(c, 50);
+    }
+    case G_SNOW: {
+        int n = 1 + rnd(w, 2 + c->diff / 128);
+        for (int k = 0; k < n; k++) {
+            add(c, OB_SNOW, s, rnd_in(w, -ANG(30), ANG(30)), 0, 0);
+            s += F2U(c, 46 + rnd(w, 20));
+        }
+        return s - s_start;
+    }
+    case G_CROW: {
+        int32_t len = F2U(c, 90), a = rnd_in(w, -ANG(20), ANG(20));
+        acorn_line(c, s, s + len, a, a);
+        add(c, OB_CROW, s, a, len, 0);      /* it lands at the far end and eats its way toward you */
+        return len + F2U(c, 20);
+    }
+    case G_SHOWER: {
+        int32_t len = F2U(c, 240);
+        add(c, OB_SHOWER, s, 0, len, 0);
+        return len;
+    }
+    case G_RAIN: {
+        int32_t len = F2U(c, 300);
+        add(c, OB_RAIN, s, 0, len, 0);
+        acorn_line(c, s + F2U(c, 20), s + len - F2U(c, 20), 0, 0);
+        return len;
     }
     case G_OWL: {
         int side = rnd(w, 2) ? 1 : -1;
@@ -203,7 +260,7 @@ int gen_force = -1;
 int gen_kind_of(const char *name)
 {
     static const char *names[G_KINDS] = {"nuts", "twig", "knot", "gap", "sap", "web", "pecker", "cater", "wind", "cone",
-                                         "owl", "fork"};
+                                         "owl", "fork", "snake", "swing", "bees", "snow", "crow", "shower", "rain"};
     for (int k = 0; name && k < G_KINDS; k++)
         if (!strcmp(name, names[k])) return k;
     return -1;
@@ -215,7 +272,10 @@ static int pick_group(chunk_ctx *c)
     int tot = 0, wts[G_KINDS];
     for (int k = 0; k < G_KINDS; k++) {
         wts[k] = c->m >= UNLOCK_M[k] ? WEIGHT[k] : 0;
-        if (k == G_OWL && !night(c->m)) wts[k] = 0;
+        if (k == G_OWL && night(c->m)) wts[k] = 5;                  /* the owls hunt more at night */
+        if (k == G_SNOW && gen_band(c->m) != 5) wts[k] = 0;         /* the snow lumps: winter only */
+        if (k == G_RAIN && c->w->g.last_rain_s > c->s0 - 2500) wts[k] = 0;
+        if (k == G_BEES && c->w->g.last_bees_s > c->s0 - 1500) wts[k] = 0;
         if (k == G_OWL && c->w->g.last_owl_s > c->s0 - 1600) wts[k] = 0;
         if (k == G_FORK && c->w->g.last_fork_s > c->s0 - 3000) wts[k] = 0;
         if (k == G_WIND && c->w->g.last_wind_s > c->s0 - 1200) wts[k] = 0;
@@ -241,6 +301,25 @@ static void flush(chunk_ctx *c)
     }
     for (int i = 0; i < c->n && w->ob_count < OB_MAX; i++)
         w->ob[(w->ob_first + w->ob_count++) % OB_MAX] = c->ob[i];
+}
+
+/* the scenery along a stretch (its own RNG: the course is the same with or without it): side branches growing out
+ * of both sides, leaves and vines passing overhead, fungi on the flanks */
+static void scenery(chunk_ctx *c, int32_t s0, int32_t s1)
+{
+    world *w = c->w;
+    for (int32_t s = s0 + drnd(w, 160); s < s1; s += 140 + drnd(w, 220)) {
+        int side = drnd(w, 2) ? 1 : -1;
+        decor(c, DC_SIDE0 + drnd(w, 3), s, side, side * ANG(84), 0);
+    }
+    for (int32_t s = s0 + drnd(w, 300); s < s1; s += 240 + drnd(w, 300)) {
+        int side = drnd(w, 2) ? 1 : -1;
+        decor(c, DC_OVER0 + drnd(w, 2), s, side, side * Q8(70 + drnd(w, 100)), Q8(120 + drnd(w, 50)));
+    }
+    if (drnd(w, 3) == 0) {
+        int side = drnd(w, 2) ? 1 : -1;
+        decor(c, DC_MUSH, s0 + drnd(w, s1 - s0 > 1 ? s1 - s0 : 1), side, side * ANG(74), 0);
+    }
 }
 
 static void chunk(world *w)
@@ -275,10 +354,13 @@ static void chunk(world *w)
     used = group(&c, kind, s);
     if (kind == G_OWL) w->g.last_owl_s = s;
     if (kind == G_WIND) w->g.last_wind_s = s;
+    if (kind == G_RAIN) w->g.last_rain_s = s;
+    if (kind == G_BEES) w->g.last_bees_s = s;
     /* a second group further on, as the difficulty rises (never two jump groups too close) */
     if (c.diff > 64 && rnd(&c.w[0], 256) < c.diff / 2) {
         int k2 = pick_group(&c);
-        if (k2 != G_FORK && k2 != G_OWL && !(k2 == G_SAP && kind == G_WIND) && !(k2 == G_WIND && kind == G_SAP)) {
+        if (k2 != G_FORK && k2 != G_OWL && k2 != G_RAIN && k2 != G_BEES && !(k2 == G_SAP && kind == G_WIND) &&
+            !(k2 == G_WIND && kind == G_SAP)) {
             int32_t s2 = s + used + F2U(&c, 30 + LAND_FRAMES);
             used = s2 - s + group(&c, k2, s2);
             if (k2 == G_WIND) w->g.last_wind_s = s2;
@@ -300,6 +382,7 @@ static void chunk(world *w)
         put_run(w, nseg / 2, cv, nseg / 8, 0);
         put_run(w, nseg - nseg / 2, -cv, nseg / 8, 0);
     } else put_run(w, nseg, geo == 7 ? cv / 2 : 0, nseg / 4, dip);           /* a dip (or a rise) */
+    scenery(&c, c.s0, c.s0 + nseg * SEG_LEN);
     flush(&c);
 }
 
@@ -308,7 +391,8 @@ void gen_init(world *w)
     memset(&w->g, 0, sizeof w->g);
     int32_t s0 = w->start_m * UNITS_PER_M;
     w->g.seg = (s0 - 512) / SEG_LEN;
-    w->g.last_fork_s = w->g.last_owl_s = w->g.last_wind_s = -100000;
+    w->g.last_fork_s = w->g.last_owl_s = w->g.last_wind_s = w->g.last_rain_s = w->g.last_bees_s = -100000;
+    rs_rng_seed(&w->g.drng, (w->seed ^ 0x5ce7e5u) | 1);
     /* the run-up: a straight with a line of acorns */
     chunk_ctx c;
     memset(&c, 0, sizeof c);
@@ -316,6 +400,7 @@ void gen_init(world *w)
     c.v = course_speed(w->start_m);
     c.m = w->start_m;
     acorn_line(&c, s0 + 300, s0 + 700, 0, ANG(20));
+    scenery(&c, s0 - 400, s0 + 800);
     flush(&c);
     put_run(w, (512 + 800) / SEG_LEN, 0, 0, 0);
 }

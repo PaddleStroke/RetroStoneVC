@@ -24,17 +24,23 @@ enum ob_kind {
     OB_TWIG, OB_KNOT, OB_WEB, OB_CATER, OB_CONE, OB_OWL,   /* things on (or over) the bark */
     OB_PECKER,                                       /* the woodpecker (on the side) and its hole */
     OB_SAP, OB_GAP, OB_WIND, OB_FORK,                /* stretches */
+    OB_SNAKE, OB_SWING, OB_BEES, OB_SNOW, OB_CROW,   /* more beasts and things */
+    OB_SHOWER, OB_RAIN,                              /* more stretches: falling acorns, wet bark */
+    OB_DECOR,                                        /* scenery only: side branches, leaves overhead, fungi, hives */
     OB_KINDS
 };
-#define OB_MAX 384
+enum decor_kind { DC_SIDE0, DC_SIDE1, DC_SIDE2, DC_OVER0, DC_OVER1, DC_MUSH, DC_HIVE };
+#define OB_MAX 640
 typedef struct obj {
     uint8_t kind, taken;        /* taken: a nut eaten */
     int8_t side;                /* fork: the dead branch's side; wind: its push (-1 left, +1 right); caterpillar: its way */
     uint8_t pad;
     int32_t s;                  /* units along the branch (start) */
     int32_t ang;                /* Q12 degrees: the centre (the hole's, for a woodpecker) */
-    int32_t len;                /* units: a gap's, a sap patch's, a gust's, a fork's dead branch */
-    int32_t t0;                 /* the frame it woke up (caterpillar, owl, pinecone, woodpecker), -1 = asleep */
+    int32_t len;                /* units: a gap's, a sap patch's, a gust's, a fork's dead branch; a twig: 1 long;
+                                 * decor: its kind (decor_kind); a crow: the length of its nut line */
+    int32_t t0;                 /* the frame it woke up (caterpillar, owl, pinecone, woodpecker...), -1 = asleep */
+    int32_t t1;                 /* a second moment: the frame a crow flew off (-1: not yet) */
 } obj;
 
 /* ---- the squirrels ------------------------------------------------------------------------------------------------ */
@@ -50,9 +56,9 @@ typedef struct squirrel {
     int slow_t, sticky_t;       /* a web's slow-down and stickiness */
     int branch;                 /* 1 on a fork's dead branch */
     int score, nuts, combo, combo_t;
-    int fall_kind, fall_dir;
+    int fall_kind, fall_dir, hit_kind;   /* how it fell; what it ran into (OB_*) */
     int steer;                  /* the last input: -1, 0, 1 */
-    int on_sap, wind, warn;     /* this frame: on sap, the gust's push, beyond WARN_ANG */
+    int on_sap, wind, warn;     /* this frame: the grip (1 sap, 2 wet bark), the gust's push, beyond WARN_ANG */
     int32_t dist_m;             /* metres run */
 } squirrel;
 
@@ -60,9 +66,14 @@ typedef struct squirrel {
 typedef struct gen_state {
     int32_t seg;                /* the next segment to write (absolute index) */
     int32_t head, h;            /* the heading (Q8 units per segment) and the height (Q8 units) at that segment */
-    int32_t last_fork_s, last_owl_s, last_wind_s;
+    int32_t last_fork_s, last_owl_s, last_wind_s, last_rain_s, last_bees_s;
     int chunks;
+    rs_rng drng;                /* the scenery's own RNG: decorations never change the course */
 } gen_state;
+
+/* an acorn of a shower: falling (t < DROP_FALL) then lying on the bark until eaten */
+typedef struct drop { int32_t s, ang; int16_t t, live; } drop;
+#define DROPS 16
 
 typedef struct world {
     int16_t curve[SEG_RING];    /* Q8: x'' per segment^2 */
@@ -84,10 +95,13 @@ typedef struct world {
     int ev_world;               /* EVW_* of the last step */
     int32_t start_m;            /* the course starts this far in (tests: the difficulty of later stretches) */
     int ghost;                  /* tests: the squirrels never fall (the fairness planner samples the course) */
+    drop drops[DROPS];          /* a shower's acorns */
+    int drop_next;
 } world;
 enum { EV_JUMP = 1, EV_NUT = 2, EV_HIT = 4, EV_LAND = 8, EV_START = 16, EV_FALL = 32, EV_CREAK = 64, EV_WEB = 128,
-       EV_WALNUT = 256 };
-enum { EVW_PECK = 1, EVW_WIND = 2, EVW_HOOT = 4, EVW_CONE = 8 };
+       EV_WALNUT = 256, EV_BONK = 512 };
+enum { EVW_PECK = 1, EVW_WIND = 2, EVW_HOOT = 4, EVW_CONE = 8, EVW_HISS = 16, EVW_CAW = 32, EVW_BUZZ = 64,
+       EVW_RAIN = 128, EVW_SWISH = 256 };
 
 /* input of one squirrel for one frame */
 typedef struct sq_input { int steer, jump_pressed, jump_held; } sq_input;
@@ -116,11 +130,18 @@ int  owl_ang(const world *w, const obj *o, int32_t *ang);      /* 1 while it swo
 int  cater_ang(const world *w, const obj *o, int32_t *ang);    /* 1 while it is on the branch */
 int  cone_h(const world *w, const obj *o, int32_t *h);         /* 1 once it falls: its height above the bark (Q8) */
 int  hole_open(const world *w, const obj *o);                  /* 0..256 */
+int  snake_ang(const world *w, const obj *o, int32_t *ang);    /* 1 while it crosses: its angle */
+int  bees_ang(const world *w, const obj *o, int32_t *ang);     /* 1 while the swarm is over the branch: its angle */
+int32_t swing_deg(const world *w, const obj *o);               /* the swinging branch's angle (Q12 degrees) */
+int32_t swing_ang(const world *w, const obj *o);               /* where its leaves are round the branch (Q12) */
+int  crow_at(const world *w, const obj *o, int32_t *s, int32_t *h);  /* its place (units) and height (Q8); 1 = there */
+int  grip_at(const world *w, int32_t s, int32_t ang);          /* 0 bark, 1 sap, 2 wet (s in units) */
 int32_t ob_solid(const world *w, const obj *o, int32_t *ang, int32_t *half);   /* a solid's height (Q8) now, 0 = none */
 
 /* ---- gen.c ------------------------------------------------------------------------------------------------------- */
 extern int gen_force;                               /* --opt only=<kind>: one kind of group (tests, screenshots) */
 int  gen_kind_of(const char *name);                 /* nuts twig knot gap sap web pecker cater wind cone owl fork */
+int  gen_band(int32_t metres);                      /* the time-of-day band 0..5 (4: night, 5: winter) */
 void gen_init(world *w);
 void gen_fill(world *w, int32_t until_s);           /* generate the course up to s (units) */
 void gen_trim(world *w, int32_t behind_s);          /* drop the objects that are all behind s (units) */
@@ -132,7 +153,8 @@ typedef struct road_line {
     int16_t xc;                 /* screen x of the texture centre (the branch, or the pair's midpoint at a fork) */
     int16_t a;                  /* 8.8 texels per pixel */
     int16_t row;                /* the texture row (ROW_NONE: none) */
-    uint8_t ring, haze;
+    int16_t tcx;                /* the texture column of the branch centre (the bark patch's) */
+    uint8_t ring, haze, wet;
 } road_line;
 #define ROAD_PTS (DRAW_SEGS + 2)
 typedef struct road_view {
@@ -153,6 +175,8 @@ void road_project(const world *w, road_view *v);
 int  road_point(const world *w, const road_view *v, int32_t s, int32_t ang, int32_t h, int branch,
                 int *sx, int *sy, int *scale, int *hidden);
 int32_t fork_offset(const world *w, int32_t s_q8, int branch);  /* Q8 units: a branch's lateral offset at s */
+/* a point off the branch: s (Q8), lateral offset (Q8 units, from the main branch's centre line), height over its top */
+int  road_free(const world *w, const road_view *v, int32_t s, int32_t lat, int32_t h, int *sx, int *sy, int *scale);
 
 /* ---- draw.c -------------------------------------------------------------------------------------------------------- */
 enum { ST_TITLE, ST_PLAY, ST_DEAD, ST_OVER };      /* no "get ready": the title is the only menu */
@@ -163,10 +187,13 @@ void draw_state(void);
  * (the HDMA tables): the texture centre's screen x, the scale (8.8 texels per px) and the row; and its time band */
 extern int16_t draw_line_x[RS_SCREEN_H], draw_line_a[RS_SCREEN_H], draw_line_row[RS_SCREEN_H];
 int draw_band(void);
+/* the sprite on screen (OAM) -> which drawing it is (a SPR_* frame of assets.h) and the point it is anchored at: the
+ * way a player recognises a thing by its look (the bot); 0 = not one of the world's */
+int draw_sprite_id(const rs_sprite *s, int *frame, int *ax, int *ay);
 
 /* ---- sound (main.c) ------------------------------------------------------------------------------------------------ */
 enum { SFX_JUMP, SFX_CRUNCH, SFX_CREAK, SFX_FALL, SFX_TOK, SFX_WIND, SFX_HOOT, SFX_LAND, SFX_WEB,
-       SFX_COUNT };
+       SFX_HISS, SFX_CAW, SFX_BUZZ, SFX_BONK, SFX_RAIN, SFX_SWISH, SFX_COUNT };
 #define SFX_HOUSE SFX_COUNT                         /* first slot of the house sounds (ha_init) */
 
 /* ---- bot.c: the test hook (plays from the screen only) ------------------------------------------------------------ */

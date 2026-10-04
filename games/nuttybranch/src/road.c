@@ -107,8 +107,9 @@ void road_project(const world *w, road_view *v)
     }
     v->npts = np;
     /* the gaps and forks in view */
-    span gaps[MAX_SPANS], forks[MAX_SPANS];
-    int ng = 0, nf = 0;
+    span gaps[MAX_SPANS], forks[MAX_SPANS], rains[MAX_SPANS];
+    int ng = 0, nf = 0, nr = 0;
+    static const int16_t var_cx[TEX_VARIANTS] = TEX_VAR_CX;
     int32_t cs = w->cam_s >> 8;
     for (int i = 0; i < w->ob_count; i++) {
         const obj *o = ob_get(w, i);
@@ -116,6 +117,7 @@ void road_project(const world *w, road_view *v)
         if (o->kind == OB_GAP && o->s + o->len + GRAIN_LEN >= cs && ng < MAX_SPANS)
             gaps[ng++] = (span){o->s, o->s + o->len, 0};
         if (o->kind == OB_FORK && o->s + o->len >= cs && nf < MAX_SPANS) forks[nf++] = (span){o->s, o->s + o->len, o->side};
+        if (o->kind == OB_RAIN && o->s + o->len >= cs && nr < MAX_SPANS) rains[nr++] = (span){o->s, o->s + o->len, 0};
     }
     /* fill the lines, near to far */
     int32_t maxy = RS_SCREEN_H * 256;
@@ -141,15 +143,24 @@ void road_project(const world *w, road_view *v)
             L->s = s;
             L->a = (int16_t)(z / FOCAL);
             L->xc = (int16_t)((xc + 128) >> 8);
-            L->row = (int16_t)(ROW_BARK + (s & 31));
+            /* the bark: one of the patches per metre (a hash of the metre), the row of the metre */
+            uint32_t mh = (uint32_t)(s >> 6) * 2654435761u;
+            int pv = (int)((mh >> 16) % 8);               /* the plain patch 6 metres in 8, a burl, a scar */
+            L->tcx = var_cx[pv < 6 ? 0 : pv - 5];
+            L->row = (int16_t)(ROW_BARK + (s & 63));
+            for (int i = 0; i < nr; i++)
+                if (s >= rains[i].s0 && s < rains[i].s1) L->wet = 1;
             L->ring = (uint8_t)(((s >= 0 ? s : -s) / RING_LEN) & 3);
             L->haze = (uint8_t)(z < 640 * 256 ? 0 : z < 1150 * 256 ? 1 : z < 1750 * 256 ? 2 : 3);
             for (int i = 0; i < ng; i++) {
                 if (s >= gaps[i].s0 && s < gaps[i].s1) L->row = ROW_NONE;
-                else if (s >= gaps[i].s0 - JAGGED_LEN && s < gaps[i].s0)
+                else if (s >= gaps[i].s0 - JAGGED_LEN && s < gaps[i].s0) {
                     L->row = (int16_t)(ROW_JAGGED + (gaps[i].s0 - s - 1) * 8 / JAGGED_LEN);
-                else if (s >= gaps[i].s1 && s < gaps[i].s1 + GRAIN_LEN)
+                    L->tcx = TEX_CX;
+                } else if (s >= gaps[i].s1 && s < gaps[i].s1 + GRAIN_LEN) {
                     L->row = (int16_t)(ROW_GRAIN + (s - gaps[i].s1) * 8 / GRAIN_LEN);
+                    L->tcx = TEX_CX;
+                }
             }
             for (int i = 0; i < nf && L->row != ROW_NONE; i++) {
                 if (s < forks[i].s0 || s >= forks[i].s1) continue;
@@ -173,6 +184,7 @@ void road_project(const world *w, road_view *v)
                 int32_t mid = fx < ox ? fx + half : fx - half;
                 L->xc = (int16_t)((mid + 128) >> 8);
                 L->row = (int16_t)(ROW_FORK + j * 8 + (s & 7));
+                L->tcx = TEX_CX;
                 break;
             }
             if (L->row != ROW_NONE && y < v->top) v->top = y;
@@ -180,6 +192,18 @@ void road_project(const world *w, road_view *v)
         if (yf < maxy) maxy = yf;
     }
     if (np > 0) v->pclip[np - 1] = maxy;
+}
+
+int road_free(const world *w, const road_view *v, int32_t s, int32_t lat, int32_t h, int *sx, int *sy, int *scale)
+{
+    int32_t z = s - w->cam_s;
+    if (v->npts < 2 || z < CAM_NEAR * 256 || s >= v->ps[v->npts - 1]) return 0;
+    int32_t n0 = seg_floor(w->cam_s >> 8), px, py;
+    proj(w, v, s, lateral(w, n0, s) + foff(v, s, 0) + lat, seg_height(w, s) + h, &px, &py);
+    *sx = (px + 128) >> 8;
+    *sy = (py + 128) >> 8;
+    *scale = (int)((int64_t)FOCAL * 256 * 256 / z);
+    return 1;
 }
 
 int road_point(const world *w, const road_view *v, int32_t s, int32_t ang, int32_t h, int branch, int *sx, int *sy,
@@ -199,7 +223,7 @@ int road_point(const world *w, const road_view *v, int32_t s, int32_t ang, int32
     int32_t px, py;
     proj(w, v, s, lat, seg_height(w, s) + h - drop, &px, &py);
     int32_t pyb;
-    proj(w, v, s, lat, seg_height(w, s) - drop, &px, &pyb);
+    proj(w, v, s, lat, seg_height(w, s), &px, &pyb);              /* the bark line at s: is it behind a crest? */
     *sx = (px + 128) >> 8;
     *sy = (py + 128) >> 8;
     *scale = (int)((int64_t)FOCAL * 256 * 256 / z);

@@ -28,7 +28,7 @@ import make_art  # noqa: E402
 PAL_BARK, PAL_SCENE, PAL_LOGO = 1, 2, 5
 OBJ_PAL = {"hero": 0, "wood": 2, "col": 6, "bird": 7}          # OBJ 1, 4, 5: players 2-4; OBJ 3: the house kit
 VR_BG1, VR_BG2, VR_BG3, VR_OBJ = 0, 1024, 1536, 3072
-KIT_OBJ_TILE = 900                                               # the kit's sprites (house_ui.h HU_OBJ_TILES) after ours
+KIT_OBJ_TILE = 760                                               # the kit's sprites (house_ui.h HU_OBJ_TILES) after ours
 
 
 def c555(rgb):
@@ -144,35 +144,70 @@ def main():
                 lk[k] = i
         looks[g] = lk
     img = rsasset.load(sheet)
-    tiles, rows, names, counts = [], [], [], []
-    for d in man:
-        names.append("SPR_%s = %d" % (d["name"].upper(), len(rows)))
-        counts.append("#define NFR_%s %d" % (d["name"].upper(), len(d["frames"])))
+    # Each frame is cut into pieces (cells of up to 64x32 trimmed to their non-empty tiles), stored as consecutive
+    # tiles. The resident frames (the squirrels, the small effects) come first and stay in VRAM; the others are
+    # streamed into a pool by draw.c, only the frames on screen (as SNES games DMA their sprite tiles).
+    order = [d for d in man if d["resident"]] + [d for d in man if not d["resident"]]
+    tiles, rows, pieces, names, counts = [], {}, [], {}, []
+    res_tiles = 0
+    for d in order:
         lk = looks[d["group"]]
+        fr_rows = []
         for f in d["frames"]:
             cell = rsasset.cell(img, f["x"], f["y"], f["w"], f["h"])
-            first = len(tiles)
-            for t in rsasset.split_tiles(cell):
-                ti = []
-                for v in t:
-                    if v is None:
-                        ti.append(0)
-                    else:
-                        assert v in lk, "sprite %s: colour %s not in group %s" % (d["name"], rsasset.rgb888(v), d["group"])
-                        ti.append(lk[v])
-                tiles.append(ti)
-            rows.append("{%d, %d, %d, %d, %d, %d, %d}" % (first, f["w"], f["h"], OBJ_PAL[d["group"]], f["ax"], f["ay"],
-                                                          d["mirror"]))
-    assert len(tiles) <= KIT_OBJ_TILE, "the sprites (%d tiles) overlap the kit's: raise KIT_OBJ_TILE" % len(tiles)
-    h.append("enum { %s, SPR_COUNT = %d };" % (", ".join(names), len(rows)))
+            idx = [[0 if v is None else lk[v] for v in row] for row in cell]
+            for row in cell:
+                for v in row:
+                    assert v is None or v in lk, "sprite %s: colour %s not in group %s" % (
+                        d["name"], rsasset.rgb888(v), d["group"])
+            first, p0 = len(tiles), len(pieces)
+            th, tw = f["h"] // 8, f["w"] // 8
+            for cy in range(0, th, 4):
+                for cx in range(0, tw, 8):
+                    ty = [y for y in range(cy, min(th, cy + 4)) for x in range(cx, min(tw, cx + 8))
+                          if any(idx[y * 8 + j][x * 8 + i] for j in range(8) for i in range(8))]
+                    tx = [x for y in range(cy, min(th, cy + 4)) for x in range(cx, min(tw, cx + 8))
+                          if any(idx[y * 8 + j][x * 8 + i] for j in range(8) for i in range(8))]
+                    if not ty:
+                        continue
+                    y0, y1, x0, x1 = min(ty), max(ty) + 1, min(tx), max(tx) + 1
+                    pieces.append("{%d, %d, %d, %d, %d}" % (len(tiles) - first, (x1 - x0) * 8, (y1 - y0) * 8,
+                                                             x0 * 8 - f["ax"], y0 * 8 - f["ay"]))
+                    for y in range(y0, y1):
+                        for x in range(x0, x1):
+                            tiles.append([idx[y * 8 + j][x * 8 + i] for j in range(8) for i in range(8)])
+            if len(pieces) == p0:                                  # an empty frame: one blank tile
+                pieces.append("{0, 8, 8, 0, 0}")
+                tiles.append([0] * 64)
+            fr_rows.append("{%d, %d, %d, %d, %d, %d}" % (first, len(tiles) - first, p0, len(pieces) - p0,
+                                                         OBJ_PAL[d["group"]], d["resident"]))
+        rows[d["name"]] = fr_rows
+        if d["resident"]:
+            res_tiles = len(tiles)
+    flat = []
+    for d in man:                                                  # the ids in the manifest's order
+        names[d["name"]] = len(flat)
+        counts.append("#define NFR_%s %d" % (d["name"].upper(), len(d["frames"])))
+        flat += rows[d["name"]]
+    pool = KIT_OBJ_TILE - res_tiles
+    h.append("enum { %s, SPR_COUNT = %d };" % (", ".join("SPR_%s = %d" % (n.upper(), i) for n, i in names.items()),
+                                                len(flat)))
     h.append("\n".join(counts))
-    h.append("typedef struct gm_sprite_def { uint16_t tile; uint8_t w, h, pal; int8_t ax, ay; uint8_t mirror; } gm_sprite_def;")
-    h.append("extern const gm_sprite_def gm_spr[SPR_COUNT];")
+    h.append("#define RES_TILES %d       /* the resident sprite tiles (VRAM_OBJ + 0 ..) */\n"
+             "#define POOL_TILES %d      /* the streaming pool, after them, up to the kit's sprites */" % (res_tiles, pool))
+    h.append("#define LODS %d\n#define TILTS %d" % (len(pals["lods"]), len(pals["tilts"])))
+    h.append("typedef struct gm_sprite_def { uint16_t tile, ntiles, piece; uint8_t npieces, pal, resident; } gm_sprite_def;")
+    h.append("typedef struct gm_piece { uint16_t toff; uint8_t w, h; int16_t dx, dy; } gm_piece;")
+    h.append("extern const gm_sprite_def gm_spr[SPR_COUNT];\nextern const gm_piece gm_pieces[];")
     h.append("extern const uint8_t gm_obj_tiles[];\nextern const int gm_obj_tile_count;")
-    c.append("const gm_sprite_def gm_spr[SPR_COUNT] = {\n    " + ",\n    ".join(rows) + "};")
+    c.append("const gm_sprite_def gm_spr[SPR_COUNT] = {\n    " + ",\n    ".join(flat) + "};")
+    c.append("const gm_piece gm_pieces[%d] = {\n    " % len(pieces) + ",\n    ".join(pieces) + "};")
     c.append(rsasset.c_bytes("gm_obj_tiles", rsasset.tiles_bytes(tiles)))
     c.append("const int gm_obj_tile_count = %d;" % len(tiles))
-    stats.append("OBJ %d" % len(tiles))
+    big = max(int(r.split(",")[1]) for r in flat)
+    assert big <= pool, "a frame of %d tiles does not fit the pool (%d)" % (big, pool)
+    stats.append("OBJ %d resident + %d streamed (pool %d, the biggest frame %d)" % (res_tiles, len(tiles) - res_tiles,
+                                                                                  pool, big))
 
     # ---- palettes: the four squirrels (house_style.player_palettes), the props, the bands ------------------------------
     hero = [tuple(v) for v in pals["groups"]["hero"]]
