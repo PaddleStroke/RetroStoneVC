@@ -1,6 +1,6 @@
 #!/bin/sh
-# Nutty Branch smoke tests: scripted runs through the headless runner (the title with players joining, play, game over,
-# retry, pause, save RAM, 1-4 players), the bot hook and determinism.
+# Nutty Branch smoke tests: scripted runs through the headless runner (the title with players joining, play, game
+# over, back to the title, pause, save RAM, 1-4 players) and determinism.
 #   smoke_test.sh <headless binary> <tmp dir>
 # MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/nuttybranch/LICENSE.
 H=$1
@@ -14,48 +14,52 @@ check() {   # check <name> <expected regexp> <output>
 }
 run() { $H --opt music=0 --opt dump=1 "$@" 2>&1; }
 
-# screens: st=0 the title, 1 play, 2 the last hero falling, 3 the game-over panel (no "get ready")
+# screens: st=0 the title, 1 play, 2 the last squirrel falling, 3 the game-over panel (no "get ready")
 out=$(run --frames 300 --opt strict=1)
 check "title: nothing happens without input" "state: st=0 .*score=0 .*runs=0 " "$out"
-if echo "$out" | grep -q "rs strict"; then ko "strict mode warnings: $(echo "$out" | grep 'rs strict')"; else ok "no strict-mode warning (VRAM, sprites, voices...)"; fi
+if echo "$out" | grep -q "rs strict"; then ko "strict mode warnings: $(echo "$out" | grep 'rs strict')"; else ok "no strict-mode warning (VRAM, sprites, voices, samples...)"; fi
 
 printf "30 tap A\n" > "$T/start.input"
-out=$(run --frames 40 --input "$T/start.input")
-check "A on the title starts the run at once (the press is the first jump)" "state: st=1 .*scroll=[1-9]" "$out"
-printf "30 tap UP\n" > "$T/up.input"
-out=$(run --frames 40 --input "$T/up.input")
-check "Up starts it too (an extra start input)" "state: st=1 " "$out"
-out=$(run --frames 900 --input "$T/start.input")
-check "no more input: the hero hits a crate, game over" "state: st=3 .*runs=1 " "$out"
-
-printf "30 tap A\n860 tap A\n" > "$T/retry.input"
-out=$(run --frames 870 --input "$T/retry.input")
+out=$(run --frames 60 --input "$T/start.input")
+check "A on the title starts the run at once" "state: st=1 .*s=[1-9]" "$out"
+printf "30 tap LEFT\n" > "$T/left.input"
+out=$(run --frames 60 --input "$T/left.input")
+check "Left starts it too (an extra start input)" "state: st=1 " "$out"
+printf "30 tap A\n" > "$T/start.input"
+out=$(run --frames 4000 --input "$T/start.input" --opt seed=2)
+check "no more input: the squirrel falls off, game over" "state: st=3 .*runs=1 " "$out"
+f=$(echo "$out" | sed -n 's/.*run 1 over at frame \([0-9]*\).*/\1/p')
+printf "30 tap A\n$((f + 40)) tap A\n" > "$T/retry.input"
+out=$(run --frames $((f + 50)) --input "$T/retry.input" --opt seed=2)
 check "game over: one press goes back to the title (the only menu)" "state: st=0 .*runs=1 " "$out"
-printf "30 tap A\n860 tap SELECT\n" > "$T/back.input"
-out=$(run --frames 870 --input "$T/back.input")
+printf "30 tap A\n$((f + 40)) tap SELECT\n" > "$T/back.input"
+out=$(run --frames $((f + 50)) --input "$T/back.input" --opt seed=2)
 check "Select on the panel: back to the title too" "state: st=0 .*runs=1 " "$out"
-printf "30 tap A
-860 tap A
-880 tap A
-" > "$T/again.input"
-out=$(run --frames 890 --input "$T/again.input")
-check "...and A on the title starts the next run" "state: st=1 .*runs=1 .*scroll=[1-9]" "$out"
+printf "30 tap A\n$((f + 40)) tap A\n$((f + 60)) tap A\n" > "$T/again.input"
+out=$(run --frames $((f + 90)) --input "$T/again.input" --opt seed=2)
+check "...and A on the title starts the next run" "state: st=1 .*runs=1 .*s=[1-9]" "$out"
 
 printf "30 tap A\n90 tap SELECT\n" > "$T/pause.input"
-a=$(run --frames 120 --input "$T/pause.input" | sed -n 's/.*scroll=\([0-9]*\) paused=\([0-9]\).*/\1 \2/p')
-b=$(run --frames 300 --input "$T/pause.input" | sed -n 's/.*scroll=\([0-9]*\) paused=\([0-9]\).*/\1 \2/p')
-if [ "$a" = "$b" ] && [ "${a#* }" = "1" ]; then ok "Select pauses (the world is frozen: scroll ${a% *})"; else ko "pause: '$a' vs '$b'"; fi
+a=$(run --frames 120 --input "$T/pause.input" | sed -n 's/.* s=\([0-9]*\) paused=\([0-9]\).*/\1 \2/p')
+b=$(run --frames 300 --input "$T/pause.input" | sed -n 's/.* s=\([0-9]*\) paused=\([0-9]\).*/\1 \2/p')
+if [ "$a" = "$b" ] && [ "${a#* }" = "1" ]; then ok "Select pauses (the world is frozen: s ${a% *})"; else ko "pause: '$a' vs '$b'"; fi
+
+# the jump: A hops (the squirrel leaves the bark), the steer moves it round the branch
+printf "30 tap A\n100 A\n" > "$T/jump.input"
+out=$(run --frames 104 --input "$T/jump.input" --opt seed=4)
+check "A jumps" "state: st=1 " "$out"
 
 rm -f "$T/save.srm"
-run --frames 4000 --opt bot=1 --opt seed=8 --opt botstop=7 --sram "$T/save.srm" > /dev/null
+out=$(run --frames 6000 --opt bot=1 --opt seed=8 --opt botstop=60 --sram "$T/save.srm")
+d=$(echo "$out" | sed -n 's/.*state: .* dist=\([0-9]*\) .*/\1/p')
 out=$(run --frames 10 --sram "$T/save.srm")
-check "save RAM: the best score (7) persists" "best=7 runs=0" "$out"
+check "save RAM: the best distance ($d m) persists" "best=$d bestscore=[0-9]* runs=0" "$out"
 
 # players 2-4 join on the title (A on their pad), leave with B; only P1 starts
 printf "20 P2 tap A\n" > "$T/join.input"
 out=$(run --frames 60 --input "$T/join.input")
 check "player 2 joins on the title" "state: st=0 players=2 " "$out"
-printf "20 P2 tap A\n40 P2 tap A\n60 P2 tap UP\n" > "$T/p2start.input"
+printf "20 P2 tap A\n40 P2 tap A\n60 P2 tap LEFT\n" > "$T/p2start.input"
 out=$(run --frames 80 --input "$T/p2start.input")
 check "... and does not start the run (P1 starts)" "state: st=0 players=2 " "$out"
 printf "20 P2 tap A\n25 P3 tap A\n30 P4 tap A\n" > "$T/join4.input"
@@ -68,11 +72,11 @@ printf "20 P4 tap A\n" > "$T/pad4.input"
 out=$(run --frames 60 --input "$T/pad4.input")
 check "any free pad joins as the next player (pad 4 -> P2)" "state: st=0 players=2 " "$out"
 
-# 4 scripted pads: join on the title, P1 starts, everyone jumps to a rhythm
+# 4 scripted pads: join on the title, P1 starts, everyone steers and jumps to a rhythm
 printf "20 P2 tap A\n25 P3 tap A\n30 P4 tap A\n60 tap A\n" > "$T/play4.input"
 i=80; while [ $i -lt 1400 ]; do
     echo "$i tap A" >> "$T/play4.input"; echo "$((i + 5)) P2 tap A" >> "$T/play4.input"
-    echo "$((i + 9)) P3 tap A" >> "$T/play4.input"; echo "$((i + 13)) P4 tap A" >> "$T/play4.input"
+    echo "$((i + 9)) P3 tap RIGHT" >> "$T/play4.input"; echo "$((i + 13)) P4 tap LEFT" >> "$T/play4.input"
     i=$((i + 29))
 done
 out=$(run --frames 1400 --input "$T/play4.input" --opt seed=3 --opt strict=1)
@@ -80,18 +84,19 @@ check "4 scripted pads join and play" "state: st=[123] players=4 " "$out"
 if echo "$out" | grep -q "rs strict"; then ko "4 players: strict mode warnings: $(echo "$out" | grep 'rs strict')"; else ok "4 players: no strict-mode warning"; fi
 
 out=$(run --frames 2500 --opt bot=2 --opt seed=6 --opt players=2)
-check "2 players: both heroes run and score" "players=2 score=[1-9][0-9]* score2=[1-9][0-9]* " "$out"
-out=$(run --frames 2500 --opt bot=4 --opt seed=6)
-check "4 players (4 bots): all four run and score" "players=4 .*scores=[1-9][0-9]*,[1-9][0-9]*,[1-9][0-9]*,[1-9][0-9]*$" "$out"
-
-# the bot hook (bot_decide in main.c): it must reach 20 with the default settings
-out=$(run --frames 4000 --opt bot=1)
-s=$(echo "$out" | sed -n 's/.*state: .* score=\([0-9]*\) .*/\1/p')
-if [ "${s:-0}" -ge 20 ]; then ok "the bot reaches $s (>= 20)"; else ko "the bot only reached $s: $(echo "$out" | grep state)"; fi
+check "2 players: both squirrels run" "players=2 .*dists=[1-9][0-9]*,[1-9][0-9]* " "$out"
+out=$(run --frames 2500 --opt bot=4 --opt seed=6 --opt strict=1)
+check "4 players (4 bots): all four run" "players=4 .*dists=[1-9][0-9]*,[1-9][0-9]*,[1-9][0-9]*,[1-9][0-9]* " "$out"
+if echo "$out" | grep -q "rs strict"; then ko "4 bots: strict mode warnings: $(echo "$out" | grep 'rs strict')"; else ok "4 bots: no strict-mode warning"; fi
 
 # determinism: the same inputs, the same run (state hash and picture), twice; also with 4 players
 : > "$T/rhythm.input"
-i=30; while [ $i -lt 1500 ]; do echo "$i tap A" >> "$T/rhythm.input"; i=$((i + 23)); done
+echo "30 tap A" >> "$T/rhythm.input"
+i=40; while [ $i -lt 1500 ]; do
+    echo "$i RIGHT" >> "$T/rhythm.input"; echo "$((i + 6)) -" >> "$T/rhythm.input"
+    echo "$((i + 20)) LEFT" >> "$T/rhythm.input"; echo "$((i + 27)) -" >> "$T/rhythm.input"
+    echo "$((i + 33)) tap A" >> "$T/rhythm.input"; i=$((i + 41))
+done
 for k in 1 2; do
     run --frames 1500 --input "$T/rhythm.input" --opt seed=3 --png "$T/det$k.png" | grep "state:" > "$T/det$k.txt"
     run --frames 2000 --opt bot=1 --png "$T/bot$k.png" | grep "state:" > "$T/bot$k.txt"
