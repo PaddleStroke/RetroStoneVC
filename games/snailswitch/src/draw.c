@@ -1,6 +1,7 @@
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "game_text.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -147,7 +148,7 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         if (screen == ST_PLAY && w->players >= 3) hu_score_tags(w->players, 0);     /* P1..P4 by the corner chips */
         if (state == ST_OVER) {
             if (w->players == 1) {
-                hu_banner(4, "GAME OVER");
+                hu_banner(4, HTR(GAME_OVER));
                 hu_gameover_panel(1, new_best, w->h[0].score, 0);
             } else {
                 hu_results_panel(rs, NULL);                                     /* P2 WINS! and the ranking */
@@ -157,10 +158,18 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         shown_best = best;
     }
     /* the title, every frame: the prompt (blinking), the player slots, BEST, the join line, the credits */
-    if (state == ST_TITLE) {hu_title_draw(st_t, best);hu_text(hu_center("UP / DOWN: VINE SIDE",0),9,"UP / DOWN: VINE SIDE");hu_text(hu_center("CATCH EVERY FRUIT",0),10,"CATCH EVERY FRUIT");}
+    if (state == ST_TITLE) {
+        /* the hint's two lines; line 2 one row lower when it has accents or tall glyphs (they take the row above) */
+        const char *goal = TR(HINT_GOAL);
+        int row = 10;
+        for (const char *c = goal; *c; c++) if ((unsigned char)*c >= 0x80) row = 11;
+        hu_title_draw(st_t, best);
+        hu_text(hu_center(TR(HINT_MOVE), 0), 9, TR(HINT_MOVE));
+        hu_text(hu_center(goal, 0), row, goal);
+    }
     if (state == ST_OVER) {
-        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, "A: TITLE");
-        else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, "A: TITLE");
+        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
     }
 }
 
