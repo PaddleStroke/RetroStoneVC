@@ -132,7 +132,7 @@ void ha_init(int first_slot)
 int ha_play_pitched(int slot, int vol, int x, int pitch, int echo)
 {
     if (!ha_sound) return -1;
-    int pan = 24 + x * 80 / RS_SCREEN_W;
+    int pan = 24 + (x + rs_screen_origin_x()) * 80 / rs_screen_width();     /* x: stage; widescreen: the screen x */
     pan = pan < 0 ? 0 : pan > 127 ? 127 : pan;
     /* House music has four channels. Reuse a sounding effect at the limit instead of adding a ninth voice. */
     int active = 0, replace = -1, budget = rs_music_playing() ? RS_VOICES - 4 : RS_VOICES;
@@ -155,7 +155,7 @@ int ha_play(int id)
 {
     static const uint8_t vol[HA_COUNT] = {80, 70, 70, 80, 50, 70, 50, 110};
     if (ha_first < 0 || id < 0 || id >= HA_COUNT) return -1;
-    return ha_play_slot(ha_first + id, vol[id], RS_SCREEN_W / 2, id == HA_DING);
+    return ha_play_slot(ha_first + id, vol[id], rs_screen_width() / 2 - rs_screen_origin_x(), id == HA_DING);
 }
 
 void ha_sound_on(int on) { ha_sound = on; }

@@ -78,6 +78,28 @@ hu_config hu_defaults(void)
 
 const hu_config *hu_cfg(void) { return &cfg; }
 
+static void font_glyph(int g);
+
+/* ---- widescreen: the kit's 320-px UI area, centred on the screen ------------------------------------------------------ */
+int hu_ui_x(void) { return rs_screen_margin() - rs_screen_origin_x(); }
+int hu_ui_left(void) { return -rs_screen_margin(); }
+int hu_ui_right(void) { return rs_screen_width() - rs_screen_margin(); }
+static int fdiv8(int v) { return v >= 0 ? v / 8 : -((7 - v) / 8); }      /* floor(v / 8) */
+/* the UI layer's map column of a UI column (columns left of 0 or right of 39 wrap round the map: widescreen corners) */
+static int ui_col(int c) { int mw = rs_bg_map_w(cfg.layer); return mw > 0 ? c & (mw - 1) : c; }
+/* text at a UI column that may be outside 0..39 */
+static void ui_text_wrapped(int x, int y, const char *s)
+{
+    for (const char *p = s; *p; p++) font_glyph((unsigned char)*p - 32);
+    for (int i = 0; s[i]; i++) {
+        int c = (unsigned char)s[i];
+        if (c < 32 || c > 127) c = '?';
+        rs_bg_put(cfg.layer, ui_col(x + i), y, RS_MAP(cfg.tile_base + T_FONT + c - 32, cfg.pal, 1, 0, 0));
+    }
+}
+
+
+
 /* ---- tiles -------------------------------------------------------------------------------------------------------- */
 static void bg_tile(int rel, const uint8_t *px64) { rs_tiles_load8(cfg.vram_base + cfg.tile_base + rel, px64, 1); }
 
@@ -425,7 +447,11 @@ void hu_clear(void)
 void hu_clear_rows(int y, int h)
 {
     rs_text_setup(cfg.layer, cfg.tile_base + T_FONT, cfg.pal, 1);
-    rs_text_clear(0, y, 40, h);
+    if (rs_screen_width() == RS_SCREEN_W) { rs_text_clear(0, y, 40, h); return; }
+    /* widescreen: every column the screen shows (the corners' tags may be outside 0..39) */
+    int c0 = fdiv8(hu_ui_left()), c1 = fdiv8(hu_ui_right() + 7);
+    for (int j = 0; j < h; j++)
+        for (int c = c0; c < c1; c++) rs_bg_put(cfg.layer, ui_col(c), y + j, RS_MAP(cfg.tile_base + T_FONT, cfg.pal, 0, 0, 0));
 }
 
 /* ---- panels and banners ------------------------------------------------------------------------------------------------ */
@@ -532,7 +558,8 @@ void hu_pause(int paused, int y)
 /* ---- sprites -------------------------------------------------------------------------------------------------------------- */
 static void kit_spr(int rel, int x, int y, int w, int h, int prio)
 {
-    if (cfg.obj_tile < 0 || x <= -w || x >= RS_SCREEN_W || y <= -h || y >= RS_SCREEN_H) return;
+    x += hu_ui_x();                                     /* UI coordinates -> stage */
+    if (cfg.obj_tile < 0 || x <= rs_screen_left() - w || x >= rs_screen_right() || y <= -h || y >= RS_SCREEN_H) return;
     rs_spr(x, y, cfg.obj_tile + rel, w, h, cfg.obj_pal, prio, 0);
 }
 
@@ -911,14 +938,16 @@ void hu_title_sprites(int t, hu_icon_fn icon, void *user)
 /* ---- the 4-player HUD ------------------------------------------------------------------------------------------------------ */
 hu_chip hu_score_chip(int players, int p, int bottom_y)
 {
+    /* UI coordinates; widescreen: the halves and the corners of the actual screen (320: x 80 / 240, tags 1 / 37) */
+    int sw = rs_screen_width(), m = rs_screen_margin();
     hu_chip c = {RS_SCREEN_W / 2, 10, 0, -1, -1};
     if (bottom_y <= 0) bottom_y = 220;
-    if (players == 2) c.x = p ? 240 : 80;
+    if (players == 2) c.x = p ? 3 * sw / 4 - m : sw / 4 - m;
     else if (players >= 3) {
         c.y = p >= 2 ? bottom_y : 4;
         c.tag_y = (c.y + 4) / 8;
-        if (p & 1) { c.tag_x = 37; c.x = 37 * 8 - 4; c.align = 1; }
-        else { c.tag_x = 1; c.x = 3 * 8 + 4; c.align = -1; }
+        if (p & 1) { c.tag_x = fdiv8(sw - 24 - m); c.x = c.tag_x * 8 - 4; c.align = 1; }
+        else { c.tag_x = fdiv8(8 - m); c.x = c.tag_x * 8 + 20; c.align = -1; }
     }
     return c;
 }
@@ -930,7 +959,8 @@ void hu_score_tags(int players, int bottom_y)
         hu_chip c = hu_score_chip(players, p, bottom_y);
         if (c.tag_x < 0) continue;
         snprintf(s, sizeof s, "P%d", p + 1);
-        hu_text(c.tag_x, c.tag_y, s);
+        if (c.tag_x >= 0 && c.tag_x + 2 <= 40) hu_text(c.tag_x, c.tag_y, s);
+        else ui_text_wrapped(c.tag_x, c.tag_y, s);
     }
 }
 
@@ -958,8 +988,10 @@ int hu_split(int players, int mode, rs_viewport *out)
         rs_viewport_layout(4, 0, out);
         return n;
     }
-    int w = (RS_SCREEN_W - RS_VIEW_DIVIDER * (n - 1)) / n;
-    int x0 = (RS_SCREEN_W - n * w - RS_VIEW_DIVIDER * (n - 1)) / 2;
+    /* the whole screen in stage coordinates (widescreen: wider columns) */
+    int sw = rs_screen_width();
+    int w = (sw - RS_VIEW_DIVIDER * (n - 1)) / n;
+    int x0 = rs_screen_left() + (sw - n * w - RS_VIEW_DIVIDER * (n - 1)) / 2;
     for (int i = 0; i < n; i++) view_rect(&out[i], x0 + i * (w + RS_VIEW_DIVIDER), 0, w, RS_SCREEN_H);
     return n;
 }

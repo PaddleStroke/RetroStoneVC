@@ -75,6 +75,18 @@ const hu_config *hu_cfg(void);
 /* save states: registers the kit's own objects (call it from the game's state callback) */
 void hu_state(void);
 
+/* ---- widescreen (docs/spec.md "Widescreen") -------------------------------------------------------------------------
+ * The kit lays out a 320 x 240 UI area (tiles 0..39 x 0..29, pixels 0..319: the "UI coordinates" of every call below)
+ * centred on the screen, whatever its width. hu_ui_x() is the stage x of UI x 0: 0 for a game that centres its stage
+ * (rs_screen_origin(rs_screen_margin())) or runs at 320; a game with another origin (a side-scroller at origin 0)
+ * scrolls its UI layer by -hu_ui_x() and adds hu_ui_x() to the sprites it draws at the kit's positions (hu_slot_pos,
+ * hu_title_glyph, hu_results_icon_pos, hu_score_chip). The kit's own sprites (digits, glyphs, medals) add it
+ * themselves. The score chips go to the halves and corners of the actual screen, hu_split splits its whole width.
+ * The UI layer's map must be as wide as the screen (64 tiles up to 512 columns, 128 beyond). */
+int  hu_ui_x(void);
+int  hu_ui_left(void);          /* the UI x of the screen's left edge (-rs_screen_margin()) */
+int  hu_ui_right(void);         /* the UI x just past its right edge */
+
 /* ---- text (tile coordinates, 40 x 30 on screen) -------------------------------------------------------------- */
 /* The kit draws four arrows over glyphs that games do not use: put them in strings with these. */
 #define HU_ARROW_LEFT  "{"
@@ -156,7 +168,8 @@ void hu_slot_pos(int p, int *cx, int *cy);             /* the centre of player p
 int  hu_over_back(void);
 
 /* ---- 4-player HUD ------------------------------------------------------------------------------------------------- */
-/* Score chips: 1 player centred at the top (y 10), 2 players at x 80 and 240 (y 10), 3-4 players in the corners
+/* Score chips (UI coordinates): 1 player centred at the top (y 10), 2 players at x 80 and 240 (y 10; widescreen: the
+ * centres of the screen's halves), 3-4 players in the corners of the screen
  * (P1 top-left, P2 top-right, P3 bottom-left, P4 bottom-right) with a P1..P4 tag; bottom_y is the digits' top y of
  * the bottom chips (0: 220). */
 typedef struct hu_chip {
@@ -169,7 +182,7 @@ void hu_score_chips(int players, const int score[], int bottom_y);   /* the kit 
 void hu_number_at(int n, int x, int y, int align, int prio);         /* big digits, aligned like a chip */
 /* Split screen (rs_viewports): 1 player the full screen, 2 halves side by side; 3-4 players HU_SPLIT_QUAD (2 x 2
  * quadrants, 159 x 119; 3 players leave the 4th free) or HU_SPLIT_COLUMNS (n columns, 78 px wide for 4, the full
- * height). 2-px dividers. Layers 0x0f, sprites on, oam_first / oam_count 0: bracket each view's sprites with
+ * height). 2-px dividers. Widescreen: stage coordinates, the views split the whole width (wider panes). Layers 0x0f, sprites on, oam_first / oam_count 0: bracket each view's sprites with
  * hu_view_oam_begin / end. Returns the number of views. */
 enum { HU_SPLIT_QUAD, HU_SPLIT_COLUMNS };
 int  hu_split(int players, int mode, rs_viewport *out);
