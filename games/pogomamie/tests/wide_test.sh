@@ -48,6 +48,46 @@ game night 4000 bot=1 ready=1 seed=15 skip=2080
 game duo 3000 bot=2 players=2 ready=1 seed=6
 game quad 3600 bot=4 players=4 ready=1 seed=5 botstop=3 botruns=2
 
+# the start of a run: the first buildings and gaps ahead of Mamie are at the same world x, the same distance from her,
+# at every width as at 320 (a wide screen shows more of them from the first frame). dump=2 logs the state (Mamie's x,
+# the camera) and the buildings at exit: compare them on the first frame of the run and the next.
+ahead() {   # ahead <log>: Mamie's x, then each building ahead of her: its distance from her and its gap before it
+    awk '/state:/ { for (i = 1; i <= NF; i++) if ($i ~ /^x=/) x = substr($i, 3) + 0 }
+         /building/ { split($8, r, "[.][.]"); r[1] += 0; r[2] += 0; if (!seen++) p = r[1]; if (r[2] > x) { n++; if (n <= 4) s = s sprintf(" %d px (x %d, gap %d)", r[1] - x, r[1], r[1] - p) } p = r[2] }
+         END { printf "Mamie x %d; roofs:%s", x, s }' "$1"
+}
+start() {   # start <name> <input file|-> <opts...>: the run starts on the first frame with st=2 (the play state)
+    name=$1; inp=""; [ "$2" = - ] || inp="--input $2"; shift 2
+    opts="$inp"
+    for o in "$@"; do opts="$opts --opt $o"; done
+    s=""
+    for f in $(seq 20 60); do
+        if $H --frames "$f" --opt music=0 --opt dump=1 $opts 2>&1 | grep -q "state: st=2 "; then s=$f; break; fi
+    done
+    [ -n "$s" ] || { ko "$name: no run started by frame 60"; return; }
+    same=1
+    for f in $s $((s + 1)); do
+        for w in 320 $WS 560; do
+            $H --width "$w" --frames "$f" --opt music=0 --opt dump=2 $opts 2>&1 | grep "state:\|building" |
+                sed 's/^\[rs\] *//' > "$O/start-$name-$f-$w.log"
+        done
+        for w in $WS 560; do cmp -s "$O/start-$name-$f-320.log" "$O/start-$name-$f-$w.log" || same=0; done
+    done
+    a=$(ahead "$O/start-$name-$s-320.log")
+    if [ "$same" = 1 ] && [ "$(grep -c building "$O/start-$name-$s-320.log")" -ge 3 ]; then
+        ok "$name: on the run's first frame ($s) and the next, the course ahead is the same at 320, $WS and 560 ($a)"
+    else
+        ko "$name: the start differs between widths: 320 $a; $(for w in $WS 560; do echo "$w $(ahead "$O/start-$name-$s-$w.log");"; done)"
+    fi
+}
+printf "30 tap A\n" > "$O/go.input"
+start ready-a "$O/go.input" ready=1 seed=21
+start ready-bot - bot=1 ready=1 seed=3
+start title-a "$O/go.input" seed=8
+start title-bot - bot=1 seed=4
+start skip - bot=1 ready=1 seed=12 skip=526
+start four - bot=4 players=4 ready=1 seed=5
+
 # a live change of width (the desktop runner's resized window: a state, a restart at the new width, the state loaded)
 out=$($H --frames 900 --opt music=0 --opt dump=1 --opt bot=1 --opt seed=7 --opt ready=1 --resize 400:520 --resize 650:320 \
       --shot 500:"$O/resize-520.png" --shot 800:"$O/resize-320.png" 2>&1)
