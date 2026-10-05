@@ -1,5 +1,4 @@
 #define TITLE "CRAB COCONUT"
-#define HINT "LEFT / RIGHT: BOUNCE AND BREAK"
 #define BG_START(vp) 0
 static const rs_color title_ramps[2][3]={{RS_HEX(0xffcd9e),RS_HEX(0xeb8269),RS_HEX(0xa34f54)},{RS_HEX(0xe2eed7),RS_HEX(0x91c6c4),RS_HEX(0x548ba1)}};
 static const rs_color theme_pal[16]={0,RS_HEX(0xeff2ce),RS_HEX(0xf9e7c0),RS_HEX(0xe7cea1),RS_HEX(0xcdaa7c),RS_HEX(0xbadfd0),RS_HEX(0x8fc6ca),RS_HEX(0x577c93),RS_HEX(0xefe1bf),RS_HEX(0xf49482),RS_HEX(0x67bde1),RS_HEX(0x95d371),RS_HEX(0xd493e0),0,0,0};
@@ -36,5 +35,5 @@ static void theme_scene(const world *w,int p,int t,const view *v,const rs_viewpo
  }
  theme_shells(w,vp);
 }
-static void theme_hud(const hero *h,char *text,size_t n){snprintf(text,n,"SHELLS %d",h->apples);}
+static void theme_hud(const hero *h,char *text,size_t n){rs_strf(text,n,TR(SHELLS_N),h->apples);}
 static void theme_title(int t,const rs_viewport *vp){spr(SPR_COCONUT,152,75+hu_bob(t,64,3),2,-1,vp);spr(SPR_HERO_IDLE+(t/8)%2,144,96,2,0,vp);spr(SPR_SHELL,100,97,2,-1,vp);spr(SPR_SHELL+1,199,97,2,-1,vp);}
