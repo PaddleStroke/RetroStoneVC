@@ -132,6 +132,7 @@ void bot_reset(uint32_t seed);
 
 /* save states: each console-side file registers its objects */
 void draw_state(void);
+void draw_relayout(const world *w, int state);   /* after a load: the maps of this width (widescreen) */
 void sfx_state(void);
 void bot_state(void);
 

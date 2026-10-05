@@ -107,7 +107,7 @@ void sfx_pan(int id, int x, int pitch)
     last_play[id] = now;
     if (id == SFX_CHOMP && !pitch)       /* each bite a little different: +-6% */
         pitch = RS_PITCH_1 + rs_rng_range(&pitch_rng, 491) - 245;
-    int pan = clampi(24 + x * 80 / RS_SCREEN_W, 0, 127);
+    int pan = clampi(24 + (x + rs_screen_origin_x()) * 80 / rs_screen_width(), 0, 127);   /* x: stage; the screen x */
     int v = rs_sfx(id, vol[id], pan, pitch ? pitch : RS_PITCH_1);
     if (v >= 0 && (id == SFX_SPLASH || id == SFX_GOLD)) rs_voice_echo(v, 1);   /* the "wet" sounds */
 }

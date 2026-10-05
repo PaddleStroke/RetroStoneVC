@@ -28,6 +28,9 @@ VR_BG1, VR_BG2, VR_OBJ = 0, 1024, 3072   # BG3 and BG4 follow BG2 (their bases: 
 BAR_TILE = 700                  # relative to BG1: the timer bar tiles
 OBJ_FIRST = 128                 # our sprites, relative to VR_OBJ (after the kit's HU_OBJ_TILES)
 DAM_COL, DAM_ROW, DAM_W, DAM_H = 17, 16, 30, 4        # the dam canvas on BG3 (panorama tiles)
+# widescreen: the wide BG3 map's columns that are the classic map's own (WIN but its edge columns, where the two
+# outer pines give way to the forest's edge)
+WIDE_SAME_COL0, WIDE_SAME_COL1 = 12, 51
 
 
 class TileSet:
@@ -153,14 +156,30 @@ def main():
     for r in range(DAM_H):
         for x in range(DAM_W):
             assert bg3[(DAM_ROW + r) * 64 + DAM_COL + x] == 0, "the dam canvas overlaps the banks"
+    classic = len(ts.tiles)
+    # widescreen (make_art.py WIDE_X0): the 128-tile map of a screen wider than 320, its new tiles after the classic
+    # ones (a 320-px screen loads only those); map column (panorama x / 8) & 127
+    wb = bg_entries(A.banks(True), ts, {6: s0[6]}, 1, "wide banks")
+    wn = bg_entries(A.near_bank(True), ts, {3: s0[3]}, 1, "wide near bank")
+    wide = [0] * (128 * 30)
+    for i, e in enumerate(wb + wn):
+        r, col = divmod(i, A.WIDE_W // 8)
+        wide[r * 128 + ((col + A.WIDE_X0 // 8) & 127)] = e
+    for r in range(30):
+        for x in range(WIDE_SAME_COL0, WIDE_SAME_COL1):
+            assert wide[r * 128 + x] == bg3[r * 64 + x], "the wide map differs from the classic one in WIN"
     dam_tile = len(ts.tiles)
     c.append(arr("br_bg3_map", bg3))
+    c.append(arr("br_bg3_wide_map", wide))
     c.append(rsasset.c_bytes("br_bg3_tiles", rsasset.tiles_bytes(ts.tiles)))
-    c.append("const int br_bg3_tile_count = %d;" % len(ts.tiles))
+    c.append("const int br_bg3_tile_count = %d;" % classic)
+    c.append("const int br_bg3_wide_tile_count = %d;" % len(ts.tiles))
     h.append("#define DAM_TILE %d   /* the dam canvas: DAM_W x DAM_H unique tiles from here (BG3) */" % dam_tile)
     h.append("extern const uint16_t br_bg3_map[64 * 30];\nextern const uint8_t br_bg3_tiles[];\n"
              "extern const int br_bg3_tile_count;")
-    stats.append("BG3 %d + dam %d" % (len(ts.tiles), DAM_W * DAM_H))
+    h.append("/* widescreen: the 128 x 30 map (the classic tiles and br_bg3_wide_tile_count - br_bg3_tile_count more) */\n"
+             "extern const uint16_t br_bg3_wide_map[128 * 30];\nextern const int br_bg3_wide_tile_count;")
+    stats.append("BG3 %d (+%d wide) + dam %d" % (classic, len(ts.tiles) - classic, DAM_W * DAM_H))
     vr_bg4 = vr_bg3 + (len(ts.tiles) + DAM_W * DAM_H + 7) // 8 * 8
     logs, crown = A.dam_logs()
     lk = lookup(s0[4])

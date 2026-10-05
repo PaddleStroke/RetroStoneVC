@@ -18,21 +18,24 @@
 #define POND_LOGS  600
 
 /* the trunk on BG2 (a 64 x 32 map; player p's tree 16 p columns further): segment k's rows start at map y
- * TRUNK_MAP_Y0 - 24 (k + 1); the trunk's columns 8..13, the left branch 3..7, the right one 14..18 (+ 16 p) */
+ * TRUNK_MAP_Y0 - 24 (k + 1); the trunk's columns 8..13, the left branch 3..7, the right one 14..18 (+ 16 p).
+ * Widescreen: the map is 128 columns wide and the trees 32 apart (the wider views of a versus show no neighbour's
+ * branch): player p's tree starts at column p * tree_cols(), a quarter of the map (the bot reads it there too) */
 #define BG2_MAP_W     64
+static inline int tree_cols(void) { return rs_bg_map_w(RS_BG2) / 4; }
 #define TRUNK_MAP_Y0  248
 #define TRUNK_SCROLL_Y 48         /* map y - screen y */
 #define TRUNK_COL     8
 #define LBRANCH_COL   3
 #define RBRANCH_COL   14
 #define TRUNK_MAP_X   64          /* the trunk's left edge in the map (player 1) */
-#define TREE_COLS     16          /* player 2's tree: 16 columns (128 px) further */
 
 /* versus: a view per player (2: halves; 3-4: columns, hu_split HU_SPLIT_COLUMNS), each its own OAM range; a view
  * shows the middle of the panorama: from PANO_X + 160 - its width / 2 (2 players: PANO_X + 80) */
 
 /* scene.c */
 void scene_init(void);
+void scene_relayout(void);                   /* after a save state of another width: the maps for this one */
 void scene_restart(int stage);
 void scene_frame(int stage, int dam_logs, int lean_side, int players, int t);
 void scene_bg_scroll(int view_sx);

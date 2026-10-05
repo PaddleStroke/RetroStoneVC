@@ -147,6 +147,48 @@ at 46% brightness; sprites half as much; the sky effects not at all), fading ove
 2's 16 columns further, wrapping), each viewport scrolls to its own; both show the middle of the same valley.
 On the result, two more viewports lay the house banner and panel over both halves.
 
+## Widescreen (docs/spec.md "Widescreen")
+The game opts in (`max_width` = 560, `WIDESCREEN_beaverrush = 1`): 320 x 240 is unchanged pixel for pixel; at 427
+(16:9), 520 or 560 (phones) **the valley is wider, the game is the same**.
+- **A fixed screen, centred**: `rs_screen_origin(rs_screen_margin())` (draw_init): the tree, the beaver, the bars,
+  the score and every screen of the kit keep their 320-px places in the middle; the screen shows stage x -margin ..
+  320 + margin. Sprites are clipped to rs_screen_left()..right(), the raster windows (the pond over the far layer's
+  foot, the trunk hidden under the stump) span the whole width, the effects pan by the screen x.
+- **The wider scenery** (make_art.py `banks(wide)`, `near_bank(wide)`; build_assets.py; scene.c `scene_maps`): BG3
+  becomes a 128-tile map of a 1024-px panorama: the classic picture in its middle (pixel for pixel, but for the two
+  outer pines, nearly all off the 320-px screen), then on each side the meadow on top of the banks, flat to the
+  screen's edge, and the **forest's edge**: four firs a side (one shape, two heights), the earth's grit as a 16-px
+  pattern. The near bank goes on (its strip already repeats every 128 px at 320). The far layer (clouds, the
+  mountains, the far forest, the river's ripples) is a 256-px picture that already repeats at 320: wider, it simply
+  goes on round (a 32-tile map of the same tiles), and the firs stand in front of it at the sides. The dam and the
+  river stay between their banks. The sky is a raster colour (full width already); the night's stars go on into the
+  margins (the same stars, mirrored), the snow, leaves, blossoms and fireflies spread over the whole width (as many
+  per column).
+- **VRAM is the limit**: the 64-KiB guideline (tiles and maps; strict mode does not count the map columns past 64
+  tiles on a wide screen). Beaver Rush uses up to 65120 bytes at 320 (a long run: the title's logo, the panels, the
+  big glyphs), so the wide scenery may only add what the 32-tile far map saves (2 KiB) and a little more: it adds
+  **74 tiles** (2368 bytes). A copy of a shape on the 8-px grid costs no tile, hence one fir shape at two heights;
+  the strict-mode runs of the tests stay clean at every width.
+- **Versus: wider panes**, no side decor: hu_split and the SDK's layout split the whole width (2 x 279 px at 560,
+  4 x 138), each view centres its tree (by the view's width) and shows more of the middle of the valley, its sky
+  and weather spread to its width. The trunks' map (BG2) is 128 tiles wide and the trees a quarter of it apart
+  (256 px, `tree_cols()`; the bot reads its tree there too), so that a wider view never shows a neighbour's
+  branch; the UI layer is 128 tiles wide and each timer bar is centred in its view (columns left of 0 wrap round).
+  Panes rather than decor: each player sees more of their own valley and the bars and scores keep to their views.
+- **The same game**: the rules never look at the width and the bot reads the same BG2 rows and its view's OAM
+  entries at every width, so it decides the same. tests/wide_test.sh compares the whole log (scores, golden logs,
+  milestones, bonks, stolen branches, the final state and its hash) of 1-player, versus and 4-player bot runs at
+  320, 427, 520 and 560.
+- **Save states load at any width** (the width is not in a state): `state_loaded` (draw_relayout) compares the width
+  the maps were laid out for (draw.laid_w, saved) with this one. The same: nothing changes (a load saves the same
+  bytes). Another: the maps of this width are set up again: BG3 and BG4 (scene.c; the dam's canvas keeps its tiles),
+  the UI layer (its 40 columns move over), the trunks (redrawn a quarter of the map apart, before the bot reads
+  them), and in versus the timer bars (drawn again where this width's views want them, on the next frame). Effects
+  in flight (a log, chips, floating logs) keep their view's coordinates: after a change of width in versus they may
+  land a few pixels off, for 1.4 s at most. tests/wide_test.sh loads states saved at 320, 427 and 520 at the other
+  widths, and changes the width three times during 1-player, versus and 4-player runs (`--resize`: a save state, a
+  restart, the state loaded): they go on exactly as the runs that never changed.
+
 ## The beaver
 About 24x24 on screen (32x32 cells), code-drawn with the house helpers (ellipses and capsules shaded from the
 top-left, the house eye, a 1-px dark brown outline): brown fur, a lighter belly and muzzle, **big orange

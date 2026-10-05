@@ -357,10 +357,14 @@ static void game_state(void)
 }
 #undef S
 
+/* widescreen: a state saved at another width loads at this one (DESIGN.md "Widescreen") */
+static void game_state_loaded(void) { draw_relayout(&W, st); }
+
 const rs_game *rs_game_main(void)
 {
-    /* state_version: bump it when the meaning of a saved object changes (its layout is checked) */
+    /* state_version: bump it when the meaning of a saved object changes (its layout is checked); max_width: the
+     * game draws any width up to 560 (widescreen: DESIGN.md) */
     static const rs_game g = {"Beaver Rush", "beaverrush", "0.2.0", game_init, game_update, game_draw,
-                              game_shutdown, br_assets, game_state, NULL, 2};
+                              game_shutdown, br_assets, game_state, game_state_loaded, 2, RS_SCREEN_W_MAX};
     return &g;
 }

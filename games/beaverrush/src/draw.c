@@ -54,6 +54,7 @@ static int shown_state = -1, shown_best = -1, shown_players = -1, shown_over_t =
 static int banner_t = 1000, banner_stage, banner_on;   /* the scene name shown after a milestone */
 static int family_cheer;                        /* frames left of the family's cheer */
 static int views_on;
+static int laid_w;                              /* the width the maps and the bars were laid out for */
 static int view_oam[MAX_PLAYERS][2];            /* the last frame's OAM range of each player's view (the bot) */
 
 /* in 4 columns (78 px) the beaver stands this much closer to the trunk, its teeth in the bark, so that more of it
@@ -64,9 +65,16 @@ static int view_oam[MAX_PLAYERS][2];            /* the last frame's OAM range of
 static void spr(int id, int x, int y, int prio, int pal, int flags)
 {
     const br_sprite_def *d = &br_spr[id];
-    if (x <= -(int)d->w || x >= RS_SCREEN_W || y <= -(int)d->h || y >= RS_SCREEN_H) return;
+    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= -(int)d->h || y >= RS_SCREEN_H) return;
     rs_spr(x, y, d->tile, d->w, d->h, pal >= 0 ? pal : d->pal, prio, flags);
 }
+
+/* widescreen (DESIGN.md "Widescreen"): a screen wider than 320 centres the 320-px stage (rs_screen_origin in
+ * draw_init) and shows more of the scenery on both sides; the UI layer and the trunks' layer are 128 tiles wide
+ * (the versus views are wider: the trees 256 px apart, the timer bars where the views are) */
+static int wide(void) { return rs_screen_width() > RS_SCREEN_W; }
+static int map_w(void) { return wide() ? 128 : 64; }
+static int fdiv8(int v) { return v >= 0 ? v / 8 : -((7 - v) / 8); }      /* floor(v / 8) */
 
 /* the split screen: a full-height view per player (2: halves; 3-4: columns) */
 static int split(int players, rs_viewport *v) { return hu_split(players, HU_SPLIT_COLUMNS, v); }
@@ -155,18 +163,19 @@ static void bar_tiles(void)
 
 static void bar_draw(int col, int inner, int px, int low)
 {
-    rs_bg_put(RS_BG1, col, BAR_ROW, RS_MAP(BAR_TILE, PAL_UI, 1, 0, 0));
+    int mw = rs_bg_map_w(RS_BG1) - 1;               /* widescreen: a view's columns may be left of 0 */
+    rs_bg_put(RS_BG1, col & mw, BAR_ROW, RS_MAP(BAR_TILE, PAL_UI, 1, 0, 0));
     for (int i = 0; i < inner; i++) {
         int k = clampi(px - i * 8, 0, 8);
-        rs_bg_put(RS_BG1, col + 1 + i, BAR_ROW, RS_MAP(BAR_TILE + 2 + low * 9 + k, PAL_UI, 1, 0, 0));
+        rs_bg_put(RS_BG1, (col + 1 + i) & mw, BAR_ROW, RS_MAP(BAR_TILE + 2 + low * 9 + k, PAL_UI, 1, 0, 0));
     }
-    rs_bg_put(RS_BG1, col + 1 + inner, BAR_ROW, RS_MAP(BAR_TILE + 1, PAL_UI, 1, 0, 0));
+    rs_bg_put(RS_BG1, (col + 1 + inner) & mw, BAR_ROW, RS_MAP(BAR_TILE + 1, PAL_UI, 1, 0, 0));
 }
 
 /* player p's bar: its left cap's column and its inner tiles, centred in its view (on the 8-px grid of BG1) */
 static void bar_geom(const world *w, int p, int *col, int *inner)
 {
-    if (w->players <= 2) {
+    if (w->players == 1 || (w->players == 2 && !wide())) {
         *col = w->players == 1 ? 13 : p ? 25 : 5;
         *inner = w->players == 1 ? 12 : 8;
         return;
@@ -174,14 +183,15 @@ static void bar_geom(const world *w, int p, int *col, int *inner)
     rs_viewport v[RS_VIEW_MAX];
     split(w->players, v);
     int x0 = v[p].x, x1 = v[p].x + v[p].w, m = 6;      /* the caps draw from +2 (left) and up to +5 (right) */
-    int c0 = (x0 + m - 2 + 7) / 8, c1 = (x1 - m - 6) / 8;
-    *col = c0;
+    int c0 = fdiv8(x0 + m - 2 + 7), c1 = fdiv8(x1 - m - 6);
     *inner = clampi(c1 - c0 - 1, 1, 12);
+    *col = c0 + (c1 - c0 - 1 - *inner) / 2;            /* centred (a widescreen view is wider than the bar) */
 }
 
 /* ---- set-up ------------------------------------------------------------------------------------------------------ */
 void draw_init(void)
 {
+    rs_screen_origin(rs_screen_margin());       /* widescreen: the 320-px stage centred, the scenery wider */
     hu_config hc = hu_defaults();   /* BG1 at VRAM 0, the kit at 0 on palette 0, the logo at 320 on palette 5 */
     hc.obj_tile = 0;                /* the kit sprites first (HU_OBJ_TILES), ours from OBJ_FIRST */
     hc.obj_vram = VR_OBJ;
@@ -189,14 +199,15 @@ void draw_init(void)
     hc.box_glyphs = " SCOREBESTNWMDALPYIG1234!:-RKH";   /* the panels' letters only (VRAM) */
     hu_init(&hc);
     bar_tiles();
-    rs_bg_setup(RS_BG1, 64, 32, VR_BG1);
-    rs_bg_setup(RS_BG2, BG2_MAP_W, 32, VR_BG2);       /* four trees, 16 columns apart */
+    rs_bg_setup(RS_BG1, map_w(), 32, VR_BG1);
+    rs_bg_setup(RS_BG2, map_w(), 32, VR_BG2);   /* four trees, a quarter of the map apart (tree_cols) */
     rs_tiles_load(VR_BG2, br_bg2_tiles, br_bg2_tile_count);
     scene_init();
     for (int l = 0; l < 4; l++) rs_bg_enable(l, 1);
     rs_obj_base(VR_OBJ);
     rs_tiles_load(VR_OBJ + OBJ_FIRST, br_obj_tiles, br_obj_tile_count);
     rs_rng_seed(&fx_rng, 0xbea7e2u);
+    laid_w = rs_screen_width();
     memset(PV, 0, sizeof PV);
     for (int p = 0; p < MAX_PLAYERS; p++) PV[p].drawn_logs = -1;
 }
@@ -204,9 +215,9 @@ void draw_init(void)
 /* ---- the trunk ----------------------------------------------------------------------------------------------------- */
 static void tree_draw(int p, const tree *t)
 {
-    int r0 = 0, c0 = p * TREE_COLS, mw = BG2_MAP_W - 1;
+    int r0 = 0, c0 = p * tree_cols(), mw = rs_bg_map_w(RS_BG2) - 1;
     for (int r = 0; r < 32; r++)
-        for (int c = LBRANCH_COL; c < LBRANCH_COL + TREE_COLS; c++) rs_bg_put(RS_BG2, (c0 + c) & mw, r0 + r, 0);
+        for (int c = LBRANCH_COL; c < LBRANCH_COL + 16; c++) rs_bg_put(RS_BG2, (c0 + c) & mw, r0 + r, 0);
     for (int k = 0; k <= SEG_SHOWN; k++) {
         const seg *s = &t->s[k];
         int row = r0 + (TRUNK_MAP_Y0 - SEG_H * (k + 1)) / 8;
@@ -540,34 +551,45 @@ static void draw_sky(const world *w, int view_w, int t)
     int tod = scene_tod(), season = scene_season(), k = w->players;     /* a view is about 1/k of the screen */
     static const int16_t stars[12][2] = {{12, 8}, {40, 30}, {70, 14}, {96, 40}, {122, 10}, {150, 26}, {182, 12},
                                         {206, 36}, {236, 18}, {262, 6}, {288, 30}, {310, 12}};
+    /* widescreen: the sky spans the screen (1 player: stage x0 .. x0 + span) or the wider views (x scaled to them) */
+    int wd = wide(), x0 = wd && k == 1 ? rs_screen_left() : 0, span = wd && k == 1 ? rs_screen_width() : view_w;
+#define SKY_X(x) (wd && k > 1 ? (x) * view_w / RS_SCREEN_W : (x) / k)
     if (tod == 3) {
-        spr(SPR_MOON, k == 2 ? 24 : 54 / k, 18, 0, -1, 0);
+        spr(SPR_MOON, k == 2 ? SKY_X(48) : SKY_X(54), 18, 0, -1, 0);
         for (int i = 0; i < 12; i++)
-            if (i % k == 0) spr(SPR_STAR + ((t / 20 + i) % 5 == 0), stars[i][0] / k, stars[i][1] + 2 * (i % 3), 0, -1, 0);
+            if (i % k == 0) spr(SPR_STAR + ((t / 20 + i) % 5 == 0), SKY_X(stars[i][0]), stars[i][1] + 2 * (i % 3), 0, -1, 0);
+        if (wd && k == 1)                       /* the margins: the stars mirrored (spr clips them to the screen) */
+            for (int i = 0; i < 12; i++) {
+                int y = stars[(i + 5) % 12][1] + 2 * (i % 3), f = (t / 20 + i + 3) % 5 == 0;
+                spr(SPR_STAR + f, -stars[i][0] - 8, y, 0, -1, 0);
+                spr(SPR_STAR + f, 2 * RS_SCREEN_W - stars[i][0], y, 0, -1, 0);
+            }
     } else {
         static const int sun[3][2] = {{36, 64}, {244, 12}, {268, 60}};
         int sx = sun[tod][0], sy = sun[tod][1];
-        spr(SPR_SUN, sx / k, sy, 0, -1, 0);
+        spr(SPR_SUN, SKY_X(sx), sy, 0, -1, 0);
     }
+#undef SKY_X
     /* weather: stateless paths from the frame number */
     int n = 0, kind = -1;
     if (season == 1) { n = 7; kind = 0; }                 /* autumn leaves */
     if (season == 2) { n = 14; kind = 1; }                /* snow */
     if (season == 3) { n = 7; kind = 0; }                 /* blossoms (the leaf sprite in spring's pink) */
     if (season == 0 && tod == 3) { n = 6; kind = 2; }      /* fireflies */
+    if (wd) n = n * (k == 1 ? span : view_w * k) / RS_SCREEN_W;           /* as many per column on a wider screen */
     n = (n + k - 1) / k;
     /* Leave scanline room for four gnawing beavers, birds and log effects. */
     if (k >= 3 && n > 2) n = 2;
     for (int i = 0; i < n; i++) {
         int speed = 1 + i % 3;
         if (kind == 2) {
-            int x = (i * 53 + (t / 3) % 40) % view_w, y = 150 + (i * 29) % 40 + ((t / 7 + i * 5) % 12 < 6 ? 0 : 2);
+            int x = x0 + (i * 53 + (t / 3) % 40) % span, y = 150 + (i * 29) % 40 + ((t / 7 + i * 5) % 12 < 6 ? 0 : 2);
             if ((t / 9 + i) % 7) spr(SPR_FIREFLY + (t / 12 + i) % 2, x, y, 2, -1, 0);
             continue;
         }
         int y = (i * 71 + t * speed / (kind ? 2 : 3)) % 260 - 10;
         int sway = ((t / 4 + i * 11) % 32), dx = sway < 16 ? sway : 32 - sway;
-        int x = (i * 97 + t / 5 + dx) % (view_w + 8) - 4;
+        int x = x0 + (i * 97 + t / 5 + dx) % (span + 8) - 4;
         if (kind == 1) spr(SPR_SNOW + i % 2, x, y, i % 3 ? 2 : 0, -1, 0);
         else spr(SPR_LEAF + (t / 16 + i) % 2, x, y, 2, -1, (t / 32 + i) % 2 ? RS_SPR_HFLIP : 0);
     }
@@ -727,7 +749,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         }
     int sx = hu_shake_x(), sy = hu_shake_y(), cx = tree_cx(w), vw = view_w(w);
     if (!multi) {
-        rs_bg_scroll(RS_BG2, (TRUNK_MAP_X - (160 - TRUNK_W / 2) - sx) & (BG2_MAP_W * 8 - 1),
+        rs_bg_scroll(RS_BG2, (TRUNK_MAP_X - (160 - TRUNK_W / 2) - sx) & (rs_bg_map_w(RS_BG2) * 8 - 1),
                      (TRUNK_SCROLL_Y + drop_px(PV[0].drop_t) - sy) & 255);
         scene_bg_scroll(PANO_X);
     }
@@ -781,7 +803,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         rs_viewport *q = &v[p];
         q->sx[RS_BG1] = q->x;
         q->sy[RS_BG1] = 0;
-        q->sx[RS_BG2] = (int16_t)((TRUNK_MAP_X + p * TREE_COLS * 8 - (cx - TRUNK_W / 2) - sx) & (BG2_MAP_W * 8 - 1));
+        q->sx[RS_BG2] = (int16_t)((TRUNK_MAP_X + p * tree_cols() * 8 - (cx - TRUNK_W / 2) - sx) &
+                                  (rs_bg_map_w(RS_BG2) * 8 - 1));
         q->sy[RS_BG2] = (int16_t)(TRUNK_SCROLL_Y + drop_px(PV[p].drop_t) - sy);
         q->sx[RS_BG3] = q->sx[RS_BG4] = (int16_t)view_bg_x(w);
         q->sy[RS_BG3] = q->sy[RS_BG4] = 0;
@@ -813,11 +836,41 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
 }
 
 /* ---- save states (main.c) ---- */
+/* After a state was loaded (rs_game.state_loaded): the width is not in a state, and one saved at another width brings
+ * the maps of that width. Set up those of this one: the scenery (scene.c), the UI layer (its 320 columns move
+ * over), the trunks (redrawn a quarter of the map apart, before the bot reads them). In versus the timer bars are
+ * drawn again on the next frame (where the views of this width want them; the same place at the same width). */
+void draw_relayout(const world *w, int state)
+{
+    if (laid_w == rs_screen_width()) return;    /* a state of this width: nothing to do (it saves the same bytes) */
+    laid_w = rs_screen_width();
+    scene_relayout();
+    if (rs_bg_map_w(RS_BG1) != map_w()) {
+        uint16_t ui[32][40];
+        for (int y = 0; y < 32; y++)
+            for (int x = 0; x < 40; x++) ui[y][x] = rs_bg_get(RS_BG1, x, y);
+        rs_bg_setup(RS_BG1, map_w(), 32, VR_BG1);  /* entry 0: the kit's blank (hu_clear) */
+        for (int y = 0; y < 32; y++)
+            for (int x = 0; x < 40; x++) rs_bg_put(RS_BG1, x, y, ui[y][x]);
+    }
+    if (rs_bg_map_w(RS_BG2) != map_w()) {
+        rs_bg_setup(RS_BG2, map_w(), 32, VR_BG2);
+        for (int p = 0; p < w->players; p++) {
+            tree_draw(p, &w->bv[p].tr);
+            PV[p].drawn_logs = w->bv[p].logs;
+        }
+    }
+    if (w->players >= 2 && (state == DS_PLAY || state == DS_END)) {
+        for (int x = 0; x < rs_bg_map_w(RS_BG1); x++) rs_bg_put(RS_BG1, x, BAR_ROW, 0);
+        for (int p = 0; p < MAX_PLAYERS; p++) PV[p].bar_px = -1;
+    }
+}
+
 #define S(v) rs_state_var("draw." #v, &(v), sizeof(v))
 void draw_state(void)
 {
     S(PV); S(fx); S(fx_rng); S(shown_state); S(shown_best); S(shown_players); S(shown_over_t); S(banner_t);
-    S(banner_stage); S(banner_on); S(family_cheer); S(views_on); S(view_oam);
+    S(banner_stage); S(banner_on); S(family_cheer); S(views_on); S(view_oam); S(laid_w);
     scene_state();
 }
 #undef S

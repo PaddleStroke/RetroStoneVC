@@ -637,10 +637,26 @@ def ripple(frame):
 PANO_W = 512
 PANO_X = 96
 
+# Widescreen (DESIGN.md "Widescreen"): a screen W columns wide (320..560) centres the 320-px stage and shows panorama
+# x 96 - m .. 416 + m (m = (W - 320) / 2), plus the lean: -30 .. 542 at 560. The wide panoramas are 1024 px (128-tile
+# maps) and cover panorama x WIDE_X0 .. WIDE_X0 + 1024 (the map wraps there, far off screen); in WIN, the columns
+# the 320-px screen can show, they are the classic picture pixel for pixel. Outside: the banks go on as the meadow
+# at the forest's edge, with its trees. VRAM is the limit (the 64 KiB guideline, tiles first): the new trees are
+# drawn on the 8-px grid of a few shapes, so that their tiles repeat.
+WIDE_X0 = -256
+WIDE_W = 1024
+WIN = (88, 424)
 
-def near_bank():
+
+def near_bank(wide=False):
     """BG3 rows 24..29 (y 192..240): the near bank with the stump (its cut top shows its rings while the trunk
-    drops). Palette 3."""
+    drops). Palette 3. wide: the wide panorama's (WIDE_X0 ..): the bank goes on (its strip repeats every 128 px), one
+    stump."""
+    if wide:
+        cv, one = Canvas(WIDE_W, 48), near_bank()
+        for k in range(WIDE_X0 // PANO_W, (WIDE_X0 + WIDE_W) // PANO_W + 1):
+            cv.paste(one, k * PANO_W - WIDE_X0, 0)  # the stump's copies are 512 px away: off screen
+        return cv
     # a 128-px strip (VRAM: it repeats), then the stump
     SW = 128
     strip = Canvas(SW, 48)
@@ -722,14 +738,23 @@ def dam_logs():
     return out, crown
 
 
-def banks():
-    """BG3 above the near bank: the far banks at both ends of the dam, framing trees (palette 5)."""
-    cv = Canvas(PANO_W, 192)
+def wide_speck(x, y):
+    """the earth's grit outside WIN (wide panorama): a 16-px pattern (its tiles repeat: VRAM)"""
+    return (x % 16, (y - 4) % 16) in ((3, 2), (11, 9), (6, 13))
+
+
+def banks(wide=False):
+    """BG3 above the near bank: the far banks at both ends of the dam, framing trees (palette 5).
+    wide: the 1024-px panorama of a wide screen (WIDE_X0 ..): the same in WIN; outside, the meadow at the forest's
+    edge: the banks' top stays flat, with its firs (WIDE_TREES)."""
+    ox = -WIDE_X0 if wide else 0                    # the canvas x of panorama x 0
+    cv = Canvas(WIDE_W if wide else PANO_W, 192)
     foliage = K[4:8]
     rng = random.Random(11)
     # the banks: earth slopes from the forest foot down to the river, left and right of the dam
     dam_l, dam_r = PANO_X + 40, PANO_X + 280
-    for x in range(PANO_W):
+    for x in range(-ox, cv.w - ox):
+        classic = not wide or WIN[0] <= x < WIN[1]
         for y in range(100, 192):
             if x < dam_l:
                 top = 116 + max(0, (x - (dam_l - 60))) * 0.5
@@ -743,16 +768,17 @@ def banks():
                 c = K[11] if y < top + 2 else K[12]
             else:
                 c = K[8] if (y - top) < 18 else K[9] if (y - top) < 40 else K[10]
-                if (x * 11 + y * 5) % 29 == 0:
+                if ((x * 11 + y * 5) % 29 == 0) if classic else wide_speck(x, y):
                     c = K[13]
-            cv.set(x, y, c)
+            cv.set(x + ox, y, c)
     for _ in range(10):
         side = rng.random() < 0.5
         x = rng.randrange(dam_l - 50, dam_l - 4) if side else rng.randrange(dam_r + 4, dam_r + 50)
         y = rng.randrange(150, 186)
-        hs.ellipse(cv, x, y, 3.5, 2.5, [K[13], K[13], K[14], K[14]])
+        hs.ellipse(cv, x + ox, y, 3.5, 2.5, [K[13], K[13], K[14], K[14]])
 
-    def tree(cx, base, height, pine):
+    def tree(cx, base, height, pine, rng=rng, cv=cv):
+        cx += ox
         # the trunk (a broadleaf's is thicker and forks under its crown)
         tw = 2 if pine else 3
         for y in range(base - (height // 2 if pine else height * 3 // 5), base):
@@ -782,18 +808,31 @@ def banks():
                 i = foliage.index(c)
                 cv.set(x, y, foliage[max(0, i - 1)])
 
+    if wide:                                        # the forest's edge, behind the classic trees
+        for (cx, base) in WIDE_TREES:
+            tree(cx, base, WIDE_FIR, True, rng=random.Random(40))
+    scratch = Canvas(cv.w, cv.h)
+    # wide: the two outer pines, nearly all off the 320-px screen, give way to the forest's edge (their leaf dots
+    # are still drawn, elsewhere, so that the other trees keep theirs)
     tree(PANO_X + 14, 150, 118, True)
-    tree(PANO_X - 20, 140, 96, True)
+    tree(PANO_X - 20, 140, 96, True, cv=scratch if wide else cv)
     tree(PANO_X + 302, 150, 104, False)
-    tree(PANO_X + 336, 146, 90, True)
+    tree(PANO_X + 336, 146, 90, True, cv=scratch if wide else cv)
     cv.outline(K[1])
     for y in range(128, 160):                       # the dam canvas (C draws it) is its own
         for x in range(dam_l, dam_r):
-            cv.set(x, y, None)
-    for y in range(cv.h):                           # never shown (the lean is 6 px at most): no tiles
-        for x in list(range(0, PANO_X - 8)) + list(range(PANO_X + 328, PANO_W)):
-            cv.set(x, y, None)
+            cv.set(x + ox, y, None)
+    if not wide:
+        for y in range(cv.h):                       # never shown (the lean is 6 px at most): no tiles
+            for x in list(range(0, PANO_X - 8)) + list(range(PANO_X + 328, PANO_W)):
+                cv.set(x, y, None)
     return cv
+
+
+# the wide panorama's firs (panorama x, base y): one shape (the crown above the meadow, on the 8-px grid, the
+# trunks 16 px apart in x: its tiles are drawn once; VRAM), two bases: two heights
+WIDE_FIR = 96
+WIDE_TREES = [(66, 126), (34, 134), (2, 126), (-30, 134), (450, 134), (482, 126), (514, 134), (546, 126)]
 
 
 def far(period=256):

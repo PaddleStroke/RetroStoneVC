@@ -149,12 +149,12 @@ static void raster(int line, void *user)
 {
     (void)user;
     rs_pal_set(0, line_col[line]);
-    /* the pond covers the foot of the far layer */
-    if (line == pond_line) rs_window(0, 0, RS_SCREEN_W);
+    /* the pond covers the foot of the far layer (widescreen: the whole width, rs_screen_left() .. right()) */
+    if (line == pond_line) rs_window(0, rs_screen_left(), rs_screen_right());
     else if (line == DAM_Y || line == 0) rs_window(0, 0, 0);
     /* below the stump's top the trunk layer is hidden (its map wraps there while the trunk drops) */
     if (line == 0) rs_window(1, 0, 0);
-    else if (line == GROUND_Y) rs_window(1, 0, RS_SCREEN_W);
+    else if (line == GROUND_Y) rs_window(1, rs_screen_left(), rs_screen_right());
     /* the beaver's colours: each viewport its player's (one screen: P1's) */
     int v = rs_viewport_current();
     if (v < 0) {
@@ -213,19 +213,35 @@ void dam_reset(int logs)
 }
 
 /* ---- set-up and per frame ------------------------------------------------------------------------------------------ */
-void scene_init(void)
+/* The panorama maps for the screen's width (DESIGN.md "Widescreen"). 320: the classic 64-tile maps. Wider: BG3 is
+ * the wide panorama (128 tiles: the meadow and the forest's edge on both sides, make_art.py WIDE_X0; its new tiles
+ * after the classic ones) and BG4, whose far picture repeats every 256 px, a 32-tile map of the same picture (VRAM:
+ * the forest's edge takes what that saves). The dam canvas keeps its tiles (VRAM, saved in states). Also after a
+ * save state of another width was loaded (scene_relayout). */
+static void scene_maps(void)
 {
-    rs_bg_setup(RS_BG3, 64, 32, VR_BG3);
-    rs_bg_setup(RS_BG4, 64, 32, VR_BG4);
-    rs_tiles_load(VR_BG3, br_bg3_tiles, br_bg3_tile_count);
+    int wide = rs_screen_width() > RS_SCREEN_W, w3 = wide ? 128 : 64, w4 = wide ? 32 : 64;
+    rs_bg_setup(RS_BG3, w3, 32, VR_BG3);
+    rs_bg_setup(RS_BG4, w4, 32, VR_BG4);
+    rs_tiles_load(VR_BG3, br_bg3_tiles, wide ? br_bg3_wide_tile_count : br_bg3_tile_count);
     rs_tiles_load(VR_BG4, br_bg4_tiles, br_bg4_tile_count);
     for (int y = 0; y < 30; y++)
-        for (int x = 0; x < 64; x++) rs_bg_put(RS_BG3, x, y, br_bg3_map[y * 64 + x]);
+        for (int x = 0; x < w3; x++) rs_bg_put(RS_BG3, x, y, wide ? br_bg3_wide_map[y * 128 + x] : br_bg3_map[y * 64 + x]);
     for (int y = 0; y < DAM_H; y++)
         for (int x = 0; x < DAM_W; x++)
             rs_bg_put(RS_BG3, DAM_COL + x, DAM_ROW + y, RS_MAP(DAM_TILE + y * DAM_W + x, PAL_DAM, 1, 0, 0));
     for (int y = 0; y < 24; y++)
-        for (int x = 0; x < 64; x++) rs_bg_put(RS_BG4, x, y, br_bg4_map[y * 64 + x]);
+        for (int x = 0; x < w4; x++) rs_bg_put(RS_BG4, x, y, br_bg4_map[y * 64 + x]);
+}
+
+void scene_relayout(void)
+{
+    if (rs_bg_map_w(RS_BG3) != (rs_screen_width() > RS_SCREEN_W ? 128 : 64)) scene_maps();
+}
+
+void scene_init(void)
+{
+    scene_maps();
     rs_bg_line_scroll(RS_BG3, bg3_dx, NULL);
     rs_bg_line_scroll(RS_BG4, bg4_dx, NULL);
     rs_bg_window(RS_BG4, RS_WIN1);
@@ -273,22 +289,22 @@ void scene_frame(int stage, int dam_logs, int lean_side, int players, int t)
     /* the lean: toward the beaver's side (1 player) */
     int want = players == 1 ? (lean_side == SIDE_R ? LEAN_PX : lean_side == SIDE_L ? -LEAN_PX : 0) << 8 : 0;
     lean_q8 += (want - lean_q8) / 8;
-    int ln = lean_q8 / 256;
+    int ln = lean_q8 / 256, m3 = rs_bg_map_w(RS_BG3) * 8 - 1, m4 = rs_bg_map_w(RS_BG4) * 8 - 1;
     for (int y = 0; y < RS_SCREEN_H; y++) {
         int d4;
         if (y < CLOUDS_END) d4 = t / 16 + ln;                   /* clouds drift */
         else if (y < FOREST_Y) d4 = ln;                         /* mountains: the farthest */
         else if (y < RIVER_Y) d4 = ln * 3 / 4;                  /* the far forest */
         else d4 = -(t / 5) + ln / 2;                            /* the river's ripples flow */
-        bg4_dx[y] = (int16_t)(d4 & 511);
-        bg3_dx[y] = (int16_t)((y < NEAR_Y ? ln / 2 : 0) & 511);
+        bg4_dx[y] = (int16_t)(d4 & m4);
+        bg3_dx[y] = (int16_t)((y < NEAR_Y ? ln / 2 : 0) & m3);
     }
 }
 
 void scene_bg_scroll(int view_sx)
 {
-    rs_bg_scroll(RS_BG3, view_sx & 511, 0);
-    rs_bg_scroll(RS_BG4, view_sx & 511, 0);
+    rs_bg_scroll(RS_BG3, view_sx & (rs_bg_map_w(RS_BG3) * 8 - 1), 0);
+    rs_bg_scroll(RS_BG4, view_sx & (rs_bg_map_w(RS_BG4) * 8 - 1), 0);
 }
 
 /* ---- save states (main.c) ---- */

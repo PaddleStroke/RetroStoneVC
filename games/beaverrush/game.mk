@@ -2,13 +2,14 @@
 #
 #   make beaverrush                host builds: beaverrush (SDL2), beaverrush_headless, beaverrush_libretro.so
 #   make beaverrush-check          all its tests (libretro loader, rules and fairness, smoke + bot + determinism,
-#                                  the UI screens, save states and their audit)
+#                                  the UI screens, save states and their audit), at 320 and then again at each
+#                                  widescreen width of WIDTHS (427 520), and the game across widths
 #   make beaverrush-dist           dist/windows/BeaverRush.exe (+ README-BeaverRush.txt),
 #                                  dist/libretro/beaverrush_libretro.so (+ .armhf.so)
 #   make beaverrush-windows        only the Windows exe
 #   make beaverrush-armhf          the libretro core for the RetroStone2 (Cortex-A7)
 #   make beaverrush-screenshots    games/beaverrush/docs/screenshots/
-#   make beaverrush-bench          per-frame cost of the heaviest scene
+#   make beaverrush-bench          per-frame cost of the heaviest scene (at 320, then 520 columns)
 #   make beaverrush-art            the code-drawn sheets as PNG for review (build/beaverrush-art/)
 #
 # MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/beaverrush/LICENSE; the rules below follow the root Makefile.
@@ -17,6 +18,9 @@ BR_MAKE = $(MAKE) --no-print-directory GAME=beaverrush GAME_NAME=BeaverRush
 BR_DIR  = games/beaverrush
 # the house style kit (games/common/src, docs/art-direction.md) is compiled in
 HOUSE_UI_beaverrush = 1
+# widescreen (docs/spec.md "Widescreen"; rs_game.max_width; DESIGN.md): the checks run at 320 and at each width of
+# WIDTHS, then across widths (tests/wide_test.sh)
+WIDESCREEN_beaverrush = 1
 
 .PHONY: beaverrush beaverrush-check beaverrush-windows beaverrush-armhf beaverrush-dist beaverrush-screenshots \
         beaverrush-bench beaverrush-art
@@ -46,6 +50,14 @@ beaverrush-check:
 	sh $(BR_DIR)/tests/ui_test.sh build/host/beaverrush_headless build/beaverrush-ui
 	sh $(BR_DIR)/tests/state_test.sh build/host/beaverrush_test_states build/states
 	$(PYTHON) tools/state_audit.py --game beaverrush build/host/beaverrush_test_states $(BR_OBJ_HOST)
+	set -e; for w in $(WIDTHS); do echo "== widescreen: $$w x 240"; \
+	    a=$$(case $$w in 427) echo 16:9;; 520) echo Wide;; esac); \
+	    [ -z "$$a" ] || ./build/host/test_libretro build/host/beaverrush_libretro.so 600 $$a $$w; \
+	    RS_WIDTH=$$w sh $(BR_DIR)/tests/smoke_test.sh build/host/beaverrush_headless build/w$$w; \
+	    RS_WIDTH=$$w sh $(BR_DIR)/tests/ui_test.sh build/host/beaverrush_headless build/beaverrush-ui-$$w; \
+	    RS_WIDTH=$$w sh $(BR_DIR)/tests/state_test.sh build/host/beaverrush_test_states build/states-$$w; \
+	done
+	sh $(BR_DIR)/tests/wide_test.sh build/host/beaverrush_headless build/host/beaverrush_test_states build "$(WIDTHS)"
 
 beaverrush-screenshots:
 	+$(BR_MAKE) build/host/beaverrush_headless
@@ -54,6 +66,7 @@ beaverrush-screenshots:
 beaverrush-bench:
 	+$(BR_MAKE) build/host/beaverrush_headless
 	sh $(BR_DIR)/tools/bench.sh build/host/beaverrush_headless
+	sh $(BR_DIR)/tools/bench.sh build/host/beaverrush_headless 520
 
 beaverrush-art:
 	$(PYTHON) $(BR_DIR)/tools/make_art.py --out build/beaverrush-art

@@ -2,14 +2,15 @@
 # Beaver Rush: headless screenshots for games/beaverrush/docs/screenshots (2x, like the 640x480 LCD).
 #   screenshots.sh <headless binary> <out dir>
 # The bot plays (--opt bot=1); --opt skip=N starts with N logs gnawed (the scene of N logs: 150 = night,
-# 410 = winter).
+# 410 = winter). At 320 x 240, then widescreen (DESIGN.md "Widescreen"): NAME-427.png (16:9), NAME-520.png (phones).
 # MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/beaverrush/LICENSE.
 H=$1
 O=${2:-games/beaverrush/docs/screenshots}
 T=${TMPDIR:-/tmp}/br_shots.$$
 mkdir -p "$O" "$T"
-run() { $H --scale 2 --opt music=0 "$@" > "$T/log.txt" 2>&1; }
-first() { pat=$1; shift; $H --opt music=0 --frames 20000 "$@" 2>&1 | sed -n "s/.*$pat at frame \([0-9]*\).*/\1/p" | head -1; }
+W=320
+run() { $H --width $W --scale 2 --opt music=0 "$@" > "$T/log.txt" 2>&1; }
+first() { pat=$1; shift; $H --width $W --opt music=0 --frames 20000 "$@" 2>&1 | sed -n "s/.*$pat at frame \([0-9]*\).*/\1/p" | head -1; }
 run --frames 130 --shot 120:"$O/title.png"
 run --frames 300 --opt bot=1 --opt seed=7 --opt ready=1 --shot 290:"$O/early-play.png"
 m=$(first "milestone 1" --opt bot=1 --opt seed=7 --opt ready=1)
@@ -31,5 +32,16 @@ run --frames $((v + 60)) --opt bot=2 --opt players=2 --opt seed=9 --shot $((v + 
 run --frames 130 --opt players=4 --shot 120:"$O/title-4-players.png"
 run --frames 1500 --opt bot=4 --opt players=4 --opt ready=1 --opt seed=9 --shot 800:"$O/play-4-players.png"
 run --frames 4000 --opt bot=4 --opt players=4 --opt ready=1 --opt seed=5 --opt botstop=3 --shot 3900:"$O/results-4-players.png"
+# widescreen: the title, a run, a game over; a versus and four players
+for W in 427 520; do
+    run --frames 130 --shot 120:"$O/title-$W.png"
+    run --frames 300 --opt bot=1 --opt seed=7 --opt ready=1 --shot 290:"$O/play-$W.png"
+    e=$(first "run 1 over" --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=104)
+    run --frames $((e + 60)) --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=104 --shot $((e + 50)):"$O/gameover-$W.png"
+done
+W=427
+run --frames 900 --opt bot=2 --opt players=2 --opt seed=9 --shot 890:"$O/versus-427.png"
+W=520
+run --frames 1500 --opt bot=4 --opt players=4 --opt ready=1 --opt seed=9 --shot 800:"$O/play-4-players-520.png"
 rm -rf "$T"
 ls "$O"

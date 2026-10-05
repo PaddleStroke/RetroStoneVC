@@ -6,6 +6,8 @@
 
 Colours are computed as the console shows them: RGB888 -> RGB555 -> the PPU's RGB565 -> the PNG's RGB888, and the
 sprites of the scene with the time-of-day tint of src/scene.c (the UI kit's colours are never tinted).
+Widescreen (DESIGN.md "Widescreen"): the pictures may be wider than 320 (their width says it); the 320-px stage is
+centred (x + m, m = (width - 320) / 2) and a versus splits the whole width (the views' centres are checked).
 MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/beaverrush/LICENSE.
 """
 import argparse
@@ -69,6 +71,10 @@ class Shot:
             return
         im = Image.open(path).convert("RGB")
         self.w, self.h = im.width // scale, im.height // scale
+        self.m = (self.w - 320) // 2                    # widescreen: the stage's left edge on the screen
+        hw = (self.w - 2) // 2                          # versus: two views of hw columns (rs_viewport_layout)
+        self.halves = ((hw + 1) // 2, self.w - hw + (hw + 1) // 2 - 1)   # about their centres (80, 240 at 320)
+        self.divider = (hw, hw + 1)
         src = im.load()
         self.px = [[src[x * scale, y * scale] for x in range(self.w)] for y in range(self.h)]
         self.state = {}
@@ -109,7 +115,8 @@ BRONZE = ui((210, 142, 82))
 
 
 def check_bar(s, x0, inner, what):
-    """the timer bar's filled width against the state (bar in permille)"""
+    """the timer bar's filled width against the state (bar in permille); x0: stage"""
+    x0 += s.m
     want = s.st("bar") * inner * 8 // 1000
     got = s.count(BAR_LIGHT, x0, 33, x0 + inner * 8, 34)
     if abs(got - want) <= 1:
@@ -119,6 +126,7 @@ def check_bar(s, x0, inner, what):
 
 
 def check_beaver_side(s, cx, what):
+    cx += s.m
     stage = s.st("stage")
     teeth = tinted(TEETH, stage)
     left = s.count(teeth, cx - 60, 164, cx - 20, 202, tol=6)
@@ -139,32 +147,33 @@ def main():
                                                "gameover", "versus", "versus-over")}
     t = S["title"]
     if t.ok:
-        logo = t.count(ui((252, 204, 64)), 0, 16, 320, 80) + t.count(ui((190, 124, 68)), 0, 16, 320, 80)
+        m = t.m
+        logo = t.count(ui((252, 204, 64)), m, 16, m + 320, 80) + t.count(ui((190, 124, 68)), m, 16, m + 320, 80)
         (ok if logo > 400 else ko)("title: the BEAVER RUSH logo (%d px of its ramps)" % logo)
-        n = t.count(CREAM, 0, 224, 320, 232)
+        n = t.count(CREAM, m, 224, m + 320, 232)
         (ok if n > 60 else ko)("title: the copyright line (%d px)" % n)
-        n = t.count(ui((222, 230, 238)), 60, 160, 120, 184)
+        n = t.count(ui((222, 230, 238)), m + 60, 160, m + 120, 184)
         (ok if n > 20 else ko)("title: the A glyph of the prompt (%d px)" % n)
     p = S["play"]
     if p.ok:
         check_bar(p, 112, 12, "play")
-        n = p.count(DIGIT, 120, 10, 200, 26)
+        n = p.count(DIGIT, p.m + 120, 10, p.m + 200, 26)
         (ok if n > 30 else ko)("play: the score digits (%d px, score %d)" % (n, p.st("score")))
         check_beaver_side(p, 160, "play")
     m = S["milestone"]
     if m.ok:
-        n = m.count(CREAM, 0, 56, 320, 72)
+        n = m.count(CREAM, m.m, 56, m.m + 320, 72)
         (ok if n > 80 and m.st("stage") == 1 else ko)("milestone: the new scene's name on row 7 (%d px, stage %d)" %
                                                        (n, m.st("stage")))
         check_bar(m, 112, 12, "milestone")
     g = S["golden"]
     if g.ok:
         gold = tinted((252, 216, 72), g.st("stage"))
-        n = g.count(gold, 0, 60, 320, 210, tol=8)
+        n = g.count(gold, g.m, 60, g.m + 320, 210, tol=8)
         (ok if n > 20 else ko)("golden log: the golden log flies off (%d gold px)" % n)
     n_ = S["night"]
     if n_.ok:
-        top = n_.luma(0, 0, 320, 24)
+        top = n_.luma(n_.m, 0, n_.m + 320, 24)
         (ok if n_.st("stage") == 3 and top < 40 else ko)("night: a dark sky (luma %d, stage %d)" % (top, n_.st("stage")))
         check_beaver_side(n_, 160, "night")
     w = S["winter"]
@@ -172,29 +181,31 @@ def main():
         (ok if 8 <= w.st("stage") <= 11 else ko)("winter: stage %d" % w.st("stage"))
     ps = S["pause"]
     if ps.ok and p.ok:
-        n = ps.count(shown(tuple(v * 9 // 15 for v in c555((255, 246, 220)))), 0, 104, 320, 120, tol=10)
-        (ok if ps.st("paused") == 1 and ps.luma(0, 0, 320, 240) < p.luma(0, 0, 320, 240) and n > 40 else ko)(
+        n = ps.count(shown(tuple(v * 9 // 15 for v in c555((255, 246, 220)))), ps.m, 104, ps.m + 320, 120, tol=10)
+        (ok if ps.st("paused") == 1 and ps.luma(0, 0, ps.w, 240) < p.luma(0, 0, p.w, 240) and n > 40 else ko)(
             "pause: the picture dims and PAUSED shows (%d px)" % n)
     o = S["gameover"]
     if o.ok:
-        f = o.count(FILL, 80, 72, 240, 168)
-        b = o.count(GOLD_UI, 80, 32, 240, 64)
-        md = o.count(BRONZE, 160, 120, 200, 152)
+        m = o.m
+        f = o.count(FILL, m + 80, 72, m + 240, 168)
+        b = o.count(GOLD_UI, m + 80, 32, m + 240, 64)
+        md = o.count(BRONZE, m + 160, 120, m + 200, 152)
         (ok if f > 6000 and b > 100 else ko)("game over: the panel (%d px) and GAME OVER in gold (%d px)" % (f, b))
         (ok if md > 10 and o.st("score") >= 50 else ko)("game over: the bronze medal for %d logs (%d px)" %
                                                         (o.st("score"), md))
     v = S["versus"]
     if v.ok:
-        div = sum(1 for y in range(240) for x in (159, 160) if v.px[y][x] == ui((12, 20, 44)))
+        div = sum(1 for y in range(240) for x in v.divider if v.px[y][x] == ui((12, 20, 44)))
         (ok if div >= 470 else ko)("versus: the split screen's divider (%d of 480 px)" % div)
-        l, r = v.count(DIGIT, 40, 10, 120, 26), v.count(DIGIT, 200, 10, 280, 26)
+        (a, b) = v.halves
+        l, r = v.count(DIGIT, a - 40, 10, a + 40, 26), v.count(DIGIT, b - 40, 10, b + 40, 26)
         (ok if l > 20 and r > 20 else ko)("versus: a score in each half (%d, %d px)" % (l, r))
-        bl, br = v.count(BAR_LIGHT, 48, 33, 112, 34), v.count(BAR_LIGHT, 208, 33, 272, 34)
+        bl, br = v.count(BAR_LIGHT, a - 32, 33, a + 32, 34), v.count(BAR_LIGHT, b - 32, 33, b + 32, 34)
         (ok if bl > 0 and br > 0 else ko)("versus: a timer bar in each half (%d, %d px)" % (bl, br))
     vo = S["versus-over"]
     if vo.ok:
-        f = vo.count(FILL, 80, 72, 240, 168)
-        div = sum(1 for y in range(0, 30) for x in (159, 160) if vo.px[y][x] == ui((12, 20, 44)))
+        f = vo.count(FILL, vo.m + 80, 72, vo.m + 240, 168)
+        div = sum(1 for y in range(0, 30) for x in vo.divider if vo.px[y][x] == ui((12, 20, 44)))
         win = vo.st("winner")
         (ok if f > 6000 and win in (-1, 0, 1) else ko)(
             "versus over: the panel over both halves (%d px), winner %d" % (f, win))
