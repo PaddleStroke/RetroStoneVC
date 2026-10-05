@@ -3,6 +3,7 @@
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "game_text.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -145,6 +146,9 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  for(int p=0;p<nviews;p++) {
   view *v=&V[p];rs_viewport *vp=&VP[p];const hero *h=&w->h[p];
   v->mx=vp->x?32:0;v->my=vp->y?16:0;
+  /* the UI layer's columns of the view: a right-hand view (159 px: 20 columns) at 20, so that its text is in the
+   * kit's 40 columns (the scenery layers need 21 columns per view: they stay at 32) */
+  int ux=vp->x?20:0;
   int cx=(int)(h->wx>>16)-(vp->w>=240?56:32)*256/zoom_x(vp);
   int cy=192-(vp->h>=200?196:vp->h-26)*256/zoom_y(vp);
   /* Title and gameplay use the same camera and the same world positions. */
@@ -154,25 +158,31 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
    v->sky[y]=hu_lerp_color(top,bottom,y*256/vp->h);
   }
   background(v,vp);web(w,p,v,vp,&next);
-  vp->sx[0]=vp->sx[1]=(int16_t)(v->mx*8);vp->sy[0]=vp->sy[1]=(int16_t)(v->my*8);
+  vp->sx[0]=(int16_t)(ux*8);vp->sx[1]=(int16_t)(v->mx*8);vp->sy[0]=vp->sy[1]=(int16_t)(v->my*8);
   vp->layers=7;vp->objs=1;
   hu_view_oam_begin(vp);
   if(state==ST_TITLE)scene(w,0,0,v,vp);
   if(state==ST_PLAY || state==ST_DEAD) {
    scene(w,p,st_t,v,vp);
    if(!multi) hu_number(h->score,vp->w/2,8,3);
-   char text[40];
+   char text[128];
    if(multi) {
-    snprintf(text,sizeof text,"P%d %d",p+1,h->score);
-    hu_text(v->mx+1,v->my+1,text);
+    char tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),p+1);
+    snprintf(text,sizeof text,"%s %d",tag,h->score);
+    hu_text(ux+1,v->my+1,text);
    } else {
     int left=pad_life(h->anchor)-h->wait;if(left<0)left=0;
-    const char *message=h->mode==MODE_LEAP?(h->good?"NICE CATCH!":"OH NO! MISSED THE PAD"):
-       h->mode==MODE_CHARGE?"RELEASE ABOVE THE LILY PAD":"HOLD TO REACH THE NEXT PAD";
+    const char *message=h->mode==MODE_LEAP?(h->good?TR(MSG_NICE_CATCH):TR(MSG_MISSED)):
+       h->mode==MODE_CHARGE?TR(MSG_RELEASE):TR(MSG_HOLD);
     hu_text(hu_center(message,0),4,message);
-    snprintf(text,sizeof text,"FLIES %d - PAD %dS",h->apples,(left+59)/60);hu_text(hu_center(text,0),6,text);
+    rs_strf(text,sizeof text,TR(HUD_FLIES_PAD),h->apples,(left+59)/60);hu_text(hu_center(text,0),6,text);
    }
-   if(paused) hu_big(v->mx+(vp->w/8-12)/2,v->my+vp->h/16,"PAUSED",HU_BIG_FREE);
+   if(paused) {
+    /* centred on the view's columns; 1x when the 2x word is wider than the view */
+    const char *s=HTR(PAUSED);int cols=vp->w/8,big=hu_width(s,1)<=cols;
+    if(big) hu_big(ux+(cols-hu_width(s,1))/2,v->my+vp->h/16,s,HU_BIG_FREE);
+    else hu_text(ux+(cols-hu_width(s,0))/2,v->my+vp->h/16+1,s);
+   }
   }
   hu_view_oam_end(vp);
  }
@@ -181,19 +191,20 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   int slide=state==ST_OVER?hu_slide_in(st_t,20,200):0;
   if(state==ST_TITLE) {
    hu_logo("FROG REACH",title_ramps,2,2,0);hu_title_draw(st_t,best);
-   hu_text(3,16,"HOLD TO EXTEND. RELEASE TO LEAP.");hu_title_sprites(st_t,icon,NULL);
+   /* the hint, centred (half a column to the left, as the English always was) */
+   int hw=hu_width(TR(HINT_TITLE),0);hu_text(hw<39?(39-hw)/2:0,16,TR(HINT_TITLE));hu_title_sprites(st_t,icon,NULL);
 
   }
   if(state==ST_OVER) {
    if(w->players==1) {
     static const int medals[4]=MEDAL_SCORES;
-    hu_banner(4,"GAME OVER");hu_gameover_panel(1,new_best,w->h[0].score,0);
+    hu_banner(4,HTR(GAME_OVER));hu_gameover_panel(1,new_best,w->h[0].score,0);
     hu_gameover_sprites(1,w->h[0].score,0,best,hu_medal_of(w->h[0].score,medals),st_t,slide);
-    hu_retry_line(st_t,RETRY_LOCK,"A: TITLE");
+    hu_retry_line(st_t,RETRY_LOCK,HTR(BACK_TITLE));
    } else {
     hu_results_panel(&rank,NULL);hu_results_sprites(&rank,st_t,slide);
     for(int i=0;i<rank.n;i++) {int x,y;hu_results_icon_pos(&rank,i,&x,&y);spr(SPR_HERO_ICON,x-8,y-8+slide,3,ppal(rank.order[i]),vp);}
-    hu_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,"A: TITLE");
+    hu_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));
    }
   }
   rs_bg_scroll(RS_BG1,0,-slide);rs_bg_scroll(RS_BG2,0,0);rs_bg_scroll(RS_BG3,vp->sx[2],vp->sy[2]);

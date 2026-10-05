@@ -15,7 +15,7 @@ frogreach-art:
 	$(PYTHON) games/frogreach/tools/make_art.py
 build/host/frogreach_physics: games/frogreach/src/play.c games/frogreach/src/game.h games/frogreach/src/sine.h games/frogreach/tests/test_physics.c
 	$(HOST_CC) $(CSTD) $(OPT) $(WARN) -Isdk/include -Igames/frogreach/src games/frogreach/src/play.c games/frogreach/tests/test_physics.c -o $@
-build/host/frogreach_views: games/frogreach/tests/test_views.c $(FROGREACH_OBJS) build/host/build/gen/frogreach/assets.o build/host/librs.a
+build/host/frogreach_views: games/frogreach/tests/test_views.c $(FROGREACH_OBJS) build/host/build/gen/frogreach/assets.o build/host/build/gen/frogreach/game_text.o build/host/librs.a
 	$(HOST_CC) $(CSTD) $(OPT) $(WARN) -DGAME_FROG=1 -Isdk/include -Igames/frogreach/src -Igames/common/src $^ -lm -o $@
 frogreach-check:
 	+$(FROGREACH_MAKE) host build/host/test_libretro build/host/frogreach_test_states build/host/frogreach_physics build/host/frogreach_views
@@ -25,6 +25,7 @@ frogreach-check:
 	$(PYTHON) games/frogreach/tests/check_game.py
 	sh games/frogreach/tests/state_test.sh build/host/frogreach_test_states build/states
 	$(PYTHON) tools/state_audit.py --game frogreach build/host/frogreach_test_states $(FROGREACH_OBJS)
+	bash tools/i18n_test.sh build/host/frogreach_headless frogreach build/frogreach-i18n $(if $(WIDESCREEN_frogreach),320 $(WIDTHS),320)
 frogreach-screenshots:
 	+$(FROGREACH_MAKE) build/host/frogreach_headless
 	$(PYTHON) games/frogreach/tests/check_game.py --screenshots
