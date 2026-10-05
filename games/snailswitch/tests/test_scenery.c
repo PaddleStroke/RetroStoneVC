@@ -54,5 +54,15 @@ int main(void){
  }
  assert(thorns>3&&inclined>0);
  puts("Thorn bases connected on inclined vine surfaces: passed");
+ /* The start of a run (DESIGN.md "Widescreen", the owner's rule for scrollers): the first hazard sits at the same
+  * distance from the leading snail at every width, 334..394 px (world 450..510, the snail at 116): just past a 4:3
+  * screen's edge, already in view from the first frame on a wider screen. The course never reads the width (and
+  * the first 320 columns of every wider picture above, from scroll 0, are the 4:3 picture). */
+ for(uint32_t s=1;s<=200;s++){
+  world a;world_init(&a,1,s);obstacle o;obstacle_at(&a,0,&o);
+  int d=o.anchor-a.scroll-a.h[0].x;
+  assert(a.scroll==0&&d>=334&&d<=394);
+ }
+ puts("The first hazard 334..394 px ahead of the snails at the start of a run, at every width: passed");
  return 0;
 }
