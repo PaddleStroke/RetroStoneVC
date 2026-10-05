@@ -54,6 +54,13 @@ feel sources and tuning: [games/pogomamie/DESIGN.md](games/pogomamie/DESIGN.md).
 `house_style.py` / `house_music.py` for the code-drawn art and the music). A new game starts from the template:
 `python3 tools/new_game.py ID "Name"`, then `make ID-check` (`make template-check` tests the template).
 
+**RetroStone Arcade apps** (`apps/`): several games and a menu in one program, for Android phones and the desktop.
+The free app plays Leady Squid, Pancake Tower and Beaver Rush and shows every other game locked (the paid app).
+One command each: `apps/android/build.sh` (the APK; the toolchain: `apps/android/setup-toolchain.sh`) and
+`make -f apps/launcher/bundle.mk PLATFORM=win64` (`dist/windows/RetroStoneArcadeFree.exe`). The games' code is not
+changed: they are linked as modules. [apps/android/README.md](apps/android/README.md) (install, rebuild, publish),
+[apps/launcher/README.md](apps/launcher/README.md) (the launcher, the module system, the touch controls).
+
 ## Play on Windows
 Build it (below) or take `dist/windows/BomberMole.exe`: a single executable, SDL2 is linked in. Double-click
 it. Progress is saved in `bombermole.srm` next to the exe.

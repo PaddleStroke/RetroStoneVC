@@ -1,0 +1,72 @@
+// RetroStone Arcade Free: the app module. The app's name, package id and version come from ../app.conf; the native
+// libraries (libSDL2.so, libmain.so: the launcher and the games) are built by ../build.sh into build/android/jniLibs;
+// the Java side is SDL's (org.libsdl.app, from the SDL2 source release in build/deps) and ArcadeActivity.
+plugins {
+    id 'com.android.application'
+}
+
+def conf = new Properties()
+file("$rootDir/app.conf").withReader('UTF-8') { conf.load(it) }
+def repo = file("$rootDir/../..")
+def sdlJava = new File(repo, "build/deps/src/SDL2-2.32.10/android-project/app/src/main/java")
+// the build output stays out of the sources: build/android/gradle/app
+layout.buildDirectory = new File(repo, "build/android/gradle/app")
+
+// The release key (never in the repository): a properties file with storeFile, storePassword, keyAlias, keyPassword,
+// by default ~/android-app-sdk/release-signing.properties (RSA_SIGNING=<file> to use another). See README.md.
+def signing = new Properties()
+def signingFile = new File(System.getenv("RSA_SIGNING") ?: "${System.getProperty("user.home")}/android-app-sdk/release-signing.properties")
+if (signingFile.exists()) signingFile.withReader("UTF-8") { signing.load(it) }
+
+android {
+    namespace = 'com.eightbcraft.retrostonearcade'
+    compileSdk = 36
+    ndkVersion = '27.3.13750724'
+
+    defaultConfig {
+        applicationId = conf.getProperty('APP_ID')
+        minSdk = 21
+        targetSdk = 36
+        versionCode = conf.getProperty('APP_VERSION_CODE') as int
+        versionName = conf.getProperty('APP_VERSION_NAME')
+        resValue 'string', 'app_name', conf.getProperty('APP_NAME')
+        ndk {
+            abiFilters 'arm64-v8a', 'armeabi-v7a', 'x86_64'
+        }
+    }
+    buildFeatures {
+        resValues = true                // the app name from app.conf
+    }
+    sourceSets {
+        main {
+            java.srcDirs += [sdlJava]
+            jniLibs.srcDirs = [new File(repo, "build/android/jniLibs")]
+            res.srcDirs += [new File(repo, "build/android/res")]
+        }
+    }
+    signingConfigs {
+        if (signing.getProperty("storeFile")) {
+            release {
+                storeFile = new File(signing.getProperty("storeFile"))
+                storePassword = signing.getProperty("storePassword")
+                keyAlias = signing.getProperty("keyAlias")
+                keyPassword = signing.getProperty("keyPassword")
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled = false
+            signingConfig = signingConfigs.findByName("release")     // null (unsigned) without the file
+        }
+    }
+    packaging {
+        jniLibs {
+            useLegacyPackaging = false
+        }
+    }
+    lint {
+        abortOnError = false
+        checkReleaseBuilds = false
+    }
+}

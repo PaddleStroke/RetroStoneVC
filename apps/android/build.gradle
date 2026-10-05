@@ -1,0 +1,4 @@
+// The Android Gradle Plugin version (the Gradle version is in gradle/wrapper/gradle-wrapper.properties).
+plugins {
+    id 'com.android.application' version '9.4.1' apply false
+}

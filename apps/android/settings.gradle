@@ -1,0 +1,17 @@
+// RetroStone Arcade Free: the Android app (apps/android/README.md). Built by apps/android/build.sh.
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "RetroStoneArcadeFree"
+include ':app'

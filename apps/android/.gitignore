@@ -1,0 +1,6 @@
+# Gradle's caches and outputs (the build goes to build/android/ at the repository's root)
+.gradle/
+build/
+local.properties
+*.keystore
+*.jks
