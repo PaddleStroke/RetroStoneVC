@@ -18,8 +18,12 @@
 #include "rs_internal.h"
 #include <string.h>
 
-#define W RS_SCREEN_W
+/* Widescreen: the width is a setting (RS_SCREEN_W_MIN..RS_SCREEN_W_MAX, set before the game starts), and the
+ * stage origin shifts what the game draws (sprites, viewports, windows, BG scroll) to the right on the screen. */
+static int g_w = RS_SCREEN_W, g_origin;
+#define W g_w
 #define H RS_SCREEN_H
+#define WMAX RS_SCREEN_W_MAX
 
 typedef struct bg_state {
     uint16_t map[128 * 128];
@@ -53,11 +57,11 @@ static int       g_last_sprites, g_last_max_line;
 static int       g_nviews, g_cur_view;
 
 /* line buffers, indexed by the screen column: 16 bytes of slack before the visible area (fine scroll) */
-static uint8_t  g_line[RS_BG_COUNT][W + 32] __attribute__((aligned(8)));
+static uint8_t  g_line[RS_BG_COUNT][WMAX + 32] __attribute__((aligned(8)));
 #define LINE(l) (g_line[l] + 16)
-static uint8_t  g_sline[W];
-static uint8_t  g_sprio[W];
-static uint8_t  g_win[W];
+static uint8_t  g_sline[WMAX];
+static uint8_t  g_sprio[WMAX];
+static uint8_t  g_win[WMAX];
 
 RS_INLINE uint16_t to565(rs_color c)
 {
@@ -88,7 +92,17 @@ void ppu_reset(void)
     g_raster_user = NULL;
     g_nviews = 0;
     g_cur_view = -1;
+    g_origin = 0;
 }
+
+/* ---- widescreen -------------------------------------------------------------------------------------- */
+void ppu_set_width(int w) { g_w = w < RS_SCREEN_W_MIN ? RS_SCREEN_W_MIN : w > WMAX ? WMAX : w; }
+int rs_screen_width(void) { return g_w; }
+int rs_screen_margin(void) { return (g_w - RS_SCREEN_W) / 2; }
+void rs_screen_origin(int x) { g_origin = x < -WMAX ? -WMAX : x > WMAX ? WMAX : x; }
+int rs_screen_origin_x(void) { return g_origin; }
+int rs_screen_left(void) { return -g_origin; }
+int rs_screen_right(void) { return g_w - g_origin; }
 
 /* ---- palettes ---------------------------------------------------------- */
 void rs_pal_set(int i, rs_color c)
@@ -287,29 +301,30 @@ static void view_rect(rs_viewport *v, int x, int y, int w, int h)
 
 int rs_viewport_layout(int players, int flags, rs_viewport *out)
 {
-    const int D = RS_VIEW_DIVIDER, hw = (W - D) / 2, hh = (H - D) / 2, x2 = W - hw, y2 = H - hh;
+    /* the whole screen, in stage coordinates (widescreen: from rs_screen_left(), the actual width) */
+    const int D = RS_VIEW_DIVIDER, X = -g_origin, hw = (W - D) / 2, hh = (H - D) / 2, x2 = X + W - hw, y2 = H - hh;
     switch (players) {
     case 2:
-        if (flags & RS_LAYOUT_HSPLIT) { view_rect(&out[0], 0, 0, W, hh); view_rect(&out[1], 0, y2, W, hh); }
-        else { view_rect(&out[0], 0, 0, hw, H); view_rect(&out[1], x2, 0, hw, H); }
+        if (flags & RS_LAYOUT_HSPLIT) { view_rect(&out[0], X, 0, W, hh); view_rect(&out[1], X, y2, W, hh); }
+        else { view_rect(&out[0], X, 0, hw, H); view_rect(&out[1], x2, 0, hw, H); }
         return 2;
     case 3:
         if (!(flags & RS_LAYOUT_MAP)) {
-            view_rect(&out[0], 0, 0, W, hh);
-            view_rect(&out[1], 0, y2, hw, hh);
+            view_rect(&out[0], X, 0, W, hh);
+            view_rect(&out[1], X, y2, hw, hh);
             view_rect(&out[2], x2, y2, hw, hh);
             return 3;
         }
         /* 4 quadrants, the 4th for a map */
         /* fall through */
     case 4:
-        view_rect(&out[0], 0, 0, hw, hh);
+        view_rect(&out[0], X, 0, hw, hh);
         view_rect(&out[1], x2, 0, hw, hh);
-        view_rect(&out[2], 0, y2, hw, hh);
+        view_rect(&out[2], X, y2, hw, hh);
         view_rect(&out[3], x2, y2, hw, hh);
         return 4;
     default:
-        view_rect(&out[0], 0, 0, W, H);
+        view_rect(&out[0], X, 0, W, H);
         return 1;
     }
 }
@@ -371,7 +386,7 @@ static int decode_affine(const bg_state *b, int y, uint8_t *buf)
     const rs_affine *m = &b->aff;
     int hofs = b->sx + (b->ldx ? b->ldx[y] : 0);
     int vofs = b->sy + (b->ldy ? b->ldy[y] : 0);
-    int32_t dx = hofs - m->cx, dy = y + vofs - m->cy;
+    int32_t dx = hofs - m->cx - g_origin, dy = y + vofs - m->cy;     /* screen column 0 = stage x -origin */
     int32_t X = m->a * dx + m->b * dy + (m->cx << 8);
     int32_t Y = m->c * dx + m->d * dy + (m->cy << 8);
     int pw = b->mw * 8, ph = b->mh * 8;
@@ -524,11 +539,13 @@ static void brightness_line(uint16_t *o)
 }
 
 /* One line of the screen columns [x0, x1): the whole screen (v = NULL: global scroll, every sprite) or one
- * viewport (its layers, scroll and sprites). Returns the sprites on the line. */
+ * viewport (its layers, scroll and sprites). Returns the sprites on the line. x0, x1 are screen columns; the
+ * game's coordinates (scroll, viewports, sprites, windows) are stage ones: screen x = stage x + g_origin. */
 static int render_span(uint16_t *o, int y, int x0, int x1, const rs_viewport *v)
 {
     const uint8_t *src[RS_BG_COUNT] = {0};
     int has[RS_BG_COUNT] = {0};
+    int vx = v ? v->x + g_origin : 0;                   /* the viewport's left edge, screen column */
     for (int l = 0; l < RS_BG_COUNT; l++) {
         const bg_state *b = &g_bg[l];
         if (!b->enabled || (v && !((v->layers >> l) & 1))) continue;
@@ -537,7 +554,7 @@ static int render_span(uint16_t *o, int y, int x0, int x1, const rs_viewport *v)
             has[l] = decode_affine(b, y, line);
         } else {
             int dx = b->ldx ? b->ldx[y] : 0, dy = b->ldy ? b->ldy[y] : 0;
-            int lx = v ? v->sx[l] + (x0 - v->x) + dx : b->sx + dx + x0;
+            int lx = v ? v->sx[l] + (x0 - vx) + dx : b->sx + dx + x0 - g_origin;
             int ly = v ? v->sy[l] + (y - v->y) + dy : b->sy + y + dy;
             has[l] = decode_bg(b, lx, ly, x0, x1 - x0, line);
         }
@@ -549,13 +566,14 @@ static int render_span(uint16_t *o, int y, int x0, int x1, const rs_viewport *v)
         memset(g_sline + x0, 0, (size_t)(x1 - x0));
         int first = v ? v->oam_first : 0, end = v ? v->oam_first + v->oam_count : RS_OAM_MAX;
         if (end > RS_OAM_MAX) end = RS_OAM_MAX;
-        n = decode_sprites(y, first, end, v ? v->x : 0, v ? v->y : 0, x0, x1, &sx0, &sx1);
+        n = decode_sprites(y, first, end, v ? vx : g_origin, v ? v->y : 0, x0, x1, &sx0, &sx1);
     }
 
     int anywin = g_obj_win | g_clip_win | g_fog_win;
     for (int l = 0; l < RS_BG_COUNT; l++) anywin |= g_bg[l].win;
     if (anywin) {
-        int l0 = g_win_l[0], r0 = g_win_r[0], l1 = g_win_l[1], r1 = g_win_r[1];
+        /* the windows' spans are stage columns */
+        int l0 = g_win_l[0] + g_origin, r0 = g_win_r[0] + g_origin, l1 = g_win_l[1] + g_origin, r1 = g_win_r[1] + g_origin;
         for (int x = x0; x < x1; x++)
             g_win[x] = (uint8_t)((x >= l0 && x < r0) | ((x >= l1 && x < r1) << 1));
     }
@@ -593,6 +611,7 @@ static int render_span(uint16_t *o, int y, int x0, int x1, const rs_viewport *v)
 void ppu_render(uint16_t *fb)
 {
     int max_line = 0, total = 0;
+    const int line_guide = 32 * W / RS_SCREEN_W;   /* 32 sprites per line at 320 columns, scaled with the width */
     for (int i = 0; i < RS_OAM_MAX; i++)
         if (g_oam[i].used && !(g_oam[i].flags & RS_SPR_HIDE)) {
             total++;
@@ -621,10 +640,12 @@ void ppu_render(uint16_t *fb)
             /* the divider shows where no viewport is; later viewports are drawn over earlier ones */
             uint32_t dd = g_div565 | ((uint32_t)g_div565 << 16), *o32 = (uint32_t *)o;
             for (int x = 0; x < W / 2; x++) o32[x] = dd;
+            if (W & 1) o[W - 1] = g_div565;
             for (int i = 0; i < g_nviews; i++) {
                 const rs_viewport *v = &g_views[i];
                 if (y < v->y || y >= v->y + v->h) continue;
-                int x0 = v->x < 0 ? 0 : v->x, x1 = v->x + v->w > W ? W : v->x + v->w;
+                int vx = v->x + g_origin;
+                int x0 = vx < 0 ? 0 : vx, x1 = vx + v->w > W ? W : vx + v->w;
                 if (x0 >= x1) continue;
                 g_cur_view = i;
                 if (g_raster) g_raster(y, g_raster_user);
@@ -633,7 +654,7 @@ void ppu_render(uint16_t *fb)
             g_cur_view = -1;
         }
         if (n > max_line) max_line = n;
-        if (n > 32) rs_warn(RS_WARN_SPRITES_PER_LINE, "%d sprites on line %d (guideline 32)", n, y);
+        if (n > line_guide) rs_warn(RS_WARN_SPRITES_PER_LINE, "%d sprites on line %d (guideline %d)", n, y, line_guide);
         if (g_bright < 15) brightness_line(o);
     }
     g_last_sprites = total;

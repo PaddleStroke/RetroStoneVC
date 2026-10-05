@@ -23,7 +23,7 @@ static const char *golden_dir = "sdk/tests/golden", *out_dir = "build";
 /* never called: the tests drive the runtime directly */
 const rs_game *rs_game_main(void) { static const rs_game g = {"SDK tests", "sdktest", "1", 0, 0, 0, 0, 0, 0, 0, 0}; return &g; }
 
-static uint16_t px(int x, int y) { return rs_host_framebuffer()[y * RS_SCREEN_W + x]; }
+static uint16_t px(int x, int y) { return rs_host_framebuffer()[y * rs_screen_width() + x]; }
 static uint16_t c565(rs_color c)
 {
     unsigned r = c & 31, g = (c >> 5) & 31, b = (c >> 10) & 31;
@@ -51,7 +51,7 @@ static void golden(const char *name)
     checks++;
     if (!img) { failures++; printf("  FAIL golden %s missing (run with --update)\n", gp); rsd_write_png(ap, fb, 1); return; }
     int diff = 0;
-    if (w != RS_SCREEN_W || h != RS_SCREEN_H) diff = -1;
+    if (w != rs_screen_width() || h != RS_SCREEN_H) diff = -1;
     else
         for (int i = 0; i < w * h; i++) {
             uint16_t c = fb[i];
@@ -637,13 +637,152 @@ static void test_viewports(void)
     CHECK(rs_viewport_count() == 0, "viewports: off again");
 }
 
+/* ---- widescreen ------------------------------------------------------------------------------------------------
+ * The same scene at 320 columns (origin 0) and at a wider width with the stage centred (origin = the margin): the
+ * stage's 320 columns must be the same pixels (layers, line scroll, windows, raster, affine, math, sprites, viewports
+ * are all in stage coordinates); the margins show more of the layers and the sprites beyond the stage. */
+static void ws_layers(void)
+{
+    for (int l = 0; l < 4; l++) { rs_bg_setup(l, 64, 32, 0); rs_bg_enable(l, 1); }
+    for (int y = 0; y < 32; y++)
+        for (int x = 0; x < 64; x++) {
+            rs_bg_put(RS_BG4, x, y, RS_MAP(((x + y) & 1) ? 2 : 3, 0, 0, 0, 0));
+            if ((x / 4 + y / 4) & 1) rs_bg_put(RS_BG3, x, y, RS_MAP(17, (x / 8) & 7, 0, 0, 0));
+            if (y % 5 == 0) rs_bg_put(RS_BG2, x, y, RS_MAP(18, 0, (x / 3) & 1, 0, 0));
+            if (x % 9 == 0 && y % 3 == 0) rs_bg_put(RS_BG1, x, y, RS_MAP(16, 0, 0, (x >> 1) & 1, 0));
+        }
+    rs_bg_scroll(RS_BG4, 3, 5);
+    rs_bg_scroll(RS_BG3, -13, 7);
+    rs_bg_scroll(RS_BG2, 250, 0);
+    rs_bg_scroll(RS_BG1, 0, -2);
+    for (int i = 0; i < 240; i++) wave[i] = (int16_t)((i % 32 < 16 ? i % 16 : 16 - i % 16) - 8);
+    rs_bg_line_scroll(RS_BG3, wave, NULL);
+    rs_obj_base(32);
+    for (int i = 0; i < 24; i++) rs_spr(i * 29 - 40, (i * 53) % 230 - 8, 0, 16 << (i % 2), 16, i & 7, i & 3, i & 3);
+    rs_spr(-8, 100, 0, 16, 16, 3, 3, 0);
+    rs_spr(312, 120, 0, 16, 16, 4, 3, 0);
+}
+static void ws_raster_cb(int line, void *u)
+{
+    (void)u;
+    rs_window(0, 160 - line / 2, 160 + line / 2);
+    rs_window(1, -30 + line / 4, 20 + line / 4);
+    rs_pal_set(0, RS_RGB(line / 8, 0, 31 - line / 8));
+}
+static void ws_windows(void)
+{
+    ws_layers();
+    rs_raster(ws_raster_cb, NULL);
+    rs_bg_window(RS_BG2, RS_WIN1_OUT);
+    rs_obj_window(RS_WIN2);
+    rs_math(RS_MATH_ADD | RS_MATH_HALF, RS_MATH_BG3, 0);
+    rs_fog(RS_WIN2, RS_HEX(0xc0c0c0), RS_MATH_BG4);
+    rs_brightness(12);
+}
+static void ws_affine(void)
+{
+    rs_bg_setup(RS_BG2, 32, 32, 0);
+    rs_bg_enable(RS_BG2, 1);
+    for (int y = 0; y < 32; y++)
+        for (int x = 0; x < 32; x++) rs_bg_put(RS_BG2, x, y, RS_MAP(((x ^ y) & 1) ? 16 : 1 + (x % 7), 0, 0, 0, 0));
+    rs_affine m = {179, -103, 103, 179, 128, 128, 1};
+    rs_bg_affine(RS_BG2, &m);
+    rs_bg_scroll(RS_BG2, -32, 8);
+    rs_window(1, 200, 280);
+    rs_clip_black(RS_WIN2);
+}
+static void ws_views(void)
+{
+    ws_layers();
+    rs_oam_clear();
+    rs_viewport v[3];
+    memset(v, 0, sizeof v);
+    for (int i = 0; i < 3; i++) {
+        v[i].x = (int16_t)(i ? 161 : 0); v[i].y = (int16_t)(i == 2 ? 121 : 0);
+        v[i].w = 159; v[i].h = (int16_t)(i ? 119 : 240); v[i].layers = 0x0f; v[i].objs = 1;
+        v[i].oam_first = (uint16_t)rs_oam_next();
+        for (int k = 0; k < 6; k++) rs_spr(k * 31 - 10, k * 37 - 6, 0, 16, 16, (k + i) & 7, k & 3, 0);
+        v[i].oam_count = (uint16_t)(rs_oam_next() - v[i].oam_first);
+        for (int l = 0; l < 4; l++) { v[i].sx[l] = (int16_t)(i * 77 - 20); v[i].sy[l] = (int16_t)(i * 45 - 8); }
+    }
+    rs_viewports(3, v, RS_HEX(0x40ff40));
+}
+
+static int ws_same_stage(void (*scene)(void), int width, const char *name)
+{
+    static uint16_t ref[RS_SCREEN_W * RS_SCREEN_H];
+    rs_host_set_width(RS_SCREEN_W);
+    fresh();
+    scene();
+    rs_host_render();
+    memcpy(ref, rs_host_framebuffer(), sizeof ref);
+    rs_host_set_width(width);
+    fresh();
+    int m = rs_screen_margin();
+    rs_screen_origin(m);
+    scene();
+    rs_host_render();
+    const uint16_t *fb = rs_host_framebuffer();
+    int diff = 0;
+    for (int y = 0; y < RS_SCREEN_H; y++)
+        for (int x = 0; x < RS_SCREEN_W; x++) diff += fb[y * width + m + x] != ref[y * RS_SCREEN_W + x];
+    CHECK(rs_screen_width() == width && diff == 0, "widescreen %d: %s: the stage's 320 columns are the 320 picture (%d differ)",
+          width, name, diff);
+    return diff;
+}
+
+static void test_widescreen(void)
+{
+    printf("widescreen\n");
+    static const rs_game narrow = {"n", "n", "1", 0, 0, 0, 0, 0, 0, 0, 0}, wide = {"w", "w", "1", 0, 0, 0, 0, 0, 0, 0, 0, 480};
+    CHECK(rs_host_width_for(&narrow, 520) == 320 && rs_host_width_for(&wide, 520) == 480 &&
+          rs_host_width_for(&wide, 427) == 427 && rs_host_width_for(&wide, 100) == 320 && rs_host_width_for(NULL, 999) == 560,
+          "widescreen: a game gets the smaller of the asked width and its max_width (320 when it has none)");
+    CHECK(rs_host_width_for_aspect(4, 3) == 320 && rs_host_width_for_aspect(16, 9) == 427 &&
+          rs_host_width_for_aspect(39, 18) == 520 && rs_host_width_for_aspect(20, 9) == 533 &&
+          rs_host_width_for_aspect(32, 9) == 560, "widescreen: widths for 4:3, 16:9, 19.5:9, 20:9 and wider");
+    static const int widths[] = {322, 427, 520, 560};
+    for (int i = 0; i < 4; i++) {
+        ws_same_stage(ws_layers, widths[i], "layers, line scroll and sprites");
+        ws_same_stage(ws_windows, widths[i], "raster windows, colour math, fog, brightness");
+        ws_same_stage(ws_affine, widths[i], "affine layer and a clip window");
+        ws_same_stage(ws_views, widths[i], "viewports");
+    }
+    /* the margins: more of the layers, the sprites beyond the stage */
+    rs_host_set_width(520);
+    fresh();
+    rs_screen_origin(rs_screen_margin());
+    ws_layers();
+    rs_host_render();
+    golden("wide_520");
+    CHECK(rs_screen_left() == -100 && rs_screen_right() == 420, "widescreen 520: the screen shows stage x -100..420");
+    rs_viewport v[4];
+    rs_viewport_layout(2, 0, v);
+    CHECK(v[0].x == -100 && v[0].w == 259 && v[1].x == 161 && v[1].w == 259, "widescreen: layout 2 = two 259-px halves");
+    rs_viewport_layout(1, 0, v);
+    CHECK(v[0].x == -100 && v[0].w == 520, "widescreen: layout 1 = the whole screen");
+    /* a side-scroller: origin 0, the stage is the screen, the right side is revealed */
+    rs_host_set_width(427);
+    fresh();
+    ws_views();
+    rs_host_render();
+    golden("wide_427_views");
+    CHECK(px(426, 10) == c565(RS_HEX(0x40ff40)), "widescreen 427, origin 0: the divider right of the views");
+    rs_host_set_width(RS_SCREEN_W);
+    fresh();
+    CHECK(rs_screen_width() == 320 && rs_screen_origin_x() == 0, "widescreen: back to 320, origin 0");
+}
+
 /* PPU stress: 4 full layers (two with per-line scroll, one with priority
  * tiles), 128 sprites of 32x32 (max 32 on a line is exceeded on purpose in
  * places), colour math on one layer. Prints the average render time. */
-static void bench_ppu(int frames)
+static void bench_ppu(int frames, int width)
 {
     static int16_t wave2[240];
+    rs_host_set_width(width);
     fresh();
+    int org = rs_screen_margin();                 /* widescreen: the stage centred, sprites over the whole width */
+    rs_screen_origin(org);
     for (int l = 0; l < 4; l++) {
         rs_bg_setup(l, 64, 64, 0);
         rs_bg_enable(l, 1);
@@ -661,14 +800,14 @@ static void bench_ppu(int frames)
     for (int f = 0; f < frames; f++) {
         rs_oam_clear();
         for (int i = 0; i < 128; i++)
-            rs_spr((i * 37 + f) % 336 - 16, (i * 53 + f / 2) % 256 - 16, 0, 32, 32, i & 7, i & 3, i & 3);
+            rs_spr((i * 37 + f) % (width + 16) - 16 - org, (i * 53 + f / 2) % 256 - 16, 0, 32, 32, i & 7, i & 3, i & 3);
         for (int l = 0; l < 4; l++) rs_bg_scroll(l, f * (l + 1), f / (l + 1));
         uint64_t t0 = rs_host_time_us();
         rs_host_render();
         total += rs_host_time_us() - t0;
     }
-    printf("PPU stress (4 layers 64x64, 2 with line scroll, colour math, 128 sprites 32x32): "
-           "%.1f us per frame over %d frames\n", (double)total / frames, frames);
+    printf("PPU stress at %dx240 (4 layers 64x64, 2 with line scroll, colour math, 128 sprites 32x32): "
+           "%.1f us per frame over %d frames\n", width, (double)total / frames, frames);
     /* the same scene in 4 viewports (quadrants), 32 of the sprites each */
     rs_viewport v[4];
     int n = rs_viewport_layout(4, 0, v);
@@ -678,7 +817,7 @@ static void bench_ppu(int frames)
         for (int i = 0; i < n; i++) {
             v[i].oam_first = (uint16_t)rs_oam_next();
             for (int k = 0; k < 32; k++)
-                rs_spr((k * 37 + f) % 176 - 16, (k * 53 + f / 2) % 136 - 16, 0, 32, 32, k & 7, k & 3, k & 3);
+                rs_spr((k * 37 + f) % (v[i].w + 17) - 16, (k * 53 + f / 2) % 136 - 16, 0, 32, 32, k & 7, k & 3, k & 3);
             v[i].oam_count = 32;
             for (int l = 0; l < 4; l++) { v[i].sx[l] = (int16_t)(f * (l + 1) + i * 80); v[i].sy[l] = (int16_t)(f / (l + 1) + i * 60); }
         }
@@ -688,8 +827,8 @@ static void bench_ppu(int frames)
         t4 += rs_host_time_us() - t0;
     }
     rs_viewports(0, NULL, 0);
-    printf("PPU stress in 4 viewports (quadrants, 32 sprites each): %.1f us per frame (%+.1f%%)\n",
-           (double)t4 / frames, 100.0 * ((double)t4 - (double)total) / (double)total);
+    printf("PPU stress at %dx240 in 4 viewports (quadrants, 32 sprites each): %.1f us per frame (%+.1f%%)\n",
+           width, (double)t4 / frames, 100.0 * ((double)t4 - (double)total) / (double)total);
 }
 
 int main(int argc, char **argv)
@@ -697,7 +836,9 @@ int main(int argc, char **argv)
     for (int i = 1; i < argc; i++)
         if (!strcmp(argv[i], "--bench")) {
             rs_host_set_log(NULL);
-            bench_ppu(600);
+            bench_ppu(600, RS_SCREEN_W);
+            bench_ppu(600, 427);
+            bench_ppu(600, 520);
             return 0;
         }
     for (int i = 1; i < argc; i++) {
@@ -715,6 +856,7 @@ int main(int argc, char **argv)
     test_affine_math();
     test_text();
     test_viewports();
+    test_widescreen();
     test_input();
     test_sram();
     test_rng();

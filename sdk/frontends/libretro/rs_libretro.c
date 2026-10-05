@@ -2,6 +2,9 @@
  * RetroStone VC SDK: libretro frontend. Linking a game with this file and
  * librs.a gives <game>_libretro.so, which RetroStoneOS and RetroArch run as a
  * "no content" core.
+ * Widescreen (docs/spec.md "Widescreen"): a game that opts in (rs_game.max_width) gets the core option
+ * "rsvc_aspect" (Aspect: 4:3, 16:9 or Wide = 19.5:9; 4:3 by default, so RetroStoneOS is unaffected). The geometry
+ * follows it; a change while the game runs restarts it at the new width from a save state (rs_host_change_width).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include "rs_host.h"
@@ -18,6 +21,19 @@ static retro_input_state_t        input_cb;
 static retro_log_printf_t         log_cb;
 static const rs_game *game;
 static int started;
+static int cur_width = RS_SCREEN_W;           /* the width of the geometry reported */
+
+static int game_wide(void) { return rs_game_main()->max_width > RS_SCREEN_W; }
+
+/* the width the core option asks for (320 when the game has not opted in) */
+static int option_width(void)
+{
+    struct retro_variable v = {"rsvc_aspect", NULL};
+    if (!game_wide() || !env_cb || !env_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &v) || !v.value) return RS_SCREEN_W;
+    if (!strcmp(v.value, "16:9")) return rs_host_width_for(rs_game_main(), rs_host_width_for_aspect(16, 9));
+    if (!strcmp(v.value, "Wide")) return rs_host_width_for(rs_game_main(), rs_host_width_for_aspect(39, 18));
+    return RS_SCREEN_W;
+}
 
 static void log_bridge(const char *line)
 {
@@ -50,6 +66,13 @@ RETRO_API void retro_set_environment(retro_environment_t cb)
         {0, 0, 0, 0, NULL},
     };
     cb(RETRO_ENVIRONMENT_SET_INPUT_DESCRIPTORS, (void *)desc);
+    if (game_wide()) {
+        static const struct retro_variable vars[] = {
+            {"rsvc_aspect", "Aspect (widescreen); 4:3|16:9|Wide"},
+            {NULL, NULL},
+        };
+        cb(RETRO_ENVIRONMENT_SET_VARIABLES, (void *)vars);
+    }
 }
 RETRO_API void retro_set_video_refresh(retro_video_refresh_t cb) { video_cb = cb; }
 RETRO_API void retro_set_audio_sample(retro_audio_sample_t cb) { (void)cb; }
@@ -85,11 +108,11 @@ RETRO_API void retro_get_system_info(struct retro_system_info *info)
 RETRO_API void retro_get_system_av_info(struct retro_system_av_info *info)
 {
     memset(info, 0, sizeof *info);
-    info->geometry.base_width = RS_SCREEN_W;
+    info->geometry.base_width = (unsigned)cur_width;
     info->geometry.base_height = RS_SCREEN_H;
-    info->geometry.max_width = RS_SCREEN_W;
+    info->geometry.max_width = (unsigned)cur_width;
     info->geometry.max_height = RS_SCREEN_H;
-    info->geometry.aspect_ratio = 4.0f / 3.0f;
+    info->geometry.aspect_ratio = cur_width == RS_SCREEN_W ? 4.0f / 3.0f : (float)cur_width / RS_SCREEN_H;
     info->timing.fps = RS_FPS;
     info->timing.sample_rate = RS_AUDIO_RATE;
 }
@@ -119,8 +142,25 @@ static uint16_t read_pad(unsigned p)
     return b;
 }
 
+/* the aspect option changed: the new width (restarting a running game from a save state), the new geometry */
+static void check_width(void)
+{
+    bool changed = false;
+    if (!game_wide() || !env_cb(RETRO_ENVIRONMENT_GET_VARIABLE_UPDATE, &changed) || !changed) return;
+    int w = option_width();
+    if (w == cur_width) return;
+    if (started) w = rs_host_change_width(w);
+    else rs_host_set_width(w);
+    if (w == cur_width) return;
+    cur_width = w;
+    struct retro_system_av_info av;
+    retro_get_system_av_info(&av);
+    env_cb(RETRO_ENVIRONMENT_SET_SYSTEM_AV_INFO, &av);
+}
+
 RETRO_API void retro_run(void)
 {
+    check_width();
     if (!started) retro_reset();
     poll_cb();
     for (unsigned p = 0; p < RS_PAD_MAX; p++) {
@@ -128,7 +168,7 @@ RETRO_API void retro_run(void)
         rs_host_set_pad_device((int)p, RS_DEVICE_PAD);          /* a RetroPad: the buttons keep their names */
     }
     rs_host_frame();
-    video_cb(rs_host_framebuffer(), RS_SCREEN_W, RS_SCREEN_H, RS_SCREEN_W * 2);
+    video_cb(rs_host_framebuffer(), (unsigned)rs_screen_width(), RS_SCREEN_H, (size_t)rs_screen_width() * 2);
     int n = 0;
     const int16_t *a = rs_host_audio(&n);
     while (n > 0) {
@@ -168,6 +208,9 @@ RETRO_API bool retro_load_game(const struct retro_game_info *info)
         uint64_t quirks = RETRO_SERIALIZATION_QUIRK_ENDIAN_DEPENDENT | RETRO_SERIALIZATION_QUIRK_PLATFORM_DEPENDENT;
         env_cb(RETRO_ENVIRONMENT_SET_SERIALIZATION_QUIRKS, &quirks);
     }
+    /* the width: from the core option, before the frontend asks for the geometry */
+    cur_width = option_width();
+    rs_host_set_width(cur_width);
     /* The runtime starts at the first retro_run(), after the frontend has
      * loaded the save RAM into retro_get_memory_data(). */
     started = 0;

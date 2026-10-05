@@ -24,6 +24,19 @@ void rs_host_set_file_loader(rs_file_fn fn);
 void rs_host_set_file_origin(const char *where);
 void rs_host_set_option(const char *key, const char *value);
 
+/* Widescreen (docs/spec.md "Widescreen"). The frontend asks for a width (any value: it is clamped to
+ * RS_SCREEN_W_MIN..RS_SCREEN_W_MAX) before rs_host_init(); the game gets the smaller of it and its
+ * rs_game.max_width (RS_SCREEN_W when the game has not opted in: the frontend pillarboxes the picture).
+ * rs_host_width_for() tells the width a game would get (the libretro geometry, before the game starts). */
+void rs_host_set_width(int width);
+int  rs_host_width_for(const rs_game *game, int width);
+/* The width of a running game, live: saves a state, restarts the game at the new width and loads the state (the
+ * battery save stays in memory). Returns the width in use: unchanged when the game has not opted in, has no save
+ * states, or the state could not be saved or loaded at the new width (then the game runs on at the old width). */
+int  rs_host_change_width(int width);
+/* The desktop and frontend helper: the width for a picture of aspect num:den at 240 lines (16:9 -> 427). */
+int  rs_host_width_for_aspect(int num, int den);
+
 /* Starts the runtime and calls the game's init(). */
 int  rs_host_init(const rs_game *game);
 void rs_host_shutdown(void);
@@ -41,7 +54,7 @@ void rs_host_frame(void);
 /* Renders the current PPU state only (tests). */
 void rs_host_render(void);
 
-const uint16_t *rs_host_framebuffer(void);  /* RGB565, 320x240, pitch 320 */
+const uint16_t *rs_host_framebuffer(void);  /* RGB565, rs_screen_width() x 240, pitch = the width (320 by default) */
 /* Audio produced by the last frame (533 or 534 stereo frames). */
 const int16_t  *rs_host_audio(int *frames);
 

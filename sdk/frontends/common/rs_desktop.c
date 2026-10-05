@@ -84,12 +84,12 @@ int rsd_sram_save(const char *path) { return rsd_save_file(path, rs_host_sram(),
 int rsd_write_png(const char *path, const uint16_t *fb, int scale)
 {
     if (scale < 1) scale = 1;
-    int w = RS_SCREEN_W * scale, h = RS_SCREEN_H * scale;
+    int sw = rs_screen_width(), w = sw * scale, h = RS_SCREEN_H * scale;
     uint8_t *rgb = malloc((size_t)w * h * 3);
     if (!rgb) return -1;
     for (int y = 0; y < h; y++)
         for (int x = 0; x < w; x++) {
-            uint16_t c = fb[(y / scale) * RS_SCREEN_W + x / scale];
+            uint16_t c = fb[(y / scale) * sw + x / scale];
             uint8_t *p = rgb + ((size_t)y * w + x) * 3;
             unsigned r = c >> 11, g = (c >> 5) & 63, b = c & 31;
             p[0] = (uint8_t)((r << 3) | (r >> 2));
@@ -99,6 +99,13 @@ int rsd_write_png(const char *path, const uint16_t *fb, int scale)
     int ok = stbi_write_png(path, w, h, 3, rgb, w * 3);
     free(rgb);
     return ok ? 0 : -1;
+}
+
+int rsd_width_env(void)
+{
+    const char *v = getenv("RS_WIDTH");
+    if (v && *v) rs_host_set_width(atoi(v));
+    return v && *v ? atoi(v) : 0;
 }
 
 void rsd_option(const char *kv)

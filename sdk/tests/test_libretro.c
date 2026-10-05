@@ -1,7 +1,8 @@
 /*
  * Loads a <game>_libretro.so like a frontend does (dlopen), runs it with no
  * content for N frames and checks video, audio, input, save RAM and save states.
- *   test_libretro path/to/core.so [frames]
+ *   test_libretro path/to/core.so [frames [aspect width]]
+ * aspect: the value of the core option rsvc_aspect (4:3, 16:9, Wide); width: the picture width expected
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include "libretro.h"
@@ -14,6 +15,7 @@ static unsigned vw, vh, frames_video, pixfmt = 99;
 static size_t audio_frames;
 static int failures;
 static unsigned run_frame;
+static const char *aspect;                  /* the core option rsvc_aspect, NULL = not set */
 
 #define CHECK(c, ...) do { if (!(c)) { failures++; printf("  FAIL "); printf(__VA_ARGS__); printf("\n"); } \
                            else { printf("  ok   "); printf(__VA_ARGS__); printf("\n"); } } while (0)
@@ -24,6 +26,13 @@ static bool env(unsigned cmd, void *data)
     case RETRO_ENVIRONMENT_SET_PIXEL_FORMAT: pixfmt = *(enum retro_pixel_format *)data; return true;
     case RETRO_ENVIRONMENT_SET_SUPPORT_NO_GAME: return true;
     case RETRO_ENVIRONMENT_GET_LOG_INTERFACE: return false;
+    case RETRO_ENVIRONMENT_SET_VARIABLES: return true;
+    case RETRO_ENVIRONMENT_GET_VARIABLE: {
+        struct retro_variable *v = data;
+        if (!aspect || strcmp(v->key, "rsvc_aspect")) return false;
+        v->value = aspect;
+        return true;
+    }
     default: return false;
     }
 }
@@ -69,7 +78,8 @@ typedef bool (*retro_unserialize_t)(const void *, size_t);
 int main(int argc, char **argv)
 {
     if (argc < 2) { printf("usage: test_libretro core.so [frames]\n"); return 2; }
-    unsigned n = argc > 2 ? (unsigned)atoi(argv[2]) : 600;
+    unsigned n = argc > 2 ? (unsigned)atoi(argv[2]) : 600, want_w = 320;
+    if (argc > 4) { aspect = argv[3]; want_w = (unsigned)atoi(argv[4]); }
     void *h = dlopen(argv[1], RTLD_NOW | RTLD_LOCAL);
     if (!h) { printf("dlopen: %s\n", dlerror()); return 1; }
     SYM(retro_init) SYM(retro_deinit) SYM(retro_run) SYM(retro_get_system_info) SYM(retro_get_system_av_info)
@@ -90,14 +100,17 @@ int main(int argc, char **argv)
     struct retro_system_av_info av;
     retro_get_system_info(&si);
     retro_get_system_av_info(&av);
-    CHECK(av.geometry.base_width == 320 && av.geometry.base_height == 240, "geometry 320x240 (%s %s)", si.library_name, si.library_version);
+    CHECK(av.timing.fps == 60.0, "%s %s", si.library_name, si.library_version);
     CHECK(av.timing.fps == 60.0 && av.timing.sample_rate == 32000.0, "60 fps, 32 kHz");
     CHECK(retro_load_game(NULL), "loads with no content");
     CHECK(pixfmt == RETRO_PIXEL_FORMAT_RGB565, "RGB565 pixel format");
+    retro_get_system_av_info(&av);
+    CHECK(av.geometry.base_width == want_w && av.geometry.base_height == 240 && av.geometry.max_width == want_w,
+          "geometry %ux240 (aspect option %s)", want_w, aspect ? aspect : "unset");
     CHECK(retro_get_memory_size(RETRO_MEMORY_SAVE_RAM) == 32768 && retro_get_memory_data(RETRO_MEMORY_SAVE_RAM),
           "32 KiB save RAM exposed");
     for (run_frame = 0; run_frame < n; run_frame++) retro_run();
-    CHECK(frames_video == n && vw == 320 && vh == 240, "%u video frames of %ux%u", frames_video, vw, vh);
+    CHECK(frames_video == n && vw == want_w && vh == 240, "%u video frames of %ux%u", frames_video, vw, vh);
     double expect = n * 32000.0 / 60.0;
     CHECK(audio_frames > expect - 2 && audio_frames < expect + 2, "%zu audio frames (expected %.0f)", audio_frames, expect);
     /* save states: a fixed size, a save, 60 frames, a load, the same 60 pictures; then a new session that loads

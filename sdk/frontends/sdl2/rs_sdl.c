@@ -2,7 +2,13 @@
  * RetroStone VC SDK: desktop runner (SDL2), for Linux and Windows.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- *   <Game> [--scale N] [--fullscreen] [--data DIR] [--opt KEY=VALUE]...
+ *   <Game> [--scale N] [--fullscreen] [--width N | --aspect 4:3|16:9|wide] [--data DIR] [--opt KEY=VALUE]...
+ *
+ * Widescreen (docs/spec.md "Widescreen"), for the games that opt in (the others always show 320x240, pillarboxed):
+ * by default the width follows the shape of the window: the first window has the desktop's aspect, and resizing it
+ * (or F11) restarts the game at the new width from a save state, where it was. --width N (320..560) or
+ * --aspect 4:3|16:9|wide (320, 427, 520) fixes the width; --aspect 4:3 is the classic 320x240. The environment
+ * variable RS_WIDTH=N does the same as --width N.
  *
  * Keyboard, pad 1: arrows = D-pad, Z = B, X = A, C = Y, V = X, Q = L, E = R, Enter = Start,
  *                  Right Shift / Backspace / Esc = Select.
@@ -99,12 +105,21 @@ static void path_in_base(char *out, size_t n, const char *name)
     snprintf(out, n, "%s%s", base_dir, name);
 }
 
+/* the width for a window (or a display) of w x h pixels */
+static int width_for(const rs_game *g, int w, int h) { return rs_host_width_for(g, rs_host_width_for_aspect(w, h)); }
+
 int main(int argc, char **argv)
 {
-    int scale = 3, fullscreen = 0;
+    int scale = 3, fullscreen = 0, fixed_width = rsd_width_env();
     const char *data_dir = NULL;
     for (int i = 1; i < argc; i++) {
         if (!strcmp(argv[i], "--scale") && i + 1 < argc) scale = atoi(argv[++i]);
+        else if (!strcmp(argv[i], "--width") && i + 1 < argc) fixed_width = atoi(argv[++i]);
+        else if (!strcmp(argv[i], "--aspect") && i + 1 < argc) {
+            const char *a = argv[++i];
+            fixed_width = !strcmp(a, "16:9") ? rs_host_width_for_aspect(16, 9)
+                        : !strcmp(a, "wide") || !strcmp(a, "Wide") ? rs_host_width_for_aspect(39, 18) : RS_SCREEN_W;
+        }
         else if (!strcmp(argv[i], "--fullscreen")) fullscreen = 1;
         else if (!strcmp(argv[i], "--data") && i + 1 < argc) data_dir = argv[++i];
         else if (!strcmp(argv[i], "--opt") && i + 1 < argc) rsd_option(argv[++i]);
@@ -148,19 +163,34 @@ int main(int argc, char **argv)
     rs_host_set_log(log_fn);
     rs_host_set_file_loader(rsd_data_loader);
     rsd_sram_load(sram_path);
+    /* the width: fixed (--width, --aspect, RS_WIDTH), else from the desktop's shape (it then follows the window) */
+    int auto_width = !fixed_width && g->max_width > RS_SCREEN_W, width = RS_SCREEN_W;
+    if (fixed_width) width = rs_host_width_for(g, fixed_width);
+    else if (auto_width) {
+        SDL_DisplayMode dm;
+        if (SDL_GetDesktopDisplayMode(0, &dm) == 0 && dm.h > 0) width = width_for(g, dm.w, dm.h);
+    }
+    rs_host_set_width(width);
     rs_host_init(g);
+    width = rs_screen_width();
+    if (scale > 1 && width > RS_SCREEN_W) {          /* a wide window that fits the desktop */
+        SDL_DisplayMode dm;
+        if (SDL_GetDesktopDisplayMode(0, &dm) == 0)
+            while (scale > 1 && (width * scale > dm.w - 32 || RS_SCREEN_H * scale > dm.h - 96)) scale--;
+    }
 
     snprintf(title, sizeof title, "%s - RetroStone VC", g->name);
     SDL_Window *win = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                                       RS_SCREEN_W * scale, RS_SCREEN_H * scale,
+                                       width * scale, RS_SCREEN_H * scale,
                                        SDL_WINDOW_RESIZABLE | (fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0));
     if (!win) { fprintf(stderr, "SDL_CreateWindow: %s\n", SDL_GetError()); return 1; }
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
     SDL_Renderer *ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (!ren) ren = SDL_CreateRenderer(win, -1, 0);
-    SDL_RenderSetLogicalSize(ren, RS_SCREEN_W, RS_SCREEN_H);
+    SDL_RenderSetLogicalSize(ren, width, RS_SCREEN_H);
     SDL_Texture *tex = SDL_CreateTexture(ren, SDL_PIXELFORMAT_RGB565, SDL_TEXTUREACCESS_STREAMING,
-                                         RS_SCREEN_W, RS_SCREEN_H);
+                                         width, RS_SCREEN_H);
+    int pending_width = 0, pending_t = 0;              /* a resize waits for the window to settle */
     SDL_ShowCursor(fullscreen ? SDL_DISABLE : SDL_ENABLE);
 
     SDL_AudioSpec want, have;
@@ -184,6 +214,11 @@ int main(int argc, char **argv)
         while (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) running = 0;
             else if (e.type == SDL_CONTROLLERDEVICEADDED || e.type == SDL_CONTROLLERDEVICEREMOVED) open_pads();
+            else if (e.type == SDL_WINDOWEVENT && e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED && auto_width &&
+                     e.window.data2 > 0) {
+                pending_width = width_for(g, e.window.data1, e.window.data2);
+                pending_t = 15;
+            }
             else if (e.type == SDL_KEYDOWN && !e.key.repeat) {
                 SDL_Keycode k = e.key.keysym.sym;
                 if (k >= SDLK_F1 && k <= SDLK_F10) rs_host_set_dev_key((int)(k - SDLK_F1) + 1);
@@ -223,8 +258,18 @@ int main(int argc, char **argv)
             next += frame_ticks;
             steps++;
         }
+        if (pending_t && !--pending_t && pending_width != width) {
+            int w = rs_host_change_width(pending_width);
+            if (w != width) {
+                width = w;
+                SDL_DestroyTexture(tex);
+                tex = SDL_CreateTexture(ren, SDL_PIXELFORMAT_RGB565, SDL_TEXTUREACCESS_STREAMING, width, RS_SCREEN_H);
+                SDL_RenderSetLogicalSize(ren, width, RS_SCREEN_H);
+                SDL_Log("width %d", width);
+            }
+        }
         if (steps) {
-            SDL_UpdateTexture(tex, NULL, rs_host_framebuffer(), RS_SCREEN_W * 2);
+            SDL_UpdateTexture(tex, NULL, rs_host_framebuffer(), width * 2);
             SDL_RenderClear(ren);
             SDL_RenderCopy(ren, tex, NULL, NULL);
             SDL_RenderPresent(ren);

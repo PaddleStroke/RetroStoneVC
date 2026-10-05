@@ -15,13 +15,53 @@ Each section ends with **SNES mapping**: what a later port to real hardware woul
 ## 1. Screen and timing
 | | Guideline | Hard limit |
 |---|---|---|
-| Resolution | 320x240 | same |
+| Resolution | 320x240 (widescreen: 320..560 x 240) | same |
 | Frame rate | 60 fps, fixed timestep | same |
 | Output | RGB565 framebuffer | same |
 
 - The game's `update()` runs exactly 60 times per second and `draw()` once per frame after it. Frontends
   keep the pace: libretro reports 60 fps; the desktop runner uses a fixed-step accumulator with vsync.
 - 320x240 is exactly 2x on the RetroStone2's 640x480 4:3 LCD, so pixels stay square and sharp.
+
+### Widescreen
+A guideline extension for 16:9 screens and phones. **The height stays 240; the width is flexible, from 320 to 560
+columns, chosen by the frontend at start-up**: 320 = 4:3 (the default: the RetroStone2, RetroStoneOS), 427 = 16:9,
+520 = 19.5:9 and 533 = 20:9 phones. Even widths are recommended (a 320-px stage then centres exactly); odd ones work.
+**A wider screen shows more of the decor; the gameplay is unchanged.**
+
+- **Opting in.** A game sets `rs_game.max_width` (usually `RS_SCREEN_W_MAX`) and draws whatever `rs_screen_width()`
+  says; its `game.mk` has `WIDESCREEN_<game> = 1`, which runs its checks at 320 and at every width of `WIDTHS`
+  (427 and 520). A game that does not opt in always runs at 320: wide frontends pillarbox it.
+- **The API.** `rs_screen_width()` (fixed for a run, set before `init()`), `rs_screen_margin()` = (width - 320) / 2.
+  `rs_screen_origin(x)` sets the **stage origin**, the screen column of stage x 0: sprites, viewports, windows and
+  the BG scroll are in stage coordinates. Origin 0 (the default) suits a side-scroller, which reveals more of its
+  world on the right; `rs_screen_origin(rs_screen_margin())` centres a game designed for 320 columns, and the screen
+  shows stage x `rs_screen_left()` .. `rs_screen_right()` (-margin .. 320 + margin): the decor layers draw wider, the
+  320 columns of the stage stay the same pixels. Everything else follows the width: the scanline renderer and its
+  line buffers, BG layers (a map wider than the screen avoids visible repeats: 64 tiles up to 512 columns, 128
+  beyond), the raster callback (its lines are unchanged, `rs_screen_width()` gives the columns), the affine layer,
+  sprite clipping (OAM x is signed: -64..width), the standard viewport layouts (they split the whole width) and the
+  PNG dumps. The house UI kit (games/common) centres the title, panels, banners, prompt, results and pause on the
+  screen and puts the score chips on its halves and corners.
+- **Frontends.** SDL2: the width follows the window's shape (the first window has the desktop's aspect; resizing it
+  restarts the game at the new width from a save state, where it was); `--width N`, `--aspect 4:3|16:9|wide` or the
+  environment variable `RS_WIDTH=N` fix it (`--aspect 4:3` is the classic 320x240). libretro: the core option
+  "Aspect" (`rsvc_aspect`: 4:3, 16:9, Wide), 4:3 by default so RetroStoneOS is unaffected; the geometry follows it
+  and a change restarts the game from a save state. Headless and the state tests: `--width N` (or `RS_WIDTH`).
+  A host embedding the runtime (an Android app) calls `rs_host_set_width(rs_host_width_for_aspect(w, h))` with the
+  device's landscape size before `rs_host_init()`, reads `rs_screen_width()` (a game that has not opted in stays at
+  320) and shows the framebuffer, `rs_screen_width()` x 240 with that pitch, at the screen's height;
+  `rs_host_change_width()` switches live.
+- **Save states load at any width.** The width is a setting of the frontend, not part of a state (the format is
+  unchanged): a state saved at 427 loads at 320 or 520. A widescreen game keeps its saved objects independent of the
+  width, or rebuilds what depends on it in `state_loaded` (maps drawn for the width, a course generated up to the
+  screen's edge); the next frame is drawn at the new width.
+- **Strict mode.** The sprites-per-line guideline scales with the width: 32 per 320 columns (42 at 427, 52 at 520).
+  The other guidelines are unchanged; VRAM counts the wider maps a game may need.
+- **Performance.** The cost grows with the columns: the PPU stress scene costs 0.79 ms at 320, 0.92 ms at 427 and
+  1.01 ms at 520 on the build host (x1.28 for x1.63 columns); see section 11 for the games.
+
+**SNES mapping.** None: the SNES is 4:3. A port runs a widescreen game at 320 (256) columns, its 4:3 stage.
 
 **SNES mapping.** The SNES shows 256x224 (NTSC). A port keeps 60 Hz but loses 64 columns and 16 lines: a
 Bomber Mole playfield of 20x14 cells becomes 16x14 visible cells with horizontal scrolling, and the 16-px HUD
@@ -118,7 +158,7 @@ the front-most main-screen pixel with the sub screen.
 |---|---|---|
 | Sprites (OAM) | **128** | 256 |
 | Size | 8x8 to 64x64, multiples of 8 | any multiple of 8, up to 248 |
-| Per scanline | **32** | none |
+| Per scanline | **32** (widescreen: 32 per 320 columns) | none |
 | Palettes | 8 (CGRAM 128-255) | same |
 
 - Each sprite: x, y (signed), tile, width, height, palette, priority 0-3, H/V flip, hide.
@@ -207,6 +247,7 @@ Rules:
   writable static of the game's object files and fails when one is neither registered nor listed with a reason
   in `games/<game>/state_audit.txt` (scratch buffers, caches rebuilt the same).
 - Bump `rs_game.state_version` when the meaning of saved data changes without its layout changing.
+- The screen width is not part of a state (section 1, "Widescreen"): a state loads at any width.
 
 **Format** (little-endian). A 64-byte header: `"RSVC"`, format version (u16, 1), header size (u16, 64), game id
 (20 bytes), game version (16 bytes), the game's `state_version` (u32), the **build hash** (u64: format, pointer

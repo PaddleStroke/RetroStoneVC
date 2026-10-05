@@ -9,6 +9,8 @@
  *     --shot F:FILE.png   screenshot after frame F (repeatable)
  *     --png FILE.png      screenshot after the last frame
  *     --scale N           PNG scale factor (default 1)
+ *     --width N           widescreen: the screen width (320..560; the game may keep 320: rs_game.max_width);
+ *                         default: the environment variable RS_WIDTH, else 320
  *     --opt KEY=VALUE     game option (repeatable)
  *     --data DIR          data directory override
  *     --sram FILE         load (and save back) the save RAM
@@ -99,6 +101,7 @@ int main(int argc, char **argv)
     int frames = 60, scale = 1, bench = 0, bench_from = 0;
     const char *png = NULL, *sram = NULL, *wav = NULL;
     int device[RS_PAD_MAX] = {RS_DEVICE_KEYBOARD, RS_DEVICE_KEYBOARD2, RS_DEVICE_PAD, RS_DEVICE_PAD};
+    rsd_width_env();
     for (int i = 1; i < argc; i++) {
         const char *a = argv[i], *v = i + 1 < argc ? argv[i + 1] : NULL;
         if (!strcmp(a, "--frames") && v) frames = atoi(argv[++i]);
@@ -112,6 +115,7 @@ int main(int argc, char **argv)
         }
         else if (!strcmp(a, "--png") && v) png = argv[++i];
         else if (!strcmp(a, "--scale") && v) scale = atoi(argv[++i]);
+        else if (!strcmp(a, "--width") && v) rs_host_set_width(atoi(argv[++i]));
         else if (!strcmp(a, "--opt") && v) rsd_option(argv[++i]);
         else if (!strcmp(a, "--dev")) rsd_option("dev=1");
         else if (!strcmp(a, "--data") && v) rsd_set_data_dir(argv[++i]);

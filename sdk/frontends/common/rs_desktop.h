@@ -15,7 +15,10 @@ void *rsd_data_loader(const char *name, size_t *size);
 /* Loads/saves the 32 KiB save RAM. */
 int   rsd_sram_load(const char *path);
 int   rsd_sram_save(const char *path);
-/* Writes the current framebuffer (RGB565) as PNG, scaled by an integer. */
+/* Widescreen: the environment variable RS_WIDTH=N asks for that width (rs_host_set_width), like --width N on the
+ * desktop runners (the tests run a game's scripts at several widths this way). Returns N, or 0 when unset. */
+int   rsd_width_env(void);
+/* Writes the current framebuffer (RGB565, rs_screen_width() x 240) as PNG, scaled by an integer. */
 int   rsd_write_png(const char *path, const uint16_t *fb, int scale);
 /* Parses "key=value" and sets it as a runtime option. */
 void  rsd_option(const char *kv);

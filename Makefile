@@ -51,7 +51,9 @@ export ASAN_OPTIONS ?= detect_leaks=0
 export UBSAN_OPTIONS ?= print_stacktrace=1:halt_on_error=1
 endif
 
-WARN     = -Wall -Wextra -Wno-unused-parameter
+# -Wno-missing-field-initializers: the games' positional rs_game descriptors may stop before the newer fields
+# (max_width: widescreen), which are then 0
+WARN     = -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers
 CSTD     = -std=c11 -D_POSIX_C_SOURCE=200809L
 SDK_INC  = -Isdk/include -Isdk/src -Isdk/third_party/libxmp-lite/include/libxmp-lite \
            -Isdk/third_party/stb -Isdk/third_party/libretro -Isdk/frontends/common
@@ -68,6 +70,10 @@ HOUSE_UI := $(if $(shell grep -qs '^HOUSE_UI_$(GAME) *[:?]*= *1' games/$(GAME)/g
 GAME_SRC = $(wildcard games/$(GAME)/src/*.c) $(if $(HOUSE_UI),$(HOUSE_SRC))
 GAME_GEN = build/gen/$(GAME)/assets.c
 GAME_INC = -Igames/$(GAME)/src -Ibuild/gen/$(GAME) -Igames/common/src
+# Widescreen (docs/spec.md "Widescreen"): a game that opts in (rs_game.max_width) says so with a
+# "WIDESCREEN_<game> = 1" line in its game.mk; its check target then runs its tests at 320 and again at each width of
+# WIDTHS (the scripts' runners read RS_WIDTH). The others run at 320 only (pillarboxed on wide frontends).
+WIDTHS ?= 427 520
 
 # ---- per-platform object lists ------------------------------------------------
 define objs

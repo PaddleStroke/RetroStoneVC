@@ -21,8 +21,14 @@ extern "C" {
 #define RS_VERSION "0.1.0"
 
 /* ---- Screen and timing ------------------------------------------------ */
+/* RS_SCREEN_W is the base (4:3) width: the whole screen of a game that does not opt in to widescreen, and the
+ * "stage" every game is designed for. Widescreen (docs/spec.md "Widescreen"): the height stays 240, the width is
+ * chosen by the frontend at start-up, RS_SCREEN_W_MIN..RS_SCREEN_W_MAX (320 = 4:3, 427 = 16:9, 520 = 19.5:9), for
+ * the games whose descriptor sets max_width; the others always run at 320 (wide frontends pillarbox them). */
 #define RS_SCREEN_W   320
 #define RS_SCREEN_H   240
+#define RS_SCREEN_W_MIN 320
+#define RS_SCREEN_W_MAX 560
 #define RS_FPS        60
 #define RS_AUDIO_RATE 32000
 
@@ -46,10 +52,31 @@ typedef struct rs_game {
     void (*state)(void);        /* registers the game's persistent state: rs_state_*() calls only */
     void (*state_loaded)(void); /* after a state was loaded: rebuild caches (may be NULL) */
     uint32_t state_version;     /* bump when the MEANING of the saved data changes (its layout is checked) */
+    /* Widescreen (docs/spec.md "Widescreen"): the widest screen the game draws, RS_SCREEN_W..RS_SCREEN_W_MAX
+     * (usually RS_SCREEN_W_MAX); 0 = RS_SCREEN_W only. A game that opts in draws whatever rs_screen_width()
+     * says, and its save states load at any width. */
+    uint16_t max_width;
 } rs_game;
 
 /* Implemented by the game (exactly one per binary). */
 const rs_game *rs_game_main(void);
+
+/* ---- Widescreen ------------------------------------------------------- */
+/* The screen's width in pixels: RS_SCREEN_W, or wider for a game that opts in (rs_game.max_width) on a wide
+ * frontend. Fixed for a run: set before init() (a frontend that changes it restarts the game from a save state).
+ * The height is always RS_SCREEN_H. */
+int  rs_screen_width(void);
+/* (width - RS_SCREEN_W) / 2: the columns on each side of a centred 320-px stage (0 at 320). */
+int  rs_screen_margin(void);
+/* The stage origin: the screen column of stage x 0. Sprites, viewports, windows and the BG layers' scroll are in
+ * stage coordinates (screen x = stage x + origin); the raster callback's lines are unchanged. 0 by default (stage =
+ * screen: a side-scroller reveals more on the right); rs_screen_origin(rs_screen_margin()) centres a game designed
+ * for 320 columns, and the screen then shows stage x -margin .. 320 + margin (more of the decor on both sides).
+ * A setting like the width, not saved in states: set it in init(). */
+void rs_screen_origin(int x);
+int  rs_screen_origin_x(void);
+int  rs_screen_left(void);      /* the stage x of the screen's first column (-origin) */
+int  rs_screen_right(void);     /* the stage x just past its last column (width - origin) */
 
 /* ---- Runtime ---------------------------------------------------------- */
 void        rs_log(const char *fmt, ...);
@@ -166,8 +193,8 @@ typedef void (*rs_raster_fn)(int line, void *user);
 void rs_raster(rs_raster_fn fn, void *user);
 
 /* ---- Windows, clipping and colour math ------------------------------- */
-/* Two windows, each a horizontal span [left, right) that the raster
- * callback may change per line (a circle = iris transition). */
+/* Two windows, each a horizontal span [left, right) of stage columns (widescreen: screen x - origin) that the
+ * raster callback may change per line (a circle = iris transition). */
 void rs_window(int w, int left, int right);
 #define RS_WIN1      1          /* hide inside window 1 */
 #define RS_WIN1_OUT  2          /* hide outside window 1 */
@@ -200,7 +227,8 @@ void rs_brightness(int level);  /* 0 (black) .. 15 (full), like INIDISP */
  * A WxH sprite (multiples of 8, 8..64) uses (W/8)*(H/8) CONSECUTIVE tiles in
  * row-major order starting at obj_base + tile. Lower OAM index = in front of
  * other sprites. Priority 0..3 places the sprite between BG layers
- * (docs/spec.md, "Priorities"). Guideline: 128 sprites, 32 per line. */
+ * (docs/spec.md, "Priorities"). Guideline: 128 sprites, 32 per line (per 320 columns: widescreen scales it).
+ * x, y are stage coordinates (widescreen: screen x - origin). */
 #define RS_OAM_MAX    256       /* hard limit; guideline 128 */
 #define RS_OAM_GUIDE  128
 #define RS_SPR_HFLIP  1
@@ -228,7 +256,8 @@ int        rs_spr(int x, int y, int tile, int w, int h, int pal, int prio, int f
  * the rectangle. Later viewports are drawn over earlier ones (an overlay box is a viewport); screen pixels
  * that no viewport covers show the divider colour. The raster callback runs for each line AND each viewport
  * crossing it (rs_viewport_current() tells which); windows stay in screen columns. Line-scroll tables still
- * apply (by screen line); an affine layer ignores the viewports' scroll. n = 0 (the default) = one full screen
+ * apply (by screen line); an affine layer ignores the viewports' scroll. Rectangles are in stage coordinates
+ * (widescreen: screen x - origin). n = 0 (the default) = one full screen
  * with the layers' global scroll and every sprite. Cost: about the same pixels as one screen, plus one 8-px
  * tile per layer and viewport on each line (docs/spec.md, "Viewports"). */
 #define RS_VIEW_MAX      12
@@ -244,7 +273,8 @@ void rs_viewports(int n, const rs_viewport *views, rs_color divider);
 int  rs_viewport_count(void);
 int  rs_viewport_current(void);     /* in the raster callback: the viewport being drawn, -1 = none */
 int  rs_oam_next(void);             /* the first free OAM slot: where the next rs_spr() goes */
-/* The standard layouts (rectangles only; layers 0x0f, sprites on): 1 = full screen; 2 = left/right halves
+/* The standard layouts (rectangles only; layers 0x0f, sprites on), over the whole screen in stage coordinates
+ * (widescreen: from rs_screen_left(), the actual width): 1 = full screen; 2 = left/right halves
  * (RS_LAYOUT_HSPLIT: top/bottom); 3 = a top half and two bottom quarters (RS_LAYOUT_MAP: 4 quadrants, the
  * 4th free for a map); 4 = quadrants. Returns the number of rectangles written. */
 #define RS_LAYOUT_HSPLIT 1

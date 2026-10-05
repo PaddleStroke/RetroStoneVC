@@ -16,6 +16,9 @@
  *   <game>_test_states --foreign FILE     a state of another game: refused, nothing changed
  *   <game>_test_states --list             the registered objects (tools/state_audit.py)
  *   --shot FILE.png                       the picture at the save (to see what a scenario saves)
+ *   --width N                             widescreen: run at that width (default: RS_WIDTH, else 320)
+ *   --resume PREFIX --any-width           the state was saved at another width: it must load before the first
+ *                                         frame and the M frames run (the pictures differ: not compared)
  * The input script is the headless runner's (sdk/frontends/headless/rs_headless.c): "<frame> [Pn] BUTTONS|-",
  * "<frame> [Pn] tap BUTTONS"; the pads of frame f are those of the last events at or before f.
  * The hash leaves out the music's order position and row (libxmp restarts the track at the saved row: its
@@ -135,7 +138,7 @@ static uint64_t frame_hash(void)
     if (!s) return 0;
     mask_music(s);
     uint64_t h = fnv(0xcbf29ce484222325ull, s, g_size);
-    h = fnv(h, rs_host_framebuffer(), RS_SCREEN_W * RS_SCREEN_H * 2);
+    h = fnv(h, rs_host_framebuffer(), (size_t)rs_screen_width() * RS_SCREEN_H * 2);
     free(s);
     return h;
 }
@@ -238,8 +241,9 @@ static void list_line(const char *kind, const char *name, size_t size)
 
 int main(int argc, char **argv)
 {
-    int n = -1, m = -1, list = 0;
+    int n = -1, m = -1, list = 0, any_width = 0;
     const char *out = NULL, *resume = NULL, *foreign = NULL, *shot = NULL;
+    rsd_width_env();
     for (int i = 1; i < argc; i++) {
         const char *a = argv[i], *v = i + 1 < argc ? argv[i + 1] : NULL;
         if (!strcmp(a, "--opt") && v) rsd_option(argv[++i]);
@@ -251,6 +255,8 @@ int main(int argc, char **argv)
         else if (!strcmp(a, "--foreign") && v) foreign = argv[++i];
         else if (!strcmp(a, "--list")) list = 1;
         else if (!strcmp(a, "--shot") && v) shot = argv[++i];
+        else if (!strcmp(a, "--width") && v) rs_host_set_width(atoi(argv[++i]));
+        else if (!strcmp(a, "--any-width")) any_width = 1;
         else { fprintf(stderr, "unknown or incomplete option: %s\n", a); return 2; }
     }
     const rs_game *g = rs_game_main();
@@ -290,10 +296,14 @@ int main(int argc, char **argv)
         for (int i = 0; i < m; i++) {
             frame(n + i);
             unsigned long long want = strtoull(p, &p, 16);
-            if (bad < 0 && frame_hash() != want) bad = n + i;
+            if (bad < 0 && !any_width && frame_hash() != want) bad = n + i;
         }
-        CHECK(bad < 0, "fresh process: frames %d..%d the same as after the save%s", n, n + m - 1,
-              bad < 0 ? "" : " (differs from a frame on)");
+        if (any_width)
+            CHECK(frame_hash() != 0, "fresh process at width %d: frames %d..%d run after the load", rs_screen_width(), n,
+                  n + m - 1);
+        else
+            CHECK(bad < 0, "fresh process: frames %d..%d the same as after the save%s", n, n + m - 1,
+                  bad < 0 ? "" : " (differs from a frame on)");
         if (bad >= 0) printf("  first different frame: %d\n", bad);
         free(s);
         free(hs);

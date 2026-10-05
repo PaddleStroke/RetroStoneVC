@@ -15,8 +15,9 @@
 #endif
 
 /* PPU */
-void ppu_reset(void);
-void ppu_render(uint16_t *fb);          /* 320x240 RGB565 */
+void ppu_reset(void);                   /* the registers; the width stays (ppu_set_width), the origin goes back to 0 */
+void ppu_set_width(int w);              /* RS_SCREEN_W_MIN..RS_SCREEN_W_MAX */
+void ppu_render(uint16_t *fb);          /* rs_screen_width() x 240 RGB565, pitch = the width */
 int  ppu_last_sprites(void);
 int  ppu_last_max_line(void);
 

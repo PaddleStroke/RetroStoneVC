@@ -20,7 +20,8 @@
 
 static const rs_game *g_game;
 static uint32_t g_frame;
-static uint16_t g_fb[RS_SCREEN_W * RS_SCREEN_H];
+static uint16_t g_fb[RS_SCREEN_W_MAX * RS_SCREEN_H];
+static int      g_req_width = RS_SCREEN_W;      /* the width the frontend asked for (rs_host_set_width) */
 static int16_t  g_audio[(RS_AUDIO_RATE / RS_FPS + 2) * 2];
 static int      g_audio_frames;
 static uint16_t g_pad[RS_PAD_MAX], g_pad_prev[RS_PAD_MAX];
@@ -242,8 +243,24 @@ int rs_rand_range(int n) { return rs_rng_range(&g_rng, n); }
 void rs_host_set_log(rs_log_fn fn) { g_log_fn = fn; }
 uint32_t rs_frame_count(void) { return g_frame; }
 
+/* ---- widescreen ------------------------------------------------------------------------------------------- */
+static int clamp_width(int w) { return w < RS_SCREEN_W_MIN ? RS_SCREEN_W_MIN : w > RS_SCREEN_W_MAX ? RS_SCREEN_W_MAX : w; }
+void rs_host_set_width(int w) { g_req_width = clamp_width(w); }
+int rs_host_width_for(const rs_game *g, int w)
+{
+    int mx = g ? clamp_width(g->max_width) : RS_SCREEN_W_MAX;    /* no game (unit tests): any width */
+    w = clamp_width(w);
+    return w < mx ? w : mx;
+}
+int rs_host_width_for_aspect(int num, int den)
+{
+    if (num <= 0 || den <= 0) return RS_SCREEN_W;
+    return clamp_width((int)(((long)RS_SCREEN_H * num * 2 + den) / (2L * den)));
+}
+
 void rs_host_reset(void)
 {
+    ppu_set_width(rs_host_width_for(g_game, g_req_width));
     ppu_reset();
     apu_reset();
     text_reset();
@@ -259,8 +276,12 @@ int rs_host_init(const rs_game *game)
     g_game = game;
     rs_host_reset();
     if (rs_option("strict")) g_strict = rs_option_int("strict", g_strict);
-    rs_log("RetroStone VC %s: %s %s%s", RS_VERSION, game->name, game->version ? game->version : "",
-           g_strict ? " (strict)" : "");
+    if (rs_screen_width() != RS_SCREEN_W)
+        rs_log("RetroStone VC %s: %s %s%s, %dx%d", RS_VERSION, game->name, game->version ? game->version : "",
+               g_strict ? " (strict)" : "", rs_screen_width(), RS_SCREEN_H);
+    else
+        rs_log("RetroStone VC %s: %s %s%s", RS_VERSION, game->name, game->version ? game->version : "",
+               g_strict ? " (strict)" : "");
     assets_check();
     if (game->init) game->init();
     return 0;
@@ -276,6 +297,35 @@ void rs_host_shutdown(void)
 }
 
 void rs_host_render(void) { ppu_render(g_fb); }
+
+int rs_host_change_width(int width)
+{
+    const rs_game *g = g_game;
+    int cur = rs_screen_width();
+    if (!g) { rs_host_set_width(width); return cur; }
+    int want = rs_host_width_for(g, width);
+    if (want == cur) { g_req_width = clamp_width(width); return cur; }
+    size_t size = rs_host_state_size(g);
+    void *buf = size ? malloc(size) : NULL;
+    if (!buf || !rs_host_state_save(buf, size)) {
+        rs_log("the width stays %d: the game has no save state to restart from", cur);
+        free(buf);
+        return cur;
+    }
+    int old_req = g_req_width;
+    rs_host_shutdown();
+    g_req_width = clamp_width(width);
+    rs_host_init(g);
+    if (rs_host_state_load(buf, size)) {           /* refused at the new width: back to the old one */
+        rs_log("the state did not load at width %d: back to %d", rs_screen_width(), cur);
+        rs_host_shutdown();
+        g_req_width = old_req;
+        rs_host_init(g);
+        rs_host_state_load(buf, size);
+    }
+    free(buf);
+    return rs_screen_width();
+}
 
 void rs_host_frame(void)
 {
