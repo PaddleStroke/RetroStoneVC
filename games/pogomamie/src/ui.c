@@ -7,10 +7,14 @@
 #include "pm.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "game_text.h"
 #include <stdio.h>
 #include <string.h>
 
 static int shown_state = -1, shown_best = -1, shown_players, shown_score = -1, shown_chain = -1;
+/* the 1-player game-over panel's layout (longer translated text): moved left by over_dx columns, widened right by
+ * over_ex columns (0, 0: the English layout, a 20 x 12 panel at column 10) */
+static int over_dx, over_ex;
 
 void ui_init(void)
 {
@@ -21,17 +25,34 @@ void ui_init(void)
     hc.obj_tile = pm_obj_tile_count;           /* the kit's sprites after ours */
     hc.obj_pal = 3;
     hc.box_glyphs = " ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!:-";
+    /* the glyph pool (translated text): 160 tiles between the logo (LOGO_TILE.., 117 tiles) and BG2 (VR_BG2 = 640) */
+    hc.ext_tile = LOGO_TILE + 160;
+    hc.ext_count = VR_BG2 - hc.ext_tile;
     hu_init(&hc);
     shown_state = -1;
 }
 
-static const char *const medal_name[5] = {"NO MEDAL YET", "BRONZE WHISKER", "SILVER WHISKER", "GOLD WHISKER",
-                                          "CAT CAUGHT!"};
+/* the medals' names (0 none .. 4 the cat caught) in the player's language */
+static const int medal_text[5] = {GS_MEDAL_NAME_0, GS_MEDAL_NAME_1, GS_MEDAL_NAME_2, GS_MEDAL_NAME_3, GS_MEDAL_NAME_4};
+
+/* the 1-player game-over panel: labels from column 12, the distance in big digits centred on column 24 (8 columns
+ * left for its label), the score and the best right-aligned to column 28, the medal's name from column 12 (15 after
+ * its sprite). Longer text moves the panel left (up to column 0), then widens it right. */
+static void over_layout(const char *score, const char *best_l, const char *best_v, const char *medal, int md)
+{
+    int need = hu_width(HTR(DISTANCE), 0) - 8, n;
+    if ((n = hu_width(HTR(SCORE), 0) + 1 + hu_width(score, 0) - 17) > need) need = n;
+    if ((n = hu_width(best_l, 0) + 1 + hu_width(best_v, 0) - 17) > need) need = n;
+    if ((n = (md ? 3 : 0) + hu_width(medal, 0) - 17) > need) need = n;
+    if (need < 0) need = 0;
+    over_dx = need < 10 ? need : 10;
+    over_ex = need - over_dx < 10 ? need - over_dx : 10;
+}
 
 /* ---- BG1 --------------------------------------------------------------------------------------------------------- */
 void ui_frame(const world *w, int state, int st_t, int best_m, int best_score, int new_best, int paused)
 {
-    char s[48];
+    char s[128];
     const mamie *m = &w->m[0];
     if (state != shown_state || best_m != shown_best || w->players != shown_players) {
         hu_clear();
@@ -39,24 +60,28 @@ void ui_frame(const world *w, int state, int st_t, int best_m, int best_score, i
         if (state == DS_TITLE) {
             hu_logo("POGO MAMIE", pm_logo_ramps, 2, 2, 0);
             if (best_m > 0) {
-                snprintf(s, sizeof s, "BEST %d M   SCORE %d", best_m, best_score);
+                rs_strf(s, sizeof s, TR(TITLE_BEST), best_m, best_score);
                 hu_text(hu_center(s, 0), 24, s);
             }
             hu_copyright(28);
         }
         if (state == DS_OVER) {
             if (w->players == 1) {
-                hu_banner(4, "GAME OVER");
-                hu_panel(10, 9, 20, 12);
+                hu_banner(4, HTR(GAME_OVER));
                 int md = medal_of(m->dist_m);
-                hu_box_text(12, 11, "DISTANCE");
-                hu_box_text(12, 13, "SCORE");
-                snprintf(s, sizeof s, "%d", m->score);
-                hu_box_text(29 - (int)strlen(s), 13, s);
-                hu_box_text(12, 15, new_best ? "NEW BEST!" : "BEST");
-                snprintf(s, sizeof s, "%d M", new_best ? m->dist_m : best_m);
-                hu_box_text(29 - (int)strlen(s), 15, s);
-                hu_box_text(md ? 15 : 12, 17, medal_name[md]);    /* the medal's sprite left of its name */
+                char sc[16], bv[64];
+                const char *bl = new_best ? HTR(NEW_BEST_EXCL) : HTR(BEST), *mn = rs_tr(&gs_strings, medal_text[md]);
+                snprintf(sc, sizeof sc, "%d", m->score);
+                rs_strf(bv, sizeof bv, HTR(METRES_N), new_best ? m->dist_m : best_m);
+                over_layout(sc, bl, bv, mn, md);
+                int x0 = 12 - over_dx, x1 = 29 + over_ex;     /* the labels' column, just past the values' right edge */
+                hu_panel(10 - over_dx, 9, 20 + over_dx + over_ex, 12);
+                hu_box_text(x0, 11, HTR(DISTANCE));
+                hu_box_text(x0, 13, HTR(SCORE));
+                hu_box_text(x1 - hu_width(sc, 0), 13, sc);
+                hu_box_text(x0, 15, bl);
+                hu_box_text(x1 - hu_width(bv, 0), 15, bv);
+                hu_box_text(md ? x0 + 3 : x0, 17, mn);         /* the medal's sprite left of its name */
             } else {
                 hu_standing rank;
                 int values[MAX_PLAYERS], keys[MAX_PLAYERS];
@@ -73,18 +98,18 @@ void ui_frame(const world *w, int state, int st_t, int best_m, int best_score, i
     if (state == DS_TITLE) hu_title_draw(st_t, best_m);
     if ((state == DS_PLAY || state == DS_FALL) && w->players > 2) hu_score_tags(w->players, 0);
     if ((state == DS_PLAY || state == DS_FALL) && w->players == 1 && (m->score != shown_score || m->chain != shown_chain)) {
-        if (m->chain > 1) snprintf(s, sizeof s, "SCORE %d  X%d", m->score, m->chain);
-        else snprintf(s, sizeof s, "SCORE %d", m->score);
+        if (m->chain > 1) rs_strf(s, sizeof s, TR(HUD_SCORE_CHAIN), m->score, m->chain);
+        else rs_strf(s, sizeof s, TR(HUD_SCORE), m->score);
         hu_clear_rows(4, 1);
         hu_text(hu_center(s, 0), 4, s);
         shown_score = m->score;
         shown_chain = m->chain;
     }
     if (state == DS_OVER) {
-        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, "A: MAIN MENU");
+        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_MENU));
         else {
             hu_standing rank = {.n = w->players};
-            hu_retry_line_at(hu_results_retry_row(&rank), st_t, RETRY_LOCK, "A: MAIN MENU");
+            hu_retry_line_at(hu_results_retry_row(&rank), st_t, RETRY_LOCK, HTR(BACK_MENU));
         }
     }
     hu_pause(paused, 13);
@@ -133,11 +158,11 @@ void ui_sprites(const world *w, int state, int st_t, int best_m)
     if (state == DS_OVER) {
         int oy = hu_slide_in(st_t, 20, 200);
         if (w->players == 1) {
-            distance(w->m[0].dist_m, 24 * 8, 11 * 8 - 4 + oy);
-            int md = medal_of(w->m[0].dist_m);
+            distance(w->m[0].dist_m, (24 + over_ex) * 8, 11 * 8 - 4 + oy);
+            int md = medal_of(w->m[0].dist_m), mx = (11 - over_dx) * 8;
             if (md) {
-                spr(SPR_MEDAL + md - 1, 11 * 8 + 2, 16 * 8 - 3 + oy);
-                if ((st_t / 20) % 3 == 0) hu_sparkle(11 * 8 - 3, 16 * 8 - 1 + oy, (st_t / 10) % 2, 3);
+                spr(SPR_MEDAL + md - 1, mx + 2, 16 * 8 - 3 + oy);
+                if ((st_t / 20) % 3 == 0) hu_sparkle(mx - 3, 16 * 8 - 1 + oy, (st_t / 10) % 2, 3);
             }
         } else {
             hu_standing rank;
@@ -154,7 +179,7 @@ void ui_sprites(const world *w, int state, int st_t, int best_m)
 #define S(v) rs_state_var("ui." #v, &(v), sizeof(v))
 void ui_state(void)
 {
-    S(shown_state); S(shown_best); S(shown_players); S(shown_score); S(shown_chain);
+    S(shown_state); S(shown_best); S(shown_players); S(shown_score); S(shown_chain); S(over_dx); S(over_ex);
     hu_state();
 }
 #undef S

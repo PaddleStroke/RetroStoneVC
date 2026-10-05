@@ -1,0 +1,18 @@
+# Pogo Mamie: the screens of the language test (tools/i18n_test.sh, docs/i18n.md), one headless run per line:
+#   <name> <frames> <shot frame> [options] [; input lines]
+title    130  120
+title2   130  120  ; 20 P2 tap A
+title4   130  120  ; 20 P2 tap A ; 30 P3 tap A ; 40 P4 tap A
+# the title again after a run (the records: BEST n M   SCORE n)
+titlebest 960 950 --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=3 ; 924 tap A
+# the HUD: SCORE n, and SCORE n  Xn during the stunt chains (stunts at frames 2947 and 3292)
+play     3400 3390 --opt bot=1 --opt seed=9 --opt ready=1 --opt skip=900
+play4    800  790  --opt bot=4 --opt players=4 --opt seed=9 --opt ready=1
+pause    640  630  --opt bot=1 --opt seed=1 --opt ready=1 ; 600 tap START
+# the 1-player game over: NEW BEST! and no medal; BEST and each medal (skip: no record)
+over     900  890  --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=3
+bronze   420  410  --opt bot=1 --opt seed=1 --opt ready=1 --opt skip=250 --opt botstop=260
+silver   3013 3005 --opt bot=1 --opt seed=1 --opt ready=1 --opt botstop=520
+gold     800  790  --opt bot=1 --opt seed=1 --opt ready=1 --opt skip=1000 --opt botstop=1010
+cat      780  770  --opt bot=1 --opt seed=1 --opt ready=1 --opt skip=2000 --opt botstop=2010
+results  960  950  --opt bot=4 --opt players=4 --opt seed=5 --opt ready=1 --opt botstop=3

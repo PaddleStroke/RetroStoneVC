@@ -18,6 +18,7 @@
 #include "pm.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "game_text.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -258,7 +259,7 @@ static void game_init(void)
     sfx_init();
     draw_init();
     ui_init();
-    hu_title_cfg tc = {START_INPUTS, MAX_PLAYERS, "BOUNCE", NULL, 0};
+    hu_title_cfg tc = {START_INPUTS, MAX_PLAYERS, TR(VERB), NULL, 0};
     hu_title_setup(&tc);
     opt_bot = clampi(rs_option_int("bot", 0), 0, MAX_PLAYERS);
     opt_botruns = rs_option_int("botruns", 1);

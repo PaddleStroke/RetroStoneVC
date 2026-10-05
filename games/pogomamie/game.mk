@@ -36,8 +36,8 @@ build/host/pogomamie_test_physics: build/host/$(PM_DIR)/tests/test_physics.o bui
 	$(HOST_CC) -o $@ $^ -lm
 
 # the alignment test runs the whole game (runtime, draw, the bot) and checks the picture against the world
-PM_OBJ_HOST = $(patsubst %.c,build/host/%.o,$(wildcard $(PM_DIR)/src/*.c) $(HOUSE_SRC) build/gen/pogomamie/assets.c)
-build/host/$(PM_DIR)/tests/test_align.o: build/gen/pogomamie/assets.c
+PM_OBJ_HOST = $(patsubst %.c,build/host/%.o,$(wildcard $(PM_DIR)/src/*.c) $(HOUSE_SRC) build/gen/pogomamie/assets.c                 build/gen/pogomamie/game_text.c)
+build/host/$(PM_DIR)/tests/test_align.o: build/gen/pogomamie/assets.c build/gen/pogomamie/game_text.c
 build/host/pogomamie_test_align: build/host/$(PM_DIR)/tests/test_align.o $(PM_OBJ_HOST) build/host/librs.a
 	$(HOST_CC) -o $@ $^ -lm
 
@@ -51,7 +51,8 @@ pogomamie-check:
 	sh $(PM_DIR)/tests/smoke_test.sh build/host/pogomamie_headless build
 	$(PYTHON) $(PM_DIR)/tests/ui_test.py build/host/pogomamie_headless build/pogomamie-ui
 	sh $(PM_DIR)/tests/state_test.sh build/host/pogomamie_test_states build/states
-	$(PYTHON) tools/state_audit.py --game pogomamie build/host/pogomamie_test_states $(filter-out %/assets.o,$(PM_OBJ_HOST))
+	$(PYTHON) tools/state_audit.py --game pogomamie build/host/pogomamie_test_states $(filter-out %/assets.o %/game_text.o,$(PM_OBJ_HOST))
+	bash tools/i18n_test.sh build/host/pogomamie_headless pogomamie build/pogomamie-i18n $(if $(WIDESCREEN_pogomamie),320 $(WIDTHS),320)
 
 pogomamie-bot:
 	+$(PM_MAKE) build/host/pogomamie_headless
