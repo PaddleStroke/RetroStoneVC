@@ -4,6 +4,7 @@
 #include "assets.h"
 #include "sine.h"
 #include "house_ui.h"
+#include "game_text.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -11,6 +12,8 @@ typedef struct view { int cx,cy,mx,my; rs_color sky[240]; } view;
 static view V[4];
 static rs_viewport VP[4];
 static int nviews,shown_state=-1,shown_best=-1;
+/* 1 when s is plain ASCII (no accent above a letter, no 16x16 glyph: it needs no free row above it) */
+static int ascii(const char *s) { for(;*s;s++) if((unsigned char)*s>=0x80) return 0; return 1; }
 static const rs_color title_ramps[2][3]={
  {RS_RGB8(237,194,255),RS_RGB8(182,122,226),RS_RGB8(115,63,158)},
  {RS_RGB8(255,234,153),RS_RGB8(232,182,93),RS_RGB8(155,100,64)}};
@@ -172,27 +175,41 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
    v->sky[y]=hu_lerp_color(top,bottom,y*256/vp->h);
   }
   background(v,vp);web(w,p,v,vp,&next,state);
-  vp->sx[0]=vp->sx[1]=(int16_t)(v->mx*8);vp->sy[0]=vp->sy[1]=(int16_t)(v->my*8);
+  /* the UI layer: the right-hand views on map columns 20..39 (the kit's UI area, its text checks); the scene layers
+   * keep column 32 (the hills write a 21st column while scrolling) */
+  int ux=vp->x?20:0;
+  vp->sx[0]=(int16_t)(ux*8);vp->sx[1]=(int16_t)(v->mx*8);vp->sy[0]=vp->sy[1]=(int16_t)(v->my*8);
   vp->layers=7;vp->objs=1;
   hu_view_oam_begin(vp);
   if(state==ST_PLAY || state==ST_DEAD) {
    scene(w,p,st_t,v,vp);
    if(!multi) hu_number(h->score,vp->w/2,8,3);
-   char text[40];int left=flower_life(h->anchor)-h->wait;if(left<0)left=0;
+   char text[128];int left=flower_life(h->anchor)-h->wait;if(left<0)left=0;
    if(multi) {
-    hu_panel(v->mx,v->my,(vp->w+7)/8,4);
-    snprintf(text,sizeof text,"P%d %d  D%d",p+1,h->score,h->apples);hu_box_text(v->mx+1,v->my+1,text);
-    if(h->state!=HS_RUN) snprintf(text,sizeof text,"OUT");
-    else if(h->mode==MODE_FLY) snprintf(text,sizeof text,"SILK TOUCH: CATCH");
-    else if(h->mode==MODE_CATCH) snprintf(text,sizeof text,"CAUGHT!");
-    else snprintf(text,sizeof text,"A: RELEASE %dS",(left+59)/60);
-    hu_box_text(v->mx+1,v->my+2,text);
+    /* the panel: the score line and the state line; a line whose texts have accents or tall glyphs (they take
+     * the row above) gets a free row above it, the panel grows */
+    int y=v->my+1,y1,y2;
+    if(!ascii(TR(SPLIT_SCORE))) y++;
+    y1=y++;
+    if(!ascii(TR(SPLIT_OUT)) || !ascii(TR(SPLIT_FLY)) || !ascii(TR(MSG_CAUGHT)) || !ascii(TR(SPLIT_RELEASE))) y++;
+    y2=y++;
+    hu_panel(ux,v->my,(vp->w+7)/8,y-v->my+1);
+    rs_strf(text,sizeof text,TR(SPLIT_SCORE),p+1,h->score,h->apples);hu_box_text(ux+1,y1,text);
+    if(h->state!=HS_RUN) rs_strf(text,sizeof text,"%s",TR(SPLIT_OUT));
+    else if(h->mode==MODE_FLY) rs_strf(text,sizeof text,"%s",TR(SPLIT_FLY));
+    else if(h->mode==MODE_CATCH) rs_strf(text,sizeof text,"%s",TR(MSG_CAUGHT));
+    else rs_strf(text,sizeof text,TR(SPLIT_RELEASE),(left+59)/60);
+    hu_box_text(ux+1,y2,text);
    } else {
-    snprintf(text,sizeof text,"%s",h->mode==MODE_FLY?"STEER SILK INTO A FLOWER":h->mode==MODE_CATCH?"CAUGHT!":"A: RELEASE ON THE UPSWING");
+    rs_strf(text,sizeof text,"%s",h->mode==MODE_FLY?TR(MSG_STEER):h->mode==MODE_CATCH?TR(MSG_CAUGHT):TR(MSG_RELEASE));
     hu_text(hu_center(text,0),4,text);
-    snprintf(text,sizeof text,"DEW %d - FLOWER %dS",h->apples,(left+59)/60);hu_text(hu_center(text,0),6,text);
+    rs_strf(text,sizeof text,TR(HUD_DEW_FLOWER),h->apples,(left+59)/60);hu_text(hu_center(text,0),6,text);
    }
-   if(paused) hu_big(v->mx+(vp->w/8-12)/2,v->my+vp->h/16,"PAUSED",HU_BIG_FREE);
+   if(paused) {   /* 2x, or 1x when 2x is wider than the view */
+    const char *s=HTR(PAUSED);int cols=vp->w/8;
+    if(hu_width(s,1)<=cols) hu_big(ux+(cols-hu_width(s,1))/2,v->my+vp->h/16,s,HU_BIG_FREE);
+    else hu_text(ux+(cols-hu_width(s,0))/2,v->my+vp->h/16+1,s);
+   }
   }
   hu_view_oam_end(vp);
  }
@@ -201,20 +218,20 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   int slide=state==ST_OVER?hu_slide_in(st_t,20,200):0;
   if(state==ST_TITLE) {
    hu_logo("SPIDER SWING",title_ramps,2,2,0);hu_title_draw(st_t,best);
-   hu_text(6,16,"A: RELEASE - L/R: AIR STEER");hu_title_sprites(st_t,icon,NULL);
+   hu_text(hu_center(TR(HINT),0),16,TR(HINT));hu_title_sprites(st_t,icon,NULL);
    spr(SPR_HERO_IDLE+(st_t/24)%2,144,92+hu_bob(st_t,64,4),2,0,vp);
    blossom(w,0,0,89,113,0,vp);blossom(w,1,0,231,113,0,vp);
   }
   if(state==ST_OVER) {
    if(w->players==1) {
     static const int medals[4]=MEDAL_SCORES;
-    hu_banner(4,"GAME OVER");hu_gameover_panel(1,new_best,w->h[0].score,0);
+    hu_banner(4,HTR(GAME_OVER));hu_gameover_panel(1,new_best,w->h[0].score,0);
     hu_gameover_sprites(1,w->h[0].score,0,best,hu_medal_of(w->h[0].score,medals),st_t,slide);
-    hu_retry_line(st_t,RETRY_LOCK,"A: TITLE");
+    hu_retry_line(st_t,RETRY_LOCK,HTR(BACK_TITLE));
    } else {
     hu_results_panel(&rank,NULL);hu_results_sprites(&rank,st_t,slide);
     for(int i=0;i<rank.n;i++) {int x,y;hu_results_icon_pos(&rank,i,&x,&y);spr(SPR_HERO_ICON,x-8,y-8+slide,3,ppal(rank.order[i]),vp);}
-    hu_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,"A: TITLE");
+    hu_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));
    }
   }
   rs_bg_scroll(RS_BG1,0,-slide);rs_bg_scroll(RS_BG2,0,0);rs_bg_scroll(RS_BG3,vp->sx[2],vp->sy[2]);
