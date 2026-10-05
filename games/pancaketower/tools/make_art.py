@@ -8,10 +8,11 @@ the palettes defined here (TOWER_PAL, TOPPING_PAL); everything else is drawn her
             syrup bottle and stream, splashes, "+1"/"+2", the falling toppings, plaster, dust, roof tiles, a star
             burst, sweat, the ceiling's and the roof's broken edges, birds, a weather balloon, a plane, a
             satellite, the moon and the cow
-  near      five 320x256 scenery segments (BG3, the tower's world): the kitchen with the ceiling, the attic and
-            the roof; the sky; the clouds; the stratosphere; space (repeats)
-  far       a 256x544 far layer (BG4, 1/4 of the camera): the garden and the neighbours through the window,
-            the hills, far clouds, the stars
+  near      five 576x256 scenery segments (BG3, the tower's world; the 320-px stage in the middle, the rest is
+            shown by wide screens): the kitchen with the ceiling, the attic and the roof; the sky; the clouds; the
+            stratosphere; space (repeats)
+  far       a 512x704 far layer (BG4, 1/4 of the camera; the first 256 px are the 4:3 layer): the garden and the
+            neighbours through the window, the hills, far clouds, the stars
 
     python3 games/pancaketower/tools/make_art.py [--out games/pancaketower/art]    (PNG sheets for review)
     build_assets.py imports build() and converts the canvases directly.
@@ -685,15 +686,36 @@ def wy_to_row(seg, wy):
     return top - wy
 
 
+# ---- widescreen (docs/spec.md "Widescreen"): the near segments are NEAR_WIDE px wide, the 320-px stage in the middle
+# (stage x 0 = image column NEAR_PAD). A wider screen shows stage x -margin .. 320 + margin (margin <= 120 at 560 columns,
+# + the 3-px shake): the kitchen goes on sideways (a fridge, a stove under its hood, a painting and a stool, the back
+# door), the ceiling, the attic under its roof slopes, the roof, the clouds, the streaks and the stars too. The 320 middle
+# columns are exactly the 4:3 picture (build_assets.py converts them first: their tiles and map are unchanged).
+NEAR_PAD = 128
+NEAR_WIDE = 320 + 2 * NEAR_PAD
+XL, XR = -NEAR_PAD, 320 + NEAR_PAD            # the stage x drawn: [XL, XR)
+
+
+class StageCanvas(Canvas):
+    """A near segment addressed in stage x (XL .. XR - 1): set() and clear() shift by NEAR_PAD; the image is plain."""
+
+    def set(self, x, y, c):
+        Canvas.set(self, x + NEAR_PAD, y, c)
+
+    def clear(self, x, y):
+        Canvas.set(self, x + NEAR_PAD, y, None)
+
+
 def house():
-    """The house in one 320 x 512 canvas (row 0 = world y 447): the kitchen with its ceiling, the attic, the roof."""
-    cv = Canvas(320, HOUSE_H)
+    """The house in one NEAR_WIDE x 512 canvas (row 0 = world y 447): the kitchen with its ceiling, the attic, the
+    roof."""
+    cv = StageCanvas(NEAR_WIDE, HOUSE_H)
     K = KIT
     R = lambda wy: 447 - wy               # noqa: E731
 
     def band(wy0, wy1, fn):
         for wy in range(wy0, wy1 + 1):
-            for x in range(320):
+            for x in range(XL, XR):
                 c = fn(x, wy)
                 if c is not None:
                     cv.set(x, R(wy), c)
@@ -730,7 +752,7 @@ def house():
             if edge or cross:
                 cv.set(x, y, K["frame"] if (x - wx0 < 2 or wy1 - wy < 2) or cross and (x + y) % 2 == 0 else K["wall3"])
             else:
-                cv.p[y][x] = None
+                cv.clear(x, y)
     for x in range(wx0 - 4, wx1 + 5):                     # the sill
         for wy in range(wy0 - 3, wy0):
             cv.set(x, R(wy), K["wood"] if wy == wy0 - 1 else K["wood2"])
@@ -849,11 +871,12 @@ def house():
         return c
     band(CEILING_TOP, ROOF_Y - 1, planks)
     # the roof slopes down into the corners: its underside, boards parallel to the slope (a 45-degree pattern on the
-    # 8-px grid: few tiles), a rafter along the edge
-    for wy in range(CEILING_TOP + 40, ROOF_Y):
+    # 8-px grid: few tiles), a rafter along the edge. Widescreen: the rafter goes on down to the attic's floor (at 40 px
+    # outside the stage) and the boards fill the attic beyond it.
+    for wy in range(CEILING_TOP, ROOF_Y):
         reach = wy - (CEILING_TOP + 40)                   # 45 degrees: from 0 px at wy 232 to 55 px at 287
         for side in (0, 1):
-            for k in range(reach + 1):
+            for k in range(-NEAR_PAD, reach + 1):
                 x = k if side == 0 else 319 - k
                 e = reach - k                             # distance to the rafter, along x
                 if e < 2:
@@ -870,7 +893,7 @@ def house():
         for x in range(wcx - 9, wcx + 10):
             d = math.hypot(x + 0.5 - wcx, wy + 0.5 - wcy)
             if d < 7.2 and abs(x + 0.5 - wcx) > 0.8 and abs(wy + 0.5 - wcy) > 0.8:
-                cv.p[R(wy)][x] = None
+                cv.clear(x, R(wy))
     # a travel trunk under it, boxes on the right, a cobweb in the corner
     for wy in range(192, 209):
         for x in range(14, 64):
@@ -964,8 +987,167 @@ def house():
             cv.set(x, R(wy), K["pan"])
         for x in (AERIAL_X - half, AERIAL_X + 1 + half):
             cv.set(x, R(wy - 1), K["pan2"])
+    kitchen_sides(cv, R)
     cv.outline(K["out"])
     return cv
+
+
+def kitchen_sides(cv, R):
+    """Widescreen: the kitchen beyond the 320-px stage (stage x < 0 and >= 320 only; the walls, the floor, the ceiling
+    and the attic go on by themselves). On the 8-px grid with flat shades, in the kitchen's two palettes (VRAM: they
+    use the carve slots of players 2-4, at most 132 tiles). Left: the fridge (seen from 427 columns), a painting of the
+    cow jumping over the moon and a step stool (from 520). Right: the stove under its hood (from 427), the back door to
+    the garden, its glass showing the far layer (from 520)."""
+    K = KIT
+
+    def box(x0, x1, wy0, wy1, fn):
+        for wy in range(wy0, wy1 + 1):
+            for x in range(x0, x1 + 1):
+                c = fn(x - x0, wy - wy0, x1 - x, wy1 - wy)
+                if c is not None:
+                    cv.set(x, R(wy), c)
+
+    # ---- the fridge (x -48..-9, wy -40..103): pale blue enamel, the freezer above, two handles, a child's drawing
+    def fridge(dx, dy, rx, ry):
+        if ry == 0 and (dx == 0 or rx == 0):
+            return None                                   # rounded top corners
+        if dy < 4:
+            return K["pan"] if dy < 3 else K["tile3"]     # the kick plate
+        if dx == 0 or rx == 0 or ry == 0:
+            return K["tile3"]
+        if ry == 1 or dx == 1:
+            return K["frame"]
+        if dy in (98, 99):                                # the freezer's door gap (wy 58, 59)
+            return K["tile3"] if dy == 98 else K["tile2"]
+        if rx <= 3:
+            return K["tile2"]
+        return K["tile"]
+    box(-48, -9, -40, 103, fridge)
+    for wy0, wy1 in ((66, 92), (6, 50)):                  # the handles, near the doors' right edges
+        for wy in range(wy0, wy1 + 1):
+            cv.set(-17, R(wy), K["frame"]), cv.set(-16, R(wy), K["pan"])
+        cv.set(-16, R(wy1 + 1), K["tile3"]), cv.set(-16, R(wy0 - 1), K["tile3"])
+    # the drawing (x -40..-25, wy 8..23): a tower of pancakes in crayon, held by a magnet
+    for wy in range(8, 24):
+        for x in range(-40, -24):
+            c = K["plaster"]
+            if x in (-40, -25) or wy in (8, 23):
+                c = K["plaster2"]
+            cv.set(x, R(wy), c)
+    for i, (w, wy) in enumerate(((10, 10), (8, 12), (10, 14), (6, 16), (8, 18))):
+        for x in range(-32 - w // 2, -32 + w // 2):
+            cv.set(x, R(wy), K["wood"] if i % 2 == 0 else K["wood2"])
+    cv.set(-33, R(21), K["dark"]), cv.set(-32, R(21), K["dark"]), cv.set(-33, R(22), K["pan"]), cv.set(-32, R(22), K["pan"])
+
+    # ---- a painting (x -88..-65, wy 64..87): the cow jumps over the moon (what waits up there), in a wooden frame
+    def painting(dx, dy, rx, ry):
+        if min(dx, dy, rx, ry) == 0:
+            return K["wood3"]
+        if min(dx, dy, rx, ry) <= 2:
+            return K["wood"] if dx + ry < 12 else K["wood2"]
+        return K["pan"]                                   # the night sky
+    box(-88, -65, 64, 87, painting)
+    for wy in range(66, 86):
+        for x in range(-86, -66):
+            if (x + 72.5) ** 2 + (wy - 72.5) ** 2 < 24:   # the moon, low on the right
+                cv.set(x, R(wy), K["plaster"] if x + (72.5 - wy) < -71 else K["wall2"])
+    cow = ["....##.",
+           "######X",
+           "#X##X##",
+           "######.",
+           ".X..X.."]                                     # the cow over it, legs tucked (X: her spots, hooves, eye)
+    for j, row in enumerate(cow):
+        for i, ch in enumerate(row):
+            if ch != ".":
+                cv.set(-84 + i, R(83 - j), K["frame"] if ch == "#" else K["dark"])
+    for x, wy in ((-75, 84), (-69, 81), (-84, 69)):
+        cv.set(x, R(wy), K["plaster"])                    # three stars
+    # ---- a step stool (x -96..-73, wy -40..-17)
+    def stool(dx, dy, rx, ry):
+        if ry <= 3:
+            return K["wood3"] if ry == 0 or dy == 20 else K["wood"] if dx + ry < 18 else K["wood2"]
+        if dx < 4 or rx < 4:                              # the legs
+            return K["wood3"] if dx in (0, 3) or rx in (0, 3) else K["wood2"]
+        if 8 <= dy <= 10:
+            return K["wood3"] if dy == 8 else K["wood2"]  # the rung
+        return None
+    box(-96, -73, -40, -17, stool)
+
+    # ---- the stove (x 328..367, wy -40..-1): an oven with a window, knobs, a pot on the hob; the hood above
+    def stove(dx, dy, rx, ry):
+        if dy < 4:
+            return K["pan"] if dy < 3 else K["tile3"]     # the plinth
+        if ry < 4:                                        # the hob (wy -4..-1): a dark top on a steel rim
+            return K["dark"] if ry < 2 else K["pan"]
+        if dx == 0 or rx == 0 or ry == 4:
+            return K["tile3"]
+        if 28 <= dy <= 31:                                # the knobs' strip (wy -12..-9)
+            return K["tile2"] if dy > 28 else K["tile3"]
+        if 6 <= dx and 6 <= rx and 9 <= dy <= 23:         # the oven window (wy -31..-17)
+            if dx == 6 or rx == 6 or dy in (9, 23):
+                return K["pan"]
+            return K["tile2"] if (dx - dy) % 9 in (0, 1) else K["dark"]
+        if dy in (25, 26) and 5 <= dx and 5 <= rx:        # the handle
+            return K["pan"] if dy == 25 else K["tile3"]
+        return K["frame"] if rx > 3 else K["tile"]
+    box(328, 367, -40, -1, stove)
+    for x in (334, 343, 352, 361):                        # the knobs, on the strip under the hob (wy -10, -9)
+        cv.set(x, R(-10), K["dark"]), cv.set(x + 1, R(-10), K["dark"]), cv.set(x, R(-9), K["pan"]), cv.set(x + 1, R(-9), K["pan"])
+
+    def pot(dx, dy, rx, ry):
+        if ry <= 1:
+            return K["pan"] if ry == 0 else K["tile3"]    # the lid's rim
+        if dy == 0:
+            return K["pan"]
+        return K["frame"] if dx < 5 else K["tile2"] if rx > 5 else K["tile3"]
+    box(336, 359, 0, 15, pot)
+    for x in range(345, 351):                             # the lid's knob
+        cv.set(x, R(16), K["pan"]), cv.set(x, R(17), K["pan"] if x in (345, 350) else K["tile3"])
+    for wy in (8, 9):                                     # the handles
+        cv.set(333, R(wy), K["pan"]), cv.set(334, R(wy), K["pan"]), cv.set(335, R(wy), K["pan"])
+        cv.set(360, R(wy), K["pan"]), cv.set(361, R(wy), K["pan"]), cv.set(362, R(wy), K["pan"])
+    # the hood (wy 104..127, wider at the bottom) and its duct up to the ceiling (wy 128..151)
+    for wy in range(104, 128):
+        h = 127 - wy                                      # 0 at the top
+        half = 12 + h * 12 // 23
+        for x in range(348 - half, 348 + half):
+            c = K["tile2"] if x < 348 + half - 4 else K["tile3"]
+            if x < 348 - half + 3:
+                c = K["frame"]
+            if wy < 107:
+                c = K["tile3"] if wy == 104 else K["pan"]
+            if x in (348 - half, 348 + half - 1):
+                c = K["tile3"]
+            cv.set(x, R(wy), c)
+    for wy in range(128, 152):
+        for x in range(340, 356):
+            cv.set(x, R(wy), K["tile3"] if x in (340, 355) else K["frame"] if x < 344 else K["tile2"])
+        if wy % 8 == 0:
+            for x in range(340, 356):
+                cv.set(x, R(wy), K["tile3"])
+
+    # ---- the back door (x 376..415, wy -40..111): wood, a panel below, glass above (the garden shows through)
+    def door(dx, dy, rx, ry):
+        if dx < 3 or rx < 3 or ry < 3:                    # the frame
+            return K["wood3"] if dx == 0 or rx == 0 or ry == 0 else K["wood2"]
+        if 84 <= dy <= 139 and 8 <= dx and 8 <= rx:       # the glass (wy 44..99), a cross of glazing bars
+            if dx in (19, 20) or dy in (111, 112):
+                return K["wood2"] if dx == 20 or dy == 112 else K["wood"]
+            return "glass"
+        if (dy in (82, 83, 140, 141) and 6 <= dx and 6 <= rx) or (dx in (6, 7) or rx in (6, 7)) and 82 <= dy <= 141:
+            return K["wood3"] if dy in (82, 140) or dx == 6 or rx == 7 else K["wood2"]
+        if 12 <= dy <= 70 and (dx in (8, 9) or rx in (8, 9) or dy in (12, 13, 69, 70)) and 8 <= dx and 8 <= rx:
+            return K["wood2"] if dx == 8 or dy == 70 or rx == 9 or dy == 12 else K["wood3"]   # the panel's moulding
+        return K["wood"] if dx < 30 else K["wood2"]
+    for wy in range(-40, 112):
+        for x in range(376, 416):
+            c = door(x - 376, wy + 40, 415 - x, 111 - wy)
+            if c == "glass":
+                cv.clear(x, R(wy))
+            elif c is not None:
+                cv.set(x, R(wy), c)
+    for x, wy in ((381, 30), (382, 30), (381, 31), (382, 31)):     # the knob
+        cv.set(x, R(wy), K["pan"] if wy == 30 else K["dark"])
 
 
 def house_segments():
@@ -973,7 +1155,7 @@ def house_segments():
     hv = house()
     segs = []
     for top in (256, 0):
-        cv = Canvas(320, 256)
+        cv = Canvas(NEAR_WIDE, 256)
         for y in range(256):
             cv.p[y] = list(hv.p[top + y])
         segs.append(cv)
@@ -988,48 +1170,63 @@ def cloud(cv, cx, cy, s, rng):
 
 
 def clouds_seg():
-    """two cloud shapes, each stamped three times on the 8-px grid (their tiles are shared: VRAM)"""
-    cv = Canvas(320, 256)
+    """two cloud shapes, each stamped three times on the 8-px grid (their tiles are shared: VRAM); widescreen: two
+    more on each side (stamped clear of the stage's 320 columns, outline included)"""
+    cv = StageCanvas(NEAR_WIDE, 256)
     shapes = []
     for seed, sc in ((77, 1.4), (78, 1.0)):
         sh = Canvas(80, 48)
         cloud(sh, 40, 28, sc, random.Random(seed))
         shapes.append(sh)
-    for (x, y, k) in ((0, 176, 0), (232, 120, 0), (48, 64, 1), (224, 16, 1), (120, 208, 1), (152, 0, 0)):
+    for (x, y, k) in ((0, 176, 0), (232, 120, 0), (48, 64, 1), (224, 16, 1), (120, 208, 1), (152, 0, 0),
+                      (-120, 24, 1), (-104, 136, 0), (336, 56, 0), (352, 176, 1)):
         sh = shapes[k]
         for yy in range(sh.h):
             for xx in range(sh.w):
-                if sh.p[yy][xx] is not None and 0 <= x + xx < 320 and 0 <= y + yy < 256:
-                    cv.p[y + yy][x + xx] = sh.p[yy][xx]
+                if sh.p[yy][xx] is not None and XL <= x + xx < XR and 0 <= y + yy < 256:
+                    cv.set(x + xx, y + yy, sh.p[yy][xx])
     cv.outline(SKY_3)
     return cv
 
 
 def strato_seg():
-    cv = Canvas(320, 256)
+    cv = StageCanvas(NEAR_WIDE, 256)
     rng = random.Random(5)
     for k in range(9):                    # thin streaks on the 8-px grid (their tiles repeat: VRAM)
         y = (k * 27 + rng.randint(0, 8)) // 8 * 8 + 3
         x0 = rng.randint(-5, 32) * 8
         L = rng.randint(6, 14) * 8
-        for i in range(L):
-            x = x0 + i
-            end = i < 8 or i >= L - 8
-            if 0 <= x < 320 and (not end or hs.checker(x, y)):
-                cv.set(x, y, SKY_2 if i % 8 not in (0, 4) else SKY_3)
-                if not end and i % 16 == 5:
-                    cv.set(x, y - 1, SKY_3)
+        streak(cv, x0, y, L, XL, XR)
+    rng = random.Random(6)                # widescreen: more streaks beside the stage (they stay off its columns)
+    for k in range(8):
+        y = (k * 31 + rng.randint(0, 8)) // 8 * 8 + 3
+        left = k % 2 == 0
+        L = rng.randint(5, 11) * 8
+        x0 = (rng.randint(-16, -1 - L // 8) if left else rng.randint(40, 56 - L // 8)) * 8
+        streak(cv, x0, y, L, XL if left else 320, 0 if left else XR)
     return cv
+
+
+def streak(cv, x0, y, L, lo, hi):
+    """a streak of L px from x0 on row y, drawn only in [lo, hi)"""
+    for i in range(L):
+        x = x0 + i
+        end = i < 8 or i >= L - 8
+        if lo <= x < hi and (not end or hs.checker(x, y)):
+            cv.set(x, y, SKY_2 if i % 8 not in (0, 4) else SKY_3)
+            if not end and i % 16 == 5:
+                cv.set(x, y - 1, SKY_3)
 
 
 STAR_SPOTS = [(2, 3), (5, 1), (4, 6), (1, 5)]         # stars sit at a few spots of their 8x8 cell (VRAM: few tiles)
 
 
-def stars(cv, n, seed, dens=1.0, big=True):
+def stars(cv, n, seed, dens=1.0, big=True, w=None, x0=0):
+    """n stars over the w px from x0 (the canvas by default)"""
     rng = random.Random(seed)
     for _ in range(n):
         sx, sy = STAR_SPOTS[rng.randrange(len(STAR_SPOTS))]
-        x, y = rng.randrange(cv.w // 8) * 8 + sx, rng.randrange(cv.h // 8) * 8 + sy
+        x, y = rng.randrange((w or cv.w) // 8) * 8 + sx + x0, rng.randrange(cv.h // 8) * 8 + sy
         k = rng.random()
         if k < 0.7:
             cv.set(x, y, SKY_2)
@@ -1042,8 +1239,10 @@ def stars(cv, n, seed, dens=1.0, big=True):
 
 
 def space_seg():
-    cv = Canvas(320, 256)
-    stars(cv, 70, 11)
+    cv = StageCanvas(NEAR_WIDE, 256)
+    stars(cv, 70, 11, w=320)
+    stars(cv, 28, 12, w=NEAR_PAD, x0=XL)              # widescreen: as many per column beside the stage
+    stars(cv, 28, 13, w=NEAR_PAD, x0=320)
     return cv
 
 
@@ -1093,12 +1292,28 @@ def _far_tree(cv, R, cx, base, r):
     _ell(cv, cx, R(base + 3 + r), r, r * 1.1, lambda dx, dy, *a: G["tree"] if dx + dy < 0.1 else G["tree2"])
 
 
-def far():
-    cv = Canvas(256, FAR_H)
+FAR_WIDE = 512                         # widescreen: the far layer is 512 px wide (64 tiles, a 128-tile map holds it)
+
+
+def far_wide():
+    """Widescreen: the far layer over 512 px. Columns 0..319 are the 256-px layer as a 320-px screen shows it (0..255
+    and 0..63 again: the middle of a wide screen is the 4:3 picture); 320..511 go on with the same bands (their periods
+    divide 256: the same tiles) and their own sky: the clouds, the trees and the stars are placed anew, and nothing
+    stands out in 392..440, the columns a 560-px screen shows at both its edges (the 512-px wrap)."""
+    base, cont = far(), far(FAR_WIDE)
+    cv = Canvas(FAR_WIDE, FAR_H)
+    for y in range(FAR_H):
+        cv.p[y] = base.p[y] + base.p[y][:64] + cont.p[y][320:]
+    return cv
+
+
+def far(w=256):
+    cv = Canvas(w, FAR_H)
     R = lambda fy: FAR_H - 1 - fy       # noqa: E731
     G = FG
+    wide = w > 256
     # the hills on the horizon (226 .. 249) and the land below them
-    for x in range(256):
+    for x in range(w):
         h = 238 + 6 * math.sin(x / 64.0 * 2 * math.pi + 0.4)            # a 64-px period: few tiles (VRAM)
         for fy in range(0, int(h)):
             c = G["mt"] if fy > 222 else G["h1"] if fy > 120 else G["h2"]
@@ -1107,23 +1322,24 @@ def far():
             cv.set(x, R(fy), c)
     # the neighbourhood's rooftops: a back row (smaller, slate, fainter) and a front row (red and brown roofs)
     # (stamps repeated on the 8-px grid: their tiles are shared)
-    for i, x0 in enumerate(range(20, 256, 32)):
+    for i, x0 in enumerate(range(20, w, 32)):
         _far_house(cv, R, x0, 208, 24, 6, 8, G["slate"], G["mt"], G["wall2"], chimney=i % 2 == 1, door=False)
-    for i, x0 in enumerate(range(4, 256, 32)):
+    for i, x0 in enumerate(range(4, w, 32)):
         roof = (G["roof"], G["roof2"]) if i % 2 == 0 else (G["roof2"], G["dark"])
         _far_house(cv, R, x0, 184, 24, 9, 12, roof[0], roof[1], G["wall"], chimney=i % 4 == 0, door=False)
-    for cx in (32, 160):
+    for cx in (32, 160) + ((288, 352, 480) if wide else ()):    # the same spot of a house: the same tiles
         _far_tree(cv, R, cx, 182, 6)
     # the garden (104 .. 181): the lawn, the neighbours' houses, trees, a fence in front
     for fy in range(104, 124):
-        for x in range(256):
+        for x in range(w):
             cv.set(x, R(fy), G["h1"] if (x // 8 + fy // 8) % 2 else G["h2"])
-    _far_house(cv, R, 16, 120, 48, 28, 22, G["roof"], G["roof2"], G["wall"], chimney=True)
-    _far_house(cv, R, 144, 120, 48, 24, 20, G["slate"], G["dark"], G["wall2"])
-    _far_tree(cv, R, 100, 118, 14)
-    _far_tree(cv, R, 228, 118, 15)
+    for dx in (0, 256) if wide else (0,):
+        _far_house(cv, R, 16 + dx, 120, 48, 28, 22, G["roof"], G["roof2"], G["wall"], chimney=True)
+        _far_house(cv, R, 144 + dx, 120, 48, 24, 20, G["slate"], G["dark"], G["wall2"])
+        _far_tree(cv, R, 100 + dx, 118, 14)
+        _far_tree(cv, R, 228 + dx, 118, 15)
     for fy in range(108, 122):                            # the fence
-        for x in range(256):
+        for x in range(w):
             px = x % 8
             if fy >= 119 and px > 4:
                 continue
@@ -1132,20 +1348,32 @@ def far():
                 c = G["wall2"]
             cv.set(x, R(fy), c)
     # far clouds
-    for (cx, cy, s) in ((40, 330, 0.7), (150, 362, 0.9), (220, 312, 0.6), (95, 385, 0.5)):
+    clouds = ((40, 330, 0.7), (150, 362, 0.9), (220, 312, 0.6), (95, 385, 0.5))
+    if wide:                              # 256 px on, but the one that would be in 392..440
+        clouds += ((296, 330, 0.7), (351, 385, 0.5), (476, 312, 0.6))
+    for (cx, cy, s) in clouds:
         for dx, dy, k in ((0, 0, 1.0), (-1.2, -0.2, 0.7), (1.3, -0.1, 0.75)):
             _ell(cv, cx + dx * 10 * s, R(cy) + dy * 8 * s, 12 * s * k, 6 * s * k,
                  lambda ex, ey, *a: G["cl"] if ey < 0.3 else G["cl2"])
     # stars: sparse from 400, dense in the repeating top 256 rows (FAR_H - 256 ..)
-    top = Canvas(256, 256)
+    top = Canvas(w, 256)
     rng = random.Random(21)
     for _ in range(64):
         sx, sy = STAR_SPOTS[rng.randrange(len(STAR_SPOTS))]
         x, y = rng.randrange(32) * 8 + sx, rng.randrange(32) * 8 + sy
         k = rng.random()
-        top.set(x, y, G["cl"] if k < 0.4 else G["cl2"] if k < 0.75 else G["mt"])
+        for dx in (0, 256) if wide else (0,):
+            top.set(x + dx, y, G["cl"] if k < 0.4 else G["cl2"] if k < 0.75 else G["mt"])
+    if wide:                              # their own stars in 320..511 (none in 392..440)
+        rng = random.Random(22)
+        for _ in range(16):
+            sx, sy = STAR_SPOTS[rng.randrange(len(STAR_SPOTS))]
+            x, y = rng.randrange(40, 64) * 8 + sx, rng.randrange(32) * 8 + sy
+            k = rng.random()
+            if not 392 <= x < 440:
+                top.set(x, y, G["cl"] if k < 0.4 else G["cl2"] if k < 0.75 else G["mt"])
     for y in range(256):
-        for x in range(256):
+        for x in range(w):
             if top.p[y][x] is None:
                 continue
             for fy in (FAR_H - 1 - y, FAR_H - 1 - y - 256):
@@ -1156,7 +1384,7 @@ def far():
 
 # ---- everything --------------------------------------------------------------------------------------------------------------
 def build():
-    return dict(sprites=sprites(), near=house_segments() + [clouds_seg(), strato_seg(), space_seg()], far=far())
+    return dict(sprites=sprites(), near=house_segments() + [clouds_seg(), strato_seg(), space_seg()], far=far_wide())
 
 
 def sheet(entries):

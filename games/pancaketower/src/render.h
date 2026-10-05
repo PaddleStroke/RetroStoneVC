@@ -15,7 +15,7 @@ void render_state(void);
 /* layer l on BG2 map row ring_row, its centre px = the plate's centre in map pixels, over map columns
  * [col0, col0 + ncols) (a player's half in 2 players) */
 void render_row(int player, int ring_row, const layer *l, int centre_px, int col0, int ncols);
-void render_clear_row(int ring_row, int col0, int ncols);
+void render_clear_row(int player, int ring_row, int col0, int ncols);
 /* a layer into a 128x8 box of OBJ tiles (two 64x8 sprites) at `tile` (relative to VR_OBJ); box_x0 = the map x of
  * the box's left column, x0 = the layer's left in the same coordinates; *pal: 0 tower colours, 1 toppings */
 int  render_layer_sprite(int tile, const layer *l, int box_x0, int x0, int squash, int box_w, int *pal);

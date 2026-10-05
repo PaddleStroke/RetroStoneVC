@@ -16,6 +16,8 @@ PT_MAKE = $(MAKE) --no-print-directory GAME=pancaketower GAME_NAME=PancakeTower
 PT_DIR  = games/pancaketower
 # the house style kit (games/common/src, docs/art-direction.md) is compiled in
 HOUSE_UI_pancaketower = 1
+# widescreen (docs/spec.md "Widescreen", DESIGN.md): the check runs again at each width of WIDTHS (427 520)
+WIDESCREEN_pancaketower = 1
 
 .PHONY: pancaketower pancaketower-check pancaketower-windows pancaketower-armhf pancaketower-dist \
         pancaketower-screenshots pancaketower-bench pancaketower-art
@@ -49,6 +51,16 @@ pancaketower-check:
 	sh $(PT_DIR)/tests/ui_test.sh build/host/pancaketower_headless build/pancaketower-ui
 	sh $(PT_DIR)/tests/state_test.sh build/host/pancaketower_test_states build/states
 	$(PYTHON) tools/state_audit.py --game pancaketower build/host/pancaketower_test_states $(filter-out %/assets.o,$(PT_OBJ_HOST))
+	for w in $(WIDTHS); do \
+	    case $$w in 427) a=16:9;; 520) a=Wide;; *) a=;; esac; \
+	    echo "== Pancake Tower at $$w columns"; \
+	    if [ -n "$$a" ]; then ./build/host/test_libretro build/host/pancaketower_libretro.so 600 $$a $$w || exit 1; fi; \
+	    RS_WIDTH=$$w sh $(PT_DIR)/tests/break_test.sh build/host/pancaketower_test_break build/w$$w || exit 1; \
+	    RS_WIDTH=$$w sh $(PT_DIR)/tests/smoke_test.sh build/host/pancaketower_headless build/w$$w || exit 1; \
+	    RS_WIDTH=$$w sh $(PT_DIR)/tests/ui_test.sh build/host/pancaketower_headless build/pancaketower-ui-$$w || exit 1; \
+	    RS_WIDTH=$$w sh $(PT_DIR)/tests/state_test.sh build/host/pancaketower_test_states build/states-$$w || exit 1; \
+	done
+	sh $(PT_DIR)/tests/state_widths.sh build/host/pancaketower_test_states build/states-widths "$(WIDTHS)"
 
 pancaketower-screenshots:
 	+$(PT_MAKE) build/host/pancaketower_headless

@@ -13,7 +13,9 @@
  *     row baked there spans exactly its layer (no sway inside a hole);
  *   - the layers are drawn where they belong, whatever the shake.
  *
- *   test_break [--frames N] [--opt key=value]...
+ * Widescreen (--width N or RS_WIDTH): the same over the whole screen (1 player: the scenery beside the stage too).
+ *
+ *   test_break [--frames N] [--width N] [--opt key=value]...
  */
 #include "pt.h"
 #include "rs_host.h"
@@ -24,11 +26,12 @@
 
 const rs_game *rs_game_main(void);
 
-#define SW RS_SCREEN_W
 #define SH RS_SCREEN_H
 #define JAG 4                       /* the rim: at most 3 px of ragged edge and its 1-px outline */
+#define PANO (160 + NEAR_X0 * 8)    /* the plate's centre in the near panorama */
 
-static uint16_t buf0[SW * SH], buf2[SW * SH], buf3[SW * SH];
+static uint16_t buf0[RS_SCREEN_W_MAX * SH], buf2[RS_SCREEN_W_MAX * SH], buf3[RS_SCREEN_W_MAX * SH];
+static int SW;                      /* the screen's width */
 static int fails, frames_checked, hole_frames, shake_frames, rows_checked, layers_checked, breaks_seen[2];
 
 static void quiet_log(const char *line) { (void)line; }
@@ -49,7 +52,7 @@ static void render(int bgmask, uint16_t *out)
     }
     for (int l = 0; l < 4; l++) rs_bg_enable(l, (bgmask >> l) & 1);
     rs_host_render();
-    memcpy(out, rs_host_framebuffer(), sizeof buf0);
+    memcpy(out, rs_host_framebuffer(), (size_t)SW * SH * 2);
     for (int l = 0; l < 4; l++) rs_bg_enable(l, 1);
     for (int i = 0; i < RS_OAM_MAX; i++) rs_oam(i)->flags = flags[i];
 }
@@ -72,7 +75,8 @@ static int scenery(int X, int wy)
     if (seg < 0) return -1;
     if (seg > NEAR_SEGS - 1) seg = NEAR_SEGS - 1;
     uint16_t e = pt_near_map[(seg * NEAR_H + row) * NEAR_W + X / 8];
-    const uint8_t *t = pt_near_tiles + RS_MAP_TILE(e) * RS_TILE_BYTES;
+    int ti = RS_MAP_TILE(e);
+    const uint8_t *t = pt_near_tiles + (ti >= NEAR_WIDE_TILE0 ? ti - NEAR_WIDE_TILE0 + pt_near_tile_count : ti) * RS_TILE_BYTES;
     int x = X & 7, sx = (e & RS_MAP_HFLIP) ? 7 - x : x, sy = (e & RS_MAP_VFLIP) ? 7 - y : y;
     uint8_t b = t[sy * 4 + sx / 2];
     int idx = (sx & 1) ? b & 15 : b >> 4;
@@ -110,10 +114,12 @@ static void check_view(const match *m, int p, int frame)
         for (int h = 0; h < 2; h++)
             if (v.hole_on[h] && wy >= HY0[h] && wy < HY1[h]) hole = h;
         int ax0 = 0, ax1 = 0, bad3 = 0, bad2 = 0;
-        if (hole >= 0) ax0 = 160 + v.hx0[hole], ax1 = 160 + v.hx1[hole], any_hole = 1, rows_checked++;
+        if (hole >= 0) ax0 = PANO + v.hx0[hole], ax1 = PANO + v.hx1[hole], any_hole = 1, rows_checked++;
         int left2 = 1 << 20, right2 = -(1 << 20);
-        for (int i = 0; i < v.w; i++) {
-            int sx = v.x + i, X = 160 - v.sx0 + i - v.shx;
+        /* the view's columns (stage x relative to the view): its pane, or in 1 player the whole screen */
+        int i0 = m->players == 1 ? rs_screen_left() : 0, i1 = m->players == 1 ? rs_screen_right() : v.w;
+        for (int i = i0; i < i1; i++) {
+            int sx = v.x + i + rs_screen_origin_x(), X = PANO - v.sx0 + i - v.shx;
             if (sx < 0 || sx >= SW) continue;
             int o = sy * SW + sx;
             if (buf2[o] != buf0[o]) { if (X < left2) left2 = X; if (X > right2) right2 = X; }
@@ -137,8 +143,8 @@ static void check_view(const match *m, int p, int frame)
             const layer *ly = tower_layer(tw, i);
             if (ly->kind == LK_PANCAKE) {
                 layers_checked++;
-                if (left2 != 160 + ly->x || right2 != 160 + ly->x + ly->w - 1)
-                    fail(frame, "layer %d drawn over [%d, %d], its extent starts at %d", i, left2 - 160, right2 - 160, ly->x);
+                if (left2 != PANO + ly->x || right2 != PANO + ly->x + ly->w - 1)
+                    fail(frame, "layer %d drawn over [%d, %d], its extent starts at %d", i, left2 - PANO, right2 - PANO, ly->x);
             }
         }
     }
@@ -151,8 +157,10 @@ static void check_view(const match *m, int p, int frame)
 int main(int argc, char **argv)
 {
     int frames = 6000;
+    if (getenv("RS_WIDTH")) rs_host_set_width(atoi(getenv("RS_WIDTH")));
     for (int i = 1; i < argc; i++) {
         if (!strcmp(argv[i], "--frames") && i + 1 < argc) frames = atoi(argv[++i]);
+        else if (!strcmp(argv[i], "--width") && i + 1 < argc) rs_host_set_width(atoi(argv[++i]));
         else if (!strcmp(argv[i], "--opt") && i + 1 < argc) {
             char kv[128];
             snprintf(kv, sizeof kv, "%s", argv[++i]);
@@ -161,7 +169,7 @@ int main(int argc, char **argv)
             *eq = 0;
             rs_host_set_option(kv, eq + 1);
         } else {
-            fprintf(stderr, "usage: test_break [--frames N] [--opt key=value]...\n");
+            fprintf(stderr, "usage: test_break [--frames N] [--width N] [--opt key=value]...\n");
             return 2;
         }
     }
@@ -170,6 +178,7 @@ int main(int argc, char **argv)
     rs_host_set_option("sound", "0");
     rs_host_set_option("botruns", "1000");
     rs_host_init(rs_game_main());
+    SW = rs_screen_width();
     int runs = 0, last = -1;
     for (int f = 0; f < frames; f++) {
         rs_host_frame();

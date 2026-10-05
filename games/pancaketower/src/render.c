@@ -46,7 +46,7 @@ static int narrow;
 
 void render_reset(int players)
 {
-    narrow = players > 2;
+    narrow = players > 2 || rs_screen_width() > RS_SCREEN_W;   /* widescreen: shared too (the VRAM of the wider maps) */
     memset(end_refs, 0, sizeof end_refs);
     memset(row_ends, -1, sizeof row_ends);
 }
@@ -282,9 +282,9 @@ void render_row(int player, int ring_row, const layer *l, int centre_px, int col
     }
 }
 
-void render_clear_row(int ring_row, int col0, int ncols)
+void render_clear_row(int player, int ring_row, int col0, int ncols)
 {
-    if (narrow) release_ends(col0 / 16, ring_row);
+    if (narrow) release_ends(player, ring_row);
     for (int c = col0; c < col0 + ncols; c++) rs_bg_put(RS_BG2, c & (rs_bg_map_w(RS_BG2) - 1), ring_row, 0);
 }
 

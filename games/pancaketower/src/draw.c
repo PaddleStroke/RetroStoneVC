@@ -23,7 +23,8 @@
 #define PIECES      2
 #define DYN_PER_PLAYER 96                          /* OBJ tiles: slider 16, top 16, 2 pieces x 32 */
 #define CHEF_X      (-132)                         /* the chef's left, world x (1 player, in the kitchen) */
-#define PANO_CX     160                            /* the plate's centre in the near panorama (px) */
+#define PLATE_X     160                            /* the plate's centre: stage x (the art's x) */
+#define PANO_CX     (PLATE_X + NEAR_X0 * 8)        /* ... in the near panorama (px; widescreen: decor each side) */
 #define TOP_MARGIN  40                             /* the camera keeps this much of a ceiling above the tower */
 
 /* the holes the tower breaks: the kitchen ceiling and the roof. Their rows are carved at run time into copies of the
@@ -88,7 +89,22 @@ static int near_pal_last;
 static int medals_loaded;                          /* the fork medals' tiles (VRAM: only when one is shown) */                          /* the last near palette is in BG palette 5 (not the logo's) */
 static rs_viewport vps[RS_VIEW_MAX];
 static int nvps;
+static int built_w;                                /* the screen width the views and maps were laid out for */
 int opt_nodraw_bg;
+
+/* ---- widescreen (docs/spec.md "Widescreen"; DESIGN.md "Widescreen") ----------------------------------------------------
+ * 1 player: the 320-px stage is centred (main.c: rs_screen_origin) and the scenery shows on both sides: the near
+ * panorama is NEAR_W tiles wide (the stage at NEAR_X0), BG3 a 128-tile map, the far layer 512 px on a 64-tile map, the
+ * tower (BG2) on a 64-tile map (its wrap far off screen). 2-4 players: the house split over the whole width (wider
+ * panes), each player a block of 128-tile maps. At 320 nothing changes (the 4:3 maps, layout and tiles). */
+static int is_wide(void) { return rs_screen_width() > RS_SCREEN_W; }
+static int wrap_x(int layer, int x) { return is_wide() ? x & (rs_bg_map_w(layer) * 8 - 1) : x & 511; }
+static int map_col(int layer, int c) { return c & (rs_bg_map_w(layer) - 1); }
+/* the pixels of a near scenery tile (its BG3 slot: the widescreen tiles are stored after the others) */
+static const uint8_t *near_tile_data(int t)
+{
+    return pt_near_tiles + (t >= NEAR_WIDE_TILE0 ? t - NEAR_WIDE_TILE0 + pt_near_tile_count : t) * RS_TILE_BYTES;
+}
 
 /* ---- small helpers ---------------------------------------------------------------------------------------- */
 static const int16_t SIN64[64] = {
@@ -100,10 +116,17 @@ static int isin(int a) { return SIN64[a & 63]; }  /* Q12 */
 
 static int line_of(const view *v, int wy) { return v->h - 1 + v->cam - wy; }   /* the view line showing strip wy */
 
-static void spr(int id, int x, int y, int prio, int pal, int flags, int vw)
+/* the columns a view shows, in its coordinates: its pane, or in 1 player the whole screen (widescreen: beyond the
+ * stage on both sides) */
+static int view_l(const view *v) { (void)v; return nviews == 1 ? rs_screen_left() : 0; }
+static int view_r(const view *v) { return nviews == 1 ? rs_screen_right() : v->w; }
+
+/* v: the view the sprite belongs to (culled to its columns), NULL: the 320-px UI */
+static void spr(int id, int x, int y, int prio, int pal, int flags, const view *v)
 {
     const pt_sprite_def *d = &pt_spr[id];
-    if (x <= -(int)d->w || x >= vw || y <= -(int)d->h || y >= RS_SCREEN_H) return;
+    int lo = v ? view_l(v) : 0, hi = v ? view_r(v) : RS_SCREEN_W;
+    if (x <= lo - (int)d->w || x >= hi || y <= -(int)d->h || y >= RS_SCREEN_H) return;
     rs_spr(x, y, d->tile, d->w, d->h, pal >= 0 ? pal : d->pal, prio, flags);
 }
 
@@ -229,6 +252,8 @@ void draw_init(void)
     }
     if (carve_tile0() + MAX_PLAYERS * CARVE_ROWS * CARVE_SLOTS > BG3_TILES)
         rs_log("draw: the carved holes overflow BG3's tiles (%d)", carve_tile0() + MAX_PLAYERS * CARVE_ROWS * CARVE_SLOTS);
+    if (NEAR_WIDE_TILE0 != carve_tile0() + CARVE_ROWS * CARVE_SLOTS || pt_near_wide_count > 3 * CARVE_ROWS * CARVE_SLOTS)
+        rs_log("draw: the widescreen scenery tiles are not in the carve slots of players 2-4 (%d)", NEAR_WIDE_TILE0);
     rs_tiles_load(VR_BG4, pt_far_tiles, pt_far_tile_count);
     rs_pal_load(RS_PAL_BG(PAL_TOWER), pt_tower_pal, 16);
     rs_pal_load(RS_PAL_BG(PAL_TOPPING), pt_topping_pal, 16);
@@ -244,6 +269,67 @@ void draw_init(void)
     rs_raster(raster, NULL);
 }
 
+/* the map columns of a player's block in the 128-tile maps of a wide screen (BG2 in 1 player: a 64-tile map) */
+static int wide_block(int players) { return players == 1 ? 128 : players == 2 ? 64 : 32; }
+
+/* where a view is and which map columns it uses (what depends on the screen's width) */
+static void view_layout(view *v, int p, int players)
+{
+    if (players == 1) {
+        v->w = RS_SCREEN_W;
+        v->sx0 = RS_SCREEN_W / 2;
+        v->bg2_cx = 128, v->bg2_col0 = 0, v->bg2_cols = 32;
+        v->near_col0 = 0, v->near_pcol0 = NEAR_X0, v->near_cols = 40;
+        v->far_col0 = 0;
+        if (is_wide()) {                          /* the stage centred: the scenery of the screen's whole width */
+            v->bg2_cols = 64;                     /* bg2_cx 128: the same tiles; the wrap is 512 px away */
+            v->near_pcol0 = NEAR_X0 + floor8(rs_screen_left() - SHAKE_MAX);
+            v->near_cols = NEAR_X0 + floor8(rs_screen_right() + SHAKE_MAX + 7) - v->near_pcol0;
+            v->near_col0 = v->near_pcol0 - NEAR_X0;                /* map column = stage column (wrapped) */
+        }
+        return;
+    }
+    rs_viewport layout[MAX_PLAYERS];
+    hu_split(players, HU_SPLIT_COLUMNS, layout);
+    v->w = layout[p].w;
+    v->sx0 = (v->w + 1) / 2;
+    if (is_wide()) {                              /* wider panes: each player a block of the 128-tile maps */
+        int b = wide_block(players);
+        v->bg2_cx = b * 4 + b * 8 * p, v->bg2_col0 = b * p, v->bg2_cols = b;
+        v->near_col0 = b * p;
+        v->near_pcol0 = floor8(PANO_CX - v->sx0 - SHAKE_MAX);
+        v->near_cols = floor8(PANO_CX - v->sx0 + v->w + SHAKE_MAX + 7) - v->near_pcol0;
+        v->far_col0 = b * p;
+        return;
+    }
+    v->bg2_cx = 64 + 128 * p, v->bg2_col0 = 16 * p, v->bg2_cols = 16;
+    v->near_col0 = (players > 2 ? 16 : 32) * p;
+    v->near_pcol0 = players > 2 ? (PANO_CX - v->sx0 - SHAKE_MAX) / 8 : NEAR_X0 + 10;
+    v->near_cols = players > 2 ? 16 : 20;
+    v->far_col0 = (players > 2 ? 16 : 32) * p;
+}
+
+/* the maps' sizes for the players and the width (cleared; the rows stream again), the widescreen tiles */
+static void maps_setup(int players)
+{
+    if (!is_wide()) {
+        rs_bg_setup(RS_BG2, players <= 2 ? 32 : 64, 32, VR_BG2);
+        rs_bg_fill(RS_BG2, 0);
+        if (rs_bg_map_w(RS_BG3) != 64) rs_bg_setup(RS_BG3, 64, 32, VR_BG3);    /* a state of a wider screen */
+        rs_bg_fill(RS_BG3, 0);
+        rs_bg_setup(RS_BG4, players == 1 ? 32 : 64, 32, VR_BG4);    /* 1 player: 256 px that repeat (VRAM) */
+        return;
+    }
+    rs_bg_setup(RS_BG2, players == 1 ? 64 : 128, 32, VR_BG2);
+    rs_bg_setup(RS_BG3, 128, 32, VR_BG3);
+    rs_bg_setup(RS_BG4, players == 1 ? 64 : 128, 32, VR_BG4);     /* 1 player: the 512-px far layer */
+    /* the scenery beside the stage (1 player only: a pane shows the middle of the panorama) in the carve slots of
+     * players 2-4; the far layer's widescreen tiles (any number of players) */
+    if (players == 1)
+        rs_tiles_load(VR_BG3 + NEAR_WIDE_TILE0, pt_near_tiles + pt_near_tile_count * RS_TILE_BYTES, pt_near_wide_count);
+    rs_tiles_load(VR_BG4 + pt_far_tile_count, pt_far_tiles + pt_far_tile_count * RS_TILE_BYTES, pt_far_wide_count);
+}
+
 static void reset_view(view *v, int p, int players)
 {
     memset(v, 0, sizeof *v);
@@ -253,23 +339,7 @@ static void reset_view(view *v, int p, int players)
     v->h = RS_SCREEN_H;
     v->top_line = TOP_SCREEN_Y;
     for (int r = 0; r < 32; r++) v->near_row[r] = v->far_row[r] = NO_ROW;
-    if (players == 1) {
-        v->w = RS_SCREEN_W;
-        v->sx0 = RS_SCREEN_W / 2;
-        v->bg2_cx = 128, v->bg2_col0 = 0, v->bg2_cols = 32;
-        v->near_col0 = 0, v->near_pcol0 = 0, v->near_cols = 40;
-        v->far_col0 = 0;
-    } else {
-        rs_viewport layout[MAX_PLAYERS];
-        hu_split(players, HU_SPLIT_COLUMNS, layout);
-        v->w = layout[p].w;
-        v->sx0 = (v->w + 1) / 2;
-        v->bg2_cx = 64 + 128 * p, v->bg2_col0 = 16 * p, v->bg2_cols = 16;
-        v->near_col0 = (players > 2 ? 16 : 32) * p;
-        v->near_pcol0 = players > 2 ? (PANO_CX - v->sx0 - SHAKE_MAX) / 8 : 10;
-        v->near_cols = players > 2 ? 16 : 20;
-        v->far_col0 = (players > 2 ? 16 : 32) * p;
-    }
+    view_layout(v, p, players);
 }
 
 /* the highest the camera may go: the view's top line stays under a ceiling the tower has not broken yet (with
@@ -320,12 +390,25 @@ void draw_reset(const match *m)
     }
     memset(PC, 0, sizeof PC);
     memset(FXS, 0, sizeof FXS);
-    rs_bg_setup(RS_BG2, m->players <= 2 ? 32 : 64, 32, VR_BG2);
-    rs_bg_fill(RS_BG2, 0);
-    rs_bg_fill(RS_BG3, 0);
-    rs_bg_setup(RS_BG4, m->players == 1 ? 32 : 64, 32, VR_BG4);    /* 1 player: 256 px that repeat (VRAM) */
+    maps_setup(m->players);
+    built_w = rs_screen_width();
     rs_bg_line_scroll(RS_BG2, V[0].wob_dx, NULL);
     shown_state = -1;
+}
+
+/* a state saved at another width (the width is not in a state): the views, the maps and the streamed rows for this
+ * one (the world, the cameras, the holes and the effects are the same; the next frame streams the rows again) */
+static void relayout(void)
+{
+    render_reset(nviews);
+    for (int p = 0; p < nviews; p++) {
+        view *v = &V[p];
+        view_layout(v, p, nviews);
+        for (int r = 0; r < 32; r++) v->near_row[r] = v->far_row[r] = NO_ROW, v->tower_row[r] = -1;
+        v->top_key = v->slider_key = -1;          /* their texture follows the map column (bg2_cx) */
+    }
+    maps_setup(nviews);
+    built_w = rs_screen_width();
 }
 
 int draw_camera(int player) { return V[player].cam; }
@@ -351,7 +434,7 @@ static uint16_t near_tile(int k, int pc, uint8_t pix[64])
     int seg = (k * 8 - SEG_BASE_Y) >> 8, row = 31 - ((k + 8) & 31);
     if (seg > NEAR_SEGS - 1) seg = NEAR_SEGS - 1;
     uint16_t e = seg >= 0 ? pt_near_map[(seg * NEAR_H + row) * NEAR_W + pc] : 0;
-    const uint8_t *t = pt_near_tiles + RS_MAP_TILE(e) * RS_TILE_BYTES;
+    const uint8_t *t = near_tile_data(RS_MAP_TILE(e));
     for (int y = 0; y < 8; y++)
         for (int x = 0; x < 8; x++) {
             int sx = (e & RS_MAP_HFLIP) ? 7 - x : x, sy = (e & RS_MAP_VFLIP) ? 7 - y : y;
@@ -396,7 +479,7 @@ static void carve_row(view *v, int p, int k, int r)
                 rs_tiles_load8(VR_BG3 + slot, pix, 1);
                 ne = RS_MAP(slot, RS_MAP_PAL(e), 0, 0, 0);
             }
-            rs_bg_put(RS_BG3, v->near_col0 + c, r, opt_nodraw_bg ? 0 : ne);
+            rs_bg_put(RS_BG3, map_col(RS_BG3, v->near_col0 + c), r, opt_nodraw_bg ? 0 : ne);
         }
     }
 }
@@ -411,7 +494,7 @@ static void carve_hole(view *v, int p, int h)
         int seg = (k * 8 - SEG_BASE_Y) >> 8, row = 31 - ((k + 8) & 31);
         const uint16_t *src = pt_near_map + (seg * NEAR_H + row) * NEAR_W;
         for (int c = 0; c < v->near_cols; c++)
-            rs_bg_put(RS_BG3, v->near_col0 + c, r, opt_nodraw_bg ? 0 : src[v->near_pcol0 + c]);
+            rs_bg_put(RS_BG3, map_col(RS_BG3, v->near_col0 + c), r, opt_nodraw_bg ? 0 : src[v->near_pcol0 + c]);
         carve_row(v, p, k, r);
     }
 }
@@ -428,7 +511,7 @@ static void stream_near(view *v, int p)
         if (seg > NEAR_SEGS - 1) seg = NEAR_SEGS - 1;
         const uint16_t *src = seg >= 0 ? pt_near_map + (seg * NEAR_H + row) * NEAR_W : NULL;
         for (int c = 0; c < v->near_cols; c++)
-            rs_bg_put(RS_BG3, v->near_col0 + c, r, src && !opt_nodraw_bg ? src[v->near_pcol0 + c] : 0);
+            rs_bg_put(RS_BG3, map_col(RS_BG3, v->near_col0 + c), r, src && !opt_nodraw_bg ? src[v->near_pcol0 + c] : 0);
         carve_row(v, p, k, r);
     }
 }
@@ -445,8 +528,8 @@ static void stream_far(view *v)
         int kk = k;
         if (kk >= FAR_H) kk = FAR_H - FAR_REPEAT + (kk - FAR_H) % FAR_REPEAT;   /* the stars repeat */
         const uint16_t *src = pt_far_map + (FAR_H - 1 - kk) * FAR_W;
-        int cols = nviews > 2 ? 16 : 32;
-        for (int c = 0; c < cols; c++) rs_bg_put(RS_BG4, v->far_col0 + c, r, opt_nodraw_bg ? 0 : src[c & 31]);
+        int cols = is_wide() ? (nviews == 1 ? 64 : wide_block(nviews)) : nviews > 2 ? 16 : 32, mask = is_wide() ? 63 : 31;
+        for (int c = 0; c < cols; c++) rs_bg_put(RS_BG4, map_col(RS_BG4, v->far_col0 + c), r, opt_nodraw_bg ? 0 : src[c & mask]);
     }
 }
 
@@ -462,7 +545,7 @@ static void stream_tower(view *v, int p, const tower *tw)
         if (v->tower_row[r] == want) continue;
         v->tower_row[r] = want;
         if (want) render_row(p, r, tower_layer(tw, k), v->bg2_cx, v->bg2_col0, v->bg2_cols);
-        else render_clear_row(r, v->bg2_col0, v->bg2_cols);
+        else render_clear_row(p, r, v->bg2_col0, v->bg2_cols);
     }
 }
 
@@ -702,18 +785,18 @@ static void draw_layer_sprites(view *v, int p, const tower *tw, int t)
     int sx = v->sx0 + (box0 - v->bg2_cx) + wtop + hu_shake_x();
     int sy = line_of(v, (n - 1) * ROW_H + 7) + hu_shake_y();
     for (int s = 0; s < 2 && s * 64 < top->w + 2; s++)
-        if (sx + s * 64 < v->w && sx + s * 64 > -64 && sy > -8 && sy < RS_SCREEN_H)
+        if (sx + s * 64 < view_r(v) && sx + s * 64 > view_l(v) - 64 && sy > -8 && sy < RS_SCREEN_H)
             rs_spr(sx + s * 64, sy, dyn_tile(p, 16) + s * 8, 64, 8, pal, 2, 0);
     /* the butter pat on a perfect top */
     if (top->kind == LK_PANCAKE && (top->flags & LF_BUTTER) && tw->state != TS_MISSED) {
         int big = (top->flags & LF_BIG_BUTTER) != 0;
         spr(big ? SPR_BUTTER_BIG : SPR_BUTTER, v->sx0 + top->x + top->w / 2 - (big ? 12 : 8) + wtop + hu_shake_x(),
-            sy - 7 + (v->top_squash > 0), 2, -1, 0, v->w);
+            sy - 7 + (v->top_squash > 0), 2, -1, 0, v);
     }
     /* the syrup on the top: the next pancake will slide */
     if (top->kind == LK_PANCAKE && (top->flags & LF_SYRUP) && tw->state != TS_MISSED)
         spr(SPR_GLAZE, v->sx0 + top->x + top->w / 2 - 8 + (top->flags & LF_BUTTER ? 10 : 0) + wtop + hu_shake_x(),
-            sy - 5 + (v->top_squash > 0), 2, -1, 0, v->w);
+            sy - 5 + (v->top_squash > 0), 2, -1, 0, v);
     /* the slider */
     if (tw->state == TS_SLIDE || tw->state == TS_DROP || tw->state == TS_SLIP) {
         layer sl = {0, (int16_t)tw->sw, LK_PANCAKE, 0, (uint16_t)(tw->pancakes + 1)};
@@ -745,7 +828,7 @@ static void draw_pieces(view *v, int p)
         int x = v->sx0 + pc->x / 256 - (nviews > 2 ? 32 : 64), y = line_of(v, pc->y / 256) - 8;
         int pal = pc->p.kind == LK_PANCAKE ? OBJ_FOOD : OBJ_TOPPING;
         for (int s = 0; s < 2; s++)
-            if (((pc->halves >> s) & 1) && x + s * 64 < v->w && x + s * 64 > -64 && y > -16 && y < RS_SCREEN_H)
+            if (((pc->halves >> s) & 1) && x + s * 64 < view_r(v) && x + s * 64 > view_l(v) - 64 && y > -16 && y < RS_SCREEN_H)
                 rs_spr(x + s * 64, y, dyn_tile(p, 32 + i * 32) + s * 16, 64, 16, pal, 2, 0);
     }
 }
@@ -757,17 +840,17 @@ static void draw_fx(view *v, int p, int t)
         if (f->kind == FX_NONE || f->player != p) continue;
         int x = v->sx0 + f->x / 256 + hu_shake_x(), y = line_of(v, f->y / 256) + hu_shake_y();
         switch (f->kind) {
-        case FX_PLASTER: spr(SPR_PLASTER + f->frame % 3, x, y, 2, -1, 0, v->w); break;
-        case FX_ROOFTILE: spr(SPR_ROOFTILE + (f->t / 6) % 2, x, y, 2, -1, (f->t / 12) % 2 ? RS_SPR_HFLIP : 0, v->w); break;
-        case FX_DUST: spr(SPR_DUST + f->t * 3 / (f->life + 1), x - 8, y - 8, 2, -1, 0, v->w); break;
-        case FX_BURST: spr(SPR_BURST + (f->t / 6) % 2, x - 4, y - 8, 2, -1, 0, v->w); break;
+        case FX_PLASTER: spr(SPR_PLASTER + f->frame % 3, x, y, 2, -1, 0, v); break;
+        case FX_ROOFTILE: spr(SPR_ROOFTILE + (f->t / 6) % 2, x, y, 2, -1, (f->t / 12) % 2 ? RS_SPR_HFLIP : 0, v); break;
+        case FX_DUST: spr(SPR_DUST + f->t * 3 / (f->life + 1), x - 8, y - 8, 2, -1, 0, v); break;
+        case FX_BURST: spr(SPR_BURST + (f->t / 6) % 2, x - 4, y - 8, 2, -1, 0, v); break;
         case FX_SPARK: hu_sparkle(x, y - 6, (f->t / 5) % 2, 2); break;
-        case FX_CRUMBS: spr(SPR_CRUMBS + (f->t / 4) % 2, x, y - 6, 2, -1, 0, v->w); break;
-        case FX_DRIP: spr(SPR_DRIP + (f->t < 8 ? 0 : f->t < 18 ? 1 : 2), x, y, 2, -1, 0, v->w); break;
-        case FX_PLUS: spr(SPR_PLUS + f->frame, x, y - 8, 2, -1, 0, v->w); break;
-        case FX_SPLASH_IN: spr(SPR_SPLASH + (f->t / 6) % 2, x - 8, y - 8, 2, -1, 0, v->w); break;
-        case FX_TOPPING: spr(SPR_TOPPING + f->frame, x, y - 16, 2, -1, 0, v->w); break;
-        case FX_SPLINTER: spr(SPR_SPLINTER + (f->frame + f->t / 5) % 2, x, y, 2, -1, (f->t / 10) % 2 ? RS_SPR_HFLIP : 0, v->w); break;
+        case FX_CRUMBS: spr(SPR_CRUMBS + (f->t / 4) % 2, x, y - 6, 2, -1, 0, v); break;
+        case FX_DRIP: spr(SPR_DRIP + (f->t < 8 ? 0 : f->t < 18 ? 1 : 2), x, y, 2, -1, 0, v); break;
+        case FX_PLUS: spr(SPR_PLUS + f->frame, x, y - 8, 2, -1, 0, v); break;
+        case FX_SPLASH_IN: spr(SPR_SPLASH + (f->t / 6) % 2, x - 8, y - 8, 2, -1, 0, v); break;
+        case FX_TOPPING: spr(SPR_TOPPING + f->frame, x, y - 16, 2, -1, 0, v); break;
+        case FX_SPLINTER: spr(SPR_SPLINTER + (f->frame + f->t / 5) % 2, x, y, 2, -1, (f->t / 10) % 2 ? RS_SPR_HFLIP : 0, v); break;
         default: break;
         }
     }
@@ -782,54 +865,55 @@ static void draw_bottle(view *v, const tower *tw, int t)
     int in = v->bottle_t < 10 ? (10 - v->bottle_t) * 6 : 0;
     int out = v->bottle_t > POUR_FRAMES - 8 ? (v->bottle_t - (POUR_FRAMES - 8)) * 6 : 0;
     int by = line_of(v, ty + 44 + in + out);
-    spr(SPR_BOTTLE + (t / 10) % 2, bx - 10, by - 16, 2, -1, 0, v->w);
+    spr(SPR_BOTTLE + (t / 10) % 2, bx - 10, by - 16, 2, -1, 0, v);
     if (v->bottle_t >= 8 && v->bottle_t < POUR_FRAMES - 6)
-        for (int y = by + 8; y < line_of(v, ty) - 2; y += 8) spr(SPR_STREAM, bx - 3, y, 2, -1, 0, v->w);
+        for (int y = by + 8; y < line_of(v, ty) - 2; y += 8) spr(SPR_STREAM, bx - 3, y, 2, -1, 0, v);
 }
 
 /* the chimney's smoke: puffs rise from the flue, grow and drift to the right (a function of the frame: no state) */
 static void draw_smoke(view *v, int t)
 {
-    const int fx = CHIMNEY_X - PANO_CX, fy = CHIMNEY_TOP;
+    const int fx = CHIMNEY_X - PLATE_X, fy = CHIMNEY_TOP;
     if (line_of(v, fy) < -8 || line_of(v, fy + 100) > v->h + 8) return;
     for (int k = 0; k < 5; k++) {
         int age = (t + k * 40) % 200;
         int x = v->sx0 + fx - 8 + age / 6 + isin(age / 2 + k * 13) * 2 / 4096 + hu_shake_x();
         int y = line_of(v, fy + 4 + age * 2 / 5) + hu_shake_y();
-        spr(SPR_SMOKE + clampi(age * 4 / 200, 0, 3), x, y - 12, 1, -1, 0, v->w);
+        spr(SPR_SMOKE + clampi(age * 4 / 200, 0, 3), x, y - 12, 1, -1, 0, v);
     }
 }
 
 /* the sky's critters, behind the tower (priority 1: in front of the scenery, behind BG2) */
 static void draw_critters(view *v, int t)
 {
-    int lo = v->cam - 40, hi = v->cam + v->h + 40;
+    int lo = v->cam - 40, hi = v->cam + v->h + 40, xl = view_l(v), xr = view_r(v);   /* they cross the whole view */
     static const int birds[3][3] = {{432, 1, 90}, {505, -1, 140}, {580, 1, 70}};    /* world y, direction, speed */
     for (int i = 0; i < 3; i++) {
         int wy = birds[i][0] + isin(t / 3 + i * 20) * 6 / 4096;
         if (wy < lo || wy > hi) continue;
-        int span = v->w + 64, x = (t * birds[i][2] / 100 + i * 97) % span;
+        int span = xr - xl + 64, x = (t * birds[i][2] / 100 + i * 97) % span;
         if (birds[i][1] < 0) x = span - x;
-        spr(SPR_BIRD + (t / 8 + i) % 2, x - 32, line_of(v, wy), 1, -1, birds[i][1] < 0 ? RS_SPR_HFLIP : 0, v->w);
+        x += xl;
+        spr(SPR_BIRD + (t / 8 + i) % 2, x - 32, line_of(v, wy), 1, -1, birds[i][1] < 0 ? RS_SPR_HFLIP : 0, v);
     }
     if (690 > lo && 690 < hi) {                                             /* the plane */
-        int span = v->w + 400, x = span - (t / 2) % span;
-        spr(SPR_PLANE, x - 32, line_of(v, 690), 1, -1, 0, v->w);
+        int span = xr - xl + 400, x = xl + span - (t / 2) % span;
+        spr(SPR_PLANE, x - 32, line_of(v, 690), 1, -1, 0, v);
     }
     if (790 > lo && 790 < hi)                                               /* the weather balloon */
-        spr(SPR_BALLOON, v->w * 3 / 4, line_of(v, 820 + isin(t / 4) * 5 / 4096), 1, -1, 0, v->w);
+        spr(SPR_BALLOON, v->w * 3 / 4, line_of(v, 820 + isin(t / 4) * 5 / 4096), 1, -1, 0, v);
     if (1110 > lo && 1110 < hi) {                                           /* the satellite */
-        int span = v->w + 600, x = (t / 3) % span;
-        spr(SPR_SATELLITE, x - 32, line_of(v, 1110), 1, -1, 0, v->w);
+        int span = xr - xl + 600, x = xl + (t / 3) % span;
+        spr(SPR_SATELLITE, x - 32, line_of(v, 1110), 1, -1, 0, v);
     }
     int mx = v->w - 60, my = 1040;
     if (my + 32 > lo && my - 48 < hi) {
-        spr(SPR_MOON, mx, line_of(v, my + 32), 1, -1, 0, v->w);
+        spr(SPR_MOON, mx, line_of(v, my + 32), 1, -1, 0, v);
         /* the cow jumps over the moon every 6 s: a parabola from its left to its right */
         int ct = t % 360;
         if (ct < 120) {
             int x = mx - 44 + ct * 110 / 120, h = ct * (120 - ct) * 4 * 56 / (120 * 120);
-            spr(SPR_COW + (ct > 20 && ct < 100), x, line_of(v, my + 14 + h), 1, -1, 0, v->w);
+            spr(SPR_COW + (ct > 20 && ct < 100), x, line_of(v, my + 14 + h), 1, -1, 0, v);
         }
     }
 }
@@ -844,26 +928,26 @@ static void draw_chef(view *v, int p, int t, int players)
     if (players == 1 && kitchen_line < v->h - 40) {
         int f = body[pose];
         if (pose == CH_IDLE && (t % 180) < 8) f = 1;                    /* a blink */
-        spr(SPR_CHEF + f, v->sx0 + CHEF_X + dx + hu_shake_x(), kitchen_line + dy + hu_shake_y(), 2, pal, 0, v->w);
-        if (pose == CH_PANIC) spr(SPR_SWEAT, v->sx0 + CHEF_X + 26, kitchen_line + 6 + (t / 8) % 4, 2, -1, 0, v->w);
+        spr(SPR_CHEF + f, v->sx0 + CHEF_X + dx + hu_shake_x(), kitchen_line + dy + hu_shake_y(), 2, pal, 0, v);
+        if (pose == CH_PANIC) spr(SPR_SWEAT, v->sx0 + CHEF_X + 26, kitchen_line + 6 + (t / 8) % 4, 2, -1, 0, v);
         v->portrait_t = 0;
         return;
     }
     /* the portrait: the chef keeps watching from a plate-rimmed frame in the bottom-left corner (it slides in) */
     if (v->portrait_t < 20) v->portrait_t++;
-    int ox = 2, oy = v->h - 66 + hu_slide_in(v->portrait_t, 20, 80);
+    int ox = view_l(v) + 2, oy = v->h - 66 + hu_slide_in(v->portrait_t, 20, 80);
     int f = body[pose];
     if (pose == CH_IDLE && (t % 180) < 8) f = 1;
     if (players > 2) {
-        spr(SPR_CHEF + f, 0, v->h - 48, 2, pal, 0, v->w);
+        spr(SPR_CHEF + f, 0, v->h - 48, 2, pal, 0, v);
         return;
     }
-    spr(SPR_CHEF + f, ox + 8 + dx, oy + 10 + dy, 2, pal, 0, v->w);
-    spr(SPR_RING, ox, oy, 2, -1, 0, v->w);
-    spr(SPR_RING, ox + 24, oy, 2, -1, RS_SPR_HFLIP, v->w);
-    spr(SPR_RING, ox, oy + 32, 2, -1, RS_SPR_VFLIP, v->w);
-    spr(SPR_RING, ox + 24, oy + 32, 2, -1, RS_SPR_HFLIP | RS_SPR_VFLIP, v->w);
-    if (pose == CH_PANIC) spr(SPR_SWEAT, ox + 36, oy + 10 + (t / 8) % 4, 2, -1, 0, v->w);
+    spr(SPR_CHEF + f, ox + 8 + dx, oy + 10 + dy, 2, pal, 0, v);
+    spr(SPR_RING, ox, oy, 2, -1, 0, v);
+    spr(SPR_RING, ox + 24, oy, 2, -1, RS_SPR_HFLIP, v);
+    spr(SPR_RING, ox, oy + 32, 2, -1, RS_SPR_VFLIP, v);
+    spr(SPR_RING, ox + 24, oy + 32, 2, -1, RS_SPR_HFLIP | RS_SPR_VFLIP, v);
+    if (pose == CH_PANIC) spr(SPR_SWEAT, ox + 36, oy + 10 + (t / 8) % 4, 2, -1, 0, v);
 }
 
 /* ---- the UI (the house kit) ------------------------------------------------------------------------------------- */
@@ -942,7 +1026,7 @@ static int fork_medal_tier(int score)
 static void title_chef(int p, int cx, int cy, int t, void *user)
 {
     static const int pals[4] = {OBJ_CHEF, OBJ_CHEF2, 6, 7};
-    spr(SPR_CHEF + ((t % 180) < 8), cx - 16, cy - 52, 3, pals[p], 0, RS_SCREEN_W);
+    spr(SPR_CHEF + ((t % 180) < 8), cx - 16, cy - 52, 3, pals[p], 0, NULL);
     (void)user;
 }
 
@@ -992,8 +1076,8 @@ void draw_frame(const match *m, int state, int st_t, int best, int new_best, int
         view *v = &V[0];
         rs_viewports(0, NULL, 0);
         rs_bg_scroll(RS_BG1, 0, -slide);
-        rs_bg_scroll(RS_BG2, (v->bg2_cx - v->sx0 - shx) & 511, (-v->cam - v->h - shy) & 255);
-        rs_bg_scroll(RS_BG3, (-shx) & 511, (-v->cam - v->h - shy) & 255);
+        rs_bg_scroll(RS_BG2, wrap_x(RS_BG2, v->bg2_cx - v->sx0 - shx), (-v->cam - v->h - shy) & 255);
+        rs_bg_scroll(RS_BG3, wrap_x(RS_BG3, -shx), (-v->cam - v->h - shy) & 255);
         rs_bg_scroll(RS_BG4, 0, (-far_base(v) - v->h) & 255);
         rs_bg_line_scroll(RS_BG2, v->wob_dx, NULL);
         /* front to back: the UI, then the world */
@@ -1007,7 +1091,7 @@ void draw_frame(const match *m, int state, int st_t, int best, int new_best, int
             }
             if (medal) {
                 hu_box_text(22, 17, " ");               /* the kit wrote "-": our fork medal instead */
-                spr(SPR_MEDAL + medal - 1, 22 * 8 - 4, 16 * 8 - 4 + slide, 3, -1, 0, RS_SCREEN_W);
+                spr(SPR_MEDAL + medal - 1, 22 * 8 - 4, 16 * 8 - 4 + slide, 3, -1, 0, NULL);
                 if ((st_t / 20) % 3 == 0) hu_sparkle(22 * 8 + 12, 16 * 8 - 4 + slide, (st_t / 10) % 2, 3);
             } else {
                 hu_box_text(22, 17, "-");
@@ -1025,14 +1109,15 @@ void draw_frame(const match *m, int state, int st_t, int best, int new_best, int
         vp->layers = 0x0f;
         vp->objs = 1;
         vp->sx[0] = vp->x, vp->sy[0] = (int16_t)-slide;
-        vp->sx[1] = (int16_t)((v->bg2_cx - v->sx0 - shx) & 511), vp->sy[1] = (int16_t)((-v->cam - v->h - shy) & 255);
-        vp->sx[2] = (int16_t)((v->near_col0 * 8 + PANO_CX - v->sx0 - v->near_pcol0 * 8 - shx) & 511), vp->sy[2] = (int16_t)((-v->cam - v->h - shy) & 255);
-        vp->sx[3] = (int16_t)(v->far_col0 * 8 + (m->players > 2 ? (128 - v->w) / 2 : 48)), vp->sy[3] = (int16_t)((-far_base(v) - v->h) & 255);
+        vp->sx[1] = (int16_t)wrap_x(RS_BG2, v->bg2_cx - v->sx0 - shx), vp->sy[1] = (int16_t)((-v->cam - v->h - shy) & 255);
+        vp->sx[2] = (int16_t)wrap_x(RS_BG3, v->near_col0 * 8 + PANO_CX - v->sx0 - v->near_pcol0 * 8 - shx), vp->sy[2] = (int16_t)((-v->cam - v->h - shy) & 255);
+        int far_x = is_wide() ? wide_block(m->players) * 4 - v->sx0 : m->players > 2 ? (128 - v->w) / 2 : 48;   /* the far px at the pane centre: 128 (64), or the middle of the block */
+        vp->sx[3] = (int16_t)(v->far_col0 * 8 + far_x), vp->sy[3] = (int16_t)((-far_base(v) - v->h) & 255);
         vp->oam_first = (uint16_t)rs_oam_next();
         if (state == DS_TITLE || state == DS_OVER) {
             /* Viewports replace pixels, rather than alpha-compositing over earlier views.
              * Draw the shared UI inside each world view instead of an opaque UI-only overlay. */
-            vp->w = (int16_t)((p + 1 < m->players ? vps[p + 1].x : RS_SCREEN_W) - vp->x);
+            vp->w = (int16_t)((p + 1 < m->players ? vps[p + 1].x : rs_screen_right()) - vp->x);
             if (state == DS_TITLE) hu_title_sprites(st_t, title_chef, NULL);
             else {
                 hu_standing rank;
@@ -1063,14 +1148,18 @@ void draw_frame(const match *m, int state, int st_t, int best, int new_best, int
 void draw_state(void)
 {
     S(V); S(PC); S(FXS); S(nviews); S(shown_state); S(shown_best); S(shown_players); S(title_logo_on); S(vps); S(nvps);
-    S(near_pal_last); S(medals_loaded);
+    S(near_pal_last); S(medals_loaded); S(built_w);
     S(fx_seed); S(opt_nodraw_bg);
     RS_STATE_RASTER(raster);
 }
 #undef S
 
-/* after a load: the streamed rows and the dynamic sprite tiles are in the saved VRAM already */
-void draw_state_loaded(void) {}
+/* after a load: the streamed rows and the dynamic sprite tiles are in the saved VRAM already; a state saved at another
+ * width is laid out again for this one (DESIGN.md "Widescreen") */
+void draw_state_loaded(void)
+{
+    if (built_w != rs_screen_width()) relayout();
+}
 
 /* the player's part of the screen (the bot looks there): its viewport's sprites, or every sprite in 1 player */
 void draw_view_oam(int player, int *first, int *count)

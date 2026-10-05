@@ -241,6 +241,48 @@ published guides and from clones that reproduce it.
 | syrup, toppings, wobble | - | ours (above) |
 | 2 players | - | the same, x2/3 (64 px, +-71 px, 1.893 px/frame, perfect 3 px, regrow 10 px, slip 4 px) |
 
+## Widescreen
+The game opts in (`max_width` = 560): a wider screen shows more of the house and the sky; the game is unchanged.
+At 320 columns everything is the 4:3 game byte for byte (the same maps, layout, tiles and tile numbers; checked
+against the pre-widescreen pictures).
+- **1 player: the stage centred.** `rs_screen_origin(rs_screen_margin())`: the tower, the camera, the slider, the
+  UI and the sprites the bot reads are the same pixels at every width; the screen also shows stage x -margin ..
+  320 + margin (53 px each side at 427, 100 at 520, 120 at 560). The chef's portrait goes to the screen's corner; the
+  birds, the plane and the satellite cross the whole width; the falling pieces and debris fly out to its edges.
+- **The scenery is drawn wider by make_art.py**, never stretched: the near segments are 576 px (the 320-px stage in
+  the middle, checked identical to the 4:3 art). The kitchen goes on: left a fridge with a child's drawing of a
+  pancake tower (seen from 427), a painting of the cow jumping over the moon and a step stool (from 520); right the
+  stove with a pot under its hood (from 427) and the back door, its glass showing the garden (from 520). The wall,
+  floor, ceiling, joists and roof bands continue with their own periods (the same tiles); the attic's roof slopes go
+  on down to its floor 40 px beyond the stage and their boards fill the corners; more clouds, cirrus streaks and
+  stars beside the stage. The far layer is 512 px (a 64-tile map): 0..319 is what a 320-px screen shows, 320..511
+  goes on with its own clouds, trees and stars; nothing stands out in 392..440, the columns a 560-px screen shows at
+  both edges (the 512-px wrap). Maps: BG3 128 tiles wide, BG4 64, BG2 64 (the tower's wrap is 512 px away).
+- **VRAM.** The 117 widescreen tiles of the near scenery live in the BG3 slots that carve the holes of players 2-4
+  (unused in 1 player; reloaded when a 1-player run starts), the far layer adds 2; at wide widths the tower's row
+  ends are shared (as in 3-4 players). The heaviest strict run (1 player, title, medal) stays under the guideline:
+  1498 tiles + the counted maps = 64.3 KB.
+- **2-4 players: wider panes** (the house split over the whole width: 2 players 212 / 259 / 279 px at 427 / 520 /
+  560, 4 players 105 / 128 / 138), each player a block of the 128-tile maps (64 columns in 2 players, 32 in 3-4).
+  A pane shows the middle of the house around its tower (no side tiles needed), the far layer centred in its
+  block. Chosen over side decor: each player sees more of their own world, no idle bands, the towers stay centred.
+- **The same game at every width.** The rules never see the width; the bot reads positions relative to the top
+  pancake. Bot runs in 1, 2, 3 and 4 players end with the same state hash at 320, 427, 520 and 560.
+- **Save states.** The width is not in a state. draw.c saves the width its views were laid out for; a state loaded
+  at another width lays out again (the views, the map sizes, the widescreen tiles, the shared row ends) and lets
+  the next frame stream every row and redraw the top pancake. `tests/state_widths.sh`: states saved at 427 and
+  at 320 (the kitchen, the attic with its hole, space, a game over, the title, 3 joined, 2 and 4 players) resume
+  at the other widths with the same world after the frames; a live width change (`--resize`) gives, frames later,
+  the very picture of a run at the new width.
+- **Tests at each width of WIDTHS** (427, 520; `make pancaketower-check`): test_libretro (16:9, Wide), the
+  breakthroughs (test_break checks the whole screen: the scenery beside the stage too), the smoke tests (strict
+  mode, determinism), the UI screens (ui_check.py reads the width: the UI boxes shift by the margin, the kitchen
+  must go on beside the stage) and the save states; then state_widths.sh. Screenshots: title, play and game over at
+  427 and 520 (docs/screenshots/*-427.png, *-520.png).
+- **Cost** (`RS_WIDTH=520 make pancaketower-bench`, host averages per frame, 320 -> 520): 1-player run 0.35 ->
+  0.48 ms, space 0.32 -> 0.50 ms, 2 players in the clouds 0.37 -> 0.54 ms, 2 players through the ceiling 0.35 ->
+  0.54 ms (x1.4-1.6 for x1.63 columns: the PPU; the game's own update and drawing stay at 4-5 us).
+
 ## Tests (make pancaketower-check)
 - `tests/test_tower.c`: the rules against the tuning table: the slide (speed, the ping-pong turn, the
   alternating sides, the speed steps and cap), the cut maths (every offset from -width to +width: the kept

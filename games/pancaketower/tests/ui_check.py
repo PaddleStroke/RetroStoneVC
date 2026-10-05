@@ -3,6 +3,8 @@
 
     ui_check.py DIR [SCALE]
 
+Widescreen: the width is the picture's (320..560); the UI is the 320-px area centred on it (the boxes below are in UI
+coordinates, shifted by the margin), the split screen's divider is where the house split puts it.
 MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/pancaketower/LICENSE.
 """
 import sys
@@ -23,9 +25,11 @@ def near(c, ref, tol=12):
 
 
 def count(im, box, ref, tol=12):
+    """box: UI coordinates (the 320 x 240 area centred on the picture)"""
+    m = (im.width - 320) // 2
     x0, y0, x1, y1 = box
     px = im.load()
-    return sum(1 for y in range(y0, y1) for x in range(x0, x1) if near(px[x, y], ref, tol))
+    return sum(1 for y in range(y0, y1) for x in range(x0 + m, x1 + m) if near(px[x, y], ref, tol))
 
 
 def check(cond, what):
@@ -36,10 +40,19 @@ def check(cond, what):
 
 
 title = load("title")
+W = title.width
 # the logo: "PANCAKE" in the pancake ramp (240,184,96), "TOWER" in the syrup ramp (196,104,44), the outline
 check(count(title, (0, 16, 160, 80), (240, 184, 96)) > 150, "title: PANCAKE in golden letters (rows 2-9)")
 check(count(title, (160, 16, 320, 80), (196, 104, 44)) > 100, "title: TOWER in syrup letters")
 check(count(title, (0, 224, 320, 232), (255, 246, 220), 16) > 60, "title: the copyright line in cream (row 28)")
+if W > 320:
+    # widescreen: the kitchen goes on beside the stage (the wallpaper above the dado rail, the tiles below)
+    side = (-((W - 320) // 2), 0)
+    check(count(title, (side[0], 40, 0, 80), (250, 236, 206)) + count(title, (side[0], 40, 0, 80), (236, 214, 178)) > 300,
+          "title: the kitchen's wallpaper goes on left of the stage")
+    check(count(title, (320, 160, 320 + (W - 320) // 2, 200), (214, 236, 240)) +
+          count(title, (320, 160, 320 + (W - 320) // 2, 200), (250, 250, 246)) > 200,
+          "title: the kitchen goes on right of the stage (tiles, the stove)")
 
 over = load("gameover-medal")
 check(count(over, (84, 36, 236, 60), (250, 210, 90)) > 80, "game over: GAME OVER in gold on its banner")
@@ -55,8 +68,9 @@ check(count(pause, (100, 104, 220, 120), (153, 147, 132), 14) > 40, "pause: PAUS
 
 vs = load("versus-2-players")
 px = vs.load()
-div = [px[159, y] for y in range(0, 240, 8)] + [px[160, y] for y in range(0, 240, 8)]
-check(all(near(c, (22, 18, 40), 10) for c in div), "versus: the split screen's divider (x 159-160)")
+hw = (vs.width - 2) // 2                  # the house split: two halves of (width - 2) / 2, the divider between
+div = [px[x, y] for y in range(0, 240, 8) for x in range(hw, vs.width - hw)]
+check(all(near(c, (22, 18, 40), 10) for c in div), "versus: the split screen's divider (x %d-%d)" % (hw, vs.width - hw - 1))
 title2 = load("title-2-players")
 check(count(title2, (0, 16, 320, 80), (240, 184, 96)) > 150,
       "two players: the same title logo, no second menu")

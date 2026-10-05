@@ -45,5 +45,13 @@ f=$(sed -n 's/.*run 1 over at frame \([0-9]*\).*/\1/p' "$T/log.txt")
 run --frames 130 --opt players=4 --shot 120:"$O/title-4-players.png"
 run --frames 1500 --opt bot=4 --opt players=4 --opt ready=1 --opt seed=9 --shot 800:"$O/play-4-players.png"
 run --frames 4000 --opt bot=4 --opt players=4 --opt ready=1 --opt seed=5 --opt botstop=3 --shot 3900:"$O/results-4-players.png"
+# widescreen (427 columns = 16:9, 520 = 19.5:9): the title, a run (the same game at every width), a game over
+run --frames 6000 --opt bot=1 --opt seed=3 --opt ready=1 --opt botstop=30
+f=$(sed -n 's/.*run 1 over at frame \([0-9]*\).*/\1/p' "$T/log.txt")
+for w in 427 520; do
+    run --width $w --frames 130 --shot 120:"$O/title-$w.png"
+    run --width $w --frames 3000 --opt bot=1 --opt seed=1 --opt ready=1 --shot $((top - 14)):"$O/play-$w.png"
+    run --width $w --frames $((f + 60)) --opt bot=1 --opt seed=3 --opt ready=1 --opt botstop=30 --shot $((f + 50)):"$O/gameover-$w.png"
+done
 rm -rf "$T"
 ls "$O"

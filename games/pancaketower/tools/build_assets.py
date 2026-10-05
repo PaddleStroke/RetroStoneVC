@@ -8,8 +8,10 @@ The art is drawn in memory by make_art.build() (the PNGs in art/ are for review:
 VRAM (absolute 8x8 tiles; docs/spec.md "Video memory"):
     BG1 (UI, the house kit)   0 ..  639   the kit's font, panels and 2x glyphs (0..296), the title logo (320..)
     BG2 (the tower)         640 ..  959   made at run time by src/render.c (21 shared tiles, 4 per row and player)
-    BG3 (near scenery)      960 .. 1663   the five segments, all loaded at start (2 players may show any two)
-    BG4 (far scenery)      1664 .. 1983
+    BG3 (near scenery)      960 .. 1663   the five segments, all loaded at start (2 players may show any two); the
+                                          hole tiles, the carved rows of 4 players (widescreen, 1 player: the
+                                          scenery beside the stage in those of players 2-4)
+    BG4 (far scenery)      1664 .. 1983   (widescreen: the 512-px layer's own tiles after the 4:3 ones)
     OBJ                    2048 ..        the sprites below, the run-time pancake tiles, the kit's sprites
 MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/pancaketower/LICENSE.
 """
@@ -71,10 +73,41 @@ def pal555(rgbs):
     return [0] + [rsasset.to555(c) for c in rgbs[1:]]
 
 
-def convert_near(cells, palettes, kitchen_cells):
+def extend_bg(r, cells, pal=0, pal_base=0):
+    """More 8x8 cells for a BGSet made by rsasset.convert_bg with one palette: the same tile sharing (flips included),
+    new tiles appended after the others (the existing tiles and their numbers do not change). The cells' colours must
+    be in the palette."""
+    index = {}
+    for i, t in enumerate(r.tiles):
+        index.setdefault(tuple(t), (i, 0, 0))
+    p = r.palettes[pal]
+    metas = []
+    for c in cells:
+        assert rsasset.colors_of(c) <= set(p), "a widescreen far cell has a colour out of the far palette"
+        for t in rsasset.split_tiles(c):
+            idx = [0 if v is None else p.index(v) + 1 for v in t]
+            hit = index.get(tuple(idx))
+            if hit is None:
+                for hf, vf, f in ((1, 0, rsasset.hflip), (0, 1, rsasset.vflip),
+                                  (1, 1, lambda x: rsasset.vflip(rsasset.hflip(x)))):
+                    k2 = tuple(f(idx))
+                    if k2 in index:
+                        base = index[k2]
+                        hit = (base[0], hf ^ base[1], vf ^ base[2])
+                        break
+            if hit is None:
+                r.tiles.append(idx)
+                hit = (len(r.tiles) - 1, 0, 0)
+                index[tuple(idx)] = hit
+            metas.append(rsasset.rs_map(hit[0], pal_base + pal, 0, hit[1], hit[2]))
+    return metas
+
+
+def convert_near(cells, palettes, allowed_pals, names):
     """The near scenery with its explicit palettes (make_art.NEAR_PALETTES): every 8x8 cell must fit one palette
-    exactly (the first that holds all its colours; the first kitchen_cells, the title's scenery, only the first two).
-    Tiles are shared with flips, like rsasset.convert_bg."""
+    exactly (the first that holds all its colours, among the first allowed_pals[i]: the kitchen, the title's scenery,
+    only the first two). Tiles are shared with flips, like rsasset.convert_bg; the cells are converted in order (the
+    first ones keep their tile numbers whatever follows)."""
     pals = [[rsasset.to555(c) for c in p] for p in palettes]
     for p in pals:
         assert len(p) <= 15 and len(set(p)) == len(p), "a near palette has %d colours (or a repeat)" % len(p)
@@ -85,7 +118,7 @@ def convert_near(cells, palettes, kitchen_cells):
     bad = []
     for ci, c in enumerate(cells):
         cols = rsasset.colors_of(c)
-        allowed = 2 if ci < kitchen_cells else len(pals)
+        allowed = allowed_pals[ci]
         cand = [k for k, p in enumerate(pals[:allowed]) if cols <= set(p)]
         if not cand:
             bad.append((ci, sorted(rsasset.rgb888(v) for v in cols)))
@@ -111,9 +144,7 @@ def convert_near(cells, palettes, kitchen_cells):
             meta.append(rsasset.rs_map(hit[0], k, 0, hit[1], hit[2]))
         out.metas.append(meta)
     for ci, cols in bad[:20]:
-        seg, rest = divmod(ci, 32 * 40)
-        print("near scenery: segment %d cell (%d, %d) fits no palette: %s" % (seg, rest % 40, rest // 40, cols),
-              file=sys.stderr)
+        print("near scenery: %s fits no palette: %s" % (names[ci], cols), file=sys.stderr)
     assert not bad, "%d near cells do not fit the palettes" % len(bad)
     return out
 
@@ -162,10 +193,28 @@ def main():
         h.append("#define PC_%s %d" % (k.upper(), v))
 
     # ---- BG3: the five near segments (one tile set, NEAR_PALS palettes) ------------------------------------------------
-    cells = []
-    for seg in art["near"]:
-        cells += canvas_cells(seg, 0, 0, 320, 256)
-    r = convert_near(cells, make_art.NEAR_PALETTES, kitchen_cells=40 * 32)
+    # Widescreen: the segments are NEAR_W tiles wide, the 320-px stage at columns NEAR_X0 .. NEAR_X0 + 39. Those cells
+    # are converted first, in the 4:3 order (their tiles, numbers and map entries are the 4:3 ones); then the cells
+    # beside them: their new tiles go to BG3 slots NEAR_WIDE_TILE0.. (the carve slots of players 2-4: a wide screen
+    # shows them in 1 player only, where those slots are free; draw.c loads them then).
+    NX0, NW = make_art.NEAR_PAD // 8, make_art.NEAR_WIDE // 8
+    cells, allowed, names, where = [], [], [], []
+    for side in (0, 1):
+        for s, seg in enumerate(art["near"]):
+            for row in range(32):
+                for col in range(NW):
+                    if (NX0 <= col < NX0 + 40) != (side == 0):
+                        continue
+                    cells += canvas_cells(seg, col * 8, row * 8, 8, 8)
+                    allowed.append(2 if s == 0 else len(make_art.NEAR_PALETTES))
+                    names.append("segment %d cell (%d, %d)" % (s, col - NX0, row))
+                    where.append((s * 32 + row) * NW + col)
+    r = convert_near(cells, make_art.NEAR_PALETTES, allowed, names)
+    n_stage = 1 + max(r.metas[i][0] & 1023 for i in range(len(art["near"]) * 32 * 40))   # the 4:3 tiles
+    near_map = [0] * (len(art["near"]) * 32 * NW)
+    for i, m in enumerate(r.metas):
+        near_map[where[i]] = m[0]
+    r.metas = [[e] for e in near_map]
     # the holes: draw.c breaks the ceiling's and the roof's rows at run time (copies of these tiles with the hole cut
     # out, pixel-exact). The hole's inside is the KIT "dark" colour and its broken rim "wood3": every tile of those
     # rows must have them in its palette (a hole drawn in another colour would clash).
@@ -179,44 +228,63 @@ def main():
     for wy in carve_rows:
         k = wy // 8
         seg, row = (wy + 64) // 256, 31 - ((k + 8) & 31)
-        for col in range(40):
-            e = r.metas[(seg * 32 + row) * 40 + col][0]
+        for col in range(NW):
+            e = r.metas[(seg * 32 + row) * NW + col][0]
             pk = (e >> 10) & 7
             assert near_void[pk] and near_rim[pk], "the hole's colours are not in near palette %d (row %d)" % (pk, wy)
-    for m in r.metas:                     # palette k -> BG palette NEAR_PAL_SLOTS[k]
+    # the BG3 slots: the 4:3 tiles, NEAR_PALS hole tiles, the carved rows of 4 players (draw.c); the widescreen tiles
+    # are in the carve slots of players 2-4
+    carve_per_player = len(carve_rows) * 4
+    wide0 = n_stage + NEAR_PALS + carve_per_player
+    n_wide = len(r.tiles) - n_stage
+    assert n_wide <= 3 * carve_per_player, "near scenery: %d widescreen tiles > %d" % (n_wide, 3 * carve_per_player)
+    for m in r.metas:                     # palette k -> BG palette NEAR_PAL_SLOTS[k]; the widescreen tiles' slots
         for i, e in enumerate(m):
+            t = e & 1023
+            if t >= n_stage:
+                e = (e & ~1023) | (wide0 + t - n_stage)
             m[i] = (e & ~(7 << 10)) | (NEAR_PAL_SLOTS[(e >> 10) & 7] << 10)
-    assert len(r.tiles) <= BG3_TILES, "near scenery: %d tiles > %d" % (len(r.tiles), BG3_TILES)
+    assert n_stage + NEAR_PALS + 4 * carve_per_player <= BG3_TILES, "near scenery: %d tiles" % n_stage
     c.append(rsasset.c_bytes("pt_near_tiles", rsasset.tiles_bytes(r.tiles)))
-    c.append("const int pt_near_tile_count = %d;" % len(r.tiles))
+    c.append("const int pt_near_tile_count = %d;" % n_stage)
+    c.append("const int pt_near_wide_count = %d;" % n_wide)
     c.append(arr("pt_near_map", [m[0] for m in r.metas]))
+    stats.append("BG3 widescreen %d" % n_wide)
     pals = []
     for p in r.palettes:
         pals += rsasset.palette16(p)
     pals += [0] * (16 * NEAR_PALS - len(pals))
     c.append(arr("pt_near_pals", pals))
-    h.append("#define NEAR_SEGS %d\n#define NEAR_W 40\n#define NEAR_H 32\n#define NEAR_PALS %d" % (len(art["near"]), NEAR_PALS))
+    h.append("#define NEAR_SEGS %d\n#define NEAR_W %d\n#define NEAR_H 32\n#define NEAR_PALS %d" % (len(art["near"]), NW, NEAR_PALS))
+    h.append("#define NEAR_X0 %d   /* the panorama column of stage x 0 (widescreen: columns beside the stage) */" % NX0)
+    h.append("#define NEAR_WIDE_TILE0 %d   /* BG3 slot of the first widescreen tile (pt_near_tiles[count..]) */" % wide0)
     h.append("#define NEAR_PAL_SLOTS {%s}" % ", ".join(str(s) for s in NEAR_PAL_SLOTS))
     h.append("#define NEAR_VOID {%s}\n#define NEAR_RIM {%s}" % (", ".join(map(str, near_void)), ", ".join(map(str, near_rim))))
     h.append("#define BG3_TILES %d" % BG3_TILES)
-    h.append("#define CHIMNEY_X %d\n#define CHIMNEY_TOP %d   /* the chimney's flue (panorama x, world y) */" %
+    h.append("#define CHIMNEY_X %d\n#define CHIMNEY_TOP %d   /* the chimney's flue (stage x, world y) */" %
              (make_art.CHIMNEY_X, make_art.CHIMNEY_TOP))
-    h.append("extern const uint8_t pt_near_tiles[];\nextern const int pt_near_tile_count;")
+    h.append("extern const uint8_t pt_near_tiles[];\nextern const int pt_near_tile_count, pt_near_wide_count;")
     h.append("extern const uint16_t pt_near_map[NEAR_SEGS * NEAR_H * NEAR_W];\nextern const uint16_t pt_near_pals[16 * NEAR_PALS];")
-    stats.append("BG3 %d (%d pals)" % (len(r.tiles), len(r.palettes)))
+    stats.append("BG3 %d (%d pals)" % (n_stage, len(r.palettes)))
 
-    # ---- BG4: the far layer -----------------------------------------------------------------------------------------------
+    # ---- BG4: the far layer (widescreen: 512 px; the first 256 are the 4:3 layer, converted first) ----------------------
     far = art["far"]
     r = rsasset.convert_bg(canvas_cells(far, 0, 0, 256, far.h), 1, pal_base=PAL_FAR, tile_base=0)
+    n_far = len(r.tiles)
+    more = extend_bg(r, canvas_cells(far, 256, 0, far.w - 256, far.h), 0, PAL_FAR)
+    fw0, fw1 = 32, far.w // 8 - 32
+    far_map = []
+    for row in range(far.h // 8):
+        far_map += [m[0] for m in r.metas[row * fw0:(row + 1) * fw0]] + more[row * fw1:(row + 1) * fw1]
     assert len(r.tiles) <= BG4_TILES, "far scenery: %d tiles > %d" % (len(r.tiles), BG4_TILES)
     c.append(rsasset.c_bytes("pt_far_tiles", rsasset.tiles_bytes(r.tiles)))
-    c.append("const int pt_far_tile_count = %d;" % len(r.tiles))
-    c.append(arr("pt_far_map", [m[0] for m in r.metas]))
+    c.append("const int pt_far_tile_count = %d;\nconst int pt_far_wide_count = %d;" % (n_far, len(r.tiles) - n_far))
+    c.append(arr("pt_far_map", far_map))
     c.append(arr("pt_far_pal", rsasset.palette16(r.palettes[0])))
-    h.append("#define FAR_W 32\n#define FAR_H %d\n#define FAR_REPEAT 32" % (far.h // 8))
-    h.append("extern const uint8_t pt_far_tiles[];\nextern const int pt_far_tile_count;")
+    h.append("#define FAR_W %d\n#define FAR_H %d\n#define FAR_REPEAT 32" % (far.w // 8, far.h // 8))
+    h.append("extern const uint8_t pt_far_tiles[];\nextern const int pt_far_tile_count, pt_far_wide_count;")
     h.append("extern const uint16_t pt_far_map[FAR_H * FAR_W];\nextern const uint16_t pt_far_pal[16];")
-    stats.append("BG4 %d" % len(r.tiles))
+    stats.append("BG4 %d + %d widescreen" % (n_far, len(r.tiles) - n_far))
 
     # ---- sprites ----------------------------------------------------------------------------------------------------------
     fixed = {"food": [rsasset.to555(x) for x in make_art.TOWER_PAL[1:]],

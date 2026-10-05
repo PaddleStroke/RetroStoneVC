@@ -133,12 +133,22 @@ static void game_over(void)
     go(DS_OVER);
 }
 
+/* where a player's sounds pan from (stage x): the middle, or its pane (widescreen: the panes split the whole width) */
+static int sound_x(int p)
+{
+    if (M.players == 1) return RS_SCREEN_W / 2;
+    if (rs_screen_width() == RS_SCREEN_W) return (RS_SCREEN_W * (2 * p + 1)) / (2 * M.players);
+    rs_viewport l[MAX_PLAYERS];
+    hu_split(M.players, HU_SPLIT_COLUMNS, l);
+    return l[p].x + l[p].w / 2;
+}
+
 static void sounds(void)
 {
     static const uint8_t scale[8] = {0, 2, 4, 5, 7, 9, 11, 12};    /* the perfect chain climbs a major scale */
     for (int p = 0; p < M.players; p++) {
         const tower *tw = &M.tw[p];
-        int ev = tw->events, x = M.players == 1 ? RS_SCREEN_W / 2 : (RS_SCREEN_W * (2 * p + 1)) / (2 * M.players);
+        int ev = tw->events, x = sound_x(p);
         if ((ev & EV_LAND) && !(ev & (EV_CEILING | EV_ROOF))) sfx_play(SFX_FLOP, x, clampi(tw->pancakes / 6, 0, 12));
         if (ev & EV_PERFECT) sfx_play(SFX_DING, x, scale[clampi(tw->chain - 1, 0, 7)] + (tw->chain > 8 ? 2 : 0));
         if (ev & EV_REGROW) sfx_play(SFX_FANFARE, x, 0);
@@ -239,6 +249,8 @@ static void game_draw(void)
 
 static void game_init(void)
 {
+    /* widescreen: the 320-px stage centred, the scenery shows more on both sides (draw.c, DESIGN.md "Widescreen") */
+    rs_screen_origin(rs_screen_margin());
     save_load();
     opt_music = rs_option_int("music", 1);
     opt_sound = rs_option_int("sound", 1);
@@ -307,6 +319,6 @@ const rs_game *rs_game_main(void)
 {
     /* state_version: bump it when the meaning of a saved object changes (its layout is checked) */
     static const rs_game g = {"Pancake Tower", "pancaketower", "0.1.0", game_init, game_update, game_draw,
-                              game_shutdown, pt_assets, game_state, game_state_loaded, 3};
+                              game_shutdown, pt_assets, game_state, game_state_loaded, 3, RS_SCREEN_W_MAX};
     return &g;
 }
