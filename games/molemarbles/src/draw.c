@@ -2,6 +2,7 @@
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "game_text.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -68,14 +69,14 @@ void draw_frame(const world*w,int state,int t,int best,int new_best,int paused){
  int scores[4];for(int p=0;p<w->players;p++)scores[p]=w->h[p].score;hu_standing rank;hu_rank(&rank,w->players,scores,scores);int slide=state==ST_OVER?hu_slide_in(t,20,200):0;
  if(state==ST_TITLE){
   hu_logo("MOLE MARBLES",ramps,2,2,0);hu_title_draw(t,best);hu_title_sprites(t,icon,NULL);
-  hu_text(hu_center("{ } MOVE   A: HARPOON",0),16,"{ } MOVE   A: HARPOON");
+  hu_text(hu_center(TR(HINT_CONTROLS),0),16,TR(HINT_CONTROLS));
  }else if(state==ST_PLAY||state==ST_DEAD){
   if(w->players==1)hu_number(scores[0],160,8,3);
-  else for(int p=0;p<w->players;p++){char s[24];snprintf(s,sizeof s,"P%d %d",p+1,scores[p]);hu_text(p*10,1,s);}
-  if(paused)hu_big(hu_center("PAUSED",1),13,"PAUSED",HU_BIG_FREE);
+  else for(int p=0;p<w->players;p++){char s[48],tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),p+1);snprintf(s,sizeof s,"%s %d",tag,scores[p]);hu_text(p*10,1,s);}
+  if(paused)hu_big(hu_center(HTR(PAUSED),1),13,HTR(PAUSED),HU_BIG_FREE);
  }else{
-  if(w->players==1){static const int medals[4]=MEDAL_SCORES;hu_banner(4,"GAME OVER");hu_gameover_panel(1,new_best,scores[0],0);hu_gameover_sprites(1,scores[0],0,best,hu_medal_of(scores[0],medals),t,slide);hu_retry_line(t,RETRY_LOCK,"A: TITLE");}
-  else{hu_results_panel(&rank,NULL);hu_results_sprites(&rank,t,slide);for(int i=0;i<rank.n;i++){int x,y;hu_results_icon_pos(&rank,i,&x,&y);spr(SPR_HERO_ICON,x-8,y-8+slide,hu_player_pal(rank.order[i]),0);}hu_retry_line_at(hu_results_retry_row(&rank),t,RETRY_LOCK,"A: TITLE");}
+  if(w->players==1){static const int medals[4]=MEDAL_SCORES;hu_banner(4,HTR(GAME_OVER));hu_gameover_panel(1,new_best,scores[0],0);hu_gameover_sprites(1,scores[0],0,best,hu_medal_of(scores[0],medals),t,slide);hu_retry_line(t,RETRY_LOCK,HTR(BACK_TITLE));}
+  else{hu_results_panel(&rank,NULL);hu_results_sprites(&rank,t,slide);for(int i=0;i<rank.n;i++){int x,y;hu_results_icon_pos(&rank,i,&x,&y);spr(SPR_HERO_ICON,x-8,y-8+slide,hu_player_pal(rank.order[i]),0);}hu_retry_line_at(hu_results_retry_row(&rank),t,RETRY_LOCK,HTR(BACK_TITLE));}
  }
  rs_bg_scroll(RS_BG1,0,-slide);rs_bg_scroll(RS_BG2,0,0);rs_bg_scroll(RS_BG3,0,0);
 }

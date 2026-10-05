@@ -35,6 +35,7 @@ molemarbles-check:
 	sh $(MOLEMARBLES_DIR)/tests/ui_test.sh build/host/molemarbles_headless build/molemarbles-ui
 	sh $(MOLEMARBLES_DIR)/tests/state_test.sh build/host/molemarbles_test_states build/states
 	$(PYTHON) tools/state_audit.py --game molemarbles build/host/molemarbles_test_states $(MOLEMARBLES_OBJ_HOST)
+	bash tools/i18n_test.sh build/host/molemarbles_headless molemarbles build/molemarbles-i18n $(if $(WIDESCREEN_molemarbles),320 $(WIDTHS),320)
 
 molemarbles-screenshots:
 	+$(MOLEMARBLES_MAKE) build/host/molemarbles_headless

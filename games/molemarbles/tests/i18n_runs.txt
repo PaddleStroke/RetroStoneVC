@@ -1,0 +1,9 @@
+# Mole Marbles: the screens of the language test (tools/i18n_test.sh, docs/i18n.md), one headless run per line:
+#   <name> <frames> <shot frame> [options] [; input lines]
+title    130  120
+title2   130  120  ; 20 P2 tap A
+title4   130  120  ; 20 P2 tap A ; 30 P3 tap A ; 40 P4 tap A
+play4    400  390  --opt bot=4 --opt seed=9 --opt ready=1
+pause    640  630  --opt bot=1 --opt seed=7 --opt ready=1 ; 600 tap SELECT
+over     1000 990  --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=2
+results  1200 1190 --opt bot=4 --opt seed=5 --opt ready=1 --opt botstop=2
