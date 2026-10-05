@@ -68,6 +68,7 @@ static uint8_t ext_used;                /* the pool has been used since the last
 static uint32_t err_seen[32];           /* the layout errors logged (once each) */
 static int err_n, err_total;
 static int ext_peak;                    /* the most pool tiles in use at once (logged: VRAM) */
+static int8_t go_grow;                  /* the game-over panel's growth leftwards (long labels) */
 
 hu_config hu_defaults(void)
 {
@@ -379,7 +380,7 @@ void hu_state(void)
 {
     S(cfg); S(big_chars); S(big_used); S(paused_now); S(shake_amp); S(shake_t); S(shake_len); S(shake_dx); S(shake_dy);
     S(lobby); S(box_have); S(font_have); S(dpad_loaded);
-    S(ext_key); S(ext_under); S(ext_used); S(err_seen); S(err_n); S(err_total); S(ext_peak);
+    S(ext_key); S(ext_under); S(ext_used); S(err_seen); S(err_n); S(err_total); S(ext_peak); S(go_grow);
 }
 #undef S
 
@@ -884,6 +885,15 @@ static int has_accent(const char *s)
     return 0;
 }
 
+int hu_tall(const char *s)
+{
+    const char *p = s;
+    uint32_t cp;
+    while ((cp = rs_utf8_next(&p)) != 0)
+        if (cp >= 128 && rs_glyph_wide(cp)) return 1;
+    return has_accent(s);
+}
+
 void hu_banner(int y, const char *title)
 {
     int w = hu_width(title, 1) + 2, acc = has_accent(title);
@@ -940,6 +950,7 @@ void hu_gameover_panel(int players, int new_best, int score1, int score2)
     if (hu_width(b, 0) > l) l = hu_width(b, 0);
     if (hu_width(c, 0) > l) l = hu_width(c, 0);
     int d = l > 10 ? (l - 10 < 10 ? l - 10 : 10) : 0;
+    go_grow = (int8_t)d;
     hu_panel(10 - d, 9, 20 + d, 12);
     hu_box_text(12 - d, 11, a);
     hu_box_text(12 - d, 14, b);
@@ -950,6 +961,18 @@ void hu_gameover_panel(int players, int new_best, int score1, int score2)
         else snprintf(win, sizeof win, "%s", hu_str(HS_DRAW));
         hu_box_text(20 - hu_width(win, 0) / 2, 17, win);
     }
+}
+
+void hu_gameover_note(const char *s)
+{
+    /* the panel goes on 2 rows lower (rows 19..22 drawn again: its sides, its bottom), the line on row 21 */
+    int x0 = 10 - go_grow, w = 20 + go_grow;
+    for (int y = 19; y <= 22; y++)
+        for (int x = 0; x < w; x++) {
+            int kx = x == 0 ? 0 : x == w - 1 ? 2 : 1, ky = y == 22 ? 2 : 1;
+            rs_bg_put(cfg.layer, x0 + x, y, bg_entry(T_PANEL + ky * 3 + kx, 1));
+        }
+    hu_box_text(x0 + (w - hu_width(s, 0)) / 2, 21, s);
 }
 
 void hu_gameover_sprites(int players, int score1, int score2, int best, int medal, int t, int slide_px)

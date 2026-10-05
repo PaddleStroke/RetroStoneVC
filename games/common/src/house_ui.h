@@ -106,6 +106,7 @@ const char *hu_strn(int id, int n);                    /* a kit plural (HS_FULL)
 #define HTRN(key, n) hu_strn(HS_##key, (n))
 int  hu_width(const char *s, int big);                 /* columns on screen (a CJK character: 2; 2x text: 2 each) */
 int  hu_text_errors(void);                             /* layout errors so far */
+int  hu_tall(const char *s);                          /* the text uses the row above it (accents, CJK) */
 
 /* ---- text (tile coordinates, 40 x 30 on screen) -------------------------------------------------------------- */
 /* The kit draws four arrows over glyphs that games do not use: put them in strings with these. */
@@ -137,6 +138,9 @@ HU_DEPRECATED void hu_join_line(int y, int players, const char *joined);
  * 2-4 players: prefer the ranking (hu_results_*). */
 void hu_gameover_panel(int players, int new_best, int score1, int score2);
 void hu_gameover_sprites(int players, int score1, int score2, int best, int medal, int t, int slide_px);
+/* one more line on the game-over panel, centred under its last row (the panel grows by 2 rows); after
+ * hu_gameover_panel, e.g. a count that would not fit next to the labels in every language */
+void hu_gameover_note(const char *s);
 void hu_retry_line(int t, int lock, const char *text); /* the blinking "A: <AGAIN>" line once t >= lock (row 19) */
 void hu_retry_line_at(int row, int t, int lock, const char *text);
 
