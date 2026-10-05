@@ -48,3 +48,32 @@ large movements away from the center, and enforce the56pixel step bound at cap.
 Another20cap courses allow an eight-frame reaction pause after each catch;
 all four players still collect every cookie and avoid every cup.
 Full lobby/input/pause/SRAM/rendering/libretro/save-state checks run too.
+
+## Widescreen (docs/spec.md "Widescreen")
+
+The game opts in (`max_width` = 560, `WIDESCREEN_biscuitbandit = 1`): 320 x 240 is unchanged pixel for pixel; at
+427 (16:9), 520 or 560 (phones) **the cafe is wider, the game is the same**.
+- **A fixed screen, centred**: `rs_screen_origin(rs_screen_margin())` (draw_init). The heroes, trays, cookies, cups,
+  drop positions (x 44..276), the belt's 72-frame run from x 328 and every screen of the house kit keep their 320-px
+  places in the middle; the screen shows stage x -margin .. 320 + margin. Sprites are clipped to
+  rs_screen_left()..right(); the score chips go to the screen's centre and corners (the kit).
+- **The wider room** (make_art.py `hills_wide`, `oven`; build_assets.py): BG3 becomes a 128-tile map of a 1024-px
+  room with its own tiles and palette, the classic room pixel for pixel over the stage (build_assets.py checks it).
+  To the right, a bread rack (loaves, baguettes and buns on four shelves) and a pot plant; to the left, a hanging
+  lamp over a pot plant and the cafe's glazed door. The ceiling rail, the wainscot and the skirting run on with their
+  rhythm (the rail's 12-px dashes in stage coordinates, seamless where the picture wraps). The floor (BG2) repeats
+  its 512-px pattern on a 128-tile map. The 427 screen ends exactly at the rack's right edge.
+- **The cookie oven**: the belt now runs from the screen's left edge to a chrome oven (a 48 x 64 sprite on its own
+  palette, OBJ 6) just right of the stage, its flue going up through the top of the screen; the cookies come out of
+  its rubber curtain at x 320. It is in front of the cookies (a lower OAM index), so a cookie never pops into view
+  in the margin; the shake moves it left only, as the cookies do not shake. At 320 the oven is off screen, as the
+  cookies' start always was.
+- **The same game**: the rules never look at the width; tests/wide_test.sh compares the whole logs (scores, game
+  overs, the final state and its hash) of 1-player and 4-player bot runs at 320, 427, 520 and 560, changes the width
+  three times during runs (`--resize`) and loads states saved at one width at the others.
+- **Save states load at any width** (the width is not in a state): `state_loaded` (draw_relayout) compares the width
+  the maps were laid out for (draw.laid_w, saved) with this one; another width sets this width's maps up again (the
+  room, the floor, the UI layer) and the next frame draws the UI again (PAUSED too).
+- `make biscuitbandit-check` runs the libretro, smoke, UI and state tests again at 427 and 520, then
+  tests/wide_test.sh and the language test at 320, 427 and 520; `make biscuitbandit-screenshots` adds
+  title/play/gameover-427/520.png and play-4-players-520.png (tools/wide_shots.sh).

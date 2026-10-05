@@ -23,7 +23,8 @@ import house_style as hs  # noqa: E402
 import make_art  # noqa: E402
 
 PAL_GROUND, PAL_HILLS, PAL_LOGO = 1, 2, 5
-OBJ_PAL = {"hero": 0, "hero2": 1, "props": 2}           # OBJ 3: the house kit sprites; OBJ 4, 5: heroes 3, 4
+OBJ_PAL = {"hero": 0, "hero2": 1, "props": 2, "oven": 6}   # OBJ 3: the house kit sprites; OBJ 4, 5: heroes 3, 4;
+                                                          # OBJ 6: the widescreen oven
 VR_BG1, VR_BG2, VR_BG3, VR_OBJ = 0, 1024, 1536, 3072
 KIT_OBJ_TILE = 512                                        # the kit's sprites (house_ui.h HU_OBJ_TILES) after ours
 # players 2-4: the hero's hue rotated (house_style.player_palettes: P2 by P2_HUE, P3 and P4 to the hues farthest from
@@ -70,11 +71,28 @@ def main():
         h.append("extern const uint16_t gm_%s_map[64 * %s_H];\nextern const uint16_t gm_%s_pal[16];" % (key, name, key))
         stats.append("%s %d" % (layer.upper(), len(r.tiles)))
 
+    # ---- widescreen (DESIGN.md "Widescreen"): the room 1024 px wide for BG3 (a 128-tile map; its own tiles and
+    # palette, loaded instead of the classic ones on a screen wider than 320; the ground's map simply repeats) ------
+    f, w, hh = make_art.PANORAMAS["hills_wide"]
+    img = rsasset.load(os.path.join(a.art, f))
+    classic = rsasset.load(os.path.join(a.art, make_art.PANORAMAS["hills"][0]))
+    assert all(img.getpixel((x, y)) == classic.getpixel((x, y)) for y in range(hh) for x in range(320)), \
+        "the wide room differs from the classic one over the stage"
+    r = rsasset.convert_bg(cells8(img, 0, 0, w, hh), 1, pal_base=PAL_HILLS, tile_base=0)
+    assert len(r.tiles) <= VR_OBJ - VR_BG3, "the wide room's tiles overlap the sprites"
+    c.append(rsasset.c_bytes("gm_hills_wide_tiles", rsasset.tiles_bytes(r.tiles)))
+    c.append("const int gm_hills_wide_tile_count = %d;" % len(r.tiles))
+    c.append(arr("gm_hills_wide_map", [m[0] for m in r.metas]))
+    c.append(arr("gm_hills_wide_pal", rsasset.palette16(r.palettes[0])))
+    h.append("extern const uint8_t gm_hills_wide_tiles[];\nextern const int gm_hills_wide_tile_count;")
+    h.append("extern const uint16_t gm_hills_wide_map[128 * HILLS_H];\nextern const uint16_t gm_hills_wide_pal[16];")
+    stats.append("BG3 wide %d" % len(r.tiles))
+
     # ---- sprites ----------------------------------------------------------------------------------------------------
     sheet = rsasset.load(os.path.join(a.art, "sprites.png"))
-    tiles, rows, names, pals = [], [], [], [0] * 96
+    tiles, rows, names, pals = [], [], [], [0] * 112
     idx = 0
-    for g in ("hero", "props"):
+    for g in ("hero", "props", "oven"):
         ents = [e for e in make_art.SPRITES if e[6] == g]
         frames = []
         for name, x, y, w, hh, n, _g in ents:
@@ -100,7 +118,7 @@ def main():
     h.append("enum { %s, SPR_COUNT = %d };" % (", ".join(names), idx))
     h.append("typedef struct gm_sprite_def { uint16_t tile; uint8_t w, h, pal; } gm_sprite_def;")
     h.append("extern const gm_sprite_def gm_spr[SPR_COUNT];")
-    h.append("extern const uint8_t gm_obj_tiles[];\nextern const int gm_obj_tile_count;\nextern const uint16_t gm_obj_pals[96];")
+    h.append("extern const uint8_t gm_obj_tiles[];\nextern const int gm_obj_tile_count;\nextern const uint16_t gm_obj_pals[112];")
     c.append("const gm_sprite_def gm_spr[SPR_COUNT] = {\n    " + ",\n    ".join(rows) + "};")
     c.append(rsasset.c_bytes("gm_obj_tiles", rsasset.tiles_bytes(tiles)))
     c.append("const int gm_obj_tile_count = %d;" % len(tiles))

@@ -41,8 +41,35 @@ static void sky_gradient(void)
     }
 }
 
+/* Widescreen (DESIGN.md "Widescreen"): a screen wider than 320 centres the 320-px stage (rs_screen_origin) and shows
+ * more of the cafe on both sides: the room's 1024-px picture on BG3 (a 128-tile map, its own tiles and palette: the
+ * classic room in the middle, the bread rack and a pot plant on the right, the door, a lamp and a pot plant on the left), the
+ * floor on a 128-tile BG2 (the same 512-px pattern twice), the UI layer 128 tiles wide (the corner tags of 3-4
+ * players), the belt to the screen's left edge and the oven at its right end, which the cookies come out of. */
+static int laid_w;                      /* the width the maps were laid out for (a state of another width: relayout) */
+static int wide(void) { return rs_screen_width() > RS_SCREEN_W; }
+
+static void maps_setup(void)
+{
+    int wd = wide(), mw = wd ? 128 : 64;
+    rs_bg_setup(RS_BG1, mw, 32, VR_BG1);
+    rs_bg_setup(RS_BG2, mw, 32, VR_BG2);
+    rs_bg_setup(RS_BG3, mw, 32, VR_BG3);
+    rs_tiles_load(VR_BG2, gm_bg2_tiles, gm_bg2_tile_count);
+    rs_tiles_load(VR_BG3, wd ? gm_hills_wide_tiles : gm_bg3_tiles, wd ? gm_hills_wide_tile_count : gm_bg3_tile_count);
+    rs_pal_load(RS_PAL_BG(PAL_GROUND), gm_ground_pal, 16);
+    rs_pal_load(RS_PAL_BG(PAL_HILLS), wd ? gm_hills_wide_pal : gm_hills_pal, 16);
+    for (int y = 0; y < GROUND_H; y++)
+        for (int x = 0; x < mw; x++) rs_bg_put(RS_BG2, x, GROUND_Y / 8 + y, gm_ground_map[y * 64 + (x & 63)]);
+    for (int y = 0; y < HILLS_H; y++)
+        for (int x = 0; x < mw; x++)
+            rs_bg_put(RS_BG3, x, HILLS_Y / 8 + y, wd ? gm_hills_wide_map[y * 128 + x] : gm_hills_map[y * 64 + x]);
+    laid_w = rs_screen_width();
+}
+
 void draw_init(void)
 {
+    rs_screen_origin(rs_screen_margin());   /* widescreen: the 320-px stage centred, the cafe wider */
     hu_config hc = hu_defaults();       /* BG1 at VRAM 0, the kit at 0 on palette 0, the logo at 320 on palette 5 */
     hc.obj_tile = KIT_OBJ_TILE;         /* the kit sprites after the game's */
     hc.obj_vram = VR_OBJ;
@@ -50,30 +77,30 @@ void draw_init(void)
     hc.ext_count = 256;                 /* the glyph pool: tiles 640..895 (BG2 starts at VRAM 1024): the title's three
                                          * hint lines in Japanese, Chinese or Korean need more than the default 128 */
     hu_init(&hc);
-    rs_bg_setup(RS_BG1, 64, 32, VR_BG1);
-    rs_bg_setup(RS_BG2, 64, 32, VR_BG2);
-    rs_bg_setup(RS_BG3, 64, 32, VR_BG3);
-    rs_tiles_load(VR_BG2, gm_bg2_tiles, gm_bg2_tile_count);
-    rs_tiles_load(VR_BG3, gm_bg3_tiles, gm_bg3_tile_count);
-    rs_pal_load(RS_PAL_BG(PAL_GROUND), gm_ground_pal, 16);
-    rs_pal_load(RS_PAL_BG(PAL_HILLS), gm_hills_pal, 16);
-    for (int y = 0; y < GROUND_H; y++)
-        for (int x = 0; x < 64; x++) rs_bg_put(RS_BG2, x, GROUND_Y / 8 + y, gm_ground_map[y * 64 + x]);
-    for (int y = 0; y < HILLS_H; y++)
-        for (int x = 0; x < 64; x++) rs_bg_put(RS_BG3, x, HILLS_Y / 8 + y, gm_hills_map[y * 64 + x]);
+    maps_setup();
     for (int l = 0; l < 3; l++) rs_bg_enable(l, 1);
     rs_obj_base(VR_OBJ);
     rs_tiles_load(VR_OBJ, gm_obj_tiles, gm_obj_tile_count);
     rs_pal_load(RS_PAL_OBJ(0), gm_obj_pals, 48);          /* hero, hero 2, props (the kit loaded OBJ 3) */
-    rs_pal_load(RS_PAL_OBJ(4), gm_obj_pals + 64, 32);     /* heroes 3 and 4 */
+    rs_pal_load(RS_PAL_OBJ(4), gm_obj_pals + 64, 48);     /* heroes 3 and 4, the oven (widescreen) */
     sky_gradient();
     rs_raster(raster, NULL);
+}
+
+/* After a state was loaded (rs_game.state_loaded): the width is not in a state, and one saved at another width brings
+ * that width's maps. Set up this width's (the UI is drawn again on the next frame, PAUSED too). Same width: nothing. */
+void draw_relayout(void)
+{
+    if (laid_w == rs_screen_width()) return;
+    maps_setup();
+    shown_state = -1;                   /* screen_text clears the UI layer and draws it again */
+    hu_pause(0, 13);                    /* ... and PAUSED, if it shows (draw_frame: hu_pause(paused)) */
 }
 
 static void spr(int id, int x, int y, int prio, int pal)
 {
     const gm_sprite_def *d = &gm_spr[id];
-    if (x <= -(int)d->w || x >= RS_SCREEN_W || y <= -(int)d->h || y >= RS_SCREEN_H) return;
+    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= -(int)d->h || y >= RS_SCREEN_H) return;
     rs_spr(x, y, d->tile, d->w, d->h, pal >= 0 ? pal : d->pal, prio, 0);
 }
 
@@ -198,8 +225,12 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         }
     }
     if(state==ST_TITLE){int x,y;int glyph=hu_title_glyph(&x,&y);if(glyph>=0)hu_glyph(glyph,x,20*8-4,(st_t/30)%2,3);}
-    /* Leftward slats move only with world time, freezing on the title and pause. */
-    for(int x=0;x<320;x+=32)spr(SPR_BELT+(w->t/3)%4,x+sx,44+sy,1,-1);
+    /* widescreen: the oven the cookies come out of, in front of them (a lower OAM index), just right of the stage;
+     * the shake moves it left only, so that its mouth always hides a cookie at x 320 (the cookies do not shake) */
+    if (wide()) spr(SPR_OVEN, 320 + (sx < 0 ? sx : 0), sy, 2, -1);
+    /* Leftward slats move only with world time, freezing on the title and pause (widescreen: from the screen's left
+     * edge, on the same 32-px rhythm) */
+    for(int x=-(rs_screen_margin()+31)/32*32;x<320;x+=32)spr(SPR_BELT+(w->t/3)%4,x+sx,44+sy,1,-1);
     draw_heroes(w,st_t,sx,sy);
     for(int i=0;i<ITEM_MAX;i++){
       const drop*d=&w->items[i];if(!d->active)continue;
@@ -219,7 +250,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
 #define S(v) rs_state_var("draw." #v, &(v), sizeof(v))
 void draw_state(void)
 {
-    S(line_col); S(shown_state); S(shown_best);
+    S(line_col); S(shown_state); S(shown_best); S(laid_w);
     RS_STATE_RASTER(raster);
 }
 #undef S

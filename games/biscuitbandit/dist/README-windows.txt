@@ -29,4 +29,7 @@ same drop; several aligned trays all get the cookie, with no player priority.
 Raccoons do not collide. Eliminated players wait while the others continue.
 F11 or Alt+Enter: fullscreen. F12: screenshot. Close the window to quit.
 Options: BiscuitBandit.exe --scale 4 --fullscreen
+Widescreen: the picture follows the shape of the window (drag its edges or go
+fullscreen: a wider window shows more of the cafe). To fix it: --width 427
+(16:9), --width 520 (phones), or --aspect 4:3 for the classic 320x240.
 The checked best score is saved in biscuitbandit.srm next to the exe.
