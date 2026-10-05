@@ -61,3 +61,27 @@ arrivals, randomized late groups and score-based acceleration. Twelve ordinary-i
 for deterministic replay and check capped density. Bots predict visible ball
 arcs and issue only left/right/A. Full integration suite covers actual scripted
 pads, lobby/pause/results, SRAM, libretro, screenshots and save-state audits.
+
+## Widescreen (docs/spec.md "Widescreen")
+
+The game opts in (`max_width` = 560, `WIDESCREEN_molemarbles = 1`): 320 x 240 is unchanged pixel for pixel; at 427
+(16:9), 520 or 560 (phones) **the cavern is wider, the arena is the same**.
+- **A fixed arena, centred**: `rs_screen_origin(rs_screen_margin())` (draw_init). The marbles still bounce off x 0
+  and 320, the moles walk where they did, the warnings, ropes and shards are drawn over the same 40 columns (BG2);
+  the screen shows stage x -margin .. 320 + margin. Sprites are clipped to rs_screen_left()..right().
+- **The arena's walls made visible**: at 320 they are the screen's edges; wider, two squared mine timbers stand
+  just outside them (stage x -8..-1 and 320..327, iron-banded), so a marble visibly bounces off a wall.
+- **The wider cavern** (make_art.py `hills_wide`; build_assets.py): BG3 becomes a 128-tile map of a 1024-px cavern
+  with its own tiles and palette (the ground's tiles after them), the classic cavern pixel for pixel over the arena
+  (build_assets.py checks it): the ribs, the distant arches and the ceiling go on round in stage coordinates; beyond
+  the timbers a lantern on its chain each side, two more crystal clusters, a mine cart loaded with ore on its rails
+  (left) and a ladder up the rock (right). The ground's slabs repeat their 512-px pattern on the 128-tile map.
+- **The same game**: the rules never look at the width; tests/wide_test.sh compares the whole logs (scores, hits,
+  game overs, the final state and its hash) of 1-player and 4-player bot runs at 320, 427, 520 and 560, changes the
+  width three times during runs (`--resize`) and loads states saved at one width at the others.
+- **Save states load at any width**: `state_loaded` (draw_relayout) compares the width the maps were laid out for
+  (draw.laid_w, saved) with this one; another width sets this width's maps and the cavern's tiles up again (every
+  frame draws the UI and the marbles again).
+- `make molemarbles-check` runs the libretro, smoke, UI and state tests again at 427 and 520, then tests/wide_test.sh
+  and the language test at 320, 427 and 520; `make molemarbles-screenshots` adds title/play/gameover-427/520.png and
+  play-4-players-520.png (tools/wide_shots.sh).

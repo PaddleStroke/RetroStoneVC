@@ -13,14 +13,30 @@ static void raster(int y,void*user){(void)user;rs_pal_set(0,lines[y]);}
 static void pixel(uint8_t*p,int x,int y,int c){if(x>=0&&x<320&&y>=0&&y<240)p[y*320+x]=(uint8_t)c;}
 static void rect(uint8_t*p,int x0,int y0,int x1,int y1,int c){if(x0<0)x0=0;if(y0<0)y0=0;if(x1>319)x1=319;if(y1>239)y1=239;for(int y=y0;y<=y1;y++)for(int x=x0;x<=x1;x++)pixel(p,x,y,c);}
 static void ellipse(uint8_t*p,int cx,int cy,int rx,int ry,int c){for(int y=-ry;y<=ry;y++)for(int x=-rx;x<=rx;x++)if(x*x*ry*ry+y*y*rx*rx<=rx*rx*ry*ry)pixel(p,cx+x,cy+y,c);}
-static void spr(int id,int x,int y,int pal,int flip){const gm_sprite_def*d=&gm_spr[id];if(x<=-(int)d->w||x>=320||y<=-(int)d->h||y>=240)return;rs_spr(x,y,d->tile,d->w,d->h,pal,2,flip?RS_SPR_HFLIP:0);}
+static void spr(int id,int x,int y,int pal,int flip){const gm_sprite_def*d=&gm_spr[id];if(x<=rs_screen_left()-(int)d->w||x>=rs_screen_right()||y<=-(int)d->h||y>=240)return;rs_spr(x,y,d->tile,d->w,d->h,pal,2,flip?RS_SPR_HFLIP:0);}
+/* Widescreen (DESIGN.md "Widescreen"): a screen wider than 320 centres the 320-px arena (rs_screen_origin) and shows
+ * more of the cavern on both sides: BG3 becomes a 128-tile map of the 1024-px cavern (its own tiles and palette, the
+ * ground's tiles after them): two mine timbers just outside the arena show its walls (the marbles bounce there as
+ * they always did), a lantern, a mine cart and a ladder beyond them. The UI layer is 128 tiles wide; the marbles'
+ * layer (BG2) keeps its 40 columns over the arena. */
+static int laid_w;     /* the width the maps were laid out for (a state of another width: draw_relayout) */
+static void maps_setup(void){
+ int wd=rs_screen_width()>RS_SCREEN_W,mw=wd?128:64,n=wd?gm_hills_wide_tile_count:gm_bg3_tile_count,cols=wd?128:40;
+ rs_bg_setup(RS_BG1,mw,32,VR_BG1);rs_bg_setup(RS_BG2,64,32,VR_BG2);rs_bg_setup(RS_BG3,mw,32,VR_BG3);
+ rs_tiles_load(VR_BG3,wd?gm_hills_wide_tiles:gm_bg3_tiles,n);rs_tiles_load(VR_BG3+n,gm_bg2_tiles,gm_bg2_tile_count);
+ rs_pal_load(RS_PAL_BG(PAL_HILLS),wd?gm_hills_wide_pal:gm_hills_pal,16);
+ for(int y=0;y<26;y++)for(int x=0;x<cols;x++)rs_bg_put(RS_BG3,x,y,wd?gm_hills_wide_map[y*128+x]:gm_hills_map[y*64+x]);
+ for(int y=0;y<4;y++)for(int x=0;x<cols;x++)rs_bg_put(RS_BG3,x,y+26,(uint16_t)(gm_ground_map[y*64+(x&63)]+n));
+ laid_w=rs_screen_width();
+}
+/* After a state was loaded (rs_game.state_loaded): one saved at another width brings that width's maps; set this
+ * width's up (every frame draws the UI and the marbles again). Same width: nothing. */
+void draw_relayout(void){if(laid_w!=rs_screen_width())maps_setup();}
 void draw_init(void){
+ rs_screen_origin(rs_screen_margin());   /* widescreen: the 320-px arena centred, the cavern wider */
  hu_config c=hu_defaults();c.obj_tile=KIT_OBJ_TILE;c.obj_vram=VR_OBJ;c.obj_pal=3;hu_init(&c);
- rs_bg_setup(RS_BG1,64,32,VR_BG1);rs_bg_setup(RS_BG2,64,32,VR_BG2);rs_bg_setup(RS_BG3,64,32,VR_BG3);
- rs_tiles_load(VR_BG3,gm_bg3_tiles,gm_bg3_tile_count);rs_tiles_load(VR_BG3+gm_bg3_tile_count,gm_bg2_tiles,gm_bg2_tile_count);
- rs_pal_load(RS_PAL_BG(PAL_HILLS),gm_hills_pal,16);rs_pal_load(RS_PAL_BG(PAL_GROUND),gm_ground_pal,16);rs_pal_load(RS_PAL_BG(4),field_pal,16);
- for(int y=0;y<26;y++)for(int x=0;x<40;x++)rs_bg_put(RS_BG3,x,y,gm_hills_map[y*64+x]);
- for(int y=0;y<4;y++)for(int x=0;x<40;x++)rs_bg_put(RS_BG3,x,y+26,(uint16_t)(gm_ground_map[y*64+x]+gm_bg3_tile_count));
+ maps_setup();
+ rs_pal_load(RS_PAL_BG(PAL_GROUND),gm_ground_pal,16);rs_pal_load(RS_PAL_BG(4),field_pal,16);
  uint8_t zero[64]={0};rs_tiles_load8(VR_BG2,zero,1);
  for(int i=0;i<3;i++)rs_bg_enable(i,1);
  rs_obj_base(VR_OBJ);rs_tiles_load(VR_OBJ,gm_obj_tiles,gm_obj_tile_count);rs_pal_load(RS_PAL_OBJ(0),gm_obj_pals,48);rs_pal_load(RS_PAL_OBJ(4),gm_obj_pals+64,32);
@@ -80,5 +96,5 @@ void draw_frame(const world*w,int state,int t,int best,int new_best,int paused){
  }
  rs_bg_scroll(RS_BG1,0,-slide);rs_bg_scroll(RS_BG2,0,0);rs_bg_scroll(RS_BG3,0,0);
 }
-void draw_state(void){rs_state_var("draw.lines",lines,sizeof lines);RS_STATE_RASTER(raster);}
+void draw_state(void){rs_state_var("draw.lines",lines,sizeof lines);rs_state_var("draw.laid_w",&laid_w,sizeof laid_w);RS_STATE_RASTER(raster);}
 

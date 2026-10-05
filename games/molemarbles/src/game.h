@@ -33,6 +33,7 @@ enum {ST_TITLE,ST_PLAY,ST_DEAD,ST_OVER};
 void draw_init(void);
 void draw_frame(const world*,int,int,int,int,int);
 void draw_state(void);
+void draw_relayout(void);   /* after a state of another width was loaded: this width's maps (widescreen) */
 enum {SFX_JUMP,SFX_SCORE,SFX_HIT,SFX_LAND,SFX_COUNT};
 #define SFX_HOUSE SFX_COUNT
 #endif

@@ -70,6 +70,25 @@ def main():
         h.append("extern const uint16_t gm_%s_map[64 * %s_H];\nextern const uint16_t gm_%s_pal[16];" % (key, name, key))
         stats.append("%s %d" % (layer.upper(), len(r.tiles)))
 
+    # ---- widescreen (DESIGN.md "Widescreen"): the cavern 1024 px wide for BG3 (a 128-tile map; its own tiles and
+    # palette, loaded instead of the classic ones on a screen wider than 320, the ground's tiles after them); the
+    # arena's 320 columns are the classic cavern's ------------------------------------------------------------------
+    f, w, hh = make_art.PANORAMAS["hills_wide"]
+    img = rsasset.load(os.path.join(a.art, f))
+    classic = rsasset.load(os.path.join(a.art, make_art.PANORAMAS["hills"][0]))
+    assert all(img.getpixel((x, y)) == classic.getpixel((x, y)) for y in range(hh) for x in range(320)), \
+        "the wide cavern differs from the classic one over the arena"
+    r = rsasset.convert_bg(cells8(img, 0, 0, w, hh), 1, pal_base=PAL_HILLS, tile_base=0)
+    ground_tiles = int(stats[0].split()[1])
+    assert len(r.tiles) + ground_tiles <= VR_OBJ - VR_BG3, "the wide cavern's tiles overlap the sprites"
+    c.append(rsasset.c_bytes("gm_hills_wide_tiles", rsasset.tiles_bytes(r.tiles)))
+    c.append("const int gm_hills_wide_tile_count = %d;" % len(r.tiles))
+    c.append(arr("gm_hills_wide_map", [m[0] for m in r.metas]))
+    c.append(arr("gm_hills_wide_pal", rsasset.palette16(r.palettes[0])))
+    h.append("extern const uint8_t gm_hills_wide_tiles[];\nextern const int gm_hills_wide_tile_count;")
+    h.append("extern const uint16_t gm_hills_wide_map[128 * HILLS_H];\nextern const uint16_t gm_hills_wide_pal[16];")
+    stats.append("BG3 wide %d" % len(r.tiles))
+
     # ---- sprites ----------------------------------------------------------------------------------------------------
     sheet = rsasset.load(os.path.join(a.art, "sprites.png"))
     tiles, rows, names, pals = [], [], [], [0] * 96

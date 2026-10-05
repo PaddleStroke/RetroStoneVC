@@ -35,4 +35,7 @@ All existing marbles accelerate gradually with score, to a capped speed.
 10 points per split; 15 for clearing a smallest ball. Medals at 50,150,300,600.
 F11 / Alt+Enter: fullscreen. F12: screenshot. Close the window to quit.
 Options: MoleMarbles.exe --scale 4 --fullscreen
+Widescreen: the picture follows the shape of the window (drag its edges or go
+fullscreen: a wider window shows more of the cavern). To fix it: --width 427
+(16:9), --width 520 (phones), or --aspect 4:3 for the classic 320x240.
 Best score is saved in molemarbles.srm alongside the executable.

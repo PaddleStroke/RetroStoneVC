@@ -39,7 +39,8 @@ SPRITES = [
     ("puff", 208, 0, 8, 8, 3, "props"),
     ("hero_icon", 0, 32, 16, 16, 1, "hero"),     # the title's player slots, the results
 ]
-PANORAMAS = {"ground": ("tiles/ground.png", 512, 32), "hills": ("tiles/hills.png", 512, 208)}
+PANORAMAS = {"ground": ("tiles/ground.png", 512, 32), "hills": ("tiles/hills.png", 512, 208),
+             "hills_wide": ("tiles/hills_wide.png", 1024, 208)}   # widescreen: the cavern 1024 px wide
 
 # the hero's colours: an accent ramp (house_style.ACCENTS) and the house outline
 HERO = [(251,211,126),(222,161,83),(172,104,66),(104,61,53)]
@@ -158,6 +159,87 @@ def hills():
     return cv
 
 
+# ---- widescreen (DESIGN.md "Widescreen") --------------------------------------------------------------------------
+class WrapCanvas(Canvas):
+    """a canvas whose x wraps round: stage x s is picture x s mod w (a panorama on a wrapping map)"""
+    def set(self, x, y, c):
+        Canvas.set(self, x % self.w, y, c)
+
+
+WOOD_DIM = [(150, 104, 62), (112, 74, 44), (78, 50, 34)]      # the mine's timbers, in the cavern's dim light
+GLOW = [(255, 226, 121), (199, 140, 67)]                      # the lanterns (the field palette's gold)
+
+
+def hills_wide():
+    """The cavern 1024 px wide for a screen wider than 320 (a 128-tile map; stage x s = picture x s & 1023): hills()
+    pixel for pixel over 0..511, its ribs, arches and ceiling going on round in stage coordinates; the arena's walls
+    made visible as two mine timbers just outside it (stage x -8..-1 and 320..327: the marbles bounce off them as they
+    always did off the screen's edges); beyond them a lantern each side, a mine cart on its rails (left), a ladder
+    (right) and two more crystal clusters."""
+    W = 1024
+    cv = WrapCanvas(W, 208)
+    P = [(26,30,50),(34,38,62),(43,45,69),(50,53,76),(60,65,85),(76,88,109),(97,114,132),(119,134,147)]
+    cv.rect(0, 0, W - 1, 63, P[0]); cv.rect(0, 64, W - 1, 135, P[1]); cv.rect(0, 136, W - 1, 207, P[2])
+    for x in range(-W // 2, W // 2, 64):
+        cv.rect(x+4,4,x+9,190,P[2]);cv.rect(x+10,4,x+13,190,P[3])
+        for y in range(10,150):
+            yy=25+int(18*math.sin((y+x)/32));cv.set(x+yy,y,P[3])
+        for yy in range(90,208):
+            for xx in range(x+16,x+51):
+                dx=(xx-x-33)/17
+                if yy>115 or dx*dx+((yy-115)/28)**2<1:cv.set(xx,yy,P[0])
+        for xx in range(x+14,x+54):
+            y=115-int(28*math.sqrt(max(0,1-((xx-x-34)/20)**2)))
+            cv.rect(xx,y,xx,y+3,P[4])
+    for cx,cy in ((17,161),(71,199),(145,164),(226,188),(301,153),(355,197),(426,166),(489,189),(-41,193),(-104,160)):
+        for dx,height in ((-6,13),(0,24),(7,17)):
+            for yy in range(height):
+                width=min(4,yy//3+1)
+                cv.rect(cx+dx-width,cy-height+yy,cx+dx+width,cy-height+yy,P[5])
+                cv.set(cx+dx-width,cy-height+yy,P[6]);cv.set(cx+dx,cy-height+yy,P[4])
+            cv.set(cx+dx-1,cy-height+2,P[7])
+    for x in range(-W // 2, W // 2):
+        for y in range(3+int(4*(1+math.sin(x/31)))):cv.set(x,y,P[3])
+    w0, w1, w2 = WOOD_DIM
+
+    def post(x0):                                   # a squared timber from the ceiling to the floor, its iron bands
+        cv.rect(x0, 0, x0 + 7, 207, w1); cv.rect(x0, 0, x0, 207, w0); cv.rect(x0 + 7, 0, x0 + 7, 207, w2)
+        for y in (30, 96, 162):
+            cv.rect(x0, y, x0 + 7, y, P[6]); cv.rect(x0, y + 1, x0 + 7, y + 1, P[4])
+
+    def lantern(x0, length):                        # a lantern on its chain from the ceiling
+        for y in range(4, 4 + length): cv.set(x0, y, P[6] if y % 3 else P[4])
+        y0 = 4 + length
+        cv.rect(x0 - 3, y0, x0 + 3, y0 + 2, P[5])
+        cv.rect(x0 - 4, y0 + 3, x0 + 4, y0 + 10, GLOW[1]); cv.rect(x0 - 1, y0 + 4, x0 + 1, y0 + 8, GLOW[0])
+        cv.rect(x0 - 4, y0 + 3, x0 - 4, y0 + 10, P[5]); cv.rect(x0 + 4, y0 + 3, x0 + 4, y0 + 10, P[5])
+        cv.rect(x0 - 4, y0 + 11, x0 + 4, y0 + 11, P[5])
+
+    post(-8); post(320)
+    lantern(-34, 62); lantern(346, 54)
+    # left: a mine cart on its rails, loaded with crystal ore
+    cv.rect(-120, 205, -10, 205, P[6]); cv.rect(-120, 206, -10, 206, P[4])
+    for x in range(-117, -12, 9): cv.rect(x, 207, x + 4, 207, w2)
+    for y in range(181, 199):
+        inset = (y - 181) // 6
+        for x in range(-98 + inset, -57 - inset):
+            cv.set(x, y, P[6] if y == 181 else P[5] if (x + 98) % 10 < 8 else P[4])
+    for cx in (-89, -66):
+        for y in range(196, 206):
+            for x in range(cx - 4, cx + 5):
+                d = (x - cx) ** 2 + (y - 201) ** 2
+                if d <= 20: cv.set(x, y, P[6] if d <= 4 else P[3])
+    for x, y in ((-92, 178), (-85, 176), (-78, 178), (-71, 177), (-64, 179)):
+        for k in range(-3, 4): cv.rect(x + k, y + abs(k), x + k, 180, P[5])
+        cv.set(x, y, P[7]); cv.set(x - 1, y + 1, P[6])
+    # right: a ladder up the rock
+    for y in range(40, 205):
+        cv.set(378, y, w1); cv.set(379, y, w2); cv.set(394, y, w1); cv.set(395, y, w2)
+        if y % 14 == 6:
+            cv.rect(380, y, 393, y, w0); cv.rect(380, y + 1, 393, y + 1, w2)
+    return cv
+
+
 def build_sheet():
     im = Image.new("RGB", (SHEET_W, SHEET_H), hs.MAGENTA)
     for name, x, y, w, h, frames, _g in SPRITES:
@@ -171,6 +253,7 @@ def write_all(out, preview=False):
     files = {"sprites.png": build_sheet()}
     files[PANORAMAS["ground"][0]] = ground().image()
     files[PANORAMAS["hills"][0]] = hills().image()
+    files[PANORAMAS["hills_wide"][0]] = hills_wide().image()
     for f, im in files.items():
         im.save(os.path.join(out, f))
         if preview:
