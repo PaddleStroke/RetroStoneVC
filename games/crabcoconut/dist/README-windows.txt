@@ -17,4 +17,7 @@ All players use the same full-size crab and share a full-screen court and the sa
 its own coconut; coloured ball outlines match the player colours.
 Ball speed starts gently and increases smoothly over the first two minutes.
 F11 or Alt+Enter toggles fullscreen. F12 takes a screenshot.
+Widescreen: the picture follows the shape of the window (drag its edges or go
+fullscreen: a wider window shows more of the beach). To fix it: --width 427
+(16:9), --width 520 (phones), or --aspect 4:3 for the classic 320x240.
 Best scores are saved to crabcoconut.srm next to the executable.

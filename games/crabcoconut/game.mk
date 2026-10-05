@@ -1,5 +1,8 @@
 # Crab Coconut: house kit, portable host/libretro and static Windows builds.
 HOUSE_UI_crabcoconut = 1
+# widescreen (docs/spec.md "Widescreen"; rs_game.max_width; DESIGN.md): the checks run at 320 and at each width of
+# WIDTHS (427 520), then across widths (tests/wide_test.sh)
+WIDESCREEN_crabcoconut = 1
 CRABCOCONUT_MAKE = $(MAKE) --no-print-directory GAME=crabcoconut GAME_NAME=CrabCoconut
 CRABCOCONUT_OBJS = $(patsubst %.c,build/host/%.o,$(wildcard games/crabcoconut/src/*.c) $(HOUSE_SRC))
 .PHONY: crabcoconut crabcoconut-windows crabcoconut-armhf crabcoconut-dist crabcoconut-art crabcoconut-check crabcoconut-screenshots
@@ -27,7 +30,15 @@ crabcoconut-check:
 	$(PYTHON) games/crabcoconut/tests/check_game.py
 	sh games/crabcoconut/tests/state_test.sh build/host/crabcoconut_test_states build/states
 	$(PYTHON) tools/state_audit.py --game crabcoconut build/host/crabcoconut_test_states $(CRABCOCONUT_OBJS)
+	set -e; for w in $(WIDTHS); do echo "== widescreen: $$w x 240"; \
+	    a=$$(case $$w in 427) echo 16:9;; 520) echo Wide;; esac); \
+	    [ -z "$$a" ] || ./build/host/test_libretro build/host/crabcoconut_libretro.so 600 $$a $$w; \
+	    RS_WIDTH=$$w $(PYTHON) games/crabcoconut/tests/check_game.py; \
+	    RS_WIDTH=$$w sh games/crabcoconut/tests/state_test.sh build/host/crabcoconut_test_states build/states-$$w; \
+	done
+	sh games/crabcoconut/tests/wide_test.sh build/host/crabcoconut_headless build/host/crabcoconut_test_states build "$(WIDTHS)"
 	bash tools/i18n_test.sh build/host/crabcoconut_headless crabcoconut build/crabcoconut-i18n $(if $(WIDESCREEN_crabcoconut),320 $(WIDTHS),320)
 crabcoconut-screenshots:
 	+$(CRABCOCONUT_MAKE) build/host/crabcoconut_headless
 	$(PYTHON) games/crabcoconut/tests/check_game.py --screenshots
+	sh games/crabcoconut/tools/wide_shots.sh build/host/crabcoconut_headless games/crabcoconut/docs/screenshots

@@ -10,7 +10,7 @@ SPRITES=[('hero_idle',0,0,32,32,2,'hero'),('hero_squash',64,0,32,32,1,'hero'),('
  ('hero_air',128,0,32,32,1,'hero'),('hero_hit',160,0,32,32,1,'hero'),('hero_icon',0,32,16,16,2,'hero'),
  ('coconut',16,32,16,16,1,'props'),('shell',32,32,24,16,3,'props'),
  ('coconut_small',0,64,8,8,1,'props'),('shell_small',8,64,16,8,3,'props')]
-PANORAMAS={'ground':('tiles/ground.png',512,48),'hills':('tiles/hills.png',512,192)}
+PANORAMAS={'ground':('tiles/ground.png',512,48),'hills':('tiles/hills.png',512,192),'hills_wide':('tiles/hills_wide.png',1024,192)}
 OUT=(27,31,58);CREAM=(255,246,220)
 CORAL=[(255,186,139),(235,112,82),(169,68,60),(169,68,60)]
 WHITE=[CREAM,(212,232,218),(151,183,189),(151,183,189)]
@@ -79,11 +79,38 @@ def hills():
   for dx,dy in ((-17,3),(-12,-8),(8,-10),(22,1)):
    hs.capsule(cv,x+19,52,x+19+dx,52+dy,2,[leaf[1]]*4)
  return cv
+# ---- widescreen (DESIGN.md "Widescreen") -----------------------------------------------------------------------
+class WrapCanvas(Canvas):
+ """a canvas whose x wraps round (a panorama on a wrapping map: stage x s is picture x s mod w)"""
+ def set(self,x,y,c):Canvas.set(self,x%self.w,y,c)
+def hills_wide():
+ """The beach 1024 px wide for a screen wider than 320 (a 128-tile map, stage x s = picture x s & 1023): the same
+ sea, sandbanks and palm islands as hills() (pixel for pixel over the 320-px court), every 128 px round the whole
+ picture, and the sea's ripples in stage coordinates, so that nothing breaks where the picture wraps (stage x 0)."""
+ W=1024;cv=WrapCanvas(W,192)
+ sand=[(249,231,192),(231,206,161),(205,170,124)]
+ water=[(197,235,222),(145,207,207),(111,183,198)]
+ leaf=[(123,177,143),(91,143,120)];trunk=[(201,178,137),(162,141,115)]
+ for y in range(88,192):
+  cv.rect(0,y,W-1,y,water[0] if y<96 else water[1] if y<120 else water[2])
+ for x in range(W):
+  top=159+(x%128-64)**2//430
+  cv.rect(x,top, x,191,sand[0]);cv.set(x,top-1,water[0]);cv.set(x,top+5,sand[1])
+ for y in (101,123,143):
+  for x in range(-W//2,W//2):
+   if (x+y*7)%79<42:cv.set(x,y,water[0])
+ for x in range(20,W,128):
+  hs.ellipse(cv,x+20,88,32,8,[leaf[0]]*4)
+  hs.capsule(cv,x+14,89,x+19,52,2,[trunk[0]]*4)
+  for dx,dy in ((-17,3),(-12,-8),(8,-10),(22,1)):
+   hs.capsule(cv,x+19,52,x+19+dx,52+dy,2,[leaf[1]]*4)
+ return cv
 def write_all(out,preview=False):
  os.makedirs(os.path.join(out,'tiles'),exist_ok=True);sheet=Image.new('RGB',(SHEET_W,SHEET_H),hs.MAGENTA)
  for name,x,y,w,h,n,g in SPRITES:
   for i in range(n):sheet.paste(sprite_frame(name,i).image(),(x+i*w,y))
- for f,im in {'sprites.png':sheet,'tiles/ground.png':ground().image(),'tiles/hills.png':hills().image()}.items():
+ for f,im in {'sprites.png':sheet,'tiles/ground.png':ground().image(),'tiles/hills.png':hills().image(),
+              'tiles/hills_wide.png':hills_wide().image()}.items():
   im.save(os.path.join(out,f))
   if preview:
    os.makedirs(os.path.join(out,'preview'),exist_ok=True);im.resize((im.width*4,im.height*4),Image.Resampling.NEAREST).save(os.path.join(out,'preview',os.path.basename(f)))

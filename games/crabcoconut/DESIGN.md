@@ -59,3 +59,30 @@ drawn on the full screen, actual controls, pause, SRAM, libretro and save states
 Build: make crabcoconut-check / crabcoconut-windows / crabcoconut-screenshots.
 Windows output: dist/windows/CrabCoconut.exe, statically linked SDL2.
 Code MIT; art, music, sound and design CC BY-NC-SA 4.0, as stated in LICENSE.
+
+## Widescreen (docs/spec.md "Widescreen")
+
+The game opts in (`max_width` = 560, `WIDESCREEN_crabcoconut = 1`): 320 x 240 is unchanged pixel for pixel; at
+427 (16:9), 520 or 560 (phones) **the beach is wider, the court is the same**.
+- **A fixed court, centred**: `rs_screen_origin(rs_screen_margin())` (draw_init). The walls stay at x 2-3 and
+  316-317 and the top wall at y 2-3: the coconuts bounce between x 8 and 312 as before, the shells fall where they
+  did, the crabs stand where they did; the screen shows stage x -margin .. 320 + margin, the beach beyond the walls.
+  The one full view (rs_viewport_layout) now starts at stage x -margin: the sand layer's pixels are drawn in the
+  view's columns (a buffer as wide as the widest screen, the grains in stage coordinates, so the court's sand is the
+  same at every width), the score is centred on the view, PAUSED on the screen.
+- **The wider beach** (make_art.py `hills_wide`; build_assets.py): BG3 becomes a 128-tile map of a 1024-px beach with
+  its own tiles, the classic one pixel for pixel over the court (build_assets.py checks it): the sea, the sandbanks
+  and a palm island every 128 px all round, the ripples in stage coordinates, so nothing breaks where the picture
+  wraps. On the sand beyond the walls (theme.inc `theme_decor`, two more colours in the sand palette): a striped beach
+  umbrella over its shadow, a towel and a starfish on the left; a sandcastle with its flag, a bucket and a spade on
+  the right. The 427 screen shows the umbrella and the castle; 520 the towel, the bucket and the spade too.
+- **The same game**: the rules never look at the width; tests/wide_test.sh compares the whole logs (scores, misses,
+  game overs, the final state and its hash) of 1-player and 4-player bot runs at 320, 427, 520 and 560, changes the
+  width three times during runs (`--resize`) and loads states saved at one width at the others.
+- **Save states load at any width**: `state_loaded` (draw_relayout) compares the width the maps were laid out for
+  (draw.laid_w, saved) with this one; another width sets this width's maps and the beach's tiles up again (every
+  frame draws the whole screen anyway).
+- `make crabcoconut-check` runs the libretro test, tests/check_game.py and the state tests again at 427 and 520 (the
+  strict mode included: VRAM, sprites per line), then tests/wide_test.sh and the language test at 320, 427 and 520;
+  `make crabcoconut-screenshots` adds title/play/gameover-427/520.png and play-4-players-520.png
+  (tools/wide_shots.sh).
