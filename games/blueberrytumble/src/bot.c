@@ -18,6 +18,7 @@
 #define VIEW_COLS 16                /* cells read ahead (the screen shows 14 in front of the berry) */
 #define GROUND_TROW 44              /* the playfield map's ground row (draw.c) */
 #define GROUND_PY (GROUND_TROW * 8)
+#define MAP_TW (rs_bg_map_w(RS_BG2))   /* the playfield map's width (tiles): 64, 128 on a wide screen (it wraps) */
 
 typedef struct bot_t {
     berry model;                    /* its own berry as it believes it is */
@@ -43,7 +44,7 @@ static int cell_kind(int tx, int ty)
 {
     int best = -1;
     for (int q = 0; q < 4; q++) {
-        int k = draw_tile_kind(rs_bg_get(RS_BG2, (tx + (q & 1)) & 63, (ty + (q >> 1)) & 63));
+        int k = draw_tile_kind(rs_bg_get(RS_BG2, (tx + (q & 1)) & (MAP_TW - 1), (ty + (q >> 1)) & 63));
         if (k >= 0) { best = k; break; }
     }
     return best;
@@ -73,7 +74,7 @@ static int find_berry(int p, int hofs, int vofs, int c, int *sx, int *h, int *mo
                 ys = s->y + 15 - 2;
             }
         }
-        int gy = draw_ground_y((hofs + x) & 511);  /* the ground line under it (the slope's profile) */
+        int gy = draw_ground_y((hofs + x) & (MAP_TW * 8 - 1));  /* the ground line under it (the slope's profile) */
         if (gy < 0) gy = GROUND_PY;
         *sx = x;
         *h = gy - vofs - ((c * (x - PIVOT_X)) >> 8) - ys;
@@ -175,16 +176,16 @@ int bot_decide(int p)
 
     /* the course it sees: local column 0 is the cell under its centre */
     int mapx = hofs + sx;                   /* the berry's x on the map (px, wrapping at 512) */
-    int col0 = (mapx >> 4) & 31, frac = mapx & 15;
+    int col0 = (mapx >> 4) & (MAP_TW / 2 - 1), frac = mapx & 15;
     course_reset(&L, best_t);
     course_place_flat(&L, -START_COL + VIEW_COLS + 4, PAT_BRIDGE);
     L.end_col = VIEW_COLS + 2;
     for (int j = -2; j < VIEW_COLS; j++) {
         bt_col *k = course_col_w(&L, j);
         memset(k, 0, sizeof *k);
-        int tx = ((col0 + j) * 2) & 63;
+        int tx = ((col0 + j) * 2) & (MAP_TW - 1);
         /* the column's ground row: where the ground line is drawn (the slope's profile lowers whole columns) */
-        int gy = draw_ground_y((((col0 + j) * 16) + 8) & 511), grow = gy < 0 ? GROUND_TROW : gy >> 3;
+        int gy = draw_ground_y((((col0 + j) * 16) + 8) & (MAP_TW * 8 - 1)), grow = gy < 0 ? GROUND_TROW : gy >> 3;
         int g = cell_kind(tx, grow);
         k->ground = g >= 100 ? (uint8_t)(g - 100) : G_GROUND;
         for (int r = 0; r < ROWS; r++) {
@@ -201,7 +202,7 @@ int bot_decide(int p)
         int j = ((hofs + cx) >> 4) - (mapx >> 4);
         if (j < -2 || j >= VIEW_COLS) continue;
         int ybot = s->y + s->h;
-        int gy = draw_ground_y((hofs + cx) & 511);
+        int gy = draw_ground_y((hofs + cx) & (MAP_TW * 8 - 1));
         int hh = (gy < 0 ? GROUND_PY : gy) - vofs - ((c * (cx - PIVOT_X)) >> 8) - ybot;
         int r = hh / CELL;
         bt_col *k = course_col_w(&L, j);

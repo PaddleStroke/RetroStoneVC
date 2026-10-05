@@ -6,7 +6,7 @@ sprites; the music (make_music.py) -> build/gen/blueberrytumble/assets.c + asset
 
 VRAM (tiles of 32 bytes; the house guideline is 64 KiB with the maps):
   0      BG1: the house UI kit (house_ui.h), the logo at LOGO_TILE, the kit's glyph pool at 640..767 (translated text)
-  768    BG3: the mid-ground (4 biomes) 1024 BG4: the far mountains
+  768    BG3: the mid-ground (4 biomes) 1024 BG4: the far mountains (a wide screen: their wider range)
   1280   BG2: the playfield (affine)    3072 OBJ: our sprites, then the kit's (KIT_OBJ_TILE)
 MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/blueberrytumble/LICENSE.
 """
@@ -191,6 +191,19 @@ def main():
     h.append("extern const uint8_t gm_far_tiles[];\nextern const int gm_far_tile_count;")
     h.append("extern const uint16_t gm_far_map[FAR_W * FAR_H];\nextern const uint16_t gm_far_pal[16];")
     stats.append("far %d" % len(r.tiles))
+    # widescreen (DESIGN.md "Widescreen"): the wider range, loaded instead of the 4:3 one (the same palette, the same
+    # VRAM slots from VR_BG4: a wide screen never shows the 4:3 range)
+    img = rsasset.load(os.path.join(a.art, make_art.SHEETS["far_wide"]))
+    rw = rsasset.convert_bg(cells8(img, 0, 0, make_art.FARW_W, make_art.FAR_H), 1, pal_base=PAL_FAR, tile_base=0)
+    assert rsasset.palette16(rw.palettes[0]) == rsasset.palette16(r.palettes[0]), "the wide far range: another palette"
+    assert len(rw.tiles) <= VR_BG2 - VR_BG4, "the wide far range (%d tiles) overlaps the playfield's" % len(rw.tiles)
+    c.append(rsasset.c_bytes("gm_farw_tiles", rsasset.tiles_bytes(rw.tiles)))
+    c.append("const int gm_farw_tile_count = %d;" % len(rw.tiles))
+    c.append(arr16("gm_farw_map", [m[0] for m in rw.metas]))
+    h.append("#define FARW_W %d   /* widescreen: the far range of a wider screen */" % (make_art.FARW_W // 8))
+    h.append("extern const uint8_t gm_farw_tiles[];\nextern const int gm_farw_tile_count;")
+    h.append("extern const uint16_t gm_farw_map[FARW_W * FAR_H];")
+    stats.append("far (wide) %d" % len(rw.tiles))
 
     # ---- sprites ----------------------------------------------------------------------------------------------------------
     sheet = rsasset.load(os.path.join(a.art, make_art.SHEETS["sprites"]))

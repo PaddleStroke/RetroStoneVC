@@ -215,6 +215,7 @@ typedef struct world {
     uint32_t seed;
 } world;
 void world_init(world *w, int players, uint32_t seed);
+int  world_runup_frames(void);                              /* widescreen: the run-up to x 0, frames (world.c) */
 void world_step(world *w, const int held[MAX_PLAYERS]);
 int  world_running(const world *w);
 int  world_x(const world *w, int p);                        /* px */
@@ -224,6 +225,7 @@ int  world_score(const world *w, int p);
 void draw_init(void);                                       /* also the house kit (hu_init) */
 void draw_frame(const world *w, int state, int st_t, int best, int new_best, int paused, int attempt, int medal);
 void draw_state(void);
+void draw_state_loaded(const world *w);                     /* a state of another width: the maps for this one */
 void draw_reset(void);                                      /* a new run */
 void draw_events(const world *w);                           /* the effects of this frame's events */
 void draw_view(int *hofs, int *vofs, int *c256);            /* the playfield registers (the bot reads them) */

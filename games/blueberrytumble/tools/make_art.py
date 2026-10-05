@@ -15,6 +15,7 @@ Writes, in the art folder (default games/blueberrytumble/art):
   tiles/playfield.png     the playfield metatiles, one row per biome (PF_TILES)
   tiles/mid.png           the mid-ground panoramas, one band per biome (128 x 48 each)
   tiles/far.png           the far mountains (256 x 64)
+  tiles/far_wide.png      the far mountains of a wider screen (512 x 64; DESIGN.md "Widescreen")
   palettes.json           the playfield, mid-ground and far palettes (build_assets.py reads them)
 
     python3 games/blueberrytumble/tools/make_art.py [--out DIR] [--preview]
@@ -73,7 +74,7 @@ SPRITES = [
     ("gust", 160, 96, 8, 8, 2, "propsb"),          # little leaves in the gust
 ]
 SHEETS = {"sprites": "sprites.png", "playfield": "tiles/playfield.png", "mid": "tiles/mid.png", "far": "tiles/far.png",
-          "ramps": "tiles/ramps.png"}
+          "ramps": "tiles/ramps.png", "far_wide": "tiles/far_wide.png"}
 
 
 # ---- the berry ----------------------------------------------------------------------------------------------------
@@ -881,11 +882,32 @@ def build_far():
     return cv.image()
 
 
+# Widescreen (DESIGN.md "Widescreen"): a wider screen shows 427-560 columns of the far layer, where the 256-px range
+# above would show twice; it gets its own 512-px range instead (BG4 holds it and its mirror image: 1024 px before
+# anything repeats). The same two ridges, colours and sizes of peaks (the 4:3 range's 256 / 64 px and 128 / 32 px
+# waves), but their periods and phases vary along the 512 px.
+FARW_W = 512
+
+
+def build_far_wide():
+    cv = Canvas(FARW_W, FAR_H)
+    for x in range(FARW_W):
+        t = x * 2 * math.pi / FARW_W
+        h1 = 44 + int(8 * math.sin(2 * t + 0.5) + 4 * math.sin(3 * t + 1.7) + 6 * math.sin(8 * t + 0.9 * math.sin(t)))
+        h2 = 30 + int(5 * math.sin(4 * t + 2) + 3 * math.sin(5 * t + 0.4) + 4 * math.sin(16 * t + 0.7 * math.sin(3 * t)))
+        for y in range(FAR_H - h1, FAR_H):
+            d = y - (FAR_H - h1)
+            cv.set(x, y, FAR_PAL[3] if d < 3 else FAR_PAL[4] if d < 5 else FAR_PAL[0])
+        for y in range(FAR_H - h2, FAR_H):
+            cv.set(x, y, FAR_PAL[1] if y - (FAR_H - h2) < 2 else FAR_PAL[2])
+    return cv.image()
+
+
 # ---- write everything ------------------------------------------------------------------------------------------------------
 def write_all(out, preview=False):
     os.makedirs(os.path.join(out, "tiles"), exist_ok=True)
     files = {SHEETS["sprites"]: build_sheet(), SHEETS["playfield"]: build_playfield(), SHEETS["mid"]: build_mid(),
-             SHEETS["far"]: build_far(), SHEETS["ramps"]: build_ramps()}
+             SHEETS["far"]: build_far(), SHEETS["far_wide"]: build_far_wide(), SHEETS["ramps"]: build_ramps()}
     for f, im in files.items():
         im.save(os.path.join(out, f))
         if preview:

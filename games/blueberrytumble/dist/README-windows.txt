@@ -26,4 +26,7 @@ Up to four berries race on the same slope: blueberry, raspberry, blackberry and 
 
 F11 or Alt+Enter: fullscreen. F12: screenshot. Close the window to quit.
 Options: BlueberryTumble.exe --scale 4 --fullscreen
+Widescreen: the picture follows the shape of the window (drag its edges or go
+fullscreen: a wider window shows more of the mountain). To fix it: --width 427
+(16:9), --width 520 (phones), or --aspect 4:3 for the classic 320x240.
 The best score is saved in blueberrytumble.srm next to the exe.

@@ -202,6 +202,43 @@ while one is alive, and the results rank their distances and scores.
 | BG1 | the house UI kit | fixed |
 | OBJ | the berries (OBJ 0, P2 OBJ 1), dew drops, mushrooms, cones, coins, leaves, juice (OBJ 2), the kit (OBJ 3) | |
 
+## Widescreen (docs/spec.md "Widescreen")
+The game opts in (`max_width` = 560, `WIDESCREEN_blueberrytumble = 1`): 320 (4:3) is unchanged pixel for pixel; at
+427 (16:9) or 520 (phones) **the world is simply revealed wider**, to the right (the stage origin stays 0).
+- The berries roll at the same screen x (96, P2-P4 behind) and the screen shows further down the slope: on the steep
+  biomes the ground leaves the bottom of the screen sooner, the valley (mid-ground, far range) shows there. Seeing
+  further makes it a little easier; the owner accepts it (no compensation).
+- **The course and the music are the same at every width.** The director writes the same patterns on the same beats
+  (it already writes 40 columns ahead of the berry, past any screen's edge). Only the run-up may change: on a screen
+  wider than 480 columns the start would show the first pattern (at 384 px, 24 cells, from x 0), and the title would
+  show the lobby's placeholder course change into the run's, so the berries start **one bar earlier**, 113 frames: whole bars keep the music's bar lines on the course's (the 112.5 frames of a bar at the
+  first tempo, rounded up: the music is half a frame behind the course, a frame at 320). From x 0 on the run is the
+  same as at 320, frame for frame, 113 frames later: the course clock (`course_x`) starts at frame -113. The
+  screen-reading bot (a test hook) starts afresh at the start line, so its run is the 320 one too.
+  `tests/wide_test.sh` checks it: the same seed gives the same events (pads, dew drops, glides, snow, smashes, golden
+  blueberries, the splats) at the same metres, the same pattern instances and the same score at 320, 427, 520 and 560
+  (1 to 4 players), with a constant frame offset (0 at 427, 113 at 520 and 560).
+- The playfield, the mid-ground and the UI layer are 128 tiles wide on a wide screen (64 at 320): the playfield and the
+  mid-ground stream up to the real right edge (the mid-ground's columns take the biome of the ground that enters the
+  screen with them), the props, cones and gusts are drawn up to it, the sky's colours fade at the gates by the
+  screen's centre. The mid-ground's 128-px bands are made to repeat (ridges, pines, bushes, roofs).
+- The sheared playfield reads higher in its 64-row map columns the further right it is: on a wide screen the top right
+  (a high camera, a steep biome) would wrap round to a column's deepest soil. So a column enters a wide screen with
+  its 10 deepest rows empty (more sky above it; only a little soil shows at the bottom right, where the ground leaves
+  the screen) and gets them once it is within the first 320 columns, where it is drawn exactly as at 320.
+- The far mountains: their 256-px range would show twice on a wide screen; there they are a **wider range** (512 px,
+  the same ridges, colours and sizes of peaks, other periods and phases: tools/make_art.py `build_far_wide`) followed by
+  its mirror image on the 128-tile map (1024 px before anything repeats). Its 167 tiles replace the 68 of the 4:3 range
+  in the same VRAM slots (VRAM about 55 KiB at a wide screen, 52 at 320, with the maps' first 64 columns).
+- The UI (logo, title, prompt, panels, results, pause, the biomes' names, "ATTEMPT n") is centred: the UI layer
+  scrolls by -hu_ui_x() and the game's UI sprites (the golden blueberry of the HUD, the results' berries) add
+  hu_ui_x(); the score chips go to the screen's centre (1 player), halves (2) or corners (3-4, with their tags).
+- Save states load at any width: a state of another width brings maps of another size, so `state_loaded` sets them up
+  again (the far range of this width, the playfield and mid-ground streamed again at once, the scroll register for
+  the new map, the UI and PAUSED on the next frame, "ATTEMPT n" and a biome's name kept); a run goes on exactly as it
+  was (its clock and run-up are in the state); a lobby (title, not started) takes this width's run-up.
+  tests/wide_test.sh checks live changes of width in a run and on the title, and states across widths.
+
 ## Art and sound
 Code-drawn only (tools/make_art.py with games/common/tools/house_style.py): no image generation. Effects synthesised
 at start-up with the house synthesiser: squelch (splat), boing (pad), chime (dew drop), whoosh (glide), crunch

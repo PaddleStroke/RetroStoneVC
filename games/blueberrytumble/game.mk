@@ -2,7 +2,9 @@
 #
 #   make blueberrytumble                host builds: blueberrytumble (SDL2), blueberrytumble_headless, blueberrytumble_libretro.so
 #   make blueberrytumble-check          all its tests (SDK, libretro loader, physics, the validator: patterns, links, streams,
-#                                       beat sync, difficulty; smoke, bot, determinism, UI screens, save states, audit, music)
+#                                       beat sync, difficulty; smoke, bot, determinism, UI screens, save states, audit, music),
+#                                       at 320 and then again at each widescreen width of WIDTHS (427 520), the gameplay
+#                                       the same at every width, a live change of width, save states across widths
 #   make blueberrytumble-dist           dist/windows/BlueberryTumble.exe, dist/libretro/blueberrytumble_libretro.so (+ .armhf.so)
 #   make blueberrytumble-windows        only the Windows exe
 #   make blueberrytumble-armhf          the libretro core for the RetroStone2 (Cortex-A7)
@@ -18,6 +20,8 @@ BT_MAKE = $(MAKE) --no-print-directory GAME=blueberrytumble GAME_NAME=BlueberryT
 BT_DIR  = games/blueberrytumble
 # the house style kit (games/common/src, docs/art-direction.md) is compiled in
 HOUSE_UI_blueberrytumble = 1
+# widescreen (docs/spec.md "Widescreen"; rs_game.max_width): the checks run at 320 and at each width of WIDTHS
+WIDESCREEN_blueberrytumble = 1
 
 .PHONY: blueberrytumble blueberrytumble-check blueberrytumble-windows blueberrytumble-armhf blueberrytumble-dist \
         blueberrytumble-screenshots blueberrytumble-art blueberrytumble-tables blueberrytumble-difficulty blueberrytumble-bench
@@ -54,6 +58,14 @@ blueberrytumble-check:
 	sh $(BT_DIR)/tests/ui_test.sh build/host/blueberrytumble_headless build/blueberrytumble-ui
 	sh $(BT_DIR)/tests/state_test.sh build/host/blueberrytumble_test_states build/states
 	$(PYTHON) tools/state_audit.py --game blueberrytumble build/host/blueberrytumble_test_states $(BT_OBJ_HOST)
+	set -e; for w in $(WIDTHS); do echo "== widescreen: $$w x 240"; \
+	    a=$$(case $$w in 427) echo 16:9;; 520) echo Wide;; esac); \
+	    [ -z "$$a" ] || ./build/host/test_libretro build/host/blueberrytumble_libretro.so 600 $$a $$w; \
+	    RS_WIDTH=$$w sh $(BT_DIR)/tests/smoke_test.sh build/host/blueberrytumble_headless build/w$$w; \
+	    RS_WIDTH=$$w sh $(BT_DIR)/tests/ui_test.sh build/host/blueberrytumble_headless build/blueberrytumble-ui-$$w; \
+	    RS_WIDTH=$$w sh $(BT_DIR)/tests/state_test.sh build/host/blueberrytumble_test_states build/states-$$w; \
+	done
+	sh $(BT_DIR)/tests/wide_test.sh build/host/blueberrytumble_headless build/host/blueberrytumble_test_states build "$(WIDTHS)"
 	bash tools/i18n_test.sh build/host/blueberrytumble_headless blueberrytumble build/blueberrytumble-i18n $(if $(WIDESCREEN_blueberrytumble),320 $(WIDTHS),320)
 
 blueberrytumble-tables:

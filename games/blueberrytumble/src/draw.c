@@ -21,7 +21,14 @@
 #include <stdio.h>
 #include <string.h>
 
-#define MAP_W 64                            /* the playfield map: 64 x 64 tiles, wrapping */
+/* Widescreen (DESIGN.md "Widescreen"): the stage origin is 0, the screen shows the world further to the right. The
+ * maps are 64 tiles wide at 320 columns and 128 on a wider screen (the playfield, the mid-ground and the UI rings
+ * then hold more than the screen; the far layer holds its wider range and its mirror image: maps_setup). */
+static int wide(void) { return rs_screen_width() > RS_SCREEN_W; }
+static int maps_w(void) { return wide() ? 128 : 64; }
+#define MAP_W (rs_bg_map_w(RS_BG2))         /* the playfield map: 64 (wide: 128) x 64 tiles, wrapping */
+/* the 16-px columns a wider screen shows beyond the 320 ones (streaming, props) */
+static int extra_cols(void) { return (rs_screen_width() - RS_SCREEN_W + CELL - 1) / CELL; }
 #define GROUND_TROW 44                      /* the ground surface's tile row (map px 352) */
 #define GROUND_PY (GROUND_TROW * 8)
 #define MID_TROW 34                         /* the mid-ground band's first tile row on BG3 (64 rows: no wrap) */
@@ -44,7 +51,8 @@ static const rs_color title_ramps[2][3] = {
 /* ---- the drawn state (saved in states: draw_state) --------------------------------------------------------------- */
 static rs_color line_col[RS_SCREEN_H];
 static int32_t pf_col_lo, pf_col_hi;        /* playfield: the columns [pf_col_lo, pf_col_hi) are on the map */
-static uint16_t pf_gone[32];                /* the smashed bits each drawn column was drawn with */
+static int32_t pf_deep_hi;                  /* widescreen: the columns before it have their deepest soil drawn */
+static uint16_t pf_gone[64];                /* the smashed bits each drawn column was drawn with (a ring) */
 static int32_t mid_col_hi;                  /* BG3 tile columns written */
 static int pal_loop[8];                     /* the loop (+1) each playfield palette slot was loaded for */
 static int pal_biome[8];                    /* the biome and loop each mid-ground slot was loaded for */
@@ -62,6 +70,7 @@ static int dew_t[MAX_PLAYERS] = {99, 99, 99, 99};       /* frames since each pla
 static int32_t dew_id[MAX_PLAYERS];
 static int cam_d16;                         /* the camera follows the profile under player 1 (px x 16) */
 static const bt_course *view_course;        /* the course drawn this frame (the sprites' profile) */
+static int relayout, relayout_pause;        /* transient: a state of another width was loaded (state_audit.txt) */
 
 /* ---- colour helpers ------------------------------------------------------------------------------------------------- */
 static rs_color rgb(uint32_t h) { return RS_HEX(h); }
@@ -79,9 +88,9 @@ static rs_color night_of(rs_color c)
 static void load_slot_palettes(int32_t cam_x)
 {
     /* the playfield shows the biomes from the camera's left edge on; the mid-ground (parallax 1/2) those of the
-     * world x from cam_x - 320 to cam_x + 320 (stream_mid) */
+     * world x from cam_x - width to cam_x + width (stream_mid) */
     int32_t b0 = cam_x < 0 ? 0 : cam_x / (BIOME_CELLS * CELL);
-    int32_t bl = cam_x - RS_SCREEN_W < 0 ? 0 : (cam_x - RS_SCREEN_W) / (BIOME_CELLS * CELL);
+    int32_t bl = cam_x - rs_screen_width() < 0 ? 0 : (cam_x - rs_screen_width()) / (BIOME_CELLS * CELL);
     for (int s = 0; s < NBIOMES; s++) {
         int32_t bi = b0 + ((s - (int)(b0 % NBIOMES)) + NBIOMES) % NBIOMES;
         int loop = (int)(bi / NBIOMES);
@@ -108,7 +117,7 @@ static void load_slot_palettes(int32_t cam_x)
 /* the sky and the far mountains at the camera: the biome's colours, cross-faded over 512 px after a gate */
 static void sky_and_far(int32_t cam_x, int pulse)
 {
-    int32_t mid = cam_x + RS_SCREEN_W / 2;
+    int32_t mid = cam_x + rs_screen_width() / 2;
     int32_t bi = mid < 0 ? 0 : mid / (BIOME_CELLS * CELL);
     int32_t into = mid - bi * BIOME_CELLS * CELL;
     int cur = bi >= NBIOMES ? NBIOMES : (int)bi;
@@ -143,6 +152,31 @@ static void raster(int line, void *user)
 }
 
 /* ---- set-up ------------------------------------------------------------------------------------------------------------ */
+/* the maps for the screen's width (64 tiles wide, 128 on a wider screen; cleared) */
+static void maps_setup(void)
+{
+    rs_bg_setup(RS_BG1, maps_w(), 32, VR_BG1);
+    rs_bg_setup(RS_BG2, maps_w(), 64, VR_BG2);
+    rs_bg_setup(RS_BG3, maps_w(), 64, VR_BG3);
+    rs_bg_setup(RS_BG4, maps_w(), 32, VR_BG4);
+}
+
+/* the far mountains, their bottom row down to the end of the map: at 320 columns a static 32-tile panorama twice
+ * across the 64-tile map; on a wider screen (which would show that one twice) the 64-tile wider range and its mirror
+ * image across the 128-tile map (the same tiles h-flipped: seamless at both joins, 1024 px before it repeats) */
+static void far_setup(void)
+{
+    if (wide()) rs_tiles_load(VR_BG4, gm_farw_tiles, gm_farw_tile_count);
+    else rs_tiles_load(VR_BG4, gm_far_tiles, gm_far_tile_count);
+    for (int y = FAR_TROW; y < 32; y++)
+        for (int x = 0; x < maps_w(); x++) {
+            int yy = y - FAR_TROW < FAR_H ? y - FAR_TROW : FAR_H - 1;
+            if (!wide()) rs_bg_put(RS_BG4, x, y, gm_far_map[yy * FAR_W + (x % FAR_W)]);
+            else if (x < FARW_W) rs_bg_put(RS_BG4, x, y, gm_farw_map[yy * FARW_W + x]);
+            else rs_bg_put(RS_BG4, x, y, (uint16_t)(gm_farw_map[yy * FARW_W + 2 * FARW_W - 1 - x] ^ RS_MAP_HFLIP));
+        }
+}
+
 void draw_init(void)
 {
     hu_config hc = hu_defaults();
@@ -153,20 +187,11 @@ void draw_init(void)
     hc.obj_pal = 3;
     hc.box_glyphs = " SCOREBESTNWMDALPYIG0123456789!:-+";   /* only the glyphs the panel uses (VRAM) */
     hu_init(&hc);
-    rs_bg_setup(RS_BG1, 64, 32, VR_BG1);
-    rs_bg_setup(RS_BG2, MAP_W, 64, VR_BG2);
-    rs_bg_setup(RS_BG3, 64, 64, VR_BG3);
-    rs_bg_setup(RS_BG4, 64, 32, VR_BG4);
+    maps_setup();
     rs_tiles_load(VR_BG2, gm_pf_tiles, gm_pf_tile_count);
     rs_tiles_load(VR_BG3, gm_mid_tiles, gm_mid_tile_count);
-    rs_tiles_load(VR_BG4, gm_far_tiles, gm_far_tile_count);
     rs_pal_load(RS_PAL_BG(PAL_FAR), gm_far_pal, 16);
-    /* the far mountains: a static 32-tile panorama twice across the 64-tile map, its bottom row down to the end */
-    for (int y = FAR_TROW; y < 32; y++)
-        for (int x = 0; x < 64; x++) {
-            int yy = y - FAR_TROW < FAR_H ? y - FAR_TROW : FAR_H - 1;
-            rs_bg_put(RS_BG4, x, y, gm_far_map[yy * FAR_W + (x % FAR_W)]);
-        }
+    far_setup();
     for (int l = 0; l < 4; l++) rs_bg_enable(l, 1);
     rs_obj_base(VR_OBJ);
     rs_tiles_load(VR_OBJ, gm_obj_tiles, gm_obj_tile_count);
@@ -225,8 +250,17 @@ static void put_quarter(int32_t col, int half, int ty, int biome, int mt, int q)
 
 static int floor8(int v) { return v >= 0 ? v / 8 : -((-v + 7) / 8); }
 
-/* a column whose ground changes height: its ramp strip, the deep soil under it, nothing above */
-static int draw_ramp(int32_t col, int b, int dy0, int dy1)
+/* Widescreen: the deep soil of a column right of the 320 first columns. The playfield is sheared: a column's 240 rows on
+ * screen sit higher in its 64-row (wrapping) map column the further right it is, so on a wider screen the top right
+ * (a high camera, a steep biome) reads above the column's sky, where the map wraps round to its deepest soil rows,
+ * while only a little soil under the ground line shows there (the ground leaves the bottom of the screen). So a
+ * column enters the screen with its deepest rows left empty (WIDE_DEEP_ROWS more rows of sky above it) and gets them
+ * when it is within the 320 first columns, where it is drawn exactly as at 320 (stream_playfield: pf_deep_hi). */
+#define WIDE_DEEP_ROWS 10
+
+/* a column whose ground changes height: its ramp strip, the deep soil under it, nothing above (deep = 0: the last
+ * rows of its soil left empty) */
+static int draw_ramp(int32_t col, int b, int dy0, int dy1, int deep)
 {
     int base = floor8(dy0) * 8, s = dy0 - base, d = dy1 - dy0, i = 0;
     while (i < RAMP_COUNT && !(gm_ramp[i][0] == s && gm_ramp[i][1] == d)) i++;
@@ -238,20 +272,21 @@ static int draw_ramp(int32_t col, int b, int dy0, int dy1)
             int tx = (int)((uint32_t)(col * 2 + h) & (MAP_W - 1));
             uint16_t e = 0;
             if (r >= 0 && r < RAMP_ROWS) e = gm_ramp_map[((b * RAMP_COUNT + i) * RAMP_ROWS + r) * 2 + h];
-            else if (r >= RAMP_ROWS) e = gm_pf_meta[(b * MT_COUNT + MT_DEEP) * 4 + ((ty & 1) << 1) + h];
+            else if (r >= RAMP_ROWS && (deep || r < 64 - 38 - WIDE_DEEP_ROWS - 2))
+                e = gm_pf_meta[(b * MT_COUNT + MT_DEEP) * 4 + ((ty & 1) << 1) + h];
             rs_bg_put(RS_BG2, tx, ty & 63, e);
         }
     }
     return 1;
 }
 
-static void draw_column(const bt_course *c, int32_t col)
+static void draw_column(const bt_course *c, int32_t col, int deep)
 {
     const bt_col *k = course_col(c, col), *kl = course_col(c, col - 1), *kr = course_col(c, col + 1);
     int b = course_biome_of_col(col);
     /* the scenery varies with the run (the start, seen on the title, stays the same) */
     uint32_t hsh = hash32((uint32_t)col * 2654435761u ^ (col >= START_CELLS ? c->dir.seed : 0));
-    if (k->dy0 != k->dy1 && draw_ramp(col, b, k->dy0, k->dy1)) return;
+    if (k->dy0 != k->dy1 && draw_ramp(col, b, k->dy0, k->dy1, deep)) return;
     /* the column drawn k->dy0 px lower (whole tile rows), its 64 map rows: 20 of sky, 24 of cells, the surface (2),
      * the soil (18) */
     int g = GROUND_TROW + floor8(k->dy0);
@@ -292,37 +327,46 @@ static void draw_column(const bt_course *c, int32_t col)
     put_meta(col, g, b, surf);
     for (int d = 1; d <= 9; d++) {
         int mt = gap ? MT_VOID : gr ? MT_WALL_L : gl ? MT_WALL_R : d <= 2 ? MT_DIRT0 + (int)((hsh >> (12 + d)) & 1) : MT_DEEP;
-        put_meta(col, g + 2 * d, b, mt);
+        if (deep || d <= 9 - WIDE_DEEP_ROWS / 2) put_meta(col, g + 2 * d, b, mt);
+        else clear_cell(col, g + 2 * d);
     }
 }
 
 static void stream_playfield(const bt_course *c, int32_t cam_col)
 {
-    int32_t want_lo = cam_col - 2, want_hi = cam_col + 23;
-    if (pf_col_hi < want_lo || pf_col_hi > want_hi + 1 || want_lo < pf_col_lo) pf_col_hi = want_lo;
+    int32_t want_lo = cam_col - 2, want_hi = cam_col + 23 + extra_cols();   /* widescreen: up to the real edge */
+    int32_t deep_hi = wide() ? cam_col + (RS_SCREEN_W - CELL) / CELL : want_hi;   /* the columns drawn as at 320 */
+    if (pf_col_hi < want_lo || pf_col_hi > want_hi + 1 || want_lo < pf_col_lo) {
+        pf_col_hi = want_lo;
+        pf_deep_hi = deep_hi;
+    }
     pf_col_lo = want_lo;
+    /* widescreen: the columns that came within the 320 first columns get their deepest soil */
+    for (; pf_deep_hi < deep_hi; pf_deep_hi++)
+        if (wide() && pf_deep_hi >= want_lo && pf_deep_hi < pf_col_hi) draw_column(c, pf_deep_hi, 1);
     while (pf_col_hi < want_hi) {
-        draw_column(c, pf_col_hi);
-        pf_gone[(uint32_t)pf_col_hi & 31] = course_col(c, pf_col_hi)->gone;
+        draw_column(c, pf_col_hi, !wide() || pf_col_hi < pf_deep_hi);
+        pf_gone[(uint32_t)pf_col_hi & 63] = course_col(c, pf_col_hi)->gone;
         pf_col_hi++;
     }
     for (int32_t col = want_lo; col < want_hi; col++) {
         uint16_t g = course_col(c, col)->gone;
-        if (pf_gone[(uint32_t)col & 31] != g) {
-            pf_gone[(uint32_t)col & 31] = g;
-            draw_column(c, col);
+        if (pf_gone[(uint32_t)col & 63] != g) {
+            pf_gone[(uint32_t)col & 63] = g;
+            draw_column(c, col, !wide() || col < pf_deep_hi);
         }
     }
 }
 
-/* the mid-ground: BG3 tile column u shows the biome whose ground enters the screen with it */
+/* the mid-ground: BG3 tile column u shows the biome whose ground enters the screen (its real right edge) with it */
 static void stream_mid(int32_t cam_x)
 {
-    int32_t u_hi = (cam_x / 2 + RS_SCREEN_W) / 8 + 2;
-    if (mid_col_hi < u_hi - 60 || mid_col_hi > u_hi) mid_col_hi = u_hi - 44;
+    int sw = rs_screen_width(), mw = rs_bg_map_w(RS_BG3);
+    int32_t u_hi = (cam_x / 2 + sw) / 8 + 2;
+    if (mid_col_hi < u_hi - (mw - 4) || mid_col_hi > u_hi) mid_col_hi = u_hi - 44 - (sw - RS_SCREEN_W + 7) / 8;
     while (mid_col_hi < u_hi) {
         int32_t u = mid_col_hi;
-        int32_t wx = u * 16 - RS_SCREEN_W;
+        int32_t wx = u * 16 - sw;
         int b = course_biome_of_col(wx < 0 ? 0 : wx / CELL);
         int mx = (int)(((u % MID_W) + MID_W) % MID_W);
         int32_t rep = u >= 0 ? u / MID_W : (u - MID_W + 1) / MID_W;
@@ -331,7 +375,7 @@ static void stream_mid(int32_t cam_x)
             int yy = y - MID_TROW < MID_H ? y - MID_TROW : MID_H - 1;
             uint16_t e = gm_mid_map[(band * MID_H + yy) * MID_W + mx];
             e = (uint16_t)((e & ~(7 << 10)) | ((PAL_MID + (b & 1)) << 10));
-            rs_bg_put(RS_BG3, (int)((uint32_t)u & 63), y, e);
+            rs_bg_put(RS_BG3, (int)((uint32_t)u & (uint32_t)(mw - 1)), y, e);
         }
         mid_col_hi++;
     }
@@ -341,7 +385,7 @@ static void stream_mid(int32_t cam_x)
 static void spr(int id, int x, int y, int prio, int pal)
 {
     const gm_sprite_def *d = &gm_spr[id];
-    if (x <= -(int)d->w || x >= RS_SCREEN_W || y <= -(int)d->h || y >= RS_SCREEN_H) return;
+    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= -(int)d->h || y >= RS_SCREEN_H) return;
     rs_spr(x, y, d->tile, d->w, d->h, pal >= 0 ? pal : d->pal, prio, 0);
 }
 
@@ -441,7 +485,7 @@ static void draw_props(const world *w, int t)
 {
     const bt_course *c = &w->course;
     int32_t col0 = view_camx / CELL - 1;
-    for (int32_t col = col0; col < col0 + 22; col++) {
+    for (int32_t col = col0; col < col0 + 22 + extra_cols(); col++) {
         const bt_col *k = course_col(c, col);
         int sx = col * CELL - view_camx + CELL / 2;
         for (int r = 0; r < ROWS; r++) {
@@ -479,7 +523,7 @@ static void draw_props(const world *w, int t)
         const bt_cone *k = &c->cone[i % CONE_RING];
         if (k->gone) continue;
         int kx = (int)(cone_x(k, xref) >> 16) - view_camx;
-        if (kx < -16 || kx > RS_SCREEN_W + 16) continue;
+        if (kx < -16 || kx > rs_screen_width() + 16) continue;
         spr(SPR_CONE + (((unsigned)(-kx) / 4) & 3), kx - 8, screen_y(0, kx) - 15, 2, -1);
     }
 }
@@ -510,13 +554,30 @@ static int over_label_col(int new_best)
     return 12 - d;
 }
 
+/* the biome's name after a gate (row 6) */
+static void gate_name(int32_t pcol)
+{
+    char line[128];
+    const char *name = rs_tr(&gs_strings, biome_text[gate_biome & 3]);
+    if (course_loop_of_col(pcol)) rs_strf(line, sizeof line, TR(NIGHT_BIOME), name);
+    else snprintf(line, sizeof line, "%s", name);
+    hu_clear_rows(6, 1);
+    hu_text(hu_center(line, 0), 6, line);
+}
+
+/* "ATTEMPT n" is cleared when it has rolled off the left edge: 420 px at 320 columns (as it always was); on a wider
+ * screen (its UI layer 128 tiles wide, centred) once the whole 320-px UI row has left */
+static int attempt_end(void) { return wide() ? RS_SCREEN_W + hu_ui_x() + 4 : 420; }
+
 static void screen_text(const world *w, int state, int st_t, int best, int new_best, int attempt, const hu_standing *rs)
 {
     char s[128];
     int screen = state == ST_DEAD ? ST_PLAY : state;
     if (screen != shown_state || best != shown_best || w->players != shown_players) {
+        /* a state of another width (relayout): the UI layer again as it was, "ATTEMPT n" and the biome's name too */
+        int keep_attempt = relayout && attempt_on, keep_gate = relayout ? gate_t : 999;
         hu_clear();
-        rs_bg_scroll(RS_BG1, 0, 0);
+        rs_bg_scroll(RS_BG1, -hu_ui_x(), 0);        /* the UI centred on the screen (widescreen) */
         attempt_on = 0;
         gate_t = 999;
         if (state == ST_TITLE) {
@@ -529,11 +590,13 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         }
         if (screen == ST_PLAY) {
             /* "ATTEMPT n", in the world: it rolls away with the ground */
-            rs_strf(s, sizeof s, TR(ATTEMPT_N), attempt);
-            int ax = 40 - hu_width(s, 0);              /* column 22, or further left when it would not fit */
-            hu_text(ax < 22 ? (ax < 0 ? 0 : ax) : 22, 10, s);
-            attempt_on = 1;
-            attempt_x0 = view_camx;
+            if (!relayout || keep_attempt) {
+                rs_strf(s, sizeof s, TR(ATTEMPT_N), attempt);
+                int ax = 40 - hu_width(s, 0);              /* column 22, or further left when it would not fit */
+                hu_text(ax < 22 ? (ax < 0 ? 0 : ax) : 22, 10, s);
+                attempt_on = 1;
+                if (!keep_attempt) attempt_x0 = view_camx;
+            }
             if (w->players >= 3) hu_score_tags(w->players, 0);     /* P1..P4 by the corner chips */
         }
         if (state == ST_OVER) {
@@ -550,18 +613,23 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         shown_state = screen;
         shown_best = best;
         shown_players = w->players;
+        if (relayout && screen == ST_PLAY && keep_gate < 150) {
+            gate_t = keep_gate;
+            if (keep_gate > 0 && !attempt_on) gate_name((int32_t)((w->b[0].x >> 16) / CELL));
+        }
+        relayout = 0;
     }
     /* the title, every frame: PRESS A TO ROLL (blinking), the player slots, BEST, P2 / P3 / P4: PRESS A TO JOIN */
     if (state == ST_TITLE) hu_title_draw(st_t, best);
     if (screen == ST_PLAY) {
         if (attempt_on) {
             int dx = view_camx - attempt_x0;
-            if (dx > 420) {
+            if (dx > attempt_end()) {
                 hu_clear_rows(10, 1);
                 attempt_on = 0;
-                rs_bg_scroll(RS_BG1, 0, 0);
+                rs_bg_scroll(RS_BG1, -hu_ui_x(), 0);
             } else {
-                rs_bg_scroll(RS_BG1, dx, 0);
+                rs_bg_scroll(RS_BG1, dx - hu_ui_x(), 0);
             }
         }
         /* a gate: the biome's name for 2.5 s */
@@ -571,14 +639,7 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
             gate_t = 0;
             gate_biome = course_biome_of_col(pcol);
         }
-        if (gate_t == 0 && !attempt_on) {
-            char line[128];
-            const char *name = rs_tr(&gs_strings, biome_text[gate_biome & 3]);
-            if (course_loop_of_col(pcol)) rs_strf(line, sizeof line, TR(NIGHT_BIOME), name);
-            else snprintf(line, sizeof line, "%s", name);
-            hu_clear_rows(6, 1);
-            hu_text(hu_center(line, 0), 6, line);
-        }
+        if (gate_t == 0 && !attempt_on) gate_name(pcol);
         if (gate_t == 150) hu_clear_rows(6, 1);
         if (gate_t < 999) gate_t++;
     }
@@ -651,13 +712,15 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     rs_bg_scroll(RS_BG2, view_hofs, view_vofs);
     rs_bg_affine(RS_BG2, &m);
     /* the far layers go down with the profile too, less (parallax): the drop of a cliff reads in depth */
-    rs_bg_scroll(RS_BG3, (camx / 2 - sxk) & 511, MID_TROW * 8 - 132 - cam_up / 4 + cd / 2);
-    rs_bg_scroll(RS_BG4, (camx / 4) & 511, FAR_TROW * 8 - 60 - cam_up / 8 + cd / 4);
+    rs_bg_scroll(RS_BG3, (camx / 2 - sxk) & (rs_bg_map_w(RS_BG3) * 8 - 1), MID_TROW * 8 - 132 - cam_up / 4 + cd / 2);
+    rs_bg_scroll(RS_BG4, (camx / 4) & (rs_bg_map_w(RS_BG4) * 8 - 1), FAR_TROW * 8 - 60 - cam_up / 8 + cd / 4);
 
     screen_text(w, state, st_t, best, new_best, attempt, &rs);
     if (state == ST_OVER && st_t == RETRY_LOCK) shown_state = -1;      /* redraw once: the retry line appears */
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;
-    if (state == ST_OVER) rs_bg_scroll(RS_BG1, 0, -slide);
+    if (state == ST_OVER) rs_bg_scroll(RS_BG1, -hu_ui_x(), -slide);
+    if (relayout_pause && paused) hu_pause(0, 13);  /* the UI layer was set up again (a state of another width) */
+    relayout_pause = 0;
     hu_pause(paused, 13);
     if (!paused) {
         fx_update(dx);
@@ -671,7 +734,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         if (w->players == 1) {
             hu_number(w->metres[0], RS_SCREEN_W / 2, 10, 3);
             if (w->coins[0]) {
-                spr(SPR_GOLDEN, 266, 10, 3, -1);
+                spr(SPR_GOLDEN, 266 + hu_ui_x(), 10, 3, -1);     /* the kit's UI x -> stage (its digits add it) */
                 hu_number(w->coins[0], 296, 10, 3);
             }
         } else {
@@ -688,7 +751,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
             for (int i = 0; i < rs.n; i++) {
                 int cx, cy;
                 hu_results_icon_pos(&rs, i, &cx, &cy);
-                spr(SPR_BERRY + ((st_t / 3) & 15), cx - 8, cy - 8 + slide, 3, hu_player_pal(rs.order[i]));
+                spr(SPR_BERRY + ((st_t / 3) & 15), cx - 8 + hu_ui_x(), cy - 8 + slide, 3, hu_player_pal(rs.order[i]));
             }
         }
     }
@@ -804,14 +867,35 @@ int draw_ground_y(int map_x)
     return -1;
 }
 
-/* ---- save states (main.c) ---- */
+/* ---- save states (main.c) ----
+ * A state saved at another width brings the maps of that width (64 or 128 tiles; the far layer's 4:3 or wider range):
+ * set them up for this one, the playfield and the mid-ground streamed again now (the bot reads the playfield and its
+ * scroll before the next frame is drawn: they are as a run at this width would have them), the UI redrawn as it was
+ * on the next frame (PAUSED too, if it shows). Same width class: nothing (the streaming follows the screen's edge). */
+void draw_state_loaded(const world *w)
+{
+    if (rs_bg_map_w(RS_BG2) == maps_w() && rs_bg_map_w(RS_BG1) == maps_w()) return;
+    maps_setup();
+    far_setup();
+    /* the scroll register for this map's width: camx - shake (|shake| <= 4) was saved modulo the other width's */
+    int saved_w = maps_w() == 64 ? 1024 : 512, d = (view_camx - view_hofs) & (saved_w - 1);
+    if (d >= saved_w / 2) d -= saved_w;
+    view_hofs = (view_camx - d) & (MAP_W * 8 - 1);
+    pf_col_hi = INT32_MIN / 2;                  /* below any window: the whole window again */
+    stream_playfield(&w->course, view_camx < 0 ? -((-view_camx + CELL - 1) / CELL) : view_camx / CELL);
+    mid_col_hi = -1000;
+    stream_mid(view_camx);
+    shown_state = -1;
+    relayout = relayout_pause = 1;
+}
+
 #define S(v) rs_state_var("draw." #v, &(v), sizeof(v))
 void draw_state(void)
 {
     S(line_col); S(pf_col_lo); S(pf_col_hi); S(pf_gone); S(mid_col_hi); S(pal_loop); S(pal_biome); S(cam_up);
     S(shown_state); S(shown_best); S(shown_players); S(logo_on); S(attempt_on); S(attempt_x0); S(gate_t);
     S(gate_biome); S(last_gate_col); S(fxs); S(fx_n); S(view_hofs); S(view_vofs); S(view_c); S(view_camx);
-    S(dew_t); S(dew_id); S(cam_d16);
+    S(dew_t); S(dew_id); S(cam_d16); S(pf_deep_hi);
     RS_STATE_RASTER(raster);
 }
 #undef S

@@ -199,6 +199,9 @@ static void sounds_of(int p)
 static void play_update(void)
 {
     int held[MAX_PLAYERS] = {0};
+    /* the bot (a test hook) starts afresh at the start line, x 0: a run with a run-up (widescreen: world.c) is then
+     * played exactly like the run without one, world_runup_frames() later (tests/wide_test.sh) */
+    if (W.f == 0 && W.started) bot_reset();
     for (int p = 0; p < W.players; p++) held[p] = held_now(p);
     int32_t gate_before = (int32_t)((course_x(&W.course, W.f) >> 16) / CELL);
     world_step(&W, held);
@@ -335,12 +338,24 @@ static void game_state(void)
 }
 #undef S
 
-/* after a state was loaded: the save RAM is not part of states, read it again (the best, the attempts) */
-static void game_state_loaded(void) { save_load(); }
+/* after a state was loaded: the save RAM is not part of states, read it again (the best, the attempts). Widescreen: a
+ * state of another width: the lobby's course (not started) gets this width's run-up (world.c), the maps are set up
+ * for this width (draw.c); a run goes on where it was. */
+static void game_state_loaded(void)
+{
+    save_load();
+    if (!W.started && W.f != -world_runup_frames()) {
+        world_init(&W, W.players, W.seed);
+        W.god = opt_god;
+        draw_reset();
+    }
+    draw_state_loaded(&W);
+}
 
 const rs_game *rs_game_main(void)
 {
     static const rs_game g = {GAME_NAME, GAME_ID, "0.1.0", game_init, game_update, game_draw,
-                              game_shutdown, gm_assets, game_state, game_state_loaded, 1};
+                              game_shutdown, gm_assets, game_state, game_state_loaded, 1,
+                              RS_SCREEN_W_MAX};   /* widescreen: any width (DESIGN.md "Widescreen") */
     return &g;
 }

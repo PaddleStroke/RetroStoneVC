@@ -8,10 +8,11 @@ play     60    50    --opt bot=1 --opt seed=7 --opt ready=1
 play4    700   690   --opt bot=4 --opt seed=9 --opt players=4 --opt ready=1
 pause    640   630   --opt bot=1 --opt seed=7 --opt ready=1 ; 600 tap SELECT
 # the biomes' names at the gates (god mode, seed 3): PINE FOREST at 2760, then every gate up to the night loop's
-# NIGHT - VALLEY VILLAGE at 15784 (a layout error is caught whenever it is drawn, the shot is the last one)
-gate     2800  2790  --opt bot=1 --opt seed=3 --opt god=1 --opt ready=1
-night    15800 15790 --opt bot=1 --opt seed=3 --opt god=1 --opt ready=1
+# NIGHT - VALLEY VILLAGE at 15784 (a layout error is caught whenever it is drawn, the shot is the last one; the
+# frames leave room for the run-up of a wide screen, 113 frames: DESIGN.md "Widescreen")
+gate     2910  2905  --opt bot=1 --opt seed=3 --opt god=1 --opt ready=1
+night    15930 15925 --opt bot=1 --opt seed=3 --opt god=1 --opt ready=1
 # the 1-player game over: the metres alone (seed 11), the metres and the golden blueberries (seed 2)
-over     8250  8245  --opt bot=1 --opt seed=11 --opt ready=1
-overgold 8335  8330  --opt bot=1 --opt seed=2 --opt ready=1
-results  700   690   --opt bot=4 --opt seed=9 --opt players=4 --opt ready=1 --opt botstop=60
+over     8400  8390  --opt bot=1 --opt seed=11 --opt ready=1
+overgold 8480  8470  --opt bot=1 --opt seed=2 --opt ready=1
+results  860   850   --opt bot=4 --opt seed=9 --opt players=4 --opt ready=1 --opt botstop=60
