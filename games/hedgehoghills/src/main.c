@@ -275,7 +275,8 @@ static void game_state(void)
 
 const rs_game *rs_game_main(void)
 {
+    /* max_width: the game draws any width up to 560 (widescreen: DESIGN.md) */
     static const rs_game g = {"Hedgehog Hills", "hedgehoghills", "0.1.0", game_init, game_update, game_draw,
-                              game_shutdown, gm_assets, game_state, NULL, 2};
+                              game_shutdown, gm_assets, game_state, draw_relayout, 2, RS_SCREEN_W_MAX};
     return &g;
 }

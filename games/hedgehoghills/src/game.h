@@ -51,6 +51,9 @@ void draw_split_frame(const world *w,int st_t,int paused);
 void draw_split_off(void);
 int draw_split_raster(int line);
 void draw_split_state(void);
+int draw_wide(void);                        /* widescreen: the screen is wider than 320 */
+uint16_t draw_hills_entry(int row,int col); /* the distant forest's map entry (widescreen: with its mirror image) */
+void draw_relayout(void);                   /* after a state of another width was loaded: this width's maps */
 enum { SFX_JUMP, SFX_SCORE, SFX_HIT, SFX_LAND, SFX_COUNT };
 #define SFX_HOUSE SFX_COUNT
 #endif

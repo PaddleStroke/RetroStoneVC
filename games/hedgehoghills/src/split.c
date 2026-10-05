@@ -1,4 +1,8 @@
 /* Independent multiplayer cameras, using SDK viewports and shared tile atlases.
+ * Widescreen (DESIGN.md "Widescreen"): the views split the whole width (rs_viewport_layout) and each shows more of its
+ * hills ahead; a view is compact (its hedgehog 48 px from its left edge) when it is narrower than 3/4 of the screen,
+ * as at 320; the right-hand views use map columns 64 on (128-tile maps); each view's text sits in the UI columns of
+ * its place on the screen.
  * MIT, (c) 2026 Pierre-Louis Boyer (8BCraft). */
 #include "game.h"
 #include "assets.h"
@@ -30,6 +34,12 @@ int draw_split_raster(int line) {
     return 1;
 }
 static int floor8(int y) { return y>=0?y/8:(y-7)/8; }
+/* a view narrower than 3/4 of the screen is compact (at 320: narrower than 240 columns) */
+static int compact(const rs_viewport *vp) { return vp->w*RS_SCREEN_W<240*rs_screen_width(); }
+/* the UI layer's columns of a split view: a left-hand view from column 0, a right-hand view right after the left one's
+ * (at 320: 159 px, 20 columns, so at 20), where the kit allows 19 or 20 columns of text at every width (its text may not
+ * go left of column 0 or past the screen's right edge, -margin .. 320 + margin in its centred UI coordinates) */
+static int view_ux(const rs_viewport *vp) { return vp->x?(vp->x-RS_VIEW_DIVIDER+7)/8:0; }
 static void spr(const rs_viewport *vp,int id,int x,int y,int prio,int pal) {
     const gm_sprite_def *s=&gm_spr[id];
     if(x<=-(int)s->w || x>=vp->w || y<=-(int)s->h || y>=vp->h) return;
@@ -86,7 +96,7 @@ static void hills(const split_view *v,rs_viewport *vp) {
     for(int y=0;y<rows;y++) for(int x=0;x<cols;x++) {
         int yy=first+y-HILLS_Y/8;
         uint16_t tile=yy<0?RS_MAP(gm_bg3_tile_count,PAL_HILLS,0,0,0):
-            gm_hills_map[(yy<HILLS_H?yy:HILLS_H-1)*64+((first_x+x)&63)];
+            draw_hills_entry(yy<HILLS_H?yy:HILLS_H-1,first_x+x);
         rs_bg_put(RS_BG3,v->map_x+x,v->map_y+y,tile);
     }
     vp->sx[RS_BG3]=(int16_t)(v->map_x*8+(xoff&7));
@@ -98,13 +108,13 @@ static void objects(const world *w,int p,int t,const split_view *v,const rs_view
     spr(vp,draw_hero_sprite(h,t),x-16,y,2,draw_player_pal(p));
     if(h->state==HS_RUN && h->held && h->grounded && h->vx>6*Q16_ONE)
         spr(vp,SPR_PUFF+(w->t/4)%3,x-25,y+24,1,-1);
-    if(h->smooth_t>0) hu_sparkle(x-20,y+6,w->t,2);
+    if(h->smooth_t>0) hu_sparkle(x-20-hu_ui_x(),y+6,w->t,2);   /* kit sprites: UI coordinates */
     if(h->spill && h->smooth_t<0 && h->land_t<24) {
         int age=h->land_t;
         for(int k=0;k<h->spill;k++) spr(vp,SPR_APPLE,x-8-age*(k+1),y+8-age*3+age*age/8-k*5,1,-1);
     }
-    int first=v->scroll/HILL_SPAN*3;
-    if(h->state==HS_RUN) for(int a=first;a<first+6;a++) if(h->apple_id<a) {
+    int first=v->scroll/HILL_SPAN*3,hills_seen=vp->w>RS_SCREEN_W?(vp->w+HILL_SPAN-1)/HILL_SPAN+1:2;
+    if(h->state==HS_RUN) for(int a=first;a<first+3*hills_seen;a++) if(h->apple_id<a) {
         int ax,ay; apple_pos(w,a,&ax,&ay);
         spr(vp,SPR_APPLE,ax-v->scroll-8,ay-v->cam_y-8+hu_bob(w->t+a*11,80,2),1,-1);
     }
@@ -140,10 +150,10 @@ void draw_split_frame(const world *w,int st_t,int paused) {
     for(int p=0;p<nviews;p++) {
         split_view *v=&V[p]; rs_viewport *vp=&views[p];
         const hero *h=&w->h[p];
-        v->map_x=vp->x?32:0; v->map_y=vp->y?16:0;
-        /* the UI layer's columns of the view: a right-hand view (159 px: 20 columns) at 20, so that its text is in
-         * the kit's 40 columns (the scenery layers need 21 columns per view: they stay at 32) */
-        int ux=vp->x?20:0;
+        v->map_x=vp->x?(draw_wide()?64:32):0; v->map_y=vp->y?16:0;
+        /* the UI layer's columns of the view (view_ux; the scenery layers need up to 71 columns per view: the
+         * right-hand views' at 64 on a wide screen, 32 at 320) */
+        int ux=view_ux(vp);
         int foot=h->y>>16,target=foot-vp->h*3/4;
         if(fresh) v->cam_y=target;
         else if(!paused) v->cam_y+=(target-v->cam_y)/8;
@@ -152,7 +162,7 @@ void draw_split_frame(const world *w,int st_t,int paused) {
             if(foot-v->cam_y<60) v->cam_y=foot-60;
             if(foot-v->cam_y>vp->h-10) v->cam_y=foot-vp->h+10;
         }
-        v->scroll=(int)(h->wx>>16)-(vp->w>=240?HERO_X:48);
+        v->scroll=(int)(h->wx>>16)-(compact(vp)?48:HERO_X);
         if(v->scroll<0) v->scroll=0;
         draw_scenery_colors(v->scroll,vp->h,v->sky,v->soil,v->hills);
         terrain(w,v,vp,&next_tile); hills(v,vp);
@@ -168,7 +178,12 @@ void draw_split_frame(const world *w,int st_t,int paused) {
         else rs_strf(text,sizeof text,TR(SPLIT_FROST),margin);
         /* the second line right under the first; one row lower when its words have accents (the row above) */
         hu_text(ux+1,v->map_y+(plain(TR(SPLIT_FROST)) && plain(TR(SPLIT_FROZEN))?2:3),text);
-        if(paused) label(ux+(vp->w/8-hu_width(HTR(PAUSED),0))/2,v->map_y+6,HTR(PAUSED));
+        if(paused) {
+            /* centred on the view (a right-hand view on a wide screen: within the kit's columns, the panel's edge too) */
+            int n=hu_width(HTR(PAUSED),0),x=ux+(vp->w/8-n)/2,lim=(hu_ui_right()+7)/8;
+            if(x+n+1>lim) x=lim-n-1;
+            label(x,v->map_y+6,HTR(PAUSED));
+        }
         else if(h->smooth_t>0) {
             rs_strf(text,sizeof text,TR(SPLIT_SMOOTH),h->combo);
             hu_text(ux+1,v->map_y+vp->h/8-1,text);

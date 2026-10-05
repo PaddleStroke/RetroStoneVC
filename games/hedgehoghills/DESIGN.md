@@ -65,3 +65,30 @@ triangular quills. Four code-drawn options and motion previews are retained in
 `docs/art-options/`; their reusable drawing functions are in `tools/hedgehog_designs.py`.
 The advancing winter front now uses a 96-pixel band of scattered frost, a gently
 uneven snow edge, and drifting snow wisps. The original collision position is preserved.
+
+## Widescreen (docs/spec.md "Widescreen")
+
+The game opts in (`max_width` = 560, `WIDESCREEN_hedgehoghills = 1`): 320 x 240 is unchanged pixel for pixel; at
+427 (16:9), 520 or 560 (phones) **the hills are revealed wider, to the right**: a side-scroller, so the stage origin
+stays 0. The hedgehog runs at the same screen x (HERO_X 96), the frost comes from the left as before, and the screen
+shows more of the hills ahead; seeing further makes it a little easier, which the owner accepts (no compensation).
+- **The same run**: the terrain's columns (one per 8 px, up to 70 at 560; the frost's tiles after them), the apples of
+  every hill in view and the distant forest go to the screen's edge; the world never looked at the screen (its scroll
+  is the leader's x - HERO_X). tests/wide_test.sh compares the whole logs (scores, game overs, the final state and its
+  hash) of 1-player and 4-player bot runs at 320, 427, 520 and 560. The start of a run is the same too: the first
+  hills and apples sit at the same distance from the hedgehog as at 320 (visible from the first frame).
+- **The distant forest** (BG3) goes on with its mirror image (the same tiles h-flipped on a 128-tile map: no VRAM,
+  seamless joins), so a 560-px screen never shows a stretch twice.
+- **Multiplayer** (split.c): the views split the whole width (2 players: top and bottom, 3: a top half and two lower
+  panels, 4: quadrants), each following its own hedgehog; a view is compact (its hedgehog 48 px from its left edge)
+  when it is narrower than 3/4 of the screen, as at 320. The right-hand views use map columns 64 on; each view's text
+  (score, frost margin, PAUSED, SMOOTH) sits in the UI columns of its place on the screen.
+- **The UI is centred**: the UI layer scrolls by -hu_ui_x() and the game's UI sprites (the title's player icons, the
+  results' icons, the sparkles) add it; the score chips go to the screen's centre and corners (the kit).
+- **Save states load at any width**: `state_loaded` (draw_relayout) compares the width the maps were laid out for
+  (draw.laid_w, saved) with this one; another width sets this width's maps up and the next frame draws the UI again
+  (PAUSED too).
+- `make hedgehoghills-check` runs the libretro test, tests/check_game.py (strict mode included) and the state tests
+  again at 427 and 520, then tests/wide_test.sh and the language test at 320, 427 and 520;
+  `make hedgehoghills-screenshots` adds title/play/gameover-427/520.png and play-4-players-520.png
+  (tools/wide_shots.sh).

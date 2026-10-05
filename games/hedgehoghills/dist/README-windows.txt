@@ -22,5 +22,8 @@ The second keyboard uses H (A) / G (B), with T = Start and R = Select.
 
 F11 or Alt+Enter: fullscreen. F12: screenshot. Close the window to quit.
 Optional: HedgehogHills.exe --scale 4 --fullscreen
+Widescreen: the picture follows the shape of the window (drag its edges or go
+fullscreen: a wider window shows more of the hills ahead). To fix it: --width 427
+(16:9), --width 520 (phones), or --aspect 4:3 for the classic 320x240.
 Best scores are saved in hedgehoghills.srm next to the executable.
 Medals: 100 bronze, 250 silver, 500 gold, 1000 pearl.

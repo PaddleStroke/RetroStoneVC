@@ -1,4 +1,10 @@
-/* Hedgehog Hills video, using the shared 8BCraft kit. MIT, (c) 2026 8BCraft. */
+/* Hedgehog Hills video, using the shared 8BCraft kit. MIT, (c) 2026 8BCraft.
+ * Widescreen (DESIGN.md "Widescreen"): a side-scroller, so the hills are revealed wider, to the right (the stage
+ * origin stays 0): the hedgehog runs at the same screen x (HERO_X), the screen shows further ahead: the terrain's
+ * columns, the apples of the hills in view and the distant forest to the screen's edge. The maps are 128 tiles wide;
+ * the forest's 512-px panorama goes on with its mirror image (the same tiles h-flipped: nothing repeats on a 560-px
+ * screen). The UI is centred (the UI layer scrolls by -hu_ui_x(), the game's UI sprites add it); the split screens
+ * (split.c) split the whole width. */
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
@@ -10,6 +16,13 @@ static const rs_color title_ramps[2][3]={
     {RS_RGB8(214,240,148),RS_RGB8(142,190,84),RS_RGB8(70,116,52)}};
 static rs_color line_col[RS_SCREEN_H];
 static int shown_state=-1,shown_best=-1,cam_y;
+static int laid_w;                     /* the width the maps were laid out for (a state of another width: relayout) */
+int draw_wide(void) { return rs_screen_width()>RS_SCREEN_W; }
+/* the distant forest's map entry at column col of a 64- or 128-tile map: widescreen, the panorama then its mirror */
+uint16_t draw_hills_entry(int row,int col) {
+    col&=draw_wide()?127:63;
+    return col<64?gm_hills_map[row*64+col]:(uint16_t)(gm_hills_map[row*64+127-col]^RS_MAP_HFLIP);
+}
 static void raster(int line,void *user) {
     (void)user;
     if(!draw_split_raster(line)) rs_pal_set(0,line_col[line]);
@@ -47,19 +60,33 @@ static void scenery(const world *w) {
 static void distant_hills(const world *w) {
     int offset=cam_y/4;
     int first=offset>=0?offset/8:(offset-7)/8;
-    for(int y=0;y<32;y++) for(int x=0;x<64;x++) {
+    int mw=rs_bg_map_w(RS_BG3);
+    for(int y=0;y<32;y++) for(int x=0;x<mw;x++) {
         int yy=first+y-HILLS_Y/8;
-        uint16_t tile=yy<0?RS_MAP(gm_bg3_tile_count,PAL_HILLS,0,0,0):
-            gm_hills_map[(yy<HILLS_H?yy:HILLS_H-1)*64+x];
+        uint16_t tile=yy<0?RS_MAP(gm_bg3_tile_count,PAL_HILLS,0,0,0):draw_hills_entry(yy<HILLS_H?yy:HILLS_H-1,x);
         rs_bg_put(RS_BG3,x,y,tile);
     }
-    rs_bg_scroll(RS_BG3,(w->scroll/4)&511,offset-first*8);
+    rs_bg_scroll(RS_BG3,(w->scroll/4)&(mw*8-1),offset-first*8);
+}
+/* the maps of this width: 64 tiles at 320, 128 wider */
+static void maps_setup(void) {
+    int mw=draw_wide()?128:64;
+    rs_bg_setup(RS_BG1,mw,32,VR_BG1); rs_bg_setup(RS_BG2,mw,32,VR_BG2);
+    rs_bg_setup(RS_BG3,mw,32,VR_BG3);
+    laid_w=rs_screen_width();
+}
+/* After a state was loaded (rs_game.state_loaded): one saved at another width brings that width's maps; set this
+ * width's up, the UI drawn again on the next frame (PAUSED too). Same width: nothing. */
+void draw_relayout(void) {
+    if(laid_w==rs_screen_width()) return;
+    maps_setup();
+    shown_state=-1;
+    hu_pause(0,13);
 }
 void draw_init(void) {
     hu_config hc=hu_defaults(); hc.obj_tile=KIT_OBJ_TILE; hc.obj_vram=VR_OBJ; hc.obj_pal=3;
     hu_init(&hc);
-    rs_bg_setup(RS_BG1,64,32,VR_BG1); rs_bg_setup(RS_BG2,64,32,VR_BG2);
-    rs_bg_setup(RS_BG3,64,32,VR_BG3);
+    maps_setup();
     rs_tiles_load(VR_BG3,gm_bg3_tiles,gm_bg3_tile_count);
     uint8_t sky_tile[64]={0};
     rs_tiles_load8(VR_BG3+gm_bg3_tile_count,sky_tile,1);
@@ -91,10 +118,12 @@ int draw_iced(int color) {
     return map[color&15];
 }
 /* Only the curved grass fringe needs unique tiles: solid earth reuses three texture tiles.
- * Each screen column gets eight edge tiles. This stays within the console's VRAM budget. */
+ * Each screen column gets eight edge tiles. This stays within the console's VRAM budget.
+ * Widescreen: as many columns as the screen has (70 at 560); the frost's tiles after the last column's. */
 static void terrain(const world *w) {
+    int cols=(rs_screen_width()+7)/8,frost_base=16+8*(cols+1>42?cols+1:42);
     int frost_tile=0,front=(int)(w->frost/Q16_ONE);
-    for(int c=0;c<40;c++) {
+    for(int c=0;c<cols;c++) {
         int floors[8],lo=1000,hi=-1000;
         for(int x=0;x<8;x++) {
             floors[x]=(hill_y(w,w->scroll+c*8+x)>>16)-cam_y;
@@ -123,7 +152,7 @@ static void terrain(const world *w) {
                         int color=tile==2 && y<2?7:tile==3 && (x*7+y*3)%23==0?9:6;
                         pix[y*8+x]=(uint8_t)(draw_frozen_pixel(w,wx+x,r*8+y+cam_y)?draw_iced(color):color);
                     }
-                    tile=352+frost_tile++;
+                    tile=frost_base+frost_tile++;
                     rs_tiles_load8(VR_BG2+tile,pix,1);
                 }
             }
@@ -133,7 +162,7 @@ static void terrain(const world *w) {
 }
 static void spr(int id,int x,int y,int prio,int pal) {
     const gm_sprite_def *d=&gm_spr[id];
-    if(x<=-(int)d->w||x>=320||y<=-(int)d->h||y>=240) return;
+    if(x<=rs_screen_left()-(int)d->w||x>=rs_screen_right()||y<=-(int)d->h||y>=240) return;
     rs_spr(x,y,d->tile,d->w,d->h,pal>=0?pal:d->pal,prio,0);
 }
 int draw_player_pal(int p) { return p?hu_player_pal(p):0; }
@@ -145,7 +174,7 @@ int draw_hero_sprite(const hero *h,int t) {
     return SPR_HERO_IDLE+(t/6)%2;
 }
 static void slot_icon(int p,int cx,int cy,int t,void *user) {
-    (void)user; spr(SPR_HERO_ICON,cx-8,cy-8+hu_bob(t+p*16,64,1),2,draw_player_pal(p));
+    (void)user; spr(SPR_HERO_ICON,cx-8+hu_ui_x(),cy-8+hu_bob(t+p*16,64,1),2,draw_player_pal(p));   /* UI -> stage */
 }
 static void standing(const world *w,hu_standing *s) {
     int score[4]; for(int p=0;p<w->players;p++) score[p]=w->h[p].score;
@@ -211,7 +240,7 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
     hu_standing rank; standing(w,&rank);
     screen_text(w,state,st_t,best,new_best,&rank);
     int slide=state==ST_OVER?hu_slide_in(st_t,20,200):0;
-    rs_bg_scroll(RS_BG1,0,-slide); hu_pause(paused,13);
+    rs_bg_scroll(RS_BG1,-hu_ui_x()&(rs_bg_map_w(RS_BG1)*8-1),-slide); hu_pause(paused,13);   /* the UI centred */
     rs_oam_clear();
     if(state==ST_PLAY||state==ST_DEAD) {
         int scores[4]; for(int p=0;p<w->players;p++) scores[p]=w->h[p].score;
@@ -223,13 +252,13 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
             hu_results_sprites(&rank,st_t,slide);
             for(int i=0;i<rank.n;i++) {
                 int cx,cy; hu_results_icon_pos(&rank,i,&cx,&cy);
-                spr(SPR_HERO_ICON,cx-8,cy-8+slide,3,draw_player_pal(rank.order[i]));
+                spr(SPR_HERO_ICON,cx-8+hu_ui_x(),cy-8+slide,3,draw_player_pal(rank.order[i]));
             }
         }
     }
     if(state==ST_TITLE) {
         hu_title_sprites(st_t,slot_icon,NULL);
-        spr(SPR_HERO_IDLE+(st_t/32)%2,144,91+hu_bob(st_t,64,4),2,-1);
+        spr(SPR_HERO_IDLE+(st_t/32)%2,144+hu_ui_x(),91+hu_bob(st_t,64,4),2,-1);   /* centred with the title (widescreen) */
     } else {
         for(int p=w->players-1;p>=0;p--) {
             const hero *h=&w->h[p];
@@ -238,15 +267,16 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
             spr(draw_hero_sprite(h,st_t),h->x-16+sx,yy+sy,2,draw_player_pal(p));
             if(h->state==HS_RUN && h->held && h->grounded && h->vx>6*Q16_ONE)
                 spr(SPR_PUFF+(w->t/4)%3,h->x-25,yy+24,1,-1);
-            if(h->smooth_t>0) hu_sparkle(h->x-20,yy+6,w->t,2);
+            if(h->smooth_t>0) hu_sparkle(h->x-20-hu_ui_x(),yy+6,w->t,2);   /* kit sprites: UI coordinates */
             if(h->spill && h->smooth_t<0 && h->land_t<24) {
                 int t=h->land_t;
                 for(int k=0;k<h->spill;k++)
                     spr(SPR_APPLE,h->x-8-t*(k+1),yy+8-t*3+t*t/8-k*5,1,-1);
             }
         }
-        int first=(w->scroll/HILL_SPAN)*3;
-        for(int a=first;a<first+6;a++) {
+        /* the apples of the hills in view (two hills at 320; widescreen: as many as the screen shows) */
+        int first=(w->scroll/HILL_SPAN)*3,hills_seen=(rs_screen_width()+HILL_SPAN-1)/HILL_SPAN+1;
+        for(int a=first;a<first+3*hills_seen;a++) {
             int ax,ay; apple_pos(w,a,&ax,&ay);
             int visible=0;
             for(int p=0;p<w->players;p++) if(w->h[p].state==HS_RUN && w->h[p].apple_id<a) visible=1;
@@ -265,5 +295,5 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
     }
 }
 #define S(v) rs_state_var("draw." #v,&(v),sizeof(v))
-void draw_state(void) { S(line_col); S(shown_state); S(shown_best); S(cam_y); draw_split_state(); RS_STATE_RASTER(raster); }
+void draw_state(void) { S(line_col); S(shown_state); S(shown_best); S(cam_y); S(laid_w); draw_split_state(); RS_STATE_RASTER(raster); }
 #undef S

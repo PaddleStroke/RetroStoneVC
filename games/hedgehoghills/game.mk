@@ -1,5 +1,8 @@
 # Hedgehog Hills: built with the 8BCraft house kit and the standard SDK.
 HOUSE_UI_hedgehoghills = 1
+# widescreen (docs/spec.md "Widescreen"; rs_game.max_width; DESIGN.md): the checks run at 320 and at each width of
+# WIDTHS (427 520), then across widths (tests/wide_test.sh)
+WIDESCREEN_hedgehoghills = 1
 HEDGEHOGHILLS_MAKE = $(MAKE) --no-print-directory GAME=hedgehoghills GAME_NAME=HedgehogHills
 HEDGEHOGHILLS_DIR = games/hedgehoghills
 HEDGEHOGHILLS_OBJS = $(patsubst %.c,build/host/%.o,$(wildcard $(HEDGEHOGHILLS_DIR)/src/*.c) $(HOUSE_SRC))
@@ -30,7 +33,15 @@ hedgehoghills-check:
 	$(PYTHON) $(HEDGEHOGHILLS_DIR)/tests/check_game.py
 	sh $(HEDGEHOGHILLS_DIR)/tests/state_test.sh build/host/hedgehoghills_test_states build/states
 	$(PYTHON) tools/state_audit.py --game hedgehoghills build/host/hedgehoghills_test_states $(HEDGEHOGHILLS_OBJS)
+	set -e; for w in $(WIDTHS); do echo "== widescreen: $$w x 240"; \
+	    a=$$(case $$w in 427) echo 16:9;; 520) echo Wide;; esac); \
+	    [ -z "$$a" ] || ./build/host/test_libretro build/host/hedgehoghills_libretro.so 600 $$a $$w; \
+	    RS_WIDTH=$$w $(PYTHON) games/hedgehoghills/tests/check_game.py; \
+	    RS_WIDTH=$$w sh games/hedgehoghills/tests/state_test.sh build/host/hedgehoghills_test_states build/states-$$w; \
+	done
+	sh games/hedgehoghills/tests/wide_test.sh build/host/hedgehoghills_headless build/host/hedgehoghills_test_states build "$(WIDTHS)"
 	bash tools/i18n_test.sh build/host/hedgehoghills_headless hedgehoghills build/hedgehoghills-i18n $(if $(WIDESCREEN_hedgehoghills),320 $(WIDTHS),320)
 hedgehoghills-screenshots:
 	+$(HEDGEHOGHILLS_MAKE) build/host/hedgehoghills_headless
 	$(PYTHON) $(HEDGEHOGHILLS_DIR)/tests/check_game.py --screenshots
+	sh games/hedgehoghills/tools/wide_shots.sh build/host/hedgehoghills_headless games/hedgehoghills/docs/screenshots
