@@ -2,6 +2,7 @@
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "game_text.h"
 #include <stdio.h>
 #include <string.h>
 static const rs_color title_ramps[2][3]={{RS_RGB8(230,222,174),RS_RGB8(191,168,120),RS_RGB8(118,93,79)},{RS_RGB8(207,237,154),RS_RGB8(127,188,100),RS_RGB8(64,127,98)}};
@@ -24,8 +25,8 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  int slide=state==ST_OVER?hu_slide_in(st_t,20,200):0;rs_bg_scroll(RS_BG1,0,-slide);
  /* Foreground signs and HUD get the first OAM slots, above all moving objects. */
  if(state==ST_PLAY||state==ST_DEAD)for(int p=0;p<w->players;p++){
-  char label[24];const hero*h=&w->h[p];int cx=(p*2+1)*160/w->players;
-  if(w->players>1){snprintf(label,sizeof label,"P%d",p+1);hu_text((cx-8)/8,0,label);}
+  char label[32];const hero*h=&w->h[p];int cx=(p*2+1)*160/w->players;
+  if(w->players>1){rs_strf(label,sizeof label,HTR(PLAYER_TAG),p+1);hu_text((cx-hu_width(label,0)*4)/8,0,label);}
   hu_number(h->score,cx,w->players>1?10:2,3);
  }
  /* Bin badges are the complete rule: neutral animal silhouettes or plain colour swatches. */
@@ -55,16 +56,19 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  for(int yy=-12+(w->scroll/256%12);yy<BELT_JOIN;yy+=12)spr(SPR_BELT_MARK,146,yy,1,-1);
  for(int yy=-12+(w->scroll/256%12);yy<BELT_JOIN;yy+=12)spr(SPR_BELT_MARK,166,yy,1,-1);
  if(state==ST_TITLE){
-  hu_logo("RACCOON RECYCLER",title_ramps,2,2,0);hu_text(hu_center("LEFT / DOWN / RIGHT",0),8,"LEFT / DOWN / RIGHT");
-  for(int p=0;p<w->players;p++){char label[8];snprintf(label,sizeof label,"P%d",p+1);hu_text((w->h[p].x-8)/8,20,label);}
-  char join[64]="";int used[4]={1,0,0,0};for(int p=0;p<w->players;p++)used[hu_player_pad(p)]=1;
-  int len=0;for(int p=1;p<4;p++)if(!used[p])len+=snprintf(join+len,sizeof join-(size_t)len,"%sP%d",len?"/":"",p+1);
-  if(len)snprintf(join+len,sizeof join-(size_t)len,": A JOIN%s",w->players>1?" / B LEAVE":"");else snprintf(join,sizeof join,"4 PLAYERS / B LEAVE");
-  hu_text(hu_center(join,0),22,join);int glyph=hu_prompt(10,"PRESS A TO SORT",st_t);if(hu_blink(st_t))hu_glyph(HU_BTN_A,glyph,77,3,0);hu_copyright(29);
-  if(best){char b[24];snprintf(b,sizeof b,"BEST %d",best);hu_text(hu_center(b,0),0,b);}
+  hu_logo("RACCOON RECYCLER",title_ramps,2,2,0);hu_text(hu_center(TR(HINT),0),8,TR(HINT));
+  for(int p=0;p<w->players;p++){char label[32];rs_strf(label,sizeof label,HTR(PLAYER_TAG),p+1);hu_text((w->h[p].x-hu_width(label,0)*4)/8,20,label);}
+  /* the join line: the free player tags ("P2/P3/P4") in the line of the player count */
+  char tags[96]="",join[160];int used[4]={1,0,0,0};for(int p=0;p<w->players;p++)used[hu_player_pad(p)]=1;
+  int len=0;for(int p=1;p<4;p++)if(!used[p]){char tag[32];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),p+1);len+=snprintf(tags+len,sizeof tags-(size_t)len,"%s%s",len?"/":"",tag);}
+  if(len)rs_strf(join,sizeof join,w->players>1?TR(JOIN_LEAVE):TR(JOIN),tags);else rs_strf(join,sizeof join,"%s",TR(FULL));
+  char prompt[128];rs_strf(prompt,sizeof prompt,HTR(PRESS_TO),TR(VERB));
+  hu_text(hu_center(join,0),22,join);int glyph=hu_prompt(10,prompt,st_t);if(hu_blink(st_t))hu_glyph(HU_BTN_A,glyph,77,3,0);hu_copyright(29);
+  /* BEST on the top row; text with accents or tall glyphs one row lower (they take the row above) */
+  if(best){char b[64];rs_strf(b,sizeof b,HTR(BEST_N),best);int row=0;for(const char *c=b;*c;c++)if((unsigned char)*c>=0x80)row=1;hu_text(hu_center(b,0),row,b);}
  }else if(state==ST_OVER){
-  if(w->players==1){static const int medals[4]=MEDAL_SCORES;hu_banner(4,"GAME OVER");hu_gameover_panel(1,new_best,score[0],0);hu_gameover_sprites(1,score[0],0,best,hu_medal_of(score[0],medals),st_t,slide);hu_retry_line(st_t,RETRY_LOCK,"A: TITLE");}
-  else{hu_results_panel(&rank,NULL);hu_results_sprites(&rank,st_t,slide);for(int i=0;i<rank.n;i++){int xx,yy;hu_results_icon_pos(&rank,i,&xx,&yy);spr(SPR_HERO_ICON,xx-8,yy-8+slide,3,ppal(rank.order[i]));}hu_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,"A: TITLE");}
+  if(w->players==1){static const int medals[4]=MEDAL_SCORES;hu_banner(4,HTR(GAME_OVER));hu_gameover_panel(1,new_best,score[0],0);hu_gameover_sprites(1,score[0],0,best,hu_medal_of(score[0],medals),st_t,slide);hu_retry_line(st_t,RETRY_LOCK,HTR(BACK_TITLE));}
+  else{hu_results_panel(&rank,NULL);hu_results_sprites(&rank,st_t,slide);for(int i=0;i<rank.n;i++){int xx,yy;hu_results_icon_pos(&rank,i,&xx,&yy);spr(SPR_HERO_ICON,xx-8,yy-8+slide,3,ppal(rank.order[i]));}hu_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));}
  }
  hu_pause(paused,13);
 }

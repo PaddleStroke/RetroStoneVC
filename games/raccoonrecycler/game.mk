@@ -40,6 +40,7 @@ raccoonrecycler-check: build/host/raccoonrecycler_physics
 	sh $(RACCOONRECYCLER_DIR)/tests/ui_test.sh build/host/raccoonrecycler_headless build/raccoonrecycler-ui
 	sh $(RACCOONRECYCLER_DIR)/tests/state_test.sh build/host/raccoonrecycler_test_states build/states
 	$(PYTHON) tools/state_audit.py --game raccoonrecycler build/host/raccoonrecycler_test_states $(RACCOONRECYCLER_OBJ_HOST)
+	bash tools/i18n_test.sh build/host/raccoonrecycler_headless raccoonrecycler build/raccoonrecycler-i18n $(if $(WIDESCREEN_raccoonrecycler),320 $(WIDTHS),320)
 
 raccoonrecycler-screenshots:
 	+$(RACCOONRECYCLER_MAKE) build/host/raccoonrecycler_headless
