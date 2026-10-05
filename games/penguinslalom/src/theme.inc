@@ -1,5 +1,4 @@
 #define TITLE "PENGUIN SLALOM"
-#define HINT "LEFT / RIGHT: BETWEEN THE FLAGS"
 static const rs_color title_ramps[2][3]={
  {RS_HEX(0xffddab),RS_HEX(0xe89b73),RS_HEX(0xa25c57)},
  {RS_HEX(0xe0f9ed),RS_HEX(0x98d7df),RS_HEX(0x547da8)}};

@@ -15,9 +15,9 @@ penguinslalom-art:
 	$(PYTHON) games/penguinslalom/tools/make_art.py
 build/host/penguinslalom_physics: games/penguinslalom/src/play.c games/penguinslalom/src/game.h games/penguinslalom/src/sine.h games/penguinslalom/tests/test_physics.c
 	$(HOST_CC) $(CSTD) $(OPT) $(WARN) -Isdk/include -Igames/penguinslalom/src games/penguinslalom/src/play.c games/penguinslalom/tests/test_physics.c -o $@
-build/host/penguinslalom_views: games/penguinslalom/tests/test_views.c $(PENGUINSLALOM_OBJS) build/host/build/gen/penguinslalom/assets.o build/host/librs.a
+build/host/penguinslalom_views: games/penguinslalom/tests/test_views.c $(PENGUINSLALOM_OBJS) build/host/build/gen/penguinslalom/assets.o build/host/build/gen/penguinslalom/game_text.o build/host/librs.a
 	$(HOST_CC) $(CSTD) $(OPT) $(WARN) -Isdk/include -Igames/penguinslalom/src -Igames/common/src $^ -lm -o $@
-build/host/penguinslalom_review: games/penguinslalom/tests/review_scenes.c $(PENGUINSLALOM_OBJS) build/host/build/gen/penguinslalom/assets.o build/host/sdk/frontends/common/rs_desktop.o build/host/librs.a
+build/host/penguinslalom_review: games/penguinslalom/tests/review_scenes.c $(PENGUINSLALOM_OBJS) build/host/build/gen/penguinslalom/assets.o build/host/build/gen/penguinslalom/game_text.o build/host/sdk/frontends/common/rs_desktop.o build/host/librs.a
 	$(HOST_CC) $(CSTD) $(OPT) $(WARN) -Isdk/include -Isdk/frontends/common -Igames/penguinslalom/src -Igames/common/src $^ -lm -o $@
 penguinslalom-check:
 	+$(PENGUINSLALOM_MAKE) host build/host/test_libretro build/host/penguinslalom_test_states build/host/penguinslalom_physics build/host/penguinslalom_views
@@ -27,6 +27,7 @@ penguinslalom-check:
 	$(PYTHON) games/penguinslalom/tests/check_game.py
 	sh games/penguinslalom/tests/state_test.sh build/host/penguinslalom_test_states build/states
 	$(PYTHON) tools/state_audit.py --game penguinslalom build/host/penguinslalom_test_states $(PENGUINSLALOM_OBJS)
+	bash tools/i18n_test.sh build/host/penguinslalom_headless penguinslalom build/penguinslalom-i18n $(if $(WIDESCREEN_penguinslalom),320 $(WIDTHS),320)
 penguinslalom-screenshots:
 	+$(PENGUINSLALOM_MAKE) build/host/penguinslalom_headless
 	$(PYTHON) games/penguinslalom/tests/check_game.py --screenshots

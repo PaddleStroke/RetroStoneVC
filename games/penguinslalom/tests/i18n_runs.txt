@@ -1,0 +1,15 @@
+# Penguin Slalom: the screens of the language test (tools/i18n_test.sh, docs/i18n.md), one headless run per line:
+#   <name> <frames> <shot frame> [options] [; input lines]
+title     130  120
+title2    130  120  ; 20 P2 tap A
+title4    130  120  ; 20 P2 tap A ; 30 P3 tap A ; 40 P4 tap A
+titlebest 305  300  --opt bot=1 --opt botstop=20 --opt seed=4 ; 290 tap A
+titlebest4 305 300  --opt bot=1 --opt botstop=20 --opt seed=4 ; 290 tap A ; 292 P2 tap A ; 294 P3 tap A ; 296 P4 tap A
+play1     400  390  --opt bot=1 --opt seed=4 --opt ready=1
+play4     400  390  --opt bot=4 --opt seed=4 --opt ready=1
+pause     450  440  --opt bot=1 --opt seed=4 ; 400 tap SELECT
+pause4    450  440  --opt bot=4 --opt seed=4 ; 400 tap SELECT
+crash     175  170  --opt bot=1 --opt botstop=20 --opt seed=4
+missed    145  140  --opt seed=4 ; 30 tap A
+over      900  890  --opt seed=4 ; 30 tap A
+results   1600 1590 --opt bot=4 --opt seed=4 --opt botstop=20
