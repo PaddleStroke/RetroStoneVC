@@ -14,7 +14,7 @@ import numpy as np
 import house_style as hs
 import nb_render as nr
 from nb_pal import (BIRD, COL, WOOD, R_ACORN, R_BARK, R_BARKD, R_BLACK, R_CAP, R_CAPA, R_DARK, R_GOLD, R_GREEN,
-                    R_GREY, R_HAZEL, R_LEAF, R_MOSS, R_SAP, R_SNOW, R_WOOD, R_YEL)
+                    R_GREY, R_HAZEL, R_LEAF, R_SAP, R_SNOW, R_WOOD, R_YEL)
 
 Canvas = hs.Canvas
 LODS = [round(1.6 / 1.18 ** i, 3) for i in range(16)]   # 1.6 .. 0.13: steps of 18%
