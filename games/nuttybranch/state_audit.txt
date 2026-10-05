@@ -5,3 +5,14 @@ main.snd_buf        sound_init(): the synthesis buffer (the samples are made at 
 main.SV             the battery save's copy (best scores, medals): stays in the .srm, a state never takes it back
 draw.RV             the projection of the frame: road_project() rebuilds it from the world before every use
 draw.last_sel       the raster callback's last bark palette: reset on line 0 of every frame
+draw.lc_seen        tests only (--opt lodcheck=1): the sizes seen of each object (never in a run)
+draw.lc_on          tests only: the lodcheck option
+draw.lc_objects     tests only: counters of the lodcheck report
+draw.lc_steps       tests only
+draw.lc_back        tests only
+draw.lc_jumps       tests only
+draw.lc_far         tests only
+draw.lc_anchors     tests only
+draw.lc_off         tests only
+draw.lc_kept        tests only
+draw.lc_worst       tests only

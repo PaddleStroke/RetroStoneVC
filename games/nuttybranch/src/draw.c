@@ -25,8 +25,9 @@ static const rs_color title_ramps[2][3] = {
     {RS_RGB8(250, 168, 100), RS_RGB8(222, 104, 52), RS_RGB8(164, 62, 34)}};
 
 static road_view RV;                                  /* the projection of this frame (scratch: rebuilt each frame) */
-int16_t draw_line_x[RS_SCREEN_H], draw_line_a[RS_SCREEN_H], draw_line_row[RS_SCREEN_H];
-static int16_t line_tcx[RS_SCREEN_H], bg2_dx[RS_SCREEN_H], bg3_dx[RS_SCREEN_H];
+int16_t draw_line_x[RS_SCREEN_H], draw_line_a[RS_SCREEN_H], draw_line_row[RS_SCREEN_H], draw_line_tcx[RS_SCREEN_H];
+static int16_t bg2_dx[RS_SCREEN_H];
+static int bg_style;                                  /* the forest behind (BG_STYLE, --opt bg=a..d) */
 static int16_t line_wl[RS_SCREEN_H], line_wr[RS_SCREEN_H];   /* window 1: the branch's span on the line */
 static rs_color sky[RS_SCREEN_H];
 static uint8_t bark_sel[RS_SCREEN_H];
@@ -53,7 +54,7 @@ static void raster(int y, void *user)
         return;
     }
     rs_bg_enable(RS_BG2, 1);
-    rs_affine m = {draw_line_a[y], 0, 0, 0, line_tcx[y], draw_line_row[y], 0};
+    rs_affine m = {draw_line_a[y], 0, 0, 0, draw_line_tcx[y], draw_line_row[y], 0};
     rs_bg_affine(RS_BG2, &m);
     rs_window(0, line_wl[y], line_wr[y]);             /* the other bark patches of the row stay hidden */
     if (y == 0 || bark_sel[y] != last_sel) {
@@ -80,20 +81,25 @@ void draw_init(void)
     rs_bg_setup(RS_BG2, 64, 32, VR_BG2);
     rs_bg_setup(RS_BG3, 32, 32, VR_BG3);
     rs_tiles_load(VR_BG2, gm_branch_tiles, gm_branch_tile_count);
-    rs_tiles_load(VR_BG3, gm_scene_tiles, gm_scene_tile_count);
+    const char *bo = rs_option("bg");
+    bg_style = bo && bo[0] >= 'a' && bo[0] < 'a' + BG_STYLES ? bo[0] - 'a' : BG_STYLE;
+    const gm_bg_style *bs = &gm_bgs[bg_style];
+    rs_bg_setup(RS_BG4, 32, 32, VR_BG4);
+    rs_tiles_load(VR_BG3, bs->near_tiles, bs->near_count);
+    rs_tiles_load(VR_BG4, bs->far_tiles, bs->far_count);
     memcpy(rs_bg_map(RS_BG2), gm_branch_map, sizeof(uint16_t) * 64 * 32);
-    memcpy(rs_bg_map(RS_BG3), gm_scene_map, sizeof(uint16_t) * 32 * 32);
+    memcpy(rs_bg_map(RS_BG3), bs->near_map, sizeof(uint16_t) * 32 * 32);
+    memcpy(rs_bg_map(RS_BG4), bs->far_map, sizeof(uint16_t) * 32 * 32);
     rs_bg_enable(RS_BG1, 1);
     rs_bg_enable(RS_BG2, 1);
     rs_bg_enable(RS_BG3, 1);
-    rs_bg_enable(RS_BG4, 0);
+    rs_bg_enable(RS_BG4, 1);
     rs_obj_base(VR_OBJ);
     rs_tiles_load(VR_OBJ, gm_obj_tiles, RES_TILES);           /* the resident sprites; the others are streamed */
     pool_reset();
     rs_pal_load(RS_PAL_OBJ(0), gm_obj_pals, 48);              /* squirrels 1-2, the wood props */
     rs_pal_load(RS_PAL_OBJ(4), gm_obj_pals + 64, 64);         /* squirrels 3-4, the colourful props, the beasts */
     rs_bg_line_scroll(RS_BG2, bg2_dx, NULL);
-    rs_bg_line_scroll(RS_BG3, bg3_dx, NULL);
     rs_bg_window(RS_BG2, RS_WIN1_OUT);
     for (int y = 0; y < RS_SCREEN_H; y++) draw_line_row[y] = ROW_NONE;
     rs_raster(raster, NULL);
@@ -124,7 +130,7 @@ static void band_palettes(int32_t metres)
     rs_pal_load(RS_PAL_OBJ(6), col, 16);
     /* the bark: 4 ring phases (OutRun's stripes, by palette: subtle) x 4 haze levels toward the horizon's colour, dry
      * and wet (after rain: the lit top shines, the shadows deepen, a cool cast) */
-    static const int ring_k[4] = {256, 256, 236, 246}, haze_k[HAZE_LEVELS] = {0, 64, 120, 176};
+    static const int ring_k[4] = {256, 256, 244, 250}, haze_k[HAZE_LEVELS] = {0, 64, 120, 176};
     for (int wet = 0; wet < 2; wet++)
         for (int hz = 0; hz < HAZE_LEVELS; hz++)
             for (int r = 0; r < 4; r++) {
@@ -235,12 +241,11 @@ int draw_sprite_id(const rs_sprite *s, int *frame, int *ax, int *ay)
     return 0;
 }
 
-/* the pre-drawn size nearest a scale (Q8 px per unit): 1.6, 1.15, 0.83, 0.6, 0.43, 0.31, 0.22, 0.16 */
+/* the pre-drawn size nearest a scale (Q8 px per unit): 16 sizes from 1.6 down by 18% steps */
 static int lod_of(int scale)
 {
-    static const int edge[LODS - 1] = {347, 250, 181, 130, 93, 67, 48};
     int l = 0;
-    while (l < LODS - 1 && scale < edge[l]) l++;
+    while (l < LODS - 1 && scale < gm_lod_edge_q8[l]) l++;
     return l;
 }
 
@@ -256,7 +261,81 @@ static int32_t undrop(int32_t ang)
     return (int32_t)(((int64_t)BRANCH_R * 256 * (16384 - cos_q14(ang)) >> 14) * DROP_K_256 / 256);
 }
 
-static int decor_lod(int lod) { return lod < 1 ? 0 : lod - 1; }   /* the scenery has no 1.6 size: 7 sizes */
+/* what sits on the bark is drawn on the branch drawn on its line: near the horizon, where a curve turns the branch
+ * sideways, one line can hold a long stretch of it but shows one centre; keep the anchor within that line's span */
+static int lc_on = -1, lc_objects, lc_steps, lc_jumps, lc_back, lc_far, lc_anchors, lc_off, lc_kept;
+static int on_branch(int *sx, int sy)
+{
+    if (sy < 0 || sy >= RS_SCREEN_H) return 1;
+    const road_line *L = &RV.ln[sy];
+    if (L->row >= TEX_H || L->tcx == FACE_CX || L->a <= 0) return 0;        /* no bark on its line: not drawn */
+    if (L->row >= ROW_FORK) return 1;
+    int hw = BRANCH_R * 256 * 17 / 16 / L->a;
+    int x = *sx < L->xc - hw ? L->xc - hw : *sx > L->xc + hw ? L->xc + hw : *sx;
+    if (x != *sx) lc_kept++;                          /* (tests: counted) */
+    *sx = x;
+    return 1;
+}
+
+static int decor_lod(int lod) { return lod < 1 ? 0 : lod - 1; }   /* the scenery starts at the 2nd size */
+static int limb_lod(int lod) { return lod < 2 ? 0 : lod - 2; }    /* the outward branches at the 3rd */
+
+/* ---- tests (--opt lodcheck=1): every object's drawn size must never shrink as it comes (only its nearest pre-drawn
+ * size, within 10% of the projected one, or the largest one), and its anchor must lie on the drawn branch ---------- */
+#define LODCHECK_N 256
+static struct { int32_t s, ang; int16_t kind, len, lod; uint16_t seen; } lc_seen[LODCHECK_N];   /* scratch */
+static int lc_worst = 100;                                                /* the worst drawn/true size, % */
+
+/* lod: the size drawn (minl: the object's largest pre-drawn size); anchor: 0 in the air (not checked), 1 on the bark,
+ * 2 out of the flank (both: on the branch's span on its line) */
+static void lod_note(const obj *o, int lod, int minl, int sc, int sx, int sy, int anchor)
+{
+    if (lc_on < 0) lc_on = rs_option_int("lodcheck", 0);
+    if (!lc_on) return;
+    int i = (int)((uint32_t)(o->s * 31 + o->kind * 7 + o->len * 3 + (o->ang >> 12)) % LODCHECK_N);
+    /* (an object hidden for a while, behind a crest, comes back at its new size) */
+    if (lc_seen[i].s != o->s || lc_seen[i].kind != o->kind || lc_seen[i].len != o->len || lc_seen[i].ang != o->ang ||
+        (uint16_t)(pool_now - lc_seen[i].seen) > 1) {
+        lc_seen[i].s = o->s;
+        lc_seen[i].ang = o->ang;
+        lc_seen[i].kind = o->kind;
+        lc_seen[i].len = (int16_t)o->len;
+        lc_seen[i].lod = (int16_t)lod;
+        lc_objects++;
+    } else if (lod != lc_seen[i].lod) {
+        lc_steps++;
+        if (lod > lc_seen[i].lod && lc_back++ < 8)    /* a smaller size than before: it would shrink */
+            rs_log("lodcheck: kind %d at s %d shrank from size %d to %d (scale %d)", o->kind, o->s, lc_seen[i].lod, lod, sc);
+        if (lod < lc_seen[i].lod - 1 && lc_jumps++ < 8)  /* more than one size (18%) at once */
+            rs_log("lodcheck: kind %d at s %d grew from size %d to %d (scale %d)", o->kind, o->s, lc_seen[i].lod, lod, sc);
+        lc_seen[i].lod = (int16_t)lod;
+    }
+    lc_seen[i].seen = pool_now;
+    int drawn = gm_lod_q8[lod], ratio = drawn * 100 / (sc > 0 ? sc : 1);
+    if ((ratio < 90 && lod > minl) || (ratio > 110 && lod < LODS - 1)) {     /* not the nearest size */
+        if (lc_far++ < 8) rs_log("lodcheck: kind %d drawn at size %d for a scale %d (%d%%)", o->kind, lod, sc, ratio);
+    }
+    if (ratio < lc_worst && lod > minl) lc_worst = ratio;
+    if (!anchor) return;
+    if (sy >= 0 && sy < RS_SCREEN_H && RV.ln[sy].row < TEX_H && RV.ln[sy].tcx != FACE_CX && RV.ln[sy].a > 0) {
+        lc_anchors++;
+        int xc = RV.ln[sy].xc, hw = BRANCH_R * 256 / RV.ln[sy].a;
+        int d = sx - xc < 0 ? xc - sx : sx - xc;
+        if (RV.ln[sy].row < ROW_FORK && d > hw + hw / 8 + 3) {
+            lc_off++;
+            rs_log("lodcheck: kind %d at s %d anchored at (%d,%d), %d px from the centre, the branch %d wide", o->kind,
+                   o->s, sx, sy, d, hw);
+        }
+    }                                                 /* (on a line with no bark it is not drawn: on_branch) */
+}
+
+void draw_lodcheck_report(void)
+{
+    if (lc_on > 0)
+        rs_log("lodcheck: %d objects, %d size steps, %d backwards, %d of more than one size, %d not the nearest size, "
+               "the smallest drawn/true %d%%; %d anchors, %d off the branch (%d kept on their line by on_branch)", lc_objects,
+               lc_steps, lc_back, lc_jumps, lc_far, lc_worst, lc_anchors, lc_off, lc_kept);
+}
 
 typedef struct drawable { int32_t z; int16_t kind, idx; } drawable;
 #define DRAW_MAX 200
@@ -270,17 +349,31 @@ static void draw_obj(const world *w, const obj *o)
     case OB_ACORN: case OB_HAZEL: case OB_WALNUT: {
         if (o->taken || !road_point(w, &RV, o->s * 256, ang, 0, 0, &sx, &sy, &sc, &hid) || hid) return;
         if ((l = lod_of(sc)) > 5) return;
+        if (!on_branch(&sx, sy)) return;
+        lod_note(o, l, 0, sc, sx, sy, 1);
         int id = o->kind == OB_ACORN ? SPR_ACORN : o->kind == OB_HAZEL ? SPR_HAZEL : SPR_WALNUT;
         spr_at(id + l, sx, sy, 2, -1, 0);
         if (o->kind == OB_WALNUT && l <= 2 && (w->t / 12) % 3 == 0) hu_sparkle(sx + 4, sy - 14, (w->t / 6) % 2, 2);
         return;
     }
-    case OB_TWIG:
+    case OB_TWIG:                                    /* a branch crossing the path */
         if (!road_point(w, &RV, o->s * 256, 0, 0, 0, &sx, &sy, &sc, &hid) || hid) return;
-        spr_at(SPR_TWIG + (o->len ? 0 : LODS) + lod_of(sc), sx, sy, 2, -1, o->side < 0);
+        if (!on_branch(&sx, sy)) return;
+        lod_note(o, l = decor_lod(lod_of(sc)) + 1, 1, sc, sx, sy, 1);
+        spr_at(SPR_LIMB + (o->len ? LODS - 1 : 0) + l - 1, sx, sy, 2, -1, o->side < 0);
         return;
+    case OB_KNOTHOLE: {
+        if (!road_point(w, &RV, o->s * 256 + KNOTHOLE_LEN * 128, ang, 0, 0, &sx, &sy, &sc, &hid) || hid) return;
+        int peek = ((w->t + o->s) / 50) % 4 == 0;     /* now and then a mouse peeks out */
+        if (!on_branch(&sx, sy)) return;
+        lod_note(o, l = lod_of(sc), 0, sc, sx, sy, 1);
+        spr_at(tilted(SPR_HOLE, ang, l) + (peek ? TILTS * LODS : 0), sx, sy, 2, -1, ang < 0);
+        return;
+    }
     case OB_KNOT: case OB_WEB: case OB_SNOW: {
         if (!road_point(w, &RV, o->s * 256, ang, 0, 0, &sx, &sy, &sc, &hid) || hid) return;
+        if (!on_branch(&sx, sy)) return;
+        lod_note(o, lod_of(sc), 0, sc, sx, sy, 1);
         int id = o->kind == OB_KNOT ? SPR_KNOT : o->kind == OB_WEB ? SPR_WEB : SPR_SNOW;
         spr_at(tilted(id, ang, lod_of(sc)), sx, sy, 2, -1, ang < 0);
         return;
@@ -288,12 +381,15 @@ static void draw_obj(const world *w, const obj *o)
     case OB_SAP:
         for (int32_t s = o->s + 14; s < o->s + o->len; s += 28) {
             if (!road_point(w, &RV, s * 256, ang, 0, 0, &sx, &sy, &sc, &hid) || hid) continue;
+            if (!on_branch(&sx, sy)) continue;
             spr_at(tilted(SPR_SAP, ang, lod_of(sc)), sx, sy, 2, -1, ang < 0);
         }
         return;
     case OB_CATER: case OB_SNAKE: {
         int on = o->kind == OB_CATER ? cater_ang(w, o, &ang) : snake_ang(w, o, &ang);
         if (!on || !road_point(w, &RV, o->s * 256, ang, 0, 0, &sx, &sy, &sc, &hid) || hid) return;
+        if (!on_branch(&sx, sy)) return;
+        lod_note(o, lod_of(sc), 0, sc, sx, sy, 1);
         int base = o->kind == OB_CATER ? SPR_CATER : SPR_SNAKE;
         int fr = o->t0 >= 0 && (w->t / (o->kind == OB_CATER ? 8 : 5)) % 2 ? TILTS * LODS : 0;
         /* it faces the way it goes; mirrored, the tilt mirrors too: the angle's sign decides the flip */
@@ -303,7 +399,8 @@ static void draw_obj(const world *w, const obj *o)
     case OB_CONE: {
         if (!cone_h(w, o, &h)) return;
         if (!road_point(w, &RV, o->s * 256, ang, 0, 0, &sx, &sy, &sc, &hid) || hid) return;
-        l = lod_of(sc);
+        if (!on_branch(&sx, sy)) return;
+        lod_note(o, l = lod_of(sc), 0, sc, sx, sy, 1);
         if (h > 0) spr_at(SPR_SHADOW + l, sx, sy, 2, -1, 0);
         road_point(w, &RV, o->s * 256, ang, h, 0, &sx, &sy, &sc, &hid);
         spr_at(tilted(SPR_CONE, ang, l), sx, sy, 2, -1, ang < 0);
@@ -312,8 +409,10 @@ static void draw_obj(const world *w, const obj *o)
     case OB_OWL: {
         if (!owl_ang(w, o, &ang)) return;
         int bx, by, bs, bh;
-        if (road_point(w, &RV, o->s * 256, ang, OWL_H + Q8(6), 0, &sx, &sy, &sc, &hid))
+        if (road_point(w, &RV, o->s * 256, ang, OWL_H + Q8(6), 0, &sx, &sy, &sc, &hid)) {
+            lod_note(o, lod_of(sc), 0, sc, sx, sy, 0);
             spr_at(SPR_OWL + lod_of(sc) + ((w->t / 6) % 2 ? LODS : 0), sx, sy, 2, -1, 0);
+        }
         if (road_point(w, &RV, o->s * 256, ang, 0, 0, &bx, &by, &bs, &bh) && !bh)
             spr_at(SPR_BIGSHADOW + lod_of(bs), bx, by, 2, -1, 0);     /* its shadow sweeps over the bark */
         return;
@@ -325,27 +424,29 @@ static void draw_obj(const world *w, const obj *o)
             if (l < LODS) spr_at(tilted(SPR_HOLE, ang, l), sx, sy, 2, -1, ang < 0);
         }
         if (road_point(w, &RV, o->s * 256, o->side * ANG(68), undrop(ANG(68)), 0, &sx, &sy, &sc, &hid) && !hid) {
-            int peck = o->t0 >= 0 && w->t - o->t0 < HOLE_OPEN + 72 && (w->t - o->t0) % 24 < 6;
-            spr_at(SPR_PECKER + lod_of(sc) + (peck ? LODS : 0), sx, sy, 2, -1, o->side < 0);
+            if (on_branch(&sx, sy)) {
+                lod_note(o, lod_of(sc), 0, sc, sx, sy, 2);
+                int peck = o->t0 >= 0 && w->t - o->t0 < HOLE_OPEN + 72 && (w->t - o->t0) % 24 < 6;
+                spr_at(SPR_PECKER + lod_of(sc) + (peck ? LODS : 0), sx, sy, 2, -1, o->side < 0);
+            }
         }
         return;
     }
     case OB_FORK:                                     /* the dead branch's broken end */
-        if (road_point(w, &RV, (o->s + o->len) * 256, 0, 0, 1, &sx, &sy, &sc, &hid) && !hid)
+        if (road_point(w, &RV, (o->s + o->len) * 256, 0, 0, 1, &sx, &sy, &sc, &hid) && !hid) {
+            lod_note(o, lod_of(sc), 0, sc, sx, sy, 0);
             spr_at(SPR_BROKEN + lod_of(sc), sx, sy, 2, -1, 0);
+        }
         return;
-    case OB_GAP:                                      /* the torn end before it, the broken face across it */
-        if (road_point(w, &RV, (o->s + o->len) * 256, 0, 0, 0, &sx, &sy, &sc, &hid) && !hid)
-            spr_at(SPR_GAPFACE + lod_of(sc), sx, sy, 2, -1, 0);
-        if (road_point(w, &RV, o->s * 256, 0, 0, 0, &sx, &sy, &sc, &hid) && !hid)
-            spr_at(SPR_BROKEN + lod_of(sc), sx, sy, 2, -1, 0);
+    case OB_GAP:                                      /* the torn ends and the broken face: the branch layer's */
         return;
     case OB_SWING: {
         if (!road_free(w, &RV, o->s * 256, 0, SWING_PIVOT, &sx, &sy, &sc)) return;
         int deg = (int)(swing_deg(w, o) / 4096), ai = (deg + SWING_AMP + 7) / 15;
         if (ai < 0) ai = 0;
         if (ai > 6) ai = 6;
-        spr_at(SPR_SWING + ai * 7 + decor_lod(lod_of(sc)), sx, sy, 2, -1, 0);
+        lod_note(o, decor_lod(lod_of(sc)) + 1, 1, sc, sx, sy, 0);
+        spr_at(SPR_SWING + ai * (LODS - 1) + decor_lod(lod_of(sc)), sx, sy, 2, -1, 0);
         return;
     }
     case OB_BEES: {
@@ -370,11 +471,22 @@ static void draw_obj(const world *w, const obj *o)
         int kind = (int)o->len;
         if (kind <= DC_SIDE2 || kind == DC_MUSH) {
             if (!road_point(w, &RV, o->s * 256, ang, undrop(ang), 0, &sx, &sy, &sc, &hid) || hid) return;
-            int base = kind == DC_MUSH ? SPR_MUSH : SPR_SIDE + (kind - DC_SIDE0) * 7;
-            spr_at(base + decor_lod(lod_of(sc)), sx, sy, 2, -1, o->side < 0);
+            if (kind == DC_MUSH) {
+                if (!on_branch(&sx, sy)) return;
+                lod_note(o, decor_lod(lod_of(sc)) + 1, 1, sc, sx, sy, 2);
+                spr_at(SPR_MUSH + decor_lod(lod_of(sc)), sx, sy, 2, -1, o->side < 0);
+            } else {
+                if (sy < 0 || sy >= RS_SCREEN_H || RV.ln[sy].row >= TEX_H || RV.ln[sy].tcx == FACE_CX) return;   /* only out of the branch drawn */
+                l = limb_lod(lod_of(sc));
+                if (!on_branch(&sx, sy)) return;
+                lod_note(o, l + 2, 2, sc, sx, sy, 2);
+                /* behind the branch layer: its root grows out from behind the silhouette */
+                spr_at(SPR_SIDE + (kind - DC_SIDE0) * (LODS - 2) + l, sx, sy, 1, -1, o->side < 0);
+            }
         } else {
             if (!road_free(w, &RV, o->s * 256, ang, o->t0, &sx, &sy, &sc)) return;
-            int base = kind == DC_HIVE ? SPR_HIVE : SPR_OVER + (kind - DC_OVER0) * 7;
+            int base = kind == DC_HIVE ? SPR_HIVE : SPR_OVER + (kind - DC_OVER0) * (LODS - 1);
+            lod_note(o, decor_lod(lod_of(sc)) + 1, 1, sc, sx, sy, 0);
             spr_at(base + decor_lod(lod_of(sc)), sx, sy, 2, -1, o->side < 0);
         }
         return;
@@ -588,9 +700,15 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
         draw_line_row[y] = L->row;
         draw_line_a[y] = L->a;
         draw_line_x[y] = (int16_t)(L->xc + sx);
-        line_tcx[y] = L->tcx;
-        if (L->row < ROW_FORK && L->a > 0) {
-            int hw = BRANCH_R * 256 * 17 / 16 / L->a + 2;
+        draw_line_tcx[y] = L->tcx;
+        if (L->row < TEX_H && L->a > 0) {
+            /* window 1: only the line's own part of the texture row (a bark patch, a fork's pair, a broken end, the
+             * face beside the fork rows); the span in 1/16 texels */
+            int span = L->tcx == FACE_CX ? BRANCH_R * 16
+                     : L->row < ROW_FORK ? BRANCH_R * 17
+                     : L->row < ROW_GRAIN ? (FORK_STEP * ((L->row - ROW_FORK) / 8 + 1) / 2 + BRANCH_R + 2) * 16
+                     : (BRANCH_R + 2) * 16;
+            int hw = span * 16 / L->a + 2;
             line_wl[y] = (int16_t)(L->xc + sx - hw);
             line_wr[y] = (int16_t)(L->xc + sx + hw);
         } else {
@@ -599,10 +717,10 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
         }
         bg2_dx[y] = (int16_t)(L->tcx - L->xc - sx);
         bark_sel[y] = (uint8_t)((L->wet * HAZE_LEVELS + L->haze) * 4 + L->ring);
-        bg3_dx[y] = (int16_t)((y < 64 ? canopy : forest) & 255);
     }
     rs_bg_scroll(RS_BG2, 0, -sy);
-    rs_bg_scroll(RS_BG3, 0, 0);
+    rs_bg_scroll(RS_BG3, canopy & 255, 0);              /* the near forest at half the curves' drift ... */
+    rs_bg_scroll(RS_BG4, forest & 255, 0);              /* ... the far one at a quarter */
     hu_standing rs;
     standing(w, &rs);
     screen_text(w, state, st_t, best_m, new_best, &rs);
@@ -704,7 +822,7 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
 #define S(v) rs_state_var("draw." #v, &(v), sizeof(v))
 void draw_state(void)
 {
-    S(draw_line_x); S(draw_line_a); S(draw_line_row); S(line_tcx); S(line_wl); S(line_wr); S(bg2_dx); S(bg3_dx); S(sky); S(bark_sel);
+    S(draw_line_x); S(draw_line_a); S(draw_line_row); S(draw_line_tcx); S(line_wl); S(line_wr); S(bg2_dx); S(bg_style); S(sky); S(bark_sel);
     S(bark_pal); S(shown_state); S(shown_best); S(band_now); S(parts);
     S(pool_slot); S(pool_stamp); S(pool_used); S(pool_now);
     RS_STATE_RASTER(raster);

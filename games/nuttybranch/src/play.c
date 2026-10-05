@@ -77,6 +77,9 @@ int floor_at(const world *w, int32_t s, int32_t ang, int branch)
         case OB_FORK:
             if (branch && s >= o->s + o->len && s < o->s + o->len + FORK_TAIL) return 0;
             break;
+        case OB_KNOTHOLE:
+            if (s >= o->s && s < o->s + KNOTHOLE_LEN && iabs(ang - o->ang) < KNOTHOLE_HALF) return 0;
+            break;
         case OB_PECKER: {
             int open = hole_open(w, o);
             if (open >= 128 && s >= o->s && s < o->s + HOLE_LEN && iabs(ang - o->ang) < HOLE_HALF * open / 256)
@@ -189,11 +192,45 @@ int grip_at(const world *w, int32_t s, int32_t ang)
     return g;
 }
 
+/* a crossing branch at one angle (Q12 degrees) round the branch: 1 if it is there; its lowest and highest point */
+static int limb_point(const obj *o, int32_t a, int32_t *lo, int32_t *hi)
+{
+    int arch = o->len != 0, span = arch ? LIMB_ARCH_SPAN : LIMB_LOW_SPAN;
+    int64_t t = ((int64_t)ANG(LIMB_ROOT) - (int64_t)o->side * a) * 65536 / ((int64_t)span * 4096);   /* 0..65536 */
+    if (t < 0 || t > 65536) return 0;
+    int32_t hc, r;
+    if (arch) {
+        hc = Q8(4) + (int32_t)((int64_t)Q8(30) * sin_q14((int32_t)((int64_t)ANG(180) * t / 65536)) / 16384);
+        r = Q8(8) - (int32_t)((int64_t)Q8(3.5) * t / 65536);
+    } else {                                         /* lying on the bark near its root, rising a little */
+        int64_t t2 = t * 2 > 65536 ? 65536 : t * 2;
+        r = Q8(7.5) - (int32_t)((int64_t)Q8(3.7) * t / 65536);
+        hc = r + Q8(0.5) + (int32_t)((int64_t)Q8(2) * sin_q14((int32_t)((int64_t)ANG(90) * t2 / 65536)) / 16384);
+    }
+    *lo = arch ? hc - r : 0;                         /* a low one blocks from the bark up */
+    *hi = hc + r;
+    return 1;
+}
+
+int limb_at(const obj *o, int32_t ang, int32_t *lo, int32_t *hi)
+{
+    int found = 0;
+    *lo = 1 << 30;
+    *hi = 0;
+    for (int k = -1; k <= 1; k++) {                  /* the squirrel's width */
+        int32_t l, h;
+        if (!limb_point(o, ang + k * SQ_HALF_ANG, &l, &h)) continue;
+        found = 1;
+        if (l < *lo) *lo = l;
+        if (h > *hi) *hi = h;
+    }
+    return found;
+}
+
 int32_t ob_solid(const world *w, const obj *o, int32_t *ang, int32_t *half)
 {
     *ang = o->ang;
     switch (o->kind) {
-    case OB_TWIG: *half = o->len ? TWIG_HALF : TWIG_SHORT_HALF; return TWIG_H;
     case OB_SNAKE: *half = SNAKE_HALF; return snake_ang(w, o, ang) ? SNAKE_H : 0;
     case OB_BEES: *half = BEE_HALF; return bees_ang(w, o, ang) ? BEE_H : 0;
     case OB_SNOW: *half = SNOW_HALF; return SNOW_H;
@@ -465,6 +502,16 @@ static void contacts(world *w, squirrel *q, int p)
                 if (q->slow_t < WEB_RECOVER - 8) w->events[p] |= EV_WEB;
                 q->slow_t = WEB_RECOVER;
                 q->sticky_t = WEB_STICKY;
+            }
+            continue;
+        }
+        if (o->kind == OB_TWIG) {                    /* a branch across the path: over it, under it, or into it */
+            int32_t lo, hi;
+            if (iabs(ds) <= SQ_HALF_LEN + 4 && limb_at(o, q->ang, &lo, &hi) && q->h < hi && q->h + SQ_BODY_H > lo) {
+                fall(q, FALL_CRASH);
+                q->hit_kind = o->kind;
+                w->events[p] |= EV_HIT;
+                return;
             }
             continue;
         }

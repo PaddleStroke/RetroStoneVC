@@ -20,7 +20,7 @@
 #define DEG(x) ((x) * 4096)
 
 typedef struct seen { int kind; int32_t z, ang, half, h; } seen;   /* z Q8 units, ang Q12 deg */
-enum { K_NUT, K_TWIG, K_KNOT, K_WEB, K_SAP, K_HOLE, K_CATER, K_CONE, K_OWL, K_STUMP, K_GAP, K_BEES, K_SWING };
+enum { K_NUT, K_TWIG, K_KNOT, K_WEB, K_SAP, K_HOLE, K_CATER, K_CONE, K_OWL, K_STUMP, K_GAP, K_BEES, K_SWING, K_ARCH };
 
 static seen sn[SEEN_MAX];
 static int nsn;
@@ -62,7 +62,7 @@ static int line_branch(int y, int x, int *xc, int32_t *hw, int32_t *z)
     *z = 0;
     if (y < 0 || y >= RS_SCREEN_H) return 0;
     int row = draw_line_row[y], a = draw_line_a[y];
-    if (row >= TEX_H || a <= 0) return 0;
+    if (!line_is_bark(y) || a <= 0) return 0;
     *z = (int32_t)a * FOCAL;
     *hw = BRANCH_R * 256 * 256 / a;
     *xc = draw_line_x[y];
@@ -140,9 +140,10 @@ static int look(int player, int *fx, int *fy, int *air)
         }
         if (in_set(f, SPR_ACORN, NFR_ACORN) || in_set(f, SPR_HAZEL, NFR_HAZEL) || in_set(f, SPR_WALNUT, NFR_WALNUT))
             add_seen(K_NUT, x, y, 0, 0, 0, 0);
-        else if (in_set(f, SPR_TWIG, NFR_TWIG)) {          /* it grows out of one side: its span by its look */
-            int lng = f - SPR_TWIG < LODS;
-            add_seen(K_TWIG, x, y, lng ? TWIG_HALF : TWIG_SHORT_HALF, TWIG_H, 1, (flip ? -1 : 1) * (lng ? DEG(34) : DEG(52)));
+        else if (in_set(f, SPR_LIMB, NFR_LIMB)) {          /* a branch across: low (jump it) or an arch (run under) */
+            int arch = f - SPR_LIMB >= LODS - 1, side = flip ? -1 : 1;
+            if (arch) add_seen(K_ARCH, x, y, 0, 0, 1, side);
+            else add_seen(K_TWIG, x, y, TWIG_HALF, TWIG_H, 1, side * DEG(21));
         } else if (in_set(f, SPR_KNOT, NFR_KNOT)) add_seen(K_KNOT, x, y, KNOT_HALF, KNOT_H, 0, 0);
         else if (in_set(f, SPR_WEB, NFR_WEB)) add_seen(K_WEB, x, y, WEB_HALF, WEB_H, 0, 0);
         else if (in_set(f, SPR_SNOW, NFR_SNOW)) add_seen(K_KNOT, x, y, SNOW_HALF, SNOW_H, 0, 0);
@@ -172,7 +173,7 @@ static int look(int player, int *fx, int *fy, int *air)
     int seen_bark = 0;
     int32_t z_near = 0;
     for (int y = RS_SCREEN_H - 1; y > 40; y--) {
-        if (draw_line_row[y] < TEX_H) {
+        if (line_is_bark(y)) {
             if (seen_bark == 2 && nsn < SEEN_MAX)
                 sn[nsn++] = (seen){K_GAP, z_near, 0, DEG(90), (int32_t)draw_line_a[y] * FOCAL};   /* h = the far edge */
             seen_bark = 1;
@@ -215,7 +216,7 @@ void bot_decide(int player, sq_input *in)
     /* the forces it feels: a gust (the leaves), a curve (the branch bending away: its centre drifting between the
      * near and the far lines) at speed: keep nearer the top then */
     int32_t lim = DEG(42);
-    int bend = draw_line_row[200] < TEX_H && draw_line_row[130] < TEX_H ? draw_line_x[130] - draw_line_x[200] : 0;
+    int bend = line_is_bark(200) && line_is_bark(130) ? draw_line_x[130] - draw_line_x[200] : 0;
     if (bend < 0) bend = -bend;
     if (windy) lim = DEG(24);
     if (bend > 40 && v > Q8(8)) lim = lim < DEG(28) ? lim : DEG(28);
@@ -237,6 +238,16 @@ void bot_decide(int player, sq_input *in)
                 continue;
             }
             if (o->kind == K_GAP || o->kind == K_SWING) continue;     /* jumped, wherever they are */
+            if (o->kind == K_ARCH) {
+                obj fo;
+                memset(&fo, 0, sizeof fo);
+                fo.kind = OB_TWIG;
+                fo.len = 1;
+                fo.side = (int8_t)o->ang;
+                int32_t lo, hi;
+                if (limb_at(&fo, cand, &lo, &hi) && lo < SQ_BODY_H + Q8(3)) cost += 3000 + (80 - t) * 30;
+                continue;
+            }
             if (o->kind == K_BEES) {
                 if (d < o->half + DEG(16)) cost += 3000 + (80 - t) * 30;
                 continue;
@@ -261,7 +272,10 @@ void bot_decide(int player, sq_input *in)
         hold_left[player]--;
         in->jump_held = 1;
     }
-    if (!air && cool[player] == 0) {
+    int under = 0;                                  /* an arch coming: no jumping under it */
+    for (int i = 0; i < nsn; i++)
+        if (sn[i].kind == K_ARCH && sn[i].z - zs > -Q8(8) && (sn[i].z - zs) / (v > 0 ? v : 256) < 40) under = 1;
+    if (!air && cool[player] == 0 && !under) {
         for (int i = 0; i < nsn; i++) {
             const seen *o = &sn[i];
             int32_t dz = o->z - zs;
@@ -276,7 +290,7 @@ void bot_decide(int player, sq_input *in)
                 }
                 continue;
             }
-            if (o->kind == K_NUT || o->kind == K_SAP || o->kind == K_WEB || o->kind == K_BEES) continue;
+            if (o->kind == K_NUT || o->kind == K_SAP || o->kind == K_WEB || o->kind == K_BEES || o->kind == K_ARCH) continue;
             int32_t margin = o->half + SQ_HALF_ANG + DEG(3);
             if (o->kind == K_CATER) margin += DEG(14);          /* it crawls: jump it rather than guess */
             if (o->kind != K_OWL && o->kind != K_SWING && iabs32(pred - o->ang) >= margin && iabs32(ang - o->ang) >= margin)

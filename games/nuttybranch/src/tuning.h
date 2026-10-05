@@ -91,14 +91,18 @@
 #define ROW_BARK      0                    /* 64 rows of bark along the length (period 64 units: 1 m) */
 #define ROW_FORK      64                   /* 22 x 8 rows: two sections, centre to centre 16 * (k + 1) */
 #define FORK_STEPS    22
-#define ROW_GRAIN     240                  /* 8 rows: the end grain (the far side of a gap) */
-#define ROW_JAGGED    248                  /* 8 rows: the broken end (the near side of a gap) */
+#define ROW_GRAIN     240                  /* 8 rows: the far side of a gap: its torn edge, dark wood between the teeth */
+#define ROW_JAGGED    248                  /* 8 rows: the near side of a gap: the jagged broken end of the bark */
+#define ROW_FACE      64                   /* 64 rows at columns 0-127 (beside the first fork rows): the far side's */
+#define FACE_ROWS     64                   /* broken face, a dark disc of torn wood seen end-on (flat-topped like the */
+#define FACE_CX       64                   /* branch's own strip), drawn on the gap's empty lines */
+#define FACE_DEPTH    (2 * BRANCH_R)       /* units: the face's height under the far edge */
 #define FORK_STEP     16
 #define ROW_NONE      1000                 /* outside the texture: transparent */
 #define RING_LEN      40                   /* units per ring phase (4 phases: the bark palette per line) */
 #define HAZE_LEVELS   4
-#define GRAIN_LEN     6                    /* units of end grain at the far side of a gap */
-#define JAGGED_LEN    5                    /* units of jagged edge at the near side */
+#define JAG_BACK      8                    /* a broken end's teeth: the units on the bark's side of the break ... */
+#define JAG_OUT       16                   /* ... and reaching into the gap (both ends: 8 texture rows over 24 units) */
 
 /* ---- the course (gen.c) ------------------------------------------------------------------------------------------ */
 #define CURVE_EASY    Q8(0.05)             /* x'' per segment^2 (Jake Gordon's 2 / 4 / 6) */
@@ -124,6 +128,8 @@
 
 /* when each kind first appears, metres */
 #define UNLOCK_KNOT   60
+#define UNLOCK_KNOTHOLE 100
+#define UNLOCK_ARCH   160
 #define UNLOCK_GAP    120
 #define UNLOCK_SAP    180
 #define UNLOCK_WEB    250
@@ -140,10 +146,18 @@
 #define UNLOCK_RAIN   850
 #define UNLOCK_BEES   950
 
-/* obstacle sizes: half-width (angle) and height (units) */
-#define TWIG_HALF     ANG(40)              /* a long side twig grows at 74 degrees and arches over to -6 ... */
-#define TWIG_SHORT_HALF ANG(22)            /* ... a short one to 30 (the centre of its span is its angle) */
-#define TWIG_H        Q8(10)
+/* the branches that cross the path (the same geometry as tools/nb_props.py crossing_limb): out of the flank at
+ * LIMB_ROOT degrees, their centre at side * (LIMB_ROOT - span * t) degrees and hc(t) units over the bark, radius r(t) */
+#define LIMB_ROOT     82
+#define LIMB_LOW_SPAN 122                  /* a low one, to -40 degrees: hc = 3 + 5 sin(min(1, 2t) pi/2): jump it */
+#define LIMB_ARCH_SPAN 137                 /* a high arch, to -55 degrees: hc = 4 + 30 sin(pi t): run under it */
+#define SQ_BODY_H     Q8(18)               /* the squirrel's height (what hits an arch overhead) */
+#define TWIG_HALF     ANG(61)              /* (the planner's and bot's view of a low limb: its whole span) */
+#define TWIG_H        Q8(16)
+#define KNOTHOLE_HALF ANG(15)              /* a knot-hole sunk in the bark: falling into it is the end */
+#define KNOTHOLE_LEN  26
+#define BG_STYLE      3                    /* the forest behind: 0 a deep forest, 1 a sunlit canopy, 2 misty pines,
+                                            * 3 birches and beeches (--opt bg=a..d) */
 #define KNOT_HALF     ANG(16)
 #define KNOT_H        Q8(24)
 #define WEB_HALF      ANG(22)

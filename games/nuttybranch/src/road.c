@@ -114,7 +114,7 @@ void road_project(const world *w, road_view *v)
     for (int i = 0; i < w->ob_count; i++) {
         const obj *o = ob_get(w, i);
         if (o->s > cs + DRAW_SEGS * SEG_LEN + 64) break;
-        if (o->kind == OB_GAP && o->s + o->len + GRAIN_LEN >= cs && ng < MAX_SPANS)
+        if (o->kind == OB_GAP && o->s + o->len + JAG_BACK >= cs && ng < MAX_SPANS)
             gaps[ng++] = (span){o->s, o->s + o->len, 0};
         if (o->kind == OB_FORK && o->s + o->len >= cs && nf < MAX_SPANS) forks[nf++] = (span){o->s, o->s + o->len, o->side};
         if (o->kind == OB_RAIN && o->s + o->len >= cs && nr < MAX_SPANS) rains[nr++] = (span){o->s, o->s + o->len, 0};
@@ -152,14 +152,16 @@ void road_project(const world *w, road_view *v)
                 if (s >= rains[i].s0 && s < rains[i].s1) L->wet = 1;
             L->ring = (uint8_t)(((s >= 0 ? s : -s) / RING_LEN) & 3);
             L->haze = (uint8_t)(z < 640 * 256 ? 0 : z < 1150 * 256 ? 1 : z < 1750 * 256 ? 2 : 3);
-            for (int i = 0; i < ng; i++) {
-                if (s >= gaps[i].s0 && s < gaps[i].s1) L->row = ROW_NONE;
-                else if (s >= gaps[i].s0 - JAGGED_LEN && s < gaps[i].s0) {
-                    L->row = (int16_t)(ROW_JAGGED + (gaps[i].s0 - s - 1) * 8 / JAGGED_LEN);
+            for (int i = 0; i < ng; i++) {             /* a gap: the two torn ends, nothing between */
+                int32_t n0s = gaps[i].s0 - JAG_BACK, f0s = gaps[i].s1 - JAG_OUT;
+                if (s >= n0s && s < gaps[i].s0 + JAG_OUT) {
+                    L->row = (int16_t)(ROW_JAGGED + (s - n0s) * 8 / (JAG_BACK + JAG_OUT));
                     L->tcx = TEX_CX;
-                } else if (s >= gaps[i].s1 && s < gaps[i].s1 + GRAIN_LEN) {
-                    L->row = (int16_t)(ROW_GRAIN + (s - gaps[i].s1) * 8 / GRAIN_LEN);
+                } else if (s >= f0s && s < gaps[i].s1 + JAG_BACK) {
+                    L->row = (int16_t)(ROW_GRAIN + (s - f0s) * 8 / (JAG_BACK + JAG_OUT));
                     L->tcx = TEX_CX;
+                } else if (s >= gaps[i].s0 && s < gaps[i].s1) {
+                    L->row = ROW_NONE;
                 }
             }
             for (int i = 0; i < nf && L->row != ROW_NONE; i++) {
@@ -192,6 +194,38 @@ void road_project(const world *w, road_view *v)
         if (yf < maxy) maxy = yf;
     }
     if (np > 0) v->pclip[np - 1] = maxy;
+    /* a gap's far side: its broken face, a dark disc of torn wood hanging under the far teeth, on the empty lines (the
+     * near side's bark, in front, keeps its lines). The face has the far edge's scale and centre on every line, its
+     * texture row the line's place down the face. */
+    for (int i = 0; i < ng && np >= 2; i++) {
+        int32_t s_q8 = (gaps[i].s1 - JAG_OUT) * 256, z = s_q8 - w->cam_s;
+        if (z < CAM_NEAR * 256 || s_q8 >= v->ps[np - 1]) continue;
+        int k = s_q8 < v->ps[1] ? 0 : 1 + (int)(((s_q8 - v->ps[1]) >> 8) / SEG_LEN);
+        if (k > np - 2) k = np - 2;
+        int32_t lat = lateral(w, n0, s_q8) + foff(v, s_q8, 0), hg = seg_height(w, s_q8), px, pt, pb;
+        proj(w, v, s_q8, lat, hg, &px, &pt);
+        if (pt > v->pclip[k] + 2 * 256) continue;   /* behind a crest */
+        proj(w, v, s_q8, lat, hg - FACE_DEPTH * 256, &px, &pb);
+        if (pb <= pt) continue;
+        int y0 = (pt + 128) >> 8, y1 = (pb - 128) >> 8;
+        if (y0 < 0) y0 = 0;
+        if (y1 > RS_SCREEN_H - 1) y1 = RS_SCREEN_H - 1;
+        int32_t s1 = gaps[i].s1;
+        for (int y = y0; y <= y1; y++) {
+            road_line *L = &v->ln[y];
+            if (L->row != ROW_NONE) continue;
+            int r = (int)((int64_t)(y * 256 + 128 - pt) * FACE_ROWS / (pb - pt));
+            L->row = (int16_t)(ROW_FACE + (r < 0 ? 0 : r > FACE_ROWS - 1 ? FACE_ROWS - 1 : r));
+            L->tcx = FACE_CX;
+            L->a = (int16_t)(z / FOCAL);
+            L->xc = (int16_t)((px + 128) >> 8);
+            L->z = z;
+            L->s = s1;
+            L->ring = (uint8_t)(((s1 >= 0 ? s1 : -s1) / RING_LEN) & 3);
+            L->haze = (uint8_t)(z < 640 * 256 ? 0 : z < 1150 * 256 ? 1 : z < 1750 * 256 ? 2 : 3);
+            L->wet = 0;
+        }
+    }
 }
 
 int road_free(const world *w, const road_view *v, int32_t s, int32_t lat, int32_t h, int *sx, int *sy, int *scale)

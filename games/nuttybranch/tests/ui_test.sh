@@ -32,7 +32,7 @@ run --frames 700 --opt bot=1 --opt seed=5 --opt ready=1 --opt start=1620 --shot 
 run --frames 700 --opt bot=1 --opt seed=4 --opt ready=1 --opt start=2020 --shot 600:"$O/winter.png"
 # the traps, one kind at a time (--opt only=KIND)
 scene() { run --frames $(($3 + 5)) --opt bot=1 --opt seed=3 --opt ready=1 --opt only=$1 --opt start=$2 --shot $3:"$O/trap-$1.png"; }
-scene gap 1000 150
+scene gap 1000 138
 scene fork 1000 150
 scene pecker 1000 150
 scene web 1000 150
@@ -42,7 +42,7 @@ scene knot 1000 270
 scene cone 1000 270
 scene wind 1000 150
 scene owl 1000 250
-scene twig 1000 270
+scene twig 1000 126
 scene snake 1000 150
 scene swing 1000 270
 scene bees 1000 130
@@ -50,6 +50,12 @@ scene snow 2050 270
 scene crow 1000 280
 scene shower 1000 150
 scene rain 1000 150
+scene hole 1000 136
+run --frames 210 --opt bot=1 --opt seed=3 --opt ready=1 --opt only=twig --opt start=1000 --shot 205:"$O/trap-arch.png"
+# the four forests behind (BG_STYLE in src/tuning.h, --opt bg=a..d), the same moment of the same run
+for b in a b c d; do
+    run --frames 310 --opt bot=1 --opt seed=5 --opt ready=1 --opt start=1000 --opt bg=$b --shot 300:"$O/bg-$b.png"
+done
 # the scenery: side branches, leaves overhead, fungi (an ordinary stretch)
 run --frames 400 --opt bot=1 --opt seed=5 --opt ready=1 --shot 385:"$O/scenery.png"
 run --frames 900 --opt bot=2 --opt seed=9 --opt ready=1 --shot 880:"$O/race-2-players.png"
@@ -70,7 +76,7 @@ if [ -n "$f" ]; then
 else
     ko "the 4-player bot run for the results did not end"
 fi
-shots="title title-2-players title-3-players title-4-players play pause summer autumn dusk night winter race-2-players play-4-players gameover-medal results-4-players trap-gap trap-fork trap-pecker trap-web trap-cater trap-sap trap-knot trap-cone trap-wind trap-owl trap-twig trap-snake trap-swing trap-bees trap-snow trap-crow trap-shower trap-rain scenery"
+shots="title title-2-players title-3-players title-4-players play pause summer autumn dusk night winter race-2-players play-4-players gameover-medal results-4-players trap-gap trap-fork trap-pecker trap-web trap-cater trap-sap trap-knot trap-cone trap-wind trap-owl trap-twig trap-snake trap-swing trap-bees trap-snow trap-crow trap-shower trap-rain trap-hole trap-arch scenery bg-a bg-b bg-c bg-d"
 n=0
 for s in $shots; do
     n=$((n + 1))

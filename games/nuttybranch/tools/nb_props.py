@@ -14,10 +14,10 @@ import numpy as np
 import house_style as hs
 import nb_render as nr
 from nb_pal import (BIRD, COL, WOOD, R_ACORN, R_BARK, R_BARKD, R_BLACK, R_CAP, R_CAPA, R_DARK, R_GOLD, R_GREEN,
-                    R_GREY, R_HAZEL, R_LEAF, R_MOSS, R_OWL, R_SAP, R_SNOW, R_WOOD, R_YEL)
+                    R_GREY, R_HAZEL, R_LEAF, R_MOSS, R_SAP, R_SNOW, R_WOOD, R_YEL)
 
 Canvas = hs.Canvas
-LODS = [1.6, 1.15, 0.83, 0.6, 0.43, 0.31, 0.22, 0.16]
+LODS = [round(1.6 / 1.18 ** i, 3) for i in range(16)]   # 1.6 .. 0.13: steps of 18%
 TILTS = [0, 18, 36]
 BR = 64.0                                             # the branch radius
 Ell = nr.Ell
@@ -107,28 +107,6 @@ def walnut(k):
 
 # ---- the traps on the bark (OBJ 2 unless said) --------------------------------------------------------------------------
 TWIG_WOOD = [WOOD["b0"], WOOD["b0"], WOOD["b1"], WOOD["b2"]]
-
-
-def twig(k, long=True):
-    """A side shoot growing out of the bark at 74 degrees on the right, arching over the path (to -6 degrees when long,
-    30 when short) a few units up, a few leaves on it. The anchor is the top of the branch."""
-    rng = random.Random(4 if long else 5)
-    tip = -6.0 if long else 30.0
-    pts, prims = [], []
-    n = 16
-    for i in range(n + 1):
-        t = i / float(n)
-        a = 74.0 + (tip - 74.0) * t
-        h = 9.0 * math.sin(math.pi * min(1.0, t * 1.15) * 0.5) + 1.0
-        pts.append(surf(a, h))
-    for i in range(n):
-        r = 1.9 - 1.1 * i / n
-        prims += nr.capsule(pts[i], pts[i + 1], r, r - 1.1 / n, TWIG_WOOD, n=3)
-    for t in (0.45, 0.7, 1.0):                           # leaves on short stalks
-        p = np.array(pts[int(t * n)]) + np.array([0, 2.0, rng.uniform(-2, 2)])
-        prims += leaf_cluster(p, 2, 2.0, rng, size=3.2)
-    sx = (surf(74)[0] + surf(tip)[0]) / 2
-    return draw(prims, k, 0, (sx, 0, abs(surf(74)[0] - surf(tip)[0]) / 2 + 2, 4))
 
 
 def burl(k, roll):
@@ -234,51 +212,6 @@ def snow(k, roll):
     return draw(prims, k, roll, (0, 0, 13, 9), COL["out"], COL["out"])
 
 
-def broken_end(k):
-    """A jagged broken branch end, seen from behind: pale splinters rising from the end of the bark."""
-    rng = random.Random(12)
-    prims = []
-    for a in range(-66, 67, 11):
-        h = rng.uniform(4, 15) * (1 - abs(a) / 120.0)
-        base = np.array(surf(a + rng.uniform(-3, 3)))
-        n = np.array([math.sin(math.radians(a)), math.cos(math.radians(a)), 0])
-        top = base + n * h + np.array([rng.uniform(-2, 2), 0, rng.uniform(1, 5)])
-        prims += nr.capsule(base, top, rng.uniform(2.2, 3.4), 0.5, R_WOOD, n=6)
-    for a in range(-80, 81, 8):                          # the torn bark lip
-        prims.append(Ell(surf(a, 0.5), (3.4, 1.6, 1.6), R_BARKD))
-    return draw(prims, k, 0, None)
-
-
-def gap_face(k):
-    """The far side of a gap: the broken face of the branch facing us, rings of pale wood, splinters on top."""
-    rng = random.Random(14)
-    teeth = [rng.uniform(0, 7) for _ in range(24)]
-
-    def face(px, anc, size, kk, rr):
-        ax, ay = anc
-        W, H = size
-        for Y in range(H):
-            for X in range(W):
-                x = (X + 0.5 - ax) / kk
-                y = (ay - (Y + 0.5)) / (kk * nr.CE)
-                r = math.hypot(x, y + BR)
-                ti = int((x / BR + 1) * 11.99)
-                top = teeth[ti] * (1 - abs(x) / BR) if 0 <= ti < 24 else 0
-                if r > BR or y > top or y < -BR * 0.22:
-                    continue
-                if y < -BR * 0.12 and not hs.dither_ok(X, Y, int(16 * (y + BR * 0.22) / (BR * 0.1))):
-                    continue
-                if r > BR - 3.5:
-                    c = WOOD["b4"] if r < BR - 1.5 else WOOD["out"]
-                elif y > -1.2:
-                    c = WOOD["wl"]
-                else:
-                    c = WOOD["wl"] if int(r / 4.5) % 2 == 0 else WOOD["wm"]
-                px[(X, Y)] = c
-    return draw([], k, 0, (0, -BR * 0.22 / nr.SE * nr.CE, BR, BR * 0.3 / nr.SE), None, None, extra=face)
-
-
-# ---- birds and beasts (OBJ 7) -------------------------------------------------------------------------------------------
 def crow(k, frame):
     """Seen from behind: 0 standing, 1 pecking, 2 flying off (wings up)."""
     peck = 1 if frame == 1 else 0
@@ -316,35 +249,6 @@ def swing(k, ang):
     prims = nr.capsule(pivot, end, 2.2, 1.4, R_BARK, n=18)
     prims += leaf_cluster(end + np.array([0, -4, 0]), 14, 7.0, rng, size=4.2)
     prims += leaf_cluster(pivot + (end - pivot) * 0.55, 5, 4.0, rng, size=3.4)
-    return draw(prims, k, 0, None)
-
-
-def side_branch(k, kind):
-    """A limb growing out of the side of the branch (the root is the anchor), outward, up and on: 0 leafy, 1 bare with
-    a tuft, 2 with a bird's nest; drawn for the right side (the left is the mirror)."""
-    rng = random.Random(30 + kind)
-    root = np.array([0.0, 0.0, 0.0])
-    if kind == 0:
-        mid, end = np.array([46, 22, 30]), np.array([96, 44, 64])
-    elif kind == 1:
-        mid, end = np.array([40, 30, 20]), np.array([70, 64, 40])
-    else:
-        mid, end = np.array([50, 14, 36]), np.array([90, 26, 70])
-    prims = nr.capsule(root, mid, 10, 6.5, R_BARKD) + \
-        nr.capsule(mid, end, 6.5, 2.2, R_BARKD)
-    if kind == 0:
-        prims += leaf_cluster(end, 26, 13, rng, size=5.2) + leaf_cluster(mid + np.array([0, 10, 0]), 12, 9, rng, size=4.6)
-    elif kind == 1:
-        prims += nr.capsule(end, end + np.array([10, 16, 6]), 2.0, 0.8, R_BARK) + \
-            nr.capsule(end, end + np.array([16, 4, 4]), 2.0, 0.8, R_BARK)
-        prims += leaf_cluster(end + np.array([12, 14, 6]), 10, 7, rng, size=4.2)
-    else:
-        nest = mid + np.array([12, 8, 4])
-        for i in range(14):                                # a ring of twigs and straw
-            t = i / 14.0 * 2 * math.pi
-            prims.append(Ell(nest + np.array([7 * math.cos(t), 0, 6 * math.sin(t)]), (3.2, 2.6, 3.0), R_WOOD))
-        prims += [Ell(nest + np.array([-1.5, 1.5, 0]), (2.0, 2.4, 2.0), R_CAP), Ell(nest + np.array([2, 1.5, 1]), (2.0, 2.4, 2.0), R_CAP)]
-        prims += leaf_cluster(end, 14, 9, rng, size=4.6)
     return draw(prims, k, 0, None)
 
 
@@ -408,3 +312,214 @@ def rain(frame):
         x = 5 - i // 3 + (frame % 2)
         cv.set(x, i + frame * 3, COL["w2"] if i < 7 else COL["w1"])
     return cv, 4, 8
+
+
+# ---- branches: one system for the ones that cross the path (obstacles) and the ones that grow outward (scenery) --------
+# The crossing ones follow the same geometry as src/play.c limb_at(): a limb growing out of the flank at 82 degrees,
+# arching over the path; its centre at angle side * (82 - SPAN * t) degrees and HC(t) units over the bark, radius R(t).
+LIMB_ROOT = 82.0
+LIMB_LOW = dict(span=122.0, h0=0.5, h1=2.0, r0=7.5, r1=3.8)      # lying low over the path: jump it
+LIMB_ARCH = dict(span=137.0, h0=4.0, h1=30.0, r0=8.0, r1=4.5)    # a high arch: run under it
+
+
+def limb_hc(g, t):
+    if g is LIMB_LOW:                                     # (src/play.c limb_point: the same shape)
+        return limb_r(g, t) + g["h0"] + g["h1"] * math.sin(max(0.0, min(1.0, t * 2)) * math.pi / 2)
+    return g["h0"] + g["h1"] * math.sin(math.pi * t)
+
+
+def limb_r(g, t):
+    return g["r0"] + (g["r1"] - g["r0"]) * t
+
+
+def bark_tex(Pl, n):
+    """rough bark on a limb: a speckle of darker and lighter flecks"""
+    x = np.nan_to_num(Pl[..., 0], posinf=0, neginf=0)
+    y = np.nan_to_num(Pl[..., 1], posinf=0, neginf=0)
+    z = np.nan_to_num(Pl[..., 2], posinf=0, neginf=0)
+    h = ((x * 7.3 + 9).astype(int) * 3 + (y * 5.1 + 9).astype(int) * 7 + (z * 6.7 + 9).astype(int) * 11) % 7
+    return np.where(h == 0, 1, np.where(h == 6, -1, 0))
+
+
+def limb_chain(pts, r0, r1, mat=None):
+    """a tapering limb through points (a polyline smoothed by its density): spheres along it"""
+    mat = mat or R_BARKD
+    out = []
+    n = len(pts)
+    for i in range(n):
+        t = i / float(n - 1)
+        r = r0 + (r1 - r0) * t
+        out.append(Ell(pts[i], (r, r, r), mat, tex=bark_tex))
+    return out
+
+
+def bezier(p0, p1, p2, n):
+    p0, p1, p2 = (np.array(p, float) for p in (p0, p1, p2))
+    return [tuple((1 - t) ** 2 * p0 + 2 * (1 - t) * t * p1 + t * t * p2) for t in (i / float(n - 1) for i in range(n))]
+
+
+def twigs_and_leaves(base, direction, rng, n, length, size):
+    """small sub-branches off a point, each ending in a leaf cluster"""
+    prims = []
+    for _ in range(n):
+        d = np.array(direction, float) + np.array([rng.uniform(-0.6, 0.6), rng.uniform(-0.2, 0.7), rng.uniform(-0.6, 0.6)])
+        d = d / np.linalg.norm(d)
+        mid = np.array(base) + d * length * 0.5 + np.array([0, rng.uniform(0, 3), 0])
+        end = np.array(base) + d * length
+        prims += limb_chain(bezier(base, mid, end, 10), 1.6, 0.6)
+        prims += leaf_cluster(end, 8, size * 1.6, rng, size=size)
+    return prims
+
+
+def crossing_limb(k, arch):
+    """A branch growing out of the right flank and crossing the path (the left is the mirror). The anchor is the top
+    of the main branch. It meanders a little (its centre line stays within a unit or two of the shape the game
+    collides with: src/play.c limb_point), has knobs and stubs, sub-branches with leaf clusters along it and a full
+    spray of leaves past its tip; a low one lies on the bark with a contact shadow along it."""
+    g = LIMB_ARCH if arch else LIMB_LOW
+    rng = random.Random(51 if arch else 52)
+    pts = []
+    n = 44
+    t0 = -0.1                                             # the root: from under the flank (a collar), then over
+    ts = [t0 + (1 - t0) * i / (n - 1.0) for i in range(n)]
+    for t in ts:
+        x, y, z = surf(LIMB_ROOT - g["span"] * t, limb_hc(g, max(0.0, t)) - (6 * -t if t < 0 else 0))
+        wob = math.sin(t * 9.0 + 0.7)                     # meandering along and up
+        pts.append((x, y + 0.8 * wob * (1 if arch else 0.4), z + 2.2 * math.sin(t * 6.0 + 1.3)))
+    prims = []
+    for i, (t, p) in enumerate(zip(ts, pts)):
+        r = limb_r(g, max(0.0, t)) * (1 + 0.35 * max(0.0, (0.06 - t) / 0.16))    # flaring into the flank
+        r *= 1 + 0.08 * math.sin(i * 1.7)                  # knobbly
+        prims.append(Ell(p, (r, r * 0.95, r), R_BARKD, tex=bark_tex))
+        if not arch and t >= 0:                           # the contact shadow on the bark under it
+            a = LIMB_ROOT - g["span"] * t
+            prims.append(Ell(surf(a, 0.2) + np.array([0, 0, -r * 0.25 + p[2]]), (r * 1.05, 0.4, r * 0.75),
+                             [WOOD["b4"]] * 4))
+    for frac, h in ((0.22, 1.0), (0.5, 0.9), (0.78, 1.1)):  # knobs and broken stubs
+        q = np.array(pts[int(frac * (n - 1))])
+        r = limb_r(g, frac)
+        prims.append(Ell(q + np.array([0, r * 0.7, 0]), (r * 0.55, r * 0.5 * h, r * 0.55), R_BARKD, tex=bark_tex))
+    end = np.array(pts[-1])
+    out = np.array([-1.0, 0.3, 0.4])                     # past the far side: twigs and leaves hanging over
+    prims += twigs_and_leaves(end, out, rng, 5, 20, 4.6)
+    prims += leaf_cluster(end + np.array([-7, 5, 4]), 26, 11, rng, size=5.0)
+    subs = ((0.3, [0.3, 1.0, 0.7], 3), (0.55, [0.0, 1.0, -0.5], 2), (0.75, [-0.4, 1.0, 0.4], 3))
+    if not arch:                                          # a low one: sideways, not up
+        subs = ((0.25, [0.3, 0.4, 1.0], 2), (0.7, [-0.3, 0.4, -1.0], 2))
+    for frac, d, m in subs:
+        prims += twigs_and_leaves(np.array(pts[int(frac * (n - 1))]), d, rng, m, 13 if arch else 11, 4.2)
+    return draw(prims, k, 0, None)
+
+
+def outward_limb(k, kind):
+    """A big branch growing out of the right flank (the root is the anchor), outward, up and on, curving and tapering,
+    with sub-branches and full leaf clusters: 0 reaching up, 1 long and low, 2 with a bird's nest."""
+    rng = random.Random(60 + kind)
+    if kind == 0:
+        p1, p2 = (40, 26, 20), (78, 70, 44)
+    elif kind == 1:
+        p1, p2 = (60, 6, 30), (118, 22, 70)
+    else:
+        p1, p2 = (46, 18, 26), (96, 40, 56)
+    pts = bezier((0, 0, 0), p1, p2, 36)
+    prims = limb_chain(pts, 11, 3.0)
+    for frac in (0.35, 0.6):                               # sub-branches forking off
+        base = np.array(pts[int(frac * 35)])
+        d = np.array(p2, float) - np.array(p1, float)
+        d = d / np.linalg.norm(d)
+        side = np.array([rng.uniform(-0.3, 0.3), 1.0, rng.uniform(-0.5, 0.5)])
+        tip = base + (d * 0.4 + side * 0.8) * 34
+        prims += limb_chain(bezier(base, base + side * 14 + d * 8, tip, 14), 4.0, 1.4)
+        prims += leaf_cluster(tip, 22, 10, rng, size=5.0)
+    prims += leaf_cluster(np.array(pts[-1]) + np.array([4, 6, 4]), 30, 14, rng, size=5.4)
+    if kind == 2:
+        nest = np.array(pts[20]) + np.array([0, 7, 0])
+        for i in range(14):
+            t = i / 14.0 * 2 * math.pi
+            prims.append(Ell(nest + np.array([7 * math.cos(t), 0, 6 * math.sin(t)]), (3.2, 2.6, 3.0), R_WOOD))
+        prims += [Ell(nest + np.array([-1.5, 1.6, 0]), (2.0, 2.4, 2.0), R_CAP), Ell(nest + np.array([2, 1.6, 1]), (2.0, 2.4, 2.0), R_CAP)]
+    return draw(prims, k, 0, None)
+
+
+KNOTHOLE_RX, KNOTHOLE_RZ = 15.0, 13.0                # (src/tuning.h KNOTHOLE_HALF, KNOTHOLE_LEN)
+
+
+def knothole(k, roll, frame):
+    """A knot-hole sunk into the curved bark (rolled with it, so foreshortened toward the sides): a swollen lip of bark
+    lit from above, the far inner wall seen through the opening (lit at its rim, darkening down), the dark depth
+    below it; frame 1: a mouse peeking out over the near rim."""
+    rng = random.Random(70)
+    rx, rz, depth, h = KNOTHOLE_RX, KNOTHOLE_RZ, 4.5, 0.6
+    prims = []
+    for i in range(22):                                   # the lip: a ring of bark swellings
+        a = i / 22.0 * 2 * math.pi
+        prims.append(Ell((rx * 1.12 * math.cos(a), 1.0, rz * 1.12 * math.sin(a)),
+                         (4.4 + rng.uniform(0, 1.4), 2.6, 3.8), R_BARKD, tex=bark_tex))
+
+    def inside(px, anc, size, kk, rr):
+        ax, ay = anc
+        W, H = size
+        c, s_ = math.cos(math.radians(rr)), math.sin(math.radians(rr))
+
+        def plane(u, w):                                  # screen (units) -> the bark plane (x across, z along)
+            x = (u - s_ * h) / c
+            return x, (w - (-s_ * x + c * h) * nr.CE) / nr.SE
+
+        def screen(x, z, up=0.0):                         # the bark plane (raised by up) -> pixel
+            u = c * x + s_ * (h + up)
+            w = (-s_ * x + c * (h + up)) * nr.CE + z * nr.SE
+            return ax + u * kk, ay - w * kk
+        for Y in range(H):
+            for X in range(W):
+                x, z = plane((X + 0.5 - ax) / kk, (ay - (Y + 0.5)) / kk)
+                if (x / rx) ** 2 + (z / rz) ** 2 > 1.0:
+                    continue
+                ze = rz * math.sqrt(max(0.0, 1 - (x / rx) ** 2))          # the far rim on this line across
+                f = (ze - z) * nr.SE / max(0.01, depth * nr.CE * math.sqrt(max(0.05, 1 - (x / rx) ** 2)))
+                if f < 0.2:
+                    col = WOOD["b2"]                      # the far wall: lit at its rim ...
+                elif f < 0.55:
+                    col = WOOD["b3"]
+                elif f < 1.0:
+                    col = WOOD["b4"]                      # ... darkening down
+                elif f < 1.3 and (X + Y) % 2 == 0:
+                    col = WOOD["b4"]
+                else:
+                    col = WOOD["dark"]                    # the depth
+                px[(X, Y)] = col
+        if frame == 1 and kk > 0.45:                      # a mouse peeking out over the near rim
+            zc = -rz * 0.35
+            for (cx, cz, up, r, col) in ((-2.6, 0, 2.6, 1.6, WOOD["wm"]), (2.6, 0, 2.6, 1.6, WOOD["wm"]),
+                                         (-2.6, 0, 2.6, 0.8, WOOD["cap"]), (2.6, 0, 2.6, 0.8, WOOD["cap"]),
+                                         (0, 0, 0, 3.1, WOOD["wm"])):
+                X0, Y0 = screen(cx, zc + cz, up)
+                rp = r * kk
+                for Y in range(int(Y0 - rp) - 1, int(Y0 + rp) + 2):
+                    for X in range(int(X0 - rp) - 1, int(X0 + rp) + 2):
+                        if (X + 0.5 - X0) ** 2 + ((Y + 0.5 - Y0) * 1.15) ** 2 <= rp * rp and 0 <= X < W and 0 <= Y < H:
+                            px[(X, Y)] = col
+            for ex in (-1.2, 1.2):                        # eyes and a nose
+                X, Y = (int(q) for q in screen(ex, zc, 0.5))
+                px[(X, Y)] = WOOD["out"]
+                if kk > 1.0:
+                    px[(X + (1 if ex > 0 else -1), Y)] = WOOD["out"]
+                    px[(X, Y - 1)] = WOOD["cream"]
+            X, Y = (int(q) for q in screen(0, zc, -1.4))
+            px[(X, Y)] = WOOD["cap"]
+    return draw(prims, k, roll, None, extra=inside)
+
+
+def broken_near(k):
+    """The near side of a gap: the broken end of the bark, a few jagged shards of bark and torn fibres."""
+    rng = random.Random(81)
+    prims = []
+    for a in range(-62, 63, 9):
+        a2 = a + rng.uniform(-3, 3)
+        base = np.array(surf(a2, -1.0))
+        n = np.array([math.sin(math.radians(a2)), math.cos(math.radians(a2)), 0])
+        h = rng.uniform(1.5, 6.0) * (1 - abs(a2) / 110.0)
+        top = base + n * h + np.array([0, 0, rng.uniform(1, 4)])
+        prims += limb_chain([tuple(base + (top - base) * i / 5.0) for i in range(6)], rng.uniform(2.0, 3.2), 0.7,
+                            R_BARKD if rng.random() < 0.75 else [WOOD["wm"], WOOD["wm"], WOOD["b3"], WOOD["b4"]])
+    return draw(prims, k, 0, None)
+

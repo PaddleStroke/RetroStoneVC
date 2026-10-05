@@ -244,7 +244,7 @@ static void test_world(void)
 static const int32_t CLS_H[NCLS] = {CATER_H, SNAKE_H, TWIG_H, OWL_H, CONE_H, KNOT_H, SWING_H, WEB_H, BEE_H, Q8(1000)};   /* 1000: no floor */
 typedef uint64_t mask;
 static mask cls[PLAN_MAX][NCLS];                    /* bins blocked by a thing of each height (the last: no floor) */
-static mask holdm[PLAN_MAX], forkb[PLAN_MAX];
+static mask holdm[PLAN_MAX], forkb[PLAN_MAX], over[PLAN_MAX];   /* over: an arch above (no jumping there) */
 static mask reach[PLAN_MAX + 64];
 static uint8_t busy[PLAN_MAX];
 static int32_t arc_tap[64], arc_held[64];
@@ -324,7 +324,7 @@ static plan_result plan(uint32_t seed, int start_m, int metres)
         squirrel *q = &w.q[0];
         int32_t s = q->s >> 8;
         memset(cls[N], 0, sizeof cls[N]);
-        holdm[N] = forkb[N] = 0;
+        holdm[N] = forkb[N] = over[N] = 0;
         busy[N] = 0;
         int32_t curve = seg_curve(&w, s);
         for (int b = 0; b < BINS; b++) {
@@ -339,6 +339,12 @@ static plan_result plan(uint32_t seed, int start_m, int metres)
 
                 if (o->kind == OB_WEB && labs(ds) <= SQ_HALF_LEN + OB_LEN / 2 && labs(ang - o->ang) < WEB_HALF + SQ_HALF_ANG)
                     cls[N][cls_of(WEB_H)] |= bit;
+                int32_t lo, hi;
+                if (o->kind == OB_TWIG && labs(ds) <= SQ_HALF_LEN + 4 && limb_at(o, ang, &lo, &hi)) {
+                    if (lo == 0) cls[N][cls_of(TWIG_H)] |= bit;              /* a low branch: jump it */
+                    else if (lo < SQ_BODY_H) cls[N][cls_of(BEE_H)] |= bit;   /* an arch's foot: a wall */
+                    else over[N] |= bit;                                     /* under an arch: run, do not jump */
+                }
                 int32_t oa, half, hh = ob_solid(&w, o, &oa, &half);
                 if (hh && labs(ds) <= SQ_HALF_LEN + OB_LEN / 2 && labs(ang - oa) < half + SQ_HALF_ANG) {
                     int k = cls_of(hh);
@@ -388,7 +394,7 @@ static plan_result plan(uint32_t seed, int start_m, int metres)
             int n = held ? n_held : n_tap;
             const int32_t *A = held ? arc_held : arc_tap;
             mask J = R;
-            for (int i = 1; i < n && f + i < N && J; i++) J &= ~blocked_above(f + i, A[i]) & ~forkb[f + i];
+            for (int i = 1; i < n && f + i < N && J; i++) J &= ~blocked_above(f + i, A[i]) & ~forkb[f + i] & ~over[f + i];
             if (f + n >= N) { beyond |= J != 0; continue; }     /* lands after the planned stretch */
             mask land = 0;
             for (int k = 0; k < NCLS; k++) land |= cls[f + n][k];

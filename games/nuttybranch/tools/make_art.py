@@ -7,12 +7,14 @@ Code-drawn art only, no image generation. The modules:
   nb_render.py    a tiny 3D renderer: every prop seen from the game's camera, sitting on the curved bark
   nb_props.py     the props, traps and decorations at their pre-drawn sizes (LODS) and tilts (TILTS)
   nb_squirrel.py  the squirrel from behind
-  make_art.py     this: the list of sprites, the backdrop, the sheets
+  nb_backdrop.py  the four forests behind (BG_STYLE): two parallax layers each
+  make_art.py     this: the list of sprites, the sheets
 
 Writes, in the art folder (default games/nuttybranch/art):
   sprites.png + sprites.json   every sprite frame (the sheet and its layout: anchor, palette group, resident)
   branch.png                   the affine branch texture (512x256)
-  backdrop.png                 BG3: the canopy (top) and the far forest band (256x256)
+  backdrop_<a-d>_near.png      BG3: each forest's near layer (256x256, repeating every 128 px)
+  backdrop_<a-d>_far.png       BG4: its far layer
   palettes.json                the fixed palettes (sprites) and the bands (BG, props, sky)
 
     python3 games/nuttybranch/tools/make_art.py [--out DIR] [--preview]
@@ -23,7 +25,6 @@ import argparse
 import json
 import math
 import os
-import random
 import sys
 
 from PIL import Image
@@ -34,11 +35,12 @@ ROOT = os.path.abspath(os.path.join(GAME, "..", ".."))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(ROOT, "games", "common", "tools"))
 import house_style as hs  # noqa: E402
+import nb_backdrop  # noqa: E402
 import nb_bark  # noqa: E402
 import nb_props as P  # noqa: E402
 import nb_render as nr  # noqa: E402
 import nb_squirrel as S  # noqa: E402
-from nb_pal import (BANDS, BIRD, BIRD_PAL, COL, COL_PAL, FUR_HUES, HERO_PAL, P2_SHIFT, R_BLACK, R_GREY,  # noqa: E402
+from nb_pal import (BANDS, BIRD, BIRD_PAL, COL_PAL, FUR_HUES, HERO_PAL, P2_SHIFT, R_BLACK, R_GREY,  # noqa: E402
                     R_OWL, WOOD, WOOD_PAL, band_bark, band_col, band_scene, band_wood)
 
 Canvas = hs.Canvas
@@ -133,12 +135,14 @@ def tilted(fn, *args):
 
 
 def sprite_defs():
+    """name, palette group, frames, resident (1: always in VRAM; the others are streamed when on screen)"""
+    L1, L2 = LOD_SCALES[1:], LOD_SCALES[2:]
     d = []
-    d.append(("sq_run", "hero", [S.body(l, "run", f) for l in LEANS for f in (0, 1)], 1))
-    d.append(("sq_jump", "hero", [S.body(0, "jump", f) for f in (0, 1)], 1))
-    d.append(("sq_fall", "hero", [S.body(l, "fall", 0) for l in (110, 175)], 1))
-    d.append(("sq_tail", "hero", [S.tail(a) for a in TAILS], 1))
-    d.append(("sq_icon", "hero", [(S.icon(), 8, 8)], 1))
+    d.append(("sq_run", "hero", [S.body(l, "run", f) for l in LEANS for f in (0, 1)], 0))
+    d.append(("sq_jump", "hero", [S.body(0, "jump", f) for f in (0, 1)], 0))
+    d.append(("sq_fall", "hero", [S.body(l, "fall", 0) for l in (110, 175)], 0))
+    d.append(("sq_tail", "hero", [S.tail(a) for a in TAILS], 0))
+    d.append(("sq_icon", "hero", [(S.icon(), 8, 8)], 0))
     d.append(("leaf", "wood", [leaf(0), leaf(1)], 1))
     d.append(("meter", "bird", [meter()], 1))
     d.append(("needle", "bird", [needle()], 1))
@@ -150,27 +154,26 @@ def sprite_defs():
     d.append(("acorn", "col", lods(P.acorn), 0))
     d.append(("hazel", "col", lods(P.hazel), 0))
     d.append(("walnut", "col", lods(P.walnut), 0))
-    d.append(("twig", "wood", lods(P.twig, True) + lods(P.twig, False), 0))
+    d.append(("limb", "wood", [P.crossing_limb(k, arch) for arch in (0, 1) for k in L1], 0))
+    d.append(("side", "wood", [P.outward_limb(k, kind) for kind in range(3) for k in L2], 0))
     d.append(("knot", "wood", tilted(P.burl), 0))
     d.append(("web", "col", tilted(P.web), 0))
     d.append(("sap", "col", tilted(P.sap), 0))
-    d.append(("hole", "wood", tilted(P.hole), 0))
+    d.append(("hole", "wood", tilted(P.knothole, 0) + tilted(P.knothole, 1), 0))
     d.append(("cone", "wood", tilted(P.pinecone), 0))
     d.append(("snow", "col", tilted(P.snow), 0))
     d.append(("cater", "bird", tilted(P.caterpillar, 0) + tilted(P.caterpillar, 1), 0))
     d.append(("snake", "bird", tilted(P.snake, 0) + tilted(P.snake, 1), 0))
     d.append(("shadow", "wood", lods(P.shadow, 6, 4), 0))
     d.append(("bigshadow", "bird", [P.shadow(k, 22, 7, BIRD["out"]) for k in LOD_SCALES], 0))
-    d.append(("broken", "wood", lods(P.broken_end), 0))
-    d.append(("gapface", "wood", lods(P.gap_face), 0))
+    d.append(("broken", "wood", lods(P.broken_near), 0))
     d.append(("pecker", "bird", lods(woodpecker, 0) + lods(woodpecker, 1), 0))
     d.append(("owl", "bird", lods(owl, 0) + lods(owl, 1), 0))
     d.append(("crow", "bird", lods(P.crow, 0) + lods(P.crow, 1) + lods(P.crow, 2), 0))
-    d.append(("swing", "wood", [P.swing(k, a) for a in SWING for k in LOD_SCALES[1:]], 0))
-    d.append(("side", "wood", [P.side_branch(k, kind) for kind in range(3) for k in LOD_SCALES[1:]], 0))
-    d.append(("over", "wood", [P.overhead(k, kind) for kind in range(2) for k in LOD_SCALES[1:]], 0))
-    d.append(("mush", "wood", [P.mushrooms(k, 72) for k in LOD_SCALES[1:]], 0))
-    d.append(("hive", "wood", [P.hive(k) for k in LOD_SCALES[1:]], 0))
+    d.append(("swing", "wood", [P.swing(k, a) for a in SWING for k in L1], 0))
+    d.append(("over", "wood", [P.overhead(k, kind) for kind in range(2) for k in L1], 0))
+    d.append(("mush", "wood", [P.mushrooms(k, 72) for k in L1], 0))
+    d.append(("hive", "wood", [P.hive(k) for k in L1], 0))
     return d
 
 
@@ -183,85 +186,6 @@ def texture_image(T, pal):
             if i:
                 px[x, y] = pal[i]
     return im
-
-
-SCENE_W, SCENE_H = 256, 256
-CANOPY_H = 48
-FOREST_Y0, HORIZON_ROW = 64, 96
-
-
-def backdrop():
-    T = [[0] * SCENE_W for _ in range(SCENE_H)]
-    rng = random.Random(5)
-    # the canopy: leaf clusters hanging from the top, a 128-px pattern
-    blobs = []
-    for i in range(14):
-        bx = rng.uniform(0, 128)
-        by = rng.uniform(4, 30)
-        r = rng.uniform(7, 14)
-        blobs.append((bx, by, r))
-    for y in range(CANOPY_H):
-        for x in range(SCENE_W):
-            xx = x % 128
-            if y < 6:
-                T[y][x] = 4 if y < 3 else 3
-                continue
-            best = None
-            for bx, by, r in blobs:
-                for off in (-128, 0, 128):
-                    dx, dy = (xx - (bx + off)) / r, (y - by) / (r * 0.8)
-                    d = dx * dx + dy * dy
-                    if d <= 1.0 and (best is None or d < best[0]):
-                        best = (d, dx, dy)
-            if best:
-                d, dx, dy = best
-                nd = dx * hs.LIGHT_DIR[0] + dy * hs.LIGHT_DIR[1]
-                c = 1 if nd > 0.55 else 2 if nd > 0.0 else 3 if nd > -0.5 else 4
-                if (x * 7 + y * 3) % 13 == 0 and c < 4:
-                    c += 1                                      # leaf texture
-                T[y][x] = c
-    for x in range(SCENE_W):                                    # a thin twig crossing the canopy
-        y = int(24 + 6 * math.sin(x * 2 * math.pi / 128))
-        if T[y][x] == 0 or (x % 128) > 70:
-            T[y][x] = 11
-    # the far forest: crowns on the horizon (5-7), then the crowns far below (8-10) fading into the mist (12-13)
-    for x in range(SCENE_W):
-        h1 = HORIZON_ROW - 14 - int(8 * abs(math.sin(x * math.pi / 32)) + 4 * math.sin(x * 2 * math.pi / 64 + 1))
-        for y in range(max(FOREST_Y0, h1), HORIZON_ROW + 8):
-            T[y][x] = 5 if y - h1 < 3 else 6 if y < HORIZON_ROW else 7
-        for y in range(HORIZON_ROW + 6, HORIZON_ROW + 60):           # the shade between the crowns below
-            T[y][x] = 10 if y < HORIZON_ROW + 50 or hs.dither_ok(x, y, 16 - (y - HORIZON_ROW - 50) * 2) else 0
-        if x % 32 in (5, 6) and h1 < HORIZON_ROW:                 # a far trunk now and then
-            for y in range(h1 + 4, HORIZON_ROW + 8):
-                T[y][x] = 7
-    # the crowns of the forest far below: rows of round crowns, bigger as they come nearer, lit from the top-left
-    # (a 128-px pattern, far rows first), the lowest fading into the mist
-    for j in range(6):
-        r = 3.5 + 1.4 * j
-        yc = HORIZON_ROW + 9 + 7 * j + 0.5 * j * j
-        n = max(3, int(round(128 / (1.9 * r))))
-        for i in range(n):
-            bx = (i + 0.5 * (j % 2)) * 128.0 / n + (rng.random() - 0.5) * r * 0.6
-            by = yc + (rng.random() - 0.5) * 2
-            rr = r * (0.85 + 0.3 * rng.random())
-            for y in range(int(by - rr) - 1, int(by + rr) + 2):
-                if y < HORIZON_ROW + 4 or y >= HORIZON_ROW + 60:
-                    continue
-                for xx in range(int(bx - rr) - 1, int(bx + rr) + 2):
-                    dx, dy = (xx + 0.5 - bx) / rr, (y + 0.5 - by) / (rr * 0.8)
-                    if dx * dx + dy * dy > 1:
-                        continue
-                    if y >= HORIZON_ROW + 50 and not hs.dither_ok(xx, y, 16 - (y - HORIZON_ROW - 50) * 2):
-                        continue
-                    nd = dx * hs.LIGHT_DIR[0] + dy * hs.LIGHT_DIR[1]
-                    c = 8 if nd > 0.35 else 9 if nd > -0.3 else 10
-                    if j < 2:
-                        c = 13 if nd > 0.35 else 12 if c == 9 else 9         # the far rows in the haze
-                    for k in range(0, SCENE_W, 128):
-                        T[y][(xx % 128) + k] = c
-    return T
-
-
 
 
 # ---- the sheet ----------------------------------------------------------------------------------------------------
@@ -298,7 +222,10 @@ def write_all(out, preview=False):
                                      for (x, y, w, h, ax, ay) in fr]))
     files = {"sprites.png": sheet}
     files["branch.png"] = texture_image(nb_bark.branch_texture(), band_bark(0))
-    files["backdrop.png"] = texture_image(backdrop(), band_scene(0))
+    for st, fn in nb_backdrop.STYLES.items():
+        near, far = fn()
+        files["backdrop_%s_near.png" % st] = texture_image(near, band_scene(0))
+        files["backdrop_%s_far.png" % st] = texture_image(far, band_scene(0))
     for f, im in files.items():
         im.save(os.path.join(out, f))
         if preview:
@@ -307,7 +234,7 @@ def write_all(out, preview=False):
     with open(os.path.join(out, "sprites.json"), "w") as f:
         json.dump(manifest, f, indent=0)
     pals = dict(groups={g: [list(c) for c in p] for g, p in GROUP_PAL.items()},
-                fur_hues=list(FUR_HUES), p2_shift=P2_SHIFT, lods=LOD_SCALES, tilts=TILTS,
+                fur_hues=list(FUR_HUES), p2_shift=P2_SHIFT, lods=LOD_SCALES, tilts=TILTS, bg_styles=sorted(nb_backdrop.STYLES),
                 bands=[dict(name=b["name"], sky=[list(c) for c in b["sky"]],
                             bark=[list(c) for c in band_bark(i)], scene=[list(c) for c in band_scene(i)],
                             wood=[list(c) for c in band_wood(i)], col=[list(c) for c in band_col(i)])

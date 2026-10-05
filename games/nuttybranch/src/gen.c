@@ -95,11 +95,12 @@ static void edge_nut(chunk_ctx *c, int32_t s)
 
 /* ---- the groups ------------------------------------------------------------------------------------------------------ */
 enum { G_NUTS, G_TWIGS, G_KNOTS, G_GAP, G_SAP, G_WEB, G_PECKER, G_CATER, G_WIND, G_CONES, G_OWL, G_FORK,
-       G_SNAKE, G_SWING, G_BEES, G_SNOW, G_CROW, G_SHOWER, G_RAIN, G_KINDS };
+       G_SNAKE, G_SWING, G_BEES, G_SNOW, G_CROW, G_SHOWER, G_RAIN, G_HOLES, G_KINDS };
 static const int UNLOCK_M[G_KINDS] = {0, 0, UNLOCK_KNOT, UNLOCK_GAP, UNLOCK_SAP, UNLOCK_WEB, UNLOCK_PECKER,
                                       UNLOCK_CATER, UNLOCK_WIND, UNLOCK_CONE, UNLOCK_OWL, UNLOCK_FORK, UNLOCK_SNAKE,
-                                      UNLOCK_SWING, UNLOCK_BEES, 0, UNLOCK_CROW, UNLOCK_SHOWER, UNLOCK_RAIN};
-static const int WEIGHT[G_KINDS] = {3, 6, 5, 5, 3, 3, 3, 3, 3, 3, 2, 3, 3, 3, 2, 5, 3, 2, 2};
+                                      UNLOCK_SWING, UNLOCK_BEES, 0, UNLOCK_CROW, UNLOCK_SHOWER, UNLOCK_RAIN,
+                                      UNLOCK_KNOTHOLE};
+static const int WEIGHT[G_KINDS] = {3, 6, 5, 5, 3, 3, 3, 3, 3, 3, 2, 3, 3, 3, 2, 5, 3, 2, 2, 4};
 
 int gen_band(int32_t metres) { return (int)((metres < 0 ? 0 : metres) / BAND_M % 6); }
 static int night(int m) { return gen_band(m) == 4; }
@@ -121,12 +122,11 @@ static int32_t group(chunk_ctx *c, int kind, int32_t s)
     case G_TWIGS: {
         int n = 1 + rnd(w, 1 + c->diff / 80);
         for (int k = 0; k < n; k++) {
-            /* a side twig grows out of the bark on one side at 74 degrees and arches over: a long one to -6 degrees
-             * (its span's centre at 34), a short one to 30 (centre 52); acorns lead round it on the other side */
-            int side = rnd(w, 2) ? 1 : -1, lng = rnd(w, 3) != 0;
-            add(c, OB_TWIG, s, side * (lng ? ANG(34) : ANG(52)), lng, side);
-            int32_t ga = -side * ANG(lng ? 30 : 10);
-            acorn_line(c, s - F2U(c, 34), s - F2U(c, 10), ga / 2, ga);
+            /* a branch grows out of one flank and crosses the path: a low one (jump it; acorns lead over it) or,
+             * further on, a high arch (run under it: acorns lead through the middle) */
+            int side = rnd(w, 2) ? 1 : -1, arch = c->m >= UNLOCK_ARCH && rnd(w, 5) < 2;
+            add(c, OB_TWIG, s, arch ? 0 : side * ANG(21), arch, side);
+            acorn_line(c, s - F2U(c, 34), s - F2U(c, 8), 0, arch ? 0 : -side * ANG(20));
             s += F2U(c, 48 + rnd(w, 30) - c->diff / 32);
         }
         if (rnd(w, 3) == 0) edge_nut(c, s);
@@ -190,7 +190,7 @@ static int32_t group(chunk_ctx *c, int kind, int32_t s)
         acorn_line(c, s + F2U(c, 10), s + len - F2U(c, 10), -side * ANG(8), -side * ANG(16));
         if (c->diff > 120) {
             int ts = rnd(w, 2) ? 1 : -1;     /* a side twig in the gust (from the windward side: lean into it) */
-            add(c, OB_TWIG, s + len / 2, ts * ANG(52), 0, ts);
+            add(c, OB_TWIG, s + len / 2, ts * ANG(21), 0, ts);
         }
         return len;
     }
@@ -199,6 +199,16 @@ static int32_t group(chunk_ctx *c, int kind, int32_t s)
         for (int k = 0; k < n; k++) {
             add(c, OB_CONE, s, rnd_in(w, -ANG(30), ANG(30)), 0, 0);
             s += F2U(c, 44 + rnd(w, 20));
+        }
+        return s - s_start;
+    }
+    case G_HOLES: {
+        int n = 1 + rnd(w, 2);
+        for (int k = 0; k < n; k++) {
+            int32_t a = rnd_in(w, -ANG(28), ANG(28));
+            add(c, OB_KNOTHOLE, s, a, KNOTHOLE_LEN, 0);
+            acorn_line(c, s - F2U(c, 30), s - F2U(c, 6), a / 2, a > 0 ? a - ANG(30) : a + ANG(30));
+            s += F2U(c, 50 + rnd(w, 24));
         }
         return s - s_start;
     }
@@ -260,7 +270,8 @@ int gen_force = -1;
 int gen_kind_of(const char *name)
 {
     static const char *names[G_KINDS] = {"nuts", "twig", "knot", "gap", "sap", "web", "pecker", "cater", "wind", "cone",
-                                         "owl", "fork", "snake", "swing", "bees", "snow", "crow", "shower", "rain"};
+                                         "owl", "fork", "snake", "swing", "bees", "snow", "crow", "shower", "rain",
+                                         "hole"};
     for (int k = 0; name && k < G_KINDS; k++)
         if (!strcmp(name, names[k])) return k;
     return -1;
@@ -308,9 +319,15 @@ static void flush(chunk_ctx *c)
 static void scenery(chunk_ctx *c, int32_t s0, int32_t s1)
 {
     world *w = c->w;
-    for (int32_t s = s0 + drnd(w, 160); s < s1; s += 140 + drnd(w, 220)) {
-        int side = drnd(w, 2) ? 1 : -1;
-        decor(c, DC_SIDE0 + drnd(w, 3), s, side, side * ANG(84), 0);
+    for (int32_t s = s0 + drnd(w, 160); s < s1; s += 160 + drnd(w, 240)) {
+        int side = drnd(w, 2) ? 1 : -1, clear = 1;
+        for (int i = 0; i < c->n; i++) {
+            const obj *o = &c->ob[i];
+            if ((o->kind == OB_GAP || o->kind == OB_KNOTHOLE) && s > o->s - 80 && s < o->s + o->len + 80) clear = 0;
+            if (o->kind == OB_FORK && s > o->s - 80) clear = 0;
+            if (o->kind == OB_TWIG && s > o->s - 60 && s < o->s + 60) clear = 0;
+        }
+        if (clear) decor(c, DC_SIDE0 + drnd(w, 3), s, side, side * ANG(84), 0);
     }
     for (int32_t s = s0 + drnd(w, 300); s < s1; s += 240 + drnd(w, 300)) {
         int side = drnd(w, 2) ? 1 : -1;

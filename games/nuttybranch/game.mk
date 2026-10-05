@@ -3,7 +3,9 @@
 #   make nuttybranch                host builds: nuttybranch (SDL2), nuttybranch_headless, nuttybranch_libretro.so
 #   make nuttybranch-check          all its tests: libretro loader, physics + generator fairness + determinism
 #                                   (tests/test_physics.c), smoke (flow, 1-4 players, determinism), the screen-only
-#                                   bot, the UI screens (0-3 players joined), save states and their audit, the frame cost
+#                                   bot, the UI screens (0-3 players joined), save states and their audit, the props'
+#                                   sizes and anchors (lod_test.sh), the bark's furrows on screen (furrow_test.sh),
+#                                   the frame cost
 #   make nuttybranch-dist           dist/windows/NuttyBranch.exe, dist/libretro/nuttybranch_libretro.so (+ .armhf.so)
 #   make nuttybranch-windows        only the Windows exe
 #   make nuttybranch-armhf          the libretro core for the RetroStone2 (Cortex-A7)
@@ -49,6 +51,8 @@ nuttybranch-check:
 	sh $(NUTTYBRANCH_DIR)/tests/bot_test.sh build/host/nuttybranch_headless build 12
 	sh $(NUTTYBRANCH_DIR)/tests/ui_test.sh build/host/nuttybranch_headless build/nuttybranch-ui
 	sh $(NUTTYBRANCH_DIR)/tests/state_test.sh build/host/nuttybranch_test_states build/states
+	sh $(NUTTYBRANCH_DIR)/tests/lod_test.sh build/host/nuttybranch_headless
+	sh $(NUTTYBRANCH_DIR)/tests/furrow_test.sh build/host/nuttybranch_headless build
 	sh $(NUTTYBRANCH_DIR)/tests/bench_test.sh build/host/nuttybranch_headless
 	$(PYTHON) tools/state_audit.py --game nuttybranch build/host/nuttybranch_test_states $(NUTTYBRANCH_OBJ_HOST)
 

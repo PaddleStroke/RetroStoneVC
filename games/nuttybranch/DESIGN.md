@@ -9,8 +9,8 @@ virtual console (docs/spec.md), in the 8BCraft house style (docs/art-direction.m
 ## Pitch
 A red squirrel races along an endless oak branch, seen from behind, the branch rushing toward the camera like an
 arcade road. The branch is a **cylinder**: the further the squirrel runs from the top, the harder gravity pulls it
-off the side. Steer to stay balanced, jump twigs, gaps and caterpillars, and lean out toward the edges for the
-nuts, as far as greed allows. One more run, a best distance to beat, up to four squirrels on the same branch.
+off the side. Steer to stay balanced, jump the branches lying across it, gaps and caterpillars, and lean out toward
+the edges for the nuts, as far as greed allows. One more run, a best distance to beat, up to four squirrels on the same branch.
 
 ## Controls
 | Pad | Keyboard | Action |
@@ -79,51 +79,83 @@ a gap (Celeste's grace windows).
   samples one row, horizontally scaled and shifted.
 - **The bark is a cylinder** (512x256 texels, `tools/nb_bark.py`): a texel column is a place across the branch,
   x = R sin(angle), so everything on the bark is laid out by its ANGLE and squeezed toward the silhouette (the owner's
-  playtest: evenly spaced furrows read as a flat road). The furrows run ALONG the branch, every 10 degrees of angle:
-  wide apart on the top, bunching up strongly at the sides, and in the perspective they all run to the vanishing
-  point (the speed, the roundness). The ridges between them are bark plates of 16 to 40 units, broken by short
-  cross-cracks (the subtle detail that scrolls toward you), each plate's left edge catching the light. The shading
-  follows the light from above, n . L with n = (sin a, cos a): a light top band, darkening gradually to both sides
-  over 7 shades, the underside darkest, a dark rim at the silhouette, a slightly ragged edge and the odd bump.
+  playtest: evenly spaced furrows read as a flat road). The furrows run ALONG the branch, every 9 degrees of angle:
+  wide apart on the top, bunching up and thinning toward the sides, and in the perspective they all run to the
+  vanishing point (the speed, the roundness). Each furrow wanders a degree or so along the branch and swells and
+  thins (a braided, irregular bark, not planks), its core deepest on the lit top (more contrast in the middle); the
+  ridges between are split here and there, rough with specks and flecks of light, their left flanks lit in broken
+  strokes; cross-cracks are rare. The pattern repeats every 32 rows so its tiles deduplicate. The shading follows
+  the light from above, n . L with n = (sin a, cos a): a narrow highlight, darkening gradually to both sides over
+  7 shades, the underside darkest, a dark rim at the silhouette, a slightly ragged edge and the odd bump.
+  **Measured** (`tests/furrow_test.sh`): on 9 screen lines just below the squirrel the furrows are found as runs of
+  pixels darker than the bark round them; they are 7-8 degrees apart all the way round (the texture's 9, a few
+  merged or split), 13.0 px apart on the top, 11.0 px at 22-44 degrees and 9.0 px at 44-66 (cos law: 13.0, 11.1,
+  7.6), 6.7, 5.9 and 4.5 px wide.
   Variety along the length: three 64-row patches side by side (plain bark with lichen, a burl, an old scar with
-  moss), one picked per metre (the plain one 6 metres in 8); window 1 clips the layer to the branch's span on each
-  line so the neighbouring patches never show. Rows 64-239: the fork rows (two sections side by side, centre to
-  centre 16..352 texels in 16-texel steps, 8 identical rows each), then the end grain and the jagged rows of a gap.
-  A fork line picks the nearest separation: the branch the camera follows lands exactly, the other within 8 texels;
-  below the leader only the followed branch is drawn (the other has swung away).
+  moss), one picked per metre (the plain one 6 metres in 8); window 1 clips the layer to the line's own part of
+  its row on every line, so the neighbouring patches never show. Rows 64-239: the fork rows (two sections side by
+  side, centre to centre 16..352 texels in 16-texel steps, 8 identical rows each); a fork line picks the nearest
+  separation: the branch the camera follows lands exactly, the other within 8 texels; below the leader only the
+  followed branch is drawn (the other has swung away).
+- **A gap is a real break** (rows 240-255 and the face): its near end is the bark torn into pointed teeth of all
+  lengths in the bark's own shades, a lit lip and a dark torn edge (8 rows over 24 units, 16 of them reaching into
+  the gap: they grow on screen as you come); its far end the same teeth pointing back at you, the dark broken face
+  between them; and under the far end hangs its **broken face**: a disc of dark torn wood seen end-on (growth rings
+  round the pith, splits, torn fibres, the bark round it, a torn outline), flat-topped like the branch's strip, as
+  deep as the branch (128 units). It is drawn by the branch layer itself (`road.c`): its 64 rows sit beside the
+  first fork rows (columns 0-127), and every empty line of the gap under the far end takes the far end's scale and
+  centre and the row of its place down the face, so the face is attached to the far end at every distance, on
+  curves and on slopes, and the near end's bark (nearer) keeps its lines over it. The gap reads dark.
 - **Rings and haze and rain**: the raster callback loads one of 32 bark palettes per line (only when it changes):
   4 ring phases (OutRun's stripes, kept subtle), 4 haze levels toward the horizon's colour, dry or wet (after rain
   the lit top shines and the shadows deepen).
-- Behind: the backdrop gradient (sky above the horizon, misty forest depths below, one colour per line), BG3 the
-  canopy at the top (parallax 1/2 of the curve drift) and the far forest band at the horizon (1/4) with the tree
-  crowns far below, one layer split by a line-scroll table. Curves drift the backgrounds sideways (Jake Gordon:
-  offset += speed * curve * k). BG1 the house UI.
+- **The forest behind**: four styles (`BG_STYLE` in `tuning.h`, or `--opt bg=a..d`; `tools/nb_backdrop.py`), each
+  two parallax layers of 256x256 repeating every 128 px: BG4 the far forest (1/4 of the curves' drift, Jake Gordon:
+  offset += speed * curve * k) and BG3 the near one (1/2), over the backdrop gradient (sky above the horizon, misty
+  depths below, one colour per line), all in the scene palette so every style follows the seasons and the time of
+  day: **a** a deep forest (tall trunks in two depths, misty far ones, dappled light, vines), **b** a sunlit canopy
+  (a thick roof of leaves, leafy strands hanging, shafts of light), **c** misty pines (layered silhouettes fading
+  into the mist), **d** birches and beeches (white trunks with dark dashes, round crowns, a bright sky): the
+  default, the white trunks setting off the dark bark. `docs/screenshots/bg-a.png` .. `bg-d.png`: the same moment.
+  BG1 the house UI.
 - **Things on the bark** (`tools/nb_render.py`, `tools/nb_props.py`): every prop is built from ellipsoids in 3D on
   the bark (x across, y up the normal, z along the branch) and ray-cast from the game's own camera (looking down
-  31 degrees), shaded by the house light, outlined, with a dithered contact shadow on the bark; a prop sitting at
-  an angle round the branch is rolled by its tilt (0, 18 or 36 degrees, mirrored on the left), so it leans and
-  narrows with the surface like the bark does. Each is pre-drawn at **8 sizes** (1.6, 1.15, 0.83, 0.6, 0.43, 0.31,
-  0.22, 0.16 px per unit, steps of 1.4x) and the size nearest the projected scale F / z is shown, so things grow
-  smoothly as they come. They are placed at `x = xc(line) + R sin(angle) F / z`; far to near; a crest hides what is
-  behind it. Big frames are cut into pieces of up to 64x32.
-- **Streamed sprite tiles**: with 8 sizes and 3 tilts there are 6250 sprite tiles, far more than VRAM. Only the
-  squirrels and the small effects stay resident (287 tiles); every other frame is copied into a 473-tile pool when
+  31 degrees), shaded by the house light, outlined, with a contact shadow on the bark; a prop sitting at an angle
+  round the branch is rolled by its tilt (0, 18 or 36 degrees, mirrored on the left), so it leans and narrows with
+  the surface like the bark does. Each is pre-drawn at **16 sizes** (1.6 down to 0.13 px per unit, steps of 18%)
+  and the size nearest the projected scale F / z is shown, so things grow steadily as they come. They are placed at
+  `x = xc(line) + R sin(angle) F / z`, far to near; a crest hides what is behind it; whatever sits on the bark is
+  kept within the span of the branch drawn on its line (`draw.c on_branch`: near a crest or the horizon one line can
+  hold a long stretch of a turning branch but shows one centre) and is not drawn on a line without bark. Big frames
+  are cut into pieces of 32x32 trimmed to their tiles. **Tested** (`tests/lod_test.sh`, `--opt lodcheck=1`): over
+  18 runs (3 whole courses, 15 trap kinds alone) every object's drawn size, sampled every frame, only ever steps to
+  the next larger size (23841 steps, none shrinking, none skipping a size, always the nearest size), and every
+  anchor of a thing on the bark or growing out of it is drawn on a line with bark within the branch's span (200032
+  anchors, 0 off; 7818 of them kept on their line near crests and the horizon).
+- **Branches**: one style for all, big, knobbly, tapering, curving, with sub-branches, full leaf clusters and the
+  bark's own speckle. The **crossing** ones grow out of a flank, from behind its silhouette with a collar, and lie
+  low over the path (jump them) or arch high over it (run under; no jumping there), meandering a little round the
+  shape the game collides with (`play.c limb_point`), with a contact shadow along a low one. The **outward** ones
+  (scenery) are drawn behind the branch layer, so they grow out from behind the silhouette at every distance.
+- **Streamed sprite tiles**: with 16 sizes and 3 tilts there are 13309 sprite tiles, far more than VRAM. Only the
+  small effects stay resident (18 tiles); every other frame (the squirrels too) is copied into a 502-tile pool when
   it is first drawn and stays there while it is on screen (`draw.c pool_get`: first fit, the frames not drawn this
   frame let go when the pool is full), the SNES way of DMA-ing sprite tiles. The pool is in the save state with
-  VRAM. VRAM stays at 57 KB of 64.
+  VRAM. **VRAM**: 60.3-62.5 KB of 64 depending on the forest (a 62400, b 60352, c 62464, d 60288 bytes; the branch
+  372 tiles, the forests 273-341).
 - Times of day and seasons change every 400 m (spring morning, summer noon, autumn afternoon, dusk, night, winter
   dawn, then round again): sky, forest, canopy, bark, leaves and the props' bark blend over 32 m.
 
 ## Scenery
 Decorations never touch the rules and come from their own RNG (the course is the same with or without them):
-- **side branches** grow out of both flanks every 140-360 units (leafy, bare with a tuft, or carrying a bird's
-  nest), rooted at the silhouette and reaching out and away; kept off the far end of the branch (beyond 1200 units)
-  where the traps appear;
+- **side branches** grow out of both flanks every 160-400 units (leafy and reaching up, long and low, or carrying
+  a bird's nest), from behind the silhouette (drawn behind the branch layer), never by a gap, a knot-hole, a fork
+  or a crossing branch; kept off the far end of the branch (beyond 1200 units) where the traps appear;
 - **leaves overhead**: clumps hanging from limbs above, with moss or vines, 70-170 units to the side and 120-170 up,
   only within 700 units (they come in over the top of the screen, never over the far branch);
 - **bracket fungi** on the flanks, the bees' **hive** under a limb, the swinging branch's limb;
 - a **foreground leaf** sweeps past the edge of the screen when a clump passes over the camera (depth);
-- all of it in the season's leaf colours, drawn with the same 7 sizes.
+- all of it in the season's leaf colours, drawn with the same sizes as the props.
 
 ## Obstacles and segments
 The generator (`gen.c`) chains **chunks**; each chunk = a geometry (straight, curve left/right easy/medium/hard,
@@ -132,10 +164,12 @@ unlock and densities rise with distance (`UNLOCK_*` in tuning.h).
 
 | Kind | What | How to beat it | Height | Unlock |
 |---|---|---|---|---|
-| twig | a side twig growing out of the bark at 74 degrees and arching over the path with a few leaves (long: to -6 degrees, short: to 30) | tap jump, or run on the other side | 10 | 0 m |
+| crossing branch | a big branch out of one flank lying low across the path to -40 degrees, sub-branches and leaves | tap jump | 16 | 0 m |
+| arch | the same branch arching high over the path from flank to flank (its feet low at the sides) | run under it near the top (no jumping there) | feet | 160 m |
 | knot | a raised burl of the branch's own bark, knobbly, ringed | held jump, or go round | 24 | 60 m |
 | crow | lands at the far end of a line of nuts and eats its way toward you; flies off when you come near | get there first (harmless) | - | 200 m |
-| gap | the branch is broken: a missing length of 14-22 frames at the current speed; the torn end before it, the broken face of the far side | jump (held for the long ones) | - | 120 m |
+| gap | the branch is broken: a missing length of 14-22 frames at the current speed; torn bark teeth at both ends, the dark broken face hanging under the far one | jump (held for the long ones) | - | 120 m |
+| knot-hole | a hole sunk into the bark (a swollen lip, the inner wall, the dark depth; now and then a mouse peeks out), 30 degrees across | steer round it, or jump it | hole | 100 m |
 | sap | an amber patch: less grip, a stronger pull | stay near the top over it | - | 180 m |
 | web | a spider web strung between two shoots | go round, or be slowed | 36 | 250 m |
 | acorn shower | for 4 s, acorns fall ahead, their shadows first; one landing on you is a bonk (a nudge, a moment slowed); the fallen ones are nuts | dodge the shadows, pick up the acorns | - | 280 m |
@@ -221,27 +255,30 @@ acorn's bonk, the rain's patter, the swinging branch's swish; the house set for 
   planner (lateral speed 2 deg/frame, holding only where 75% of the steer beats the forces, running or tap / held
   jumps without steering in the air), and the planner refuses an injected 60-frame gap and a wall of webs.
 - smoke: the title flow (A and Left start, game over back to the title, pause, save RAM, joining and leaving),
-  1-4 players, no strict-mode warning (VRAM 57 KB of 64, sample memory under 64 KB, at most 32 sprites a line), determinism of scripted and
-  bot runs with 1 and 4 players (state hash and picture).
+  1-4 players, no strict-mode warning (VRAM 60-62 KB of 64 with any forest, sample memory under 64 KB, at most 32
+  sprites a line), determinism of scripted and bot runs with 1 and 4 players (state hash and picture).
 - the bot (`src/bot.c`, the screen only: OAM, recognised by the frame its tiles hold, and the branch layer's per-line
-  registers): 40 seeds, up to 10 minutes each (`BOT_FRAMES=36000 make nuttybranch-bot BOT_RUNS=40`): distance min
-  569 / median 1631 / mean 2069 / max 4414 m, every run ending in a crash (the new traps; before them 33 of 40 runs
-  lasted the 10 minutes). In the check: 12 seeds x 4 minutes, the median must reach 1000 m (1744 m, 7 runs at the
-  cap).
+  registers, a gap's broken face told from bark by its texture column): in the check, 12 seeds x 4 minutes, the
+  median must reach 1000 m: min 1071 / median 1691 / mean 1532 / max 1764 m, 6 runs at the cap, 6 crashes.
 - the UI screens (the title with 0-3 players joined, play, pause, the five times of day, 2 and 4 players, the
-  game over with a medal, the 4-player results, each of the 18 traps, the scenery: 34 screens), save states (title, lobby, a run, a race, 4 players,
-  deep in the night, paused, the game over, the results; replayed in the same and in a fresh process), the audit.
-- **Frame cost** (`tests/bench_test.sh`, `make nuttybranch-bench`, 2100 frames each, music on): 1 player 0.42 ms per
-  frame on the host (update + draw 16 us, the PPU 0.39 ms: the affine branch layer decoded per pixel, clipped by
-  window 1, and up to 43 sprites, 17 on a line), 4 players 0.45-0.49 ms; the A20 estimate (x15-20) is **6.2-9.8 ms
-  of the 16.7 ms** frame. Before the rework: 0.27-0.32 ms (4.1-6.5 ms).
+  game over with a medal, the 4-player results, each of the 20 traps, the scenery, the four forests: 40 screens),
+  save states (title, lobby, a run, a race, 4 players, deep in the night, paused, the game over, the results;
+  replayed in the same and in a fresh process), the audit.
+- the props' sizes and anchors (`tests/lod_test.sh`) and the bark's furrows on screen (`tests/furrow_test.sh`):
+  above.
+- **Frame cost** (`tests/bench_test.sh`, `make nuttybranch-bench`, 2100 frames each, music on): 1 player 0.49-0.50
+  ms per frame on the host (update + draw 18 us, the PPU 0.47 ms: the affine branch layer decoded per pixel,
+  clipped by window 1, two background layers and up to 54 sprites, 18 on a line), 4 players 0.52-0.57 ms; the A20
+  estimate (x15-20) is **7.4-11.4 ms of the 16.7 ms** frame.
 
 ## Screenshots
 `docs/screenshots/` (`make nuttybranch-screenshots`, 2x): title, title-2/3/4-players, play, pause, summer, autumn,
 dusk, night, winter, race-2-players, play-4-players, gameover-medal, results-4-players, and one per trap:
-trap-gap, trap-fork, trap-pecker, trap-web, trap-cater, trap-sap, trap-knot, trap-cone, trap-wind, trap-owl, trap-twig,
-trap-snake, trap-swing, trap-bees, trap-snow, trap-crow, trap-shower, trap-rain; scenery (side branches, leaves
-overhead); `before-after-branch.png`: the same seed and frame before and after the bark and props rework.
+trap-gap, trap-fork, trap-pecker, trap-web, trap-cater, trap-sap, trap-knot, trap-cone, trap-wind, trap-owl, trap-twig
+(a crossing branch), trap-arch, trap-hole, trap-snake, trap-swing, trap-bees, trap-snow, trap-crow, trap-shower,
+trap-rain; scenery (side branches, leaves overhead); bg-a .. bg-d (the four forests, the same moment);
+before-after-branch (the bark and props rework), before-after-gap, before-after-crossing-branch and
+before-after-hole (the second rework: the same trap, the same seed, before and after).
 
 ## Sources
 Numbers and techniques only; no code was copied.

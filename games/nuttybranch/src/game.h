@@ -27,6 +27,7 @@ enum ob_kind {
     OB_SNAKE, OB_SWING, OB_BEES, OB_SNOW, OB_CROW,   /* more beasts and things */
     OB_SHOWER, OB_RAIN,                              /* more stretches: falling acorns, wet bark */
     OB_DECOR,                                        /* scenery only: side branches, leaves overhead, fungi, hives */
+    OB_KNOTHOLE,                                     /* a hole sunk in the bark */
     OB_KINDS
 };
 enum decor_kind { DC_SIDE0, DC_SIDE1, DC_SIDE2, DC_OVER0, DC_OVER1, DC_MUSH, DC_HIVE };
@@ -37,7 +38,7 @@ typedef struct obj {
     uint8_t pad;
     int32_t s;                  /* units along the branch (start) */
     int32_t ang;                /* Q12 degrees: the centre (the hole's, for a woodpecker) */
-    int32_t len;                /* units: a gap's, a sap patch's, a gust's, a fork's dead branch; a twig: 1 long;
+    int32_t len;                /* units: a gap's, a sap patch's, a gust's, a fork's dead branch; a limb: 1 an arch;
                                  * decor: its kind (decor_kind); a crow: the length of its nut line */
     int32_t t0;                 /* the frame it woke up (caterpillar, owl, pinecone, woodpecker...), -1 = asleep */
     int32_t t1;                 /* a second moment: the frame a crow flew off (-1: not yet) */
@@ -137,6 +138,9 @@ int32_t swing_ang(const world *w, const obj *o);               /* where its leav
 int  crow_at(const world *w, const obj *o, int32_t *s, int32_t *h);  /* its place (units) and height (Q8); 1 = there */
 int  grip_at(const world *w, int32_t s, int32_t ang);          /* 0 bark, 1 sap, 2 wet (s in units) */
 int32_t ob_solid(const world *w, const obj *o, int32_t *ang, int32_t *half);   /* a solid's height (Q8) now, 0 = none */
+/* a branch crossing the path (OB_TWIG; len 0 low, 1 an arch) round the squirrel's angle: 1 if it is there, with its
+ * lowest and highest point (Q8 units over the bark) */
+int  limb_at(const obj *o, int32_t ang, int32_t *lo, int32_t *hi);
 
 /* ---- gen.c ------------------------------------------------------------------------------------------------------- */
 extern int gen_force;                               /* --opt only=<kind>: one kind of group (tests, screenshots) */
@@ -186,7 +190,11 @@ void draw_state(void);
 /* what the screen shows (the bot reads only this and OAM): the branch layer's per-line registers of the last frame
  * (the HDMA tables): the texture centre's screen x, the scale (8.8 texels per px) and the row; and its time band */
 extern int16_t draw_line_x[RS_SCREEN_H], draw_line_a[RS_SCREEN_H], draw_line_row[RS_SCREEN_H];
+extern int16_t draw_line_tcx[RS_SCREEN_H];
+/* a screen line shows bark (not a gap's broken face, nor nothing) */
+static inline int line_is_bark(int y) { return draw_line_row[y] < TEX_H && draw_line_tcx[y] != FACE_CX; }
 int draw_band(void);
+void draw_lodcheck_report(void);                    /* tests: --opt lodcheck=1 */
 /* the sprite on screen (OAM) -> which drawing it is (a SPR_* frame of assets.h) and the point it is anchored at: the
  * way a player recognises a thing by its look (the bot); 0 = not one of the world's */
 int draw_sprite_id(const rs_sprite *s, int *frame, int *ax, int *ay);

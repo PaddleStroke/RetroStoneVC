@@ -343,6 +343,10 @@ static void game_init(void)
 
 static void game_shutdown(void)
 {
+    draw_lodcheck_report();
+    int ld = rs_option_int("linedump", -1);
+    if (ld >= 0 && ld < RS_SCREEN_H)                    /* tests: a line's branch (the furrow measurement) */
+        rs_log("line %d: centre %d scale %d row %d", ld, draw_line_x[ld], draw_line_a[ld], draw_line_row[ld]);
     if (!rs_option_int("dump", 0)) return;
     /* VRAM: the tiles written and the maps of the layers (64x32 UI, 64x32 affine branch, 32x32 backdrop) */
     rs_log("vram: %d tiles + maps = %d bytes (guideline 65536)", rs_tiles_used(),
