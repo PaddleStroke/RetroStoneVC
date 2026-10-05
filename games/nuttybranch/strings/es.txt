@@ -1,0 +1,6 @@
+# Nutty Branch's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = CORRER
+OVER_METRES = METROS
+OVER_BEST_M = MEJOR %dM
+OVER_NUTS = NUECES
+HUD_METRES = %dM

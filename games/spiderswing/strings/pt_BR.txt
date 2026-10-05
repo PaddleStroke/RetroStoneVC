@@ -1,0 +1,11 @@
+# Spider Swing's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = BALANÇAR
+HINT = A: SOLTAR - L/R: VIRAR NO AR
+MSG_STEER = LEVE O FIO ATÉ UMA FLOR
+MSG_CAUGHT = AGARROU!
+MSG_RELEASE = A: SOLTE NO PONTO MAIS ALTO
+HUD_DEW_FLOWER = ORVALHO %d - FLOR %dS
+SPLIT_SCORE = J%d %d  O%d
+SPLIT_OUT = FORA
+SPLIT_FLY = TOQUE UMA FLOR
+SPLIT_RELEASE = A: SOLTAR %dS

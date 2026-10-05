@@ -1,0 +1,6 @@
+# Nutty Branch's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = KOŞMAK
+OVER_METRES = METRE
+OVER_BEST_M = REKOR %dM
+OVER_NUTS = FINDIK
+HUD_METRES = %dM

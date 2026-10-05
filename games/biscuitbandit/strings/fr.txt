@@ -1,0 +1,4 @@
+# Biscuit Bandit's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+HINT_MOVE = { } BOUGE - ATTRAPE LES BISCUITS
+HINT_DROP = UN RATÉ, C'EST FINI ! ÉVITE LES TASSES
+HINT_POINTS = 10 POINTS PAR BISCUIT

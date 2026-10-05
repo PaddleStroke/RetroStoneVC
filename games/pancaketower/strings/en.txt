@@ -1,0 +1,8 @@
+# Pancake Tower (games/pancaketower): its strings, the English source (docs/i18n.md).
+# The title verb is the kit's default (PLAY); everything else comes from the house kit (games/common/strings/en.txt).
+
+#. The 1-player game-over panel, under SCORE (row 12, from column 12, on the panel fill): the pancakes stacked in
+#. the run; %d is that number. The big SCORE digits sit just above it, centred on column 25.
+#. max 16
+PANCAKES_N[one] = %d PANCAKE
+PANCAKES_N[other] = %d PANCAKES

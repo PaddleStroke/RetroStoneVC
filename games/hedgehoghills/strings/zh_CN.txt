@@ -1,0 +1,14 @@
+# Hedgehog Hills's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 翻滚
+HINT_TITLE = 下坡按住 上坡松开
+HUD_FROST = 离寒霜 %d米
+HUD_FROST_PLAYER = %dP 离寒霜 %d米
+MSG_SMOOTH = 漂亮落地! X%d
+MSG_OUCH = 哎哟!保持速度
+HINT_RELEASE = 上坡前松开
+HINT_HOLD = 按住滚下坡
+HUD_APPLES = 苹果 %d
+SPLIT_SCORE = %dP %d  苹果%d
+SPLIT_FROST = 寒霜 %d米
+SPLIT_FROZEN = 冻住了!
+SPLIT_SMOOTH = 漂亮 X%d

@@ -1,0 +1,10 @@
+# Pogo Mamie's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ZIPLAMAK
+TITLE_BEST = REKOR %d M   PUAN %d
+HUD_SCORE = PUAN %d
+HUD_SCORE_CHAIN = PUAN %d  X%d
+MEDAL_NAME_0 = HENÜZ MADALYA YOK
+MEDAL_NAME_1 = BRONZ BIYIK
+MEDAL_NAME_2 = GÜMÜŞ BIYIK
+MEDAL_NAME_3 = ALTIN BIYIK
+MEDAL_NAME_4 = KEDİYİ TUTTUN!

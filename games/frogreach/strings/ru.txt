@@ -1,0 +1,8 @@
+# Frog Reach's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ДОТЯНУТЬСЯ
+HINT_TITLE = ДЕРЖИ - ТЯНИСЬ. ОТПУСТИ - ПРЫГАЙ.
+MSG_NICE_CATCH = ЛОВКО ПОЙМАНО!
+MSG_MISSED = О НЕТ! МИМО КУВШИНКИ!
+MSG_RELEASE = ОТПУСТИ НАД КУВШИНКОЙ
+MSG_HOLD = ДЕРЖИ - ДОТЯНИСЬ ДО КУВШИНКИ
+HUD_FLIES_PAD = МУХИ %d - КУВШИНКА %dС

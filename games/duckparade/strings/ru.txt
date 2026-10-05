@@ -1,0 +1,7 @@
+# Duck Parade's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ПРЫГАТЬ
+FAMILY = СЕМЬЯ
+DUCKLINGS_HOME[one] = %d УТЁНОК ДОМА!
+DUCKLINGS_HOME[few] = %d УТЁНКА ДОМА!
+DUCKLINGS_HOME[many] = %d УТЯТ ДОМА!
+HOME_SWEET_HOME = ДОМ, МИЛЫЙ ДОМ

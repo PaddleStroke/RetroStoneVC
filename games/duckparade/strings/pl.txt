@@ -1,0 +1,7 @@
+# Duck Parade's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SKAKAĆ
+FAMILY = RODZINA
+DUCKLINGS_HOME[one] = %d KACZĄTKO DOMA!
+DUCKLINGS_HOME[few] = %d KACZĄTKA DOMA!
+DUCKLINGS_HOME[many] = %d KACZĄTEK DOMA!
+HOME_SWEET_HOME = DOM, SŁODKI DOM

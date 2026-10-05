@@ -1,0 +1,11 @@
+# Beaver Rush's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = かじる
+SCENE = %sの%s
+SEASON_SUMMER = なつ
+SEASON_AUTUMN = あき
+SEASON_WINTER = ふゆ
+SEASON_SPRING = はる
+TOD_DAWN = よあけ
+TOD_DAY = ひる
+TOD_SUNSET = ゆうがた
+TOD_NIGHT = よる

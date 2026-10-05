@@ -1,0 +1,10 @@
+# Pogo Mamie's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = СТРИБАТИ
+TITLE_BEST = РЕКОРД %d М   ОЧКИ %d
+HUD_SCORE = ОЧКИ %d
+HUD_SCORE_CHAIN = ОЧКИ %d  X%d
+MEDAL_NAME_0 = ПОКИ БЕЗ МЕДАЛІ
+MEDAL_NAME_1 = БРОНЗОВИЙ ВУС
+MEDAL_NAME_2 = СРІБНИЙ ВУС
+MEDAL_NAME_3 = ЗОЛОТИЙ ВУС
+MEDAL_NAME_4 = ПОПАВСЯ, КОТЕ!

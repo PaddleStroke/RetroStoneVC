@@ -1,0 +1,3 @@
+# Snail Switch's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+HINT_MOVE = 위 / 아래: 덩굴 쪽 바꾸기
+HINT_GOAL = 과일을 모두 잡아요

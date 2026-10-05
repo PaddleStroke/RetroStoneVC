@@ -1,0 +1,7 @@
+# Otter Rapids's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = PÁDLUJ
+HINT_MOVE = VLEVO / VPRAVO: PÁDLUJ
+HINT_GOAL = CHYŤ VŠECHNY RYBY
+JOIN_SHORT = %s: A - PŘIDAT SE
+JOIN_LEAVE_SHORT = %s: A - PŘIDAT SE, B - ODEJÍT
+FULL_LEAVE = 4 HRÁČI - B: ODEJÍT

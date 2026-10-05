@@ -1,0 +1,4 @@
+# Moth Around's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 飞翔
+HINT_TITLE = 左 / 右: 躲开圆环
+HUD_RINGS_TIME = 圆环 %d - %d秒

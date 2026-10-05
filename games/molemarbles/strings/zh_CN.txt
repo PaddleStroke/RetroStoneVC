@@ -1,0 +1,3 @@
+# Mole Marbles's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 挖掘
+HINT_CONTROLS = { } 移动   A: 鱼叉

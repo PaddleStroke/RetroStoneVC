@@ -1,0 +1,11 @@
+# Beaver Rush's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ΡΟΚΑΝΙΣΕΙΣ
+SCENE = %2$s %1$s
+SEASON_SUMMER = ΚΑΛΟΚΑΙΡΙΟΥ
+SEASON_AUTUMN = ΦΘΙΝΟΠΩΡΟΥ
+SEASON_WINTER = ΧΕΙΜΩΝΑ
+SEASON_SPRING = ΑΝΟΙΞΗΣ
+TOD_DAWN = ΑΥΓΗ
+TOD_DAY = ΜΕΡΑ
+TOD_SUNSET = ΔΥΣΗ
+TOD_NIGHT = ΝΥΧΤΑ

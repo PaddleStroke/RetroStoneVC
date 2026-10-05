@@ -1,0 +1,9 @@
+# Crab Coconut (games/crabcoconut): its strings, the English source (docs/i18n.md).
+
+#. Title screen, the hint line (row 16, centred on the 40-column screen, between the logo and the player slots):
+#. LEFT and RIGHT are the D-pad; the coconut bounces off the crab and breaks the shells.
+#. max 38
+HINT = LEFT / RIGHT: BOUNCE AND BREAK
+#. In-game HUD label; %d is the number of shells the player broke.
+#. max 12
+SHELLS_N = SHELLS %d

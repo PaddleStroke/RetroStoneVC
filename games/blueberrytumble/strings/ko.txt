@@ -1,0 +1,9 @@
+# Blueberry Tumble's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 구르기
+ATTEMPT_N = %d번째 도전
+METRES_GOLD = %dM  +황금%d
+NIGHT_BIOME = 밤 - %s
+BIOME_SUMMIT = 눈 덮인 산꼭대기
+BIOME_FOREST = 소나무 숲
+BIOME_MEADOWS = 블루베리 초원
+BIOME_VILLAGE = 골짜기 마을

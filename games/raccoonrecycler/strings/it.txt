@@ -1,0 +1,6 @@
+# Raccoon Recycler's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = RICICLARE
+HINT = SINISTRA / GIÙ / DESTRA
+JOIN = %s: A PER ENTRARE
+JOIN_LEAVE = %s: A PER ENTRARE / B: ESCI
+FULL = 4 GIOCATORI / B: ESCI

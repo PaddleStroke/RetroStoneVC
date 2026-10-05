@@ -1,0 +1,4 @@
+# Moth Around's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = VOLAR
+HINT_TITLE = IZQUIERDA/DERECHA: ESQUIVA LOS AROS
+HUD_RINGS_TIME = AROS %d - %dS

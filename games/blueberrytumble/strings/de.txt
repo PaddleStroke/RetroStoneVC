@@ -1,0 +1,9 @@
+# Blueberry Tumble's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ROLLEN
+ATTEMPT_N = VERSUCH %d
+METRES_GOLD = %d M  +%d GOLD
+NIGHT_BIOME = NACHT - %s
+BIOME_SUMMIT = VERSCHNEITER GIPFEL
+BIOME_FOREST = KIEFERNWALD
+BIOME_MEADOWS = HEIDELBEERWIESEN
+BIOME_VILLAGE = TALDORF

@@ -1,0 +1,6 @@
+# Duck Parade's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = HYPPÄÄ
+FAMILY = PERHE
+DUCKLINGS_HOME[one] = %d POIKANEN KOTONA!
+DUCKLINGS_HOME[other] = %d POIKASTA KOTONA
+HOME_SWEET_HOME = KOTONA PARASTA!

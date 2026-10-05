@@ -1,0 +1,9 @@
+# Penguin Slalom's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = RUTSCHEN
+HINT = LINKS / RECHTS: ZWISCHEN DIE FAHNEN
+JOIN = %s: A ZUM MITSPIELEN
+JOIN_LEAVE = %s: A MITSPIELEN - B GEHEN
+FULL = 4 SPIELER - B: GEHEN
+HUD_GATES_FISH = TORE %d - FISCHE %d
+MSG_CRASH = RUMMS!
+MSG_MISSED_GATE = TOR VERPASST

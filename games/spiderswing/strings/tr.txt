@@ -1,0 +1,11 @@
+# Spider Swing's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SALLANMAK
+HINT = A: BIRAK - L/R: HAVADA YÖN VER
+MSG_STEER = İPEĞİ BİR ÇİÇEĞE YÖNLENDİR
+MSG_CAUGHT = YAKALADIN!
+MSG_RELEASE = A: EN YÜKSEKTE BIRAK
+HUD_DEW_FLOWER = ÇİY %d - ÇİÇEK %d SN
+SPLIT_SCORE = P%d %d  Ç%d
+SPLIT_OUT = ELENDİN
+SPLIT_FLY = İPEKLE DOKUN: TUT
+SPLIT_RELEASE = A: BIRAK %d SN

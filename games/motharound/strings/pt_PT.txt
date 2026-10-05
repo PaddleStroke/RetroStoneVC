@@ -1,0 +1,4 @@
+# Moth Around's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = VOAR
+HINT_TITLE = ESQUERDA / DIREITA: EVITA OS ANÉIS
+HUD_RINGS_TIME = ANÉIS %d - %dS

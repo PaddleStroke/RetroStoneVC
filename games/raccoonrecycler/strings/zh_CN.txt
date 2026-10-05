@@ -1,0 +1,6 @@
+# Raccoon Recycler's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 分类
+HINT = 左 / 下 / 右
+JOIN = %s: A键加入
+JOIN_LEAVE = %s: A键加入 / B键退出
+FULL = 4名玩家 / B键退出

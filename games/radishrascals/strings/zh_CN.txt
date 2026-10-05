@@ -1,0 +1,3 @@
+# Radish Rascals's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 种菜
+HINT = 方向键: 赶走兔子 放过朋友

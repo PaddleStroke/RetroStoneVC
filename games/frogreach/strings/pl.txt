@@ -1,0 +1,8 @@
+# Frog Reach's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SIĘGAĆ
+HINT_TITLE = TRZYMAJ - SIĘGASZ. PUŚĆ - SKACZESZ.
+MSG_NICE_CATCH = ŁADNIE ZŁAPANE!
+MSG_MISSED = O NIE! LIŚĆ CHYBIONY!
+MSG_RELEASE = PUŚĆ NAD LIŚCIEM LILII
+MSG_HOLD = TRZYMAJ, BY SIĘGNĄĆ KOLEJNEGO LIŚCIA
+HUD_FLIES_PAD = MUCHY %d - LIŚĆ %dS

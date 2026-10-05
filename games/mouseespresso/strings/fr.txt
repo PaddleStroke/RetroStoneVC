@@ -1,0 +1,7 @@
+# Mouse Espresso's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = VOLER
+HINT_TITLE = APPUIE : TU MONTES, SINON TU TOMBES
+JOIN_SHORT = %s : A POUR JOUER
+JOIN_LEAVE_SHORT = %s : A POUR JOUER - B : PARTIR
+FULL_LEAVE = 4 JOUEURS - B : PARTIR
+HUD_BISCUITS_DIST = BISCUITS %d - %d M

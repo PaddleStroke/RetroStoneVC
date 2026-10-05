@@ -1,0 +1,9 @@
+# Penguin Slalom's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ZJEŻDŻAĆ
+HINT = LEWO / PRAWO: MIĘDZY FLAGAMI
+JOIN = %s: A, ABY DOŁĄCZYĆ
+JOIN_LEAVE = %s: A, ABY DOŁĄCZYĆ - B: WYJDŹ
+FULL = 4 GRACZE - B: WYJDŹ
+HUD_GATES_FISH = BRAMKI %d - RYBY %d
+MSG_CRASH = KRAKSA!
+MSG_MISSED_GATE = OMINIĘTA BRAMKA

@@ -1,0 +1,9 @@
+# Blueberry Tumble's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ころがる
+ATTEMPT_N = %dかいめ
+METRES_GOLD = %dM  +金%d
+NIGHT_BIOME = よる - %s
+BIOME_SUMMIT = ゆきやまのてっぺん
+BIOME_FOREST = マツの森
+BIOME_MEADOWS = ブルーベリーのはら
+BIOME_VILLAGE = たにまの村

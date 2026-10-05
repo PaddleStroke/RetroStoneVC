@@ -1,0 +1,4 @@
+# Biscuit Bandit's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+HINT_MOVE = { } HAREKET - BİSKÜVİ YAKALA
+HINT_DROP = BİRİ DÜŞERSE BİTER. FİNCANLARDAN KAÇ
+HINT_POINTS = BİSKÜVİ BAŞINA 10 PUAN

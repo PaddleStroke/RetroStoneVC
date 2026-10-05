@@ -1,0 +1,4 @@
+# Biscuit Bandit's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+HINT_MOVE = { } ΚΙΝΗΣΗ - ΠΙΑΣΕ ΜΠΙΣΚΟΤΑ
+HINT_DROP = ΑΝ ΠΕΣΕΙ ΕΝΑ, ΧΑΝΕΙΣ. ΑΠΟΦΥΓΕ ΚΟΥΠΕΣ
+HINT_POINTS = 10 ΠΟΝΤΟΙ ΤΟ ΜΠΙΣΚΟΤΟ

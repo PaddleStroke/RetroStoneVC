@@ -1,0 +1,4 @@
+# Biscuit Bandit's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+HINT_MOVE = { } いどう - ビスケットをキャッチ
+HINT_DROP = 1まい落とすとおわり カップはよけて
+HINT_POINTS = クッキー1まいで10てん

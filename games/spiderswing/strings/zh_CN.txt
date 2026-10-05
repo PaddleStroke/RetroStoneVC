@@ -1,0 +1,11 @@
+# Spider Swing's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 荡秋千
+HINT = A: 松开 - L/R: 空中转向
+MSG_STEER = 把蛛丝引向花朵
+MSG_CAUGHT = 抓住了!
+MSG_RELEASE = A: 荡到高处时松开
+HUD_DEW_FLOWER = 露珠 %d - 花朵 %d秒
+SPLIT_SCORE = %dP %d  露%d
+SPLIT_OUT = 出局
+SPLIT_FLY = 蛛丝碰花就抓住
+SPLIT_RELEASE = A: 松开 %d秒

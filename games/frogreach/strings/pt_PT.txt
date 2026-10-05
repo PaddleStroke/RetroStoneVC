@@ -1,0 +1,8 @@
+# Frog Reach's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SALTAR
+HINT_TITLE = MANTÉM E ESTICA, LARGA E SALTA
+MSG_NICE_CATCH = MUITO BEM!
+MSG_MISSED = OH NÃO! FALHASTE O NENÚFAR
+MSG_RELEASE = LARGA POR CIMA DO NENÚFAR
+MSG_HOLD = MANTÉM PARA CHEGAR AO NENÚFAR
+HUD_FLIES_PAD = MOSCAS %d - NENÚFAR %dS

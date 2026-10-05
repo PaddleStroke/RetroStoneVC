@@ -1,0 +1,10 @@
+# Pogo Mamie's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = STUITEREN
+TITLE_BEST = RECORD %d M   SCORE %d
+HUD_SCORE = SCORE %d
+HUD_SCORE_CHAIN = SCORE %d  X%d
+MEDAL_NAME_0 = NOG GEEN MEDAILLE
+MEDAL_NAME_1 = BRONZEN SNOR
+MEDAL_NAME_2 = ZILVEREN SNOR
+MEDAL_NAME_3 = GOUDEN SNOR
+MEDAL_NAME_4 = POES GEVANGEN!

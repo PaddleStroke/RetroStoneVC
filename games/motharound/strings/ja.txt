@@ -1,0 +1,4 @@
+# Moth Around's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = とぶ
+HINT_TITLE = 左右: わっかをよけよう
+HUD_RINGS_TIME = わっか %d - %d秒

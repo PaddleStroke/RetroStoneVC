@@ -1,0 +1,9 @@
+# Blueberry Tumble's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = КАТИТЬСЯ
+ATTEMPT_N = ПОПЫТКА %d
+METRES_GOLD = %dМ +%d ЗОЛОТА
+NIGHT_BIOME = НОЧЬ - %s
+BIOME_SUMMIT = СНЕЖНАЯ ВЕРШИНА
+BIOME_FOREST = СОСНОВЫЙ ЛЕС
+BIOME_MEADOWS = ЧЕРНИЧНЫЕ ЛУГА
+BIOME_VILLAGE = ДЕРЕВНЯ В ДОЛИНЕ

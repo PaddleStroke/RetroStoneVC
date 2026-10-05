@@ -1,0 +1,10 @@
+# Pogo Mamie's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = POMPI
+TITLE_BEST = ENNÄTYS %d M   PISTEET %d
+HUD_SCORE = PISTEET %d
+HUD_SCORE_CHAIN = PISTEET %d  X%d
+MEDAL_NAME_0 = EI VIELÄ MITALIA
+MEDAL_NAME_1 = PRONSSIVIIKSI
+MEDAL_NAME_2 = HOPEAVIIKSI
+MEDAL_NAME_3 = KULTAVIIKSI
+MEDAL_NAME_4 = KISSA KIINNI!

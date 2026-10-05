@@ -1,0 +1,7 @@
+# Otter Rapids's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = PAGAYER
+HINT_MOVE = GAUCHE / DROITE : PAGAIE
+HINT_GOAL = ATTRAPE TOUS LES POISSONS
+JOIN_SHORT = %s : A POUR JOUER
+JOIN_LEAVE_SHORT = %s : A POUR JOUER - B : PARTIR
+FULL_LEAVE = 4 JOUEURS - B : PARTIR

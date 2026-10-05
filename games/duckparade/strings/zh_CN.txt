@@ -1,0 +1,5 @@
+# Duck Parade's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 蹦跳
+FAMILY = 全家
+DUCKLINGS_HOME[other] = %d只小鸭回家!
+HOME_SWEET_HOME = 甜蜜的家

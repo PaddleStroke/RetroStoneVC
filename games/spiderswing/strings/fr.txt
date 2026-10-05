@@ -1,0 +1,11 @@
+# Spider Swing's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = VOLTIGER
+HINT = A : LÂCHER - L/R : VIRER EN L'AIR
+MSG_STEER = DIRIGE TON FIL VERS UNE FLEUR
+MSG_CAUGHT = ACCROCHÉ !
+MSG_RELEASE = A : LÂCHE AU PLUS HAUT
+HUD_DEW_FLOWER = ROSÉE %d - FLEUR %d S
+SPLIT_SCORE = J%d %d  R%d
+SPLIT_OUT = ÉLIMINÉ
+SPLIT_FLY = TOUCHE UNE FLEUR
+SPLIT_RELEASE = A : LÂCHER %d S

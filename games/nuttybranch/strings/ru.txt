@@ -1,0 +1,6 @@
+# Nutty Branch's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = БЕЖАТЬ
+OVER_METRES = МЕТРЫ
+OVER_BEST_M = РЕКОРД %d
+OVER_NUTS = ОРЕХИ
+HUD_METRES = %dМ

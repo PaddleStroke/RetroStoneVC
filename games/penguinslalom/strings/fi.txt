@@ -1,0 +1,9 @@
+# Penguin Slalom's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = LASKE
+HINT = VASEN / OIKEA: LIPPUJEN VÄLISTÄ
+JOIN = %s: LIITY A:LLA
+JOIN_LEAVE = %s: A LIITY - B POISTU
+FULL = 4 PELAAJAA - B: POISTU
+HUD_GATES_FISH = PORTIT %d - KALAT %d
+MSG_CRASH = TÖRMÄYS!
+MSG_MISSED_GATE = PORTTI OHI

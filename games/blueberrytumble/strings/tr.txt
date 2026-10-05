@@ -1,0 +1,9 @@
+# Blueberry Tumble's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = YUVARLAMAK
+ATTEMPT_N = DENEME %d
+METRES_GOLD = %d M +%d ALTIN
+NIGHT_BIOME = GECE - %s
+BIOME_SUMMIT = KARLI ZİRVE
+BIOME_FOREST = ÇAM ORMANI
+BIOME_MEADOWS = YABAN MERSİNİ ÇAYIRI
+BIOME_VILLAGE = VADİ KÖYÜ

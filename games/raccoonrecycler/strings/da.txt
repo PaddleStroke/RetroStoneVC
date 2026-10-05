@@ -1,0 +1,6 @@
+# Raccoon Recycler's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SORTERE
+HINT = VENSTRE / NED / HØJRE
+JOIN = %s: A VÆR MED
+JOIN_LEAVE = %s: A VÆR MED / B GÅ UD
+FULL = 4 SPILLERE / B GÅ UD

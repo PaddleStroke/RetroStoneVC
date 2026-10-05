@@ -1,0 +1,7 @@
+# Mouse Espresso's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = LEŤ
+HINT_TITLE = DRŽ - NAHORU. PUSŤ - DOLŮ
+JOIN_SHORT = %s: A - PŘIDAT SE
+JOIN_LEAVE_SHORT = %s: A - PŘIDAT SE, B - ODEJÍT
+FULL_LEAVE = 4 HRÁČI - B: ODEJÍT
+HUD_BISCUITS_DIST = SUŠENKY %d - %dM

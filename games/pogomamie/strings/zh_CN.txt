@@ -1,0 +1,10 @@
+# Pogo Mamie's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 弹跳
+TITLE_BEST = 最高 %d米   得分 %d
+HUD_SCORE = 得分 %d
+HUD_SCORE_CHAIN = 得分 %d  X%d
+MEDAL_NAME_0 = 还没有奖牌
+MEDAL_NAME_1 = 铜胡须
+MEDAL_NAME_2 = 银胡须
+MEDAL_NAME_3 = 金胡须
+MEDAL_NAME_4 = 抓到猫啦!

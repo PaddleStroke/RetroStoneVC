@@ -1,0 +1,11 @@
+# Spider Swing's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SVINGA
+HINT = A: SLÄPP - L/R: STYR I LUFTEN
+MSG_STEER = STYR TRÅDEN MOT EN BLOMMA
+MSG_CAUGHT = FÅNGAD!
+MSG_RELEASE = A: SLÄPP PÅ UPPSVINGEN
+HUD_DEW_FLOWER = DAGG %d - BLOMMA %dS
+SPLIT_SCORE = P%d %d  D%d
+SPLIT_OUT = UTE
+SPLIT_FLY = FÅNGA MED TRÅDEN
+SPLIT_RELEASE = A: SLÄPP %dS

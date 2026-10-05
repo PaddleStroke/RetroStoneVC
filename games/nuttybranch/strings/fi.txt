@@ -1,0 +1,6 @@
+# Nutty Branch's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = JUOKSE
+OVER_METRES = METRIT
+OVER_BEST_M = PARAS %dM
+OVER_NUTS = PÄHKINÄT
+HUD_METRES = %dM

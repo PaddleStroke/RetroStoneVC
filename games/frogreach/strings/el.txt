@@ -1,0 +1,8 @@
+# Frog Reach's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ΦΤΑΣΕΙΣ
+HINT_TITLE = ΚΡΑΤΑ: ΤΕΝΤΩΣΕ. ΑΦΗΣΕ: ΠΗΔΑ!
+MSG_NICE_CATCH = ΩΡΑΙΟ ΠΙΑΣΙΜΟ!
+MSG_MISSED = ΩΧ ΟΧΙ! ΑΣΤΟΧΗΣΕΣ ΤΟ ΝΟΥΦΑΡΟ
+MSG_RELEASE = ΑΦΗΣΕ ΠΑΝΩ ΑΠΟ ΤΟ ΝΟΥΦΑΡΟ
+MSG_HOLD = ΚΡΑΤΑ ΓΙΑ ΤΟ ΕΠΟΜΕΝΟ ΝΟΥΦΑΡΟ
+HUD_FLIES_PAD = ΜΥΓΕΣ %d - ΝΟΥΦΑΡΟ %dΔ

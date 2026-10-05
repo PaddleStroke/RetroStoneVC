@@ -1,0 +1,4 @@
+# Moth Around's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = TERBANG
+HINT_TITLE = KIRI / KANAN: HINDARI LINGKARAN
+HUD_RINGS_TIME = LINGKARAN %d - %d DTK

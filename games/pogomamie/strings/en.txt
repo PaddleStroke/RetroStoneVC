@@ -1,0 +1,30 @@
+# Pogo Mamie (games/pogomamie): its strings, the English source (docs/i18n.md).
+
+#. The title prompt's verb: PRESS A TO <VERB>.
+#. max 10
+VERB = BOUNCE
+#. Title screen, row 24, centred: the records. The first %d is the best distance in metres ("M"), the second
+#. the best score.
+#. max 38
+TITLE_BEST = BEST %d M   SCORE %d
+#. In-game HUD (1 player), row 4, centred under the distance: the score.
+#. max 38
+HUD_SCORE = SCORE %d
+#. The same during a stunt chain: the first %d is the score, the second the chain's multiplier ("X" = times,
+#. glued to the number: X2, X3...).
+#. max 38
+HUD_SCORE_CHAIN = SCORE %d  X%d
+#. Game-over panel (1 player), row 17: the medal's name, an array by medal (0 = none .. 4 = the top one; the
+#. medals are "whiskers" won on the way to catching the cat). With no medal it starts at column 12.
+#. max 17
+MEDAL_NAME_0 = NO MEDAL YET
+#. With a medal, its sprite is left of the name, which starts at column 15 (the panel ends at column 28).
+#. max 14
+MEDAL_NAME_1 = BRONZE WHISKER
+#. max 14
+MEDAL_NAME_2 = SILVER WHISKER
+#. max 14
+MEDAL_NAME_3 = GOLD WHISKER
+#. The top medal: Mamie caught the cat (at the Eiffel Tower).
+#. max 14
+MEDAL_NAME_4 = CAT CAUGHT!

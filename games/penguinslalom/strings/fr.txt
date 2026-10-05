@@ -1,0 +1,9 @@
+# Penguin Slalom's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = GLISSER
+HINT = GAUCHE / DROITE : ENTRE LES DRAPEAUX
+JOIN = %s : A POUR JOUER
+JOIN_LEAVE = %s : A POUR JOUER - B : PARTIR
+FULL = 4 JOUEURS - B : PARTIR
+HUD_GATES_FISH = PORTES %d - POISSONS %d
+MSG_CRASH = PATATRAS !
+MSG_MISSED_GATE = PORTE RATÉE !

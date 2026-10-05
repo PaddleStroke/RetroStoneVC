@@ -1,0 +1,7 @@
+# Otter Rapids's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = MENGAYUH
+HINT_MOVE = KIRI / KANAN: KAYUH
+HINT_GOAL = TANGKAP SEMUA IKAN
+JOIN_SHORT = %s: A UNTUK IKUT
+JOIN_LEAVE_SHORT = %s: A IKUT - B KELUAR
+FULL_LEAVE = 4 PEMAIN - B UNTUK KELUAR

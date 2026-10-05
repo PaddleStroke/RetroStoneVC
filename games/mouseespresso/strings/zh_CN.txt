@@ -1,0 +1,7 @@
+# Mouse Espresso's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 飞行
+HINT_TITLE = 按住上升 松开下降
+JOIN_SHORT = %s: A键加入
+JOIN_LEAVE_SHORT = %s: A键加入 B键退出
+FULL_LEAVE = 4名玩家 - B键退出
+HUD_BISCUITS_DIST = 饼干 %d - %d米

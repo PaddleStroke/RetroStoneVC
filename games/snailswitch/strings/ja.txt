@@ -1,0 +1,3 @@
+# Snail Switch's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+HINT_MOVE = 上 / 下: つるのがわをかえる
+HINT_GOAL = くだものを ぜんぶ とろう

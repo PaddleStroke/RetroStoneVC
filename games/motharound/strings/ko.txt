@@ -1,0 +1,4 @@
+# Moth Around's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 날기
+HINT_TITLE = 왼쪽 / 오른쪽: 고리를 피해요
+HUD_RINGS_TIME = 고리 %d - %d초

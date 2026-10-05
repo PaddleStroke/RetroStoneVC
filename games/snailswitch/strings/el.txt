@@ -1,0 +1,3 @@
+# Snail Switch's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+HINT_MOVE = ΠΑΝΩ / ΚΑΤΩ: ΑΛΛΑΖΕΙΣ ΠΛΕΥΡΑ
+HINT_GOAL = ΠΙΑΣΕ ΟΛΑ ΤΑ ΦΡΟΥΤΑ

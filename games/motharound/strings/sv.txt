@@ -1,0 +1,4 @@
+# Moth Around's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = FLYGA
+HINT_TITLE = VÄNSTER / HÖGER: UNDVIK RINGARNA
+HUD_RINGS_TIME = RINGAR %d - %dS

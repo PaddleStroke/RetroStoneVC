@@ -1,0 +1,14 @@
+# Hedgehog Hills's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = TOCZYĆ SIĘ
+HINT_TITLE = TRZYMAJ Z GÓRKI. PUŚĆ POD GÓRKĘ.
+HUD_FROST = MRÓZ %d M
+HUD_FROST_PLAYER = P%d MRÓZ %d M
+MSG_SMOOTH = GŁADKO! X%d
+MSG_OUCH = AU! UTRZYMAJ PRĘDKOŚĆ
+HINT_RELEASE = PUŚĆ PRZED PODJAZDEM
+HINT_HOLD = TRZYMAJ, BY TOCZYĆ SIĘ Z GÓRKI
+HUD_APPLES = JABŁKA %d
+SPLIT_SCORE = P%d %d  J%d
+SPLIT_FROST = MRÓZ %dM
+SPLIT_FROZEN = ZAMARZŁ
+SPLIT_SMOOTH = GŁADKO X%d

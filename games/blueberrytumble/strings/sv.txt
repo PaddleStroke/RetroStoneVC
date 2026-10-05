@@ -1,0 +1,9 @@
+# Blueberry Tumble's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = RULLA
+ATTEMPT_N = FÖRSÖK %d
+METRES_GOLD = %d M  +%d GULD
+NIGHT_BIOME = NATT - %s
+BIOME_SUMMIT = SNÖIGA TOPPEN
+BIOME_FOREST = TALLSKOGEN
+BIOME_MEADOWS = BLÅBÄRSÄNGARNA
+BIOME_VILLAGE = DALBYN

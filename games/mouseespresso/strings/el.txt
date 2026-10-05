@@ -1,0 +1,7 @@
+# Mouse Espresso's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ΠΕΤΑΞΕΙΣ
+HINT_TITLE = ΚΡΑΤΑ: ΑΝΕΒΑ. ΑΦΗΣΕ: ΚΑΤΕΒΑ.
+JOIN_SHORT = %s: A ΓΙΑ ΝΑ ΜΠΕΙΣ
+JOIN_LEAVE_SHORT = %s: A ΜΠΑΙΝΕΙΣ - B ΒΓΑΙΝΕΙΣ
+FULL_LEAVE = 4 ΠΑΙΚΤΕΣ - B ΓΙΑ ΕΞΟΔΟ
+HUD_BISCUITS_DIST = ΜΠΙΣΚΟΤΑ %d - %dM

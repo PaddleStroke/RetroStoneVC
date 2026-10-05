@@ -1,0 +1,9 @@
+# Blueberry Tumble's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = KIERI
+ATTEMPT_N = YRITYS %d
+METRES_GOLD = %d M +%d KULTA
+NIGHT_BIOME = YÖ - %s
+BIOME_SUMMIT = LUMINEN HUIPPU
+BIOME_FOREST = MÄNTYMETSÄ
+BIOME_MEADOWS = MUSTIKKANIITYT
+BIOME_VILLAGE = LAAKSON KYLÄ

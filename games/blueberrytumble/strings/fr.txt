@@ -1,0 +1,9 @@
+# Blueberry Tumble's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ROULER
+ATTEMPT_N = ESSAI %d
+METRES_GOLD = %d M  +%d OR
+NIGHT_BIOME = NUIT - %s
+BIOME_SUMMIT = SOMMET ENNEIGÉ
+BIOME_FOREST = FORÊT DE PINS
+BIOME_MEADOWS = PRÉS AUX MYRTILLES
+BIOME_VILLAGE = VILLAGE DE LA VALLÉE

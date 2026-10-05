@@ -1,0 +1,11 @@
+# Spider Swing's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = COLUMPIARTE
+HINT = A: SOLTAR - L/R: GIRAR EN EL AIRE
+MSG_STEER = LLEVA EL HILO HACIA UNA FLOR
+MSG_CAUGHT = ¡ENGANCHADO!
+MSG_RELEASE = A: SUELTA EN LO MÁS ALTO
+HUD_DEW_FLOWER = ROCÍO %d - FLOR %dS
+SPLIT_SCORE = J%d %d  R%d
+SPLIT_OUT = FUERA
+SPLIT_FLY = TOCA UNA FLOR
+SPLIT_RELEASE = A: SOLTAR %dS

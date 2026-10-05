@@ -1,0 +1,9 @@
+# Penguin Slalom's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 미끄럼
+HINT = 왼쪽 / 오른쪽: 깃발 사이로
+JOIN = %s: A로 참가
+JOIN_LEAVE = %s: A 참가 / B 나가기
+FULL = 4명 - B: 나가기
+HUD_GATES_FISH = 게이트 %d - 물고기 %d
+MSG_CRASH = 쾅!
+MSG_MISSED_GATE = 게이트를 놓쳤어

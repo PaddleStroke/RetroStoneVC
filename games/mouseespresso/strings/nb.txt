@@ -1,0 +1,7 @@
+# Mouse Espresso's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = FLY
+HINT_TITLE = HOLD: OPPOVER. SLIPP: NEDOVER
+JOIN_SHORT = %s: A FOR Å BLI MED
+JOIN_LEAVE_SHORT = %s: A BLI MED - B GÅ UT
+FULL_LEAVE = 4 SPILLERE - B: GÅ UT
+HUD_BISCUITS_DIST = KJEKS %d - %dM

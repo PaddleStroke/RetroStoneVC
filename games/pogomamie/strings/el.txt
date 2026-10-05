@@ -1,0 +1,10 @@
+# Pogo Mamie's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ΠΗΔΗΞΕΙΣ
+TITLE_BEST = ΡΕΚΟΡ %d M   ΠΟΝΤΟΙ %d
+HUD_SCORE = ΠΟΝΤΟΙ %d
+HUD_SCORE_CHAIN = ΠΟΝΤΟΙ %d  X%d
+MEDAL_NAME_0 = ΚΑΝΕΝΑ ΜΕΤΑΛΛΙΟ
+MEDAL_NAME_1 = ΧΑΛΚΙΝΗ ΤΡΙΧΑ
+MEDAL_NAME_2 = ΑΣΗΜΕΝΙΑ ΤΡΙΧΑ
+MEDAL_NAME_3 = ΧΡΥΣΗ ΤΡΙΧΑ
+MEDAL_NAME_4 = ΓΑΤΑ ΣΤΟ ΧΕΡΙ!

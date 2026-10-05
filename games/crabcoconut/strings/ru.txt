@@ -1,0 +1,3 @@
+# Crab Coconut's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+HINT = ВЛЕВО / ВПРАВО: ОТБИВАЙ И РАЗБИВАЙ
+SHELLS_N = РАКУШКИ %d

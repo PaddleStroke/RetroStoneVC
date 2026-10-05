@@ -1,0 +1,8 @@
+# Frog Reach's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = のばす
+HINT_TITLE = おして のばす。はなして ジャンプ!
+MSG_NICE_CATCH = ナイスキャッチ!
+MSG_MISSED = あっ! はっぱをはずした
+MSG_RELEASE = はっぱの上で はなそう
+MSG_HOLD = おして つぎのはっぱへ
+HUD_FLIES_PAD = ハエ %d - はっぱ %d秒

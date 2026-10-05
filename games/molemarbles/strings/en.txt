@@ -1,0 +1,8 @@
+# Mole Marbles (games/molemarbles): its strings, the English source (docs/i18n.md).
+
+#. The title prompt's verb: PRESS A TO <VERB>. max 10
+VERB = MINE
+#. The title's controls line, centred on row 16 (under the logo, above the player slots). '{' and '}' are drawn
+#. as the left and right arrows: keep them. A is the pad's button: keep the letter.
+#. max 38
+HINT_CONTROLS = { } MOVE   A: HARPOON

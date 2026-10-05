@@ -1,0 +1,9 @@
+# Penguin Slalom's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SCIVOLARE
+HINT = SINISTRA / DESTRA: TRA LE BANDIERINE
+JOIN = %s: A PER ENTRARE
+JOIN_LEAVE = %s: A PER ENTRARE - B: ESCI
+FULL = 4 GIOCATORI - B: ESCI
+HUD_GATES_FISH = PORTE %d - PESCI %d
+MSG_CRASH = PATATRAC!
+MSG_MISSED_GATE = PORTA MANCATA!

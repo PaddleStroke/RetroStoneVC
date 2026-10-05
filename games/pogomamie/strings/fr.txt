@@ -1,0 +1,10 @@
+# Pogo Mamie's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = REBONDIR
+TITLE_BEST = RECORD %d M   SCORE %d
+HUD_SCORE = SCORE %d
+HUD_SCORE_CHAIN = SCORE %d  X%d
+MEDAL_NAME_0 = PAS DE MÉDAILLE
+MEDAL_NAME_1 = POIL DE BRONZE
+MEDAL_NAME_2 = POIL D'ARGENT
+MEDAL_NAME_3 = POIL D'OR
+MEDAL_NAME_4 = CHAT ATTRAPÉ !

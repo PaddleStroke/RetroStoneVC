@@ -1,0 +1,9 @@
+# Blueberry Tumble's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = KUTÁLEJ SE
+ATTEMPT_N = POKUS %d
+METRES_GOLD = %d M +%d ZLATA
+NIGHT_BIOME = NOC - %s
+BIOME_SUMMIT = ZASNĚŽENÝ VRCHOL
+BIOME_FOREST = BOROVÝ LES
+BIOME_MEADOWS = BORŮVKOVÉ LOUKY
+BIOME_VILLAGE = VESNICE V ÚDOLÍ

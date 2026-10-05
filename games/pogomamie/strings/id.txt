@@ -1,0 +1,10 @@
+# Pogo Mamie's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = MEMANTUL
+TITLE_BEST = REKOR %d M   SKOR %d
+HUD_SCORE = SKOR %d
+HUD_SCORE_CHAIN = SKOR %d  X%d
+MEDAL_NAME_0 = BELUM ADA MEDALI
+MEDAL_NAME_1 = KUMIS PERUNGGU
+MEDAL_NAME_2 = KUMIS PERAK
+MEDAL_NAME_3 = KUMIS EMAS
+MEDAL_NAME_4 = KENA KAU, PUS!

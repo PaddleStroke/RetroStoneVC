@@ -1,0 +1,18 @@
+# Duck Parade (games/duckparade): its strings, the English source (docs/i18n.md).
+
+#. The title prompt's verb: PRESS A TO <VERB>. max 10
+VERB = HOP
+
+#. The 2-4 player results: the label of the family score's panel (column 10, on the panel fill), left of the
+#. family total drawn in big digits centred on column 24.
+#. max 10
+FAMILY = FAMILY
+
+#. The family photo after a banking: a small panel (18 columns wide, rows 3-8) with the family in it; the line is
+#. centred on row 7, under the ducks; %d is the ducklings brought home. The English already fills the panel.
+#. max 18
+DUCKLINGS_HOME[one] = %d DUCKLING HOME!
+DUCKLINGS_HOME[other] = %d DUCKLINGS HOME!
+#. The same photo when the parent banked no duckling (centred on row 7 of the panel).
+#. max 16
+HOME_SWEET_HOME = HOME SWEET HOME

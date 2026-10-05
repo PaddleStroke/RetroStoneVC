@@ -1,0 +1,7 @@
+# Duck Parade's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SKÁKEJ
+FAMILY = RODINA
+DUCKLINGS_HOME[one] = %d KACHNĚ DOMA!
+DUCKLINGS_HOME[few] = %d KACHŇATA DOMA!
+DUCKLINGS_HOME[other] = %d KACHŇAT DOMA!
+HOME_SWEET_HOME = DOMA JE DOMA

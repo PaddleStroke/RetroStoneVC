@@ -1,0 +1,9 @@
+# Blueberry Tumble's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = TOCZYĆ SIĘ
+ATTEMPT_N = PRÓBA %d
+METRES_GOLD = %d M +%d ZŁOTA
+NIGHT_BIOME = NOC - %s
+BIOME_SUMMIT = OŚNIEŻONY SZCZYT
+BIOME_FOREST = LAS SOSNOWY
+BIOME_MEADOWS = JAGODOWE ŁĄKI
+BIOME_VILLAGE = WIOSKA W DOLINIE

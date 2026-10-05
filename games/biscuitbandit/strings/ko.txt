@@ -1,0 +1,4 @@
+# Biscuit Bandit's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+HINT_MOVE = { } 이동 - 비스킷을 받아요
+HINT_DROP = 하나라도 놓치면 끝! 컵은 피해요
+HINT_POINTS = 쿠키 하나에 10점

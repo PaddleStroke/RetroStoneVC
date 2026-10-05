@@ -1,0 +1,10 @@
+# Pogo Mamie's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = STUDSA
+TITLE_BEST = REKORD %d M   POÄNG %d
+HUD_SCORE = POÄNG %d
+HUD_SCORE_CHAIN = POÄNG %d  X%d
+MEDAL_NAME_0 = INGEN MEDALJ ÄN
+MEDAL_NAME_1 = BRONSMORRHÅR
+MEDAL_NAME_2 = SILVERMORRHÅR
+MEDAL_NAME_3 = GULDMORRHÅR
+MEDAL_NAME_4 = KATTEN FÅNGAD!

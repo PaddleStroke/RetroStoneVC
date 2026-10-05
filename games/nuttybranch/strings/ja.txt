@@ -1,0 +1,6 @@
+# Nutty Branch's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = はしる
+OVER_METRES = きょり
+OVER_BEST_M = ベスト%dM
+OVER_NUTS = ナッツ
+HUD_METRES = %dM

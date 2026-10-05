@@ -1,0 +1,10 @@
+# Pogo Mamie's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = QUICAR
+TITLE_BEST = RECORDE %d M   PONTOS %d
+HUD_SCORE = PONTOS %d
+HUD_SCORE_CHAIN = PONTOS %d  X%d
+MEDAL_NAME_0 = SEM MEDALHA AINDA
+MEDAL_NAME_1 = PELO DE BRONZE
+MEDAL_NAME_2 = PELO DE PRATA
+MEDAL_NAME_3 = PELO DE OURO
+MEDAL_NAME_4 = PEGUEI O GATO!

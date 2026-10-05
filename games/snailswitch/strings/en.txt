@@ -1,0 +1,8 @@
+# Snail Switch (games/snailswitch): its strings, the English source (docs/i18n.md).
+
+#. Title screen, the controls hint, line 1 of 2: centred on row 9, just under the logo (rows 2-9).
+#. max 40
+HINT_MOVE = UP / DOWN: VINE SIDE
+#. Title screen, the hint's line 2: centred on row 10, right under line 1 (the goal of the game).
+#. max 40
+HINT_GOAL = CATCH EVERY FRUIT

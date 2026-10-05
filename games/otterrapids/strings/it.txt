@@ -1,0 +1,7 @@
+# Otter Rapids's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = PAGAIARE
+HINT_MOVE = SINISTRA / DESTRA: PAGAIA
+HINT_GOAL = PRENDI TUTTI I PESCI
+JOIN_SHORT = %s: A PER ENTRARE
+JOIN_LEAVE_SHORT = %s: A PER ENTRARE - B: ESCI
+FULL_LEAVE = 4 GIOCATORI - B: ESCI

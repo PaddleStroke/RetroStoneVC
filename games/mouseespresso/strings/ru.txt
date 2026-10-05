@@ -1,0 +1,7 @@
+# Mouse Espresso's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ЛЕТАТЬ
+HINT_TITLE = ДЕРЖИ - ВВЕРХ. ОТПУСТИ - ВНИЗ
+JOIN_SHORT = %s: A - ИГРАТЬ
+JOIN_LEAVE_SHORT = %s: A - ИГРАТЬ, B - ВЫЙТИ
+FULL_LEAVE = 4 ИГРОКА - B: ВЫЙТИ
+HUD_BISCUITS_DIST = ПЕЧЕНЬЕ %d - %dМ

@@ -1,0 +1,6 @@
+# Raccoon Recycler's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SORTERA
+HINT = VÄNSTER / NER / HÖGER
+JOIN = %s: A VARA MED
+JOIN_LEAVE = %s: A VARA MED / B LÄMNA
+FULL = 4 SPELARE / B LÄMNA

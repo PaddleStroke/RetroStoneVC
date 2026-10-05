@@ -1,0 +1,11 @@
+# Spider Swing's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = КАЧАТЬСЯ
+HINT = A: ОТПУСТИ - L/R: РУЛИ В ВОЗДУХЕ
+MSG_STEER = НАПРАВЬ НИТЬ НА ЦВЕТОК
+MSG_CAUGHT = ПОЙМАН!
+MSG_RELEASE = A: ОТПУСТИ НА ВЗЛЁТЕ
+HUD_DEW_FLOWER = РОСА %d - ЦВЕТОК %dС
+SPLIT_SCORE = P%d %d  Р%d
+SPLIT_OUT = ВЫБЫЛ
+SPLIT_FLY = НИТЬЮ ЛОВИ ЦВЕТОК
+SPLIT_RELEASE = A: ОТПУСТИ %dС

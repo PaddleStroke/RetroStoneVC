@@ -1,0 +1,6 @@
+# Raccoon Recycler's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = MEMILAH
+HINT = KIRI / BAWAH / KANAN
+JOIN = %s: A UNTUK IKUT
+JOIN_LEAVE = %s: A IKUT / B KELUAR
+FULL = 4 PEMAIN / B KELUAR

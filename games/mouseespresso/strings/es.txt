@@ -1,0 +1,7 @@
+# Mouse Espresso's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = VOLAR
+HINT_TITLE = MANTÉN PARA SUBIR, SUELTA PARA BAJAR
+JOIN_SHORT = %s: A PARA UNIRTE
+JOIN_LEAVE_SHORT = %s: A PARA UNIRTE - B: SALIR
+FULL_LEAVE = 4 JUGADORES - B: SALIR
+HUD_BISCUITS_DIST = GALLETAS %d - %dM

@@ -1,0 +1,11 @@
+# Spider Swing's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = HUŚTAĆ SIĘ
+HINT = A: PUŚĆ - L/R: STERUJ W LOCIE
+MSG_STEER = KIERUJ NIĆ NA KWIATEK
+MSG_CAUGHT = ZŁAPANY!
+MSG_RELEASE = A: PUŚĆ, GDY LECISZ W GÓRĘ
+HUD_DEW_FLOWER = ROSA %d - KWIAT %dS
+SPLIT_SCORE = P%d %d  R%d
+SPLIT_OUT = KONIEC
+SPLIT_FLY = NICIĄ ŁAP KWIATEK
+SPLIT_RELEASE = A: PUŚĆ %dS

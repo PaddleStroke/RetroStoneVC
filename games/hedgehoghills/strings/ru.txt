@@ -1,0 +1,14 @@
+# Hedgehog Hills's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = КАТИТЬСЯ
+HINT_TITLE = С ГОРКИ ДЕРЖИ. В ГОРКУ ОТПУСТИ.
+HUD_FROST = МОРОЗ %d М
+HUD_FROST_PLAYER = P%d МОРОЗ %d М
+MSG_SMOOTH = МЯГКО! X%d
+MSG_OUCH = АЙ! НЕ ТЕРЯЙ СКОРОСТЬ
+HINT_RELEASE = ОТПУСТИ ПЕРЕД ПОДЪЁМОМ
+HINT_HOLD = ДЕРЖИ, ЧТОБЫ КАТИТЬСЯ С ГОРКИ
+HUD_APPLES = ЯБЛОКИ %d
+SPLIT_SCORE = P%d %d  Я%d
+SPLIT_FROST = МОРОЗ %dМ
+SPLIT_FROZEN = ЗАМЁРЗ
+SPLIT_SMOOTH = МЯГКО X%d

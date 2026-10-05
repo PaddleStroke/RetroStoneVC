@@ -1,0 +1,7 @@
+# Radish Rascals (games/radishrascals): its strings, the English source (docs/i18n.md).
+
+#. The title prompt's verb: PRESS A TO <VERB>. max 10
+VERB = GARDEN
+#. Title screen, the controls hint: centred on row 9, just under the logo (rows 2-9).
+#. max 40
+HINT = D-PAD: SHOO RABBITS - SPARE FRIENDS

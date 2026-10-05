@@ -1,0 +1,9 @@
+# Blueberry Tumble's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ROTOLARE
+ATTEMPT_N = TENTATIVO %d
+METRES_GOLD = %d M  +%d ORO
+NIGHT_BIOME = NOTTE - %s
+BIOME_SUMMIT = VETTA INNEVATA
+BIOME_FOREST = BOSCO DI PINI
+BIOME_MEADOWS = PRATI DI MIRTILLI
+BIOME_VILLAGE = VILLAGGIO DELLA VALLE

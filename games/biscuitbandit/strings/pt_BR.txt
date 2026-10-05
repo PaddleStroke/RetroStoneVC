@@ -1,0 +1,4 @@
+# Biscuit Bandit's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+HINT_MOVE = { } ANDE - PEGUE OS BISCOITOS
+HINT_DROP = DEIXOU CAIR, ACABOU! EVITE AS XÍCARAS
+HINT_POINTS = 10 PONTOS POR BISCOITO

@@ -1,0 +1,11 @@
+# Beaver Rush's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = RODERE
+SCENE = %2$s %1$s
+SEASON_SUMMER = D'ESTATE
+SEASON_AUTUMN = D'AUTUNNO
+SEASON_WINTER = D'INVERNO
+SEASON_SPRING = DI PRIMAVERA
+TOD_DAWN = ALBA
+TOD_DAY = SOLE
+TOD_SUNSET = SERA
+TOD_NIGHT = NOTTE

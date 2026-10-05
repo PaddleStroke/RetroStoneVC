@@ -1,0 +1,7 @@
+# Otter Rapids's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ΒΟΥΤΗΞΕΙΣ
+HINT_MOVE = ΑΡΙΣΤΕΡΑ / ΔΕΞΙΑ: ΚΟΛΥΜΠΑ
+HINT_GOAL = ΠΙΑΣΕ ΟΛΑ ΤΑ ΨΑΡΙΑ
+JOIN_SHORT = %s: A ΓΙΑ ΝΑ ΜΠΕΙΣ
+JOIN_LEAVE_SHORT = %s: A ΜΠΑΙΝΕΙΣ - B ΒΓΑΙΝΕΙΣ
+FULL_LEAVE = 4 ΠΑΙΚΤΕΣ - B ΓΙΑ ΕΞΟΔΟ

@@ -1,0 +1,7 @@
+# Otter Rapids's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = PADDELN
+HINT_MOVE = LINKS / RECHTS: PADDELN
+HINT_GOAL = FANG ALLE FISCHE
+JOIN_SHORT = %s: A ZUM MITSPIELEN
+JOIN_LEAVE_SHORT = %s: A MITSPIELEN - B GEHEN
+FULL_LEAVE = 4 SPIELER - B: GEHEN

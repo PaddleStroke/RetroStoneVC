@@ -1,0 +1,9 @@
+# Blueberry Tumble's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ROLAR
+ATTEMPT_N = TENTATIVA %d
+METRES_GOLD = %d M  +%d OURO
+NIGHT_BIOME = NOITE - %s
+BIOME_SUMMIT = PICO NEVADO
+BIOME_FOREST = BOSQUE DE PINHEIROS
+BIOME_MEADOWS = CAMPOS DE MIRTILOS
+BIOME_VILLAGE = VILA DO VALE

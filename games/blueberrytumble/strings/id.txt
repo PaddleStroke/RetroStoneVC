@@ -1,0 +1,9 @@
+# Blueberry Tumble's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = BERGULING
+ATTEMPT_N = PERCOBAAN %d
+METRES_GOLD = %d M  +%d EMAS
+NIGHT_BIOME = MALAM - %s
+BIOME_SUMMIT = PUNCAK BERSALJU
+BIOME_FOREST = HUTAN PINUS
+BIOME_MEADOWS = PADANG BLUEBERRY
+BIOME_VILLAGE = DESA LEMBAH

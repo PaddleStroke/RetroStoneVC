@@ -1,0 +1,9 @@
+# Penguin Slalom's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = KAYMAK
+HINT = SOL / SAĞ: BAYRAKLARIN ARASINDAN
+JOIN = %s: A İLE KATIL
+JOIN_LEAVE = %s: A İLE KATIL, B İLE ÇIK
+FULL = 4 OYUNCU - B İLE ÇIK
+HUD_GATES_FISH = KAPI %d - BALIK %d
+MSG_CRASH = ÇARPTIN!
+MSG_MISSED_GATE = KAPIYI KAÇIRDIN

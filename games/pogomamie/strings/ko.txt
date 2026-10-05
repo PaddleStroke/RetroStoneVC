@@ -1,0 +1,10 @@
+# Pogo Mamie's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 점프
+TITLE_BEST = 최고 %dM   점수 %d
+HUD_SCORE = 점수 %d
+HUD_SCORE_CHAIN = 점수 %d  X%d
+MEDAL_NAME_0 = 아직 메달 없음
+MEDAL_NAME_1 = 브론즈 수염
+MEDAL_NAME_2 = 실버 수염
+MEDAL_NAME_3 = 골드 수염
+MEDAL_NAME_4 = 고양이 잡았다!

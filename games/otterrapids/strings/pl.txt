@@ -1,0 +1,7 @@
+# Otter Rapids's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = WIOSŁOWAĆ
+HINT_MOVE = LEWO / PRAWO: WIOSŁUJ
+HINT_GOAL = ZŁAP WSZYSTKIE RYBY
+JOIN_SHORT = %s: A, ABY DOŁĄCZYĆ
+JOIN_LEAVE_SHORT = %s: A, ABY DOŁĄCZYĆ - B: WYJDŹ
+FULL_LEAVE = 4 GRACZE - B: WYJDŹ

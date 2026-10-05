@@ -1,0 +1,11 @@
+# Spider Swing's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = DONDOLARE
+HINT = A: MOLLA - L/R: GIRA IN VOLO
+MSG_STEER = PORTA IL FILO SU UN FIORE
+MSG_CAUGHT = AGGANCIATO!
+MSG_RELEASE = A: MOLLA NEL PUNTO PIÙ ALTO
+HUD_DEW_FLOWER = RUGIADA %d - FIORE %dS
+SPLIT_SCORE = G%d %d  R%d
+SPLIT_OUT = FUORI
+SPLIT_FLY = TOCCA UN FIORE
+SPLIT_RELEASE = A: MOLLA %dS

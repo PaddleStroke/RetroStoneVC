@@ -1,0 +1,7 @@
+# Otter Rapids's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ГРЕСТИ
+HINT_MOVE = ВЛЕВО / ВПРАВО: ГРЕБИ
+HINT_GOAL = ПОЙМАЙ ВСЕХ РЫБ
+JOIN_SHORT = %s: A - ИГРАТЬ
+JOIN_LEAVE_SHORT = %s: A - ИГРАТЬ, B - ВЫЙТИ
+FULL_LEAVE = 4 ИГРОКА - B: ВЫЙТИ

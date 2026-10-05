@@ -1,0 +1,4 @@
+# Biscuit Bandit's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+HINT_MOVE = { } FLYTTA - FÅNGA KEXEN
+HINT_DROP = TAPPA INGET KEX! UNDVIK KOPPARNA
+HINT_POINTS = 10 POÄNG PER KEX

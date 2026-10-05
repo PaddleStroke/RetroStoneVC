@@ -1,0 +1,14 @@
+# Hedgehog Hills's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ころがる
+HINT_TITLE = くだりで おす。のぼりで はなす。
+HUD_FROST = しもから %dM
+HUD_FROST_PLAYER = %dP しもから %dM
+MSG_SMOOTH = スムーズ! X%d
+MSG_OUCH = いたっ! スピードをたもって
+HINT_RELEASE = のぼるまえに はなそう
+HINT_HOLD = おして さかをころがろう
+HUD_APPLES = りんご %d
+SPLIT_SCORE = %dP %d りんご%d
+SPLIT_FROST = しもから%dM
+SPLIT_FROZEN = こおった!
+SPLIT_SMOOTH = スムーズ X%d

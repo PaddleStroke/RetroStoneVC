@@ -1,0 +1,8 @@
+# Frog Reach's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = UZANMAK
+HINT_TITLE = BASILI TUT: UZAT. BIRAK: ZIPLA!
+MSG_NICE_CATCH = GÜZEL YAKALADIN!
+MSG_MISSED = EYVAH! YAPRAĞI KAÇIRDIN
+MSG_RELEASE = NİLÜFERİN ÜSTÜNDE BIRAK
+MSG_HOLD = SONRAKİ YAPRAK İÇİN BASILI TUT
+HUD_FLIES_PAD = SİNEK %d - YAPRAK %d SN

@@ -1,0 +1,29 @@
+# Blueberry Tumble (games/blueberrytumble): its strings, the English source (docs/i18n.md).
+
+#. The title prompt's verb: PRESS A TO <VERB>. max 10
+VERB = ROLL
+
+#. The run's number, written in the world at the start of a run (column 22, row 10) and rolling away with the
+#. ground; %d is the attempt (1, 2, 3...).
+#. max 18
+ATTEMPT_N = ATTEMPT %d
+
+#. The 1-player game-over panel, under SCORE (row 12, from column 12, on the panel fill): the distance and the
+#. golden blueberries picked up; %1$d is the metres, %2$d the golden blueberries (when there are none, the line
+#. is the kit's METRES_N "%d M" alone). The big SCORE digits sit just above it, centred on column 25.
+#. max 16
+METRES_GOLD = %d M  +%d GOLD
+
+#. The biome's name when the berry passes a gate (centred on row 6, 2.5 s). On the night loop it reads
+#. NIGHT - <biome>; %s is one of BIOME_*.
+#. max 38
+NIGHT_BIOME = NIGHT - %s
+#. The biomes (an array, in this order; generated into gm_biome_names[] from tools/make_art.py BIOME_NAMES).
+#. max 30
+BIOME_SUMMIT = SNOWY SUMMIT
+#. max 30
+BIOME_FOREST = PINE FOREST
+#. max 30
+BIOME_MEADOWS = BLUEBERRY MEADOWS
+#. max 30
+BIOME_VILLAGE = VALLEY VILLAGE

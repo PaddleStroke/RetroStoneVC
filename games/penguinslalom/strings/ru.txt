@@ -1,0 +1,9 @@
+# Penguin Slalom's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = СКОЛЬЗИТЬ
+HINT = ВЛЕВО / ВПРАВО: МЕЖДУ ФЛАЖКАМИ
+JOIN = %s: A - ИГРАТЬ
+JOIN_LEAVE = %s: A - ИГРАТЬ, B - ВЫЙТИ
+FULL = 4 ИГРОКА - B: ВЫЙТИ
+HUD_GATES_FISH = ВОРОТА %d - РЫБЫ %d
+MSG_CRASH = БАБАХ!
+MSG_MISSED_GATE = ПРОПУЩЕНЫ ВОРОТА

@@ -1,0 +1,6 @@
+# Duck Parade's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SAUTILLER
+FAMILY = FAMILLE
+DUCKLINGS_HOME[one] = %d À LA MAISON !
+DUCKLINGS_HOME[other] = %d À LA MAISON !
+HOME_SWEET_HOME = ENFIN CHEZ SOI !

@@ -1,0 +1,17 @@
+# Raccoon Recycler (games/raccoonrecycler): its strings, the English source (docs/i18n.md).
+
+#. The title prompt's verb: PRESS A TO <VERB>. max 10
+VERB = SORT
+#. Title screen, the controls hint (the three bins: left, down, right): centred on row 8, just under the logo
+#. and above the prompt (row 10).
+#. max 40
+HINT = LEFT / DOWN / RIGHT
+#. Title screen, the join line (row 22, centred) while P1 plays alone; %s lists the free player tags
+#. ("P2/P3/P4", up to 8 columns). max 40 for the whole line, %s included (32 for the rest).
+JOIN = %s: A JOIN
+#. The same with 2 or 3 players joined: B makes a player leave; %s = the free tags ("P3/P4" or "P4", up to 5
+#. columns). max 40 for the whole line, %s included (35 for the rest).
+JOIN_LEAVE = %s: A JOIN / B LEAVE
+#. The join line when all 4 players have joined (row 22, centred).
+#. max 40
+FULL = 4 PLAYERS / B LEAVE

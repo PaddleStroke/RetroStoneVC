@@ -1,0 +1,4 @@
+# Biscuit Bandit's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+HINT_MOVE = { } ANDA - APANHA AS BOLACHAS
+HINT_DROP = CAIU UMA, ACABOU! EVITA AS CHÁVENAS
+HINT_POINTS = 10 PONTOS POR BOLACHA

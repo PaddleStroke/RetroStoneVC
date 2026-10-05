@@ -1,0 +1,6 @@
+# Duck Parade's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ΠΗΔΗΞΕΙΣ
+FAMILY = ΟΙΚΟΓΕΝΕΙΑ
+DUCKLINGS_HOME[one] = %d ΠΑΠΑΚΙ ΣΠΙΤΙ!
+DUCKLINGS_HOME[other] = %d ΠΑΠΑΚΙΑ ΣΠΙΤΙ!
+HOME_SWEET_HOME = ΣΠΙΤΑΚΙ ΜΟΥ!

@@ -1,0 +1,4 @@
+# Biscuit Bandit's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+HINT_MOVE = { } BEWEGEN - KEKSE FANGEN
+HINT_DROP = KEIN KEKS DARF FALLEN! MEIDE TASSEN
+HINT_POINTS = 10 PUNKTE PRO KEKS

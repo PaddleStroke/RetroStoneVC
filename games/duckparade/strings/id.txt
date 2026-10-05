@@ -1,0 +1,5 @@
+# Duck Parade's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = MELOMPAT
+FAMILY = KELUARGA
+DUCKLINGS_HOME[other] = %d ANAK PULANG!
+HOME_SWEET_HOME = RUMAHKU ISTANAKU

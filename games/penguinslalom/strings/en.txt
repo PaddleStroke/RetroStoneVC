@@ -1,0 +1,25 @@
+# Penguin Slalom (games/penguinslalom): its strings, the English source (docs/i18n.md).
+
+#. The title prompt's verb: PRESS A TO <VERB>. max 10
+VERB = SLIDE
+#. Title screen, the controls hint: centred on row 23, between BEST (row 22) and the player slots (row 25).
+#. max 40
+HINT = LEFT / RIGHT: BETWEEN THE FLAGS
+#. Title screen, the join line (row 27, centred) while P1 plays alone; %s lists the free player tags
+#. ("P2 / P3 / P4", up to 12 columns). max 40 for the whole line, %s included (28 for the rest).
+JOIN = %s: A TO JOIN
+#. The same with 2 or 3 players joined: B makes a player leave; %s = the free tags ("P3 / P4" or "P4",
+#. up to 7 columns). max 40 for the whole line, %s included (33 for the rest).
+JOIN_LEAVE = %s: A JOIN - B LEAVE
+#. The join line when all 4 players have joined (row 27, centred).
+#. max 40
+FULL = 4 PLAYERS - B TO LEAVE
+#. In-game HUD, 1 player, centred on row 4 under the big score: the first %d is the gates passed, the
+#. second the fish eaten (numbers up to 4 digits). max 39 for the whole line, numbers included.
+HUD_GATES_FISH = GATES %d - FISH %d
+#. In-game HUD, 1 player, the same row once the run ends: the penguin hit an obstacle.
+#. max 39
+MSG_CRASH = CRASH!
+#. The same: the penguin missed a gate.
+#. max 39
+MSG_MISSED_GATE = MISSED GATE

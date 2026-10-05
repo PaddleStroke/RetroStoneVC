@@ -1,0 +1,4 @@
+# Biscuit Bandit's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+HINT_MOVE = { } POHYB - CHYTEJ SUŠENKY
+HINT_DROP = NEUPUSŤ ANI JEDNU! VYHNI SE HRNKŮM
+HINT_POINTS = 10 BODŮ ZA SUŠENKU

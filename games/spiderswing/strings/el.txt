@@ -1,0 +1,11 @@
+# Spider Swing's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ΚΟΥΝΗΘΕΙΣ
+HINT = A: ΑΦΗΣΕ - L/R: ΣΤΡΙΨΕ ΣΤΟΝ ΑΕΡΑ
+MSG_STEER = ΟΔΗΓΗΣΕ ΤΟ ΝΗΜΑ ΣΕ ΕΝΑ ΛΟΥΛΟΥΔΙ
+MSG_CAUGHT = ΠΙΑΣΤΗΚΕ!
+MSG_RELEASE = A: ΑΦΗΣΕ ΣΤΟ ΨΗΛΟΤΕΡΟ ΣΗΜΕΙΟ
+HUD_DEW_FLOWER = ΔΡΟΣΙΑ %d - ΛΟΥΛΟΥΔΙ %dΔ
+SPLIT_SCORE = P%d %d  Δ%d
+SPLIT_OUT = ΕΚΤΟΣ
+SPLIT_FLY = ΑΓΓΙΞΕ ΜΕ ΤΟ ΝΗΜΑ
+SPLIT_RELEASE = A: ΑΦΗΣΕ %dΔ

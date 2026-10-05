@@ -1,0 +1,9 @@
+# Penguin Slalom's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = MELUNCUR
+HINT = KIRI / KANAN: DI ANTARA BENDERA
+JOIN = %s: A UNTUK IKUT
+JOIN_LEAVE = %s: A IKUT - B KELUAR
+FULL = 4 PEMAIN - B UNTUK KELUAR
+HUD_GATES_FISH = GERBANG %d - IKAN %d
+MSG_CRASH = MENABRAK!
+MSG_MISSED_GATE = GERBANG TERLEWAT

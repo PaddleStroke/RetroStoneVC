@@ -1,0 +1,4 @@
+# Biscuit Bandit's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+HINT_MOVE = { } FLYT - FANG KIKSENE
+HINT_DROP = TAB INGEN KIKS! UNDGÅ KOPPERNE
+HINT_POINTS = 10 POINT PER KIKS

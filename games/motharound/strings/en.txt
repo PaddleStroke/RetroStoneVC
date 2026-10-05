@@ -1,0 +1,12 @@
+# Moth Around (games/motharound): its strings, the English source (docs/i18n.md).
+
+#. The title prompt's verb: PRESS A TO <VERB>. max 10
+VERB = FLY
+#. The title's how-to-play line (row 16, under the logo, above the player slots; drawn from column 4, not centred).
+#. LEFT / RIGHT are the D-pad directions.
+#. max 36
+HINT_TITLE = LEFT / RIGHT: DODGE THE RINGS
+#. HUD (1 player), centred on row 4 under the score: the first %d is the rings passed, the second the seconds
+#. survived (S = seconds).
+#. max 38
+HUD_RINGS_TIME = RINGS %d - %dS

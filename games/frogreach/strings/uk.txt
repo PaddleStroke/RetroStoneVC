@@ -1,0 +1,8 @@
+# Frog Reach's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ТЯГНУТИСЯ
+HINT_TITLE = ТРИМАЙ - ТЯГНИСЬ. ВІДПУСТИ - СТРИБАЙ.
+MSG_NICE_CATCH = ЧУДОВО ПІЙМАНО!
+MSG_MISSED = О НІ! ПОВЗ ЛАТАТТЯ!
+MSG_RELEASE = ВІДПУСТИ НАД ЛАТАТТЯМ
+MSG_HOLD = ТРИМАЙ - ДОТЯГНИСЬ ДО ЛАТАТТЯ
+HUD_FLIES_PAD = МУХИ %d - ЛАТАТТЯ %dС

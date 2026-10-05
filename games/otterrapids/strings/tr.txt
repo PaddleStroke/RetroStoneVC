@@ -1,0 +1,7 @@
+# Otter Rapids's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = YÜZMEK
+HINT_MOVE = SOL / SAĞ: KULAÇ AT
+HINT_GOAL = BÜTÜN BALIKLARI YAKALA
+JOIN_SHORT = %s: A İLE KATIL
+JOIN_LEAVE_SHORT = %s: A İLE KATIL, B İLE ÇIK
+FULL_LEAVE = 4 OYUNCU - B İLE ÇIK

@@ -1,0 +1,6 @@
+# Raccoon Recycler's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = TŘIĎ
+HINT = VLEVO / DOLŮ / VPRAVO
+JOIN = %s: A - PŘIDAT SE
+JOIN_LEAVE = %s: A - PŘIDAT SE / B - ODEJÍT
+FULL = 4 HRÁČI / B: ODEJÍT

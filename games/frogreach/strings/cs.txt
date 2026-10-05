@@ -1,0 +1,8 @@
+# Frog Reach's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SÁHNI
+HINT_TITLE = DRŽ - NATAHUJ. PUSŤ - SKOČ.
+MSG_NICE_CATCH = PĚKNĚ CHYCENO!
+MSG_MISSED = Ó NE! VEDLE LEKNÍNU!
+MSG_RELEASE = PUSŤ NAD LEKNÍNEM
+MSG_HOLD = DRŽ, DOSÁHNEŠ NA DALŠÍ LEKNÍN
+HUD_FLIES_PAD = MOUCHY %d - LEKNÍN %dS

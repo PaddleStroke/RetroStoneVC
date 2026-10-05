@@ -1,0 +1,8 @@
+# Frog Reach's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 伸舌头
+HINT_TITLE = 按住伸长 松开跳跃!
+MSG_NICE_CATCH = 跳得好!
+MSG_MISSED = 哎呀!没跳到荷叶
+MSG_RELEASE = 在荷叶上方松开
+MSG_HOLD = 按住 够到下一片荷叶
+HUD_FLIES_PAD = 苍蝇 %d - 荷叶 %d秒

@@ -1,0 +1,11 @@
+# Beaver Rush's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 啃木头
+SCENE = %s的%s
+SEASON_SUMMER = 夏天
+SEASON_AUTUMN = 秋天
+SEASON_WINTER = 冬天
+SEASON_SPRING = 春天
+TOD_DAWN = 黎明
+TOD_DAY = 白天
+TOD_SUNSET = 黄昏
+TOD_NIGHT = 夜晚

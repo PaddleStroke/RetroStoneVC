@@ -1,0 +1,4 @@
+# Moth Around's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ЛІТАТИ
+HINT_TITLE = ВЛІВО / ВПРАВО: ОМИНАЙ КІЛЬЦЯ
+HUD_RINGS_TIME = КІЛЬЦЯ %d - %dС

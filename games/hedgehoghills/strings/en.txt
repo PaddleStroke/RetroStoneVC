@@ -1,0 +1,45 @@
+# Hedgehog Hills (games/hedgehoghills): its strings, the English source (docs/i18n.md).
+
+#. The title prompt's verb: PRESS A TO <VERB>. max 10
+VERB = ROLL
+#. The title's how-to-play line (row 16, under the logo, above the player slots; drawn from column 4, not centred).
+#. max 36
+HINT_TITLE = HOLD DOWNHILL. RELEASE UPHILL.
+
+#. HUD (1 player), centred on row 4 under the score: how far ahead of the frost front the hedgehog is; %d is the
+#. distance in metres.
+#. max 38
+HUD_FROST = FROST %d M
+#. The same with a player tag (several players on one screen): %d the player (1-4), then the distance in metres.
+#. max 38
+HUD_FROST_PLAYER = P%d FROST %d M
+#. HUD (1 player), centred on row 6, under the frost line: a smooth landing; %d is the combo multiplier (X2, X3...).
+#. max 38
+MSG_SMOOTH = SMOOTH! X%d
+#. Row 6: a bad landing that lost speed.
+#. max 38
+MSG_OUCH = OUCH! KEEP YOUR SPEED
+#. Row 6, the first 6 seconds of a run (tutorial), while the button is held: let go before going up a hill.
+#. max 38
+HINT_RELEASE = RELEASE BEFORE THE CLIMB
+#. Row 6, the first 6 seconds of a run (tutorial), while the button is not held.
+#. max 38
+HINT_HOLD = HOLD TO ROLL DOWNHILL
+#. Row 6 after the tutorial: the apples picked up; %d is the count (a HUD label, not a sentence).
+#. max 38
+HUD_APPLES = APPLES %d
+
+#. Split screen (2-4 players), each view's top-left line: the player (1-4), the score, then A + the apples count.
+#. "A" is short for APPLES. max 18 with the numbers (a quarter view is 19 columns wide; English is 12 with a
+#. 4-digit score).
+#. max 18
+SPLIT_SCORE = P%d %d  A%d
+#. Split screen, each view's second line: the distance ahead of the frost in metres (no space before M).
+#. max 18
+SPLIT_FROST = FROST %dM
+#. Split screen, the second line when that player was caught by the frost.
+#. max 18
+SPLIT_FROZEN = FROZEN
+#. Split screen, each view's bottom line: a smooth landing; %d is the combo multiplier.
+#. max 18
+SPLIT_SMOOTH = SMOOTH X%d

@@ -1,0 +1,10 @@
+# Pogo Mamie's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SPRETTE
+TITLE_BEST = REKORD %d M   POENG %d
+HUD_SCORE = POENG %d
+HUD_SCORE_CHAIN = POENG %d  X%d
+MEDAL_NAME_0 = INGEN MEDALJE
+MEDAL_NAME_1 = BRONSEVÆRHÅR
+MEDAL_NAME_2 = SØLVVÆRHÅR
+MEDAL_NAME_3 = GULLVÆRHÅR
+MEDAL_NAME_4 = KATTEN FANGET!

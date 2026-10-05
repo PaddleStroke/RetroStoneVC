@@ -1,0 +1,7 @@
+# Mouse Espresso's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = とぶ
+HINT_TITLE = おして上がる。はなして下がる
+JOIN_SHORT = %s: Aで参加
+JOIN_LEAVE_SHORT = %s: Aで参加 Bでぬける
+FULL_LEAVE = 4人プレイ - Bでぬける
+HUD_BISCUITS_DIST = ビスケット %d - %dM

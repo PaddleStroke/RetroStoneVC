@@ -1,0 +1,7 @@
+# Mouse Espresso's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = FLYGA
+HINT_TITLE = HÅLL: UPPÅT. SLÄPP: NEDÅT
+JOIN_SHORT = %s: A FÖR ATT VARA MED
+JOIN_LEAVE_SHORT = %s: A VARA MED - B LÄMNA
+FULL_LEAVE = 4 SPELARE - B: LÄMNA
+HUD_BISCUITS_DIST = KEX %d - %dM

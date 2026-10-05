@@ -1,0 +1,21 @@
+# Otter Rapids (games/otterrapids): its strings, the English source (docs/i18n.md).
+
+#. The title prompt's verb: PRESS A TO <VERB>. max 10 (the game draws the prompt itself, row 12, after the A glyph)
+VERB = PADDLE
+#. The title's controls line (row 9, right under the logo; drawn from column 5, not centred). LEFT / RIGHT are
+#. the D-pad directions.
+#. max 35
+HINT_MOVE = LEFT / RIGHT: PADDLE
+#. The title's goal line (row 13, under the prompt; drawn from column 7, not centred).
+#. max 33
+HINT_GOAL = CATCH EVERY FISH
+#. The title's join line (the game's own, centred on row 10); %s lists the free player tags ("P2 / P3 / P4", up
+#. to 12 columns). A is the pad's button: keep the letter.
+#. max 38
+JOIN_SHORT = %s: A TO JOIN
+#. The same with players already joined: A joins, B makes a player leave. Keep A and B.
+#. max 38
+JOIN_LEAVE_SHORT = %s: A JOIN - B LEAVE
+#. The join line when all 4 slots are taken (the 4 is fixed: only shown with 4 players). Keep B.
+#. max 38
+FULL_LEAVE = 4 PLAYERS - B TO LEAVE

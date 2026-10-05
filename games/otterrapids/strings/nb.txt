@@ -1,0 +1,7 @@
+# Otter Rapids's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = PADLE
+HINT_MOVE = VENSTRE / HØYRE: PADLE
+HINT_GOAL = FANG ALLE FISKENE
+JOIN_SHORT = %s: A FOR Å BLI MED
+JOIN_LEAVE_SHORT = %s: A BLI MED - B GÅ UT
+FULL_LEAVE = 4 SPILLERE - B: GÅ UT

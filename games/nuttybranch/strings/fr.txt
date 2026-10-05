@@ -1,0 +1,6 @@
+# Nutty Branch's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = COURIR
+OVER_METRES = MÈTRES
+OVER_BEST_M = RECORD %d
+OVER_NUTS = NOISETTES
+HUD_METRES = %d M

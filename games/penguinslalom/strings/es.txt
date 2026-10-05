@@ -1,0 +1,9 @@
+# Penguin Slalom's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = DESLIZARTE
+HINT = IZQUIERDA / DERECHA: ENTRE LAS BANDERAS
+JOIN = %s: A PARA UNIRTE
+JOIN_LEAVE = %s: A PARA UNIRTE - B: SALIR
+FULL = 4 JUGADORES - B: SALIR
+HUD_GATES_FISH = PUERTAS %d - PECES %d
+MSG_CRASH = ¡CATAPUM!
+MSG_MISSED_GATE = ¡PUERTA FALLADA!

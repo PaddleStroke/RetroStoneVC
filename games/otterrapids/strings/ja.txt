@@ -1,0 +1,7 @@
+# Otter Rapids's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = こぐ
+HINT_MOVE = 左右: こぐ
+HINT_GOAL = さかなを ぜんぶ とろう
+JOIN_SHORT = %s: Aで参加
+JOIN_LEAVE_SHORT = %s: Aで参加 Bでぬける
+FULL_LEAVE = 4人プレイ - Bでぬける

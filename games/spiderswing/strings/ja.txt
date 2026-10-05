@@ -1,0 +1,11 @@
+# Spider Swing's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ゆれる
+HINT = A: はなす - L/R: 空中でそうさ
+MSG_STEER = いとを花にあてよう
+MSG_CAUGHT = キャッチ!
+MSG_RELEASE = A: 高くあがったら はなそう
+HUD_DEW_FLOWER = つゆ %d - 花 %d秒
+SPLIT_SCORE = %dP %d  つゆ%d
+SPLIT_OUT = アウト
+SPLIT_FLY = いとを花にあてる
+SPLIT_RELEASE = A: はなす %d秒

@@ -1,0 +1,11 @@
+# Spider Swing's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = KEINU
+HINT = A: IRTI - L/R: OHJAA ILMASSA
+MSG_STEER = OHJAA SEITTI KUKKAAN
+MSG_CAUGHT = KIINNI!
+MSG_RELEASE = A: PÄÄSTÄ IRTI NOUSUSSA
+HUD_DEW_FLOWER = KASTE %d - KUKKA %dS
+SPLIT_SCORE = P%d %d  K%d
+SPLIT_OUT = PELI OHI
+SPLIT_FLY = NAPPAA SEITILLÄ
+SPLIT_RELEASE = A: IRTI %dS

@@ -1,0 +1,9 @@
+# Penguin Slalom's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = KLOUZEJ SE
+HINT = VLEVO / VPRAVO: MEZI PRAPORKY
+JOIN = %s: A - PŘIDAT SE
+JOIN_LEAVE = %s: A - PŘIDAT SE, B - ODEJÍT
+FULL = 4 HRÁČI - B: ODEJÍT
+HUD_GATES_FISH = BRANKY %d - RYBY %d
+MSG_CRASH = NÁRAZ!
+MSG_MISSED_GATE = MINUTÁ BRANKA

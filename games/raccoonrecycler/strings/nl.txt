@@ -1,0 +1,6 @@
+# Raccoon Recycler's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SORTEREN
+HINT = LINKS / OMLAAG / RECHTS
+JOIN = %s: A MEEDOEN
+JOIN_LEAVE = %s: A MEEDOEN / B STOPPEN
+FULL = 4 SPELERS / B STOPPEN

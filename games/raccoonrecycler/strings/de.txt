@@ -1,0 +1,6 @@
+# Raccoon Recycler's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SORTIEREN
+HINT = LINKS / UNTEN / RECHTS
+JOIN = %s: A MITSPIELEN
+JOIN_LEAVE = %s: A MITSPIELEN / B GEHEN
+FULL = 4 SPIELER / B GEHEN

@@ -1,0 +1,34 @@
+# Spider Swing (games/spiderswing): its strings, the English source (docs/i18n.md).
+
+#. The title prompt's verb: PRESS A TO <VERB>. max 10
+VERB = SWING
+#. Title screen, the controls hint (row 16, drawn from column 6, not centred; L/R = the D-pad's left and right).
+#. max 34
+HINT = A: RELEASE - L/R: AIR STEER
+#. In-game, 1 player, centred on row 4 under the big score: the spider flies; steer its silk thread onto a
+#. flower to catch it.
+#. max 39
+MSG_STEER = STEER SILK INTO A FLOWER
+#. The spider's thread has caught a flower. Shown centred on row 4 (1 player) and in the split-screen
+#. panel of each player (2-4 players, 18 columns inside the panel).
+#. max 18
+MSG_CAUGHT = CAUGHT!
+#. In-game, 1 player, centred on row 4: hanging from a flower, press A to let go at the top of the swing.
+#. max 39
+MSG_RELEASE = A: RELEASE ON THE UPSWING
+#. In-game HUD, 1 player, centred on row 6: %d = the dew drops collected, then the seconds left before the
+#. flower drops the spider (the S after %d is the seconds unit). max 39 for the whole line, numbers included.
+HUD_DEW_FLOWER = DEW %d - FLOWER %dS
+#. Split screen (2-4 players), the panel at the top-left of each player's view, line 1: the player tag
+#. (P1..P4), the score, two spaces, then D (for dew) and the dew drops collected. Panel inner width 18
+#. columns (view 159 px). max 18 for the whole line, numbers included.
+SPLIT_SCORE = P%d %d  D%d
+#. Split screen panel, line 2: this player's run is over.
+#. max 18
+SPLIT_OUT = OUT
+#. Split screen panel, line 2: the spider flies; touching a flower with the silk catches it.
+#. max 18
+SPLIT_FLY = SILK TOUCH: CATCH
+#. Split screen panel, line 2: hanging from a flower; A lets go, %d = seconds left before the flower drops
+#. the spider (the S is the seconds unit). max 18 for the whole line, the number included.
+SPLIT_RELEASE = A: RELEASE %dS

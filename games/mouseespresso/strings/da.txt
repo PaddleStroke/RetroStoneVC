@@ -1,0 +1,7 @@
+# Mouse Espresso's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = FLYVE
+HINT_TITLE = HOLD: OPAD. SLIP: NEDAD
+JOIN_SHORT = %s: A FOR AT VÆRE MED
+JOIN_LEAVE_SHORT = %s: A VÆR MED - B GÅ UD
+FULL_LEAVE = 4 SPILLERE - B: GÅ UD
+HUD_BISCUITS_DIST = KIKS %d - %dM

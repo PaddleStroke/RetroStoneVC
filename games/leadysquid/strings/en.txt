@@ -1,0 +1,5 @@
+# Leady Squid (games/leadysquid): its strings, the English source (docs/i18n.md).
+# Everything else the game shows comes from the house kit (games/common/strings/en.txt); the logo is a drawn map.
+
+#. The title prompt's verb: PRESS A TO <VERB>. max 10
+VERB = SWIM

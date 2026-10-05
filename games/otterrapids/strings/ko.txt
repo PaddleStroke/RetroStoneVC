@@ -1,0 +1,7 @@
+# Otter Rapids's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 노 젓기
+HINT_MOVE = 왼쪽 / 오른쪽: 노 젓기
+HINT_GOAL = 물고기를 모두 잡아요
+JOIN_SHORT = %s: A로 참가
+JOIN_LEAVE_SHORT = %s: A 참가 / B 나가기
+FULL_LEAVE = 4명 - B: 나가기

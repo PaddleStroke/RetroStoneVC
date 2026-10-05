@@ -1,0 +1,4 @@
+# Moth Around's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = UÇMAK
+HINT_TITLE = SOL / SAĞ: HALKALARDAN KAÇ
+HUD_RINGS_TIME = HALKA %d - %d SN

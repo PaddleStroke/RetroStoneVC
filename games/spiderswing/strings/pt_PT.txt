@@ -1,0 +1,11 @@
+# Spider Swing's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = BALOIÇAR
+HINT = A: LARGAR - L/R: VIRAR NO AR
+MSG_STEER = LEVA O FIO ATÉ UMA FLOR
+MSG_CAUGHT = AGARROU!
+MSG_RELEASE = A: LARGA NO PONTO MAIS ALTO
+HUD_DEW_FLOWER = ORVALHO %d - FLOR %dS
+SPLIT_SCORE = J%d %d  O%d
+SPLIT_OUT = FORA
+SPLIT_FLY = TOCA NUMA FLOR
+SPLIT_RELEASE = A: LARGAR %dS

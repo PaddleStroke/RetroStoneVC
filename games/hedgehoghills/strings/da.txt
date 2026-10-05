@@ -1,0 +1,14 @@
+# Hedgehog Hills's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = TRILLE
+HINT_TITLE = HOLD NEDAD. SLIP OPAD.
+HUD_FROST = FROST %d M
+HUD_FROST_PLAYER = P%d FROST %d M
+MSG_SMOOTH = BLØDT! X%d
+MSG_OUCH = AV! HOLD FARTEN
+HINT_RELEASE = SLIP FØR BAKKEN
+HINT_HOLD = HOLD FOR AT TRILLE NEDAD
+HUD_APPLES = ÆBLER %d
+SPLIT_SCORE = P%d %d  Æ%d
+SPLIT_FROST = FROST %dM
+SPLIT_FROZEN = FROSSEN
+SPLIT_SMOOTH = BLØDT X%d

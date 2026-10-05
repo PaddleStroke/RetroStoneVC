@@ -1,0 +1,14 @@
+# Hedgehog Hills's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ΚΥΛΗΣΕΙΣ
+HINT_TITLE = ΚΑΤΗΦΟΡΑ: ΚΡΑΤΑ. ΑΝΗΦΟΡΑ: ΑΦΗΣΕ.
+HUD_FROST = ΠΑΓΩΝΙΑ %d M
+HUD_FROST_PLAYER = P%d ΠΑΓΩΝΙΑ %d M
+MSG_SMOOTH = ΑΠΑΛΑ! X%d
+MSG_OUCH = ΑΟΥΤΣ! ΚΡΑΤΑ ΤΗΝ ΤΑΧΥΤΗΤΑ
+HINT_RELEASE = ΑΦΗΣΕ ΠΡΙΝ ΤΗΝ ΑΝΗΦΟΡΑ
+HINT_HOLD = ΚΡΑΤΑ ΓΙΑ ΝΑ ΚΥΛΗΣΕΙΣ ΚΑΤΩ
+HUD_APPLES = ΜΗΛΑ %d
+SPLIT_SCORE = P%d %d  Μ%d
+SPLIT_FROST = ΠΑΓΩΝΙΑ %dM
+SPLIT_FROZEN = ΠΑΓΩΣΕ!
+SPLIT_SMOOTH = ΑΠΑΛΑ X%d

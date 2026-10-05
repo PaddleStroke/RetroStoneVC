@@ -1,0 +1,9 @@
+# Penguin Slalom's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = すべる
+HINT = 左右: はたのあいだを とおろう
+JOIN = %s: Aで参加
+JOIN_LEAVE = %s: Aで参加 Bでぬける
+FULL = 4人プレイ - Bでぬける
+HUD_GATES_FISH = ゲート %d - さかな %d
+MSG_CRASH = ぶつかった!
+MSG_MISSED_GATE = ゲートをのがした

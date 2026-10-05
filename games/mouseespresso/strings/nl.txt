@@ -1,0 +1,7 @@
+# Mouse Espresso's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = VLIEGEN
+HINT_TITLE = HOUD VAST: OMHOOG. LOS: OMLAAG
+JOIN_SHORT = %s: A OM MEE TE DOEN
+JOIN_LEAVE_SHORT = %s: A MEEDOEN - B STOPPEN
+FULL_LEAVE = 4 SPELERS - B: STOPPEN
+HUD_BISCUITS_DIST = KOEKJES %d - %dM

@@ -1,0 +1,4 @@
+# Moth Around's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = LEŤ
+HINT_TITLE = VLEVO / VPRAVO: VYHÝBEJ SE KRUHŮM
+HUD_RINGS_TIME = KRUHY %d - %dS

@@ -1,0 +1,4 @@
+# Biscuit Bandit's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+HINT_MOVE = { } РУХ - ЛОВИ ПЕЧИВО
+HINT_DROP = НЕ ВПУСТИ ЖОДНОГО! УНИКАЙ ЧАШОК
+HINT_POINTS = 10 ОЧОК ЗА ПЕЧИВКО

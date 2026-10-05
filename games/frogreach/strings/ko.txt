@@ -1,0 +1,8 @@
+# Frog Reach's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 혀 뻗기
+HINT_TITLE = 누르면 늘이고, 떼면 점프!
+MSG_NICE_CATCH = 나이스 캐치!
+MSG_MISSED = 앗! 연잎을 놓쳤어
+MSG_RELEASE = 연잎 위에서 떼요
+MSG_HOLD = 눌러서 다음 연잎으로
+HUD_FLIES_PAD = 파리 %d - 연잎 %d초

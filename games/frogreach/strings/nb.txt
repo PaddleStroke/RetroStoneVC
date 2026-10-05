@@ -1,0 +1,8 @@
+# Frog Reach's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = STREKKE
+HINT_TITLE = HOLD: TUNGA UT. SLIPP: HOPP!
+MSG_NICE_CATCH = FINT FANGET!
+MSG_MISSED = Å NEI! BOMMET PÅ BLADET
+MSG_RELEASE = SLIPP OVER VANNLILJEBLADET
+MSG_HOLD = HOLD FOR Å NÅ NESTE BLAD
+HUD_FLIES_PAD = FLUER %d - BLAD %dS

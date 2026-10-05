@@ -1,0 +1,6 @@
+# Nutty Branch's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = CORRERE
+OVER_METRES = METRI
+OVER_BEST_M = MAX %dM
+OVER_NUTS = NOCCIOLE
+HUD_METRES = %dM

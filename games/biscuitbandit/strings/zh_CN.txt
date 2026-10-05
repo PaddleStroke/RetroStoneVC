@@ -1,0 +1,4 @@
+# Biscuit Bandit's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+HINT_MOVE = { } 移动 - 接住饼干
+HINT_DROP = 掉一块就结束 避开杯子
+HINT_POINTS = 每块饼干10分

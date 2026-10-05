@@ -1,0 +1,10 @@
+# Pogo Mamie's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = はずむ
+TITLE_BEST = ベスト %dM   スコア %d
+HUD_SCORE = スコア %d
+HUD_SCORE_CHAIN = スコア %d  X%d
+MEDAL_NAME_0 = まだメダルなし
+MEDAL_NAME_1 = ブロンズひげ
+MEDAL_NAME_2 = シルバーひげ
+MEDAL_NAME_3 = ゴールドひげ
+MEDAL_NAME_4 = ネコをゲット!

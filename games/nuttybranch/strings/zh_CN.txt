@@ -1,0 +1,6 @@
+# Nutty Branch's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 奔跑
+OVER_METRES = 距离
+OVER_BEST_M = 最高%d米
+OVER_NUTS = 坚果
+HUD_METRES = %d米

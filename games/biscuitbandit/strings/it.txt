@@ -1,0 +1,4 @@
+# Biscuit Bandit's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+HINT_MOVE = { } MUOVITI - PRENDI I BISCOTTI
+HINT_DROP = NEANCHE UNO A TERRA! EVITA LE TAZZE
+HINT_POINTS = 10 PUNTI PER BISCOTTO

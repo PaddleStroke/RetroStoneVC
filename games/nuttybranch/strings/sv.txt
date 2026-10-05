@@ -1,0 +1,6 @@
+# Nutty Branch's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SPRINGA
+OVER_METRES = METER
+OVER_BEST_M = BÄST %dM
+OVER_NUTS = NÖTTER
+HUD_METRES = %dM

@@ -1,0 +1,19 @@
+# Nutty Branch (games/nuttybranch): its strings, the English source (docs/i18n.md).
+
+#. The title prompt's verb: PRESS A TO <VERB>.
+#. max 10
+VERB = RUN
+#. Game-over panel (1 player), row 11, column 12: the label left of the distance run, drawn in big digits
+#. (the digits start at column 22).
+#. max 10
+OVER_METRES = METRES
+#. Game-over panel, row 12, under METRES: the best distance; %d is metres, "M" (metres) glued to the number.
+#. max 10
+OVER_BEST_M = BEST %dM
+#. Game-over panel, row 14, column 12: the label left of the nuts collected, drawn in big digits.
+#. max 10
+OVER_NUTS = NUTS
+#. In-game HUD, under (or above) each player's score: the distance run; %d is metres, "M" glued to the number.
+#. Aligned with the score chip (centred, or against the screen's edge for 3-4 players).
+#. max 7
+HUD_METRES = %dM

@@ -1,0 +1,9 @@
+# Penguin Slalom's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = КОВЗАТИ
+HINT = ВЛІВО / ВПРАВО: МІЖ ПРАПОРЦЯМИ
+JOIN = %s: A - ГРАТИ
+JOIN_LEAVE = %s: A - ГРАТИ, B - ВИЙТИ
+FULL = 4 ГРАВЦІ - B: ВИЙТИ
+HUD_GATES_FISH = ВОРОТА %d - РИБИ %d
+MSG_CRASH = БАБАХ!
+MSG_MISSED_GATE = ПРОПУЩЕНО ВОРОТА

@@ -1,0 +1,10 @@
+# Pogo Mamie's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SKÁKEJ
+TITLE_BEST = REKORD %d M   SKÓRE %d
+HUD_SCORE = SKÓRE %d
+HUD_SCORE_CHAIN = SKÓRE %d  X%d
+MEDAL_NAME_0 = ZATÍM BEZ MEDAILE
+MEDAL_NAME_1 = BRONZOVÝ VOUS
+MEDAL_NAME_2 = STŘÍBRNÝ VOUS
+MEDAL_NAME_3 = ZLATÝ VOUS
+MEDAL_NAME_4 = MÁM TĚ, KOČKO!

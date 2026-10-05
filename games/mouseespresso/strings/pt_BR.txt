@@ -1,0 +1,7 @@
+# Mouse Espresso's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = VOAR
+HINT_TITLE = SEGURE PARA SUBIR, SOLTE PARA DESCER
+JOIN_SHORT = %s: A PARA ENTRAR
+JOIN_LEAVE_SHORT = %s: A PARA ENTRAR - B: SAIR
+FULL_LEAVE = 4 JOGADORES - B: SAIR
+HUD_BISCUITS_DIST = BISCOITOS %d - %dM

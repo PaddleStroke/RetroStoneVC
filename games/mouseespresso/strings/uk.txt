@@ -1,0 +1,7 @@
+# Mouse Espresso's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ЛІТАТИ
+HINT_TITLE = ТРИМАЙ - ВГОРУ. ВІДПУСТИ - ВНИЗ
+JOIN_SHORT = %s: A - ГРАТИ
+JOIN_LEAVE_SHORT = %s: A - ГРАТИ, B - ВИЙТИ
+FULL_LEAVE = 4 ГРАВЦІ - B: ВИЙТИ
+HUD_BISCUITS_DIST = ПЕЧИВО %d - %dМ

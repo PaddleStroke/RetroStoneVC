@@ -1,0 +1,7 @@
+# Mouse Espresso's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = TERBANG
+HINT_TITLE = TAHAN: NAIK. LEPAS: TURUN.
+JOIN_SHORT = %s: A UNTUK IKUT
+JOIN_LEAVE_SHORT = %s: A IKUT - B KELUAR
+FULL_LEAVE = 4 PEMAIN - B UNTUK KELUAR
+HUD_BISCUITS_DIST = BISKUIT %d - %dM

@@ -1,0 +1,11 @@
+# Beaver Rush's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 갉아먹기
+SCENE = %s %s
+SEASON_SUMMER = 여름
+SEASON_AUTUMN = 가을
+SEASON_WINTER = 겨울
+SEASON_SPRING = 봄
+TOD_DAWN = 새벽
+TOD_DAY = 낮
+TOD_SUNSET = 노을
+TOD_NIGHT = 밤

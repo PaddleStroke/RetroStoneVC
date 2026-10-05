@@ -1,0 +1,4 @@
+# Moth Around's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = VLIEGEN
+HINT_TITLE = LINKS / RECHTS: ONTWIJK DE RINGEN
+HUD_RINGS_TIME = RINGEN %d - %dS

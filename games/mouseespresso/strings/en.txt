@@ -1,0 +1,22 @@
+# Mouse Espresso (games/mouseespresso): its strings, the English source (docs/i18n.md).
+
+#. The title prompt's verb: PRESS A TO <VERB>. max 10
+VERB = FLY
+#. The title's how-to-play line (row 16, under the join line, above the player slots; drawn from column 4, not
+#. centred). The button held makes the mouse rise.
+#. max 36
+HINT_TITLE = HOLD TO RISE. RELEASE TO FALL
+#. The title's join line (the game's own, centred on row 12); %s lists the free player tags ("P2 / P3 / P4", up
+#. to 12 columns). A is the pad's button: keep the letter.
+#. max 38
+JOIN_SHORT = %s: A TO JOIN
+#. The same with players already joined: A joins, B makes a player leave. Keep A and B.
+#. max 38
+JOIN_LEAVE_SHORT = %s: A JOIN - B LEAVE
+#. The join line when all 4 slots are taken (the 4 is fixed: only shown with 4 players). Keep B.
+#. max 38
+FULL_LEAVE = 4 PLAYERS - B TO LEAVE
+#. HUD (1 player), centred on row 4 under the score: the first %d is the biscuits picked up, the second the
+#. distance flown in metres (no space before M).
+#. max 38
+HUD_BISCUITS_DIST = BISCUITS %d - %dM

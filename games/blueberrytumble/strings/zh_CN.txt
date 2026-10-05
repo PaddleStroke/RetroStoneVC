@@ -1,0 +1,9 @@
+# Blueberry Tumble's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 滚动
+ATTEMPT_N = 第%d次尝试
+METRES_GOLD = %d米  +%d金
+NIGHT_BIOME = 夜晚 - %s
+BIOME_SUMMIT = 雪山之巅
+BIOME_FOREST = 松树林
+BIOME_MEADOWS = 蓝莓草原
+BIOME_VILLAGE = 山谷村庄

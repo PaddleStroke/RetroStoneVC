@@ -1,0 +1,10 @@
+# Pogo Mamie's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SPRINGEN
+TITLE_BEST = REKORD %d M   PUNKTE %d
+HUD_SCORE = PUNKTE %d
+HUD_SCORE_CHAIN = PUNKTE %d  X%d
+MEDAL_NAME_0 = KEINE MEDAILLE
+MEDAL_NAME_1 = BRONZEBART
+MEDAL_NAME_2 = SILBERBART
+MEDAL_NAME_3 = GOLDBART
+MEDAL_NAME_4 = KATZE GEFASST!

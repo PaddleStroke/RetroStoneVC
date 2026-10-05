@@ -1,0 +1,8 @@
+# Frog Reach's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = KURKOTA
+HINT_TITLE = PIDÄ: KIELI ULOS. PÄÄSTÄ: HYPPÄÄ!
+MSG_NICE_CATCH = HIENO KOPPI!
+MSG_MISSED = VOI EI! LEHTI MENI OHI
+MSG_RELEASE = PÄÄSTÄ IRTI LUMPEEN YLLÄ
+MSG_HOLD = PIDÄ PAINETTUNA: SEURAAVA LEHTI
+HUD_FLIES_PAD = KÄRPÄSET %d - LEHTI %dS

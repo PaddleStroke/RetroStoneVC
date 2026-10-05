@@ -1,0 +1,6 @@
+# Duck Parade's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SALTELLARE
+FAMILY = FAMIGLIA
+DUCKLINGS_HOME[one] = %d A CASA!
+DUCKLINGS_HOME[other] = %d A CASA!
+HOME_SWEET_HOME = CASA DOLCE CASA

@@ -1,0 +1,11 @@
+# Spider Swing's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 그네타기
+HINT = A: 놓기 - L/R: 공중 조종
+MSG_STEER = 거미줄을 꽃에 대요
+MSG_CAUGHT = 잡았다!
+MSG_RELEASE = A: 올라갈 때 놓아요
+HUD_DEW_FLOWER = 이슬 %d - 꽃 %d초
+SPLIT_SCORE = %dP %d  이슬%d
+SPLIT_OUT = 아웃
+SPLIT_FLY = 줄로 꽃 잡기
+SPLIT_RELEASE = A: 놓기 %d초

@@ -1,0 +1,7 @@
+# Mouse Espresso's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = UÇMAK
+HINT_TITLE = BASILI TUT: YÜKSEL. BIRAK: ALÇAL.
+JOIN_SHORT = %s: A İLE KATIL
+JOIN_LEAVE_SHORT = %s: A İLE KATIL, B İLE ÇIK
+FULL_LEAVE = 4 OYUNCU - B İLE ÇIK
+HUD_BISCUITS_DIST = BİSKÜVİ %d - %dM

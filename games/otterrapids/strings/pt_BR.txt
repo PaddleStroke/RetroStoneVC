@@ -1,0 +1,7 @@
+# Otter Rapids's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = REMAR
+HINT_MOVE = ESQUERDA / DIREITA: REME
+HINT_GOAL = PEGUE TODOS OS PEIXES
+JOIN_SHORT = %s: A PARA ENTRAR
+JOIN_LEAVE_SHORT = %s: A PARA ENTRAR - B: SAIR
+FULL_LEAVE = 4 JOGADORES - B: SAIR

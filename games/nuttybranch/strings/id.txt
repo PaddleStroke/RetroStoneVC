@@ -1,0 +1,6 @@
+# Nutty Branch's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = BERLARI
+OVER_METRES = METER
+OVER_BEST_M = REKOR %dM
+OVER_NUTS = KACANG
+HUD_METRES = %dM

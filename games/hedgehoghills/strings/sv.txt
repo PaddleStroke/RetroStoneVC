@@ -1,0 +1,14 @@
+# Hedgehog Hills's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = RULLA
+HINT_TITLE = HÅLL NEDFÖR. SLÄPP UPPFÖR.
+HUD_FROST = FROST %d M
+HUD_FROST_PLAYER = P%d FROST %d M
+MSG_SMOOTH = MJUKT! X%d
+MSG_OUCH = AJ! HÅLL FARTEN
+HINT_RELEASE = SLÄPP FÖRE BACKEN
+HINT_HOLD = HÅLL FÖR ATT RULLA NEDFÖR
+HUD_APPLES = ÄPPLEN %d
+SPLIT_SCORE = P%d %d  Ä%d
+SPLIT_FROST = FROST %dM
+SPLIT_FROZEN = FRUSEN
+SPLIT_SMOOTH = MJUKT X%d

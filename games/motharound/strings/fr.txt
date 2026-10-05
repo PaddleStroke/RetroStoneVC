@@ -1,0 +1,4 @@
+# Moth Around's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = VOLER
+HINT_TITLE = GAUCHE / DROITE : ÉVITE LES ANNEAUX
+HUD_RINGS_TIME = ANNEAUX %d - %d S

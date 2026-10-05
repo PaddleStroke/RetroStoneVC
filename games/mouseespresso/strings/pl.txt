@@ -1,0 +1,7 @@
+# Mouse Espresso's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = LATAĆ
+HINT_TITLE = TRZYMAJ - W GÓRĘ. PUŚĆ - W DÓŁ
+JOIN_SHORT = %s: A, ABY DOŁĄCZYĆ
+JOIN_LEAVE_SHORT = %s: A, ABY DOŁĄCZYĆ - B: WYJDŹ
+FULL_LEAVE = 4 GRACZE - B: WYJDŹ
+HUD_BISCUITS_DIST = CIASTKA %d - %dM

@@ -1,0 +1,5 @@
+# Duck Parade's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 깡충깡충
+FAMILY = 가족
+DUCKLINGS_HOME[other] = 새끼 %d마리 집에!
+HOME_SWEET_HOME = 집이 최고야!

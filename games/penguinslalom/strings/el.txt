@@ -1,0 +1,9 @@
+# Penguin Slalom's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ΤΣΟΥΛΗΣΕΙΣ
+HINT = ΑΡΙΣΤΕΡΑ / ΔΕΞΙΑ: ΑΝΑΜΕΣΑ ΣΤΙΣ ΣΗΜΑΙΕΣ
+JOIN = %s: A ΓΙΑ ΝΑ ΜΠΕΙΣ
+JOIN_LEAVE = %s: A ΜΠΑΙΝΕΙΣ - B ΒΓΑΙΝΕΙΣ
+FULL = 4 ΠΑΙΚΤΕΣ - B ΓΙΑ ΕΞΟΔΟ
+HUD_GATES_FISH = ΠΥΛΕΣ %d - ΨΑΡΙΑ %d
+MSG_CRASH = ΤΡΑΚΑΡΕΣ!
+MSG_MISSED_GATE = ΕΧΑΣΕΣ ΠΥΛΗ

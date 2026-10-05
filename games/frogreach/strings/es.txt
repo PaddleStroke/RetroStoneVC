@@ -1,0 +1,8 @@
+# Frog Reach's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SALTAR
+HINT_TITLE = MANTÉN Y ESTIRA, SUELTA Y SALTA
+MSG_NICE_CATCH = ¡BIEN HECHO!
+MSG_MISSED = ¡OH, NO! FALLASTE EL NENÚFAR
+MSG_RELEASE = SUELTA SOBRE EL NENÚFAR
+MSG_HOLD = MANTÉN PARA ALCANZAR EL NENÚFAR
+HUD_FLIES_PAD = MOSCAS %d - NENÚFAR %dS

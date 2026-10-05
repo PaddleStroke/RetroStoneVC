@@ -1,0 +1,25 @@
+# Frog Reach (games/frogreach): its strings, the English source (docs/i18n.md).
+
+#. The title prompt's verb: PRESS A TO <VERB>.
+#. max 10
+VERB = REACH
+#. Title screen, the hint line (row 16, between the logo and the player slots): hold A to stretch the tongue,
+#. release to leap to the next lily pad.
+#. max 37
+HINT_TITLE = HOLD TO EXTEND. RELEASE TO LEAP.
+#. In-game message (1 player), row 4 centred, under the score: the frog landed on the next pad.
+#. max 38
+MSG_NICE_CATCH = NICE CATCH!
+#. In-game message (row 4, centred): the leap missed the pad (the frog falls in the water).
+#. max 38
+MSG_MISSED = OH NO! MISSED THE PAD
+#. In-game message (row 4, centred), while A is held: let go when the tongue is above the next lily pad.
+#. max 38
+MSG_RELEASE = RELEASE ABOVE THE LILY PAD
+#. In-game message (row 4, centred), while waiting on a pad: hold A to reach the next pad.
+#. max 38
+MSG_HOLD = HOLD TO REACH THE NEXT PAD
+#. In-game HUD line (row 6, centred): the first %d is the flies eaten, the second %d the seconds left before
+#. the pad sinks ("S" = seconds, glued to the number).
+#. max 38
+HUD_FLIES_PAD = FLIES %d - PAD %dS

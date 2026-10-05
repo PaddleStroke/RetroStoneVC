@@ -1,0 +1,14 @@
+# Hedgehog Hills's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = KUTÁLEJ SE
+HINT_TITLE = Z KOPCE DRŽ. DO KOPCE PUSŤ.
+HUD_FROST = MRÁZ %d M
+HUD_FROST_PLAYER = P%d MRÁZ %d M
+MSG_SMOOTH = HLADCE! X%d
+MSG_OUCH = AU! UDRŽ RYCHLOST
+HINT_RELEASE = PUSŤ PŘED KOPCEM
+HINT_HOLD = DRŽ, AŤ SE KUTÁLÍŠ Z KOPCE
+HUD_APPLES = JABLKA %d
+SPLIT_SCORE = P%d %d  J%d
+SPLIT_FROST = MRÁZ %dM
+SPLIT_FROZEN = ZMRZL
+SPLIT_SMOOTH = HLADCE X%d

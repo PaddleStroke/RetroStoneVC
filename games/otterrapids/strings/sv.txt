@@ -1,0 +1,7 @@
+# Otter Rapids's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = PADDLA
+HINT_MOVE = VÄNSTER / HÖGER: PADDLA
+HINT_GOAL = FÅNGA ALLA FISKAR
+JOIN_SHORT = %s: A FÖR ATT VARA MED
+JOIN_LEAVE_SHORT = %s: A VARA MED - B LÄMNA
+FULL_LEAVE = 4 SPELARE - B: LÄMNA

@@ -1,0 +1,7 @@
+# Mouse Espresso's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 비행
+HINT_TITLE = 누르면 상승, 떼면 하강
+JOIN_SHORT = %s: A로 참가
+JOIN_LEAVE_SHORT = %s: A 참가 / B 나가기
+FULL_LEAVE = 4명 - B: 나가기
+HUD_BISCUITS_DIST = 비스킷 %d - %dM

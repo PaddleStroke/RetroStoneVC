@@ -1,0 +1,4 @@
+# Biscuit Bandit's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+HINT_MOVE = { } RUCH - ŁAP CIASTKA
+HINT_DROP = NIE UPUŚĆ ŻADNEGO! OMIJAJ KUBKI
+HINT_POINTS = 10 PUNKTÓW ZA CIASTKO

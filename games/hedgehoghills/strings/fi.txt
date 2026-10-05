@@ -1,0 +1,14 @@
+# Hedgehog Hills's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = KIERI
+HINT_TITLE = PIDÄ ALAMÄESSÄ. PÄÄSTÄ YLÄMÄESSÄ.
+HUD_FROST = HALLA %d M
+HUD_FROST_PLAYER = P%d HALLA %d M
+MSG_SMOOTH = PEHMEÄ! X%d
+MSG_OUCH = AUTS! PIDÄ VAUHTI
+HINT_RELEASE = PÄÄSTÄ ENNEN NOUSUA
+HINT_HOLD = PIDÄ JA KIERI ALAMÄKEEN
+HUD_APPLES = OMENAT %d
+SPLIT_SCORE = P%d %d  O%d
+SPLIT_FROST = HALLA %dM
+SPLIT_FROZEN = JÄÄTYNYT
+SPLIT_SMOOTH = PEHMEÄ X%d

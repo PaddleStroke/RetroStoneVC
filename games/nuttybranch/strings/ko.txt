@@ -1,0 +1,6 @@
+# Nutty Branch's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 달리기
+OVER_METRES = 거리
+OVER_BEST_M = 최고 %dM
+OVER_NUTS = 견과
+HUD_METRES = %dM

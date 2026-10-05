@@ -1,0 +1,9 @@
+# Penguin Slalom's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = GLI
+HINT = VENSTRE / HØYRE: MELLOM FLAGGENE
+JOIN = %s: A FOR Å BLI MED
+JOIN_LEAVE = %s: A BLI MED - B GÅ UT
+FULL = 4 SPILLERE - B: GÅ UT
+HUD_GATES_FISH = PORTER %d - FISK %d
+MSG_CRASH = KRÆSJ!
+MSG_MISSED_GATE = BOMMET PÅ PORTEN

@@ -1,0 +1,10 @@
+# Pogo Mamie's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SKAKAĆ
+TITLE_BEST = REKORD %d M   WYNIK %d
+HUD_SCORE = WYNIK %d
+HUD_SCORE_CHAIN = WYNIK %d  X%d
+MEDAL_NAME_0 = BRAK MEDALU
+MEDAL_NAME_1 = BRĄZOWY WĄS
+MEDAL_NAME_2 = SREBRNY WĄS
+MEDAL_NAME_3 = ZŁOTY WĄS
+MEDAL_NAME_4 = KOT ZŁAPANY!

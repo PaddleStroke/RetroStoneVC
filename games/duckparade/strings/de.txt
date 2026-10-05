@@ -1,0 +1,6 @@
+# Duck Parade's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = HÜPFEN
+FAMILY = FAMILIE
+DUCKLINGS_HOME[one] = %d KÜKEN DAHEIM!
+DUCKLINGS_HOME[other] = %d KÜKEN DAHEIM!
+HOME_SWEET_HOME = TRAUTES HEIM!

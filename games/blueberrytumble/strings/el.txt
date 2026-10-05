@@ -1,0 +1,9 @@
+# Blueberry Tumble's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ΚΥΛΗΣΕΙΣ
+ATTEMPT_N = ΠΡΟΣΠΑΘΕΙΑ %d
+METRES_GOLD = %d M +%d ΧΡΥΣΑ
+NIGHT_BIOME = ΝΥΧΤΑ - %s
+BIOME_SUMMIT = ΧΙΟΝΙΣΜΕΝΗ ΚΟΡΥΦΗ
+BIOME_FOREST = ΠΕΥΚΟΔΑΣΟΣ
+BIOME_MEADOWS = ΛΙΒΑΔΙΑ ΜΕ ΜΥΡΤΙΛΑ
+BIOME_VILLAGE = ΧΩΡΙΟ ΤΗΣ ΚΟΙΛΑΔΑΣ

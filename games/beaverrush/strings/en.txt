@@ -1,0 +1,28 @@
+# Beaver Rush (games/beaverrush): its strings, the English source (docs/i18n.md).
+
+#. The title prompt's verb: PRESS A TO <VERB>. max 10
+VERB = GNAW
+
+#. The scene's name after a milestone (1 player), in 2x letters, centred on row 7, for 1.5 s: the season (%1$s,
+#. one of SEASON_*) then the time of day (%2$s, one of TOD_*), e.g. "SUMMER DAWN". Reorder them with %2$s %1$s.
+#. 2x letters take 2 columns each: max 18 letters in all.
+#. max 18
+SCENE = %s %s
+#. The seasons (an array, in this order: the 1st part of SCENE). 2x letters.
+#. max 9
+SEASON_SUMMER = SUMMER
+#. max 9
+SEASON_AUTUMN = AUTUMN
+#. max 9
+SEASON_WINTER = WINTER
+#. max 9
+SEASON_SPRING = SPRING
+#. The times of day (an array, in this order: the 2nd part of SCENE). 2x letters.
+#. max 8
+TOD_DAWN = DAWN
+#. max 8
+TOD_DAY = DAY
+#. max 8
+TOD_SUNSET = SUNSET
+#. max 8
+TOD_NIGHT = NIGHT

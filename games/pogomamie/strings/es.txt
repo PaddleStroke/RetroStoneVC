@@ -1,0 +1,10 @@
+# Pogo Mamie's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = REBOTAR
+TITLE_BEST = RÉCORD %d M   PUNTOS %d
+HUD_SCORE = PUNTOS %d
+HUD_SCORE_CHAIN = PUNTOS %d  X%d
+MEDAL_NAME_0 = AÚN SIN MEDALLA
+MEDAL_NAME_1 = PELO DE BRONCE
+MEDAL_NAME_2 = PELO DE PLATA
+MEDAL_NAME_3 = PELO DE ORO
+MEDAL_NAME_4 = ¡GATO PILLADO!

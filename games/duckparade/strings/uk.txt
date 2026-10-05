@@ -1,0 +1,7 @@
+# Duck Parade's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = СТРИБАТИ
+FAMILY = РОДИНА
+DUCKLINGS_HOME[one] = %d КАЧЕНЯ ДОМА!
+DUCKLINGS_HOME[few] = %d КАЧЕНЯТИ ДОМА!
+DUCKLINGS_HOME[many] = %d КАЧЕНЯТ ДОМА!
+HOME_SWEET_HOME = ДІМ, МИЛИЙ ДІМ

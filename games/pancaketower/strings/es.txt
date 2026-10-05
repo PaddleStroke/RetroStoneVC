@@ -1,0 +1,3 @@
+# Pancake Tower's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+PANCAKES_N[one] = %d TORTITA
+PANCAKES_N[other] = %d TORTITAS

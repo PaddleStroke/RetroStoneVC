@@ -1,0 +1,14 @@
+# Hedgehog Hills's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = YUVARLAMAK
+HINT_TITLE = İNİŞTE BASILI TUT. YOKUŞTA BIRAK.
+HUD_FROST = AYAZ %d M
+HUD_FROST_PLAYER = P%d AYAZ %d M
+MSG_SMOOTH = TEMİZ İNİŞ! X%d
+MSG_OUCH = OF! HIZINI KORU
+HINT_RELEASE = YOKUŞTAN ÖNCE BIRAK
+HINT_HOLD = AŞAĞI YUVARLANMAK İÇİN TUT
+HUD_APPLES = ELMA %d
+SPLIT_SCORE = P%d %d  E%d
+SPLIT_FROST = AYAZ %dM
+SPLIT_FROZEN = DONDU!
+SPLIT_SMOOTH = TEMİZ X%d

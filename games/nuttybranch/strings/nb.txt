@@ -1,0 +1,6 @@
+# Nutty Branch's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = LØPE
+OVER_METRES = METER
+OVER_BEST_M = BEST %dM
+OVER_NUTS = NØTTER
+HUD_METRES = %dM

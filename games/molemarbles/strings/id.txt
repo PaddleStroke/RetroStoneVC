@@ -1,0 +1,3 @@
+# Mole Marbles's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = MENGGALI
+HINT_CONTROLS = { } GERAK   A: HARPUN

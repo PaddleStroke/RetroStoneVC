@@ -1,0 +1,11 @@
+# Spider Swing's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = HOUPEJ SE
+HINT = A: PUSŤ - L/R: ŘIĎ VE VZDUCHU
+MSG_STEER = NAVEĎ VLÁKNO NA KVĚTINU
+MSG_CAUGHT = CHYCENO!
+MSG_RELEASE = A: PUSŤ, KDYŽ LETÍŠ NAHORU
+HUD_DEW_FLOWER = ROSA %d - KVĚT %dS
+SPLIT_SCORE = P%d %d  R%d
+SPLIT_OUT = KONEC
+SPLIT_FLY = VLÁKNEM CHYŤ KVĚT
+SPLIT_RELEASE = A: PUSŤ %dS

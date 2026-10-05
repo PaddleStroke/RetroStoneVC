@@ -1,0 +1,6 @@
+# Duck Parade's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = HOPPA
+FAMILY = FAMILJ
+DUCKLINGS_HOME[one] = %d ÄLLING HEMMA!
+DUCKLINGS_HOME[other] = %d ÄLLINGAR HEMMA!
+HOME_SWEET_HOME = HEMMA BÄST!

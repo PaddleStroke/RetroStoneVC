@@ -1,0 +1,9 @@
+# Penguin Slalom's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 滑行
+HINT = 左 / 右: 穿过旗门
+JOIN = %s: A键加入
+JOIN_LEAVE = %s: A键加入 B键退出
+FULL = 4名玩家 - B键退出
+HUD_GATES_FISH = 旗门 %d - 鱼 %d
+MSG_CRASH = 撞到了!
+MSG_MISSED_GATE = 错过旗门

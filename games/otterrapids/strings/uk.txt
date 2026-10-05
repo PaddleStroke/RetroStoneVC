@@ -1,0 +1,7 @@
+# Otter Rapids's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ВЕСЛУВАТИ
+HINT_MOVE = ВЛІВО / ВПРАВО: ВЕСЛУЙ
+HINT_GOAL = СПІЙМАЙ УСІХ РИБ
+JOIN_SHORT = %s: A - ГРАТИ
+JOIN_LEAVE_SHORT = %s: A - ГРАТИ, B - ВИЙТИ
+FULL_LEAVE = 4 ГРАВЦІ - B: ВИЙТИ

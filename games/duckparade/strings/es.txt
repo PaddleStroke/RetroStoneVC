@@ -1,0 +1,6 @@
+# Duck Parade's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = BRINCAR
+FAMILY = FAMILIA
+DUCKLINGS_HOME[one] = ¡%d EN CASA!
+DUCKLINGS_HOME[other] = ¡%d EN CASA!
+HOME_SWEET_HOME = ¡DULCE HOGAR!

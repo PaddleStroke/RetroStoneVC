@@ -1,0 +1,12 @@
+# Biscuit Bandit (games/biscuitbandit): its strings, the English source (docs/i18n.md).
+
+#. Title screen, under the logo: the first of 3 hint lines (rows 12-14, each centred on the 40-column screen;
+#. BEST is on row 11 just above). { and } are drawn as the D-pad's left and right arrows: keep them as they are.
+#. max 38
+HINT_MOVE = { } MOVE - CATCH BISCUITS
+#. Title screen, the second hint line (row 13, centred): a single dropped biscuit ends the run; avoid the cups.
+#. max 38
+HINT_DROP = ONE DROP ENDS RUN. AVOID CUPS
+#. Title screen, the third hint line (row 14, centred): each cookie caught is worth 10 points.
+#. max 38
+HINT_POINTS = 10 POINTS PER COOKIE

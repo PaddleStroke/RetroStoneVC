@@ -1,0 +1,4 @@
+# Biscuit Bandit's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+HINT_MOVE = { } GERAK - TANGKAP BISKUIT
+HINT_DROP = SATU JATUH, TAMAT. HINDARI CANGKIR
+HINT_POINTS = 10 POIN PER BISKUIT

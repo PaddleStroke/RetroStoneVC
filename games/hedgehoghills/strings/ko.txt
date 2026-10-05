@@ -1,0 +1,14 @@
+# Hedgehog Hills's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 구르기
+HINT_TITLE = 내리막: 누르기 / 오르막: 떼기
+HUD_FROST = 서리 %dM
+HUD_FROST_PLAYER = %dP 서리 %dM
+MSG_SMOOTH = 부드럽게! X%d
+MSG_OUCH = 아야! 속도를 유지해요
+HINT_RELEASE = 오르막 전에 떼요
+HINT_HOLD = 눌러서 내리막 구르기
+HUD_APPLES = 사과 %d
+SPLIT_SCORE = %dP %d  사과%d
+SPLIT_FROST = 서리 %dM
+SPLIT_FROZEN = 꽁꽁 얼었다
+SPLIT_SMOOTH = 부드럽게 X%d

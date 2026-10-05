@@ -1,0 +1,6 @@
+# Raccoon Recycler's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ΞΕΧΩΡΙΣΕΙΣ
+HINT = ΑΡΙΣΤΕΡΑ / ΚΑΤΩ / ΔΕΞΙΑ
+JOIN = %s: A ΓΙΑ ΝΑ ΜΠΕΙΣ
+JOIN_LEAVE = %s: A ΜΠΑΙΝΕΙΣ / B ΒΓΑΙΝΕΙΣ
+FULL = 4 ΠΑΙΚΤΕΣ / B ΕΞΟΔΟΣ

@@ -1,0 +1,4 @@
+# Biscuit Bandit's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+HINT_MOVE = { } MUÉVETE - ATRAPA GALLETAS
+HINT_DROP = SI CAE UNA, FIN. ¡OJO CON LAS TAZAS!
+HINT_POINTS = 10 PUNTOS POR GALLETA

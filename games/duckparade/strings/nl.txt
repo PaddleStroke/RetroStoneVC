@@ -1,0 +1,6 @@
+# Duck Parade's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = HUPPELEN
+FAMILY = FAMILIE
+DUCKLINGS_HOME[one] = %d EENDJE THUIS!
+DUCKLINGS_HOME[other] = %d EENDJES THUIS!
+HOME_SWEET_HOME = THUIS BEST!

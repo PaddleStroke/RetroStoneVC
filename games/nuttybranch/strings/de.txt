@@ -1,0 +1,6 @@
+# Nutty Branch's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = RENNEN
+OVER_METRES = METER
+OVER_BEST_M = BESTE %dM
+OVER_NUTS = NÜSSE
+HUD_METRES = %dM

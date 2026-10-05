@@ -1,0 +1,9 @@
+# Penguin Slalom's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = GLIJDEN
+HINT = LINKS / RECHTS: TUSSEN DE VLAGGEN
+JOIN = %s: A OM MEE TE DOEN
+JOIN_LEAVE = %s: A MEEDOEN - B STOPPEN
+FULL = 4 SPELERS - B: STOPPEN
+HUD_GATES_FISH = POORTJES %d - VISSEN %d
+MSG_CRASH = BOTSING!
+MSG_MISSED_GATE = POORTJE GEMIST

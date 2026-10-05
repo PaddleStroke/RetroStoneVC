@@ -1,0 +1,4 @@
+# Pancake Tower's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+PANCAKES_N[one] = %d БЛИН
+PANCAKES_N[few] = %d БЛИНА
+PANCAKES_N[many] = %d БЛИНОВ
