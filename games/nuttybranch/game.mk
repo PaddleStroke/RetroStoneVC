@@ -55,6 +55,7 @@ nuttybranch-check:
 	sh $(NUTTYBRANCH_DIR)/tests/furrow_test.sh build/host/nuttybranch_headless build
 	sh $(NUTTYBRANCH_DIR)/tests/bench_test.sh build/host/nuttybranch_headless
 	$(PYTHON) tools/state_audit.py --game nuttybranch build/host/nuttybranch_test_states $(NUTTYBRANCH_OBJ_HOST)
+	bash tools/i18n_test.sh build/host/nuttybranch_headless nuttybranch build/nuttybranch-i18n $(if $(WIDESCREEN_nuttybranch),320 $(WIDTHS),320)
 
 nuttybranch-screenshots:
 	+$(NUTTYBRANCH_MAKE) build/host/nuttybranch_headless

@@ -1,0 +1,14 @@
+# Nutty Branch: the screens of the language test (tools/i18n_test.sh, docs/i18n.md), one headless run per line:
+#   <name> <frames> <shot frame> [options] [; input lines]
+title    130  120
+title2   130  120  ; 20 P2 tap A
+title4   130  120  ; 20 P2 tap A ; 30 P3 tap A ; 40 P4 tap A
+# the HUD: the distance under (or above) each score chip
+play     700  690  --opt bot=1 --opt seed=7 --opt ready=1
+play2    900  880  --opt bot=2 --opt seed=9 --opt ready=1
+play4    900  880  --opt bot=4 --opt seed=9 --opt ready=1
+pause    640  630  --opt bot=1 --opt seed=7 --opt ready=1 ; 600 tap SELECT
+# the 1-player game over: NEW BEST! and a medal (run 1), then BEST nM and no medal (run 2)
+over     3260 3250 --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=260
+overbest 1570 1560 --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=40 --opt botruns=2
+results  1390 1380 --opt bot=4 --opt seed=5 --opt ready=1 --opt botstop=40

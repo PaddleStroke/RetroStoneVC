@@ -22,6 +22,7 @@
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "game_text.h"
 #include "house_audio.h"
 #include <stdio.h>
 #include <string.h>
@@ -326,7 +327,7 @@ static void game_init(void)
     opt_sound = rs_option_int("sound", 1);
     sound_init();
     draw_init();                                /* hu_init (draw.c) */
-    hu_title_cfg tc = {START_EXTRA, MAX_PLAYERS, "RUN", NULL, 0};
+    hu_title_cfg tc = {START_EXTRA, MAX_PLAYERS, TR(VERB), NULL, 0};
     hu_title_setup(&tc);
     opt_bot = rs_option_int("bot", 0);
     if (opt_bot > MAX_PLAYERS) opt_bot = MAX_PLAYERS;

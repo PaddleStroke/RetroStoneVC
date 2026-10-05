@@ -16,6 +16,7 @@
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "game_text.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -76,6 +77,9 @@ void draw_init(void)
     hc.obj_tile = KIT_OBJ_TILE;
     hc.obj_vram = VR_OBJ;
     hc.obj_pal = 3;
+    /* the glyph pool (translated text): 160 tiles between the logo (320.., 124 tiles) and BG2 (VR_BG2 = 640) */
+    hc.ext_tile = 480;
+    hc.ext_count = VR_BG2 - VR_BG1 - hc.ext_tile;
     hu_init(&hc);
     rs_bg_setup(RS_BG1, 64, 32, VR_BG1);
     rs_bg_setup(RS_BG2, 64, 32, VR_BG2);
@@ -662,13 +666,26 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         if (screen == ST_PLAY && w->players >= 3) hu_score_tags(w->players, 0);
         if (state == ST_OVER) {
             if (w->players == 1) {
-                char s[24];
-                hu_banner(4, "GAME OVER");
-                hu_gameover_panel(1, new_best, w->q[0].dist_m, 0);
-                hu_box_text(12, 11, "METRES  ");                    /* the house panel, our labels */
-                hu_box_text(12, 14, "NUTS    ");
-                snprintf(s, sizeof s, new_best ? "NEW BEST!" : "BEST %dM", best);
-                hu_box_text(12, 12, s);                              /* under METRES */
+                /* the house game-over panel (hu_gameover_panel's layout) with our labels: METRES, the best under it,
+                 * NUTS, MEDAL from column 12, the values (sprites) from column 22; longer labels widen it leftwards.
+                 * A best line with accents or CJK (drawn in the row above) needs that row free: METRES goes up a
+                 * row and the panel starts a row higher. */
+                char s[64];
+                hu_banner(4, HTR(GAME_OVER));
+                if (new_best) snprintf(s, sizeof s, "%s", HTR(NEW_BEST_EXCL));
+                else rs_strf(s, sizeof s, TR(OVER_BEST_M), best);
+                const char *lab[4] = {TR(OVER_METRES), s, TR(OVER_NUTS), HTR(MEDAL)};
+                int l = 0;
+                for (int i = 0; i < 4; i++)
+                    if (hu_width(lab[i], 0) > l) l = hu_width(lab[i], 0);
+                int d = l > 10 ? (l - 10 < 10 ? l - 10 : 10) : 0;
+                int tall = 0;
+                for (const char *c = s; *c; c++) tall |= (unsigned char)*c >= 128;
+                hu_panel(10 - d, 9 - tall, 20 + d, 12 + tall);
+                hu_box_text(12 - d, 11 - tall, lab[0]);
+                hu_box_text(12 - d, 12, lab[1]);                     /* under METRES */
+                hu_box_text(12 - d, 14, lab[2]);
+                hu_box_text(12 - d, 17, lab[3]);
             } else {
                 hu_results_panel(rs, NULL);
             }
@@ -679,21 +696,22 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
     if (state == ST_TITLE) hu_title_draw(st_t, best);
     if (screen == ST_PLAY) {
         /* the distance under the scores */
-        char s[16];
+        char s[64];
         for (int pass = 0; pass < 2; pass++)
             for (int p = 0; p < w->players; p++) {
                 hu_chip c = hu_score_chip(w->players, p, 0);
-                snprintf(s, sizeof s, "%dM", (int)w->q[p].dist_m);
+                rs_strf(s, sizeof s, TR(HUD_METRES), (int)w->q[p].dist_m);
                 int row = c.y < 120 ? c.y / 8 + 3 : c.y / 8 - 2;
-                int col = c.align < 0 ? c.x / 8 : c.align > 0 ? (c.x + 7) / 8 - (int)strlen(s) : c.x / 8 - (int)strlen(s) / 2;
+                int sw = hu_width(s, 0);
+                int col = c.align < 0 ? c.x / 8 : c.align > 0 ? (c.x + 7) / 8 - sw : c.x / 8 - sw / 2;
                 if (col < 0) col = 0;
                 if (pass == 0) hu_clear_rows(row, 1);       /* clear the rows first: two chips share a row */
                 else hu_text(col, row, s);
             }
     }
     if (state == ST_OVER) {
-        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, "A: TITLE");
-        else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, "A: TITLE");
+        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
     }
 }
 
