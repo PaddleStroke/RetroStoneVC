@@ -1,0 +1,15 @@
+# Snail Switch
+
+A lively garden snail races along a curving vine. A flips between the upper and lower surface in a visible 22-frame curl, avoiding exposed thorns, hungry caterpillars and amber sap. Caterpillars patrol 18 pixels either side of their seeded anchor over 240 frames, with two inchworm poses and facing matched to motion. Every fruit must be collected on its vine side before switching away from the following hazard. Missing one immediately eliminates that player. Each player has independent fruit claims.
+
+The title renders the actual frozen starting position. A starts the existing world and camera; its first press does not change sides. Up selects the upper side and Down selects the underside. Held directions remain on that side; a request during a curl completes after landing. A/B/X/Y remain optional toggle buttons. Select or Start pauses. Joined players share the full 320x240 scene and same course speed, retaining full-size characters staggered 27 pixels apart.
+
+The vine, leaves and all hazards use one continuous world coordinate. The first hazard is 450-510 world pixels ahead, giving an initial safe stretch. Seeded hazard centers are 260 pixels apart with +/-30 pixels of jitter: the minimum gap is 200 pixels. Obstacles affect only one vine surface; the other is always open. Speed starts at 2.4 pixels/frame and gradually rises to a maximum 3.8 over 24,000 pixels. Even the front player has over 50 frames of visible warning at maximum speed.
+
+One point per 24 pixels travelled; fruits add five and are mandatory. The extra spacing leaves time to collect every fruit and switch past the preceding hazard, even with caterpillar patrol at maximum speed. Collision uses the visible exposed side and a 21-pixel horizontal half-width. Switching continuously leaves the danger surface. A crash triggers only the crash sound, freezes the victim briefly and drops them out below the scene. Other players continue; after the last falls, the course freezes and the house results panel ranks scores.
+
+Art: 32x32 expressive feeler-eyed snails, spiraled pink/blue/yellow/green shells, shaded cylindrical vine, curved ovate leaves with varied angles and branching veins, woody hooked thorns, sticky teardrops and a full-height misty forest with shaded branching trunks, clustered canopy, ferns and bushes. Code-drawn sprites use the house kit. Foreground is drawn as runtime indexed tiles, with coherent world-space attachments. Four-channel house MOD music and synthesized action/reward/hit sounds.
+
+Best scores use versioned checksummed battery RAM. Mutable game/drawing/audio/lobby state is registered for save states; battery scores remain outside snapshots.
+
+Validation: full libretro, keyboard/lobby/pause/retry/SRAM, deterministic screenshot, UI, save-state and static audit checks. Physics tests replay sixteen five-minute four-player courses with ordinary Up/Down decisions, require survival to the capped speed, compare every world frame and verify frozen starts, continuous flips and failure events.

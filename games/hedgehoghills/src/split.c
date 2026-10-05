@@ -1,0 +1,160 @@
+/* Independent multiplayer cameras, using SDK viewports and shared tile atlases.
+ * MIT, (c) 2026 Pierre-Louis Boyer (8BCraft). */
+#include "game.h"
+#include "assets.h"
+#include "house_ui.h"
+#include <stdio.h>
+#include <string.h>
+
+typedef struct split_view {
+    int cam_y,scroll,map_x,map_y;
+    rs_color sky[RS_SCREEN_H],soil[16],hills[16];
+} split_view;
+static split_view V[MAX_PLAYERS];
+static rs_viewport views[MAX_PLAYERS];
+static int nviews;
+
+void draw_split_init(void) {
+    memset(V,0,sizeof V); memset(views,0,sizeof views); nviews=0;
+    rs_viewports(0,NULL,0);
+}
+void draw_split_off(void) { nviews=0; rs_viewports(0,NULL,0); }
+int draw_split_raster(int line) {
+    int p=rs_viewport_current();
+    if(p<0 || p>=nviews) return 0;
+    const split_view *v=&V[p];
+    rs_pal_set(0,v->sky[line-views[p].y]);
+    rs_pal_load(RS_PAL_BG(PAL_GROUND),v->soil,16);
+    rs_pal_load(RS_PAL_BG(PAL_HILLS),v->hills,16);
+    return 1;
+}
+static int floor8(int y) { return y>=0?y/8:(y-7)/8; }
+static void spr(const rs_viewport *vp,int id,int x,int y,int prio,int pal) {
+    const gm_sprite_def *s=&gm_spr[id];
+    if(x<=-(int)s->w || x>=vp->w || y<=-(int)s->h || y>=vp->h) return;
+    rs_spr(x,y,s->tile,s->w,s->h,pal<0?s->pal:pal,prio,0);
+}
+static int tile_pixels(const uint8_t *pixels,int *next) {
+    if(*next>=1024) {
+        rs_warn(RS_WARN_VRAM,"split-screen terrain exceeded its 1024-tile bank");
+        return 1;
+    }
+    int tile=(*next)++;
+    rs_tiles_load8(VR_BG2+tile,pixels,1);
+    return tile;
+}
+static void terrain(const world *w,const split_view *v,const rs_viewport *vp,int *next) {
+    int cols=(vp->w+7)/8,rows=(vp->h+7)/8;
+    int front=(int)(w->frost/Q16_ONE);
+    for(int c=0;c<cols;c++) {
+        int floors[8],lo=100000,hi=-100000,wx=v->scroll+c*8;
+        for(int x=0;x<8;x++) {
+            floors[x]=(hill_y(w,wx+x)>>16)-v->cam_y;
+            if(floors[x]<lo) lo=floors[x];
+            if(floors[x]>hi) hi=floors[x];
+        }
+        int first=floor8(lo),last=floor8(hi+7);
+        for(int r=0;r<rows;r++) {
+            int texture=(r+c/3)%5==0?2:(r+c)%3==0?3:1;
+            int tile=r<first?0:texture;
+            int edge=r>=first && r<=last;
+            int mixed=r>last && front-wx+56>0 && front-wx+33<96;
+            if(edge || mixed) {
+                uint8_t pixels[64];
+                for(int y=0;y<8;y++) for(int x=0;x<8;x++) {
+                    int yy=r*8+y,d=yy-floors[x],color=0;
+                    if(edge) {
+                        if(d>=0) color=d==0?1:d==1?2:d<4?3:d<6?4:d<8?5:6;
+                        if(d>=8 && ((wx+x)*13+yy*7)%41==0) color=9;
+                    } else color=texture==2 && y<2?7:texture==3 && (x*7+y*3)%23==0?9:6;
+                    if(color && draw_frozen_pixel(w,wx+x,yy+v->cam_y)) color=draw_iced(color);
+                    pixels[y*8+x]=(uint8_t)color;
+                }
+                tile=tile_pixels(pixels,next);
+            } else if(r>last && front-wx+33>=96) tile+=3;
+            rs_bg_put(RS_BG2,v->map_x+c,v->map_y+r,RS_MAP(tile,PAL_GROUND,0,0,0));
+        }
+    }
+}
+static void hills(const split_view *v,rs_viewport *vp) {
+    /* Every atlas slice has its own world rows; no vertical wrapping into ground. */
+    int yoff=v->cam_y/4+(RS_SCREEN_H-vp->h)/2;
+    int first=floor8(yoff),frac=yoff-first*8;
+    int xoff=v->scroll/4,first_x=xoff/8;
+    int cols=(vp->w+(xoff&7)+7)/8,rows=(vp->h+frac+7)/8;
+    for(int y=0;y<rows;y++) for(int x=0;x<cols;x++) {
+        int yy=first+y-HILLS_Y/8;
+        uint16_t tile=yy<0?RS_MAP(gm_bg3_tile_count,PAL_HILLS,0,0,0):
+            gm_hills_map[(yy<HILLS_H?yy:HILLS_H-1)*64+((first_x+x)&63)];
+        rs_bg_put(RS_BG3,v->map_x+x,v->map_y+y,tile);
+    }
+    vp->sx[RS_BG3]=(int16_t)(v->map_x*8+(xoff&7));
+    vp->sy[RS_BG3]=(int16_t)(v->map_y*8+frac);
+}
+static void objects(const world *w,int p,int t,const split_view *v,const rs_viewport *vp) {
+    const hero *h=&w->h[p];
+    int x=(int)(h->wx>>16)-v->scroll,y=(h->y>>16)-30-v->cam_y;
+    spr(vp,draw_hero_sprite(h,t),x-16,y,2,draw_player_pal(p));
+    if(h->state==HS_RUN && h->held && h->grounded && h->vx>6*Q16_ONE)
+        spr(vp,SPR_PUFF+(w->t/4)%3,x-25,y+24,1,-1);
+    if(h->smooth_t>0) hu_sparkle(x-20,y+6,w->t,2);
+    if(h->spill && h->smooth_t<0 && h->land_t<24) {
+        int age=h->land_t;
+        for(int k=0;k<h->spill;k++) spr(vp,SPR_APPLE,x-8-age*(k+1),y+8-age*3+age*age/8-k*5,1,-1);
+    }
+    int first=v->scroll/HILL_SPAN*3;
+    if(h->state==HS_RUN) for(int a=first;a<first+6;a++) if(h->apple_id<a) {
+        int ax,ay; apple_pos(w,a,&ax,&ay);
+        spr(vp,SPR_APPLE,ax-v->scroll-8,ay-v->cam_y-8+hu_bob(w->t+a*11,80,2),1,-1);
+    }
+    int front=(int)(w->frost/Q16_ONE)-v->scroll;
+    if(front>-100) {
+        for(int i=0;i<9;i++) spr(vp,SPR_SNOW,front+38-((w->t*2+i*31)%155),(w->t+i*37)%vp->h,2,-1);
+        for(int i=0;i<3;i++) spr(vp,SPR_FROST_WISP+(w->t/12+i)%2,
+            front+22-((w->t*3+i*39)%148),(w->t/3+i*47)%vp->h,1,-1);
+    }
+}
+void draw_split_frame(const world *w,int st_t,int paused) {
+    int fresh=nviews!=w->players;
+    nviews=rs_viewport_layout(w->players,RS_LAYOUT_HSPLIT,views);
+    hu_clear(); rs_oam_clear();
+    int next_tile=16;
+    for(int p=0;p<nviews;p++) {
+        split_view *v=&V[p]; rs_viewport *vp=&views[p];
+        const hero *h=&w->h[p];
+        v->map_x=vp->x?32:0; v->map_y=vp->y?16:0;
+        int foot=h->y>>16,target=foot-vp->h*3/4;
+        if(fresh) v->cam_y=target;
+        else if(!paused) v->cam_y+=(target-v->cam_y)/8;
+        /* Keep the complete sprite below its HUD even during a fast launch. */
+        if(!paused || fresh) {
+            if(foot-v->cam_y<60) v->cam_y=foot-60;
+            if(foot-v->cam_y>vp->h-10) v->cam_y=foot-vp->h+10;
+        }
+        v->scroll=(int)(h->wx>>16)-(vp->w>=240?HERO_X:48);
+        if(v->scroll<0) v->scroll=0;
+        draw_scenery_colors(v->scroll,vp->h,v->sky,v->soil,v->hills);
+        terrain(w,v,vp,&next_tile); hills(v,vp);
+        vp->layers=7; vp->objs=1;
+        vp->sx[RS_BG1]=vp->sx[RS_BG2]=(int16_t)(v->map_x*8);
+        vp->sy[RS_BG1]=vp->sy[RS_BG2]=(int16_t)(v->map_y*8);
+        char text[40];
+        snprintf(text,sizeof text,"P%d %d  A%d",p+1,h->score,h->apples);
+        hu_text(v->map_x+1,v->map_y+1,text);
+        int margin=(int)((h->wx-w->frost)/Q16_ONE)/16;
+        if(margin<0) margin=0;
+        if(h->state==HS_HIT || h->state==HS_DOWN) snprintf(text,sizeof text,"FROZEN");
+        else snprintf(text,sizeof text,"FROST %dM",margin);
+        hu_text(v->map_x+1,v->map_y+2,text);
+        if(paused) hu_box_text(v->map_x+(vp->w/8-6)/2,v->map_y+6,"PAUSED");
+        else if(h->smooth_t>0) {
+            snprintf(text,sizeof text,"SMOOTH X%d",h->combo);
+            hu_text(v->map_x+1,v->map_y+vp->h/8-1,text);
+        }
+        hu_view_oam_begin(vp); objects(w,p,st_t,v,vp); hu_view_oam_end(vp);
+    }
+    rs_viewports(nviews,views,RS_HEX(0x294c30));
+}
+#define S(v) rs_state_var("split." #v,&(v),sizeof(v))
+void draw_split_state(void) { S(V); S(views); S(nviews); }
+#undef S
