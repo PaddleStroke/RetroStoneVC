@@ -329,12 +329,22 @@ static void lod_note(const obj *o, int lod, int minl, int sc, int sx, int sy, in
     }                                                 /* (on a line with no bark it is not drawn: on_branch) */
 }
 
+/* tests: whatever hangs (the swinging branch) must hang from something drawn: its vine reaching the top edge */
+static int lc_hang, lc_unhung;
+static void hang_note(int sy, int hung)
+{
+    if (lc_on <= 0 || sy >= RS_SCREEN_H) return;
+    lc_hang++;
+    if (!hung && lc_unhung++ < 8) rs_log("lodcheck: a hanging thing at y %d whose vine is not drawn", sy);
+}
+
 void draw_lodcheck_report(void)
 {
     if (lc_on > 0)
         rs_log("lodcheck: %d objects, %d size steps, %d backwards, %d of more than one size, %d not the nearest size, "
-               "the smallest drawn/true %d%%; %d anchors, %d off the branch (%d kept on their line by on_branch)", lc_objects,
-               lc_steps, lc_back, lc_jumps, lc_far, lc_worst, lc_anchors, lc_off, lc_kept);
+               "the smallest drawn/true %d%%; %d anchors, %d off the branch (%d kept on their line by on_branch); %d hanging, "
+               "%d not hung", lc_objects, lc_steps, lc_back, lc_jumps, lc_far, lc_worst, lc_anchors, lc_off, lc_kept,
+               lc_hang, lc_unhung);
 }
 
 typedef struct drawable { int32_t z; int16_t kind, idx; } drawable;
@@ -447,6 +457,11 @@ static void draw_obj(const world *w, const obj *o)
         if (ai > 6) ai = 6;
         lod_note(o, decor_lod(lod_of(sc)) + 1, 1, sc, sx, sy, 0);
         spr_at(SPR_SWING + ai * (LODS - 1) + decor_lod(lod_of(sc)), sx, sy, 2, -1, 0);
+        /* it hangs from the canopy, out of sight above: its vine from the pivot up past the top of the screen, as
+         * thick as the swinging stem at that size */
+        int vl = lod_of(sc), vf = SPR_VINE + (vl <= 3 ? 0 : vl <= 8 ? 2 : 4), hung = 1;
+        for (int y = sy - 16; y > -16; y -= 16) hung &= spr_at(vf + ((y >> 4) & 1), sx, y, 2, -1, 0);
+        hang_note(sy, hung);
         return;
     }
     case OB_BEES: {
@@ -469,7 +484,7 @@ static void draw_obj(const world *w, const obj *o)
     }
     case OB_DECOR: {
         int kind = (int)o->len;
-        if (kind <= DC_SIDE2 || kind == DC_MUSH) {
+        if (kind <= DC_SIDE2 || kind == DC_MUSH || kind == DC_HIVE) {
             if (!road_point(w, &RV, o->s * 256, ang, undrop(ang), 0, &sx, &sy, &sc, &hid) || hid) return;
             if (kind == DC_MUSH) {
                 if (!on_branch(&sx, sy)) return;
@@ -481,13 +496,9 @@ static void draw_obj(const world *w, const obj *o)
                 if (!on_branch(&sx, sy)) return;
                 lod_note(o, l + 2, 2, sc, sx, sy, 2);
                 /* behind the branch layer: its root grows out from behind the silhouette */
-                spr_at(SPR_SIDE + (kind - DC_SIDE0) * (LODS - 2) + l, sx, sy, 1, -1, o->side < 0);
+                spr_at((kind == DC_HIVE ? SPR_HIVE : SPR_SIDE + (kind - DC_SIDE0) * (LODS - 2)) + l, sx, sy, 1, -1,
+                       o->side < 0);
             }
-        } else {
-            if (!road_free(w, &RV, o->s * 256, ang, o->t0, &sx, &sy, &sc)) return;
-            int base = kind == DC_HIVE ? SPR_HIVE : SPR_OVER + (kind - DC_OVER0) * (LODS - 1);
-            lod_note(o, decor_lod(lod_of(sc)) + 1, 1, sc, sx, sy, 0);
-            spr_at(base + decor_lod(lod_of(sc)), sx, sy, 2, -1, o->side < 0);
         }
         return;
     }
@@ -796,11 +807,9 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
         if (o->kind <= OB_WALNUT && (o->taken || z > 1400 * 256)) continue;
         if (o->kind == OB_WIND || o->kind == OB_RAIN || o->kind == OB_SHOWER) continue;
         if (o->kind == OB_DECOR && z < 60 * 256) continue;
-        /* the leaves overhead come in over the top of the screen: never over the far branch, where the traps show */
-        if (o->kind == OB_DECOR && (o->len == DC_OVER0 || o->len == DC_OVER1) && o->ang != 0 && z > 700 * 256) continue;
         if (o->kind == OB_DECOR && o->len <= DC_SIDE2 && z > 1200 * 256) continue;   /* the far end stays clear */
-        /* an overhead clump passing over the camera sends a big leaf sweeping past the edge of the screen */
-        if (o->kind == OB_DECOR && (o->len == DC_OVER0 || o->len == DC_OVER1) && z < 150 * 256 && z >= 150 * 256 - w->speed &&
+        /* a side branch passing the camera drops a big leaf sweeping past the edge of the screen */
+        if (o->kind == OB_DECOR && o->len <= DC_SIDE2 && z < 150 * 256 && z >= 150 * 256 - w->speed &&
             ((o->s * 7) & 3) != 0)
             parts_spawn(o->side > 0 ? 300 : 20, 20 + (o->s & 63), PK_FGLEAF, o->side * 6, 5, 34);
         list[n++] = (drawable){z, DK_OBJ, (int16_t)i};

@@ -15,4 +15,6 @@ draw.lc_far         tests only
 draw.lc_anchors     tests only
 draw.lc_off         tests only
 draw.lc_kept        tests only
+draw.lc_hang        tests only
+draw.lc_unhung      tests only
 draw.lc_worst       tests only

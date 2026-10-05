@@ -56,7 +56,7 @@ run --frames 275 --opt bot=1 --opt seed=3 --opt ready=1 --opt only=twig --opt st
 for b in a b c d; do
     run --frames 310 --opt bot=1 --opt seed=5 --opt ready=1 --opt start=1000 --opt bg=$b --shot 300:"$O/bg-$b.png"
 done
-# the scenery: side branches, leaves overhead, fungi (an ordinary stretch)
+# the scenery: side branches, fungi (an ordinary stretch)
 run --frames 400 --opt bot=1 --opt seed=5 --opt ready=1 --shot 385:"$O/scenery.png"
 run --frames 900 --opt bot=2 --opt seed=9 --opt ready=1 --shot 880:"$O/race-2-players.png"
 run --frames 900 --opt bot=4 --opt seed=9 --opt ready=1 --shot 880:"$O/play-4-players.png"

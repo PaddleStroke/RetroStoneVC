@@ -171,9 +171,9 @@ def sprite_defs():
     d.append(("owl", "bird", lods(owl, 0) + lods(owl, 1), 0))
     d.append(("crow", "bird", lods(P.crow, 0) + lods(P.crow, 1) + lods(P.crow, 2), 0))
     d.append(("swing", "wood", [P.swing(k, a) for a in SWING for k in L1], 0))
-    d.append(("over", "wood", [P.overhead(k, kind) for kind in range(2) for k in L1], 0))
     d.append(("mush", "wood", [P.mushrooms(k, 72) for k in L1], 0))
-    d.append(("hive", "wood", [P.hive(k) for k in L1], 0))
+    d.append(("hive", "wood", [P.hive(k) for k in L2], 0))
+    d.append(("vine", "wood", [P.vine(w, f) for w in (3, 2, 1) for f in (0, 1)], 1))
     return d
 
 

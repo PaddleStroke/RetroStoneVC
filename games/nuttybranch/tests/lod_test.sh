@@ -3,7 +3,8 @@
 # is drawn at the size nearest its projected scale (the 16 sizes 18% apart); along an approach the drawn size must
 # never shrink and must change one size at a time; and whatever sits on the branch or grows out of it must be drawn
 # anchored on the branch's projected surface (on a line with bark, within the branch's span on that line) through
-# the curves, dips and crests.
+# the curves, dips and crests; and whatever hangs (the swinging branch) must hang from something drawn (its vine up to
+# the top edge of the screen, from the canopy out of sight): nothing floats.
 #   lod_test.sh <headless binary> [verbose]
 # MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/nuttybranch/LICENSE.
 H=$1
@@ -12,6 +13,7 @@ fail=0
 steps=0
 anchors=0
 kept=0
+hang=0
 runs=0
 one() {   # one <label> <options...>
     label=$1
@@ -23,7 +25,8 @@ one() {   # one <label> <options...>
         fail=1
         return
     fi
-    if [ "$3" -ne 0 ] || [ "$4" -ne 0 ] || [ "$5" -ne 0 ] || [ "$7" -ne 0 ]; then
+    hung=$(echo "$line" | sed 's/.*; \([0-9]*\) hanging, \([0-9]*\) not hung.*/\1 \2/')
+    if [ "$3" -ne 0 ] || [ "$4" -ne 0 ] || [ "$5" -ne 0 ] || [ "$7" -ne 0 ] || [ "${hung#* }" != 0 ]; then
         echo "  FAIL $label: $line"
         fail=1
     elif [ -n "$VERBOSE" ]; then
@@ -32,6 +35,7 @@ one() {   # one <label> <options...>
     steps=$((steps + $2))
     anchors=$((anchors + $6))
     kept=$((kept + $8))
+    hang=$((hang + ${hung% *}))
     runs=$((runs + 1))
 }
 for s in 1 2 3; do one "seed $s, the whole course" --frames 3000 --opt seed=$s; done
@@ -40,6 +44,6 @@ for k in twig hole knot web cater snake cone owl pecker swing gap fork crow snow
 done
 if [ $fail -eq 0 ]; then
     echo "  ok   LODs over $runs runs: $steps size steps, each to the next larger size (18%), none shrinking, none skipped;" \
-         "$anchors anchors drawn on the branch ($kept kept on their line near crests and the horizon)"
+         "$anchors anchors drawn on the branch ($kept kept on their line near crests and the horizon);"          "$hang hanging things, every one on its drawn vine"
 fi
 exit $fail

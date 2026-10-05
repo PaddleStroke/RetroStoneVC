@@ -26,11 +26,11 @@ enum ob_kind {
     OB_SAP, OB_GAP, OB_WIND, OB_FORK,                /* stretches */
     OB_SNAKE, OB_SWING, OB_BEES, OB_SNOW, OB_CROW,   /* more beasts and things */
     OB_SHOWER, OB_RAIN,                              /* more stretches: falling acorns, wet bark */
-    OB_DECOR,                                        /* scenery only: side branches, leaves overhead, fungi, hives */
+    OB_DECOR,                                        /* scenery only: side branches, fungi, a hive on its branch */
     OB_KNOTHOLE,                                     /* a hole sunk in the bark */
     OB_KINDS
 };
-enum decor_kind { DC_SIDE0, DC_SIDE1, DC_SIDE2, DC_OVER0, DC_OVER1, DC_MUSH, DC_HIVE };
+enum decor_kind { DC_SIDE0, DC_SIDE1, DC_SIDE2, DC_MUSH, DC_HIVE };   /* all of it grows out of the branch */
 #define OB_MAX 640
 typedef struct obj {
     uint8_t kind, taken;        /* taken: a nut eaten */

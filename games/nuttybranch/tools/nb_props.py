@@ -252,21 +252,6 @@ def swing(k, ang):
     return draw(prims, k, 0, None)
 
 
-def overhead(k, kind):
-    """Leaves passing above the camera: a hanging clump with strands of moss or vines (the anchor is its top)."""
-    rng = random.Random(40 + kind)
-    prims = nr.capsule((0, -4, 0), (8 * (kind * 2 - 1), 90, 8), 2.4, 3.4, R_BARK, n=20)   # the limb it hangs from
-    prims += leaf_cluster((0, -10, 0), 30, 15, rng, size=5.4)
-    for i in range(4 if kind == 0 else 7):
-        x = rng.uniform(-14, 14)
-        L = rng.uniform(14, 34)
-        prims += nr.capsule((x, -12, rng.uniform(-4, 4)), (x + rng.uniform(-3, 3), -12 - L, 0), 0.9, 0.6,
-                            R_MOSS if kind == 0 else R_LEAF, n=8)
-        if kind == 1:
-            prims += leaf_cluster((x, -12 - L, 0), 2, 2.5, rng, size=2.6)
-    return draw(prims, k, 0, None)
-
-
 def mushrooms(k, roll):
     """Bracket fungi on the side of the bark (drawn at 72 degrees, rolled with the surface)."""
     prims = []
@@ -277,12 +262,33 @@ def mushrooms(k, roll):
 
 
 def hive(k):
-    """A wild beehive hanging under a limb: ribbed straw-coloured comb, a dark entrance."""
-    prims = nr.capsule((0, 0, 0), (0, -8, 0), 1.0, 1.0, R_BARK, n=4)
+    """A wild beehive hanging under a side branch (the long low one, rooted at the right flank: the anchor), ribbed
+    straw-coloured comb on a short stalk, a dark entrance."""
+    prims, pts = outward_prims(1)
+    top = np.array(pts[22]) + np.array([0, -2.5, 0])
+    prims += nr.capsule(top, top + np.array([0, -6, 0]), 1.2, 1.0, R_BARK, n=4)
     for i in range(5):
-        prims.append(Ell((0, -12 - i * 4.2, 0), (7.5 - abs(i - 2) * 1.2, 2.6, 6.5 - abs(i - 2)), R_WOOD))
-    prims.append(Ell((0, -24, 5.5), (2.0, 1.8, 0.8), R_DARK))
+        prims.append(Ell(top + np.array([0, -10 - i * 4.2, 0]), (7.5 - abs(i - 2) * 1.2, 2.6, 6.5 - abs(i - 2)), R_WOOD))
+    prims.append(Ell(top + np.array([0, -22, 5.5]), (2.0, 1.8, 0.8), R_DARK))
     return draw(prims, k, 0, None)
+
+
+def vine(width, frame):
+    """A vine hanging from the canopy (out of sight above) to the swinging branch: 16 px of strand (it repeats), with a
+    small leaf every 8 px; width 3, 2 or 1 px (near to far)."""
+    cv = Canvas(8, 16)
+    for y in range(16):
+        x0 = 3 + (1 if (y // 4 + frame) % 2 else 0) - width // 2
+        for i in range(width):
+            cv.set(x0 + i, y, WOOD["b1"] if i == 0 else WOOD["b3"])
+        if width > 1:
+            cv.set(x0 - 1, y, WOOD["out"])
+            cv.set(x0 + width, y, WOOD["out"])
+        if y % 8 == 4 + frame * 2 and width > 1:
+            for dx in (1, 2):
+                cv.set(x0 + width + dx, y - 1, WOOD["l1"])
+                cv.set(x0 + width + dx, y, WOOD["l2"])
+    return cv, 4, 0
 
 
 def fg_leaf(frame):
@@ -452,6 +458,11 @@ def _gap(i, j):
 def outward_limb(k, kind):
     """A big branch growing out of the right flank (the root is the anchor), outward, up and on, curving and tapering,
     with sub-branches and full leaf clusters: 0 reaching up, 1 long and low, 2 with a bird's nest."""
+    return draw(outward_prims(kind)[0], k, 0, None)
+
+
+def outward_prims(kind):
+    """outward_limb's shapes, and the points along its main limb"""
     rng = random.Random(60 + kind)
     if kind == 0:
         p1, p2 = (40, 26, 20), (78, 70, 44)
@@ -476,7 +487,7 @@ def outward_limb(k, kind):
             t = i / 14.0 * 2 * math.pi
             prims.append(Ell(nest + np.array([7 * math.cos(t), 0, 6 * math.sin(t)]), (3.2, 2.6, 3.0), R_WOOD))
         prims += [Ell(nest + np.array([-1.5, 1.6, 0]), (2.0, 2.4, 2.0), R_CAP), Ell(nest + np.array([2, 1.6, 1]), (2.0, 2.4, 2.0), R_CAP)]
-    return draw(prims, k, 0, None)
+    return prims, pts
 
 
 KNOTHOLE_RX, KNOTHOLE_RZ = 15.0, 13.0                # (src/tuning.h KNOTHOLE_HALF, KNOTHOLE_LEN)

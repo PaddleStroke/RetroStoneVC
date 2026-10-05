@@ -129,9 +129,10 @@ a gap (Celeste's grace windows).
   hold a long stretch of a turning branch but shows one centre) and is not drawn on a line without bark. Big frames
   are cut into pieces of 32x32 trimmed to their tiles. **Tested** (`tests/lod_test.sh`, `--opt lodcheck=1`): over
   18 runs (3 whole courses, 15 trap kinds alone) every object's drawn size, sampled every frame, only ever steps to
-  the next larger size (25275 steps, none shrinking, none skipping a size, always the nearest size), and every
-  anchor of a thing on the bark or growing out of it is drawn on a line with bark within the branch's span (199966
-  anchors, 0 off; 7780 of them kept on their line near crests and the horizon).
+  the next larger size (17912 steps, none shrinking, none skipping a size, always the nearest size), every anchor
+  of a thing on the bark or growing out of it is drawn on a line with bark within the branch's span (203067
+  anchors, 0 off; 8787 of them kept on their line near crests and the horizon), and every hanging thing hangs from
+  its drawn vine (3772, all).
 - **Branches**: one style for all, big, knobbly, tapering, with sub-branches, full leaf clusters and the bark's own
   speckle. The **obstacles** (`nb_props.py flank_limb`) grow out of ONE flank, from a collar at its silhouette, and
   reach over PART of the path (the owner's playtest: a branch across the whole width, or an arch, cannot be
@@ -153,10 +154,12 @@ Decorations never touch the rules and come from their own RNG (the course is the
 - **side branches** grow out of both flanks every 160-400 units (leafy and reaching up, long and low, or carrying
   a bird's nest), from behind the silhouette (drawn behind the branch layer), never by a gap, a knot-hole, a fork
   or a branch obstacle; kept off the far end of the branch (beyond 1200 units) where the traps appear;
-- **leaves overhead**: clumps hanging from limbs above, with moss or vines, 70-170 units to the side and 120-170 up,
-  only within 700 units (they come in over the top of the screen, never over the far branch);
-- **bracket fungi** on the flanks, the bees' **hive** under a limb, the swinging branch's limb;
-- a **foreground leaf** sweeps past the edge of the screen when a clump passes over the camera (depth);
+- **bracket fungi** on the flanks, the bees' **hive** hanging under its own long side branch;
+- a **foreground leaf** sweeps past the edge of the screen when a side branch passes the camera (depth);
+- nothing floats (the owner's playtest: leaf clumps hanging from limbs that were not drawn read as upside-down
+  branches in the air, so they are gone): everything grows out of the branch, and the one thing hanging from above,
+  the swinging branch, hangs from a vine drawn from its pivot up past the top edge of the screen (the canopy out of
+  sight), as thick as its stem at that size;
 - all of it in the season's leaf colours, drawn with the same sizes as the props.
 
 ## Obstacles and segments
@@ -182,7 +185,7 @@ unlock and densities rise with distance (`UNLOCK_*` in tuning.h).
 | fork | the branch splits in two; the dead one ends in a jagged broken end with splinters | be on the live side at the split | - | 600 m |
 | snake | slithers across the path, fast, a hiss when it starts | tap jump, or let it pass | 9 | 650 m |
 | owl | at any time (a hoot at night, a screech by day): its shadow sweeps over the bark, then it swoops low across the branch ahead | tap jump as it passes, or be off its arc | 12 | 700 m |
-| swinging branch | a leafy branch end hangs from a limb above and swings across the path in rhythm (2.5 s) | time your pass, or a held jump | 26 | 760 m |
+| swinging branch | a leafy branch end on a vine from the canopy above swings across the path in rhythm (2.5 s) | time your pass, or a held jump | 26 | 760 m |
 | rain | for 5 s the bark is wet: steer x 0.7, damping x 0.6, pull x 1.15; rain streaks 1.5 s before, the bark shines | keep near the top | - | 850 m |
 | bees | a swarm drifts out of a hive and across the path at squirrel height (a buzz) | go round it (too high to jump) | 40 | 950 m |
 | snow | winter only: lumps of snow on the bark | tap jump, or go round | 12 | winter |
@@ -280,7 +283,7 @@ acorn's bonk, the rain's patter, the swinging branch's swish; the house set for 
 dusk, night, winter, race-2-players, play-4-players, gameover-medal, results-4-players, and one per trap:
 trap-gap, trap-fork, trap-pecker, trap-web, trap-cater, trap-sap, trap-knot, trap-cone, trap-wind, trap-owl, trap-twig
 and trap-twig-right (a branch out of the left, of the right flank), trap-hole, trap-snake, trap-swing, trap-bees, trap-snow, trap-crow, trap-shower,
-trap-rain; scenery (side branches, leaves overhead); bg-a .. bg-d (the four forests, the same moment);
+trap-rain; scenery (side branches); bg-a .. bg-d (the four forests, the same moment);
 before-after-branch (the bark and props rework), before-after-branch-obstacle (a branch across the whole path,
 then a branch out of one flank), before-after-gap and
 before-after-hole (the second rework: the same trap, the same seed, before and after).

@@ -227,15 +227,14 @@ static int32_t group(chunk_ctx *c, int kind, int32_t s)
         return F2U(c, 40);
     }
     case G_SWING: {
-        add(c, OB_SWING, s, 0, rnd(w, SWING_PERIOD), 0);
-        decor(c, DC_OVER0, s, 1, 0, SWING_PIVOT + Q8(8));       /* the limb it hangs from */
+        add(c, OB_SWING, s, 0, rnd(w, SWING_PERIOD), 0);        /* (its vine hangs from the canopy: draw.c) */
         acorn_line(c, s - F2U(c, 40), s - F2U(c, 12), 0, 0);
         return F2U(c, 40);
     }
     case G_BEES: {
         int side = rnd(w, 2) ? 1 : -1;      /* the swarm drifts toward `side` */
         add(c, OB_BEES, s, -side * (ANG(30) + rnd(w, ANG(15))), 0, side);
-        decor(c, DC_HIVE, s - 40, -side, -side * Q8(96), Q8(72));   /* the hive it came out of */
+        decor(c, DC_HIVE, s - 40, -side, -side * ANG(84), 0);   /* the hive it came out of, on its own side branch */
         return F2U(c, 50);
     }
     case G_SNOW: {
@@ -324,7 +323,7 @@ static void flush(chunk_ctx *c)
 }
 
 /* the scenery along a stretch (its own RNG: the course is the same with or without it): side branches growing out
- * of both sides, leaves and vines passing overhead, fungi on the flanks */
+ * of both sides, fungi on the flanks; nothing hangs in the air */
 static void scenery(chunk_ctx *c, int32_t s0, int32_t s1)
 {
     world *w = c->w;
@@ -335,12 +334,9 @@ static void scenery(chunk_ctx *c, int32_t s0, int32_t s1)
             if ((o->kind == OB_GAP || o->kind == OB_KNOTHOLE) && s > o->s - 80 && s < o->s + o->len + 80) clear = 0;
             if (o->kind == OB_FORK && s > o->s - 80) clear = 0;
             if (o->kind == OB_TWIG && s > o->s - 60 && s < o->s + 60) clear = 0;
+            if (o->kind == OB_DECOR && o->len == DC_HIVE && s > o->s - 120 && s < o->s + 120) clear = 0;
         }
         if (clear) decor(c, DC_SIDE0 + drnd(w, 3), s, side, side * ANG(84), 0);
-    }
-    for (int32_t s = s0 + drnd(w, 300); s < s1; s += 240 + drnd(w, 300)) {
-        int side = drnd(w, 2) ? 1 : -1;
-        decor(c, DC_OVER0 + drnd(w, 2), s, side, side * Q8(70 + drnd(w, 100)), Q8(120 + drnd(w, 50)));
     }
     if (drnd(w, 3) == 0) {
         int side = drnd(w, 2) ? 1 : -1;
