@@ -28,9 +28,10 @@ int curve_sine(int);
 int32_t course_speed(int);
 void obstacle_at(const world*,int,obstacle*);
 int bot_decide(const world*,int);
-void scenery_pixels(const world*,uint8_t*);
+void scenery_pixels(const world*,uint8_t*,int);   /* the canvas width: the screen's (320 at 4:3) */
 void draw_init(void);
 void draw_frame(const world*,int,int,int,int,int);
 void draw_state(void);
+void draw_state_loaded(void);   /* widescreen: a state saved at another width */
 #endif
 

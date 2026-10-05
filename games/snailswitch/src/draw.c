@@ -11,12 +11,25 @@ static const rs_color title_ramps[2][3]={
  {RS_HEX(0xffd2df),RS_HEX(0xee88bb),RS_HEX(0xab4b80)},
  {RS_HEX(0xddf4a4),RS_HEX(0xa9cf64),RS_HEX(0x5f954b)}};
 static void raster(int y,void*u){(void)u;rs_pal_set(0,line_col[y]);}
+/* Widescreen (DESIGN.md "Widescreen"): the maps are 64 tiles (512 px) wide up to 512 columns, 128 beyond. The misty
+ * forest (BG3) is a 512-px panorama: on a 128-tile map its second half is the first one mirrored (the same tiles
+ * h-flipped: no VRAM, seamless at both joins), so a screen wider than 512 never shows a stretch twice. The foreground
+ * (BG2) is drawn for the screen's columns every frame; the UI layer (BG1) is as wide as the screen (corner tags). */
+static int redraw_pause;                  /* transient: a state of another width was loaded (state_audit.txt) */
+static int map_w(void){return rs_screen_width()>512?128:64;}
+static void maps_setup(void){
+ int mw=map_w();
+ rs_bg_setup(RS_BG1,mw,32,VR_BG1);rs_bg_setup(RS_BG2,mw,32,VR_BG2);rs_bg_setup(RS_BG3,mw,32,VR_BG3);
+ for(int y=0;y<HILLS_H;y++)for(int x=0;x<64;x++){
+  uint16_t e=gm_hills_map[y*64+x];rs_bg_put(RS_BG3,x,y,e);
+  if(mw>64)rs_bg_put(RS_BG3,127-x,y,(uint16_t)(e^RS_MAP_HFLIP));
+ }
+}
 void draw_init(void){
  hu_config cfg=hu_defaults();cfg.obj_tile=KIT_OBJ_TILE;cfg.obj_vram=VR_OBJ;cfg.obj_pal=3;hu_init(&cfg);
- rs_bg_setup(RS_BG1,64,32,VR_BG1);rs_bg_setup(RS_BG2,64,32,VR_BG2);rs_bg_setup(RS_BG3,64,32,VR_BG3);
  rs_tiles_load(VR_BG3,gm_bg3_tiles,gm_bg3_tile_count);
  rs_pal_load(RS_PAL_BG(PAL_HILLS),gm_hills_pal,16);
- for(int y=0;y<HILLS_H;y++)for(int x=0;x<64;x++)rs_bg_put(RS_BG3,x,y,gm_hills_map[y*64+x]);
+ maps_setup();
  static const rs_color pal[16]={0,RS_HEX(0x23352f),RS_HEX(0x466947),RS_HEX(0x619248),
  RS_HEX(0x94bd59),RS_HEX(0xd5e594),RS_HEX(0x573343),RS_HEX(0xa65162),RS_HEX(0xe88189),
  RS_HEX(0xffc6a7),RS_HEX(0x805034),RS_HEX(0xc08038),RS_HEX(0xf2ba50),
@@ -28,24 +41,30 @@ void draw_init(void){
  for(int l=0;l<3;l++)rs_bg_enable(l,1);
  rs_raster(raster,NULL);
 }
-static void pixel(uint8_t*p,int x,int y,int c){if(x>=0&&x<320&&y>=0&&y<240)p[y*320+x]=c;}
-static void rect(uint8_t*p,int x0,int y0,int x1,int y1,int c){for(int y=y0;y<=y1;y++)for(int x=x0;x<=x1;x++)pixel(p,x,y,c);}
-static void oval(uint8_t*p,int cx,int cy,int rx,int ry,int a,int b,int c){
+/* A canvas: the pixels and their width (the screen's columns, rounded up to whole tiles; 320 at 4:3). */
+typedef struct canvas {uint8_t*px;int w;} canvas;
+static void pixel(const canvas*p,int x,int y,int c){if(x>=0&&x<p->w&&y>=0&&y<240)p->px[y*p->w+x]=c;}
+static void rect(const canvas*p,int x0,int y0,int x1,int y1,int c){for(int y=y0;y<=y1;y++)for(int x=x0;x<=x1;x++)pixel(p,x,y,c);}
+static void oval(const canvas*p,int cx,int cy,int rx,int ry,int a,int b,int c){
  for(int y=-ry-1;y<=ry+1;y++)for(int x=-rx-1;x<=rx+1;x++){
  int d=x*x*ry*ry+y*y*rx*rx;if(d>(rx+1)*(rx+1)*(ry+1)*(ry+1))continue;
  pixel(p,cx+x,cy+y,d>rx*rx*ry*ry?1:y<-ry/3?a:x<0?b:c);}}
-static void line(uint8_t*p,int x0,int y0,int x1,int y1,int r,int c){
+static void line(const canvas*p,int x0,int y0,int x1,int y1,int r,int c){
  int n=abs(x1-x0)>abs(y1-y0)?abs(x1-x0):abs(y1-y0);if(!n)n=1;
  for(int i=0;i<=n;i++)rect(p,x0+(x1-x0)*i/n-r,y0+(y1-y0)*i/n-r,x0+(x1-x0)*i/n+r,y0+(y1-y0)*i/n+r,c);}
-void scenery_pixels(const world*w,uint8_t*px){
- memset(px,0,320*240);
+/* Widescreen (DESIGN.md "Widescreen"): the foreground is world content, drawn up to the canvas' right edge (cw
+ * columns: the real screen's); the leaves and the hazards are culled against it, so a wider screen simply shows more
+ * of the same vine. At 320 it is the 4:3 picture, pixel for pixel. */
+void scenery_pixels(const world*w,uint8_t*out,int cw){
+ canvas cv={out,cw},*px=&cv;
+ memset(out,0,(size_t)cw*240);
  /* Every branch and obstacle shares the same world-space vine coordinate. */
- for(int x=0;x<320;x++){int yy=vine_y(x+w->scroll);
+ for(int x=0;x<cw;x++){int yy=vine_y(x+w->scroll);
  for(int y=-8;y<=8;y++)pixel(px,x,yy+y,abs(y)==8?1:y<-5?5:y<-2?4:y<4?3:2);
  if((x+w->scroll)%13==0)pixel(px,x,yy+3,4);}
  /* Ovate, asymmetrical leaves: curved contour, tapering tip and branching veins. */
  /* Include complete shapes whose roots are outside the view; clip only their pixels. */
- for(int cell=w->scroll/110-2;cell<=(w->scroll+320+96)/110;cell++){
+ for(int cell=w->scroll/110-2;cell<=(w->scroll+cw+96)/110;cell++){
  unsigned r=(unsigned)cell*747796405u+2891336453u;r=(r^(r>>16))*2246822519u;
  int wx=cell*110+(int)(r%39)-19,x=wx-w->scroll,y=vine_y(wx),side=(r>>8)&1?1:-1;
  int dx=(r>>10)&1?14:-14,dy=side*(23+(r%12));
@@ -71,9 +90,10 @@ void scenery_pixels(const world*w,uint8_t*px){
  }
  }
  int base=(w->scroll-480)/OBSTACLE_SPACING;if(base<0)base=0;
- for(int i=base>0?base-1:0;i<=base+3;i++){
+ int last=base+3+(cw-RS_SCREEN_W+OBSTACLE_SPACING-1)/OBSTACLE_SPACING;   /* wider: one hazard more */
+ for(int i=base>0?base-1:0;i<=last;i++){
  obstacle o;obstacle_at(w,i,&o);int x=o.x-w->scroll,y=vine_y(o.x),s=o.side?1:-1;
- if(x<-50||x>448)continue; /* Include the fruit stem even when its patrolling hazard is farther outside. */
+ if(x<-50||x>cw+128)continue; /* Include the fruit stem even when its patrolling hazard is farther outside. */
  if(o.type==0){
   /* Woody hooked thorns sprout directly from the vine, with shaded broad bases. */
   for(int j=0;j<3;j++){
@@ -117,11 +137,13 @@ void scenery_pixels(const world*w,uint8_t*px){
  pixel(px,bx-2,by+s*21-2,13);
  }
 }
+static uint8_t fg_px[RS_SCREEN_W_MAX*240];     /* scratch: redrawn in full each frame (state_audit.txt) */
 static void foreground(const world*w){
- uint8_t px[320*240];scenery_pixels(w,px);
+ int cols=(rs_screen_width()+7)/8,pw=cols*8;   /* the screen's tile columns: 40 at 4:3, 54 at 427, 65 at 520 */
+ scenery_pixels(w,fg_px,pw);
  int next=1;uint8_t empty[64]={0};rs_tiles_load8(VR_BG2,empty,1);
- for(int r=0;r<30;r++)for(int c=0;c<40;c++){
-  uint8_t tile[64];int ink=0;for(int y=0;y<8;y++)for(int x=0;x<8;x++){tile[y*8+x]=px[(r*8+y)*320+c*8+x];ink|=tile[y*8+x];}
+ for(int r=0;r<30;r++)for(int c=0;c<cols;c++){
+  uint8_t tile[64];int ink=0;for(int y=0;y<8;y++)for(int x=0;x<8;x++){tile[y*8+x]=fg_px[(r*8+y)*pw+c*8+x];ink|=tile[y*8+x];}
   int id=0;if(ink){id=next++;rs_tiles_load8(VR_BG2+id,tile,1);}rs_bg_put(RS_BG2,c,r,RS_MAP(id,PAL_GROUND,0,0,0));
  }
 }
@@ -137,7 +159,8 @@ static void draw_heroes(const world*w,int t,int sx,int sy){
  /* The same full-size snail grips each surface; the eye stalks hang below on the underside. */
  rs_spr(cx-16+sx,(h->y>>16)-16+sy,d->tile,d->w,d->h,player_pal(p),2,flip?RS_SPR_VFLIP:0);
  }}
-static void slot_icon(int p,int cx,int cy,int t,void*u){(void)t;(void)u;spr(SPR_HERO_ICON,cx-8,cy-8,2,player_pal(p));}
+/* the kit gives UI coordinates: + hu_ui_x() (the UI is centred on a wide screen, the stage origin is 0) */
+static void slot_icon(int p,int cx,int cy,int t,void*u){(void)t;(void)u;spr(SPR_HERO_ICON,cx-8+hu_ui_x(),cy-8,2,player_pal(p));}
 static void standing(const world*w,hu_standing*s){int a[4];for(int p=0;p<w->players;p++)a[p]=w->h[p].score;hu_rank(s,w->players,a,a);}
 static void screen_text(const world *w, int state, int st_t, int best, int new_best, const hu_standing *rs)
 {
@@ -180,16 +203,29 @@ void draw_frame(const world*w,int state,int st_t,int best,int new_best,int pause
  foreground(w);rs_bg_scroll(RS_BG2,-sx,-sy);rs_bg_scroll(RS_BG3,w->scroll/4,0);
  screen_text(w,state,st_t,best,new_best,&rank);
  int slide=state==ST_OVER?hu_slide_in(st_t,20,200):0;
- rs_bg_scroll(RS_BG1,0,-slide);hu_pause(paused,13);rs_oam_clear();
+ rs_bg_scroll(RS_BG1,-hu_ui_x(),-slide);       /* the UI centred on the screen (widescreen) */
+ if(redraw_pause&&paused)hu_pause(0,13);       /* the UI layer was set up again (a state of another width) */
+ redraw_pause=0;hu_pause(paused,13);rs_oam_clear();
  if(state==ST_PLAY||state==ST_DEAD){int sc[4];for(int p=0;p<w->players;p++)sc[p]=w->h[p].score;hu_score_chips(w->players,sc,0);}
  if(state==ST_TITLE)hu_title_sprites(st_t,slot_icon,NULL);
  if(state!=ST_OVER)draw_heroes(w,w->t,sx,sy);
  if(state==ST_OVER){
  if(w->players==1)hu_gameover_sprites(1,w->h[0].score,0,best,hu_medal_of(w->h[0].score,medals),st_t,slide);
- else{hu_results_sprites(&rank,st_t,slide);for(int i=0;i<rank.n;i++){int x,y;hu_results_icon_pos(&rank,i,&x,&y);spr(SPR_HERO_ICON,x-8,y-8+slide,3,player_pal(rank.order[i]));}}
+ else{hu_results_sprites(&rank,st_t,slide);for(int i=0;i<rank.n;i++){int x,y;hu_results_icon_pos(&rank,i,&x,&y);spr(SPR_HERO_ICON,x-8+hu_ui_x(),y-8+slide,3,player_pal(rank.order[i]));}}
  }}
 #define S(v) rs_state_var("draw." #v,&(v),sizeof(v))
 void draw_state(void){S(line_col);S(shown_state);S(shown_best);RS_STATE_RASTER(raster);}
+#undef S
+/* A state saved at another width brings the maps of that width (64 or 128 tiles): set them up for this one (the
+ * forest again; the foreground is redrawn every frame; the UI and PAUSED on the next frame). Same width: nothing. */
+void draw_state_loaded(void){
+ /* the foreground columns past this screen's (a 427 state at 320): empty, as at start-up (a shake shows one) */
+ for(int r=0;r<32;r++)for(int c=(rs_screen_width()+7)/8;c<rs_bg_map_w(RS_BG2);c++)rs_bg_put(RS_BG2,c,r,0);
+ if(rs_bg_map_w(RS_BG1)==map_w()&&rs_bg_map_w(RS_BG2)==map_w()&&rs_bg_map_w(RS_BG3)==map_w())return;
+ maps_setup();
+ shown_state=-1;                          /* screen_text clears the UI layer and draws it again */
+ redraw_pause=1;                          /* ... and PAUSED, if it shows */
+}
 
 
 

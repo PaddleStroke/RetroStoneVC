@@ -292,7 +292,8 @@ static void game_state(void)
 const rs_game *rs_game_main(void)
 {
     static const rs_game g = {"Snail Switch", "snailswitch", "0.1.0", game_init, game_update, game_draw,
-                              game_shutdown, gm_assets, game_state, NULL, 1};
+                              game_shutdown, gm_assets, game_state, draw_state_loaded, 1,
+                              RS_SCREEN_W_MAX};   /* widescreen: any width (DESIGN.md "Widescreen") */
     return &g;
 }
 

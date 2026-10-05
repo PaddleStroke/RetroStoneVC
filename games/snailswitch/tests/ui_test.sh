@@ -1,6 +1,8 @@
 #!/bin/sh
 # Snail Switch: the UI screens (the house kit) as screenshots, checked: each screen renders, the screens differ,
 # and the same run gives the same picture twice. Also makes games/snailswitch/docs/screenshots (make snailswitch-screenshots).
+# At 320 (RS_WIDTH unset) it also makes the widescreen screens (DESIGN.md "Widescreen"): the title, a run and the game
+# over at 427 (16:9) and 520 (19.5:9) columns.
 #   ui_test.sh <headless binary> <out dir> [scale]
 # MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/snailswitch/LICENSE.
 H=$1
@@ -28,6 +30,7 @@ run --frames 900 --opt bot=4 --opt seed=9 --opt ready=1 --shot 880:"$O/play-4-pl
 # game over with a silver medal: the bot stops jumping at 21
 run --frames 6000 --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=21
 f=$(sed -n 's/.*run 1 over at frame \([0-9]*\).*/\1/p' "$O/log.txt")
+fm=$f
 if [ -n "$f" ]; then
     run --frames $((f + 60)) --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=21 --shot $((f + 50)):"$O/gameover-medal.png"
 else
@@ -42,6 +45,16 @@ else
     ko "the 4-player bot run for the results did not end"
 fi
 shots="title title-2-players title-3-players title-4-players play pause race-2-players play-4-players gameover-medal results-4-players"
+if [ -z "$RS_WIDTH" ]; then
+    # widescreen: the same runs revealed wider (the game over comes at the same frame at every width)
+    for w in 427 520; do
+        run --width $w --frames 130 --shot 120:"$O/title-$w.png"
+        run --width $w --frames 700 --opt bot=1 --opt seed=7 --opt ready=1 --shot 690:"$O/play-$w.png"
+        [ -n "$fm" ] && run --width $w --frames $((fm + 60)) --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=21 \
+            --shot $((fm + 50)):"$O/gameover-$w.png"
+        shots="$shots title-$w play-$w gameover-$w"
+    done
+fi
 n=0
 for s in $shots; do
     n=$((n + 1))
