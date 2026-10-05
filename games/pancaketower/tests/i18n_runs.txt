@@ -1,0 +1,11 @@
+# Pancake Tower: the screens of the language test (tools/i18n_test.sh, docs/i18n.md), one headless run per line:
+#   <name> <frames> <shot frame> [options] [; input lines]
+title     130  120
+title2    130  120  --opt players=2
+title4    130  120  --opt players=4
+join      130  90   ; 20 P2 tap A ; 40 P3 tap A ; 60 P4 tap A
+play      700  690  --opt bot=1 --opt seed=7 --opt ready=1
+play4     700  690  --opt bot=4 --opt players=4 --opt seed=9 --opt ready=1
+pause     640  630  --opt bot=1 --opt seed=7 --opt ready=1 ; 600 tap START
+over      300  290  --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=3
+results   300  290  --opt bot=4 --opt players=4 --opt seed=5 --opt ready=1 --opt botstop=3

@@ -14,6 +14,7 @@
 #include "assets.h"
 #include "render.h"
 #include "house_ui.h"
+#include "game_text.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -979,16 +980,18 @@ static void screen_text(const match *m, int state, int st_t, int best, int new_b
             hu_logo("PANCAKE TOWER", title_ramps, 2, 2, 0);
             title_logo_on = 1;
             near_pal_last = 0;                         /* the logo has BG palette 5 (the kitchen does not use it) */
-            snprintf(s, sizeof s, "BEST %d", best);
+            rs_strf(s, sizeof s, HTR(BEST_N), best);
             if (best > 0) hu_text(hu_center(s, 0), 24, s);
             hu_copyright(28);
         }
         if (state == DS_OVER) {
             if (m->players == 1) {
-                hu_banner(4, "GAME OVER");
+                hu_banner(4, HTR(GAME_OVER));
                 hu_gameover_panel(1, new_best, m->tw[0].score, 0);
-                snprintf(s, sizeof s, "%d PANCAKES", m->tw[0].pancakes);
-                hu_box_text(12, 12, s);
+                rs_strf(s, sizeof s, TRN(PANCAKES_N, m->tw[0].pancakes), m->tw[0].pancakes);
+                /* under SCORE; a text that takes the row above (accents, CJK) goes to the panel's foot */
+                if (hu_tall(s)) hu_gameover_note(s);
+                else hu_box_text(12, 12, s);
             } else {
                 hu_standing rank;
                 int keys[MAX_PLAYERS], values[MAX_PLAYERS];
@@ -1006,10 +1009,10 @@ static void screen_text(const match *m, int state, int st_t, int best, int new_b
     }
     if (state == DS_TITLE) hu_title_draw(st_t, best);
     if (state == DS_OVER) {
-        if (m->players == 1) hu_retry_line(st_t, RETRY_LOCK, "A: MAIN MENU");
+        if (m->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_MENU));
         else {
             hu_standing rank = {.n = m->players};
-            hu_retry_line_at(hu_results_retry_row(&rank), st_t, RETRY_LOCK, "A: MAIN MENU");
+            hu_retry_line_at(hu_results_retry_row(&rank), st_t, RETRY_LOCK, HTR(BACK_MENU));
         }
     }
 }

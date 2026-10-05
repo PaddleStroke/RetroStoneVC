@@ -35,9 +35,10 @@ pancaketower-dist:
 build/host/pancaketower_test_tower: build/host/$(PT_DIR)/tests/test_tower.o build/host/$(PT_DIR)/src/tower.o
 	$(HOST_CC) -o $@ $^ -lm
 
-PT_OBJ_HOST = $(patsubst %.c,build/host/%.o,$(wildcard $(PT_DIR)/src/*.c) $(HOUSE_SRC) build/gen/pancaketower/assets.c)
+PT_OBJ_HOST = $(patsubst %.c,build/host/%.o,$(wildcard $(PT_DIR)/src/*.c) $(HOUSE_SRC) build/gen/pancaketower/assets.c \
+              build/gen/pancaketower/game_text.c)
 # the breakthrough test runs the whole game (runtime, draw, the bot) and checks the picture against the world
-build/host/$(PT_DIR)/tests/test_break.o: build/gen/pancaketower/assets.c
+build/host/$(PT_DIR)/tests/test_break.o: build/gen/pancaketower/assets.c build/gen/pancaketower/game_text.c
 build/host/pancaketower_test_break: build/host/$(PT_DIR)/tests/test_break.o $(PT_OBJ_HOST) build/host/librs.a
 	$(HOST_CC) -o $@ $^ -lm
 
@@ -61,6 +62,7 @@ pancaketower-check:
 	    RS_WIDTH=$$w sh $(PT_DIR)/tests/state_test.sh build/host/pancaketower_test_states build/states-$$w || exit 1; \
 	done
 	sh $(PT_DIR)/tests/state_widths.sh build/host/pancaketower_test_states build/states-widths "$(WIDTHS)"
+	bash tools/i18n_test.sh build/host/pancaketower_headless pancaketower build/pancaketower-i18n 320 $(WIDTHS)
 
 pancaketower-screenshots:
 	+$(PT_MAKE) build/host/pancaketower_headless

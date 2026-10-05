@@ -257,7 +257,7 @@ static void game_init(void)
     audio_set(opt_music, opt_sound);
     sfx_init();
     draw_init();
-    hu_title_cfg tc = {GO_BUTTONS, MAX_PLAYERS, "PLAY", NULL, 0};
+    hu_title_cfg tc = {GO_BUTTONS, MAX_PLAYERS, HTR(PLAY), NULL, 0};
     hu_title_setup(&tc);
     opt_bot = clampi(rs_option_int("bot", 0), 0, MAX_PLAYERS);
     opt_botruns = rs_option_int("botruns", 1);
