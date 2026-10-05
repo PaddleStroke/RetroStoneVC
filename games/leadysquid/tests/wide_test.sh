@@ -18,6 +18,13 @@ for w in 320 $WS 560; do
     pw=$(png_w "$O/w$w.png")
     if [ "$pw" = "$w" ]; then ok "--width $w: a ${pw}x240 picture"; else ko "--width $w: the picture is $pw wide"; fi
 done
+# a live change of width (the desktop runner's resized window: a state, a restart at the new width, the state loaded)
+out=$($H --frames 900 --opt music=0 --opt dump=1 --opt bot=1 --opt seed=7 --opt ready=1 --resize 400:520 --resize 650:320 \
+      --shot 500:"$O/resize-520.png" --shot 800:"$O/resize-320.png" 2>&1)
+if [ "$(png_w "$O/resize-520.png")" = 520 ] && [ "$(png_w "$O/resize-320.png")" = 320 ] &&
+   echo "$out" | grep -q "frame 400: width 520" && echo "$out" | grep "state:" | tail -1 | grep -q "state: st=2 .*runs=0 "; then
+    ok "a live change of width (320 -> 520 -> 320) in a run: it goes on"
+else ko "a live change of width: $(echo "$out" | grep 'width\|state:' | tr '\n' ' ')"; fi
 # a state saved at one width, loaded at another (in a fresh process, before its first frame): it loads and plays on
 scenario() {   # scenario <name> <save width> <frames> <after> <opts...>
     name=$1; sw=$2; n=$3; m=$4; shift 4
