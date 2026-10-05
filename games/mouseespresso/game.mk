@@ -1,5 +1,8 @@
 # Mouse Espresso: house kit, portable host/libretro and static Windows builds.
 HOUSE_UI_mouseespresso = 1
+# widescreen (docs/spec.md "Widescreen"; rs_game.max_width; DESIGN.md): the checks run at 320 and at each width of
+# WIDTHS (427 520), then across widths (tests/wide_test.sh)
+WIDESCREEN_mouseespresso = 1
 MOUSEESPRESSO_MAKE = $(MAKE) --no-print-directory GAME=mouseespresso GAME_NAME=MouseEspresso
 MOUSEESPRESSO_OBJS = $(patsubst %.c,build/host/%.o,$(wildcard games/mouseespresso/src/*.c) $(HOUSE_SRC))
 .PHONY: mouseespresso mouseespresso-windows mouseespresso-armhf mouseespresso-dist mouseespresso-art mouseespresso-check mouseespresso-screenshots
@@ -27,7 +30,15 @@ mouseespresso-check:
 	$(PYTHON) games/mouseespresso/tests/check_game.py
 	sh games/mouseespresso/tests/state_test.sh build/host/mouseespresso_test_states build/states
 	$(PYTHON) tools/state_audit.py --game mouseespresso build/host/mouseespresso_test_states $(MOUSEESPRESSO_OBJS)
+	set -e; for w in $(WIDTHS); do echo "== widescreen: $$w x 240"; \
+	    a=$$(case $$w in 427) echo 16:9;; 520) echo Wide;; esac); \
+	    [ -z "$$a" ] || ./build/host/test_libretro build/host/mouseespresso_libretro.so 600 $$a $$w; \
+	    RS_WIDTH=$$w $(PYTHON) games/mouseespresso/tests/check_game.py; \
+	    RS_WIDTH=$$w sh games/mouseespresso/tests/state_test.sh build/host/mouseespresso_test_states build/states-$$w; \
+	done
+	sh games/mouseespresso/tests/wide_test.sh build/host/mouseespresso_headless build/host/mouseespresso_test_states build "$(WIDTHS)"
 	bash tools/i18n_test.sh build/host/mouseespresso_headless mouseespresso build/mouseespresso-i18n $(if $(WIDESCREEN_mouseespresso),320 $(WIDTHS),320)
 mouseespresso-screenshots:
 	+$(MOUSEESPRESSO_MAKE) build/host/mouseespresso_headless
 	$(PYTHON) games/mouseespresso/tests/check_game.py --screenshots
+	sh games/mouseespresso/tools/wide_shots.sh build/host/mouseespresso_headless games/mouseespresso/docs/screenshots

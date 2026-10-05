@@ -25,4 +25,7 @@ Espresso machines and kettles emit timed steam bursts. Mixers spin four blades.
 Long tables leave routes above and below their tops; the rear legs are behind
 the flight lane. Biscuit trails help you choose a route. Moving hazards speed
 up gradually, with room between obstacles to change height.
+Widescreen: the picture follows the shape of the window (drag its edges or go
+fullscreen: a wider window shows more of the cafe ahead). To fix it: --width 427
+(16:9), --width 520 (phones), or --aspect 4:3 for the classic 320x240.
 Best scores are saved to mouseespresso.srm next to the executable.
