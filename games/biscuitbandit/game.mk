@@ -39,6 +39,7 @@ biscuitbandit-check:
 	sh $(BISCUITBANDIT_DIR)/tests/ui_test.sh build/host/biscuitbandit_headless build/biscuitbandit-ui
 	sh $(BISCUITBANDIT_DIR)/tests/state_test.sh build/host/biscuitbandit_test_states build/states
 	$(PYTHON) tools/state_audit.py --game biscuitbandit build/host/biscuitbandit_test_states $(BISCUITBANDIT_OBJ_HOST)
+	bash tools/i18n_test.sh build/host/biscuitbandit_headless biscuitbandit build/biscuitbandit-i18n $(if $(WIDESCREEN_biscuitbandit),320 $(WIDTHS),320)
 
 biscuitbandit-screenshots:
 	+$(BISCUITBANDIT_MAKE) build/host/biscuitbandit_headless

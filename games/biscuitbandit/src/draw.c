@@ -8,6 +8,7 @@
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "game_text.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -46,6 +47,8 @@ void draw_init(void)
     hc.obj_tile = KIT_OBJ_TILE;         /* the kit sprites after the game's */
     hc.obj_vram = VR_OBJ;
     hc.obj_pal = 3;
+    hc.ext_count = 256;                 /* the glyph pool: tiles 640..895 (BG2 starts at VRAM 1024): the title's three
+                                         * hint lines in Japanese, Chinese or Korean need more than the default 128 */
     hu_init(&hc);
     rs_bg_setup(RS_BG1, 64, 32, VR_BG1);
     rs_bg_setup(RS_BG2, 64, 32, VR_BG2);
@@ -109,6 +112,19 @@ static void standing(const world *w, hu_standing *s)
     hu_rank(s, w->players, score, score);
 }
 
+/* the title's rows: BEST (i = -1) and the 3 hints (i = 0..2): packed (11, 12-14) when the hints are plain ASCII (no
+ * accent, no tall glyph), else one free row above each line for its accents (BEST 8, hints 10, 12, 14) */
+static int hint_row(int i)
+{
+    const char *hint[3] = {TR(HINT_MOVE), TR(HINT_DROP), TR(HINT_POINTS)};
+    int packed = 1;
+    for (int k = 0; k < 3; k++)
+        for (const char *c = hint[k]; *c; c++)
+            if ((unsigned char)*c >= 128) packed = 0;
+    if (packed) return 12 + i;
+    return i < 0 ? 8 : 10 + 2 * i;
+}
+
 /* the BG screens; PLAY and DEAD are the same screen */
 static void screen_text(const world *w, int state, int st_t, int best, int new_best, const hu_standing *rs)
 {
@@ -116,15 +132,14 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
     if (screen != shown_state || (state == ST_OVER && st_t == RETRY_LOCK) || best != shown_best) {
         hu_clear();
         if (state == ST_TITLE){
+            const char *hint[3] = {TR(HINT_MOVE), TR(HINT_DROP), TR(HINT_POINTS)};
             hu_logo("BISCUIT BANDIT", title_ramps, 2, 2, 0);
-            hu_text(hu_center("{ } MOVE - CATCH BISCUITS",0),12,"{ } MOVE - CATCH BISCUITS");
-            hu_text(hu_center("ONE DROP ENDS RUN. AVOID CUPS",0),13,"ONE DROP ENDS RUN. AVOID CUPS");
-            hu_text(hu_center("10 POINTS PER COOKIE",0),14,"10 POINTS PER COOKIE");
+            for (int i = 0; i < 3; i++) hu_text(hu_center(hint[i], 0), hint_row(i), hint[i]);
         }
         if (screen == ST_PLAY && w->players >= 3) hu_score_tags(w->players, 0);     /* P1..P4 by the corner chips */
         if (state == ST_OVER) {
             if (w->players == 1) {
-                hu_banner(4, "GAME OVER");
+                hu_banner(4, HTR(GAME_OVER));
                 hu_gameover_panel(1, new_best, w->h[0].score, 0);
             } else {
                 hu_results_panel(rs, NULL);                                     /* P2 WINS! and the ranking */
@@ -134,15 +149,19 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         shown_best = best;
     }
     /* the title, every frame: the prompt (blinking), the player slots, BEST, the join line, the credits */
+    /* the prompt goes up to row 20 (the kit's row 21 is over the hero): row 20 is cleared before the kit draws, so
+     * that the kit's accents (in the row above its prompt) never land on our prompt */
     if(state==ST_TITLE){
-        hu_title_draw(st_t,best);hu_clear_rows(18,1);hu_clear_rows(21,1);hu_clear_rows(24,1);
-        for(int p=0;p<w->players;p++){char tag[8];snprintf(tag,sizeof tag,"P%d",p+1);hu_text((w->h[p].x-8)/8,18,tag);}
-        hu_prompt(20,"PRESS A TO PLAY",st_t);
-        if(best>0){char b[32];snprintf(b,sizeof b,"BEST %d",best);hu_text(hu_center(b,0),11,b);}
+        char s[128];
+        hu_clear_rows(20,1);hu_title_draw(st_t,best);hu_clear_rows(18,1);hu_clear_rows(21,1);hu_clear_rows(24,1);
+        for(int p=0;p<w->players;p++){char tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),p+1);hu_text((w->h[p].x-8)/8,18,tag);}
+        rs_strf(s,sizeof s,HTR(PRESS_TO),HTR(PLAY));   /* the kit's prompt text: its A glyph (hu_title_glyph) fits ours */
+        hu_prompt(20,s,st_t);
+        if(best>0){rs_strf(s,sizeof s,HTR(BEST_N),best);hu_text(hu_center(s,0),hint_row(-1),s);}
     }
     if (state == ST_OVER) {
-        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, "A: TITLE");
-        else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, "A: TITLE");
+        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
     }
 }
 
