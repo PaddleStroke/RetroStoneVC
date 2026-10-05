@@ -32,7 +32,5 @@ scenario paused 450 300 bot=1 ready=1
 : > "$O/blueberrytumble-deep.input"
 scenario deep 3000 500 bot=1 ready=1 god=1 seed=3
 : > "$O/blueberrytumble-over.input"
-# on the game-over panel after the last run (the save RAM, which a state does not hold, then changes no more: the
-# run-up of a wide screen ends the runs 113 frames later)
-scenario over 1000 400 bot=1 botstop=30 ready=1 botruns=2
+scenario over 700 400 bot=1 botstop=30 ready=1 botruns=2
 exit $fail

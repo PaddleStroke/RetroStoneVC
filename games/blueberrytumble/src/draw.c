@@ -280,12 +280,24 @@ static int draw_ramp(int32_t col, int b, int dy0, int dy1, int deep)
     return 1;
 }
 
-static void draw_column(const bt_course *c, int32_t col, int deep)
+/* Widescreen: the lobby (the title, a run not started) rolls on a placeholder course: the run's course comes from the
+ * press that starts it. A screen wider than 480 columns shows the course's first pattern (at START_CELLS) from the
+ * start, so in the lobby the course past the start is drawn as plain level ground with the start's scenery (its tall
+ * patterns, props and cones are not drawn); the run's real course is drawn at the press, when the title's text goes.
+ * At 320 columns the lobby never shows that far. */
+static const bt_col plain_col;
+
+static const bt_col *shown_col(const bt_course *c, int32_t col, int lobby)
 {
-    const bt_col *k = course_col(c, col), *kl = course_col(c, col - 1), *kr = course_col(c, col + 1);
+    return lobby && col >= START_CELLS ? &plain_col : course_col(c, col);
+}
+
+static void draw_column(const bt_course *c, int32_t col, int deep, int lobby)
+{
+    const bt_col *k = shown_col(c, col, lobby), *kl = shown_col(c, col - 1, lobby), *kr = shown_col(c, col + 1, lobby);
     int b = course_biome_of_col(col);
     /* the scenery varies with the run (the start, seen on the title, stays the same) */
-    uint32_t hsh = hash32((uint32_t)col * 2654435761u ^ (col >= START_CELLS ? c->dir.seed : 0));
+    uint32_t hsh = hash32((uint32_t)col * 2654435761u ^ (col >= START_CELLS && !lobby ? c->dir.seed : 0));
     if (k->dy0 != k->dy1 && draw_ramp(col, b, k->dy0, k->dy1, deep)) return;
     /* the column drawn k->dy0 px lower (whole tile rows), its 64 map rows: 20 of sky, 24 of cells, the surface (2),
      * the soil (18) */
@@ -332,7 +344,7 @@ static void draw_column(const bt_course *c, int32_t col, int deep)
     }
 }
 
-static void stream_playfield(const bt_course *c, int32_t cam_col)
+static void stream_playfield(const bt_course *c, int32_t cam_col, int lobby)
 {
     int32_t want_lo = cam_col - 2, want_hi = cam_col + 23 + extra_cols();   /* widescreen: up to the real edge */
     int32_t deep_hi = wide() ? cam_col + (RS_SCREEN_W - CELL) / CELL : want_hi;   /* the columns drawn as at 320 */
@@ -343,17 +355,17 @@ static void stream_playfield(const bt_course *c, int32_t cam_col)
     pf_col_lo = want_lo;
     /* widescreen: the columns that came within the 320 first columns get their deepest soil */
     for (; pf_deep_hi < deep_hi; pf_deep_hi++)
-        if (wide() && pf_deep_hi >= want_lo && pf_deep_hi < pf_col_hi) draw_column(c, pf_deep_hi, 1);
+        if (wide() && pf_deep_hi >= want_lo && pf_deep_hi < pf_col_hi) draw_column(c, pf_deep_hi, 1, lobby);
     while (pf_col_hi < want_hi) {
-        draw_column(c, pf_col_hi, !wide() || pf_col_hi < pf_deep_hi);
-        pf_gone[(uint32_t)pf_col_hi & 63] = course_col(c, pf_col_hi)->gone;
+        draw_column(c, pf_col_hi, !wide() || pf_col_hi < pf_deep_hi, lobby);
+        pf_gone[(uint32_t)pf_col_hi & 63] = shown_col(c, pf_col_hi, lobby)->gone;
         pf_col_hi++;
     }
     for (int32_t col = want_lo; col < want_hi; col++) {
-        uint16_t g = course_col(c, col)->gone;
+        uint16_t g = shown_col(c, col, lobby)->gone;
         if (pf_gone[(uint32_t)col & 63] != g) {
             pf_gone[(uint32_t)col & 63] = g;
-            draw_column(c, col, !wide() || col < pf_deep_hi);
+            draw_column(c, col, !wide() || col < pf_deep_hi, lobby);
         }
     }
 }
@@ -486,7 +498,7 @@ static void draw_props(const world *w, int t)
     const bt_course *c = &w->course;
     int32_t col0 = view_camx / CELL - 1;
     for (int32_t col = col0; col < col0 + 22 + extra_cols(); col++) {
-        const bt_col *k = course_col(c, col);
+        const bt_col *k = shown_col(c, col, !w->started);
         int sx = col * CELL - view_camx + CELL / 2;
         for (int r = 0; r < ROWS; r++) {
             int kind = k->cell[r];
@@ -521,7 +533,7 @@ static void draw_props(const world *w, int t)
     int64_t xref = course_x(c, w->f);
     for (int32_t i = c->ncone - 1; i >= 0 && i >= c->ncone - CONE_RING; i--) {
         const bt_cone *k = &c->cone[i % CONE_RING];
-        if (k->gone) continue;
+        if (k->gone || !w->started) continue;     /* the lobby: no cones (they belong to the patterns) */
         int kx = (int)(cone_x(k, xref) >> 16) - view_camx;
         if (kx < -16 || kx > rs_screen_width() + 16) continue;
         spr(SPR_CONE + (((unsigned)(-kx) / 4) & 3), kx - 8, screen_y(0, kx) - 15, 2, -1);
@@ -699,7 +711,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     view_c = -k256;
     view_vofs = GROUND_PY - GROUND_SCREEN_Y - cam_up - syk + cd;
     view_hofs = (camx - sxk) & (MAP_W * 8 - 1);
-    stream_playfield(c, camx < 0 ? -((-camx + CELL - 1) / CELL) : camx / CELL);
+    stream_playfield(c, camx < 0 ? -((-camx + CELL - 1) / CELL) : camx / CELL, !w->started);
     stream_mid(camx);
     load_slot_palettes(camx);
     /* the beat pulse: player 1's x counts the beats (64 px each), the bar's downbeat is stronger */
@@ -882,7 +894,7 @@ void draw_state_loaded(const world *w)
     if (d >= saved_w / 2) d -= saved_w;
     view_hofs = (view_camx - d) & (MAP_W * 8 - 1);
     pf_col_hi = INT32_MIN / 2;                  /* below any window: the whole window again */
-    stream_playfield(&w->course, view_camx < 0 ? -((-view_camx + CELL - 1) / CELL) : view_camx / CELL);
+    stream_playfield(&w->course, view_camx < 0 ? -((-view_camx + CELL - 1) / CELL) : view_camx / CELL, !w->started);
     mid_col_hi = -1000;
     stream_mid(view_camx);
     shown_state = -1;

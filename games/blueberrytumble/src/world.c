@@ -8,21 +8,6 @@
 
 #define PX64(v) ((int64_t)(v) * Q16_ONE)
 
-/* Widescreen (DESIGN.md "Widescreen"): the run-up. The course is the same at every width: flat ground from x 0, the
- * first pattern at START_CELLS (384 px). At the start the screen shows the course up to its right edge (PIVOT_X +
- * 384 = 480 is the first pattern's screen x): on a screen wider than that the start would show the first pattern
- * (and change it on the title, when the lobby's placeholder course gives way to the run's). So the berries start
- * whole bars before x 0 (the music's bars stay on the course's bar lines; whole frames at the first tempo, rounded
- * up: half a frame at most) and the first pattern waits off the real right edge. From x 0 on, the run is exactly the
- * run without a run-up (the same course, the same frames of the clock: course_x), `world_runup_frames()` later. */
-int world_runup_frames(void)
-{
-    int over = rs_screen_width() - PIVOT_X - START_CELLS * CELL;   /* px of the first pattern on screen at x 0 */
-    if (over <= 0) return 0;
-    int bars = (over + BAR_CELLS * CELL - 1) / (BAR_CELLS * CELL);
-    return (bars * (BAR_CELLS / BEAT_CELLS) * tier_fpb_num(0) + tier_fpb_den(0) - 1) / tier_fpb_den(0);
-}
-
 void world_init(world *w, int players, uint32_t seed)
 {
     memset(w, 0, sizeof *w);
@@ -31,10 +16,8 @@ void world_init(world *w, int players, uint32_t seed)
     director_fill(&w->course, 48);
     w->players = players;
     w->seed = seed;
-    w->f = -world_runup_frames();          /* the course clock: x 0 at frame 0 (widescreen: the run-up before) */
-    int64_t x0 = course_x(&w->course, w->f);
     for (int p = 0; p < MAX_PLAYERS; p++) {
-        berry_reset(&w->b[p], x0 - PX64(p * P2_OFFSET));
+        berry_reset(&w->b[p], -PX64(p * P2_OFFSET));
         w->b[p].need_release = 1;           /* the press that starts the run is not a jump */
         w->b[p].held = 1;
         if (p >= players) w->b[p].dead = 1;

@@ -209,15 +209,18 @@ The game opts in (`max_width` = 560, `WIDESCREEN_blueberrytumble = 1`): 320 (4:3
   biomes the ground leaves the bottom of the screen sooner, the valley (mid-ground, far range) shows there. Seeing
   further makes it a little easier; the owner accepts it (no compensation).
 - **The course and the music are the same at every width.** The director writes the same patterns on the same beats
-  (it already writes 40 columns ahead of the berry, past any screen's edge). Only the run-up may change: on a screen
-  wider than 480 columns the start would show the first pattern (at 384 px, 24 cells, from x 0), and the title would
-  show the lobby's placeholder course change into the run's, so the berries start **one bar earlier**, 113 frames: whole bars keep the music's bar lines on the course's (the 112.5 frames of a bar at the
-  first tempo, rounded up: the music is half a frame behind the course, a frame at 320). From x 0 on the run is the
-  same as at 320, frame for frame, 113 frames later: the course clock (`course_x`) starts at frame -113. The
-  screen-reading bot (a test hook) starts afresh at the start line, so its run is the 320 one too.
-  `tests/wide_test.sh` checks it: the same seed gives the same events (pads, dew drops, glides, snow, smashes, golden
-  blueberries, the splats) at the same metres, the same pattern instances and the same score at 320, 427, 520 and 560
-  (1 to 4 players), with a constant frame offset (0 at 427, 113 at 520 and 560).
+  (it already writes 40 columns ahead of the berry, past any screen's edge). **Every width starts exactly like 320**
+  (the owner's rule for side-scrollers: no longer run-up on a wide screen): the course clock from 0, the first pattern
+  at 384 px (24 cells) from the berry, on the same beat. Beyond 480 columns it is on screen from the first frame (on
+  the steep summit its low obstacles are still under the bottom edge; its tall ones show).
+- The lobby (the title, a run not started) rolls on a placeholder course (the run's comes from the press that starts
+  it), which a screen wider than 480 columns would show change at the press. So in the lobby the course past the start
+  is drawn as plain level ground with the start's scenery (no patterns, props or cones there); the run's real course
+  is drawn at the press, as the title's text goes. Decor only: at 320 the lobby never shows that far.
+- `tests/wide_test.sh` checks it: the same seed gives, frame for frame (offset 0), the same first pattern instance (its
+  frame and column), the same events (pads, dew drops, glides, snow, smashes, golden blueberries, the splats) at the
+  same metres, the same pattern instances and the same final state at 320, 427, 520 and 560 (1 to 4 players). The
+  screen-reading bot plays the same run at every width.
 - The playfield, the mid-ground and the UI layer are 128 tiles wide on a wide screen (64 at 320): the playfield and the
   mid-ground stream up to the real right edge (the mid-ground's columns take the biome of the ground that enters the
   screen with them), the props, cones and gusts are drawn up to it, the sky's colours fade at the gates by the
@@ -236,7 +239,7 @@ The game opts in (`max_width` = 560, `WIDESCREEN_blueberrytumble = 1`): 320 (4:3
 - Save states load at any width: a state of another width brings maps of another size, so `state_loaded` sets them up
   again (the far range of this width, the playfield and mid-ground streamed again at once, the scroll register for
   the new map, the UI and PAUSED on the next frame, "ATTEMPT n" and a biome's name kept); a run goes on exactly as it
-  was (its clock and run-up are in the state); a lobby (title, not started) takes this width's run-up.
+  was (the course and its clock are in the state, the same at every width).
   tests/wide_test.sh checks live changes of width in a run and on the title, and states across widths.
 
 ## Art and sound

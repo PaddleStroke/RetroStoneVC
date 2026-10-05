@@ -215,7 +215,6 @@ typedef struct world {
     uint32_t seed;
 } world;
 void world_init(world *w, int players, uint32_t seed);
-int  world_runup_frames(void);                              /* widescreen: the run-up to x 0, frames (world.c) */
 void world_step(world *w, const int held[MAX_PLAYERS]);
 int  world_running(const world *w);
 int  world_x(const world *w, int p);                        /* px */

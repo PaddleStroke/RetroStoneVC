@@ -1,9 +1,9 @@
 #!/bin/sh
 # Blueberry Tumble widescreen (DESIGN.md "Widescreen"): the picture is as wide as asked, the world is revealed wider
-# and the GAMEPLAY IS THE SAME at every width: with the same seed the bot (it plays from the screen) has the same events
-# at the same metres and the same splats, metres and score, at most a constant number of frames later (the run-up of a
-# screen wider than 480 columns: src/world.c); a live change of width in a run changes nothing of it; a save state
-# made at one width loads at another.
+# and the GAMEPLAY IS THE SAME at every width: every width starts exactly like 320 (the first pattern at the same
+# distance, on the same beat), and with the same seed the bot (it plays from the screen) has the same events, pattern
+# instances, splats, metres and score on the same frames; a live change of width in a run changes nothing of it; a
+# save state made at one width loads at another.
 #   wide_test.sh <blueberrytumble_headless> <blueberrytumble_test_states> <out dir> [widths]
 # MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/blueberrytumble/LICENSE.
 H=$1
@@ -31,33 +31,30 @@ events() {
            -e 's/.*player \([0-9]\) splat at \([0-9]*\) m (frame \([0-9]*\), \(.*\))$/\3 splat p\1 at \2 m, \4/p' \
            -e 's/.*run 1 over at frame \([0-9]*\): \(.*\)$/\1 over: \2/p' "$1"
 }
-# same <name> <frames> <opts...>: the run at 320 and at each width: the same events and pattern instances with a
-# constant frame offset, and after as many more frames the same state (metres, golden blueberries, score, the berry's
-# mode and height, the course clock; the dump's hash also counts the run-up's frames)
+# same <name> <frames> <opts...>: the run at 320 and at each width, frame for frame (no offset: every width starts like
+# 320, the course clock from 0): the same events, the same pattern instances (each logged with the frame player 1
+# enters it and its column: the first pattern on the same beat at the same distance), the same final state and hash
 same() {
     name=$1; n=$2; shift 2
     run --width 320 --frames "$n" --opt evlog=1 --opt dump=1 "$@" > "$O/$name-320.log"
     events "$O/$name-320.log" > "$O/$name-320.ev"
     grep -o "seg .*" "$O/$name-320.log" > "$O/$name-320.seg"
-    st320=$(grep -o "state: .*" "$O/$name-320.log" | sed 's/ hash=.*//')
+    grep -o "state: .*" "$O/$name-320.log" > "$O/$name-320.st"
+    first=$(grep -v "seg \(start\|bridge\|gate\) " "$O/$name-320.seg" | head -1)
     ne=$(wc -l < "$O/$name-320.ev")
-    [ "$ne" -ge 3 ] || ko "$name: only $ne events at 320"
+    [ "$ne" -ge 3 ] && [ -n "$first" ] && [ -s "$O/$name-320.st" ] || ko "$name: only $ne events at 320 ('$first')"
     for w in $WS 560; do
-        run --width "$w" --frames $((n + 600)) --opt evlog=1 "$@" > "$O/$name-$w.log"
+        run --width "$w" --frames "$n" --opt evlog=1 --opt dump=1 "$@" > "$O/$name-$w.log"
         events "$O/$name-$w.log" > "$O/$name-$w.ev"
         grep -o "seg .*" "$O/$name-$w.log" > "$O/$name-$w.seg"
-        res=$(awk -v n="$n" -v ne="$ne" 'NR == FNR { f[NR] = $1; $1 = ""; e[NR] = $0; next }
-            FNR == 1 { off = $1 - f[1] }
-            { k++; g = $1 - off; $1 = ""; if (g > n) exit; if (k > ne || g != f[k] || $0 != e[k]) { bad = k; exit } }
-            END { if (!bad && k < ne) bad = k + 1; print (bad ? "differs at event " bad : "same") " " off }' \
-            "$O/$name-320.ev" "$O/$name-$w.ev")
-        off=${res##* }
-        segs=$(head -n "$(wc -l < "$O/$name-320.seg")" "$O/$name-$w.seg" | cmp -s - "$O/$name-320.seg" && echo same)
-        stw=$(run --width "$w" --frames $((n + off)) --opt dump=1 "$@" | grep -o "state: .*" | sed 's/ hash=.*//')
-        if [ "${res% *}" = same ] && [ "$segs" = same ] && [ -n "$st320" ] && [ "$stw" = "$st320" ]; then
-            ok "$name at $w: the same $ne events, $(wc -l < "$O/$name-320.seg") pattern instances and end state, $off frames later"
+        grep -o "state: .*" "$O/$name-$w.log" > "$O/$name-$w.st"
+        firstw=$(grep -v "seg \(start\|bridge\|gate\) " "$O/$name-$w.seg" | head -1)
+        if [ "$firstw" = "$first" ] && cmp -s "$O/$name-320.ev" "$O/$name-$w.ev" && cmp -s "$O/$name-320.seg" "$O/$name-$w.seg" &&
+           cmp -s "$O/$name-320.st" "$O/$name-$w.st"; then
+            ok "$name at $w: offset 0, the first pattern as at 320 ($first), the same $ne events, $(wc -l < "$O/$name-320.seg") pattern instances and end state"
         else
-            ko "$name at $w: ${res% *} (offset $off), patterns: ${segs:-differ}, state: '$st320' / '$stw'"
+            ko "$name at $w: first pattern '$firstw' (320: '$first'); events, patterns or state differ: $(diff "$O/$name-320.ev" "$O/$name-$w.ev" | head -2 | tr '
+' ' ')"
         fi
     done
 }
@@ -68,8 +65,7 @@ same race2 3000 --opt bot=2 --opt players=2 --opt ready=1 --opt seed=6
 same race4 1500 --opt bot=4 --opt players=4 --opt ready=1 --opt seed=9 --opt botstop=60
 
 # ---- a live change of width (the desktop runner's resized window: a state, a restart at the new width, the state
-# loaded): in a run, it goes on exactly as it would have (the same events, frame for frame); on the title, the lobby
-# takes the new width's run-up and the run is the new width's run ------------------------------------------------------------
+# loaded): in a run, it goes on exactly as it would have (the same events, frame for frame); on the title too ------------------------------------------------------------
 run --frames 2400 --opt evlog=1 --opt dump=1 --opt bot=1 --opt seed=7 --opt ready=1 > "$O/plain.log"
 run --frames 2400 --opt evlog=1 --opt dump=1 --opt bot=1 --opt seed=7 --opt ready=1 --resize 400:520 --resize 650:320 \
     --resize 900:427 --resize 1200:560 --shot 500:"$O/resize-520.png" --shot 800:"$O/resize-320.png" > "$O/resized.log"
@@ -105,7 +101,7 @@ scenario() {   # scenario <name> <save width> <frames> <after> <opts...>
     done
 }
 scenario run 427 1500 300 bot=1 ready=1 seed=21
-scenario runup 520 60 300 bot=1 ready=1 seed=21
+scenario start 520 60 300 bot=1 ready=1 seed=21
 scenario title 320 60 200
 scenario lobby 560 25 200 players=3
 printf "400 tap SELECT\n" > "$O/paused.input"

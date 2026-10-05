@@ -32,10 +32,9 @@ printf "30 tap A\n60 tap A\n860 tap A\n" > "$T/retry.input"
 out=$(run --frames 880 --input "$T/retry.input")
 check "game over: one press returns to the title" "state: st=0 .*runs=1 " "$out"
 
-# (the course clock is negative in the run-up of a wide screen: DESIGN.md "Widescreen")
 printf "30 tap A\n60 tap A\n90 tap SELECT\n" > "$T/pause.input"
-a=$(run --frames 120 --input "$T/pause.input" | sed -n 's/.* f=\(-*[0-9]*\) paused=\([0-9]\).*/\1 \2/p')
-b=$(run --frames 300 --input "$T/pause.input" | sed -n 's/.* f=\(-*[0-9]*\) paused=\([0-9]\).*/\1 \2/p')
+a=$(run --frames 120 --input "$T/pause.input" | sed -n 's/.* f=\([0-9]*\) paused=\([0-9]\).*/\1 \2/p')
+b=$(run --frames 300 --input "$T/pause.input" | sed -n 's/.* f=\([0-9]*\) paused=\([0-9]\).*/\1 \2/p')
 if [ "$a" = "$b" ] && [ "${a#* }" = "1" ]; then ok "Select pauses (the course is frozen at frame ${a% *})"; else ko "pause: '$a' vs '$b'"; fi
 
 rm -f "$T/save.srm"
