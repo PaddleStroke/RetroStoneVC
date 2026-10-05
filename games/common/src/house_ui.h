@@ -174,7 +174,7 @@ int  hu_over_back(void);
  * the bottom chips (0: 220). */
 typedef struct hu_chip {
     int x, y, align;            /* the digits: x (align -1: left edge, 0: centre, 1: right edge), top y */
-    int tag_x, tag_y;           /* the tag's tile (-1: no tag) */
+    int tag_x, tag_y;           /* the tag's tile (tag_y -1: no tag; widescreen: tag_x may be < 0, it wraps) */
 } hu_chip;
 hu_chip hu_score_chip(int players, int p, int bottom_y);
 void hu_score_tags(int players, int bottom_y);         /* BG: the tags (3-4 players), once when the run starts */

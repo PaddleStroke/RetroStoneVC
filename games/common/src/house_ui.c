@@ -957,7 +957,7 @@ void hu_score_tags(int players, int bottom_y)
     char s[12];
     for (int p = 0; p < players && p < HU_MAX_PLAYERS; p++) {
         hu_chip c = hu_score_chip(players, p, bottom_y);
-        if (c.tag_x < 0) continue;
+        if (c.tag_y < 0) continue;                      /* no tag (1-2 players); tag_x may be negative (widescreen) */
         snprintf(s, sizeof s, "P%d", p + 1);
         if (c.tag_x >= 0 && c.tag_x + 2 <= 40) hu_text(c.tag_x, c.tag_y, s);
         else ui_text_wrapped(c.tag_x, c.tag_y, s);
