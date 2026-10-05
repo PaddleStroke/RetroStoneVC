@@ -57,7 +57,8 @@ columns, chosen by the frontend at start-up**: 320 = 4:3 (the default: the Retro
   width, or rebuilds what depends on it in `state_loaded` (maps drawn for the width, a course generated up to the
   screen's edge); the next frame is drawn at the new width.
 - **Strict mode.** The sprites-per-line guideline scales with the width: 32 per 320 columns (42 at 427, 52 at 520).
-  The other guidelines are unchanged; VRAM counts the wider maps a game may need.
+  VRAM: on a screen wider than 320, the map columns past 64 tiles (the 128-tile maps a wide screen needs) are not
+  counted, so a game that fits the 64 KiB at 4:3 still fits; the other guidelines are unchanged.
 - **Performance.** The cost grows with the columns: the PPU stress scene costs 0.79 ms at 320, 0.92 ms at 427 and
   1.01 ms at 520 on the build host (x1.28 for x1.63 columns); see section 11 for the games.
 

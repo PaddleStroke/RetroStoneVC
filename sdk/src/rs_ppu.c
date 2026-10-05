@@ -624,7 +624,11 @@ void ppu_render(uint16_t *fb)
     {
         long vram = (long)g_tiles_used * 32;
         for (int l = 0; l < RS_BG_COUNT; l++)
-            if (g_bg[l].enabled) vram += (long)g_bg[l].mw * g_bg[l].mh * 2;
+            if (g_bg[l].enabled) {
+                /* widescreen: the map columns past 64 tiles that a wider screen needs are not counted */
+                long mw = W > RS_SCREEN_W && g_bg[l].mw > 64 ? 64 : g_bg[l].mw;
+                vram += mw * g_bg[l].mh * 2;
+            }
         if (vram > 65536)
             rs_warn(RS_WARN_VRAM, "VRAM use %ld bytes (tiles + maps; guideline 65536)", vram);
     }
