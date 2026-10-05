@@ -288,6 +288,11 @@ and several permissively licensed clones were tuned against it. Only numbers and
   paused, over the panel and a retry, a winter night with the dam half built, and at five points of long runs:
   the state and the picture replay the same frame by frame, in the same process and in a fresh one; bad and
   foreign states are refused. `tools/state_audit.py`: every mutable static is saved or listed in state_audit.txt.
+- **Widescreen**: the check runs test_libretro (Aspect 16:9 and Wide), the smoke test (its strict-mode runs
+  included), the UI test (ui_check.py reads the pictures' width: the stage is centred, the versus views split the
+  whole width) and the state test again at each width of WIDTHS (427, 520), then `tests/wide_test.sh`: the
+  picture's width at 320..560, the same logs at every width, width changes during runs, states across widths.
+  The 320 output is byte-identical to the version before widescreen (the generic shots and the screenshots).
 
 ## Performance
 `make beaverrush-bench` (tools/bench.sh, host: Ryzen 7 9800X3D under WSL2, music on): 1 player on a winter night
@@ -296,11 +301,15 @@ and several permissively licensed clones were tuned against it. Only numbers and
 run (host scheduling; the restart of a skipped test run redraws 560 dam logs at once). At the usual 15-20x for
 the A20 (Cortex-A7): **8-12 ms on average, 50-70% of the 16.7-ms frame**, with the rare worst frames at 17-38 ms.
 Sprites: 103 at most, 32 on a line at most (the guideline); VRAM, voices and sample memory within the guidelines.
+Widescreen (`make beaverrush-bench` runs 320, then 520): at 520 columns the winter night costs **0.78 ms** (0.52 at
+320, x1.5 for x1.63 columns) and the versus 0.83-0.86 ms (0.53); sprites 94 / 107 at most, 23 / 35 on a line (the
+guideline at 520: 52).
 
 ## Screenshots
 `make beaverrush-screenshots` (tools/screenshots.sh, 2x): docs/screenshots/ title, early-play, milestone,
 golden-log, night, autumn-sunset, winter, spring, pause, gameover-silver, title-2-players, versus,
-versus-over.
+versus-over; widescreen: title, play and gameover at 427 and 520 (NAME-427.png, NAME-520.png), versus-427,
+play-4-players-520.
 
 ## Four-player completion
 The saved conversion from wip/beaverrush-4p is integrated. Three/four players use full-height columns,
