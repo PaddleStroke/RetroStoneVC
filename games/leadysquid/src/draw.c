@@ -120,7 +120,7 @@ void draw_init(void)
     hc.logo_tile = LOGO_TILE;
     hc.logo_pal = PAL_LOGO;
     hc.obj_tile = -1;
-    hc.box_glyphs = " SCOREBESTNWMDALPYIG12!:-";    /* only the glyphs the panel uses (VRAM) */
+    hc.box_glyphs = " SCOREBESTNWMDALPYIG12!:-";    /* the panel glyphs to preload (English); others load on demand */
     hu_init(&hc);
     rs_tiles_load(LOGO_TILE, ls_logo_tiles, ls_logo_tile_count);
     rs_pal_load(RS_PAL_BG(PAL_SEABED), ls_seabed_pal, 16);
@@ -388,7 +388,7 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         if (state == DS_OVER) {
             if (w->players == 1) {
                 /* the title on its own banner, as wide as the score panel below it: nothing shows through */
-                hu_banner(4, "GAME OVER");
+                hu_banner(4, HTR(GAME_OVER));
                 hu_gameover_panel(1, new_best, w->sq[0].score, 0);
             } else {
                 hu_results_panel(rs, NULL);           /* P3 WINS! and the ranking */
@@ -400,8 +400,8 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
     /* the title, every frame: the prompt (blinking), the player slots, BEST, the join line, the credits */
     if (state == DS_TITLE) hu_title_draw(st_t, best);
     if (state == DS_OVER) {
-        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, "A: MAIN MENU");
-        else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, "A: MAIN MENU");
+        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_MENU));
+        else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_MENU));
     }
 }
 

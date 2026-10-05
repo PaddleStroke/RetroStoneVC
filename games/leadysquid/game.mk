@@ -41,8 +41,8 @@ build/host/leadysquid_test_physics: build/host/$(LS_DIR)/tests/test_physics.o bu
 	$(HOST_CC) -o $@ $^ -lm
 
 # the caps test runs the whole game (runtime, draw) with a scripted player and checks the picture
-LS_OBJ_HOST = $(patsubst %.c,build/host/%.o,$(wildcard $(LS_DIR)/src/*.c) $(HOUSE_SRC) build/gen/leadysquid/assets.c)
-build/host/$(LS_DIR)/tests/test_caps.o: build/gen/leadysquid/assets.c
+LS_OBJ_HOST = $(patsubst %.c,build/host/%.o,$(wildcard $(LS_DIR)/src/*.c) $(HOUSE_SRC) build/gen/leadysquid/assets.c build/gen/leadysquid/game_text.c)
+build/host/$(LS_DIR)/tests/test_caps.o: build/gen/leadysquid/assets.c build/gen/leadysquid/game_text.c
 build/host/leadysquid_test_caps: build/host/$(LS_DIR)/tests/test_caps.o $(LS_OBJ_HOST) build/host/librs.a
 	$(HOST_CC) -o $@ $^ -lm
 
@@ -56,7 +56,7 @@ leadysquid-check:
 	sh $(LS_DIR)/tests/smoke_test.sh build/host/leadysquid_headless build
 	sh $(LS_DIR)/tests/ui_test.sh build/host/leadysquid_headless build/leadysquid-ui
 	sh $(LS_DIR)/tests/state_test.sh build/host/leadysquid_test_states build/states
-	$(PYTHON) tools/state_audit.py --game leadysquid build/host/leadysquid_test_states $(filter-out %/assets.o,$(LS_OBJ_HOST))
+	$(PYTHON) tools/state_audit.py --game leadysquid build/host/leadysquid_test_states $(filter-out %/assets.o %/game_text.o,$(LS_OBJ_HOST))
 	$(PYTHON) $(LS_DIR)/tests/test_art_tools.py
 	set -e; for w in $(WIDTHS); do echo "== widescreen: $$w x 240"; \
 	    a=$$(case $$w in 427) echo 16:9;; 520) echo Wide;; esac); \
@@ -67,6 +67,7 @@ leadysquid-check:
 	    RS_WIDTH=$$w sh $(LS_DIR)/tests/state_test.sh build/host/leadysquid_test_states build/states-$$w; \
 	done
 	sh $(LS_DIR)/tests/wide_test.sh build/host/leadysquid_headless build/host/leadysquid_test_states build "$(WIDTHS)"
+	bash tools/i18n_test.sh build/host/leadysquid_headless leadysquid build/leadysquid-i18n $(if $(WIDESCREEN_leadysquid),320 $(WIDTHS),320)
 
 leadysquid-screenshots:
 	+$(LS_MAKE) build/host/leadysquid_headless

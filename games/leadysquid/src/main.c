@@ -17,6 +17,7 @@
 #include "ls.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "game_text.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -215,7 +216,7 @@ static void game_init(void)
     sfx_init();
     draw_init();
     /* the title: P1's start inputs are its swim inputs (PRESS A TO SWIM), up to 4 players */
-    hu_title_cfg tc = {FLAP_BUTTONS, MAX_PLAYERS, "SWIM", NULL, 0};
+    hu_title_cfg tc = {FLAP_BUTTONS, MAX_PLAYERS, TR(VERB), NULL, 0};
     hu_title_setup(&tc);
     opt_bot = clampi(rs_option_int("bot", 0), 0, MAX_PLAYERS);
     opt_botruns = rs_option_int("botruns", 1);
