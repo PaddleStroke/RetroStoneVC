@@ -2,6 +2,7 @@
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "game_text.h"
 #include "sine.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -127,20 +128,34 @@ static void scene(const world*w){int first=course_index(w->scroll-120);for(int i
   if(h->state==HS_DOWN && h->t>14 && (h->t&2))continue;
   spr(frame,h->x-16,player_y(w->players,p)-16,hu_player_pal(p));}
 }
+/* the text needs the row above it (accents, wide glyphs): any character beyond ASCII */
+static int tall(const char*s){for(;*s;s++)if((unsigned char)*s>=128)return 1;return 0;}
+/* the column of a title line: its English column x0, or the centred one when that is further left (a longer text;
+ * lead: columns before the text, the prompt's A glyph) */
+static int left_x(const char*s,int x0,int lead){int c=(40-hu_width(s,0)-lead)/2+lead;return c<x0?(c<lead?lead:c):x0;}
 static void title(const world*w,int t,int best){
  hu_logo("OTTER RAPIDS",ramps,2,1,0);
- hu_text(5,9,"LEFT / RIGHT: PADDLE");
- hu_text(7,13,"CATCH EVERY FISH");
- if(hu_blink(t)){hu_text(9,12,"PRESS A TO PADDLE");hu_glyph(HU_BTN_A,48,92,0,3);}
- int n=hu_players();for(int p=0;p<n && p<4;p++){char tag[8];snprintf(tag,sizeof tag,"P%d",p+1);hu_text((w->h[p].x+16)/8,(player_y(n,p)-2)/8,tag);}
- char b[48],who[24]="";if(best){snprintf(b,sizeof b,"BEST %d",best);hu_text(1,25,b);}
- for(int p=n;p<4;p++){size_t k=strlen(who);snprintf(who+k,sizeof who-k,"%sP%d",p>n?" / ":"",p+1);}
- if(n<4)snprintf(b,sizeof b,n>1?"%s: A JOIN - B LEAVE":"%s: A TO JOIN",who);else snprintf(b,sizeof b,"4 PLAYERS - B TO LEAVE");
- hu_text(hu_center(b,0),10,b);hu_copyright(29);
+ /* The lines under the logo: the hint, the join line, the prompt (after its A glyph), the goal. Each starts at its
+  * English column, or further left (centred) when it is longer. A line with accents or wide glyphs takes the row
+  * above it too: then the lines move apart (the prompt always has a free row above, for its A glyph), up to the
+  * logo's empty bottom row (8) so that the goal stays above the first player's tag (row 15 with 4 players). */
+ int n=hu_players();char b[160],who[64]="",prompt[128];
+ for(int p=n;p<4;p++){size_t k=strlen(who);if(p>n)k+=(size_t)snprintf(who+k,sizeof who-k," / ");if(k<sizeof who)rs_strf(who+k,sizeof who-k,HTR(PLAYER_TAG),p+1);}
+ if(n<4)rs_strf(b,sizeof b,n>1?TR(JOIN_LEAVE_SHORT):TR(JOIN_SHORT),who);else rs_strf(b,sizeof b,"%s",TR(FULL_LEAVE));
+ rs_strf(prompt,sizeof prompt,HTR(PRESS_TO),TR(VERB));
+ const char*hint=TR(HINT_MOVE),*goal=TR(HINT_GOAL);
+ int r_hint=9,r_join=r_hint+1+tall(b),r_prompt=r_join+2,r_goal=r_prompt+1+tall(goal),up=r_goal>14?r_goal-14:0;
+ r_hint-=up;r_join-=up;r_prompt-=up;r_goal-=up;
+ hu_text(left_x(hint,5,0),r_hint,hint);
+ hu_text(left_x(goal,7,0),r_goal,goal);
+ if(hu_blink(t)){int x=left_x(prompt,9,3);hu_text(x,r_prompt,prompt);hu_glyph(HU_BTN_A,x*8-24,r_prompt*8-4,0,3);}
+ for(int p=0;p<n && p<4;p++){char tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),p+1);hu_text((w->h[p].x+16)/8,(player_y(n,p)-2)/8,tag);}
+ if(best){char s[64];rs_strf(s,sizeof s,HTR(BEST_N),best);hu_text(1,25,s);}
+ hu_text(hu_center(b,0),r_join,b);hu_copyright(29);
 }
 void draw_frame(const world*w,int state,int t,int best,int fresh,int paused){hu_clear();rs_oam_clear();rs_brightness(paused?9:15);foreground(w);
- if(state==ST_TITLE){title(w,t,best);scene(w);}else if(state==ST_PLAY||state==ST_DEAD){if(w->players==1)hu_number(w->h[0].score,160,8,3);else for(int p=0;p<w->players;p++){char b[20];snprintf(b,sizeof b,"P%d %d",p+1,w->h[p].score);hu_text(p*10,1,b);}scene(w);if(paused)hu_big(14,13,"PAUSED",HU_BIG_FREE);
- }else{int slide=hu_slide_in(t,20,200);if(w->players==1){static const int med[4]=MEDAL_SCORES;hu_banner(4,"GAME OVER");hu_gameover_panel(1,fresh,w->h[0].score,0);hu_gameover_sprites(1,w->h[0].score,0,best,hu_medal_of(w->h[0].score,med),t,slide);hu_retry_line(t,RETRY_LOCK,"A: TITLE");}else{int scores[4];for(int p=0;p<w->players;p++)scores[p]=w->h[p].score;hu_standing s;hu_rank(&s,w->players,scores,scores);hu_results_panel(&s,NULL);hu_results_sprites(&s,t,slide);for(int i=0;i<s.n;i++){int x,y;hu_results_icon_pos(&s,i,&x,&y);spr(SPR_HERO_ICON,x-8,y-8+slide,hu_player_pal(s.order[i]));}hu_retry_line_at(hu_results_retry_row(&s),t,RETRY_LOCK,"A: TITLE");}rs_bg_scroll(RS_BG1,0,-slide);}
+ if(state==ST_TITLE){title(w,t,best);scene(w);}else if(state==ST_PLAY||state==ST_DEAD){if(w->players==1)hu_number(w->h[0].score,160,8,3);else for(int p=0;p<w->players;p++){char b[48],tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),p+1);snprintf(b,sizeof b,"%s %d",tag,w->h[p].score);hu_text(p*10,1,b);}scene(w);if(paused)hu_big(hu_center(HTR(PAUSED),1),13,HTR(PAUSED),HU_BIG_FREE);
+ }else{int slide=hu_slide_in(t,20,200);if(w->players==1){static const int med[4]=MEDAL_SCORES;hu_banner(4,HTR(GAME_OVER));hu_gameover_panel(1,fresh,w->h[0].score,0);hu_gameover_sprites(1,w->h[0].score,0,best,hu_medal_of(w->h[0].score,med),t,slide);hu_retry_line(t,RETRY_LOCK,HTR(BACK_TITLE));}else{int scores[4];for(int p=0;p<w->players;p++)scores[p]=w->h[p].score;hu_standing s;hu_rank(&s,w->players,scores,scores);hu_results_panel(&s,NULL);hu_results_sprites(&s,t,slide);for(int i=0;i<s.n;i++){int x,y;hu_results_icon_pos(&s,i,&x,&y);spr(SPR_HERO_ICON,x-8,y-8+slide,hu_player_pal(s.order[i]));}hu_retry_line_at(hu_results_retry_row(&s),t,RETRY_LOCK,HTR(BACK_TITLE));}rs_bg_scroll(RS_BG1,0,-slide);}
  if(state!=ST_OVER)rs_bg_scroll(RS_BG1,0,0);
  rs_bg_scroll(RS_BG2,0,0);rs_viewports(0,NULL,0);
 }

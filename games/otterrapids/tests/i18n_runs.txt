@@ -1,0 +1,12 @@
+# Otter Rapids: the screens of the language test (tools/i18n_test.sh, docs/i18n.md), one headless run per line:
+#   <name> <frames> <shot frame> [options] [; input lines]
+title     130  120
+title2    130  120  ; 20 P2 tap A
+title3    130  120  ; 20 P2 tap A ; 30 P3 tap A
+title4    130  120  ; 20 P2 tap A ; 30 P3 tap A ; 40 P4 tap A
+titlebest 1385 1380 --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=250 ; 1370 tap A
+play1     700  690  --opt bot=1 --opt seed=7 --opt ready=1
+play4     900  880  --opt bot=4 --opt seed=9 --opt ready=1
+pause     640  630  --opt bot=1 --opt seed=7 --opt ready=1 ; 600 tap SELECT
+over      1347 1337 --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=250
+results   1043 1033 --opt bot=4 --opt seed=5 --opt ready=1 --opt botstop=100

@@ -16,6 +16,7 @@
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "game_text.h"
 #include "house_audio.h"
 #include <stdio.h>
 #include <string.h>
@@ -234,7 +235,7 @@ static void game_init(void)
     sound_init();
     draw_init();                                /* hu_init (draw.c) */
     /* the title: P1's start inputs (the game's natural play inputs: the prompt shows them), up to 4 players */
-    hu_title_cfg tc = {START_INPUTS, MAX_PLAYERS, "PADDLE", NULL, 0};
+    hu_title_cfg tc = {START_INPUTS, MAX_PLAYERS, TR(VERB), NULL, 0};
     hu_title_setup(&tc);
     opt_bot = rs_option_int("bot", 0);
     if (opt_bot > MAX_PLAYERS) opt_bot = MAX_PLAYERS;

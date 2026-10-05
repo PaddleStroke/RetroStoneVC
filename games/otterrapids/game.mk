@@ -36,6 +36,7 @@ otterrapids-check: build/host/otterrapids_physics
 	sh $(OTTERRAPIDS_DIR)/tests/ui_test.sh build/host/otterrapids_headless build/otterrapids-ui
 	sh $(OTTERRAPIDS_DIR)/tests/state_test.sh build/host/otterrapids_test_states build/states
 	$(PYTHON) tools/state_audit.py --game otterrapids build/host/otterrapids_test_states $(OTTERRAPIDS_OBJ_HOST)
+	bash tools/i18n_test.sh build/host/otterrapids_headless otterrapids build/otterrapids-i18n $(if $(WIDESCREEN_otterrapids),320 $(WIDTHS),320)
 
 otterrapids-screenshots:
 	+$(OTTERRAPIDS_MAKE) build/host/otterrapids_headless
