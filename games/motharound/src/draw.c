@@ -3,6 +3,7 @@
 #include "assets.h"
 #include "sine.h"
 #include "house_ui.h"
+#include "game_text.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -165,16 +166,16 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   vp->sx[0]=vp->sx[1]=(int16_t)(v->mx*8);vp->sy[0]=vp->sy[1]=(int16_t)(v->my*8);vp->layers=7;vp->objs=1;
   hu_view_oam_begin(vp);
   if(state==ST_PLAY || state==ST_DEAD) {
-   scene(w,st_t,v,vp);char text[40];
+   scene(w,st_t,v,vp);char text[128];
    if(multi) {
     for(int player=0;player<w->players;player++){
-     snprintf(text,sizeof text,"P%d %d",player+1,w->h[player].score);hu_text(player*10,1,text);
+     char tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),player+1);snprintf(text,sizeof text,"%s %d",tag,w->h[player].score);hu_text(player*10,1,text);
     }
    } else {
     hu_number(h->score,vp->w/2,8,3);
-    snprintf(text,sizeof text,"RINGS %d - %dS",h->anchor,h->alive_t/60);hu_text(hu_center(text,0),4,text);
+    rs_strf(text,sizeof text,TR(HUD_RINGS_TIME),h->anchor,h->alive_t/60);hu_text(hu_center(text,0),4,text);
    }
-   if(paused)hu_big(v->mx+(vp->w/8-12)/2,v->my+vp->h/16,"PAUSED",HU_BIG_FREE);
+   if(paused)hu_big(v->mx+(vp->w/8-hu_width(HTR(PAUSED),1))/2,v->my+vp->h/16,HTR(PAUSED),HU_BIG_FREE);
   }
   hu_view_oam_end(vp);
  }
@@ -183,7 +184,8 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   int slide=state==ST_OVER?hu_slide_in(st_t,20,200):0;
   if(state==ST_TITLE) {
    hu_logo("MOTH AROUND",title_ramps,2,2,0);hu_title_draw(st_t,best);
-   hu_text(4,16,"LEFT / RIGHT: DODGE THE RINGS");hu_title_sprites(st_t,icon,NULL);
+   /* the hint, centred (half a column left of the true centre: the English keeps its column 4) */
+   int hx=(38-hu_width(TR(HINT_TITLE),0))/2;hu_text(hx<0?0:hx,16,TR(HINT_TITLE));hu_title_sprites(st_t,icon,NULL);
    spr(SPR_HERO_IDLE+(st_t/8)%2,112,87+hu_bob(st_t,64,3),2,0,vp);
    spr(SPR_LANTERN+(st_t/12)%2,166,78,2,-1,vp);
    spr(SPR_LEAF,68,101,1,-1,vp);spr(SPR_LEAF+1,242,96,1,-1,vp);
@@ -192,13 +194,13 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   if(state==ST_OVER) {
    if(w->players==1) {
     static const int medals[4]=MEDAL_SCORES;
-    hu_banner(4,"GAME OVER");hu_gameover_panel(1,new_best,w->h[0].score,0);
+    hu_banner(4,HTR(GAME_OVER));hu_gameover_panel(1,new_best,w->h[0].score,0);
     hu_gameover_sprites(1,w->h[0].score,0,best,hu_medal_of(w->h[0].score,medals),st_t,slide);
-    hu_retry_line(st_t,RETRY_LOCK,"A: TITLE");
+    hu_retry_line(st_t,RETRY_LOCK,HTR(BACK_TITLE));
    } else {
     hu_results_panel(&rank,NULL);hu_results_sprites(&rank,st_t,slide);
     for(int i=0;i<rank.n;i++){int x,y;hu_results_icon_pos(&rank,i,&x,&y);spr(SPR_HERO_ICON,x-8,y-8+slide,3,ppal(rank.order[i]),vp);}
-    hu_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,"A: TITLE");
+    hu_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));
    }
   }
   rs_bg_scroll(RS_BG1,0,-slide);rs_bg_scroll(RS_BG2,0,0);rs_bg_scroll(RS_BG3,vp->sx[2],vp->sy[2]);rs_viewports(0,NULL,0);
