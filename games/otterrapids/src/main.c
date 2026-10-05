@@ -228,6 +228,8 @@ static void game_draw(void) { draw_frame(&W, st, st_t, run_best, new_best, pause
 
 static void game_init(void)
 {
+    /* widescreen: the 320-px stage centred, the land shows on both sides (draw.c, DESIGN.md "Widescreen") */
+    rs_screen_origin(rs_screen_margin());
     save_load();
     run_best = SV.best;
     opt_music = rs_option_int("music", 1);
@@ -275,9 +277,13 @@ static void game_state(void)
 }
 #undef S
 
+/* widescreen: a state saved at another width loads at this one (the layers for the width) */
+static void game_state_loaded(void) { draw_layout(&W); }
+
 const rs_game *rs_game_main(void)
 {
     static const rs_game g = {"Otter Rapids", "otterrapids", "1.0.0", game_init, game_update, game_draw,
-                              game_shutdown, gm_assets, game_state, NULL, 1};
+                              game_shutdown, gm_assets, game_state, game_state_loaded, 1,
+                              RS_SCREEN_W_MAX};   /* widescreen: any width (DESIGN.md "Widescreen") */
     return &g;
 }

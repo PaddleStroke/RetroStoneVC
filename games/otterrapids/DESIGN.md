@@ -54,3 +54,28 @@ players using both branches and catching every fish, geometric route clearance,
 mandatory fish exclusion around forks, independent fish claims, missed-fish loss,
 crocodile surfacing triggers, island collisions, strict rendering, native Windows
 1P/4P play, real controls/lobby/pause/SRAM and deterministic state/picture replay.
+
+## Widescreen
+
+A vertical scroller on one shared screen: the game opts in (`max_width` = `RS_SCREEN_W_MAX`,
+`WIDESCREEN_otterrapids = 1`), the 320-px stage is centred (`rs_screen_origin(rs_screen_margin())`) and 320 is
+unchanged pixel for pixel. The river, its banks, islands, hazards, currents, fish, collisions, the camera and the bot
+are those of 320: the rules never read the width (the same logs at 320, 427, 520 and 560). A wider screen shows more
+of the land beyond the banks, which never leave the stage. The foreground is drawn 16 px wider on each side, so the
+banks' bushes overhang the stage's edges instead of being cut. Behind it, the land layer (BG3, only on a wide screen)
+continues the grass: a meadow next to the river (bushes, rocks, stones, logs, ponds with reeds and cattails, stumps,
+flowers), then a forest of round canopies. Its tiles are code-drawn once (draw.c `land_art`, the banks' and the
+river's style and palette); its map is rewritten each frame from the world's tile rows, so the land scrolls with the
+river. Each cell's object is seeded by the course and the cell, so the land is the same at every width. The UI layer
+is 128 tiles wide beyond 512 px; the HUD, title, pause and results stay centred (the house kit). Two to four players
+share the same screen, the otters where they were. Saved objects do not depend on the width: `state_loaded`
+(`draw_layout`) sets the layers up for the new width.
+
+A run starts the same at every width: the first hazards and fish are at the same distance from the otters as at
+320, and the stage (the middle 320 columns of the picture) is the 320 picture from the first frame on.
+
+Tests: the check target runs at 320, then at 427 and 520 (the libretro core at 16:9 and Wide, check_game.py, the UI
+screens, the save states); tests/wide_test.sh checks the picture widths, the same logs at 320/427/520/560, the stage
+the same picture as at 320 (the start of a run, its first hazards, four otters, the title, later in a run), `--resize`
+during a run and states loaded across widths (`--any-width`); the language test runs at the three widths.
+Screenshots: title, play and game over at 427 and 520.
