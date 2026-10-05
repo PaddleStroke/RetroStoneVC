@@ -1,0 +1,96 @@
+/*
+ * RetroStone VC SDK: languages and translated text (docs/i18n.md).
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft). See sdk/LICENSE.
+ *
+ * A game's texts are tables of UTF-8 strings, one per language, compiled into the game by tools/i18n_build.py from
+ * games/<game>/strings/<lang>.txt (and the house kit's from games/common/strings/). The frontend tells the runtime the
+ * player's language before init() (the system's: libretro GET_LANGUAGE / the rsos_language variable, SDL's preferred
+ * locales; --lang in the headless runner); the game asks rs_tr() for a string and gets the English one when a
+ * translation is missing.
+ */
+#ifndef RS_I18N_H
+#define RS_I18N_H
+
+#include <stddef.h>
+#include <stdint.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* ---- languages: the 22 of RetroStoneOS's menu (frontend/po), English first, then by code ------------------------- */
+enum {
+    RS_LANG_EN, RS_LANG_CS, RS_LANG_DA, RS_LANG_DE, RS_LANG_EL, RS_LANG_ES, RS_LANG_FI, RS_LANG_FR, RS_LANG_ID,
+    RS_LANG_IT, RS_LANG_JA, RS_LANG_KO, RS_LANG_NB, RS_LANG_NL, RS_LANG_PL, RS_LANG_PT_BR, RS_LANG_PT_PT, RS_LANG_RU,
+    RS_LANG_SV, RS_LANG_TR, RS_LANG_UK, RS_LANG_ZH_CN, RS_LANG_COUNT
+};
+/* The player's language (RS_LANG_*): what the frontend set (rs_host_set_lang), else the option "lang"
+ * (--opt lang=fr), else English. Fixed for a run, like the screen width; not part of save states. */
+int         rs_lang(void);
+const char *rs_lang_code(int lang);            /* "en", "pt_BR", "zh_CN"; NULL when out of range */
+/* A language from a locale name: "fr", "fr_FR", "fr-CA", "pt-BR", "pt" (= pt_PT), "zh-Hans", "zh_CN", "zh" (= zh_CN),
+ * "no", "nn", "nb_NO" (= nb), "en_US.UTF-8"... Case-insensitive. -1 when not one of ours (zh-Hant, ar...). */
+int         rs_lang_find(const char *locale);
+/* A language from libretro's RETRO_LANGUAGE_* value (libretro.h); -1 when not one of ours. The enum has no Danish:
+ * libretro frontends pass it as English, RetroStoneOS also gives the rsos_language variable (docs/i18n.md). */
+int         rs_lang_from_retro(unsigned retro_language);
+int         rs_lang_wide(int lang);            /* 1 for ja, ko, zh_CN: their text uses the 16x16 wide glyphs */
+/* The frontend's choice, before rs_host_init() (-1: none, back to the option or English). */
+void        rs_host_set_lang(int lang);
+
+/* ---- string tables ------------------------------------------------------------------------------------------------- */
+typedef struct rs_strings {
+    uint16_t count;                                 /* ids */
+    const char *const *text[RS_LANG_COUNT];         /* per language: count strings, NULL = not translated (English) */
+} rs_strings;
+/* The string id in the player's language, else English, else "" (never NULL). */
+const char *rs_tr(const rs_strings *t, int id);
+/* A plural string: the generated ids of a plural key are 4 consecutive slots (other, one, few, many); n picks the
+ * form of the player's language (rs_plural), a missing form is "other". */
+const char *rs_trn(const rs_strings *t, int id, int n);
+enum { RS_PLURAL_OTHER, RS_PLURAL_ONE, RS_PLURAL_FEW, RS_PLURAL_MANY };
+int         rs_plural(int lang, int n);
+/* snprintf for translated formats: %d %i %u %c %s %% with flags, width and precision, and positional arguments
+ * (%2$s %1$d) so a translation can reorder them. Only these conversions (no long, no float). Returns the length
+ * written (truncated to size - 1). */
+int         rs_strf(char *buf, size_t size, const char *fmt, ...)
+#if defined(__GNUC__)
+    __attribute__((format(printf, 3, 4)))
+#endif
+    ;
+
+/* ---- UTF-8 and the glyphs -------------------------------------------------------------------------------------------- */
+/* The next code point of a UTF-8 string (advances *s); 0 at the end; U+FFFD for a bad sequence. */
+uint32_t    rs_utf8_next(const char **s);
+int         rs_glyph_wide(uint32_t cp);        /* 1: a 16x16 wide glyph (CJK, kana, hangul, full-width forms) */
+/* The text's width in 8-px columns: 1 per narrow character, 2 per wide one. */
+int         rs_text_cols(const char *s);
+/* The house font beyond ASCII (rs_font_ext.c): the 8x8 body of cp (the 5x7 font's layout) and its marks: above = drawn
+ * in the bottom rows of the tile above the letter, below = in the letter's row 7. Returns 0 when the font has no glyph
+ * for cp (wide characters included: see rs_wide_glyph). Lowercase letters give the capitals. */
+enum { RS_MARK_NONE, RS_MARK_ACUTE, RS_MARK_GRAVE, RS_MARK_CIRCUMFLEX, RS_MARK_TILDE, RS_MARK_DIAERESIS, RS_MARK_RING,
+       RS_MARK_CARON, RS_MARK_BREVE, RS_MARK_DOT, RS_MARK_DOUBLE_ACUTE, RS_MARK_CEDILLA, RS_MARK_OGONEK, RS_MARK_COUNT };
+int         rs_font_ext(uint32_t cp, const uint8_t **body, int *above, int *below);
+const uint8_t *rs_font_mark(int mark);         /* 8 rows, the font's bit order */
+int         rs_font_ext_base(uint32_t cp);     /* the ASCII letter under the marks ('E' for U+00C9), '?' if none */
+
+/* ---- the game's text pack (generated by tools/i18n_build.py into build/gen/<game>/game_text.c) -------------------- */
+typedef struct rs_wide_font {
+    uint16_t count;
+    const uint16_t *cp;                             /* sorted */
+    const uint8_t (*bits)[32];                      /* 16 rows of 16 bits, big-endian, bit 15 = left */
+} rs_wide_font;
+typedef struct rs_i18n_pack {
+    const rs_strings *kit;                          /* the house kit's strings (games/common/strings) */
+    const rs_strings *game;                         /* the game's (games/<game>/strings) */
+    const rs_wide_font *wide;                       /* the wide glyphs these strings use (a Unifont subset) */
+} rs_i18n_pack;
+/* The generated file registers its pack (a constructor): the kit finds the strings and glyphs there. */
+void                 rs_i18n_register(const rs_i18n_pack *p);
+const rs_i18n_pack  *rs_i18n(void);            /* NULL: no pack (English only, ASCII) */
+const uint8_t       *rs_wide_glyph(uint32_t cp);   /* 32 bytes, NULL when the pack has no such glyph */
+
+#ifdef __cplusplus
+}
+#endif
+#endif
