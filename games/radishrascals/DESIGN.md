@@ -42,3 +42,38 @@ runs; 24 schedules at the new cap with a 12-frame reaction delay after emergence
 1-4 player sprite visibility and viewport clipping; real frontend input, pause,
 checked SRAM, strict rendering, pixel determinism, saved-state replay and audit;
 plus native Windows startup/play for one and four players.
+
+## Widescreen
+The game opts in (`max_width` = 560, `WIDESCREEN_radishrascals = 1`): a wider screen shows more of the garden; the
+game is unchanged. At 320 columns everything is the 4:3 game pixel for pixel (checked against the pre-widescreen
+pictures and logs).
+- **A fixed screen, centred.** The farmer stands between four beds that never move: `rs_screen_origin(
+  rs_screen_margin())` centres the 320-px stage (53 px of garden each side at 427, 100 at 520, 120 at 560). The beds,
+  the farmer, the visitors, the score and the kit's title, panels and results are the same pixels at every width.
+- **The garden goes on (make_art.py, art/tiles/hills-wide.png).** The hills layer is drawn 1024 px wide (a 128-tile
+  map in stage coordinates; stage x -120..439 is ever shown): its 320 stage columns are hills.png exactly (asserted by
+  make_art.py and build_assets.py); right of the stage hills.png already went on; left of it the hedgerow and the
+  picket fence go on by the same formulas, over hills.png's own grass. In the margins, a kitchen garden: on the left
+  three rows of cabbages and carrots dug in the ground (not raised beds: nothing there plays), pink cosmos and a
+  wheelbarrow with soil and two pulled radishes; on the right more cosmos, terracotta pots and a pumpkin patch by the
+  far corner. The decor's pinks and oranges use one more BG palette (PAL_WIDE = 3); its 186 tiles load after the
+  hills' tiles and their blank, only on a wide screen (nothing moves at 320).
+- **VRAM.** On a wide screen the views' foreground tiles (paths, beds, fork, heart: drawn every frame) share identical
+  tiles within a frame, which more than pays for the decor; the strict runs stay under the guideline at every width.
+- **2-4 players: wider views** (the standard layouts over the whole width: 212 / 259 / 279 px at 427 / 520 / 560 for
+  2 and 4 players, the 3-player top view the whole width). Each view draws its 4:3 garden (159 or 320 px) centred,
+  the hills behind it going on at its sides, its score and PAUSED centred. The kit checks and writes text in the
+  screen's UI columns, so each column of views shows its own block of UI columns (the left views' widest text from
+  column 0, the right views' block just after): no text of a view shows in another. PAUSED is 2x when it fits in 20
+  columns (else 1x).
+- **The same game at every width.** The rules and the bots never see the width. `tests/wide_test.sh`: the same logs at
+  320, 427, 520 and 560 (1-4 bots, several runs, to the results), live width changes (`--resize`) that go on exactly
+  as the run that never changed, and states saved at one width that load and play at the others.
+- **Save states.** The width is not in a state; one of another width brings maps 64 or 128 tiles wide:
+  `state_loaded` sets up this width's maps and, from a 320 state, loads the wide hills. The views, their tiles and the
+  UI are drawn every frame.
+- **Tests at each width of WIDTHS** (`make radishrascals-check`): test_libretro (16:9, Wide), check_game.py (smoke,
+  input flow, strict mode, determinism, the picture's width, the garden in both margins), state_test.sh; test_views
+  at 320, 427, 520 and 560 (each farmer at its view's centre, sprites clipped, views independent, margins not flat);
+  the language test at 320, 427 and 520; wide_test.sh. Screenshots: title, play and game over at 427 and 520
+  (docs/screenshots/*-427.png, *-520.png).

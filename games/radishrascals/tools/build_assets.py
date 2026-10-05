@@ -23,6 +23,7 @@ import house_style as hs  # noqa: E402
 import make_art  # noqa: E402
 
 PAL_GROUND, PAL_HILLS, PAL_LOGO = 1, 2, 5
+PAL_WIDE = 3                                              # widescreen: the decor beside the stage (hills-wide.png)
 OBJ_PAL = {"hero": 0, "hero2": 1, "props": 2}           # OBJ 3: the house kit sprites; OBJ 4, 5: heroes 3, 4
 VR_BG1, VR_BG2, VR_BG3, VR_OBJ = 0, 1024, 2048, 3072
 KIT_OBJ_TILE = 512                                        # the kit's sprites (house_ui.h HU_OBJ_TILES) after ours
@@ -69,6 +70,58 @@ def main():
         h.append("extern const uint8_t gm_%s_tiles[];\nextern const int gm_%s_tile_count;" % (layer, layer))
         h.append("extern const uint16_t gm_%s_map[64 * %s_H];\nextern const uint16_t gm_%s_pal[16];" % (key, name, key))
         stats.append("%s %d" % (layer.upper(), len(r.tiles)))
+        if key == "hills":
+            hills_r = r
+
+    # ---- widescreen (DESIGN.md "Widescreen"): the hills 1024 px wide (a 128-tile map) -----------------------------
+    # The cells that are those of hills.png (the stage, the grass that goes on) keep their map entries; the others
+    # reuse the hills' tiles when they can (flips too) or become new tiles, loaded after the hills' tiles and their
+    # blank (VR_BG3 + gm_bg3_tile_count + 1: nothing moves at 320), in the hills' palette or in PAL_WIDE.
+    f, ww, wh = make_art.PANORAMAS["hills_wide"]
+    wimg = rsasset.load(os.path.join(a.art, f))
+    himg = rsasset.load(os.path.join(a.art, make_art.PANORAMAS["hills"][0]))
+    hpal = hills_r.palettes[0]
+    wpal = [rsasset.to555(cc) for cc in make_art.WIDE_PAL]
+    wrgb = [rsasset.rgb888(v) for v in wpal]
+    assert len(wpal) <= 15
+    first_new = len(hills_r.tiles) + 1
+    index, new_tiles, wmap = {}, [], []
+    for i, t in enumerate(hills_r.tiles):
+        index.setdefault((0, tuple(t)), (i, 0, 0))
+    for cy in range(wh // 8):
+        for cx in range(ww // 8):
+            cl = rsasset.cell(wimg, cx * 8, cy * 8, 8, 8)
+            if cl == rsasset.cell(himg, (cx % 64) * 8, cy * 8, 8, 8):
+                wmap.append(hills_r.metas[cy * 64 + cx % 64][0])
+                continue
+            cols = rsasset.colors_of(cl)
+            if cols <= set(hpal):
+                p, idx = 0, [hpal.index(v) + 1 for row in cl for v in row]
+            else:
+                p, idx = 1, [(wpal.index(v) if v in wpal else rsasset.nearest(rsasset.rgb888(v), wrgb)) + 1
+                             for row in cl for v in row]
+            hit = index.get((p, tuple(idx)))
+            if hit is None:
+                for hf, vf, fl in ((1, 0, rsasset.hflip), (0, 1, rsasset.vflip),
+                                   (1, 1, lambda x: rsasset.vflip(rsasset.hflip(x)))):
+                    base = index.get((p, tuple(fl(idx))))
+                    if base:
+                        hit = (base[0], hf ^ base[1], vf ^ base[2])
+                        break
+            if hit is None:
+                new_tiles.append(idx)
+                hit = index[(p, tuple(idx))] = (first_new + len(new_tiles) - 1, 0, 0)
+            wmap.append(rsasset.rs_map(hit[0], PAL_HILLS if p == 0 else PAL_WIDE, 0, hit[1], hit[2]))
+    for cy in range(wh // 8):           # the 320-px stage: the very map entries of the 4:3 hills
+        assert wmap[cy * 128:cy * 128 + 40] == [m[0] for m in hills_r.metas[cy * 64:cy * 64 + 40]]
+    c.append(rsasset.c_bytes("gm_bg3w_tiles", rsasset.tiles_bytes(new_tiles)))
+    c.append("const int gm_bg3w_tile_count = %d;" % len(new_tiles))
+    c.append(arr("gm_hillsw_map", wmap))
+    c.append(arr("gm_wide_pal", rsasset.palette16(wpal)))
+    h.append("#define PAL_WIDE %d\n#define HILLSW_W %d" % (PAL_WIDE, ww // 8))
+    h.append("extern const uint8_t gm_bg3w_tiles[];\nextern const int gm_bg3w_tile_count;")
+    h.append("extern const uint16_t gm_hillsw_map[HILLSW_W * HILLS_H];\nextern const uint16_t gm_wide_pal[16];")
+    stats.append("BG3 wide +%d" % len(new_tiles))
 
     # ---- sprites ----------------------------------------------------------------------------------------------------
     sheet = rsasset.load(os.path.join(a.art, "sprites.png"))

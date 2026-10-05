@@ -3,3 +3,5 @@
 # the house kit's hu_state() and ha_state()).
 main.snd_buf        sound_init(): the synthesis buffer (the samples are made at start-up, not saved)
 main.SV             the battery save's copy (best scores, medals): stays in the .srm, a state never takes it back
+draw.fg_tile        widescreen: per-frame scratch (the frame's foreground tiles, shared by identical ones), rebuilt every frame
+draw.fg_slot        widescreen: per-frame scratch (its hash table), cleared every frame

@@ -276,9 +276,13 @@ static void game_state(void)
 }
 #undef S
 
+/* widescreen: a state saved at another width loads at this one (DESIGN.md "Widescreen") */
+static void game_state_loaded(void) { draw_relayout(); }
+
 const rs_game *rs_game_main(void)
 {
     static const rs_game g = {"Radish Rascals", "radishrascals", "0.1.0", game_init, game_update, game_draw,
-                              game_shutdown, gm_assets, game_state, NULL, 1};
+                              game_shutdown, gm_assets, game_state, game_state_loaded, 1,
+                              RS_SCREEN_W_MAX};     /* max_width: any width up to 560 (DESIGN.md "Widescreen") */
     return &g;
 }

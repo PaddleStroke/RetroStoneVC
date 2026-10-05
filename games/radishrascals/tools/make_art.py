@@ -15,7 +15,7 @@ SPRITES=[('hero_idle',0,0,48,48,2,'hero'),
  ('farmer_small_back',152,48,24,32,1,'hero'),('farmer_small_back_strike',176,48,24,32,1,'hero'),
  ('rabbit',0,96,32,32,2,'props'),('hedgehog',64,96,24,16,1,'props'),('radish',96,96,16,16,1,'props'),
  ('rabbit_small',128,96,16,16,2,'props'),('hedgehog_small',160,96,16,8,1,'props'),('radish_small',176,96,8,8,1,'props')]
-PANORAMAS={'ground':('tiles/ground.png',512,48),'hills':('tiles/hills.png',512,240)}
+PANORAMAS={'ground':('tiles/ground.png',512,48),'hills':('tiles/hills.png',512,240),'hills_wide':('tiles/hills-wide.png',1024,240)}
 OUT=(27,31,58);CREAM=(255,246,220)
 HAT=[(255,223,145),(223,175,100),(169,112,66),(169,112,66)]
 SKIN=[(255,222,196),(240,184,150),(206,140,108),(206,140,108)]
@@ -142,11 +142,117 @@ def hills():
   hs.ellipse(cv,x,y,13,9,[P[14],P[7],P[8],P[13]])
   for dx,dy in [(-6,-2),(0,-5),(5,0)]:hs.ellipse(cv,x+dx,y+dy,2,2,[P[12]]*4)
  return cv
+# ---- widescreen (DESIGN.md "Widescreen"): the garden goes on beside the 320-px stage ------------------------------
+# hills-wide.png is a 1024-px panorama (a 128-tile map) in stage coordinates: canvas x = stage x, and x - 1024 for the
+# columns left of the stage (a centred 560-px screen shows stage x -120..439). Stage x 0..319 is hills.png pixel for
+# pixel (the 320 picture), 320..439 too (it already goes on there) with more garden drawn over it; left of the stage
+# the hedgerow and the fence go on (the same formulas) over the grass of hills.png 392..511. Decor colours outside the
+# hills' 15 use one more BG palette (WIDE_PAL, build_assets.py).
+WIDE_W=1024
+HILL_P=[(220,236,202),(187,213,173),(153,189,136),(112,156,107),(78,124,87),(210,217,156),(179,199,130),(151,177,109),(122,151,91),(228,204,153),(184,149,104),(133,105,77),(238,235,188),(105,138,89),(201,216,142)]   # hills()'s P
+SOIL=(98,74,56);ORANGE=(236,152,76);ORANGE_D=(186,98,60)
+WIDE_PAL=[HILL_P[6],HILL_P[7],HILL_P[8],HILL_P[14],HILL_P[11],HILL_P[10],HILL_P[9],SOIL,HILL_P[4],LEAF[0],LEAF[1],PINK[0],PINK[1],ORANGE,ORANGE_D]
+def hedge_band(s0,s1):
+ # the hedgerow's and the fence's rows (y < 64) for stage x s0..s1-1, drawn by the formulas of hills()
+ P=HILL_P;off=-s0+64;cv=Canvas(s1-s0+128,64)
+ cv.rect(0,0,cv.w-1,63,P[0]);cv.rect(0,52,cv.w-1,63,P[6])
+ for x in range(-20-43*((s0+20)//-43+2),s1+43,43):
+  hs.ellipse(cv,x+off,25+(x//43%3)*5,31,24,[P[1],P[2],P[3],P[4]])
+  cv.rect(x+6+off,34,x+10+off,59,P[11])
+ cv.rect(0,42,cv.w-1,44,P[11]);cv.rect(0,51,cv.w-1,53,P[11])
+ for x in range(s0-s0%14-28,s1+14,14):
+  top=37+(x//14%2);c=x+off;cv.rect(c+3,top,c+9,62,P[10]);cv.rect(c+3,top,c+5,61,P[9]);cv.set(c+6,top-2,P[9]);cv.rect(c+4,top-1,c+8,top-1,P[9]);cv.rect(c+4,61,c+11,63,P[8])
+ return cv,off
+class Stage:
+ # a transparent decor layer in stage coordinates (stage x -128..447)
+ def __init__(self):self.off=128;self.cv=Canvas(576,240)
+ def set(self,x,y,c):self.cv.set(x+self.off,y,c)
+ def rect(self,x0,y0,x1,y1,c):self.cv.rect(x0+self.off,y0,x1+self.off,y1,c)
+ def ellipse(self,cx,cy,rx,ry,r4,flat=None):hs.ellipse(self.cv,cx+self.off,cy,rx,ry,r4,flat)
+ def line(self,ax,ay,bx,by,c):
+  n=max(abs(bx-ax),abs(by-ay),1)
+  for k in range(n+1):self.set(ax+(bx-ax)*k//n,ay+(by-ay)*k//n,c)
+def furrow(d,s0,s1,y):
+ # a row of the kitchen garden: a strip of dug soil, darker at its top edge
+ d.rect(s0,y,s1,y+5,SOIL);d.rect(s0+1,y,s1-1,y,HILL_P[11]);d.rect(s0,y+6,s1,y+6,HILL_P[8])
+ for x in range(s0+3,s1-2,5):d.set(x,y+3,HILL_P[11])
+def cabbage(d,x,y):
+ d.ellipse(x+1,y+2,6,4,None,HILL_P[8]);d.ellipse(x,y,6,4.5,[LEAF[0],LEAF[1],HILL_P[8],HILL_P[4]])
+ d.ellipse(x-1,y-1,3,2.5,[LEAF[0],LEAF[0],LEAF[1],HILL_P[8]]);d.set(x-2,y-2,HILL_P[14]);d.line(x+2,y-2,x+4,y+1,HILL_P[8])
+def carrot(d,x,y):
+ for dx,h in ((-2,5),(0,7),(2,5)):d.line(x,y,x+dx,y-h,LEAF[1]);d.set(x+dx,y-h,LEAF[0]);d.set(x+dx-(1 if dx<=0 else -1),y-h+2,LEAF[0])
+ d.rect(x-1,y+1,x+1,y+2,ORANGE);d.set(x+1,y+2,ORANGE_D)
+def kitchen_garden(d):
+ # left of the stage: three rows of vegetables (cabbages, carrots, cabbages) in the ground, unlike the raised beds
+ for i,y in enumerate((118,140,162)):
+  furrow(d,-118,-60,y)
+  for x in range(-112,-62,14 if i!=1 else 7):
+   if i==1:carrot(d,x+2,y+1)
+   else:cabbage(d,x+(7 if i==2 else 1),y)
+def cosmos(d,x,y,heads):
+ # a clump of pink garden flowers
+ d.ellipse(x+1,y+10,7,3,None,HILL_P[8])
+ for hx,hy in heads:d.line(x,y+10,x+hx,y+hy,LEAF[1])
+ for lx,ly in ((-4,7),(3,6),(-2,4)):d.rect(x+lx,y+ly,x+lx+1,y+ly,HILL_P[4])
+ for hx,hy in heads:
+  for ex,ey in ((0,-1),(-1,0),(1,0),(0,1)):d.set(x+hx+ex,y+hy+ey,PINK[1])
+  d.set(x+hx-1,y+hy-1,PINK[0]);d.set(x+hx,y+hy,ORANGE)
+def wheelbarrow(d,x,y):
+ # a wooden wheelbarrow with a heap of soil and two pulled radishes; x, y: the wheel's centre
+ W=HILL_P;d.ellipse(x+15,y+5,17,3,None,W[8])
+ for k in range(11):
+  l,r=x+3+k*4//10,x+29-k*4//10;d.rect(l,y-13+k,r,y-13+k,W[10]);d.set(l,y-13+k,W[11]);d.set(r,y-13+k,W[11])
+ d.ellipse(x+16,y-13,11,3.5,None,SOIL);d.rect(x+3,y-13,x+29,y-13,W[9]);d.rect(x+4,y-12,x+28,y-12,W[11])
+ d.rect(x+4,y-7,x+28,y-7,W[11])
+ for rx in (x+12,x+20):d.ellipse(rx,y-16,2.2,2.2,[PINK[0],PINK[1],PINK[1],PINK[1]]);d.line(rx,y-18,rx-2+(rx-x-12)//2,y-22,LEAF[1]);d.set(rx+1,y-20,LEAF[0])
+ d.line(x+28,y-6,x+38,y-2,W[11]);d.line(x+28,y-7,x+38,y-3,W[10]);d.line(x+23,y-3,x+24,y+3,W[11])
+ d.ellipse(x,y,5,5,None,W[11]);d.ellipse(x,y,3.2,3.2,None,W[10]);d.rect(x,y,x,y,W[9]);d.set(x-1,y-1,W[9])
+def pot(d,x,y,w,h):
+ # a terracotta flower pot; x, y: the top of its rim (its centre)
+ d.ellipse(x+1,y+h+1,w//2+2,2,None,HILL_P[8])
+ for k in range(h):
+  half=w//2-k*2//max(1,h-1)
+  for xx in range(x-half,x+half+1):d.set(xx,y+k,ORANGE_D if xx>=x+half-2 or k<2 and xx>=x+half-3 else ORANGE)
+ d.rect(x-w//2-1,y,x+w//2+1,y+2,ORANGE);d.rect(x+w//2-1,y,x+w//2+1,y+2,ORANGE_D);d.rect(x-w//2-1,y,x+w//2+1,y,HILL_P[9])
+ d.rect(x-w//2,y+3,x+w//2,y+3,ORANGE_D)
+def pumpkin(d,x,y,rx,ry):
+ d.ellipse(x+1,y+ry-1,rx+2,2.5,None,HILL_P[8]);d.ellipse(x,y,rx,ry,[HILL_P[9],ORANGE,ORANGE_D,HILL_P[11]])
+ for k in (-rx//2,rx//2):d.line(x+k,y-ry+2,x+k,y+ry-2,ORANGE_D)
+ d.rect(x-1,y-ry-2,x,y-ry,HILL_P[11]);d.set(x+1,y-ry-2,LEAF[1])
+def pumpkin_patch(d):
+ # right of the stage, by the far corner: a vine with leaves and three pumpkins
+ pts=[(378,214),(388,209),(398,215),(410,210),(422,216),(434,211),(444,214)]
+ for (ax,ay),(bx,by) in zip(pts,pts[1:]):d.line(ax,ay,bx,by,LEAF[1]);d.line(ax,ay+1,bx,by+1,HILL_P[4])
+ for lx,ly in ((384,205),(404,206),(428,206),(440,219),(394,221)):d.ellipse(lx,ly,4,3,[LEAF[0],LEAF[1],HILL_P[8],HILL_P[4]])
+ pumpkin(d,392,214,8,6);pumpkin(d,416,212,10,7);pumpkin(d,433,222,6,5)
+def hills_wide():
+ base=hills();P=HILL_P;cv=Canvas(WIDE_W,240)
+ for y in range(240):
+  for x in range(WIDE_W):cv.p[y][x]=base.p[y][x%512]
+ band,off=hedge_band(-128,16)
+ for y in range(64):
+  assert all(band.p[y][s+off]==base.p[y][s] for s in range(16)),'the hedgerow must go on seamlessly'
+  for s in range(-128,0):cv.p[y][s+WIDE_W]=band.p[y][s+off]
+ d=Stage()
+ kitchen_garden(d)
+ cosmos(d,-30,90,((-5,-3),(0,-6),(4,-2),(-2,1),(6,3)))
+ wheelbarrow(d,-46,192)
+ cosmos(d,338,100,((-4,-2),(1,-5),(5,-1),(-1,2)))
+ pot(d,333,178,13,11);cosmos(d,333,166,((-3,-1),(1,-4),(3,1)))
+ pot(d,349,186,9,8);d.line(349,185,349,181,LEAF[1]);d.set(348,180,LEAF[0]);d.set(350,181,LEAF[0])
+ pumpkin_patch(d)
+ for y in range(240):
+  for s in range(-128,448):
+   c=d.cv.p[y][s+d.off]
+   if c is not None:cv.p[y][s%WIDE_W]=c
+ for y in range(240):
+  assert all(cv.p[y][x]==base.p[y][x] for x in range(320)),'the 320-px stage must stay the 4:3 picture'
+ return cv
 def write_all(out,preview=False):
  os.makedirs(os.path.join(out,'tiles'),exist_ok=True);sheet=Image.new('RGB',(SHEET_W,SHEET_H),hs.MAGENTA)
  for name,x,y,w,h,n,g in SPRITES:
   for i in range(n):sheet.paste(sprite_frame(name,i).image(),(x+i*w,y))
- for f,im in {'sprites.png':sheet,'tiles/ground.png':ground().image(),'tiles/hills.png':hills().image()}.items():
+ for f,im in {'sprites.png':sheet,'tiles/ground.png':ground().image(),'tiles/hills.png':hills().image(),'tiles/hills-wide.png':hills_wide().image()}.items():
   im.save(os.path.join(out,f))
   if preview:
    os.makedirs(os.path.join(out,'preview'),exist_ok=True);im.resize((im.width*4,im.height*4),Image.Resampling.NEAREST).save(os.path.join(out,'preview',os.path.basename(f)))
