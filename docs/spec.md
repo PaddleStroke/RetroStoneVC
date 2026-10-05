@@ -276,6 +276,10 @@ under ASan and UBSan.
 - Deterministic RNG (xorshift32), a global one seeded at start, and private ones.
 - Text: a built-in 5x7 font (96 ASCII glyphs) uploaded as tiles (ink = colour 1, shadow = colour 2), plus a
   2x font (4 tiles per glyph) for titles.
+- Languages (docs/i18n.md): the games show their texts in the 22 languages of RetroStoneOS, picked from the system
+  (libretro: the core option Language, RetroStoneOS's `rsos_language`, `GET_LANGUAGE`; SDL's preferred locales;
+  `--lang`). Strings are UTF-8 tables compiled into the game (`tools/i18n_build.py`); the house font draws accented
+  Latin, Cyrillic and Greek capitals, and Japanese, Chinese and Korean use 16x16 Unifont glyphs, a per-game subset.
 - Assets: a game embeds its data (`rs_game.assets`); `rs_asset(name)` first looks in the frontend's data
   directory (desktop: `data/` next to the executable), so levels and music can be replaced without rebuilding.
 - Options: `--opt key=value` on the desktop runners (`rs_option()`).

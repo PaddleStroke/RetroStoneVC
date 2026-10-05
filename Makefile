@@ -68,7 +68,14 @@ XMP_SRC  = $(wildcard sdk/third_party/libxmp-lite/src/*.c) \
 HOUSE_SRC = $(wildcard games/common/src/*.c)
 HOUSE_UI := $(if $(shell grep -qs '^HOUSE_UI_$(GAME) *[:?]*= *1' games/$(GAME)/game.mk && echo 1),1)
 GAME_SRC = $(wildcard games/$(GAME)/src/*.c) $(if $(HOUSE_UI),$(HOUSE_SRC))
-GAME_GEN = build/gen/$(GAME)/assets.c
+# Translated text (docs/i18n.md): the kit's strings and the game's (games/<game>/strings/<lang>.txt) in the 22 languages,
+# with the wide glyphs they use, compiled by tools/i18n_build.py into build/gen/<game>/game_text.c (and game_text.h:
+# TR(KEY)), for the house-UI games and those with a strings/ folder. The player's language: the system's (SDL's
+# preferred locales, libretro), RS_LANG=fr or --lang fr on the desktop runners, --opt lang=fr.
+GAME_TEXT = $(if $(or $(HOUSE_UI),$(wildcard games/$(GAME)/strings/en.txt)),build/gen/$(GAME)/game_text.c)
+GAME_GEN = build/gen/$(GAME)/assets.c $(GAME_TEXT)
+I18N_DEPS = tools/i18n_build.py sdk/tools/gen_font_ext.py games/common/fonts/unifont-subset.hex \
+            $(wildcard games/common/strings/*.txt)
 GAME_INC = -Igames/$(GAME)/src -Ibuild/gen/$(GAME) -Igames/common/src
 # Widescreen (docs/spec.md "Widescreen"): a game that opts in (rs_game.max_width) says so with a
 # "WIDESCREEN_<game> = 1" line in its game.mk; its check target then runs its tests at 320 and again at each width of
@@ -130,12 +137,15 @@ GAME_ART    = $(wildcard games/$(GAME)/$(ART)/*.png games/$(GAME)/$(ART)/overlay
 GAME_LEVELS = $(wildcard games/$(GAME)/levels/*.txt) $(wildcard games/$(GAME)/arenas/*.txt)
 $(ASSET_STAMP):
 	@mkdir -p $(dir $@); rm -f build/gen/$(GAME)/config-*.stamp build/gen/$(GAME)/tileset-*.stamp; touch $@
-$(GAME_GEN): games/$(GAME)/tools/build_assets.py tools/rsasset.py tools/sheets.py $(GAME_ART) $(GAME_LEVELS) \
+build/gen/$(GAME)/assets.c: games/$(GAME)/tools/build_assets.py tools/rsasset.py tools/sheets.py $(GAME_ART) $(GAME_LEVELS) \
              $(wildcard games/$(GAME)/tools/*.py) $(ASSET_STAMP)
 	@mkdir -p $(dir $@)
 	$(PYTHON) games/$(GAME)/tools/build_assets.py --out $(dir $@) --art games/$(GAME)/$(ART) \
 	    $(if $(TILESET_DIR),--tileset $(TILESET_DIR))
 assets: $(GAME_GEN)
+build/gen/$(GAME)/game_text.c: $(I18N_DEPS) $(wildcard games/$(GAME)/strings/*.txt)
+	@mkdir -p $(dir $@)
+	$(PYTHON) tools/i18n_build.py --game $(GAME) --out $(dir $@)
 # the code-drawn tileset (committed; redrawn when its script changes)
 tiles-code: games/$(GAME)/art/tilesets/code/tiles.png
 games/$(GAME)/art/tilesets/code/tiles.png: tools/make_tiles.py tools/sheets.py
@@ -194,6 +204,9 @@ dist: windows build/host/$(GAME)_libretro.so armhf
 # ---- tests -------------------------------------------------------------------------
 build/host/test_sdk: build/host/sdk/tests/test_sdk.o build/host/sdk/frontends/common/rs_desktop.o build/host/librs.a
 	$(HOST_CC) -o $@ $^ -lm
+build/host/test_i18n: build/host/sdk/tests/test_i18n.o build/host/sdk/src/rs_i18n.o build/host/sdk/src/rs_font_ext.o \
+                      build/host/sdk/src/rs_font.o
+	$(HOST_CC) -o $@ $^ -lm
 build/host/test_libretro: build/host/sdk/tests/test_libretro.o
 	$(HOST_CC) -o $@ $^ -ldl
 build/host/$(GAME)_test_states: $(GAME_OBJ_HOST) build/host/sdk/tests/test_states.o \
@@ -201,8 +214,10 @@ build/host/$(GAME)_test_states: $(GAME_OBJ_HOST) build/host/sdk/tests/test_state
 	$(HOST_CC) -o $@ $^ -lm
 
 test check: build/host/test_sdk build/host/test_libretro build/host/$(GAME)_headless build/host/$(GAME)_libretro.so \
-            build/host/$(GAME)_test_states
+            build/host/$(GAME)_test_states build/host/test_i18n
 	./build/host/test_sdk --golden sdk/tests/golden --out build
+	./build/host/test_i18n
+	$(PYTHON) tools/i18n_build.py --check
 	./build/host/test_libretro build/host/$(GAME)_libretro.so 600
 	$(PYTHON) tools/tests/test_tools.py
 	$(PYTHON) tools/tests/test_art_sync.py

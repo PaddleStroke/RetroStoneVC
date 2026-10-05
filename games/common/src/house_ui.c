@@ -4,7 +4,9 @@
  *
  * Extracted from Leady Squid's draw.c and make_art.py: Leady Squid draws its UI with it, pixel for pixel.
  */
+#define HOUSE_TEXT_ENGLISH              /* house_text.h: the English, when a game has no text pack */
 #include "house_ui.h"
+#include "rs_i18n.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -47,7 +49,7 @@ typedef struct lobby_t {
     int8_t glyph;               /* HU_BTN_A, HU_BTN_DPAD or -1 */
     uint8_t slot_row;
     int16_t glyph_x;
-    char prompt[41];
+    char prompt[128];           /* UTF-8 */
 } lobby_t;
 
 static hu_config cfg;
@@ -58,6 +60,14 @@ static lobby_t lobby;
 static uint8_t box_have[12];    /* bit g: the panel font's glyph g is in VRAM (hu_box_text uploads the others) */
 static uint8_t font_have[12];   /* ordinary glyphs are uploaded when used, just like the panel font */
 static uint8_t dpad_loaded;
+/* translated text: the pool of glyph tiles beyond ASCII (see "translated text" below) */
+#define EXT_MAX 256
+static uint64_t ext_key[EXT_MAX];       /* what each slot shows (0 = free) */
+static uint16_t ext_under[EXT_MAX];     /* an overhang: the map entry it covers */
+static uint8_t ext_used;                /* the pool has been used since the last clear */
+static uint32_t err_seen[32];           /* the layout errors logged (once each) */
+static int err_n, err_total;
+static int ext_peak;                    /* the most pool tiles in use at once (logged: VRAM) */
 
 hu_config hu_defaults(void)
 {
@@ -73,6 +83,8 @@ hu_config hu_defaults(void)
     c.obj_vram = 3072;
     c.obj_pal = 3;
     c.box_glyphs = NULL;
+    c.ext_tile = 640;
+    c.ext_count = HU_EXT_TILES;
     return c;
 }
 
@@ -329,7 +341,7 @@ static void lobby_reset(void)
     lobby.n = 1;
     lobby.glyph = HU_BTN_A;
     lobby.slot_row = HU_ROW_SLOTS;
-    snprintf(lobby.prompt, sizeof lobby.prompt, "PRESS A TO PLAY");
+    rs_strf(lobby.prompt, sizeof lobby.prompt, hu_str(HS_PRESS_TO), hu_str(HS_PLAY));
 }
 
 /* ---- set-up --------------------------------------------------------------------------------------------------------- */
@@ -353,6 +365,9 @@ void hu_init(const hu_config *c)
         rs_pal_load(RS_PAL_OBJ(cfg.obj_pal), hu_obj_palette, 16);
     }
     cfg.box_glyphs = NULL;         /* no pointer in the saved state */
+    if (cfg.ext_count > EXT_MAX) cfg.ext_count = EXT_MAX;
+    memset(ext_key, 0, sizeof ext_key);
+    ext_used = 0;
     big_used = 0;
     paused_now = 0;
     shake_amp = shake_t = shake_len = shake_dx = shake_dy = 0;
@@ -364,23 +379,409 @@ void hu_state(void)
 {
     S(cfg); S(big_chars); S(big_used); S(paused_now); S(shake_amp); S(shake_t); S(shake_len); S(shake_dx); S(shake_dy);
     S(lobby); S(box_have); S(font_have); S(dpad_loaded);
+    S(ext_key); S(ext_under); S(ext_used); S(err_seen); S(err_n); S(err_total); S(ext_peak);
 }
 #undef S
 
 /* ---- text ----------------------------------------------------------------------------------------------------------- */
 static int bg_entry(int rel, int prio) { return RS_MAP(cfg.tile_base + rel, cfg.pal, prio, 0, 0); }
 
+/* ---- translated text (docs/i18n.md) ----------------------------------------------------------------------------------
+ * Strings are UTF-8. ASCII goes through the font tiles above, exactly as before. The rest lives in a pool of tiles
+ * (cfg.ext_tile, cfg.ext_count), one slot per thing shown, keyed:
+ *   - a letter of the house font beyond ASCII (Cyrillic, Greek, AE...; a letter with a mark below): its 8x8 tile;
+ *     a letter that is an ASCII one plus marks reuses the ASCII tile;
+ *   - an OVERHANG: a mark above a letter (an accent) or the top half of a 16x16 wide glyph (CJK) sits in the row
+ *     ABOVE the text, drawn over what was there (the blank screen or the panel fill), which comes back when the text
+ *     goes (ext_under);
+ *   - the halves (small text) or quarters (2x text) of a wide glyph, and the quarters of a 2x non-ASCII letter.
+ * A full pool frees the slots the UI layer no longer shows (a scan of its map). hu_clear() empties it.
+ * Layout errors (text off the screen or over a panel's edge, an overhang over other text, a glyph no font has, a full
+ * pool) are counted and logged once each with "i18n:" (the language tests fail on them). */
+enum { K_BODY = 1, K_OVER, K_WIDE, K_BIG };                 /* key kinds */
+enum { ST_FREE, ST_BOX, ST_BIG_FREE, ST_BIG_BANNER };       /* styles */
+enum { UNDER_BLANK, UNDER_FILL };                           /* what an overhang covers */
+#define KEY(kind, style, part, under, cp) ((uint64_t)(kind) << 56 | (uint64_t)(style) << 52 | (uint64_t)(part) << 40 | \
+                                           (uint64_t)(under) << 36 | (uint64_t)(cp))
+#define KEY_KIND(k)  ((int)((k) >> 56))
+#define KEY_STYLE(k) ((int)((k) >> 52) & 15)
+
+const char *hu_str(int id)
+{
+    const rs_i18n_pack *p = rs_i18n();
+    if (p && p->kit) return rs_tr(p->kit, id);
+    return id >= 0 && id < HS_COUNT && hs_english[id] ? hs_english[id] : "";
+}
+
+const char *hu_strn(int id, int n)
+{
+    const rs_i18n_pack *p = rs_i18n();
+    if (p && p->kit) return rs_trn(p->kit, id, n);
+    const char *s = id >= 0 && id + 1 < HS_COUNT ? hs_english[id + (n == 1 ? 1 : 0)] : NULL;
+    return s ? s : hu_str(id);
+}
+
+int hu_text_errors(void) { return err_total; }
+
+static void text_error(const char *what, int x, int y, const char *s)
+{
+    uint32_t h = 2166136261u;
+    for (const char *p = what; *p; p++) h = (h ^ (uint8_t)*p) * 16777619u;
+    for (const char *p = s; p && *p; p++) h = (h ^ (uint8_t)*p) * 16777619u;
+    h ^= (uint32_t)(x * 131 + y * 7919);
+    err_total++;
+    for (int i = 0; i < err_n; i++)
+        if (err_seen[i] == h) return;
+    if (err_n < (int)(sizeof err_seen / sizeof err_seen[0])) err_seen[err_n++] = h;
+    rs_log("i18n: %s at %d,%d (%s, %d px): \"%s\"", what, x, y, rs_lang_code(rs_lang()), rs_screen_width(), s ? s : "");
+}
+
+static int is_ascii(const char *s)
+{
+    for (; *s; s++)
+        if ((unsigned char)*s >= 128) return 0;
+    return 1;
+}
+
+int hu_width(const char *s, int big)
+{
+    if (!big) return rs_text_cols(s);
+    int n = 0;
+    while (rs_utf8_next(&s)) n++;
+    return 2 * n;
+}
+
+/* the pool ------------------------------------------------------------------------------------------------------------ */
+static int ext_tile_of(int slot) { return cfg.ext_tile + slot; }
+static int ext_slot_of(uint16_t e)
+{
+    int t = RS_MAP_TILE(e) - cfg.ext_tile;
+    return cfg.ext_count > 0 && t >= 0 && t < cfg.ext_count && t < EXT_MAX ? t : -1;
+}
+
+static void ext_gc(void)
+{
+    uint8_t used[EXT_MAX];
+    memset(used, 0, sizeof used);
+    const uint16_t *m = rs_bg_map(cfg.layer);
+    int n = rs_bg_map_w(cfg.layer) * rs_bg_map_h(cfg.layer);
+    for (int i = 0; m && i < n; i++) {
+        int s = ext_slot_of(m[i]);
+        if (s >= 0) used[s] = 1;
+    }
+    for (int s = 0; s < cfg.ext_count && s < EXT_MAX; s++)
+        if (!used[s]) ext_key[s] = 0;
+}
+
+/* the slot holding key (made = 1 when it was just allocated: draw it), -1 when the pool is full */
+static int ext_get(uint64_t key, int *made)
+{
+    int lim = cfg.ext_count < EXT_MAX ? cfg.ext_count : EXT_MAX, free_s = -1;
+    *made = 0;
+    for (int s = 0; s < lim; s++) {
+        if (ext_key[s] == key) return s;
+        if (!ext_key[s] && free_s < 0) free_s = s;
+    }
+    if (free_s < 0) {
+        ext_gc();
+        for (int s = 0; s < lim && free_s < 0; s++)
+            if (!ext_key[s]) free_s = s;
+    }
+    if (free_s < 0) return -1;
+    ext_key[free_s] = key;
+    *made = 1;
+    int n = 0;
+    for (int s = 0; s < lim; s++) n += ext_key[s] != 0;
+    if (n > ext_peak) {
+        ext_peak = n;
+        if (n % 16 == 0) rs_log("[i18n] glyph pool: %d of %d tiles in use (%s)", n, lim, rs_lang_code(rs_lang()));
+    }
+    return free_s;
+}
+
+/* pixels: an 8x8 tile from rows (font bit order) with the house shadow, on bg */
+static void rows_tile(const uint8_t rows[8], int bg, uint8_t t[64])
+{
+    for (int y = 0; y < 8; y++)
+        for (int x = 0; x < 8; x++) {
+            int on = (rows[y] >> (7 - x)) & 1;
+            int sh = x > 0 && y > 0 && ((rows[y - 1] >> (8 - x)) & 1);
+            t[y * 8 + x] = (uint8_t)(on ? HU_CREAM : sh ? HU_OUTLINE : bg);
+        }
+}
+
+/* a 16x16 wide glyph (32 bytes, bit 15 = left) as a canvas: 1 ink, 2 shadow (small) or outline (big styles) */
+static void wide_canvas(const uint8_t *g, int big, uint8_t px[16][16])
+{
+    memset(px, 0, 256);
+    for (int y = 0; y < 16; y++)
+        for (int x = 0; x < 16; x++)
+            if (g[y * 2 + (x >> 3)] & (0x80 >> (x & 7))) px[y][x] = 1;
+    for (int y = 0; y < 16; y++)
+        for (int x = 0; x < 16; x++) {
+            if (px[y][x]) continue;
+            if (!big) {
+                if (x > 0 && y > 0 && px[y - 1][x - 1] == 1) px[y][x] = 2;
+                continue;
+            }
+            for (int dy = -1; dy <= 1 && !px[y][x]; dy++)
+                for (int dx = -1; dx <= 1; dx++) {
+                    int yy = y + dy, xx = x + dx;
+                    if (yy >= 0 && yy < 16 && xx >= 0 && xx < 16 && px[yy][xx] == 1) { px[y][x] = 2; break; }
+                }
+        }
+}
+
+/* a 2x glyph canvas from 8 font rows (the 2x font: 1 ink, 2 outline, 3 drop shadow for the banner); ox, oy: where the
+ * glyph's pixel (0, 0) goes */
+static void big_canvas(const uint8_t rows[8], int nrows, int oy, int banner, uint8_t px[16][16])
+{
+    memset(px, 0, 256);
+    for (int y = 0; y < nrows; y++)
+        for (int x = 0; x < 6; x++)
+            if ((rows[y] >> (7 - x)) & 1)
+                for (int k = 0; k < 4; k++) {
+                    int Y = oy + y * 2 + (k >> 1), X = 1 + x * 2 + (k & 1);
+                    if (Y >= 0 && Y < 16) px[Y][X] = 1;
+                }
+    for (int y = 0; y < 16; y++)
+        for (int x = 0; x < 16; x++) {
+            if (px[y][x]) continue;
+            for (int dy = -1; dy <= 1; dy++)
+                for (int dx = -1; dx <= 1; dx++) {
+                    int yy = y + dy, xx = x + dx;
+                    if (yy >= 0 && yy < 16 && xx >= 0 && xx < 16 && px[yy][xx] == 1) px[y][x] = 2;
+                }
+        }
+    if (banner)
+        for (int y = 15; y > 0; y--)
+            for (int x = 15; x > 0; x--)
+                if (!px[y][x] && px[y - 1][x - 1] == 2) px[y][x] = 3;
+}
+
+static const uint8_t big_cols[2][4] = {{0, HU_CREAM, HU_OUTLINE, 0}, {HU_FILL, HU_GOLD, HU_OUTLINE, HU_DARK}};
+
+/* what lies under an overhang at (x, y): UNDER_BLANK / UNDER_FILL, or -1 (other text, a frame, a picture) */
+static int under_kind(uint16_t e)
+{
+    int s = ext_slot_of(e);
+    if (s >= 0 && KEY_KIND(ext_key[s]) == K_OVER) e = ext_under[s];
+    int t = RS_MAP_TILE(e) - cfg.tile_base;
+    if (t == T_FONT) return UNDER_BLANK;
+    if (t == T_BOX || t == T_PANEL + 4) return UNDER_FILL;
+    return -1;
+}
+
+/* takes away the overhang at (x, y) (the text below it changes) */
+static void overhang_clear(int x, int y)
+{
+    if (y < 0 || !ext_used) return;
+    uint16_t e = rs_bg_get(cfg.layer, ui_col(x), y);
+    int s = ext_slot_of(e);
+    if (s >= 0 && KEY_KIND(ext_key[s]) == K_OVER) rs_bg_put(cfg.layer, ui_col(x), y, ext_under[s]);
+}
+
+/* draws the overhang part (a mark, or a wide glyph's top-left / top-right) over the cell (x, y) */
+static void overhang(int x, int y, int part, uint32_t cp, int style, const char *s)
+{
+    if (y < 0) { text_error("no room above the text for its accent", x, y, s); return; }
+    uint16_t e = rs_bg_get(cfg.layer, ui_col(x), y);
+    int under = under_kind(e);
+    if (under < 0) { text_error("an accent or a tall glyph over other text", x, y, s); return; }
+    int sl = ext_slot_of(e);
+    uint16_t below = sl >= 0 && KEY_KIND(ext_key[sl]) == K_OVER ? ext_under[sl] : e;
+    int made, slot = ext_get(KEY(K_OVER, style, part, under, cp), &made);
+    if (slot < 0) { text_error("the glyph pool is full", x, y, s); return; }
+    if (made) {
+        uint8_t t[64];
+        int bg = under == UNDER_FILL ? HU_FILL : 0;
+        if (part < 16) {                                    /* a mark: cp is the mark */
+            const uint8_t *m = rs_font_mark((int)cp);
+            if (style >= ST_BIG_FREE) {
+                /* 2x: the mark's rows 4..6 as rows 1..6, outlined */
+                uint8_t r[8] = {m[4], m[5], m[6], 0, 0, 0, 0, 0}, px[16][16];
+                big_canvas(r, 3, 2, style == ST_BIG_BANNER, px);
+                for (int yy = 0; yy < 8; yy++)
+                    for (int xx = 0; xx < 8; xx++) {
+                        int v = px[yy][(part & 1) * 8 + xx];
+                        t[yy * 8 + xx] = v ? big_cols[style == ST_BIG_BANNER][v] : (uint8_t)bg;
+                    }
+            } else {
+                rows_tile(m, bg, t);
+            }
+        } else {                                            /* the top half of a wide glyph: part 16 left, 17 right */
+            const uint8_t *g = rs_wide_glyph(cp);
+            uint8_t px[16][16];
+            wide_canvas(g, 0, px);
+            for (int yy = 0; yy < 8; yy++)
+                for (int xx = 0; xx < 8; xx++) {
+                    int v = px[yy][(part & 1) * 8 + xx];
+                    t[yy * 8 + xx] = (uint8_t)(v == 1 ? HU_CREAM : v == 2 ? HU_OUTLINE : bg);
+                }
+        }
+        rs_tiles_load8(cfg.vram_base + ext_tile_of(slot), t, 1);
+    }
+    ext_under[slot] = below;
+    ext_used = 1;
+    rs_bg_put(cfg.layer, ui_col(x), y, bg_entry(ext_tile_of(slot) - cfg.tile_base, 1));
+}
+
+/* checks the cell a character goes to: on the screen; box text: on a panel's inside */
+static void check_cell(int x, int y, int box, const char *s)
+{
+    int c0 = fdiv8(hu_ui_left()), c1 = fdiv8(hu_ui_right() + 7);
+    if (x < c0 || x >= c1 || y < 0 || y >= 30) { text_error("text off the screen", x, y, s); return; }
+    if (!box) return;
+    uint16_t e = rs_bg_get(cfg.layer, ui_col(x), y);
+    int t = RS_MAP_TILE(e) - cfg.tile_base, sl = ext_slot_of(e);
+    if (sl >= 0 ? KEY_STYLE(ext_key[sl]) == ST_BOX : (t >= T_BOX && t < T_BOX + 96) || t == T_PANEL + 4) return;
+    text_error("text over a panel's edge", x, y, s);
+}
+
+/* small text, UTF-8: the cells x.. of row y (box: on the panel fill) */
+static void put_text(int x, int y, const char *s, int box)
+{
+    const char *p = s;
+    uint32_t cp;
+    int style = box ? ST_BOX : ST_FREE, bg = box ? HU_FILL : 0;
+    while ((cp = rs_utf8_next(&p)) != 0) {
+        check_cell(x, y, box, s);
+        overhang_clear(x, y - 1);
+        if (cp < 128) {
+            int g = cp >= 32 ? (int)cp - 32 : '?' - 32;
+            if (box) box_glyph(g); else font_glyph(g);
+            rs_bg_put(cfg.layer, ui_col(x), y, bg_entry((box ? T_BOX : T_FONT) + g, 1));
+            x++;
+            continue;
+        }
+        if (rs_glyph_wide(cp)) {
+            const uint8_t *g = rs_wide_glyph(cp);
+            check_cell(x + 1, y, box, s);
+            overhang_clear(x + 1, y - 1);
+            if (!g) {
+                text_error("no glyph for a character", x, y, s);
+                for (int k = 0; k < 2; k++) {
+                    if (box) box_glyph('?' - 32); else font_glyph('?' - 32);
+                    rs_bg_put(cfg.layer, ui_col(x + k), y, bg_entry((box ? T_BOX : T_FONT) + '?' - 32, 1));
+                }
+                x += 2;
+                continue;
+            }
+            for (int half = 0; half < 2; half++) {
+                int made, slot = ext_get(KEY(K_WIDE, style, half, 0, cp), &made);
+                if (slot < 0) { text_error("the glyph pool is full", x + half, y, s); continue; }
+                if (made) {
+                    uint8_t px[16][16], t[64];
+                    wide_canvas(g, 0, px);
+                    for (int yy = 0; yy < 8; yy++)
+                        for (int xx = 0; xx < 8; xx++) {
+                            int v = px[8 + yy][half * 8 + xx];
+                            t[yy * 8 + xx] = (uint8_t)(v == 1 ? HU_CREAM : v == 2 ? HU_OUTLINE : bg);
+                        }
+                    rs_tiles_load8(cfg.vram_base + ext_tile_of(slot), t, 1);
+                }
+                ext_used = 1;
+                rs_bg_put(cfg.layer, ui_col(x + half), y, bg_entry(ext_tile_of(slot) - cfg.tile_base, 1));
+                overhang(x + half, y - 1, 16 + half, cp, style, s);
+            }
+            x += 2;
+            continue;
+        }
+        const uint8_t *body;
+        int above, below;
+        if (!rs_font_ext(cp, &body, &above, &below)) {
+            text_error("no glyph for a character", x, y, s);
+            body = rs_font_5x7['?' - 32];
+            above = below = 0;
+        }
+        int ascii = body >= rs_font_5x7[0] && body < rs_font_5x7[96];
+        if (ascii && !below) {
+            int g = (int)(body - rs_font_5x7[0]) / 8;
+            if (box) box_glyph(g); else font_glyph(g);
+            rs_bg_put(cfg.layer, ui_col(x), y, bg_entry((box ? T_BOX : T_FONT) + g, 1));
+        } else {
+            int made, slot = ext_get(KEY(K_BODY, style, 0, 0, cp), &made);
+            if (slot < 0) text_error("the glyph pool is full", x, y, s);
+            else {
+                if (made) {
+                    uint8_t r[8], t[64];
+                    memcpy(r, body, 8);
+                    if (below) r[7] |= rs_font_mark(below)[7];
+                    rows_tile(r, bg, t);
+                    rs_tiles_load8(cfg.vram_base + ext_tile_of(slot), t, 1);
+                }
+                ext_used = 1;
+                rs_bg_put(cfg.layer, ui_col(x), y, bg_entry(ext_tile_of(slot) - cfg.tile_base, 1));
+            }
+        }
+        if (above) overhang(x, y - 1, 0, (uint32_t)above, style, s);
+        x++;
+    }
+}
+
+/* 2x text, UTF-8: non-ASCII characters (2 x 2 tiles each) from the pool */
+static void put_big(int x, int y, uint32_t cp, int style, const char *s)
+{
+    int banner = style == HU_BIG_BANNER, st = banner ? ST_BIG_BANNER : ST_BIG_FREE;
+    uint8_t px[16][16];
+    int above = 0;
+    const uint8_t *wg = rs_glyph_wide(cp) ? rs_wide_glyph(cp) : NULL;
+    if (wg) {
+        wide_canvas(wg, 1, px);
+        if (banner)
+            for (int yy = 15; yy > 0; yy--)
+                for (int xx = 15; xx > 0; xx--)
+                    if (!px[yy][xx] && px[yy - 1][xx - 1] == 2) px[yy][xx] = 3;
+    } else {
+        const uint8_t *body;
+        int below;
+        if (!rs_font_ext(cp, &body, &above, &below)) {
+            text_error("no glyph for a character", x, y, s);
+            body = rs_font_5x7['?' - 32];
+            above = below = 0;
+        }
+        uint8_t r[8];
+        memcpy(r, body, 8);
+        if (below) r[7] |= rs_font_mark(below)[7];
+        big_canvas(r, below ? 8 : 7, 1, banner, px);
+    }
+    for (int q = 0; q < 4; q++) {
+        int made, slot = ext_get(KEY(wg ? K_WIDE : K_BIG, st, 2 + q, 0, cp), &made);
+        if (slot < 0) { text_error("the glyph pool is full", x, y, s); return; }
+        if (made) {
+            uint8_t t[64];
+            for (int yy = 0; yy < 8; yy++)
+                for (int xx = 0; xx < 8; xx++) t[yy * 8 + xx] = big_cols[banner][px[(q >> 1) * 8 + yy][(q & 1) * 8 + xx]];
+            rs_tiles_load8(cfg.vram_base + ext_tile_of(slot), t, 1);
+        }
+        ext_used = 1;
+        rs_bg_put(cfg.layer, ui_col(x + (q & 1)), y + (q >> 1), bg_entry(ext_tile_of(slot) - cfg.tile_base, 1));
+    }
+    if (above)
+        for (int half = 0; half < 2; half++) overhang(x + half, y - 1, half, (uint32_t)above, st, s);
+}
+
+
+static void check_text(int x, int y, const char *s, int box)
+{
+    for (int i = 0; s[i]; i++) check_cell(x + i, y, box, s);
+}
+
 void hu_text(int x, int y, const char *s)
 {
-    for (const char *p = s; *p; p++) font_glyph((unsigned char)*p - 32);
     rs_text_setup(cfg.layer, cfg.tile_base + T_FONT, cfg.pal, 1);
+    if (!is_ascii(s) || ext_used) { put_text(x, y, s, 0); return; }
+    check_text(x, y, s, 0);
+    for (const char *p = s; *p; p++) font_glyph((unsigned char)*p - 32);
     rs_text(x, y, s);
 }
 
 void hu_box_text(int x, int y, const char *s)
 {
-    for (const char *p = s; *p; p++) box_glyph((unsigned char)*p - 32);
     rs_text_setup(cfg.layer, cfg.tile_base + T_BOX, cfg.pal, 1);
+    if (!is_ascii(s) || ext_used) { put_text(x, y, s, 1); return; }
+    check_text(x, y, s, 1);
+    for (const char *p = s; *p; p++) box_glyph((unsigned char)*p - 32);
     rs_text(x, y, s);
 }
 
@@ -429,27 +830,36 @@ static int big_slot(char ch, int style)
 
 void hu_big(int x, int y, const char *s, int style)
 {
-    for (; *s; s++, x += 2) {
-        if (*s == ' ') continue;
-        int t = T_BIG + big_slot(*s, style) * 4;
+    const char *p = s;
+    uint32_t cp;
+    for (; (cp = rs_utf8_next(&p)) != 0; x += 2) {
+        if (cp == ' ') continue;
+        check_cell(x, y, 0, s);
+        check_cell(x + 1, y + 1, 0, s);
+        if (cp >= 128) { put_big(x, y, cp, style, s); continue; }
+        int t = T_BIG + big_slot((char)cp, style) * 4;
         for (int q = 0; q < 4; q++) rs_bg_put(cfg.layer, x + (q & 1), y + (q >> 1), bg_entry(t + q, 1));
     }
 }
 
-int hu_center(const char *s, int big) { return (40 - (int)strlen(s) * (big ? 2 : 1)) / 2; }
+int hu_center(const char *s, int big) { return (40 - hu_width(s, big)) / 2; }
 
 void hu_clear(void)
 {
     rs_bg_fill(cfg.layer, RS_MAP(cfg.tile_base + T_FONT, 0, 0, 0, 0));
     big_used = 0;
+    memset(ext_key, 0, sizeof ext_key);
+    ext_used = 0;
 }
 
 void hu_clear_rows(int y, int h)
 {
     rs_text_setup(cfg.layer, cfg.tile_base + T_FONT, cfg.pal, 1);
+    int c0 = fdiv8(hu_ui_left()), c1 = fdiv8(hu_ui_right() + 7);
+    if (ext_used)                                       /* the accents and tall glyphs of row y, in the row above */
+        for (int c = c0; c < c1; c++) overhang_clear(c, y - 1);
     if (rs_screen_width() == RS_SCREEN_W) { rs_text_clear(0, y, 40, h); return; }
     /* widescreen: every column the screen shows (the corners' tags may be outside 0..39) */
-    int c0 = fdiv8(hu_ui_left()), c1 = fdiv8(hu_ui_right() + 7);
     for (int j = 0; j < h; j++)
         for (int c = c0; c < c1; c++) rs_bg_put(cfg.layer, ui_col(c), y + j, RS_MAP(cfg.tile_base + T_FONT, cfg.pal, 0, 0, 0));
 }
@@ -464,15 +874,26 @@ void hu_panel(int x0, int y0, int w, int h)
         }
 }
 
+/* does the text have a mark above a letter (an accent: it takes the row above)? */
+static int has_accent(const char *s)
+{
+    uint32_t cp;
+    int above = 0;
+    while ((cp = rs_utf8_next(&s)) != 0)
+        if (cp >= 128 && !rs_glyph_wide(cp) && rs_font_ext(cp, NULL, &above, NULL) && above) return 1;
+    return 0;
+}
+
 void hu_banner(int y, const char *title)
 {
-    int w = (int)strlen(title) * 2 + 2;
+    int w = hu_width(title, 1) + 2, acc = has_accent(title);
     if (w < 20) w = 20;
-    hu_panel((40 - w) / 2, y, w, 4);
+    if (w > 40) text_error("a banner wider than the screen", 0, y, title);
+    hu_panel((40 - w) / 2, y - acc, w, 4 + acc);        /* accents: one more row on top, for them */
     hu_big(hu_center(title, 1), y + 1, title, HU_BIG_BANNER);
 }
 
-void hu_get_ready(int y) { hu_big(hu_center("GET READY", 1), y, "GET READY", HU_BIG_FREE); }
+void hu_get_ready(int y) { hu_big(hu_center(hu_str(HS_GET_READY), 1), y, hu_str(HS_GET_READY), HU_BIG_FREE); }
 
 int hu_blink(int t) { return (t / 30) % 2 == 0; }
 
@@ -492,29 +913,42 @@ void hu_copyright(int y)
 
 void hu_join_line(int y, int players, const char *joined)
 {
-    static const char j[] = "P2: PRESS A ON PAD 2 TO JOIN";
-    char s[48];
+    char s[128];
     if (players >= 2) {
-        snprintf(s, sizeof s, "P2 JOINED - %s", joined ? joined : "GO!");
+        rs_strf(s, sizeof s, hu_str(HS_JOINED), joined ? joined : hu_str(HS_GO));
         hu_clear_rows(y, 1);
         hu_text(hu_center(s, 0), y, s);
     } else {
-        hu_text(hu_center(j, 0), y, j);
+        hu_text(hu_center(hu_str(HS_JOIN_PAD2), 0), y, hu_str(HS_JOIN_PAD2));
     }
 }
 
 void hu_gameover_panel(int players, int new_best, int score1, int score2)
 {
-    hu_panel(10, 9, 20, 12);
+    /* the labels on the left, the values (sprites) centred on column 25: longer labels widen the panel leftwards */
+    char a[64], b[64], win[96];
+    const char *c = "";
     if (players == 1) {
-        hu_box_text(12, 11, "SCORE");
-        hu_box_text(12, 14, new_best ? "NEW BEST" : "BEST");
-        hu_box_text(12, 17, "MEDAL");
+        snprintf(a, sizeof a, "%s", hu_str(HS_SCORE));
+        snprintf(b, sizeof b, "%s", hu_str(new_best ? HS_NEW_BEST : HS_BEST));
+        c = hu_str(HS_MEDAL);
     } else {
-        hu_box_text(12, 11, "PLAYER 1");
-        hu_box_text(12, 14, "PLAYER 2");
-        const char *win = score1 > score2 ? "P1 WINS!" : score2 > score1 ? "P2 WINS!" : "DRAW!";
-        hu_box_text(20 - (int)strlen(win) / 2, 17, win);
+        rs_strf(a, sizeof a, hu_str(HS_PLAYER_N), 1);
+        rs_strf(b, sizeof b, hu_str(HS_PLAYER_N), 2);
+    }
+    int l = hu_width(a, 0);
+    if (hu_width(b, 0) > l) l = hu_width(b, 0);
+    if (hu_width(c, 0) > l) l = hu_width(c, 0);
+    int d = l > 10 ? (l - 10 < 10 ? l - 10 : 10) : 0;
+    hu_panel(10 - d, 9, 20 + d, 12);
+    hu_box_text(12 - d, 11, a);
+    hu_box_text(12 - d, 14, b);
+    if (players == 1) {
+        hu_box_text(12 - d, 17, c);
+    } else {
+        if (score1 != score2) rs_strf(win, sizeof win, hu_str(HS_WINS), score1 > score2 ? 1 : 2);
+        else snprintf(win, sizeof win, "%s", hu_str(HS_DRAW));
+        hu_box_text(20 - hu_width(win, 0) / 2, 17, win);
     }
 }
 
@@ -536,7 +970,7 @@ void hu_retry_line_at(int row, int t, int lock, const char *text)
 {
     if (t < lock) return;
     char blank[41];
-    int n = (int)strlen(text);
+    int n = hu_width(text, 0);
     if (n > 40) n = 40;
     memset(blank, ' ', (size_t)n);
     blank[n] = 0;
@@ -550,7 +984,7 @@ void hu_pause(int paused, int y)
     rs_brightness(paused ? 9 : 15);
     if (paused != paused_now) {
         paused_now = paused;
-        if (paused) hu_big(hu_center("PAUSED", 1), y, "PAUSED", HU_BIG_FREE);
+        if (paused) hu_big(hu_center(hu_str(HS_PAUSED), 1), y, hu_str(HS_PAUSED), HU_BIG_FREE);
         else hu_clear_rows(y, 2);
     }
 }
@@ -802,16 +1236,6 @@ rs_color hu_scale_color(rs_color c, int k)
     return RS_RGB((c & 31) * k / 256, ((c >> 5) & 31) * k / 256, ((c >> 10) & 31) * k / 256);
 }
 
-/* ---- the kit's words (one table: a translation replaces it) ------------------------------------------------------------ */
-static const struct {
-    const char *press_to;       /* PRESS <input> TO <verb> */
-    const char *any_arrow, *start;
-    const char *join, *join_leave, *full;
-    const char *best, *wins, *draw;
-    const char *rank[HU_MAX_PLAYERS];
-} words = {"PRESS %s TO %s", "ANY ARROW", "START", "%s: PRESS A TO JOIN", "%s: PRESS A TO JOIN - B: LEAVE",
-           "%d PLAYERS - B: LEAVE", "BEST %d", "P%d WINS!", "DRAW!", {"1ST", "2ND", "3RD", "4TH"}};
-
 /* ---- players and the title ----------------------------------------------------------------------------------------------- */
 static int clampi_(int v, int lo, int hi) { return v < lo ? lo : v > hi ? hi : v; }
 
@@ -824,7 +1248,7 @@ void hu_title_setup(const hu_title_cfg *c)
     if (lobby.n > lobby.max) lobby.n = lobby.max;
     lobby.slot_row = (uint8_t)(c->slot_row > 0 ? c->slot_row : HU_ROW_SLOTS);
     lobby.glyph = HU_BTN_A;
-    snprintf(lobby.prompt, sizeof lobby.prompt, words.press_to, "A", c->verb ? c->verb : "PLAY");
+    rs_strf(lobby.prompt, sizeof lobby.prompt, hu_str(HS_PRESS_TO), c->verb ? c->verb : hu_str(HS_PLAY));
 }
 
 void hu_players_set(int n)
@@ -882,31 +1306,39 @@ void hu_slot_pos(int p, int *cx, int *cy)
     if (cy) *cy = lobby.slot_row * 8 + 4;
 }
 
+/* "P2 / P3 / P4": the free players' tags */
+static void free_tags(char *who, size_t size)
+{
+    who[0] = 0;
+    for (int p = lobby.n; p < lobby.max; p++) {
+        size_t k = strlen(who);
+        if (p > lobby.n) k += (size_t)snprintf(who + k, size - k, " / ");
+        if (k < size) rs_strf(who + k, size - k, hu_str(HS_PLAYER_TAG), p + 1);
+    }
+}
+
 void hu_title_draw(int t, int best)
 {
-    char s[48];
+    char s[160];
     lobby.glyph_x = (int16_t)hu_prompt(HU_ROW_PROMPT, lobby.prompt, t);
     hu_clear_rows(HU_ROW_BEST, 1);
     if (best > 0) {
-        snprintf(s, sizeof s, words.best, best);
+        rs_strf(s, sizeof s, hu_str(HS_BEST_N), best);
         hu_text(hu_center(s, 0), HU_ROW_BEST, s);
     }
     if (lobby.max > 1) {
         hu_clear_rows(lobby.slot_row, 1);
         for (int p = 0; p < lobby.n; p++) {
-            snprintf(s, sizeof s, "P%d", p + 1);
+            rs_strf(s, sizeof s, hu_str(HS_PLAYER_TAG), p + 1);
             hu_text(4 + 9 * p, lobby.slot_row, s);
         }
         hu_clear_rows(HU_ROW_JOIN, 1);
         if (lobby.n < lobby.max) {
-            char who[24] = "";
-            for (int p = lobby.n; p < lobby.max; p++) {
-                size_t k = strlen(who);
-                snprintf(who + k, sizeof who - k, "%sP%d", p > lobby.n ? " / " : "", p + 1);
-            }
-            snprintf(s, sizeof s, lobby.n > 1 ? words.join_leave : words.join, who);
+            char who[64];
+            free_tags(who, sizeof who);
+            rs_strf(s, sizeof s, hu_str(lobby.n > 1 ? HS_JOIN_LEAVE : HS_JOIN), who);
         } else {
-            snprintf(s, sizeof s, words.full, lobby.n);
+            rs_strf(s, sizeof s, hu_strn(HS_FULL, lobby.n), lobby.n);
         }
         hu_text(hu_center(s, 0), HU_ROW_JOIN, s);
     }
@@ -958,7 +1390,7 @@ void hu_score_tags(int players, int bottom_y)
     for (int p = 0; p < players && p < HU_MAX_PLAYERS; p++) {
         hu_chip c = hu_score_chip(players, p, bottom_y);
         if (c.tag_y < 0) continue;                      /* no tag (1-2 players); tag_x may be negative (widescreen) */
-        snprintf(s, sizeof s, "P%d", p + 1);
+        rs_strf(s, sizeof s, hu_str(HS_PLAYER_TAG), p + 1);
         if (c.tag_x >= 0 && c.tag_x + 2 <= 40) hu_text(c.tag_x, c.tag_y, s);
         else ui_text_wrapped(c.tag_x, c.tag_y, s);
     }
@@ -1032,11 +1464,11 @@ void hu_results_icon_pos(const hu_standing *s, int place, int *cx, int *cy)
 
 void hu_results_panel(const hu_standing *s, const char *title)
 {
-    char t[24];
+    char t[96];
     if (!title) {
         int w = hu_winner(s);
-        if (w >= 0) snprintf(t, sizeof t, words.wins, w + 1);
-        else snprintf(t, sizeof t, "%s", words.draw);
+        if (w >= 0) rs_strf(t, sizeof t, hu_str(HS_WINS), w + 1);
+        else snprintf(t, sizeof t, "%s", hu_str(HS_DRAW));
         title = t;
     }
     hu_banner(3, title);
@@ -1044,8 +1476,8 @@ void hu_results_panel(const hu_standing *s, const char *title)
     for (int i = 0; i < s->n; i++) {
         char tag[16];
         int row = hu_results_row(s, i);
-        hu_box_text(10, row, words.rank[s->rank[i] & 3]);
-        snprintf(tag, sizeof tag, "P%d", (s->order[i] & 3) + 1);
+        hu_box_text(10, row, hu_str(HS_RANK_1 + (s->rank[i] & 3)));
+        rs_strf(tag, sizeof tag, hu_str(HS_PLAYER_TAG), (s->order[i] & 3) + 1);
         hu_box_text(14, row, tag);
     }
 }

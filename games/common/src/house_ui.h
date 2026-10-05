@@ -21,6 +21,7 @@
 
 #include <stdint.h>
 #include "rs.h"
+#include "house_text.h"            /* HS_*: the kit's string ids (tools/i18n_build.py --kit-header) */
 
 #ifdef __cplusplus
 extern "C" {
@@ -55,6 +56,7 @@ extern const rs_color hu_obj_palette[16];
 #define HU_BG_TILES   297       /* font, panel font, 2x cache, panel frame */
 #define HU_LOGO_TILES 320       /* the logo, at most (40 x 8 tiles) */
 #define HU_OBJ_TILES  118       /* the kit sprites (110 before the D-pad glyph) */
+#define HU_EXT_TILES  128       /* the default pool of glyph tiles beyond ASCII (translated text, docs/i18n.md) */
 typedef struct hu_config {
     int layer;                  /* the UI BG layer (RS_BG1) */
     int vram_base;              /* the layer's tile base (absolute VRAM tile, as given to rs_bg_setup) */
@@ -66,6 +68,11 @@ typedef struct hu_config {
     int obj_vram;               /* the OBJ base (absolute, as given to rs_obj_base) */
     int obj_pal;                /* their sprite palette 0..7 (loaded by hu_init) */
     const char *box_glyphs;     /* the glyphs of the panel font to upload (NULL: all 96) */
+    /* Translated text (docs/i18n.md): the tiles of the glyphs beyond ASCII (accents, Cyrillic, Greek, the 16x16 CJK
+     * glyphs), a pool relative to the layer's base like tile_base, filled as text is shown; a full pool reuses the
+     * tiles no longer on screen. English never writes it. ext_count 0: no pool (such text shows '?'). */
+    int ext_tile;               /* default 640 (after the logo) */
+    int ext_count;              /* default HU_EXT_TILES, at most 256 */
 } hu_config;
 /* The defaults: BG1 at VRAM 0, the kit at 0, palette 0, the logo at 320 on palette 5, the kit sprites at
  * OBJ tile 0 on sprite palette 3 (obj_vram 3072). */
@@ -86,6 +93,19 @@ void hu_state(void);
 int  hu_ui_x(void);
 int  hu_ui_left(void);          /* the UI x of the screen's left edge (-rs_screen_margin()) */
 int  hu_ui_right(void);         /* the UI x just past its right edge */
+
+/* ---- translated text (docs/i18n.md) ----------------------------------------------------------------------------
+ * Every text call takes UTF-8. The kit's own words come from its string table (games/common/strings) in the player's
+ * language (rs_lang()); a game's from its own (build/gen/<game>/game_text.h: TR(KEY)). Accents sit in the row above
+ * the letter and a CJK character is 16x16 (2 columns, it also takes the row above): leave that row free of other text.
+ * Layout errors (text off the screen or over a panel's edge, an accent over other text, a missing glyph, a full glyph
+ * pool) are counted and logged once each as "i18n: ..." (the language tests fail on them). */
+const char *hu_str(int id);                            /* a kit string HS_* */
+const char *hu_strn(int id, int n);                    /* a kit plural (HS_FULL) for n */
+#define HTR(key) hu_str(HS_##key)
+#define HTRN(key, n) hu_strn(HS_##key, (n))
+int  hu_width(const char *s, int big);                 /* columns on screen (a CJK character: 2; 2x text: 2 each) */
+int  hu_text_errors(void);                             /* layout errors so far */
 
 /* ---- text (tile coordinates, 40 x 30 on screen) -------------------------------------------------------------- */
 /* The kit draws four arrows over glyphs that games do not use: put them in strings with these. */
