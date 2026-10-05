@@ -120,14 +120,23 @@ static int32_t group(chunk_ctx *c, int kind, int32_t s)
         return len;
     }
     case G_TWIGS: {
-        int n = 1 + rnd(w, 1 + c->diff / 80);
+        /* branches out of one flank over part of the path: steer round them to the free side (a low one lying along
+         * a flank can be jumped too); further on they reach further, and come in slaloms, one side then the other,
+         * far enough apart to steer across (the planner proves each layout by steering alone) */
+        static const int8_t tips[LIMB_KINDS] = LIMB_TIPS;
+        int n = 1 + rnd(w, 1 + c->diff / 90);
+        int side = rnd(w, 2) ? 1 : -1;
         for (int k = 0; k < n; k++) {
-            /* a branch grows out of one flank and crosses the path: a low one (jump it; acorns lead over it) or,
-             * further on, a high arch (run under it: acorns lead through the middle) */
-            int side = rnd(w, 2) ? 1 : -1, arch = c->m >= UNLOCK_ARCH && rnd(w, 5) < 2;
-            add(c, OB_TWIG, s, arch ? 0 : side * ANG(21), arch, side);
-            acorn_line(c, s - F2U(c, 34), s - F2U(c, 8), 0, arch ? 0 : -side * ANG(20));
-            s += F2U(c, 48 + rnd(w, 30) - c->diff / 32);
+            int kind = rnd(w, 4);
+            if (kind == 2 && c->m < UNLOCK_LIMB2) kind = 1;
+            if (kind == 1 && c->m < UNLOCK_LIMB1) kind = 0;
+            add(c, OB_TWIG, s, side * ANG(tips[kind]), kind, side);
+            int32_t free_a = -side * ANG(kind == 2 ? 34 : 24);          /* the acorns lead to the free side */
+            acorn_line(c, s - F2U(c, 44), s - F2U(c, 14), free_a / 2, free_a);
+            int other = rnd(w, 3) != 0;                                /* mostly a slalom */
+            int gap = other ? (c->m < UNLOCK_LIMB2 ? 80 : 66) + rnd(w, 24) : 46 + rnd(w, 20);
+            s += F2U(c, gap);
+            if (other) side = -side;
         }
         if (rnd(w, 3) == 0) edge_nut(c, s);
         return s - s_start;
@@ -189,8 +198,8 @@ static int32_t group(chunk_ctx *c, int kind, int32_t s)
         /* the nuts upwind: lean into it */
         acorn_line(c, s + F2U(c, 10), s + len - F2U(c, 10), -side * ANG(8), -side * ANG(16));
         if (c->diff > 120) {
-            int ts = rnd(w, 2) ? 1 : -1;     /* a side twig in the gust (from the windward side: lean into it) */
-            add(c, OB_TWIG, s + len / 2, ts * ANG(21), 0, ts);
+            int ts = rnd(w, 2) ? 1 : -1;     /* a short branch over one flank in the gust */
+            add(c, OB_TWIG, s + len / 2, ts * ANG(30), 0, ts);
         }
         return len;
     }

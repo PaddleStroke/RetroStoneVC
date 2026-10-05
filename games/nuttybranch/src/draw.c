@@ -356,11 +356,11 @@ static void draw_obj(const world *w, const obj *o)
         if (o->kind == OB_WALNUT && l <= 2 && (w->t / 12) % 3 == 0) hu_sparkle(sx + 4, sy - 14, (w->t / 6) % 2, 2);
         return;
     }
-    case OB_TWIG:                                    /* a branch crossing the path */
+    case OB_TWIG:                                    /* a branch out of one flank (its frames: per kind) */
         if (!road_point(w, &RV, o->s * 256, 0, 0, 0, &sx, &sy, &sc, &hid) || hid) return;
         if (!on_branch(&sx, sy)) return;
         lod_note(o, l = decor_lod(lod_of(sc)) + 1, 1, sc, sx, sy, 1);
-        spr_at(SPR_LIMB + (o->len ? LODS - 1 : 0) + l - 1, sx, sy, 2, -1, o->side < 0);
+        spr_at(SPR_LIMB + (int)o->len * (LODS - 1) + l - 1, sx, sy, 2, -1, o->side < 0);
         return;
     case OB_KNOTHOLE: {
         if (!road_point(w, &RV, o->s * 256 + KNOTHOLE_LEN * 128, ang, 0, 0, &sx, &sy, &sc, &hid) || hid) return;

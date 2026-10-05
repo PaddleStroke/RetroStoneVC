@@ -317,19 +317,8 @@ def rain(frame):
 # ---- branches: one system for the ones that cross the path (obstacles) and the ones that grow outward (scenery) --------
 # The crossing ones follow the same geometry as src/play.c limb_at(): a limb growing out of the flank at 82 degrees,
 # arching over the path; its centre at angle side * (82 - SPAN * t) degrees and HC(t) units over the bark, radius R(t).
-LIMB_ROOT = 82.0
-LIMB_LOW = dict(span=122.0, h0=0.5, h1=2.0, r0=7.5, r1=3.8)      # lying low over the path: jump it
-LIMB_ARCH = dict(span=137.0, h0=4.0, h1=30.0, r0=8.0, r1=4.5)    # a high arch: run under it
-
-
-def limb_hc(g, t):
-    if g is LIMB_LOW:                                     # (src/play.c limb_point: the same shape)
-        return limb_r(g, t) + g["h0"] + g["h1"] * math.sin(max(0.0, min(1.0, t * 2)) * math.pi / 2)
-    return g["h0"] + g["h1"] * math.sin(math.pi * t)
-
-
-def limb_r(g, t):
-    return g["r0"] + (g["r1"] - g["r0"]) * t
+LIMB_TIPS = [30.0, 8.0, -14.0, 26.0]                  # (src/tuning.h LIMB_TIPS: where each kind reaches to)
+LIMB_DEPTH = 10.0                                     # (LIMB_DEPTH: the leaves' depth either side, units)
 
 
 def bark_tex(Pl, n):
@@ -371,44 +360,93 @@ def twigs_and_leaves(base, direction, rng, n, length, size):
     return prims
 
 
-def crossing_limb(k, arch):
-    """A branch growing out of the right flank and crossing the path (the left is the mirror). The anchor is the top
-    of the main branch. It meanders a little (its centre line stays within a unit or two of the shape the game
-    collides with: src/play.c limb_point), has knobs and stubs, sub-branches with leaf clusters along it and a full
-    spray of leaves past its tip; a low one lies on the bark with a contact shadow along it."""
-    g = LIMB_ARCH if arch else LIMB_LOW
-    rng = random.Random(51 if arch else 52)
-    pts = []
-    n = 44
-    t0 = -0.1                                             # the root: from under the flank (a collar), then over
-    ts = [t0 + (1 - t0) * i / (n - 1.0) for i in range(n)]
-    for t in ts:
-        x, y, z = surf(LIMB_ROOT - g["span"] * t, limb_hc(g, max(0.0, t)) - (6 * -t if t < 0 else 0))
-        wob = math.sin(t * 9.0 + 0.7)                     # meandering along and up
-        pts.append((x, y + 0.8 * wob * (1 if arch else 0.4), z + 2.2 * math.sin(t * 6.0 + 1.3)))
-    prims = []
-    for i, (t, p) in enumerate(zip(ts, pts)):
-        r = limb_r(g, max(0.0, t)) * (1 + 0.35 * max(0.0, (0.06 - t) / 0.16))    # flaring into the flank
-        r *= 1 + 0.08 * math.sin(i * 1.7)                  # knobbly
-        prims.append(Ell(p, (r, r * 0.95, r), R_BARKD, tex=bark_tex))
-        if not arch and t >= 0:                           # the contact shadow on the bark under it
-            a = LIMB_ROOT - g["span"] * t
-            prims.append(Ell(surf(a, 0.2) + np.array([0, 0, -r * 0.25 + p[2]]), (r * 1.05, 0.4, r * 0.75),
-                             [WOOD["b4"]] * 4))
-    for frac, h in ((0.22, 1.0), (0.5, 0.9), (0.78, 1.1)):  # knobs and broken stubs
+def flank_limb(k, kind):
+    """A branch obstacle growing out of the RIGHT flank (the left is the mirror) and reaching over part of the path to
+    its tip angle LIMB_TIPS[kind] (the anchor is the top of the main branch). Kinds 0-2: a limb rising from behind the
+    silhouette and leaning over the bark, a curtain of leaf clusters hanging from it down to the bark (a wall: steer
+    round it to the free side), a dappled leaf-shadow on the bark it covers; kind 3: a low limb lying along the flank
+    (jump it or steer round it), with a few leafy twigs. Same bark, leaves and style as the outward branches."""
+    rng = random.Random(90 + kind)
+    tip = LIMB_TIPS[kind]
+    low = kind == 3
+    n = 36
+    prims, pts = [], []
+    a_end = tip - 2 if low else tip + 4
+
+    def bough(t):                                         # the tall ones: up out of the flank and in over the path
+        return 3.0 + 39.0 * t ** 0.85                  # rising steadily: the highest at its leafy end
+    for i in range(n):
+        t = i / (n - 1.0)
+        a = 95.0 - (95.0 - a_end) * t
+        if low:
+            r = 7.5 - 3.6 * t
+            h = r * 0.9
+            z = 2.5 * math.sin(t * 5 + 1)
+        else:
+            r = 10.0 - 6.0 * t
+            h = bough(t) + 1.5 * math.sin(t * 9)
+            z = -5.0 + 9.0 * t
+        x, y, _ = surf(a, h)
+        pts.append((x, y, z))
+        prims.append(Ell((x, y, z), (r, r * 0.95, r), R_BARKD, tex=bark_tex))
+    prims.append(Ell(surf(90.0, 0.5), (11.0, 6.0, 13.0), R_BARKD, tex=bark_tex))   # its collar at the flank
+    prims.append(Ell(surf(84.0, 0.0), (7.0, 3.0, 10.0), R_BARKD, tex=bark_tex))
+    for frac in (0.3, 0.62):                              # knobs
         q = np.array(pts[int(frac * (n - 1))])
-        r = limb_r(g, frac)
-        prims.append(Ell(q + np.array([0, r * 0.7, 0]), (r * 0.55, r * 0.5 * h, r * 0.55), R_BARKD, tex=bark_tex))
+        prims.append(Ell(q + np.array([0, 3.5, 0]), (3.0, 2.6, 3.0), R_BARKD, tex=bark_tex))
     end = np.array(pts[-1])
-    out = np.array([-1.0, 0.3, 0.4])                     # past the far side: twigs and leaves hanging over
-    prims += twigs_and_leaves(end, out, rng, 5, 20, 4.6)
-    prims += leaf_cluster(end + np.array([-7, 5, 4]), 26, 11, rng, size=5.0)
-    subs = ((0.3, [0.3, 1.0, 0.7], 3), (0.55, [0.0, 1.0, -0.5], 2), (0.75, [-0.4, 1.0, 0.4], 3))
-    if not arch:                                          # a low one: sideways, not up
-        subs = ((0.25, [0.3, 0.4, 1.0], 2), (0.7, [-0.3, 0.4, -1.0], 2))
-    for frac, d, m in subs:
-        prims += twigs_and_leaves(np.array(pts[int(frac * (n - 1))]), d, rng, m, 13 if arch else 11, 4.2)
-    return draw(prims, k, 0, None)
+    if low:
+        prims += twigs_and_leaves(end, [-0.6, 0.6, 0.5], rng, 3, 12, 4.0)
+        prims += twigs_and_leaves(np.array(pts[n // 2]), [0.2, 0.8, -0.8], rng, 2, 10, 3.8)
+    else:
+        prims += twigs_and_leaves(end, [-0.4, 0.4, 0.5], rng, 4, 14, 4.8)
+        prims += leaf_cluster(end + np.array([-3, 2, 3]), 16, 8.0, rng, size=5.2)
+        prims += twigs_and_leaves(np.array(pts[int(0.5 * (n - 1))]), [0.0, 1.0, 0.3], rng, 2, 12, 4.4)
+        a = a_end - 2.0                                   # strands of leaves hanging from it down to the bark
+        while a < 68.0:
+            t = (100.0 - a) / (100.0 - a_end)
+            hb = bough(min(1.0, t)) - 6.0
+            h = hb
+            while h > 2.0:
+                c = np.array(surf(a + rng.uniform(-1.5, 1.5), h)) + np.array([0, 0, 3.5 + rng.uniform(-1.5, 1.5)])
+                prims += leaf_cluster(c, 6, 4.0, rng, size=4.4)
+                h -= 8.5
+            a += 7.5
+
+    shadow_lo = tip - 3.0 if not low else tip - 2.0
+    zs = LIMB_DEPTH + 2.0 if not low else 6.0
+
+    def extra(px, anc, size, kk, rr):
+        ax, ay = anc
+        W, H = size
+        add = {}
+        for (x, y) in px:                                 # the house outline round the branch and its leaves
+            for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                q = (x + dx, y + dy)
+                if q not in px and 0 <= q[0] < W and 0 <= q[1] < H:
+                    add[q] = WOOD["out"]
+        px.update(add)
+        for Y in range(H):                                # the leaf-shadow on the bark it covers, dappled
+            for X in range(W):
+                if (X, Y) in px or (X + Y) % 2:
+                    continue
+                u = (X + 0.5 - ax) / kk
+                if not -BR < u < BR:
+                    continue
+                ang = math.degrees(math.asin(u / BR))
+                if ang < shadow_lo + 3.0 * math.sin(Y * 0.7):
+                    continue
+                yb = BR * math.cos(math.radians(ang)) - BR
+                z = ((ay - (Y + 0.5)) / kk - yb * nr.CE) / nr.SE
+                if abs(z) < zs + 1.5 * math.sin(X * 0.9) and _gap(X // 3, Y // 3):
+                    px[(X, Y)] = WOOD["dark"]
+    u0 = BR * math.sin(math.radians(shadow_lo))
+    return draw(prims, k, 0, ((u0 + BR) / 2, 0, (BR - u0) / 2, zs + 2), out=None, shadow_col=None, extra=extra)
+
+
+def _gap(i, j):
+    """the dapples of light through the leaves: a few holes in the leaf-shadow"""
+    return ((i * 7 + j * 13) % 11) > 1
 
 
 def outward_limb(k, kind):

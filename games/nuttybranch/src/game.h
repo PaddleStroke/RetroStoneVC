@@ -138,8 +138,8 @@ int32_t swing_ang(const world *w, const obj *o);               /* where its leav
 int  crow_at(const world *w, const obj *o, int32_t *s, int32_t *h);  /* its place (units) and height (Q8); 1 = there */
 int  grip_at(const world *w, int32_t s, int32_t ang);          /* 0 bark, 1 sap, 2 wet (s in units) */
 int32_t ob_solid(const world *w, const obj *o, int32_t *ang, int32_t *half);   /* a solid's height (Q8) now, 0 = none */
-/* a branch crossing the path (OB_TWIG; len 0 low, 1 an arch) round the squirrel's angle: 1 if it is there, with its
- * lowest and highest point (Q8 units over the bark) */
+/* a branch obstacle (OB_TWIG: side its flank, len its kind, LIMB_TIPS) over the squirrel at this angle (its width
+ * included): 1 if it is there, with its lowest and highest point (Q8 units over the bark) */
 int  limb_at(const obj *o, int32_t ang, int32_t *lo, int32_t *hi);
 
 /* ---- gen.c ------------------------------------------------------------------------------------------------------- */

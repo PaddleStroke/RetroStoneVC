@@ -244,7 +244,7 @@ static void test_world(void)
 static const int32_t CLS_H[NCLS] = {CATER_H, SNAKE_H, TWIG_H, OWL_H, CONE_H, KNOT_H, SWING_H, WEB_H, BEE_H, Q8(1000)};   /* 1000: no floor */
 typedef uint64_t mask;
 static mask cls[PLAN_MAX][NCLS];                    /* bins blocked by a thing of each height (the last: no floor) */
-static mask holdm[PLAN_MAX], forkb[PLAN_MAX], over[PLAN_MAX];   /* over: an arch above (no jumping there) */
+static mask holdm[PLAN_MAX], forkb[PLAN_MAX];
 static mask reach[PLAN_MAX + 64];
 static uint8_t busy[PLAN_MAX];
 static int32_t arc_tap[64], arc_held[64];
@@ -305,6 +305,8 @@ static void inject(world *w, int kind, int32_t s, int32_t ang, int32_t len)
     w->ob_count++;
 }
 
+static int plan_nojump;                               /* the planner may only steer (no jumps at all) */
+
 static plan_result plan(uint32_t seed, int start_m, int metres)
 {
     static world w;
@@ -324,7 +326,7 @@ static plan_result plan(uint32_t seed, int start_m, int metres)
         squirrel *q = &w.q[0];
         int32_t s = q->s >> 8;
         memset(cls[N], 0, sizeof cls[N]);
-        holdm[N] = forkb[N] = over[N] = 0;
+        holdm[N] = forkb[N] = 0;
         busy[N] = 0;
         int32_t curve = seg_curve(&w, s);
         for (int b = 0; b < BINS; b++) {
@@ -340,11 +342,8 @@ static plan_result plan(uint32_t seed, int start_m, int metres)
                 if (o->kind == OB_WEB && labs(ds) <= SQ_HALF_LEN + OB_LEN / 2 && labs(ang - o->ang) < WEB_HALF + SQ_HALF_ANG)
                     cls[N][cls_of(WEB_H)] |= bit;
                 int32_t lo, hi;
-                if (o->kind == OB_TWIG && labs(ds) <= SQ_HALF_LEN + 4 && limb_at(o, ang, &lo, &hi)) {
-                    if (lo == 0) cls[N][cls_of(TWIG_H)] |= bit;              /* a low branch: jump it */
-                    else if (lo < SQ_BODY_H) cls[N][cls_of(BEE_H)] |= bit;   /* an arch's foot: a wall */
-                    else over[N] |= bit;                                     /* under an arch: run, do not jump */
-                }
+                if (o->kind == OB_TWIG && labs(ds) <= SQ_HALF_LEN + LIMB_DEPTH && limb_at(o, ang, &lo, &hi))
+                    cls[N][cls_of(hi <= TWIG_H ? TWIG_H : BEE_H)] |= bit;   /* a low limb: jump it; else steer round */
                 int32_t oa, half, hh = ob_solid(&w, o, &oa, &half);
                 if (hh && labs(ds) <= SQ_HALF_LEN + OB_LEN / 2 && labs(ang - oa) < half + SQ_HALF_ANG) {
                     int k = cls_of(hh);
@@ -389,12 +388,12 @@ static plan_result plan(uint32_t seed, int start_m, int metres)
         /* jumps: only worth checking where something is coming */
         int any = 0;
         for (int i = 1; i <= n_held && f + i < N; i++) any |= busy[f + i];
-        if (!any) continue;
+        if (!any || plan_nojump) continue;
         for (int held = 0; held < 2; held++) {
             int n = held ? n_held : n_tap;
             const int32_t *A = held ? arc_held : arc_tap;
             mask J = R;
-            for (int i = 1; i < n && f + i < N && J; i++) J &= ~blocked_above(f + i, A[i]) & ~forkb[f + i] & ~over[f + i];
+            for (int i = 1; i < n && f + i < N && J; i++) J &= ~blocked_above(f + i, A[i]) & ~forkb[f + i];
             if (f + n >= N) { beyond |= J != 0; continue; }     /* lands after the planned stretch */
             mask land = 0;
             for (int k = 0; k < NCLS; k++) land |= cls[f + n][k];
@@ -460,6 +459,30 @@ static void test_fairness(int seeds, int metres)
     CHECK(!plan(7, 300, 120).ok, "the planner refuses a wall of webs across the branch");
     inject_kind = 0;
     CHECK(bad == 0, "every generated stretch is survivable with human limits (%d unfair)", bad);
+    /* the branch obstacles alone (each out of one flank, single or in slaloms, every reach): passable by steering
+     * alone, no jump at all */
+    gen_force = gen_kind_of("twig");
+    plan_nojump = 1;
+    int nb = 0, nl = 0;
+    for (int i = 0; i < seeds / 4; i++) {
+        uint32_t seed = 0x85ebca6bu * (uint32_t)(i + 1);
+        int start = (i * 131) % 2400;
+        plan_result r = plan(seed, start, metres);
+        if (!r.ok) {
+            if (nb < 8) printf("  FAIL branches only, seed %u start %d m: no way round after frame %d (about %d m)\n", seed,
+                               start, r.fail_f, r.fail_m);
+            nb++;
+        }
+        static world wc;                                  /* count the branches met */
+        world_init_at(&wc, 1, seed, start);
+        gen_fill(&wc, (start + metres) * UNITS_PER_M);
+        for (int k = 0; k < wc.ob_count; k++) nl += ob_get(&wc, k)->kind == OB_TWIG;
+    }
+    printf("  branches only: %d of %d stretches passable by steering alone, no jump (%d branches)\n", seeds / 4 - nb,
+           seeds / 4, nl);
+    plan_nojump = 0;
+    gen_force = -1;
+    CHECK(nb == 0, "every branch layout is passable by steering round it (%d not)", nb);
 }
 
 int main(int argc, char **argv)

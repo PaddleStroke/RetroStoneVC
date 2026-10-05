@@ -192,39 +192,15 @@ int grip_at(const world *w, int32_t s, int32_t ang)
     return g;
 }
 
-/* a crossing branch at one angle (Q12 degrees) round the branch: 1 if it is there; its lowest and highest point */
-static int limb_point(const obj *o, int32_t a, int32_t *lo, int32_t *hi)
-{
-    int arch = o->len != 0, span = arch ? LIMB_ARCH_SPAN : LIMB_LOW_SPAN;
-    int64_t t = ((int64_t)ANG(LIMB_ROOT) - (int64_t)o->side * a) * 65536 / ((int64_t)span * 4096);   /* 0..65536 */
-    if (t < 0 || t > 65536) return 0;
-    int32_t hc, r;
-    if (arch) {
-        hc = Q8(4) + (int32_t)((int64_t)Q8(30) * sin_q14((int32_t)((int64_t)ANG(180) * t / 65536)) / 16384);
-        r = Q8(8) - (int32_t)((int64_t)Q8(3.5) * t / 65536);
-    } else {                                         /* lying on the bark near its root, rising a little */
-        int64_t t2 = t * 2 > 65536 ? 65536 : t * 2;
-        r = Q8(7.5) - (int32_t)((int64_t)Q8(3.7) * t / 65536);
-        hc = r + Q8(0.5) + (int32_t)((int64_t)Q8(2) * sin_q14((int32_t)((int64_t)ANG(90) * t2 / 65536)) / 16384);
-    }
-    *lo = arch ? hc - r : 0;                         /* a low one blocks from the bark up */
-    *hi = hc + r;
-    return 1;
-}
-
+/* a branch out of one flank, over the squirrel's angle (its width included): from the tip to the flank */
 int limb_at(const obj *o, int32_t ang, int32_t *lo, int32_t *hi)
 {
-    int found = 0;
-    *lo = 1 << 30;
-    *hi = 0;
-    for (int k = -1; k <= 1; k++) {                  /* the squirrel's width */
-        int32_t l, h;
-        if (!limb_point(o, ang + k * SQ_HALF_ANG, &l, &h)) continue;
-        found = 1;
-        if (l < *lo) *lo = l;
-        if (h > *hi) *hi = h;
-    }
-    return found;
+    static const int8_t tips[LIMB_KINDS] = LIMB_TIPS;
+    int k = o->len >= 0 && o->len < LIMB_KINDS ? (int)o->len : 0;
+    if (o->side * ang + SQ_HALF_ANG <= ANG(tips[k])) return 0;
+    *lo = 0;
+    *hi = k == LIMB_LOW ? LIMB_LOW_H : LIMB_WALL_H;
+    return 1;
 }
 
 int32_t ob_solid(const world *w, const obj *o, int32_t *ang, int32_t *half)
@@ -505,9 +481,9 @@ static void contacts(world *w, squirrel *q, int p)
             }
             continue;
         }
-        if (o->kind == OB_TWIG) {                    /* a branch across the path: over it, under it, or into it */
+        if (o->kind == OB_TWIG) {                    /* a branch out of a flank: round it (or over a low one) */
             int32_t lo, hi;
-            if (iabs(ds) <= SQ_HALF_LEN + 4 && limb_at(o, q->ang, &lo, &hi) && q->h < hi && q->h + SQ_BODY_H > lo) {
+            if (iabs(ds) <= SQ_HALF_LEN + LIMB_DEPTH && limb_at(o, q->ang, &lo, &hi) && q->h < hi && q->h + SQ_BODY_H > lo) {
                 fall(q, FALL_CRASH);
                 q->hit_kind = o->kind;
                 w->events[p] |= EV_HIT;

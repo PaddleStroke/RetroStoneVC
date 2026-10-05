@@ -20,7 +20,7 @@
 #define DEG(x) ((x) * 4096)
 
 typedef struct seen { int kind; int32_t z, ang, half, h; } seen;   /* z Q8 units, ang Q12 deg */
-enum { K_NUT, K_TWIG, K_KNOT, K_WEB, K_SAP, K_HOLE, K_CATER, K_CONE, K_OWL, K_STUMP, K_GAP, K_BEES, K_SWING, K_ARCH };
+enum { K_NUT, K_TWIG, K_KNOT, K_WEB, K_SAP, K_HOLE, K_CATER, K_CONE, K_OWL, K_STUMP, K_GAP, K_BEES, K_SWING };
 
 static seen sn[SEEN_MAX];
 static int nsn;
@@ -98,8 +98,6 @@ static void add_seen(int kind, int x, int y, int32_t half, int32_t h, int has_an
     sn[nsn++] = (seen){kind, z, a, half, h};
 }
 
-/* the scale (Q8 px per unit) of a sprite's pre-drawn size: what its size says about its distance */
-static const int lod_k[8] = {410, 294, 212, 154, 110, 79, 56, 41};
 
 static int in_set(int f, int id, int n) { return f >= id && f < id + n; }
 
@@ -140,10 +138,11 @@ static int look(int player, int *fx, int *fy, int *air)
         }
         if (in_set(f, SPR_ACORN, NFR_ACORN) || in_set(f, SPR_HAZEL, NFR_HAZEL) || in_set(f, SPR_WALNUT, NFR_WALNUT))
             add_seen(K_NUT, x, y, 0, 0, 0, 0);
-        else if (in_set(f, SPR_LIMB, NFR_LIMB)) {          /* a branch across: low (jump it) or an arch (run under) */
-            int arch = f - SPR_LIMB >= LODS - 1, side = flip ? -1 : 1;
-            if (arch) add_seen(K_ARCH, x, y, 0, 0, 1, side);
-            else add_seen(K_TWIG, x, y, TWIG_HALF, TWIG_H, 1, side * DEG(21));
+        else if (in_set(f, SPR_LIMB, NFR_LIMB)) {          /* a branch out of one flank: its look tells its reach */
+            static const int8_t tips[LIMB_KINDS] = LIMB_TIPS;
+            int k = (f - SPR_LIMB) / (LODS - 1), side = flip ? -1 : 1;
+            add_seen(K_TWIG, x, y, DEG(90 - tips[k]) / 2, k == LIMB_LOW ? LIMB_LOW_H : LIMB_WALL_H, 1,
+                     side * DEG(90 + tips[k]) / 2);
         } else if (in_set(f, SPR_KNOT, NFR_KNOT)) add_seen(K_KNOT, x, y, KNOT_HALF, KNOT_H, 0, 0);
         else if (in_set(f, SPR_WEB, NFR_WEB)) add_seen(K_WEB, x, y, WEB_HALF, WEB_H, 0, 0);
         else if (in_set(f, SPR_SNOW, NFR_SNOW)) add_seen(K_KNOT, x, y, SNOW_HALF, SNOW_H, 0, 0);
@@ -155,7 +154,7 @@ static int look(int player, int *fx, int *fy, int *air)
         else if (in_set(f, SPR_BIGSHADOW, NFR_BIGSHADOW)) add_seen(K_OWL, x, y, OWL_HALF, OWL_H, 0, 0);
         else if (in_set(f, SPR_BEE, NFR_BEE)) add_seen(K_BEES, x, y + 4, BEE_HALF / 2, BEE_H, 0, 0);
         else if (in_set(f, SPR_SWING, NFR_SWING)) {           /* hanging from its pivot: its frame is its swing */
-            int k = lod_k[1 + (f - SPR_SWING) % 7], ai = (f - SPR_SWING) / 7;
+            int k = gm_lod_q8[1 + (f - SPR_SWING) % (LODS - 1)], ai = (f - SPR_SWING) / (LODS - 1);   /* its size: its distance */
             int deg = ai * 15 - SWING_AMP;
             int32_t lat = (int32_t)((int64_t)SWING_LEN * sin_q14(DEG(deg)) / BRANCH_R);   /* Q14 */
             add_seen(K_SWING, x, y + (((SWING_PIVOT >> 8) * k) >> 8), SWING_HALF, SWING_H, 1, asin_q12(lat));
@@ -238,18 +237,8 @@ void bot_decide(int player, sq_input *in)
                 continue;
             }
             if (o->kind == K_GAP || o->kind == K_SWING) continue;     /* jumped, wherever they are */
-            if (o->kind == K_ARCH) {
-                obj fo;
-                memset(&fo, 0, sizeof fo);
-                fo.kind = OB_TWIG;
-                fo.len = 1;
-                fo.side = (int8_t)o->ang;
-                int32_t lo, hi;
-                if (limb_at(&fo, cand, &lo, &hi) && lo < SQ_BODY_H + Q8(3)) cost += 3000 + (80 - t) * 30;
-                continue;
-            }
-            if (o->kind == K_BEES) {
-                if (d < o->half + DEG(16)) cost += 3000 + (80 - t) * 30;
+            if (o->kind == K_BEES || (o->kind == K_TWIG && o->h > Q8(32))) {   /* too high to jump: round it */
+                if (d < o->half + (o->kind == K_BEES ? DEG(16) : SQ_HALF_ANG + DEG(7))) cost += 3000 + (80 - t) * 30;
                 continue;
             }
             int32_t margin = o->half + DEG(12) + (o->kind == K_CATER || o->kind == K_OWL ? DEG(10) : 0);
@@ -272,10 +261,7 @@ void bot_decide(int player, sq_input *in)
         hold_left[player]--;
         in->jump_held = 1;
     }
-    int under = 0;                                  /* an arch coming: no jumping under it */
-    for (int i = 0; i < nsn; i++)
-        if (sn[i].kind == K_ARCH && sn[i].z - zs > -Q8(8) && (sn[i].z - zs) / (v > 0 ? v : 256) < 40) under = 1;
-    if (!air && cool[player] == 0 && !under) {
+    if (!air && cool[player] == 0) {
         for (int i = 0; i < nsn; i++) {
             const seen *o = &sn[i];
             int32_t dz = o->z - zs;
@@ -290,7 +276,7 @@ void bot_decide(int player, sq_input *in)
                 }
                 continue;
             }
-            if (o->kind == K_NUT || o->kind == K_SAP || o->kind == K_WEB || o->kind == K_BEES || o->kind == K_ARCH) continue;
+            if (o->kind == K_NUT || o->kind == K_SAP || o->kind == K_WEB || o->kind == K_BEES || o->h > Q8(32)) continue;
             int32_t margin = o->half + SQ_HALF_ANG + DEG(3);
             if (o->kind == K_CATER) margin += DEG(14);          /* it crawls: jump it rather than guess */
             if (o->kind != K_OWL && o->kind != K_SWING && iabs32(pred - o->ang) >= margin && iabs32(ang - o->ang) >= margin)

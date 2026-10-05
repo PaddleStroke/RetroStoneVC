@@ -51,7 +51,7 @@ scene crow 1000 280
 scene shower 1000 150
 scene rain 1000 150
 scene hole 1000 136
-run --frames 210 --opt bot=1 --opt seed=3 --opt ready=1 --opt only=twig --opt start=1000 --shot 205:"$O/trap-arch.png"
+run --frames 275 --opt bot=1 --opt seed=3 --opt ready=1 --opt only=twig --opt start=1000 --shot 270:"$O/trap-twig-right.png"
 # the four forests behind (BG_STYLE in src/tuning.h, --opt bg=a..d), the same moment of the same run
 for b in a b c d; do
     run --frames 310 --opt bot=1 --opt seed=5 --opt ready=1 --opt start=1000 --opt bg=$b --shot 300:"$O/bg-$b.png"
@@ -76,7 +76,7 @@ if [ -n "$f" ]; then
 else
     ko "the 4-player bot run for the results did not end"
 fi
-shots="title title-2-players title-3-players title-4-players play pause summer autumn dusk night winter race-2-players play-4-players gameover-medal results-4-players trap-gap trap-fork trap-pecker trap-web trap-cater trap-sap trap-knot trap-cone trap-wind trap-owl trap-twig trap-snake trap-swing trap-bees trap-snow trap-crow trap-shower trap-rain trap-hole trap-arch scenery bg-a bg-b bg-c bg-d"
+shots="title title-2-players title-3-players title-4-players play pause summer autumn dusk night winter race-2-players play-4-players gameover-medal results-4-players trap-gap trap-fork trap-pecker trap-web trap-cater trap-sap trap-knot trap-cone trap-wind trap-owl trap-twig trap-snake trap-swing trap-bees trap-snow trap-crow trap-shower trap-rain trap-hole trap-twig-right scenery bg-a bg-b bg-c bg-d"
 n=0
 for s in $shots; do
     n=$((n + 1))

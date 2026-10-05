@@ -154,7 +154,7 @@ def sprite_defs():
     d.append(("acorn", "col", lods(P.acorn), 0))
     d.append(("hazel", "col", lods(P.hazel), 0))
     d.append(("walnut", "col", lods(P.walnut), 0))
-    d.append(("limb", "wood", [P.crossing_limb(k, arch) for arch in (0, 1) for k in L1], 0))
+    d.append(("limb", "wood", [P.flank_limb(k, kind) for kind in range(4) for k in L1], 0))
     d.append(("side", "wood", [P.outward_limb(k, kind) for kind in range(3) for k in L2], 0))
     d.append(("knot", "wood", tilted(P.burl), 0))
     d.append(("web", "col", tilted(P.web), 0))

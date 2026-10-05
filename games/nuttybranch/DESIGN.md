@@ -115,8 +115,8 @@ a gap (Celeste's grace windows).
   depths below, one colour per line), all in the scene palette so every style follows the seasons and the time of
   day: **a** a deep forest (tall trunks in two depths, misty far ones, dappled light, vines), **b** a sunlit canopy
   (a thick roof of leaves, leafy strands hanging, shafts of light), **c** misty pines (layered silhouettes fading
-  into the mist), **d** birches and beeches (white trunks with dark dashes, round crowns, a bright sky): the
-  default, the white trunks setting off the dark bark. `docs/screenshots/bg-a.png` .. `bg-d.png`: the same moment.
+  into the mist; the owner's choice, the default), **d** birches and beeches (white trunks with dark dashes,
+  round crowns, a bright sky). `docs/screenshots/bg-a.png` .. `bg-d.png`: the same moment.
   BG1 the house UI.
 - **Things on the bark** (`tools/nb_render.py`, `tools/nb_props.py`): every prop is built from ellipsoids in 3D on
   the bark (x across, y up the normal, z along the branch) and ray-cast from the game's own camera (looking down
@@ -129,14 +129,16 @@ a gap (Celeste's grace windows).
   hold a long stretch of a turning branch but shows one centre) and is not drawn on a line without bark. Big frames
   are cut into pieces of 32x32 trimmed to their tiles. **Tested** (`tests/lod_test.sh`, `--opt lodcheck=1`): over
   18 runs (3 whole courses, 15 trap kinds alone) every object's drawn size, sampled every frame, only ever steps to
-  the next larger size (23841 steps, none shrinking, none skipping a size, always the nearest size), and every
-  anchor of a thing on the bark or growing out of it is drawn on a line with bark within the branch's span (200032
-  anchors, 0 off; 7818 of them kept on their line near crests and the horizon).
-- **Branches**: one style for all, big, knobbly, tapering, curving, with sub-branches, full leaf clusters and the
-  bark's own speckle. The **crossing** ones grow out of a flank, from behind its silhouette with a collar, and lie
-  low over the path (jump them) or arch high over it (run under; no jumping there), meandering a little round the
-  shape the game collides with (`play.c limb_point`), with a contact shadow along a low one. The **outward** ones
-  (scenery) are drawn behind the branch layer, so they grow out from behind the silhouette at every distance.
+  the next larger size (25275 steps, none shrinking, none skipping a size, always the nearest size), and every
+  anchor of a thing on the bark or growing out of it is drawn on a line with bark within the branch's span (199966
+  anchors, 0 off; 7780 of them kept on their line near crests and the horizon).
+- **Branches**: one style for all, big, knobbly, tapering, with sub-branches, full leaf clusters and the bark's own
+  speckle. The **obstacles** (`nb_props.py flank_limb`) grow out of ONE flank, from a collar at its silhouette, and
+  reach over PART of the path (the owner's playtest: a branch across the whole width, or an arch, cannot be
+  avoided): a bough rising steadily from the flank to its leafy end, strands of leaves hanging from it down to the
+  bark (a wall), a dappled leaf-shadow on the bark it covers, the other side bare and in the light; or a low limb
+  lying along a flank. The **outward** ones (scenery) are drawn behind the branch layer, so they grow out from
+  behind the silhouette at every distance.
 - **Streamed sprite tiles**: with 16 sizes and 3 tilts there are 13309 sprite tiles, far more than VRAM. Only the
   small effects stay resident (18 tiles); every other frame (the squirrels too) is copied into a 502-tile pool when
   it is first drawn and stays there while it is on screen (`draw.c pool_get`: first fit, the frames not drawn this
@@ -150,7 +152,7 @@ a gap (Celeste's grace windows).
 Decorations never touch the rules and come from their own RNG (the course is the same with or without them):
 - **side branches** grow out of both flanks every 160-400 units (leafy and reaching up, long and low, or carrying
   a bird's nest), from behind the silhouette (drawn behind the branch layer), never by a gap, a knot-hole, a fork
-  or a crossing branch; kept off the far end of the branch (beyond 1200 units) where the traps appear;
+  or a branch obstacle; kept off the far end of the branch (beyond 1200 units) where the traps appear;
 - **leaves overhead**: clumps hanging from limbs above, with moss or vines, 70-170 units to the side and 120-170 up,
   only within 700 units (they come in over the top of the screen, never over the far branch);
 - **bracket fungi** on the flanks, the bees' **hive** under a limb, the swinging branch's limb;
@@ -164,8 +166,8 @@ unlock and densities rise with distance (`UNLOCK_*` in tuning.h).
 
 | Kind | What | How to beat it | Height | Unlock |
 |---|---|---|---|---|
-| crossing branch | a big branch out of one flank lying low across the path to -40 degrees, sub-branches and leaves | tap jump | 16 | 0 m |
-| arch | the same branch arching high over the path from flank to flank (its feet low at the sides) | run under it near the top (no jumping there) | feet | 160 m |
+| branch | a branch out of ONE flank, its leaves hanging to the bark, over part of the path: short (from the flank to 30 degrees on its side), to near the top (8 degrees short of it, 80 m), past the top (14 degrees, 220 m); singles, or slaloms one side then the other, 66-104 frames apart | steer round it to the free side (with gravity pulling there: the risk) | wall | 0 m |
+| low limb | a limb lying along one flank, to 26 degrees | steer round it, or tap jump it | 14 | 0 m |
 | knot | a raised burl of the branch's own bark, knobbly, ringed | held jump, or go round | 24 | 60 m |
 | crow | lands at the far end of a line of nuts and eats its way toward you; flies off when you come near | get there first (harmless) | - | 200 m |
 | gap | the branch is broken: a missing length of 14-22 frames at the current speed; torn bark teeth at both ends, the dark broken face hanging under the far one | jump (held for the long ones) | - | 120 m |
@@ -192,7 +194,9 @@ outside edge. Consecutive nuts within `COMBO_FRAMES` raise the crunch's pitch.
 **Fairness** (`tests/test_physics.c`): for thousands of seeds and start distances, a planner with human limits
 (a lateral speed of at most 70% of the steering terminal speed, a reaction time, holding the angle only where the
 steer beats the pull with a margin, the wind and the curve force included) must find a way through every generated
-stretch: a dynamic programme over (frame, angle) with running and jumping moves. Chunks also respect by
+stretch: a dynamic programme over (frame, angle) with running and jumping moves; the branches out of a flank are
+walls (steer round them), and the branch groups alone (500 stretches, 10313 branches, every reach, singles and
+slaloms) must be passable by steering only, with no jump at all. Chunks also respect by
 construction: every gap shorter than the held jump at that speed minus 10 frames; never two jump obstacles closer
 than a jump plus `LAND_FRAMES`; a fork's dead branch is visibly broken long before the split; no gust over sap.
 
@@ -259,25 +263,26 @@ acorn's bonk, the rain's patter, the swinging branch's swish; the house set for 
   sprites a line), determinism of scripted and bot runs with 1 and 4 players (state hash and picture).
 - the bot (`src/bot.c`, the screen only: OAM, recognised by the frame its tiles hold, and the branch layer's per-line
   registers, a gap's broken face told from bark by its texture column): in the check, 12 seeds x 4 minutes, the
-  median must reach 1000 m: min 1071 / median 1691 / mean 1532 / max 1764 m, 6 runs at the cap, 6 crashes.
+  median must reach 1000 m: min 893 / median 1748 / mean 1614 / max 1757 m, 10 runs at the cap, 2 crashes.
 - the UI screens (the title with 0-3 players joined, play, pause, the five times of day, 2 and 4 players, the
-  game over with a medal, the 4-player results, each of the 20 traps, the scenery, the four forests: 40 screens),
+  game over with a medal, the 4-player results, each of the 19 traps, a branch on each side, the scenery, the four forests: 40 screens),
   save states (title, lobby, a run, a race, 4 players, deep in the night, paused, the game over, the results;
   replayed in the same and in a fresh process), the audit.
 - the props' sizes and anchors (`tests/lod_test.sh`) and the bark's furrows on screen (`tests/furrow_test.sh`):
   above.
-- **Frame cost** (`tests/bench_test.sh`, `make nuttybranch-bench`, 2100 frames each, music on): 1 player 0.49-0.50
+- **Frame cost** (`tests/bench_test.sh`, `make nuttybranch-bench`, 2100 frames each, music on): 1 player 0.49
   ms per frame on the host (update + draw 18 us, the PPU 0.47 ms: the affine branch layer decoded per pixel,
-  clipped by window 1, two background layers and up to 54 sprites, 18 on a line), 4 players 0.52-0.57 ms; the A20
-  estimate (x15-20) is **7.4-11.4 ms of the 16.7 ms** frame.
+  clipped by window 1, two background layers and up to 54 sprites, 18 on a line), 4 players 0.51-0.55 ms; the A20
+  estimate (x15-20) is **7.3-11.0 ms of the 16.7 ms** frame.
 
 ## Screenshots
 `docs/screenshots/` (`make nuttybranch-screenshots`, 2x): title, title-2/3/4-players, play, pause, summer, autumn,
 dusk, night, winter, race-2-players, play-4-players, gameover-medal, results-4-players, and one per trap:
 trap-gap, trap-fork, trap-pecker, trap-web, trap-cater, trap-sap, trap-knot, trap-cone, trap-wind, trap-owl, trap-twig
-(a crossing branch), trap-arch, trap-hole, trap-snake, trap-swing, trap-bees, trap-snow, trap-crow, trap-shower,
+and trap-twig-right (a branch out of the left, of the right flank), trap-hole, trap-snake, trap-swing, trap-bees, trap-snow, trap-crow, trap-shower,
 trap-rain; scenery (side branches, leaves overhead); bg-a .. bg-d (the four forests, the same moment);
-before-after-branch (the bark and props rework), before-after-gap, before-after-crossing-branch and
+before-after-branch (the bark and props rework), before-after-branch-obstacle (a branch across the whole path,
+then a branch out of one flank), before-after-gap and
 before-after-hole (the second rework: the same trap, the same seed, before and after).
 
 ## Sources

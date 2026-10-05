@@ -129,7 +129,8 @@
 /* when each kind first appears, metres */
 #define UNLOCK_KNOT   60
 #define UNLOCK_KNOTHOLE 100
-#define UNLOCK_ARCH   160
+#define UNLOCK_LIMB1  80                   /* a branch to near the top */
+#define UNLOCK_LIMB2  220                  /* a branch past the top, slaloms closer */
 #define UNLOCK_GAP    120
 #define UNLOCK_SAP    180
 #define UNLOCK_WEB    250
@@ -146,18 +147,22 @@
 #define UNLOCK_RAIN   850
 #define UNLOCK_BEES   950
 
-/* the branches that cross the path (the same geometry as tools/nb_props.py crossing_limb): out of the flank at
- * LIMB_ROOT degrees, their centre at side * (LIMB_ROOT - span * t) degrees and hc(t) units over the bark, radius r(t) */
-#define LIMB_ROOT     82
-#define LIMB_LOW_SPAN 122                  /* a low one, to -40 degrees: hc = 3 + 5 sin(min(1, 2t) pi/2): jump it */
-#define LIMB_ARCH_SPAN 137                 /* a high arch, to -55 degrees: hc = 4 + 30 sin(pi t): run under it */
-#define SQ_BODY_H     Q8(18)               /* the squirrel's height (what hits an arch overhead) */
-#define TWIG_HALF     ANG(61)              /* (the planner's and bot's view of a low limb: its whole span) */
+/* the branch obstacles (tools/nb_props.py flank_limb): a branch grows out of ONE flank and reaches over part of the
+ * path, to its tip angle (degrees on its own side: + toward its flank, - past the top); the other side stays free:
+ * steer round it. Kinds: 0 short (only the flank), 1 to near the top, 2 past the top, 3 a low limb lying along the
+ * flank (it can be jumped too). The tall ones are walls of leaves (no jumping them); nothing is to be run under. */
+#define LIMB_TIPS     {30, 8, -14, 26}
+#define LIMB_KINDS    4
+#define LIMB_LOW      3                    /* the low kind */
+#define LIMB_WALL_H   Q8(60)               /* a tall one: leaves from the bark up past any jump */
+#define LIMB_LOW_H    Q8(14)               /* the low one's top */
+#define LIMB_DEPTH    10                   /* units along the branch either side of its place: the leaves' depth */
+#define SQ_BODY_H     Q8(18)               /* the squirrel's height */
 #define TWIG_H        Q8(16)
 #define KNOTHOLE_HALF ANG(15)              /* a knot-hole sunk in the bark: falling into it is the end */
 #define KNOTHOLE_LEN  26
-#define BG_STYLE      3                    /* the forest behind: 0 a deep forest, 1 a sunlit canopy, 2 misty pines,
-                                            * 3 birches and beeches (--opt bg=a..d) */
+#define BG_STYLE      2                    /* the forest behind: 0 a deep forest, 1 a sunlit canopy, 2 misty pines
+                                            * (the owner's choice), 3 birches and beeches (--opt bg=a..d) */
 #define KNOT_HALF     ANG(16)
 #define KNOT_H        Q8(24)
 #define WEB_HALF      ANG(22)
