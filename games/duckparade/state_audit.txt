@@ -18,3 +18,6 @@ draw.q_rank         ... the rank of the next queued sprite (RK_KEEP between two 
 draw.line_n         spr_flush's scratch: sprites per line, counted again every frame
 draw.keep           ... the sprites kept
 draw.order          ... the sprites sorted by rank
+draw.nq0            ... the 4:3 screen's sprites in it (0 between two frames; widescreen)
+draw.spr_ui_dx      set and reset within one spr_ui() call: always 0 between two frames
+draw.redraw_ui      transient: set by draw_state_loaded() after a state of another width, consumed by the next draw

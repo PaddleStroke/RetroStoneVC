@@ -51,5 +51,16 @@ run --frames 1400 --opt bot=2 --opt players=2 --opt ready=1 --opt seed=6 --shot 
 run --frames 130 --opt players=2 --shot 120:"$O/title-2-players.png"
 run --frames 130 --opt players=4 --shot 120:"$O/title-4-players.png"
 run --frames 900 --opt players=4 --opt bot=4 --opt ready=1 --opt seed=6 --shot 800:"$O/coop-4-players.png"
+# widescreen (DESIGN.md "Widescreen"): the title, a run, the game over (the fox) at 427 (16:9) and 520 (19.5:9)
+# columns, and four parents at 520
+for w in 427 520; do
+    run --width $w --frames 130 --shot 120:"$O/title-$w.png"
+    run --width $w --frames 1200 --opt bot=1 --opt ready=1 --opt seed=9 --shot 1100:"$O/play-$w.png"
+    run --width $w --frames 3000 --opt bot=1 --opt ready=1 --opt seed=5 --opt botstop=30
+    over=$(sed -n 's/.*run 1 over at frame \([0-9]*\).*/\1/p' "$T/log.txt")
+    run --width $w --frames $((over + 60)) --opt bot=1 --opt ready=1 --opt seed=5 --opt botstop=30 \
+        --shot $((over + 50)):"$O/gameover-$w.png"
+done
+run --width 520 --frames 900 --opt players=4 --opt bot=4 --opt ready=1 --opt seed=6 --shot 800:"$O/coop-4-players-520.png"
 rm -rf "$T"
 ls "$O"

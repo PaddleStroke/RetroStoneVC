@@ -83,11 +83,21 @@ static void take_spawns(world *w)
     L->nsp = 0;
 }
 
+/* Widescreen: the columns are generated up to the REAL right edge (screen_cols()) and 14 more, at most RING - 16
+ * ahead (the ring keeps the columns just behind the camera). The generator makes the same columns whenever it is
+ * asked (its judge's times come from the unit, not the frame), so the world is the same at every width: a wider
+ * screen only sees it sooner. */
+static int gen_ahead(void)
+{
+    int n = screen_cols() + 14;
+    return n < RING - 16 ? n : RING - 16;
+}
+
 static void generate(world *w, int urgent)
 {
     int32_t cam_col = world_cam_px(w) / CELL;
-    lanes_generate(&w->L, cam_col + SCREEN_COLS + 14, 1);
-    if (urgent || w->L.g.next_col < cam_col + SCREEN_COLS + 3) lanes_generate(&w->L, cam_col + SCREEN_COLS + 3, -1);
+    lanes_generate(&w->L, cam_col + gen_ahead(), 1);
+    if (urgent || w->L.g.next_col < cam_col + screen_cols() + 3) lanes_generate(&w->L, cam_col + screen_cols() + 3, -1);
     take_spawns(w);
 }
 
@@ -107,7 +117,7 @@ void world_init(world *w, int players, uint32_t seed)
     w->seed = seed;
     w->players = players;
     lanes_init(&w->L, seed);
-    lanes_generate(&w->L, SCREEN_COLS + 14, -1);
+    lanes_generate(&w->L, gen_ahead(), -1);
     take_spawns(w);
     /* the parents line up in the start column: Mother in the middle, Father 2 rows below, P3 2 above, P4 4 below
      * (the cells between them are cleared: the meadow stays connected) */

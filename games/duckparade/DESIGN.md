@@ -29,7 +29,7 @@ The screen is 320x240 (4:3 landscape), so the crossing runs **left to right**:
 |---|---|---|
 | BG1 | UI (the house kit: font, panels, banners, the title logo, the HUD's text; priority 1) | fixed |
 | BG2 | rows 0-1: the **sky band**, high priority, over the world's sprites (cars entering the field slide in under it); its sky entry is the house raster gradient (the raster callback sets it line by line) and a band of clouds drifts at 1/4 of the camera. Rows 2-29: **cloud shadows** drifting over the field, low priority, blended half and half with it (colour math) | band: per-line scroll; shadows: camera + wind |
-| BG3 | the lanes, top-down, drawn column by column into a 32-column ring as the camera moves: grass with flowers and trees, asphalt with dashes and kerbs, bike lanes, rails on sleepers, sandy park paths, rapids (the tiles shift with the current, like the logs), lily ponds, nest ponds with reeds and the nest | camera |
+| BG3 | the lanes, top-down, drawn column by column into a 32-column ring (64 on a wide screen) as the camera moves: grass with flowers and trees, asphalt with dashes and kerbs, bike lanes, rails on sleepers, sandy park paths, rapids (the tiles shift with the current, like the logs), lily ponds, nest ponds with reeds and the nest | camera |
 | OBJ | ducks, ducklings, shadows, cars, bikes, buses, joggers, lawnmowers, logs, lily pads, the swan boat, the train, the crossing lights, the fox, splashes, feathers, hearts, the HUD digits and icons, the egg medals | |
 
 Palettes: BG 0 the UI (kit), 1 grass, 2 roads, 3 rapids, 4 railways and paths, 5 the logo (kit), 6 ponds, 7
@@ -37,6 +37,36 @@ the sky band and the shadows. OBJ 0 Mother Duck, 1 Father Duck (the same tiles),
 kit (digits, glyphs) and our egg medals (drawn with its palette), 4-5 traffic, 6 river things, 7 the train, the
 lights and the fox. The title hazes the field (colour math with a light fixed colour) behind the logo; a
 banking flashes it (added white, fading); the fox's warning tints the left edge red (the window and the fog).
+
+## Widescreen (docs/spec.md "Widescreen")
+The game opts in (`max_width` = 560, `WIDESCREEN_duckparade = 1`): 320 (4:3) is unchanged pixel for pixel; at 427
+(16:9) or 520 (phones) **the world is simply revealed wider**, to the right (20 columns at 320, 27 at 427, 33 at 520).
+- The stage origin stays 0. **The rules are those of 320 columns**: the camera (Mother at column 8, the creep, co-op's
+  leader eased back to column 12 and never right of 16), the fox on the left edge, where a knocked-off duckling flies
+  (the nearest grass within 20 columns). A wider screen only sees further ahead: a little easier, accepted (no
+  compensation).
+- **The world is world content.** The generator makes columns up to the REAL right edge plus 14 (at most 48 ahead:
+  the 64-column ring keeps the columns just behind the camera); it makes the same columns whenever it is asked (its
+  judge's times come from the unit, not the frame), so the lanes, the ducklings and the nest ponds are the same at
+  every width, only seen sooner.
+- The field (BG3) and the sky band and cloud shadows (BG2) are 128-tile maps on a wide screen (64 at 320): the field
+  goes round 64 map slots, the band's clouds go on over 1024 px (`tiles/sky-wide.png`, the classic band's next 512 px:
+  21 more tiles, loaded only on a wide screen; the cloud cut at the classic band's edge continues there), the
+  shadows' 256-px pattern repeats as at 320.
+- The UI (title, logo, prompt, the sky band's HUD, the photo, panels, results, pause) is centred: the UI layer scrolls
+  by -hu_ui_x() and the game's UI sprites (the HUD's icons, the parents' heads, the egg medals, the marching family,
+  the photo) add hu_ui_x(). The UI layer is 128 tiles wide beyond 512 columns.
+- **The sprite budget keeps the 4:3 screen as it was**: the sprites a 320-column screen shows (x < 320; the UI's at
+  their UI x) are queued and kept first, with the 4:3 rules (256 in the queue, 32 on a line), then the wider screen's
+  with what is left (128 in all, 32 per 320 columns on a line). So **the bot**, which looks at the 4:3 part of the
+  screen (sprites at x < 320, the 22 columns of the map), decides the same at every width: tests/wide_test.sh compares
+  the whole logs and states at 320, 427, 520 and 560 (solo, from the title, co-op, four parents to the results).
+- Save states load at any width: a state of another width brings maps of another size, so `state_loaded` sets them up
+  again (the sky, the field redrawn from the world, the UI, the photo and PAUSED on the next frame); live width
+  changes (`--resize`) go on exactly as the run that never changed.
+- `make duckparade-check` runs the smoke, UI and state tests again at each width of WIDTHS (427 520), then
+  tests/wide_test.sh and the language test at 320, 427 and 520. Screenshots: `title-`, `play-`, `gameover-427.png`
+  and `-520.png`, `coop-4-players-520.png`.
 
 ## Controls
 | Button | Action |

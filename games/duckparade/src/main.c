@@ -192,7 +192,7 @@ static void sounds(void)
     if (bell_t > 0) bell_t--;
     else {
         int c0 = cam >> 4;
-        for (int32_t c = c0; c <= c0 + SCREEN_COLS; c++) {
+        for (int32_t c = c0; c <= c0 + screen_cols(); c++) {          /* widescreen: the whole screen */
             const lane *l = world_lane(&W, c);
             int y0, y1;
             if (l && l->kind == LK_RAIL && train_at(l, W.t, &y0, &y1)) {
@@ -259,7 +259,7 @@ static void title_update(void)
         int p = hu_players() - 1;
         static const int16_t voice[MAX_PLAYERS] = {0, -600, 300, -300};
         sfx(SFX_JOIN);
-        sfx_at(SFX_QUACK0 + (p & 3), RS_SCREEN_W / 2, RS_PITCH_1 + voice[p & 3]);
+        sfx_at(SFX_QUACK0 + (p & 3), rs_screen_width() / 2, RS_PITCH_1 + voice[p & 3]);
     }
     if (ev & HU_TITLE_LEFT) sfx(SFX_BUMP);
     if (opt_bot) {                                 /* the bot: straight into the run (it hops by itself) */
@@ -372,12 +372,17 @@ static void game_state(void)
 }
 #undef S
 
-static void game_state_loaded(void) { bot_state_loaded(); }
+static void game_state_loaded(void)
+{
+    bot_state_loaded();
+    draw_state_loaded();                          /* widescreen: a state saved at another width */
+}
 
 const rs_game *rs_game_main(void)
 {
-    /* state_version: bump it when the meaning of a saved object changes (its layout is checked) */
+    /* state_version: bump it when the meaning of a saved object changes (its layout is checked); max_width: the
+     * game draws any width up to 560 (widescreen: DESIGN.md) */
     static const rs_game g = {"Duck Parade", "duckparade", "0.1.0", game_init, game_update, game_draw,
-                              game_shutdown, dp_assets, game_state, game_state_loaded, 2};
+                              game_shutdown, dp_assets, game_state, game_state_loaded, 2, RS_SCREEN_W_MAX};
     return &g;
 }

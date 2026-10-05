@@ -13,6 +13,7 @@ Writes, in the art folder (default games/duckparade/art):
   sprites.png          every sprite (packed, the layout is SPRITES)
   tiles/field.png      the 16x16 lane cells (METAS), tiles/river.png the rapids' 16 shifts
   tiles/sky.png        the clouds of the sky band, tiles/shadows.png the cloud shadows
+  tiles/sky-wide.png   the sky band's next 512 px, for a screen wider than 320 (widescreen)
 
     python3 games/duckparade/tools/make_art.py [--out DIR] [--preview FILE]
 
@@ -1260,16 +1261,21 @@ def river_windows():
     return out
 
 
-def sky_clouds():
-    """The sky band's clouds (BG4, far: two tones, no outline): 512x16."""
-    cv = Canvas(512, 16)
+def sky_band():
+    """The sky band's clouds (BG4, far: two tones, no outline) on 1024x16: the first 512 px are the classic band
+    (sky.png, the 4:3 screen's 512-px map); widescreen: the clouds go on over the next 512 px (sky-wide.png: the
+    cloud cut at x 512 on the classic band continues there), so that a 128-tile map never shows a cloud twice on a
+    wide screen; the last cloud ends before 1024 (the band wraps round there)."""
+    cv = Canvas(1024, 16)
     for y in range(16):
-        for x in range(512):
+        for x in range(1024):
             cv.set(x, y, SKY_KEY)                                 # the sky: its colour is set per line (raster)
     rng = random.Random(5)
     x = 10
-    while x < 500:
+    while x < 1012:
         w = rng.randrange(26, 60)
+        if x >= 500 and x + w > 1016:                             # the wide band's last cloud: inside its 1024 px
+            break
         for y in range(16):
             for xx in range(w):
                 bump = 2.5 * math.sin(xx / w * math.pi * 3 + x) + 5.5 * math.sin(xx / w * math.pi)
@@ -1277,6 +1283,15 @@ def sky_clouds():
                 if y >= top and y < 15:
                     cv.set(x + xx, y, CLOUD[0] if y < 12 else CLOUD[1])
         x += w + rng.randrange(30, 90)
+    return cv
+
+
+def sky_clouds(half=0):
+    """One 512-px half of the sky band: 0 the classic band (sky.png), 1 the widescreen continuation (sky-wide.png)."""
+    band, cv = sky_band(), Canvas(512, 16)
+    for y in range(16):
+        for x in range(512):
+            cv.set(x, y, band.get(half * 512 + x, y))
     return cv
 
 
@@ -1340,6 +1355,7 @@ def write_all(out):
     f.image().save(os.path.join(out, "tiles", "field.png"))
     river_image().image().save(os.path.join(out, "tiles", "river.png"))
     sky_clouds().image().save(os.path.join(out, "tiles", "sky.png"))
+    sky_clouds(1).image().save(os.path.join(out, "tiles", "sky-wide.png"))
     cloud_shadows().image().save(os.path.join(out, "tiles", "shadows.png"))
 
 

@@ -27,8 +27,8 @@ static const rs_color title_ramps[2][3] = {
 
 static rs_color line_col[FIELD_Y];
 static int16_t bg2_dx[RS_SCREEN_H];
-static int32_t drawn_col[32];    /* the world column drawn in each map slot (-1 none) */
-static int8_t drawn_shift[32];   /* the rapids' shift drawn there */
+static int32_t drawn_col[64];    /* the world column drawn in each map slot (-1 none; widescreen: 64 slots) */
+static int8_t drawn_shift[64];   /* the rapids' shift drawn there */
 static int shown_state = -1, shown_best = -1, shown_players = -1;
 static int facing[MAX_PLAYERS];  /* the last hop's direction (the sprite faces it) */
 static int math_mode;            /* 0 cloud shadows, 1 the banking flash */
@@ -66,6 +66,36 @@ static void sky_gradient(void)
 }
 
 /* ---- set-up -------------------------------------------------------------------------------------------------------- */
+/* Widescreen (DESIGN.md "Widescreen"): the stage origin stays 0 (the world is revealed wider on the right; the camera,
+ * the fox on the left edge and the rules are those of 320 columns). The field (BG3) and the sky band and cloud
+ * shadows (BG2) are 64-tile maps (512 px) at 320 columns, 128 (1024 px) on a wider screen: the field's columns go
+ * round 64 map slots instead of 32, the band's clouds go on over 1024 px (sky-wide.png: no cloud seen twice), the
+ * shadows' 256-px pattern repeats as at 320. The UI layer is 128 tiles beyond 512 columns; it is scrolled by
+ * -hu_ui_x(): the kit's 320-px UI area centred on the screen. */
+static int redraw_ui;                 /* transient: a state of another width was loaded (state_audit.txt) */
+static int wide(void) { return rs_screen_width() > RS_SCREEN_W; }
+static int map_w(void) { return wide() ? 128 : 64; }                  /* BG2, BG3 */
+static int ui_w(void) { return rs_screen_width() > 512 ? 128 : 64; }  /* BG1 */
+static int slots(void) { return rs_bg_map_w(RS_BG3) / 2; }           /* the field's map slots (16-px columns) */
+
+static void maps_setup(void)
+{
+    rs_bg_setup(RS_BG1, ui_w(), 32, VR_BG1);
+    rs_bg_setup(RS_BG2, map_w(), 32, VR_FAR);
+    rs_bg_setup(RS_BG3, map_w(), 32, VR_FIELD);
+    rs_tiles_load(VR_FIELD, dp_field_tiles, dp_field_tile_count);
+    rs_tiles_load(VR_FAR, dp_far_tiles, wide() ? dp_far_wide_tile_count : dp_far_tile_count);
+    /* the sky band (BG2 rows 0-1, high priority: over the world's sprites) and the cloud shadows (rows 2-29) */
+    for (int y = 0; y < BAND_ROWS; y++)
+        for (int x = 0; x < map_w(); x++) {
+            uint16_t e = x < 64 ? dp_sky_map[y * 64 + x] : dp_sky_wide_map[y * 64 + x - 64];
+            rs_bg_put(RS_BG2, x, y, (uint16_t)(e | RS_MAP_PRIO));
+        }
+    for (int y = BAND_ROWS; y < 32; y++)
+        for (int x = 0; x < map_w(); x++) rs_bg_put(RS_BG2, x, y, dp_shadow_map[((y - BAND_ROWS) & 15) * 32 + (x & 31)]);
+    for (int i = 0; i < 64; i++) drawn_col[i] = -1;
+}
+
 void draw_init(void)
 {
     hu_config hc = hu_defaults();       /* BG1 at VRAM 0, the kit at 0 on palette 0, the logo at 320 on palette 5 */
@@ -73,21 +103,9 @@ void draw_init(void)
     hc.obj_vram = VR_OBJ;
     hc.obj_pal = 3;
     hu_init(&hc);
-    rs_bg_setup(RS_BG1, 64, 32, VR_BG1);
-    rs_bg_setup(RS_BG2, 64, 32, VR_FAR);
-    rs_bg_setup(RS_BG3, 64, 32, VR_FIELD);
-    rs_tiles_load(VR_FIELD, dp_field_tiles, dp_field_tile_count);
-    rs_tiles_load(VR_FAR, dp_far_tiles, dp_far_tile_count);
+    maps_setup();
     for (int p = 1; p < 8; p++)
         if (p != PAL_LOGO) rs_pal_load(RS_PAL_BG(p), dp_bg_pals[p], 16);
-    /* the sky band (BG2 rows 0-1, high priority: over the world's sprites) and the cloud shadows (rows 2-29) */
-    for (int y = 0; y < BAND_ROWS; y++)
-        for (int x = 0; x < 64; x++) {
-            uint16_t e = dp_sky_map[y * 64 + x];
-            rs_bg_put(RS_BG2, x, y, (uint16_t)(e | RS_MAP_PRIO));
-        }
-    for (int y = BAND_ROWS; y < 32; y++)
-        for (int x = 0; x < 64; x++) rs_bg_put(RS_BG2, x, y, dp_shadow_map[((y - BAND_ROWS) & 15) * 32 + (x & 31)]);
     for (int l = 0; l < 3; l++) rs_bg_enable(l, 1);
     rs_bg_enable(RS_BG4, 0);
     rs_obj_base(VR_OBJ);
@@ -97,13 +115,13 @@ void draw_init(void)
     sky_gradient();
     rs_bg_line_scroll(RS_BG2, bg2_dx, NULL);
     rs_raster(raster, NULL);
-    for (int i = 0; i < 32; i++) drawn_col[i] = -1;
+    for (int i = 0; i < 64; i++) drawn_col[i] = -1;
 }
 
 void draw_reset(const world *w)
 {
     (void)w;
-    for (int i = 0; i < 32; i++) drawn_col[i] = -1;
+    for (int i = 0; i < 64; i++) drawn_col[i] = -1;
     for (int p = 0; p < MAX_PLAYERS; p++) facing[p] = HOP_FWD;
     hud_score = hud_line = hud_best = hud_score2 = -1;
     photo_t = -1;
@@ -202,10 +220,10 @@ static void draw_column(const world *w, int32_t col, int slot)
 
 static void field(const world *w, int cam)
 {
-    int c0 = cam >> 4;
-    for (int32_t c = c0 - 1; c <= c0 + SCREEN_COLS + 1; c++) {
+    int c0 = cam >> 4, sm = slots() - 1;
+    for (int32_t c = c0 - 1; c <= c0 + screen_cols() + 1; c++) {        /* widescreen: to the real right edge */
         if (c < 0) continue;
-        int slot = (int)(c & 31);
+        int slot = (int)(c & sm);
         const lane *l = world_lane(w, c);
         if (drawn_col[slot] != c) { draw_column(w, c, slot); continue; }
         if (l && l->kind == LK_RIVER && drawn_shift[slot] != river_shift(l, w->t)) draw_column(w, c, slot);
@@ -294,12 +312,18 @@ static void fx_step(const world *w)
  * drops the least important first: the shadows, then the effects and the flying ducklings, then the lines' ducklings
  * from the tail (every parent's last duckling before anyone's second to last: four parades share the lines fairly).
  * Rank 0 is never dropped in practice: the parents, the traffic, the platforms, the trains, the lights, the fox, the
- * HUD and the UI. The kept sprites go to OAM in the drawing order. */
+ * HUD and the UI. The kept sprites go to OAM in the drawing order.
+ * Widescreen: the sprites of the 4:3 screen (x < 320: what a 320-column screen shows; the UI's at their UI x) are
+ * queued and kept exactly as at 320 columns (the same queue room, 32 on a line), then those of the wider screen with
+ * what is left (128 sprites, the per-line guideline of the width: 32 per 320 columns). So the 4:3 part of the picture
+ * and what the bot sees there are the same at every width; a crowded wide screen drops at its right first. */
 enum { RK_KEEP = 0, RK_LING = 1, RK_WAITING = 3, RK_LOOSE = LINE_MAX + 2, RK_FX, RK_SHADOW, RK_COUNT };
-typedef struct qspr { int16_t x, y; uint16_t tile; uint8_t w, h, pal, prio, flags, rank; } qspr;
-#define Q_MAX 256
+typedef struct qspr { int16_t x, y; uint16_t tile; uint8_t w, h, pal, prio, flags, rank, tier; } qspr;
+#define Q_CLASSIC 256              /* the queue's room for the 4:3 screen's sprites (tier 0) */
+#define Q_MAX 512                  /* ... and with the wider screen's (tier 1) */
 static qspr q[Q_MAX];
-static int nq, q_rank;
+static int nq, nq0, q_rank;
+static int spr_ui_dx;              /* while drawing at the kit's UI positions: hu_ui_x() (their x on a 4:3 screen: x - it) */
 static int spr_dropped;            /* sprites dropped by the budget in the last frame (tests) */
 
 int draw_dropped(void) { return spr_dropped; }
@@ -307,11 +331,23 @@ int draw_dropped(void) { return spr_dropped; }
 static void spr(int id, int x, int y, int prio, int pal, int flags)
 {
     const dp_sprite_def *d = &dp_spr[id];
-    if (x <= -(int)d->w || x >= RS_SCREEN_W || y <= -(int)d->h || y >= RS_SCREEN_H || nq >= Q_MAX) return;
+    if (x <= -(int)d->w || x >= rs_screen_right() || y <= -(int)d->h || y >= RS_SCREEN_H) return;
+    int tier = x - spr_ui_dx >= RS_SCREEN_W;       /* off a 4:3 screen: only a wider one shows it */
+    if (tier ? nq >= Q_MAX : nq0 >= Q_CLASSIC) return;
+    nq0 += !tier;
     qspr *s = &q[nq++];
     s->x = (int16_t)x, s->y = (int16_t)y, s->tile = d->tile, s->w = d->w, s->h = d->h;
     s->pal = (uint8_t)(pal >= 0 ? pal : d->pal), s->prio = (uint8_t)prio, s->flags = (uint8_t)flags;
     s->rank = (uint8_t)clampi(q_rank, 0, RK_COUNT - 1);
+    s->tier = (uint8_t)tier;
+}
+
+/* a sprite at the kit's UI coordinates (the title's slots, the HUD, the panels): centred with the UI on a wide screen */
+static void spr_ui(int id, int x, int y, int prio, int pal, int flags)
+{
+    spr_ui_dx = hu_ui_x();
+    spr(id, x + spr_ui_dx, y, prio, pal, flags);
+    spr_ui_dx = 0;
 }
 
 static void spr_flush(void)
@@ -319,7 +355,7 @@ static void spr_flush(void)
     static uint8_t line_n[RS_SCREEN_H];
     static uint8_t keep[Q_MAX];
     static uint16_t order[Q_MAX];
-    int count[RK_COUNT + 1] = {0}, total = 0;
+    int count[2 * RK_COUNT + 1] = {0}, total = 0, line_max[2] = {32, 32 * rs_screen_width() / RS_SCREEN_W};
     memset(line_n, 0, sizeof line_n);
     for (int i = 0; i < RS_OAM_MAX; i++) {          /* the kit's sprites, already in OAM */
         const rs_sprite *s = rs_oam(i);
@@ -327,14 +363,16 @@ static void spr_flush(void)
         total++;
         for (int y = s->y < 0 ? 0 : s->y; y < s->y + s->h && y < RS_SCREEN_H; y++) line_n[y]++;
     }
-    for (int i = 0; i < nq; i++) count[q[i].rank + 1]++;            /* a counting sort by rank (stable) */
-    for (int r = 0; r < RK_COUNT; r++) count[r + 1] += count[r];
-    for (int i = 0; i < nq; i++) order[count[q[i].rank]++] = (uint16_t)i;
+#define KEY(s) ((s)->tier * RK_COUNT + (s)->rank)
+    for (int i = 0; i < nq; i++) count[KEY(&q[i]) + 1]++;           /* a counting sort by tier and rank (stable) */
+    for (int r = 0; r < 2 * RK_COUNT; r++) count[r + 1] += count[r];
+    for (int i = 0; i < nq; i++) order[count[KEY(&q[i])]++] = (uint16_t)i;
+#undef KEY
     spr_dropped = 0;
     for (int k = 0; k < nq; k++) {
         const qspr *s = &q[order[k]];
         int y0 = s->y < 0 ? 0 : s->y, y1 = s->y + s->h > RS_SCREEN_H ? RS_SCREEN_H : s->y + s->h, ok = total < 128;
-        for (int y = y0; y < y1 && ok; y++) ok = line_n[y] < 32;
+        for (int y = y0; y < y1 && ok; y++) ok = line_n[y] < line_max[s->tier];
         keep[order[k]] = (uint8_t)ok;
         if (!ok) { spr_dropped++; continue; }
         total++;
@@ -342,7 +380,7 @@ static void spr_flush(void)
     }
     for (int i = 0; i < nq; i++)
         if (keep[i]) rs_spr(q[i].x, q[i].y, q[i].tile, q[i].w, q[i].h, q[i].pal, q[i].prio, q[i].flags);
-    nq = 0;
+    nq = nq0 = 0;
     q_rank = RK_KEEP;
 }
 
@@ -483,7 +521,7 @@ static int mover_sprite(int kind, int down, int t, int i, int *dy)
 static void draw_traffic(const world *w, int cam, int sx, int sy, int t, int platforms)
 {
     int c0 = cam >> 4;
-    for (int32_t c = c0; c <= c0 + SCREEN_COLS; c++) {
+    for (int32_t c = c0; c <= c0 + screen_cols(); c++) {              /* widescreen: to the real right edge */
         const lane *l = world_lane(w, c);
         if (!l) continue;
         int x = c * CELL - cam + sx;
@@ -513,7 +551,7 @@ static void draw_traffic(const world *w, int cam, int sx, int sy, int t, int pla
 static void draw_band(const world *w, int cam, int t)
 {
     int c0 = cam >> 4;
-    for (int32_t c = c0; c <= c0 + SCREEN_COLS; c++) {
+    for (int32_t c = c0; c <= c0 + screen_cols(); c++) {              /* widescreen: to the real right edge */
         const lane *l = world_lane(w, c);
         if (!l) continue;
         int x = c * CELL - cam;
@@ -597,11 +635,11 @@ static void hud_sprites(const world *w, int t)
 {
     if (w->players == 1) {
         hu_number(world_score(w, 0), RS_SCREEN_W / 2, 0, 3);
-        spr(SPR_LING_RIGHT + ((t / 16) & 1), 4, 0, 3, -1, 0);
+        spr_ui(SPR_LING_RIGHT + ((t / 16) & 1), 4, 0, 3, -1, 0);
     } else {
         hu_number(world_total(w), RS_SCREEN_W / 2, 0, 3);
         for (int p = 0; p < w->players; p++)
-            if (in_run(&w->d[p])) spr(SPR_DUCK_HEAD + (w->bank_t[p] >= 0 && w->bank_t[p] < 30), hud_icon_x[p], 0, 3, pal_of(p), 0);
+            if (in_run(&w->d[p])) spr_ui(SPR_DUCK_HEAD + (w->bank_t[p] >= 0 && w->bank_t[p] < 30), hud_icon_x[p], 0, 3, pal_of(p), 0);
     }
 }
 
@@ -610,7 +648,7 @@ static void slot_icon(int p, int cx, int cy, int t, void *user)
 {
     (void)user;
     int age = hu_player_age(p), quack = age < 20 || (t + p * 37) % 150 < 10;
-    spr(SPR_DUCK_HEAD + quack, cx - 8, cy - 8 + (age >= 20 ? hu_bob(t + p * 16, 64, 1) : 0), 3, pal_of(p), 0);
+    spr_ui(SPR_DUCK_HEAD + quack, cx - 8, cy - 8 + (age >= 20 ? hu_bob(t + p * 16, 64, 1) : 0), 3, pal_of(p), 0);
 }
 
 /* the results of 2-4 parents: each one's own score ranked (the family score is shared: its own panel below) */
@@ -709,7 +747,7 @@ static void photo(const world *w, int cam, int t)
     int k = photo_t;
     /* the photo: a kit panel (BG1 rows 3-8, at least 18 columns, sized to the line) with the family standing in it;
      * they pop in one by one */
-    if (k == 0) {
+    if (k == 0 || redraw_ui) {                    /* (again after a state of another width was loaded) */
         char s[128];
         if (photo_n) rs_strf(s, sizeof s, TRN(DUCKLINGS_HOME, photo_n), photo_n);
         else snprintf(s, sizeof s, "%s", TR(HOME_SWEET_HOME));
@@ -722,12 +760,12 @@ static void photo(const world *w, int cam, int t)
     int n = photo_n > 9 ? 9 : photo_n;
     int x0 = 160 - (n + 1) * 7;
     int pop = hu_ease_back(k, 14, 8);
-    spr(SPR_DUCK_DOWN + ((t / 20) % 30 == 0 ? 3 : 0), x0 - 4, top + 8 - pop, 3, pal_of(photo_p), 0);
+    spr_ui(SPR_DUCK_DOWN + ((t / 20) % 30 == 0 ? 3 : 0), x0 - 4, top + 8 - pop, 3, pal_of(photo_p), 0);
     for (int i = 0; i < n; i++) {
         int pi = hu_ease_back(k - 3 - i * 2, 12, 8);
-        if (k - 3 - i * 2 >= 0) spr(SPR_LING_DOWN + (((t / 10) + i) % 7 == 0), x0 + 12 + i * 14, top + 10 - pi, 3, -1, 0);
+        if (k - 3 - i * 2 >= 0) spr_ui(SPR_LING_DOWN + (((t / 10) + i) % 7 == 0), x0 + 12 + i * 14, top + 10 - pi, 3, -1, 0);
     }
-    if (photo_n > 9) spr(SPR_HEART, x0 + 12 + 9 * 14, top + 12, 3, -1, 0);
+    if (photo_n > 9) spr_ui(SPR_HEART, x0 + 12 + 9 * 14, top + 12, 3, -1, 0);
     (void)w;
 }
 
@@ -740,10 +778,11 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         fx_step(w);
     }
     field(w, cam);
-    scroll_reg = (cam - sx) & 511;
+    int pm = map_w() * 8 - 1;                     /* the maps' period - 1: 511, or 1023 on a wide screen */
+    scroll_reg = (cam - sx) & pm;
     rs_bg_scroll(RS_BG3, scroll_reg, -sy);
     /* BG2: the band's clouds drift slowly (1/4 of the camera), the shadows with the camera and the wind */
-    int band_dx = (cam / 4 + t / 16) & 511, shade_dx = (cam - sx + t / 4) & 511;
+    int band_dx = (cam / 4 + t / 16) & pm, shade_dx = (cam - sx + t / 4) & pm;
     for (int y = 0; y < RS_SCREEN_H; y++) bg2_dx[y] = (int16_t)(y < FIELD_Y ? band_dx : shade_dx);
     rs_bg_scroll(RS_BG2, 0, 0);
     /* the banking flash: the field brightened, fading */
@@ -753,7 +792,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     screen_text(w, state, st_t, best, new_best);
     if (state == DS_PLAY || state == DS_DEAD || state == DS_READY) hud(w, state, best);
     int slide = state == DS_OVER ? hu_slide_in(st_t, 20, 200) : 0;
-    rs_bg_scroll(RS_BG1, 0, -slide);
+    rs_bg_scroll(RS_BG1, -hu_ui_x(), -slide);    /* the UI centred on the screen (widescreen) */
+    if (redraw_ui && paused) hu_pause(0, 13);     /* the UI layer was set up again (a state of another width) */
     hu_pause(paused, 13);
 
     rs_oam_clear();
@@ -768,7 +808,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
             hu_number(world_score(w, 0), 25 * 8, 11 * 8 - 4 + oy, 3);
             hu_number(best, 25 * 8, 14 * 8 - 4 + oy, 3);
             if (m) {
-                spr(SPR_EGG + m - 1, 22 * 8 - 4, 16 * 8 - 4 + oy, 3, -1, 0);
+                spr_ui(SPR_EGG + m - 1, 22 * 8 - 4, 16 * 8 - 4 + oy, 3, -1, 0);
                 if ((st_t / 20) % 3 == 0) hu_sparkle(22 * 8 + 12, 16 * 8 - 4 + oy, (st_t / 10) % 2, 3);
             } else {
                 hu_box_text(22, 17, "-");
@@ -780,7 +820,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
             for (int i = 0; i < rs.n; i++) {
                 int cx, cy;
                 hu_results_icon_pos(&rs, i, &cx, &cy);
-                spr(SPR_DUCK_HEAD + (rs.rank[i] == 0 && (st_t / 24) % 4 == 0), cx - 8, cy - 8 + oy, 3, pal_of(rs.order[i]), 0);
+                spr_ui(SPR_DUCK_HEAD + (rs.rank[i] == 0 && (st_t / 24) % 4 == 0), cx - 8, cy - 8 + oy, 3, pal_of(rs.order[i]), 0);
             }
             family_box b = family_layout(family_row(&rs), world_total(w), best, new_best);
             hu_number(world_total(w), b.dcol * 8, b.dy + oy, 3);
@@ -793,8 +833,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         int x = 128, y = 104;
         for (int k = 0; k < 4; k++) {
             int bob = ((t / 8 + k) & 1);
-            if (k == 0) spr(SPR_DUCK_RIGHT + (bob ? 1 : 0), x + 40, y - bob * 2, 2, 0, 0);
-            else spr(SPR_LING_RIGHT + bob, x + 40 - k * 16, y + 2 - bob * 2, 2, -1, 0);
+            if (k == 0) spr_ui(SPR_DUCK_RIGHT + (bob ? 1 : 0), x + 40, y - bob * 2, 2, 0, 0);
+            else spr_ui(SPR_LING_RIGHT + bob, x + 40 - k * 16, y + 2 - bob * 2, 2, -1, 0);
         }
     }
     if (state != DS_OVER && photo_t >= 0) {
@@ -817,9 +857,21 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     draw_traffic(w, cam, sx, sy, t, 0);
     draw_traffic(w, cam, sx, sy, t, 1);
     spr_flush();
+    redraw_ui = 0;
 }
 
-/* ---- save states (main.c) ---- */
+/* ---- save states (main.c) ----
+ * A state saved at another width brings the maps of that width (64 or 128 tiles): set them up for this one (the sky,
+ * the field drawn again from the world, the UI drawn again on the next frame: its text, the photo, PAUSED). The game
+ * is the same at every width. Same width: nothing to do. */
+void draw_state_loaded(void)
+{
+    if (rs_bg_map_w(RS_BG3) == map_w() && rs_bg_map_w(RS_BG1) == ui_w()) return;
+    maps_setup();
+    shown_state = -1;                             /* screen_text clears the UI layer and draws it again */
+    hud_line = -1;
+    redraw_ui = 1;
+}
 #define S(v) rs_state_var("draw." #v, &(v), sizeof(v))
 void draw_state(void)
 {

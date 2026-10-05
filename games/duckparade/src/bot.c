@@ -114,6 +114,7 @@ static void look(int scroll)
     for (int i = 0; i < RS_OAM_MAX; i++) {
         rs_sprite *s = rs_oam(i);
         if (!s || !s->used || (s->flags & RS_SPR_HIDE)) continue;
+        if (s->x >= RS_SCREEN_W) continue;       /* widescreen: the bot looks at the 4:3 screen (it plays the same) */
         int t = s->tile, kind = -1, dir = 0, y = s->y - FIELD_Y, h = s->h;
         if (spr_in(t, SPR_DUCK_RIGHT, 4) || spr_in(t, SPR_DUCK_LEFT, 4) || spr_in(t, SPR_DUCK_UP, 4) || spr_in(t, SPR_DUCK_DOWN, 4)) {
             int p = parent_of_pal(s->pal);
@@ -173,12 +174,15 @@ static void look(int scroll)
 static int model_lane(lane *l, int j, int scroll, uint16_t *lost_rows)
 {
     int fine = scroll & 15, slot = ((scroll + j * 16 - fine) >> 4) & 31;
+    /* the map slot: one of 32 (a 64-tile map), or of 64 on a wide screen (its 128-tile map); the bot's own memory
+     * stays per 32 slots (the same at every width: the scroll register's period is a multiple of 512) */
+    int mslot = ((scroll + j * 16 - fine) >> 4) & (rs_bg_map_w(RS_BG3) / 2 - 1);
     const trk *k = &tr[slot];
     memset(l, 0, sizeof *l);
     int counts[10] = {0};
     uint16_t block = 0, pads = 0;
     for (int r = 0; r < ROWS; r++) {
-        int c = cls[rs_bg_get(RS_BG3, slot * 2, 2 + r * 2)];
+        int c = cls[rs_bg_get(RS_BG3, mslot * 2, 2 + r * 2)];
         counts[c]++;
         if (c == C_BLOCK) block |= (uint16_t)(1 << r);
         if (c == C_PAD) pads |= (uint16_t)(1 << r);

@@ -11,13 +11,15 @@
  * The house kit's layout (games/common/src/house_ui.h): BG1 tiles 0..95 the font, 192..287 the 2x glyphs,
  * 288..296 the panel frame; the kit sprites from KIT_OBJ_TILE: the digits first (4 tiles each).
  *
- *   test_ui --mode M [--out DIR] [--frames N] [--opt key=value]...
+ *   test_ui --mode M [--out DIR] [--frames N] [--width N] [--opt key=value]...
+ * Widescreen: --width N or RS_WIDTH (the UI is centred: the x of its sprites are checked in UI coordinates).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/duckparade/LICENSE.
  */
 #include "dp.h"
 #include "rs_host.h"
 #include "rs_desktop.h"
 #include "assets.h"
+#include "house_ui.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -100,10 +102,11 @@ static int digits_at(int y, int x0, int x1)
     int xs[8], ds[8], n = 0;
     for (int i = 0; i < RS_OAM_MAX && n < 8; i++) {
         const rs_sprite *s = rs_oam(i);
-        if (!s->used || (s->flags & RS_SPR_HIDE) || s->y != y || s->x < x0 || s->x >= x1 || s->w != 16) continue;
+        int sx = s->x - hu_ui_x();                     /* widescreen: the UI is centred (x0, x1: UI x) */
+        if (!s->used || (s->flags & RS_SPR_HIDE) || s->y != y || sx < x0 || sx >= x1 || s->w != 16) continue;
         int rel = s->tile - KIT_OBJ_TILE;
         if (rel < 0 || rel >= 40 || rel % 4) continue;
-        xs[n] = s->x;
+        xs[n] = sx;
         ds[n++] = rel / 4;
     }
     if (!n) return -1;
@@ -130,17 +133,18 @@ static long luma(void)
 {
     const uint16_t *fb = rs_host_framebuffer();
     long s = 0;
-    for (int i = 0; i < RS_SCREEN_W * RS_SCREEN_H; i++) s += (fb[i] >> 11) + ((fb[i] >> 5) & 63) / 2 + (fb[i] & 31);
+    for (int i = 0; i < rs_screen_width() * RS_SCREEN_H; i++) s += (fb[i] >> 11) + ((fb[i] >> 5) & 63) / 2 + (fb[i] & 31);
     return s;
 }
 
 /* the sky band hides the world: the band's pixels are the same with the world's sprites (priority < 3) hidden */
 static int band_hides_world(void)
 {
-    static uint16_t a[RS_SCREEN_W * FIELD_Y];
+    static uint16_t a[RS_SCREEN_W_MAX * FIELD_Y];
+    size_t n = (size_t)rs_screen_width() * FIELD_Y * sizeof a[0];   /* the band's lines (widescreen: as wide as the screen) */
     static uint8_t flags[RS_OAM_MAX];
     rs_host_render();
-    memcpy(a, rs_host_framebuffer(), sizeof a);
+    memcpy(a, rs_host_framebuffer(), n);
     int world_in_band = 0;
     for (int i = 0; i < RS_OAM_MAX; i++) {
         rs_sprite *s = rs_oam(i);
@@ -148,7 +152,7 @@ static int band_hides_world(void)
         if (s->used && s->prio < 3) { if (s->y < FIELD_Y && s->y + s->h > 0) world_in_band++; s->flags |= RS_SPR_HIDE; }
     }
     rs_host_render();
-    int same = !memcmp(a, rs_host_framebuffer(), sizeof a);
+    int same = !memcmp(a, rs_host_framebuffer(), n);
     for (int i = 0; i < RS_OAM_MAX; i++) rs_oam(i)->flags = flags[i];
     rs_host_render();
     return same ? world_in_band : -1;
@@ -168,7 +172,7 @@ static void mode_title(void)
         prompt |= bg1_text_is(14, 21, "PRESS A TO HOP");
         for (int k = 0; k < RS_OAM_MAX; k++) {
             const rs_sprite *s = rs_oam(k);
-            if (s->used && s->pal == 3 && s->y == 21 * 8 - 4 && s->tile == KIT_OBJ_TILE + 40 && s->x == 92) glyph = 1;
+            if (s->used && s->pal == 3 && s->y == 21 * 8 - 4 && s->tile == KIT_OBJ_TILE + 40 && s->x == 92 + hu_ui_x()) glyph = 1;
         }
     }
     CHECK(prompt, "PRESS A TO HOP on row 21 (it blinks)");
@@ -309,10 +313,12 @@ int main(int argc, char **argv)
     rs_host_set_log(quiet_log);
     rs_host_set_option("music", "0");
     rs_host_set_option("sound", "0");
+    rsd_width_env();                                /* widescreen: RS_WIDTH (or --width below) */
     for (int i = 1; i + 1 < argc; i += 2) {
         if (!strcmp(argv[i], "--mode")) mode = argv[i + 1];
         else if (!strcmp(argv[i], "--out")) out_dir = argv[i + 1];
         else if (!strcmp(argv[i], "--frames")) max_frames = atoi(argv[i + 1]);
+        else if (!strcmp(argv[i], "--width")) rs_host_set_width(atoi(argv[i + 1]));
         else if (!strcmp(argv[i], "--opt")) {
             char kv[128];
             snprintf(kv, sizeof kv, "%s", argv[i + 1]);

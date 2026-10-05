@@ -122,7 +122,7 @@ void sfx_at(int id, int x, int pitch)
         HA_VOL_ACTION, HA_VOL_ACTION, HA_VOL_ACTION, HA_VOL_ACTION,      /* quacks: the main action */
         HA_VOL_FEEDBACK, 96, 100, 60, 96, HA_VOL_FEEDBACK, HA_VOL_CRASH, 90, 50, 50, HA_VOL_UI, HA_VOL_UI, HA_VOL_UI, 60};
     if (!sound_on || id < 0 || id >= SFX_COUNT) return;
-    int pan = clampi(24 + x * 80 / RS_SCREEN_W, 0, 127);
+    int pan = clampi(24 + x * 80 / rs_screen_width(), 0, 127);     /* x: the screen x (the stage origin is 0) */
     int v = pick_voice();
     static const int8_t house[SFX_COUNT] = {[SFX_SWISH] = HA_SWISH + 1, [SFX_SPARKLE] = HA_MEDAL + 1, [SFX_JOIN] = HA_CONFIRM + 1,
                                             [SFX_PAUSE] = HA_PAUSE + 1};
@@ -132,7 +132,7 @@ void sfx_at(int id, int x, int pitch)
     voice_age[v] = ++age_clock;
 }
 
-void sfx(int id) { sfx_at(id, RS_SCREEN_W / 2, 0); }
+void sfx(int id) { sfx_at(id, rs_screen_width() / 2, 0); }
 
 /* ---- the march and its layers --------------------------------------------------------------------------------------- */
 void music_start(void) { ha_music("music/march.mod", music_on); }

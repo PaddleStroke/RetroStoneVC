@@ -2,8 +2,9 @@
 #
 #   make duckparade                host builds: duckparade (SDL2), duckparade_headless, duckparade_libretro.so
 #   make duckparade-check          all its tests: the rules and the generator's fairness, the libretro loader, smoke +
-#                                  the bot (10 seeds) + determinism, the UI screens, save states and their audit
-#   make duckparade-dist           dist/windows/DuckParade.exe + README-DuckParade.txt, dist/libretro/duckparade_libretro.so
+#                                  the bot (10 seeds) + determinism, the UI screens, save states and their audit, at 320
+#                                  and then again at each widescreen width of WIDTHS (427 520), and the game across widths
+#   make duckparade-dist          dist/windows/DuckParade.exe + README-DuckParade.txt, dist/libretro/duckparade_libretro.so
 #                                  (+ .armhf.so)
 #   make duckparade-windows        only the Windows exe
 #   make duckparade-armhf          the libretro core for the RetroStone2 (Cortex-A7)
@@ -17,6 +18,9 @@ DP_MAKE = $(MAKE) --no-print-directory GAME=duckparade GAME_NAME=DuckParade
 DP_DIR  = games/duckparade
 # the house style kit (games/common/src, docs/art-direction.md) is compiled in
 HOUSE_UI_duckparade = 1
+# widescreen (docs/spec.md "Widescreen"; rs_game.max_width; DESIGN.md): the checks run at 320 and at each width of
+# WIDTHS, then across widths (tests/wide_test.sh)
+WIDESCREEN_duckparade = 1
 
 .PHONY: duckparade duckparade-check duckparade-windows duckparade-armhf duckparade-dist duckparade-screenshots \
         duckparade-bench duckparade-art duckparade-rules
@@ -55,6 +59,14 @@ duckparade-check:
 	sh $(DP_DIR)/tests/ui_test.sh build/host/duckparade_test_ui build/duckparade-ui
 	sh $(DP_DIR)/tests/state_test.sh build/host/duckparade_test_states build/states
 	$(PYTHON) tools/state_audit.py --game duckparade build/host/duckparade_test_states $(filter-out %/assets.o %/game_text.o,$(DP_OBJ_HOST))
+	set -e; for w in $(WIDTHS); do echo "== widescreen: $$w x 240"; \
+	    a=$$(case $$w in 427) echo 16:9;; 520) echo Wide;; esac); \
+	    [ -z "$$a" ] || ./build/host/test_libretro build/host/duckparade_libretro.so 600 $$a $$w; \
+	    RS_WIDTH=$$w sh $(DP_DIR)/tests/smoke_test.sh build/host/duckparade_headless build/w$$w; \
+	    RS_WIDTH=$$w sh $(DP_DIR)/tests/ui_test.sh build/host/duckparade_test_ui build/duckparade-ui-$$w; \
+	    RS_WIDTH=$$w sh $(DP_DIR)/tests/state_test.sh build/host/duckparade_test_states build/states-$$w; \
+	done
+	sh $(DP_DIR)/tests/wide_test.sh build/host/duckparade_headless build/host/duckparade_test_states build "$(WIDTHS)"
 	bash tools/i18n_test.sh build/host/duckparade_headless duckparade build/duckparade-i18n $(if $(WIDESCREEN_duckparade),320 $(WIDTHS),320)
 
 duckparade-screenshots:

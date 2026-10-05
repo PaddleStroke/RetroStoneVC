@@ -112,21 +112,29 @@ def main():
     # ---- the sky's clouds (BG4, 512x16) and the cloud shadows (BG2, 256x128): one tile set, palette 7 ---------------
     sky = rsasset.load(os.path.join(a.art, "tiles", "sky.png"))
     shd = rsasset.load(os.path.join(a.art, "tiles", "shadows.png"))
+    # widescreen: the band's next 512 px (sky-wide.png) last, so that the classic tiles keep their numbers (a 4:3
+    # screen loads dp_far_tile_count tiles, a wider one dp_far_wide_tile_count)
+    sky_wide = rsasset.load(os.path.join(a.art, "tiles", "sky-wide.png"))
     far_cells = cells8(sky, 0, 0, 512, 16) + cells8(shd, 0, 0, 256, 128)
-    r = rsasset.convert_bg(far_cells, 1, pal_base=make_art.PAL_CLOUD, tile_base=0)
+    r = rsasset.convert_bg(far_cells + cells8(sky_wide, 0, 0, 512, 16), 1, pal_base=make_art.PAL_CLOUD, tile_base=0)
+    classic_far = len(rsasset.convert_bg(far_cells, 1, pal_base=make_art.PAL_CLOUD, tile_base=0).tiles)
     bg_pals[make_art.PAL_CLOUD] = rsasset.palette16(r.palettes[0])
     far_pal = r.palettes[0]
     h.append("#define SKY_IDX %d\n#define SHADOW_IDX %d" % (far_pal.index(rsasset.to555(make_art.SKY_KEY)) + 1,
                                                         far_pal.index(rsasset.to555(make_art.SHADOW_SUB)) + 1))
     sky_map = [m[0] for m in r.metas[:64 * 2]]
-    shd_map = [m[0] for m in r.metas[64 * 2:]]
+    shd_map = [m[0] for m in r.metas[64 * 2:64 * 2 + 32 * 16]]
+    sky_wide_map = [m[0] for m in r.metas[64 * 2 + 32 * 16:]]
     c.append(rsasset.c_bytes("dp_far_tiles", rsasset.tiles_bytes(r.tiles)))
-    c.append("const int dp_far_tile_count = %d;" % len(r.tiles))
+    c.append("const int dp_far_tile_count = %d;" % classic_far)
+    c.append("const int dp_far_wide_tile_count = %d;" % len(r.tiles))
     c.append(arr("dp_sky_map", sky_map))
     c.append(arr("dp_shadow_map", shd_map))
-    h.append("extern const uint8_t dp_far_tiles[];\nextern const int dp_far_tile_count;")
+    c.append(arr("dp_sky_wide_map", sky_wide_map))
+    h.append("extern const uint8_t dp_far_tiles[];\nextern const int dp_far_tile_count, dp_far_wide_tile_count;")
     h.append("extern const uint16_t dp_sky_map[64 * 2];\nextern const uint16_t dp_shadow_map[32 * 16];")
-    stats.append("far %d" % len(r.tiles))
+    h.append("extern const uint16_t dp_sky_wide_map[64 * 2];      /* widescreen: the band's next 512 px */")
+    stats.append("far %d (+%d wide)" % (classic_far, len(r.tiles) - classic_far))
     h.append("extern const uint16_t dp_bg_pals[8][16];")
     c.append("const uint16_t dp_bg_pals[8][16] = {%s};" % ", ".join(
         "{" + ", ".join("0x%04x" % v for v in p) + "}" for p in bg_pals))
