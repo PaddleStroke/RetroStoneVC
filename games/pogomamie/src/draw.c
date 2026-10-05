@@ -23,10 +23,21 @@ static const look looks[5] = {
 
 static int cur_look[12], tgt_look[12], shown_look[12] = {-1};
 static rs_color line_col[RS_SCREEN_H];
-static uint32_t bg2_key[32][64];                /* the world cell each BG2 map cell holds (+1; 0 = none) */
-static int32_t far_col[64];                     /* the BG4 world column each BG4 map column holds */
+static uint32_t bg2_key[32][128];               /* the world cell each BG2 map cell holds (+1; 0 = none) */
+static int32_t far_col[128];                    /* the BG4 world column each BG4 map column holds */
 static int16_t bg3_row[32];                     /* the mid-ground row each BG3 map row holds */
-static int far_slot[2];                         /* the district whose tiles are in each BG4 VRAM slot */
+static int far_slot[3];                         /* the district (wide: the panorama) whose tiles are in each BG4 slot */
+static int redraw_ui;                           /* transient: a state of another width was loaded (state_audit.txt) */
+static int drawn_width;                         /* the screen width the maps were set up for (saved) */
+
+/* Widescreen (DESIGN.md "Widescreen"): the stage origin is 0, the world is revealed wider on the right. At 320 the
+ * scenery maps are 64 tiles wide; on a wider screen 128 (the play layer streams up to 71 columns; the mid-ground is a
+ * 1024-px panorama, its second half other roofs; the backdrops' panoramas follow each other, three of them may show
+ * at once: three BG4 slots). The UI layer is 128 tiles wide beyond 512 columns. */
+static int wide(void) { return rs_screen_width() > RS_SCREEN_W; }
+static int scenery_w(void) { return wide() ? 128 : 64; }
+static int ui_w(void) { return rs_screen_width() > 512 ? 128 : 64; }
+static int screen_cols(void) { return (rs_screen_width() + 7) / 8; }    /* 40 at 320 */
 static int32_t sky_redrawn[8];                  /* buildings whose broken skylight was redrawn */
 static int sky_redrawn_n;
 static int scroll_x, scroll_y;
@@ -103,9 +114,11 @@ static void raster(int line, void *user)
     rs_pal_set(0, test_backdrop ? RS_RGB(31, 0, 31) : line_col[line]);
 }
 
+/* The district's look (the sky, the palettes, the night) is the decor of the whole screen: picked at its centre
+ * (widescreen: the centre of the wider screen, so the look changes when the new district fills half of it) */
 static void look_update(const world *w, int snap)
 {
-    int xc = world_camx(w) + RS_SCREEN_W / 2;
+    int xc = world_camx(w) + rs_screen_width() / 2;
     int idx = night_at(xc) ? 4 : district_at(xc);
     const look *L = &looks[idx];
     const int *src = &L->sky_top[0];
@@ -277,6 +290,7 @@ static uint16_t world_tile(const world *w, const bldg *b, int x, int y)
 
 static void stream_bg2(const world *w, int camx, int camy)
 {
+    int cm = rs_bg_map_w(RS_BG2) - 1;               /* the map's columns - 1: 63, or 127 on a wide screen */
     /* a broken skylight: redraw its columns */
     for (int i = 0; i < w->nb; i++) {
         const bldg *b = &w->b[i];
@@ -287,17 +301,17 @@ static void stream_bg2(const world *w, int camx, int camy)
         sky_redrawn[sky_redrawn_n++ & 7] = b->index;
         if (sky_redrawn_n > 8) sky_redrawn_n = 8;
         for (int x = (int)b->x0 + b->sky0; x < b->x0 + b->sky1; x += 8)
-            for (int r = 0; r < 32; r++) bg2_key[r][(x / 8) & 63] = 0;
+            for (int r = 0; r < 32; r++) bg2_key[r][(x / 8) & cm] = 0;
     }
     int tx0 = camx >> 3, ty0 = camy >> 3;
-    for (int tx = tx0; tx <= tx0 + RS_SCREEN_W / 8; tx++) {
+    for (int tx = tx0; tx <= tx0 + screen_cols(); tx++) {
         const bldg *b = world_bldg_at(w, tx * 8);
         for (int ty = ty0; ty <= ty0 + RS_SCREEN_H / 8 && ty < WORLD_H / 8; ty++) {
             uint32_t key = ((uint32_t)tx << 6 | (uint32_t)ty) + 1;
-            uint32_t *k = &bg2_key[ty & 31][tx & 63];
+            uint32_t *k = &bg2_key[ty & 31][tx & cm];
             if (*k == key) continue;
             *k = key;
-            rs_bg_put(RS_BG2, tx & 63, ty & 31, world_tile(w, b, tx * 8, ty * 8));
+            rs_bg_put(RS_BG2, tx & cm, ty & 31, world_tile(w, b, tx * 8, ty * 8));
         }
     }
 }
@@ -312,25 +326,41 @@ static void stream_bg3(int s3)
     for (int v = s3 / 8; v <= s3 / 8 + RS_SCREEN_H / 8; v++) {
         if (bg3_row[v & 31] == v) continue;
         bg3_row[v & 31] = (int16_t)v;
-        int r = v - MID_TOP_ROWS;
+        int r = v - MID_TOP_ROWS, rr = r < MID_H ? r : MID_H - 1;
         for (int x = 0; x < MID_W; x++)
-            rs_bg_put(RS_BG3, x, v & 31, r < 0 ? 0 : pm_mid_map[(r < MID_H ? r : MID_H - 1) * MID_W + x]);
+            rs_bg_put(RS_BG3, x, v & 31, r < 0 ? 0 : pm_mid_map[rr * MID_W + x]);
+        if (rs_bg_map_w(RS_BG3) > MID_W)           /* widescreen: the panorama's second half */
+            for (int x = 0; x < MID_W; x++)
+                rs_bg_put(RS_BG3, MID_W + x, v & 31, r < 0 ? 0 : pm_mid_wide_map[rr * MID_W + x]);
     }
 }
 
-/* ---- the backdrop: one panorama per district, 64 BG4 columns each ------------------------------------------------ */
+/* ---- the backdrop: one panorama per district, 64 BG4 columns each ------------------------------------------------
+ * At 320 two VRAM slots (district & 1) suffice: two panoramas at most show at once. A wider screen (up to 71 columns)
+ * may show the end of one, the whole next one and the start of a third: three slots of FAR_SLOT_WIDE tiles, panorama
+ * k in slot k % 3, its map entries moved to that slot. */
+static uint16_t far_entry(uint16_t e, int d, int base)
+{
+    if (!e) return 0;                               /* the blank tile (each slot's first) */
+    return (uint16_t)((e & ~1023) | (RS_MAP_TILE(e) - (d & 1) * FAR_SLOT + base));
+}
+
 static void stream_bg4(int camx)
 {
-    int c0 = camx / 64;
-    for (int32_t C = c0; C <= c0 + RS_SCREEN_W / 8 + 1; C++) {
-        if (far_col[C & 63] == C) continue;
-        int d = (int)((C / 64) % 4), slot = d & 1;
-        if (far_slot[slot] != d) {
-            rs_tiles_load(VR_BG4 + slot * FAR_SLOT, pm_far_tiles[d], pm_far_tile_count[d]);
-            far_slot[slot] = d;
+    int c0 = camx / 64, fm = rs_bg_map_w(RS_BG4) - 1, three = fm > 63;
+    for (int32_t C = c0; C <= c0 + screen_cols() + 1; C++) {
+        if (far_col[C & fm] == C) continue;
+        int k = (int)(C / 64), d = k % 4, slot = three ? k % 3 : d & 1, key = three ? k : d;
+        int base = three ? slot * FAR_SLOT_WIDE : slot * FAR_SLOT;
+        if (far_slot[slot] != key) {
+            rs_tiles_load(VR_BG4 + base, pm_far_tiles[d], pm_far_tile_count[d]);
+            far_slot[slot] = key;
         }
-        for (int r = 0; r < FAR_H; r++) rs_bg_put(RS_BG4, (int)(C & 63), FAR_Y + r, pm_far_map[d][r * FAR_W + (C & 63)]);
-        far_col[C & 63] = C;
+        for (int r = 0; r < FAR_H; r++) {
+            uint16_t e = pm_far_map[d][r * FAR_W + (C & 63)];
+            rs_bg_put(RS_BG4, (int)(C & fm), FAR_Y + r, three ? far_entry(e, d, base) : e);
+        }
+        far_col[C & fm] = C;
     }
 }
 
@@ -338,9 +368,18 @@ static void stream_bg4(int camx)
 void draw_invalidate(void)
 {
     memset(bg2_key, 0, sizeof bg2_key);
-    for (int i = 0; i < 64; i++) far_col[i] = -1;
+    for (int i = 0; i < 128; i++) far_col[i] = -1;
     for (int i = 0; i < 32; i++) bg3_row[i] = -1;
     sky_redrawn_n = 0;
+}
+
+/* the maps for this width (the play layer, the mid-ground and the backdrop are streamed into them) */
+static void maps_setup(void)
+{
+    rs_bg_setup(RS_BG1, ui_w(), 32, VR_BG1);
+    rs_bg_setup(RS_BG2, scenery_w(), 32, VR_BG2);
+    rs_bg_setup(RS_BG3, scenery_w(), 32, VR_BG3);
+    rs_bg_setup(RS_BG4, scenery_w(), 32, VR_BG4);
 }
 
 void draw_init(void)
@@ -348,20 +387,38 @@ void draw_init(void)
     for (int p = 1; p < 8; p++)
         if (p != PAL_LOGO) rs_pal_load(RS_PAL_BG(p), pm_bg_pal[p], 16);    /* 0 and 5: the house kit's */
     rs_pal_load(RS_PAL_OBJ(0), pm_obj_pals, 128);
-    rs_bg_setup(RS_BG1, 64, 32, VR_BG1);
-    rs_bg_setup(RS_BG2, 64, 32, VR_BG2);
-    rs_bg_setup(RS_BG3, 64, 32, VR_BG3);
-    rs_bg_setup(RS_BG4, 64, 32, VR_BG4);
+    maps_setup();
     rs_tiles_load(VR_BG2, pm_bg2_tiles, T_COUNT);
-    rs_tiles_load(VR_BG3, pm_mid_tiles, pm_mid_tile_count);
+    rs_tiles_load(VR_BG3, pm_mid_tiles, wide() ? pm_mid_wide_tile_count : pm_mid_tile_count);
     for (int l = 0; l < 4; l++) rs_bg_enable(l, 1);
     rs_obj_base(VR_OBJ);
     rs_tiles_load(VR_OBJ, pm_obj_tiles, pm_obj_tile_count);
     rs_raster(raster, NULL);
     rs_rng_seed(&fx_rng, 0x9090a1u);
-    far_slot[0] = far_slot[1] = -1;
+    far_slot[0] = far_slot[1] = far_slot[2] = -1;
+    drawn_width = rs_screen_width();
     draw_invalidate();
     memset(shown_look, 0xff, sizeof shown_look);
+}
+
+/* A state saved at another width brings the maps of that width (64 or 128 tiles) and the backdrop's slots of that
+ * width: set them up for this one (everything streamed again, the UI redrawn on the next frame). Same width: nothing. */
+void draw_state_loaded(void)
+{
+    if (drawn_width == rs_screen_width()) return;
+    drawn_width = rs_screen_width();
+    maps_setup();
+    if (wide()) rs_tiles_load(VR_BG3, pm_mid_tiles, pm_mid_wide_tile_count);
+    far_slot[0] = far_slot[1] = far_slot[2] = -1;
+    draw_invalidate();
+    redraw_ui = 1;
+}
+
+int draw_redraw_ui(void)
+{
+    int r = redraw_ui;
+    redraw_ui = 0;
+    return r;
 }
 
 /* ---- cosmetic effects ------------------------------------------------------------------------------------------------ */
@@ -450,7 +507,7 @@ void fx_update(const world *w)
 static void spr_at(int id, int sx, int sy, int pal, int flags)
 {
     const pm_sprite_def *d = &pm_spr[id];
-    if (sx <= -(int)d->w || sx >= RS_SCREEN_W || sy <= -(int)d->h || sy >= RS_SCREEN_H) return;
+    if (sx <= rs_screen_left() - (int)d->w || sx >= rs_screen_right() || sy <= -(int)d->h || sy >= RS_SCREEN_H) return;
     rs_spr(sx, sy, d->tile, d->w, d->h, pal >= 0 ? pal : d->pal, 2, flags);
 }
 
@@ -460,7 +517,7 @@ static void spr_w_prio(int id, int wx, int wy, int flags, int prio)
 {
     const pm_sprite_def *d = &pm_spr[id];
     int sx = wx - camx_i, sy = wy - camy_i;
-    if (sx <= -(int)d->w || sx >= RS_SCREEN_W || sy <= -(int)d->h || sy >= RS_SCREEN_H) return;
+    if (sx <= rs_screen_left() - (int)d->w || sx >= rs_screen_right() || sy <= -(int)d->h || sy >= RS_SCREEN_H) return;
     rs_spr(sx, sy, d->tile, d->w, d->h, d->pal, prio, flags);
 }
 
@@ -637,8 +694,8 @@ static void draw_objects(const world *w)
             break;
         }
         case OB_GUST: {
-            int x0 = (int)o->x > camx_i ? (int)o->x : camx_i, x1 = o->x + o->w < camx_i + RS_SCREEN_W ? (int)(o->x + o->w)
-                                                                                                        : camx_i + RS_SCREEN_W;
+            int x0 = (int)o->x > camx_i ? (int)o->x : camx_i, x1 = o->x + o->w < camx_i + rs_screen_width() ? (int)(o->x + o->w)
+                                                                                                        : camx_i + rs_screen_width();
             if (x1 - x0 <= 24) break;
             for (int k = 0; k < 6; k++) {
                 int span = x1 - x0 - 16;
@@ -715,15 +772,16 @@ void draw_frame(const world *w, int state, int st_t, int paused)
     sky_lines(camy);
     stream_bg2(w, camx, camy);
     stream_bg4(camx);
-    scroll_x = camx & 511;
+    int pm = scenery_w() * 8 - 1;                   /* the maps' period - 1: 511, or 1023 on a wide screen */
+    scroll_x = camx & pm;
     scroll_y = camy & 255;
     rs_bg_scroll(RS_BG2, scroll_x, scroll_y);
-    int xc = camx + RS_SCREEN_W / 2, drop_to = district_at(xc) == 3 && !night_at(xc) ? 56 : 0;
+    int xc = camx + rs_screen_width() / 2, drop_to = district_at(xc) == 3 && !night_at(xc) ? 56 : 0;
     mid_drop += mid_drop < drop_to ? 1 : mid_drop > drop_to ? -1 : 0;
     int s3 = camy / 2 + 128 - mid_drop;
     stream_bg3(s3);
-    rs_bg_scroll(RS_BG3, (camx / 2) & 511, s3 & 255);
-    rs_bg_scroll(RS_BG4, (camx / 8) & 511, 40 + camy / 4);
+    rs_bg_scroll(RS_BG3, (camx / 2) & pm, s3 & 255);
+    rs_bg_scroll(RS_BG4, (camx / 8) & pm, 40 + camy / 4);
     (void)paused;
     /* sprites, front to back: the UI (ui.c), the players, effects, the cat, things */
     rs_oam_clear();
@@ -740,7 +798,7 @@ void draw_frame(const world *w, int state, int st_t, int paused)
 void draw_state(void)
 {
     S(cur_look); S(tgt_look); S(shown_look); S(line_col); S(bg2_key); S(far_col); S(bg3_row); S(mid_drop); S(far_slot); S(sky_redrawn);
-    S(sky_redrawn_n); S(test_backdrop); S(scroll_x); S(scroll_y); S(night_blink); S(fx_rng); S(fx); S(camx_i); S(camy_i);
+    S(sky_redrawn_n); S(test_backdrop); S(scroll_x); S(scroll_y); S(night_blink); S(fx_rng); S(fx); S(camx_i); S(camy_i); S(drawn_width);
     RS_STATE_RASTER(raster);
 }
 #undef S

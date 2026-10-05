@@ -9,6 +9,7 @@ Writes, in the art folder (default games/pogomamie/art):
   sprites.png                   every sprite (pm_sheets.SPRITES)
   tiles/bg2.png                 the play layer's 8x8 tiles (pm_sheets.BG_TILES), 16 per row
   tiles/mid.png                 the mid-ground roofs (BG3)
+  tiles/mid_wide.png            ... their second half on a wide screen (widescreen: a 1024-px panorama)
   tiles/far_<district>.png      the four district backdrops (BG4)
 
     python3 tools/make_placeholders.py --game pogomamie [--out DIR] [--preview]
@@ -1245,10 +1246,12 @@ def bg2_sheet():
 
 
 # ==== panoramas ================================================================================================================
-def midground():
-    """BG3: distant Paris roofs (mansards, chimney pots, a dome, a spire), two rows, repeating every 512 px."""
+def midground(seed=11, marks=((140, "dome"), (380, "spire"))):
+    """BG3: distant Paris roofs (mansards, chimney pots, a dome, a spire), two rows, repeating every 512 px.
+    Widescreen (DESIGN.md "Widescreen"): mid_wide.png is the second half of a 1024-px panorama (a 128-tile map, so a
+    screen wider than 512 px never sees it repeat): other roofs (another seed), a gothic tower and the Pantheon."""
     cv = Canvas(S.MID_W, S.MID_H, S.BG_PALS["mid"])
-    rng = random.Random(11)
+    rng = random.Random(seed)
     for row, (base, tone, win) in enumerate(((76, "m1", 0.06), (104, "m3", 0.10))):
         x = 0
         while x < S.MID_W:
@@ -1273,11 +1276,27 @@ def midground():
                         cv.rect(wx, wy, wx + 1, wy + 2, "mwin")
             x += w
         if row == 0:                            # a dome and a spire on the far row
-            for cx, kind in ((140, "dome"), (380, "spire")):
+            for cx, kind in marks:
                 if kind == "dome":
                     cv.ellipse(cx, base - 36, 12, 12, "m2")
                     cv.rect(cx - 12, base - 36, cx + 12, base, "m2")
                     cv.rect(cx - 1, base - 54, cx + 1, base - 46, "m2")
+                elif kind == "pantheon":        # a colonnaded drum, the dome, the lantern
+                    cv.rect(cx - 26, base - 18, cx + 26, base, "m2")
+                    cv.rect(cx - 15, base - 34, cx + 15, base - 18, "m2")
+                    for x in range(cx - 13, cx + 14, 4):
+                        cv.vline(x, base - 32, base - 20, "m3")
+                    cv.ellipse(cx, base - 36, 13, 11, "m2")
+                    cv.rect(cx - 3, base - 52, cx + 3, base - 45, "m2")
+                    cv.rect(cx - 1, base - 58, cx + 1, base - 52, "m2")
+                elif kind == "tower":           # a square gothic tower, its corner pinnacles
+                    cv.rect(cx - 7, base - 64, cx + 7, base, "m2")
+                    for dx in (-8, 6):
+                        cv.rect(cx + dx, base - 71, cx + dx + 2, base - 64, "m2")
+                    cv.rect(cx - 1, base - 74, cx + 1, base - 64, "m2")
+                    for y in range(base - 56, base - 12, 14):
+                        cv.rect(cx - 3, y, cx - 2, y + 7, "m3")
+                        cv.rect(cx + 2, y, cx + 3, y + 7, "m3")
                 else:
                     for y in range(base - 70, base):
                         half = max(0, (y - (base - 70)) // 10)
@@ -1427,6 +1446,7 @@ def write_all(out, preview=False):
     save(sprites_sheet(), "sprites.png")
     save(bg2_sheet(), "tiles/bg2.png")
     save(midground().image(), "tiles/mid.png")
+    save(midground(23, ((130, "tower"), (360, "pantheon"))).image(), "tiles/mid_wide.png")
     for d in S.DISTRICTS:
         save(far(d).image(), "tiles/far_%s.png" % d)
     if preview:

@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
 """Check results geometry, readable scores, slide backgrounds and return to title.
 
+Widescreen (DESIGN.md "Widescreen"): with RS_WIDTH set, the runner draws that width and the UI is centred on it: the
+boxes below (320-column UI coordinates) move right by the margin.
+
 MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/pogomamie/LICENSE.
 """
+import os
 import re
 import subprocess
 import sys
@@ -12,12 +16,15 @@ from PIL import Image
 binary = sys.argv[1]
 out = Path(sys.argv[2] if len(sys.argv) > 2 else 'build/pogomamie-ui')
 out.mkdir(parents=True, exist_ok=True)
+width = int(os.environ.get("RS_WIDTH", "320") or 320)
+margin = (width - 320) // 2
 
 def run(args):
     result = subprocess.run([binary] + args, capture_output=True, text=True, check=True)
     return result.stdout + result.stderr
 
 def count(im, box, colour, tolerance=12):
+    box = (box[0] + margin, box[1], box[2] + margin, box[3])      # UI coordinates -> screen
     return sum(all(abs(a - b) <= tolerance for a, b in zip(pixel, colour))
                for pixel in im.crop(box).getdata())
 
@@ -63,7 +70,7 @@ for players in range(1, 5):
     check(count(im, (100, row * 8, 220, row * 8 + 8), (255, 246, 220), 16) > 35,
           f'{players}P: menu prompt is below the scores')
     slide = Image.open(sliding).convert('RGB')
-    check(count(slide, (0, 0, 320, 20), navy) < 5,
+    check(count(slide, (-margin, 0, width - margin, 20), navy) < 5,
           f'{players}P: background remains during the slide')
     inputs = out / f'return-{players}.input'
     inputs.write_text(f'{frame + 100} tap A\n')

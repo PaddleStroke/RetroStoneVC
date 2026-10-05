@@ -148,7 +148,7 @@ void sfx_at(int id, int x, int pitch)
                     pitch ? pitch : sounds[id].pitch, sounds[id].echo);
 }
 
-void sfx(int id) { sfx_at(id, RS_SCREEN_W / 2, 0); }
+void sfx(int id) { sfx_at(id, rs_screen_width() / 2, 0); }      /* the centre (the stage origin is 0) */
 
 void music_district(int district, int night)
 {

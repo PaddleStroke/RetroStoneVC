@@ -60,5 +60,16 @@ for players in 2 3 4; do
     [ -n "$f" ] && run --frames $((f + 65)) --opt bot=$players --opt players=$players --opt ready=1 \
         --opt seed=5 --opt botstop=3 --shot $((f + 62)):"$O/results-$players-players.png"
 done
+# widescreen (DESIGN.md "Widescreen"): the title, a run (the Eiffel Tower district), the game over (a medal) and the
+# 4-player race at 427 (16:9) and 520 (19.5:9) columns
+for w in 427 520; do
+    run --width $w --frames 200 --shot 190:$O/title-$w.png
+    run --width $w --frames 900 --opt bot=1 --opt ready=1 --opt seed=14 --opt skip=1500 --shot 880:$O/play-$w.png
+    run --width $w --frames 20000 --opt bot=1 --opt ready=1 --opt seed=1 --opt botstop=520
+    f=$(sed -n 's/.*run 1 over at frame \([0-9]*\).*/\1/p' "$T/log.txt")
+    [ -n "$f" ] && run --width $w --frames $((f + 70)) --opt bot=1 --opt ready=1 --opt seed=1 --opt botstop=520 \
+        --shot $((f + 60)):$O/gameover-$w.png
+    run --width $w --frames 1500 --opt bot=4 --opt players=4 --opt ready=1 --opt seed=9 --shot 800:"$O/play-4-players-$w.png"
+done
 rm -rf "$T"
 ls "$O"

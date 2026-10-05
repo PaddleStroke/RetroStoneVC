@@ -54,6 +54,8 @@ void ui_frame(const world *w, int state, int st_t, int best_m, int best_score, i
 {
     char s[128];
     const mamie *m = &w->m[0];
+    int redraw = draw_redraw_ui();              /* a state of another width: the UI layer was set up again */
+    if (redraw) shown_state = -1;
     if (state != shown_state || best_m != shown_best || w->players != shown_players) {
         hu_clear();
         shown_score = shown_chain = -1;
@@ -112,26 +114,28 @@ void ui_frame(const world *w, int state, int st_t, int best_m, int best_score, i
             hu_retry_line_at(hu_results_retry_row(&rank), st_t, RETRY_LOCK, HTR(BACK_MENU));
         }
     }
+    if (redraw && paused) hu_pause(0, 13);        /* ... and PAUSED, if it shows */
     hu_pause(paused, 13);
-    rs_bg_scroll(RS_BG1, 0, state == DS_OVER ? -hu_slide_in(st_t, 20, 200) : 0);
+    /* widescreen: the UI centred on the screen (the stage origin is 0: the UI layer scrolls by -hu_ui_x()) */
+    rs_bg_scroll(RS_BG1, -hu_ui_x(), state == DS_OVER ? -hu_slide_in(st_t, 20, 200) : 0);
 }
 
 /* ---- sprites: the distance, power-ups, the medal, the A glyph ------------------------------------------------------ */
 static void spr(int id, int x, int y)
 {
     const pm_sprite_def *d = &pm_spr[id];
-    if (x <= -(int)d->w || x >= RS_SCREEN_W || y <= -(int)d->h || y >= RS_SCREEN_H) return;
+    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= -(int)d->h || y >= RS_SCREEN_H) return;
     rs_spr(x, y, d->tile, d->w, d->h, d->pal, 3, 0);
 }
 
-/* the distance in the kit's big digits, centred on cx, and the m */
+/* the distance in the kit's big digits, centred on cx (UI coordinates), and the m */
 static void distance(int n, int cx, int y)
 {
     char s[12];
     snprintf(s, sizeof s, "%d", n);
     int len = (int)strlen(s);
     hu_number(n, cx - 7, y, 3);
-    spr(SPR_UNIT_M, cx - 7 + len * 6 - 2, y);
+    spr(SPR_UNIT_M, cx - 7 + len * 6 - 2 + hu_ui_x(), y);      /* (the kit's digits add hu_ui_x() themselves) */
 }
 
 static void powerups(const mamie *m, int x, int y)
@@ -148,7 +152,7 @@ void ui_sprites(const world *w, int state, int st_t, int best_m)
     if (state == DS_PLAY || state == DS_FALL) {
         if (w->players == 1) {
             distance(w->m[0].dist_m, RS_SCREEN_W / 2, 10 - 8);
-            powerups(&w->m[0], 8, 6);
+            powerups(&w->m[0], 8, 6);                 /* the screen's top-left corner (stage x = screen x) */
         } else {
             int values[MAX_PLAYERS];
             for (int p = 0; p < w->players; p++) values[p] = w->m[p].dist_m;
@@ -161,7 +165,7 @@ void ui_sprites(const world *w, int state, int st_t, int best_m)
             distance(w->m[0].dist_m, (24 + over_ex) * 8, 11 * 8 - 4 + oy);
             int md = medal_of(w->m[0].dist_m), mx = (11 - over_dx) * 8;
             if (md) {
-                spr(SPR_MEDAL + md - 1, mx + 2, 16 * 8 - 3 + oy);
+                spr(SPR_MEDAL + md - 1, mx + 2 + hu_ui_x(), 16 * 8 - 3 + oy);
                 if ((st_t / 20) % 3 == 0) hu_sparkle(mx - 3, 16 * 8 - 1 + oy, (st_t / 10) % 2, 3);
             }
         } else {

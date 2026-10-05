@@ -238,6 +238,8 @@ int  draw_scroll_x(void);            /* the BG2 scroll registers as last set (th
 int  draw_scroll_y(void);
 void draw_camera(int *x, int *y);   /* tests: the camera of the last frame drawn (world px, the shake included) */
 void draw_test_backdrop(int on);    /* tests: a flat magenta backdrop */
+void draw_state_loaded(void);       /* a state of another width: the maps for this one (widescreen) */
+int  draw_redraw_ui(void);          /* ... then 1 once: the UI layer must be drawn again */
 int  draw_player_pal(int p);        /* the OBJ palette of player p's sprite */
 /* the rope of a clothesline as drawn: the segments' end points (world px); returns the count */
 int  draw_line_points(const obj *o, int *xs, int *ys, int max);

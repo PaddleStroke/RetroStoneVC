@@ -13,7 +13,10 @@
  *   - on a landing frame, Mamie's sprite stands exactly on the surface: its pogo's tip on the row above it.
  * Every x phase and every y phase of the camera (64 combinations) must be covered.
  *
- *   test_align [--frames N] [--seed S] [--opt key=value]...
+ * Widescreen (DESIGN.md "Widescreen"): --width N (or the environment variable RS_WIDTH) checks the whole wider screen,
+ * and that the course comes into view at its real right edge: a new building (and its things) starts past it.
+ *
+ *   test_align [--frames N] [--width N] [--opt key=value]...
  */
 #include "pm.h"
 #include "rs_host.h"
@@ -24,12 +27,16 @@
 
 const rs_game *rs_game_main(void);
 
-#define SW RS_SCREEN_W
 #define SH RS_SCREEN_H
+#define SWM RS_SCREEN_W_MAX
+static int SW = RS_SCREEN_W;                     /* the screen width (widescreen: --width, RS_WIDTH) */
 
-static uint16_t with_bg2[SW * SH], without_bg2[SW * SH], spr_on[SW * SH], spr_off[SW * SH];
-static uint8_t bg2[SH][SW];
-static int fails, frames_checked, columns_checked, sprites_checked, landings_checked;
+static uint16_t with_bg2[SWM * SH], without_bg2[SWM * SH], spr_on[SWM * SH], spr_off[SWM * SH];
+static uint8_t bg2[SH][SWM];
+static int fails, frames_checked, columns_checked, sprites_checked, landings_checked, arrivals_checked;
+static int32_t last_index = -1;
+static uint32_t last_seed;
+static int last_t;
 static uint8_t phase_seen[8][8];
 
 static void quiet_log(const char *line) { (void)line; }
@@ -46,7 +53,7 @@ static void render(int bgmask, int sprites, uint16_t *out)
     draw_test_backdrop(1);
     rs_host_render();
     draw_test_backdrop(0);
-    memcpy(out, rs_host_framebuffer(), sizeof with_bg2);
+    memcpy(out, rs_host_framebuffer(), (size_t)SW * SH * sizeof *out);
     for (int l = 0; l < 4; l++) rs_bg_enable(l, 1);
     for (int i = 0; i < RS_OAM_MAX; i++) rs_oam(i)->flags = flags[i];
 }
@@ -86,6 +93,22 @@ static void check_frame(const world *w, int frame, int st)
     draw_camera(&cx, &cy);
     phase_seen[cx & 7][cy & 7] = 1;
     frames_checked++;
+    /* the course comes into view at the real right edge: a building new this frame (and what it brings) starts past it
+     * (a new run generates its first screens at once) */
+    int32_t top = w->b[w->nb - 1].index;
+    if (w->seed != last_seed || top < last_index || w->t < last_t) last_index = top;
+    last_seed = w->seed;
+    last_t = w->t;
+    for (int i = 0; i < w->nb; i++) {
+        const bldg *b = &w->b[i];
+        if (b->index <= last_index) continue;
+        arrivals_checked++;
+        if (b->x0 - cx < SW) fail(frame, "building %d appears inside the screen, at x %d (width %d)", (int)b->index, (int)b->x0 - cx, SW);
+        for (int k = 0; k < w->no; k++)
+            if (w->o[k].bld == b->index && w->o[k].kind != OB_GUST && (int)w->o[k].x - 16 - cx < SW)
+                fail(frame, "object %d (kind %d) appears inside the screen, at x %d", k, w->o[k].kind, (int)w->o[k].x - cx);
+    }
+    last_index = top;
     render(0x2, 0, with_bg2);
     render(0x0, 0, without_bg2);
     for (int i = 0; i < SW * SH; i++) bg2[i / SW][i % SW] = with_bg2[i] != without_bg2[i];
@@ -174,8 +197,10 @@ static void check_frame(const world *w, int frame, int st)
 int main(int argc, char **argv)
 {
     int frames = 20000;
+    if (getenv("RS_WIDTH")) rs_host_set_width(atoi(getenv("RS_WIDTH")));
     for (int i = 1; i < argc; i++) {
         if (!strcmp(argv[i], "--frames") && i + 1 < argc) frames = atoi(argv[++i]);
+        else if (!strcmp(argv[i], "--width") && i + 1 < argc) rs_host_set_width(atoi(argv[++i]));
         else if (!strcmp(argv[i], "--opt") && i + 1 < argc) {
             char kv[128];
             snprintf(kv, sizeof kv, "%s", argv[++i]);
@@ -184,7 +209,7 @@ int main(int argc, char **argv)
             *eq = 0;
             rs_host_set_option(kv, eq + 1);
         } else {
-            fprintf(stderr, "usage: test_align [--frames N] [--opt key=value]...\n");
+            fprintf(stderr, "usage: test_align [--frames N] [--width N] [--opt key=value]...\n");
             return 2;
         }
     }
@@ -194,6 +219,7 @@ int main(int argc, char **argv)
     rs_host_set_option("bot", "1");
     rs_host_set_option("botruns", "1000");
     rs_host_init(rs_game_main());
+    SW = rs_screen_width();
     int runs = 0, last_st = -1;
     for (int f = 0; f < frames; f++) {
         rs_host_frame();
@@ -206,8 +232,9 @@ int main(int argc, char **argv)
     rs_host_shutdown();
     int phases = 0;
     for (int x = 0; x < 8; x++) for (int y = 0; y < 8; y++) phases += phase_seen[x][y];
-    printf("  %s picture = world: %d frames, %d runs, %d roof columns, %d sprites, %d landings, %d/64 scroll phases\n",
-           fails ? "FAIL" : "ok  ", frames_checked, runs, columns_checked, sprites_checked, landings_checked, phases);
+    printf("  %s picture = world: %d frames, %d runs, %d roof columns, %d sprites, %d landings, %d/64 scroll phases, "
+           "%d columns, %d buildings came in past the edge\n", fails ? "FAIL" : "ok  ", frames_checked, runs, columns_checked,
+           sprites_checked, landings_checked, phases, SW, arrivals_checked);
     if (phases < 64) { printf("  FAIL only %d of the 64 x/y scroll phases were seen\n", phases); fails++; }
     if (landings_checked < 20) { printf("  FAIL only %d landings checked\n", landings_checked); fails++; }
     return fails ? 1 : 0;

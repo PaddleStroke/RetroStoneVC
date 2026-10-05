@@ -30,6 +30,7 @@ VR_BG1, VR_BG2, VR_BG3, VR_BG4, VR_OBJ = 0, 640, 768, 1024, 1536
 LOGO_TILE = 320
 PAL_UI, PAL_LOGO = 0, 5
 FAR_SLOT = 256                  # tiles per BG4 slot (district & 1)
+FAR_SLOT_WIDE = 168             # widescreen: three slots (panorama % 3), the map entries moved there by the C code
 
 
 def to_index(img, x0, y0, w, h, pal, base=1):
@@ -115,8 +116,8 @@ def main():
          "#ifndef PM_ASSETS_H\n#define PM_ASSETS_H\n#include <stdint.h>\n#include \"rs.h\"\n",
          "#define VR_BG1 %d\n#define VR_BG2 %d\n#define VR_BG3 %d\n#define VR_BG4 %d\n#define VR_OBJ %d" %
          (VR_BG1, VR_BG2, VR_BG3, VR_BG4, VR_OBJ),
-         "#define LOGO_TILE %d\n#define FAR_SLOT %d\n#define PAL_UI %d\n#define PAL_LOGO %d" %
-         (LOGO_TILE, FAR_SLOT, PAL_UI, PAL_LOGO)]
+         "#define LOGO_TILE %d\n#define FAR_SLOT %d\n#define FAR_SLOT_WIDE %d\n#define PAL_UI %d\n#define PAL_LOGO %d" %
+         (LOGO_TILE, FAR_SLOT, FAR_SLOT_WIDE, PAL_UI, PAL_LOGO)]
     for name, i in S.BG_PAL_INDEX.items():
         h.append("#define PAL_%s %d" % (name.upper(), i))
     stats = []
@@ -169,14 +170,27 @@ def main():
     im = Image.open(os.path.join(a.art, "tiles", "mid.png")).convert("RGB")
     cell = to_index(im, 0, 0, S.MID_W, S.MID_H, [c2 for _, c2 in S.BG_PALS["mid"]])
     tiles = [[0] * 64]
-    mp = bg_map(cell, S.BG_PAL_INDEX["mid"], 0, tiles, {tuple([0] * 64): 0})
+    index = {tuple([0] * 64): 0}
+    mp = bg_map(cell, S.BG_PAL_INDEX["mid"], 0, tiles, index)
+    n_mid = len(tiles)
+    # widescreen (DESIGN.md "Widescreen"): the panorama's second half (mid_wide.png, other roofs and landmarks) after
+    # it on a 128-tile map; its new tiles come after the first half's, whose numbers do not change (320: not loaded)
+    im = Image.open(os.path.join(a.art, "tiles", "mid_wide.png")).convert("RGB")
+    cell = to_index(im, 0, 0, S.MID_W, S.MID_H, [c2 for _, c2 in S.BG_PALS["mid"]])
+    mp_wide = bg_map(cell, S.BG_PAL_INDEX["mid"], 0, tiles, index)
+    if len(tiles) > VR_BG4 - VR_BG3:
+        raise SystemExit("mid + mid_wide: %d tiles > %d" % (len(tiles), VR_BG4 - VR_BG3))
     c.append(rsasset.c_bytes("pm_mid_tiles", rsasset.tiles_bytes(tiles)))
-    c.append("const int pm_mid_tile_count = %d;" % len(tiles))
+    c.append("const int pm_mid_tile_count = %d;" % n_mid)
+    c.append("const int pm_mid_wide_tile_count = %d;" % len(tiles))
     c.append(carr("uint16_t", "pm_mid_map", mp))
+    c.append(carr("uint16_t", "pm_mid_wide_map", mp_wide))
     h.append("#define MID_W 64\n#define MID_H %d\n#define MID_Y %d" % (S.MID_H // 8, S.MID_Y // 8))
     h.append("extern const uint8_t pm_mid_tiles[];\nextern const int pm_mid_tile_count;\n"
              "extern const uint16_t pm_mid_map[MID_W * MID_H];")
-    stats.append("BG3 %d" % len(tiles))
+    h.append("extern const int pm_mid_wide_tile_count;          /* with the second half's tiles (widescreen) */\n"
+             "extern const uint16_t pm_mid_wide_map[MID_W * MID_H];  /* the second half (widescreen) */")
+    stats.append("BG3 %d+%d" % (n_mid, len(tiles) - n_mid))
 
     # ---- BG4: the four district backdrops, each in its slot (district & 1) --------------------------------------
     far_counts = []
@@ -187,6 +201,8 @@ def main():
         mp = bg_map(cell, S.BG_PAL_INDEX["far"], (d & 1) * FAR_SLOT, tiles, {tuple([0] * 64): 0})
         if len(tiles) > FAR_SLOT:
             raise SystemExit("far_%s: %d tiles > %d" % (name, len(tiles), FAR_SLOT))
+        if len(tiles) > FAR_SLOT_WIDE:
+            raise SystemExit("far_%s: %d tiles > %d (widescreen: three slots)" % (name, len(tiles), FAR_SLOT_WIDE))
         c.append(rsasset.c_bytes("pm_far%d_tiles" % d, rsasset.tiles_bytes(tiles)))
         c.append(carr("uint16_t", "pm_far%d_map" % d, mp))
         far_counts.append(len(tiles))

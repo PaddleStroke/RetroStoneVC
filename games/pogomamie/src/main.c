@@ -206,7 +206,7 @@ static void game_update(void)
         sfx(SFX_PAUSE);
     }
     if (paused) return;
-    int xc = world_camx(&W) + RS_SCREEN_W / 2;
+    int xc = world_camx(&W) + rs_screen_width() / 2;         /* the tune: the district at the screen's centre (decor) */
     music_district(district_at(xc), night_at(xc) > 0);
     switch (st) {
     case DS_TITLE: {
@@ -314,11 +314,16 @@ static void game_state(void)
 }
 #undef S
 
-static void game_state_loaded(void) { bot_state_loaded(); }
+static void game_state_loaded(void)
+{
+    bot_state_loaded();
+    draw_state_loaded();                     /* widescreen: a state saved at another width */
+}
 
 const rs_game *rs_game_main(void)
 {
     static const rs_game g = {"Pogo Mamie", "pogomamie", "0.1.0", game_init, game_update, game_draw, game_shutdown,
-                              pm_assets, game_state, game_state_loaded, 2};
+                              pm_assets, game_state, game_state_loaded, 2,
+                              RS_SCREEN_W_MAX};   /* widescreen: any width (DESIGN.md "Widescreen") */
     return &g;
 }

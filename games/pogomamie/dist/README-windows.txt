@@ -24,4 +24,7 @@ Up to four racers bounce on the same rooftops. Results rank their distances. An 
 
 F11 or Alt+Enter: fullscreen. F12: screenshot. Close the window to quit.
 Options: PogoMamie.exe --scale 4 --fullscreen
+Widescreen: the picture follows the shape of the window (drag its edges or go
+fullscreen: a wider window shows more of Paris ahead). To fix it: --width 427
+(16:9), --width 520 (phones), or --aspect 4:3 for the classic 320x240.
 The best distance and score are saved in pogomamie.srm next to the exe.

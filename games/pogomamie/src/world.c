@@ -10,6 +10,12 @@
 int world_camx(const world *w) { return (int)(w->camx >> 8); }
 int world_camy(const world *w) { return (int)(w->camy >> 8); }
 
+/* Widescreen (DESIGN.md "Widescreen"): the course is generated up to 2 * RS_SCREEN_W = 640 px past the camera's left
+ * edge, a fixed distance, so it is the same at every width (what and where), and past the REAL right edge at every
+ * width (560 at most): a new building and its things start beyond it and come into view at that edge. The camera
+ * (world_camera) does not depend on the width either: the players stay where they are on the stage (origin 0). */
+_Static_assert(2 * RS_SCREEN_W >= RS_SCREEN_W_MAX + 64, "the course must be generated past the widest screen");
+
 const bldg *world_bldg_at(const world *w, int x)
 {
     int i = world_bldg_index_at(w, x);
