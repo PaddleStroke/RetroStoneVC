@@ -8,6 +8,7 @@
  * the fixed-point game must follow them.
  */
 #include "ls.h"
+#include "rs_host.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -272,6 +273,58 @@ static void test_death_and_determinism(void)
     CHECK(h[0] == h[1], "two identical runs: %08x %08x", h[0], h[1]);
 }
 
+/* Widescreen: the same course at every width (the same gaps and themes, one spacing apart, from a first obstacle
+ * just off the real screen edge); a pilot through it scores the same, its first obstacle d frames later. */
+#define WS_FRAMES (72 * 40)
+static void ws_run(int width, int score[WS_FRAMES], int gaps[64], int *first_x)
+{
+    rs_host_set_width(width);
+    rs_host_reset();
+    world w;
+    world_init(&w, 1, 4242, 0);
+    w.fixed_seed = 1;
+    int flap[MAX_PLAYERS] = {1, 0}, none[MAX_PLAYERS] = {0, 0};
+    world_step(&w, flap);
+    *first_x = w.ob[0].x;
+    for (int i = 0; i < 64; i++) gaps[i] = -1;
+    for (int f = 0; f < WS_FRAMES; f++) {
+        const obstacle *o = world_next_obstacle(&w, 0);
+        w.sq[0].y = (o->gap_top + GAP / 2) * Q16_ONE;
+        w.sq[0].vy = 0;
+        w.sq[0].tilt = 0;
+        world_step(&w, none);
+        for (int i = 0; i < w.nob; i++)
+            if (w.ob[i].index < 64) {
+                int v = w.ob[i].gap_top * 16 + w.ob[i].theme + 4 * (w.ob[i].x - *first_x == w.ob[i].index * SPACING);
+                if (gaps[w.ob[i].index] >= 0 && gaps[w.ob[i].index] != v) gaps[w.ob[i].index] = -2;
+                else gaps[w.ob[i].index] = v;
+            }
+        score[f] = w.sq[0].state == SQ_SWIM ? w.sq[0].score : -1;
+    }
+}
+
+static void test_widescreen(void)
+{
+    printf("widescreen\n");
+    static int s320[WS_FRAMES], sw[WS_FRAMES];
+    int g320[64], gw[64], fx320, fxw;
+    ws_run(RS_SCREEN_W, s320, g320, &fx320);
+    CHECK(fx320 == FIRST_OBST_X, "320 columns: the first obstacle at x %d", fx320);
+    static const int widths[] = {427, 520, 560};
+    for (int k = 0; k < 3; k++) {
+        ws_run(widths[k], sw, gw, &fxw);
+        int d = fxw - fx320, same_course = !memcmp(g320, gw, 32 * sizeof *gw) && g320[31] >= 0, same_score = 1;
+        for (int f = 0; f + d < WS_FRAMES; f++) same_score &= s320[f] == sw[f + d] && s320[f] >= 0;
+        CHECK(fxw >= FIRST_OBST_X + widths[k] - RS_SCREEN_W && fxw % 8 == 0 && fxw - widths[k] < 8,
+              "%d columns: the first obstacle just off the real edge, x %d", widths[k], fxw);
+        CHECK(same_course, "%d columns: the same course (32 obstacles: gaps, themes, one spacing apart)", widths[k]);
+        CHECK(same_score, "%d columns: the pilot scores the same, %d frames later (%d points)", widths[k], d,
+              s320[WS_FRAMES - 1 - d]);
+    }
+    rs_host_set_width(RS_SCREEN_W);
+    rs_host_reset();
+}
+
 int main(void)
 {
     test_constants();
@@ -283,6 +336,7 @@ int main(void)
     test_collision();
     test_scoring();
     test_death_and_determinism();
+    test_widescreen();
     printf("leadysquid physics: %d checks, %d failed\n", checks, fails);
     return fails ? 1 : 0;
 }

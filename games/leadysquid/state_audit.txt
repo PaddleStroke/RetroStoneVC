@@ -3,3 +3,4 @@
 bot.memo            the bot's search memo (5 MB, a cache): bot_state_loaded() invalidates it
 bot.stamp           the memo's validity stamps: cleared after a load (bot_state_loaded)
 main.SV             the battery save's copy (best scores, medals): stays in the .srm, a state never takes it back
+draw.redraw_pause   transient: set by draw_state_loaded() after a state of another width, consumed by the next draw

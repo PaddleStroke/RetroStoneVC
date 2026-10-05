@@ -78,6 +78,40 @@ static void gradient_update(int theme, int target_depth)
 }
 
 /* ---- set-up ---------------------------------------------------------------------------------------- */
+/* Widescreen (DESIGN.md "Widescreen"): the scenery maps are 64 tiles (512 px) wide at 320 columns, 128 (1024 px) on a
+ * wider screen, which would otherwise see the 512-px panoramas repeat (and the course needs more than 512 px). The
+ * second half is the first one mirrored (the same tiles h-flipped: no VRAM, seamless at both joins), so the screen
+ * never shows a stretch twice; the additive rays (BG4 rows above RAYS_END) are copied, not mirrored (they slant).
+ * The UI layer is 128 tiles wide beyond 512 columns (the corner tags of 3-4 players wrap round it). */
+static int redraw_pause;                  /* transient: a state of another width was loaded (state_audit.txt) */
+static int scenery_w(void) { return rs_screen_width() > RS_SCREEN_W ? 128 : 64; }
+static int ui_w(void) { return rs_screen_width() > 512 ? 128 : 64; }
+
+static void put_panorama(int layer, const uint16_t *map, int mw, int mh, int y0, int copy_rows)
+{
+    int w = scenery_w();
+    for (int y = 0; y < mh; y++)
+        for (int x = 0; x < mw; x++) {
+            uint16_t e = map[y * mw + x];
+            rs_bg_put(layer, x, y0 + y, e);
+            if (w > mw) {
+                if (y < copy_rows) rs_bg_put(layer, mw + x, y0 + y, e);
+                else rs_bg_put(layer, 2 * mw - 1 - x, y0 + y, (uint16_t)(e ^ RS_MAP_HFLIP));
+            }
+        }
+}
+
+static void maps_setup(void)
+{
+    rs_bg_setup(RS_BG1, ui_w(), 32, VR_BG1);
+    rs_bg_setup(RS_BG2, scenery_w(), 32, VR_BG2);
+    rs_bg_setup(RS_BG3, scenery_w(), 32, VR_BG3);
+    rs_bg_setup(RS_BG4, scenery_w(), 32, VR_BG4);
+    put_panorama(RS_BG2, ls_seabed_map, SEABED_W, SEABED_H, PLAY_H / 8, 0);
+    put_panorama(RS_BG3, ls_mid_map, MID_W, MID_H, MID_Y / 8, 0);
+    put_panorama(RS_BG4, ls_back_map, BACK_W, BACK_H, 0, RAYS_END / 8);
+}
+
 void draw_init(void)
 {
     /* the house UI kit on BG1 (palette 0); the digits, the A glyph and the medals are sprites of the game's
@@ -95,19 +129,10 @@ void draw_init(void)
     rs_pal_load(RS_PAL_BG(PAL_BACK), ls_back_pal, 16);
     rs_pal_load(RS_PAL_OBJ(0), ls_obj_pals, 128);
 
-    rs_bg_setup(RS_BG1, 64, 32, VR_BG1);
-    rs_bg_setup(RS_BG2, 64, 32, VR_BG2);
-    rs_bg_setup(RS_BG3, 64, 32, VR_BG3);
-    rs_bg_setup(RS_BG4, 64, 32, VR_BG4);
     rs_tiles_load(VR_BG2, ls_bg2_tiles, ls_bg2_tile_count);
     rs_tiles_load(VR_BG3, ls_bg3_tiles, ls_bg3_tile_count);
     rs_tiles_load(VR_BG4, ls_bg4_tiles, ls_bg4_tile_count);
-    for (int y = 0; y < SEABED_H; y++)
-        for (int x = 0; x < SEABED_W; x++) rs_bg_put(RS_BG2, x, PLAY_H / 8 + y, ls_seabed_map[y * SEABED_W + x]);
-    for (int y = 0; y < MID_H; y++)
-        for (int x = 0; x < MID_W; x++) rs_bg_put(RS_BG3, x, MID_Y / 8 + y, ls_mid_map[y * MID_W + x]);
-    for (int y = 0; y < BACK_H; y++)
-        for (int x = 0; x < BACK_W; x++) rs_bg_put(RS_BG4, x, y, ls_back_map[y * BACK_W + x]);
+    maps_setup();
     for (int l = 0; l < 4; l++) rs_bg_enable(l, 1);
     rs_obj_base(VR_OBJ);
     rs_tiles_load(VR_OBJ, ls_obj_tiles, ls_obj_tile_count);
@@ -127,15 +152,15 @@ static void put_column_part(const obstacle *o, int r0, int r1)
 {
     int variant = (o->index * 7 + 3) % 2;
     const uint16_t *m = ls_body_map[o->theme] + variant * 6;
-    int c0 = o->x / 8;
+    int c0 = o->x / 8, cm = rs_bg_map_w(RS_BG2) - 1;
     for (int r = r0; r < r1; r++)
-        for (int k = 0; k < 3; k++) rs_bg_put(RS_BG2, (c0 + k) & 63, r, m[(r & 1) * 3 + k]);
+        for (int k = 0; k < 3; k++) rs_bg_put(RS_BG2, (c0 + k) & cm, r, m[(r & 1) * 3 + k]);
 }
 
 void draw_reset_course(const world *w)
 {
     for (int y = 0; y < PLAY_H / 8; y++)
-        for (int x = 0; x < 64; x++) rs_bg_put(RS_BG2, x, y, 0);
+        for (int x = 0; x < rs_bg_map_w(RS_BG2); x++) rs_bg_put(RS_BG2, x, y, 0);
     drawn_index = w->first_index - 1;
     drawn_seed = w->seed;
     cleared_col = world_scroll_px(w) / 8 > 1 ? world_scroll_px(w) / 8 - 1 : 0;
@@ -148,13 +173,13 @@ static void course_tiles(const world *w)
      * off-screen) belonged to the old course, while its caps (sprites) follow the new gap. Redraw
      * whenever the course changes. */
     if (w->seed != drawn_seed) draw_reset_course(w);
-    int sx = world_scroll_px(w);
+    int sx = world_scroll_px(w), cm = rs_bg_map_w(RS_BG2) - 1;
     /* clear the columns that left the screen on the left */
     for (; cleared_col < sx / 8 - 1; cleared_col++)
-        for (int y = 0; y < PLAY_H / 8; y++) rs_bg_put(RS_BG2, cleared_col & 63, y, 0);
+        for (int y = 0; y < PLAY_H / 8; y++) rs_bg_put(RS_BG2, cleared_col & cm, y, 0);
     for (int i = 0; i < w->nob; i++) {
         const obstacle *o = &w->ob[i];
-        if (o->index <= drawn_index || o->x > sx + RS_SCREEN_W + 64) continue;
+        if (o->index <= drawn_index || o->x > sx + rs_screen_width() + 64) continue;
         put_column_part(o, 0, o->gap_top / 8);                              /* top: surface .. gap */
         put_column_part(o, (o->gap_top + GAP + 7) / 8, PLAY_H / 8);          /* bottom: gap .. seabed */
         drawn_index = o->index;
@@ -252,14 +277,14 @@ void fx_update(const world *w)
         }
     }
     /* ambient bubbles rising from the seabed, now and then */
-    if (rs_rng_range(&fx_rng, 100) < 4) bubble_at(8 + rs_rng_range(&fx_rng, 304), SEABED_Y + 4, rs_rng_range(&fx_rng, 3));
+    if (rs_rng_range(&fx_rng, 100) < 4) bubble_at(8 + rs_rng_range(&fx_rng, rs_screen_width() - 16), SEABED_Y + 4, rs_rng_range(&fx_rng, 3));
 }
 
 /* ---- sprites --------------------------------------------------------------------------------------------- */
 static void spr(int id, int x, int y, int prio, int pal_override)
 {
     const ls_sprite_def *d = &ls_spr[id];
-    if (x <= -(int)d->w || x >= RS_SCREEN_W || y <= -(int)d->h || y >= RS_SCREEN_H) return;
+    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= -(int)d->h || y >= RS_SCREEN_H) return;
     rs_spr(x, y, d->tile, d->w, d->h, pal_override >= 0 ? pal_override : d->pal, prio, 0);
 }
 
@@ -298,6 +323,8 @@ static void draw_caps(const world *w)
 {
     int sx = world_scroll_px(w);
     for (int i = 0; i < w->nob; i++) {
+        int x = w->ob[i].x - sx;
+        if (x <= -OBST_W || x >= rs_screen_right()) continue;      /* on screen only (wide: 3 themes may be ahead) */
         int th = w->ob[i].theme, k = th & 1;
         if (cap_theme[k] != th) {
             rs_pal_load(RS_PAL_OBJ(OBJ_CAPS + k), ls_cap_pals[th], 16);
@@ -307,7 +334,7 @@ static void draw_caps(const world *w)
     for (int i = 0; i < w->nob; i++) {
         const obstacle *o = &w->ob[i];
         int x = o->x - sx;
-        if (x <= -OBST_W || x >= RS_SCREEN_W) continue;
+        if (x <= -OBST_W || x >= rs_screen_right()) continue;
         spr(SPR_CAP_KELP + o->theme * 2, x, o->gap_top - CAP_H, 2, OBJ_CAPS + (o->theme & 1));
         spr(SPR_CAP_KELP + o->theme * 2 + 1, x, o->gap_top + GAP, 2, OBJ_CAPS + (o->theme & 1));
     }
@@ -383,7 +410,7 @@ static void number_at(int n, int x, int y, int align, int prio)
     char s[12];
     snprintf(s, sizeof s, "%d", n);
     int w = (int)strlen(s) * 12;
-    number(n, align < 0 ? x + w / 2 : align > 0 ? x - w / 2 : x, y, prio);
+    number(n, (align < 0 ? x + w / 2 : align > 0 ? x - w / 2 : x) + hu_ui_x(), y, prio);
 }
 
 /* the title's player slots: a small squid in each joined player's colours, popping in with a sparkle */
@@ -391,6 +418,7 @@ static void slot_icon(int p, int cx, int cy, int t, void *user)
 {
     (void)user;
     int age = hu_player_age(p);
+    cx += hu_ui_x();                              /* the kit's UI coordinates -> stage */
     if (age < 24) spr(SPR_SPARKLE + (age / 6) % 2, cx + 6, cy - 14, 3, -1);
     spr(SPR_SQUID_ICON, cx - 8, cy - 8 + hu_bob(t + p * 16, 64, 1), 2, p ? hu_player_pal(p) : -1);
 }
@@ -405,22 +433,25 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     standing(w, &rs);
     gradient_update(world_theme_at(w), score < DEPTH_MAX ? score : DEPTH_MAX);
     course_tiles(w);
-    rs_bg_scroll(RS_BG2, sx & 511, 0);
-    rs_bg_scroll(RS_BG3, (sx / 2) & 511, 0);
+    int pm = scenery_w() * 8 - 1;                   /* the panoramas' period - 1: 511, or 1023 on a wide screen */
+    rs_bg_scroll(RS_BG2, sx & pm, 0);
+    rs_bg_scroll(RS_BG3, (sx / 2) & pm, 0);
     rs_bg_scroll(RS_BG4, 0, 0);
     int t = (int)rs_frame_count();
     for (int y = 0; y < RS_SCREEN_H; y++) {
         if (y < RAYS_END) {
             int sway = ((y + t / 3) & 63) < 32 ? ((y + t / 3) & 31) : 31 - ((y + t / 3) & 31);
-            back_dx[y] = (int16_t)(((sx / 8) + (t / 12) + sway / 12 + (y < 6 ? (t / 4 + y * 3) % 5 : 0)) & 511);
+            back_dx[y] = (int16_t)(((sx / 8) + (t / 12) + sway / 12 + (y < 6 ? (t / 4 + y * 3) % 5 : 0)) & pm);
         } else {
-            back_dx[y] = (int16_t)((sx / 4) & 511);
+            back_dx[y] = (int16_t)((sx / 4) & pm);
         }
     }
     screen_text(w, state, st_t, best, new_best, &rs);
     /* the game-over panel slides up */
     int slide = state == DS_OVER ? hu_slide_in(st_t, 20, 200) : 0;
-    rs_bg_scroll(RS_BG1, 0, -slide);
+    rs_bg_scroll(RS_BG1, -hu_ui_x(), -slide);      /* the UI centred on the screen (widescreen) */
+    if (redraw_pause && paused) hu_pause(0, 13);  /* the UI layer was set up again (a state of another width) */
+    redraw_pause = 0;
     hu_pause(paused, 13);
 
     rs_oam_clear();
@@ -433,14 +464,14 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         }
     }
     if (state == DS_OVER) {
-        int oy = slide;
+        int oy = slide, ux = hu_ui_x();
         if (w->players == 1) {
-            number(w->sq[0].score, 25 * 8, 11 * 8 - 4 + oy, 3);
-            number(best, 25 * 8, 14 * 8 - 4 + oy, 3);
+            number(w->sq[0].score, 25 * 8 + ux, 11 * 8 - 4 + oy, 3);
+            number(best, 25 * 8 + ux, 14 * 8 - 4 + oy, 3);
             int m = medal_of(w->sq[0].score);
             if (m) {
-                spr(SPR_MEDAL + m - 1, 22 * 8 - 4, 16 * 8 - 4 + oy, 3, -1);
-                if ((st_t / 20) % 3 == 0) spr(SPR_SPARKLE + (st_t / 10) % 2, 22 * 8 + 12, 16 * 8 - 4 + oy, 3, -1);
+                spr(SPR_MEDAL + m - 1, 22 * 8 - 4 + ux, 16 * 8 - 4 + oy, 3, -1);
+                if ((st_t / 20) % 3 == 0) spr(SPR_SPARKLE + (st_t / 10) % 2, 22 * 8 + 12 + ux, 16 * 8 - 4 + oy, 3, -1);
             } else {
                 hu_box_text(22, 17, "-");
             }
@@ -448,19 +479,19 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
             /* the ranking: the scores, the shells (1st gold, 2nd silver, 3rd bronze), the squids */
             for (int i = 0; i < rs.n; i++) {
                 int y = hu_results_row(&rs, i) * 8 + oy, m = hu_results_medal(&rs, i), cx, cy;
-                number(rs.value[rs.order[i]], 24 * 8, y - 4, 3);
+                number(rs.value[rs.order[i]], 24 * 8 + ux, y - 4, 3);
                 if (m) {
-                    spr(SPR_MEDAL + m - 1, 27 * 8, y - 8, 3, -1);
-                    if (rs.rank[i] == 0 && (st_t / 20) % 3 == 0) spr(SPR_SPARKLE + (st_t / 10) % 2, 27 * 8 + 18, y - 8, 3, -1);
+                    spr(SPR_MEDAL + m - 1, 27 * 8 + ux, y - 8, 3, -1);
+                    if (rs.rank[i] == 0 && (st_t / 20) % 3 == 0) spr(SPR_SPARKLE + (st_t / 10) % 2, 27 * 8 + 18 + ux, y - 8, 3, -1);
                 }
                 hu_results_icon_pos(&rs, i, &cx, &cy);
-                spr(SPR_SQUID_ICON, cx - 8, cy - 8 + oy, 3, rs.order[i] ? hu_player_pal(rs.order[i]) : -1);
+                spr(SPR_SQUID_ICON, cx - 8 + ux, cy - 8 + oy, 3, rs.order[i] ? hu_player_pal(rs.order[i]) : -1);
             }
         }
     }
     if (state == DS_TITLE) {
         int gx, gy;
-        if (hu_title_glyph(&gx, &gy) == HU_BTN_A) spr(SPR_HINT + ((t / 30) % 2), gx, gy, 3, -1);
+        if (hu_title_glyph(&gx, &gy) == HU_BTN_A) spr(SPR_HINT + ((t / 30) % 2), gx + hu_ui_x(), gy, 3, -1);
         hu_title_sprites(st_t, slot_icon, NULL);
     }
     draw_squids(w);
@@ -469,7 +500,18 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     draw_fx(0);
 }
 
-/* ---- save states (main.c) ---- */
+/* ---- save states (main.c) ----
+ * A state saved at another width brings the maps of that width (64 or 128 tiles): set them up for this one (the
+ * scenery again, the course redrawn from the obstacles, the UI redrawn on the next frame). Same width: nothing. */
+void draw_state_loaded(const world *w)
+{
+    if (rs_bg_map_w(RS_BG2) == scenery_w() && rs_bg_map_w(RS_BG1) == ui_w()) return;
+    maps_setup();
+    draw_reset_course(w);
+    shown_state = -1;                           /* screen_text clears the UI layer and draws it again */
+    redraw_pause = 1;                           /* ... and PAUSED, if it shows */
+}
+
 #define S(v) rs_state_var("draw." #v, &(v), sizeof(v))
 void draw_state(void)
 {

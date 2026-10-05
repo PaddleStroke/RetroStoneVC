@@ -2,7 +2,8 @@
 #
 #   make leadysquid                host builds: leadysquid (SDL2), leadysquid_headless, leadysquid_libretro.so
 #   make leadysquid-check          all its tests (SDK, libretro loader, physics, caps on columns, smoke, bot, the UI screens
-#                                  with 1-4 players, save states, determinism, art tools)
+#                                  with 1-4 players, save states, determinism, art tools), at 320 and then again at each
+#                                  widescreen width of WIDTHS (427 520), and save states across widths
 #   make leadysquid-dist           dist/windows/LeadySquid.exe, dist/libretro/leadysquid_libretro.so (+ .armhf.so)
 #   make leadysquid-windows        only the Windows exe
 #   make leadysquid-armhf          the libretro core for the RetroStone2 (Cortex-A7)
@@ -19,6 +20,8 @@ LS_MAKE = $(MAKE) --no-print-directory GAME=leadysquid GAME_NAME=LeadySquid
 LS_DIR  = games/leadysquid
 # the house style kit (games/common/src: the UI kit and the synthesiser) is compiled in
 HOUSE_UI_leadysquid = 1
+# widescreen (docs/spec.md "Widescreen"; rs_game.max_width): the checks run at 320 and at each width of WIDTHS
+WIDESCREEN_leadysquid = 1
 
 .PHONY: leadysquid leadysquid-check leadysquid-windows leadysquid-armhf leadysquid-dist leadysquid-screenshots \
         leadysquid-bench leadysquid-placeholders leadysquid-todo leadysquid-art leadysquid-art-review
@@ -55,6 +58,15 @@ leadysquid-check:
 	sh $(LS_DIR)/tests/state_test.sh build/host/leadysquid_test_states build/states
 	$(PYTHON) tools/state_audit.py --game leadysquid build/host/leadysquid_test_states $(filter-out %/assets.o,$(LS_OBJ_HOST))
 	$(PYTHON) $(LS_DIR)/tests/test_art_tools.py
+	set -e; for w in $(WIDTHS); do echo "== widescreen: $$w x 240"; \
+	    a=$$(case $$w in 427) echo 16:9;; 520) echo Wide;; esac); \
+	    [ -z "$$a" ] || ./build/host/test_libretro build/host/leadysquid_libretro.so 600 $$a $$w; \
+	    RS_WIDTH=$$w sh $(LS_DIR)/tests/caps_test.sh build/host/leadysquid_test_caps build/w$$w; \
+	    RS_WIDTH=$$w sh $(LS_DIR)/tests/smoke_test.sh build/host/leadysquid_headless build/w$$w; \
+	    RS_WIDTH=$$w sh $(LS_DIR)/tests/ui_test.sh build/host/leadysquid_headless build/leadysquid-ui-$$w; \
+	    RS_WIDTH=$$w sh $(LS_DIR)/tests/state_test.sh build/host/leadysquid_test_states build/states-$$w; \
+	done
+	sh $(LS_DIR)/tests/wide_test.sh build/host/leadysquid_headless build/host/leadysquid_test_states build "$(WIDTHS)"
 
 leadysquid-screenshots:
 	+$(LS_MAKE) build/host/leadysquid_headless

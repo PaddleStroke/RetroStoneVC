@@ -17,22 +17,28 @@ int squid_start_y(int players, int p)
     return SQUID_START_Y + (players <= 2 ? 0 : dy[p & 3]);
 }
 
+/* Widescreen (DESIGN.md "Widescreen"): the course is world content, revealed wider. The first obstacle waits just off
+ * the REAL right edge of the screen (320 at 4:3, on the 8-px grid); from there the course is the same at every width:
+ * the same gaps (the RNG is drawn per obstacle, in order), the same spacing, the same physics. Each obstacle is placed
+ * one spacing after the previous one, so a state saved at one width goes on with the same course at another. */
+static int first_obstacle_x(void) { return FIRST_OBST_X + ((rs_screen_width() - RS_SCREEN_W + 7) & ~7); }
+
 static void add_obstacle(world *w)
 {
     obstacle o = obstacle_make(&w->rng, w->next_index);
-    o.x = FIRST_OBST_X + (w->next_index - w->first_index) * SPACING;
+    o.x = w->nob ? w->ob[w->nob - 1].x + SPACING : first_obstacle_x();
     w->ob[w->nob++] = o;
     w->next_index++;
 }
 
-/* keep the obstacles from just behind the screen to two spacings past its right edge */
+/* keep the obstacles from just behind the screen to two spacings past its right edge (the real one: widescreen) */
 static void course(world *w)
 {
     int sx = world_scroll_px(w), k = 0;
     for (int i = 0; i < w->nob; i++)
         if (w->ob[i].x + OBST_W >= sx - 64) w->ob[k++] = w->ob[i];
     w->nob = k;
-    while (w->nob < OB_MAX && (w->nob == 0 || w->ob[w->nob - 1].x < sx + RS_SCREEN_W + 2 * SPACING))
+    while (w->nob < OB_MAX && (w->nob == 0 || w->ob[w->nob - 1].x < sx + rs_screen_width() + 2 * SPACING))
         add_obstacle(w);
 }
 

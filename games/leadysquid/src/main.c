@@ -269,12 +269,17 @@ static void game_state(void)
 }
 #undef S
 
-static void game_state_loaded(void) { bot_state_loaded(); }
+static void game_state_loaded(void)
+{
+    bot_state_loaded();
+    draw_state_loaded(&W);                   /* widescreen: a state saved at another width */
+}
 
 const rs_game *rs_game_main(void)
 {
     /* state_version: bump it when the meaning of a saved object changes (its layout is checked) */
     static const rs_game g = {"Leady Squid", "leadysquid", "0.1.0", game_init, game_update, game_draw,
-                              game_shutdown, ls_assets, game_state, game_state_loaded, 1};
+                              game_shutdown, ls_assets, game_state, game_state_loaded, 1,
+                              RS_SCREEN_W_MAX};   /* widescreen: any width (DESIGN.md "Widescreen") */
     return &g;
 }

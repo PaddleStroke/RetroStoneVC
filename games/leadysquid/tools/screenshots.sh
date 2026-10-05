@@ -36,5 +36,14 @@ run --frames 130 --input "$T/join.input" --shot 50:$O/title-2-players.png --shot
 run --frames 6000 --opt bot=4 --opt seed=5 --opt botstop=5
 f=$(sed -n 's/.*run 1 over at frame \([0-9]*\).*/\1/p' "$T/log.txt")
 run --frames $((f + 60)) --opt bot=4 --opt seed=5 --opt botstop=5 --shot $((f + 50)):$O/results-4-players.png
+# widescreen (DESIGN.md "Widescreen"): the title, a run and the game over at 427 (16:9) and 520 (19.5:9) columns
+for w in 427 520; do
+    run --width $w --frames 130 --shot 120:$O/title-$w.png
+    run --width $w --frames 1200 --opt bot=1 --opt seed=11 --shot 1100:$O/play-$w.png
+    run --width $w --frames 2500 --opt bot=1 --opt seed=5 --opt skip=30 --opt botstop=33
+    f=$(sed -n 's/.*run 1 over at frame \([0-9]*\).*/\1/p' "$T/log.txt")
+    run --width $w --frames $((f + 60)) --opt bot=1 --opt seed=5 --opt skip=30 --opt botstop=33 --shot $((f + 50)):$O/gameover-$w.png
+    run --width $w --frames 820 --opt bot=4 --opt seed=9 --shot 800:$O/race-4-players-$w.png
+done
 rm -rf "$T"
 ls "$O"

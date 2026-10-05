@@ -47,13 +47,13 @@ void sfx_init(void)
 void sfx_pan(int id, int x)
 {
     if (!sound_on) return;
-    int pan = clampi(24 + x * 80 / RS_SCREEN_W, 0, 127);
+    int pan = clampi(24 + x * 80 / rs_screen_width(), 0, 127);    /* x: the screen x (the origin is 0) */
     static const uint8_t vol[SFX_COUNT] = {88, 70, 110, 96, 50, 70, 80, 70};
     int v = rs_sfx(id, vol[id], pan, RS_PITCH_1);
     if (v >= 0 && (id == SFX_DING || id == SFX_BLOOP || id == SFX_CLANK)) rs_voice_echo(v, 1);
 }
 
-void sfx(int id) { sfx_pan(id, RS_SCREEN_W / 2); }
+void sfx(int id) { sfx_pan(id, rs_screen_width() / 2); }
 
 void music_start(void)
 {

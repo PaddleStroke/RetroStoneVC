@@ -122,6 +122,27 @@ P1..P4 tags (3-4 players). When the last one has landed (30 frames later), the *
 score, then by who lasted longer; 1st gold shell, 2nd silver, 3rd bronze (ties share the place and the shell),
 the winner's name on the banner ("P3 WINS!" or "DRAW!"). The best score counts any player.
 
+## Widescreen (docs/spec.md "Widescreen")
+The game opts in (`max_width` = 560, `WIDESCREEN_leadysquid = 1`): 320 (4:3) is unchanged pixel for pixel; at 427
+(16:9) or 520 (phones) **the world is simply revealed wider**, to the right.
+- The stage origin stays 0: the squids swim at the same screen x (96, P2-P4 behind), the screen shows further ahead.
+  Seeing further makes it a little easier; the owner accepts it (no compensation).
+- **The course is world content.** Obstacles are generated up to two spacings past the REAL right edge, so they come
+  into view at that edge; the first one waits just off it (x 320 at 4:3, 432 at 427, 520 at 520: on the 8-px grid).
+  From there the course is identical at every width: the same gaps and themes (the RNG is drawn per obstacle, in
+  order), the same spacing (each obstacle one spacing after the previous), the same physics and scoring. Only the
+  run-up to the first obstacle is longer (by the extra width, at 1 px per frame). tests/test_physics.c checks it.
+- The scenery maps are 128 tiles wide on a wide screen (64 at 320): the seabed, the mid-ground and the reef panoramas
+  continue with their mirror image (the same tiles h-flipped: no VRAM, seamless joins), so nothing repeats on screen;
+  the additive rays are copied (they slant). The course columns use the wider map too.
+- The UI (title, logo, prompt, panels, results, pause) is centred: the UI layer scrolls by -hu_ui_x() and the game's
+  UI sprites (digits, medals, icons, the A glyph) add hu_ui_x(); the score chips go to the screen's centre (1 player),
+  halves (2) or corners (3-4, with their tags). The UI layer is 128 tiles wide beyond 512 columns.
+- Save states load at any width: a state of another width brings maps of another size, so `state_loaded` sets them up
+  again (scenery, the course redrawn from the saved obstacles, the UI and PAUSED on the next frame); the course goes on
+  from the saved obstacles, the generator adds the next ones up to the new edge. tests/wide_test.sh checks it.
+- The caps test (tests/test_caps.c) runs at every width (`make leadysquid-check` loops over WIDTHS = 427 520).
+
 ## Audio
 - Sound effects synthesised in code at start-up (sfx.c): **bloop** (a short rising sine with a bubbly
   burble), **ding** (a soft two-partial bell), **thud** (a low falling sine and a little noise), **clank**

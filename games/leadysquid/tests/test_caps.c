@@ -16,7 +16,8 @@
  *     bottom cap), within the obstacle's 24 columns and not beside them.
  * Every gap value of the first theme (--opt skip=N) and every scroll phase must be covered.
  *
- *   test_caps [--runs N] [--seed S] [--opt key=value]...   (--opt skip=10 for coral, ...)
+ *   test_caps [--runs N] [--seed S] [--width N] [--opt key=value]...   (--opt skip=10 for coral, ...)
+ * Widescreen: --width N (or the environment variable RS_WIDTH) checks every obstacle on the wider screen.
  */
 #include "ls.h"
 #include "rs_host.h"
@@ -27,11 +28,11 @@
 
 const rs_game *rs_game_main(void);
 
-#define SW RS_SCREEN_W
 #define SH RS_SCREEN_H
+static int SW = RS_SCREEN_W;                     /* the screen width (widescreen: --width, RS_WIDTH) */
 
-static uint16_t with_bg2[SW * SH], without_bg2[SW * SH];
-static uint8_t body[SH][SW];                     /* 1 = a BG2 pixel shows here */
+static uint16_t with_bg2[RS_SCREEN_W_MAX * SH], without_bg2[RS_SCREEN_W_MAX * SH];
+static uint8_t body[SH][RS_SCREEN_W_MAX];        /* 1 = a BG2 pixel shows here */
 static int fails, fail_courses, checked_obstacles, checked_frames;
 static uint32_t last_fail_seed;
 static uint8_t gap_seen[THEMES][PLAY_H], phase_seen[8];
@@ -58,7 +59,7 @@ static void render_without_sprites(int bg2, uint16_t *out)
     rs_bg_enable(RS_BG1, 0);
     rs_bg_enable(RS_BG2, bg2);
     rs_host_render();
-    memcpy(out, rs_host_framebuffer(), sizeof with_bg2);
+    memcpy(out, rs_host_framebuffer(), (size_t)SW * SH * sizeof *out);
     rs_bg_enable(RS_BG1, 1);
     rs_bg_enable(RS_BG2, 1);
     for (int i = 0; i < RS_OAM_MAX; i++) rs_oam(i)->flags = flags[i];
@@ -161,8 +162,10 @@ static int autopilot(const world *w, int p, int give_up_at)
 int main(int argc, char **argv)
 {
     int runs = 60;
+    if (getenv("RS_WIDTH")) rs_host_set_width(atoi(getenv("RS_WIDTH")));
     for (int i = 1; i < argc; i++) {
         if (!strcmp(argv[i], "--runs") && i + 1 < argc) runs = atoi(argv[++i]);
+        else if (!strcmp(argv[i], "--width") && i + 1 < argc) rs_host_set_width(atoi(argv[++i]));
         else if (!strcmp(argv[i], "--seed") && i + 1 < argc) rng_state = ((uint32_t)strtoul(argv[++i], NULL, 0) + 1) * 2654435761u;
         else if (!strcmp(argv[i], "--opt") && i + 1 < argc) {
             char kv[128];
@@ -180,6 +183,7 @@ int main(int argc, char **argv)
     rs_host_set_option("music", "0");
     rs_host_set_option("sound", "0");
     rs_host_init(rs_game_main());
+    SW = rs_screen_width();
     int done = 0, wait = (int)(rnd() % 64), give_up[MAX_PLAYERS] = {0, 0}, frame = 0, first_theme = -1;
     int last_sx = -1, last_st = -1;
     uint32_t last_seed = 0;
