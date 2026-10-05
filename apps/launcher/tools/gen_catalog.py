@@ -3,10 +3,13 @@
 
     gen_catalog.py --conf apps/android/app.conf --out build/bundle/gen [--cards-png DIR]
 
+    gen_catalog.py --conf apps/android/app-full.conf --list      the playable game ids (bundle.mk's module list)
+
 From the app's config (FREE_GAMES, HIDDEN_GAMES, the names and ids) and the games folder:
   - every game of games/ (a game.mk and docs/screenshots/title.png; not HIDDEN_GAMES, not _template) gets a
     card: the free games first, in FREE_GAMES order, then the others, LOCKED, by name. A new game in games/
-    therefore appears locked in the free app at the next build, with nothing to edit;
+    therefore appears locked in the free app at the next build, with nothing to edit. FREE_GAMES=all (the full
+    app): every game is playable, by name;
   - a card = the title screenshot cut to 96x72 (13 colours + the name's cream and navy, one BG palette), with
     the game's name under it (the house font, 6-px advance); a locked card is dimmed (the launcher adds the lock);
   - a locked game also gets the picture of its "Get the full version" panel: a play screenshot at 160x120, in up
@@ -60,10 +63,10 @@ def read_games_cfg(path):
         d = cfg.setdefault(line[0], {"zones": []})
         for tok in line[1:]:
             k, _, v = tok.partition("=")
-            if k == "touch":
+            if k in ("touch", "button"):           # button=: the same, drawn on the screen by the frontend
                 where, _, btn = v.partition(":")
                 rect = ZONES[where] if where in ZONES else tuple(int(n) for n in where.split(","))
-                d["zones"].append((rect, buttons(btn)))
+                d["zones"].append((rect, buttons(btn), k == "button"))
             elif k == "pause":
                 d["pause"] = buttons(v)
             else:
@@ -102,6 +105,7 @@ def list_games(conf):
     free = conf.get("FREE_GAMES", "").split()
     hidden = set(conf.get("HIDDEN_GAMES", "").split())
     found = []
+    every = free == ["all"]
     for gid in sorted(os.listdir(os.path.join(ROOT, "games"))):
         d = os.path.join(ROOT, "games", gid)
         if gid.startswith(("_", ".", "zz")) or gid in ("common",) or gid in hidden:
@@ -110,6 +114,8 @@ def list_games(conf):
                 and os.path.exists(os.path.join(d, "docs", "screenshots", "title.png"))):
             continue
         found.append(gid)
+    if every:
+        free = sorted(found, key=lambda g: game_name(g).upper())
     for gid in free:
         if gid not in found:
             raise SystemExit(f"FREE_GAMES: {gid} is not a game of games/ with docs/screenshots/title.png")
@@ -299,12 +305,18 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--conf", required=True)
     ap.add_argument("--games-cfg", default=os.path.join(ROOT, "apps", "launcher", "games.cfg"))
-    ap.add_argument("--out", required=True)
+    ap.add_argument("--out")
+    ap.add_argument("--list", action="store_true", help="print the playable game ids and stop")
     ap.add_argument("--preview", help="write the cards as PNG here (review)")
     a = ap.parse_args()
     conf = read_conf(a.conf)
     gcfg = read_games_cfg(a.games_cfg)
     games = list_games(conf)
+    if a.list:
+        print(" ".join(g for g, locked in games if not locked))
+        return
+    if not a.out:
+        raise SystemExit("--out is needed")
     os.makedirs(a.out, exist_ok=True)
     if a.preview:
         os.makedirs(a.preview, exist_ok=True)
@@ -319,7 +331,9 @@ def main():
         name = game_name(gid)
         g = dict(gcfg.get("default", {"zones": []}))
         g.update({k: v for k, v in gcfg.get(gid, {}).items() if k != "zones" or v})
-        zones = g.get("zones") or [((0, 0, 100, 100), BUTTONS["A"])]
+        zones = g.get("zones") or [((0, 0, 100, 100), BUTTONS["A"], False)]
+        if len(zones) > 8:
+            raise SystemExit(f"games.cfg: {gid}: at most 8 zones")
         pause = g.get("pause", BUTTONS["START"])
         pix, pals, tp = card(gid, name, locked)
         c.append(c_bytes(f"card_{gid}_tiles", pack(pix, tp)))
@@ -339,14 +353,14 @@ def main():
                       f"shot_{gid}_tp}}")
             if a.preview:
                 preview(spix, spals, stp, os.path.join(a.preview, f"shot-{gid}.png"))
-        zc = ", ".join(f"{{{r[0]}, {r[1]}, {r[2]}, {r[3]}, 0x{b:04x}}}" for r, b in zones[:6])
+        zc = ", ".join(f"{{{r[0]}, {r[1]}, {r[2]}, {r[3]}, 0x{b:04x}, {int(shown)}}}" for r, b, shown in zones)
         best = int(g.get("best", "8"))
         magic = g.get("magic")
         entries.append(
             f"    {{{c_str(gid)}, {c_str(name)}, {'NULL' if locked else '&rsb_module_' + gid},\n"
             f"     {{{CARD_W // 8}, {CARD_H // 8}, card_{gid}_tiles, 1, card_{gid}_pals, card_{gid}_tp}},\n"
             f"     {shot_c},\n"
-            f"     {{{len(zones[:6])}, {{{zc}}}, 0x{pause:04x}}}, {best}, "
+            f"     {{{len(zones)}, {{{zc}}}, 0x{pause:04x}}}, {best}, "
             f"{c_str(magic) if magic else 'NULL'}}},")
         print(f"  {'locked' if locked else 'free  '} {gid:16s} {name}")
     c.append("")

@@ -7,21 +7,26 @@
 #   make -f apps/launcher/bundle.mk PLATFORM=android-arm64-v8a    build/bundle/android-arm64-v8a/libmain.so
 #        (also android-armeabi-v7a, android-x86_64; apps/android/build.sh does it all)
 #   make -f apps/launcher/bundle.mk shots                docs: the launcher's screenshots (apps/launcher/docs/)
+#   ... CONF=apps/android/app-full.conf                  the same for the full (paid) app: every game playable
 #
-# The app's identity and its games: apps/android/app.conf (CONF=...). Everything is built in build/bundle/<platform>/:
+# The app's identity and its games: apps/android/app.conf (the free app, the default) or app-full.conf (CONF=...).
+# Everything is built in build/bundle/<platform>/ (the full app: build/bundle/<platform>-full/):
 # the root Makefile's build/host etc. are not touched, only its generated game assets are used (through
 # apps/launcher/tools/game_assets.sh, under the lock /tmp/rsvc-build.lock).
 # MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
 
 CONF     ?= apps/android/app.conf
 conf      = $(shell sed -n 's/^$(1)=//p' $(CONF))
-FREE_GAMES := $(call conf,FREE_GAMES)
-EXE_NAME   := $(call conf,EXE_NAME)
-PLATFORM ?= host
 PYTHON   ?= python3
+PROFILE    := $(or $(call conf,PROFILE),free)
+EXE_NAME   := $(call conf,EXE_NAME)
+# the playable games (modules), in menu order: FREE_GAMES, or every game of games/ when FREE_GAMES=all
+GAMES      := $(shell $(PYTHON) apps/launcher/tools/gen_catalog.py --conf $(CONF) --list)
+TAG        := $(if $(filter free,$(PROFILE)),,-$(PROFILE))
+PLATFORM ?= host
 OPT      ?= -O2
-BD       := build/bundle/$(PLATFORM)
-GEN      := build/bundle/gen
+BD       := build/bundle/$(PLATFORM)$(TAG)
+GEN      := build/bundle/gen$(TAG)
 APP      := retrostonearcade
 HEADLESS  = $(BD)/$(APP)_headless$(if $(filter win64,$(PLATFORM)),.exe)
 
@@ -91,7 +96,8 @@ APP_SRC  = apps/launcher/src/launcher.c apps/launcher/src/rsb_runtime.c sdk/fron
 o = $(patsubst %.c,$(BD)/obj/%.o,$(1))
 
 # Two phases: the games' generated sources first (assets, translated text: whatever the root Makefile's "assets"
-# target makes in build/gen/<id>/), then the build itself, in a sub-make that sees them.
+# target makes in build/gen/<id>/), then the build itself, in a sub-make that sees them. They are shared by the
+# platforms: SKIP_ASSETS=1 uses the copies already in $(GEN) (apps/android/build.sh, after its first ABI).
 .PHONY: all build gen check android-lib windows shots
 PROGRAMS = $(if $(filter host,$(PLATFORM)),$(BD)/$(APP) $(BD)/$(APP)_headless,\
      $(if $(filter win64,$(PLATFORM)),dist/windows/$(EXE_NAME).exe $(HEADLESS),$(BD)/libmain.so))
@@ -100,8 +106,10 @@ all: gen
 	+$(SUBMAKE) build
 build: $(PROGRAMS)
 gen:
-	+for g in $(FREE_GAMES); do sh apps/launcher/tools/game_assets.sh $$g $(GEN)/$$g || exit 1; done
+	+$(if $(SKIP_ASSETS),true,sh apps/launcher/tools/game_assets.sh $(GEN) $(GAMES))
+	sh tools/fetch_sdl2_src.sh build/deps
 	$(PYTHON) apps/launcher/tools/launcher_text.py --out $(GEN)/launcher
+	$(PYTHON) apps/launcher/tools/gen_credits.py --out $(GEN)
 android-lib: all
 windows:
 	+$(MAKE) -f apps/launcher/bundle.mk PLATFORM=win64
@@ -115,7 +123,10 @@ $(BD)/obj/apps/launcher/src/rsb_sdl.o: CFLAGS_ALL += $(SDL_CFLAGS)
 $(BD)/obj/%.o: %.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS_ALL) $(APP_INC) -MMD -c $< -o $@
-$(BD)/obj/build/bundle/gen/catalog.o: $(GEN)/catalog.c
+$(BD)/obj/catalog.o: $(GEN)/catalog.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS_ALL) $(APP_INC) -c $< -o $@
+$(BD)/obj/credits.o: $(GEN)/credits.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS_ALL) $(APP_INC) -c $< -o $@
 
@@ -154,10 +165,10 @@ $(BD)/mod/$(1).o: $(patsubst games/$(1)/src/%.c,$(BD)/games/$(1)/%.o,$(wildcard 
 	@mkdir -p $$(dir $$@)
 	$(MODULIZE) --id $(1) --out $$@ $$(filter %.o,$$^)
 endef
-$(foreach g,$(FREE_GAMES),$(eval $(call GAME_RULES,$(g))))
+$(foreach g,$(GAMES),$(eval $(call GAME_RULES,$(g))))
 
-MODS = $(BD)/mod/house.o $(foreach g,$(FREE_GAMES),$(BD)/mod/$(g).o)
-CORE = $(call o,$(APP_SRC)) $(BD)/obj/build/bundle/gen/catalog.o $(BD)/obj/launcher_text.o $(MODS) $(BD)/librs.a
+MODS = $(BD)/mod/house.o $(foreach g,$(GAMES),$(BD)/mod/$(g).o)
+CORE = $(call o,$(APP_SRC)) $(BD)/obj/catalog.o $(BD)/obj/credits.o $(BD)/obj/launcher_text.o $(MODS) $(BD)/librs.a
 
 # ---- programs ---------------------------------------------------------------------------------------------------------------
 $(BD)/$(APP): $(call o,apps/launcher/src/rsb_sdl.c) $(CORE)
@@ -169,7 +180,7 @@ $(BD)/$(APP)_headless.exe: $(call o,apps/launcher/src/rsb_headless.c) $(CORE)
 dist/windows/$(EXE_NAME).exe: $(call o,apps/launcher/src/rsb_sdl.c) $(CORE) $(SDL2_MINGW)/lib/libSDL2.a
 	@mkdir -p $(dir $@)
 	$(CC) -o $@ $(filter %.o %.a,$(filter-out %/libSDL2.a,$^)) $(SDL_LIBS)
-	cp apps/launcher/dist/README-windows.txt dist/windows/README-$(EXE_NAME).txt
+	cp apps/launcher/dist/README-windows$(TAG).txt dist/windows/README-$(EXE_NAME).txt
 	cp THIRD_PARTY.md dist/windows/THIRD_PARTY.md
 	cp LICENSE-MIT dist/windows/LICENSE-MIT.txt
 	cp LICENSE-CC-BY-NC-SA-4.0.txt dist/windows/LICENSE-CC-BY-NC-SA-4.0.txt
@@ -180,8 +191,13 @@ $(BD)/libmain.so: $(call o,apps/launcher/src/rsb_sdl.c) $(CORE)
 	    -Wl,--build-id=sha1 $(SDL_LIBS)
 
 # ---- tests and pictures -------------------------------------------------------------------------------------------------------
-check: all
-	sh apps/launcher/tests/bundle_test.sh $(HEADLESS) build/bundle/tests-$(PLATFORM) "$(FREE_GAMES)"
+# the standalone games the tests compare with are built in the same wait for the lock as the assets, just before the
+# bundle is compiled: both from the same moment of the games' sources
+TESTS := build/bundle/tests-$(PLATFORM)$(TAG)
+check:
+	@mkdir -p $(TESTS)
+	+STANDALONE=$(TESTS) $(MAKE) --no-print-directory -f apps/launcher/bundle.mk PLATFORM=$(PLATFORM) SKIP_ASSETS= all
+	PREBUILT=1 sh apps/launcher/tests/bundle_test.sh $(HEADLESS) $(TESTS) "$(GAMES)" $(PROFILE)
 shots: all
 	sh apps/launcher/tests/shots.sh $(HEADLESS) apps/launcher/docs
 

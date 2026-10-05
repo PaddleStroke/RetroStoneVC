@@ -12,6 +12,9 @@
  *     --input FILE       the script (below)
  *     --shot F:FILE.png  screenshot after frame F (repeatable); --png FILE.png after the last frame
  *     --opt KEY=VALUE    a runtime option (rs_option), as on the desktop runners
+ *     --touch-log        print the pad buttons the touches hold, when they change ("touch: LEFT A")
+ *     --gamepad          a gamepad is connected from the start (the launcher's glyph hints; a pad event in the
+ *                        script connects one too)
  *
  * Script, one event per line ('#' comments), frames counted from the start of the run:
  *     <frame> [P1..P4] <BUTTONS|->       hold BUTTONS from <frame> (as rs_headless)
@@ -113,7 +116,7 @@ static void log_line(const char *line) { printf("%s\n", line); }
 
 int main(int argc, char **argv)
 {
-    int frames = 60, width = 320, fresh = 0;
+    int frames = 60, width = 320, fresh = 0, gamepad = 0;
     const char *saves = "build/bundle/saves/", *start = NULL, *png = NULL;
     for (int i = 1; i < argc; i++) {
         const char *a = argv[i], *v = i + 1 < argc ? argv[i + 1] : NULL;
@@ -122,6 +125,8 @@ int main(int argc, char **argv)
         else if (!strcmp(a, "--width") && v) width = atoi(argv[++i]);
         else if (!strcmp(a, "--start") && v) start = argv[++i];
         else if (!strcmp(a, "--fresh")) fresh = 1;
+        else if (!strcmp(a, "--touch-log")) rsb_touch_log(1);
+        else if (!strcmp(a, "--gamepad")) gamepad = 1;
         else if (!strcmp(a, "--input") && v) { if (load_script(argv[++i])) return 1; }
         else if (!strcmp(a, "--opt") && v) rsd_option(argv[++i]);
         else if (!strcmp(a, "--lang") && v) rsd_lang_arg(argv[++i]);
@@ -157,6 +162,7 @@ int main(int argc, char **argv)
     in.device[0] = RS_DEVICE_KEYBOARD;
     in.device[1] = RS_DEVICE_KEYBOARD2;
     in.aspect = 4.0f / 3.0f;
+    in.gamepad = gamepad;
     rsb_view view = {0, 0, 1, 1};
     int e = 0, finger = 0, lift = 0;
     for (int f = 0; f < frames && !rsb_wants_quit(); f++) {
@@ -166,6 +172,7 @@ int main(int argc, char **argv)
             ev_t *x = &ev[e++];
             switch (x->kind) {
             case E_PAD:
+                in.gamepad = 1;                 /* a script that uses the pad: the launcher shows its glyph hints */
                 if (x->buttons & ~in.pad[x->port]) in.any = 1;
                 in.pad[x->port] = x->buttons;
                 in.connected[x->port] = 1;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- RetroStone Arcade Free. The package id (applicationId) and the version come from apps/android/app.conf. -->
+<!-- RetroStone Arcade (free and full). The package id (applicationId) and the version come from apps/android/app.conf or app-full.conf. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     android:installLocation="auto">
 

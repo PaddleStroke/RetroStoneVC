@@ -43,6 +43,9 @@ static uint16_t pad_mask[RS_PAD_MAX];                     /* buttons held when a
 static long consumed[RSB_FINGERS];              /* fingers down when a program started or a hold ended */
 static int nconsumed;
 static long pause_finger = -1;
+static long back_finger = -1;                   /* the finger on the in-game back button */
+static uint16_t touch_now;                      /* the buttons the touches hold (the frontend's drawn buttons) */
+static int touch_logging, gamepad_now;
 
 static void say(const char *fmt, const char *a, const char *b)
 {
@@ -201,6 +204,7 @@ static void start(int g, int fresh)
         }
     }
     sram_timer = 0;
+    touch_now = 0;
     consume_input();
 }
 
@@ -253,6 +257,7 @@ const char *rsb_current_id(void) { return cur >= 0 ? rsb_games[cur].id : "launch
 const rsb_pointer *rsb_pointer_get(void) { return &ptr; }
 int  rsb_back_pressed(void) { return back_now; }
 void rsb_quit(void) { quit = 1; }
+int  rsb_gamepad(void) { return gamepad_now; }
 
 void rsb_launch(int g)
 {
@@ -297,6 +302,20 @@ void rsb_pause_rect(float aspect, float *x, float *y, float *w, float *h)
     *w = s / aspect;
     *y = m;
     *x = 1.0f - m / aspect - *w;
+}
+
+void rsb_back_rect(float aspect, float *x, float *y, float *w, float *h)
+{
+    rsb_pause_rect(aspect, x, y, w, h);
+    *x = 0.025f / aspect;                       /* the mirror of the pause button */
+}
+
+/* a finger on the back button (a slightly bigger target than the drawn button) */
+static int in_back(const rsb_finger *fg, float aspect)
+{
+    float bx, by, bw, bh;
+    rsb_back_rect(aspect, &bx, &by, &bw, &bh);
+    return fg->x <= bx + bw * 1.3f && fg->y <= by + bh * 1.3f;
 }
 
 /* ---- one frame ---------------------------------------------------------------------------------------------------------- */
@@ -358,7 +377,7 @@ static uint16_t touch_buttons(const rsb_input *in, float aspect)
     int pause_seen = 0;
     for (int f = 0; f < in->nfingers; f++) {
         const rsb_finger *fg = &in->finger[f];
-        if (is_consumed(fg->id)) continue;
+        if (is_consumed(fg->id) || in_back(fg, aspect)) continue;
         /* a slightly bigger target than the drawn button */
         if (fg->x >= px - pw * 0.3f && fg->y <= py + ph * 1.3f) {
             if (pause_finger == -1) pause_finger = fg->id;
@@ -378,14 +397,50 @@ static uint16_t touch_buttons(const rsb_input *in, float aspect)
     return b;
 }
 
+void rsb_touch_log(int on) { touch_logging = on; }
+const rsb_touch *rsb_touch_scheme(void) { return cur >= 0 ? &rsb_games[cur].touch : NULL; }
+uint16_t rsb_touch_held(void) { return cur >= 0 && !held ? touch_now : 0; }
+
+static void touch_log_line(uint16_t b)
+{
+    static const char *names[16] = {"", "", "", "", "R", "L", "X", "A",                 /* RS_BTN_* bits 0..15 */
+                                    "RIGHT", "LEFT", "DOWN", "UP", "START", "SELECT", "Y", "B"};
+    char s[96] = "touch:";
+    for (int i = 15; i >= 0; i--)
+        if (b & (1u << i) && names[i][0]) {
+            strncat(s, " ", sizeof s - strlen(s) - 1);
+            strncat(s, names[i], sizeof s - strlen(s) - 1);
+        }
+    if (!b) strncat(s, " -", sizeof s - strlen(s) - 1);
+    say("%s%s", s, "");
+}
+
 int rsb_frame(const rsb_input *in, const rsb_view *view)
 {
     back_now = in->back;
+    gamepad_now = in->gamepad;
     forget_lifted(in);
     pointer_update(in, view);
 
-    if (cur >= 0 && in->back) {                 /* Back in a game: to the launcher */
+    /* the in-game back button (top left): a new finger on it is Back */
+    long tapped = -1;
+    if (cur >= 0) {
+        int seen = 0;
+        float aspect = in->aspect > 0 ? in->aspect : 16.0f / 9;
+        for (int f = 0; f < in->nfingers; f++) {
+            const rsb_finger *fg = &in->finger[f];
+            if (is_consumed(fg->id) || !in_back(fg, aspect)) continue;
+            seen = 1;
+            if (back_finger == -1) { back_finger = fg->id; tapped = fg->id; }
+        }
+        if (!seen) back_finger = -1;
+    }
+    if (cur >= 0 && (in->back || tapped != -1)) {   /* Back in a game: its state is saved, the launcher */
         start(RSB_LAUNCHER, 0);
+        if (tapped != -1 && nconsumed < RSB_FINGERS && !is_consumed(tapped)) consumed[nconsumed++] = tapped;
+        ptr.down = 0;
+        ptr_id = -1;
+        back_finger = -1;
         back_now = 0;
         return 0;
     }
@@ -404,6 +459,8 @@ int rsb_frame(const rsb_input *in, const rsb_view *view)
     }
 
     uint16_t touch = cur >= 0 ? touch_buttons(in, in->aspect > 0 ? in->aspect : 16.0f / 9) : 0;
+    if (touch_logging && cur >= 0 && touch != touch_now) touch_log_line(touch);
+    touch_now = touch;
     for (int p = 0; p < RS_PAD_MAX; p++) {
         uint16_t b = in->pad[p];
         if (p == 0) b |= touch;

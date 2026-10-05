@@ -22,3 +22,37 @@ BACK = BACK
 #. max 20
 N_GAMES[one] = %d GAME
 N_GAMES[other] = %d GAMES
+#. The credits screen (the "i" button in the menu's header): its title, and the menu's footer when the "i" is
+#. selected. "&" is drawn by the house font.
+#. max 30
+CREDITS = CREDITS & LICENCES
+#. Credits: the RetroStone VC games' code (its licence, MIT, is shown at the right of the line).
+#. max 16
+CODE = CODE
+#. Credits: the games' art, music and sound effects (their licence, CC BY-NC-SA 4.0, at the right of the line).
+#. max 14
+ART = ART AND SOUND
+#. Credits: the hint under the list (after the A button's glyph): A opens the full licence text (in English).
+#. max 30
+READ = READ THE LICENCE
+#. The help panel (the "?" button in the menu's header): its title.
+#. max 30
+HELP = HELP
+#. Help: who the touch screen controls.
+#. max 30
+HELP_TOUCH = TOUCH THE SCREEN: PLAYER 1
+#. Help, two lines read together: multiplayer needs one gamepad per extra player ...
+#. max 30
+HELP_PADS = 2 TO 4 PLAYERS: ONE GAMEPAD
+#. ... each, connected by Bluetooth or USB.
+#. max 30
+HELP_PADS2 = EACH, BLUETOOTH OR USB
+#. Help, after a picture of the in-game pause button: where it is.
+#. max 27
+HELP_PAUSE = TOP RIGHT IN A GAME: PAUSE
+#. Help, after a picture of the in-game back button: where it is, what it does.
+#. max 27
+HELP_BACK = TOP LEFT: BACK TO THE MENU
+#. Help, under it: the game is saved when you go back, and resumes there.
+#. max 27
+HELP_SAVE = THE GAME WAITS RIGHT THERE

@@ -1,21 +1,25 @@
-// RetroStone Arcade Free: the app module. The app's name, package id and version come from ../app.conf; the native
-// libraries (libSDL2.so, libmain.so: the launcher and the games) are built by ../build.sh into build/android/jniLibs;
-// the Java side is SDL's (org.libsdl.app, from the SDL2 source release in build/deps) and ArcadeActivity.
+// RetroStone Arcade: the app module, for both apps. The app's identity (name, package id, version) comes from its
+// .conf: RSA_CONF (set by ../build.sh: ../app.conf, the free app, or ../app-full.conf, the paid one); the native
+// libraries (libSDL2.so, libmain.so: the launcher and the games) and the icons are built by ../build.sh into RSA_OUT
+// (build/android/<free|full>); the Java side is SDL's (org.libsdl.app, from the SDL2 source release in build/deps)
+// and ArcadeActivity.
 plugins {
     id 'com.android.application'
 }
 
-def conf = new Properties()
-file("$rootDir/app.conf").withReader('UTF-8') { conf.load(it) }
 def repo = file("$rootDir/../..")
+def conf = new Properties()
+file(System.getenv("RSA_CONF") ?: "$rootDir/app.conf").withReader('UTF-8') { conf.load(it) }
+def out = new File(System.getenv("RSA_OUT") ?: new File(repo, "build/android/free").path)
 def sdlJava = new File(repo, "build/deps/src/SDL2-2.32.10/android-project/app/src/main/java")
-// the build output stays out of the sources: build/android/gradle/app
-layout.buildDirectory = new File(repo, "build/android/gradle/app")
+// the build output stays out of the sources: build/android/<free|full>/gradle/app
+layout.buildDirectory = new File(out, "gradle/app")
 
-// The release key (never in the repository): a properties file with storeFile, storePassword, keyAlias, keyPassword,
-// by default ~/android-app-sdk/release-signing.properties (RSA_SIGNING=<file> to use another). See README.md.
+// The upload key (never in the repository): a properties file with storeFile, storePassword, keyAlias, keyPassword,
+// by default ~/.retrostone-keys/arcade.properties (RSA_SIGNING=<file> to use another; apps/android/make-keystore.sh
+// writes it). See README.md, "Publishing". Without it the release outputs are unsigned (build.sh refuses --release).
 def signing = new Properties()
-def signingFile = new File(System.getenv("RSA_SIGNING") ?: "${System.getProperty("user.home")}/android-app-sdk/release-signing.properties")
+def signingFile = new File(System.getenv("RSA_SIGNING") ?: "${System.getProperty("user.home")}/.retrostone-keys/arcade.properties")
 if (signingFile.exists()) signingFile.withReader("UTF-8") { signing.load(it) }
 
 android {
@@ -35,13 +39,13 @@ android {
         }
     }
     buildFeatures {
-        resValues = true                // the app name from app.conf
+        resValues = true                // the app name from the .conf
     }
     sourceSets {
         main {
             java.srcDirs += [sdlJava]
-            jniLibs.srcDirs = [new File(repo, "build/android/jniLibs")]
-            res.srcDirs += [new File(repo, "build/android/res")]
+            jniLibs.srcDirs = [new File(out, "jniLibs")]
+            res.srcDirs += [new File(out, "res")]
         }
     }
     signingConfigs {

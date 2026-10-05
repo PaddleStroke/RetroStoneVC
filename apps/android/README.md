@@ -1,15 +1,30 @@
-# RetroStone Arcade Free (Android)
+# RetroStone Arcade and RetroStone Arcade Free (Android)
 
-The free Android app of the RetroStone VC games: **Leady Squid, Pancake Tower and Beaver Rush** to play, and every
-other game shown with a padlock to advertise the full (paid) app. Its menu, the games and the touch controls are
-described in [apps/launcher/README.md](../launcher/README.md).
+Two Android apps built from the same code, the RetroStone VC games in one program each:
+
+| | **RetroStone Arcade Free** | **RetroStone Arcade** (paid) |
+|---|---|---|
+| Config | `apps/android/app.conf` | `apps/android/app-full.conf` |
+| Package id | `com.eightbcraft.retrostonearcade.free` | `com.eightbcraft.retrostonearcade` |
+| Games | Leady Squid, Pancake Tower, Beaver Rush; every other game shown with a padlock | every game of `games/` but Bomber Mole (20 today), all playable |
+| The full version | locked cards, the "Get the full version" panel, a small banner in the menu's footer: its button opens the paid app's Play page | none |
+| Build | `apps/android/build.sh free` | `apps/android/build.sh full` |
+| Debug APK | `dist/android/RetroStoneArcadeFree-debug.apk` | `dist/android/RetroStoneArcade-debug.apk` |
+| Desktop | `dist/windows/RetroStoneArcadeFree.exe` | `dist/windows/RetroStoneArcade.exe` |
+
+The same launcher otherwise (described in [apps/launcher/README.md](../launcher/README.md)): the "i" in the menu's
+top-left corner opens **Credits & licences**, the "?" in its top-right corner a short **help** (touch is player 1,
+gamepads players 2 to 4, the pause and back buttons). The pad's A / B hints appear only when a gamepad is connected.
+The promotion of the full version stays **in the free app's menu only**: no pop-up, no interstitial, nothing during a
+game, so neither app needs Google Play's "Contains ads" label.
 
 ![the menu](../launcher/docs/launcher-520.png)
 
-## 1. Install the app on your phone
+## 1. Install an app on your phone
 
-The build makes **`dist/android/RetroStoneArcadeFree-debug.apk`**: a test version, signed with a "debug" key (fine
-for your own phones, not for Google Play).
+The build makes `dist/android/RetroStoneArcadeFree-debug.apk` and `dist/android/RetroStoneArcade-debug.apk`: test
+versions, signed with a "debug" key (fine for your own phones, not for Google Play). The two apps install side by
+side, each with its own saves.
 
 **Without a cable** (simplest):
 1. Copy the APK to the phone (USB file transfer, Google Drive, an e-mail to yourself...).
@@ -22,108 +37,151 @@ for your own phones, not for Google Play).
    Developer options > **USB debugging** on.
 2. Plug the phone in, accept the "Allow USB debugging?" prompt, then in WSL:
    ```
-   ~/android-app-sdk/sdk/platform-tools/adb install -r dist/android/RetroStoneArcadeFree-debug.apk
+   ~/android-app-sdk/sdk/platform-tools/adb install -r dist/android/RetroStoneArcade-debug.apk
    ```
    (WSL does not see USB devices by itself: either use the Windows `adb.exe` from the Android platform-tools for
    Windows, or `usbipd` to pass the phone to WSL.)
 
 A new build installs over the old one and keeps the saves, as long as it is signed with the same key. The debug key
 is `~/android-app-sdk/android-user/debug.keystore`: if it is deleted, a new one is made and the phone refuses the
-update ("App not installed"): uninstall the app first (the saves go with it).
+update ("App not installed"): uninstall the app first (the saves go with it). A debug build and a release build
+(your upload key) of the same app cannot replace each other either: uninstall first.
 
-**Playing.** Landscape, full screen. The app speaks the phone's language (22 languages: the games' texts and the menu's; the
-game names stay as they are). Tap a card to play (a padlock opens the full version's page; drag to scroll).
-In a game: Leady Squid and Pancake Tower: tap anywhere (A); Beaver Rush: tap the left or the right half. The small
-pause button is in the top-right corner. The phone's **Back** returns to the menu (the game is saved where it was and
-waits for a tap when you come back to it); Back in the menu leaves the app. Bluetooth and USB gamepads work as the
-SNES pad (Guide button = Back). Leaving the app (home button, a call) saves the game too.
+**Playing.** Landscape, full screen. The app speaks the phone's language (22 languages: the games' texts and the
+menu's; the game names stay as they are). Tap a card to play (in the free app a padlock opens the full version's
+page, whose big "Get it on Google Play" button opens the store; a tap outside it, its back arrow or Back closes it;
+drag to scroll). The touch controls of each game: section 4. In a game, the small **pause** button is in the top-right
+corner and the **back** button in the top-left corner: back, like the phone's **Back**, returns to the menu (the game
+is saved where it was and waits for a tap when you come back to it); Back in the menu leaves the app. Bluetooth and USB gamepads work as the SNES pad (Guide button = Back); on a
+phone, touch is player 1 and gamepads are players 2 to 4. Leaving the app (home button, a call) saves the game too.
 
-## 2. Rebuild
+## 2. Build
 
 In WSL (Ubuntu 24.04), from the repository's folder:
 ```
-apps/android/setup-toolchain.sh     # once: Java 17, the Android SDK and NDK, Gradle (in ~/android-app-sdk, 3.8 GB)
-apps/android/build.sh               # the APK: dist/android/RetroStoneArcadeFree-debug.apk
+apps/android/setup-toolchain.sh        # once: Java 17, the Android SDK and NDK, Gradle (in ~/android-app-sdk, 3.8 GB)
+apps/android/build.sh free             # dist/android/RetroStoneArcadeFree-debug.apk
+apps/android/build.sh full             # dist/android/RetroStoneArcade-debug.apk
+apps/android/build.sh full --release   # also the signed .aab (Google Play) and .apk (section 5)
 ```
-`build.sh` builds SDL2 and the games for the three kinds of phone processors (arm64-v8a: almost every phone;
-armeabi-v7a: old 32-bit phones; x86_64: the emulator and Chromebooks), then the APK, then prints its contents. The
-toolchain lives only in `~/android-app-sdk` (nothing in the system or in other projects; the LineageOS tree is not
-touched). The same games on the PC: `make -f apps/launcher/bundle.mk PLATFORM=win64` gives
-`dist/windows/RetroStoneArcadeFree.exe`.
+`build.sh` builds SDL2 and the app's games for the three kinds of phone processors (arm64-v8a: almost every phone;
+armeabi-v7a: old 32-bit phones; x86_64: the emulator and Chromebooks), then the APK, then prints its contents. Each
+app builds in `build/android/<free|full>/` (SDL2 is shared: `build/android/sdl2`). The toolchain lives only in
+`~/android-app-sdk` (nothing in the system or in other projects; the LineageOS tree is not touched). The same apps on
+the PC: `make -f apps/launcher/bundle.mk PLATFORM=win64` (the free one) and
+`make -f apps/launcher/bundle.mk PLATFORM=win64 CONF=apps/android/app-full.conf` (the full one).
 
 Versions: OpenJDK 17, Android command-line tools 23.0, platform android-36 (Android 16; minSdk 21 = Android 5.0),
 build-tools 36.1.0, NDK r27d (27.3.13750724), Gradle 9.8.0 (wrapper), Android Gradle Plugin 9.4.1, SDL 2.32.10.
 They are pinned in `setup-toolchain.sh`, `build.gradle` and `gradle/wrapper/gradle-wrapper.properties`.
 
-## 3. The name, the package id, the Play link
+**Widescreen.** A game that opted in (`rs_game.max_width`, docs/spec.md "Widescreen") fills the phone's width; the
+others run at 320 columns and the app draws side borders (their own picture, blurred). Nothing to configure: a game
+that opts in later fills the screen at the next build.
 
-All in **`apps/android/app.conf`**:
+## 3. The two configs
+
+`app.conf` (free) and `app-full.conf` (full) have the same keys:
 
 | Key | What |
 |---|---|
+| `PROFILE` | `free` or `full`: which app (`build.sh free|full` picks the file) |
 | `APP_NAME` | the name under the icon and in the menu's header |
-| `APP_ID` | the package id, e.g. `com.eightbcraft.retrostonearcade.free`. **Permanent once on Google Play** (it identifies the app forever): choose it before the first upload. Changing it makes another app (the saves of the old one are not carried over). |
+| `APP_ID` | the package id. **Permanent once on Google Play** (it identifies the app forever): choose it before the first upload. Changing it makes another app (the saves of the old one are not carried over). |
 | `APP_VERSION_NAME`, `APP_VERSION_CODE` | the version shown, and a number that must grow with every upload to Google Play |
-| `PAID_APP_NAME`, `PAID_APP_ID`, `PAID_STORE_URL` | the paid app (placeholders): the "Get the full version" button opens `market://details?id=<PAID_APP_ID>` (the Play Store app), or `PAID_STORE_URL` in the browser when there is no Play Store |
-| `FREE_GAMES` | the playable games; every other game of `games/` (with a `docs/screenshots/title.png`) is shown locked. A new game appears locked at the next build, with nothing to edit |
+| `PAID_APP_NAME`, `PAID_APP_ID`, `PAID_STORE_URL` | free app: the paid app (its `APP_NAME` and `APP_ID` in app-full.conf): the "Get the full version" button opens `market://details?id=<PAID_APP_ID>` (the Play Store app), or `PAID_STORE_URL` in the browser when there is no Play Store. Empty in the full app |
+| `FREE_GAMES` | the playable games in menu order; every other game of `games/` (with a `docs/screenshots/title.png`) is shown locked, so a new game appears locked in the free app at the next build. `all` (the full app): every game, playable, by name |
 | `HIDDEN_GAMES` | never shown (Bomber Mole) |
+| `EXE_NAME` | the file names: `dist/android/<EXE_NAME>-debug.apk`, `dist/windows/<EXE_NAME>.exe` |
+| `ICON_GAMES` | (full app) the first title screens of the icon |
 
-The icon is drawn by `tools/make_icon.py` (the four first games' title screens in a gold frame); Google Play's 512 px
-icon is written to `dist/android/icon-512.png`. The touch controls of each game: `apps/launcher/games.cfg`.
+The icons are drawn by `tools/make_icon.py`: the free app's, four title screens on navy in a gold frame; the full
+app's, nine on ruby. Google Play's 512 px icon goes to `dist/android/<EXE_NAME>-icon-512.png` (and the store kit).
 
-## 4. Publishing (to do before the first upload)
+## 4. Touch controls
 
-### The release key: create it once, keep it forever
-Google Play identifies the app's updates by their signature. Create your own **upload key** once:
+On a phone, the touches are **player 1** (players 2 to 4 use gamepads). The schemes are in
+`apps/launcher/games.cfg`: screen zones that hold pad buttons, and drawn buttons (translucent discs with an arrow or a
+letter) where the scheme needs them. The pause button is always in the top-right corner, the back button in the
+top-left one (touches there never reach the game).
+
+The owner's **target design** for every game, and what the app does today:
+
+| Game | Target design | In the app today | |
+|---|---|---|---|
+| Leady Squid | tap anywhere = A | the same | final |
+| Pancake Tower | tap anywhere = A | the same | final |
+| Beaver Rush | the left / right half = Left / Right | the same | final |
+| Frog Reach | hold anywhere = A | the same | final |
+| Hedgehog Hills | hold anywhere = A | the same | final |
+| Mouse Espresso | hold anywhere = A | the same | final |
+| Blueberry Tumble | tap anywhere = A | the same | final |
+| Snail Switch | tap anywhere = A | the same | final |
+| Penguin Slalom | hold the left / right half = Left / Right | the same | final |
+| Otter Rapids | hold the left / right half = Left / Right | the same | final |
+| Crab Coconut | hold the left / right half = Left / Right | the same | final |
+| Biscuit Bandit | hold the left / right half = Left / Right | the same (each half also presses A: the only input that starts it from its title; A does nothing in a run) | final |
+| Duck Parade | tap a spot: the duck hops there along the direct path (and falls into the water on the way) | a drawn D-pad on the left half (up, down, back, forward) and A (hop forward) on the right half | **provisional** |
+| Radish Rascals | tap the bed to defend | drawn zones: the top, bottom, left and right bands of the screen = Up, Down, Left, Right | **provisional** |
+| Raccoon Recycler | tap the branch the toy should take | drawn thirds: left, centre (Up), right branch (+A: the title's start) | **provisional** |
+| Moth Around | the moth follows your finger (to its angle around the lantern) | hold the left / right half = Left / Right | **provisional** |
+| Nutty Branch | hold the left / right half to steer, swipe up to jump | drawn Left and Right on the left half, A (jump) on the right half | **provisional** |
+| Pogo Mamie | hold the left / right half to steer, hold both halves at once for the big bounce | drawn Left and Right on the left half, A (big bounce) on the right half | **provisional** |
+| Mole Marbles | the mole follows your finger, a quick tap shoots | drawn Left and Right on the left half, A (shoot) on the right half | **provisional** |
+| Spider Swing | tap to let go of the web, then hold the left / right half to steer in flight | drawn Left and Right on the left half, A (let go) on the right half | **provisional** |
+
+**Provisional: to be tuned after the owner's phone test.** The eight target designs marked provisional are
+*game-side*: the game itself must know where the finger is (a spot to hop to, a bed, an angle, a swipe). They wait
+for a touch / pointer API in the SDK (to come after the widescreen work); until then the app gives them the pad's
+buttons through the zones above (`TODO(touch)` in `games.cfg`).
+
+## 5. Publishing
+
+### The upload key: create it once, keep it forever
 ```
-keytool -genkeypair -v -keystore ~/retrostone-upload.jks -alias upload -keyalg RSA -keysize 4096 -validity 10000
+apps/android/make-keystore.sh
 ```
-(`keytool` comes with Java: `/usr/lib/jvm/java-17-openjdk-amd64/bin/keytool`.) Then write
-`~/android-app-sdk/release-signing.properties` (never in the repository):
-```
-storeFile=/root/retrostone-upload.jks
-storePassword=...
-keyAlias=upload
-keyPassword=...
-```
-and build with `apps/android/build.sh --release`: `dist/android/RetroStoneArcadeFree-release.aab` (for Google Play) and
-`...-release.apk`.
+asks for your name and a password and writes, **outside the repository**:
+- `~/.retrostone-keys/upload-keystore.jks`: the key (RSA 4096, valid 30 years, alias `upload`), for both apps;
+- `~/.retrostone-keys/arcade.properties`: where it is and its password (`storeFile`, `storePassword`, `keyAlias`,
+  `keyPassword`), read by `build.sh --release` (`RSA_SIGNING=<file>` to use another file).
 
-**Keep the .jks file and its passwords safe, in two places at least** (a password manager and an offline copy). With
-"Play App Signing" (the default for new apps) Google keeps the real app signing key and the upload key can be reset
-through Play support if it is lost, but it takes days; without Play App Signing, a lost key means the app can never
-be updated again. Never commit it, never send it by e-mail.
+Then `apps/android/build.sh full --release` and `apps/android/build.sh free --release` give
+`dist/android/<EXE_NAME>-release.aab` (upload this to Google Play) and `<EXE_NAME>-release.apk` (sideloading), and
+check both signatures (`apksigner verify`, `jarsigner -verify`). Without the properties file, `--release` stops (no
+unsigned release by mistake).
 
-### Google Play checklist
-- [ ] A **Google Play developer account**: $25, once, with identity verification (allow a few days). New personal
-      accounts must run a **closed test with at least 12 testers for 14 days** before going public.
-- [ ] The final `APP_ID` and name (see above), `APP_VERSION_CODE` 1 for the first upload.
-- [ ] The **release key** (above) and an **AAB** (`build.sh --release`): Google Play takes .aab files, not .apk.
-- [ ] **Target API level**: Google Play requires a recent `targetSdk` (36 here; check the yearly deadline each August).
-- [ ] The store listing: the short and full description, the **512x512 icon** (`dist/android/icon-512.png`), a
-      **1024x500 feature graphic**, at least **2 phone screenshots** (16:9 or 9:16, e.g. `apps/launcher/docs/*.png`
-      scaled up, or screenshots from the phone), the category (Games > Arcade), a contact e-mail.
-- [ ] The **content rating** questionnaire (IARC): no violence, no ads, no purchases -> rated for everyone.
-- [ ] The **privacy policy** URL (required for every app): the app collects nothing, does not use the network, has no
-      ads and no accounts; a one-page policy saying so, on a web page you control.
-- [ ] The **Data safety** form: "no data collected, no data shared".
-- [ ] "Contains ads": no. The full version is promoted only inside the menu (the locked cards, the "Get the full
-      version" panel, the small "full version" banner of the footer): never a pop-up, an interstitial or a banner during
-      a game. Keep it that way (Google Play counts in-game promotion of other apps as ads). Target audience: if children
-      are included, the Families policy applies (fine here: no ads, no data).
-- [ ] The paid app published first (or at the same time), and its real package id in `PAID_APP_ID`.
+**Keep the .jks file and its password safe, in two places at least** (a password manager or an encrypted cloud
+folder, and an offline copy such as a USB key at home; from Windows the folder is
+`\\wsl$\Ubuntu-24.04\root\.retrostone-keys`). **Keep "Play App Signing" on** when you create the apps (the default
+for new apps): Google keeps the real app signing key, and this upload key can be reset through Play support if it is
+lost (it takes days); without Play App Signing, a lost key means the app can never be updated again. Never commit
+it (`.gitignore` refuses `*.jks` and `*.keystore` anyway), never send it by e-mail.
 
-## 5. What was tested
+### The store kit
+Everything else Google Play asks for is in [`store/`](store/):
 
-- The bundle's tests (`make -f apps/launcher/bundle.mk check`, Linux and the Windows build): each game identical to
-  its standalone build, the switching, the saves, the resume, the touch flow, the store request.
-- The APK: built, its ABIs and 16 KB page alignment checked by `build.sh`; `apps/android/smoke-emulator.sh` ran it in an
-  Android 11 x86_64 emulator: the menu, a tap on a card starts Leady Squid, a tap plays, Back returns to the menu,
-  Home saves the game and it resumes held under the play sign. (The emulator, ~4 GB, was removed afterwards to
-  save disk space: `setup-toolchain.sh --emulator` installs it again.)
-- **Not tested on a real phone yet**: the feel of the touch controls, the audio latency, the integer scaling on the
-  phone's real resolution, the display cutout (the camera hole may hide a few columns on the left in landscape),
-  Bluetooth / USB pads, the Back gesture of gesture navigation, the Play Store link (the paid app does not exist yet:
-  the store will say "not found").
+| | |
+|---|---|
+| [`store/CHECKLIST.md`](store/CHECKLIST.md) | the steps: the developer account ($25), the closed test (12 testers, 14 days), creating the apps (paid vs free), the listing, pricing, countries, review |
+| `store/<free\|full>/listings/<language>/` | the title, short and full descriptions in 22 languages (English source, French with "tu", **the 20 others AI-made: to review**) |
+| `store/<free\|full>/graphics/` | the 512 x 512 icon and the 1024 x 500 feature graphic, code-drawn |
+| `store/<free\|full>/screenshots/<en\|fr\|de>/` | phone screenshots, 2160 x 1080, made headlessly from the apps |
+| `store/privacy/` | the privacy policy (EN, FR; Markdown and HTML ready to host) |
+| `store/play-console-answers.md` | draft answers: Data safety ("no data collected"), the IARC content rating, ads, target audience |
+| `store/tools/` | the generators: `make_listings.py`, `make_store_art.py`, `store_shots.py`, `privacy_html.py` |
 
-MIT licence (the app's code), (c) 2026 Pierre-Louis Boyer (8BCraft). The games' assets: CC BY-NC-SA 4.0.
+## 6. What was tested
+
+- The bundle's tests, for both apps (`make -f apps/launcher/bundle.mk check` and the same with
+  `CONF=apps/android/app-full.conf`, Linux): each game identical to its standalone build (fresh, at width 520 and
+  after another game), the flow with touches, the store request (free) or none (full), the credits screens, every
+  game launching in one process with its own save state, each game's touch scheme, the launcher in 22 languages.
+- The APKs: built, their ABIs and 16 KB page alignment checked by `build.sh`; the release path (`--release`) with a
+  throwaway key: a signed AAB and APK. `apps/android/smoke-emulator.sh` ran the free app in an Android 11 x86_64
+  emulator earlier (the emulator, ~4 GB, was removed afterwards: `setup-toolchain.sh --emulator` installs it again).
+- **Not tested on a real phone yet**: the feel of the touch controls, the drawn buttons' size, the audio latency, the
+  integer scaling on the phone's real resolution, the display cutout, Bluetooth / USB pads, the Back gesture of
+  gesture navigation, the Play Store link (the paid app is not on Google Play yet: the store says "not found").
+
+MIT licence (the apps' code), (c) 2026 Pierre-Louis Boyer (8BCraft). The games' assets: CC BY-NC-SA 4.0.

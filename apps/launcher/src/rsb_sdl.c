@@ -30,7 +30,7 @@ static SDL_GameController *pads[RS_PAD_MAX];
 static SDL_AudioDeviceID audio;
 static rsb_input in;
 
-static int mouse_down;
+static int mouse_down, keyboard_used;
 static char base_dir[1024];
 
 /* fingers: kept one frame after they are lifted, so that a quick tap is seen */
@@ -119,6 +119,62 @@ static void finger_set(long id, float x, float y, int up)
 
 /* ---- the picture ------------------------------------------------------------------------------------------------- */
 static rsb_view view;
+extern const uint8_t rs_font_5x7[96][8];
+
+static void disc(float cx, float cy, float r, SDL_Color c)
+{
+    SDL_Vertex v[48 * 3];
+    int n = 0;
+    for (int i = 0; i < 48; i++) {
+        float a0 = i * 6.2831853f / 48, a1 = (i + 1) * 6.2831853f / 48;
+        v[n++] = (SDL_Vertex){{cx, cy}, c, {0, 0}};
+        v[n++] = (SDL_Vertex){{cx + r * SDL_cosf(a0), cy + r * SDL_sinf(a0)}, c, {0, 0}};
+        v[n++] = (SDL_Vertex){{cx + r * SDL_cosf(a1), cy + r * SDL_sinf(a1)}, c, {0, 0}};
+    }
+    SDL_RenderGeometry(ren, NULL, v, n, NULL, 0);
+}
+
+/* The drawn touch buttons of the running game (games.cfg "button=" zones): a translucent disc in its zone (at the
+ * bottom of a tall zone, where the thumbs are), an arrow for a direction or the button's letter; brighter while held. */
+static void draw_buttons(int ww, int wh)
+{
+    const rsb_touch *t = rsb_touch_scheme();
+    if (!t) return;
+    uint16_t held = rsb_touch_held();
+    for (int z = 0; z < t->nzones; z++) {
+        const rsb_zone *zn = &t->zone[z];
+        if (!zn->shown) continue;
+        float x0 = zn->x0 * ww / 100.0f, x1 = zn->x1 * ww / 100.0f, y0 = zn->y0 * wh / 100.0f, y1 = zn->y1 * wh / 100.0f;
+        float r = wh * 0.085f;
+        if (r > (x1 - x0) * 0.42f) r = (x1 - x0) * 0.42f;
+        if (r > (y1 - y0) * 0.42f) r = (y1 - y0) * 0.42f;
+        float cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+        if (cy < y1 - r - wh * 0.06f && y1 - y0 > wh * 0.6f) cy = y1 - r - wh * 0.06f;
+        int on = (held & zn->buttons) == zn->buttons;
+        disc(cx, cy, r, (SDL_Color){16, 24, 56, (Uint8)(on ? 150 : 80)});
+        SDL_Color ink = {255, 246, 220, (Uint8)(on ? 230 : 140)};
+        uint16_t b = zn->buttons;
+        if (b & (RS_BTN_LEFT | RS_BTN_RIGHT | RS_BTN_UP | RS_BTN_DOWN)) {
+            float dx = b & RS_BTN_LEFT ? -1 : b & RS_BTN_RIGHT ? 1 : 0, dy = b & RS_BTN_UP ? -1 : b & RS_BTN_DOWN ? 1 : 0;
+            float s = r * 0.5f;                      /* a triangle pointing (dx, dy) */
+            SDL_Vertex v[3] = {{{cx + dx * s, cy + dy * s}, ink, {0, 0}},
+                               {{cx - dx * s * 0.6f - dy * s * 0.8f, cy - dy * s * 0.6f - dx * s * 0.8f}, ink, {0, 0}},
+                               {{cx - dx * s * 0.6f + dy * s * 0.8f, cy - dy * s * 0.6f + dx * s * 0.8f}, ink, {0, 0}}};
+            SDL_RenderGeometry(ren, NULL, v, 3, NULL, 0);
+        } else {
+            char ch = b & RS_BTN_A ? 'A' : b & RS_BTN_B ? 'B' : b & RS_BTN_X ? 'X' : b & RS_BTN_Y ? 'Y' :
+                      b & RS_BTN_L ? 'L' : b & RS_BTN_R ? 'R' : 'S';
+            float px = r * 0.16f;                    /* the house font's 5x7 glyph, scaled */
+            SDL_SetRenderDrawColor(ren, ink.r, ink.g, ink.b, ink.a);
+            for (int y = 0; y < 7; y++)
+                for (int x = 0; x < 6; x++)
+                    if (rs_font_5x7[ch - 32][y] & (0x80 >> x)) {
+                        SDL_FRect p = {cx + (x - 3.5f) * px, cy + (y - 3.5f) * px, px, px};
+                        SDL_RenderFillRectF(ren, &p);
+                    }
+        }
+    }
+}
 
 static void present(int show_pause, int show_held)
 {
@@ -201,6 +257,22 @@ static void present(int show_pause, int show_held)
         }
     }
     SDL_SetRenderDrawBlendMode(ren, SDL_BLENDMODE_BLEND);
+    if (show_pause || show_held) {
+        /* the back button: the pause button's mirror, top-left, an arrow pointing left (= Android's Back) */
+        float bx, by, bw, bh;
+        rsb_back_rect((float)ww / wh, &bx, &by, &bw, &bh);
+        SDL_Rect b = {(int)(bx * ww), (int)(by * wh), (int)(bw * ww), (int)(bh * wh)};
+        SDL_SetRenderDrawColor(ren, 16, 24, 56, 90);
+        SDL_RenderFillRect(ren, &b);
+        SDL_Color ink = {255, 246, 220, 150};
+        float cx = b.x + b.w / 2.0f, cy = b.y + b.h / 2.0f, s = b.h * 0.22f;
+        SDL_Vertex v[3] = {{{cx - s * 1.1f, cy}, ink, {0, 0}}, {{cx + s * 0.2f, cy - s}, ink, {0, 0}},
+                           {{cx + s * 0.2f, cy + s}, ink, {0, 0}}};
+        SDL_RenderGeometry(ren, NULL, v, 3, NULL, 0);
+        SDL_SetRenderDrawColor(ren, ink.r, ink.g, ink.b, ink.a);
+        SDL_FRect shaft = {cx, cy - s * 0.32f, s * 1.0f, s * 0.64f};
+        SDL_RenderFillRectF(ren, &shaft);
+    }
     if (show_held) {
         /* the play sign: the picture dimmed, a round button with a triangle */
         SDL_SetRenderDrawColor(ren, 0, 0, 0, 110);
@@ -220,6 +292,7 @@ static void present(int show_pause, int show_held)
         v[n++] = (SDL_Vertex){{cx - r * 0.35f, cy + r * 0.5f}, tri, {0, 0}};
         SDL_RenderGeometry(ren, NULL, v, n, NULL, 0);
     } else if (show_pause) {
+        draw_buttons(ww, wh);
         /* the pause button: a small translucent square with two bars, top-right */
         float px, py, pw, ph;
         rsb_pause_rect((float)ww / wh, &px, &py, &pw, &ph);
@@ -366,6 +439,7 @@ int main(int argc, char **argv)
             case SDL_KEYDOWN:
                 if (e.key.repeat) break;
                 in.any = 1;
+                if (e.key.keysym.sym != SDLK_AC_BACK) keyboard_used = 1;
                 if (e.key.keysym.sym == SDLK_AC_BACK || e.key.keysym.sym == SDLK_ESCAPE) in.back = 1;
                 else if (e.key.keysym.sym == SDLK_F11 ||
                          (e.key.keysym.sym == SDLK_RETURN && (e.key.keysym.mod & KMOD_ALT))) {
@@ -431,6 +505,8 @@ int main(int argc, char **argv)
                 in.finger[i].y = fingers[i].y;
             }
             in.aspect = wh > 0 ? (float)ww / wh : 16.0f / 9;
+            in.gamepad = keyboard_used;                     /* the glyph hints: a pad connected, or keys used */
+            for (int p = 0; p < RS_PAD_MAX; p++) in.gamepad |= pads[p] != NULL;
             int ran = rsb_frame(&in, &view);
             in.back = in.any = 0;
             for (int i = 0; i < nfingers;)                  /* lifted fingers go once they were seen */

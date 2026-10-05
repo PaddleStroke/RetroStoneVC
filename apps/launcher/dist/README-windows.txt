@@ -9,13 +9,14 @@ window shows the menu with more columns.
 
 Menu
   Arrows / D-pad      choose a game              Enter, X or A    play (a locked game: its "full version" page)
-  Mouse               click a card to play it, drag to scroll (the phone's touches)
+  The "i" (top left): Credits & licences; the "?" (top right): help. Esc or the back arrow closes them
+  Mouse              click a card to play it, drag to scroll (the phone's touches)
   Esc                 leave the app
 
 In a game
   Arrows, X = A, Z = B, C = Y, V = X, Q = L, E = R, Enter = Start, Backspace = Select (each game's README)
   Gamepads: up to 4, SNES layout (bottom = B, right = A)
-  Esc (or the pad's Guide button)   back to the menu: the game is saved where it was and resumes there next time
+  Esc, the pad's Guide button or the back arrow (top left)   back to the menu: the game is saved where it was and resumes there next time
   Mouse clicks are the phone's touches (Leady Squid, Pancake Tower: click = A; Beaver Rush: left / right half)
   F11 or Alt+Enter    fullscreen          F12   screenshot
 
