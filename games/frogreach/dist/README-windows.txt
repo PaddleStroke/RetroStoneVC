@@ -17,4 +17,7 @@ Players 2-4 join with A on the title and leave with B. P1 starts the game.
 Everyone has a separate camera; two players use a top/bottom split.
 P2 keyboard: H / G for actions, T Start, R Select.
 F11 or Alt+Enter toggles fullscreen. F12 takes a screenshot.
+Widescreen: the picture follows the shape of the window (drag its edges or go
+fullscreen: a wider window shows more of the swamp ahead). To fix it: --width 427
+(16:9), --width 520 (phones), or --aspect 4:3 for the classic 320x240.
 Best scores are saved to frogreach.srm next to the executable.

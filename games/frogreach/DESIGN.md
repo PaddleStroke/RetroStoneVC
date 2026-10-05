@@ -44,3 +44,30 @@ tracker music use games/common, matching Leady Squid and the other house games.
 Build: make frogreach / frogreach-windows / frogreach-check / frogreach-screenshots /
 frogreach-art. Windows output: dist/windows/FrogReach.exe, statically linked SDL2.
 Code MIT; art, music, sound and design CC BY-NC-SA 4.0, as stated in LICENSE.
+
+## Widescreen (docs/spec.md "Widescreen")
+
+The game opts in (`max_width` = 560, `WIDESCREEN_frogreach = 1`): 320 x 240 is unchanged pixel for pixel; at 427
+(16:9), 520 or 560 (phones) **the swamp is revealed wider, to the right**: a crossing seen from the side, so the
+stage origin stays 0. Each camera keeps its frog where it was and shows more of the pond ahead; seeing further makes
+it a little easier, which the owner accepts (no compensation).
+- **The same course**: the pads beyond the third ahead are drawn, with their flies, as long as the view still shows
+  them (perch_pos: the course never looked at the screen); the rules, the timings and the bot are unchanged.
+  tests/wide_test.sh compares the whole logs (scores, game overs, the final state and its hash) of 1-player and
+  4-player bot runs at 320, 427, 520 and 560. The start of a run is the same too: the first pads sit at the same
+  distance from the frog as at 320 (a wider screen shows them from the first frame), no longer run-up.
+- **Multiplayer**: the views split the whole width (2 players: top and bottom, 3: a top half and two lower panels, 4:
+  quadrants). A panel is compact (the 16-px frog, the half zoom) when it is narrower than 3/4 of the screen, as at 320,
+  so a 520-px quadrant keeps the compact frog and simply shows more of its pond. The right-hand views use map columns
+  64 on (128-tile maps); each view's text (P1 ..., PAUSED) sits in the UI columns of its place on the screen.
+- **The scenery**: the reeds' and clouds' panorama (BG3) goes on with its mirror image (the same tiles h-flipped on the
+  128-tile map: no VRAM, seamless joins), so a 560-px view never shows a stretch twice; the pond (BG2) is drawn over
+  the view's whole width (a pixel buffer as wide as the widest screen).
+- **The UI is centred**: the UI layer scrolls by -hu_ui_x() and the game's UI sprites (the title's player icons, the
+  results' icons, the sparkles) add it; the score is centred on the screen.
+- **Save states load at any width**: `state_loaded` (draw_relayout) compares the width the maps were laid out for
+  (draw.laid_w, saved) with this one and sets this width's maps up (every frame draws every view again).
+- `make frogreach-check` runs the libretro test, tests/check_game.py (strict mode included) and the state tests again
+  at 427 and 520, then tests/wide_test.sh (widths, the same game, `--resize`, states across widths) and the language
+  test at 320, 427 and 520; `make frogreach-screenshots` adds title/play/gameover-427/520.png and
+  play-4-players-520.png (tools/wide_shots.sh).
