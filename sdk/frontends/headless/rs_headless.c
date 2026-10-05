@@ -14,6 +14,8 @@
  *     --resize F:N        change the width live after frame F (rs_host_change_width: a save state, a restart at
  *                         the new width, the state loaded; what the desktop runner does when its window is resized)
  *     --opt KEY=VALUE     game option (repeatable)
+ *     --lang CODE         the language (en, fr, pt_BR, zh_CN...; docs/i18n.md); default: the environment variable
+ *                         RS_LANG, else English (never the system's: the runs stay the same everywhere)
  *     --data DIR          data directory override
  *     --sram FILE         load (and save back) the save RAM
  *     --bench [FROM]      print frame-time statistics (frames >= FROM)
@@ -106,6 +108,7 @@ int main(int argc, char **argv)
     const char *png = NULL, *sram = NULL, *wav = NULL;
     int device[RS_PAD_MAX] = {RS_DEVICE_KEYBOARD, RS_DEVICE_KEYBOARD2, RS_DEVICE_PAD, RS_DEVICE_PAD};
     rsd_width_env();
+    rsd_lang_env();
     for (int i = 1; i < argc; i++) {
         const char *a = argv[i], *v = i + 1 < argc ? argv[i + 1] : NULL;
         if (!strcmp(a, "--frames") && v) frames = atoi(argv[++i]);
@@ -127,6 +130,7 @@ int main(int argc, char **argv)
             resizes[nresizes++].width = atoi(colon + 1);
         }
         else if (!strcmp(a, "--opt") && v) rsd_option(argv[++i]);
+        else if (!strcmp(a, "--lang") && v) rsd_lang_arg(argv[++i]);
         else if (!strcmp(a, "--dev")) rsd_option("dev=1");
         else if (!strcmp(a, "--data") && v) rsd_set_data_dir(argv[++i]);
         else if (!strcmp(a, "--sram") && v) sram = argv[++i];

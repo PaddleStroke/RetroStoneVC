@@ -16,6 +16,8 @@ static size_t audio_frames;
 static int failures;
 static unsigned run_frame;
 static const char *aspect;                  /* the core option rsvc_aspect, NULL = not set */
+/* the language (docs/i18n.md): the core option rsvc_language declared, rsos_language and GET_LANGUAGE asked */
+static int lang_values, asked_rsos_language, asked_get_language;
 
 #define CHECK(c, ...) do { if (!(c)) { failures++; printf("  FAIL "); printf(__VA_ARGS__); printf("\n"); } \
                            else { printf("  ok   "); printf(__VA_ARGS__); printf("\n"); } } while (0)
@@ -26,9 +28,15 @@ static bool env(unsigned cmd, void *data)
     case RETRO_ENVIRONMENT_SET_PIXEL_FORMAT: pixfmt = *(enum retro_pixel_format *)data; return true;
     case RETRO_ENVIRONMENT_SET_SUPPORT_NO_GAME: return true;
     case RETRO_ENVIRONMENT_GET_LOG_INTERFACE: return false;
-    case RETRO_ENVIRONMENT_SET_VARIABLES: return true;
+    case RETRO_ENVIRONMENT_SET_VARIABLES:
+        for (const struct retro_variable *v = data; v && v->key; v++)
+            if (!strcmp(v->key, "rsvc_language") && strstr(v->value, "; Auto|English|"))
+                for (const char *c = strchr(v->value, ';'); c; c = strchr(c + 1, '|')) lang_values++;
+        return true;
+    case RETRO_ENVIRONMENT_GET_LANGUAGE: asked_get_language++; *(unsigned *)data = RETRO_LANGUAGE_ENGLISH; return true;
     case RETRO_ENVIRONMENT_GET_VARIABLE: {
         struct retro_variable *v = data;
+        if (!strcmp(v->key, "rsos_language")) { asked_rsos_language++; return false; }
         if (!aspect || strcmp(v->key, "rsvc_aspect")) return false;
         v->value = aspect;
         return true;
@@ -111,6 +119,8 @@ int main(int argc, char **argv)
           "32 KiB save RAM exposed");
     for (run_frame = 0; run_frame < n; run_frame++) retro_run();
     CHECK(frames_video == n && vw == want_w && vh == 240, "%u video frames of %ux%u", frames_video, vw, vh);
+    CHECK(lang_values == 23 && asked_rsos_language && asked_get_language,
+          "the language: the core option rsvc_language (Auto + %d), rsos_language then GET_LANGUAGE asked", lang_values - 1);
     double expect = n * 32000.0 / 60.0;
     CHECK(audio_frames > expect - 2 && audio_frames < expect + 2, "%zu audio frames (expected %.0f)", audio_frames, expect);
     /* save states: a fixed size, a save, 60 frames, a load, the same 60 pictures; then a new session that loads

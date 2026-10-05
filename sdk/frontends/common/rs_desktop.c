@@ -108,6 +108,22 @@ int rsd_width_env(void)
     return v && *v ? atoi(v) : 0;
 }
 
+int rsd_lang_env(void)
+{
+    const char *v = getenv("RS_LANG");
+    int l = v && *v ? rs_lang_find(v) : -1;
+    if (l >= 0) rs_host_set_lang(l);
+    return l;
+}
+
+int rsd_lang_arg(const char *code)
+{
+    int l = rs_lang_find(code);
+    if (l < 0) fprintf(stderr, "--lang %s: not one of the languages (en, fr, de, pt_BR, zh_CN...): English\n", code);
+    rs_host_set_lang(l >= 0 ? l : RS_LANG_EN);
+    return l;
+}
+
 void rsd_option(const char *kv)
 {
     char k[64];

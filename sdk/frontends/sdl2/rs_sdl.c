@@ -9,6 +9,8 @@
  * (or F11) restarts the game at the new width from a save state, where it was. --width N (320..560) or
  * --aspect 4:3|16:9|wide (320, 427, 520) fixes the width; --aspect 4:3 is the classic 320x240. The environment
  * variable RS_WIDTH=N does the same as --width N.
+ * The language (docs/i18n.md): --lang CODE (en, fr, pt_BR, zh_CN...) or RS_LANG=CODE, else the system's (SDL's
+ * preferred locales, SDL 2.0.14+: the first one we have), else English.
  *
  * Keyboard, pad 1: arrows = D-pad, Z = B, X = A, C = Y, V = X, Q = L, E = R, Enter = Start,
  *                  Right Shift / Backspace / Esc = Select.
@@ -105,12 +107,28 @@ static void path_in_base(char *out, size_t n, const char *name)
     snprintf(out, n, "%s%s", base_dir, name);
 }
 
+/* the system's language: the first of the user's preferred locales that is one of ours (-1: none) */
+static int system_lang(void)
+{
+    int l = -1;
+#if SDL_VERSION_ATLEAST(2, 0, 14)
+    SDL_Locale *loc = SDL_GetPreferredLocales();
+    for (SDL_Locale *p = loc; p && p->language && l < 0; p++) {
+        char s[48];
+        snprintf(s, sizeof s, "%s%s%s", p->language, p->country ? "_" : "", p->country ? p->country : "");
+        l = rs_lang_find(s);
+    }
+    SDL_free(loc);
+#endif
+    return l;
+}
+
 /* the width for a window (or a display) of w x h pixels */
 static int width_for(const rs_game *g, int w, int h) { return rs_host_width_for(g, rs_host_width_for_aspect(w, h)); }
 
 int main(int argc, char **argv)
 {
-    int scale = 3, fullscreen = 0, fixed_width = rsd_width_env();
+    int scale = 3, fullscreen = 0, fixed_width = rsd_width_env(), lang = rsd_lang_env();
     const char *data_dir = NULL;
     for (int i = 1; i < argc; i++) {
         if (!strcmp(argv[i], "--scale") && i + 1 < argc) scale = atoi(argv[++i]);
@@ -123,6 +141,7 @@ int main(int argc, char **argv)
         else if (!strcmp(argv[i], "--fullscreen")) fullscreen = 1;
         else if (!strcmp(argv[i], "--data") && i + 1 < argc) data_dir = argv[++i];
         else if (!strcmp(argv[i], "--opt") && i + 1 < argc) rsd_option(argv[++i]);
+        else if (!strcmp(argv[i], "--lang") && i + 1 < argc) lang = rsd_lang_arg(argv[++i]), lang = lang < 0 ? 0 : lang;
         else if (!strcmp(argv[i], "--dev")) rsd_option("dev=1");       /* the game's developer mode */
     }
     if (scale < 1) scale = 1;
@@ -171,6 +190,8 @@ int main(int argc, char **argv)
         if (SDL_GetDesktopDisplayMode(0, &dm) == 0 && dm.h > 0) width = width_for(g, dm.w, dm.h);
     }
     rs_host_set_width(width);
+    if (lang < 0 && (lang = system_lang()) >= 0) rs_host_set_lang(lang);
+    SDL_Log("language: %s", rs_lang_code(rs_lang()));
     rs_host_init(g);
     width = rs_screen_width();
     if (scale > 1 && width > RS_SCREEN_W) {          /* a wide window that fits the desktop */

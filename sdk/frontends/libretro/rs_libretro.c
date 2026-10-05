@@ -5,9 +5,13 @@
  * Widescreen (docs/spec.md "Widescreen"): a game that opts in (rs_game.max_width) gets the core option
  * "rsvc_aspect" (Aspect: 4:3, 16:9 or Wide = 19.5:9; 4:3 by default, so RetroStoneOS is unaffected). The geometry
  * follows it; a change while the game runs restarts it at the new width from a save state (rs_host_change_width).
+ * The language (docs/i18n.md): the core option "rsvc_language" (Language: Auto or one of the 22), Auto = the
+ * frontend's: RetroStoneOS's variable "rsos_language" (every language, Danish too), else GET_LANGUAGE (libretro's enum
+ * has no Danish), else English. It is read when the game starts (a change applies at the next start or reset).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include "rs_host.h"
+#include "rs_i18n.h"
 #include "libretro.h"
 #include <stdarg.h>
 #include <stdio.h>
@@ -24,6 +28,33 @@ static int started;
 static int cur_width = RS_SCREEN_W;           /* the width of the geometry reported */
 
 static int game_wide(void) { return rs_game_main()->max_width > RS_SCREEN_W; }
+
+/* the values of the core option "rsvc_language", in RS_LANG_* order after Auto (shown in the language itself) */
+static const char *const lang_names[RS_LANG_COUNT] = {
+    "English", "\xc4\x8c" "e\xc5\xa1tina", "Dansk", "Deutsch",
+    "\xce\x95\xce\xbb\xce\xbb\xce\xb7\xce\xbd\xce\xb9\xce\xba\xce\xac", "Espa\xc3\xb1ol", "Suomi",
+    "Fran\xc3\xa7" "ais", "Bahasa Indonesia", "Italiano", "\xe6\x97\xa5\xe6\x9c\xac\xe8\xaa\x9e",
+    "\xed\x95\x9c\xea\xb5\xad\xec\x96\xb4", "Norsk bokm\xc3\xa5l", "Nederlands", "Polski",
+    "Portugu\xc3\xaas (Brasil)", "Portugu\xc3\xaas (Portugal)", "\xd0\xa0\xd1\x83\xd1\x81\xd1\x81\xd0\xba\xd0\xb8\xd0\xb9",
+    "Svenska", "T\xc3\xbcrk\xc3\xa7" "e", "\xd0\xa3\xd0\xba\xd1\x80\xd0\xb0\xd1\x97\xd0\xbd\xd1\x81\xd1\x8c\xd0\xba\xd0\xb0",
+    "\xe7\xae\x80\xe4\xbd\x93\xe4\xb8\xad\xe6\x96\x87"};
+static char lang_var[600];                      /* "Language; Auto|English|..." */
+
+/* the player's language: the core option, else RetroStoneOS's rsos_language, else GET_LANGUAGE, else English */
+static int option_lang(void)
+{
+    struct retro_variable v = {"rsvc_language", NULL};
+    if (env_cb && env_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &v) && v.value)
+        for (int l = 0; l < RS_LANG_COUNT; l++)
+            if (!strcmp(v.value, lang_names[l])) return l;
+    v.key = "rsos_language";
+    v.value = NULL;
+    if (env_cb && env_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &v) && v.value && rs_lang_find(v.value) >= 0)
+        return rs_lang_find(v.value);
+    unsigned rl = 0;
+    if (env_cb && env_cb(RETRO_ENVIRONMENT_GET_LANGUAGE, &rl) && rs_lang_from_retro(rl) >= 0) return rs_lang_from_retro(rl);
+    return RS_LANG_EN;
+}
 
 /* the width the core option asks for (320 when the game has not opted in) */
 static int option_width(void)
@@ -66,11 +97,15 @@ RETRO_API void retro_set_environment(retro_environment_t cb)
         {0, 0, 0, 0, NULL},
     };
     cb(RETRO_ENVIRONMENT_SET_INPUT_DESCRIPTORS, (void *)desc);
-    if (game_wide()) {
-        static const struct retro_variable vars[] = {
-            {"rsvc_aspect", "Aspect (widescreen); 4:3|16:9|Wide"},
-            {NULL, NULL},
-        };
+    {   /* the core options: the language (every game), the aspect (the widescreen games) */
+        size_t k = (size_t)snprintf(lang_var, sizeof lang_var, "Language; Auto");
+        for (int l = 0; l < RS_LANG_COUNT && k < sizeof lang_var; l++)
+            k += (size_t)snprintf(lang_var + k, sizeof lang_var - k, "|%s", lang_names[l]);
+        static struct retro_variable vars[3];
+        int n = 0;
+        if (game_wide()) vars[n++] = (struct retro_variable){"rsvc_aspect", "Aspect (widescreen); 4:3|16:9|Wide"};
+        vars[n++] = (struct retro_variable){"rsvc_language", lang_var};
+        vars[n] = (struct retro_variable){NULL, NULL};
         cb(RETRO_ENVIRONMENT_SET_VARIABLES, (void *)vars);
     }
 }
@@ -122,6 +157,7 @@ RETRO_API void retro_set_controller_port_device(unsigned port, unsigned device) 
 RETRO_API void retro_reset(void)
 {
     if (started) rs_host_shutdown();
+    rs_host_set_lang(option_lang());                /* the language: at every start (docs/i18n.md) */
     rs_host_init(game);
     started = 1;
 }

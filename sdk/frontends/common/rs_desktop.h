@@ -4,6 +4,7 @@
 #define RS_DESKTOP_H
 
 #include "rs_host.h"
+#include "rs_i18n.h"
 
 /* Directory used for the data override (NULL = none). */
 void  rsd_set_data_dir(const char *dir);
@@ -18,6 +19,10 @@ int   rsd_sram_save(const char *path);
 /* Widescreen: the environment variable RS_WIDTH=N asks for that width (rs_host_set_width), like --width N on the
  * desktop runners (the tests run a game's scripts at several widths this way). Returns N, or 0 when unset. */
 int   rsd_width_env(void);
+/* The language (docs/i18n.md): RS_LANG=fr (any locale name: fr_FR, pt-BR, zh...) asks for it (rs_host_set_lang), like
+ * --lang fr on the desktop runners (the tests run a game in every language this way). Returns the RS_LANG_* or -1. */
+int   rsd_lang_env(void);
+int   rsd_lang_arg(const char *code);     /* --lang CODE: sets it; -1 (and a message) when it is not one of ours */
 /* Writes the current framebuffer (RGB565, rs_screen_width() x 240) as PNG, scaled by an integer. */
 int   rsd_write_png(const char *path, const uint16_t *fb, int scale);
 /* Parses "key=value" and sets it as a runtime option. */
