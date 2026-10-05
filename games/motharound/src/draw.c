@@ -1,4 +1,10 @@
-/* Moonlit garden, one lantern and shared rings for every player. */
+/* Moonlit garden, one lantern and shared rings for every player.
+ * Widescreen (DESIGN.md "Widescreen"): a screen wider than 320 centres the 320-px garden (rs_screen_origin): the
+ * lantern, the rings, the moths and the HUD keep their places; the screen shows more of the garden on both sides
+ * (BG3: a 128-tile map of the 1024 x 160 garden, its own tiles: the hills, fence and hedge going on, foxgloves and a
+ * rose arch on the left, a birdhouse and a sunflower on the right) and more stars in the wider sky. The one full view
+ * starts at stage x -margin: the ring layer's pixels are drawn in the view's columns (stage x - vp->x), the sprites
+ * in stage coordinates. */
 #include "game.h"
 #include "assets.h"
 #include "sine.h"
@@ -10,6 +16,14 @@
 typedef struct view {int mx,my,cx,cy,zoom;rs_color sky[240];} view;
 static view V[4];static rs_viewport VP[4];
 static int nviews,shown_state=-1,shown_best=-1;
+static int spr_dx;                     /* the sprites' x offset: -the viewport's x in the multiplayer frames (they are
+                                        * relative to its top-left), 0 otherwise (set before each use) */
+static int laid_w;                     /* the width the maps were laid out for (a state of another width: relayout) */
+/* the ring layer's pixels, one view at a time (rings(): per-frame scratch, state_audit.txt), as wide as the widest
+ * screen */
+#define PIX_W RS_SCREEN_W_MAX
+static uint8_t pixels[PIX_W*240];
+static int wide(void){return rs_screen_width()>RS_SCREEN_W;}
 static const rs_color title_ramps[2][3]={
  {RS_HEX(0xffe8a0),RS_HEX(0xf1b750),RS_HEX(0x99623c)},
  {RS_HEX(0xebc8fc),RS_HEX(0xbb83d0),RS_HEX(0x76509a)}};
@@ -17,12 +31,23 @@ static void raster(int line,void *user) {
  (void)user;int p=rs_viewport_current();if(p<0 || p>=nviews)p=0;
  int y=line-VP[p].y;if(y>=0 && y<240)rs_pal_set(0,V[p].sky[y]);
 }
+/* the maps of this width: 64 tiles at 320; 128 wider (the UI's corner tags, the rings' layer as wide as the screen,
+ * the wide garden and its own tiles, the blank tile after them) */
+static void maps_setup(void) {
+ int mw=wide()?128:64,n=wide()?gm_hills_wide_tile_count:gm_bg3_tile_count;
+ rs_bg_setup(RS_BG1,mw,32,VR_BG1);rs_bg_setup(RS_BG2,mw,32,VR_BG2);rs_bg_setup(RS_BG3,mw,32,VR_BG3);
+ rs_tiles_load(VR_BG3,wide()?gm_hills_wide_tiles:gm_bg3_tiles,n);
+ uint8_t blank[64]={0};rs_tiles_load8(VR_BG2,blank,1);rs_tiles_load8(VR_BG3+n,blank,1);
+ rs_pal_load(RS_PAL_BG(PAL_HILLS),wide()?gm_hills_wide_pal:gm_hills_pal,16);
+ laid_w=rs_screen_width();
+}
+/* After a state was loaded (rs_game.state_loaded): one saved at another width brings that width's maps; set this
+ * width's up (each frame draws the whole screen again). Same width: nothing. */
+void draw_relayout(void) {if(laid_w!=rs_screen_width())maps_setup();}
 void draw_init(void) {
+ rs_screen_origin(rs_screen_margin());   /* widescreen: the 320-px garden centred, more of it on both sides */
  hu_config cfg=hu_defaults();cfg.obj_tile=KIT_OBJ_TILE;cfg.obj_vram=VR_OBJ;cfg.obj_pal=3;hu_init(&cfg);
- rs_bg_setup(RS_BG1,64,32,VR_BG1);rs_bg_setup(RS_BG2,64,32,VR_BG2);rs_bg_setup(RS_BG3,64,32,VR_BG3);
- rs_tiles_load(VR_BG3,gm_bg3_tiles,gm_bg3_tile_count);
- uint8_t blank[64]={0};rs_tiles_load8(VR_BG2,blank,1);rs_tiles_load8(VR_BG3+gm_bg3_tile_count,blank,1);
- rs_pal_load(RS_PAL_BG(PAL_HILLS),gm_hills_pal,16);
+ maps_setup();
  static const rs_color ring_pal[16]={0,RS_HEX(0x263c46),RS_HEX(0x527766),RS_HEX(0x91b47d),
   RS_HEX(0xc0d499),RS_HEX(0x51607c),RS_HEX(0x8598b0),RS_HEX(0xbfd0cf),RS_HEX(0xf4dd9b),
   RS_HEX(0xbca172),RS_HEX(0x455371),RS_HEX(0x403e58),RS_HEX(0x57546b),0,0,0};
@@ -35,8 +60,8 @@ void draw_init(void) {
 static int ppal(int p) {return p?hu_player_pal(p):0;}
 static void spr(int id,int x,int y,int priority,int pal,const rs_viewport *vp) {
  const gm_sprite_def *s=&gm_spr[id];
- if(x<=-(int)s->w || x>=vp->w || y<=-(int)s->h || y>=vp->h)return;
- rs_spr(x,y,s->tile,s->w,s->h,pal<0?s->pal:pal,priority,0);
+ if(x<=vp->x-(int)s->w || x>=vp->x+vp->w || y<=-(int)s->h || y>=vp->h)return;
+ rs_spr(x+spr_dx,y,s->tile,s->w,s->h,pal<0?s->pal:pal,priority,0);
 }
 static int px(const view *v,int radius,int angle) {return v->cx+radius*v->zoom/256*ss_sine[(angle+64)&255]/32767;}
 static int py(const view *v,int radius,int angle) {return v->cy+radius*v->zoom/256*ss_sine[angle&255]/32767;}
@@ -47,7 +72,7 @@ static int visible_radius(const world *w,int radius){
  return radius<=edge?radius:edge+(radius-edge)*(102-edge)/(radius-edge+48);
 }
 static void pixel(uint8_t *p,int x,int y,int color,const rs_viewport *vp) {
- if(x>=0 && x<vp->w && y>=0 && y<vp->h)p[y*320+x]=(uint8_t)color;
+ if(x>=0 && x<vp->w && y>=0 && y<vp->h)p[y*PIX_W+x]=(uint8_t)color;
 }
 static void line(uint8_t *p,int ax,int ay,int bx,int by,int color,const rs_viewport *vp) {
  int dx=abs(bx-ax),sx=ax<bx?1:-1,dy=-abs(by-ay),sy=ay<by?1:-1,err=dx+dy;
@@ -57,6 +82,12 @@ static void line(uint8_t *p,int ax,int ay,int bx,int by,int color,const rs_viewp
  }
 }
 static void background(const view *v,rs_viewport *vp) {
+ if(wide()) {   /* the whole wide garden, in stage coordinates (stage x = picture x & 1023), at the screen's foot */
+  int r0=30-HILLS_WIDE_H;
+  for(int r=0;r<32;r++)for(int c=0;c<128;c++)
+   rs_bg_put(RS_BG3,c,r,r>=r0 && r<30?gm_hills_wide_map[(r-r0)*128+c]:RS_MAP(gm_hills_wide_tile_count,PAL_HILLS,0,0,0));
+  vp->sx[2]=(int16_t)(vp->x&1023);vp->sy[2]=0;return;
+ }
  int rows=(vp->h+7)/8,cols=(vp->w+7)/8;
  for(int r=0;r<rows;r++)for(int c=0;c<cols;c++) {
   int yy=(r*8-(vp->h-96))/8;
@@ -67,7 +98,7 @@ static void background(const view *v,rs_viewport *vp) {
  vp->sx[2]=(int16_t)(v->mx*8);vp->sy[2]=(int16_t)(v->my*8);
 }
 static void rings(const world *w,const view *v,const rs_viewport *vp,int title,int *next) {
- uint8_t pixels[320*240]={0};
+ memset(pixels,0,sizeof pixels);
  // Subtle halo and dotted flight path around the lantern.
  int glow=28*v->zoom/256;
  for(int y=-glow;y<=glow;y++)for(int x=-glow;x<=glow;x++) {
@@ -110,26 +141,31 @@ static void rings(const world *w,const view *v,const rs_viewport *vp,int title,i
  for(int r=0;r<rows;r++)for(int c=0;c<cols;c++) {
   uint8_t tile[64];int ink=0;
   for(int y=0;y<8;y++)for(int x=0;x<8;x++) {
-   int xx=c*8+x,yy=r*8+y;tile[y*8+x]=(uint8_t)(xx<vp->w && yy<vp->h?pixels[yy*320+xx]:0);ink|=tile[y*8+x];
+   int xx=c*8+x,yy=r*8+y;tile[y*8+x]=(uint8_t)(xx<vp->w && yy<vp->h?pixels[yy*PIX_W+xx]:0);ink|=tile[y*8+x];
   }
   int id=0;if(ink){id=(*next)++;rs_tiles_load8(VR_BG2+id,tile,1);}
   rs_bg_put(RS_BG2,v->mx+c,v->my+r,RS_MAP(id,PAL_GROUND,0,0,0));
  }
 }
 static void scene(const world *w,int t,const view *v,const rs_viewport *vp) {
+ int sx=vp->x;   /* the view's columns -> stage x */
  for(int p=0;p<w->players;p++){
  const hero *h=&w->h[p];int radius=orbit_radius(w->players,p);
- int x=px(v,radius,h->angle),y=py(v,radius,h->angle);
+ int x=px(v,radius,h->angle)+sx,y=py(v,radius,h->angle);
  if(h->state!=HS_OFF) {
   int id=SPR_HERO_ICON+(t/5)%2;
   spr(id,x-8,y-8,2,ppal(p),vp);
-  if(h->smooth_t>0)hu_sparkle(x+8,y-8,w->t,2);
+  if(h->smooth_t>0)hu_sparkle(x+8+spr_dx,y-8,w->t,2);
  }
  }
- spr(SPR_LANTERN+(w->t/12)%2,v->cx-16,v->cy-24,2,-1,vp);
- // Stars emerge as dusk gives way to moonlight.
- if(w->t>600)for(int k=0;k<3;k++)
-  spr(SPR_STAR,16+k*(vp->w-32)/3,40+(k%2)*12,0,-1,vp);
+ spr(SPR_LANTERN+(w->t/12)%2,v->cx+sx-16,v->cy-24,2,-1,vp);
+ // Stars emerge as dusk gives way to moonlight (widescreen: the same three over the 320 columns, more beyond them).
+ if(w->t>600){
+  int sw=vp->w>RS_SCREEN_W?RS_SCREEN_W:vp->w,x0=vp->w>RS_SCREEN_W?0:sx;
+  for(int k=0;k<3;k++)spr(SPR_STAR,x0+16+k*(sw-32)/3,40+(k%2)*12,0,-1,vp);
+  static const int16_t far[6][2]={{-36,58},{-82,34},{-112,66},{348,36},{394,62},{430,30}};
+  if(vp->w>RS_SCREEN_W)for(int k=0;k<6;k++)spr(SPR_STAR,far[k][0],far[k][1],0,-1,vp);
+ }
 }
 static void icon(int p,int cx,int cy,int t,void *user) {
  (void)user;rs_viewport vp={0};vp.w=320;vp.h=240;
@@ -156,15 +192,19 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  hu_clear();rs_oam_clear();rs_brightness(paused?9:15);int next=1;
  for(int p=0;p<nviews;p++) {
   view *v=&V[p];rs_viewport *vp=&VP[p];const hero *h=&w->h[p];
-  v->mx=vp->x?32:0;v->my=vp->y?16:0;v->cx=vp->w/2;
+  /* a view's own map area (the views right of or below the first); widescreen: the full view starts left of 0.
+   * cx, cy: the lantern in the view's columns (stage x 160 at any width) */
+  v->mx=vp->x>0?32:0;v->my=vp->y>0?16:0;v->cx=vp->w/2;
   v->cy=vp->h<200?75:LANTERN_Y;v->zoom=vp->h<200?128:vp->w<240?192:256;
-  if(state==ST_TITLE){v->cx=182;v->cy=102;}
+  if(state==ST_TITLE){v->cx=182-vp->x;v->cy=102;}
   int night=w->t*256/2400;if(night>256)night=256;
   rs_pal_set(RS_PAL_BG(PAL_GROUND)+11,hu_lerp_color(RS_HEX(0xa19882),RS_HEX(0x777261),night));
   for(int y=0;y<vp->h;y++)v->sky[y]=skycolor(night,y,vp->h);
   background(v,vp);rings(w,v,vp,state==ST_TITLE || state==ST_OVER,&next);
-  vp->sx[0]=vp->sx[1]=(int16_t)(v->mx*8);vp->sy[0]=vp->sy[1]=(int16_t)(v->my*8);vp->layers=7;vp->objs=1;
+  /* the UI layer in stage coordinates (widescreen: the view's left edge is left of 0, round the map) */
+  vp->sx[0]=(int16_t)((v->mx*8+vp->x)&(rs_bg_map_w(RS_BG1)*8-1));vp->sx[1]=(int16_t)(v->mx*8);vp->sy[0]=vp->sy[1]=(int16_t)(v->my*8);vp->layers=7;vp->objs=1;
   hu_view_oam_begin(vp);
+  spr_dx=multi?-vp->x:0;
   if(state==ST_PLAY || state==ST_DEAD) {
    scene(w,st_t,v,vp);char text[128];
    if(multi) {
@@ -172,13 +212,14 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
      char tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),player+1);snprintf(text,sizeof text,"%s %d",tag,w->h[player].score);hu_text(player*10,1,text);
     }
    } else {
-    hu_number(h->score,vp->w/2,8,3);
+    hu_number(h->score,vp->x+vp->w/2,8,3);
     rs_strf(text,sizeof text,TR(HUD_RINGS_TIME),h->anchor,h->alive_t/60);hu_text(hu_center(text,0),4,text);
    }
-   if(paused)hu_big(v->mx+(vp->w/8-hu_width(HTR(PAUSED),1))/2,v->my+vp->h/16,HTR(PAUSED),HU_BIG_FREE);
+   if(paused)hu_big(v->mx+((2*vp->x+vp->w)/8-hu_width(HTR(PAUSED),1))/2,v->my+vp->h/16,HTR(PAUSED),HU_BIG_FREE);
   }
   hu_view_oam_end(vp);
  }
+ spr_dx=0;
  if(!multi) {
   rs_viewport *vp=&VP[0];hu_standing rank;ranking(w,&rank);
   int slide=state==ST_OVER?hu_slide_in(st_t,20,200):0;
@@ -203,10 +244,12 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
     hu_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));
    }
   }
-  rs_bg_scroll(RS_BG1,0,-slide);rs_bg_scroll(RS_BG2,0,0);rs_bg_scroll(RS_BG3,vp->sx[2],vp->sy[2]);rs_viewports(0,NULL,0);
+  /* the global scrolls: the ring layer's view column 0 at the view's left edge, the garden in stage coordinates */
+  rs_bg_scroll(RS_BG1,0,-slide);rs_bg_scroll(RS_BG2,(V[0].mx*8-vp->x)&(rs_bg_map_w(RS_BG2)*8-1),0);
+  rs_bg_scroll(RS_BG3,(vp->sx[2]-vp->x)&(rs_bg_map_w(RS_BG3)*8-1),vp->sy[2]);rs_viewports(0,NULL,0);
  } else rs_viewports(nviews,VP,RS_HEX(0x252b43));
  shown_state=state;shown_best=best;
 }
 #define S(v) rs_state_var("draw." #v,&(v),sizeof(v))
-void draw_state(void) {S(V);S(VP);S(nviews);S(shown_state);S(shown_best);RS_STATE_RASTER(raster);}
+void draw_state(void) {S(V);S(VP);S(nviews);S(shown_state);S(shown_best);S(laid_w);S(spr_dx);RS_STATE_RASTER(raster);}
 #undef S

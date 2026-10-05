@@ -13,7 +13,7 @@ SPRITES=[('hero_idle',0,0,32,32,2,'hero'),('hero_squash',64,0,32,32,1,'hero'),
  ('hero_hit',160,0,32,32,1,'hero'),('hero_icon',0,32,16,16,2,'hero'),
  ('lantern',32,32,32,48,2,'props'),('leaf',96,32,16,16,2,'props'),
  ('moon',128,32,16,16,1,'props'),('star',144,32,8,8,1,'props')]
-PANORAMAS={'ground':('tiles/ground.png',512,48),'hills':('tiles/hills.png',512,96)}
+PANORAMAS={'ground':('tiles/ground.png',512,48),'hills':('tiles/hills.png',512,96),'hills_wide':('tiles/hills_wide.png',1024,160)}
 WING=[(236,197,252),(188,125,211),(123,77,163),(68,49,105)]
 GOLD=[(255,239,181),(246,187,78),(189,116,61),(111,70,58)]
 IRON=[(127,151,170),(76,88,115),(42,48,77),(42,48,77)]
@@ -90,11 +90,66 @@ def hills():
   hs.ellipse(cv,x,top+10,12,11,[(68,95,99),(51,80,86),(36,61,74),(36,61,74)])
   for k in range(3):hs.ellipse(cv,x+k*3-4,top+5-k*2,3,1.5,[(76,106,102)]*4)
  return cv
+# ---- widescreen (DESIGN.md "Widescreen") -----------------------------------------------------------------------
+class WrapCanvas(Canvas):
+ """a canvas whose x wraps round: stage x s is picture x s mod w (a panorama on a wrapping map)"""
+ def set(self,x,y,c):Canvas.set(self,x%self.w,y,c)
+def hills_wide():
+ """The garden 1024 px wide and 160 high (screen y 80..239) for a screen wider than 320 (a 128-tile map, stage x s
+ = picture x s & 1023): hills() pixel for pixel in its bottom 96 rows over the lantern's 320 columns, the hills, the
+ fence and the hedge going on round in stage coordinates; above the hedge beyond the 320 columns, the garden's
+ taller things: foxgloves and a rose arch on the left, a birdhouse on its pole and a sunflower on the right."""
+ W=1024;cv=WrapCanvas(W,160);o=64
+ for x in range(-W//2,W//2):
+  top=30+int(11*math.sin(x/41)+7*math.sin(x/79))
+  cv.rect(x,o+top,x,o+95,(45,63,87))
+ for x in range(-24*21,W//2,24):
+  cv.rect(x,o+52,x+3,o+90,(53,75,89));cv.rect(x,o+55,x+1,o+89,(63,86,96))
+ cv.rect(0,o+65,W-1,o+67,(53,75,89))
+ hedge=[]
+ for x in range(-17*30,W//2,17):
+  top=79+int(6*math.sin(x/29))
+  hedge.append((x,top))
+ WOOD=[(104,86,90),(74,62,72)];PINK=[(196,118,150),(138,78,112)];VIOLET=(156,124,186);SUN=[(214,178,98),(150,112,70)]
+ STEM=(63,86,96);LEAFD=(51,80,86)
+ # behind the hedge: the stems, posts and pole stand in it
+ for sx in (-40,-30,-20):                                         # foxgloves
+  h=[44,30,52][(sx+40)//10]
+  cv.rect(sx,o+h,sx,o+82,STEM)
+  for k,y in enumerate(range(o+h+2,o+h+34,4)):
+   for dx in (-2,1):cv.rect(sx+dx,y,sx+dx+1,y+2,VIOLET if (k+dx)%3 else PINK[0]);cv.set(sx+dx+(1 if dx<0 else 0),y+2,PINK[1])
+  for y in (o+70,o+76):cv.rect(sx-4,y,sx-1,y+1,LEAFD);cv.rect(sx+1,y-3,sx+4,y-2,LEAFD)
+ for px in (-98,-68):                                             # the rose arch
+  cv.rect(px,o+10,px+3,o+84,WOOD[1])
+  cv.rect(px,o+10,px,o+84,WOOD[0])
+ for a in range(0,181,3):
+  ang=math.radians(a);x=-81.5+17*math.cos(ang);y=o+10-14*math.sin(ang)
+  cv.rect(int(round(x))-1,int(round(y)),int(round(x))+2,int(round(y))+2,WOOD[1])
+ for k,(x,y) in enumerate(((-98,o-2),(-91,o-6),(-84,o-4),(-75,o-5),(-68,o+1),(-99,o+14),(-67,o+18),(-98,o+32),(-66,o+40),(-97,o+52),(-67,o+60))):
+  cv.rect(x-2,y,x+3,y+3,LEAFD);cv.rect(x-1,y+1,x+1,y+2,PINK[k%2]);cv.set(x,y+1,PINK[0])
+ cv.rect(347,o-20,349,o+84,WOOD[1]);cv.rect(347,o-20,347,o+84,WOOD[0])   # the birdhouse on its pole
+ cv.rect(338,o-40,358,o-20,WOOD[0]);cv.rect(352,o-40,358,o-20,WOOD[1])
+ for y in range(o-52,o-38):
+  half=(y-(o-52))*13//14
+  cv.rect(348-half,y,348+half,y,PINK[1])
+ cv.rect(346,o-34,350,o-30,(36,61,74));cv.rect(347,o-35,349,o-29,(36,61,74));cv.rect(344,o-26,352,o-25,WOOD[1])
+ cv.rect(405,o-24,406,o+82,STEM)                                  # a sunflower, its head nodding
+ for y,s in ((o+10,-1),(o+30,1),(o+52,-1)):hs.ellipse(cv,405.5+s*5,y,5,2,[LEAFD]*4)
+ for a in range(0,360,24):
+  ang=math.radians(a);c,s_=math.cos(ang),math.sin(ang)
+  hs.capsule(cv,405.5+5*c,o-29.5+5*s_,405.5+9.5*c,o-29.5+9.5*s_,1.6,[SUN[0],SUN[0],SUN[1],SUN[1]])
+ hs.ellipse(cv,405.5,o-29.5,5,5,[SUN[1],WOOD[1],WOOD[1],WOOD[1]])
+ # the hedge in front of them all, as in hills()
+ for x,top in hedge:
+  hs.ellipse(cv,x,o+top+10,12,11,[(68,95,99),(51,80,86),(36,61,74),(36,61,74)])
+  for k in range(3):hs.ellipse(cv,x+k*3-4,o+top+5-k*2,3,1.5,[(76,106,102)]*4)
+ return cv
 def write_all(out,preview=False):
  os.makedirs(os.path.join(out,'tiles'),exist_ok=True);sheet=Image.new('RGB',(SHEET_W,SHEET_H),hs.MAGENTA)
  for name,x,y,w,h,n,g in SPRITES:
   for i in range(n):sheet.paste(sprite_frame(name,i).image(),(x+i*w,y))
- for f,im in {'sprites.png':sheet,'tiles/ground.png':ground().image(),'tiles/hills.png':hills().image()}.items():
+ for f,im in {'sprites.png':sheet,'tiles/ground.png':ground().image(),'tiles/hills.png':hills().image(),
+              'tiles/hills_wide.png':hills_wide().image()}.items():
   im.save(os.path.join(out,f))
   if preview:
    os.makedirs(os.path.join(out,'preview'),exist_ok=True)

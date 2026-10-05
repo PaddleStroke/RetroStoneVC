@@ -20,4 +20,7 @@ identical ring timing; moths may overlap. Solo and multiplayer use smaller
 moths closer to the lamp. P2 keyboard: A / D to steer,
 H to join, G to leave, T Start, R Select. Gamepads work for up to four players.
 F11 or Alt+Enter toggles fullscreen. F12 takes a screenshot.
+Widescreen: the picture follows the shape of the window (drag its edges or go
+fullscreen: a wider window shows more of the garden). To fix it: --width 427
+(16:9), --width 520 (phones), or --aspect 4:3 for the classic 320x240.
 Best scores are saved to motharound.srm next to the executable.

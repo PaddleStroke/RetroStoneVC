@@ -63,3 +63,28 @@ including intentional overlap; real flow/pause/score saves,
 libretro/audio, save/load/fresh-process tests and mutable-static audit.
 `make motharound-windows`: self-contained `dist/windows/MothAround.exe`.
 `make motharound-screenshots`: title/play/pause/results screenshots.
+
+## Widescreen (docs/spec.md "Widescreen")
+
+The game opts in (`max_width` = 560, `WIDESCREEN_motharound = 1`): 320 x 240 is unchanged pixel for pixel; at 427
+(16:9), 520 or 560 (phones) **the garden is wider, the lantern and its rings are the same**.
+- **A fixed screen, centred**: `rs_screen_origin(rs_screen_margin())` (draw_init). The lantern stays at stage x 160,
+  the orbits, the rings (and their compressed approach, which never looked at the screen's width), the moths and the
+  HUD keep their places; the screen shows stage x -margin .. 320 + margin. The one full view
+  (rs_viewport_layout) now starts at stage x -margin: the ring layer's pixels are drawn in the view's columns (a
+  buffer as wide as the widest screen), the sprites in stage coordinates (in the multiplayer frames, whose view is a
+  viewport, relative to its corner: spr_dx), the score centred on the view, PAUSED on the screen.
+- **The wider garden** (make_art.py `hills_wide`; build_assets.py): BG3 becomes a 128-tile map of a 1024 x 160 garden
+  (screen y 80..239) with its own tiles and palette; over the lantern's 320 columns its bottom 96 rows are the classic
+  garden and nothing is above them (build_assets.py checks it). The hills, the fence and the hedge go on round in
+  stage coordinates; above the hedge, beyond the 320 columns: foxgloves and a rose arch on the left, a birdhouse on
+  its pole and a nodding sunflower on the right. Six more stars come out in the wider sky.
+- **The same game**: the rules never look at the width; tests/wide_test.sh compares the whole logs (scores, game
+  overs, the final state and its hash) of 1-player and 4-player bot runs at 320, 427, 520 and 560, changes the width
+  three times during runs (`--resize`) and loads states saved at one width at the others.
+- **Save states load at any width**: `state_loaded` (draw_relayout) compares the width the maps were laid out for
+  (draw.laid_w, saved) with this one; another width sets this width's maps and the garden's tiles up again (every
+  frame draws the whole screen anyway).
+- `make motharound-check` runs the libretro test, tests/check_game.py (strict mode included) and the state tests
+  again at 427 and 520, then tests/wide_test.sh and the language test at 320, 427 and 520;
+  `make motharound-screenshots` adds title/play/gameover-427/520.png and play-4-players-520.png (tools/wide_shots.sh).
