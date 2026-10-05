@@ -25,6 +25,22 @@ for w in 320 $WS 560; do
     if [ "$pw" = "$w" ]; then ok "--width $w: a ${pw}x240 picture"; else ko "--width $w: the picture is '$pw' wide"; fi
 done
 
+# the start of a run (the owner's rule for the side-scrollers): the first hazards are as far from the duck as at 320
+# (the same lanes ahead of the same camera, the duck in the same column), so a wide screen shows them from the first
+# frame: no longer run-up
+printf "30 tap A\n" > "$O/start.input"
+for start in "ready --opt ready=1 --frames 2" "title --input $O/start.input --frames 32"; do
+    name=${start%% *}; opts=${start#* }
+    $H --width 320 --opt music=0 --opt dump=1 $opts 2>&1 | grep "view:\|state:" | game_log > "$O/start-320.log"
+    first=$(sed -n 's/.*view: col=0 \(.*\)/\1/p' "$O/start-320.log" | tr ',' '\n' | grep -n -v "^[GDN]" | head -1 | cut -d: -f1)
+    for w in $WS 560; do
+        $H --width "$w" --opt music=0 --opt dump=1 $opts 2>&1 | grep "view:\|state:" | game_log > "$O/start-$w.log"
+        if [ -n "$first" ] && cmp -s "$O/start-320.log" "$O/start-$w.log"; then
+            ok "start ($name) at $w: the duck and the lanes ahead as at 320 (the first hazard in screen column $((first - 1)))"
+        else ko "start ($name) at $w:"; diff "$O/start-320.log" "$O/start-$w.log" | head -4; fi
+    done
+done
+
 # the same game at every width (the world is the same; the bot looks at the 4:3 part of the screen)
 same() {   # same <what> <headless options...>
     what=$1; shift
@@ -44,8 +60,9 @@ same "four bots, to the results" --frames 5000 --opt bot=4 --opt players=4 --opt
 # the width changes during a run: the run goes on as if nothing happened (the final state, the events)
 events() {    # the run's events, then its final state (a restart at a new width may log a state too)
     $H --width 320 --opt music=0 --opt dump=1 "$@" 2>&1 | game_log > "$O/rz-all.log"
-    grep -v "state:" "$O/rz-all.log"
+    grep -v "state:\|view:" "$O/rz-all.log"
     grep "state:" "$O/rz-all.log" | tail -1
+    grep "view:" "$O/rz-all.log" | tail -1
 }
 resized() {   # resized <what> <resizes> <headless options...>
     what=$1; rz=$2; shift 2

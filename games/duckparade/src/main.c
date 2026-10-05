@@ -348,6 +348,17 @@ static void game_shutdown(void)
            W.d[2].state, W.d[3].state, (int)W.d[0].at.col, (int)W.d[1].at.col, (int)W.d[2].at.col, (int)W.d[3].at.col,
            W.d[0].nline, W.d[1].nline, W.d[2].nline, W.d[3].nline, hu_players(), world_cam_px(&W), paused, state_hash,
            W.L.g.judged, W.L.g.rerolls, W.L.g.fallbacks, SV.best_coop, list, lanes);
+    /* the lanes ahead (widescreen tests: the same world at every width, the first hazards as far from the duck):
+     * the kind of each column from the camera's, 20 of them (a 4:3 screen), and its movers' speed and count */
+    char view[SCREEN_COLS * 12 + 1] = "";
+    int c0 = world_cam_px(&W) / CELL;
+    for (int c = c0; c < c0 + SCREEN_COLS; c++) {
+        const lane *l = world_lane(&W, c);
+        size_t n = strlen(view);
+        snprintf(view + n, sizeof view - n, "%s%c%d.%d", c > c0 ? "," : "", l ? "GRWTPOND"[l->kind] : '?', l ? l->v : 0,
+                 l ? l->n : 0);
+    }
+    rs_log("view: col=%d %s", c0, view);
 }
 
 /* test hook (tests/test_ui.c): the run and the screen being shown */
