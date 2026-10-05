@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
-"""Real input flow, split play, pause, score persistence and pixel determinism."""
-import re,subprocess,sys
+"""Real input flow, split play, pause, score persistence and pixel determinism.
+
+Widescreen (DESIGN.md "Widescreen"): RS_WIDTH=N runs the same checks at that width (its pictures in
+build/spiderswing-review-N, each checked N columns wide); --screenshots then writes title-N, play-N and gameover-N.
+"""
+import os,re,subprocess,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[3];ID=Path(__file__).resolve().parents[1].name
-EXE=ROOT/('build/host/'+ID+'_headless');OUT=ROOT/('build/'+ID+'-review')
+W=int(os.environ.get('RS_WIDTH') or 320)
+EXE=ROOT/('build/host/'+ID+'_headless');OUT=ROOT/('build/'+ID+'-review'+('' if W==320 else '-%d'%W))
 OUT.mkdir(parents=True,exist_ok=True)
 def run(name,frames,script='',opts=(),shot=False,sram=None):
  p=OUT/(name+'.input');p.write_text(script)
@@ -11,8 +16,11 @@ def run(name,frames,script='',opts=(),shot=False,sram=None):
  for opt in opts:args+=['--opt',opt]
  if shot:args+=['--png',str(OUT/(name+'.png')),'--scale','3']
  if sram:args+=['--sram',str(sram)]
+ if W!=320:args+=['--width',str(W)]
  r=subprocess.run(args,cwd=ROOT,capture_output=True,text=True,check=True)
  assert 'rs strict' not in r.stderr,r.stderr
+ if shot:   # the picture is as wide as the screen (x3)
+  png=(OUT/(name+'.png')).read_bytes();assert int.from_bytes(png[16:20],'big')==W*3,(name,W)
  s=re.search(r'state: st=(\d+).*score=(\d+) score2=.*best=(\d+).*paused=(\d+) hash=([0-9a-f]+)',r.stderr)
  assert s,r.stderr
  return s.groups(),r.stderr
@@ -56,6 +64,10 @@ b,_=run('save-load',20,sram=save)
 ok('best score persists in SRAM',int(a[2])>0 and a[2]==b[2])
 if '--screenshots' in sys.argv:
  dest=ROOT/('games/'+ID+'/docs/screenshots');dest.mkdir(parents=True,exist_ok=True)
- for name in ('title','title-4','play-1','play-2','play-3','play-4','pause-1','pause-4','gameover','results-4'):
-  (dest/(name+'.png')).write_bytes((OUT/(name+'.png')).read_bytes())
-print('game checks: all passed')
+ if W==320:
+  for name in ('title','title-4','play-1','play-2','play-3','play-4','pause-1','pause-4','gameover','results-4'):
+   (dest/(name+'.png')).write_bytes((OUT/(name+'.png')).read_bytes())
+ else:      # widescreen: title-N, play-N, gameover-N
+  for name,shot in (('title','title'),('play','play-1'),('gameover','gameover')):
+   (dest/('%s-%d.png'%(name,W))).write_bytes((OUT/(shot+'.png')).read_bytes())
+print('game checks: all passed'+('' if W==320 else ' at width %d'%W))

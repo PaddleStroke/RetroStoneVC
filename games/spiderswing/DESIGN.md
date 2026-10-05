@@ -57,6 +57,35 @@ shortcuts; real keyboard flight steering; 1-4 player view clipping and maximum
 screen movement through release/catch transitions; deterministic pixels,
 pausing, battery persistence, libretro/audio and fresh-process state replay.
 
+## Widescreen
+
+A vertical climb: a wider screen (320..560 columns, docs/spec.md "Widescreen") shows
+more of the garden on both sides; the climb is unchanged. The game opts in
+(`max_width`, `WIDESCREEN_spiderswing`) and centres the 320-px stage
+(`rs_screen_origin(rs_screen_margin())`). Each view keeps its 320 "base" area (the
+full screen: 320 x 240; a split pane: the width it has at 320) with the same camera,
+easing, clamps and zoom, centred in the view; the flowers, their generation, the
+physics and the bots never look at the width, so 320 is unchanged pixel for pixel.
+A run starts as at 320: the first flowers (and every later flower and bee) sit at
+the same distance from the spider, the spider at the same place on the stage (or
+in its pane's base area); a wide screen only shows more around them
+(tests/test_views.c `start_layout`, at 320/427/520/560).
+What widens: the far lianas come from a 1024-px panorama (128-column map: no repeat
+on a 560-px screen; the classic six lianas, then six more whose phases are swapped in
+pairs, reusing the classic tiles), the foreground layer is drawn as wide as the view,
+the course's two vines show in the margins as the camera eases, and further out
+more leafy vines of the garden (world-fixed, every 128 px; wide screens only). The
+title and results hang their two branches from two vines in the margins. Split
+views take the whole width (wider panes, the same zoom as at 320); each pane's
+panel keeps its 320 size, centred, on UI columns no neighbour shows. States are
+width-independent (the camera is in base coordinates); one loaded at another width
+gets this width's maps and tiles (`state_loaded`). `spiderswing-check` runs the
+views test, check_game.py (pictures checked at the width) and the state test at 427
+and 520, the language test at 320/427/520, then tests/wide_test.sh: picture widths,
+the same logs at 320/427/520/560 (pad input, 1-4 bots, results), `--resize` during
+runs, and states saved at one width loaded at the others. Screenshots:
+title/play/gameover-427 and -520.
+
 Build: make spiderswing-check / spiderswing-windows / spiderswing-screenshots.
 Windows: dist/windows/SpiderSwing.exe. Code MIT; original art/music/sound/design
 CC BY-NC-SA 4.0, as stated in LICENSE.

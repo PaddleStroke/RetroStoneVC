@@ -3,3 +3,4 @@
 # the house kit's hu_state() and ha_state()).
 main.snd_buf        sound_init(): the synthesis buffer (the samples are made at start-up, not saved)
 main.SV             the battery save's copy (best scores, medals): stays in the .srm, a state never takes it back
+draw.web_px         web(): the foreground layer's pixels, drawn again from nothing for each view every frame

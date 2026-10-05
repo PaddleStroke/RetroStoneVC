@@ -50,6 +50,7 @@ int silk_catch(const world *w,const hero *h,int old_x,int old_y,int old_tip_x,in
 void draw_init(void);
 void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paused);
 void draw_state(void);
+void draw_relayout(void);
 enum { SFX_JUMP,SFX_FLOWER,SFX_COUNT=SFX_FLOWER+FLOWER_TYPES };
 #define SFX_HOUSE SFX_COUNT
 #endif

@@ -1,4 +1,7 @@
-/* Every live character must remain visible in its own clipped, independent view. */
+/* Every live character must remain visible in its own clipped, independent view.
+ * Widescreen (DESIGN.md "Widescreen"): spiderswing_views [width] runs the same checks at that width (default 320):
+ * the views split the whole width, each hero stays in its own (no pixel of it in a neighbour), the vines stay fixed
+ * to the flowers. Rectangles and full-screen sprites are in stage coordinates: screen x = stage x + origin. */
 #include "game.h"
 #include "rs_host.h"
 #include "house_ui.h"
@@ -6,8 +9,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-static uint16_t picture[320*240];
+static uint16_t picture[RS_SCREEN_W_MAX*240];
+static int SW=RS_SCREEN_W;        /* the screen's width (the framebuffer's pitch) */
 static void check_heroes(int players,const rs_viewport *rect,int pixels) {
+ int org=rs_screen_origin_x();
  for(int p=0;p<players;p++) {
   int found=-1,pal=p?hu_player_pal(p):0;
   for(int i=0;i<rs_oam_next();i++) {
@@ -15,12 +20,14 @@ static void check_heroes(int players,const rs_viewport *rect,int pixels) {
    if(s->w==(rect[p].h<200?16:32) && s->h==(rect[p].h<200?16:32) && s->pal==pal){assert(found==-1);found=i;}
   }
   assert(found>=0);rs_sprite *s=rs_oam(found);
-  assert(s->x>=0 && s->y>=0 && s->x+s->w<=rect[p].w && s->y+s->h<=rect[p].h);
+  /* a view's sprites are relative to it; the full screen's (1 player) are stage coordinates */
+  int sx0=players==1?s->x-rect[p].x:s->x;
+  assert(sx0>=0 && s->y>=0 && sx0+s->w<=rect[p].w && s->y+s->h<=rect[p].h);
   if(!pixels)continue;
-  memcpy(picture,rs_host_framebuffer(),sizeof picture);s->flags|=RS_SPR_HIDE;rs_host_render();
+  memcpy(picture,rs_host_framebuffer(),sizeof(uint16_t)*SW*240);s->flags|=RS_SPR_HIDE;rs_host_render();
   int changed=0;
-  for(int y=0;y<240;y++)for(int x=0;x<320;x++)if(picture[y*320+x]!=rs_host_framebuffer()[y*320+x]) {
-   changed++;assert(x>=rect[p].x && x<rect[p].x+rect[p].w && y>=rect[p].y && y<rect[p].y+rect[p].h);
+  for(int y=0;y<240;y++)for(int x=0;x<SW;x++)if(picture[y*SW+x]!=rs_host_framebuffer()[y*SW+x]) {
+   changed++;assert(x>=rect[p].x+org && x<rect[p].x+org+rect[p].w && y>=rect[p].y && y<rect[p].y+rect[p].h);
   }
   assert(changed>30);s->flags&=~RS_SPR_HIDE;rs_host_render();
  }
@@ -35,12 +42,13 @@ static void place(world *w,int player,int anchor) {
 #endif
  h->x=x;
 }
+/* flower 0's centre, in screen columns */
 static int flower_zero(int *x,int *y){
- for(int i=0;i<rs_oam_next();i++){const rs_sprite *s=rs_oam(i);if((s->pal==2 || s->pal==6 || s->pal==7) && s->w==24 && s->h==24){*x=s->x+12;*y=s->y+12;return 1;}}
+ for(int i=0;i<rs_oam_next();i++){const rs_sprite *s=rs_oam(i);if((s->pal==2 || s->pal==6 || s->pal==7) && s->w==24 && s->h==24){*x=s->x+12+rs_screen_origin_x();*y=s->y+12;return 1;}}
  return 0;
 }
 static int vine_ink(int x,int y){
- assert(x>=0 && x<320 && y>=0 && y<240);rs_color c=rs_host_framebuffer()[y*320+x];
+ assert(x>=0 && x<SW && y>=0 && y<240);rs_color c=rs_host_framebuffer()[y*SW+x];
  static const rs_color green[4]={RS_HEX(0x345951),RS_HEX(0x4d8064),RS_HEX(0xc3dc98),RS_HEX(0x83b475)};
  for(int i=0;i<4;i++){unsigned r=green[i]&31,g=(green[i]>>5)&31,b=(green[i]>>10)&31;uint16_t rgb=(uint16_t)((r<<11)|((g*2+g/16)<<5)|b);if(c==rgb)return i+1;}
  return 0;
@@ -62,19 +70,47 @@ static void fixed_vines(void){
    assert(ink[side][y][x]==vine_ink(fx-ax+(side?270:6)+x,fy-ay+112+y));
  }
 }
-int main(void) {
+/* The start of a run (the owner's rule for scrollers): at every width the first flowers sit at the same distance from
+ * the spider as at 320, and the spider at the same place on the 320-px stage (1 player) or in its pane's base area
+ * (2 players). Sprites: the spider's 32x32 at its centre - 16, a flower's 24x24 at its centre - 12. */
+static const int START[2][2]={{122,181},{52,181}};   /* the spider's sprite at 320 (seed 4), 1 and 2 players */
+static void start_layout(int players){
+ world w;world_init(&w,players,4);rs_viewport rect[4];rs_viewport_layout(players,0,rect);
+ draw_frame(&w,ST_TITLE,0,0,0,0);draw_frame(&w,ST_PLAY,0,0,0,0);
+ int hx=(int)(w.h[0].wx/Q16_ONE),hy=w.h[0].y/Q16_ONE;
+ const rs_sprite *hero=NULL;
+ for(int i=0;i<rs_oam_next();i++){const rs_sprite *s=rs_oam(i);if(s->w==32 && s->h==32 && s->pal==0){assert(!hero);hero=s;}}
+ assert(hero);
+ /* the base area's left edge: the stage's x 0 (1 player), or centred in P1's wider pane */
+ int bx=players==1?0:SW==RS_SCREEN_W?0:(rect[0].w-(RS_SCREEN_W-RS_VIEW_DIVIDER)/2)/2;
+ assert(hero->x-bx==START[players-1][0] && hero->y==START[players-1][1]);
+ int zx=players==1?1:2,found=0;          /* 2-player panes show the world at half width, as at 320 */
+ for(int a=0;a<4;a++){int ax,ay;anchor_pos(&w,a,&ax,&ay);
+  for(int i=0;i<rs_oam_next();i++){const rs_sprite *s=rs_oam(i);
+   if(s->w!=24 || s->h!=24 || (s->pal!=2 && s->pal!=6 && s->pal!=7)) continue;
+   if(abs(s->x+12-(hero->x+16)-(ax-hx)/zx)<=zx-1 && s->y+12-(hero->y+16)==ay-hy){found++;break;}
+  }
+ }
+ assert(found>=3);
+}
+int main(int argc,char **argv) {
+ if(argc>1) rs_host_set_width(atoi(argv[1]));
  rs_host_set_option("bot","4");rs_host_set_option("seed","4");rs_host_set_option("ready","1");
  rs_host_set_option("strict","1");rs_host_set_option("music","0");rs_host_set_option("sound","0");
- assert(!rs_host_init(rs_game_main()));rs_viewport rect[4];rs_viewport_layout(4,0,rect);
+ assert(!rs_host_init(rs_game_main()));SW=rs_screen_width();
+ if(argc>1) assert(SW==atoi(argv[1]));
+ rs_viewport rect[4];rs_viewport_layout(4,0,rect);
  for(int t=0;t<1200;t++) {
   rs_host_frame();assert(rs_viewport_count()==4);check_heroes(4,rect,t%100==0);
  }
  world w;world_init(&w,2,4);place(&w,0,0);place(&w,1,40);
  rs_viewport_layout(2,0,rect);draw_frame(&w,ST_PLAY,50,0,0,0);rs_host_render();
- check_heroes(2,rect,1);memcpy(picture,rs_host_framebuffer(),sizeof picture);
+ check_heroes(2,rect,1);memcpy(picture,rs_host_framebuffer(),sizeof(uint16_t)*SW*240);
  place(&w,0,120);draw_frame(&w,ST_PLAY,50,0,0,0);rs_host_render();
- for(int y=rect[1].y;y<rect[1].y+rect[1].h;y++)for(int x=rect[1].x;x<rect[1].x+rect[1].w;x++)
-  assert(picture[y*320+x]==rs_host_framebuffer()[y*320+x]);
+ /* P1's view changed entirely: P2's (the right half, in screen columns) did not change at all */
+ int org=rs_screen_origin_x();
+ for(int y=rect[1].y;y<rect[1].y+rect[1].h;y++)for(int x=rect[1].x+org;x<rect[1].x+org+rect[1].w;x++)
+  assert(picture[y*SW+x]==rs_host_framebuffer()[y*SW+x]);
  check_heroes(2,rect,1);
  /* Track real release/steering inputs through catches: neither the body nor its camera may jump. */
  for(int n=1;n<=4;n++){
@@ -89,7 +125,11 @@ int main(void) {
   }
   assert(catches>12);
  }
+ start_layout(1);start_layout(2);
  fixed_vines();
  for(int k=0;k<RS_WARN_KIND_COUNT;k++)assert(!rs_warn_count(k));
- rs_host_shutdown();puts("view checks: world-fixed vines, visible/clipped heroes, independent cameras and smooth catches for 1-4 players");return 0;
+ rs_host_shutdown();
+ printf("view checks at width %d: the run's start as at 320, world-fixed vines, visible/clipped heroes, independent cameras and smooth catches "
+        "for 1-4 players\n",SW);
+ return 0;
 }

@@ -18,6 +18,7 @@ for kind,name in enumerate(FLOWER_NAMES[1:]):
  SPRITES += [('flower_'+name,192+kind*48,32,24,24,2,'props'),
              ('flower_'+name+'_small',64+kind*32,64,16,16,2,'props')]
 PANORAMAS={'ground':('tiles/ground.png',512,48),'hills':('tiles/hills.png',512,192)}
+HILLS_WIDE=('tiles/hills_wide.png',1024,192)    # widescreen: the far lianas over 1024 px (build_assets.py)
 PURPLE=[(230,180,250),(179,115,223),(124,65,171),(76,37,109)]
 OUT=(42,29,60)
 GREEN=[(192,222,144),(121,173,96),(73,125,84),(40,78,64)]
@@ -161,13 +162,34 @@ def hills():
     hs.ellipse(cv,xx+side*13,y-7,10,5,[far[1]]*4)
     hs.capsule(cv,xx,y,xx+side*13,y-7,.5,[far[2]]*4)
  return cv
+def hills_wide():
+ # Widescreen (DESIGN.md "Widescreen"): the far lianas over 1024 px (a screen wider than 512 shows no repeat): the
+ # classic six, then six more 512 px on with their twisting phases swapped in pairs (no liana meets its twin less
+ # than 424 px away, and on the same 8-px grid they reuse the classic tiles: VRAM), each drawn round the edges so
+ # the panorama wraps without a seam.
+ W=1024;cv=Canvas(W,192)
+ far=[(158,190,168),(174,201,175),(192,214,185)]
+ for j in range(12):
+  x0=20+88*j if j<6 else 532+88*(j-6);phase=(j if j<6 else (1,0,3,2,5,4)[j-6])*.83
+  for x in (x0-W,x0,x0+W):
+   for y in range(192):
+    xx=x+round(math.sin(y*math.tau/192+phase)*16)
+    cv.rect(xx-2,y,xx+1,y,far[0]);cv.set(xx-2,y,far[1])
+   for y in (18,65,113,161):
+    xx=x+round(math.sin(y*math.tau/192+phase)*16)
+    for side in (-1,1):
+     hs.capsule(cv,xx,y,xx+side*13,y-7,4,[far[1]]*4)
+     hs.ellipse(cv,xx+side*13,y-7,10,5,[far[1]]*4)
+     hs.capsule(cv,xx,y,xx+side*13,y-7,.5,[far[2]]*4)
+ return cv
 
 def write_all(out,preview=False):
  os.makedirs(os.path.join(out,'tiles'),exist_ok=True)
  sheet=Image.new('RGB',(SHEET_W,SHEET_H),hs.MAGENTA)
  for name,x,y,w,h,n,g in SPRITES:
   for i in range(n):sheet.paste(sprite_frame(name,i).image(),(x+i*w,y))
- for f,im in {'sprites.png':sheet,'tiles/ground.png':ground().image(),'tiles/hills.png':hills().image()}.items():
+ for f,im in {'sprites.png':sheet,'tiles/ground.png':ground().image(),'tiles/hills.png':hills().image(),
+              'tiles/hills_wide.png':hills_wide().image()}.items():
   im.save(os.path.join(out,f))
   if preview:
    os.makedirs(os.path.join(out,'preview'),exist_ok=True)

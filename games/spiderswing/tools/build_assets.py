@@ -60,15 +60,35 @@ def main():
     for layer, key, name, pal, y in (("bg2", "ground", "GROUND", PAL_GROUND, 192), ("bg3", "hills", "HILLS", PAL_HILLS, 96)):
         f, w, hh = make_art.PANORAMAS[key]
         img = rsasset.load(os.path.join(a.art, f))
-        r = rsasset.convert_bg(cells8(img, 0, 0, w, hh), 1, pal_base=pal, tile_base=0)
-        c.append(rsasset.c_bytes("gm_%s_tiles" % layer, rsasset.tiles_bytes(r.tiles)))
+        cells = cells8(img, 0, 0, w, hh)
+        r = rsasset.convert_bg(cells, 1, pal_base=pal, tile_base=0)
+        tiles, extra = r.tiles, ""
+        if key == "hills":
+            # widescreen (DESIGN.md "Widescreen"): the 1024-px panorama of a screen wider than 320, a 128-column
+            # map; its new tiles follow the classic ones (a 320 screen loads only those, the same as before)
+            wf, ww, wh = make_art.HILLS_WIDE
+            wpath = os.path.join(a.art, wf)
+            if not os.path.exists(wpath):
+                make_art.hills_wide().image().save(wpath)
+            rw = rsasset.convert_bg(cells + cells8(rsasset.load(wpath), 0, 0, ww, wh), 1, pal_base=pal, tile_base=0)
+            assert rw.palettes == r.palettes and rw.tiles[:len(r.tiles)] == r.tiles and \
+                rw.metas[:len(r.metas)] == r.metas, "the wide panorama changes the classic tiles"
+            tiles = rw.tiles
+            c.append(arr("gm_hills_wide_map", [m[0] for m in rw.metas[len(r.metas):]]))
+            c.append("const int gm_bg3_wide_tile_count = %d;" % len(rw.tiles))
+            extra = " (+%d wide)" % (len(rw.tiles) - len(r.tiles))
+        c.append(rsasset.c_bytes("gm_%s_tiles" % layer, rsasset.tiles_bytes(tiles)))
         c.append("const int gm_%s_tile_count = %d;" % (layer, len(r.tiles)))
         c.append(arr("gm_%s_map" % key, [m[0] for m in r.metas]))
         c.append(arr("gm_%s_pal" % key, rsasset.palette16(r.palettes[0])))
         h.append("#define %s_H %d\n#define %s_Y %d" % (name, hh // 8, name, y))
         h.append("extern const uint8_t gm_%s_tiles[];\nextern const int gm_%s_tile_count;" % (layer, layer))
         h.append("extern const uint16_t gm_%s_map[64 * %s_H];\nextern const uint16_t gm_%s_pal[16];" % (key, name, key))
-        stats.append("%s %d" % (layer.upper(), len(r.tiles)))
+        if key == "hills":
+            h.append("/* widescreen: the 128-column map (the classic tiles and gm_bg3_wide_tile_count - "
+                     "gm_bg3_tile_count more) */\nextern const uint16_t gm_hills_wide_map[128 * HILLS_H];\n"
+                     "extern const int gm_bg3_wide_tile_count;")
+        stats.append("%s %d%s" % (layer.upper(), len(r.tiles), extra))
 
     # ---- sprites ----------------------------------------------------------------------------------------------------
     sheet = rsasset.load(os.path.join(a.art, "sprites.png"))
