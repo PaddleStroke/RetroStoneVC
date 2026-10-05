@@ -1,0 +1,36 @@
+RetroStone Arcade зібрав 20 оригінальних аркад у дусі 16-бітних консолей: чіткий піксель-арт, музика, що запам'ятовується, і короткі забіги, у яких розберешся за секунду.
+
+ІГРИ
+• Beaver Rush
+• Biscuit Bandit
+• Blueberry Tumble
+• Crab Coconut
+• Duck Parade
+• Frog Reach
+• Hedgehog Hills
+• Leady Squid
+• Mole Marbles
+• Moth Around
+• Mouse Espresso
+• Nutty Branch
+• Otter Rapids
+• Pancake Tower
+• Penguin Slalom
+• Pogo Mamie
+• Raccoon Recycler
+• Radish Rascals
+• Snail Switch
+• Spider Swing
+
+ГРАЙ ЯК ХОЧЕШ
+• Просте сенсорне керування, продумане для кожної гри
+• Працюють і геймпади Bluetooth та USB, у багатьох іграх — до 4 гравців
+• Виходь із гри будь-коли: вона чекатиме там, де ти зупинився
+• Твої рекорди зберігаються на телефоні
+
+БЕЗ РЕКЛАМИ Й СТЕЖЕННЯ
+• Одна покупка — усі ігри: без реклами, без покупок у застосунку, без облікового запису
+• Жодні дані не збираються; працює без інтернету
+• 22 мови
+
+Створено 8BCraft. Код — за ліцензією MIT, графіка й музика — за CC BY-NC-SA 4.0: дивись «Автори та ліцензії» в застосунку.

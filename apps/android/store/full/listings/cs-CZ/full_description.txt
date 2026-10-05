@@ -1,0 +1,36 @@
+RetroStone Arcade spojuje 20 původních arkádových her v duchu 16bitových konzolí: ostrý pixel art, chytlavou hudbu a krátká kola, která pochopíš za vteřinu.
+
+HRY
+• Beaver Rush
+• Biscuit Bandit
+• Blueberry Tumble
+• Crab Coconut
+• Duck Parade
+• Frog Reach
+• Hedgehog Hills
+• Leady Squid
+• Mole Marbles
+• Moth Around
+• Mouse Espresso
+• Nutty Branch
+• Otter Rapids
+• Pancake Tower
+• Penguin Slalom
+• Pogo Mamie
+• Raccoon Recycler
+• Radish Rascals
+• Snail Switch
+• Spider Swing
+
+HRAJ PO SVÉM
+• Jednoduché dotykové ovládání, navržené pro každou hru
+• Fungují i ovladače Bluetooth a USB, v mnoha hrách až pro 4 hráče
+• Odejdi ze hry, kdy chceš: počká přesně tam, kde jsi skončil
+• Tvé rekordy zůstávají v telefonu
+
+BEZ REKLAM, BEZ SLEDOVÁNÍ
+• Jeden nákup za všechny hry: žádné reklamy, žádné nákupy v aplikaci, žádný účet
+• Neshromažďuje žádná data; funguje offline
+• 22 jazyků
+
+Vytvořil 8BCraft. Kód pod licencí MIT, grafika a hudba pod CC BY-NC-SA 4.0: viz Autoři a licence v aplikaci.

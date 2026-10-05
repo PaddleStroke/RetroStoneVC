@@ -1,0 +1,36 @@
+RetroStone Arcade zbiera 20 oryginalnych gier zręcznościowych w duchu konsol 16-bitowych: wyraźny pixel art, wpadająca w ucho muzyka i krótkie rozgrywki, które zrozumiesz w sekundę.
+
+GRY
+• Beaver Rush
+• Biscuit Bandit
+• Blueberry Tumble
+• Crab Coconut
+• Duck Parade
+• Frog Reach
+• Hedgehog Hills
+• Leady Squid
+• Mole Marbles
+• Moth Around
+• Mouse Espresso
+• Nutty Branch
+• Otter Rapids
+• Pancake Tower
+• Penguin Slalom
+• Pogo Mamie
+• Raccoon Recycler
+• Radish Rascals
+• Snail Switch
+• Spider Swing
+
+GRAJ PO SWOJEMU
+• Proste sterowanie dotykiem, zaprojektowane dla każdej gry
+• Działają też pady Bluetooth i USB, w wielu grach nawet dla 4 graczy
+• Wyjdź z gry, kiedy chcesz: poczeka dokładnie tam, gdzie skończyłeś
+• Twoje rekordy zostają w telefonie
+
+BEZ REKLAM, BEZ ŚLEDZENIA
+• Jeden zakup, wszystkie gry: bez reklam, bez zakupów w aplikacji, bez konta
+• Żadne dane nie są zbierane; działa offline
+• 22 języki
+
+Autor: 8BCraft. Kod na licencji MIT, grafika i muzyka na licencji CC BY-NC-SA 4.0: zobacz Autorzy i licencje w aplikacji.

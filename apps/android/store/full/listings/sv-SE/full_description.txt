@@ -1,0 +1,36 @@
+RetroStone Arcade samlar 20 originella arkadspel i 16-bitarskonsolernas anda: skarp pixelgrafik, medryckande musik och korta omgångar som du lär dig på en sekund.
+
+SPELEN
+• Beaver Rush
+• Biscuit Bandit
+• Blueberry Tumble
+• Crab Coconut
+• Duck Parade
+• Frog Reach
+• Hedgehog Hills
+• Leady Squid
+• Mole Marbles
+• Moth Around
+• Mouse Espresso
+• Nutty Branch
+• Otter Rapids
+• Pancake Tower
+• Penguin Slalom
+• Pogo Mamie
+• Raccoon Recycler
+• Radish Rascals
+• Snail Switch
+• Spider Swing
+
+SPELA SOM DU VILL
+• Enkla pekkontroller, gjorda för varje spel
+• Bluetooth- och USB-handkontroller fungerar också, med upp till 4 spelare i många spel
+• Lämna ett spel när du vill: det väntar precis där du var
+• Dina rekord stannar i din telefon
+
+INGEN REKLAM, INGEN SPÅRNING
+• Ett köp för alla spel: ingen reklam, inga köp i appen, inget konto
+• Ingen data samlas in; spelas offline
+• 22 språk
+
+Gjort av 8BCraft. Kod under MIT-licensen, grafik och musik under CC BY-NC-SA 4.0: se Medverkande och licenser i appen.

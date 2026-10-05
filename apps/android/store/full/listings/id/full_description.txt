@@ -1,0 +1,36 @@
+RetroStone Arcade mengumpulkan 20 game arcade orisinal dengan semangat konsol 16-bit: pixel art yang tajam, musik yang mudah diingat, dan ronde singkat yang langsung kamu pahami.
+
+GAME-NYA
+• Beaver Rush
+• Biscuit Bandit
+• Blueberry Tumble
+• Crab Coconut
+• Duck Parade
+• Frog Reach
+• Hedgehog Hills
+• Leady Squid
+• Mole Marbles
+• Moth Around
+• Mouse Espresso
+• Nutty Branch
+• Otter Rapids
+• Pancake Tower
+• Penguin Slalom
+• Pogo Mamie
+• Raccoon Recycler
+• Radish Rascals
+• Snail Switch
+• Spider Swing
+
+MAIN SESUKAMU
+• Kontrol sentuh sederhana, dibuat untuk tiap game
+• Gamepad Bluetooth dan USB juga bisa, hingga 4 pemain di banyak game
+• Keluar dari game kapan saja: game menunggumu tepat di tempat kamu berhenti
+• Skor terbaikmu tersimpan di ponselmu
+
+TANPA IKLAN, TANPA PELACAKAN
+• Sekali beli untuk semua game: tanpa iklan, tanpa pembelian dalam aplikasi, tanpa akun
+• Tidak ada data yang dikumpulkan; bisa dimainkan offline
+• 22 bahasa
+
+Dibuat oleh 8BCraft. Kode berlisensi MIT, gambar dan musik berlisensi CC BY-NC-SA 4.0: lihat Kredit & lisensi di aplikasi.
