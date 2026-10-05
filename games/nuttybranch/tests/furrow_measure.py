@@ -25,6 +25,7 @@ MAX_DEG = 66.0
 
 def furrows(path, y, xc, a):
     im = Image.open(path).convert("RGB")
+    xc += (im.width - 320) // 2          # widescreen: the centre is a stage x, the 320-px stage centred on the screen
     hw = BRANCH_R * 256.0 / a
     lum = [0.3 * r + 0.59 * g + 0.11 * b for r, g, b in (im.getpixel((x, y)) for x in range(im.width))]
     x0, x1 = int(xc - hw * 0.97), int(xc + hw * 0.97)

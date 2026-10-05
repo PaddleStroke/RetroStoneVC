@@ -149,6 +149,51 @@ a gap (Celeste's grace windows).
 - Times of day and seasons change every 400 m (spring morning, summer noon, autumn afternoon, dusk, night, winter
   dawn, then round again): sky, forest, canopy, bark, leaves and the props' bark blend over 32 m.
 
+## Widescreen (docs/spec.md "Widescreen")
+The game opts in (`max_width` = 560, `WIDESCREEN_nuttybranch = 1`): 320 x 240 is unchanged pixel for pixel; at 427
+(16:9), 520 or 560 (phones) **the field of view of the scenery is wider, the game is the same**.
+- **The stage centred**: `rs_screen_origin(rs_screen_margin())` (draw_init): the branch's projection, the squirrels,
+  the traps and the HUD keep their 320-px places; the screen shows stage x -margin .. 320 + margin. The branch layer
+  (the affine layer, its per-line matrix, line scroll and window 1) is in stage coordinates, so it is the same branch,
+  as wide, at the same place on every line (where a near curve takes it past x 320 or 0 the wider screen shows more of
+  it). Sprites are clipped to `rs_screen_left()` .. `rs_screen_right()`: the side branches, the fungi, the hive's
+  branch and the obstacles' limbs that reach out of the 4:3 frame go on into the margins. A side branch (or the
+  hive's) passing the camera, its root already below the screen, is drawn on until it has gone out at the real edge
+  (the 4:3 screen lets it go once its root leaves the bottom line: drawn for the wider screen only).
+- **The forest behind** (BG3, BG4: 32-tile maps of pictures that repeat every 128 px, `tools/nb_backdrop.py`) goes on
+  to the edges. The misty pines (style c, the default) are flat silhouettes: on a wider screen each layer continues
+  with its mirror image, [A | mirrored A] (`draw.c forest_maps`: the same tiles flipped, no VRAM), so the stands of
+  pines repeat every 256 px instead of 128. The other three forests are lit from the top-left (trunks, crowns, shafts
+  of light) and would be lit from the right mirrored: they repeat every 128 px as at 320. A wider picture of its own
+  does not fit: VRAM leaves about 96 tiles with the default forest (its two layers take 341).
+- **The weather from the real edges**: the wind's leaves stream from one real edge to the other (as many per column,
+  each speed's leaves 123 px apart as at 320), the rain falls over the whole width, the big leaf of a side branch
+  passing the camera sweeps out at the real edge. The owl swoops round the branch (its arc starts at the branch's
+  flank, as at 320), the crow lands on the branch, the swinging branch hangs from above, the bees leave their hive:
+  none of them comes from the screen's edge, so they are unchanged.
+- **The HUD** is the house kit's, centred (`hu_ui_x()` is 0 with the centred origin); the UI map is 128 tiles wide
+  beyond 512 columns. With 3-4 players the score chips go to the real corners, and the distance under each follows
+  it (left of UI column 0 on the left: `draw.c ui_text`).
+- **The sprite pool stays the 4:3 one**: the frames with a piece in the stage's 320 columns take the pool exactly as
+  at 320 (the same loads, the same frames let go, the same "pool full"); a frame shown only in the margins uses its
+  pool copy if it has one, or a copy of its own in the pool's free tiles, which the stage's frames take back (its
+  sprites of that frame then hidden). The big leaf keeps its 4:3 place for this bookkeeping. So what the stage shows
+  is the same at every width, and the VRAM is the same.
+- **The same game**: the rules never look at the width; the bot reads the branch layer's per-line registers (stage
+  lines, unchanged) and the sprites of the stage's 320 columns (what a 4:3 screen shows), so it decides the same
+  frame by frame. tests/wide_test.sh compares the bot's every decision (`--opt botlog=1`) and the whole logs (the
+  falls, the game-over frames, distances, scores, the final state's hash) of 1-, 2- and 4-player runs, a deep run
+  and the trap scenes (wind, rain, owl, crow, swing, bees, shower, branches) at 320, 427, 520 and 560.
+- **Save states load at any width** (the width is not in a state): `state_loaded` (draw_relayout) compares the width
+  the UI map was laid out for (`laid_w`, saved) with this one; if it differs, the UI map and the forest maps of this
+  width are set up and the screen's texts drawn again on the next frame. tests/wide_test.sh loads states saved at
+  320, 427, 520 and 560 at the other widths, and changes the width during 1-player, 4-player and title runs
+  (`--resize`): they go on exactly as the runs that never changed.
+- `make nuttybranch-check` runs the libretro loader (16:9, Wide), the smoke, UI, state, LOD and furrow tests again
+  at 427 and 520 (furrow_measure.py finds the stage in the wider picture), the frame cost at 520 (0.71-0.77 ms per
+  frame on the host, the PPU drawing 1.6 times the columns: an A20 estimate of 10.7-15.4 ms of 16.7), wide_test.sh and
+  the language test at 320, 427 and 520. Screenshots: title-, play-, gameover- and play-4-players-427/520.png.
+
 ## Scenery
 Decorations never touch the rules and come from their own RNG (the course is the same with or without them):
 - **side branches** grow out of both flanks every 160-400 units (leafy and reaching up, long and low, or carrying

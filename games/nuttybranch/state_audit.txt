@@ -18,3 +18,6 @@ draw.lc_kept        tests only
 draw.lc_hang        tests only
 draw.lc_unhung      tests only
 draw.lc_worst       tests only
+draw.marg_rec       widescreen: the sprites drawn in the margins this frame (scratch: cleared before each frame's sprites)
+draw.marg_nrec      their count (scratch)
+draw.wide_extra     widescreen: set while drawing what only a wider screen draws (scratch: 0 between frames)

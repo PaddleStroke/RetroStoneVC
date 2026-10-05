@@ -114,6 +114,9 @@ static int look(int player, int *fx, int *fy, int *air)
     for (int i = 0; i < RS_OAM_MAX; i++) {
         rs_sprite *s = rs_oam(i);
         if (!s || !s->used || (s->flags & RS_SPR_HIDE)) continue;
+        /* widescreen: it watches the 320 columns of the stage (what a 4:3 screen shows), so it plays the same at
+         * every width; the margins only add scenery */
+        if (s->x <= -(int)s->w || s->x >= RS_SCREEN_W) continue;
         int f, x, y;
         if (!draw_sprite_id(s, &f, &x, &y)) continue;
         int flip = (s->flags & RS_SPR_HFLIP) != 0;

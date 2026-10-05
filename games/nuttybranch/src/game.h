@@ -187,6 +187,7 @@ enum { ST_TITLE, ST_PLAY, ST_DEAD, ST_OVER };      /* no "get ready": the title 
 void draw_init(void);
 void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, int paused);
 void draw_state(void);
+void draw_relayout(void);                           /* after a save state of another width (widescreen) */
 /* what the screen shows (the bot reads only this and OAM): the branch layer's per-line registers of the last frame
  * (the HDMA tables): the texture centre's screen x, the scale (8.8 texels per px) and the row; and its time band */
 extern int16_t draw_line_x[RS_SCREEN_H], draw_line_a[RS_SCREEN_H], draw_line_row[RS_SCREEN_H];

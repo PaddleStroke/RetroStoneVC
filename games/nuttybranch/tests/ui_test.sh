@@ -65,6 +65,16 @@ run --frames 9000 --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=260
 f=$(sed -n 's/.*run 1 over at frame \([0-9]*\).*/\1/p' "$O/log.txt")
 if [ -n "$f" ]; then
     run --frames $((f + 60)) --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=260 --shot $((f + 50)):"$O/gameover-medal.png"
+    # widescreen (DESIGN.md "Widescreen"; the screenshots, make nuttybranch-screenshots): the title, a run and the game
+    # over at 427 (16:9) and 520 (19.5:9) columns (the run is the same at every width: it ends at the same frame)
+    if [ -z "$RS_WIDTH" ] && [ "$S" != 1 ]; then
+        for w in 427 520; do
+            run --width $w --frames 130 --shot 120:"$O/title-$w.png"
+            run --width $w --frames 700 --opt bot=1 --opt seed=7 --opt ready=1 --shot 690:"$O/play-$w.png"
+            run --width $w --frames $((f + 60)) --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=260 --shot $((f + 50)):"$O/gameover-$w.png"
+            run --width $w --frames 900 --opt bot=4 --opt seed=9 --opt ready=1 --shot 880:"$O/play-4-players-$w.png"
+        done
+    fi
 else
     ko "the bot run for the game-over screen did not end"
 fi

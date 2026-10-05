@@ -35,7 +35,7 @@ static uint8_t bark_sel[RS_SCREEN_H];
 static rs_color bark_pal[2 * HAZE_LEVELS * 4][16];    /* [wet][haze][ring] */
 static int last_sel;                                  /* raster scratch */
 static int shown_state = -1, shown_best = -1, band_now;
-typedef struct part { int16_t x, y, t, kind, vx, vy; } part;
+typedef struct part { int16_t x, y, t, kind, vx, vy, ox; } part;   /* ox: its x at 320 - its x (widescreen) */
 #define PARTS 20
 static part parts[PARTS];
 /* the sprite tile pool: where each streamed frame sits (-1: not in VRAM), when it was last drawn */
@@ -43,8 +43,27 @@ static int16_t pool_slot[SPR_COUNT];
 static uint16_t pool_stamp[SPR_COUNT];
 static uint8_t pool_used[POOL_TILES];
 static uint16_t pool_now;
+/* widescreen: the frames shown only in the margins (no piece in the stage's 320 columns) have their own copies in the
+ * pool's free tiles (marg_slot, marg_used), which the stage's frames take back when they need them; their sprites are
+ * put in OAM hidden, in their place, and given their tiles at the end of the frame (marg_rec: scratch of the frame) */
+static int16_t marg_slot[SPR_COUNT];
+static uint16_t marg_stamp[SPR_COUNT];
+static uint8_t marg_used[POOL_TILES];
+#define MARG_RECS 96
+static struct { int16_t f, first, last; } marg_rec[MARG_RECS];
+static int marg_nrec;
+static int wide_extra;                                /* drawing what only a wider screen draws (scratch) */
+#define WIDE_EXTRA 16
+static int laid_w;                                    /* the width the UI map was laid out for (widescreen) */
 
 int draw_band(void) { return band_now; }
+
+/* widescreen (DESIGN.md "Widescreen"): the 320-px stage is centred (rs_screen_origin in draw_init) and the screen
+ * shows stage x rs_screen_left() .. rs_screen_right(): the branch, its props and the HUD keep their places, the
+ * forest, the scenery and the weather go on to the real edges. The UI map is as wide as the screen needs (64 tiles up
+ * to 512 columns, 128 beyond). */
+static int ui_map_w(void) { return rs_screen_width() > 512 ? 128 : 64; }
+static int fdiv8(int v) { return v >= 0 ? v / 8 : -((7 - v) / 8); }      /* floor(v / 8) */
 
 static void raster(int y, void *user)
 {
@@ -66,13 +85,36 @@ static void raster(int y, void *user)
 
 static void pool_reset(void)
 {
-    for (int i = 0; i < SPR_COUNT; i++) pool_slot[i] = -1;
+    for (int i = 0; i < SPR_COUNT; i++) pool_slot[i] = marg_slot[i] = -1;
     memset(pool_stamp, 0, sizeof pool_stamp);
     memset(pool_used, 0, sizeof pool_used);
+    memset(marg_stamp, 0, sizeof marg_stamp);
+    memset(marg_used, 0, sizeof marg_used);
+    marg_nrec = 0;
+}
+
+/* The forest's two layers (32-tile maps of a picture that repeats every 128 px, 16 tiles). Wider than 320, a layer
+ * drawn without a light from one side (forest_mirror) continues with its mirror image: [A | mirrored A], the same
+ * tiles flipped (no VRAM), so the pattern repeats every 256 px instead of 128 across the wider screen. At 320 the
+ * classic maps. Also after a save state of another width (draw_relayout). */
+static const uint8_t forest_mirror[BG_STYLES][2] = {{0, 0}, {0, 0}, {1, 1}, {0, 0}};   /* [style][near, far]: c */
+static void forest_maps(void)
+{
+    const gm_bg_style *bs = &gm_bgs[bg_style];
+    const uint16_t *src[2] = {bs->near_map, bs->far_map};
+    for (int l = 0; l < 2; l++) {
+        uint16_t *m = rs_bg_map(l ? RS_BG4 : RS_BG3);
+        memcpy(m, src[l], sizeof(uint16_t) * 32 * 32);
+        if (rs_screen_width() > RS_SCREEN_W && forest_mirror[bg_style][l])
+            for (int y = 0; y < 32; y++)
+                for (int x = 0; x < 16; x++) m[y * 32 + 16 + x] = src[l][y * 32 + 15 - x] ^ RS_MAP_HFLIP;
+    }
 }
 
 void draw_init(void)
 {
+    rs_screen_origin(rs_screen_margin());   /* widescreen: the 320-px stage centred, the scenery wider */
+    laid_w = rs_screen_width();
     hu_config hc = hu_defaults();       /* BG1 at VRAM 0, the kit at 0 on palette 0, the logo at 320 on palette 5 */
     hc.obj_tile = KIT_OBJ_TILE;
     hc.obj_vram = VR_OBJ;
@@ -81,7 +123,7 @@ void draw_init(void)
     hc.ext_tile = 480;
     hc.ext_count = VR_BG2 - VR_BG1 - hc.ext_tile;
     hu_init(&hc);
-    rs_bg_setup(RS_BG1, 64, 32, VR_BG1);
+    rs_bg_setup(RS_BG1, ui_map_w(), 32, VR_BG1);
     rs_bg_setup(RS_BG2, 64, 32, VR_BG2);
     rs_bg_setup(RS_BG3, 32, 32, VR_BG3);
     rs_tiles_load(VR_BG2, gm_branch_tiles, gm_branch_tile_count);
@@ -92,8 +134,7 @@ void draw_init(void)
     rs_tiles_load(VR_BG3, bs->near_tiles, bs->near_count);
     rs_tiles_load(VR_BG4, bs->far_tiles, bs->far_count);
     memcpy(rs_bg_map(RS_BG2), gm_branch_map, sizeof(uint16_t) * 64 * 32);
-    memcpy(rs_bg_map(RS_BG3), bs->near_map, sizeof(uint16_t) * 32 * 32);
-    memcpy(rs_bg_map(RS_BG4), bs->far_map, sizeof(uint16_t) * 32 * 32);
+    forest_maps();
     rs_bg_enable(RS_BG1, 1);
     rs_bg_enable(RS_BG2, 1);
     rs_bg_enable(RS_BG3, 1);
@@ -172,13 +213,21 @@ static int pool_fit(int n)
     return -1;
 }
 
+static void marg_free(int f)
+{
+    memset(marg_used + marg_slot[f] - RES_TILES, 0, gm_spr[f].ntiles);
+    marg_slot[f] = -1;
+}
+
 static void pool_free(int f)
 {
     memset(pool_used + pool_slot[f] - RES_TILES, 0, gm_spr[f].ntiles);
     pool_slot[f] = -1;
 }
 
-/* the VRAM tile (relative to VR_OBJ) of frame f: resident, or streamed into the pool now (-1: no room this frame) */
+/* the VRAM tile (relative to VR_OBJ) of frame f: resident, or streamed into the pool now (-1: no room this frame).
+ * Widescreen: only the frames with a piece in the stage's 320 columns come here, so the pool does exactly what it
+ * does at 320 (the margins' copies give their tiles back) */
 static int pool_get(int f)
 {
     const gm_sprite_def *d = &gm_spr[f];
@@ -197,6 +246,9 @@ static int pool_get(int f)
             return -1;
         }
     }
+    for (int i = 0; i < SPR_COUNT; i++)                 /* (widescreen) the margins' copies on these tiles */
+        if (marg_slot[i] >= 0 && marg_slot[i] - RES_TILES < at + d->ntiles && at < marg_slot[i] - RES_TILES + gm_spr[i].ntiles)
+            marg_free(i);
     memset(pool_used + at, 1, d->ntiles);
     pool_slot[f] = (int16_t)(RES_TILES + at);
     pool_stamp[f] = pool_now;
@@ -204,27 +256,105 @@ static int pool_get(int f)
     return pool_slot[f];
 }
 
-/* a frame, anchored at (sx, sy), mirrored about the anchor when hflip: its pieces */
-static int spr_at(int f, int sx, int sy, int prio, int pal, int hflip)
+/* widescreen: the tiles of a frame shown only in the margins, once the stage's frames have all taken theirs (the end
+ * of the frame: marg_resolve): its stage copy if it has one (left as it is), else a copy of its own in tiles free of
+ * both (the margins' copies not drawn this frame let go first) */
+static int marg_fit(int n)
+{
+    for (int i = 0, run = 0; i < POOL_TILES; i++) {
+        run = pool_used[i] || marg_used[i] ? 0 : run + 1;
+        if (run == n) return i - n + 1;
+    }
+    return -1;
+}
+
+static int marg_get(int f)
 {
     const gm_sprite_def *d = &gm_spr[f];
-    int any = 0;
-    for (int i = 0; i < d->npieces && !any; i++) {
-        const gm_piece *p = &gm_pieces[d->piece + i];
-        int x = hflip ? sx - p->dx - p->w : sx + p->dx, y = sy + p->dy;
-        any = x > -(int)p->w && x < RS_SCREEN_W && y > -(int)p->h && y < RS_SCREEN_H;
+    if (pool_slot[f] >= 0) return pool_slot[f];
+    if (marg_slot[f] >= 0) {
+        marg_stamp[f] = pool_now;
+        return marg_slot[f];
     }
-    if (!any) return 0;
-    int base = pool_get(f);
-    if (base < 0) return 0;
+    int at = marg_fit(d->ntiles);
+    if (at < 0) {
+        for (int i = 0; i < SPR_COUNT; i++)
+            if (marg_slot[i] >= 0 && marg_stamp[i] != pool_now) marg_free(i);
+        if ((at = marg_fit(d->ntiles)) < 0) {
+            if (rs_option_int("pooldebug", 0)) rs_log("pool full (margins): frame %d (%d tiles) not drawn", f, d->ntiles);
+            return -1;
+        }
+    }
+    memset(marg_used + at, 1, d->ntiles);
+    marg_slot[f] = (int16_t)(RES_TILES + at);
+    marg_stamp[f] = pool_now;
+    rs_tiles_load(VR_OBJ + RES_TILES + at, gm_obj_tiles + (size_t)d->tile * RS_TILE_BYTES, d->ntiles);
+    return marg_slot[f];
+}
+
+/* the end of the frame's sprites: the margins' sprites (hidden in OAM so far, in their place among the others, their
+ * tiles relative to the frame's first) get their frame's tiles and show; with no room left they stay hidden */
+static void marg_resolve(void)
+{
+    for (int r = 0; r < marg_nrec; r++) {
+        int base = marg_get(marg_rec[r].f);
+        if (base < 0) continue;
+        for (int i = marg_rec[r].first; i <= marg_rec[r].last; i++) {
+            rs_sprite *s = rs_oam(i);
+            s->tile = (uint16_t)(s->tile + base);
+            s->flags &= (uint8_t)~RS_SPR_HIDE;
+        }
+    }
+    marg_nrec = 0;
+}
+
+/* a piece of frame d anchored at (sx, sy) (mirrored when hflip) shows in the columns [x0, x1) */
+static int shows(const gm_sprite_def *d, int sx, int sy, int hflip, int x0, int x1)
+{
     for (int i = 0; i < d->npieces; i++) {
         const gm_piece *p = &gm_pieces[d->piece + i];
         int x = hflip ? sx - p->dx - p->w : sx + p->dx, y = sy + p->dy;
-        if (x <= -(int)p->w || x >= RS_SCREEN_W || y <= -(int)p->h || y >= RS_SCREEN_H) continue;
-        rs_spr(x, y, base + p->toff, p->w, p->h, pal >= 0 ? pal : d->pal, prio, hflip ? RS_SPR_HFLIP : 0);
+        if (x > x0 - (int)p->w && x < x1 && y > -(int)p->h && y < RS_SCREEN_H) return 1;
+    }
+    return 0;
+}
+
+/* a frame, anchored at (sx, sy), mirrored about the anchor when hflip: its pieces, clipped to the screen (widescreen:
+ * its real edges). sx4: where a 4:3 screen draws it (the same but for the effects that start at the screen's edge):
+ * what shows in the stage's 320 columns there takes the pool as at 320; what shows only in the margins (or only on a
+ * wider screen: wide_extra) gets its tiles at the end of the frame (marg_resolve) */
+static int spr_at4(int f, int sx, int sy, int prio, int pal, int hflip, int sx4)
+{
+    const gm_sprite_def *d = &gm_spr[f];
+    int sl = rs_screen_left(), sr = rs_screen_right(), base, later = 0;
+    if (!wide_extra && shows(d, sx4, sy, hflip, 0, RS_SCREEN_W)) base = pool_get(f);
+    else if ((sl < 0 || sr > RS_SCREEN_W) && shows(d, sx, sy, hflip, sl, sr)) {
+        later = !d->resident;
+        if (later && marg_nrec >= MARG_RECS) return 0;
+        base = later ? 0 : d->tile;
+    } else return 0;
+    if (base < 0) return 0;
+    int first = -1, last = -1;
+    for (int i = 0; i < d->npieces; i++) {
+        const gm_piece *p = &gm_pieces[d->piece + i];
+        int x = hflip ? sx - p->dx - p->w : sx + p->dx, y = sy + p->dy;
+        if (x <= sl - (int)p->w || x >= sr || y <= -(int)p->h || y >= RS_SCREEN_H) continue;
+        int k = rs_spr(x, y, base + p->toff, p->w, p->h, pal >= 0 ? pal : d->pal, prio,
+                       (hflip ? RS_SPR_HFLIP : 0) | (later ? RS_SPR_HIDE : 0));
+        if (k >= 0) {
+            if (first < 0) first = k;
+            last = k;
+        }
+    }
+    if (later && first >= 0) {
+        marg_rec[marg_nrec].f = (int16_t)f;
+        marg_rec[marg_nrec].first = (int16_t)first;
+        marg_rec[marg_nrec++].last = (int16_t)last;
     }
     return 1;
 }
+
+static int spr_at(int f, int sx, int sy, int prio, int pal, int hflip) { return spr_at4(f, sx, sy, prio, pal, hflip, sx); }
 
 int draw_sprite_id(const rs_sprite *s, int *frame, int *ax, int *ay)
 {
@@ -295,7 +425,7 @@ static int lc_worst = 100;                                                /* the
 static void lod_note(const obj *o, int lod, int minl, int sc, int sx, int sy, int anchor)
 {
     if (lc_on < 0) lc_on = rs_option_int("lodcheck", 0);
-    if (!lc_on) return;
+    if (!lc_on || wide_extra) return;                 /* (not what the wider screen alone draws) */
     int i = (int)((uint32_t)(o->s * 31 + o->kind * 7 + o->len * 3 + (o->ang >> 12)) % LODCHECK_N);
     /* (an object hidden for a while, behind a crest, comes back at its new size) */
     if (lc_seen[i].s != o->s || lc_seen[i].kind != o->kind || lc_seen[i].len != o->len || lc_seen[i].ang != o->ang ||
@@ -353,7 +483,7 @@ void draw_lodcheck_report(void)
 
 typedef struct drawable { int32_t z; int16_t kind, idx; } drawable;
 #define DRAW_MAX 200
-enum { DK_OBJ, DK_SQ, DK_DROP };
+enum { DK_OBJ, DK_SQ, DK_DROP, DK_WIDE };          /* DK_WIDE: an object drawn for the wider screen only */
 
 static void draw_obj(const world *w, const obj *o)
 {
@@ -489,19 +619,28 @@ static void draw_obj(const world *w, const obj *o)
     case OB_DECOR: {
         int kind = (int)o->len;
         if (kind <= DC_SIDE2 || kind == DC_MUSH || kind == DC_HIVE) {
-            if (!road_point(w, &RV, o->s * 256, ang, undrop(ang), 0, &sx, &sy, &sc, &hid) || hid) return;
+            if (!road_point(w, &RV, o->s * 256, ang, undrop(ang), 0, &sx, &sy, &sc, &hid)) return;
+            /* widescreen: a side branch (or the hive's) passing the camera, its root below the screen, still reaches
+             * up into the margins: it is drawn on until it has gone out at the real edge (the 4:3 screen lets it go
+             * there: drawn for the wider screen only, wide_extra) */
+            int below = kind != DC_MUSH && sy >= RS_SCREEN_H && rs_screen_width() > RS_SCREEN_W;
+            if (hid && !below) return;
             if (kind == DC_MUSH) {
                 if (!on_branch(&sx, sy)) return;
                 lod_note(o, decor_lod(lod_of(sc)) + 1, 1, sc, sx, sy, 2);
                 spr_at(SPR_MUSH + decor_lod(lod_of(sc)), sx, sy, 2, -1, o->side < 0);
             } else {
-                if (sy < 0 || sy >= RS_SCREEN_H || RV.ln[sy].row >= TEX_H || RV.ln[sy].tcx == FACE_CX) return;   /* only out of the branch drawn */
+                if (!below && (sy < 0 || sy >= RS_SCREEN_H || RV.ln[sy].row >= TEX_H || RV.ln[sy].tcx == FACE_CX))
+                    return;                                       /* only out of the branch drawn */
                 l = limb_lod(lod_of(sc));
                 if (!on_branch(&sx, sy)) return;
                 lod_note(o, l + 2, 2, sc, sx, sy, 2);
                 /* behind the branch layer: its root grows out from behind the silhouette */
+                int was = wide_extra;
+                wide_extra |= below;
                 spr_at((kind == DC_HIVE ? SPR_HIVE : SPR_SIDE + (kind - DC_SIDE0) * (LODS - 2)) + l, sx, sy, 1, -1,
                        o->side < 0);
+                wide_extra = was;
             }
         }
         return;
@@ -592,11 +731,11 @@ static void draw_squirrel(const world *w, int p, int st_t)
 /* ---- particles: nut crumbs, landing puffs, the wind's leaves, big leaves sweeping past, rain ------------------- */
 enum { PK_CRUMB, PK_PUFF, PK_FGLEAF };
 
-static void parts_spawn(int x, int y, int kind, int vx, int vy, int t)
+static void parts_spawn(int x, int y, int kind, int vx, int vy, int t, int x4)    /* x4: its x at 320 */
 {
     for (int i = 0; i < PARTS; i++)
         if (parts[i].t <= 0) {
-            parts[i] = (part){(int16_t)x, (int16_t)y, (int16_t)t, (int16_t)kind, (int16_t)vx, (int16_t)vy};
+            parts[i] = (part){(int16_t)x, (int16_t)y, (int16_t)t, (int16_t)kind, (int16_t)vx, (int16_t)vy, (int16_t)(x4 - x)};
             return;
         }
 }
@@ -612,30 +751,34 @@ static void parts_draw(void)
         else {
             p->x += p->vx;
             p->y += p->vy;
-            spr_at(SPR_FGLEAF + (p->t / 6) % 3, p->x, p->y, 0, -1, p->vx < 0);
+            spr_at4(SPR_FGLEAF + (p->t / 6) % 3, p->x, p->y, 0, -1, p->vx < 0, p->x + p->ox);
         }
     }
 }
 
+/* the wind's leaves stream across the whole screen, from its real edge to the other (widescreen: as many per column,
+ * each speed's leaves 123 px apart, so the 320 columns of the stage always show some, as at 320); the rain falls
+ * over the whole width */
 static void weather(const world *w)
 {
     int32_t lead = w->lead_s >> 8;
+    int sl = rs_screen_left(), sw = rs_screen_width();
     for (int i = 0; i < w->ob_count; i++) {
         const obj *o = ob_get(w, i);
         if (o->s > lead + 2600) break;
         if (o->kind == OB_WIND && o->t0 >= 0 && lead <= o->s + o->len + 64) {
-            int age = w->t - o->t0;
-            for (int k = 0; k < 10; k++) {
-                int x = (age * (5 + k % 3) + k * 41) % 400 - 40;
+            int age = w->t - o->t0, span = sw + 80, n = 10 * span / 400;
+            for (int k = 0; k < n; k++) {
+                int x = sl + (age * (5 + k % 3) + k * 41) % span - 40;
                 if (o->side < 0) x = RS_SCREEN_W - x;
                 int y = 30 + (k * 53) % 170 + ((age + k * 9) / 6) % 5;
                 spr_at(SPR_LEAF + ((age / 5 + k) % 2), x, y, 2, -1, 0);
             }
         }
         if (o->kind == OB_RAIN && o->t0 >= 0 && lead <= o->s + o->len) {
-            int age = w->t - o->t0;
-            for (int k = 0; k < 18; k++) {
-                int x = (k * 67 + age * 3) % 336 - 8, y = (k * 41 + age * 9) % 256 - 16;
+            int age = w->t - o->t0, span = sw + 16, n = 18 * span / 336;
+            for (int k = 0; k < n; k++) {
+                int x = sl + (k * 67 + age * 3) % span - 8, y = (k * 41 + age * 9) % 256 - 16;
                 spr_at(SPR_RAIN + (k + age / 4) % 2, x, y, 2, -1, 0);
             }
         }
@@ -655,6 +798,22 @@ static void standing(const world *w, hu_standing *s)
         val[p] = w->q[p].dist_m;
     }
     hu_rank(s, w->players, key, val);
+}
+
+/* small text from UI column col (widescreen: col may be left of 0, at the screen's left corners). The kit wraps a
+ * translated text there itself (its map columns col & (width - 1)), but hu_text drops the ASCII cells left of column 0
+ * and checks the wrapped columns as off the screen: an ASCII text is drawn from column 0 (its glyphs loaded, its
+ * cells checked), then its cells move left to their wrapped columns. */
+static void ui_text(int col, int row, const char *s)
+{
+    int n = (int)strlen(s), mw = rs_bg_map_w(RS_BG1), ascii = 1;
+    for (int i = 0; i < n; i++) ascii &= (unsigned char)s[i] < 128;
+    if (col >= 0 || !ascii || n > 40) { hu_text(col, row, s); return; }
+    uint16_t blank = rs_bg_get(RS_BG1, 0, row), e[40];    /* (the row was just cleared: hu_clear_rows) */
+    hu_text(0, row, s);
+    for (int i = 0; i < n; i++) e[i] = rs_bg_get(RS_BG1, i, row);
+    for (int i = 0; i < n; i++) rs_bg_put(RS_BG1, i, row, blank);
+    for (int i = 0; i < n; i++) rs_bg_put(RS_BG1, (col + i) & (mw - 1), row, e[i]);
 }
 
 static void screen_text(const world *w, int state, int st_t, int best, int new_best, const hu_standing *rs)
@@ -703,10 +862,11 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
                 rs_strf(s, sizeof s, TR(HUD_METRES), (int)w->q[p].dist_m);
                 int row = c.y < 120 ? c.y / 8 + 3 : c.y / 8 - 2;
                 int sw = hu_width(s, 0);
-                int col = c.align < 0 ? c.x / 8 : c.align > 0 ? (c.x + 7) / 8 - sw : c.x / 8 - sw / 2;
-                if (col < 0) col = 0;
+                /* (widescreen: the chips are at the real corners, left of UI column 0 on the left) */
+                int col = c.align < 0 ? fdiv8(c.x) : c.align > 0 ? fdiv8(c.x + 7) - sw : fdiv8(c.x) - sw / 2;
+                if (col < fdiv8(hu_ui_left())) col = fdiv8(hu_ui_left());
                 if (pass == 0) hu_clear_rows(row, 1);       /* clear the rows first: two chips share a row */
-                else hu_text(col, row, s);
+                else ui_text(col, row, s);
             }
     }
     if (state == ST_OVER) {
@@ -741,8 +901,8 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
             line_wl[y] = (int16_t)(L->xc + sx - hw);
             line_wr[y] = (int16_t)(L->xc + sx + hw);
         } else {
-            line_wl[y] = 0;
-            line_wr[y] = RS_SCREEN_W;
+            line_wl[y] = (int16_t)rs_screen_left();       /* the whole width (widescreen: the real edges) */
+            line_wr[y] = (int16_t)rs_screen_right();
         }
         bg2_dx[y] = (int16_t)(L->tcx - L->xc - sx);
         bark_sel[y] = (uint8_t)((L->wet * HAZE_LEVELS + L->haze) * 4 + L->ring);
@@ -758,6 +918,7 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
     hu_pause(paused, 13);
 
     rs_oam_clear();
+    marg_nrec = 0;
     /* front to back: the UI, the big leaves sweeping past, then the world near to far */
     if (state == ST_PLAY || state == ST_DEAD) {
         int score[MAX_PLAYERS];
@@ -800,13 +961,15 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
         int ex, ey, es, eh;
         if (!(w->events[p] & (EV_NUT | EV_LAND | EV_BONK))) continue;
         if (!road_point(w, &RV, q->s, q->ang, 0, q->branch, &ex, &ey, &es, &eh)) continue;
-        if (w->events[p] & (EV_NUT | EV_BONK)) parts_spawn(ex, ey - 6, PK_CRUMB, 0, 0, 14);
-        if (w->events[p] & EV_LAND) parts_spawn(ex, ey - 2, PK_PUFF, 0, 0, 14);
+        if (w->events[p] & (EV_NUT | EV_BONK)) parts_spawn(ex, ey - 6, PK_CRUMB, 0, 0, 14, ex);
+        if (w->events[p] & EV_LAND) parts_spawn(ex, ey - 2, PK_PUFF, 0, 0, 14, ex);
     }
     parts_draw();
     if (state != ST_TITLE) weather(w);
     /* the world, sorted near to far (the lower OAM index is in front) */
     drawable list[DRAW_MAX];
+    int16_t extra[WIDE_EXTRA];
+    int nx = 0, wide = rs_screen_width() > RS_SCREEN_W;
     int n = 0;
     if (state != ST_TITLE)
         for (int p = 0; p < w->players && n < DRAW_MAX; p++)
@@ -824,14 +987,21 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
         if (z < CAM_NEAR * 256 || z > far) continue;
         if (o->kind <= OB_WALNUT && (o->taken || z > 1400 * 256)) continue;
         if (o->kind == OB_WIND || o->kind == OB_RAIN || o->kind == OB_SHOWER) continue;
-        if (o->kind == OB_DECOR && z < 60 * 256) continue;
+        if (o->kind == OB_DECOR && z < 60 * 256) {
+            /* (widescreen: a side branch passing the camera, drawn on in the margins, after the 4:3 screen's list) */
+            if (wide && (o->len <= DC_SIDE2 || o->len == DC_HIVE) && nx < WIDE_EXTRA) extra[nx++] = (int16_t)i;
+            continue;
+        }
         if (o->kind == OB_DECOR && o->len <= DC_SIDE2 && z > 1200 * 256) continue;   /* the far end stays clear */
         /* a side branch passing the camera drops a big leaf sweeping past the edge of the screen */
         if (o->kind == OB_DECOR && o->len <= DC_SIDE2 && z < 150 * 256 && z >= 150 * 256 - w->speed &&
             ((o->s * 7) & 3) != 0)
-            parts_spawn(o->side > 0 ? 300 : 20, 20 + (o->s & 63), PK_FGLEAF, o->side * 6, 5, 34);
+            parts_spawn(o->side > 0 ? rs_screen_right() - 20 : rs_screen_left() + 20, 20 + (o->s & 63), PK_FGLEAF,
+                        o->side * 6, 5, 34, o->side > 0 ? 300 : 20);   /* (widescreen: at the real edge) */
         list[n++] = (drawable){z, DK_OBJ, (int16_t)i};
     }
+    for (int k = 0; k < nx && n < DRAW_MAX; k++)
+        list[n++] = (drawable){ob_get(w, extra[k])->s * 256 - w->cam_s, DK_WIDE, extra[k]};
     for (int i = 1; i < n; i++) {                       /* insertion sort, near first */
         drawable d = list[i];
         int j = i - 1;
@@ -841,17 +1011,35 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
     for (int i = 0; i < n; i++) {
         if (list[i].kind == DK_SQ) draw_squirrel(w, list[i].idx, st_t);
         else if (list[i].kind == DK_DROP) draw_drop(w, &w->drops[list[i].idx]);
-        else draw_obj(w, ob_get(w, list[i].idx));
+        else {
+            wide_extra = list[i].kind == DK_WIDE;
+            draw_obj(w, ob_get(w, list[i].idx));
+            wide_extra = 0;
+        }
     }
+    marg_resolve();                                    /* (widescreen) the margins' sprites get their tiles */
 }
 
 /* ---- save states (main.c) ---- */
+/* After a state was loaded (rs_game.state_loaded): the width is not in a state, and one saved at another width brings
+ * the UI map of that width. Set up this width's (64 tiles up to 512 columns, 128 beyond) and draw the screen's texts
+ * again on the next frame (the corners' tags and distances are where this width's chips are). The rest follows the
+ * width by itself: the branch, the props and the forest are drawn in stage coordinates every frame. */
+void draw_relayout(void)
+{
+    if (laid_w == rs_screen_width()) return;      /* a state of this width: nothing to do (it saves the same bytes) */
+    laid_w = rs_screen_width();
+    if (rs_bg_map_w(RS_BG1) != ui_map_w()) rs_bg_setup(RS_BG1, ui_map_w(), 32, VR_BG1);
+    forest_maps();
+    shown_state = -1;
+}
+
 #define S(v) rs_state_var("draw." #v, &(v), sizeof(v))
 void draw_state(void)
 {
     S(draw_line_x); S(draw_line_a); S(draw_line_row); S(draw_line_tcx); S(line_wl); S(line_wr); S(bg2_dx); S(bg_style); S(sky); S(bark_sel);
     S(bark_pal); S(shown_state); S(shown_best); S(band_now); S(parts);
-    S(pool_slot); S(pool_stamp); S(pool_used); S(pool_now);
+    S(pool_slot); S(pool_stamp); S(pool_used); S(pool_now); S(marg_slot); S(marg_stamp); S(marg_used); S(laid_w);
     RS_STATE_RASTER(raster);
 }
 #undef S
