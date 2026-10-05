@@ -166,6 +166,15 @@ void draw_reset_course(const world *w)
     cleared_col = world_scroll_px(w) / 8 > 1 ? world_scroll_px(w) / 8 - 1 : 0;
 }
 
+/* Widescreen: the first obstacle is at the same distance from the squid at every width (world.c), so a wide screen
+ * already shows the first gates when the run starts. Before it starts (the title, or waiting for the first flap) the
+ * obstacles on the screen are not shown: the title stays clear, and the first flap re-rolls the course anyway (a new
+ * seed from the start frame). At 4:3 none is on the screen then (the first one is just off it): nothing changes. */
+static int obstacle_hidden(const world *w, const obstacle *o)
+{
+    return !w->started && o->x < world_scroll_px(w) + rs_screen_width();
+}
+
 static void course_tiles(const world *w)
 {
     /* The course is drawn once per obstacle, but the first flap re-rolls it (a new seed from the
@@ -180,6 +189,7 @@ static void course_tiles(const world *w)
     for (int i = 0; i < w->nob; i++) {
         const obstacle *o = &w->ob[i];
         if (o->index <= drawn_index || o->x > sx + rs_screen_width() + 64) continue;
+        if (obstacle_hidden(w, o)) break;            /* in x order: drawn from the first flap on */
         put_column_part(o, 0, o->gap_top / 8);                              /* top: surface .. gap */
         put_column_part(o, (o->gap_top + GAP + 7) / 8, PLAY_H / 8);          /* bottom: gap .. seabed */
         drawn_index = o->index;
@@ -324,7 +334,7 @@ static void draw_caps(const world *w)
     int sx = world_scroll_px(w);
     for (int i = 0; i < w->nob; i++) {
         int x = w->ob[i].x - sx;
-        if (x <= -OBST_W || x >= rs_screen_right()) continue;      /* on screen only (wide: 3 themes may be ahead) */
+        if (x <= -OBST_W || x >= rs_screen_right() || obstacle_hidden(w, &w->ob[i])) continue;   /* on screen only */
         int th = w->ob[i].theme, k = th & 1;
         if (cap_theme[k] != th) {
             rs_pal_load(RS_PAL_OBJ(OBJ_CAPS + k), ls_cap_pals[th], 16);
@@ -334,7 +344,7 @@ static void draw_caps(const world *w)
     for (int i = 0; i < w->nob; i++) {
         const obstacle *o = &w->ob[i];
         int x = o->x - sx;
-        if (x <= -OBST_W || x >= rs_screen_right()) continue;
+        if (x <= -OBST_W || x >= rs_screen_right() || obstacle_hidden(w, o)) continue;
         spr(SPR_CAP_KELP + o->theme * 2, x, o->gap_top - CAP_H, 2, OBJ_CAPS + (o->theme & 1));
         spr(SPR_CAP_KELP + o->theme * 2 + 1, x, o->gap_top + GAP, 2, OBJ_CAPS + (o->theme & 1));
     }

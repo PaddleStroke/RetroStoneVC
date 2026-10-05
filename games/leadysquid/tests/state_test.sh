@@ -74,7 +74,7 @@ scenario race4 300 400
 scenario run4p 500 500 bot=4 ready=1
 : > "$O/results4.input"
 # the results show from frame 824 (save after them: the new best of the game over is in the battery save, not in the
-# state). Widescreen: the first obstacle waits just off the real edge, so the race ends later: find when.
+# state). Widescreen: the bots see further ahead, so the race may end on another frame: find when.
 n=840
 if [ -n "$RS_WIDTH" ] && [ "$RS_WIDTH" -gt 320 ]; then
     f=$($T --opt bot=4 --opt botstop=1 --opt ready=1 --opt botruns=2 --input "$O/results4.input" --frames 2400 --after 1 \

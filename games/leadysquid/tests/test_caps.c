@@ -17,7 +17,8 @@
  * Every gap value of the first theme (--opt skip=N) and every scroll phase must be covered.
  *
  *   test_caps [--runs N] [--seed S] [--width N] [--opt key=value]...   (--opt skip=10 for coral, ...)
- * Widescreen: --width N (or the environment variable RS_WIDTH) checks every obstacle on the wider screen.
+ * Widescreen: --width N (or the environment variable RS_WIDTH) checks every obstacle on the wider screen; before a run
+ * starts, the obstacles already on it must be entirely hidden (no cap, no column body: the title stays clear).
  */
 #include "ls.h"
 #include "rs_host.h"
@@ -33,7 +34,7 @@ static int SW = RS_SCREEN_W;                     /* the screen width (widescreen
 
 static uint16_t with_bg2[RS_SCREEN_W_MAX * SH], without_bg2[RS_SCREEN_W_MAX * SH];
 static uint8_t body[SH][RS_SCREEN_W_MAX];        /* 1 = a BG2 pixel shows here */
-static int fails, fail_courses, checked_obstacles, checked_frames;
+static int fails, fail_courses, checked_obstacles, checked_frames, hidden_checked;
 static uint32_t last_fail_seed;
 static uint8_t gap_seen[THEMES][PLAY_H], phase_seen[8];
 static uint32_t rng_state = 12345;
@@ -116,6 +117,18 @@ static void check_frame(const world *w, int frame)
         int ox = o->x - sx, g = o->gap_top;
         int x0 = ox < 0 ? 0 : ox, x1 = ox + OBST_W > SW ? SW : ox + OBST_W;
         if (x1 <= x0) continue;
+        /* widescreen: before the run starts, the obstacles on the screen are not shown at all (draw.c; the first flap
+         * re-rolls the course): no cap, no column body in their columns. At 4:3 none is on the screen then. */
+        if (!w->started) {
+            int n = 0;
+            for (int y = 0; y < PLAY_H; y++)
+                for (int x = x0; x < x1; x++) n += body[y][x];
+            if (n || cap_in_oam(SPR_CAP_KELP + o->theme * 2, ox, g - CAP_H) ||
+                cap_in_oam(SPR_CAP_KELP + o->theme * 2 + 1, ox, g + GAP))
+                fail(frame, w->seed, o, ox, "an obstacle shown before the run starts (the title must stay clear)");
+            hidden_checked++;
+            continue;
+        }
         checked_obstacles++;
         gap_seen[o->theme][g] = 1;
         /* the caps (sprites) at the gap's exact pixel height */
@@ -237,6 +250,11 @@ int main(int argc, char **argv)
            "%d/8 scroll phases\n",
            fails ? "FAIL" : "ok  ", names[first_theme < 0 ? 0 : first_theme], done, checked_frames, checked_obstacles,
            cover, phases);
+    if (SW > RS_SCREEN_W) {   /* widescreen: the obstacles on the screen before a run starts are hidden (draw.c) */
+        printf("  %s obstacles hidden before the start: %d views on the title\n", hidden_checked ? "ok  " : "FAIL",
+               hidden_checked);
+        if (!hidden_checked) fails++;
+    }
     if (fails) printf("  %d failed checks, on %d of the %d courses (runs) played\n", fails, fail_courses, done);
     if (first_theme >= 0) {
         int n = 0;

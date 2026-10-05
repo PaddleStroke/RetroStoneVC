@@ -273,10 +273,11 @@ static void test_death_and_determinism(void)
     CHECK(h[0] == h[1], "two identical runs: %08x %08x", h[0], h[1]);
 }
 
-/* Widescreen: the same course at every width (the same gaps and themes, one spacing apart, from a first obstacle
- * just off the real screen edge); a pilot through it scores the same, its first obstacle d frames later. */
+/* Widescreen: the same course at every width (the same gaps and themes, one spacing apart), its first obstacle at the
+ * same distance from the squid when the run starts (no longer run-up on a wide screen; the next ones are generated up
+ * to the real edge); a pilot through it scores the same on the same frames. */
 #define WS_FRAMES (72 * 40)
-static void ws_run(int width, int score[WS_FRAMES], int gaps[64], int *first_x)
+static void ws_run(int width, int score[WS_FRAMES], int gaps[64], int *first_dist, int *ahead)
 {
     rs_host_set_width(width);
     rs_host_reset();
@@ -284,8 +285,11 @@ static void ws_run(int width, int score[WS_FRAMES], int gaps[64], int *first_x)
     world_init(&w, 1, 4242, 0);
     w.fixed_seed = 1;
     int flap[MAX_PLAYERS] = {1, 0}, none[MAX_PLAYERS] = {0, 0};
+    int sx0 = world_scroll_px(&w);                                    /* the scroll when the start flap comes */
     world_step(&w, flap);
-    *first_x = w.ob[0].x;
+    int first_x = w.ob[0].x;
+    *first_dist = first_x - (sx0 + w.sq[0].x);                         /* the first obstacle, ahead of the squid */
+    *ahead = w.ob[w.nob - 1].x - (world_scroll_px(&w) + width);        /* the course reaches past the real edge */
     for (int i = 0; i < 64; i++) gaps[i] = -1;
     for (int f = 0; f < WS_FRAMES; f++) {
         const obstacle *o = world_next_obstacle(&w, 0);
@@ -295,7 +299,7 @@ static void ws_run(int width, int score[WS_FRAMES], int gaps[64], int *first_x)
         world_step(&w, none);
         for (int i = 0; i < w.nob; i++)
             if (w.ob[i].index < 64) {
-                int v = w.ob[i].gap_top * 16 + w.ob[i].theme + 4 * (w.ob[i].x - *first_x == w.ob[i].index * SPACING);
+                int v = w.ob[i].gap_top * 16 + w.ob[i].theme + 4 * (w.ob[i].x - first_x == w.ob[i].index * SPACING);
                 if (gaps[w.ob[i].index] >= 0 && gaps[w.ob[i].index] != v) gaps[w.ob[i].index] = -2;
                 else gaps[w.ob[i].index] = v;
             }
@@ -307,19 +311,21 @@ static void test_widescreen(void)
 {
     printf("widescreen\n");
     static int s320[WS_FRAMES], sw[WS_FRAMES];
-    int g320[64], gw[64], fx320, fxw;
-    ws_run(RS_SCREEN_W, s320, g320, &fx320);
-    CHECK(fx320 == FIRST_OBST_X, "320 columns: the first obstacle at x %d", fx320);
+    int g320[64], gw[64], d320, dw, a320, aw;
+    ws_run(RS_SCREEN_W, s320, g320, &d320, &a320);
+    CHECK(d320 == FIRST_OBST_X - SQUID_X, "320 columns: the first obstacle %d px ahead of the squid", d320);
+    CHECK(a320 >= 0, "320 columns: the course reaches %d px past the edge", a320);
     static const int widths[] = {427, 520, 560};
     for (int k = 0; k < 3; k++) {
-        ws_run(widths[k], sw, gw, &fxw);
-        int d = fxw - fx320, same_course = !memcmp(g320, gw, 32 * sizeof *gw) && g320[31] >= 0, same_score = 1;
-        for (int f = 0; f + d < WS_FRAMES; f++) same_score &= s320[f] == sw[f + d] && s320[f] >= 0;
-        CHECK(fxw >= FIRST_OBST_X + widths[k] - RS_SCREEN_W && fxw % 8 == 0 && fxw - widths[k] < 8,
-              "%d columns: the first obstacle just off the real edge, x %d", widths[k], fxw);
+        ws_run(widths[k], sw, gw, &dw, &aw);
+        int same_course = !memcmp(g320, gw, 32 * sizeof *gw) && g320[31] >= 0, same_score = 1;
+        for (int f = 0; f < WS_FRAMES; f++) same_score &= s320[f] == sw[f] && s320[f] >= 0;
+        CHECK(dw == d320, "%d columns: the first obstacle %d px ahead of the squid at the start (320: %d)", widths[k],
+              dw, d320);
+        CHECK(aw >= 0, "%d columns: the course reaches %d px past the real edge", widths[k], aw);
         CHECK(same_course, "%d columns: the same course (32 obstacles: gaps, themes, one spacing apart)", widths[k]);
-        CHECK(same_score, "%d columns: the pilot scores the same, %d frames later (%d points)", widths[k], d,
-              s320[WS_FRAMES - 1 - d]);
+        CHECK(same_score, "%d columns: the pilot scores the same on the same frames (%d points)", widths[k],
+              s320[WS_FRAMES - 1]);
     }
     rs_host_set_width(RS_SCREEN_W);
     rs_host_reset();

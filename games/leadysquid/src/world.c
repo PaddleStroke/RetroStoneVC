@@ -17,16 +17,16 @@ int squid_start_y(int players, int p)
     return SQUID_START_Y + (players <= 2 ? 0 : dy[p & 3]);
 }
 
-/* Widescreen (DESIGN.md "Widescreen"): the course is world content, revealed wider. The first obstacle waits just off
- * the REAL right edge of the screen (320 at 4:3, on the 8-px grid); from there the course is the same at every width:
- * the same gaps (the RNG is drawn per obstacle, in order), the same spacing, the same physics. Each obstacle is placed
- * one spacing after the previous one, so a state saved at one width goes on with the same course at another. */
-static int first_obstacle_x(void) { return FIRST_OBST_X + ((rs_screen_width() - RS_SCREEN_W + 7) & ~7); }
-
+/* Widescreen (DESIGN.md "Widescreen"): the course is world content, revealed wider. The first obstacle is at
+ * FIRST_OBST_X at every width, the same distance from the squid as at 4:3 (a wide screen already shows the first
+ * gates when the run starts: draw.c keeps them off the title); the next ones are generated up to the REAL right edge
+ * and come into view there. The course is the same at every width: the same gaps (the RNG is drawn per obstacle, in
+ * order), the same spacing, the same physics. Each obstacle is placed one spacing after the previous one, so a state
+ * saved at one width goes on with the same course at another. */
 static void add_obstacle(world *w)
 {
     obstacle o = obstacle_make(&w->rng, w->next_index);
-    o.x = w->nob ? w->ob[w->nob - 1].x + SPACING : first_obstacle_x();
+    o.x = w->nob ? w->ob[w->nob - 1].x + SPACING : FIRST_OBST_X;
     w->ob[w->nob++] = o;
     w->next_index++;
 }

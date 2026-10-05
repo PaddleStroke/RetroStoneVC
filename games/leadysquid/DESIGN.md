@@ -127,11 +127,14 @@ The game opts in (`max_width` = 560, `WIDESCREEN_leadysquid = 1`): 320 (4:3) is 
 (16:9) or 520 (phones) **the world is simply revealed wider**, to the right.
 - The stage origin stays 0: the squids swim at the same screen x (96, P2-P4 behind), the screen shows further ahead.
   Seeing further makes it a little easier; the owner accepts it (no compensation).
-- **The course is world content.** Obstacles are generated up to two spacings past the REAL right edge, so they come
-  into view at that edge; the first one waits just off it (x 320 at 4:3, 432 at 427, 520 at 520: on the 8-px grid).
-  From there the course is identical at every width: the same gaps and themes (the RNG is drawn per obstacle, in
-  order), the same spacing (each obstacle one spacing after the previous), the same physics and scoring. Only the
-  run-up to the first obstacle is longer (by the extra width, at 1 px per frame). tests/test_physics.c checks it.
+- **The course is world content.** The first obstacle is at the same distance from the squid at every width (x 320,
+  224 px ahead: the run-up of 4:3, not one growing with the width, which the owner's phone test found too long), so a
+  wide screen already shows the first gates when the run starts. Before the start (the title, waiting for the first
+  flap) the gates on the screen are not drawn: the title stays clear, and the first flap re-rolls the course anyway
+  (a seed from the start frame); they are there from the run's first frame, nothing pops in later. The next ones are
+  generated up to two spacings past the REAL right edge and come into view there. The course is identical at every
+  width: the same gaps and themes (the RNG is drawn per obstacle, in order), the same spacing (each obstacle one
+  spacing after the previous), the same physics and scoring, on the same frames. tests/test_physics.c checks it.
 - The scenery maps are 128 tiles wide on a wide screen (64 at 320): the seabed, the mid-ground and the reef panoramas
   continue with their mirror image (the same tiles h-flipped: no VRAM, seamless joins), so nothing repeats on screen;
   the additive rays are copied (they slant). The course columns use the wider map too.
