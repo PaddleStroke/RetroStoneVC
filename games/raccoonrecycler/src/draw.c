@@ -6,12 +6,22 @@
 #include <stdio.h>
 #include <string.h>
 static const rs_color title_ramps[2][3]={{RS_RGB8(230,222,174),RS_RGB8(191,168,120),RS_RGB8(118,93,79)},{RS_RGB8(207,237,154),RS_RGB8(127,188,100),RS_RGB8(64,127,98)}};
+/* Widescreen (DESIGN.md "Widescreen"): a screen wider than 320 centres the 320-px stage (rs_screen_origin) and shows
+ * more of the yard on both sides: the ground layer is then the 128-tile wide map (make_art.py WIDE_L; its new tiles
+ * after the classic ones). The bin lips (BG2) and the UI layer stay inside the stage: their 64-tile maps suffice. */
+static int ground_map_w(void){return rs_screen_width()>RS_SCREEN_W?128:64;}
+static void ground_tiles(void){rs_tiles_load(VR_BG2,gm_bg2_tiles,ground_map_w()>64?gm_bg2_wide_tile_count:gm_bg2_tile_count);}
+static void ground_fill(void){
+ int mw=ground_map_w();
+ for(int y=0;y<GROUND_H;y++)for(int x=0;x<mw;x++)rs_bg_put(RS_BG3,x,y,mw>64?gm_ground_wide_map[y*128+x]:gm_ground_map[y*64+x]);
+}
 void draw_init(void){
+ rs_screen_origin(rs_screen_margin());
  hu_config hc=hu_defaults();hc.obj_tile=KIT_OBJ_TILE;hc.obj_vram=VR_OBJ;hc.obj_pal=3;hu_init(&hc);
- rs_bg_setup(RS_BG1,64,32,VR_BG1);rs_bg_setup(RS_BG2,64,32,VR_BG3);rs_bg_setup(RS_BG3,64,32,VR_BG2);
- rs_tiles_load(VR_BG2,gm_bg2_tiles,gm_bg2_tile_count);rs_tiles_load(VR_BG3,gm_bg3_tiles,gm_bg3_tile_count);
+ rs_bg_setup(RS_BG1,64,32,VR_BG1);rs_bg_setup(RS_BG2,64,32,VR_BG3);rs_bg_setup(RS_BG3,ground_map_w(),32,VR_BG2);
+ ground_tiles();rs_tiles_load(VR_BG3,gm_bg3_tiles,gm_bg3_tile_count);
  rs_pal_load(RS_PAL_BG(PAL_GROUND),gm_ground_pal,16);rs_pal_load(RS_PAL_BG(PAL_HILLS),gm_hills_pal,16);
- for(int y=0;y<GROUND_H;y++)for(int x=0;x<64;x++)rs_bg_put(RS_BG3,x,y,gm_ground_map[y*64+x]);
+ ground_fill();
  for(int y=0;y<HILLS_H;y++)for(int x=0;x<64;x++)rs_bg_put(RS_BG2,x,y,gm_hills_map[y*64+x]|(1u<<13));
  for(int l=0;l<3;l++)rs_bg_enable(l,1);
  rs_obj_base(VR_OBJ);rs_tiles_load(VR_OBJ,gm_obj_tiles,gm_obj_tile_count);rs_pal_load(RS_PAL_OBJ(0),gm_obj_pals,48);rs_pal_load(RS_PAL_OBJ(4),gm_obj_pals+64,32);
@@ -73,3 +83,9 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  hu_pause(paused,13);
 }
 void draw_state(void){}
+/* After a state was loaded: the width is not in a state, and one saved at another width brings that width's ground
+ * map; lay out this width's (static scenery: nothing else depends on the width). */
+void draw_relayout(void){
+ if(rs_bg_map_w(RS_BG3)==ground_map_w())return;
+ rs_bg_setup(RS_BG3,ground_map_w(),32,VR_BG2);ground_tiles();ground_fill();
+}

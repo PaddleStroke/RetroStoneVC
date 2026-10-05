@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
-"""Integration checks for real input edges, actual frozen menu, pause, checked SRAM and determinism."""
-import subprocess,sys,pathlib,re
+"""Integration checks for real input edges, actual frozen menu, pause, checked SRAM and determinism.
+Widescreen (DESIGN.md "Widescreen"): RS_WIDTH=N runs them at that width; the pictures are N wide and the 320-px
+stage is centred in them (x + m, m = (width - 320) // 2)."""
+import subprocess,sys,pathlib,re,os
 from PIL import Image
 H=sys.argv[1];O=pathlib.Path(sys.argv[2])/ 'raccoonrecycler-tests';O.mkdir(parents=True,exist_ok=True)
 def run(frames=100,input=None,opts=(),sram=None,png=None):
@@ -29,7 +31,8 @@ for button in ['UP','DOWN']:
 # Compare every opaque duck pixel with its asset: treads must never overwrite it.
 layer_png=O/'item-layering.png'
 run(90,'30 tap A\n',opts=['seed=7'],png=layer_png)
-shot=Image.open(layer_png).convert('RGB')
+shot=Image.open(layer_png).convert('RGB');m=(shot.width-320)//2
+assert shot.width==int(os.environ.get('RS_WIDTH','320')),('the picture is %d wide' % shot.width)
 sheet=Image.open(pathlib.Path(__file__).resolve().parents[1]/'art'/'sprites.png').convert('RGB')
 for y in range(32):
  for x in range(32):
@@ -37,17 +40,17 @@ for y in range(32):
   if rgb==(255,0,255):continue
   r,g,b=[c>>3 for c in rgb];g=(g<<1)|(g>>4)
   expected=((r<<3)|(r>>2),(g<<2)|(g>>4),(b<<3)|(b>>2))
-  assert shot.getpixel((144+x,92+y))==expected,(x,y,shot.getpixel((144+x,92+y)),expected)
+  assert shot.getpixel((m+144+x,92+y))==expected,(x,y,shot.getpixel((m+144+x,92+y)),expected)
 # Bin signs must stay intact while a routed toy drops behind the front panel.
 run(166,'30 tap A\n',opts=['seed=7'],png=layer_png)
-shot=Image.open(layer_png).convert('RGB')
+shot=Image.open(layer_png).convert('RGB');m=(shot.width-320)//2
 for y in range(32):
  for x in range(32):
   rgb=sheet.getpixel((x,64+y))
   if rgb==(255,0,255):continue
   r,g,b=[c>>3 for c in rgb];g=(g<<1)|(g>>4)
   expected=((r<<3)|(r>>2),(g<<2)|(g>>4),(b<<3)|(b>>2))
-  assert shot.getpixel((80+x,197+y))==expected,(x,y,'bin badge obscured')
+  assert shot.getpixel((m+80+x,197+y))==expected,(x,y,'bin badge obscured')
 s,_=run(6000,'30 tap A\n',opts=['seed=7']);assert field(s,'st')==3 and field(s,'runs')==1
 s,_=run(6020,'30 tap A\n6000 tap A\n',opts=['seed=7']);assert field(s,'st')==0 and field(s,'players')==1
 p='30 tap A\n90 tap SELECT\n';a,_=run(120,p,opts=['seed=7']);b,_=run(400,p,opts=['seed=7']);assert field(a,'paused')==field(b,'paused')==1 and field(a,'scroll')==field(b,'scroll')

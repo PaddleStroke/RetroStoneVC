@@ -28,6 +28,7 @@ VR_BG1, VR_BG2, VR_BG3, VR_OBJ = 0, 1024, 2304, 3072
 KIT_OBJ_TILE = 512                                        # the kit's sprites (house_ui.h HU_OBJ_TILES) after ours
 # players 2-4: the hero's hue rotated (house_style.player_palettes: P2 by P2_HUE, P3 and P4 to the hues farthest from
 # P1's and P2's); REPLACE the hue range with the hero's main colour's
+RS_STAGE_COLS = 40                                       # the 320-px stage: map columns 0..39
 P2_HUE = (0.15, 0.30, 0.30)                              # pinks -> blues
 
 
@@ -61,7 +62,29 @@ def main():
         f, w, hh = make_art.PANORAMAS[key]
         img = rsasset.load(os.path.join(a.art, f))
         r = rsasset.convert_bg(cells8(img, 0, 0, w, hh), 1, pal_base=pal, tile_base=0)
-        c.append(rsasset.c_bytes("gm_%s_tiles" % layer, rsasset.tiles_bytes(r.tiles)))
+        tiles = r.tiles
+        if key == "ground":
+            # widescreen (make_art.py WIDE_L): the 128-tile map of a screen wider than 320, its new tiles after the
+            # classic ones (a 320-px screen loads only those); map x = stage x & 1023
+            wf, ww, wh = make_art.PANORAMAS["ground_wide"]
+            cells = cells8(img, 0, 0, w, hh)
+            rw = rsasset.convert_bg(cells + cells8(rsasset.load(os.path.join(a.art, wf)), 0, 0, ww, wh), 1,
+                                    pal_base=pal, tile_base=0)
+            n = len(cells)
+            assert rw.palettes == r.palettes and rw.tiles[:len(r.tiles)] == r.tiles and rw.metas[:n] == r.metas, \
+                "the wide ground changes the classic one"
+            wide = [m[0] for m in rw.metas[n:]]
+            for yy in range(hh // 8):
+                for x in range(RS_STAGE_COLS):
+                    assert wide[yy * (ww // 8) + x] == r.metas[yy * (w // 8) + x][0], "the wide ground's stage differs"
+            tiles = rw.tiles
+            c.append(arr("gm_ground_wide_map", wide))
+            c.append("const int gm_%s_wide_tile_count = %d;" % (layer, len(rw.tiles)))
+            h.append("/* widescreen: the 128 x %d ground map (the classic tiles and the wide ones after them) */\n"
+                     "extern const uint16_t gm_ground_wide_map[128 * %d];\nextern const int gm_%s_wide_tile_count;" %
+                     (hh // 8, hh // 8, layer))
+            stats.append("%s +%d wide" % (layer.upper(), len(rw.tiles) - len(r.tiles)))
+        c.append(rsasset.c_bytes("gm_%s_tiles" % layer, rsasset.tiles_bytes(tiles)))
         c.append("const int gm_%s_tile_count = %d;" % (layer, len(r.tiles)))
         c.append(arr("gm_%s_map" % key, [m[0] for m in r.metas]))
         c.append(arr("gm_%s_pal" % key, rsasset.palette16(r.palettes[0])))

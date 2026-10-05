@@ -30,6 +30,7 @@ run --frames 6000 --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=21
 f=$(sed -n 's/.*run 1 over at frame \([0-9]*\).*/\1/p' "$O/log.txt")
 if [ -n "$f" ]; then
     run --frames $((f + 60)) --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=21 --shot $((f + 50)):"$O/gameover-medal.png"
+    go=$f
 else
     ko "the bot run for the game-over screen did not end"
 fi
@@ -52,5 +53,19 @@ if [ "$d" -ge "$n" ]; then ok "the $n screens all differ"; else ko "only $d diff
 cp "$O/title.png" "$O/title.1"
 run --frames 130 --shot 120:"$O/title.png"
 if cmp -s "$O/title.png" "$O/title.1"; then ok "the title renders the same twice"; else ko "the title differs between two runs"; fi
+# widescreen (DESIGN.md "Widescreen"): the title, a run and the game over at 427 (16:9) and 520 (phones); from the
+# 320 run only (with RS_WIDTH set, the whole test already runs wide)
+if [ -z "${RS_WIDTH:-}" ]; then
+    for W in 427 520; do
+        run --width $W --frames 130 --shot 120:"$O/title-$W.png"
+        run --width $W --frames 700 --opt bot=1 --opt seed=7 --opt ready=1 --shot 690:"$O/play-$W.png"
+        [ -n "${go:-}" ] && run --width $W --frames $((go + 60)) --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=21 \
+            --shot $((go + 50)):"$O/gameover-$W.png"
+        for s in title play gameover; do
+            pw=$(od -An -tu1 -j16 -N4 "$O/$s-$W.png" 2>/dev/null | awk '{print $1 * 16777216 + $2 * 65536 + $3 * 256 + $4}')
+            if [ "$pw" = $((W * S)) ]; then ok "widescreen: $s-$W ($pw px wide)"; else ko "widescreen: $s-$W is '$pw' px wide"; fi
+        done
+    done
+fi
 rm -f "$O/title.1" "$O/log.txt" "$O"/*.input
 exit $fail

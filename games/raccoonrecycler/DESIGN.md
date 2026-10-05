@@ -53,3 +53,33 @@ deterministic screenshots, save-state replay and native Windows 1P/4P execution.
 The current bin order belongs to the registered world and restores with the
 exact items, rule-change timing and seeded random state.
 
+## Widescreen
+The game opts in (`max_width` = 560, `WIDESCREEN_raccoonrecycler = 1`): a wider screen shows more of the recycling
+yard; the game is unchanged. At 320 columns everything is the 4:3 game byte for byte (the same maps, tiles and tile
+numbers; checked against the pre-widescreen pictures and logs).
+- **A fixed screen: the stage centred.** `rs_screen_origin(rs_screen_margin())` (draw_init): the conveyor, the
+  junction, the bins, the workstations, the scores and every sprite are the same pixels at every width; the screen
+  also shows stage x -margin .. 320 + margin (53 px each side at 427, 100 at 520, 120 at 560). The house kit centres
+  the title, the panels, the results and the pause; sounds pan by the screen x (the kit).
+- **The yard is drawn wider by make_art.py** (`ground_wide`, art/tiles/ground_wide.png), never stretched: the ground
+  layer becomes a 128-tile map (map x = stage x & 1023, drawn for stage x -120 .. 440, blank elsewhere); its stage
+  columns are checked identical to the classic map (build_assets.py), its new tiles come after the classic ones (a
+  320-px screen loads only those) and it uses the classic palette's colours only. The sky bands, the fence, its rail
+  and its trees, the kerb and the sand go on; left the workshop shed (its open door with shelves of toys, a window,
+  the recycling sign; from 520), a blue barrel and the crate stack with its toys to sort (from 427), a pallet of
+  sacks in the yard; right the green recycling skip (from 427), cardboard bales and a hand cart with a barrel. The
+  bin lips (BG2) and the UI layer stay within the stage: their 64-tile maps are unchanged.
+- **VRAM.** The wide ground adds 206 tiles (518 ground tiles of the 1024 its base allows); the strict runs stay clean.
+- **Multiplayer.** A shared screen: the 2-4 raccoons, their junction strips and their scores stay where they are
+  on the stage; the margins are scenery only.
+- **The same game at every width.** The rules and the bots never see the width: tests/wide_test.sh compares the
+  whole logs of 1, 2 and 4-player bot runs (to the game over and the results) at 320, 427, 520 and 560.
+- **Save states.** The width is not in a state, and nothing saved depends on it; a state saved at another width
+  brings that width's ground map, which `state_loaded` (draw_relayout) lays out again for this width.
+  tests/wide_test.sh: states saved at 320, 427, 520 and 560 (a run, the lobby, paused, a rule change, a game over,
+  a race, the 4-player results) load and play at the other widths (`--any-width`); a live width change (`--resize`)
+  goes on as the run that never changed.
+- **Tests at each width of WIDTHS** (427, 520; `make raccoonrecycler-check`): test_libretro (16:9, Wide), the
+  integration checks (check_game.py: strict mode, the item and badge pixels at the centred stage), the UI screens,
+  the save states, then tests/wide_test.sh and the language test at 320, 427 and 520. Screenshots: title, play and
+  gameover at 427 and 520 (`make raccoonrecycler-screenshots`).
