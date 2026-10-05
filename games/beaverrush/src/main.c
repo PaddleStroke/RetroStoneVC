@@ -20,6 +20,7 @@
 #include "draw.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "game_text.h"
 #include "house_audio.h"
 #include <stdio.h>
 #include <string.h>
@@ -287,7 +288,7 @@ static void game_init(void)
     audio_set(rs_option_int("music", 1), rs_option_int("sound", 1));
     sfx_init();
     draw_init();                          /* hu_init (draw.c) */
-    hu_title_cfg tc = {START_INPUTS, MAX_PLAYERS, "GNAW", NULL, 0};
+    hu_title_cfg tc = {START_INPUTS, MAX_PLAYERS, TR(VERB), NULL, 0};
     hu_title_setup(&tc);
     opt_bot = clampi(rs_option_int("bot", 0), 0, MAX_PLAYERS);
     opt_botruns = rs_option_int("botruns", 1);

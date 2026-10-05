@@ -14,6 +14,7 @@
 #include "draw.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "game_text.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -622,9 +623,9 @@ static void draw_family(const world *w, int t)
 /* ---- the screens (the house kit) ---------------------------------------------------------------------------------- */
 static const char *scene_name(int stage, char *s, size_t n)
 {
-    static const char *const tod[4] = {"DAWN", "DAY", "SUNSET", "NIGHT"};
-    static const char *const sea[4] = {"SUMMER", "AUTUMN", "WINTER", "SPRING"};
-    snprintf(s, n, "%s %s", sea[(stage / 4) % 4], tod[stage % 4]);
+    static const int tod[4] = {GS_TOD_DAWN, GS_TOD_DAY, GS_TOD_SUNSET, GS_TOD_NIGHT};
+    static const int sea[4] = {GS_SEASON_SUMMER, GS_SEASON_AUTUMN, GS_SEASON_WINTER, GS_SEASON_SPRING};
+    rs_strf(s, n, TR(SCENE), rs_tr(&gs_strings, sea[(stage / 4) % 4]), rs_tr(&gs_strings, tod[stage % 4]));
     return s;
 }
 
@@ -648,7 +649,7 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         else hu_logo_hide();
         if (state == DS_OVER) {
             if (w->players == 1) {
-                hu_banner(4, "GAME OVER");
+                hu_banner(4, HTR(GAME_OVER));
                 hu_gameover_panel(1, new_best, w->bv[0].score, 0);
                 if (!hu_medal_of(w->bv[0].score, medal_scores)) hu_box_text(22, 17, "-");
             } else {
@@ -663,8 +664,8 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
     /* the title, every frame: PRESS <-/-> TO GNAW, the player slots, BEST, the join line, the credits */
     if (state == DS_TITLE) hu_title_draw(st_t, best);
     if (state == DS_OVER) {
-        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, "A: MAIN MENU");
-        else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, "A: MAIN MENU");
+        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_MENU));
+        else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_MENU));
     }
     /* the timer bars, one per view */
     if (state == DS_PLAY || state == DS_END) {

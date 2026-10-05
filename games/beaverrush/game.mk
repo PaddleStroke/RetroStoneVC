@@ -58,6 +58,7 @@ beaverrush-check:
 	    RS_WIDTH=$$w sh $(BR_DIR)/tests/state_test.sh build/host/beaverrush_test_states build/states-$$w; \
 	done
 	sh $(BR_DIR)/tests/wide_test.sh build/host/beaverrush_headless build/host/beaverrush_test_states build "$(WIDTHS)"
+	bash tools/i18n_test.sh build/host/beaverrush_headless beaverrush build/beaverrush-i18n 320 $(WIDTHS)
 
 beaverrush-screenshots:
 	+$(BR_MAKE) build/host/beaverrush_headless

@@ -1,0 +1,13 @@
+# Beaver Rush: the screens of the language test (tools/i18n_test.sh, docs/i18n.md), one headless run per line:
+#   <name> <frames> <shot frame> [options] [; input lines]
+title     130  120
+title2    130  120  --opt players=2
+title4    130  120  --opt players=4
+join      130  120  ; 20 P2 tap A ; 40 P3 tap A
+play      400  390  --opt bot=1 --opt seed=7 --opt ready=1
+milestone 480  475  --opt bot=1 --opt seed=7 --opt ready=1
+winter    250  240  --opt bot=1 --opt seed=3 --opt ready=1 --opt skip=410
+play4     400  390  --opt bot=4 --opt players=4 --opt seed=9 --opt ready=1
+pause     400  395  --opt bot=1 --opt seed=7 --opt ready=1 ; 380 tap START
+over      800  790  --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=60
+results   5200 5190 --opt bot=4 --opt players=4 --opt seed=9 --opt ready=1
