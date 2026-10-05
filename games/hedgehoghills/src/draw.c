@@ -2,6 +2,7 @@
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "game_text.h"
 #include <stdio.h>
 #include <string.h>
 static const rs_color title_ramps[2][3]={
@@ -157,34 +158,36 @@ static void screen_text(const world *w,int state,int st_t,int best,int new_best,
         if(state==ST_TITLE) hu_logo("HEDGEHOG HILLS",title_ramps,2,2,0);
         if(screen==ST_PLAY && w->players>=3) hu_score_tags(w->players,0);
         if(state==ST_OVER) {
-            if(w->players==1) { hu_banner(4,"GAME OVER"); hu_gameover_panel(1,new_best,w->h[0].score,0); }
+            if(w->players==1) { hu_banner(4,HTR(GAME_OVER)); hu_gameover_panel(1,new_best,w->h[0].score,0); }
             else hu_results_panel(rank,NULL);
         }
         shown_state=screen; shown_best=best;
     }
     if(state==ST_TITLE) {
         hu_title_draw(st_t,best);
-        hu_text(4,16,"HOLD DOWNHILL. RELEASE UPHILL.");
+        /* the hint, centred (a column to the left, as the English always was) */
+        int hw=hu_width(TR(HINT_TITLE),0);
+        hu_text(hw<38?(38-hw)/2:0,16,TR(HINT_TITLE));
     }
     if(state==ST_OVER) {
-        if(w->players==1) hu_retry_line(st_t,RETRY_LOCK,"A: TITLE");
-        else hu_retry_line_at(hu_results_retry_row(rank),st_t,RETRY_LOCK,"A: TITLE");
+        if(w->players==1) hu_retry_line(st_t,RETRY_LOCK,HTR(BACK_TITLE));
+        else hu_retry_line_at(hu_results_retry_row(rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));
     }
     if(screen==ST_PLAY) {
         int focus=0;
         for(int p=0;p<w->players;p++)
             if(w->h[p].state==HS_RUN && (w->h[focus].state!=HS_RUN || w->h[p].wx>w->h[focus].wx)) focus=p;
-        char txt[32]; int margin=(int)((w->h[focus].wx-w->frost)/Q16_ONE)/16;
+        char txt[160]; int margin=(int)((w->h[focus].wx-w->frost)/Q16_ONE)/16;
         if(margin<0) margin=0;
         hu_clear_rows(4,3);
-        if(w->players>1) snprintf(txt,sizeof txt,"P%d FROST %d M",focus+1,margin);
-        else snprintf(txt,sizeof txt,"FROST %d M",margin);
+        if(w->players>1) rs_strf(txt,sizeof txt,TR(HUD_FROST_PLAYER),focus+1,margin);
+        else rs_strf(txt,sizeof txt,TR(HUD_FROST),margin);
         hu_text(hu_center(txt,0),4,txt);
         const hero *h=&w->h[focus];
-        if(h->smooth_t>0) snprintf(txt,sizeof txt,"SMOOTH! X%d",h->combo);
-        else if(h->smooth_t<0 && h->land_t<55) snprintf(txt,sizeof txt,"OUCH! KEEP YOUR SPEED");
-        else if(w->t<360) snprintf(txt,sizeof txt,h->held?"RELEASE BEFORE THE CLIMB":"HOLD TO ROLL DOWNHILL");
-        else snprintf(txt,sizeof txt,"APPLES %d",h->apples);
+        if(h->smooth_t>0) rs_strf(txt,sizeof txt,TR(MSG_SMOOTH),h->combo);
+        else if(h->smooth_t<0 && h->land_t<55) rs_strf(txt,sizeof txt,"%s",TR(MSG_OUCH));
+        else if(w->t<360) rs_strf(txt,sizeof txt,"%s",h->held?TR(HINT_RELEASE):TR(HINT_HOLD));
+        else rs_strf(txt,sizeof txt,TR(HUD_APPLES),h->apples);
         hu_text(hu_center(txt,0),6,txt);
     }
 }

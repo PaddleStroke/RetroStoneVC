@@ -1,0 +1,14 @@
+# Hedgehog Hills: the screens of the language test (tools/i18n_test.sh, docs/i18n.md), one headless run per line:
+#   <name> <frames> <shot frame> [options] [; input lines]
+title    100  90
+title2   100  90   ; 10 P2 tap A
+title4   100  90   ; 10 P2 tap A ; 20 P3 tap A ; 30 P4 tap A
+held     120  110  --opt seed=4 ; 30 A
+coast    120  110  --opt seed=4 ; 30 tap A
+play     1600 1590 --opt bot=1 --opt seed=4
+race2    1200 1190 --opt bot=2 --opt seed=4
+race4    1200 1190 --opt bot=4 --opt seed=4
+pause    120  110  --opt seed=4 ; 30 tap A ; 90 tap SELECT
+pause4   450  440  --opt bot=4 --opt seed=4 ; 400 tap SELECT
+over     1200 1190 --opt seed=4 ; 30 A
+results  2600 2590 --opt bot=4 --opt seed=4 --opt botstop=10

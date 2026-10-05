@@ -3,6 +3,7 @@
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "game_text.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -114,6 +115,23 @@ static void objects(const world *w,int p,int t,const split_view *v,const rs_view
             front+22-((w->t*3+i*39)%148),(w->t/3+i*47)%vp->h,1,-1);
     }
 }
+/* plain ASCII: no accent, no tall glyph (nothing in the row above the text) */
+static int plain(const char *s) {
+    for(;*s;s++) if((unsigned char)*s>=128) return 0;
+    return 1;
+}
+/* a word in the panel font on its own fill, with no frame (PAUSED): the kit's box text goes on a panel's fill, so
+ * a panel is laid under it and everything but the word's cells is blanked again */
+static void label(int x,int y,const char *s) {
+    int n=hu_width(s,0);
+    char blank[48];
+    if(n>(int)sizeof blank-3) n=(int)sizeof blank-3;
+    memset(blank,' ',(size_t)n+2); blank[n+2]=0;
+    hu_panel(x-1,y-1,n+2,3);
+    hu_text(x-1,y-1,blank); hu_text(x-1,y+1,blank);
+    hu_text(x-1,y," "); hu_text(x+n,y," ");
+    hu_box_text(x,y,s);
+}
 void draw_split_frame(const world *w,int st_t,int paused) {
     int fresh=nviews!=w->players;
     nviews=rs_viewport_layout(w->players,RS_LAYOUT_HSPLIT,views);
@@ -123,6 +141,9 @@ void draw_split_frame(const world *w,int st_t,int paused) {
         split_view *v=&V[p]; rs_viewport *vp=&views[p];
         const hero *h=&w->h[p];
         v->map_x=vp->x?32:0; v->map_y=vp->y?16:0;
+        /* the UI layer's columns of the view: a right-hand view (159 px: 20 columns) at 20, so that its text is in
+         * the kit's 40 columns (the scenery layers need 21 columns per view: they stay at 32) */
+        int ux=vp->x?20:0;
         int foot=h->y>>16,target=foot-vp->h*3/4;
         if(fresh) v->cam_y=target;
         else if(!paused) v->cam_y+=(target-v->cam_y)/8;
@@ -136,20 +157,21 @@ void draw_split_frame(const world *w,int st_t,int paused) {
         draw_scenery_colors(v->scroll,vp->h,v->sky,v->soil,v->hills);
         terrain(w,v,vp,&next_tile); hills(v,vp);
         vp->layers=7; vp->objs=1;
-        vp->sx[RS_BG1]=vp->sx[RS_BG2]=(int16_t)(v->map_x*8);
+        vp->sx[RS_BG1]=(int16_t)(ux*8); vp->sx[RS_BG2]=(int16_t)(v->map_x*8);
         vp->sy[RS_BG1]=vp->sy[RS_BG2]=(int16_t)(v->map_y*8);
-        char text[40];
-        snprintf(text,sizeof text,"P%d %d  A%d",p+1,h->score,h->apples);
-        hu_text(v->map_x+1,v->map_y+1,text);
+        char text[128];
+        rs_strf(text,sizeof text,TR(SPLIT_SCORE),p+1,h->score,h->apples);
+        hu_text(ux+1,v->map_y+1,text);
         int margin=(int)((h->wx-w->frost)/Q16_ONE)/16;
         if(margin<0) margin=0;
-        if(h->state==HS_HIT || h->state==HS_DOWN) snprintf(text,sizeof text,"FROZEN");
-        else snprintf(text,sizeof text,"FROST %dM",margin);
-        hu_text(v->map_x+1,v->map_y+2,text);
-        if(paused) hu_box_text(v->map_x+(vp->w/8-6)/2,v->map_y+6,"PAUSED");
+        if(h->state==HS_HIT || h->state==HS_DOWN) rs_strf(text,sizeof text,"%s",TR(SPLIT_FROZEN));
+        else rs_strf(text,sizeof text,TR(SPLIT_FROST),margin);
+        /* the second line right under the first; one row lower when its words have accents (the row above) */
+        hu_text(ux+1,v->map_y+(plain(TR(SPLIT_FROST)) && plain(TR(SPLIT_FROZEN))?2:3),text);
+        if(paused) label(ux+(vp->w/8-hu_width(HTR(PAUSED),0))/2,v->map_y+6,HTR(PAUSED));
         else if(h->smooth_t>0) {
-            snprintf(text,sizeof text,"SMOOTH X%d",h->combo);
-            hu_text(v->map_x+1,v->map_y+vp->h/8-1,text);
+            rs_strf(text,sizeof text,TR(SPLIT_SMOOTH),h->combo);
+            hu_text(ux+1,v->map_y+vp->h/8-1,text);
         }
         hu_view_oam_begin(vp); objects(w,p,st_t,v,vp); hu_view_oam_end(vp);
     }
