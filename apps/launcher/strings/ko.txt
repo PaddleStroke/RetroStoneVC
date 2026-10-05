@@ -1,0 +1,7 @@
+# The launcher's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+FULL_VERSION = 정식 버전
+IS_IN = %s에서 플레이
+GAMES_IN_APP[other] = 앱 하나에 게임 %d개
+GET_IT = GOOGLE PLAY에서 받기
+BACK = 뒤로
+N_GAMES[other] = 게임 %d개

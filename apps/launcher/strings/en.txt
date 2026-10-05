@@ -1,0 +1,24 @@
+# RetroStone Arcade: the launcher's strings (apps/launcher), the English source (docs/i18n.md). The game names and the
+# apps' names (RetroStone Arcade, Google Play) are never translated.
+
+#. The full (paid) app: the title of the "Get the full version" panel (2x letters) and the small banner in the menu's
+#. footer.
+#. max 16
+FULL_VERSION = FULL VERSION
+#. Under a locked game's picture; %s is the paid app's name (RETROSTONE ARCADE).
+#. max 34
+IS_IN = IS IN %s
+#. Under it: the number of games of the paid app.
+#. max 34
+GAMES_IN_APP[one] = %d GAME IN ONE APP
+GAMES_IN_APP[other] = %d GAMES IN ONE APP
+#. The panel's button: opens the paid app's page in the Play Store.
+#. max 22
+GET_IT = GET IT ON GOOGLE PLAY
+#. The panel's other button: closes it.
+#. max 8
+BACK = BACK
+#. The menu's footer when the "full version" banner is selected: how many games there are.
+#. max 20
+N_GAMES[one] = %d GAME
+N_GAMES[other] = %d GAMES

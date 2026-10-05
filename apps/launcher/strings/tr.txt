@@ -1,0 +1,9 @@
+# The launcher's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+FULL_VERSION = TAM SÜRÜM
+IS_IN = %s İÇİNDE
+GAMES_IN_APP[one] = TEK UYGULAMADA %d OYUN
+GAMES_IN_APP[other] = TEK UYGULAMADA %d OYUN
+GET_IT = GOOGLE PLAY'DEN İNDİR
+BACK = GERİ
+N_GAMES[one] = %d OYUN
+N_GAMES[other] = %d OYUN

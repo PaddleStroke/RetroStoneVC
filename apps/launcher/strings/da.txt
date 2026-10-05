@@ -1,0 +1,9 @@
+# The launcher's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+FULL_VERSION = FULD VERSION
+IS_IN = FINDES I %s
+GAMES_IN_APP[one] = %d SPIL I ÉN APP
+GAMES_IN_APP[other] = %d SPIL I ÉN APP
+GET_IT = HENT PÅ GOOGLE PLAY
+BACK = TILBAGE
+N_GAMES[one] = %d SPIL
+N_GAMES[other] = %d SPIL

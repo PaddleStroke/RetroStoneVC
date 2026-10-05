@@ -1,0 +1,11 @@
+# The launcher's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+FULL_VERSION = PLNÁ VERZE
+IS_IN = NAJDEŠ V %s
+GAMES_IN_APP[one] = %d HRA V JEDNÉ APLIKACI
+GAMES_IN_APP[few] = %d HRY V JEDNÉ APLIKACI
+GAMES_IN_APP[other] = %d HER V JEDNÉ APLIKACI
+GET_IT = STÁHNOUT Z GOOGLE PLAY
+BACK = ZPĚT
+N_GAMES[one] = %d HRA
+N_GAMES[few] = %d HRY
+N_GAMES[other] = %d HER

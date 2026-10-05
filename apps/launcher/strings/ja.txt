@@ -1,0 +1,7 @@
+# The launcher's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+FULL_VERSION = かんぜんばん
+IS_IN = %s であそべる
+GAMES_IN_APP[other] = ひとつのアプリに%dほん
+GET_IT = GOOGLE PLAYでみる
+BACK = もどる
+N_GAMES[other] = %dほんのゲーム

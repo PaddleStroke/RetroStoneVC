@@ -1,0 +1,9 @@
+# The launcher's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+FULL_VERSION = TÄYSI VERSIO
+IS_IN = SAATAVILLA: %s
+GAMES_IN_APP[one] = %d PELI YHDESSÄ SOVELLUKSESSA
+GAMES_IN_APP[other] = %d PELIÄ YHDESSÄ SOVELLUKSESSA
+GET_IT = HANKI GOOGLE PLAYSTA
+BACK = TAKAISIN
+N_GAMES[one] = %d PELI
+N_GAMES[other] = %d PELIÄ

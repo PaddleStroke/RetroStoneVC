@@ -1,0 +1,11 @@
+# The launcher's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+FULL_VERSION = ПОВНА ВЕРСІЯ
+IS_IN = Є В %s
+GAMES_IN_APP[one] = %d ГРА В ОДНОМУ ЗАСТОСУНКУ
+GAMES_IN_APP[few] = %d ГРИ В ОДНОМУ ЗАСТОСУНКУ
+GAMES_IN_APP[many] = %d ІГОР В ОДНОМУ ЗАСТОСУНКУ
+GET_IT = ВІДКРИТИ GOOGLE PLAY
+BACK = НАЗАД
+N_GAMES[one] = %d ГРА
+N_GAMES[few] = %d ГРИ
+N_GAMES[many] = %d ІГОР

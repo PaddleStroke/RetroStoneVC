@@ -1,0 +1,7 @@
+# The launcher's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+FULL_VERSION = 完整版
+IS_IN = 收录于 %s
+GAMES_IN_APP[other] = 一个应用 %d 款游戏
+GET_IT = 在 GOOGLE PLAY 获取
+BACK = 返回
+N_GAMES[other] = %d 款游戏
