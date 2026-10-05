@@ -8,7 +8,8 @@ frontends and drawn as the title logo ("Pogo Mamie"). It writes games/ID/ (game.
 ID-dist, ID-windows, ID-armhf, ID-screenshots and ID-art targets; src/ with the house flow (the title is the only
 menu: players 2-4 join there, P1 starts with the game's start inputs; up to 4 players; the results rank them); tools/ with
 make_art.py, make_music.py and build_assets.py on the house kit; tests/; DESIGN.md; README-windows.txt;
-art/incoming/TODO.md) and draws the art (tools/make_art.py). Then:
+art/incoming/TODO.md) and draws the art (tools/make_art.py). The new game opts in to widescreen (docs/spec.md
+"Widescreen": max_width, WIDESCREEN_ID = 1; its checks run at 320, 427 and 520). Then:
 
     make ID-check        build and test it;   make ID    the SDL2 build: build/host/ID
 

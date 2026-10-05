@@ -21,7 +21,8 @@ int hero_on_ground(const hero *h) { return h->y >= ((int32_t)GROUND_Y << 16) && 
 
 static void spawn(world *w)
 {
-    while (w->nb < BLOCK_MAX && w->next_x < (int)w->scroll + RS_SCREEN_W + 64) {
+    /* widescreen: up to the screen's real right edge (rs_screen_right(): stage coordinates) */
+    while (w->nb < BLOCK_MAX && w->next_x < (int)w->scroll + rs_screen_right() + 64) {
         w->bx[w->nb] = w->next_x;
         w->bidx[w->nb] = w->next_index++;
         w->nb++;
@@ -35,7 +36,7 @@ void world_init(world *w, int players, uint32_t seed)
     memset(w, 0, sizeof *w);
     w->seed = seed;
     rs_rng_seed(&w->rng, seed ? seed : 1);
-    w->next_x = RS_SCREEN_W + 32;
+    w->next_x = RS_SCREEN_W + 32;                   /* the same course at every width (a wide screen sees it sooner) */
     w->players = players < 1 ? 1 : players > MAX_PLAYERS ? MAX_PLAYERS : players;
     for (int p = 0; p < MAX_PLAYERS; p++) {
         hero_reset(&w->h[p], HERO_X + p * P_OFFSET_X);
@@ -135,7 +136,7 @@ void world_step(world *w, const int press[MAX_PLAYERS])
     if (running && world_running(w)) {
         w->scroll += SCROLL_SPEED;
         /* drop the blocks that left the screen */
-        while (w->nb > 0 && w->bx[0] + BLOCK_W < (int)w->scroll - 64) {
+        while (w->nb > 0 && w->bx[0] + BLOCK_W < (int)w->scroll + rs_screen_left() - 64) {   /* off the real left edge */
             memmove(w->bx, w->bx + 1, sizeof(int) * (size_t)(w->nb - 1));
             memmove(w->bidx, w->bidx + 1, sizeof(int) * (size_t)(w->nb - 1));
             w->nb--;

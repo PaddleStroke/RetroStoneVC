@@ -70,6 +70,7 @@ enum { ST_TITLE, ST_PLAY, ST_DEAD, ST_OVER };      /* no "get ready": the title 
 void draw_init(void);
 void draw_frame(const world *w, int state, int st_t, int best, int new_best, int paused);
 void draw_state(void);
+void draw_state_loaded(void);       /* widescreen: after a state saved at another width */
 
 /* ---- sound (main.c) ------------------------------------------------------------------------------------------------ */
 enum { SFX_JUMP, SFX_SCORE, SFX_HIT, SFX_LAND, SFX_COUNT };     /* the game's own sounds; the house set follows */

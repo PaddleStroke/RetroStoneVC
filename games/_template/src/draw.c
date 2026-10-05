@@ -3,6 +3,8 @@
  *   BG1 the UI (the house kit, priority 1), BG2 the ground (front), BG3 the far hills (parallax 1/4),
  *   the backdrop a raster sky gradient; sprites: the heroes (OBJ 0; players 2-4 OBJ 1, 4, 5 = the palette swaps),
  *   the props (OBJ 2), the kit's digits, glyphs and medals (OBJ 3).
+ * Widescreen (docs/spec.md "Widescreen", DESIGN.md): the 320-px stage is centred (rs_screen_origin) and a wider
+ * screen shows more of the ground and the hills on both sides; the UI kit centres itself.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/@ID@/LICENSE.
  */
 #include "game.h"
@@ -40,24 +42,44 @@ static void sky_gradient(void)
     }
 }
 
+/* Widescreen: the maps are 64 tiles (512 px) wide, 128 on a screen wider than 512 columns (else the 512-px panoramas
+ * would show twice); the second half mirrors the first (the same tiles h-flipped: seamless, no VRAM). The map size is
+ * saved in states: draw_state_loaded() sets the maps up again after a state of another width. */
+static int map_w(void) { return rs_screen_width() > 512 ? 128 : 64; }
+
+static void maps_setup(void)
+{
+    int mw = map_w();
+    rs_bg_setup(RS_BG1, mw, 32, VR_BG1);
+    rs_bg_setup(RS_BG2, mw, 32, VR_BG2);
+    rs_bg_setup(RS_BG3, mw, 32, VR_BG3);
+    for (int y = 0; y < GROUND_H; y++)
+        for (int x = 0; x < 64; x++) {
+            uint16_t e = gm_ground_map[y * 64 + x];
+            rs_bg_put(RS_BG2, x, GROUND_Y / 8 + y, e);
+            if (mw > 64) rs_bg_put(RS_BG2, 127 - x, GROUND_Y / 8 + y, (uint16_t)(e ^ RS_MAP_HFLIP));
+        }
+    for (int y = 0; y < HILLS_H; y++)
+        for (int x = 0; x < 64; x++) {
+            uint16_t e = gm_hills_map[y * 64 + x];
+            rs_bg_put(RS_BG3, x, HILLS_Y / 8 + y, e);
+            if (mw > 64) rs_bg_put(RS_BG3, 127 - x, HILLS_Y / 8 + y, (uint16_t)(e ^ RS_MAP_HFLIP));
+        }
+}
+
 void draw_init(void)
 {
+    rs_screen_origin(rs_screen_margin());   /* widescreen: the 320-px stage centred, more decor on both sides */
     hu_config hc = hu_defaults();       /* BG1 at VRAM 0, the kit at 0 on palette 0, the logo at 320 on palette 5 */
     hc.obj_tile = KIT_OBJ_TILE;         /* the kit sprites after the game's */
     hc.obj_vram = VR_OBJ;
     hc.obj_pal = 3;
     hu_init(&hc);
-    rs_bg_setup(RS_BG1, 64, 32, VR_BG1);
-    rs_bg_setup(RS_BG2, 64, 32, VR_BG2);
-    rs_bg_setup(RS_BG3, 64, 32, VR_BG3);
     rs_tiles_load(VR_BG2, gm_bg2_tiles, gm_bg2_tile_count);
     rs_tiles_load(VR_BG3, gm_bg3_tiles, gm_bg3_tile_count);
     rs_pal_load(RS_PAL_BG(PAL_GROUND), gm_ground_pal, 16);
     rs_pal_load(RS_PAL_BG(PAL_HILLS), gm_hills_pal, 16);
-    for (int y = 0; y < GROUND_H; y++)
-        for (int x = 0; x < 64; x++) rs_bg_put(RS_BG2, x, GROUND_Y / 8 + y, gm_ground_map[y * 64 + x]);
-    for (int y = 0; y < HILLS_H; y++)
-        for (int x = 0; x < 64; x++) rs_bg_put(RS_BG3, x, HILLS_Y / 8 + y, gm_hills_map[y * 64 + x]);
+    maps_setup();
     for (int l = 0; l < 3; l++) rs_bg_enable(l, 1);
     rs_obj_base(VR_OBJ);
     rs_tiles_load(VR_OBJ, gm_obj_tiles, gm_obj_tile_count);
@@ -70,7 +92,7 @@ void draw_init(void)
 static void spr(int id, int x, int y, int prio, int pal)
 {
     const gm_sprite_def *d = &gm_spr[id];
-    if (x <= -(int)d->w || x >= RS_SCREEN_W || y <= -(int)d->h || y >= RS_SCREEN_H) return;
+    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= -(int)d->h || y >= RS_SCREEN_H) return;
     rs_spr(x, y, d->tile, d->w, d->h, pal >= 0 ? pal : d->pal, prio, 0);
 }
 
@@ -150,8 +172,9 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     int scroll = (int)w->scroll, sx = hu_shake_x(), sy = hu_shake_y();
     hu_standing rs;
     standing(w, &rs);
-    rs_bg_scroll(RS_BG2, (scroll - sx) & 511, -sy);
-    rs_bg_scroll(RS_BG3, (scroll / 4 - sx) & 511, -sy);
+    int pm = map_w() * 8 - 1;
+    rs_bg_scroll(RS_BG2, (scroll - sx) & pm, -sy);
+    rs_bg_scroll(RS_BG3, (scroll / 4 - sx) & pm, -sy);
     screen_text(w, state, st_t, best, new_best, &rs);
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;     /* the panel slides up, ease-out */
     rs_bg_scroll(RS_BG1, 0, -slide);
@@ -188,6 +211,14 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
 }
 
 /* ---- save states (main.c) ---- */
+/* a state saved at another width brings maps of another size: set them up for this width, redraw the UI */
+void draw_state_loaded(void)
+{
+    if (rs_bg_map_w(RS_BG2) == map_w()) return;
+    maps_setup();
+    shown_state = -1;
+}
+
 #define S(v) rs_state_var("draw." #v, &(v), sizeof(v))
 void draw_state(void)
 {

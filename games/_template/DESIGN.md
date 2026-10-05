@@ -31,6 +31,15 @@ TODO: the mechanics, with every number in src/game.h (the tuning table: one plac
 | BG1 | the house UI kit: the logo, the title's lines, the panels, PAUSED | fixed |
 | OBJ | the heroes (P2-P4 = palette swaps: OBJ 1, 4, 5), props and effects, the kit's digits, glyphs and medals | |
 
+**Widescreen** (docs/spec.md "Widescreen"): the game opts in (`max_width` in main.c, `WIDESCREEN_@ID@ = 1` in game.mk).
+A wider screen (427 for 16:9, 520 for phones) shows more of the decor, the gameplay is unchanged: the 320-px stage is
+centred (`rs_screen_origin(rs_screen_margin())` in draw_init), the ground and hills draw wider (maps of 128 tiles
+beyond 512 columns, the second half mirrored), the course is the same at every width but is generated up to the real
+right edge (`rs_screen_right()`) and kept until the real left one (crates come into view at the screen's edges), and
+the house kit centres the UI. A state saved at one width loads at another (`draw_state_loaded` sets the maps up again).
+`make @ID@-check` runs the tests at 320 and at 427 and 520. A game that cannot follow (a fixed 320 design) removes
+the two lines: it then runs at 320, pillarboxed on wide screens.
+
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the logo, the bobbing hero, the player slots, PRESS A with the A glyph, BEST, the join line, the copyright
 line) -> P1 presses A (or an extra start input in main.c START_INPUTS; the press is
