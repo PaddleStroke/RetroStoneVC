@@ -8,9 +8,9 @@ VERB = HOP
 #. max 10
 FAMILY = FAMILY
 
-#. The family photo after a banking: a small panel (18 columns wide, rows 3-8) with the family in it; the line is
-#. centred on row 7, under the ducks; %d is the ducklings brought home. The English already fills the panel.
-#. max 18
+#. The family photo after a banking: a small panel (rows 3-8, sized to the line, 18 columns at least) with the
+#. family in it; the line is centred on row 7, under the ducks; %d is the ducklings brought home.
+#. max 24
 DUCKLINGS_HOME[one] = %d DUCKLING HOME!
 DUCKLINGS_HOME[other] = %d DUCKLINGS HOME!
 #. The same photo when the parent banked no duckling (centred on row 7 of the panel).

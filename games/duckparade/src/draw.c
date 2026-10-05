@@ -12,6 +12,7 @@
 #include "dp.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "game_text.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -561,7 +562,7 @@ static int in_run(const duck *d) { return d->state == DK_READY || d->state == DK
 
 static void hud(const world *w, int state, int best)
 {
-    char s[24];
+    char s[64];
     int line = world_line_total(w);
     int score = world_score(w, 0), sig = -1;
     if (w->players > 1) {                          /* what the text shows: every parent's line and whether it is out */
@@ -575,8 +576,8 @@ static void hud(const world *w, int state, int best)
             if (w->players == 1) {
                 snprintf(s, sizeof s, "%d", line);
                 hu_text(3, 1, s);
-                snprintf(s, sizeof s, "BEST %d", best);
-                hu_text(39 - (int)strlen(s), 1, s);
+                rs_strf(s, sizeof s, HTR(BEST_N), best);
+                hu_text(39 - hu_width(s, 0), 1, s);
             } else {
                 for (int p = 0; p < w->players; p++) {
                     if (!in_run(&w->d[p])) continue;
@@ -622,9 +623,52 @@ static void standing(const world *w, hu_standing *s)
 
 static int family_row(const hu_standing *s) { return 8 + 3 * s->n + 4; }   /* under the ranking's panel */
 
+/* the family panel's layout: the labels (FAMILY, NEW BEST! / BEST n) on the left from column 10, the family total in
+ * big digits centred on column 24; longer labels widen the panel leftwards, then push the digits right. Labels with
+ * accents or CJK (a row above them) get a taller panel with a free row above each label. */
+typedef struct family_box { int px, pw, ph, lx, row1, row2, dcol, dy; } family_box;
+static int tall_text(const char *s)
+{
+    for (; *s; s++)
+        if ((unsigned char)*s >= 128) return 1;
+    return 0;
+}
+static void family_best(char *s, int n, int best, int new_best)
+{
+    if (new_best) snprintf(s, n, "%s", HTR(NEW_BEST_EXCL));
+    else rs_strf(s, n, HTR(BEST_N), best);
+}
+static family_box family_layout(int r, int total, int best, int new_best)
+{
+    family_box b;
+    char s[64];
+    family_best(s, sizeof s, best, new_best);
+    int lw = hu_width(TR(FAMILY), 0), w2 = hu_width(s, 0);
+    if (w2 > lw) lw = w2;
+    int nd = 1;
+    for (int v = total; v >= 10; v /= 10) nd++;
+    int excess = 10 + lw + 1 - (24 * 8 - nd * 6) / 8;   /* the labels end a column left of the digits (12 px each) */
+    b.lx = 10;
+    b.dcol = 24;
+    if (excess > 0) {
+        int left = excess < 7 ? excess : 7;         /* the panel from column 1 at most */
+        b.lx -= left;
+        b.dcol += excess - left;
+    }
+    if (b.dcol > 31) b.dcol = 31;
+    b.px = b.lx - 2;
+    b.pw = b.dcol + 8 - b.px;
+    int tall = tall_text(TR(FAMILY)) || tall_text(s);
+    b.ph = tall ? 6 : 4;
+    b.row1 = r + (tall ? 2 : 1);
+    b.row2 = r + (tall ? 4 : 2);
+    b.dy = (tall ? (r + 2) * 8 : (r + 1) * 8 - 4);
+    return b;
+}
+
 static void screen_text(const world *w, int state, int st_t, int best, int new_best)
 {
-    char s[48];
+    char s[64];
     hu_standing rs;
     if (state == DS_OVER && w->players > 1) standing(w, &rs);
     if (state != shown_state || best != shown_best || w->players != shown_players ||
@@ -634,18 +678,15 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         if (state == DS_TITLE) hu_logo("DUCK PARADE", title_ramps, 2, 2, 0);
         if (state == DS_OVER) {
             if (w->players == 1) {
-                hu_banner(4, "GAME OVER");
+                hu_banner(4, HTR(GAME_OVER));
                 hu_gameover_panel(1, new_best, world_score(w, 0), 0);
             } else {                                /* the parents ranked, the family score under them */
-                hu_results_panel(&rs, "GAME OVER");
-                int r = family_row(&rs);
-                hu_panel(8, r, 24, 4);
-                hu_box_text(10, r + 1, "FAMILY");
-                if (new_best) hu_box_text(10, r + 2, "NEW BEST!");
-                else {
-                    snprintf(s, sizeof s, "BEST %d", best);
-                    hu_box_text(10, r + 2, s);
-                }
+                hu_results_panel(&rs, HTR(GAME_OVER));
+                family_box b = family_layout(family_row(&rs), world_total(w), best, new_best);
+                hu_panel(b.px, family_row(&rs), b.pw, b.ph);
+                hu_box_text(b.lx, b.row1, TR(FAMILY));
+                family_best(s, sizeof s, best, new_best);
+                hu_box_text(b.lx, b.row2, s);
             }
         }
         shown_state = state;
@@ -655,8 +696,8 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
     /* the title, every frame: the prompt (PRESS ANY ARROW TO HOP), the parents' slots, BEST, the join line, credits */
     if (state == DS_TITLE) hu_title_draw(st_t, best);
     if (state == DS_OVER) {
-        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, "A: MAIN MENU");
-        else hu_retry_line_at(hu_results_retry_row(&rs), st_t, RETRY_LOCK, "A: MAIN MENU");
+        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_MENU));
+        else hu_retry_line_at(hu_results_retry_row(&rs), st_t, RETRY_LOCK, HTR(BACK_MENU));
     }
 }
 
@@ -666,12 +707,16 @@ static void photo(const world *w, int cam, int t)
     (void)cam;
     if (photo_t < 0) return;
     int k = photo_t;
-    /* the photo: a kit panel (BG1 rows 3-8) with the family standing in it; they pop in one by one */
+    /* the photo: a kit panel (BG1 rows 3-8, at least 18 columns, sized to the line) with the family standing in it;
+     * they pop in one by one */
     if (k == 0) {
-        hu_panel(11, 3, 18, 6);
-        char s[32];
-        snprintf(s, sizeof s, "%d DUCKLINGS HOME!", photo_n);
-        hu_box_text(20 - (int)strlen(s) / 2, 7, photo_n ? s : "HOME SWEET HOME");
+        char s[128];
+        if (photo_n) rs_strf(s, sizeof s, TRN(DUCKLINGS_HOME, photo_n), photo_n);
+        else snprintf(s, sizeof s, "%s", TR(HOME_SWEET_HOME));
+        int tw = hu_width(s, 0), pw = 2 * ((tw + 1) / 2) + 2;
+        if (pw < 18) pw = 18;
+        hu_panel(20 - pw / 2, 3, pw, 6);
+        hu_box_text(20 - tw / 2, 7, s);
     }
     int top = 3 * 8 + 6;
     int n = photo_n > 9 ? 9 : photo_n;
@@ -737,8 +782,9 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
                 hu_results_icon_pos(&rs, i, &cx, &cy);
                 spr(SPR_DUCK_HEAD + (rs.rank[i] == 0 && (st_t / 24) % 4 == 0), cx - 8, cy - 8 + oy, 3, pal_of(rs.order[i]), 0);
             }
-            hu_number(world_total(w), 24 * 8, (family_row(&rs) + 1) * 8 - 4 + oy, 3);
-            if (new_best && (st_t / 20) % 3 == 0) hu_sparkle(27 * 8 + 4, (family_row(&rs) + 1) * 8 - 4 + oy, (st_t / 10) % 2, 3);
+            family_box b = family_layout(family_row(&rs), world_total(w), best, new_best);
+            hu_number(world_total(w), b.dcol * 8, b.dy + oy, 3);
+            if (new_best && (st_t / 20) % 3 == 0) hu_sparkle(b.dcol * 8 + 28, b.dy + oy, (st_t / 10) % 2, 3);
         }
     }
     if (state == DS_TITLE) hu_title_sprites(st_t, slot_icon, NULL);   /* the D-pad glyph, the parents popping in */

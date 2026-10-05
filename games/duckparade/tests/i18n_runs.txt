@@ -1,0 +1,15 @@
+# Duck Parade: the screens of the language test (tools/i18n_test.sh, docs/i18n.md), one headless run per line:
+#   <name> <frames> <shot frame> [options] [; input lines]
+title    130  120
+title2   130  120  ; 20 P2 tap A
+title4   130  120  ; 20 P2 tap A ; 30 P3 tap A ; 40 P4 tap A
+play     400  390  --opt bot=1 --opt seed=3 --opt ready=1
+play4    400  390  --opt bot=4 --opt players=4 --opt seed=8 --opt ready=1
+pause    440  430  --opt bot=1 --opt seed=7 --opt ready=1 ; 400 tap START
+# the family photo after a banking (4 ducklings home at frame 897)
+photo    915  911  --opt bot=1 --opt seed=9 --opt ready=1
+over     1420 1410 --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=30
+# the results with the family panel: NEW BEST! (run 1), then BEST n (run 2)
+results  1900 1890 --opt bot=4 --opt players=4 --opt seed=8 --opt ready=1 --opt botstop=40
+results2 1900 1890 --opt bot=2 --opt players=2 --opt seed=6 --opt ready=1 --opt botstop=40
+best4    3220 3210 --opt bot=4 --opt players=4 --opt seed=8 --opt ready=1 --opt botstop=40 --opt botruns=2

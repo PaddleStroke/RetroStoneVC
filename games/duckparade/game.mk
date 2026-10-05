@@ -40,8 +40,8 @@ duckparade-rules:
 	./build/host/duckparade_test_rules
 
 # the UI test runs the whole game (runtime, draw, the kit) with scripted input and checks the picture
-DP_OBJ_HOST = $(patsubst %.c,build/host/%.o,$(wildcard $(DP_DIR)/src/*.c) $(HOUSE_SRC) build/gen/duckparade/assets.c)
-build/host/$(DP_DIR)/tests/test_ui.o: build/gen/duckparade/assets.c
+DP_OBJ_HOST = $(patsubst %.c,build/host/%.o,$(wildcard $(DP_DIR)/src/*.c) $(HOUSE_SRC) build/gen/duckparade/assets.c                 build/gen/duckparade/game_text.c)
+build/host/$(DP_DIR)/tests/test_ui.o: build/gen/duckparade/assets.c build/gen/duckparade/game_text.c
 build/host/duckparade_test_ui: build/host/$(DP_DIR)/tests/test_ui.o $(DP_OBJ_HOST) \
                                build/host/sdk/frontends/common/rs_desktop.o build/host/librs.a
 	$(HOST_CC) -o $@ $^ -lm
@@ -54,13 +54,14 @@ duckparade-check:
 	sh $(DP_DIR)/tests/smoke_test.sh build/host/duckparade_headless build
 	sh $(DP_DIR)/tests/ui_test.sh build/host/duckparade_test_ui build/duckparade-ui
 	sh $(DP_DIR)/tests/state_test.sh build/host/duckparade_test_states build/states
-	$(PYTHON) tools/state_audit.py --game duckparade build/host/duckparade_test_states $(filter-out %/assets.o,$(DP_OBJ_HOST))
+	$(PYTHON) tools/state_audit.py --game duckparade build/host/duckparade_test_states $(filter-out %/assets.o %/game_text.o,$(DP_OBJ_HOST))
+	bash tools/i18n_test.sh build/host/duckparade_headless duckparade build/duckparade-i18n $(if $(WIDESCREEN_duckparade),320 $(WIDTHS),320)
 
 duckparade-screenshots:
 	+$(DP_MAKE) build/host/duckparade_headless
 	sh $(DP_DIR)/tools/screenshots.sh build/host/duckparade_headless $(DP_DIR)/docs/screenshots
 
-build/host/$(DP_DIR)/tests/bench_frames.o: build/gen/duckparade/assets.c
+build/host/$(DP_DIR)/tests/bench_frames.o: build/gen/duckparade/assets.c build/gen/duckparade/game_text.c
 build/host/duckparade_bench: build/host/$(DP_DIR)/tests/bench_frames.o $(DP_OBJ_HOST) \
                              build/host/sdk/frontends/common/rs_desktop.o build/host/librs.a
 	$(HOST_CC) -o $@ $^ -lm

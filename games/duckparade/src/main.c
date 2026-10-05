@@ -18,6 +18,7 @@
 #include "dp.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "game_text.h"
 #include "house_audio.h"
 #include <stdio.h>
 #include <string.h>
@@ -315,7 +316,7 @@ static void game_init(void)
     audio_set(opt_music, opt_sound);
     draw_init();                                   /* hu_init (draw.c) */
     /* the title: P1 starts with an arrow or A ("PRESS ANY ARROW TO HOP", the D-pad glyph), up to 4 parents */
-    hu_title_cfg tc = {START_INPUTS, MAX_PLAYERS, "HOP", NULL, 0};
+    hu_title_cfg tc = {START_INPUTS, MAX_PLAYERS, TR(VERB), NULL, 0};
     hu_title_setup(&tc);
     opt_bot = clampi(rs_option_int("bot", 0), 0, MAX_PLAYERS);
     opt_botruns = rs_option_int("botruns", 1);
