@@ -5,8 +5,8 @@ sprites; the music (make_music.py) -> build/gen/blueberrytumble/assets.c + asset
     build_assets.py --out build/gen/blueberrytumble [--art games/blueberrytumble/art] [--tileset IGNORED]
 
 VRAM (tiles of 32 bytes; the house guideline is 64 KiB with the maps):
-  0      BG1: the house UI kit (house_ui.h), the logo at LOGO_TILE
-  640    BG4: the far mountains         768  BG3: the mid-ground (4 biomes)
+  0      BG1: the house UI kit (house_ui.h), the logo at LOGO_TILE, the kit's glyph pool at 640..767 (translated text)
+  768    BG3: the mid-ground (4 biomes) 1024 BG4: the far mountains
   1280   BG2: the playfield (affine)    3072 OBJ: our sprites, then the kit's (KIT_OBJ_TILE)
 MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/blueberrytumble/LICENSE.
 """
@@ -27,7 +27,7 @@ import rsasset  # noqa: E402
 import house_style as hs  # noqa: E402
 import make_art  # noqa: E402
 
-VR_BG1, VR_BG4, VR_BG3, VR_BG2, VR_OBJ = 0, 640, 768, 1280, 3072
+VR_BG1, VR_BG4, VR_BG3, VR_BG2, VR_OBJ = 0, 1024, 768, 1280, 3072
 LOGO_TILE = 300                     # relative to BG1 (the kit uses 0..296)
 KIT_OBJ_TILE = 400                  # the kit's sprites after ours
 PAL_PF, PAL_FAR, PAL_MID, PAL_LOGO = 1, 5, 6, 4     # playfield 1-4 (a biome each), mid 6-7 (by biome parity)

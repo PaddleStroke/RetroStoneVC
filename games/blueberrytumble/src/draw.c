@@ -17,6 +17,7 @@
 #include "bt.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "game_text.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -495,9 +496,23 @@ static void standing(const world *w, hu_standing *s)
     hu_rank(s, w->players, score, score);
 }
 
+/* the biomes' names (the order of gm_biome_names, tools/make_art.py BIOME_NAMES) in the player's language */
+static const int biome_text[4] = {GS_BIOME_SUMMIT, GS_BIOME_FOREST, GS_BIOME_MEADOWS, GS_BIOME_VILLAGE};
+
+/* the column of the labels of the kit's 1-player game-over panel (hu_gameover_panel: column 12, widened leftwards by
+ * labels longer than 10 columns) */
+static int over_label_col(int new_best)
+{
+    int l = hu_width(HTR(SCORE), 0), b = hu_width(new_best ? HTR(NEW_BEST) : HTR(BEST), 0), m = hu_width(HTR(MEDAL), 0);
+    if (b > l) l = b;
+    if (m > l) l = m;
+    int d = l > 10 ? (l - 10 < 10 ? l - 10 : 10) : 0;
+    return 12 - d;
+}
+
 static void screen_text(const world *w, int state, int st_t, int best, int new_best, int attempt, const hu_standing *rs)
 {
-    char s[48];
+    char s[128];
     int screen = state == ST_DEAD ? ST_PLAY : state;
     if (screen != shown_state || best != shown_best || w->players != shown_players) {
         hu_clear();
@@ -514,19 +529,20 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         }
         if (screen == ST_PLAY) {
             /* "ATTEMPT n", in the world: it rolls away with the ground */
-            snprintf(s, sizeof s, "ATTEMPT %d", attempt);
-            hu_text(22, 10, s);
+            rs_strf(s, sizeof s, TR(ATTEMPT_N), attempt);
+            int ax = 40 - hu_width(s, 0);              /* column 22, or further left when it would not fit */
+            hu_text(ax < 22 ? (ax < 0 ? 0 : ax) : 22, 10, s);
             attempt_on = 1;
             attempt_x0 = view_camx;
             if (w->players >= 3) hu_score_tags(w->players, 0);     /* P1..P4 by the corner chips */
         }
         if (state == ST_OVER) {
             if (w->players == 1) {
-                hu_banner(4, "GAME OVER");
+                hu_banner(4, HTR(GAME_OVER));
                 hu_gameover_panel(1, new_best, world_score(w, 0), 0);
-                if (w->coins[0]) snprintf(s, sizeof s, "%d M  +%d GOLD", w->metres[0], w->coins[0]);
-                else snprintf(s, sizeof s, "%d M", w->metres[0]);
-                hu_box_text(12, 12, s);
+                if (w->coins[0]) rs_strf(s, sizeof s, TR(METRES_GOLD), w->metres[0], w->coins[0]);
+                else rs_strf(s, sizeof s, HTR(METRES_N), w->metres[0]);
+                hu_box_text(over_label_col(new_best), 12, s);
             } else {
                 hu_results_panel(rs, NULL);     /* P2 WINS! (or DRAW!) and the ranking */
             }
@@ -556,8 +572,10 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
             gate_biome = course_biome_of_col(pcol);
         }
         if (gate_t == 0 && !attempt_on) {
-            char line[40];
-            snprintf(line, sizeof line, "%s%s", course_loop_of_col(pcol) ? "NIGHT - " : "", gm_biome_names[gate_biome]);
+            char line[128];
+            const char *name = rs_tr(&gs_strings, biome_text[gate_biome & 3]);
+            if (course_loop_of_col(pcol)) rs_strf(line, sizeof line, TR(NIGHT_BIOME), name);
+            else snprintf(line, sizeof line, "%s", name);
             hu_clear_rows(6, 1);
             hu_text(hu_center(line, 0), 6, line);
         }
@@ -565,8 +583,8 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         if (gate_t < 999) gate_t++;
     }
     if (state == ST_OVER) {
-        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, "A: MAIN MENU");
-        else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, "A: MAIN MENU");
+        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_MENU));
+        else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_MENU));
     }
 }
 

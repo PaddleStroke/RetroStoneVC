@@ -54,6 +54,7 @@ blueberrytumble-check:
 	sh $(BT_DIR)/tests/ui_test.sh build/host/blueberrytumble_headless build/blueberrytumble-ui
 	sh $(BT_DIR)/tests/state_test.sh build/host/blueberrytumble_test_states build/states
 	$(PYTHON) tools/state_audit.py --game blueberrytumble build/host/blueberrytumble_test_states $(BT_OBJ_HOST)
+	bash tools/i18n_test.sh build/host/blueberrytumble_headless blueberrytumble build/blueberrytumble-i18n $(if $(WIDESCREEN_blueberrytumble),320 $(WIDTHS),320)
 
 blueberrytumble-tables:
 	+$(BT_MAKE) build/host/blueberrytumble_validate
