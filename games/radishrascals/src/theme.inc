@@ -1,5 +1,4 @@
 #define TITLE "RADISH RASCALS"
-#define HINT "D-PAD: SHOO RABBITS - SPARE FRIENDS"
 #define BG_START(vp) ((vp)->h<200?-32:0)
 static const rs_color title_ramps[2][3]={{RS_HEX(0xffbfd0),RS_HEX(0xe774a0),RS_HEX(0x944871)},{RS_HEX(0xd8ed9e),RS_HEX(0x93bb6a),RS_HEX(0x527b51)}};
 static const rs_color theme_pal[16]={0,RS_HEX(0xd2dda0),RS_HEX(0xacc780),RS_HEX(0x73975d),RS_HEX(0xb78b63),RS_HEX(0x89674f),RS_HEX(0x614e43),RS_HEX(0xdfb688),RS_HEX(0xeaf0b5),RS_HEX(0xf8cb85),RS_HEX(0xbc7789),RS_HEX(0x587c4d),RS_HEX(0xaabac4),RS_HEX(0xeef3dd),RS_HEX(0x25273b),RS_HEX(0xe36f91)};

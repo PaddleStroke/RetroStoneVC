@@ -2,6 +2,7 @@
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "game_text.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -57,24 +58,26 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  hu_clear();rs_oam_clear();rs_brightness(paused?9:15);int next=1;
  for(int p=0;p<nviews;p++){
   view *v=&V[p];rs_viewport *vp=&VP[p];const hero *h=&w->h[p];
-  v->mx=vp->x?32:0;v->my=vp->y?16:0;v->w=vp->w;v->h=vp->h;v->small=vp->h<200;v->scroll=theme_scroll(h);
+  /* the right-hand views use map columns 20..39: the kit's UI area (its text checks), the same pixels */
+  v->mx=vp->x?20:0;v->my=vp->y?16:0;v->w=vp->w;v->h=vp->h;v->small=vp->h<200;v->scroll=theme_scroll(h);
   for(int y=0;y<vp->h;y++)v->sky[y]=theme_sky(w,y,vp->h);
   background(w,v,vp);foreground(w,p,v,vp,state==ST_TITLE || state==ST_OVER,&next);
   vp->sx[0]=vp->sx[1]=(int16_t)(v->mx*8);vp->sy[0]=vp->sy[1]=(int16_t)(v->my*8);vp->layers=7;vp->objs=1;hu_view_oam_begin(vp);
   if(state==ST_PLAY || state==ST_DEAD){
    theme_scene(w,p,st_t,v,vp);
-   if(multi){char score[32];snprintf(score,sizeof score,"P%d %d",p+1,h->score);hu_text(v->mx+(vp->w/8-(int)strlen(score))/2,v->my+1,score);}
+   if(multi){char score[64],tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),p+1);snprintf(score,sizeof score,"%s %d",tag,h->score);hu_text(v->mx+(vp->w/8-hu_width(score,0))/2,v->my+1,score);}
    else hu_number(h->score,vp->w/2,8,3);
-   if(paused)hu_big(v->mx+(vp->w/8-12)/2,v->my+vp->h/16,"PAUSED",HU_BIG_FREE);
+   if(paused){const char *s=HTR(PAUSED);int cols=vp->w/8;  /* 2x, or 1x when 2x is wider than the view */
+    if(hu_width(s,1)<=cols)hu_big(v->mx+(cols-hu_width(s,1))/2,v->my+vp->h/16,s,HU_BIG_FREE);else hu_text(v->mx+(cols-hu_width(s,0))/2,v->my+vp->h/16+1,s);}
   }hu_view_oam_end(vp);
  }
  if(!multi){
   rs_viewport *vp=&VP[0];int scores[4];for(int p=0;p<w->players;p++)scores[p]=w->h[p].score;hu_standing rank;hu_rank(&rank,w->players,scores,scores);
   int slide=state==ST_OVER?hu_slide_in(st_t,20,200):0;
-  if(state==ST_TITLE){hu_logo(TITLE,title_ramps,2,2,0);hu_title_draw(st_t,best);hu_text(hu_center(HINT,0),9,HINT);hu_title_sprites(st_t,icon,NULL);theme_title(w,st_t,&V[0],vp);}
+  if(state==ST_TITLE){hu_logo(TITLE,title_ramps,2,2,0);hu_title_draw(st_t,best);hu_text(hu_center(TR(HINT),0),9,TR(HINT));hu_title_sprites(st_t,icon,NULL);theme_title(w,st_t,&V[0],vp);}
   if(state==ST_OVER){
-   if(w->players==1){static const int medals[4]=MEDAL_SCORES;hu_banner(4,"GAME OVER");hu_gameover_panel(1,new_best,w->h[0].score,0);hu_gameover_sprites(1,w->h[0].score,0,best,hu_medal_of(w->h[0].score,medals),st_t,slide);hu_retry_line(st_t,RETRY_LOCK,"A: TITLE");}
-   else{hu_results_panel(&rank,NULL);hu_results_sprites(&rank,st_t,slide);for(int i=0;i<rank.n;i++){int x,y;hu_results_icon_pos(&rank,i,&x,&y);spr(SPR_HERO_ICON,x-8,y-8+slide,3,ppal(rank.order[i]),vp);}hu_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,"A: TITLE");}
+   if(w->players==1){static const int medals[4]=MEDAL_SCORES;hu_banner(4,HTR(GAME_OVER));hu_gameover_panel(1,new_best,w->h[0].score,0);hu_gameover_sprites(1,w->h[0].score,0,best,hu_medal_of(w->h[0].score,medals),st_t,slide);hu_retry_line(st_t,RETRY_LOCK,HTR(BACK_TITLE));}
+   else{hu_results_panel(&rank,NULL);hu_results_sprites(&rank,st_t,slide);for(int i=0;i<rank.n;i++){int x,y;hu_results_icon_pos(&rank,i,&x,&y);spr(SPR_HERO_ICON,x-8,y-8+slide,3,ppal(rank.order[i]),vp);}hu_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));}
   }rs_bg_scroll(RS_BG1,0,-slide);rs_bg_scroll(RS_BG2,0,0);rs_bg_scroll(RS_BG3,vp->sx[2],vp->sy[2]);rs_viewports(0,NULL,0);
  }else rs_viewports(nviews,VP,RS_HEX(0x29364a));
  shown_state=state;shown_best=best;

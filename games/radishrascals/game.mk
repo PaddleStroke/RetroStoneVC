@@ -15,7 +15,7 @@ radishrascals-art:
 	$(PYTHON) games/radishrascals/tools/make_art.py
 build/host/radishrascals_physics: games/radishrascals/src/play.c games/radishrascals/src/game.h games/radishrascals/src/sine.h games/radishrascals/tests/test_physics.c
 	$(HOST_CC) $(CSTD) $(OPT) $(WARN) -Isdk/include -Igames/radishrascals/src games/radishrascals/src/play.c games/radishrascals/tests/test_physics.c -o $@
-build/host/radishrascals_views: games/radishrascals/tests/test_views.c $(RADISHRASCALS_OBJS) build/host/build/gen/radishrascals/assets.o build/host/librs.a
+build/host/radishrascals_views: games/radishrascals/tests/test_views.c $(RADISHRASCALS_OBJS) build/host/build/gen/radishrascals/assets.o build/host/build/gen/radishrascals/game_text.o build/host/librs.a
 	$(HOST_CC) $(CSTD) $(OPT) $(WARN) -Isdk/include -Igames/radishrascals/src -Igames/common/src -Ibuild/gen/radishrascals $^ -lm -o $@
 radishrascals-check:
 	+$(RADISHRASCALS_MAKE) host build/host/test_libretro build/host/radishrascals_test_states build/host/radishrascals_physics build/host/radishrascals_views
@@ -25,6 +25,7 @@ radishrascals-check:
 	$(PYTHON) games/radishrascals/tests/check_game.py
 	sh games/radishrascals/tests/state_test.sh build/host/radishrascals_test_states build/states
 	$(PYTHON) tools/state_audit.py --game radishrascals build/host/radishrascals_test_states $(RADISHRASCALS_OBJS)
+	bash tools/i18n_test.sh build/host/radishrascals_headless radishrascals build/radishrascals-i18n $(if $(WIDESCREEN_radishrascals),320 $(WIDTHS),320)
 radishrascals-screenshots:
 	+$(RADISHRASCALS_MAKE) build/host/radishrascals_headless
 	$(PYTHON) games/radishrascals/tests/check_game.py --screenshots
