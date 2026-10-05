@@ -1,0 +1,114 @@
+# The 8BCraft house UI kit's strings (games/common): the English source. docs/i18n.md explains the format;
+# tools/i18n_build.py compiles them, with each game's own strings, into the game.
+#
+#   KEY = TEXT              the text runs to the end of the line; "..." keeps spaces at its ends
+#   KEY[one] = TEXT         a plural: the forms one, few, many, other (the language's rule picks one)
+#   #. a note               for translators, about the next key: where it shows; "max N" = its room in columns
+#                           (8-px columns; a Japanese, Chinese or Korean character takes 2; default: the English)
+# Keep %s and %d (and their order, or number them: %2$s %1$d). A, B, START and SELECT are the pad's buttons:
+# keep their letters. Capitals only matter in English: the font has no lowercase (the tool writes capitals).
+
+#. The title prompt; %s is the game's verb (PLAY, SWIM, HOP...). The A button is drawn left of the line.
+#. max 34
+PRESS_TO = PRESS A TO %s
+#. The default verb of the title prompt.
+#. max 10
+PLAY = PLAY
+#. The title's join line; %s lists the free player tags ("P2 / P3 / P4").
+#. max 38
+JOIN = %s: PRESS A TO JOIN
+#. The same with players already joined: B makes a player leave.
+#. max 38
+JOIN_LEAVE = %s: PRESS A TO JOIN - B: LEAVE
+#. The join line when every slot is taken (2 to 4 players).
+#. max 38
+FULL[one] = %d PLAYER - B: LEAVE
+FULL[other] = %d PLAYERS - B: LEAVE
+#. A player's tag (the title's slots, the score corners, the ranking): P1..P4. Two columns.
+#. max 2
+PLAYER_TAG = P%d
+#. The title's best score.
+#. max 20
+BEST_N = BEST %d
+#. The banner after a run (2x letters on a panel): the panel grows with the text.
+#. max 18
+GAME_OVER = GAME OVER
+#. The pause title, 2x letters over the dimmed game.
+#. max 18
+PAUSED = PAUSED
+#. (Older games) the 2x line before a run.
+#. max 18
+GET_READY = GET READY
+#. The game-over panel's labels (left of a number drawn in big digits).
+#. max 10
+SCORE = SCORE
+#. max 10
+BEST = BEST
+#. max 10
+NEW_BEST = NEW BEST
+#. max 10
+MEDAL = MEDAL
+#. A line under a run's result, when it beats the best.
+#. max 18
+NEW_BEST_EXCL = NEW BEST!
+#. The 2-player game-over panel's labels.
+#. max 12 (the panel widens to fit)
+PLAYER_N = PLAYER %d
+#. The winner (results banner, 2x letters, or the panel).
+#. max 18
+WINS = P%d WINS!
+#. max 18
+DRAW = DRAW!
+#. The ranking's places (results panel, left of the player's tag).
+#. max 3
+RANK_1 = 1ST
+#. max 3
+RANK_2 = 2ND
+#. max 3
+RANK_3 = 3RD
+#. max 3
+RANK_4 = 4TH
+#. The medals (some games name them).
+#. max 10
+MEDAL_BRONZE = BRONZE
+#. max 10
+MEDAL_SILVER = SILVER
+#. max 10
+MEDAL_GOLD = GOLD
+#. max 10
+MEDAL_PEARL = PEARL
+#. The blinking line on the game-over panel: A goes back to the title screen.
+#. max 18
+BACK_MENU = A: MAIN MENU
+#. The same, in the games that call it the title.
+#. max 18
+BACK_TITLE = A: TITLE
+#. Pause hints and menu words.
+#. max 10
+PAUSE = PAUSE
+#. max 10
+RESUME = RESUME
+#. max 10
+QUIT = QUIT
+#. max 22
+START_RESUME = START: RESUME
+#. Common labels of the results and HUDs.
+#. max 10
+DISTANCE = DISTANCE
+#. max 10
+TIME = TIME
+#. max 10
+LEVEL = LEVEL
+#. max 10
+LIVES = LIVES
+#. A distance in metres (the HUD, the results).
+#. max 8
+METRES_N = %d M
+#. (Older games) the second player's join line.
+#. max 36
+JOIN_PAD2 = P2: PRESS A ON PAD 2 TO JOIN
+#. (Older games) after P2 joined; %s is the game's cheer ("GO!").
+#. max 36
+JOINED = P2 JOINED - %s
+#. max 8
+GO = GO!
