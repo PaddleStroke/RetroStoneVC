@@ -1,15 +1,22 @@
 #!/usr/bin/env python3
-"""Real input flow, shared-course play, pause, score persistence and pixel determinism."""
-import re,subprocess,sys
+"""Real input flow, shared-course play, pause, score persistence and pixel determinism.
+
+Widescreen: the width is the environment's RS_WIDTH (the headless reads it; 320 by default), the pictures go to
+build/penguinslalom-review-<width>; at a wider width the 320 columns of the course are the 320 picture's, pixel for
+pixel, and the forest fills the margins (DESIGN.md "Widescreen"). --screenshots: NAME.png at 320, NAME-<width>.png
+(title, play, gameover) wider."""
+import os,re,subprocess,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[3];ID=Path(__file__).resolve().parents[1].name
-EXE=ROOT/('build/host/'+ID+'_headless');OUT=ROOT/('build/'+ID+'-review')
+W=int(os.environ.get('RS_WIDTH') or 320)
+EXE=ROOT/('build/host/'+ID+'_headless');OUT=ROOT/('build/'+ID+'-review'+('' if W==320 else '-'+str(W)))
 OUT.mkdir(parents=True,exist_ok=True)
+SHOTS={}
 def run(name,frames,script='',opts=(),shot=False,sram=None):
  p=OUT/(name+'.input');p.write_text(script)
  args=[str(EXE),'--frames',str(frames),'--input',str(p),'--opt','seed=4','--opt','strict=1','--opt','dump=1','--opt','music=0']
  for opt in opts:args+=['--opt',opt]
- if shot:args+=['--png',str(OUT/(name+'.png')),'--scale','3']
+ if shot:SHOTS[name]=list(args);args+=['--png',str(OUT/(name+'.png')),'--scale','3']
  if sram:args+=['--sram',str(sram)]
  r=subprocess.run(args,cwd=ROOT,capture_output=True,text=True,check=True)
  assert 'rs strict' not in r.stderr,r.stderr
@@ -48,8 +55,26 @@ if save.exists():save.unlink()
 a,_=run('save-run',1600,opts=['bot=1','botstop=20'],sram=save)
 b,_=run('save-load',20,sram=save)
 ok('best score persists in SRAM',int(a[2])>0 and a[2]==b[2])
+if W>320:
+ from PIL import Image
+ M=(W-320)//2;REF=OUT/'320';REF.mkdir(exist_ok=True)
+ PINE=((0x24,0x5c,0x5c),(0x3c,0x7c,0x70))
+ def near(c,ref):return all(abs(c[i]-ref[i])<=10 for i in range(3))
+ def pines(im,x0,x1):
+  px=im.load();return sum(1 for y in range(0,im.height,3) for x in range(x0,x1,3) if any(near(px[x,y],c) for c in PINE))
+ for name,args in SHOTS.items():
+  if name.startswith('det-'):continue
+  im=Image.open(OUT/(name+'.png')).convert('RGB')
+  ok(name+': a %dx240 picture'%W,im.size==(W*3,720))
+  subprocess.run(args+['--width','320','--png',str(REF/(name+'.png')),'--scale','3'],cwd=ROOT,capture_output=True,check=True)
+  ref=Image.open(REF/(name+'.png')).convert('RGB')
+  ok(name+': the course is the 320 picture, centred',im.crop((M*3,0,(M+320)*3,720)).tobytes()==ref.tobytes())
+  left,right=pines(im,0,M*3),pines(im,(M+320)*3,W*3)
+  if not name.startswith('pause'):ok(name+': the snowy forest goes on at both sides (%d, %d pine pixels)'%(left,right),left>40 and right>40)
 if '--screenshots' in sys.argv:
  dest=ROOT/('games/'+ID+'/docs/screenshots');dest.mkdir(parents=True,exist_ok=True)
- for name in ('title','title-4','play-1','play-2','play-3','play-4','pause-1','pause-4','gameover','results-4'):
-  (dest/(name+'.png')).write_bytes((OUT/(name+'.png')).read_bytes())
+ names={'title':'title','play-1':'play','gameover':'gameover'} if W>320 else \
+  {n:n for n in ('title','title-4','play-1','play-2','play-3','play-4','pause-1','pause-4','gameover','results-4')}
+ for name,to in names.items():
+  (dest/(to+('' if W==320 else '-'+str(W))+'.png')).write_bytes((OUT/(name+'.png')).read_bytes())
 print('game checks: all passed')

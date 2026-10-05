@@ -13,9 +13,18 @@ static view V;static int shown_state=-1,shown_best=-1;
 static int ppal(int p){return p?hu_player_pal(p):0;}
 static int course_y(int distance){return HERO_LINE+(distance-V.scroll)*3/5;}
 static void raster(int line,void *user){(void)user;if(line>=0 && line<240)rs_pal_set(0,V.sky[line]);}
+/* Widescreen (DESIGN.md "Widescreen"): a vertical scroller, centred. The 320-px course keeps its stage (origin =
+ * the margin) and the slope is drawn wider on both sides: the banks go on into a snowy forest. The ground layer
+ * (BG2) is redrawn each frame from a canvas as wide as the screen, on a 128-tile map beyond 320 columns. */
+static int wide(void){return rs_screen_width()>RS_SCREEN_W;}
+static int map_w(void){return wide()?128:64;}
+static int fdiv(int v,int d){return v>=0?v/d:-((d-1-v)/d);}             /* floor(v / d), d > 0 */
+static uint8_t canvas[(RS_SCREEN_W_MAX+16)*240];                        /* the ground, redrawn each frame */
+static int CX0=0,CW=320;                                               /* its stage x 0 and width (set each frame) */
 void draw_init(void){
+ rs_screen_origin(rs_screen_margin());
  hu_config c=hu_defaults();c.obj_tile=KIT_OBJ_TILE;c.obj_vram=VR_OBJ;c.obj_pal=3;hu_init(&c);
- rs_bg_setup(RS_BG1,64,32,VR_BG1);rs_bg_setup(RS_BG2,64,32,VR_BG2);rs_bg_setup(RS_BG3,64,32,VR_BG3);
+ rs_bg_setup(RS_BG1,64,32,VR_BG1);rs_bg_setup(RS_BG2,map_w(),32,VR_BG2);rs_bg_setup(RS_BG3,64,32,VR_BG3);
  uint8_t blank[64]={0};rs_tiles_load8(VR_BG2,blank,1);rs_tiles_load8(VR_BG3,blank,1);
  rs_pal_load(RS_PAL_BG(PAL_GROUND),theme_pal,16);
  rs_obj_base(VR_OBJ);rs_tiles_load(VR_OBJ,gm_obj_tiles,gm_obj_tile_count);
@@ -24,16 +33,18 @@ void draw_init(void){
  memset(&V,0,sizeof V);rs_raster(raster,NULL);
 }
 static void spr(int id,int x,int y,int pal){
- const gm_sprite_def *s=&gm_spr[id];if(x<=-(int)s->w || x>=320 || y<=-(int)s->h || y>=240)return;
+ const gm_sprite_def *s=&gm_spr[id];if(x<=rs_screen_left()-(int)s->w || x>=rs_screen_right() || y<=-(int)s->h || y>=240)return;
  rs_spr(x,y,s->tile,s->w,s->h,pal<0?s->pal:pal,2,0);
 }
-static void pixel(uint8_t *p,int x,int y,int color){if(x>=0 && x<320 && y>=0 && y<240)p[y*320+x]=(uint8_t)color;}
+/* x: stage coordinates; the canvas covers CX0 .. CX0 + CW - 1 (0 .. 319 at 320 columns) */
+static void pixel(uint8_t *p,int x,int y,int color){x-=CX0;if(x>=0 && x<CW && y>=0 && y<240)p[y*CW+x]=(uint8_t)color;}
 static void rect(uint8_t *p,int x0,int y0,int x1,int y1,int color){
+ x0-=CX0;x1-=CX0;
  if(x0<0)x0=0;
  if(y0<0)y0=0;
- if(x1>319)x1=319;
+ if(x1>CW-1)x1=CW-1;
  if(y1>239)y1=239;
- for(int y=y0;y<=y1;y++)for(int x=x0;x<=x1;x++)p[y*320+x]=(uint8_t)color;
+ for(int y=y0;y<=y1;y++)for(int x=x0;x<=x1;x++)p[y*CW+x]=(uint8_t)color;
 }
 static void line(uint8_t *p,int x0,int y0,int x1,int y1,int color){
  int n=abs(x1-x0)>abs(y1-y0)?abs(x1-x0):abs(y1-y0);if(!n)n=1;
@@ -124,13 +135,67 @@ static void flag(uint8_t *p,int x,int y,int dir,int blue,int t){
   rect(p,xx,top,xx,top+10,k==16?5:mid);pixel(p,xx,top,light);pixel(p,xx,top+9,dark);
  }
 }
+/* Widescreen: the slope beyond the 320 columns, drawn only there. Each bank goes on as a powder berm, then a snowy
+ * forest: evergreens of the same style in lanes 24 px apart (stage x 4 mod 8) every 40 world px down the slope (24
+ * screen px), and drifts, all scrolling with the course. The grid makes the trees that stand alone the same tiles
+ * (tile_id shares them). Everything is placed by world position and stage x, never by the width: a wider screen
+ * reveals more of the same forest. */
+static uint32_t woods(int a,int b,int c){
+ uint32_t v=(uint32_t)a*73856093u^(uint32_t)b*19349663u^(uint32_t)c*83492791u;v^=v>>13;v*=0x5bd1e995u;return v^(v>>15);
+}
+static void forest(uint8_t *p){
+ int left=rs_screen_left(),right=rs_screen_right(),shift=fdiv(-3*V.scroll,5);
+ for(int y=0;y<240;y++){
+  int bend=ss_sine[(y/2+V.scroll/12+80)&255]*3/32767;
+  if(left<0){rect(p,-14+bend,y,-1,y,2);pixel(p,-15+bend,y,1);}
+  if(right>320){rect(p,320,y,333-bend,y,2);pixel(p,334-bend,y,1);}
+ }
+ int j0=fdiv(V.scroll-260,40),j1=fdiv(V.scroll+330,40);
+ for(int j=j0;j<=j1;j++){
+  int y=HERO_LINE+24*j+shift;                       /* (j * 40 - scroll) * 3 / 5, floored: one phase for the grid */
+  for(int side=0;side<2;side++){
+   uint32_t h=woods(j,side,7);if(h%5)continue;
+   int span=32+(int)(h>>8)%3*8,x=side?336+(int)(h>>12)%6*16:-40-span-(int)(h>>12)%6*16;
+   if(x>right || x+span<left)continue;
+   for(int i=0;i<span;i++){int k=side?i:span-1-i,yy=y+8+k*k/(span*6);pixel(p,x+i,yy,2);pixel(p,x+i,yy-1,1);}
+  }
+ }
+ for(int j=j0;j<=j1;j++){
+  int y=HERO_LINE+24*j+shift;
+  for(int side=0;side<2;side++)for(int lane=0;lane<5;lane++){
+   if(((j%3+3)%3)!=(lane*2+side)%3)continue;
+   uint32_t h=woods(j,side*8+lane,11);if(h%3==0)continue;
+   int x=(side?348+lane*24:-28-lane*24)+((int)(h>>4)%3-1)*8,size=10+(int)(h>>8)%4;
+   if(!side && !lane && x>-28)x=-28;                /* its shadow stays off the course's 320 columns */
+   if(x-size-2>=right || x+size+20<left)continue;
+   pine(p,x,y,size);
+  }
+ }
+}
+/* Widescreen: the ground's tiles, one per distinct 8x8 picture (the forest's lone trees share theirs); 0 when the
+ * layer's 1024 tiles are full (the probe of the tests: never) */
+static uint16_t tile_slot[2048];
+static uint8_t tile_seen[1024][64];
+static int tile_id(const uint8_t *tile,int *next){
+ uint32_t h=2166136261u;for(int i=0;i<64;i++)h=(h^tile[i])*16777619u;
+ for(int k=(int)(h&2047);;k=(k+1)&2047){
+  int id=tile_slot[k];
+  if(!id){
+   if(*next>=1024)return 0;
+   id=(*next)++;tile_slot[k]=(uint16_t)id;memcpy(tile_seen[id],tile,64);rs_tiles_load8(VR_BG2+id,tile,1);return id;
+  }
+  if(!memcmp(tile_seen[id],tile,64))return id;
+ }
+}
 static void foreground(const world *w){
- uint8_t pixels[320*240]={0};
+ CX0=fdiv(rs_screen_left(),8)*8;CW=fdiv(rs_screen_right()+7,8)*8-CX0;  /* 320 columns: 0, 320 */
+ uint8_t *pixels=canvas;memset(pixels,0,(size_t)CW*240);
  for(int y=0;y<240;y++){
   int bend=ss_sine[(y/2+V.scroll/12)&255]*2/32767;
   rect(pixels,0,y,10+bend,y,2);rect(pixels,309+bend,y,319,y,2);
   pixel(pixels,11+bend,y,1);pixel(pixels,308+bend,y,1);
  }
+ if(wide())forest(pixels);
  // Rounded powder drifts travel with the gates, with no mountain horizon or ice glints.
  int first=(V.scroll-200)/70;if(first<0)first=0;
  for(int id=first;id<first+12;id++){
@@ -161,12 +226,16 @@ static void foreground(const world *w){
   row r;course_row(w,id,&r);int y=course_y(r.distance);if(y<-30 || y>275)continue;
   flag(pixels,r.left,y,1,r.kind,w->t);flag(pixels,r.right,y,-1,r.kind,w->t);
  }
- int next=1;
- for(int r=0;r<30;r++)for(int c=0;c<40;c++){
-  uint8_t tile[64];int ink=0;for(int y=0;y<8;y++)for(int x=0;x<8;x++){tile[y*8+x]=pixels[(r*8+y)*320+c*8+x];ink|=tile[y*8+x];}
-  int id=0;if(ink){id=next++;rs_tiles_load8(VR_BG2+id,tile,1);}rs_bg_put(RS_BG2,c,r,RS_MAP(id,PAL_GROUND,0,0,0));
+ int next=1,cols=CW/8,c0=CX0/8,mw=rs_bg_map_w(RS_BG2);
+ if(wide())memset(tile_slot,0,sizeof tile_slot);
+ for(int r=0;r<30;r++)for(int c=0;c<cols;c++){
+  uint8_t tile[64];int ink=0;for(int y=0;y<8;y++)for(int x=0;x<8;x++){tile[y*8+x]=pixels[(r*8+y)*CW+c*8+x];ink|=tile[y*8+x];}
+  int id=0;if(ink){if(wide())id=tile_id(tile,&next);else{id=next++;rs_tiles_load8(VR_BG2+id,tile,1);}}
+  rs_bg_put(RS_BG2,((c0+c)%mw+mw)%mw,r,RS_MAP(id,PAL_GROUND,0,0,0));
  }
 }
+/* Widescreen: a state saved at another width loads at this one (the ground's map for this width; all redrawn) */
+void draw_relayout(void){if(rs_bg_map_w(RS_BG2)!=map_w())rs_bg_setup(RS_BG2,map_w(),32,VR_BG2);}
 static void scene(const world *w){
  // Draw the downhill penguins first when their silhouettes overlap.
  for(int p=w->players-1;p>=0;p--){

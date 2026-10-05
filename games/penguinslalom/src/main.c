@@ -277,9 +277,13 @@ static void game_state(void)
 }
 #undef S
 
+/* widescreen: a state saved at another width loads at this one (DESIGN.md "Widescreen") */
+static void game_state_loaded(void) { draw_relayout(); }
+
 const rs_game *rs_game_main(void)
 {
+    /* max_width: the game draws any width up to 560 (widescreen: DESIGN.md) */
     static const rs_game g = {"Penguin Slalom", "penguinslalom", "0.4.0", game_init, game_update, game_draw,
-                              game_shutdown, gm_assets, game_state, NULL, 1};
+                              game_shutdown, gm_assets, game_state, game_state_loaded, 1, RS_SCREEN_W_MAX};
     return &g;
 }

@@ -69,6 +69,38 @@ miss, frozen course motion, valid scoring, steering, twelve two-minute courses
 with four ordinary-input bots, shared-screen visibility at identical x, title
 continuity, actual keyboard input, pause, SRAM, libretro and save-state replay.
 
+## Widescreen (docs/spec.md "Widescreen")
+The game opts in (`max_width` = 560, `WIDESCREEN_penguinslalom = 1`): 320 x 240 is
+unchanged pixel for pixel; at 427 (16:9), 520 or 560 **the slope is wider, the
+race is the same**.
+- **A vertical scroller, centred**: `rs_screen_origin(rs_screen_margin())`
+  (draw_init). The course keeps its 320 columns in the middle: the gates, their
+  widths, spacing and winding, the obstacles, the bears, the steering limits
+  (24..296), the scoring and the bots never look at the width. The HUD, the title,
+  the panels and the results are the house kit's, centred; sprites are clipped to
+  rs_screen_left()..right(); sounds pan by the screen x (the kit).
+- **The wider scenery** (draw.c `forest`): the ground (BG2) is drawn each frame on
+  a canvas as wide as the screen, on a 128-tile map beyond 320 columns. Each bank
+  goes on as a powder berm, then a snowy forest: the same evergreens (four sizes)
+  in five lanes a side, 24 px apart, every 40 world px down the slope, and powder
+  drifts, all placed by world position and stage x (never by the width: a wider
+  screen reveals more of the same forest) and scrolling with the course. The edge
+  trees cut by the 320 screen show whole.
+- **VRAM**: on a wide screen the ground's tiles are shared within a frame (one per
+  distinct 8x8 picture: the forest's grid makes lone trees the same tiles), so 560
+  columns use at most 467 ground tiles (423 at 320, unshared) and 882 tiles in
+  all; the strict-mode runs stay clean at every width.
+- **Multiplayer**: one shared view, as at 320: the penguins, their tags and
+  scores where they were, the forest at both sides.
+- **Save states load at any width**: the ground is redrawn every frame;
+  `state_loaded` sets the ground's map up again for this width.
+- **Tests**: the check runs test_libretro (16:9, Wide), test_views, check_game.py
+  (at a wider width: the 320 columns of the course are the 320 picture, pixel for
+  pixel, and the forest fills both margins) and the state test again at 427 and
+  520, then tests/wide_test.sh: the picture widths, the same logs at 320, 427, 520
+  and 560, width changes during runs (the same run, the picture of the new width)
+  and states across widths. Screenshots: title, play and gameover at 427 and 520.
+
 Build: make penguinslalom-check / penguinslalom-windows / penguinslalom-screenshots.
 Windows output: dist/windows/PenguinSlalom.exe, statically linked SDL2.
 Code MIT; art, music, sound and design CC BY-NC-SA 4.0, as stated in LICENSE.

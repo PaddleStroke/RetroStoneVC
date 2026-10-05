@@ -40,6 +40,7 @@ void draw_init(void);
 void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paused);
 int title_slot_row(void);                                  /* the title's player slots: row 25, 24 when its text needs more room */
 void draw_state(void);
+void draw_relayout(void);                                  /* widescreen: after a state saved at another width */
 enum {SFX_JUMP,SFX_SCORE,SFX_HIT,SFX_LAND,SFX_COUNT};
 #define SFX_HOUSE SFX_COUNT
 #endif

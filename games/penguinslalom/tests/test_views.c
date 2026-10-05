@@ -2,21 +2,24 @@
 #include "rs_host.h"
 #include "house_ui.h"
 #include <assert.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-static uint16_t picture[320*240];
+/* widescreen: at the width RS_WIDTH asks for (320 by default); x are stage coordinates (the course centred) */
+static uint16_t picture[RS_SCREEN_W_MAX*240];
 static void visible(int n,int pixels){
  for(int p=0;p<n;p++){
   int pal=p?hu_player_pal(p):0,found=-1;
   for(int i=0;i<rs_oam_next();i++){const rs_sprite *s=rs_oam(i);if(s->w==32 && s->h==32 && s->pal==pal){assert(found<0);found=i;}}
   assert(found>=0);rs_sprite *s=rs_oam(found);assert(s->x>=0 && s->x+s->w<=320 && s->y==player_y(n,p)-16);
   if(!pixels)continue;
-  memcpy(picture,rs_host_framebuffer(),sizeof picture);s->flags|=RS_SPR_HIDE;rs_host_render();int changed=0;
-  for(int i=0;i<320*240;i++)changed+=picture[i]!=rs_host_framebuffer()[i];
+  int size=rs_screen_width()*240;memcpy(picture,rs_host_framebuffer(),(size_t)size*2);s->flags|=RS_SPR_HIDE;rs_host_render();int changed=0;
+  for(int i=0;i<size;i++)changed+=picture[i]!=rs_host_framebuffer()[i];
   assert(changed>30);s->flags&=~RS_SPR_HIDE;rs_host_render();
  }
 }
 int main(void){
+ if(getenv("RS_WIDTH"))rs_host_set_width(atoi(getenv("RS_WIDTH")));
  rs_host_set_option("seed","4");rs_host_set_option("ready","1");rs_host_set_option("strict","1");rs_host_set_option("music","0");rs_host_set_option("sound","0");
  for(int n=1;n<=4;n++){
   char count[4];snprintf(count,sizeof count,"%d",n);rs_host_set_option("bot",count);assert(!rs_host_init(rs_game_main()));

@@ -3,3 +3,8 @@
 # the house kit's hu_state() and ha_state()).
 main.snd_buf        sound_init(): the synthesis buffer (the samples are made at start-up, not saved)
 main.SV             the battery save's copy (best scores, medals): stays in the .srm, a state never takes it back
+draw.canvas         foreground(): the ground's canvas, cleared and redrawn every frame (widescreen: as wide as the screen)
+draw.CX0            foreground(): the canvas's stage x, set every frame from the width
+draw.CW             foreground(): the canvas's width, set every frame from the width
+draw.tile_slot      tile_id(): the ground's tiles shared within one frame (widescreen), cleared every frame
+draw.tile_seen      tile_id(): the pictures of those tiles, rewritten every frame
