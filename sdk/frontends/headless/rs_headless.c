@@ -11,6 +11,8 @@
  *     --scale N           PNG scale factor (default 1)
  *     --width N           widescreen: the screen width (320..560; the game may keep 320: rs_game.max_width);
  *                         default: the environment variable RS_WIDTH, else 320
+ *     --resize F:N        change the width live after frame F (rs_host_change_width: a save state, a restart at
+ *                         the new width, the state loaded; what the desktop runner does when its window is resized)
  *     --opt KEY=VALUE     game option (repeatable)
  *     --data DIR          data directory override
  *     --sram FILE         load (and save back) the save RAM
@@ -37,6 +39,8 @@ static event_t ev[MAX_EVENTS];
 static int nev;
 static struct { int frame; char path[512]; } shots[MAX_SHOTS];
 static int nshots;
+static struct { int frame, width; } resizes[8];
+static int nresizes;
 
 static void add_event(int f, int port, uint16_t b)
 {
@@ -116,6 +120,12 @@ int main(int argc, char **argv)
         else if (!strcmp(a, "--png") && v) png = argv[++i];
         else if (!strcmp(a, "--scale") && v) scale = atoi(argv[++i]);
         else if (!strcmp(a, "--width") && v) rs_host_set_width(atoi(argv[++i]));
+        else if (!strcmp(a, "--resize") && v && nresizes < 8) {
+            const char *colon = strchr(argv[++i], ':');
+            if (!colon) { fprintf(stderr, "--resize needs FRAME:WIDTH\n"); return 1; }
+            resizes[nresizes].frame = atoi(argv[i]);
+            resizes[nresizes++].width = atoi(colon + 1);
+        }
         else if (!strcmp(a, "--opt") && v) rsd_option(argv[++i]);
         else if (!strcmp(a, "--dev")) rsd_option("dev=1");
         else if (!strcmp(a, "--data") && v) rsd_set_data_dir(argv[++i]);
@@ -179,6 +189,11 @@ int main(int argc, char **argv)
                     fprintf(stderr, "cannot write %s\n", shots[s].path);
                 else
                     printf("frame %d -> %s\n", f, shots[s].path);
+            }
+        for (int r = 0; r < nresizes; r++)
+            if (resizes[r].frame == f) {
+                int w = rs_host_change_width(resizes[r].width);
+                printf("frame %d: width %d\n", f, w);
             }
     }
     if (png) {
