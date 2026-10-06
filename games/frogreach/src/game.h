@@ -9,6 +9,12 @@
 #define RETRY_LOCK 36
 #define BOT_START 20
 #define MEDAL_SCORES {100,250,500,1000}
+/* Widescreen (DESIGN.md "Widescreen"): the share of the extra width of a view (its columns past those it has at 320)
+ * shown BEHIND its frog, on the left: one third (the owner's decision), the other two thirds ahead. WIDE_LEFT(extra)
+ * rounds it: 36 px on a 427-px view, 67 at 520, 80 at 560, 0 at 320. */
+#define WIDE_LEFT_NUM 1
+#define WIDE_LEFT_DEN 3
+#define WIDE_LEFT(extra) (((extra)*WIDE_LEFT_NUM*2+WIDE_LEFT_DEN)/(2*WIDE_LEFT_DEN))
 enum hero_state { HS_READY,HS_RUN,HS_HIT,HS_DOWN,HS_OFF };
 enum { MODE_WAIT,MODE_CHARGE,MODE_LEAP };
 enum { EV_JUMP=1,EV_SCORE=2,EV_HIT=4,EV_LAND=8,EV_START=16,EV_APPLE=32 };
@@ -35,6 +41,7 @@ void draw_init(void);
 void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paused);
 void draw_state(void);
 void draw_relayout(void);   /* after a state of another width was loaded: this width's maps (widescreen) */
+void draw_view_log(const world *w);   /* tests (--opt view=1): the view at exit, "view: width= left= p1_x= next_x=" */
 enum { SFX_JUMP,SFX_SCORE,SFX_HIT,SFX_LAND,SFX_COUNT };
 #define SFX_HOUSE SFX_COUNT
 #endif

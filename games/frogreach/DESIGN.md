@@ -48,14 +48,21 @@ Code MIT; art, music, sound and design CC BY-NC-SA 4.0, as stated in LICENSE.
 ## Widescreen (docs/spec.md "Widescreen")
 
 The game opts in (`max_width` = 560, `WIDESCREEN_frogreach = 1`): 320 x 240 is unchanged pixel for pixel; at 427
-(16:9), 520 or 560 (phones) **the swamp is revealed wider, to the right**: a crossing seen from the side, so the
-stage origin stays 0. Each camera keeps its frog where it was and shows more of the pond ahead; seeing further makes
-it a little easier, which the owner accepts (no compensation).
+(16:9), 520 or 560 (phones) **the swamp is revealed wider: a third of the extra width behind the frog, two thirds
+ahead** (the owner's decision: with all of it ahead the frog sat too far left before a long empty stretch). A crossing
+seen from the side: the stage origin stays 0 and each camera starts a third of its view's extra width further left
+(`WIDE_LEFT`, game.h; a full view: 36 px at 427, 67 at 520, 80 at 560, 0 at 320; a half view a third of its own extra
+columns), so the frog sits that much further right and sees the rest ahead; seeing further makes it a little easier,
+which the owner accepts (no compensation). Behind it the pond is drawn like the rest: the pads already crossed, the
+water and the reeds, and before the start (the title too) the pond behind the first pad.
 - **The same course**: the pads beyond the third ahead are drawn, with their flies, as long as the view still shows
   them (perch_pos: the course never looked at the screen); the rules, the timings and the bot are unchanged.
   tests/wide_test.sh compares the whole logs (scores, game overs, the final state and its hash) of 1-player and
   4-player bot runs at 320, 427, 520 and 560. The start of a run is the same too: the first pads sit at the same
-  distance from the frog as at 320 (a wider screen shows them from the first frame), no longer run-up.
+  distance from the frog as at 320 (a wider screen shows them from the first frame), no longer run-up. Its view
+  check (`--opt view=1` logs the view at exit) asserts the third on the left, the frog's screen x (that of 320 plus the
+  third) and the next pad's distance on the screen (that of 320), on the title, at the start, in a run and in P1's
+  view of a 2-player game.
 - **Multiplayer**: the views split the whole width (2 players: top and bottom, 3: a top half and two lower panels, 4:
   quadrants). A panel is compact (the 16-px frog, the half zoom) when it is narrower than 3/4 of the screen, as at 320,
   so a 520-px quadrant keeps the compact frog and simply shows more of its pond. The right-hand views use map columns

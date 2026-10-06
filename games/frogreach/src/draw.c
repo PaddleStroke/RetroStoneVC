@@ -1,6 +1,7 @@
 /* Frog Reach: swamp, lily pads and tongue lines and independent split-screen cameras.
- * Widescreen (DESIGN.md "Widescreen"): a crossing seen from the side, so the swamp is revealed wider, to the right
- * (the stage origin stays 0): each camera keeps its frog where it was and shows more pads ahead, drawn with their
+ * Widescreen (DESIGN.md "Widescreen"): a crossing seen from the side, so the swamp is revealed wider: a third of each
+ * view's extra width behind its frog, two thirds ahead (the stage origin stays 0; each camera starts view_left() px
+ * further left, so the frog sits that much further right): the pads behind are drawn, the pads ahead with their
  * flies as far as the view goes (the same course: perch_pos). The views split the whole width (2 players: top and
  * bottom, 3: a top half and two lower panels, 4: quadrants); a panel is compact (the 16-px frog, the half zoom) when it
  * is narrower than 3/4 of the screen, as at 320. The scenery maps are 128 tiles wide: the reeds' panorama goes on
@@ -72,6 +73,10 @@ static int fit_col(int ux,int cols,int n) {
 static int compact(const rs_viewport *vp) { return vp->w*RS_SCREEN_W<240*rs_screen_width(); }
 static int zoom_x(const rs_viewport *vp) { return compact(vp)?128:256; }
 static int zoom_y(const rs_viewport *vp) { return vp->h<200?128:256; }
+/* widescreen: the columns a view shows behind its frog, a third of its extra width (its width less the one it has at
+ * 320: 320 for a full view, 159 for a half); 0 at 320 */
+static int view_left(const rs_viewport *vp) { return WIDE_LEFT(vp->w-vp->w*RS_SCREEN_W/rs_screen_width()); }
+static int p1_drawn_x=-999,p1_view_left;   /* tests (draw_view_log): P1's sprite centre on the screen, as drawn */
 static int sx(const view *v,const rs_viewport *vp,int x) { return (x-v->cx)*zoom_x(vp)/256; }
 static int sy(const view *v,const rs_viewport *vp,int y) { return (y-v->cy)*zoom_y(vp)/256; }
 static void spr(int id,int x,int y,int prio,int pal,const rs_viewport *vp) {
@@ -86,7 +91,7 @@ static int hero_frame(const hero *h,int t) {
  return SPR_HERO_IDLE+(t/8)%2;
 }
 static void background(const view *v,rs_viewport *vp) {
- int xoff=v->cx/4,fx=floor8(xoff),dx=xoff-fx*8;
+ int xoff=v->cx>=0?v->cx/4:-((3-v->cx)/4),fx=floor8(xoff),dx=xoff-fx*8;
  int cols=(vp->w+dx+7)/8,rows=(vp->h+7)/8;
  for(int r=0;r<rows;r++) for(int c=0;c<cols;c++) {
   int yy=floor8(r*8-(sy(v,vp,180)-64));
@@ -125,7 +130,8 @@ static void web(const world *w,int player,const view *v,const rs_viewport *vp,in
   else if(y%17==3 && (wx-w->t/7-y*3)%107<14)color=10;
   pixel(pixels,x,y,color,vp);
  }
- for(int id=h->anchor-1;id<=h->anchor+3 || (id<=h->anchor+16 && pad_seen(w,id,v,vp));id++)if(id>=0){
+ /* widescreen: the pads behind the frog too, as far as the view shows them (pixel() clips) */
+ for(int id=h->anchor-1-(view_left(vp)?2:0);id<=h->anchor+3 || (id<=h->anchor+16 && pad_seen(w,id,v,vp));id++)if(id>=0){
   int x,width;perch_pos(w,id,w->t,&x,&width);int cx=sx(v,vp,x),cy=sy(v,vp,192)+3,rx=width*zoom_x(vp)/512,ry=small?3:width>=56?5:4;
   if(rx<5)rx=5;
   for(int yy=-ry-2;yy<=ry+2;yy++)for(int xx=-rx-5;xx<=rx+5;xx++){
@@ -161,7 +167,9 @@ static void web(const world *w,int player,const view *v,const rs_viewport *vp,in
 static void scene(const world *w,int p,int t,const view *v,const rs_viewport *vp) {
  const hero *h=&w->h[p];int small=compact(vp);
  int x=sx(v,vp,(int)(h->wx>>16)),y=sy(v,vp,h->y>>16);
+ int n=rs_oam_next();
  spr(small?SPR_HERO_ICON:hero_frame(h,w->t),x-(small?8:16),y-(small?15:30),2,ppal(p),vp);
+ if(p==0)p1_drawn_x=rs_oam_next()>n?vp->x+rs_screen_origin_x()+rs_oam(n)->x+(small?8:16):-999;
  if(h->smooth_t>0)hu_sparkle(x-(small?10:20)-hu_ui_x(),y-(small?8:17),w->t,2);   /* kit sprites: UI coordinates */
  for(int a=h->anchor+1;a<=h->anchor+3 || (a<=h->anchor+16 && pad_seen(w,a,v,vp));a++){
   int pad_x,width;perch_pos(w,a,w->t,&pad_x,&width);
@@ -193,7 +201,8 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   /* the UI layer's columns of the view (view_ux; the scenery layers need up to 71 columns per view: the right-hand
    * views' at 64 on a wide screen, 32 at 320) */
   int ux=view_ux(vp);
-  int cx=(int)(h->wx>>16)-(compact(vp)?32:56)*256/zoom_x(vp);
+  int cx=(int)(h->wx>>16)-((compact(vp)?32:56)+view_left(vp))*256/zoom_x(vp);   /* widescreen: a third behind */
+  if(p==0)p1_view_left=view_left(vp);
   int cy=192-(vp->h>=200?196:vp->h-26)*256/zoom_y(vp);
   /* Title and gameplay use the same camera and the same world positions. */
   if(fresh || !paused){v->cx=cx;v->cy=cy;}
@@ -257,6 +266,14 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   rs_viewports(0,NULL,0);
  } else rs_viewports(nviews,VP,RS_HEX(0x254f62));
  shown_state=state;shown_best=best;
+}
+/* Tests (--opt view=1, main.c at exit): P1's view of the last frame, "view: width=W left=L p1_x=X next_x=N": L the
+ * columns shown behind the frog (a third of the view's extra width), X the screen x of P1's sprite centre as drawn, N
+ * the screen x of the next pad's centre (tests/wide_test.sh: X and N - X against 320) */
+void draw_view_log(const world *w) {
+ const hero *h=&w->h[0];int x,width;perch_pos(w,h->anchor+1,w->t,&x,&width);
+ rs_log("view: width=%d left=%d p1_x=%d next_x=%d",rs_screen_width(),p1_view_left,p1_drawn_x,
+        VP[0].x+rs_screen_origin_x()+sx(&V[0],&VP[0],x));
 }
 #define S(v) rs_state_var("draw." #v,&(v),sizeof(v))
 void draw_state(void) { S(V);S(VP);S(nviews);S(shown_state);S(shown_best);S(laid_w);RS_STATE_RASTER(raster); }

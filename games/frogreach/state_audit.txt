@@ -4,3 +4,5 @@
 main.snd_buf        sound_init(): the synthesis buffer (the samples are made at start-up, not saved)
 main.SV             the battery save's copy (best scores, medals): stays in the .srm, a state never takes it back
 draw.pixels         web(): the pond layer's pixels, per-frame scratch (drawn again every frame)
+draw.p1_drawn_x     tests only (--opt view=1, draw_view_log): where P1's sprite was last drawn, written every frame
+draw.p1_view_left   tests only (draw_view_log): the columns P1's view shows behind its frog, written every frame
