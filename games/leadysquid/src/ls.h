@@ -111,6 +111,7 @@ void bot_reset(void);
 /* save states: each console-side file registers its objects (rs_state_var...), called from main.c */
 void draw_state(void);
 void draw_state_loaded(const world *w);    /* a state of another width: the maps for this one */
+void draw_view_log(const world *w);         /* tests (--opt view=1): the view at exit (widescreen) */
 void sfx_state(void);
 void bot_state(void);
 void bot_state_loaded(void);

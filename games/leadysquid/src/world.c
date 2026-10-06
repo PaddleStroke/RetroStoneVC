@@ -31,12 +31,13 @@ static void add_obstacle(world *w)
     w->next_index++;
 }
 
-/* keep the obstacles from just behind the screen to two spacings past its right edge (the real one: widescreen) */
+/* keep the obstacles from just behind the screen to two spacings past its right edge (the real ones: widescreen; a third
+ * of the extra width is shown on the left, rs_screen_left() < 0) */
 static void course(world *w)
 {
     int sx = world_scroll_px(w), k = 0;
     for (int i = 0; i < w->nob; i++)
-        if (w->ob[i].x + OBST_W >= sx - 64) w->ob[k++] = w->ob[i];
+        if (w->ob[i].x + OBST_W >= sx + rs_screen_left() - 64) w->ob[k++] = w->ob[i];
     w->nob = k;
     while (w->nob < OB_MAX && (w->nob == 0 || w->ob[w->nob - 1].x < sx + rs_screen_width() + 2 * SPACING))
         add_obstacle(w);

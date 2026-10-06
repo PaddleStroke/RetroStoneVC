@@ -132,6 +132,8 @@ void draw_init(void)
     rs_tiles_load(VR_BG2, ls_bg2_tiles, ls_bg2_tile_count);
     rs_tiles_load(VR_BG3, ls_bg3_tiles, ls_bg3_tile_count);
     rs_tiles_load(VR_BG4, ls_bg4_tiles, ls_bg4_tile_count);
+    /* widescreen: a third of the extra width behind the squids (tuning.h WIDE_LEFT): the stage origin; 0 at 320 */
+    rs_screen_origin(WIDE_LEFT(rs_screen_width() - RS_SCREEN_W));
     maps_setup();
     for (int l = 0; l < 4; l++) rs_bg_enable(l, 1);
     rs_obj_base(VR_OBJ);
@@ -163,7 +165,8 @@ void draw_reset_course(const world *w)
         for (int x = 0; x < rs_bg_map_w(RS_BG2); x++) rs_bg_put(RS_BG2, x, y, 0);
     drawn_index = w->first_index - 1;
     drawn_seed = w->seed;
-    cleared_col = world_scroll_px(w) / 8 > 1 ? world_scroll_px(w) / 8 - 1 : 0;
+    int c = (world_scroll_px(w) + rs_screen_left()) / 8;   /* the screen's first column (widescreen: left of x 0) */
+    cleared_col = c > 1 ? c - 1 : 0;
 }
 
 /* Widescreen: the first obstacle is at the same distance from the squid at every width (world.c), so a wide screen
@@ -183,8 +186,8 @@ static void course_tiles(const world *w)
      * whenever the course changes. */
     if (w->seed != drawn_seed) draw_reset_course(w);
     int sx = world_scroll_px(w), cm = rs_bg_map_w(RS_BG2) - 1;
-    /* clear the columns that left the screen on the left */
-    for (; cleared_col < sx / 8 - 1; cleared_col++)
+    /* clear the columns that left the screen on the left (widescreen: its real left edge, rs_screen_left()) */
+    for (; cleared_col < (sx + rs_screen_left()) / 8 - 1; cleared_col++)
         for (int y = 0; y < PLAY_H / 8; y++) rs_bg_put(RS_BG2, cleared_col & cm, y, 0);
     for (int i = 0; i < w->nob; i++) {
         const obstacle *o = &w->ob[i];
@@ -282,12 +285,12 @@ void fx_update(const world *w)
             } else {
                 f->frame = 1;
             }
-            if ((f->x >> 8) < -16) f->kind = FX_NONE;
+            if ((f->x >> 8) < rs_screen_left() - 16) f->kind = FX_NONE;
             break;
         }
     }
     /* ambient bubbles rising from the seabed, now and then */
-    if (rs_rng_range(&fx_rng, 100) < 4) bubble_at(8 + rs_rng_range(&fx_rng, rs_screen_width() - 16), SEABED_Y + 4, rs_rng_range(&fx_rng, 3));
+    if (rs_rng_range(&fx_rng, 100) < 4) bubble_at(rs_screen_left() + 8 + rs_rng_range(&fx_rng, rs_screen_width() - 16), SEABED_Y + 4, rs_rng_range(&fx_rng, 3));
 }
 
 /* ---- sprites --------------------------------------------------------------------------------------------- */
@@ -319,13 +322,16 @@ static int squid_sprite(const squid *s, int t)
     }
 }
 
+static int p1_drawn_x;      /* tests (draw_view_log): the screen x of P1's sprite centre, as drawn */
 static void draw_squids(const world *w)
 {
     for (int p = 0; p < w->players; p++) {
         const squid *s = &w->sq[p];
         if (s->state == SQ_OFF) continue;
         int cy = (int)((s->y + Q16_ONE / 2) >> 16);
+        int n = rs_oam_next();
         spr(squid_sprite(s, w->t), s->x - 16, cy - 16, 2, p ? hu_player_pal(p) : -1);   /* P2-P4: OBJ 1, 4, 5 */
+        if (p == 0) p1_drawn_x = rs_oam_next() > n ? rs_oam(n)->x + 16 + rs_screen_origin_x() : -999;
     }
 }
 
@@ -334,7 +340,7 @@ static void draw_caps(const world *w)
     int sx = world_scroll_px(w);
     for (int i = 0; i < w->nob; i++) {
         int x = w->ob[i].x - sx;
-        if (x <= -OBST_W || x >= rs_screen_right() || obstacle_hidden(w, &w->ob[i])) continue;   /* on screen only */
+        if (x <= rs_screen_left() - OBST_W || x >= rs_screen_right() || obstacle_hidden(w, &w->ob[i])) continue;   /* on screen only */
         int th = w->ob[i].theme, k = th & 1;
         if (cap_theme[k] != th) {
             rs_pal_load(RS_PAL_OBJ(OBJ_CAPS + k), ls_cap_pals[th], 16);
@@ -344,7 +350,7 @@ static void draw_caps(const world *w)
     for (int i = 0; i < w->nob; i++) {
         const obstacle *o = &w->ob[i];
         int x = o->x - sx;
-        if (x <= -OBST_W || x >= rs_screen_right() || obstacle_hidden(w, o)) continue;
+        if (x <= rs_screen_left() - OBST_W || x >= rs_screen_right() || obstacle_hidden(w, o)) continue;
         spr(SPR_CAP_KELP + o->theme * 2, x, o->gap_top - CAP_H, 2, OBJ_CAPS + (o->theme & 1));
         spr(SPR_CAP_KELP + o->theme * 2 + 1, x, o->gap_top + GAP, 2, OBJ_CAPS + (o->theme & 1));
     }
@@ -508,6 +514,16 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     draw_fx(1);
     draw_caps(w);
     draw_fx(0);
+}
+
+/* Tests (--opt view=1, main.c at exit): the view of the last frame, "view: width=W left=L p1_x=X next_x=N": L the columns
+ * shown behind the squids (the stage origin), X the screen x of P1's sprite centre as drawn, N the screen x of P1's next
+ * obstacle (tests/wide_test.sh: X and N - X against 320) */
+void draw_view_log(const world *w)
+{
+    const obstacle *o = world_next_obstacle(w, 0);
+    rs_log("view: width=%d left=%d p1_x=%d next_x=%d", rs_screen_width(), rs_screen_origin_x(), p1_drawn_x,
+           o ? o->x - world_scroll_px(w) + rs_screen_origin_x() : -999);
 }
 
 /* ---- save states (main.c) ----

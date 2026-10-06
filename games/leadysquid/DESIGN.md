@@ -124,9 +124,14 @@ the winner's name on the banner ("P3 WINS!" or "DRAW!"). The best score counts a
 
 ## Widescreen (docs/spec.md "Widescreen")
 The game opts in (`max_width` = 560, `WIDESCREEN_leadysquid = 1`): 320 (4:3) is unchanged pixel for pixel; at 427
-(16:9) or 520 (phones) **the world is simply revealed wider**, to the right.
-- The stage origin stays 0: the squids swim at the same screen x (96, P2-P4 behind), the screen shows further ahead.
-  Seeing further makes it a little easier; the owner accepts it (no compensation).
+(16:9) or 520 (phones) **the world is simply revealed wider: a third of the extra width behind the squids, two
+thirds ahead**.
+- The owner's decision: with all of the extra width ahead the squid sat too far left before a long empty stretch. The
+  stage origin is `WIDE_LEFT(width - 320)` (tuning.h: 36 px at 427, 67 at 520, 80 at 560, 0 at 320): the squids swim
+  that much further right on the screen (x 96 + the origin, P2-P4 behind), the screen shows the rest further ahead.
+  Seeing further makes it a little easier; the owner accepts it (no compensation). Behind them the sea is drawn like
+  the rest: the passed gates (their columns are cleared once off the REAL left edge, the world keeps the obstacles
+  until then), the scenery, the bubbles; before the start (the title too) the sea behind the starting line.
 - **The course is world content.** The first obstacle is at the same distance from the squid at every width (x 320,
   224 px ahead: the run-up of 4:3, not one growing with the width, which the owner's phone test found too long), so a
   wide screen already shows the first gates when the run starts. Before the start (the title, waiting for the first
@@ -144,7 +149,11 @@ The game opts in (`max_width` = 560, `WIDESCREEN_leadysquid = 1`): 320 (4:3) is 
 - Save states load at any width: a state of another width brings maps of another size, so `state_loaded` sets them up
   again (scenery, the course redrawn from the saved obstacles, the UI and PAUSED on the next frame); the course goes on
   from the saved obstacles, the generator adds the next ones up to the new edge. tests/wide_test.sh checks it.
-- The caps test (tests/test_caps.c) runs at every width (`make leadysquid-check` loops over WIDTHS = 427 520).
+- The caps test (tests/test_caps.c) runs at every width (`make leadysquid-check` loops over WIDTHS = 427 520). Its
+  pixel columns are screen columns (the stage x plus the origin), the caps' OAM x stage ones.
+- tests/wide_test.sh checks the view (`--opt view=1` logs it at exit) at 320, 427, 520 and 560: the third on the
+  left, P1's screen x (that of 320 plus the third) and the next gate's distance on the screen (that of 320: the first
+  one 224 px ahead at the start), on the title, at the start, in a run and in a 4-player race.
 
 ## Audio
 - Sound effects synthesised in code at start-up (sfx.c): **bloop** (a short rising sine with a bubbly

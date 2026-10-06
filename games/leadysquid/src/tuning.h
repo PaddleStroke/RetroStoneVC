@@ -80,6 +80,12 @@
 
 /* ---- the squid on screen ------------------------------------------------- */
 #define SQUID_X        96       /* centre of the hitbox, screen x (the reference: 0.2 of the width) */
+/* Widescreen (DESIGN.md "Widescreen"): the share of the extra width (the columns past 320) shown BEHIND the squids, on
+ * the left: one third (the owner's decision), the other two thirds ahead. The stage origin is WIDE_LEFT(width - 320):
+ * 36 px at 427, 67 at 520, 80 at 560, 0 at 320 (rounded). */
+#define WIDE_LEFT_NUM  1
+#define WIDE_LEFT_DEN  3
+#define WIDE_LEFT(extra) (((extra) * WIDE_LEFT_NUM * 2 + WIDE_LEFT_DEN) / (2 * WIDE_LEFT_DEN))
 #define SQUID_START_Y  ((PLAY_H / 2) - 8)   /* centre at the start of a run */
 #define P2_OFFSET_X    32       /* player 2 swims this far behind player 1 */
 #define P_OFFSET_4P    24       /* 3-4 players: each next squid this far behind (P4 at x 24) */

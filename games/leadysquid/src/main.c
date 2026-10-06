@@ -13,6 +13,7 @@
  *   players=N      start with N players joined (1..4)
  *   ready=1        skip the title (the run waits for its first flap)
  *   dump=1         log the final state at exit (tests); music=0, sound=0
+ *   view=1         log the view at exit (tests/wide_test.sh: widescreen, a third of the extra width behind)
  */
 #include "ls.h"
 #include "assets.h"
@@ -231,6 +232,7 @@ static void game_init(void)
 
 static void game_shutdown(void)
 {
+    if (rs_option_int("view", 0)) draw_view_log(&W);      /* tests/wide_test.sh: the view (widescreen) */
     if (!rs_option_int("dump", 0)) return;
     char list[400] = "";
     for (int i = 0; i < nbot_scores; i++) {

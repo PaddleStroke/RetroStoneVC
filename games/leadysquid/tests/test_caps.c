@@ -106,7 +106,7 @@ static void fail(int frame, uint32_t seed, const obstacle *o, int ox, const char
 
 static void check_frame(const world *w, int frame)
 {
-    int sx = world_scroll_px(w);
+    int sx = world_scroll_px(w), org = rs_screen_origin_x();   /* widescreen: screen column = stage x + org */
     render_without_sprites(1, with_bg2);
     render_without_sprites(0, without_bg2);
     for (int i = 0; i < SW * SH; i++) body[i / SW][i % SW] = with_bg2[i] != without_bg2[i];
@@ -114,7 +114,7 @@ static void check_frame(const world *w, int frame)
     phase_seen[sx & 7] = 1;
     for (int i = 0; i < w->nob; i++) {
         const obstacle *o = &w->ob[i];
-        int ox = o->x - sx, g = o->gap_top;
+        int ox = o->x - sx + org, g = o->gap_top, stx = ox - org;   /* its screen column (pixels), stage x (OAM) */
         int x0 = ox < 0 ? 0 : ox, x1 = ox + OBST_W > SW ? SW : ox + OBST_W;
         if (x1 <= x0) continue;
         /* widescreen: before the run starts, the obstacles on the screen are not shown at all (draw.c; the first flap
@@ -123,8 +123,8 @@ static void check_frame(const world *w, int frame)
             int n = 0;
             for (int y = 0; y < PLAY_H; y++)
                 for (int x = x0; x < x1; x++) n += body[y][x];
-            if (n || cap_in_oam(SPR_CAP_KELP + o->theme * 2, ox, g - CAP_H) ||
-                cap_in_oam(SPR_CAP_KELP + o->theme * 2 + 1, ox, g + GAP))
+            if (n || cap_in_oam(SPR_CAP_KELP + o->theme * 2, stx, g - CAP_H) ||
+                cap_in_oam(SPR_CAP_KELP + o->theme * 2 + 1, stx, g + GAP))
                 fail(frame, w->seed, o, ox, "an obstacle shown before the run starts (the title must stay clear)");
             hidden_checked++;
             continue;
@@ -134,9 +134,9 @@ static void check_frame(const world *w, int frame)
         /* the caps (sprites) at the gap's exact pixel height */
         const ls_sprite_def *cap = &ls_spr[SPR_CAP_KELP + o->theme * 2];
         if (ox > -(int)cap->w && ox < SW) {
-            if (!cap_in_oam(SPR_CAP_KELP + o->theme * 2, ox, g - CAP_H))
+            if (!cap_in_oam(SPR_CAP_KELP + o->theme * 2, stx, g - CAP_H))
                 fail(frame, w->seed, o, ox, "no top cap sprite ending at the gap top");
-            if (!cap_in_oam(SPR_CAP_KELP + o->theme * 2 + 1, ox, g + GAP))
+            if (!cap_in_oam(SPR_CAP_KELP + o->theme * 2 + 1, stx, g + GAP))
                 fail(frame, w->seed, o, ox, "no bottom cap sprite starting at the gap bottom");
         }
         /* no column body inside the gap (nor beside the column) */
