@@ -27,6 +27,14 @@
  *     <frame> [P1..P4] <BUTTONS|->       hold BUTTONS (B+UP...) from <frame>
  *     <frame> [P1..P4] tap <BUTTONS>     hold for 2 frames, then release
  *     <frame> key F<n>                   press the development key Fn (rs_dev_key) at <frame>
+ *   Touches (player 1; docs/spec.md "Touch"), finger T1 unless T1..T4 is given:
+ *     <frame> [T1..T4] touch <x> <y>     a finger goes down at x, y and stays
+ *     <frame> [T1..T4] move <x> <y>      it moves there
+ *     <frame> [T1..T4] up                it is lifted
+ *     <frame> [T1..T4] tap-at <x> <y>    down for 3 frames, then up (a tap)
+ *     <frame> [T1..T4] swipe <x> <y> <dx> <dy>   down at x, y, moved by dx, dy (pixels) over 4 frames, up 2 frames later
+ *   x and y: screen pixels (0..width-1, 0..239); N% = percent of the screen's width / height; @N = the STAGE
+ *   coordinate N (x: N + rs_screen_origin_x(): the same spot of a centred game at any width).
  */
 #include "rs_desktop.h"
 #include <stdio.h>
@@ -36,7 +44,9 @@
 #define MAX_EVENTS 4096
 #define MAX_SHOTS 64
 
-typedef struct { int frame, port; uint16_t buttons; } event_t;
+enum { EV_PAD, EV_KEY, EV_TOUCH, EV_MOVE, EV_UP };
+typedef struct { float v; char mode; } coord_t;    /* mode: 0 pixels, '%' percent, '@' stage */
+typedef struct { int frame, kind, port; uint16_t buttons; coord_t x, y; } event_t;
 static event_t ev[MAX_EVENTS];
 static int nev;
 static struct { int frame; char path[512]; } shots[MAX_SHOTS];
@@ -44,15 +54,59 @@ static int nshots;
 static struct { int frame, width; } resizes[8];
 static int nresizes;
 
-static void add_event(int f, int port, uint16_t b)
+static void add(event_t e)
 {
     if (nev >= MAX_EVENTS) return;
     /* keep the list sorted by frame (stable) */
     int i = nev++;
-    while (i > 0 && ev[i - 1].frame > f) { ev[i] = ev[i - 1]; i--; }
-    ev[i].frame = f;
-    ev[i].port = port;
-    ev[i].buttons = b;
+    while (i > 0 && ev[i - 1].frame > e.frame) { ev[i] = ev[i - 1]; i--; }
+    ev[i] = e;
+}
+static void add_event(int f, int port, uint16_t b)
+{
+    event_t e = {f, port < 0 ? EV_KEY : EV_PAD, port, b, {0, 0}, {0, 0}};
+    add(e);
+}
+static coord_t coord(const char *s)
+{
+    coord_t c = {0, 0};
+    if (*s == '@') { c.mode = '@'; s++; }
+    c.v = (float)atof(s);
+    if (strchr(s, '%')) c.mode = '%';
+    return c;
+}
+static void add_touch(int f, int kind, int finger, coord_t x, coord_t y)
+{
+    event_t e = {f, kind, finger, 0, x, y};
+    add(e);
+}
+
+/* the fingers down (headless: ids 1..4 = T1..T4) */
+static rs_host_touch fingers[RS_TOUCH_MAX];
+static int nfingers;
+static int resolve(coord_t c, int horizontal)
+{
+    int size = horizontal ? rs_screen_width() : RS_SCREEN_H;
+    if (c.mode == '%') return (int)(c.v * size / 100.0f);
+    if (c.mode == '@') return (int)c.v + (horizontal ? rs_screen_origin_x() : 0);
+    return (int)c.v;
+}
+static void touch_event(const event_t *e)
+{
+    int k = 0;
+    while (k < nfingers && fingers[k].id != e->port + 1) k++;
+    if (e->kind == EV_UP) {
+        if (k < nfingers) fingers[k] = fingers[--nfingers];
+    } else {
+        if (k == nfingers) {
+            if (nfingers >= RS_TOUCH_MAX) return;
+            nfingers++;
+        }
+        fingers[k].id = e->port + 1;
+        fingers[k].x = resolve(e->x, 1);
+        fingers[k].y = resolve(e->y, 0);
+    }
+    rs_host_set_touches(nfingers, fingers);
 }
 
 static int load_script(const char *path)
@@ -66,16 +120,41 @@ static int load_script(const char *path)
         if (nl) *nl = 0;
         char *h = strchr(line, '#');
         if (h) *h = 0;
-        char t[4][128] = {"", "", "", ""};
-        int k = sscanf(line, "%127s %127s %127s %127s", t[0], t[1], t[2], t[3]);
+        char t[6][128] = {"", "", "", "", "", ""};
+        int k = sscanf(line, "%127s %127s %127s %127s %127s %127s", t[0], t[1], t[2], t[3], t[4], t[5]);
         line = nl ? nl + 1 : NULL;
         if (k < 2) continue;
         int f = atoi(t[0]), port = 0, i = 1;
-        if ((t[1][0] == 'P' || t[1][0] == 'p') && t[1][1] >= '1' && t[1][1] <= '4' && !t[1][2]) {
+        if ((t[1][0] == 'P' || t[1][0] == 'p' || t[1][0] == 'T' || t[1][0] == 't') && t[1][1] >= '1' &&
+            t[1][1] <= '4' && !t[1][2]) {
             port = t[1][1] - '1';
             i = 2;
         }
         if (i >= k) continue;
+        if (!strcmp(t[i], "touch") || !strcmp(t[i], "move") || !strcmp(t[i], "tap-at")) {
+            if (i + 2 >= k) { fprintf(stderr, "%s: %s needs x y\n", path, t[i]); free(s); return -1; }
+            coord_t x = coord(t[i + 1]), y = coord(t[i + 2]);
+            add_touch(f, !strcmp(t[i], "move") ? EV_MOVE : EV_TOUCH, port, x, y);
+            if (!strcmp(t[i], "tap-at")) add_touch(f + 3, EV_UP, port, x, y);
+            continue;
+        }
+        if (!strcmp(t[i], "up")) { coord_t z = {0, 0}; add_touch(f, EV_UP, port, z, z); continue; }
+        if (!strcmp(t[i], "swipe")) {
+            if (i + 4 >= k) { fprintf(stderr, "%s: swipe needs x y dx dy\n", path); free(s); return -1; }
+            coord_t x = coord(t[i + 1]), y = coord(t[i + 2]);
+            float dx = (float)atof(t[i + 3]), dy = (float)atof(t[i + 4]);
+            add_touch(f, EV_TOUCH, port, x, y);
+            for (int st = 1; st <= 4; st++) {
+                coord_t mx = x, my = y;
+                /* dx, dy in the start's unit (pixels; percent after an N% start) */
+                mx.v += dx * st / 4;
+                my.v += dy * st / 4;
+                add_touch(f + st, EV_MOVE, port, mx, my);
+            }
+            coord_t z = {0, 0};
+            add_touch(f + 6, EV_UP, port, z, z);
+            continue;
+        }
         if (!strcmp(t[i], "key") && i + 1 < k && (t[i + 1][0] == 'F' || t[i + 1][0] == 'f')) {
             add_event(f, -1, (uint16_t)atoi(t[i + 1] + 1));
             continue;
@@ -165,8 +244,9 @@ int main(int argc, char **argv)
     int e = 0;
     for (int f = 0; f < frames; f++) {
         while (e < nev && ev[e].frame <= f) {
-            if (ev[e].port < 0) rs_host_set_dev_key(ev[e].buttons);
-            else rs_host_set_pad(ev[e].port, ev[e].buttons, 1);
+            if (ev[e].kind == EV_KEY) rs_host_set_dev_key(ev[e].buttons);
+            else if (ev[e].kind == EV_PAD) rs_host_set_pad(ev[e].port, ev[e].buttons, 1);
+            else touch_event(&ev[e]);
             e++;
         }
         rs_host_frame();

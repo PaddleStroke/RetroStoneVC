@@ -210,6 +210,38 @@ minus the sound-effect voices, and the samples within ARAM.
 
 **SNES mapping.** Identical bit layout (JOY1-JOY4 with a multitap).
 
+### Touch
+An extension for phones (the RetroStone Arcade apps) and the desktop's mouse. **Touch is player 1**; players 2-4 are
+pads. A game that does not read it is unchanged, and a game that reads it keeps its pad controls.
+
+- **Up to 4 fingers** (`RS_TOUCH_MAX`), each in a slot it keeps while it is down: `rs_touch(i)` (NULL when the slot
+  is free), `rs_touch_count()`, `rs_touch_first()` (the finger down the longest). A point (`rs_touch_point`) has its
+  position `x, y` in **screen pixels of the current width** (0..`rs_screen_width()`-1 x 0..239; the stage x is
+  x - `rs_screen_origin_x()`), where it went down (`x0, y0`), the frames since, and its edges: `down`, `pressed`
+  (went down this frame), `released` (went up this frame; x, y = where it was last).
+- **Gestures**, worked out by the runtime at the start of each frame: a **tap** (`tap`, `rs_touch_tap()`): released
+  within `RS_TOUCH_TAP_FRAMES` (18, 0.3 s) without ever going further than `RS_TOUCH_SLOP` (8 px) from where it went
+  down (then `moved` is set); a **swipe** (`swipe` on the frame it is recognised, once per touch, `swiped` after,
+  `rs_touch_swipe()`): `RS_TOUCH_SWIPE_DIST` (20 px) from where it went down within `RS_TOUCH_SWIPE_FRAMES` (24),
+  mostly along one axis (the other at most half as far): `RS_SWIPE_UP`, `DOWN`, `LEFT`, `RIGHT`; a **hold**
+  (`rs_touch_hold()`): down `RS_TOUCH_HOLD_FRAMES` (19) or more without moving; the **screen halves**:
+  `rs_touch_half(x)`, `rs_touch_halves()` (the halves with a finger down, `RS_TOUCH_LEFT | RS_TOUCH_RIGHT`).
+- **Declaring it.** `rs_game.touch_native = 1`: the game reads the touches itself for player 1, **its menus
+  included** (a tap starts the title, goes on after a game over...). The apps (apps/launcher) then pass it the
+  touches, and no longer turn them into pad buttons (games.cfg's zones and drawn buttons are for the other games);
+  the app's back button (top left) and pause button (top right, which presses the game's pause input) keep the
+  fingers that go down on them.
+- **Frontends.** The host gives the fingers down before each frame: `rs_host_set_touches(n, {id, x, y})`, in screen
+  pixels (clamped). SDL2: a touch screen's fingers, and the **mouse's left button as one finger** (test on the
+  desktop). The apps: the phone's touches (and the mouse on the desktop) for a touch-native game. Headless:
+  `touch`, `move`, `up`, `tap-at`, `swipe` lines in the input script (fingers T1-T4; coordinates in pixels, `N%`, or
+  `@N` = stage coordinate). libretro: `RETRO_DEVICE_POINTER` on port 1 when the frontend has one (a touch screen,
+  RetroArch's mouse); without one the game is played with the pad.
+- **Save states** do not hold touches (the format is unchanged): a load forgets the fingers down, and one still down
+  is seen as a new touch. A game keeps what it derives from touches (a target) in its own registered state.
+
+**SNES mapping.** None (the SNES Mouse aside): a port is played with the pad.
+
 ## 9. Save
 - **32 KiB of battery RAM** (`rs_sram()`), exposed as libretro `SAVE_RAM`; the desktop runner saves it as
   `<game>.srm`. The game calls `rs_sram_commit()` after a change.

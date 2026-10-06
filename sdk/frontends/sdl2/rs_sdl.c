@@ -15,6 +15,7 @@
  * Keyboard, pad 1: arrows = D-pad, Z = B, X = A, C = Y, V = X, Q = L, E = R, Enter = Start,
  *                  Right Shift / Backspace / Esc = Select.
  *           pad 2: W A S D = D-pad, G = B, H = A, T = Start, R = Select (a second player on one keyboard).
+ * Touch (player 1, docs/spec.md "Touch"): a touch screen's fingers, and the mouse's left button as one finger.
  * F11 or Alt+Enter = fullscreen, F12 = screenshot, Esc = quit.
  * Game controllers: up to 4, SNES positions (bottom = B, right = A, left = Y, top = X).
  */
@@ -101,6 +102,44 @@ static uint16_t keyboard_state(const keymap *map)
 }
 
 static void log_fn(const char *line) { SDL_Log("%s", line); }
+/* Touch (docs/spec.md "Touch"): the touch screen's fingers and the mouse's left button (one finger), in the
+ * picture's pixels: SDL gives the mouse in the renderer's logical pixels and the fingers in fractions of the logical
+ * picture (SDL_RenderSetLogicalSize). A finger lifted is kept one frame, so that a quick tap is seen. */
+#define MOUSE_FINGER (-1000)
+static struct { long id; float x, y; int up; } fingers[RS_TOUCH_MAX];
+static int nfingers, mouse_down;
+
+static void finger_set(long id, float x, float y, int up)
+{
+    for (int i = 0; i < nfingers; i++)
+        if (fingers[i].id == id) {
+            fingers[i].x = x;
+            fingers[i].y = y;
+            if (up) fingers[i].up = 1;
+            return;
+        }
+    if (up || nfingers >= RS_TOUCH_MAX) return;
+    fingers[nfingers].id = id;
+    fingers[nfingers].x = x;
+    fingers[nfingers].y = y;
+    fingers[nfingers].up = 0;
+    nfingers++;
+}
+
+static void touches_to_host(void)
+{
+    rs_host_touch t[RS_TOUCH_MAX];
+    for (int i = 0; i < nfingers; i++) {
+        t[i].id = fingers[i].id;
+        t[i].x = (int)fingers[i].x;
+        t[i].y = (int)fingers[i].y;
+    }
+    rs_host_set_touches(nfingers, t);
+    for (int i = 0; i < nfingers;)                  /* the lifted ones were seen: they go */
+        if (fingers[i].up) fingers[i] = fingers[--nfingers];
+        else i++;
+}
+
 
 static void path_in_base(char *out, size_t n, const char *name)
 {
@@ -240,6 +279,16 @@ int main(int argc, char **argv)
                 pending_width = width_for(g, e.window.data1, e.window.data2);
                 pending_t = 15;
             }
+            else if (e.type == SDL_FINGERDOWN || e.type == SDL_FINGERMOTION || e.type == SDL_FINGERUP)
+                finger_set((long)e.tfinger.fingerId, e.tfinger.x * width, e.tfinger.y * RS_SCREEN_H,
+                           e.type == SDL_FINGERUP);
+            else if ((e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP) && e.button.which != SDL_TOUCH_MOUSEID &&
+                     e.button.button == SDL_BUTTON_LEFT) {
+                mouse_down = e.type == SDL_MOUSEBUTTONDOWN;
+                finger_set(MOUSE_FINGER, (float)e.button.x, (float)e.button.y, !mouse_down);
+            }
+            else if (e.type == SDL_MOUSEMOTION && e.motion.which != SDL_TOUCH_MOUSEID && mouse_down)
+                finger_set(MOUSE_FINGER, (float)e.motion.x, (float)e.motion.y, 0);
             else if (e.type == SDL_KEYDOWN && !e.key.repeat) {
                 SDL_Keycode k = e.key.keysym.sym;
                 if (k >= SDLK_F1 && k <= SDLK_F10) rs_host_set_dev_key((int)(k - SDLK_F1) + 1);
@@ -268,6 +317,7 @@ int main(int argc, char **argv)
                 else if (pb && !kb) rs_host_set_pad_device(p, RS_DEVICE_PAD);
                 rs_host_set_pad(p, (uint16_t)(pb | kb), p <= 1 || pads[p]);
             }
+            touches_to_host();
             rs_host_frame();
             if (dev) {
                 int n;

@@ -14,7 +14,8 @@
 # 3. Credits & licences: the "i" opens the list, a line its licence's text, a drag scrolls it, Back, Back, Back quits.
 # 4. Every game launches and its saves stay its own: each game played in turn in ONE process and left with Back
 #    writes its own <id>.state (the state's header names that game); a second process resumes each of them.
-# 5. The touch schemes (games.cfg): a touch on the left and on the right of each game gives pad buttons.
+# 5. The touch schemes (games.cfg): a touch on the left and on the right of each game gives pad buttons; a touch-native
+#    game (rs_game.touch_native) gets the touches themselves, in screen pixels.
 # 6. The launcher in the 22 languages (--lang): the kit reports no layout error (text off the screen or a panel):
 #    the menu, the footer, the credits list and a licence text; the free app's panel too.
 # MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
@@ -185,8 +186,21 @@ echo "ok   $(echo $GAMES | wc -w) games launch in one process, each writes and r
 for g in $GAMES; do
     printf '10 touch 10 80\n20 up\n30 touch 90 50\n40 up\n50 touch 50 15\n60 up\n' > "$OUT/touch.txt"
     "$B" --saves "$OUT/saves4" --start "$g" --fresh --touch-log --frames 80 --input "$OUT/touch.txt" > "$OUT/touch-$g.log" 2>&1
-    t=$(grep "^touch:" "$OUT/touch-$g.log" | grep -v "touch: -" | sed 's/touch: //' | tr '\n' '/' | sed 's#/$##')
+    t=$(grep "^touch:" "$OUT/touch-$g.log" | grep -v "touch: -" | grep -v "touch: native -" | sed 's/touch: //' | tr '\n' '/' | sed 's#/$##')
     [ -n "$t" ] || fail "$g: the touches gave no button"
+    if grep -q "^touch: native" "$OUT/touch-$g.log"; then
+        # a touch-native game: the fingers that go down on the pause or the back button never reach it; a finger
+        # that went down on its picture stays its touch when it slides over the pause button
+        printf '10 touch 95 5\n20 up\n30 touch 60 30\n34 move 95 5\n40 up\n60 touch 3 5\n65 up\n' > "$OUT/touch2.txt"
+        "$B" --saves "$OUT/saves4" --start "$g" --fresh --touch-log --frames 80 --input "$OUT/touch2.txt" \
+            > "$OUT/touch2-$g.log" 2>&1
+        sed -n '/^touch: native 1/q;p' "$OUT/touch2-$g.log" | grep -q "^touch: [A-Z]" \
+            || fail "$g: the pause button pressed nothing (or its finger reached the game)"
+        [ "$(grep -c "^touch: native 1" "$OUT/touch2-$g.log")" = 1 ] \
+            || fail "$g: the pause or back button's finger reached the game, or the game's finger was lost"
+        [ "$(grep -c "^start: launcher" "$OUT/touch2-$g.log")" = 2 ] || fail "$g: the back button did not go back"
+        t="$t; the pause and back buttons keep their fingers"
+    fi
     echo "ok   touch $g: $t"
 done
 

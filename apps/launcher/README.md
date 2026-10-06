@@ -74,15 +74,18 @@ modules are compiled with `-mcmodel=small`, so no `.refptr` stub is shared betwe
   Starting a game loads its state when there is one: it resumes where it was, **held** (the frontend shows a play
   sign) until a touch or a button, and that touch is not passed to the game.
 - Touches: `games.cfg` gives each game its scheme (zones of the screen -> pad buttons, some drawn by the frontend
-  as translucent buttons, and the button of the small pause button in the corner); they are player 1. The launcher
-  gets a pointer (`rsb_pointer_get()`) and Back.
+  as translucent buttons, and the button of the small pause button in the corner); they are player 1. A game that
+  reads the touches itself (`rs_game.touch_native`, docs/spec.md "Touch") gets them instead, in its screen pixels
+  (`rs_host_set_touches`), without zones or drawn buttons: the fingers that went down on its picture, until they are
+  lifted. The launcher gets a pointer (`rsb_pointer_get()`) and Back.
 - The menu: the "i" (top left) opens Credits & licences, the "?" (top right) a short help (touch is player 1,
   gamepads players 2 to 4, the in-game pause and back buttons); the dialogs close with their back arrow (top left), a
   tap outside them, Back or B. The pad's glyph hints (A, B, the selected game's name in the footer) are shown only
   while a gamepad is connected (`rsb_input.gamepad`; on the desktop, once the keyboard was used); the footer itself
   only when it has something (the free app's "full version" banner, or those hints).
 - In a game, the frontend draws a pause button (top right) and a back button (top left, = Back: the state is saved,
-  the menu comes back); the runtime keeps their touches from the game.
+  the menu comes back); the runtime keeps their touches from the game (a finger that goes down on one of them; one
+  that slides onto them from the game stays the game's).
 - Credits & licences: the list of the components and their licences (translated), and each licence's full text
   (English, scrolled). `tools/gen_credits.py` takes the texts
   from the files that come with each component (`LICENSE-*`, SDL2's `LICENSE.txt`, libxmp-lite's README, Unifont's

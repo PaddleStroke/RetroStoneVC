@@ -213,6 +213,132 @@ void rs_host_set_pad_device(int p, int d)
 }
 int rs_pad_device(int p) { return (unsigned)p < RS_PAD_MAX ? g_pad_dev[p] : RS_DEVICE_PAD; }
 
+/* ---- touch (docs/spec.md "Touch") ---------------------------------------------------------------------------------
+ * The frontend gives the fingers down (rs_host_set_touches); at the start of each frame touch_step() matches them to
+ * the slots by id and works out the edges and gestures. Not part of save states: a load forgets the fingers. */
+static rs_host_touch g_tin[RS_TOUCH_MAX];       /* what the frontend gave */
+static int g_tin_n;
+static rs_touch_point g_touch[RS_TOUCH_MAX];
+static long g_touch_id[RS_TOUCH_MAX];
+static uint8_t g_touch_busy[RS_TOUCH_MAX];      /* down, or released this frame */
+
+void rs_host_set_touches(int n, const rs_host_touch *t)
+{
+    g_tin_n = 0;
+    for (int i = 0; i < n && t && g_tin_n < RS_TOUCH_MAX; i++) {
+        int dup = 0;
+        for (int k = 0; k < g_tin_n; k++) dup |= g_tin[k].id == t[i].id;
+        if (!dup) g_tin[g_tin_n++] = t[i];
+    }
+}
+
+static void touch_reset(void)                   /* the slots (the fingers the frontend gave stay down) */
+{
+    memset(g_touch, 0, sizeof g_touch);
+    memset(g_touch_busy, 0, sizeof g_touch_busy);
+}
+
+static int clampi(int v, int lo, int hi) { return v < lo ? lo : v > hi ? hi : v; }
+
+static void touch_step(void)
+{
+    int w = rs_screen_width();
+    uint8_t seen[RS_TOUCH_MAX] = {0};
+    for (int s = 0; s < RS_TOUCH_MAX; s++) {
+        rs_touch_point *p = &g_touch[s];
+        if (g_touch_busy[s] && !p->down) g_touch_busy[s] = 0;       /* released last frame: the slot is free */
+        if (!g_touch_busy[s]) { memset(p, 0, sizeof *p); continue; }
+        p->pressed = p->released = p->tap = p->swipe = 0;
+        int f = -1;
+        for (int i = 0; i < g_tin_n; i++)
+            if (!seen[i] && g_tin[i].id == g_touch_id[s]) { f = i; break; }
+        if (f < 0) {                                                /* lifted */
+            p->down = 0;
+            p->released = 1;
+            p->tap = !p->moved && p->frames <= RS_TOUCH_TAP_FRAMES;
+            continue;
+        }
+        seen[f] = 1;
+        p->x = (int16_t)clampi(g_tin[f].x, 0, w - 1);
+        p->y = (int16_t)clampi(g_tin[f].y, 0, RS_SCREEN_H - 1);
+        if (p->frames < 0xffff) p->frames++;
+        int dx = p->x - p->x0, dy = p->y - p->y0, ax = dx < 0 ? -dx : dx, ay = dy < 0 ? -dy : dy;
+        if (dx * dx + dy * dy > RS_TOUCH_SLOP * RS_TOUCH_SLOP) p->moved = 1;
+        /* a swipe: far enough, soon enough, mostly along one axis (the other at most half as far) */
+        if (!p->swiped && p->frames <= RS_TOUCH_SWIPE_FRAMES && (ax >= RS_TOUCH_SWIPE_DIST || ay >= RS_TOUCH_SWIPE_DIST)) {
+            if (ay >= ax && ax * 2 <= ay) p->swiped = dy < 0 ? RS_SWIPE_UP : RS_SWIPE_DOWN;
+            else if (ax > ay && ay * 2 <= ax) p->swiped = dx < 0 ? RS_SWIPE_LEFT : RS_SWIPE_RIGHT;
+            p->swipe = p->swiped;
+        }
+    }
+    for (int i = 0; i < g_tin_n; i++) {                             /* new fingers: a free slot each */
+        if (seen[i]) continue;
+        int s = 0;
+        while (s < RS_TOUCH_MAX && g_touch_busy[s]) s++;
+        if (s == RS_TOUCH_MAX) break;                               /* full: it gets a slot once one is free */
+        rs_touch_point *p = &g_touch[s];
+        memset(p, 0, sizeof *p);
+        g_touch_busy[s] = 1;
+        g_touch_id[s] = g_tin[i].id;
+        p->x = p->x0 = (int16_t)clampi(g_tin[i].x, 0, w - 1);
+        p->y = p->y0 = (int16_t)clampi(g_tin[i].y, 0, RS_SCREEN_H - 1);
+        p->down = p->pressed = 1;
+    }
+}
+
+const rs_touch_point *rs_touch(int i) { return (unsigned)i < RS_TOUCH_MAX && g_touch_busy[i] ? &g_touch[i] : NULL; }
+int rs_touch_count(void)
+{
+    int n = 0;
+    for (int s = 0; s < RS_TOUCH_MAX; s++) n += g_touch_busy[s] && g_touch[s].down;
+    return n;
+}
+const rs_touch_point *rs_touch_first(void)
+{
+    const rs_touch_point *best = NULL;
+    for (int s = 0; s < RS_TOUCH_MAX; s++)
+        if (g_touch_busy[s] && g_touch[s].down && (!best || g_touch[s].frames > best->frames)) best = &g_touch[s];
+    return best;
+}
+static int touch_at(const rs_touch_point *p, int *x, int *y)
+{
+    if (x) *x = p->x;
+    if (y) *y = p->y;
+    return 1;
+}
+int rs_touch_tap(int *x, int *y)
+{
+    for (int s = 0; s < RS_TOUCH_MAX; s++)
+        if (g_touch_busy[s] && g_touch[s].tap) return touch_at(&g_touch[s], x, y);
+    return 0;
+}
+int rs_touch_swipe(int *x, int *y)
+{
+    for (int s = 0; s < RS_TOUCH_MAX; s++)
+        if (g_touch_busy[s] && g_touch[s].swipe) {
+            if (x) *x = g_touch[s].x0;
+            if (y) *y = g_touch[s].y0;
+            return g_touch[s].swipe;
+        }
+    return 0;
+}
+int rs_touch_hold(int *x, int *y)
+{
+    for (int s = 0; s < RS_TOUCH_MAX; s++) {
+        const rs_touch_point *p = &g_touch[s];
+        if (g_touch_busy[s] && p->down && !p->moved && p->frames >= RS_TOUCH_HOLD_FRAMES) return touch_at(p, x, y);
+    }
+    return 0;
+}
+int rs_touch_half(int x) { return x < rs_screen_width() / 2 ? RS_TOUCH_LEFT : RS_TOUCH_RIGHT; }
+int rs_touch_halves(void)
+{
+    int m = 0;
+    for (int s = 0; s < RS_TOUCH_MAX; s++)
+        if (g_touch_busy[s] && g_touch[s].down) m |= rs_touch_half(g_touch[s].x);
+    return m;
+}
+
 /* ---- save RAM ------------------------------------------------------------ */
 uint8_t *rs_sram(void) { return g_sram; }
 void rs_sram_commit(void) { g_sram_dirty = 1; }
@@ -266,6 +392,7 @@ void rs_host_reset(void)
     text_reset();
     memset(g_pad, 0, sizeof g_pad);
     memset(g_pad_prev, 0, sizeof g_pad_prev);
+    touch_reset();
     memset(g_warned, 0, sizeof g_warned);
     rs_srand(0x2545F491u);
     g_frame = 0;
@@ -330,6 +457,7 @@ int rs_host_change_width(int width)
 void rs_host_frame(void)
 {
     uint64_t t0 = rs_host_time_us();
+    touch_step();
     if (g_game) {
         if (g_game->update) g_game->update();
         if (g_game->draw) g_game->draw();
@@ -408,6 +536,7 @@ int core_state_load(rs_rd *r, int apply)
         g_pad_conn[p] = conn[p] ? 1 : 0;
     }
     g_dev_key = 0;
+    touch_reset();                          /* touches are not saved: a finger still down is a new touch */
     return 0;
 }
 

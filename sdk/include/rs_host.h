@@ -48,6 +48,13 @@ void rs_host_set_pad(int port, uint16_t buttons, int connected);
 void rs_host_set_pad_device(int port, int device);
 /* Development function key for the next frame (1..10 = F1..F10, 0 = none): rs_dev_key(). */
 void rs_host_set_dev_key(int key);
+/* Touch (docs/spec.md "Touch"): the fingers down now, player 1, in SCREEN pixels of rs_screen_width() x 240 (the
+ * frontend maps its display through its scaling and borders; values outside are clamped). id: any number that stays
+ * the same while the finger is down. Kept until the next call (like the pads): call it before each rs_host_frame();
+ * n = 0 lifts them all. The runtime gives the fingers their slots and works out the edges, taps, swipes and holds at
+ * the start of the frame. At most RS_TOUCH_MAX fingers (the others are ignored until a slot is free). */
+typedef struct rs_host_touch { long id; int x, y; } rs_host_touch;
+void rs_host_set_touches(int n, const rs_host_touch *touches);
 
 /* Runs one 1/60 s frame: update(), draw(), render, audio. */
 void rs_host_frame(void);

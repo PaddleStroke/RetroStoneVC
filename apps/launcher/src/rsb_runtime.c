@@ -43,7 +43,8 @@ static uint16_t pad_mask[RS_PAD_MAX];                     /* buttons held when a
 static long consumed[RSB_FINGERS];              /* fingers down when a program started or a hold ended */
 static int nconsumed;
 static long pause_finger = -1;
-static long back_finger = -1;                   /* the finger on the in-game back button */
+static long ids_prev[RSB_FINGERS], ids_now[RSB_FINGERS];   /* the fingers of the previous frame and this one */
+static int nids_prev, nids_now;
 static uint16_t touch_now;                      /* the buttons the touches hold (the frontend's drawn buttons) */
 static int touch_logging, gamepad_now;
 
@@ -225,6 +226,7 @@ int rsb_init(const char *dir, int width)
     nconsumed = 0;
     memset(&ptr, 0, sizeof ptr);
     ptr_id = pause_finger = -1;
+    nids_prev = nids_now = 0;
     rsb_set_width(width);
     cur = RSB_LAUNCHER;
     start(RSB_LAUNCHER, 0);
@@ -336,6 +338,22 @@ static void forget_lifted(const rsb_input *in)
     }
 }
 
+
+/* the fingers of the previous frame: a finger not among them has just gone down (the back and pause buttons only take
+ * a finger that goes down on them, not one that slides onto them) */
+static void remember_fingers(const rsb_input *in)
+{
+    memcpy(ids_prev, ids_now, sizeof ids_now);
+    nids_prev = nids_now;
+    nids_now = 0;
+    for (int f = 0; f < in->nfingers && nids_now < RSB_FINGERS; f++) ids_now[nids_now++] = in->finger[f].id;
+}
+static int is_new(long id)
+{
+    for (int i = 0; i < nids_prev; i++)
+        if (ids_prev[i] == id) return 0;
+    return 1;
+}
 /* the launcher's pointer: the first finger down, in screen pixels */
 static void pointer_update(const rsb_input *in, const rsb_view *v)
 {
@@ -367,23 +385,34 @@ static void pointer_update(const rsb_input *in, const rsb_view *v)
     if (ptr.pressed) { ptr.x0 = ptr.x; ptr.y0 = ptr.y; }
 }
 
-/* a game: each finger presses the buttons of its zone (games.cfg); the pause button presses the game's pause */
-static uint16_t touch_buttons(const rsb_input *in, float aspect)
+/* the running game reads the touches itself (rs_game.touch_native, docs/spec.md "Touch"): no zones, no drawn buttons */
+static int native_touch(void) { return cur >= 0 && rsb_games[cur].module->game_main()->touch_native; }
+
+/* a finger on the pause button (a slightly bigger target than the drawn button) */
+static int in_pause(const rsb_finger *fg, float aspect)
 {
-    const rsb_touch *t = &rsb_games[cur].touch;
     float px, py, pw, ph;
     rsb_pause_rect(aspect, &px, &py, &pw, &ph);
+    return fg->x >= px - pw * 0.3f && fg->y <= py + ph * 1.3f;
+}
+
+/* the pause button: a finger that WENT DOWN on it presses the game's pause input (games.cfg pause=) while it stays
+ * there; it never reaches the game. Then, a scheme of zones: each other finger presses the buttons of its zone. */
+static uint16_t touch_buttons(const rsb_input *in, float aspect, int zones)
+{
+    const rsb_touch *t = &rsb_games[cur].touch;
     uint16_t b = 0;
     int pause_seen = 0;
     for (int f = 0; f < in->nfingers; f++) {
         const rsb_finger *fg = &in->finger[f];
-        if (is_consumed(fg->id) || in_back(fg, aspect)) continue;
-        /* a slightly bigger target than the drawn button */
-        if (fg->x >= px - pw * 0.3f && fg->y <= py + ph * 1.3f) {
-            if (pause_finger == -1) pause_finger = fg->id;
-            if (pause_finger == fg->id) { b |= t->pause; pause_seen = 1; }
+        if (is_consumed(fg->id)) continue;
+        if (pause_finger == -1 && is_new(fg->id) && in_pause(fg, aspect)) pause_finger = fg->id;
+        if (pause_finger == fg->id) {
+            if (in_pause(fg, aspect)) b |= t->pause;
+            pause_seen = 1;
             continue;
         }
+        if (!zones || in_back(fg, aspect)) continue;
         int x = (int)(fg->x * 100), y = (int)(fg->y * 100);
         for (int z = 0; z < t->nzones; z++) {
             const rsb_zone *zn = &t->zone[z];
@@ -397,8 +426,39 @@ static uint16_t touch_buttons(const rsb_input *in, float aspect)
     return b;
 }
 
+/* a touch-native game: the fingers that went down on its picture (not on the back or pause button, not consumed)
+ * are its touches, in screen pixels, until they are lifted (they may then slide anywhere) */
+static long game_ids[RSB_FINGERS];
+static int ngame_ids, native_logged = -1;
+static int native_touches(const rsb_input *in, const rsb_view *v, float aspect, rs_host_touch *out)
+{
+    int n = 0;
+    long keep[RSB_FINGERS];
+    int nkeep = 0;
+    for (int f = 0; f < in->nfingers; f++) {
+        const rsb_finger *fg = &in->finger[f];
+        int mine = 0;
+        for (int i = 0; i < ngame_ids; i++) mine |= game_ids[i] == fg->id;
+        if (is_consumed(fg->id) || fg->id == pause_finger) continue;
+        if (!mine && (!is_new(fg->id) || in_back(fg, aspect) ||
+                      in_pause(fg, aspect)))
+            continue;
+        keep[nkeep++] = fg->id;
+        if (n >= RS_TOUCH_MAX) continue;
+        float fx = v && v->w > 0 ? (fg->x - v->x) / v->w : fg->x;
+        float fy = v && v->h > 0 ? (fg->y - v->y) / v->h : fg->y;
+        out[n].id = fg->id;
+        out[n].x = (int)(fx * rsb_screen_w());
+        out[n].y = (int)(fy * RS_SCREEN_H);
+        n++;
+    }
+    memcpy(game_ids, keep, sizeof keep[0] * (size_t)nkeep);
+    ngame_ids = nkeep;
+    return n;
+}
+
 void rsb_touch_log(int on) { touch_logging = on; }
-const rsb_touch *rsb_touch_scheme(void) { return cur >= 0 ? &rsb_games[cur].touch : NULL; }
+const rsb_touch *rsb_touch_scheme(void) { return cur >= 0 && !native_touch() ? &rsb_games[cur].touch : NULL; }
 uint16_t rsb_touch_held(void) { return cur >= 0 && !held ? touch_now : 0; }
 
 static void touch_log_line(uint16_t b)
@@ -420,27 +480,22 @@ int rsb_frame(const rsb_input *in, const rsb_view *view)
     back_now = in->back;
     gamepad_now = in->gamepad;
     forget_lifted(in);
+    remember_fingers(in);
     pointer_update(in, view);
+    float aspect = in->aspect > 0 ? in->aspect : 16.0f / 9;
 
-    /* the in-game back button (top left): a new finger on it is Back */
+    /* the in-game back button (top left): a finger that goes down on it is Back */
     long tapped = -1;
-    if (cur >= 0) {
-        int seen = 0;
-        float aspect = in->aspect > 0 ? in->aspect : 16.0f / 9;
-        for (int f = 0; f < in->nfingers; f++) {
+    if (cur >= 0)
+        for (int f = 0; f < in->nfingers && tapped == -1; f++) {
             const rsb_finger *fg = &in->finger[f];
-            if (is_consumed(fg->id) || !in_back(fg, aspect)) continue;
-            seen = 1;
-            if (back_finger == -1) { back_finger = fg->id; tapped = fg->id; }
+            if (!is_consumed(fg->id) && is_new(fg->id) && in_back(fg, aspect)) tapped = fg->id;
         }
-        if (!seen) back_finger = -1;
-    }
     if (cur >= 0 && (in->back || tapped != -1)) {   /* Back in a game: its state is saved, the launcher */
         start(RSB_LAUNCHER, 0);
         if (tapped != -1 && nconsumed < RSB_FINGERS && !is_consumed(tapped)) consumed[nconsumed++] = tapped;
         ptr.down = 0;
         ptr_id = -1;
-        back_finger = -1;
         back_now = 0;
         return 0;
     }
@@ -458,8 +513,20 @@ int rsb_frame(const rsb_input *in, const rsb_view *view)
         return 0;
     }
 
-    uint16_t touch = cur >= 0 ? touch_buttons(in, in->aspect > 0 ? in->aspect : 16.0f / 9) : 0;
+    int native = native_touch();
+    uint16_t touch = cur >= 0 ? touch_buttons(in, aspect, !native) : 0;
+    rs_host_touch fingers[RS_TOUCH_MAX];
+    int nf = native ? native_touches(in, view, aspect, fingers) : 0;
+    if (!native) ngame_ids = 0;
+    rs_host_set_touches(nf, fingers);
     if (touch_logging && cur >= 0 && touch != touch_now) touch_log_line(touch);
+    if (touch_logging && native && nf != native_logged) {
+        char s[64];
+        if (nf) snprintf(s, sizeof s, "touch: native %d at %d,%d", nf, fingers[0].x, fingers[0].y);
+        else snprintf(s, sizeof s, "touch: native -");
+        say("%s%s", s, "");
+    }
+    native_logged = native ? nf : -1;
     touch_now = touch;
     for (int p = 0; p < RS_PAD_MAX; p++) {
         uint16_t b = in->pad[p];

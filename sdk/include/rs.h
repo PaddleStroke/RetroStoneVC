@@ -56,6 +56,10 @@ typedef struct rs_game {
      * (usually RS_SCREEN_W_MAX); 0 = RS_SCREEN_W only. A game that opts in draws whatever rs_screen_width()
      * says, and its save states load at any width. */
     uint16_t max_width;
+    /* Touch (docs/spec.md "Touch"): 1 = the game reads the touches itself (rs_touch*) for player 1, menus included
+     * (a tap starts, retries...). An app that turns touches into pad buttons for the other games (apps/launcher)
+     * passes this one the touches instead. 0: the game only knows the pad. */
+    uint8_t touch_native;
 } rs_game;
 
 /* Implemented by the game (exactly one per binary). */
@@ -306,6 +310,45 @@ int      rs_pad_connected(int port);
 #define RS_DEVICE_KEYBOARD  1        /* first key set: arrows, X = A, Z = B, Enter = Start */
 #define RS_DEVICE_KEYBOARD2 2        /* second key set: WASD, H = A, G = B, T = Start */
 int      rs_pad_device(int port);
+
+/* ---- Touch (a pointer: phones, the desktop's mouse) ------------------------------------------------------------
+ * Up to RS_TOUCH_MAX fingers, for PLAYER 1 (players 2-4 are pads), docs/spec.md "Touch". Positions are SCREEN pixels
+ * of the current width: x 0..rs_screen_width()-1, y 0..239 (the stage x is x - rs_screen_origin_x()); the frontend
+ * maps the display through its scaling and borders. Each finger keeps its slot while it is down. Frontends: SDL2 (the
+ * touch screen, and the mouse's left button as one finger), the Android app (the touches, for a game that declares
+ * rs_game.touch_native), the headless runner (scripted), libretro (RETRO_DEVICE_POINTER on port 1, when the frontend
+ * has one). Without touches nothing changes: a game always keeps its pad controls.
+ * Touches are not part of save states (a load forgets the fingers down; one still down is seen as a new touch). */
+#define RS_TOUCH_MAX          4
+#define RS_TOUCH_SLOP         8     /* px: a touch that went further from where it went down has "moved" */
+#define RS_TOUCH_TAP_FRAMES   18    /* a tap: released within this many frames (0.3 s), never moved */
+#define RS_TOUCH_HOLD_FRAMES  19    /* a hold: down for this many frames or more, never moved */
+#define RS_TOUCH_SWIPE_DIST   20    /* px: a swipe: this far from where it went down ... */
+#define RS_TOUCH_SWIPE_FRAMES 24    /* ... within this many frames (0.4 s), mostly along one axis */
+enum { RS_SWIPE_NONE, RS_SWIPE_UP, RS_SWIPE_DOWN, RS_SWIPE_LEFT, RS_SWIPE_RIGHT };
+#define RS_TOUCH_LEFT  1            /* the screen's left half (x < rs_screen_width() / 2) */
+#define RS_TOUCH_RIGHT 2            /* its right half */
+typedef struct rs_touch_point {
+    int16_t  x, y;                  /* now, screen pixels (on the frame it went up: where it was last) */
+    int16_t  x0, y0;                /* where it went down */
+    uint16_t frames;                /* frames since it went down (0 on that frame) */
+    uint8_t  down;                  /* on the screen now (0 on the frame it went up) */
+    uint8_t  pressed;               /* it went down this frame */
+    uint8_t  released;              /* it went up this frame */
+    uint8_t  tap;                   /* it went up this frame as a TAP: within RS_TOUCH_TAP_FRAMES, never moved */
+    uint8_t  moved;                 /* it has been further than RS_TOUCH_SLOP from (x0, y0) */
+    uint8_t  swipe;                 /* RS_SWIPE_*: on the frame this touch's swipe is recognised (once per touch) */
+    uint8_t  swiped;                /* its swipe's direction from that frame on (RS_SWIPE_NONE: none) */
+} rs_touch_point;
+/* Slot i (0..RS_TOUCH_MAX-1): a finger down, or one released this frame; NULL when the slot is free. */
+const rs_touch_point *rs_touch(int i);
+int  rs_touch_count(void);                  /* fingers down now */
+const rs_touch_point *rs_touch_first(void); /* the finger down the longest (NULL: none) */
+int  rs_touch_tap(int *x, int *y);          /* 1: a tap ended this frame (its point, screen pixels; x, y may be NULL) */
+int  rs_touch_swipe(int *x, int *y);        /* RS_SWIPE_* recognised this frame (where it started), 0: none */
+int  rs_touch_hold(int *x, int *y);         /* 1: a finger is held (RS_TOUCH_HOLD_FRAMES, never moved): where */
+int  rs_touch_half(int x);                  /* the half of screen column x: RS_TOUCH_LEFT or RS_TOUCH_RIGHT */
+int  rs_touch_halves(void);                 /* the halves with a finger down now: RS_TOUCH_LEFT | RS_TOUCH_RIGHT */
 
 /* ---- Save RAM (battery) ------------------------------------------------ */
 #define RS_SRAM_SIZE 32768

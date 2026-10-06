@@ -355,6 +355,82 @@ static void test_input(void)
     rs_host_shutdown();
 }
 
+/* touch: slots, edges, tap, swipe, hold, halves, clamping, more fingers than slots */
+static rs_touch_point tseen[64][RS_TOUCH_MAX];
+static int tframe, ttap[64], tswipe[64], thold[64], thalves[64], tcount[64];
+static void t_touch_update(void)
+{
+    if (tframe < 64) {
+        for (int i = 0; i < RS_TOUCH_MAX; i++) {
+            const rs_touch_point *p = rs_touch(i);
+            if (p) tseen[tframe][i] = *p;
+            else memset(&tseen[tframe][i], 0, sizeof tseen[0][0]);
+        }
+        ttap[tframe] = rs_touch_tap(NULL, NULL);
+        tswipe[tframe] = rs_touch_swipe(NULL, NULL);
+        thold[tframe] = rs_touch_hold(NULL, NULL);
+        thalves[tframe] = rs_touch_halves();
+        tcount[tframe] = rs_touch_count();
+    }
+    tframe++;
+}
+static void touch_frame(int n, long id0, int x0, int y0, long id1, int x1, int y1)
+{
+    rs_host_touch t[2] = {{id0, x0, y0}, {id1, x1, y1}};
+    rs_host_set_touches(n, t);
+    rs_host_frame();
+}
+static void test_touch(void)
+{
+    printf("touch\n");
+    static const rs_game g = {"touch", "touch", "1", 0, t_touch_update, 0, 0, 0, 0, 0, 0, RS_SCREEN_W_MAX, 1};
+    rs_host_set_width(427);
+    rs_host_init(&g);
+    CHECK(rs_screen_width() == 427, "touch: the test runs at 427 columns");
+    tframe = 0;
+    touch_frame(0, 0, 0, 0, 0, 0, 0);                            /* 0: nothing */
+    touch_frame(1, 7, 100, 120, 0, 0, 0);                        /* 1: a finger down at 100,120 */
+    touch_frame(1, 7, 102, 121, 0, 0, 0);                        /* 2: barely moved */
+    touch_frame(0, 0, 0, 0, 0, 0, 0);                            /* 3: up: a tap */
+    touch_frame(0, 0, 0, 0, 0, 0, 0);                            /* 4: the slot is free again */
+    CHECK(!tseen[0][0].down && !tcount[0], "touch: nothing at first");
+    CHECK(tseen[1][0].down && tseen[1][0].pressed && tseen[1][0].x == 100 && tseen[1][0].y == 120 && tcount[1] == 1,
+          "touch: down and pressed at 100,120");
+    CHECK(tseen[2][0].down && !tseen[2][0].pressed && tseen[2][0].frames == 1 && tseen[2][0].x == 102 && !tseen[2][0].moved,
+          "touch: held, moved within the slop");
+    CHECK(tseen[3][0].released && !tseen[3][0].down && tseen[3][0].tap && ttap[3] && tcount[3] == 0, "touch: a tap");
+    CHECK(!tseen[4][0].released && !tseen[4][0].down && !ttap[4], "touch: the slot is free after the release");
+    CHECK(thalves[1] == RS_TOUCH_LEFT && rs_touch_half(213) == RS_TOUCH_RIGHT && rs_touch_half(212) == RS_TOUCH_LEFT,
+          "touch: halves at 427 columns");
+    /* a swipe up: 5 px per frame */
+    for (int i = 0; i < 6; i++) touch_frame(1, 9, 300, 200 - 5 * i, 0, 0, 0);   /* 5..10 */
+    touch_frame(0, 0, 0, 0, 0, 0, 0);                                            /* 11 */
+    CHECK(tswipe[9] == RS_SWIPE_UP && !tswipe[8] && !tswipe[10] && tseen[10][0].swiped == RS_SWIPE_UP,
+          "touch: a swipe up, recognised once at 20 px (%d %d %d)", tswipe[8], tswipe[9], tswipe[10]);
+    CHECK(!ttap[11] && tseen[11][0].released && tseen[11][0].moved, "touch: a swipe is not a tap");
+    CHECK(thalves[6] == RS_TOUCH_RIGHT, "touch: the right half");
+    /* two fingers, a hold, a long press is not a tap, clamping */
+    for (int i = 0; i < 25; i++) touch_frame(2, 3, -50, 500, 4, 400, 10);         /* 12..36 */
+    touch_frame(1, 4, 400, 10, 0, 0, 0);                                           /* 37: finger 3 lifted */
+    CHECK(tcount[12] == 2 && thalves[12] == (RS_TOUCH_LEFT | RS_TOUCH_RIGHT), "touch: two fingers, both halves");
+    CHECK(tseen[12][0].x == 0 && tseen[12][0].y == 239 && tseen[12][1].x == 400, "touch: clamped to the screen");
+    CHECK(!thold[12 + RS_TOUCH_HOLD_FRAMES - 1] && thold[12 + RS_TOUCH_HOLD_FRAMES], "touch: a hold after %d frames",
+          RS_TOUCH_HOLD_FRAMES);
+    CHECK(tseen[37][0].released && !tseen[37][0].tap && !ttap[37] && tseen[37][1].down, "touch: a long press is no tap");
+    CHECK(rs_touch_first() == rs_touch(1), "touch: the first finger");
+    /* five fingers: the fifth waits for a free slot */
+    rs_host_touch five[5] = {{1, 10, 10}, {2, 20, 10}, {3, 30, 10}, {4, 40, 10}, {5, 50, 10}};
+    rs_host_set_touches(5, five);
+    rs_host_frame();                                                               /* 38 */
+    CHECK(tcount[38] == 4, "touch: at most %d fingers", RS_TOUCH_MAX);
+    rs_host_set_touches(0, NULL);
+    rs_host_frame();                                                               /* 39: all up */
+    rs_host_frame();                                                               /* 40 */
+    CHECK(tcount[39] == 0 && tcount[40] == 0 && !rs_touch(0) && !rs_touch(1), "touch: all lifted");
+    rs_host_shutdown();
+    rs_host_set_width(320);
+}
+
 static void test_sram(void)
 {
     printf("save RAM\n");
@@ -858,6 +934,7 @@ int main(int argc, char **argv)
     test_viewports();
     test_widescreen();
     test_input();
+    test_touch();
     test_sram();
     test_rng();
     test_audio();

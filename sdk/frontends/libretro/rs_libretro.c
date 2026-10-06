@@ -8,6 +8,7 @@
  * The language (docs/i18n.md): the core option "rsvc_language" (Language: Auto or one of the 22), Auto = the
  * frontend's: RetroStoneOS's variable "rsos_language" (every language, Danish too), else GET_LANGUAGE (libretro's enum
  * has no Danish), else English. It is read when the game starts (a change applies at the next start or reset).
+ * Touch (docs/spec.md "Touch"): RETRO_DEVICE_POINTER on port 1, when the frontend has one.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include "rs_host.h"
@@ -178,6 +179,25 @@ static uint16_t read_pad(unsigned p)
     return b;
 }
 
+/* Touch (docs/spec.md "Touch"): RETRO_DEVICE_POINTER on port 1 (a touch screen, RetroArch's mouse), up to
+ * RS_TOUCH_MAX pointers, -0x7fff..0x7fff over the picture -> screen pixels. A frontend without a pointer reports none:
+ * the games keep their pad controls. */
+static void read_pointer(void)
+{
+    rs_host_touch t[RS_TOUCH_MAX];
+    int n = 0, w = rs_screen_width();
+    for (unsigned i = 0; i < RS_TOUCH_MAX; i++) {
+        if (!input_cb(0, RETRO_DEVICE_POINTER, i, RETRO_DEVICE_ID_POINTER_PRESSED)) continue;
+        long px = input_cb(0, RETRO_DEVICE_POINTER, i, RETRO_DEVICE_ID_POINTER_X);
+        long py = input_cb(0, RETRO_DEVICE_POINTER, i, RETRO_DEVICE_ID_POINTER_Y);
+        t[n].id = (long)i;
+        t[n].x = (int)((px + 0x7fff) * w / 0xfffe);
+        t[n].y = (int)((py + 0x7fff) * RS_SCREEN_H / 0xfffe);
+        n++;
+    }
+    rs_host_set_touches(n, t);
+}
+
 /* the aspect option changed: the new width (restarting a running game from a save state), the new geometry */
 static void check_width(void)
 {
@@ -203,6 +223,7 @@ RETRO_API void retro_run(void)
         rs_host_set_pad((int)p, read_pad(p), 1);
         rs_host_set_pad_device((int)p, RS_DEVICE_PAD);          /* a RetroPad: the buttons keep their names */
     }
+    read_pointer();
     rs_host_frame();
     video_cb(rs_host_framebuffer(), (unsigned)rs_screen_width(), RS_SCREEN_H, (size_t)rs_screen_width() * 2);
     int n = 0;
