@@ -631,6 +631,12 @@ static void land(world *w, int p)
         d->hist[0] = d->at;
     } else {
         d->at = ground(d->h.to.col, y);
+        /* still water off the pads: checked on landing, like the river, so a hop chained on the same frame
+         * (a touch target further on, a queued press) cannot carry the duck across */
+        if (l && l->kind == LK_POND && !(l->block >> (y / CELL) & 1)) {
+            die(w, p, DK_SWEPT);
+            return;
+        }
     }
     if (d->at.col > d->max_col) d->max_col = d->at.col;
     if (l && l->kind == LK_NEST) bank(w, p);
