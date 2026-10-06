@@ -1,8 +1,9 @@
 /* Mouse Espresso: the replaceable café theme. Flight/collision rules are in play.c.
- * Widescreen (DESIGN.md "Widescreen"): a side-scroller, so the café is revealed wider, to the right (the stage origin
- * stays 0): the mice fly at the same screen x, the shared camera shows the hazards, biscuits and counter further
- * ahead (the same course: obstacle_at, collectible_at). The maps are 128 tiles wide; the café's 512-px back wall goes
- * on with its mirror image (the same tiles h-flipped: nothing repeats on a 560-px screen). The UI is centred (the UI
+ * Widescreen (DESIGN.md "Widescreen"): a side-scroller, so the café is revealed wider: a third of the extra width behind
+ * the mice, two thirds ahead (the stage origin stays 0; the shared camera starts WIDE_LEFT(width - 320) px further
+ * left: the mice fly that much further right, the hazards, biscuits and counter are drawn behind and ahead of them
+ * (the same course: obstacle_at, collectible_at). The maps are 128 tiles wide; the café's 512-px back wall goes on
+ * with its mirror image (the same tiles h-flipped: nothing repeats on a 560-px screen). The UI is centred (the UI
  * layer scrolls by -hu_ui_x(), the game's UI sprites add it). */
 #include "game.h"
 #include "assets.h"
@@ -18,6 +19,9 @@ static int laid_w;                     /* the width the maps were laid out for (
 #define PIX_W RS_SCREEN_W_MAX
 static uint8_t pixels[PIX_W*240];
 static int wide(void) {return rs_screen_width()>RS_SCREEN_W;}
+/* widescreen: the columns the camera shows behind the mice, on the left (a third of the extra width, game.h) */
+int draw_wide_left(void) {return WIDE_LEFT(rs_screen_width()-RS_SCREEN_W);}
+static int p1_drawn_x;                 /* tests (draw_view_log): the screen x of P1's sprite centre, as drawn */
 static const rs_color title_ramps[2][3]={
  {RS_HEX(0xffd8ba),RS_HEX(0xea9868),RS_HEX(0xa65951)},
  {RS_HEX(0xe1eddd),RS_HEX(0x9bc1bd),RS_HEX(0x567f91)}};
@@ -58,7 +62,7 @@ static void spr(int id,int x,int y,int priority,int pal,const rs_viewport *vp) {
  rs_spr(x,y,s->tile,s->w,s->h,pal<0?s->pal:pal,priority,0);
 }
 static void background(const view *v,rs_viewport *vp) {
- int offset=v->cx/4,fx=floor8(offset),dx=offset-fx*8;
+ int offset=v->cx>=0?v->cx/4:-((3-v->cx)/4),fx=floor8(offset),dx=offset-fx*8;
  int cols=(vp->w+dx+7)/8,rows=(vp->h+7)/8;
  for(int r=0;r<rows;r++)for(int c=0;c<cols;c++) {
   int world_y=v->zy==256?r*8:(r*8-12)*2;
@@ -198,7 +202,7 @@ static void furniture(uint8_t *p,const obstacle *o,const view *v,const rs_viewpo
 static void foreground(const world *w,const view *v,const rs_viewport *vp,int *next){
  memset(pixels,0,sizeof pixels);int r1=vp->w-1;      /* the counter: the whole width (widescreen) */
  rect(pixels,0,232,r1,239,6,vp);rect(pixels,0,232,r1,233,9,vp);rect(pixels,0,236,r1,237,15,vp);
- for(int x=0;x<vp->w;x++)if(((x+v->cx)/32)&1)rect(pixels,x,238,x,239,14,vp);
+ for(int x=0;x<vp->w;x++)if(((x+v->cx)>>5)&1)rect(pixels,x,238,x,239,14,vp);
  int base=(v->cx-HAZARD_FIRST)/HAZARD_SPACING;if(base<0)base=0;
  for(int id=base>0?base-1:0;id<=base+3;id++){
   obstacle o;obstacle_at(w,id,w->t,&o);int x=sx(v,o.x);
@@ -218,7 +222,8 @@ static void scene(const world *w,int t,const view *v,const rs_viewport *vp){
   if(h->state==HS_OFF)continue;
   int frame=h->state==HS_HIT || h->state==HS_DOWN?SPR_HERO_HIT:h->land_t<5?SPR_HERO_SQUASH:
    h->grounded?SPR_HERO_IDLE+(t/5)%2:h->held?SPR_HERO_STRETCH:SPR_HERO_AIR;
-  spr(frame,x-16,y-16,2,ppal(p),vp);
+  int n=rs_oam_next();spr(frame,x-16,y-16,2,ppal(p),vp);
+  if(p==0)p1_drawn_x=rs_oam_next()>n?rs_oam(n)->x+16+rs_screen_origin_x():-999;
   if(h->held && h->state==HS_RUN && !h->grounded)spr(SPR_STEAM+(t/4)%3,x-15,y+10,2,-1,vp);
   if(h->smooth_t>0)hu_sparkle(x+18-hu_ui_x(),y-10,w->t,2);   /* kit sprites: UI coordinates */
   if(h->state==HS_HIT && h->t<20)spr(SPR_PUFF+(h->t/7)%3,x-8,y+4,2,-1,vp);
@@ -260,8 +265,8 @@ static void title_ui(int t,int best){
 }
 void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paused){
  nviews=rs_viewport_layout(1,0,VP);hu_clear();rs_oam_clear();rs_brightness(paused?9:15);
- view *v=&V[0];rs_viewport *vp=&VP[0];v->mx=v->my=0;v->zx=v->zy=256;v->cx=w->scroll;
- if(state==ST_OVER)v->cx=0;
+ view *v=&V[0];rs_viewport *vp=&VP[0];v->mx=v->my=0;v->zx=v->zy=256;v->cx=w->scroll-draw_wide_left();
+ if(state==ST_OVER)v->cx=-draw_wide_left();   /* behind the panel: the start of the course */
  for(int y=0;y<240;y++){int k=y*256/240,d=(y&4)?4:0;v->sky[y]=RS_RGB8(192+14*k/256+d,172+16*k/256+d/2,150+12*k/256+d);}
  background(v,vp);int next=1;foreground(w,v,vp,&next);
  vp->sx[0]=vp->sx[1]=vp->sy[0]=vp->sy[1]=0;vp->layers=7;vp->objs=1;
@@ -286,6 +291,14 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  }else rs_bg_scroll(RS_BG1,-hu_ui_x()&(rs_bg_map_w(RS_BG1)*8-1),0);
  rs_bg_scroll(RS_BG2,0,0);rs_bg_scroll(RS_BG3,vp->sx[2],vp->sy[2]);rs_viewports(0,NULL,0);
  shown_state=state;shown_best=best;
+}
+/* Tests (--opt view=1, main.c at exit): the view of the last frame, "view: width=W left=L p1_x=X next_x=N": L the columns
+ * shown behind the mice (a third of the extra width), X the screen x of P1's sprite centre as drawn, N the screen x of
+ * the next hazard ahead of P1 (tests/wide_test.sh: X and N - X against 320) */
+void draw_view_log(const world *w) {
+ const view *v=&V[0];int hx=(int)(w->h[0].wx>>16),id=0;obstacle o;
+ do obstacle_at(w,id++,w->t,&o); while(o.x<=hx && id<1000);
+ rs_log("view: width=%d left=%d p1_x=%d next_x=%d",rs_screen_width(),draw_wide_left(),p1_drawn_x,sx(v,o.x));
 }
 #define S(v) rs_state_var("draw." #v,&(v),sizeof(v))
 void draw_state(void) {S(V);S(VP);S(nviews);S(shown_state);S(shown_best);S(laid_w);RS_STATE_RASTER(raster);}

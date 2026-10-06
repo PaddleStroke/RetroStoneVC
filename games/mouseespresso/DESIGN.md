@@ -86,14 +86,19 @@ Code MIT; art, music, sound and design CC BY-NC-SA 4.0, as stated in LICENSE.
 ## Widescreen (docs/spec.md "Widescreen")
 
 The game opts in (`max_width` = 560, `WIDESCREEN_mouseespresso = 1`): 320 x 240 is unchanged pixel for pixel; at
-427 (16:9), 520 or 560 (phones) **the cafe is revealed wider, to the right**: a side-scroller, so the stage origin
-stays 0. The mice fly at the same screen x and the shared camera shows the hazards, the biscuit trails and the
-counter further ahead; seeing further makes it a little easier, which the owner accepts (no compensation).
+427 (16:9), 520 or 560 (phones) **the cafe is revealed wider: a third of the extra width behind the mice, two thirds
+ahead** (the owner's decision: with all of it ahead the mice sat too far left before a long empty stretch). The shared
+camera starts `WIDE_LEFT(width - 320)` px further left (game.h: 36 at 427, 67 at 520, 80 at 560, 0 at 320), so the
+mice fly that much further right on the screen and see the rest further ahead; seeing further makes it a little easier,
+which the owner accepts (no compensation). The cafe behind the mice is drawn like the rest: the furniture already
+passed, the back wall and the counter, and before the start (the title too) the cafe behind the starting line.
 - **The same course**: the furniture, toasters, paws, appliances and biscuits are drawn as far as the screen goes
   (obstacle_at, collectible_at: the course never looked at the screen); the counter runs the whole width.
   tests/wide_test.sh compares the whole logs (scores, game overs, the final state and its hash) of 1-player and
   4-player bot runs at 320, 427, 520 and 560. The start of a run is the same too: the first hazards sit at the same
-  distance from the mice as at 320 (a wider screen shows them from the first frame), no longer run-up.
+  distance from the mice as at 320 (a wider screen shows them from the first frame), no longer run-up. Its view check
+  (`--opt view=1` logs the view at exit) asserts the third on the left, the mice's screen x (that of 320 plus the
+  third) and the distance to the next hazard on the screen (that of 320), on the title, at the start and in runs.
 - **The back wall** (BG3) goes on with its mirror image (the same tiles h-flipped on a 128-tile map: no VRAM, seamless
   joins), so a 560-px screen never shows a stretch twice; the furniture layer (BG2) is drawn over the whole width (a
   pixel buffer as wide as the widest screen).

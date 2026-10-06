@@ -12,6 +12,7 @@
  *   seed=N         a fixed course (default: from the frame of the first press)
  *   players=N      start with N players joined (1..4);  ready=1  skip the title (the run waits for a press)
  *   dump=1         log the final state at exit (tests); music=0, sound=0
+ *   view=1         log the view at exit (tests/wide_test.sh: widescreen, a third of the extra width behind)
  */
 #include "game.h"
 #include "assets.h"
@@ -148,11 +149,11 @@ static void play_update(void)
     for (int p = 0; p < W.players; p++) {
         int ev = W.events[p];
         const hero *h = &W.h[p];
-        if (ev & EV_JUMP) sfx_at(SFX_JUMP, h->x);
-        if (ev & (EV_SCORE | EV_APPLE)) sfx_at(SFX_SCORE, h->x);
-        if (ev & EV_LAND) sfx_at(SFX_LAND, h->x);
+        if (ev & EV_JUMP) sfx_at(SFX_JUMP, h->x + draw_wide_left());
+        if (ev & (EV_SCORE | EV_APPLE)) sfx_at(SFX_SCORE, h->x + draw_wide_left());
+        if (ev & EV_LAND) sfx_at(SFX_LAND, h->x + draw_wide_left());
         if (ev & EV_HIT) {
-            sfx_at(SFX_HIT, h->x);
+            sfx_at(SFX_HIT, h->x + draw_wide_left());
             hu_shake(3, 12);                    /* house rule: shake on a hit only, <= 4 px, <= 16 frames */
             rs_log("player %d hit at frame %u (score %d)", p + 1, rs_frame_count(), h->score);
         }
@@ -249,6 +250,7 @@ static void game_init(void)
 
 static void game_shutdown(void)
 {
+    if (rs_option_int("view", 0)) draw_view_log(&W);      /* tests/wide_test.sh: the view (widescreen) */
     if (!rs_option_int("dump", 0)) return;
     char sc[48] = "", hs[48] = "";
     for (int p = 0; p < W.players; p++) {
