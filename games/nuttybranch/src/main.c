@@ -8,6 +8,8 @@
  * game-over panel (hu_over_back) goes back to the title, with the same players.
  *
  * Controls: Left / Right steer round the branch, A (or B) jumps (hold for higher), Select (Start) pauses.
+ * Touch (player 1, rs_game.touch_native; touch_input()): hold the left / right half of the screen to steer, swipe up
+ * to jump (held while that finger stays down); a tap starts on the title and goes back to it from the game over.
  *
  * Options (--opt key=value on the desktop runners):
  *   bot=N          the bot plays players 1..N (bot.c: from the screen only); botruns=N runs; botstop=M lets go of
@@ -18,6 +20,7 @@
  *                  fork, snake, swing, bees, snow, crow, shower, rain, nuts): screenshots and tests
  *   players=N      start with N players joined (1..4);  ready=1  skip the title (the run waits for a press)
  *   dump=1         log the final state at exit (tests); music=0, sound=0
+ *   jumplog=1      log each landing (tests/touch_test.sh: the frames in the air, the frames the jump was held)
  */
 #include "game.h"
 #include "assets.h"
@@ -164,6 +167,30 @@ static void new_run(int state)
 
 static int is_bot(int p) { return p < opt_bot; }
 
+/* ---- touch (docs/spec.md "Touch"; DESIGN.md "Controls"): player 1's fingers, as the pad's buttons ---------------------
+ * A finger down steers from the half of the screen it is on (left half: Left held, right half: Right held) until it
+ * swipes up: from that frame on it is the JUMP finger (it no longer steers): the swipe presses A, and the jump counts
+ * as held (higher, up to JUMP_HOLD_MAX) while that finger stays down; a quick swipe, lifted at once, is the short hop.
+ * A young finger already heading up (past the slop, a swipe in the making) does not steer either: a jump does not
+ * start with a nudge sideways. Both halves held = Left + Right = no steer, as on the pad.
+ * Nothing is kept between frames: the runtime's touches (their edges and swipe flags) are the whole state, so there
+ * is nothing to save (a state load forgets the fingers), and nothing is read while paused (game_update): a swipe made
+ * during the pause is never seen, so it is not buffered for later. Without touches this adds nothing. */
+static void touch_input(uint16_t *held, uint16_t *pressed)
+{
+    for (int i = 0; i < RS_TOUCH_MAX; i++) {
+        const rs_touch_point *t = rs_touch(i);
+        if (!t || !t->down) continue;
+        if (t->swiped == RS_SWIPE_UP) {
+            *held |= RS_BTN_A;
+            if (t->swipe == RS_SWIPE_UP) *pressed |= RS_BTN_A;
+            continue;
+        }
+        if (!t->swiped && t->frames <= RS_TOUCH_SWIPE_FRAMES && t->y0 - t->y > RS_TOUCH_SLOP) continue;
+        *held |= rs_touch_half(t->x) == RS_TOUCH_LEFT ? RS_BTN_LEFT : RS_BTN_RIGHT;
+    }
+}
+
 static void read_input(int p, sq_input *in)
 {
     memset(in, 0, sizeof *in);
@@ -174,6 +201,7 @@ static void read_input(int p, sq_input *in)
     }
     int pad = hu_player_pad(p);
     uint16_t held = rs_pad(pad), pr = rs_pad_pressed(pad);
+    if (p == 0) touch_input(&held, &pr);        /* touch is player 1 */
     in->steer = ((held & RS_BTN_RIGHT) ? 1 : 0) - ((held & RS_BTN_LEFT) ? 1 : 0);
     in->jump_pressed = (pr & JUMP_BUTTONS) != 0;
     in->jump_held = (held & JUMP_BUTTONS) != 0;
@@ -219,7 +247,12 @@ static void play_update(void)
             ha_play_pitched(SFX_CRUNCH, HA_VOL_FEEDBACK, x, SEMI[q->combo], 0);
             if (ev & EV_WALNUT) ha_play(HA_DING);
         }
-        if (ev & EV_LAND) sfx_at(SFX_LAND, x);
+        if (ev & EV_LAND) {
+            sfx_at(SFX_LAND, x);
+            if (rs_option_int("jumplog", 0))    /* tests: a tap hops ~30 frames, held 14 frames ~43 */
+                rs_log("player %d landed at frame %u: %d frames in the air, held %d", p + 1, rs_frame_count(),
+                       q->air_t, q->hold_t);
+        }
         if (ev & EV_CREAK) sfx_at(SFX_CREAK, x);
         if (ev & EV_WEB) sfx_at(SFX_WEB, x);
         if (ev & EV_BONK) sfx_at(SFX_BONK, x);
@@ -258,6 +291,7 @@ static void play_update(void)
 static void title_update(void)
 {
     int ev = hu_title_update();
+    if (rs_touch_tap(NULL, NULL)) ev |= HU_TITLE_START;    /* touch: a tap starts, as A does */
     if (ev & HU_TITLE_JOINED) ha_play(HA_CONFIRM);
     if (ev & HU_TITLE_LEFT) ha_play(HA_SELECT);
     if (ev & (HU_TITLE_JOINED | HU_TITLE_LEFT)) {
@@ -306,6 +340,7 @@ static void game_update(void)
         int back = 0;
         if (st_t >= RETRY_LOCK) {
             back = hu_over_back();              /* house rule: after a game over, back to the title (the only menu) */
+            if (rs_touch_tap(NULL, NULL)) back = 1;     /* touch: a tap, as A */
             if (opt_bot && runs_done < opt_botruns && st_t == RETRY_LOCK + 10) back = 1;
         }
         if (back) {
@@ -385,8 +420,9 @@ static void game_state_loaded(void) { draw_relayout(); }
 
 const rs_game *rs_game_main(void)
 {
-    /* max_width: the game draws any width up to 560 (widescreen: DESIGN.md) */
+    /* max_width: the game draws any width up to 560 (widescreen: DESIGN.md); touch_native: player 1's touches are
+     * read by the game (touch_input(), the title's and the game over's taps) */
     static const rs_game g = {GAME_NAME, GAME_ID, "0.1.0", game_init, game_update, game_draw,
-                              game_shutdown, gm_assets, game_state, game_state_loaded, 1, RS_SCREEN_W_MAX};
+                              game_shutdown, gm_assets, game_state, game_state_loaded, 1, RS_SCREEN_W_MAX, 1};
     return &g;
 }

@@ -5,7 +5,7 @@
 #                                   (tests/test_physics.c), smoke (flow, 1-4 players, determinism), the screen-only
 #                                   bot, the UI screens (0-3 players joined), save states and their audit, the props'
 #                                   sizes and anchors (lod_test.sh), the bark's furrows on screen (furrow_test.sh),
-#                                   the frame cost; then again at each widescreen width of WIDTHS (427 520), and the
+#                                   the touch controls (touch_test.sh), the frame cost; then again at each widescreen width of WIDTHS (427 520), and the
 #                                   game across widths (tests/wide_test.sh)
 #   make nuttybranch-dist           dist/windows/NuttyBranch.exe, dist/libretro/nuttybranch_libretro.so (+ .armhf.so)
 #   make nuttybranch-windows        only the Windows exe
@@ -57,6 +57,7 @@ nuttybranch-check:
 	sh $(NUTTYBRANCH_DIR)/tests/state_test.sh build/host/nuttybranch_test_states build/states
 	sh $(NUTTYBRANCH_DIR)/tests/lod_test.sh build/host/nuttybranch_headless
 	sh $(NUTTYBRANCH_DIR)/tests/furrow_test.sh build/host/nuttybranch_headless build
+	sh $(NUTTYBRANCH_DIR)/tests/touch_test.sh build/host/nuttybranch_headless build
 	sh $(NUTTYBRANCH_DIR)/tests/bench_test.sh build/host/nuttybranch_headless
 	$(PYTHON) tools/state_audit.py --game nuttybranch build/host/nuttybranch_test_states $(NUTTYBRANCH_OBJ_HOST)
 	set -e; for w in $(WIDTHS); do echo "== widescreen: $$w x 240"; \
@@ -67,6 +68,7 @@ nuttybranch-check:
 	    RS_WIDTH=$$w sh $(NUTTYBRANCH_DIR)/tests/state_test.sh build/host/nuttybranch_test_states build/states-$$w; \
 	    RS_WIDTH=$$w sh $(NUTTYBRANCH_DIR)/tests/lod_test.sh build/host/nuttybranch_headless; \
 	    RS_WIDTH=$$w sh $(NUTTYBRANCH_DIR)/tests/furrow_test.sh build/host/nuttybranch_headless build/w$$w; \
+	    RS_WIDTH=$$w sh $(NUTTYBRANCH_DIR)/tests/touch_test.sh build/host/nuttybranch_headless build/w$$w; \
 	done
 	RS_WIDTH=520 sh $(NUTTYBRANCH_DIR)/tests/bench_test.sh build/host/nuttybranch_headless
 	sh $(NUTTYBRANCH_DIR)/tests/wide_test.sh build/host/nuttybranch_headless build/host/nuttybranch_test_states build "$(WIDTHS)"

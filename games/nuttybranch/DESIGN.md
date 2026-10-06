@@ -22,6 +22,25 @@ the edges for the nuts, as far as greed allows. One more run, a best distance to
 The title is the only menu: **A starts** (Left / Right too, an extra start input), `PRESS A TO RUN` with the A
 glyph; pads 2-4 join with A and leave with B; after the game over one press goes back to the title.
 
+**Touch** (player 1; `rs_game.touch_native`: the phone apps pass the game its touches, docs/spec.md "Touch";
+`touch_input()` in src/main.c):
+
+| Touch | Action |
+|---|---|
+| hold the left / right half of the screen | steer (= Left / Right held; both halves = neither) |
+| swipe up | jump (= A pressed); the jump is held while that finger stays down (up to `JUMP_HOLD_MAX`): a quick swipe, lifted at once, is the hop |
+| tap | on the title: start (as A); on the game-over panel: back to the title (after the same `RETRY_LOCK`) |
+| the app's pause button | pause (it presses Start; the app's own) |
+
+A finger steers from the half it is on until it swipes up: from then on it is the jump finger and no longer steers.
+A young finger already heading up (past the 8 px slop, a swipe in the making) does not steer either, so a jump does
+not start with a nudge sideways (only the frame it touches down). So the usual grip is a thumb on each half, steering,
+and a swipe up with either to jump: the other thumb keeps steering. A finger held down for longer than the swipe
+window (24 frames) cannot become a swipe (the SDK's definition): lift it and swipe. Swipes down or sideways do
+nothing. Nothing is kept between frames (the runtime's touches are the state): nothing to save, and while paused
+the touches are not read, so a swipe during the pause is not kept for after it. Without touches the game is
+byte for byte the same.
+
 ## The branch is a cylinder (the core mechanic)
 Every squirrel has an **angle around the branch** `ang` (0 = the top; Q8 degrees in the code), an angular speed
 `angv` and a height above the bark `h` (jumps). Integer fixed point only (tuning.h), a sine table.
@@ -318,6 +337,12 @@ acorn's bonk, the rain's patter, the swinging branch's swish; the house set for 
   replayed in the same and in a fresh process), the audit.
 - the props' sizes and anchors (`tests/lod_test.sh`) and the bark's furrows on screen (`tests/furrow_test.sh`):
   above.
+- the touch controls (`tests/touch_test.sh`, scripted touches, at 320 and each widescreen width): a tap on the title
+  starts (on the same frame as A), a held finger does not; holding the left / right half gives the same run as the
+  pad's Left / Right (the same fall, frame and angle), both halves none; a swipe up held is the pad's held A (43
+  frames in the air, held 14), a quick one the hop (34, held 4); swipes down or sideways do not jump; paused, a swipe
+  and a held half do nothing and are not buffered; a tap on the game-over panel goes back to the title (not before
+  `RETRY_LOCK`), and a tap there starts the next run (`--opt jumplog=1` logs each landing).
 - **Frame cost** (`tests/bench_test.sh`, `make nuttybranch-bench`, 2100 frames each, music on): 1 player 0.49
   ms per frame on the host (update + draw 18 us, the PPU 0.47 ms: the affine branch layer decoded per pixel,
   clipped by window 1, two background layers and up to 54 sprites, 18 on a line), 4 players 0.51-0.55 ms; the A20
