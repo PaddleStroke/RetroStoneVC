@@ -137,8 +137,53 @@ static void disc(float cx, float cy, float r, SDL_Color c)
     SDL_RenderGeometry(ren, NULL, v, n, NULL, 0);
 }
 
-/* The drawn touch buttons of the running game (games.cfg "button=" zones): a translucent disc in its zone (at the
- * bottom of a tall zone, where the thumbs are), an arrow for a direction or the button's letter; brighter while held. */
+/* a ring between radii r0 and r1 (the buttons' outline) */
+static void ring(float cx, float cy, float r0, float r1, SDL_Color c)
+{
+    SDL_Vertex v[48 * 6];
+    int n = 0;
+    for (int i = 0; i < 48; i++) {
+        float a0 = i * 6.2831853f / 48, a1 = (i + 1) * 6.2831853f / 48;
+        SDL_FPoint i0 = {cx + r0 * SDL_cosf(a0), cy + r0 * SDL_sinf(a0)}, i1 = {cx + r0 * SDL_cosf(a1), cy + r0 * SDL_sinf(a1)};
+        SDL_FPoint o0 = {cx + r1 * SDL_cosf(a0), cy + r1 * SDL_sinf(a0)}, o1 = {cx + r1 * SDL_cosf(a1), cy + r1 * SDL_sinf(a1)};
+        v[n++] = (SDL_Vertex){i0, c, {0, 0}};
+        v[n++] = (SDL_Vertex){o0, c, {0, 0}};
+        v[n++] = (SDL_Vertex){o1, c, {0, 0}};
+        v[n++] = (SDL_Vertex){i0, c, {0, 0}};
+        v[n++] = (SDL_Vertex){o1, c, {0, 0}};
+        v[n++] = (SDL_Vertex){i1, c, {0, 0}};
+    }
+    SDL_RenderGeometry(ren, NULL, v, n, NULL, 0);
+}
+
+/* a filled quad (two triangles) */
+static void quad(SDL_FPoint a, SDL_FPoint b, SDL_FPoint c, SDL_FPoint d, SDL_Color k)
+{
+    SDL_Vertex v[6] = {{a, k, {0, 0}}, {b, k, {0, 0}}, {c, k, {0, 0}}, {a, k, {0, 0}}, {c, k, {0, 0}}, {d, k, {0, 0}}};
+    SDL_RenderGeometry(ren, NULL, v, 6, NULL, 0);
+}
+
+/* "@shot": a bow arrow flying up-right (a thin shaft, a sharp head, two pairs of V feathers): it reads as an attack,
+ * not as "go up" (the owner's request; same shape as the preview in the scratchpad's btn_preview.py) */
+static void shot_icon(float cx, float cy, float r, SDL_Color k)
+{
+    const float ux = 0.70710678f, uy = -0.70710678f, nx = -uy, ny = ux;
+    float s = r * 0.66f, w = r * 0.055f;
+#define AT(a, b) ((SDL_FPoint){cx + ux * (a) + nx * (b), cy + uy * (a) + ny * (b)})
+    quad(AT(-s, -w), AT(s * 0.55f, -w), AT(s * 0.55f, w), AT(-s, w), k);                       /* the shaft */
+    quad(AT(s, 0), AT(s * 0.48f, -s * 0.24f), AT(s * 0.60f, 0), AT(s * 0.48f, s * 0.24f), k);   /* the head */
+    for (int i = 0; i < 2; i++) {                                                               /* the feathers */
+        float a = -s + i * s * 0.24f;
+        for (int side = -1; side <= 1; side += 2)
+            quad(AT(a + s * 0.30f, side * w), AT(a + s * 0.06f, side * s * 0.26f), AT(a - s * 0.04f, side * s * 0.26f),
+                 AT(a + s * 0.16f, side * w), k);
+    }
+#undef AT
+}
+
+/* The drawn touch buttons of the running game (games.cfg "button=" zones): a translucent disc with a ring around it in
+ * its zone (at the bottom of a tall zone, where the thumbs are), an arrow for a direction or an arrow icon
+ * ("button=...@up"), else the button's letter; brighter while held. */
 static void draw_buttons(int ww, int wh)
 {
     const rsb_touch *t = rsb_touch_scheme();
@@ -154,11 +199,22 @@ static void draw_buttons(int ww, int wh)
         float cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
         if (cy < y1 - r - wh * 0.06f && y1 - y0 > wh * 0.6f) cy = y1 - r - wh * 0.06f;
         int on = (held & zn->buttons) == zn->buttons;
-        disc(cx, cy, r, (SDL_Color){16, 24, 56, (Uint8)(on ? 150 : 80)});
-        SDL_Color ink = {255, 246, 220, (Uint8)(on ? 230 : 140)};
+        /* a see-through mid-blue disc: visible on dark scenes (a cave) and on bright ones (a sky) */
+        disc(cx, cy, r, (SDL_Color){96, 120, 184, (Uint8)(on ? 170 : 110)});
+        SDL_Color ink = {255, 246, 220, (Uint8)(on ? 255 : 215)};
+        ring(cx, cy, r - (r * 0.08f > 2 ? r * 0.08f : 2), r, ink);   /* the outline: where the button ends */
         uint16_t b = zn->buttons;
-        if (b & (RS_BTN_LEFT | RS_BTN_RIGHT | RS_BTN_UP | RS_BTN_DOWN)) {
-            float dx = b & RS_BTN_LEFT ? -1 : b & RS_BTN_RIGHT ? 1 : 0, dy = b & RS_BTN_UP ? -1 : b & RS_BTN_DOWN ? 1 : 0;
+        if (zn->shown == 6) {
+            shot_icon(cx, cy, r, ink);
+        } else if (zn->shown >= 2 || (b & (RS_BTN_LEFT | RS_BTN_RIGHT | RS_BTN_UP | RS_BTN_DOWN))) {
+            float dx, dy;
+            if (zn->shown >= 2) {                    /* an icon: 2 up, 3 down, 4 left, 5 right */
+                dx = zn->shown == 4 ? -1 : zn->shown == 5 ? 1 : 0;
+                dy = zn->shown == 2 ? -1 : zn->shown == 3 ? 1 : 0;
+            } else {
+                dx = b & RS_BTN_LEFT ? -1 : b & RS_BTN_RIGHT ? 1 : 0;
+                dy = b & RS_BTN_UP ? -1 : b & RS_BTN_DOWN ? 1 : 0;
+            }
             float s = r * 0.5f;                      /* a triangle pointing (dx, dy) */
             SDL_Vertex v[3] = {{{cx + dx * s, cy + dy * s}, ink, {0, 0}},
                                {{cx - dx * s * 0.6f - dy * s * 0.8f, cy - dy * s * 0.6f - dx * s * 0.8f}, ink, {0, 0}},

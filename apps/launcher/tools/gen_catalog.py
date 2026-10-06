@@ -42,6 +42,9 @@ BUTTONS = {"B": 0x8000, "Y": 0x4000, "SELECT": 0x2000, "START": 0x1000, "UP": 0x
            "LEFT": 0x0200, "RIGHT": 0x0100, "A": 0x0080, "X": 0x0040, "L": 0x0020, "R": 0x0010}
 ZONES = {"all": (0, 0, 100, 100), "left": (0, 0, 50, 100), "right": (50, 0, 100, 100),
          "top": (0, 0, 100, 50), "bottom": (0, 50, 100, 100)}
+# rsb_zone.shown: 0 not drawn, 1 drawn (an arrow for a direction, else the button's letter), 2..5 an arrow icon,
+# 6 a shot: a bow arrow (shaft, head, feathers) flying up-right, so it reads as an attack, not as "go up"
+ICONS = {"": 1, "up": 2, "down": 3, "left": 4, "right": 5, "shot": 6}
 
 
 def read_conf(path):
@@ -69,8 +72,10 @@ def read_games_cfg(path):
             k, _, v = tok.partition("=")
             if k in ("touch", "button"):           # button=: the same, drawn on the screen by the frontend
                 where, _, btn = v.partition(":")
+                btn, _, icon = btn.partition("@")  # button=<zone>:<BUTTONS>@up|down|left|right: an arrow icon
                 rect = ZONES[where] if where in ZONES else tuple(int(n) for n in where.split(","))
-                d["zones"].append((rect, buttons(btn), k == "button"))
+                shown = ICONS[icon] if k == "button" else 0
+                d["zones"].append((rect, buttons(btn), shown))
             elif k == "pause":
                 d["pause"] = buttons(v)
             else:

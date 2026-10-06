@@ -42,7 +42,9 @@ typedef struct rsb_image {
 typedef struct rsb_zone {
     uint8_t x0, y0, x1, y1;             /* a rectangle of the screen, in percent (x1, y1 excluded) */
     uint16_t buttons;                   /* RS_BTN_* held while a finger is in it */
-    uint8_t shown;                      /* drawn by the frontend (games.cfg "button="): a translucent button */
+    uint8_t shown;                      /* drawn by the frontend (games.cfg "button="): a translucent ringed button;
+                                         * 1: an arrow for a direction, else the letter; 2..5: an up / down / left /
+                                         * right arrow icon whatever the buttons ("button=...:A@up") */
 } rsb_zone;
 typedef struct rsb_touch {
     int nzones;
