@@ -29,6 +29,8 @@ void draw_init(void){
  hu_config cfg=hu_defaults();cfg.obj_tile=KIT_OBJ_TILE;cfg.obj_vram=VR_OBJ;cfg.obj_pal=3;hu_init(&cfg);
  rs_tiles_load(VR_BG3,gm_bg3_tiles,gm_bg3_tile_count);
  rs_pal_load(RS_PAL_BG(PAL_HILLS),gm_hills_pal,16);
+ /* widescreen: a third of the extra width behind the snails (game.h WIDE_LEFT): the stage origin; 0 at 320 */
+ rs_screen_origin(WIDE_LEFT(rs_screen_width()-RS_SCREEN_W));
  maps_setup();
  static const rs_color pal[16]={0,RS_HEX(0x23352f),RS_HEX(0x466947),RS_HEX(0x619248),
  RS_HEX(0x94bd59),RS_HEX(0xd5e594),RS_HEX(0x573343),RS_HEX(0xa65162),RS_HEX(0xe88189),
@@ -53,7 +55,7 @@ static void line(const canvas*p,int x0,int y0,int x1,int y1,int r,int c){
  int n=abs(x1-x0)>abs(y1-y0)?abs(x1-x0):abs(y1-y0);if(!n)n=1;
  for(int i=0;i<=n;i++)rect(p,x0+(x1-x0)*i/n-r,y0+(y1-y0)*i/n-r,x0+(x1-x0)*i/n+r,y0+(y1-y0)*i/n+r,c);}
 /* Widescreen (DESIGN.md "Widescreen"): the foreground is world content, drawn up to the canvas' right edge (cw
- * columns: the real screen's); the leaves and the hazards are culled against it, so a wider screen simply shows more
+ * columns: the real screen's; draw.c gives it a camera from the screen's real left edge); the leaves and the hazards are culled against it, so a wider screen simply shows more
  * of the same vine. At 320 it is the 4:3 picture, pixel for pixel. */
 void scenery_pixels(const world*w,uint8_t*out,int cw){
  canvas cv={out,cw},*px=&cv;
@@ -138,9 +140,12 @@ void scenery_pixels(const world*w,uint8_t*out,int cw){
  }
 }
 static uint8_t fg_px[RS_SCREEN_W_MAX*240];     /* scratch: redrawn in full each frame (state_audit.txt) */
+/* The foreground is drawn for the screen's columns from its real left edge: the canvas' column 0 is stage x
+ * rs_screen_left() (widescreen: a third of the extra width behind the snails; 0 at 320), the camera scroll + that. */
 static void foreground(const world*w){
  int cols=(rs_screen_width()+7)/8,pw=cols*8;   /* the screen's tile columns: 40 at 4:3, 54 at 427, 65 at 520 */
- scenery_pixels(w,fg_px,pw);
+ world cam=*w;cam.scroll+=rs_screen_left();
+ scenery_pixels(&cam,fg_px,pw);
  int next=1;uint8_t empty[64]={0};rs_tiles_load8(VR_BG2,empty,1);
  for(int r=0;r<30;r++)for(int c=0;c<cols;c++){
   uint8_t tile[64];int ink=0;for(int y=0;y<8;y++)for(int x=0;x<8;x++){tile[y*8+x]=fg_px[(r*8+y)*pw+c*8+x];ink|=tile[y*8+x];}
@@ -150,6 +155,7 @@ static void foreground(const world*w){
 static int player_pal(int p){return p?hu_player_pal(p):0;}
 static void spr(int id,int x,int y,int prio,int pal){
  const gm_sprite_def*d=&gm_spr[id];rs_spr(x,y,d->tile,d->w,d->h,pal<0?d->pal:pal,prio,0);}
+static int p1_drawn_x=-999;   /* tests (draw_view_log): the screen x of P1's sprite centre, as drawn */
 static void draw_heroes(const world*w,int t,int sx,int sy){
  for(int p=0;p<w->players;p++){const hero*h=&w->h[p];if(h->state==HS_OFF)continue;
  int id=h->state==HS_HIT||h->state==HS_DOWN?SPR_HERO_HIT:h->flip?SPR_HERO_SQUASH:SPR_HERO_IDLE+(t/10)%2;
@@ -157,9 +163,11 @@ static void draw_heroes(const world*w,int t,int sx,int sy){
  int flip=h->flip?(h->flip<11?h->side:h->from):h->side;
  int cx=h->x+(h->flip?(curve_sine((22-h->flip)*512/22)*9>>15):0);
  /* The same full-size snail grips each surface; the eye stalks hang below on the underside. */
+ int n=rs_oam_next();
  rs_spr(cx-16+sx,(h->y>>16)-16+sy,d->tile,d->w,d->h,player_pal(p),2,flip?RS_SPR_VFLIP:0);
+ if(p==0)p1_drawn_x=rs_oam_next()>n?rs_oam(n)->x+16+rs_screen_origin_x():-999;
  }}
-/* the kit gives UI coordinates: + hu_ui_x() (the UI is centred on a wide screen, the stage origin is 0) */
+/* the kit gives UI coordinates: + hu_ui_x() (the UI is centred on a wide screen, whatever the stage origin) */
 static void slot_icon(int p,int cx,int cy,int t,void*u){(void)t;(void)u;spr(SPR_HERO_ICON,cx-8+hu_ui_x(),cy-8,2,player_pal(p));}
 static void standing(const world*w,hu_standing*s){int a[4];for(int p=0;p<w->players;p++)a[p]=w->h[p].score;hu_rank(s,w->players,a,a);}
 static void screen_text(const world *w, int state, int st_t, int best, int new_best, const hu_standing *rs)
@@ -200,7 +208,7 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
 void draw_frame(const world*w,int state,int st_t,int best,int new_best,int paused){
  static const int medals[4]=MEDAL_SCORES;
  int sx=hu_shake_x(),sy=hu_shake_y();hu_standing rank;standing(w,&rank);
- foreground(w);rs_bg_scroll(RS_BG2,-sx,-sy);rs_bg_scroll(RS_BG3,w->scroll/4,0);
+ foreground(w);rs_bg_scroll(RS_BG2,rs_screen_origin_x()-sx,-sy);   /* the canvas from the screen's left edge */rs_bg_scroll(RS_BG3,w->scroll/4,0);
  screen_text(w,state,st_t,best,new_best,&rank);
  int slide=state==ST_OVER?hu_slide_in(st_t,20,200):0;
  rs_bg_scroll(RS_BG1,-hu_ui_x(),-slide);       /* the UI centred on the screen (widescreen) */
@@ -213,6 +221,15 @@ void draw_frame(const world*w,int state,int st_t,int best,int new_best,int pause
  if(w->players==1)hu_gameover_sprites(1,w->h[0].score,0,best,hu_medal_of(w->h[0].score,medals),st_t,slide);
  else{hu_results_sprites(&rank,st_t,slide);for(int i=0;i<rank.n;i++){int x,y;hu_results_icon_pos(&rank,i,&x,&y);spr(SPR_HERO_ICON,x-8+hu_ui_x(),y-8+slide,3,player_pal(rank.order[i]));}}
  }}
+/* Tests (--opt view=1, main.c at exit): the view of the last frame, "view: width=W left=L p1_x=X next_x=N": L the columns
+ * shown behind the snails (the stage origin), X the screen x of P1's sprite centre as drawn, N the screen x of the next
+ * hazard ahead of P1 (its anchor; tests/wide_test.sh: X and N - X against 320) */
+void draw_view_log(const world*w){
+ int hx=w->scroll+w->h[0].x,id=0;obstacle o;
+ do obstacle_at(w,id++,&o); while(o.anchor<=hx && id<1000);
+ rs_log("view: width=%d left=%d p1_x=%d next_x=%d",rs_screen_width(),rs_screen_origin_x(),p1_drawn_x,
+        o.anchor-w->scroll+rs_screen_origin_x());
+}
 #define S(v) rs_state_var("draw." #v,&(v),sizeof(v))
 void draw_state(void){S(line_col);S(shown_state);S(shown_best);RS_STATE_RASTER(raster);}
 #undef S

@@ -45,6 +45,30 @@ same "four bots, to the results" --frames 4000 --opt bot=4 --opt players=4 --opt
 i=30; while [ $i -lt 1500 ]; do echo "$i tap A" >> "$O/rhythm.input"; i=$((i + 23)); done
 same "scripted inputs" --frames 1500 --input "$O/rhythm.input" --opt seed=3
 
+
+# The view (DESIGN.md "Widescreen", the owner's rule): a THIRD of the extra width (past 320 columns) is shown behind
+# the player, on the left, two thirds ahead; 320 unchanged. --opt view=1 logs, at exit, "view: width=W left=L
+# p1_x=X next_x=N": L the columns added on the left, X the screen column of P1's sprite (as drawn), N the screen column
+# of the next hazard. At each width: L = (W - 320) / 3 (rounded), X = X(320) + L, and N - X = N(320) - X(320) (the start distance
+# on the screen is the same).
+view_of() { $H --width "$1" --opt music=0 --opt view=1 $2 2>&1 | sed -n 's/.*view: //p' | tail -1; }
+val() { echo "$1" | tr ' ' '\n' | sed -n "s/^$2=//p"; }
+view_check() {   # view_check <what> "<headless options>"
+    r=$(view_of 320 "$2"); x0=$(val "$r" p1_x); n0=$(val "$r" next_x)
+    if [ "$(val "$r" left)" != 0 ] || [ -z "$x0" ] || [ -z "$n0" ]; then ko "$1 at 320: '$r'"; return; fi
+    for w in $WS 560; do
+        r=$(view_of "$w" "$2"); l=$(val "$r" left); x=$(val "$r" p1_x); n=$(val "$r" next_x)
+        e=$(( ((w - 320) * 2 + 3) / 6 ))
+        if [ "$l" = "$e" ] && [ "$x" = $((x0 + e)) ] && [ -n "$n" ] && [ $((n - x)) = $((n0 - x0)) ]; then
+            ok "$1 at $w: a third of the extra width on the left ($l of $((w - 320)) px), P1 at x $x (320: $x0), the next hazard $((n - x)) px ahead as at 320"
+        else ko "$1 at $w: '$r' (expected left=$e p1_x=$((x0 + e)), the next hazard $((n0 - x0)) px ahead; 320: '$(view_of 320 "$2")')"; fi
+    done
+}
+view_check "the title" "--frames 60"
+view_check "the start of a run" "--frames 2 --opt ready=1 --opt bot=1 --opt seed=7"
+view_check "a run of the bot" "--frames 300 --opt ready=1 --opt bot=1 --opt seed=7"
+view_check "4 snails" "--frames 300 --opt ready=1 --opt bot=4 --opt players=4 --opt seed=5"
+
 # the width changes during a run: the run goes on as if nothing happened (the final state, the events)
 events() {    # the run's events, then its final state (a restart at a new width may log a state too)
     $H --width 320 --opt music=0 --opt dump=1 "$@" 2>&1 | game_log > "$O/rz-all.log"

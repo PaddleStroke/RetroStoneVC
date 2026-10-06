@@ -64,5 +64,17 @@ int main(void){
   assert(a.scroll==0&&d>=334&&d<=394);
  }
  puts("The first hazard 334..394 px ahead of the snails at the start of a run, at every width: passed");
+ /* Widescreen: a third of the extra width is shown BEHIND the snails, on the left (draw.c draws the foreground from
+  * scroll - WIDE_LEFT(width - 320), the stage origin): behind the start of a run the vine goes on, no empty column. */
+ static const int real[]={427,520,560};
+ for(int k=0;k<3;k++){
+  int cw=(real[k]+7)/8*8,left=WIDE_LEFT(real[k]-RS_SCREEN_W);
+  assert(left==(real[k]==427?36:real[k]==520?67:80));
+  for(uint32_t s=1;s<=20;s++){
+   world a;world_init(&a,1,s);a.scroll=-left;scenery_pixels(&a,after,cw);
+   for(int x=0;x<left;x++){int ink=0;for(int y=0;y<240;y++)ink|=after[y*cw+x];assert(ink);}
+  }
+ }
+ puts("Widescreen: a third of the extra width on the left (36, 67, 80 px), the vine drawn behind the start: passed");
  return 0;
 }
