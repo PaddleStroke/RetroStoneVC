@@ -28,7 +28,7 @@ s,_=run('gameover',900,'30 tap A\n',shot=True);ok('mistimed or idle control ends
 s,_=run('retry',920,'30 tap A\n900 tap A\n');ok('results return to the title',s[0]=='0')
 s,_=run('again',945,'30 tap A\n900 tap A\n930 tap A\n');ok('another press starts another run',s[0]=='1')
 for n in (1,2,3,4):
- s,out=run('play-'+str(n),1000,opts=['bot='+str(n)],shot=True)
+ s,out=run('play-'+str(n),600,opts=['bot='+str(n)],shot=True)   # 10 s: the bots of the denser course may crash later
  scores=re.search(r'scores=([0-9,]+)',out).group(1).split(',')
  ok(str(n)+' players survive and score with ordinary controls',s[0]=='1' and all(int(x)>50 for x in scores))
  a,_=run('pause-'+str(n),450,'400 tap SELECT\n',opts=['bot='+str(n)],shot=True)

@@ -5,7 +5,7 @@ HOUSE_UI_mouseespresso = 1
 WIDESCREEN_mouseespresso = 1
 MOUSEESPRESSO_MAKE = $(MAKE) --no-print-directory GAME=mouseespresso GAME_NAME=MouseEspresso
 MOUSEESPRESSO_OBJS = $(patsubst %.c,build/host/%.o,$(wildcard games/mouseespresso/src/*.c) $(HOUSE_SRC))
-.PHONY: mouseespresso mouseespresso-windows mouseespresso-armhf mouseespresso-dist mouseespresso-art mouseespresso-check mouseespresso-screenshots
+.PHONY: mouseespresso-validate mouseespresso mouseespresso-windows mouseespresso-armhf mouseespresso-dist mouseespresso-art mouseespresso-check mouseespresso-screenshots
 mouseespresso:
 	+$(MOUSEESPRESSO_MAKE) host
 mouseespresso-windows:
@@ -16,15 +16,22 @@ mouseespresso-dist:
 	+$(MOUSEESPRESSO_MAKE) dist
 mouseespresso-art:
 	$(PYTHON) games/mouseespresso/tools/make_art.py
-build/host/mouseespresso_physics: games/mouseespresso/src/play.c games/mouseespresso/src/game.h games/mouseespresso/src/sine.h games/mouseespresso/tests/test_physics.c
-	$(HOST_CC) $(CSTD) $(OPT) $(WARN) -Isdk/include -Igames/mouseespresso/src games/mouseespresso/src/play.c games/mouseespresso/tests/test_physics.c -o $@
+# the rules alone (no video, no sound): the physics tests and the validator link them
+ME_RULES = games/mouseespresso/src/play.c games/mouseespresso/src/course.c
+ME_RULES_H = games/mouseespresso/src/game.h games/mouseespresso/src/tuning.h games/mouseespresso/src/sine.h
+build/host/mouseespresso_physics: $(ME_RULES) $(ME_RULES_H) games/mouseespresso/tests/test_physics.c
+	$(HOST_CC) $(CSTD) $(OPT) $(WARN) -Isdk/include -Igames/mouseespresso/src $(ME_RULES) games/mouseespresso/tests/test_physics.c -o $@
+build/host/mouseespresso_validate: $(ME_RULES) $(ME_RULES_H) games/mouseespresso/tests/solver.c games/mouseespresso/tests/solver.h games/mouseespresso/tests/validate.c
+	$(HOST_CC) $(CSTD) $(OPT) $(WARN) -Isdk/include -Igames/mouseespresso/src $(ME_RULES) games/mouseespresso/tests/solver.c games/mouseespresso/tests/validate.c -lm -o $@
 build/host/mouseespresso_views: games/mouseespresso/tests/test_views.c $(MOUSEESPRESSO_OBJS) build/host/build/gen/mouseespresso/assets.o build/host/build/gen/mouseespresso/game_text.o build/host/librs.a
 	$(HOST_CC) $(CSTD) $(OPT) $(WARN) -Isdk/include -Igames/mouseespresso/src -Igames/common/src $^ -lm -o $@
 build/host/mouseespresso_review: games/mouseespresso/tests/review_scenes.c $(MOUSEESPRESSO_OBJS) build/host/build/gen/mouseespresso/assets.o build/host/build/gen/mouseespresso/game_text.o build/host/sdk/frontends/common/rs_desktop.o build/host/librs.a
 	$(HOST_CC) $(CSTD) $(OPT) $(WARN) -Isdk/include -Isdk/frontends/common -Igames/mouseespresso/src -Igames/common/src $^ -lm -o $@
 mouseespresso-check:
-	+$(MOUSEESPRESSO_MAKE) host build/host/test_libretro build/host/mouseespresso_test_states build/host/mouseespresso_physics build/host/mouseespresso_views
+	+$(MOUSEESPRESSO_MAKE) host build/host/test_libretro build/host/mouseespresso_test_states build/host/mouseespresso_physics build/host/mouseespresso_validate build/host/mouseespresso_views
 	./build/host/mouseespresso_physics
+	./build/host/mouseespresso_validate --seeds 128 --quad 16 --end 21360 --jobs $$(nproc) --report build/mouseespresso-validate.txt
+	sh games/mouseespresso/tests/bot_test.sh build/host/mouseespresso_headless build/mouseespresso-bot
 	./build/host/mouseespresso_views
 	./build/host/test_libretro build/host/mouseespresso_libretro.so 600
 	$(PYTHON) games/mouseespresso/tests/check_game.py
@@ -42,3 +49,7 @@ mouseespresso-screenshots:
 	+$(MOUSEESPRESSO_MAKE) build/host/mouseespresso_headless
 	$(PYTHON) games/mouseespresso/tests/check_game.py --screenshots
 	sh games/mouseespresso/tools/wide_shots.sh build/host/mouseespresso_headless games/mouseespresso/docs/screenshots
+# the validator over thousands of seeds, to a score of about 3300 (DESIGN.md "Measured difficulty"): a long run
+mouseespresso-validate:
+	+$(MOUSEESPRESSO_MAKE) build/host/mouseespresso_validate
+	./build/host/mouseespresso_validate --seeds 2048 --quad 128 --end 39360 --jobs $$(nproc) --report build/mouseespresso-validate-full.txt

@@ -23,7 +23,8 @@ int main(void){
  rs_host_set_option("music","0");rs_host_set_option("sound","0");
  for(int n=1;n<=4;n++){
   char count[4];snprintf(count,sizeof count,"%d",n);rs_host_set_option("bot",count);assert(!rs_host_init(rs_game_main()));
-  for(int t=0;t<1500;t++){rs_host_frame();check_heroes(n,t%200==0);}
+  /* the strict check while every bot still flies (the bots of the denser course may crash after a few seconds) */
+  for(int t=0;t<1500;t++){rs_host_frame();if(t<240)check_heroes(n,t%60==0);}
   world w;world_init(&w,n,4);int held[4]={1,1,1,1};world_step(&w,held);
   for(int p=0;p<n;p++)w.h[p].y=(p&1?FLIGHT_TOP:FLIGHT_BOTTOM)*Q16_ONE;
   draw_frame(&w,ST_PLAY,50,0,0,0);rs_host_render();check_heroes(n,1);

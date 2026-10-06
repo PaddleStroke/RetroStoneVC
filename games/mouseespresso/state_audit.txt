@@ -5,3 +5,18 @@ main.snd_buf        sound_init(): the synthesis buffer (the samples are made at 
 main.SV             the battery save's copy (best scores, medals): stays in the .srm, a state never takes it back
 draw.pixels         foreground(): the furniture layer's pixels, per-frame scratch (drawn again every frame)
 draw.p1_drawn_x     tests only (--opt view=1, draw_view_log): where P1's sprite was last drawn, written every frame
+draw.tile_slot      foreground(): the playfield tiles shared this frame, per-frame scratch (cleared every frame)
+draw.tile_seen      foreground(): the tiles loaded this frame, per-frame scratch
+bot.eye             bot_decide(): the playfield picture it reads, rebuilt from the world every frame (look())
+bot.solid           bot_decide(): that picture as bits, rebuilt with it
+bot.tall            bot_decide(): dilation scratch
+bot.blk             bot_decide(): the picture grown by its margins, rebuilt with it
+bot.blk_ok          bot_decide(): which margins are built for the picture of seen_t
+bot.seen_t          bot_decide(): the frame (with seen_left, seen_seed) the picture was read at: a cache key only
+bot.seen_left       bot_decide(): the cache key's camera
+bot.seen_seed       bot_decide(): the cache key's course
+bot.view_left       bot_decide(): the picture's world x, set with it
+bot.memo            bot_decide(): the search's dead states, stamped per search
+bot.stamp           bot_decide(): the current search's stamp
+bot.plan_x          bot_decide(): its mouse's x on the coming frames, recomputed every decision
+bot.lock            bot_decide(): the current search's no-change frames, set per search

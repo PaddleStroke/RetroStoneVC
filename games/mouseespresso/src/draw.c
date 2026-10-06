@@ -2,13 +2,14 @@
  * Widescreen (DESIGN.md "Widescreen"): a side-scroller, so the café is revealed wider: a third of the extra width behind
  * the mice, two thirds ahead (the stage origin stays 0; the shared camera starts WIDE_LEFT(width - 320) px further
  * left: the mice fly that much further right, the hazards, biscuits and counter are drawn behind and ahead of them
- * (the same course: obstacle_at, collectible_at). The maps are 128 tiles wide; the café's 512-px back wall goes on
+ * (the same course: course.c, painted by paint.c). The maps are 128 tiles wide; the café's 512-px back wall goes on
  * with its mirror image (the same tiles h-flipped: nothing repeats on a 560-px screen). The UI is centred (the UI
  * layer scrolls by -hu_ui_x(), the game's UI sprites add it). */
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
 #include "game_text.h"
+#include "paint.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -74,9 +75,6 @@ static void background(const view *v,rs_viewport *vp) {
  }
  vp->sx[2]=(int16_t)(v->mx*8+dx);vp->sy[2]=(int16_t)(v->my*8);
 }
-static void pixel(uint8_t *p,int x,int y,int color,const rs_viewport *vp) {
- if(x>=0 && x<vp->w && y>=0 && y<vp->h)p[y*PIX_W+x]=(uint8_t)color;
-}
 static void rect(uint8_t *p,int x0,int y0,int x1,int y1,int color,const rs_viewport *vp) {
  if(x0<0)x0=0;
  if(y0<0)y0=0;
@@ -84,139 +82,36 @@ static void rect(uint8_t *p,int x0,int y0,int x1,int y1,int color,const rs_viewp
  if(y1>=vp->h)y1=vp->h-1;
  for(int y=y0;y<=y1;y++)for(int x=x0;x<=x1;x++)p[y*PIX_W+x]=(uint8_t)color;
 }
-static void oval(uint8_t *p,int cx,int cy,int rx,int ry,int light,int mid,int dark,const rs_viewport *vp){
- for(int y=-ry-1;y<=ry+1;y++)for(int x=-rx-1;x<=rx+1;x++){
-  int d=x*x*ry*ry+y*y*rx*rx;
-  if(d>(rx+1)*(rx+1)*(ry+1)*(ry+1))continue;
-  pixel(p,cx+x,cy+y,d>rx*rx*ry*ry?1:y<-ry/3?light:x<0?mid:dark,vp);
+/* the playfield layer's tiles, one per inked 8x8 cell; identical cells (strings, sugar cubes, cup stacks) share one */
+#define TILE_SLOTS 2048
+static uint16_t tile_slot[TILE_SLOTS];          /* per frame (state_audit.txt): tile id + 1 */
+static uint8_t tile_seen[1024][64];             /* per frame: the tiles loaded this frame */
+static int tile_id(const uint8_t *tile,int *next){
+ uint32_t h=2166136261u;for(int i=0;i<64;i++)h=(h^tile[i])*16777619u;
+ for(uint32_t i=h&(TILE_SLOTS-1);;i=(i+1)&(TILE_SLOTS-1)){
+  int s=tile_slot[i];
+  if(!s){
+   if(*next>=1023)return 0;                     /* (never: the validator's densest courses use far fewer) */
+   int id=(*next)++;memcpy(tile_seen[id],tile,64);rs_tiles_load8(VR_BG2+id,tile,1);tile_slot[i]=(uint16_t)(id+1);return id;
+  }
+  if(!memcmp(tile_seen[s-1],tile,64))return s-1;
  }
 }
-static void line(uint8_t *p,int x0,int y0,int x1,int y1,int width,int color,const rs_viewport *vp){
- int dx=abs(x1-x0),dy=abs(y1-y0),steps=dx>dy?dx:dy;if(!steps)steps=1;
- for(int i=0;i<=steps;i++)rect(p,x0+(x1-x0)*i/steps-width,y0+(y1-y0)*i/steps-width,
-  x0+(x1-x0)*i/steps+width,y0+(y1-y0)*i/steps+width,color,vp);
-}
-static void box(uint8_t *p,int x0,int y0,int x1,int y1,int light,int mid,int dark,const rs_viewport *vp){
- rect(p,x0,y0,x1,y1,1,vp);rect(p,x0+1,y0+1,x1-1,y1-1,mid,vp);
- rect(p,x0+1,y0+1,x1-1,y0+2,light,vp);rect(p,x1-3,y0+3,x1-1,y1-1,dark,vp);
-}
-static void cat_paw(uint8_t *p,const obstacle *o,const view *v,const rs_viewport *vp){
- if(!o->reach)return;
- int root=sx(v,o->x),x=sx(v,o->tip_x),tip=o->tip,cy=o->side?tip+13:tip-13,edge=o->side?232:0;
- int length=abs(cy-edge);if(length<1)length=1;
- /* A tapered, shaded foreleg with anchored tabby markings, rather than a rectangular arm. */
- for(int k=0;k<=length;k++){
-  int yy=edge+(cy-edge)*k/length,cx=root+(x-root)*k/length,radius=12-3*k/length;
-  for(int dx=-radius;dx<=radius;dx++){
-   int ink=abs(dx)==radius?1:dx<-radius/2?5:dx<radius/2?12:11;
-   if(k%29>=12 && k%29<=16 && (dx<-2 || dx>5))ink=11;
-   pixel(p,cx+dx,yy,ink,vp);
-  }
- }
- oval(p,x,cy,17,12,5,12,11,vp);
- /* Four uneven, separated toes make the tip read as a feline paw. */
- for(int j=0;j<4;j++){
-  int toe=x-12+j*8,yy=o->side?tip+6:tip-6;yy+=(j==0 || j==3)?(o->side?2:-2):0;
-  oval(p,toe,yy,5,5,5,12,11,vp);
-  if(o->active && o->reach>80){int claw=o->side?tip+2:tip-2;pixel(p,toe-1,claw,4,vp);pixel(p,toe,claw,5,vp);}
- }
- if(o->side){
-  oval(p,x,cy-1,7,5,13,13,11,vp);
-  for(int j=0;j<4;j++)oval(p,x-12+j*8,tip+7+(j==0 || j==3?2:0),2,2,13,13,11,vp);
- }else{
-  line(p,x-9,cy-1,x-2,cy+3,1,11,vp);line(p,x+10,cy+3,x+5,cy+6,1,11,vp);
- }
-}
-static void steam_jet(uint8_t *p,const obstacle *o,const view *v,const rs_viewport *vp){
- if(!o->effect)return;
- int x=sx(v,o->jet_x);
- for(int d=0;d<=o->effect;d+=4){int cx=x+(d?((d+o->phase*3)%13-6)/2:0),cy=o->jet_y-d,rx=3+d/18;
-  for(int yy=-6;yy<=6;yy++)for(int xx=-rx;xx<=rx;xx++)if(xx*xx*36+yy*yy*rx*rx<=rx*rx*36){
-   if(d>o->effect-8 && ((cx+xx+cy+yy)&3)==0)continue;
-   pixel(p,cx+xx,cy+yy,xx<-rx/3?5:xx<rx/2?4:3,vp);
-  }
- }
-}
-static void furniture(uint8_t *p,const obstacle *o,const view *v,const rs_viewport *vp){
- int x=sx(v,o->x),y=o->tip;
- if(o->type==OB_STOOL){
-  // A wooden bar stool, padded diner stool, or a chair with a rounded back.
-  line(p,x-15,y+8,x-22,231,3,1,vp);line(p,x+15,y+8,x+22,231,3,1,vp);
-  line(p,x-15,y+8,x-22,231,2,8,vp);line(p,x+15,y+8,x+22,231,2,7,vp);
-  box(p,x-18,206,x+18,210,9,8,7,vp);
-  if(o->variant==2){box(p,x-20,y,x+20,y+26,9,8,7,vp);box(p,x-15,y+5,x+15,y+17,9,7,6,vp);y+=25;}
-  oval(p,x,y+6,24,6,o->variant==1?13:9,o->variant==1?11:8,7,vp);
- }else if(o->type==OB_SHELF){
-  line(p,x-26,0,x-26,y+5,1,3,vp);line(p,x+26,0,x+26,y+5,1,3,vp);
-  box(p,x-34,y,x+34,y+10,9,8,7,vp);
-  for(int j=0;j<3;j++){
-   int cx=x-23+j*23,top=y-19-(j==1?6:0);
-   if(o->variant==1){box(p,cx-7,top,cx+7,y-1,4,3,2,vp);box(p,cx-8,top-3,cx+8,top,9,7,6,vp);}
-   else{box(p,cx-7,top,cx+6,y-1,5,o->variant==2?13:4,3,vp);box(p,cx+6,top+4,cx+11,top+11,5,3,2,vp);rect(p,cx+7,top+6,cx+9,top+9,0,vp);}
-  }
- }else if(o->type==OB_TABLE){
-  /* Rear supports sit behind the flight lane; the broad tabletop is the solid obstacle. */
-  for(int side=-1;side<=1;side+=2){int leg=x+side*(o->width-24);
-   line(p,leg,y+12,leg+side*8,231,3,14,vp);line(p,leg-1,y+14,leg+side*8-1,229,1,7,vp);
-  }
-  box(p,x-o->width,y,x+o->width,y+13,9,8,7,vp);
-  rect(p,x-o->width+2,y+9,x+o->width-2,y+10,6,vp);
-  for(int grain=-o->width+16;grain<o->width-12;grain+=32)rect(p,x+grain,y+5,x+grain+17,y+5,9,vp);
- }else if(o->type==OB_APPLIANCE){
-  // Espresso machine, windmill mixer and steaming kettle.
-  box(p,x-23,223,x+23,231,4,3,2,vp);
-  if(o->variant==0){
-   box(p,x-20,y,x+22,219,4,13,11,vp);box(p,x-16,y+7,x+17,y+25,4,3,2,vp);
-   oval(p,x+9,y+15,5,5,5,4,2,vp);line(p,x+9,y+15,x+11,y+12,0,o->warning?13:1,vp);
-   box(p,x-12,y+32,x+13,218,4,2,1,vp);box(p,x-8,y+39,x+8,y+43,4,3,2,vp);
-   line(p,x,y+43,x,y+49,1,4,vp);box(p,x-9,208,x+8,219,5,4,3,vp);box(p,x+8,210,x+12,215,4,3,2,vp);
-   line(p,x-12,y+24,sx(v,o->jet_x),o->jet_y,1,4,vp);pixel(p,sx(v,o->jet_x),o->jet_y,13,vp);
-   rect(p,x-17,221,x+17,222,2,vp);pixel(p,x+16,y+32,o->warning?13:10,vp);
-  }else if(o->variant==1){
-   box(p,x+7,y+9,x+21,224,4,13,11,vp);oval(p,x,y+11,20,10,4,13,11,vp);
-   oval(p,x-4,212,18,11,4,3,2,vp);rect(p,x-22,201,x+14,204,4,vp);
-   for(int j=0;j<4;j++){const moving_blade *b=&o->blade[j];int bx=sx(v,b->x),tx=sx(v,b->tip_x);
-    line(p,bx,b->y,tx,b->tip_y,5,1,vp);line(p,bx,b->y,tx,b->tip_y,3,3,vp);
-    line(p,bx-1,b->y-1,tx-1,b->tip_y-1,1,4,vp);oval(p,tx,b->tip_y,5,5,4,3,2,vp);
-   }
-   oval(p,sx(v,o->blade[0].x),o->blade[0].y,7,7,4,3,2,vp);oval(p,sx(v,o->blade[0].x),o->blade[0].y,3,3,5,13,11,vp);
-  }else{
-   int cy=(y+12+220)/2,ry=(220-y-12)/2;
-   oval(p,x,cy,22,ry,4,3,2,vp);box(p,x-10,y,x+8,y+11,4,3,2,vp);
-   line(p,x-15,cy-8,sx(v,o->jet_x),o->jet_y,3,1,vp);line(p,x-15,cy-8,sx(v,o->jet_x),o->jet_y,2,4,vp);
-   box(p,x+16,cy-18,x+23,cy+12,9,8,7,vp);rect(p,x+18,cy-15,x+22,cy+9,0,vp);
-   box(p,x-9,213,x+11,220,5,o->warning?13:3,11,vp);
-  }
-  if(o->variant!=1)steam_jet(p,o,v,vp);
- }else if(o->type==OB_TRAP){
-  box(p,x-26,219,x+26,231,9,8,7,vp);box(p,x-4,215,x+4,218,4,3,2,vp);
-  for(int i=0;i<6;i++)oval(p,x-9+i*3,217,1,2,4,3,2,vp);
-  for(int row=0;row<7;row++)rect(p,x+9,211+row,x+9+row,211+row,10,vp);
-  pixel(p,x+11,215,7,vp);pixel(p,x+13,217,7,vp);
-  int bar=o->tip;
-  line(p,x-22,219,x-18,bar,1,4,vp);line(p,x+22,219,x+18,bar,1,3,vp);
-  box(p,x-24,bar,x+24,bar+3,4,3,2,vp);
-  if(o->warning){pixel(p,x-29,211,13,vp);pixel(p,x+29,211,13,vp);line(p,x-28,212,x-31,207,0,10,vp);line(p,x+28,212,x+31,207,0,10,vp);}
- }else if(o->type==OB_PAW)cat_paw(p,o,v,vp);
-}
+/* the counter and the café's items (paint.c) on the playfield layer, over the whole width */
 static void foreground(const world *w,const view *v,const rs_viewport *vp,int *next){
  memset(pixels,0,sizeof pixels);int r1=vp->w-1;      /* the counter: the whole width (widescreen) */
  rect(pixels,0,232,r1,239,6,vp);rect(pixels,0,232,r1,233,9,vp);rect(pixels,0,236,r1,237,15,vp);
  for(int x=0;x<vp->w;x++)if(((x+v->cx)>>5)&1)rect(pixels,x,238,x,239,14,vp);
- int base=(v->cx-HAZARD_FIRST)/HAZARD_SPACING;if(base<0)base=0;
- for(int id=base>0?base-1:0;id<=base+3;id++){
-  obstacle o;obstacle_at(w,id,w->t,&o);int x=sx(v,o.x);
-  if(x<-140 || x>vp->w+140 || o.type==OB_POP)continue;
-  furniture(pixels,&o,v,vp);
- }
+ canvas c={pixels,vp->w,COUNTER_Y,PIX_W};paint_course(&c,&w->c,v->cx,w->t);
+ memset(tile_slot,0,sizeof tile_slot);
  int cols=(vp->w+7)/8;
- for(int r=0;r<30;r++)for(int c=0;c<cols;c++){
-  uint8_t tile[64];int ink=0;for(int y=0;y<8;y++)for(int x=0;x<8;x++){tile[y*8+x]=pixels[(r*8+y)*PIX_W+c*8+x];ink|=tile[y*8+x];}
-  int id=0;if(ink){id=(*next)++;rs_tiles_load8(VR_BG2+id,tile,1);}rs_bg_put(RS_BG2,c,r,RS_MAP(id,PAL_GROUND,0,0,0));
+ for(int r=0;r<30;r++)for(int col=0;col<cols;col++){
+  uint8_t tile[64];int ink=0;for(int y=0;y<8;y++)for(int x=0;x<8;x++){tile[y*8+x]=pixels[(r*8+y)*PIX_W+col*8+x];ink|=tile[y*8+x];}
+  int id=ink?tile_id(tile,next):0;rs_bg_put(RS_BG2,col,r,RS_MAP(id,PAL_GROUND,0,0,0));
  }
 }
 static void scene(const world *w,int t,const view *v,const rs_viewport *vp){
- // Heroes win OAM overlap against their steam and kitchen props.
+ // Heroes win OAM overlap against their steam and the biscuits.
  for(int p=0;p<w->players;p++){
   const hero *h=&w->h[p];int x=sx(v,(int)(h->wx>>16)),y=h->y>>16;
   if(h->state==HS_OFF)continue;
@@ -228,21 +123,12 @@ static void scene(const world *w,int t,const view *v,const rs_viewport *vp){
   if(h->smooth_t>0)hu_sparkle(x+18-hu_ui_x(),y-10,w->t,2);   /* kit sprites: UI coordinates */
   if(h->state==HS_HIT && h->t<20)spr(SPR_PUFF+(h->t/7)%3,x-8,y+4,2,-1,vp);
  }
- int base=(v->cx-HAZARD_FIRST)/HAZARD_SPACING;if(base<0)base=0;
- for(int id=base>0?base-1:0;id<=base+3;id++){
-  obstacle o;obstacle_at(w,id,w->t,&o);if(o.type!=OB_POP)continue;
-  int x=sx(v,o.x);spr(SPR_TOASTER+(o.warning || o.phase<16),x-20,208,2,-1,vp);
-  for(int i=0;i<2;i++)if(o.shot[i].active){
-   const toast_shot *s=&o.shot[i];int frame=(s->age/9+i*2)%4;
-   spr(SPR_TOAST+frame,sx(v,s->x)-12,s->y-12,2,-1,vp);
-  }
-  if(o.phase<18)spr(SPR_PUFF+(o.phase/6)%3,x-8,199,1,-1,vp);
- }
- int group=(v->cx-210)/HAZARD_SPACING;if(group<0)group=0;
- for(int g=group;g<=group+3;g++)for(int j=0;j<5;j++){
-  int taken=1;for(int p=0;p<w->players;p++)if(w->h[p].state==HS_RUN || w->h[p].state==HS_READY)taken&=collectible_taken(&w->h[p],g,j);
-  if(taken)continue;
-  int x,y;collectible_at(w,g,j,&x,&y);spr(SPR_BISCUIT+(w->t/12+j)%2,sx(v,x)-8,y-8,2,-1,vp);
+ /* the biscuits: gone once every mouse still flying has taken it */
+ for(uint32_t i=(uint32_t)course_first_near(&w->c,v->cx-16);i<w->c.n;i++){
+  const item *it=course_item(&w->c,i);if(it->x-16>v->cx+vp->w)break;
+  if(it->kind!=IT_BISCUIT)continue;
+  int taken=1;for(int p=0;p<w->players;p++)if(w->h[p].state==HS_RUN || w->h[p].state==HS_READY)taken&=it->taken>>p&1;
+  if(!taken)spr(SPR_BISCUIT+(w->t/12+(int)(i&1))%2,sx(v,it->x)-8,it->y-8,2,-1,vp);
  }
 }
 static void icon(int p,int cx,int cy,int t,void *user) {
@@ -266,7 +152,7 @@ static void title_ui(int t,int best){
 void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paused){
  nviews=rs_viewport_layout(1,0,VP);hu_clear();rs_oam_clear();rs_brightness(paused?9:15);
  view *v=&V[0];rs_viewport *vp=&VP[0];v->mx=v->my=0;v->zx=v->zy=256;v->cx=w->scroll-draw_wide_left();
- if(state==ST_OVER)v->cx=-draw_wide_left();   /* behind the panel: the start of the course */
+ /* behind the panel: where the run ended (the course behind it is no longer kept) */
  for(int y=0;y<240;y++){int k=y*256/240,d=(y&4)?4:0;v->sky[y]=RS_RGB8(192+14*k/256+d,172+16*k/256+d/2,150+12*k/256+d);}
  background(v,vp);int next=1;foreground(w,v,vp,&next);
  vp->sx[0]=vp->sx[1]=vp->sy[0]=vp->sy[1]=0;vp->layers=7;vp->objs=1;
@@ -294,11 +180,11 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
 }
 /* Tests (--opt view=1, main.c at exit): the view of the last frame, "view: width=W left=L p1_x=X next_x=N": L the columns
  * shown behind the mice (a third of the extra width), X the screen x of P1's sprite centre as drawn, N the screen x of
- * the next hazard ahead of P1 (tests/wide_test.sh: X and N - X against 320) */
+ * the next item ahead of P1 (tests/wide_test.sh: X and N - X against 320) */
 void draw_view_log(const world *w) {
- const view *v=&V[0];int hx=(int)(w->h[0].wx>>16),id=0;obstacle o;
- do obstacle_at(w,id++,w->t,&o); while(o.x<=hx && id<1000);
- rs_log("view: width=%d left=%d p1_x=%d next_x=%d",rs_screen_width(),draw_wide_left(),p1_drawn_x,sx(v,o.x));
+ const view *v=&V[0];int hx=(int)(w->h[0].wx>>16),nx=hx+9999;
+ for(uint32_t i=w->c.first;i<w->c.n;i++){const item *it=course_item(&w->c,i);if(it->kind!=IT_BISCUIT && it->x>hx){nx=it->x;break;}}
+ rs_log("view: width=%d left=%d p1_x=%d next_x=%d",rs_screen_width(),draw_wide_left(),p1_drawn_x,sx(v,nx));
 }
 #define S(v) rs_state_var("draw." #v,&(v),sizeof(v))
 void draw_state(void) {S(V);S(VP);S(nviews);S(shown_state);S(shown_best);S(laid_w);RS_STATE_RASTER(raster);}

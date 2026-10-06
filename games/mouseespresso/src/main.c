@@ -271,6 +271,7 @@ static void game_state(void)
     S(run_best); S(W); S(st); S(st_t); S(paused); S(new_best); S(runs_done); S(start_press); S(state_hash);
     S(opt_bot); S(opt_botstop); S(opt_botruns); S(opt_seed_fixed); S(opt_seed); S(opt_music); S(opt_sound);
     draw_state();
+    bot_state();                                /* the bot's feel of its own steam (tests) */
     hu_state();                                 /* the kit, with the title's lobby (who plays, on which pad) */
     ha_state();
 }
