@@ -101,6 +101,10 @@
 #define VIEW_AHEAD   (320 - PIVOT_X)   /* px of course visible ahead of the berry (the reaction time) */
 #define GROUND_SCREEN_Y 172     /* the ground at the pivot, screen y, when the camera is at rest */
 #define CAM_TOP_MARGIN  56      /* the camera rises when the berry's top goes above this screen y */
+/* widescreen (DESIGN.md "Widescreen"): the share of the columns beyond 320 shown on the LEFT, behind the berry (the
+ * rest is ahead, on the right): the stage origin, rounded (1/3: 36 px at 427, 67 at 520, 80 at 560; 0 at 320) */
+#define WIDE_LEFT_SHARE_NUM 1
+#define WIDE_LEFT_SHARE_DEN 3
 
 /* ---- flow ---------------------------------------------------------------------------------------------------------- */
 #define START_CELLS  24         /* flat ground before the first pattern (the run starts at x = 0, bar 0) */

@@ -21,14 +21,26 @@
 #include <stdio.h>
 #include <string.h>
 
-/* Widescreen (DESIGN.md "Widescreen"): the stage origin is 0, the screen shows the world further to the right. The
- * maps are 64 tiles wide at 320 columns and 128 on a wider screen (the playfield, the mid-ground and the UI rings
- * then hold more than the screen; the far layer holds its wider range and its mirror image: maps_setup). */
+/* Widescreen (DESIGN.md "Widescreen"): the columns beyond 320 are shared out, WIDE_LEFT_SHARE (tuning.h) on the left,
+ * behind the berry, the rest ahead on the right: the stage origin (wide_left()) is that many columns, so the 320-px
+ * stage (the berry at stage x PIVOT_X, the shear's pivot, the camera) is drawn exactly as at 320, and the screen shows
+ * stage x rs_screen_left() .. rs_screen_right(): the course already passed (or, at the start, the slope behind the
+ * start line) on the left, further down the slope on the right. The maps are 64 tiles wide at 320 columns and 128 on
+ * a wider screen (the playfield, the mid-ground and the UI rings then hold more than the screen; the far layer holds
+ * its wider range and its mirror image: maps_setup). */
 static int wide(void) { return rs_screen_width() > RS_SCREEN_W; }
 static int maps_w(void) { return wide() ? 128 : 64; }
+static int wide_left(void)
+{
+    int extra = rs_screen_width() - RS_SCREEN_W;
+    return extra > 0 ? (extra * WIDE_LEFT_SHARE_NUM + WIDE_LEFT_SHARE_DEN / 2) / WIDE_LEFT_SHARE_DEN : 0;
+}
 #define MAP_W (rs_bg_map_w(RS_BG2))         /* the playfield map: 64 (wide: 128) x 64 tiles, wrapping */
-/* the 16-px columns a wider screen shows beyond the 320 ones (streaming, props) */
+/* the 16-px columns a wider screen shows beyond the 320 ones (props), on the left (behind the stage's x 0) and on the
+ * right (past its x 320) of the stage (streaming) */
 static int extra_cols(void) { return (rs_screen_width() - RS_SCREEN_W + CELL - 1) / CELL; }
+static int left_cols(void) { return (-rs_screen_left() + CELL - 1) / CELL; }
+static int right_cols(void) { return (rs_screen_right() - RS_SCREEN_W + CELL - 1) / CELL; }
 #define GROUND_TROW 44                      /* the ground surface's tile row (map px 352) */
 #define GROUND_PY (GROUND_TROW * 8)
 #define MID_TROW 34                         /* the mid-ground band's first tile row on BG3 (64 rows: no wrap) */
@@ -87,10 +99,11 @@ static rs_color night_of(rs_color c)
 /* the playfield and mid-ground palettes: each slot loaded for the biome (and loop) it shows next */
 static void load_slot_palettes(int32_t cam_x)
 {
-    /* the playfield shows the biomes from the camera's left edge on; the mid-ground (parallax 1/2) those of the
-     * world x from cam_x - width to cam_x + width (stream_mid) */
-    int32_t b0 = cam_x < 0 ? 0 : cam_x / (BIOME_CELLS * CELL);
-    int32_t bl = cam_x - rs_screen_width() < 0 ? 0 : (cam_x - rs_screen_width()) / (BIOME_CELLS * CELL);
+    /* the playfield shows the biomes from the screen's left edge on (stage x rs_screen_left()); the mid-ground
+     * (parallax 1/2) those of the world x from cam_x - width (- the left share) on (stream_mid) */
+    int32_t xl = cam_x + rs_screen_left(), ml = cam_x - rs_screen_width() + rs_screen_left();
+    int32_t b0 = xl < 0 ? 0 : xl / (BIOME_CELLS * CELL);
+    int32_t bl = ml < 0 ? 0 : ml / (BIOME_CELLS * CELL);
     for (int s = 0; s < NBIOMES; s++) {
         int32_t bi = b0 + ((s - (int)(b0 % NBIOMES)) + NBIOMES) % NBIOMES;
         int loop = (int)(bi / NBIOMES);
@@ -117,7 +130,7 @@ static void load_slot_palettes(int32_t cam_x)
 /* the sky and the far mountains at the camera: the biome's colours, cross-faded over 512 px after a gate */
 static void sky_and_far(int32_t cam_x, int pulse)
 {
-    int32_t mid = cam_x + rs_screen_width() / 2;
+    int32_t mid = cam_x + rs_screen_left() + rs_screen_width() / 2;      /* the screen's centre */
     int32_t bi = mid < 0 ? 0 : mid / (BIOME_CELLS * CELL);
     int32_t into = mid - bi * BIOME_CELLS * CELL;
     int cur = bi >= NBIOMES ? NBIOMES : (int)bi;
@@ -186,6 +199,7 @@ void draw_init(void)
     hc.obj_vram = VR_OBJ;
     hc.obj_pal = 3;
     hc.box_glyphs = " SCOREBESTNWMDALPYIG0123456789!:-+";   /* only the glyphs the panel uses (VRAM) */
+    rs_screen_origin(wide_left());              /* widescreen: the left share of the extra columns (0 at 320) */
     hu_init(&hc);
     maps_setup();
     rs_tiles_load(VR_BG2, gm_pf_tiles, gm_pf_tile_count);
@@ -346,7 +360,8 @@ static void draw_column(const bt_course *c, int32_t col, int deep, int lobby)
 
 static void stream_playfield(const bt_course *c, int32_t cam_col, int lobby)
 {
-    int32_t want_lo = cam_col - 2, want_hi = cam_col + 23 + extra_cols();   /* widescreen: up to the real edge */
+    /* widescreen: from the real left edge up to the real right edge */
+    int32_t want_lo = cam_col - 2 - left_cols(), want_hi = cam_col + 23 + right_cols();
     int32_t deep_hi = wide() ? cam_col + (RS_SCREEN_W - CELL) / CELL : want_hi;   /* the columns drawn as at 320 */
     if (pf_col_hi < want_lo || pf_col_hi > want_hi + 1 || want_lo < pf_col_lo) {
         pf_col_hi = want_lo;
@@ -370,15 +385,16 @@ static void stream_playfield(const bt_course *c, int32_t cam_col, int lobby)
     }
 }
 
-/* the mid-ground: BG3 tile column u shows the biome whose ground enters the screen (its real right edge) with it */
+/* the mid-ground: BG3 tile column u shows the biome whose ground enters the screen (its real right edge: stage x
+ * rs_screen_right()) with it */
 static void stream_mid(int32_t cam_x)
 {
-    int sw = rs_screen_width(), mw = rs_bg_map_w(RS_BG3);
-    int32_t u_hi = (cam_x / 2 + sw) / 8 + 2;
+    int sw = rs_screen_width(), sr = rs_screen_right(), mw = rs_bg_map_w(RS_BG3);
+    int32_t u_hi = (cam_x / 2 + sr) / 8 + 2;
     if (mid_col_hi < u_hi - (mw - 4) || mid_col_hi > u_hi) mid_col_hi = u_hi - 44 - (sw - RS_SCREEN_W + 7) / 8;
     while (mid_col_hi < u_hi) {
         int32_t u = mid_col_hi;
-        int32_t wx = u * 16 - sw;
+        int32_t wx = u * 16 - sr;
         int b = course_biome_of_col(wx < 0 ? 0 : wx / CELL);
         int mx = (int)(((u % MID_W) + MID_W) % MID_W);
         int32_t rep = u >= 0 ? u / MID_W : (u - MID_W + 1) / MID_W;
@@ -496,7 +512,7 @@ void draw_events(const world *w)
 static void draw_props(const world *w, int t)
 {
     const bt_course *c = &w->course;
-    int32_t col0 = view_camx / CELL - 1;
+    int32_t col0 = (view_camx + rs_screen_left()) / CELL - 1;      /* from the screen's left edge to its right edge */
     for (int32_t col = col0; col < col0 + 22 + extra_cols(); col++) {
         const bt_col *k = shown_col(c, col, !w->started);
         int sx = col * CELL - view_camx + CELL / 2;
@@ -535,7 +551,7 @@ static void draw_props(const world *w, int t)
         const bt_cone *k = &c->cone[i % CONE_RING];
         if (k->gone || !w->started) continue;     /* the lobby: no cones (they belong to the patterns) */
         int kx = (int)(cone_x(k, xref) >> 16) - view_camx;
-        if (kx < -16 || kx > rs_screen_width() + 16) continue;
+        if (kx < rs_screen_left() - 16 || kx > rs_screen_right() + 16) continue;
         spr(SPR_CONE + (((unsigned)(-kx) / 4) & 3), kx - 8, screen_y(0, kx) - 15, 2, -1);
     }
 }
@@ -578,8 +594,8 @@ static void gate_name(int32_t pcol)
 }
 
 /* "ATTEMPT n" is cleared when it has rolled off the left edge: 420 px at 320 columns (as it always was); on a wider
- * screen (its UI layer 128 tiles wide, centred) once the whole 320-px UI row has left */
-static int attempt_end(void) { return wide() ? RS_SCREEN_W + hu_ui_x() + 4 : 420; }
+ * screen (its UI layer 128 tiles wide, centred) once the whole 320-px UI row has left (past stage x rs_screen_left()) */
+static int attempt_end(void) { return wide() ? RS_SCREEN_W + hu_ui_x() - rs_screen_left() + 4 : 420; }
 
 static void screen_text(const world *w, int state, int st_t, int best, int new_best, int attempt, const hu_standing *rs)
 {

@@ -204,10 +204,15 @@ while one is alive, and the results rank their distances and scores.
 
 ## Widescreen (docs/spec.md "Widescreen")
 The game opts in (`max_width` = 560, `WIDESCREEN_blueberrytumble = 1`): 320 (4:3) is unchanged pixel for pixel; at
-427 (16:9) or 520 (phones) **the world is simply revealed wider**, to the right (the stage origin stays 0).
-- The berries roll at the same screen x (96, P2-P4 behind) and the screen shows further down the slope: on the steep
-  biomes the ground leaves the bottom of the screen sooner, the valley (mid-ground, far range) shows there. Seeing
-  further makes it a little easier; the owner accepts it (no compensation).
+427 (16:9) or 520 (phones) **the world is simply revealed wider**, on both sides of the 320-px view, which is drawn as
+at 320: **a third of the extra columns on the left, behind the berry, two thirds on the right**, ahead
+(`WIDE_LEFT_SHARE_NUM / _DEN` in src/tuning.h: the stage origin, 36 px at 427, 67 at 520, 80 at 560). With all of it
+on the right (origin 0), the berry sat too close to the left edge and the right looked empty (the owner).
+- The berries roll at stage x 96 (P2-P4 behind): screen x 96 + the left share (132 at 427, 163 at 520). On the left
+  the screen shows the slope already rolled down (at the start and on the title: the flat ground and the scenery
+  behind the start line); on the right it shows further down the slope: on the steep biomes the ground leaves the
+  bottom of the screen sooner, the valley (mid-ground, far range) shows there. Seeing further makes it a little easier;
+  the owner accepts it (no compensation). The camera, the shear's pivot and the course are those of 320.
 - **The course and the music are the same at every width.** The director writes the same patterns on the same beats
   (it already writes 40 columns ahead of the berry, past any screen's edge). **Every width starts exactly like 320**
   (the owner's rule for side-scrollers: no longer run-up on a wide screen): the course clock from 0, the first pattern
@@ -220,15 +225,16 @@ The game opts in (`max_width` = 560, `WIDESCREEN_blueberrytumble = 1`): 320 (4:3
 - `tests/wide_test.sh` checks it: the same seed gives, frame for frame (offset 0), the same first pattern instance (its
   frame and column), the same events (pads, dew drops, glides, snow, smashes, golden blueberries, the splats) at the
   same metres, the same pattern instances and the same final state at 320, 427, 520 and 560 (1 to 4 players). The
-  screen-reading bot plays the same run at every width.
+  screen-reading bot plays the same run at every width. It checks the left share too: the 320 picture is found in
+  the wide one at the left share's column (the berry at screen x 96 + the share).
 - The playfield, the mid-ground and the UI layer are 128 tiles wide on a wide screen (64 at 320): the playfield and the
-  mid-ground stream up to the real right edge (the mid-ground's columns take the biome of the ground that enters the
-  screen with them), the props, cones and gusts are drawn up to it, the sky's colours fade at the gates by the
-  screen's centre. The mid-ground's 128-px bands are made to repeat (ridges, pines, bushes, roofs).
+  mid-ground stream from the real left edge up to the real right edge (the mid-ground's columns take the biome of the
+  ground that enters the screen with them), the props, cones and gusts are drawn across it, the sky's colours fade at
+  the gates by the screen's centre. The mid-ground's 128-px bands are made to repeat (ridges, pines, bushes, roofs).
 - The sheared playfield reads higher in its 64-row map columns the further right it is: on a wide screen the top right
   (a high camera, a steep biome) would wrap round to a column's deepest soil. So a column enters a wide screen with
   its 10 deepest rows empty (more sky above it; only a little soil shows at the bottom right, where the ground leaves
-  the screen) and gets them once it is within the first 320 columns, where it is drawn exactly as at 320.
+  the screen) and gets them once it is within the stage's 320 columns, where it is drawn exactly as at 320.
 - The far mountains: their 256-px range would show twice on a wide screen; there they are a **wider range** (512 px,
   the same ridges, colours and sizes of peaks, other periods and phases: tools/make_art.py `build_far_wide`) followed by
   its mirror image on the 128-tile map (1024 px before anything repeats). Its 167 tiles replace the 68 of the 4:3 range
