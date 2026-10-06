@@ -43,6 +43,32 @@ runs; 24 schedules at the new cap with a 12-frame reaction delay after emergence
 checked SRAM, strict rendering, pixel determinism, saved-state replay and audit;
 plus native Windows startup/play for one and four players.
 
+## Controls
+| Input | Action |
+|---|---|
+| Up / Right / Down / Left | defend the top / right / bottom / left bed (held: no repeat) |
+| A (B, X, Y, a direction, Start) on the title | start (this press is not a defence) |
+| A (or any start input), Start or Select on the game-over panel | back to the title |
+| Select (or Start during a run) | pause |
+| Pads 2-4, A on the title | join; B leaves |
+
+**Touch** (player 1; `rs_game.touch_native`: the phone apps pass the game its touches, docs/spec.md "Touch"): *tap the
+bed to defend*.
+- **The four beds are the tap zones.** A finger going down acts at once (as the pad's press, no wait for the release)
+  on the bed nearest to where it went down: the garden is cut halfway between the beds' centres (draw_bed_at, from
+  the beds' drawn positions), so a touch on a bed, its radishes, a path or the farmer's side picks that bed, and on a
+  wide screen the margins belong to the left and right beds. Holding the finger does not repeat (as a held direction);
+  another finger on another bed acts at once. With 2-4 players P1's beds are those of its own (smaller) view; a touch
+  in another player's view acts on no bed.
+- **The menus:** a tap anywhere starts on the title (as A; the start never defends a bed, and a finger already down
+  then does nothing until lifted) and goes back to the title from the game-over panel (after the same lock as A).
+- **Pause:** the apps' pause button presses Start. While paused touches do nothing, and a finger that went down during
+  the pause never acts (only fingers that go down while the run plays defend: `touch_armed`, in the saved state).
+- `tests/touch_test.sh` (`make radishrascals-check`, at 320, 427 and 520): scripted touches, each run compared with
+  the same run on the pad (the state line, the game-over lines, the picture): the title tap, the beds of a seeded run
+  of visitors touched off their centres (all four beds; wide: the side beds in the margins), a wrong bed, a held
+  finger, touches in the pause, the 2-player views, the game-over tap (and one too early).
+
 ## Widescreen
 The game opts in (`max_width` = 560, `WIDESCREEN_radishrascals = 1`): a wider screen shows more of the garden; the
 game is unchanged. At 320 columns everything is the 4:3 game pixel for pixel (checked against the pre-widescreen

@@ -7,6 +7,12 @@
  * (B leaves); P1 starts the run at once with A (or an extra START INPUT; this press is also its first move); one press
  * on the game-over panel (hu_over_back) goes BACK TO THE TITLE, with the same players: the title is the only menu.
  *
+ * Touch (rs_game.touch_native, DESIGN.md "Controls"), player 1: a tap anywhere starts on the title and goes back to
+ * the title from the game-over panel (as A); in a run, a finger going down on or near a bed acts at once as the pad
+ * direction of that bed (draw_bed_at: the nearest bed of P1's view), and holding it does not repeat (as a held
+ * direction). Only a finger that went down while the run is playing (not paused, not on the title) acts: a touch
+ * during the pause never acts later.
+ *
  * Options (--opt key=value on the desktop runners):
  *   bot=N          the bot plays players 1..N (bot_decide); botruns=N runs; botstop=S stops at S (P2-P4: S+2, S+4..)
  *   seed=N         a fixed course (default: from the frame of the first press)
@@ -31,6 +37,7 @@ static world W;
 static int st, st_t, paused, new_best, runs_done;
 static int run_best; /* UI record at run start: replay must not depend on newer battery saves. */
 static int start_press;                       /* P1's start press on the title: also its first move */
+static int touch_armed;                       /* bit i: touch slot i went down while the run was playing */
 static uint32_t state_hash = 2166136261u;
 static int16_t snd_buf[HA_RATE / 2];          /* start-up scratch (state_audit.txt) */
 
@@ -106,6 +113,29 @@ static void new_run(int state)
 
 static int is_bot(int p) { return p < opt_bot; }
 
+/* touch, every update: a finger arms when it goes down in a playing run, disarms when it goes up (or the slot frees) */
+static void touch_update(void)
+{
+    for (int i = 0; i < RS_TOUCH_MAX; i++) {
+        const rs_touch_point *t = rs_touch(i);
+        if (!t || !t->down) touch_armed &= ~(1 << i);
+        else if (t->pressed && st == ST_PLAY && !paused) touch_armed |= 1 << i;
+    }
+}
+
+/* P1's beds under the armed fingers, as held directions (bit i: bed i, the pad's bit order: Up, Right, Down, Left) */
+static int touch_beds(void)
+{
+    int bits = 0;
+    for (int i = 0; i < RS_TOUCH_MAX; i++) {
+        const rs_touch_point *t = rs_touch(i);
+        if (!t || !(touch_armed & (1 << i))) continue;
+        int b = draw_bed_at(W.players, t->x0 - rs_screen_origin_x(), t->y0);   /* where it went down */
+        if (b >= 0) bits |= 1 << b;
+    }
+    return bits;
+}
+
 static int act_pressed(int p)
 {
     if (p == 0 && start_press) return 16;
@@ -116,7 +146,7 @@ static int act_pressed(int p)
     unsigned buttons = rs_pad(hu_player_pad(p));
     return ((buttons & RS_BTN_UP) ? 1 : 0) | ((buttons & RS_BTN_RIGHT) ? 2 : 0) |
            ((buttons & RS_BTN_DOWN) ? 4 : 0) | ((buttons & RS_BTN_LEFT) ? 8 : 0) |
-           ((buttons & (RS_BTN_A | RS_BTN_B | RS_BTN_X | RS_BTN_Y)) ? 16 : 0);
+           ((buttons & (RS_BTN_A | RS_BTN_B | RS_BTN_X | RS_BTN_Y)) ? 16 : 0) | (p == 0 ? touch_beds() : 0);
 }
 
 static void game_over(void)
@@ -184,7 +214,7 @@ static void title_update(void)
         new_run(ST_TITLE);                      /* the world follows the players (the title shows their heroes) */
         st_t = t;
     }
-    if ((ev & HU_TITLE_START) || (opt_bot && st_t >= BOT_START)) {
+    if ((ev & HU_TITLE_START) || rs_touch_tap(NULL, NULL) || (opt_bot && st_t >= BOT_START)) {   /* touch: a tap */
         ha_play(HA_CONFIRM);
         new_run(ST_PLAY);
         start_press = 1;                        /* the start press is also P1's first move */
@@ -199,6 +229,7 @@ static void game_update(void)
         paused = !paused;
         ha_play(HA_PAUSE);
     }
+    touch_update();
     if (paused) return;
     hu_shake_step();
     switch (st) {
@@ -212,7 +243,7 @@ static void game_update(void)
     case ST_OVER: {
         int back = 0;
         if (st_t >= RETRY_LOCK) {
-            back = hu_over_back();              /* house rule: after a game over, back to the title (the only menu) */
+            back = hu_over_back() || rs_touch_tap(NULL, NULL);   /* house rule: back to the title (touch: a tap) */
             if (opt_bot && runs_done < opt_botruns && st_t == RETRY_LOCK + 10) back = 1;
         }
         if (back) {
@@ -269,6 +300,7 @@ static void game_shutdown(void)
 static void game_state(void)
 {
     S(run_best); S(W); S(st); S(st_t); S(paused); S(new_best); S(runs_done); S(start_press); S(state_hash);
+    S(touch_armed);
     S(opt_bot); S(opt_botstop); S(opt_botruns); S(opt_seed_fixed); S(opt_seed); S(opt_music); S(opt_sound);
     draw_state();
     hu_state();                                 /* the kit, with the title's lobby (who plays, on which pad) */
@@ -283,6 +315,7 @@ const rs_game *rs_game_main(void)
 {
     static const rs_game g = {"Radish Rascals", "radishrascals", "0.1.0", game_init, game_update, game_draw,
                               game_shutdown, gm_assets, game_state, game_state_loaded, 1,
-                              RS_SCREEN_W_MAX};     /* max_width: any width up to 560 (DESIGN.md "Widescreen") */
+                              RS_SCREEN_W_MAX,      /* max_width: any width up to 560 (DESIGN.md "Widescreen") */
+                              1};                   /* touch_native: P1's touches, menus included (DESIGN.md) */
     return &g;
 }

@@ -132,6 +132,19 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  }else rs_viewports(nviews,VP,RS_HEX(0x29364a));
  shown_state=state;shown_best=best;
 }
+/* Touch (DESIGN.md "Controls"): the four beds of player 1's view are the tap zones; a touch acts on the nearest bed
+ * (the garden cut halfway between the beds: any width works, the margins belong to the side beds). The view is
+ * draw_frame's for that player count (rs_viewport_layout only computes rectangles); x, y: stage coordinates.
+ * With 2-4 players a touch outside P1's view acts on no bed (the other gardens are played with pads). */
+int draw_bed_at(int players,int x,int y){
+ rs_viewport vps[RS_VIEW_MAX];int n=rs_viewport_layout(players>1?players:1,0,vps);rs_viewport *vp=&vps[0];view v;
+ if(n==1){vp->x=0;vp->w=RS_SCREEN_W;}
+ else if(x<vp->x || x>=vp->x+vp->w || y<vp->y || y>=vp->y+vp->h)return -1;
+ memset(&v,0,sizeof v);v.w=n==1 || vp->w>=rs_screen_width()?RS_SCREEN_W:(RS_SCREEN_W-RS_VIEW_DIVIDER)/2;v.ox=(vp->w-v.w)/2;v.h=vp->h;v.small=vp->h<200;
+ int best=-1;long bd=0;
+ for(int i=0;i<4;i++){int bx,by;bed_position(i,&bx,&by);long dx=x-(vp->x+sx(&v,bx)),dy=y-(vp->y+sy(&v,by)),d=dx*dx+dy*dy;if(best<0 || d<bd){best=i;bd=d;}}
+ return best;
+}
 #define S(v) rs_state_var("draw." #v,&(v),sizeof(v))
 void draw_state(void){S(V);S(VP);S(nviews);S(shown_state);S(shown_best);RS_STATE_RASTER(raster);}
 #undef S

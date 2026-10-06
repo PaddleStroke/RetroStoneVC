@@ -36,6 +36,7 @@ radishrascals-check:
 	    RS_WIDTH=$$w sh games/radishrascals/tests/state_test.sh build/host/radishrascals_test_states build/radishrascals-states-$$w; \
 	done
 	sh games/radishrascals/tests/wide_test.sh build/host/radishrascals_headless build/host/radishrascals_test_states build "$(WIDTHS)"
+	sh games/radishrascals/tests/touch_test.sh build/host/radishrascals_headless build "320 $(WIDTHS)"
 radishrascals-screenshots:
 	+$(RADISHRASCALS_MAKE) build/host/radishrascals_headless
 	$(PYTHON) games/radishrascals/tests/check_game.py --screenshots

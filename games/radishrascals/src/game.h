@@ -25,6 +25,7 @@ void draw_init(void);
 void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paused);
 void draw_state(void);
 void draw_relayout(void);  /* widescreen: after a state of another width was loaded (draw.c) */
+int draw_bed_at(int players,int x,int y);  /* touch: P1's bed nearest stage point x, y (in its view), -1: none (draw.c) */
 enum {SFX_JUMP,SFX_SCORE,SFX_HIT,SFX_LAND,SFX_COUNT};
 #define SFX_HOUSE SFX_COUNT
 #endif
