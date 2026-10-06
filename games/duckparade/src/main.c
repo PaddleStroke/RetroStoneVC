@@ -448,6 +448,9 @@ static void game_draw(void)
 
 static void game_init(void)
 {
+    /* widescreen: a third of the extra width behind the duck, the 320-column stage after it (DESIGN.md "Widescreen";
+     * the kit's UI stays centred on the screen: hu_ui_x()) */
+    rs_screen_origin(wide_left());
     save_load();
     shown_records[0] = SV.best;
     shown_records[1] = SV.best_coop;

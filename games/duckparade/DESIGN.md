@@ -40,11 +40,21 @@ banking flashes it (added white, fading); the fox's warning tints the left edge 
 
 ## Widescreen (docs/spec.md "Widescreen")
 The game opts in (`max_width` = 560, `WIDESCREEN_duckparade = 1`): 320 (4:3) is unchanged pixel for pixel; at 427
-(16:9) or 520 (phones) **the world is simply revealed wider**, to the right (20 columns at 320, 27 at 427, 33 at 520).
-- The stage origin stays 0. **The rules are those of 320 columns**: the camera (Mother at column 8, the creep, co-op's
-  leader eased back to column 12 and never right of 16), the fox on the left edge, where a knocked-off duckling flies
-  (the nearest grass within 20 columns). A wider screen only sees further ahead: a little easier, accepted (no
-  compensation).
+(16:9) or 520 (phones) **the world is simply revealed wider** (20 columns at 320, 27 at 427, 33 at 520): **a third of
+the extra width behind the duck, on the left, two thirds ahead, on the right** (the owner's choice: some of the passed
+world stays in view; `WIDE_LEFT_NUM / WIDE_LEFT_DEN` in tuning.h): 35 px behind and 72 ahead at 427, 66 and 134 at
+520, 80 and 160 at 560.
+- The 320-column **stage** keeps the 4:3 screen's place in the world: the stage origin (`rs_screen_origin`, set in
+  init) is that left share (`wide_left()`), so the screen shows stage x -35 .. 392 at 427. **The rules are those of
+  320 columns, on the stage**: the camera (the world x of the stage's left edge; Mother at column 8, the creep, co-op's
+  leader eased back to column 12 and never right of 16), the fox on the stage's left edge (it now trots in where the
+  passed world can be seen behind it, and its red warning tints everything left of its line), where a knocked-off
+  duckling flies (the nearest grass within 20 columns). A wider screen sees further ahead: a little easier, accepted
+  (no compensation). The start is unchanged: Mother in the same stage column, the first hazard as far ahead.
+- The field is drawn from the screen's real left edge: the passed columns (the 64-column ring still holds 15 behind
+  the camera; 6 at most are needed) and, behind the start (left of column 0, the meadow's hedge), more meadow grass.
+  tests/test_ui.c checks on every 16th frame of a run, at each width, that every world column on the screen is drawn.
+  Touch targets are converted through the stage origin (a tap behind the stage is a target behind Mother).
 - **The world is world content.** The generator makes columns up to the REAL right edge plus 14 (at most 48 ahead:
   the 64-column ring keeps the columns just behind the camera); it makes the same columns whenever it is asked (its
   judge's times come from the unit, not the frame), so the lanes, the ducklings and the nest ponds are the same at
@@ -56,10 +66,11 @@ The game opts in (`max_width` = 560, `WIDESCREEN_duckparade = 1`): 320 (4:3) is 
 - The UI (title, logo, prompt, the sky band's HUD, the photo, panels, results, pause) is centred: the UI layer scrolls
   by -hu_ui_x() and the game's UI sprites (the HUD's icons, the parents' heads, the egg medals, the marching family,
   the photo) add hu_ui_x(). The UI layer is 128 tiles wide beyond 512 columns.
-- **The sprite budget keeps the 4:3 screen as it was**: the sprites a 320-column screen shows (x < 320; the UI's at
-  their UI x) are queued and kept first, with the 4:3 rules (256 in the queue, 32 on a line), then the wider screen's
-  with what is left (128 in all, 32 per 320 columns on a line). So **the bot**, which looks at the 4:3 part of the
-  screen (sprites at x < 320, the 22 columns of the map), decides the same at every width: tests/wide_test.sh compares
+- **The sprite budget keeps the 4:3 screen as it was**: the sprites a 320-column screen shows (stage x from -w to
+  320; the UI's at their UI x) are queued and kept first, with the 4:3 rules (256 in the queue, 32 on a line), then the
+  wider screen's, behind and ahead, with what is left (128 in all, 32 per 320 columns on a line). So **the bot**, which
+  looks at the 4:3 part of the screen, the stage (sprites at stage x -w..320, the 22 columns of the map), decides the
+  same at every width: tests/wide_test.sh compares
   the whole logs and states at 320, 427, 520 and 560 (solo, from the title, co-op, four parents to the results).
 - Save states load at any width: a state of another width brings maps of another size, so `state_loaded` sets them up
   again (the sky, the field redrawn from the world, the UI, the photo and PAUSED on the next frame); live width

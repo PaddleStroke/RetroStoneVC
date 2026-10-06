@@ -114,7 +114,8 @@ static void look(int scroll)
     for (int i = 0; i < RS_OAM_MAX; i++) {
         rs_sprite *s = rs_oam(i);
         if (!s || !s->used || (s->flags & RS_SPR_HIDE)) continue;
-        if (s->x >= RS_SCREEN_W) continue;       /* widescreen: the bot looks at the 4:3 screen (it plays the same) */
+        /* widescreen: the bot looks at the 4:3 screen, the stage (it plays the same): not at what is behind or ahead */
+        if (s->x >= RS_SCREEN_W || s->x <= -(int)s->w) continue;
         int t = s->tile, kind = -1, dir = 0, y = s->y - FIELD_Y, h = s->h;
         if (spr_in(t, SPR_DUCK_RIGHT, 4) || spr_in(t, SPR_DUCK_LEFT, 4) || spr_in(t, SPR_DUCK_UP, 4) || spr_in(t, SPR_DUCK_DOWN, 4)) {
             int p = parent_of_pal(s->pal);

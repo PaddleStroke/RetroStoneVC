@@ -19,9 +19,12 @@ static inline int clampi(int v, int lo, int hi) { return v < lo ? lo : v > hi ? 
 static inline int absi(int v) { return v < 0 ? -v : v; }
 static inline int modi(int a, int m) { int r = a % m; return r < 0 ? r + m : r; }
 /* Widescreen (DESIGN.md "Widescreen"): the columns the screen shows, SCREEN_COLS (20) at 320, up to 35 at 560. The
- * screen shows more of the world on the right; the rules (the camera, the fox, where a knocked duckling flies) keep
- * SCREEN_COLS: only what is generated and drawn follows the width. */
+ * screen shows more of the world, a third of the extra width behind (left of the 320-column stage: the stage origin,
+ * wide_left()) and two thirds ahead; the rules (the camera, the fox, where a knocked duckling flies) keep SCREEN_COLS
+ * and the stage: only what is generated and drawn follows the width. */
 static inline int screen_cols(void) { return (rs_screen_width() + CELL - 1) / CELL; }
+static inline int wide_left(void) { return (rs_screen_width() - RS_SCREEN_W) * WIDE_LEFT_NUM / WIDE_LEFT_DEN; }
+static inline int left_cols(void) { return (wide_left() + CELL - 1) / CELL; }   /* world columns shown behind */
 
 /* ================================ lanes.c ========================================================== */
 enum lane_kind { LK_GRASS, LK_ROAD, LK_RIVER, LK_RAIL, LK_PARK, LK_POND, LK_NEST, LK_HEDGE, LK_KINDS };

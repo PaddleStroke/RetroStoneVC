@@ -221,10 +221,21 @@ static void mode_title(void)
     if (!fails) OK("get ready, the first hop, the HUD, pause and resume");
 }
 
+/* widescreen: every world column on the screen is drawn in the field's map, those behind the 320-column stage too (a
+ * third of the extra width is behind the duck: DESIGN.md "Widescreen"; behind the start, left of column 0, grass) */
+int draw_col_shown(int32_t col);
+static int field_drawn(const world *w)
+{
+    int cam = world_cam_px(w);
+    for (int32_t c = (cam + rs_screen_left()) >> 4; c <= (cam + rs_screen_right() - 1) >> 4; c++)
+        if (!draw_col_shown(c)) return 0;
+    return 1;
+}
+
 static void mode_run(int max_frames)
 {
     int st, last_st = -1, banks = 0, photo_ok = 0, band_checks = 0, band_bad = 0, hud_bad = 0, hud_checks = 0, line_bad = 0;
-    int over_checked = 0;
+    int over_checked = 0, field_bad = 0;
     for (int f = 0; f < max_frames; f++) {
         frame(0, 0);
         const world *w = dp_test_world(&st);
@@ -239,6 +250,7 @@ static void mode_run(int max_frames)
                 band_checks++;
                 int r = band_hides_world();
                 if (r < 0) band_bad++;
+                if (!field_drawn(w) && field_bad++ < 3) printf("  frame %d: a column on the screen is not drawn\n", f);
             }
             if (w->events[0] & EV_BANK) {
                 banks++;
@@ -274,6 +286,8 @@ static void mode_run(int max_frames)
     CHECK(hud_checks > 300 && hud_bad == 0, "the HUD showed the score on every frame of the run (%d frames, %d wrong)", hud_checks, hud_bad);
     CHECK(line_bad == 0, "the duckling count on the HUD (%d wrong)", line_bad);
     CHECK(band_checks > 20 && band_bad == 0, "the sky band hides the world's sprites (%d checks, %d failed)", band_checks, band_bad);
+    CHECK(field_bad == 0, "every world column on the screen is drawn, from x %d (the world behind the stage: %d px) "
+          "(%d checks, %d failed)", rs_screen_left(), rs_screen_origin_x(), band_checks, field_bad);
     CHECK(banks == 0 || photo_ok == banks, "the family photo after each banking (%d of %d)", photo_ok, banks);
     CHECK(over_checked, "the run ended on the game-over panel");
     printf("  %d banking(s) seen\n", banks);

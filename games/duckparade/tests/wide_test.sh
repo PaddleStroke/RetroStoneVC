@@ -1,7 +1,8 @@
 #!/bin/sh
 # Duck Parade widescreen (DESIGN.md "Widescreen"): the picture is as wide as asked (320..560), the world is revealed
-# wider on the right and the game is the same at every width: the same runs, the same decisions of the bot (it plays
-# from the screen: it looks at the 4:3 part of it), the same logs and states; a width change in the middle of a run
+# wider, a third of the extra width behind the duck (the stage origin) and two thirds ahead, and the game is the same
+# at every width: the same runs, the same decisions of the bot (it plays from the screen: it looks at the 4:3 part of
+# it, the stage), the same logs and states; a width change in the middle of a run
 # (--resize: a save state, a restart at the new width, the state loaded) goes on exactly as the run that never
 # changed; and a save state made at one width loads and plays at another (test_states --any-width).
 #   wide_test.sh <duckparade_headless> <duckparade_test_states> <out dir> [widths]
@@ -25,6 +26,19 @@ for w in 320 $WS 560; do
     if [ "$pw" = "$w" ]; then ok "--width $w: a ${pw}x240 picture"; else ko "--width $w: the picture is '$pw' wide"; fi
 done
 
+# a third of the extra width behind the duck: the screen's left edge is stage x -(w - 320) / 3, the right edge is
+# 320 + 2 (w - 320) / 3 (a finger there targets that world column: the camera is still at 0 before the first hop)
+for w in 320 $WS 560; do
+    cols=""
+    for x in 0 $((w - 1)); do
+        printf "30 tap-at @160 120\n50 tap-at $x 120\n" > "$O/edge.input"
+        cols="$cols$($H --width "$w" --opt music=0 --input "$O/edge.input" --frames 52 2>&1 | sed -n 's/.*touch target col \(-*[0-9]*\) row.*/\1/p') "
+    done
+    l=$(( (w - 320) / 3 )); want="$(( -((l + 15) / 16) )) $(( (w - 1 - l) / 16 )) "
+    if [ "$cols" = "$want" ]; then ok "$w: $l px behind the stage, $((w - 320 - l)) ahead (the screen's edges: world columns $cols)"
+    else ko "$w: the screen's edges are world columns '$cols', not '$want'"; fi
+done
+
 # the start of a run (the owner's rule for the side-scrollers): the first hazards are as far from the duck as at 320
 # (the same lanes ahead of the same camera, the duck in the same column), so a wide screen shows them from the first
 # frame: no longer run-up
@@ -36,7 +50,7 @@ for start in "ready --opt ready=1 --frames 2" "title --input $O/start.input --fr
     for w in $WS 560; do
         $H --width "$w" --opt music=0 --opt dump=1 $opts 2>&1 | grep "view:\|state:" | game_log > "$O/start-$w.log"
         if [ -n "$first" ] && cmp -s "$O/start-320.log" "$O/start-$w.log"; then
-            ok "start ($name) at $w: the duck and the lanes ahead as at 320 (the first hazard in screen column $((first - 1)))"
+            ok "start ($name) at $w: the duck and the lanes ahead as at 320 (the first hazard in stage column $((first - 1)))"
         else ko "start ($name) at $w:"; diff "$O/start-320.log" "$O/start-$w.log" | head -4; fi
     done
 done

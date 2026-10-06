@@ -118,6 +118,10 @@
 #define MEADOW_COLS      8      /* the starting meadow: columns 0..7 */
 #define START_COL        6
 #define START_ROW        7
+/* widescreen (DESIGN.md "Widescreen"): the share of the extra width shown on the LEFT, behind the duck (the rest is
+ * ahead, on the right): the stage origin. 427: 35 px behind, 72 ahead; 520: 66 and 134; 560: 80 and 160. */
+#define WIDE_LEFT_NUM    1
+#define WIDE_LEFT_DEN    3
 
 /* group sizes (lanes) at lane 0 .. at DIFF_LANES */
 #define ROAD_GROUP_START 2

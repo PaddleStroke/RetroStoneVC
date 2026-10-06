@@ -27,7 +27,8 @@ static const rs_color title_ramps[2][3] = {
 
 static rs_color line_col[FIELD_Y];
 static int16_t bg2_dx[RS_SCREEN_H];
-static int32_t drawn_col[64];    /* the world column drawn in each map slot (-1 none; widescreen: 64 slots) */
+#define NO_COL INT32_MIN         /* (a column behind the start, left of 0, may be drawn on a wide screen) */
+static int32_t drawn_col[64];    /* the world column drawn in each map slot (NO_COL none; widescreen: 64 slots) */
 static int8_t drawn_shift[64];   /* the rapids' shift drawn there */
 static int shown_state = -1, shown_best = -1, shown_players = -1;
 static int facing[MAX_PLAYERS];  /* the last hop's direction (the sprite faces it) */
@@ -66,8 +67,10 @@ static void sky_gradient(void)
 }
 
 /* ---- set-up -------------------------------------------------------------------------------------------------------- */
-/* Widescreen (DESIGN.md "Widescreen"): the stage origin stays 0 (the world is revealed wider on the right; the camera,
- * the fox on the left edge and the rules are those of 320 columns). The field (BG3) and the sky band and cloud
+/* Widescreen (DESIGN.md "Widescreen"): the world is revealed wider, a third of the extra width behind the duck (the
+ * stage origin, wide_left(): main.c sets it) and two thirds ahead; the camera, the fox on the stage's left edge and the
+ * rules are those of 320 columns, in stage coordinates. The field draws the columns from the screen's real left edge
+ * (behind the start, left of column 0, grass). The field (BG3) and the sky band and cloud
  * shadows (BG2) are 64-tile maps (512 px) at 320 columns, 128 (1024 px) on a wider screen: the field's columns go
  * round 64 map slots instead of 32, the band's clouds go on over 1024 px (sky-wide.png: no cloud seen twice), the
  * shadows' 256-px pattern repeats as at 320. The UI layer is 128 tiles beyond 512 columns; it is scrolled by
@@ -77,6 +80,7 @@ static int wide(void) { return rs_screen_width() > RS_SCREEN_W; }
 static int map_w(void) { return wide() ? 128 : 64; }                  /* BG2, BG3 */
 static int ui_w(void) { return rs_screen_width() > 512 ? 128 : 64; }  /* BG1 */
 static int slots(void) { return rs_bg_map_w(RS_BG3) / 2; }           /* the field's map slots (16-px columns) */
+int draw_col_shown(int32_t col) { return drawn_col[col & (slots() - 1)] == col; }   /* tests/test_ui.c */
 
 static void maps_setup(void)
 {
@@ -93,7 +97,7 @@ static void maps_setup(void)
         }
     for (int y = BAND_ROWS; y < 32; y++)
         for (int x = 0; x < map_w(); x++) rs_bg_put(RS_BG2, x, y, dp_shadow_map[((y - BAND_ROWS) & 15) * 32 + (x & 31)]);
-    for (int i = 0; i < 64; i++) drawn_col[i] = -1;
+    for (int i = 0; i < 64; i++) drawn_col[i] = NO_COL;
 }
 
 void draw_init(void)
@@ -115,13 +119,13 @@ void draw_init(void)
     sky_gradient();
     rs_bg_line_scroll(RS_BG2, bg2_dx, NULL);
     rs_raster(raster, NULL);
-    for (int i = 0; i < 64; i++) drawn_col[i] = -1;
+    for (int i = 0; i < 64; i++) drawn_col[i] = NO_COL;
 }
 
 void draw_reset(const world *w)
 {
     (void)w;
-    for (int i = 0; i < 64; i++) drawn_col[i] = -1;
+    for (int i = 0; i < 64; i++) drawn_col[i] = NO_COL;
     for (int p = 0; p < MAX_PLAYERS; p++) facing[p] = HOP_FWD;
     hud_score = hud_line = hud_best = hud_score2 = -1;
     photo_t = -1;
@@ -220,9 +224,11 @@ static void draw_column(const world *w, int32_t col, int slot)
 
 static void field(const world *w, int cam)
 {
-    int c0 = cam >> 4, sm = slots() - 1;
-    for (int32_t c = c0 - 1; c <= c0 + screen_cols() + 1; c++) {        /* widescreen: to the real right edge */
-        if (c < 0) continue;
+    int c0 = cam >> 4, sm = slots() - 1, left = left_cols();
+    /* widescreen: from the real left edge (the world behind the duck; behind the start, left of column 0, the meadow
+     * goes on: grass) to the real right edge */
+    for (int32_t c = c0 - 1 - left; c <= c0 + screen_cols() + 1; c++) {
+        if (c < 0 && !left) continue;
         int slot = (int)(c & sm);
         const lane *l = world_lane(w, c);
         if (drawn_col[slot] != c) { draw_column(w, c, slot); continue; }
@@ -331,8 +337,8 @@ int draw_dropped(void) { return spr_dropped; }
 static void spr(int id, int x, int y, int prio, int pal, int flags)
 {
     const dp_sprite_def *d = &dp_spr[id];
-    if (x <= -(int)d->w || x >= rs_screen_right() || y <= -(int)d->h || y >= RS_SCREEN_H) return;
-    int tier = x - spr_ui_dx >= RS_SCREEN_W;       /* off a 4:3 screen: only a wider one shows it */
+    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= -(int)d->h || y >= RS_SCREEN_H) return;
+    int ux = x - spr_ui_dx, tier = ux >= RS_SCREEN_W || ux <= -(int)d->w;   /* off a 4:3 screen: only a wider one shows it */
     if (tier ? nq >= Q_MAX : nq0 >= Q_CLASSIC) return;
     nq0 += !tier;
     qspr *s = &q[nq++];
@@ -535,7 +541,7 @@ static int mover_sprite(int kind, int down, int t, int i, int *dy)
 static void draw_traffic(const world *w, int cam, int sx, int sy, int t, int platforms)
 {
     int c0 = cam >> 4;
-    for (int32_t c = c0; c <= c0 + screen_cols(); c++) {              /* widescreen: to the real right edge */
+    for (int32_t c = c0 - left_cols(); c <= c0 + screen_cols(); c++) {  /* widescreen: from the real left edge */
         const lane *l = world_lane(w, c);
         if (!l) continue;
         int x = c * CELL - cam + sx;
@@ -565,7 +571,7 @@ static void draw_traffic(const world *w, int cam, int sx, int sy, int t, int pla
 static void draw_band(const world *w, int cam, int t)
 {
     int c0 = cam >> 4;
-    for (int32_t c = c0; c <= c0 + screen_cols(); c++) {              /* widescreen: to the real right edge */
+    for (int32_t c = c0 - left_cols(); c <= c0 + screen_cols(); c++) {  /* widescreen: from the real left edge */
         const lane *l = world_lane(w, c);
         if (!l) continue;
         int x = c * CELL - cam;
@@ -862,7 +868,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     }
     draw_band(w, cam, t);
     draw_fox(w, cam, sx, sy, t);
-    if (fog_w) { rs_window(0, 0, fog_w); rs_fog(RS_WIN1, RS_RGB(28, 6, 4), RS_MATH_BG3); }
+    /* the fox's red edge: from the screen's left edge (widescreen: the world behind the stage too) */
+    if (fog_w) { rs_window(0, rs_screen_left(), fog_w); rs_fog(RS_WIN1, RS_RGB(28, 6, 4), RS_MATH_BG3); }
     else rs_fog(0, 0, 0);
     for (int p = 0; p < w->players && state != DS_TITLE; p++) draw_duck(w, p, cam, sx, sy, t);
     for (int p = 0; p < w->players; p++) draw_line(w, p, cam, sx, sy, t);
