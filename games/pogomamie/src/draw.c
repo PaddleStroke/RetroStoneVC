@@ -593,6 +593,10 @@ static void draw_player(const world *w, int p)
         int blink = m->umbrella_t < 60 && (m->umbrella_t / 4) % 2;
         if (!blink) spr_at(SPR_UMBRELLA + ((w->t / 16) & 1), sx, sy - 12, -1, 0);
     }
+    if (p == 0 && pm_touch_armed() && m->state == MS_AIR) {   /* touch: the big bounce armed, a glint on her pogo */
+        const pm_sprite_def *g = &pm_spr[SPR_STAR];
+        spr_at(SPR_STAR + (w->t / 4) % 2, sx + 12 - g->w / 2, sy + 30 - g->h, -1, 0);
+    }
     spr_at(SPR_MAMIE + f, sx, sy, player_pal[p], flip);
     if (sy + 8 < 0 && (m->state == MS_AIR || m->state == MS_TUMBLE))
         spr_at(SPR_ARROW, sx + 8, 2, -1, 0);       /* above the screen */

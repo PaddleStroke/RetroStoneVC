@@ -137,21 +137,30 @@ to the title with the same lobby; the next A starts again. Start or Select pause
 | Pads 2-4, A or Start on title | join race; B leaves |
 
 ### Touch (docs/spec.md "Touch")
-The game reads the touches itself (`rs_game.touch_native = 1`), so the phone apps pass it the fingers instead of
-their drawn buttons. Touch is player 1, alongside the pad (Papi and the other racers join with pads):
+The game reads the touches itself (`rs_game.touch_native = 1`), so the phone apps pass it the fingers and draw no
+buttons. Touch is player 1, alongside the pad (Papi and the other racers join with pads):
 
 | Touch | Action |
 |---|---|
-| hold the left / right half of the screen | steer in the air (= Left / Right held) |
-| hold both halves at once (two fingers) | big bounce (= A held): no steering meanwhile |
+| hold the left / right half of the screen | steer in the air (= Left / Right held); both halves cancel out |
+| swipe up, anywhere | arm the big bounce: the next landing makes it (= A held until then); a glint on her pogo meanwhile |
 | tap anywhere on the title / "get ready" | start (= A) |
 | tap anywhere on the game-over panel | return to the title (after the same lock as A) |
 | the app's pause button | pause / resume (it presses Start) |
 
-The halves are the screen's (its centre at any width). The fingers are read afresh every frame and turned into the
-pad buttons they stand for, so a touch run is the same run as the pad's (nothing to keep in a save state), and
-while paused they do nothing, not even later. Without a touch the pad game is unchanged, byte for byte.
-`tests/touch_test.sh` (in `make pogomamie-check`, at every width) plays scripted fingers through the headless runner.
+- **The swipe arms the bounce.** The bounce is automatic and its speed is set on the landing frame, so a swipe in
+  the air arms the next one (A is held for her until a landing makes the big bounce; a swipe just after a landing
+  is for the next one: the bounce already left, changing it then would be a rule the pad does not have). The arming
+  is kept in the save state (`touch_armed`: touches are not part of a state); a fall loses it, a new run clears it.
+  The swipe is the SDK's: 20 px within 24 frames, so a quick flick of a finger already held (steering) counts too.
+- **A swipe never steers.** A finger steers from its 3rd frame (33 ms: a flick has risen 4 px or more by then),
+  not while it is above where it went down (more up than sideways: a flick starting) and never once it has swiped
+  up; a sideways slide keeps steering (from one half to the other). So a flick from either half is the same run,
+  and a finger held to steer then flicked up stops steering as it arms the bounce.
+- The halves are the screen's (its centre at any width). While paused the fingers do nothing, not even later (a
+  swipe in a pause arms nothing). Without a touch the pad game is unchanged, byte for byte.
+- `tests/touch_test.sh` (in `make pogomamie-check`, at every width) plays scripted fingers through the headless
+  runner and compares the runs with the pad's: a half held = Left / Right held, a swipe = A held to the landing.
 
 ## Two to four players (race)
 All racers share the rooftops with separate pads and player colours. The camera tracks the race; players

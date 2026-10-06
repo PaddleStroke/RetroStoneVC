@@ -6,8 +6,9 @@
  * Controls: Left/Right steer in the air, hold A (or B, X, Y) on a landing for a big bounce, Start pauses.
  * A or Start on the title and "get ready" screens starts; A on pad 2 there: Papi joins (a 2-player race).
  * Touch (rs_game.touch_native; player 1, DESIGN.md "Controls"): hold the left / right half of the screen to steer
- * (= Left / Right held), both halves at once = the big bounce (= A held); a tap starts on the title and "get ready"
- * and goes back to the title from the game-over panel (= A there). Read afresh every frame: nothing to save.
+ * (= Left / Right held); a swipe up arms the big bounce for the next landing (= A held until then; a glint on her
+ * pogo while it is armed); a tap starts on the title and "get ready" and goes back to the title from the game-over
+ * panel (= A there).
  *
  * Options (--opt key=value on the desktop runners):
  *   bot=1          the screen-reading bot plays player 1 (bot.c), bot=2 both players; botruns=N runs in a row
@@ -71,14 +72,43 @@ static void save_store(void)
     rs_sram_commit();
 }
 
-/* ---- touch: player 1's fingers as the pad buttons they stand for (no touch: the pad game unchanged) ---------------- */
+/* ---- touch: player 1's fingers as the pad buttons they stand for (no touch: the pad game unchanged) ----------------
+ * A finger held on a half steers that way (both halves: they cancel out). A swipe up (rs_touch: 20 px within 24
+ * frames, also a flick from a finger held for a while) arms the big bounce: A is held for her until a landing makes
+ * the big bounce (the bounce is automatic, its speed is set on the landing frame: armed in the air, it is the next
+ * one). The flick must not steer: a finger steers from its 3rd frame only (33 ms: a flick has risen by then) and
+ * not while it is above where it went down (more up than sideways: a flick starting) nor once it has swiped up. */
+#define TOUCH_STEER_FRAMES 2    /* a new finger steers from this frame on (0 = the frame it goes down) */
+#define TOUCH_RISE         4    /* px above where it went down, more up than sideways: rising, no steering */
+static int touch_armed;         /* the big bounce armed by a swipe up (saved: touches are not part of a state) */
+
+static int touch_steers(const rs_touch_point *t)
+{
+    int up = t->y0 - t->y, side = t->x > t->x0 ? t->x - t->x0 : t->x0 - t->x;
+    return t->down && t->frames >= TOUCH_STEER_FRAMES && t->swiped != RS_SWIPE_UP && !(up >= TOUCH_RISE && up > side);
+}
+
 static uint16_t touch_buttons(void)
 {
-    int h = rs_touch_halves();
-    if (h == (RS_TOUCH_LEFT | RS_TOUCH_RIGHT)) return RS_BTN_A;      /* both halves: the big bounce */
-    return h == RS_TOUCH_LEFT ? RS_BTN_LEFT : h == RS_TOUCH_RIGHT ? RS_BTN_RIGHT : 0;
+    uint16_t b = 0;
+    for (int i = 0; i < RS_TOUCH_MAX; i++) {
+        const rs_touch_point *t = rs_touch(i);
+        if (t && touch_steers(t)) b |= rs_touch_half(t->x) == RS_TOUCH_LEFT ? RS_BTN_LEFT : RS_BTN_RIGHT;
+    }
+    return b;
 }
+
+static int touch_swiped_up(void)
+{
+    for (int i = 0; i < RS_TOUCH_MAX; i++) {
+        const rs_touch_point *t = rs_touch(i);
+        if (t && t->swipe == RS_SWIPE_UP) return 1;
+    }
+    return 0;
+}
+
 static int touch_tapped(void) { return rs_touch_tap(NULL, NULL); }  /* a tap = A on the title, "get ready", the panel */
+int pm_touch_armed(void) { return touch_armed; }                    /* draw.c: the glint on her pogo */
 
 /* ---- flow ---------------------------------------------------------------------------------------------------------- */
 static void go(int s) { st = s; st_t = 0; }
@@ -91,6 +121,7 @@ static void new_run(int state)
     draw_reset(&W);
     bot_reset();
     new_best = 0;
+    touch_armed = 0;
     go(state);
 }
 
@@ -186,7 +217,10 @@ static void play_update(int allow_start)
             ap[p] = allow_start && st_t == 30;
         } else {
             uint16_t b = rs_pad(hu_player_pad(p));
-            if (p == 0) b |= touch_buttons();                           /* touch is player 1 */
+            if (p == 0) {                                               /* touch is player 1 */
+                if (st == DS_PLAY && MS_ALIVE(W.m[0].state) && touch_swiped_up()) touch_armed = 1;
+                b |= touch_buttons() | (touch_armed ? RS_BTN_A : 0);
+            }
             dir[p] = (b & RS_BTN_RIGHT ? 1 : 0) - (b & RS_BTN_LEFT ? 1 : 0);
             a[p] = (b & GO_BUTTONS) != 0;
             ap[p] = allow_start &&
@@ -194,6 +228,7 @@ static void play_update(int allow_start)
         }
     }
     world_step(&W, dir, a, ap);
+    if (touch_armed && ((W.events[0] & EV_BIG) || !MS_ALIVE(W.m[0].state))) touch_armed = 0;   /* used (or lost) */
     for (int p = 0; p < W.players; p++) {
         sounds(p);
         const mamie *m = &W.m[p];
@@ -320,6 +355,7 @@ const world *pm_test_world(int *state)
 static void game_state(void)
 {
     S(W); S(st); S(st_t); S(paused); S(new_best); S(runs_done); S(players); S(state_hash); S(run_dists); S(nrun_dists);
+    S(touch_armed);
     S(opt_bot); S(opt_botruns); S(opt_botstop); S(opt_skip); S(opt_seed_fixed); S(opt_seed); S(opt_evlog); S(opt_give);
     draw_state();
     ui_state();

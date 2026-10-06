@@ -225,6 +225,7 @@ void sfx_at(int id, int screen_x, int pitch);
 void music_district(int district, int night);
 void music_stop(void);
 void audio_set(int music, int sound);
+int  pm_touch_armed(void);           /* main.c: a swipe up armed the big bounce (touch; draw.c shows a glint) */
 
 /* draw.c; the screens */
 enum { DS_TITLE, DS_READY, DS_PLAY, DS_FALL, DS_OVER };
