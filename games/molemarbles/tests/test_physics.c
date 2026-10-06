@@ -72,6 +72,20 @@ int main(void){
   hits+=w.total_hits;spawns+=w.spawns;printf("seed %d: %d frames, %d hits, %d warned entries, scores %d %d %d %d\n",seed,w.t,w.total_hits,w.spawns,w.h[0].score,w.h[1].score,w.h[2].score,w.h[3].score);
  }
  assert(hits>200&&spawns>40&&moves>1000);puts("ordinary-input multiplayer dodge/shoot endurance, deterministic replay and density limits: all passed");
+ /* widescreen: the arena is the whole screen (world_arena: 520 columns, stage -94..414 inside the timbers) */
+ for(int size=0;size<4;size++){
+  clean(&w);world_arena(&w,-94,414);int r=ball_radius(size),lo=0,hi=0;w.balls[0]=(marble){.active=1,.size=size,.x=300*Q16_ONE,.y=(GROUND_Y-r)*Q16_ONE,.vx=Q16_ONE,.grace=5000};   /* (harmless: the mole stays) */
+  for(int i=0;i<900;i++){world_step(&w,zero);assert(w.balls[0].active);int x=w.balls[0].x/Q16_ONE;assert(x>=-94+r&&x<=414-r);if(x<-60)lo=1;if(x>380)hi=1;}
+  assert(lo&&hi);
+ }
+ clean(&w);world_arena(&w,-94,414);{int left[4]={RS_BTN_LEFT},right[4]={RS_BTN_RIGHT};for(int i=0;i<200;i++)world_step(&w,left);assert(w.h[0].x==-94+12);for(int i=0;i<400;i++)world_step(&w,right);assert(w.h[0].x==414-12);}
+ clean(&w);world_arena(&w,-94,414);w.goal_on[0]=1;w.goal_x[0]=37;for(int i=0;i<40;i++)world_step(&w,zero);assert(w.h[0].x==37&&w.h[0].facing<0);
+ puts("widescreen: the marbles bounce across the whole arena, the mole walks to its walls and lands on a touch goal: passed");
+ {int wide_hits=0,wide_spawns=0,edge=0;for(int seed=1;seed<=6;seed++){world_init(&w,1,(uint32_t)seed);world_arena(&w,-94,414);s=w;
+   for(int frame=0;frame<18000&&world_running(&w);frame++){int in[4]={bot_decide(&w,0)};world_step(&w,in);world_step(&s,in);assert(!memcmp(&w,&s,sizeof w));assert(ball_mass(&w)<=20);
+    for(int i=0;i<MAX_BALLS;i++)if(w.balls[i].active){int x=w.balls[i].x/Q16_ONE,r=ball_radius(w.balls[i].size);assert(x>=-94+r&&x<=414-r);edge|=(x<-40)|((x>360)<<1);}}
+   wide_hits+=w.total_hits;wide_spawns+=w.spawns;}
+  assert(wide_hits>40&&wide_spawns>20&&edge==3);printf("widescreen bot runs: %d hits, %d entries, marbles near both walls: passed\n",wide_hits,wide_spawns);}
  return 0;
 }
 

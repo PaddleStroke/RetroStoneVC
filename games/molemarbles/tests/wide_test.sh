@@ -1,8 +1,8 @@
 #!/bin/sh
-# Mole Marbles widescreen (DESIGN.md "Widescreen"): the picture is as wide as asked (320..560) and the game is the
-# same at every width (the same runs, the same bot decisions, the same logs and final states); a width change in the
-# middle of a run (--resize: a save state, a restart at the new width, the state loaded) goes on exactly as the run
-# that never changed; a save state made at one width loads and plays at another (test_states --any-width).
+# Mole Marbles widescreen (DESIGN.md "Widescreen"): the picture is as wide as asked (320..560) and the arena is the
+# whole screen (320: the classic game); a run is the same twice at every width, the bot plays well; a width change in the
+# middle of a run (--resize: a save state, a restart at the new width, the state loaded) goes on in the new arena,
+# the same every time; a save state made at one width loads and plays at another (test_states --any-width).
 #   wide_test.sh <molemarbles_headless> <molemarbles_test_states> <out dir> [widths]
 # MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/molemarbles/LICENSE.
 H=$1
@@ -23,36 +23,42 @@ for w in 320 $WS 560; do
     if [ "$pw" = "$w" ]; then ok "--width $w: a ${pw}x240 picture"; else ko "--width $w: the picture is '$pw' wide"; fi
 done
 
-# the same game at every width (the arena is centred: the rules never look at the width)
+# the arena is the whole screen (inside the timbers at its edges, 6 px each; 320: the screen's edges): the game is the
+# same at 320 as it always was (the classic tests), wider it is wider; at every width a run is deterministic
+arena() { if [ "$1" = 320 ]; then echo "0,320"; else m=$((($1 - 320) / 2)); echo "$((6 - m)),$(($1 - m - 6))"; fi; }
+field() { echo "$2" | sed -n "s/.* $1=\([0-9,-]*\) .*/\1/p"; }
 same() {   # same <what> <headless options...>
     what=$1; shift
-    $H --width 320 --opt music=0 --opt dump=1 "$@" 2>&1 | game_log > "$O/same-320.log"
-    n=$(grep -c "" "$O/same-320.log")
-    for w in $WS 560; do
-        $H --width "$w" --opt music=0 --opt dump=1 "$@" 2>&1 | game_log > "$O/same-$w.log"
-        if cmp -s "$O/same-320.log" "$O/same-$w.log"; then ok "$what: the same $n log lines at $w as at 320"
-        else ko "$what at $w:"; diff "$O/same-320.log" "$O/same-$w.log" | head -4; fi
+    for w in 320 $WS 560; do
+        $H --width "$w" --opt music=0 --opt dump=1 "$@" 2>&1 | game_log > "$O/same-a.log"
+        $H --width "$w" --opt music=0 --opt dump=1 "$@" 2>&1 | game_log > "$O/same-b.log"
+        a=$(field arena "$(grep "state:" "$O/same-a.log")")
+        if cmp -s "$O/same-a.log" "$O/same-b.log" && [ "$a" = "$(arena "$w")" ]; then
+            ok "$what at $w: the arena is $a, the same run twice ($(grep -c "" "$O/same-a.log") log lines)"
+        else ko "$what at $w: arena '$a' (expected $(arena "$w")), or two runs differ"; diff "$O/same-a.log" "$O/same-b.log" | head -4; fi
     done
 }
 same "1 player, the bot" --frames 3000 --opt bot=1 --opt seed=7 --opt ready=1
 same "from the title, three runs of the bot" --frames 9000 --opt bot=1 --opt botruns=3 --opt botstop=60 --opt seed=4
 same "four bots, to the results" --frames 4000 --opt bot=4 --opt seed=5 --opt ready=1 --opt botstop=5
+# the bot still plays well on a wide arena
+for w in $WS 560; do
+    s=$($H --width "$w" --opt music=0 --opt dump=1 --frames 4000 --opt bot=1 2>&1 | sed -n 's/.*state: .* score=\([0-9]*\) .*/\1/p')
+    if [ "${s:-0}" -ge 20 ]; then ok "at $w the bot reaches $s (>= 20)"; else ko "at $w the bot only reached $s"; fi
+done
 
-# the width changes during a run: the run goes on as if nothing happened (the events, the final state)
-events() {
-    $H --width 320 --opt music=0 --opt dump=1 "$@" 2>&1 | game_log > "$O/rz-all.log"
-    grep -v "state:" "$O/rz-all.log"
-    grep "state:" "$O/rz-all.log" | tail -1
+# the width changes during a run (a save state, a restart at the new width, the state loaded): the arena follows the
+# screen (the marbles and moles kept inside its walls) and the run goes on, the same every time
+resized() {   # resized <what> <resizes> <last width> <headless options...>
+    what=$1; rz=$2; lw=$3; shift 3
+    $H --width 320 --opt music=0 --opt dump=1 $rz "$@" 2>&1 | game_log > "$O/rz-a.log"
+    $H --width 320 --opt music=0 --opt dump=1 $rz "$@" 2>&1 | game_log > "$O/rz-b.log"
+    a=$(field arena "$(grep "state:" "$O/rz-a.log" | tail -1)")   # (each restart dumps a state line: the last)
+    if cmp -s "$O/rz-a.log" "$O/rz-b.log" && [ "$a" = "$(arena "$lw")" ]; then ok "$what: resized ($rz), the arena $a, the same twice"
+    else ko "$what ($rz): arena '$a' (expected $(arena "$lw")), or two runs differ"; diff "$O/rz-a.log" "$O/rz-b.log" | head -4; fi
 }
-resized() {   # resized <what> <resizes> <headless options...>
-    what=$1; rz=$2; shift 2
-    events "$@" > "$O/rz-ref.log"
-    events $rz "$@" > "$O/rz.log"
-    if cmp -s "$O/rz-ref.log" "$O/rz.log"; then ok "$what: resized ($rz), the run goes on the same"
-    else ko "$what ($rz):"; diff "$O/rz-ref.log" "$O/rz.log" | head -4; fi
-}
-resized "1 player, the bot" "--resize 600:520 --resize 1300:427 --resize 2000:320" --frames 2600 --opt bot=1 --opt seed=7 --opt ready=1
-resized "four bots" "--resize 400:520 --resize 900:320 --resize 1500:427" --frames 2000 --opt bot=4 --opt seed=5 --opt ready=1
+resized "1 player, the bot" "--resize 600:520 --resize 1300:427 --resize 2000:320" 320 --frames 2600 --opt bot=1 --opt seed=7 --opt ready=1
+resized "four bots" "--resize 400:520 --resize 900:320 --resize 1500:427" 427 --frames 2000 --opt bot=4 --opt seed=5 --opt ready=1
 
 # a save state made at one width, loaded at another (in a fresh process, before its first frame): it loads and plays
 scenario() {   # scenario <name> <save width> <frames> <after> <opts...>

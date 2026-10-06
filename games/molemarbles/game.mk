@@ -33,7 +33,8 @@ molemarbles-dist:
 MOLEMARBLES_OBJ_HOST = $(patsubst %.c,build/host/%.o,$(wildcard $(MOLEMARBLES_DIR)/src/*.c) $(HOUSE_SRC))
 
 molemarbles-check:
-	+$(MOLEMARBLES_MAKE) host build/host/test_libretro build/host/molemarbles_test_states
+	+$(MOLEMARBLES_MAKE) host build/host/test_libretro build/host/molemarbles_test_states build/host/molemarbles_physics
+	./build/host/molemarbles_physics
 	./build/host/test_libretro build/host/molemarbles_libretro.so 600
 	sh $(MOLEMARBLES_DIR)/tests/smoke_test.sh build/host/molemarbles_headless build
 	sh $(MOLEMARBLES_DIR)/tests/ui_test.sh build/host/molemarbles_headless build/molemarbles-ui

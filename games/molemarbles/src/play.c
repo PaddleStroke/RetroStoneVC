@@ -16,10 +16,16 @@ static int add(world*w,int s,int x,int y,int direction,int hue,int grace){
  return -1;
 }
 void world_init(world*w,int players,uint32_t seed){
- memset(w,0,sizeof *w);w->players=clamp(players,1,4);w->seed=seed;w->rng=seed?seed:1;w->spawn_wait=300;w->pace=700;
+ memset(w,0,sizeof *w);w->players=clamp(players,1,4);w->seed=seed;w->rng=seed?seed:1;w->spawn_wait=300;w->pace=700;w->left=0;w->right=320;
  for(int p=0;p<4;p++){hero*h=&w->h[p];h->state=p<w->players?HS_READY:HS_OFF;h->x=w->players==1?100:56+p*64;h->xx=h->x*Q16_ONE;h->y=GROUND_Y*Q16_ONE;h->facing=1;}
  /* Exactly this frozen arrangement appears behind the title. */
  add(w,0,246,126,-1,0,60);w->balls[0].vy=0;
+}
+void world_arena(world*w,int left,int right){
+ w->left=left;w->right=right;
+ for(int i=0;i<MAX_BALLS;i++)if(w->balls[i].active){marble*b=&w->balls[i];int r=ball_radius(b->size);b->x=clamp(b->x,(left+r)*Q16_ONE,(right-r)*Q16_ONE);b->px=clamp(b->px,(left+r)*Q16_ONE,(right-r)*Q16_ONE);}
+ for(int n=0;n<w->warning_count;n++){arrival*a=&w->incoming[n];int r=ball_radius(a->size);a->x=clamp(a->x,left+r,right-r);}
+ for(int p=0;p<4;p++){hero*h=&w->h[p];h->xx=clamp(h->xx,(left+12)*Q16_ONE,(right-12)*Q16_ONE);h->x=h->old_x=h->xx/Q16_ONE;}
 }
 int world_running(const world*w){for(int p=0;p<w->players;p++)if(w->h[p].state==HS_RUN||w->h[p].state==HS_READY)return 1;return 0;}
 int world_all_down(const world*w){for(int p=0;p<w->players;p++)if(w->h[p].state!=HS_DOWN)return 0;return 1;}
@@ -29,7 +35,7 @@ static int rope_hit(const marble*b,const hero*h){int x0=b->px/Q16_ONE,y0=b->py/Q
 static void shatter(world*w,int idx,int player){
  marble old=w->balls[idx];w->balls[idx].active=0;int x=old.x/Q16_ONE,y=old.y/Q16_ONE;hero*h=&w->h[player];h->score+=old.size?10:15;w->events[player]|=EV_SCORE;w->total_hits++;h->shot=0;h->shot_wait=8;
  for(int n=0;n<6;n++)for(int i=0;i<MAX_FX;i++)if(!w->fx[i].t){w->fx[i]=(fragment){22,x,y,(n%3-1)*2,(n/3?-3:-1),old.hue};break;}
- if(old.size){int s=old.size-1,r=ball_radius(s);int yy=clamp(y,28+r,GROUND_Y-r);add(w,s,clamp(x-r/2,r,320-r),yy,-1,old.hue,42);add(w,s,clamp(x+r/2,r,320-r),yy,1,(old.hue+1)%3,42);}
+ if(old.size){int s=old.size-1,r=ball_radius(s);int yy=clamp(y,28+r,GROUND_Y-r);add(w,s,clamp(x-r/2,w->left+r,w->right-r),yy,-1,old.hue,42);add(w,s,clamp(x+r/2,w->left+r,w->right-r),yy,1,(old.hue+1)%3,42);}
 }
 static int next_interval(world*w){return 330-clamp(difficulty_score(w),0,900)*120/900+(int)(rnd(w)%121)-60;}
 static int prepare_wave(world*w,int warning){
@@ -40,7 +46,8 @@ static int prepare_wave(world*w,int warning){
  for(int n=0;n<count && room>0;n++){
   int roll=(int)(rnd(w)%100),size=stage==0?0:stage==1?(roll<65?0:1):stage==2?(roll<30?0:roll<75?1:2):(roll<20?0:roll<55?1:roll<87?2:3);
   while((1<<size)>room)size--;
-  int x=count==1?32+(int)(rnd(w)%257):count==2?30+n*155+(int)(rnd(w)%106):35+n*100+(int)(rnd(w)%51);
+  int span=w->right-w->left; /* 320: the classic positions */
+  int x=w->left+(count==1?32+(int)(rnd(w)%(uint32_t)(span-63)):count==2?30+n*(span-165)+(int)(rnd(w)%106):35+n*((span-120)/2)+(int)(rnd(w)%51));
   w->incoming[w->warning_count++]=(arrival){size,x,(int)(rnd(w)%3)};room-=1<<size;
  }
  if(!w->warning_count){w->spawn_wait=next_interval(w);return 0;}
@@ -54,7 +61,7 @@ static void spawn_step(world*w){
   if(--w->warning==0){
    for(int n=0;n<w->warning_count;n++){
     arrival*a=&w->incoming[n];int radius=ball_radius(a->size);
-    int i=add(w,a->size,a->x,28+radius,a->x<160?1:-1,a->hue,0);
+    int i=add(w,a->size,a->x,28+radius,a->x<(w->left+w->right)/2?1:-1,a->hue,0);
     if(i>=0){w->balls[i].vy=Q16_ONE*w->pace/1000;w->spawns++;}
    }
    w->warning_count=0;w->empty_frames=0;w->spawn_wait=next_interval(w);
@@ -80,7 +87,12 @@ void world_step(world*w,const int input[4]){
  }
  for(int i=0;i<MAX_FX;i++)if(w->fx[i].t){fragment*f=&w->fx[i];f->t--;f->x+=f->vx;f->y+=f->vy;if(w->t%4==0)f->vy++;}
  for(int p=0;p<w->players;p++){
-  hero*h=&w->h[p];if(h->state!=HS_RUN)continue;int dir=!!(input[p]&RS_BTN_RIGHT)-!!(input[p]&RS_BTN_LEFT);h->old_x=h->x;h->xx=clamp(h->xx+dir*176947,12*Q16_ONE,308*Q16_ONE);h->x=h->xx/Q16_ONE;if(dir)h->facing=dir;
+  hero*h=&w->h[p];if(h->state!=HS_RUN)continue;int dir=!!(input[p]&RS_BTN_RIGHT)-!!(input[p]&RS_BTN_LEFT);h->old_x=h->x;
+  int32_t lo=(w->left+12)*Q16_ONE,hi=(w->right-12)*Q16_ONE;
+  if(!dir&&w->goal_on[p]){ /* touch: to the goal at the normal speed, landing on it exactly */
+   int32_t d=clamp(w->goal_x[p]*Q16_ONE,lo,hi)-h->xx;if(d>176947)d=176947;if(d<-176947)d=-176947;
+   h->xx+=d;h->x=h->xx/Q16_ONE;if(d)h->facing=d>0?1:-1;
+  }else{h->xx=clamp(h->xx+dir*176947,lo,hi);h->x=h->xx/Q16_ONE;if(dir)h->facing=dir;}
   if(h->shot_wait)h->shot_wait--;
   if(h->shot){h->shot_y-=6;if(h->shot_y<24)h->shot_y=24;if(++h->shot>56){h->shot=0;h->shot_wait=8;}}
   else if((input[p]&RS_BTN_A)&&!h->shot_wait){h->shot=1;h->shot_x=h->x;h->shot_y=GROUND_Y-12;w->events[p]|=EV_JUMP;}
@@ -89,7 +101,7 @@ void world_step(world*w,const int input[4]){
   marble*b=&w->balls[i];if(!b->active)continue;int r=ball_radius(b->size);b->px=b->x;b->py=b->y;
   if(b->grace)b->grace--;
   b->x+=b->vx;b->vy+=gravity;b->y+=b->vy;
-  if(b->x<r*Q16_ONE){b->x=r*Q16_ONE+(r*Q16_ONE-b->x);b->vx=abs(b->vx);}else if(b->x>(320-r)*Q16_ONE){b->x=(320-r)*Q16_ONE-(b->x-(320-r)*Q16_ONE);b->vx=-abs(b->vx);}
+  {int32_t wl=(w->left+r)*Q16_ONE,wr=(w->right-r)*Q16_ONE;if(b->x<wl){b->x=wl+(wl-b->x);b->vx=abs(b->vx);}else if(b->x>wr){b->x=wr-(b->x-wr);b->vx=-abs(b->vx);}}
   if(b->y>(GROUND_Y-r)*Q16_ONE){b->y=(GROUND_Y-r)*Q16_ONE;b->vy=marble_bounce(b->size,w->pace);}
   if(b->y<(24+r)*Q16_ONE){b->y=(24+r)*Q16_ONE;b->vy=abs(b->vy);}
   int shot=0;for(int p=0;p<w->players;p++)if(w->h[p].state==HS_RUN&&w->h[p].shot&&b->grace<30&&rope_hit(b,&w->h[p])){shatter(w,i,p);shot=1;break;}if(shot)continue;
@@ -104,15 +116,15 @@ int bot_decide(const world*w,int player){
  for(int dir=-1;dir<=1;dir++){
   int c=0,x=h->x;marble balls[MAX_BALLS];memcpy(balls,w->balls,sizeof balls);
   for(int t=1;t<=38;t++){
-   x=clamp(h->x+dir*27*t/10,12,308);
-   for(int i=0;i<MAX_BALLS;i++){marble*b=&balls[i];if(!b->active)continue;int r=ball_radius(b->size);b->x+=b->vx;b->vy+=marble_gravity(w->pace);b->y+=b->vy;if(b->x<r*Q16_ONE){b->x=r*Q16_ONE;b->vx=abs(b->vx);}if(b->x>(320-r)*Q16_ONE){b->x=(320-r)*Q16_ONE;b->vx=-abs(b->vx);}if(b->y>(GROUND_Y-r)*Q16_ONE){b->y=(GROUND_Y-r)*Q16_ONE;b->vy=marble_bounce(b->size,w->pace);}if(b->y<(24+r)*Q16_ONE){b->y=(24+r)*Q16_ONE;b->vy=abs(b->vy);}
+   x=clamp(h->x+dir*27*t/10,w->left+12,w->right-12);
+   for(int i=0;i<MAX_BALLS;i++){marble*b=&balls[i];if(!b->active)continue;int r=ball_radius(b->size);b->x+=b->vx;b->vy+=marble_gravity(w->pace);b->y+=b->vy;if(b->x<(w->left+r)*Q16_ONE){b->x=(w->left+r)*Q16_ONE;b->vx=abs(b->vx);}if(b->x>(w->right-r)*Q16_ONE){b->x=(w->right-r)*Q16_ONE;b->vx=-abs(b->vx);}if(b->y>(GROUND_Y-r)*Q16_ONE){b->y=(GROUND_Y-r)*Q16_ONE;b->vy=marble_bounce(b->size,w->pace);}if(b->y<(24+r)*Q16_ONE){b->y=(24+r)*Q16_ONE;b->vy=abs(b->vy);}
     if(b->grace>t)continue;
     int dx=abs(b->x/Q16_ONE-x),yy=b->y/Q16_ONE;
     if(circle_box(b->x/Q16_ONE,yy,r+3,x))c+=(40-t)*200;
     else if(yy>GROUND_Y-40-r&&dx<r+24)c+=(r+24-dx)*(40-t);
    }
   }
-  c+=dir?20:0;c+=abs(x-160)/12;if(c<cost){cost=c;best=dir;}
+  c+=dir?20:0;c+=abs(x-(w->left+w->right)/2)/12;if(c<cost){cost=c;best=dir;}
  }
  return RS_BTN_A|(best<0?RS_BTN_LEFT:best>0?RS_BTN_RIGHT:0);
 }

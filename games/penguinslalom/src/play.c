@@ -43,42 +43,185 @@ void course_obstacle(const world *w,int id,int travel,int t,slope_obstacle *o){
 void bear_obstacle(const world *w,int slot,int ticks,slope_obstacle *o){
  const sliding_bear *b=&w->bears[slot];memset(o,0,sizeof *o);
  o->id=b->id;o->kind=PROP_BEAR;o->x=b->x;o->rx=22;o->ry=24;
- o->distance=(int)((b->distance+(int64_t)ticks*(course_speed(w->scroll)+3*Q16_ONE))>>16);
+ o->distance=(int)((b->distance+(int64_t)ticks*(course_speed(w->scroll)+BEAR_SLIDE*Q16_ONE))>>16);
  o->pass_side=o->x<160?1:-1;
+}
+static int ramp(int scroll,int early,int late){
+ if(scroll<0)scroll=0;
+ if(scroll>BEAR_RAMP)scroll=BEAR_RAMP;
+ return early+(late-early)*scroll/BEAR_RAMP;
+}
+int bear_warn_time(int scroll){int t=ramp(scroll,BEAR_WARN_EARLY,BEAR_WARN_LATE);return t<BEAR_WARN_MIN?BEAR_WARN_MIN:t;}
+int bear_land(int players){int land=player_offset(players,0)-BEAR_LAND_GAP;return land<BEAR_LAND_TOP?BEAR_LAND_TOP:land;}
+/* ---- fairness ------------------------------------------------------------------------------------------------------
+ * A new bear is placed only if it is fair to every player: a small reachability check over the course's columns
+ * (FAIR_CELL px), steps (FAIR_STEP frames) and speeds (columns per step, changing by FAIR_ACCEL at most: inertia),
+ * from the moment the player has reacted to the marker (BEAR_REACT) until FAIR_AFTER frames after the bear has
+ * passed the last penguin. Every "comfortable" state (one that can follow the course and the bears already warned at
+ * FAIR_EASY columns per step at most) must keep a dodge of the new bear at FAIR_DODGE, the bear FAIR_BEAR_MARGIN px
+ * wider and FAIR_BEAR_STEPS steps longer at both ends, ending in a comfortable state again (the course FAIR_MARGIN px
+ * wider in both, swept through). tests/test_fair.c
+ * proves the same of every bear on the exact steering (world_step's integers, 4-frame decisions). */
+#define FAIR_CELLS ((296-24)/FAIR_CELL+1)
+#define FAIR_STEPS ((FAIR_FRAMES-BEAR_REACT)/FAIR_STEP)
+typedef uint8_t fair_mask[FAIR_STEPS][FAIR_CELLS];
+static int isqrt64(int64_t v){int64_t r=0;for(int64_t b=(int64_t)1<<24;b;b>>=1)if((r+b)*(r+b)<=v)r+=b;return (int)r;}
+static void block_span(uint8_t *cells,int lo,int hi,uint8_t bit){
+ int c0=lo<=24?0:(lo-24+FAIR_CELL-1)/FAIR_CELL,c1=hi>=296?FAIR_CELLS-1:hi<24?-1:(hi-24)/FAIR_CELL;
+ for(int c=c0;c<=c1;c++)cells[c]|=bit;
+}
+/* a hazard's x span on the penguin's line (an ellipse, or a pole's reach), widened by each margin: bit 1 for m[0],
+ * bit 2 for m[1] when it is not negative */
+static void block_both(uint8_t *cells,int lo,int hi,const int *m){
+ block_span(cells,lo-m[0],hi+m[0],1);
+ if(m[1]>=0)block_span(cells,lo-m[1],hi+m[1],2);
+}
+static void block_ellipse(uint8_t *cells,int ox,int od,int rx,int ry,int pd,const int *m){
+ int dy=abs(od-pd);if(dy>ry)return;
+ int hw=isqrt64((int64_t)rx*rx*((int64_t)ry*ry-(int64_t)dy*dy)/((int64_t)ry*ry))+1;
+ block_both(cells,ox-hw,ox+hw,m);
+}
+/* a bear's distance from the camera `k` frames from now (BEAR_UNSEEN while it is still only a marker) */
+#define BEAR_UNSEEN (1<<20)
+static int bear_rel(const sliding_bear *b,int64_t travel,int k){
+ if(b->warn>0)return k<b->warn?BEAR_UNSEEN:b->land+BEAR_SLIDE*(k-b->warn);
+ return (int)((b->distance-travel)>>16)+BEAR_SLIDE*k;
+}
+/* the hazards for a player `o` px from the camera, per step: the course (what lies at most `seen` px down the slope)
+ * and the bears already warned, or only `bear`; widened by margin m0 (bit 1) and, unless it is negative, m1 (bit 2) */
+static void fair_hazards(const world *w,const int *fs,int o,int first,int steps,int m0,int m1,const sliding_bear *bear,int seen,fair_mask mask){
+ const int m[2]={m0,m1};
+ memset(mask,0,sizeof(fair_mask));
+ for(int f=first+1;f<=first+steps*FAIR_STEP;f++){
+  uint8_t *cells=mask[(f-first-1)/FAIR_STEP];int pd=fs[f]+o,pd0=fs[f-1]+o,base=course_index(w,pd);
+  if(bear){
+   int rel=bear_rel(bear,w->travel,f);
+   if(rel<BEAR_UNSEEN)block_ellipse(cells,bear->x,fs[f]+rel,22+SKI_RADIUS,24+SKI_FORWARD_RADIUS,pd,m);
+   continue;
+  }
+  for(int id=base>0?base-1:0;id<=base+1;id++){
+   slope_obstacle ob;course_obstacle(w,id,fs[f],w->t+f,&ob);row r;course_row(w,id,&r);
+   if(r.distance>seen)break;
+   block_ellipse(cells,ob.x,ob.distance,ob.rx+SKI_RADIUS,ob.ry+SKI_FORWARD_RADIUS,pd,m);
+   int reach=r.rx+SKI_RADIUS;
+   if(abs(r.distance-pd)<=r.ry+SKI_RADIUS){block_both(cells,r.left-reach+1,r.left+reach-1,m);block_both(cells,r.right-reach+1,r.right+reach-1,m);}
+   if(pd0<r.distance && pd>=r.distance){block_both(cells,-400,r.left+reach,m);block_both(cells,r.right-reach,700,m);}
+  }
+  for(int i=0;i<MAX_BEARS;i++)if(w->bears[i].active){
+   int rel=bear_rel(&w->bears[i],w->travel,f);
+   if(rel<BEAR_UNSEEN)block_ellipse(cells,w->bears[i].x,fs[f]+rel,22+SKI_RADIUS,24+SKI_FORWARD_RADIUS,pd,m);
+  }
+ }
+}
+/* backward reachability over (column, speed in columns per step, -top..top): out[s][c] has bit v+FAIR_TOP when the
+ * cell is free and a speed change of at most FAIR_ACCEL leads to a state viable at the next step (the walls stop the
+ * penguin), sweeping columns clear of the hazards whose mask bits are in `sweep`; at the last step, the free states
+ * which are in `last` (all of them without it). Bit-parallel: each next speed marks all the speeds it can come from. */
+#define FAIR_BITS(top) ((unsigned)(((1u<<(2*(top)+1))-1)<<(FAIR_TOP-(top))))
+typedef uint16_t fair_set[FAIR_STEPS][FAIR_CELLS];
+static void fair_viable(fair_mask mask,int steps,int top,int sweep,fair_set last,fair_set out){
+ unsigned all=FAIR_BITS(top),from[2*FAIR_TOP+1];
+ for(int nv=-top;nv<=top;nv++){int lo=nv-FAIR_ACCEL+FAIR_TOP;unsigned m=(1u<<(2*FAIR_ACCEL+1))-1;from[nv+FAIR_TOP]=(lo<0?m>>-lo:m<<lo)&all;}
+ for(int c=0;c<FAIR_CELLS;c++)out[steps-1][c]=(uint16_t)(mask[steps-1][c]?0:all&(last?last[steps-1][c]:0xffffu));
+ for(int s=steps-2;s>=0;s--){
+  uint8_t swept[FAIR_CELLS+1];swept[0]=0;                 /* swept cells of the next step, counted */
+  for(int k=0;k<FAIR_CELLS;k++)swept[k+1]=(uint8_t)(swept[k]+((mask[s+1][k]&sweep)!=0));
+  for(int c=0;c<FAIR_CELLS;c++){
+   unsigned bits=0;
+   if(!mask[s][c])for(int nv=-top;nv<=top;nv++){
+    int nc=c+nv,tv=nv;if(nc<0){nc=0;tv=0;}
+    if(nc>FAIR_CELLS-1){nc=FAIR_CELLS-1;tv=0;}
+    if(!(out[s+1][nc]>>(tv+FAIR_TOP)&1) || swept[(c>nc?c:nc)+1]!=swept[c<nc?c:nc])continue;
+    bits|=from[nv+FAIR_TOP];
+   }
+   out[s][c]=(uint16_t)bits;
+  }
+ }
+}
+/* A plan for one warning: the window it checks and, once worked out, each penguin's comfortable states (shared by
+ * the spots tried) */
+typedef struct fair_plan {int warn,land,dodge,steps,done;int fs[FAIR_FRAMES+1];fair_mask course[MAX_PLAYERS];fair_set comfortable[MAX_PLAYERS];} fair_plan;
+static int fair_setup(const world *w,int warn,int land,fair_plan *f){
+ int lowest=player_offset(w->players,w->players-1);
+ int pass=warn+(lowest-land+24+SKI_FORWARD_RADIUS+FAIR_BEAR_MARGIN+BEAR_SLIDE-1)/BEAR_SLIDE+1;
+ f->warn=warn;f->land=land;f->done=0;
+ f->dodge=(pass-BEAR_REACT+FAIR_STEP-1)/FAIR_STEP;f->steps=f->dodge+FAIR_AFTER/FAIR_STEP;
+ if(warn<BEAR_WARN_MIN || f->steps>FAIR_STEPS)return 0;
+ int64_t travel=w->travel;f->fs[0]=w->scroll;
+ for(int k=1;k<=FAIR_FRAMES;k++){travel+=course_speed((int)(travel>>16));f->fs[k]=(int)(travel>>16);}
+ return 1;
+}
+static int fair_try(const world *w,fair_plan *f,int x){
+ if(x<BEAR_X_MIN || x>BEAR_X_MAX)return 0;
+ int64_t at=w->travel+(int64_t)f->land*Q16_ONE;sliding_bear bear={1,-1,x,f->warn,f->warn,f->land,0,at,at};
+ fair_mask hard;fair_set safe;
+ for(int p=0;p<w->players;p++){
+  int o=player_offset(w->players,p);
+  // The same course for both (FAIR_MARGIN px wider, swept through): the comfortable states, at FAIR_EASY, and the
+  // dodge, at FAIR_DODGE, where the new bear is drawn larger than it is, by FAIR_BEAR_MARGIN px and FAIR_BEAR_STEPS
+  // steps at both ends: the coarse steps must never let a dodge through which the exact steering could not take.
+  if(!(f->done>>p&1)){
+   fair_hazards(w,f->fs,o,BEAR_REACT,f->steps,FAIR_MARGIN,-1,NULL,1<<30,f->course[p]);fair_viable(f->course[p],f->steps,FAIR_EASY,1,NULL,f->comfortable[p]);
+   f->done|=1<<p;
+  }
+  fair_hazards(w,f->fs,o,BEAR_REACT,f->dodge,FAIR_BEAR_MARGIN,-1,&bear,1<<30,hard);
+  for(int c=0;c<FAIR_CELLS;c++){
+   uint8_t raw[FAIR_STEPS];for(int s=0;s<f->dodge;s++)raw[s]=hard[s][c];
+   for(int s=0;s<f->dodge;s++){
+    uint8_t near=0;for(int d=-FAIR_BEAR_STEPS;d<=FAIR_BEAR_STEPS;d++)if(s+d>=0 && s+d<f->dodge)near|=raw[s+d];
+    hard[s][c]=(uint8_t)(f->course[p][s][c]|near<<1);
+   }
+  }
+  fair_viable(hard,f->dodge,FAIR_DODGE,3,f->comfortable[p],safe);
+  for(int c=0;c<FAIR_CELLS;c++)if(f->comfortable[p][0][c]&~safe[0][c])return 0;
+ }
+ return 1;
+}
+int bear_fair(const world *w,int x,int warn,int land){fair_plan f;return fair_setup(w,warn,land,&f) && fair_try(w,&f,x);}
+/* the racing line (the flags' line) at a distance down the slope */
+static int racing_line(const world *w,int d){
+ int id=course_index(w,d);row a,b;course_row(w,id,&a);course_row(w,id+1,&b);
+ if(d<=a.distance)return a.center;
+ return a.center+(b.center-a.center)*(d-a.distance)/(b.distance-a.distance);
 }
 static void bears_step(world *w,int speed){
  for(int i=0;i<MAX_BEARS;i++)if(w->bears[i].active){
-  sliding_bear *b=&w->bears[i];b->previous=b->distance;
-  b->distance+=speed+3*Q16_ONE;
-  if(b->distance-w->travel>280*Q16_ONE)b->active=0;
+  sliding_bear *b=&w->bears[i];
+  if(b->warn>0){
+   // The marker keeps its place on the screen; the bear lands there when it runs out.
+   b->distance=w->travel+(int64_t)b->land*Q16_ONE;b->previous=b->distance;
+   if(--b->warn==0){b->age=0;w->bear_landed=b->x;}
+  }else{
+   b->previous=b->distance;b->distance+=speed+BEAR_SLIDE*Q16_ONE;b->age++;
+   if(b->distance-w->travel>BEAR_RETIRE*Q16_ONE)b->active=0;
+  }
  }
  if(--w->bear_wait>0)return;
  int slot=-1;for(int i=0;i<MAX_BEARS;i++)if(!w->bears[i].active){slot=i;break;}
  if(slot<0){w->bear_wait=15;return;}
- uint32_t r=mix(w->seed+(uint32_t)w->bear_id*733u);
- int future=w->scroll+(int)((int64_t)course_speed(w->scroll)*80/Q16_ONE);
- int first=course_index(w,future-220),last=course_index(w,future+220)+1,low=296,high=24;
- // Keep the passing lane clear of the gates encountered during the overtake.
- // Players can stay on the slalom line rather than being trapped against a pole.
- for(int id=first;id<=last;id++){row gate;course_row(w,id,&gate);if(gate.center<low)low=gate.center;if(gate.center>high)high=gate.center;}
- int margin=52+(int)((r>>16)%25),left=low-margin,right=high+margin;
- if(left<40)left=40;
- if(right>280)right=280;
- int left_clear=320,right_clear=320;
- for(int id=first;id<=last;id++){
-  row gate,next;course_row(w,id,&gate);course_row(w,id+1,&next);slope_obstacle o;course_obstacle(w,id,w->scroll,w->t+80,&o);
-  int route=next.center,room=o.rx+SKI_RADIUS+14;
-  if(abs(route-o.x)<room)route=o.x+o.pass_side*room;
-  int lc=abs(gate.center-left);if(abs(route-left)<lc)lc=abs(route-left);
-  int rc=abs(gate.center-right);if(abs(route-right)<rc)rc=abs(route-right);
-  if(lc<left_clear)left_clear=lc;
-  if(rc<right_clear)right_clear=rc;
+ int warn=bear_warn_time(w->scroll),land=bear_land(w->players);fair_plan plan;
+ if(!fair_setup(w,warn,land,&plan)){w->bear_wait=BEAR_RETRY;return;}
+ // Aimed bears land on the racing line where they will cross the penguins' line; the others anywhere across.
+ int64_t travel=w->travel;for(int f=0;f<warn-land/BEAR_SLIDE;f++)travel+=course_speed((int)(travel>>16));
+ int line=racing_line(w,(int)(travel>>16));
+ int aimed=ramp(w->scroll,BEAR_LINE_EARLY,BEAR_LINE_LATE),spread=ramp(w->scroll,BEAR_SPREAD_EARLY,BEAR_SPREAD_LATE);
+ // One draw per warning decides whether it is aimed. An aimed bear tries the racing line first (within the spread),
+ // then spots further out on alternate sides, BEAR_STEP_OUT px at a time: it lands as close to the line as is fair.
+ uint32_t pick=mix(w->seed+(uint32_t)w->bear_id*733u);int aim=(int)(pick%100)<aimed,side=pick>>16&1?1:-1;
+ for(int k=0;k<BEAR_TRIES;k++){
+  uint32_t r=mix(w->seed+(uint32_t)w->bear_id*733u+(uint32_t)(k+1)*2246822519u);
+  int out=(k+1)/2*BEAR_STEP_OUT*(k&1?side:-side);
+  int x=aim && k<BEAR_TRIES-2?line+out+(int)(r%(uint32_t)(spread*2+1))-spread:BEAR_X_MIN+(int)(r%(BEAR_X_MAX-BEAR_X_MIN+1));
+  if(x<BEAR_X_MIN)x=BEAR_X_MIN;
+  if(x>BEAR_X_MAX)x=BEAR_X_MAX;
+  if(!fair_try(w,&plan,x))continue;
+  sliding_bear *bear=&w->bears[slot];int64_t at=w->travel+(int64_t)land*Q16_ONE;
+  *bear=(sliding_bear){1,w->bear_id++,x,warn,warn,land,0,at,at};
+  w->bear_warned=x;
+  w->bear_wait=ramp(w->scroll,BEAR_GAP_EARLY,BEAR_GAP_LATE)+(int)((r>>20)%(uint32_t)(ramp(w->scroll,BEAR_GAP_RAND_EARLY,BEAR_GAP_RAND_LATE)+1));
+  return;
  }
- if(left_clear<44 && right_clear<44){w->bear_wait=30;return;}
- int x=left_clear>right_clear?left:right_clear>left_clear?right:(r&1?right:left);
- sliding_bear *bear=&w->bears[slot];bear->active=1;bear->id=w->bear_id++;bear->x=x;
- bear->distance=w->travel-240*Q16_ONE;bear->previous=bear->distance;
- w->bear_wait=330+(int)((r>>8)%151);
+ w->bear_id++;w->bear_wait=BEAR_RETRY;
 }
 int obstacle_hits(const slope_obstacle *before,const slope_obstacle *after,int x0,int x1,int d0,int d1){
  /* A swept ellipse checks relative penguin/obstacle motion, including the sliding bear. */
@@ -90,7 +233,7 @@ int obstacle_hits(const slope_obstacle *before,const slope_obstacle *after,int x
  int64_t cross=ax*dy-ay*dx;return cross*cross<=radius*radius*len;
 }
 void world_init(world *w,int n,uint32_t seed){
- memset(w,0,sizeof *w);w->seed=seed;w->players=n<1?1:n>4?4:n;w->bear_wait=300;
+ memset(w,0,sizeof *w);w->seed=seed;w->players=n<1?1:n>4?4:n;w->bear_wait=BEAR_FIRST;
  for(int p=0;p<w->players;p++){
   hero *h=&w->h[p];h->state=HS_READY;h->x=160+(p*2-(w->players-1))*12;h->xx=h->x*Q16_ONE;
   h->y=player_y(w->players,p)*Q16_ONE;h->wx=(int64_t)player_offset(w->players,p)*Q16_ONE;h->distance=player_offset(w->players,p);
@@ -98,7 +241,7 @@ void world_init(world *w,int n,uint32_t seed){
 }
 static void hit(world *w,int p,int reason){hero *h=&w->h[p];h->state=HS_HIT;h->t=0;h->vx=0;h->combo=0;h->reason=reason;w->events[p]=EV_HIT;}
 void world_step(world *w,const int input[4]){
- memset(w->events,0,sizeof w->events);
+ memset(w->events,0,sizeof w->events);w->bear_warned=w->bear_landed=0;
  if(!w->started){
   int start=0;for(int p=0;p<w->players;p++)start|=input[p]!=0;if(!start)return;
   w->started=1;for(int p=0;p<w->players;p++)w->h[p].state=HS_RUN;w->events[0]=EV_START;return;
@@ -119,7 +262,7 @@ void world_step(world *w,const int input[4]){
     if(obstacle_hits(&previous,&current,old_x,h->x,old,h->distance)){hit(w,p,2);break;}
    }
    if(h->state!=HS_RUN)continue;
-   for(int i=0;i<MAX_BEARS;i++)if(w->bears[i].active){
+   for(int i=0;i<MAX_BEARS;i++)if(w->bears[i].active && !w->bears[i].warn){
     slope_obstacle previous,current;bear_obstacle(w,i,0,&current);previous=current;previous.distance=(int)(w->bears[i].previous>>16);
     if(obstacle_hits(&previous,&current,old_x,h->x,old,h->distance)){hit(w,p,2);break;}
    }
@@ -143,71 +286,65 @@ void world_step(world *w,const int input[4]){
 }
 int world_running(const world *w){for(int p=0;p<w->players;p++)if(w->h[p].state==HS_RUN || w->h[p].state==HS_READY)return 1;return 0;}
 int world_all_down(const world *w){for(int p=0;p<w->players;p++)if(w->h[p].state!=HS_OFF)return 0;return 1;}
+/* ---- the bot (a test hook): it plays from what the screen shows --------------------------------------------------
+ * The gates and obstacles down to the bottom of the screen, the bears' markers (where each bear lands and, by the
+ * marker's size, when) and the sliding bears, over the next BOT_STEPS steps, on the fairness check's columns, steps
+ * and speeds (inertia included). It plans the cheapest way through them: near the racing line (where the fish are),
+ * steering little, keeping BOT_ROOM px from every hazard where it can; then it holds Left / Right towards the plan. */
+#define BOT_STEPS 22                /* 88 frames: the course as far as the screen shows it, the bears all along */
+#define BOT_ROOM 14                 /* px of room it likes to keep */
+#define BOT_CLOSE 120               /* the cost of a step closer than that */
+#define BOT_TOP 3                   /* the fastest it plans to go (columns per step): 1 px per frame to spare */
+#define BOT_FAR 30000
+static int bot_steer(const hero *h,int x){int d=x*Q16_ONE-(h->xx+h->vx*6);return d>2*Q16_ONE?1:d<-2*Q16_ONE?-1:0;}
 int bot_decide(const world *w,int p){
  if(!w->started)return 2;
  const hero *h=&w->h[p];if(h->state!=HS_RUN)return 0;
- int id=h->distance<GATE_FIRST+18?0:course_index(w,h->distance-18)+1;row r;course_row(w,id,&r);int target=r.center;
- // Choose the appropriate side of a gate before a bear and the following
- // obstacle require the same escape route. This still uses ordinary steering.
- if(r.distance-h->distance<120){
-  slope_obstacle future;course_obstacle(w,id,w->scroll,w->t,&future);
-  int ticks=(future.distance-h->distance)*Q16_ONE/course_speed(w->scroll);if(ticks<0)ticks=0;
-  course_obstacle(w,id,w->scroll+(int)((int64_t)ticks*course_speed(w->scroll)/Q16_ONE),w->t+ticks,&future);
-  slope_obstacle next_hazards[MAX_BEARS+1];next_hazards[0]=future;int next_count=1;
-  for(int i=0;i<MAX_BEARS;i++)if(w->bears[i].active){slope_obstacle bear;bear_obstacle(w,i,0,&bear);
-   int separation=h->distance-bear.distance;
-   if(separation>-70 && separation<240)next_hazards[next_count++]=bear;
-  }
-  if(next_count>1){
-   row following;course_row(w,id+1,&following);int best=100000,planned=following.center;
-   for(int x=30;x<=290;x++){
-    int safe=1;for(int i=0;i<next_count;i++)if(abs(x-next_hazards[i].x)<next_hazards[i].rx+SKI_RADIUS+14){safe=0;break;}
-    if(!safe)continue;
-    int cost=abs(x-following.center)*4+abs(x-r.center);if(cost<best){best=cost;planned=x;}
-   }
-   target=planned;if(target<r.left+17)target=r.left+17;if(target>r.right-17)target=r.right-17;
-  }
- }
- slope_obstacle hazards[MAX_BEARS+1];int count=0;
- if(id>0){slope_obstacle o;course_obstacle(w,id-1,w->scroll,w->t,&o);
-  if(h->distance<o.distance+o.ry+SKI_FORWARD_RADIUS+8){
-   int ticks=(o.distance-h->distance)*Q16_ONE/course_speed(w->scroll);if(ticks<0)ticks=0;
-   course_obstacle(w,id-1,w->scroll+(int)((int64_t)ticks*course_speed(w->scroll)/Q16_ONE),w->t+ticks,&o);
-   hazards[count++]=o;
-  }
- }
- for(int i=0;i<MAX_BEARS;i++)if(w->bears[i].active){
-  slope_obstacle o;bear_obstacle(w,i,0,&o);int separation=h->distance-o.distance;
-  // The bear overtakes us at three world pixels per frame. Aim around its fixed lane.
-  if(separation>-(o.ry+SKI_FORWARD_RADIUS+16) && separation<120){
-   hazards[count++]=o;
-  }
- }
- if(count){
-  int desired=target,best=100000,near_gate=r.distance-h->distance<(int)((int64_t)course_speed(w->scroll)*12/Q16_ONE)+18;
-  for(int x=30;x<=290;x++){
-   if(near_gate && (x<=r.left+r.rx+SKI_RADIUS+3 || x>=r.right-r.rx-SKI_RADIUS-3))continue;
-   int safe=1;for(int i=0;i<count;i++){
-    const slope_obstacle *o=&hazards[i];
-    if(abs(x-o->x)<o->rx+SKI_RADIUS+14){safe=0;break;}
-    if(o->kind!=PROP_BEAR && abs(h->x-o->x)>=o->rx+SKI_RADIUS+9 && abs(o->distance-h->distance)<o->ry+SKI_FORWARD_RADIUS+80 && (x-o->x)*(h->x-o->x)<0){safe=0;break;}
-   }
-   if(!safe)continue;
-   int cost=abs(x-desired)*4+abs(x-h->x);if(cost<best){best=cost;target=x;}
-  }
-  if(best==100000){
-   // Finish the immediate fixed-obstacle passage before steering away from
-   // a bear which is still vertically separated from the penguin.
-   for(int x=30;x<=290;x++){
-    if(near_gate && (x<=r.left+r.rx+SKI_RADIUS+3 || x>=r.right-r.rx-SKI_RADIUS-3))continue;
-    int safe=1;for(int i=0;i<count;i++){
-     const slope_obstacle *o=&hazards[i];if(o->kind==PROP_BEAR)continue;
-     if(abs(x-o->x)<o->rx+SKI_RADIUS+14 || (abs(h->x-o->x)>=o->rx+SKI_RADIUS+9 && (x-o->x)*(h->x-o->x)<0)){safe=0;break;}
+ int o=player_offset(w->players,p),fs[BOT_STEPS*FAIR_STEP+1],pref[BOT_STEPS];int64_t travel=w->travel;fs[0]=w->scroll;
+ for(int f=1;f<=BOT_STEPS*FAIR_STEP;f++){travel+=course_speed((int)(travel>>16));fs[f]=(int)(travel>>16);}
+ for(int s=0;s<BOT_STEPS;s++)pref[s]=racing_line(w,fs[(s+1)*FAIR_STEP]+o);
+ int here=(h->x-24+FAIR_CELL/2)/FAIR_CELL,speed=(h->vx+(h->vx>=0?Q16_ONE/2:-Q16_ONE/2))/Q16_ONE,want=0,best=BOT_FAR;
+ if(here>FAIR_CELLS-1)here=FAIR_CELLS-1;
+ fair_mask mask;int16_t cost[BOT_STEPS][FAIR_CELLS][2*FAIR_TOP+1];int8_t next[BOT_STEPS][FAIR_CELLS][2*FAIR_TOP+1];
+ int seen=w->scroll+(240-HERO_LINE)*5/3;                /* the bottom of the screen */
+ for(int k=0;k<2 && best>=BOT_FAR;k++){                  /* at 3 columns per step with room; else at 4, closer */
+  int top=k?FAIR_TOP:BOT_TOP;
+  fair_hazards(w,fs,o,0,BOT_STEPS,k?1:4,BOT_ROOM,NULL,seen,mask);   /* bit 1: blocked, bit 2: too close */
+  for(int s=BOT_STEPS-1;s>=0;s--){
+   int swept[FAIR_CELLS+1];swept[0]=0;                   /* the next step's blocked cells, counted */
+   if(s<BOT_STEPS-1)for(int m=0;m<FAIR_CELLS;m++)swept[m+1]=swept[m]+(mask[s+1][m]&1);
+   for(int c=0;c<FAIR_CELLS;c++){
+    int val[2*FAIR_TOP+1],add=abs(24+c*FAIR_CELL-pref[s])/2+(mask[s][c]&2?BOT_CLOSE:0);
+    if(s<BOT_STEPS-1)for(int nv=-top;nv<=top;nv++){      /* each next speed: its cost, or blocked on the way */
+     int nc=c+nv,tv=nv;if(nc<0){nc=0;tv=0;}
+     if(nc>FAIR_CELLS-1){nc=FAIR_CELLS-1;tv=0;}
+     val[nv+FAIR_TOP]=swept[(c>nc?c:nc)+1]!=swept[c<nc?c:nc]?BOT_FAR:cost[s+1][nc][tv+FAIR_TOP]+abs(tv);
     }
-    if(!safe)continue;
-    int cost=abs(x-desired)*4+abs(x-h->x);if(cost<best){best=cost;target=x;}
+    for(int v=-FAIR_TOP;v<=FAIR_TOP;v++){
+     int e=BOT_FAR,n=-99;
+     if(!(mask[s][c]&1)){
+      if(s==BOT_STEPS-1)e=0;
+      else for(int nv=v-FAIR_ACCEL;nv<=v+FAIR_ACCEL;nv++)if(nv>=-top && nv<=top && val[nv+FAIR_TOP]<e){e=val[nv+FAIR_TOP];n=nv;}
+      if(e<BOT_FAR)e+=add;
+     }
+     cost[s][c][v+FAIR_TOP]=(int16_t)e;next[s][c][v+FAIR_TOP]=(int8_t)n;
+    }
    }
   }
+  // From the penguin's own column and speed: the first step's best speed.
+  for(int nv=speed-FAIR_ACCEL;nv<=speed+FAIR_ACCEL;nv++){
+   if(nv<-top || nv>top)continue;
+   int nc=here+nv,tv=nv,clear=1;if(nc<0){nc=0;tv=0;}
+   if(nc>FAIR_CELLS-1){nc=FAIR_CELLS-1;tv=0;}
+   for(int m=here<nc?here:nc;m<=(here<nc?nc:here) && clear;m++)clear=!(mask[0][m]&1);
+   int e=clear?cost[0][nc][tv+FAIR_TOP]+abs(tv):BOT_FAR;
+   if(e<best){best=e;want=nv;}
+  }
  }
- int forecast=h->xx+h->vx*6,delta=target*Q16_ONE-forecast;return delta>2*Q16_ONE?1:delta<-2*Q16_ONE?-1:0;
+ if(best>=BOT_FAR)return bot_steer(h,pref[1]);           /* no way through: back to the line */
+ // Steer towards where the plan is two steps on, as the penguin will be 6 frames on at its speed.
+ int c=here+want,v=want;if(c<0){c=0;v=0;}
+ if(c>FAIR_CELLS-1){c=FAIR_CELLS-1;v=0;}
+ if(next[0][c][v+FAIR_TOP]>-99)c+=next[0][c][v+FAIR_TOP];
+ return bot_steer(h,24+c*FAIR_CELL);
 }

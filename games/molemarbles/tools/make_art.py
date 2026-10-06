@@ -172,10 +172,10 @@ GLOW = [(255, 226, 121), (199, 140, 67)]                      # the lanterns (th
 
 def hills_wide():
     """The cavern 1024 px wide for a screen wider than 320 (a 128-tile map; stage x s = picture x s & 1023): hills()
-    pixel for pixel over 0..511, its ribs, arches and ceiling going on round in stage coordinates; the arena's walls
-    made visible as two mine timbers just outside it (stage x -8..-1 and 320..327: the marbles bounce off them as they
-    always did off the screen's edges); beyond them a lantern each side, a mine cart on its rails (left), a ladder
-    (right) and two more crystal clusters."""
+    pixel for pixel over 0..511, its ribs, arches and ceiling going on round in stage coordinates; as background art
+    behind the arena (which spans the whole screen: its walls are timbers drawn by the game at the screen's edges): a
+    lantern each side, a mine cart on its rails (left) and a ladder (right) just beyond the 320-px stage, in view from
+    16:9 on, and two more crystal clusters."""
     W = 1024
     cv = WrapCanvas(W, 208)
     P = [(26,30,50),(34,38,62),(43,45,69),(50,53,76),(60,65,85),(76,88,109),(97,114,132),(119,134,147)]
@@ -202,11 +202,6 @@ def hills_wide():
         for y in range(3+int(4*(1+math.sin(x/31)))):cv.set(x,y,P[3])
     w0, w1, w2 = WOOD_DIM
 
-    def post(x0):                                   # a squared timber from the ceiling to the floor, its iron bands
-        cv.rect(x0, 0, x0 + 7, 207, w1); cv.rect(x0, 0, x0, 207, w0); cv.rect(x0 + 7, 0, x0 + 7, 207, w2)
-        for y in (30, 96, 162):
-            cv.rect(x0, y, x0 + 7, y, P[6]); cv.rect(x0, y + 1, x0 + 7, y + 1, P[4])
-
     def lantern(x0, length):                        # a lantern on its chain from the ceiling
         for y in range(4, 4 + length): cv.set(x0, y, P[6] if y % 3 else P[4])
         y0 = 4 + length
@@ -215,28 +210,27 @@ def hills_wide():
         cv.rect(x0 - 4, y0 + 3, x0 - 4, y0 + 10, P[5]); cv.rect(x0 + 4, y0 + 3, x0 + 4, y0 + 10, P[5])
         cv.rect(x0 - 4, y0 + 11, x0 + 4, y0 + 11, P[5])
 
-    post(-8); post(320)
-    lantern(-34, 62); lantern(346, 54)
+    lantern(-34, 62); lantern(362, 54)
     # left: a mine cart on its rails, loaded with crystal ore
-    cv.rect(-120, 205, -10, 205, P[6]); cv.rect(-120, 206, -10, 206, P[4])
-    for x in range(-117, -12, 9): cv.rect(x, 207, x + 4, 207, w2)
+    cv.rect(-120, 205, -1, 205, P[6]); cv.rect(-120, 206, -1, 206, P[4])
+    for x in range(-117, -5, 9): cv.rect(x, 207, x + 4, 207, w2)
     for y in range(181, 199):
         inset = (y - 181) // 6
-        for x in range(-98 + inset, -57 - inset):
-            cv.set(x, y, P[6] if y == 181 else P[5] if (x + 98) % 10 < 8 else P[4])
-    for cx in (-89, -66):
+        for x in range(-48 + inset, -7 - inset):
+            cv.set(x, y, P[6] if y == 181 else P[5] if (x + 48) % 10 < 8 else P[4])
+    for cx in (-39, -16):
         for y in range(196, 206):
             for x in range(cx - 4, cx + 5):
                 d = (x - cx) ** 2 + (y - 201) ** 2
                 if d <= 20: cv.set(x, y, P[6] if d <= 4 else P[3])
-    for x, y in ((-92, 178), (-85, 176), (-78, 178), (-71, 177), (-64, 179)):
+    for x, y in ((-42, 178), (-35, 176), (-28, 178), (-21, 177), (-14, 179)):
         for k in range(-3, 4): cv.rect(x + k, y + abs(k), x + k, 180, P[5])
         cv.set(x, y, P[7]); cv.set(x - 1, y + 1, P[6])
     # right: a ladder up the rock
     for y in range(40, 205):
-        cv.set(378, y, w1); cv.set(379, y, w2); cv.set(394, y, w1); cv.set(395, y, w2)
+        cv.set(330, y, w1); cv.set(331, y, w2); cv.set(346, y, w1); cv.set(347, y, w2)
         if y % 14 == 6:
-            cv.rect(380, y, 393, y, w0); cv.rect(380, y + 1, 393, y + 1, w2)
+            cv.rect(332, y, 345, y, w0); cv.rect(332, y + 1, 345, y + 1, w2)
     return cv
 
 

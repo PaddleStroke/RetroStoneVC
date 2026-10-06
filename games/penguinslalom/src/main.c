@@ -83,13 +83,20 @@ static void sound_init(void)
     ha_store(&s, SFX_HIT, ha_make(&s, HA_THUD));
     ha_hiss(&s, 0, 60, 20, 3);                  /* a soft wing rustle */
     ha_store(&s, SFX_LAND, 70);
+    for (int k = 0; k < 4; k++)                 /* a bear warned: a low rumble and a powder slide, swelling */
+        ha_tone(&s, ha_ms(k * 105), 96 - k * 6, 70 - k * 4, 140, 30 + k * 8, 90);
+    ha_hiss(&s, 0, 470, 26, 4);
+    ha_store(&s, SFX_RUMBLE, 480);
+    ha_tone(&s, 0, 150, 55, 140, 75, 60);      /* a bear lands: a soft heavy whump in the snow */
+    ha_hiss(&s, 0, 110, 30, 2);
+    ha_store(&s, SFX_WHUMP, 150);
     ha_init(SFX_HOUSE);                         /* HA_CONFIRM, HA_PAUSE, HA_MEDAL, HA_GAMEOVER... */
     ha_sound_on(opt_sound);
 }
 
 static void sfx_at(int id, int x)
 {
-    static const uint8_t vol[SFX_COUNT] = {HA_VOL_ACTION, HA_VOL_FEEDBACK, HA_VOL_CRASH, 50};
+    static const uint8_t vol[SFX_COUNT] = {HA_VOL_ACTION, HA_VOL_FEEDBACK, HA_VOL_CRASH, 50, HA_VOL_FEEDBACK, 64};
     ha_play_slot(id, vol[id], x, id == SFX_SCORE);
 }
 
@@ -148,6 +155,8 @@ static void play_update(void)
     }
     start_press = 0;
     world_step(&W, press);
+    if (W.bear_warned) sfx_at(SFX_RUMBLE, W.bear_warned);   /* a bear's warning shows: it rumbles from there */
+    if (W.bear_landed) sfx_at(SFX_WHUMP, W.bear_landed);
     for (int p = 0; p < W.players; p++) {
         int ev = W.events[p];
         const hero *h = &W.h[p];

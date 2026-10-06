@@ -97,11 +97,13 @@ static void sfx_at(int id, int x)
 /* ---- flow ----------------------------------------------------------------------------------------------------------- */
 static void go(int s) { st = s; st_t = 0; }
 static void touch_reset(void);
+static int arena_left(void), arena_right(void);
 
 static void new_run(int state)
 {
     uint32_t seed = opt_seed_fixed ? opt_seed : opt_seed ^ (uint32_t)rs_frame_count() * 2654435761u;
     world_init(&W, hu_players(), seed);
+    world_arena(&W, arena_left(), arena_right());   /* widescreen: the whole screen */
     new_best = 0; run_best = SV.best;
     touch_reset();
     go(state);
@@ -109,40 +111,42 @@ static void new_run(int state)
 
 static int is_bot(int p) { return p < opt_bot; }
 
-/* ---- touch (player 1; docs/spec.md "Touch", DESIGN.md "Touch"): the mole walks at its normal speed towards the
- * finger's x (the last one when it is lifted: a tap also sets the target), a quick tap shoots ------------------------ */
-#define TOUCH_STOP  2                         /* px: close enough to the target (a step is 2.7 px) */
+/* ---- touch (player 1; docs/spec.md "Touch", DESIGN.md "Touch"): the mole walks at its normal speed to the finger's
+ * x and stops exactly there (world goal_x: the last point stays the goal when the finger is lifted, so a tap also
+ * sends it there); a quick tap shoots ------------------------------------------------------------------------------ */
 #define TOUCH_FIRE  12                        /* frames a tap's shot waits for the harpoon to be ready */
-static int touch_on, touch_tx;                /* a target, its arena x (stage) */
 static int touch_fire;                        /* a tap's shot, still to fire (frames left) */
 
-static void touch_reset(void) { touch_on = touch_tx = touch_fire = 0; }
+static void touch_reset(void) { touch_fire = 0; W.goal_on[0] = 0; }
+/* a screen x as the x the mole can reach */
+static int arena_x(int screen_x)
+{
+    int x = screen_x - rs_screen_origin_x();
+    return x < W.left + 12 ? W.left + 12 : x > W.right - 12 ? W.right - 12 : x;
+}
 
-/* the buttons the touches give P1 this frame (0 without touches: the pad alone, unchanged) */
+/* P1's goal from the fingers; returns the buttons the touches press this frame (A: a tap's shot; 0 without touches) */
 static int touch_input(void)
 {
     const rs_touch_point *t = rs_touch_first();
     int x;
-    if (t) touch_on = 1, touch_tx = t->x - rs_screen_origin_x();
+    if (t) W.goal_on[0] = 1, W.goal_x[0] = arena_x(t->x);
     if (rs_touch_tap(&x, NULL)) {
-        touch_on = 1;
-        touch_tx = x - rs_screen_origin_x();
+        W.goal_on[0] = 1;
+        W.goal_x[0] = arena_x(x);
         touch_fire = TOUCH_FIRE;
     }
-    int in = 0;
-    if (touch_on) {
-        int tx = touch_tx < 12 ? 12 : touch_tx > 308 ? 308 : touch_tx;     /* the mole's range */
-        int d = tx - W.h[0].x;
-        if (d > TOUCH_STOP) in |= RS_BTN_RIGHT;
-        else if (d < -TOUCH_STOP) in |= RS_BTN_LEFT;
-        else if (!t) touch_on = 0;            /* reached, the finger lifted: done */
-    }
-    if (touch_fire) {
-        in |= RS_BTN_A;
-        touch_fire--;
-    }
-    return in;
+    if (W.goal_on[0] && !t && W.h[0].x == W.goal_x[0]) W.goal_on[0] = 0;   /* there, the finger lifted: done */
+    if (rs_pad(hu_player_pad(0)) & (RS_BTN_LEFT | RS_BTN_RIGHT)) W.goal_on[0] = 0;   /* the pad steers: it wins */
+    if (!touch_fire) return 0;
+    touch_fire--;
+    return RS_BTN_A;
 }
+
+/* the arena's walls: the whole screen (widescreen: inside the mine timbers drawn at its edges; 320: the edges) */
+#define WALL 6
+static int arena_left(void) { return rs_screen_width() > RS_SCREEN_W ? rs_screen_left() + WALL : 0; }
+static int arena_right(void) { return rs_screen_width() > RS_SCREEN_W ? rs_screen_right() - WALL : RS_SCREEN_W; }
 
 static int act_pressed(int p)
 {
@@ -295,17 +299,25 @@ static void game_shutdown(void)
         snprintf(hs + b, sizeof hs - b, "%s%d", p ? "," : "", W.h[p].state);
     }
     rs_log("state: st=%d players=%d score=%d score2=%d best=%d runs=%d hs=%s x=%d y=%d scroll=%d paused=%d hash=%08x "
-           "shot=%d panel=%d record=%d scores=%s",
+           "arena=%d,%d shot=%d panel=%d record=%d scores=%s",
            st, W.players, W.h[0].score, W.h[1].score, SV.best, runs_done, hs, W.h[0].x, (int)(W.h[0].y >> 16), (int)W.scroll,
-           paused, state_hash, W.h[0].shot, shown_best(), new_best, sc);
+           paused, state_hash, W.left, W.right, W.h[0].shot, shown_best(), new_best, sc);
 }
 
 /* ---- save states: the SDK saves the console; here are the game's objects (tools/state_audit.py checks them) ---- */
+/* after a state was loaded: one saved at another width brings that width's maps and arena (widescreen: the arena is
+ * the whole screen): this width's are set up, the marbles and moles kept inside the walls */
+static void game_state_loaded(void)
+{
+    draw_relayout();
+    if (W.left != arena_left() || W.right != arena_right()) world_arena(&W, arena_left(), arena_right());
+}
+
 #define S(v) rs_state_var("main." #v, &(v), sizeof(v))
 static void game_state(void)
 {
     S(W); S(st); S(st_t); S(paused); S(new_best); S(run_best); S(runs_done); S(start_press); S(state_hash);
-    S(touch_on); S(touch_tx); S(touch_fire);
+    S(touch_fire);
     S(opt_bot); S(opt_botstop); S(opt_botruns); S(opt_seed_fixed); S(opt_seed); S(opt_music); S(opt_sound);
     draw_state();
     hu_state();                                 /* the kit, with the title's lobby (who plays, on which pad) */
@@ -317,7 +329,7 @@ const rs_game *rs_game_main(void)
 {
     /* max_width: the game draws any width up to 560 (widescreen: DESIGN.md) */
     static const rs_game g = {"Mole Marbles", "molemarbles", "1.0.0", game_init, game_update, game_draw,
-                              game_shutdown, gm_assets, game_state, draw_relayout, 1, RS_SCREEN_W_MAX,
+                              game_shutdown, gm_assets, game_state, game_state_loaded, 1, RS_SCREEN_W_MAX,
                               1 /* touch_native: DESIGN.md "Touch" */};
     return &g;
 }

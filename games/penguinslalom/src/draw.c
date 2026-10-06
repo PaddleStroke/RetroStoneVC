@@ -135,6 +135,37 @@ static void flag(uint8_t *p,int x,int y,int dir,int blue,int t){
   rect(p,xx,top,xx,top+10,k==16?5:mid);pixel(p,xx,top,light);pixel(p,xx,top+9,dark);
  }
 }
+/* A bear's warning, at the very spot it will land (x, y): powder trickling down its lane from the top of the slope,
+ * the bear's whole footprint dashed from the first frame, a shadow growing in it and darkening, and a round "!" sign
+ * on a short post, which flashes red at the end. `left` frames of `len` remain. Snow colours and the house outline:
+ * it reads as neither a flag nor a tree. */
+static void bear_marker(uint8_t *p,int x,int y,int left,int len,int t){
+ int q=(len-left)*16/len,rx=6+q,ry=2+q*5/16;                    /* q: 0 .. 15 as the landing nears */
+ for(int k=0;k<9;k++){                                          /* powder sliding down the lane, three streams */
+  int lane=k%3-1,yy=(t*4+k*29+lane*11)%(y>12?y-12:1);
+  if(yy>y-24)continue;
+  rect(p,x+lane*9,yy,x+lane*9,yy+3,4);pixel(p,x+lane*9+1,yy+1,2);
+ }
+ for(int a=0;a<32;a++)if(((a+t/3)&3)<2){                         /* the bear's whole footprint, dashed, at once */
+  int c=ss_sine[(a*8+64)&255],s=ss_sine[(a*8)&255];
+  pixel(p,x+c*22/32767,y+s*7/32767,4);pixel(p,x+c*22/32767,y+1+s*7/32767,4);
+ }
+ oval(p,x,y,rx,ry,3);                                           /* its shadow grows and darkens */
+ if(q>=6)oval(p,x,y,rx*2/3,ry*2/3,4);
+ if(q>=11)oval(p,x,y,rx/3+1,ry/3+1,5);
+ int cy=y-17+(q<11?ss_sine[(t*8)&255]/32767:0),flash=q>=11 && (t&4);
+ oval(p,x,cy,8,8,5);oval(p,x,cy,7,7,flash?9:15);                /* the sign: navy rim, cream face (red, flashing) */
+ rect(p,x-1,cy-5,x+1,cy+1,flash?15:9);rect(p,x-1,cy+3,x+1,cy+5,flash?15:9);
+ rect(p,x+1,cy-5,x+1,cy+1,flash?13:11);rect(p,x+1,cy+3,x+1,cy+5,flash?13:11);
+ line(p,x,cy+9,x,y-ry-1,5);                                     /* on a short post, planted on the spot */
+}
+/* the snow a bear throws up as it lands (`age` frames ago) */
+static void bear_puff(uint8_t *p,int x,int y,int age){
+ if(age>=14)return;
+ static const int dir[6][2]={{-3,0},{3,0},{-2,-1},{2,-1},{-2,1},{2,1}};
+ int r=8+age*2,size=age<7?3:2;
+ for(int k=0;k<6;k++){int px=x+dir[k][0]*r/3,py=y+10+dir[k][1]*r/4;oval(p,px,py,size+1,size,3);oval(p,px,py-1,size,size-1,1);}
+}
 /* Widescreen: the slope beyond the 320 columns, drawn only there. Each bank goes on as a powder berm, then a snowy
  * forest: evergreens of the same style in lanes 24 px apart (stage x 4 mod 8) every 40 world px down the slope (24
  * screen px), and drifts, all scrolling with the course. The grid makes the trees that stand alone the same tiles
@@ -221,7 +252,11 @@ static void foreground(const world *w){
  for(int id=base>0?base-1:0;id<=base+2;id++){
   slope_obstacle o;course_obstacle(w,id,V.scroll,w->t,&o);obstacle(pixels,&o,w->t);
  }
- for(int i=0;i<MAX_BEARS;i++)if(w->bears[i].active){slope_obstacle o;bear_obstacle(w,i,0,&o);obstacle(pixels,&o,w->t);}
+ for(int i=0;i<MAX_BEARS;i++)if(w->bears[i].active){
+  const sliding_bear *b=&w->bears[i];slope_obstacle o;bear_obstacle(w,i,0,&o);
+  if(b->warn)bear_marker(pixels,o.x,course_y(o.distance),b->warn,b->warn_len,w->t);
+  else{obstacle(pixels,&o,w->t);bear_puff(pixels,o.x,course_y(o.distance),b->age);}
+ }
  for(int id=base>0?base-1:0;id<=base+2;id++){
   row r;course_row(w,id,&r);int y=course_y(r.distance);if(y<-30 || y>275)continue;
   flag(pixels,r.left,y,1,r.kind,w->t);flag(pixels,r.right,y,-1,r.kind,w->t);

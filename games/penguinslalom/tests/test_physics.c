@@ -33,23 +33,48 @@ static void course_checks(void){
  course_obstacle(&w,3,r.distance-180,0,&a);course_obstacle(&w,3,r.distance,25,&b);
  assert(b.distance==a.distance && b.x!=a.x && a.kind==PROP_GOAT);
  assert(obstacle_hits(&a,&b,a.x,b.x,a.distance,b.distance));
+ /* A bear is warned first: the marker keeps its spot on the screen (land px from the camera), harmless, for the
+  * warning's frames; then the bear lands there and slides down at BEAR_SLIDE px per frame relative, to the bottom. */
+ assert(bear_warn_time(0)==BEAR_WARN_EARLY && bear_warn_time(1<<30)==BEAR_WARN_LATE && BEAR_WARN_LATE>=BEAR_WARN_MIN);
+ for(int d=0;d<40000;d+=500)assert(bear_warn_time(d+500)<=bear_warn_time(d) && bear_warn_time(d)>=BEAR_WARN_MIN);
+ for(int n=1;n<=4;n++)assert(bear_land(n)<=player_offset(n,0)-SKI_FORWARD_RADIUS-24-BEAR_SLIDE*4 && bear_land(n)>=BEAR_LAND_TOP);
  world_init(&w,1,4);world_step(&w,start);w.bear_wait=1;
- world_step(&w,idle);assert(w.bears[0].active);int64_t first=w.bears[0].distance-w.travel;
- assert(first==-240*Q16_ONE);
- int x=w.bears[0].x;
- for(int t=0;t<160;t++){
-  int input[4]={bot_decide(&w,0)};world_step(&w,input);
-  assert(w.bears[0].active && w.bears[0].x==x);
-  assert(w.bears[0].distance-w.travel==first+(int64_t)(t+1)*3*Q16_ONE);
+ world_step(&w,idle);assert(w.bears[0].active && w.bear_warned==w.bears[0].x && !w.bear_landed);
+ const int warn=w.bears[0].warn,x=w.bears[0].x,land=bear_land(1);
+ assert(warn==BEAR_WARN_EARLY && w.bears[0].warn_len==warn && x>=BEAR_X_MIN && x<=BEAR_X_MAX);
+ assert(w.bears[0].distance-w.travel==(int64_t)land*Q16_ONE);
+ for(int t=1;t<=warn;t++){
+  w.h[0].state=HS_RUN;world_step(&w,idle);
+  assert(w.bears[0].active && w.bears[0].x==x && w.bears[0].warn==warn-t && !w.bear_warned);
+  assert(w.bears[0].distance-w.travel==(int64_t)land*Q16_ONE && !!w.bear_landed==(t==warn));
  }
- assert(w.bears[0].distance>w.travel+200*Q16_ONE);
- for(int t=0;t<20;t++){int input[4]={bot_decide(&w,0)};world_step(&w,input);}
- assert(!w.bears[0].active);
- /* An overtaking bear uses swept collision and never awards a gate ding. */
+ assert(w.bear_landed==x && w.bears[0].age==0);
+ for(int t=1;w.bears[0].active;t++){
+  w.h[0].state=HS_RUN;world_step(&w,idle);
+  if(w.bears[0].active)assert(w.bears[0].x==x && w.bears[0].age==t && w.bears[0].distance-w.travel==(int64_t)(land+BEAR_SLIDE*t)*Q16_ONE);
+  else assert(land+BEAR_SLIDE*t>BEAR_RETIRE && land+BEAR_SLIDE*(t-1)<=BEAR_RETIRE);
+ }
+ /* The marker is harmless, even right on the penguin; the bear is not, once it lands. An overtaking bear uses swept
+  * collision and never awards a gate ding. */
  world_init(&w,1,4);world_step(&w,start);w.bear_wait=10000;w.h[0].score=77;
- w.bears[0]=(sliding_bear){1,0,160,-40*Q16_ONE,-40*Q16_ONE};
+ w.bears[0]=(sliding_bear){.active=1,.x=160,.warn=2,.warn_len=2,.land=0,.distance=w.travel,.previous=w.travel};
+ world_step(&w,idle);assert(w.h[0].state==HS_RUN && w.bears[0].warn==1);
+ world_step(&w,idle);assert(w.bears[0].warn==0 && w.bear_landed==160 && w.h[0].state==HS_HIT && w.h[0].reason==2);
+ world_init(&w,1,4);world_step(&w,start);w.bear_wait=10000;w.h[0].score=77;
+ w.bears[0]=(sliding_bear){.active=1,.x=160,.distance=-40*Q16_ONE,.previous=-40*Q16_ONE};
  world_step(&w,idle);assert(w.h[0].state==HS_HIT && w.h[0].reason==2 && w.events[0]==EV_HIT && w.h[0].score==77);
  int64_t stopped=w.bears[0].distance;for(int t=0;t<50;t++)world_step(&w,idle);assert(w.bears[0].distance==stopped);
+ /* Warned bears land across the whole course, the first ones within a few seconds; the spots are the seed's. */
+ unsigned spots=0;int bears=0;
+ for(unsigned seed=1;seed<=8;seed++){
+  world c;world_init(&w,2,seed);world_init(&c,2,seed);world_step(&w,start);world_step(&c,start);
+  for(int t=0;t<3000;t++){
+   for(int p=0;p<2;p++){w.h[p].state=HS_RUN;c.h[p].state=HS_RUN;}
+   world_step(&w,idle);world_step(&c,idle);assert(w.bear_warned==c.bear_warned);
+   if(w.bear_warned){bears++;spots|=1u<<(w.bear_warned-24)*8/273;}
+  }
+ }
+ assert(spots==255 && bears>=40);
 }
 int main(void){world a,b,w;int idle[4]={0},start[4]={2},left[4]={-1},right[4]={1};
  course_checks();
@@ -57,19 +82,24 @@ int main(void){world a,b,w;int idle[4]={0},start[4]={2},left[4]={-1},right[4]={1
  world_step(&w,start);for(int t=0;t<5;t++)world_step(&w,left);assert(w.h[0].x<160);
  world_init(&w,1,4);world_step(&w,start);for(int t=0;t<5;t++)world_step(&w,right);assert(w.h[0].x>160);
  world_init(&w,1,4);world_step(&w,start);for(int t=0;t<900;t++)world_step(&w,idle);assert(world_all_down(&w));
+ /* Twelve seeded four-player courses, two minutes each, with four ordinary-input bots reading the screen (the
+  * bears' markers included): replays are identical; bears land on the racing line now, so a bot may fall, but
+  * nearly all of them finish and every one clears gates and fish first. */
+ int finished=0;
  for(unsigned seed=1;seed<=12;seed++){
   world_init(&a,4,seed);world_init(&b,4,seed);
   for(int t=0;t<7200;t++){int input[4];for(int p=0;p<4;p++)input[p]=bot_decide(&a,p);
    world_step(&a,input);world_step(&b,input);assert(!memcmp(&a,&b,sizeof a));
-   for(int p=0;p<4;p++)if(a.h[p].state!=HS_RUN){
-    printf("FAIL seed %u t %d p %d d %d x %d reason %d\n",seed,t,p,a.h[p].distance,a.h[p].x,a.h[p].reason);
-    int base=course_index(&a,a.h[p].distance);for(int id=base>0?base-1:0;id<=base+1;id++){slope_obstacle o;row gate;course_row(&a,id,&gate);course_obstacle(&a,id,a.scroll,a.t,&o);printf("obstacle %d kind %d x %d d %d; gate %d center %d left %d right %d\n",id,o.kind,o.x,o.distance,gate.distance,gate.center,gate.left,gate.right);}
-    for(int i=0;i<MAX_BEARS;i++)if(a.bears[i].active){slope_obstacle o;bear_obstacle(&a,i,0,&o);printf("bear x %d d %d\n",o.x,o.distance);}
-    return 1;
-   }}
-  for(int p=0;p<4;p++)assert(a.h[p].wx-a.travel==(int64_t)player_offset(4,p)*Q16_ONE);
-  assert(a.h[0].anchor>70 && a.h[0].apples>10);printf("seed %u: %d gates, %d fish, score %d\n",seed,a.h[0].anchor,a.h[0].apples,a.h[0].score);
+  }
+  printf("seed %2u:",seed);
+  for(int p=0;p<4;p++){
+   const hero *h=&a.h[p];printf(" P%d %s %d gates %d fish %d;",p+1,h->state==HS_RUN?"ran":"fell after",h->anchor,h->apples,h->score);
+   if(h->state==HS_RUN){finished++;assert(h->wx-a.travel==(int64_t)player_offset(4,p)*Q16_ONE && h->anchor>90 && h->apples>60);}
+   else assert(h->anchor>=20 && h->reason);
+  }
+  printf("\n");
  }
+ printf("%d of 48 bots finished the two minutes\n",finished);assert(finished>=40);
  row r;world_init(&w,1,4);world_step(&w,start);course_row(&w,0,&r);
  w.travel=(int64_t)(r.distance-1)*Q16_ONE;w.h[0].wx=w.travel;w.h[0].distance=r.distance-1;
  w.h[0].x=r.right+35;w.h[0].xx=w.h[0].x*Q16_ONE;w.h[0].score=77;
@@ -80,5 +110,5 @@ int main(void){world a,b,w;int idle[4]={0},start[4]={2},left[4]={-1},right[4]={1
  world_init(&w,1,4);world_step(&w,start);w.travel=(int64_t)(r.distance-1)*Q16_ONE;w.h[0].wx=w.travel;w.h[0].distance=r.distance-1;
  w.h[0].x=r.center;w.h[0].xx=r.center*Q16_ONE;world_step(&w,idle);
  assert(w.h[0].state==HS_RUN && w.h[0].anchor==1 && (w.events[0]&EV_SCORE) && (w.events[0]&EV_APPLE));
- puts("1000-point starting pace, fixed-height sideways goats, top-to-bottom overtaking bears and swept collisions, variable gates, smooth acceleration, fixed obstacle collisions, steering, immediate silent gate misses, frozen course, valid gates, shared speed and 12 seeded four-player courses passed");return 0;
+ puts("1000-point starting pace, fixed-height sideways goats, warned bears landing across the course and sliding over the lineup, swept collisions, variable gates, smooth acceleration, fixed obstacle collisions, steering, immediate silent gate misses, frozen course, valid gates, shared speed and 12 seeded four-player courses passed");return 0;
 }

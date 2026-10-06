@@ -16,9 +16,12 @@ typedef struct hero {int state,t,x,old_x,score;int32_t xx,y,vy;int shot,shot_x,s
 typedef struct marble {int active,size,grace,hue;int32_t x,y,vx,vy,px,py;} marble;
 typedef struct fragment {int t,x,y,vx,vy,hue;} fragment;
 typedef struct arrival {int size,x,hue;} arrival;
-typedef struct world {hero h[4];marble balls[MAX_BALLS];fragment fx[MAX_FX];uint32_t seed,rng;int players,t,started,scroll;int events[4];int spawn_wait,warning,warning_x,warning_size,warning_hue,freeze,total_hits,spawns,pace,empty_frames,warning_count;arrival incoming[3];} world;
+typedef struct world {hero h[4];marble balls[MAX_BALLS];fragment fx[MAX_FX];uint32_t seed,rng;int players,t,started,scroll;int events[4];int spawn_wait,warning,warning_x,warning_size,warning_hue,freeze,total_hits,spawns,pace,empty_frames,warning_count;arrival incoming[3];int left,right,goal_on[4],goal_x[4];} world;
+/* the arena: stage x left..right (0..320 by world_init; widescreen: the whole screen, world_arena); goal_on[p]: player
+ * p walks at its normal speed to goal_x[p] (touch: the finger's x) unless its pad steers */
 enum {EV_JUMP=1,EV_SCORE=2,EV_HIT=4,EV_LAND=8,EV_START=16};
 void world_init(world*,int,uint32_t);
+void world_arena(world*,int left,int right);   /* widescreen: the walls; the marbles and moles inside are kept inside */
 void world_step(world*,const int[4]);
 int world_running(const world*);
 int world_all_down(const world*);

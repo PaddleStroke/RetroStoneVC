@@ -16,15 +16,19 @@ penguinslalom-dist:
 	+$(PENGUINSLALOM_MAKE) dist
 penguinslalom-art:
 	$(PYTHON) games/penguinslalom/tools/make_art.py
-build/host/penguinslalom_physics: games/penguinslalom/src/play.c games/penguinslalom/src/game.h games/penguinslalom/src/sine.h games/penguinslalom/tests/test_physics.c
+build/host/penguinslalom_physics: games/penguinslalom/src/play.c games/penguinslalom/src/game.h games/penguinslalom/src/tuning.h games/penguinslalom/src/sine.h games/penguinslalom/tests/test_physics.c
 	$(HOST_CC) $(CSTD) $(OPT) $(WARN) -Isdk/include -Igames/penguinslalom/src games/penguinslalom/src/play.c games/penguinslalom/tests/test_physics.c -o $@
+# the bears are fair: every bear the generator warns, proved on the exact steering (tests/test_fair.c, DESIGN.md)
+build/host/penguinslalom_fair: games/penguinslalom/src/play.c games/penguinslalom/src/game.h games/penguinslalom/src/tuning.h games/penguinslalom/src/sine.h games/penguinslalom/tests/test_fair.c
+	$(HOST_CC) $(CSTD) $(OPT) $(WARN) -Isdk/include -Igames/penguinslalom/src games/penguinslalom/src/play.c games/penguinslalom/tests/test_fair.c -o $@
 build/host/penguinslalom_views: games/penguinslalom/tests/test_views.c $(PENGUINSLALOM_OBJS) build/host/build/gen/penguinslalom/assets.o build/host/build/gen/penguinslalom/game_text.o build/host/librs.a
 	$(HOST_CC) $(CSTD) $(OPT) $(WARN) -Isdk/include -Igames/penguinslalom/src -Igames/common/src $^ -lm -o $@
 build/host/penguinslalom_review: games/penguinslalom/tests/review_scenes.c $(PENGUINSLALOM_OBJS) build/host/build/gen/penguinslalom/assets.o build/host/build/gen/penguinslalom/game_text.o build/host/sdk/frontends/common/rs_desktop.o build/host/librs.a
 	$(HOST_CC) $(CSTD) $(OPT) $(WARN) -Isdk/include -Isdk/frontends/common -Igames/penguinslalom/src -Igames/common/src $^ -lm -o $@
 penguinslalom-check:
-	+$(PENGUINSLALOM_MAKE) host build/host/test_libretro build/host/penguinslalom_test_states build/host/penguinslalom_physics build/host/penguinslalom_views
+	+$(PENGUINSLALOM_MAKE) host build/host/test_libretro build/host/penguinslalom_test_states build/host/penguinslalom_physics build/host/penguinslalom_fair build/host/penguinslalom_views
 	./build/host/penguinslalom_physics
+	./build/host/penguinslalom_fair
 	./build/host/penguinslalom_views
 	./build/host/test_libretro build/host/penguinslalom_libretro.so 600
 	$(PYTHON) games/penguinslalom/tests/check_game.py

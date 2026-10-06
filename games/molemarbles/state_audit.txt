@@ -3,3 +3,6 @@
 # the house kit's hu_state() and ha_state()).
 main.snd_buf        sound_init(): the synthesis buffer (the samples are made at start-up, not saved)
 main.SV             the battery save's copy (best scores, medals): stays in the .srm, a state never takes it back
+draw.fbuf           field(): the marbles' layer drawn in pixels, scratch, made again every frame
+draw.fb_w           field(): its width (the screen's), set every frame
+draw.fb_ox          field(): its stage origin (rs_screen_origin_x()), set every frame

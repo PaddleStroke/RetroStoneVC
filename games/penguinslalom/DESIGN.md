@@ -33,14 +33,9 @@ appear between gates. Most sit beside the turning line; some obstacles on longer
 straighter stretches require a deliberate sidestep. Goats trot left and right
 along a fixed contour, with no vertical motion of their own.
 
-Polar bears are separate moving hazards. They enter above the screen and slide
-downhill three world pixels per frame faster than the penguins (1.8 screen pixels
-per frame relative to the camera), leaving a wake behind them. They overtake the
-entire lineup and leave below the screen without looping or teleporting. Seeded
-passing lanes account for nearby gates and fixed-obstacle escape routes; unsafe
-combinations defer the next bear. Every player checks the same actual bear
-position. Bears freeze with the course when the last penguin falls.
-Swept ellipse collisions check relative motion each frame, ending the run
+Polar bears are separate moving hazards that land anywhere across the course,
+each announced about a second ahead at the very spot it lands on (below, "Polar
+bears"). Swept ellipse collisions check relative motion each frame, ending the run
 immediately with CRASH! and only the hit sound. The original penguin and flag
 graphics are preserved.
 
@@ -62,12 +57,78 @@ Trail history, simulation, presentation, UI and audio are saved for deterministi
 replay; battery best scores remain outside save states.
 
 Validation covers the measured faster starting pace, varied widths and spacing,
-smooth acceleration, fixed-height goat motion, exact relative bear speed from
-top to bottom, off-screen bear retirement, swept bear and fixed-obstacle
+smooth acceleration, fixed-height goat motion, the bears' warning, landing spot,
+exact relative speed and retirement, swept bear and fixed-obstacle
 collisions, the exact missed-gate frame, absence of success events on a
 miss, frozen course motion, valid scoring, steering, twelve two-minute courses
-with four ordinary-input bots, shared-screen visibility at identical x, title
-continuity, actual keyboard input, pause, SRAM, libretro and save-state replay.
+with four ordinary-input bots, the bears' fairness proof, shared-screen visibility
+at identical x, title continuity, actual keyboard input, pause, SRAM, libretro and
+save-state replay.
+
+## Polar bears
+The owner's playtest: bears only fell on the sides, and fast. Now they land anywhere
+on the course, and each is announced at its landing spot first. All the numbers
+are in src/tuning.h.
+- **The warning** (BEAR_WARN_EARLY 60 frames, shrinking with the distance to
+  BEAR_WARN_LATE 50, never under BEAR_WARN_MIN 40): at the very spot the bear will
+  land, the bear's whole footprint is dashed on the snow from the first frame, a
+  shadow grows in it and darkens, powder slides down its lane from the top of the
+  screen, and a round sign on a short post (navy rim, cream face, red "!") stands
+  over it, flashing red for the last frames. Snow colours and the house outline,
+  unlike the flags (cloth on poles) and the trees; the sign is 17 px wide, so it
+  reads at 1x and at the phone's scale. A low rumble with a powder hiss plays as it
+  appears (panned to it), a soft whump when the bear lands, throwing up a ring of
+  snow puffs. The marker itself is harmless.
+- **Where**: the spot keeps its place on the screen, BEAR_LAND_GAP 75 world px
+  above the uphill-most penguin (screen y 67 with one player: its sign under the
+  HUD; never above y 43). The bear then slides straight down its lane BEAR_SLIDE 3
+  world px per frame faster than the penguins (1.8 screen px per frame), over the
+  whole lineup, and leaves below the screen. Every player checks the same bear.
+- **Anywhere, seeded**: a warning is either aimed at the racing line (the line
+  through the gates' centres, where the bear will cross the penguins; within 40 px
+  early, 12 px late, then further out on alternate sides, BEAR_STEP_OUT 12 px at a
+  time, until a spot is fair) or anywhere across the course (centres 40..280: its
+  body stays on the course's 24..296, never in the widescreen margins). The share
+  aimed ramps from 30 % to 85 % over BEAR_RAMP 24,000 world px (the speed's ramp),
+  the gap between warnings from 330..480 to 170..250 frames: more bears, closer to
+  the line (measured: 2.4 times as many bears, 41 px from the line on average
+  instead of 54). Up to BEAR_TRIES 12 seeded spots per warning, the first fair one
+  taken; none fair: try again 20 frames on.
+- **Fair, checked in the game** (play.c bear_fair, about 0.5 ms on a PC with 4
+  players): over the course's 4-px columns, 4-frame steps and speeds (inertia:
+  2 px per frame of change per step at most), from the moment the player has
+  reacted (BEAR_REACT 16 frames after the marker) until 100 frames after the bear
+  has passed the last penguin. Every "comfortable" state, one that can follow the
+  course and the bears already warned never faster than 3 px per frame sideways,
+  must keep a dodge of the new bear at the penguin's full 4 px per frame, ending
+  comfortable again; the course 4 px wider for both, swept through, the new bear
+  14 px wider and 2 steps longer at both ends; for every player of the lineup. That
+  is the only rule: a bear may land on the racing line, cross a gate or pass a
+  goat, as long as the dodge exists.
+- **Fair, proved** (tests/test_fair.c, in the check): every bear the generator
+  warns on seeded courses (1 to 4 players, runs from the start and from 9,000,
+  18,000 and 30,000 px) is proved on the exact steering of world_step (the same
+  integers, swept ellipses, gates and poles, the course's and the bears' own
+  frames): every comfortable state (x and lateral speed; never faster than 3 px per
+  frame, keeping 6 px from everything) keeps a path through the next gates and past
+  the bear, holding Left / Right / nothing for 4 frames at a time (15 decisions a
+  second), 2 px clear of everything and 8 px clear of the new bear. 264 bears, 1.73
+  million comfortable states, none trapped, in about 10 s (`--long`, 5x: 1,301
+  bears, 8.3 million states, none); of 120 random spots (600), every one the game
+  accepts is proved fair (it turns down about 1 in 4, a few of them truly unfair).
+  It also checks the warnings (>= 40 frames), that the spots cover the whole course,
+  and the ramp (more bears late, nearer the line).
+- **The bot** (bot_decide, a test hook) plays from what the screen shows: the
+  gates and obstacles down to the bottom of the screen, the bears' markers (the
+  spot; the time left, by the marker's size) and the sliding bears. It plans over
+  the same columns, steps and speeds (inertia included, keeping 14 px of room where
+  it can, planning at 3 px per frame) and holds Left / Right towards the plan.
+  Its distances in world px, to a 20-minute cap (334,000 px). Before (the old
+  side-lane bears, which it read from the game's state): 1 player, 200 runs, 192
+  reached the cap, the 8 falls all on obstacles, the shortest 19,961; 4 bots, 50
+  courses, 190 of 200 reached it. Now: 1 player, 100 runs, 91 reach the cap, the
+  shortest 64,525 (3 falls on bears, 6 on obstacles); 4 bots, 25 courses, 83 of
+  100 reach it, 10 % fall before 138,500 (9 on bears, 8 on obstacles).
 
 ## Widescreen (docs/spec.md "Widescreen")
 The game opts in (`max_width` = 560, `WIDESCREEN_penguinslalom = 1`): 320 x 240 is

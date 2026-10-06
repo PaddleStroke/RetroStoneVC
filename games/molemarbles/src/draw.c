@@ -10,19 +10,22 @@ static const rs_color ramps[2][3]={{RS_RGB8(255,225,157),RS_RGB8(227,174,85),RS_
 static const rs_color field_pal[16]={0,RS_RGB8(29,29,55),RS_RGB8(255,238,194),RS_RGB8(246,255,248),RS_RGB8(255,181,210),RS_RGB8(222,99,157),RS_RGB8(117,53,119),RS_RGB8(174,246,205),RS_RGB8(74,193,155),RS_RGB8(35,109,121),RS_RGB8(168,220,254),RS_RGB8(91,156,232),RS_RGB8(57,80,154),RS_RGB8(255,226,121),RS_RGB8(199,140,67),RS_RGB8(33,34,57)};
 static rs_color lines[240];
 static void raster(int y,void*user){(void)user;rs_pal_set(0,lines[y]);}
-static void pixel(uint8_t*p,int x,int y,int c){if(x>=0&&x<320&&y>=0&&y<240)p[y*320+x]=(uint8_t)c;}
-static void rect(uint8_t*p,int x0,int y0,int x1,int y1,int c){if(x0<0)x0=0;if(y0<0)y0=0;if(x1>319)x1=319;if(y1>239)y1=239;for(int y=y0;y<=y1;y++)for(int x=x0;x<=x1;x++)pixel(p,x,y,c);}
+/* the marbles' layer is drawn in pixels (stage coordinates), one screen wide: fb_w columns, stage x -fb_ox .. */
+static int fb_w=320,fb_ox;
+static uint8_t fbuf[RS_SCREEN_W_MAX*240];
+static void pixel(uint8_t*p,int x,int y,int c){x+=fb_ox;if(x>=0&&x<fb_w&&y>=0&&y<240)p[y*fb_w+x]=(uint8_t)c;}
+static void rect(uint8_t*p,int x0,int y0,int x1,int y1,int c){if(x0<-fb_ox)x0=-fb_ox;if(y0<0)y0=0;if(x1>fb_w-1-fb_ox)x1=fb_w-1-fb_ox;if(y1>239)y1=239;for(int y=y0;y<=y1;y++)for(int x=x0;x<=x1;x++)pixel(p,x,y,c);}
 static void ellipse(uint8_t*p,int cx,int cy,int rx,int ry,int c){for(int y=-ry;y<=ry;y++)for(int x=-rx;x<=rx;x++)if(x*x*ry*ry+y*y*rx*rx<=rx*rx*ry*ry)pixel(p,cx+x,cy+y,c);}
 static void spr(int id,int x,int y,int pal,int flip){const gm_sprite_def*d=&gm_spr[id];if(x<=rs_screen_left()-(int)d->w||x>=rs_screen_right()||y<=-(int)d->h||y>=240)return;rs_spr(x,y,d->tile,d->w,d->h,pal,2,flip?RS_SPR_HFLIP:0);}
-/* Widescreen (DESIGN.md "Widescreen"): a screen wider than 320 centres the 320-px arena (rs_screen_origin) and shows
- * more of the cavern on both sides: BG3 becomes a 128-tile map of the 1024-px cavern (its own tiles and palette, the
- * ground's tiles after them): two mine timbers just outside the arena show its walls (the marbles bounce there as
- * they always did), a lantern, a mine cart and a ladder beyond them. The UI layer is 128 tiles wide; the marbles'
- * layer (BG2) keeps its 40 columns over the arena. */
+/* Widescreen (DESIGN.md "Widescreen"): the stage stays centred (rs_screen_origin) and the arena is the whole screen
+ * (main.c world_arena), its walls two timbers at the screen's edges (timbers()). BG3 becomes a 128-tile map of the
+ * 1024-px cavern (its own tiles and palette, the ground's tiles after them) with a lantern, a mine cart and a ladder
+ * as background art; the UI layer is 128 tiles wide; the marbles' layer (BG2) is drawn one screen wide. */
+static void timber_init(void);
 static int laid_w;     /* the width the maps were laid out for (a state of another width: draw_relayout) */
 static void maps_setup(void){
  int wd=rs_screen_width()>RS_SCREEN_W,mw=wd?128:64,n=wd?gm_hills_wide_tile_count:gm_bg3_tile_count,cols=wd?128:40;
- rs_bg_setup(RS_BG1,mw,32,VR_BG1);rs_bg_setup(RS_BG2,64,32,VR_BG2);rs_bg_setup(RS_BG3,mw,32,VR_BG3);
+ rs_bg_setup(RS_BG1,mw,32,VR_BG1);rs_bg_setup(RS_BG2,rs_screen_width()>512?128:64,32,VR_BG2);rs_bg_setup(RS_BG3,mw,32,VR_BG3);
  rs_tiles_load(VR_BG3,wd?gm_hills_wide_tiles:gm_bg3_tiles,n);rs_tiles_load(VR_BG3+n,gm_bg2_tiles,gm_bg2_tile_count);
  rs_pal_load(RS_PAL_BG(PAL_HILLS),wd?gm_hills_wide_pal:gm_hills_pal,16);
  for(int y=0;y<26;y++)for(int x=0;x<cols;x++)rs_bg_put(RS_BG3,x,y,wd?gm_hills_wide_map[y*128+x]:gm_hills_map[y*64+x]);
@@ -40,8 +43,27 @@ void draw_init(void){
  uint8_t zero[64]={0};rs_tiles_load8(VR_BG2,zero,1);
  for(int i=0;i<3;i++)rs_bg_enable(i,1);
  rs_obj_base(VR_OBJ);rs_tiles_load(VR_OBJ,gm_obj_tiles,gm_obj_tile_count);rs_pal_load(RS_PAL_OBJ(0),gm_obj_pals,48);rs_pal_load(RS_PAL_OBJ(4),gm_obj_pals+64,32);
+ if(rs_screen_width()>RS_SCREEN_W)timber_init();
  for(int y=0;y<240;y++)lines[y]=RS_RGB8(26+y/40,30+y/40,50+y/30);
  rs_raster(raster,NULL);
+}
+/* Widescreen: the arena is the whole screen; its walls are two squared mine timbers at the screen's edges (WALL px of
+ * them in view; main.c keeps the marbles and moles inside), sprites on palette 7: an 8x64 strip with an iron band,
+ * drawn at runtime (OBJ tiles TIMBER_TILE..+7, after the game's and the kit's sprites). */
+#define TIMBER_TILE 1000
+#define TIMBER_PAL 7
+static void timber_init(void){
+ static const rs_color pal[6]={0,RS_RGB8(150,104,62),RS_RGB8(112,74,44),RS_RGB8(78,50,34),RS_RGB8(97,114,132),RS_RGB8(60,65,85)};
+ rs_pal_load(RS_PAL_OBJ(TIMBER_PAL),pal,6);
+ uint8_t px[8*64];
+ for(int y=0;y<64;y++)for(int x=0;x<8;x++)px[y*8+x]=(uint8_t)(y==30?4:y==31?5:x==0?1:x==7?3:2);
+ rs_tiles_load8(VR_OBJ+TIMBER_TILE,px,8);
+}
+static void timbers(void){
+ if(rs_screen_width()<=RS_SCREEN_W)return;
+ int l=rs_screen_left()-2,r=rs_screen_right()-6;   /* 6 of the 8 px in view: the walls are 6 px in (main.c WALL) */
+ for(int y=0;y<192;y+=64){rs_spr(l,y,TIMBER_TILE,8,64,TIMBER_PAL,2,0);rs_spr(r,y,TIMBER_TILE,8,64,TIMBER_PAL,2,RS_SPR_HFLIP);}
+ rs_spr(l,192,TIMBER_TILE,8,16,TIMBER_PAL,2,0);rs_spr(r,192,TIMBER_TILE,8,16,TIMBER_PAL,2,RS_SPR_HFLIP);
 }
 static void ball_draw(uint8_t*p,const marble*b){
  int x=b->x/Q16_ONE,y=b->y/Q16_ONE,r=ball_radius(b->size),base=4+3*b->hue;
@@ -59,7 +81,7 @@ static void ball_draw(uint8_t*p,const marble*b){
 
 }
 static void field(const world*w){
- uint8_t pixels[320*240]={0};
+ fb_w=rs_screen_width();fb_ox=rs_screen_origin_x();uint8_t*pixels=fbuf;memset(fbuf,0,(size_t)fb_w*240);
  for(int p=0;p<w->players;p++){
   const hero*h=&w->h[p];if(h->state==HS_RUN&&h->shot){int c=p==0?13:p==1?10:p==2?4:7,x=h->shot_x,y=h->shot_y;
    for(int yy=y+5;yy<GROUND_Y-10;yy++){pixel(pixels,x-1,yy,1);pixel(pixels,x,yy,c);pixel(pixels,x+1,yy,yy%4?2:c);}
@@ -69,11 +91,13 @@ static void field(const world*w){
  }
  for(int i=0;i<MAX_BALLS;i++)if(w->balls[i].active)ball_draw(pixels,&w->balls[i]);
  for(int i=0;i<MAX_FX;i++)if(w->fx[i].t){const fragment*f=&w->fx[i];if(f->t>8||w->t%2)rect(pixels,f->x,f->y,f->x+1,f->y+1,4+3*f->hue);}
- if(w->warning)for(int n=0;n<w->warning_count;n++){int x=w->incoming[n].x;ellipse(pixels,x,30,ball_radius(w->incoming[n].size)+3,3,14);for(int d=0;d<7;d++){pixel(pixels,x-d,38+d,13);pixel(pixels,x+d,38+d,13);}rect(pixels,x-1,35,x+1,44,3);}
+ /* a marble about to drop: its oval on the ceiling */
+ if(w->warning)for(int n=0;n<w->warning_count;n++){int x=w->incoming[n].x;ellipse(pixels,x,30,ball_radius(w->incoming[n].size)+3,3,14);}
  int next=1;
- for(int row=0;row<30;row++)for(int col=0;col<40;col++){
-  uint8_t tile[64];int ink=0;for(int y=0;y<8;y++)for(int x=0;x<8;x++){tile[y*8+x]=pixels[(row*8+y)*320+col*8+x];ink|=tile[y*8+x];}
-  int id=0;if(ink){id=next++;rs_tiles_load8(VR_BG2+id,tile,1);}rs_bg_put(RS_BG2,col,row,RS_MAP(id,4,0,0,0));
+ int cols=(fb_w+7)/8;   /* BG2 is scrolled so that its column 0 is the screen's */
+ for(int row=0;row<30;row++)for(int col=0;col<cols;col++){
+  uint8_t tile[64];int ink=0;for(int y=0;y<8;y++)for(int x=0;x<8;x++){int bx=col*8+x;tile[y*8+x]=bx<fb_w?pixels[(row*8+y)*fb_w+bx]:0;ink|=tile[y*8+x];}
+  int id=0;if(ink&&next<512){id=next++;rs_tiles_load8(VR_BG2+id,tile,1);}rs_bg_put(RS_BG2,col,row,RS_MAP(id,4,0,0,0));
  }
 }
 static void icon(int p,int x,int y,int t,void*user){(void)t;(void)user;spr(SPR_HERO_ICON,x-8,y-8,hu_player_pal(p),0);}
@@ -82,6 +106,7 @@ void draw_frame(const world*w,int state,int t,int best,int new_best,int paused){
  for(int p=0;p<w->players;p++){const hero*h=&w->h[p];if(h->state==HS_DOWN&&h->t>70)continue;int id=h->state==HS_HIT||h->state==HS_DOWN?SPR_HERO_HIT:SPR_HERO_IDLE+(h->state==HS_RUN&&((w->t/8)%2));
   spr(id,h->x-16,GROUND_Y-31,hu_player_pal(p),h->facing<0);
  }
+ timbers();   /* widescreen: the walls, behind the moles */
  int scores[4];for(int p=0;p<w->players;p++)scores[p]=w->h[p].score;hu_standing rank;hu_rank(&rank,w->players,scores,scores);int slide=state==ST_OVER?hu_slide_in(t,20,200):0;
  if(state==ST_TITLE){
   hu_logo("MOLE MARBLES",ramps,2,2,0);hu_title_draw(t,best);hu_title_sprites(t,icon,NULL);
@@ -94,7 +119,7 @@ void draw_frame(const world*w,int state,int t,int best,int new_best,int paused){
   if(w->players==1){static const int medals[4]=MEDAL_SCORES;hu_banner(4,HTR(GAME_OVER));hu_gameover_panel(1,new_best,scores[0],0);hu_gameover_sprites(1,scores[0],0,best,hu_medal_of(scores[0],medals),t,slide);hu_retry_line(t,RETRY_LOCK,HTR(BACK_TITLE));}
   else{hu_results_panel(&rank,NULL);hu_results_sprites(&rank,t,slide);for(int i=0;i<rank.n;i++){int x,y;hu_results_icon_pos(&rank,i,&x,&y);spr(SPR_HERO_ICON,x-8,y-8+slide,hu_player_pal(rank.order[i]),0);}hu_retry_line_at(hu_results_retry_row(&rank),t,RETRY_LOCK,HTR(BACK_TITLE));}
  }
- rs_bg_scroll(RS_BG1,0,-slide);rs_bg_scroll(RS_BG2,0,0);rs_bg_scroll(RS_BG3,0,0);
+ rs_bg_scroll(RS_BG1,0,-slide);rs_bg_scroll(RS_BG2,rs_screen_margin(),0);rs_bg_scroll(RS_BG3,0,0);
 }
 void draw_state(void){rs_state_var("draw.lines",lines,sizeof lines);rs_state_var("draw.laid_w",&laid_w,sizeof laid_w);RS_STATE_RASTER(raster);}
 
