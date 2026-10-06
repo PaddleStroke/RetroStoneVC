@@ -10,9 +10,12 @@
  *           waits for a touch or a button (the play sign) so the player is ready
  *   leave   Back (Android), Esc (desktop), the pad's Guide button: <id>.state and <id>.srm are written, the launcher
  *           starts; the same when the app goes to the background (rsb_suspend), without leaving the game
+ * A game launched from the menu that comes back to it also counts for the review prompt (rsb_review.h): its best
+ * score before and after the run tells a new best; <save_dir>/review.cfg keeps the counters.
  */
 #include "rsb.h"
 #include "rs_desktop.h"
+#include "rsb_review.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -34,6 +37,8 @@ static int held, quit, want_width = 320, cur_width = 320;
 static int sram_timer;
 static const char *store_req;
 static char store_market[256];
+static rsb_review review;                       /* the review prompt's counters (review.cfg) */
+static int review_req, from_menu, best_before;  /* a request for the frontend; the running game's launch */
 
 /* input bookkeeping */
 static rsb_pointer ptr;
@@ -160,8 +165,32 @@ static void stop_current(void)
     rs_host_shutdown();
 }
 
+/* a game launched from the menu came back to it: count it, maybe ask for a review (the frontend, in the menu) */
+static void review_game_ended(int g, int after)
+{
+    char p[1200];
+    file_path(p, sizeof p, "review", ".force");
+    FILE *f = fopen(p, "rb");                   /* the debug flag: <saves>/review.force or RSB_REVIEW_FORCE=1 */
+    const char *env = getenv("RSB_REVIEW_FORCE");
+    int force = f || (env && *env && *env != '0');
+    if (f) fclose(f);
+    int new_best = best_before > 0 && after > best_before;
+    int why = rsb_review_game_ended(&review, rsb_review_today(), new_best, force);
+    file_path(p, sizeof p, "review", ".cfg");
+    if (rsb_review_save(&review, p)) say("cannot write %s%s", p, "");
+    char s[200];
+    snprintf(s, sizeof s, "review: %s best %d -> %d; %d games on %d days, %d returns, %d requests%s", rsb_games[g].id,
+             best_before, after, review.games, review.days, review.returns, review.asks,
+             why == RSB_REVIEW_ASK_BEST ? ": ask (a new best)" : why == RSB_REVIEW_ASK_RETURNS ? ": ask (the 10th return)"
+             : why == RSB_REVIEW_ASK_FORCED ? ": ask (forced)" : "");
+    say("%s%s", s, "");
+    if (why) review_req = 1;
+}
+
 static void start(int g, int fresh)
 {
+    int ended = cur >= 0 && g < 0 && from_menu ? cur : -1;     /* a game back to the menu: its best now */
+    int after = ended >= 0 ? rsb_best(cur) : -1;
     stop_current();
     fresh_start(&rsb_module_house, snap_house.data, snap_house.n);
     memset(rs_host_sram(), 0, RS_SRAM_SIZE);
@@ -174,6 +203,7 @@ static void start(int g, int fresh)
         rs_i18n_register(launcher_pack);        /* its strings, in the player's language */
         rs_host_init(rsb_launcher_game());
         cur_width = rs_screen_width();
+        if (ended >= 0) review_game_ended(ended, after);
     } else {
         const rsb_entry *e = &rsb_games[g];
         fresh_start(e->module, snap_game[g].data, snap_game[g].n);
@@ -181,6 +211,8 @@ static void start(int g, int fresh)
         file_path(p, sizeof p, e->id, ".srm");
         rsd_sram_load(p);
         rs_host_sram_dirty(1);
+        from_menu = cur == RSB_LAUNCHER;
+        best_before = rsb_best(g);              /* (from its file: it is not the running program yet) */
         cur = g;
         last_game = g;
         say("start: %s%s", e->id, fresh ? " (fresh)" : "");
@@ -222,6 +254,10 @@ int rsb_init(const char *dir, int width)
             if (rsb_games[g].module) snapshot(rsb_games[g].module, &snap_game[g].data, &snap_game[g].n);
     }
     quit = held = 0;                            /* (Android may run main() again in the same process) */
+    char p[1200];
+    file_path(p, sizeof p, "review", ".cfg");
+    rsb_review_load(&review, p);
+    review_req = from_menu = 0;
     pending = -2;
     nconsumed = 0;
     memset(&ptr, 0, sizeof ptr);
@@ -281,6 +317,12 @@ const char *rsb_store_request(void)
     return r;
 }
 const char *rsb_store_fallback(void) { return rsb_paid_url; }
+int rsb_review_request(void)
+{
+    int r = review_req;
+    review_req = 0;
+    return r;
+}
 
 void rsb_suspend(void)
 {

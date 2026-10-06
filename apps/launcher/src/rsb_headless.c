@@ -28,7 +28,7 @@
  *     <frame> suspend                    the app goes to the background and comes back (the game is held)
  *     <frame> log                        prints the running program and a hash of the picture
  *     <frame> start <id|launcher> [fresh]  starts a program now (fresh: the game ignores its saved state)
- * Every switch of program is printed ("start: <id>").
+ * Every switch of program is printed ("start: <id>"), and a review request ("would ask for a review").
  */
 #include "rsb.h"
 #include "rs_desktop.h"
@@ -204,6 +204,7 @@ int main(int argc, char **argv)
         }
         if (lift) { /* the finger is seen up after this frame: a tap lasts at least one frame */ }
         rsb_frame(&in, &view);
+        if (rsb_review_request()) printf("frame %d: would ask for a review (%s)\n", f, rsb_current_id());
         const char *url = rsb_store_request();
         if (url) printf("frame %d: open %s (else %s)\n", f, url, rsb_store_fallback());
         for (int s = 0; s < nshots; s++)

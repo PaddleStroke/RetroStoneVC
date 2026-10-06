@@ -143,6 +143,9 @@ void rsb_back_rect(float aspect, float *x, float *y, float *w, float *h);
 int  rsb_wants_quit(void);
 const char *rsb_store_request(void);    /* a store URL the frontend must open now (then NULL), market:// first */
 const char *rsb_store_fallback(void);   /* the https URL when market:// cannot be opened */
+/* 1 once when the frontend must ask Google Play for a review now (the player is back in the menu: rsb_review.h);
+ * Android: the Play In-App Review API (ArcadeActivity.requestReview); elsewhere a log line only */
+int  rsb_review_request(void);
 /* Saves the running game's save RAM (if changed) and save state: the app goes to the background or quits. */
 void rsb_suspend(void);
 void rsb_shutdown(void);

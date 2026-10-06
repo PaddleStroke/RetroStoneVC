@@ -10,7 +10,8 @@
 # 2. The app's flow with touches: launcher -> tap a card -> the game (taps = its pad) -> Back saves its state ->
 #    another game -> Back -> the first game again: it resumes where it was (the same picture), held until a tap;
 #    free: a locked card opens "Get the full version", its button asks for the Play Store page, Back closes it;
-#    full: no locked card, no store request. Back in the menu quits.
+#    full: no locked card, no store request. Back in the menu quits. The review prompt counts each return to the
+#    menu and asks nothing yet; with its debug flag (<saves>/review.force) it asks once back in the menu.
 # 3. Credits & licences: the "i" opens the list, a line its licence's text, a drag scrolls it, Back, Back, Back quits.
 # 4. Every game launches and its saves stay its own: each game played in turn in ONE process and left with Back
 #    writes its own <id>.state (the state's header names that game); a second process resumes each of them.
@@ -127,6 +128,15 @@ else
     grep -q "open " "$OUT/flow.log" && fail "the full app asked for a store page"
 fi
 grep -q "^quit" "$OUT/flow.log" || fail "Back in the launcher did not quit"
+# the review prompt (rsb_review.h): each return to the menu counted, no request this early; the debug flag asks
+[ "$(grep -c "^review: " "$OUT/flow.log")" = 3 ] || fail "the review prompt did not count the 3 returns to the menu"
+grep -q "would ask for a review" "$OUT/flow.log" && fail "a review was asked for on the first games"
+[ -f "$OUT/saves/review.cfg" ] || fail "no review.cfg"
+rm -rf "$OUT/saves-review"; mkdir -p "$OUT/saves-review"; : > "$OUT/saves-review/review.force"   # the debug flag
+printf '10 tap-at 56 68\n120 back\n' > "$OUT/review.txt"
+"$B" --saves "$OUT/saves-review" --frames 160 --input "$OUT/review.txt" > "$OUT/review.log" 2>&1 \
+    || fail "the review run failed"
+grep -q "would ask for a review (launcher)" "$OUT/review.log" || fail "review.force: no review request in the menu"
 [ -f "$OUT/saves/$G1.state" ] && [ -f "$OUT/saves/$G1.srm" ] || fail "no $G1.state / $G1.srm"
 echo "ok   flow: launch by touch, Back saves, resume where it was (picture $h1), $([ "$PROFILE" = free ] && echo "the store button" || echo "no store"), Back quits"
 

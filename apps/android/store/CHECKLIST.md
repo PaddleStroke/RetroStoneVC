@@ -85,6 +85,11 @@ stay opted in for at least 14 days in a row** before they can apply for producti
 - [ ] Ask testers to play a little on several days: Google asks, when you apply, how testing went.
 - [ ] After 14 days: Dashboard > **Apply for production** (questions on the testing, the feedback, your readiness).
       The answer takes up to about 7 days.
+- [ ] **The review prompt** (Google's own rating dialog, asked after a new best score: `../README.md`, "The review
+      prompt"): it only shows for an app installed from Play. Check it once from the internal test track or internal
+      app sharing, with `review.force` (the debug flag) on a debug upload or simply by playing. Nothing to declare
+      for it (no pre-prompt, no reward); the Data safety answers stay as they are, but re-read Google's current
+      guidance for the Play Core / Play services libraries when you fill them in.
 
 ## 6. Pricing and countries (Monetize > Products > App pricing; Production > Countries)
 - [ ] The paid app's **price**: set it in your currency; Google converts it per country (adjust the main ones by

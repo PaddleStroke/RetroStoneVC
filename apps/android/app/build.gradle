@@ -74,3 +74,10 @@ android {
         checkReleaseBuilds = false
     }
 }
+
+dependencies {
+    // the Google Play In-App Review API (ArcadeActivity.requestReview), under the Play Core SDK Terms of Service; it
+    // brings Play services basement and tasks (Android SDK licence) and a few AndroidX libraries (Apache 2.0): all in
+    // the app's Credits & licences (apps/launcher/tools/gen_credits.py, PLAY_REVIEW: keep the version there in step)
+    implementation 'com.google.android.play:review:2.0.2'
+}

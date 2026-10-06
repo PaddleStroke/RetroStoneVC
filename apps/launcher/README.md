@@ -73,6 +73,7 @@ modules are compiled with `-mcmodel=small`, so no `.refptr` stub is shared betwe
   `<saves>/<id>.state` (a save state, written when it is left: Back, the app going to the background, quitting).
   Starting a game loads its state when there is one: it resumes where it was, **held** (the frontend shows a play
   sign) until a touch or a button, and that touch is not passed to the game.
+- `<saves>/review.cfg`: the review prompt's counters (games played, days, requests: `src/rsb_review.h`).
 - Touches: `games.cfg` gives each game its scheme (zones of the screen -> pad buttons, some drawn by the frontend
   as translucent buttons, and the button of the small pause button in the corner); they are player 1. A game that
   reads the touches itself (`rs_game.touch_native`, docs/spec.md "Touch") gets them instead, in its screen pixels
@@ -129,7 +130,8 @@ A card shows **a moment of play, pixel for pixel**: 96x72 pixels cut out of the 
 | | |
 |---|---|
 | `src/rsb.h` | the runtime's API (launcher, frontends), the module and catalogue types |
-| `src/rsb_runtime.c` | switching, saves, touch mapping |
+| `src/rsb_runtime.c` | switching, saves, touch mapping, the review prompt's counting |
+| `src/rsb_review.c` | when to ask for a Google Play review (the rules: ../android/README.md, "The review prompt"; tested by `tests/review_test.c`) |
 | `src/launcher.c` | the menu, a RetroStone VC program in the house style |
 | `src/rsb_sdl.c` | the SDL2 frontend: Android and desktop (scaling, borders, the pause button and the play sign, lifecycle, the store link) |
 | `src/rsb_headless.c` | the test frontend (scripted pad, touches, Back, switches) |

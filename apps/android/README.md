@@ -137,6 +137,51 @@ Two kinds of games:
 | Mole Marbles | the mole walks at its normal speed to your finger's x; a quick tap shoots (and sends it there) | game |
 | Spider Swing | tap to let go of the web; in flight, hold the left / right half to steer | game |
 
+## 4b. The review prompt
+
+Both apps ask Google Play for a rating with the official **Play In-App Review API**
+(`com.google.android.play:review`): Play shows its own dialog, in the phone's language, over the menu. The app has
+no "rate us" screen of its own, no reward, nothing locked behind it, and never learns whether the player rated.
+
+**When** (the owner's rules; `apps/launcher/src/rsb_review.h`, `rsb_review.c`):
+1. never on the first game exit: a player is **eligible** after **6 games** (a game launched from the menu that comes
+   back to it) played on **2 different days** at least (the phone's local date);
+2. then the app asks when the player comes back to the **menu right after a run that set a new best score** in that
+   game (its best in the save RAM, games.cfg `best=`/`magic=`, higher than before the run; a game's very first score
+   is not a "new" best); without one, at the **10th return to the menu** since becoming eligible;
+3. only in the menu, after leaving a game: never during a game, never at the app's start;
+4. then **30 days at least** before the next request, and **3 requests at most**, ever.
+
+Google Play also has its own quota: a request may show nothing, which is fine (the app goes on as if it had).
+
+**How.** The runtime (`rsb_runtime.c`) counts each game that returns to the menu and compares its best before and
+after; the counters live in `review.cfg` next to the saves (the app's private storage: kept by app updates, gone
+with an uninstall; the games' saves are not touched). When the rules say so, the frontend (`rsb_sdl.c`) calls
+`ArcadeActivity.requestReview()` through JNI: `requestReviewFlow()` then `launchReviewFlow()`; any error is logged
+(logcat tag `RetroStoneReview`) and ignored. The desktop apps run the same counting and only log "review: would ask
+for a review". Each return to the menu logs a line `review: <game> best <before> -> <after>; <n> games on <d> days,
+...` (logcat tag `SDL/APP`), with `: ask (...)` when it asks.
+
+**Testing.**
+- The rules: `make -f apps/launcher/bundle.mk check` runs `apps/launcher/tests/review_test.c` (the scenarios, with a
+  fake clock) and, in the bundle tests, the counting and the debug flag through the real runtime.
+- **The debug flag**: a file `review.force` in the saves folder makes the app ask at **every** return to the menu
+  (not counted as a request). On a debug APK: `adb shell run-as com.eightbcraft.retrostonearcade touch files/review.force`
+  (the free app: `...retrostonearcade.free`; remove it with `rm`); `run-as` only works on a debug build. On the
+  desktop: `RSB_REVIEW_FORCE=1`, or the file in the app's saves folder.
+- A debug APK installed by `adb` or by hand uses Play's **FakeReviewManager**: no dialog, the flow is only logged
+  (`adb logcat -s RetroStoneReview SDL/APP`).
+- **The real dialog only shows for an app installed from Google Play**: upload a build to the **internal test
+  track** (Testing > Internal testing) or use **internal app sharing** (a debug build works there: the flag file then
+  forces it), install it from the Play link on a phone whose Google account has **not** reviewed the app yet. On
+  the internal test track Play's quota applies (it may show nothing after a first time); internal app sharing shows
+  it every time, its Submit button disabled.
+
+**Licences.** The review library (Play Core SDK Terms of Service) brings Google Play services basement and tasks
+(Android SDK License Agreement) and AndroidX libraries (Apache 2.0, its text in `LICENSE-Apache-2.0.txt`): the
+Android apps' Credits & licences screen lists them (`apps/launcher/tools/gen_credits.py`, `android_credits`; the
+desktop apps, which do not contain them, do not). Bump the versions there with `app/build.gradle`'s.
+
 ## 5. Publishing
 
 ### The upload key: create it once, keep it forever
@@ -185,6 +230,9 @@ Everything else Google Play asks for is in [`store/`](store/):
 - The APKs: built, their ABIs and 16 KB page alignment checked by `build.sh`; the release path (`--release`) with a
   throwaway key: a signed AAB and APK. `apps/android/smoke-emulator.sh` ran the free app in an Android 11 x86_64
   emulator earlier (the emulator, ~4 GB, was removed afterwards: `setup-toolchain.sh --emulator` installs it again).
+- The review prompt: its rules by `review_test.c` (scenarios with a fake clock), the counting and the debug flag in
+  the bundle tests; the APKs build with the Play review library. The real Play dialog was not seen yet (it needs a
+  Play install: section 4b).
 - **Not tested on a real phone yet**: the feel of the touch controls (the game-side ones were played only with
   scripted touches: real fingers, several at once, the thresholds of a tap, a swipe and a hold; the mouse as the
   finger in the desktop apps was not tried by hand either), the drawn buttons' size, the audio latency, the integer

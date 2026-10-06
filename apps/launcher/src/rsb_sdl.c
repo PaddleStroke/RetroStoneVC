@@ -18,6 +18,9 @@
 #include "rsb.h"
 #include "rs_desktop.h"
 #include <SDL.h>
+#ifdef __ANDROID__
+#include <jni.h>
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -337,6 +340,28 @@ static void open_store(const char *url)
     }
 }
 
+/* the review prompt (rsb_review.h decides when): Android asks Google Play through ArcadeActivity.requestReview (the
+ * In-App Review API; Play shows its own dialog, or nothing); the desktop apps only log it */
+static void ask_review(void)
+{
+#ifdef __ANDROID__
+    JNIEnv *env = (JNIEnv *)SDL_AndroidGetJNIEnv();
+    jobject act = (jobject)SDL_AndroidGetActivity();
+    if (!env || !act) { SDL_Log("review: no activity"); return; }
+    jclass cls = (*env)->GetObjectClass(env, act);
+    jmethodID m = (*env)->GetMethodID(env, cls, "requestReview", "()V");
+    if (m) (*env)->CallVoidMethod(env, act, m);
+    if ((*env)->ExceptionCheck(env)) {
+        (*env)->ExceptionClear(env);
+        SDL_Log("review: requestReview failed");
+    }
+    (*env)->DeleteLocalRef(env, cls);
+    (*env)->DeleteLocalRef(env, act);
+#else
+    SDL_Log("review: would ask for a review (Google Play only)");
+#endif
+}
+
 int main(int argc, char **argv)
 {
     int scale = 3, fullscreen = 0, lang = rsd_lang_env();
@@ -486,6 +511,7 @@ int main(int argc, char **argv)
         }
         const char *url = rsb_store_request();
         if (url) open_store(url);
+        if (rsb_review_request()) ask_review();
 
         uint64_t now = SDL_GetPerformanceCounter();
         int steps = 0;

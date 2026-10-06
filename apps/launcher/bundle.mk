@@ -1,7 +1,7 @@
 # RetroStone Arcade: the bundle build (the launcher and several games in one program). Run from the repository root:
 #
 #   make -f apps/launcher/bundle.mk                      build/bundle/host/: the SDL2 app and the headless runner
-#   make -f apps/launcher/bundle.mk check                the bundle's tests (apps/launcher/tests/bundle_test.sh)
+#   make -f apps/launcher/bundle.mk check                the bundle's tests (tests/review_test.c, tests/bundle_test.sh)
 #   make -f apps/launcher/bundle.mk PLATFORM=win64 check  the same tests on the Windows build (WSL runs the .exe)
 #   make -f apps/launcher/bundle.mk PLATFORM=win64       dist/windows/<EXE_NAME>.exe (SDL2 linked in)
 #   make -f apps/launcher/bundle.mk PLATFORM=android-arm64-v8a    build/bundle/android-arm64-v8a/libmain.so
@@ -28,7 +28,8 @@ OPT      ?= -O2
 BD       := build/bundle/$(PLATFORM)$(TAG)
 GEN      := build/bundle/gen$(TAG)
 APP      := retrostonearcade
-HEADLESS  = $(BD)/$(APP)_headless$(if $(filter win64,$(PLATFORM)),.exe)
+EXE      := $(if $(filter win64,$(PLATFORM)),.exe)
+HEADLESS  = $(BD)/$(APP)_headless$(EXE)
 
 # ---- toolchains ------------------------------------------------------------------------------------------------------
 ifeq ($(PLATFORM),host)
@@ -92,7 +93,8 @@ APP_INC  = -Iapps/launcher/src -Igames/common/src -I$(GEN)/launcher
 SDK_SRC  = $(wildcard sdk/src/*.c)
 XMP_SRC  = $(wildcard sdk/third_party/libxmp-lite/src/*.c) $(wildcard sdk/third_party/libxmp-lite/src/loaders/*.c)
 HOUSE_SRC = $(wildcard games/common/src/*.c)
-APP_SRC  = apps/launcher/src/launcher.c apps/launcher/src/rsb_runtime.c sdk/frontends/common/rs_desktop.c
+APP_SRC  = apps/launcher/src/launcher.c apps/launcher/src/rsb_runtime.c apps/launcher/src/rsb_review.c \
+           sdk/frontends/common/rs_desktop.c
 o = $(patsubst %.c,$(BD)/obj/%.o,$(1))
 
 # Two phases: the games' generated sources first (assets, translated text: whatever the root Makefile's "assets"
@@ -197,6 +199,9 @@ TESTS := build/bundle/tests-$(PLATFORM)$(TAG)
 check:
 	@mkdir -p $(TESTS)
 	+STANDALONE=$(TESTS) $(MAKE) --no-print-directory -f apps/launcher/bundle.mk PLATFORM=$(PLATFORM) SKIP_ASSETS= all
+	$(CC) $(CSTD) $(OPT) $(WARN) -Iapps/launcher/src -o $(TESTS)/review_test$(EXE) apps/launcher/tests/review_test.c \
+	    apps/launcher/src/rsb_review.c
+	$(TESTS)/review_test$(EXE) $(TESTS)
 	PREBUILT=1 sh apps/launcher/tests/bundle_test.sh $(HEADLESS) $(TESTS) "$(GAMES)" $(PROFILE)
 shots: all
 	sh apps/launcher/tests/shots.sh $(HEADLESS) apps/launcher/docs
