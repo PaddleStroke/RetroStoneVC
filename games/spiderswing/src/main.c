@@ -7,6 +7,11 @@
  * (B leaves); P1 starts the run at once with A (or an extra START INPUT; this press is also its first move); one press
  * on the game-over panel (hu_over_back) goes BACK TO THE TITLE, with the same players: the title is the only menu.
  *
+ * Touch (rs_game.touch_native, docs/spec.md "Touch"; player 1, DESIGN.md "Controls"): a tap (a finger lifted) starts
+ * on the title and goes back to the title from the game-over panel, as A does; in a run a finger going down lets go
+ * of the web (A's press) and, in flight, a finger held on the left / right half steers (touch_input). Nothing derived
+ * from a touch is kept between frames, so the save states hold nothing more.
+ *
  * Options (--opt key=value on the desktop runners):
  *   bot=N          the bot plays players 1..N (bot_decide); botruns=N runs; botstop=S stops at S (P2-P4: S+2, S+4..)
  *   seed=N         a fixed course (default: from the frame of the first press)
@@ -105,6 +110,37 @@ static void new_run(int state)
 
 static int is_bot(int p) { return p < opt_bot; }
 
+/* ---- touch (player 1) ------------------------------------------------------------------------------------------- */
+/* A finger was lifted this frame that went down during the last `since` frames (on this screen, after its lock):
+ * the touch screen's "press A" (a tap; a finger still down from the run before never counts). */
+static int touch_lifted(int since)
+{
+    for (int i = 0; i < RS_TOUCH_MAX; i++) {
+        const rs_touch_point *t = rs_touch(i);
+        if (t && t->released && t->frames < since) return 1;
+    }
+    return 0;
+}
+
+/* P1's play by touch, as the pad's INPUT_* bits: a finger going down is A's press (on the web: let go, at once, on
+ * the press; held, it does not repeat, like A); in free flight each finger held on a screen half steers that way
+ * (Left / Right held; both halves cancel out, like both directions). The finger whose press let go of the web steers
+ * only once it is held longer than a tap (RS_TOUCH_TAP_FRAMES): a quick tap never nudges the flight. It went down
+ * before this flight began when it has been down longer than the spider has flown (air_t: the flight's frames). */
+static int touch_input(void)
+{
+    const hero *h = &W.h[0];
+    int in = 0;
+    for (int i = 0; i < RS_TOUCH_MAX; i++) {
+        const rs_touch_point *t = rs_touch(i);
+        if (!t || !t->down) continue;
+        if (t->pressed) in |= INPUT_RELEASE;
+        if (h->mode == MODE_FLY && (t->frames <= h->air_t || t->frames > RS_TOUCH_TAP_FRAMES))
+            in |= rs_touch_half(t->x) == RS_TOUCH_LEFT ? INPUT_LEFT : INPUT_RIGHT;
+    }
+    return in;
+}
+
 static int act_pressed(int p)
 {
     if (p == 0 && start_press) return 1;
@@ -113,9 +149,10 @@ static int act_pressed(int p)
         return bot_decide(&W, p);
     }
     unsigned buttons = rs_pad(hu_player_pad(p));
-    return ((buttons & ACT_BUTTONS) ? INPUT_RELEASE : 0) |
-           ((buttons & RS_BTN_LEFT) ? INPUT_LEFT : 0) |
-           ((buttons & RS_BTN_RIGHT) ? INPUT_RIGHT : 0);
+    int in = ((buttons & ACT_BUTTONS) ? INPUT_RELEASE : 0) |
+             ((buttons & RS_BTN_LEFT) ? INPUT_LEFT : 0) |
+             ((buttons & RS_BTN_RIGHT) ? INPUT_RIGHT : 0);
+    return p == 0 ? in | touch_input() : in;
 }
 
 static void game_over(void)
@@ -183,7 +220,8 @@ static void title_update(void)
         new_run(ST_TITLE);                      /* the world follows the players (the title shows their heroes) */
         st_t = t;
     }
-    if ((ev & HU_TITLE_START) || (opt_bot && st_t >= BOT_START)) {
+    /* a tap starts too (on the finger's lift, as the touch screen's press A) */
+    if ((ev & HU_TITLE_START) || touch_lifted(st_t) || (opt_bot && st_t >= BOT_START)) {
         ha_play(HA_CONFIRM);
         new_run(ST_PLAY);
         start_press = 1;                        /* the start press is also P1's first move */
@@ -212,6 +250,7 @@ static void game_update(void)
         int back = 0;
         if (st_t >= RETRY_LOCK) {
             back = hu_over_back();              /* house rule: after a game over, back to the title (the only menu) */
+            if (touch_lifted(st_t - RETRY_LOCK)) back = 1;   /* a tap that began after the lock */
             if (opt_bot && runs_done < opt_botruns && st_t == RETRY_LOCK + 10) back = 1;
         }
         if (back) {
@@ -280,8 +319,8 @@ static void game_state_loaded(void) { draw_relayout(); }
 
 const rs_game *rs_game_main(void)
 {
-    /* max_width: the game draws any width up to 560 (widescreen: DESIGN.md) */
+    /* max_width: the game draws any width up to 560 (widescreen: DESIGN.md); touch_native: it reads the touches */
     static const rs_game g = {"Spider Swing", "spiderswing", "0.4.0", game_init, game_update, game_draw,
-                              game_shutdown, gm_assets, game_state, game_state_loaded, 1, RS_SCREEN_W_MAX};
+                              game_shutdown, gm_assets, game_state, game_state_loaded, 1, RS_SCREEN_W_MAX, 1};
     return &g;
 }

@@ -57,6 +57,33 @@ shortcuts; real keyboard flight steering; 1-4 player view clipping and maximum
 screen movement through release/catch transitions; deterministic pixels,
 pausing, battery persistence, libretro/audio and fresh-process state replay.
 
+## Controls
+
+Pad: A (or B, X, Y) starts and releases the web on its press; Left / Right steer
+in free flight only; Select or Start pauses; A on the result screen returns to
+the title.
+
+Touch (phones, the desktop's mouse; player 1; the game declares `touch_native`, so
+the apps pass it the touches, docs/spec.md "Touch"):
+- **Tap to let go.** A finger going down anywhere is A's press: on the web it lets
+  go at once, on the press (not on the lift); held, it does not repeat, and a
+  finger on the web never advances to another flower, like A held.
+- **Hold a half to steer.** In free flight each finger held on the left / right
+  half of the screen is Left / Right held; both halves cancel out. A finger put
+  down in flight steers at once; one that went down before the flight (the finger
+  that let go of the web) steers once it has been down longer than a tap (18
+  frames), so a quick tap never nudges the flight.
+- **A tap** (a finger lifted) starts on the title and returns to the title from the
+  result screen (a tap that began after its lock; a finger left down from the run
+  never counts), as A does. Pads 2-4 still join on the title.
+- **Pause**: the apps' pause button presses Start; while paused the touches do
+  nothing and nothing is kept for later.
+- Nothing derived from a touch lasts beyond its frame: the save states are
+  unchanged. tests/touch_test.sh (in `make spiderswing-check`) plays scripted
+  fingers against the same runs on the pad (the start, A's let-go, Left / Right
+  held), plus the quick tap, a finger held on the web, both halves, the pause,
+  the result screen and every width.
+
 ## Widescreen
 
 A vertical climb: a wider screen (320..560 columns, docs/spec.md "Widescreen") shows

@@ -42,6 +42,7 @@ spiderswing-check:
 	    RS_WIDTH=$$w sh games/spiderswing/tests/state_test.sh build/host/spiderswing_test_states build/spiderswing-w$$w; \
 	done
 	sh games/spiderswing/tests/wide_test.sh build/host/spiderswing_headless build/host/spiderswing_test_states build "$(WIDTHS)"
+	sh games/spiderswing/tests/touch_test.sh build/host/spiderswing_headless build "$(WIDTHS)"
 spiderswing-screenshots:
 	+$(SPIDERSWING_MAKE) build/host/spiderswing_headless
 	$(PYTHON) games/spiderswing/tests/check_game.py --screenshots
