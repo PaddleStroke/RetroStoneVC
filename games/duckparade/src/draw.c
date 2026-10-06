@@ -497,6 +497,20 @@ static void draw_fx(int cam, int sx, int sy)
     q_rank = RK_KEEP;
 }
 
+/* Mother's touch target (main.c, DESIGN.md "Controls"): a subtle dithered spot on the ground of the cell, breathing
+ * (wide, narrow); under the traffic, over the platforms. Nothing without a target. */
+static void draw_target(int cam, int sx, int sy, int t)
+{
+    int32_t col;
+    int row;
+    if (!dp_touch_target(&col, &row)) return;
+    int x = (int)(col * CELL) - cam + sx, y = FIELD_Y + row * CELL + sy, k = (t / 10) % 4;
+    q_rank = RK_FX;
+    if (k < 3) spr(SPR_PUFF + k, x + 4, y + 4, 2, -1, 0);
+    spr(SPR_SHADOW + 1, x, y + 4, 2, -1, 0);
+    q_rank = RK_KEEP;
+}
+
 static int mover_sprite(int kind, int down, int t, int i, int *dy)
 {
     *dy = 0;
@@ -855,6 +869,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     draw_fx(cam, sx, sy);
     draw_loose(w, cam, sx, sy, t);
     draw_traffic(w, cam, sx, sy, t, 0);
+    draw_target(cam, sx, sy, t);
     draw_traffic(w, cam, sx, sy, t, 1);
     spr_flush();
     redraw_ui = 0;

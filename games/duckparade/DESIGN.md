@@ -64,7 +64,7 @@ The game opts in (`max_width` = 560, `WIDESCREEN_duckparade = 1`): 320 (4:3) is 
 - Save states load at any width: a state of another width brings maps of another size, so `state_loaded` sets them up
   again (the sky, the field redrawn from the world, the UI, the photo and PAUSED on the next frame); live width
   changes (`--resize`) go on exactly as the run that never changed.
-- `make duckparade-check` runs the smoke, UI and state tests again at each width of WIDTHS (427 520), then
+- `make duckparade-check` runs the smoke, touch, UI and state tests again at each width of WIDTHS (427 520), then
   tests/wide_test.sh and the language test at 320, 427 and 520. Screenshots: `title-`, `play-`, `gameover-427.png`
   and `-520.png`, `coop-4-players-520.png`.
 
@@ -81,6 +81,29 @@ The game opts in (`max_width` = 560, `WIDESCREEN_duckparade = 1`): 320 (4:3) is 
 One hop per press (no auto-repeat, as in Crossy Road); a press in the last 4 frames of a hop is buffered and
 starts the next hop on landing, so fast tapping never loses a press. Keyboard (desktop): arrows, X = A,
 Enter = Start (the SDK's mapping).
+
+**Touch** (player 1, Mother; `rs_game.touch_native`, docs/spec.md "Touch"; main.c `touch_input()`, `touch_hop()`):
+| Touch | Action |
+|---|---|
+| a tap on the title | start the run (as A; Mother then waits for her first target: the tap is not a hop) |
+| a finger down on the field | Mother's **target**: the cell under it (a world cell: it scrolls with the world); a new finger retargets |
+| a finger dragged | the target follows it |
+| a finger down on Mother | stop (the target is dropped; the hop under way ends) |
+| a tap on the game-over panel | return to the title (as A: only a finger that went down after the panel's lock) |
+| the app's pause button | Start (the app's own button); while paused the fingers do nothing, not even later |
+
+- Mother goes to the target **one hop at a time with the pad's own hops** (forward, back, sidestep: the same rules,
+  the same run as the pad's presses, hop for hop; tests/touch_test.sh compares them): each hop goes along the axis
+  with the larger distance left (ties: across the lanes), so the hops follow the straight line, and the next hop
+  starts on the landing frame (as a buffered press). On a log she measures from where she is carried.
+- **The direct path, no help**: nothing is avoided (water, traffic, a train on the way: she goes in). Only a hop
+  that a tree, a bush or the field's edge would block goes along the other axis if there is distance left on it;
+  otherwise she stops there (as a blocked press bumps), and the player taps again.
+- She stops on the target; a pad press cancels it (the pad takes over).
+- The marker: a dithered spot on the target cell with a dust puff breathing over it (under the traffic, over the
+  platforms); nothing is drawn without a target, so a run without touches is the same picture as before.
+- The target (and the finger that steers it) is in the save state; the touches themselves are not (the SDK's rule).
+- The bot and players 2-4 never read the touches.
 
 ## The hop
 - A hop moves exactly one cell (16 px, Frogger's step) in **12 frames** (0.2 s, the clone's two 0.1-s
@@ -305,6 +328,12 @@ edge cost about 6% of the render.
 - `tests/smoke_test.sh`: the title idles, strict mode clean, the start, the fox, a blind rhythm, retry, pause,
   save RAM, Father's join, co-op scoring, **the bot on 10 seeds (>= 150 lanes on average)**, **determinism**
   (a scripted run and a bot run, twice: same state and picture).
+- `tests/touch_test.sh` (at 320 and each width of WIDTHS, stage coordinates): a tap starts the title without a
+  hop, a held finger does not; a target is the pad's run hop for hop (forward x4; Up, Up, Right, Up), she stops
+  on it; a tap across the water: she hops in and is swept away; a tap on Mother stops her; a pad press cancels
+  the target; a drag moves it; paused fingers do nothing, not even later; the target survives a save state (a
+  width change mid-way); a tap on the game-over panel returns to the title (not during its lock) and a tap there
+  starts the next run.
 - `tests/test_ui.c` (tests/ui_test.sh): the whole game on the real picture: the title (logo, prompt and glyph,
   copyright, the marching family), get ready, the first hop, the HUD's score on every frame of a run, the
   duckling count, the sky band hiding the world's sprites (the band is the same with them hidden), the

@@ -7,6 +7,9 @@
  * leave with B (the house kit's lobby); P1 starts with any arrow or A, and that press is also Mother's first hop.
  * On the game-over panel one press (an arrow, A or Start) starts the next run at once with the same parents (its
  * press is a first hop too); Select goes back to the title.
+ * Touch (player 1, rs_game.touch_native; DESIGN.md "Controls"): a tap on the title starts (the run waits for Mother's
+ * first hop), a tap on the game-over panel goes back to the title; in play a finger sets a target cell and Mother
+ * hops towards it one hop at a time along the direct path (touch_input(), touch_hop()).
  *
  * Options (--opt key=value on the desktop runners):
  *   bot=N          the screen-reading bot plays parents 1..N (bot.c); botruns=N runs
@@ -37,6 +40,10 @@ static uint32_t state_hash = 2166136261u;
 static int run_scores[64], run_lanes[64], nruns_logged;
 static int bell_t;                        /* frames to the next crossing bell */
 static int click_t = -1;                  /* the photo's click, a moment after the fanfare */
+/* touch (player 1): Mother's target cell (a world column and a field row) and the finger that steers it (-1: none;
+ * only a finger that went down in play, not paused, steers) */
+static int touch_on, touch_row, touch_slot = -1;
+static int32_t touch_col;
 
 /* ---- save RAM (house convention: checked, versioned, committed at each game over) ------------------------------ */
 typedef struct save_data {
@@ -91,6 +98,8 @@ static void new_run_seed(int state, uint32_t seed)
     draw_reset(&W);
     bot_reset();
     new_best = 0;
+    touch_on = 0;
+    touch_slot = -1;
     go(state);
 }
 
@@ -115,6 +124,124 @@ static int hop_pressed(int p)
     if (b & RS_BTN_UP) return HOP_UP;
     if (b & RS_BTN_DOWN) return HOP_DOWN;
     if (b & RS_BTN_LEFT) return HOP_BACK;
+    return 0;
+}
+
+/* ---- touch (player 1; DESIGN.md "Controls") ------------------------------------------------------------------------
+ * A finger that goes down in play sets Mother's target: the cell under it (a world column, a field row; the cell
+ * scrolls with the world); while it drags (moved past the slop) the target follows it; going down on Mother herself
+ * stops her. Mother then hops towards the target with the pad's own hops (one hop at a time, the next one starting on
+ * the landing frame, as a press buffered on the pad would): along the axis with the larger distance left, so the hops
+ * follow the straight line. Nothing is avoided (water on the way: she falls in), but a hop that a tree or the field's
+ * edge would block goes along the other axis when there is distance left on it, else she stops there. A pad press
+ * cancels the target. */
+int dp_touch_target(int32_t *col, int *row)
+{
+    if (!touch_on || st == DS_TITLE || st == DS_OVER || (W.d[0].state != DK_READY && W.d[0].state != DK_ALIVE)) return 0;
+    *col = touch_col;
+    *row = touch_row;
+    return 1;
+}
+
+static void touch_set(int x, int y)
+{
+    int wx = world_cam_px(&W) + x - rs_screen_origin_x();
+    int32_t col = wx >= 0 ? wx / CELL : (wx - CELL + 1) / CELL;
+    int row = y < FIELD_Y ? 0 : clampi((y - FIELD_Y) / CELL, 0, ROWS - 1);
+    if (touch_on && col == touch_col && row == touch_row) return;
+    touch_on = 1;
+    touch_col = col;
+    touch_row = row;
+    rs_log("touch target col %d row %d at frame %u (Mother at col %d)", (int)col, row, rs_frame_count(),
+           (int)W.d[0].at.col);
+}
+
+/* is screen point (x, y) on Mother's sprite (2 px around it)? */
+static int touch_on_mother(int x, int y)
+{
+    int dx, dy, lift, sq;
+    duck_visual(&W, &W.d[0], &dx, &dy, &lift, &sq);
+    int sx = dx - world_cam_px(&W) + rs_screen_origin_x(), sy = FIELD_Y + dy - lift;
+    return x >= sx - 2 && x < sx + CELL + 2 && y >= sy - 2 && y < sy + CELL + 2;
+}
+
+static void touch_input(void)
+{
+    for (int i = 0; i < RS_TOUCH_MAX; i++) {
+        const rs_touch_point *t = rs_touch(i);
+        if (!t || !t->pressed) continue;
+        touch_slot = i;
+        if (touch_on_mother(t->x, t->y)) {
+            if (touch_on) rs_log("touch stop at frame %u (Mother at col %d)", rs_frame_count(), (int)W.d[0].at.col);
+            touch_on = 0;
+        } else {
+            touch_set(t->x, t->y);
+        }
+    }
+    if (touch_slot < 0) return;
+    const rs_touch_point *t = rs_touch(touch_slot);
+    if (t && t->moved && !t->pressed) touch_set(t->x, t->y);
+    if (!t || !t->down) touch_slot = -1;
+}
+
+/* could Mother, standing at col / field y, hop in direction dir (world.c start_hop: a tree, the field's top and bottom
+ * edges, the screen's left edge)? Only to choose the axis: the hop itself decides. */
+static int touch_hop_open(int32_t col, int y, int dir)
+{
+    if (dir == HOP_FWD || dir == HOP_BACK) {
+        int32_t c2 = col + (dir == HOP_FWD ? 1 : -1);
+        const lane *l2 = world_lane(&W, c2);
+        if (!l2 || c2 * CELL < world_cam_px(&W) - CELL / 2) return 0;
+        int r = clampi((y + CELL / 2) / CELL, 0, ROWS - 1);
+        return !((l2->kind == LK_GRASS || l2->kind == LK_HEDGE) && (l2->block >> r & 1));
+    }
+    int y2 = y + (dir == HOP_UP ? -CELL : CELL);
+    if (y2 < 0 || y2 > FIELD_H - CELL) return 0;
+    const lane *l = world_lane(&W, col);
+    return !(l && (l->kind == LK_GRASS || l->kind == LK_HEDGE) && (l->block >> (y2 / CELL) & 1));
+}
+
+/* Mother's next hop towards the target (HOP_*), 0: none this frame */
+static int touch_hop(void)
+{
+    const duck *d = &W.d[0];
+    if (!touch_on || d->h.bump > 1) return 0;
+    if (d->h.dir && d->h.t < HOP_FRAMES - 1) return 0;            /* in the air: the next hop starts on landing */
+    const place *at = d->h.dir ? &d->h.to : &d->at;
+    int y = place_field_y(&W, at);
+    int dx = (int)(touch_col - at->col) * CELL, dy = touch_row * CELL - y;
+    int ax = absi(dx), ay = absi(dy) >= CELL / 2 ? absi(dy) : 0;
+    if (!ax && !ay) {
+        touch_on = 0;
+        rs_log("touch arrived at frame %u (Mother at col %d)", rs_frame_count(), (int)at->col);
+        return 0;
+    }
+    int hx = dx > 0 ? HOP_FWD : HOP_BACK, hy = dy > 0 ? HOP_DOWN : HOP_UP;
+    int first = ax >= ay ? hx : hy, other = ax >= ay ? hy : hx, left = ax >= ay ? ay : ax;
+    if (touch_hop_open(at->col, y, first)) return first;
+    if (left && touch_hop_open(at->col, y, other)) return other;
+    touch_on = 0;
+    rs_log("touch blocked at frame %u (Mother at col %d)", rs_frame_count(), (int)at->col);
+    return 0;
+}
+
+/* touch on the title: a tap (a finger lifted without moving) that went down on this screen */
+static int title_tap(void)
+{
+    for (int i = 0; i < RS_TOUCH_MAX; i++) {
+        const rs_touch_point *t = rs_touch(i);
+        if (t && t->released && !t->moved && t->frames <= st_t) return 1;
+    }
+    return 0;
+}
+
+/* touch on the game-over panel: a tap that went down after the panel's lock (as the pad's presses) */
+static int over_tap(void)
+{
+    for (int i = 0; i < RS_TOUCH_MAX; i++) {
+        const rs_touch_point *t = rs_touch(i);
+        if (t && t->released && !t->moved && st_t - t->frames >= RETRY_LOCK) return 1;
+    }
     return 0;
 }
 
@@ -227,12 +354,21 @@ static void log_scenes(void)
 
 static void play_update(void)
 {
-    int press[MAX_PLAYERS] = {0};
+    int press[MAX_PLAYERS] = {0}, touched = 0;
     for (int p = 0; p < W.players; p++) {
         const duck *d = &W.d[p];
         if (d->state == DK_READY || d->state == DK_ALIVE) press[p] = hop_pressed(p);
     }
+    if (!is_bot(0) && (W.d[0].state == DK_READY || W.d[0].state == DK_ALIVE)) {   /* touch: player 1 */
+        touch_input();
+        if (press[0]) touch_on = 0;                  /* the pad takes over */
+        else touched = press[0] = touch_hop();
+    }
     world_step(&W, press);
+    if (touched && (W.events[0] & EV_BUMP)) {        /* blocked after all: she stops there */
+        touch_on = 0;
+        rs_log("touch blocked at frame %u (Mother at col %d)", rs_frame_count(), (int)W.d[0].at.col);
+    }
     sounds();
     if (opt_scenes) log_scenes();
     for (int p = 0; p < W.players; p++) {
@@ -267,6 +403,10 @@ static void title_update(void)
     } else if (ev & HU_TITLE_START) {
         new_run_seed(DS_READY, W.seed);
         play_update();                             /* the start press is the first hop */
+    } else if (title_tap()) {                      /* touch: a tap starts; Mother waits for her first target */
+        sfx(SFX_JOIN);
+        new_run_seed(DS_READY, W.seed);
+        play_update();
     }
 }
 
@@ -276,6 +416,7 @@ static void game_update(void)
     if ((st == DS_PLAY || st == DS_DEAD) && (rs_pad_pressed(0) & (RS_BTN_START | RS_BTN_SELECT))) {
         paused = !paused;
         sfx(SFX_PAUSE);
+        touch_slot = -1;                           /* a finger held through the pause no longer steers */
     }
     if (paused) return;
     hu_shake_step();
@@ -289,7 +430,7 @@ static void game_update(void)
         play_update();
         break;
     case DS_OVER:
-        if (st_t >= RETRY_LOCK && (hu_over_back() ||
+        if (st_t >= RETRY_LOCK && (hu_over_back() || over_tap() ||
             (opt_bot && runs_done < opt_botruns && st_t == RETRY_LOCK + 10))) {
             sfx(SFX_JOIN);
             new_run(DS_TITLE);
@@ -375,6 +516,7 @@ static void game_state(void)
     S(W); S(st); S(st_t); S(paused); S(new_best); S(runs_done); S(state_hash); S(shown_records);
     S(run_scores); S(run_lanes); S(nruns_logged); S(bell_t); S(click_t); S(scene_seen); S(opt_scenes); S(opt_record);
     S(opt_bot); S(opt_botstop); S(opt_botruns); S(opt_seed_fixed); S(opt_seed); S(opt_music); S(opt_sound);
+    S(touch_on); S(touch_row); S(touch_slot); S(touch_col);
     draw_state();
     sfx_state();
     bot_state();
@@ -392,8 +534,9 @@ static void game_state_loaded(void)
 const rs_game *rs_game_main(void)
 {
     /* state_version: bump it when the meaning of a saved object changes (its layout is checked); max_width: the
-     * game draws any width up to 560 (widescreen: DESIGN.md) */
+     * game draws any width up to 560 (widescreen: DESIGN.md); touch_native: player 1's touches are read by the game
+     * (touch_input(), DESIGN.md "Controls") */
     static const rs_game g = {"Duck Parade", "duckparade", "0.1.0", game_init, game_update, game_draw,
-                              game_shutdown, dp_assets, game_state, game_state_loaded, 2, RS_SCREEN_W_MAX};
+                              game_shutdown, dp_assets, game_state, game_state_loaded, 2, RS_SCREEN_W_MAX, 1};
     return &g;
 }

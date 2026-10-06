@@ -249,5 +249,7 @@ void bot_state_loaded(void);
 
 extern int opt_bot;
 const world *dp_test_world(int *state);
+/* main.c: Mother's touch target (DESIGN.md "Controls"): 1, its world column and field row, while she has one */
+int dp_touch_target(int32_t *col, int *row);
 
 #endif
