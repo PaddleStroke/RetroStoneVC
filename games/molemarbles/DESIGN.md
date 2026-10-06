@@ -62,6 +62,22 @@ for deterministic replay and check capped density. Bots predict visible ball
 arcs and issue only left/right/A. Full integration suite covers actual scripted
 pads, lobby/pause/results, SRAM, libretro, screenshots and save-state audits.
 
+## Touch (docs/spec.md "Touch"; the phone apps)
+The game reads the touches itself (`rs_game.touch_native`): player 1, the pads stay as they are.
+- **The mole follows the finger**: while a finger is down, the mole walks at its normal speed (2.7 px/frame, the
+  same steps as Left/Right) towards the finger's x in the arena, and stops within 2 px of it. The last point stays the
+  target when the finger is lifted, so a tap also sends the mole there. A held finger never shoots.
+- **A quick tap shoots** (a tap: lifted within 0.3 s without moving): the harpoon fires as A would; when the
+  previous one is still up, the shot waits up to 12 frames for it.
+- A tap on the title starts the run (the start press is also the first harpoon, as with A), a tap on the game-over
+  panel goes back to the title. While paused (Select, Start, or the app's pause button) touches do nothing.
+- Tests: `tests/touch_test.sh` (at 320, 427 and 520; stage coordinates), and the pad runs stay byte-identical.
+
+## The game-over panel's best
+NEW BEST only when the run beats the best saved before it (and so scores more than 0); the value shown is then the
+new best, otherwise BEST and the saved best (`tests/best_test.sh`; it used to show the best before the run: "NEW
+BEST 0" after a first run).
+
 ## Widescreen (docs/spec.md "Widescreen")
 
 The game opts in (`max_width` = 560, `WIDESCREEN_molemarbles = 1`): 320 x 240 is unchanged pixel for pixel; at 427

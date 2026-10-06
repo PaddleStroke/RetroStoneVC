@@ -6,6 +6,7 @@
  * The house flow (docs/art-direction.md, "Title and players"): the title is the only menu. Pads 2-4 join with A
  * (B leaves); P1 starts the run at once with A (or an extra START INPUT; this press is also its first move); one press
  * on the game-over panel (hu_over_back) goes BACK TO THE TITLE, with the same players: the title is the only menu.
+ * Touch (player 1, DESIGN.md "Touch"): the mole follows the finger, a quick tap shoots; a tap starts and goes back.
  *
  * Options (--opt key=value on the desktop runners):
  *   bot=N          the bot plays players 1..N (bot_decide); botruns=N runs; botstop=S stops at S (P2-P4: S+2, S+4..)
@@ -95,16 +96,53 @@ static void sfx_at(int id, int x)
 /* The ordinary-input dodge/shoot bot lives with the rules in play.c. */
 /* ---- flow ----------------------------------------------------------------------------------------------------------- */
 static void go(int s) { st = s; st_t = 0; }
+static void touch_reset(void);
 
 static void new_run(int state)
 {
     uint32_t seed = opt_seed_fixed ? opt_seed : opt_seed ^ (uint32_t)rs_frame_count() * 2654435761u;
     world_init(&W, hu_players(), seed);
     new_best = 0; run_best = SV.best;
+    touch_reset();
     go(state);
 }
 
 static int is_bot(int p) { return p < opt_bot; }
+
+/* ---- touch (player 1; docs/spec.md "Touch", DESIGN.md "Touch"): the mole walks at its normal speed towards the
+ * finger's x (the last one when it is lifted: a tap also sets the target), a quick tap shoots ------------------------ */
+#define TOUCH_STOP  2                         /* px: close enough to the target (a step is 2.7 px) */
+#define TOUCH_FIRE  12                        /* frames a tap's shot waits for the harpoon to be ready */
+static int touch_on, touch_tx;                /* a target, its arena x (stage) */
+static int touch_fire;                        /* a tap's shot, still to fire (frames left) */
+
+static void touch_reset(void) { touch_on = touch_tx = touch_fire = 0; }
+
+/* the buttons the touches give P1 this frame (0 without touches: the pad alone, unchanged) */
+static int touch_input(void)
+{
+    const rs_touch_point *t = rs_touch_first();
+    int x;
+    if (t) touch_on = 1, touch_tx = t->x - rs_screen_origin_x();
+    if (rs_touch_tap(&x, NULL)) {
+        touch_on = 1;
+        touch_tx = x - rs_screen_origin_x();
+        touch_fire = TOUCH_FIRE;
+    }
+    int in = 0;
+    if (touch_on) {
+        int tx = touch_tx < 12 ? 12 : touch_tx > 308 ? 308 : touch_tx;     /* the mole's range */
+        int d = tx - W.h[0].x;
+        if (d > TOUCH_STOP) in |= RS_BTN_RIGHT;
+        else if (d < -TOUCH_STOP) in |= RS_BTN_LEFT;
+        else if (!t) touch_on = 0;            /* reached, the finger lifted: done */
+    }
+    if (touch_fire) {
+        in |= RS_BTN_A;
+        touch_fire--;
+    }
+    return in;
+}
 
 static int act_pressed(int p)
 {
@@ -113,7 +151,7 @@ static int act_pressed(int p)
         if (opt_botstop && W.h[p].score >= opt_botstop + 2 * p && st == ST_PLAY) return 0;   /* P2-P4: +2 each */
         return bot_decide(&W, p);
     }
-    return rs_pad(hu_player_pad(p)) & (RS_BTN_A | RS_BTN_LEFT | RS_BTN_RIGHT);
+    return (rs_pad(hu_player_pad(p)) & (RS_BTN_A | RS_BTN_LEFT | RS_BTN_RIGHT)) | (p == 0 ? touch_input() : 0);
 }
 
 static void game_over(void)
@@ -125,7 +163,7 @@ static void game_over(void)
     SV.runs++;
     int m = W.players == 1 ? hu_medal_of(W.h[0].score, medals) : 0;
     if (m) SV.medals[m - 1]++;
-    new_best = best_now > run_best;
+    new_best = best_now > run_best && best_now > 0;     /* beats the best before this run */
     if (best_now > SV.best) SV.best = (uint16_t)best_now;
     if (W.players >= 2 && best_now > SV.best_multi) SV.best_multi = (uint16_t)best_now;
     save_store();
@@ -145,6 +183,7 @@ static void play_update(void)
     }
     start_press = 0;
     world_step(&W, press);
+    if (W.events[0] & EV_JUMP) touch_fire = 0;         /* a tap's shot fired */
     for (int p = 0; p < W.players; p++) {
         int ev = W.events[p];
         const hero *h = &W.h[p];
@@ -180,7 +219,7 @@ static void title_update(void)
         new_run(ST_TITLE);                      /* the world follows the players (the title shows their heroes) */
         st_t = t;
     }
-    if ((ev & HU_TITLE_START) || (opt_bot && st_t >= BOT_START)) {
+    if ((ev & HU_TITLE_START) || rs_touch_tap(NULL, NULL) || (opt_bot && st_t >= BOT_START)) {   /* a tap starts too */
         ha_play(HA_CONFIRM);
         go(ST_PLAY);
         start_press = 1;                        /* the start press is also P1's first move */
@@ -208,7 +247,7 @@ static void game_update(void)
     case ST_OVER: {
         int back = 0;
         if (st_t >= RETRY_LOCK) {
-            back = hu_over_back();              /* house rule: after a game over, back to the title (the only menu) */
+            back = hu_over_back() || rs_touch_tap(NULL, NULL);   /* house rule: back to the title (the only menu); a tap too */
             if (opt_bot && runs_done < opt_botruns && st_t == RETRY_LOCK + 10) back = 1;
         }
         if (back) {
@@ -221,7 +260,9 @@ static void game_update(void)
     st_t++;
 }
 
-static void game_draw(void) { draw_frame(&W, st, st_t, run_best, new_best, paused); }
+/* the best shown: the one before the run on the title, the one after it on the game-over panel (a new best = the score) */
+static int shown_best(void) { return st == ST_OVER ? SV.best : run_best; }
+static void game_draw(void) { draw_frame(&W, st, st_t, shown_best(), new_best, paused); }
 
 static void game_init(void)
 {
@@ -254,9 +295,9 @@ static void game_shutdown(void)
         snprintf(hs + b, sizeof hs - b, "%s%d", p ? "," : "", W.h[p].state);
     }
     rs_log("state: st=%d players=%d score=%d score2=%d best=%d runs=%d hs=%s x=%d y=%d scroll=%d paused=%d hash=%08x "
-           "scores=%s",
+           "shot=%d panel=%d record=%d scores=%s",
            st, W.players, W.h[0].score, W.h[1].score, SV.best, runs_done, hs, W.h[0].x, (int)(W.h[0].y >> 16), (int)W.scroll,
-           paused, state_hash, sc);
+           paused, state_hash, W.h[0].shot, shown_best(), new_best, sc);
 }
 
 /* ---- save states: the SDK saves the console; here are the game's objects (tools/state_audit.py checks them) ---- */
@@ -264,6 +305,7 @@ static void game_shutdown(void)
 static void game_state(void)
 {
     S(W); S(st); S(st_t); S(paused); S(new_best); S(run_best); S(runs_done); S(start_press); S(state_hash);
+    S(touch_on); S(touch_tx); S(touch_fire);
     S(opt_bot); S(opt_botstop); S(opt_botruns); S(opt_seed_fixed); S(opt_seed); S(opt_music); S(opt_sound);
     draw_state();
     hu_state();                                 /* the kit, with the title's lobby (who plays, on which pad) */
@@ -275,7 +317,8 @@ const rs_game *rs_game_main(void)
 {
     /* max_width: the game draws any width up to 560 (widescreen: DESIGN.md) */
     static const rs_game g = {"Mole Marbles", "molemarbles", "1.0.0", game_init, game_update, game_draw,
-                              game_shutdown, gm_assets, game_state, draw_relayout, 1, RS_SCREEN_W_MAX};
+                              game_shutdown, gm_assets, game_state, draw_relayout, 1, RS_SCREEN_W_MAX,
+                              1 /* touch_native: DESIGN.md "Touch" */};
     return &g;
 }
 

@@ -37,6 +37,8 @@ molemarbles-check:
 	./build/host/test_libretro build/host/molemarbles_libretro.so 600
 	sh $(MOLEMARBLES_DIR)/tests/smoke_test.sh build/host/molemarbles_headless build
 	sh $(MOLEMARBLES_DIR)/tests/ui_test.sh build/host/molemarbles_headless build/molemarbles-ui
+	sh $(MOLEMARBLES_DIR)/tests/touch_test.sh build/host/molemarbles_headless build "320 $(WIDTHS)"
+	sh $(MOLEMARBLES_DIR)/tests/best_test.sh build/host/molemarbles_headless build
 	sh $(MOLEMARBLES_DIR)/tests/state_test.sh build/host/molemarbles_test_states build/states
 	$(PYTHON) tools/state_audit.py --game molemarbles build/host/molemarbles_test_states $(MOLEMARBLES_OBJ_HOST)
 	set -e; for w in $(WIDTHS); do echo "== widescreen: $$w x 240"; \
