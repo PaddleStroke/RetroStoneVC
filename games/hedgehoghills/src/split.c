@@ -1,6 +1,6 @@
 /* Independent multiplayer cameras, using SDK viewports and shared tile atlases.
  * Widescreen (DESIGN.md "Widescreen"): the views split the whole width (rs_viewport_layout) and each shows more of its
- * hills ahead; a view is compact (its hedgehog 48 px from its left edge) when it is narrower than 3/4 of the screen,
+ * hills, a third of its extra width behind its hedgehog (draw_wide_left), two thirds ahead; a view is compact (its hedgehog 48 px from its left edge) when it is narrower than 3/4 of the screen,
  * as at 320; the right-hand views use map columns 64 on (128-tile maps); each view's text sits in the UI columns of
  * its place on the screen.
  * MIT, (c) 2026 Pierre-Louis Boyer (8BCraft). */
@@ -91,7 +91,7 @@ static void hills(const split_view *v,rs_viewport *vp) {
     /* Every atlas slice has its own world rows; no vertical wrapping into ground. */
     int yoff=v->cam_y/4+(RS_SCREEN_H-vp->h)/2;
     int first=floor8(yoff),frac=yoff-first*8;
-    int xoff=v->scroll/4,first_x=xoff/8;
+    int xoff=v->scroll>>2,first_x=xoff>>3;      /* floor: a scroll < 0 behind the start (widescreen) */
     int cols=(vp->w+(xoff&7)+7)/8,rows=(vp->h+frac+7)/8;
     for(int y=0;y<rows;y++) for(int x=0;x<cols;x++) {
         int yy=first+y-HILLS_Y/8;
@@ -105,7 +105,9 @@ static void hills(const split_view *v,rs_viewport *vp) {
 static void objects(const world *w,int p,int t,const split_view *v,const rs_viewport *vp) {
     const hero *h=&w->h[p];
     int x=(int)(h->wx>>16)-v->scroll,y=(h->y>>16)-30-v->cam_y;
+    int n=rs_oam_next();
     spr(vp,draw_hero_sprite(h,t),x-16,y,2,draw_player_pal(p));
+    if(p==0) draw_p1_x=rs_oam_next()>n?vp->x+rs_screen_origin_x()+rs_oam(n)->x+16:-999;
     if(h->state==HS_RUN && h->held && h->grounded && h->vx>6*Q16_ONE)
         spr(vp,SPR_PUFF+(w->t/4)%3,x-25,y+24,1,-1);
     if(h->smooth_t>0) hu_sparkle(x-20-hu_ui_x(),y+6,w->t,2);   /* kit sprites: UI coordinates */
@@ -162,8 +164,11 @@ void draw_split_frame(const world *w,int st_t,int paused) {
             if(foot-v->cam_y<60) v->cam_y=foot-60;
             if(foot-v->cam_y>vp->h-10) v->cam_y=foot-vp->h+10;
         }
-        v->scroll=(int)(h->wx>>16)-(compact(vp)?48:HERO_X);
-        if(v->scroll<0) v->scroll=0;
+        /* widescreen: a third of the view's extra width behind the hedgehog (0 at 320); behind the start, the hills
+         * behind the starting line (down to -that third, as at 320 down to 0) */
+        int behind=draw_wide_left(vp->w);
+        v->scroll=(int)(h->wx>>16)-(compact(vp)?48:HERO_X)-behind;
+        if(v->scroll<-behind) v->scroll=-behind;
         draw_scenery_colors(v->scroll,vp->h,v->sky,v->soil,v->hills);
         terrain(w,v,vp,&next_tile); hills(v,vp);
         vp->layers=7; vp->objs=1;
@@ -192,6 +197,10 @@ void draw_split_frame(const world *w,int st_t,int paused) {
     }
     rs_viewports(nviews,views,RS_HEX(0x294c30));
 }
+/* tests (draw_view_log): P1's view, if the split screen shows (its stage x, else -9999), its width, its scroll */
+int draw_split_view_x(int p) { return p<nviews?views[p].x:-9999; }
+int draw_split_view_w(int p) { return p<nviews?views[p].w:0; }
+int draw_split_scroll(int p) { return p<nviews?V[p].scroll:0; }
 #define S(v) rs_state_var("split." #v,&(v),sizeof(v))
 void draw_split_state(void) { S(V); S(views); S(nviews); }
 #undef S

@@ -13,6 +13,12 @@
 #define READY_BOB 4
 #define BOT_START 20
 #define MEDAL_SCORES {100, 250, 500, 1000}
+/* Widescreen (DESIGN.md "Widescreen"): the share of the extra width of a view (its columns past those it has at 320)
+ * shown BEHIND the hedgehog, on the left: one third (the owner's decision), the other two thirds ahead. WIDE_LEFT(extra)
+ * rounds it: 36 px on a 427-px screen, 67 at 520, 80 at 560, 0 at 320. */
+#define WIDE_LEFT_NUM 1
+#define WIDE_LEFT_DEN 3
+#define WIDE_LEFT(extra) (((extra)*WIDE_LEFT_NUM*2+WIDE_LEFT_DEN)/(2*WIDE_LEFT_DEN))
 enum hero_state { HS_READY, HS_RUN, HS_HIT, HS_DOWN, HS_OFF };
 typedef struct hero {
     int state, t, x, score, air_t, land_t;
@@ -54,6 +60,12 @@ void draw_split_state(void);
 int draw_wide(void);                        /* widescreen: the screen is wider than 320 */
 uint16_t draw_hills_entry(int row,int col); /* the distant forest's map entry (widescreen: with its mirror image) */
 void draw_relayout(void);                   /* after a state of another width was loaded: this width's maps */
+int draw_wide_left(int view_w);         /* widescreen: the columns a view of view_w shows behind its hedgehog */
+void draw_view_log(const world *w);         /* tests (--opt view=1): the view at exit, "view: width= left= p1_x= next_x=" */
+extern int draw_p1_x;                       /* tests: P1's sprite centre on the screen, as last drawn (-999: none) */
+int draw_split_view_x(int p);                /* tests: the split view of player p (its stage x; -9999: no split) */
+int draw_split_view_w(int p);
+int draw_split_scroll(int p);
 enum { SFX_JUMP, SFX_SCORE, SFX_HIT, SFX_LAND, SFX_COUNT };
 #define SFX_HOUSE SFX_COUNT
 #endif

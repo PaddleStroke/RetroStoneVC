@@ -1,10 +1,10 @@
 /* Hedgehog Hills video, using the shared 8BCraft kit. MIT, (c) 2026 8BCraft.
- * Widescreen (DESIGN.md "Widescreen"): a side-scroller, so the hills are revealed wider, to the right (the stage
- * origin stays 0): the hedgehog runs at the same screen x (HERO_X), the screen shows further ahead: the terrain's
- * columns, the apples of the hills in view and the distant forest to the screen's edge. The maps are 128 tiles wide;
- * the forest's 512-px panorama goes on with its mirror image (the same tiles h-flipped: nothing repeats on a 560-px
- * screen). The UI is centred (the UI layer scrolls by -hu_ui_x(), the game's UI sprites add it); the split screens
- * (split.c) split the whole width. */
+ * Widescreen (DESIGN.md "Widescreen"): a side-scroller, so the hills are revealed wider: a third of the extra width
+ * behind the hedgehog, two thirds ahead (the stage origin stays 0; the camera, cam_x, starts draw_wide_left() px left
+ * of the world's scroll, so the hedgehog runs that much right of HERO_X): the terrain's columns, the apples of the
+ * hills in view and the distant forest from edge to edge. The maps are 128 tiles wide; the forest's 512-px panorama
+ * goes on with its mirror image (the same tiles h-flipped: nothing repeats on a 560-px screen). The UI is centred
+ * (the UI layer scrolls by -hu_ui_x(), the game's UI sprites add it); the split screens (split.c) split the whole width. */
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
@@ -18,6 +18,11 @@ static rs_color line_col[RS_SCREEN_H];
 static int shown_state=-1,shown_best=-1,cam_y;
 static int laid_w;                     /* the width the maps were laid out for (a state of another width: relayout) */
 int draw_wide(void) { return rs_screen_width()>RS_SCREEN_W; }
+/* the columns a view of view_w shows behind its hedgehog: a third of its extra width (view_w less the width it has at 320:
+ * 320 for the screen, 159 for a half); 0 at 320 */
+int draw_wide_left(int view_w) { return WIDE_LEFT(view_w-view_w*RS_SCREEN_W/rs_screen_width()); }
+int draw_p1_x=-999;
+static int cam_x;                      /* the single view's camera: the world's scroll less draw_wide_left() (per frame) */
 /* the distant forest's map entry at column col of a 64- or 128-tile map: widescreen, the panorama then its mirror */
 uint16_t draw_hills_entry(int row,int col) {
     col&=draw_wide()?127:63;
@@ -66,7 +71,7 @@ static void distant_hills(const world *w) {
         uint16_t tile=yy<0?RS_MAP(gm_bg3_tile_count,PAL_HILLS,0,0,0):draw_hills_entry(yy<HILLS_H?yy:HILLS_H-1,x);
         rs_bg_put(RS_BG3,x,y,tile);
     }
-    rs_bg_scroll(RS_BG3,(w->scroll/4)&(mw*8-1),offset-first*8);
+    rs_bg_scroll(RS_BG3,(cam_x>>2)&(mw*8-1),offset-first*8);   /* >>2: floor (cam_x < 0 behind the start) */
 }
 /* the maps of this width: 64 tiles at 320, 128 wider */
 static void maps_setup(void) {
@@ -126,7 +131,7 @@ static void terrain(const world *w) {
     for(int c=0;c<cols;c++) {
         int floors[8],lo=1000,hi=-1000;
         for(int x=0;x<8;x++) {
-            floors[x]=(hill_y(w,w->scroll+c*8+x)>>16)-cam_y;
+            floors[x]=(hill_y(w,cam_x+c*8+x)>>16)-cam_y;
             if(floors[x]<lo) lo=floors[x];
             if(floors[x]>hi) hi=floors[x];
         }
@@ -136,15 +141,15 @@ static void terrain(const world *w) {
         for(int r=first;r<=last && r-first<8;r++) for(int y=0;y<8;y++) for(int x=0;x<8;x++) {
             int yy=r*8+y,d=yy-floors[x],val=0;
             if(d>=0) val=d==0?1:d==1?2:d<4?3:d<6?4:d<8?5:6;
-            if(d>=8 && ((w->scroll+c*8+x)*13+yy*7)%41==0) val=9;
-            if(val && draw_frozen_pixel(w,w->scroll+c*8+x,yy+cam_y)) val=draw_iced(val);
+            if(d>=8 && ((cam_x+c*8+x)*13+yy*7)%41==0) val=9;
+            if(val && draw_frozen_pixel(w,cam_x+c*8+x,yy+cam_y)) val=draw_iced(val);
             edge[(r-first)*64+y*8+x]=(uint8_t)val;
         }
         rs_tiles_load8(VR_BG2+16+c*8,edge,8);
         for(int r=0;r<30;r++) {
             int tile=r<first?0:r<=last?16+c*8+r-first:((r+c/3)%5==0?2:(r+c)%3==0?3:1);
             if(r>last) {
-                int wx=w->scroll+c*8;
+                int wx=cam_x+c*8;
                 if(front-wx-7+48-8>=96) tile+=3;
                 else if(front-wx+48+8>0 && frost_tile<256) {
                     uint8_t pix[64];
@@ -234,6 +239,7 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
         if(yy<target) target=yy;
     }
     if(!paused) cam_y+=(target-cam_y)/8;
+    cam_x=w->scroll-draw_wide_left(rs_screen_width());   /* widescreen: a third of the extra width behind */
     scenery(w); terrain(w); distant_hills(w);
     int sx=hu_shake_x(),sy=hu_shake_y();
     rs_bg_scroll(RS_BG2,-sx,-sy);
@@ -262,28 +268,30 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
     } else {
         for(int p=w->players-1;p>=0;p--) {
             const hero *h=&w->h[p];
-            if(h->state==HS_OFF||h->x<-24) continue;
-            int yy=(h->y>>16)-32+2-cam_y;
-            spr(draw_hero_sprite(h,st_t),h->x-16+sx,yy+sy,2,draw_player_pal(p));
+            int hx=h->x+w->scroll-cam_x;       /* its screen x (h->x: from the world's scroll) */
+            if(h->state==HS_OFF||hx<-24) continue;
+            int yy=(h->y>>16)-32+2-cam_y,n=rs_oam_next();
+            spr(draw_hero_sprite(h,st_t),hx-16+sx,yy+sy,2,draw_player_pal(p));
+            if(p==0) draw_p1_x=rs_oam_next()>n?rs_oam(n)->x+16+rs_screen_origin_x():-999;
             if(h->state==HS_RUN && h->held && h->grounded && h->vx>6*Q16_ONE)
-                spr(SPR_PUFF+(w->t/4)%3,h->x-25,yy+24,1,-1);
-            if(h->smooth_t>0) hu_sparkle(h->x-20-hu_ui_x(),yy+6,w->t,2);   /* kit sprites: UI coordinates */
+                spr(SPR_PUFF+(w->t/4)%3,hx-25,yy+24,1,-1);
+            if(h->smooth_t>0) hu_sparkle(hx-20-hu_ui_x(),yy+6,w->t,2);   /* kit sprites: UI coordinates */
             if(h->spill && h->smooth_t<0 && h->land_t<24) {
                 int t=h->land_t;
                 for(int k=0;k<h->spill;k++)
-                    spr(SPR_APPLE,h->x-8-t*(k+1),yy+8-t*3+t*t/8-k*5,1,-1);
+                    spr(SPR_APPLE,hx-8-t*(k+1),yy+8-t*3+t*t/8-k*5,1,-1);
             }
         }
         /* the apples of the hills in view (two hills at 320; widescreen: as many as the screen shows) */
-        int first=(w->scroll/HILL_SPAN)*3,hills_seen=(rs_screen_width()+HILL_SPAN-1)/HILL_SPAN+1;
+        int first=(cam_x>0?cam_x/HILL_SPAN:0)*3,hills_seen=(rs_screen_width()+HILL_SPAN-1)/HILL_SPAN+1;
         for(int a=first;a<first+3*hills_seen;a++) {
             int ax,ay; apple_pos(w,a,&ax,&ay);
             int visible=0;
             for(int p=0;p<w->players;p++) if(w->h[p].state==HS_RUN && w->h[p].apple_id<a) visible=1;
-            if(visible) spr(SPR_APPLE,ax-w->scroll-8,ay-cam_y-8+hu_bob(w->t+a*11,80,2),1,-1);
+            if(visible) spr(SPR_APPLE,ax-cam_x-8,ay-cam_y-8+hu_bob(w->t+a*11,80,2),1,-1);
         }
         /* Wind-blown flakes and long wisps echo the feathered terrain edge. */
-        int front=(int)(w->frost/Q16_ONE)-w->scroll;
+        int front=(int)(w->frost/Q16_ONE)-cam_x;
         if(front>-100) for(int i=0;i<18;i++) {
             int x=front+38-((w->t*2+i*31)%155),y=(w->t+i*37)%220;
             spr(SPR_SNOW,x,y,2,-1);
@@ -293,6 +301,17 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
             spr(SPR_FROST_WISP+(w->t/12+i)%2,x,y,1,-1);
         }
     }
+}
+/* Tests (--opt view=1, main.c at exit): P1's view of the last frame, "view: width=W left=L p1_x=X next_x=N": L the
+ * columns shown behind the hedgehog (a third of the view's extra width), X the screen x of P1's sprite centre as drawn,
+ * N the screen x of the next apple ahead of P1 (tests/wide_test.sh: X and N - X against 320) */
+void draw_view_log(const world *w) {
+    int split=draw_split_view_x(0),hx=(int)(w->h[0].wx>>16),a=0,ax,ay;
+    do apple_pos(w,a++,&ax,&ay); while(ax<=hx && a<10000);
+    int vw=split>-9999?draw_split_view_w(0):rs_screen_width();
+    int left=draw_wide_left(vw),cam=split>-9999?draw_split_scroll(0):cam_x;
+    rs_log("view: width=%d left=%d p1_x=%d next_x=%d",rs_screen_width(),left,draw_p1_x,
+           (split>-9999?split:rs_screen_left())+rs_screen_origin_x()+ax-cam);
 }
 #define S(v) rs_state_var("draw." #v,&(v),sizeof(v))
 void draw_state(void) { S(line_col); S(shown_state); S(shown_best); S(cam_y); S(laid_w); draw_split_state(); RS_STATE_RASTER(raster); }

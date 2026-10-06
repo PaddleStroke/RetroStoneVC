@@ -69,14 +69,22 @@ uneven snow edge, and drifting snow wisps. The original collision position is pr
 ## Widescreen (docs/spec.md "Widescreen")
 
 The game opts in (`max_width` = 560, `WIDESCREEN_hedgehoghills = 1`): 320 x 240 is unchanged pixel for pixel; at
-427 (16:9), 520 or 560 (phones) **the hills are revealed wider, to the right**: a side-scroller, so the stage origin
-stays 0. The hedgehog runs at the same screen x (HERO_X 96), the frost comes from the left as before, and the screen
-shows more of the hills ahead; seeing further makes it a little easier, which the owner accepts (no compensation).
+427 (16:9), 520 or 560 (phones) **the hills are revealed wider: a third of the extra width behind the hedgehog, two
+thirds ahead** (the owner's decision: with all of it ahead the hedgehog sat too far left before a long empty stretch).
+A side-scroller: the stage origin stays 0 and the camera (draw.c cam_x; split.c each view's scroll) starts a third of
+the view's extra width left of the world's scroll (`WIDE_LEFT`, game.h: 36 px at 427, 67 at 520, 80 at 560, 0 at
+320; a half view a third of its own extra columns), so the hedgehog runs that much right of HERO_X 96 and sees the
+rest ahead; seeing further makes it a little easier, which the owner accepts (no compensation). Behind it the hills
+are drawn like the rest: the terrain, the apples and the frost coming from the left, and before the start (the title
+too) the ground behind the starting line.
 - **The same run**: the terrain's columns (one per 8 px, up to 70 at 560; the frost's tiles after them), the apples of
   every hill in view and the distant forest go to the screen's edge; the world never looked at the screen (its scroll
   is the leader's x - HERO_X). tests/wide_test.sh compares the whole logs (scores, game overs, the final state and its
   hash) of 1-player and 4-player bot runs at 320, 427, 520 and 560. The start of a run is the same too: the first
-  hills and apples sit at the same distance from the hedgehog as at 320 (visible from the first frame).
+  hills and apples sit at the same distance from the hedgehog as at 320 (visible from the first frame). Its view
+  check (`--opt view=1` logs the view at exit) asserts the third on the left, the hedgehog's screen x (that of 320
+  plus the third) and the next apple's distance on the screen (that of 320), at the start, in a run and in P1's view
+  of a 2-player game.
 - **The distant forest** (BG3) goes on with its mirror image (the same tiles h-flipped on a 128-tile map: no VRAM,
   seamless joins), so a 560-px screen never shows a stretch twice.
 - **Multiplayer** (split.c): the views split the whole width (2 players: top and bottom, 3: a top half and two lower

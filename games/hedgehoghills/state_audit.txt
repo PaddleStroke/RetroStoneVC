@@ -3,3 +3,5 @@
 # the house kit's hu_state() and ha_state()).
 main.snd_buf        sound_init(): the synthesis buffer (the samples are made at start-up, not saved)
 main.SV             the battery save's copy (best scores, medals): stays in the .srm, a state never takes it back
+draw.draw_p1_x      tests only (--opt view=1, draw_view_log): where P1's sprite was last drawn, written every frame
+draw.cam_x          the single view's camera: the world's scroll less the third on the left, set every frame before use
