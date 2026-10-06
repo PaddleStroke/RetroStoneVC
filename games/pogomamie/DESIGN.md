@@ -136,6 +136,23 @@ to the title with the same lobby; the next A starts again. Start or Select pause
 | Start or Select in play | pause / resume |
 | Pads 2-4, A or Start on title | join race; B leaves |
 
+### Touch (docs/spec.md "Touch")
+The game reads the touches itself (`rs_game.touch_native = 1`), so the phone apps pass it the fingers instead of
+their drawn buttons. Touch is player 1, alongside the pad (Papi and the other racers join with pads):
+
+| Touch | Action |
+|---|---|
+| hold the left / right half of the screen | steer in the air (= Left / Right held) |
+| hold both halves at once (two fingers) | big bounce (= A held): no steering meanwhile |
+| tap anywhere on the title / "get ready" | start (= A) |
+| tap anywhere on the game-over panel | return to the title (after the same lock as A) |
+| the app's pause button | pause / resume (it presses Start) |
+
+The halves are the screen's (its centre at any width). The fingers are read afresh every frame and turned into the
+pad buttons they stand for, so a touch run is the same run as the pad's (nothing to keep in a save state), and
+while paused they do nothing, not even later. Without a touch the pad game is unchanged, byte for byte.
+`tests/touch_test.sh` (in `make pogomamie-check`, at every width) plays scripted fingers through the headless runner.
+
 ## Two to four players (race)
 All racers share the rooftops with separate pads and player colours. The camera tracks the race; players
 left too far behind drop out. Survivors continue until everyone is down. Results rank distance and score.

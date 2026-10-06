@@ -2,7 +2,7 @@
 #
 #   make pogomamie                host builds: pogomamie (SDL2), pogomamie_headless, pogomamie_libretro.so
 #   make pogomamie-check          all its tests (SDK, libretro loader, physics + generator + determinism, the
-#                                 tile/sprite alignment at every scroll phase, smoke + bot, save states and audit), at
+#                                 tile/sprite alignment at every scroll phase, smoke + bot, touch, save states and audit), at
 #                                 320 and then again at each widescreen width of WIDTHS (427 520), the same game at
 #                                 every width and save states across widths (tests/wide_test.sh)
 #   make pogomamie-dist           dist/windows/PogoMamie.exe, dist/libretro/pogomamie_libretro.so (+ .armhf.so)
@@ -53,6 +53,7 @@ pogomamie-check:
 	./build/host/pogomamie_test_physics
 	sh $(PM_DIR)/tests/align_test.sh build/host/pogomamie_test_align build
 	sh $(PM_DIR)/tests/smoke_test.sh build/host/pogomamie_headless build
+	sh $(PM_DIR)/tests/touch_test.sh build/host/pogomamie_headless build
 	$(PYTHON) $(PM_DIR)/tests/ui_test.py build/host/pogomamie_headless build/pogomamie-ui
 	sh $(PM_DIR)/tests/state_test.sh build/host/pogomamie_test_states build/states
 	$(PYTHON) tools/state_audit.py --game pogomamie build/host/pogomamie_test_states $(filter-out %/assets.o %/game_text.o,$(PM_OBJ_HOST))
@@ -61,6 +62,7 @@ pogomamie-check:
 	    [ -z "$$a" ] || ./build/host/test_libretro build/host/pogomamie_libretro.so 600 $$a $$w; \
 	    RS_WIDTH=$$w sh $(PM_DIR)/tests/align_test.sh build/host/pogomamie_test_align build/w$$w; \
 	    RS_WIDTH=$$w sh $(PM_DIR)/tests/smoke_test.sh build/host/pogomamie_headless build/w$$w; \
+	    RS_WIDTH=$$w sh $(PM_DIR)/tests/touch_test.sh build/host/pogomamie_headless build/w$$w; \
 	    RS_WIDTH=$$w $(PYTHON) $(PM_DIR)/tests/ui_test.py build/host/pogomamie_headless build/pogomamie-ui-$$w; \
 	    RS_WIDTH=$$w sh $(PM_DIR)/tests/state_test.sh build/host/pogomamie_test_states build/states-$$w; \
 	done

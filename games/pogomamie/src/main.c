@@ -5,6 +5,9 @@
  *
  * Controls: Left/Right steer in the air, hold A (or B, X, Y) on a landing for a big bounce, Start pauses.
  * A or Start on the title and "get ready" screens starts; A on pad 2 there: Papi joins (a 2-player race).
+ * Touch (rs_game.touch_native; player 1, DESIGN.md "Controls"): hold the left / right half of the screen to steer
+ * (= Left / Right held), both halves at once = the big bounce (= A held); a tap starts on the title and "get ready"
+ * and goes back to the title from the game-over panel (= A there). Read afresh every frame: nothing to save.
  *
  * Options (--opt key=value on the desktop runners):
  *   bot=1          the screen-reading bot plays player 1 (bot.c), bot=2 both players; botruns=N runs in a row
@@ -67,6 +70,15 @@ static void save_store(void)
     memcpy(rs_sram(), &SV, sizeof SV);
     rs_sram_commit();
 }
+
+/* ---- touch: player 1's fingers as the pad buttons they stand for (no touch: the pad game unchanged) ---------------- */
+static uint16_t touch_buttons(void)
+{
+    int h = rs_touch_halves();
+    if (h == (RS_TOUCH_LEFT | RS_TOUCH_RIGHT)) return RS_BTN_A;      /* both halves: the big bounce */
+    return h == RS_TOUCH_LEFT ? RS_BTN_LEFT : h == RS_TOUCH_RIGHT ? RS_BTN_RIGHT : 0;
+}
+static int touch_tapped(void) { return rs_touch_tap(NULL, NULL); }  /* a tap = A on the title, "get ready", the panel */
 
 /* ---- flow ---------------------------------------------------------------------------------------------------------- */
 static void go(int s) { st = s; st_t = 0; }
@@ -174,9 +186,11 @@ static void play_update(int allow_start)
             ap[p] = allow_start && st_t == 30;
         } else {
             uint16_t b = rs_pad(hu_player_pad(p));
+            if (p == 0) b |= touch_buttons();                           /* touch is player 1 */
             dir[p] = (b & RS_BTN_RIGHT ? 1 : 0) - (b & RS_BTN_LEFT ? 1 : 0);
             a[p] = (b & GO_BUTTONS) != 0;
-            ap[p] = allow_start && (rs_pad_pressed(hu_player_pad(p)) & START_INPUTS) != 0;
+            ap[p] = allow_start &&
+                    ((rs_pad_pressed(hu_player_pad(p)) & START_INPUTS) != 0 || (p == 0 && touch_tapped()));
         }
     }
     world_step(&W, dir, a, ap);
@@ -218,7 +232,7 @@ static void game_update(void)
             st_t = t;
             sfx(SFX_JOIN);
         }
-        if ((ev & HU_TITLE_START) || (opt_bot && st_t >= 40)) {
+        if ((ev & HU_TITLE_START) || touch_tapped() || (opt_bot && st_t >= 40)) {
             players = hu_players();
             new_run(DS_PLAY);
             int dir[MAX_PLAYERS] = {0}, held[MAX_PLAYERS] = {0}, press[MAX_PLAYERS] = {1};
@@ -235,7 +249,7 @@ static void game_update(void)
         play_update(0);
         break;
     case DS_OVER:
-        if (st_t >= RETRY_LOCK && (hu_over_back() ||
+        if (st_t >= RETRY_LOCK && (hu_over_back() || touch_tapped() ||
             (opt_bot && runs_done < opt_botruns && st_t == RETRY_LOCK + 10))) {
             players = hu_players();
             new_run(DS_TITLE);
@@ -324,6 +338,7 @@ const rs_game *rs_game_main(void)
 {
     static const rs_game g = {"Pogo Mamie", "pogomamie", "0.1.0", game_init, game_update, game_draw, game_shutdown,
                               pm_assets, game_state, game_state_loaded, 2,
-                              RS_SCREEN_W_MAX};   /* widescreen: any width (DESIGN.md "Widescreen") */
+                              RS_SCREEN_W_MAX,    /* widescreen: any width (DESIGN.md "Widescreen") */
+                              1};                 /* touch_native: the touch controls above (DESIGN.md "Controls") */
     return &g;
 }
