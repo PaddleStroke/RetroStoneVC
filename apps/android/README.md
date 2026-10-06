@@ -100,40 +100,42 @@ app's, nine on ruby. Google Play's 512 px icon goes to `dist/android/<EXE_NAME>-
 
 ## 4. Touch controls
 
-On a phone, the touches are **player 1** (players 2 to 4 use gamepads). The schemes are in
-`apps/launcher/games.cfg`: screen zones that hold pad buttons, and drawn buttons (translucent discs with an arrow or a
-letter) where the scheme needs them. The pause button is always in the top-right corner, the back button in the
-top-left one (touches there never reach the game).
+On a phone, the touches are **player 1** (players 2 to 4 use gamepads). The pause button is always in the top-right
+corner, the back button in the top-left one: a finger that goes down on them never reaches the game. On the desktop
+(`dist/windows/*.exe`) the **mouse's left button is the finger**, to try the touch controls without a phone.
 
-The owner's **target design** for every game, and what the app does today:
+Two kinds of games:
+- **App-level** (13 games): `apps/launcher/games.cfg` turns the touches into the virtual pad: screen zones that hold
+  pad buttons (the game's code knows only the pad).
+- **Game-side** (7 games): the game reads the touches itself, through the SDK's touch API (`rs_touch*()`,
+  docs/spec.md "Touch"; the game declares `rs_game.touch_native`): the app passes it the fingers, in its screen
+  pixels, with no zone and no drawn button. Its menus take taps too (a tap starts from the title, a tap on the
+  game-over panel goes back to it).
 
-| Game | Target design | In the app today | |
-|---|---|---|---|
-| Leady Squid | tap anywhere = A | the same | final |
-| Pancake Tower | tap anywhere = A | the same | final |
-| Beaver Rush | the left / right half = Left / Right | the same | final |
-| Frog Reach | hold anywhere = A | the same | final |
-| Hedgehog Hills | hold anywhere = A | the same | final |
-| Mouse Espresso | hold anywhere = A | the same | final |
-| Blueberry Tumble | tap anywhere = A | the same | final |
-| Snail Switch | tap anywhere = A | the same | final |
-| Penguin Slalom | hold the left / right half = Left / Right | the same | final |
-| Otter Rapids | hold the left / right half = Left / Right | the same | final |
-| Crab Coconut | hold the left / right half = Left / Right | the same | final |
-| Biscuit Bandit | hold the left / right half = Left / Right | the same (each half also presses A: the only input that starts it from its title; A does nothing in a run) | final |
-| Duck Parade | tap a spot: the duck hops there along the direct path (and falls into the water on the way) | a drawn D-pad on the left half (up, down, back, forward) and A (hop forward) on the right half | **provisional** |
-| Radish Rascals | tap the bed to defend | drawn zones: the top, bottom, left and right bands of the screen = Up, Down, Left, Right | **provisional** |
-| Raccoon Recycler | tap the branch the toy should take | drawn thirds: left, centre (Up), right branch (+A: the title's start) | **provisional** |
-| Moth Around | the moth follows your finger (to its angle around the lantern) | hold the left / right half = Left / Right | **provisional** |
-| Nutty Branch | hold the left / right half to steer, swipe up to jump | drawn Left and Right on the left half, A (jump) on the right half | **provisional** |
-| Pogo Mamie | hold the left / right half to steer, hold both halves at once for the big bounce | drawn Left and Right on the left half, A (big bounce) on the right half | **provisional** |
-| Mole Marbles | the mole follows your finger, a quick tap shoots | drawn Left and Right on the left half, A (shoot) on the right half | **provisional** |
-| Spider Swing | tap to let go of the web, then hold the left / right half to steer in flight | drawn Left and Right on the left half, A (let go) on the right half | **provisional** |
+**All 20 schemes are final** (the owner's design), to be tuned after the owner's phone test:
 
-**Provisional: to be tuned after the owner's phone test.** The eight target designs marked provisional are
-*game-side*: the game itself must know where the finger is (a spot to hop to, a bed, an angle, a swipe). They wait
-for a touch / pointer API in the SDK (to come after the widescreen work); until then the app gives them the pad's
-buttons through the zones above (`TODO(touch)` in `games.cfg`).
+| Game | Touch controls | |
+|---|---|---|
+| Leady Squid | tap anywhere = A (swim) | app |
+| Pancake Tower | tap anywhere = A (drop) | app |
+| Beaver Rush | the left / right half = Left / Right | app |
+| Frog Reach | hold anywhere = A | app |
+| Hedgehog Hills | hold anywhere = A | app |
+| Mouse Espresso | hold anywhere = A | app |
+| Blueberry Tumble | tap anywhere = A | app |
+| Snail Switch | tap anywhere = A | app |
+| Penguin Slalom | hold the left / right half = Left / Right | app |
+| Otter Rapids | hold the left / right half = Left / Right | app |
+| Crab Coconut | hold the left / right half = Left / Right | app |
+| Biscuit Bandit | hold the left / right half = Left / Right (each half also presses A: the only input that starts it from its title; A does nothing in a run) | app |
+| Duck Parade | tap a spot: the duck hops there one hop at a time along the direct path (each hop along the axis with the larger distance left), and falls into the water on the way; a new tap retargets, a tap on the duck stops it; a small marker shows the target | game |
+| Radish Rascals | tap the bed to defend | game |
+| Raccoon Recycler | tap the branch the toy should take | game |
+| Moth Around | hold the left / right half = turn one way / the other around the lantern | app |
+| Nutty Branch | hold the left / right half to steer; swipe up to jump (keep the finger down for the higher jump) | game |
+| Pogo Mamie | hold the left / right half to steer; swipe up = the big bounce (it arms the next landing; a small cue shows it) | game |
+| Mole Marbles | the mole walks at its normal speed to your finger's x; a quick tap shoots (and sends it there) | game |
+| Spider Swing | tap to let go of the web; in flight, hold the left / right half to steer | game |
 
 ## 5. Publishing
 
@@ -176,12 +178,17 @@ Everything else Google Play asks for is in [`store/`](store/):
 - The bundle's tests, for both apps (`make -f apps/launcher/bundle.mk check` and the same with
   `CONF=apps/android/app-full.conf`, Linux): each game identical to its standalone build (fresh, at width 520 and
   after another game), the flow with touches, the store request (free) or none (full), the credits screens, every
-  game launching in one process with its own save state, each game's touch scheme, the launcher in 22 languages.
+  game launching in one process with its own save state, each game's touch scheme (the game-side ones: the touches
+  reach the game, and never those that go down on the pause or back button), the launcher in 22 languages.
+- The game-side touch controls: each of the 7 games' `make <game>-check` plays them with scripted touches (headless,
+  at 320, 427 and 520 columns where it applies), and its pad play stays byte-identical without touches.
 - The APKs: built, their ABIs and 16 KB page alignment checked by `build.sh`; the release path (`--release`) with a
   throwaway key: a signed AAB and APK. `apps/android/smoke-emulator.sh` ran the free app in an Android 11 x86_64
   emulator earlier (the emulator, ~4 GB, was removed afterwards: `setup-toolchain.sh --emulator` installs it again).
-- **Not tested on a real phone yet**: the feel of the touch controls, the drawn buttons' size, the audio latency, the
-  integer scaling on the phone's real resolution, the display cutout, Bluetooth / USB pads, the Back gesture of
-  gesture navigation, the Play Store link (the paid app is not on Google Play yet: the store says "not found").
+- **Not tested on a real phone yet**: the feel of the touch controls (the game-side ones were played only with
+  scripted touches: real fingers, several at once, the thresholds of a tap, a swipe and a hold; the mouse as the
+  finger in the desktop apps was not tried by hand either), the drawn buttons' size, the audio latency, the integer
+  scaling on the phone's real resolution, the display cutout, Bluetooth / USB pads, the Back gesture of gesture
+  navigation, the Play Store link (the paid app is not on Google Play yet: the store says "not found").
 
 MIT licence (the apps' code), (c) 2026 Pierre-Louis Boyer (8BCraft). The games' assets: CC BY-NC-SA 4.0.
