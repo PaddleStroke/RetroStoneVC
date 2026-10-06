@@ -356,11 +356,11 @@ static void test_input(void)
 }
 
 /* touch: slots, edges, tap, swipe, hold, halves, clamping, more fingers than slots */
-static rs_touch_point tseen[64][RS_TOUCH_MAX];
-static int tframe, ttap[64], tswipe[64], thold[64], thalves[64], tcount[64];
+static rs_touch_point tseen[128][RS_TOUCH_MAX];
+static int tframe, ttap[128], tswipe[128], thold[128], thalves[128], tcount[128];
 static void t_touch_update(void)
 {
-    if (tframe < 64) {
+    if (tframe < 128) {
         for (int i = 0; i < RS_TOUCH_MAX; i++) {
             const rs_touch_point *p = rs_touch(i);
             if (p) tseen[tframe][i] = *p;
@@ -427,6 +427,14 @@ static void test_touch(void)
     rs_host_frame();                                                               /* 39: all up */
     rs_host_frame();                                                               /* 40 */
     CHECK(tcount[39] == 0 && tcount[40] == 0 && !rs_touch(0) && !rs_touch(1), "touch: all lifted");
+    /* a finger held for long, then flicked up: a swipe (from where it was a few frames before); a slow drift is not */
+    for (int i = 0; i < 40; i++) touch_frame(1, 11, 100, 200 - i / 4, 0, 0, 0);    /* 41..80: drifts 10 px up */
+    for (int i = 1; i <= 4; i++) touch_frame(1, 11, 100, 190 - 6 * i, 0, 0, 0);    /* 81..84: 24 px up in 4 frames */
+    int flick = 0;
+    for (int f = 41; f <= 80; f++) flick |= tswipe[f] != 0;
+    CHECK(!flick, "touch: a slow drift is no swipe");
+    CHECK(tswipe[84] == RS_SWIPE_UP || tswipe[83] == RS_SWIPE_UP, "touch: a flick up after 40 frames down is a swipe");
+    touch_frame(0, 0, 0, 0, 0, 0, 0);
     rs_host_shutdown();
     rs_host_set_width(320);
 }

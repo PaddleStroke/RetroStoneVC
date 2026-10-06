@@ -222,8 +222,9 @@ pads. A game that does not read it is unchanged, and a game that reads it keeps 
 - **Gestures**, worked out by the runtime at the start of each frame: a **tap** (`tap`, `rs_touch_tap()`): released
   within `RS_TOUCH_TAP_FRAMES` (18, 0.3 s) without ever going further than `RS_TOUCH_SLOP` (8 px) from where it went
   down (then `moved` is set); a **swipe** (`swipe` on the frame it is recognised, once per touch, `swiped` after,
-  `rs_touch_swipe()`): `RS_TOUCH_SWIPE_DIST` (20 px) from where it went down within `RS_TOUCH_SWIPE_FRAMES` (24),
-  mostly along one axis (the other at most half as far): `RS_SWIPE_UP`, `DOWN`, `LEFT`, `RIGHT`; a **hold**
+  `rs_touch_swipe()`): `RS_TOUCH_SWIPE_DIST` (20 px) from where the finger was at most `RS_TOUCH_SWIPE_FRAMES` (24)
+  frames before (a flick, also by a finger that has been down for a while), mostly along one axis (the other at most
+  half as far): `RS_SWIPE_UP`, `DOWN`, `LEFT`, `RIGHT`; a **hold**
   (`rs_touch_hold()`): down `RS_TOUCH_HOLD_FRAMES` (19) or more without moving; the **screen halves**:
   `rs_touch_half(x)`, `rs_touch_halves()` (the halves with a finger down, `RS_TOUCH_LEFT | RS_TOUCH_RIGHT`).
 - **Declaring it.** `rs_game.touch_native = 1`: the game reads the touches itself for player 1, **its menus

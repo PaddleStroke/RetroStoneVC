@@ -323,8 +323,8 @@ int      rs_pad_device(int port);
 #define RS_TOUCH_SLOP         8     /* px: a touch that went further from where it went down has "moved" */
 #define RS_TOUCH_TAP_FRAMES   18    /* a tap: released within this many frames (0.3 s), never moved */
 #define RS_TOUCH_HOLD_FRAMES  19    /* a hold: down for this many frames or more, never moved */
-#define RS_TOUCH_SWIPE_DIST   20    /* px: a swipe: this far from where it went down ... */
-#define RS_TOUCH_SWIPE_FRAMES 24    /* ... within this many frames (0.4 s), mostly along one axis */
+#define RS_TOUCH_SWIPE_DIST   20    /* px: a swipe (a flick): this far from where the finger was ... */
+#define RS_TOUCH_SWIPE_FRAMES 24    /* ... at most this many frames before (0.4 s), mostly along one axis */
 enum { RS_SWIPE_NONE, RS_SWIPE_UP, RS_SWIPE_DOWN, RS_SWIPE_LEFT, RS_SWIPE_RIGHT };
 #define RS_TOUCH_LEFT  1            /* the screen's left half (x < rs_screen_width() / 2) */
 #define RS_TOUCH_RIGHT 2            /* its right half */
@@ -345,7 +345,7 @@ const rs_touch_point *rs_touch(int i);
 int  rs_touch_count(void);                  /* fingers down now */
 const rs_touch_point *rs_touch_first(void); /* the finger down the longest (NULL: none) */
 int  rs_touch_tap(int *x, int *y);          /* 1: a tap ended this frame (its point, screen pixels; x, y may be NULL) */
-int  rs_touch_swipe(int *x, int *y);        /* RS_SWIPE_* recognised this frame (where it started), 0: none */
+int  rs_touch_swipe(int *x, int *y);        /* RS_SWIPE_* recognised this frame (where the touch went down), 0: none */
 int  rs_touch_hold(int *x, int *y);         /* 1: a finger is held (RS_TOUCH_HOLD_FRAMES, never moved): where */
 int  rs_touch_half(int x);                  /* the half of screen column x: RS_TOUCH_LEFT or RS_TOUCH_RIGHT */
 int  rs_touch_halves(void);                 /* the halves with a finger down now: RS_TOUCH_LEFT | RS_TOUCH_RIGHT */

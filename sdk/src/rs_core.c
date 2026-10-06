@@ -221,6 +221,8 @@ static int g_tin_n;
 static rs_touch_point g_touch[RS_TOUCH_MAX];
 static long g_touch_id[RS_TOUCH_MAX];
 static uint8_t g_touch_busy[RS_TOUCH_MAX];      /* down, or released this frame */
+#define HIST_N (RS_TOUCH_SWIPE_FRAMES + 1)
+static int16_t g_hist[RS_TOUCH_MAX][HIST_N][2];   /* each finger's recent positions (by frames % HIST_N): swipes */
 
 void rs_host_set_touches(int n, const rs_host_touch *t)
 {
@@ -262,12 +264,19 @@ static void touch_step(void)
         p->x = (int16_t)clampi(g_tin[f].x, 0, w - 1);
         p->y = (int16_t)clampi(g_tin[f].y, 0, RS_SCREEN_H - 1);
         if (p->frames < 0xffff) p->frames++;
-        int dx = p->x - p->x0, dy = p->y - p->y0, ax = dx < 0 ? -dx : dx, ay = dy < 0 ? -dy : dy;
+        int dx = p->x - p->x0, dy = p->y - p->y0;
         if (dx * dx + dy * dy > RS_TOUCH_SLOP * RS_TOUCH_SLOP) p->moved = 1;
-        /* a swipe: far enough, soon enough, mostly along one axis (the other at most half as far) */
-        if (!p->swiped && p->frames <= RS_TOUCH_SWIPE_FRAMES && (ax >= RS_TOUCH_SWIPE_DIST || ay >= RS_TOUCH_SWIPE_DIST)) {
-            if (ay >= ax && ax * 2 <= ay) p->swiped = dy < 0 ? RS_SWIPE_UP : RS_SWIPE_DOWN;
-            else if (ax > ay && ay * 2 <= ax) p->swiped = dx < 0 ? RS_SWIPE_LEFT : RS_SWIPE_RIGHT;
+        /* a swipe: RS_TOUCH_SWIPE_DIST from where the finger was at most RS_TOUCH_SWIPE_FRAMES ago (a flick, also
+           from a finger held for a while), mostly along one axis (the other at most half as far); once per touch */
+        g_hist[s][p->frames % HIST_N][0] = p->x;
+        g_hist[s][p->frames % HIST_N][1] = p->y;
+        int from = p->frames > RS_TOUCH_SWIPE_FRAMES ? p->frames - RS_TOUCH_SWIPE_FRAMES : 0;
+        for (int j = from; j < p->frames && !p->swiped; j++) {
+            int sx = p->x - g_hist[s][j % HIST_N][0], sy = p->y - g_hist[s][j % HIST_N][1];
+            int bx = sx < 0 ? -sx : sx, by = sy < 0 ? -sy : sy;
+            if (bx < RS_TOUCH_SWIPE_DIST && by < RS_TOUCH_SWIPE_DIST) continue;
+            if (by >= bx && bx * 2 <= by) p->swiped = sy < 0 ? RS_SWIPE_UP : RS_SWIPE_DOWN;
+            else if (bx > by && by * 2 <= bx) p->swiped = sx < 0 ? RS_SWIPE_LEFT : RS_SWIPE_RIGHT;
             p->swipe = p->swiped;
         }
     }
@@ -283,6 +292,8 @@ static void touch_step(void)
         p->x = p->x0 = (int16_t)clampi(g_tin[i].x, 0, w - 1);
         p->y = p->y0 = (int16_t)clampi(g_tin[i].y, 0, RS_SCREEN_H - 1);
         p->down = p->pressed = 1;
+        g_hist[s][0][0] = p->x;
+        g_hist[s][0][1] = p->y;
     }
 }
 
