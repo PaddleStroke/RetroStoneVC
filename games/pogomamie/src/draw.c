@@ -30,10 +30,17 @@ static int far_slot[3];                         /* the district (wide: the panor
 static int redraw_ui;                           /* transient: a state of another width was loaded (state_audit.txt) */
 static int drawn_width;                         /* the screen width the maps were set up for (saved) */
 
-/* Widescreen (DESIGN.md "Widescreen"): the stage origin is 0, the world is revealed wider on the right. At 320 the
- * scenery maps are 64 tiles wide; on a wider screen 128 (the play layer streams up to 71 columns; the mid-ground is a
- * 1024-px panorama, its second half other roofs; the backdrops' panoramas follow each other, three of them may show
- * at once: three BG4 slots). The UI layer is 128 tiles wide beyond 512 columns. */
+/* Widescreen (DESIGN.md "Widescreen"): the world is revealed wider, a third of the extra width on the left (behind
+ * the players: the stage origin, WIDE_LEFT_SHARE) and two thirds on the right; the stage (the camera's 320 columns)
+ * is that of 320. At 320 the scenery maps are 64 tiles wide; on a wider screen 128 (the play layer streams up to 71
+ * columns; the mid-ground is a 1024-px panorama, its second half other roofs; the backdrops' panoramas follow each
+ * other, three of them may show at once: three BG4 slots). The UI layer is 128 tiles wide beyond 512 columns. */
+static int view_left(void) { return (rs_screen_width() - RS_SCREEN_W) * WIDE_LEFT_SHARE_NUM / WIDE_LEFT_SHARE_DEN; }
+/* what the left view shows must still be in the world: world.c cleanup() keeps the buildings up to 96 px behind the
+ * camera (and the things up to 128): the widest left view, its partial tile and the crash's shake fit */
+_Static_assert((RS_SCREEN_W_MAX - RS_SCREEN_W) * WIDE_LEFT_SHARE_NUM / WIDE_LEFT_SHARE_DEN + 8 + 4 <= 96,
+               "the left view must not reach past the buildings world.c keeps behind the camera");
+static int floor8(int v) { return v >= 0 ? v / 8 : -((7 - v) / 8); }     /* v / 8 rounded down (the left view: v < 0) */
 static int wide(void) { return rs_screen_width() > RS_SCREEN_W; }
 static int scenery_w(void) { return wide() ? 128 : 64; }
 static int ui_w(void) { return rs_screen_width() > 512 ? 128 : 64; }
@@ -118,7 +125,7 @@ static void raster(int line, void *user)
  * (widescreen: the centre of the wider screen, so the look changes when the new district fills half of it) */
 static void look_update(const world *w, int snap)
 {
-    int xc = world_camx(w) + rs_screen_width() / 2;
+    int xc = world_camx(w) + rs_screen_left() + rs_screen_width() / 2;
     int idx = night_at(xc) ? 4 : district_at(xc);
     const look *L = &looks[idx];
     const int *src = &L->sky_top[0];
@@ -288,6 +295,24 @@ static uint16_t world_tile(const world *w, const bldg *b, int x, int y)
     return gap_tile(w, x, y);
 }
 
+/* Behind the start (world x < 0, only on a wide screen's left view: the camera never goes left of 0): decor, the
+ * Haussmann building next to the first roof, a little taller, under a mansard. Not part of the world (nothing lands
+ * there: the players never go back past the camera's left edge). */
+static bldg behind_start(void)
+{
+    bldg b;
+    memset(&b, 0, sizeof b);
+    b.x0 = -256;
+    b.x1 = 0;
+    b.top = START_TOP - 16;
+    b.kind = BK_HAUSS;
+    b.roof = RF_MANSARD;
+    b.style = 1;
+    b.index = -1;
+    for (int k = 0; k < BUMP_MAX; k++) b.bump_x[k] = -1;
+    return b;
+}
+
 static void stream_bg2(const world *w, int camx, int camy)
 {
     int cm = rs_bg_map_w(RS_BG2) - 1;               /* the map's columns - 1: 63, or 127 on a wide screen */
@@ -303,9 +328,11 @@ static void stream_bg2(const world *w, int camx, int camy)
         for (int x = (int)b->x0 + b->sky0; x < b->x0 + b->sky1; x += 8)
             for (int r = 0; r < 32; r++) bg2_key[r][(x / 8) & cm] = 0;
     }
-    int tx0 = camx >> 3, ty0 = camy >> 3;
+    bldg behind = behind_start();
+    int tx0 = floor8(camx + rs_screen_left()), ty0 = camy >> 3;     /* (widescreen: from the left view) */
     for (int tx = tx0; tx <= tx0 + screen_cols(); tx++) {
         const bldg *b = world_bldg_at(w, tx * 8);
+        if (!b && tx < 0) b = &behind;
         for (int ty = ty0; ty <= ty0 + RS_SCREEN_H / 8 && ty < WORLD_H / 8; ty++) {
             uint32_t key = ((uint32_t)tx << 6 | (uint32_t)ty) + 1;
             uint32_t *k = &bg2_key[ty & 31][tx & cm];
@@ -347,10 +374,13 @@ static uint16_t far_entry(uint16_t e, int d, int base)
 
 static void stream_bg4(int camx)
 {
-    int c0 = camx / 64, fm = rs_bg_map_w(RS_BG4) - 1, three = fm > 63;
+    /* the first column on screen (the layer scrolls by camx / 8; widescreen: from the left view, which shows the panorama
+     * before the first one at the start: the last district's, k = -1, which the first one follows anyway) */
+    int c0 = floor8(camx / 8 + rs_screen_left()), fm = rs_bg_map_w(RS_BG4) - 1, three = fm > 63;
     for (int32_t C = c0; C <= c0 + screen_cols() + 1; C++) {
         if (far_col[C & fm] == C) continue;
-        int k = (int)(C / 64), d = k % 4, slot = three ? k % 3 : d & 1, key = three ? k : d;
+        int k = C >= 0 ? (int)(C / 64) : -(int)((63 - C) / 64), d = (k % 4 + 4) % 4;
+        int slot = three ? (k % 3 + 3) % 3 : d & 1, key = three ? k + 1 : d;       /* (key >= 0: -1 = none) */
         int base = three ? slot * FAR_SLOT_WIDE : slot * FAR_SLOT;
         if (far_slot[slot] != key) {
             rs_tiles_load(VR_BG4 + base, pm_far_tiles[d], pm_far_tile_count[d]);
@@ -368,7 +398,7 @@ static void stream_bg4(int camx)
 void draw_invalidate(void)
 {
     memset(bg2_key, 0, sizeof bg2_key);
-    for (int i = 0; i < 128; i++) far_col[i] = -1;
+    for (int i = 0; i < 128; i++) far_col[i] = INT32_MIN;      /* (none: the left view shows columns < 0) */
     for (int i = 0; i < 32; i++) bg3_row[i] = -1;
     sky_redrawn_n = 0;
 }
@@ -384,6 +414,7 @@ static void maps_setup(void)
 
 void draw_init(void)
 {
+    rs_screen_origin(view_left());              /* widescreen: the left view (0 at 320) */
     for (int p = 1; p < 8; p++)
         if (p != PAL_LOGO) rs_pal_load(RS_PAL_BG(p), pm_bg_pal[p], 16);    /* 0 and 5: the house kit's */
     rs_pal_load(RS_PAL_OBJ(0), pm_obj_pals, 128);
@@ -405,6 +436,7 @@ void draw_init(void)
  * width: set them up for this one (everything streamed again, the UI redrawn on the next frame). Same width: nothing. */
 void draw_state_loaded(void)
 {
+    rs_screen_origin(view_left());              /* (not part of a state: this width's) */
     if (drawn_width == rs_screen_width()) return;
     drawn_width = rs_screen_width();
     maps_setup();
@@ -694,8 +726,8 @@ static void draw_objects(const world *w)
             break;
         }
         case OB_GUST: {
-            int x0 = (int)o->x > camx_i ? (int)o->x : camx_i, x1 = o->x + o->w < camx_i + rs_screen_width() ? (int)(o->x + o->w)
-                                                                                                        : camx_i + rs_screen_width();
+            int l = camx_i + rs_screen_left(), r = camx_i + rs_screen_right();       /* the screen, in the world */
+            int x0 = (int)o->x > l ? (int)o->x : l, x1 = o->x + o->w < r ? (int)(o->x + o->w) : r;
             if (x1 - x0 <= 24) break;
             for (int k = 0; k < 6; k++) {
                 int span = x1 - x0 - 16;
@@ -776,7 +808,7 @@ void draw_frame(const world *w, int state, int st_t, int paused)
     scroll_x = camx & pm;
     scroll_y = camy & 255;
     rs_bg_scroll(RS_BG2, scroll_x, scroll_y);
-    int xc = camx + rs_screen_width() / 2, drop_to = district_at(xc) == 3 && !night_at(xc) ? 56 : 0;
+    int xc = camx + rs_screen_left() + rs_screen_width() / 2, drop_to = district_at(xc) == 3 && !night_at(xc) ? 56 : 0;
     mid_drop += mid_drop < drop_to ? 1 : mid_drop > drop_to ? -1 : 0;
     int s3 = camy / 2 + 128 - mid_drop;
     stream_bg3(s3);

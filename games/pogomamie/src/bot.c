@@ -16,8 +16,8 @@
 #include "assets.h"
 #include <string.h>
 
-/* Widescreen (DESIGN.md "Widescreen"): the bot sees the 320 columns from the left edge (the stage origin is 0: the
- * same columns at every width), never the extra ones on the right, so it decides the same at every width */
+/* Widescreen (DESIGN.md "Widescreen"): the bot sees the stage's 320 columns (stage x 0..319, the camera's: the same
+ * columns at every width), never the extra ones on the right nor the left view, so it decides the same at every width */
 #define W_ RS_SCREEN_W
 #define NONE_Y 30000
 #define SEEN_MAX 48
@@ -123,7 +123,7 @@ static int read_oam(int player, int *sx, int *feet, int *frame)
     bot_frame++;
     for (int i = 0; i < RS_OAM_MAX; i++) {
         rs_sprite *s = rs_oam(i);
-        if (!s || !s->used || (s->flags & RS_SPR_HIDE) || s->x >= W_) continue;      /* (wide: not past column 320) */
+        if (!s || !s->used || (s->flags & RS_SPR_HIDE) || s->x >= W_ || s->x <= -(int)s->w) continue;  /* (wide: the stage) */
         int t = s->tile;
         if (in_spr(t, SPR_MAMIE, 13) && s->pal == draw_player_pal(player) && !found) {
             *sx = s->x + 12;
@@ -359,7 +359,7 @@ void bot_decide(int p, int *dir, int *a)
     m->umbrella_t = 0;
     for (int i = 0; i < RS_OAM_MAX; i++) {
         rs_sprite *s = rs_oam(i);
-        if (s->used && s->x < W_ && in_spr(s->tile, SPR_UMBRELLA, 2) && iabs(s->x + 12 - sx) < 4) m->umbrella_t = 100;
+        if (s->used && s->x < W_ && s->x > -(int)s->w && in_spr(s->tile, SPR_UMBRELLA, 2) && iabs(s->x + 12 - sx) < 4) m->umbrella_t = 100;
     }
     /* try the ways to finish this arc */
     int best = -1000000, best_k = 0, best_after = 0;

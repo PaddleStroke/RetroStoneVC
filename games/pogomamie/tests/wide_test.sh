@@ -1,5 +1,6 @@
 #!/bin/sh
-# Pogo Mamie widescreen (DESIGN.md "Widescreen"): the picture is as wide as asked, the gameplay is the same at every
+# Pogo Mamie widescreen (DESIGN.md "Widescreen"): the picture is as wide as asked, a third of the extra width on the left
+# (the 320 picture at its place in the wider one), the gameplay is the same at every
 # width (the bot's runs: the same events, distances, scores and final state at 320, 427, 520 and 560), a live change
 # of width goes on, and a save state made at one width loads at another (the maps are set up for the new width).
 #   wide_test.sh <pogomamie_headless> <pogomamie_test_states> <out dir> [widths]
@@ -15,12 +16,31 @@ ko() { echo "  FAIL $1"; fail=1; }
 png_w() { od -An -tu1 -j16 -N4 "$1" | awk '{print $1 * 16777216 + $2 * 65536 + $3 * 256 + $4}'; }
 
 for w in 320 $WS 560; do
-    $H --width "$w" --frames 400 --opt music=0 --opt bot=1 --opt seed=7 --opt ready=1 --png "$O/w$w.png" > "$O/w$w.log" 2>&1
+    $H --width "$w" --frames 400 --opt music=0 --opt bot=1 --opt seed=7 --opt ready=1 --png "$O/w$w.png" \
+       --shot 150:"$O/s$w.png" > "$O/w$w.log" 2>&1
     pw=$(png_w "$O/w$w.png")
     if [ "$pw" = "$w" ]; then ok "--width $w: a ${pw}x240 picture"; else ko "--width $w: the picture is $pw wide"; fi
 done
 
-# the same game at every width: the bot (it reads the screen's 320 columns from the left edge) plays the same runs;
+# the view: a third of the extra width on the left (behind Mamie: WIDE_LEFT_SHARE, the stage origin), two thirds on the
+# right; the 320 columns of the stage, the camera's, are those of 320 pixel for pixel (the scenery, the roofs, the
+# sprites; below the HUD, which is centred on the screen; early in the run: further on, a wide screen's mid-ground
+# panorama goes on with its second half where 320's repeats)
+for w in $WS 560; do
+    l=$(( (w - 320) / 3 ))
+    if ${PYTHON:-python3} - "$O/s320.png" "$O/s$w.png" "$l" <<'EOF'
+import sys
+from PIL import Image
+a = Image.open(sys.argv[1]).convert('RGB').crop((0, 48, 320, 240))
+l = int(sys.argv[3])
+b = Image.open(sys.argv[2]).convert('RGB').crop((l, 48, l + 320, 240))
+sys.exit(0 if a.tobytes() == b.tobytes() else 1)
+EOF
+    then ok "--width $w: the stage (320's picture) at columns $l..$((l + 319)): $l columns on the left, $((w - 320 - l)) on the right"
+    else ko "--width $w: the 320 picture is not at columns $l..$((l + 319))"; fi
+done
+
+# the same game at every width: the bot (it reads the stage's 320 columns, never the left view) plays the same runs;
 # the course is generated the same (640 px past the camera, beyond the widest screen); the events (big bounces,
 # pigeons, stunts, falls...), the distances, the scores and the final state (positions, camera, hash) are identical
 game() {   # game <name> <frames> <opts...>

@@ -198,6 +198,10 @@
 #define DROP_OUT_X    24            /* 2-4 players: this far off the left edge, a player drops out */
 #define CAM_WAIT_X    32            /* 2-4 players: the camera keeps the others at least this far in... */
 #define CAM_LEADER_MAX_X 272        /* ... as long as the leader stays left of this (screen x) */
+/* widescreen (DESIGN.md "Widescreen"): this share of the width beyond 320 is shown on the LEFT (behind the players:
+ * the stage origin), the rest on the right; the camera, the course and the gameplay are those of 320 */
+#define WIDE_LEFT_SHARE_NUM 1
+#define WIDE_LEFT_SHARE_DEN 3       /* 1/3: 35 columns at 427, 66 at 520, 80 at 560 */
 
 /* ---- flow ---------------------------------------------------------------------------------------------------------- */
 #define PANEL_DELAY   80            /* frames between landing in the street and the panel (the cursing) */

@@ -159,15 +159,26 @@ left too far behind drop out. Survivors continue until everyone is down. Results
 
 ## Widescreen (docs/spec.md "Widescreen")
 The game opts in (`max_width` = 560, `WIDESCREEN_pogomamie = 1`): 320 (4:3) is unchanged pixel for pixel; at 427
-(16:9) or 520 (phones) **Paris is simply revealed wider**, to the right.
-- The stage origin stays 0 and the leading camera is unchanged: Mamie (and Papi, Tata, Tonton) bounce at the same
-  screen x, the screen shows further ahead. Seeing further makes it a little easier; the owner accepts it.
+(16:9) or 520 (phones) **Paris is simply revealed wider**: **a third of the extra width on the left**, behind the
+players, **two thirds on the right**, ahead (`WIDE_LEFT_SHARE_NUM / _DEN` in tuning.h: 35 + 72 columns at 427,
+66 + 134 at 520, 80 + 160 at 560).
+- The camera is unchanged: its 320 columns (the stage) are those of 320 pixel for pixel, the stage origin (the
+  screen column of stage x 0) is the left share. Mamie (and Papi, Tata, Tonton) bounce at the same place on the
+  stage; the screen shows the roofs she has passed on the left and further ahead on the right. Seeing further
+  makes it a little easier; the owner accepts it. The players' rules are the stage's: they still cannot go back
+  past its left edge, and a racer left 24 px behind it drops out (in the left view, where one sees it happen).
+- The left view shows the world as it is: world.c keeps the buildings up to 96 px behind the camera (and the things
+  up to 128), more than the widest left view (80 + a tile + the shake; a static assert in draw.c). Behind the start
+  (world x < 0, where the camera never goes) it shows decor: the Haussmann building next to the first roof, a little
+  taller, under a mansard (draw.c, not part of the world), and the backdrop before the first panorama (the last
+  district's, which the first one follows anyway). A skipped start (`skip=`, tests) shows the street there.
 - **The course is the same at every width.** The generator already works 640 px (2 x 320) past the camera's left
   edge, beyond the widest screen (560): the same roofs, gaps, cafés, pigeons, balloons and gusts at the same places,
   and a new building (with its things) always starts past the real right edge, so nothing pops in on screen
-  (tests/test_align.c checks it at every width). The bot reads the 320 columns from the left edge only (the same at
-  every width), so its runs are identical: tests/wide_test.sh compares the events, distances, scores and the final
-  state at 320, 427, 520 and 560 (1, 2 and 4 players, the districts, the night).
+  (tests/test_align.c checks it at every width, and the roofs, the street and the sprites in the left view). The
+  bot reads the stage's 320 columns only (never the left view nor the right), so its runs are identical:
+  tests/wide_test.sh compares the events, distances, scores and the final state at 320, 427, 520 and 560 (1, 2 and
+  4 players, the districts, the night).
 - The play layer, the mid-ground and the backdrop use 128-tile maps on a wide screen (64 at 320). The mid-ground is a
   1024-px panorama there: its second half (tiles/mid_wide.png: other roofs, a gothic tower and the Panthéon; ~50 more
   tiles in BG3's free VRAM, not loaded at 320) follows the first, so it never repeats on screen. The district
@@ -176,12 +187,13 @@ The game opts in (`max_width` = 560, `WIDESCREEN_pogomamie = 1`): 320 (4:3) is u
 - The district's look (the sky, the palettes, the night), the Eiffel district's lowered mid-ground and the music are
   decor: picked at the centre of the actual screen.
 - The UI (title, logo, prompt, HUD, panels, results, pause) is centred: the UI layer scrolls by -hu_ui_x() and the
-  game's UI sprites (the m of the distance, the medal) add hu_ui_x(); the power-up icons stay in the screen's top-left
-  corner; the score chips go to the halves (2 players) or corners (3-4, with their tags). The UI layer is 128 tiles
-  wide beyond 512 columns.
+  game's UI sprites (the m of the distance, the medal) add hu_ui_x() (the kit's: the margin minus the origin); the
+  power-up icons stay in the screen's top-left corner (rs_screen_left()); the score chips go to the halves
+  (2 players) or corners (3-4, with their tags). The UI layer is 128 tiles wide beyond 512 columns.
 - Save states load at any width: `state_loaded` sets the maps up again (everything streamed again, the UI and PAUSED
   redrawn on the next frame); a live change of width (`--resize`) goes on with the same run.
-- `make pogomamie-check` runs the alignment, smoke, UI and state tests again at 427 and 520, then tests/wide_test.sh.
+- `make pogomamie-check` runs the alignment, smoke, touch, UI and state tests again at 427 and 520, then
+  tests/wide_test.sh (which also finds the 320 picture at its place in the wider ones: the left share).
 
 ## Audio
 - House sounds (games/common/src/house_audio.c): the confirm chime (start, join), the pause blip, the medal

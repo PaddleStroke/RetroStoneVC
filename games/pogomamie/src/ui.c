@@ -152,7 +152,7 @@ void ui_sprites(const world *w, int state, int st_t, int best_m)
     if (state == DS_PLAY || state == DS_FALL) {
         if (w->players == 1) {
             distance(w->m[0].dist_m, RS_SCREEN_W / 2, 10 - 8);
-            powerups(&w->m[0], 8, 6);                 /* the screen's top-left corner (stage x = screen x) */
+            powerups(&w->m[0], rs_screen_left() + 8, 6);  /* the screen's top-left corner (stage x: wide, the left view) */
         } else {
             int values[MAX_PLAYERS];
             for (int p = 0; p < w->players; p++) values[p] = w->m[p].dist_m;

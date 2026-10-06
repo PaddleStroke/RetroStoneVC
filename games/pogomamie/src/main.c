@@ -220,7 +220,7 @@ static void game_update(void)
         sfx(SFX_PAUSE);
     }
     if (paused) return;
-    int xc = world_camx(&W) + rs_screen_width() / 2;         /* the tune: the district at the screen's centre (decor) */
+    int xc = world_camx(&W) + rs_screen_left() + rs_screen_width() / 2;  /* the tune: the district at the screen's centre */
     music_district(district_at(xc), night_at(xc) > 0);
     switch (st) {
     case DS_TITLE: {

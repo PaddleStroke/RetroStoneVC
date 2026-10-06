@@ -14,7 +14,10 @@
  * Every x phase and every y phase of the camera (64 combinations) must be covered.
  *
  * Widescreen (DESIGN.md "Widescreen"): --width N (or the environment variable RS_WIDTH) checks the whole wider screen,
- * and that the course comes into view at its real right edge: a new building (and its things) starts past it.
+ * and that the course comes into view at its real right edge: a new building (and its things) starts past it. The
+ * screen shows a third of the extra width on the left (the stage origin O: screen x = stage x + O): the roofs, the
+ * street and the sprites are checked there too, every column of that left view is drawn (behind the start: the decor
+ * building).
  *
  *   test_align [--frames N] [--width N] [--opt key=value]...
  */
@@ -30,10 +33,11 @@ const rs_game *rs_game_main(void);
 #define SH RS_SCREEN_H
 #define SWM RS_SCREEN_W_MAX
 static int SW = RS_SCREEN_W;                     /* the screen width (widescreen: --width, RS_WIDTH) */
+static int O;                                    /* the stage origin: the left view's width (0 at 320) */
 
 static uint16_t with_bg2[SWM * SH], without_bg2[SWM * SH], spr_on[SWM * SH], spr_off[SWM * SH];
 static uint8_t bg2[SH][SWM];
-static int fails, frames_checked, columns_checked, sprites_checked, landings_checked, arrivals_checked;
+static int fails, frames_checked, columns_checked, sprites_checked, landings_checked, arrivals_checked, left_checked;
 static int32_t last_index = -1;
 static uint32_t last_seed;
 static int last_t;
@@ -85,7 +89,8 @@ static int oam_has_any(int id, int frames, int x, int y)
     return 0;
 }
 
-static int visible(int sx, int sy, int w, int h) { return sx > -w && sx < SW && sy > -h && sy < SH; }
+/* a sprite at stage x sx is on the screen (screen x = sx + O) */
+static int visible(int sx, int sy, int w, int h) { return sx + O > -w && sx + O < SW && sy > -h && sy < SH; }
 
 static void check_frame(const world *w, int frame, int st)
 {
@@ -103,9 +108,9 @@ static void check_frame(const world *w, int frame, int st)
         const bldg *b = &w->b[i];
         if (b->index <= last_index) continue;
         arrivals_checked++;
-        if (b->x0 - cx < SW) fail(frame, "building %d appears inside the screen, at x %d (width %d)", (int)b->index, (int)b->x0 - cx, SW);
+        if (b->x0 - cx < SW - O) fail(frame, "building %d appears inside the screen, at x %d (width %d)", (int)b->index, (int)b->x0 - cx, SW);
         for (int k = 0; k < w->no; k++)
-            if (w->o[k].bld == b->index && w->o[k].kind != OB_GUST && (int)w->o[k].x - 16 - cx < SW)
+            if (w->o[k].bld == b->index && w->o[k].kind != OB_GUST && (int)w->o[k].x - 16 - cx < SW - O)
                 fail(frame, "object %d (kind %d) appears inside the screen, at x %d", k, w->o[k].kind, (int)w->o[k].x - cx);
     }
     last_index = top;
@@ -116,7 +121,7 @@ static void check_frame(const world *w, int frame, int st)
     for (int i = 0; i < w->nb; i++) {
         const bldg *b = &w->b[i];
         for (int x = (int)b->x0; x < b->x1; x++) {
-            int sx = x - cx;
+            int sx = x - cx + O;                    /* the screen column */
             if (sx < 0 || sx >= SW) continue;
             int top = bldg_drawn_top(b, x), sy = top - cy;
             if (sy < 1 || sy >= SH) continue;
@@ -131,11 +136,22 @@ static void check_frame(const world *w, int frame, int st)
     int sy_street = STREET_Y - cy;
     if (sy_street >= 1 && sy_street < SH)
         for (int sx = 0; sx < SW; sx += 7)
-            if (!world_bldg_at(w, sx + cx) && (!bg2[sy_street][sx] || bg2[sy_street - 1][sx])) {
+            if (sx - O + cx >= 0 && !world_bldg_at(w, sx - O + cx) && (!bg2[sy_street][sx] || bg2[sy_street - 1][sx])) {
                 int prop = 0;
-                for (int k = 0; k < w->no; k++) if (w->o[k].kind == OB_CRADLE && sx + cx >= w->o[k].x && sx + cx < w->o[k].x + w->o[k].w) prop = 1;
+                for (int k = 0; k < w->no; k++) if (w->o[k].kind == OB_CRADLE && sx - O + cx >= w->o[k].x && sx - O + cx < w->o[k].x + w->o[k].w) prop = 1;
                 if (!prop) { fail(frame, "the street is not at screen y %d (column %d)%.0d", sy_street, sx, 0); break; }
             }
+    /* widescreen, the left view (behind the players): every column drawn, the street (the roofs: above) and, behind
+     * the start (world x < 0), the decor building down to the street */
+    if (sy_street >= 1 && sy_street < SH)
+        for (int sx = 0; sx < O; sx++) {
+            left_checked++;
+            if (!bg2[sy_street][sx]) { fail(frame, "left view: nothing drawn at the street, column %d%.0d%.0d", sx, 0, 0); break; }
+            if (sx - O + cx < 0 && !bg2[sy_street - 1][sx]) {
+                fail(frame, "left view: no building behind the start, column %d%.0d%.0d", sx, 0, 0);
+                break;
+            }
+        }
     /* the sprites of the world */
     for (int i = 0; i < w->no; i++) {
         const obj *o = &w->o[i];
@@ -177,7 +193,7 @@ static void check_frame(const world *w, int frame, int st)
     /* Mamie on the roof she just landed on */
     const mamie *m = &w->m[0];
     if ((st == DS_PLAY) && (w->events[0] & EV_LAND) && m->state == MS_AIR && m->land_kind != SF_SKY) {
-        int x = (int)(m->x >> 16) - cx, feet = m->land_y - cy;
+        int x = (int)(m->x >> 16) - cx + O, feet = m->land_y - cy;      /* (screen x) */
         if (x >= 2 && x < SW - 2 && feet >= 1 && feet < SH) {
             landings_checked++;
             render(0x0, 1, spr_on);
@@ -220,6 +236,7 @@ int main(int argc, char **argv)
     rs_host_set_option("botruns", "1000");
     rs_host_init(rs_game_main());
     SW = rs_screen_width();
+    O = rs_screen_origin_x();
     int runs = 0, last_st = -1;
     for (int f = 0; f < frames; f++) {
         rs_host_frame();
@@ -233,8 +250,10 @@ int main(int argc, char **argv)
     int phases = 0;
     for (int x = 0; x < 8; x++) for (int y = 0; y < 8; y++) phases += phase_seen[x][y];
     printf("  %s picture = world: %d frames, %d runs, %d roof columns, %d sprites, %d landings, %d/64 scroll phases, "
-           "%d columns, %d buildings came in past the edge\n", fails ? "FAIL" : "ok  ", frames_checked, runs, columns_checked,
-           sprites_checked, landings_checked, phases, SW, arrivals_checked);
+           "%d columns (%d on the left), %d buildings came in past the edge, %d left-view columns drawn\n",
+           fails ? "FAIL" : "ok  ", frames_checked, runs, columns_checked, sprites_checked, landings_checked, phases, SW, O,
+           arrivals_checked, left_checked);
+    if (O > 0 && left_checked < 1000) { printf("  FAIL only %d left-view columns checked\n", left_checked); fails++; }
     if (phases < 64) { printf("  FAIL only %d of the 64 x/y scroll phases were seen\n", phases); fails++; }
     if (landings_checked < 20) { printf("  FAIL only %d landings checked\n", landings_checked); fails++; }
     return fails ? 1 : 0;
