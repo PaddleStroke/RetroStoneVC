@@ -5,9 +5,10 @@
  * The screen (W = rsb_width(), 320..560; 240 high):
  *   header  rows 0-3: a panel with the app's name in big gold letters; round buttons in its corners: "i" (top
  *           left: Credits & licences) and "?" (top right: help)
- *   grid    the cards of every game (rsb_games): its title screen, its name, its best score; the locked games
- *           (the free app) dimmed, with a padlock. 3 columns at 320, up to 5 on a wide screen; the rows scroll
- *           (D-pad, or drag / swipe)
+ *   grid    the cards of every game (rsb_games): a moment of its play at 1x, its name, its best score; the locked
+ *           games (the free app) in their colours, with a gold ribbon and a padlock badge (drawn into the card by
+ *           tools/gen_catalog.py). 3 columns at 320, up to 5 on a wide screen; the rows scroll (D-pad, or drag /
+ *           swipe)
  *   footer  rows 26-29, only when it has something: the free app's "FULL VERSION" pill (small, at the right) and,
  *           when a gamepad is connected, the A glyph and the selected game's name
  *   dialogs (a back arrow in the top-left corner closes them, as Android's Back, a tap outside them, or B):
@@ -21,9 +22,11 @@
  * the corner buttons, the panel's button; Back closes a dialog, else leaves the app.
  *
  * Video: BG1 the UI (house kit, high priority); the card rows on BG2, BG3, BG4 (row r on layer r % 3, each layer
- * scrolled to its row: at most 3 rows are visible); the raster callback loads the palettes of the row under each
- * line (one palette per column: BG 1..5) and the backdrop gradient. Sprites: the gold frame of the selection, the
- * padlocks, the round corner buttons, the kit's glyphs.
+ * scrolled to its row: at most 3 rows are visible). A card has up to 6 palettes (BG 1..6), one per tile, so each
+ * card column is a viewport over the grid (cards_view()): the raster callback, which runs for every line of every
+ * viewport, loads the palettes of the card under the line before its column is drawn; viewport 0, the whole screen
+ * under them, gets the backdrop gradient. Sprites (viewport 0): the gold frame of the selection (outside the cards),
+ * the round corner buttons, the kit's glyphs.
  * The launcher's statics are NOT reset between runs (it is not a module): the selection and the scroll stay.
  */
 #include "rsb.h"
@@ -59,7 +62,6 @@ extern const uint8_t rs_font_5x7[96][8];
 #define OT_CORNER   128
 #define OT_HEDGE    129                     /* 32x8: 4 tiles */
 #define OT_VEDGE    133                     /* 8x32: 4 tiles */
-#define OT_LOCK     137                     /* 16x16: 4 tiles */
 #define OT_INFO     141                     /* round 16x16 buttons, 2 looks (normal, selected) x 4 tiles: "i" */
 #define OT_HELP     149                     /* "?" */
 #define OT_BACK     157                     /* the back arrow */
@@ -77,7 +79,7 @@ static int W, Wt, cols, nrows, grid_x;      /* layout of this run */
 static int grid_bottom = RS_SCREEN_H - FOOT_ROWS * 8, foot;   /* the footer is shown (then the grid stops above it) */
 static int sel = 0, sel_mem = 0;            /* the selected card (or SEL_*), the card before a corner button */
 static int scroll_q8, vel_q8, target = -1;  /* the grid's scroll (1/256 px), its fling speed, a goal for the D-pad */
-static int layer_row[3];
+static int layer_row[3], lay_sx[3], lay_sy[3]; /* the card layers: the row each shows, their scroll */
 static int panel, panel_game, panel_tour, panel_t;
 static int t, rep_btn, rep_t;
 static int dragging, drag_scroll, drag_last_y, moved;
@@ -95,7 +97,6 @@ static int max_scroll(void)
 }
 static int scroll_px(void) { return scroll_q8 >> 8; }
 static int locked(int g) { return rsb_games[g].module == NULL; }
-static int dialog(void) { return panel || credits || help; }
 
 /* ---- tiles drawn here ------------------------------------------------------------------------------------------------ */
 static void tile8(int vram_tile, const uint8_t px[64]) { rs_tiles_load8(vram_tile, px, 1); }
@@ -130,16 +131,11 @@ static void badge_tiles(int layer)
     tile8(base + T_BADGE + 10, px);
 }
 
-/* the padlock, the selection frame and the round buttons (OBJ palette 2) */
+/* the selection frame and the round buttons (OBJ palette 2; the locked cards' padlock: tools/cards.py) */
 enum { C_OUT = 1, C_SIL = 2, C_SILD = 3, C_GOLDL = 4, C_GOLD = 5, C_GOLDD = 6 };
 static const rs_color MINE_PAL[16] = {
     0, RS_RGB8(22, 18, 40), RS_RGB8(222, 230, 238), RS_RGB8(128, 138, 156),
     RS_RGB8(255, 240, 150), RS_RGB8(252, 216, 72), RS_RGB8(186, 128, 22)};
-static const char *LOCK[16] = {
-    "................", ".....oooooo.....", "....oSSSSSSo....", "...oSSooooSSo...",
-    "...oSo....oTo...", "...oSo....oTo...", "...oSo....oTo...", ".oooooooooooooo.",
-    ".oHHHHHHHHHHHGo.", ".oHGGGGGGGGGGDo.", ".oHGGGGooGGGGDo.", ".oHGGGGooGGGGDo.",
-    ".oHGGGGGoGGGGDo.", ".oGDDDDDDDDDDDo.", ".oooooooooooooo.", "................"};
 /* the symbols of the round buttons and of the help's pictures (16 x 16, '#' = ink) */
 static const char *SYM_I[16] = {
     "", "", "", "       ##", "       ##", "", "      ###", "       ##", "       ##", "       ##", "       ##",
@@ -153,19 +149,6 @@ static const char *SYM_BACK[16] = {
 static const char *SYM_PAUSE[16] = {
     "", "", "", "", "     ##  ##", "     ##  ##", "     ##  ##", "     ##  ##", "     ##  ##", "     ##  ##",
     "     ##  ##", "     ##  ##", "", "", "", ""};
-
-static int lock_px(char c)
-{
-    switch (c) {
-    case 'o': return C_OUT;
-    case 'S': return C_SIL;
-    case 'T': return C_SILD;
-    case 'H': return C_GOLDL;
-    case 'G': return C_GOLD;
-    case 'D': return C_GOLDD;
-    default: return 0;
-    }
-}
 
 static int sym_on(const char *const sym[16], int x, int y)
 {
@@ -210,12 +193,6 @@ static void square_tiles(int ot, const char *const sym[16])
 static void sprite_tiles(void)
 {
     uint8_t px[64];
-    /* the lock: 16x16 = tiles TL, TR, BL, BR */
-    for (int q = 0; q < 4; q++) {
-        for (int y = 0; y < 8; y++)
-            for (int x = 0; x < 8; x++) px[y * 8 + x] = (uint8_t)lock_px(LOCK[(q >> 1) * 8 + y][(q & 1) * 8 + x]);
-        tile8(VR_OBJ + OT_LOCK + q, px);
-    }
     /* the frame, 4 px thick outside the card: outline, light gold, gold, dark gold (outside to inside) */
     static const int band[4] = {C_OUT, C_GOLDL, C_GOLD, C_GOLDD};
     for (int y = 0; y < 8; y++)                                  /* top-left corner */
@@ -745,8 +722,11 @@ static void row_build(int layer, int r)
         int t0 = T_CARDS + c * im->w * im->h;
         rs_tiles_load(base + t0, im->tiles, im->w * im->h);
         for (int y = 0; y < im->h; y++)
-            for (int x = 0; x < im->w; x++)
-                rs_bg_put(l, c * (PITCH_X / 8) + x, y, RS_MAP(t0 + y * im->w + x, 1 + c, 0, 0, 0));
+            for (int x = 0; x < im->w; x++) {
+                int p = im->tile_pal[y * im->w + x];                 /* the card's palette p is BG 1 + p */
+                rs_bg_put(l, c * (PITCH_X / 8) + x, y,
+                          RS_MAP(t0 + y * im->w + x, p == RSB_UI_PAL ? PAL_UI : 1 + p, 0, 0, 0));
+            }
         if (!locked(g) && best[g] > 0) {                         /* the best score: a badge in the corner */
             char s[12];
             int n = snprintf(s, sizeof s, "%d", best[g] > 99999 ? 99999 : best[g]);
@@ -766,7 +746,9 @@ static void grid_layers(void)
     for (int r = first; r <= last && r < nrows; r++) {
         int l = r % 3;
         if (layer_row[l] != r) row_build(l, r);
-        rs_bg_scroll(RS_BG2 + l, -grid_x, -(GRID_TOP + r * PITCH_Y - sp));
+        lay_sx[l] = -grid_x;
+        lay_sy[l] = -(GRID_TOP + r * PITCH_Y - sp);
+        rs_bg_scroll(RS_BG2 + l, lay_sx[l], lay_sy[l]);
         rs_bg_enable(RS_BG2 + l, 1);
         used[l] = 1;
     }
@@ -774,25 +756,57 @@ static void grid_layers(void)
         if (!used[l]) rs_bg_enable(RS_BG2 + l, 0);
 }
 
-/* ---- the raster: the backdrop gradient, the palettes of the card row under each line ------------------------------------ */
-static int raster_row;
+/* The viewports of the grid: 0 the whole screen (the layers' scroll, every sprite), then one per card column, over
+ * the grid, the same layers at the same place but no sprite (the selection frame is outside the cards): the raster
+ * callback gives each column the palettes of its card. Off in the dialogs (cards_view_off). */
+static void cards_view(void)
+{
+    rs_viewport v[1 + MAX_COLS];
+    memset(v, 0, sizeof v);
+    v[0].w = (int16_t)W;
+    v[0].h = RS_SCREEN_H;
+    v[0].layers = 0x0f;
+    v[0].objs = 1;
+    v[0].oam_count = RS_OAM_MAX;
+    for (int l = 0; l < 3; l++) {                                 /* BG1 is not scrolled */
+        v[0].sx[1 + l] = (int16_t)lay_sx[l];
+        v[0].sy[1 + l] = (int16_t)lay_sy[l];
+    }
+    for (int c = 0; c < cols; c++) {
+        rs_viewport *p = &v[1 + c];
+        *p = v[0];
+        p->x = (int16_t)(grid_x + c * PITCH_X);
+        p->y = GRID_TOP;
+        p->w = RSB_CARD_W;
+        p->h = (int16_t)(grid_bottom - GRID_TOP);
+        p->objs = 0;
+        for (int l = 0; l < 4; l++) {
+            p->sx[l] = (int16_t)(p->sx[l] + p->x);
+            p->sy[l] = (int16_t)(p->sy[l] + p->y);
+        }
+    }
+    rs_viewports(1 + cols, v, 0);
+}
+static void cards_view_off(void) { rs_viewports(0, NULL, 0); }
+
+/* ---- the raster: the backdrop gradient (the whole screen); in a card column, the palettes of its card under the line -- */
+static int pal_card = -1;                       /* the card whose palettes are in BG 1..6 now */
 static void raster(int line, void *user)
 {
     (void)user;
-    int k = line * 256 / RS_SCREEN_H;
-    int d = (line & 4) ? 3 : 0;                                  /* the house 2-line dither step */
-    rs_pal_set(0, RS_RGB8(28 - k * 14 / 256 + d, 44 - k * 22 / 256 + d, 90 - k * 44 / 256 + d));
-    if (dialog()) return;
-    if (line == 0) raster_row = -99;
-    int r = (line - GRID_TOP + scroll_px());
-    r = r < 0 ? -1 : r / PITCH_Y;
-    if (r != raster_row && r >= 0 && r < nrows) {
-        raster_row = r;
-        for (int c = 0; c < cols; c++) {
-            int g = r * cols + c;
-            if (g < rsb_ngames) rs_pal_load(RS_PAL_BG(1 + c), rsb_games[g].card.pals, 16);
-        }
+    int v = rs_viewport_current();
+    if (v <= 0) {                                                /* the whole screen (viewport 0, or a dialog) */
+        int k = line * 256 / RS_SCREEN_H;
+        int d = (line & 4) ? 3 : 0;                              /* the house 2-line dither step */
+        rs_pal_set(0, RS_RGB8(28 - k * 14 / 256 + d, 44 - k * 22 / 256 + d, 90 - k * 44 / 256 + d));
+        if (line == 0) pal_card = -1;
+        return;
     }
+    int r = (line - GRID_TOP + scroll_px()) / PITCH_Y, g = r * cols + v - 1;   /* column v - 1, from GRID_TOP */
+    if (r < 0 || r >= nrows || g >= rsb_ngames || g == pal_card) return;
+    const rsb_image *im = &rsb_games[g].card;
+    for (int p = 0; p < im->npal && p < 6; p++) rs_pal_load(RS_PAL_BG(1 + p), im->pals + p * 16, 16);
+    pal_card = g;
 }
 
 /* ---- selection ----------------------------------------------------------------------------------------------------------- */
@@ -1088,6 +1102,7 @@ static void l_draw(void)
     }
     rs_pal_set(RS_PAL_OBJ(OPAL_MINE) + C_GOLDL, hu_lerp_color(RS_RGB8(255, 240, 150), RS_RGB8(255, 255, 255),
                                                              hu_bob(t, 64, 64) + 64));
+    cards_view_off();                           /* the dialogs: one screen (the grid sets its viewports again) */
     if (credits) {
         if (credits != shown_credits) {
             if (credits == 1) credits_list_draw();
@@ -1144,7 +1159,8 @@ static void l_draw(void)
         return;
     }
     grid_layers();
-    /* the selection frame (gold, glowing), the padlocks, the round buttons */
+    cards_view();
+    /* the selection frame (gold, glowing), the round buttons */
     if (sel >= 0) {
         int x, y;
         card_pos(sel, &x, &y);
@@ -1153,13 +1169,6 @@ static void l_draw(void)
     if (pad && foot) hu_glyph(HU_BTN_A, 8 - hu_ui_x(), FOOT_TEXT_ROW * 8 - 4, 0, 3);
     rs_spr(5, CORNER_Y, OT_INFO + (sel == SEL_INFO ? 4 : 0), 16, 16, OPAL_MINE, 3, 0);       /* "i": the credits */
     rs_spr(W - 21, CORNER_Y, OT_HELP + (sel == SEL_HELP ? 4 : 0), 16, 16, OPAL_MINE, 3, 0);  /* "?": the help */
-    for (int g = 0; g < rsb_ngames; g++) {
-        if (!locked(g)) continue;
-        int x, y;
-        card_pos(g, &x, &y);
-        if (y + RSB_THUMB_H <= GRID_TOP - 8 || y >= grid_bottom) continue;
-        rs_spr(x + RSB_CARD_W / 2 - 8, y + RSB_THUMB_H / 2 - 8, OT_LOCK, 16, 16, OPAL_MINE, 2, 0);
-    }
 }
 
 const rs_game *rsb_launcher_game(void)

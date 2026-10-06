@@ -32,10 +32,11 @@ typedef struct rsb_module {
 typedef struct rsb_image {
     int w, h;                           /* in tiles */
     const uint8_t *tiles;               /* w * h packed 4bpp tiles (RS_TILE_BYTES each), row-major */
-    int npal;                           /* palettes (16 RGB555 colours each; entry 0 transparent) */
+    int npal;                           /* palettes (16 RGB555 colours each; entry 0 transparent), at most 6 */
     const uint16_t *pals;
-    const uint8_t *tile_pal;            /* the palette (0..npal-1) of each tile */
+    const uint8_t *tile_pal;            /* the palette (0..npal-1) of each tile; RSB_UI_PAL: the launcher's UI palette */
 } rsb_image;
+#define RSB_UI_PAL   255                /* a card's name row: the UI palette's cream (1) and navy (2) */
 
 #define RSB_ZONES 8
 typedef struct rsb_zone {
@@ -52,7 +53,7 @@ typedef struct rsb_touch {
 typedef struct rsb_entry {
     const char *id, *name;              /* "leadysquid", "Leady Squid" */
     const rsb_module *module;           /* NULL: locked (shown to advertise the paid app) */
-    rsb_image card;                     /* the card: the title screen (RSB_CARD_W x RSB_THUMB_H) and the name below */
+    rsb_image card;                     /* the card: a moment of play at 1x (RSB_CARD_W x RSB_THUMB_H) and the name below */
     rsb_image shot;                     /* locked games: the picture of the "Get the full version" panel */
     rsb_touch touch;
     int best_off;                       /* save RAM: the best score, a little-endian u16 at this offset (-1: none) */

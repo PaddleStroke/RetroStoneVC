@@ -140,8 +140,8 @@ $(BD)/librs.a: $(call o,$(SDK_SRC) $(XMP_SRC))
 	$(AR) rcs $@ $^
 
 # ---- the catalogue (the cards, the touch schemes, the app's names) -------------------------------------------------------
-$(GEN)/catalog.c: $(CONF) apps/launcher/games.cfg apps/launcher/tools/gen_catalog.py \
-                  $(wildcard games/*/game.mk) $(wildcard games/*/docs/screenshots/*.png)
+$(GEN)/catalog.c: $(CONF) apps/launcher/games.cfg apps/launcher/tools/gen_catalog.py apps/launcher/tools/cards.py \
+                  $(wildcard apps/launcher/cards/*) $(wildcard games/*/game.mk) $(wildcard games/*/docs/screenshots/*.png)
 	$(PYTHON) apps/launcher/tools/gen_catalog.py --conf $(CONF) --out $(GEN)
 
 # ---- modules: each free game, and the house kit -----------------------------------------------------------------------------

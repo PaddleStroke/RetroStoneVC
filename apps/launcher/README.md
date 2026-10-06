@@ -95,6 +95,35 @@ modules are compiled with `-mcmodel=small`, so no `.refptr` stub is shared betwe
   the frontend draws side borders.
 - Buttons held when a program starts are ignored until released (a tap that launched a game does not also start it).
 
+## The cards
+
+![the cards before and after](docs/cards-before-after.png)
+
+A card shows **a moment of play, pixel for pixel**: 96x72 pixels cut out of the game's screen at 1x, never scaled
+(a scaled screenshot blurs pixel art and makes its title unreadable), and no logo (the name is written under it).
+
+- **The table** `cards/cards.cfg`: for each game, the frame of a headless run (the bot plays: `bot=1 ready=1 seed=7`,
+  or the line's options), where to cut, and optionally a sprite of the game's art pasted at 1x when no single screen
+  shows the scene (Pancake Tower: the chef cheering by his stack). `tools/card_frames.sh [BIN_DIR]` plays each game
+  to that frame with its headless runner and keeps the screen as `cards/<id>.png` (320x240, committed: run it after
+  a change of a game's look, then look at the cards). A game with no line (a new one) gets the middle of its title
+  screen until it has one.
+- **The colours** (`tools/cards.py`): each 8x8 tile of a card picks one of 6 palettes of 15 colours (SNES style),
+  chosen for that card: the tiles' colour sets are packed into the palettes (most cards keep every colour of the
+  game exactly; the others lose a few pixels to the nearest colour). `gen_catalog.py` prints, for each card, its
+  palettes and the share of its pixels that are exact. The last measure: the full app, 16 of the 20 cards exact,
+  the others 97.1-99.0%; the free app (the locked cards' ribbon and padlock take colours too), 13 exact, the others
+  94.8-99.4%; the mean error of a card is at most 0.68 (RGB distance, 0-441), and the launcher's screen shows these
+  pixels exactly. One palette of 13 colours for the whole card (the old way) on the same pictures: 31-99% exact,
+  mean errors up to 14.
+- **On screen** (`src/launcher.c`): the 8 BG palettes cannot hold 6 palettes for each of up to 15 visible cards, so
+  each card column is a **viewport** over the grid (docs/spec.md, "Viewports"): the raster callback runs for each line
+  of each viewport and loads the palettes of the card under that line before its column is drawn; viewport 0 (the
+  whole screen under them) has the backdrop, the header, the footer and the sprites. Nothing in the SDK changed.
+- **Locked cards** (the free app): the picture in its own colours (it should make one want the game), a gold ribbon
+  across the top-right corner with the red star of the "FULL VERSION" banner, and a padlock badge in the bottom-right
+  corner, drawn into the card by `tools/cards.py`.
+
 ## Files
 
 | | |
@@ -107,7 +136,9 @@ modules are compiled with `-mcmodel=small`, so no `.refptr` stub is shared betwe
 | `src/rsb_glue.c` | the module markers and descriptor |
 | `games.cfg` | the touch schemes and best-score locations, per game |
 | `strings/` | the launcher's words in the 22 languages (docs/i18n.md format; `tools/launcher_text.py` compiles them with `tools/i18n_build.py`) |
-| `tools/gen_catalog.py` | `build/bundle/gen/catalog.c`: the cards (title screenshot + name), the locked games' pictures, the touch schemes, the app's names. **Every game of `games/` with a `docs/screenshots/title.png` appears, locked unless it is in `FREE_GAMES`** (`all`: none locked); `--list`: the playable games |
+| `cards/` | the cards' table (`cards.cfg`) and the screens they are cut from (`<id>.png`, by `tools/card_frames.sh`) |
+| `tools/cards.py` | the cards: the table, the 1x crops, the locked look, the palettes chosen tile by tile |
+| `tools/gen_catalog.py` | `build/bundle/gen/catalog.c`: the cards (a moment of play + name), the locked games' pictures, the touch schemes, the app's names. **Every game of `games/` with a `docs/screenshots/title.png` appears, locked unless it is in `FREE_GAMES`** (`all`: none locked); `--list`: the playable games |
 | `tools/gen_credits.py` | `build/bundle/gen/credits.c`: the credits screen's components and their licence texts |
 | `tools/game_assets.sh` | the games' generated assets from the root Makefile, under one wait for its lock |
 | `tools/modulize.py` | the module linker |

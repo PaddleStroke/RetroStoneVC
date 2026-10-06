@@ -10,8 +10,10 @@ From the app's config (FREE_GAMES, HIDDEN_GAMES, the names and ids) and the game
     card: the free games first, in FREE_GAMES order, then the others, LOCKED, by name. A new game in games/
     therefore appears locked in the free app at the next build, with nothing to edit. FREE_GAMES=all (the full
     app): every game is playable, by name;
-  - a card = the title screenshot cut to 96x72 (13 colours + the name's cream and navy, one BG palette), with
-    the game's name under it (the house font, 6-px advance); a locked card is dimmed (the launcher adds the lock);
+  - a card = a moment of play cut out of the game's screen at 1x, 96x72 pixels never scaled (the table
+    apps/launcher/cards/cards.cfg, tools/cards.py), in up to 6 palettes chosen tile by tile (SNES style; the
+    launcher gives each card column its own), with the game's name under it (the house font, 6-px advance, the UI
+    palette); a locked card keeps its colours, with a gold ribbon and a padlock badge drawn on it;
   - a locked game also gets the picture of its "Get the full version" panel: a play screenshot at 160x120, in up
     to 6 palettes chosen tile by tile (SNES style);
   - the touch scheme and the best-score location of each game: apps/launcher/games.cfg.
@@ -29,10 +31,12 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", "..", ".."))
 sys.path.insert(0, os.path.join(ROOT, "sdk", "tools"))
 from gen_font import G as FONT  # noqa: E402  (the house font)
+import cards  # noqa: E402  (the cards: the table, the 1x crops, the palettes)
 
 CARD_W, THUMB_H, CARD_H = 96, 72, 80
 SHOT_W, SHOT_H = 160, 120
 CREAM, NAVY = (255, 246, 220), (16, 24, 56)
+UI_PAL = 255                                    # a tile in the launcher's UI palette (the name under a card)
 
 BUTTONS = {"B": 0x8000, "Y": 0x4000, "SELECT": 0x2000, "START": 0x1000, "UP": 0x0800, "DOWN": 0x0400,
            "LEFT": 0x0200, "RIGHT": 0x0100, "A": 0x0080, "X": 0x0040, "L": 0x0020, "R": 0x0010}
@@ -199,15 +203,6 @@ def tile_quantize(img, npal, ncol):
     return img_idx, full, assign.reshape(th, tw)
 
 
-def dim(img, locked):
-    if not locked:
-        return img
-    a = np.array(img, np.float32)
-    grey = a @ np.array([0.30, 0.59, 0.11], np.float32)
-    a = (a * 0.55 + grey[..., None] * 0.45) * 0.72
-    return Image.fromarray(np.clip(a, 0, 255).astype(np.uint8), "RGB")
-
-
 def label(name, width):
     """The name in the house font with a 6-px advance: a width x 8 array (0 clear, 1 cream, 2 navy shadow)."""
     s = name.upper()
@@ -228,16 +223,22 @@ def label(name, width):
     return out
 
 
-def card(gid, name, locked):
-    """The card: 12 x 10 tiles, one palette: 0 clear, 1 cream, 2 navy, 3..15 the thumbnail."""
-    src = Image.open(os.path.join(ROOT, "games", gid, "docs", "screenshots", "title.png"))
-    thumb = dim(fit(src, CARD_W, THUMB_H), locked)
-    idx, pals, _ = tile_quantize(thumb, 1, 13)
+def card(gid, name, locked, table):
+    """The card: 12 x 10 tiles. The picture (9 rows of tiles): its pixels at 1x in up to cards.CARD_PALS palettes, one
+    per tile; the name (the last row): the UI palette's cream (1) and navy (2), tile palette UI_PAL. Returns (pixels,
+    palettes, tile palettes, the picture as the game shows it, as the card shows it)."""
+    src = cards.source(gid, table)
+    if locked:
+        src = cards.locked_look(src)
+    idx, pals, tp = cards.tile_palettes(src)
+    npal = int(tp.max()) + 1
     pix = np.zeros((CARD_H, CARD_W), np.uint8)
-    pix[:THUMB_H] = idx + 3
+    pix[:THUMB_H] = idx
     pix[THUMB_H:] = label(name, CARD_W)
-    pal = [(0, 0, 0), CREAM, NAVY] + [tuple(int(c) for c in p) for p in pals[0]]
-    return pix, [pal], np.zeros((CARD_H // 8, CARD_W // 8), int)
+    tile_pal = np.full((CARD_H // 8, CARD_W // 8), UI_PAL, np.uint8)
+    tile_pal[:THUMB_H // 8] = tp
+    out = [[(0, 0, 0)] + [tuple(int(c) for c in col) for col in pals[k, 1:]] for k in range(npal)]
+    return pix, out, tile_pal, src, cards.render(idx, pals, tp)
 
 
 def pick_shot(gid, wanted=None):
@@ -296,8 +297,8 @@ def preview(pix, pals, tile_pal, path):
     im = np.zeros((h, w, 3), np.uint8)
     for y in range(h):
         for x in range(w):
-            v = pix[y, x]
-            im[y, x] = pals[tile_pal[y // 8, x // 8]][v] if v else (40, 52, 90)
+            v, p = pix[y, x], tile_pal[y // 8, x // 8]
+            im[y, x] = (40, 52, 90) if not v else (CREAM, NAVY)[v - 1] if p == UI_PAL else pals[p][v]
     Image.fromarray(im, "RGB").resize((w * 2, h * 2), Image.NEAREST).save(path)
 
 
@@ -311,6 +312,7 @@ def main():
     a = ap.parse_args()
     conf = read_conf(a.conf)
     gcfg = read_games_cfg(a.games_cfg)
+    table = cards.read_table()
     games = list_games(conf)
     if a.list:
         print(" ".join(g for g, locked in games if not locked))
@@ -335,11 +337,12 @@ def main():
         if len(zones) > 8:
             raise SystemExit(f"games.cfg: {gid}: at most 8 zones")
         pause = g.get("pause", BUTTONS["START"])
-        pix, pals, tp = card(gid, name, locked)
+        pix, pals, tp, want, got = card(gid, name, locked, table)
+        exact, err = cards.error(got, want)
         c.append(c_bytes(f"card_{gid}_tiles", pack(pix, tp)))
-        c.append(f"static const uint16_t card_{gid}_pals[16] = {{" + ", ".join(
-            f"0x{rgb555(col):04x}" for col in pals[0]) + "};")
-        c.append(f"static const uint8_t card_{gid}_tp[{tp.size}];")
+        c.append(f"static const uint16_t card_{gid}_pals[{16 * len(pals)}] = {{" + ", ".join(
+            f"0x{rgb555(col):04x}" for p in pals for col in p) + "};")
+        c.append(c_bytes(f"card_{gid}_tp", bytes(int(v) for v in tp.flatten())))
         if a.preview:
             preview(pix, pals, tp, os.path.join(a.preview, f"card-{gid}.png"))
         shot_c = "{0, 0, 0, 0, 0, 0}"
@@ -358,11 +361,13 @@ def main():
         magic = g.get("magic")
         entries.append(
             f"    {{{c_str(gid)}, {c_str(name)}, {'NULL' if locked else '&rsb_module_' + gid},\n"
-            f"     {{{CARD_W // 8}, {CARD_H // 8}, card_{gid}_tiles, 1, card_{gid}_pals, card_{gid}_tp}},\n"
+            f"     {{{CARD_W // 8}, {CARD_H // 8}, card_{gid}_tiles, {len(pals)}, card_{gid}_pals, card_{gid}_tp}},\n"
             f"     {shot_c},\n"
             f"     {{{len(zones)}, {{{zc}}}, 0x{pause:04x}}}, {best}, "
             f"{c_str(magic) if magic else 'NULL'}}},")
-        print(f"  {'locked' if locked else 'free  '} {gid:16s} {name}")
+        print(f"  {'locked' if locked else 'free  '} {gid:16s} {name:18s} card: {len(pals)} palettes, "
+              f"{exact * 100:5.1f}% of the pixels exact (mean error {err:.2f})"
+              f"{'' if gid in table else ' [no line in cards.cfg: the title screen]'}")
     c.append("")
     c.append("const rsb_entry rsb_games[] = {")
     c.extend(entries)
