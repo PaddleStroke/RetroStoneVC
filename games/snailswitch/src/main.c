@@ -8,7 +8,8 @@
  * on the game-over panel (hu_over_back) goes BACK TO THE TITLE, with the same players: the title is the only menu.
  *
  * Options (--opt key=value on the desktop runners):
- *   bot=N          the bot plays players 1..N (bot_decide); botruns=N runs; botstop=S stops at S (P2-P4: S+2, S+4..)
+ *   bot=N          the bot plays players 1..N (plan.c bot_decide: from what a 4:3 screen shows); botruns=N runs;
+ *                  botstop=S stops at S (P2-P4: S+2, S+4..)
  *   seed=N         a fixed course (default: from the frame of the first press)
  *   players=N      start with N players joined (1..4);  ready=1  skip the title (the run waits for a press)
  *   dump=1         log the final state at exit (tests); music=0, sound=0
@@ -93,21 +94,6 @@ static void sfx_at(int id, int x)
     ha_play_slot(id, vol[id], x, id == SFX_SCORE);
 }
 
-/* The bot issues ordinary Up/Down choices from the visible course. */
-int bot_decide(const world*w,int p){
- const hero*h=&w->h[p];if(!w->started)return CMD_TOGGLE;
- if(h->flip)return 0;
- int wx=w->scroll+h->x,base=(wx-480)/OBSTACLE_SPACING;if(base<0)base=0;
- /* Leave the collected fruit's hazard behind before returning for the next fruit. */
- for(int i=base>0?base-1:0;i<=base+2;i++){
-  obstacle o;obstacle_at(w,i,&o);int d=o.x-wx;
-  if(h->berry>=i && d>-32 && d<110)return o.side?CMD_UP:CMD_DOWN;
- }
- obstacle next;obstacle_at(w,h->berry+1,&next);
- if(next.anchor-80-wx<132)return next.side?CMD_DOWN:CMD_UP;
- return 0;
-
-}
 /* ---- flow ----------------------------------------------------------------------------------------------------------- */
 static void go(int s) { st = s; st_t = 0; }
 

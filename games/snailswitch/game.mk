@@ -1,7 +1,8 @@
 # Snail Switch (games/snailswitch): its make targets, included by the root Makefile.
 #
 #   make snailswitch                host builds: snailswitch (SDL2), snailswitch_headless, snailswitch_libretro.so
-#   make snailswitch-check          all its tests (libretro loader, smoke + bot + determinism, UI screens, save states, audit),
+#   make snailswitch-check          all its tests (the rules, the course: solver + difficulty + variety, libretro loader,
+#                                  smoke + bot + determinism, UI screens, save states, audit),
 #                                  at 320 and then again at each widescreen width of WIDTHS (427 520), and the game
 #                                  across widths (tests/wide_test.sh)
 #   make snailswitch-dist           dist/windows/SnailSwitch.exe, dist/libretro/snailswitch_libretro.so (+ .armhf.so)
@@ -34,6 +35,8 @@ SNAILSWITCH_OBJ_HOST = $(patsubst %.c,build/host/%.o,$(wildcard $(SNAILSWITCH_DI
 
 snailswitch-check: build/host/snailswitch_test_physics
 	./build/host/snailswitch_test_physics
+	+$(SNAILSWITCH_MAKE) build/host/snailswitch_test_course
+	./build/host/snailswitch_test_course
 	+$(SNAILSWITCH_MAKE) build/host/snailswitch_test_scenery
 	./build/host/snailswitch_test_scenery
 	+$(SNAILSWITCH_MAKE) host build/host/test_libretro build/host/snailswitch_test_states
@@ -58,10 +61,17 @@ snailswitch-screenshots:
 
 snailswitch-art:
 	$(PYTHON) $(SNAILSWITCH_DIR)/tools/make_art.py
-build/host/snailswitch_test_physics: games/snailswitch/tests/test_physics.c games/snailswitch/src/play.c build/host/librs.a
-	gcc -O2 -Igames/snailswitch/src -Isdk/include $^ -lm -o $@
+# the rules and the course (play.c, course.c, plan.c) and their headers: the tests below build them directly
+SNAILSWITCH_RULES = $(SNAILSWITCH_DIR)/src/play.c $(SNAILSWITCH_DIR)/src/course.c $(SNAILSWITCH_DIR)/src/plan.c
+SNAILSWITCH_HDRS  = $(wildcard $(SNAILSWITCH_DIR)/src/*.h)
+build/host/snailswitch_test_physics: games/snailswitch/tests/test_physics.c $(SNAILSWITCH_RULES) $(SNAILSWITCH_HDRS) build/host/librs.a
+	gcc -O2 -Igames/snailswitch/src -Isdk/include $(filter %.c %.a,$^) -lm -o $@
 
-build/host/snailswitch_test_scenery: games/snailswitch/tests/test_scenery.c games/snailswitch/src/draw.c games/snailswitch/src/play.c build/gen/snailswitch/assets.c build/gen/snailswitch/game_text.c build/host/librs.a
-	$(HOST_CC) $(CSTD) $(OPT) $(WARN) $(SDK_INC) -Igames/snailswitch/src -Ibuild/gen/snailswitch -Igames/common/src games/snailswitch/tests/test_scenery.c games/snailswitch/src/draw.c games/snailswitch/src/play.c build/gen/snailswitch/assets.c build/gen/snailswitch/game_text.c games/common/src/house_ui.c build/host/librs.a -lm -o $@
+# the course's proofs and measures (tests/test_course.c: the solver, the measured difficulty, the variety)
+build/host/snailswitch_test_course: games/snailswitch/tests/test_course.c $(SNAILSWITCH_RULES) $(SNAILSWITCH_HDRS)
+	gcc -O2 $(WARN) -Igames/snailswitch/src -Isdk/include $(filter %.c,$^) -lm -o $@
+
+build/host/snailswitch_test_scenery: games/snailswitch/tests/test_scenery.c games/snailswitch/src/draw.c $(SNAILSWITCH_RULES) $(SNAILSWITCH_HDRS) build/gen/snailswitch/assets.c build/gen/snailswitch/game_text.c build/host/librs.a
+	$(HOST_CC) $(CSTD) $(OPT) $(WARN) $(SDK_INC) -Igames/snailswitch/src -Ibuild/gen/snailswitch -Igames/common/src games/snailswitch/tests/test_scenery.c games/snailswitch/src/draw.c $(SNAILSWITCH_RULES) build/gen/snailswitch/assets.c build/gen/snailswitch/game_text.c games/common/src/house_ui.c build/host/librs.a -lm -o $@
 
 

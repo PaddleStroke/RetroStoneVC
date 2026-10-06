@@ -7,4 +7,4 @@ play     700  690  --opt bot=1 --opt seed=7 --opt ready=1
 play4    900  880  --opt bot=4 --opt seed=9 --opt ready=1
 pause    640  630  --opt bot=1 --opt seed=7 --opt ready=1 ; 600 tap SELECT
 over     410  399  --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=21
-results  300  291  --opt bot=4 --opt seed=5 --opt ready=1 --opt botstop=5
+results  410  399  --opt bot=4 --opt seed=5 --opt ready=1 --opt botstop=5

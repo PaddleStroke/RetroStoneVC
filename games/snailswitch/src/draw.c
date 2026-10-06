@@ -91,12 +91,25 @@ void scenery_pixels(const world*w,uint8_t*out,int cw){
    line(px,lx+direction*u,ly+u*tilt/len+bend,lx+direction*(u+3),ly+u*tilt/len+bend+width,0,2);}
  }
  }
- int base=(w->scroll-480)/OBSTACLE_SPACING;if(base<0)base=0;
- int last=base+3+(cw-RS_SCREEN_W+OBSTACLE_SPACING-1)/OBSTACLE_SPACING;   /* wider: one hazard more */
- for(int i=base>0?base-1:0;i<=last;i++){
- obstacle o;obstacle_at(w,i,&o);int x=o.x-w->scroll,y=vine_y(o.x),s=o.side?1:-1;
- if(x<-50||x>cw+128)continue; /* Include the fruit stem even when its patrolling hazard is farther outside. */
- if(o.type==0){
+ /* The course (DESIGN.md "The course"): its hazards and fruits, each on its side, culled at the canvas' edges (the
+  * course buffer holds them from 160 px behind the scroll to 800 px ahead: every width's picture is covered). */
+ for(int i=0;i<w->nitems;i++){
+ const item*it=&w->it[i];int s=it->side?1:-1;
+ if(it->kind==IT_FRUIT){
+  /* a fruit stays drawn until every snail still running has caught it */
+  int bx=it->x-w->scroll,by=vine_y(it->x),taken=1;
+  if(bx<-16||bx>cw+16)continue;
+  for(int p=0;p<w->players;p++)if(w->h[p].state==HS_RUN||w->h[p].state==HS_READY)taken &= w->h[p].berry>=it->id;
+  if(taken)continue;
+  line(px,bx,by,bx,by+s*16,0,2);
+  oval(px,bx,by+s*21,6,6,9,8,7);
+  line(px,bx-3,by+s*16,bx,by+s*18,0,2);line(px,bx+3,by+s*16,bx,by+s*18,0,2);
+  pixel(px,bx-2,by+s*21-2,13);
+  continue;
+ }
+ obstacle o;item_at(it,w->t,&o);int x=o.x-w->scroll,y=vine_y(o.x);
+ if(x<-50||x>cw+128)continue;
+ if(o.type==IT_THORN){
   /* Woody hooked thorns sprout directly from the vine, with shaded broad bases. */
   for(int j=0;j<3;j++){
    int tx=x+(j-1)*10,height=j==1?19:14;
@@ -105,9 +118,9 @@ void scenery_pixels(const world*w,uint8_t*out,int cw){
     for(int q=-width-1;q<=width+1;q++)pixel(px,center+q,vine_y(center+q+w->scroll)+s*(7+k),abs(q)>width?1:q<0?12:q<2?11:10);
    }
   }
- }else if(o.type==1){
+ }else if(o.type==IT_CATER){
   /* Two inchworm poses: extended / arched. Face follows its actual patrol direction. */
-  int phase=(w->t/12+i)%2,dir=o.dir;
+  int phase=(w->t/12+it->phase)%2,dir=o.dir;
   for(int j=0;j<5;j++){
    int tx=x+dir*(j*6-12),arch=phase?(j==2?5:j==1||j==3?3:0):0;
    oval(px,tx,y+s*(12+arch),4,5,5,4,3);
@@ -130,13 +143,6 @@ void scenery_pixels(const world*w,uint8_t*out,int cw){
   }
   line(px,x-3,y+s*20,x-3,y+s*25,0,13);pixel(px,x-2,y+s*16,13);
  }
- int bx=o.anchor-w->scroll-80,by=vine_y(o.anchor-80),taken=1;
- for(int p=0;p<w->players;p++)if(w->h[p].state==HS_RUN||w->h[p].state==HS_READY)taken &= w->h[p].berry==i;
- if(taken)continue;
- line(px,bx,by,bx,by+s*16,0,2);
- oval(px,bx,by+s*21,6,6,9,8,7);
- line(px,bx-3,by+s*16,bx,by+s*18,0,2);line(px,bx+3,by+s*16,bx,by+s*18,0,2);
- pixel(px,bx-2,by+s*21-2,13);
  }
 }
 static uint8_t fg_px[RS_SCREEN_W_MAX*240];     /* scratch: redrawn in full each frame (state_audit.txt) */
@@ -223,12 +229,16 @@ void draw_frame(const world*w,int state,int st_t,int best,int new_best,int pause
  }}
 /* Tests (--opt view=1, main.c at exit): the view of the last frame, "view: width=W left=L p1_x=X next_x=N": L the columns
  * shown behind the snails (the stage origin), X the screen x of P1's sprite centre as drawn, N the screen x of the next
- * hazard ahead of P1 (its anchor; tests/wide_test.sh: X and N - X against 320) */
+ * hazard ahead of P1 (its anchor; a fruit when the course buffer holds no hazard ahead; tests/wide_test.sh: X and N - X
+ * against 320) */
 void draw_view_log(const world*w){
- int hx=w->scroll+w->h[0].x,id=0;obstacle o;
- do obstacle_at(w,id++,&o); while(o.anchor<=hx && id<1000);
+ int hx=w->scroll+w->h[0].x,next=w->dir.x,fruit=-1;
+ for(int i=w->nitems-1;i>=0&&w->it[i].x>hx;i--){
+  if(w->it[i].kind==IT_FRUIT)fruit=w->it[i].x;else next=w->it[i].x;
+ }
+ if(next==w->dir.x&&fruit>=0)next=fruit;
  rs_log("view: width=%d left=%d p1_x=%d next_x=%d",rs_screen_width(),rs_screen_origin_x(),p1_drawn_x,
-        o.anchor-w->scroll+rs_screen_origin_x());
+        next-w->scroll+rs_screen_origin_x());
 }
 #define S(v) rs_state_var("draw." #v,&(v),sizeof(v))
 void draw_state(void){S(line_col);S(shown_state);S(shown_best);RS_STATE_RASTER(raster);}

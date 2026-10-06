@@ -44,5 +44,5 @@ scenario over 700 400 bot=1 botstop=2 ready=1 botruns=2
 # saved on the results (after the game over: the battery save is not part of a state, so a NEW BEST shown
 # by the first pass would read BEST after a load), then the retry
 : > "$O/snailswitch-results4.input"
-scenario results4 920 300 bot=4 botstop=2 ready=1 botruns=2      # the results show from frame 891
+scenario results4 920 300 bot=4 botstop=2 ready=1 botruns=2      # the results show from frame 881
 exit $fail
