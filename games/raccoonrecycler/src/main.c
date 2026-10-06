@@ -7,6 +7,11 @@
  * (B leaves); P1 starts the run at once with A (or an extra START INPUT; this press is also its first move); one press
  * on the game-over panel (hu_over_back) goes BACK TO THE TITLE, with the same players: the title is the only menu.
  *
+ * Touch (rs_game.touch_native, DESIGN.md "Controls"), player 1: a tap anywhere starts on the title and goes back to
+ * the title from the game-over panel (as A); in a run, a finger going down sets the junction at once, as the pad's
+ * press does, to the branch of the bin it is above or nearest to (draw_route_at: the screen in three columns around
+ * the three bins). A touch during the pause never acts (only the frame a finger goes down counts).
+ *
  * Options (--opt key=value on the desktop runners):
  *   bot=N          the bot plays players 1..N (bot_decide); botruns=N runs; botstop=S stops at S (P2-P4: S+2, S+4..)
  *   seed=N         a fixed course (default: from the frame of the first press)
@@ -30,7 +35,7 @@ static uint32_t opt_seed;
 static world W;
 static int st, st_t, paused, new_best, runs_done;
 static int run_best;
-static int start_press;                       /* P1's start press on the title: also its first move */
+static int start_press;                       /* the title just started the run: its first step takes no touch */
 static uint32_t state_hash = 2166136261u;
 static int16_t snd_buf[HA_RATE / 2];          /* start-up scratch (state_audit.txt) */
 
@@ -125,7 +130,13 @@ static int act_pressed(int p)
         return bot_decide(&W, p);
     }
     unsigned input = rs_pad_pressed(hu_player_pad(p)) & ACT_BUTTONS;
-    return input & RS_BTN_LEFT ? ROUTE_LEFT : input & RS_BTN_RIGHT ? ROUTE_RIGHT : input & (RS_BTN_UP|RS_BTN_DOWN) ? ROUTE_CENTER : 0;
+    int route = input & RS_BTN_LEFT ? ROUTE_LEFT : input & RS_BTN_RIGHT ? ROUTE_RIGHT : input & (RS_BTN_UP|RS_BTN_DOWN) ? ROUTE_CENTER : 0;
+    /* touch (P1): a finger going down this frame picks the branch under it; not with the title's start tap */
+    for (int i = 0; p == 0 && !route && !start_press && i < RS_TOUCH_MAX; i++) {
+        const rs_touch_point *t = rs_touch(i);
+        if (t && t->pressed) route = draw_route_at(t->x0 - rs_screen_origin_x());
+    }
+    return route;
 }
 
 static void game_over(void)
@@ -191,10 +202,10 @@ static void title_update(void)
         new_run(ST_TITLE);                      /* the world follows the players (the title shows their heroes) */
         st_t = t;
     }
-    if ((ev & HU_TITLE_START) || (opt_bot && st_t >= BOT_START)) {
+    if ((ev & HU_TITLE_START) || rs_touch_tap(NULL, NULL) || (opt_bot && st_t >= BOT_START)) {   /* touch: a tap */
         ha_play(HA_CONFIRM);
         go(ST_PLAY);
-        start_press = 0;                        /* the start press is also P1's first move */
+        start_press = 1;                        /* the first step: no touch acts (play_update clears it) */
         play_update();
     }
 }
@@ -219,7 +230,7 @@ static void game_update(void)
     case ST_OVER: {
         int back = 0;
         if (st_t >= RETRY_LOCK) {
-            back = hu_over_back();              /* house rule: after a game over, back to the title (the only menu) */
+            back = hu_over_back() || rs_touch_tap(NULL, NULL);   /* house rule: back to the title (touch: a tap) */
             if (opt_bot && runs_done < opt_botruns && st_t == RETRY_LOCK + 10) back = 1;
         }
         if (back) {
@@ -289,7 +300,8 @@ const rs_game *rs_game_main(void)
 {
     /* max_width: the game draws any width up to 560 (widescreen: the stage centred, the yard wider; DESIGN.md) */
     static const rs_game g = {"Raccoon Recycler", "raccoonrecycler", "0.1.0", game_init, game_update, game_draw,
-                              game_shutdown, gm_assets, game_state, game_state_loaded, 1, RS_SCREEN_W_MAX};
+                              game_shutdown, gm_assets, game_state, game_state_loaded, 1, RS_SCREEN_W_MAX,
+                              1};   /* touch_native: P1's touches, menus included (DESIGN.md "Controls") */
     return &g;
 }
 

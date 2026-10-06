@@ -53,6 +53,31 @@ deterministic screenshots, save-state replay and native Windows 1P/4P execution.
 The current bin order belongs to the registered world and restores with the
 exact items, rule-change timing and seeded random state.
 
+## Controls
+| Input | Action |
+|---|---|
+| Left / Right / Up or Down | set the junction to the left / right / centre bin (it stays set) |
+| A (or Start) on the title | start |
+| A, Start or Select on the game-over panel | back to the title |
+| Select (or Start during a run) | pause |
+| Pads 2-4, A on the title | join; B leaves |
+
+**Touch** (player 1; `rs_game.touch_native`: the phone apps pass the game its touches, docs/spec.md "Touch"): *tap the
+branch the toy should take*.
+- **The three branches' bins are the tap zones.** The screen is cut in three columns halfway between the bins' centres
+  (draw_route_at, from the bins' drawn positions), over the whole height: the left bin's column (with the left
+  workstations; on a wide screen the left margin too) sets the left branch, the middle one (the conveyor, the gate,
+  the straight chute) the centre branch as Up/Down, the right one the right branch. A finger going down sets it at
+  once, as the pad's press; the junction stays set, and the toy is still judged when it reaches the fork.
+- **The menus:** a tap anywhere starts on the title (as A; a finger going down on that frame does not move the
+  junction) and goes back to the title from the game-over panel (after the same lock as A).
+- **Pause:** the apps' pause button presses Start. While paused touches do nothing, and only the frame a finger goes
+  down counts, so a touch in the pause never acts after it. Nothing derived from touches is kept between frames.
+- `tests/touch_test.sh` (`make raccoonrecycler-check`, at 320, 427 and 520): scripted touches, each run compared with
+  the same run on the pad (the state line, the game-over lines, the picture): the title tap (with a second finger),
+  each bin's column routing the first toy of a seed to its bin (wide: the side columns touched in the margins), the
+  wrong branch, touches in the pause, the game-over tap (and one too early).
+
 ## Widescreen
 The game opts in (`max_width` = 560, `WIDESCREEN_raccoonrecycler = 1`): a wider screen shows more of the recycling
 yard; the game is unchanged. At 320 columns everything is the 4:3 game byte for byte (the same maps, tiles and tile

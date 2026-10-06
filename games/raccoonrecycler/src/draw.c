@@ -4,6 +4,7 @@
 #include "house_ui.h"
 #include "game_text.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 static const rs_color title_ramps[2][3]={{RS_RGB8(230,222,174),RS_RGB8(191,168,120),RS_RGB8(118,93,79)},{RS_RGB8(207,237,154),RS_RGB8(127,188,100),RS_RGB8(64,127,98)}};
 /* Widescreen (DESIGN.md "Widescreen"): a screen wider than 320 centres the 320-px stage (rs_screen_origin) and shows
@@ -29,6 +30,15 @@ void draw_init(void){
 static void spr(int id,int x,int y,int prio,int pal){const gm_sprite_def *d=&gm_spr[id];rs_spr(x,y,d->tile,d->w,d->h,pal<0?d->pal:pal,prio,0);}
 static int ppal(int p){return p?hu_player_pal(p):0;}
 static void object(int item,int cx,int cy,int priority){spr(SPR_ITEM_0+item,cx-16,cy-16,priority,-1);}
+/* the bins: their 32-px badges at stage x BIN_X(b) (b 0..2: the left, centre and right branches' ends) */
+#define BIN_X(b) (80+(b)*64)
+/* Touch (DESIGN.md "Controls"): the branch of the bin nearest stage column x, the whole height (the screen in three
+ * columns cut halfway between the bins' centres: the conveyor and its gate are the centre's, each margin a side's) */
+int draw_route_at(int x){
+ static const int route[3]={ROUTE_LEFT,ROUTE_CENTER,ROUTE_RIGHT};int best=0;
+ for(int b=1;b<3;b++)if(abs(x-(BIN_X(b)+16))<abs(x-(BIN_X(best)+16)))best=b;
+ return route[best];
+}
 void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paused){
  hu_clear();rs_oam_clear();rs_brightness(paused?9:15);rs_bg_scroll(RS_BG2,0,0);rs_bg_scroll(RS_BG3,0,0);
  int score[4];for(int p=0;p<w->players;p++)score[p]=w->h[p].score;hu_standing rank;hu_rank(&rank,w->players,score,score);
@@ -42,8 +52,8 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  /* Bin badges are the complete rule: neutral animal silhouettes or plain colour swatches. */
  for(int b=0;b<3;b++){
   int badge=w->mode==RULE_SPECIES?SPR_BADGE_DUCK+w->bin_order[b]:SPR_BADGE_YELLOW+w->bin_order[b];
-  spr(badge,80+b*64,197,3,-1);
-  if(w->switch_t>0 && ((w->switch_t/6)&1))spr(SPR_LAMP,92+b*64,178,3,-1);
+  spr(badge,BIN_X(b),197,3,-1);
+  if(w->switch_t>0 && ((w->switch_t/6)&1))spr(SPR_LAMP,BIN_X(b)+12,178,3,-1);
  }
  // Same real workstations on title and during play; full-size raccoons stand on the platform.
  for(int p=0;p<w->players;p++){const hero *h=&w->h[p];int id=SPR_HERO_IDLE;

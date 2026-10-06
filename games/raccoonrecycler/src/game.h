@@ -35,6 +35,7 @@ void draw_init(void);
 void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paused);
 void draw_state(void);
 void draw_relayout(void);   /* after a state load: the ground map of this width (widescreen) */
+int draw_route_at(int x);   /* touch: the branch (ROUTE_*) of the bin nearest stage column x (draw.c) */
 enum {SFX_JUMP,SFX_SCORE,SFX_HIT,SFX_LAND,SFX_RULE,SFX_COUNT};
 #define SFX_HOUSE SFX_COUNT
 #endif

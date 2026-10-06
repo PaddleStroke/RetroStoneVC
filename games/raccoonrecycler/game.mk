@@ -1,7 +1,7 @@
 # Raccoon Recycler (games/raccoonrecycler): its make targets, included by the root Makefile.
 #
 #   make raccoonrecycler                host builds: raccoonrecycler (SDL2), raccoonrecycler_headless, raccoonrecycler_libretro.so
-#   make raccoonrecycler-check          all its tests (libretro loader, smoke + bot + determinism, UI screens, save states, audit),
+#   make raccoonrecycler-check          all its tests (libretro loader, smoke + bot + determinism, UI screens, save states, audit, touch),
 #                                       at 320 and then again at each widescreen width of WIDTHS (427 520), and the game across widths
 #   make raccoonrecycler-dist           dist/windows/RaccoonRecycler.exe, dist/libretro/raccoonrecycler_libretro.so (+ .armhf.so)
 #   make raccoonrecycler-windows        only the Windows exe
@@ -53,6 +53,7 @@ raccoonrecycler-check: build/host/raccoonrecycler_physics
 	done
 	sh $(RACCOONRECYCLER_DIR)/tests/wide_test.sh build/host/raccoonrecycler_headless build/host/raccoonrecycler_test_states build "$(WIDTHS)"
 	bash tools/i18n_test.sh build/host/raccoonrecycler_headless raccoonrecycler build/raccoonrecycler-i18n $(if $(WIDESCREEN_raccoonrecycler),320 $(WIDTHS),320)
+	sh $(RACCOONRECYCLER_DIR)/tests/touch_test.sh build/host/raccoonrecycler_headless build "320 $(WIDTHS)"
 
 raccoonrecycler-screenshots:
 	+$(RACCOONRECYCLER_MAKE) build/host/raccoonrecycler_headless
