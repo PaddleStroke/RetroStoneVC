@@ -32,9 +32,11 @@ typedef struct rsb_module {
 typedef struct rsb_image {
     int w, h;                           /* in tiles */
     const uint8_t *tiles;               /* w * h packed 4bpp tiles (RS_TILE_BYTES each), row-major */
-    int npal;                           /* palettes (16 RGB555 colours each; entry 0 transparent), at most 6 */
+    int npal;                           /* palettes (16 RGB555 colours each; entry 0 transparent): at most 6 per set */
     const uint16_t *pals;
-    const uint8_t *tile_pal;            /* the palette (0..npal-1) of each tile; RSB_UI_PAL: the launcher's UI palette */
+    const uint8_t *tile_pal;            /* the palette (0..5 in its set) of each tile; RSB_UI_PAL: the launcher's UI palette */
+    int band;                           /* 0: one set of palettes; n: each row of n tiles has its own set of 6 palettes
+                                         * (pals + 6 * 16 * (row / n)), loaded by the raster callback (the panel's picture) */
 } rsb_image;
 #define RSB_UI_PAL   255                /* a card's name row: the UI palette's cream (1) and navy (2) */
 
@@ -65,8 +67,8 @@ typedef struct rsb_entry {
 #define RSB_CARD_W   96                 /* px */
 #define RSB_THUMB_H  72
 #define RSB_CARD_H   80                 /* the thumbnail and the name row */
-#define RSB_SHOT_W   160
-#define RSB_SHOT_H   120
+#define RSB_SHOT_W   176
+#define RSB_SHOT_H   88
 
 extern const rsb_entry rsb_games[];
 extern const int rsb_ngames;

@@ -19,7 +19,7 @@ sed 's/#.*//' "$CFG" | while read -r id frame crop rest; do
     [ -z "$ONLY" ] || case "$ONLY" in *" $id "*) ;; *) continue ;; esac
     opts=""
     for kv in $rest; do
-        case "$kv" in sprite=*) ;; *) opts="$opts --opt $kv" ;; esac
+        case "$kv" in sprite=*|panel=*) ;; *) opts="$opts --opt $kv" ;; esac
     done
     # the line's options first: the first --opt of a key wins
     "$BIN/${id}_headless" $opts --opt bot=1 --opt ready=1 --opt seed=7 --opt music=0 --opt sound=0 \

@@ -46,7 +46,12 @@ def read_table(path=os.path.join(CARDS, "cards.cfg")):
         e = {"frame": int(tok[1]), "x": x, "y": y, "opts": {}, "sprites": []}
         for kv in tok[3:]:
             k, _, v = kv.partition("=")
-            if k == "sprite":                       # art/sprites.png:66,0,36,48@-2,24
+            if k == "panel":                        # the panel's picture cut at <x>,<y> (default: around the card)
+                px, py = (int(c) for c in v.split(","))
+                if not (0 <= px <= SCREEN_W - PANEL_W and 0 <= py <= SCREEN_H - PANEL_H):
+                    raise SystemExit(f"{path}:{n}: the panel {px},{py} is not inside the {SCREEN_W}x{SCREEN_H} screen")
+                e["panel"] = (px, py)
+            elif k == "sprite":                     # art/sprites.png:66,0,36,48@-2,24
                 png, _, rest = v.partition(":")
                 rect, _, at = rest.partition("@")
                 e["sprites"].append((png, tuple(int(c) for c in rect.split(",")), tuple(int(c) for c in at.split(","))))
@@ -67,25 +72,82 @@ def title_fallback(gid):
     return a[y:y + THUMB_H, x:x + CARD_W]
 
 
-def source(gid, table):
-    """The card's pixels (THUMB_H x CARD_W x 3, uint8, RGB555 colours), as the game shows them."""
-    e = table.get(gid)
+def _screen(gid, e, x0, y0, w, h):
+    """w x h pixels at x0, y0 of the game's screen cards/<id>.png (1x), with the line's sprites pasted (placed from
+    the card's corner)"""
     png = os.path.join(CARDS, gid + ".png")
-    if not e or not os.path.exists(png):
-        return to555(title_fallback(gid))
     a = np.array(Image.open(png).convert("RGB"))
     if a.shape[:2] != (SCREEN_H, SCREEN_W):
         raise SystemExit(f"{png}: {a.shape[1]}x{a.shape[0]}, a 1x screen is {SCREEN_W}x{SCREEN_H}")
-    a = a[e["y"]:e["y"] + THUMB_H, e["x"]:e["x"] + CARD_W].copy()
+    a = a[y0:y0 + h, x0:x0 + w].copy()
     for spng, (sx, sy, sw, sh), (dx, dy) in e["sprites"]:
         s = np.array(Image.open(os.path.join(ROOT, "games", gid, spng)).convert("RGB"))[sy:sy + sh, sx:sx + sw]
         for y in range(sh):
             for x in range(sw):
-                X, Y = dx + x, dy + y
+                X, Y = e["x"] + dx + x - x0, e["y"] + dy + y - y0
                 c = s[y, x]
-                if 0 <= X < CARD_W and 0 <= Y < THUMB_H and not (c[0] == 255 and c[1] == 0 and c[2] == 255):
+                if 0 <= X < w and 0 <= Y < h and not (c[0] == 255 and c[1] == 0 and c[2] == 255):
                     a[Y, X] = c
     return to555(a)
+
+
+def source(gid, table):
+    """The card's pixels (THUMB_H x CARD_W x 3, uint8, RGB555 colours), as the game shows them."""
+    e = table.get(gid)
+    if not e or not os.path.exists(os.path.join(CARDS, gid + ".png")):
+        return to555(title_fallback(gid))
+    return _screen(gid, e, e["x"], e["y"], CARD_W, THUMB_H)
+
+
+# ---- the panel's picture (a locked game's "Get the full version"): a larger cut of the same screen, at 1x ------------
+PANEL_W, PANEL_H = 176, 88
+
+
+def panel_at(e):
+    """where the panel's picture is cut: the line's panel=<x>,<y>, else centred on the card (inside the screen)"""
+    if "panel" in e:
+        return e["panel"]
+    x = min(max(e["x"] + CARD_W // 2 - PANEL_W // 2, 0), SCREEN_W - PANEL_W)
+    y = min(max(e["y"] + THUMB_H // 2 - PANEL_H // 2, 0), SCREEN_H - PANEL_H)
+    return x, y
+
+
+def panel_source(gid, table):
+    """The panel's pixels (PANEL_H x PANEL_W x 3, RGB555), as the game shows them: never scaled. A game with no line:
+    the middle of its title screen (as its card)."""
+    e = table.get(gid)
+    if not e or not os.path.exists(os.path.join(CARDS, gid + ".png")):
+        src = Image.open(os.path.join(ROOT, "games", gid, "docs", "screenshots", "title.png")).convert("RGB")
+        k = max(1, src.size[1] // SCREEN_H)
+        a = np.array(src)[::k, ::k]
+        h, w = a.shape[:2]
+        x, y = (w - PANEL_W) // 2, (h - PANEL_H) // 2
+        return to555(a[y:y + PANEL_H, x:x + PANEL_W])
+    x, y = panel_at(e)
+    return _screen(gid, e, x, y, PANEL_W, PANEL_H)
+
+
+def band_palettes(img, npal=CARD_PALS, ncol=CARD_COLS):
+    """img: H x W x 3 RGB555. Each row of 8x8 tiles has its own npal palettes (the launcher loads them when the
+    screen reaches that row: the raster callback), each tile one of them. Returns (indices H x W of 1..ncol, palettes
+    [rows * npal] x 16 x 3, tile_pal th x tw of 0..npal-1: within its row's palettes)."""
+    h, w = img.shape[:2]
+    idx = np.zeros((h, w), int)
+    pals = np.zeros((h // 8 * npal, 16, 3), np.uint8)
+    tp = np.zeros((h // 8, w // 8), int)
+    for r in range(h // 8):
+        i, p, t = tile_palettes(img[r * 8:r * 8 + 8], npal, ncol, tries=8)
+        idx[r * 8:r * 8 + 8] = i
+        pals[r * npal:(r + 1) * npal] = p
+        tp[r] = t[0]
+    return idx, pals, tp
+
+
+def band_render(idx, pals, tile_pal, npal=CARD_PALS):
+    """the banded picture as the PPU shows it (H x W x 3)"""
+    rows = np.arange(idx.shape[0])[:, None] // 8
+    tp = np.repeat(np.repeat(tile_pal, 8, 0), 8, 1) + rows * npal
+    return pals[tp, idx]
 
 
 # ---- a locked game (the free app): its colours as they are, a gold ribbon across the top-right corner (the star of

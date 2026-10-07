@@ -83,7 +83,10 @@ modules are compiled with `-mcmodel=small`, so no `.refptr` stub is shared betwe
   gamepads players 2 to 4, the in-game pause and back buttons); the dialogs close with their back arrow (top left), a
   tap outside them, Back or B. The pad's glyph hints (A, B, the selected game's name in the footer) are shown only
   while a gamepad is connected (`rsb_input.gamepad`; on the desktop, once the keyboard was used); the footer itself
-  only when it has something (the free app's "full version" banner, or those hints).
+  only when it has something (the free app's "FULL VERSION" badge, or those hints). The badge: the words in 2x
+  letters of the house font (an accent 2x wide and 1x tall; CJK 16x16, bold) on a gold pill with padding all round,
+  centred, drawn pixel by pixel into its own tiles over the footer's rows so that the pill sits between them
+  (`badge_draw()`); with a gamepad, the A glyph and the selected game's name at its left when there is room.
 - In a game, the frontend draws a pause button (top right) and a back button (top left, = Back: the state is saved,
   the menu comes back); the runtime keeps their touches from the game (a finger that goes down on one of them; one
   that slides onto them from the game stays the game's).
@@ -124,6 +127,12 @@ A card shows **a moment of play, pixel for pixel**: 96x72 pixels cut out of the 
 - **Locked cards** (the free app): the picture in its own colours (it should make one want the game), a gold ribbon
   across the top-right corner with the red star of the "FULL VERSION" banner, and a padlock badge in the bottom-right
   corner, drawn into the card by `tools/cards.py`.
+- **The panel's picture** (a locked game's "Get the full version"): a larger cut of the same screen, **176x88 at
+  1x**, never scaled: around the card, or where the line's `panel=<x>,<y>` says. Each row of 8x8 tiles has its own 6
+  palettes of 15 colours (`cards.band_palettes()`), which the raster callback loads when the screen reaches that row
+  (`rsb_image.band`): every panel picture keeps the game's colours exactly (99.8-100% of the pixels; the old picture
+  was a screenshot scaled down to 160x120 in 6 palettes for the whole picture). The panel keeps two free rows between
+  the picture and the text and between the text and its button.
 
 ## Files
 

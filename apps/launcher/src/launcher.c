@@ -9,10 +9,12 @@
  *           games (the free app) in their colours, with a gold ribbon and a padlock badge (drawn into the card by
  *           tools/gen_catalog.py). 3 columns at 320, up to 5 on a wide screen; the rows scroll (D-pad, or drag /
  *           swipe)
- *   footer  rows 26-29, only when it has something: the free app's "FULL VERSION" pill (small, at the right) and,
- *           when a gamepad is connected, the A glyph and the selected game's name
+ *   footer  rows 26-29, only when it has something: the free app's "FULL VERSION" badge (2x letters on a gold pill,
+ *           centred) and, when a gamepad is connected and there is room at its left, the A glyph and the selected
+ *           game's name
  *   dialogs (a back arrow in the top-left corner closes them, as Android's Back, a tap outside them, or B):
- *           the panel "Get the full version": a locked game's picture, the paid app's name, ONE big button
+ *           the panel "Get the full version": a locked game's picture (a moment of play at 1x, each row of tiles
+ *           in its own palettes: the raster loads them), the paid app's name, ONE big button
  *           "GET IT ON GOOGLE PLAY"; the credits: every component and its licence (the translated list), then a
  *           licence's full text (English, scrolled); the help: touch is player 1, gamepads players 2 to 4, the
  *           in-game pause and back buttons
@@ -33,6 +35,7 @@
 #include "house_ui.h"
 #include "house_audio.h"
 #include "game_text.h"                  /* the launcher's strings: apps/launcher/strings (TR, TRN) */
+#include "rs_i18n.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -47,12 +50,12 @@ extern const uint8_t rs_font_5x7[96][8];
 #define PITCH_Y     (RSB_CARD_H + 8)
 #define MAX_COLS    5
 
-/* VRAM (tiles): BG1 the kit at 0 (HU_BG_TILES), the pill and the big button at T_PILL; card layer l (0..2 = BG2..BG4)
- * at VR_CARD(l): a blank tile, the badge glyphs, the cards (or the panel's picture, the licence's font on layer 0);
- * sprites at VR_OBJ */
+/* VRAM (tiles): BG1 the kit at 0 (HU_BG_TILES), the big button at T_BTN, the footer's badge at T_FOOT (the kit's
+ * glyph pool from 640); card layer l (0..2 = BG2..BG4) at VR_CARD(l): a blank tile, the badge glyphs, the cards (or
+ * the panel's picture, the licence's font on layer 0); sprites at VR_OBJ */
 #define VR_BG1      0
-#define T_PILL      320                     /* 3 tiles: the pill's ends */
 #define T_BTN       323                     /* 5 tiles: the big button's corner, side, top, fill, play sign */
+#define T_FOOT      336                     /* the "FULL VERSION" badge: up to 40 x 4 tiles (badge_draw) */
 #define VR_CARD(l)  (1024 * ((l) + 1))
 #define T_BADGE     1
 #define T_CARDS     32
@@ -219,25 +222,14 @@ static void sprite_tiles(void)
     square_tiles(OT_BACK_ICON, SYM_BACK);
 }
 
-/* ---- the pill (the "FULL VERSION" banner) and the big button (GET IT ON GOOGLE PLAY): the kit's text on the panel
- * fill, its map entries moved to their own palette (the UI palette with the fill gold, the outline dark gold and the ink
- * navy; brighter when selected). Any language: the text is the kit's (UTF-8, accents and CJK use the row above). */
-static int pill_x, pill_w;                  /* the banner: tile column, width in tiles */
+/* ---- the "FULL VERSION" badge (the footer) and the big button (GET IT ON GOOGLE PLAY), in their own palette PAL_PILL:
+ * the UI palette with the fill gold (brighter when selected), the ink navy, the outline dark gold, and B_NAVY the
+ * panel's fill. The button's text is the kit's (UTF-8, accents and CJK use the row above), moved to that palette. */
+enum { B_GOLD = HU_FILL, B_INK = HU_CREAM, B_EDGE = HU_OUTLINE, B_STAR = HU_RED, B_NAVY = 11, B_LIT = 12, B_SHADE = 13 };
 
 static void pill_tiles(void)
 {
     uint8_t px[64];
-    for (int side = 0; side < 3; side++) {                       /* the round ends: left with the star, right, left plain */
-        for (int y = 0; y < 8; y++)
-            for (int x = 0; x < 8; x++) {
-                int xx = side == 1 ? 7 - x : x;
-                int r = (y < 2 ? 2 - y : y > 5 ? y - 5 : 0);     /* rounded corners */
-                int v = xx >= r ? HU_FILL : 0;
-                if (!side && STAR[y][x] == '1' && x >= 1) v = HU_RED;
-                px[y * 8 + x] = (uint8_t)v;
-            }
-        tile8(VR_BG1 + T_PILL + side, px);
-    }
     /* the big button: a rounded corner (top left; the others flipped), the left side, the top side, the fill, and the
      * play sign (a red triangle) */
     for (int k = 0; k < 5; k++) {
@@ -267,6 +259,9 @@ static void pill_colours(int on)
     rs_pal_set(RS_PAL_BG(PAL_PILL) + HU_CREAM, RS_RGB8(16, 24, 56));
     rs_pal_set(RS_PAL_BG(PAL_PILL) + HU_OUTLINE, RS_RGB8(186, 128, 22));
     rs_pal_set(RS_PAL_BG(PAL_PILL) + HU_RED, RS_RGB8(200, 60, 40));
+    rs_pal_set(RS_PAL_BG(PAL_PILL) + B_NAVY, hu_ui_palette[HU_FILL]);
+    rs_pal_set(RS_PAL_BG(PAL_PILL) + B_LIT, RS_RGB8(255, 240, 150));
+    rs_pal_set(RS_PAL_BG(PAL_PILL) + B_SHADE, RS_RGB8(222, 166, 44));
 }
 
 /* the kit's text s at (x, row), moved to the pill palette (with the row above when it uses it) */
@@ -280,18 +275,6 @@ static int pill_text(int x, int row, const char *s)
             rs_bg_put(RS_BG1, x + i, r, (uint16_t)((e & ~(7 << 10)) | (PAL_PILL << 10)));
         }
     return w;
-}
-
-/* text s as a pill at (x, row): returns its width in tiles (the two ends included) */
-static int pill_put(int x, int row, const char *s, int star)
-{
-    int w = hu_width(s, 0), tall = hu_tall(s);
-    pill_text(x + 1, row, s);
-    for (int r = row - tall; r <= row; r++) {
-        rs_bg_put(RS_BG1, x, r, RS_MAP(T_PILL + (star && r == row ? 0 : 2), PAL_PILL, 1, 0, 0));
-        rs_bg_put(RS_BG1, x + w + 1, r, RS_MAP(T_PILL + 1, PAL_PILL, 1, 0, 0));
-    }
-    return w + 2;
 }
 
 /* the big button, 3 rows (row - 1 .. row + 1): the play sign, the text; returns its width in tiles */
@@ -308,12 +291,109 @@ static int button_put(int x, int row, const char *s)
     return bw;
 }
 
-static void pill_draw(int row)
+/* The badge: the text in 2x letters (the house font, each pixel 2x2; an accent 2x wide and 1x tall, so that it fits;
+ * CJK 16x16 as drawn), navy with a dark gold shadow, after the red star, on a gold pill (outlined, a light top line, a
+ * darker bottom line, a dark shadow under it) with padding all round, centred in the footer. It is drawn pixel by pixel
+ * into its own BG1 tiles (T_FOOT) over rows 26-29, the footer's rims included, so that the pill (24 px) sits between
+ * the tile rows. The kit's i18n check does not see it: badge_draw() fits it to the screen itself. */
+#define BADGE_TOP   4                       /* the pill: footer lines 4..27, its shadow line 28 (the rims: 0-2, 30-31) */
+#define BADGE_H     24
+#define BADGE_TEXT_X 28                     /* the text's left: the edge and padding (8), the star (14), a gap (6) */
+#define BADGE_PAD_R 10
+#define BADGE_MAXW  320
+static int badge_x0, badge_x1, foot_c0;     /* the pill on the screen (px, x1 excluded); its first column */
+static int foot_hint;                       /* the footer shows the A glyph and the selection's name */
+static uint8_t btext[24][BADGE_MAXW];       /* the text: 1 ink; rows 0..7 the accents, 8..23 the letters */
+static uint8_t bcanvas[32][BADGE_MAXW + 16];
+
+/* the text s into btext; returns its width in px, its shadow included */
+static int badge_text(const char *s)
 {
-    const char *s = TR(FULL_VERSION);
-    pill_w = hu_width(s, 0) + 2;
-    pill_x = Wt - 2 - pill_w;
-    pill_put(pill_x, row, s, 1);
+    int x = 0, right = 0;
+    uint32_t cp;
+    memset(btext, 0, sizeof btext);
+    while ((cp = rs_utf8_next(&s)) != 0) {
+        if (cp == ' ') { x += 10; continue; }
+        if (cp >= 128 && rs_glyph_wide(cp)) {                       /* CJK, kana, hangul: 16x16, made bold */
+            const uint8_t *g = rs_wide_glyph(cp);
+            for (int y = 0; g && y < 16; y++)
+                for (int i = 0; i < 16; i++)
+                    if ((g[y * 2 + (i >> 3)] & (0x80 >> (i & 7))) && x + i + 1 < BADGE_MAXW)
+                        btext[6 + y][x + i] = btext[6 + y][x + i + 1] = 1;
+            right = x + 18;
+            x += 19;
+            continue;
+        }
+        const uint8_t *body = rs_font_5x7[(cp >= 32 && cp < 128 ? (int)cp : '?') - 32], *mark = NULL;
+        int above = 0, below = 0;
+        if (cp >= 128 && !rs_font_ext(cp, &body, &above, &below)) body = rs_font_5x7['?' - 32], above = below = 0;
+        uint8_t r[8];
+        memcpy(r, body, 8);
+        if (below) r[7] |= rs_font_mark(below)[7];
+        if (above) mark = rs_font_mark(above);
+        for (int y = 0; y < 8; y++)
+            for (int i = 0; i < 6 && x + 2 * i + 1 < BADGE_MAXW; i++) {
+                if (y < (below ? 8 : 7) && (r[y] & (0x80 >> i)))
+                    for (int k = 0; k < 4; k++) btext[8 + 2 * y + (k >> 1)][x + 2 * i + (k & 1)] = 1;
+                if (mark && y >= 4 && y <= 6 && (mark[y] & (0x80 >> i)))     /* the accent's rows, just above */
+                    btext[y][x + 2 * i] = btext[y][x + 2 * i + 1] = 1;
+            }
+        right = x + 11;
+        x += 14;
+    }
+    return right;
+}
+
+static void badge_draw(void)
+{
+    int tw = badge_text(TR(FULL_VERSION)), ymin = 24, ymax = 0;
+    for (int y = 0; y < 24; y++)
+        for (int x = 0; x < tw; x++)
+            if (btext[y][x]) { if (y < ymin) ymin = y; if (y > ymax) ymax = y; }
+    int pw = BADGE_TEXT_X + tw + BADGE_PAD_R;
+    if (pw > BADGE_MAXW) pw = BADGE_MAXW;
+    badge_x0 = (W - pw) / 2;
+    badge_x1 = badge_x0 + pw;
+    int c0 = badge_x0 / 8, c1 = (badge_x1 + 7) / 8, cw = (c1 - c0) * 8, ox = badge_x0 - c0 * 8;
+    foot_c0 = c0;
+    /* the footer under it: the panel's middle columns (kit: the top rim dark, light, highlight; the bottom rim dark) */
+    for (int y = 0; y < 32; y++) {
+        int v = y == 0 || y >= 30 ? HU_DARK : y == 1 ? HU_LIGHT : y == 2 ? HU_HILITE : B_NAVY;
+        memset(bcanvas[y], v, (size_t)cw);
+    }
+    /* the pill: rounded ends (radius 6) */
+    const int R = 6;
+    for (int y = 0; y < BADGE_H; y++)
+        for (int x = 0; x < pw; x++) {
+            int ex = x < R ? R - 1 - x : x >= pw - R ? x - (pw - R) : -1;
+            int ey = y < R ? R - 1 - y : y >= BADGE_H - R ? y - (BADGE_H - R) : -1;
+            int d = ex >= 0 && ey >= 0 ? (2 * ex + 1) * (2 * ex + 1) + (2 * ey + 1) * (2 * ey + 1) : 0;
+            if (d > 4 * R * R) continue;
+            int edge = d > 4 * (R - 1) * (R - 1) || x == 0 || x == pw - 1 || y == 0 || y == BADGE_H - 1;
+            int v = edge ? B_EDGE : y == 1 ? B_LIT : y == BADGE_H - 2 ? B_SHADE : B_GOLD;
+            bcanvas[BADGE_TOP + y][ox + x] = (uint8_t)v;
+            if (y == BADGE_H - 1) bcanvas[BADGE_TOP + BADGE_H][ox + x] = HU_DARK;    /* its shadow */
+        }
+    /* the star (2x) and the text, each with a dark gold shadow one pixel down-right */
+    int sy = BADGE_TOP + (BADGE_H - 16) / 2, ty = BADGE_TOP + (BADGE_H - (ymax - ymin + 2)) / 2 - ymin;
+    for (int pass = 0; pass < 2; pass++) {
+        int d = pass ? 0 : 1, ink = pass ? -1 : B_EDGE;
+        for (int y = 0; y < 16; y++)
+            for (int x = 0; x < 14; x++)
+                if (STAR[y / 2][x / 2] == '1') bcanvas[sy + y + d][ox + 8 + x + d] = (uint8_t)(pass ? B_STAR : ink);
+        for (int y = ymin; y <= ymax; y++)
+            for (int x = 0; x < tw && BADGE_TEXT_X + x + d < pw - 1; x++)
+                if (btext[y][x]) bcanvas[ty + y + d][ox + BADGE_TEXT_X + x + d] = (uint8_t)(pass ? B_INK : ink);
+    }
+    /* into the tiles, over the footer's rows */
+    static uint8_t px[42 * 4 * 64];
+    int n = 0;
+    for (int r = 0; r < 4; r++)
+        for (int c = 0; c < c1 - c0; c++, n++) {
+            for (int y = 0; y < 8; y++) memcpy(px + n * 64 + y * 8, &bcanvas[r * 8 + y][c * 8], 8);
+            rs_bg_put(RS_BG1, c0 + c, 30 - FOOT_ROWS + r, RS_MAP(T_FOOT + n, PAL_PILL, 1, 0, 0));
+        }
+    rs_tiles_load8(VR_BG1 + T_FOOT, px, n);
 }
 
 /* ---- the header, the footer and the dialogs (BG1) --------------------------------------------------------------------- */
@@ -349,11 +429,12 @@ static void draw_footer(void)
     if (!foot) return;
     int y = 30 - FOOT_ROWS;
     hu_panel(0, y, Wt, FOOT_ROWS);
-    if (promo) pill_draw(FOOT_TEXT_ROW);
-    else pill_x = Wt - 1;                                         /* the full app: no banner */
-    if (!pad) return;                                             /* the A glyph and the name: for pad players */
+    if (promo) badge_draw();
+    else foot_c0 = Wt - 1;                                        /* the full app: no badge */
+    int room = foot_c0 - 1 - 4;
+    foot_hint = pad && room >= 6;                                 /* the A glyph and the name: for pad players, */
+    if (!foot_hint) return;                                       /* at the badge's left when there is room */
     char line[96] = "";
-    int room = pill_x - 1 - 4;
     const char *named = sel == SEL_INFO ? TR(CREDITS) : sel == SEL_HELP ? TR(HELP) : NULL;
     if (sel >= 0) upper(line, sizeof line, rsb_games[sel].name);
     else if (named) { if (hu_width(named, 0) <= room) rs_strf(line, sizeof line, "%s", named); }
@@ -383,33 +464,42 @@ static void dialog_box(const char *title)
 }
 
 /* the panel: "Get the full version" with a locked game's picture (a hole in the panel shows BG2).
- * Rows (every text line has the row above it free: accents, CJK): 0 rim, 2-3 title, 5-19 picture, 20 name,
- * 22 "is in", 24 "N games", 25-27 the button, 29 rim */
+ * Rows (every text line has the row above it free: accents, CJK): 0 rim, 2-3 title, 5-15 the picture (88 px),
+ * 18 name, 20 "is in", 22 "N games", 25-27 the button, 29 rim: two free rows (16 px) between the picture and the
+ * name and between the last line and the button, one (8 px) under the title and under the button */
+static const rsb_image *pan_pic;            /* the picture whose palettes the raster loads, row by row */
+static void pic_palettes(int set)
+{
+    const rsb_image *im = pan_pic;
+    for (int p = 0; p < 6 && set * 6 + p < im->npal; p++) rs_pal_load(RS_PAL_BG(1 + p), im->pals + (set * 6 + p) * 16, 16);
+}
+
 static void panel_draw(void)
 {
     const rsb_entry *e = &rsb_games[panel_game];
     char s[64], paid[48];
     dialog_box(TR(FULL_VERSION));
-    shot_x = (Wt - RSB_SHOT_W / 8) / 2;
+    shot_x = (Wt - e->shot.w) / 2;
     shot_y = 5;
-    for (int y = 0; y < RSB_SHOT_H / 8; y++)                     /* the hole */
-        for (int x = 0; x < RSB_SHOT_W / 8; x++) rs_bg_put(RS_BG1, shot_x + x, shot_y + y, RS_MAP(0, PAL_UI, 0, 0, 0));
+    for (int y = 0; y < e->shot.h; y++)                          /* the hole */
+        for (int x = 0; x < e->shot.w; x++) rs_bg_put(RS_BG1, shot_x + x, shot_y + y, RS_MAP(0, PAL_UI, 0, 0, 0));
     upper(s, sizeof s, e->name);
-    text_at(centre(s, 0), 20, s);
+    text_at(centre(s, 0), 18, s);
     upper(paid, sizeof paid, rsb_paid_name);
     rs_strf(s, sizeof s, TR(IS_IN), paid);
-    text_at(centre(s, 0), 22, s);
+    text_at(centre(s, 0), 20, s);
     rs_strf(s, sizeof s, TRN(GAMES_IN_APP, rsb_ngames), rsb_ngames);
-    text_at(centre(s, 0), 24, s);
+    text_at(centre(s, 0), 22, s);
     const char *get = TR(GET_IT);
     btn_w = hu_width(get, 0) + 5;
     btn_y = 26;
     btn_x = (Wt - btn_w) / 2;
     button_put(btn_x, btn_y, get);
-    /* the picture */
+    /* the picture; its palettes: one set, or a set per band of rows (loaded by the raster as the screen reaches it) */
     rs_bg_fill(RS_BG2, RS_MAP(0, 0, 0, 0, 0));
     rs_tiles_load(VR_CARD(0) + T_CARDS, e->shot.tiles, e->shot.w * e->shot.h);
-    for (int p = 0; p < e->shot.npal && p < 6; p++) rs_pal_load(RS_PAL_BG(1 + p), e->shot.pals + p * 16, 16);
+    pan_pic = &e->shot;
+    pic_palettes(0);
     for (int y = 0; y < e->shot.h; y++)
         for (int x = 0; x < e->shot.w; x++)
             rs_bg_put(RS_BG2, shot_x + x, shot_y + y,
@@ -800,6 +890,10 @@ static void raster(int line, void *user)
         int d = (line & 4) ? 3 : 0;                              /* the house 2-line dither step */
         rs_pal_set(0, RS_RGB8(28 - k * 14 / 256 + d, 44 - k * 22 / 256 + d, 90 - k * 44 / 256 + d));
         if (line == 0) pal_card = -1;
+        if (panel && !credits && !help && pan_pic && pan_pic->band) {   /* the panel's picture: its row's palettes */
+            int r = line - shot_y * 8, band = 8 * pan_pic->band;
+            if (r >= 0 && r < pan_pic->h * 8 && r % band == 0) pic_palettes(r / band);
+        }
         return;
     }
     int r = (line - GRID_TOP + scroll_px()) / PITCH_Y, g = r * cols + v - 1;   /* column v - 1, from GRID_TOP */
@@ -981,7 +1075,7 @@ static void touch_update(void)
                 if (sel >= 0) sel_mem = sel;
                 sel = corner;
                 activate(corner);
-            } else if (promo && ty >= 30 - FOOT_ROWS && p->x0 / 8 >= pill_x - 1) {
+            } else if (promo && ty >= 30 - FOOT_ROWS && p->x0 >= badge_x0 - 8 && p->x0 < badge_x1 + 8) {
                 sel_mem = sel >= 0 ? sel : sel_mem;
                 sel = SEL_PILL;
                 activate(SEL_PILL);
@@ -1166,7 +1260,7 @@ static void l_draw(void)
         card_pos(sel, &x, &y);
         frame_sprites(x, y);
     }
-    if (pad && foot) hu_glyph(HU_BTN_A, 8 - hu_ui_x(), FOOT_TEXT_ROW * 8 - 4, 0, 3);
+    if (pad && foot && foot_hint) hu_glyph(HU_BTN_A, 8 - hu_ui_x(), FOOT_TEXT_ROW * 8 - 4, 0, 3);
     rs_spr(5, CORNER_Y, OT_INFO + (sel == SEL_INFO ? 4 : 0), 16, 16, OPAL_MINE, 3, 0);       /* "i": the credits */
     rs_spr(W - 21, CORNER_Y, OT_HELP + (sel == SEL_HELP ? 4 : 0), 16, 16, OPAL_MINE, 3, 0);  /* "?": the help */
 }

@@ -14,8 +14,9 @@ From the app's config (FREE_GAMES, HIDDEN_GAMES, the names and ids) and the game
     apps/launcher/cards/cards.cfg, tools/cards.py), in up to 6 palettes chosen tile by tile (SNES style; the
     launcher gives each card column its own), with the game's name under it (the house font, 6-px advance, the UI
     palette); a locked card keeps its colours, with a gold ribbon and a padlock badge drawn on it;
-  - a locked game also gets the picture of its "Get the full version" panel: a play screenshot at 160x120, in up
-    to 6 palettes chosen tile by tile (SNES style);
+  - a locked game also gets the picture of its "Get the full version" panel: a larger cut of the same screen at 1x,
+    176x88 pixels never scaled (around the card, or cards.cfg panel=<x>,<y>), each row of tiles in its own 6 palettes
+    (the launcher loads them line by line), each tile one of them: the game's colours, exactly;
   - the touch scheme and the best-score location of each game: apps/launcher/games.cfg.
 MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
 """
@@ -34,7 +35,6 @@ from gen_font import G as FONT  # noqa: E402  (the house font)
 import cards  # noqa: E402  (the cards: the table, the 1x crops, the palettes)
 
 CARD_W, THUMB_H, CARD_H = 96, 72, 80
-SHOT_W, SHOT_H = 160, 120
 CREAM, NAVY = (255, 246, 220), (16, 24, 56)
 UI_PAL = 255                                    # a tile in the launcher's UI palette (the name under a card)
 
@@ -133,81 +133,6 @@ def list_games(conf):
 
 
 # ---- pictures -------------------------------------------------------------------------------------------------------
-def to555(a):
-    """uint8 RGB -> the nearest RGB555 colour, back in 8 bits."""
-    q = (a.astype(np.int32) * 31 + 127) // 255
-    return ((q << 3) | (q >> 2)).astype(np.uint8)
-
-
-def fit(img, w, h):
-    """img cut to the aspect w:h (centred) and resized to w x h."""
-    img = img.convert("RGB")
-    sw, sh = img.size
-    if sw * h > sh * w:
-        nw = sh * w // h
-        img = img.crop(((sw - nw) // 2, 0, (sw - nw) // 2 + nw, sh))
-    elif sw * h < sh * w:
-        nh = sw * h // w
-        img = img.crop((0, (sh - nh) // 2, sw, (sh - nh) // 2 + nh))
-    return img.resize((w, h), Image.LANCZOS)
-
-
-def median_palette(px, n):
-    """n colours for the pixels px (N x 3 uint8), median cut, RGB555."""
-    if len(px) == 0:
-        return np.zeros((1, 3), np.uint8)
-    side = int(np.ceil(np.sqrt(len(px))))
-    buf = np.zeros((side * side, 3), np.uint8)
-    buf[:len(px)] = px
-    buf[len(px):] = px[0]
-    im = Image.fromarray(buf.reshape(side, side, 3), "RGB").quantize(colors=n, method=Image.Quantize.MEDIANCUT)
-    pal = np.array(im.getpalette()[:3 * n], np.uint8).reshape(-1, 3)
-    used = sorted(set(im.getdata()))
-    return np.unique(to555(pal[used]), axis=0)
-
-
-def nearest(px, pal):
-    """index of the nearest palette colour for each pixel (weighted RGB distance)."""
-    w = np.array([3, 4, 2], np.int32)
-    d = (((px[:, None, :].astype(np.int32) - pal[None, :, :].astype(np.int32)) ** 2) * w).sum(-1)
-    return d.argmin(1), d.min(1)
-
-
-def tile_quantize(img, npal, ncol):
-    """SNES-style: the picture's 8x8 tiles share npal palettes of ncol colours; each tile picks the palette that
-    fits it best. Returns (indices HxW of 0..ncol-1, palettes [npal x ncol x 3], tile_pal [th x tw])."""
-    a = to555(np.array(img, np.uint8))
-    h, w = a.shape[:2]
-    th, tw = h // 8, w // 8
-    tiles = a.reshape(th, 8, tw, 8, 3).transpose(0, 2, 1, 3, 4).reshape(th * tw, 64, 3)
-    # start: tiles grouped by their mean colour (k-means), a median-cut palette per group
-    means = tiles.reshape(-1, 64, 3).mean(1)
-    rng = np.random.default_rng(1)
-    cent = means[rng.choice(len(means), npal, replace=False)] if len(means) >= npal else means
-    assign = np.zeros(len(tiles), int)
-    for _ in range(8):
-        assign = ((means[:, None, :] - cent[None, :, :]) ** 2).sum(-1).argmin(1)
-        for k in range(len(cent)):
-            if (assign == k).any():
-                cent[k] = means[assign == k].mean(0)
-    pals = []
-    for it in range(4):
-        pals = [median_palette(tiles[assign == k].reshape(-1, 3), ncol) if (assign == k).any()
-                else median_palette(tiles.reshape(-1, 3), ncol) for k in range(npal)]
-        err = np.stack([nearest(tiles.reshape(-1, 3), p)[1].reshape(len(tiles), 64).sum(1) for p in pals], 1)
-        assign = err.argmin(1)
-    idx = np.zeros((len(tiles), 64), int)
-    for k in range(npal):
-        sel = assign == k
-        if sel.any():
-            idx[sel] = nearest(tiles[sel].reshape(-1, 3), pals[k])[0].reshape(-1, 64)
-    full = np.zeros((npal, ncol, 3), np.uint8)
-    for k, p in enumerate(pals):
-        full[k, :len(p)] = p
-    img_idx = idx.reshape(th, tw, 8, 8).transpose(0, 2, 1, 3).reshape(h, w)
-    return img_idx, full, assign.reshape(th, tw)
-
-
 def label(name, width):
     """The name in the house font with a 6-px advance: a width x 8 array (0 clear, 1 cream, 2 navy shadow)."""
     s = name.upper()
@@ -246,25 +171,12 @@ def card(gid, name, locked, table):
     return pix, out, tile_pal, src, cards.render(idx, pals, tp)
 
 
-def pick_shot(gid, wanted=None):
-    d = os.path.join(ROOT, "games", gid, "docs", "screenshots")
-    if wanted and os.path.exists(os.path.join(d, wanted)):
-        return os.path.join(d, wanted)
-    names = sorted(f for f in os.listdir(d) if f.endswith(".png"))
-    skip = ("title", "gameover", "game-over", "pause", "results", "players", "over", "versus")
-    good = [f for f in names if not any(s in f for s in skip)]
-    return os.path.join(d, (good or ["title.png"])[0])
-
-
-def shot(gid, wanted=None):
-    src = Image.open(pick_shot(gid, wanted))
-    img = fit(src, SHOT_W, SHOT_H)
-    idx, pals, tp = tile_quantize(img, 6, 15)
-    pix = (idx + 1).astype(np.uint8)
-    out = []
-    for p in pals:
-        out.append([(0, 0, 0)] + [tuple(int(c) for c in col) for col in p])
-    return pix, out, tp
+def shot(gid, table):
+    """The panel's picture: (pixels, palettes [rows x 6], tile palettes within the row's set, picture, as shown)."""
+    src = cards.panel_source(gid, table)
+    idx, pals, tp = cards.band_palettes(src)
+    out = [[(0, 0, 0)] + [tuple(int(c) for c in col) for col in p[1:]] for p in pals]
+    return idx.astype(np.uint8), out, tp, src, cards.band_render(idx, pals, tp)
 
 
 def pack(pix, tile_pal):
@@ -350,28 +262,32 @@ def main():
         c.append(c_bytes(f"card_{gid}_tp", bytes(int(v) for v in tp.flatten())))
         if a.preview:
             preview(pix, pals, tp, os.path.join(a.preview, f"card-{gid}.png"))
-        shot_c = "{0, 0, 0, 0, 0, 0}"
+        shot_c = "{0, 0, 0, 0, 0, 0, 0}"
+        panel = ""
         if locked:
-            spix, spals, stp = shot(gid, g.get("shot"))
+            spix, spals, stp, swant, sgot = shot(gid, table)
+            pexact, _ = cards.error(sgot, swant)
+            panel = f"; panel {pexact * 100:5.1f}% exact"
             c.append(c_bytes(f"shot_{gid}_tiles", pack(spix, stp)))
             c.append(f"static const uint16_t shot_{gid}_pals[{16 * len(spals)}] = {{" + ", ".join(
                 f"0x{rgb555(col):04x}" for p in spals for col in p) + "};")
             c.append(c_bytes(f"shot_{gid}_tp", bytes(int(v) for v in stp.flatten())))
-            shot_c = (f"{{{SHOT_W // 8}, {SHOT_H // 8}, shot_{gid}_tiles, {len(spals)}, shot_{gid}_pals, "
-                      f"shot_{gid}_tp}}")
+            shot_c = (f"{{{cards.PANEL_W // 8}, {cards.PANEL_H // 8}, shot_{gid}_tiles, {len(spals)}, shot_{gid}_pals, "
+                      f"shot_{gid}_tp, 1}}")
             if a.preview:
-                preview(spix, spals, stp, os.path.join(a.preview, f"shot-{gid}.png"))
+                preview(spix, spals, stp + (np.arange(stp.shape[0])[:, None] * cards.CARD_PALS),
+                        os.path.join(a.preview, f"shot-{gid}.png"))
         zc = ", ".join(f"{{{r[0]}, {r[1]}, {r[2]}, {r[3]}, 0x{b:04x}, {int(shown)}}}" for r, b, shown in zones)
         best = int(g.get("best", "8"))
         magic = g.get("magic")
         entries.append(
             f"    {{{c_str(gid)}, {c_str(name)}, {'NULL' if locked else '&rsb_module_' + gid},\n"
-            f"     {{{CARD_W // 8}, {CARD_H // 8}, card_{gid}_tiles, {len(pals)}, card_{gid}_pals, card_{gid}_tp}},\n"
+            f"     {{{CARD_W // 8}, {CARD_H // 8}, card_{gid}_tiles, {len(pals)}, card_{gid}_pals, card_{gid}_tp, 0}},\n"
             f"     {shot_c},\n"
             f"     {{{len(zones)}, {{{zc}}}, 0x{pause:04x}}}, {best}, "
             f"{c_str(magic) if magic else 'NULL'}}},")
         print(f"  {'locked' if locked else 'free  '} {gid:16s} {name:18s} card: {len(pals)} palettes, "
-              f"{exact * 100:5.1f}% of the pixels exact (mean error {err:.2f})"
+              f"{exact * 100:5.1f}% of the pixels exact (mean error {err:.2f}){panel}"
               f"{'' if gid in table else ' [no line in cards.cfg: the title screen]'}")
     c.append("")
     c.append("const rsb_entry rsb_games[] = {")
