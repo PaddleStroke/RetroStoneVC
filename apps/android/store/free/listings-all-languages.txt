@@ -1,0 +1,749 @@
+RetroStone Arcade Free: Google Play store listing, 22 languages. Each language starts with a "=== LANGUAGE ===" line, then its three fields: App name, Short description, Full description.
+
+
+=== English (United States) (en-US) ===
+
+App name:
+RetroStone Arcade Free
+
+Short description:
+3 retro arcade games in 16-bit style, free. No ads, no tracking, plays offline.
+
+Full description:
+RetroStone Arcade Free brings you 3 original arcade games made in the spirit of the 16-bit consoles: crisp pixel art, catchy music and quick rounds you can pick up in a second.
+
+THE GAMES
+• Leady Squid: tap to keep a heavy little squid afloat and swim through the gaps
+• Pancake Tower: drop the pancakes and stack the tallest tower
+• Beaver Rush: gnaw a giant tree log by log, from the left or the right
+
+PLAY YOUR WAY
+• Simple touch controls, made for each game
+• Bluetooth and USB gamepads work too, with up to 4 players in many games
+• Leave a game at any moment: it waits for you right where you were
+• Your best scores stay on your phone
+
+NO ADS, NO TRACKING
+• No ads, no in-app purchases, no account
+• No data collected; it plays offline
+• 22 languages
+
+17 more games are waiting in RetroStone Arcade, the full version: one purchase, no ads. You can see them all in the menu.
+
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+
+Made by 8BCraft. Code under the MIT licence, art and music under CC BY-NC-SA 4.0: see Credits & licences in the app.
+
+
+=== Czech (cs-CZ) ===
+
+App name:
+RetroStone Arcade Free
+
+Short description:
+3 retro arkádové hry ve stylu 16 bitů, zdarma. Bez reklam a sledování, offline.
+
+Full description:
+RetroStone Arcade Free ti přináší 3 původní arkádové hry v duchu 16bitových konzolí: ostrý pixel art, chytlavou hudbu a krátká kola, která pochopíš za vteřinu.
+
+HRY
+• Leady Squid
+• Pancake Tower
+• Beaver Rush
+
+HRAJ PO SVÉM
+• Jednoduché dotykové ovládání, navržené pro každou hru
+• Fungují i ovladače Bluetooth a USB, v mnoha hrách až pro 4 hráče
+• Odejdi ze hry, kdy chceš: počká přesně tam, kde jsi skončil
+• Tvé rekordy zůstávají v telefonu
+
+BEZ REKLAM, BEZ SLEDOVÁNÍ
+• Žádné reklamy, žádné nákupy v aplikaci, žádný účet
+• Neshromažďuje žádná data; funguje offline
+• 22 jazyků
+
+Dalších 17 her čeká v RetroStone Arcade, plné verzi: jeden nákup, žádné reklamy. Všechny uvidíš v nabídce.
+
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+
+Vytvořil 8BCraft. Kód pod licencí MIT, grafika a hudba pod CC BY-NC-SA 4.0: viz Autoři a licence v aplikaci.
+
+
+=== Danish (da-DK) ===
+
+App name:
+RetroStone Arcade Free
+
+Short description:
+3 retro-arkadespil i 16-bit-stil, gratis. Uden reklamer og sporing, offline.
+
+Full description:
+RetroStone Arcade Free giver dig 3 originale arkadespil i 16-bit-konsollernes ånd: skarp pixelgrafik, fængende musik og korte runder, du forstår på et sekund.
+
+SPILLENE
+• Leady Squid
+• Pancake Tower
+• Beaver Rush
+
+SPIL, SOM DU VIL
+• Enkel touchstyring, lavet til hvert spil
+• Bluetooth- og USB-controllere virker også, med op til 4 spillere i mange spil
+• Forlad et spil, når du vil: det venter præcis, hvor du var
+• Dine rekorder bliver på din telefon
+
+INGEN REKLAMER, INGEN SPORING
+• Ingen reklamer, ingen køb i appen, ingen konto
+• Ingen data indsamles; spilles offline
+• 22 sprog
+
+17 spil mere venter i RetroStone Arcade, den fulde version: ét køb, ingen reklamer. Du kan se dem alle i menuen.
+
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+
+Lavet af 8BCraft. Kode under MIT-licensen, grafik og musik under CC BY-NC-SA 4.0: se Krediter og licenser i appen.
+
+
+=== German (de-DE) ===
+
+App name:
+RetroStone Arcade Free
+
+Short description:
+3 Retro-Arcade-Spiele im 16-Bit-Stil, gratis. Ohne Werbung, ohne Tracking.
+
+Full description:
+RetroStone Arcade Free bringt dir 3 originelle Arcade-Spiele im Geist der 16-Bit-Konsolen: knackige Pixel-Art, eingängige Musik und kurze Runden, die du sofort verstehst.
+
+DIE SPIELE
+• Leady Squid
+• Pancake Tower
+• Beaver Rush
+
+SPIEL, WIE DU WILLST
+• Einfache Touch-Steuerung, für jedes Spiel gemacht
+• Bluetooth- und USB-Gamepads gehen auch, in vielen Spielen mit bis zu 4 Spielern
+• Verlass ein Spiel jederzeit: Es wartet genau dort auf dich, wo du warst
+• Deine Bestwerte bleiben auf deinem Handy
+
+OHNE WERBUNG, OHNE TRACKING
+• Keine Werbung, keine In-App-Käufe, kein Konto
+• Keine Datenerhebung; spielbar offline
+• 22 Sprachen
+
+17 weitere Spiele warten in RetroStone Arcade, der Vollversion: ein Kauf, keine Werbung. Im Menü siehst du sie alle.
+
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+
+Von 8BCraft. Code unter der MIT-Lizenz, Grafik und Musik unter CC BY-NC-SA 4.0: siehe „Mitwirkende & Lizenzen“ in der App.
+
+
+=== Greek (el-GR) ===
+
+App name:
+RetroStone Arcade Free
+
+Short description:
+3 ρετρό παιχνίδια arcade σε στιλ 16-bit, δωρεάν. Χωρίς διαφημίσεις, offline.
+
+Full description:
+Το RetroStone Arcade Free σού φέρνει 3 πρωτότυπα παιχνίδια arcade στο πνεύμα των κονσολών 16-bit: καθαρό pixel art, μουσική που κολλάει και σύντομους γύρους που μαθαίνεις αμέσως.
+
+ΤΑ ΠΑΙΧΝΙΔΙΑ
+• Leady Squid
+• Pancake Tower
+• Beaver Rush
+
+ΠΑΙΞΕ ΟΠΩΣ ΘΕΛΕΙΣ
+• Απλά χειριστήρια αφής, φτιαγμένα για κάθε παιχνίδι
+• Λειτουργούν και χειριστήρια Bluetooth και USB, με έως 4 παίκτες σε πολλά παιχνίδια
+• Βγες από ένα παιχνίδι όποτε θέλεις: σε περιμένει ακριβώς εκεί που το άφησες
+• Τα ρεκόρ σου μένουν στο κινητό σου
+
+ΧΩΡΙΣ ΔΙΑΦΗΜΙΣΕΙΣ, ΧΩΡΙΣ ΠΑΡΑΚΟΛΟΥΘΗΣΗ
+• Χωρίς διαφημίσεις, χωρίς αγορές εντός εφαρμογής, χωρίς λογαριασμό
+• Δεν συλλέγονται δεδομένα· παίζει χωρίς σύνδεση
+• 22 γλώσσες
+
+Άλλα 17 παιχνίδια σε περιμένουν στο RetroStone Arcade, την πλήρη έκδοση: μία αγορά, χωρίς διαφημίσεις. Τα βλέπεις όλα στο μενού.
+
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+
+Από την 8BCraft. Κώδικας με άδεια MIT, γραφικά και μουσική με CC BY-NC-SA 4.0: δες «Συντελεστές και άδειες» στην εφαρμογή.
+
+
+=== Spanish (Spain) (es-ES) ===
+
+App name:
+RetroStone Arcade Free
+
+Short description:
+3 juegos arcade retro con estilo de 16 bits, gratis. Sin anuncios, sin conexión.
+
+Full description:
+RetroStone Arcade Free te trae 3 juegos arcade originales con el espíritu de las consolas de 16 bits: pixel art nítido, música pegadiza y partidas cortas que entiendes en un segundo.
+
+LOS JUEGOS
+• Leady Squid
+• Pancake Tower
+• Beaver Rush
+
+JUEGA A TU MANERA
+• Controles táctiles sencillos, pensados para cada juego
+• También funcionan los mandos Bluetooth y USB, con hasta 4 jugadores en muchos juegos
+• Sal de una partida cuando quieras: te espera justo donde la dejaste
+• Tus mejores puntuaciones se quedan en tu teléfono
+
+SIN ANUNCIOS NI RASTREO
+• Sin anuncios, sin compras dentro de la app, sin cuenta
+• No recoge ningún dato; funciona sin conexión
+• 22 idiomas
+
+Otros 17 juegos te esperan en RetroStone Arcade, la versión completa: una sola compra, sin anuncios. Los ves todos en el menú.
+
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+
+Creado por 8BCraft. Código con licencia MIT, gráficos y música con CC BY-NC-SA 4.0: mira Créditos y licencias en la app.
+
+
+=== Finnish (fi-FI) ===
+
+App name:
+RetroStone Arcade Free
+
+Short description:
+3 retrohenkistä arcade-peliä 16-bittisellä tyylillä, ilmaiseksi. Ei mainoksia.
+
+Full description:
+RetroStone Arcade Free tuo sinulle 3 alkuperäistä arcade-peliä 16-bittisten konsolien hengessä: terävää pikseligrafiikkaa, tarttuvaa musiikkia ja lyhyitä pelejä, jotka opit hetkessä.
+
+PELIT
+• Leady Squid
+• Pancake Tower
+• Beaver Rush
+
+PELAA OMALLA TAVALLASI
+• Helpot kosketusohjaimet, jokaiselle pelille omansa
+• Myös Bluetooth- ja USB-ohjaimet toimivat, monessa pelissä jopa 4 pelaajaa
+• Lopeta milloin vain: peli odottaa juuri siinä, mihin jäit
+• Ennätyksesi pysyvät puhelimessasi
+
+EI MAINOKSIA, EI SEURANTAA
+• Ei mainoksia, ei sovelluksen sisäisiä ostoja, ei tiliä
+• Tietoja ei kerätä; toimii ilman verkkoa
+• 22 kieltä
+
+Vielä 17 peliä odottaa RetroStone Arcadessa, täydessä versiossa: yksi osto, ei mainoksia. Näet ne kaikki valikossa.
+
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+
+Tekijä 8BCraft. Koodi MIT-lisenssillä, grafiikka ja musiikki CC BY-NC-SA 4.0 -lisenssillä: katso Tekijät ja lisenssit sovelluksessa.
+
+
+=== French (France) (fr-FR) ===
+
+App name:
+RetroStone Arcade Free
+
+Short description:
+3 jeux d'arcade rétro style 16 bits, gratuits. Sans pub ni pistage, hors ligne.
+
+Full description:
+RetroStone Arcade Free t'offre 3 jeux d'arcade originaux dans l'esprit des consoles 16 bits : du pixel art soigné, des musiques entraînantes et des parties courtes que tu prends en main en une seconde.
+
+LES JEUX
+• Leady Squid : tape pour garder à flot un petit calmar trop lesté et nager entre les obstacles
+• Pancake Tower : lâche les crêpes au bon moment et monte la plus haute pile
+• Beaver Rush : ronge l'arbre géant bûche après bûche, à gauche ou à droite
+
+JOUE COMME TU VEUX
+• Des commandes tactiles simples, pensées pour chaque jeu
+• Les manettes Bluetooth et USB marchent aussi, jusqu'à 4 joueurs dans beaucoup de jeux
+• Quitte une partie quand tu veux : elle t'attend exactement où tu l'as laissée
+• Tes meilleurs scores restent sur ton téléphone
+
+SANS PUB, SANS PISTAGE
+• Pas de pub, pas d'achat intégré, pas de compte
+• Aucune donnée collectée ; ça marche hors ligne
+• 22 langues
+
+17 autres jeux t'attendent dans RetroStone Arcade, la version complète : un seul achat, pas de pub. Tu les vois tous dans le menu.
+
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+
+Créé par 8BCraft. Code sous licence MIT, graphismes et musiques sous CC BY-NC-SA 4.0 : voir Crédits et licences dans l'appli.
+
+
+=== Indonesian (id) ===
+
+App name:
+RetroStone Arcade Free
+
+Short description:
+3 game arcade retro bergaya 16-bit, gratis. Tanpa iklan & pelacakan, offline.
+
+Full description:
+RetroStone Arcade Free menghadirkan 3 game arcade orisinal dengan semangat konsol 16-bit: pixel art yang tajam, musik yang mudah diingat, dan ronde singkat yang langsung kamu pahami.
+
+GAME-NYA
+• Leady Squid
+• Pancake Tower
+• Beaver Rush
+
+MAIN SESUKAMU
+• Kontrol sentuh sederhana, dibuat untuk tiap game
+• Gamepad Bluetooth dan USB juga bisa, hingga 4 pemain di banyak game
+• Keluar dari game kapan saja: game menunggumu tepat di tempat kamu berhenti
+• Skor terbaikmu tersimpan di ponselmu
+
+TANPA IKLAN, TANPA PELACAKAN
+• Tanpa iklan, tanpa pembelian dalam aplikasi, tanpa akun
+• Tidak ada data yang dikumpulkan; bisa dimainkan offline
+• 22 bahasa
+
+17 game lainnya menunggumu di RetroStone Arcade, versi lengkapnya: sekali beli, tanpa iklan. Semuanya terlihat di menu.
+
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+
+Dibuat oleh 8BCraft. Kode berlisensi MIT, gambar dan musik berlisensi CC BY-NC-SA 4.0: lihat Kredit & lisensi di aplikasi.
+
+
+=== Italian (it-IT) ===
+
+App name:
+RetroStone Arcade Free
+
+Short description:
+3 giochi arcade retrò in stile 16 bit, gratis. Senza pubblicità, anche offline.
+
+Full description:
+RetroStone Arcade Free ti porta 3 giochi arcade originali nello spirito delle console a 16 bit: pixel art curata, musiche orecchiabili e partite brevi che capisci in un attimo.
+
+I GIOCHI
+• Leady Squid
+• Pancake Tower
+• Beaver Rush
+
+GIOCA COME VUOI
+• Comandi touch semplici, pensati per ogni gioco
+• Funzionano anche i controller Bluetooth e USB, fino a 4 giocatori in molti giochi
+• Esci da una partita quando vuoi: ti aspetta esattamente dove l'hai lasciata
+• I tuoi record restano sul tuo telefono
+
+NIENTE PUBBLICITÀ, NIENTE TRACCIAMENTO
+• Niente pubblicità, niente acquisti in-app, niente account
+• Nessun dato raccolto; funziona offline
+• 22 lingue
+
+Altri 17 giochi ti aspettano in RetroStone Arcade, la versione completa: un solo acquisto, niente pubblicità. Li vedi tutti nel menu.
+
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+
+Creato da 8BCraft. Codice con licenza MIT, grafica e musica con CC BY-NC-SA 4.0: vedi Crediti e licenze nell'app.
+
+
+=== Japanese (ja-JP) ===
+
+App name:
+RetroStone Arcade Free
+
+Short description:
+16ビット風のレトロなアーケードゲーム3本が無料。広告なし、追跡なし、オフラインOK。
+
+Full description:
+RetroStone Arcade Free は、16ビット機の魂を受け継いだオリジナルのアーケードゲーム3本を収録。くっきりしたドット絵、耳に残る音楽、一瞬でわかる短いプレイが楽しめます。
+
+収録ゲーム
+• Leady Squid
+• Pancake Tower
+• Beaver Rush
+
+好きなように遊べる
+• ゲームごとに考えられたシンプルなタッチ操作
+• Bluetooth・USBのゲームパッドにも対応。多くのゲームで最大4人まで遊べます
+• いつでも中断OK。やめたところからそのまま再開できます
+• ベストスコアはスマホの中に保存されます
+
+広告なし・追跡なし
+• 広告なし、アプリ内課金なし、アカウント不要
+• データは一切収集しません。オフラインで遊べます
+• 22言語に対応
+
+完全版の RetroStone Arcade には、さらに17本のゲームが待っています。買い切りで広告なし。メニューですべてのゲームを見られます。
+
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+
+制作：8BCraft。コードは MIT ライセンス、グラフィックと音楽は CC BY-NC-SA 4.0 です。詳しくはアプリ内の「クレジットとライセンス」をご覧ください。
+
+
+=== Korean (ko-KR) ===
+
+App name:
+RetroStone Arcade Free
+
+Short description:
+16비트 감성의 레트로 아케이드 게임 3종 무료. 광고 없음, 추적 없음, 오프라인 플레이.
+
+Full description:
+RetroStone Arcade Free는 16비트 콘솔의 정신을 담은 오리지널 아케이드 게임 3종을 담았습니다. 선명한 픽셀 아트, 귀에 쏙 들어오는 음악, 바로 이해되는 짧은 판을 즐겨 보세요.
+
+수록 게임
+• Leady Squid
+• Pancake Tower
+• Beaver Rush
+
+원하는 대로 플레이
+• 게임마다 맞춘 간단한 터치 조작
+• 블루투스·USB 게임패드도 지원, 많은 게임에서 최대 4명까지
+• 언제든 게임을 나가도 멈춘 그 자리에서 기다립니다
+• 최고 기록은 휴대폰에 저장됩니다
+
+광고 없음, 추적 없음
+• 광고 없음, 인앱 결제 없음, 계정 없음
+• 어떤 데이터도 수집하지 않음, 오프라인 플레이
+• 22개 언어
+
+정식판 RetroStone Arcade에서 17종의 게임이 더 기다리고 있습니다. 한 번 구매, 광고 없음. 메뉴에서 모든 게임을 볼 수 있습니다.
+
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+
+제작: 8BCraft. 코드는 MIT 라이선스, 그래픽과 음악은 CC BY-NC-SA 4.0입니다. 앱의 '크레딧 및 라이선스'를 확인하세요.
+
+
+=== Norwegian (no-NO) ===
+
+App name:
+RetroStone Arcade Free
+
+Short description:
+3 retro-arkadespill i 16-biters stil, gratis. Uten reklame og sporing, offline.
+
+Full description:
+RetroStone Arcade Free gir deg 3 originale arkadespill i 16-bitskonsollenes ånd: skarp pikselgrafikk, fengende musikk og korte runder du skjønner på et sekund.
+
+SPILLENE
+• Leady Squid
+• Pancake Tower
+• Beaver Rush
+
+SPILL SOM DU VIL
+• Enkel berøringsstyring, laget for hvert spill
+• Bluetooth- og USB-kontrollere virker også, med opptil 4 spillere i mange spill
+• Gå ut av et spill når du vil: det venter akkurat der du var
+• Rekordene dine blir på telefonen din
+
+INGEN REKLAME, INGEN SPORING
+• Ingen reklame, ingen kjøp i appen, ingen konto
+• Ingen data samles inn; spilles offline
+• 22 språk
+
+17 spill til venter i RetroStone Arcade, fullversjonen: ett kjøp, ingen reklame. Du ser alle i menyen.
+
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+
+Laget av 8BCraft. Kode under MIT-lisensen, grafikk og musikk under CC BY-NC-SA 4.0: se Kreditter og lisenser i appen.
+
+
+=== Dutch (nl-NL) ===
+
+App name:
+RetroStone Arcade Free
+
+Short description:
+3 retro-arcadegames in 16-bitstijl, gratis. Geen advertenties, speelt offline.
+
+Full description:
+RetroStone Arcade Free brengt je 3 originele arcadegames in de geest van de 16-bitconsoles: strakke pixelart, pakkende muziek en korte potjes die je meteen snapt.
+
+DE GAMES
+• Leady Squid
+• Pancake Tower
+• Beaver Rush
+
+SPEEL ZOALS JIJ WILT
+• Eenvoudige aanraakbediening, gemaakt voor elke game
+• Bluetooth- en USB-controllers werken ook, met tot 4 spelers in veel games
+• Stop wanneer je wilt: de game wacht precies waar je was
+• Je beste scores blijven op je telefoon
+
+GEEN ADVERTENTIES, GEEN TRACKING
+• Geen advertenties, geen in-app-aankopen, geen account
+• Er worden geen gegevens verzameld; speelt offline
+• 22 talen
+
+Nog 17 games wachten op je in RetroStone Arcade, de volledige versie: één aankoop, geen advertenties. Je ziet ze allemaal in het menu.
+
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+
+Gemaakt door 8BCraft. Code onder de MIT-licentie, beeld en muziek onder CC BY-NC-SA 4.0: zie Credits en licenties in de app.
+
+
+=== Polish (pl-PL) ===
+
+App name:
+RetroStone Arcade Free
+
+Short description:
+3 gry zręcznościowe retro w stylu 16-bit, za darmo. Bez reklam, działa offline.
+
+Full description:
+RetroStone Arcade Free to 3 oryginalne gry zręcznościowe w duchu konsol 16-bitowych: wyraźny pixel art, wpadająca w ucho muzyka i krótkie rozgrywki, które zrozumiesz w sekundę.
+
+GRY
+• Leady Squid
+• Pancake Tower
+• Beaver Rush
+
+GRAJ PO SWOJEMU
+• Proste sterowanie dotykiem, zaprojektowane dla każdej gry
+• Działają też pady Bluetooth i USB, w wielu grach nawet dla 4 graczy
+• Wyjdź z gry, kiedy chcesz: poczeka dokładnie tam, gdzie skończyłeś
+• Twoje rekordy zostają w telefonie
+
+BEZ REKLAM, BEZ ŚLEDZENIA
+• Bez reklam, bez zakupów w aplikacji, bez konta
+• Żadne dane nie są zbierane; działa offline
+• 22 języki
+
+Kolejne gry (17) czekają w RetroStone Arcade, pełnej wersji: jeden zakup, bez reklam. Wszystkie zobaczysz w menu.
+
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+
+Autor: 8BCraft. Kod na licencji MIT, grafika i muzyka na licencji CC BY-NC-SA 4.0: zobacz Autorzy i licencje w aplikacji.
+
+
+=== Portuguese (Brazil) (pt-BR) ===
+
+App name:
+RetroStone Arcade Free
+
+Short description:
+3 jogos de fliperama retrô em estilo 16 bits, grátis. Sem anúncios, offline.
+
+Full description:
+RetroStone Arcade Free traz 3 jogos de fliperama originais no espírito dos consoles de 16 bits: pixel art caprichada, músicas que grudam e partidas rápidas que você entende num segundo.
+
+OS JOGOS
+• Leady Squid
+• Pancake Tower
+• Beaver Rush
+
+JOGUE DO SEU JEITO
+• Controles de toque simples, feitos para cada jogo
+• Controles Bluetooth e USB também funcionam, com até 4 jogadores em muitos jogos
+• Saia de uma partida quando quiser: ela espera você exatamente onde parou
+• Seus recordes ficam no seu celular
+
+SEM ANÚNCIOS, SEM RASTREAMENTO
+• Sem anúncios, sem compras no app, sem conta
+• Nenhum dado coletado; funciona offline
+• 22 idiomas
+
+Mais 17 jogos esperam por você no RetroStone Arcade, a versão completa: uma compra só, sem anúncios. Você vê todos eles no menu.
+
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+
+Feito por 8BCraft. Código sob a licença MIT, arte e música sob CC BY-NC-SA 4.0: veja Créditos e licenças no app.
+
+
+=== Portuguese (Portugal) (pt-PT) ===
+
+App name:
+RetroStone Arcade Free
+
+Short description:
+3 jogos arcade retro em estilo 16 bits, grátis. Sem anúncios, joga offline.
+
+Full description:
+O RetroStone Arcade Free traz-te 3 jogos arcade originais no espírito das consolas de 16 bits: pixel art cuidada, músicas que ficam no ouvido e partidas curtas que percebes num segundo.
+
+OS JOGOS
+• Leady Squid
+• Pancake Tower
+• Beaver Rush
+
+JOGA À TUA MANEIRA
+• Controlos tácteis simples, pensados para cada jogo
+• Os comandos Bluetooth e USB também funcionam, com até 4 jogadores em muitos jogos
+• Sai de uma partida quando quiseres: ela espera por ti exatamente onde ficaste
+• Os teus recordes ficam no teu telemóvel
+
+SEM ANÚNCIOS, SEM RASTREIO
+• Sem anúncios, sem compras na app, sem conta
+• Nenhum dado recolhido; funciona offline
+• 22 idiomas
+
+Mais 17 jogos esperam por ti no RetroStone Arcade, a versão completa: uma só compra, sem anúncios. Vês todos no menu.
+
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+
+Feito por 8BCraft. Código sob a licença MIT, arte e música sob CC BY-NC-SA 4.0: vê Créditos e licenças na app.
+
+
+=== Russian (ru-RU) ===
+
+App name:
+RetroStone Arcade Free
+
+Short description:
+3 ретро-аркады в стиле 16 бит, бесплатно. Без рекламы и слежки, офлайн.
+
+Full description:
+RetroStone Arcade Free — это 3 оригинальные аркады в духе 16-битных консолей: чёткий пиксель-арт, запоминающаяся музыка и короткие забеги, в которых разберёшься за секунду.
+
+ИГРЫ
+• Leady Squid
+• Pancake Tower
+• Beaver Rush
+
+ИГРАЙ КАК ХОЧЕШЬ
+• Простое сенсорное управление, продуманное для каждой игры
+• Работают и геймпады Bluetooth и USB, во многих играх — до 4 игроков
+• Выходи из игры когда угодно: она подождёт тебя там, где ты остановился
+• Твои рекорды хранятся на телефоне
+
+БЕЗ РЕКЛАМЫ И СЛЕЖКИ
+• Без рекламы, без покупок в приложении, без аккаунта
+• Никакие данные не собираются; работает без интернета
+• 22 языка
+
+Ещё 17 игр ждут тебя в RetroStone Arcade, полной версии: одна покупка, без рекламы. Все они видны в меню.
+
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+
+Создано 8BCraft. Код — под лицензией MIT, графика и музыка — под CC BY-NC-SA 4.0: смотри «Авторы и лицензии» в приложении.
+
+
+=== Swedish (sv-SE) ===
+
+App name:
+RetroStone Arcade Free
+
+Short description:
+3 retroarkadspel i 16-bitarsstil, gratis. Ingen reklam, ingen spårning, offline.
+
+Full description:
+RetroStone Arcade Free ger dig 3 originella arkadspel i 16-bitarskonsolernas anda: skarp pixelgrafik, medryckande musik och korta omgångar som du lär dig på en sekund.
+
+SPELEN
+• Leady Squid
+• Pancake Tower
+• Beaver Rush
+
+SPELA SOM DU VILL
+• Enkla pekkontroller, gjorda för varje spel
+• Bluetooth- och USB-handkontroller fungerar också, med upp till 4 spelare i många spel
+• Lämna ett spel när du vill: det väntar precis där du var
+• Dina rekord stannar i din telefon
+
+INGEN REKLAM, INGEN SPÅRNING
+• Ingen reklam, inga köp i appen, inget konto
+• Ingen data samlas in; spelas offline
+• 22 språk
+
+17 spel till väntar i RetroStone Arcade, den fullständiga versionen: ett köp, ingen reklam. Du ser alla i menyn.
+
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+
+Gjort av 8BCraft. Kod under MIT-licensen, grafik och musik under CC BY-NC-SA 4.0: se Medverkande och licenser i appen.
+
+
+=== Turkish (tr-TR) ===
+
+App name:
+RetroStone Arcade Free
+
+Short description:
+16-bit tarzında 3 retro arcade oyunu, ücretsiz. Reklamsız, takipsiz, çevrimdışı.
+
+Full description:
+RetroStone Arcade Free, 16-bit konsolların ruhunu taşıyan 3 özgün arcade oyununu sunuyor: net piksel sanatı, akılda kalan müzikler ve bir saniyede kavrayacağın kısa turlar.
+
+OYUNLAR
+• Leady Squid
+• Pancake Tower
+• Beaver Rush
+
+İSTEDİĞİN GİBİ OYNA
+• Her oyun için tasarlanmış basit dokunmatik kontroller
+• Bluetooth ve USB oyun kumandaları da çalışır, birçok oyunda 4 oyuncuya kadar
+• Oyundan istediğin an çık: tam kaldığın yerde seni bekler
+• En yüksek skorların telefonunda kalır
+
+REKLAM YOK, TAKİP YOK
+• Reklam yok, uygulama içi satın alma yok, hesap yok
+• Hiç veri toplanmaz; çevrimdışı çalışır
+• 22 dil
+
+17 oyun daha tam sürüm RetroStone Arcade'de seni bekliyor: tek satın alma, reklam yok. Hepsini menüde görebilirsin.
+
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+
+8BCraft yapımı. Kod MIT lisansıyla, grafik ve müzik CC BY-NC-SA 4.0 lisansıyla: uygulamadaki Emeği Geçenler ve Lisanslar bölümüne bak.
+
+
+=== Ukrainian (uk) ===
+
+App name:
+RetroStone Arcade Free
+
+Short description:
+3 ретро-аркади у стилі 16 біт, безкоштовно. Без реклами й стеження, офлайн.
+
+Full description:
+RetroStone Arcade Free — це 3 оригінальні аркади в дусі 16-бітних консолей: чіткий піксель-арт, музика, що запам'ятовується, і короткі забіги, у яких розберешся за секунду.
+
+ІГРИ
+• Leady Squid
+• Pancake Tower
+• Beaver Rush
+
+ГРАЙ ЯК ХОЧЕШ
+• Просте сенсорне керування, продумане для кожної гри
+• Працюють і геймпади Bluetooth та USB, у багатьох іграх — до 4 гравців
+• Виходь із гри будь-коли: вона чекатиме там, де ти зупинився
+• Твої рекорди зберігаються на телефоні
+
+БЕЗ РЕКЛАМИ Й СТЕЖЕННЯ
+• Без реклами, без покупок у застосунку, без облікового запису
+• Жодні дані не збираються; працює без інтернету
+• 22 мови
+
+Ще 17 ігор чекають на тебе в RetroStone Arcade, повній версії: одна покупка, без реклами. Усі вони видно в меню.
+
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+
+Створено 8BCraft. Код — за ліцензією MIT, графіка й музика — за CC BY-NC-SA 4.0: дивись «Автори та ліцензії» в застосунку.
+
+
+=== Chinese (Simplified) (zh-CN) ===
+
+App name:
+RetroStone Arcade Free
+
+Short description:
+3 款 16 位风格的复古街机游戏，免费。无广告、无追踪，可离线游玩。
+
+Full description:
+RetroStone Arcade Free 收录 3 款原创街机游戏，延续 16 位游戏机的精神：清晰的像素画、朗朗上口的音乐，还有一秒就能上手的短局。
+
+游戏列表
+• Leady Squid
+• Pancake Tower
+• Beaver Rush
+
+随心畅玩
+• 为每款游戏量身设计的简单触控操作
+• 也支持蓝牙和 USB 手柄，许多游戏最多可 4 人同玩
+• 随时退出游戏：它会在你离开的地方等你
+• 最高分保存在你的手机上
+
+无广告，无追踪
+• 无广告，无应用内购买，无需账号
+• 不收集任何数据；可离线游玩
+• 支持 22 种语言
+
+完整版 RetroStone Arcade 中还有 17 款游戏等着你：一次购买，没有广告。在菜单中就能看到全部游戏。
+
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+
+由 8BCraft 制作。代码采用 MIT 许可证，美术和音乐采用 CC BY-NC-SA 4.0：详见应用中的“致谢与许可”。

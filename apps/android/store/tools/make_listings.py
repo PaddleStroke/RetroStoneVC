@@ -25,6 +25,14 @@ LOCALES = {"en": "en-US", "cs": "cs-CZ", "da": "da-DK", "de": "de-DE", "el": "el
            "pl": "pl-PL", "pt_BR": "pt-BR", "pt_PT": "pt-PT", "ru": "ru-RU", "sv": "sv-SE", "tr": "tr-TR", "uk": "uk",
            "zh_CN": "zh-CN"}
 
+# the languages' names as the Play Console lists them (listings-all-languages.txt)
+LANGUAGE_NAMES = {"en": "English (United States)", "cs": "Czech", "da": "Danish", "de": "German", "el": "Greek",
+                  "es": "Spanish (Spain)", "fi": "Finnish", "fr": "French (France)", "id": "Indonesian",
+                  "it": "Italian", "ja": "Japanese", "ko": "Korean", "nb": "Norwegian", "nl": "Dutch",
+                  "pl": "Polish", "pt_BR": "Portuguese (Brazil)", "pt_PT": "Portuguese (Portugal)",
+                  "ru": "Russian", "sv": "Swedish", "tr": "Turkish", "uk": "Ukrainian",
+                  "zh_CN": "Chinese (Simplified)"}
+
 # one line per game (English and French only; the other languages list the names)
 LINES = {
     "en": {
@@ -543,6 +551,9 @@ def main():
     all_games = [(g, nm) for g, nm, locked in full]
     problems = []
     for app, title in (("free", "RetroStone Arcade Free"), ("full", "RetroStone Arcade")):
+        # every language in one plain UTF-8 file: the Play Console's "Import translations with AI" takes one file
+        every = [f"{title}: Google Play store listing, {len(LOCALES)} languages. Each language starts with a "
+                 f"\"=== LANGUAGE ===\" line, then its three fields: App name, Short description, Full description.\n"]
         for lang, loc in LOCALES.items():
             t = T[lang]
             fmt = dict(n=len(all_games), f=len(free_games), m=len(all_games) - len(free_games))
@@ -554,12 +565,16 @@ def main():
                                ("full_description.txt", full_d)):
                 with open(os.path.join(d, name), "w", encoding="utf-8") as fh:
                     fh.write(text)
+            every.append(f"=== {LANGUAGE_NAMES[lang]} ({loc}) ===\n\nApp name:\n{title}\n\n"
+                         f"Short description:\n{short}\n\nFull description:\n{full_d}")
             if len(short) > 80:
                 problems.append(f"{app}/{loc}: short description {len(short)} > 80: {short}")
             if len(full_d) > 4000:
                 problems.append(f"{app}/{loc}: full description {len(full_d)} > 4000")
             if len(title) > 30:
                 problems.append(f"{app}/{loc}: title too long")
+        with open(os.path.join(STORE, app, "listings-all-languages.txt"), "w", encoding="utf-8") as fh:
+            fh.write("\n\n".join(every))
     print(f"{len(LOCALES)} languages x 2 apps: {len(all_games)} games, {len(free_games)} free")
     for p in problems:
         print("PROBLEM", p)
