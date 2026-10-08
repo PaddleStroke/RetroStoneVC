@@ -7,7 +7,8 @@ If the apps ever change (an online leaderboard, a crash reporter, an ads or anal
 
 ## Privacy policy
 URL of the hosted `privacy/privacy.html` (English, then French on the same page; contact hello@8bcraft.com), e.g.
-on www.8bcraft.com. The apps show the same policy in Credits & licences (Google Play wants it in the app too).
+on www.8bcraft.com: https://www.8bcraft.com/privacy-policy-retrostone-arcade-and-retrostone-arcade-free/ (the URL
+to paste). The apps show the same policy in Credits & licences (Google Play wants it in the app too).
 
 ## Ads
 **Does your app contain ads?** No.
