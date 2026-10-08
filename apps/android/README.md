@@ -71,7 +71,7 @@ app builds in `build/android/<free|full>/` (SDL2 is shared: `build/android/sdl2`
 the PC: `make -f apps/launcher/bundle.mk PLATFORM=win64` (the free one) and
 `make -f apps/launcher/bundle.mk PLATFORM=win64 CONF=apps/android/app-full.conf` (the full one).
 
-Versions: OpenJDK 17, Android command-line tools 23.0, platform android-36 (Android 16; minSdk 21 = Android 5.0),
+Versions: OpenJDK 17, Android command-line tools 23.0, platform android-36 (Android 16; minSdk 24 = Android 7.0: Google Play's automatic protection needs it),
 build-tools 36.1.0, NDK r27d (27.3.13750724), Gradle 9.8.0 (wrapper), Android Gradle Plugin 9.4.1, SDL 2.32.10.
 They are pinned in `setup-toolchain.sh`, `build.gradle` and `gradle/wrapper/gradle-wrapper.properties`.
 

@@ -60,12 +60,12 @@ mkdir -p "$OUT" dist/android
 sh tools/fetch_sdl2_src.sh build/deps
 SDL=build/deps/src/SDL2-$SDL_V
 OUT_SDL=build/android/sdl2
-STAMP="$OUT_SDL/built-$SDL_V-$(echo $ABIS | tr ' ' '_')"
+STAMP="$OUT_SDL/built-$SDL_V-api24-$(echo $ABIS | tr ' ' '_')"   # api24: the apps' minSdk (app/build.gradle)
 if [ ! -f "$STAMP" ]; then
     say "SDL2 $SDL_V for $ABIS (ndk-build)"
     mkdir -p "$OUT_SDL"
     "$ANDROID_NDK_HOME/ndk-build" -j"$JOBS" NDK_PROJECT_PATH=null APP_BUILD_SCRIPT="$SDL/Android.mk" \
-        APP_MODULES=SDL2 APP_ABI="$ABIS" APP_PLATFORM=android-21 APP_STL=c++_static \
+        APP_MODULES=SDL2 APP_ABI="$ABIS" APP_PLATFORM=android-24 APP_STL=c++_static \
         APP_SUPPORT_FLEXIBLE_PAGE_SIZES=true NDK_OUT="$OUT_SDL/obj" NDK_LIBS_OUT="$OUT_SDL/libs" > "$OUT_SDL.log" 2>&1 \
         || { tail -30 "$OUT_SDL.log"; exit 1; }
     touch "$STAMP"

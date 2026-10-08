@@ -29,7 +29,7 @@ android {
 
     defaultConfig {
         applicationId = conf.getProperty('APP_ID')
-        minSdk = 21
+        minSdk = 24                 // Android 7.0: Google Play's automatic protection needs 24 at least
         targetSdk = 36
         versionCode = conf.getProperty('APP_VERSION_CODE') as int
         versionName = conf.getProperty('APP_VERSION_NAME')
