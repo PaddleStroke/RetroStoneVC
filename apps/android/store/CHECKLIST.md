@@ -63,9 +63,9 @@ Everything is in `free/` and `full/`:
       (at least the short descriptions) before you publish them, or publish English and French only at first.
 - [ ] **App icon**: `graphics/icon-512.png` (512 x 512)
 - [ ] **Feature graphic**: `graphics/feature-1024x500.png` (1024 x 500)
-- [ ] **Phone screenshots**: `screenshots/<language>/*.png` (2160 x 1080, landscape; 2 to 8 per language; the
+- [ ] **Phone screenshots**: `screenshots/<language>/*.png` (1920 x 1080: 16:9 landscape; 2 to 8 per language; the
       English ones are the default, add the French and German ones in those languages)
-- [ ] Tablet / Chromebook screenshots: optional (the phone ones can be reused for 10-inch tablets: same 2:1
+- [ ] Tablet / Chromebook screenshots: optional (the phone ones can be reused for 7- and 10-inch tablets: the same 16:9
       landscape shape is accepted).
 - [ ] Category **Game > Arcade**; tags; contact e-mail (and website if you have one).
 - [ ] The paid app's text says how many games it has (20 today): rebuild the texts if a game is added

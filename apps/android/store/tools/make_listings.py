@@ -77,7 +77,7 @@ LINES = {
 T = {
     "en": dict(
         short_free="{f} retro arcade games in 16-bit style, free. No ads, no tracking, plays offline.",
-        short_full="{n} retro arcade games in 16-bit style in one app. No ads, no in-app purchases.",
+        short_full="{n} retro arcade games in one app. Play offline: no ads, no in-app purchases.",
         intro_free="RetroStone Arcade Free brings you {f} original arcade games made in the spirit of the 16-bit "
                    "consoles: crisp pixel art, catchy music and quick rounds you can pick up in a second.",
         intro_full="RetroStone Arcade gathers {n} original arcade games made in the spirit of the 16-bit consoles: "
@@ -96,7 +96,7 @@ T = {
                "licences in the app."),
     "fr": dict(
         short_free="{f} jeux d'arcade rétro style 16 bits, gratuits. Sans pub ni pistage, hors ligne.",
-        short_full="{n} jeux d'arcade rétro au style 16 bits, une appli. Sans pub ni achat intégré.",
+        short_full="{n} jeux d'arcade rétro dans une appli. Hors ligne, sans pub ni achat intégré.",
         intro_free="RetroStone Arcade Free t'offre {f} jeux d'arcade originaux dans l'esprit des consoles 16 bits : "
                    "du pixel art soigné, des musiques entraînantes et des parties courtes que tu prends en main en "
                    "une seconde.",
@@ -118,7 +118,7 @@ T = {
                "Crédits et licences dans l'appli."),
     "de": dict(
         short_free="{f} Retro-Arcade-Spiele im 16-Bit-Stil, gratis. Ohne Werbung, ohne Tracking.",
-        short_full="{n} Retro-Arcade-Spiele im 16-Bit-Stil, eine App. Ohne Werbung und In-App-Käufe.",
+        short_full="{n} Retro-Arcade-Spiele in einer App. Offline spielbar, ohne Werbung und Käufe.",
         intro_free="RetroStone Arcade Free bringt dir {f} originelle Arcade-Spiele im Geist der 16-Bit-Konsolen: "
                    "knackige Pixel-Art, eingängige Musik und kurze Runden, die du sofort verstehst.",
         intro_full="RetroStone Arcade vereint {n} originelle Arcade-Spiele im Geist der 16-Bit-Konsolen: knackige "
@@ -138,7 +138,7 @@ T = {
                "„Mitwirkende & Lizenzen“ in der App."),
     "es": dict(
         short_free="{f} juegos arcade retro con estilo de 16 bits, gratis. Sin anuncios, sin conexión.",
-        short_full="{n} juegos arcade retro con estilo 16 bits en una app. Sin anuncios ni compras.",
+        short_full="{n} juegos arcade retro en una app. Sin conexión, sin anuncios ni compras.",
         intro_free="RetroStone Arcade Free te trae {f} juegos arcade originales con el espíritu de las consolas de "
                    "16 bits: pixel art nítido, música pegadiza y partidas cortas que entiendes en un segundo.",
         intro_full="RetroStone Arcade reúne {n} juegos arcade originales con el espíritu de las consolas de 16 bits: "
@@ -158,7 +158,7 @@ T = {
                "licencias en la app."),
     "it": dict(
         short_free="{f} giochi arcade retrò in stile 16 bit, gratis. Senza pubblicità, anche offline.",
-        short_full="{n} giochi arcade retrò in stile 16 bit in un'app. Niente pubblicità né acquisti.",
+        short_full="{n} giochi arcade retrò in un'app. Anche offline, senza pubblicità né acquisti.",
         intro_free="RetroStone Arcade Free ti porta {f} giochi arcade originali nello spirito delle console a 16 bit: "
                    "pixel art curata, musiche orecchiabili e partite brevi che capisci in un attimo.",
         intro_full="RetroStone Arcade riunisce {n} giochi arcade originali nello spirito delle console a 16 bit: "
@@ -178,7 +178,7 @@ T = {
                "licenze nell'app."),
     "pt_BR": dict(
         short_free="{f} jogos de fliperama retrô em estilo 16 bits, grátis. Sem anúncios, offline.",
-        short_full="{n} jogos de fliperama retrô estilo 16 bits num app. Sem anúncios nem compras.",
+        short_full="{n} jogos de fliperama retrô num app. Jogue offline, sem anúncios nem compras.",
         intro_free="RetroStone Arcade Free traz {f} jogos de fliperama originais no espírito dos consoles de 16 bits: "
                    "pixel art caprichada, músicas que grudam e partidas rápidas que você entende num segundo.",
         intro_full="RetroStone Arcade reúne {n} jogos de fliperama originais no espírito dos consoles de 16 bits: "
@@ -198,7 +198,7 @@ T = {
                "licenças no app."),
     "pt_PT": dict(
         short_free="{f} jogos arcade retro em estilo 16 bits, grátis. Sem anúncios, joga offline.",
-        short_full="{n} jogos arcade retro em estilo 16 bits numa app. Sem anúncios nem compras.",
+        short_full="{n} jogos arcade retro numa app. Joga offline, sem anúncios nem compras.",
         intro_free="O RetroStone Arcade Free traz-te {f} jogos arcade originais no espírito das consolas de 16 bits: "
                    "pixel art cuidada, músicas que ficam no ouvido e partidas curtas que percebes num segundo.",
         intro_full="O RetroStone Arcade reúne {n} jogos arcade originais no espírito das consolas de 16 bits: pixel "
@@ -218,7 +218,7 @@ T = {
                "licenças na app."),
     "nl": dict(
         short_free="{f} retro-arcadegames in 16-bitstijl, gratis. Geen advertenties, speelt offline.",
-        short_full="{n} retro-arcadegames in 16-bitstijl in één app. Geen advertenties of aankopen.",
+        short_full="{n} retro-arcadegames in één app. Speel offline, zonder advertenties of aankopen.",
         intro_free="RetroStone Arcade Free brengt je {f} originele arcadegames in de geest van de 16-bitconsoles: "
                    "strakke pixelart, pakkende muziek en korte potjes die je meteen snapt.",
         intro_full="RetroStone Arcade bundelt {n} originele arcadegames in de geest van de 16-bitconsoles: strakke "
@@ -238,7 +238,7 @@ T = {
                "Credits en licenties in de app."),
     "sv": dict(
         short_free="{f} retroarkadspel i 16-bitarsstil, gratis. Ingen reklam, ingen spårning, offline.",
-        short_full="{n} retroarkadspel i 16-bitarsstil i en app. Ingen reklam, inga köp i appen.",
+        short_full="{n} retroarkadspel i en app. Spela offline, ingen reklam, inga köp i appen.",
         intro_free="RetroStone Arcade Free ger dig {f} originella arkadspel i 16-bitarskonsolernas anda: skarp "
                    "pixelgrafik, medryckande musik och korta omgångar som du lär dig på en sekund.",
         intro_full="RetroStone Arcade samlar {n} originella arkadspel i 16-bitarskonsolernas anda: skarp "
@@ -258,7 +258,7 @@ T = {
                "och licenser i appen."),
     "da": dict(
         short_free="{f} retro-arkadespil i 16-bit-stil, gratis. Uden reklamer og sporing, offline.",
-        short_full="{n} retro-arkadespil i 16-bit-stil i én app. Ingen reklamer, ingen køb i appen.",
+        short_full="{n} retro-arkadespil i én app. Spil offline, ingen reklamer, ingen køb i appen.",
         intro_free="RetroStone Arcade Free giver dig {f} originale arkadespil i 16-bit-konsollernes ånd: skarp "
                    "pixelgrafik, fængende musik og korte runder, du forstår på et sekund.",
         intro_full="RetroStone Arcade samler {n} originale arkadespil i 16-bit-konsollernes ånd: skarp pixelgrafik, "
@@ -278,7 +278,7 @@ T = {
                "licenser i appen."),
     "nb": dict(
         short_free="{f} retro-arkadespill i 16-biters stil, gratis. Uten reklame og sporing, offline.",
-        short_full="{n} retro-arkadespill i 16-biters stil i én app. Uten reklame og kjøp i appen.",
+        short_full="{n} retro-arkadespill i én app. Spill offline, uten reklame og kjøp i appen.",
         intro_free="RetroStone Arcade Free gir deg {f} originale arkadespill i 16-bitskonsollenes ånd: skarp "
                    "pikselgrafikk, fengende musikk og korte runder du skjønner på et sekund.",
         intro_full="RetroStone Arcade samler {n} originale arkadespill i 16-bitskonsollenes ånd: skarp "
@@ -298,7 +298,7 @@ T = {
                "og lisenser i appen."),
     "fi": dict(
         short_free="{f} retrohenkistä arcade-peliä 16-bittisellä tyylillä, ilmaiseksi. Ei mainoksia.",
-        short_full="{n} retrohenkistä arcade-peliä yhdessä sovelluksessa. Ei mainoksia, ei ostoja.",
+        short_full="{n} retro-arcade-peliä yhdessä sovelluksessa. Pelaa offline, ei mainoksia.",
         intro_free="RetroStone Arcade Free tuo sinulle {f} alkuperäistä arcade-peliä 16-bittisten konsolien "
                    "hengessä: terävää pikseligrafiikkaa, tarttuvaa musiikkia ja lyhyitä pelejä, jotka opit hetkessä.",
         intro_full="RetroStone Arcade kokoaa yhteen {n} alkuperäistä arcade-peliä 16-bittisten konsolien hengessä: "
@@ -318,7 +318,7 @@ T = {
                "Tekijät ja lisenssit sovelluksessa."),
     "pl": dict(
         short_free="{f} gry zręcznościowe retro w stylu 16-bit, za darmo. Bez reklam, działa offline.",
-        short_full="{n} gier zręcznościowych retro w stylu 16-bit w jednej aplikacji. Bez reklam.",
+        short_full="{n} gier zręcznościowych retro w jednej aplikacji. Działa offline, bez reklam.",
         intro_free="RetroStone Arcade Free to {f} oryginalne gry zręcznościowe w duchu konsol 16-bitowych: wyraźny "
                    "pixel art, wpadająca w ucho muzyka i krótkie rozgrywki, które zrozumiesz w sekundę.",
         intro_full="RetroStone Arcade zbiera {n} oryginalnych gier zręcznościowych w duchu konsol 16-bitowych: "
@@ -338,7 +338,7 @@ T = {
                "i licencje w aplikacji."),
     "cs": dict(
         short_free="{f} retro arkádové hry ve stylu 16 bitů, zdarma. Bez reklam a sledování, offline.",
-        short_full="{n} retro arkádových her ve stylu 16 bitů v jedné aplikaci. Bez reklam a nákupů.",
+        short_full="{n} retro arkádových her v jedné aplikaci. Hraj offline, bez reklam a nákupů.",
         intro_free="RetroStone Arcade Free ti přináší {f} původní arkádové hry v duchu 16bitových konzolí: ostrý "
                    "pixel art, chytlavou hudbu a krátká kola, která pochopíš za vteřinu.",
         intro_full="RetroStone Arcade spojuje {n} původních arkádových her v duchu 16bitových konzolí: ostrý pixel "
@@ -358,7 +358,7 @@ T = {
                "aplikaci."),
     "el": dict(
         short_free="{f} ρετρό παιχνίδια arcade σε στιλ 16-bit, δωρεάν. Χωρίς διαφημίσεις, offline.",
-        short_full="{n} ρετρό παιχνίδια arcade σε στιλ 16-bit σε μία εφαρμογή. Χωρίς διαφημίσεις.",
+        short_full="{n} ρετρό παιχνίδια arcade σε μία εφαρμογή. Παίζει offline, χωρίς διαφημίσεις.",
         intro_free="Το RetroStone Arcade Free σού φέρνει {f} πρωτότυπα παιχνίδια arcade στο πνεύμα των κονσολών "
                    "16-bit: καθαρό pixel art, μουσική που κολλάει και σύντομους γύρους που μαθαίνεις αμέσως.",
         intro_full="Το RetroStone Arcade συγκεντρώνει {n} πρωτότυπα παιχνίδια arcade στο πνεύμα των κονσολών 16-bit: "
@@ -378,7 +378,7 @@ T = {
                "και άδειες» στην εφαρμογή."),
     "ru": dict(
         short_free="{f} ретро-аркады в стиле 16 бит, бесплатно. Без рекламы и слежки, офлайн.",
-        short_full="{n} ретро-аркад в стиле 16 бит в одном приложении. Без рекламы и покупок.",
+        short_full="{n} ретро-аркад в одном приложении. Работает офлайн, без рекламы и покупок.",
         intro_free="RetroStone Arcade Free — это {f} оригинальные аркады в духе 16-битных консолей: чёткий пиксель-арт, "
                    "запоминающаяся музыка и короткие забеги, в которых разберёшься за секунду.",
         intro_full="RetroStone Arcade собрал {n} оригинальных аркад в духе 16-битных консолей: чёткий пиксель-арт, "
@@ -398,7 +398,7 @@ T = {
                "лицензии» в приложении."),
     "uk": dict(
         short_free="{f} ретро-аркади у стилі 16 біт, безкоштовно. Без реклами й стеження, офлайн.",
-        short_full="{n} ретро-аркад у стилі 16 біт в одному застосунку. Без реклами й покупок.",
+        short_full="{n} ретро-аркад в одному застосунку. Працює офлайн, без реклами й покупок.",
         intro_free="RetroStone Arcade Free — це {f} оригінальні аркади в дусі 16-бітних консолей: чіткий піксель-арт, "
                    "музика, що запам'ятовується, і короткі забіги, у яких розберешся за секунду.",
         intro_full="RetroStone Arcade зібрав {n} оригінальних аркад у дусі 16-бітних консолей: чіткий піксель-арт, "
@@ -418,7 +418,7 @@ T = {
                "ліцензії» в застосунку."),
     "tr": dict(
         short_free="16-bit tarzında {f} retro arcade oyunu, ücretsiz. Reklamsız, takipsiz, çevrimdışı.",
-        short_full="16-bit tarzında {n} retro arcade oyunu tek uygulamada. Reklam ve satın alma yok.",
+        short_full="{n} retro arcade oyunu tek uygulamada. Çevrimdışı oyna, reklam ve satın alma yok.",
         intro_free="RetroStone Arcade Free, 16-bit konsolların ruhunu taşıyan {f} özgün arcade oyununu sunuyor: net "
                    "piksel sanatı, akılda kalan müzikler ve bir saniyede kavrayacağın kısa turlar.",
         intro_full="RetroStone Arcade, 16-bit konsolların ruhunu taşıyan {n} özgün arcade oyununu bir araya "
@@ -438,7 +438,7 @@ T = {
                "Geçenler ve Lisanslar bölümüne bak."),
     "id": dict(
         short_free="{f} game arcade retro bergaya 16-bit, gratis. Tanpa iklan & pelacakan, offline.",
-        short_full="{n} game arcade retro bergaya 16-bit dalam 1 aplikasi. Tanpa iklan & pembelian.",
+        short_full="{n} game arcade retro dalam 1 aplikasi. Main offline, tanpa iklan & pembelian.",
         intro_free="RetroStone Arcade Free menghadirkan {f} game arcade orisinal dengan semangat konsol 16-bit: "
                    "pixel art yang tajam, musik yang mudah diingat, dan ronde singkat yang langsung kamu pahami.",
         intro_full="RetroStone Arcade mengumpulkan {n} game arcade orisinal dengan semangat konsol 16-bit: pixel art "
@@ -458,7 +458,7 @@ T = {
                "& lisensi di aplikasi."),
     "ja": dict(
         short_free="16ビット風のレトロなアーケードゲーム{f}本が無料。広告なし、追跡なし、オフラインOK。",
-        short_full="16ビット風のレトロなアーケードゲーム{n}本をひとつのアプリに。広告なし、課金なし。",
+        short_full="レトロなアーケードゲーム{n}本をひとつのアプリに。オフラインで遊べて、広告なし、課金なし。",
         intro_free="RetroStone Arcade Free は、16ビット機の魂を受け継いだオリジナルのアーケードゲーム{f}本を収録。"
                    "くっきりしたドット絵、耳に残る音楽、一瞬でわかる短いプレイが楽しめます。",
         intro_full="RetroStone Arcade は、16ビット機の魂を受け継いだオリジナルのアーケードゲーム{n}本を収録。"
@@ -478,7 +478,7 @@ T = {
                "詳しくはアプリ内の「クレジットとライセンス」をご覧ください。"),
     "ko": dict(
         short_free="16비트 감성의 레트로 아케이드 게임 {f}종 무료. 광고 없음, 추적 없음, 오프라인 플레이.",
-        short_full="16비트 감성의 레트로 아케이드 게임 {n}종을 앱 하나에. 광고 없음, 인앱 결제 없음.",
+        short_full="레트로 아케이드 게임 {n}종을 앱 하나에. 오프라인 플레이, 광고 없음, 인앱 결제 없음.",
         intro_free="RetroStone Arcade Free는 16비트 콘솔의 정신을 담은 오리지널 아케이드 게임 {f}종을 담았습니다. "
                    "선명한 픽셀 아트, 귀에 쏙 들어오는 음악, 바로 이해되는 짧은 판을 즐겨 보세요.",
         intro_full="RetroStone Arcade는 16비트 콘솔의 정신을 담은 오리지널 아케이드 게임 {n}종을 모았습니다. "
@@ -497,7 +497,7 @@ T = {
                "라이선스'를 확인하세요."),
     "zh_CN": dict(
         short_free="{f} 款 16 位风格的复古街机游戏，免费。无广告、无追踪，可离线游玩。",
-        short_full="{n} 款 16 位风格的复古街机游戏，尽在一个应用。无广告，无应用内购买。",
+        short_full="{n} 款复古街机游戏，尽在一个应用。可离线游玩，无广告，无应用内购买。",
         intro_free="RetroStone Arcade Free 收录 {f} 款原创街机游戏，延续 16 位游戏机的精神：清晰的像素画、"
                    "朗朗上口的音乐，还有一秒就能上手的短局。",
         intro_full="RetroStone Arcade 汇集 {n} 款原创街机游戏，延续 16 位游戏机的精神：清晰的像素画、"

@@ -6,7 +6,8 @@
   apps/android/store/<free|full>/graphics/icon-512.png          the 512 x 512 icon (apps/android/tools/make_icon.py)
   apps/android/store/<free|full>/graphics/feature-1024x500.png  the feature graphic: the launcher's backdrop (navy,
       the house 2-line dither), the app's name in the house 5x7 font (gold, outlined, with a shadow) and the games'
-      title screens as cards in gold frames; the free app's locked games dimmed with the launcher's padlock.
+      launcher cards (their moments of play, at 2x: crisp) in gold frames; the free app's locked game with the
+      launcher's ribbon and padlock badge.
 No text but the app's name (a brand, the same in every language).
 MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
 """
@@ -25,6 +26,7 @@ sys.path.insert(0, os.path.join(ROOT, "apps", "launcher", "tools"))
 from gen_font import G as FONT  # noqa: E402
 import make_icon  # noqa: E402
 import gen_catalog as gc  # noqa: E402
+import cards  # noqa: E402  (the launcher cards: apps/launcher/tools/cards.py)
 
 OUT, NAVY = (22, 18, 40), (16, 24, 56)
 GOLD_L, GOLD, GOLD_D = (255, 240, 150), (252, 216, 72), (186, 128, 22)
@@ -79,11 +81,17 @@ def big_text(img, s, cx, y, scale, fill=GOLD, top=GOLD_L, shade=GOLD_D):
     return Image.fromarray(a)
 
 
-def card(gid, w, h, locked=False):
-    """a game's title screen at w x h (crisp: the 640 x 480 picture, box-filtered), dimmed when locked"""
-    src = Image.open(os.path.join(ROOT, "games", gid, "docs", "screenshots", "title.png")).convert("RGB")
-    im = gc.fit(src, w, h) if src.size[0] * h != src.size[1] * w else src.resize((w, h), Image.BOX)
-    return gc.dim(im, locked)
+TABLE = cards.read_table()
+
+
+def card(gid, scale, locked=False):
+    """a game's launcher card (its moment of play, 96 x 72 at 1x: apps/launcher/cards), pixel for pixel, scaled by an
+    integer (never blurred); a locked one with the launcher's ribbon and padlock badge"""
+    a = cards.source(gid, TABLE)
+    if locked:
+        a = cards.locked_look(a)
+    im = Image.fromarray(a.astype(np.uint8), "RGB")
+    return im.resize((im.width * scale, im.height * scale), Image.NEAREST)
 
 
 def framed(img, im, x, y, locked=False):
@@ -132,19 +140,19 @@ def feature(app, games, locked_games):
     if app == "free":
         img = big_text(img, "RETROSTONE ARCADE", W // 2, 50, 8)
         img = pill(img, "FREE", W // 2, 136, 5)
-        show = [(g, False) for g in games[:3]] + [(g, True) for g in locked_games[:2]]
-        cw, ch, gap = 184, 138, 12
+        show = [(g, False) for g in games[:3]] + [(g, True) for g in locked_games[:1]]
+        cw, gap = 192, 24                         # the cards at 2x
         x0 = (W - (len(show) * cw + (len(show) - 1) * gap)) // 2
         for i, (g, lk) in enumerate(show):
-            framed(img, card(g, cw, ch, lk), x0 + i * (cw + gap), 238, lk)
+            framed(img, card(g, 2, lk), x0 + i * (cw + gap), 256)
     else:
-        img = big_text(img, "RETROSTONE ARCADE", W // 2, 30, 8)
-        cw, ch, gap, per = 120, 90, 14, 7         # three staggered rows of cards: "many games"
-        for r in range(3):
+        img = big_text(img, "RETROSTONE ARCADE", W // 2, 34, 8)
+        cw, ch, gap, per = 192, 144, 18, 6        # two staggered rows of cards at 2x, cut by the edges: "many games"
+        for r in range(2):
             row = games[r * per:(r + 1) * per]
-            x0 = (W - (len(row) * cw + (len(row) - 1) * gap)) // 2 + (-18, 18, -18)[r]
+            x0 = (W - (len(row) * cw + (len(row) - 1) * gap)) // 2 + (-52, 52)[r]
             for i, g in enumerate(row):
-                framed(img, card(g, cw, ch), x0 + i * (cw + gap), 124 + r * (ch + 18))
+                framed(img, card(g, 2), x0 + i * (cw + gap), 146 + r * (ch + 20))
     return img.convert("RGB")
 
 
