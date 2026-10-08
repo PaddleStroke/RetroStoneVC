@@ -597,7 +597,7 @@ static int ndoc, doc_cols, doc_row[64], doc_pct = -1;
 static int doc_q8, doc_vel, doc_target = -1;
 
 static int cr_row(int i) { return i < 2 ? 8 + 2 * i : 9 + 2 * i; }   /* the games' two lines, a gap, the others */
-#define CR_HINT_ROW (cr_row(rsb_ncredits - 1) + 4)
+#define CR_HINT_ROW (cr_row(rsb_ncredits - 1) + 3)   /* 28 with the 9 lines of the Android apps (the rim: 29) */
 static const char *cr_label(int i)
 {
     const rsb_credit *c = &rsb_credits[i];
