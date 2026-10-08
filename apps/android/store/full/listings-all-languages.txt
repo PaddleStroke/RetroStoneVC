@@ -1,10 +1,10 @@
-RetroStone Arcade: Google Play store listing, 22 languages. Each language starts with a "=== LANGUAGE ===" line, then its three fields: App name, Short description, Full description.
+RetroStone: 20 Offline Games: Google Play store listing, 22 languages. Each language starts with a "=== LANGUAGE ===" line, then its three fields: App name, Short description, Full description.
 
 
 === English (United States) (en-US) ===
 
 App name:
-RetroStone Arcade
+RetroStone: 20 Offline Games
 
 Short description:
 20 retro arcade games in one app. Play offline: no ads, no in-app purchases.
@@ -51,7 +51,7 @@ Made by 8BCraft. Code under the MIT licence, art and music under CC BY-NC-SA 4.0
 === Czech (cs-CZ) ===
 
 App name:
-RetroStone Arcade
+RetroStone: 20 offline her
 
 Short description:
 20 retro arkádových her v jedné aplikaci. Hraj offline, bez reklam a nákupů.
@@ -98,7 +98,7 @@ Vytvořil 8BCraft. Kód pod licencí MIT, grafika a hudba pod CC BY-NC-SA 4.0: v
 === Danish (da-DK) ===
 
 App name:
-RetroStone Arcade
+RetroStone: 20 offline-spil
 
 Short description:
 20 retro-arkadespil i én app. Spil offline, ingen reklamer, ingen køb i appen.
@@ -145,7 +145,7 @@ Lavet af 8BCraft. Kode under MIT-licensen, grafik og musik under CC BY-NC-SA 4.0
 === German (de-DE) ===
 
 App name:
-RetroStone Arcade
+RetroStone: 20 Offline-Spiele
 
 Short description:
 20 Retro-Arcade-Spiele in einer App. Offline spielbar, ohne Werbung und Käufe.
@@ -192,7 +192,7 @@ Von 8BCraft. Code unter der MIT-Lizenz, Grafik und Musik unter CC BY-NC-SA 4.0: 
 === Greek (el-GR) ===
 
 App name:
-RetroStone Arcade
+RetroStone: 20 Offline Games
 
 Short description:
 20 ρετρό παιχνίδια arcade σε μία εφαρμογή. Παίζει offline, χωρίς διαφημίσεις.
@@ -239,7 +239,7 @@ Full description:
 === Spanish (Spain) (es-ES) ===
 
 App name:
-RetroStone Arcade
+RetroStone: 20 juegos offline
 
 Short description:
 20 juegos arcade retro en una app. Sin conexión, sin anuncios ni compras.
@@ -286,7 +286,7 @@ Creado por 8BCraft. Código con licencia MIT, gráficos y música con CC BY-NC-S
 === Finnish (fi-FI) ===
 
 App name:
-RetroStone Arcade
+RetroStone: 20 offline-peliä
 
 Short description:
 20 retro-arcade-peliä yhdessä sovelluksessa. Pelaa offline, ei mainoksia.
@@ -333,7 +333,7 @@ Tekijä 8BCraft. Koodi MIT-lisenssillä, grafiikka ja musiikki CC BY-NC-SA 4.0 -
 === French (France) (fr-FR) ===
 
 App name:
-RetroStone Arcade
+RetroStone: 20 jeux hors ligne
 
 Short description:
 20 jeux d'arcade rétro dans une appli. Hors ligne, sans pub ni achat intégré.
@@ -380,7 +380,7 @@ Créé par 8BCraft. Code sous licence MIT, graphismes et musiques sous CC BY-NC-
 === Indonesian (id) ===
 
 App name:
-RetroStone Arcade
+RetroStone: 20 Game Offline
 
 Short description:
 20 game arcade retro dalam 1 aplikasi. Main offline, tanpa iklan & pembelian.
@@ -427,7 +427,7 @@ Dibuat oleh 8BCraft. Kode berlisensi MIT, gambar dan musik berlisensi CC BY-NC-S
 === Italian (it-IT) ===
 
 App name:
-RetroStone Arcade
+RetroStone: 20 giochi offline
 
 Short description:
 20 giochi arcade retrò in un'app. Anche offline, senza pubblicità né acquisti.
@@ -474,7 +474,7 @@ Creato da 8BCraft. Codice con licenza MIT, grafica e musica con CC BY-NC-SA 4.0:
 === Japanese (ja-JP) ===
 
 App name:
-RetroStone Arcade
+RetroStone: オフラインゲーム20本
 
 Short description:
 レトロなアーケードゲーム20本をひとつのアプリに。オフラインで遊べて、広告なし、課金なし。
@@ -521,7 +521,7 @@ RetroStone Arcade は、16ビット機の魂を受け継いだオリジナルの
 === Korean (ko-KR) ===
 
 App name:
-RetroStone Arcade
+RetroStone: 오프라인 게임 20종
 
 Short description:
 레트로 아케이드 게임 20종을 앱 하나에. 오프라인 플레이, 광고 없음, 인앱 결제 없음.
@@ -568,7 +568,7 @@ RetroStone Arcade는 16비트 콘솔의 정신을 담은 오리지널 아케이�
 === Norwegian (no-NO) ===
 
 App name:
-RetroStone Arcade
+RetroStone: 20 offline-spill
 
 Short description:
 20 retro-arkadespill i én app. Spill offline, uten reklame og kjøp i appen.
@@ -615,7 +615,7 @@ Laget av 8BCraft. Kode under MIT-lisensen, grafikk og musikk under CC BY-NC-SA 4
 === Dutch (nl-NL) ===
 
 App name:
-RetroStone Arcade
+RetroStone: 20 offline games
 
 Short description:
 20 retro-arcadegames in één app. Speel offline, zonder advertenties of aankopen.
@@ -662,7 +662,7 @@ Gemaakt door 8BCraft. Code onder de MIT-licentie, beeld en muziek onder CC BY-NC
 === Polish (pl-PL) ===
 
 App name:
-RetroStone Arcade
+RetroStone: 20 gier offline
 
 Short description:
 20 gier zręcznościowych retro w jednej aplikacji. Działa offline, bez reklam.
@@ -709,7 +709,7 @@ Autor: 8BCraft. Kod na licencji MIT, grafika i muzyka na licencji CC BY-NC-SA 4.
 === Portuguese (Brazil) (pt-BR) ===
 
 App name:
-RetroStone Arcade
+RetroStone: 20 jogos offline
 
 Short description:
 20 jogos de fliperama retrô num app. Jogue offline, sem anúncios nem compras.
@@ -756,7 +756,7 @@ Feito por 8BCraft. Código sob a licença MIT, arte e música sob CC BY-NC-SA 4.
 === Portuguese (Portugal) (pt-PT) ===
 
 App name:
-RetroStone Arcade
+RetroStone: 20 jogos offline
 
 Short description:
 20 jogos arcade retro numa app. Joga offline, sem anúncios nem compras.
@@ -803,7 +803,7 @@ Feito por 8BCraft. Código sob a licença MIT, arte e música sob CC BY-NC-SA 4.
 === Russian (ru-RU) ===
 
 App name:
-RetroStone Arcade
+RetroStone: 20 офлайн-игр
 
 Short description:
 20 ретро-аркад в одном приложении. Работает офлайн, без рекламы и покупок.
@@ -850,7 +850,7 @@ RetroStone Arcade собрал 20 оригинальных аркад в дух�
 === Swedish (sv-SE) ===
 
 App name:
-RetroStone Arcade
+RetroStone: 20 offlinespel
 
 Short description:
 20 retroarkadspel i en app. Spela offline, ingen reklam, inga köp i appen.
@@ -897,7 +897,7 @@ Gjort av 8BCraft. Kod under MIT-licensen, grafik och musik under CC BY-NC-SA 4.0
 === Turkish (tr-TR) ===
 
 App name:
-RetroStone Arcade
+RetroStone: 20 Çevrimdışı Oyun
 
 Short description:
 20 retro arcade oyunu tek uygulamada. Çevrimdışı oyna, reklam ve satın alma yok.
@@ -944,7 +944,7 @@ REKLAM YOK, TAKİP YOK
 === Ukrainian (uk) ===
 
 App name:
-RetroStone Arcade
+RetroStone: 20 офлайн-ігор
 
 Short description:
 20 ретро-аркад в одному застосунку. Працює офлайн, без реклами й покупок.
@@ -991,7 +991,7 @@ RetroStone Arcade зібрав 20 оригінальних аркад у дус�
 === Chinese (Simplified) (zh-CN) ===
 
 App name:
-RetroStone Arcade
+RetroStone: 20款离线游戏
 
 Short description:
 20 款复古街机游戏，尽在一个应用。可离线游玩，无广告，无应用内购买。

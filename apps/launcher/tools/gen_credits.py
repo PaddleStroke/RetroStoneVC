@@ -131,7 +131,7 @@ ANDROIDX_TEXT = (
 
 # The privacy policy, last in the list (Google Play wants it inside the app too, not only on the web): the same words as
 # apps/android/store/privacy/privacy.html. CONTACT: the policy's e-mail (empty: that sentence is left out).
-CONTACT = ""
+CONTACT = "hello@8bcraft.com"
 POLICY_URL = ""
 PRIVACY_TEXT = (
     "This policy covers the apps RetroStone Arcade and RetroStone Arcade Free (Android, and their Windows versions), "

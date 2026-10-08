@@ -15,9 +15,9 @@ The Play Console changes its menus and rules often: when this list and the Conso
 - [ ] The release files: `apps/android/build.sh full --release` and `apps/android/build.sh free --release` give
       `dist/android/RetroStoneArcade-release.aab` and `dist/android/RetroStoneArcadeFree-release.aab` (for Google
       Play; the `.apk` next to them is for sideloading).
-- [ ] The **privacy policy** online: put your contact e-mail in `privacy/privacy-policy-en.md` and `-fr.md`
-      (`[CONTACT E-MAIL]`), run `python3 apps/android/store/tools/privacy_html.py`, host the two `.html` pages
-      (GitHub Pages, your site), note the URL.
+- [ ] The **privacy policy** online: host `privacy/privacy.html` (one self-contained page, English then French;
+      contact hello@8bcraft.com) on your site, note the URL. The same words are in the apps (Credits & licences >
+      Privacy policy: apps/launcher/tools/gen_credits.py, which also takes the URL: POLICY_URL).
 
 ## 1. The developer account (once, both apps)
 - [ ] <https://play.google.com/console/signup>: a Google account for the business (not a throwaway one).

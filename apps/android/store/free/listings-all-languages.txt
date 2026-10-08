@@ -1,10 +1,10 @@
-RetroStone Arcade Free: Google Play store listing, 22 languages. Each language starts with a "=== LANGUAGE ===" line, then its three fields: App name, Short description, Full description.
+RetroStone: Offline Games Lite: Google Play store listing, 22 languages. Each language starts with a "=== LANGUAGE ===" line, then its three fields: App name, Short description, Full description.
 
 
 === English (United States) (en-US) ===
 
 App name:
-RetroStone Arcade Free
+RetroStone: Offline Games Lite
 
 Short description:
 3 retro arcade games in 16-bit style, free. No ads, no tracking, plays offline.
@@ -38,7 +38,7 @@ Made by 8BCraft. Code under the MIT licence, art and music under CC BY-NC-SA 4.0
 === Czech (cs-CZ) ===
 
 App name:
-RetroStone Arcade Free
+RetroStone: offline hry Lite
 
 Short description:
 3 retro arkádové hry ve stylu 16 bitů, zdarma. Bez reklam a sledování, offline.
@@ -72,7 +72,7 @@ Vytvořil 8BCraft. Kód pod licencí MIT, grafika a hudba pod CC BY-NC-SA 4.0: v
 === Danish (da-DK) ===
 
 App name:
-RetroStone Arcade Free
+RetroStone: offline-spil Lite
 
 Short description:
 3 retro-arkadespil i 16-bit-stil, gratis. Uden reklamer og sporing, offline.
@@ -106,7 +106,7 @@ Lavet af 8BCraft. Kode under MIT-licensen, grafik og musik under CC BY-NC-SA 4.0
 === German (de-DE) ===
 
 App name:
-RetroStone Arcade Free
+RetroStone: Offline Games Lite
 
 Short description:
 3 Retro-Arcade-Spiele im 16-Bit-Stil, gratis. Ohne Werbung, ohne Tracking.
@@ -140,7 +140,7 @@ Von 8BCraft. Code unter der MIT-Lizenz, Grafik und Musik unter CC BY-NC-SA 4.0: 
 === Greek (el-GR) ===
 
 App name:
-RetroStone Arcade Free
+RetroStone: Offline Games Lite
 
 Short description:
 3 ρετρό παιχνίδια arcade σε στιλ 16-bit, δωρεάν. Χωρίς διαφημίσεις, offline.
@@ -174,7 +174,7 @@ Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgeho
 === Spanish (Spain) (es-ES) ===
 
 App name:
-RetroStone Arcade Free
+RetroStone: Offline Games Lite
 
 Short description:
 3 juegos arcade retro con estilo de 16 bits, gratis. Sin anuncios, sin conexión.
@@ -208,7 +208,7 @@ Creado por 8BCraft. Código con licencia MIT, gráficos y música con CC BY-NC-S
 === Finnish (fi-FI) ===
 
 App name:
-RetroStone Arcade Free
+RetroStone: offline-pelit Lite
 
 Short description:
 3 retrohenkistä arcade-peliä 16-bittisellä tyylillä, ilmaiseksi. Ei mainoksia.
@@ -242,7 +242,7 @@ Tekijä 8BCraft. Koodi MIT-lisenssillä, grafiikka ja musiikki CC BY-NC-SA 4.0 -
 === French (France) (fr-FR) ===
 
 App name:
-RetroStone Arcade Free
+RetroStone: Offline Games Lite
 
 Short description:
 3 jeux d'arcade rétro style 16 bits, gratuits. Sans pub ni pistage, hors ligne.
@@ -276,7 +276,7 @@ Créé par 8BCraft. Code sous licence MIT, graphismes et musiques sous CC BY-NC-
 === Indonesian (id) ===
 
 App name:
-RetroStone Arcade Free
+RetroStone: Game Offline Lite
 
 Short description:
 3 game arcade retro bergaya 16-bit, gratis. Tanpa iklan & pelacakan, offline.
@@ -310,7 +310,7 @@ Dibuat oleh 8BCraft. Kode berlisensi MIT, gambar dan musik berlisensi CC BY-NC-S
 === Italian (it-IT) ===
 
 App name:
-RetroStone Arcade Free
+RetroStone: Offline Games Lite
 
 Short description:
 3 giochi arcade retrò in stile 16 bit, gratis. Senza pubblicità, anche offline.
@@ -344,7 +344,7 @@ Creato da 8BCraft. Codice con licenza MIT, grafica e musica con CC BY-NC-SA 4.0:
 === Japanese (ja-JP) ===
 
 App name:
-RetroStone Arcade Free
+RetroStone: オフラインゲーム Lite
 
 Short description:
 16ビット風のレトロなアーケードゲーム3本が無料。広告なし、追跡なし、オフラインOK。
@@ -378,7 +378,7 @@ Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgeho
 === Korean (ko-KR) ===
 
 App name:
-RetroStone Arcade Free
+RetroStone: 오프라인 게임 Lite
 
 Short description:
 16비트 감성의 레트로 아케이드 게임 3종 무료. 광고 없음, 추적 없음, 오프라인 플레이.
@@ -412,7 +412,7 @@ Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgeho
 === Norwegian (no-NO) ===
 
 App name:
-RetroStone Arcade Free
+RetroStone: offline-spill Lite
 
 Short description:
 3 retro-arkadespill i 16-biters stil, gratis. Uten reklame og sporing, offline.
@@ -446,7 +446,7 @@ Laget av 8BCraft. Kode under MIT-lisensen, grafikk og musikk under CC BY-NC-SA 4
 === Dutch (nl-NL) ===
 
 App name:
-RetroStone Arcade Free
+RetroStone: offline games Lite
 
 Short description:
 3 retro-arcadegames in 16-bitstijl, gratis. Geen advertenties, speelt offline.
@@ -480,7 +480,7 @@ Gemaakt door 8BCraft. Code onder de MIT-licentie, beeld en muziek onder CC BY-NC
 === Polish (pl-PL) ===
 
 App name:
-RetroStone Arcade Free
+RetroStone: gry offline Lite
 
 Short description:
 3 gry zręcznościowe retro w stylu 16-bit, za darmo. Bez reklam, działa offline.
@@ -514,7 +514,7 @@ Autor: 8BCraft. Kod na licencji MIT, grafika i muzyka na licencji CC BY-NC-SA 4.
 === Portuguese (Brazil) (pt-BR) ===
 
 App name:
-RetroStone Arcade Free
+RetroStone: jogos offline Lite
 
 Short description:
 3 jogos de fliperama retrô em estilo 16 bits, grátis. Sem anúncios, offline.
@@ -548,7 +548,7 @@ Feito por 8BCraft. Código sob a licença MIT, arte e música sob CC BY-NC-SA 4.
 === Portuguese (Portugal) (pt-PT) ===
 
 App name:
-RetroStone Arcade Free
+RetroStone: jogos offline Lite
 
 Short description:
 3 jogos arcade retro em estilo 16 bits, grátis. Sem anúncios, joga offline.
@@ -582,7 +582,7 @@ Feito por 8BCraft. Código sob a licença MIT, arte e música sob CC BY-NC-SA 4.
 === Russian (ru-RU) ===
 
 App name:
-RetroStone Arcade Free
+RetroStone: офлайн-игры Lite
 
 Short description:
 3 ретро-аркады в стиле 16 бит, бесплатно. Без рекламы и слежки, офлайн.
@@ -616,7 +616,7 @@ Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgeho
 === Swedish (sv-SE) ===
 
 App name:
-RetroStone Arcade Free
+RetroStone: offlinespel Lite
 
 Short description:
 3 retroarkadspel i 16-bitarsstil, gratis. Ingen reklam, ingen spårning, offline.
@@ -650,7 +650,7 @@ Gjort av 8BCraft. Kod under MIT-licensen, grafik och musik under CC BY-NC-SA 4.0
 === Turkish (tr-TR) ===
 
 App name:
-RetroStone Arcade Free
+RetroStone: Offline Games Lite
 
 Short description:
 16-bit tarzında 3 retro arcade oyunu, ücretsiz. Reklamsız, takipsiz, çevrimdışı.
@@ -684,7 +684,7 @@ Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgeho
 === Ukrainian (uk) ===
 
 App name:
-RetroStone Arcade Free
+RetroStone: офлайн-ігри Lite
 
 Short description:
 3 ретро-аркади у стилі 16 біт, безкоштовно. Без реклами й стеження, офлайн.
@@ -718,7 +718,7 @@ Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgeho
 === Chinese (Simplified) (zh-CN) ===
 
 App name:
-RetroStone Arcade Free
+RetroStone: 离线游戏 Lite
 
 Short description:
 3 款 16 位风格的复古街机游戏，免费。无广告、无追踪，可离线游玩。

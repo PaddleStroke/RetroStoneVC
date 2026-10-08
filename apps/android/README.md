@@ -216,7 +216,7 @@ Everything else Google Play asks for is in [`store/`](store/):
 | `store/<free\|full>/screenshots/<en\|fr\|de>/` | phone screenshots, 2160 x 1080, made headlessly from the apps |
 | `store/privacy/` | the privacy policy (EN, FR; Markdown and HTML ready to host) |
 | `store/play-console-answers.md` | draft answers: Data safety ("no data collected"), the IARC content rating, ads, target audience |
-| `store/tools/` | the generators: `make_listings.py`, `make_store_art.py`, `store_shots.py`, `privacy_html.py` |
+| `store/tools/` | the generators: `make_listings.py`, `make_store_art.py`, `store_shots.py`; `privacy/privacy.html`: the privacy policy |
 
 ## 6. What was tested
 

@@ -6,9 +6,8 @@ device). Check each answer against the form when you fill it in: the questions c
 If the apps ever change (an online leaderboard, a crash reporter, an ads or analytics SDK...), these answers change.
 
 ## Privacy policy
-URL of the hosted page made from `privacy/privacy-policy-en.html` (and `-fr.html`). Fill in the contact e-mail in
-both files first (`[CONTACT E-MAIL]`), rebuild them (`python3 apps/android/store/tools/privacy_html.py`), host them
-(GitHub Pages, your website...), and paste the English URL.
+URL of the hosted `privacy/privacy.html` (English, then French on the same page; contact hello@8bcraft.com), e.g.
+on www.8bcraft.com. The apps show the same policy in Credits & licences (Google Play wants it in the app too).
 
 ## Ads
 **Does your app contain ads?** No.

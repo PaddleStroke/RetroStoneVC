@@ -33,6 +33,41 @@ LANGUAGE_NAMES = {"en": "English (United States)", "cs": "Czech", "da": "Danish"
                   "ru": "Russian", "sv": "Swedish", "tr": "Turkish", "uk": "Ukrainian",
                   "zh_CN": "Chinese (Simplified)"}
 
+# the store titles (the Play Console's "App name", 30 characters at most): "RetroStone" (a brand, never translated) and
+# what people search ("offline games"); (full app, free app). A language without its own (too long: Greek, ...) uses
+# the English one. The name under the phone's icon stays the configs' APP_NAME.
+TITLES = {
+    "en": ("RetroStone: {n} Offline Games", "RetroStone: Offline Games Lite"),
+    "fr": ("RetroStone: {n} jeux hors ligne", None),
+    "de": ("RetroStone: {n} Offline-Spiele", None),
+    "es": ("RetroStone: {n} juegos offline", None),
+    "it": ("RetroStone: {n} giochi offline", None),
+    "pt_BR": ("RetroStone: {n} jogos offline", "RetroStone: jogos offline Lite"),
+    "pt_PT": ("RetroStone: {n} jogos offline", "RetroStone: jogos offline Lite"),
+    "nl": ("RetroStone: {n} offline games", "RetroStone: offline games Lite"),
+    "sv": ("RetroStone: {n} offlinespel", "RetroStone: offlinespel Lite"),
+    "da": ("RetroStone: {n} offline-spil", "RetroStone: offline-spil Lite"),
+    "nb": ("RetroStone: {n} offline-spill", "RetroStone: offline-spill Lite"),
+    "fi": ("RetroStone: {n} offline-peliä", "RetroStone: offline-pelit Lite"),
+    "pl": ("RetroStone: {n} gier offline", "RetroStone: gry offline Lite"),
+    "cs": ("RetroStone: {n} offline her", "RetroStone: offline hry Lite"),
+    "ru": ("RetroStone: {n} офлайн-игр", "RetroStone: офлайн-игры Lite"),
+    "uk": ("RetroStone: {n} офлайн-ігор", "RetroStone: офлайн-ігри Lite"),
+    "tr": ("RetroStone: {n} Çevrimdışı Oyun", None),
+    "id": ("RetroStone: {n} Game Offline", "RetroStone: Game Offline Lite"),
+    "ja": ("RetroStone: オフラインゲーム{n}本", "RetroStone: オフラインゲーム Lite"),
+    "ko": ("RetroStone: 오프라인 게임 {n}종", "RetroStone: 오프라인 게임 Lite"),
+    "zh_CN": ("RetroStone: {n}款离线游戏", "RetroStone: 离线游戏 Lite"),
+}
+
+
+def title_for(lang, app, n):
+    full, free = TITLES.get(lang, (None, None))
+    t = (full if app == "full" else free) or TITLES["en"][app == "free"]
+    t = t.format(n=n)
+    return t if len(t) <= 30 else TITLES["en"][app == "free"].format(n=n)
+
+
 # one line per game (English and French only; the other languages list the names)
 LINES = {
     "en": {
@@ -550,11 +585,13 @@ def main():
     free_games = [(g, nm) for g, nm, locked in free if not locked]
     all_games = [(g, nm) for g, nm, locked in full]
     problems = []
-    for app, title in (("free", "RetroStone Arcade Free"), ("full", "RetroStone Arcade")):
+    for app in ("free", "full"):
         # every language in one plain UTF-8 file: the Play Console's "Import translations with AI" takes one file
-        every = [f"{title}: Google Play store listing, {len(LOCALES)} languages. Each language starts with a "
-                 f"\"=== LANGUAGE ===\" line, then its three fields: App name, Short description, Full description.\n"]
+        every = [f"{title_for('en', app, len(all_games))}: Google Play store listing, {len(LOCALES)} languages. Each "
+                 f"language starts with a \"=== LANGUAGE ===\" line, then its three fields: App name, Short "
+                 f"description, Full description.\n"]
         for lang, loc in LOCALES.items():
+            title = title_for(lang, app, len(all_games))
             t = T[lang]
             fmt = dict(n=len(all_games), f=len(free_games), m=len(all_games) - len(free_games))
             short = t["short_" + app].format(**fmt)
