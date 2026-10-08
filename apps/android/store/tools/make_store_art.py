@@ -165,11 +165,7 @@ def main():
         d = os.path.join(STORE, app, "graphics")
         os.makedirs(d, exist_ok=True)
         icon_games, full = make_icon.conf_games(path)
-        icon = make_icon.base_icon(icon_games, full)
-        store = Image.new("RGBA", (512, 512), (make_icon.RUBY if full else make_icon.NAVY) + (255,))
-        big = make_icon.scaled(icon, 480)
-        store.paste(big, (16, 16), big)
-        store.convert("RGB").save(os.path.join(d, "icon-512.png"))
+        make_icon.store_icon(icon_games, full).save(os.path.join(d, "icon-512.png"))
         if app == "full":                       # a varied first row: the icon's games first, then the others
             first = [g for g in icon_games if g in playable]
             playable = first + [g for g in playable if g not in first]
