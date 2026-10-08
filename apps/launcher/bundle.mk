@@ -61,7 +61,8 @@ SDL_LIBS := -L$(SDL2_MINGW)/lib -static -lmingw32 -lSDL2main -lSDL2 -mwindows -l
 else ifneq ($(filter android-%,$(PLATFORM)),)
 ABI := $(patsubst android-%,%,$(PLATFORM))
 NDK ?= $(ANDROID_NDK_HOME)
-API ?= 24                       # the apps' minSdk (apps/android/app/build.gradle)
+# the apps' minSdk (apps/android/app/build.gradle)
+API ?= 24
 TC := $(NDK)/toolchains/llvm/prebuilt/linux-x86_64/bin
 TRIPLE_arm64-v8a := aarch64-linux-android
 TRIPLE_armeabi-v7a := armv7a-linux-androideabi
