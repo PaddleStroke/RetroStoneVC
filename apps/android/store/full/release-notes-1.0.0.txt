@@ -1,0 +1,69 @@
+<en-GB>
+First release: 20 retro arcade games in one app. Play offline, with no ads and no in-app purchases.
+</en-GB>
+<cs-CZ>
+První vydání: 20 retro arkádových her v jedné aplikaci. Hraj offline, bez reklam a bez nákupů v aplikaci.
+</cs-CZ>
+<da-DK>
+Første udgivelse: 20 retro-arkadespil i én app. Spil offline, uden reklamer og uden køb i appen.
+</da-DK>
+<de-DE>
+Erste Version: 20 Retro-Arcade-Spiele in einer App. Offline spielbar, ohne Werbung und ohne In-App-Käufe.
+</de-DE>
+<el-GR>
+Πρώτη έκδοση: 20 ρετρό παιχνίδια arcade σε μία εφαρμογή. Παίξε offline, χωρίς διαφημίσεις και χωρίς αγορές εντός εφαρμογής.
+</el-GR>
+<en-US>
+First release: 20 retro arcade games in one app. Play offline, with no ads and no in-app purchases.
+</en-US>
+<es-ES>
+Primera versión: 20 juegos arcade retro en una app. Juega sin conexión, sin anuncios ni compras dentro de la app.
+</es-ES>
+<fi-FI>
+Ensimmäinen julkaisu: 20 retro-arcade-peliä yhdessä sovelluksessa. Pelaa offline, ilman mainoksia ja sovelluksen sisäisiä ostoja.
+</fi-FI>
+<fr-FR>
+Première version : 20 jeux d'arcade rétro dans une appli. Joue hors ligne, sans pub ni achat intégré.
+</fr-FR>
+<id>
+Rilis pertama: 20 game arcade retro dalam satu aplikasi. Main offline, tanpa iklan dan tanpa pembelian dalam aplikasi.
+</id>
+<it-IT>
+Prima versione: 20 giochi arcade retrò in un'app. Gioca offline, senza pubblicità né acquisti in-app.
+</it-IT>
+<ja-JP>
+初回リリース：レトロなアーケードゲーム20本をひとつのアプリに。オフラインで遊べて、広告なし、アプリ内課金なし。
+</ja-JP>
+<ko-KR>
+첫 출시: 레트로 아케이드 게임 20종을 앱 하나에. 오프라인 플레이, 광고 없음, 인앱 결제 없음.
+</ko-KR>
+<nl-NL>
+Eerste versie: 20 retro-arcadegames in één app. Speel offline, zonder advertenties en zonder in-app-aankopen.
+</nl-NL>
+<no-NO>
+Første utgivelse: 20 retro-arkadespill i én app. Spill offline, uten reklame og uten kjøp i appen.
+</no-NO>
+<pl-PL>
+Pierwsze wydanie: 20 gier zręcznościowych retro w jednej aplikacji. Graj offline, bez reklam i zakupów w aplikacji.
+</pl-PL>
+<pt-BR>
+Primeira versão: 20 jogos de fliperama retrô em um app. Jogue offline, sem anúncios e sem compras no app.
+</pt-BR>
+<pt-PT>
+Primeira versão: 20 jogos arcade retro numa app. Joga offline, sem anúncios e sem compras na app.
+</pt-PT>
+<ru-RU>
+Первый выпуск: 20 ретро-аркад в одном приложении. Играйте офлайн, без рекламы и встроенных покупок.
+</ru-RU>
+<sv-SE>
+Första versionen: 20 retroarkadspel i en app. Spela offline, utan reklam och utan köp i appen.
+</sv-SE>
+<tr-TR>
+İlk sürüm: Tek uygulamada 20 retro arcade oyunu. Çevrimdışı oyna; reklam yok, uygulama içi satın alma yok.
+</tr-TR>
+<uk>
+Перший випуск: 20 ретро-аркад в одному застосунку. Грайте офлайн, без реклами та покупок у застосунку.
+</uk>
+<zh-CN>
+首次发布：20 款复古街机游戏，尽在一个应用。可离线游玩，无广告，无应用内购买。
+</zh-CN>
