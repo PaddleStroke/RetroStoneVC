@@ -1,0 +1,390 @@
+/*
+ * The board games' pictures, drawn by code (art.h). A figure is a list of shapes in a unit square (y down), painted
+ * back to front: each shape's fill (lit from the upper left) and its outline, which becomes an inner line where it
+ * crosses a shape painted before it (the collars and crowns of the pieces); MARK shapes (eyes, slits) are painted in
+ * the line colour. Every pixel averages SS x SS samples (smooth edges at any size).
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
+ */
+#include "art.h"
+
+#include <math.h>
+#include <string.h>
+
+#include "chess.h"
+
+#define SS 4
+#define MAXPT 48
+#define PI_F 3.14159265f
+
+typedef struct { float x, y; } v2;
+enum { SH_POLY, SH_ELL };
+enum { PART, MARK };
+typedef struct {
+    int kind, role, n;
+    v2 pt[MAXPT];
+    float cx, cy, rx, ry;
+    float x0, y0, x1, y1;                           /* the bounding box */
+} shape;
+typedef struct { shape s[16]; int n; } figure;
+
+typedef struct {
+    float fill[3], outer[3], inner[3], mark[3];
+    float light;                                    /* how much the light shapes the fill */
+    float line;                                     /* the outline's width (unit square) */
+} style;
+
+static float clampf(float v, float a, float b) { return v < a ? a : v > b ? b : v; }
+
+static shape *add(figure *f, int kind, int role)
+{
+    shape *s = &f->s[f->n++];
+    memset(s, 0, sizeof *s);
+    s->kind = kind;
+    s->role = role;
+    s->x0 = s->y0 = 1e9f;
+    s->x1 = s->y1 = -1e9f;
+    return s;
+}
+
+static void grow(shape *s, float x, float y)
+{
+    s->x0 = fminf(s->x0, x);
+    s->y0 = fminf(s->y0, y);
+    s->x1 = fmaxf(s->x1, x);
+    s->y1 = fmaxf(s->y1, y);
+}
+
+static void poly(figure *f, int role, const float *xy, int n)
+{
+    shape *s = add(f, SH_POLY, role);
+    s->n = n;
+    for (int i = 0; i < n; i++) {
+        s->pt[i].x = xy[2 * i];
+        s->pt[i].y = xy[2 * i + 1];
+        grow(s, s->pt[i].x, s->pt[i].y);
+    }
+}
+
+static void ell(figure *f, int role, float cx, float cy, float rx, float ry)
+{
+    shape *s = add(f, SH_ELL, role);
+    s->cx = cx;
+    s->cy = cy;
+    s->rx = rx;
+    s->ry = ry;
+    grow(s, cx - rx, cy - ry);
+    grow(s, cx + rx, cy + ry);
+}
+
+static void rect(figure *f, int role, float x0, float y0, float x1, float y1)
+{
+    const float p[8] = {x0, y0, x1, y0, x1, y1, x0, y1};
+    poly(f, role, p, 4);
+}
+
+/* the signed distance to a shape's edge: negative inside (ellipses: a first-order estimate, close enough) */
+static float sdf(const shape *s, float x, float y)
+{
+    if (s->kind == SH_ELL) {
+        float u = (x - s->cx) / s->rx, v = (y - s->cy) / s->ry, l = sqrtf(u * u + v * v);
+        if (l < 1e-4f) return -fminf(s->rx, s->ry);
+        float g = sqrtf(u * u / (s->rx * s->rx) + v * v / (s->ry * s->ry)) / l;
+        return (l - 1) / g;
+    }
+    int in = 0;
+    float d2 = 1e9f;
+    for (int i = 0, j = s->n - 1; i < s->n; j = i++) {
+        v2 a = s->pt[j], b = s->pt[i];
+        if ((b.y > y) != (a.y > y) && x < (a.x - b.x) * (y - b.y) / (a.y - b.y) + b.x) in = !in;
+        float ex = a.x - b.x, ey = a.y - b.y, wx = x - b.x, wy = y - b.y;
+        float t = clampf((wx * ex + wy * ey) / (ex * ex + ey * ey + 1e-12f), 0, 1);
+        float dx = wx - ex * t, dy = wy - ey * t;
+        d2 = fminf(d2, dx * dx + dy * dy);
+    }
+    return in ? -sqrtf(d2) : sqrtf(d2);
+}
+
+static void shade(const style *st, const shape *s, float x, float y, float *c)
+{
+    float cx = (s->x0 + s->x1) * 0.5f, hw = (s->x1 - s->x0) * 0.5f + 1e-3f;
+    float t = (x - cx) / hw + 0.35f;                /* round shapes, lit from the upper left */
+    float l = 1.0f + st->light * (0.55f - t * t) - 0.10f * y;
+    for (int i = 0; i < 3; i++) c[i] = clampf(st->fill[i] * l, 0, 255);
+}
+
+static void render(const figure *f, const style *st, int w, int h, float scale, uint8_t *out)
+{
+    float wl = st->line;
+    for (int py = 0; py < h; py++)
+        for (int px = 0; px < w; px++) {
+            float acc[4] = {0, 0, 0, 0};
+            for (int sy = 0; sy < SS; sy++)
+                for (int sx = 0; sx < SS; sx++) {
+                    float x = (px + (sx + 0.5f) / SS) / scale, y = (py + (sy + 0.5f) / SS) / scale;
+                    float c[3] = {0, 0, 0};
+                    int has = 0, filled = 0;
+                    for (int k = 0; k < f->n; k++) {
+                        const shape *s = &f->s[k];
+                        if (x < s->x0 - wl || x > s->x1 + wl || y < s->y0 - wl || y > s->y1 + wl) continue;
+                        float d = sdf(s, x, y);
+                        if (s->role == MARK) {
+                            if (d < 0) { memcpy(c, st->mark, sizeof c); has = 1; }
+                        } else if (d < 0) {
+                            shade(st, s, x, y, c);
+                            has = filled = 1;
+                        } else if (d < wl) {
+                            memcpy(c, filled ? st->inner : st->outer, sizeof c);
+                            has = 1;
+                        }
+                    }
+                    if (has) {
+                        acc[0] += c[0];
+                        acc[1] += c[1];
+                        acc[2] += c[2];
+                        acc[3] += 1;
+                    }
+                }
+            uint8_t *o = out + 4 * (py * w + px);
+            if (acc[3] > 0) {
+                for (int i = 0; i < 3; i++) o[i] = (uint8_t)(acc[i] / acc[3] + 0.5f);
+                o[3] = (uint8_t)(255 * acc[3] / (SS * SS) + 0.5f);
+            } else {
+                memset(o, 0, 4);
+            }
+        }
+}
+
+/* ---- the pieces -------------------------------------------------------------------------------------------------- */
+static void base(figure *f)
+{
+    rect(f, PART, 0.19f, 0.835f, 0.81f, 0.905f);
+    const float p[] = {0.255f, 0.835f, 0.745f, 0.835f, 0.70f, 0.775f, 0.30f, 0.775f};
+    poly(f, PART, p, 4);
+}
+
+/* a bishop's mitre: half an ellipse below, an ogive up to a point */
+static void mitre(figure *f, float cx, float cy, float rx, float ry, float tip)
+{
+    float p[2 * 40];
+    int n = 0;
+    for (int i = 0; i <= 14; i++) {
+        float a = PI_F * i / 14;
+        p[n++] = cx + rx * cosf(a);
+        p[n++] = cy + ry * sinf(a);
+    }
+    for (int i = 1; i <= 9; i++) {
+        float s = i / 9.0f;
+        p[n++] = cx - rx * (1 - s * s);
+        p[n++] = cy - (cy - tip) * s;
+    }
+    for (int i = 8; i >= 1; i--) {
+        float s = i / 9.0f;
+        p[n++] = cx + rx * (1 - s * s);
+        p[n++] = cy - (cy - tip) * s;
+    }
+    poly(f, PART, p, n / 2);
+}
+
+static void piece(figure *f, int type)
+{
+    f->n = 0;
+    base(f);
+    switch (type) {
+    case PAWN: {
+        const float body[] = {0.345f, 0.775f, 0.655f, 0.775f, 0.565f, 0.56f, 0.435f, 0.56f};
+        poly(f, PART, body, 4);
+        ell(f, PART, 0.5f, 0.555f, 0.155f, 0.04f);
+        ell(f, PART, 0.5f, 0.405f, 0.125f, 0.125f);
+        break;
+    }
+    case ROOK: {
+        const float body[] = {0.315f, 0.775f, 0.685f, 0.775f, 0.645f, 0.40f, 0.355f, 0.40f};
+        const float top[] = {0.285f, 0.40f, 0.715f, 0.40f, 0.715f, 0.19f, 0.625f, 0.19f, 0.625f, 0.255f,
+                             0.545f, 0.255f, 0.545f, 0.19f, 0.455f, 0.19f, 0.455f, 0.255f, 0.375f, 0.255f,
+                             0.375f, 0.19f, 0.285f, 0.19f};
+        poly(f, PART, body, 4);
+        poly(f, PART, top, 12);
+        rect(f, PART, 0.33f, 0.40f, 0.67f, 0.445f);
+        break;
+    }
+    case KNIGHT: {
+        const float head[] = {0.30f, 0.775f, 0.72f, 0.775f, 0.72f, 0.62f, 0.745f, 0.46f, 0.705f, 0.32f,
+                              0.625f, 0.21f, 0.535f, 0.165f, 0.50f, 0.07f, 0.45f, 0.15f, 0.38f, 0.18f,
+                              0.29f, 0.28f, 0.21f, 0.40f, 0.18f, 0.48f, 0.21f, 0.545f, 0.29f, 0.555f,
+                              0.37f, 0.51f, 0.45f, 0.50f, 0.40f, 0.60f, 0.33f, 0.68f};
+        const float mane[] = {0.72f, 0.62f, 0.745f, 0.46f, 0.705f, 0.32f, 0.625f, 0.21f, 0.535f, 0.165f,
+                              0.565f, 0.215f, 0.64f, 0.275f, 0.695f, 0.37f, 0.71f, 0.47f, 0.69f, 0.60f};
+        poly(f, PART, head, 19);
+        poly(f, PART, mane, 10);
+        ell(f, MARK, 0.405f, 0.295f, 0.026f, 0.026f);
+        ell(f, MARK, 0.235f, 0.465f, 0.016f, 0.02f);
+        break;
+    }
+    case BISHOP: {
+        const float body[] = {0.37f, 0.775f, 0.63f, 0.775f, 0.555f, 0.60f, 0.445f, 0.60f};
+        const float slit[] = {0.535f, 0.32f, 0.565f, 0.345f, 0.495f, 0.44f, 0.465f, 0.415f};
+        poly(f, PART, body, 4);
+        mitre(f, 0.5f, 0.45f, 0.15f, 0.135f, 0.20f);
+        ell(f, PART, 0.5f, 0.595f, 0.16f, 0.038f);
+        ell(f, PART, 0.5f, 0.185f, 0.042f, 0.042f);
+        poly(f, MARK, slit, 4);
+        break;
+    }
+    case QUEEN: {
+        const float body[] = {0.335f, 0.775f, 0.665f, 0.775f, 0.58f, 0.52f, 0.42f, 0.52f};
+        const float crown[] = {0.335f, 0.49f, 0.205f, 0.245f, 0.335f, 0.355f, 0.365f, 0.175f, 0.44f, 0.335f,
+                               0.50f, 0.15f, 0.56f, 0.335f, 0.635f, 0.175f, 0.665f, 0.355f, 0.795f, 0.245f,
+                               0.665f, 0.49f};
+        const float tips[5][2] = {{0.205f, 0.24f}, {0.365f, 0.17f}, {0.5f, 0.145f}, {0.635f, 0.17f},
+                                  {0.795f, 0.24f}};
+        poly(f, PART, body, 4);
+        poly(f, PART, crown, 11);
+        ell(f, PART, 0.5f, 0.515f, 0.165f, 0.04f);
+        for (int i = 0; i < 5; i++) ell(f, PART, tips[i][0], tips[i][1], 0.04f, 0.04f);
+        break;
+    }
+    case KING: {
+        const float body[] = {0.335f, 0.775f, 0.665f, 0.775f, 0.59f, 0.52f, 0.41f, 0.52f};
+        const float cross[] = {0.475f, 0.285f, 0.525f, 0.285f, 0.525f, 0.20f, 0.575f, 0.20f, 0.575f, 0.15f,
+                               0.525f, 0.15f, 0.525f, 0.075f, 0.475f, 0.075f, 0.475f, 0.15f, 0.425f, 0.15f,
+                               0.425f, 0.20f, 0.475f, 0.20f};
+        const float crown[] = {0.33f, 0.49f, 0.67f, 0.49f, 0.73f, 0.335f, 0.67f, 0.275f, 0.585f, 0.315f,
+                               0.50f, 0.265f, 0.415f, 0.315f, 0.33f, 0.275f, 0.27f, 0.335f};
+        poly(f, PART, body, 4);
+        poly(f, PART, cross, 12);
+        poly(f, PART, crown, 9);
+        ell(f, PART, 0.5f, 0.515f, 0.17f, 0.04f);
+        break;
+    }
+    }
+}
+
+void art_piece(int type, int color, int size, uint8_t *rgba)
+{
+    static const style white = {{242, 234, 216}, {36, 30, 28}, {64, 54, 48}, {36, 30, 28}, 0.22f, 0};
+    static const style black = {{70, 64, 62}, {10, 9, 9}, {150, 140, 132}, {205, 195, 185}, 0.35f, 0};
+    style st = color == WHITE ? white : black;
+    st.line = fmaxf(0.024f, 1.3f / size);
+    figure f;
+    piece(&f, type);
+    render(&f, &st, size, size, (float)size, rgba);
+}
+
+/* ---- the board ----------------------------------------------------------------------------------------------------- */
+static float hash(int a, int b) { unsigned h = (unsigned)(a * 73856093) ^ (unsigned)(b * 19349663); h ^= h >> 13; h *= 0x5bd1e995u; return (h & 0xffff) / 65535.0f; }
+
+void art_board(int sq, int fr, uint8_t *o)
+{
+    static const float light[3] = {236, 212, 172}, dark[3] = {176, 124, 82}, frame[3] = {92, 60, 40};
+    int n = 8 * sq + 2 * fr;
+    float rad = fr * 0.7f;
+    for (int y = 0; y < n; y++)
+        for (int x = 0; x < n; x++) {
+            uint8_t *p = o + 4 * (y * n + x);
+            float c[3], a = 1;
+            int bx = x - fr, by = y - fr;
+            if (bx >= 0 && by >= 0 && bx < 8 * sq && by < 8 * sq) {
+                int f = bx / sq, r = by / sq, lt = !((f + r) & 1);
+                float s1 = hash(f, r) * 6.28f, s2 = hash(r, f) * 6.28f;
+                float u = (float)bx / sq, v = (float)by / sq;
+                float g1 = lt ? v : u, g2 = lt ? u : v;     /* the grain runs one way on light squares, the other on dark */
+                float g = sinf(g1 * 38 + 2.6f * sinf(g2 * 2.1f + s1) + s2) * 0.5f + 0.5f;
+                float k = 1 + 0.045f * (g - 0.5f) + 0.02f * (hash(f * 9 + r, 3) - 0.5f);
+                for (int i = 0; i < 3; i++) c[i] = (lt ? light[i] : dark[i]) * k;
+            } else {
+                /* the frame: walnut, a groove next to the squares, a bevel lit from the top left, rounded corners */
+                float dx = fminf(x, n - 1 - x), dy = fminf(y, n - 1 - y), edge = fminf(dx, dy);
+                float g = sinf((x + y * 0.15f) * 0.09f + 1.7f * sinf(y * 0.013f)) * 0.5f + 0.5f;
+                float k = 1 + 0.06f * (g - 0.5f);
+                if (fr - edge < fr * 0.14f) k *= 0.62f;                   /* the groove */
+                else if (edge < fr * 0.18f) k *= (x + y < n) ? 1.18f : 0.82f;
+                for (int i = 0; i < 3; i++) c[i] = frame[i] * k;
+                float cx = fmaxf(rad - x, x - (n - 1 - rad)), cy = fmaxf(rad - y, y - (n - 1 - rad));
+                if (cx > 0 && cy > 0) a = clampf(rad - sqrtf(cx * cx + cy * cy) + 0.5f, 0, 1);
+            }
+            for (int i = 0; i < 3; i++) p[i] = (uint8_t)clampf(c[i], 0, 255);
+            p[3] = (uint8_t)(a * 255);
+        }
+}
+
+/* ---- the buttons' icons and the plain shapes ------------------------------------------------------------------------- */
+static void arc_band(figure *f, float cx, float cy, float r0, float r1, float a0, float a1)
+{
+    float p[2 * MAXPT];
+    int n = 0, k = 18;
+    for (int i = 0; i <= k; i++) {
+        float a = (a0 + (a1 - a0) * i / k) * PI_F / 180;
+        p[n++] = cx + r1 * cosf(a);
+        p[n++] = cy - r1 * sinf(a);
+    }
+    for (int i = k; i >= 0; i--) {
+        float a = (a0 + (a1 - a0) * i / k) * PI_F / 180;
+        p[n++] = cx + r0 * cosf(a);
+        p[n++] = cy - r0 * sinf(a);
+    }
+    poly(f, PART, p, n / 2);
+}
+
+void art_icon(int which, int size, uint8_t *rgba)
+{
+    style st = {{252, 244, 226}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, 0, 0};
+    figure f = {.n = 0};
+    if (which == ICON_UNDO) {                       /* an arrow curling back to the left */
+        arc_band(&f, 0.53f, 0.54f, 0.17f, 0.25f, -40, 180);
+        const float head[] = {0.19f, 0.50f, 0.41f, 0.50f, 0.30f, 0.68f};
+        poly(&f, PART, head, 3);
+    } else if (which == ICON_FLIP) {                /* the board turns round: up and down */
+        rect(&f, PART, 0.32f, 0.36f, 0.40f, 0.76f);
+        const float up[] = {0.22f, 0.40f, 0.50f, 0.40f, 0.36f, 0.20f};
+        rect(&f, PART, 0.60f, 0.24f, 0.68f, 0.64f);
+        const float down[] = {0.50f, 0.60f, 0.78f, 0.60f, 0.64f, 0.80f};
+        poly(&f, PART, up, 3);
+        poly(&f, PART, down, 3);
+    } else {                                        /* a new board: four squares, two of them filled */
+        rect(&f, PART, 0.24f, 0.24f, 0.50f, 0.50f);
+        rect(&f, PART, 0.50f, 0.50f, 0.76f, 0.76f);
+        const float frame[] = {0.20f, 0.20f, 0.80f, 0.20f, 0.80f, 0.80f, 0.20f, 0.80f, 0.20f, 0.20f,
+                               0.25f, 0.25f, 0.25f, 0.75f, 0.75f, 0.75f, 0.75f, 0.25f, 0.25f, 0.25f};
+        poly(&f, PART, frame, 10);
+    }
+    render(&f, &st, size, size, (float)size, rgba);
+}
+
+void art_roundrect(int w, int h, float rad, const uint8_t fill[4], uint8_t *o)
+{
+    for (int y = 0; y < h; y++)
+        for (int x = 0; x < w; x++) {
+            float qx = fabsf(x + 0.5f - w * 0.5f) - (w * 0.5f - rad), qy = fabsf(y + 0.5f - h * 0.5f) - (h * 0.5f - rad);
+            float ox = fmaxf(qx, 0), oy = fmaxf(qy, 0);
+            float d = sqrtf(ox * ox + oy * oy) + fminf(fmaxf(qx, qy), 0) - rad;
+            uint8_t *p = o + 4 * (y * w + x);
+            memcpy(p, fill, 3);
+            p[3] = (uint8_t)(fill[3] * clampf(0.5f - d, 0, 1));
+        }
+}
+
+void art_disc(int size, const uint8_t rgb[3], float a0, float power, uint8_t *o)
+{
+    float r = size * 0.5f;
+    for (int y = 0; y < size; y++)
+        for (int x = 0; x < size; x++) {
+            float dx = x + 0.5f - r, dy = y + 0.5f - r, d = sqrtf(dx * dx + dy * dy);
+            float a = power > 0 ? a0 * powf(clampf(1 - d / r, 0, 1), power) : a0 * clampf(r - d + 0.5f, 0, 1);
+            uint8_t *p = o + 4 * (y * size + x);
+            memcpy(p, rgb, 3);
+            p[3] = (uint8_t)(255 * a);
+        }
+}
+
+void art_ring(int size, float r_in, const uint8_t rgb[3], float a, uint8_t *o)
+{
+    float r = size * 0.5f;
+    for (int y = 0; y < size; y++)
+        for (int x = 0; x < size; x++) {
+            float dx = x + 0.5f - r, dy = y + 0.5f - r, d = sqrtf(dx * dx + dy * dy);
+            float cov = clampf(r - d + 0.5f, 0, 1) * clampf(d - r * r_in + 0.5f, 0, 1);
+            uint8_t *p = o + 4 * (y * size + x);
+            memcpy(p, rgb, 3);
+            p[3] = (uint8_t)(255 * a * cov);
+        }
+}
