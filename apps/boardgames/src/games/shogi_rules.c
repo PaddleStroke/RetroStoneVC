@@ -1,5 +1,6 @@
 /*
- * Shogi: the rules (shogi.h). The moves are made on a copy of the position and kept when they leave the king safe.
+ * Shogi: the rules (shogi.h), on the 9 x 9 board or mini shogi's 5 x 5 (the position knows its size). The moves are
+ * made on a copy of the position and kept when they leave the king safe.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdlib.h>
@@ -41,19 +42,26 @@ static const pattern *pattern_of(int face)
 }
 
 /* the ranks left in front of a piece of the player on the row (0: the last rank) */
-static int ahead(int player, int row) { return player ? 8 - row : row; }
+static int ahead(const spos *p, int player, int row) { return player ? p->n - 1 - row : row; }
+
+/* the promotion zone: the last three ranks (mini shogi: the last one) */
+int sg_zone(const spos *p, int player, int row) { return ahead(p, player, row) < (p->n == 9 ? 3 : 1); }
 
 /* 1: a piece of this kind could never move again from the row (it must promote, it may not be dropped there) */
-static int dead(int kind, int player, int row)
+static int dead(const spos *p, int kind, int player, int row)
 {
-    int a = ahead(player, row);
+    int a = ahead(p, player, row);
     return ((kind == SG_PAWN || kind == SG_LANCE) && a == 0) || (kind == SG_KNIGHT && a <= 1);
 }
 
 static int can_promote(int pc) { return !(pc & SG_PROMOTED) && SG_KIND(pc) != SG_GOLD && SG_KIND(pc) != SG_KING; }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
-void sg_start(spos *p) { sg_from_sfen(p, "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1"); }
+void sg_start(spos *p, int variant)
+{
+    sg_from_sfen(p, variant == SG_MINI ? "rbsgk/4p/5/P4/KGSBR b - 1"
+                                       : "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1");
+}
 
 static int kind_of_letter(char c)
 {
@@ -64,18 +72,25 @@ static int kind_of_letter(char c)
 int sg_from_sfen(spos *p, const char *s)
 {
     memset(p, 0, sizeof *p);
-    int row = 0, col = 0, promoted = 0;
+    int row = 0, col = 0, promoted = 0, n = 0;
     for (; *s && *s != ' '; s++) {
-        if (*s == '/') { if (col != 9) return 0; row++; col = 0; continue; }
+        if (*s == '/') {                        /* the first rank's width: the board's side */
+            if (!n) n = col;
+            if (col != n || (n != 9 && n != 5)) return 0;
+            row++;
+            col = 0;
+            continue;
+        }
         if (*s >= '1' && *s <= '9') { col += *s - '0'; continue; }
         if (*s == '+') { promoted = 1; continue; }
         int k = kind_of_letter(*s);
-        if (!k || row > 8 || col > 8) return 0;
+        if (!k || row > 8 || col > 8 || (n && (row >= n || col >= n))) return 0;
         p->sq[SG_SQ(col, row)] = (uint8_t)(SG_PC(*s >= 'a', k) | (promoted ? SG_PROMOTED : 0));
         promoted = 0;
         col++;
     }
-    if (row != 8 || col != 9 || *s++ != ' ') return 0;
+    if (!n || row != n - 1 || col != n || *s++ != ' ') return 0;
+    p->n = (uint8_t)n;
     p->side = *s == 'w';
     if (*s != 'b' && *s != 'w') return 0;
     s++;
@@ -157,16 +172,16 @@ static void add(list *l, int from, int to, int drop, int promo)
 static void add_move(list *l, const spos *p, int from, int to)
 {
     int pc = p->sq[from], me = SG_OWNER(pc);
-    if (can_promote(pc) && (ahead(me, SG_ROW(from)) < 3 || ahead(me, SG_ROW(to)) < 3)) {
+    if (can_promote(pc) && (sg_zone(p, me, SG_ROW(from)) || sg_zone(p, me, SG_ROW(to)))) {
         add(l, from, to, 0, 1);
-        if (dead(SG_KIND(pc), me, SG_ROW(to))) return;
+        if (dead(p, SG_KIND(pc), me, SG_ROW(to))) return;
     }
     add(l, from, to, 0, 0);
 }
 
 static void pseudo(const spos *p, list *l)
 {
-    int me = p->side, turn = me ? -1 : 1;
+    int me = p->side, turn = me ? -1 : 1, n = p->n;
     for (int s = 0; s < 81; s++) {
         int pc = p->sq[s];
         if (!pc || SG_OWNER(pc) != me) continue;
@@ -174,13 +189,13 @@ static void pseudo(const spos *p, list *l)
         int x = SG_COL(s), y = SG_ROW(s);
         for (int i = 0; i < pt->nstep; i++) {
             int tx = x + pt->step[i][0] * turn, ty = y + pt->step[i][1] * turn;
-            if (tx < 0 || tx > 8 || ty < 0 || ty > 8) continue;
+            if (tx < 0 || tx >= n || ty < 0 || ty >= n) continue;
             int t = p->sq[SG_SQ(tx, ty)];
             if (!t || SG_OWNER(t) != me) add_move(l, p, s, SG_SQ(tx, ty));
         }
         for (int i = 0; i < pt->nslide; i++) {
             int dx = pt->slide[i][0] * turn, dy = pt->slide[i][1] * turn;
-            for (int tx = x + dx, ty = y + dy; tx >= 0 && tx <= 8 && ty >= 0 && ty <= 8; tx += dx, ty += dy) {
+            for (int tx = x + dx, ty = y + dy; tx >= 0 && tx < n && ty >= 0 && ty < n; tx += dx, ty += dy) {
                 int t = p->sq[SG_SQ(tx, ty)];
                 if (t && SG_OWNER(t) == me) break;
                 add_move(l, p, s, SG_SQ(tx, ty));
@@ -194,7 +209,8 @@ static void pseudo(const spos *p, list *l)
         if (k == SG_PAWN)
             for (int s = 0; s < 81; s++) if (p->sq[s] == SG_PC(me, SG_PAWN)) pawn_on[SG_COL(s)] = 1;
         for (int s = 0; s < 81; s++)
-            if (!p->sq[s] && !dead(k, me, SG_ROW(s)) && !pawn_on[SG_COL(s)]) add(l, 0, s, k, 0);
+            if (SG_COL(s) < n && SG_ROW(s) < n && !p->sq[s] && !dead(p, k, me, SG_ROW(s)) && !pawn_on[SG_COL(s)])
+                add(l, 0, s, k, 0);
     }
 }
 
@@ -229,28 +245,28 @@ static int legal(const spos *p, smove *out, int stop_at_one)
 int sg_legal(const spos *p, smove *out) { return legal(p, out, 0); }
 
 /* ---- the notation ------------------------------------------------------------------------------------------------ */
-static int square(const char *s)
+static int square(int n, const char *s)
 {
-    if (s[0] < '1' || s[0] > '9' || s[1] < 'a' || s[1] > 'i') return -1;
-    return SG_SQ(9 - (s[0] - '0'), s[1] - 'a');
+    if (s[0] < '1' || s[0] >= '1' + n || s[1] < 'a' || s[1] >= 'a' + n) return -1;
+    return SG_SQ(n - (s[0] - '0'), s[1] - 'a');
 }
 
-int sg_parse(const smove *legal_moves, int nlegal, const char *s, int *used)
+int sg_parse(int n, const smove *legal_moves, int nlegal, const char *s, int *used)
 {
-    int from = -1, to, drop = 0, promo = 0, n;
+    int from = -1, to, drop = 0, promo = 0, k;
     if (s[0] && s[1] == '*') {
         drop = kind_of_letter(s[0]);
-        to = square(s + 2);
-        n = 4;
+        to = square(n, s + 2);
+        k = 4;
         if (!drop || drop == SG_KING) return -1;
     } else {
-        from = square(s);
-        to = from < 0 ? -1 : square(s + 2);
-        n = 4;
-        if (to >= 0 && s[4] == '+') promo = 1, n = 5;
+        from = square(n, s);
+        to = from < 0 ? -1 : square(n, s + 2);
+        k = 4;
+        if (to >= 0 && s[4] == '+') promo = 1, k = 5;
     }
     if (to < 0) return -1;
-    *used = n;
+    *used = k;
     for (int i = 0; i < nlegal; i++) {
         smove m = legal_moves[i];
         if (m.to != to || m.drop != drop || m.promo != promo || (!drop && m.from != from)) continue;
@@ -259,27 +275,27 @@ int sg_parse(const smove *legal_moves, int nlegal, const char *s, int *used)
     return -1;
 }
 
-void sg_usi(smove m, char out[8])
+void sg_usi(int n, smove m, char out[8])
 {
     int c = SG_COL(m.to), r = SG_ROW(m.to);
     if (m.drop) {
         out[0] = "?PLNSGBR"[m.drop];
         out[1] = '*';
     } else {
-        out[0] = (char)('9' - SG_COL(m.from));
+        out[0] = (char)('0' + n - SG_COL(m.from));
         out[1] = (char)('a' + SG_ROW(m.from));
     }
-    out[2] = (char)('9' - c);
+    out[2] = (char)('0' + n - c);
     out[3] = (char)('a' + r);
     out[4] = m.promo ? '+' : 0;
     out[5] = 0;
 }
 
 /* ---- a game ------------------------------------------------------------------------------------------------------ */
-void sg_new(sgame *g)
+void sg_new(sgame *g, int variant)
 {
     g->ply = 0;
-    sg_start(&g->pos[0]);
+    sg_start(&g->pos[0], variant);
 }
 
 int sg_play(sgame *g, smove m)
@@ -311,5 +327,5 @@ sstatus sg_status(const sgame *g)
     for (int i = first; i < g->ply; i++)
         if (!sg_in_check(&g->pos[i + 1], g->pos[i + 1].side)) checked[g->pos[i].side] = 0;
     if (checked[0] != checked[1]) return checked[0] ? SG_WON1 : SG_WON0;
-    return SG_DRAW;
+    return p->n == 5 ? SG_WON1 : SG_DRAW;       /* mini shogi: sente, who began, loses */
 }

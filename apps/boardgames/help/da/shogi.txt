@@ -1,6 +1,6 @@
 Shogi
 # Målet
-Shogi er japansk skak. Sæt modstanderens konge skakmat: angrib den, så den ikke kan undslippe. Sort (sente) trækker først, derefter skiftes spillerne, ét træk ad gangen. Alle brikkerne har samme farve: en brik peger mod modstanderen, så du kan se, hvis den er.
+Shogi er japansk skak. Sæt modstanderens konge skakmat: angrib den, så den ikke kan undslippe. Sort (sente) trækker først, derefter skiftes spillerne, ét træk ad gangen. Alle brikkerne har samme farve: en brik peger mod modstanderen, så du kan se, hvis den er. Vælg brættet før spillet: shogi på 9 gange 9 felter (kortet fuldt af brikker) eller mini-shogi på 5 gange 5 (det lille bræt).
 # Sådan trækker brikkerne
 - Konge (玉, 王): ét felt i en hvilken som helst retning.
 - Tårn (飛): et vilkårligt antal felter langs en række eller en linje.
@@ -28,5 +28,9 @@ En konge, der er angrebet, står i skak: det næste træk skal bringe den ud af 
 - Skakmat: kongen står i skak, og intet træk kan redde den. Den spiller taber. En spiller, der slet ikke har noget lovligt træk, taber også.
 - Gentagelse: når den samme stilling (brikkerne på brættet og på hånden, den samme spiller i trækket) opstår for fjerde gang, er partiet remis. Men hvis den ene spiller har givet skak med hvert træk, siden stillingen første gang opstod, taber den spiller.
 - Der er ingen regel for to konger, der begge er trængt ind i modstanderens lejr: spil videre.
+# Mini-shogi
+En lille shogi på 5 gange 5 felter. Hver spiller starter med en konge, en guldgeneral, en sølvgeneral, en løber og et tårn på sin første række, i den rækkefølge fra venstre, og en bonde foran kongen. Der er ingen springere og ingen lanser. Brikkerne trækker, slår og sættes ind som i shogi, med de samme tre begrænsninger for indsætning. To forskelle:
+- Forvandlingszonen er kun den fjerneste række. En bonde, der når den, skal forvandles.
+- Gentagelse: når den samme stilling opstår for fjerde gang, taber Sort (sente), som trak først. Men en spiller, der har givet skak med hvert træk, siden stillingen opstod første gang, taber i stedet.
 # Spil på enheden
 Tryk på en brik for at se, hvor den kan gå hen, og tryk derefter på et felt, eller træk brikken. Prikker viser trækkene, ringe slagene. En konge i skak lyser rødt. Dine brikker på hånden ligger i dit panel med deres antal: tryk på en og derefter på et felt, eller træk den ind på brættet. Når en brik må forvandles, så vælg dens forvandlede side (rød), eller behold den, som den er.

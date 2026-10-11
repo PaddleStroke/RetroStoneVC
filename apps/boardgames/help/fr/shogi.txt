@@ -1,6 +1,6 @@
 Shogi
 # Le but
-Le shogi, ce sont les échecs japonais. Mettre le roi adverse échec et mat : l'attaquer de sorte qu'il ne puisse pas s'échapper. Noir (sente) commence, puis les joueurs jouent à tour de rôle, un coup chacun. Toutes les pièces sont de la même couleur : une pièce pointe vers l'adversaire, ce qui permet de savoir à qui elle appartient.
+Le shogi, ce sont les échecs japonais. Mettre le roi adverse échec et mat : l'attaquer de sorte qu'il ne puisse pas s'échapper. Noir (sente) commence, puis les joueurs jouent à tour de rôle, un coup chacun. Toutes les pièces sont de la même couleur : une pièce pointe vers l'adversaire, ce qui permet de savoir à qui elle appartient. Choisis le plateau avant la partie : le shogi sur 9 cases sur 9 (la carte pleine de pièces) ou le mini-shogi sur 5 sur 5 (le petit plateau).
 # Le déplacement des pièces
 - Roi (玉, 王) : une case dans n'importe quelle direction.
 - Tour (飛) : d'autant de cases que tu veux le long d'une rangée ou d'une colonne.
@@ -28,5 +28,9 @@ Un roi attaqué est en échec : le coup suivant doit le sortir de l'échec. Tu 
 - Échec et mat : le roi est en échec et aucun coup ne peut le sauver. Ce joueur a perdu. Un joueur qui n'a plus aucun coup légal perd aussi.
 - Répétition : quand la même position (les pièces sur le plateau et en main, le même joueur au trait) revient pour la quatrième fois, la partie est nulle. Mais si un joueur a donné échec à chaque coup depuis la première apparition de cette position, ce joueur perd.
 - Il n'y a pas de règle pour deux rois entrés tous les deux dans le camp adverse : la partie continue.
+# Mini-shogi
+Un petit shogi sur 5 cases sur 5. Chaque joueur commence avec un roi, un général d'or, un général d'argent, un fou et une tour sur sa première rangée, dans cet ordre en partant de sa gauche, et un pion devant le roi. Il n'y a ni cavaliers ni lances. Les pièces se déplacent, prennent et sont parachutées comme au shogi, avec les mêmes trois limites aux parachutages. Deux différences :
+- La zone de promotion n'est que la rangée la plus éloignée. Un pion qui l'atteint doit être promu.
+- Répétition : quand la même position revient pour la quatrième fois, Noir (sente), qui a joué en premier, perd. Mais un joueur qui a fait échec à chaque coup depuis la première apparition de cette position perd à sa place.
 # Jouer sur l'appareil
 Touche une pièce pour voir où elle peut aller, puis touche une case, ou fais glisser la pièce. Les points montrent les coups possibles, les anneaux les prises. Un roi en échec brille en rouge. Tes pièces en main sont dans ta barre, avec leur nombre : touches-en une, puis touche une case, ou fais-la glisser sur le plateau. Quand une pièce peut être promue, choisis sa face promue (rouge) ou garde-la telle quelle.

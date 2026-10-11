@@ -1,6 +1,6 @@
 Shogi
 # Tavoite
-Shogi on japanilainen shakki. Tee vastustajan kuninkaalle matti: uhkaa sitä niin, ettei se pääse pakoon. Musta (sente) aloittaa, minkä jälkeen pelaajat siirtävät vuorotellen, yksi siirto kerrallaan. Kaikki nappulat ovat samanvärisiä: nappulan kärki osoittaa vastustajaa kohti, joten näet, kenen se on.
+Shogi on japanilainen shakki. Tee vastustajan kuninkaalle matti: uhkaa sitä niin, ettei se pääse pakoon. Musta (sente) aloittaa, minkä jälkeen pelaajat siirtävät vuorotellen, yksi siirto kerrallaan. Kaikki nappulat ovat samanvärisiä: nappulan kärki osoittaa vastustajaa kohti, joten näet, kenen se on. Valitse lauta ennen peliä: shogi 9 × 9 ruudun laudalla (nappuloita täynnä oleva kortti) tai minishogi 5 × 5 ruudun laudalla (pieni lauta).
 # Miten nappulat liikkuvat
 - Kuningas (玉, 王): yhden ruudun mihin suuntaan tahansa.
 - Torni (飛): kuinka monta ruutua tahansa riviä tai linjaa pitkin.
@@ -28,5 +28,9 @@ Uhattu kuningas on shakissa: seuraavan siirron on päästettävä se pois shakis
 - Matti: kuningas on shakissa, eikä mikään siirto voi pelastaa sitä. Se pelaaja häviää. Pelaaja, jolla ei ole yhtään sallittua siirtoa, häviää myös.
 - Toisto: kun sama asema (nappulat laudalla ja kädessä, sama pelaaja siirtovuorossa) toistuu neljännen kerran, peli päättyy tasapeliin. Mutta jos jompikumpi pelaaja on shakannut jokaisella siirrollaan siitä lähtien, kun asema ensimmäisen kerran syntyi, se pelaaja häviää.
 - Kahdelle kuninkaalle, jotka ovat molemmat tunkeutuneet vastustajan leiriin, ei ole sääntöä: pelatkaa eteenpäin.
+# Minishogi
+Pieni shogi 5 × 5 ruudun laudalla. Kumpikin pelaaja aloittaa kuninkaalla, kultakenraalilla, hopeakenraalilla, lähetillä ja tornilla omalla ensimmäisellä rivillään, tässä järjestyksessä vasemmalta, ja sotilaalla kuninkaan edessä. Ratsuja ja keihäitä ei ole. Nappulat liikkuvat, lyövät ja pudotetaan kuten shogissa, samoin kolmin pudotusrajoituksin. Kaksi eroa:
+- Korotusvyöhyke on vain kaukaisin rivi. Sotilaan, joka saavuttaa sen, on korotuttava.
+- Toisto: kun sama asema syntyy neljännen kerran, musta (sente), joka aloitti, häviää. Pelaaja, joka on antanut shakin joka siirrollaan siitä asti, kun asema syntyi ensimmäisen kerran, häviää kuitenkin sen sijaan.
 # Pelaaminen laitteella
 Napauta nappulaa nähdäksesi, minne se voi liikkua, ja napauta sitten ruutua, tai vedä nappulaa. Pisteet näyttävät siirrot, renkaat lyönnit. Shakissa oleva kuningas hehkuu punaisena. Kädessä olevat nappulasi ovat palkissasi lukumäärineen: napauta yhtä ja sitten ruutua, tai vedä se laudalle. Kun nappula saa korottua, valitse sen korotettu puoli (punainen) tai pidä se ennallaan.

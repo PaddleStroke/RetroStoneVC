@@ -1,6 +1,6 @@
 Shogi
 # Amaç
-Shogi, Japon satrancıdır. Rakibin şahını mat et: ona kaçamayacağı şekilde saldır. Önce siyah (sente) oynar, sonra oyuncular sırayla birer hamle yapar. Bütün taşlar aynı renktedir: her taşın sivri ucu rakibe bakar, böylece taşın kime ait olduğunu anlayabilirsin.
+Shogi, Japon satrancıdır. Rakibin şahını mat et: ona kaçamayacağı şekilde saldır. Önce siyah (sente) oynar, sonra oyuncular sırayla birer hamle yapar. Bütün taşlar aynı renktedir: her taşın sivri ucu rakibe bakar, böylece taşın kime ait olduğunu anlayabilirsin. Oyundan önce tahtayı seç: 9'a 9 karelik shogi (taşlarla dolu kart) ya da 5'e 5 karelik mini shogi (küçük tahta).
 # Taşlar nasıl hareket eder
 - Şah (玉, 王): herhangi bir yöne bir kare.
 - Kale (飛): yatay ya da dikey olarak istediği kadar kare.
@@ -28,5 +28,9 @@ Saldırı altındaki şaha şah çekilmiş olur: bir sonraki hamle onu şahtan k
 - Mat: şaha şah çekilmiştir ve hiçbir hamle onu kurtaramaz. O oyuncu kaybeder. Hiç geçerli hamlesi olmayan oyuncu da kaybeder.
 - Tekrar: aynı pozisyon (tahtadaki ve eldeki taşlar, sıra aynı oyuncuda) dördüncü kez geldiğinde oyun berabere biter. Ama oyunculardan biri bu pozisyon ilk ortaya çıktığından beri her hamlesinde şah çektiyse, o oyuncu kaybeder.
 - İkisi de rakip kampa girmiş iki şah için bir kural yoktur: oynamaya devam edin.
+# Mini shogi
+5'e 5 karelik küçük bir shogi. Her oyuncu ilk sırasında soldan sırayla şah, altın general, gümüş general, fil ve kale ile, şahın önünde de bir piyonla başlar. At ve mızrak yoktur. Taşlar shogideki gibi hareket eder, taş alır ve bırakılır; bırakmanın üç sınırı da aynıdır. İki fark var:
+- Terfi bölgesi yalnızca en uzak sıradır. Oraya ulaşan piyon terfi etmek zorundadır.
+- Tekrar: aynı konum dördüncü kez oluşunca önce oynayan siyah (sente) kaybeder. Ancak o konum ilk oluştuğundan beri her hamlesinde şah çeken oyuncu varsa, onun yerine o kaybeder.
 # Cihazda oynamak
 Bir taşın nereye gidebileceğini görmek için ona dokun, sonra bir kareye dokun ya da taşı sürükle. Noktalar hamleleri, halkalar alınabilecek taşları gösterir. Şah çekilmiş şah kırmızı parlar. Elindeki taşlar, sayılarıyla birlikte şeridindedir: birine, sonra bir kareye dokun ya da onu tahtaya sürükle. Bir taş terfi edebildiğinde terfili yüzünü (kırmızı) seç ya da olduğu gibi bırak.

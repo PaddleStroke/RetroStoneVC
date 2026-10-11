@@ -1,6 +1,6 @@
 Shogi
 # The aim
-Shogi is Japanese chess. Checkmate the other king: attack it so that it cannot escape. Black (sente) moves first, then the players take turns, one move each. All the pieces are the same colour: a piece points towards the opponent, so you can tell whose it is.
+Shogi is Japanese chess. Checkmate the other king: attack it so that it cannot escape. Black (sente) moves first, then the players take turns, one move each. All the pieces are the same colour: a piece points towards the opponent, so you can tell whose it is. Choose the board before the game: shogi on 9 by 9 squares (the card full of pieces) or mini shogi on 5 by 5 (the small board).
 # How the pieces move
 - King (玉, 王): one square in any direction.
 - Rook (飛): any number of squares along a row or a column.
@@ -28,5 +28,9 @@ A king that is attacked is in check: the next move must get it out of check. You
 - Checkmate: the king is in check and no move can save it. That player loses. A player who has no legal move at all also loses.
 - Repetition: when the same position (the pieces on the board and in hand, the same player to move) comes for the fourth time, the game is a draw. But if one player gave check with every move since that position first appeared, that player loses.
 - There is no rule for two kings that have both entered the other camp: play on.
+# Mini shogi
+A small shogi on 5 by 5 squares. Each player starts with a king, a gold, a silver, a bishop and a rook on their first row, in that order from their left, and a pawn in front of the king. There are no knights and no lances. The pieces move, capture and are dropped as in shogi, with the same three limits on drops. Two differences:
+- The promotion zone is only the farthest row. A pawn that reaches it must promote.
+- Repetition: when the same position comes for the fourth time, Black (sente), who moved first, loses. But a player who gave check with every move since that position first appeared loses instead.
 # Playing on the device
 Tap a piece to see where it can go, then tap a square, or drag the piece. Dots show the moves, rings the captures. A king in check glows red. Your pieces in hand are in your bar, with their number: tap one, then tap a square, or drag it onto the board. When a piece may promote, choose its promoted side (red) or keep it as it is.

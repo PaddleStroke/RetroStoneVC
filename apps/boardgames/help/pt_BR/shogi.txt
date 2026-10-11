@@ -1,6 +1,6 @@
 Shogi
 # O objetivo
-O shogi é o xadrez japonês. Dar xeque-mate no rei adversário: atacá-lo de modo que ele não possa escapar. As pretas (sente) jogam primeiro; depois os jogadores se alternam, um lance cada um. Todas as peças têm a mesma cor: cada peça aponta para o adversário, e assim se sabe de quem ela é.
+O shogi é o xadrez japonês. Dar xeque-mate no rei adversário: atacá-lo de modo que ele não possa escapar. As pretas (sente) jogam primeiro; depois os jogadores se alternam, um lance cada um. Todas as peças têm a mesma cor: cada peça aponta para o adversário, e assim se sabe de quem ela é. Escolha o tabuleiro antes da partida: shogi em 9 por 9 casas (o cartão cheio de peças) ou minishogi em 5 por 5 (o tabuleiro pequeno).
 # Como as peças se movem
 - Rei (玉, 王): uma casa em qualquer direção.
 - Torre (飛): quantas casas quiser por uma fileira ou uma coluna.
@@ -28,5 +28,9 @@ Um rei atacado está em xeque: o lance seguinte precisa tirá-lo do xeque. Você
 - Xeque-mate: o rei está em xeque e nenhum lance pode salvá-lo. Esse jogador perde. Um jogador que não tem nenhum lance legal também perde.
 - Repetição: quando a mesma posição (as peças no tabuleiro e na mão, o mesmo jogador da vez) aparece pela quarta vez, a partida termina empatada. Mas, se um jogador deu xeque em todos os lances desde que essa posição apareceu pela primeira vez, esse jogador perde.
 - Não há regra para dois reis que entraram ambos no campo adversário: continuem jogando.
+# Minishogi
+Um shogi pequeno, em 5 por 5 casas. Cada jogador começa com rei, general de ouro, general de prata, bispo e torre na sua primeira fileira, nessa ordem a partir da esquerda, e um peão na frente do rei. Não há cavalos nem lanças. As peças se movem, capturam e são colocadas como no shogi, com os mesmos três limites para colocar peças. Duas diferenças:
+- A zona de promoção é só a fileira mais distante. Um peão que chega a ela é obrigado a promover.
+- Repetição: quando a mesma posição aparece pela quarta vez, perdem as pretas (sente), que jogaram primeiro. Mas o jogador que deu xeque a cada lance desde que a posição apareceu pela primeira vez perde no lugar delas.
 # Jogando no aparelho
 Toque em uma peça para ver aonde ela pode ir e depois toque em uma casa, ou arraste a peça. Os pontos mostram os lances, os anéis as capturas. Um rei em xeque brilha em vermelho. As suas peças na mão ficam na sua barra, com o número delas: toque em uma e depois em uma casa, ou arraste-a para o tabuleiro. Quando uma peça pode ser promovida, escolha o lado promovido (vermelho) ou deixe-a como está.

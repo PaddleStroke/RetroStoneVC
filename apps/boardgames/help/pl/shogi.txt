@@ -1,6 +1,6 @@
 Shogi
 # Cel gry
-Shogi to szachy japońskie. Zamatuj króla przeciwnika: zaatakuj go tak, aby nie mógł uciec. Czarne (sente) zaczynają, potem gracze wykonują ruchy na zmianę, po jednym. Wszystkie bierki mają ten sam kolor: bierka jest zwrócona czubkiem w stronę przeciwnika, więc widać, do kogo należy.
+Shogi to szachy japońskie. Zamatuj króla przeciwnika: zaatakuj go tak, aby nie mógł uciec. Czarne (sente) zaczynają, potem gracze wykonują ruchy na zmianę, po jednym. Wszystkie bierki mają ten sam kolor: bierka jest zwrócona czubkiem w stronę przeciwnika, więc widać, do kogo należy. Przed grą wybierz planszę: shogi na 9 na 9 polach (karta pełna bierek) albo minishogi na 5 na 5 (mała plansza).
 # Jak poruszają się bierki
 - Król (玉, 王): o jedno pole w dowolnym kierunku.
 - Wieża (飛): o dowolną liczbę pól w poziomie lub w pionie.
@@ -28,5 +28,9 @@ Atakowany król jest szachowany: następny ruch musi usunąć szach. Nigdy nie m
 - Mat: król jest szachowany i żaden ruch nie może go uratować. Ten gracz przegrywa. Gracz, który nie ma w ogóle żadnego dozwolonego ruchu, także przegrywa.
 - Powtórzenie: gdy ta sama pozycja (bierki na planszy i w ręku, ruch tego samego gracza) pojawi się po raz czwarty, partia kończy się remisem. Ale jeśli jeden z graczy szachował każdym ruchem, odkąd ta pozycja pojawiła się po raz pierwszy, ten gracz przegrywa.
 - Nie ma zasady dla dwóch królów, którzy obaj weszli do obozu przeciwnika: grajcie dalej.
+# Minishogi
+Małe shogi na 5 na 5 polach. Każdy gracz zaczyna z królem, złotym generałem, srebrnym generałem, gońcem i wieżą w swoim pierwszym rzędzie, w tej kolejności od lewej, oraz pionem przed królem. Nie ma skoczków ani lanc. Bierki poruszają się, biją i są zrzucane jak w shogi, z tymi samymi trzema ograniczeniami zrzutów. Dwie różnice:
+- Strefa promocji to tylko najdalszy rząd. Pion, który do niego dojdzie, musi zostać promowany.
+- Powtórzenie: gdy ta sama pozycja pojawi się po raz czwarty, przegrywają czarne (sente), które zaczynały. Jednak gracz, który od pierwszego pojawienia się tej pozycji dawał szacha każdym ruchem, przegrywa zamiast nich.
 # Gra na urządzeniu
 Dotknij bierki, aby zobaczyć, gdzie może się ruszyć, a potem dotknij pola, albo przeciągnij bierkę. Kropki pokazują ruchy, kółka bicia. Szachowany król świeci na czerwono. Twoje bierki w ręku są na twoim pasku, z ich liczbą: dotknij jednej, a potem pola, albo przeciągnij ją na planszę. Gdy bierka może zostać promowana, wybierz jej stronę promowaną (czerwoną) albo zostaw ją bez zmian.

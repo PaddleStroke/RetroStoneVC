@@ -1,6 +1,6 @@
 /*
- * Shogi in RetroStone Board: the board, the wooden wedges and their characters, tap or drag, the drops from the
- * pieces in hand (in the players' bars), the promotion picker (the rules: shogi_rules.c).
+ * Shogi in RetroStone Board: the board (9 x 9, or mini shogi's 5 x 5), the wooden wedges and their characters, tap or
+ * drag, the drops from the pieces in hand (in the players' bars), the promotion picker (the rules: shogi_rules.c).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * A piece points at the opponent: the top player's are turned round, face to face or not (a shogi piece already faces
@@ -26,6 +26,7 @@ static sgame G;
 static smove legal[SG_MAX_MOVES];
 static int nlegal;
 static sstatus st;
+static int N = 9;                               /* the board's side: 9, or 5 (mini shogi) */
 static int sq, fr, made = -1, made_small = -1;
 static float bx, by;                            /* the top left square's corner on the screen */
 static SDL_Texture *t_pc[2][32], *t_small[2][32], *t_board, *t_pick;   /* [pointing down][face] */
@@ -157,8 +158,8 @@ static void refresh(void)
 
 static void start(int variant)
 {
-    (void)variant;
-    sg_new(&G);
+    sg_new(&G, variant);
+    N = sg_pos(&G)->n;
     anim.on = 0;
     refresh();
 }
@@ -221,7 +222,7 @@ static int script(const char *s)
     while (*s) {
         while (*s == ' ') s++;
         if (!*s) break;
-        int used, k = sg_parse(legal, nlegal, s, &used);
+        int used, k = sg_parse(N, legal, nlegal, s, &used);
         if (k < 0) return 0;
         play(legal[k], 0);
         s += used;
@@ -233,18 +234,18 @@ static int script(const char *s)
 /* ---- the board on the screen ------------------------------------------------------------------------------------- */
 static void layout(box b)
 {
-    int s = (int)floorf(b.w / (9 + 2 * FRAME + 0.4f));
-    while (s > 4 && paint_board(NULL, 9, s, (int)(s * FRAME), 1) > b.w) s--;
+    int s = (int)floorf(b.w / (N + 2 * FRAME + 0.4f));
+    while (s > 4 && paint_board(NULL, N, s, (int)(s * FRAME), N == 9) > b.w) s--;
     sq = s;
     fr = (int)(sq * FRAME);
-    int n = paint_board(NULL, 9, sq, fr, 1), m = (n - 9 * sq) / 2;
+    int n = paint_board(NULL, N, sq, fr, N == 9), m = (n - N * sq) / 2;
     bx = floorf(b.x + (b.w - n) / 2) + m;
     by = floorf(b.y + (b.h - n) / 2) + m;
-    if (made != sq) {
-        made = sq;
+    if (made != sq * 10 + N) {           /* the pieces for the squares, the board for its side too */
+        made = sq * 10 + N;
         make_set(t_pc, sq);
         ui_free(&t_board);
-        paint_board(ui_buf(n, n), 9, sq, fr, 1);
+        paint_board(ui_buf(n, n), N, sq, fr, N == 9);
         t_board = ui_tex(n, n, ui_buf(n, n));
         const uint8_t pick_c[4] = {246, 240, 226, 255};
         ui_free(&t_pick);
@@ -261,7 +262,7 @@ static void layout(box b)
 static void sq_xy(int s, float *x, float *y)
 {
     int c = SG_COL(s), r = SG_ROW(s);
-    if (ui.flipped) { c = 8 - c; r = 8 - r; }
+    if (ui.flipped) { c = N - 1 - c; r = N - 1 - r; }
     *x = bx + c * sq;
     *y = by + r * sq;
 }
@@ -269,15 +270,15 @@ static void sq_xy(int s, float *x, float *y)
 static int xy_sq(float x, float y)
 {
     int c = (int)floorf((x - bx) / sq), r = (int)floorf((y - by) / sq);
-    if (c < 0 || c > 8 || r < 0 || r > 8) return -1;
-    return ui.flipped ? SG_SQ(8 - c, 8 - r) : SG_SQ(c, r);
+    if (c < 0 || c >= N || r < 0 || r >= N) return -1;
+    return ui.flipped ? SG_SQ(N - 1 - c, N - 1 - r) : SG_SQ(c, r);
 }
 
 /* the picker: the promoted piece on the square, the piece as it is next, towards the middle of the board */
 static int pick_at(int i, float *x, float *y)
 {
     sq_xy(promo.to, x, y);
-    int down = *y < by + 4 * sq;
+    int down = *y < by + (N - 1) / 2.0f * sq;
     *y += (down ? 1 : -1) * i * sq;
     return down;
 }
@@ -292,7 +293,7 @@ static void piece_at(int pc, float x, float y, float size)
 static void draw(void)
 {
     const spos *p = sg_pos(&G);
-    float n = 9.0f * sq, m = (paint_board(NULL, 9, sq, fr, 1) - n) / 2, x, y;
+    float n = (float)N * sq, m = (paint_board(NULL, N, sq, fr, N == 9) - n) / 2, x, y;
     ui_put(t_board, bx - m, by - m, n + 2 * m, n + 2 * m);
     if (G.ply) {
         smove lm = G.move[G.ply - 1];
@@ -472,30 +473,45 @@ static void bar(int player, box b)
 
 static void token(int player, int size, uint8_t *rgba) { make_piece(player ? KING1 : SG_KING, 0, size, rgba); }
 
-/* the menu's card: sente's left corner, a few pieces, a dragon of gote's come down */
+/* the menu's card: sente's left corner, a few pieces, a dragon of gote's come down; the picker's: each board at the
+ * start (9 x 9 full of pieces, mini shogi's 5 x 5 with its five pieces and a pawn each) */
 static void thumb(int variant, int size, uint8_t *rgba)
 {
-    (void)variant;
-    int s = (int)(size / (4 + 2 * FRAME + 0.3f)), f = (int)(s * FRAME), n = paint_board(NULL, 4, s, f, 0);
-    while (n > size && s > 4) n = paint_board(NULL, 4, --s, f, 0);
-    int o = (size - n) / 2, m = (n - 4 * s) / 2;
-    uint8_t *board = ui_buf(n, n);
-    paint_board(board, 4, s, f, 0);
-    art_blend(rgba, size, size, board, n, n, o, o);
     static const int place[][4] = {{3, 0, SG_ROOK | SG_PROMOTED, 1}, {1, 1, SG_PAWN, 0}, {0, 2, SG_PAWN, 0},
                                    {2, 2, SG_SILVER, 0}, {0, 3, SG_LANCE, 0}, {1, 3, SG_KNIGHT, 0},
                                    {3, 3, SG_KING, 0}};
-    for (unsigned i = 0; i < sizeof place / sizeof place[0]; i++) {
+    spos p;
+    int k = 4;                                  /* the squares a side */
+    if (variant >= 0) {
+        sg_start(&p, variant);
+        k = p.n;
+    }
+    int s = (int)(size / (k + 2 * FRAME + 0.3f)), f = (int)(s * FRAME), n = paint_board(NULL, k, s, f, k == 9);
+    while (n > size && s > 4) n = paint_board(NULL, k, --s, f, k == 9);
+    int o = (size - n) / 2, m = (n - k * s) / 2;
+    uint8_t *board = ui_buf(n, n);
+    paint_board(board, k, s, f, k == 9);
+    art_blend(rgba, size, size, board, n, n, o, o);
+    for (int i = 0; i < k * k; i++) {
+        int c = i % k, r = i / k, ix = 0, down = 0;
+        if (variant < 0) {
+            if (i >= (int)(sizeof place / sizeof place[0])) break;
+            c = place[i][0], r = place[i][1], ix = place[i][2], down = place[i][3];
+        } else if (p.sq[SG_SQ(c, r)]) {
+            ix = tex_of(p.sq[SG_SQ(c, r)]);
+            down = SG_OWNER(p.sq[SG_SQ(c, r)]);
+        }
+        if (!ix) continue;
         uint8_t *one = ui_buf(s, s);
-        make_piece(place[i][2], place[i][3], s, one);
-        art_blend(rgba, size, size, one, s, s, o + m + place[i][0] * s, o + m + place[i][1] * s);
+        make_piece(ix, down, s, one);
+        art_blend(rgba, size, size, one, s, s, o + m + c * s, o + m + r * s);
     }
 }
 
 static int busy(void) { return anim.on; }     /* the end waits for the mating piece to arrive */
 
 static const game shogi_game = {
-    .id = "shogi", .order = 170, .variants = 1,
+    .id = "shogi", .order = 170, .variants = SG_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .bar_press = bar_press,
