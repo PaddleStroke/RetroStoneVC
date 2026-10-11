@@ -7,3 +7,7 @@ Två spelare delar en enhet och turas om. Den lysande markören i en spelares f�
 - Ansikte mot ansikte: lägg enheten plant mellan er. Den övre spelarens pjäser och fält vänds mot hen.
 - Nytt parti: tryck två gånger för att börja om.
 - ?: de här reglerna.
+# Kortspel
+I kortspel går enheten runt bordet: den som har tur ser sina egna kort stort längst ned, med sitt fält under, och de andra spelarnas fält längst upp. Här finns varken Vänd eller Ansikte mot ansikte.
+- Hemliga kort: mellan två turer blir skärmen grön och visar nästa spelares markör. Lämna över enheten; den spelaren trycker på den runda knappen för att se sina kort.
+- Med hemliga kort tar Ångra bara tillbaka dragen i din egen tur, så att ingen någonsin ser en annan spelares kort.

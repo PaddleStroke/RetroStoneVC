@@ -1,0 +1,27 @@
+Golfe
+# O objetivo
+Ter a menor pontuação depois da última rodada. Cada jogador tem à sua frente uma grade de cartas viradas para baixo; no começo ninguém as conhece, nem o próprio dono. Troque suas cartas altas por baixas e vire sua grade. Dois jogos à escolha: o Golfe clássico com um baralho de 52 cartas e o Golfe dos números, uma variante do Golfe com cartas de -2 a 12. De 2 a 6 jogadores.
+# No começo de uma rodada
+- Golfe clássico: 6 cartas para cada um, em 2 fileiras de 3. Golfe dos números: 12 cartas para cada um, em 3 fileiras de 4.
+- Cada jogador vira duas das suas cartas para cima.
+- Golfe clássico: o primeiro jogador avança um lugar a cada rodada. Golfe dos números: começa o jogador cujas duas cartas somam mais.
+# Uma jogada
+- Compre a carta de cima do monte, ou pegue a carta de cima da pilha de descarte.
+- Troque-a por uma das suas cartas, aberta ou fechada: sua carta antiga vai virada para cima para o descarte.
+- Ou, se você a comprou do monte, descarte-a e vire uma das suas cartas fechadas.
+- Uma carta pega do descarte tem de ser trocada.
+# O fim de uma rodada
+Assim que um jogador tem todas as cartas viradas para cima, cada um dos outros faz uma última jogada. Depois todas as cartas são viradas e a rodada é contada.
+# Golfe clássico
+- Ás 1 ponto, 2 a 10 o seu valor, valete e dama 10, rei 0.
+- Duas cartas do mesmo valor na mesma coluna valem 0.
+- A partida dura nove rodadas, os nove buracos.
+# Golfe dos números
+- Cada carta vale o seu número, de -2 a 12. O baralho: cinco -2, dez -1, quinze 0 e dez de cada carta de 1 a 12.
+- Três cartas abertas com o mesmo número numa coluna vão na hora para o descarte e não contam.
+- Quem encerrou a rodada conta em dobro se o seu resultado for maior que zero e não for estritamente o menor da rodada.
+- A partida termina depois da rodada em que um jogador chega a 100 pontos.
+# O fim da partida
+Vence o jogador com o menor total.
+# Jogando no aparelho
+Passem o aparelho: o jogador da vez sempre vê as suas cartas em grande embaixo; as dos outros ficam menores em cima, sob as peças deles. Toque no monte ou no descarte para comprar. Depois toque numa das suas cartas para trocar, ou toque no descarte para jogar a carta fora e toque numa carta fechada para virá-la. As cartas que você pode tocar brilham. Depois de cada rodada, uma tabela mostra os pontos da rodada e o total de cada jogador (uma cruz e um 2: em dobro); toque nela para a próxima rodada. O total de cada jogador aparece na barra dele. Desfazer desfaz a última ação, uma de cada vez.

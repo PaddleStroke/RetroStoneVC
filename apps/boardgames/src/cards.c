@@ -195,7 +195,8 @@ static void suit_fig(art_fig *f, int suit)
         int n = 0;
         for (int e = 0; e < 4; e++)
             for (int k = 0; k < 8; k++) {   /* each side curved in a little */
-                float s = k / 8.0f, x = cx[e] + (cx[(e + 1) % 4] - cx[e]) * s, y = cy[e] + (cy[(e + 1) % 4] - cy[e]) * s;
+                float s = k / 8.0f, x = cx[e] + (cx[(e + 1) % 4] - cx[e]) * s,
+                      y = cy[e] + (cy[(e + 1) % 4] - cy[e]) * s;
                 float bow = 0.035f * sinf(PI_F * s);
                 p[n++] = x + (0.5f - x) * bow * 2.2f;
                 p[n++] = y + (0.5f - y) * bow * 2.2f;
@@ -341,7 +342,8 @@ static void put_sun(canvas *c, float cx, float cy, float r)
 static void mark69(canvas *c, int value, float cx, float cy, float hgt, const uint8_t rgb[3], const uint8_t *outline)
 {
     if (value != 6 && value != 9) return;
-    float bw = 0.5f * hgt, bt = fmaxf(1.5f, 0.1f * hgt), y = cy + 0.66f * hgt, o = outline ? fmaxf(1.0f, 0.07f * hgt) : 0;
+    float bw = 0.5f * hgt, bt = fmaxf(1.5f, 0.1f * hgt), y = cy + 0.66f * hgt,
+          o = outline ? fmaxf(1.0f, 0.07f * hgt) : 0;
     if (outline) put_rect(c, cx - bw / 2 - o, y - o, bw + 2 * o, bt + 2 * o, 0, outline, 1);
     put_rect(c, cx - bw / 2, y, bw, bt, 0, rgb, 1);
 }
@@ -361,7 +363,7 @@ static void corner(canvas *c, int deck, int card)
             put_star(&k, x, 0.16f * w, 0.18f * w, suit == SUIT_JOKER ? SUIT_RGB[rank == 0] : INK, NULL);
         } else if (suit == SUIT_TRUMP) {
             put_digits(&k, rank, x, y, 0.14f * w, INK, rank >= 10 ? 0.78f : 1, NULL);
-            put_lozenge(&k, x, 0.29f * w, 0.12f * w, GOLD);
+            put_sun(&k, x, 0.285f * w, 0.07f * w);
         } else if (rank == 1) {
             put_suit(&k, suit, x, 0.2f * w, 0.19f * w, 0);
         } else {
@@ -370,7 +372,8 @@ static void corner(canvas *c, int deck, int card)
             put_suit(&k, suit, x, 0.305f * w, 0.13f * w, 0);
         }
     } else if (deck == DECK_NUMBER) {
-        put_digits(&k, NUMBER_VALUE(card), (NUMBER_VALUE(card) < 0 ? 0.17f : 0.14f) * w, 0.13f * w, 0.15f * w, CREAM, 0.8f, INK);
+        int v = NUMBER_VALUE(card);
+        put_digits(&k, v, (v < 0 ? 0.17f : 0.14f) * w, 0.13f * w, 0.15f * w, CREAM, 0.8f, INK);
         mark69(&k, NUMBER_VALUE(card), 0.14f * w, 0.13f * w, 0.15f * w, CREAM, INK);
     }
     art_blend(c->o, c->w, c->h, k.o, cw, ch, 0, 0);
@@ -636,10 +639,12 @@ static void back(canvas *c, int deck)
         float fw = w - 0.07f * w, fh = h - 0.07f * w;
         for (int y = 0; y < (int)fh; y++)       /* the wood's grain */
             for (int x = 0; x < (int)fw; x++) {
-                float g = sinf(y * 23.0f / h + 2.4f * sinf(x * 2.0f / w + 1.3f)) * 0.5f + 0.5f, k = 1 + 0.07f * (g - 0.5f);
+                float g = sinf(y * 23.0f / h + 2.4f * sinf(x * 2.0f / w + 1.3f)) * 0.5f + 0.5f,
+                      k = 1 + 0.07f * (g - 0.5f);
                 float d = rr_dist(x + 0.5f, y + 0.5f, fw, fh, 0.12f * w);
                 if (d > 0.5f) continue;
-                uint8_t px[4] = {(uint8_t)fminf(255, 222 * k), (uint8_t)fminf(255, 184 * k), (uint8_t)fminf(255, 128 * k),
+                uint8_t px[4] = {(uint8_t)fminf(255, 222 * k), (uint8_t)fminf(255, 184 * k),
+                                 (uint8_t)fminf(255, 128 * k),
                                  (uint8_t)(255 * clamp01(0.5f - d))};
                 art_blend(c->o, c->w, c->h, px, 1, 1, x, y);
             }
@@ -818,7 +823,8 @@ void cards_pile(int deck, float cx, float cy, float w, int n, int top, int how)
     for (int k = layers; k >= 1; k--)           /* the cards under: their edges, lower right */
         put_card(deck, top, cx + k * step * 0.4f, cy + k * step, w, 1, 0,
                  (top == CARD_NONE ? CD_DOWN : 0) | (k == layers ? 0 : CD_FLAT), 0);
-    put_card(deck, top, cx, cy, w, 1, 0, (top == CARD_NONE ? CD_DOWN : 0) | (layers ? CD_FLAT : 0) | (how & ~CD_DOWN), 0);
+    int look = (top == CARD_NONE ? CD_DOWN : 0) | (layers ? CD_FLAT : 0) | (how & ~CD_DOWN);
+    put_card(deck, top, cx, cy, w, 1, 0, look, 0);
 }
 
 /* ---- hands ------------------------------------------------------------------------------------------------------- */

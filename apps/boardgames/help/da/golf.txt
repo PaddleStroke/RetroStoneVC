@@ -1,0 +1,27 @@
+Golf
+# Målet
+At have den laveste score efter sidste runde. Hver spiller har et gitter af kort med bagsiden opad foran sig; i starten kender ingen dem, heller ikke ejeren. Byt dine høje kort til lave og vend dit gitter. To spil at vælge mellem: klassisk Golf med et spil på 52 kort og Talgolf, en golfvariant med kort fra -2 til 12. For 2 til 6 spillere.
+# I starten af en runde
+- Klassisk Golf: 6 kort hver, i 2 rækker af 3. Talgolf: 12 kort hver, i 3 rækker af 4.
+- Hver spiller vender to af sine kort.
+- Klassisk Golf: den første spiller rykker én plads videre hver runde. Talgolf: den spiller, hvis to kort giver mest tilsammen, begynder.
+# En tur
+- Træk det øverste kort fra bunken, eller tag det øverste kort fra kastebunken.
+- Byt det med et af dine kort, åbent eller skjult: dit gamle kort lægges med billedsiden opad på kastebunken.
+- Eller, hvis du trak det fra bunken, smid det på kastebunken og vend et af dine skjulte kort.
+- Et kort taget fra kastebunken skal byttes.
+# Slutningen af en runde
+Så snart en spiller har alle sine kort vendt, får hver af de andre en sidste tur. Derefter vendes alle kort, og runden tælles op.
+# Klassisk Golf
+- Es 1 point, 2 til 10 deres værdi, knægt og dame 10, konge 0.
+- To kort af samme rang i én kolonne tæller 0.
+- Spillet varer ni runder, de ni huller.
+# Talgolf
+- Hvert kort tæller sit tal, fra -2 til 12. Spillet: fem -2, ti -1, femten 0 og ti af hvert kort fra 1 til 12.
+- Tre åbne kort med samme tal i én kolonne ryger straks på kastebunken og tæller ikke.
+- Den spiller, der afsluttede runden, får dobbelt, hvis scoren er over nul og ikke strengt er rundens laveste.
+- Spillet slutter efter den runde, hvor en spiller når 100 point.
+# Spillets afslutning
+Spilleren med den laveste sum vinder.
+# Spil på enheden
+Send enheden rundt: den, der har tur, har altid sine kort stort nederst; de andres er mindre øverst, under deres markører. Tryk på bunken eller kastebunken for at trække. Tryk så på et af dine kort for at bytte, eller tryk på kastebunken for at smide kortet og tryk på et skjult kort for at vende det. De kort, du kan trykke på, lyser. Efter hver runde viser en tavle rundens point og hver spillers sum (et kryds og et 2-tal: dobbelt); tryk på den for næste runde. Hver spillers sum står i spillerens panel. Fortryd tager den sidste handling tilbage, én ad gangen.

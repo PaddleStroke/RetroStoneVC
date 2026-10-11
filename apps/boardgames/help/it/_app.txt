@@ -7,3 +7,7 @@ Due giocatori condividono un solo dispositivo e giocano a turno. La pedina lumin
 - Faccia a faccia: appoggia il dispositivo in piano tra voi. I pezzi e la barra del giocatore in alto si girano verso di lui.
 - Nuova partita: tocca due volte per ricominciare.
 - ?: queste regole.
+# Giochi di carte
+Nei giochi di carte il dispositivo fa il giro del tavolo: chi è di turno vede le proprie carte in grande in basso, con la sua barra sotto, e le barre degli altri giocatori in alto. Non ci sono Ruota né Faccia a faccia.
+- Mani segrete: tra un turno e l'altro lo schermo diventa verde e mostra la pedina del giocatore successivo. Passagli il dispositivo; quel giocatore tocca il pulsante rotondo per vedere le sue carte.
+- Con le mani segrete, Annulla ritira solo le mosse del tuo turno, così nessuno vede mai la mano di un altro giocatore.

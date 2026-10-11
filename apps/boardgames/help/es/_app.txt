@@ -7,3 +7,7 @@ Dos jugadores comparten un mismo dispositivo y juegan por turnos. La ficha que b
 - Cara a cara: deja el dispositivo plano entre los dos. Las piezas y la barra del jugador de arriba se giran hacia él.
 - Nueva partida: toca dos veces para empezar de nuevo.
 - ?: estas reglas.
+# Juegos de cartas
+En los juegos de cartas el dispositivo da la vuelta a la mesa: el jugador al que le toca ve sus propias cartas en grande abajo, con su barra debajo, y las barras de los demás jugadores arriba. No hay Girar ni Cara a cara.
+- Manos secretas: entre dos turnos la pantalla se vuelve verde y muestra la ficha del siguiente jugador. Pásale el dispositivo; ese jugador toca el botón redondo para ver sus cartas.
+- Con manos secretas, Deshacer solo retira las jugadas de tu propio turno, así nadie ve nunca la mano de otro jugador.

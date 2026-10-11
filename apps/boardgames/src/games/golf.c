@@ -44,7 +44,8 @@ static void place_others(float x, float y, float w, float h)
     for (int r = 1; r <= 2 && r <= k; r++) {    /* one row or two: the bigger cards */
         int per = (k + r - 1) / r;
         float cell_h = h / r, tok = fminf(0.5f * ui.unit, 0.2f * cell_h);
-        float wo = fminf(w / per * 0.9f / (1.1f * p->cols - 0.1f), (cell_h - tok * 1.25f) * 0.94f / (1.5f * p->rows - 0.1f));
+        float wo = fminf(w / per * 0.9f / (1.1f * p->cols - 0.1f),
+                         (cell_h - tok * 1.25f) * 0.94f / (1.5f * p->rows - 0.1f));
         if (wo > best * 1.08f) best = wo, rows = r;
     }
     T.wo = fminf(best, 0.72f * T.wg);
@@ -69,7 +70,8 @@ static void layout(box b)
     if (T.me < 0 || T.me >= p->players) T.me = 0;
     int C = p->cols, R = p->rows;
     if (b.w <= b.h * 1.05f) {                   /* portrait: the others, the piles, the grid */
-        float ho = b.h * (p->players == 2 ? 0.3f : p->players == 3 ? 0.35f : 0.4f), hm = b.h * 0.19f, hg = b.h - ho - hm;
+        float ho = b.h * (p->players == 2 ? 0.3f : p->players == 3 ? 0.35f : 0.4f),
+              hm = b.h * 0.19f, hg = b.h - ho - hm;
         T.wg = floorf(fminf(b.w * 0.96f / (1.1f * C - 0.1f), hg * 0.95f / (1.5f * R - 0.1f)));
         T.gx = floorf(b.x + (b.w - grid_w(T.wg, C)) / 2);
         T.gy = floorf(b.y + b.h - grid_h(T.wg, R) - (hg - grid_h(T.wg, R)) * 0.35f);
@@ -242,6 +244,17 @@ static int status(void)
     return w < 0 ? GS_DRAW : gs_win(w);
 }
 
+/* the lowest total: one winner, or the players tied for it */
+static unsigned winners(void)
+{
+    const gpos *p = &G.pos;
+    unsigned m = 0;
+    int low = 1 << 20;
+    for (int q = 0; q < p->players; q++) low = p->total[q] < low ? p->total[q] : low;
+    for (int q = 0; q < p->players; q++) m |= (unsigned)(p->total[q] == low) << q;
+    return p->phase == GP_OVER ? m : 0;
+}
+
 static int turn(void) { return G.pos.turn; }
 
 static void act(int a)
@@ -328,7 +341,8 @@ static void draw_summary(void)
             ui_number(rx + 1.35f * nh + 0.95f * nh, cy, 0.8f * nh, 2, 1);
         }
         ui_number_signed(x0 + pw * 0.8f, cy, 0.56f * rh, p->total[q], 1, 0);
-        if (q < p->players - 1) ui_fill(x0 + 0.3f * u, cy + rh / 2, pw - 0.6f * u, fmaxf(1, 0.02f * u), 246, 238, 220, 40);
+        if (q < p->players - 1)
+            ui_fill(x0 + 0.3f * u, cy + rh / 2, pw - 0.6f * u, fmaxf(1, 0.02f * u), 246, 238, 220, 40);
     }
 }
 
@@ -386,7 +400,8 @@ static void press(float x, float y)
     if (p->phase == GP_OVER) return;
     if (p->turn != T.me) { ui_sound(SND_DENY); return; }
     int s = my_slot(x, y);
-    int on_stock = cards_in(T.sx, T.sy, T.wp * 1.1f, 1.4f, x, y), on_pile = cards_in(T.dx, T.dy, T.wp * 1.1f, 1.4f, x, y);
+    int on_stock = cards_in(T.sx, T.sy, T.wp * 1.1f, 1.4f, x, y);
+    int on_pile = cards_in(T.dx, T.dy, T.wp * 1.1f, 1.4f, x, y);
     int a = 0;
     switch (p->phase) {
     case GP_REVEAL: if (s >= 0) a = GA_REVEAL | s; break;
@@ -416,7 +431,8 @@ static void token(int player, int size, uint8_t *rgba) { cards_token(player, siz
  * three about to go) */
 static void thumb(int v, int size, uint8_t *rgba)
 {
-    int number = v == GOLF_NUMBER, cols = number ? 4 : 3, rows = number ? 3 : 2, deck = number ? DECK_NUMBER : DECK_FRENCH;
+    int number = v == GOLF_NUMBER, cols = number ? 4 : 3, rows = number ? 3 : 2;
+    int deck = number ? DECK_NUMBER : DECK_FRENCH;
     static const int classic[6] = {CARD(SUIT_HEARTS, 13), CARD_NONE, CARD(SUIT_CLUBS, 7), CARD(SUIT_SPADES, 13),
                                    CARD_NONE, CARD(SUIT_DIAMONDS, 1)};
     static const int num[12] = {NUMBER_CARD(5), CARD_NONE, NUMBER_CARD(-1), NUMBER_CARD(0),
@@ -439,7 +455,7 @@ static const game golf_game = {
     .id = "golf", .order = 260, .variants = GOLF_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy,
+    .bar = bar, .script = script, .busy = busy, .winners = winners,
     .players = 1 << 2 | 1 << 3 | 1 << 4 | 1 << 5 | 1 << 6, .view = VIEW_OPEN,
 };
 REGISTER_GAME(golf_game)

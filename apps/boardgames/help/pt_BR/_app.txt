@@ -7,3 +7,7 @@ Dois jogadores dividem um só aparelho e jogam alternadamente. A peça que brilh
 - Frente a frente: deixe o aparelho deitado entre vocês. As peças e a barra do jogador de cima se viram para ele.
 - Novo jogo: toque duas vezes para recomeçar.
 - ?: estas regras.
+# Jogos de cartas
+Nos jogos de cartas o aparelho dá a volta na mesa: o jogador da vez vê as próprias cartas em grande embaixo, com a barra dele logo abaixo, e as barras dos outros jogadores em cima. Não há Girar nem Frente a frente.
+- Mãos secretas: entre dois turnos a tela fica verde e mostra a peça do próximo jogador. Passe o aparelho; esse jogador toca o botão redondo para ver as cartas dele.
+- Com mãos secretas, Desfazer só desfaz as jogadas do seu próprio turno, para que ninguém veja a mão de outro jogador.

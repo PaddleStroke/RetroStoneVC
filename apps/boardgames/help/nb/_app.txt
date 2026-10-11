@@ -7,3 +7,7 @@ To spillere deler én enhet og bytter på å spille. Den lysende markøren i en 
 - Ansikt til ansikt: legg enheten flatt mellom dere. Den øverste spillerens brikker og panel snus mot vedkommende.
 - Nytt spill: trykk to ganger for å begynne på nytt.
 - ?: disse reglene.
+# Kortspill
+I kortspill går enheten rundt bordet: den som har tur, ser sine egne kort stort nederst med sitt panel under, og de andre spillernes paneler øverst. Det finnes verken Snu eller Ansikt til ansikt her.
+- Hemmelige kort: mellom to turer blir skjermen grønn og viser markøren til neste spiller. Gi enheten videre; den spilleren trykker på den runde knappen for å se kortene sine.
+- Med hemmelige kort tar Angre bare tilbake trekkene i din egen tur, så ingen noen gang ser en annen spillers kort.

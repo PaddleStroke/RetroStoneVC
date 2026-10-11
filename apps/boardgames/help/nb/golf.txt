@@ -1,0 +1,27 @@
+Golf
+# Målet
+Å ha lavest poengsum etter siste runde. Hver spiller har et rutenett av kort med baksiden opp foran seg; i starten kjenner ingen dem, heller ikke eieren. Bytt de høye kortene dine mot lave og snu rutenettet ditt. To spill å velge mellom: klassisk Golf med en kortstokk på 52 kort, og Tallgolf, en golfvariant med kort fra -2 til 12. For 2 til 6 spillere.
+# I starten av en runde
+- Klassisk Golf: 6 kort hver, i 2 rader med 3. Tallgolf: 12 kort hver, i 3 rader med 4.
+- Hver spiller snur to av kortene sine.
+- Klassisk Golf: den første spilleren flytter én plass videre hver runde. Tallgolf: den som har høyest sum på sine to kort, begynner.
+# En tur
+- Trekk det øverste kortet fra bunken, eller ta det øverste kortet fra kastebunken.
+- Bytt det mot ett av kortene dine, åpent eller skjult: det gamle kortet ditt legges med forsiden opp på kastebunken.
+- Eller, hvis du trakk det fra bunken, kast det på kastebunken og snu ett av de skjulte kortene dine.
+- Et kort tatt fra kastebunken må byttes.
+# Slutten på en runde
+Så snart en spiller har alle kortene sine snudd, får hver av de andre en siste tur. Så snus alle kortene, og runden telles opp.
+# Klassisk Golf
+- Ess 1 poeng, 2 til 10 sin verdi, knekt og dame 10, konge 0.
+- To kort av samme valør i én kolonne teller 0.
+- Spillet varer ni runder, de ni hullene.
+# Tallgolf
+- Hvert kort teller tallet sitt, fra -2 til 12. Kortstokken: fem -2, ti -1, femten 0 og ti av hvert kort fra 1 til 12.
+- Tre åpne kort med samme tall i én kolonne går straks på kastebunken og teller ikke.
+- Den som avsluttet runden, teller dobbelt hvis summen er over null og ikke strengt er rundens laveste.
+- Spillet slutter etter runden der en spiller når 100 poeng.
+# Slutten på spillet
+Spilleren med lavest sum vinner.
+# Spill på enheten
+Send enheten rundt: den som har tur, har alltid kortene sine stort nederst; de andres er mindre øverst, under markørene deres. Trykk på bunken eller kastebunken for å trekke. Trykk så på ett av kortene dine for å bytte, eller trykk på kastebunken for å kaste kortet og trykk på et skjult kort for å snu det. Kortene du kan trykke på, lyser. Etter hver runde viser en tavle poengene i runden og summen til hver spiller (et kryss og et 2-tall: dobbelt); trykk på den for neste runde. Summen til hver spiller står i panelet deres. Angre tar tilbake den siste handlingen, én om gangen.
