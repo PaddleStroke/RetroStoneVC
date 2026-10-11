@@ -1,0 +1,15 @@
+Mølle
+# Målet
+Efterlad modstanderen med kun to brikker eller uden træk. Hver spiller har ni brikker. Den lyse side starter.
+# Placering
+Først skiftes spillerne til at sætte én brik på et vilkårligt tomt punkt, indtil alle atten brikker er på brættet.
+# Flytning
+Derefter flytter du, når det er din tur, en af dine brikker langs en linje til det næste punkt, hvis det er tomt. En spiller med kun tre brikker tilbage må flyve: flytte en brik til et vilkårligt tomt punkt.
+# Møller
+Tre af dine brikker på række langs en linje danner en mølle. Hver gang du danner en mølle, under placeringen eller flytningen, fjerner du en af modstanderens brikker fra brættet. Du må ikke tage en brik, der indgår i en mølle, medmindre alle modstanderens brikker indgår i møller. At åbne en mølle og lukke den igen danner en ny mølle.
+# Spillets afslutning
+- En spiller, der kun har to brikker tilbage, taber.
+- En spiller, der ikke kan flytte nogen brik, taber.
+- Spillet er uafgjort, når den samme stilling opstår for tredje gang, eller efter halvtreds træk hver uden en mølle.
+# Spil på enheden
+Tryk på et tomt punkt for at sætte en brik. For at flytte trykker du på din brik og derefter på dens nye punkt, eller trækker den. Efter en mølle lyser de brikker, du må tage: tryk på en af dem.

@@ -1,0 +1,19 @@
+Dam
+# Målet
+Slå alle modstanderens brikker, eller efterlad modstanderen uden træk. Brikkerne står kun på de mørke felter og flytter diagonalt. Vælg regler før spillet: international dam på et bræt med 10×10 felter, eller engelsk dam (checkers) på et bræt med 8×8 felter.
+# International dam (10×10)
+- Den lyse side trækker først. En almindelig brik flytter ét felt skråt frem.
+- En almindelig brik slår ved at springe over en modstanderbrik ved siden af sig og lande på det tomme felt lige bagved. Almindelige brikker slår både fremad og bagud.
+- Slag er tvungent, og du skal slå så mange brikker som muligt. Hvis brikken efter et spring kan slå igen fra det felt, den lander på, skal den fortsætte med at springe i samme træk.
+- De slåede brikker fjernes ved slutningen af trækket. En brik kan ikke springes over to gange.
+- En almindelig brik, der slutter sit træk på den bageste række på den anden side, bliver en dam. En dam flytter et vilkårligt antal felter langs en diagonal og slår på afstand: den lander på et hvilket som helst tomt felt bag den brik, den slår.
+- Remis: når den samme stilling opstår for tredje gang, eller efter 25 træk hver, hvor kun damer har flyttet, og intet er blevet slået.
+# Engelsk dam (8×8)
+- Den mørke side trækker først. Almindelige brikker flytter og slår kun fremad.
+- Slag er tvungent, men du må vælge, hvilket slag du laver. Når en brik er begyndt at springe, skal den slå alle de brikker, den kan, undervejs.
+- En almindelig brik, der når den bageste række på den anden side, bliver en dam, og det afslutter trækket. En dam flytter og slår ét felt skråt i alle retninger.
+- Remis: når den samme stilling opstår for tredje gang, eller efter 40 træk hver uden slag eller træk med en almindelig brik.
+# Spillets afslutning
+En spiller, der ikke har flere brikker tilbage eller ikke kan flytte, taber.
+# Spil på enheden
+Kun de brikker, der kan flytte, kan tages op. Tryk på en brik og derefter på det felt, hvor den lander. Ved et slag af flere brikker trykker du på hvert landingsfelt efter tur, eller kun på det sidste. De brikker, der er ved at blive slået, toner ud.

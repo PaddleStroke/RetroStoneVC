@@ -1,0 +1,22 @@
+Szachy
+# Cel gry
+Zamatuj króla przeciwnika: zaatakuj go tak, aby nie mógł uciec. Białe zaczynają, potem gracze wykonują ruchy na zmianę, po jednym.
+# Jak poruszają się bierki
+- Król: o jedno pole w dowolnym kierunku.
+- Hetman: o dowolną liczbę pól w linii prostej: w poziomie, w pionie lub po przekątnej.
+- Wieża: o dowolną liczbę pól w poziomie lub w pionie.
+- Goniec: o dowolną liczbę pól po przekątnej.
+- Skoczek: po literze L, dwa pola w jednym kierunku i jedno pole w bok. To jedyna bierka, która przeskakuje nad innymi.
+- Pion: o jedno pole do przodu lub o dwa ze swojego pola początkowego. Bije o jedno pole na ukos do przodu.
+Bierki nie mogą przechodzić przez inne bierki (z wyjątkiem skoczka). Bierka bije, wchodząc na pole zajęte przez bierkę przeciwnika, która schodzi z planszy.
+# Ruchy specjalne
+- Roszada: król przesuwa się o dwa pola w stronę wieży, a wieża przeskakuje na pole, przez które przeszedł król. Dozwolona tylko wtedy, gdy żadna z tych bierek jeszcze się nie ruszała, pola między nimi są puste, a król nie jest szachowany, nie przechodzi przez atakowane pole i nie staje na szachowanym polu.
+- Bicie w przelocie: gdy pion przesunie się o dwa pola i stanie obok piona przeciwnika, ten pion może go zbić tak, jakby tamten przesunął się tylko o jedno pole, ale wyłącznie w bezpośrednio następnym ruchu.
+- Promocja: pion, który dojdzie do ostatniego rzędu, zamienia się w wybranego przez ciebie hetmana, wieżę, gońca lub skoczka.
+# Szach i koniec partii
+Atakowany król jest szachowany: następny ruch musi usunąć szach. Nigdy nie możesz wykonać ruchu, po którym twój własny król byłby szachowany.
+- Mat: król jest szachowany i żaden ruch nie może go uratować. Ten gracz przegrywa.
+- Pat: gracz, który ma ruch, nie ma żadnego dozwolonego ruchu, ale nie jest szachowany. Partia kończy się remisem.
+- Partia kończy się remisem także wtedy, gdy żadna ze stron nie jest w stanie dać mata (zostało za mało bierek), gdy ta sama pozycja powtórzy się po raz trzeci, lub po pięćdziesięciu ruchach każdej ze stron bez bicia i bez ruchu pionem.
+# Gra na urządzeniu
+Dotknij bierki, aby zobaczyć, gdzie może się ruszyć, a potem dotknij pola, albo przeciągnij bierkę. Kropki pokazują ruchy, kółka bicia. Szachowany król świeci na czerwono.

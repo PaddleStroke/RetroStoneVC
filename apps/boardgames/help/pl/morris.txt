@@ -1,0 +1,15 @@
+Młynek
+# Cel gry
+Zostaw przeciwnikowi tylko dwa pionki albo pozbaw go ruchu. Każdy gracz ma dziewięć pionków. Jasne zaczynają.
+# Rozstawianie
+Najpierw gracze na zmianę stawiają po jednym pionku na dowolnym wolnym punkcie, aż wszystkie osiemnaście pionków znajdzie się na planszy.
+# Przesuwanie
+Następnie w swojej kolejce przesuń jeden ze swoich pionków wzdłuż linii na sąsiedni punkt, jeśli jest wolny. Gracz, któremu zostały tylko trzy pionki, może skakać: przenieść pionek na dowolny wolny punkt.
+# Młynki
+Trzy twoje pionki w rzędzie na jednej linii tworzą młynek. Za każdym razem, gdy ułożysz młynek, podczas rozstawiania lub przesuwania, zdejmij z planszy jeden pionek przeciwnika. Nie możesz zabrać pionka, który jest w młynku, chyba że wszystkie pionki przeciwnika są w młynkach. Otwarcie młynka i ponowne jego zamknięcie tworzy nowy młynek.
+# Koniec gry
+- Gracz, któremu zostały dwa pionki, przegrywa.
+- Gracz, który nie może ruszyć żadnym pionkiem, przegrywa.
+- Gra kończy się remisem, gdy ta sama pozycja powtórzy się po raz trzeci, lub po pięćdziesięciu ruchach każdej ze stron bez młynka.
+# Gra na urządzeniu
+Dotknij wolnego punktu, aby postawić pionek. Aby wykonać ruch, dotknij swojego pionka, a potem jego nowego punktu, albo przeciągnij go. Po ułożeniu młynka świecą pionki, które możesz zabrać: dotknij jednego z nich.

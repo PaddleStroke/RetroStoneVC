@@ -1,0 +1,9 @@
+RetroStone Board
+# Spela tillsammans
+Två spelare delar en enhet och turas om. Den lysande markören i en spelares fält visar vems tur det är.
+- Hem: tillbaka till spelen. Ett pågående parti väntar på dig.
+- Ångra: tar tillbaka det senaste draget. Tryck igen för att gå längre bakåt.
+- Vänd: vrider brädet ett halvt varv, så att den andra spelaren sitter nederst.
+- Ansikte mot ansikte: lägg enheten plant mellan er. Den övre spelarens pjäser och fält vänds mot hen.
+- Nytt parti: tryck två gånger för att börja om.
+- ?: de här reglerna.

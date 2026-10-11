@@ -1,0 +1,19 @@
+Dam
+# Målet
+Slå alle motstanderens brikker, eller la motstanderen stå uten trekk. Brikkene står bare på de mørke rutene og flytter diagonalt. Velg regler før spillet: internasjonal dam på et brett med 10×10 ruter, eller engelsk dam (checkers) på et brett med 8×8 ruter.
+# Internasjonal dam (10×10)
+- Den lyse siden trekker først. En vanlig brikke flytter én rute skrått fram.
+- En vanlig brikke slår ved å hoppe over en motstanderbrikke ved siden av seg til den tomme ruten rett bak. Vanlige brikker slår både forover og bakover.
+- Slag er tvunget, og du må slå så mange brikker som mulig. Hvis brikken etter et hopp kan slå igjen fra ruten den lander på, må den fortsette å hoppe i samme trekk.
+- De slåtte brikkene fjernes på slutten av trekket. En brikke kan ikke hoppes over to ganger.
+- En vanlig brikke som avslutter trekket sitt på den bakerste raden på motsatt side, blir dam. En dam flytter så mange ruter den vil langs en diagonal og slår på avstand: den lander på hvilken som helst tom rute bak brikken den slår.
+- Remis: når den samme stillingen kommer igjen for tredje gang, eller etter 25 trekk hver der bare damer har flyttet og ingenting er slått.
+# Engelsk dam (8×8)
+- Den mørke siden trekker først. Vanlige brikker flytter og slår bare forover.
+- Slag er tvunget, men du kan velge hvilket slag du gjør. Når en brikke har begynt å hoppe, må den slå alle brikkene den kan på veien.
+- En vanlig brikke som når den bakerste raden på motsatt side, blir dam, og det avslutter trekket. En dam flytter og slår én rute skrått i alle retninger.
+- Remis: når den samme stillingen kommer igjen for tredje gang, eller etter 40 trekk hver uten slag eller trekk med en vanlig brikke.
+# Slutten på spillet
+En spiller som ikke har flere brikker igjen, eller ikke kan flytte, taper.
+# Spill på enheten
+Bare brikkene som kan flytte, kan plukkes opp. Trykk på en brikke og så på ruten den lander på. Ved slag av flere brikker trykker du på hver landingsrute etter tur, eller bare på den siste. Brikkene som skal slås, blekner.

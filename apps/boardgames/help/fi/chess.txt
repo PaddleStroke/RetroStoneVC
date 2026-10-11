@@ -1,0 +1,22 @@
+Shakki
+# Tavoite
+Tee vastustajan kuninkaalle matti: uhkaa sitä niin, ettei se pääse pakoon. Valkea aloittaa, minkä jälkeen pelaajat siirtävät vuorotellen, yksi siirto kerrallaan.
+# Miten nappulat liikkuvat
+- Kuningas: yhden ruudun mihin suuntaan tahansa.
+- Kuningatar: kuinka monta ruutua tahansa suoraan, riviä, linjaa tai viistoa pitkin.
+- Torni: kuinka monta ruutua tahansa riviä tai linjaa pitkin.
+- Lähetti: kuinka monta ruutua tahansa viistoa pitkin.
+- Ratsu: L-kirjaimen muotoisesti, kaksi ruutua yhteen suuntaan ja yhden sivulle. Se on ainoa nappula, joka hyppää muiden yli.
+- Sotilas: yhden ruudun eteenpäin, tai kaksi lähtöruudustaan. Se lyö yhden ruudun viistosti eteenpäin.
+Nappulat eivät voi kulkea muiden nappuloiden läpi (paitsi ratsu). Nappula lyö siirtymällä ruutuun, jossa on vastustajan nappula, ja lyöty nappula poistuu laudalta.
+# Erikoissiirrot
+- Linnoitus: kuningas siirtyy kaksi ruutua tornia kohti, ja torni hyppää ruutuun, jonka yli kuningas kulki. Sallittu vain, jos kumpikaan nappula ei ole vielä liikkunut, niiden välissä olevat ruudut ovat tyhjiä, eikä kuningas ole shakissa, kulje uhatun ruudun yli eikä päädy shakkiin.
+- Ohestalyönti: kun sotilas siirtyy kaksi ruutua ja päätyy vastustajan sotilaan viereen, tämä sotilas saa lyödä sen kuin se olisi siirtynyt vain yhden ruudun, mutta vain heti seuraavalla siirrolla.
+- Korotus: viimeiselle riville päässyt sotilas muuttuu valintasi mukaan kuningattareksi, torniksi, lähetiksi tai ratsuksi.
+# Shakki ja pelin loppu
+Uhattu kuningas on shakissa: seuraavan siirron on päästettävä se pois shakista. Et saa koskaan tehdä siirtoa, joka jättää oman kuninkaasi shakkiin.
+- Matti: kuningas on shakissa, eikä mikään siirto voi pelastaa sitä. Se pelaaja häviää.
+- Patti: siirtovuorossa olevalla pelaajalla ei ole yhtään sallittua siirtoa, mutta hän ei ole shakissa. Peli päättyy tasapeliin.
+- Peli päättyy tasapeliin myös, kun kumpikaan ei voi enää koskaan tehdä mattia (liian vähän nappuloita jäljellä), kun sama asema toistuu kolmannen kerran, tai kun kumpikin on tehnyt viisikymmentä siirtoa ilman lyöntiä tai sotilaan siirtoa.
+# Pelaaminen laitteella
+Napauta nappulaa nähdäksesi, minne se voi liikkua, ja napauta sitten ruutua, tai vedä nappulaa. Pisteet näyttävät siirrot, renkaat lyönnit. Shakissa oleva kuningas hehkuu punaisena.

@@ -1,0 +1,15 @@
+Dokuz Taş
+# Amaç
+Rakibini yalnızca iki taşla ya da hamlesiz bırak. Her oyuncunun dokuz taşı vardır. Önce açık renk oynar.
+# Yerleştirme
+Önce oyuncular sırayla herhangi bir boş noktaya birer taş koyar; bu, on sekiz taşın hepsi tahtaya konana kadar sürer.
+# Hareket
+Sonra sıra sende olduğunda, taşlarından birini bir çizgi boyunca, boşsa bir sonraki noktaya götür. Yalnızca üç taşı kalan oyuncu uçabilir: bir taşı herhangi bir boş noktaya götürebilir.
+# Üçlüler
+Bir çizgi üzerinde yan yana dizilmiş üç taşın bir üçlü (değirmen) oluşturur. Her üçlü kurduğunda, ister yerleştirirken ister hareket ettirirken, rakibin taşlarından birini tahtadan al. Bir üçlünün içindeki taşı alamazsın; ancak rakibin bütün taşları üçlülerdeyse alabilirsin. Bir üçlüyü açıp yeniden kapatmak yeni bir üçlü sayılır.
+# Oyunun sonu
+- İki taşı kalan oyuncu kaybeder.
+- Hiçbir taşını oynatamayan oyuncu kaybeder.
+- Aynı pozisyon üçüncü kez tekrarlandığında ya da iki taraf da üçlü kurmadan ellişer hamle yaptığında oyun berabere biter.
+# Cihazda oynamak
+Taş koymak için boş bir noktaya dokun. Hareket ettirmek için taşına, sonra yeni noktasına dokun ya da onu sürükle. Bir üçlüden sonra alabileceğin taşlar parlar: birine dokun.

@@ -1,0 +1,11 @@
+Reversi
+# Cíl hry
+Na konci hry měj na desce více kamenů své barvy než soupeř. Každý kámen je z jedné strany tmavý a z druhé světlý. Začíná tmavý hráč.
+# Tah
+- Polož kámen své barvy tak, aby mezi sebe a jiný svůj kámen uzavřel jednu nebo více řad soupeřových kamenů, v přímé linii: vodorovně, svisle nebo šikmo.
+- Každý uzavřený kámen se otočí na tvou barvu. Jediný tah může uzavřít kameny v několika směrech najednou.
+- Tah musí otočit alespoň jeden kámen. Pokud takový tah nemáš, pasuješ a soupeř hraje znovu. Zařízení pasuje za tebe.
+# Konec hry
+Hra končí, když ani jeden hráč nemůže táhnout, obvykle když je deska plná. Vyhrává hráč s více kameny. Stejný počet kamenů znamená remízu.
+# Hra na zařízení
+Tečky ukazují, kam můžeš hrát: klepni na jednu. Kameny se otáčejí jeden po druhém. Každá lišta ukazuje, kolik kamenů daný hráč má.

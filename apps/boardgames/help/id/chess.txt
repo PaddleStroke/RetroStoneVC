@@ -1,0 +1,22 @@
+Catur
+# Tujuan
+Skakmat raja lawan: serang raja itu sehingga tidak bisa lolos. Putih jalan lebih dulu, lalu para pemain bergiliran, masing-masing satu langkah.
+# Cara bidak bergerak
+- Raja: satu petak ke arah mana pun.
+- Menteri: berapa pun petak dalam garis lurus, sepanjang baris, kolom, atau diagonal.
+- Benteng: berapa pun petak sepanjang baris atau kolom.
+- Gajah: berapa pun petak sepanjang diagonal.
+- Kuda: berbentuk L, dua petak ke satu arah lalu satu petak ke samping. Kuda adalah satu-satunya bidak yang bisa melompati bidak lain.
+- Pion: satu petak maju, atau dua petak dari petak awalnya. Pion memakan satu petak secara diagonal ke depan.
+Bidak tidak bisa melewati bidak lain (kecuali kuda). Bidak memakan dengan pindah ke petak yang ditempati bidak lawan, yang kemudian keluar dari papan.
+# Langkah khusus
+- Rokade: raja bergerak dua petak ke arah benteng, dan benteng melompat ke petak yang dilewati raja. Hanya boleh jika kedua bidak itu belum pernah bergerak, petak di antara keduanya kosong, dan raja tidak sedang diskak, tidak melewati petak yang diserang, dan tidak berakhir dalam keadaan skak.
+- En passant: jika pion maju dua petak dan berhenti tepat di samping pion lawan, pion lawan itu boleh memakannya seolah-olah pion tadi hanya maju satu petak, tetapi hanya pada langkah tepat berikutnya.
+- Promosi: pion yang mencapai baris terakhir berubah menjadi menteri, benteng, gajah, atau kuda sesuai pilihanmu.
+# Skak dan akhir permainan
+Raja yang diserang berarti sedang diskak: langkah berikutnya harus membebaskannya dari skak. Kamu tidak boleh membuat langkah yang membiarkan rajamu sendiri dalam keadaan skak.
+- Skakmat: raja sedang diskak dan tidak ada langkah yang bisa menyelamatkannya. Pemain itu kalah.
+- Pat: pemain yang mendapat giliran tidak punya langkah sah, tetapi tidak sedang diskak. Permainan berakhir remis.
+- Permainan juga berakhir remis jika tidak ada pihak yang bisa memberi skakmat (bidak yang tersisa terlalu sedikit), jika posisi yang sama muncul untuk ketiga kalinya, atau setelah masing-masing pihak melangkah lima puluh kali tanpa memakan bidak atau menggerakkan pion.
+# Bermain di perangkat
+Ketuk bidak untuk melihat ke mana bidak itu bisa bergerak, lalu ketuk petak tujuan, atau seret bidaknya. Titik menunjukkan langkah, lingkaran menunjukkan bidak yang bisa dimakan. Raja yang diskak menyala merah.

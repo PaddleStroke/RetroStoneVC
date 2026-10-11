@@ -1,0 +1,15 @@
+Kvarn
+# Målet
+Lämna motståndaren med bara två pjäser, eller utan drag. Varje spelare har nio pjäser. Den ljusa sidan börjar.
+# Utsättning
+Först turas spelarna om att sätta ut en pjäs på valfri tom punkt, tills alla arton pjäser står på brädet.
+# Förflyttning
+Sedan flyttar du, när det är din tur, en av dina pjäser längs en linje till nästa punkt, om den är tom. En spelare med bara tre pjäser kvar får flyga: flytta en pjäs till valfri tom punkt.
+# Kvarnar
+Tre av dina pjäser i rad längs en linje bildar en kvarn. Varje gång du bildar en kvarn, under utsättningen eller förflyttningen, tar du bort en av motståndarens pjäser från brädet. Du får inte ta en pjäs som ingår i en kvarn, om inte alla motståndarens pjäser ingår i kvarnar. Att öppna en kvarn och stänga den igen bildar en ny kvarn.
+# Partiets slut
+- En spelare som har två pjäser kvar förlorar.
+- En spelare som inte kan flytta någon pjäs förlorar.
+- Partiet blir oavgjort när samma ställning återkommer för tredje gången, eller efter femtio drag var utan kvarn.
+# Spela på enheten
+Tryck på en tom punkt för att sätta ut en pjäs. För att flytta, tryck på din pjäs och sedan på dess nya punkt, eller dra den. Efter en kvarn lyser de pjäser du får ta: tryck på en.

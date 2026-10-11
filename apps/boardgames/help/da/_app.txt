@@ -1,0 +1,9 @@
+RetroStone Board
+# Spil sammen
+To spillere deler én enhed og skiftes til at spille. Den lysende markør i en spillers panel viser, hvis tur det er.
+- Hjem: tilbage til spillene. Et igangværende spil venter på dig.
+- Fortryd: tager det sidste træk tilbage. Tryk igen for at gå længere tilbage.
+- Vend: drejer brættet rundt, så den anden spiller sidder nederst.
+- Ansigt til ansigt: læg enheden fladt mellem jer. Den øverste spillers brikker og panel vender sig mod vedkommende.
+- Nyt spil: tryk to gange for at starte forfra.
+- ?: disse regler.

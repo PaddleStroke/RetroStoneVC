@@ -1,0 +1,9 @@
+Empat Sejajar
+# Tujuan
+Jadilah yang pertama menjajarkan empat keping dengan warnamu: mendatar, tegak, atau diagonal.
+# Satu langkah
+Papan berdiri tegak dengan tujuh kolom. Saat giliranmu, jatuhkan satu keping ke dalam sebuah kolom: keping itu jatuh ke lubang kosong paling bawah. Kolom yang penuh tidak bisa diisi keping lagi. Pihak terang jalan lebih dulu.
+# Akhir permainan
+Pemain pertama yang menjajarkan empat keping menang. Jika papan penuh tanpa ada empat keping yang sejajar, permainan berakhir seri.
+# Bermain di perangkat
+Ketuk sebuah kolom, atau geser kepingmu di sepanjang tepi atas lalu lepaskan. Setiap bilah menunjukkan sisa keping pemain itu.

@@ -1,0 +1,9 @@
+Fyra i rad
+# Målet
+Bli först med att få fyra brickor i din färg på rad: vågrätt, lodrätt eller diagonalt.
+# Ett drag
+Brädet står upprätt med sju kolumner. När det är din tur släpper du ner en bricka i en kolumn: den faller till det lägsta tomma hålet. En full kolumn tar inte emot fler brickor. Den ljusa sidan börjar.
+# Partiets slut
+Den som först får fyra brickor i rad vinner. Om brädet blir fullt utan någon fyrrad blir det oavgjort.
+# Spela på enheten
+Tryck på en kolumn, eller skjut din bricka längs överkanten och släpp. Varje fält visar hur många brickor den spelaren har kvar.

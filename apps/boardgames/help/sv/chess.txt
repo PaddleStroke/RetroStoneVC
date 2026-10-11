@@ -1,0 +1,22 @@
+Schack
+# Målet
+Gör motståndarens kung schack matt: angrip den så att den inte kan komma undan. Vit börjar, sedan turas spelarna om, ett drag var.
+# Hur pjäserna går
+- Kung: en ruta åt vilket håll som helst.
+- Dam: hur många rutor som helst i rak linje, längs en rad, en linje eller en diagonal.
+- Torn: hur många rutor som helst längs en rad eller en linje.
+- Löpare: hur många rutor som helst längs en diagonal.
+- Springare: i en L-form, två rutor åt ett håll och en ruta åt sidan. Den är den enda pjäsen som hoppar över andra.
+- Bonde: en ruta framåt, eller två från sin utgångsruta. Den slår en ruta snett framåt.
+Pjäserna kan inte passera andra pjäser (utom springaren). En pjäs slår genom att flytta till en ruta där en motståndarpjäs står, som då lämnar brädet.
+# Specialdrag
+- Rockad: kungen flyttar två rutor mot ett torn, och tornet hoppar till rutan som kungen passerade. Tillåtet bara om ingen av pjäserna har flyttat än, rutorna mellan dem är tomma, och kungen inte står i schack, inte passerar en angripen ruta och inte hamnar i schack.
+- En passant: när en bonde flyttar två rutor och hamnar bredvid en motståndarbonde, får den bonden slå den som om den bara hade flyttat en ruta, men endast i det direkt följande draget.
+- Förvandling: en bonde som når sista raden förvandlas till en dam, ett torn, en löpare eller en springare, som du väljer.
+# Schack och partiets slut
+En kung som är angripen står i schack: nästa drag måste få den ur schack. Du får aldrig göra ett drag som lämnar din egen kung i schack.
+- Schack matt: kungen står i schack och inget drag kan rädda den. Den spelaren förlorar.
+- Patt: spelaren som är vid draget har inget tillåtet drag men står inte i schack. Partiet blir remi.
+- Partiet blir också remi när ingen av sidorna någonsin kan göra matt (för få pjäser kvar), när samma ställning återkommer för tredje gången, eller efter femtio drag var utan slag eller bondedrag.
+# Spela på enheten
+Tryck på en pjäs för att se vart den kan gå, tryck sedan på en ruta, eller dra pjäsen. Prickar visar dragen, ringar slagen. En kung i schack lyser rött.

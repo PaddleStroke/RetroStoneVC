@@ -1,0 +1,11 @@
+Reversi
+# Tavoite
+Pyri siihen, että pelin päättyessä laudalla on enemmän sinun värisiäsi kiekkoja kuin vastustajan. Jokainen kiekko on toiselta puolelta tumma ja toiselta vaalea. Tumma aloittaa.
+# Siirto
+- Aseta oman värisesi kiekko niin, että se saartaa yhden tai useamman rivin vastustajan kiekkoja itsensä ja toisen oman kiekkosi väliin suoraan linjaan: vaakasuoraan, pystysuoraan tai viistosti.
+- Jokainen saarrettu kiekko käännetään sinun väriksesi. Yksi siirto voi saartaa kiekkoja useaan suuntaan kerralla.
+- Siirron on käännettävä vähintään yksi kiekko. Jos sinulla ei ole sellaista siirtoa, passaat ja vastustaja pelaa uudelleen. Laite passaa puolestasi.
+# Pelin loppu
+Peli päättyy, kun kumpikaan pelaaja ei voi siirtää, yleensä kun lauta on täynnä. Pelaaja, jolla on enemmän kiekkoja, voittaa. Sama määrä kiekkoja on tasapeli.
+# Pelaaminen laitteella
+Pisteet näyttävät, mihin voit pelata: napauta yhtä. Kiekot kääntyvät yksi kerrallaan. Kukin palkki näyttää, montako kiekkoa kyseisellä pelaajalla on.

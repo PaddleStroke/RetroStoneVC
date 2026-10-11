@@ -1,0 +1,9 @@
+RetroStone Board
+# Birlikte oynayın
+İki oyuncu tek bir cihazı paylaşır ve sırayla oynar. Bir oyuncunun şeridinde parlayan pul, sıranın kimde olduğunu gösterir.
+- Ana sayfa: oyunlara geri döner. Devam eden oyun seni bekler.
+- Geri al: son hamleyi geri alır. Daha geriye gitmek için tekrar dokun.
+- Çevir: tahtayı döndürür, böylece diğer oyuncu altta oturur.
+- Yüz yüze: cihazı aranıza düz bir şekilde yatır. Üstteki oyuncunun taşları ve şeridi ona doğru döner.
+- Yeni oyun: baştan başlamak için iki kez dokun.
+- ?: bu kurallar.

@@ -1,0 +1,19 @@
+Dama
+# Amaç
+Rakibin bütün taşlarını al ya da onu hamlesiz bırak. Taşlar yalnızca koyu karelerde durur ve çapraz hareket eder. Oyundan önce kuralları seç: 10×10 tahtada uluslararası dama ya da 8×8 tahtada İngiliz daması (checkers).
+# Uluslararası dama (10×10)
+- Önce açık renk oynar. Sıradan bir taş çapraz olarak bir kare ileri gider.
+- Sıradan taş, yanındaki rakip taşın üzerinden hemen arkasındaki boş kareye atlayarak onu alır. Sıradan taşlar hem ileri hem geri alabilir.
+- Taş almak zorunludur ve alabileceğin en çok sayıda taşı almalısın. Bir atlayıştan sonra taşın indiği kareden yeni bir alma mümkünse, aynı hamlede atlamaya devam etmelidir.
+- Alınan taşlar hamlenin sonunda tahtadan kaldırılır. Bir taşın üzerinden iki kez atlanamaz.
+- Hamlesini rakibin en arka sırasında bitiren sıradan taş dama olur. Dama, bir çapraz boyunca istediği kadar kare gider ve uzaktan alır: aldığı taşın ötesindeki herhangi bir boş kareye iner.
+- Beraberlik: aynı pozisyon üçüncü kez tekrarlandığında ya da iki taraf da yalnızca damaların oynadığı ve taş alınmayan 25'er hamle yaptığında.
+# İngiliz daması (8×8)
+- Önce koyu renk oynar. Sıradan taşlar yalnızca ileri gider ve yalnızca ileri alır.
+- Taş almak zorunludur, ama hangi almayı yapacağını seçebilirsin. Bir taş atlamaya başladıktan sonra, yolu üzerinde alabileceği her taşı almalıdır.
+- Rakibin en arka sırasına ulaşan sıradan taş dama olur ve bu, hamleyi bitirir. Dama, her yöne çapraz olarak bir kare gider ve alır.
+- Beraberlik: aynı pozisyon üçüncü kez tekrarlandığında ya da iki taraf da taş almadan ve sıradan taş oynamadan 40'ar hamle yaptığında.
+# Oyunun sonu
+Hiç taşı kalmayan ya da hamle yapamayan oyuncu kaybeder.
+# Cihazda oynamak
+Yalnızca hareket edebilen taşlar seçilebilir. Bir taşa, sonra ineceği kareye dokun. Birden çok taş alırken her iniş karesine sırayla ya da yalnızca sonuncusuna dokun. Alınmak üzere olan taşlar soluklaşır.

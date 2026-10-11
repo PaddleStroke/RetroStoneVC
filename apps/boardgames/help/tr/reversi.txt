@@ -1,0 +1,11 @@
+Reversi
+# Amaç
+Oyun bittiğinde tahtada kendi renginde rakibinden daha çok pul olsun. Her pulun bir yüzü koyu, diğer yüzü açık renktir. Önce koyu oynar.
+# Bir hamle
+- Kendi renginde bir pulu, rakibin pullarından oluşan bir ya da daha çok diziyi kendisi ile başka bir pulunun arasında sıkıştıracak şekilde koy; düz bir çizgide: yatay, dikey ya da çapraz.
+- Sıkışan her pul senin rengine çevrilir. Tek bir hamle aynı anda birkaç yönde pul sıkıştırabilir.
+- Bir hamle en az bir pulu çevirmelidir. Böyle bir hamlen yoksa pas geçersin ve rakibin yeniden oynar. Cihaz senin yerine pas geçer.
+# Oyunun sonu
+Oyun, iki oyuncu da hamle yapamadığında, genellikle tahta dolduğunda biter. Daha çok pulu olan oyuncu kazanır. Pul sayıları eşitse oyun berabere biter.
+# Cihazda oynamak
+Noktalar nereye oynayabileceğini gösterir: birine dokun. Pullar birbiri ardına döner. Her şerit, o oyuncunun kaç pulu olduğunu gösterir.

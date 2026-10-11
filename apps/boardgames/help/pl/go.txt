@@ -1,0 +1,15 @@
+Go
+# Cel gry
+Otocz większą część planszy niż przeciwnik. Kamienie kładzie się na punktach przecięcia linii i raz położone nigdy się nie przesuwają. Czarne (ciemne) zaczynają. Przed grą wybierz planszę: 9×9 do szybkiej partii, 13×13 lub pełną 19×19.
+# Oddechy i bicie
+- Wolne punkty sąsiadujące z kamieniem wzdłuż linii to jego oddechy. Kamienie tego samego koloru stykające się wzdłuż linii tworzą grupę i mają wspólne oddechy.
+- Gdy zabierzesz grupie ostatni oddech, zostaje ona zbita: jej kamienie schodzą z planszy.
+- Nie możesz położyć kamienia, który nie miałby żadnego oddechu, chyba że coś zbija i w ten sposób go zyskuje.
+- Ko: nie możesz wykonać ruchu, który przywraca wcześniejszą pozycję. Gdy zostanie zbity pojedynczy kamień i można by go od razu odbić, najpierw zagraj gdzie indziej.
+# Pasowanie i liczenie
+Zamiast zagrać, możesz spasować. Gdy obaj gracze spasują jeden po drugim, gra się zatrzymuje i zaczyna się liczenie.
+- Dotknij grup, które nie mogły przeżyć (martwe kamienie): liczą się jako zbite. Dotknij ponownie, aby przywrócić grupę.
+- Gdy się zgadzacie, dotknij przycisku pasowania: gotowe.
+- Każdy gracz dostaje jeden punkt za każdy swój kamień na planszy i za każdy wolny punkt, który otacza tylko on. Białe (jasne) dostają też 7,5 punktu za grę jako drugie (komi), więc nigdy nie ma remisu. Wygrywa wyższy wynik.
+# Gra na urządzeniu
+Pierwsze dotknięcie pokazuje blady kamień, drugie dotknięcie tego samego punktu go kładzie. Dzięki temu łatwo trafić w małe punkty. Każdy pasek pokazuje kamienie zbite przez danego gracza, a podczas liczenia wynik.

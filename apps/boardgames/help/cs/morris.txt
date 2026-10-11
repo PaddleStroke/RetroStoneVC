@@ -1,0 +1,15 @@
+Mlýn
+# Cíl hry
+Nech soupeři jen dva kameny, nebo ho nech bez tahu. Každý hráč má devět kamenů. Začíná světlý hráč.
+# Rozmisťování
+Nejprve hráči střídavě pokládají po jednom kameni na libovolný volný bod, dokud není všech osmnáct kamenů na desce.
+# Posouvání
+Potom ve svém tahu posuň jeden ze svých kamenů po čáře na sousední bod, pokud je volný. Hráč, kterému zbývají jen tři kameny, smí skákat: přesunout kámen na libovolný volný bod.
+# Mlýny
+Tři tvé kameny v řadě na jedné čáře tvoří mlýn. Pokaždé, když vytvoříš mlýn, ať při rozmisťování, nebo při posouvání, odeber z desky jeden soupeřův kámen. Nesmíš vzít kámen, který je v mlýnu, pokud nejsou všechny soupeřovy kameny v mlýnech. Otevření mlýna a jeho opětovné zavření vytvoří nový mlýn.
+# Konec hry
+- Hráč, kterému zbudou dva kameny, prohrává.
+- Hráč, který nemůže táhnout žádným kamenem, prohrává.
+- Hra končí remízou, když se stejná pozice zopakuje potřetí, nebo po padesáti tazích každé strany bez mlýna.
+# Hra na zařízení
+Klepnutím na volný bod na něj položíš kámen. Chceš-li táhnout, klepni na svůj kámen a pak na jeho nový bod, nebo ho přetáhni. Po mlýnu svítí kameny, které smíš vzít: klepni na jeden.

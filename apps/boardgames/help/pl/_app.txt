@@ -1,0 +1,9 @@
+RetroStone Board
+# Wspólna gra
+Dwóch graczy dzieli jedno urządzenie i gra na zmianę. Świecący żeton na pasku gracza pokazuje, czyja jest kolej.
+- Ekran główny: powrót do listy gier. Rozpoczęta partia na ciebie poczeka.
+- Cofnij: cofa ostatni ruch. Dotknij ponownie, aby cofnąć się dalej.
+- Obróć: obraca planszę, tak aby drugi gracz siedział na dole.
+- Twarzą w twarz: połóż urządzenie płasko między wami. Pionki i pasek gracza u góry obracają się w jego stronę.
+- Nowa gra: dotknij dwa razy, aby zacząć od nowa.
+- ?: te zasady.

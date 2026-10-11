@@ -1,0 +1,11 @@
+Reversi
+# Cel gry
+Gdy gra się skończy, miej na planszy więcej krążków w swoim kolorze niż przeciwnik. Każdy krążek jest z jednej strony ciemny, a z drugiej jasny. Ciemne zaczynają.
+# Ruch
+- Połóż krążek w swoim kolorze tak, aby zamknąć jedną lub więcej linii krążków przeciwnika między nim a innym twoim krążkiem, w linii prostej: w poziomie, w pionie lub po przekątnej.
+- Każdy zamknięty krążek zostaje odwrócony na twój kolor. Jeden ruch może zamknąć krążki w kilku kierunkach naraz.
+- Ruch musi odwrócić co najmniej jeden krążek. Jeśli nie masz takiego ruchu, pasujesz i przeciwnik gra ponownie. Urządzenie pasuje za ciebie.
+# Koniec gry
+Gra kończy się, gdy żaden z graczy nie może wykonać ruchu, zwykle gdy plansza jest pełna. Wygrywa gracz z większą liczbą krążków. Równa liczba krążków oznacza remis.
+# Gra na urządzeniu
+Kropki pokazują, gdzie możesz zagrać: dotknij jednej z nich. Krążki odwracają się jeden po drugim. Każdy pasek pokazuje, ile krążków ma dany gracz.

@@ -1,0 +1,19 @@
+Dam
+# Målet
+Ta alla motståndarens pjäser, eller lämna motståndaren utan drag. Pjäserna står bara på de mörka rutorna och flyttas diagonalt. Välj regler före partiet: internationellt dam på ett bräde med 10×10 rutor, eller engelskt dam (checkers) på ett bräde med 8×8 rutor.
+# Internationellt dam (10×10)
+- Den ljusa sidan börjar. En bricka flyttas en ruta snett framåt.
+- En bricka slår genom att hoppa över en motståndarpjäs bredvid sig till den tomma rutan precis bakom. Brickor slår både framåt och bakåt.
+- Slag är tvingande, och du måste ta så många pjäser som möjligt. Om ett nytt slag är möjligt från rutan där pjäsen landar efter ett hopp, måste den fortsätta hoppa i samma drag.
+- De tagna pjäserna tas bort i slutet av draget. En pjäs kan inte hoppas över två gånger.
+- En bricka som avslutar sitt drag på den bortersta raden blir dam. En dam flyttar hur många rutor som helst längs en diagonal och slår på avstånd: den landar på valfri tom ruta bortom pjäsen den tar.
+- Remi: när samma ställning återkommer för tredje gången, eller efter 25 drag var där bara damer har flyttat och inget slag har gjorts.
+# Engelskt dam (8×8)
+- Den mörka sidan börjar. Brickor flyttar och slår bara framåt.
+- Slag är tvingande, men du får välja vilket slag du gör. När en pjäs har börjat hoppa måste den ta varje pjäs den kan på sin väg.
+- En bricka som når den bortersta raden blir dam, och det avslutar draget. En dam flyttar och slår en ruta snett åt alla håll.
+- Remi: när samma ställning återkommer för tredje gången, eller efter 40 drag var utan slag eller brickdrag.
+# Partiets slut
+En spelare som inte har några pjäser kvar, eller inte kan flytta, förlorar.
+# Spela på enheten
+Bara de pjäser som kan flytta går att ta upp. Tryck på en pjäs och sedan på rutan där den landar. Vid ett slag av flera pjäser, tryck på varje landningsruta i tur och ordning, eller bara på den sista. Pjäserna som ska tas bleknar.

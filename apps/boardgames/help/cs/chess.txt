@@ -1,0 +1,22 @@
+Šachy
+# Cíl hry
+Dej soupeřovu králi mat: napadni ho tak, aby nemohl uniknout. Bílý táhne první, potom se hráči střídají, každý jedním tahem.
+# Jak se figury pohybují
+- Král: o jedno pole libovolným směrem.
+- Dáma: o libovolný počet polí v přímém směru, po řadě, sloupci nebo diagonále.
+- Věž: o libovolný počet polí po řadě nebo sloupci.
+- Střelec: o libovolný počet polí po diagonále.
+- Jezdec: do tvaru písmene L, dvě pole jedním směrem a jedno pole stranou. Je to jediná figura, která přeskakuje ostatní.
+- Pěšec: o jedno pole vpřed, nebo o dvě ze svého výchozího pole. Bere o jedno pole šikmo vpřed.
+Figury nemohou procházet přes jiné figury (kromě jezdce). Figura bere tak, že vstoupí na pole obsazené soupeřovou figurou, která opouští šachovnici.
+# Zvláštní tahy
+- Rošáda: král se posune o dvě pole směrem k věži a věž přeskočí na pole, přes které král přešel. Je povolena, jen pokud se žádná z obou figur ještě nepohnula, pole mezi nimi jsou volná a král není v šachu, nepřechází přes napadené pole a nedostane se do šachu.
+- Braní mimochodem: když se pěšec posune o dvě pole a stane vedle soupeřova pěšce, smí ho tento pěšec vzít, jako by se posunul jen o jedno pole, ale pouze v bezprostředně následujícím tahu.
+- Proměna: pěšec, který dojde na poslední řadu, se promění v dámu, věž, střelce nebo jezdce podle tvé volby.
+# Šach a konec partie
+Napadený král je v šachu: další tah ho musí ze šachu dostat. Nikdy nesmíš zahrát tah, po kterém by tvůj vlastní král zůstal v šachu.
+- Mat: král je v šachu a žádný tah ho nemůže zachránit. Tento hráč prohrává.
+- Pat: hráč na tahu nemá žádný povolený tah, ale není v šachu. Partie končí remízou.
+- Partie končí remízou také tehdy, když žádná strana už nikdy nemůže dát mat (zbývá příliš málo figur), když se stejná pozice zopakuje potřetí, nebo po padesáti tazích každé strany bez braní a bez tahu pěšcem.
+# Hra na zařízení
+Klepni na figuru a uvidíš, kam může táhnout, potom klepni na pole, nebo figuru přetáhni. Tečky ukazují tahy, kroužky braní. Král v šachu svítí červeně.

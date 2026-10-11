@@ -1,0 +1,15 @@
+Go
+# Målet
+Omring en større del af brættet end modstanderen. Stenene spilles på punkterne, hvor linjerne krydser hinanden, og flyttes aldrig, når de først er spillet. Sort (mørk) starter. Vælg bræt før spillet: 9×9 til et hurtigt spil, 13×13 eller det fulde 19×19.
+# Friheder og fangst
+- De tomme punkter ved siden af en sten, langs linjerne, er dens friheder. Sten af samme farve, der rører hinanden langs linjerne, danner en gruppe og deler deres friheder.
+- Når du tager en gruppes sidste frihed, er den fanget: dens sten forlader brættet.
+- Du må ikke spille en sten, der ikke ville have nogen frihed, medmindre den fanger noget og dermed får en.
+- Ko: du må ikke lave et træk, der genskaber en tidligere stilling. Når en enkelt sten er blevet fanget og straks kunne tages tilbage, skal du først spille et andet sted.
+# Pas og optælling
+I stedet for at spille må du melde pas. Når begge spillere melder pas lige efter hinanden, stopper spillet, og optællingen begynder.
+- Tryk på de grupper, der ikke kunne leve (døde sten): de tæller som fangede. Tryk igen for at tage en gruppe tilbage.
+- Når I er enige, så tryk på pas-knappen: færdig.
+- Hver spiller får ét point for hver af sine sten på brættet og for hvert tomt punkt, som kun vedkommende omringer. Hvid (lys) får desuden 7,5 point for at spille som nummer to (komi), så spillet bliver aldrig uafgjort. Den højeste score vinder.
+# Spil på enheden
+Det første tryk viser en bleg sten, et andet tryk på samme punkt spiller den. Det gør små punkter lette at ramme. Hvert panel viser de sten, den spiller har fanget, og scoren under optællingen.

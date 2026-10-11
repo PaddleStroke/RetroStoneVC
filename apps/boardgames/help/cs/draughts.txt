@@ -1,0 +1,19 @@
+Dáma
+# Cíl hry
+Vezmi všechny soupeřovy kameny, nebo ho nech bez tahu. Kameny stojí jen na tmavých polích a pohybují se šikmo. Před hrou si vyber pravidla: mezinárodní dáma na desce 10×10, nebo anglická dáma (checkers) na desce 8×8.
+# Mezinárodní dáma (10×10)
+- Začíná světlý hráč. Obyčejný kámen se posouvá o jedno pole šikmo vpřed.
+- Obyčejný kámen bere tak, že přeskočí sousední soupeřův kámen na volné pole hned za ním. Obyčejné kameny berou dopředu i dozadu.
+- Braní je povinné a musíš vzít co nejvíce kamenů. Pokud je po skoku z pole, kam kámen dopadl, možné další braní, musí v témže tahu skákat dál.
+- Vzaté kameny se odstraňují až na konci tahu. Žádný kámen nelze přeskočit dvakrát.
+- Obyčejný kámen, který skončí tah na nejvzdálenější řadě, se stane dámou. Dáma se pohybuje o libovolný počet polí po diagonále a bere na dálku: dopadne na kterékoli volné pole za braným kamenem.
+- Remíza: když se stejná pozice zopakuje potřetí, nebo po 25 tazích každé strany, kdy táhly jen dámy a nic se nebralo.
+# Anglická dáma (8×8)
+- Začíná tmavý hráč. Obyčejné kameny táhnou a berou jen dopředu.
+- Braní je povinné, ale můžeš si vybrat, které braní provedeš. Jakmile kámen začne skákat, musí cestou vzít všechny kameny, které může.
+- Obyčejný kámen, který dojde na nejvzdálenější řadu, se stane dámou, a tím tah končí. Dáma táhne a bere o jedno pole šikmo libovolným směrem.
+- Remíza: když se stejná pozice zopakuje potřetí, nebo po 40 tazích každé strany bez braní a bez tahu obyčejným kamenem.
+# Konec hry
+Hráč, kterému nezbyl žádný kámen nebo který nemůže táhnout, prohrává.
+# Hra na zařízení
+Zvednout lze jen kameny, které mohou táhnout. Klepni na kámen a pak na pole, kam dopadne. Při braní více kamenů klepni postupně na každé pole dopadu, nebo jen na poslední. Kameny, které budou brány, blednou.

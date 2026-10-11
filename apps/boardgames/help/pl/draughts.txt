@@ -1,0 +1,19 @@
+Warcaby
+# Cel gry
+Zbij wszystkie pionki przeciwnika albo pozostaw go bez ruchu. Pionki stoją tylko na ciemnych polach i poruszają się po przekątnej. Przed grą wybierz zasady: warcaby międzynarodowe na planszy 10×10 albo warcaby angielskie (checkers) na planszy 8×8.
+# Warcaby międzynarodowe (10×10)
+- Jasne zaczynają. Zwykły pionek przesuwa się o jedno pole na ukos do przodu.
+- Zwykły pionek bije, przeskakując nad sąsiednim pionkiem przeciwnika na wolne pole tuż za nim. Zwykłe pionki biją do przodu i do tyłu.
+- Bicie jest obowiązkowe i musisz zbić jak najwięcej pionków. Jeśli po skoku z pola, na którym pionek wylądował, możliwe jest kolejne bicie, musi on skakać dalej w tym samym ruchu.
+- Zbite pionki są zdejmowane z planszy na końcu ruchu. Nie można przeskoczyć tego samego pionka dwa razy.
+- Zwykły pionek, który kończy ruch w ostatnim rzędzie po stronie przeciwnika, staje się damką. Damka porusza się o dowolną liczbę pól po przekątnej i bije z daleka, stając na dowolnym wolnym polu za zbijanym pionkiem.
+- Remis: gdy ta sama pozycja powtórzy się po raz trzeci, lub po 25 ruchach każdej ze stron, w których ruszały się tylko damki i nie było bicia.
+# Warcaby angielskie (8×8)
+- Ciemne zaczynają. Zwykłe pionki poruszają się i biją tylko do przodu.
+- Bicie jest obowiązkowe, ale możesz wybrać, które bicie wykonać. Gdy pionek zacznie skakać, musi po drodze zbić wszystkie pionki, jakie może.
+- Zwykły pionek, który dojdzie do ostatniego rzędu, staje się damką, co kończy ruch. Damka porusza się i bije o jedno pole po przekątnej w dowolnym kierunku.
+- Remis: gdy ta sama pozycja powtórzy się po raz trzeci, lub po 40 ruchach każdej ze stron bez bicia i bez ruchu zwykłym pionkiem.
+# Koniec gry
+Gracz, któremu nie zostały żadne pionki albo który nie może wykonać ruchu, przegrywa.
+# Gra na urządzeniu
+Można podnieść tylko te pionki, które mogą się ruszyć. Dotknij pionka, a potem pola, na którym ma wylądować. Przy biciu kilku pionków dotknij po kolei każdego pola lądowania albo tylko ostatniego. Pionki, które za chwilę zostaną zbite, bledną.

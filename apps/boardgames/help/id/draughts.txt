@@ -1,0 +1,19 @@
+Dam
+# Tujuan
+Makan semua bidak lawan, atau buat lawan tidak bisa melangkah. Bidak hanya berdiri di petak gelap dan bergerak secara diagonal. Pilih aturannya sebelum bermain: dam internasional di papan 10×10, atau dam Inggris (checkers) di papan 8×8.
+# Dam internasional (10×10)
+- Pihak terang jalan lebih dulu. Bidak biasa bergerak satu petak secara diagonal ke depan.
+- Bidak biasa memakan dengan melompati bidak lawan di sebelahnya ke petak kosong tepat di belakangnya. Bidak biasa bisa memakan ke depan maupun ke belakang.
+- Memakan itu wajib, dan kamu harus memakan sebanyak mungkin bidak. Setelah melompat, jika bidak bisa memakan lagi dari petak tempatnya mendarat, bidak itu harus terus melompat dalam langkah yang sama.
+- Bidak yang dimakan diangkat di akhir langkah. Satu bidak tidak boleh dilompati dua kali.
+- Bidak biasa yang mengakhiri langkahnya di baris terjauh menjadi raja. Raja bergerak berapa pun petak sepanjang diagonal dan memakan dari jauh, mendarat di petak kosong mana pun di belakang bidak yang dimakannya.
+- Remis: jika posisi yang sama muncul untuk ketiga kalinya, atau setelah masing-masing pihak melangkah 25 kali dengan hanya raja yang bergerak dan tanpa ada yang dimakan.
+# Dam Inggris (8×8)
+- Pihak gelap jalan lebih dulu. Bidak biasa bergerak dan memakan hanya ke depan.
+- Memakan itu wajib, tetapi kamu boleh memilih cara memakan yang mana. Begitu sebuah bidak mulai melompat, bidak itu harus memakan setiap bidak yang bisa dimakannya di sepanjang jalan.
+- Bidak biasa yang mencapai baris terjauh menjadi raja, dan langkahnya berakhir di situ. Raja bergerak dan memakan satu petak secara diagonal ke segala arah.
+- Remis: jika posisi yang sama muncul untuk ketiga kalinya, atau setelah masing-masing pihak melangkah 40 kali tanpa memakan atau menggerakkan bidak biasa.
+# Akhir permainan
+Pemain yang tidak punya bidak lagi, atau tidak bisa melangkah, kalah.
+# Bermain di perangkat
+Hanya bidak yang bisa bergerak yang dapat diambil. Ketuk sebuah bidak, lalu petak tempatnya mendarat. Untuk memakan beberapa bidak, ketuk setiap petak pendaratan secara berurutan, atau cukup yang terakhir. Bidak yang akan dimakan memudar.

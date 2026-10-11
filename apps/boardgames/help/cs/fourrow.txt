@@ -1,0 +1,9 @@
+Čtyři v řadě
+# Cíl hry
+Buď první, kdo spojí čtyři žetony své barvy do řady: vodorovně, svisle nebo šikmo.
+# Tah
+Deska stojí svisle a má sedm sloupců. Když jsi na tahu, vhoď jeden žeton do sloupce: spadne do nejnižšího volného otvoru. Do plného sloupce už žádný žeton nevhodíš. Začíná světlý hráč.
+# Konec hry
+Vyhrává první hráč se čtyřmi žetony v řadě. Pokud se deska zaplní bez jediné čtveřice, hra končí remízou.
+# Hra na zařízení
+Klepni na sloupec, nebo posuň svůj žeton po horním okraji a pusť ho. Každá lišta ukazuje, kolik žetonů danému hráči zbývá.

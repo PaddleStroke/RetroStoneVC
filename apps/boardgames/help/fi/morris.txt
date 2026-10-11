@@ -1,0 +1,15 @@
+Mylly
+# Tavoite
+Jätä vastustajalle vain kaksi nappulaa tai ei yhtään siirtoa. Kummallakin pelaajalla on yhdeksän nappulaa. Vaalea aloittaa.
+# Asettaminen
+Aluksi pelaajat asettavat vuorotellen yhden nappulan mihin tahansa tyhjään pisteeseen, kunnes kaikki kahdeksantoista nappulaa ovat laudalla.
+# Siirtäminen
+Sen jälkeen siirrät vuorollasi yhtä nappulaasi viivaa pitkin viereiseen pisteeseen, jos se on tyhjä. Pelaaja, jolla on jäljellä vain kolme nappulaa, saa lentää: siirtää nappulan mihin tahansa tyhjään pisteeseen.
+# Myllyt
+Kolme omaa nappulaasi rivissä samalla viivalla muodostavat myllyn. Aina kun muodostat myllyn, asettamis- tai siirtovaiheessa, poistat laudalta yhden vastustajan nappulan. Et saa ottaa nappulaa, joka on myllyssä, elleivät kaikki vastustajan nappulat ole myllyissä. Myllyn avaaminen ja sulkeminen uudelleen muodostaa uuden myllyn.
+# Pelin loppu
+- Pelaaja, jolle jää kaksi nappulaa, häviää.
+- Pelaaja, joka ei voi siirtää yhtään nappulaa, häviää.
+- Peli päättyy tasapeliin, kun sama asema toistuu kolmannen kerran, tai kun kumpikin on tehnyt viisikymmentä siirtoa ilman myllyä.
+# Pelaaminen laitteella
+Napauta tyhjää pistettä asettaaksesi nappulan. Siirtääksesi napauta nappulaasi ja sitten sen uutta pistettä, tai vedä sitä. Myllyn jälkeen nappulat, jotka saat ottaa, hehkuvat: napauta yhtä.

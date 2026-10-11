@@ -1,0 +1,9 @@
+RetroStone Board
+# Pelatkaa yhdessä
+Kaksi pelaajaa jakaa yhden laitteen ja pelaa vuorotellen. Pelaajan palkissa hehkuva merkki näyttää, kenen vuoro on.
+- Koti: takaisin peleihin. Kesken jäänyt peli odottaa sinua.
+- Kumoa: peruu viimeisen siirron. Napauta uudelleen palataksesi vielä kauemmas taaksepäin.
+- Käännä: kääntää laudan ympäri, niin että toinen pelaaja istuu alhaalla.
+- Kasvokkain: aseta laite tasaisesti välillenne. Ylemmän pelaajan nappulat ja palkki kääntyvät häntä kohti.
+- Uusi peli: napauta kahdesti aloittaaksesi alusta.
+- ?: nämä säännöt.

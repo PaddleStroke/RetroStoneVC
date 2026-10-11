@@ -1,0 +1,9 @@
+RetroStone Board
+# Hra ve dvou
+Dva hráči sdílejí jedno zařízení a střídají se. Svítící žeton v liště hráče ukazuje, kdo je na tahu.
+- Domů: zpět na seznam her. Rozehraná hra na tebe počká.
+- Vrátit: vezme zpět poslední tah. Klepni znovu a vrátíš se ještě dál.
+- Otočit: otočí desku, aby druhý hráč seděl dole.
+- Tváří v tvář: polož zařízení naplocho mezi sebe. Figurky a lišta horního hráče se otočí k němu.
+- Nová hra: klepni dvakrát a začneš znovu.
+- ?: tato pravidla.

@@ -1,0 +1,19 @@
+Tammi
+# Tavoite
+Lyö kaikki vastustajan nappulat tai jätä vastustaja ilman siirtoa. Nappulat ovat vain tummilla ruuduilla ja liikkuvat viistosti. Valitse säännöt ennen peliä: kansainvälinen tammi 10×10-laudalla tai englantilainen tammi (checkers) 8×8-laudalla.
+# Kansainvälinen tammi (10×10)
+- Vaalea aloittaa. Tavallinen nappula siirtyy yhden ruudun viistosti eteenpäin.
+- Tavallinen nappula lyö hyppäämällä viereisen vastustajan nappulan yli heti sen takana olevaan tyhjään ruutuun. Tavalliset nappulat lyövät sekä eteen- että taaksepäin.
+- Lyöminen on pakollista, ja sinun on lyötävä mahdollisimman monta nappulaa. Jos hypyn jälkeen voi lyödä uudelleen ruudusta, johon nappula laskeutui, sen on jatkettava hyppimistä samalla siirrolla.
+- Lyödyt nappulat poistetaan siirron lopussa. Samaa nappulaa ei voi hypätä kahdesti.
+- Tavallisesta nappulasta, joka päättää siirtonsa vastustajan takariville, tulee kuningas. Kuningas liikkuu kuinka monta ruutua tahansa viistoa pitkin ja lyö kaukaa: se laskeutuu mihin tahansa tyhjään ruutuun lyömänsä nappulan takana.
+- Tasapeli: kun sama asema toistuu kolmannen kerran, tai kun kumpikin on tehnyt 25 siirtoa, joissa vain kuninkaat liikkuvat eikä mitään lyödä.
+# Englantilainen tammi (8×8)
+- Tumma aloittaa. Tavalliset nappulat liikkuvat ja lyövät vain eteenpäin.
+- Lyöminen on pakollista, mutta saat valita, minkä lyönnin teet. Kun nappula on aloittanut hyppimisen, sen on lyötävä matkallaan kaikki nappulat, jotka se voi.
+- Tavallisesta nappulasta, joka pääsee vastustajan takariville, tulee kuningas, ja siirto päättyy siihen. Kuningas liikkuu ja lyö yhden ruudun viistosti mihin suuntaan tahansa.
+- Tasapeli: kun sama asema toistuu kolmannen kerran, tai kun kumpikin on tehnyt 40 siirtoa ilman lyöntiä tai tavallisen nappulan siirtoa.
+# Pelin loppu
+Pelaaja, jolta loppuvat nappulat tai joka ei voi siirtää, häviää.
+# Pelaaminen laitteella
+Vain nappuloita, jotka voivat liikkua, voi nostaa. Napauta nappulaa ja sitten ruutua, johon se laskeutuu. Kun lyöt useita nappuloita, napauta jokaista laskeutumisruutua vuorollaan tai vain viimeistä. Lyötäviksi joutuvat nappulat himmenevät.

@@ -1,0 +1,22 @@
+Skak
+# Målet
+Sæt modstanderens konge skakmat: angrib den, så den ikke kan undslippe. Hvid trækker først, derefter skiftes spillerne, ét træk ad gangen.
+# Sådan trækker brikkerne
+- Konge: ét felt i en hvilken som helst retning.
+- Dronning: et vilkårligt antal felter i lige linje, langs en række, en linje eller en diagonal.
+- Tårn: et vilkårligt antal felter langs en række eller en linje.
+- Løber: et vilkårligt antal felter langs en diagonal.
+- Springer: i en L-form, to felter i én retning og ét felt til siden. Det er den eneste brik, der springer over andre.
+- Bonde: ét felt frem, eller to fra sit udgangsfelt. Den slår ét felt skråt frem.
+Brikkerne kan ikke passere gennem andre brikker (undtagen springeren). En brik slår ved at flytte hen på et felt, hvor en modstanderbrik står, som så forlader brættet.
+# Særlige træk
+- Rokade: kongen flytter to felter mod et tårn, og tårnet springer hen på det felt, kongen passerede. Kun tilladt, hvis ingen af de to brikker har flyttet endnu, felterne mellem dem er tomme, og kongen ikke står i skak, ikke passerer et angrebet felt og ikke ender i skak.
+- En passant: når en bonde flytter to felter og ender ved siden af en modstanderbonde, må den bonde slå den, som om den kun havde flyttet ét felt, men kun i det umiddelbart følgende træk.
+- Forvandling: en bonde, der når den sidste række, bliver til en dronning, et tårn, en løber eller en springer efter eget valg.
+# Skak og partiets afslutning
+En konge, der er angrebet, står i skak: det næste træk skal bringe den ud af skak. Du må aldrig lave et træk, der efterlader din egen konge i skak.
+- Skakmat: kongen står i skak, og intet træk kan redde den. Den spiller taber.
+- Pat: spilleren i trækket har intet lovligt træk, men står ikke i skak. Partiet er remis.
+- Partiet er også remis, når ingen af siderne nogensinde kan sætte mat (for få brikker tilbage), når den samme stilling opstår for tredje gang, eller efter halvtreds træk hver uden slag eller bondetræk.
+# Spil på enheden
+Tryk på en brik for at se, hvor den kan gå hen, og tryk derefter på et felt, eller træk brikken. Prikker viser trækkene, ringe slagene. En konge i skak lyser rødt.

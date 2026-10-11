@@ -1,0 +1,9 @@
+Dörtlü Sıra
+# Amaç
+Kendi renginden dört pulu bir sıraya ilk dizen sen ol: yatay, dikey ya da çapraz.
+# Bir hamle
+Tahta, yedi sütunlu olarak dik durur. Sıra sende olduğunda bir sütuna bir pul bırak: pul en alttaki boş deliğe düşer. Dolu bir sütuna başka pul atılamaz. Önce açık renk oynar.
+# Oyunun sonu
+Dört pulu bir sıraya ilk dizen oyuncu kazanır. Tahta, dörtlü bir sıra oluşmadan dolarsa oyun berabere biter.
+# Cihazda oynamak
+Bir sütuna dokun ya da pulunu üst kenar boyunca kaydırıp bırak. Her şerit, o oyuncunun kaç pulu kaldığını gösterir.

@@ -1,0 +1,11 @@
+Reversi
+# Målet
+Ha fler brickor i din färg på brädet än motståndaren när partiet tar slut. Varje bricka är mörk på ena sidan och ljus på den andra. Den mörka sidan börjar.
+# Ett drag
+- Lägg en bricka i din färg så att den stänger in en eller flera rader av motståndarens brickor mellan sig själv och en annan av dina brickor, i rak linje: vågrätt, lodrätt eller diagonalt.
+- Varje instängd bricka vänds till din färg. Ett enda drag kan stänga in brickor i flera riktningar samtidigt.
+- Ett drag måste vända minst en bricka. Om du inte har något sådant drag står du över och motståndaren spelar igen. Enheten står över åt dig.
+# Partiets slut
+Partiet tar slut när ingen av spelarna kan göra ett drag, oftast när brädet är fullt. Spelaren med flest brickor vinner. Lika många brickor är oavgjort.
+# Spela på enheten
+Prickar visar var du kan spela: tryck på en. Brickorna vänds en efter en. Varje fält visar hur många brickor den spelaren har.

@@ -1,0 +1,15 @@
+Sembilan Bidak
+# Tujuan
+Buat lawan hanya punya dua bidak tersisa, atau tidak bisa melangkah. Setiap pemain punya sembilan bidak. Pihak terang jalan lebih dulu.
+# Menempatkan
+Mula-mula, para pemain bergiliran menempatkan satu bidak di titik kosong mana pun, sampai kedelapan belas bidak berada di papan.
+# Menggerakkan
+Kemudian, saat giliranmu, gerakkan salah satu bidakmu di sepanjang garis ke titik berikutnya, jika titik itu kosong. Pemain yang hanya punya tiga bidak tersisa boleh terbang: memindahkan bidak ke titik kosong mana pun.
+# Kincir
+Tiga bidakmu yang berderet pada satu garis membentuk kincir. Setiap kali kamu membentuk kincir, baik saat menempatkan maupun saat menggerakkan, ambil satu bidak lawan dari papan. Kamu tidak boleh mengambil bidak yang menjadi bagian dari kincir, kecuali semua bidak lawan berada dalam kincir. Membuka kincir lalu menutupnya lagi membentuk kincir baru.
+# Akhir permainan
+- Pemain yang tinggal punya dua bidak kalah.
+- Pemain yang tidak bisa menggerakkan bidak mana pun kalah.
+- Permainan berakhir seri jika posisi yang sama muncul untuk ketiga kalinya, atau setelah masing-masing pihak melangkah lima puluh kali tanpa membentuk kincir.
+# Bermain di perangkat
+Ketuk titik kosong untuk menempatkan bidak. Untuk menggerakkan, ketuk bidakmu lalu titik barunya, atau seret bidak itu. Setelah kincir terbentuk, bidak yang boleh kamu ambil akan menyala: ketuk salah satunya.

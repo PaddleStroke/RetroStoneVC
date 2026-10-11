@@ -1,0 +1,11 @@
+Reversi
+# Tujuan
+Miliki lebih banyak keping dengan warnamu di papan daripada lawan saat permainan berakhir. Setiap keping berwarna gelap di satu sisi dan terang di sisi lainnya. Pihak gelap jalan lebih dulu.
+# Satu langkah
+- Letakkan keping dengan warnamu sehingga satu atau beberapa deret keping lawan terapit di antara keping itu dan kepingmu yang lain, dalam garis lurus: mendatar, tegak, atau diagonal.
+- Setiap keping yang terapit dibalik menjadi warnamu. Satu langkah bisa mengapit keping ke beberapa arah sekaligus.
+- Satu langkah harus membalik setidaknya satu keping. Jika kamu tidak punya langkah seperti itu, kamu pas dan lawan bermain lagi. Perangkat akan pas untukmu.
+# Akhir permainan
+Permainan berakhir jika kedua pemain tidak bisa melangkah, biasanya saat papan penuh. Pemain dengan keping lebih banyak menang. Jumlah keping yang sama berarti seri.
+# Bermain di perangkat
+Titik menunjukkan tempat kamu bisa bermain: ketuk salah satunya. Keping-keping terbalik satu per satu. Setiap bilah menunjukkan jumlah keping milik pemain itu.
