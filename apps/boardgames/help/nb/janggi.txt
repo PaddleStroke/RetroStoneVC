@@ -1,0 +1,25 @@
+Janggi
+# Målet
+Sett motstanderens general sjakkmatt: angrip den slik at den ikke kan unnslippe. Cho (blågrønn) trekker først, så Han (rød); spillerne bytter på, ett trekk hver.
+# Brettet
+Brikkene står på punktene der linjene krysser hverandre, ikke i rutene. Det er ingen elv. Hver side har et palass: de 3×3 punktene som er merket med et kryss, der generalen og vaktene bor. Palassenes diagonaler er også linjer.
+# Brikkene
+Hver brikke bærer sitt kinesiske tegn i sidens blekkfarge; generalene bærer sidenes navn, Cho og Han. Brikkene er åttekanter med størrelse etter rang: generalen størst, vaktene og soldatene minst. Hver side starter med, regnet fra sin venstre side: vogn, hest, elefant, vakt, vakt, elefant, hest, vogn på bakerste rad, generalen midt i palasset, de to kanonene foran hestene og fem soldater. Denne appen bruker alltid denne oppstillingen (hestene ytterst, elefantene innerst); de tre andre plasseringene av hestene og elefantene tilbys ikke.
+# Slik går brikkene
+- General og vakt: ett punkt langs en av palassets linjer, diagonalene medregnet, uten å forlate det.
+- Hest: ett punkt rett fram, så ett punkt diagonalt utover. Den sperres hvis det første punktet er opptatt.
+- Elefant: ett punkt rett fram, så to punkter diagonalt utover. Den sperres hvis et av punktene den passerer, er opptatt.
+- Vogn: så mange punkter den vil langs en linje, som et tårn i sjakk, og langs palassenes diagonaler.
+- Kanon: går og slår bare ved å hoppe over nøyaktig én brikke (fra hvilken som helst side) på linjen sin, palassenes diagonaler medregnet. Den kan ikke hoppe over en kanon, og den kan ikke slå en kanon.
+- Soldat: ett punkt fram eller til siden, aldri bakover. I motstanderens palass kan den også gå fram langs en diagonal.
+En brikke slår ved å flytte til et punkt der en motstanderbrikke står, og den slåtte brikken forlater brettet.
+# Pass
+I stedet for å flytte kan en spiller passe, unntatt når vedkommende står i sjakk. En spiller som ikke har noe lovlig trekk, men ikke står i sjakk, må passe.
+# Sjakk og slutten på partiet
+En general som er angrepet, står i sjakk: neste trekk må få den ut av sjakk. Du kan aldri gjøre et trekk som lar din egen general stå i sjakk.
+- Sjakkmatt: generalen står i sjakk, og ingen trekk kan redde den. Den spilleren taper.
+- Generalene rett overfor hverandre: et trekk kan ikke la de to generalene stå ansikt til ansikt på samme linje uten noe imellom. (Andre regler gjør dette til et remistilbud; her er det rett og slett ikke lov.)
+- Remis: når den samme stillingen kommer igjen for tredje gang med samme spiller i trekket, er partiet remis (fire pass på rad gir også remis). Et parti på tusen trekk hver er også remis.
+- Poengtellingen som avgjør noen partier, brukes ikke: partiet fortsetter til sjakkmatt eller remis.
+# Spill på enheten
+Trykk på en brikke for å se hvor den kan gå, og trykk så på et punkt, eller dra brikken. Prikker viser trekkene, ringer slagene. En general i sjakk lyser rødt. Pass-knappen er i panelet til spilleren som er i trekket. Hvert panel viser brikkene den spilleren har slått.

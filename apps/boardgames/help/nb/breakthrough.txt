@@ -1,0 +1,16 @@
+Gjennombrudd
+# Målet
+Bryt gjennom motstanderens hær: bli den første til å få en av brikkene dine til den andre siden av brettet, motstanderens hjemmerad.
+# Startoppstillingen
+Spillet spilles på et sjakkbrett. Hver spiller har seksten brikker, som fyller spillerens to første rader. Den lyse siden trekker først, deretter bytter spillerne på, ett trekk hver.
+# Slik går brikkene
+- En brikke flytter én rute framover, rett fram eller skrått, til en tom rute.
+- En brikke slår ved å flytte én rute skrått fram til en motstanderbrikke, og den slåtte brikken forlater brettet.
+- En brikke slår aldri rett fram: en motstanderbrikke rett foran den sperrer den.
+- Brikker flytter aldri til siden eller bakover. Slag er aldri tvunget.
+# Slutten på spillet
+- Den første spilleren som når motstanderens hjemmerad, vinner.
+- En spiller som mister alle brikkene sine, taper.
+Det blir aldri uavgjort: en spiller med brikker igjen kan alltid flytte.
+# Spill på enheten
+Trykk på en brikke for å se hvor den kan gå, og trykk så på en rute, eller dra brikken. Prikker viser trekkene, ringer slagene. Den vinnende brikken skinner i gull.

@@ -1,0 +1,16 @@
+Mancala
+# Målet
+Fånga fler frön än motståndaren. Brädet har två rader med sex gropar, fyra frön i varje. Raden närmast dig är din, med ditt förråd vid dess högra ände. Den ljusa sidan börjar.
+# Oware
+- När det är din tur tar du upp alla frön i en av dina gropar och sår dem ett och ett i de följande groparna, moturs. Med tolv frön eller fler går du hela varvet runt: gropen du tömde hoppas över.
+- Om ditt sista frö hamnar i motståndarens rad och gör att det blir två eller tre frön där, fångar du dem. Du fångar också gropen före, och den före den, så länge de ligger i motståndarens rad och innehåller två eller tre frön.
+- Ett drag som skulle fånga alla motståndarens frön får spelas, men det fångar ingenting.
+- Om motståndaren inte har några frön måste du göra ett drag som ger hen några, om du har ett sådant.
+- Partiet slutar när en spelare har fångat fler än 24 frön, när spelaren som är vid draget inte kan spela, eller när samma ställning återkommer. I de två sista fallen lägger varje spelare till fröna som är kvar i den egna raden. Flest frön vinner; 24 var är oavgjort.
+# Kalah
+- När det är din tur tar du upp alla frön i en av dina gropar och sår dem ett och ett moturs i de följande groparna och i ditt eget förråd, men inte i motståndarens förråd.
+- Om ditt sista frö hamnar i ditt förråd spelar du igen.
+- Om ditt sista frö hamnar i en tom grop på din sida och gropen mittemot innehåller frön, fångar du båda: ditt frö och fröna mittemot går till ditt förråd.
+- Partiet slutar när en rad är tom: den andra spelaren lägger fröna som är kvar i sin rad i sitt förråd. Flest frön i förrådet vinner; lika många är oavgjort.
+# Spela på enheten
+Tryck på en av dina gropar för att så från den: groparna du kan spela lyser. Fröna vandrar ett och ett, och fångade frön flyger till förrådet. Talet bredvid varje grop visar dess frön, och varje fält visar de frön som den spelaren har fångat.

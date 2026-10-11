@@ -1,6 +1,6 @@
 Dam
 # Målet
-Ta alla motståndarens pjäser, eller lämna motståndaren utan drag. Pjäserna står bara på de mörka rutorna och flyttas diagonalt. Välj regler före partiet: internationellt dam på ett bräde med 10×10 rutor, eller engelskt dam (checkers) på ett bräde med 8×8 rutor.
+Ta alla motståndarens pjäser, eller lämna motståndaren utan drag. Välj regler före partiet: internationellt dam på ett bräde med 10×10 rutor, engelskt dam (checkers), ryskt, brasilianskt eller turkiskt dam på ett bräde med 8×8 rutor. Pjäserna står bara på de mörka rutorna och flyttas diagonalt, utom i turkiskt dam.
 # Internationellt dam (10×10)
 - Den ljusa sidan börjar. En bricka flyttas en ruta snett framåt.
 - En bricka slår genom att hoppa över en motståndarpjäs bredvid sig till den tomma rutan precis bakom. Brickor slår både framåt och bakåt.
@@ -13,6 +13,25 @@ Ta alla motståndarens pjäser, eller lämna motståndaren utan drag. Pjäserna 
 - Slag är tvingande, men du får välja vilket slag du gör. När en pjäs har börjat hoppa måste den ta varje pjäs den kan på sin väg.
 - En bricka som når den bortersta raden blir dam, och det avslutar draget. En dam flyttar och slår en ruta snett åt alla håll.
 - Remi: när samma ställning återkommer för tredje gången, eller efter 40 drag var utan slag eller brickdrag.
+# Ryskt dam (8×8)
+- Den ljusa sidan börjar. En bricka flyttas en ruta snett framåt och slår både framåt och bakåt.
+- Damer flyttar och slår på avstånd längs diagonalerna, som i internationellt dam. Efter ett slag måste en dam landa på en ruta varifrån den kan fortsätta slå, om det finns en sådan.
+- Slag är tvingande, men du får välja vilket slag du gör. När en pjäs har börjat hoppa måste den ta varje pjäs den kan på sin väg.
+- De tagna pjäserna tas bort i slutet av draget. En pjäs kan inte hoppas över två gånger.
+- En bricka som når den bortersta raden blir dam direkt, även mitt i ett slag, och fortsätter sedan att slå som dam om den kan.
+- Remi: när samma ställning återkommer för tredje gången, eller efter 15 drag var där bara damer har flyttat och inget slag har gjorts.
+# Brasilianskt dam (8×8)
+- Reglerna för internationellt dam på ett bräde med 8×8 rutor. Den ljusa sidan börjar.
+- Brickor slår både framåt och bakåt, damer flyttar och slår på avstånd, och du måste ta så många pjäser som möjligt.
+- En bricka blir dam bara om den avslutar sitt drag på den bortersta raden.
+- Remi: när samma ställning återkommer för tredje gången, eller efter 20 drag var där bara damer har flyttat och inget slag har gjorts.
+# Turkiskt dam (8×8)
+- Alla 64 rutor används. Varje spelare börjar med 16 brickor på sin andra och tredje rad. Den ljusa sidan börjar.
+- En bricka flyttas en ruta rakt framåt eller åt sidan, aldrig diagonalt och aldrig bakåt. Den slår på samma sätt, genom att hoppa över en motståndarpjäs bredvid sig till den tomma rutan precis bakom.
+- En bricka som når den bortersta raden blir dam. En dam flyttar hur många rutor som helst längs en rad eller en linje och slår på avstånd: den landar på valfri tom ruta bortom pjäsen den tar.
+- Slag är tvingande, och du måste ta så många pjäser som möjligt.
+- Varje tagen pjäs tas bort direkt, när den hoppas över. Vid ett slag av flera pjäser får en pjäs inte vända rakt tillbaka åt det håll den kom ifrån.
+- Remi: när samma ställning återkommer för tredje gången, eller efter 25 drag var utan slag eller brickdrag.
 # Partiets slut
 En spelare som inte har några pjäser kvar, eller inte kan flytta, förlorar.
 # Spela på enheten

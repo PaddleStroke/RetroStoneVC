@@ -1,0 +1,15 @@
+Ristinolla
+# Klassinen
+Laudalla on kolme kolmen ruudun riviä. Vaalea pelaa risteillä ja aloittaa, tumma pelaa nollilla. Aseta vuorollasi merkkisi tyhjään ruutuun.
+- Kolme merkkiäsi rivissä voittaa: vaakasuoraan, pystysuoraan tai viistosti.
+- Jos kaikki yhdeksän ruutua täyttyvät ilman kolmen suoraa, peli päättyy tasapeliin.
+# Ultimate
+Suurella laudalla on yhdeksän pientä 3×3-lautaa. Pelaat edelleen yhden merkin tyhjään ruutuun, mutta se, mihin saat pelata, riippuu edellisestä siirrosta.
+- Ruutu, johon vastustajasi juuri pelasi omalla pienellä laudallaan, lähettää sinut sille pienelle laudalle, joka on samalla paikalla suurella laudalla. Kun pelaat minkä tahansa pienen laudan oikeaan yläruutuun, toinen pelaaja joutuu pelaamaan oikeassa yläkulmassa olevalle pienelle laudalle.
+- Jos lauta, jolle sinut lähetetään, on jo ratkaistu (voitettu tai täynnä), saat pelata mille tahansa avoimelle pienelle laudalle.
+- Pelin ensimmäinen siirto saa olla missä tahansa.
+- Kolmen suora pienellä laudalla voittaa sen laudan: siitä tulee sinun, ja se suljetaan. Pieni lauta, joka täyttyy ilman kolmen suoraa, ei kuulu kenellekään.
+- Voita kolme pientä lautaa rivissä suurella laudalla, vaakasuoraan, pystysuoraan tai viistosti, niin voitat pelin.
+- Kun kukaan ei enää voi voittaa yhtään kolmen pienen laudan riviä, peli päättyy tasapeliin.
+# Pelaaminen laitteella
+Napauta tyhjää ruutua pelataksesi siihen. Ultimatessa pienet laudat, joille saat pelata, ovat korostettuina, ja voitetulla pienellä laudalla näkyy voittajan suuri merkki. Kukin palkki näyttää, montako pientä lautaa kyseinen pelaaja on voittanut.

@@ -1,0 +1,20 @@
+Rev og gjess
+# Målet
+Den ene spilleren har tretten gjess, den andre én enkelt rev. Gjessene vinner ved å stenge inne reven slik at den ikke kan flytte. Reven vinner ved å ta gjess til færre enn ni er igjen.
+# Brettet
+Brettet er et kors av 33 punkter forbundet med linjer: langs radene, langs kolonnene og langs diagonalene som er tegnet på det. Brikkene flytter bare langs disse linjene, fra ett punkt til det neste.
+# Startoppstillingen
+Gjessene (lyse) står på korsets nederste arm og på hele raden over den. Reven (mørk) starter i midten. Gjessene trekker først.
+# Gjessene
+- En gås flytter langs en linje til neste punkt, hvis det er tomt: forover, skrått forover eller til siden, aldri bakover.
+- Gjess hopper aldri og tar aldri reven.
+# Reven
+- Reven flytter langs en linje til neste punkt, hvis det er tomt, i hvilken som helst retning.
+- Eller den hopper over en gås ved siden av seg, langs en linje, til det tomme punktet rett bak, og tar den gåsen av brettet.
+- Det er ikke tvunget å hoppe. Men når reven først har hoppet, må den fortsette å hoppe, én gås om gangen, så lenge den kan.
+# Slutten på spillet
+- Gjessene vinner når reven ikke kan flytte eller hoppe.
+- Reven vinner når færre enn ni gjess er igjen, eller når gjessene ikke kan flytte.
+- Spillet er uavgjort når den samme stillingen kommer igjen for tredje gang, eller etter femti trekk hver uten slag og uten at noen gås har flyttet forover.
+# Spill på enheten
+Trykk på en gås og så på det nye punktet, eller dra den. Når det er revens tur, er reven allerede plukket opp: trykk på punktet den skal til, eller dra den. Gjessene den kan ta, har en ring: trykk på ringen, eller på punktet bak den, for å hoppe. Ved flere hopp på rad trykker du på hvert neste hopp.

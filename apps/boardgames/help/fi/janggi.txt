@@ -1,0 +1,25 @@
+Janggi
+# Tavoite
+Tee vastustajan kenraalille matti: uhkaa sitä niin, ettei se pääse pakoon. Cho (sinivihreä) aloittaa, sitten Han (punainen); pelaajat siirtävät vuorotellen, yksi siirto kerrallaan.
+# Lauta
+Nappulat ovat pisteissä, joissa viivat risteävät, eivät ruuduissa. Jokea ei ole. Kummallakin puolella on palatsi: ristillä merkityt 3×3 pistettä, joissa kenraali ja sen vartijat asuvat. Myös palatsien lävistäjät ovat viivoja.
+# Nappulat
+Jokaisessa nappulassa on sen kiinalainen merkki oman puolen musteella; kenraaleissa on puolten nimet, Cho ja Han. Nappulat ovat kahdeksankulmioita, joiden koko riippuu arvosta: kenraali on suurin, vartijat ja sotilaat pienimmät. Kumpikin puoli aloittaa näin omasta vasemmasta laidastaan lukien: vaunu, hevonen, norsu, vartija, vartija, norsu, hevonen, vaunu takarivillä, kenraali palatsin keskellä, kaksi tykkiä hevosten edessä ja viisi sotilasta. Tämä sovellus käyttää aina tätä asetelmaa (hevoset ulompana, norsut sisempänä); hevosten ja norsujen kolmea muuta järjestystä ei tarjota.
+# Miten nappulat liikkuvat
+- Kenraali ja vartija: yhden pisteen palatsin viivaa pitkin, lävistäjät mukaan lukien, poistumatta palatsista.
+- Hevonen: yhden pisteen suoraan, sitten yhden pisteen viistosti ulospäin. Se on estetty, jos ensimmäinen piste on varattu.
+- Norsu: yhden pisteen suoraan, sitten kaksi pistettä viistosti ulospäin. Se on estetty, jos jokin pisteistä, joiden yli se kulkee, on varattu.
+- Vaunu: kuinka monta pistettä tahansa viivaa pitkin, kuten torni shakissa, sekä palatsin lävistäjiä pitkin.
+- Tykki: liikkuu ja lyö vain hyppäämällä tasan yhden nappulan (kumman tahansa puolen) yli linjallaan, palatsin lävistäjät mukaan lukien. Se ei saa hypätä tykin yli eikä lyödä tykkiä.
+- Sotilas: yhden pisteen eteenpäin tai sivulle, ei koskaan taaksepäin. Vastustajan palatsissa se saa liikkua myös eteenpäin lävistäjää pitkin.
+Nappula lyö siirtymällä pisteeseen, jossa on vastustajan nappula, ja lyöty nappula poistuu laudalta.
+# Passaaminen
+Siirron sijaan pelaaja saa passata, paitsi shakissa ollessaan. Pelaajan, jolla ei ole yhtään sallittua siirtoa mutta joka ei ole shakissa, on passattava.
+# Shakki ja pelin loppu
+Uhattu kenraali on shakissa: seuraavan siirron on päästettävä se pois shakista. Et saa koskaan tehdä siirtoa, joka jättää oman kenraalisi shakkiin.
+- Matti: kenraali on shakissa, eikä mikään siirto voi pelastaa sitä. Se pelaaja häviää.
+- Kenraalit vastakkain: siirto ei saa jättää kenraaleja kasvokkain samalle linjalle ilman mitään välissä. (Muissa säännöissä tämä on tasapelitarjous; tässä se ei yksinkertaisesti ole sallittu.)
+- Tasapelit: kun sama asema toistuu kolmannen kerran saman pelaajan ollessa siirtovuorossa, peli päättyy tasapeliin (myös neljä passausta peräkkäin johtaa siihen). Peli päättyy tasapeliin myös, kun kumpikin on tehnyt tuhat siirtoa.
+- Joitakin pelejä ratkaisevaa pistelaskua ei käytetä: peli jatkuu, kunnes tulee matti tai tasapeli.
+# Pelaaminen laitteella
+Napauta nappulaa nähdäksesi, minne se voi liikkua, ja napauta sitten pistettä, tai vedä nappulaa. Pisteet näyttävät siirrot, renkaat lyönnit. Shakissa oleva kenraali hehkuu punaisena. Passausnappi on siirtovuorossa olevan pelaajan palkissa. Kukin palkki näyttää nappulat, jotka kyseinen pelaaja on lyönyt.

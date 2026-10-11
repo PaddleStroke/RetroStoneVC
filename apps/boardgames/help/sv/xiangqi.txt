@@ -1,0 +1,21 @@
+Xiangqi
+# Målet
+Gör motståndarens general matt: angrip den så att den inte kan komma undan. Röd börjar, sedan turas spelarna om, ett drag var.
+# Brädet
+Pjäserna står på punkterna där linjerna korsas, inte i rutorna. Floden tvärs över mitten skiljer de två sidorna åt. Varje sida har ett palats: de 3×3 punkterna som är märkta med ett kryss, där generalen och dess rådgivare bor.
+# Hur pjäserna går
+- General: en punkt längs en linje, inom sitt palats. De två generalerna får aldrig stå mitt emot varandra på samma linje utan något emellan.
+- Rådgivare: en punkt diagonalt, inom sitt palats.
+- Elefant: exakt två punkter diagonalt. Den kan inte korsa floden, och den blockeras om punkten den passerar är upptagen.
+- Häst: en punkt längs en linje, sedan en punkt diagonalt utåt. Den blockeras om den första punkten är upptagen.
+- Vagn: hur många punkter som helst längs en linje, som ett torn i schack.
+- Kanon: går som vagnen, men slår bara genom att hoppa över exakt en pjäs (av vilken sida som helst) på vägen till pjäsen den tar.
+- Soldat: en punkt framåt. När den har korsat floden får den också gå en punkt åt sidan. Den går aldrig bakåt.
+En pjäs slår genom att flytta till en punkt där en motståndarpjäs står, som då lämnar brädet.
+# Schack och partiets slut
+En general som är angripen står i schack: nästa drag måste få den ur schack. Du får aldrig göra ett drag som lämnar din egen general i schack, eller mitt emot den andra generalen.
+- Schack matt: generalen står i schack och inget drag kan rädda den. Den spelaren förlorar.
+- En spelare som inte har något tillåtet drag men inte står i schack förlorar också (till skillnad från schack).
+- Remi: när samma ställning återkommer för tredje gången med samma spelare vid draget blir partiet remi. Denna enkla regel ersätter turneringsreglerna mot evig schack och evig jakt. Partiet blir också remi efter sextio drag var utan slag.
+# Spela på enheten
+Tryck på en pjäs för att se vart den kan gå, tryck sedan på en punkt, eller dra pjäsen. Prickar visar dragen, ringar slagen. En general i schack lyser rött. Varje fält visar de pjäser som den spelaren har slagit.

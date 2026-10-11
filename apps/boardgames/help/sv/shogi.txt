@@ -1,0 +1,32 @@
+Shogi
+# Målet
+Shogi är japanskt schack. Gör motståndarens kung matt: angrip den så att den inte kan komma undan. Svart (sente) börjar, sedan turas spelarna om, ett drag var. Alla pjäser har samma färg: en pjäs pekar mot motståndaren, så att man kan se vems den är.
+# Hur pjäserna går
+- Kung (玉, 王): en ruta åt vilket håll som helst.
+- Torn (飛): hur många rutor som helst längs en rad eller en linje.
+- Löpare (角): hur många rutor som helst längs en diagonal.
+- Guldgeneral (金): en ruta åt vilket håll som helst utom snett bakåt.
+- Silvergeneral (銀): en ruta diagonalt, eller rakt framåt.
+- Springare (桂): två rutor framåt och en åt sidan, och hoppar över pjäser som står emellan. Den går bara framåt.
+- Lans (香): hur många rutor som helst rakt framåt.
+- Bonde (歩): en ruta rakt framåt. Den slår också på det sättet.
+Pjäserna kan inte passera andra pjäser (utom springaren). En pjäs slår genom att flytta till en ruta där en motståndarpjäs står.
+# Befordran
+De tre rader som ligger längst bort från dig är befordringszonen. En pjäs som flyttar in i, inom eller ut ur den får befordras: den vänds och dess tecken blir rött.
+- Tornet blir en drake (龍): ett torn som också kan gå en ruta diagonalt.
+- Löparen blir en häst (馬): en löpare som också kan gå en ruta längs en rad eller en linje.
+- Silvret, springaren, lansen och bonden blir guld (全, 圭, 杏, と).
+- Kungen och guldet befordras inte.
+Befordran är inte tvingande, utom när pjäsen annars aldrig skulle kunna flytta igen: en bonde eller en lans på sista raden, en springare på de två sista raderna.
+# Tagna pjäser
+En tagen pjäs går över till den som tog den och väntar i handen. I stället för att flytta får du släppa ner en pjäs från handen på valfri tom ruta, obefordrad. Ett nedsläpp får ge schack. Tre begränsningar:
+- Ingen bonde på en linje där du redan har en obefordrad bonde.
+- Ingen pjäs där den aldrig skulle kunna flytta (en bonde eller en lans på sista raden, en springare på de två sista raderna).
+- Ett bondenedsläpp får inte ge matt direkt (en bonde som flyttas på brädet får det).
+# Partiets slut
+En kung som är angripen står i schack: nästa drag måste få den ur schack. Du får aldrig göra ett drag som lämnar din egen kung i schack.
+- Schack matt: kungen står i schack och inget drag kan rädda den. Den spelaren förlorar. En spelare som inte har något tillåtet drag alls förlorar också.
+- Upprepning: när samma ställning (pjäserna på brädet och i handen, samma spelare vid draget) kommer för fjärde gången blir partiet remi. Men om en spelare har gett schack med varje drag sedan ställningen först uppstod förlorar den spelaren.
+- Det finns ingen regel för två kungar som båda har tagit sig in i motståndarens läger: spela vidare.
+# Spela på enheten
+Tryck på en pjäs för att se vart den kan gå, tryck sedan på en ruta, eller dra pjäsen. Prickar visar dragen, ringar slagen. En kung i schack lyser rött. Dina pjäser i handen ligger i ditt fält, med sitt antal: tryck på en och sedan på en ruta, eller dra den till brädet. När en pjäs får befordras, välj dess befordrade sida (röd) eller behåll den som den är.

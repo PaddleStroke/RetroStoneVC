@@ -1,0 +1,18 @@
+Ludo
+# Tavoite
+Kuljeta neljä nappulaasi koko laudan ympäri ja keskelle ennen vastustajaa. Kummankin pelaajan neljä nappulaa ovat aluksi pelaajan värisessä pesässä, vastakkaisissa kulmissa. Norsunluu heittää ensin, minkä jälkeen pelaajat heittävät vuorotellen.
+# Heittäminen ja siirtäminen
+- Heitä noppaa ja siirrä sitten yhtä nappulaasi myötäpäivään rataa pitkin heittämäsi luvun verran.
+- Vain kuutonen tuo nappulan ulos pesästä sen lähtöruutuun, pesän viereiseen värilliseen ruutuun. Kuutosella voit myös siirtää sen sijaan nappulaa, joka on jo laudalla.
+- Kuutonen antaa uuden heiton. Kolmas kuutonen peräkkäin menetetään, ja vuorosi päättyy heti.
+- Jos mikään nappula ei voi liikkua heitetyllä luvulla, heitto menetetään ja vuoro siirtyy (kuutosen jälkeen heität silti uudelleen).
+# Kohtaamiset
+- Kun päädyt täsmälleen vastustajan nappulan kohdalle, se palaa pesäänsä. Jos siinä on kaksi vastustajan nappulaa, molemmat palaavat.
+- Turvaruudut ovat neljä lähtöruutua ja neljä tähdellä merkittyä ruutua. Niistä ketään ei voi lähettää takaisin, ja kummankin pelaajan nappulat voivat olla niissä yhtä aikaa.
+- Omat nappulasi voivat olla samassa ruudussa. Ne eivät tuki tietä: vastustaja voi ohittaa ne tai päätyä niiden päälle.
+# Kotimatka
+Täyden kierroksen jälkeen nappulasi kääntyy oman värisensä kotisarakkeeseen, jossa se on turvassa, ja jatkaa keskelle. Sen on päästävä keskelle tarkalleen oikealla luvulla: liian suurella heitolla sitä nappulaa ei voi siirtää.
+# Pelin loppu
+Pelaaja, joka tuo ensimmäisenä kaikki neljä nappulaansa keskelle, voittaa.
+# Pelaaminen laitteella
+Noppasi odottaa vieressäsi olevassa tyhjässä kulmassa kultaisena hehkuen: napauta sitä heittääksesi. Pisteet näyttävät, minne nappulasi voivat mennä, renkaat nappulan, jonka lähettäisit pesään: napauta nappulaa tai vedä se ruutuunsa, niin se hyppii sinne. Heitto, jolla ei voinut siirtää, jää himmeäksi punaiseen hehkuun, kun vastustaja heittää. Kumoa peruu siirtoja ja heittoja, mutta peruttu heitto tulee uudelleen samana. Maaliin päässeet nappulasi näkyvät palkissasi.

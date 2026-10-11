@@ -1,0 +1,15 @@
+Ormar och stegar
+# Målet
+Bli först med att föra din pjäs till ruta 100.
+# Brädet
+Rutorna är numrerade från 1 till 100, med början nere till vänster: längs nedersta raden åt höger, sedan tillbaka längs nästa rad åt vänster, och så vidare uppåt, med 100 högst upp. Stegarna leder uppåt, från foten till toppen; ormarna leder nedåt, från huvudet till svansen.
+# En tur
+Båda pjäserna börjar utanför brädet, före ruta 1. Den ljusa sidan kastar först. Kasta tärningen och flytta din pjäs framåt lika många rutor som tärningen visar, en ruta i taget. Båda pjäserna får stå på samma ruta.
+- Om din pjäs avslutar sitt drag vid foten av en stege klättrar den upp till stegens topp.
+- Om den avslutar sitt drag på ett ormhuvud glider den ner till ormens svans.
+- En sexa ger ett nytt kast, efter ditt drag.
+- Annars går tärningen över till den andra spelaren.
+# Partiets slut
+Du måste nå ruta 100 med exakt rätt tal. Om du slår mer än du behöver går pjäsen upp till 100 och tillbaka ner lika många rutor som det blir över: från 96 hamnar ett kast på 6 på 98. En stege eller en orm där den stannar gäller ändå. Den som först står på ruta 100 vinner.
+# Spela på enheten
+Tärningen väntar, i ett gyllene sken, vid slutet av fältet för den spelare som ska kasta: tryck på skärmen för att kasta den. Din pjäs flyttar sedan av sig själv. Varje fält visar vilken ruta den spelarens pjäs står på och hens senaste kast. Ångra tar tillbaka kasten ett i taget; ett kast som tas tillbaka blir likadant när du kastar igen.

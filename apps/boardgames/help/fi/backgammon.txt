@@ -1,0 +1,23 @@
+Backgammon
+# Tavoite
+Kuljeta kaikki viisitoista nappulaasi laudan ympäri kotialueellesi ja pelaa ne sitten pois laudalta. Ensimmäisenä kaikki viisitoista pois pelannut voittaa. Pelaajat liikkuvat vastakkaisiin suuntiin, norsunluu toiseen suuntaan ja eebenpuu toiseen.
+# Lauta
+Laudalla on 24 kapeaa kolmiota, kärkeä, kuusi laudan kussakin neljänneksessä. Keskellä kulkeva keskipalkki jakaa kummankin puolen ulkoalueeseen ja kotialueeseen; kotialueet ovat vastakkain, lokeron puolella. Kumpikin pelaaja numeroi kärjet alkaen 1:stä oman kotialueensa päässä ja kiertäen 24:ään asti vastustajan kotialueen päässä. Alussa kummallakin pelaajalla on kaksi nappulaa kärjessään 24, viisi kärjessään 13, kolme kärjessään 8 ja viisi kärjessään 6.
+# Heittäminen ja siirtäminen
+Aluksi kumpikin pelaaja heittää yhtä noppaa. Suuremman luvun heittänyt aloittaa ja käyttää molempia heitettyjä lukuja; jos ne ovat samat, heitetään uudelleen. Sen jälkeen pelaajat pelaavat vuorotellen: heitä kahta noppaa ja siirrä kummankin luvun verran.
+- Yksi nappula siirtyy yhden luvun verran, sitten nappula siirtyy toisen luvun verran: sama nappula tai jokin toinen.
+- Nappula saa päätyä tyhjään kärkeen, kärkeen, jossa on omia nappuloitasi, tai kärkeen, jossa on yksi ainoa vastustajan nappula.
+- Tuplat antavat neljä siirtoa samalla luvulla.
+- Sinun on käytettävä molemmat luvut, jos voit. Jos voit käyttää vain toisen, sinun on käytettävä suurempi, jos mahdollista.
+- Jos mikään siirto ei ole mahdollinen, menetät vuorosi.
+# Lyöminen ja palaaminen
+Kärjessä yksinään oleva nappula on blotti. Kun päädyt vastustajan blotin päälle, lyöt sen: se joutuu keskipalkille. Pelaajan, jolla on nappula keskipalkilla, on ensin tuotava se takaisin peliin vastustajan kotialueelle nopan osoittamaan kärkeen (1 on kärki, joka on kauimpana keskipalkista). Kärki, jossa on kaksi tai useampia vastustajan nappuloita, on suljettu. Mitään muuta ei saa siirtää, ennen kuin kaikki keskipalkilla olevat nappulasi ovat palanneet peliin.
+# Pois pelaaminen
+Kun kaikki viisitoista nappulaasi ovat kotialueellasi, saat pelata ne pois: luku poistaa nappulan sen numeroisesta kärjestä. Jos kärki on tyhjä, sinun on siirrettävä nappulaa korkeammasta kärjestä, jos voit; jos missään korkeammassa kärjessä ei ole nappulaa, luku poistaa nappulan korkeimmasta kärjestä, jossa sinulla on nappuloita. Lyödyn nappulan on kuljettava koko matka takaisin, ennen kuin voit taas pelata pois.
+# Voitto
+- Ensimmäisenä kaikki viisitoista nappulaa pois pelannut voittaa yhden pisteen.
+- Gammon: jos häviäjä ei ole pelannut pois yhtään nappulaa, voittaja saa kaksi pistettä.
+- Backgammon: jos häviäjä ei ole pelannut pois yhtään nappulaa ja hänellä on vielä nappula keskipalkilla tai voittajan kotialueella, voittaja saa kolme pistettä.
+Tätä peliä pelataan ilman tuplauskuutiota.
+# Pelaaminen laitteella
+Napauta kultaisina hehkuvia noppia heittääksesi ne. Napauta nappulaa ja sitten yhtä pisteistä, tai vedä sitä; rengas näyttää blotin, jonka löisit. Jokainen siirto käyttää yhden nopan: käytetty noppa himmenee. Pelataksesi nappulan pois siirrä se oikealla olevaan lokeroon. Keskipalkilla olevat nappulat on jo nostettu. Kun heittoa ei voi pelata, sen nopat hehkuvat punaisina ja vuoro siirtyy. Palkkisi näyttää, montako nappulaa olet pelannut pois, ja lopuksi voitetut pisteet. Kumoa peruu yhden siirron kerrallaan, ja aiempien vuorojen nopat palaavat sellaisina kuin ne heitettiin.

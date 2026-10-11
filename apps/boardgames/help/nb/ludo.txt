@@ -1,0 +1,18 @@
+Ludo
+# Målet
+Før de fire brikkene dine hele runden rundt brettet og inn i midten før motstanderen. Hver spiller har fire brikker i et hus i sin farge, i motsatte hjørner. Elfenben kaster først, deretter bytter spillerne på.
+# Kast og trekk
+- Kast terningen, og flytt så en av brikkene dine med klokka rundt banen like mange ruter som terningen viser.
+- Bare en sekser får en brikke ut av huset, til startruten, den fargede ruten ved siden av huset. Med en sekser kan du også flytte en brikke som allerede er på brettet i stedet.
+- En sekser gir deg et nytt kast. En tredje sekser på rad går tapt, og turen din slutter med en gang.
+- Hvis ingen brikke kan flytte med tallet som ble kastet, går kastet tapt og turen går videre (etter en sekser kaster du likevel igjen).
+# Møte andre brikker
+- Den som lander nøyaktig på motstanderens brikke, sender den tilbake til huset. Står to av motstanderens brikker der, går begge tilbake.
+- De trygge rutene er de fire startrutene og de fire rutene som er merket med en stjerne. Der kan ingen sendes tilbake, og begge spillernes brikker kan dele dem.
+- Dine egne brikker kan dele en rute. De sperrer ikke: motstanderen kan passere dem eller lande på dem.
+# Veien hjem
+Etter en hel runde svinger brikken din inn i hjemkolonnen i sin farge, der den er trygg, og fortsetter inn mot midten. Den må nå midten med nøyaktig riktig tall: et kast som er for stort, kan ikke flytte den brikken.
+# Slutten på spillet
+Den første spilleren som får alle fire brikkene inn i midten, vinner.
+# Spill på enheten
+Terningen din venter i det tomme hjørnet ved siden av deg og lyser i gull: trykk på den for å kaste. Prikker viser hvor brikkene dine kan gå, ringer en brikke du ville sendt hjem: trykk på en brikke, eller dra den til ruten sin, så hopper den dit. Et kast som ikke kunne brukes, forblir dempet i et rødt skjær mens motstanderen kaster. Angre tar tilbake trekk og kast, men et kast som tas tilbake, blir det samme igjen. Brikkene dine som er kommet i mål, vises i panelet ditt.

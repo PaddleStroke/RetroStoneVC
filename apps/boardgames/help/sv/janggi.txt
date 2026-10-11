@@ -1,0 +1,25 @@
+Janggi
+# Målet
+Gör motståndarens general matt: angrip den så att den inte kan komma undan. Cho (blågrön) börjar, sedan Han (röd); spelarna turas om, ett drag var.
+# Brädet
+Pjäserna står på punkterna där linjerna korsas, inte i rutorna. Det finns ingen flod. Varje sida har ett palats: de 3×3 punkterna som är märkta med ett kryss, där generalen och dess vakter bor. Palatsens diagonaler är också linjer.
+# Pjäserna
+Varje pjäs bär sitt kinesiska tecken i sin sidas bläckfärg; generalerna bär sidornas namn, Cho och Han. Pjäserna är åttahörningar vars storlek följer rangen: generalen störst, vakterna och soldaterna minst. Varje sida börjar med, räknat från sin vänstra sida: vagn, häst, elefant, vakt, vakt, elefant, häst, vagn på bakersta raden, generalen i mitten av palatset, de två kanonerna framför hästarna och fem soldater. Den här appen använder alltid denna uppställning (hästarna ytterst, elefanterna innerst); de tre andra placeringarna av hästarna och elefanterna erbjuds inte.
+# Hur pjäserna går
+- General och vakt: en punkt längs en av palatsets linjer, diagonalerna inräknade, utan att lämna det.
+- Häst: en punkt rakt fram, sedan en punkt diagonalt utåt. Den blockeras om den första punkten är upptagen.
+- Elefant: en punkt rakt fram, sedan två punkter diagonalt utåt. Den blockeras om någon av punkterna den passerar är upptagen.
+- Vagn: hur många punkter som helst längs en linje, som ett torn i schack, och längs palatsens diagonaler.
+- Kanon: går och slår bara genom att hoppa över exakt en pjäs (av vilken sida som helst) på sin linje, palatsens diagonaler inräknade. Den får inte hoppa över en kanon, och den får inte slå en kanon.
+- Soldat: en punkt framåt eller åt sidan, aldrig bakåt. I motståndarens palats får den också gå framåt längs en diagonal.
+En pjäs slår genom att flytta till en punkt där en motståndarpjäs står, som då lämnar brädet.
+# Passa
+I stället för att flytta får en spelare passa, utom när hen står i schack. En spelare som inte har något tillåtet drag men inte står i schack måste passa.
+# Schack och partiets slut
+En general som är angripen står i schack: nästa drag måste få den ur schack. Du får aldrig göra ett drag som lämnar din egen general i schack.
+- Schack matt: generalen står i schack och inget drag kan rädda den. Den spelaren förlorar.
+- Generalerna mitt emot varandra: ett drag får inte lämna de två generalerna ansikte mot ansikte på samma linje utan något emellan. (Andra regler gör detta till ett remierbjudande; här är det helt enkelt inte tillåtet.)
+- Remi: när samma ställning återkommer för tredje gången med samma spelare vid draget blir partiet remi (fyra pass i rad ger också remi). Ett parti på tusen drag var blir också remi.
+- Poängräkningen som avgör vissa partier används inte: partiet fortsätter tills det blir matt eller remi.
+# Spela på enheten
+Tryck på en pjäs för att se vart den kan gå, tryck sedan på en punkt, eller dra pjäsen. Prickar visar dragen, ringar slagen. En general i schack lyser rött. Passknappen finns i fältet för spelaren som är vid draget. Varje fält visar de pjäser som den spelaren har slagit.

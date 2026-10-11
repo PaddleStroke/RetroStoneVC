@@ -1,0 +1,23 @@
+Backgammon
+# Målet
+För alla dina femton brickor runt brädet in i ditt innerbord och ta sedan ut dem. Den som först har tagit ut alla femton vinner. Spelarna flyttar åt motsatta håll, elfenben åt ena hållet och ebenholts åt det andra.
+# Brädet
+Det finns 24 smala trianglar, tungorna, sex i varje fjärdedel av brädet. Baren i mitten delar varje sida i ett ytterbord och ett innerbord; de två innerborden ligger mitt emot varandra, på samma sida som facket. Varje spelare numrerar tungorna från 1, i slutet av det egna innerbordet, runt till 24, i slutet av motståndarens innerbord. I början har varje spelare två brickor på sin tunga 24, fem på sin tunga 13, tre på sin tunga 8 och fem på sin tunga 6.
+# Kast och drag
+Till att börja med kastar varje spelare en tärning. Den som får högst börjar och använder båda talen som kastades; om de är lika kastar man om. Därefter turas spelarna om: kasta två tärningar och flytta efter vart och ett av talen.
+- En bricka flyttas efter det ena talet, sedan flyttas en bricka efter det andra: samma bricka eller en annan.
+- En bricka får landa på en tom tunga, på en tunga med dina egna brickor, eller på en tunga med en enda motståndarbricka.
+- En dubbel ger fyra drag med det talet.
+- Du måste använda båda talen om du kan. Om du bara kan använda det ena måste du använda det högsta om det går.
+- Om inget drag är möjligt förlorar du turen.
+# Slå och sätta in
+En ensam bricka på en tunga är en blot. Den som landar på en motståndares blot slår den: den går till baren. En spelare med en bricka på baren måste först föra tillbaka den genom att sätta in den i motståndarens innerbord, på den tunga som en tärning anger (1 är tungan längst från baren). En tunga med två eller fler motståndarbrickor är stängd. Inget annat får flyttas förrän alla dina brickor på baren har satts in.
+# Ta ut
+När alla femton av dina brickor är i ditt innerbord får du ta ut dem: ett tal tar ut en bricka från tungan med det numret. Om den tungan är tom måste du flytta en bricka från en högre tunga om du kan; finns det ingen bricka på någon högre tunga tar talet ut en bricka från den högsta tunga du har brickor på. En bricka som blir slagen måste gå hela vägen tillbaka innan du får ta ut igen.
+# Vinst
+- Den som först har tagit ut alla femton brickor vinner en poäng.
+- Gammon: om förloraren inte har tagit ut en enda bricka får vinnaren två poäng.
+- Backgammon: om förloraren inte har tagit ut någon bricka och fortfarande har en på baren eller i vinnarens innerbord får vinnaren tre poäng.
+Det här spelet spelas utan dubblingskub.
+# Spela på enheten
+Tryck på tärningarna som lyser i guld för att kasta dem. Tryck på en bricka och sedan på en av prickarna, eller dra den; en ring visar en blot som du skulle slå. Varje drag använder en tärning: en använd tärning tonas ner. För att ta ut, flytta brickan till facket till höger. Brickor på baren är redan upplyfta. När ett kast inte kan spelas lyser dess tärningar rött och turen går över. Ditt fält visar hur många brickor du har tagit ut, och i slutet de vunna poängen. Ångra tar tillbaka ett drag i taget, och tärningarna från tidigare turer kommer tillbaka som de kastades.

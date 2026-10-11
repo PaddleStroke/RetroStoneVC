@@ -1,0 +1,20 @@
+Räv och gäss
+# Målet
+Den ena spelaren har tretton gäss, den andra en enda räv. Gässen vinner genom att stänga in räven så att den inte kan flytta. Räven vinner genom att ta gäss tills färre än nio är kvar.
+# Brädet
+Brädet är ett kors av 33 punkter förbundna med linjer: längs raderna, längs kolumnerna och längs diagonalerna som är ritade på det. Pjäserna flyttas bara längs dessa linjer, från en punkt till nästa.
+# Utgångsläget
+Gässen (ljusa) står på korsets nedre arm och på hela raden ovanför den. Räven (mörk) står i mitten från början. Gässen gör första draget.
+# Gässen
+- En gås flyttar längs en linje till nästa punkt, om den är tom: framåt, snett framåt eller åt sidan, aldrig bakåt.
+- Gäss hoppar aldrig och tar aldrig räven.
+# Räven
+- Räven flyttar längs en linje till nästa punkt, om den är tom, åt vilket håll som helst.
+- Eller så hoppar den över en gås bredvid sig, längs en linje, till den tomma punkten precis bakom, och tar bort den gåsen från brädet.
+- Att hoppa är inte tvingande. Men när räven väl har hoppat måste den fortsätta hoppa, en gås i taget, så länge den kan.
+# Partiets slut
+- Gässen vinner när räven inte kan flytta eller hoppa.
+- Räven vinner när färre än nio gäss är kvar, eller när gässen inte kan flytta.
+- Partiet blir oavgjort när samma ställning återkommer för tredje gången, eller efter femtio drag var utan slag och utan att någon gås har flyttat framåt.
+# Spela på enheten
+Tryck på en gås och sedan på dess nya punkt, eller dra den. När det är rävens tur är räven redan upplyft: tryck på punkten den ska till, eller dra den. Gässen den kan ta har en ring: tryck på ringen, eller på punkten bakom den, för att hoppa. Vid flera hopp i rad, tryck på varje nästa hopp.

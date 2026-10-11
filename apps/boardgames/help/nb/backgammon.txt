@@ -1,0 +1,23 @@
+Backgammon
+# Målet
+Før alle dine femten brikker rundt brettet og inn på hjemmebrettet ditt, og ta dem deretter ut. Den første spilleren som har tatt ut alle femten, vinner. Spillerne flytter i motsatt retning, elfenben den ene veien rundt og ibenholt den andre.
+# Brettet
+Det er 24 smale trekanter, tungene, seks i hver fjerdedel av brettet. Baren midt på deler hver side i et ytterbrett og et hjemmebrett; de to hjemmebrettene ligger rett overfor hverandre, på samme side som skuffen. Hver spiller nummererer tungene fra 1, i enden av sitt eget hjemmebrett, rundt til 24, i enden av motstanderens hjemmebrett. Ved start har hver spiller to brikker på sin tunge 24, fem på sin tunge 13, tre på sin tunge 8 og fem på sin tunge 6.
+# Kast og trekk
+For å begynne kaster hver spiller én terning. Den som får høyest, begynner og bruker begge tallene som ble kastet; er de like, kaster man igjen. Deretter bytter spillerne på: kast to terninger og flytt etter hvert av tallene.
+- Én brikke flyttes etter det ene tallet, så flyttes en brikke etter det andre: den samme brikken eller en annen.
+- En brikke kan lande på en tom tunge, på en tunge med dine egne brikker, eller på en tunge med én enkelt motstanderbrikke.
+- En dobbel gir fire trekk med det tallet.
+- Du må bruke begge tallene hvis du kan. Hvis du bare kan bruke ett av dem, må du bruke det største hvis det er mulig.
+- Hvis ingen trekk er mulige, mister du turen.
+# Slå og sette inn
+En enslig brikke på en tunge er en blot. Den som lander på en motstanders blot, slår den: den går til baren. En spiller med en brikke på baren må først få den tilbake ved å sette den inn på motstanderens hjemmebrett, på tungen som en terning angir (1 er tungen lengst fra baren). En tunge med to eller flere motstanderbrikker er stengt. Ingenting annet kan flyttes før alle brikkene dine på baren er satt inn.
+# Ta ut
+Når alle femten brikkene dine er på hjemmebrettet ditt, kan du ta dem ut: et tall tar ut en brikke fra tungen med det nummeret. Hvis den tungen er tom, må du flytte en brikke fra en høyere tunge hvis du kan; er det ingen brikke på noen høyere tunge, tar tallet ut en brikke fra den høyeste tungen du har brikker på. En brikke som blir slått, må gå hele veien tilbake før du kan ta ut igjen.
+# Seier
+- Den første spilleren som har tatt ut alle femten brikkene, vinner ett poeng.
+- Gammon: hvis taperen ikke har tatt ut en eneste brikke, får vinneren to poeng.
+- Backgammon: hvis taperen ikke har tatt ut noen brikke og fortsatt har en på baren eller på vinnerens hjemmebrett, får vinneren tre poeng.
+Dette spillet spilles uten doblingskube.
+# Spill på enheten
+Trykk på terningene som lyser i gull, for å kaste dem. Trykk på en brikke og så på en av prikkene, eller dra den; en ring viser en blot du ville slått. Hvert trekk bruker én terning: en brukt terning dempes. For å ta ut flytter du brikken til skuffen til høyre. Brikker på baren er allerede plukket opp. Når et kast ikke kan spilles, lyser terningene rødt og turen går videre. Panelet ditt viser hvor mange brikker du har tatt ut, og til slutt poengene du har vunnet. Angre tar tilbake ett trekk om gangen, og terningene fra tidligere turer kommer tilbake slik de ble kastet.

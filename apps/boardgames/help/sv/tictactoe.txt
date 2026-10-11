@@ -1,0 +1,15 @@
+Tre i rad
+# Klassiskt
+Brädet har tre rader med tre rutor. Den ljusa sidan spelar kryss och börjar, den mörka spelar ringar. När det är din tur sätter du ditt tecken i en tom ruta.
+- Tre av dina tecken i rad vinner: vågrätt, lodrätt eller diagonalt.
+- Om alla nio rutor fylls utan någon tre i rad blir det oavgjort.
+# Ultimate
+Det stora brädet rymmer nio små bräden med 3×3 rutor. Du spelar fortfarande ett tecken i en tom ruta, men var du får spela beror på det senaste draget.
+- Rutan som motståndaren just spelade i, inom sitt lilla bräde, skickar dig till det lilla bräde som ligger på samma plats på det stora brädet. Den som spelar i den övre högra rutan på något litet bräde skickar den andra spelaren till det övre högra lilla brädet.
+- Om brädet du skickas till redan är avgjort (vunnet eller fullt) får du spela i valfritt öppet litet bräde.
+- Partiets första drag får göras var som helst.
+- Tre i rad på ett litet bräde vinner det brädet: det blir ditt och stängs. Ett litet bräde som fylls utan någon tre i rad tillhör ingen.
+- Vinn tre små bräden i rad på det stora brädet, vågrätt, lodrätt eller diagonalt, så vinner du partiet.
+- När ingen längre kan vinna någon rad med tre små bräden blir det oavgjort.
+# Spela på enheten
+Tryck på en tom ruta för att spela där. I Ultimate lyser de små bräden där du får spela, och ett vunnet litet bräde visar vinnarens stora tecken. Varje fält visar hur många små bräden den spelaren har vunnit.

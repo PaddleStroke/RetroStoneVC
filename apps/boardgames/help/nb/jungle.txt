@@ -1,0 +1,23 @@
+Jungelsjakk
+# Målet
+Flytt ett av dyrene dine inn i motstanderens hi, den innlagte stjernen ytterst på brettet. Du vinner også ved å ta alle motstanderens dyr, eller når motstanderen ikke kan flytte. Den lyse siden trekker først, deretter bytter spillerne på, ett trekk hver.
+# Brettet
+Brettet har sju kolonner og ni rader. I midten er det to elver. Hver spillers hi ligger midt på den bakerste raden, med tre feller rundt seg: de utskårne rutene på sidene av det og foran det.
+# Dyrene
+Hver spiller har åtte dyr. Tallet på hvert dyr er styrken: elefant 8, løve 7, tiger 6, leopard 5, ulv 4, hund 3, katt 2, rotte 1.
+# Flytting
+- Et dyr flytter én rute forover, bakover eller til siden, aldri diagonalt.
+- Ikke noe dyr kan gå inn i sitt eget hi.
+- Bare rotta kan svømme: den er det eneste dyret som kan gå ut i vannet.
+- Løven og tigeren kan hoppe over en elv, i rett linje, fra bredden til den første ruten på den andre siden av vannet. De kan ikke hoppe hvis en rotte, fra hvilken som helst side, er i vannet på veien.
+# Slag
+- Et dyr slår ved å flytte til et motstanderdyr med samme eller lavere styrke, og det slåtte dyret forlater brettet.
+- Rotta kan slå elefanten, men elefanten kan ikke slå rotta.
+- Et dyr i en av motstanderens feller har ingen styrke igjen: hvilket som helst motstanderdyr kan slå det. I sine egne feller beholder det styrken sin.
+- Det finnes ingen slag mellom vann og land: en rotte i vannet kan bare slå den andre rotta i vannet, og et dyr på land kan ikke slå en rotte i vannet.
+# Slutten på spillet
+- Et dyr som går inn i motstanderens hi, vinner spillet.
+- Å ta alle motstanderens dyr vinner, og det gjør også det å la motstanderen stå uten trekk.
+- Spillet er uavgjort når den samme stillingen kommer igjen for tredje gang, eller etter femti trekk hver uten slag.
+# Spill på enheten
+Trykk på et dyr for å se hvor det kan gå, og trykk så på en rute, eller dra dyret. Prikker viser trekkene, ringer slagene.

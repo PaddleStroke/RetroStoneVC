@@ -18,5 +18,9 @@ En kung som är angripen står i schack: nästa drag måste få den ur schack. D
 - Schack matt: kungen står i schack och inget drag kan rädda den. Den spelaren förlorar.
 - Patt: spelaren som är vid draget har inget tillåtet drag men står inte i schack. Partiet blir remi.
 - Partiet blir också remi när ingen av sidorna någonsin kan göra matt (för få pjäser kvar), när samma ställning återkommer för tredje gången, eller efter femtio drag var utan slag eller bondedrag.
+# Chess960
+Chess960 (Fischers slumpschack) spelas med samma regler, men pjäserna på den bakersta raden börjar i en av 960 uppställningar, som lottas fram för varje parti. Bönderna står som vanligt, och svarts pjäser står mitt emot vits, linje för linje. Löparna står alltid på rutor av olika färg, och kungen någonstans mellan de två tornen.
+- Rockad: kungen och tornet hamnar på samma rutor som i vanligt schack: kungen på g och tornet på f med tornet på h-sidan, kungen på c och tornet på d med tornet på a-sidan. Tillåtet bara om ingen av pjäserna har flyttat än, varje ruta som de passerar eller hamnar på är tom (bortsett från de två själva), och kungen inte står i schack, inte passerar en angripen ruta och inte hamnar i schack.
+- För att rockera flyttar du kungen till tornet som den rockerar med. Du kan också flytta den till dess målruta, utom när kungen skulle kunna gå dit med ett vanligt drag också, eller redan står där.
 # Spela på enheten
-Tryck på en pjäs för att se vart den kan gå, tryck sedan på en ruta, eller dra pjäsen. Prickar visar dragen, ringar slagen. En kung i schack lyser rött.
+Tryck på en pjäs för att se vart den kan gå, tryck sedan på en ruta, eller dra pjäsen. Prickar visar dragen, ringar slagen. En kung i schack lyser rött. För att rockera, flytta kungen två rutor mot tornet, eller till tornet.

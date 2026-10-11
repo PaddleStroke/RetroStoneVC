@@ -1,0 +1,16 @@
+Lines of Action
+# Målet
+Samle alle brikkene dine i én gruppe, der hver brikke berører en annen av dine: side mot side eller hjørne mot hjørne. Den mørke siden trekker først, deretter bytter spillerne på, ett trekk hver.
+# Startoppstillingen
+Hver spiller har 12 brikker. De mørke står på øverste og nederste rad, de lyse i venstre og høyre kolonne; de fire hjørnene står tomme.
+# Slik går en brikke
+- En brikke flytter i rett linje: langs raden sin, kolonnen sin eller en av sine to diagonaler.
+- Den flytter nøyaktig like mange ruter som det er brikker på hele den linjen, i begge farger, den flyttende brikken medregnet. Tell hele linjen, fra den ene kanten av brettet til den andre, på begge sider av brikken.
+- Den kan hoppe over brikker i sin egen farge, men aldri over motstanderens.
+- Den kan lande på en tom rute, eller på en av motstanderens brikker, som da slås og forlater brettet. Den kan aldri lande på en av sine egne.
+# Slutten på spillet
+- En spiller som har alle brikkene sine i én sammenhengende gruppe, vinner. Én enkelt gjenværende brikke teller som en gruppe, så et slag kan få motstanderen til å vinne.
+- Hvis et trekk fullfører begge spillernes grupper samtidig, vinner spilleren som gjorde trekket.
+- En spiller som ikke har noe lovlig trekk, står over, og motstanderen flytter igjen. Enheten står over for deg. Hvis ingen av spillerne kan flytte, eller etter 1000 trekk, er spillet uavgjort.
+# Spill på enheten
+Trykk på en brikke for å se hvor den kan gå, og trykk så på en rute, eller dra brikken. Prikker viser trekkene, ringer slagene. Hvert panel viser hvor mange brikker den spilleren har igjen. Til slutt lyser den vinnende gruppen i gull.

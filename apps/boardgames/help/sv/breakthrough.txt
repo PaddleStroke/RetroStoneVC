@@ -1,0 +1,16 @@
+Genombrott
+# Målet
+Bryt igenom motståndarens armé: bli först med att föra en av dina pjäser till brädets andra sida, motståndarens hemrad.
+# Utgångsläget
+Spelet spelas på ett schackbräde. Varje spelare har sexton pjäser, som fyller spelarens två första rader. Den ljusa sidan börjar, sedan turas spelarna om, ett drag var.
+# Hur pjäserna går
+- En pjäs flyttar en ruta framåt, rakt fram eller snett, till en tom ruta.
+- En pjäs slår genom att flytta en ruta snett framåt till en motståndarpjäs, som då lämnar brädet.
+- En pjäs slår aldrig rakt fram: en motståndarpjäs precis framför den blockerar den.
+- Pjäser flyttar aldrig åt sidan eller bakåt. Att slå är aldrig tvingande.
+# Partiets slut
+- Den som först når motståndarens hemrad vinner.
+- En spelare som förlorar alla sina pjäser förlorar.
+Det blir aldrig oavgjort: en spelare med pjäser kvar kan alltid flytta.
+# Spela på enheten
+Tryck på en pjäs för att se vart den kan gå, tryck sedan på en ruta, eller dra pjäsen. Prickar visar dragen, ringar slagen. Den vinnande pjäsen lyser i guld.

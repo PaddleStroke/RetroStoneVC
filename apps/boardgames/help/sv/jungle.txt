@@ -1,0 +1,23 @@
+Djungelschack
+# Målet
+Flytta ett av dina djur in i motståndarens lya, den inlagda stjärnan längst bort på brädet. Du vinner också genom att ta alla motståndarens djur, eller när motståndaren inte kan flytta. Den ljusa sidan börjar, sedan turas spelarna om, ett drag var.
+# Brädet
+Brädet har sju kolumner och nio rader. I mitten finns två floder. Varje spelares lya ligger mitt på den bakersta raden, med tre fällor runt sig: de snidade rutorna på sidorna om den och framför den.
+# Djuren
+Varje spelare har åtta djur. Talet på varje djur är dess styrka: elefant 8, lejon 7, tiger 6, leopard 5, varg 4, hund 3, katt 2, råtta 1.
+# Förflyttning
+- Ett djur flyttar en ruta framåt, bakåt eller åt sidan, aldrig diagonalt.
+- Inget djur får gå in i sin egen lya.
+- Bara råttan kan simma: den är det enda djuret som får gå ut i vattnet.
+- Lejonet och tigern kan hoppa över en flod, i rak linje, från stranden till den första rutan bortom vattnet. De kan inte hoppa om en råtta, från någon av sidorna, ligger i vattnet på vägen.
+# Slag
+- Ett djur slår genom att flytta till ett motståndardjur med samma eller lägre styrka, som då lämnar brädet.
+- Råttan kan slå elefanten, men elefanten kan inte slå råttan.
+- Ett djur i en av motståndarens fällor har ingen styrka kvar: vilket motståndardjur som helst kan slå det. I sina egna fällor behåller det sin styrka.
+- Det finns inga slag mellan vatten och land: en råtta i vattnet kan bara slå den andra råttan i vattnet, och ett djur på land kan inte slå en råtta i vattnet.
+# Partiets slut
+- Ett djur som går in i motståndarens lya vinner partiet.
+- Den som tar alla motståndarens djur vinner, och likaså den som lämnar motståndaren utan drag.
+- Partiet blir oavgjort när samma ställning återkommer för tredje gången, eller efter femtio drag var utan slag.
+# Spela på enheten
+Tryck på ett djur för att se vart det kan gå, tryck sedan på en ruta, eller dra djuret. Prickar visar dragen, ringar slagen.

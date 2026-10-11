@@ -1,0 +1,15 @@
+Slanger og stiger
+# Målet
+Bli den første til å få brikken din til rute 100.
+# Brettet
+Rutene er nummerert fra 1 til 100, fra nederst til venstre: bortover den nederste raden mot høyre, så tilbake langs neste rad mot venstre, og slik videre oppover brettet, med 100 øverst. Stigene leder oppover, fra foten til toppen; slangene leder nedover, fra hodet til halen.
+# En tur
+Begge brikkene starter utenfor brettet, før rute 1. Den lyse siden kaster først. Kast terningen og flytt brikken din framover like mange ruter som terningen viser, én rute om gangen. Begge brikkene kan stå på samme rute.
+- Hvis brikken din avslutter trekket ved foten av en stige, klatrer den opp til toppen av stigen.
+- Hvis den avslutter trekket på hodet til en slange, sklir den ned til slangens hale.
+- En sekser gir deg et nytt kast, etter trekket ditt.
+- Ellers går terningen videre til den andre spilleren.
+# Slutten på spillet
+Du må nå rute 100 med nøyaktig riktig tall. Hvis du kaster mer enn du trenger, går brikken opp til 100 og tilbake ned like mange ruter som det er til overs: fra 96 ender et kast på 6 på 98. En stige eller en slange der den stopper, gjelder likevel. Den første spilleren på rute 100 vinner.
+# Spill på enheten
+Terningen venter, i et gyllent lys, ved enden av panelet til spilleren som skal kaste: trykk på skjermen for å kaste den. Brikken din flytter seg så av seg selv. Hvert panel viser hvilken rute den spillerens brikke står på, og det siste kastet til vedkommende. Angre tar tilbake kastene ett og ett; et kast som tas tilbake, blir det samme når du kaster igjen.

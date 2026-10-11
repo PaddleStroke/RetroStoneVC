@@ -1,0 +1,11 @@
+Pisteet ja ruudut
+# Tavoite
+Valtaa enemmän ruutuja kuin vastustaja. Lauta on pisteistä muodostuva ruudukko. Valitse sen koko ennen peliä: 3×3 ruutua nopeaan peliin, 5×5 tai 7×7. Vaalea aloittaa.
+# Vuoro
+- Piirrä yksi viiva kahden vierekkäisen pisteen väliin, vaakasuoraan tai pystysuoraan. Kunkin viivan voi piirtää vain kerran.
+- Jos viivasi sulkee ruudun neljännen sivun, ruutu on sinun: se saa sinun värisi. Yksi viiva voi sulkea kaksi ruutua kerralla.
+- Aina kun suljet ruudun, sinun on piirrettävä uusi viiva. Vuorosi päättyy viivaan, joka ei sulje yhtään ruutua.
+# Pelin loppu
+Peli päättyy, kun kaikki viivat on piirretty. Pelaaja, jolla on enemmän ruutuja, voittaa. Jokaisella laudalla on pariton määrä ruutuja, joten voittaja ratkeaa aina.
+# Pelaaminen laitteella
+Napauta kahden pisteen väliä piirtääksesi viivan siihen. Pidä sormi painettuna nähdäksesi, mikä viiva siitä tulee, liu'uta sitä valitaksesi toisen ja nosta sormi piirtääksesi. Viimeksi piirretty viiva on korostettu, samoin ruudut, jotka se sulki. Kukin palkki näyttää, montako ruutua kyseisellä pelaajalla on.

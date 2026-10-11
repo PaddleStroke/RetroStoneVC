@@ -1,0 +1,11 @@
+Luffarschack
+# Målet
+Bli först med att få fem stenar i din färg i en obruten rad: vågrätt, lodrätt eller diagonalt. Stenarna spelas på punkterna där linjerna korsas och flyttas aldrig när de väl har spelats. Svart (mörk) börjar, sedan turas spelarna om, en sten var.
+# Fri stil och standard
+Välj regler före partiet:
+- Fri stil (kortet med sex stenar i rad): fem eller fler stenar i rad vinner.
+- Standard (kortet med fem): exakt fem stenar i rad vinner. En rad med sex eller fler räknas inte, men partiet fortsätter, och en femma som görs någon annanstans vinner ändå.
+# Partiets slut
+Den som först får en vinnande rad vinner direkt. Om brädet blir fullt utan någon vinnande rad blir det oavgjort.
+# Spela på enheten
+Första trycket visar en blek sten, ett andra tryck på samma punkt spelar den. Det gör små punkter lätta att träffa. Den vinnande raden lyser i guld.

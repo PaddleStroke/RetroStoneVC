@@ -1,0 +1,16 @@
+Lines of Action
+# Tavoite
+Kokoa kaikki nappulasi yhdeksi ryhmäksi, jossa jokainen nappula koskettaa toista omaa nappulaasi: sivuittain tai kulmittain. Tumma aloittaa, minkä jälkeen pelaajat siirtävät vuorotellen, yksi siirto kerrallaan.
+# Alkuasema
+Kummallakin pelaajalla on 12 nappulaa. Tumman nappulat ovat ylimmällä ja alimmalla rivillä, vaalean vasemmassa ja oikeassa sarakkeessa; neljä kulmaa jäävät tyhjiksi.
+# Miten nappula liikkuu
+- Nappula liikkuu suoraan: riviään, saraketaan tai jompaakumpaa kahdesta lävistäjästään pitkin.
+- Se liikkuu täsmälleen yhtä monta ruutua kuin koko sillä linjalla on nappuloita, molempia värejä, liikkuva nappula mukaan lukien. Laske koko linja laudan reunasta toiseen, nappulan molemmin puolin.
+- Se saa hypätä omanväristensä nappuloiden yli, mutta ei koskaan vastustajan nappuloiden yli.
+- Se saa päätyä tyhjään ruutuun tai vastustajan nappulan päälle, jolloin tämä lyödään ja poistuu laudalta. Se ei koskaan saa päätyä oman nappulansa päälle.
+# Pelin loppu
+- Pelaaja, jonka kaikki nappulat muodostavat yhden yhtenäisen ryhmän, voittaa. Yksi jäljelle jäänyt nappula lasketaan ryhmäksi, joten lyönti voi saada vastustajan voittamaan.
+- Jos siirto yhdistää kummankin pelaajan ryhmät yhtä aikaa, siirron tehnyt pelaaja voittaa.
+- Pelaaja, jolla ei ole yhtään sallittua siirtoa, passaa, ja vastustaja siirtää uudelleen. Laite passaa puolestasi. Jos kumpikaan pelaaja ei voi siirtää, tai 1000 siirron jälkeen, peli päättyy tasapeliin.
+# Pelaaminen laitteella
+Napauta nappulaa nähdäksesi, minne se voi liikkua, ja napauta sitten ruutua, tai vedä nappulaa. Pisteet näyttävät siirrot, renkaat lyönnit. Kukin palkki näyttää, montako nappulaa kyseisellä pelaajalla on jäljellä. Lopuksi voittava ryhmä hehkuu kultaisena.

@@ -1,0 +1,11 @@
+Prickar och rutor
+# Målet
+Ta fler rutor än motståndaren. Brädet är ett rutnät av prickar. Välj storlek före partiet: 3×3 rutor för ett snabbt parti, 5×5 eller 7×7. Den ljusa sidan börjar.
+# En tur
+- Dra ett streck mellan två prickar som ligger bredvid varandra, vågrätt eller lodrätt. Varje streck kan bara dras en gång.
+- Om ditt streck stänger den fjärde sidan av en ruta blir rutan din: den får din färg. Ett streck kan stänga två rutor på en gång.
+- Varje gång du stänger en ruta måste du dra ett streck till. Din tur slutar med ett streck som inte stänger någon ruta.
+# Partiets slut
+Partiet slutar när alla streck är dragna. Spelaren med flest rutor vinner. Varje bräde har ett udda antal rutor, så det finns alltid en vinnare.
+# Spela på enheten
+Tryck mellan två prickar för att dra strecket där. Håll kvar fingret för att se vilket streck det blir, flytta det för att välja ett annat, och lyft det för att dra strecket. Det senast dragna strecket lyser, liksom rutorna det stängde. Varje fält visar hur många rutor den spelaren har.

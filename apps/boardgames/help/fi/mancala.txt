@@ -1,0 +1,16 @@
+Mancala
+# Tavoite
+Kerää enemmän siemeniä kuin vastustaja. Laudalla on kaksi kuuden kuopan riviä, ja jokaisessa kuopassa on neljä siementä. Lähempänä sinua oleva rivi on sinun, ja sen oikeassa päässä on varastosi. Vaalea aloittaa.
+# Oware
+- Ota vuorollasi kaikki siemenet yhdestä kuopastasi ja kylvä ne yksi kerrallaan seuraaviin kuoppiin vastapäivään. Jos siemeniä on kaksitoista tai enemmän, kierrät koko laudan ympäri: tyhjentämäsi kuoppa ohitetaan.
+- Jos viimeinen siemenesi päätyy vastustajan riviin ja siellä on sen jälkeen kaksi tai kolme siementä, keräät ne. Keräät myös sitä edeltävän kuopan ja sitä edeltävän, kunhan ne ovat vastustajan rivissä ja niissä on kaksi tai kolme siementä.
+- Siirron, joka veisi vastustajalta kaikki siemenet, saa pelata, mutta se ei kerää mitään.
+- Jos vastustajalla ei ole siemeniä, sinun on tehtävä siirto, joka antaa hänelle siemeniä, jos sellainen on.
+- Peli päättyy, kun pelaaja on kerännyt yli 24 siementä, kun siirtovuorossa oleva pelaaja ei voi pelata tai kun sama asema toistuu. Kahdessa viimeisessä tapauksessa kumpikin pelaaja lisää saaliiseensa omaan riviinsä jääneet siemenet. Eniten siemeniä kerännyt voittaa; 24 kummallakin on tasapeli.
+# Kalah
+- Ota vuorollasi kaikki siemenet yhdestä kuopastasi ja kylvä ne yksi kerrallaan vastapäivään seuraaviin kuoppiin ja omaan varastoosi, mutta ei vastustajan varastoon.
+- Jos viimeinen siemenesi päätyy varastoosi, pelaat uudelleen.
+- Jos viimeinen siemenesi päätyy omaan tyhjään kuoppaasi ja vastapäisessä kuopassa on siemeniä, keräät molemmat: siemenesi ja vastapäiset siemenet menevät varastoosi.
+- Peli päättyy, kun jompikumpi rivi on tyhjä: toinen pelaaja siirtää omaan riviinsä jääneet siemenet varastoonsa. Eniten siemeniä varastossaan oleva voittaa; sama määrä on tasapeli.
+# Pelaaminen laitteella
+Napauta yhtä kuopistasi kylvääksesi sen: kuopat, joista voit pelata, hehkuvat. Siemenet kulkevat yksi kerrallaan, ja kerätyt siemenet lentävät varastoon. Kunkin kuopan vieressä oleva luku näyttää sen siemenet, ja kukin palkki näyttää siemenet, jotka kyseinen pelaaja on kerännyt.

@@ -1,0 +1,15 @@
+Käärmeet ja tikkaat
+# Tavoite
+Vie ensimmäisenä nappulasi ruutuun 100.
+# Lauta
+Ruudut on numeroitu 1:stä 100:aan vasemmasta alakulmasta alkaen: alinta riviä pitkin oikealle, sitten seuraavaa riviä takaisin vasemmalle ja niin edelleen ylöspäin, niin että 100 on ylimpänä. Tikkaat vievät ylöspäin, alapäästään yläpäähänsä; käärmeet vievät alaspäin, päästään häntäänsä.
+# Vuoro
+Kumpikin nappula aloittaa laudan ulkopuolelta, ennen ruutua 1. Vaalea heittää ensin. Heitä noppaa ja siirrä nappulaasi eteenpäin heittämäsi luvun verran, ruutu kerrallaan. Molemmat nappulat voivat olla samassa ruudussa.
+- Jos nappulasi päättää siirtonsa tikkaiden alapäähän, se kiipeää tikkaiden yläpäähän.
+- Jos se päättää siirtonsa käärmeen päähän, se liukuu alas käärmeen häntään.
+- Kuutonen antaa uuden heiton siirtosi jälkeen.
+- Muuten noppa siirtyy toiselle pelaajalle.
+# Pelin loppu
+Ruutuun 100 on päästävä tarkalleen oikealla luvulla. Jos heität enemmän kuin tarvitset, nappulasi menee ruutuun 100 asti ja palaa ylimenevien ruutujen verran takaisin: ruudusta 96 kuutosen heitto päättyy ruutuun 98. Tikkaat tai käärme ruudussa, johon nappula pysähtyy, pätevät silti. Ensimmäisenä ruutuun 100 päässyt pelaaja voittaa.
+# Pelaaminen laitteella
+Noppa odottaa kultaisessa valossa heittovuorossa olevan pelaajan palkin päässä: napauta näyttöä heittääksesi sen. Nappulasi siirtyy sitten itsestään. Kukin palkki näyttää, missä ruudussa pelaajan nappula on, ja hänen viimeisimmän heittonsa. Kumoa peruu heitot yksi kerrallaan; peruttu heitto tulee samana, kun heität uudelleen.

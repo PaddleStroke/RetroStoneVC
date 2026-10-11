@@ -1,0 +1,11 @@
+Fem på rad
+# Målet
+Bli den første til å få fem steiner i din farge på en sammenhengende rad: vannrett, loddrett eller diagonalt. Steinene spilles på punktene der linjene krysser hverandre, og flyttes aldri når de først er spilt. Svart (mørk) begynner, deretter bytter spillerne på, én stein hver.
+# Fristil og standard
+Velg regler før spillet:
+- Fristil (kortet med seks steiner på rad): fem eller flere steiner på rad vinner.
+- Standard (kortet med fem): nøyaktig fem steiner på rad vinner. En rad med seks eller flere teller ikke, men spillet fortsetter, og en rad på fem laget et annet sted vinner likevel.
+# Slutten på spillet
+Den første spilleren som får en vinnende rad, vinner med en gang. Hvis brettet blir fullt uten noen vinnende rad, blir det uavgjort.
+# Spill på enheten
+Det første trykket viser en blek stein, et nytt trykk på samme punkt spiller den. Slik er små punkter lette å treffe. Den vinnende raden lyser i gull.

@@ -1,0 +1,16 @@
+Mancala
+# Målet
+Fang flere frø enn motstanderen. Brettet har to rader med seks groper, fire frø i hver. Raden nærmest deg er din, med lageret ditt i høyre ende. Den lyse siden begynner.
+# Oware
+- Når det er din tur, tar du opp alle frøene i en av gropene dine og sår dem ett og ett i de neste gropene, mot klokka. Med tolv frø eller flere går du hele runden rundt: gropen du tømte, hoppes over.
+- Hvis det siste frøet ditt havner i motstanderens rad og gjør at det blir to eller tre frø der, fanger du dem. Du fanger også gropen før, og den før den igjen, så lenge de ligger i motstanderens rad og har to eller tre frø.
+- Et trekk som ville fange alle frøene motstanderen har, kan spilles, men det fanger ingenting.
+- Hvis motstanderen ikke har noen frø, må du spille et trekk som gir vedkommende noen, hvis du har et slikt.
+- Spillet slutter når en spiller har fanget mer enn 24 frø, når spilleren som er i trekket, ikke kan spille, eller når den samme stillingen kommer igjen. I de to siste tilfellene legger hver spiller til frøene som er igjen i sin egen rad. Flest frø vinner; 24 hver er uavgjort.
+# Kalah
+- Når det er din tur, tar du opp alle frøene i en av gropene dine og sår dem ett og ett mot klokka i de neste gropene og i ditt eget lager, men ikke i motstanderens lager.
+- Hvis det siste frøet ditt havner i lageret ditt, spiller du igjen.
+- Hvis det siste frøet ditt havner i en tom grop på din side og gropen rett overfor har frø, fanger du begge: frøet ditt og frøene overfor går til lageret ditt.
+- Spillet slutter når én rad er tom: den andre spilleren legger frøene som er igjen i sin rad, i sitt lager. Flest frø i lageret vinner; like mange er uavgjort.
+# Spill på enheten
+Trykk på en av gropene dine for å så fra den: gropene du kan spille, lyser. Frøene vandrer ett og ett, og fangede frø flyr til lageret. Tallet ved hver grop viser frøene i den, og hvert panel viser frøene den spilleren har fanget.
