@@ -1,0 +1,12 @@
+Senku
+# El objetivo
+Las canicas llenan todos los agujeros del tablero menos uno. Hazlas saltar unas sobre otras hasta que solo quede una, a ser posible en el agujero de llegada del tablero. Elige primero el tablero:
+- Inglés: la cruz de 33 agujeros. El centro empieza vacío, y es la llegada.
+- Francés: 37 agujeros, la cruz y cuatro más. El segundo agujero de la columna central, contando desde arriba, empieza vacío; la llegada es el segundo contando desde abajo (en este tablero ninguna partida que empiece con un solo agujero vacío puede terminar en el centro).
+- Triángulo: 15 agujeros, una partida más corta. El agujero de arriba empieza vacío, y es la llegada.
+# Una jugada
+Una canica salta por encima de una canica vecina, en línea recta, al agujero vacío que hay justo detrás. La canica saltada se retira del tablero. En las cruces se salta a lo ancho y a lo alto, nunca en diagonal; en el triángulo, a lo largo de sus tres direcciones.
+# El final de la partida
+Cuando ya no queda ningún salto, la partida termina. Si queda una sola canica: resuelto, y con luz dorada si está en el agujero de llegada. Si no, las canicas que quedan son tu puntuación: cuantas menos, mejor.
+# Jugar en el dispositivo
+Toca una canica: unos puntos muestran adónde puede saltar. Toca un punto, o arrastra la canica hasta allí. También puedes tocar un agujero vacío al que solo una canica puede llegar. Las canicas retiradas ruedan a la ranura que rodea el tablero. Deshacer anula un salto, hasta el principio. La barra muestra las canicas que quedan y, a la derecha, tu mejor partida en este tablero desde que se abrió la aplicación (no se guarda).

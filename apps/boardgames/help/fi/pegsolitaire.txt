@@ -1,0 +1,12 @@
+Kuulapasianssi
+# Tavoite
+Kuulat täyttävät laudan kaikki reiät yhtä lukuun ottamatta. Hyppyytä niitä toistensa yli, kunnes jäljellä on vain yksi, mieluiten laudan maalireiässä. Valitse ensin lauta:
+- Englantilainen: 33 reiän risti. Keskusta on alussa tyhjä, ja se on maali.
+- Ranskalainen: 37 reikää, risti ja neljä lisää. Keskimmäisen sarakkeen toinen reikä ylhäältä lukien on alussa tyhjä; maali on toinen alhaalta lukien (tällä laudalla mikään peli, joka alkaa yhdestä tyhjästä reiästä, ei voi päättyä keskelle).
+- Kolmio: 15 reikää, lyhyempi peli. Ylin reikä on alussa tyhjä, ja se on maali.
+# Siirto
+Kuula hyppää suoraa linjaa viereisen kuulan yli sen takana olevaan tyhjään reikään. Kuula, jonka yli hypättiin, poistetaan laudalta. Risteillä hypätään vaaka- ja pystysuunnassa, ei koskaan vinottain; kolmiolla sen kolmen suunnan mukaan.
+# Pelin loppu
+Kun hyppyjä ei enää ole, peli päättyy. Vain yksi kuula jäljellä: ratkaistu, ja kultaisessa valossa, jos se on maalireiässä. Muuten jäljelle jääneet kuulat ovat tuloksesi: mitä vähemmän, sitä parempi.
+# Pelaaminen laitteella
+Napauta kuulaa: pisteet näyttävät, minne se voi hypätä. Napauta pistettä tai vedä kuula sinne. Voit myös napauttaa tyhjää reikää, johon vain yksi kuula ylettyy. Poistetut kuulat vierivät laudan ympäri kulkevaan uraan. Kumoa peruu yhden hypyn, aina alkuun asti. Palkki näyttää jäljellä olevat kuulat ja oikealla parhaan pelisi tällä laudalla sovelluksen avaamisen jälkeen (sitä ei tallenneta).

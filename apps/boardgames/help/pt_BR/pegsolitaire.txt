@@ -1,0 +1,12 @@
+Resta Um
+# O objetivo
+As bolinhas enchem todos os buracos do tabuleiro menos um. Faça uma pular sobre a outra até sobrar só uma, de preferência no buraco de chegada do tabuleiro. Escolha primeiro o tabuleiro:
+- Inglês: a cruz de 33 buracos. O centro começa vazio, e é a chegada.
+- Francês: 37 buracos, a cruz e mais quatro. O segundo buraco da coluna do meio, contando de cima, começa vazio; a chegada é o segundo contando de baixo (neste tabuleiro nenhuma partida que comece com um só buraco vazio pode terminar no centro).
+- Triângulo: 15 buracos, uma partida mais curta. O buraco do topo começa vazio, e é a chegada.
+# Uma jogada
+Uma bolinha pula por cima de uma bolinha vizinha, em linha reta, para o buraco vazio logo atrás dela. A bolinha pulada sai do tabuleiro. Nas cruzes se pula na horizontal e na vertical, nunca na diagonal; no triângulo, ao longo das suas três direções.
+# O fim da partida
+Quando não há mais nenhum pulo, a partida acaba. Sobrou uma só bolinha: resolvido, e com luz dourada se ela estiver no buraco de chegada. Senão, as bolinhas que sobraram são a sua pontuação: quanto menos, melhor.
+# Jogando no aparelho
+Toque numa bolinha: pontos mostram para onde ela pode pular. Toque num ponto ou arraste a bolinha até lá. Você também pode tocar num buraco vazio que só uma bolinha alcança. As bolinhas retiradas rolam para a canaleta em volta do tabuleiro. Desfazer volta um pulo, até o começo. A barra mostra as bolinhas que sobram e, à direita, a sua melhor partida neste tabuleiro desde que o app foi aberto (ela não é salva).

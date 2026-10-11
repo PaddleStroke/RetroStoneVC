@@ -1,0 +1,12 @@
+Solitaire
+# Het doel
+Knikkers vullen alle gaten van het bord op één na. Laat ze over elkaar heen springen tot er nog maar één over is, het liefst in het doelgat van het bord. Kies eerst het bord:
+- Engels: het kruis van 33 gaten. Het midden is aan het begin leeg, en het is het doel.
+- Frans: 37 gaten, het kruis en nog vier. Het tweede gat van de middelste kolom, van boven af, is aan het begin leeg; het doel is het tweede van onderen (op dit bord kan geen spel dat met één leeg gat begint in het midden eindigen).
+- Driehoek: 15 gaten, een korter spel. Het bovenste gat is aan het begin leeg, en het is het doel.
+# Een zet
+Een knikker springt in een rechte lijn over een naburige knikker heen, in het lege gat er direct achter. De knikker waar overheen gesprongen is, gaat van het bord. Op de kruisen spring je horizontaal en verticaal, nooit schuin; op de driehoek langs zijn drie richtingen.
+# Het einde van het spel
+Als er geen sprong meer mogelijk is, is het spel voorbij. Nog één knikker: opgelost, en in gouden licht als hij in het doelgat ligt. Anders zijn de overgebleven knikkers je score: hoe minder, hoe beter.
+# Spelen op het apparaat
+Tik op een knikker: stippen laten zien waar hij heen kan springen. Tik op een stip, of sleep de knikker erheen. Je kunt ook op een leeg gat tikken dat maar één knikker kan bereiken. De weggenomen knikkers rollen in de goot rond het bord. Ongedaan maken neemt één sprong terug, helemaal tot het begin. De balk toont de overgebleven knikkers en rechts je beste spel op dit bord sinds de app geopend is (het wordt niet bewaard).

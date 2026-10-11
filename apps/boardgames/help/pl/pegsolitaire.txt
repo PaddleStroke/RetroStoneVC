@@ -1,0 +1,12 @@
+Samotnik
+# Cel gry
+Kulki wypełniają wszystkie dołki planszy oprócz jednego. Przeskakuj nimi jedna przez drugą, aż zostanie tylko jedna, najlepiej w docelowym dołku planszy. Najpierw wybierz planszę:
+- Angielska: krzyż z 33 dołków. Środek jest na początku pusty i jest celem.
+- Francuska: 37 dołków, krzyż i cztery więcej. Drugi dołek środkowej kolumny, licząc od góry, jest na początku pusty; celem jest drugi licząc od dołu (na tej planszy żadna gra zaczęta od jednego pustego dołka nie może skończyć się na środku).
+- Trójkąt: 15 dołków, krótsza gra. Górny dołek jest na początku pusty i jest celem.
+# Ruch
+Kulka przeskakuje w linii prostej przez sąsiednią kulkę do pustego dołka tuż za nią. Przeskoczona kulka zostaje zdjęta z planszy. Na krzyżach skacze się poziomo i pionowo, nigdy na ukos; na trójkącie wzdłuż jego trzech kierunków.
+# Koniec gry
+Gdy nie ma już żadnego skoku, gra się kończy. Została jedna kulka: rozwiązane, i w złotym świetle, jeśli leży w docelowym dołku. W przeciwnym razie pozostałe kulki są twoim wynikiem: im mniej, tym lepiej.
+# Gra na urządzeniu
+Dotknij kulki: kropki pokażą, dokąd może skoczyć. Dotknij kropki albo przeciągnij tam kulkę. Możesz też dotknąć pustego dołka, do którego może dojść tylko jedna kulka. Zdjęte kulki toczą się do rowka wokół planszy. Cofnij cofa jeden skok, aż do początku. Pasek pokazuje pozostałe kulki, a po prawej twoją najlepszą grę na tej planszy od otwarcia aplikacji (nie jest zapisywana).

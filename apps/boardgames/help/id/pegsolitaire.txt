@@ -1,0 +1,12 @@
+Solitaire
+# Tujuan
+Kelereng mengisi semua lubang papan kecuali satu. Lompatkan kelereng melewati satu sama lain sampai hanya tersisa satu, sebaiknya di lubang tujuan papan. Pilih papan dulu:
+- Inggris: salib dengan 33 lubang. Bagian tengah kosong di awal, dan itulah tujuannya.
+- Prancis: 37 lubang, salib ditambah empat. Lubang kedua di kolom tengah, dihitung dari atas, kosong di awal; tujuannya lubang kedua dari bawah (di papan ini tidak ada permainan yang dimulai dengan satu lubang kosong yang bisa berakhir di tengah).
+- Segitiga: 15 lubang, permainan lebih singkat. Lubang paling atas kosong di awal, dan itulah tujuannya.
+# Satu langkah
+Sebuah kelereng melompati kelereng di sebelahnya dalam garis lurus, masuk ke lubang kosong tepat di belakangnya. Kelereng yang dilompati diambil dari papan. Di papan salib, lompatan mendatar dan tegak, tidak pernah miring; di segitiga, sepanjang tiga arahnya.
+# Akhir permainan
+Jika tidak ada lompatan lagi, permainan selesai. Tinggal satu kelereng: berhasil, dan bercahaya emas jika berada di lubang tujuan. Jika tidak, kelereng yang tersisa adalah skormu: makin sedikit, makin baik.
+# Bermain di perangkat
+Ketuk sebuah kelereng: titik-titik menunjukkan ke mana ia bisa melompat. Ketuk sebuah titik, atau seret kelereng ke sana. Kamu juga bisa mengetuk lubang kosong yang hanya bisa dicapai satu kelereng. Kelereng yang diambil menggelinding ke parit di sekeliling papan. Urungkan membatalkan satu lompatan, sampai ke awal. Bilah menunjukkan kelereng yang tersisa dan, di kanan, permainan terbaikmu di papan ini sejak aplikasi dibuka (tidak disimpan).

@@ -1,0 +1,12 @@
+Solitaire
+# Målet
+Kuler fyller alle hullene på brettet unntatt ett. La dem hoppe over hverandre til det bare er én igjen, helst i brettets målhull. Velg først brettet:
+- Engelsk: korset med 33 hull. Midten er tom fra start, og den er målet.
+- Fransk: 37 hull, korset og fire til. Det andre hullet i den midterste kolonnen, regnet ovenfra, er tomt fra start; målet er det andre nedenfra (på dette brettet kan ingen runde som begynner med ett tomt hull, ende i midten).
+- Trekant: 15 hull, en kortere runde. Det øverste hullet er tomt fra start, og det er målet.
+# Et trekk
+En kule hopper i rett linje over en nabokule og ned i det tomme hullet rett bak. Kulen det ble hoppet over, tas av brettet. På korsene hopper man vannrett og loddrett, aldri på skrå; på trekanten langs de tre retningene.
+# Slutten på spillet
+Når det ikke finnes flere hopp, er spillet over. Bare én kule igjen: løst, og i gyllent lys hvis den ligger i målhullet. Ellers er kulene som er igjen resultatet ditt: jo færre, jo bedre.
+# Spill på enheten
+Trykk på en kule: prikker viser hvor den kan hoppe. Trykk på en prikk, eller dra kulen dit. Du kan også trykke på et tomt hull som bare én kule kan nå. Kulene som tas av, triller ned i rennen rundt brettet. Angre tar tilbake ett hopp, helt til starten. Linjen viser kulene som er igjen og til høyre ditt beste spill på dette brettet siden appen ble åpnet (det lagres ikke).

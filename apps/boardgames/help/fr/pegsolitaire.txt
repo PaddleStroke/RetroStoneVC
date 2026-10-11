@@ -1,0 +1,12 @@
+Solitaire
+# Le but
+Des billes remplissent tous les trous du plateau sauf un. Fais-les sauter les unes par-dessus les autres jusqu'à ce qu'il n'en reste qu'une, si possible dans le trou d'arrivée du plateau. Choisis d'abord le plateau :
+- Anglais : la croix de 33 trous. Le centre est vide au départ, et c'est l'arrivée.
+- Français : 37 trous, la croix et quatre de plus. Le deuxième trou de la colonne du milieu, en partant du haut, est vide au départ ; l'arrivée est le deuxième en partant du bas (sur ce plateau, aucune partie commencée avec un seul trou vide ne peut finir au centre).
+- Triangle : 15 trous, une partie plus courte. Le trou du sommet est vide au départ, et c'est l'arrivée.
+# Un coup
+Une bille saute par-dessus une bille voisine, en ligne droite, dans le trou vide juste derrière. La bille sautée est retirée du plateau. Sur les croix, on saute en largeur et en hauteur, jamais en diagonale ; sur le triangle, le long de ses trois directions.
+# La fin de la partie
+Quand plus aucun saut n'est possible, la partie est finie. Une seule bille : réussi, et dans une lumière dorée si elle est dans le trou d'arrivée. Sinon, les billes qui restent sont ton score : moins il y en a, mieux c'est.
+# Jouer sur l'appareil
+Touche une bille : des points montrent où elle peut sauter. Touche un point, ou fais glisser la bille jusque-là. Tu peux aussi toucher un trou vide qu'une seule bille peut atteindre. Les billes retirées roulent dans la rigole autour du plateau. Annuler reprend un saut, jusqu'au début. La barre montre les billes qui restent et, à droite, ta meilleure partie sur ce plateau depuis l'ouverture de l'appli (elle n'est pas enregistrée).

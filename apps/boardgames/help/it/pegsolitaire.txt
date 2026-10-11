@@ -1,0 +1,12 @@
+Solitario
+# Lo scopo
+Le biglie riempiono tutti i fori del tavoliere tranne uno. Falle saltare l'una sopra l'altra finché ne resta una sola, se possibile nel foro d'arrivo del tavoliere. Scegli prima il tavoliere:
+- Inglese: la croce di 33 fori. Il centro è vuoto all'inizio, ed è l'arrivo.
+- Francese: 37 fori, la croce e altri quattro. Il secondo foro della colonna centrale, contando dall'alto, è vuoto all'inizio; l'arrivo è il secondo contando dal basso (su questo tavoliere nessuna partita iniziata con un solo foro vuoto può finire al centro).
+- Triangolo: 15 fori, una partita più breve. Il foro in cima è vuoto all'inizio, ed è l'arrivo.
+# Una mossa
+Una biglia salta sopra una biglia vicina, in linea retta, nel foro vuoto subito dietro. La biglia scavalcata viene tolta dal tavoliere. Sulle croci si salta in orizzontale e in verticale, mai in diagonale; sul triangolo, lungo le sue tre direzioni.
+# La fine della partita
+Quando non resta nessun salto, la partita è finita. Una sola biglia: risolto, e con una luce dorata se si trova nel foro d'arrivo. Altrimenti le biglie rimaste sono il tuo punteggio: meno sono, meglio è.
+# Giocare sul dispositivo
+Tocca una biglia: dei puntini mostrano dove può saltare. Tocca un puntino, oppure trascina lì la biglia. Puoi anche toccare un foro vuoto che una sola biglia può raggiungere. Le biglie tolte rotolano nella scanalatura intorno al tavoliere. Annulla toglie un salto, fino all'inizio. La barra mostra le biglie rimaste e, a destra, la tua migliore partita su questo tavoliere da quando l'app è stata aperta (non viene salvata).

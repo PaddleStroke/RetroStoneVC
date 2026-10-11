@@ -1,0 +1,12 @@
+Solitaire
+# Målet
+Kugler fylder alle brættets huller undtagen ét. Lad dem springe over hinanden, til der kun er én tilbage, helst i brættets målhul. Vælg først brættet:
+- Engelsk: korset med 33 huller. Midten er tom fra start, og den er målet.
+- Fransk: 37 huller, korset og fire mere. Det andet hul i den midterste søjle, regnet oppefra, er tomt fra start; målet er det andet nedefra (på dette bræt kan intet spil, der begynder med ét tomt hul, ende i midten).
+- Trekant: 15 huller, et kortere spil. Det øverste hul er tomt fra start, og det er målet.
+# Et træk
+En kugle springer i lige linje over en nabokugle og ned i det tomme hul lige bagved. Kuglen, der blev sprunget over, tages af brættet. På korsene springer man vandret og lodret, aldrig på skrå; på trekanten langs dens tre retninger.
+# Spillets afslutning
+Når der ikke er flere spring, er spillet slut. Er der kun én kugle tilbage: løst, og i gyldent lys, hvis den ligger i målhullet. Ellers er de resterende kugler dit resultat: jo færre, jo bedre.
+# Spil på enheden
+Tryk på en kugle: prikker viser, hvor den kan springe hen. Tryk på en prik, eller træk kuglen derhen. Du kan også trykke på et tomt hul, som kun én kugle kan nå. De fjernede kugler triller ned i rillen rundt om brættet. Fortryd tager ét spring tilbage, helt til starten. Bjælken viser de resterende kugler og til højre dit bedste spil på dette bræt, siden appen blev åbnet (det gemmes ikke).

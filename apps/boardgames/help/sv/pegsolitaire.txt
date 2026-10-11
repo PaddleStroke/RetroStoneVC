@@ -1,0 +1,12 @@
+Solitär
+# Målet
+Kulor fyller alla brädets hål utom ett. Låt dem hoppa över varandra tills bara en är kvar, helst i brädets målhål. Välj först bräde:
+- Engelskt: korset med 33 hål. Mitten är tom från början, och den är målet.
+- Franskt: 37 hål, korset och fyra till. Det andra hålet i mittkolumnen, räknat uppifrån, är tomt från början; målet är det andra nedifrån (på det här brädet kan inget parti som börjar med ett enda tomt hål sluta i mitten).
+- Triangel: 15 hål, ett kortare parti. Det översta hålet är tomt från början, och det är målet.
+# Ett drag
+En kula hoppar i rak linje över en grannkula ner i det tomma hålet precis bakom. Kulan som hoppades över tas bort från brädet. På korsen hoppar man vågrätt och lodrätt, aldrig snett; på triangeln längs dess tre riktningar.
+# Partiets slut
+När inga hopp finns kvar är partiet slut. Bara en kula kvar: löst, och i gyllene ljus om den ligger i målhålet. Annars är kulorna som är kvar ditt resultat: ju färre, desto bättre.
+# Spela på enheten
+Tryck på en kula: prickar visar vart den kan hoppa. Tryck på en prick eller dra kulan dit. Du kan också trycka på ett tomt hål som bara en kula kan nå. Kulorna som tas bort rullar ner i rännan runt brädet. Ångra tar tillbaka ett hopp, ända till början. Listen visar kulorna som är kvar och till höger ditt bästa parti på det här brädet sedan appen öppnades (det sparas inte).

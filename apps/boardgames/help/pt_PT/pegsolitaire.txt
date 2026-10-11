@@ -1,0 +1,12 @@
+Solitário
+# O objetivo
+Os berlindes enchem todos os buracos do tabuleiro menos um. Faz um saltar por cima do outro até restar apenas um, de preferência no buraco de chegada do tabuleiro. Escolhe primeiro o tabuleiro:
+- Inglês: a cruz de 33 buracos. O centro começa vazio, e é a chegada.
+- Francês: 37 buracos, a cruz e mais quatro. O segundo buraco da coluna do meio, a contar de cima, começa vazio; a chegada é o segundo a contar de baixo (neste tabuleiro nenhum jogo que comece com um só buraco vazio pode acabar no centro).
+- Triângulo: 15 buracos, um jogo mais curto. O buraco do topo começa vazio, e é a chegada.
+# Uma jogada
+Um berlinde salta por cima de um berlinde vizinho, em linha reta, para o buraco vazio logo a seguir. O berlinde saltado é retirado do tabuleiro. Nas cruzes salta-se na horizontal e na vertical, nunca na diagonal; no triângulo, ao longo das suas três direções.
+# O fim do jogo
+Quando já não há nenhum salto possível, o jogo acaba. Resta um só berlinde: resolvido, e com luz dourada se estiver no buraco de chegada. Caso contrário, os berlindes que restam são a tua pontuação: quantos menos, melhor.
+# Jogar no dispositivo
+Toca num berlinde: pontos mostram para onde pode saltar. Toca num ponto ou arrasta o berlinde até lá. Também podes tocar num buraco vazio a que só um berlinde consegue chegar. Os berlindes retirados rolam para a calha à volta do tabuleiro. Anular desfaz um salto, até ao início. A barra mostra os berlindes que restam e, à direita, o teu melhor jogo neste tabuleiro desde que a aplicação foi aberta (não é guardado).

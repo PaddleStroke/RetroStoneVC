@@ -1,0 +1,12 @@
+Tek Taş
+# Amaç
+Bilyeler tahtadaki deliklerin biri hariç hepsini doldurur. Onları birbirinin üzerinden atlatarak tek bir bilye kalana kadar devam et; en iyisi, son bilye tahtanın hedef deliğinde kalsın. Önce tahtayı seç:
+- İngiliz: 33 delikli haç. Ortası başta boştur ve hedef de odur.
+- Fransız: 37 delik, haç ve dört delik daha. Orta sütunun yukarıdan ikinci deliği başta boştur; hedef aşağıdan ikinci deliktir (bu tahtada tek boş delikle başlayan hiçbir oyun ortada bitemez).
+- Üçgen: 15 delik, daha kısa bir oyun. En üstteki delik başta boştur ve hedef de odur.
+# Bir hamle
+Bir bilye düz bir çizgide komşu bir bilyenin üzerinden, hemen arkasındaki boş deliğe atlar. Üzerinden atlanan bilye tahtadan alınır. Haçlarda yatay ve dikey atlanır, asla çapraz değil; üçgende ise üç yönü boyunca.
+# Oyunun sonu
+Hiç atlama kalmayınca oyun biter. Tek bilye kaldıysa: çözüldü; hedef delikteyse altın ışıkta. Yoksa kalan bilyeler senin skorundur: ne kadar az, o kadar iyi.
+# Cihazda oynamak
+Bir bilyeye dokun: noktalar nereye atlayabileceğini gösterir. Bir noktaya dokun ya da bilyeyi oraya sürükle. Yalnızca tek bir bilyenin ulaşabildiği boş bir deliğe de dokunabilirsin. Alınan bilyeler tahtanın çevresindeki oluğa yuvarlanır. Geri al bir atlamayı geri alır, en başa kadar. Çubuk kalan bilyeleri ve sağda, uygulama açıldığından beri bu tahtadaki en iyi oyununu gösterir (kaydedilmez).

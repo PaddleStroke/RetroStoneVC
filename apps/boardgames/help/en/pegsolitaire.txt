@@ -1,0 +1,12 @@
+Peg Solitaire
+# The aim
+Marbles fill every hole of the board but one. Jump them over each other until only one is left, ideally in the board's goal hole. Choose the board first:
+- English: the cross of 33 holes. The centre starts empty, and it is the goal.
+- French: 37 holes, the cross and four more. The second hole of the middle column, from the top, starts empty; the goal is the second from the bottom (no game from one empty hole can end in the centre of this board).
+- Triangle: 15 holes, a shorter game. The top hole starts empty, and it is the goal.
+# A move
+A marble jumps over a neighbouring marble, in a straight line, into the empty hole just beyond it. The marble jumped over is taken off the board. On the crosses the jumps go across and up and down, never diagonally; on the triangle they go along its three lines.
+# The end of the game
+When no jump is left, the game is over. One marble left: solved, and in gold light if it sits in the goal hole. Otherwise the marbles left are your score: the fewer, the better.
+# Playing on the device
+Tap a marble: dots show where it can jump. Tap a dot, or drag the marble there. You can also tap an empty hole that only one marble can reach. The marbles taken off roll into the groove around the board. Undo takes back one jump, all the way to the start. The bar shows the marbles left and, on the right, your best game on this board since the app was opened (it is not saved).

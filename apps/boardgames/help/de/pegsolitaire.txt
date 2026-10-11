@@ -1,0 +1,12 @@
+Solitär
+# Das Ziel
+Murmeln füllen alle Löcher des Bretts bis auf eines. Lass sie übereinander springen, bis nur noch eine übrig ist, am besten im Zielloch des Bretts. Wähle zuerst das Brett:
+- Englisch: das Kreuz aus 33 Löchern. Die Mitte ist zu Beginn leer, und sie ist das Ziel.
+- Französisch: 37 Löcher, das Kreuz und vier mehr. Das zweite Loch der mittleren Spalte, von oben gezählt, ist zu Beginn leer; das Ziel ist das zweite von unten (auf diesem Brett kann keine Partie, die mit einem einzigen leeren Loch beginnt, in der Mitte enden).
+- Dreieck: 15 Löcher, eine kürzere Partie. Das oberste Loch ist zu Beginn leer, und es ist das Ziel.
+# Ein Zug
+Eine Murmel springt in gerader Linie über eine benachbarte Murmel in das leere Loch direkt dahinter. Die übersprungene Murmel wird vom Brett genommen. Auf den Kreuzen springt man waagerecht und senkrecht, nie schräg; auf dem Dreieck entlang seiner drei Richtungen.
+# Das Ende der Partie
+Wenn kein Sprung mehr möglich ist, ist die Partie vorbei. Bleibt eine einzige Murmel: gelöst, und in goldenem Licht, wenn sie im Zielloch liegt. Sonst sind die übrigen Murmeln dein Ergebnis: je weniger, desto besser.
+# Spielen auf dem Gerät
+Tippe eine Murmel an: Punkte zeigen, wohin sie springen kann. Tippe einen Punkt an oder ziehe die Murmel dorthin. Du kannst auch ein leeres Loch antippen, das nur eine einzige Murmel erreichen kann. Die genommenen Murmeln rollen in die Rinne rund um das Brett. Zurück nimmt einen Sprung zurück, bis zum Anfang. Die Leiste zeigt die übrigen Murmeln und rechts deine beste Partie auf diesem Brett, seit die App geöffnet wurde (sie wird nicht gespeichert).
