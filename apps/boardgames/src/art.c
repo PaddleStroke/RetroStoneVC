@@ -326,6 +326,34 @@ void art_flat_shadow(int size, uint8_t *o)
         }
 }
 
+void art_die(int value, int player, int size, uint8_t *rgba)
+{
+    static const float pip[7][6][2] = {         /* the pips of each face, in the die's unit square */
+        {{0}}, {{0.5f, 0.5f}}, {{0.30f, 0.30f}, {0.70f, 0.70f}}, {{0.28f, 0.28f}, {0.5f, 0.5f}, {0.72f, 0.72f}},
+        {{0.29f, 0.29f}, {0.71f, 0.29f}, {0.29f, 0.71f}, {0.71f, 0.71f}},
+        {{0.28f, 0.28f}, {0.72f, 0.28f}, {0.5f, 0.5f}, {0.28f, 0.72f}, {0.72f, 0.72f}},
+        {{0.29f, 0.26f}, {0.71f, 0.26f}, {0.29f, 0.5f}, {0.71f, 0.5f}, {0.29f, 0.74f}, {0.71f, 0.74f}}};
+    art_style st = art_player[player ? 1 : 0];
+    st.line = fmaxf(0.025f, 1.3f / size);
+    st.light = player ? 0.30f : 0.16f;
+    art_fig *f = art_fig_new();
+    float p[2 * 40], r = 0.17f, lo = 0.08f, hi = 0.92f;
+    int n = 0;
+    for (int c = 0; c < 4; c++) {               /* a rounded square: four quarter circles joined */
+        float cx = c == 0 || c == 3 ? hi - r : lo + r, cy = c < 2 ? hi - r : lo + r;
+        for (int i = 0; i <= 9; i++) {
+            float a = (c * 90 + i * 10) * PI_F / 180;
+            p[n++] = cx + r * cosf(a);
+            p[n++] = cy + r * sinf(a);
+        }
+    }
+    art_poly(f, ART_PART, p, n / 2);
+    int v = value < 1 ? 1 : value > 6 ? 6 : value;
+    for (int i = 0; i < v; i++) art_ellipse(f, ART_MARK, pip[v][i][0], pip[v][i][1], 0.075f, 0.075f);
+    art_render(f, &st, size, size, (float)size, 0, 0, rgba);
+    art_fig_free(f);
+}
+
 /* ---- the board ----------------------------------------------------------------------------------------------------- */
 static float hash(int a, int b)
 {

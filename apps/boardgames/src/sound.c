@@ -82,6 +82,13 @@ static void synth(void)
     b = make(SND_DENY, 0.16f);                  /* not allowed: a low buzz */
     tone(b, len[SND_DENY], 0, 196, 0.22f, 0.07f);
     tone(b, len[SND_DENY], 0, 207, 0.22f, 0.07f);
+    b = make(SND_DICE, 0.55f);                  /* dice rattling, then landing: knocks closer and closer */
+    static const float knock[] = {0.00f, 0.07f, 0.13f, 0.20f, 0.25f, 0.31f, 0.35f, 0.40f, 0.43f};
+    for (unsigned i = 0; i < sizeof knock / sizeof knock[0]; i++) {
+        float k = 1 - i * 0.07f;
+        tone(b, len[SND_DICE], knock[i], 1700 + 230 * (i % 3), 0.16f * k, 0.010f);
+        noise(b, len[SND_DICE], knock[i], 0.26f * k, 0.004f, 0.6f);
+    }
 }
 
 static void mix(void *u, Uint8 *stream, int bytes)

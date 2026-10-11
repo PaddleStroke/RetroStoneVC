@@ -81,8 +81,16 @@ void ui_mark_ring(float cx, float cy, float d);           /* a possible capture:
 void ui_mark_glow(float cx, float cy, float d);           /* danger (check): a red glow */
 void ui_mark_gold(float cx, float cy, float d);           /* a success (a mill, a winning line): a gold light */
 
-enum { SND_MOVE, SND_CAPTURE, SND_PLACE, SND_DROP, SND_CHECK, SND_END, SND_TAP, SND_DENY, SNDS };
+enum { SND_MOVE, SND_CAPTURE, SND_PLACE, SND_DROP, SND_CHECK, SND_END, SND_TAP, SND_DENY, SND_DICE, SNDS };
 void ui_sound(int s);
+
+/* chance: the shell's dice. ui_random gives 0..n-1 (seeded at start; --seed in the picture mode, so tests and
+ * screenshots repeat); the rules take the values as input. ui_dice_throw shows dice tumbling to their values (with
+ * their sound), ui_dice_draw draws them where the game wants (size: one die), the used ones dimmed (bit i: die i). */
+int  ui_random(int n);
+void ui_dice_throw(int n, const int *values, int player);
+void ui_dice_draw(float cx, float cy, float size, unsigned used);
+int  ui_dice_busy(void);                        /* 1 while they tumble */
 
 /* sound.c */
 void snd_init(void);

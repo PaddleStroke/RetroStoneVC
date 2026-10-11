@@ -43,6 +43,9 @@ void art_counter(int kind, int player, int size, uint8_t *rgba);
  * ui_shadow_flat() draws it, a game's thumbnail can blend it */
 void art_flat_shadow(int size, uint8_t *rgba);
 
+/* a die showing 1..6, a player's colour (ivory with ebony pips, or ebony with ivory pips), seen from above, size x size */
+void art_die(int value, int player, int size, uint8_t *rgba);
+
 /* ---- ready-made pictures ------------------------------------------------------------------------------------------- */
 /* a chess piece (games/chess.h PAWN..KING, WHITE / BLACK), size x size */
 void art_piece(int type, int color, int size, uint8_t *rgba);

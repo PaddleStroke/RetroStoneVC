@@ -152,6 +152,77 @@ void ui_mark_glow(float cx, float cy, float d) { ui_put_c(t_glow, cx, cy, d, d);
 
 void ui_sound(int s) { snd_play(s); }
 
+/* ---- chance: the shell's dice ------------------------------------------------------------------------------------------- */
+static uint32_t rng = 0x9e3779b9u;              /* xorshift; seeded at start (--seed in the picture mode) */
+
+static void seed_random(uint32_t s) { rng = s ? s : 0x9e3779b9u; }
+
+int ui_random(int n)
+{
+    rng ^= rng << 13;
+    rng ^= rng >> 17;
+    rng ^= rng << 5;
+    return n > 0 ? (int)(rng % (uint32_t)n) : 0;
+}
+
+#define MAX_DICE 4
+#define DICE_MS 650
+static struct {
+    int n, v[MAX_DICE], player, made;
+    float tilt[MAX_DICE];
+    Uint32 t0;
+    SDL_Texture *face[2][7];
+} dice;
+
+void ui_dice_throw(int n, const int *values, int player)
+{
+    dice.n = n < 0 ? 0 : n > MAX_DICE ? MAX_DICE : n;
+    for (int i = 0; i < dice.n; i++) {
+        dice.v[i] = values[i];
+        dice.tilt[i] = (float)(ui_random(31) - 15);    /* they land a little askew */
+    }
+    dice.player = player ? 1 : 0;
+    dice.t0 = SDL_GetTicks();
+    snd_play(SND_DICE);
+    need_frame = 1;
+}
+
+int ui_dice_busy(void) { return dice.n && !instant && SDL_GetTicks() - dice.t0 < DICE_MS; }
+
+void ui_dice_draw(float cx, float cy, float size, unsigned used)
+{
+    int s = (int)size;
+    if (s < 4 || !dice.n) return;
+    if (dice.made != s) {
+        dice.made = s;
+        for (int p = 0; p < 2; p++)
+            for (int v = 1; v <= 6; v++) {
+                ui_free(&dice.face[p][v]);
+                art_die(v, p, s, ui_buf(s, s));
+                dice.face[p][v] = ui_tex(s, s, ui_buf(s, s));
+            }
+    }
+    int rolling = ui_dice_busy();
+    float t = rolling ? (SDL_GetTicks() - dice.t0) / (float)DICE_MS : 1, gap = 0.3f * size;
+    float x = cx - (dice.n * size + (dice.n - 1) * gap) / 2 + size / 2;
+    for (int i = 0; i < dice.n; i++, x += size + gap) {
+        int v = dice.v[i];
+        float a = dice.tilt[i], y = cy;
+        if (rolling) {                          /* tumbling: the faces flicker, the die turns and bounces */
+            v = 1 + (int)((SDL_GetTicks() / 70 + i * 3 + dice.v[i]) % 6);
+            a += (1 - t) * (1 - t) * 540 * (i & 1 ? -1 : 1);
+            y -= (1 - t) * size * 0.6f * fabsf(sinf(t * 9.4f));
+        }
+        Uint8 alpha = used >> i & 1 ? 110 : 255;
+        SDL_Texture *f = dice.face[dice.player][v];
+        ui_shadow_flat(x, cy, size * 1.1f, size * 1.1f, alpha / 255.0f);
+        SDL_SetTextureAlphaMod(f, alpha);
+        ui_put_rot(f, x, y, size, size, a);
+        SDL_SetTextureAlphaMod(f, 255);
+    }
+    if (rolling) need_frame = 1;
+}
+
 /* digits: white textures per height (a few heights kept), tinted when drawn */
 void ui_number(float cx, float cy, float h, int value, int light)
 {
@@ -776,6 +847,7 @@ static int shot(int argc, char **argv)
     const char *out = NULL, *id = NULL, *moves = NULL, *taps = NULL, *lang = NULL;
     int v = 0, keep = 0, pick = 0, show_help = 0;
     float scroll = 0;
+    uint32_t seed = 1;
     ui.w = 720;
     ui.h = 1280;
     for (int i = 1; i < argc; i++) {
@@ -792,7 +864,9 @@ static int shot(int argc, char **argv)
         else if (!strcmp(argv[i], "--lang") && i + 1 < argc) lang = argv[++i];
         else if (!strcmp(argv[i], "--help")) show_help = 1;
         else if (!strcmp(argv[i], "--scroll") && i + 1 < argc) scroll = (float)atof(argv[++i]);
+        else if (!strcmp(argv[i], "--seed") && i + 1 < argc) seed = (uint32_t)strtoul(argv[++i], NULL, 10);
     }
+    seed_random(seed);                          /* the same dice every time: tests and screenshots repeat */
     text_init(lang ? lang : "en");
     instant = 1;
     SDL_Surface *surf = SDL_CreateRGBSurfaceWithFormat(0, ui.w, ui.h, 32, SDL_PIXELFORMAT_RGBA32);
@@ -872,6 +946,7 @@ int main(int argc, char **argv)
     for (int i = 1; i + 1 < argc; i++)
         if (!strcmp(argv[i], "--lang")) lang = argv[i + 1];
     text_init(lang);
+    seed_random((uint32_t)SDL_GetPerformanceCounter());
     snd_init();
     win = SDL_CreateWindow("RetroStone Board", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 540, 900,
                            SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
