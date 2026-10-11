@@ -1,0 +1,13 @@
+Chinese Checkers
+# The aim
+Move all ten of your marbles across the star into the point opposite your own. The board is a six-pointed star of 121 holes. Light starts in the bottom point and Dark in the top point, which is stained in their colours; the four other points stay empty. Light plays first.
+# A move
+On your turn, move one of your marbles in one of two ways:
+- A step: to an empty hole next to it. Each hole has up to six neighbours, along the lines of the star.
+- Jumps: over a marble next to it, of either colour, to the empty hole just beyond, in a straight line. From there the same marble may jump again, as many times as you like and in any direction, but never back onto a hole it has already been on during this move.
+- Nothing is ever captured: the marbles jumped over stay where they are.
+- A step and jumps cannot be mixed in one move. Marbles may go through the empty points and stop there, and may leave the point they are filling.
+# The end of the game
+The first player to fill the opposite point wins. A player cannot block the point by leaving marbles at home: as soon as every hole of your target point is taken and at least one of them holds your marble, you win, even if some of the other holes there still hold your opponent's marbles. In the very rare case that the player to move has no move at all, the game is a draw.
+# Playing on the device
+Tap one of your marbles: dots show every hole it can reach, by a step or a chain of jumps. Tap one of them and the marble hops there, jump by jump. You can also drag the marble to its hole. The holes of the last move stay lit. Each bar shows how many of that player's marbles have already reached the opposite point.
