@@ -1,0 +1,22 @@
+Työnnä kuulat
+# Tavoite
+Työnnä kuusi vastustajan kuulaa pois laudalta. Lauta on kuusikulmio, jossa on 61 reikää, viisi kullakin sivulla, ja kummallakin pelaajalla on neljätoista kuulaa. Tumma aloittaa.
+# Lauta
+Valitse aloitusasetelma ennen peliä:
+- Tavallinen: kumpikin pelaaja täyttää kaksi itseään lähintä riviä ja seuraavan rivin kolme keskimmäistä reikää.
+- Belgialainen päivänkakkara: kummallakin pelaajalla on kaksi seitsemän kuulan kukkaa (kuula ja sen kuusi naapuria), toinen omalla puolella ja toinen vastustajan puolella, vastakkaisissa kulmissa. Eriväriset kukat koskettavat toisiaan.
+- Saksalainen päivänkakkara: samat kukat rivin verran kauempana reunasta ja lähempänä kulmia, ja värien välissä on rako.
+# Siirtäminen
+Vuorollasi siirrä yhtä, kahta tai kolmea kuulaasi yhden reiän verran johonkin kuudesta suunnasta. Kahden tai kolmen kuulan on oltava vierekkäin suorassa rivissä, ja ne liikkuvat yhdessä:
+- Rivin suuntaan: oman rivinsä suuntaisesti eteen- tai taaksepäin. Etummainen kuula siirtyy edessään olevaan reikään, ja muut seuraavat sitä.
+- Sivuttain: poikittain riviinsä nähden, jokainen kuula viereiseen reikään. Kaikkien näiden reikien on oltava tyhjiä.
+- Yksittäinen kuula siirtyy mihin tahansa viereiseen tyhjään reikään. Omaa kuulaa ei saa koskaan siirtää pois laudalta.
+# Työntäminen
+Kun siirrät riviä sen omaan suuntaan, voit työntää vastustajan kuulia, jotka ovat suoraan sen edessä, jos sinun kuuliasi on enemmän: kaksi kuulaa työntää yhtä, kolme työntää yhtä tai kahta. Työnnetyt kuulat siirtyvät yhden reiän eteenpäin.
+- Työnnettyjen kuulien takana olevan reiän on oltava tyhjä tai laudan reuna: silloin viimeinen työnnetty kuula putoaa laudalta ja menee lokeroosi.
+- Työntää ei voi, jos jokin omista kuulistasi on työnnettävien kuulien joukossa tai heti niiden takana, tai jos niitä on yhtä monta kuin sinun kuuliasi. Yksittäinen kuula ei koskaan työnnä, eikä kuulaa koskaan työnnetä sivuttain.
+# Pelin loppu
+- Voittaja on se, joka ensimmäisenä työntää kuusi vastustajan kuulaa pois laudalta.
+- Peli päättyy tasapeliin, kun sama asema toistuu kolmannen kerran saman pelaajan ollessa siirtovuorossa, tai kun kumpikin on tehnyt viisikymmentä siirtoa ilman, että yhtään kuulaa on työnnetty pois.
+# Pelaaminen laitteella
+Napauta yhtä kuulaasi valitaksesi sen. Jos haluat siirtää riviä, napauta myös rivin toista ja kolmatta kuulaa tai liu'uta sormea niiden yli. Pisteet näyttävät, minne kuulat voivat mennä, ja rengas näyttää kuulan, jonka voit työntää: napauta yhtä niistä, niin kuulat liukuvat. Kun sormesi on näytöllä, haaleat kuulat näyttävät siirron. Napauta valittua kuulaa laskeaksesi sen takaisin. Kunkin kulman lokero, pelaajansa oikealla puolella, kerää kuulat, jotka tämä pelaaja on työntänyt pois, ja palkit laskevat ne.

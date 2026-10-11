@@ -1,0 +1,22 @@
+Marble Push
+# The aim
+Push six of the other player's marbles off the board. The board is a hexagon of 61 holes, five on each side, and each player has fourteen marbles. Dark plays first.
+# The board
+Choose the starting layout before the game:
+- Standard: each player fills the two rows nearest to them and the three middle holes of the next row.
+- Belgian daisy: each player has two flowers of seven marbles (a marble with its six neighbours), one on their own side and one on the other player's side, in opposite corners. The flowers of the two colours touch.
+- German daisy: the same flowers, one row further from the edge and closer to the corners, with a gap between the two colours.
+# Moving
+On your turn, move one, two or three of your marbles one hole in any of the six directions. Two or three marbles must be next to each other in a straight row, and they move together:
+- In line: along their own row, forwards or backwards. The front marble goes into the hole ahead and the others follow it.
+- Sideways: across their row, each marble into the hole beside it. All these holes must be empty.
+- A single marble goes to any empty hole next to it. You may never move your own marble off the board.
+# Pushing
+When you move a row in line, you may push the other player's marbles that stand straight ahead of it, if yours are more: two marbles push one, three push one or two. The pushed marbles move one hole on.
+- The hole just beyond the pushed marbles must be empty, or be the edge of the board: then the last pushed marble falls off the board and goes into your tray.
+- There is no push if one of your own marbles stands among or just beyond the marbles to push, or if they are as many as yours. A single marble never pushes, and no marble is ever pushed sideways.
+# The end of the game
+- The first player to push six of the other player's marbles off the board wins.
+- The game is a draw when the same position comes back for the third time with the same player to move, or after fifty moves each without a marble pushed off.
+# Playing on the device
+Tap one of your marbles to pick it up. To move a row, also tap the second and third marbles of the row, or slide your finger across them. Dots show where the marbles can go, and a ring shows a marble you can push: tap one of them, and the marbles slide. While your finger is down, pale marbles show the move. Tap a picked marble to put it back. The tray in each corner, at its owner's right hand, holds the marbles that player has pushed off, and the bars count them.

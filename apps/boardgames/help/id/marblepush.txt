@@ -1,0 +1,22 @@
+Dorong Kelereng
+# Tujuan
+Dorong enam kelereng lawan keluar dari papan. Papannya berupa segi enam dengan 61 lubang, lima di setiap sisi, dan setiap pemain punya empat belas kelereng. Pihak gelap jalan lebih dulu.
+# Papan
+Pilih susunan awal sebelum permainan:
+- Standar: setiap pemain mengisi dua baris terdekat dengannya dan tiga lubang tengah di baris berikutnya.
+- Aster Belgia: setiap pemain punya dua bunga dari tujuh kelereng (satu kelereng dengan enam tetangganya), satu di sisinya sendiri dan satu di sisi lawan, di sudut yang berseberangan. Bunga kedua warna saling bersentuhan.
+- Aster Jerman: bunga yang sama, satu baris lebih jauh dari tepi dan lebih dekat ke sudut, dengan celah di antara kedua warna.
+# Menggerakkan
+Pada giliranmu, gerakkan satu, dua, atau tiga kelerengmu sejauh satu lubang ke salah satu dari enam arah. Dua atau tiga kelereng harus bersebelahan dalam satu baris lurus, dan bergerak bersama:
+- Searah baris: menyusuri baris mereka sendiri, maju atau mundur. Kelereng paling depan masuk ke lubang di depannya dan yang lain mengikutinya.
+- Menyamping: melintang terhadap barisnya, setiap kelereng ke lubang di sebelahnya. Semua lubang itu harus kosong.
+- Satu kelereng saja boleh pindah ke lubang kosong mana pun di sebelahnya. Kamu tidak boleh mengeluarkan kelerengmu sendiri dari papan.
+# Mendorong
+Saat menggerakkan baris searah barisnya, kamu boleh mendorong kelereng lawan yang ada tepat di depannya, jika kelerengmu lebih banyak: dua kelereng mendorong satu, tiga mendorong satu atau dua. Kelereng yang didorong maju satu lubang.
+- Lubang tepat di balik kelereng yang didorong harus kosong atau berupa tepi papan: maka kelereng terakhir yang didorong jatuh dari papan dan masuk ke wadahmu.
+- Tidak ada dorongan jika salah satu kelerengmu sendiri ada di antara atau tepat di balik kelereng yang akan didorong, atau jika jumlahnya sama dengan kelerengmu. Satu kelereng saja tidak pernah mendorong, dan tidak ada kelereng yang didorong menyamping.
+# Akhir permainan
+- Pemain pertama yang mendorong enam kelereng lawan keluar dari papan menang.
+- Permainan berakhir seri jika posisi yang sama muncul untuk ketiga kalinya dengan pemain yang sama mendapat giliran, atau setelah masing-masing pihak melangkah lima puluh kali tanpa ada kelereng yang terdorong keluar.
+# Bermain di perangkat
+Ketuk salah satu kelerengmu untuk mengambilnya. Untuk menggerakkan satu baris, ketuk juga kelereng kedua dan ketiga di baris itu, atau geser jarimu di atasnya. Titik-titik menunjukkan ke mana kelereng bisa pergi, dan cincin menandai kelereng yang bisa kamu dorong: ketuk salah satunya, lalu kelereng-kelereng itu meluncur. Selama jarimu menempel di layar, kelereng pucat menunjukkan langkahnya. Ketuk kelereng yang sudah diambil untuk menaruhnya kembali. Wadah di setiap sudut, di sebelah kanan pemiliknya, menampung kelereng yang telah didorong keluar oleh pemain itu, dan bilah-bilah menghitungnya.

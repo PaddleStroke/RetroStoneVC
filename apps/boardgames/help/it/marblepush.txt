@@ -1,0 +1,22 @@
+Spingibiglie
+# Lo scopo
+Spingere fuori dal tavoliere sei biglie dell'altro giocatore. Il tavoliere è un esagono di 61 buche, cinque per lato, e ogni giocatore ha quattordici biglie. Iniziano le biglie scure.
+# Il tavoliere
+Scegli la disposizione iniziale prima della partita:
+- Standard: ogni giocatore riempie le due file più vicine a sé e le tre buche centrali della fila successiva.
+- Margherita belga: ogni giocatore ha due fiori di sette biglie (una biglia con le sue sei vicine), uno dalla propria parte e uno dalla parte dell'altro giocatore, in angoli opposti. I fiori dei due colori si toccano.
+- Margherita tedesca: gli stessi fiori, una fila più lontano dal bordo e più vicino agli angoli, con uno spazio tra i due colori.
+# Movimento
+Al tuo turno, sposta una, due o tre delle tue biglie di una buca in una delle sei direzioni. Due o tre biglie devono essere vicine in una fila diritta, e si muovono insieme:
+- In linea: lungo la loro fila, avanti o indietro. La biglia davanti entra nella buca che ha di fronte e le altre la seguono.
+- Di lato: di traverso rispetto alla loro fila, ogni biglia nella buca accanto. Tutte queste buche devono essere libere.
+- Una biglia da sola va in una qualsiasi buca libera vicina. Non puoi mai portare fuori dal tavoliere una tua biglia.
+# Spinte
+Quando muovi una fila in linea, puoi spingere le biglie dell'altro giocatore che le stanno proprio davanti, se le tue sono di più: due biglie ne spingono una, tre ne spingono una o due. Le biglie spinte avanzano di una buca.
+- La buca subito dopo le biglie spinte deve essere libera, oppure essere il bordo del tavoliere: allora l'ultima biglia spinta cade fuori e finisce nella tua vaschetta.
+- Non si spinge se una tua biglia si trova tra le biglie da spingere o subito dopo, o se sono tante quante le tue. Una biglia da sola non spinge mai, e nessuna biglia viene mai spinta di lato.
+# La fine della partita
+- Vince il primo giocatore che spinge fuori dal tavoliere sei biglie dell'altro giocatore.
+- La partita è patta quando la stessa posizione si ripete per la terza volta con lo stesso giocatore di turno, o dopo cinquanta mosse ciascuno senza che nessuna biglia esca.
+# Giocare sul dispositivo
+Tocca una delle tue biglie per prenderla. Per muovere una fila, tocca anche la seconda e la terza biglia della fila, o fai scorrere il dito sopra di esse. Dei puntini mostrano dove possono andare le biglie, e un anello indica una biglia che puoi spingere: toccane uno e le biglie scivolano. Finché il dito resta appoggiato, delle biglie sbiadite mostrano la mossa. Tocca una biglia presa per rimetterla giù. La vaschetta in ogni angolo, alla destra del suo giocatore, raccoglie le biglie che quel giocatore ha spinto fuori, e le barre le contano.

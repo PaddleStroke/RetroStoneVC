@@ -1,0 +1,22 @@
+Empurra-berlindes
+# O objetivo
+Empurrar para fora do tabuleiro seis berlindes do outro jogador. O tabuleiro é um hexágono de 61 buracos, cinco em cada lado, e cada jogador tem catorze berlindes. Os berlindes escuros começam.
+# O tabuleiro
+Escolhe a disposição inicial antes do jogo:
+- Padrão: cada jogador preenche as duas filas mais próximas de si e os três buracos do meio da fila seguinte.
+- Margarida belga: cada jogador tem duas flores de sete berlindes (um berlinde com os seus seis vizinhos), uma do seu lado e outra do lado do outro jogador, em cantos opostos. As flores das duas cores tocam-se.
+- Margarida alemã: as mesmas flores, uma fila mais longe da borda e mais perto dos cantos, com um espaço entre as duas cores.
+# Movimento
+Na tua vez, move um, dois ou três dos teus berlindes um buraco numa das seis direções. Dois ou três berlindes têm de estar encostados numa fila direita e movem-se juntos:
+- Em linha: ao longo da sua própria fila, para a frente ou para trás. O berlinde da frente entra no buraco à sua frente e os outros seguem-no.
+- De lado: atravessando a fila, cada berlinde para o buraco ao lado. Todos esses buracos têm de estar vazios.
+- Um berlinde sozinho vai para qualquer buraco vazio vizinho. Nunca podes tirar um berlinde teu do tabuleiro.
+# Empurrar
+Quando moves uma fila em linha, podes empurrar os berlindes do outro jogador que estão mesmo à frente dela, se os teus forem mais: dois berlindes empurram um, três empurram um ou dois. Os berlindes empurrados avançam um buraco.
+- O buraco logo a seguir aos berlindes empurrados tem de estar vazio ou ser a borda do tabuleiro: então o último berlinde empurrado cai do tabuleiro e vai para a tua bandeja.
+- Não há empurrão se um berlinde teu estiver no meio dos berlindes a empurrar ou logo a seguir a eles, ou se forem tantos como os teus. Um berlinde sozinho nunca empurra, e nenhum berlinde é empurrado de lado.
+# O fim do jogo
+- Ganha o primeiro jogador que empurrar para fora do tabuleiro seis berlindes do outro jogador.
+- O jogo termina empatado quando a mesma posição se repete pela terceira vez com o mesmo jogador a jogar, ou após cinquenta jogadas de cada lado sem nenhum berlinde empurrado para fora.
+# Jogar no dispositivo
+Toca num dos teus berlindes para o pegar. Para mover uma fila, toca também no segundo e no terceiro berlinde da fila, ou passa o dedo por cima deles. Pontos mostram para onde os berlindes podem ir, e um anel marca um berlinde que podes empurrar: toca num deles e os berlindes deslizam. Enquanto tiveres o dedo no ecrã, berlindes esbatidos mostram a jogada. Toca num berlinde escolhido para o largar. A bandeja de cada canto, à direita do seu jogador, guarda os berlindes que esse jogador empurrou para fora, e as barras contam-nos.

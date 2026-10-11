@@ -1,0 +1,22 @@
+Kuledytt
+# Målet
+Dytt seks av motstanderens kuler ut av brettet. Brettet er en sekskant med 61 hull, fem på hver side, og hver spiller har fjorten kuler. Den mørke siden begynner.
+# Brettet
+Velg startoppstillingen før spillet:
+- Standard: hver spiller fyller de to radene nærmest seg og de tre midterste hullene i raden foran.
+- Belgisk tusenfryd: hver spiller har to blomster av sju kuler (en kule med sine seks naboer), én på sin egen side og én på motstanderens side, i motsatte hjørner. Blomstene i de to fargene berører hverandre.
+- Tysk tusenfryd: de samme blomstene, én rad lenger fra kanten og nærmere hjørnene, med et mellomrom mellom de to fargene.
+# Flytting
+Når det er din tur, flytter du én, to eller tre av kulene dine ett hull i en av de seks retningene. To eller tre kuler må ligge inntil hverandre på en rett rad, og de flytter sammen:
+- På linje: langs sin egen rad, fram eller tilbake. Den fremste kulen ruller inn i hullet foran seg, og de andre følger etter.
+- Sidelengs: på tvers av raden, hver kule inn i hullet ved siden av. Alle disse hullene må være tomme.
+- En enkelt kule flytter til et hvilket som helst tomt nabohull. Du kan aldri flytte din egen kule ut av brettet.
+# Dytting
+Når du flytter en rad på linje, kan du dytte motstanderens kuler som ligger rett foran den, hvis dine er flere: to kuler dytter én, tre dytter én eller to. De dyttede kulene flytter ett hull videre.
+- Hullet rett bak de dyttede kulene må være tomt eller være kanten av brettet: da faller den siste dyttede kulen ut av brettet og havner i skålen din.
+- Det blir ingen dytting hvis en av dine egne kuler ligger blant eller rett bak kulene som skal dyttes, eller hvis de er like mange som dine. En enkelt kule dytter aldri, og ingen kule blir noen gang dyttet sidelengs.
+# Slutten på spillet
+- Den første som dytter seks av motstanderens kuler ut av brettet, vinner.
+- Spillet er uavgjort når den samme stillingen kommer igjen for tredje gang med samme spiller i trekket, eller etter femti trekk hver uten at noen kule er dyttet ut.
+# Spill på enheten
+Trykk på en av kulene dine for å plukke den opp. For å flytte en rad trykker du også på den andre og tredje kulen i raden, eller drar fingeren over dem. Prikker viser hvor kulene kan gå, og en ring viser en kule du kan dytte: trykk på en av dem, så ruller kulene. Mens fingeren ligger på skjermen, viser bleke kuler trekket. Trykk på en valgt kule for å legge den tilbake. Skålen i hvert hjørne, til høyre for spilleren sin, samler kulene den spilleren har dyttet ut, og panelene teller dem.

@@ -1,0 +1,22 @@
+Empujacanicas
+# El objetivo
+Echar del tablero seis canicas del otro jugador. El tablero es un hexágono de 61 agujeros, cinco por lado, y cada jugador tiene catorce canicas. Empiezan las oscuras.
+# El tablero
+Elige la posición inicial antes de la partida:
+- Estándar: cada jugador llena las dos filas más cercanas a él y los tres agujeros centrales de la fila siguiente.
+- Margarita belga: cada jugador tiene dos flores de siete canicas (una canica con sus seis vecinas), una en su propio lado y otra en el lado del otro jugador, en esquinas opuestas. Las flores de los dos colores se tocan.
+- Margarita alemana: las mismas flores, una fila más lejos del borde y más cerca de las esquinas, con un hueco entre los dos colores.
+# Movimiento
+En tu turno, mueve una, dos o tres de tus canicas un agujero en cualquiera de las seis direcciones. Dos o tres canicas deben estar juntas en una fila recta, y se mueven a la vez:
+- En línea: a lo largo de su propia fila, hacia delante o hacia atrás. La canica de delante pasa al agujero que tiene enfrente y las demás la siguen.
+- De lado: a través de su fila, cada canica al agujero de al lado. Todos esos agujeros deben estar vacíos.
+- Una canica sola va a cualquier agujero vacío vecino. Nunca puedes sacar del tablero una canica tuya.
+# Empujar
+Cuando mueves una fila en línea, puedes empujar las canicas del otro jugador que estén justo delante de ella, si las tuyas son más: dos canicas empujan una, tres empujan una o dos. Las canicas empujadas avanzan un agujero.
+- El agujero justo detrás de las canicas empujadas debe estar vacío o ser el borde del tablero: entonces la última canica empujada cae del tablero y va a tu bandeja.
+- No hay empuje si una canica tuya está entre las canicas que hay que empujar o justo detrás de ellas, o si son tantas como las tuyas. Una canica sola nunca empuja, y ninguna canica se empuja nunca de lado.
+# El final de la partida
+- Gana el primer jugador que echa del tablero seis canicas del otro jugador.
+- La partida es un empate cuando la misma posición se repite por tercera vez con el mismo jugador al turno, o tras cincuenta jugadas de cada uno sin que salga ninguna canica.
+# Jugar en el dispositivo
+Toca una de tus canicas para elegirla. Para mover una fila, toca también la segunda y la tercera canica de la fila, o desliza el dedo por encima de ellas. Unos puntos muestran adónde pueden ir las canicas, y un anillo marca una canica que puedes empujar: toca uno de ellos y las canicas se deslizan. Mientras tienes el dedo apoyado, unas canicas pálidas muestran la jugada. Toca una canica elegida para soltarla. La bandeja de cada esquina, a la derecha de su jugador, guarda las canicas que ese jugador ha echado, y las barras las cuentan.

@@ -1,0 +1,22 @@
+Kugelschieben
+# Das Ziel
+Schiebe sechs Kugeln des anderen Spielers vom Brett. Das Brett ist ein Sechseck mit 61 Löchern, fünf an jeder Seite, und jeder Spieler hat vierzehn Kugeln. Dunkel beginnt.
+# Das Brett
+Wähle vor der Partie die Startaufstellung:
+- Standard: Jeder Spieler füllt die zwei Reihen, die ihm am nächsten sind, und die drei mittleren Löcher der Reihe davor.
+- Belgisches Gänseblümchen: Jeder Spieler hat zwei Blumen aus sieben Kugeln (eine Kugel mit ihren sechs Nachbarn), eine auf der eigenen Seite und eine auf der Seite des anderen Spielers, in gegenüberliegenden Ecken. Die Blumen der beiden Farben berühren sich.
+- Deutsches Gänseblümchen: dieselben Blumen, eine Reihe weiter vom Rand entfernt und näher an den Ecken, mit einer Lücke zwischen den beiden Farben.
+# Ziehen
+Wenn du am Zug bist, bewegst du eine, zwei oder drei deiner Kugeln um ein Loch in eine der sechs Richtungen. Zwei oder drei Kugeln müssen in einer geraden Reihe nebeneinanderliegen und ziehen gemeinsam:
+- In Linie: entlang ihrer eigenen Reihe, vorwärts oder rückwärts. Die vorderste Kugel rollt in das Loch vor ihr, die anderen folgen ihr.
+- Seitwärts: quer zu ihrer Reihe, jede Kugel in das Loch neben ihr. Alle diese Löcher müssen frei sein.
+- Eine einzelne Kugel zieht in ein beliebiges freies Nachbarloch. Eine eigene Kugel darfst du nie vom Brett ziehen.
+# Schieben
+Ziehst du eine Reihe in Linie, darfst du die Kugeln des anderen Spielers schieben, die direkt vor ihr liegen, wenn deine in der Überzahl sind: Zwei Kugeln schieben eine, drei schieben eine oder zwei. Die geschobenen Kugeln rücken ein Loch weiter.
+- Das Loch direkt hinter den geschobenen Kugeln muss frei sein oder der Rand des Bretts: Dann fällt die letzte geschobene Kugel vom Brett und kommt in deine Schale.
+- Es wird nicht geschoben, wenn eine deiner eigenen Kugeln zwischen oder direkt hinter den zu schiebenden Kugeln liegt, oder wenn es genauso viele sind wie deine. Eine einzelne Kugel schiebt nie, und keine Kugel wird je seitwärts geschoben.
+# Das Ende der Partie
+- Wer als Erster sechs Kugeln des anderen Spielers vom Brett schiebt, gewinnt.
+- Die Partie endet unentschieden, wenn dieselbe Stellung zum dritten Mal mit demselben Spieler am Zug entsteht, oder nach fünfzig Zügen jeder Seite, ohne dass eine Kugel vom Brett geschoben wurde.
+# Spielen auf dem Gerät
+Tippe auf eine deiner Kugeln, um sie aufzunehmen. Um eine Reihe zu ziehen, tippe auch auf die zweite und dritte Kugel der Reihe oder fahre mit dem Finger darüber. Punkte zeigen, wohin die Kugeln ziehen können, und ein Ring zeigt eine Kugel, die du schieben kannst: Tippe auf eines davon, und die Kugeln rollen. Solange dein Finger aufliegt, zeigen blasse Kugeln den Zug. Tippe auf eine aufgenommene Kugel, um sie zurückzulegen. Die Schale in jeder Ecke, rechts von ihrem Spieler, nimmt die Kugeln auf, die dieser Spieler vom Brett geschoben hat, und die Leisten zählen sie.

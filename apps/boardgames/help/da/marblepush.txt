@@ -1,0 +1,22 @@
+Kugleskub
+# Målet
+Skub seks af modstanderens kugler ud af brættet. Brættet er en sekskant med 61 huller, fem på hver side, og hver spiller har fjorten kugler. Den mørke side starter.
+# Brættet
+Vælg startopstillingen før spillet:
+- Standard: hver spiller fylder de to rækker nærmest sig og de tre midterste huller i rækken foran.
+- Belgisk tusindfryd: hver spiller har to blomster af syv kugler (en kugle med dens seks naboer), en på sin egen side og en på modstanderens side, i modsatte hjørner. Blomsterne i de to farver rører hinanden.
+- Tysk tusindfryd: de samme blomster, en række længere fra kanten og tættere på hjørnerne, med et mellemrum mellem de to farver.
+# Flytning
+Når det er din tur, flytter du en, to eller tre af dine kugler ét hul i en af de seks retninger. To eller tre kugler skal ligge ved siden af hinanden på en lige række, og de flytter sammen:
+- På linje: langs deres egen række, frem eller tilbage. Den forreste kugle ruller ind i hullet foran sig, og de andre følger efter.
+- Sidelæns: på tværs af deres række, hver kugle ind i hullet ved siden af. Alle disse huller skal være tomme.
+- En enkelt kugle flytter til et vilkårligt tomt nabohul. Du må aldrig flytte din egen kugle ud af brættet.
+# Skub
+Når du flytter en række på linje, må du skubbe modstanderens kugler, der ligger lige foran den, hvis dine er flere: to kugler skubber én, tre skubber én eller to. De skubbede kugler rykker ét hul frem.
+- Hullet lige bag de skubbede kugler skal være tomt eller være brættets kant: så falder den sidste skubbede kugle ud af brættet og havner i din bakke.
+- Der er intet skub, hvis en af dine egne kugler ligger mellem eller lige bag de kugler, der skal skubbes, eller hvis de er lige så mange som dine. En enkelt kugle skubber aldrig, og ingen kugle bliver nogensinde skubbet sidelæns.
+# Spillets afslutning
+- Den første spiller, der skubber seks af modstanderens kugler ud af brættet, vinder.
+- Spillet er uafgjort, når den samme stilling opstår for tredje gang med den samme spiller i trækket, eller efter halvtreds træk hver, uden at en kugle er skubbet ud.
+# Spil på enheden
+Tryk på en af dine kugler for at tage den op. For at flytte en række skal du også trykke på rækkens anden og tredje kugle eller føre fingeren hen over dem. Prikker viser, hvor kuglerne kan flytte hen, og en ring viser en kugle, du kan skubbe: tryk på en af dem, så ruller kuglerne. Mens din finger rører skærmen, viser blege kugler trækket. Tryk på en valgt kugle for at lægge den tilbage. Bakken i hvert hjørne, til højre for sin spiller, rummer de kugler, den spiller har skubbet ud, og panelerne tæller dem.

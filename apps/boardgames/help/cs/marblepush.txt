@@ -1,0 +1,22 @@
+Kuličková tlačenice
+# Cíl hry
+Vytlač z desky šest soupeřových kuliček. Deska je šestiúhelník s 61 jamkami, pět na každé straně, a každý hráč má čtrnáct kuliček. Začíná tmavý hráč.
+# Deska
+Před hrou si vyber výchozí rozestavení:
+- Standardní: každý hráč zaplní dvě řady, které má nejblíž, a tři prostřední jamky další řady.
+- Belgická sedmikráska: každý hráč má dva květy ze sedmi kuliček (kulička a jejích šest sousedek), jeden na své straně a druhý na soupeřově straně, v protějších rozích. Květy obou barev se dotýkají.
+- Německá sedmikráska: stejné květy, o řadu dál od okraje a blíž k rohům, s mezerou mezi oběma barvami.
+# Posouvání
+Ve svém tahu posuň jednu, dvě nebo tři své kuličky o jednu jamku jedním ze šesti směrů. Dvě nebo tři kuličky musí ležet vedle sebe v rovné řadě a pohybují se společně:
+- Po řadě: podél své vlastní řady, dopředu nebo dozadu. Přední kulička se posune do jamky před sebou a ostatní ji následují.
+- Do boku: napříč svou řadou, každá kulička do jamky vedle sebe. Všechny tyto jamky musí být prázdné.
+- Samotná kulička se posune do kterékoli sousední prázdné jamky. Vlastní kuličku nikdy nesmíš posunout mimo desku.
+# Vytlačování
+Když posouváš řadu po řadě, můžeš tlačit soupeřovy kuličky, které leží přímo před ní, pokud máš víc kuliček: dvě kuličky tlačí jednu, tři tlačí jednu nebo dvě. Tlačené kuličky se posunou o jamku dál.
+- Jamka hned za tlačenými kuličkami musí být prázdná, nebo to musí být okraj desky: pak poslední tlačená kulička spadne z desky a skončí v tvé misce.
+- Tlačit nelze, když mezi tlačenými kuličkami nebo hned za nimi leží tvoje vlastní kulička, nebo když je jich stejně jako tvých. Samotná kulička nikdy netlačí a žádná kulička se nikdy netlačí do boku.
+# Konec hry
+- Vyhrává hráč, který jako první vytlačí z desky šest soupeřových kuliček.
+- Hra končí remízou, když se stejná pozice zopakuje potřetí se stejným hráčem na tahu, nebo po padesáti tazích každé strany, aniž by byla vytlačena jediná kulička.
+# Hra na zařízení
+Klepnutím na svou kuličku ji vezmeš. Chceš-li posunout řadu, klepni také na druhou a třetí kuličku řady, nebo přes ně přejeď prstem. Tečky ukazují, kam mohou kuličky jít, a kroužek ukazuje kuličku, kterou můžeš tlačit: klepni na jednu z těchto značek a kuličky se posunou. Dokud držíš prst na displeji, bledé kuličky ukazují tah. Klepnutím na vzatou kuličku ji vrátíš zpět. Miska v každém rohu, po pravé ruce svého hráče, schraňuje kuličky, které tento hráč vytlačil, a lišty je počítají.
