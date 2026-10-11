@@ -1,0 +1,21 @@
+Zeeslag
+# Het doel
+Elke speler verstopt een vloot in een zee van 10 bij 10 vakjes. Om de beurt schieten jullie op de zee van de ander: wie als eerste de hele vijandelijke vloot laat zinken, wint. Voor 2 spelers. Kies eerst het spel:
+- Klassiek: vijf schepen van 5, 4, 3, 3 en 2 vakjes (de gewone moderne vloot), één schot per beurt.
+- Salvo: dezelfde vloot; elke beurt vuur je zoveel schoten af als je nog schepen drijvend hebt.
+- Papiervloot: tien schepen, één van 4 vakjes, twee van 3, drie van 2 en vier van 1, de vloot van het ruitjespapier. De schepen mogen elkaar niet raken, ook niet met een hoek. Eén schot per beurt.
+- Papiervloot met salvo's: de tien schepen, en elke beurt een salvo.
+# De vloot opstellen
+Ivoor stelt eerst op, dan ebbenhout, ieder in het geheim. Een schip ligt recht, horizontaal of verticaal, in de zee; twee schepen delen nooit een vakje. Je vloot begint op willekeurige plaatsen:
+- Sleep een schip om het te verplaatsen, of tik erop en tik dan op het vakje voor zijn boven- of linkeruiteinde.
+- Tik nog eens op het opgetilde schip om het te draaien rond het vakje waarop je tikte.
+- De dobbelsteen geeft een nieuwe willekeurige vloot. Het vinkje meldt dat je vloot klaar is, en het apparaat gaat naar de ander.
+# Een beurt
+Ivoor schiet eerst. Tik op een vakje van de zee van de ander om erop te richten en tik dan op de vuurknop; bij één schot vuurt een tweede tik op het gerichte vakje ook. Een salvo richt je eerst helemaal: het getal naast de vuurknop toont hoeveel schoten je nog moet richten, en een tik op een gericht vakje neemt het terug. Raak of mis, daarna eindigt de beurt.
+- Een witte pin: mis. Een rode pin: raak.
+- Als elk vakje van een schip geraakt is, is het gezonken en verschijnt het op de zee.
+Het resultaat blijft even op het scherm, daarna gaat het apparaat naar de ander.
+# Het einde van de partij
+Wie als eerste de hele vijandelijke vloot laat zinken, wint.
+# Spelen op het apparaat
+Je ziet de zee van de ander groot, met jouw schoten, en je eigen zee klein ernaast, met je vloot en de schoten van de ander; zijn laatste schoten zijn gemarkeerd. Telkens als het apparaat naar de ander gaat, verbergt een afdekking het scherm tot de volgende speler op start tikt. De balk van elke speler toont hoeveel van zijn schepen nog drijven. Ongedaan maken neemt een bij het opstellen verplaatst schip of een gericht vakje terug; een afgevuurd schot blijft.

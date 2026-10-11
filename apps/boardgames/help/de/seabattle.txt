@@ -1,0 +1,21 @@
+Schiffe versenken
+# Das Ziel
+Jeder Spieler versteckt eine Flotte auf einem Meer aus 10 mal 10 Feldern. Ihr schießt abwechselnd auf das Meer des anderen: Wer zuerst die ganze feindliche Flotte versenkt, gewinnt. Für 2 Spieler. Wähle zuerst das Spiel:
+- Klassisch: fünf Schiffe mit 5, 4, 3, 3 und 2 Feldern (die übliche moderne Flotte), ein Schuss pro Zug.
+- Salve: dieselbe Flotte; in jedem Zug feuerst du so viele Schüsse, wie du noch Schiffe hast.
+- Papierflotte: zehn Schiffe, eines mit 4 Feldern, zwei mit 3, drei mit 2 und vier mit 1, die Flotte vom Karopapier. Die Schiffe dürfen sich nicht berühren, auch nicht an einer Ecke. Ein Schuss pro Zug.
+- Papierflotte mit Salven: die zehn Schiffe und eine Salve in jedem Zug.
+# Die Flotte aufstellen
+Elfenbein stellt zuerst auf, dann Ebenholz, jeder heimlich. Ein Schiff liegt gerade, waagrecht oder senkrecht, im Meer; zwei Schiffe teilen sich nie ein Feld. Deine Flotte beginnt an zufälligen Plätzen:
+- Ziehe ein Schiff, um es zu verschieben, oder tippe es an und dann auf das Feld für sein oberes oder linkes Ende.
+- Tippe das angehobene Schiff noch einmal an, um es um das angetippte Feld zu drehen.
+- Der Würfel gibt eine neue zufällige Flotte. Das Häkchen meldet deine Flotte bereit, und das Gerät wird weitergereicht.
+# Ein Zug
+Elfenbein schießt zuerst. Tippe auf ein Feld im Meer des anderen Spielers, um darauf zu zielen, und dann auf die Feuertaste; bei einem einzelnen Schuss feuert auch ein zweites Antippen des Zielfelds. Eine Salve wird zuerst ganz gezielt: Die Zahl neben der Feuertaste zeigt, wie viele Schüsse noch zu zielen sind, und ein Antippen eines Zielfelds nimmt es zurück. Treffer oder nicht, danach endet der Zug.
+- Ein weißer Stift: daneben. Ein roter Stift: Treffer.
+- Ist jedes Feld eines Schiffs getroffen, ist es versenkt und erscheint auf dem Meer.
+Das Ergebnis bleibt einen Moment auf dem Bildschirm, dann wird das Gerät weitergereicht.
+# Das Ende der Partie
+Wer zuerst die ganze feindliche Flotte versenkt, gewinnt.
+# Spielen auf dem Gerät
+Du siehst das Meer des anderen Spielers groß, mit deinen Schüssen, und dein eigenes Meer klein daneben, mit deiner Flotte und den Schüssen des anderen; seine letzten Schüsse sind markiert. Bei jeder Weitergabe verbirgt eine Abdeckung den Bildschirm, bis der nächste Spieler auf Start tippt. Die Leiste jedes Spielers zeigt, wie viele seiner Schiffe noch schwimmen. Rückgängig nimmt ein beim Aufstellen verschobenes Schiff oder ein Zielfeld zurück; ein abgefeuerter Schuss bleibt.

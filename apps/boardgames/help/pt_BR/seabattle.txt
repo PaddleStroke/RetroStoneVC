@@ -1,0 +1,21 @@
+Batalha naval
+# O objetivo
+Cada jogador esconde uma frota num mar de 10 por 10 casas. Atirem alternadamente no mar do outro: ganha quem afundar primeiro toda a frota inimiga. Para 2 jogadores. Escolha primeiro o jogo:
+- Clássico: cinco navios de 5, 4, 3, 3 e 2 casas (a frota moderna de costume), um tiro por vez.
+- Salva: a mesma frota; a cada vez você dá tantos tiros quantos navios ainda tiver flutuando.
+- Frota do papel: dez navios, um de 4 casas, dois de 3, três de 2 e quatro de 1, a frota que se joga no papel quadriculado. Os navios não podem se tocar, nem pelo canto. Um tiro por vez.
+- Frota do papel com salvas: os dez navios, e uma salva a cada vez.
+# Posicionar a frota
+O marfim posiciona primeiro, depois o ébano, cada um em segredo. Um navio fica reto, na horizontal ou na vertical, dentro do mar; dois navios nunca dividem uma casa. A sua frota começa em lugares sorteados:
+- Arraste um navio para movê-lo, ou toque nele e depois na casa da ponta de cima ou da esquerda.
+- Toque de novo o navio levantado para girá-lo em volta da casa tocada.
+- O dado dá outra frota sorteada. O sinal de confirmação diz que a sua frota está pronta, e o aparelho passa.
+# Uma jogada
+O marfim atira primeiro. Toque uma casa do mar do outro jogador para mirar, depois o botão de tiro; com um tiro só, tocar de novo a casa mirada também atira. Uma salva é toda mirada antes: o número ao lado do botão de tiro diz quantos tiros faltam mirar, e tocar uma casa mirada a desfaz. Acertando ou errando, a vez termina em seguida.
+- Um pino branco: água. Um pino vermelho: acerto.
+- Quando todas as casas de um navio são atingidas, ele afunda e aparece no mar.
+O resultado fica um momento na tela, depois o aparelho passa.
+# O fim da partida
+Ganha quem afundar primeiro toda a frota inimiga.
+# Jogando no aparelho
+Você vê grande o mar do outro jogador, com os seus tiros, e o seu mar pequeno ao lado, com a sua frota e os tiros do outro; os últimos tiros dele ficam marcados. A cada passagem do aparelho, uma capa esconde a tela até o próximo jogador tocar em começar. A barra de cada jogador mostra quantos navios dele ainda flutuam. Desfazer volta um navio movido ao posicionar, ou uma casa mirada; um tiro dado fica.

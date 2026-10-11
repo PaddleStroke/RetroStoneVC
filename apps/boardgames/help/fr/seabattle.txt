@@ -1,0 +1,21 @@
+Bataille navale
+# Le but
+Chaque joueur cache une flotte sur une mer de 10 cases sur 10. Tirez chacun votre tour sur la mer de l'autre : le premier qui coule toute la flotte ennemie gagne. Pour 2 joueurs. Choisis d'abord la partie :
+- Classique : cinq navires de 5, 4, 3, 3 et 2 cases (la flotte moderne habituelle), un tir par tour.
+- Salve : la même flotte ; à chaque tour, tu tires autant de coups qu'il te reste de navires à flot.
+- Flotte du papier : dix navires, un de 4 cases, deux de 3, trois de 2 et quatre de 1, la flotte qu'on joue sur papier quadrillé. Les navires ne peuvent pas se toucher, même par un coin. Un tir par tour.
+- Flotte du papier en salves : les dix navires, et une salve à chaque tour.
+# Placer la flotte
+L'ivoire place d'abord, puis l'ébène, chacun en secret. Un navire est droit, en ligne ou en colonne, dans la mer ; deux navires ne partagent jamais une case. Ta flotte commence à des places tirées au hasard :
+- Fais glisser un navire pour le déplacer, ou touche-le puis touche la case de son bout du haut ou de gauche.
+- Touche encore le navire soulevé pour le tourner autour de la case touchée.
+- Le dé donne une autre flotte au hasard. La coche dit que ta flotte est prête, et l'appareil passe.
+# Un tour
+L'ivoire tire en premier. Touche une case de la mer de l'autre joueur pour la viser, puis touche le bouton de tir ; avec un seul tir, toucher de nouveau la case visée tire aussi. Une salve se vise en entier d'abord : le nombre à côté du bouton de tir dit combien de tirs il reste à viser, et toucher une case visée l'annule. Touché ou raté, le tour s'arrête ensuite.
+- Une fiche blanche : dans l'eau. Une fiche rouge : touché.
+- Quand toutes les cases d'un navire sont touchées, il est coulé et apparaît sur la mer.
+Le résultat reste un moment à l'écran, puis l'appareil passe.
+# La fin de la partie
+Le premier joueur qui coule toute la flotte ennemie gagne.
+# Jouer sur l'appareil
+Tu vois en grand la mer de l'autre joueur, avec tes tirs, et ta mer en petit à côté, avec ta flotte et les tirs de l'autre ; ses derniers tirs sont marqués. Un écran couvre tout à chaque passage de l'appareil, jusqu'à ce que le joueur suivant touche le bouton de départ. La barre de chaque joueur indique combien de ses navires sont encore à flot. Annuler reprend un navire déplacé pendant le placement, ou une case visée ; un tir parti reste.

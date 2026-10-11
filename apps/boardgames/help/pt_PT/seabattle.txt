@@ -1,0 +1,21 @@
+Batalha naval
+# O objetivo
+Cada jogador esconde uma frota num mar de 10 por 10 casas. Disparem à vez sobre o mar do outro: ganha quem afundar primeiro toda a frota inimiga. Para 2 jogadores. Escolhe primeiro o jogo:
+- Clássico: cinco navios de 5, 4, 3, 3 e 2 casas (a frota moderna habitual), um tiro por vez.
+- Salva: a mesma frota; em cada vez dás tantos tiros quantos navios ainda tens a flutuar.
+- Frota do papel: dez navios, um de 4 casas, dois de 3, três de 2 e quatro de 1, a frota que se joga em papel quadriculado. Os navios não se podem tocar, nem pelo canto. Um tiro por vez.
+- Frota do papel com salvas: os dez navios, e uma salva em cada vez.
+# Colocar a frota
+O marfim coloca primeiro, depois o ébano, cada um em segredo. Um navio fica direito, na horizontal ou na vertical, dentro do mar; dois navios nunca partilham uma casa. A tua frota começa em lugares sorteados:
+- Arrasta um navio para o mover, ou toca nele e depois na casa da sua ponta de cima ou da esquerda.
+- Toca outra vez no navio levantado para o rodar à volta da casa tocada.
+- O dado dá outra frota sorteada. O visto diz que a tua frota está pronta, e o dispositivo passa.
+# Uma vez
+O marfim dispara primeiro. Toca numa casa do mar do outro jogador para apontar, depois no botão de disparo; com um só tiro, tocar outra vez na casa apontada também dispara. Uma salva aponta-se toda primeiro: o número ao lado do botão de disparo diz quantos tiros faltam apontar, e tocar numa casa apontada anula-a. Acertando ou falhando, a vez acaba a seguir.
+- Um pino branco: água. Um pino vermelho: acertou.
+- Quando todas as casas de um navio são atingidas, ele vai ao fundo e aparece no mar.
+O resultado fica um momento no ecrã, depois o dispositivo passa.
+# O fim do jogo
+Ganha quem afundar primeiro toda a frota inimiga.
+# Jogar no dispositivo
+Vês em grande o mar do outro jogador, com os teus tiros, e o teu mar em pequeno ao lado, com a tua frota e os tiros do outro; os últimos tiros dele estão marcados. Sempre que o dispositivo passa, uma capa esconde o ecrã até o jogador seguinte tocar em começar. A barra de cada jogador mostra quantos navios dele ainda flutuam. Anular desfaz um navio movido ao colocar, ou uma casa apontada; um tiro disparado fica.

@@ -1,0 +1,21 @@
+Sänka skepp
+# Målet
+Varje spelare gömmer en flotta i ett hav på 10 gånger 10 rutor. Skjut i tur och ordning på den andres hav: den som först sänker hela fiendens flotta vinner. För 2 spelare. Välj först spelet:
+- Klassiskt: fem skepp på 5, 4, 3, 3 och 2 rutor (den vanliga moderna flottan), ett skott per tur.
+- Salva: samma flotta; varje tur skjuter du lika många skott som du har skepp flytande.
+- Pappersflottan: tio skepp, ett på 4 rutor, två på 3, tre på 2 och fyra på 1, flottan från rutpapperet. Skeppen får inte röra varandra, inte ens med ett hörn. Ett skott per tur.
+- Pappersflottan med salvor: de tio skeppen och en salva varje tur.
+# Placera flottan
+Elfenben placerar först, sedan ebenholts, var och en i hemlighet. Ett skepp ligger rakt, vågrätt eller lodrätt, inne i havet; två skepp delar aldrig en ruta. Din flotta börjar på slumpvisa platser:
+- Dra ett skepp för att flytta det, eller tryck på det och sedan på rutan för dess övre eller vänstra ände.
+- Tryck på det lyfta skeppet igen för att vrida det runt rutan du tryckte på.
+- Tärningen ger en ny slumpvis flotta. Bocken säger att din flotta är klar, och enheten lämnas över.
+# En tur
+Elfenben skjuter först. Tryck på en ruta i den andres hav för att sikta, och sedan på skjutknappen; med ett enda skott skjuter ett nytt tryck på den valda rutan också. En salva siktas helt först: talet vid skjutknappen visar hur många skott som återstår att sikta, och ett tryck på en vald ruta tar tillbaka den. Träff eller miss, sedan slutar turen.
+- En vit pinne: miss. En röd pinne: träff.
+- När alla rutor på ett skepp är träffade är det sänkt och syns på havet.
+Resultatet står kvar en stund på skärmen, sedan lämnas enheten över.
+# Partiets slut
+Den som först sänker hela fiendens flotta vinner.
+# Spela på enheten
+Du ser den andres hav stort med dina skott, och ditt eget hav litet bredvid med din flotta och den andres skott; den andres senaste skott är markerade. Varje gång enheten lämnas över döljer ett skydd skärmen tills nästa spelare trycker på start. Varje spelares fält visar hur många av spelarens skepp som fortfarande flyter. Ångra tar tillbaka ett skepp som flyttats under placeringen, eller en vald ruta; ett avlossat skott står kvar.

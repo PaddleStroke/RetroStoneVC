@@ -1,0 +1,21 @@
+Hundir la flota
+# El objetivo
+Cada jugador esconde una flota en un mar de 10 por 10 casillas. Disparad por turnos al mar del otro: gana el primero que hunda toda la flota enemiga. Para 2 jugadores. Elige primero la partida:
+- Clásica: cinco barcos de 5, 4, 3, 3 y 2 casillas (la flota moderna habitual), un disparo por turno.
+- Salva: la misma flota; en cada turno disparas tantas veces como barcos te queden a flote.
+- Flota de papel: diez barcos, uno de 4 casillas, dos de 3, tres de 2 y cuatro de 1, la flota que se juega en papel cuadriculado. Los barcos no pueden tocarse, ni siquiera por una esquina. Un disparo por turno.
+- Flota de papel con salvas: los diez barcos y una salva en cada turno.
+# Colocar la flota
+Coloca primero el marfil y luego el ébano, cada uno en secreto. Un barco va recto, en horizontal o en vertical, dentro del mar; dos barcos nunca comparten una casilla. Tu flota empieza en lugares al azar:
+- Arrastra un barco para moverlo, o tócalo y luego toca la casilla de su extremo superior o izquierdo.
+- Toca otra vez el barco levantado para girarlo alrededor de la casilla tocada.
+- El dado da otra flota al azar. La marca de confirmar dice que tu flota está lista, y el dispositivo cambia de manos.
+# Un turno
+Dispara primero el marfil. Toca una casilla del mar del otro jugador para apuntar y luego el botón de disparo; con un solo disparo, tocar otra vez la casilla apuntada también dispara. Una salva se apunta entera antes: el número junto al botón de disparo dice cuántos disparos quedan por apuntar, y tocar una casilla apuntada la anula. Tocado o agua, el turno termina después.
+- Una clavija blanca: agua. Una clavija roja: tocado.
+- Cuando todas las casillas de un barco están tocadas, se hunde y aparece en el mar.
+El resultado se queda un momento en la pantalla y luego el dispositivo cambia de manos.
+# El final de la partida
+Gana el primer jugador que hunde toda la flota enemiga.
+# Jugar en el dispositivo
+Ves en grande el mar del otro jugador, con tus disparos, y tu mar en pequeño al lado, con tu flota y los disparos del otro; sus últimos disparos están marcados. Una tapa oculta la pantalla cada vez que el dispositivo cambia de manos, hasta que el siguiente jugador toca el botón de empezar. La barra de cada jugador muestra cuántos de sus barcos siguen a flote. Deshacer retira un barco movido al colocar, o una casilla apuntada; un disparo hecho queda.

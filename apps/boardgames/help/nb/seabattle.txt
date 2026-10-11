@@ -1,0 +1,21 @@
+Senke slagskip
+# Målet
+Hver spiller gjemmer en flåte i et hav på 10 ganger 10 ruter. Skyt etter tur på den andres hav: den som først senker hele fiendens flåte, vinner. For 2 spillere. Velg først spillet:
+- Klassisk: fem skip på 5, 4, 3, 3 og 2 ruter (den vanlige moderne flåten), ett skudd per tur.
+- Salve: den samme flåten; hver tur skyter du like mange skudd som du har skip flytende.
+- Papirflåten: ti skip, ett på 4 ruter, to på 3, tre på 2 og fire på 1, flåten fra rutearket. Skipene kan ikke berøre hverandre, ikke engang på et hjørne. Ett skudd per tur.
+- Papirflåten med salver: de ti skipene og en salve hver tur.
+# Plassere flåten
+Elfenben plasserer først, så ibenholt, hver i hemmelighet. Et skip ligger rett, vannrett eller loddrett, inne i havet; to skip deler aldri en rute. Flåten din starter på tilfeldige plasser:
+- Dra et skip for å flytte det, eller trykk på det og så på ruten for den øvre eller venstre enden.
+- Trykk på det løftede skipet igjen for å snu det rundt ruten du trykket på.
+- Terningen gir en ny tilfeldig flåte. Haken melder flåten klar, og enheten går videre.
+# En tur
+Elfenben skyter først. Trykk på en rute i den andres hav for å sikte, og så på skyteknappen; med ett skudd skyter et nytt trykk på den valgte ruten også. En salve siktes helt først: tallet ved skyteknappen viser hvor mange skudd som gjenstår å sikte, og et trykk på en valgt rute tar den tilbake. Treff eller bom, deretter slutter turen.
+- En hvit plugg: bom. En rød plugg: treff.
+- Når alle rutene til et skip er truffet, er det senket og kommer til syne på havet.
+Resultatet blir stående et øyeblikk på skjermen, så går enheten videre.
+# Slutten på spillet
+Den som først senker hele fiendens flåte, vinner.
+# Spill på enheten
+Du ser den andres hav stort med skuddene dine, og ditt eget hav lite ved siden av med flåten din og den andres skudd; de siste skuddene til den andre er merket. Hver gang enheten går videre, skjuler et deksel skjermen til neste spiller trykker på start. Panelet til hver spiller viser hvor mange av skipene deres som fortsatt flyter. Angre tar tilbake et skip flyttet under plasseringen eller en valgt rute; et avfyrt skudd blir stående.

@@ -1,0 +1,21 @@
+Sænke slagskibe
+# Målet
+Hver spiller gemmer en flåde i et hav på 10 gange 10 felter. Skyd på skift på den andens hav: den, der først sænker hele fjendens flåde, vinder. For 2 spillere. Vælg først spillet:
+- Klassisk: fem skibe på 5, 4, 3, 3 og 2 felter (den almindelige moderne flåde), ét skud pr. tur.
+- Salve: den samme flåde; hver tur skyder du lige så mange skud, som du har skibe flydende.
+- Papirflåden: ti skibe, ét på 4 felter, to på 3, tre på 2 og fire på 1, flåden fra det ternede papir. Skibene må ikke røre hinanden, heller ikke på et hjørne. Ét skud pr. tur.
+- Papirflåden med salver: de ti skibe og en salve hver tur.
+# Placering af flåden
+Elfenben placerer først, så ibenholt, hver i hemmelighed. Et skib ligger lige, vandret eller lodret, inde i havet; to skibe deler aldrig et felt. Din flåde starter på tilfældige pladser:
+- Træk et skib for at flytte det, eller tryk på det og så på feltet til dets øverste eller venstre ende.
+- Tryk på det løftede skib igen for at dreje det om det felt, du trykkede på.
+- Terningen giver en ny tilfældig flåde. Fluebenet melder flåden klar, og enheden går videre.
+# En tur
+Elfenben skyder først. Tryk på et felt i den andens hav for at sigte, og tryk så på skydeknappen; med ét skud skyder et nyt tryk på det valgte felt også. En salve sigtes helt først: tallet ved skydeknappen viser, hvor mange skud der mangler at blive sigtet, og et tryk på et valgt felt tager det tilbage. Træffer du eller ej, slutter turen derefter.
+- En hvid pind: forbi. En rød pind: træffer.
+- Når alle et skibs felter er ramt, er det sænket og kommer til syne på havet.
+Resultatet bliver et øjeblik på skærmen, så går enheden videre.
+# Spillets afslutning
+Den, der først sænker hele fjendens flåde, vinder.
+# Spil på enheden
+Du ser den andens hav stort med dine skud og dit eget hav lille ved siden af med din flåde og den andens skud; den andens sidste skud er markeret. Hver gang enheden går videre, skjuler et dække skærmen, indtil næste spiller trykker på start. Hver spillers panel viser, hvor mange af spillerens skibe der stadig flyder. Fortryd tager et skib flyttet under placeringen eller et valgt felt tilbage; et affyret skud bliver.
