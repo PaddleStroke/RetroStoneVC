@@ -42,6 +42,9 @@ typedef struct game {
     int  (*script)(const char *moves);          /* plays moves in the game's notation (screenshots, tests); 0: bad */
     int  (*busy)(void);                         /* 1 while the last move still animates: the end of the game waits
                                                  * for it (then a pause showing the final position, then the card) */
+    /* a press in a player's bar (shogi's pieces in hand): x, y in the frame bar() drew in (the shell turns them for
+     * a bar turned round face to face); 1: taken. The motion and the release then go to press()'s usual path. */
+    int  (*bar_press)(int player, float x, float y);
 } game;
 
 void game_register(const game *g);

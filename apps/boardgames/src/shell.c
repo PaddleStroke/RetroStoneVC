@@ -813,6 +813,13 @@ static void press(float x, float y)
     }
     if (press_bar(x, y)) return;
     if (games[cur]->status() != GS_PLAY && !over_hidden) { over_hidden = 1; return; }
+    for (int p = 0; p < 2 && games[cur]->bar_press; p++) {   /* the game's own use of a bar */
+        box b = L.bar[p];
+        if (x < b.x || y < b.y || x >= b.x + b.w || y >= b.y + b.h) continue;
+        float fx = x, fy = y;                   /* in the frame bar() drew in */
+        if (ui_upside(p) && t_bartex) { fx = b.w - (x - b.x); fy = b.h - (y - b.y); }
+        if (games[cur]->bar_press(p, fx, fy)) return;
+    }
     games[cur]->press(x, y);
 }
 
