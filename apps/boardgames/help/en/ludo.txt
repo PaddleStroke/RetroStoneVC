@@ -1,0 +1,18 @@
+Ludo
+# The aim
+Bring your four tokens all the way round the board and into the centre before the other player. Each player has four tokens in a yard of their colour, in opposite corners. Ivory throws first, then the players take turns.
+# Throwing and moving
+- Throw the die, then move one of your tokens clockwise round the track by the number thrown.
+- Only a 6 brings a token out of its yard, onto its start square, the coloured square next to the yard. With a 6 you may also move a token already on the board instead.
+- A 6 gives you another throw. A third 6 in a row is lost and your turn ends at once.
+- If no token can move with the number thrown, the throw is lost and the turn passes (after a 6 you still throw again).
+# Meeting other tokens
+- Landing exactly on the other player's token sends it back to its yard. If two of their tokens stand there, both go back.
+- The safe squares are the four start squares and the four squares marked with a star. Nobody can be sent back there, and tokens of both players may share them.
+- Your own tokens may share a square. They do not block: the other player may pass them or land on them.
+# Going home
+After a full lap your token turns into the home column of its colour, where it is safe, and goes on to the centre. It must reach the centre with the exact number: a throw that is too big cannot move that token.
+# The end of the game
+The first player to bring all four tokens into the centre wins.
+# Playing on the device
+Your die waits in the empty corner next to you, lit in gold: tap it to throw. Dots show where your tokens can go, rings a token you would send home: tap a token, or drag it to its square, and it hops there. A throw that could not move stays dimmed in a red glow while the other player throws. Undo takes back moves and throws, but a throw taken back comes out the same again. Your tokens home show in your bar.
