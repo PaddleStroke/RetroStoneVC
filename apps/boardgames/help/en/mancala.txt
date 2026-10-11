@@ -1,0 +1,16 @@
+Mancala
+# The aim
+Capture more seeds than the other player. The board has two rows of six pits, four seeds in each. The row nearer to you is yours, with your store at its right end. Light plays first.
+# Oware
+- On your turn, pick up all the seeds in one of your pits and sow them one by one into the following pits, counter-clockwise. With twelve seeds or more you go all the way round: the pit you emptied is skipped.
+- If your last seed lands in the other player's row and makes two or three seeds there, you capture them. You also capture the pit before it, and the one before that, as long as they are in the other player's row and hold two or three seeds.
+- A move that would capture every seed the other player has may be played, but it captures nothing.
+- If the other player has no seeds, you must play a move that gives them some, if you have one.
+- The game ends when a player has captured more than 24 seeds, when the player to move cannot play, or when the same position comes back. In the last two cases, each player adds the seeds left in their own row. The most seeds wins; 24 each is a draw.
+# Kalah
+- On your turn, pick up all the seeds in one of your pits and sow them one by one counter-clockwise into the following pits and into your own store, but not into the other player's store.
+- If your last seed lands in your store, you play again.
+- If your last seed lands in an empty pit of yours and the pit opposite holds seeds, you capture both: your seed and the seeds opposite go to your store.
+- The game ends when one row is empty: the other player puts the seeds left in their row into their store. The most seeds in the store wins; the same number is a draw.
+# Playing on the device
+Tap one of your pits to sow it: the pits you may play glow. The seeds travel one by one, and captured seeds fly to the store. The number next to each pit shows its seeds, and each bar shows the seeds that player has captured.
