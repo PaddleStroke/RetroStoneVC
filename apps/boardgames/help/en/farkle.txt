@@ -1,0 +1,21 @@
+Farkle
+# The aim
+Be the first to bank 10,000 points by throwing six dice and pushing your luck. Two to six players, or one alone against the clock.
+# A turn
+- Throw the six dice. Set aside at least one scoring die, then either bank the points of your turn or throw the dice left to score more.
+- Every die you set aside must score, and combinations count only within one throw.
+- A throw with no scoring dice is a farkle: you lose all the points of your turn, and the turn passes.
+- Hot dice: when all six dice have scored, you may throw all six again and go on adding.
+- Your first bank must be at least 500 points in one turn; after that, any bank counts.
+# The scoring
+- Each 1: 100. Each 5: 50.
+- Three of a kind: the face times 100 (three 2s: 200, three 6s: 600); three 1s: 1,000.
+- Four of a kind: 1,000. Five of a kind: 2,000. Six of a kind: 3,000.
+- A straight 1-2-3-4-5-6: 1,500.
+- Three pairs: 1,500 (four of a kind and a pair count as three pairs).
+- Two triplets: 2,500.
+The dice you set aside score their best: four 1s are three 1s and a 1, 1,100.
+# The end of the game
+Players take turns round the table, Ivory first. When a player banks 10,000 or more, every other player has one last turn; then the highest score wins, and equal highest scores share the win. Alone, reach 10,000 within 20 turns: the pegs at the top of the felt count them.
+# Playing on the device
+Tap the felt or the button with a die to throw. Tap the dice that score to set them aside: they lift in a gold light, and a die that cannot score in this throw is darker and makes a deny sound. Under the dice, the small gold number is what the dice chosen are worth, and the big one your turn's total with them. The button with a die throws the dice left; the button with the coins banks your turn. A button lights up when you may use it. The dice set aside wait on your rack. A farkle shows the dice in a red glow and the points lost. The die of the player who reached 10,000 shines on the felt during the final round. Each bar shows that player's banked score. Undo takes back the last bank; it never throws the dice again.

@@ -1,0 +1,21 @@
+Diez mil
+# El objetivo
+Sé el primero en anotar 10.000 puntos tirando seis dados y tentando a la suerte. Juegan de dos a seis, o uno solo contra el reloj.
+# Un turno
+- Tira los seis dados. Aparta al menos un dado que puntúe y luego, o te plantas y anotas los puntos del turno, o tiras los dados que quedan para sumar más.
+- Todo dado que apartas debe puntuar, y las combinaciones solo cuentan dentro de una misma tirada.
+- Una tirada sin ningún dado que puntúe es un farkle: pierdes todos los puntos del turno y el turno pasa.
+- Dados calientes: cuando los seis dados han puntuado, puedes volver a tirar los seis y seguir sumando.
+- Tu primera anotación debe ser de al menos 500 puntos en un turno; después, cualquier anotación vale.
+# La puntuación
+- Cada 1: 100. Cada 5: 50.
+- Tres iguales: la cara por 100 (tres 2: 200, tres 6: 600); tres 1: 1.000.
+- Cuatro iguales: 1.000. Cinco iguales: 2.000. Seis iguales: 3.000.
+- Una escalera 1-2-3-4-5-6: 1.500.
+- Tres parejas: 1.500 (cuatro iguales y una pareja cuentan como tres parejas).
+- Dos tríos: 2.500.
+Los dados que apartas puntúan lo máximo posible: cuatro 1 son tres 1 y un 1, 1.100.
+# El final de la partida
+Los jugadores se turnan alrededor de la mesa, empezando por marfil. Cuando un jugador anota 10.000 o más, cada uno de los demás juega un último turno; después gana la puntuación más alta, y si las más altas son iguales, comparten la victoria. Solo, llega a 10.000 en 20 turnos: las clavijas de la parte de arriba del tapete los cuentan.
+# Jugar en el dispositivo
+Toca el tapete o el botón del dado para tirar. Toca los dados que puntúan para apartarlos: se elevan con una luz dorada, y un dado que no puede puntuar en esta tirada aparece más oscuro y emite un sonido de rechazo. Bajo los dados, el número dorado pequeño es lo que valen los dados elegidos, y el grande, el total de tu turno con ellos. El botón del dado tira los dados que quedan; el botón de las monedas anota tu turno. Un botón se ilumina cuando puedes usarlo. Los dados apartados esperan en tu soporte. Un farkle muestra los dados con un brillo rojo y los puntos perdidos. El dado del jugador que llegó a 10.000 brilla sobre el tapete durante la última ronda. Cada barra muestra los puntos anotados de ese jugador. Deshacer retira la última anotación; los dados nunca se vuelven a tirar.

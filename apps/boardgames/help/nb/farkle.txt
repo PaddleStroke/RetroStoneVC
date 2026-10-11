@@ -1,0 +1,21 @@
+10 000
+# Målet
+Bli den første som sikrer 10 000 poeng, ved å kaste seks terninger og friste lykken. To til seks spillere, eller én alene mot klokka.
+# En tur
+- Kast de seks terningene. Legg til side minst én terning som gir poeng, og sikre så enten poengene fra turen eller kast de resterende terningene for å få flere.
+- Hver terning du legger til side, må gi poeng, og kombinasjoner teller bare innenfor ett kast.
+- Et kast uten terninger som gir poeng, er et nullkast: du mister alle poengene fra turen, og turen går videre.
+- Varme terninger: når alle seks terningene har gitt poeng, kan du kaste alle seks på nytt og fortsette å samle.
+- Første gang du sikrer, må det være minst 500 poeng i én tur; etter det teller alt.
+# Poenggivning
+- Hver ener: 100. Hver femmer: 50.
+- Tre like: tallet ganger 100 (tre toere: 200, tre seksere: 600); tre enere: 1 000.
+- Fire like: 1 000. Fem like: 2 000. Seks like: 3 000.
+- En straight 1-2-3-4-5-6: 1 500.
+- Tre par: 1 500 (fire like og et par teller som tre par).
+- To ganger tre like: 2 500.
+Terningene du legger til side, teller så høyt som mulig: fire enere er tre enere og en ener, 1 100.
+# Slutten på spillet
+Turen går rundt bordet, elfenben først. Når en spiller sikrer 10 000 eller mer, får hver av de andre spillerne én siste tur; så vinner den høyeste poengsummen, og er de høyeste like, deler de spillerne seieren. Alene må du nå 10 000 innen 20 turer: pinnene øverst på filten teller dem.
+# Spill på enheten
+Trykk på filten eller på knappen med en terning for å kaste. Trykk på terningene som gir poeng, for å legge dem til side: de løfter seg i et gyllent lys, og en terning som ikke kan gi poeng i dette kastet, er mørkere og gir en avvisningslyd. Under terningene viser det lille gylne tallet hva de valgte terningene er verdt, og det store summen for turen med dem. Knappen med en terning kaster de resterende terningene; knappen med myntene sikrer turen din. En knapp lyser opp når du kan bruke den. Terningene som er lagt til side, venter på stativet ditt. Et nullkast viser terningene i et rødt skjær og poengene som gikk tapt. Terningen til spilleren som nådde 10 000, skinner på filten i siste runde. Hver linje viser poengsummen den spilleren har sikret. Angre tar tilbake det siste du sikret; terningene kastes aldri på nytt.

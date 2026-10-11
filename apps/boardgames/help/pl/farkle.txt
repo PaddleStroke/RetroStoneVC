@@ -1,0 +1,21 @@
+Farkle
+# Cel gry
+Jako pierwszy zapisz na swoim koncie 10 000 punktów, rzucając sześcioma kostkami i kusząc los. Gra od dwóch do sześciu osób albo jedna osoba sama, na czas.
+# Tura
+- Rzuć sześcioma kostkami. Odłóż co najmniej jedną punktującą kostkę, a potem albo zapisz punkty z tej tury, albo rzuć pozostałymi kostkami, żeby zdobyć więcej.
+- Każda odłożona kostka musi punktować, a układy liczą się tylko w obrębie jednego rzutu.
+- Rzut bez punktujących kostek to farkle: tracisz wszystkie punkty z tej tury, a tura przechodzi dalej.
+- Gorące kostki: gdy punktowało wszystkie sześć kostek, możesz znów rzucić wszystkimi sześcioma i dalej dodawać.
+- Twój pierwszy zapis musi wynosić co najmniej 500 punktów z jednej tury; potem liczy się każdy zapis.
+# Punktacja
+- Każda 1: 100. Każda 5: 50.
+- Trzy jednakowe: liczba oczek razy 100 (trzy 2: 200, trzy 6: 600); trzy 1: 1000.
+- Cztery jednakowe: 1000. Pięć jednakowych: 2000. Sześć jednakowych: 3000.
+- Strit 1-2-3-4-5-6: 1500.
+- Trzy pary: 1500 (cztery jednakowe i para liczą się jako trzy pary).
+- Dwie trójki: 2500.
+Odłożone kostki liczą się jak najkorzystniej: cztery 1 to trzy 1 i jedna 1, czyli 1100.
+# Koniec gry
+Gracze grają po kolei wokół stołu, zaczyna kość słoniowa. Gdy gracz zapisze 10 000 lub więcej, każdy z pozostałych graczy ma jeszcze jedną, ostatnią turę; potem wygrywa najwyższy wynik, a gracze z równym najwyższym wynikiem dzielą się wygraną. Grając sam, zdobądź 10 000 w 20 turach: liczą je kołeczki u góry sukna.
+# Gra na urządzeniu
+Dotknij sukna albo przycisku z kostką, aby rzucić. Dotykaj punktujących kostek, aby je odłożyć: unoszą się w złotym świetle, a kostka, która w tym rzucie nie może punktować, jest ciemniejsza i odpowiada dźwiękiem odmowy. Pod kostkami mała złota liczba pokazuje, ile są warte wybrane kostki, a duża — sumę twojej tury razem z nimi. Przycisk z kostką rzuca pozostałymi kostkami; przycisk z monetami zapisuje twoją turę. Przycisk się podświetla, gdy możesz go użyć. Odłożone kostki czekają na twojej półce. Farkle pokazuje kostki w czerwonej poświacie i utracone punkty. Kostka gracza, który zdobył 10 000, świeci na suknie podczas ostatniej kolejki. Każdy pasek pokazuje zapisany wynik tego gracza. Cofnij cofa ostatni zapis; kostki nigdy nie są rzucane ponownie.

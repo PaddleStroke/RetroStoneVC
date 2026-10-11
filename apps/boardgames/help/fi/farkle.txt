@@ -1,0 +1,21 @@
+Kymppitonni
+# Tavoite
+Kirjaa ensimmäisenä 10 000 pistettä heittämällä kuutta noppaa ja koettelemalla onneasi. Pelaajia on kahdesta kuuteen, tai pelaat yksin rajallista vuoromäärää vastaan.
+# Vuoro
+- Heitä kuutta noppaa. Ota sivuun vähintään yksi pisteitä tuottava noppa ja sitten joko kirjaa vuorosi pisteet tai heitä jäljellä olevat nopat saadaksesi lisää.
+- Jokaisen sivuun ottamasi nopan on tuotettava pisteitä, ja yhdistelmät lasketaan vain saman heiton sisällä.
+- Heitto, jossa ei ole yhtään pisteitä tuottavaa noppaa, on nollaheitto: menetät kaikki vuorosi pisteet, ja vuoro siirtyy.
+- Kuumat nopat: kun kaikki kuusi noppaa ovat tuottaneet pisteitä, saat heittää kaikki kuusi uudelleen ja jatkaa keräämistä.
+- Ensimmäisen kirjauksesi on oltava vähintään 500 pistettä yhdellä vuorolla; sen jälkeen mikä tahansa kirjaus kelpaa.
+# Pisteet
+- Jokainen ykkönen: 100. Jokainen viitonen: 50.
+- Kolme samaa: silmäluku kertaa 100 (kolme kakkosta: 200, kolme kuutosta: 600); kolme ykköstä: 1000.
+- Neljä samaa: 1000. Viisi samaa: 2000. Kuusi samaa: 3000.
+- Suora 1-2-3-4-5-6: 1500.
+- Kolme paria: 1500 (neljä samaa ja pari lasketaan kolmeksi pariksi).
+- Kahdesti kolme samaa: 2500.
+Sivuun otetut nopat pisteytetään parhaalla tavalla: neljä ykköstä ovat kolme ykköstä ja ykkönen, 1100.
+# Pelin loppu
+Pelaajat pelaavat vuorotellen pöydän ympäri, norsunluu ensin. Kun pelaaja kirjaa 10 000 pistettä tai enemmän, jokainen muu pelaaja saa vielä yhden viimeisen vuoron; sitten suurimmat pisteet voittavat, ja jos suurimmat ovat tasan, voitto jaetaan. Yksin pääse 10 000 pisteeseen 20 vuoron aikana: huovan yläreunan tapit laskevat vuorot.
+# Pelaaminen laitteella
+Napauta huopaa tai noppapainiketta heittääksesi. Napauta pisteitä tuottavia noppia ottaaksesi ne sivuun: ne nousevat kultaisessa valossa, ja noppa, joka ei voi tuottaa pisteitä tällä heitolla, on tummempi ja antaa kieltoäänen. Noppien alla pieni kultainen luku on valittujen noppien arvo ja iso luku vuorosi summa niiden kanssa. Noppapainike heittää jäljellä olevat nopat; kolikkopainike kirjaa vuorosi pisteet. Painike syttyy, kun saat käyttää sitä. Sivuun otetut nopat odottavat telineelläsi. Nollaheitto näyttää nopat punaisessa hehkussa ja menetetyt pisteet. 10 000 pisteeseen päässeen pelaajan noppa loistaa huovalla viimeisen kierroksen ajan. Jokainen palkki näyttää sen pelaajan kirjatut pisteet. Kumoa peruu viimeisen kirjauksen; noppia ei koskaan heitetä uudelleen.

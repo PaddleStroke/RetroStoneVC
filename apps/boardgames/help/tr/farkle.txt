@@ -1,0 +1,21 @@
+Farkle
+# Amaç
+Altı zar atıp şansını zorlayarak 10.000 puanı kasaya ilk koyan ol. İki ile altı kişi oynar, ya da tek kişi sınırlı sayıda sıraya karşı.
+# Bir hamle
+- Altı zarı at. En az bir puanlı zarı kenara ayır, sonra ya sıranın puanlarını kasaya koy ya da daha çok puan için kalan zarları at.
+- Kenara ayırdığın her zar puan getirmelidir ve kombinasyonlar yalnızca tek bir atışın içinde sayılır.
+- Hiç puanlı zar çıkmayan atış bir farkle'dır: sıranın bütün puanlarını kaybedersin ve sıra geçer.
+- Sıcak zarlar: altı zarın hepsi puan getirdiğinde altısını birden yeniden atıp toplamaya devam edebilirsin.
+- Kasaya ilk koyduğun puan tek sırada en az 500 olmalıdır; ondan sonra her miktar sayılır.
+# Puanlama
+- Her 1: 100. Her 5: 50.
+- Üç aynı zar: yüz çarpı 100 (üç 2: 200, üç 6: 600); üç 1: 1.000.
+- Dört aynı zar: 1.000. Beş aynı zar: 2.000. Altı aynı zar: 3.000.
+- 1-2-3-4-5-6 kenti: 1.500.
+- Üç çift: 1.500 (dört aynı zar ve bir çift de üç çift sayılır).
+- İki üçlü: 2.500.
+Kenara ayrılan zarlar en iyi şekilde puanlanır: dört 1, üç 1 ve bir 1 sayılır, 1.100.
+# Oyunun sonu
+Oyuncular masanın çevresinde sırayla oynar, önce fildişi başlar. Bir oyuncu 10.000 ya da daha fazla puanı kasaya koyduğunda diğer her oyuncu son bir sıra daha oynar; sonra en yüksek puan kazanır, en yüksek puanlar eşitse kazanç paylaşılır. Tek başına, 20 sıra içinde 10.000'e ulaş: çuhanın üstündeki çiviler sıraları sayar.
+# Cihazda oynamak
+Atmak için çuhaya ya da zarlı düğmeye dokun. Kenara ayırmak için puan getiren zarlara dokun: altın renginde bir ışıkla kalkarlar; bu atışta puan getiremeyecek bir zar daha koyudur ve ret sesi çıkarır. Zarların altındaki küçük altın sayı seçilen zarların değerini, büyük sayı da onlarla birlikte sıranın toplamını gösterir. Zarlı düğme kalan zarları atar; madeni paralı düğme sıranın puanlarını kasaya koyar. Kullanabileceğin düğme yanar. Kenara ayrılan zarlar rafında bekler. Bir farkle'da zarlar kırmızı parlar ve kaybedilen puanlar görünür. 10.000'e ulaşan oyuncunun zarı, son tur boyunca çuhanın üstünde parlar. Her şerit o oyuncunun kasadaki puanını gösterir. Geri al son kasaya koymayı geri alır; zarlar asla yeniden atılmaz.
