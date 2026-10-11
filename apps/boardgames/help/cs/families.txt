@@ -1,0 +1,18 @@
+Sedm rodin
+# Cíl hry
+Sbírat celé rodiny. Hra má 7 zvířecích rodin, každou ve vlastní barvě: medvědy, králíky, kočky, myši, sovy, lvy a žáby. Každá rodina má 6 členů: dědečka, babičku, tátu, mámu, syna a dceru. Pro 2 až 6 hráčů.
+# Karty
+- Barva a zvíře ukazují rodinu.
+- To, co zvíře nosí, ukazuje člena: brýle a bílý knír dědeček, brýle a šedý drdol babička, motýlek táta, perlový náhrdelník máma, kšiltovku syn, mašli ve vlasech dcera. Děti jsou menší.
+- Postavička v rohu a řada šesti postaviček dole na kartě ukazují člena také.
+# Tah
+- Ve 2 nebo 3 hráčích 7 karet každému, ve 4 hráčích 6, v 5 nebo 6 hráčích 5. Zbylé karty tvoří balíček.
+- Požádej jiného hráče o jednu kartu: člena rodiny, ze které už máš kartu, ale ne kartu, kterou máš sám.
+- Má-li ji, dá ti ji a ty se ptáš znovu.
+- Pokud ne, „pioche!“: lízni si kartu z balíčku. Je-li to karta, o kterou jsi žádal, ptáš se znovu; jinak hraje další hráč.
+- Úplná rodina se hned vyloží.
+- Přijde-li na tebe řada a nemáš karty, jednu si lízneš. Nemá-li karty nikdo jiný, zeptej se kohokoli: odpoví balíček.
+# Konec hry
+Když je všech 7 rodin vyloženo, vyhrává hráč s nejvíce rodinami; hráči se stejným počtem se o vítězství dělí.
+# Hra na zařízení
+Posílejte zařízení dokola: každý vidí dole svou ruku a hned nad ní své rodiny. Ruce ostatních jsou malé vějíře nahoře, každý se žetonem svého hráče, počtem karet a rodinami. Hráč, kterého se zeptáš, svítí: klepni na jiného hráče, chceš-li změnit. Klepni na kartu ve své ruce: objeví se šest členů její rodiny, ty, které máš, jsou bledé. Klepni na člena, kterého chceš: odpověď přijde hned a karta přiletí od druhého hráče nebo z balíčku. Uprostřed je vidět poslední otázka, kdo koho žádal o kterou kartu: svítí, pokud byla karta dána, a malý rub karty znamená „pioche“. Každá lišta ukazuje vyložené rodiny. Vrátit nevezme zpět otázku.

@@ -1,0 +1,26 @@
+Skøre ottere
+# Målet
+At blive den første, der har spillet alle sine kort. To spil at vælge imellem: Skøre ottere med et spil på 52 kort og Sidste kort med et spil på 108 farvede kort og aktionskort. For 2 til 6 spillere.
+# En tur
+- Læg et kort på bunken: et kort i samme kulør (eller farve) eller med samme tal eller tegn som det øverste kort.
+- Kan du ikke lægge, trækker du fra stakken.
+- Det første kort, der vendes, er aldrig en otter, et aktionskort eller en joker.
+# Skøre ottere
+- 7 kort hver ved to spillere, 5 ved flere.
+- En otter må spilles når som helst: så vælger du den kulør, der skal følges.
+- Man trækker kun, når man ikke kan lægge, ét kort ad gangen, til man kan. Er der intet tilbage at trække, melder man pas.
+- Point: otter 50, konge, dame og knægt 10, es 1, de andre kort deres tal. Der spilles til 100.
+# Sidste kort
+- 7 kort hver. En joker må spilles når som helst: så vælger du den farve, der skal følges.
+- Spring over: den næste spiller mister sin tur. Retningsskift: spillet går den anden vej (ved to spillere virker det som spring over). Træk to: den næste spiller trækker 2 kort og mister sin tur.
+- Joker træk fire: vælg farven; den næste spiller trækker 4 kort og mister sin tur. Det må kun spilles, når du ikke har et kort i den farve, der skal følges. Enheden tjekker det, så der er ingen udfordring.
+- Træk to og træk fire kan ikke lægges oven på hinanden: den næste spiller trækker bare.
+- I stedet for at lægge må du trække ét kort. Passer det, så læg det med det samme, eller behold det og meld pas.
+- Sidste kort: lige før du lægger dit næstsidste kort, trykker du på knappen for sidste kort. Glemmer du det, må den næste spiller fange dig, før han gør noget andet, og du trækker 2 kort.
+- Point: talkort deres værdi, spring over, retningsskift og træk to 20, jokere 50. Der spilles til 500.
+# Slutningen af en runde
+Den første spiller uden kort vinder runden og får pointene for kortene på de andres hænder. Kan ingen længere lægge eller trække, slutter runden: den med færrest point på hånden vinder den og får forskellen til hver anden hånd. Kortgiveren rykker en plads hver runde.
+# Spillets afslutning
+Den første, der når målet, vinder.
+# Spil på enheden
+Send enheden rundt: hver spiller ser sin egen hånd nederst. De andres hænder er små vifter øverst, hver med spillerens markør og antal kort. I Sidste kort viser ringen af pile i midten, hvilken vej spillet går. Tryk på et kort, der lyser, for at lægge det; tryk på stakken for at trække (den lyser, når du skal trække). Efter en otter eller en joker trykker du på en kulør (et es) eller en farve (en skive). Knappen for sidste kort, et kort med stråler, dukker op, når du har to kort; en spiller, der har brugt den, viser den ved sin hånd. For at fange en spiller, der glemte det, trykker du på hans hånd eller panel. For at melde pas trykker du på knappen i dit panel. Efter hver runde viser en tabel pointene på hver hånd, vinderens gevinst og summerne; tryk på den for næste runde. Fortryd tager kun et valg i din egen tur tilbage, aldrig et trukket kort.

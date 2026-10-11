@@ -1,0 +1,14 @@
+Uomo nero
+# Lo scopo
+Non restare con il fante di picche. È la versione francese, le pouilleux: si toglie dal mazzo il fante di fiori, così il fante di picche resta senza compagno. (Nella versione inglese, Old Maid, si toglie invece una donna.) Da 2 a 6 giocatori.
+# Le coppie
+- Una coppia sono due carte dello stesso valore e dello stesso colore: i due sette rossi, i due re neri.
+- Si distribuiscono tutte le 51 carte. Ogni coppia si scarta subito, alla distribuzione e durante la partita.
+# Un turno
+- Pesca una carta coperta dalla mano del giocatore prima di te. La sua mano viene prima mescolata.
+- Se forma una coppia con una delle tue carte, la coppia si scarta.
+- Chi resta senza carte esce: ha vinto.
+# La fine della partita
+L'ultimo giocatore che tiene una carta, il fante di picche, perde. Tutti gli altri vincono.
+# Giocare sul dispositivo
+Passate il dispositivo: ognuno vede la propria mano in basso, ordinata. La mano da cui peschi è coperta al centro, e il posto del suo giocatore brilla in alto. Tocca una delle sue carte: vola nella tua mano, e la coppia che forma va sul mucchio a sinistra. Ogni barra mostra le carte in mano. Annulla non ritira una carta pescata.

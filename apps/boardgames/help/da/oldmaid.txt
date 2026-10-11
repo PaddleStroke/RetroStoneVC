@@ -1,0 +1,14 @@
+Sorteper
+# Målet
+Ikke at sidde tilbage med spar knægt. Dette er den franske udgave, le pouilleux: klør knægt tages ud af spillet, så spar knægt har ingen makker. (I det engelske Old Maid tages i stedet en dame ud.) For 2 til 6 spillere.
+# Par
+- Et par er to kort af samme værdi og samme farve: de to røde syvere, de to sorte konger.
+- Alle 51 kort gives ud. Hvert par lægges straks væk, både ved udgivningen og under spillet.
+# En tur
+- Træk et kort med bagsiden opad fra hånden hos spilleren før dig. Hans hånd blandes først.
+- Danner det par med et af dine kort, lægges parret væk.
+- En spiller uden kort er ude: han har vundet.
+# Spillets afslutning
+Den sidste, der har et kort tilbage, spar knægt, taber. Alle andre vinder.
+# Spil på enheden
+Send enheden rundt: hver spiller ser sin egen hånd nederst, sorteret. Hånden, du trækker fra, ligger med bagsiden opad i midten, og dens spillers plads øverst lyser. Tryk på et af kortene: det flyver ind på din hånd, og et par, det danner, ryger over på bunken til venstre. Hvert panel viser antallet af kort på hånden. Fortryd kan ikke tage et trukket kort tilbage.

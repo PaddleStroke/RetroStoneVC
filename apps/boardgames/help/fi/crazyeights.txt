@@ -1,0 +1,26 @@
+Hullut kasit
+# Tavoite
+Pääse ensimmäisenä eroon kaikista korteistasi. Kaksi peliä valittavana: Hullut kasit 52 kortin pakalla ja Viimeinen kortti 108 värikortin ja toimintakortin pakalla. 2–6 pelaajalle.
+# Vuoro
+- Pelaa yksi kortti poistopakkaan: samaa maata (tai väriä) tai samaa numeroa tai merkkiä kuin päällimmäinen kortti.
+- Jos et voi pelata, nosta pakasta.
+- Ensimmäinen käännetty kortti ei ole koskaan kasi, toimintakortti eikä jokeri.
+# Hullut kasit
+- Kahdella pelaajalla 7 korttia kullekin, useammalla 5.
+- Kasin voi pelata milloin tahansa: valitse silloin maa, jota seurataan.
+- Nostaa saa vain, kun ei voi pelata, kortti kerrallaan, kunnes voi. Kun nostettavaa ei ole, passataan.
+- Pisteet: kasi 50, kuningas, kuningatar ja jätkä 10, ässä 1, muut kortit numeronsa verran. Peli pelataan 100 pisteeseen.
+# Viimeinen kortti
+- 7 korttia kullekin. Jokerin voi pelata milloin tahansa: valitse silloin väri, jota seurataan.
+- Ohitus: seuraava pelaaja menettää vuoronsa. Suunnanvaihto: peli kulkee toiseen suuntaan (kahdella pelaajalla se toimii kuin ohitus). Nosta kaksi: seuraava pelaaja nostaa 2 korttia ja menettää vuoronsa.
+- Jokeri nosta neljä: valitse väri; seuraava pelaaja nostaa 4 korttia ja menettää vuoronsa. Sen saa pelata vain, jos sinulla ei ole yhtään seurattavan värin korttia. Laite tarkistaa sen, joten haastoa ei ole.
+- Nosta kaksi ja nosta neljä eivät kasaannu: seuraava pelaaja vain nostaa.
+- Pelaamisen sijaan voit nostaa yhden kortin. Jos se sopii, pelaa se heti tai pidä se ja passaa.
+- Viimeinen kortti: juuri ennen kuin pelaat toiseksi viimeisen korttisi, napauta viimeisen kortin painiketta. Jos unohdat, seuraava pelaaja voi saada sinut kiinni ennen kuin tekee mitään muuta, ja nostat 2 korttia.
+- Pisteet: numerokortit arvonsa, ohitus, suunnanvaihto ja nosta kaksi 20, jokerit 50. Peli pelataan 500 pisteeseen.
+# Kierroksen loppu
+Ensimmäinen pelaaja, jolta kortit loppuvat, voittaa kierroksen ja saa muiden käsiin jääneiden korttien pisteet. Jos kukaan ei enää voi pelata eikä nostaa, kierros päättyy: se, jolla on vähiten pisteitä kädessä, voittaa sen ja saa erotuksen jokaiseen muuhun käteen. Jakaja vaihtuu yhden paikan joka kierroksella.
+# Pelin loppu
+Ensimmäisenä tavoitepisteisiin ehtinyt voittaa.
+# Pelaaminen laitteella
+Anna laite kiertää: jokainen näkee oman kätensä alhaalla. Muiden kädet ovat pieniä viuhkoja ylhäällä, kussakin pelaajan merkki ja korttien määrä. Viimeisessä kortissa keskellä oleva nuolirengas näyttää, mihin suuntaan peli kulkee. Napauta hehkuvaa korttia pelataksesi sen; napauta pakkaa nostaaksesi (se hehkuu, kun sinun on nostettava). Kasin tai jokerin jälkeen napauta maata (ässä) tai väriä (kiekko). Viimeisen kortin painike, kortti ja säteitä, ilmestyy, kun sinulla on kaksi korttia; pelaaja, joka on käyttänyt sitä, näyttää sen kätensä vieressä. Saadaksesi kiinni unohtaneen pelaajan napauta hänen kättään tai palkkiaan. Passataksesi napauta palkkisi painiketta. Jokaisen kierroksen jälkeen taulukko näyttää kuhunkin käteen jääneet pisteet, voittajan saaliin ja yhteispisteet; napauta sitä seuraavaa kierrosta varten. Kumoa peruu vain valinnan omalla vuorollasi, ei koskaan nostettua korttia.

@@ -1,0 +1,14 @@
+Krig
+# Målet
+Å vinne alle kortene. Barneklassikeren: ingen velger noe, kortene bestemmer. For 2 til 4 spillere.
+# Et stikk
+- Alle 52 kortene deles ut med baksiden opp, i én bunke til hver spiller.
+- Hver spiller snur det øverste kortet i bunken sin. Det høyeste kortet vinner alle de snudde kortene og legger dem under bunken sin. Ess er høyest, så konge, dame, knekt, 10 og så videre ned til 2.
+- Er de høyeste kortene like, blir det krig: de spillerne legger hver ett kort med baksiden opp og så ett med forsiden opp. Det høyeste av dem vinner alt; likt igjen, krig igjen.
+- I en krig snur en spiller med bare ett kort igjen det med forsiden opp; en spiller uten kort går ut av krigen.
+- En spiller uten kort er ute.
+# Slutten på spillet
+- Krig: spillet slutter når én spiller har alle kortene.
+- Kort spill: spillet slutter også etter 26 stikk. Den med flest kort vinner; spillere med like mange deler seieren. Tallet i midten teller stikkene som er igjen.
+# Spill på enheten
+Legg enheten flatt mellom spillerne: den første spilleren sitter nederst, de andre rundt bordet. Hver spiller trykker på sin egen bunke for å snu et kort; bunkene som venter, lyser. Vinnerkortet lyser opp, og så flyr alle kortene til vinnerens bunke. I en krig gløder de like kortene rødt. Ved hver bunke: spillerens markør og antall kort. Angre tar tilbake det siste trykket.

@@ -1,0 +1,14 @@
+Guerra
+# El objetivo
+Ganar todas las cartas. El clásico de los niños: nadie elige nada, deciden las cartas. De 2 a 4 jugadores.
+# Una baza
+- Se reparten las 52 cartas boca abajo, en un montón para cada jugador.
+- Cada jugador descubre la carta de arriba de su montón. La carta más alta se lleva todas las cartas descubiertas y las pone debajo de su montón. El as es la más alta, luego el rey, la reina, la jota, el 10 y así hasta el 2.
+- Si las más altas son iguales, hay guerra: esos jugadores ponen cada uno una carta boca abajo y luego una boca arriba. La más alta de estas se lo lleva todo; si vuelven a empatar, otra guerra.
+- En una guerra, quien solo tiene una carta la pone boca arriba; quien no tiene ninguna queda fuera de esa guerra.
+- Quien se queda sin cartas queda eliminado.
+# El final de la partida
+- Guerra: la partida termina cuando un jugador tiene todas las cartas.
+- Partida corta: también termina tras 26 bazas. Gana quien tenga más cartas; los empatados comparten la victoria. El número del centro cuenta las bazas que quedan.
+# Jugar en el dispositivo
+Deja el dispositivo plano entre los jugadores: el primer jugador se sienta abajo y los demás alrededor de la mesa. Cada uno toca su propio montón para descubrir una carta; los montones que esperan brillan. La carta ganadora se ilumina y luego todas las cartas vuelan al montón del ganador. En una guerra, las cartas iguales brillan en rojo. Junto a cada montón: la ficha de su jugador y su número de cartas. Deshacer retira el último toque.

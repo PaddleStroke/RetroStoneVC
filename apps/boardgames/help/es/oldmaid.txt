@@ -1,0 +1,14 @@
+La mona
+# El objetivo
+No quedarte con la jota de picas. Es la versión francesa, le pouilleux: se quita de la baraja la jota de tréboles, así que la jota de picas no tiene pareja. (En la versión inglesa, Old Maid, se quita una reina.) De 2 a 6 jugadores.
+# Las parejas
+- Una pareja son dos cartas del mismo valor y del mismo color: los dos sietes rojos, los dos reyes negros.
+- Se reparten las 51 cartas. Cada pareja se descarta enseguida, al repartir y durante la partida.
+# Un turno
+- Roba una carta boca abajo de la mano del jugador anterior. Su mano se baraja antes.
+- Si forma pareja con una de tus cartas, la pareja se descarta.
+- Quien se queda sin cartas sale del juego: ha ganado.
+# El final de la partida
+El último jugador que conserva una carta, la jota de picas, pierde. Todos los demás ganan.
+# Jugar en el dispositivo
+Pasa el dispositivo: cada jugador ve su propia mano abajo, ordenada. La mano de la que robas está boca abajo en el centro, y el puesto de su jugador brilla arriba. Toca una de sus cartas: vuela a tu mano, y la pareja que forme va al montón de la izquierda. Cada barra muestra las cartas en la mano. Deshacer no retira una carta robada.

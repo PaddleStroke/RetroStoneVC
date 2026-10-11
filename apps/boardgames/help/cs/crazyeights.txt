@@ -1,0 +1,26 @@
+Bláznivé osmičky
+# Cíl hry
+Zbavit se jako první všech svých karet. Dvě hry na výběr: Bláznivé osmičky s balíčkem 52 karet a Poslední karta s balíčkem 108 barevných karet a akčních karet. Pro 2 až 6 hráčů.
+# Tah
+- Zahraj jednu kartu na odhazovací balíček: kartu stejné barvy nebo stejného čísla či znaku jako vrchní karta.
+- Když nemůžeš hrát, lízni si.
+- První otočená karta nikdy není osmička, akční karta ani žolík.
+# Bláznivé osmičky
+- Při dvou hráčích 7 karet každému, při více 5.
+- Osmičku můžeš zahrát kdykoli: pak určíš barvu, kterou se pokračuje.
+- Lízat smí jen ten, kdo nemůže hrát, po jedné kartě, dokud nemůže hrát. Když už není co lízat, hráč stojí.
+- Body: osmička 50, král, dáma a kluk 10, eso 1, ostatní karty svou hodnotu. Hraje se do 100.
+# Poslední karta
+- 7 karet každému. Žolíka můžeš zahrát kdykoli: pak určíš barvu, kterou se pokračuje.
+- Stop: další hráč vynechá tah. Obrat: hra jde opačným směrem (ve dvou funguje jako stop). Lízni dvě: další hráč si lízne 2 karty a vynechá tah.
+- Žolík lízni čtyři: urči barvu; další hráč si lízne 4 karty a vynechá tah. Smíš ho zahrát jen tehdy, když nemáš žádnou kartu požadované barvy. Zařízení to hlídá, takže se nedá napadnout.
+- Lízni dvě a lízni čtyři se nesčítají: další hráč si prostě lízne.
+- Místo hraní si můžeš líznout jednu kartu. Když se hodí, zahraj ji hned, nebo si ji nech a stůj.
+- Poslední karta: těsně předtím, než zahraješ předposlední kartu, klepni na tlačítko poslední karty. Když zapomeneš, další hráč tě může nachytat dřív, než udělá cokoli jiného, a ty si lízneš 2 karty.
+- Body: čísla svou hodnotu, stop, obrat a lízni dvě 20, žolíci 50. Hraje se do 500.
+# Konec kola
+První hráč bez karet vyhrává kolo a získá body za karty, které zůstaly v ostatních rukou. Když už nikdo nemůže hrát ani lízat, kolo končí: kdo má v ruce nejméně bodů, vyhrává ho a získá rozdíl vůči každé jiné ruce. Rozdávající se každé kolo posune o jedno místo.
+# Konec hry
+Vyhrává první hráč, který dosáhne cílového skóre.
+# Hra na zařízení
+Posílejte zařízení dokola: každý vidí dole svou vlastní ruku. Ruce ostatních jsou malé vějíře nahoře, každý se žetonem svého hráče a počtem karet. V Poslední kartě ukazuje kruh šipek uprostřed, kterým směrem se hraje. Klepni na svítící kartu, abys ji zahrál; klepni na balíček, abys lízl (svítí, když musíš lízat). Po osmičce nebo žolíkovi klepni na barvu: eso, nebo barevný kotouč. Tlačítko poslední karty, karta se zábleskem, se objeví, když máš dvě karty; hráč, který ji ohlásil, ji má u své ruky. Abys nachytal hráče, který zapomněl, klepni na jeho ruku nebo lištu. Abys stál, klepni na tlačítko ve své liště. Po každém kole ukáže tabulka body zbylé v každé ruce, zisk vítěze a součty; klepni na ni pro další kolo. Vrátit vezme zpět jen volbu ve tvém vlastním tahu, nikdy líznutou kartu.

@@ -1,0 +1,14 @@
+Svarte Petter
+# Målet
+Att inte bli den som sitter kvar med spader knekt. Det här är den franska versionen, le pouilleux: klöver knekt tas bort ur leken, så spader knekt har ingen partner. (I engelska Old Maid tas i stället en dam bort.) För 2 till 6 spelare.
+# Par
+- Ett par är två kort med samma valör och samma färg: de två röda sjuorna, de två svarta kungarna.
+- Alla 51 kort delas ut. Varje par läggs bort direkt, både vid given och under spelet.
+# En tur
+- Dra ett kort med baksidan upp ur handen hos spelaren före dig. Hans hand blandas först.
+- Bildar det par med ett av dina kort, läggs paret bort.
+- En spelare utan kort är ute: han har vunnit.
+# Partiets slut
+Den sista som har ett kort kvar, spader knekt, förlorar. Alla andra vinner.
+# Spela på enheten
+Skicka runt enheten: varje spelare ser sin egen hand längst ned, sorterad. Handen du drar ur ligger med baksidan upp i mitten, och platsen för dess spelare längst upp lyser. Tryck på ett av korten: det flyger in i din hand, och ett par det bildar hamnar på högen till vänster. Varje fält visar antalet kort på handen. Ångra kan inte ta tillbaka ett draget kort.

@@ -1,0 +1,18 @@
+Sette famiglie
+# Lo scopo
+Riunire famiglie complete. Il gioco ha 7 famiglie di animali, ognuna del suo colore: orsi, conigli, gatti, topi, gufi, leoni e rane. Ogni famiglia ha 6 membri: nonno, nonna, padre, madre, figlio e figlia. Da 2 a 6 giocatori.
+# Le carte
+- Il colore e l'animale indicano la famiglia.
+- Quello che l'animale indossa indica il membro: occhiali e baffi bianchi il nonno, occhiali e chignon grigio la nonna, papillon il padre, collana di perle la madre, berretto il figlio, fiocco nei capelli la figlia. I figli sono più piccoli.
+- La figura nell'angolo e la fila di sei figure in fondo alla carta mostrano anche il membro.
+# Un turno
+- 7 carte a testa in 2 o 3, 6 in 4, 5 in 5 o 6. Le altre carte formano il mazzo.
+- Chiedi una carta a un altro giocatore: un membro di una famiglia di cui hai già una carta, ma non una carta che hai.
+- Se ce l'ha, te la dà e chiedi ancora.
+- Se no, «pioche!»: pesca una carta dal mazzo. Se è la carta chiesta, chiedi ancora; altrimenti gioca il successivo.
+- Una famiglia completa si cala subito.
+- Se tocca a te e non hai carte, ne peschi una. Se nessun altro ha carte, chiedi a chiunque: risponde il mazzo.
+# La fine della partita
+Quando tutte le 7 famiglie sono calate, vince chi ne ha di più; chi ne ha altrettante condivide la vittoria.
+# Giocare sul dispositivo
+Passate il dispositivo: ognuno vede la propria mano in basso e le sue famiglie subito sopra. Le altre mani sono piccoli ventagli in alto, ciascuno con la pedina del suo giocatore, il numero di carte e le famiglie. Il giocatore a cui chiederai brilla: tocca un altro giocatore per cambiare. Tocca una carta della tua mano: compaiono i sei membri della sua famiglia, quelli che hai già sbiaditi. Tocca il membro che vuoi: la risposta arriva subito, e la carta vola dall'altro giocatore o dal mazzo. Il centro mostra l'ultima domanda, chi ha chiesto quale carta a chi: brilla se la carta è stata data, e un piccolo dorso di carta vuol dire «pioche». Ogni barra mostra le famiglie calate. Annulla non ritira una domanda.

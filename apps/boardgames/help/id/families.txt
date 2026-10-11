@@ -1,0 +1,18 @@
+Tujuh Keluarga
+# Tujuan
+Mengumpulkan keluarga yang lengkap. Permainan ini punya 7 keluarga hewan, masing-masing dengan warnanya sendiri: beruang, kelinci, kucing, tikus, burung hantu, singa, dan katak. Setiap keluarga punya 6 anggota: kakek, nenek, ayah, ibu, anak laki-laki, dan anak perempuan. Untuk 2 sampai 6 pemain.
+# Kartu
+- Warna dan hewan menunjukkan keluarganya.
+- Apa yang dipakai hewan menunjukkan anggotanya: kacamata dan kumis putih untuk kakek, kacamata dan sanggul abu-abu untuk nenek, dasi kupu-kupu untuk ayah, kalung mutiara untuk ibu, topi untuk anak laki-laki, pita rambut untuk anak perempuan. Anak-anak lebih kecil.
+- Sosok di sudut dan deretan enam sosok di bagian bawah kartu juga menunjukkan anggotanya.
+# Satu giliran
+- Dengan 2 atau 3 pemain masing-masing 7 kartu, dengan 4 pemain 6, dengan 5 atau 6 pemain 5. Sisa kartu menjadi tumpukan.
+- Mintalah satu kartu kepada pemain lain: anggota keluarga yang kartunya sudah kamu punya, tetapi bukan kartu yang kamu pegang sendiri.
+- Jika ia punya, ia memberikannya kepadamu dan kamu meminta lagi.
+- Jika tidak, "pioche!": ambil satu kartu dari tumpukan. Jika itu kartu yang kamu minta, mintalah lagi; jika bukan, giliran pemain berikutnya.
+- Keluarga yang lengkap langsung diletakkan.
+- Jika giliranmu tiba dan kamu tidak punya kartu, ambil satu. Jika tidak ada pemain lain yang punya kartu, mintalah kepada siapa saja: tumpukan yang menjawab.
+# Akhir permainan
+Jika ketujuh keluarga sudah diletakkan, pemain dengan keluarga terbanyak menang; yang jumlahnya sama berbagi kemenangan.
+# Bermain di perangkat
+Oper perangkat bergiliran: setiap pemain melihat tangannya di bawah dan keluarganya tepat di atasnya. Tangan pemain lain berupa kipas kecil di atas, masing-masing dengan token pemainnya, jumlah kartu, dan keluarganya. Pemain yang akan kamu tanyai menyala: ketuk pemain lain untuk menggantinya. Ketuk sebuah kartu di tanganmu: keenam anggota keluarganya muncul, yang sudah kamu punya tampak pudar. Ketuk anggota yang kamu mau: jawabannya langsung datang, dan kartunya terbang dari pemain lain atau dari tumpukan. Bagian tengah menunjukkan pertanyaan terakhir, siapa meminta kartu apa kepada siapa: menyala jika kartu diberikan, dan punggung kartu kecil berarti "pioche". Setiap bilah menunjukkan keluarga yang sudah diletakkan. Urungkan tidak bisa membatalkan pertanyaan.

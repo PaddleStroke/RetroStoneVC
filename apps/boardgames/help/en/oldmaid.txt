@@ -1,0 +1,14 @@
+Old Maid
+# The aim
+Do not be the one left with the jack of spades. This is the French version of Old Maid, le pouilleux: the jack of clubs is taken out of the pack, so the jack of spades has no partner. (In the English Old Maid a queen is taken out instead.) For 2 to 6 players.
+# Pairs
+- A pair is two cards of the same rank and the same colour: the two red sevens, the two black kings.
+- All 51 cards are dealt. Every pair goes down at once, at the deal and during the game.
+# A turn
+- Draw one card, face down, from the hand of the player before you. Their hand is shuffled first.
+- If it makes a pair with one of your cards, the pair goes down.
+- A player with no cards left is out: they have won.
+# The end of the game
+The last player holding a card, the jack of spades, loses. Everyone else wins.
+# Playing on the device
+Pass the device: each player sees their own hand at the bottom, sorted. The hand you draw from lies face down in the middle, and its player's place at the top glows. Tap one of its cards: it flies into your hand, and a pair it makes goes onto the pile at the left. Each bar shows the cards in hand. Undo cannot take back a card drawn.

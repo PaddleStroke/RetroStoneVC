@@ -1,0 +1,18 @@
+Sju familjer
+# Målet
+Att samla hela familjer. Spelet har 7 djurfamiljer, var och en med sin egen färg: björnar, kaniner, katter, möss, ugglor, lejon och grodor. Varje familj har 6 medlemmar: farfar, farmor, pappa, mamma, son och dotter. För 2 till 6 spelare.
+# Korten
+- Färgen och djuret visar familjen.
+- Det djuret bär visar medlemmen: glasögon och vit mustasch för farfar, glasögon och grå knut för farmor, fluga för pappa, pärlhalsband för mamma, keps för sonen, hårrosett för dottern. Barnen är mindre.
+- Figuren i hörnet och raden med sex figurer längst ned på kortet visar också medlemmen.
+# En tur
+- 7 kort var med 2 eller 3 spelare, 6 med 4, 5 med 5 eller 6. Resten av korten är högen.
+- Be en annan spelare om ett kort: en medlem av en familj du redan har ett kort av, men inte ett kort du själv har.
+- Har han det, ger han dig det och du frågar igen.
+- Om inte, ”pioche!”: dra ett kort från högen. Är det kortet du bad om frågar du igen; annars är det nästa spelares tur.
+- En hel familj läggs ned direkt.
+- Är det din tur och du har inga kort, drar du ett. Har ingen annan kort, fråga vem som helst: högen svarar.
+# Partiets slut
+När alla 7 familjer ligger vinner den som har flest; spelare med lika många delar segern.
+# Spela på enheten
+Skicka runt enheten: varje spelare ser sin hand längst ned och sina familjer strax ovanför. De andras händer är små solfjädrar längst upp, var och en med spelarens markör, antal kort och familjer. Spelaren du ska fråga lyser: tryck på en annan spelare för att byta. Tryck på ett kort i din hand: familjens sex medlemmar dyker upp, de du har är bleka. Tryck på medlemmen du vill ha: svaret kommer direkt, och kortet flyger över från den andra spelaren eller från högen. Mitten visar den senaste frågan, vem som bad vem om vilket kort: den lyser om kortet gavs, och en liten kortbaksida betyder ”pioche”. Varje fält visar de nedlagda familjerna. Ångra kan inte ta tillbaka en fråga.

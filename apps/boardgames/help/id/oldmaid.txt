@@ -1,0 +1,14 @@
+Kartu Sial
+# Tujuan
+Jangan sampai tertinggal memegang jack sekop. Ini versi Prancis, le pouilleux: jack keriting dikeluarkan dari dek, sehingga jack sekop tidak punya pasangan. (Dalam Old Maid versi Inggris, yang dikeluarkan adalah sebuah ratu.) Untuk 2 sampai 6 pemain.
+# Pasangan
+- Pasangan adalah dua kartu dengan nilai yang sama dan warna yang sama: dua tujuh merah, dua raja hitam.
+- Ke-51 kartu dibagikan semuanya. Setiap pasangan langsung dibuang, saat pembagian maupun selama permainan.
+# Satu giliran
+- Ambil satu kartu tertutup dari tangan pemain sebelummu. Tangannya dikocok lebih dulu.
+- Jika kartu itu membentuk pasangan dengan salah satu kartumu, pasangan itu dibuang.
+- Pemain yang kartunya habis keluar: ia menang.
+# Akhir permainan
+Pemain terakhir yang masih memegang kartu, yaitu jack sekop, kalah. Semua yang lain menang.
+# Bermain di perangkat
+Oper perangkat bergiliran: setiap pemain melihat tangannya sendiri di bawah, sudah diurutkan. Tangan tempat kamu mengambil kartu terletak tertutup di tengah, dan tempat pemiliknya di atas menyala. Ketuk salah satu kartunya: kartu itu terbang ke tanganmu, dan pasangan yang terbentuk pindah ke tumpukan di kiri. Setiap bilah menunjukkan jumlah kartu di tangan. Urungkan tidak bisa membatalkan kartu yang sudah diambil.

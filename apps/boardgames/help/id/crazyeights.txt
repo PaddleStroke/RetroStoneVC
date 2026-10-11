@@ -1,0 +1,26 @@
+Delapan Gila
+# Tujuan
+Menjadi yang pertama menghabiskan semua kartu. Ada dua permainan untuk dipilih: Delapan Gila dengan satu dek 52 kartu, dan Kartu Terakhir dengan dek 108 kartu berwarna serta kartu aksi. Untuk 2 sampai 6 pemain.
+# Satu giliran
+- Mainkan satu kartu ke tumpukan buangan: kartu dengan jenis (atau warna) yang sama, atau dengan angka atau simbol yang sama dengan kartu teratas.
+- Jika tidak bisa bermain, ambil kartu dari tumpukan.
+- Kartu pertama yang dibuka tidak pernah angka delapan, kartu aksi, atau joker.
+# Delapan Gila
+- Dengan dua pemain, masing-masing 7 kartu; dengan lebih banyak pemain, 5.
+- Kartu delapan boleh dimainkan kapan saja: lalu kamu memilih jenis yang harus diikuti.
+- Hanya pemain yang tidak bisa bermain yang mengambil kartu, satu per satu, sampai bisa bermain. Jika tidak ada lagi yang bisa diambil, ia lewat.
+- Poin: delapan 50, raja, ratu, dan jack 10, as 1, kartu lain sesuai angkanya. Permainan berlangsung sampai 100.
+# Kartu Terakhir
+- Masing-masing 7 kartu. Joker boleh dimainkan kapan saja: lalu kamu memilih warna yang harus diikuti.
+- Lewati: pemain berikutnya kehilangan gilirannya. Balik arah: permainan berputar ke arah sebaliknya (dengan dua pemain, berfungsi seperti lewati). Ambil dua: pemain berikutnya mengambil 2 kartu dan kehilangan gilirannya.
+- Joker ambil empat: pilih warnanya; pemain berikutnya mengambil 4 kartu dan kehilangan gilirannya. Kartu ini hanya boleh dimainkan jika kamu tidak punya kartu dengan warna yang harus diikuti. Perangkat memeriksanya, jadi tidak ada tantangan.
+- Ambil dua dan ambil empat tidak bisa ditumpuk: pemain berikutnya cukup mengambil kartu.
+- Sebagai ganti bermain, kamu boleh mengambil satu kartu. Jika cocok, mainkan langsung, atau simpan dan lewat.
+- Kartu terakhir: tepat sebelum memainkan kartu kedua terakhirmu, ketuk tombol kartu terakhir. Jika lupa, pemain berikutnya boleh menangkapmu sebelum melakukan hal lain, dan kamu mengambil 2 kartu.
+- Poin: kartu angka sesuai nilainya, lewati, balik arah, dan ambil dua 20, joker 50. Permainan berlangsung sampai 500.
+# Akhir ronde
+Pemain pertama yang kartunya habis memenangkan ronde dan mendapat poin dari kartu yang tersisa di tangan pemain lain. Jika tidak ada lagi yang bisa bermain atau mengambil kartu, ronde berakhir: yang memegang poin paling sedikit menang dan mendapat selisihnya dengan setiap tangan lain. Pembagi kartu bergeser satu tempat setiap ronde.
+# Akhir permainan
+Pemain pertama yang mencapai skor target menang.
+# Bermain di perangkat
+Oper perangkat bergiliran: setiap pemain melihat tangannya sendiri di bawah. Tangan pemain lain berupa kipas kecil di atas, masing-masing dengan token pemainnya dan jumlah kartunya. Dalam Kartu Terakhir, cincin panah di tengah menunjukkan arah permainan. Ketuk kartu yang menyala untuk memainkannya; ketuk tumpukan untuk mengambil kartu (tumpukan menyala saat kamu harus mengambil). Setelah kartu delapan atau joker, ketuk sebuah jenis (sebuah as) atau sebuah warna (sebuah cakram). Tombol kartu terakhir, sebuah kartu dengan kilau, muncul saat kamu memegang dua kartu; pemain yang sudah menekannya menampilkannya di samping tangannya. Untuk menangkap pemain yang lupa, ketuk tangannya atau bilahnya. Untuk lewat, ketuk tombol di bilahmu. Setelah setiap ronde, sebuah tabel menunjukkan poin yang tersisa di setiap tangan, perolehan pemenang, dan totalnya; ketuk tabel itu untuk ronde berikutnya. Urungkan hanya membatalkan pilihan dalam giliranmu sendiri, tidak pernah kartu yang sudah diambil.

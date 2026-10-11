@@ -1,0 +1,26 @@
+Vända åttor
+# Målet
+Att först bli av med alla sina kort. Två spel att välja mellan: Vända åttor med en kortlek på 52 kort, och Sista kortet med en lek på 108 färgade kort och actionkort. För 2 till 6 spelare.
+# En tur
+- Lägg ett kort på slänghögen: ett kort i samma färg eller med samma tal eller tecken som det översta kortet.
+- Kan du inte lägga, drar du från högen.
+- Det första kortet som vänds är aldrig en åtta, ett actionkort eller en joker.
+# Vända åttor
+- 7 kort var med två spelare, 5 med fler.
+- En åtta får läggas när som helst: då väljer du färgen som ska följas.
+- Man drar bara när man inte kan lägga, ett kort i taget, tills man kan. Finns inget kvar att dra, står man över.
+- Poäng: åtta 50, kung, dam och knekt 10, ess 1, övriga kort sitt tal. Man spelar till 100.
+# Sista kortet
+- 7 kort var. En joker får läggas när som helst: då väljer du färgen som ska följas.
+- Hoppa över: nästa spelare förlorar sin tur. Vänd: spelet går åt andra hållet (med två spelare fungerar det som hoppa över). Dra två: nästa spelare drar 2 kort och förlorar sin tur.
+- Joker dra fyra: välj färgen; nästa spelare drar 4 kort och förlorar sin tur. Den får bara läggas när du inte har något kort i färgen som ska följas. Enheten kontrollerar det, så det finns ingen utmaning.
+- Dra två och dra fyra kan inte staplas: nästa spelare drar helt enkelt.
+- I stället för att lägga får du dra ett kort. Passar det, lägg det direkt, eller behåll det och stå över.
+- Sista kortet: precis innan du lägger ditt näst sista kort trycker du på knappen för sista kortet. Glömmer du det får nästa spelare ta dig innan han gör något annat, och du drar 2 kort.
+- Poäng: sifferkort sitt värde, hoppa över, vänd och dra två 20, jokrar 50. Man spelar till 500.
+# Slutet på en omgång
+Den första spelaren utan kort vinner omgången och får poängen för korten på de andras händer. Kan ingen längre lägga eller dra, slutar omgången: den med minst poäng på handen vinner den och får skillnaden mot varje annan hand. Given flyttar ett steg varje omgång.
+# Partiets slut
+Den som först når målet vinner.
+# Spela på enheten
+Skicka runt enheten: varje spelare ser sin egen hand längst ned. De andras händer är små solfjädrar längst upp, var och en med spelarens markör och antal kort. I Sista kortet visar pilringen i mitten åt vilket håll spelet går. Tryck på ett kort som lyser för att lägga det; tryck på högen för att dra (den lyser när du måste dra). Efter en åtta eller en joker trycker du på en färg (ett ess) eller en färgskiva. Knappen för sista kortet, ett kort med strålar, dyker upp när du har två kort; en spelare som har använt den visar den vid sin hand. För att ta en spelare som glömde trycker du på hans hand eller fält. För att stå över trycker du på knappen i ditt fält. Efter varje omgång visar en tabell poängen på varje hand, vinnarens vinst och summorna; tryck på den för nästa omgång. Ångra tar bara tillbaka ett val under din egen tur, aldrig ett draget kort.

@@ -1,0 +1,14 @@
+Piotruś
+# Cel gry
+Nie zostać z waletem pik. To wersja francuska, le pouilleux: z talii wyjmuje się waleta trefl, więc walet pik nie ma pary. (W angielskiej grze Old Maid wyjmuje się zamiast tego damę.) Dla 2–6 graczy.
+# Pary
+- Para to dwie karty tej samej wartości i tego samego koloru: dwie czerwone siódemki, dwa czarne króle.
+- Rozdaje się wszystkie 51 kart. Każdą parę od razu się odkłada, przy rozdaniu i w trakcie gry.
+# Tura
+- Wyciągnij jedną kartę, zakrytą, z ręki gracza przed tobą. Jego ręka jest najpierw tasowana.
+- Jeśli tworzy parę z jedną z twoich kart, para zostaje odłożona.
+- Gracz bez kart odpada: wygrał.
+# Koniec gry
+Ostatni gracz, któremu zostaje karta, walet pik, przegrywa. Wszyscy pozostali wygrywają.
+# Gra na urządzeniu
+Podawajcie sobie urządzenie: każdy widzi na dole swoją rękę, posortowaną. Ręka, z której ciągniesz, leży zakryta pośrodku, a miejsce jej gracza na górze świeci. Dotknij jednej z jej kart: wleci do twojej ręki, a para, którą utworzy, trafi na stos po lewej. Każdy pasek pokazuje liczbę kart w ręce. Cofnij nie cofa wyciągniętej karty.

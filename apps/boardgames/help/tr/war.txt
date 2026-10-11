@@ -1,0 +1,14 @@
+Savaş
+# Amaç
+Bütün kartları kazanmak. Çocukların klasiği: kimse bir şey seçmez, kartlar karar verir. 2 ile 4 oyuncu için.
+# Bir çarpışma
+- 52 kartın hepsi kapalı olarak dağıtılır, her oyuncuya bir yığın.
+- Her oyuncu yığınının üstteki kartını açar. En büyük kart açılan bütün kartları alır ve yığınının altına koyar. En büyük as, sonra papaz, kız, vale, 10 ve böyle 2'ye kadar.
+- En büyük kartlar eşitse savaş olur: bu oyuncular birer kartı kapalı, sonra birer kartı açık koyar. Bunların en büyüğü hepsini alır; yine eşitlik, yine savaş.
+- Savaşta tek kartı kalan oyuncu onu açık koyar; hiç kartı kalmayan savaştan çıkar.
+- Kartı kalmayan oyuncu oyundan çıkar.
+# Oyunun sonu
+- Savaş: oyun, bir oyuncu bütün kartları aldığında biter.
+- Kısa oyun: oyun 26 çarpışmadan sonra da biter. En çok kartı olan kazanır; eşit sayıda kartı olanlar zaferi paylaşır. Ortadaki sayı kalan çarpışmaları sayar.
+# Cihazda oynamak
+Cihazı oyuncuların arasına düz koy: ilk oyuncu altta, diğerleri masanın çevresinde oturur. Her oyuncu kart açmak için kendi yığınına dokunur; bekleyen yığınlar parlar. Kazanan kart ışıldar, sonra bütün kartlar kazananın yığınına uçar. Savaşta eşit kartlar kırmızı parlar. Her yığının yanında: oyuncusunun pulu ve kart sayısı. Geri al son dokunuşu geri alır.

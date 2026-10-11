@@ -1,0 +1,26 @@
+Ocho loco
+# El objetivo
+Ser el primero en jugar todas tus cartas. Dos juegos a elegir: el Ocho loco, con una baraja de 52 cartas, y Última carta, con una baraja de 108 cartas de colores y cartas de acción. De 2 a 6 jugadores.
+# Un turno
+- Pon una carta en el montón de descarte: una carta del mismo palo (o color), o del mismo número o símbolo que la carta de arriba.
+- Si no puedes jugar, roba del mazo.
+- La primera carta que se descubre nunca es un ocho, una carta de acción ni un comodín.
+# Ocho loco
+- 7 cartas cada uno con dos jugadores, 5 con más.
+- Un ocho se puede jugar en cualquier momento: entonces eliges el palo que hay que seguir.
+- Solo roba quien no puede jugar, una carta cada vez, hasta poder jugar. Si no queda nada que robar, pasa.
+- Puntos: el ocho 50, rey, reina y jota 10, el as 1, las demás cartas su número. La partida se juega a 100.
+# Última carta
+- 7 cartas cada uno. Un comodín se puede jugar en cualquier momento: entonces eliges el color que hay que seguir.
+- Salto: el siguiente jugador pierde su turno. Cambio de sentido: el juego va al revés (con dos jugadores funciona como un salto). Roba dos: el siguiente jugador roba 2 cartas y pierde su turno.
+- Comodín roba cuatro: elige el color; el siguiente jugador roba 4 cartas y pierde su turno. Solo se puede jugar si no tienes ninguna carta del color que hay que seguir. El dispositivo lo comprueba, así que no hay desafío.
+- Roba dos y roba cuatro no se acumulan: el siguiente jugador simplemente roba.
+- En vez de jugar, puedes robar una carta. Si sirve, juégala enseguida, o quédatela y pasa.
+- Última carta: justo antes de jugar tu penúltima carta, toca el botón de última carta. Si se te olvida, el siguiente jugador puede pillarte antes de hacer nada más, y robas 2 cartas.
+- Puntos: los números su valor, salto, cambio de sentido y roba dos 20, comodines 50. La partida se juega a 500.
+# El final de una ronda
+El primer jugador que se queda sin cartas gana la ronda y suma los puntos de las cartas que quedan en las otras manos. Si ya nadie puede jugar ni robar, la ronda termina: quien tenga menos puntos en la mano la gana y suma la diferencia con cada otra mano. El reparto avanza un puesto en cada ronda.
+# El final de la partida
+Gana el primer jugador que llega a la puntuación fijada.
+# Jugar en el dispositivo
+Pasa el dispositivo: cada jugador ve su propia mano abajo. Las otras manos son pequeños abanicos arriba, cada uno con la ficha de su jugador y su número de cartas. En Última carta, el anillo de flechas del centro muestra hacia dónde va el juego. Toca una carta que brilla para jugarla; toca el mazo para robar (brilla cuando debes robar). Después de un ocho o un comodín, toca un palo (un as) o un color (un disco). El botón de última carta, una carta con un destello, aparece cuando tienes dos cartas; quien lo ha cantado lo muestra junto a su mano. Para pillar a un jugador que se olvidó, toca su mano o su barra. Para pasar, toca el botón de tu barra. Tras cada ronda, una tabla muestra los puntos que quedan en cada mano, lo que gana el ganador y los totales; tócala para la ronda siguiente. Deshacer solo retira una elección de tu propio turno, nunca una carta robada.

@@ -1,0 +1,14 @@
+Svarteper
+# Målet
+Ikke å sitte igjen med sparknekt. Dette er den franske utgaven, le pouilleux: kløverknekt tas ut av kortstokken, så sparknekt har ingen makker. (I engelske Old Maid tas en dame ut i stedet.) For 2 til 6 spillere.
+# Par
+- Et par er to kort med samme verdi og samme farge: de to røde sjuerne, de to svarte kongene.
+- Alle 51 kortene deles ut. Hvert par legges bort med en gang, både ved utdelingen og under spillet.
+# En tur
+- Trekk et kort med baksiden opp fra hånden til spilleren før deg. Hånden hans stokkes først.
+- Danner det par med et av kortene dine, legges paret bort.
+- En spiller uten kort er ute: han har vunnet.
+# Slutten på spillet
+Den siste som har et kort igjen, sparknekten, taper. Alle andre vinner.
+# Spill på enheten
+Send enheten rundt: hver spiller ser sin egen hånd nederst, sortert. Hånden du trekker fra, ligger med baksiden opp i midten, og plassen til spilleren øverst lyser. Trykk på et av kortene: det flyr inn på hånden din, og et par det danner, havner på bunken til venstre. Hvert panel viser antall kort på hånden. Angre kan ikke ta tilbake et trukket kort.

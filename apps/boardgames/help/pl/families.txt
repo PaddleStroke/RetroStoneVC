@@ -1,0 +1,18 @@
+Siedem rodzin
+# Cel gry
+Zbierać całe rodziny. Gra ma 7 rodzin zwierząt, każdą w swoim kolorze: niedźwiedzie, króliki, koty, myszy, sowy, lwy i żaby. Każda rodzina ma 6 członków: dziadka, babcię, tatę, mamę, syna i córkę. Dla 2–6 graczy.
+# Karty
+- Kolor i zwierzę pokazują rodzinę.
+- To, co zwierzę nosi, pokazuje członka rodziny: okulary i biały wąs dziadek, okulary i siwy kok babcia, muszkę tata, naszyjnik z pereł mama, czapkę z daszkiem syn, kokardę we włosach córka. Dzieci są mniejsze.
+- Postać w rogu i rząd sześciu postaci u dołu karty też pokazują członka rodziny.
+# Tura
+- Przy 2 lub 3 graczach po 7 kart, przy 4 po 6, przy 5 lub 6 po 5. Pozostałe karty tworzą stos.
+- Poproś innego gracza o jedną kartę: członka rodziny, z której masz już kartę, ale nie kartę, którą sam masz.
+- Jeśli ją ma, daje ci ją, a ty pytasz dalej.
+- Jeśli nie, „pioche!”: dobierz kartę ze stosu. Jeśli to karta, o którą prosiłeś, pytasz dalej; jeśli nie, gra następny gracz.
+- Pełną rodzinę od razu się wykłada.
+- Jeśli przychodzi twoja kolej, a nie masz kart, dobierasz jedną. Jeśli nikt inny nie ma kart, zapytaj kogokolwiek: odpowie stos.
+# Koniec gry
+Gdy wszystkie 7 rodzin leży na stole, wygrywa gracz, który ma ich najwięcej; gracze z równą liczbą dzielą zwycięstwo.
+# Gra na urządzeniu
+Podawajcie sobie urządzenie: każdy widzi na dole swoją rękę, a tuż nad nią swoje rodziny. Ręce pozostałych to małe wachlarze na górze, każdy z żetonem gracza, liczbą kart i rodzinami. Gracz, którego zapytasz, świeci: dotknij innego gracza, aby to zmienić. Dotknij karty w swojej ręce: pojawi się sześciu członków jej rodziny, tych, których masz, wyblakłych. Dotknij członka, którego chcesz: odpowiedź przychodzi od razu, a karta przylatuje od drugiego gracza albo ze stosu. Pośrodku widać ostatnie pytanie, kto prosił kogo o jaką kartę: świeci, jeśli karta została dana, a mały rewers karty oznacza „pioche”. Każdy pasek pokazuje wyłożone rodziny. Cofnij nie cofa pytania.

@@ -1,0 +1,14 @@
+Bataille
+# Le but
+Gagner toutes les cartes. Le grand classique des enfants : personne ne choisit rien, les cartes décident. De 2 à 4 joueurs.
+# Un coup
+- On distribue les 52 cartes face cachée, en un tas pour chaque joueur.
+- Chaque joueur retourne la carte du dessus de son tas. La plus forte ramasse toutes les cartes retournées et les met sous son tas. L'as est la plus forte, puis le roi, la dame, le valet, le 10 et ainsi de suite jusqu'au 2.
+- Si les plus fortes sont égales, c'est la bataille : ces joueurs posent chacun une carte face cachée, puis une face visible. La plus forte ramasse tout ; encore égalité, encore bataille.
+- Dans une bataille, un joueur à qui il ne reste qu'une carte la retourne face visible ; un joueur qui n'a plus de carte en sort.
+- Un joueur qui n'a plus de cartes est éliminé.
+# La fin de la partie
+- Bataille : la partie s'arrête quand un joueur a toutes les cartes.
+- Partie courte : elle s'arrête aussi après 26 coups. Le joueur qui a le plus de cartes gagne ; les joueurs à égalité partagent la victoire. Le nombre au milieu compte les coups restants.
+# Jouer sur l'appareil
+Pose l'appareil à plat entre les joueurs : le premier joueur est en bas, les autres autour de la table. Chacun touche son propre tas pour retourner une carte ; les tas qui attendent brillent. La carte gagnante s'illumine, puis toutes les cartes volent vers le tas du gagnant. Dans une bataille, les cartes égales brillent en rouge. À côté de chaque tas : la pièce de son joueur et son nombre de cartes. Annuler reprend le dernier toucher.
