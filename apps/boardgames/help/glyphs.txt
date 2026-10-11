@@ -1,5 +1,7 @@
 # The characters the boards themselves draw (not the rules texts): tools/gen_text.py keeps them in every language's
 # font. One game a line; a game that draws a new character adds it here.
+# the digits of the scores and counts (ui_number)
+0123456789
 # xiangqi (Chinese chess), the traditional sets: red, black
 帥仕相俥傌炮兵 將士象車馬砲卒
 # janggi (Korean chess)

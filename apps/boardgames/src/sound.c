@@ -100,6 +100,7 @@ static void mix(void *u, Uint8 *stream, int bytes)
         float v = 0;
         for (int k = 0; k < VOICES; k++) {
             if (voice[k].s < 0) continue;
+            if (voice[k].pos < 0) { voice[k].pos++; continue; }   /* a sound waiting for its moment */
             v += clip[voice[k].s][voice[k].pos++] * voice[k].vol;
             if (voice[k].pos >= len[voice[k].s]) voice[k].s = -1;
         }
@@ -125,7 +126,9 @@ void snd_init(void)
 
 void snd_play(int s) { snd_play_vol(s, 1); }
 
-void snd_play_vol(int s, float volume)
+void snd_play_vol(int s, float volume) { snd_play_at(s, volume, 0); }
+
+void snd_play_at(int s, float volume, int delay_ms)
 {
     if (!dev || snd_muted || s < 0 || s >= SNDS || volume <= 0) return;
     SDL_LockAudioDevice(dev);
@@ -133,7 +136,7 @@ void snd_play_vol(int s, float volume)
     for (int i = 0; i < VOICES; i++)
         if (voice[i].s < 0 || voice[i].pos > voice[k].pos) { k = i; if (voice[i].s < 0) break; }
     voice[k].s = s;
-    voice[k].pos = 0;
+    voice[k].pos = delay_ms > 0 ? -(delay_ms * RATE / 1000) : 0;
     voice[k].vol = volume > 1 ? 1 : volume;
     SDL_UnlockAudioDevice(dev);
 }

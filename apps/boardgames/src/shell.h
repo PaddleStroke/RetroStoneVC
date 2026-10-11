@@ -91,6 +91,7 @@ void ui_mark_gold(float cx, float cy, float d);           /* a success (a mill, 
 enum { SND_MOVE, SND_CAPTURE, SND_PLACE, SND_DROP, SND_CHECK, SND_END, SND_TAP, SND_DENY, SND_DICE, SNDS };
 void ui_sound(int s);
 void ui_sound_soft(int s, float volume);        /* quieter (0..1): many small sounds in a row (mancala's seeds) */
+void ui_sound_later(int s, int ms);             /* in ms: when a sliding piece lands */
 
 /* chance: the shell's dice. ui_random gives 0..n-1 (seeded at start; --seed in the picture mode, so tests and
  * screenshots repeat); the rules take the values as input. ui_dice_throw shows dice tumbling to their values (with
@@ -107,6 +108,7 @@ int  ui_dice_busy(void);                        /* 1 while they tumble */
 void snd_init(void);
 void snd_play(int s);
 void snd_play_vol(int s, float volume);
+void snd_play_at(int s, float volume, int delay_ms);
 extern int snd_muted;
 
 #endif

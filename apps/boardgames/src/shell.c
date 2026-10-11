@@ -253,6 +253,7 @@ void ui_dice_draw(float cx, float cy, float size, unsigned used)
 }
 
 void ui_sound_soft(int s, float volume) { snd_play_vol(s, volume); }
+void ui_sound_later(int s, int ms) { snd_play_at(s, 1, ms); }
 
 /* digits: white textures per height (a few heights kept), tinted when drawn, turned round their centre */
 static void number(float cx, float cy, float h, int value, int light, double deg)
@@ -266,9 +267,12 @@ static void number(float cx, float cy, float h, int value, int light, double deg
         k = next++ & 3;
         for (int i = 0; i < 10; i++) ui_free(&cache[k].d[i]);
         int w = (int)(0.62f * ih + 1);
-        for (int i = 0; i < 10; i++) {
-            art_digit(i, w, ih, ui_buf(w, ih));
-            cache[k].d[i] = ui_tex(w, ih, ui_buf(w, ih));
+        static const uint8_t white[3] = {255, 255, 255};
+        for (int i = 0; i < 10; i++) {          /* the font's bold digits (help/glyphs.txt keeps them), tinted */
+            uint8_t *b = ui_buf(w, ih);
+            memset(b, 0, (size_t)w * ih * 4);
+            text_glyph('0' + i, ih * 1.2f, 1, white, b, w, ih);
+            cache[k].d[i] = ui_tex(w, ih, b);
         }
         cache[k].h = ih;
     }
