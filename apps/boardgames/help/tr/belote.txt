@@ -1,0 +1,38 @@
+Belot
+# Amaç
+Fransa'nın en sevilen kart oyunu; iki takım halinde dört oyuncuyla oynanır: eşler karşılıklı oturur. Bol puanlı eller al ve hedefe ilk ulaşan takım ol: Belot'ta 501, Coinche'ta 1000 puan. Destede 7'den asa kadar 32 kart vardır. Sıra oyuncudan oyuncuya geçer ve her dağıtımda dağıtan bir kişi kayar.
+# Kartlar
+- Koz sıralaması: vale, 9, as, 10, papaz, kız, 8, 7. Değerleri 20, 14, 11, 10, 4, 3, 0 ve 0 puandır.
+- Diğer renklerde sıralama: as, 10, papaz, kız, vale, 9, 8, 7. Değerleri 11, 10, 4, 3, 2, 0, 0 ve 0 puandır.
+- Son el 10 puan daha getirir (dix de der, "sonun onluğu"): her dağıtımda 162 puan.
+- Aynı oyuncudaki koz papazı ve koz kızı belot ve rebelot olur: o takıma 20 puan. Oynanırken söylenirler.
+# Kozu seçmek (Belot)
+- Her oyuncuya 3 kart, sonra 2 kart verilir ve sıradaki kart açılır.
+- Sırayla her oyuncu açık kartı alır, böylece onun rengi koz olur, ya da pas der.
+- Dördü de pas derse ikinci tur başlar: sırayla her oyuncu başka bir rengi koz olarak söyler ya da pas der. Yine pas derlerse sonraki dağıtıcı yeni kartlar dağıtır.
+- Kartı alan oyuncu üstlenen olur. Herkese 3 kart daha verilir; üstlenen açık kartı ve 2 kart alır.
+# İhale (Coinche)
+- Her oyuncuya 8 kartın hepsi verilir: 3, 3 ve 2. Hiçbir kart açılmaz.
+- Sırayla her oyuncu bir renkte kontrat söyler: takımının yapmayı vaat ettiği puan, 80'den 160'a 10'ar 10'ar, ya da capot (bütün eller, 250 değerinde). Her teklif bir öncekinden yüksek olmalıdır. Ya da pas der.
+- Bir oyuncu öbür takımın teklifine coinche diyebilir: bahis iki katına çıkar. Teklif veren o zaman surcoinche diyerek bir kez daha ikiye katlayabilir ya da pas diyebilir; her iki durumda da ihale biter.
+- Bir tekliften sonra üç pas ihaleyi bitirir. Hiç teklif olmadan dört pas: yeni kartlar.
+# Oyun
+- Dağıtandan sonraki oyuncu ilk ele başlar; bir eli alan bir sonrakine başlar.
+- Yapabiliyorsan açılan rengi takip et.
+- Yapamıyorsan koz atmalısın; mümkünse yerdeki kozlardan daha yüksek bir koz (yükseltemiyorsan herhangi bir koz). Kozun yoksa istediğin kartı at.
+- İstisna: eli eşin alıyorsa istediğin kartı atabilirsin.
+- Koz açıldığında, eşinin üstüne bile olsa, yapabiliyorsan her zaman daha yüksek koz atmalısın.
+- Eli en yüksek koz alır; koz yoksa açılan rengin en yüksek kartı.
+# Puanlama (Belot)
+- Üstlenen takım, belot dahil, diğer takımdan fazla puan yapmalıdır. O zaman her takım yaptığı puanı yazar.
+- Yapamazsa dedans ("içeride") olur: diğer takım 162 yazar, üstlenenler hiçbir şey. Belot ve rebelot her zaman onları elinde tutan takımda kalır.
+- Bütün elleri alan takım capot olur: 162 yerine 250 puan.
+# Puanlama (Coinche)
+- Üstlenenler en az söyledikleri puanı (belot dahil) ve 81'den fazlasını yaparsa kontrat tutar; capot kontratı için bütün eller gerekir.
+- Tuttu: üstlenenler kontratlarını artı kendi puanlarını, savunanlar kendi puanlarını yazar.
+- Tutmadı: savunanlar 160 artı kontratı yazar.
+- Coinche ya da surcoinche varsa: kazanan taraf 160 artı kontratın 2 ya da 4 katını yazar; öbür taraf yalnızca belotunu yazar.
+# Oyunun sonu
+Oyun, bir takımın hedefe ulaştığı dağıtımdan sonra biter. Daha çok puanı olan takım kazanır; toplamlar eşitse bir dağıtım daha oynanır.
+# Cihazda oynamak
+Cihazı elden ele verin: herkes yalnızca kendi kartlarını altta görür. Diğer oyuncular masanın etrafında oturur: solda, karşıda (eşin) ve sağda, üstteki şeritlerinin sırasıyla. Almak için açık karta dokun; ikinci turda, söylediğin rengin asına dokun. Coinche'ta bir kontrata, sonra onun renginin asına dokun; üzerinde bir çarpı ve bir 2 olan yuvarlak pul coinche der (bir çarpı ve bir 4: surcoinche). Pas düğmesi senin şeridindedir. Oynamak için bir karta dokunup onu kaldır, sonra ona yeniden dokun, ya da masaya dokun, ya da onu oraya sürükle. Oynayamayacağın kartlar soluk görünür. Son el köşede küçük gösterilir. Her şerit takımın toplamını ve her oyuncunun ne dediğini gösterir: pas, bir kontrat ya da üstlenenin koz ası. Her dağıtımdan sonra bir tablo her takımın puanlarını, dağıtımın skorunu ve toplamları gösterir (bir çarpı: kontrat tutmadı); sonraki dağıtım için ona dokun.

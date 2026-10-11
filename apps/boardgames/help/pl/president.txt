@@ -1,0 +1,24 @@
+Prezydent
+# Cel gry
+Pozbądź się wszystkich kart przed pozostałymi. Kto pierwszy zostanie bez kart, zostaje Prezydentem, a ostatni Żebrakiem; rangi zmieniają właścicieli z rozdania na rozdanie. Dla 3–6 graczy, z talią 52 kart rozdawanych po jednej (niektórzy mogą dostać o jedną kartę więcej). Gra się pięć rozdań; wygrywa najwyższa suma.
+# Karty
+- Od najniższej do najwyższej: 3, 4, 5, 6, 7, 8, 9, 10, walet, dama, król, as i 2, najwyższa ze wszystkich.
+- Kolory się nie liczą.
+# Lewa
+- Wychodzący zagrywa jedną kartę albo dwie, trzy lub cztery karty tej samej wartości.
+- Po kolei każdy z pozostałych zagrywa tyle samo kart wyższej wartości albo pasuje. Gracz, który spasował, może znów zagrać, gdy przyjdzie jego kolej.
+- Gdy wszyscy pozostali spasują jeden po drugim, lewa się kończy. Ostatni, który zagrał, wychodzi do następnej; jeśli nie ma już kart, wychodzi następny gracz, który jeszcze je ma.
+- 2 od razu kończy lewę: ten, kto ją zagrał, wychodzi ponownie.
+# Wyjście z gry
+Gracz, który zagrał wszystkie swoje karty, wychodzi z gry. Kolejność, w jakiej gracze wychodzą, wyznacza rangi na następne rozdanie:
+- pierwszy: Prezydent, korona;
+- drugi: Wiceprezydent, mała korona (od czterech graczy);
+- środkowe miejsca: Obywatel, bez znaku;
+- przedostatni: Biedak, strzałka w dół (od czterech graczy);
+- ostatni: Żebrak, dwie strzałki w dół.
+# Wymiana
+Od drugiego rozdania Żebrak dostaje karty pierwszy i wychodzi. Od razu Żebrak oddaje swoje dwie najlepsze karty Prezydentowi, a Biedak swoją najlepszą kartę Wiceprezydentowi. Potem Prezydent oddaje Żebrakowi dowolne dwie karty, a Wiceprezydent Biedakowi dowolną jedną kartę, w tajemnicy.
+# Punktacja
+W każdym rozdaniu gracz, który pierwszy wyszedł z gry, dostaje o jeden punkt mniej, niż jest graczy, następny o jeden mniej i tak dalej: ostatni nie dostaje nic. Po pięciu rozdaniach wygrywa najwyższa suma; gracze z równą sumą dzielą się zwycięstwem.
+# Gra na urządzeniu
+Podawajcie sobie urządzenie: każdy gracz widzi tylko swoje karty, na dole, od trójek do dwójek. U góry stołu siedzą pozostali, w kolejności swoich pasków: widać, ile mają kart, i znak pasu, jeśli spasowali od ostatniego zagrania; po wyjściu z gry znak ich nowej rangi. Ostatnie zagranie leży duże na środku z żetonem gracza, który je zagrał, a wcześniejsze, mniejsze, za nim. Dotykaj kart, by je wybrać (gdy dokładasz, jedno dotknięcie wybiera tyle kart tej wartości, ile trzeba), potem dotknij środka albo przeciągnij je tam. Przycisk pasowania jest na twoim pasku. Przy wymianie wybierz karty do oddania i dotknij miejsc obok żetonu odbiorcy; otrzymane karty świecą. Każdy pasek pokazuje rangę i sumę gracza. Po każdym rozdaniu tabela pokazuje graczy w kolejności wyjścia z gry, ich nowe rangi, punkty i sumy; dotknij jej, by przejść do następnego rozdania.

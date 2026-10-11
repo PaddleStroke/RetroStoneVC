@@ -1,0 +1,38 @@
+Belote
+# Tujuan
+Permainan kartu kesayangan Prancis, untuk empat pemain dalam dua tim: pasangan duduk berhadapan. Menangkan trik yang penuh poin, dan jadilah tim pertama yang mencapai target: 501 poin di Belote, 1000 di Coinche. Deknya berisi 32 kartu, dari 7 sampai as. Giliran berpindah dari satu pemain ke pemain berikutnya, dan pembagi kartu bergeser satu tempat setiap ronde.
+# Kartu
+- Urutan truf: jack, 9, as, 10, king, queen, 8, 7. Nilainya 20, 14, 11, 10, 4, 3, 0, dan 0 poin.
+- Urutan jenis kartu lainnya: as, 10, king, queen, jack, 9, 8, 7. Nilainya 11, 10, 4, 3, 2, 0, 0, dan 0 poin.
+- Trik terakhir memberi 10 poin tambahan (dix de der): 162 poin di setiap ronde.
+- King dan queen truf di satu tangan adalah belote dan rebelote: 20 poin untuk tim itu. Keduanya diumumkan saat dimainkan.
+# Memilih truf (Belote)
+- Setiap pemain mendapat 3 kartu, lalu 2, dan kartu berikutnya dibuka.
+- Bergiliran, setiap pemain mengambil kartu yang dibuka itu, sehingga jenisnya menjadi truf, atau pas.
+- Jika keempatnya pas, ada putaran kedua: bergiliran, setiap pemain menyebut jenis lain sebagai truf, atau pas. Jika semua pas lagi, pembagi kartu berikutnya membagikan kartu baru.
+- Pemain yang mengambil disebut pengambil. Semua pemain mendapat 3 kartu lagi; pengambil mendapat kartu yang dibuka itu dan 2.
+# Lelang (Coinche)
+- Setiap pemain mendapat seluruh 8 kartunya: 3, 3, dan 2. Tidak ada kartu yang dibuka.
+- Bergiliran, setiap pemain menawar kontrak dalam satu jenis: poin yang dijanjikan timnya, dari 80 sampai 160 dengan kelipatan 10, atau capot (semua trik, bernilai 250). Setiap tawaran harus lebih tinggi dari yang sebelumnya. Atau pas.
+- Pemain boleh menyatakan coinche atas tawaran tim lawan: taruhannya menjadi dua kali lipat. Penawar lalu boleh menyatakan surcoinche, menggandakannya lagi, atau pas; apa pun pilihannya, lelang selesai.
+- Tiga pas setelah sebuah tawaran mengakhiri lelang. Empat pas tanpa tawaran: kartu baru.
+# Jalannya permainan
+- Pemain setelah pembagi kartu memulai trik pertama; pemenang sebuah trik memulai trik berikutnya.
+- Ikuti jenis kartu yang dimainkan pertama jika bisa.
+- Jika tidak bisa, kamu harus memainkan truf, lebih tinggi dari truf yang sudah ada di trik itu jika bisa (jika tidak bisa lebih tinggi, truf apa saja). Jika tidak punya truf, mainkan kartu apa saja.
+- Pengecualian: saat pasanganmu sedang memenangkan trik, kamu boleh memainkan kartu apa saja.
+- Saat truf dimainkan pertama, kamu selalu harus memainkan truf yang lebih tinggi jika bisa, bahkan melampaui pasanganmu.
+- Truf tertinggi memenangkan trik; jika tidak ada truf, kartu tertinggi dari jenis yang dimainkan pertama.
+# Skor (Belote)
+- Tim pengambil harus mendapat poin lebih banyak dari tim lawan, termasuk belote. Lalu setiap tim mencatat poin yang didapatnya.
+- Jika tidak, mereka dedans (gagal): tim lawan mencatat 162 dan tim pengambil tidak mendapat apa-apa. Belote dan rebelote selalu tetap milik tim yang memegangnya.
+- Tim yang memenangkan semua trik membuat capot: 250 poin, bukan 162.
+# Skor (Coinche)
+- Kontrak berhasil jika tim pengambil mendapat setidaknya poin yang ditawarkannya (termasuk belote) dan lebih dari 81; kontrak capot membutuhkan semua trik.
+- Berhasil: tim pengambil mencatat kontraknya ditambah poinnya, tim bertahan poinnya sendiri.
+- Gagal: tim bertahan mencatat 160 ditambah kontrak.
+- Dengan coinche atau surcoinche: pihak yang menang mencatat 160 ditambah kontrak, dikali dua atau dikali empat; pihak lain hanya mencatat belote-nya.
+# Akhir permainan
+Permainan berakhir setelah ronde ketika sebuah tim mencapai target. Tim dengan poin lebih banyak menang; jika totalnya sama, dimainkan satu ronde lagi.
+# Bermain di perangkat
+Gilirkan perangkat: setiap pemain hanya melihat kartunya sendiri, di bawah. Pemain lain duduk mengelilingi meja: di kiri, di seberang (pasanganmu), dan di kanan, sesuai urutan bilah mereka di atas. Untuk mengambil, ketuk kartu yang dibuka; di putaran kedua, ketuk as dari jenis yang kamu sebut. Di Coinche, ketuk sebuah kontrak, lalu as dari jenisnya; keping bulat bertanda silang dan angka 2 untuk coinche (tanda silang dan angka 4: surcoinche). Tombol pas ada di bilahmu. Untuk bermain, ketuk sebuah kartu untuk mengangkatnya, lalu ketuk lagi, atau ketuk meja, atau seret kartu ke sana. Kartu yang tidak boleh kamu mainkan diredupkan. Trik terakhir ditampilkan kecil di sudut. Setiap bilah menunjukkan total tim, dan apa yang dikatakan setiap pemain: pas, kontrak, atau as truf milik pengambil. Setelah setiap ronde, sebuah tabel menunjukkan poin setiap tim, skor ronde itu, dan totalnya (tanda silang: kontrak gagal); ketuk untuk ronde berikutnya.

@@ -1,0 +1,24 @@
+Præsident
+# Målet
+Bliv af med alle dine kort før de andre. Den første, der går ud, bliver Præsident, den sidste Tigger, og rangene skifter hænder fra giv til giv. For 3 til 6 spillere, med et spil på 52 kort, der gives ud ét ad gangen (nogle spillere kan få et kort mere). Der spilles fem giv; den højeste sum vinder.
+# Kortene
+- Fra lav til høj: 3, 4, 5, 6, 7, 8, 9, 10, knægt, dame, konge, es og 2'eren, den højeste af alle.
+- Kulørerne er ligegyldige.
+# Et stik
+- Den, der spiller ud, lægger ét kort, eller to, tre eller fire kort af samme rang.
+- På skift lægger hver af de andre det samme antal kort af en højere rang eller melder pas. En spiller, der har meldt pas, må spille igen, når turen kommer tilbage.
+- Når alle de andre har meldt pas i træk, er stikket slut. Den, der spillede sidst, spiller ud til det næste; har vedkommende ingen kort tilbage, spiller den næste spiller ud, der stadig har kort.
+- En 2'er afslutter stikket med det samme: den, der lagde den, spiller ud igen.
+# At gå ud
+En spiller, der har spillet alle sine kort, er gået ud. Rækkefølgen, spillerne går ud i, giver rangene til næste giv:
+- den første: Præsident, en krone;
+- den anden: Vicepræsident, en lille krone (fire spillere eller flere);
+- de midterste pladser: Neutral, intet tegn;
+- den næstsidste: Vicetigger, en pil nedad (fire spillere eller flere);
+- den sidste: Tigger, to pile nedad.
+# Byttet
+Fra andet giv får Tiggeren kort først og spiller ud. Straks giver Tiggeren sine to bedste kort til Præsidenten, og Vicetiggeren sit bedste kort til Vicepræsidenten. Derefter giver Præsidenten to valgfrie kort tilbage til Tiggeren, og Vicepræsidenten ét valgfrit kort til Vicetiggeren, i hemmelighed.
+# Pointtælling
+I hvert giv får den første, der går ud, ét point mindre end antallet af spillere, den næste ét point mindre, og så videre: den sidste får intet. Efter fem giv vinder den højeste sum; spillere med samme sum deler sejren.
+# Spil på enheden
+Send enheden rundt: hver spiller ser kun sine egne kort, nederst, fra 3'erne op til 2'erne. Langs bordets øverste kant sidder de andre, i samme rækkefølge som deres paneler: hvor mange kort de har, og et pas-tegn, hvis de har meldt pas siden sidste træk; når de er gået ud, tegnet for deres nye rang. Det sidste træk ligger stort i midten med spillerens markør, de tidligere træk mindre bagved. Tryk på kort for at vælge dem (når du skal følge, vælger ét tryk så mange kort af den rang, som der skal bruges), og tryk så på midten eller træk dem derhen. Knappen Pas er i dit panel. Ved byttet vælger du de kort, du giver, og trykker på pladserne ved siden af modtagerens markør; de kort, du fik, lyser. Hvert panel viser spillerens rang og sum. Efter hvert giv viser en tavle spillerne i den rækkefølge, de gik ud, deres nye rang, point og summer; tryk på den for næste giv.

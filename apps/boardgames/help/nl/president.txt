@@ -1,0 +1,24 @@
+President
+# Het doel
+Al je kaarten kwijtraken voor de anderen. Wie als eerste uit is, wordt President, de laatste Bedelaar, en de rangen wisselen van ronde tot ronde. Voor 3 tot 6 spelers, met een spel van 52 kaarten die een voor een worden gegeven (sommige spelers kunnen een kaart meer krijgen). Er worden vijf rondes gespeeld; het hoogste totaal wint.
+# De kaarten
+- Van laag naar hoog: 3, 4, 5, 6, 7, 8, 9, 10, boer, vrouw, heer, aas, en de 2, de hoogste van allemaal.
+- Kleuren doen er niet toe.
+# Een slag
+- Wie uitkomt, speelt één kaart, of twee, drie of vier kaarten van dezelfde rang.
+- Om de beurt speelt elk van de anderen evenveel kaarten van een hogere rang, of past. Wie gepast heeft, mag weer spelen als zijn beurt terugkomt.
+- Als alle anderen na elkaar gepast hebben, is de slag voorbij. Wie het laatst speelde, komt uit in de volgende; heeft die geen kaarten meer, dan komt de volgende speler uit die er nog wel heeft.
+- Een 2 beëindigt de slag meteen: wie hem speelde, komt opnieuw uit.
+# Uitgaan
+Een speler die al zijn kaarten gespeeld heeft, is uit. De volgorde waarin de spelers uitgaan, bepaalt de rangen voor de volgende ronde:
+- de eerste: President, een kroon;
+- de tweede: Vicepresident, een kleine kroon (vanaf vier spelers);
+- de middelste plaatsen: Neutraal, geen teken;
+- de voorlaatste: Vicebedelaar, een pijl omlaag (vanaf vier spelers);
+- de laatste: Bedelaar, twee pijlen omlaag.
+# De ruil
+Vanaf de tweede ronde krijgt de Bedelaar als eerste kaarten en komt hij uit. Meteen geeft de Bedelaar zijn twee beste kaarten aan de President, en de Vicebedelaar zijn beste kaart aan de Vicepresident. Daarna geeft de President twee kaarten naar keuze terug aan de Bedelaar, en de Vicepresident één kaart naar keuze aan de Vicebedelaar, in het geheim.
+# De score
+In elke ronde krijgt wie als eerste uit is, één punt minder dan het aantal spelers, de volgende een punt minder, enzovoort: de laatste krijgt niets. Na vijf rondes wint het hoogste totaal; spelers met een gelijk totaal delen de overwinning.
+# Spelen op het apparaat
+Geef het apparaat door: elke speler ziet alleen de eigen kaarten, onderaan, van de 3'en tot de 2'en. Bovenaan de tafel zitten de anderen, in de volgorde van hun balken: hoeveel kaarten ze hebben, en een pasteken als ze sinds de laatste zet gepast hebben; eenmaal uit, het teken van hun nieuwe rang. De laatste zet ligt groot in het midden met het stuk van wie hem speelde, de zetten ervoor kleiner erachter. Tik op kaarten om ze te kiezen (bij het volgen kiest één tik zoveel kaarten van die rang als nodig), en tik dan op het midden of sleep ze erheen. De pasknop staat in je balk. Bij de ruil kies je de kaarten die je geeft en tik je op de plaatsen naast het stuk van de ontvanger; de kaarten die je kreeg, lichten op. Elke balk toont de rang en het totaal van de speler. Na elke ronde toont een tabel de spelers in de volgorde waarin ze uitgingen, hun nieuwe rangen, hun punten en totalen; tik erop voor de volgende ronde.

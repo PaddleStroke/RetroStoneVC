@@ -1,0 +1,38 @@
+Belote
+# Cíl hry
+Nejoblíbenější karetní hra Francie, pro čtyři hráče ve dvou týmech: spoluhráči sedí naproti sobě. Získávej štychy plné bodů a buď prvním týmem, který dosáhne cíle: 501 bodů v Belote, 1000 v Coinche. Balíček má 32 karet, od sedmičky po eso. Hraje se postupně od hráče k hráči a rozdávající se s každým rozdáním posune o jedno místo.
+# Karty
+- Trumfy jdou v pořadí kluk, 9, eso, 10, král, dáma, 8, 7. Mají hodnotu 20, 14, 11, 10, 4, 3, 0 a 0 bodů.
+- Ostatní barvy jdou v pořadí eso, 10, král, dáma, kluk, 9, 8, 7. Mají hodnotu 11, 10, 4, 3, 2, 0, 0 a 0 bodů.
+- Poslední štych přináší 10 bodů navíc (dix de der, „deset za poslední“): v každém rozdání je 162 bodů.
+- Trumfový král a dáma v ruce jednoho hráče jsou belote a rebelote: 20 bodů pro jeho tým. Ohlašují se ve chvíli, kdy se hrají.
+# Volba trumfů (Belote)
+- Každý hráč dostane 3 karty, pak 2, a další karta se otočí lícem nahoru.
+- Postupně každý hráč buď vezme otočenou kartu, a její barva se stane trumfy, nebo pasuje.
+- Pokud všichni čtyři pasují, následuje druhé kolo: každý postupně určí jako trumfy jinou barvu, nebo pasuje. Pokud pasují znovu, další rozdávající rozdá nové karty.
+- Hráč, který vezme, je beroucí. Každý dostane ještě 3 karty; beroucí dostane otočenou kartu a 2.
+# Dražba (Coinche)
+- Každý hráč dostane všech 8 karet: 3, 3 a 2. Žádná karta se neotáčí.
+- Postupně každý hráč hlásí závazek v některé barvě: body, které jeho tým slibuje uhrát, od 80 do 160 po 10, nebo capot (všechny štychy, za 250). Každé hlášení musí být vyšší než předchozí. Nebo pasuje.
+- Hráč může na hlášení druhého týmu dát coinche: sázka se zdvojnásobí. Hlásící pak může dát surcoinche, další zdvojnásobení, nebo pasovat; v obou případech dražba končí.
+- Tři pasy po hlášení dražbu ukončí. Čtyři pasy bez hlášení: nové karty.
+# Hra
+- Hráč po rozdávajícím vynáší do prvního štychu; kdo štych vezme, vynáší do dalšího.
+- Přiznej vynesenou barvu, pokud můžeš.
+- Pokud nemůžeš, musíš zahrát trumf, a to vyšší než všechny trumfy už ve štychu, pokud můžeš (pokud přebít nemůžeš, jakýkoli trumf). Pokud trumf nemáš, zahraj jakoukoli kartu.
+- Výjimka: když štych drží tvůj spoluhráč, smíš zahrát jakoukoli kartu.
+- Když se vynesou trumfy, musíš vždy zahrát vyšší trumf, pokud můžeš, i přes svého spoluhráče.
+- Štych bere nejvyšší trumf; pokud v něm žádný není, nejvyšší karta vynesené barvy.
+# Počítání bodů (Belote)
+- Beroucí tým musí uhrát víc bodů než druhý tým, včetně belote. Pak každý tým získá body, které uhrál.
+- Jinak jsou dedans („uvnitř“, tedy prohráli): druhý tým získá 162 a beroucí nic. Belote a rebelote vždy zůstávají týmu, který je měl.
+- Tým, který vezme všechny štychy, uhraje capot: 250 bodů místo 162.
+# Počítání bodů (Coinche)
+- Závazek je splněn, pokud beroucí uhrají aspoň vydražené body (včetně belote) a víc než 81; závazek capot vyžaduje všechny štychy.
+- Splněný: beroucí získají svůj závazek plus své body, obránci své vlastní body.
+- Nesplněný: obránci získají 160 plus závazek.
+- S coinche nebo surcoinche: vítězná strana získá 160 plus závazek, dvakrát nebo čtyřikrát; druhá strana nezíská nic kromě své belote.
+# Konec hry
+Hra končí po rozdání, ve kterém některý tým dosáhne cíle. Vyhrává tým s více body; při rovnosti se hraje ještě jedno rozdání.
+# Hra na zařízení
+Posílejte si zařízení: každý hráč vidí jen své vlastní karty, dole. Ostatní hráči sedí kolem stolu: vlevo, naproti (tvůj spoluhráč) a vpravo, v pořadí jejich lišt nahoře. Chceš-li brát, klepni na otočenou kartu; ve druhém kole klepni na eso barvy, kterou určuješ. V Coinche klepni na závazek, pak na eso jeho barvy; kulatý žeton s křížkem a 2 dává coinche (křížek a 4: surcoinche). Tlačítko Pas je ve tvé liště. Při hře klepni na kartu, aby se zvedla, pak na ni klepni znovu, nebo klepni na stůl, nebo ji tam přetáhni. Karty, které zahrát nesmíš, jsou ztlumené. Poslední štych je zobrazen zmenšeně v rohu. Každá lišta ukazuje součet týmu a co který hráč řekl: pas, závazek, nebo trumfové eso beroucího. Po každém rozdání ukáže tabulka body každého týmu, skóre rozdání a součty (křížek: závazek nesplněn); klepni na ni a začne další rozdání.

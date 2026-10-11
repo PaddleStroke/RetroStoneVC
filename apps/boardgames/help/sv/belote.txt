@@ -1,0 +1,38 @@
+Belote
+# Målet
+Frankrikes favoritkortspel, för fyra spelare i två lag: partnerna sitter mitt emot varandra. Ta stick fulla av poäng och var det första laget som når målet: 501 poäng i Belote, 1000 i Coinche. Leken har 32 kort, från 7 till ess. Turen går från spelare till spelare, och den som ger flyttar en plats framåt för varje giv.
+# Korten
+- Trumf i rangordning: knekt, 9, ess, 10, kung, dam, 8, 7. De är värda 20, 14, 11, 10, 4, 3, 0 och 0 poäng.
+- I de andra färgerna: ess, 10, kung, dam, knekt, 9, 8, 7. De är värda 11, 10, 4, 3, 2, 0, 0 och 0 poäng.
+- Sista sticket ger 10 poäng extra (dix de der, "tio för sista"): 162 poäng i varje giv.
+- Trumfkung och trumfdam på samma hand är belote och rebelote: 20 poäng till det laget. De ropas ut när de spelas.
+# Välja trumf (Belote)
+- Varje spelare får 3 kort, sedan 2, och nästa kort vänds upp.
+- I tur och ordning tar varje spelare det uppvända kortet, så att dess färg blir trumf, eller passar.
+- Om alla fyra passar blir det en andra runda: var och en i tur och ordning väljer en annan färg som trumf, eller passar. Om alla passar igen ger nästa spelare nya kort.
+- Den som tar blir spelförare. Alla får 3 kort till; spelföraren får det uppvända kortet och 2.
+# Budgivningen (Coinche)
+- Varje spelare får alla 8 korten: 3, 3 och 2. Inget kort vänds upp.
+- I tur och ordning bjuder varje spelare ett kontrakt i en färg: de poäng laget lovar att ta, från 80 till 160 i steg om 10, eller capot (alla stick, värt 250). Varje bud måste vara högre än det förra. Eller passar.
+- En spelare kan säga coinche på det andra lagets bud: insatsen dubblas. Budgivaren kan då säga surcoinche och dubbla igen, eller passa; i båda fallen är budgivningen slut.
+- Tre pass efter ett bud avslutar budgivningen. Fyra pass utan bud: nya kort.
+# Spelet
+- Spelaren efter den som gav spelar ut till första sticket; den som tar ett stick spelar ut till nästa.
+- Bekänn färg om du kan.
+- Om du inte kan måste du trumfa, högre än all trumf som redan ligger i sticket om du kan (kan du inte gå över, valfri trumf). Har du ingen trumf, spela valfritt kort.
+- Undantag: när din partner vinner sticket får du spela valfritt kort.
+- När trumf spelas ut måste du alltid gå över med högre trumf om du kan, även över din partner.
+- Högsta trumfen tar sticket; finns ingen, tar det högsta kortet i den utspelade färgen.
+# Poängen (Belote)
+- Spelförarlaget måste ta fler poäng än det andra laget, belote inräknad. Då får varje lag de poäng det har tagit.
+- Annars är de dedans ("inne"): det andra laget får 162 och spelförarlaget ingenting. Belote och rebelote stannar alltid hos laget som hade dem.
+- Ett lag som tar alla stick gör capot: 250 poäng i stället för 162.
+# Poängen (Coinche)
+- Kontraktet går hem om spelförarlaget tar minst de budade poängen (belote inräknad) och mer än 81; ett capot-kontrakt kräver alla stick.
+- Hemgånget: spelförarlaget får kontraktet plus sina poäng, motspelarna sina egna poäng.
+- Bet: motspelarna får 160 plus kontraktet.
+- Med coinche eller surcoinche: den vinnande sidan får 160 plus kontraktet, gånger 2 eller gånger 4; den andra sidan får bara sin belote.
+# Partiets slut
+Partiet slutar efter den giv där ett lag når målet. Laget med flest poäng vinner; om summorna är lika spelas en giv till.
+# Spela på enheten
+Skicka runt enheten: varje spelare ser bara sina egna kort, längst ned. De andra spelarna sitter runt bordet: till vänster, mittemot (din partner) och till höger, i samma ordning som deras fält längst upp. Tryck på det uppvända kortet för att ta; i andra rundan trycker du på esset i den färg du väljer. I Coinche trycker du på ett kontrakt och sedan på esset i dess färg; den runda brickan med ett kryss och en 2 säger coinche (ett kryss och en 4: surcoinche). Passknappen finns i ditt fält. Spela ett kort genom att trycka på det så att det lyfts, och tryck sedan på det igen, eller på bordet, eller dra dit det. Kort du inte får spela är nedtonade. Det senaste sticket visas litet i hörnet. Varje fält visar lagets summa och vad varje spelare sa: pass, ett kontrakt eller spelförarens trumfess. Efter varje giv visar en tavla varje lags poäng, givens resultat och summorna (ett kryss: kontraktet gick bet); tryck på den för nästa giv.

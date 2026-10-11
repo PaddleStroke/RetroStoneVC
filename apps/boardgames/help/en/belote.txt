@@ -1,0 +1,38 @@
+Belote
+# The aim
+France's favourite card game, for four players in two teams: partners sit opposite each other. Win tricks full of points, and be the first team to reach the target: 501 points in Belote, 1000 in Coinche. The pack has 32 cards, from 7 to ace. Play goes round from player to player, and the dealer moves on one seat each deal.
+# The cards
+- Trumps rank jack, 9, ace, 10, king, queen, 8, 7. They are worth 20, 14, 11, 10, 4, 3, 0 and 0 points.
+- The other suits rank ace, 10, king, queen, jack, 9, 8, 7. They are worth 11, 10, 4, 3, 2, 0, 0 and 0 points.
+- The last trick earns 10 more points (dix de der): 162 points in each deal.
+- The king and queen of trumps in one hand are belote and rebelote: 20 points for that team. They are announced as they are played.
+# Choosing trumps (Belote)
+- Each player gets 3 cards, then 2, and the next card is turned face up.
+- In turn, each player takes the turned card, making its suit trumps, or passes.
+- If all four pass, a second round: each in turn names another suit as trumps, or passes. If they pass again, the next dealer deals new cards.
+- The player who takes is the taker. Everyone gets 3 more cards; the taker gets the turned card and 2.
+# The auction (Coinche)
+- Each player gets all 8 cards: 3, 3 and 2. No card is turned.
+- In turn, each player bids a contract in a suit: the points their team promises to make, from 80 to 160 in steps of 10, or capot (every trick, worth 250). Each bid must be higher than the last one. Or pass.
+- A player may coinche the other team's bid: it doubles the stakes. The bidder may then surcoinche, doubling again, or pass; either way the auction is over.
+- Three passes after a bid end the auction. Four passes without a bid: new cards.
+# The play
+- The player after the dealer leads the first trick; the winner of a trick leads the next one.
+- Follow the suit led if you can.
+- If you cannot, you must play a trump, higher than any trump already in the trick if you can (if you cannot go higher, any trump). If you have no trump, play any card.
+- Exception: when your partner is winning the trick, you may play any card.
+- When trumps are led, you must always play a higher trump if you can, even over your partner.
+- The highest trump wins the trick; if there is none, the highest card of the suit led.
+# The score (Belote)
+- The takers must make more points than the other team, belote included. Then each team scores the points it made.
+- Otherwise they are dedans: the other team scores 162 and the takers nothing. Belote and rebelote always stay with the team that held them.
+- A team that takes every trick is capot: 250 points instead of 162.
+# The score (Coinche)
+- The contract is made if the takers make at least the points they bid (belote included) and more than 81; a capot contract needs every trick.
+- Made: the takers score their contract plus their points, the defenders their own points.
+- Failed: the defenders score 160 plus the contract.
+- Coinched or surcoinched: the winning side scores 160 plus the contract, doubled or quadrupled; the other side scores nothing but its belote.
+# The end of the game
+The game ends after the deal in which a team reaches the target. The team with more points wins; if the totals are equal, one more deal is played.
+# Playing on the device
+Pass the device round: each player sees only their own cards, at the bottom. The other players sit round the table: left, across (your partner) and right, in the order of their bars at the top. To take, tap the turned card; in the second round, tap the ace of the suit you name. In Coinche, tap a contract, then the ace of its suit; the round chip with a cross and 2 coinches (a cross and 4: surcoinche). The pass button is in your bar. To play, tap a card to raise it, then tap it again, or tap the table, or drag it there. Cards you may not play are dimmed. The last trick is shown small in the corner. Each bar shows the team's total, and what each player said: a pass, a contract, or the taker's ace of trumps. After each deal a table shows each team's points, the score of the deal and the totals (a cross: the contract failed); tap it for the next deal.

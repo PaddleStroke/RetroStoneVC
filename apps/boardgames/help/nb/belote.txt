@@ -1,0 +1,38 @@
+Belote
+# Målet
+Frankrikes kjæreste kortspill, for fire spillere i to lag: makkerne sitter rett overfor hverandre. Vinn stikk fulle av poeng, og vær det første laget som når målet: 501 poeng i Belote, 1000 i Coinche. Kortstokken har 32 kort, fra 7 til ess. Turen går fra spiller til spiller, og giveren flytter én plass videre for hvert giv.
+# Kortene
+- I trumf er rekkefølgen knekt, 9, ess, 10, konge, dame, 8, 7. De er verdt 20, 14, 11, 10, 4, 3, 0 og 0 poeng.
+- I de andre fargene er rekkefølgen ess, 10, konge, dame, knekt, 9, 8, 7. De er verdt 11, 10, 4, 3, 2, 0, 0 og 0 poeng.
+- Siste stikk gir 10 poeng ekstra (dix de der): 162 poeng i hvert giv.
+- Trumfkongen og trumfdamen på samme hånd er belote og rebelote: 20 poeng til det laget. De meldes idet de spilles.
+# Velge trumf (Belote)
+- Hver spiller får 3 kort, så 2, og neste kort snus opp.
+- Etter tur tar hver spiller det oppsnudde kortet, slik at fargen blir trumf, eller melder pass.
+- Melder alle fire pass, blir det en andre runde: etter tur nevner hver spiller en annen farge som trumf, eller melder pass. Melder alle pass igjen, deler neste giver ut nye kort.
+- Den som tar, er spillefører. Alle får 3 kort til; spilleføreren får det oppsnudde kortet og 2.
+# Budrunden (Coinche)
+- Hver spiller får alle 8 kortene sine: 3, 3 og 2. Ingen kort snus.
+- Etter tur byr hver spiller en kontrakt i en farge: poengene laget lover å ta, fra 80 til 160 i trinn på 10, eller capot (alle stikkene, verdt 250). Hvert bud må være høyere enn det forrige. Eller pass.
+- En spiller kan melde coinche på det andre lagets bud: da dobles innsatsen. Budgiveren kan så melde surcoinche, som dobler igjen, eller melde pass; uansett er budrunden over.
+- Tre pass etter et bud avslutter budrunden. Fire pass uten bud: nye kort.
+# Spillet
+- Spilleren etter giveren spiller ut til første stikk; den som vinner et stikk, spiller ut til det neste.
+- Følg farge hvis du kan.
+- Hvis du ikke kan, må du spille trumf, høyere enn trumfene som allerede ligger i stikket hvis du kan (kan du ikke gå over, en hvilken som helst trumf). Har du ingen trumf, spill hvilket som helst kort.
+- Unntak: når makkeren din vinner stikket, kan du spille hvilket som helst kort.
+- Når det spilles ut trumf, må du alltid spille en høyere trumf hvis du kan, også over makkeren din.
+- Høyeste trumf vinner stikket; er det ingen trumf, vinner det høyeste kortet i fargen som ble spilt ut.
+# Poengtelling (Belote)
+- Spilleførerlaget må ta flere poeng enn det andre laget, belote medregnet. Da får hvert lag de poengene det tok.
+- Ellers er de dedans, altså bet: det andre laget får 162 og spilleførerlaget ingenting. Belote og rebelote blir alltid hos laget som hadde dem.
+- Et lag som tar alle stikkene, er capot: 250 poeng i stedet for 162.
+# Poengtelling (Coinche)
+- Kontrakten står hvis spilleførerlaget tar minst poengene det bød (belote medregnet) og mer enn 81; en capot-kontrakt krever alle stikkene.
+- Står: spilleførerlaget får kontrakten pluss poengene sine, forsvarerne sine egne poeng.
+- Bet: forsvarerne får 160 pluss kontrakten.
+- Med coinche eller surcoinche: siden som vinner, får 160 pluss kontrakten, doblet eller firedoblet; den andre siden får bare beloten sin.
+# Slutten på spillet
+Spillet slutter etter givet der et lag når målet. Laget med flest poeng vinner; er summene like, spilles ett giv til.
+# Spill på enheten
+Send enheten rundt: hver spiller ser bare sine egne kort, nederst. De andre spillerne sitter rundt bordet: til venstre, rett overfor (makkeren din) og til høyre, i samme rekkefølge som panelene deres øverst. For å ta trykker du på det oppsnudde kortet; i andre runde trykker du på esset i fargen du nevner. I Coinche trykker du på en kontrakt og så på esset i fargen; den runde sjetongen med et kryss og et 2-tall melder coinche (et kryss og et 4-tall: surcoinche). Pass-knappen er i panelet ditt. For å spille trykker du på et kort for å løfte det, og så på det igjen, eller på bordet, eller du drar det dit. Kort du ikke kan spille, er dempet. Siste stikk vises lite i hjørnet. Hvert panel viser lagets sum og hva hver spiller sa: pass, en kontrakt eller spilleførerens trumfess. Etter hvert giv viser en tavle poengene til hvert lag, resultatet av givet og summene (et kryss: kontrakten gikk bet); trykk på den for neste giv.

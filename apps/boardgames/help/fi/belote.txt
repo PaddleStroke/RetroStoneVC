@@ -1,0 +1,38 @@
+Belote
+# Tavoite
+Ranskan rakastetuin korttipeli neljälle pelaajalle kahtena joukkueena: parit istuvat vastakkain. Voita pisteitä täynnä olevia tikkejä ja ole ensimmäinen joukkue, joka saavuttaa tavoitteen: 501 pistettä Belotessa, 1000 Coinchessa. Pakassa on 32 korttia, seiskasta ässään. Vuoro kiertää pelaajalta toiselle, ja jakaja siirtyy joka jaossa yhden paikan eteenpäin.
+# Kortit
+- Valttimaan järjestys on jätkä, 9, ässä, 10, kuningas, kuningatar, 8, 7. Ne ovat 20, 14, 11, 10, 4, 3, 0 ja 0 pisteen arvoisia.
+- Muiden maiden järjestys on ässä, 10, kuningas, kuningatar, jätkä, 9, 8, 7. Ne ovat 11, 10, 4, 3, 2, 0, 0 ja 0 pisteen arvoisia.
+- Viimeinen tikki tuo 10 lisäpistettä (dix de der): jokaisessa jaossa on 162 pistettä.
+- Valttikuningas ja valttikuningatar samassa kädessä ovat belote ja rebelote: 20 pistettä sille joukkueelle. Ne ilmoitetaan sitä mukaa kuin ne pelataan.
+# Valtin valinta (Belote)
+- Jokainen saa 3 korttia, sitten 2, ja seuraava kortti käännetään kuvapuoli ylöspäin.
+- Vuorollaan kukin joko ottaa käännetyn kortin, jolloin sen maasta tulee valtti, tai passaa.
+- Jos kaikki neljä passaavat, tulee toinen kierros: kukin vuorollaan nimeää valtiksi jonkin toisen maan tai passaa. Jos kaikki passaavat taas, seuraava jakaja jakaa uudet kortit.
+- Kortin ottanut pelaaja on ottaja. Kaikki saavat 3 korttia lisää; ottaja saa käännetyn kortin ja 2.
+# Tarjoukset (Coinche)
+- Jokainen saa kaikki 8 korttiaan: 3, 3 ja 2. Yhtään korttia ei käännetä.
+- Vuorollaan kukin tarjoaa sopimusta jossakin maassa: pisteet, jotka hänen joukkueensa lupaa tehdä, 80:stä 160:een kymmenen välein, tai capot (kaikki tikit, arvo 250). Jokaisen tarjouksen on oltava edellistä suurempi. Tai hän passaa.
+- Pelaaja voi sanoa coinche toisen joukkueen tarjoukselle: panokset kaksinkertaistuvat. Tarjoaja voi silloin sanoa surcoinche, joka kaksinkertaistaa ne uudelleen, tai passata; kummassakin tapauksessa tarjoukset päättyvät.
+- Kolme passia tarjouksen jälkeen päättää tarjoukset. Neljä passia ilman tarjousta: uudet kortit.
+# Pelin kulku
+- Jakajasta seuraava pelaaja aloittaa ensimmäisen tikin; tikin voittaja aloittaa seuraavan.
+- Tunnusta aloitettua maata, jos voit.
+- Jos et voi, sinun on pelattava valtti, korkeampi kuin tikissä jo olevat valtit, jos voit (jos et voi ylittää, mikä tahansa valtti). Jos sinulla ei ole valttia, pelaa mikä tahansa kortti.
+- Poikkeus: kun parisi on voittamassa tikkiä, voit pelata minkä tahansa kortin.
+- Kun tikki aloitetaan valtilla, sinun on aina pelattava korkeampi valtti, jos voit, myös parisi yli.
+- Korkein valtti voittaa tikin; jos valttia ei ole, aloitetun maan korkein kortti.
+# Pisteet (Belote)
+- Ottajien on tehtävä enemmän pisteitä kuin toisen joukkueen, belote mukaan lukien. Silloin kumpikin joukkue saa tekemänsä pisteet.
+- Muuten he ovat dedans eli kaatuvat: toinen joukkue saa 162 ja ottajat eivät mitään. Belote ja rebelote jäävät aina joukkueelle, jolla ne olivat.
+- Joukkue, joka voittaa kaikki tikit, tekee capot: 250 pistettä 162:n sijaan.
+# Pisteet (Coinche)
+- Sopimus täyttyy, jos ottajat tekevät vähintään tarjoamansa pisteet (belote mukaan lukien) ja yli 81; capot-sopimus vaatii kaikki tikit.
+- Täyttynyt: ottajat saavat sopimuksensa plus pisteensä, puolustajat omat pisteensä.
+- Kaatunut: puolustajat saavat 160 plus sopimuksen.
+- Coinche tai surcoinche: voittanut puoli saa 160 plus sopimuksen, kaksinkertaisena tai nelinkertaisena; toinen puoli saa vain belotensa.
+# Pelin loppu
+Peli päättyy sen jaon jälkeen, jolla jokin joukkue saavuttaa tavoitteen. Eniten pisteitä saanut joukkue voittaa; jos yhteispisteet ovat tasan, pelataan vielä yksi jako.
+# Pelaaminen laitteella
+Antakaa laite kiertää: jokainen näkee vain omat korttinsa alhaalla. Muut pelaajat istuvat pöydän ympärillä: vasemmalla, vastapäätä (parisi) ja oikealla, samassa järjestyksessä kuin heidän palkkinsa ylhäällä. Ota napauttamalla käännettyä korttia; toisella kierroksella napauta nimeämäsi maan ässää. Coinchessa napauta sopimusta ja sitten sen maan ässää; pyöreä kiekko, jossa on risti ja 2, sanoo coinche (risti ja 4: surcoinche). Passaa-painike on palkissasi. Pelaa napauttamalla korttia, jolloin se nousee, ja napauttamalla sitä uudelleen, tai napauta pöytää, tai vedä kortti sinne. Kortit, joita et saa pelata, ovat himmeinä. Viimeinen tikki näkyy pienenä nurkassa. Jokainen palkki näyttää joukkueen yhteispisteet ja sen, mitä kukin pelaaja sanoi: passin, sopimuksen tai ottajan valttiässän. Jokaisen jaon jälkeen taulukko näyttää kummankin joukkueen pisteet, jaon tuloksen ja yhteispisteet (risti: sopimus kaatui); napauta sitä aloittaaksesi seuraavan jaon.

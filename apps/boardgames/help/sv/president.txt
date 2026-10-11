@@ -1,0 +1,24 @@
+President
+# Målet
+Att bli av med alla sina kort före de andra. Den som först blir av med sina kort blir President, den siste blir Tiggare, och rangerna byter ägare från giv till giv. För 3 till 6 spelare, med en lek på 52 kort som delas ut ett i taget (vissa spelare kan få ett kort mer). Fem givar spelas; högsta summan vinner.
+# Korten
+- Från lägst till högst: 3, 4, 5, 6, 7, 8, 9, 10, knekt, dam, kung, ess, och 2:an, den högsta av alla.
+- Färgerna spelar ingen roll.
+# Ett stick
+- Den som spelar ut lägger ett kort, eller två, tre eller fyra kort av samma valör.
+- I tur och ordning lägger var och en av de andra lika många kort av högre valör, eller passar. Den som har passat får spela igen när turen kommer tillbaka.
+- När alla de andra har passat i följd är sticket slut. Den som spelade sist spelar ut till nästa; har den inga kort kvar spelar nästa spelare som fortfarande har kort ut.
+- En 2:a avslutar sticket direkt: den som lade den spelar ut igen.
+# Gå ut
+En spelare som har spelat alla sina kort har gått ut. Ordningen som spelarna går ut i ger rangerna för nästa giv:
+- den första: President, en krona;
+- den andra: Vicepresident, en liten krona (fyra spelare eller fler);
+- platserna i mitten: Neutral, inget tecken;
+- den näst sista: Vicetiggare, en pil nedåt (fyra spelare eller fler);
+- den sista: Tiggare, två pilar nedåt.
+# Bytet
+Från andra given får Tiggaren kort först och spelar ut. Genast ger Tiggaren sina två bästa kort till Presidenten, och Vicetiggaren sitt bästa kort till Vicepresidenten. Sedan ger Presidenten tillbaka två valfria kort till Tiggaren, och Vicepresidenten ett valfritt kort till Vicetiggaren, i hemlighet.
+# Poängen
+I varje giv får den som går ut först en poäng mindre än antalet spelare, nästa en poäng mindre, och så vidare: den sista får ingenting. Efter fem givar vinner högsta summan; spelare med lika summa delar på segern.
+# Spela på enheten
+Skicka runt enheten: varje spelare ser bara sina egna kort, längst ned, från treorna upp till tvåorna. Längst upp vid bordet sitter de andra, i samma ordning som deras fält: hur många kort de har, och ett passtecken om de har passat sedan det senaste draget; när de har gått ut, tecknet för deras nya rang. Det senaste draget ligger stort i mitten med spelarens markör, de tidigare dragen mindre bakom. Tryck på kort för att välja dem (när du följer på väljer ett tryck så många kort av den valören som behövs), och tryck sedan på mitten eller dra dit dem. Passknappen finns i ditt fält. Vid bytet väljer du korten att ge och trycker på platserna bredvid mottagarens markör; korten du har fått lyser. Varje fält visar spelarens rang och summa. Efter varje giv visar en tavla spelarna i den ordning de gick ut, deras nya ranger, poäng och summor; tryck på den för nästa giv.

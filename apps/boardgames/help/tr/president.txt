@@ -1,0 +1,24 @@
+Başkan
+# Amaç
+Bütün kartlarını herkesten önce bitirmek. Kartları ilk biten Başkan, en son biten Dilenci olur ve unvanlar dağıtımdan dağıtıma el değiştirir. 3 ila 6 oyuncu için; 52 kartlık deste birer birer dağıtılır (bazı oyuncular bir kart fazla alabilir). Beş dağıtım oynanır; en yüksek toplam kazanır.
+# Kartlar
+- En düşükten en yükseğe: 3, 4, 5, 6, 7, 8, 9, 10, vale, kız, papaz, as ve hepsinden yüksek olan 2.
+- Renkler önemli değildir.
+# Bir el
+- Ele başlayan oyuncu bir kart, ya da aynı değerde iki, üç veya dört kart oynar.
+- Sırayla diğerlerinin her biri aynı sayıda, daha yüksek değerde kart oynar ya da pas der. Pas diyen oyuncu, sıra yeniden ona geldiğinde tekrar oynayabilir.
+- Diğerlerinin hepsi arka arkaya pas deyince el biter. En son oynayan bir sonraki ele başlar; kartı kalmadıysa, hâlâ kartı olan sıradaki oyuncu başlar.
+- Bir 2 eli hemen bitirir: onu oynayan yeniden başlar.
+# Bitirmek
+Bütün kartlarını oynamış oyuncu bitirmiş olur. Oyuncuların bitirme sırası, sonraki dağıtımın unvanlarını belirler:
+- birinci: Başkan, bir taç;
+- ikinci: Başkan Yardımcısı, küçük bir taç (dört ya da daha fazla oyuncuda);
+- ortadaki sıralar: Vatandaş, işaret yok;
+- sondan ikinci: Dilenci Yardımcısı, aşağı bakan bir ok (dört ya da daha fazla oyuncuda);
+- sonuncu: Dilenci, aşağı bakan iki ok.
+# Değiş tokuş
+İkinci dağıtımdan itibaren kartlar önce Dilenciye dağıtılır ve ilk o başlar. Hemen ardından Dilenci en iyi iki kartını Başkana, Dilenci Yardımcısı da en iyi kartını Başkan Yardımcısına verir. Sonra Başkan istediği iki kartı Dilenciye, Başkan Yardımcısı da istediği bir kartı Dilenci Yardımcısına gizlice geri verir.
+# Puanlama
+Her dağıtımda ilk bitiren oyuncu, oyuncu sayısından bir eksik puan alır, sonraki bir puan daha az alır ve bu böyle sürer: sonuncu hiç puan almaz. Beş dağıtımdan sonra en yüksek toplam kazanır; eşit toplamlı oyuncular galibiyeti paylaşır.
+# Cihazda oynamak
+Cihazı elden ele verin: herkes yalnızca kendi kartlarını, altta, 3'lerden 2'lere doğru görür. Masanın üst tarafında diğerleri, şeritlerinin sırasıyla oturur: kaç kartları olduğu ve son hamleden beri pas dedilerse bir pas işareti; bitirdiklerinde yeni unvanlarının işareti. Son hamle, oynayanın puluyla ortada büyük durur, önceki hamleler arkasında daha küçük görünür. Seçmek için kartlara dokun (karşılık verirken bir dokunuş o değerden gereken sayıda kartı seçer), sonra ortaya dokun ya da onları oraya sürükle. Pas düğmesi senin şeridindedir. Değiş tokuşta vereceğin kartları seç ve alacak oyuncunun pulunun yanındaki yerlere dokun; sana gelen kartlar parlar. Her şerit oyuncunun unvanını ve toplamını gösterir. Her dağıtımdan sonra bir tablo oyuncuları bitirdikleri sırayla, yeni unvanlarını, puanlarını ve toplamlarını gösterir; sonraki dağıtım için ona dokun.

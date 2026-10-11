@@ -1,0 +1,24 @@
+Presidente
+# El objetivo
+Deshazte de todas tus cartas antes que los demás. El primero en quedarse sin cartas pasa a ser el Presidente, el último el Mendigo, y los rangos cambian de dueño en cada mano. De 3 a 6 jugadores, con una baraja de 52 cartas repartidas de una en una (algunos jugadores pueden recibir una carta más). Se juegan cinco manos; gana el total más alto.
+# Las cartas
+- De menor a mayor: 3, 4, 5, 6, 7, 8, 9, 10, sota, reina, rey, as y el 2, la más alta de todas.
+- Los palos no importan.
+# Una baza
+- El que sale juega una carta, o dos, tres o cuatro cartas del mismo valor.
+- Por turno, cada uno de los demás juega el mismo número de cartas, de un valor más alto, o pasa. Un jugador que ha pasado puede volver a jugar cuando le vuelva a tocar.
+- Cuando todos los demás han pasado seguidos, la baza termina. El último que jugó sale en la siguiente; si no le quedan cartas, sale el siguiente jugador que aún tenga.
+- Un 2 termina la baza en el acto: quien lo jugó vuelve a salir.
+# Quedarse sin cartas
+Un jugador que ha jugado todas sus cartas ha terminado. El orden en que terminan los jugadores da los rangos de la mano siguiente:
+- el primero: Presidente, una corona;
+- el segundo: Vicepresidente, una corona pequeña (con cuatro jugadores o más);
+- los puestos del medio: Neutral, sin signo;
+- el penúltimo: Vicemendigo, una flecha hacia abajo (con cuatro jugadores o más);
+- el último: Mendigo, dos flechas hacia abajo.
+# El intercambio
+A partir de la segunda mano, el Mendigo recibe cartas el primero y sale. Enseguida, el Mendigo da sus dos mejores cartas al Presidente, y el Vicemendigo su mejor carta al Vicepresidente. Después el Presidente devuelve dos cartas cualesquiera al Mendigo, y el Vicepresidente una carta cualquiera al Vicemendigo, en secreto.
+# La puntuación
+En cada mano, el primero en terminar se anota un punto menos que el número de jugadores, el siguiente un punto menos, y así sucesivamente: el último no se anota nada. Tras cinco manos, gana el total más alto; los jugadores empatados comparten la victoria.
+# Jugar en el dispositivo
+Pasaos el dispositivo: cada jugador solo ve sus propias cartas, abajo, de los 3 a los 2. A lo largo de la parte de arriba de la mesa se sientan los demás, en el orden de sus barras: cuántas cartas tienen, y un signo de paso si han pasado desde la última jugada; una vez terminados, el signo de su nuevo rango. La última jugada está en grande en el centro con la ficha de su jugador, y las jugadas anteriores, más pequeñas, detrás. Toca cartas para elegirlas (al responder a una jugada, un toque elige tantas cartas de ese valor como hagan falta) y luego toca el centro o arrástralas hasta allí. El botón Paso está en tu barra. En el intercambio, elige las cartas que das y toca los huecos junto a la ficha de quien las recibe; las cartas que has recibido brillan. Cada barra muestra el rango y el total del jugador. Tras cada mano, una tabla muestra a los jugadores en el orden en que terminaron, sus nuevos rangos, sus puntos y sus totales; tócala para la siguiente mano.

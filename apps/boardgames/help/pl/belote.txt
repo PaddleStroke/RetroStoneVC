@@ -1,0 +1,38 @@
+Belote
+# Cel gry
+Ulubiona gra karciana Francuzów, dla czterech graczy w dwóch drużynach: partnerzy siedzą naprzeciw siebie. Zdobywaj lewy pełne punktów i bądź pierwszą drużyną, która osiągnie cel: 501 punktów w Belote, 1000 w Coinche. Talia ma 32 karty, od 7 do asa. Kolejka przechodzi od gracza do gracza, a rozdający przesuwa się o jedno miejsce przy każdym rozdaniu.
+# Karty
+- Atuty od najstarszego: walet, 9, as, 10, król, dama, 8, 7. Są warte 20, 14, 11, 10, 4, 3, 0 i 0 punktów.
+- Pozostałe kolory od najstarszej karty: as, 10, król, dama, walet, 9, 8, 7. Są warte 11, 10, 4, 3, 2, 0, 0 i 0 punktów.
+- Ostatnia lewa daje 10 punktów więcej (dix de der): w każdym rozdaniu do zdobycia są 162 punkty.
+- Król i dama atutowe w jednej ręce to belote i rebelote: 20 punktów dla tej drużyny. Gracz zapowiada je tymi słowami, gdy je zagrywa.
+# Wybór atutu (Belote)
+- Każdy gracz dostaje 3 karty, potem 2, a następna karta zostaje odkryta.
+- Po kolei każdy bierze odkrytą kartę, a jej kolor zostaje atutem, albo pasuje.
+- Jeśli wszyscy czterej spasują, jest druga runda: po kolei każdy wskazuje inny kolor atutowy albo pasuje. Jeśli znów wszyscy spasują, następny rozdający rozdaje nowe karty.
+- Gracz, który bierze, to biorący. Każdy dostaje jeszcze 3 karty; biorący dostaje odkrytą kartę i 2.
+# Licytacja (Coinche)
+- Każdy gracz dostaje wszystkie 8 kart: 3, 3 i 2. Żadna karta nie jest odkrywana.
+- Po kolei każdy zgłasza kontrakt w jakimś kolorze: liczbę punktów, które jego drużyna obiecuje zdobyć, od 80 do 160 co 10, albo capot (wszystkie lewy, warte 250). Każda odzywka musi być wyższa od poprzedniej. Można też spasować.
+- Gracz może skontrować (coinche) odzywkę drugiej drużyny: stawka się podwaja. Licytujący może wtedy dać rekontrę (surcoinche), znów podwajając, albo spasować; w obu przypadkach licytacja się kończy.
+- Trzy pasy po odzywce kończą licytację. Cztery pasy bez odzywki: nowe rozdanie.
+# Rozgrywka
+- Gracz po rozdającym wychodzi do pierwszej lewy; kto weźmie lewę, wychodzi do następnej.
+- Dokładaj do koloru wyjścia, jeśli możesz.
+- Jeśli nie możesz, musisz zagrać atut, wyższy od atutów już leżących w lewie, jeśli możesz (jeśli nie możesz przebić, dowolny atut). Jeśli nie masz atutu, zagraj dowolną kartę.
+- Wyjątek: gdy lewę bierze twój partner, możesz zagrać dowolną kartę.
+- Gdy wyjście jest w atut, zawsze musisz zagrać wyższy atut, jeśli możesz, nawet przebijając partnera.
+- Lewę bierze najwyższy atut; jeśli go nie ma, najwyższa karta w kolorze wyjścia.
+# Punktacja (Belote)
+- Biorący muszą zdobyć więcej punktów niż druga drużyna, licząc belote. Wtedy każda drużyna zapisuje punkty, które zdobyła.
+- W przeciwnym razie są dedans (przegrali): druga drużyna zapisuje 162, a biorący nic. Belote i rebelote zawsze zostają przy drużynie, która je miała.
+- Drużyna, która weźmie wszystkie lewy, ma capot: 250 punktów zamiast 162.
+# Punktacja (Coinche)
+- Kontrakt jest wypełniony, jeśli biorący zdobędą co najmniej zalicytowane punkty (licząc belote) i więcej niż 81; kontrakt capot wymaga wszystkich lew.
+- Wypełniony: biorący zapisują swój kontrakt plus zdobyte punkty, obrońcy swoje własne punkty.
+- Niewypełniony: obrońcy zapisują 160 plus kontrakt.
+- Z kontrą lub rekontrą: wygrana strona zapisuje 160 plus kontrakt, razy dwa lub razy cztery; druga strona zapisuje tylko swoje belote.
+# Koniec gry
+Gra kończy się po rozdaniu, w którym któraś drużyna osiągnie cel. Wygrywa drużyna z większą liczbą punktów; przy remisie gra się jeszcze jedno rozdanie.
+# Gra na urządzeniu
+Podawajcie sobie urządzenie: każdy gracz widzi tylko swoje karty, na dole. Pozostali gracze siedzą wokół stołu: po lewej, naprzeciwko (twój partner) i po prawej, w kolejności swoich pasków na górze. Aby wziąć, dotknij odkrytej karty; w drugiej rundzie dotknij asa koloru, który wskazujesz. W Coinche dotknij kontraktu, a potem asa jego koloru; okrągły żeton z krzyżykiem i 2 to kontra (krzyżyk i 4: rekontra). Przycisk pasowania jest na twoim pasku. Aby zagrać, dotknij karty, by ją unieść, a potem dotknij jej ponownie, dotknij stołu albo przeciągnij ją tam. Karty, których nie możesz zagrać, są przyciemnione. Ostatnia lewa jest pokazana w małym rozmiarze w rogu. Każdy pasek pokazuje sumę drużyny i to, co powiedział każdy gracz: pas, kontrakt albo as atutowy biorącego. Po każdym rozdaniu tabela pokazuje punkty każdej drużyny, wynik rozdania i sumy (krzyżyk: kontrakt niewypełniony); dotknij jej, by przejść do następnego rozdania.
