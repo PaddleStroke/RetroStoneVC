@@ -1,0 +1,22 @@
+Rami à tuiles
+# Le but
+Être le premier à poser sur la table toutes les tuiles de son chevalet, en suites et en groupes. De 2 à 4 joueurs. Chaque chevalet est secret : passe l'appareil après chaque tour. Deux jeux au choix : une seule manche, ou un match d'autant de manches que de joueurs.
+# Les tuiles
+106 tuiles : les nombres de 1 à 13 en quatre couleurs, chacun en double, et deux jokers. Chaque joueur pioche 14 tuiles ; les autres restent face cachée dans la pioche.
+# Les combinaisons
+- Une suite : au moins trois nombres qui se suivent, tous de la même couleur. Le 1 ne suit pas le 13.
+- Un groupe : trois ou quatre tuiles du même nombre, toutes de couleurs différentes.
+- Un joker remplace n'importe quelle tuile.
+# Un tour
+- Pose des tuiles de ton chevalet : de nouvelles combinaisons, ou des tuiles ajoutées à celles de la table.
+- Réarrange la table comme tu veux : coupe des combinaisons, réunis-les, déplace des tuiles de l'une à l'autre. À la fin de ton tour, chaque combinaison de la table doit être valable, et aucune tuile de la table ne peut retourner sur un chevalet.
+- Récupère un joker en mettant à sa place la tuile qu'il remplace, puis utilise-le dans une autre combinaison pendant le même tour.
+- Si tu ne peux ou ne veux rien poser, pioche une tuile à la place. Quand la pioche est vide, passe.
+# La première pose
+Ta première pose doit valoir au moins 30 points, avec tes seules tuiles et en un seul tour. Un joker vaut la tuile qu'il remplace. Tant que tu ne l'as pas faite, tu ne peux pas toucher aux combinaisons de la table.
+# La fin d'une manche
+Le premier joueur qui vide son chevalet gagne la manche et marque les tuiles restées sur les autres chevalets : chaque nombre sa valeur, un joker 30. Les autres joueurs perdent ce qui reste sur leur propre chevalet. Si la pioche est vide et que tout le monde passe à tour de rôle, le chevalet le plus faible gagne : chaque autre joueur perd la différence, que le gagnant marque.
+# La fin de la partie
+Une manche : son gagnant gagne la partie. Un match : autant de manches que de joueurs, chacun en commençant une. Le plus gros total gagne.
+# Jouer sur l'appareil
+Ton chevalet est en bas ; le bouton de tri le range par couleur ou par nombre. Touche des tuiles pour les prendre, puis touche une combinaison pour les y poser, la table vide pour une nouvelle combinaison, ou ton chevalet pour reprendre tes propres tuiles. Deux touches rapides sur une tuile de la table prennent toute sa combinaison. Tu peux aussi faire glisser les tuiles. Les combinaisons non valables brillent en rouge. Jusqu'à ta première pose, le compteur à côté de la pioche montre ce qu'elle vaut déjà ; il devient doré à 30. Annuler reprend ton dernier geste ; le bouton de retour au début reprend tout le tour. La coche termine ton tour : elle s'allume dès que la table est correcte. Touche la pioche pour piocher. La barre de chaque joueur montre combien de tuiles il a (et, en match, son total).

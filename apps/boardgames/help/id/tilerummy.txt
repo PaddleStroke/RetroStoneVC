@@ -1,0 +1,22 @@
+Remi Ubin
+# Tujuan
+Jadilah yang pertama meletakkan semua ubin dari rakmu ke meja, dalam deret dan kelompok. Untuk 2 sampai 4 pemain. Setiap rak dirahasiakan: serahkan perangkat setelah setiap giliran. Dua permainan untuk dipilih: satu ronde, atau satu pertandingan dengan ronde sebanyak jumlah pemain.
+# Ubin
+106 ubin: angka 1 sampai 13 dalam empat warna, masing-masing dua kali, dan dua joker. Setiap pemain mengambil 14 ubin; sisanya tetap tertutup di kolam.
+# Kombinasi
+- Deret: tiga angka berurutan atau lebih, semuanya satu warna. Angka 1 tidak menyusul 13.
+- Kelompok: tiga atau empat ubin dengan angka yang sama, semuanya berlainan warna.
+- Joker dapat menggantikan ubin apa saja.
+# Satu giliran
+- Letakkan ubin dari rakmu: kombinasi baru, atau ubin yang ditambahkan ke kombinasi di meja.
+- Atur ulang meja sesukamu: pisahkan kombinasi, gabungkan, pindahkan ubin dari satu kombinasi ke kombinasi lain. Saat giliranmu berakhir, setiap kombinasi di meja harus sah, dan tidak ada ubin dari meja yang boleh kembali ke rak.
+- Rebut kembali joker dengan menaruh ubin yang digantikannya di tempatnya, lalu pakai joker itu di kombinasi lain dalam giliran yang sama.
+- Kalau tidak bisa atau tidak mau meletakkan apa pun, ambil satu ubin dari kolam sebagai gantinya. Kalau kolam sudah kosong, lewati giliran.
+# Peletakan pertama
+Peletakan pertamamu harus bernilai 30 poin atau lebih, hanya dari ubinmu sendiri dan dalam satu giliran. Joker bernilai sama dengan ubin yang digantikannya. Sebelum itu, kamu tidak boleh menyentuh kombinasi di meja.
+# Akhir ronde
+Pemain pertama yang mengosongkan raknya memenangkan ronde dan mendapat ubin yang tersisa di rak lain: setiap angka sesuai nilainya, joker 30. Pemain lain kehilangan sisa di rak mereka sendiri. Jika kolam kosong dan semua pemain bergiliran melewati giliran, rak terendah menang: setiap pemain lain kehilangan selisihnya, dan pemenang mendapatkannya.
+# Akhir permainan
+Satu ronde: pemenangnya memenangkan permainan. Pertandingan: ronde sebanyak jumlah pemain, masing-masing memulai satu ronde. Total tertinggi menang.
+# Bermain di perangkat
+Rakmu ada di bawah; tombol urut menyusunnya menurut warna atau angka. Ketuk ubin untuk mengambilnya, lalu ketuk sebuah kombinasi untuk menaruhnya di sana, meja kosong untuk kombinasi baru, atau rakmu untuk mengambil kembali ubinmu sendiri. Dua ketukan cepat pada ubin di meja mengambil seluruh kombinasinya. Kamu juga bisa menyeret ubin. Kombinasi yang tidak sah menyala merah. Sampai peletakan pertamamu, penghitung di samping kolam menunjukkan nilainya sejauh ini; warnanya menjadi emas pada 30. Urungkan membatalkan langkah terakhirmu; tombol kembali ke awal membatalkan seluruh giliran. Tanda centang mengakhiri giliranmu: tanda itu menyala begitu meja sudah benar. Ketuk kolam untuk mengambil ubin. Bilah setiap pemain menunjukkan berapa ubin yang dipegangnya (dan, dalam pertandingan, totalnya).

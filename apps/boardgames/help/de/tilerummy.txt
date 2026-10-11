@@ -1,0 +1,22 @@
+Rommé mit Steinen
+# Das Ziel
+Lege als Erster alle Steine von deinem Bänkchen auf den Tisch, in Reihen und Gruppen. Für 2 bis 4 Spieler. Jedes Bänkchen ist geheim: Gib das Gerät nach jedem Zug weiter. Zwei Spiele zur Wahl: eine Runde, oder ein Match mit so vielen Runden, wie es Spieler gibt.
+# Die Steine
+106 Steine: die Zahlen 1 bis 13 in vier Farben, jede doppelt, und zwei Joker. Jeder Spieler zieht 14 Steine; die übrigen bleiben verdeckt im Vorrat.
+# Kombinationen
+- Eine Reihe: mindestens drei aufeinanderfolgende Zahlen einer Farbe. Auf die 13 folgt keine 1.
+- Eine Gruppe: drei oder vier Steine mit derselben Zahl, alle in verschiedenen Farben.
+- Ein Joker ersetzt jeden beliebigen Stein.
+# Ein Zug
+- Lege Steine von deinem Bänkchen aus: neue Kombinationen, oder Steine, die du an Kombinationen auf dem Tisch anlegst.
+- Ordne den Tisch um, wie du willst: Kombinationen teilen, zusammenfügen, Steine von einer zur anderen schieben. Am Ende deines Zugs muss jede Kombination auf dem Tisch gültig sein, und kein Stein vom Tisch darf zurück auf ein Bänkchen.
+- Einen Joker gewinnst du zurück, indem du den Stein, für den er steht, an seinen Platz legst; dann verwendest du den Joker im selben Zug in einer anderen Kombination.
+- Kannst oder willst du nichts auslegen, ziehst du stattdessen einen Stein aus dem Vorrat. Ist der Vorrat leer, passt du.
+# Das erste Auslegen
+Dein erstes Auslegen muss mindestens 30 Punkte wert sein, nur aus deinen eigenen Steinen und in einem Zug. Ein Joker zählt so viel wie der Stein, für den er steht. Bis dahin darfst du die Kombinationen auf dem Tisch nicht anrühren.
+# Das Ende einer Runde
+Wer als Erster sein Bänkchen leert, gewinnt die Runde und bekommt die Steine, die auf den anderen Bänkchen bleiben: jede Zahl ihren Wert, einen Joker 30. Die anderen verlieren, was auf ihrem eigenen Bänkchen bleibt. Ist der Vorrat leer und passen alle der Reihe nach, gewinnt das niedrigste Bänkchen: Jeder andere verliert den Unterschied, und der Gewinner bekommt ihn.
+# Das Ende der Partie
+Eine Runde: Ihr Gewinner gewinnt die Partie. Ein Match: so viele Runden wie Spieler, jeder beginnt eine Runde. Die höchste Summe gewinnt.
+# Spielen auf dem Gerät
+Dein Bänkchen ist unten; der Sortierknopf ordnet es nach Farbe oder nach Zahl. Tippe Steine an, um sie aufzunehmen, dann tippe eine Kombination an, um sie dort abzulegen, den freien Tisch für eine neue Kombination oder dein Bänkchen, um deine eigenen Steine zurückzunehmen. Zweimal schnell auf einen Stein auf dem Tisch tippen nimmt seine ganze Kombination auf. Du kannst Steine auch ziehen. Ungültige Kombinationen leuchten rot. Bis zu deinem ersten Auslegen zeigt der Zähler neben dem Vorrat, wie viel es schon wert ist; ab 30 wird er golden. Rückgängig nimmt deinen letzten Schritt zurück; der Zurück-zum-Anfang-Knopf nimmt den ganzen Zug zurück. Das Häkchen beendet deinen Zug: Es leuchtet auf, sobald der Tisch stimmt. Tippe auf den Vorrat, um zu ziehen. Die Leiste jedes Spielers zeigt, wie viele Steine er hat (und im Match seine Summe).

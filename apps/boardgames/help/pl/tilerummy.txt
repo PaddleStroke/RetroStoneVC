@@ -1,0 +1,22 @@
+Remik z płytkami
+# Cel gry
+Jako pierwszy wyłóż na stół wszystkie płytki ze swojego stojaka, w sekwensy i grupy. Dla 2 do 4 graczy. Każdy stojak jest tajny: po każdej turze przekaż urządzenie dalej. Dwie gry do wyboru: jedna runda albo mecz z tyloma rundami, ilu jest graczy.
+# Płytki
+106 płytek: liczby od 1 do 13 w czterech kolorach, każda dwa razy, i dwa jokery. Każdy gracz dobiera 14 płytek; reszta leży zakryta w puli.
+# Układy
+- Sekwens: co najmniej trzy kolejne liczby w jednym kolorze. Po 13 nie ma 1.
+- Grupa: trzy lub cztery płytki z tą samą liczbą, każda w innym kolorze.
+- Joker zastępuje dowolną płytkę.
+# Tura
+- Wykładaj płytki ze stojaka: nowe układy albo płytki dokładane do układów na stole.
+- Przestawiaj stół, jak chcesz: dziel układy, łącz je, przenoś płytki z jednego do drugiego. Gdy twoja tura się kończy, każdy układ na stole musi być poprawny i żadna płytka ze stołu nie może wrócić na stojak.
+- Jokera odzyskasz, kładąc na jego miejscu płytkę, którą zastępuje; potem użyj go w innym układzie w tej samej turze.
+- Jeśli nie możesz albo nie chcesz nic wyłożyć, dobierz zamiast tego płytkę z puli. Gdy pula jest pusta, pasuj.
+# Pierwsze wyłożenie
+Twoje pierwsze wyłożenie musi być warte co najmniej 30 punktów, tylko z twoich własnych płytek i w jednej turze. Joker jest wart tyle, co płytka, którą zastępuje. Do tego czasu nie możesz ruszać układów na stole.
+# Koniec rundy
+Pierwszy gracz, który opróżni stojak, wygrywa rundę i dostaje płytki pozostałe na innych stojakach: każda liczba swoją wartość, joker 30. Pozostali gracze tracą to, co zostało na ich własnym stojaku. Jeśli pula jest pusta i wszyscy kolejno pasują, wygrywa najniższy stojak: każdy inny gracz traci różnicę, a zwycięzca ją zyskuje.
+# Koniec gry
+Jedna runda: jej zwycięzca wygrywa grę. Mecz: tyle rund, ilu graczy, każdy zaczyna jedną. Wygrywa najwyższa suma.
+# Gra na urządzeniu
+Twój stojak jest na dole; przycisk sortowania układa go według koloru lub liczby. Dotykaj płytek, aby je podnieść, a potem dotknij układu, aby je tam położyć, pustego stołu, aby zacząć nowy układ, albo swojego stojaka, aby zabrać z powrotem własne płytki. Dwa szybkie dotknięcia płytki na stole podnoszą cały jej układ. Płytki możesz też przeciągać. Niepoprawne układy świecą na czerwono. Do pierwszego wyłożenia licznik obok puli pokazuje, ile jest ono warte do tej pory; od 30 robi się złoty. Cofnij cofa twój ostatni ruch; przycisk powrotu do początku cofa całą turę. Ptaszek kończy turę: zapala się, gdy stół jest w porządku. Dotknij puli, aby dobrać płytkę. Pasek każdego gracza pokazuje, ile ma płytek (a w meczu jego sumę).

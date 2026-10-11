@@ -1,0 +1,22 @@
+Rummy de fichas
+# El objetivo
+Ser el primero en colocar en la mesa todas las fichas de tu atril, en escaleras y grupos. De 2 a 4 jugadores. Cada atril es secreto: pasa el dispositivo después de cada turno. Dos juegos a elegir: una sola ronda, o una serie de tantas rondas como jugadores.
+# Las fichas
+106 fichas: los números del 1 al 13 en cuatro colores, cada uno dos veces, y dos comodines. Cada jugador roba 14 fichas; las demás quedan boca abajo en el pozo.
+# Las combinaciones
+- Una escalera: tres o más números seguidos, todos del mismo color. El 1 no va después del 13.
+- Un grupo: tres o cuatro fichas del mismo número, todas de colores distintos.
+- Un comodín sustituye a cualquier ficha.
+# Un turno
+- Coloca fichas de tu atril: combinaciones nuevas, o fichas añadidas a las combinaciones de la mesa.
+- Reorganiza la mesa como quieras: separa combinaciones, únelas, mueve fichas de una a otra. Al terminar tu turno, todas las combinaciones de la mesa deben ser válidas, y ninguna ficha de la mesa puede volver a un atril.
+- Recupera un comodín poniendo en su lugar la ficha que sustituye; luego úsalo en otra combinación en el mismo turno.
+- Si no puedes o no quieres colocar nada, roba una ficha del pozo. Cuando el pozo esté vacío, pasa.
+# La primera jugada
+Tu primera jugada debe sumar 30 puntos o más, solo con tus propias fichas y en un solo turno. Un comodín vale la ficha que sustituye. Hasta entonces no puedes tocar las combinaciones de la mesa.
+# El final de una ronda
+El primer jugador que vacía su atril gana la ronda y se anota las fichas que quedan en los demás atriles: cada número su valor, un comodín 30. Los demás jugadores pierden lo que queda en su propio atril. Si el pozo está vacío y todos pasan por turno, gana el atril más bajo: cada uno de los demás pierde la diferencia, y el ganador la suma.
+# El final de la partida
+Una ronda: su ganador gana la partida. Una serie: tantas rondas como jugadores, y cada uno empieza una. Gana el total más alto.
+# Jugar en el dispositivo
+Tu atril está abajo; el botón de ordenar lo ordena por color o por número. Toca fichas para cogerlas y después toca una combinación para dejarlas allí, la mesa vacía para una combinación nueva, o tu atril para recuperar tus propias fichas. Dos toques rápidos en una ficha de la mesa cogen toda su combinación. También puedes arrastrar las fichas. Las combinaciones no válidas brillan en rojo. Hasta tu primera jugada, el contador junto al pozo muestra lo que vale de momento; se vuelve dorado al llegar a 30. Deshacer retira tu último movimiento; el botón de volver al principio retira todo el turno. La marca de visto termina tu turno: se enciende cuando la mesa está bien. Toca el pozo para robar. La barra de cada jugador muestra cuántas fichas tiene (y, en una serie, su total).

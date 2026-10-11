@@ -1,0 +1,22 @@
+Taşlı Remi
+# Amaç
+Istakandaki bütün taşları seriler ve gruplar hâlinde masaya ilk açan sen ol. 2-4 oyuncu için. Her ıstaka gizlidir: her sıradan sonra cihazı bir sonrakine ver. İki oyun arasından seç: tek el, ya da oyuncu sayısı kadar elden oluşan bir maç.
+# Taşlar
+106 taş: dört renkte 1'den 13'e kadar sayılar, her biri iki kez, ve iki joker. Her oyuncu 14 taş çeker; kalanlar yüzü kapalı olarak havuzda durur.
+# Diziler
+- Seri: aynı renkte, art arda en az üç sayı. 13'ten sonra 1 gelmez.
+- Grup: aynı sayıdan, hepsi farklı renkte üç ya da dört taş.
+- Joker istenen her taşın yerini tutar.
+# Bir sıra
+- Istakandan taş aç: yeni diziler, ya da masadaki dizilere eklenen taşlar.
+- Masayı istediğin gibi yeniden düzenle: dizileri böl, birleştir, taşları birinden ötekine taşı. Sıran bittiğinde masadaki her dizi geçerli olmalı ve masadan hiçbir taş bir ıstakaya geri dönmemeli.
+- Bir jokeri, yerini tuttuğu taşı onun yerine koyarak geri kazan; sonra jokeri aynı sırada başka bir dizide kullan.
+- Hiçbir şey açamıyorsan ya da açmak istemiyorsan, bunun yerine havuzdan bir taş çek. Havuz boşsa pas geç.
+# İlk açılış
+İlk açılışın yalnızca kendi taşlarınla ve tek sırada yapılmalı, en az 30 puan etmeli. Bir joker, yerini tuttuğu taş kadar eder. O zamana kadar masadaki dizilere dokunamazsın.
+# Bir elin sonu
+Istakasını ilk boşaltan oyuncu eli kazanır ve öteki ıstakalarda kalan taşları alır: her sayı kendi değerini, joker 30. Öteki oyuncular kendi ıstakalarında kalanı kaybeder. Havuz boşsa ve herkes sırayla pas geçerse en düşük ıstaka kazanır: diğer her oyuncu aradaki farkı kaybeder, kazanan ise kazanır.
+# Oyunun sonu
+Tek el: o eli kazanan oyunu kazanır. Maç: oyuncu sayısı kadar el, her oyuncu bir eli başlatır. En yüksek toplam kazanır.
+# Cihazda oynamak
+Istakan aşağıdadır; sıralama düğmesi onu renge ya da sayıya göre dizer. Taşlara dokunarak onları al, sonra bırakmak için bir diziye, yeni bir dizi için masanın boş yerine ya da kendi taşlarını geri almak için ıstakana dokun. Masadaki bir taşa hızlıca iki kez dokunmak bütün dizisini alır. Taşları sürükleyebilirsin de. Geçersiz diziler kırmızı parlar. İlk açılışına kadar havuzun yanındaki sayaç açılışının şimdilik kaç puan ettiğini gösterir; 30'da altın rengine döner. Geri al son hamleni geri alır; başa dön düğmesi bütün sırayı geri alır. Onay işareti sıranı bitirir: masa doğru olunca yanar. Çekmek için havuza dokun. Her oyuncunun şeridi elinde kaç taş olduğunu (ve maçta toplamını) gösterir.

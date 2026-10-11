@@ -1,0 +1,22 @@
+Rummy de peças
+# O objetivo
+Ser o primeiro a colocar na mesa todas as peças do teu suporte, em sequências e grupos. De 2 a 4 jogadores. Cada suporte é secreto: passa o dispositivo depois de cada vez. Dois jogos à escolha: uma ronda, ou uma série de tantas rondas quantos os jogadores.
+# As peças
+106 peças: os números de 1 a 13 em quatro cores, cada um duas vezes, e dois jókeres. Cada jogador tira 14 peças; as outras ficam viradas para baixo no monte.
+# As combinações
+- Uma sequência: três ou mais números seguidos, todos da mesma cor. O 1 não vem a seguir ao 13.
+- Um grupo: três ou quatro peças do mesmo número, todas de cores diferentes.
+- Um jóker substitui qualquer peça.
+# Uma vez
+- Coloca peças do teu suporte: combinações novas, ou peças acrescentadas às combinações da mesa.
+- Reorganiza a mesa como quiseres: separa combinações, junta-as, passa peças de uma para outra. No fim da tua vez, todas as combinações da mesa têm de ser válidas, e nenhuma peça da mesa pode voltar a um suporte.
+- Recupera um jóker pondo no lugar dele a peça que substitui; depois usa-o noutra combinação na mesma vez.
+- Se não puderes ou não quiseres colocar nada, tira uma peça do monte. Quando o monte estiver vazio, passa.
+# A primeira jogada
+A tua primeira jogada tem de valer 30 pontos ou mais, só com as tuas peças e numa única vez. Um jóker vale a peça que substitui. Até a fazeres, não podes mexer nas combinações da mesa.
+# O fim de uma ronda
+O primeiro jogador a esvaziar o suporte ganha a ronda e marca as peças que ficaram nos outros suportes: cada número o seu valor, um jóker 30. Os outros jogadores perdem o que ficou no próprio suporte. Se o monte estiver vazio e todos passarem à vez, ganha o suporte mais baixo: cada um dos outros perde a diferença, e o vencedor ganha-a.
+# O fim do jogo
+Uma ronda: o vencedor dela ganha o jogo. Uma série: tantas rondas quantos os jogadores, e cada um começa uma. Ganha o total mais alto.
+# Jogar no dispositivo
+O teu suporte está em baixo; o botão de ordenar arruma-o por cor ou por número. Toca em peças para as pegar e depois toca numa combinação para as pôr lá, na mesa vazia para uma combinação nova, ou no teu suporte para retirar as tuas próprias peças. Dois toques rápidos numa peça da mesa pegam na combinação inteira. Também podes arrastar as peças. As combinações inválidas brilham a vermelho. Até à tua primeira jogada, o contador ao lado do monte mostra quanto ela já vale; fica dourado aos 30. Anular desfaz o teu último movimento; o botão de voltar ao início desfaz a vez inteira. O visto termina a tua vez: acende-se quando a mesa está certa. Toca no monte para tirar uma peça. A barra de cada jogador mostra quantas peças tem (e, na série, o seu total).

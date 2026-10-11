@@ -1,0 +1,22 @@
+Rummy de peças
+# O objetivo
+Ser o primeiro a baixar na mesa todas as peças do seu suporte, em sequências e grupos. De 2 a 4 jogadores. Cada suporte é secreto: passe o aparelho depois de cada jogada. Dois jogos para escolher: uma rodada, ou uma série com tantas rodadas quantos forem os jogadores.
+# As peças
+106 peças: os números de 1 a 13 em quatro cores, cada um duas vezes, e dois curingas. Cada jogador compra 14 peças; as outras ficam viradas para baixo no monte.
+# Os jogos
+- Uma sequência: três ou mais números seguidos, todos da mesma cor. O 1 não vem depois do 13.
+- Um grupo: três ou quatro peças do mesmo número, todas de cores diferentes.
+- Um curinga vale por qualquer peça.
+# Uma jogada
+- Baixe peças do seu suporte: jogos novos, ou peças acrescentadas aos jogos da mesa.
+- Reorganize a mesa como quiser: separe jogos, junte-os, passe peças de um para outro. No fim da sua jogada, todos os jogos da mesa devem ser válidos, e nenhuma peça da mesa pode voltar para um suporte.
+- Recupere um curinga colocando no lugar dele a peça que ele substitui; depois use-o em outro jogo na mesma jogada.
+- Se não puder ou não quiser baixar nada, compre uma peça do monte. Quando o monte acabar, passe a vez.
+# A primeira baixada
+Sua primeira baixada deve valer 30 pontos ou mais, só com as suas peças e numa única jogada. Um curinga vale a peça que substitui. Até fazê-la, você não pode mexer nos jogos da mesa.
+# O fim de uma rodada
+O primeiro jogador a esvaziar o suporte ganha a rodada e marca as peças que sobraram nos outros suportes: cada número o seu valor, um curinga 30. Os outros jogadores perdem o que sobrou no próprio suporte. Se o monte acabou e todos passam a vez em seguida, ganha o suporte mais baixo: cada um dos outros perde a diferença, e o vencedor a ganha.
+# O fim da partida
+Uma rodada: o vencedor dela ganha a partida. Uma série: tantas rodadas quantos forem os jogadores, cada um começando uma. Ganha o maior total.
+# Jogando no aparelho
+Seu suporte fica embaixo; o botão de ordenar organiza as peças por cor ou por número. Toque peças para pegá-las e depois toque um jogo para colocá-las ali, a mesa vazia para um jogo novo, ou o seu suporte para pegar de volta as suas peças. Dois toques rápidos numa peça da mesa pegam o jogo inteiro. Você também pode arrastar as peças. Jogos inválidos brilham em vermelho. Até a sua primeira baixada, o contador ao lado do monte mostra quanto ela já vale; fica dourado a partir de 30. Desfazer desfaz seu último movimento; o botão de voltar ao início desfaz a jogada inteira. O visto encerra a sua jogada: ele acende quando a mesa está certa. Toque o monte para comprar. A barra de cada jogador mostra quantas peças ele tem (e, na série, o seu total).

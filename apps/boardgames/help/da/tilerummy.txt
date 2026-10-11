@@ -1,0 +1,22 @@
+Rummy med brikker
+# Målet
+Vær den første til at lægge alle brikkerne fra dit stativ på bordet, i rækker og grupper. For 2 til 4 spillere. Hvert stativ er hemmeligt: giv enheden videre efter hver tur. To spil at vælge imellem: én runde, eller en kamp med lige så mange runder, som der er spillere.
+# Brikkerne
+106 brikker: tallene 1 til 13 i fire farver, hvert to gange, og to jokere. Hver spiller trækker 14 brikker; resten ligger med bagsiden op i puljen.
+# Kombinationer
+- En række: tre eller flere tal i træk, alle i samme farve. 1 kommer ikke efter 13.
+- En gruppe: tre eller fire brikker med samme tal, alle i forskellige farver.
+- En joker kan være en hvilken som helst brik.
+# En tur
+- Læg brikker fra dit stativ: nye kombinationer, eller brikker lagt til kombinationerne på bordet.
+- Byt rundt på bordet, som du vil: del kombinationer, sæt dem sammen, flyt brikker fra én til en anden. Når din tur slutter, skal hver kombination på bordet være gyldig, og ingen brik fra bordet må komme tilbage på et stativ.
+- Vind en joker tilbage ved at lægge den brik, den står for, på dens plads; brug så jokeren i en anden kombination i samme tur.
+- Kan eller vil du ikke lægge noget, trækker du i stedet en brik fra puljen. Er puljen tom, melder du pas.
+# Den første udlægning
+Din første udlægning skal være mindst 30 point værd, kun med dine egne brikker og i én tur. En joker er det værd, som den brik, den står for. Indtil da må du ikke røre kombinationerne på bordet.
+# Slutningen af en runde
+Den første spiller, der tømmer sit stativ, vinder runden og får de brikker, der er tilbage på de andre stativer: hvert tal sin værdi, en joker 30. De andre spillere mister det, der er tilbage på deres eget stativ. Er puljen tom, og melder alle pas efter tur, vinder det laveste stativ: hver af de andre mister forskellen, og vinderen får den.
+# Spillets afslutning
+Én runde: dens vinder vinder spillet. En kamp: lige så mange runder som spillere, og hver spiller begynder én. Den højeste sum vinder.
+# Spil på enheden
+Dit stativ er nederst; sorteringsknappen sorterer det efter farve eller efter tal. Tryk på brikker for at tage dem op, og tryk så på en kombination for at lægge dem dér, på det tomme bord for en ny kombination, eller på dit stativ for at tage dine egne brikker tilbage. To hurtige tryk på en brik på bordet tager hele dens kombination op. Du kan også trække brikkerne. Ugyldige kombinationer lyser rødt. Indtil din første udlægning viser tælleren ved puljen, hvad den er værd indtil nu; den bliver gylden ved 30. Fortryd tager dit sidste træk tilbage; tilbage-til-start-knappen tager hele turen tilbage. Fluebenet afslutter din tur: det lyser op, så snart bordet er i orden. Tryk på puljen for at trække. Hver spillers panel viser, hvor mange brikker spilleren har (og i en kamp spillerens sum).
