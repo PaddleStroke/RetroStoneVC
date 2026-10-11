@@ -5,7 +5,7 @@
  */
 #include <stdio.h>
 
-#include "chess.h"
+#include "games/chess.h"
 
 static long perft(const cpos *p, int depth)
 {

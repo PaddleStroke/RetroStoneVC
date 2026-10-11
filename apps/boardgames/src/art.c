@@ -2,42 +2,41 @@
  * The board games' pictures, drawn by code (art.h). A figure is a list of shapes in a unit square (y down), painted
  * back to front: each shape's fill (lit from the upper left) and its outline, which becomes an inner line where it
  * crosses a shape painted before it (the collars and crowns of the pieces); MARK shapes (eyes, slits) are painted in
- * the line colour. Every pixel averages SS x SS samples (smooth edges at any size).
+ * the mark colour. Every pixel averages SS x SS samples (smooth edges at any size).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include "art.h"
 
 #include <math.h>
+#include <stdlib.h>
 #include <string.h>
 
-#include "chess.h"
+#include "games/chess.h"
 
 #define SS 4
 #define MAXPT 48
+#define MAXSHAPES 32
 #define PI_F 3.14159265f
 
 typedef struct { float x, y; } v2;
 enum { SH_POLY, SH_ELL };
-enum { PART, MARK };
 typedef struct {
     int kind, role, n;
     v2 pt[MAXPT];
     float cx, cy, rx, ry;
     float x0, y0, x1, y1;                           /* the bounding box */
 } shape;
-typedef struct { shape s[16]; int n; } figure;
-
-typedef struct {
-    float fill[3], outer[3], inner[3], mark[3];
-    float light;                                    /* how much the light shapes the fill */
-    float line;                                     /* the outline's width (unit square) */
-} style;
+struct art_fig { shape s[MAXSHAPES]; int n; };
 
 static float clampf(float v, float a, float b) { return v < a ? a : v > b ? b : v; }
 
-static shape *add(figure *f, int kind, int role)
+art_fig *art_fig_new(void) { return calloc(1, sizeof(art_fig)); }
+void art_fig_free(art_fig *f) { free(f); }
+
+static shape *add(art_fig *f, int kind, int role)
 {
-    shape *s = &f->s[f->n++];
+    static shape spare;
+    shape *s = f->n < MAXSHAPES ? &f->s[f->n++] : &spare;
     memset(s, 0, sizeof *s);
     s->kind = kind;
     s->role = role;
@@ -54,18 +53,18 @@ static void grow(shape *s, float x, float y)
     s->y1 = fmaxf(s->y1, y);
 }
 
-static void poly(figure *f, int role, const float *xy, int n)
+void art_poly(art_fig *f, int role, const float *xy, int n)
 {
     shape *s = add(f, SH_POLY, role);
-    s->n = n;
-    for (int i = 0; i < n; i++) {
+    s->n = n < MAXPT ? n : MAXPT;
+    for (int i = 0; i < s->n; i++) {
         s->pt[i].x = xy[2 * i];
         s->pt[i].y = xy[2 * i + 1];
         grow(s, s->pt[i].x, s->pt[i].y);
     }
 }
 
-static void ell(figure *f, int role, float cx, float cy, float rx, float ry)
+void art_ellipse(art_fig *f, int role, float cx, float cy, float rx, float ry)
 {
     shape *s = add(f, SH_ELL, role);
     s->cx = cx;
@@ -76,10 +75,27 @@ static void ell(figure *f, int role, float cx, float cy, float rx, float ry)
     grow(s, cx + rx, cy + ry);
 }
 
-static void rect(figure *f, int role, float x0, float y0, float x1, float y1)
+void art_rect(art_fig *f, int role, float x0, float y0, float x1, float y1)
 {
     const float p[8] = {x0, y0, x1, y0, x1, y1, x0, y1};
-    poly(f, role, p, 4);
+    art_poly(f, role, p, 4);
+}
+
+void art_arc(art_fig *f, int role, float cx, float cy, float r0, float r1, float a0, float a1)
+{
+    float p[2 * MAXPT];
+    int n = 0, k = 21;
+    for (int i = 0; i <= k; i++) {
+        float a = (a0 + (a1 - a0) * i / k) * PI_F / 180;
+        p[n++] = cx + r1 * cosf(a);
+        p[n++] = cy - r1 * sinf(a);
+    }
+    for (int i = k; i >= 0; i--) {
+        float a = (a0 + (a1 - a0) * i / k) * PI_F / 180;
+        p[n++] = cx + r0 * cosf(a);
+        p[n++] = cy - r0 * sinf(a);
+    }
+    art_poly(f, role, p, n / 2);
 }
 
 /* the signed distance to a shape's edge: negative inside (ellipses: a first-order estimate, close enough) */
@@ -104,15 +120,15 @@ static float sdf(const shape *s, float x, float y)
     return in ? -sqrtf(d2) : sqrtf(d2);
 }
 
-static void shade(const style *st, const shape *s, float x, float y, float *c)
+static void shade(const art_style *st, const shape *s, float x, float y, float *c)
 {
     float cx = (s->x0 + s->x1) * 0.5f, hw = (s->x1 - s->x0) * 0.5f + 1e-3f;
     float t = (x - cx) / hw + 0.35f;                /* round shapes, lit from the upper left */
-    float l = 1.0f + st->light * (0.55f - t * t) - 0.10f * y;
+    float l = 1.0f + st->light * (0.55f - t * t) - st->light * 0.45f * (y - s->y0);
     for (int i = 0; i < 3; i++) c[i] = clampf(st->fill[i] * l, 0, 255);
 }
 
-static void render(const figure *f, const style *st, int w, int h, float scale, uint8_t *out)
+void art_render(const art_fig *f, const art_style *st, int w, int h, float scale, float ox, float oy, uint8_t *out)
 {
     float wl = st->line;
     for (int py = 0; py < h; py++)
@@ -120,14 +136,14 @@ static void render(const figure *f, const style *st, int w, int h, float scale, 
             float acc[4] = {0, 0, 0, 0};
             for (int sy = 0; sy < SS; sy++)
                 for (int sx = 0; sx < SS; sx++) {
-                    float x = (px + (sx + 0.5f) / SS) / scale, y = (py + (sy + 0.5f) / SS) / scale;
+                    float x = (px - ox + (sx + 0.5f) / SS) / scale, y = (py - oy + (sy + 0.5f) / SS) / scale;
                     float c[3] = {0, 0, 0};
                     int has = 0, filled = 0;
                     for (int k = 0; k < f->n; k++) {
                         const shape *s = &f->s[k];
                         if (x < s->x0 - wl || x > s->x1 + wl || y < s->y0 - wl || y > s->y1 + wl) continue;
                         float d = sdf(s, x, y);
-                        if (s->role == MARK) {
+                        if (s->role == ART_MARK) {
                             if (d < 0) { memcpy(c, st->mark, sizeof c); has = 1; }
                         } else if (d < 0) {
                             shade(st, s, x, y, c);
@@ -154,16 +170,16 @@ static void render(const figure *f, const style *st, int w, int h, float scale, 
         }
 }
 
-/* ---- the pieces -------------------------------------------------------------------------------------------------- */
-static void base(figure *f)
+/* ---- the chess pieces ------------------------------------------------------------------------------------------------ */
+static void base(art_fig *f)
 {
-    rect(f, PART, 0.19f, 0.835f, 0.81f, 0.905f);
+    art_rect(f, ART_PART, 0.19f, 0.835f, 0.81f, 0.905f);
     const float p[] = {0.255f, 0.835f, 0.745f, 0.835f, 0.70f, 0.775f, 0.30f, 0.775f};
-    poly(f, PART, p, 4);
+    art_poly(f, ART_PART, p, 4);
 }
 
 /* a bishop's mitre: half an ellipse below, an ogive up to a point */
-static void mitre(figure *f, float cx, float cy, float rx, float ry, float tip)
+static void mitre(art_fig *f, float cx, float cy, float rx, float ry, float tip)
 {
     float p[2 * 40];
     int n = 0;
@@ -182,19 +198,19 @@ static void mitre(figure *f, float cx, float cy, float rx, float ry, float tip)
         p[n++] = cx + rx * (1 - s * s);
         p[n++] = cy - (cy - tip) * s;
     }
-    poly(f, PART, p, n / 2);
+    art_poly(f, ART_PART, p, n / 2);
 }
 
-static void piece(figure *f, int type)
+static void piece(art_fig *f, int type)
 {
     f->n = 0;
     base(f);
     switch (type) {
     case PAWN: {
         const float body[] = {0.345f, 0.775f, 0.655f, 0.775f, 0.565f, 0.56f, 0.435f, 0.56f};
-        poly(f, PART, body, 4);
-        ell(f, PART, 0.5f, 0.555f, 0.155f, 0.04f);
-        ell(f, PART, 0.5f, 0.405f, 0.125f, 0.125f);
+        art_poly(f, ART_PART, body, 4);
+        art_ellipse(f, ART_PART, 0.5f, 0.555f, 0.155f, 0.04f);
+        art_ellipse(f, ART_PART, 0.5f, 0.405f, 0.125f, 0.125f);
         break;
     }
     case ROOK: {
@@ -202,9 +218,9 @@ static void piece(figure *f, int type)
         const float top[] = {0.285f, 0.40f, 0.715f, 0.40f, 0.715f, 0.19f, 0.625f, 0.19f, 0.625f, 0.255f,
                              0.545f, 0.255f, 0.545f, 0.19f, 0.455f, 0.19f, 0.455f, 0.255f, 0.375f, 0.255f,
                              0.375f, 0.19f, 0.285f, 0.19f};
-        poly(f, PART, body, 4);
-        poly(f, PART, top, 12);
-        rect(f, PART, 0.33f, 0.40f, 0.67f, 0.445f);
+        art_poly(f, ART_PART, body, 4);
+        art_poly(f, ART_PART, top, 12);
+        art_rect(f, ART_PART, 0.33f, 0.40f, 0.67f, 0.445f);
         break;
     }
     case KNIGHT: {
@@ -214,20 +230,20 @@ static void piece(figure *f, int type)
                               0.37f, 0.51f, 0.45f, 0.50f, 0.40f, 0.60f, 0.33f, 0.68f};
         const float mane[] = {0.72f, 0.62f, 0.745f, 0.46f, 0.705f, 0.32f, 0.625f, 0.21f, 0.535f, 0.165f,
                               0.565f, 0.215f, 0.64f, 0.275f, 0.695f, 0.37f, 0.71f, 0.47f, 0.69f, 0.60f};
-        poly(f, PART, head, 19);
-        poly(f, PART, mane, 10);
-        ell(f, MARK, 0.405f, 0.295f, 0.026f, 0.026f);
-        ell(f, MARK, 0.235f, 0.465f, 0.016f, 0.02f);
+        art_poly(f, ART_PART, head, 19);
+        art_poly(f, ART_PART, mane, 10);
+        art_ellipse(f, ART_MARK, 0.405f, 0.295f, 0.026f, 0.026f);
+        art_ellipse(f, ART_MARK, 0.235f, 0.465f, 0.016f, 0.02f);
         break;
     }
     case BISHOP: {
         const float body[] = {0.37f, 0.775f, 0.63f, 0.775f, 0.555f, 0.60f, 0.445f, 0.60f};
         const float slit[] = {0.535f, 0.32f, 0.565f, 0.345f, 0.495f, 0.44f, 0.465f, 0.415f};
-        poly(f, PART, body, 4);
+        art_poly(f, ART_PART, body, 4);
         mitre(f, 0.5f, 0.45f, 0.15f, 0.135f, 0.20f);
-        ell(f, PART, 0.5f, 0.595f, 0.16f, 0.038f);
-        ell(f, PART, 0.5f, 0.185f, 0.042f, 0.042f);
-        poly(f, MARK, slit, 4);
+        art_ellipse(f, ART_PART, 0.5f, 0.595f, 0.16f, 0.038f);
+        art_ellipse(f, ART_PART, 0.5f, 0.185f, 0.042f, 0.042f);
+        art_poly(f, ART_MARK, slit, 4);
         break;
     }
     case QUEEN: {
@@ -237,10 +253,10 @@ static void piece(figure *f, int type)
                                0.665f, 0.49f};
         const float tips[5][2] = {{0.205f, 0.24f}, {0.365f, 0.17f}, {0.5f, 0.145f}, {0.635f, 0.17f},
                                   {0.795f, 0.24f}};
-        poly(f, PART, body, 4);
-        poly(f, PART, crown, 11);
-        ell(f, PART, 0.5f, 0.515f, 0.165f, 0.04f);
-        for (int i = 0; i < 5; i++) ell(f, PART, tips[i][0], tips[i][1], 0.04f, 0.04f);
+        art_poly(f, ART_PART, body, 4);
+        art_poly(f, ART_PART, crown, 11);
+        art_ellipse(f, ART_PART, 0.5f, 0.515f, 0.165f, 0.04f);
+        for (int i = 0; i < 5; i++) art_ellipse(f, ART_PART, tips[i][0], tips[i][1], 0.04f, 0.04f);
         break;
     }
     case KING: {
@@ -250,56 +266,98 @@ static void piece(figure *f, int type)
                                0.425f, 0.20f, 0.475f, 0.20f};
         const float crown[] = {0.33f, 0.49f, 0.67f, 0.49f, 0.73f, 0.335f, 0.67f, 0.275f, 0.585f, 0.315f,
                                0.50f, 0.265f, 0.415f, 0.315f, 0.33f, 0.275f, 0.27f, 0.335f};
-        poly(f, PART, body, 4);
-        poly(f, PART, cross, 12);
-        poly(f, PART, crown, 9);
-        ell(f, PART, 0.5f, 0.515f, 0.17f, 0.04f);
+        art_poly(f, ART_PART, body, 4);
+        art_poly(f, ART_PART, cross, 12);
+        art_poly(f, ART_PART, crown, 9);
+        art_ellipse(f, ART_PART, 0.5f, 0.515f, 0.17f, 0.04f);
         break;
     }
     }
 }
 
+const art_style art_player[2] = {
+    {{242, 234, 216}, {36, 30, 28}, {64, 54, 48}, {36, 30, 28}, 0.22f, 0},          /* ivory */
+    {{70, 64, 62}, {10, 9, 9}, {150, 140, 132}, {205, 195, 185}, 0.35f, 0},         /* ebony */
+};
+
 void art_piece(int type, int color, int size, uint8_t *rgba)
 {
-    static const style white = {{242, 234, 216}, {36, 30, 28}, {64, 54, 48}, {36, 30, 28}, 0.22f, 0};
-    static const style black = {{70, 64, 62}, {10, 9, 9}, {150, 140, 132}, {205, 195, 185}, 0.35f, 0};
-    style st = color == WHITE ? white : black;
+    art_style st = art_player[color == WHITE ? 0 : 1];
     st.line = fmaxf(0.024f, 1.3f / size);
-    figure f;
-    piece(&f, type);
-    render(&f, &st, size, size, (float)size, rgba);
+    art_fig *f = art_fig_new();
+    piece(f, type);
+    art_render(f, &st, size, size, (float)size, 0, 0, rgba);
+    art_fig_free(f);
+}
+
+void art_counter(int kind, int player, int size, uint8_t *rgba)
+{
+    art_style st = art_player[player ? 1 : 0];
+    st.line = fmaxf(0.022f, 1.3f / size);
+    art_fig *f = art_fig_new();
+    if (kind == COUNTER_STONE) {                    /* glossy, a highlight towards the light */
+        st.light = player ? 0.55f : 0.28f;
+        art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.45f, 0.45f);
+        static const float hi[2][3] = {{255, 255, 250}, {150, 144, 140}};
+        memcpy(st.mark, hi[player ? 1 : 0], sizeof st.mark);
+        art_ellipse(f, ART_MARK, 0.36f, 0.33f, 0.09f, 0.06f);
+    } else {
+        art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.44f, 0.44f);
+        art_ellipse(f, ART_PART, 0.5f, 0.5f, kind == COUNTER_DISC ? 0.32f : 0.34f, kind == COUNTER_DISC ? 0.32f : 0.34f);
+        if (kind != COUNTER_DISC) art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.21f, 0.21f);
+        if (kind == COUNTER_KING) {                 /* a crown on the man */
+            const float crown[] = {0.36f, 0.60f, 0.64f, 0.60f, 0.68f, 0.40f, 0.585f, 0.49f, 0.50f, 0.36f,
+                                   0.415f, 0.49f, 0.32f, 0.40f};
+            art_poly(f, ART_MARK, crown, 7);
+        }
+    }
+    art_render(f, &st, size, size, (float)size, 0, 0, rgba);
+    art_fig_free(f);
 }
 
 /* ---- the board ----------------------------------------------------------------------------------------------------- */
-static float hash(int a, int b) { unsigned h = (unsigned)(a * 73856093) ^ (unsigned)(b * 19349663); h ^= h >> 13; h *= 0x5bd1e995u; return (h & 0xffff) / 65535.0f; }
-
-void art_board(int sq, int fr, uint8_t *o)
+static float hash(int a, int b)
 {
-    static const float light[3] = {236, 212, 172}, dark[3] = {176, 124, 82}, frame[3] = {92, 60, 40};
-    int n = 8 * sq + 2 * fr;
+    unsigned h = (unsigned)(a * 73856093) ^ (unsigned)(b * 19349663);
+    h ^= h >> 13;
+    h *= 0x5bd1e995u;
+    return (h & 0xffff) / 65535.0f;
+}
+
+void art_board_n(int nx, int ny, int sq, int fr, int checkered, uint8_t *o)
+{
+    static const float light[3] = {236, 212, 172}, dark[3] = {176, 124, 82}, plain[3] = {222, 184, 128},
+                       frame[3] = {92, 60, 40};
+    int w = nx * sq + 2 * fr, h = ny * sq + 2 * fr;
     float rad = fr * 0.7f;
-    for (int y = 0; y < n; y++)
-        for (int x = 0; x < n; x++) {
-            uint8_t *p = o + 4 * (y * n + x);
+    for (int y = 0; y < h; y++)
+        for (int x = 0; x < w; x++) {
+            uint8_t *p = o + 4 * (y * w + x);
             float c[3], a = 1;
             int bx = x - fr, by = y - fr;
-            if (bx >= 0 && by >= 0 && bx < 8 * sq && by < 8 * sq) {
-                int f = bx / sq, r = by / sq, lt = !((f + r) & 1);
-                float s1 = hash(f, r) * 6.28f, s2 = hash(r, f) * 6.28f;
+            if (bx >= 0 && by >= 0 && bx < nx * sq && by < ny * sq) {
                 float u = (float)bx / sq, v = (float)by / sq;
-                float g1 = lt ? v : u, g2 = lt ? u : v;     /* the grain runs one way on light squares, the other on dark */
-                float g = sinf(g1 * 38 + 2.6f * sinf(g2 * 2.1f + s1) + s2) * 0.5f + 0.5f;
-                float k = 1 + 0.045f * (g - 0.5f) + 0.02f * (hash(f * 9 + r, 3) - 0.5f);
-                for (int i = 0; i < 3; i++) c[i] = (lt ? light[i] : dark[i]) * k;
+                if (checkered) {
+                    int f = bx / sq, r = by / sq, lt = !((f + r) & 1);
+                    float s1 = hash(f, r) * 6.28f, s2 = hash(r, f) * 6.28f;
+                    float g1 = lt ? v : u, g2 = lt ? u : v; /* the grain runs one way on light squares, the other on dark */
+                    float g = sinf(g1 * 38 + 2.6f * sinf(g2 * 2.1f + s1) + s2) * 0.5f + 0.5f;
+                    float k = 1 + 0.045f * (g - 0.5f) + 0.02f * (hash(f * 9 + r, 3) - 0.5f);
+                    for (int i = 0; i < 3; i++) c[i] = (lt ? light[i] : dark[i]) * k;
+                } else {                            /* one plank of wood, the grain across it */
+                    float g = sinf(v * 23 + 2.4f * sinf(u * 0.9f + 1.3f) + 1.7f * sinf(u * 0.21f)) * 0.5f + 0.5f;
+                    float k = 1 + 0.06f * (g - 0.5f);
+                    for (int i = 0; i < 3; i++) c[i] = plain[i] * k;
+                }
             } else {
                 /* the frame: walnut, a groove next to the squares, a bevel lit from the top left, rounded corners */
-                float dx = fminf(x, n - 1 - x), dy = fminf(y, n - 1 - y), edge = fminf(dx, dy);
+                float dx = fminf(x, w - 1 - x), dy = fminf(y, h - 1 - y), edge = fminf(dx, dy);
                 float g = sinf((x + y * 0.15f) * 0.09f + 1.7f * sinf(y * 0.013f)) * 0.5f + 0.5f;
                 float k = 1 + 0.06f * (g - 0.5f);
                 if (fr - edge < fr * 0.14f) k *= 0.62f;                   /* the groove */
-                else if (edge < fr * 0.18f) k *= (x + y < n) ? 1.18f : 0.82f;
+                else if (edge < fr * 0.18f) k *= (x * h + y * w < w * h) ? 1.18f : 0.82f;
                 for (int i = 0; i < 3; i++) c[i] = frame[i] * k;
-                float cx = fmaxf(rad - x, x - (n - 1 - rad)), cy = fmaxf(rad - y, y - (n - 1 - rad));
+                float cx = fmaxf(rad - x, x - (w - 1 - rad)), cy = fmaxf(rad - y, y - (h - 1 - rad));
                 if (cx > 0 && cy > 0) a = clampf(rad - sqrtf(cx * cx + cy * cy) + 0.5f, 0, 1);
             }
             for (int i = 0; i < 3; i++) p[i] = (uint8_t)clampf(c[i], 0, 255);
@@ -307,49 +365,104 @@ void art_board(int sq, int fr, uint8_t *o)
         }
 }
 
-/* ---- the buttons' icons and the plain shapes ------------------------------------------------------------------------- */
-static void arc_band(figure *f, float cx, float cy, float r0, float r1, float a0, float a1)
-{
-    float p[2 * MAXPT];
-    int n = 0, k = 18;
-    for (int i = 0; i <= k; i++) {
-        float a = (a0 + (a1 - a0) * i / k) * PI_F / 180;
-        p[n++] = cx + r1 * cosf(a);
-        p[n++] = cy - r1 * sinf(a);
-    }
-    for (int i = k; i >= 0; i--) {
-        float a = (a0 + (a1 - a0) * i / k) * PI_F / 180;
-        p[n++] = cx + r0 * cosf(a);
-        p[n++] = cy - r0 * sinf(a);
-    }
-    poly(f, PART, p, n / 2);
-}
+void art_board(int sq, int fr, uint8_t *o) { art_board_n(8, 8, sq, fr, 1, o); }
 
+/* ---- the buttons' icons, the digits ------------------------------------------------------------------------------------ */
 void art_icon(int which, int size, uint8_t *rgba)
 {
-    style st = {{252, 244, 226}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, 0, 0};
-    figure f = {.n = 0};
-    if (which == ICON_UNDO) {                       /* an arrow curling back to the left */
-        arc_band(&f, 0.53f, 0.54f, 0.17f, 0.25f, -40, 180);
+    art_style st = {{255, 255, 255}, {0, 0, 0}, {0, 0, 0}, {255, 255, 255}, 0, 0};
+    art_fig *f = art_fig_new();
+    switch (which) {
+    case ICON_UNDO: {                               /* an arrow curling back to the left */
+        art_arc(f, ART_PART, 0.53f, 0.54f, 0.17f, 0.25f, -40, 180);
         const float head[] = {0.19f, 0.50f, 0.41f, 0.50f, 0.30f, 0.68f};
-        poly(&f, PART, head, 3);
-    } else if (which == ICON_FLIP) {                /* the board turns round: up and down */
-        rect(&f, PART, 0.32f, 0.36f, 0.40f, 0.76f);
-        const float up[] = {0.22f, 0.40f, 0.50f, 0.40f, 0.36f, 0.20f};
-        rect(&f, PART, 0.60f, 0.24f, 0.68f, 0.64f);
-        const float down[] = {0.50f, 0.60f, 0.78f, 0.60f, 0.64f, 0.80f};
-        poly(&f, PART, up, 3);
-        poly(&f, PART, down, 3);
-    } else {                                        /* a new board: four squares, two of them filled */
-        rect(&f, PART, 0.24f, 0.24f, 0.50f, 0.50f);
-        rect(&f, PART, 0.50f, 0.50f, 0.76f, 0.76f);
+        art_poly(f, ART_PART, head, 3);
+        break;
+    }
+    case ICON_FLIP: {                               /* the board turns round: up and down */
+        const float up[] = {0.22f, 0.40f, 0.50f, 0.40f, 0.36f, 0.20f}, down[] = {0.50f, 0.60f, 0.78f, 0.60f, 0.64f, 0.80f};
+        art_rect(f, ART_PART, 0.32f, 0.36f, 0.40f, 0.76f);
+        art_rect(f, ART_PART, 0.60f, 0.24f, 0.68f, 0.64f);
+        art_poly(f, ART_PART, up, 3);
+        art_poly(f, ART_PART, down, 3);
+        break;
+    }
+    case ICON_NEW: {                                /* a new board: four squares, two of them filled */
         const float frame[] = {0.20f, 0.20f, 0.80f, 0.20f, 0.80f, 0.80f, 0.20f, 0.80f, 0.20f, 0.20f,
                                0.25f, 0.25f, 0.25f, 0.75f, 0.75f, 0.75f, 0.75f, 0.25f, 0.25f, 0.25f};
-        poly(&f, PART, frame, 10);
+        art_rect(f, ART_PART, 0.24f, 0.24f, 0.50f, 0.50f);
+        art_rect(f, ART_PART, 0.50f, 0.50f, 0.76f, 0.76f);
+        art_poly(f, ART_PART, frame, 10);
+        break;
     }
-    render(&f, &st, size, size, (float)size, rgba);
+    case ICON_HOME: {                               /* a house, its door */
+        const float house[] = {0.20f, 0.52f, 0.50f, 0.22f, 0.80f, 0.52f, 0.71f, 0.52f, 0.71f, 0.79f, 0.57f, 0.79f,
+                               0.57f, 0.60f, 0.43f, 0.60f, 0.43f, 0.79f, 0.29f, 0.79f, 0.29f, 0.52f};
+        art_poly(f, ART_PART, house, 11);
+        break;
+    }
+    case ICON_F2F:                                  /* two players face to face across the table */
+        art_ellipse(f, ART_PART, 0.5f, 0.70f, 0.085f, 0.085f);
+        art_arc(f, ART_PART, 0.5f, 0.98f, 0.0f, 0.19f, 0, 180);
+        art_ellipse(f, ART_PART, 0.5f, 0.30f, 0.085f, 0.085f);
+        art_arc(f, ART_PART, 0.5f, 0.02f, 0.0f, 0.19f, 180, 360);
+        art_rect(f, ART_PART, 0.16f, 0.485f, 0.84f, 0.515f);
+        break;
+    case ICON_PASS: {                               /* an arrow jumping over a stone */
+        art_arc(f, ART_PART, 0.47f, 0.60f, 0.20f, 0.27f, 0, 180);
+        const float head[] = {0.62f, 0.56f, 0.86f, 0.56f, 0.74f, 0.74f};
+        art_poly(f, ART_PART, head, 3);
+        art_ellipse(f, ART_PART, 0.47f, 0.66f, 0.09f, 0.09f);
+        break;
+    }
+    case ICON_SOUND:
+    case ICON_MUTE: {                               /* a loudspeaker, its waves (or a cross) */
+        const float spk[] = {0.18f, 0.40f, 0.32f, 0.40f, 0.50f, 0.23f, 0.50f, 0.77f, 0.32f, 0.60f, 0.18f, 0.60f};
+        art_poly(f, ART_PART, spk, 6);
+        if (which == ICON_SOUND) {
+            art_arc(f, ART_PART, 0.50f, 0.50f, 0.11f, 0.17f, -50, 50);
+            art_arc(f, ART_PART, 0.50f, 0.50f, 0.24f, 0.30f, -50, 50);
+        } else {
+            const float a[] = {0.59f, 0.36f, 0.63f, 0.32f, 0.85f, 0.64f, 0.81f, 0.68f};
+            const float b[] = {0.81f, 0.32f, 0.85f, 0.36f, 0.63f, 0.68f, 0.59f, 0.64f};
+            art_poly(f, ART_PART, a, 4);
+            art_poly(f, ART_PART, b, 4);
+        }
+        break;
+    }
+    }
+    art_render(f, &st, size, size, (float)size, 0, 0, rgba);
+    art_fig_free(f);
 }
 
+/* seven segments with pointed ends, in a cell 0.62 wide, 1 high */
+void art_digit(int d, int w, int h, uint8_t *rgba)
+{
+    static const uint8_t seg[10] = {0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, 0x7f, 0x6f};  /* gfedcba */
+    const float t = 0.12f, g = 0.012f, l = 0.06f, r = 0.56f, top = 0.06f, mid = 0.5f, bot = 0.94f;
+    art_style st = {{255, 255, 255}, {0, 0, 0}, {0, 0, 0}, {255, 255, 255}, 0, 0};
+    art_fig *f = art_fig_new();
+    /* a segment from (x0, y0) to (x1, y1), horizontal or vertical */
+    float s[7][4] = {{l, top, r, top}, {r, top, r, mid}, {r, mid, r, bot}, {l, bot, r, bot},
+                     {l, mid, l, bot}, {l, top, l, mid}, {l, mid, r, mid}};
+    for (int i = 0; i < 7; i++) {
+        if (!(seg[d % 10] >> i & 1)) continue;
+        float x0 = s[i][0], y0 = s[i][1], x1 = s[i][2], y1 = s[i][3];
+        if (y0 == y1) {
+            const float p[] = {x0 + g, y0, x0 + g + t / 2, y0 - t / 2, x1 - g - t / 2, y0 - t / 2,
+                               x1 - g, y0, x1 - g - t / 2, y0 + t / 2, x0 + g + t / 2, y0 + t / 2};
+            art_poly(f, ART_PART, p, 6);
+        } else {
+            const float p[] = {x0, y0 + g, x0 + t / 2, y0 + g + t / 2, x0 + t / 2, y1 - g - t / 2,
+                               x0, y1 - g, x0 - t / 2, y1 - g - t / 2, x0 - t / 2, y0 + g + t / 2};
+            art_poly(f, ART_PART, p, 6);
+        }
+    }
+    art_render(f, &st, w, h, (float)h, (w - 0.62f * h) / 2, 0, rgba);
+    art_fig_free(f);
+}
+
+/* ---- plain shapes ------------------------------------------------------------------------------------------------------ */
 void art_roundrect(int w, int h, float rad, const uint8_t fill[4], uint8_t *o)
 {
     for (int y = 0; y < h; y++)
@@ -387,4 +500,20 @@ void art_ring(int size, float r_in, const uint8_t rgb[3], float a, uint8_t *o)
             memcpy(p, rgb, 3);
             p[3] = (uint8_t)(255 * a * cov);
         }
+}
+
+void art_blend(uint8_t *dst, int dw, int dh, const uint8_t *src, int sw, int sh, int x, int y)
+{
+    for (int j = 0; j < sh; j++) {
+        if (y + j < 0 || y + j >= dh) continue;
+        for (int i = 0; i < sw; i++) {
+            if (x + i < 0 || x + i >= dw) continue;
+            const uint8_t *s = src + 4 * (j * sw + i);
+            uint8_t *d = dst + 4 * ((y + j) * dw + x + i);
+            float sa = s[3] / 255.0f, da = d[3] / 255.0f, oa = sa + da * (1 - sa);
+            if (oa <= 0) continue;
+            for (int k = 0; k < 3; k++) d[k] = (uint8_t)((s[k] * sa + d[k] * da * (1 - sa)) / oa + 0.5f);
+            d[3] = (uint8_t)(oa * 255 + 0.5f);
+        }
+    }
 }
