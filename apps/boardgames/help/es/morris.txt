@@ -1,0 +1,15 @@
+Juego del molino
+# El objetivo
+Dejar al otro jugador con solo dos fichas o sin movimientos. Cada jugador tiene nueve fichas. Empiezan las claras.
+# Colocación
+Al principio, los jugadores colocan por turnos una ficha en cualquier punto vacío, hasta que las dieciocho fichas están en el tablero.
+# Movimiento
+Después, en tu turno, mueve una de tus fichas a lo largo de una línea hasta el punto siguiente, si está vacío. Un jugador al que solo le quedan tres fichas puede volar: mover una ficha a cualquier punto vacío.
+# Molinos
+Tres de tus fichas en fila sobre una misma línea forman un molino. Cada vez que formas un molino, al colocar o al mover, quita del tablero una ficha del otro jugador. No puedes quitar una ficha que forme parte de un molino, salvo que todas las fichas del otro jugador estén en molinos. Abrir un molino y volver a cerrarlo forma un molino nuevo.
+# El final de la partida
+- Pierde el jugador al que solo le quedan dos fichas.
+- Pierde el jugador que no puede mover ninguna ficha.
+- La partida es un empate cuando la misma posición se repite por tercera vez, o tras cincuenta jugadas de cada uno sin ningún molino.
+# Jugar en el dispositivo
+Toca un punto vacío para colocar una ficha. Para mover, toca tu ficha y luego su nuevo punto, o arrástrala. Tras un molino, las fichas que puedes quitar brillan: toca una.

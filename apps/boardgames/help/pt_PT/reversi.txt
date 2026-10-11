@@ -1,0 +1,11 @@
+Reversi
+# O objetivo
+Ter mais peças da tua cor no tabuleiro do que o outro jogador quando o jogo terminar. Cada peça é escura de um lado e clara do outro. As peças escuras começam.
+# Uma jogada
+- Coloca uma peça da tua cor de forma a prender uma ou mais linhas de peças do outro jogador entre ela e outra peça tua, em linha reta: na horizontal, na vertical ou na diagonal.
+- Cada peça presa é virada para a tua cor. Uma só jogada pode prender peças em várias direções ao mesmo tempo.
+- Uma jogada tem de virar pelo menos uma peça. Se não tiveres nenhuma jogada assim, passas e o outro jogador volta a jogar. O dispositivo passa por ti.
+# O fim do jogo
+O jogo termina quando nenhum jogador pode jogar, normalmente quando o tabuleiro está cheio. Ganha o jogador com mais peças. Com o mesmo número de peças, é empate.
+# Jogar no dispositivo
+Os pontos mostram onde podes jogar: toca num. As peças viram-se uma a seguir à outra. Cada barra mostra quantas peças tem esse jogador.

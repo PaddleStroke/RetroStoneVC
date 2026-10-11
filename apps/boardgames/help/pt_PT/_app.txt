@@ -1,0 +1,9 @@
+RetroStone Board
+# Jogar juntos
+Dois jogadores partilham um só dispositivo e jogam à vez. A peça luminosa na barra de um jogador mostra de quem é a vez.
+- Início: volta aos jogos. Um jogo a decorrer fica à tua espera.
+- Anular: desfaz a última jogada. Toca outra vez para recuar mais.
+- Rodar: vira o tabuleiro, para que o outro jogador fique em baixo.
+- Frente a frente: pousa o dispositivo deitado entre vocês. As peças e a barra do jogador de cima viram-se para ele.
+- Novo jogo: toca duas vezes para recomeçar.
+- ?: estas regras.

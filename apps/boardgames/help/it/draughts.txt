@@ -1,0 +1,19 @@
+Dama
+# Lo scopo
+Catturare tutti i pezzi dell'altro giocatore, o lasciarlo senza mosse. I pezzi stanno solo sulle caselle scure e si muovono in diagonale. Scegli le regole prima della partita: la dama internazionale su una damiera 10 per 10, o la dama inglese (checkers) su una damiera 8 per 8.
+# Dama internazionale (10 per 10)
+- Muovono per primi i pezzi chiari. Una pedina si muove di una casella in diagonale in avanti.
+- Una pedina cattura saltando un pezzo avversario vicino e atterrando sulla casella vuota subito dietro. Le pedine catturano in avanti e all'indietro.
+- La presa è obbligatoria, e devi prendere il maggior numero di pezzi possibile. Dopo un salto, se dalla casella di arrivo è possibile un'altra presa, il pezzo deve continuare a saltare nella stessa mossa.
+- I pezzi presi vengono tolti alla fine della mossa. Un pezzo non può essere saltato due volte.
+- Una pedina che termina la mossa sull'ultima riga diventa dama. Una dama si muove di quante caselle vuole lungo una diagonale e cattura a distanza, fermandosi su qualsiasi casella vuota oltre il pezzo che prende.
+- Patta: quando la stessa posizione si ripete per la terza volta, o dopo 25 mosse ciascuno in cui si muovono solo dame, senza prese.
+# Dama inglese (8 per 8)
+- Muovono per primi i pezzi scuri. Le pedine si muovono e catturano solo in avanti.
+- La presa è obbligatoria, ma puoi scegliere quale presa fare. Quando un pezzo inizia a saltare, deve prendere tutti i pezzi che può lungo il suo percorso.
+- Una pedina che raggiunge l'ultima riga diventa dama, e la mossa finisce lì. Una dama si muove e cattura di una casella in diagonale, in qualsiasi direzione.
+- Patta: quando la stessa posizione si ripete per la terza volta, o dopo 40 mosse ciascuno senza prese né mosse di pedina.
+# La fine della partita
+Perde il giocatore che non ha più pezzi o che non può muovere.
+# Giocare sul dispositivo
+Si possono selezionare solo i pezzi che possono muoversi. Tocca un pezzo, poi la casella dove arriva. Per una presa di più pezzi, tocca in ordine ogni casella di arrivo, oppure solo l'ultima. I pezzi che stanno per essere presi sbiadiscono.

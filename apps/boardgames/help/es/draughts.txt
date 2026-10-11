@@ -1,0 +1,19 @@
+Damas
+# El objetivo
+Capturar todas las piezas del otro jugador o dejarlo sin movimientos. Las piezas solo ocupan las casillas oscuras y se mueven en diagonal. Elige las reglas antes de la partida: damas internacionales en un tablero de 10 por 10, o damas inglesas (checkers) en un tablero de 8 por 8.
+# Damas internacionales (10 por 10)
+- Empiezan las piezas claras. Un peón avanza una casilla en diagonal.
+- Un peón captura saltando por encima de una pieza contraria contigua hasta la casilla vacía justo detrás. Los peones capturan hacia delante y hacia atrás.
+- Capturar es obligatorio, y debes capturar el mayor número de piezas posible. Tras un salto, si desde la casilla de llegada es posible otra captura, la pieza debe seguir saltando en la misma jugada.
+- Las piezas capturadas se retiran al final de la jugada. Una pieza no puede ser saltada dos veces.
+- Un peón que termina su jugada en la última fila se convierte en dama. Una dama se mueve cualquier número de casillas por una diagonal y captura a distancia, cayendo en cualquier casilla vacía más allá de la pieza que captura.
+- Tablas: cuando la misma posición se repite por tercera vez, o tras 25 jugadas de cada uno en las que solo se mueven damas y no hay capturas.
+# Damas inglesas (8 por 8)
+- Empiezan las piezas oscuras. Los peones se mueven y capturan solo hacia delante.
+- Capturar es obligatorio, pero puedes elegir qué captura hacer. Cuando una pieza empieza a saltar, debe capturar todas las piezas que pueda en su camino.
+- Un peón que llega a la última fila se convierte en dama, y con eso termina la jugada. Una dama se mueve y captura una casilla en diagonal, en cualquier dirección.
+- Tablas: cuando la misma posición se repite por tercera vez, o tras 40 jugadas de cada uno sin capturas ni movimientos de peón.
+# El final de la partida
+Pierde el jugador que se queda sin piezas o que no puede mover.
+# Jugar en el dispositivo
+Solo se pueden seleccionar las piezas que pueden moverse. Toca una pieza y luego la casilla donde cae. Para una captura de varias piezas, toca cada casilla de llegada por orden, o solo la última. Las piezas que van a ser capturadas se desvanecen.

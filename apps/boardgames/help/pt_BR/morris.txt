@@ -1,0 +1,15 @@
+Trilha
+# O objetivo
+Deixar o outro jogador com só duas peças, ou sem jogada. Cada jogador tem nove peças. As peças claras começam.
+# Colocação
+No início, os jogadores colocam, um de cada vez, uma peça em qualquer ponto vazio, até que todas as dezoito peças estejam no tabuleiro.
+# Movimento
+Depois, na sua vez, mova uma das suas peças ao longo de uma linha até o ponto vizinho, se ele estiver vazio. Um jogador que só tem três peças pode voar: mover uma peça para qualquer ponto vazio.
+# Moinhos
+Três peças suas em fila na mesma linha formam um moinho. Sempre que você forma um moinho, colocando ou movendo, retire do tabuleiro uma peça do outro jogador. Você não pode tirar uma peça que esteja em um moinho, a não ser que todas as peças do outro jogador estejam em moinhos. Abrir um moinho e fechá-lo de novo forma um novo moinho.
+# O fim da partida
+- Perde o jogador que fica com duas peças.
+- Perde o jogador que não consegue mover nenhuma peça.
+- A partida termina empatada quando a mesma posição se repete pela terceira vez, ou depois de cinquenta jogadas de cada lado sem moinho.
+# Jogando no aparelho
+Toque em um ponto vazio para colocar uma peça. Para mover, toque na sua peça e depois no novo ponto dela, ou arraste-a. Depois de um moinho, as peças que você pode tirar brilham: toque em uma.

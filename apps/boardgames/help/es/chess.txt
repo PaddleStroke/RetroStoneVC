@@ -1,0 +1,22 @@
+Ajedrez
+# El objetivo
+Dar jaque mate al rey contrario: atacarlo de modo que no pueda escapar. Las blancas mueven primero; después los jugadores se turnan, una jugada cada uno.
+# Cómo se mueven las piezas
+- Rey: una casilla en cualquier dirección.
+- Dama: cualquier número de casillas en línea recta, por una fila, una columna o una diagonal.
+- Torre: cualquier número de casillas por una fila o una columna.
+- Alfil: cualquier número de casillas por una diagonal.
+- Caballo: en forma de L, dos casillas en una dirección y una hacia un lado. Es la única pieza que salta por encima de las demás.
+- Peón: una casilla hacia delante, o dos desde su casilla inicial. Captura una casilla en diagonal hacia delante.
+Las piezas no pueden atravesar otras piezas (salvo el caballo). Una pieza captura moviéndose a una casilla ocupada por una pieza contraria, que sale del tablero.
+# Jugadas especiales
+- Enroque: el rey se mueve dos casillas hacia una torre, y la torre salta a la casilla que el rey ha cruzado. Solo se permite si ninguna de las dos piezas se ha movido aún, las casillas entre ellas están vacías y el rey no está en jaque, no cruza una casilla atacada y no termina en jaque.
+- Captura al paso: cuando un peón avanza dos casillas y queda junto a un peón contrario, este puede capturarlo como si hubiera avanzado una sola casilla, pero solo en la jugada inmediatamente siguiente.
+- Promoción: un peón que llega a la última fila se convierte en dama, torre, alfil o caballo, a tu elección.
+# El jaque y el final de la partida
+Un rey atacado está en jaque: la siguiente jugada debe sacarlo del jaque. Nunca puedes hacer una jugada que deje a tu propio rey en jaque.
+- Jaque mate: el rey está en jaque y ninguna jugada puede salvarlo. Ese jugador pierde.
+- Rey ahogado: el jugador al que le toca mover no tiene ninguna jugada legal, pero no está en jaque. La partida termina en tablas.
+- La partida también termina en tablas cuando ningún bando puede ya dar mate (quedan muy pocas piezas), cuando la misma posición se repite por tercera vez, o tras cincuenta jugadas de cada uno sin capturas ni movimientos de peón.
+# Jugar en el dispositivo
+Toca una pieza para ver adónde puede ir y luego toca una casilla, o arrastra la pieza. Los puntos muestran las jugadas, los anillos las capturas. Un rey en jaque brilla en rojo.

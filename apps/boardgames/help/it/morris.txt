@@ -1,0 +1,15 @@
+Mulino
+# Lo scopo
+Lasciare all'altro giocatore solo due pedine, o nessuna mossa. Ogni giocatore ha nove pedine. Iniziano le pedine chiare.
+# Piazzamento
+All'inizio, i giocatori piazzano a turno una pedina su un punto libero qualsiasi, finché tutte e diciotto le pedine sono sul tavoliere.
+# Movimento
+Poi, al tuo turno, sposta una delle tue pedine lungo una linea fino al punto vicino, se è libero. Un giocatore a cui restano solo tre pedine può volare: spostare una pedina su un punto libero qualsiasi.
+# Mulini
+Tre tue pedine in fila sulla stessa linea formano un mulino. Ogni volta che formi un mulino, durante il piazzamento o il movimento, togli dal tavoliere una pedina dell'altro giocatore. Non puoi prendere una pedina che fa parte di un mulino, a meno che tutte le pedine dell'altro giocatore siano in mulini. Aprire un mulino e richiuderlo forma un nuovo mulino.
+# La fine della partita
+- Perde il giocatore a cui restano due pedine.
+- Perde il giocatore che non può muovere nessuna pedina.
+- La partita è patta quando la stessa posizione si ripete per la terza volta, o dopo cinquanta mosse ciascuno senza mulini.
+# Giocare sul dispositivo
+Tocca un punto libero per piazzare una pedina. Per muovere, tocca la tua pedina e poi il suo nuovo punto, oppure trascinala. Dopo un mulino, le pedine che puoi prendere si illuminano: toccane una.

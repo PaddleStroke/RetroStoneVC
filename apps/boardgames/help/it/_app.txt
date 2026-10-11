@@ -1,0 +1,9 @@
+RetroStone Board
+# Giocare insieme
+Due giocatori condividono un solo dispositivo e giocano a turno. La pedina luminosa nella barra di un giocatore indica di chi è il turno.
+- Home: torna ai giochi. Una partita in corso ti aspetta.
+- Annulla: ritira l'ultima mossa. Tocca di nuovo per tornare ancora più indietro.
+- Ruota: gira il tavoliere, così l'altro giocatore si trova in basso.
+- Faccia a faccia: appoggia il dispositivo in piano tra voi. I pezzi e la barra del giocatore in alto si girano verso di lui.
+- Nuova partita: tocca due volte per ricominciare.
+- ?: queste regole.

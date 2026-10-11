@@ -1,0 +1,15 @@
+Go
+# O objetivo
+Cercar uma parte maior do tabuleiro do que o outro jogador. As pedras jogam-se nos pontos onde as linhas se cruzam e, depois de jogadas, nunca se movem. As pretas (escuras) começam. Escolhe o tabuleiro antes da partida: 9 por 9 para uma partida rápida, 13 por 13, ou o completo, de 19 por 19.
+# Liberdades e capturas
+- Os pontos vazios junto a uma pedra, ao longo das linhas, são as suas liberdades. As pedras da mesma cor que se tocam ao longo das linhas formam um grupo e partilham as liberdades.
+- Quando tiras a última liberdade a um grupo, ele é capturado: as suas pedras saem do tabuleiro.
+- Não podes jogar uma pedra que ficaria sem liberdades, a não ser que capture e assim ganhe uma.
+- Ko: não podes fazer uma jogada que traga de volta uma posição já vista. Quando uma única pedra é capturada e podia ser recapturada logo a seguir, joga primeiro noutro sítio.
+# Passar e contar
+Em vez de jogar, podes passar. Quando os dois jogadores passam um a seguir ao outro, a partida para e começa a contagem.
+- Toca nos grupos que não podiam viver (pedras mortas): contam como capturados. Toca outra vez para recuperar um grupo.
+- Quando estiverem de acordo, toca no botão de passar: está feito.
+- Cada jogador marca um ponto por cada pedra sua no tabuleiro e por cada ponto vazio que só ele cerca. As brancas (claras) recebem ainda 7,5 pontos por jogarem em segundo lugar (o komi), por isso nunca há empate. Ganha a pontuação mais alta.
+# Jogar no dispositivo
+O primeiro toque mostra uma pedra pálida, e um segundo toque no mesmo ponto joga-a. Assim, os pontos pequenos são fáceis de acertar. Cada barra mostra as pedras que esse jogador capturou e, durante a contagem, a pontuação.

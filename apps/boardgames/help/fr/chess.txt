@@ -1,0 +1,22 @@
+Échecs
+# Le but
+Mettre le roi adverse échec et mat : l'attaquer de sorte qu'il ne puisse pas s'échapper. Les Blancs commencent, puis les joueurs jouent à tour de rôle, un coup chacun.
+# Le déplacement des pièces
+- Roi : une case dans n'importe quelle direction.
+- Dame : d'autant de cases que tu veux en ligne droite, le long d'une rangée, d'une colonne ou d'une diagonale.
+- Tour : d'autant de cases que tu veux le long d'une rangée ou d'une colonne.
+- Fou : d'autant de cases que tu veux le long d'une diagonale.
+- Cavalier : en forme de L, deux cases dans une direction puis une case sur le côté. C'est la seule pièce qui saute par-dessus les autres.
+- Pion : une case vers l'avant, ou deux depuis sa case de départ. Il prend en diagonale, une case vers l'avant.
+Les pièces ne peuvent pas traverser d'autres pièces (sauf le cavalier). Une pièce prend en allant sur une case occupée par une pièce adverse, qui quitte alors l'échiquier.
+# Les coups spéciaux
+- Roque : le roi se déplace de deux cases vers une tour, et la tour saute sur la case que le roi a franchie. Il n'est permis que si aucune des deux pièces n'a encore bougé, si les cases entre elles sont vides, et si le roi n'est pas en échec, ne traverse pas une case attaquée et ne se retrouve pas en échec.
+- Prise en passant : quand un pion avance de deux cases et arrive à côté d'un pion adverse, ce pion peut le prendre comme s'il n'avait avancé que d'une case, mais seulement au coup qui suit immédiatement.
+- Promotion : un pion qui atteint la dernière rangée devient une dame, une tour, un fou ou un cavalier, au choix.
+# L'échec et la fin de la partie
+Un roi attaqué est en échec : le coup suivant doit le sortir de l'échec. Tu ne peux jamais jouer un coup qui laisse ton propre roi en échec.
+- Échec et mat : le roi est en échec et aucun coup ne peut le sauver. Ce joueur a perdu.
+- Pat : le joueur dont c'est le tour n'a aucun coup légal mais n'est pas en échec. La partie est nulle.
+- La partie est aussi nulle quand aucun des deux camps ne peut plus jamais mater (il reste trop peu de pièces), quand la même position revient pour la troisième fois, ou après cinquante coups de chaque côté sans prise ni coup de pion.
+# Jouer sur l'appareil
+Touche une pièce pour voir où elle peut aller, puis touche une case, ou fais glisser la pièce. Les points montrent les coups possibles, les anneaux les prises. Un roi en échec brille en rouge.

@@ -1,0 +1,19 @@
+Dammen
+# Het doel
+Sla alle stukken van de andere speler, of laat hem zonder zet. De stukken staan alleen op de donkere velden en bewegen diagonaal. Kies de regels voor de partij: internationaal dammen op een bord van 10 bij 10, of Engels dammen (checkers) op een bord van 8 bij 8.
+# Internationaal dammen (10 bij 10)
+- Licht begint. Een schijf gaat één veld schuin vooruit.
+- Een schijf slaat door over een aangrenzend stuk van de tegenstander te springen, naar het lege veld er direct achter. Schijven slaan vooruit en achteruit.
+- Slaan is verplicht, en je moet zoveel mogelijk stukken slaan. Als na een sprong vanaf het landingsveld nog een slag mogelijk is, moet het stuk in dezelfde zet doorspringen.
+- De geslagen stukken worden aan het einde van de zet weggenomen. Een stuk kan niet twee keer worden overgesprongen.
+- Een schijf die zijn zet aan de overkant beëindigt, promoveert tot dam. Een dam gaat zoveel velden als hij wil over een diagonaal en slaat op afstand: hij landt op een willekeurig leeg veld achter het stuk dat hij slaat.
+- Remise: als dezelfde stelling voor de derde keer terugkomt, of na 25 zetten van elke speler waarin alleen dammen bewegen en niets geslagen wordt.
+# Engels dammen (8 bij 8)
+- Donker begint. Schijven bewegen en slaan alleen vooruit.
+- Slaan is verplicht, maar je mag kiezen welke slag je doet. Zodra een stuk begint te springen, moet het alle stukken slaan die het onderweg kan slaan.
+- Een schijf die de overkant bereikt, promoveert tot dam, en daarmee eindigt de zet. Een dam beweegt en slaat één veld schuin in elke richting.
+- Remise: als dezelfde stelling voor de derde keer terugkomt, of na 40 zetten van elke speler zonder slag en zonder schijfzet.
+# Het einde van de partij
+Een speler die geen stukken meer heeft, of niet meer kan zetten, verliest.
+# Spelen op het apparaat
+Alleen de stukken die kunnen bewegen, kun je kiezen. Tik op een stuk en dan op het veld waar het landt. Bij een slag van meerdere stukken tik je elk landingsveld na elkaar aan, of alleen het laatste. De stukken die zo meteen geslagen worden, vervagen.

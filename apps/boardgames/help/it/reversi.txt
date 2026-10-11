@@ -1,0 +1,11 @@
+Reversi
+# Lo scopo
+Avere sul tavoliere più pedine del tuo colore rispetto all'altro giocatore quando la partita finisce. Ogni pedina è scura da un lato e chiara dall'altro. Iniziano le pedine scure.
+# Una mossa
+- Posa una pedina del tuo colore in modo da chiudere una o più file di pedine dell'altro giocatore tra questa e un'altra tua pedina, in linea retta: in orizzontale, in verticale o in diagonale.
+- Ogni pedina chiusa viene girata dal lato del tuo colore. Una sola mossa può chiudere pedine in più direzioni contemporaneamente.
+- Una mossa deve girare almeno una pedina. Se non hai mosse di questo tipo, passi e l'altro giocatore gioca di nuovo. Il dispositivo passa per te.
+# La fine della partita
+La partita finisce quando nessuno dei due giocatori può muovere, di solito quando il tavoliere è pieno. Vince il giocatore con più pedine. Con lo stesso numero di pedine, la partita è patta.
+# Giocare sul dispositivo
+I punti mostrano dove puoi giocare: toccane uno. Le pedine si girano una dopo l'altra. Ogni barra mostra quante pedine ha quel giocatore.

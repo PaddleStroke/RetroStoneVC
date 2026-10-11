@@ -1,0 +1,15 @@
+Mühle
+# Das Ziel
+Lass dem anderen Spieler nur noch zwei Steine oder keinen Zug mehr. Jeder Spieler hat neun Steine. Hell beginnt.
+# Setzen
+Zuerst setzen die Spieler abwechselnd je einen Stein auf einen beliebigen freien Punkt, bis alle achtzehn Steine auf dem Brett sind.
+# Ziehen
+Danach ziehst du, wenn du dran bist, einen deiner Steine entlang einer Linie auf den nächsten Punkt, falls er frei ist. Wer nur noch drei Steine hat, darf springen: einen Stein auf einen beliebigen freien Punkt setzen.
+# Mühlen
+Drei deiner Steine in einer Reihe auf einer Linie bilden eine Mühle. Jedes Mal, wenn du eine Mühle schließt, beim Setzen oder beim Ziehen, nimmst du einen Stein des anderen Spielers vom Brett. Du darfst keinen Stein nehmen, der in einer Mühle steht, außer wenn alle Steine des anderen Spielers in Mühlen stehen. Eine Mühle öffnen und wieder schließen ergibt eine neue Mühle.
+# Das Ende der Partie
+- Wer nur noch zwei Steine hat, verliert.
+- Wer keinen Stein mehr ziehen kann, verliert.
+- Die Partie endet unentschieden, wenn dieselbe Stellung zum dritten Mal entsteht, oder nach fünfzig Zügen jeder Seite ohne Mühle.
+# Spielen auf dem Gerät
+Tippe auf einen freien Punkt, um einen Stein zu setzen. Zum Ziehen tippe auf deinen Stein und dann auf seinen neuen Punkt, oder schieb ihn mit dem Finger. Nach einer Mühle leuchten die Steine, die du nehmen darfst: Tippe auf einen.

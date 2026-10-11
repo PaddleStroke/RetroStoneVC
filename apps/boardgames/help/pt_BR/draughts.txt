@@ -1,0 +1,19 @@
+Damas
+# O objetivo
+Capturar todas as peças do outro jogador ou deixá-lo sem jogada. As peças ficam só nas casas escuras e se movem na diagonal. Escolha as regras antes da partida: damas internacionais em um tabuleiro de 10 por 10, ou damas inglesas (checkers) em um tabuleiro de 8 por 8.
+# Damas internacionais (10 por 10)
+- As peças claras começam. Uma pedra anda uma casa na diagonal para a frente.
+- Uma pedra captura pulando por cima de uma peça adversária vizinha até a casa vazia logo depois dela. As pedras capturam para a frente e para trás.
+- A captura é obrigatória, e você deve capturar o maior número possível de peças. Depois de um salto, se outra captura for possível a partir da casa onde a peça caiu, ela precisa continuar pulando no mesmo lance.
+- As peças capturadas são retiradas no fim do lance. Uma peça não pode ser pulada duas vezes.
+- Uma pedra que termina o lance na última fileira vira dama. A dama anda quantas casas quiser por uma diagonal e captura à distância, parando em qualquer casa vazia depois da peça capturada.
+- Empate: quando a mesma posição se repete pela terceira vez, ou depois de 25 lances de cada lado em que só as damas se movem, sem nenhuma captura.
+# Damas inglesas (8 por 8)
+- As peças escuras começam. As pedras andam e capturam só para a frente.
+- A captura é obrigatória, mas você pode escolher qual captura fazer. Quando uma peça começa a pular, ela deve capturar todas as peças que puder pelo caminho.
+- Uma pedra que chega à última fileira vira dama, e isso encerra o lance. A dama anda e captura uma casa na diagonal, em qualquer direção.
+- Empate: quando a mesma posição se repete pela terceira vez, ou depois de 40 lances de cada lado sem captura nem movimento de pedra.
+# O fim da partida
+Perde o jogador que fica sem peças ou que não consegue se mover.
+# Jogando no aparelho
+Só as peças que podem se mover podem ser selecionadas. Toque em uma peça e depois na casa onde ela vai parar. Em uma captura de várias peças, toque em cada casa de parada, uma de cada vez, ou só na última. As peças que vão ser capturadas vão sumindo.

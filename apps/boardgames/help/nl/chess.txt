@@ -1,0 +1,22 @@
+Schaken
+# Het doel
+Zet de andere koning schaakmat: val hem zo aan dat hij niet kan ontsnappen. Wit begint, daarna spelen de spelers om de beurt, elk één zet.
+# Hoe de stukken bewegen
+- Koning: één veld in elke richting.
+- Dame: zoveel velden als je wilt in een rechte lijn, over een rij, een kolom of een diagonaal.
+- Toren: zoveel velden als je wilt over een rij of een kolom.
+- Loper: zoveel velden als je wilt over een diagonaal.
+- Paard: in een L-vorm, twee velden de ene kant op en één veld opzij. Het is het enige stuk dat over andere stukken heen springt.
+- Pion: één veld vooruit, of twee vanaf zijn beginveld. Hij slaat één veld schuin vooruit.
+Stukken kunnen niet door andere stukken heen (behalve het paard). Een stuk slaat door naar een veld te gaan waar een stuk van de tegenstander staat; dat stuk verlaat het bord.
+# Bijzondere zetten
+- Rokade: de koning gaat twee velden naar een toren toe, en de toren springt naar het veld dat de koning is gepasseerd. Alleen toegestaan als geen van beide stukken al heeft bewogen, de velden ertussen leeg zijn, en de koning niet schaak staat, geen aangevallen veld passeert en niet schaak komt te staan.
+- En passant: als een pion twee velden vooruitgaat en naast een pion van de tegenstander belandt, mag die pion hem slaan alsof hij maar één veld was opgeschoven, maar alleen in de direct volgende zet.
+- Promotie: een pion die de laatste rij bereikt, wordt een dame, toren, loper of paard, naar keuze.
+# Schaak en het einde van de partij
+Een koning die wordt aangevallen staat schaak: de volgende zet moet het schaak opheffen. Je mag nooit een zet doen waarna je eigen koning schaak staat.
+- Schaakmat: de koning staat schaak en geen enkele zet kan hem redden. Die speler verliest.
+- Pat: de speler die aan zet is heeft geen geldige zet, maar staat niet schaak. De partij eindigt in remise.
+- De partij is ook remise als geen van beide kanten ooit nog mat kan zetten (te weinig stukken over), als dezelfde stelling voor de derde keer terugkomt, of na vijftig zetten van elke speler zonder slaan of pionzet.
+# Spelen op het apparaat
+Tik op een stuk om te zien waar het heen kan en tik dan op een veld, of sleep het stuk. Stippen tonen de zetten, ringen het slaan. Een koning die schaak staat, licht rood op.

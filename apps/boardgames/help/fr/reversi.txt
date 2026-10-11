@@ -1,0 +1,11 @@
+Reversi
+# Le but
+Avoir plus de pions de ta couleur sur le plateau que l'autre joueur à la fin de la partie. Chaque pion a une face foncée et une face claire. Les pions foncés commencent.
+# Un coup
+- Pose un pion de ta couleur de façon à encadrer une ou plusieurs lignes de pions adverses entre ce pion et un autre de tes pions, en ligne droite : horizontalement, verticalement ou en diagonale.
+- Chaque pion encadré est retourné et prend ta couleur. Un seul coup peut encadrer des pions dans plusieurs directions à la fois.
+- Un coup doit retourner au moins un pion. Si tu n'as aucun coup de ce genre, tu passes ton tour et l'autre joueur rejoue. L'appareil passe pour toi.
+# La fin de la partie
+La partie se termine quand aucun des deux joueurs ne peut plus jouer, en général quand le plateau est plein. Le joueur qui a le plus de pions gagne. À nombre égal de pions, la partie est nulle.
+# Jouer sur l'appareil
+Les points montrent où tu peux jouer : touches-en un. Les pions se retournent les uns après les autres. Chaque barre indique combien de pions a ce joueur.

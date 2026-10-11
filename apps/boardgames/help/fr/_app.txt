@@ -1,0 +1,9 @@
+RetroStone Board
+# Jouer à deux
+Deux joueurs partagent un seul appareil et jouent chacun leur tour. La pièce lumineuse dans la barre d'un joueur indique à qui c'est le tour.
+- Accueil : retour aux jeux. Une partie en cours t'attend.
+- Annuler : reprend le dernier coup. Touche encore pour revenir plus loin en arrière.
+- Retourner : fait pivoter le plateau, pour que l'autre joueur soit en bas.
+- Face à face : pose l'appareil à plat entre vous. Les pièces et la barre du joueur du haut se tournent vers lui.
+- Nouvelle partie : touche deux fois pour recommencer.
+- ? : ces règles.

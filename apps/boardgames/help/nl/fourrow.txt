@@ -1,0 +1,9 @@
+Vier in een rij
+# Het doel
+Als eerste vier schijven van jouw kleur op een rij krijgen: horizontaal, verticaal of diagonaal.
+# Een zet
+Het bord staat rechtop en heeft zeven kolommen. Als je aan de beurt bent, laat je een schijf in een kolom vallen: hij valt naar het laagste lege gat. In een volle kolom past geen schijf meer. Licht begint.
+# Het einde van het spel
+De eerste speler met vier schijven op een rij wint. Als het bord vol raakt zonder rij van vier, is het gelijkspel.
+# Spelen op het apparaat
+Tik op een kolom, of schuif je schijf langs de bovenkant en laat los. Elke balk toont hoeveel schijven die speler nog over heeft.

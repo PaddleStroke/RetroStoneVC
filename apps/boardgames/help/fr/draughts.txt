@@ -1,0 +1,19 @@
+Dames
+# Le but
+Prendre toutes les pièces de l'autre joueur, ou le laisser sans coup possible. Les pièces se placent uniquement sur les cases foncées et se déplacent en diagonale. Choisis les règles avant la partie : les dames internationales sur un damier de 10 sur 10, ou les dames anglaises (checkers) sur un damier de 8 sur 8.
+# Dames internationales (10 sur 10)
+- Les pièces claires commencent. Un pion avance d'une case en diagonale.
+- Un pion prend en sautant par-dessus une pièce adverse voisine pour atterrir sur la case vide juste derrière. Les pions prennent vers l'avant et vers l'arrière.
+- La prise est obligatoire, et tu dois prendre le plus grand nombre de pièces possible. Après un saut, si une autre prise est possible depuis la case d'arrivée, la pièce doit continuer à sauter dans le même coup.
+- Les pièces prises sont retirées à la fin du coup. Une pièce ne peut pas être sautée deux fois.
+- Un pion qui termine son coup sur la dernière rangée devient une dame. Une dame se déplace d'autant de cases qu'elle veut le long d'une diagonale, et prend à distance, en s'arrêtant sur n'importe quelle case vide après la pièce prise.
+- Partie nulle : quand la même position revient pour la troisième fois, ou après 25 coups de chaque côté où seules des dames bougent, sans aucune prise.
+# Dames anglaises (8 sur 8)
+- Les pièces foncées commencent. Les pions se déplacent et prennent uniquement vers l'avant.
+- La prise est obligatoire, mais tu peux choisir quelle prise faire. Une fois qu'une pièce commence à sauter, elle doit prendre toutes les pièces qu'elle peut sur son chemin.
+- Un pion qui atteint la dernière rangée devient une dame, et le coup s'arrête là. Une dame se déplace et prend d'une case en diagonale, dans n'importe quelle direction.
+- Partie nulle : quand la même position revient pour la troisième fois, ou après 40 coups de chaque côté sans prise ni coup de pion.
+# La fin de la partie
+Un joueur qui n'a plus de pièces, ou qui ne peut plus bouger, a perdu.
+# Jouer sur l'appareil
+Seules les pièces qui peuvent bouger peuvent être sélectionnées. Touche une pièce, puis la case où elle arrive. Pour une rafle de plusieurs pièces, touche chaque case d'arrivée l'une après l'autre, ou seulement la dernière. Les pièces sur le point d'être prises s'estompent.

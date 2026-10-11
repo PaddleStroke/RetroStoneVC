@@ -1,0 +1,9 @@
+RetroStone Board
+# Gemeinsam spielen
+Zwei Spieler teilen sich ein Gerät und sind abwechselnd am Zug. Der leuchtende Stein in der Leiste eines Spielers zeigt, wer am Zug ist.
+- Start: zurück zu den Spielen. Eine laufende Partie wartet auf dich.
+- Rückgängig: nimmt den letzten Zug zurück. Tippe erneut, um weiter zurückzugehen.
+- Drehen: dreht das Brett um, sodass der andere Spieler unten sitzt.
+- Gegenüber: Leg das Gerät flach zwischen euch. Die Figuren und die Leiste des oberen Spielers drehen sich zu ihm.
+- Neues Spiel: zweimal tippen, um neu anzufangen.
+- ?: diese Regeln.

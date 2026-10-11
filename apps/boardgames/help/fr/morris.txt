@@ -1,0 +1,15 @@
+Jeu du moulin
+# Le but
+Ne laisser à l'autre joueur que deux pièces, ou aucun coup possible. Chaque joueur a neuf pièces. Les pièces claires commencent.
+# La pose
+Au début, les joueurs posent à tour de rôle une pièce sur n'importe quel point libre, jusqu'à ce que les dix-huit pièces soient sur le plateau.
+# Les déplacements
+Ensuite, à ton tour, déplace une de tes pièces le long d'une ligne jusqu'au point voisin, s'il est libre. Un joueur à qui il ne reste que trois pièces peut voler : déplacer une pièce sur n'importe quel point libre.
+# Les moulins
+Trois de tes pièces alignées sur une même ligne forment un moulin. Chaque fois que tu formes un moulin, pendant la pose ou pendant les déplacements, retire du plateau une pièce de l'autre joueur. Tu ne peux pas prendre une pièce qui fait partie d'un moulin, sauf si toutes les pièces de l'autre joueur sont dans des moulins. Ouvrir un moulin puis le refermer forme un nouveau moulin.
+# La fin de la partie
+- Un joueur à qui il ne reste que deux pièces a perdu.
+- Un joueur qui ne peut déplacer aucune pièce a perdu.
+- La partie est nulle quand la même position revient pour la troisième fois, ou après cinquante coups de chaque côté sans moulin.
+# Jouer sur l'appareil
+Touche un point libre pour poser une pièce. Pour déplacer, touche ta pièce puis son nouveau point, ou fais-la glisser. Après un moulin, les pièces que tu peux prendre brillent : touches-en une.

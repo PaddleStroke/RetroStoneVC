@@ -1,0 +1,22 @@
+Scacchi
+# Lo scopo
+Dare scacco matto al re avversario: attaccarlo in modo che non possa sfuggire. Il Bianco muove per primo, poi i giocatori si alternano, una mossa ciascuno.
+# Come si muovono i pezzi
+- Re: una casella in qualsiasi direzione.
+- Donna: di quante caselle vuoi in linea retta, lungo una traversa, una colonna o una diagonale.
+- Torre: di quante caselle vuoi lungo una traversa o una colonna.
+- Alfiere: di quante caselle vuoi lungo una diagonale.
+- Cavallo: a forma di L, due caselle in una direzione e una di lato. È l'unico pezzo che salta gli altri.
+- Pedone: una casella in avanti, o due dalla sua casella di partenza. Cattura una casella in diagonale in avanti.
+I pezzi non possono attraversare altri pezzi (tranne il cavallo). Un pezzo cattura spostandosi su una casella occupata da un pezzo avversario, che esce dalla scacchiera.
+# Mosse speciali
+- Arrocco: il re si sposta di due caselle verso una torre, e la torre salta sulla casella che il re ha attraversato. È consentito solo se nessuno dei due pezzi si è ancora mosso, le caselle tra loro sono vuote e il re non è sotto scacco, non attraversa una casella attaccata e non finisce sotto scacco.
+- Presa en passant: quando un pedone avanza di due caselle e si ferma accanto a un pedone avversario, quel pedone può catturarlo come se avesse avanzato di una sola casella, ma solo alla mossa immediatamente successiva.
+- Promozione: un pedone che raggiunge l'ultima traversa diventa una donna, una torre, un alfiere o un cavallo, a tua scelta.
+# Lo scacco e la fine della partita
+Un re attaccato è sotto scacco: la mossa successiva deve toglierlo dallo scacco. Non puoi mai fare una mossa che lasci il tuo re sotto scacco.
+- Scacco matto: il re è sotto scacco e nessuna mossa può salvarlo. Quel giocatore perde.
+- Stallo: il giocatore di turno non ha mosse legali ma non è sotto scacco. La partita è patta.
+- La partita è patta anche quando nessuno dei due può più dare scacco matto (sono rimasti troppo pochi pezzi), quando la stessa posizione si ripete per la terza volta, o dopo cinquanta mosse ciascuno senza catture né mosse di pedone.
+# Giocare sul dispositivo
+Tocca un pezzo per vedere dove può andare, poi tocca una casella, oppure trascina il pezzo. I punti mostrano le mosse, gli anelli le catture. Un re sotto scacco si illumina di rosso.

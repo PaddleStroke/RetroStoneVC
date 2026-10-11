@@ -1,0 +1,9 @@
+RetroStone Board
+# Samen spelen
+Twee spelers delen één apparaat en spelen om de beurt. Het oplichtende stuk in de balk van een speler laat zien wie er aan de beurt is.
+- Home: terug naar de spellen. Een lopend spel wacht op je.
+- Ongedaan maken: neemt de laatste zet terug. Tik nog eens om verder terug te gaan.
+- Draaien: draait het bord om, zodat de andere speler onderaan zit.
+- Tegenover elkaar: leg het apparaat plat tussen jullie in. De stukken en de balk van de bovenste speler draaien naar die speler toe.
+- Nieuw spel: tik twee keer om opnieuw te beginnen.
+- ?: deze regels.

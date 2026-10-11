@@ -1,0 +1,19 @@
+Dame
+# Das Ziel
+Schlage alle Steine des anderen Spielers oder lass ihm keinen Zug mehr. Die Steine stehen nur auf den dunklen Feldern und ziehen diagonal. Wähle die Regeln vor der Partie: internationales Dame auf einem Brett mit 10 mal 10 Feldern oder englisches Dame (Checkers) auf einem Brett mit 8 mal 8 Feldern.
+# Internationales Dame (10 mal 10)
+- Hell beginnt. Ein einfacher Stein zieht ein Feld diagonal vorwärts.
+- Ein einfacher Stein schlägt, indem er über einen benachbarten gegnerischen Stein auf das leere Feld direkt dahinter springt. Einfache Steine schlagen vorwärts und rückwärts.
+- Schlagen ist Pflicht, und du musst so viele Steine wie möglich schlagen. Ist nach einem Sprung vom Landefeld aus ein weiterer Schlag möglich, muss der Stein im selben Zug weiterspringen.
+- Die geschlagenen Steine werden erst am Ende des Zuges entfernt. Ein Stein kann nicht zweimal übersprungen werden.
+- Ein einfacher Stein, der seinen Zug auf der gegnerischen Grundreihe beendet, wird zur Dame. Eine Dame zieht beliebig viele Felder entlang einer Diagonale und schlägt auf Distanz: Sie landet auf einem beliebigen leeren Feld hinter dem geschlagenen Stein.
+- Remis: wenn dieselbe Stellung zum dritten Mal entsteht, oder nach 25 Zügen jeder Seite, in denen nur Damen ziehen und nichts geschlagen wird.
+# Englisches Dame (8 mal 8)
+- Dunkel beginnt. Einfache Steine ziehen und schlagen nur vorwärts.
+- Schlagen ist Pflicht, aber du darfst wählen, welchen Schlag du ausführst. Hat ein Stein einmal zu springen begonnen, muss er alle Steine schlagen, die er auf seinem Weg schlagen kann.
+- Ein einfacher Stein, der die gegnerische Grundreihe erreicht, wird zur Dame, und damit endet der Zug. Eine Dame zieht und schlägt ein Feld diagonal in jede Richtung.
+- Remis: wenn dieselbe Stellung zum dritten Mal entsteht, oder nach 40 Zügen jeder Seite ohne Schlagen und ohne Zug eines einfachen Steins.
+# Das Ende der Partie
+Wer keine Steine mehr hat oder nicht mehr ziehen kann, verliert.
+# Spielen auf dem Gerät
+Nur Steine, die ziehen können, lassen sich auswählen. Tippe auf einen Stein und dann auf das Feld, auf dem er landet. Bei einem Mehrfachschlag tippe nacheinander auf jedes Landefeld oder nur auf das letzte. Die Steine, die gleich geschlagen werden, verblassen.

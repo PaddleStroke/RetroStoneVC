@@ -1,0 +1,15 @@
+Molenspel
+# Het doel
+Laat de andere speler met nog maar twee stukken achter, of zonder zet. Elke speler heeft negen stukken. Licht begint.
+# Plaatsen
+Eerst plaatsen de spelers om de beurt één stuk op een willekeurig leeg punt, tot alle achttien stukken op het bord staan.
+# Schuiven
+Daarna schuif je, als je aan de beurt bent, een van je stukken langs een lijn naar het volgende punt, als dat leeg is. Een speler met nog maar drie stukken mag springen: een stuk naar een willekeurig leeg punt verplaatsen.
+# Molens
+Drie van je stukken op een rij langs één lijn vormen een molen. Elke keer dat je een molen maakt, tijdens het plaatsen of het schuiven, neem je een stuk van de andere speler van het bord. Je mag geen stuk nemen dat in een molen staat, tenzij alle stukken van de andere speler in molens staan. Een molen openen en weer sluiten vormt een nieuwe molen.
+# Het einde van het spel
+- Een speler die nog maar twee stukken heeft, verliest.
+- Een speler die geen enkel stuk kan verplaatsen, verliest.
+- Het spel eindigt in gelijkspel als dezelfde stelling voor de derde keer terugkomt, of na vijftig zetten van elke speler zonder molen.
+# Spelen op het apparaat
+Tik op een leeg punt om een stuk te plaatsen. Om te schuiven tik je op je stuk en dan op zijn nieuwe punt, of sleep je het. Na een molen lichten de stukken op die je mag nemen: tik er een aan.

@@ -1,0 +1,9 @@
+Quattro in fila
+# Lo scopo
+Essere il primo ad allineare quattro pedine del tuo colore: in orizzontale, in verticale o in diagonale.
+# Una mossa
+La griglia sta in piedi e ha sette colonne. Al tuo turno, lascia cadere una pedina in una colonna: scende fino al foro libero più basso. Una colonna piena non può ricevere altre pedine. Iniziano le pedine chiare.
+# La fine della partita
+Vince il primo giocatore che mette quattro pedine in fila. Se la griglia si riempie senza nessuna fila di quattro, la partita è patta.
+# Giocare sul dispositivo
+Tocca una colonna, oppure fai scorrere la tua pedina lungo il bordo in alto e lasciala andare. Ogni barra mostra quante pedine restano a quel giocatore.

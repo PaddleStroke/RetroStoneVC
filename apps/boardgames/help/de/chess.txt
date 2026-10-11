@@ -1,0 +1,22 @@
+Schach
+# Das Ziel
+Setze den gegnerischen König matt: Greife ihn so an, dass er nicht entkommen kann. Weiß beginnt, danach ziehen die Spieler abwechselnd, jeder einen Zug.
+# So ziehen die Figuren
+- König: ein Feld in jede Richtung.
+- Dame: beliebig viele Felder geradeaus, entlang einer Reihe, einer Linie oder einer Diagonale.
+- Turm: beliebig viele Felder entlang einer Reihe oder einer Linie.
+- Läufer: beliebig viele Felder entlang einer Diagonale.
+- Springer: in L-Form, zwei Felder in eine Richtung und ein Feld zur Seite. Er ist die einzige Figur, die über andere hinwegspringt.
+- Bauer: ein Feld vorwärts, oder zwei von seinem Ausgangsfeld aus. Er schlägt ein Feld schräg nach vorn.
+Figuren können nicht durch andere Figuren hindurchziehen (außer dem Springer). Eine Figur schlägt, indem sie auf ein Feld zieht, auf dem eine gegnerische Figur steht; diese verlässt das Brett.
+# Besondere Züge
+- Rochade: Der König zieht zwei Felder auf einen Turm zu, und der Turm springt auf das Feld, das der König überquert hat. Nur erlaubt, wenn keine der beiden Figuren schon gezogen hat, die Felder zwischen ihnen leer sind und der König nicht im Schach steht, kein angegriffenes Feld überquert und nicht im Schach landet.
+- En passant: Zieht ein Bauer zwei Felder vor und landet neben einem gegnerischen Bauern, darf dieser ihn schlagen, als wäre er nur ein Feld gezogen, aber nur im unmittelbar folgenden Zug.
+- Umwandlung: Ein Bauer, der die letzte Reihe erreicht, wird nach deiner Wahl zur Dame, zum Turm, zum Läufer oder zum Springer.
+# Schach und das Ende der Partie
+Ein angegriffener König steht im Schach: Der nächste Zug muss das Schach aufheben. Du darfst nie einen Zug machen, nach dem dein eigener König im Schach steht.
+- Schachmatt: Der König steht im Schach und kein Zug kann ihn retten. Dieser Spieler verliert.
+- Patt: Der Spieler am Zug hat keinen erlaubten Zug, steht aber nicht im Schach. Die Partie endet remis.
+- Remis ist die Partie auch, wenn keine Seite je mattsetzen kann (zu wenig Figuren übrig), wenn dieselbe Stellung zum dritten Mal entsteht, oder nach fünfzig Zügen jeder Seite ohne Schlagen und ohne Bauernzug.
+# Spielen auf dem Gerät
+Tippe auf eine Figur, um zu sehen, wohin sie ziehen kann, und dann auf ein Feld, oder schieb die Figur mit dem Finger dorthin. Punkte zeigen die Züge, Ringe das Schlagen. Ein König im Schach leuchtet rot.

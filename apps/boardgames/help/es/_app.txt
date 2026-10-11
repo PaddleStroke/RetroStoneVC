@@ -1,0 +1,9 @@
+RetroStone Board
+# Jugar juntos
+Dos jugadores comparten un mismo dispositivo y juegan por turnos. La ficha que brilla en la barra de un jugador indica a quién le toca.
+- Inicio: vuelve a los juegos. Una partida en curso te espera.
+- Deshacer: retira la última jugada. Toca otra vez para retroceder más.
+- Girar: da la vuelta al tablero, para que el otro jugador quede abajo.
+- Cara a cara: deja el dispositivo plano entre los dos. Las piezas y la barra del jugador de arriba se giran hacia él.
+- Nueva partida: toca dos veces para empezar de nuevo.
+- ?: estas reglas.

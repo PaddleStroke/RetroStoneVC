@@ -1,0 +1,19 @@
+Damas
+# O objetivo
+Capturar todas as peças do outro jogador, ou deixá-lo sem jogadas. As peças ficam apenas nas casas escuras e movem-se na diagonal. Escolhe as regras antes da partida: damas internacionais num tabuleiro de 10 por 10, ou damas inglesas (checkers) num tabuleiro de 8 por 8.
+# Damas internacionais (10 por 10)
+- As peças claras começam. Uma pedra avança uma casa na diagonal.
+- Uma pedra captura saltando por cima de uma peça adversária vizinha para a casa vazia logo a seguir. As pedras capturam para a frente e para trás.
+- A captura é obrigatória, e tens de capturar o maior número possível de peças. Depois de um salto, se for possível outra captura a partir da casa onde a peça ficou, ela tem de continuar a saltar no mesmo lance.
+- As peças capturadas são retiradas no fim do lance. Uma peça não pode ser saltada duas vezes.
+- Uma pedra que termina o lance na última fila passa a dama. Uma dama move-se quantas casas quiser ao longo de uma diagonal e captura à distância, ficando em qualquer casa vazia para lá da peça capturada.
+- Empate: quando a mesma posição se repete pela terceira vez, ou após 25 lances de cada lado em que só as damas se movem, sem capturas.
+# Damas inglesas (8 por 8)
+- As peças escuras começam. As pedras movem-se e capturam só para a frente.
+- A captura é obrigatória, mas podes escolher que captura fazer. Quando uma peça começa a saltar, tem de capturar todas as peças que puder pelo caminho.
+- Uma pedra que chega à última fila passa a dama, e o lance termina aí. Uma dama move-se e captura uma casa na diagonal, em qualquer direção.
+- Empate: quando a mesma posição se repete pela terceira vez, ou após 40 lances de cada lado sem capturas nem movimentos de pedras.
+# O fim da partida
+Perde o jogador que fica sem peças ou que não se pode mover.
+# Jogar no dispositivo
+Só as peças que se podem mover podem ser selecionadas. Toca numa peça e depois na casa onde fica. Numa captura de várias peças, toca em cada casa de chegada, uma a uma, ou só na última. As peças prestes a ser capturadas desvanecem-se.

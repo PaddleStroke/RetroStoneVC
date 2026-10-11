@@ -1,0 +1,22 @@
+Xadrez
+# O objetivo
+Dar xeque-mate no rei adversário: atacá-lo de modo que ele não possa escapar. As brancas jogam primeiro; depois os jogadores se alternam, um lance cada um.
+# Como as peças se movem
+- Rei: uma casa em qualquer direção.
+- Dama: quantas casas quiser em linha reta, por uma fileira, uma coluna ou uma diagonal.
+- Torre: quantas casas quiser por uma fileira ou uma coluna.
+- Bispo: quantas casas quiser por uma diagonal.
+- Cavalo: em forma de L, duas casas em uma direção e uma para o lado. É a única peça que pula por cima das outras.
+- Peão: uma casa para a frente, ou duas a partir da sua casa inicial. Captura uma casa na diagonal para a frente.
+As peças não podem passar através de outras peças (exceto o cavalo). Uma peça captura indo para uma casa ocupada por uma peça adversária, que sai do tabuleiro.
+# Lances especiais
+- Roque: o rei anda duas casas em direção a uma torre, e a torre pula para a casa que o rei atravessou. Só é permitido se nenhuma das duas peças se moveu ainda, as casas entre elas estão vazias e o rei não está em xeque, não atravessa uma casa atacada e não termina em xeque.
+- En passant: quando um peão avança duas casas e para ao lado de um peão adversário, esse peão pode capturá-lo como se ele tivesse avançado só uma casa, mas apenas no lance imediatamente seguinte.
+- Promoção: um peão que chega à última fileira vira uma dama, torre, bispo ou cavalo, à sua escolha.
+# O xeque e o fim da partida
+Um rei atacado está em xeque: o lance seguinte precisa tirá-lo do xeque. Você nunca pode fazer um lance que deixe o seu próprio rei em xeque.
+- Xeque-mate: o rei está em xeque e nenhum lance pode salvá-lo. Esse jogador perde.
+- Afogamento: o jogador da vez não tem nenhum lance legal, mas não está em xeque. A partida termina empatada.
+- A partida também termina empatada quando nenhum dos lados consegue mais dar xeque-mate (restam poucas peças), quando a mesma posição se repete pela terceira vez, ou depois de cinquenta lances de cada lado sem captura nem movimento de peão.
+# Jogando no aparelho
+Toque em uma peça para ver aonde ela pode ir e depois toque em uma casa, ou arraste a peça. Os pontos mostram os lances, os anéis as capturas. Um rei em xeque brilha em vermelho.

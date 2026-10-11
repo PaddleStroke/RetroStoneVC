@@ -1,0 +1,9 @@
+Cuatro en línea
+# El objetivo
+Ser el primero en alinear cuatro fichas de tu color: en horizontal, en vertical o en diagonal.
+# Una jugada
+El tablero está de pie y tiene siete columnas. En tu turno, deja caer una ficha en una columna: cae hasta el hueco libre más bajo. Una columna llena no admite más fichas. Empiezan las claras.
+# El final de la partida
+Gana el primer jugador que tenga cuatro fichas en línea. Si el tablero se llena sin ninguna línea de cuatro, la partida es un empate.
+# Jugar en el dispositivo
+Toca una columna, o desliza tu ficha por la parte de arriba y suéltala. Cada barra muestra cuántas fichas le quedan a ese jugador.
