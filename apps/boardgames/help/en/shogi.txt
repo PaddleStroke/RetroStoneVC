@@ -1,0 +1,32 @@
+Shogi
+# The aim
+Shogi is Japanese chess. Checkmate the other king: attack it so that it cannot escape. Black (sente) moves first, then the players take turns, one move each. All the pieces are the same colour: a piece points towards the opponent, so you can tell whose it is.
+# How the pieces move
+- King (玉, 王): one square in any direction.
+- Rook (飛): any number of squares along a row or a column.
+- Bishop (角): any number of squares along a diagonal.
+- Gold general (金): one square in any direction except diagonally backwards.
+- Silver general (銀): one square diagonally, or straight forwards.
+- Knight (桂): two squares forwards and one to the side, jumping over any piece in between. It only moves forwards.
+- Lance (香): any number of squares straight forwards.
+- Pawn (歩): one square straight forwards. It also captures that way.
+Pieces cannot pass through other pieces (except the knight). A piece captures by moving onto a square held by an enemy piece.
+# Promotion
+The three rows farthest from you are the promotion zone. A piece that moves into, within or out of it may promote: it turns over and its character becomes red.
+- The rook becomes a dragon (龍): a rook that may also move one square diagonally.
+- The bishop becomes a horse (馬): a bishop that may also move one square along a row or a column.
+- The silver, the knight, the lance and the pawn become golds (全, 圭, 杏, と).
+- The king and the gold do not promote.
+Promotion is not compulsory, except when the piece could never move again: a pawn or a lance on the last row, a knight on the last two rows.
+# Captured pieces
+A captured piece joins the captor's side and waits in hand. Instead of moving, you may drop a piece from your hand on any empty square, unpromoted. A drop may give check. Three limits:
+- No pawn on a column that already has one of your unpromoted pawns.
+- No piece where it could never move (a pawn or a lance on the last row, a knight on the last two rows).
+- A pawn drop may not give immediate checkmate (a pawn moved on the board may).
+# The end of the game
+A king that is attacked is in check: the next move must get it out of check. You may never make a move that leaves your own king in check.
+- Checkmate: the king is in check and no move can save it. That player loses. A player who has no legal move at all also loses.
+- Repetition: when the same position (the pieces on the board and in hand, the same player to move) comes for the fourth time, the game is a draw. But if one player gave check with every move since that position first appeared, that player loses.
+- There is no rule for two kings that have both entered the other camp: play on.
+# Playing on the device
+Tap a piece to see where it can go, then tap a square, or drag the piece. Dots show the moves, rings the captures. A king in check glows red. Your pieces in hand are in your bar, with their number: tap one, then tap a square, or drag it onto the board. When a piece may promote, choose its promoted side (red) or keep it as it is.
