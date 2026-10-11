@@ -1,6 +1,7 @@
 Chinees dammen
 # Het doel
 Breng al je tien knikkers over de ster naar de punt tegenover je eigen punt. Het bord is een zespuntige ster met 121 gaatjes. Licht staat aan het begin in de onderste punt en Donker in de bovenste, die in hun kleuren gekleurd zijn; de vier andere punten blijven leeg. Licht begint.
+Je kunt met twee, drie, vier of zes spelen: kies hoeveel vóór het spel. Licht begint altijd in de onderste punt en de anderen volgen met de klok mee rond de ster, in de volgorde van spelen: met drie om de andere punt, zodat ieder op een lege punt afgaat; met vier twee paren tegenover elkaar liggende punten; met zes alle punten. Met meer dan twee tellen knikkers van welke speler ook die in je doelpunt zijn blijven staan voor jou mee, en wie geen zet heeft, slaat een beurt over; het spel is alleen remise als niemand meer kan zetten.
 # Een zet
 Als je aan de beurt bent, verplaats je een van je knikkers op een van twee manieren:
 - Een stap: naar een leeg gaatje ernaast. Elk gaatje heeft maximaal zes buren, langs de lijnen van de ster.

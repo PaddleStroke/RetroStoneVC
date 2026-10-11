@@ -1,6 +1,7 @@
 Dama cinese
 # Lo scopo
 Portare tutte e dieci le tue biglie attraverso la stella fino alla punta opposta alla tua. Il tavoliere è una stella a sei punte con 121 buche. Le chiare partono dalla punta in basso e le scure dalla punta in alto, tinte dei loro colori; le altre quattro punte restano vuote. Iniziano le biglie chiare.
+Si può giocare in due, tre, quattro o sei: scegli quanti prima della partita. Le chiare partono sempre dalla punta in basso e gli altri seguono in senso orario intorno alla stella, nell'ordine di gioco: in tre, una punta sì e una no, così ognuno si dirige verso una punta vuota; in quattro, due coppie di punte opposte; in sei, tutte le punte. Con più di due giocatori, le biglie di qualsiasi giocatore rimaste nella tua punta d'arrivo contano per te, e chi non ha alcuna mossa salta il turno; la partita è patta solo se nessuno può muovere.
 # Una mossa
 Al tuo turno, muovi una delle tue biglie in uno di questi due modi:
 - Un passo: in una buca vuota vicina. Ogni buca ha fino a sei buche vicine, lungo le linee della stella.

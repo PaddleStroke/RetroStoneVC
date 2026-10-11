@@ -1,6 +1,7 @@
 Damas chinesas
 # O objetivo
 Levar todos os teus dez berlindes através da estrela até à ponta oposta à tua. O tabuleiro é uma estrela de seis pontas com 121 buracos. Os claros partem da ponta de baixo e os escuros da ponta de cima, pintadas nas suas cores; as outras quatro pontas ficam vazias. Os berlindes claros começam.
+Podem jogar dois, três, quatro ou seis jogadores: escolhe quantos antes da partida. Os claros partem sempre da ponta de baixo e os outros seguem no sentido dos ponteiros do relógio à volta da estrela, pela ordem de jogo: a três, uma ponta sim, outra não, para que cada um vá para uma ponta vazia; a quatro, dois pares de pontas opostas; a seis, todas as pontas. Com mais de dois, os berlindes de qualquer jogador que fiquem na tua ponta de chegada contam a teu favor, e quem não tiver nenhuma jogada passa a vez; a partida só fica empatada se ninguém puder jogar.
 # Uma jogada
 Na tua vez, move um dos teus berlindes de uma de duas maneiras:
 - Um passo: para um buraco vazio vizinho. Cada buraco tem até seis vizinhos, ao longo das linhas da estrela.

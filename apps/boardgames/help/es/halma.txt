@@ -1,6 +1,7 @@
 Damas chinas
 # El objetivo
 Llevar tus diez canicas a través de la estrella hasta la punta opuesta a la tuya. El tablero es una estrella de seis puntas con 121 agujeros. Las claras salen de la punta de abajo y las oscuras de la punta de arriba, teñidas de sus colores; las otras cuatro puntas quedan vacías. Empiezan las claras.
+Pueden jugar dos, tres, cuatro o seis: elige cuántos antes de la partida. Las claras siempre salen de la punta de abajo y los demás siguen en el sentido de las agujas del reloj alrededor de la estrella, en el orden de juego: con tres, una punta de cada dos, de modo que cada uno se dirige a una punta vacía; con cuatro, dos pares de puntas opuestas; con seis, todas las puntas. Con más de dos, las canicas de cualquier jugador que queden en tu punta de llegada cuentan para ti, y quien no tiene ningún movimiento pasa; la partida solo acaba en tablas si nadie puede mover.
 # Una jugada
 En tu turno, mueve una de tus canicas de una de estas dos formas:
 - Un paso: a un agujero vacío contiguo. Cada agujero tiene hasta seis vecinos, a lo largo de las líneas de la estrella.

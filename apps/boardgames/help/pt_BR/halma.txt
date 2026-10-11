@@ -1,6 +1,7 @@
 Damas chinesas
 # O objetivo
 Levar todas as suas dez bolinhas através da estrela até a ponta oposta à sua. O tabuleiro é uma estrela de seis pontas com 121 furos. As claras partem da ponta de baixo e as escuras da ponta de cima, tingidas com as cores delas; as outras quatro pontas ficam vazias. As bolinhas claras começam.
+Podem jogar duas, três, quatro ou seis pessoas: escolha quantas antes da partida. As claras sempre partem da ponta de baixo e os outros seguem no sentido horário ao redor da estrela, na ordem de jogo: com três, uma ponta sim e outra não, de modo que cada um vai para uma ponta vazia; com quatro, dois pares de pontas opostas; com seis, todas as pontas. Com mais de dois, as bolinhas de qualquer jogador que fiquem na sua ponta de chegada contam para você, e quem não tem nenhum movimento passa a vez; a partida só termina empatada se ninguém puder mover.
 # Uma jogada
 Na sua vez, mova uma das suas bolinhas de um destes dois jeitos:
 - Um passo: para um furo vazio vizinho. Cada furo tem até seis vizinhos, ao longo das linhas da estrela.

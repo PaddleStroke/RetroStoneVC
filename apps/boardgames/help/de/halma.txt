@@ -1,6 +1,7 @@
 Sternhalma
 # Das Ziel
 Bring alle zehn Kugeln quer über den Stern in die Spitze, die deiner eigenen gegenüberliegt. Das Brett ist ein sechszackiger Stern mit 121 Löchern. Hell steht anfangs in der unteren Spitze und Dunkel in der oberen, die in ihren Farben getönt sind; die vier anderen Spitzen bleiben leer. Hell beginnt.
+Zwei, drei, vier oder sechs können spielen: Wähle vor der Partie, wie viele. Hell beginnt immer in der unteren Spitze, die anderen folgen in Zugreihenfolge im Uhrzeigersinn um den Stern: zu dritt jede zweite Spitze, sodass jeder auf eine leere Spitze zusteuert; zu viert zwei Paare gegenüberliegender Spitzen; zu sechst alle Spitzen. Bei mehr als zwei zählen die Kugeln jedes Spielers, die in deiner Zielspitze geblieben sind, für dich, und wer keinen Zug hat, setzt aus; unentschieden ist die Partie nur, wenn niemand mehr ziehen kann.
 # Ein Zug
 Wenn du dran bist, ziehst du eine deiner Kugeln auf eine von zwei Arten:
 - Ein Schritt: in ein freies Nachbarloch. Jedes Loch hat bis zu sechs Nachbarn, entlang der Linien des Sterns.

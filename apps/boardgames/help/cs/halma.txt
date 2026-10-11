@@ -1,6 +1,7 @@
 Čínská dáma
 # Cíl hry
 Převeď všech svých deset kuliček přes hvězdu do cípu naproti tvému vlastnímu. Deska je šesticípá hvězda se 121 jamkami. Světlý hráč má kuličky na začátku v dolním cípu a tmavý v horním; oba cípy jsou zbarvené jejich barvami a čtyři ostatní cípy zůstávají prázdné. Začíná světlý hráč.
+Hrát mohou dva, tři, čtyři nebo šest hráčů: počet zvolíš před začátkem hry. Světlý hráč začíná vždy v dolním cípu a ostatní následují v pořadí tahů po směru hodinových ručiček kolem hvězdy: při třech hráčích každý druhý cíp, takže každý míří do prázdného cípu; při čtyřech dva páry protilehlých cípů; při šesti všechny cípy. Když hraje víc než dva hráči, počítají se ti kuličky kteréhokoli hráče, které zůstaly v tvém cílovém cípu, a hráč, který nemá žádný tah, vynechává; hra končí remízou, jen když nemůže táhnout nikdo.
 # Tah
 Ve svém tahu posuň jednu ze svých kuliček jedním ze dvou způsobů:
 - Krok: do sousední prázdné jamky. Každá jamka má až šest sousedů, podél čar hvězdy.

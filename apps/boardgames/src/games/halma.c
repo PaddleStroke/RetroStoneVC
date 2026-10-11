@@ -1,11 +1,12 @@
 /*
- * Chinese checkers in RetroStone Board: the six-pointed star carved into the plank, the glossy marbles, tap a marble
- * then a hole (a step, or a whole chain of jumps played hop by hop), or drag it there (the rules: halma_rules.c).
+ * Chinese checkers in RetroStone Board, for two, three, four or six: the six-pointed star carved into the plank, the
+ * glossy marbles, tap a marble then a hole (a step, or a whole chain of jumps played hop by hop), or drag it there
+ * (the rules: halma_rules.c).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * The star stands upright in the board's square, ivory's point at the bottom: a hole's centre is
  * (x2 / 2, (8 - row) * H) hole spacings from the middle hole (turned half round when flipped). The star's outline is a
- * carved line round its holes; the two players' points are stained ivory and ebony, the four other points left plain.
+ * carved line round its holes; the players' points are stained in their colours, the others left plain.
  * The marks the shell draws as squares (the last move, the selected marble) are drawn here as round tints of the same
  * colour, for round holes.
  */
@@ -27,9 +28,9 @@
 
 static hl_game G;
 static int targets[HL_HOLES], ntargets;
-static int q, fr, made_w = -1, made_flip = -1, made_small = -1;
+static int q, fr, made_w = -1, made_flip = -1, made_np = -1, made_small = -1;
 static float bx, by, cx, cy, s;                 /* the board's corner, the star's middle, the spacing (pixels) */
-static SDL_Texture *t_board, *t_marble[2], *t_small[2], *t_empty;
+static SDL_Texture *t_board, *t_marble[HL_PLAYERS], *t_small[HL_PLAYERS], *t_empty;
 static int sel = -1;
 static struct { int on, from, moved; float x, y; } drag;
 static struct { int on, heard; hl_path p; Uint32 t0; } anim;
@@ -46,18 +47,14 @@ static void calm(void)
 static void start(int variant)
 {
     (void)variant;
-    hl_new(&G);
+    hl_new_players(&G, ui.players);
     calm();
 }
 
 static int status(void)
 {
-    switch (hl_status(&G)) {
-    case HL_WIN0: return GS_WIN0;
-    case HL_WIN1: return GS_WIN1;
-    case HL_DRAW: return GS_DRAW;
-    default: return GS_PLAY;
-    }
+    int st = hl_status(&G), w = hl_winner(st);
+    return w >= 0 ? gs_win(w) : st == HL_DRAW ? GS_DRAW : GS_PLAY;
 }
 
 static int turn(void) { return hl_turn(&G); }
@@ -126,11 +123,29 @@ static float outside(float x, float y)
     return best;
 }
 
-/* the star on the plank o (w pixels wide, its frame f, the spacing sp): the stains of the two points, the outline, the
- * holes carved in. flip: ebony's point at the bottom */
-static void paint_star(uint8_t *o, int w, int f, float sp, int flip)
+/* (x, y) turned so that the star's point k comes to the bottom (point 0): turned by -60k degrees; the top point
+ * mirrored (the same, the star being symmetric, and exact) */
+static void to_bottom(int k, float x, float y, float *rx, float *ry)
+{
+    static const float C[HL_POINTS] = {1, 0.5f, -0.5f, -1, -0.5f, 0.5f};
+    static const float S[HL_POINTS] = {0, 0.8660254f, 0.8660254f, 0, -0.8660254f, -0.8660254f};
+    if (k == 0 || k == 3) {
+        *rx = x;
+        *ry = k ? -y : y;
+        return;
+    }
+    *rx = x * C[k] + y * S[k];
+    *ry = -x * S[k] + y * C[k];
+}
+
+/* the star on the plank o (w pixels wide, its frame f, the spacing sp): the stains of the players' points (their
+ * colours), the outline, the holes carved in. flip: turned half round (ebony's point at the bottom) */
+static void paint_star(uint8_t *o, int w, int f, float sp, int flip, int players)
 {
     static const float STAIN[2][4] = {{238, 228, 206, 0.72f}, {56, 50, 48, 0.78f}}, INK[4] = {34, 24, 16, 0.8f};
+    float stain[HL_PLAYERS][4];                 /* ivory, ebony; the others: their colour, a little thinner */
+    for (int p = 0; p < HL_PLAYERS; p++)
+        for (int i = 0; i < 4; i++) stain[p][i] = p < 2 ? STAIN[p][i] : i < 3 ? art_player[p].fill[i] : 0.62f;
     float mid = w / 2.0f, lw = 0.9f + 0.03f * sp, R = HOLE * sp, bevel = 0.07f * sp;
     for (int py = f; py < w - f; py++)
         for (int px = f; px < w - f; px++) {
@@ -140,10 +155,12 @@ static void paint_star(uint8_t *o, int w, int f, float sp, int flip)
             if (star > EDGE + lw / sp) continue;
             uint8_t *p = o + 4 * (py * w + px);
             float c[3] = {p[0], p[1], p[2]};
-            for (int k = 0; k < 2; k++) {       /* the points' stains: ivory's (bottom), ebony's (top) */
-                float a = clampf((EDGE - (k ? up : down)) * sp + 0.5f, 0, 1)
-                        * clampf(((k ? -y : y) - CUT) * sp + 0.5f, 0, 1) * STAIN[k][3];
-                for (int i = 0; i < 3; i++) c[i] += (STAIN[k][i] - c[i]) * a;
+            for (int k = 0; k < players; k++) {   /* the players' points stained: ivory's (bottom), ebony's... */
+                float rx, ry;
+                to_bottom(hl_seat(players, k), x, y, &rx, &ry);
+                float a = clampf((EDGE - outside(rx, ry)) * sp + 0.5f, 0, 1)
+                        * clampf((ry - CUT) * sp + 0.5f, 0, 1) * stain[k][3];
+                for (int i = 0; i < 3; i++) c[i] += (stain[k][i] - c[i]) * a;
             }
             float ink = clampf(lw / 2 - fabsf(star - EDGE) * sp + 0.5f, 0, 1) * INK[3];
             for (int i = 0; i < 3; i++) c[i] += (INK[i] - c[i]) * ink;
@@ -182,15 +199,16 @@ static void layout(box b)
     cx = bx + w / 2.0f;
     cy = by + w / 2.0f;
     s = spacing(9.0f * q);
-    if (made_w != w || made_flip != ui.flipped) {
+    if (made_w != w || made_flip != ui.flipped || made_np != G.players) {
         made_w = w;
         made_flip = ui.flipped;
+        made_np = G.players;
         ui_free(&t_board);
         art_board_n(9, 9, q, fr, 0, ui_buf(w, w));
-        paint_star(ui_buf(w, w), w, fr, s, ui.flipped);
+        paint_star(ui_buf(w, w), w, fr, s, ui.flipped, G.players);
         t_board = ui_tex(w, w, ui_buf(w, w));
         int d = (int)lroundf(MARBLE * s);
-        for (int p = 0; p < 2; p++) {
+        for (int p = 0; p < HL_PLAYERS; p++) {
             ui_free(&t_marble[p]);
             art_counter(COUNTER_STONE, p, d, ui_buf(d, d));
             t_marble[p] = ui_tex(d, d, ui_buf(d, d));
@@ -200,7 +218,7 @@ static void layout(box b)
     if (made_small != small) {
         made_small = small;
         static const uint8_t dark[3] = {20, 14, 8};
-        for (int p = 0; p < 2; p++) {
+        for (int p = 0; p < HL_PLAYERS; p++) {
             ui_free(&t_small[p]);
             art_counter(COUNTER_STONE, p, small, ui_buf(small, small));
             t_small[p] = ui_tex(small, small, ui_buf(small, small));
@@ -287,10 +305,10 @@ static void draw(void)
             if (pass) ui_put_c(t_marble[G.cell[h] - 1], x, y, d, d);
             else ui_shadow_flat(x, y, d, d, 1);
         }
-    int st = status();
-    if ((st == GS_WIN0 || st == GS_WIN1) && !anim.on)   /* the winner's full point lit in gold, once it has landed */
+    int won = gs_winner(status());
+    if (won >= 0 && !anim.on)                   /* the winner's full point lit in gold, once it has landed */
         for (int h = 0; h < HL_HOLES; h++) {
-            if (!hl_goal(st == GS_WIN1, h)) continue;
+            if (!hl_dest(&G, won, h)) continue;
             hole_xy(h, &x, &y);
             ui_mark_gold(x, y, 1.15f * s);
         }
@@ -368,6 +386,17 @@ static void bar(int player, box b)
 
 static void token(int player, int size, uint8_t *rgba) { art_counter(COUNTER_STONE, player, size, rgba); }
 
+/* where each player sits: the tip of their point of the star (the side points: the bar of their side, top or bottom) */
+static void home(int player, float *fx, float *fy)
+{
+    static const float DIR[HL_POINTS][2] = {{0, 1}, {-0.866f, 0.5f}, {-0.866f, -0.5f}, {0, -1}, {0.866f, -0.5f},
+                                            {0.866f, 0.5f}};
+    int k = hl_seat(ui.players, player);
+    k = k < 0 ? 0 : k;
+    *fx = 0.5f + 0.4f * DIR[k][0];
+    *fy = 0.5f + 0.4f * DIR[k][1];
+}
+
 /* the menu's card: the whole star, a game under way */
 static void thumb(int variant, int size, uint8_t *rgba)
 {
@@ -379,7 +408,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
     float sp = spacing(9.0f * qq), mid = w / 2.0f;
     uint8_t *board = ui_buf(w, w);
     art_board_n(9, 9, qq, f, 0, board);
-    paint_star(board, w, f, sp, 0);
+    paint_star(board, w, f, sp, 0, 2);
     art_blend(rgba, size, size, board, w, w, o, o);
     int d = (int)lroundf(MARBLE * sp);
     for (int pass = 0; pass < 2; pass++)       /* the shadows, then the marbles */
@@ -401,5 +430,6 @@ static const game halma_game = {
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy,
+    .players = 1u << 2 | 1u << 3 | 1u << 4 | 1u << 6, .home = home,
 };
 REGISTER_GAME(halma_game)
