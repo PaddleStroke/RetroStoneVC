@@ -39,7 +39,8 @@ int text_name(const char *game, char *buf, int size);
 int text_page(const char *s, int w, float px, const uint8_t rgb[3], uint8_t *rgba, int y0, int h_max);
 
 /* one character (a codepoint the boards draw: help/glyphs.txt keeps it in the fonts), bold or not, centred in a
- * w x h picture, its em `px` pixels: for pieces that carry a character (xiangqi, shogi). 0: no such glyph. */
+ * w x h picture, its em `px` pixels: for pieces that carry a character (xiangqi, shogi). 0: no such glyph.
+ * Draw it into a CLEAR picture (the ink's coverage becomes the alpha), then art_blend() it onto the piece. */
 int text_glyph(int codepoint, float px, int bold, const uint8_t rgb[3], uint8_t *rgba, int w, int h);
 
 /* one line (no wrapping), bold or not: its width; drawn at (x, y top) into rgba (w x h) when not NULL */
