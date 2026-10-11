@@ -1,0 +1,31 @@
+Gin Rummy
+# The aim
+Be the first to reach 100 points. For 2 players. Gather your cards into melds, get rid of the others, your deadwood, and knock to end the hand.
+# The cards
+- A meld: three or four cards of the same rank, or three or more cards of one suit in sequence. The ace is always low: A 2 3 is a run, Q K A is not.
+- Deadwood: the cards in no meld, counted at their value: ace 1, 2 to 10 their value, jack, queen and king 10.
+# The deal
+- Each player gets 10 cards. The next card is turned up to start the discard pile; the rest is the stock.
+- The non-dealer may take this first card or pass; then the dealer may take it. If both pass, the non-dealer begins by drawing from the stock.
+- The deal alternates.
+# A turn
+- Draw the top card of the stock or of the discard pile.
+- Then discard one card face up on the discard pile. A card just taken from the discard pile cannot go straight back.
+# Knocking
+- A player whose deadwood will be 10 or less after discarding may knock: they discard, and the hand ends.
+- Gin: knocking with no deadwood at all.
+- Both hands are shown in melds. The other player, the defender, may then lay off deadwood cards on the knocker's melds: the fourth card of a set, cards that make a run longer. No laying off against gin.
+# The points
+- The knocker scores the difference between the two deadwoods.
+- Undercut: if the defender's deadwood is as low as the knocker's or lower, the defender scores the difference and 25 more.
+- Gin scores 25 and the defender's deadwood.
+- If only two cards are left in the stock after a discard and nobody has knocked, the hand is dead: nobody scores, and the same dealer deals again.
+# The end of the game
+The game ends when a player reaches 100 points. The winner adds 100 (the game bonus), and each player adds 25 for every hand they won (the box bonus). If the loser did not win a single hand, the winner's total is doubled (a shutout).
+# Playing on the device
+The hands are secret: pass the device when the screen asks, and the next player taps the start button. Your hand is at the bottom and sorts itself: the melds first, a gold line under each, then your deadwood with its points above it. Drag a card along your hand to put it where you like; tap the deadwood's points to have the hand sorted again.
+- Tap the stock or the discard pile to draw. To refuse the first card, tap the pass button in your bar.
+- Tap a card to choose it, then tap it again or tap the discard pile to discard it (or drag it onto the pile).
+- When you can knock, a round button shows next to the discard pile with the deadwood you would keep. Tap it to knock with the chosen card; if that card cannot knock, the button chooses the best one, and a second tap knocks.
+- At the end of a hand both hands are laid out in melds, the cards laid off fly to the knocker's melds and glow, and the points go to the winner (the 25 apart, in a gold ring). Tap for the next hand. The bars show the points, and a small gold square for each hand won. At the end of the game a table shows each player's points, their hands won, the bonuses and the total.
+Undo takes back your own actions, back to the moment the device was passed.
