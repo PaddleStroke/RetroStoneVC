@@ -231,6 +231,17 @@ int text_page(const char *s, int w, float px, const uint8_t rgb[3], uint8_t *rgb
     return (int)ceilf(y);
 }
 
+int text_glyph(int c, float px, int bold, const uint8_t rgb[3], uint8_t *rgba, int w, int h)
+{
+    face fc = face_of(bold, px);
+    if (!stbtt_FindGlyphIndex(fc.f, c)) return 0;
+    int x0, y0, x1, y1;                         /* centred on its ink, not on its advance box */
+    stbtt_GetCodepointBitmapBox(fc.f, c, fc.scale, fc.scale, &x0, &y0, &x1, &y1);
+    float x = (w - (x1 - x0)) / 2.0f - x0, base = (h - (y1 - y0)) / 2.0f - y0;
+    glyph(&fc, c, x, base, rgb, rgba, w, h, 0);
+    return 1;
+}
+
 int text_line(const char *s, float px, int bold, const uint8_t rgb[3], uint8_t *rgba, int w, int h, int x, int y)
 {
     face fc = face_of(bold, px);

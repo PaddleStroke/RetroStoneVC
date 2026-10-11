@@ -1,0 +1,8 @@
+# The characters the boards themselves draw (not the rules texts): tools/gen_text.py keeps them in every language's
+# font. One game a line; a game that draws a new character adds it here.
+# xiangqi (Chinese chess), the traditional sets: red, black
+帥仕相俥傌炮兵 將士象車馬砲卒
+# janggi (Korean chess)
+漢楚士象馬車包兵卒
+# shogi (Japanese chess), and the promoted pieces
+王玉飛角金銀桂香歩 龍竜馬と全圭杏成

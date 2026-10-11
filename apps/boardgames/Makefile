@@ -22,7 +22,7 @@ SRC    := $(D)/src/shell.c $(D)/src/sound.c $(D)/src/art.c $(D)/src/text.c $(TEX
 HDR    := $(wildcard $(D)/src/*.h $(D)/src/games/*.h)
 CFLAGS := -O2 -std=c11 -Wall -Wextra -I$(D)/src -Isdk/third_party/stb
 
-$(TEXT): $(wildcard $(D)/help/*/*.txt) $(D)/tools/gen_text.py
+$(TEXT): $(wildcard $(D)/help/*/*.txt $(D)/help/*.txt) $(D)/tools/gen_text.py
 	python3 $(D)/tools/gen_text.py --out $(GEN)
 TESTS  := $(if $(filter all,$(GAMES)),$(wildcard $(D)/tests/*_test.c),\
               $(foreach g,$(GAMES),$(wildcard $(D)/tests/$(g)_test.c)))

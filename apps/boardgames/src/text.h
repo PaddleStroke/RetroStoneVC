@@ -37,6 +37,10 @@ int text_name(const char *game, char *buf, int size);
  * draws into rgba (w x h_max, cleared by the caller) when it is not NULL, only the rows in [y0, y0 + h_max). */
 int text_page(const char *s, int w, float px, const uint8_t rgb[3], uint8_t *rgba, int y0, int h_max);
 
+/* one character (a codepoint the boards draw: help/glyphs.txt keeps it in the fonts), bold or not, centred in a
+ * w x h picture, its em `px` pixels: for pieces that carry a character (xiangqi, shogi). 0: no such glyph. */
+int text_glyph(int codepoint, float px, int bold, const uint8_t rgb[3], uint8_t *rgba, int w, int h);
+
 /* one line (no wrapping), bold or not: its width; drawn at (x, y top) into rgba (w x h) when not NULL */
 int text_line(const char *s, float px, int bold, const uint8_t rgb[3], uint8_t *rgba, int w, int h, int x, int y);
 
