@@ -25,8 +25,6 @@ static SDL_Texture *t_board, *t_disc[2], *t_small[2], *t_win, *t_last;
 static struct { int on, col, down; } aim;       /* the column chosen: a finger down, or the mouse over the board */
 static struct { int on, col, row, landed; Uint32 t0; } fall;
 
-static float clampf(float v, float a, float b) { return v < a ? a : v > b ? b : v; }
-
 /* ---- the position ------------------------------------------------------------------------------------------------ */
 static void start(int variant)
 {

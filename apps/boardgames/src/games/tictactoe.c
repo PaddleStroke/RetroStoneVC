@@ -30,7 +30,6 @@ static const float INK[3] = {104, 68, 42}, LIT[3] = {248, 226, 186}, WALNUT[3] =
 static const uint8_t GOLD[3] = {255, 204, 72}, LIGHT[4] = {255, 224, 126, 104}, VEIL[4] = {226, 190, 136, 170};
 static const art_style STRIKE = {{250, 200, 74}, {84, 52, 18}, {84, 52, 18}, {0, 0, 0}, 0, 0};   /* flat */
 
-static float clampf(float v, float a, float b) { return v < a ? a : v > b ? b : v; }
 static int side(void) { return G.ultimate ? 9 : 3; }            /* squares along a side */
 static int cs(void) { return G.ultimate ? u : 3 * u; }          /* a square, pixels */
 

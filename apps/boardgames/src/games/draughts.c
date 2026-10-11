@@ -211,13 +211,8 @@ static int xy_sq(float x, float y)
 /* a piece (alpha: below 255, faded), turned round for the top player face to face: the king's crown faces them */
 static void piece_at(int pc, float x, float y, float size, Uint8 alpha)
 {
-    int pl = DR_OWNER(pc), up = ui_upside(pl);
-    SDL_Texture *t = t_man[colour(pl)][DR_IS_KING(pc)];
-    ui_shadow_flat(x + size / 2, y + size / 2, size, size, alpha / 255.0f);   /* a man lies flat, like the discs */
-    SDL_SetTextureAlphaMod(t, alpha);
-    if (up) ui_put_rot(t, x + size / 2, y + size / 2, size, size, 180);
-    else ui_put(t, x, y, size, size);
-    SDL_SetTextureAlphaMod(t, 255);
+    int pl = DR_OWNER(pc);                      /* a man lies flat, like the discs */
+    ui_flat_at(t_man[colour(pl)][DR_IS_KING(pc)], x + size / 2, y + size / 2, size, alpha / 255.0f, ui_upside(pl));
 }
 
 static void draw(void)
@@ -334,11 +329,7 @@ static void bar(int player, box b)
     const dpos *p = dr_pos(&G);
     int left = 0;
     for (int s = 0; s < n * n; s++) left += p->sq[s] && DR_OWNER(p->sq[s]) != player;
-    int taken = dr_pieces(G.variant) - left;
-    if (taken <= 0) return;
-    float sz = 0.6f * ui.unit, dh = 0.46f * ui.unit, cy = b.y + b.h / 2;
-    ui_put(t_small[colour(!player)], b.x, cy - sz / 2, sz, sz);
-    ui_number(b.x + sz + 0.12f * ui.unit + (taken > 9 ? 0.62f : 0.31f) * dh, cy, dh, taken, 1);
+    ui_bar_count(b, t_small[colour(!player)], dr_pieces(G.variant) - left);
 }
 
 /* a man of the player's colour (the variant's: English player 0 is ebony) */

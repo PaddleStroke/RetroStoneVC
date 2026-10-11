@@ -159,13 +159,7 @@ static int xy_pt(float x, float y)              /* the point whose cell holds (x
     return lines_at(&L, x, y, &gx, &gy) ? gx + AQ_SIDE * gy : -1;
 }
 
-static void disc_at(int who, float cx, float cy, float d, float alpha)
-{
-    ui_shadow_flat(cx, cy, d, d, alpha);
-    SDL_SetTextureAlphaMod(t_disc[who], (Uint8)(255 * alpha));
-    ui_put_c(t_disc[who], cx, cy, d, d);
-    SDL_SetTextureAlphaMod(t_disc[who], 255);
-}
+static void disc_at(int who, float cx, float cy, float d, float alpha) { ui_flat_at(t_disc[who], cx, cy, d, alpha, 0); }
 
 static void draw(void)
 {

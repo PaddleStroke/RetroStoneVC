@@ -41,8 +41,6 @@ typedef struct { int id; float x0, y0, h0, x1, y1, h1, t, arc; } flight;   /* a 
 
 static const uint8_t TINT[TINTS][3] = {{205, 172, 124}, {170, 104, 66}, {118, 96, 78}, {196, 146, 82}};
 
-static float clampf(float v, float a, float b) { return v < a ? a : v > b ? b : v; }
-
 static float hash(int a, int b)
 {
     unsigned h = (unsigned)a * 374761393u + (unsigned)b * 668265263u;

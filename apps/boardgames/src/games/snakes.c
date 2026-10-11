@@ -22,9 +22,9 @@
 #define PI_F 3.14159265f
 
 static sn_game G;
-static int sq, fr, made = -1, made_over[2] = {-1, -1}, made_die = -1;
+static int sq, fr, made = -1, made_over[2] = {-1, -1};
 static float bx, by;                            /* the board's top left square corner */
-static SDL_Texture *t_board, *t_over[2], *t_pawn[2], *t_die[2][7];
+static SDL_Texture *t_board, *t_over[2], *t_pawn[2];
 static struct { int on, hops, linked, at; sn_move m; Uint32 t0; } anim;   /* t0 0: the die still tumbles */
 
 static const art_style WOOD = {{226, 172, 104}, {58, 36, 20}, {112, 72, 40}, {0, 0, 0}, 0.30f, 0};
@@ -361,16 +361,6 @@ static void layout(box b)
         }
     }
     if (made_over[ui.flipped] != sq) make_over(ui.flipped);
-    int d = (int)(0.6f * ui.unit);
-    if (made_die != d) {
-        made_die = d;
-        for (int p = 0; p < 2; p++)
-            for (int v = 1; v <= 6; v++) {
-                ui_free(&t_die[p][v]);
-                art_die(v, p, d, ui_buf(d, d));
-                t_die[p][v] = ui_tex(d, d, ui_buf(d, d));
-            }
-    }
 }
 
 /* where the moving pawn is (squares) and how high it hops; 0: the move is over */
@@ -504,12 +494,8 @@ static void bar(int player, box b)
     }
     int v = last_throw(player), waiting = status() == GS_PLAY && sn_turn(&G) == player && !anim.on;
     if (!v && !waiting) return;
-    SDL_Texture *t = t_die[player][v ? v : 6];
     if (waiting) ui_mark_gold(cx, cy, 1.9f * d);
-    ui_shadow_flat(cx, cy, d * 1.1f, d * 1.1f, waiting ? 1 : 0.45f);
-    SDL_SetTextureAlphaMod(t, waiting ? 255 : 110);
-    ui_put_c(t, cx, cy, d, d);
-    SDL_SetTextureAlphaMod(t, 255);
+    ui_die_at(cx, cy, d, player, v ? v : 6, waiting ? 1 : 110 / 255.0f);
 }
 
 static void token(int player, int size, uint8_t *rgba) { art_piece(PAWN, player, size, rgba); }

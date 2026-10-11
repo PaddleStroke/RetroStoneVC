@@ -36,7 +36,8 @@ typedef struct game {
     int  (*turn)(void);                         /* the player to move */
     int  (*status)(void);                       /* GS_* */
     /* optional (NULL) */
-    void (*bar)(int player, box b);             /* what the player's bar shows next to the token (pieces taken, a score) */
+    void (*bar)(int player, box b);             /* what the player's bar shows next to the token (pieces taken,
+                                                 * a score) */
     int  (*can_pass)(void);                     /* 1: the player to move may pass (the pass button shows in the bar) */
     void (*pass)(void);
     int  (*script)(const char *moves);          /* plays moves in the game's notation (screenshots, tests); 0: bad */
@@ -51,7 +52,7 @@ void game_register(const game *g);
 #define REGISTER_GAME(g) \
     __attribute__((constructor)) static void register_##g(void) { game_register(&g); }
 
-/* ---- what the shell gives the games ------------------------------------------------------------------------------- */
+/* ---- what the shell gives the games ------------------------------------------------------------------------------ */
 extern struct ui {
     SDL_Renderer *r;
     int w, h;                                   /* the screen, pixels */
@@ -60,7 +61,8 @@ extern struct ui {
     float unit;                                 /* a ninth of the board's side: the size of the marks, the bars */
 } ui;
 
-int  ui_bottom(void);                           /* the player at the bottom */
+static inline float clampf(float v, float lo, float hi) { return v < lo ? lo : v > hi ? hi : v; }
+int  ui_bottom(void);                          /* the player at the bottom */
 int  ui_upside(int player);                     /* 1: draw this player's pieces turned round (face to face, top) */
 SDL_Texture *ui_tex(int w, int h, const uint8_t *rgba);   /* a picture as a texture (alpha blending) */
 void ui_free(SDL_Texture **t);
@@ -69,12 +71,17 @@ void ui_put(SDL_Texture *t, float x, float y, float w, float h);
 void ui_put_c(SDL_Texture *t, float cx, float cy, float w, float h);
 void ui_put_rot(SDL_Texture *t, float cx, float cy, float w, float h, double degrees);
 void ui_fill(float x, float y, float w, float h, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
-void ui_shadow(float x, float y, float size);   /* the soft shadow under a standing piece drawn at (x, y), size x size */
+/* the soft shadow under a standing piece drawn at (x, y), size x size */
+void ui_shadow(float x, float y, float size);
 /* the shadow of a flat piece (disc, stone, man) drawn w x h centred on (cx, cy), towards the lower right; alpha 0..1 */
 void ui_shadow_flat(float cx, float cy, float w, float h, float alpha);
+/* a flat piece d x d centred on (cx, cy) with its shadow, faded (alpha 0..1), turned round when upside (ui_upside) */
+void ui_flat_at(SDL_Texture *t, float cx, float cy, float d, float alpha, int upside);
 void ui_number(float cx, float cy, float h, int value, int light);   /* digits centred; light: cream, else dark */
 /* the same turned round its centre (degrees: 180 for the top player face to face) */
 void ui_number_rot(float cx, float cy, float h, int value, int light, double degrees);
+/* in a player's bar (bar()'s box): a small piece (0.6 unit) and how many of it, in cream (pieces taken); 0: nothing */
+void ui_bar_count(box b, SDL_Texture *piece, int n);
 void ui_animate(void);                          /* draw the next frame too (an animation runs) */
 Uint32 ui_ms(void);                             /* the clock for animations: use it, not SDL_GetTicks (the picture
                                                  * mode moves it on so the last move's animation has ended, or to
@@ -83,7 +90,10 @@ Uint32 ui_ms(void);                             /* the clock for animations: use
 /* the shared marks, made for the board's size by the shell (a square of side `size`) */
 void ui_mark_last(float x, float y, float w, float h);   /* the last move's squares (a warm tint) */
 void ui_mark_select(float x, float y, float w, float h); /* the selected piece */
-void ui_mark_dot(float cx, float cy, float d);            /* a possible move: a soft dot */
+/* the same two round (cx, cy the centre, d the diameter): round holes, points */
+void ui_mark_last_round(float cx, float cy, float d);
+void ui_mark_select_round(float cx, float cy, float d);
+void ui_mark_dot(float cx, float cy, float d);            /* a possible move: a dark dot in a thin cream rim */
 void ui_mark_ring(float cx, float cy, float d);           /* a possible capture: a ring */
 void ui_mark_glow(float cx, float cy, float d);           /* danger (check): a red glow */
 void ui_mark_gold(float cx, float cy, float d);           /* a success (a mill, a winning line): a gold light */
@@ -99,6 +109,9 @@ void ui_sound_later(int s, int ms);             /* in ms: when a sliding piece l
 int  ui_random(int n);
 void ui_dice_throw(int n, const int *values, int player);
 void ui_dice_show(int n, const int *values, int player);  /* dice set to these values at once: no tumble, no sound */
+/* the same with a colour each (players[i]: die i's; backgammon's opening throw, a die each) */
+void ui_dice_throw_each(int n, const int *values, const int *players);
+void ui_dice_show_each(int n, const int *values, const int *players);
 void ui_dice_draw(float cx, float cy, float size, unsigned used);
 /* one die at rest, any player's, any value (a die waiting to be thrown, a past throw): alpha 0..1 */
 void ui_die_at(float cx, float cy, float size, int player, int value, float alpha);

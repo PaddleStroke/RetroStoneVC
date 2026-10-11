@@ -200,11 +200,7 @@ static int xy_pt(float x, float y)              /* the point whose cell holds (x
 
 static void piece_at(int who, float cx, float cy, float d, float alpha)
 {
-    ui_shadow_flat(cx, cy, d, d, alpha);
-    SDL_SetTextureAlphaMod(t_piece[who], (Uint8)(255 * alpha));
-    if (who == FG_FOX && ui_upside(FG_FOX)) ui_put_rot(t_piece[who], cx, cy, d, d, 180);
-    else ui_put_c(t_piece[who], cx, cy, d, d);
-    SDL_SetTextureAlphaMod(t_piece[who], 255);
+    ui_flat_at(t_piece[who], cx, cy, d, alpha, who == FG_FOX && ui_upside(FG_FOX));
 }
 
 static void mark_last(int pt) { lines_mark_last(&L, fg_x[pt], fg_y[pt]); }

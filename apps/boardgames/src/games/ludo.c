@@ -24,7 +24,7 @@
 static lgame G;
 static int cs, fr, ps, made = -1, made_flip = -1, made_small = -1;
 static float bx, by;                            /* the cells' top left corner */
-static SDL_Texture *t_board, *t_pawn[2], *t_small[2], *t_die[2][7];
+static SDL_Texture *t_board, *t_pawn[2], *t_small[2];
 static int fresh;                               /* the shell's die shows the last throw (not after an undo) */
 static uint8_t rolls[LUDO_MAX_EVENTS];          /* the game's throws so far, kept through undo: undo never rethrows */
 static int nrolls;
@@ -320,16 +320,10 @@ static void layout(box b)
             free(o);
         }
         ps = (int)(PAWN_SIZE * cs);
-        int d = (int)(DIE * cs);
         for (int p = 0; p < 2; p++) {
             ui_free(&t_pawn[p]);
             art_piece(PAWN, p, ps, ui_buf(ps, ps));
             t_pawn[p] = ui_tex(ps, ps, ui_buf(ps, ps));
-            for (int v = 1; v <= 6; v++) {
-                ui_free(&t_die[p][v]);
-                art_die(v, p, d, ui_buf(d, d));
-                t_die[p][v] = ui_tex(d, d, ui_buf(d, d));
-            }
         }
     }
     int small = (int)(0.6f * ui.unit);
@@ -391,16 +385,8 @@ static void draw_dice(void)
         tray(q, &x, &y);
         if (invite) ui_mark_gold(x, y, 4.4f * cs), ui_mark_gold(x, y, 3 * cs);   /* throw me */
         if (lost && q == latest && !rolling) ui_mark_glow(x, y, 3.2f * cs);
-        if (fresh && q == latest) {
-            ui_dice_draw(x, y, d, (unsigned)dim);
-        } else {
-            SDL_Texture *t = t_die[q][v ? v : 6];
-            Uint8 a = dim ? 110 : 255;
-            ui_shadow_flat(x, y, d * 1.1f, d * 1.1f, a / 255.0f);
-            SDL_SetTextureAlphaMod(t, a);
-            ui_put_c(t, x, y, d, d);
-            SDL_SetTextureAlphaMod(t, 255);
-        }
+        if (fresh && q == latest) ui_dice_draw(x, y, d, (unsigned)dim);
+        else ui_die_at(x, y, d, q, v ? v : 6, dim ? 110 / 255.0f : 1);
     }
 }
 

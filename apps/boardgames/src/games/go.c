@@ -25,7 +25,7 @@ static struct { int on, k, pt[GO_PTS]; uint8_t who[GO_PTS]; Uint32 t0; } fade;
 
 static const uint8_t WHITE[3] = {255, 255, 255};
 
-/* ---- the position ---------------------------------------------------------------------------------------------------- */
+/* ---- the position ------------------------------------------------------------------------------------------------ */
 static void calm(void)
 {
     grid_calm(&B);
@@ -91,7 +91,7 @@ static int script(const char *s)
     return go_script(&G, s);
 }
 
-/* ---- pictures --------------------------------------------------------------------------------------------------------- */
+/* ---- pictures ---------------------------------------------------------------------------------------------------- */
 /* the komi's half point: a ring, its left half filled */
 static void paint_half(int size, uint8_t *o)
 {
@@ -107,14 +107,14 @@ static void paint_half(int size, uint8_t *o)
         }
 }
 
-/* ---- the board on the screen ------------------------------------------------------------------------------------------ */
+/* ---- the board on the screen ------------------------------------------------------------------------------------- */
 static void layout(box b)
 {
     grid_layout(&B, b);
     int u = (int)ui.unit;
     if (made_u != u) {
         made_u = u;
-        int s = (int)(0.5f * u), h = (int)(0.3f * u);
+        int s = (int)(0.6f * u), h = (int)(0.3f * u);
         for (int p = 0; p < 2; p++) {
             ui_free(&t_small[p]);
             t_small[p] = grid_stone_tex(p, s);
@@ -126,7 +126,8 @@ static void layout(box b)
     }
 }
 
-/* a point's owner while counting: a small square of the player's colour (ivory outlined on the wood, ebony on the bar) */
+/* a point's owner while counting: a small square of the player's colour (ivory outlined on the wood, ebony on the
+ * bar) */
 static void owner_square(int player, float cx, float cy, float s, int on_wood)
 {
     float e = fmaxf(1, roundf(0.12f * s));
@@ -168,7 +169,7 @@ static void draw(void)
     if (G.phase == GO_PLAY) grid_ghost(&B, p->side);
 }
 
-/* ---- the pointer ------------------------------------------------------------------------------------------------------- */
+/* ---- the pointer ------------------------------------------------------------------------------------------------- */
 static void press(float x, float y)
 {
     if (G.phase == GO_COUNT) {                  /* a group dead / alive */
@@ -188,27 +189,21 @@ static void release(float x, float y)
     if (pt >= 0) play(pt);
 }
 
-/* ---- the shell's pictures ------------------------------------------------------------------------------------------------ */
+/* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
 /* playing: the stones the player took (a stone of the other colour, the count); counting: the player's score (a square
  * of the player's colour, the points; ivory's half point of the komi) */
 static void bar(int player, box b)
 {
-    float u = ui.unit, cy = b.y + b.h / 2, x = b.x, h = 0.5f * u;
-    int value;
     if (G.phase == GO_PLAY) {
-        value = go_now(&G)->caps[player];
-        if (!value) return;
-        ui_put(t_small[!player], x, cy - h / 2, h, h);
-        x += h + 0.18f * u;
-    } else {
-        int8_t owner[GO_PTS];
-        float score[2];
-        go_score(&G, owner, score);
-        value = (int)score[player];
-        owner_square(player, x + 0.17f * u, cy, roundf(0.3f * u), 0);
-        x += 0.52f * u;
+        ui_bar_count(b, t_small[!player], go_now(&G)->caps[player]);
+        return;
     }
-    int digits = value >= 100 ? 3 : value >= 10 ? 2 : 1;
+    float u = ui.unit, cy = b.y + b.h / 2, x = b.x + 0.52f * u, h = 0.5f * u;
+    int8_t owner[GO_PTS];
+    float score[2];
+    go_score(&G, owner, score);
+    int value = (int)score[player], digits = value >= 100 ? 3 : value >= 10 ? 2 : 1;
+    owner_square(player, b.x + 0.17f * u, cy, roundf(0.3f * u), 0);
     float w = 0.74f * h * (digits - 1) + 0.62f * h;
     ui_number(x + w / 2, cy, h, value, 1);
     if (G.phase != GO_PLAY && player == 1) {

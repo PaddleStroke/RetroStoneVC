@@ -10,9 +10,10 @@
 
 #include <stdint.h>
 
-/* ---- figures: shapes in a unit square (y down), painted back to front ------------------------------------------------
+/* ---- figures: shapes in a unit square (y down), painted back to front -----------------------------------------------
  * Each PART shape: its fill (lit from the upper left, as round as its bounding box) and its outline, which becomes an
- * inner line where it crosses a shape painted before it; a MARK shape (an eye, a slit) is painted in the mark colour. */
+ * inner line where it crosses a shape painted before it; a MARK shape (an eye, a slit) is painted in the mark
+ * colour. */
 typedef struct art_fig art_fig;
 typedef struct {
     float fill[3], outer[3], inner[3], mark[3];
@@ -30,7 +31,7 @@ void art_arc(art_fig *f, int role, float cx, float cy, float r0, float r1, float
 /* w x h pixels; scale: pixels per unit; the unit square's (0, 0) at pixel (ox, oy) */
 void art_render(const art_fig *f, const art_style *st, int w, int h, float scale, float ox, float oy, uint8_t *rgba);
 
-/* ---- the house style: every game uses these, for one look across the app ------------------------------------------------
+/* ---- the house style: every game uses these, for one look across the app --------------------------------------------
  * Two players everywhere: 0 ivory, 1 ebony (chess's white and black, go's stones, the discs...). */
 extern const art_style art_player[2];
 
@@ -43,10 +44,11 @@ void art_counter(int kind, int player, int size, uint8_t *rgba);
  * ui_shadow_flat() draws it, a game's thumbnail can blend it */
 void art_flat_shadow(int size, uint8_t *rgba);
 
-/* a die showing 1..6, a player's colour (ivory with ebony pips, or ebony with ivory pips), seen from above, size x size */
+/* a die showing 1..6, a player's colour (ivory with ebony pips, or ebony with ivory pips), seen from above,
+ * size x size */
 void art_die(int value, int player, int size, uint8_t *rgba);
 
-/* ---- ready-made pictures ------------------------------------------------------------------------------------------- */
+/* ---- ready-made pictures ----------------------------------------------------------------------------------------- */
 /* a chess piece (games/chess.h PAWN..KING, WHITE / BLACK), size x size */
 void art_piece(int type, int color, int size, uint8_t *rgba);
 
@@ -59,9 +61,6 @@ enum { ICON_UNDO, ICON_FLIP, ICON_NEW, ICON_HOME, ICON_F2F, ICON_PASS, ICON_SOUN
        ICONS };
 /* a round button's icon (white: tint it), size x size */
 void art_icon(int which, int size, uint8_t *rgba);
-
-/* a digit 0..9 (white: tint it), w x h (w about 0.62 h) */
-void art_digit(int d, int w, int h, uint8_t *rgba);
 
 /* a rounded rectangle filled with one colour, its edge smoothed */
 void art_roundrect(int w, int h, float radius, const uint8_t rgba_fill[4], uint8_t *rgba);

@@ -171,7 +171,7 @@ void art_render(const art_fig *f, const art_style *st, int w, int h, float scale
         }
 }
 
-/* ---- the chess pieces ------------------------------------------------------------------------------------------------ */
+/* ---- the chess pieces -------------------------------------------------------------------------------------------- */
 static void base(art_fig *f)
 {
     art_rect(f, ART_PART, 0.19f, 0.835f, 0.81f, 0.905f);
@@ -304,7 +304,8 @@ void art_counter(int kind, int player, int size, uint8_t *rgba)
         art_ellipse(f, ART_MARK, 0.36f, 0.33f, 0.09f, 0.06f);
     } else {
         art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.44f, 0.44f);
-        art_ellipse(f, ART_PART, 0.5f, 0.5f, kind == COUNTER_DISC ? 0.32f : 0.34f, kind == COUNTER_DISC ? 0.32f : 0.34f);
+        float top = kind == COUNTER_DISC ? 0.32f : 0.34f;
+        art_ellipse(f, ART_PART, 0.5f, 0.5f, top, top);
         if (kind != COUNTER_DISC) art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.21f, 0.21f);
         if (kind == COUNTER_KING) {                 /* a crown on the man */
             const float crown[] = {0.36f, 0.60f, 0.64f, 0.60f, 0.68f, 0.40f, 0.585f, 0.49f, 0.50f, 0.36f,
@@ -355,7 +356,7 @@ void art_die(int value, int player, int size, uint8_t *rgba)
     art_fig_free(f);
 }
 
-/* ---- the board ----------------------------------------------------------------------------------------------------- */
+/* ---- the board --------------------------------------------------------------------------------------------------- */
 static float hash(int a, int b)
 {
     unsigned h = (unsigned)(a * 73856093) ^ (unsigned)(b * 19349663);
@@ -380,7 +381,8 @@ void art_board_n(int nx, int ny, int sq, int fr, int checkered, uint8_t *o)
                 if (checkered) {
                     int f = bx / sq, r = by / sq, lt = !((f + r) & 1);
                     float s1 = hash(f, r) * 6.28f, s2 = hash(r, f) * 6.28f;
-                    float g1 = lt ? v : u, g2 = lt ? u : v; /* the grain runs one way on light squares, the other on dark */
+                    /* the grain runs one way on light squares, the other on dark */
+                    float g1 = lt ? v : u, g2 = lt ? u : v;
                     float g = sinf(g1 * 38 + 2.6f * sinf(g2 * 2.1f + s1) + s2) * 0.5f + 0.5f;
                     float k = 1 + 0.045f * (g - 0.5f) + 0.02f * (hash(f * 9 + r, 3) - 0.5f);
                     for (int i = 0; i < 3; i++) c[i] = (lt ? light[i] : dark[i]) * k;
@@ -407,7 +409,7 @@ void art_board_n(int nx, int ny, int sq, int fr, int checkered, uint8_t *o)
 
 void art_board(int sq, int fr, uint8_t *o) { art_board_n(8, 8, sq, fr, 1, o); }
 
-/* ---- the buttons' icons, the digits ------------------------------------------------------------------------------------ */
+/* ---- the buttons' icons ------------------------------------------------------------------------------------------ */
 void art_icon(int which, int size, uint8_t *rgba)
 {
     art_style st = {{255, 255, 255}, {0, 0, 0}, {0, 0, 0}, {255, 255, 255}, 0, 0};
@@ -420,7 +422,8 @@ void art_icon(int which, int size, uint8_t *rgba)
         break;
     }
     case ICON_FLIP: {                               /* the board turns round: up and down */
-        const float up[] = {0.22f, 0.40f, 0.50f, 0.40f, 0.36f, 0.20f}, down[] = {0.50f, 0.60f, 0.78f, 0.60f, 0.64f, 0.80f};
+        const float up[] = {0.22f, 0.40f, 0.50f, 0.40f, 0.36f, 0.20f},
+                    down[] = {0.50f, 0.60f, 0.78f, 0.60f, 0.64f, 0.80f};
         art_rect(f, ART_PART, 0.32f, 0.36f, 0.40f, 0.76f);
         art_rect(f, ART_PART, 0.60f, 0.24f, 0.68f, 0.64f);
         art_poly(f, ART_PART, up, 3);
@@ -457,7 +460,8 @@ void art_icon(int which, int size, uint8_t *rgba)
     }
     case ICON_HELP: {                               /* a question mark */
         art_arc(f, ART_PART, 0.5f, 0.37f, 0.11f, 0.195f, -75, 185);
-        const float stem[] = {0.535f, 0.47f, 0.585f, 0.535f, 0.545f, 0.56f, 0.545f, 0.65f, 0.455f, 0.65f, 0.455f, 0.53f};
+        const float stem[] = {0.535f, 0.47f, 0.585f, 0.535f, 0.545f, 0.56f,
+                              0.545f, 0.65f, 0.455f, 0.65f, 0.455f, 0.53f};
         art_poly(f, ART_PART, stem, 6);
         art_ellipse(f, ART_PART, 0.5f, 0.775f, 0.062f, 0.062f);
         break;
@@ -489,39 +493,13 @@ void art_icon(int which, int size, uint8_t *rgba)
     art_fig_free(f);
 }
 
-/* seven segments with pointed ends, in a cell 0.62 wide, 1 high */
-void art_digit(int d, int w, int h, uint8_t *rgba)
-{
-    static const uint8_t seg[10] = {0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, 0x7f, 0x6f};  /* gfedcba */
-    const float t = 0.12f, g = 0.012f, l = 0.06f, r = 0.56f, top = 0.06f, mid = 0.5f, bot = 0.94f;
-    art_style st = {{255, 255, 255}, {0, 0, 0}, {0, 0, 0}, {255, 255, 255}, 0, 0};
-    art_fig *f = art_fig_new();
-    /* a segment from (x0, y0) to (x1, y1), horizontal or vertical */
-    float s[7][4] = {{l, top, r, top}, {r, top, r, mid}, {r, mid, r, bot}, {l, bot, r, bot},
-                     {l, mid, l, bot}, {l, top, l, mid}, {l, mid, r, mid}};
-    for (int i = 0; i < 7; i++) {
-        if (!(seg[d % 10] >> i & 1)) continue;
-        float x0 = s[i][0], y0 = s[i][1], x1 = s[i][2], y1 = s[i][3];
-        if (y0 == y1) {
-            const float p[] = {x0 + g, y0, x0 + g + t / 2, y0 - t / 2, x1 - g - t / 2, y0 - t / 2,
-                               x1 - g, y0, x1 - g - t / 2, y0 + t / 2, x0 + g + t / 2, y0 + t / 2};
-            art_poly(f, ART_PART, p, 6);
-        } else {
-            const float p[] = {x0, y0 + g, x0 + t / 2, y0 + g + t / 2, x0 + t / 2, y1 - g - t / 2,
-                               x0, y1 - g, x0 - t / 2, y1 - g - t / 2, x0 - t / 2, y0 + g + t / 2};
-            art_poly(f, ART_PART, p, 6);
-        }
-    }
-    art_render(f, &st, w, h, (float)h, (w - 0.62f * h) / 2, 0, rgba);
-    art_fig_free(f);
-}
-
-/* ---- plain shapes ------------------------------------------------------------------------------------------------------ */
+/* ---- plain shapes ------------------------------------------------------------------------------------------------ */
 void art_roundrect(int w, int h, float rad, const uint8_t fill[4], uint8_t *o)
 {
     for (int y = 0; y < h; y++)
         for (int x = 0; x < w; x++) {
-            float qx = fabsf(x + 0.5f - w * 0.5f) - (w * 0.5f - rad), qy = fabsf(y + 0.5f - h * 0.5f) - (h * 0.5f - rad);
+            float qx = fabsf(x + 0.5f - w * 0.5f) - (w * 0.5f - rad);
+            float qy = fabsf(y + 0.5f - h * 0.5f) - (h * 0.5f - rad);
             float ox = fmaxf(qx, 0), oy = fmaxf(qy, 0);
             float d = sqrtf(ox * ox + oy * oy) + fminf(fmaxf(qx, qy), 0) - rad;
             uint8_t *p = o + 4 * (y * w + x);

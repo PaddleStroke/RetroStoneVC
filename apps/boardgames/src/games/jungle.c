@@ -13,6 +13,7 @@
 
 #include "games/jungle.h"
 #include "shell.h"
+#include "text.h"
 
 #define FRAME 0.32f                             /* the board's frame, in squares */
 #define DISC 0.88f                              /* a piece's size, in squares */
@@ -293,17 +294,6 @@ static void rat(art_fig *b, art_fig *c)
 
 static void (*const ANIMAL[9])(art_fig *, art_fig *) = {0, rat, cat, dog, wolf, leopard, tiger, lion, elephant};
 
-/* a pixel thicker: the rank's digit stays readable on a small piece */
-static void embolden(uint8_t *px, int w, int h)
-{
-    for (int y = h - 1; y >= 0; y--)
-        for (int x = w - 1; x >= 0; x--) {
-            uint8_t *p = px + 4 * (y * w + x);
-            if (x) p[3] = p[3] > p[-1] ? p[3] : p[-1];
-            if (y) p[3] = p[3] > p[3 - 4 * w] ? p[3] : p[3 - 4 * w];
-        }
-}
-
 /* a piece: the player's disc, the animal on it in the other player's colour, its rank below it; size x size */
 static void paint_piece(int pc, int size, uint8_t *rgba)
 {
@@ -321,12 +311,11 @@ static void paint_piece(int pc, int size, uint8_t *rgba)
     art_render(c, &st, size, size, (float)size, 0, 0, cut);
     for (size_t i = 3; i < n; i += 4) fig[i] = (uint8_t)(fig[i] * (255 - cut[i]) / 255);
     art_blend(rgba, size, size, fig, size, size, 0, 0);
-    int h = (int)(0.15f * size + 0.5f), w = (int)(0.62f * h + 3);   /* the rank */
+    int h = (int)(0.15f * size + 0.5f), w = (int)(0.62f * h + 3);   /* the rank: the font's bold digit */
     if (h >= 4) {
-        art_digit(rank, w, h, fig);
-        if (h < 40) embolden(fig, w, h);
-        for (int i = 0; i < w * h; i++)
-            for (int k = 0; k < 3; k++) fig[4 * i + k] = (uint8_t)INK[player][k];
+        const uint8_t ink[3] = {(uint8_t)INK[player][0], (uint8_t)INK[player][1], (uint8_t)INK[player][2]};
+        memset(fig, 0, (size_t)w * h * 4);
+        text_glyph('0' + rank, h * 1.2f, 1, ink, fig, w, h);
         art_blend(rgba, size, size, fig, w, h, (int)(0.5f * size - w / 2.0f + 0.5f), (int)(0.665f * size));
     }
     art_fig_free(b);
@@ -336,8 +325,6 @@ static void paint_piece(int pc, int size, uint8_t *rgba)
 }
 
 /* ---- the board --------------------------------------------------------------------------------------------------- */
-static float clampf(float v, float a, float b) { return v < a ? a : v > b ? b : v; }
-
 /* paints a figure (in the board's pixels, inside the square of side s round (cx, cy)) over the board w x h, moved by
  * (dx, dy), its alpha scaled */
 static void put_fig(art_fig *f, const art_style *st, float alpha, float cx, float cy, float s, float dx, float dy,
@@ -512,12 +499,7 @@ static int xy_sq(float x, float y)
 
 static void piece_at(int pc, float cx, float cy, float d, float alpha)
 {
-    SDL_Texture *t = t_piece[JG_OWNER(pc)][JG_RANK(pc)];
-    ui_shadow_flat(cx, cy, d, d, alpha);
-    SDL_SetTextureAlphaMod(t, (Uint8)(255 * alpha));
-    if (ui_upside(JG_OWNER(pc))) ui_put_rot(t, cx, cy, d, d, 180);
-    else ui_put_c(t, cx, cy, d, d);
-    SDL_SetTextureAlphaMod(t, 255);
+    ui_flat_at(t_piece[JG_OWNER(pc)][JG_RANK(pc)], cx, cy, d, alpha, ui_upside(JG_OWNER(pc)));
 }
 
 static void mark_square(int s, void (*mark)(float, float, float, float))

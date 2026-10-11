@@ -151,13 +151,7 @@ static int xy_pt(float x, float y)              /* the point whose cell holds (x
     return -1;
 }
 
-static void disc_at(int c, float cx, float cy, float d, float alpha)
-{
-    ui_shadow_flat(cx, cy, d, d, alpha);
-    SDL_SetTextureAlphaMod(t_disc[c], (Uint8)(255 * alpha));
-    ui_put_c(t_disc[c], cx, cy, d, d);
-    SDL_SetTextureAlphaMod(t_disc[c], 255);
-}
+static void disc_at(int c, float cx, float cy, float d, float alpha) { ui_flat_at(t_disc[c], cx, cy, d, alpha, 0); }
 
 static void mark_last(int pt) { lines_mark_last(&L, morris_x[pt], morris_y[pt]); }
 

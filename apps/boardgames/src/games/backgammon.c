@@ -65,15 +65,16 @@ static int last_throw(void)
     return k;
 }
 
-/* the shell's dice show throw k, tumbling or at rest (the opening: in the colour of the player it lets start, a tie
- * in ivory) */
+/* the shell's dice show throw k, tumbling or at rest, in the thrower's colour (the opening: ivory's die, ebony's) */
 static void show_throw(int k, int tumble)
 {
     const bpos *q = &G.pos[k + 1];
-    int v[4];
-    for (int i = 0; i < q->nd; i++) v[i] = q->die[i];
-    int who = G.ev[k].player;
-    (tumble ? ui_dice_throw : ui_dice_show)(q->nd, v, who >= 0 ? who : q->phase == BG_OPENING ? 0 : q->side);
+    int v[4], who[4];
+    for (int i = 0; i < q->nd; i++) {
+        v[i] = q->die[i];
+        who[i] = G.ev[k].player >= 0 ? G.ev[k].player : i;
+    }
+    (tumble ? ui_dice_throw_each : ui_dice_show_each)(q->nd, v, who);
     shown = k;
 }
 
@@ -201,7 +202,6 @@ static int place_at(float x, float y)
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 static uint8_t *px(uint8_t *b, int w, int x, int y) { return b + 4 * ((size_t)y * w + x); }
-static float clampf(float v, float lo, float hi) { return v < lo ? lo : v > hi ? hi : v; }
 
 /* the board for points w pixels wide: the house plank and frame cut to the board's width (under the bar), the bar
  * and the strip before the tray made of the frame's walnut, the tray sunk, the points inlaid in two woods */

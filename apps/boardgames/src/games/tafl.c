@@ -31,7 +31,7 @@ static uint8_t escape[TF_MAX_SQ];               /* where the king could escape n
 static struct { int on, from, moved; float x, y; } drag;
 static struct { int on; tmove m; Uint32 t0; } anim;
 
-/* ---- the position ---------------------------------------------------------------------------------------------------- */
+/* ---- the position ------------------------------------------------------------------------------------------------ */
 /* the other player's moves, as if it moved now */
 static int their_moves(tmove *out)
 {
@@ -123,7 +123,7 @@ static int script(const char *s)
     return ok;
 }
 
-/* ---- the pictures ----------------------------------------------------------------------------------------------------- */
+/* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* the inlay of a marked square, s x s: a walnut square, a light wood star (the throne) or diamond (a corner) */
 static void paint_inlay(int throne, int s, uint8_t *rgba)
 {
@@ -158,7 +158,8 @@ static void paint_board(int k, int corners, int s, int f, uint8_t *rgba)
     art_blend(rgba, w, w, tile, s, s, f + k / 2 * s, f + k / 2 * s);
     if (corners) {
         paint_inlay(0, s, tile);
-        for (int c = 0; c < 4; c++) art_blend(rgba, w, w, tile, s, s, f + (c & 1) * (k - 1) * s, f + c / 2 * (k - 1) * s);
+        for (int c = 0; c < 4; c++)
+            art_blend(rgba, w, w, tile, s, s, f + (c & 1) * (k - 1) * s, f + c / 2 * (k - 1) * s);
     }
     free(tile);
 }
@@ -170,7 +171,7 @@ static void paint_piece(int pc, int size, uint8_t *rgba)
     else art_counter(COUNTER_DISC, pc == TF_ATT, size, rgba);
 }
 
-/* ---- the board on the screen ------------------------------------------------------------------------------------------ */
+/* ---- the board on the screen ------------------------------------------------------------------------------------- */
 static void layout(box b)
 {
     sq = (int)floorf(b.w / (n + 2 * FRAME));
@@ -297,7 +298,7 @@ static void draw(void)
     }
 }
 
-/* ---- the pointer ------------------------------------------------------------------------------------------------------- */
+/* ---- the pointer ------------------------------------------------------------------------------------------------- */
 static void press(float x, float y)
 {
     if (state != GS_PLAY) return;
@@ -340,18 +341,14 @@ static void release(float x, float y)
     else if (s >= 0 && s != drag.from) ui_sound(SND_DENY);
 }
 
-/* ---- the shell's pictures ------------------------------------------------------------------------------------------------ */
+/* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
 /* the pieces a player took: a disc of the other side, and how many (the king's capture ends the game) */
 static void bar(int player, box b)
 {
     const tpos *p = tf_pos(&G);
     int victim = player ? TF_ATT : TF_DEF, left = 0;
     for (int s = 0; s < n * n; s++) left += p->sq[s] == victim;
-    int taken = tf_count(G.variant, victim) - left;
-    if (taken <= 0) return;
-    float sz = 0.6f * ui.unit, dh = 0.46f * ui.unit, cy = b.y + b.h / 2;
-    ui_put(t_small[victim == TF_ATT], b.x, cy - sz / 2, sz, sz);
-    ui_number(b.x + sz + 0.12f * ui.unit + (taken > 9 ? 0.62f : 0.31f) * dh, cy, dh, taken, 1);
+    ui_bar_count(b, t_small[victim == TF_ATT], tf_count(G.variant, victim) - left);
 }
 
 /* the attackers: an ebony disc; the defenders: their king */

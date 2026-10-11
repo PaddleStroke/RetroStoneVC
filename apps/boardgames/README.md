@@ -18,7 +18,7 @@ make -f apps/boardgames/Makefile win64           # dist/windows/RetroStoneBoard.
 | | |
 |---|---|
 | `src/shell.c` `shell.h` | the app: the menu, the variant picker, the players' bars, the buttons (home, undo, flip, face to face, new game), the end-of-game card, the picture mode. Everything the games share, written once. |
-| `src/art.c` `art.h` | the pictures, drawn by code at the screen's resolution: shapes (`art_fig`), the house pieces (`art_piece` for chess, `art_counter` for discs, go stones, draughts men and kings), the wooden boards (`art_board_n`), icons, digits. |
+| `src/art.c` `art.h` | the pictures, drawn by code at the screen's resolution: shapes (`art_fig`), the house pieces (`art_piece` for chess, `art_counter` for discs, go stones, draughts men and kings), the wooden boards (`art_board_n`), icons. |
 | `src/sound.c` | the sounds, made by code: `ui_sound(SND_MOVE / CAPTURE / PLACE / DROP / CHECK / END / TAP / DENY)`. |
 | `src/text.c` `text.h`, `help/<lang>/<id>.txt`, `tools/gen_text.py` | the texts: each game's rules (the ? button) and name (the menu card) in 22 languages, the device's language; Noto Sans CJK cut down at build time to the characters used, drawn with stb_truetype. `help/<lang>/_app.txt`: the buttons, after every game's rules. |
 | `src/games/<id>.c` | a game: its board on the screen, its input; registers itself (`REGISTER_GAME`). |
@@ -33,9 +33,16 @@ One look across the app, like the Arcade games' house kit:
 - **Wood**: every board is the house wood (`art_board_n`: checkered squares, or one plain plank with lines drawn on
   it), in its walnut frame, on the shell's green table.
 - **Pieces** from `art.c` (`art_piece`, `art_counter`), with `ui_shadow()` under the standing ones and
-  `ui_shadow_flat()` under the flat ones (discs, stones, men).
-- **Marks** from the shell: `ui_mark_last` (the last move), `ui_mark_select`, `ui_mark_dot` (where a piece can go),
-  `ui_mark_ring` (a capture), `ui_mark_glow` (danger), `ui_mark_gold` (a success: a mill, a winning line).
+  `ui_shadow_flat()` under the flat ones (discs, stones, men); `ui_flat_at()` draws a flat piece with its shadow,
+  faded or turned round.
+- **Marks** from the shell: `ui_mark_last` (the last move), `ui_mark_select` (and `_round` for round holes and
+  points), `ui_mark_dot` (where a piece can go: a dark dot in a thin cream rim, readable on light wood, dark wood and
+  a dark point), `ui_mark_ring` (a capture), `ui_mark_glow` (danger), `ui_mark_gold` (a success: a mill, a winning
+  line).
+- **The bars**: `ui_number()` for a count or a score, `ui_bar_count(box, piece, n)` for a small piece and how many
+  (the pieces taken).
+- **Dice** from the shell: `ui_dice_throw` / `ui_dice_show` (a player's dice; `_each`: a colour each, backgammon's
+  opening), `ui_dice_draw`, `ui_die_at` (one die at rest: waiting to be thrown, a past throw), `ui_random`.
 - **Nothing copied**: anything two games would draw the same way belongs in `art.c` or the shell, not in each game.
 - **The end waits**: `busy()` says the last move still animates; the shell shows the end of the game after it.
 - **No text on the board** (pictures, and `ui_number()` for scores and counts). The words are in the rules page only:

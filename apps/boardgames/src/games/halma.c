@@ -29,12 +29,10 @@ static hl_game G;
 static int targets[HL_HOLES], ntargets;
 static int q, fr, made_w = -1, made_flip = -1, made_small = -1;
 static float bx, by, cx, cy, s;                 /* the board's corner, the star's middle, the spacing (pixels) */
-static SDL_Texture *t_board, *t_marble[2], *t_small[2], *t_last, *t_sel, *t_empty;
+static SDL_Texture *t_board, *t_marble[2], *t_small[2], *t_empty;
 static int sel = -1;
 static struct { int on, from, moved; float x, y; } drag;
 static struct { int on, heard; hl_path p; Uint32 t0; } anim;
-
-static float clampf(float v, float a, float b) { return v < a ? a : v > b ? b : v; }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
 static void calm(void)
@@ -174,12 +172,6 @@ static void paint_star(uint8_t *o, int w, int f, float sp, int flip)
 /* the spacing that fits the star in a plank of inner side `inner` */
 static float spacing(float inner) { return FILL * inner / (2 * (8 * H + EDGE)); }
 
-static SDL_Texture *disc_tex(int size, const uint8_t rgb[3], float a)
-{
-    art_disc(size, rgb, a, 0, ui_buf(size, size));
-    return ui_tex(size, size, ui_buf(size, size));
-}
-
 static void layout(box b)
 {
     q = (int)(b.w * (1 - 2 * FRAME) / 9);
@@ -197,17 +189,12 @@ static void layout(box b)
         art_board_n(9, 9, q, fr, 0, ui_buf(w, w));
         paint_star(ui_buf(w, w), w, fr, s, ui.flipped);
         t_board = ui_tex(w, w, ui_buf(w, w));
-        int d = (int)lroundf(MARBLE * s), m = (int)lroundf(0.98f * s);
-        static const uint8_t warm[3] = {250, 214, 90};
+        int d = (int)lroundf(MARBLE * s);
         for (int p = 0; p < 2; p++) {
             ui_free(&t_marble[p]);
             art_counter(COUNTER_STONE, p, d, ui_buf(d, d));
             t_marble[p] = ui_tex(d, d, ui_buf(d, d));
         }
-        ui_free(&t_last);                       /* the house's marks (ui_mark_last, ui_mark_select), round */
-        t_last = disc_tex(m, warm, 100 / 255.0f);
-        ui_free(&t_sel);
-        t_sel = disc_tex(m, warm, 150 / 255.0f);
     }
     int small = (int)(0.17f * ui.unit);
     if (made_small != small) {
@@ -219,7 +206,8 @@ static void layout(box b)
             t_small[p] = ui_tex(small, small, ui_buf(small, small));
         }
         ui_free(&t_empty);
-        t_empty = disc_tex(small, dark, 0.3f);
+        art_disc(small, dark, 0.3f, 0, ui_buf(small, small));
+        t_empty = ui_tex(small, small, ui_buf(small, small));
     }
 }
 
@@ -285,11 +273,11 @@ static void draw(void)
     if (last && !anim.on)                       /* the last move's way: where it left, each landing, where it ended */
         for (int i = 0; i < last->n; i++) {
             hole_xy(last->hole[i], &x, &y);
-            ui_put_c(t_last, x, y, m, m);
+            ui_mark_last_round(x, y, m);
         }
     if (sel >= 0) {
         hole_xy(sel, &x, &y);
-        ui_put_c(t_sel, x, y, m, m);
+        ui_mark_select_round(x, y, m);
     }
     int moving = anim.on ? anim.p.hole[anim.p.n - 1] : -1, held = drag.on && drag.moved ? drag.from : -1;
     for (int pass = 0; pass < 2; pass++)        /* the shadows first: they fall on the wood only */
@@ -308,7 +296,7 @@ static void draw(void)
         }
     for (int i = 0; i < ntargets; i++) {        /* where the selected marble can go */
         hole_xy(targets[i], &x, &y);
-        ui_mark_dot(x, y, 0.62f * s);           /* wider than the hole: a smaller one vanishes in it */
+        ui_mark_dot(x, y, 0.62f * s);           /* wider than the hole: its rim round it (inside, it hides) */
     }
     if (anim.on) {                              /* hopping: lifted over the marble it jumps, its shadow left below */
         int p = G.cell[moving] - 1;

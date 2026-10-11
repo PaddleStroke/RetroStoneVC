@@ -166,7 +166,7 @@ static void draw(void)
     }
     if (state != GS_DRAW && xq_in_check(p, p->side)) {
         pt_xy(xq_general(p, p->side), &x, &y);
-        ui_mark_glow(x, y, sq);
+        ui_mark_glow(x, y, 1.6f * sq);            /* round the general, which fills its point */
     }
     float t = 1;
     if (anim.on) {
