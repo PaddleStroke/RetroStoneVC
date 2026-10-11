@@ -1,0 +1,25 @@
+Pačísí
+# Cíl hry
+Pačísí je stará indická hra, ze které vzniklo Člověče, nezlob se. Každý hráč velí dvěma armádám po čtyřech figurkách na protilehlých ramenech kříže: slonovina a jantar proti ebenu a palisandru. Dostaň všech osm svých figurek kolem desky a domů do středu dřív než soupeř. Jako první hází slonovinový hráč.
+# Deska
+Deska je kříž ze čtyř ramen, každé ze tří sloupců po osmi polích, kolem velkého středového pole, charkoni. Každá armáda začíná v charkoni u svého ramene, jehož prostřední sloupec je vykládaný její barvou. Figurka jde dolů prostředkem svého ramene, kolem celé desky proti směru hodinových ručiček po vnějších sloupcích a pak zpět nahoru prostředkem svého ramene do charkoni. Hrady jsou dvanáct polí označených křížkem: konec každého ramene a v každém vnějším sloupci čtvrté pole od konce.
+# Házení mušlemi
+Hoď šesti mušlemi kauri a spočítej ústí obrácená nahoru:
+- žádné: 25
+- jedno: 10
+- dvě až šest: to číslo (2, 3, 4, 5 nebo 6)
+6, 10 nebo 25 je šťastný hod: po něm házíš znovu.
+# Tahy
+- Táhni jednou figurkou kterékoli ze svých armád o hozené číslo. Smíš také tah odmítnout.
+- První figurka každé armády smí opustit charkoni s jakýmkoli hodem. Každá další figurka, i figurka poslaná zpět, potřebuje k odchodu šťastný hod.
+- Figurky obou tvých armád smějí stát na jednom poli a nic neblokuje cestu: figurka smí přejít přes jakékoli jiné.
+- Pokud žádná figurka nemůže táhnout, hod propadá (po šťastném hodu ale házíš znovu).
+# Setkání s jinými figurkami
+- Když skončíš na poli, kde stojí soupeřovy figurky, pošleš je všechny zpět do charkoni a házíš znovu.
+- Figurka na hradu je v bezpečí: na hrad, kde stojí soupeřovy figurky, nesmí nikdo vstoupit.
+# Cesta domů
+Do charkoni vstoupí figurka jen přesným číslem. Žádný hod není 1, takže figurka nesmí zastavit na posledním poli před charkoni: nikdy by se nedostala domů.
+# Konec hry
+Vyhrává první hráč, který dostane domů všech osm figurek z obou armád.
+# Hra na zařízení
+Tvoje mušle leží v přihrádce po tvé pravici, tvoje figurky doma v přihrádce po levici. Když jsi na řadě, mušle svítí zlatě: klepni na desku a hodíš jimi. Hozená hodnota se ukáže vedle nich, u šťastného hodu zlatě. Tečky ukazují, kam mohou tvé figurky jít, kroužky figurky, které bys poslal zpět: klepni na figurku, nebo ji přetáhni na její pole. Kde figurky obou tvých armád sdílejí pole, ale jdou různými směry, klepni na to pole a pak na tečku, kterou chceš. Tlačítko pasu ve tvé liště hod odmítne. Vrátit bere zpět tahy i hody, ale vrácený hod padne znovu stejně. Tvoje lišta ukazuje tvé figurky doma.

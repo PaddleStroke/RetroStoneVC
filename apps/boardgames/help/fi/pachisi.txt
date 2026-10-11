@@ -1,0 +1,25 @@
+Pachisi
+# Tavoite
+Pachisi on Intian vanha peli, josta Ludo kehitettiin. Kummallakin pelaajalla on komennossaan kaksi neljän nappulan armeijaa ristin vastakkaisilla sakaroilla: norsunluu ja meripihka vastaan eebenpuu ja ruusupuu. Kuljeta kaikki kahdeksan nappulaasi laudan ympäri ja kotiin keskelle ennen vastustajaa. Norsunluu heittää ensin.
+# Lauta
+Lauta on neljän sakaran risti, jonka jokainen sakara on kolme kahdeksan ruudun saraketta ja jonka keskellä on suuri keskiruutu, charkoni. Kukin armeija aloittaa charkonista oman sakaransa vierestä; sakaran keskisarakkeessa on armeijan värinen upotus. Nappula kulkee oman sakaransa keskisaraketta alas, koko laudan ympäri vastapäivään ulompia sarakkeita pitkin ja sitten takaisin sakaransa keskisaraketta ylös charkoniin. Kaksitoista ristillä merkittyä ruutua ovat linnoja: kunkin sakaran pää sekä kussakin ulommassa sarakkeessa neljäs ruutu päästä lukien.
+# Kaurikotiloiden heittäminen
+Heitä kuutta kaurikotiloa ja laske ylöspäin kääntyneet suuaukot:
+- ei yhtään: 25
+- yksi: 10
+- kahdesta kuuteen: sama luku (2, 3, 4, 5 tai 6)
+6, 10 tai 25 on onnenheitto: sen jälkeen heität uudelleen.
+# Siirtäminen
+- Siirrä yhtä nappulaa jommastakummasta armeijastasi heitetyn luvun verran. Voit myös jättää siirtämättä.
+- Kunkin armeijan ensimmäinen nappula saa lähteä charkonista millä heitolla tahansa. Kaikki muut nappulat, ja takaisin lähetetty nappula, tarvitsevat lähteäkseen onnenheiton.
+- Kummankin armeijasi nappulat voivat olla samassa ruudussa, eikä mikään tuki tietä: nappula saa ohittaa mitkä tahansa muut.
+- Jos mikään nappula ei voi liikkua, heitto menetetään (onnenheiton jälkeen heität silti uudelleen).
+# Kohtaamiset
+- Kun päädyt ruutuun, jossa on vastustajan nappuloita, ne kaikki palaavat charkoniin, ja heität uudelleen.
+- Linnassa oleva nappula on turvassa: kukaan ei saa päätyä linnaan, jossa on vastustajan nappuloita.
+# Kotimatka
+Nappula pääsee charkoniin vain tarkalleen oikealla luvulla. Mikään heitto ei ole 1, joten nappula ei saa pysähtyä viimeiseen ruutuun ennen charkonia: se ei pääsisi koskaan kotiin.
+# Pelin loppu
+Pelaaja, joka tuo ensimmäisenä kotiin kaikki kahdeksan nappulaansa, molemmat armeijat, voittaa.
+# Pelaaminen laitteella
+Kaurikotilosi ovat oikealla puolellasi olevassa lokerossa, kotiin päässeet nappulasi vasemmalla olevassa lokerossa. Kun on vuorosi, kaurikotilot hehkuvat kultaisina: napauta lautaa heittääksesi ne. Heitetty arvo näkyy niiden vieressä, onnenheitosta kultaisena. Pisteet näyttävät, minne nappulasi voivat mennä, renkaat nappulat, jotka lähettäisit takaisin: napauta nappulaa tai vedä se ruutuunsa. Kun saman ruudun jakavat kummankin armeijasi nappulat, jotka ovat menossa eri suuntiin, napauta ruutua ja sitten haluamaasi pistettä. Palkissasi oleva passausnappi jättää heiton käyttämättä. Kumoa peruu siirtoja ja heittoja, mutta peruttu heitto tulee uudelleen samana. Palkkisi näyttää kotiin päässeet nappulasi.

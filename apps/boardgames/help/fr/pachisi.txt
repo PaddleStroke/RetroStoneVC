@@ -1,0 +1,25 @@
+Pachisi
+# Le but
+Le pachisi est le vieux jeu indien dont sont nés les petits chevaux. Chaque joueur commande deux armées de quatre pions, sur des branches opposées de la croix : l'ivoire et l'ambre contre l'ébène et le palissandre. Fais faire le tour du plateau à tes huit pions et ramène-les au centre avant l'autre joueur. L'ivoire lance en premier.
+# Le plateau
+Le plateau est une croix de quatre branches, chacune faite de trois colonnes de huit cases, autour d'une grande case centrale, le charkoni. Chaque armée part du charkoni, à côté de sa propre branche, dont la colonne du milieu est incrustée de sa couleur. Un pion descend le milieu de sa branche, fait tout le tour du plateau par les colonnes extérieures, dans le sens inverse des aiguilles d'une montre, puis remonte le milieu de sa branche jusqu'au charkoni. Les douze cases marquées d'une croix sont des châteaux : le bout de chaque branche et, dans chaque colonne extérieure, la quatrième case à partir du bout.
+# Lancer les cauris
+Lance les six cauris et compte les ouvertures tournées vers le haut :
+- aucune : 25
+- une : 10
+- de deux à six : ce nombre (2, 3, 4, 5 ou 6)
+Un 6, un 10 ou un 25 est une grâce : après, tu relances.
+# Les déplacements
+- Avance un pion de l'une ou l'autre de tes armées du nombre obtenu. Tu peux aussi refuser de jouer.
+- Le premier pion de chaque armée peut quitter le charkoni avec n'importe quel lancer. Tous les autres pions, ainsi qu'un pion renvoyé, ont besoin d'une grâce pour en sortir.
+- Les pions de tes deux armées peuvent partager une case, et rien ne barre le chemin : un pion peut passer par-dessus tous les autres.
+- Si aucun pion ne peut avancer, le lancer est perdu (après une grâce, tu relances quand même).
+# Rencontrer d'autres pions
+- S'arrêter sur une case occupée par des pions de l'autre joueur les renvoie tous au charkoni, et tu relances.
+- Un pion sur un château est en sécurité : personne ne peut s'arrêter sur un château où se trouvent des pions de l'autre joueur.
+# Rentrer à la maison
+Un pion n'entre dans le charkoni qu'avec le nombre exact. Aucun lancer ne fait 1, donc un pion ne peut pas s'arrêter sur la dernière case avant le charkoni : il ne pourrait jamais rentrer.
+# La fin de la partie
+Le premier joueur qui ramène ses huit pions, des deux armées, gagne.
+# Jouer sur l'appareil
+Tes cauris sont dans le bac à ta droite, tes pions arrivés dans le bac à ta gauche. Quand c'est ton tour, les cauris brillent en or : touche le plateau pour les lancer. La valeur obtenue s'affiche à côté, en or pour une grâce. Les points montrent où tes pions peuvent aller, les anneaux les pions que tu renverrais : touche un pion, ou fais-le glisser jusqu'à sa case. Là où des pions de tes deux armées partagent une case en allant dans des sens différents, touche-la, puis touche le point que tu veux. Le bouton passer dans ta barre refuse le lancer. Annuler reprend les coups et les lancers, mais un lancer repris ressort à l'identique. Ta barre indique tes pions arrivés.

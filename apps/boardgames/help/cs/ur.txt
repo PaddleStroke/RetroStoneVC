@@ -1,0 +1,20 @@
+Královská hra z Uru
+# Cíl hry
+Převeď svých sedm kamenů po své dráze až ven z desky dřív než soupeř. Hra se hrála v Mezopotámii před více než 4 500 lety; tato pravidla odvodil z babylonské hliněné tabulky Irving Finkel z Britského muzea. Jako první hází slonovinový hráč, potom se hráči střídají.
+# Deska
+Deska má dvacet polí ve třech řadách. Řada nejblíž tobě patří jen tobě: čtyři pole na jednom konci, dvě na druhém a mezi nimi mezera. Prostřední řada osmi polí je společná. Tvoje dráha vede po tvých čtyřech polích ke konci desky, potom po celé prostřední řadě opačným směrem, pak zpět na tvou vlastní řadu na její dvě poslední pole a ven z desky. Pět polí nese rozetu: rohové pole čtveřice každého hráče, rohové pole dvojice každého hráče a čtvrté pole prostřední řady.
+# Házení a tahy
+- Hoď čtyřmi kostkami. Každá je jehlan, který má dva ze svých čtyř vrcholů označené: spočítej kostky, jejichž označený vrchol míří nahoru. Hod je 0 až 4; nejčastěji padá 2.
+- Táhni jedním svým kamenem o tolik polí po své dráze. Kámen čekající mimo desku vstoupí na desku: hod 3 ho postaví na tvé třetí pole.
+- Nesmíš skončit na poli, kde stojí některý z tvých vlastních kamenů.
+- Hod 0 nebo hod, který nemůže využít žádný kámen, propadá a tah přechází na soupeře.
+# Rozety
+Když skončíš na rozetě, dostaneš další hod. Rozeta uprostřed společné řady je navíc bezpečné pole: kámen, který na ní stojí, nelze vyhodit, takže na ni soupeř nesmí vstoupit.
+# Vyhazování
+Když skončíš na soupeřově kameni ve společné řadě, pošleš ho zpět mimo desku: musí začít svou cestu znovu. Tvá vlastní pole na koncích jsou mimo soupeřův dosah.
+# Vyvádění
+Kámen opouští desku jen přesným číslem: z posledního pole potřebuješ 1, z pole před ním 2 a tak dál. Vyšší hod s tímto kamenem táhnout nemůže.
+# Konec hry
+Vyhrává první hráč, který vyvede všech sedm kamenů.
+# Hra na zařízení
+Tvoje čekající kameny leží u začátku tvé dráhy, vyvedené u jejího konce a za nimi tvoje kostky s výsledkem posledního hodu. Když jsi na řadě s házením, tvoje kostky svítí zlatě: klepni na desku a hodíš. Tečky ukazují, kam mohou tvé kameny jít, kroužky kámen, který bys poslal zpět: klepni na kámen, nebo ho přetáhni na jeho pole. Když může táhnout jen jeden kámen, už svítí. Hod, který propadl, zůstává ztlumený v červené záři, zatímco hází soupeř. Vrátit bere zpět tahy i hody, ale vrácený hod padne znovu stejně. Tvoje lišta ukazuje kameny, které jsi vyvedl.

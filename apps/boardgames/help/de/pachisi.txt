@@ -1,0 +1,25 @@
+Pachisi
+# Das Ziel
+Pachisi ist das alte Spiel Indiens, aus dem Ludo entstanden ist. Jeder Spieler führt zwei Armeen aus vier Figuren, auf gegenüberliegenden Armen des Kreuzes: Elfenbein und Bernstein gegen Ebenholz und Palisander. Bringe alle acht deiner Figuren vor dem anderen Spieler um das Brett herum und nach Hause ins Zentrum. Elfenbein wirft zuerst.
+# Das Brett
+Das Brett ist ein Kreuz aus vier Armen, jeder aus drei Spalten zu acht Feldern, rund um ein großes Mittelfeld, das Charkoni. Jede Armee beginnt im Charkoni neben ihrem eigenen Arm, dessen mittlere Spalte in ihrer Farbe eingelegt ist. Eine Figur zieht die Mitte ihres eigenen Arms hinunter, über die äußeren Spalten gegen den Uhrzeigersinn um das ganze Brett und dann die Mitte ihres Arms wieder hinauf ins Charkoni. Die zwölf mit einem Kreuz markierten Felder sind Burgen: das Ende jedes Arms und in jeder äußeren Spalte das vierte Feld vom Ende.
+# Kauris werfen
+Wirf die sechs Kaurischnecken und zähle die Öffnungen, die nach oben zeigen:
+- keine: 25
+- eine: 10
+- zwei bis sechs: diese Zahl (2, 3, 4, 5 oder 6)
+Eine 6, 10 oder 25 ist ein Glückswurf: Danach wirfst du noch einmal.
+# Ziehen
+- Ziehe eine Figur einer deiner beiden Armeen um die geworfene Zahl. Du darfst auch auf den Zug verzichten.
+- Die erste Figur jeder Armee darf das Charkoni mit jedem Wurf verlassen. Jede andere Figur, auch eine zurückgeschickte, braucht dafür einen Glückswurf.
+- Figuren deiner beiden Armeen dürfen auf demselben Feld stehen, und nichts versperrt den Weg: Eine Figur darf über alle anderen hinwegziehen.
+- Kann keine Figur ziehen, verfällt der Wurf (nach einem Glückswurf wirfst du trotzdem noch einmal).
+# Auf andere Figuren treffen
+- Landest du auf einem Feld, auf dem Figuren des anderen Spielers stehen, müssen sie alle zurück ins Charkoni, und du wirfst noch einmal.
+- Eine Figur auf einer Burg ist sicher: Niemand darf auf einer Burg landen, auf der Figuren des anderen Spielers stehen.
+# Ins Ziel
+Eine Figur kommt nur mit der genauen Zahl ins Charkoni. Kein Wurf ergibt eine 1, also darf eine Figur nicht auf dem letzten Feld vor dem Charkoni stehen bleiben: Sie käme nie ins Ziel.
+# Das Ende der Partie
+Wer zuerst alle acht Figuren beider Armeen ins Ziel bringt, gewinnt.
+# Spielen auf dem Gerät
+Deine Kauris liegen in der Ablage rechts von dir, deine Figuren im Ziel in der Ablage links. Bist du am Zug, leuchten die Kauris golden: Tippe auf das Brett, um sie zu werfen. Der geworfene Wert erscheint daneben, golden bei einem Glückswurf. Punkte zeigen, wohin deine Figuren ziehen können, Ringe die Figuren, die du zurückschicken würdest: Tippe auf eine Figur oder schieb sie auf ihr Feld. Teilen sich Figuren deiner beiden Armeen ein Feld und ziehen in verschiedene Richtungen, tippe auf das Feld und dann auf den gewünschten Punkt. Mit der Passen-Taste in deiner Leiste verzichtest du auf den Wurf. Rückgängig nimmt Züge und Würfe zurück, aber ein zurückgenommener Wurf fällt danach genauso wieder. Deine Leiste zeigt deine Figuren im Ziel.

@@ -1,0 +1,20 @@
+Juego real de Ur
+# El objetivo
+Llevar tus siete fichas a lo largo de tu recorrido y sacarlas del tablero antes que el otro jugador. Se jugaba en Mesopotamia hace más de 4500 años; estas son las reglas que Irving Finkel, del Museo Británico, reconstruyó a partir de una tablilla de arcilla babilónica. Tira primero el marfil; después los jugadores se turnan.
+# El tablero
+El tablero tiene veinte casillas en tres filas. La fila más cercana a ti es solo tuya: cuatro casillas en un extremo y dos en el otro, con un hueco entre ellas. La fila central, de ocho casillas, es compartida. Tu recorrido avanza por tus cuatro casillas hacia el extremo del tablero, luego recorre toda la fila central en sentido contrario, después vuelve a tu propia fila para sus dos últimas casillas y sale del tablero. Cinco casillas llevan una roseta: la casilla de la esquina de las cuatro de cada jugador, la casilla de la esquina de las dos de cada jugador y la cuarta casilla de la fila central.
+# Tirar y mover
+- Tira los cuatro dados. Cada uno es una pirámide con dos de sus cuatro puntas marcadas: cuenta los dados cuya punta marcada queda hacia arriba. La tirada va de 0 a 4; el 2 es lo que más sale.
+- Mueve una de tus fichas por tu recorrido tantas casillas como marque la tirada. Una ficha que espera fuera del tablero entra: una tirada de 3 la pone en tu tercera casilla.
+- No puedes caer en una casilla donde ya hay una de tus fichas.
+- Una tirada de 0, o una tirada que ninguna ficha puede usar, se pierde y el turno pasa.
+# Las rosetas
+Caer en una roseta te da otra tirada. La roseta del centro de la fila compartida es además un seguro: una ficha que está en ella no puede ser devuelta, así que el otro jugador no puede caer allí.
+# Capturar
+Caer en una ficha del otro jugador en la fila compartida la devuelve fuera del tablero: debe empezar su viaje de nuevo. Tus propias casillas de los extremos quedan fuera del alcance del otro jugador.
+# Sacar fichas
+Una ficha sale del tablero solo con el número exacto: desde tu última casilla necesitas un 1, desde la anterior un 2, y así sucesivamente. Una tirada mayor no puede mover esa ficha.
+# El final de la partida
+Gana el primer jugador que saca sus siete fichas.
+# Jugar en el dispositivo
+Tus fichas en espera están junto al comienzo de tu recorrido, las fichas sacadas junto a su final, y tus dados más allá, con el resultado de la última tirada. Cuando te toca tirar, tus dados brillan en dorado: toca el tablero para tirar. Los puntos muestran adónde pueden ir tus fichas, y los anillos una ficha que devolverías: toca una ficha, o arrástrala hasta su casilla. Cuando solo puede moverse una ficha, ya está iluminada. Una tirada perdida se queda atenuada con un brillo rojo mientras el otro jugador tira. Deshacer retira movimientos y tiradas, pero una tirada deshecha vuelve a salir igual. Tu barra muestra las fichas que has sacado.

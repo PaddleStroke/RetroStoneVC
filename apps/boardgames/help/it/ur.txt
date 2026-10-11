@@ -1,0 +1,20 @@
+Gioco reale di Ur
+# Lo scopo
+Portare le tue sette pedine lungo il tuo percorso e fuori dal tavoliere prima dell'altro giocatore. Il gioco si giocava in Mesopotamia più di 4500 anni fa; queste sono le regole che Irving Finkel del British Museum ha ricostruito da una tavoletta d'argilla babilonese. Tira per primo l'avorio, poi i giocatori si alternano.
+# Il tavoliere
+Il tavoliere ha venti caselle su tre righe. La riga più vicina a te è solo tua: quattro caselle a un'estremità, due all'altra, con uno spazio vuoto in mezzo. La riga centrale di otto caselle è in comune. Il tuo percorso segue le tue quattro caselle verso l'estremità del tavoliere, poi tutta la riga centrale nell'altro senso, poi torna sulla tua riga per le sue ultime due caselle ed esce dal tavoliere. Cinque caselle portano una rosetta: la casella d'angolo delle quattro di ciascun giocatore, la casella d'angolo delle due di ciascun giocatore e la quarta casella della riga centrale.
+# Tirare e muovere
+- Tira i quattro dadi. Ognuno è una piramide con due delle sue quattro punte segnate: conta i dadi con la punta segnata rivolta verso l'alto. Il tiro va da 0 a 4; il 2 è quello che esce più spesso.
+- Muovi una delle tue pedine di altrettante caselle lungo il tuo percorso. Una pedina in attesa fuori dal tavoliere entra: un tiro di 3 la mette sulla tua terza casella.
+- Non puoi fermarti su una casella dove c'è già una tua pedina.
+- Un tiro di 0, o un tiro che nessuna pedina può usare, va perso e il turno passa.
+# Le rosette
+Fermarsi su una rosetta ti dà un altro tiro. La rosetta al centro della riga in comune è anche una casella sicura: una pedina che ci sta sopra non può essere rimandata indietro, quindi l'altro giocatore non può fermarsi lì.
+# Catturare
+Fermarsi su una pedina dell'altro giocatore nella riga in comune la rimanda fuori dal tavoliere: deve ricominciare il suo viaggio. Le tue caselle alle estremità sono fuori dalla portata dell'altro giocatore.
+# Portare fuori
+Una pedina esce dal tavoliere solo con il numero esatto: dalla tua ultima casella ti serve un 1, da quella prima un 2, e così via. Un tiro più alto non può muovere quella pedina.
+# La fine della partita
+Vince il primo giocatore che porta fuori tutte e sette le pedine.
+# Giocare sul dispositivo
+Le tue pedine in attesa stanno accanto all'inizio del tuo percorso, quelle portate fuori accanto alla sua fine, e i tuoi dadi più in là, con il valore dell'ultimo tiro. Quando tocca a te tirare, i tuoi dadi brillano d'oro: tocca il tavoliere per tirare. I punti mostrano dove possono andare le tue pedine, gli anelli una pedina che rimanderesti indietro: tocca una pedina, oppure trascinala sulla sua casella. Quando può muoversi una sola pedina, è già illuminata. Un tiro perso resta attenuato in un bagliore rosso mentre l'altro giocatore tira. Annulla ritira mosse e tiri, ma un tiro ritirato esce di nuovo uguale. La tua barra mostra le pedine che hai portato fuori.
