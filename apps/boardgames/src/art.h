@@ -55,14 +55,17 @@ void art_die(int value, int player, int size, uint8_t *rgba);
 /* ---- ready-made pictures ----------------------------------------------------------------------------------------- */
 /* a chess piece (games/chess.h PAWN..KING, WHITE / BLACK), size x size */
 void art_piece(int type, int color, int size, uint8_t *rgba);
+/* the same figure in any style (the court cards' figures in their suit's colour), size x size */
+void art_piece_style(int type, const art_style *st, int size, uint8_t *rgba);
 
 /* the wooden board: 8 x 8 squares of sq pixels in a frame of fr pixels; (8 * sq + 2 * fr) squared */
 void art_board(int sq, int fr, uint8_t *rgba);
 /* the same wood, n x m squares (light / dark: checkered; plain: one wood, no squares) */
 void art_board_n(int nx, int ny, int sq, int fr, int checkered, uint8_t *rgba);
 
+/* ICON_DEVICE: pass the device (a device and two arrows going round it: the hand-off cover); ICON_PLAY: start */
 enum { ICON_UNDO, ICON_FLIP, ICON_NEW, ICON_HOME, ICON_F2F, ICON_PASS, ICON_SOUND, ICON_MUTE, ICON_HELP, ICON_CLOSE,
-       ICONS };
+       ICON_DEVICE, ICON_PLAY, ICONS };
 /* a round button's icon (white: tint it), size x size */
 void art_icon(int which, int size, uint8_t *rgba);
 

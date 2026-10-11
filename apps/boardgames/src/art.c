@@ -298,6 +298,16 @@ void art_piece(int type, int color, int size, uint8_t *rgba)
     art_fig_free(f);
 }
 
+void art_piece_style(int type, const art_style *style, int size, uint8_t *rgba)
+{
+    art_style st = *style;
+    st.line = fmaxf(st.line, 1.3f / size);
+    art_fig *f = art_fig_new();
+    piece(f, type);
+    art_render(f, &st, size, size, (float)size, 0, 0, rgba);
+    art_fig_free(f);
+}
+
 void art_counter(int kind, int player, int size, uint8_t *rgba)
 {
     art_style st = art_player[player_index(player)];
@@ -479,6 +489,24 @@ void art_icon(int which, int size, uint8_t *rgba)
         const float b[] = {0.69f, 0.25f, 0.75f, 0.31f, 0.31f, 0.75f, 0.25f, 0.69f};
         art_poly(f, ART_PART, a, 4);
         art_poly(f, ART_PART, b, 4);
+        break;
+    }
+    case ICON_DEVICE: {                             /* pass the device: a device, two arrows going round it */
+        const float dev[] = {0.38f, 0.30f, 0.62f, 0.30f, 0.62f, 0.70f, 0.38f, 0.70f, 0.38f, 0.30f,
+                             0.42f, 0.35f, 0.42f, 0.62f, 0.58f, 0.62f, 0.58f, 0.35f, 0.42f, 0.35f};
+        art_poly(f, ART_PART, dev, 10);
+        art_ellipse(f, ART_PART, 0.5f, 0.66f, 0.022f, 0.022f);
+        art_arc(f, ART_PART, 0.5f, 0.5f, 0.33f, 0.40f, 35, 150);
+        art_arc(f, ART_PART, 0.5f, 0.5f, 0.33f, 0.40f, 215, 330);
+        const float h1[] = {0.73f, 0.27f, 0.87f, 0.40f, 0.68f, 0.43f};
+        const float h2[] = {0.27f, 0.73f, 0.13f, 0.60f, 0.32f, 0.57f};
+        art_poly(f, ART_PART, h1, 3);
+        art_poly(f, ART_PART, h2, 3);
+        break;
+    }
+    case ICON_PLAY: {                               /* start: a triangle pointing right */
+        const float tri[] = {0.36f, 0.22f, 0.80f, 0.50f, 0.36f, 0.78f};
+        art_poly(f, ART_PART, tri, 3);
         break;
     }
     case ICON_SOUND:
