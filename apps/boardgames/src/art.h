@@ -39,6 +39,10 @@ enum { COUNTER_DISC, COUNTER_STONE, COUNTER_MAN, COUNTER_KING };
  * morris), STONE a glossy go stone, MAN a draughts man (rings), KING a man with a crown */
 void art_counter(int kind, int player, int size, uint8_t *rgba);
 
+/* the shadow of a flat piece lying on the wood (discs, stones, men): as wide as the piece, its edge soft; the shell's
+ * ui_shadow_flat() draws it, a game's thumbnail can blend it */
+void art_flat_shadow(int size, uint8_t *rgba);
+
 /* ---- ready-made pictures ------------------------------------------------------------------------------------------- */
 /* a chess piece (games/chess.h PAWN..KING, WHITE / BLACK), size x size */
 void art_piece(int type, int color, int size, uint8_t *rgba);

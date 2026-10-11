@@ -25,7 +25,7 @@ static rgame G;
 static uint64_t legal;
 static int sq, fr, made = -1, made_unit = -1;
 static float bx, by;                            /* the a1 corner (h8 when flipped) */
-static SDL_Texture *t_disc[2], *t_shade, *t_board, *t_pass, *t_pass_bg;
+static SDL_Texture *t_disc[2], *t_board, *t_pass, *t_pass_bg;
 static struct { int on, s, n, order[64]; Uint32 t0; } anim;   /* the turning discs, nearest first */
 static struct { int on, who, rang; Uint32 t0; } pass;
 
@@ -138,18 +138,6 @@ static void inlay(uint8_t *o, int w, int n, int s, int f)
         }
 }
 
-/* the shadow of a disc lying on the wood: as wide as the disc, its edge soft, size x size */
-static void shade(int size, uint8_t *o)
-{
-    for (int y = 0; y < size; y++)
-        for (int x = 0; x < size; x++) {
-            float d = hypotf(x + 0.5f - size / 2.0f, y + 0.5f - size / 2.0f) / size, a = (0.5f - d) / 0.12f;
-            uint8_t *p = o + 4 * (y * size + x);
-            p[0] = p[1] = p[2] = 0;
-            p[3] = (uint8_t)(110 * (a < 0 ? 0 : a > 1 ? 1 : a));
-        }
-}
-
 static void layout(box b)
 {
     sq = (int)floorf(b.w / (8 + 2 * FRAME));
@@ -164,9 +152,6 @@ static void layout(box b)
             art_counter(COUNTER_DISC, !c, sq, ui_buf(sq, sq));
             t_disc[c] = ui_tex(sq, sq, ui_buf(sq, sq));
         }
-        ui_free(&t_shade);
-        shade(sq, ui_buf(sq, sq));
-        t_shade = ui_tex(sq, sq, ui_buf(sq, sq));
         int n = 8 * sq + 2 * fr;
         ui_free(&t_board);
         art_board_n(8, 8, sq, fr, 0, ui_buf(n, n));
@@ -206,7 +191,7 @@ static int xy_sq(float x, float y)
 static void disc_at(int c, float cx, float cy, float w, float k)
 {
     float d = sq * k, lift = (k - 1) * sq;
-    ui_put_c(t_shade, cx + 0.05f * sq + 0.5f * lift, cy + 0.08f * sq + lift, d * fmaxf(w, 0.12f), d);
+    ui_shadow_flat(cx + 0.5f * lift, cy + lift, d * fmaxf(w, 0.12f), d, 1);
     ui_put_c(t_disc[c], cx, cy, d * fmaxf(w, 0.06f), d);
 }
 
@@ -306,7 +291,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
         int x = o + f + place[i][0] * s, y = o + f + place[i][1] * s, turning = place[i][0] == 2 && place[i][1] == 1;
         float w = turning ? 0.42f : 1;
         uint8_t *one = ui_buf(s, s);
-        shade(s, one);
+        art_flat_shadow(s, one);
         squeeze(one, s, w, flat);
         art_blend(rgba, size, size, flat, s, s, x + s / 20, y + s * 8 / 100);
         art_counter(COUNTER_DISC, !place[i][2], s, one);

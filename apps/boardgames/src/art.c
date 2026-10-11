@@ -315,6 +315,17 @@ void art_counter(int kind, int player, int size, uint8_t *rgba)
     art_fig_free(f);
 }
 
+void art_flat_shadow(int size, uint8_t *o)
+{
+    for (int y = 0; y < size; y++)
+        for (int x = 0; x < size; x++) {
+            float d = hypotf(x + 0.5f - size / 2.0f, y + 0.5f - size / 2.0f) / size, a = (0.5f - d) / 0.12f;
+            uint8_t *p = o + 4 * (y * size + x);
+            p[0] = p[1] = p[2] = 0;
+            p[3] = (uint8_t)(110 * clampf(a, 0, 1));
+        }
+}
+
 /* ---- the board ----------------------------------------------------------------------------------------------------- */
 static float hash(int a, int b)
 {

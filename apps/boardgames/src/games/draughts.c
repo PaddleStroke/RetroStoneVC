@@ -189,7 +189,7 @@ static void piece_at(int pc, float x, float y, float size, Uint8 alpha)
 {
     int pl = DR_OWNER(pc), up = ui_upside(pl);
     SDL_Texture *t = t_man[colour(pl)][DR_IS_KING(pc)];
-    ui_shadow(x, up ? y - 0.79f * size : y, size);
+    ui_shadow_flat(x + size / 2, y + size / 2, size, size, alpha / 255.0f);   /* a man lies flat, like the discs */
     SDL_SetTextureAlphaMod(t, alpha);
     if (up) ui_put_rot(t, x + size / 2, y + size / 2, size, size, 180);
     else ui_put(t, x, y, size, size);
@@ -356,10 +356,12 @@ static void thumb(int variant, int size, uint8_t *rgba)
     put_all(rgba, size, COUNTER_MAN, variant == 1 ? 1 : 0, s, o, o, (const int (*)[2])bottom, nb);
 }
 
+static int busy(void) { return anim.on; }     /* the end waits for the last move to finish */
+
 static const game draughts_game = {
     .id = "draughts", .order = 20, .variants = 2,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script,
+    .bar = bar, .script = script, .busy = busy,
 };
 REGISTER_GAME(draughts_game)

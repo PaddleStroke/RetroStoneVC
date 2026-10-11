@@ -21,11 +21,11 @@
 static gogame G;
 static int n = 19, sq, fr, made_sq = -1, made_n = -1, made_u = -1;
 static float ox, oy;                            /* the board's picture, its top left corner */
-static SDL_Texture *t_board, *t_stone[2], *t_shadow, *t_ring, *t_small[2], *t_half;
+static SDL_Texture *t_board, *t_stone[2], *t_ring, *t_small[2], *t_half;
 static struct { int on, pt, down, armed, moved; } ghost;
 static struct { int on, k, pt[GO_PTS]; uint8_t who[GO_PTS]; Uint32 t0; } fade;
 
-static const uint8_t INK[3] = {34, 24, 16}, BLACK[3] = {0, 0, 0}, WHITE[3] = {255, 255, 255};
+static const uint8_t INK[3] = {34, 24, 16}, WHITE[3] = {255, 255, 255};
 
 static int art_of(int player) { return player ? 0 : 1; }   /* player 0 plays ebony: the house's second colour */
 
@@ -195,9 +195,6 @@ static void layout(box b)
             ui_free(&t_stone[p]);
             t_stone[p] = stone_tex(p, sq);
         }
-        ui_free(&t_shadow);
-        art_disc(sq, BLACK, 0.55f, 0.5f, ui_buf(sq, sq));
-        t_shadow = ui_tex(sq, sq, ui_buf(sq, sq));
         int rs = (int)fmaxf(8, 0.46f * sq);
         ui_free(&t_ring);
         art_ring(rs, 0.70f, WHITE, 1, ui_buf(rs, rs));
@@ -265,7 +262,7 @@ static void draw(void)
     for (int pt = 0; pt < n * n; pt++) {        /* the shadows first: a stone's shadow falls on the wood only */
         if (p->pt[pt] == GO_EMPTY || (counting && G.dead[pt])) continue;
         pt_xy(pt, &x, &y);
-        ui_put_c(t_shadow, x + 0.06f * sq, y + 0.09f * sq, (float)sq, (float)sq);
+        ui_shadow_flat(x, y, (float)sq, (float)sq, 1);
     }
     for (int pt = 0; pt < n * n; pt++) {
         if (p->pt[pt] == GO_EMPTY) continue;

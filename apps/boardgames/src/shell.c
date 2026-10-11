@@ -118,6 +118,18 @@ void ui_shadow(float x, float y, float size)
     ui_put(t_shadow, x + size * 0.17f, y + size * 0.82f, size * 0.66f, size * 0.15f);
 }
 
+void ui_shadow_flat(float cx, float cy, float w, float h, float alpha)
+{
+    static SDL_Texture *t;
+    if (!t) {                                   /* one soft disc, scaled smoothly to any piece */
+        art_flat_shadow(128, ui_buf(128, 128));
+        t = ui_tex(128, 128, ui_buf(128, 128));
+    }
+    SDL_SetTextureAlphaMod(t, (Uint8)(255 * (alpha < 0 ? 0 : alpha > 1 ? 1 : alpha)));
+    ui_put_c(t, cx + 0.05f * h, cy + 0.08f * h, w, h);
+}
+
+void ui_mark_gold(float cx, float cy, float d) { ui_put_c(t_gold, cx, cy, d, d); }
 void ui_mark_last(float x, float y, float w, float h) { ui_fill(x, y, w, h, 250, 214, 90, 100); }
 void ui_mark_select(float x, float y, float w, float h) { ui_fill(x, y, w, h, 250, 214, 90, 150); }
 void ui_mark_dot(float cx, float cy, float d) { ui_put_c(t_dot, cx, cy, d, d); }

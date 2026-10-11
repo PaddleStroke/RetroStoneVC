@@ -66,7 +66,9 @@ void ui_put(SDL_Texture *t, float x, float y, float w, float h);
 void ui_put_c(SDL_Texture *t, float cx, float cy, float w, float h);
 void ui_put_rot(SDL_Texture *t, float cx, float cy, float w, float h, double degrees);
 void ui_fill(float x, float y, float w, float h, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
-void ui_shadow(float x, float y, float size);   /* the soft shadow under a piece drawn at (x, y), size x size */
+void ui_shadow(float x, float y, float size);   /* the soft shadow under a standing piece drawn at (x, y), size x size */
+/* the shadow of a flat piece (disc, stone, man) drawn w x h centred on (cx, cy), towards the lower right; alpha 0..1 */
+void ui_shadow_flat(float cx, float cy, float w, float h, float alpha);
 void ui_number(float cx, float cy, float h, int value, int light);   /* digits centred; light: cream, else dark */
 void ui_animate(void);                          /* draw the next frame too (an animation runs) */
 Uint32 ui_ms(void);
@@ -77,6 +79,7 @@ void ui_mark_select(float x, float y, float w, float h); /* the selected piece *
 void ui_mark_dot(float cx, float cy, float d);            /* a possible move: a soft dot */
 void ui_mark_ring(float cx, float cy, float d);           /* a possible capture: a ring */
 void ui_mark_glow(float cx, float cy, float d);           /* danger (check): a red glow */
+void ui_mark_gold(float cx, float cy, float d);           /* a success (a mill, a winning line): a gold light */
 
 enum { SND_MOVE, SND_CAPTURE, SND_PLACE, SND_DROP, SND_CHECK, SND_END, SND_TAP, SND_DENY, SNDS };
 void ui_sound(int s);

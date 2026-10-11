@@ -19,7 +19,7 @@ static mmove legal[MORRIS_MAX_MOVES];
 static int nlegal;
 static int sq, fr, made = -1, made_small = -1;
 static float bx, by;                            /* the plank's top left corner */
-static SDL_Texture *t_disc[2], *t_small[2], *t_board, *t_soft, *t_gold;
+static SDL_Texture *t_disc[2], *t_small[2], *t_board;
 static int sel = -1;
 static struct { int on, from, moved; float x, y; } drag;
 static struct { int on, color; mmove m; Uint32 t0; } anim;
@@ -163,18 +163,12 @@ static void layout(box b)
         ui_free(&t_board);
         paint_board(sq, fr, ui_buf(n, n));
         t_board = ui_tex(n, n, ui_buf(n, n));
-        int d = (int)(DISC * sq), s = (int)(1.25f * d), g = (int)(1.7f * sq);
+        int d = (int)(DISC * sq);
         for (int c = 0; c < 2; c++) {
             ui_free(&t_disc[c]);
             art_counter(COUNTER_DISC, c, d, ui_buf(d, d));
             t_disc[c] = ui_tex(d, d, ui_buf(d, d));
         }
-        ui_free(&t_soft);                       /* a flat disc's shadow: round, soft, towards the lower right */
-        art_disc(s, BLACK, 0.55f, 1.6f, ui_buf(s, s));
-        t_soft = ui_tex(s, s, ui_buf(s, s));
-        ui_free(&t_gold);
-        art_disc(g, GOLD, 0.8f, 1.3f, ui_buf(g, g));
-        t_gold = ui_tex(g, g, ui_buf(g, g));
     }
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
@@ -208,12 +202,9 @@ static int xy_pt(float x, float y)              /* the point whose cell holds (x
 
 static void disc_at(int c, float cx, float cy, float d, float alpha)
 {
-    Uint8 a = (Uint8)(255 * alpha);
-    SDL_SetTextureAlphaMod(t_soft, a);
-    SDL_SetTextureAlphaMod(t_disc[c], a);
-    ui_put_c(t_soft, cx + 0.05f * d, cy + 0.09f * d, 1.25f * d, 1.25f * d);
+    ui_shadow_flat(cx, cy, d, d, alpha);
+    SDL_SetTextureAlphaMod(t_disc[c], (Uint8)(255 * alpha));
     ui_put_c(t_disc[c], cx, cy, d, d);
-    SDL_SetTextureAlphaMod(t_soft, 255);
     SDL_SetTextureAlphaMod(t_disc[c], 255);
 }
 
@@ -240,7 +231,7 @@ static void draw_mill(const mpos *p)
                 250, 206, 80, 230);
         for (int j = 0; j < 3; j++) {
             pt_xy(m[j], &x0, &y0);
-            ui_put_c(t_gold, x0, y0, 1.7f * sq, 1.7f * sq);
+            ui_mark_gold(x0, y0, 1.7f * sq);
         }
     }
 }
@@ -394,10 +385,12 @@ static void thumb(int variant, int size, uint8_t *rgba)
     }
 }
 
+static int busy(void) { return anim.on; }     /* the end waits for the last move to finish */
+
 static const game morris_game = {
     .id = "morris", .order = 50, .variants = 1,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script,
+    .bar = bar, .script = script, .busy = busy,
 };
 REGISTER_GAME(morris_game)
