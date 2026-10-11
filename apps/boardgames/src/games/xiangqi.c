@@ -10,19 +10,18 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "games/grid.h"
+#include "games/palace.h"
 #include "games/xiangqi.h"
 #include "shell.h"
 #include "text.h"
 
-#define FRAME 0.34f                             /* the board's frame, in points' squares */
 #define ANIM_MS 150
 
 static xgame G;
 static xmove legal[XQ_MAX_MOVES];
 static int nlegal, state = GS_PLAY;
-static int sq, fr, made = -1, made_small = -1;
-static float bx, by;                            /* the plank's top left corner (inside the frame) */
+static palace B;                                /* the board on the screen */
+static int sq, made = -1, made_small = -1;      /* sq: a point's square, pixels (B.sq) */
 static SDL_Texture *t_piece[2][8], *t_small[2][8], *t_board;
 static int sel = -1;
 static struct { int on, from, moved; float x, y; } drag;
@@ -98,105 +97,23 @@ static const int CHARS[2][8] = {
     {0, 0x5E25, 0x4ED5, 0x76F8, 0x508C, 0x4FE5, 0x70AE, 0x5175},   /* 帥仕相傌俥炮兵 */
     {0, 0x5C07, 0x58EB, 0x8C61, 0x99AC, 0x8ECA, 0x7832, 0x5352},   /* 將士象馬車砲卒 */
 };
-static const uint8_t INK[2][3] = {{176, 30, 26}, {32, 28, 26}};   /* red ink, ebony ink */
+static const uint8_t INK[2][3] = {PALACE_RED_INK, {32, 28, 26}};   /* red ink, ebony ink */
+/* the cannons' and soldiers' starting points: the corner marks */
+static const int MARKS[][2] = {{1, 2}, {7, 2}, {1, 7}, {7, 7}, {0, 3}, {2, 3}, {4, 3}, {6, 3}, {8, 3},
+                               {0, 6}, {2, 6}, {4, 6}, {6, 6}, {8, 6}};
+#define NMARKS ((int)(sizeof MARKS / sizeof MARKS[0]))
 
 /* a piece: an ivory wooden disc, an engraved ring and the character in its player's ink, size x size */
 static void piece_pic(int type, int player, int size, uint8_t *rgba)
 {
-    art_style st = art_player[0];
-    st.line = fmaxf(0.022f, 1.3f / size);
-    art_fig *f = art_fig_new();
-    art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.45f, 0.45f);
-    art_render(f, &st, size, size, (float)size, 0, 0, rgba);
-    art_fig_free(f);
-    uint8_t *layer = calloc((size_t)size * size, 4);
-    if (!layer) return;
-    int d = (int)(0.78f * size);
-    d -= (size - d) & 1;                        /* centred to the pixel */
-    art_ring(d, 0.91f, INK[player], 0.9f, layer);
-    art_blend(rgba, size, size, layer, d, d, (size - d) / 2, (size - d) / 2);
-    memset(layer, 0, (size_t)size * size * 4);
-    text_glyph(CHARS[player][type], 0.5f * size, 1, INK[player], layer, size, size);
-    art_blend(rgba, size, size, layer, size, size, 0, 0);
-    free(layer);
-}
-
-/* the diagonal lines (the palaces'): a segment's coverage, half-width hw, into the map (stride st) */
-static void cover_seg(float *m, int st, float x0, float y0, float x1, float y1, float hw)
-{
-    float dx = x1 - x0, dy = y1 - y0, len2 = dx * dx + dy * dy;
-    for (int y = (int)(fminf(y0, y1) - hw - 1); y <= (int)(fmaxf(y0, y1) + hw + 1); y++)
-        for (int x = (int)(fminf(x0, x1) - hw - 1); x <= (int)(fmaxf(x0, x1) + hw + 1); x++) {
-            if (x < 0 || y < 0 || x >= st || y >= st) continue;
-            float px = x + 0.5f - x0, py = y + 0.5f - y0, t = fminf(fmaxf((px * dx + py * dy) / len2, 0), 1);
-            float c = fminf(fmaxf(hw - hypotf(px - t * dx, py - t * dy) + 0.5f, 0), 1);
-            if (c > m[y * st + x]) m[y * st + x] = c;
-        }
-}
-
-/* the board: the plank in its frame and its lines, the part of the board from point (x0, y0) (its bottom left), nx x
- * ny points of s pixels, frame f. Lines going on past the part run to the frame (the menu's card). */
-static void paint(uint8_t *o, int x0, int y0, int nx, int ny, int s, int f)
-{
-    static const uint8_t LINE[3] = {34, 24, 16};
-    int w = nx * s + 2 * f, h = ny * s + 2 * f, st = w > h ? w : h;
-    art_board_n(nx, ny, s, f, 0, o);
-    float *m = calloc((size_t)st * st, sizeof *m);   /* square: grid_cover_rect's map */
-    if (!m) return;
-    float lw = 0.9f + 0.02f * s, edge = 1.8f * lw, mark = 0.09f * s, arm = 0.22f * s;
-    float left = (float)f, right = (float)(f + nx * s), top = (float)f, bottom = (float)(f + ny * s);
-#define PX(x) (f + ((x) - x0) * s + s / 2.0f)
-#define PY(y) (f + (y0 + ny - 1 - (y)) * s + s / 2.0f)
-    /* an upright rectangle, cut to the plank */
-#define RECT(a, b, c, d) grid_cover_rect(m, st, fmaxf(a, left), fmaxf(b, top), fminf(c, right), fminf(d, bottom))
-    for (int y = 0; y < XQ_H; y++) {            /* the ranks */
-        float t = y == 0 || y == XQ_H - 1 ? edge : lw;
-        RECT(PX(0) - edge / 2, PY(y) - t / 2, PX(XQ_W - 1) + edge / 2, PY(y) + t / 2);
-    }
-    for (int x = 0; x < XQ_W; x++) {            /* the files, the inner ones stopping at the river */
-        float t = x == 0 || x == XQ_W - 1 ? edge : lw, e = edge / 2;
-        if (t == edge) RECT(PX(x) - t / 2, PY(XQ_H - 1) - e, PX(x) + t / 2, PY(0) + e);
-        else {
-            RECT(PX(x) - t / 2, PY(XQ_H - 1) - e, PX(x) + t / 2, PY(5));
-            RECT(PX(x) - t / 2, PY(4), PX(x) + t / 2, PY(0) + e);
-        }
-    }
-    for (int p = 0; p < 2; p++) {               /* the palaces' diagonals */
-        int ya = p ? 7 : 0, yb = ya + 2;
-        cover_seg(m, st, PX(3), PY(ya), PX(5), PY(yb), lw / 2);
-        cover_seg(m, st, PX(5), PY(ya), PX(3), PY(yb), lw / 2);
-    }
-    static const int marks[][2] = {{1, 2}, {7, 2}, {1, 7}, {7, 7}, {0, 3}, {2, 3}, {4, 3}, {6, 3}, {8, 3},
-                                   {0, 6}, {2, 6}, {4, 6}, {6, 6}, {8, 6}};
-    for (unsigned i = 0; i < sizeof marks / sizeof marks[0]; i++)   /* the cannons' and soldiers' points */
-        for (int sx = -1; sx <= 1; sx += 2)
-            for (int sy = -1; sy <= 1; sy += 2) {
-                int x = marks[i][0], y = marks[i][1];
-                if (x + sx < 0 || x + sx >= XQ_W) continue;   /* not past the board's edge */
-                float cx = PX(x) + sx * mark, cy = PY(y) + sy * mark, ex = cx + sx * arm, ey = cy + sy * arm;
-                RECT(fminf(cx, ex) - lw / 2, cy - lw / 2, fmaxf(cx, ex) + lw / 2, cy + lw / 2);
-                RECT(cx - lw / 2, fminf(cy, ey) - lw / 2, cx + lw / 2, fmaxf(cy, ey) + lw / 2);
-            }
-#undef RECT
-#undef PX
-#undef PY
-    for (int y = 0; y < h; y++)
-        for (int x = 0; x < w; x++) {
-            float a = 0.9f * m[y * st + x];
-            uint8_t *q = o + 4 * (y * w + x);
-            for (int j = 0; j < 3; j++) q[j] = (uint8_t)(q[j] * (1 - a) + LINE[j] * a + 0.5f);
-        }
-    free(m);
+    palace_piece(0, 1, CHARS[player][type], INK[player], size, rgba);
 }
 
 /* ---- the board on the screen ------------------------------------------------------------------------------------- */
 static void layout(box b)
 {
-    sq = (int)floorf(fminf(b.w / (XQ_W + 2 * FRAME), b.h / (XQ_H + 2 * FRAME)));
-    fr = (int)(sq * FRAME);
-    int w = XQ_W * sq + 2 * fr, h = XQ_H * sq + 2 * fr;
-    bx = floorf(b.x + (b.w - w) / 2) + fr;
-    by = floorf(b.y + (b.h - h) / 2) + fr;
+    palace_fit(&B, b);
+    sq = B.sq;
     if (made != sq) {
         made = sq;
         for (int c = 0; c < 2; c++)
@@ -206,8 +123,7 @@ static void layout(box b)
                 t_piece[c][t] = ui_tex(sq, sq, ui_buf(sq, sq));
             }
         ui_free(&t_board);
-        paint(ui_buf(w, h), 0, 0, XQ_W, XQ_H, sq, fr);
-        t_board = ui_tex(w, h, ui_buf(w, h));
+        t_board = palace_board_tex(&B, 1, MARKS, NMARKS);
     }
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
@@ -221,23 +137,8 @@ static void layout(box b)
     }
 }
 
-/* a point's centre on the screen */
-static void pt_xy(int p, float *x, float *y)
-{
-    int c = XQ_X(p), r = XQ_H - 1 - XQ_Y(p);
-    if (ui.flipped) { c = XQ_W - 1 - c; r = XQ_H - 1 - r; }
-    *x = bx + c * sq + sq / 2.0f;
-    *y = by + r * sq + sq / 2.0f;
-}
-
-/* the point under (x, y), or -1 off the board */
-static int xy_pt(float x, float y)
-{
-    int c = (int)floorf((x - bx) / sq), r = (int)floorf((y - by) / sq);
-    if (c < 0 || c >= XQ_W || r < 0 || r >= XQ_H) return -1;
-    if (ui.flipped) { c = XQ_W - 1 - c; r = XQ_H - 1 - r; }
-    return XQ_PT(c, XQ_H - 1 - r);
-}
+static void pt_xy(int p, float *x, float *y) { palace_xy(&B, p, x, y); }
+static int xy_pt(float x, float y) { return palace_pt(&B, x, y); }
 
 /* a piece centred on (x, y), turned round for the top player face to face: its character faces them */
 static void piece_at(int pc, float x, float y, float size)
@@ -251,7 +152,7 @@ static void draw(void)
 {
     const xpos *p = xq_pos(&G);
     float x, y, h = sq / 2.0f;
-    ui_put(t_board, bx - fr, by - fr, (float)(XQ_W * sq + 2 * fr), (float)(XQ_H * sq + 2 * fr));
+    palace_board(&B, t_board);
     if (G.ply) {
         xmove m = G.move[G.ply - 1];
         pt_xy(m.from, &x, &y);
@@ -383,17 +284,14 @@ static void token(int player, int size, uint8_t *rgba) { piece_pic(XQ_GENERAL, p
 static void thumb(int variant, int size, uint8_t *rgba)
 {
     (void)variant;
-    int n = 5, s = (int)(size / (n + 2 * FRAME)), f = (int)(s * FRAME), w = n * s + 2 * f, o = (size - w) / 2;
-    uint8_t *board = ui_buf(w, w);
-    paint(board, 2, 0, n, n, s, f);
-    art_blend(rgba, size, size, board, w, w, o, o);
+    palace_pic c = palace_thumb(2, 0, 5, 1, MARKS, NMARKS, size, rgba);
     static const int place[][3] = {{2, 4, XQ_GENERAL}, {1, 4, XQ_ADVISOR}, {4, 4, XQ_ELEPHANT}, {2, 2, XQ_CANNON},
                                    {0, 1, XQ_SOLDIER}, {3, 0, 8 + XQ_CHARIOT}, {1, 0, 8 + XQ_HORSE}};
-    uint8_t *one = calloc((size_t)s * s, 4);
+    uint8_t *one = calloc((size_t)c.s * c.s, 4);
     if (!one) return;
     for (unsigned i = 0; i < sizeof place / sizeof place[0]; i++) {
-        piece_pic(place[i][2] & 7, place[i][2] >> 3, s, one);
-        art_blend(rgba, size, size, one, s, s, o + f + place[i][0] * s, o + f + place[i][1] * s);
+        piece_pic(place[i][2] & 7, place[i][2] >> 3, c.s, one);
+        art_blend(rgba, size, size, one, c.s, c.s, c.x + place[i][0] * c.s, c.y + place[i][1] * c.s);
     }
     free(one);
 }
