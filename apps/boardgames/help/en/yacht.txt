@@ -1,0 +1,34 @@
+Yacht
+# The aim
+Score the most points by filling every row of the score sheet with throws of five dice. One to six players, each with a column of the sheet. Choose the rules before the game:
+- Classic: thirteen rows, the modern rules.
+- Nordic: Scandinavian Yatzy, fifteen rows.
+- Generala: the Latin American game, eleven rows.
+Alone, try to reach 200 points (Generala: 150).
+# A turn
+- Throw the five dice, up to three times. Before the second and the third throw, keep any dice you like and throw the others again. A kept die can be thrown again later.
+- Then write the dice in one empty row of your column. If they fit no row, you must still choose one: it scores 0.
+# The score sheet
+There are no words on the sheet: each row is a picture of dice.
+- One die (ones to sixes): the sum of the dice showing that face.
+- The star: the bonus when your ones to sixes make 63 or more: 35 (Classic), 50 (Nordic). Until then it shows, small, your total so far.
+- Two dice overlapping (Nordic): one pair, the sum of the pair.
+- Two pairs of dice (Nordic): two different pairs, the sum of the four dice.
+- Three dice overlapping: three of a kind. Classic: the sum of all five dice. Nordic: the sum of the three.
+- Four dice overlapping: four of a kind. Classic: the sum of all five. Nordic: the sum of the four. Generala (poker): 40.
+- Three dice and two dice: a full house, three of one face and two of another. Classic: 25. Nordic: the sum of the dice. Generala: 30.
+- Four small dice in a row (Classic): a small straight, four in a row: 30.
+- Five small dice in a row: a straight. Classic: five in a row, 40. Nordic: 1-2-3-4-5 is the small one, 15, and 2-3-4-5-6 the large one, 20. Generala: 1-2-3-4-5, 2-3-4-5-6 or 3-4-5-6-1: 20.
+- Dice thrown every way: chance, the sum of the dice.
+- Five dice alike: five of a kind (yacht, yatzy, generala): 50.
+- Five alike and a star (Classic): 100 for each extra five of a kind.
+- Two rows of five alike (Generala): the double generala, 100.
+- The equals sign: your total.
+# Classic: more fives of a kind
+Once your five-of-a-kind row holds 50, each further five of a kind scores 100 more, wherever you write it. Once that row is filled (50 or 0), a five of a kind is a joker: it must go in its face's row among ones to sixes if that one is empty; otherwise in any empty row below the star, where the full house and the straights score in full; otherwise in any empty row among ones to sixes, for 0.
+# Generala
+A straight, a full house or a poker made on the turn's first throw ("served") scores 5 more. A served generala wins the game at once. The double generala scores 100 only once your generala row holds 50; otherwise it can only be scratched, for 0. There is no bonus for ones to sixes.
+# The end of the game
+Players take turns round the table, Ivory first. When everyone has filled every row, the highest total wins; equal highest totals share the win. Alone, you win with 200 points or more (Generala: 150, or a served generala).
+# Playing on the device
+Tap the felt to throw. Tap a die to keep it: it slides to the dark lane at the side of the felt; tap it again to throw it again. The small dice under the felt show the throws left. Your column is lit. Tap a row of the sheet to see what the dice would score there; tap it again to write it. A row you may not choose makes a deny sound. Each bar shows that player's total. Undo takes back the last score; it never throws the dice again: the same numbers come back.

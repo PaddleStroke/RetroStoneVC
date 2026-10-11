@@ -1,0 +1,34 @@
+Yatzy
+# Målet
+Få flest poeng ved å fylle hver rad på poengblokken med kast med fem terninger. En til seks spillere, hver med sin kolonne på blokken. Velg reglene før spillet:
+- Klassisk: tretten rader, de moderne reglene.
+- Nordisk: skandinavisk Yatzy, femten rader.
+- Generala: det latinamerikanske spillet, elleve rader.
+Alene prøver du å nå 200 poeng (Generala: 150).
+# En tur
+- Kast de fem terningene, opptil tre ganger. Før andre og tredje kast beholder du de terningene du vil, og kaster de andre på nytt. En terning du har beholdt, kan kastes igjen senere.
+- Skriv så terningene i én tom rad i kolonnen din. Passer de ikke i noen rad, må du likevel velge én: den gir 0.
+# Poengblokken
+Det står ingen ord på blokken: hver rad er et bilde av terninger.
+- Én terning (enere til seksere): summen av terningene som viser det tallet.
+- Stjernen: bonusen når enerne til sekserne dine gir 63 eller mer: 35 (Klassisk), 50 (Nordisk). Fram til da viser den, med små tall, summen din så langt.
+- To overlappende terninger (Nordisk): ett par, summen av paret.
+- To par terninger (Nordisk): to forskjellige par, summen av de fire terningene.
+- Tre overlappende terninger: tre like. Klassisk: summen av alle fem terningene. Nordisk: summen av de tre.
+- Fire overlappende terninger: fire like. Klassisk: summen av alle fem. Nordisk: summen av de fire. Generala (poker): 40.
+- Tre terninger og to terninger: hus, tre av ett tall og to av et annet. Klassisk: 25. Nordisk: summen av terningene. Generala: 30.
+- Fire små terninger på rad (Klassisk): liten straight, fire på rad: 30.
+- Fem små terninger på rad: en straight. Klassisk: fem på rad, 40. Nordisk: 1-2-3-4-5 er den lille, 15, og 2-3-4-5-6 den store, 20. Generala: 1-2-3-4-5, 2-3-4-5-6 eller 3-4-5-6-1: 20.
+- Terninger kastet hulter til bulter: sjanse, summen av terningene.
+- Fem like terninger: fem like (yacht, yatzy, generala): 50.
+- Fem like og en stjerne (Klassisk): 100 for hver ekstra gang med fem like.
+- To rader med fem like (Generala): dobbel generala, 100.
+- Likhetstegnet: summen din.
+# Klassisk: flere ganger fem like
+Når raden for fem like har 50, gir hver ny gang med fem like 100 ekstra, uansett hvor du skriver den. Når den raden er fylt (50 eller 0), er fem like en joker: den må i raden for sitt tall blant enere til seksere hvis den er tom; ellers i en hvilken som helst tom rad under stjernen, der hus og straighter gir fulle poeng; ellers i en hvilken som helst tom rad blant enere til seksere, for 0.
+# Generala
+En straight, et hus eller en poker på turens første kast («servert») gir 5 ekstra. En servert generala vinner spillet med en gang. Dobbel generala gir 100 bare når generala-raden din har 50; ellers kan den bare strykes, for 0. Det er ingen bonus for enere til seksere.
+# Slutten på spillet
+Turen går rundt bordet, elfenben først. Når alle har fylt hver rad, vinner den høyeste summen; er de høyeste summene like, deler de spillerne seieren. Alene vinner du med 200 poeng eller mer (Generala: 150, eller en servert generala).
+# Spill på enheten
+Trykk på filten for å kaste. Trykk på en terning for å beholde den: den glir inn i den mørke stripen ved siden av filten; trykk på den igjen for å kaste den på nytt. De små terningene under filten viser hvor mange kast du har igjen. Kolonnen din er opplyst. Trykk på en rad på blokken for å se hva terningene ville gitt der; trykk igjen for å skrive det. En rad du ikke kan velge, gir en avvisningslyd. Hver linje viser summen til den spilleren. Angre tar tilbake det siste du skrev; terningene kastes aldri på nytt: de samme tallene kommer tilbake.

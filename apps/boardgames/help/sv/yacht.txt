@@ -1,0 +1,34 @@
+Yatzy
+# Målet
+Få flest poäng genom att fylla varje rad i protokollet med kast med fem tärningar. En till sex spelare, var och en med en kolumn i protokollet. Välj regler före partiet:
+- Klassisk: tretton rader, de moderna reglerna.
+- Nordisk: skandinavisk Yatzy, femton rader.
+- Generala: det latinamerikanska spelet, elva rader.
+Ensam försöker du nå 200 poäng (Generala: 150).
+# En tur
+- Kasta de fem tärningarna, upp till tre gånger. Före andra och tredje kastet sparar du de tärningar du vill och kastar om de andra. En sparad tärning får kastas igen senare.
+- Skriv sedan in tärningarna på en tom rad i din kolumn. Passar de inte på någon rad måste du ändå välja en: den ger 0.
+# Protokollet
+Det står inga ord i protokollet: varje rad är en bild av tärningar.
+- En tärning (ettor till sexor): summan av tärningarna som visar det talet.
+- Stjärnan: bonusen när dina ettor till sexor ger 63 eller mer: 35 (Klassisk), 50 (Nordisk). Fram till dess visar den, i liten stil, din summa hittills.
+- Två överlappande tärningar (Nordisk): ett par, summan av paret.
+- Två par tärningar (Nordisk): två olika par, summan av de fyra tärningarna.
+- Tre överlappande tärningar: tretal. Klassisk: summan av alla fem tärningarna. Nordisk: summan av de tre.
+- Fyra överlappande tärningar: fyrtal. Klassisk: summan av alla fem. Nordisk: summan av de fyra. Generala (poker): 40.
+- Tre tärningar och två tärningar: kåk, tre av ett tal och två av ett annat. Klassisk: 25. Nordisk: summan av tärningarna. Generala: 30.
+- Fyra små tärningar i rad (Klassisk): liten stege, fyra i följd: 30.
+- Fem små tärningar i rad: en stege. Klassisk: fem i följd, 40. Nordisk: 1-2-3-4-5 är den lilla, 15, och 2-3-4-5-6 den stora, 20. Generala: 1-2-3-4-5, 2-3-4-5-6 eller 3-4-5-6-1: 20.
+- Tärningar kastade huller om buller: chans, summan av tärningarna.
+- Fem lika tärningar: fem lika (yacht, yatzy, generala): 50.
+- Fem lika och en stjärna (Klassisk): 100 för varje extra gång fem lika.
+- Två rader med fem lika (Generala): dubbel generala, 100.
+- Likhetstecknet: din summa.
+# Klassisk: fler gånger fem lika
+Så snart din rad för fem lika har 50 ger varje ny gång fem lika 100 till, var du än skriver in den. När den raden är fylld (50 eller 0) är fem lika en joker: den måste på raden för sitt tal bland ettor till sexor om den är tom; annars på valfri tom rad under stjärnan, där kåk och stegar ger full poäng; annars på valfri tom rad bland ettor till sexor, för 0.
+# Generala
+En stege, en kåk eller en poker i turens första kast (”serverad”) ger 5 extra. En serverad generala vinner partiet direkt. Dubbel generala ger 100 bara när din generala-rad har 50; annars kan den bara strykas, för 0. Det finns ingen bonus för ettor till sexor.
+# Partiets slut
+Turen går runt bordet, elfenben först. När alla har fyllt varje rad vinner den högsta summan; är de högsta lika delar de spelarna på segern. Ensam vinner du med 200 poäng eller mer (Generala: 150, eller en serverad generala).
+# Spela på enheten
+Tryck på filten för att kasta. Tryck på en tärning för att spara den: den glider till den mörka remsan vid sidan av filten; tryck på den igen för att kasta den igen. De små tärningarna under filten visar hur många kast du har kvar. Din kolumn är upplyst. Tryck på en rad i protokollet för att se vad tärningarna skulle ge där; tryck igen för att skriva in det. En rad som du inte får välja ger ett nekande ljud. Varje list visar den spelarens summa. Ångra tar tillbaka det senast inskrivna; tärningarna kastas aldrig om: samma tal kommer tillbaka.

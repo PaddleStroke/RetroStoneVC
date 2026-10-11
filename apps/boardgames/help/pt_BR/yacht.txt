@@ -1,0 +1,34 @@
+General
+# O objetivo
+Faça mais pontos preenchendo todas as linhas da cartela com lançamentos de cinco dados. De um a seis jogadores, cada um com uma coluna da cartela. Escolha as regras antes da partida:
+- Clássico: treze linhas, as regras modernas.
+- Nórdico: o Yatzy escandinavo, quinze linhas.
+- Generala: o jogo da América Latina, onze linhas.
+Sozinho, tente chegar a 200 pontos (Generala: 150).
+# A sua vez
+- Lance os cinco dados, até três vezes. Antes do segundo e do terceiro lançamento, guarde os dados que quiser e lance os outros de novo. Um dado guardado pode ser lançado de novo depois.
+- Depois anote os dados em uma linha vazia da sua coluna. Se eles não servirem para nenhuma linha, você ainda precisa escolher uma: ela marca 0.
+# A cartela
+Não há palavras na cartela: cada linha é um desenho de dados.
+- Um dado (de um a seis): a soma dos dados que mostram essa face.
+- A estrela: o bônus quando as suas linhas de um a seis somam 63 ou mais: 35 (Clássico), 50 (Nórdico). Até lá, ela mostra, pequeno, o seu total até agora.
+- Dois dados sobrepostos (Nórdico): um par, a soma do par.
+- Dois pares de dados (Nórdico): dois pares diferentes, a soma dos quatro dados.
+- Três dados sobrepostos: uma trinca. Clássico: a soma dos cinco dados. Nórdico: a soma dos três.
+- Quatro dados sobrepostos: uma quadra. Clássico: a soma dos cinco. Nórdico: a soma dos quatro. Generala (pôquer): 40.
+- Três dados e dois dados: um full, três de uma face e dois de outra. Clássico: 25. Nórdico: a soma dos dados. Generala: 30.
+- Quatro dados pequenos em fila (Clássico): uma sequência curta, quatro seguidos: 30.
+- Cinco dados pequenos em fila: uma sequência. Clássico: cinco seguidos, 40. Nórdico: 1-2-3-4-5 é a pequena, 15, e 2-3-4-5-6 a grande, 20. Generala: 1-2-3-4-5, 2-3-4-5-6 ou 3-4-5-6-1: 20.
+- Dados lançados para todo lado: a chance, a soma dos dados.
+- Cinco dados iguais: cinco iguais (yacht, yatzy, general, generala): 50.
+- Cinco iguais e uma estrela (Clássico): 100 para cada cinco iguais a mais.
+- Duas linhas de cinco iguais (Generala): a generala dupla, 100.
+- O sinal de igual: o seu total.
+# Clássico: outros cinco iguais
+Quando a sua linha de cinco iguais tem 50, cada novo cinco iguais vale 100 a mais, onde quer que você o anote. Quando essa linha estiver preenchida (50 ou 0), um cinco iguais é um curinga: ele deve ir na linha da sua face, entre um e seis, se ela estiver vazia; senão, em qualquer linha vazia abaixo da estrela, onde o full e as sequências valem o valor cheio; senão, em qualquer linha vazia entre um e seis, por 0.
+# Generala
+Uma sequência, um full ou um pôquer feitos no primeiro lançamento da vez (“servidos”) valem 5 a mais. Uma generala servida vence a partida na hora. A generala dupla só vale 100 se a sua linha de generala tiver 50; senão, ela só pode ser riscada, por 0. Não há bônus para as linhas de um a seis.
+# O fim da partida
+Os jogadores se revezam em volta da mesa, começando pelo marfim. Quando todos tiverem preenchido todas as linhas, vence o maior total; se os maiores forem iguais, eles dividem a vitória. Sozinho, você vence com 200 pontos ou mais (Generala: 150, ou uma generala servida).
+# Jogando no aparelho
+Toque no feltro para lançar. Toque num dado para guardá-lo: ele desliza para a faixa escura ao lado do feltro; toque nele de novo para lançá-lo outra vez. Os dados pequenos abaixo do feltro mostram os lançamentos que restam. A sua coluna fica acesa. Toque numa linha da cartela para ver quanto os dados marcariam ali; toque de novo para anotá-los. Uma linha que você não pode escolher faz um som de recusa. Cada barra mostra o total daquele jogador. Desfazer volta a última anotação; os dados nunca são lançados de novo: voltam os mesmos números.

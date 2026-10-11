@@ -1,0 +1,34 @@
+Yacht
+# Amaç
+Beş zar atarak puan tablosunun her satırını doldur ve en çok puanı topla. Bir ile altı kişi oynar; her oyuncunun tabloda bir sütunu vardır. Oyundan önce kuralları seç:
+- Klasik: on üç satır, modern kurallar.
+- İskandinav: İskandinavya'nın Yatzy'si, on beş satır.
+- Generala: Latin Amerika oyunu, on bir satır.
+Tek başına 200 puana ulaşmaya çalış (Generala: 150).
+# Bir hamle
+- Beş zarı en çok üç kez at. İkinci ve üçüncü atıştan önce istediğin zarları ayır ve diğerlerini yeniden at. Ayrılan bir zar sonra yeniden atılabilir.
+- Sonra zarları sütunundaki boş bir satıra yaz. Hiçbir satıra uymuyorlarsa yine de birini seçmelisin: o satır 0 alır.
+# Puan tablosu
+Tabloda yazı yoktur: her satır bir zar resmidir.
+- Tek zar (birlerden altılara): o yüzü gösteren zarların toplamı.
+- Yıldız: birlerden altılara toplamın 63 ya da daha fazla olunca verilen bonus: 35 (Klasik), 50 (İskandinav). O zamana kadar şimdiye kadarki toplamını küçük gösterir.
+- Üst üste iki zar (İskandinav): bir çift, çiftin toplamı.
+- İki çift zar (İskandinav): iki farklı çift, dört zarın toplamı.
+- Üst üste üç zar: üçlü. Klasik: beş zarın toplamı. İskandinav: üç zarın toplamı.
+- Üst üste dört zar: kare. Klasik: beş zarın toplamı. İskandinav: dört zarın toplamı. Generala (poker): 40.
+- Üç zar ve iki zar: full, bir yüzden üç ve başka bir yüzden iki. Klasik: 25. İskandinav: zarların toplamı. Generala: 30.
+- Sıralı dört küçük zar (Klasik): küçük kent, sıralı dört zar: 30.
+- Sıralı beş küçük zar: kent. Klasik: sıralı beş zar, 40. İskandinav: 1-2-3-4-5 küçük kenttir, 15; 2-3-4-5-6 büyük kenttir, 20. Generala: 1-2-3-4-5, 2-3-4-5-6 ya da 3-4-5-6-1: 20.
+- Her yöne atılmış zarlar: şans, zarların toplamı.
+- Beş aynı zar: beşli (yacht, yatzy, generala): 50.
+- Beş aynı zar ve bir yıldız (Klasik): fazladan her beşli için 100.
+- İki sıra beş aynı zar (Generala): çifte generala, 100.
+- Eşittir işareti: toplamın.
+# Klasik: yeni beşliler
+Beşli satırında 50 olduğunda, sonraki her beşli, nereye yazarsan yaz, 100 puan daha kazandırır. O satır dolduktan sonra (50 ya da 0) beşli jokerdir: birlerden altılara arasında kendi yüzünün satırı boşsa oraya yazılmalıdır; değilse yıldızın altındaki herhangi bir boş satıra, ki orada full ve kentler tam puan alır; o da olmazsa birlerden altılara arasındaki herhangi bir boş satıra, 0 puanla.
+# Generala
+Sıranın ilk atışında gelen ("ilk elden") kent, full ya da poker 5 puan fazla alır. İlk elden gelen generala oyunu hemen kazandırır. Çifte generala, ancak generala satırında 50 varsa 100 alır; yoksa yalnızca 0 puanla çizilebilir. Birlerden altılara için bonus yoktur.
+# Oyunun sonu
+Oyuncular masanın çevresinde sırayla oynar, önce fildişi başlar. Herkes bütün satırlarını doldurduğunda en yüksek toplam kazanır; en yüksek toplamlar eşitse kazanç paylaşılır. Tek başına, 200 ya da daha fazla puanla kazanırsın (Generala: 150 ya da ilk elden bir generala).
+# Cihazda oynamak
+Zarları atmak için çuhaya dokun. Bir zarı ayırmak için ona dokun: zar, çuhanın yanındaki koyu kulvara kayar; yeniden atmak için ona tekrar dokun. Çuhanın altındaki küçük zarlar kalan atışları gösterir. Senin sütunun aydınlanır. Zarların bir satırda kaç puan alacağını görmek için o satıra dokun; yazmak için yeniden dokun. Seçemeyeceğin bir satır ret sesi çıkarır. Her şerit o oyuncunun toplamını gösterir. Geri al son puanı geri alır; zarlar asla yeniden atılmaz: aynı sayılar gelir.

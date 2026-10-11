@@ -1,0 +1,34 @@
+Yacht
+# Het doel
+Scoor de meeste punten door elke rij van het scoreblad te vullen met worpen van vijf dobbelstenen. Eén tot zes spelers, elk met een kolom op het blad. Kies de regels voor de partij:
+- Klassiek: dertien rijen, de moderne regels.
+- Noords: het Scandinavische Yatzy, vijftien rijen.
+- Generala: het Latijns-Amerikaanse spel, elf rijen.
+Alleen probeer je 200 punten te halen (Generala: 150).
+# Een beurt
+- Gooi de vijf dobbelstenen, tot drie keer toe. Voor de tweede en de derde worp houd je de dobbelstenen die je wilt en gooi je de andere opnieuw. Een gehouden dobbelsteen mag je later weer gooien.
+- Schrijf de dobbelstenen daarna in één lege rij van je kolom. Passen ze in geen enkele rij, dan moet je er toch een kiezen: die scoort 0.
+# Het scoreblad
+Er staan geen woorden op het blad: elke rij is een plaatje van dobbelstenen.
+- Eén dobbelsteen (enen tot zessen): de som van de dobbelstenen met dat aantal ogen.
+- De ster: de bonus als je enen tot zessen samen 63 of meer maken: 35 (Klassiek), 50 (Noords). Tot dan toont hij klein je totaal tot nu toe.
+- Twee overlappende dobbelstenen (Noords): één paar, de som van het paar.
+- Twee paar dobbelstenen (Noords): twee verschillende paren, de som van de vier dobbelstenen.
+- Drie overlappende dobbelstenen: drie gelijke. Klassiek: de som van alle vijf dobbelstenen. Noords: de som van de drie.
+- Vier overlappende dobbelstenen: vier gelijke. Klassiek: de som van alle vijf. Noords: de som van de vier. Generala (poker): 40.
+- Drie dobbelstenen en twee dobbelstenen: een full house, drie van het ene getal en twee van een ander. Klassiek: 25. Noords: de som van de dobbelstenen. Generala: 30.
+- Vier kleine dobbelstenen op een rij (Klassiek): een kleine straat, vier op een rij: 30.
+- Vijf kleine dobbelstenen op een rij: een straat. Klassiek: vijf op een rij, 40. Noords: 1-2-3-4-5 is de kleine, 15, en 2-3-4-5-6 de grote, 20. Generala: 1-2-3-4-5, 2-3-4-5-6 of 3-4-5-6-1: 20.
+- Kriskras gegooide dobbelstenen: chance, de som van de dobbelstenen.
+- Vijf gelijke dobbelstenen: vijf gelijke (yacht, yatzy, generala): 50.
+- Vijf gelijke en een ster (Klassiek): 100 voor elke extra keer vijf gelijke.
+- Twee rijen van vijf gelijke (Generala): de dubbele generala, 100.
+- Het isgelijkteken: je totaal.
+# Klassiek: vaker vijf gelijke
+Zodra je rij voor vijf gelijke 50 bevat, levert elke volgende keer vijf gelijke 100 extra op, waar je hem ook schrijft. Is die rij gevuld (50 of 0), dan is vijf gelijke een joker: hij moet in de rij van zijn getal bij de enen tot zessen als die leeg is; anders in een willekeurige lege rij onder de ster, waar full house en straten volledig scoren; anders in een willekeurige lege rij bij de enen tot zessen, voor 0.
+# Generala
+Een straat, een full house of een poker in de eerste worp van de beurt (‘geserveerd’) scoort 5 extra. Een geserveerde generala wint meteen de partij. De dubbele generala scoort alleen 100 als je generalarij al 50 bevat; anders kan hij alleen worden weggestreept, voor 0. Er is geen bonus voor de enen tot zessen.
+# Het einde van de partij
+De beurt gaat rond de tafel, ivoor begint. Als iedereen elke rij heeft gevuld, wint het hoogste totaal; bij gelijke hoogste totalen delen die spelers de winst. Alleen win je met 200 punten of meer (Generala: 150, of een geserveerde generala).
+# Spelen op het apparaat
+Tik op het vilt om te gooien. Tik op een dobbelsteen om hem te houden: hij schuift naar de donkere strook aan de zijkant van het vilt; tik er nog eens op om hem opnieuw te gooien. De kleine dobbelstenen onder het vilt tonen de worpen die je nog hebt. Je kolom is verlicht. Tik op een rij van het blad om te zien wat de dobbelstenen daar zouden scoren; tik er nog eens op om het op te schrijven. Een rij die je niet mag kiezen, geeft een weigergeluid. Elke balk toont het totaal van die speler. Ongedaan maken neemt de laatste score terug; de dobbelstenen worden nooit opnieuw gegooid: dezelfde getallen komen terug.

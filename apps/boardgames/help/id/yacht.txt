@@ -1,0 +1,34 @@
+Yacht
+# Tujuan
+Kumpulkan poin terbanyak dengan mengisi setiap baris lembar skor memakai lemparan lima dadu. Satu sampai enam pemain, masing-masing dengan satu kolom di lembar skor. Pilih aturannya sebelum permainan:
+- Klasik: tiga belas baris, aturan modern.
+- Nordik: Yatzy dari Skandinavia, lima belas baris.
+- Generala: permainan dari Amerika Latin, sebelas baris.
+Sendirian, cobalah mencapai 200 poin (Generala: 150).
+# Satu giliran
+- Lempar kelima dadu, sampai tiga kali. Sebelum lemparan kedua dan ketiga, simpan dadu mana pun yang kamu mau dan lempar lagi sisanya. Dadu yang disimpan boleh dilempar lagi nanti.
+- Lalu tulis dadu itu di satu baris kosong di kolommu. Jika dadu itu tidak cocok untuk baris mana pun, kamu tetap harus memilih satu baris: nilainya 0.
+# Lembar skor
+Tidak ada tulisan di lembar skor: setiap baris adalah gambar dadu.
+- Satu dadu (satu sampai enam): jumlah dadu yang menunjukkan muka itu.
+- Bintang: bonus jika baris satu sampai enam milikmu berjumlah 63 atau lebih: 35 (Klasik), 50 (Nordik). Sebelum itu, bintang menampilkan totalmu sejauh ini dalam ukuran kecil.
+- Dua dadu bertumpuk (Nordik): satu pasang, jumlah pasangan itu.
+- Dua pasang dadu (Nordik): dua pasang yang berbeda, jumlah keempat dadu.
+- Tiga dadu bertumpuk: tiga kembar. Klasik: jumlah kelima dadu. Nordik: jumlah ketiganya.
+- Empat dadu bertumpuk: empat kembar. Klasik: jumlah kelima dadu. Nordik: jumlah keempatnya. Generala (poker): 40.
+- Tiga dadu dan dua dadu: full house, tiga dengan satu muka dan dua dengan muka lain. Klasik: 25. Nordik: jumlah dadu. Generala: 30.
+- Empat dadu kecil berderet (Klasik): straight kecil, empat angka berurutan: 30.
+- Lima dadu kecil berderet: straight. Klasik: lima angka berurutan, 40. Nordik: 1-2-3-4-5 adalah yang kecil, 15, dan 2-3-4-5-6 yang besar, 20. Generala: 1-2-3-4-5, 2-3-4-5-6 atau 3-4-5-6-1: 20.
+- Dadu yang dilempar ke segala arah: chance, jumlah semua dadu.
+- Lima dadu sama: lima kembar (yacht, yatzy, generala): 50.
+- Lima kembar dan bintang (Klasik): 100 untuk setiap lima kembar tambahan.
+- Dua baris lima kembar (Generala): generala ganda, 100.
+- Tanda sama dengan: totalmu.
+# Klasik: lima kembar berikutnya
+Begitu baris lima kembarmu berisi 50, setiap lima kembar berikutnya bernilai 100 lagi, di baris mana pun kamu menuliskannya. Setelah baris itu terisi (50 atau 0), lima kembar menjadi joker: lima kembar harus masuk ke baris mukanya di antara satu sampai enam jika baris itu kosong; jika tidak, ke baris kosong mana pun di bawah bintang, tempat full house dan straight mendapat nilai penuh; jika tidak, ke baris kosong mana pun di antara satu sampai enam, dengan nilai 0.
+# Generala
+Straight, full house, atau poker yang didapat pada lemparan pertama giliran (“langsung jadi”) bernilai 5 lebih. Generala yang langsung jadi langsung memenangkan permainan. Generala ganda hanya bernilai 100 jika baris generala milikmu sudah berisi 50; jika tidak, baris itu hanya bisa dicoret, dengan nilai 0. Tidak ada bonus untuk baris satu sampai enam.
+# Akhir permainan
+Pemain bergiliran mengelilingi meja, gading lebih dulu. Setelah semua pemain mengisi setiap baris, total tertinggi menang; total tertinggi yang sama berbagi kemenangan. Sendirian, kamu menang dengan 200 poin atau lebih (Generala: 150, atau generala yang langsung jadi).
+# Bermain di perangkat
+Ketuk kain hijau untuk melempar. Ketuk dadu untuk menyimpannya: dadu itu meluncur ke jalur gelap di sisi kain hijau; ketuk lagi untuk melemparnya lagi. Dadu kecil di bawah kain hijau menunjukkan sisa lemparan. Kolommu menyala. Ketuk satu baris lembar skor untuk melihat nilai dadu di baris itu; ketuk lagi untuk menuliskannya. Baris yang tidak boleh kamu pilih mengeluarkan bunyi penolakan. Setiap bilah menunjukkan total pemainnya. Urungkan membatalkan skor terakhir yang ditulis; dadu tidak pernah dilempar ulang: angka yang sama muncul kembali.
