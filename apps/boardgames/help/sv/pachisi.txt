@@ -1,0 +1,27 @@
+Pachisi
+# Målet
+Pachisi är det gamla indiska spel som Fia härstammar från. Varje spelare leder två arméer med fyra pjäser var, på motsatta armar av korset: elfenben och bärnsten mot ebenholts och palisander. För alla dina åtta pjäser runt brädet och hem till mitten före motståndaren. Elfenben kastar först.
+# Brädet
+Brädet är ett kors med fyra armar, var och en med tre kolumner om åtta rutor, runt en stor ruta i mitten, charkoni. Varje armé startar i charkoni vid sin egen arm, vars mittkolumn är inlagd i arméns färg. En pjäs går nedför mitten av sin egen arm, runt hela brädet moturs längs de yttre kolumnerna och sedan tillbaka uppför mitten av sin arm in i charkoni. De tolv rutorna som är märkta med ett kryss är borgar: änden av varje arm och, i varje yttre kolumn, den fjärde rutan från änden.
+# Kasta kaurisnäckorna
+Kasta de sex kaurisnäckorna och räkna hur många öppningar som vänder uppåt:
+- ingen: 25
+- en: 10
+- två till sex: det talet (2, 3, 4, 5 eller 6)
+En 6, 10 eller 25 är ett lyckokast: efter det kastar du igen.
+# Drag
+- Flytta en pjäs i någon av dina arméer lika många rutor som kastet visar. Du får också avstå från att flytta.
+- Varje armés första pjäs får lämna charkoni med vilket kast som helst. Alla andra pjäser, och en pjäs som har skickats tillbaka, behöver ett lyckokast för att komma ut.
+- Pjäser från båda dina arméer får dela ruta, och ingenting spärrar vägen: en pjäs får passera över alla andra.
+- Om ingen pjäs kan flytta går kastet förlorat (efter ett lyckokast kastar du ändå igen).
+# Möta andra pjäser
+- Den som landar på en ruta där motståndarens pjäser står skickar tillbaka alla till charkoni och kastar igen.
+- En pjäs på en borg är säker: ingen får landa på en borg där motståndarens pjäser står.
+# Hemvägen
+En pjäs går in i charkoni bara med exakt rätt tal. Inget kast blir 1, så en pjäs får inte stanna på sista rutan före charkoni: den skulle aldrig kunna komma hem.
+# Partiets slut
+Den som först får hem alla åtta pjäser, från båda arméerna, vinner.
+# Fyra spelare
+Med fyra spelare har var och en en armé, och partnerna sitter mittemot varandra: elfenben och bärnsten mot ebenholts och palisander. Turen går runt bordet moturs, åt samma håll som pjäserna. Dina kaurisnäckor och dina pjäser som har kommit hem delar facket i hörnet till höger om dig, när du ser mot mitten från din arm. När alla dina pjäser har kommit hem flyttar dina kast din partners pjäser. Partnerna vinner tillsammans när alla åtta pjäserna har kommit hem: båda deras fält lyser i guld.
+# Spela på enheten
+Dina kaurisnäckor ligger i facket till höger om dig, dina pjäser som har kommit hem i facket till vänster. När det är din tur lyser kaurisnäckorna i guld: tryck på brädet för att kasta dem. Det kastade värdet visas bredvid dem, i guld för ett lyckokast. Prickar visar vart dina pjäser kan gå, ringar de pjäser som du skulle skicka tillbaka: tryck på en pjäs, eller dra den till sin ruta. Där pjäser från båda dina arméer delar ruta men ska åt olika håll trycker du på rutan och sedan på den prick du vill ha. Passknappen i ditt fält avstår från kastet. Ångra tar tillbaka drag och kast, men ett kast som tas tillbaka blir likadant igen. Ditt fält visar dina pjäser som har kommit hem.

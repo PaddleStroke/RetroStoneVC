@@ -1,18 +1,24 @@
 Ludo
 # O objetivo
-Levar os teus quatro peões por toda a volta do tabuleiro até ao centro antes do outro jogador. Cada jogador tem quatro peões numa base da sua cor, em cantos opostos. O marfim lança primeiro; depois os jogadores jogam à vez.
+Levar os teus quatro peões por toda a volta do tabuleiro até ao centro antes dos outros. Jogam dois, três ou quatro: escolhe quantos antes do jogo, e as regras: o Ludo, com peões, ou os Petits chevaux, com cavalos. Cada jogador tem quatro peões numa base da sua cor; a dois, os jogadores ficam em cantos opostos. O marfim lança primeiro; depois a vez passa no sentido dos ponteiros do relógio.
 # Lançar e mover
 - Lança o dado e avança um dos teus peões no sentido dos ponteiros do relógio ao longo do percurso, tantas casas quanto o número que saiu.
 - Só um 6 tira um peão da base e o põe na sua casa de partida, a casa colorida junto à base. Com um 6 também podes, em vez disso, mover um peão que já esteja no tabuleiro.
 - Um 6 dá-te mais um lançamento. Um terceiro 6 seguido perde-se e a tua vez termina de imediato.
 - Se nenhum peão se puder mover com o número que saiu, o lançamento perde-se e a vez passa (depois de um 6 voltas na mesma a lançar).
 # Encontrar outros peões
-- Parar exatamente num peão do outro jogador manda-o de volta para a base. Se lá estiverem dois peões dele, voltam os dois.
-- As casas seguras são as quatro casas de partida e as quatro casas marcadas com uma estrela. Aí ninguém pode ser mandado de volta, e peões dos dois jogadores podem partilhá-las.
-- Os teus próprios peões podem partilhar uma casa. Não bloqueiam: o outro jogador pode passar por eles ou parar em cima deles.
+- Parar exatamente num peão de outro jogador manda-o de volta para a base. Se lá estiverem dois peões dele, voltam os dois.
+- As casas seguras são as quatro casas de partida e as quatro casas marcadas com uma estrela. Aí ninguém pode ser mandado de volta, e peões de jogadores diferentes podem partilhá-las.
+- Os teus próprios peões podem partilhar uma casa. Não bloqueiam: os outros podem passar por eles ou parar em cima deles.
 # A chegada
 Depois de uma volta completa, o teu peão entra na reta final da sua cor, onde está seguro, e segue até ao centro. Tem de chegar ao centro com o número exato: um lançamento demasiado alto não pode mover esse peão.
+# Petits chevaux (cavalinhos)
+O clássico francês, no mesmo tabuleiro, com cavalos. As regras acima mudam assim:
+- Só um 6 tira um cavalo da cavalariça. Cada 6 dá mais um lançamento, sem limite.
+- Um cavalo nunca pode ultrapassar outro, teu ou de outro jogador, e dois cavalos nunca partilham uma casa. Parar exatamente no cavalo de outro jogador manda-o de volta para a cavalariça, mesmo numa casa de partida: não há casas seguras.
+- No fim da volta, o cavalo tem de parar exatamente ao pé da sua escada, a casa mesmo antes dos degraus coloridos: um lançamento demasiado alto não o pode mover.
+- Depois sobe um degrau de cada vez com o número exato: um 1 para o degrau 1, um 2 para o degrau 2, e assim por diante até um 6 para o degrau 6. Depois, mais um 6 leva-o ao centro. Os pontos de cada degrau mostram o número de que precisa.
 # O fim do jogo
-Ganha o primeiro jogador a levar os quatro peões até ao centro.
+Ganha o primeiro jogador a levar os quatro peões até ao centro, e o jogo acaba aí, mesmo a três ou a quatro.
 # Jogar no dispositivo
-O teu dado espera no canto vazio ao teu lado, aceso a dourado: toca nele para lançar. Os pontos mostram para onde os teus peões podem ir, e os anéis um peão que mandarias de volta para a base: toca num peão, ou arrasta-o para a sua casa, e ele vai aos saltos até lá. Um lançamento que não pôde mover nenhum peão fica esbatido, com um brilho vermelho, enquanto o outro jogador lança. Anular desfaz jogadas e lançamentos, mas um lançamento desfeito volta a sair igual. Os teus peões que chegaram ao centro aparecem na tua barra.
+O teu dado espera, aceso a dourado, no canto vazio ao teu lado (a três ou a quatro, no meio da tua base): toca nele para lançar. Os pontos mostram para onde os teus peões podem ir, e os anéis um peão que mandarias de volta para a base: toca num peão, ou arrasta-o para a sua casa, e ele vai aos saltos até lá. Um lançamento que não pôde mover nenhum peão fica esbatido, com um brilho vermelho, enquanto o jogador seguinte lança. Anular desfaz jogadas e lançamentos, mas um lançamento desfeito volta a sair igual. Os teus peões que chegaram ao centro aparecem na tua barra.

@@ -1,0 +1,27 @@
+Pachisi
+# Lo scopo
+Il pachisi è l'antico gioco indiano da cui è nato il ludo. Ogni giocatore comanda due eserciti di quattro pedine, su bracci opposti della croce: avorio e ambra contro ebano e palissandro. Porta tutte e otto le tue pedine per tutto il giro del tavoliere e a casa, al centro, prima dell'altro giocatore. Tira per primo l'avorio.
+# Il tavoliere
+Il tavoliere è una croce di quattro bracci, ciascuno di tre colonne di otto caselle, attorno a una grande casella centrale, il charkoni. Ogni esercito parte dal charkoni accanto al proprio braccio, la cui colonna centrale è intarsiata nel suo colore. Una pedina scende lungo il centro del proprio braccio, fa tutto il giro del tavoliere in senso antiorario lungo le colonne esterne, poi risale lungo il centro del suo braccio fino al charkoni. Le dodici caselle segnate con una croce sono castelli: l'estremità di ogni braccio e, in ogni colonna esterna, la quarta casella dall'estremità.
+# Tirare i cauri
+Tira i sei cauri e conta le aperture rivolte verso l'alto:
+- nessuna: 25
+- una: 10
+- da due a sei: quel numero (2, 3, 4, 5 o 6)
+Un 6, un 10 o un 25 è una grazia: dopo tiri di nuovo.
+# Muovere
+- Muovi una pedina dell'uno o dell'altro dei tuoi eserciti del numero uscito. Puoi anche rinunciare a muovere.
+- La prima pedina di ogni esercito può uscire dal charkoni con qualsiasi tiro. Ogni altra pedina, e una pedina che è stata rimandata indietro, ha bisogno di una grazia per uscirne.
+- Le pedine dei tuoi due eserciti possono stare sulla stessa casella, e niente sbarra la strada: una pedina può scavalcare qualsiasi altra.
+- Se nessuna pedina può muoversi, il tiro va perso (dopo una grazia tiri comunque di nuovo).
+# Incontrare altre pedine
+- Fermarsi su una casella dove stanno pedine dell'altro giocatore le rimanda tutte al charkoni, e tiri di nuovo.
+- Una pedina su un castello è al sicuro: nessuno può fermarsi su un castello dove stanno pedine dell'altro giocatore.
+# Tornare a casa
+Una pedina entra nel charkoni solo con il numero esatto. Nessun tiro vale 1, quindi una pedina non può fermarsi sull'ultima casella prima del charkoni: non potrebbe mai arrivare a casa.
+# La fine della partita
+Vince il primo giocatore che porta a casa tutte e otto le pedine, di entrambi gli eserciti.
+# Quattro giocatori
+In quattro, ognuno gioca un esercito e i compagni siedono uno di fronte all'altro: avorio e ambra contro ebano e palissandro. Il turno gira attorno al tavolo in senso antiorario, nel verso delle pedine. I tuoi cauri e le tue pedine arrivate a casa condividono il vassoio nell'angolo alla tua destra, guardando il centro dal tuo braccio. Quando tutte le tue pedine sono a casa, i tuoi tiri muovono le pedine del tuo compagno. I compagni vincono insieme quando tutte e otto le loro pedine sono a casa: entrambe le loro barre brillano d'oro.
+# Giocare sul dispositivo
+I tuoi cauri stanno nel vassoio alla tua destra, le tue pedine arrivate a casa nel vassoio alla tua sinistra. Quando tocca a te, i cauri brillano d'oro: tocca il tavoliere per tirarli. Il valore uscito compare accanto a loro, in oro se è una grazia. I punti mostrano dove possono andare le tue pedine, gli anelli le pedine che rimanderesti indietro: tocca una pedina, oppure trascinala sulla sua casella. Dove pedine dei tuoi due eserciti condividono una casella andando in direzioni diverse, toccala, poi tocca il punto che vuoi. Il pulsante passa nella tua barra rinuncia al tiro. Annulla ritira mosse e tiri, ma un tiro ritirato esce di nuovo uguale. La tua barra mostra le tue pedine arrivate a casa.

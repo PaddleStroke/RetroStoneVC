@@ -1,0 +1,20 @@
+Ur Kraliyet Oyunu
+# Amaç
+Yedi pulunu kendi yolun boyunca koşturup rakibinden önce tahtadan topla. Bu oyun 4.500 yıldan daha uzun süre önce Mezopotamya'da oynanırdı; buradaki kurallar, British Museum'dan Irving Finkel'in bir Babil kil tabletinden çözdüğü kurallardır. Önce fildişi zar atar, sonra oyuncular sırayla oynar.
+# Tahta
+Tahtada üç sıra hâlinde yirmi kare vardır. Sana en yakın sıra yalnızca senindir: bir uçta dört kare, öbür uçta iki kare, aralarında da bir boşluk. Sekiz karelik orta sıra ortaktır. Yolun önce kendi dört karen boyunca tahtanın ucuna doğru gider, sonra bütün orta sıra boyunca ters yöne, sonra son iki karesi için yeniden kendi sırana döner ve tahtadan çıkar. Beş karede rozet vardır: her oyuncunun dörtlüsünün köşe karesi, her oyuncunun ikilisinin köşe karesi ve orta sıranın dördüncü karesi.
+# Zar atma ve hamle
+- Dört zarı at. Her biri, dört ucundan ikisi işaretli bir piramittir: işaretli ucu yukarı bakan zarları say. Atış 0 ile 4 arasındadır; en sık 2 gelir.
+- Pullarından birini yolun üzerinde o kadar kare ilerlet. Tahtanın dışında bekleyen bir pul oyuna girer: 3 atışı onu üçüncü karene koyar.
+- Kendi pullarından birinin durduğu kareye gelemezsin.
+- 0 atışı ya da hiçbir pulun kullanamadığı bir atış yanar ve sıra rakibe geçer.
+# Rozetler
+Bir rozete gelirsen bir atış daha kazanırsın. Ortak sıranın ortasındaki rozet aynı zamanda güvenli karedir: üzerinde duran pul geri gönderilemez, bu yüzden rakip oraya gelemez.
+# Kırma
+Ortak sırada rakibin pulunun üzerine gelirsen onu tahtanın dışına geri gönderirsin: yolculuğuna baştan başlamak zorundadır. Uçlardaki kendi karelerine rakip ulaşamaz.
+# Pul toplama
+Bir pul tahtadan yalnızca tam sayıyla çıkar: son karenden 1, ondan önceki kareden 2 gerekir ve bu böyle gider. Daha büyük bir atış o pulu oynatamaz.
+# Oyunun sonu
+Yedi pulunun hepsini ilk toplayan oyuncu kazanır.
+# Cihazda oynamak
+Bekleyen pulların yolunun başının yanında, topladığın pullar sonunun yanında durur; onların ötesinde de zarların, son atışın sayısıyla birlikte. Zar atma sırası sendeyse zarların altın renginde parlar: atmak için tahtaya dokun. Noktalar pullarının nereye gidebileceğini, halkalar da geri göndereceğin pulu gösterir: bir pula dokun ya da onu karesine sürükle. Yalnızca bir pul hareket edebiliyorsa o pul zaten ışıklıdır. Yanan bir atış, rakip zar atarken kırmızı bir parıltı içinde soluk kalır. Geri al hamleleri ve atışları geri alır, ama geri alınan bir atış yeniden aynı gelir. Şeridin topladığın pulları gösterir.

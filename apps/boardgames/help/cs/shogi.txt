@@ -1,6 +1,6 @@
 Šógi
 # Cíl hry
-Šógi, to jsou japonské šachy. Dej soupeřovu králi mat: napadni ho tak, aby nemohl uniknout. Černý (sente) táhne první, potom se hráči střídají, každý jedním tahem. Všechny figury mají stejnou barvu: figura míří špičkou k soupeři, takže poznáš, komu patří.
+Šógi, to jsou japonské šachy. Dej soupeřovu králi mat: napadni ho tak, aby nemohl uniknout. Černý (sente) táhne první, potom se hráči střídají, každý jedním tahem. Všechny figury mají stejnou barvu: figura míří špičkou k soupeři, takže poznáš, komu patří. Před hrou zvol desku: šógi na 9 × 9 polích (karta plná figur), nebo mini šógi na 5 × 5 (malá deska).
 # Jak se figury pohybují
 - Král (玉, 王): o jedno pole libovolným směrem.
 - Věž (飛): o libovolný počet polí po řadě nebo sloupci.
@@ -28,5 +28,9 @@ Napadený král je v šachu: další tah ho musí ze šachu dostat. Nikdy nesmí
 - Mat: král je v šachu a žádný tah ho nemůže zachránit. Tento hráč prohrává. Hráč, který nemá vůbec žádný povolený tah, také prohrává.
 - Opakování: když se stejná pozice (figury na desce i v ruce, stejný hráč na tahu) objeví počtvrté, partie končí remízou. Pokud však jeden hráč od prvního výskytu této pozice dával šach každým tahem, tento hráč prohrává.
 - Pro dva krále, kteří oba vstoupili do soupeřova tábora, žádné pravidlo neplatí: hrajte dál.
+# Mini šógi
+Malé šógi na 5 × 5 polích. Každý hráč začíná s králem, zlatým generálem, stříbrným generálem, střelcem a věží na své první řadě, v tomto pořadí zleva, a s pěšcem před králem. Jezdci a kopiníci nejsou. Figury táhnou, berou a vysazují se jako v šógi, se stejnými třemi omezeními vysazování. Dva rozdíly:
+- Zóna proměny je jen nejvzdálenější řada. Pěšec, který do ní dojde, se musí proměnit.
+- Opakování: když se stejná pozice objeví počtvrté, prohrává černý (sente), který táhl první. Hráč, který od prvního výskytu té pozice dával šach každým tahem, však prohrává místo něj.
 # Hra na zařízení
 Klepni na figuru a uvidíš, kam může táhnout, potom klepni na pole, nebo figuru přetáhni. Tečky ukazují tahy, kroužky braní. Král v šachu svítí červeně. Tvoje figury v ruce jsou v tvé liště, i s jejich počtem: klepni na jednu a pak na pole, nebo ji přetáhni na desku. Když se figura smí proměnit, vyber její proměněnou stranu (červenou), nebo ji nech, jak je.

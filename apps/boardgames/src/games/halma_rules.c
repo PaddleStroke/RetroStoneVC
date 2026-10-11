@@ -55,18 +55,48 @@ int hl_home(int h) { init(); return row_of[h] <= 3 ? 0 : row_of[h] >= 13 ? 1 : -
 
 int hl_goal(int player, int h) { return hl_home(h) == !player; }
 
+/* the three axes of the hexagonal grid (a, b, c, adding up to 0): the middle hexagon is where none is beyond 4; a
+ * point is where one of them is (the bottom point: the row's, c <= -5) */
+int hl_point(int h)
+{
+    init();
+    int c = row_of[h] - 8, a = (x2_of[h] - c) / 2, b = -a - c;
+    return c <= -5 ? 0 : b >= 5 ? 1 : a <= -5 ? 2 : c >= 5 ? 3 : b <= -5 ? 4 : a >= 5 ? 5 : -1;
+}
+
+/* ---- the players ----------------------------------------------------------------------------------------------- */
+static const int8_t SEAT[HL_PLAYERS + 1][HL_PLAYERS] = {
+    [2] = {0, 3}, [3] = {0, 2, 4}, [4] = {0, 1, 3, 4}, [6] = {0, 1, 2, 3, 4, 5},
+};
+
+static int valid_count(int players) { return players >= 2 && players <= HL_PLAYERS && players != 5; }
+
+int hl_seat(int players, int player)
+{
+    if (!valid_count(players)) players = 2;
+    return player >= 0 && player < players ? SEAT[players][player] : -1;
+}
+
+int hl_dest(const hl_game *g, int player, int h)
+{
+    int k = hl_seat(g->players, player);
+    return k >= 0 && hl_point(h) == (k + 3) % HL_POINTS;
+}
+
 /* ---- moves ----------------------------------------------------------------------------------------------------- */
-void hl_new(hl_game *g)
+void hl_new_players(hl_game *g, int players)
 {
     init();
     memset(g, 0, sizeof *g);
-    for (int h = 0; h < HL_HOLES; h++) {
-        int p = hl_home(h);
-        g->cell[h] = (uint8_t)(p < 0 ? HL_EMPTY : p + 1);
-    }
+    g->players = valid_count(players) ? players : 2;
+    for (int p = 0; p < g->players; p++)
+        for (int h = 0; h < HL_HOLES; h++)
+            if (hl_point(h) == SEAT[g->players][p]) g->cell[h] = (uint8_t)(p + 1);
 }
 
-int hl_turn(const hl_game *g) { return g->ply & 1; }
+void hl_new(hl_game *g) { hl_new_players(g, 2); }
+
+int hl_turn(const hl_game *g) { return g->turn; }
 
 /* the holes the marble on `from` reaches by chains of jumps (the marble lifted: its own hole is empty, and visited):
  * prev[h] the hole it jumps from to land on h (a shortest chain), -1 unreached; from itself: from */
@@ -159,6 +189,18 @@ int hl_valid(const hl_game *g, const hl_path *p)
     return 1;
 }
 
+static int can_move(const hl_game *g, int player);
+
+/* who moves after the player: the next round the star; three or more: the next who can move (the others pass; no one:
+ * the next, and the game is drawn). Two: the other, always (no move: drawn) */
+static int next_player(const hl_game *g, int player)
+{
+    int n = g->players;
+    for (int k = 1; n > 2 && k <= n; k++)
+        if (can_move(g, (player + k) % n)) return (player + k) % n;
+    return (player + 1) % n;
+}
+
 int hl_play(hl_game *g, const hl_path *p)
 {
     if (hl_status(g) != HL_PLAY || !hl_valid(g, p)) return 0;
@@ -167,10 +209,13 @@ int hl_play(hl_game *g, const hl_path *p)
     g->cell[from] = HL_EMPTY;
     if (g->nhist == HL_HIST) {                  /* full: forget the oldest move */
         memmove(g->hist, g->hist + 1, sizeof g->hist[0] * (HL_HIST - 1));
+        memmove(g->who, g->who + 1, HL_HIST - 1);
         g->nhist--;
     }
+    g->who[g->nhist] = (uint8_t)g->turn;
     g->hist[g->nhist++] = *p;
     g->ply++;
+    g->turn = next_player(g, g->turn);
     return 1;
 }
 
@@ -182,6 +227,7 @@ int hl_undo(hl_game *g)
     g->cell[from] = g->cell[to];
     g->cell[to] = HL_EMPTY;
     g->ply--;
+    g->turn = g->who[g->nhist];
     return 1;
 }
 
@@ -190,7 +236,7 @@ const hl_path *hl_last(const hl_game *g) { return g->nhist ? &g->hist[g->nhist -
 int hl_arrived(const hl_game *g, int player)
 {
     int n = 0;
-    for (int h = 0; h < HL_HOLES; h++) n += hl_goal(player, h) && g->cell[h] == player + 1;
+    for (int h = 0; h < HL_HOLES; h++) n += hl_dest(g, player, h) && g->cell[h] == player + 1;
     return n;
 }
 
@@ -198,15 +244,15 @@ int hl_arrived(const hl_game *g, int player)
 static int filled(const hl_game *g, int player)
 {
     for (int h = 0; h < HL_HOLES; h++)
-        if (hl_goal(player, h) && !g->cell[h]) return 0;
+        if (hl_dest(g, player, h) && !g->cell[h]) return 0;
     return hl_arrived(g, player) > 0;
 }
 
-/* can the player to move move at all? */
-static int can_move(const hl_game *g)
+/* can the player move at all? */
+static int can_move(const hl_game *g, int player)
 {
     for (int h = 0; h < HL_HOLES; h++) {
-        if (g->cell[h] != hl_turn(g) + 1) continue;
+        if (g->cell[h] != player + 1) continue;
         for (int d = 0; d < 6; d++) {
             int a = toward(h, d), b = a < 0 ? -1 : toward(a, d);
             if (a >= 0 && (!g->cell[a] || (b >= 0 && !g->cell[b]))) return 1;
@@ -218,10 +264,10 @@ static int can_move(const hl_game *g)
 int hl_status(const hl_game *g)
 {
     init();
-    int last = !hl_turn(g);                     /* the player who just moved first */
-    if (filled(g, last)) return last ? HL_WIN1 : HL_WIN0;
-    if (filled(g, !last)) return last ? HL_WIN0 : HL_WIN1;
-    return can_move(g) ? HL_PLAY : HL_DRAW;
+    int n = g->players, last = g->nhist ? g->who[g->nhist - 1] : (g->turn + n - 1) % n;
+    for (int k = 0; k < n; k++)                 /* the player who just moved first, then round the star */
+        if (filled(g, (last + k) % n)) return hl_win((last + k) % n);
+    return can_move(g, g->turn) ? HL_PLAY : HL_DRAW;   /* the one to move can move, if anyone can */
 }
 
 /* ---- the notation ---------------------------------------------------------------------------------------------- */

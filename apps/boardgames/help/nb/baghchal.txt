@@ -1,0 +1,18 @@
+Bagh-Chal
+# Målet
+Bagh-Chal, «tigre og geiter», kommer fra Nepal. Den ene spilleren har fire tigre, den andre tjue geiter. Tigrene prøver å fange geiter; geitene prøver å stenge inne tigrene slik at ingen av dem kan flytte. Geitene (lyse) begynner.
+# Brettet
+Tjuefem punkter forbundet med linjer: hver rad, hver kolonne og diagonalene som er tegnet på brettet. Brikkene flytter bare langs disse linjene, fra ett punkt til det neste. De fire tigrene (mørke) starter i hjørnene; geitene starter utenfor brettet.
+# Flytting
+- Først kommer geitene inn: i hver av sine turer setter geitene en ny geit på et hvilket som helst tomt punkt, til alle tjue er inne. I mellomtiden flytter tigrene allerede. En geit på brettet kan ikke flytte før alle tjue er inne.
+- Deretter flytter geitene, når det er deres tur, én geit langs en linje til neste punkt, hvis det er tomt, i hvilken som helst retning.
+- En tiger flytter langs en linje til neste tomme punkt, i hvilken som helst retning, eller slår.
+# Slag
+Bare tigrene slår. Når en geit står ved siden av en tiger langs en linje, og punktet rett bak den er tomt, kan tigeren hoppe over den til det punktet og ta geiten av brettet. Én geit per tur: en tiger hopper aldri to ganger på rad, og aldri over en annen tiger. Det er ikke tvunget å slå.
+# Slutten på spillet
+- Tigrene vinner når de har tatt fem geiter. Dette er den vanligste regelen (noen spiller videre for å ta flere).
+- Geitene vinner når ingen tiger kan flytte eller hoppe.
+- En spiller som ikke kan flytte i sin tur, taper: også geitene taper hvis ingen av dem kan flytte.
+- Spillet er uavgjort når den samme stillingen kommer igjen for tredje gang med samme spiller i trekket, eller etter femti trekk hver uten slag etter at alle geitene er kommet inn.
+# Spill på enheten
+Så lenge det fortsatt er geiter som skal inn, trykker du på et tomt punkt for å sette ned en geit: prikker viser de ledige punktene. Deretter trykker du på en brikke og så på det nye punktet, eller drar den. Geitene tigrene kan ta, har en ring: trykk på en tiger og så på punktet bak geiten, eller på selve geiten med ringen. Geitenes panel viser hvor mange geiter som fortsatt skal inn, tigrenes panel hvor mange geiter de har tatt.

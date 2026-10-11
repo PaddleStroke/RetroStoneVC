@@ -1,6 +1,6 @@
 Shogi
 # Tujuan
-Shogi adalah catur Jepang. Skakmat raja lawan: serang raja itu sehingga tidak bisa lolos. Hitam (sente) jalan lebih dulu, lalu para pemain bergiliran, masing-masing satu langkah. Semua bidak berwarna sama: setiap bidak menghadap ke arah lawan, sehingga kamu bisa tahu bidak itu milik siapa.
+Shogi adalah catur Jepang. Skakmat raja lawan: serang raja itu sehingga tidak bisa lolos. Hitam (sente) jalan lebih dulu, lalu para pemain bergiliran, masing-masing satu langkah. Semua bidak berwarna sama: setiap bidak menghadap ke arah lawan, sehingga kamu bisa tahu bidak itu milik siapa. Pilih papan sebelum permainan: shogi di 9 kali 9 petak (kartu yang penuh bidak) atau mini shogi di 5 kali 5 (papan kecil).
 # Cara bidak bergerak
 - Raja (玉, 王): satu petak ke arah mana pun.
 - Benteng (飛): berapa pun petak sepanjang baris atau kolom.
@@ -28,5 +28,9 @@ Raja yang diserang berarti sedang diskak: langkah berikutnya harus membebaskanny
 - Skakmat: raja sedang diskak dan tidak ada langkah yang bisa menyelamatkannya. Pemain itu kalah. Pemain yang sama sekali tidak punya langkah sah juga kalah.
 - Pengulangan: jika posisi yang sama (bidak di papan dan di tangan, dengan pemain yang sama mendapat giliran) muncul untuk keempat kalinya, permainan berakhir remis. Tetapi jika seorang pemain memberi skak di setiap langkahnya sejak posisi itu pertama kali muncul, pemain itu kalah.
 - Tidak ada aturan untuk dua raja yang sama-sama sudah masuk ke wilayah lawan: lanjutkan bermain.
+# Mini shogi
+Shogi kecil di 5 kali 5 petak. Setiap pemain mulai dengan raja, jenderal emas, jenderal perak, gajah, dan benteng di baris pertamanya, berurutan dari kirinya, serta satu pion di depan raja. Tidak ada kuda dan tombak. Bidak bergerak, memakan, dan dijatuhkan seperti dalam shogi, dengan tiga batasan menjatuhkan yang sama. Dua perbedaannya:
+- Zona promosi hanya baris terjauh. Pion yang mencapainya wajib dipromosikan.
+- Pengulangan: jika posisi yang sama muncul untuk keempat kalinya, Hitam (sente), yang jalan lebih dulu, kalah. Namun pemain yang memberi skak di setiap langkah sejak posisi itu pertama kali muncul justru kalah sebagai gantinya.
 # Bermain di perangkat
 Ketuk bidak untuk melihat ke mana bidak itu bisa bergerak, lalu ketuk petak tujuan, atau seret bidaknya. Titik menunjukkan langkah, lingkaran menunjukkan bidak yang bisa dimakan. Raja yang diskak menyala merah. Bidakmu di tangan ada di bilahmu, beserta jumlahnya: ketuk salah satunya lalu ketuk sebuah petak, atau seret ke papan. Jika sebuah bidak boleh dipromosikan, pilih sisi promosinya (merah) atau biarkan seperti semula.

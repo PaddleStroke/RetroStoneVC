@@ -1,6 +1,6 @@
 Shogi
 # Målet
-Shogi är japanskt schack. Gör motståndarens kung matt: angrip den så att den inte kan komma undan. Svart (sente) börjar, sedan turas spelarna om, ett drag var. Alla pjäser har samma färg: en pjäs pekar mot motståndaren, så att man kan se vems den är.
+Shogi är japanskt schack. Gör motståndarens kung matt: angrip den så att den inte kan komma undan. Svart (sente) börjar, sedan turas spelarna om, ett drag var. Alla pjäser har samma färg: en pjäs pekar mot motståndaren, så att man kan se vems den är. Välj bräde före partiet: shogi på 9 gånger 9 rutor (kortet fullt av pjäser) eller minishogi på 5 gånger 5 (det lilla brädet).
 # Hur pjäserna går
 - Kung (玉, 王): en ruta åt vilket håll som helst.
 - Torn (飛): hur många rutor som helst längs en rad eller en linje.
@@ -28,5 +28,9 @@ En kung som är angripen står i schack: nästa drag måste få den ur schack. D
 - Schack matt: kungen står i schack och inget drag kan rädda den. Den spelaren förlorar. En spelare som inte har något tillåtet drag alls förlorar också.
 - Upprepning: när samma ställning (pjäserna på brädet och i handen, samma spelare vid draget) kommer för fjärde gången blir partiet remi. Men om en spelare har gett schack med varje drag sedan ställningen först uppstod förlorar den spelaren.
 - Det finns ingen regel för två kungar som båda har tagit sig in i motståndarens läger: spela vidare.
+# Minishogi
+Ett litet shogi på 5 gånger 5 rutor. Varje spelare börjar med kung, guldgeneral, silvergeneral, löpare och torn på sin första rad, i den ordningen från vänster, och en bonde framför kungen. Det finns inga springare och inga lansar. Pjäserna flyttar, slår och släpps ner som i shogi, med samma tre begränsningar för nedsläpp. Två skillnader:
+- Befordringszonen är bara den bortersta raden. En bonde som når den måste befordras.
+- Upprepning: när samma ställning uppstår för fjärde gången förlorar Svart (sente), som började. Men en spelare som har gett schack med varje drag sedan ställningen uppstod första gången förlorar i stället.
 # Spela på enheten
 Tryck på en pjäs för att se vart den kan gå, tryck sedan på en ruta, eller dra pjäsen. Prickar visar dragen, ringar slagen. En kung i schack lyser rött. Dina pjäser i handen ligger i ditt fält, med sitt antal: tryck på en och sedan på en ruta, eller dra den till brädet. När en pjäs får befordras, välj dess befordrade sida (röd) eller behåll den som den är.

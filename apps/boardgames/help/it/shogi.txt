@@ -1,6 +1,6 @@
 Shogi
 # Lo scopo
-Lo shogi è la versione giapponese degli scacchi. Dare scacco matto al re avversario: attaccarlo in modo che non possa sfuggire. Il Nero (sente) muove per primo, poi i giocatori si alternano, una mossa ciascuno. Tutti i pezzi sono dello stesso colore: un pezzo punta verso l'avversario, così si capisce di chi è.
+Lo shogi è la versione giapponese degli scacchi. Dare scacco matto al re avversario: attaccarlo in modo che non possa sfuggire. Il Nero (sente) muove per primo, poi i giocatori si alternano, una mossa ciascuno. Tutti i pezzi sono dello stesso colore: un pezzo punta verso l'avversario, così si capisce di chi è. Scegli la scacchiera prima della partita: shogi su 9 per 9 caselle (la carta piena di pezzi) o minishogi su 5 per 5 (la scacchiera piccola).
 # Come si muovono i pezzi
 - Re (玉, 王): una casella in qualsiasi direzione.
 - Torre (飛): di quante caselle vuoi lungo una riga o una colonna.
@@ -28,5 +28,9 @@ Un re attaccato è sotto scacco: la mossa successiva deve toglierlo dallo scacco
 - Scacco matto: il re è sotto scacco e nessuna mossa può salvarlo. Quel giocatore perde. Perde anche un giocatore che non ha nessuna mossa legale.
 - Ripetizione: quando la stessa posizione (i pezzi sul tavoliere e in mano, lo stesso giocatore di turno) si presenta per la quarta volta, la partita è patta. Ma se un giocatore ha dato scacco a ogni mossa da quando quella posizione è apparsa la prima volta, quel giocatore perde.
 - Non c'è nessuna regola per due re entrati entrambi nel campo avversario: si continua a giocare.
+# Minishogi
+Uno shogi piccolo su 5 per 5 caselle. Ogni giocatore comincia con re, generale d'oro, generale d'argento, alfiere e torre sulla sua prima riga, in quest'ordine dalla sua sinistra, e un pedone davanti al re. Non ci sono cavalli né lance. I pezzi muovono, catturano e vengono paracadutati come nello shogi, con gli stessi tre limiti ai paracadutaggi. Due differenze:
+- La zona di promozione è solo la riga più lontana. Un pedone che la raggiunge deve essere promosso.
+- Ripetizione: quando la stessa posizione si presenta per la quarta volta, perde il Nero (sente), che ha mosso per primo. Ma un giocatore che ha dato scacco a ogni mossa da quando la posizione è apparsa la prima volta perde al suo posto.
 # Giocare sul dispositivo
 Tocca un pezzo per vedere dove può andare, poi tocca una casella, oppure trascina il pezzo. I punti mostrano le mosse, gli anelli le catture. Un re sotto scacco si illumina di rosso. I tuoi pezzi in mano sono nella tua barra, con il loro numero: toccane uno, poi tocca una casella, oppure trascinalo sul tavoliere. Quando un pezzo può essere promosso, scegli il suo lato promosso (rosso) o lascialo com'è.

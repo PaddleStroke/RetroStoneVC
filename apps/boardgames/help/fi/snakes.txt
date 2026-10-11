@@ -1,6 +1,7 @@
 Käärmeet ja tikkaat
 # Tavoite
 Vie ensimmäisenä nappulasi ruutuun 100.
+Pelaajia voi olla kaksi, kolme tai neljä: valitse määrä ennen peliä. Kolmella tai neljällä säännöt ovat kaikille samat: kaikki nappulat aloittavat laudan ulkopuolelta ja voivat olla samassa ruudussa, ja noppa kiertää järjestyksessä vaalea, tumma, punainen ja vihreä. Vaalea ja punainen istuvat alhaalla, tumma ja vihreä ylhäällä.
 # Lauta
 Ruudut on numeroitu 1:stä 100:aan vasemmasta alakulmasta alkaen: alinta riviä pitkin oikealle, sitten seuraavaa riviä takaisin vasemmalle ja niin edelleen ylöspäin, niin että 100 on ylimpänä. Tikkaat vievät ylöspäin, alapäästään yläpäähänsä; käärmeet vievät alaspäin, päästään häntäänsä.
 # Vuoro

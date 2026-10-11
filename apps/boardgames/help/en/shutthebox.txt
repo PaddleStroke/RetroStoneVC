@@ -1,0 +1,16 @@
+Shut the Box
+# The aim
+Shut as many of your numbered tiles as you can: your score is the sum of the tiles left standing, and lower is better. Shut them all and you shut the box: you win at once. One to four players: choose how many before the game, and the tiles:
+- 1 to 9: the classic box.
+- 1 to 10: like the big four-player boxes.
+- 1 to 12: the longest game.
+Each player has their own row of tiles on their side of the box. Alone, you play against your own score.
+# A turn
+- Throw the two dice, then shut any of your standing tiles whose numbers add up to the throw: one tile or several. A throw of 8 can shut the 8, or 7 and 1, or 5 and 3, or 5, 2 and 1...
+- Throw again and shut again, as long as you can.
+- Once your 7, 8 and 9 are shut (with 10 or 12 tiles: every tile from 7 up), you may throw just one die if you wish.
+- When no set of your standing tiles makes the throw, your turn is over. Your score is the sum of the tiles still standing.
+# The end of the game
+Each player plays one full turn; the turn goes clockwise round the box, Ivory first. Then the lowest score wins; if the lowest scores are equal, the game is a draw. A player who shuts the box wins at once, and the game ends there. Alone, a shut box solves the game; otherwise your score stands.
+# Playing on the device
+Tap the felt to throw the dice. When you may throw one die, a single die waits next to the pair: tap it to throw it alone. Tap your tiles to choose them: they lift, and the sum chosen shows over the throw beside the dice. The tiles that cannot help make the throw are dimmed. When the sum matches the throw, the tiles tip over. Tap a chosen tile again to put it back. When no set makes the throw, the dice glow red and your score shows a moment, then the next player throws. Each bar shows that player's score. Undo stands the tiles of the last throw back up; it never throws the dice again: the same numbers come back.

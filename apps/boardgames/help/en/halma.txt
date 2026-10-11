@@ -1,6 +1,7 @@
 Chinese Checkers
 # The aim
 Move all ten of your marbles across the star into the point opposite your own. The board is a six-pointed star of 121 holes. Light starts in the bottom point and Dark in the top point, which is stained in their colours; the four other points stay empty. Light plays first.
+Two, three, four or six can play: choose how many before the game. Light always starts in the bottom point and the others follow clockwise round the star, in the order of play: with three, every other point, so that each heads for an empty point; with four, two pairs of opposite points; with six, every point. With more than two, the marbles of any player left in your target point count for you, and a player who has no move passes; the game is a draw only if nobody can move.
 # A move
 On your turn, move one of your marbles in one of two ways:
 - A step: to an empty hole next to it. Each hole has up to six neighbours, along the lines of the star.

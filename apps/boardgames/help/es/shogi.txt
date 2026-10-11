@@ -1,6 +1,6 @@
 Shogi
 # El objetivo
-El shogi es el ajedrez japonés. Dar jaque mate al rey contrario: atacarlo de modo que no pueda escapar. Mueven primero las negras (sente); después los jugadores se turnan, una jugada cada uno. Todas las piezas son del mismo color: cada pieza apunta hacia el rival, y así se sabe de quién es.
+El shogi es el ajedrez japonés. Dar jaque mate al rey contrario: atacarlo de modo que no pueda escapar. Mueven primero las negras (sente); después los jugadores se turnan, una jugada cada uno. Todas las piezas son del mismo color: cada pieza apunta hacia el rival, y así se sabe de quién es. Elige el tablero antes de la partida: shogi en 9 por 9 casillas (la carta llena de piezas) o minishogi en 5 por 5 (el tablero pequeño).
 # Cómo se mueven las piezas
 - Rey (玉, 王): una casilla en cualquier dirección.
 - Torre (飛): cualquier número de casillas por una fila o una columna.
@@ -28,5 +28,9 @@ Un rey atacado está en jaque: la siguiente jugada debe sacarlo del jaque. Nunca
 - Jaque mate: el rey está en jaque y ninguna jugada puede salvarlo. Ese jugador pierde. Un jugador que no tiene ninguna jugada legal también pierde.
 - Repetición: cuando la misma posición (las piezas en el tablero y en la mano, el mismo jugador al turno) se da por cuarta vez, la partida termina en tablas. Pero si un jugador ha dado jaque en cada jugada desde que apareció esa posición por primera vez, ese jugador pierde.
 - No hay ninguna regla para dos reyes que hayan entrado ambos en el campo contrario: se sigue jugando.
+# Minishogi
+Un shogi pequeño de 5 por 5 casillas. Cada jugador empieza con un rey, un general de oro, un general de plata, un alfil y una torre en su primera fila, en ese orden desde su izquierda, y un peón delante del rey. No hay caballos ni lanceros. Las piezas mueven, capturan y se lanzan como en el shogi, con los mismos tres límites para los lanzamientos. Dos diferencias:
+- La zona de promoción es solo la fila más lejana. Un peón que llega a ella debe promocionar.
+- Repetición: cuando la misma posición aparece por cuarta vez, pierden las negras (sente), que movieron primero. Pero el jugador que dio jaque en cada jugada desde que la posición apareció por primera vez pierde en su lugar.
 # Jugar en el dispositivo
 Toca una pieza para ver adónde puede ir y luego toca una casilla, o arrastra la pieza. Los puntos muestran las jugadas, los anillos las capturas. Un rey en jaque brilla en rojo. Tus piezas en la mano están en tu barra, con su número: toca una y luego una casilla, o arrástrala al tablero. Cuando una pieza puede promocionar, elige su cara promocionada (roja) o déjala como está.

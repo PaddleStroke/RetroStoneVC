@@ -1,6 +1,6 @@
 Shogi
 # Das Ziel
-Shogi ist japanisches Schach. Setze den gegnerischen König matt: Greife ihn so an, dass er nicht entkommen kann. Schwarz (Sente) beginnt, danach ziehen die Spieler abwechselnd, jeder einen Zug. Alle Figuren haben dieselbe Farbe: Eine Figur zeigt mit der Spitze zum Gegner, so erkennst du, wem sie gehört.
+Shogi ist japanisches Schach. Setze den gegnerischen König matt: Greife ihn so an, dass er nicht entkommen kann. Schwarz (Sente) beginnt, danach ziehen die Spieler abwechselnd, jeder einen Zug. Alle Figuren haben dieselbe Farbe: Eine Figur zeigt mit der Spitze zum Gegner, so erkennst du, wem sie gehört. Wähle das Brett vor der Partie: Shogi auf 9 mal 9 Feldern (die Karte voller Figuren) oder Mini-Shogi auf 5 mal 5 (das kleine Brett).
 # So ziehen die Figuren
 - König (玉, 王): ein Feld in jede Richtung.
 - Turm (飛): beliebig viele Felder entlang einer Reihe oder einer Linie.
@@ -28,5 +28,9 @@ Ein angegriffener König steht im Schach: Der nächste Zug muss das Schach aufhe
 - Schachmatt: Der König steht im Schach und kein Zug kann ihn retten. Dieser Spieler verliert. Ein Spieler, der überhaupt keinen erlaubten Zug hat, verliert ebenfalls.
 - Wiederholung: Entsteht dieselbe Stellung (die Figuren auf dem Brett und in der Hand, derselbe Spieler am Zug) zum vierten Mal, endet die Partie remis. Hat aber ein Spieler seit dem ersten Auftreten dieser Stellung mit jedem Zug Schach gegeben, verliert dieser Spieler.
 - Es gibt keine Regel für zwei Könige, die beide ins gegnerische Lager eingedrungen sind: Spielt weiter.
+# Mini-Shogi
+Ein kleines Shogi auf 5 mal 5 Feldern. Jeder Spieler beginnt mit König, Goldgeneral, Silbergeneral, Läufer und Turm auf seiner ersten Reihe, in dieser Reihenfolge von links, und einem Bauern vor dem König. Springer und Lanzen gibt es nicht. Die Figuren ziehen, schlagen und werden eingesetzt wie im Shogi, mit denselben drei Einschränkungen beim Einsetzen. Zwei Unterschiede:
+- Die Umwandlungszone ist nur die hinterste Reihe. Ein Bauer, der sie erreicht, muss sich umwandeln.
+- Wiederholung: Entsteht dieselbe Stellung zum vierten Mal, verliert Schwarz (Sente), der begonnen hat. Wer jedoch seit dem ersten Auftreten der Stellung mit jedem Zug Schach gegeben hat, verliert stattdessen.
 # Spielen auf dem Gerät
 Tippe auf eine Figur, um zu sehen, wohin sie ziehen kann, und dann auf ein Feld, oder schieb die Figur mit dem Finger dorthin. Punkte zeigen die Züge, Ringe das Schlagen. Ein König im Schach leuchtet rot. Deine Figuren in der Hand liegen in deiner Leiste, mit ihrer Anzahl: Tippe auf eine und dann auf ein Feld, oder schieb sie aufs Brett. Darf sich eine Figur umwandeln, wähle ihre umgewandelte Seite (rot) oder lass sie, wie sie ist.

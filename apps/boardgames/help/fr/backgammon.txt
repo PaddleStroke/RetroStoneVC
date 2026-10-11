@@ -1,6 +1,6 @@
 Backgammon
 # Le but
-Faire faire le tour du plateau à tes quinze dames pour les amener dans ton jan intérieur, puis les sortir. Le premier joueur qui sort ses quinze dames gagne. Les joueurs avancent en sens opposés, l'ivoire dans un sens et l'ébène dans l'autre.
+Faire faire le tour du plateau à tes quinze dames pour les amener dans ton jan intérieur, puis les sortir. Le premier joueur qui sort ses quinze dames gagne. Les joueurs avancent en sens opposés, l'ivoire dans un sens et l'ébène dans l'autre. Choisis le jeu avant de commencer : backgammon (la carte avec la position de départ habituelle), plakoto (toutes les dames dans les deux coins de droite, une bloquée), fevga (toutes les dames dans des coins opposés, une partie en avant de chaque côté) ou nardy long (coins opposés, deux dames parties de chaque côté et un double six). Les règles ci-dessous sont celles du backgammon ; les trois autres jeux sont décrits ensuite.
 # Le plateau
 Il y a 24 triangles étroits, les flèches, six dans chaque quart du plateau. La barre, au milieu, sépare chaque côté en un jan extérieur et un jan intérieur ; les deux jans intérieurs se font face, du côté du bac. Chaque joueur numérote les flèches de 1, au bout de son propre jan intérieur, jusqu'à 24, au bout du jan intérieur de l'autre joueur. Au départ, chaque joueur a deux dames sur sa flèche 24, cinq sur sa flèche 13, trois sur sa flèche 8 et cinq sur sa flèche 6.
 # Lancer et jouer
@@ -19,5 +19,20 @@ Une fois tes quinze dames dans ton jan intérieur, tu peux les sortir : un nomb
 - Gammon : si le perdant n'a sorti aucune dame, le gagnant marque deux points.
 - Backgammon : si le perdant n'a sorti aucune dame et en a encore une sur la barre ou dans le jan intérieur du gagnant, le gagnant marque trois points.
 Ce jeu se joue sans le videau.
+# Plakoto
+Chaque joueur commence avec ses quinze dames sur sa flèche 24 ; les joueurs avancent en sens opposés, comme au backgammon. On ne frappe pas et il n'y a pas de barre.
+- Une dame qui arrive sur une dame adverse seule la bloque : la dame bloquée ne peut pas bouger tant que celle qui la couvre ne s'en va pas. La flèche appartient alors à celui qui bloque, qui peut y ajouter d'autres dames.
+- La mère est la dernière dame qui reste à un joueur sur sa flèche 24. Si elle y est bloquée, son joueur perd aussitôt deux points, sauf si celui qui la bloque a encore des dames sur sa propre flèche 24 : la partie se termine alors dès qu'il n'en a plus là. Si les deux mères sont bloquées, la partie est nulle.
+- Le gagnant du lancer d'ouverture relance pour le premier coup. Le gagnant marque un point, ou deux si le perdant n'a sorti aucune dame.
+# Fevga
+Chaque joueur commence avec ses quinze dames sur sa flèche 24, dans des coins opposés, et les deux joueurs tournent dans le même sens : le départ de l'autre joueur est ta flèche 12. On ne frappe pas : une dame seule tient une flèche, et l'autre joueur ne peut pas s'y poser.
+- Ta première dame doit dépasser le départ de l'autre joueur avant qu'une deuxième dame puisse quitter le tien.
+- Tu ne peux pas tenir les six flèches de ton quart de départ, ni six flèches de suite avec les quinze dames de l'autre joueur derrière elles.
+- Le gagnant du lancer d'ouverture relance pour le premier coup. Le gagnant marque un point, ou deux si le perdant n'a sorti aucune dame.
+# Nardy long
+Le départ et le sens de la fevga : les quinze dames sur la tête (ta flèche 24), dans des coins opposés, les deux joueurs tournant dans le même sens. On ne frappe pas : une dame seule tient une flèche.
+- Une seule dame peut quitter la tête à chaque tour. À ton premier lancer seulement, un 6-6, un 4-4 ou un 3-3 permet d'en sortir deux.
+- Tu ne peux pas tenir six flèches de suite, sauf si au moins une dame de l'autre joueur les a déjà dépassées.
+- Le gagnant du lancer d'ouverture relance pour le premier coup. Le gagnant marque un point (oyn), ou deux (mars) si le perdant n'a sorti aucune dame.
 # Jouer sur l'appareil
-Touche les dés qui brillent en or pour les lancer. Touche une dame, puis un des points, ou fais-la glisser ; un anneau indique un blot que tu frapperais. Chaque déplacement utilise un dé : un dé déjà utilisé est grisé. Pour sortir une dame, amène-la dans le bac à droite. Les dames sur la barre sont déjà en main. Quand un lancer ne peut pas être joué, ses dés brillent en rouge et le tour passe. Ta barre de joueur indique combien de dames tu as sorties, et à la fin les points gagnés. Annuler reprend un coup à la fois, et les dés des tours précédents reviennent tels qu'ils avaient été lancés.
+Touche les dés qui brillent en or pour les lancer. Touche une dame, puis un des points, ou fais-la glisser ; un anneau indique un blot que tu frapperais. Chaque déplacement utilise un dé : un dé déjà utilisé est grisé. Pour sortir une dame, amène-la dans le bac à droite. Les dames sur la barre sont déjà en main. Quand un lancer ne peut pas être joué, ses dés brillent en rouge et le tour passe. Ta barre de joueur indique combien de dames tu as sorties, et à la fin les points gagnés. Annuler reprend un coup à la fois, et les dés des tours précédents reviennent tels qu'ils avaient été lancés. Au plakoto, un anneau montre aussi une dame que tu bloquerais, et une dame bloquée est posée sous celle qui la bloque.

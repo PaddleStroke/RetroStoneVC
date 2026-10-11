@@ -1,18 +1,24 @@
 Ludo
 # Målet
-Før dine fire brikker hele vejen rundt om brættet og ind i midten før modstanderen. Hver spiller har fire brikker i et hjem i sin farve, i modsatte hjørner. Elfenben kaster først, derefter skiftes spillerne.
+Før dine fire brikker hele vejen rundt om brættet og ind i midten før de andre. I kan være to, tre eller fire spillere: vælg hvor mange før spillet, og reglerne: Ludo med bønder eller Petits chevaux med heste. Hver spiller har fire brikker i et hjem i sin farve; er I to, sidder I i modsatte hjørner. Elfenben kaster først, derefter går turen med uret rundt om brættet.
 # Kast og træk
 - Kast terningen, og flyt derefter en af dine brikker med uret rundt på banen, lige så mange felter som du kastede.
 - Kun en 6'er bringer en brik ud af sit hjem og ind på sit startfelt, det farvede felt ved siden af hjemmet. Med en 6'er må du også i stedet flytte en brik, der allerede er på brættet.
 - En 6'er giver dig et ekstra kast. En tredje 6'er i træk er tabt, og din tur slutter med det samme.
 - Hvis ingen brik kan flytte med det kastede tal, er kastet tabt, og turen går videre (efter en 6'er kaster du stadig igen).
 # Møde med andre brikker
-- Lander du præcis på modstanderens brik, sendes den tilbage til sit hjem. Står der to af modstanderens brikker, ryger begge hjem.
-- De sikre felter er de fire startfelter og de fire felter med en stjerne. Der kan ingen blive slået hjem, og begge spilleres brikker må stå der sammen.
-- Dine egne brikker må stå på samme felt. De blokerer ikke: modstanderen må passere dem eller lande på dem.
+- Lander du præcis på en anden spillers brik, sendes den tilbage til sit hjem. Står der to af hans brikker, ryger begge hjem.
+- De sikre felter er de fire startfelter og de fire felter med en stjerne. Der kan ingen blive slået hjem, og forskellige spilleres brikker må stå der sammen.
+- Dine egne brikker må stå på samme felt. De blokerer ikke: de andre må passere dem eller lande på dem.
 # Mod mål
 Efter en hel runde drejer din brik ind på målvejen i sin farve, hvor den er sikker, og fortsætter ind til midten. Den skal nå midten med det præcise tal: et kast, der er for stort, kan ikke flytte den brik.
+# Petits chevaux (hestespil)
+Den franske klassiker, på samme bræt, med heste. Reglerne ovenfor ændres sådan:
+- Kun en 6'er bringer en hest ud af stalden. Hver 6'er giver et ekstra kast, uden grænse.
+- En hest må aldrig passere en anden hest, din egen eller en anden spillers, og to heste står aldrig på samme felt. Lander du præcis på en anden spillers hest, sendes den tilbage til stalden, også på et startfelt: der er ingen sikre felter.
+- Ved slutningen af runden skal en hest standse præcis ved foden af sin trappe, feltet lige før de farvede trin: et kast, der er for stort, kan ikke flytte den.
+- Derefter går den et trin op ad gangen med det præcise tal: en 1'er til trin 1, en 2'er til trin 2 og så videre op til en 6'er til trin 6. Så bringer endnu en 6'er den ind i midten. Øjnene på hvert trin viser det tal, den skal bruge.
 # Spillets afslutning
-Den første spiller, der får alle fire brikker ind i midten, vinder.
+Den første spiller, der får alle fire brikker ind i midten, vinder, og spillet slutter der, også med tre eller fire spillere.
 # Spil på enheden
-Din terning venter i det tomme hjørne ved siden af dig og lyser guld: tryk på den for at kaste. Prikker viser, hvor dine brikker kan gå hen, ringe en brik, du ville sende hjem: tryk på en brik, eller træk den til dens felt, så hopper den derhen. Et kast, der ikke kunne flytte noget, forbliver nedtonet i et rødt skær, mens modstanderen kaster. Fortryd tager træk og kast tilbage, men et kast, der er taget tilbage, falder ud på samme måde igen. Dine brikker i mål vises i dit panel.
+Din terning venter og lyser guld i det tomme hjørne ved siden af dig (med tre eller fire spillere midt i dit hjem): tryk på den for at kaste. Prikker viser, hvor dine brikker kan gå hen, ringe en brik, du ville sende hjem: tryk på en brik, eller træk den til dens felt, så hopper den derhen. Et kast, der ikke kunne flytte noget, forbliver nedtonet i et rødt skær, mens den næste spiller kaster. Fortryd tager træk og kast tilbage, men et kast, der er taget tilbage, falder ud på samme måde igen. Dine brikker i mål vises i dit panel.

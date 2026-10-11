@@ -1,6 +1,7 @@
 Dam Cina
 # Tujuan
 Pindahkan kesepuluh kelerengmu melintasi bintang ke ujung yang berseberangan dengan ujungmu sendiri. Papannya berupa bintang berujung enam dengan 121 lubang. Kelereng pihak terang mula-mula berada di ujung bawah dan pihak gelap di ujung atas, yang diwarnai dengan warna mereka; empat ujung lainnya tetap kosong. Pihak terang jalan lebih dulu.
+Dua, tiga, empat, atau enam orang bisa bermain: pilih jumlahnya sebelum permainan. Pihak terang selalu mulai di ujung bawah, dan yang lain menyusul searah jarum jam mengelilingi bintang, sesuai urutan giliran: bertiga, berselang satu ujung, sehingga masing-masing menuju ujung yang kosong; berempat, dua pasang ujung yang berseberangan; berenam, semua ujung. Jika lebih dari dua pemain, kelereng pemain mana pun yang tertinggal di ujung tujuanmu dihitung untukmu, dan pemain yang tidak punya langkah apa pun melewatkan gilirannya; permainan seri hanya jika tidak ada seorang pun yang bisa melangkah.
 # Satu langkah
 Saat giliranmu, gerakkan salah satu kelerengmu dengan salah satu dari dua cara:
 - Bergeser: ke lubang kosong di sebelahnya. Setiap lubang punya hingga enam tetangga, di sepanjang garis bintang.

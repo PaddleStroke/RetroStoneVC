@@ -1,6 +1,7 @@
 Serpientes y escaleras
 # El objetivo
 Ser el primero en llevar tu ficha a la casilla 100.
+Pueden jugar dos, tres o cuatro: elige cuántos antes de la partida. Con tres o cuatro, las reglas son las mismas para todos: todas las fichas empiezan fuera del tablero y pueden compartir casilla, y el dado pasa por turnos: claras, oscuras, rojas y luego verdes. Las claras y las rojas se sientan abajo; las oscuras y las verdes, arriba.
 # El tablero
 Las casillas están numeradas del 1 al 100 desde abajo a la izquierda: por la fila de abajo hacia la derecha, luego de vuelta hacia la izquierda por la fila siguiente, y así hasta lo alto del tablero, donde está el 100. Las escaleras suben por el tablero, de su pie a su extremo superior; las serpientes bajan, de su cabeza a su cola.
 # Un turno

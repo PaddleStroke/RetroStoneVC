@@ -1,0 +1,20 @@
+Permainan Kerajaan Ur
+# Tujuan
+Larikan ketujuh bidakmu di sepanjang jalurmu dan keluarkan dari papan sebelum lawan. Permainan ini dimainkan di Mesopotamia lebih dari 4.500 tahun yang lalu; inilah aturan yang disusun ulang oleh Irving Finkel dari British Museum berdasarkan sebuah lempeng tanah liat Babilonia. Gading melempar lebih dulu, lalu para pemain bergiliran.
+# Papan
+Papan ini punya dua puluh petak dalam tiga baris. Baris yang paling dekat denganmu hanya milikmu: empat petak di satu ujung, dua di ujung lain, dengan celah di antaranya. Baris tengah yang terdiri dari delapan petak dipakai bersama. Jalurmu menyusuri keempat petakmu menuju ujung papan, lalu menyusuri seluruh baris tengah ke arah sebaliknya, lalu kembali ke barismu sendiri untuk dua petak terakhirnya, dan keluar dari papan. Lima petak bergambar roset: petak sudut dari empat petak setiap pemain, petak sudut dari dua petak setiap pemain, dan petak keempat di baris tengah.
+# Melempar dan melangkah
+- Lempar keempat dadu. Setiap dadu berbentuk piramida dengan dua dari empat ujungnya bertanda: hitung dadu yang ujung bertandanya menghadap ke atas. Hasil lemparan 0 sampai 4; angka 2 paling sering keluar.
+- Jalankan salah satu bidakmu sebanyak itu di sepanjang jalurmu. Bidak yang menunggu di luar papan masuk: lemparan 3 menempatkannya di petak ketigamu.
+- Kamu tidak boleh berhenti di petak yang ditempati bidakmu sendiri.
+- Lemparan 0, atau lemparan yang tidak bisa dipakai bidak mana pun, hangus dan giliran berpindah.
+# Roset
+Berhenti di roset memberimu satu lemparan lagi. Roset di tengah baris bersama juga petak aman: bidak yang berdiri di situ tidak bisa dipulangkan, jadi lawan tidak boleh berhenti di sana.
+# Memukul
+Berhenti di bidak lawan di baris bersama mengirim bidak itu kembali ke luar papan: bidak itu harus memulai perjalanannya lagi. Petakmu sendiri di kedua ujung tidak terjangkau lawan.
+# Mengeluarkan bidak
+Bidak hanya bisa keluar dari papan dengan angka yang pas: dari petak terakhirmu kamu perlu 1, dari petak sebelumnya 2, dan seterusnya. Lemparan yang lebih besar tidak bisa menjalankan bidak itu.
+# Akhir permainan
+Pemain pertama yang mengeluarkan ketujuh bidaknya menang.
+# Bermain di perangkat
+Bidakmu yang menunggu ada di samping awal jalurmu, bidak yang sudah keluar di samping ujungnya, dan dadumu di luar itu, dengan hasil lemparan terakhir. Saat giliranmu melempar, dadumu menyala keemasan: ketuk papan untuk melempar. Titik menunjukkan ke mana bidakmu bisa bergerak, lingkaran menunjukkan bidak yang akan kamu pulangkan: ketuk sebuah bidak, atau seret ke petaknya. Jika hanya satu bidak yang bisa bergerak, bidak itu sudah menyala. Lemparan yang hangus tetap redup dengan cahaya merah selama lawan melempar. Urungkan membatalkan langkah dan lemparan, tetapi lemparan yang dibatalkan akan keluar sama lagi. Bilahmu menunjukkan bidak yang sudah kamu keluarkan.

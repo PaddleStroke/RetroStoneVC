@@ -1,6 +1,7 @@
 Kinesisk skak
 # Målet
 Flyt alle dine ti kugler tværs over stjernen til spidsen over for din egen. Brættet er en sekstakket stjerne med 121 huller. Den lyse side står fra start i den nederste spids og den mørke i den øverste, som er farvet i deres farver; de fire andre spidser forbliver tomme. Den lyse side starter.
+To, tre, fire eller seks kan spille: vælg hvor mange før spillet. Den lyse side starter altid i den nederste spids, og de andre følger med uret rundt om stjernen i den rækkefølge, de spiller: med tre hver anden spids, så hver især går mod en tom spids; med fire to par modstående spidser; med seks alle spidserne. Med flere end to tæller kugler fra enhver spiller, der er blevet i din målspids, med for dig, og en spiller uden noget træk springer over; spillet er kun uafgjort, hvis ingen kan flytte.
 # Et træk
 Når det er din tur, flytter du en af dine kugler på en af to måder:
 - Et skridt: til et tomt hul ved siden af. Hvert hul har op til seks naboer langs stjernens linjer.

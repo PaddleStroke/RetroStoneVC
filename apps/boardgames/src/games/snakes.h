@@ -1,12 +1,12 @@
 /*
- * Snakes and ladders for two players on one device: the rules (a board of 100 squares numbered in a zigzag from the
- * bottom left, one die, the ladders up and the snakes down; a 6 throws again; 100 needs the exact number, a bigger
- * throw bounces back from it; the first on 100 wins).
+ * Snakes and ladders for two to four players on one device: the rules (a board of 100 squares numbered in a zigzag
+ * from the bottom left, one die, the ladders up and the snakes down; a 6 throws again; 100 needs the exact number, a
+ * bigger throw bounces back from it; the first on 100 wins).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- * Squares: 1..100; 0 is off the board, before square 1, where both pawns start. Player 0 (ivory) throws first. The
- * rules take the throws as input (the shell's dice give them), so the tests and the screenshots choose them. The
- * moves' notation (script, the screenshots, the tests): the throws in order, "4 6 2 ...".
+ * Squares: 1..100; 0 is off the board, before square 1, where all the pawns start. Player 0 (ivory) throws first,
+ * then 1, 2, 3 in turn. The rules take the throws as input (the shell's dice give them), so the tests and the
+ * screenshots choose them. The moves' notation (script, the screenshots, the tests): the throws in order, "4 6 2 ...".
  */
 #ifndef SNAKES_H
 #define SNAKES_H
@@ -17,8 +17,9 @@
 #define SN_LAST 100
 #define SN_LINKS 16                     /* 8 ladders, then 8 snakes */
 #define SN_MAX_THROWS 16384             /* a game takes about 80 throws */
+#define SN_PLAYERS 4                    /* the most who can play */
 
-enum { SN_PLAY, SN_WIN0, SN_WIN1 };
+enum { SN_PLAY, SN_WIN0, SN_WIN1, SN_WIN2, SN_WIN3 };   /* SN_WIN0 + the winner */
 
 typedef struct { uint8_t from, to; } sn_link;   /* a ladder's foot and top, or a snake's head and tail */
 extern const sn_link sn_links[SN_LINKS];        /* sn_links[i].to > from: a ladder */
@@ -33,12 +34,14 @@ typedef struct {
 typedef struct {
     uint8_t roll[SN_MAX_THROWS];        /* the throws, in order; those after n were undone (known: how many) */
     int n, known;
-    int pos[2];                         /* each player's square, 0: off the board */
+    int players;                        /* 2..4 */
+    int pos[SN_PLAYERS];                /* each player's square, 0: off the board */
     int turn, winner;                   /* winner -1: nobody yet */
     sn_move last;                       /* the last throw's move (n > 0) */
 } sn_game;
 
-void sn_new(sn_game *g);
+void sn_new(sn_game *g);                /* two players */
+void sn_new_players(sn_game *g, int players);   /* 2..4 players */
 int  sn_play(sn_game *g, int roll);     /* the player to move throws roll (1..6); 0: not allowed (bad, or over) */
 int  sn_undo(sn_game *g);               /* takes the last throw back (it stays known); 0: nothing to undo */
 int  sn_next(const sn_game *g);         /* the throw undone at this point (thrown again: never a new one); 0: none */

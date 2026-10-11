@@ -1,0 +1,27 @@
+Makruk
+# Lo scopo
+Il makruk è la versione thailandese degli scacchi, con cui è strettamente imparentato. Dare scacco matto al Khun (re) avversario: attaccarlo in modo che non possa sfuggire. Il Bianco muove per primo, poi i giocatori si alternano, una mossa ciascuno.
+# Il tavoliere
+Il tavoliere ha otto righe di otto caselle, tutte dello stesso colore. La prima riga di ciascun giocatore contiene, da sinistra: Rua, Ma, Khon, Khun, Met, Khon, Ma, Rua per il Bianco; quella del Nero è uguale ma girata, così i due Khun non si trovano uno di fronte all'altro. I Bia stanno sulla terza riga di ciascun giocatore, e la seconda riga resta vuota.
+# Come si muovono i pezzi
+- Khun (la corona del re): una casella in qualsiasi direzione. Non c'è arrocco.
+- Met (un rombo su un corpo sottile): una casella in diagonale.
+- Khon (una campana da tempio con una guglia): una casella in diagonale, oppure una casella dritto in avanti.
+- Ma (la testa di cavallo): come il cavallo degli scacchi, a forma di L, saltando qualsiasi pezzo in mezzo.
+- Rua (la torre): di quante caselle vuoi lungo una riga o una colonna, come la torre degli scacchi.
+- Bia (la conchiglia bassa): una casella dritto in avanti, mai due. Cattura una casella in diagonale in avanti.
+I pezzi non possono attraversare altri pezzi (tranne il Ma). Un pezzo cattura spostandosi su una casella occupata da un pezzo avversario, che esce dal tavoliere.
+# La promozione
+Un Bia che raggiunge la sesta riga, quella da cui sono partiti i Bia dell'altro giocatore, diventa subito un Met. Da quel momento si muove come un Met.
+# Lo scacco e la fine della partita
+Un Khun attaccato è sotto scacco: la mossa successiva deve toglierlo dallo scacco. Non puoi mai fare una mossa che lasci il tuo Khun sotto scacco.
+- Scacco matto: il Khun è sotto scacco e nessuna mossa può salvarlo. Quel giocatore perde.
+- Stallo: il giocatore di turno non ha mosse legali ma non è sotto scacco. La partita è patta.
+- La partita è patta anche quando restano solo i due Khun, o quando la stessa posizione si ripete per la terza volta con lo stesso giocatore di turno.
+# Il conteggio
+Quando sul tavoliere non resta più nessun Bia non promosso, la partita deve finire entro un numero limitato di mosse. In Thailandia il giocatore più debole conta ad alta voce; qui conta il dispositivo per te.
+- Il conteggio del tavoliere: da quel momento, il giocatore che muove subito dopo conta le proprie mosse. Se il suo conteggio arriva a 64 e l'altro giocatore non dà scacco matto con la mossa successiva, la partita è patta.
+- Il conteggio dei pezzi: quando a un giocatore resta solo il suo Khun, è lui a contare, partendo dal numero di pezzi sul tavoliere (compresi i due Khun) più uno. L'altro giocatore deve dare scacco matto prima che il conteggio superi il limite: 8 con due Rua, 16 con un Rua, 22 con due Khon, 32 con due Ma, 44 con un Khon, e 64 negli altri casi. Il limite viene fissato quando inizia il conteggio e non cambia, anche se in seguito vengono catturati dei pezzi.
+Mentre è in corso un conteggio, la barra del giocatore che conta mostra quante mosse restano all'altro giocatore per dare scacco matto.
+# Giocare sul dispositivo
+Tocca un pezzo per vedere dove può andare, poi tocca una casella, oppure trascina il pezzo. I punti mostrano le mosse, gli anelli le catture. Un Khun sotto scacco si illumina di rosso. Ogni barra mostra i pezzi catturati da quel giocatore.

@@ -1,0 +1,27 @@
+Pachisi
+# O objetivo
+O pachisi é o antigo jogo da Índia que deu origem ao ludo. Cada jogador comanda dois exércitos de quatro peões, em braços opostos da cruz: marfim e âmbar contra ébano e pau-rosa. Leve os seus oito peões pela volta do tabuleiro e de volta ao centro antes do outro jogador. O marfim lança primeiro.
+# O tabuleiro
+O tabuleiro é uma cruz de quatro braços, cada um com três colunas de oito casas, em volta de uma grande casa central, o charkoni. Cada exército começa no charkoni, junto ao seu próprio braço, cuja coluna do meio é marchetada na sua cor. Um peão desce pelo meio do seu próprio braço, dá a volta inteira no tabuleiro no sentido anti-horário pelas colunas de fora e depois sobe de novo pelo meio do seu braço até o charkoni. As doze casas marcadas com uma cruz são castelos: a ponta de cada braço e, em cada coluna de fora, a quarta casa a partir da ponta.
+# Lançar os búzios
+Lance os seis búzios e conte as aberturas viradas para cima:
+- nenhuma: 25
+- uma: 10
+- de duas a seis: esse número (2, 3, 4, 5 ou 6)
+Um 6, 10 ou 25 é uma graça: depois dele você lança de novo.
+# Mover
+- Ande com um peão de qualquer um dos seus exércitos o número tirado. Você também pode recusar a jogada.
+- O primeiro peão de cada exército pode sair do charkoni com qualquer lance. Todos os outros peões, e um peão que foi mandado de volta, precisam de uma graça para sair.
+- Peões dos seus dois exércitos podem dividir uma casa, e nada bloqueia o caminho: um peão pode passar por cima de quaisquer outros.
+- Se nenhum peão puder andar, o lance é perdido (depois de uma graça você ainda lança de novo).
+# Encontrar outros peões
+- Parar em uma casa onde estão peões do outro jogador manda todos eles de volta para o charkoni, e você lança de novo.
+- Um peão em um castelo está seguro: ninguém pode parar em um castelo onde estão peões do outro jogador.
+# A chegada
+Um peão só entra no charkoni com o número exato. Nenhum lance vale 1, então um peão não pode parar na última casa antes do charkoni: ele nunca conseguiria chegar.
+# O fim da partida
+Vence o primeiro jogador que levar os oito peões, dos dois exércitos, até o charkoni.
+# Com quatro jogadores
+Com quatro jogadores, cada um joga com um exército e os parceiros ficam frente a frente: marfim e âmbar contra ébano e pau-rosa. A vez passa ao redor da mesa no sentido anti-horário, como andam os peões. Os seus búzios e os seus peões que chegaram dividem a bandeja no canto à sua direita, quando você olha para o centro a partir do seu braço. Quando todos os seus peões tiverem chegado, você usa os seus lances para andar com os peões do seu parceiro. Os parceiros vencem juntos quando os oito peões deles chegam: as duas barras deles brilham em dourado.
+# Jogando no aparelho
+Os seus búzios ficam na bandeja à sua direita, e os seus peões que chegaram, na bandeja à sua esquerda. Quando é a sua vez, os búzios brilham em dourado: toque no tabuleiro para lançá-los. O valor tirado aparece ao lado deles, em dourado se for uma graça. Os pontos mostram para onde os seus peões podem ir, e os anéis os peões que você mandaria de volta: toque em um peão, ou arraste-o até a casa dele. Onde peões dos seus dois exércitos dividem uma casa indo para lados diferentes, toque nela e depois no ponto que quiser. O botão de passar na sua barra recusa o lance. Desfazer volta jogadas e lances, mas um lance desfeito sai igual de novo. A sua barra mostra os seus peões que chegaram.

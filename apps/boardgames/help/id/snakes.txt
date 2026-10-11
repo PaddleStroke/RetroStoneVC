@@ -1,6 +1,7 @@
 Ular Tangga
 # Tujuan
 Jadilah yang pertama membawa pionmu ke petak 100.
+Dua, tiga, atau empat orang bisa bermain: pilih jumlahnya sebelum permainan. Bertiga atau berempat, aturannya sama untuk semua: semua pion mulai di luar papan dan boleh berada di petak yang sama, dan dadu berpindah bergiliran: terang, gelap, merah, lalu hijau. Terang dan merah duduk di bawah, gelap dan hijau di atas.
 # Papan
 Petak-petaknya bernomor 1 sampai 100, mulai dari kiri bawah: menyusuri baris paling bawah ke kanan, lalu kembali menyusuri baris berikutnya ke kiri, dan begitu seterusnya naik ke atas papan, dengan petak 100 di puncak. Tangga mengarah naik, dari kaki ke puncaknya; ular mengarah turun, dari kepala ke ekornya.
 # Satu giliran

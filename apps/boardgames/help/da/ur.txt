@@ -1,0 +1,20 @@
+Det kongelige spil fra Ur
+# Målet
+Før dine syv brikker langs din vej og af brættet før modstanderen. Spillet blev spillet i Mesopotamien for mere end 4.500 år siden; dette er de regler, Irving Finkel fra British Museum har udledt af en babylonisk lertavle. Elfenben kaster først, derefter skiftes spillerne.
+# Brættet
+Brættet har tyve felter i tre rækker. Rækken nærmest dig er din alene: fire felter i den ene ende, to i den anden, med et mellemrum imellem. Den midterste række på otte felter er fælles. Din vej går hen ad dine fire felter mod enden af brættet, så hele den midterste række den anden vej, så tilbage på din egen række til dens sidste to felter og af brættet. Fem felter har en roset: hjørnefeltet i hver spillers fire, hjørnefeltet i hver spillers to og det fjerde felt i den midterste række.
+# Kast og træk
+- Kast de fire terninger. Hver er en pyramide, hvor to af dens fire spidser er mærket: tæl de terninger, hvis mærkede spids peger opad. Kastet er 0 til 4; 2 kommer oftest.
+- Flyt en af dine brikker lige så mange felter frem ad din vej. En brik, der venter uden for brættet, kommer ind: et kast på 3 sætter den på dit tredje felt.
+- Du kan ikke lande på et felt, hvor en af dine egne brikker står.
+- Et kast på 0, eller et kast, som ingen brik kan bruge, er tabt, og turen går videre.
+# Rosetter
+Lander du på en roset, får du et ekstra kast. Rosetten midt i den fælles række er også et sikkert felt: en brik, der står der, kan ikke sendes tilbage, så modstanderen kan ikke lande der.
+# Slag
+Lander du på modstanderens brik i den fælles række, sendes den tilbage uden for brættet: den må begynde sin rejse forfra. Dine egne felter i enderne er uden for modstanderens rækkevidde.
+# Afspilning
+En brik forlader kun brættet med det præcise tal: fra dit sidste felt skal du bruge en 1'er, fra feltet før en 2'er og så videre. Et større kast kan ikke flytte den brik.
+# Spillets afslutning
+Den første spiller, der har spillet alle syv brikker af, vinder.
+# Spil på enheden
+Dine ventende brikker ligger ved starten af din vej, de afspillede ved dens ende og dine terninger bag dem, med tallet fra det sidste kast. Når det er din tur til at kaste, lyser dine terninger guld: tryk på brættet for at kaste. Prikker viser, hvor dine brikker kan gå hen, ringe en brik, du ville sende tilbage: tryk på en brik, eller træk den til dens felt. Når kun én brik kan flytte, er den allerede fremhævet. Et tabt kast forbliver nedtonet i et rødt skær, mens modstanderen kaster. Fortryd tager træk og kast tilbage, men et kast, der er taget tilbage, falder ud på samme måde igen. Dit panel viser de brikker, du har spillet af.

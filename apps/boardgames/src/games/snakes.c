@@ -1,6 +1,6 @@
 /*
- * Snakes and ladders in RetroStone Board: the numbered board, its wooden ladders and its snakes, the pawns, the die in
- * the bar of the player to throw; tap to throw, the pawn hops on its own (the rules: snakes_rules.c).
+ * Snakes and ladders in RetroStone Board, for two to four: the numbered board, its wooden ladders and its snakes, the
+ * pawns, the die in the bar of the player to throw; tap to throw, the pawn hops on its own (the rules: snakes_rules.c).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * The ladders and the snakes are painted once (at the board's size, for each way round) on a picture laid over the
@@ -24,7 +24,7 @@
 static sn_game G;
 static int sq, fr, made = -1, made_over[2] = {-1, -1};
 static float bx, by;                            /* the board's top left square corner */
-static SDL_Texture *t_board, *t_over[2], *t_pawn[2];
+static SDL_Texture *t_board, *t_over[2], *t_pawn[SN_PLAYERS];
 static struct { int on, hops, linked, at; sn_move m; Uint32 t0; } anim;   /* t0 0: the die still tumbles */
 
 static const art_style WOOD = {{226, 172, 104}, {58, 36, 20}, {112, 72, 40}, {0, 0, 0}, 0.30f, 0};
@@ -39,17 +39,14 @@ static const art_style TONGUE = {{184, 52, 46}, {90, 24, 20}, {90, 24, 20}, {0, 
 static void start(int variant)
 {
     (void)variant;
-    sn_new(&G);
+    sn_new_players(&G, ui.players);
     anim.on = 0;
 }
 
 static int status(void)
 {
-    switch (sn_status(&G)) {
-    case SN_WIN0: return GS_WIN0;
-    case SN_WIN1: return GS_WIN1;
-    default: return GS_PLAY;
-    }
+    int st = sn_status(&G);
+    return st == SN_PLAY ? GS_PLAY : gs_win(st - SN_WIN0);
 }
 
 static int turn(void) { return sn_turn(&G); }
@@ -95,7 +92,7 @@ static int last_throw(int player)
     int v = 0;
     for (int i = 0, p = 0; i < G.n; i++) {
         if (p == player) v = G.roll[i];
-        if (G.roll[i] != 6) p = !p;
+        if (G.roll[i] != 6) p = (p + 1) % G.players;
     }
     return v;
 }
@@ -354,7 +351,7 @@ static void layout(box b)
         ui_free(&t_board);
         art_board_n(SN_SIDE, SN_SIDE, sq, fr, 1, ui_buf(n, n));
         t_board = ui_tex(n, n, ui_buf(n, n));
-        for (int p = 0; p < 2; p++) {
+        for (int p = 0; p < SN_PLAYERS; p++) {
             ui_free(&t_pawn[p]);
             art_piece(PAWN, p, sq, ui_buf(sq, sq));
             t_pawn[p] = ui_tex(sq, sq, ui_buf(sq, sq));
@@ -431,6 +428,22 @@ static void pawn(int p, float x, float y, float size)
     }
 }
 
+/* where the i-th of m pawns on one square stands (squares from its centre), and how big: one alone in the middle, two
+ * side by side, three or four in two rows (dy < 0: the back row) */
+static void place(int i, int m, float *dx, float *dy, float *size)
+{
+    static const float AT[4][4][2] = {
+        {{0, 0}},
+        {{-0.21f, 0}, {0.21f, 0}},
+        {{-0.21f, -0.17f}, {0.21f, -0.17f}, {0, 0.17f}},
+        {{-0.21f, -0.17f}, {0.21f, -0.17f}, {-0.21f, 0.17f}, {0.21f, 0.17f}},
+    };
+    static const float SIZE[4] = {0.96f, 0.8f, 0.62f, 0.62f};
+    *dx = AT[m - 1][i][0];
+    *dy = AT[m - 1][i][1];
+    *size = SIZE[m - 1];
+}
+
 static void draw(void)
 {
     float n = (float)SN_SIDE * sq, x, y;
@@ -453,20 +466,34 @@ static void draw(void)
         ui_mark_last(bx + (x - 0.5f) * sq, by + (y - 0.5f) * sq, (float)sq, (float)sq);
     }
     ui_put(t_over[ui.flipped], bx, by, n, n);
-    int first = mov ? !anim.m.player : !sn_turn(&G);   /* the one standing still first, the one to move on top */
-    for (int k = 0; k < 2; k++) {
-        int p = k ? !first : first;
+    /* the order: the ones standing still first, the one to move (or moving) last, on top; the pawns sharing a square
+     * together, its back row first */
+    int np = G.players, top = mov ? anim.m.player : sn_turn(&G), order[SN_PLAYERS], done[SN_PLAYERS] = {0};
+    for (int k = 0; k < np; k++) order[k] = (top + 1 + k) % np;
+    for (int k = 0; k < np; k++) {
+        int p = order[k];
         if (mov && p == anim.m.player) {
             if (!anim.t0 && !anim.m.from) continue;     /* not on the board yet: it comes on once the die lies still */
             float up = (ui_upside(p) ? -1 : 1) * lift;   /* a hop goes up for the player it faces */
             pawn(p, bx + mx * sq, by + (my - up) * sq, 0.96f * sq);
             continue;
         }
-        if (!G.pos[p]) continue;                /* off the board: in the bar */
-        int shared = G.pos[!p] == G.pos[p] && !(mov && anim.m.player == !p);
+        if (!G.pos[p] || done[p]) continue;     /* off the board: in the bar */
+        int with[SN_PLAYERS], m = 0;            /* the pawns on its square, in the players' order */
+        for (int o = 0; o < np; o++)
+            if (G.pos[o] == G.pos[p] && !(mov && o == anim.m.player)) with[m++] = o;
         centre(G.pos[p], ui.flipped, &x, &y);
-        float side = shared ? ((p == 0) == !ui.flipped ? -0.21f : 0.21f) : 0;
-        pawn(p, bx + (x + side) * sq, by + y * sq, (shared ? 0.8f : 0.96f) * sq);
+        for (int row = 0; row < 2; row++)
+            for (int j = k; j < np; j++) {
+                int o = order[j], i = 0;
+                while (i < m && with[i] != o) i++;
+                float dx, dy, size;
+                if (i == m || done[o]) continue;
+                place(i, m, &dx, &dy, &size);
+                if ((dy < 0) != !row) continue;
+                pawn(o, bx + (x + (ui.flipped ? -dx : dx)) * sq, by + (y + dy) * sq, size * sq);
+                done[o] = 1;
+            }
     }
 }
 
@@ -500,6 +527,14 @@ static void bar(int player, box b)
 
 static void token(int player, int size, uint8_t *rgba) { art_piece(PAWN, player, size, rgba); }
 
+/* where each one sits: 0 and 2 at the bottom (left, right), 1 and 3 at the top (left, right); the die goes from one
+ * side to the other at each turn */
+static void home(int player, float *fx, float *fy)
+{
+    *fx = player < 2 ? 0.25f : 0.75f;
+    *fy = player & 1 ? 0.0f : 1.0f;
+}
+
 /* the menu's card: a corner of the board, a ladder, a snake, a pawn */
 static void thumb(int variant, int size, uint8_t *rgba)
 {
@@ -522,5 +557,6 @@ static const game snakes_game = {
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy,
+    .players = 1u << 2 | 1u << 3 | 1u << 4, .home = home,
 };
 REGISTER_GAME(snakes_game)

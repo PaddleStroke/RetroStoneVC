@@ -1,6 +1,7 @@
 Chińskie warcaby
 # Cel gry
 Przeprowadź wszystkie swoje dziesięć kulek przez gwiazdę do ramienia naprzeciwko twojego. Plansza to sześcioramienna gwiazda ze 121 dołkami. Jasne stoją na początku w dolnym ramieniu, a ciemne w górnym; oba są zabarwione na ich kolory, a pozostałe cztery ramiona zostają puste. Jasne zaczynają.
+Grać mogą dwie, trzy, cztery lub sześć osób: wybierz liczbę przed partią. Jasne zawsze zaczynają w dolnym ramieniu, a pozostali idą za nimi zgodnie z ruchem wskazówek zegara wokół gwiazdy, w kolejności ruchów: we trzech co drugie ramię, tak że każdy zmierza do pustego ramienia; we czterech dwie pary przeciwległych ramion; w sześciu wszystkie ramiona. Gdy gra więcej niż dwie osoby, kulki dowolnego gracza pozostawione w twoim ramieniu docelowym liczą się na twoją korzyść, a gracz, który nie ma żadnego ruchu, traci kolejkę; partia kończy się remisem tylko wtedy, gdy nikt nie może się ruszyć.
 # Ruch
 W swojej kolejce przesuń jedną ze swoich kulek na jeden z dwóch sposobów:
 - Krok: do sąsiedniego pustego dołka. Każdy dołek ma do sześciu sąsiadów wzdłuż linii gwiazdy.

@@ -1,0 +1,18 @@
+Bagh-Chal
+# Tujuan
+Bagh-Chal (harimau dan kambing) berasal dari Nepal. Satu pemain punya empat harimau, pemain lainnya dua puluh kambing. Harimau berusaha menangkap kambing; kambing berusaha mengepung harimau sampai tidak ada satu pun harimau yang bisa bergerak. Kambing (terang) jalan lebih dulu.
+# Papan
+Dua puluh lima titik yang dihubungkan oleh garis: setiap baris, setiap kolom, dan diagonal yang digambar di papan. Bidak hanya bergerak di sepanjang garis-garis ini, dari satu titik ke titik berikutnya. Keempat harimau (gelap) mulai di sudut-sudut papan; kambing mulai di luar papan.
+# Menggerakkan
+- Mula-mula kambing masuk: pada setiap gilirannya, pihak kambing menaruh satu kambing baru di titik kosong mana pun, sampai kedua puluh kambing masuk semua. Sementara itu harimau sudah bergerak. Kambing yang sudah ada di papan belum boleh bergerak sebelum kedua puluh kambing masuk semua.
+- Setelah itu, pada gilirannya, pihak kambing menggerakkan satu kambing di sepanjang garis ke titik berikutnya, jika titik itu kosong, ke arah mana pun.
+- Harimau bergerak di sepanjang garis ke titik kosong berikutnya, ke arah mana pun, atau memakan.
+# Memakan
+Hanya harimau yang memakan. Jika seekor kambing berada di sebelah harimau pada satu garis dan titik tepat di belakangnya kosong, harimau boleh melompati kambing itu ke titik tersebut dan mengangkatnya dari papan. Satu kambing setiap giliran: harimau tidak pernah melompat dua kali berturut-turut, dan tidak pernah melompati harimau lain. Memakan tidak wajib.
+# Akhir permainan
+- Harimau menang jika sudah memakan lima kambing. Ini aturan yang paling umum (ada yang terus bermain sampai lebih banyak).
+- Kambing menang jika tidak ada harimau yang bisa bergerak atau melompat.
+- Pemain yang tidak bisa melangkah pada gilirannya kalah: pihak kambing juga kalah jika tidak ada kambing yang bisa bergerak.
+- Permainan berakhir seri jika posisi yang sama muncul untuk ketiga kalinya dengan pemain yang sama mendapat giliran, atau jika, setelah semua kambing masuk, masing-masing pihak melangkah lima puluh kali tanpa memakan.
+# Bermain di perangkat
+Selama masih ada kambing yang belum masuk, ketuk titik kosong untuk menaruh seekor kambing: titik-titik kecil menunjukkan titik yang masih kosong. Setelah itu, ketuk sebuah bidak lalu titik barunya, atau seret bidak itu. Kambing yang bisa dimakan harimau diberi cincin: ketuk seekor harimau, lalu titik di belakang kambing itu, atau kambing bercincin itu sendiri. Bilah pihak kambing menunjukkan berapa kambing yang belum masuk, dan bilah pihak harimau menunjukkan berapa kambing yang sudah dimakannya.

@@ -1,18 +1,24 @@
 Kızma Birader
 # Amaç
-Dört piyonunu tahtanın çevresinde tam tur dolaştırıp rakibinden önce merkeze getir. Her oyuncunun, karşılıklı köşelerde, kendi renginde bir başlangıç evinde dört piyonu vardır. Önce fildişi zar atar, sonra oyuncular sırayla oynar.
+Dört piyonunu tahtanın çevresinde tam tur dolaştırıp diğerlerinden önce merkeze getir. İki, üç ya da dört kişi oynayabilir: oyundan önce kaç kişi olduğunu ve kuralları seç: piyonlarla Kızma Birader ya da atlarla Petits chevaux. Her oyuncunun kendi renginde bir başlangıç evinde dört piyonu vardır; iki kişiyle evler karşılıklı köşelerdedir. Önce fildişi zar atar, sonra sıra tahtanın çevresinde saat yönünde ilerler.
 # Zar atma ve hamle
 - Zarı at, sonra piyonlarından birini yol üzerinde saat yönünde atılan sayı kadar ilerlet.
 - Bir piyonu başlangıç evinden çıkarıp başlangıç karesine, yani evin yanındaki renkli kareye ancak 6 getirir. 6 attığında bunun yerine tahtadaki bir piyonunu da oynatabilirsin.
 - 6 sana bir atış daha kazandırır. Üst üste üçüncü 6 yanar ve sıran hemen biter.
-- Atılan sayıyla hiçbir piyon hareket edemiyorsa atış yanar ve sıra rakibe geçer (6'dan sonra yine de yeniden atarsın).
+- Atılan sayıyla hiçbir piyon hareket edemiyorsa atış yanar ve sıra sonraki oyuncuya geçer (6'dan sonra yine de yeniden atarsın).
 # Diğer piyonlarla karşılaşma
-- Tam olarak rakibin piyonunun üzerine gelirsen onu başlangıç evine geri gönderirsin. Orada rakibin iki piyonu duruyorsa ikisi de geri gider.
-- Güvenli kareler, dört başlangıç karesi ve yıldızla işaretlenmiş dört karedir. Oradan kimse geri gönderilemez ve iki oyuncunun piyonları da bu kareleri paylaşabilir.
-- Kendi piyonların aynı kareyi paylaşabilir. Yolu kapatmazlar: rakip onları geçebilir ya da üzerlerine gelebilir.
+- Tam olarak başka bir oyuncunun piyonunun üzerine gelirsen onu başlangıç evine geri gönderirsin. Orada onun iki piyonu duruyorsa ikisi de geri gider.
+- Güvenli kareler, dört başlangıç karesi ve yıldızla işaretlenmiş dört karedir. Oradan kimse geri gönderilemez ve farklı oyuncuların piyonları bu kareleri paylaşabilir.
+- Kendi piyonların aynı kareyi paylaşabilir. Yolu kapatmazlar: diğerleri onları geçebilir ya da üzerlerine gelebilir.
 # Eve dönüş
 Tam bir turdan sonra piyonun kendi rengindeki bitiş yoluna girer, orada güvendedir ve merkeze doğru ilerler. Merkeze tam sayıyla ulaşmalıdır: fazla büyük bir atış o piyonu oynatamaz.
+# Petits chevaux (Küçük Atlar)
+Aynı tahtada, atlarla oynanan Fransız klasiği. Yukarıdaki kurallar şöyle değişir:
+- Bir atı ahırından ancak 6 çıkarır. Her 6 bir atış daha kazandırır, sınırsız.
+- Bir at, ister senin ister başka bir oyuncunun olsun, başka bir atı asla geçemez ve iki at asla aynı karede durmaz. Tam olarak başka bir oyuncunun atının üzerine gelirsen onu ahırına geri gönderirsin, başlangıç karesinde bile: güvenli kare yoktur.
+- Turunun sonunda at, merdiveninin dibinde, yani renkli basamaklardan hemen önceki karede tam olarak durmalıdır: fazla büyük bir atış onu oynatamaz.
+- Sonra basamakları tam sayıyla birer birer çıkar: 1. basamak için 1, 2. basamak için 2 ve böyle 6. basamak için 6'ya kadar. Ardından bir 6 daha onu merkeze götürür. Her basamaktaki noktalar gereken sayıyı gösterir.
 # Oyunun sonu
-Dört piyonunu da merkeze ilk getiren oyuncu kazanır.
+Dört piyonunu da merkeze ilk getiren oyuncu kazanır ve oyun orada biter, üç ya da dört kişiyle de.
 # Cihazda oynamak
-Zarın, yanındaki boş köşede altın renginde parlayarak bekler: atmak için ona dokun. Noktalar piyonlarının nereye gidebileceğini, halkalar da başlangıç evine geri göndereceğin piyonu gösterir: bir piyona dokun ya da onu karesine sürükle, piyon oraya sekerek gider. Oynanamayan bir atış, rakip zar atarken kırmızı bir parıltı içinde soluk kalır. Geri al hamleleri ve atışları geri alır, ama geri alınan bir atış yeniden aynı gelir. Merkeze ulaşan piyonların şeridinde görünür.
+Zarın, yanındaki boş köşede (üç ya da dört kişiyle, kendi evinin ortasında) altın renginde parlayarak bekler: atmak için ona dokun. Noktalar piyonlarının nereye gidebileceğini, halkalar da başlangıç evine geri göndereceğin piyonu gösterir: bir piyona dokun ya da onu karesine sürükle, piyon oraya sekerek gider. Oynanamayan bir atış, sonraki oyuncu zar atarken kırmızı bir parıltı içinde soluk kalır. Geri al hamleleri ve atışları geri alır, ama geri alınan bir atış yeniden aynı gelir. Merkeze ulaşan piyonların şeridinde görünür.

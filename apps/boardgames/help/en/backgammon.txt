@@ -1,6 +1,6 @@
 Backgammon
 # The aim
-Bring all fifteen of your checkers round the board into your home board, then bear them off. The first player to bear off all fifteen wins. The players move in opposite directions, ivory one way round and ebony the other.
+Bring all fifteen of your checkers round the board into your home board, then bear them off. The first player to bear off all fifteen wins. The players move in opposite directions, ivory one way round and ebony the other. Choose the game before playing: backgammon (the card with the usual start), plakoto (all the checkers in the two corners on the right, one pinned), fevga (all the checkers in opposite corners, one gone ahead from each) or long nardy (opposite corners, two checkers gone from each and a double six). The rules below are those of backgammon; the other three are described after them.
 # The board
 There are 24 narrow triangles, the points, six in each quarter of the board. The bar down the middle divides each side into an outer board and a home board; the two home boards face each other, on the side of the tray. Each player numbers the points from 1, at the end of their own home board, round to 24, at the end of the other player's home board. At the start each player has two checkers on their 24 point, five on their 13 point, three on their 8 point and five on their 6 point.
 # Throwing and moving
@@ -19,5 +19,20 @@ Once all fifteen of your checkers are in your home board, you may bear them off:
 - A gammon: if the loser has not borne off a single checker, the winner scores two points.
 - A backgammon: if the loser has not borne off any checker and still has one on the bar or in the winner's home board, the winner scores three points.
 This game is played without the doubling cube.
+# Plakoto
+Each player starts with all fifteen checkers on their 24 point; the players move in opposite directions, as in backgammon. There is no hitting and no bar.
+- A checker that lands on a single enemy checker pins it: the pinned checker may not move until its pinner leaves. The point then belongs to the pinner, who may add more checkers to it.
+- The mother is the last checker left on a player's 24 point. If it is pinned there, its player loses two points at once, unless the pinner still has checkers on their own 24 point: then the game ends as soon as they have none left there. If both mothers are pinned, the game is a draw.
+- The winner of the opening throw throws again for the first move. The winner scores one point, or two if the loser has not borne off any checker.
+# Fevga
+Each player starts with all fifteen checkers on their 24 point, in opposite corners, and both players move the same way round the board: the other player's start is your 12 point. There is no hitting: a single checker holds a point, and the other player may not land there.
+- Your first checker must pass the other player's start before a second checker may leave yours.
+- You may not hold all six points of your starting quarter, nor six points in a row with all fifteen of the other player's checkers behind them.
+- The winner of the opening throw throws again for the first move. The winner scores one point, or two if the loser has not borne off any checker.
+# Long nardy
+The start and the way round of fevga: all fifteen checkers on the head (your 24 point), in opposite corners, both players moving the same way. There is no hitting: a single checker holds a point.
+- Only one checker may leave the head each turn. On your first throw only, a 6-6, a 4-4 or a 3-3 lets two checkers leave it.
+- You may not make six points in a row unless at least one of the other player's checkers is already past them.
+- The winner of the opening throw throws again for the first move. The winner scores one point (oyn), or two (mars) if the loser has not borne off any checker.
 # Playing on the device
-Tap the dice glowing gold to throw them. Tap a checker, then one of the dots, or drag it; a ring shows a blot you would hit. Each move uses one die: a die that has been used is dimmed. To bear off, move the checker to the tray on the right. Checkers on the bar are already in hand. When a throw cannot be played, its dice glow red and the turn passes. Your bar shows how many checkers you have borne off, and at the end the points won. Undo takes back one move at a time, and the dice of earlier turns come back as they were thrown.
+Tap the dice glowing gold to throw them. Tap a checker, then one of the dots, or drag it; a ring shows a blot you would hit. Each move uses one die: a die that has been used is dimmed. To bear off, move the checker to the tray on the right. Checkers on the bar are already in hand. When a throw cannot be played, its dice glow red and the turn passes. Your bar shows how many checkers you have borne off, and at the end the points won. Undo takes back one move at a time, and the dice of earlier turns come back as they were thrown. In plakoto, a ring also shows a checker you would pin, and a pinned checker lies under the one that pins it.

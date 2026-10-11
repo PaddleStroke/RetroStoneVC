@@ -1,6 +1,7 @@
 Çin Daması
 # Amaç
 On bilyenin hepsini yıldızın karşı tarafına, kendi köşenin tam karşısındaki köşeye götür. Tahta, 121 delikli altı köşeli bir yıldızdır. Açık renk başta alttaki köşede, koyu renk üstteki köşededir; bu köşeler onların renklerine boyanmıştır. Diğer dört köşe boş kalır. Önce açık renk oynar.
+İki, üç, dört ya da altı kişi oynayabilir: kaç kişi olacağını oyundan önce seç. Açık renk her zaman alttaki köşeden başlar, diğerleri de oynama sırasına göre yıldızın çevresinde saat yönünde onu izler: üç kişide birer köşe atlanarak, böylece herkes boş bir köşeye gider; dört kişide karşılıklı iki köşe çifti; altı kişide bütün köşeler. İkiden fazla oyuncu varken hedef köşende kalmış herhangi bir oyuncunun bilyeleri senin lehine sayılır, hiç hamlesi olmayan oyuncu da sırasını geçer; oyun ancak kimse hamle yapamazsa berabere biter.
 # Bir hamle
 Sıra sende olduğunda, bilyelerinden birini iki yoldan biriyle oynat:
 - Bir adım: yanındaki boş bir deliğe. Her deliğin, yıldızın çizgileri boyunca en fazla altı komşusu vardır.

@@ -1,0 +1,27 @@
+Pachisi
+# Amaç
+Pachisi, Kızma Birader'in türediği eski Hint oyunudur. Her oyuncu, haçın karşılıklı kollarında dörder piyonluk iki orduyu yönetir: fildişi ve kehribar, abanoz ve gül ağacına karşı. Sekiz piyonunun hepsini tahtanın çevresinde dolaştırıp rakibinden önce ortadaki eve getir. Önce fildişi zar atar.
+# Tahta
+Tahta, büyük bir orta karenin, yani charkoni'nin çevresinde dört koldan oluşan bir haçtır; her kol sekizer karelik üç sütundan oluşur. Her ordu, orta sütunu kendi renginde kakmalı olan kolunun yanında, charkoni'de başlar. Bir piyon kendi kolunun ortasından aşağı iner, dış sütunlar boyunca saat yönünün tersine bütün tahtayı dolaşır, sonra kendi kolunun ortasından yukarı çıkıp charkoni'ye girer. Çarpı işaretli on iki kare kaledir: her kolun ucu ve her dış sütunda uçtan dördüncü kare.
+# Kaurileri atma
+Altı kauri kabuğunu at ve ağzı yukarı bakanları say:
+- hiçbiri: 25
+- biri: 10
+- ikiden altıya: o sayı (2, 3, 4, 5 ya da 6)
+6, 10 ya da 25 şanslı atıştır: ardından yeniden atarsın.
+# Hamle
+- İki ordundan birinin bir piyonunu atılan sayı kadar ilerlet. Hamle yapmamayı da seçebilirsin.
+- Her ordunun ilk piyonu charkoni'den herhangi bir atışla çıkabilir. Diğer her piyonun ve geri gönderilmiş bir piyonun çıkmak için şanslı atışa ihtiyacı vardır.
+- İki ordunun piyonları aynı kareyi paylaşabilir ve hiçbir şey yolu kapatmaz: bir piyon başka her piyonun üzerinden geçebilir.
+- Hiçbir piyon hareket edemiyorsa atış yanar (şanslı atıştan sonra yine de yeniden atarsın).
+# Diğer piyonlarla karşılaşma
+- Rakibin piyonlarının durduğu bir kareye gelirsen hepsini charkoni'ye geri gönderirsin ve yeniden atarsın.
+- Kaledeki piyon güvendedir: rakibin piyonlarının durduğu bir kaleye kimse gelemez.
+# Eve dönüş
+Bir piyon charkoni'ye yalnızca tam sayıyla girer. Hiçbir atış 1 değildir, bu yüzden bir piyon charkoni'den önceki son karede duramaz: oradan asla eve varamazdı.
+# Oyunun sonu
+İki ordusuyla birlikte sekiz piyonunun hepsini eve ilk getiren oyuncu kazanır.
+# Dört oyuncu
+Dört oyuncuyla her oyuncu bir orduyu yönetir ve ortaklar karşılıklı oturur: fildişi ve kehribar, abanoz ve gül ağacına karşı. Sıra, piyonların gittiği yönde, masanın çevresinde saat yönünün tersine döner. Kaurilerin ve eve varan piyonların, kendi kolundan ortaya bakarken sağındaki köşede aynı bölmeyi paylaşır. Bütün piyonların eve varınca atışların ortağının piyonlarını yürütür. Ortaklar, sekiz piyonlarının hepsi eve varınca birlikte kazanır: ikisinin de şeridi altın renginde parlar.
+# Cihazda oynamak
+Kaurilerin sağındaki bölmede, eve varan piyonların solundaki bölmede durur. Sıra sendeyken kauriler altın renginde parlar: atmak için tahtaya dokun. Atılan değer yanlarında görünür; şanslı atışsa altın renginde. Noktalar piyonlarının nereye gidebileceğini, halkalar da geri göndereceğin piyonları gösterir: bir piyona dokun ya da onu karesine sürükle. İki ordunun piyonları aynı karede farklı yönlere gidiyorsa o kareye, sonra istediğin noktaya dokun. Şeridindeki pas düğmesiyle atıştan vazgeçersin. Geri al hamleleri ve atışları geri alır, ama geri alınan bir atış yeniden aynı gelir. Şeridin eve varan piyonlarını gösterir.

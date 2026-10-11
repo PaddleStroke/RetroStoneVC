@@ -1,0 +1,18 @@
+Bagh-Chal
+# O objetivo
+O Bagh-Chal, «tigres e cabras», vem do Nepal. Um jogador tem quatro tigres; o outro, vinte cabras. Os tigres tentam apanhar cabras; as cabras tentam encurralar os tigres de forma a que nenhum deles se possa mover. As cabras (claras) jogam primeiro.
+# O tabuleiro
+Vinte e cinco pontos ligados por linhas: cada fila, cada coluna e as diagonais desenhadas no tabuleiro. As peças só se movem ao longo destas linhas, de um ponto para o seguinte. Os quatro tigres (escuros) começam nos cantos; as cabras começam fora do tabuleiro.
+# Movimento
+- Primeiro entram as cabras: em cada uma das suas vezes, as cabras colocam uma nova cabra em qualquer ponto livre, até terem entrado todas as vinte. Entretanto, os tigres já se movem. Uma cabra no tabuleiro não se pode mover antes de terem entrado todas as vinte.
+- Depois, na sua vez, as cabras deslocam uma cabra ao longo de uma linha para o ponto seguinte, se estiver livre, em qualquer direção.
+- Um tigre desloca-se ao longo de uma linha para o ponto livre seguinte, em qualquer direção, ou captura.
+# Captura
+Só os tigres capturam. Quando uma cabra está ao lado de um tigre ao longo de uma linha e o ponto logo a seguir está livre, o tigre pode saltar por cima dela para esse ponto e retirar a cabra do tabuleiro. Só uma cabra por vez: um tigre nunca salta duas vezes seguidas, e nunca salta por cima de outro tigre. Capturar não é obrigatório.
+# O fim do jogo
+- Os tigres ganham quando tiverem capturado cinco cabras. É a regra mais comum (há quem continue a jogar para capturar mais).
+- As cabras ganham quando nenhum tigre se consegue mover nem saltar.
+- Perde o jogador que não se consegue mover na sua vez: as cabras também perdem se nenhuma delas se conseguir mover.
+- O jogo termina empatado quando a mesma posição se repete pela terceira vez com o mesmo jogador a jogar, ou após cinquenta jogadas de cada lado sem capturas, depois de todas as cabras terem entrado.
+# Jogar no dispositivo
+Enquanto ainda houver cabras por entrar, toca num ponto livre para colocar uma cabra: os pontinhos mostram os pontos livres. Depois, toca numa peça e no seu novo ponto, ou arrasta-a. As cabras que os tigres podem capturar têm um anel: toca num tigre e depois no ponto logo a seguir à cabra, ou na própria cabra com o anel. A barra das cabras mostra quantas cabras ainda estão por entrar, e a dos tigres quantas cabras já capturaram.

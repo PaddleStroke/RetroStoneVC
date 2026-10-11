@@ -35,6 +35,9 @@ One look across the app, like the Arcade games' house kit:
   pieces, counters and dice all follow). `home(player)` says where each one sits (a point of the board, 0..1): their
   bar goes on that side, top or bottom; `gs_win(player)` / `gs_winner(status)` for the status. One player (a puzzle,
   a code to find): `GS_WIN0` solved, `GS_WIN1` failed; the shell hides flip and face to face.
+- **The menu's sections**: strategy, chess family, dice & race, cards & tiles, guessing games (headings in
+  `help/<lang>/_menu.txt`, a line each). The shell's `SECTION_OF` table files a game by its id (unlisted: strategy);
+  within a section the games go by `order`.
 - **Wood**: every board is the house wood (`art_board_n`: checkered squares, or one plain plank with lines drawn on
   it), in its walnut frame, on the shell's green table.
 - **Pieces** from `art.c` (`art_piece`, `art_counter`), with `ui_shadow()` under the standing ones and

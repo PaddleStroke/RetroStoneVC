@@ -1,0 +1,27 @@
+Pachisi
+# The aim
+Pachisi is the old game of India from which Ludo was made. Each player commands two armies of four pieces, on opposite arms of the cross: ivory and amber against ebony and rosewood. Bring all eight of your pieces round the board and home to the centre before the other player. Ivory throws first.
+# The board
+The board is a cross of four arms, each made of three columns of eight squares, round a large centre square, the charkoni. Each army starts in the charkoni beside its own arm, whose middle column is inlaid in its colour. A piece goes down the middle of its own arm, round the whole board anticlockwise along the outer columns, then back up the middle of its arm into the charkoni. The twelve squares marked with a cross are castles: the end of each arm and, in each outer column, the fourth square from the end.
+# Throwing the cowries
+Throw the six cowrie shells and count the mouths turned up:
+- none: 25
+- one: 10
+- two to six: that number (2, 3, 4, 5 or 6)
+A 6, 10 or 25 is a grace: after it you throw again.
+# Moving
+- Move one piece of either of your armies by the number thrown. You may also decline to move.
+- Each army's first piece may leave the charkoni with any throw. Every other piece, and a piece that was sent back, needs a grace to leave it.
+- Pieces of both your armies may share a square, and nothing blocks the way: a piece may pass over any others.
+- If no piece can move, the throw is lost (after a grace you still throw again).
+# Meeting other pieces
+- Landing on a square where the other player's pieces stand sends all of them back to the charkoni, and you throw again.
+- A piece on a castle is safe: no one may land on a castle where the other player's pieces stand.
+# Going home
+A piece enters the charkoni with the exact number only. No throw is a 1, so a piece may not stop on the last square before the charkoni: it could never get home.
+# The end of the game
+The first player to bring all eight pieces home, both armies, wins.
+# Four players
+With four players, each plays one army and partners sit opposite: ivory and amber against ebony and rosewood. The turn goes round the table anticlockwise, the way the pieces go. Your cowries and your pieces home share the tray in the corner on your right, as you face the centre from your arm. Once all your pieces are home, your throws move your partner's pieces. The partners win together when all eight of their pieces are home: both their bars glow gold.
+# Playing on the device
+Your cowries lie in the tray on your right, your pieces home in the tray on your left. When it is your turn, the cowries glow gold: tap the board to throw them. The value thrown shows beside them, in gold for a grace. Dots show where your pieces can go, rings the pieces you would send back: tap a piece, or drag it to its square. Where pieces of both your armies share a square going different ways, tap it, then tap the dot you want. The pass button in your bar declines the throw. Undo takes back moves and throws, but a throw taken back comes out the same again. Your bar shows your pieces home.

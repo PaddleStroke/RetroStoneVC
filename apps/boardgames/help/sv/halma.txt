@@ -1,6 +1,7 @@
 Kinaschack
 # Målet
 Flytta alla dina tio kulor tvärs över stjärnan till spetsen mitt emot din egen. Brädet är en sexuddig stjärna med 121 hål. Den ljusa sidan står från början i den nedre spetsen och den mörka i den övre, som är färgade i deras färger; de fyra andra spetsarna förblir tomma. Den ljusa sidan börjar.
+Två, tre, fyra eller sex kan spela: välj hur många före spelet. Den ljusa sidan börjar alltid i den nedre spetsen och de andra följer medurs runt stjärnan i den ordning de spelar: med tre varannan spets, så att var och en går mot en tom spets; med fyra två par motsatta spetsar; med sex alla spetsar. Med fler än två räknas kulor från vilken spelare som helst som har blivit kvar i din målspets till din fördel, och en spelare som inte har något drag står över; spelet blir oavgjort bara om ingen kan flytta.
 # Ett drag
 När det är din tur flyttar du en av dina kulor på ett av två sätt:
 - Ett steg: till ett tomt hål bredvid. Varje hål har upp till sex grannar, längs stjärnans linjer.

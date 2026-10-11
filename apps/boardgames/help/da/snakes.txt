@@ -1,6 +1,7 @@
 Slanger og stiger
 # Målet
 Vær den første til at få din brik til felt 100.
+To, tre eller fire kan spille: vælg hvor mange før spillet. Med tre eller fire gælder de samme regler for alle: alle brikkerne starter uden for brættet og må stå på samme felt, og terningen går rundt i rækkefølgen lys, mørk, rød og grøn. Lys og rød sidder nederst, mørk og grøn øverst.
 # Brættet
 Felterne er nummereret fra 1 til 100, fra nederst til venstre: hen ad den nederste række mod højre, så tilbage ad den næste række mod venstre, og så videre op ad brættet, med 100 øverst. Stiger fører op ad brættet, fra deres fod til deres top; slanger fører ned, fra deres hoved til deres hale.
 # En tur

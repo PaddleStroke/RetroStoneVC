@@ -1,0 +1,18 @@
+Bagh-Chal
+# Het doel
+Bagh-Chal, ‘tijgers en geiten’, komt uit Nepal. De ene speler heeft vier tijgers, de andere twintig geiten. De tijgers proberen geiten te vangen; de geiten proberen de tijgers zo in te sluiten dat geen van hen nog kan bewegen. De geiten (licht) beginnen.
+# Het bord
+Vijfentwintig punten, verbonden door lijnen: elke rij, elke kolom en de diagonalen die op het bord getekend zijn. Stukken bewegen alleen langs deze lijnen, van het ene punt naar het volgende. De vier tijgers (donker) beginnen op de hoeken; de geiten beginnen naast het bord.
+# Schuiven
+- Eerst komen de geiten erbij: in elke beurt zetten de geiten een nieuwe geit op een leeg punt naar keuze, tot alle twintig op het bord staan. Intussen bewegen de tijgers al. Een geit op het bord mag pas bewegen als alle twintig op het bord staan.
+- Daarna schuiven de geiten in hun beurt één geit langs een lijn naar het volgende punt, als dat leeg is, in elke richting.
+- Een tijger gaat langs een lijn naar het volgende lege punt, in elke richting, of slaat.
+# Slaan
+Alleen de tijgers slaan. Staat een geit langs een lijn naast een tijger en is het punt er direct achter leeg, dan mag de tijger eroverheen naar dat punt springen en de geit van het bord nemen. Eén geit per beurt: een tijger springt nooit twee keer achter elkaar, en springt nooit over een andere tijger. Slaan is niet verplicht.
+# Het einde van het spel
+- De tijgers winnen als ze vijf geiten hebben geslagen. Dat is de meest gangbare regel (sommigen spelen door voor meer).
+- De geiten winnen als geen enkele tijger kan bewegen of springen.
+- Een speler die in zijn beurt niet kan bewegen, verliest: ook de geiten verliezen als geen van hen kan bewegen.
+- Het spel eindigt in gelijkspel als dezelfde stelling voor de derde keer terugkomt met dezelfde speler aan zet, of na vijftig zetten van elke speler zonder slag zodra alle geiten op het bord staan.
+# Spelen op het apparaat
+Zolang er nog geiten moeten komen, tik je op een leeg punt om er een geit neer te zetten: stippen tonen de vrije punten. Tik daarna op een stuk en dan op zijn nieuwe punt, of sleep het. De geiten die de tijgers kunnen slaan, hebben een ring: tik op een tijger en dan op het punt achter de geit, of op de geit met de ring zelf. De balk van de geiten toont hoeveel geiten er nog moeten komen, die van de tijgers hoeveel geiten ze hebben geslagen.

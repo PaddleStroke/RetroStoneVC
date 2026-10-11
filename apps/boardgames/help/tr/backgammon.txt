@@ -1,6 +1,6 @@
 Tavla
 # Amaç
-On beş pulunun hepsini tahtanın çevresinden dolaştırıp kendi evine getir, sonra onları topla. On beş pulunun hepsini ilk toplayan oyuncu kazanır. Oyuncular ters yönlerde ilerler: fildişi pullar bir yöne, abanoz pullar öbür yöne döner.
+On beş pulunun hepsini tahtanın çevresinden dolaştırıp kendi evine getir, sonra onları topla. On beş pulunun hepsini ilk toplayan oyuncu kazanır. Oyuncular ters yönlerde ilerler: fildişi pullar bir yöne, abanoz pullar öbür yöne döner. Başlamadan önce oyunu seç: tavla (her zamanki dizilişin kartı), plakoto (bütün pullar sağdaki iki köşede, biri bastırılmış), fevga (bütün pullar karşılıklı köşelerde, her birinden bir pul önden gitmiş) ya da uzun nard (karşılıklı köşeler, her birinden iki pul çıkmış ve düşeş). Aşağıdaki kurallar tavlanındır; diğer üç oyun onlardan sonra anlatılır.
 # Tahta
 Tahtada, her çeyreğinde altışar tane olmak üzere 24 dar üçgen, yani hane vardır. Ortadaki bar, her oyuncunun tarafını bir bahçe ve bir eve böler; iki ev, toplama bölmesinin olduğu yanda karşı karşıyadır. Her oyuncu haneleri, kendi evinin ucundaki 1'den başlayıp rakibin evinin ucundaki 24'e kadar numaralar. Başlangıçta her oyuncunun kendi 24 numaralı hanesinde iki, 13 numaralı hanesinde beş, 8 numaralı hanesinde üç ve 6 numaralı hanesinde beş pulu vardır.
 # Zar atma ve hamle
@@ -19,5 +19,20 @@ On beş pulunun hepsi evindeyse onları toplayabilirsin: bir sayı, o numaralı 
 - Mars: kaybeden hiç pul toplamamışsa, kazanan iki puan alır.
 - Üçlü mars (backgammon): kaybeden hiç pul toplamamışsa ve hâlâ barda ya da kazananın evinde pulu varsa, kazanan üç puan alır.
 Bu oyun katlama küpü olmadan oynanır.
+# Plakoto
+Her oyuncu on beş pulunun hepsiyle kendi 24. hanesinde başlar; oyuncular tavladaki gibi ters yönlere ilerler. Pul kırmak da kırık yeri de yoktur.
+- Rakibin tek pulunun üstüne gelen pul onu bastırır: bastırılan pul, üstündeki gidene kadar hareket edemez. Hane artık bastıranındır; oraya başka pullar da koyabilir.
+- Ana, bir oyuncunun 24. hanesinde kalan son puldur. Ana orada bastırılırsa sahibi hemen iki puan kaybeder; ancak bastıranın kendi 24. hanesinde hâlâ pulu varsa oyun, orada hiç pulu kalmadığı anda biter. İki ana da bastırılırsa oyun berabere biter.
+- Başlangıç atışını kazanan, ilk hamle için zarları yeniden atar. Kazanan bir puan alır; kaybeden hiç pul toplamamışsa iki puan.
+# Fevga
+Her oyuncu on beş pulunun hepsiyle kendi 24. hanesinde, karşılıklı köşelerde başlar ve ikisi de tahtanın çevresinde aynı yöne ilerler: rakibin başlangıcı senin 12. hanendir. Pul kırılmaz: tek bir pul haneyi tutar ve rakip oraya gelemez.
+- İlk pulun rakibin başlangıcını geçmeden, ikinci bir pul senin başlangıcından çıkamaz.
+- Başlangıç çeyreğinin altı hanesinin hepsini tutamazsın; rakibin on beş pulunun hepsi arkasında kalan altı ardışık haneyi de tutamazsın.
+- Başlangıç atışını kazanan, ilk hamle için zarları yeniden atar. Kazanan bir puan alır; kaybeden hiç pul toplamamışsa iki puan.
+# Uzun nard
+Fevganın dizilişi ve yönü: on beş pulun hepsi başta (senin 24. hanen), karşılıklı köşelerde, iki oyuncu da aynı yöne ilerler. Pul kırılmaz: tek bir pul haneyi tutar.
+- Her turda baştan yalnızca bir pul çıkabilir. Yalnızca ilk atışında 6-6, 4-4 ya da 3-3 gelirse iki pul çıkabilir.
+- Rakibin en az bir pulu onları geçmiş olmadıkça altı ardışık haneyi tutamazsın.
+- Başlangıç atışını kazanan, ilk hamle için zarları yeniden atar. Kazanan bir puan (oyn), kaybeden hiç pul toplamamışsa iki puan (mars) alır.
 # Cihazda oynamak
-Zarları atmak için altın renginde parlayan zarlara dokun. Bir pula, sonra noktalardan birine dokun ya da pulu sürükle; halka, kıracağın açık pulu gösterir. Her hamle bir zarı kullanır: kullanılmış zar soluklaşır. Pul toplamak için pulu sağdaki toplama bölmesine götür. Bardaki pullar zaten eldedir. Bir atış oynanamıyorsa zarları kırmızı parlar ve sıra rakibe geçer. Şeridin kaç pul topladığını, oyunun sonunda da kazanılan puanları gösterir. Geri al her seferinde bir hamleyi geri alır, önceki sıraların zarları da atıldıkları gibi geri gelir.
+Zarları atmak için altın renginde parlayan zarlara dokun. Bir pula, sonra noktalardan birine dokun ya da pulu sürükle; halka, kıracağın açık pulu gösterir. Her hamle bir zarı kullanır: kullanılmış zar soluklaşır. Pul toplamak için pulu sağdaki toplama bölmesine götür. Bardaki pullar zaten eldedir. Bir atış oynanamıyorsa zarları kırmızı parlar ve sıra rakibe geçer. Şeridin kaç pul topladığını, oyunun sonunda da kazanılan puanları gösterir. Geri al her seferinde bir hamleyi geri alır, önceki sıraların zarları da atıldıkları gibi geri gelir. Plakotoda halka, bastıracağın pulu da gösterir; bastırılan pul, onu bastıran pulun altında durur.

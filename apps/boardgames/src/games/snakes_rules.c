@@ -32,15 +32,18 @@ int sn_link_at(int square)
     return -1;
 }
 
-void sn_new(sn_game *g)
+void sn_new_players(sn_game *g, int players)
 {
     memset(g, 0, sizeof *g);
+    g->players = players < 2 ? 2 : players > SN_PLAYERS ? SN_PLAYERS : players;
     g->winner = -1;
 }
 
+void sn_new(sn_game *g) { sn_new_players(g, 2); }
+
 int sn_turn(const sn_game *g) { return g->turn; }
 
-int sn_status(const sn_game *g) { return g->winner < 0 ? SN_PLAY : g->winner ? SN_WIN1 : SN_WIN0; }
+int sn_status(const sn_game *g) { return g->winner < 0 ? SN_PLAY : SN_WIN0 + g->winner; }
 
 /* one throw on the position (the history is the caller's) */
 static void apply(sn_game *g, int roll)
@@ -51,7 +54,7 @@ static void apply(sn_game *g, int roll)
     m.to = l < 0 ? m.land : sn_links[l].to;
     g->pos[m.player] = m.to;
     if (m.to == SN_LAST) g->winner = m.player;
-    else if (!m.again) g->turn = !m.player;
+    else if (!m.again) g->turn = (m.player + 1) % g->players;   /* round the table */
     g->last = m;
 }
 
@@ -69,7 +72,7 @@ int sn_undo(sn_game *g)
     if (!g->n) return 0;
     int n = g->n - 1;
     g->n = 0;
-    g->pos[0] = g->pos[1] = 0;
+    memset(g->pos, 0, sizeof g->pos);
     g->turn = 0;
     g->winner = -1;
     memset(&g->last, 0, sizeof g->last);

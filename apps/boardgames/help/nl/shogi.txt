@@ -1,6 +1,6 @@
 Shogi
 # Het doel
-Shogi is Japans schaken. Zet de andere koning schaakmat: val hem zo aan dat hij niet kan ontsnappen. Zwart (sente) begint, daarna spelen de spelers om de beurt, elk één zet. Alle stukken hebben dezelfde kleur: een stuk wijst naar de tegenstander, zo zie je van wie het is.
+Shogi is Japans schaken. Zet de andere koning schaakmat: val hem zo aan dat hij niet kan ontsnappen. Zwart (sente) begint, daarna spelen de spelers om de beurt, elk één zet. Alle stukken hebben dezelfde kleur: een stuk wijst naar de tegenstander, zo zie je van wie het is. Kies het bord voor de partij: shogi op 9 bij 9 velden (de kaart vol stukken) of minishogi op 5 bij 5 (het kleine bord).
 # Hoe de stukken bewegen
 - Koning (玉, 王): één veld in elke richting.
 - Toren (飛): zoveel velden als je wilt over een rij of een kolom.
@@ -28,5 +28,9 @@ Een koning die wordt aangevallen staat schaak: de volgende zet moet het schaak o
 - Schaakmat: de koning staat schaak en geen enkele zet kan hem redden. Die speler verliest. Een speler die helemaal geen geldige zet heeft, verliest ook.
 - Herhaling: als dezelfde stelling (de stukken op het bord en in de hand, dezelfde speler aan zet) voor de vierde keer voorkomt, eindigt de partij in remise. Maar als een speler sinds het eerste voorkomen van die stelling met elke zet schaak gaf, verliest die speler.
 - Er is geen regel voor twee koningen die allebei het kamp van de tegenstander zijn binnengedrongen: speel gewoon door.
+# Minishogi
+Een kleine shogi op 5 bij 5 velden. Elke speler begint met een koning, een gouden generaal, een zilveren generaal, een loper en een toren op zijn eerste rij, in die volgorde van links, en een pion voor de koning. Er zijn geen paarden en geen lansen. De stukken bewegen, slaan en worden ingezet zoals in shogi, met dezelfde drie beperkingen bij het inzetten. Twee verschillen:
+- De promotiezone is alleen de verste rij. Een pion die haar bereikt, moet promoveren.
+- Herhaling: als dezelfde stelling voor de vierde keer ontstaat, verliest Zwart (sente), die begon. Maar een speler die sinds de stelling voor het eerst ontstond met elke zet schaak gaf, verliest in plaats daarvan.
 # Spelen op het apparaat
 Tik op een stuk om te zien waar het heen kan en tik dan op een veld, of sleep het stuk. Stippen tonen de zetten, ringen het slaan. Een koning die schaak staat, licht rood op. Je stukken in de hand staan in je balk, met hun aantal: tik op een stuk en dan op een veld, of sleep het naar het bord. Als een stuk mag promoveren, kies dan de gepromoveerde kant (rood) of laat het zoals het is.

@@ -1,6 +1,7 @@
 Serpents et échelles
 # Le but
 Être le premier à amener ton pion sur la case 100.
+On peut jouer à deux, trois ou quatre : choisis combien avant la partie. À trois ou quatre, les règles sont les mêmes pour tous : tous les pions partent hors du plateau et peuvent partager une case, et le dé passe à tour de rôle : clair, foncé, rouge, puis vert. Clair et rouge sont assis en bas, foncé et vert en haut.
 # Le plateau
 Les cases sont numérotées de 1 à 100 à partir d'en bas à gauche : le long de la rangée du bas vers la droite, puis en revenant vers la gauche sur la rangée suivante, et ainsi de suite jusqu'en haut du plateau, où se trouve la case 100. Les échelles font monter, de leur pied à leur sommet ; les serpents font descendre, de leur tête à leur queue.
 # Un tour

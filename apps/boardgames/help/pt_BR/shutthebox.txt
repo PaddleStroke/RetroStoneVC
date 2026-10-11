@@ -1,0 +1,16 @@
+Fecha a caixa
+# O objetivo
+Feche o máximo que puder das suas peças numeradas: sua pontuação é a soma das peças que ficam de pé, e quanto menor, melhor. Feche todas e você fecha a caixa: vence na hora. De um a quatro jogadores: escolha quantos antes da partida, e as peças:
+- 1 a 9: a caixa clássica.
+- 1 a 10: como as caixas grandes para quatro jogadores.
+- 1 a 12: a partida mais longa.
+Cada jogador tem sua própria fileira de peças do seu lado da caixa. Sozinho, você joga contra a sua própria pontuação.
+# A sua vez
+- Lance os dois dados e feche peças de pé cujos números somados dão o lançamento: uma ou várias. Um 8 pode fechar o 8, ou 7 e 1, ou 5 e 3, ou 5, 2 e 1…
+- Lance de novo e feche de novo, enquanto puder.
+- Quando seus 7, 8 e 9 estiverem fechados (com 10 ou 12 peças: todas a partir do 7), você pode lançar um só dado, se quiser.
+- Quando nenhum grupo das suas peças de pé dá o lançamento, a sua vez acaba. Sua pontuação é a soma das peças ainda de pé.
+# O fim da partida
+Cada jogador joga uma vez completa; a vez gira no sentido horário em volta da caixa, começando pelo marfim. Depois vence a menor pontuação; se as menores forem iguais, a partida empata. Quem fecha a caixa vence na hora, e a partida termina ali. Sozinho, fechar a caixa resolve a partida; senão, fica a sua pontuação.
+# Jogando no aparelho
+Toque no feltro para lançar os dados. Quando você pode lançar um só dado, um dado sozinho espera ao lado do par: toque nele para lançá-lo sozinho. Toque nas suas peças para escolhê-las: elas se levantam, e a soma escolhida aparece sobre o lançamento, ao lado dos dados. As peças que não podem ajudar a fazer o lançamento ficam escurecidas. Quando a soma é igual ao lançamento, as peças tombam. Toque de novo numa peça escolhida para devolvê-la. Quando nenhum grupo dá o lançamento, os dados brilham em vermelho e sua pontuação aparece por um momento; depois o próximo jogador lança. Cada barra mostra a pontuação daquele jogador. Desfazer levanta as peças do último lançamento; os dados nunca são lançados de novo: voltam os mesmos números.

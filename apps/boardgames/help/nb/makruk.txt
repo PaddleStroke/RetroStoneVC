@@ -1,0 +1,27 @@
+Makruk
+# Målet
+Makruk er thailandsk sjakk, en nær slektning av vanlig sjakk. Sett motstanderens Khun (konge) sjakkmatt: angrip den slik at den ikke kan unnslippe. Hvit trekker først, deretter bytter spillerne på, ett trekk hver.
+# Brettet
+Brettet har åtte rader med åtte ruter, alle i samme farge. Hver spillers bakerste rad har, fra venstre: Rua, Ma, Khon, Khun, Met, Khon, Ma, Rua for hvit; svarts er den samme, bare snudd, slik at de to Khun ikke står rett overfor hverandre. Bia står på hver spillers tredje rad, så den andre raden er tom.
+# Slik går brikkene
+- Khun (kongens krone): én rute i hvilken som helst retning. Det finnes ingen rokade.
+- Met (en diamant på en slank kropp): én rute diagonalt.
+- Khon (en tempelklokke med spir): én rute diagonalt, eller én rute rett fram.
+- Ma (hestehodet): som springeren i sjakk, i en L-form, og den hopper over brikker som står imellom.
+- Rua (tårnet): så mange ruter det vil langs en rad eller en linje, som tårnet i sjakk.
+- Bia (det lave skjellet): én rute rett fram, aldri to. Den slår én rute skrått fram.
+Brikkene kan ikke passere andre brikker (unntatt Ma). En brikke slår ved å flytte til en rute der en motstanderbrikke står, og den slåtte brikken forlater brettet.
+# Forfremmelse
+En Bia som når sjette rad, raden der motstanderens Bia startet, blir straks en Met. Fra da av går den som en Met.
+# Sjakk og slutten på partiet
+En Khun som er angrepet, står i sjakk: neste trekk må få den ut av sjakk. Du kan aldri gjøre et trekk som lar din egen Khun stå i sjakk.
+- Sjakkmatt: Khun står i sjakk, og ingen trekk kan redde den. Den spilleren taper.
+- Patt: spilleren som er i trekket, har ingen lovlige trekk, men står ikke i sjakk. Partiet er remis.
+- Partiet er også remis når bare de to Khun er igjen, eller når den samme stillingen kommer igjen for tredje gang med samme spiller i trekket.
+# Tellingen
+Når det ikke er noen uforfremmet Bia igjen på brettet, må partiet ta slutt innen et begrenset antall trekk. I Thailand teller den svakere spilleren høyt; her teller enheten for deg.
+- Brettets telling: fra da av teller spilleren som trekker neste gang, trekkene sine. Hvis tellingen når 64 og motstanderen ikke setter matt med neste trekk, er partiet remis.
+- Brikkenes telling: når en spiller bare har Khun igjen, er det i stedet den spilleren som teller, med start fra antallet brikker på brettet (begge Khun medregnet) pluss én. Motstanderen må sette matt før tellingen passerer grensen: 8 med to Rua, 16 med én Rua, 22 med to Khon, 32 med to Ma, 44 med én Khon, og ellers 64. Grensen fastsettes når tellingen starter, og endres ikke, selv om brikker blir slått senere.
+Mens en telling pågår, viser panelet til spilleren som teller, hvor mange trekk motstanderen har igjen til å sette matt.
+# Spill på enheten
+Trykk på en brikke for å se hvor den kan gå, og trykk så på en rute, eller dra brikken. Prikker viser trekkene, ringer slagene. En Khun i sjakk lyser rødt. Hvert panel viser brikkene den spilleren har slått.

@@ -39,6 +39,32 @@ static int view_of[MAX_GAMES];
 static struct { int up, player, pending; } hand = {0, 0, -1};
 static int is_view(void) { return cur >= 0 && games[cur]->view != VIEW_BOARD; }
 
+/* the menu's sections, in this order: a heading (help/<lang>/_menu.txt, a line each), then their games by menu
+ * order. The games not listed are strategy games. */
+enum { SEC_STRATEGY, SEC_CHESS, SEC_RACE, SEC_CARDS, SEC_GUESS, SEC_SOLO, SECTIONS };
+static const struct { const char *id; int section; } SECTION_OF[] = {
+    {"chess", SEC_CHESS}, {"makruk", SEC_CHESS}, {"shogi", SEC_CHESS}, {"xiangqi", SEC_CHESS}, {"janggi", SEC_CHESS},
+    {"jungle", SEC_CHESS},
+    {"backgammon", SEC_RACE}, {"ur", SEC_RACE}, {"ludo", SEC_RACE}, {"pachisi", SEC_RACE}, {"snakes", SEC_RACE},
+    {"shutthebox", SEC_RACE}, {"yacht", SEC_RACE}, {"farkle", SEC_RACE}, {"fourtwoone", SEC_RACE},
+    {"liarsdice", SEC_RACE},
+    {"golf", SEC_CARDS}, {"tilerummy", SEC_CARDS}, {"tarot", SEC_CARDS}, {"belote", SEC_CARDS},
+    {"crazyeights", SEC_CARDS}, {"hearts", SEC_CARDS}, {"dominoes", SEC_CARDS}, {"cribbage", SEC_CARDS},
+    {"ginrummy", SEC_CARDS}, {"spades", SEC_CARDS}, {"president", SEC_CARDS}, {"war", SEC_CARDS},
+    {"oldmaid", SEC_CARDS}, {"families", SEC_CARDS},
+    {"secretcode", SEC_GUESS}, {"mysteryface", SEC_GUESS},
+    {"seabattle", SEC_GUESS}, {"wordtiles", SEC_CARDS},
+    {"klondike", SEC_SOLO}, {"freecell", SEC_SOLO}, {"spider", SEC_SOLO}, {"pegsolitaire", SEC_SOLO},
+    {"mahjong", SEC_SOLO},
+};
+
+static int section_of(const game *g)
+{
+    for (size_t i = 0; i < sizeof SECTION_OF / sizeof SECTION_OF[0]; i++)
+        if (!strcmp(SECTION_OF[i].id, g->id)) return SECTION_OF[i].section;
+    return SEC_STRATEGY;
+}
+
 /* the counts a game can be played with: bit n, n players */
 static unsigned player_counts(int g) { return games[g]->players ? games[g]->players : 1u << 2; }
 static int many_counts(int g) { unsigned c = player_counts(g); return (c & (c - 1)) != 0; }
@@ -70,11 +96,12 @@ static struct {
     float snd_x, snd_y, snd_r;
     box pills[MAX_PLAYERS + 1];                 /* the picker: how many players (pill_n[i] each) */
     int npills, pill_n[MAX_PLAYERS + 1];
+    float sec_y[SECTIONS], sec_x, sec_w, sec_h;   /* the menu's headings (sec_y -1: an empty section) */
 } L;
 
 static SDL_Texture *t_bg, *t_btn, *t_btn_armed, *t_btn_on, *t_icon[ICONS], *t_card, *t_gold, *t_shadow, *t_ring,
     *t_glow, *t_tok[MAX_PLAYERS], *t_big[MAX_PLAYERS], *t_bartex, *t_menu_card, *t_thumb[MAX_GAMES][8],
-    *t_name[MAX_GAMES], *t_pill, *t_pill_on, *t_ptok[MAX_PLAYERS];
+    *t_name[MAX_GAMES], *t_pill, *t_pill_on, *t_ptok[MAX_PLAYERS], *t_sec[SECTIONS];
 static int made_unit = -1, made_game = -1, made_card = -1, made_pill = -1, bar_w, bar_h, bar_m;
 
 /* the rules page (a game's, or the app's from the menu): the text drawn in tiles, scrolled */
@@ -106,6 +133,8 @@ void game_register(const game *g)
 
 static int by_order(const void *a, const void *b)
 {
+    int sa = section_of(*(const game *const *)a), sb = section_of(*(const game *const *)b);
+    if (sa != sb) return sa - sb;
     return (*(const game *const *)a)->order - (*(const game *const *)b)->order;
 }
 
@@ -693,23 +722,49 @@ static void layout_cards(int n)
     float c = (ui.w - 2 * m - (cols - 1) * g) / cols;
     if (screen != SCR_MENU) c = fminf(c, (ui.h - head - 2 * m - (rows - 1) * g) / rows / (1 + lab));
     c = floorf(fminf(c, fminf(ui.w, ui.h) * 0.62f));
-    float ch = floorf(c * (1 + lab)), tall = rows * ch + (rows - 1) * g;
-    float x0 = (ui.w - (cols * c + (cols - 1) * g)) / 2, y0 = head + (ui.h - head - tall) / 2;
-    if (screen == SCR_MENU) {                   /* the picker keeps the menu's place, for the way back */
-        menu.top = head;
-        menu.max = 0;
-        if (head + m + tall + m > ui.h) {       /* taller than the screen: it scrolls */
-            y0 = head + m * 0.5f;
-            menu.max = y0 + tall + m - ui.h;
+    float ch = floorf(c * (1 + lab)), x0 = (ui.w - (cols * c + (cols - 1) * g)) / 2, tall = 0;
+    L.sec_h = floorf(c * 0.34f);
+    L.sec_x = floorf(x0);
+    L.sec_w = cols * c + (cols - 1) * g;
+    for (int s = 0; s < SECTIONS; s++) L.sec_y[s] = -1;
+    if (screen == SCR_MENU) {                   /* the sections one after the other: a heading, then its games */
+        for (int s = 0, i = 0; s < SECTIONS; s++) {
+            int first = i;
+            while (i < n && section_of(games[i]) == s) i++;
+            if (i == first) continue;
+            L.sec_y[s] = tall;
+            tall += L.sec_h;
+            for (int j = first; j < i; j++)
+                L.cards[j] = (box){floorf(x0 + (j - first) % cols * (c + g)), tall + (j - first) / cols * (ch + g), c,
+                                   ch};
+            tall += (i - first + cols - 1) / cols * (ch + g);
         }
+        tall -= g;
+    } else {
+        for (int i = 0; i < n; i++) L.cards[i] = (box){floorf(x0 + (i % cols) * (c + g)), (i / cols) * (ch + g), c, ch};
+        tall = rows * ch + (rows - 1) * g;
+    }
+    float y0 = head + (ui.h - head - tall) / 2;
+    if (screen == SCR_MENU) {                   /* from the top, scrolling when taller than the screen (the picker
+                                                 * keeps the menu's place, for the way back) */
+        y0 = head;
+        menu.top = head;
+        menu.max = fmaxf(0, y0 + tall + m - ui.h);
         menu.scroll = fminf(menu.max, fmaxf(0, menu.scroll));
     }
-    for (int i = 0; i < n; i++)
-        L.cards[i] = (box){floorf(x0 + (i % cols) * (c + g)), floorf(y0 + (i / cols) * (ch + g)), c, ch};
+    if (L.npills) {                             /* the picker: the pills and the cards, one block in the middle */
+        float ph = L.pills[0].h, start = top + fmaxf(0, (ui.h - top - m - (ph + g + tall)) / 2);
+        for (int k = 0; k < L.npills; k++) L.pills[k].y = floorf(start);
+        y0 = start + ph + g;
+    }
+    for (int i = 0; i < n; i++) L.cards[i].y = floorf(L.cards[i].y + y0);
+    for (int s = 0; s < SECTIONS; s++)
+        if (L.sec_y[s] >= 0) L.sec_y[s] = floorf(L.sec_y[s] + y0);
     L.cols = cols;
     L.label = (int)(ch - c);
     if (made_card != (int)c * 1000 + L.label) {
         for (int i = 0; i < MAX_GAMES; i++) ui_free(&t_name[i]);
+        for (int s = 0; s < SECTIONS; s++) ui_free(&t_sec[s]);
     }
     L.card = (int)c;
     L.snd_r = top * 0.28f;
@@ -788,10 +843,27 @@ static void view_start(int fresh)
     view_to(p < 0 || p >= ui.players ? 0 : p);
 }
 
+/* one player: no flip nor face to face (their buttons are hidden); the settings come back for the next game of
+ * two or more */
+static void solo_view(void)
+{
+    static int saved = -1, saved_f2f;
+    if (ui.players == 1 && saved < 0) {
+        saved = ui.flipped;
+        saved_f2f = ui.f2f;
+        ui.flipped = ui.f2f = 0;
+    } else if (ui.players > 1 && saved >= 0) {
+        ui.flipped = saved;
+        ui.f2f = saved_f2f;
+        saved = -1;
+    }
+}
+
 static void open_game(int i, int fresh_variant)
 {
     cur = i;
     ui.players = players_of(i);
+    solo_view();
     int fresh = 0;
     if (fresh_variant >= 0) {
         variant[i] = fresh_variant;
@@ -923,13 +995,15 @@ static void draw_over(void)
         int w = gs_winner(st), k = 0;
         ui_put_c(t_gold, cx - 1.6f * u, cy, big * 1.25f, big * 1.25f);
         ui_put_c(t_big[w], cx - 1.6f * u, cy, big, big);
-        float s = np > 4 ? 1.0f * u : 1.3f * u;
         int rows = np > 3 ? 2 : 1, per = (np - 1 + rows - 1) / rows;
-        for (int p = 0; p < np; p++) {
+        float s = fminf(1.3f * u, 2.9f * u / (per * 1.1f)), x0 = cx + 0.15f * u + (3.0f * u - per * s * 1.1f) / 2;
+        for (int p = 0; p < np; p++) {         /* in the card's right part, dimmed (a round piece lying down
+                                                 * looks the same) */
             if (p == w) continue;
             int r = k / per, c = k % per;
-            ui_put_rot(t_big[p], cx + 0.6f * u + (c + 0.5f) * s * 1.1f, cy + (r - (rows - 1) / 2.0f) * s * 1.15f,
-                       s, s, 90);
+            SDL_SetTextureAlphaMod(t_big[p], 150);
+            ui_put_rot(t_big[p], x0 + (c + 0.5f) * s * 1.1f, cy + (r - (rows - 1) / 2.0f) * s * 1.15f, s, s, 90);
+            SDL_SetTextureAlphaMod(t_big[p], 255);
             k++;
         }
     } else if (st == GS_DRAW) {                 /* both standing, an equals sign between them */
@@ -1107,6 +1181,40 @@ static SDL_Texture *label(int i)
     return t_name[i];
 }
 
+/* a section's heading: its line of help/<lang>/_menu.txt, bold, cream, then a thin rule to the right edge */
+static SDL_Texture *heading(int s)
+{
+    if (t_sec[s] || L.sec_h < 4) return t_sec[s];
+    const char *t = text_get("_menu");
+    for (int k = 0; t && k < s; k++) {
+        t = strchr(t, '\n');
+        if (t) t++;
+    }
+    if (!t || !*t) return NULL;
+    char name[96];
+    size_t n = strcspn(t, "\n");
+    if (n >= sizeof name) n = sizeof name - 1;
+    memcpy(name, t, n);
+    name[n] = 0;
+    int w = (int)L.sec_w, h = (int)L.sec_h;
+    float px = h * 0.40f;
+    int tw = text_line(name, px, 1, CREAM, NULL, 0, 0, 0, 0);
+    if (tw > 0.8f * w) {
+        px *= 0.8f * w / tw;
+        tw = text_line(name, px, 1, CREAM, NULL, 0, 0, 0, 0);
+    }
+    uint8_t *b = calloc((size_t)w * h, 4);
+    int ty = (int)(h * 0.62f - px * 0.75f);
+    text_line(name, px, 1, CREAM, b, w, h, 0, ty);
+    for (int y = (int)(h * 0.62f - px * 0.32f), x = tw + (int)(px * 0.6f); x < w; x++) {   /* the rule */
+        uint8_t *p = b + 4 * (y * w + x);
+        p[0] = CREAM[0], p[1] = CREAM[1], p[2] = CREAM[2], p[3] = 60;
+    }
+    t_sec[s] = ui_tex(w, h, b);
+    free(b);
+    return t_sec[s];
+}
+
 static void draw_cards(void)
 {
     int n = screen == SCR_MENU ? ngames : games[cur]->variants;
@@ -1143,6 +1251,11 @@ static void draw_cards(void)
         float s = c.w * 0.86f;
         ui_put_c(thumb(gi, v), c.x + c.w / 2, c.y + c.w / 2, s, s);
         if (screen == SCR_MENU) ui_put(label(i), c.x, c.y + c.w - 0.04f * c.w, c.w, (float)L.label);
+    }
+    for (int s = 0; s < SECTIONS && screen == SCR_MENU; s++) {
+        float y = L.sec_y[s] + dy;
+        if (L.sec_y[s] < 0 || y > ui.h || y + L.sec_h < menu.top) continue;
+        ui_put(heading(s), L.sec_x, y, L.sec_w, L.sec_h);
     }
     if (screen == SCR_MENU && menu.max > 0) {   /* where the list is: a thin bar on the right */
         SDL_RenderSetClipRect(ui.r, NULL);
@@ -1312,6 +1425,7 @@ static void press(float x, float y)
             if (x < b.x || y < b.y || x >= b.x + b.w || y >= b.y + b.h) continue;
             snd_play(SND_TAP);
             nplayers[cur] = ui.players = L.pill_n[k];
+            solo_view();
             return;
         }
         if (screen == SCR_MENU) {               /* a card opens on release, unless the finger scrolled the list */
@@ -1553,8 +1667,8 @@ static void key(SDL_Keycode k)
     }
     if (screen != SCR_GAME || help.open) return;
     if (k == SDLK_u || k == SDLK_BACKSPACE) { if (!ui_handing()) games[cur]->undo(); }
-    else if (k == SDLK_f && !is_view()) { ui.flipped = !ui.flipped; layout(); }
-    else if (k == SDLK_t && !is_view()) ui.f2f = !ui.f2f;
+    else if (k == SDLK_f && shown(B_FLIP)) { ui.flipped = !ui.flipped; layout(); }
+    else if (k == SDLK_t && shown(B_F2F)) ui.f2f = !ui.f2f;
     else if (k == SDLK_n) new_game();
 }
 
