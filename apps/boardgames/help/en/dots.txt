@@ -1,0 +1,11 @@
+Dots and Boxes
+# The aim
+Claim more boxes than the other player. The board is a grid of dots. Choose its size before the game: 3 by 3 boxes for a quick game, 5 by 5, or 7 by 7. Light plays first.
+# A turn
+- Draw one line between two dots next to each other, across or up and down. A line can be drawn only once.
+- If your line closes the fourth side of a box, the box is yours: it takes your colour. One line can close two boxes at once.
+- Each time you close a box, you must draw another line. Your turn ends with a line that closes no box.
+# The end of the game
+The game ends when every line is drawn. The player with more boxes wins. Every board has an odd number of boxes, so there is always a winner.
+# Playing on the device
+Tap between two dots to draw the line there. Keep your finger down to see which line it will be, slide it to choose another, and lift it to draw. The last line drawn is lit, and so are the boxes it closed. Each bar shows how many boxes that player has.
