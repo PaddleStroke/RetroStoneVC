@@ -1,0 +1,16 @@
+Konane
+# Målet
+Var den sista spelaren som kan flytta. Konane är hawaiiskt damspel: varje drag är ett hopp som tar en sten.
+# Brädet
+Brädet är fullt: det ligger en sten på varje ruta, och de två färgerna växlar som rutorna på ett schackbräde. Den mörka sidan börjar. Det vanliga brädet är 8×8; du kan också välja 6×6 eller 10×10.
+# Förflyttning
+Partiet börjar med att två stenar lyfts av brädet:
+- Den mörka spelaren tar bort en av sina egna stenar från de fyra mittersta rutorna eller från ett hörn.
+- Sedan tar den ljusa spelaren bort en av sina egna stenar intill hålet (ovanför, nedanför eller bredvid).
+Därefter är varje drag ett hopp.
+# Slag
+Hoppa med en av dina stenar över en motståndarsten alldeles intill den (uppåt, nedåt, åt vänster eller åt höger, aldrig snett) till den tomma rutan direkt bakom, och ta stenen du hoppade över. Samma sten får hoppa igen längs samma raka linje, över ännu en motståndarsten till nästa tomma ruta och så vidare, men den får aldrig svänga. Du kan sluta efter vilket hopp som helst.
+# Partiets slut
+Den första spelaren som inte kan flytta när det är hens tur förlorar. Oavgjort finns inte: varje drag tar en sten, så partiet slutar alltid med en vinnare.
+# Spela på enheten
+I början har de stenar som får lyftas en ring: tryck på en av dem. Tryck sedan på en sten för att se var den kan landa (en prick för varje hopp, rakt fram), och tryck på en prick, eller dra stenen. Varje fält visar hur många stenar spelaren har tagit.

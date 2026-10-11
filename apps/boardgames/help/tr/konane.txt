@@ -1,0 +1,16 @@
+Konane
+# Amaç
+Hamle yapabilen son oyuncu ol. Konane, Hawaii'nin dama oyunudur: her hamle, bir taş alan bir atlayıştır.
+# Tahta
+Tahta doludur: her karede bir taş vardır ve iki renk, satranç tahtasının kareleri gibi sırayla dizilir. Önce koyu renk oynar. Alışılmış tahta 8×8'dir; 6×6 ya da 10×10 da seçebilirsin.
+# Hareket
+Oyun, tahtadan iki taşın kaldırılmasıyla açılır:
+- Koyu oyuncu kendi taşlarından birini ortadaki dört kareden birinden ya da bir köşeden kaldırır.
+- Ardından açık oyuncu kendi taşlarından birini bu deliğin hemen yanından (üstünden, altından ya da yanından) kaldırır.
+Bundan sonra her hamle bir atlayıştır.
+# Taş alma
+Taşlarından biriyle hemen yanındaki bir rakip taşın üzerinden (yukarı, aşağı, sola ya da sağa, asla çapraz değil) hemen arkasındaki boş kareye atla ve üzerinden atladığın taşı al. Aynı taş aynı düz çizgide yeniden atlayabilir, başka bir rakip taşın üzerinden bir sonraki boş kareye ve böyle devam eder, ama asla dönemez. Herhangi bir atlayıştan sonra durabilirsin.
+# Oyunun sonu
+Sırası geldiğinde hamle yapamayan ilk oyuncu kaybeder. Beraberlik yoktur: her hamle bir taş alır, bu yüzden oyun her zaman bir kazananla biter.
+# Cihazda oynamak
+Başta, kaldırılabilecek taşların çevresinde bir halka vardır: birine dokun. Sonra bir taşa dokunarak nereye konabileceğini gör (her atlayış için bir nokta, dümdüz ileri) ve bir noktaya dokun ya da taşı sürükle. Her şerit, o oyuncunun kaç taş aldığını gösterir.

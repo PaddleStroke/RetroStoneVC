@@ -1,0 +1,19 @@
+Fanorona
+# Das Ziel
+Schlage alle Steine des anderen Spielers. Jeder Spieler hat zweiundzwanzig Steine. Hell beginnt.
+# Das Brett
+Fünfundvierzig Punkte, durch Linien verbunden, neun in der Breite und fünf in der Tiefe: jede Reihe, jede Spalte und die auf dem Brett eingezeichneten Diagonalen. Die Steine jedes Spielers füllen die beiden Reihen, die ihm am nächsten sind; in der mittleren Reihe wechseln sich die Farben ab, und nur der Mittelpunkt ist frei.
+# Ziehen
+Wenn du dran bist, ziehst du einen deiner Steine entlang einer Linie auf den nächsten Punkt, falls er frei ist. Ein Zug, der nichts schlägt (Paika), ist nur erlaubt, wenn nirgends auf dem Brett geschlagen werden kann.
+# Schlagen
+Die Steine schlagen, ohne zu springen, auf zwei Arten:
+- Annäherung: Zieh auf einen gegnerischen Stein zu, sodass du auf derselben Linie direkt neben ihm landest. Er wird geschlagen, und mit ihm jeder gegnerische Stein, der direkt dahinter auf dieser Linie steht, bis zur ersten Lücke oder einem deiner eigenen Steine.
+- Rückzug: Zieh geradewegs weg von einem gegnerischen Stein, der direkt neben dir stand. Er wird geschlagen, zusammen mit der lückenlosen Reihe gegnerischer Steine dahinter.
+- Kann ein Zug beides, wählst du, welche Reihe du schlägst.
+- Schlagen ist Pflicht: Wenn du schlagen kannst, musst du es tun. Du darfst aber jeden Schlag wählen, nicht nur den größten.
+- Nach einem Schlag darf derselbe Stein im selben Zug weiterschlagen, Schritt für Schritt. Er darf nicht auf einen Punkt zurückkehren, auf dem er in diesem Zug schon stand, und nicht zweimal hintereinander in dieselbe Richtung ziehen. Weitermachen ist freiwillig: Du kannst aufhören, wann du willst.
+# Das Ende der Partie
+- Wer alle Steine verliert oder nicht ziehen kann, verliert.
+- Die Partie endet unentschieden, wenn dieselbe Stellung zum dritten Mal entsteht, oder nach fünfzig Zügen jeder Seite ohne Schlagen.
+# Spielen auf dem Gerät
+Tippe auf deinen Stein und dann auf seinen neuen Punkt, oder schieb ihn mit dem Finger. Punkte zeigen, wohin er ziehen kann, Ringe die Steine, die er schlagen würde: Du kannst auch direkt auf einen beringten Stein tippen. Kann ein Zug die eine oder die andere Reihe schlagen, rückt der Stein vor und beide Reihen tragen Ringe: Tippe auf die gewünschte. Bei einem Mehrfachschlag bleibt dein Stein aufgenommen; um aufzuhören, tippe auf ihn oder auf die Passen-Taste in deiner Leiste.

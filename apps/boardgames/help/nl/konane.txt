@@ -1,0 +1,16 @@
+Konane
+# Het doel
+Wees de laatste speler die nog kan zetten. Konane is Hawaïaans dammen: elke zet is een sprong die een steen slaat.
+# Het bord
+Het bord is vol: op elk veld ligt een steen, en de twee kleuren wisselen elkaar af zoals de velden van een schaakbord. Donker begint. Het gewone bord is 8 bij 8; je kunt ook 6 bij 6 of 10 bij 10 kiezen.
+# Schuiven
+Het spel begint met het weghalen van twee stenen:
+- Donker haalt een van zijn eigen stenen weg uit de vier middelste velden of uit een hoek.
+- Daarna haalt licht een van zijn eigen stenen weg naast dat gat (erboven, eronder of ernaast).
+Daarna is elke zet een sprong.
+# Slaan
+Spring met een van je stenen over een steen van de tegenstander die er vlak naast ligt (omhoog, omlaag, naar links of naar rechts, nooit schuin) naar het lege veld direct erachter, en neem de overgesprongen steen weg. Dezelfde steen mag in dezelfde rechte lijn verder springen, over nog een steen van de tegenstander naar het volgende lege veld, enzovoort, maar hij mag nooit afslaan. Je mag na elke sprong stoppen.
+# Het einde van het spel
+De eerste speler die aan de beurt is en niet kan zetten, verliest. Gelijkspel bestaat niet: elke zet slaat een steen, dus het spel eindigt altijd met een winnaar.
+# Spelen op het apparaat
+Aan het begin hebben de stenen die weggehaald mogen worden een ring: tik op een ervan. Tik daarna op een steen om te zien waar hij kan landen (een stip voor elke sprong, rechtdoor), en tik op een stip, of sleep de steen. Elke balk laat zien hoeveel stenen die speler heeft geslagen.

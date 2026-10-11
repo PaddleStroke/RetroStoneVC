@@ -1,0 +1,19 @@
+Fanorona
+# Het doel
+Sla alle stukken van de andere speler. Elke speler heeft tweeëntwintig stukken. Licht begint.
+# Het bord
+Vijfenveertig punten, verbonden door lijnen, negen in de breedte en vijf in de diepte: elke rij, elke kolom en de diagonalen die op het bord getekend zijn. De stukken van elke speler vullen de twee rijen die het dichtst bij hem liggen; in de middelste rij wisselen de kleuren elkaar af, en alleen het middelpunt is leeg.
+# Schuiven
+Als je aan de beurt bent, schuif je een van je stukken langs een lijn naar het volgende punt, als dat leeg is. Een zet die niets slaat (paika) mag alleen als er nergens op het bord geslagen kan worden.
+# Slaan
+De stukken slaan zonder te springen, op twee manieren:
+- Naderen: schuif naar een stuk van de tegenstander toe, zodat je er op dezelfde lijn vlak naast eindigt. Het wordt geslagen, en ook elk stuk van de tegenstander dat er direct achter staat op die lijn, tot de eerste lege plek of een stuk van jezelf.
+- Terugtrekken: schuif recht weg van een stuk van de tegenstander dat vlak naast je stond. Het wordt geslagen, samen met de ononderbroken rij stukken van de tegenstander erachter.
+- Kan één zet allebei, dan kies jij welke rij je slaat.
+- Slaan is verplicht: als je kunt slaan, moet je dat doen. Je mag elke slag kiezen, niet alleen de grootste.
+- Na een slag mag hetzelfde stuk in dezelfde beurt doorslaan, stap voor stap. Het mag niet terug naar een punt waar het deze beurt al gestaan heeft, en niet twee keer achter elkaar in dezelfde richting schuiven. Doorgaan is niet verplicht: je mag stoppen wanneer je wilt.
+# Het einde van het spel
+- Een speler die al zijn stukken kwijt is, of niet kan zetten, verliest.
+- Het spel eindigt in gelijkspel als dezelfde stelling voor de derde keer terugkomt, of na vijftig zetten van elke speler zonder slag.
+# Spelen op het apparaat
+Tik op je stuk en dan op zijn nieuwe punt, of sleep het. De stippen tonen waar het heen kan, de ringen welke stukken het zou slaan: je kunt ook direct op een stuk met een ring tikken. Kan een zet de ene of de andere van twee rijen slaan, dan schuift het stuk door en krijgen beide rijen een ring: tik op de rij die je wilt. Bij een reeks slagen blijft je stuk opgepakt; om te stoppen tik je erop, of op de pasknop in je balk.

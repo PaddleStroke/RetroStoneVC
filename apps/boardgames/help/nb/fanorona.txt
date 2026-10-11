@@ -1,0 +1,19 @@
+Fanorona
+# Målet
+Slå alle motstanderens brikker. Hver spiller har tjueto brikker. Den lyse siden begynner.
+# Brettet
+Førtifem punkter forbundet med linjer, ni på tvers og fem i dybden: hver rad, hver kolonne og diagonalene som er tegnet på brettet. Hver spillers brikker fyller de to radene nærmest spilleren; i den midterste raden veksler fargene, og bare midtpunktet er tomt.
+# Flytting
+Når det er din tur, flytter du én av brikkene dine langs en linje til neste punkt, hvis det er tomt. Et trekk som ikke slår noe (paika), er bare lov når det ikke finnes noe mulig slag noe sted på brettet.
+# Slag
+Brikkene slår uten å hoppe, på to måter:
+- Tilnærming: flytt mot en motstanderbrikke slik at du ender rett ved siden av den på samme linje. Den blir slått, og det blir også hver motstanderbrikke rett bak den på linjen, frem til første tomrom eller en av dine egne brikker.
+- Tilbaketrekning: flytt rett bort fra en motstanderbrikke som sto rett ved siden av deg. Den blir slått sammen med den sammenhengende rekken av motstanderbrikker bak den.
+- Når ett trekk kan gjøre begge deler, velger du selv hvilken rekke du slår.
+- Slag er tvunget: når du kan slå, må du. Du kan velge hvilket slag som helst, ikke bare det største.
+- Etter et slag kan den samme brikken slå videre i samme tur, ett steg om gangen. Den kan ikke gå tilbake til et punkt den allerede har stått på i denne turen, og den kan ikke flytte i samme retning to ganger på rad. Det er frivillig å fortsette: du kan stoppe når du vil.
+# Slutten på spillet
+- En spiller som mister alle brikkene sine, eller ikke kan flytte, taper.
+- Spillet er uavgjort når den samme stillingen kommer igjen for tredje gang, eller etter femti trekk hver uten slag.
+# Spill på enheten
+Trykk på brikken din og så på det nye punktet, eller dra den. Prikkene viser hvor den kan gå, ringene brikkene den ville slått: du kan også trykke direkte på en brikke med ring. Når et trekk kan slå den ene av to rekker, rykker brikken frem og begge rekkene får ring: trykk på den du vil ha. I en kjede av slag forblir brikken din løftet; for å stoppe trykker du på den, eller på pass-knappen i panelet ditt.

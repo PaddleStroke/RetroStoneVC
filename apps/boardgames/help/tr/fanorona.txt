@@ -1,0 +1,19 @@
+Fanorona
+# Amaç
+Rakibin bütün taşlarını al. Her oyuncunun yirmi iki taşı vardır. Önce açık renk oynar.
+# Tahta
+Çizgilerle birbirine bağlı kırk beş nokta, enine dokuz ve derinliğine beş: her sıra, her sütun ve tahtada çizili köşegenler. Her oyuncunun taşları ona en yakın iki sırayı doldurur; orta sırada renkler sırayla dizilir ve yalnızca ortadaki nokta boştur.
+# Hareket
+Sıra sende olduğunda, taşlarından birini bir çizgi boyunca, boşsa bir sonraki noktaya götür. Hiçbir şey almayan bir hamleye (paika) yalnızca tahtanın hiçbir yerinde taş alınamıyorsa izin verilir.
+# Taş alma
+Taşlar atlamadan, iki şekilde taş alır:
+- Yaklaşarak: bir rakip taşa doğru ilerle ve aynı çizgide onun hemen yanında dur. O taş alınır; o çizgide hemen arkasında duran her rakip taş da ilk boşluğa ya da senin bir taşına kadar alınır.
+- Uzaklaşarak: hemen yanında duran bir rakip taştan dümdüz uzaklaş. O taş, arkasında kesintisiz dizilen rakip taşlarla birlikte alınır.
+- Bir hamle ikisini de yapabiliyorsa, hangi diziyi alacağını sen seçersin.
+- Taş almak zorunludur: alabiliyorsan almalısın. Yalnızca en büyüğünü değil, herhangi bir almayı seçebilirsin.
+- Bir almadan sonra aynı taş, aynı sırada adım adım almaya devam edebilir. Bu sırada daha önce durduğu bir noktaya geri dönemez ve aynı yöne art arda iki kez gidemez. Devam etmek isteğe bağlıdır: istediğin zaman durabilirsin.
+# Oyunun sonu
+- Bütün taşlarını kaybeden ya da hamle yapamayan oyuncu kaybeder.
+- Aynı pozisyon üçüncü kez tekrarlandığında ya da iki taraf da taş almadan ellişer hamle yaptığında oyun berabere biter.
+# Cihazda oynamak
+Taşına, sonra yeni noktasına dokun ya da onu sürükle. Noktalar gidebileceği yerleri, halkalar alacağı taşları gösterir: halkalı bir taşa doğrudan da dokunabilirsin. Bir hamle iki diziden birini alabiliyorsa taş ilerler ve iki dizi de halkayla işaretlenir: istediğine dokun. Bir taş alma zincirinde taşın kaldırılmış olarak kalır; durmak için ona ya da şeridindeki pas düğmesine dokun.

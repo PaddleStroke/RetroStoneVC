@@ -1,0 +1,16 @@
+Konane
+# El objetivo
+Ser el último jugador que puede mover. El konane son las damas hawaianas: cada jugada es un salto que captura una piedra.
+# El tablero
+El tablero está lleno: una piedra en cada casilla, con los dos colores alternándose como las casillas de un tablero de ajedrez. Empiezan las oscuras. El tablero habitual es de 8 por 8; también puedes elegir 6 por 6 o 10 por 10.
+# Movimiento
+La partida empieza quitando dos piedras del tablero:
+- El jugador oscuro quita una de sus propias piedras de las cuatro casillas centrales o de una esquina.
+- Después, el jugador claro quita una de sus propias piedras junto a ese hueco (encima, debajo o al lado).
+A partir de ahí, cada jugada es un salto.
+# Capturas
+Salta con una de tus piedras por encima de una piedra contraria que esté justo a su lado (arriba, abajo, a la izquierda o a la derecha, nunca en diagonal) hasta la casilla vacía que hay justo detrás, y captura la piedra saltada. La misma piedra puede volver a saltar en la misma línea recta, por encima de otra piedra contraria hasta la siguiente casilla vacía, y así sucesivamente, pero nunca puede girar. Puedes parar después de cualquier salto.
+# El final de la partida
+Pierde el primer jugador que no puede mover en su turno. No hay empates: cada jugada captura una piedra, así que la partida siempre termina con un ganador.
+# Jugar en el dispositivo
+Al principio, las piedras que se pueden quitar tienen un anillo: toca una. Después toca una piedra para ver dónde puede caer (un punto por cada salto, en línea recta) y toca un punto, o arrastra la piedra. Cada barra muestra cuántas piedras ha capturado ese jugador.

@@ -1,0 +1,16 @@
+Konane
+# Das Ziel
+Sei der letzte Spieler, der noch ziehen kann. Konane ist die hawaiische Dame: Jeder Zug ist ein Sprung, der einen Stein schlägt.
+# Das Brett
+Das Brett ist voll: Auf jedem Feld liegt ein Stein, und die beiden Farben wechseln sich ab wie die Felder eines Schachbretts. Dunkel beginnt. Das übliche Brett hat 8 mal 8 Felder; du kannst auch 6 mal 6 oder 10 mal 10 wählen.
+# Ziehen
+Die Partie beginnt damit, dass zwei Steine vom Brett genommen werden:
+- Dunkel nimmt einen eigenen Stein von einem der vier mittleren Felder oder aus einer Ecke.
+- Hell nimmt danach einen eigenen Stein neben diesem Loch weg (darüber, darunter oder daneben).
+Danach ist jeder Zug ein Sprung.
+# Schlagen
+Spring mit einem deiner Steine über einen gegnerischen Stein direkt daneben (nach oben, unten, links oder rechts, nie schräg) auf das leere Feld direkt dahinter, und nimm den übersprungenen Stein vom Brett. Derselbe Stein darf in derselben geraden Linie weiterspringen, über einen weiteren gegnerischen Stein auf das nächste leere Feld und so fort, darf aber nie abbiegen. Nach jedem Sprung darfst du aufhören.
+# Das Ende der Partie
+Wer am Zug ist und nicht ziehen kann, verliert. Unentschieden gibt es nicht: Jeder Zug schlägt einen Stein, also endet die Partie immer mit einem Sieger.
+# Spielen auf dem Gerät
+Zu Beginn tragen die Steine, die weggenommen werden dürfen, einen Ring: Tippe auf einen davon. Danach tippe auf einen Stein, um zu sehen, wo er landen kann (ein Punkt für jeden Sprung, geradeaus weiter), und tippe auf einen Punkt, oder schieb den Stein mit dem Finger. Jede Leiste zeigt, wie viele Steine der Spieler geschlagen hat.

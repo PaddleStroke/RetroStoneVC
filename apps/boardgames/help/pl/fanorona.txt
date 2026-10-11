@@ -1,0 +1,19 @@
+Fanorona
+# Cel gry
+Zbij wszystkie pionki przeciwnika. Każdy gracz ma dwadzieścia dwa pionki. Jasne zaczynają.
+# Plansza
+Czterdzieści pięć punktów połączonych liniami, dziewięć wszerz i pięć w głąb: każdy rząd, każda kolumna i przekątne narysowane na planszy. Pionki każdego gracza zajmują dwa najbliższe mu rzędy; w środkowym rzędzie kolory się przeplatają, a pusty jest tylko punkt środkowy.
+# Przesuwanie
+W swojej kolejce przesuń jeden ze swoich pionków wzdłuż linii na sąsiedni punkt, jeśli jest wolny. Ruch, który niczego nie bije (paika), jest dozwolony tylko wtedy, gdy nigdzie na planszy nie ma możliwego bicia.
+# Bicie
+Pionki biją bez przeskakiwania, na dwa sposoby:
+- Przez podejście: przesuń się w stronę pionka przeciwnika tak, aby stanąć tuż obok niego na tej samej linii. Zostaje zbity, a razem z nim każdy pionek przeciwnika stojący tuż za nim na tej linii, aż do pierwszej luki albo twojego własnego pionka.
+- Przez odejście: odsuń się prosto od pionka przeciwnika, który stał tuż obok ciebie. Zostaje zbity razem z nieprzerwanym szeregiem pionków przeciwnika za nim.
+- Gdy jeden ruch pozwala na oba sposoby, sam wybierasz, który szereg zbić.
+- Bicie jest obowiązkowe: gdy możesz bić, musisz. Możesz wybrać dowolne bicie, nie tylko największe.
+- Po biciu ten sam pionek może bić dalej w tej samej kolejce, krok po kroku. Nie może wrócić na punkt, na którym już stał w tej kolejce, ani ruszyć się dwa razy z rzędu w tym samym kierunku. Kontynuowanie nie jest obowiązkowe: możesz przestać, kiedy chcesz.
+# Koniec gry
+- Gracz, który straci wszystkie pionki albo nie może wykonać ruchu, przegrywa.
+- Gra kończy się remisem, gdy ta sama pozycja powtórzy się po raz trzeci, lub po pięćdziesięciu ruchach każdej ze stron bez bicia.
+# Gra na urządzeniu
+Dotknij swojego pionka, a potem jego nowego punktu, albo przeciągnij go. Kropki pokazują, dokąd może pójść, a pierścienie pionki, które by zbił: możesz też dotknąć bezpośrednio pionka z pierścieniem. Gdy ruch może zbić jeden z dwóch szeregów, pionek się przesuwa, a oba szeregi dostają pierścienie: dotknij tego, który chcesz. W serii bić twój pionek pozostaje podniesiony; aby przestać, dotknij go albo przycisku pasowania na swoim pasku.

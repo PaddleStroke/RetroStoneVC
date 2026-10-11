@@ -1,0 +1,19 @@
+Fanorona
+# Lo scopo
+Catturare tutte le pedine dell'altro giocatore. Ogni giocatore ha ventidue pedine. Iniziano le pedine chiare.
+# Il tavoliere
+Quarantacinque punti uniti da linee, nove in larghezza e cinque in profondità: ogni riga, ogni colonna e le diagonali tracciate sul tavoliere. Le pedine di ciascun giocatore occupano le due righe più vicine a lui; nella riga centrale i colori si alternano, e solo il punto centrale è vuoto.
+# Movimento
+Al tuo turno, sposta una delle tue pedine lungo una linea fino al punto vicino, se è libero. Una mossa che non cattura nulla (paika) è permessa solo quando non c'è nessuna cattura possibile in tutto il tavoliere.
+# Catture
+Le pedine catturano senza saltare, in due modi:
+- Per avvicinamento: avanza verso una pedina avversaria in modo da finirle proprio accanto, sulla stessa linea. Viene catturata, e con lei ogni pedina avversaria che le sta subito dietro su quella linea, fino al primo vuoto o a una tua pedina.
+- Per allontanamento: allontanati in linea retta da una pedina avversaria che ti stava proprio accanto. Viene catturata insieme alla fila continua di pedine avversarie che la segue.
+- Quando una stessa mossa può fare entrambe le cose, scegli tu quale fila catturare.
+- La presa è obbligatoria: quando puoi catturare, devi farlo. Puoi scegliere qualsiasi cattura, non solo la più grande.
+- Dopo una cattura, la stessa pedina può continuare a catturare nello stesso turno, un passo alla volta. Non può tornare su un punto in cui è già stata in questo turno, né muoversi due volte di seguito nella stessa direzione. Continuare è facoltativo: puoi fermarti quando vuoi.
+# La fine della partita
+- Perde il giocatore che resta senza pedine o che non può muovere.
+- La partita è patta quando la stessa posizione si ripete per la terza volta, o dopo cinquanta mosse ciascuno senza catture.
+# Giocare sul dispositivo
+Tocca la tua pedina e poi il suo nuovo punto, oppure trascinala. I puntini mostrano dove può andare, gli anelli le pedine che catturerebbe: puoi anche toccare direttamente una pedina con l'anello. Quando una mossa può catturare l'una o l'altra di due file, la pedina avanza e le due file hanno l'anello: tocca quella che vuoi. In una catena di prese la tua pedina resta sollevata; per fermarti, toccala, oppure tocca il pulsante passa nella tua barra.

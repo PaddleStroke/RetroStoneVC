@@ -1,0 +1,19 @@
+Fanorona
+# Le but
+Prendre toutes les pièces de l'autre joueur. Chaque joueur a vingt-deux pièces. Les pièces claires commencent.
+# Le plateau
+Quarante-cinq points reliés par des lignes, neuf en largeur et cinq en profondeur : chaque rangée, chaque colonne et les diagonales tracées sur le plateau. Les pièces de chaque joueur occupent les deux rangées les plus proches de lui ; sur la rangée du milieu, les couleurs alternent, et seul le point central est vide.
+# Les déplacements
+À ton tour, déplace une de tes pièces le long d'une ligne jusqu'au point voisin, s'il est libre. Un coup qui ne prend rien (paika) n'est permis que si aucune prise n'est possible nulle part sur le plateau.
+# Les prises
+Les pièces prennent sans sauter, de deux façons :
+- Par approche : avance vers une pièce adverse pour finir juste à côté d'elle, sur la même ligne. Elle est prise, ainsi que chaque pièce adverse placée juste derrière elle sur cette ligne, jusqu'au premier trou ou à une de tes pièces.
+- Par retrait : éloigne-toi tout droit d'une pièce adverse qui était juste à côté de toi. Elle est prise, avec la file ininterrompue de pièces adverses qui la suit.
+- Quand un même coup permet les deux, c'est toi qui choisis la file à prendre.
+- La prise est obligatoire : quand tu peux prendre, tu dois le faire. Tu peux choisir n'importe quelle prise, pas seulement la plus grosse.
+- Après une prise, la même pièce peut continuer à prendre pendant le même tour, un pas à la fois. Elle ne peut pas revenir sur un point où elle s'est déjà trouvée pendant ce tour, ni se déplacer deux fois de suite dans la même direction. Continuer n'est pas obligatoire : tu peux t'arrêter quand tu veux.
+# La fin de la partie
+- Un joueur qui perd toutes ses pièces, ou qui ne peut plus bouger, a perdu.
+- La partie est nulle quand la même position revient pour la troisième fois, ou après cinquante coups de chaque côté sans prise.
+# Jouer sur l'appareil
+Touche ta pièce puis son nouveau point, ou fais-la glisser. Les points montrent où elle peut aller, les anneaux les pièces qu'elle prendrait : tu peux aussi toucher directement une pièce entourée. Quand un coup peut prendre l'une ou l'autre de deux files, la pièce avance et les deux files sont entourées : touche celle que tu veux. Dans une rafle, ta pièce reste en main ; pour t'arrêter, touche-la, ou touche le bouton passer dans ta barre.

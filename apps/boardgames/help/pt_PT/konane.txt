@@ -1,0 +1,16 @@
+Konane
+# O objetivo
+Ser o último jogador capaz de jogar. O konane é o jogo de damas havaiano: cada jogada é um salto que captura uma pedra.
+# O tabuleiro
+O tabuleiro está cheio: uma pedra em cada casa, com as duas cores a alternar como as casas de um tabuleiro de xadrez. As pedras escuras começam. O tabuleiro habitual é de 8 por 8; também podes escolher 6 por 6 ou 10 por 10.
+# Movimento
+O jogo começa com duas pedras retiradas do tabuleiro:
+- O jogador escuro retira uma das suas próprias pedras de uma das quatro casas centrais ou de um canto.
+- Depois, o jogador claro retira uma das suas próprias pedras ao lado desse buraco (por cima, por baixo ou ao lado).
+A partir daí, cada jogada é um salto.
+# Captura
+Salta com uma das tuas pedras por cima de uma pedra adversária mesmo ao lado dela (para cima, para baixo, para a esquerda ou para a direita, nunca na diagonal) até à casa vazia logo a seguir, e captura a pedra saltada. A mesma pedra pode voltar a saltar na mesma linha reta, por cima de outra pedra adversária até à casa vazia seguinte, e assim por diante, mas nunca pode virar. Podes parar depois de qualquer salto.
+# O fim do jogo
+Perde o primeiro jogador que não consegue jogar na sua vez. Não há empates: cada jogada captura uma pedra, por isso o jogo acaba sempre com um vencedor.
+# Jogar no dispositivo
+No início, as pedras que podem ser retiradas têm um anel: toca numa delas. Depois, toca numa pedra para ver onde pode aterrar (um ponto por cada salto, sempre em frente), e toca num ponto, ou arrasta a pedra. Cada barra mostra quantas pedras esse jogador capturou.

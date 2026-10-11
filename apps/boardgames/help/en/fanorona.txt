@@ -1,0 +1,19 @@
+Fanorona
+# The aim
+Take all the other player's pieces. Each player has twenty-two pieces. Light plays first.
+# The board
+Forty-five points joined by lines, nine across and five deep: every row, every column, and the diagonals drawn on the board. Each player's pieces fill the two rows nearest to them; in the middle row the colours alternate, and only the centre point is empty.
+# Moving
+On your turn, move one of your pieces along a line to the next point, if it is empty. A move that takes nothing (paika) is allowed only when no capture is possible anywhere on the board.
+# Capturing
+Pieces capture without jumping, in two ways:
+- Approach: step towards an enemy piece, so that you end right next to it on the same line. It is taken, and so is every enemy piece directly behind it on that line, up to the first gap or one of your own pieces.
+- Withdrawal: step straight away from an enemy piece that was right next to you. It is taken, with the unbroken line of enemy pieces behind it.
+- When one step could do both, you choose which line to take.
+- Capturing is compulsory: when you can capture, you must. You may choose any capture, not only the biggest.
+- After a capture, the same piece may go on capturing in the same turn, one step at a time. It may not come back to a point it has already stood on this turn, and may not move twice in a row in the same direction. Going on is optional: you may stop whenever you like.
+# The end of the game
+- A player who loses all their pieces, or cannot move, loses.
+- The game is a draw when the same position comes back for the third time, or after fifty moves each without a capture.
+# Playing on the device
+Tap your piece and then its new point, or drag it. Dots show where it can go, rings the pieces it would take: you may also tap a ringed piece. When a step could take either of two lines, the piece moves on and both lines are ringed: tap the one you want. In a chain of captures your piece stays picked up; to stop, tap it, or the pass button in your bar.
