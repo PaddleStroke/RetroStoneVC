@@ -1,12 +1,16 @@
 Jogo do moinho
 # O objetivo
-Deixar o outro jogador com apenas duas peças, ou sem jogadas. Cada jogador tem nove peças. As peças claras começam.
+Deixar o outro jogador com apenas duas peças, ou sem jogadas. Cada jogador tem nove peças. As peças claras começam. Escolhe o tabuleiro antes do jogo: moinho de nove peças (o cartão com três quadrados), moinho de doze peças (três quadrados ligados por diagonais nos cantos) ou moinho de seis peças (dois quadrados). As regras abaixo são as do moinho de nove peças; os outros dois alteram-nas como se descreve mais à frente.
 # Colocação
 Primeiro, os jogadores colocam à vez uma peça em qualquer ponto livre, até as dezoito peças estarem todas no tabuleiro.
 # Movimento
 Depois, na tua vez, move uma das tuas peças ao longo de uma linha para o ponto vizinho, se estiver livre. Um jogador que só tenha três peças pode voar: mover uma peça para qualquer ponto livre.
 # Moinhos
 Três peças tuas seguidas ao longo de uma linha formam um moinho. Sempre que fazes um moinho, ao colocar ou ao mover, retira do tabuleiro uma peça do outro jogador. Não podes tirar uma peça que esteja num moinho, a não ser que todas as peças do outro jogador estejam em moinhos. Abrir um moinho e voltar a fechá-lo forma um novo moinho.
+# Moinho de doze peças
+O tabuleiro do moinho de nove peças, com uma linha diagonal em cada canto que liga os três quadrados. Cada jogador tem doze peças. As peças também se movem ao longo das diagonais, e três peças numa diagonal formam um moinho. Se a colocação preencher os 24 pontos, o jogo fica empatado.
+# Moinho de seis peças
+Um tabuleiro mais pequeno: dois quadrados, ligados por linhas curtas a meio dos lados. Cada jogador tem seis peças. Os três pontos de cada lado de um quadrado formam um moinho; as linhas curtas entre os quadrados servem apenas para mover. Não se pode voar: o jogador que fica com duas peças perde.
 # O fim do jogo
 - Perde o jogador que fica com duas peças.
 - Perde o jogador que não consegue mover nenhuma peça.

@@ -1,12 +1,16 @@
 Sembilan Bidak
 # Tujuan
-Buat lawan hanya punya dua bidak tersisa, atau tidak bisa melangkah. Setiap pemain punya sembilan bidak. Pihak terang jalan lebih dulu.
+Buat lawan hanya punya dua bidak tersisa, atau tidak bisa melangkah. Setiap pemain punya sembilan bidak. Pihak terang jalan lebih dulu. Pilih papan sebelum permainan: Sembilan Bidak (kartu dengan tiga persegi), Dua Belas Bidak (tiga persegi yang dihubungkan garis diagonal di sudut-sudutnya), atau Enam Bidak (dua persegi). Aturan di bawah ini adalah aturan Sembilan Bidak; dua permainan lainnya mengubahnya seperti dijelaskan lebih lanjut.
 # Menempatkan
 Mula-mula, para pemain bergiliran menempatkan satu bidak di titik kosong mana pun, sampai kedelapan belas bidak berada di papan.
 # Menggerakkan
 Kemudian, saat giliranmu, gerakkan salah satu bidakmu di sepanjang garis ke titik berikutnya, jika titik itu kosong. Pemain yang hanya punya tiga bidak tersisa boleh terbang: memindahkan bidak ke titik kosong mana pun.
 # Kincir
 Tiga bidakmu yang berderet pada satu garis membentuk kincir. Setiap kali kamu membentuk kincir, baik saat menempatkan maupun saat menggerakkan, ambil satu bidak lawan dari papan. Kamu tidak boleh mengambil bidak yang menjadi bagian dari kincir, kecuali semua bidak lawan berada dalam kincir. Membuka kincir lalu menutupnya lagi membentuk kincir baru.
+# Dua Belas Bidak
+Papan Sembilan Bidak dengan satu garis diagonal di setiap sudut yang menghubungkan ketiga persegi. Setiap pemain punya dua belas bidak. Bidak juga bergerak di sepanjang diagonal, dan tiga bidak pada satu diagonal membentuk kincir. Jika penempatan mengisi ke-24 titik, permainan berakhir seri.
+# Enam Bidak
+Papan yang lebih kecil: dua persegi yang dihubungkan garis pendek di tengah sisi-sisinya. Setiap pemain punya enam bidak. Tiga titik di setiap sisi persegi membentuk kincir; garis pendek di antara kedua persegi hanya untuk bergerak. Tidak ada terbang: pemain yang tinggal punya dua bidak kalah.
 # Akhir permainan
 - Pemain yang tinggal punya dua bidak kalah.
 - Pemain yang tidak bisa menggerakkan bidak mana pun kalah.

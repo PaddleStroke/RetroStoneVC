@@ -1,12 +1,16 @@
 Mlýn
 # Cíl hry
-Nech soupeři jen dva kameny, nebo ho nech bez tahu. Každý hráč má devět kamenů. Začíná světlý hráč.
+Nech soupeři jen dva kameny, nebo ho nech bez tahu. Každý hráč má devět kamenů. Začíná světlý hráč. Před hrou zvol desku: mlýn s devíti kameny (karta se třemi čtverci), mlýn s dvanácti kameny (tři čtverce spojené v rozích úhlopříčkami) nebo mlýn se šesti kameny (dva čtverce). Pravidla níže platí pro mlýn s devíti kameny; další dvě hry je mění, jak je popsáno dále.
 # Rozmisťování
 Nejprve hráči střídavě pokládají po jednom kameni na libovolný volný bod, dokud není všech osmnáct kamenů na desce.
 # Posouvání
 Potom ve svém tahu posuň jeden ze svých kamenů po čáře na sousední bod, pokud je volný. Hráč, kterému zbývají jen tři kameny, smí skákat: přesunout kámen na libovolný volný bod.
 # Mlýny
 Tři tvé kameny v řadě na jedné čáře tvoří mlýn. Pokaždé, když vytvoříš mlýn, ať při rozmisťování, nebo při posouvání, odeber z desky jeden soupeřův kámen. Nesmíš vzít kámen, který je v mlýnu, pokud nejsou všechny soupeřovy kameny v mlýnech. Otevření mlýna a jeho opětovné zavření vytvoří nový mlýn.
+# Mlýn s dvanácti kameny
+Deska mlýna s devíti kameny, navíc s úhlopříčkou v každém rohu, která spojuje všechny tři čtverce. Každý hráč má dvanáct kamenů. Kameny se posouvají i po úhlopříčkách a tři kameny na úhlopříčce tvoří mlýn. Pokud rozmisťování zaplní všech 24 bodů, hra končí remízou.
+# Mlýn se šesti kameny
+Menší deska: dva čtverce spojené krátkými čarami uprostřed stran. Každý hráč má šest kamenů. Mlýn tvoří tři body na každé straně čtverce; krátké čáry mezi čtverci slouží jen k posouvání. Skákat se nesmí: hráč, kterému zbudou dva kameny, prohrává.
 # Konec hry
 - Hráč, kterému zbudou dva kameny, prohrává.
 - Hráč, který nemůže táhnout žádným kamenem, prohrává.

@@ -1,12 +1,16 @@
 Młynek
 # Cel gry
-Zostaw przeciwnikowi tylko dwa pionki albo pozbaw go ruchu. Każdy gracz ma dziewięć pionków. Jasne zaczynają.
+Zostaw przeciwnikowi tylko dwa pionki albo pozbaw go ruchu. Każdy gracz ma dziewięć pionków. Jasne zaczynają. Przed grą wybierz planszę: młynek z dziewięcioma pionkami (karta z trzema kwadratami), młynek z dwunastoma pionkami (trzy kwadraty połączone w rogach przekątnymi) albo młynek z sześcioma pionkami (dwa kwadraty). Zasady poniżej dotyczą młynka z dziewięcioma pionkami; pozostałe dwie gry zmieniają je tak, jak opisano dalej.
 # Rozstawianie
 Najpierw gracze na zmianę stawiają po jednym pionku na dowolnym wolnym punkcie, aż wszystkie osiemnaście pionków znajdzie się na planszy.
 # Przesuwanie
 Następnie w swojej kolejce przesuń jeden ze swoich pionków wzdłuż linii na sąsiedni punkt, jeśli jest wolny. Gracz, któremu zostały tylko trzy pionki, może skakać: przenieść pionek na dowolny wolny punkt.
 # Młynki
 Trzy twoje pionki w rzędzie na jednej linii tworzą młynek. Za każdym razem, gdy ułożysz młynek, podczas rozstawiania lub przesuwania, zdejmij z planszy jeden pionek przeciwnika. Nie możesz zabrać pionka, który jest w młynku, chyba że wszystkie pionki przeciwnika są w młynkach. Otwarcie młynka i ponowne jego zamknięcie tworzy nowy młynek.
+# Młynek z dwunastoma pionkami
+Plansza młynka z dziewięcioma pionkami, z ukośną linią w każdym rogu, łączącą trzy kwadraty. Każdy gracz ma dwanaście pionków. Pionki poruszają się także po przekątnych, a trzy pionki na przekątnej tworzą młynek. Jeśli rozstawianie zapełni wszystkie 24 punkty, partia kończy się remisem.
+# Młynek z sześcioma pionkami
+Mniejsza plansza: dwa kwadraty połączone krótkimi liniami w środku boków. Każdy gracz ma sześć pionków. Trzy punkty na każdym boku kwadratu tworzą młynek; krótkie linie między kwadratami służą tylko do przesuwania. Nie wolno skakać: gracz, któremu zostały dwa pionki, przegrywa.
 # Koniec gry
 - Gracz, któremu zostały dwa pionki, przegrywa.
 - Gracz, który nie może ruszyć żadnym pionkiem, przegrywa.

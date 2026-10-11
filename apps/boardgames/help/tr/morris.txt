@@ -1,12 +1,16 @@
 Dokuz Taş
 # Amaç
-Rakibini yalnızca iki taşla ya da hamlesiz bırak. Her oyuncunun dokuz taşı vardır. Önce açık renk oynar.
+Rakibini yalnızca iki taşla ya da hamlesiz bırak. Her oyuncunun dokuz taşı vardır. Önce açık renk oynar. Oyundan önce tahtayı seç: Dokuz Taş (üç kareli kart), On İki Taş (köşelerde çaprazlarla birleşen üç kare) ya da Altı Taş (iki kare). Aşağıdaki kurallar Dokuz Taş'ın kurallarıdır; diğer ikisi bunları ileride anlatıldığı gibi değiştirir.
 # Yerleştirme
 Önce oyuncular sırayla herhangi bir boş noktaya birer taş koyar; bu, on sekiz taşın hepsi tahtaya konana kadar sürer.
 # Hareket
 Sonra sıra sende olduğunda, taşlarından birini bir çizgi boyunca, boşsa bir sonraki noktaya götür. Yalnızca üç taşı kalan oyuncu uçabilir: bir taşı herhangi bir boş noktaya götürebilir.
 # Üçlüler
 Bir çizgi üzerinde yan yana dizilmiş üç taşın bir üçlü (değirmen) oluşturur. Her üçlü kurduğunda, ister yerleştirirken ister hareket ettirirken, rakibin taşlarından birini tahtadan al. Bir üçlünün içindeki taşı alamazsın; ancak rakibin bütün taşları üçlülerdeyse alabilirsin. Bir üçlüyü açıp yeniden kapatmak yeni bir üçlü sayılır.
+# On İki Taş
+Dokuz Taş tahtası, her köşede üç kareyi birleştiren çapraz bir çizgiyle. Her oyuncunun on iki taşı vardır. Taşlar çaprazlar boyunca da hareket eder ve bir çapraz üzerindeki üç taş da üçlü oluşturur. Yerleştirme 24 noktanın hepsini doldurursa oyun berabere biter.
+# Altı Taş
+Daha küçük bir tahta: kenarlarının ortasından kısa çizgilerle birleşen iki kare. Her oyuncunun altı taşı vardır. Bir karenin her kenarındaki üç nokta bir üçlü oluşturur; kareler arasındaki kısa çizgiler yalnızca hareket içindir. Uçmak yoktur: iki taşı kalan oyuncu kaybeder.
 # Oyunun sonu
 - İki taşı kalan oyuncu kaybeder.
 - Hiçbir taşını oynatamayan oyuncu kaybeder.

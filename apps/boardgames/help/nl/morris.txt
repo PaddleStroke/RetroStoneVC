@@ -1,12 +1,16 @@
 Molenspel
 # Het doel
-Laat de andere speler met nog maar twee stukken achter, of zonder zet. Elke speler heeft negen stukken. Licht begint.
+Laat de andere speler met nog maar twee stukken achter, of zonder zet. Elke speler heeft negen stukken. Licht begint. Kies het bord voor de partij: molenspel met negen stukken (de kaart met drie vierkanten), molenspel met twaalf stukken (drie vierkanten, in de hoeken verbonden door diagonalen) of molenspel met zes stukken (twee vierkanten). De regels hieronder zijn die van het molenspel met negen stukken; de andere twee veranderen ze zoals verderop staat.
 # Plaatsen
 Eerst plaatsen de spelers om de beurt één stuk op een willekeurig leeg punt, tot alle achttien stukken op het bord staan.
 # Schuiven
 Daarna schuif je, als je aan de beurt bent, een van je stukken langs een lijn naar het volgende punt, als dat leeg is. Een speler met nog maar drie stukken mag springen: een stuk naar een willekeurig leeg punt verplaatsen.
 # Molens
 Drie van je stukken op een rij langs één lijn vormen een molen. Elke keer dat je een molen maakt, tijdens het plaatsen of het schuiven, neem je een stuk van de andere speler van het bord. Je mag geen stuk nemen dat in een molen staat, tenzij alle stukken van de andere speler in molens staan. Een molen openen en weer sluiten vormt een nieuwe molen.
+# Molenspel met twaalf stukken
+Het bord van het molenspel met negen stukken, met in elke hoek een diagonale lijn die de drie vierkanten verbindt. Elke speler heeft twaalf stukken. Stukken schuiven ook langs de diagonalen, en drie stukken op een diagonaal vormen een molen. Als het plaatsen alle 24 punten vult, is het remise.
+# Molenspel met zes stukken
+Een kleiner bord: twee vierkanten, verbonden door korte lijnen in het midden van hun zijden. Elke speler heeft zes stukken. De drie punten langs elke zijde van een vierkant vormen een molen; de korte lijnen tussen de vierkanten zijn alleen om over te schuiven. Springen mag niet: een speler met nog maar twee stukken verliest.
 # Het einde van het spel
 - Een speler die nog maar twee stukken heeft, verliest.
 - Een speler die geen enkel stuk kan verplaatsen, verliest.

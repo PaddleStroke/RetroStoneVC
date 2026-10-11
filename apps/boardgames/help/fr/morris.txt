@@ -1,12 +1,16 @@
 Jeu du moulin
 # Le but
-Ne laisser à l'autre joueur que deux pièces, ou aucun coup possible. Chaque joueur a neuf pièces. Les pièces claires commencent.
+Ne laisser à l'autre joueur que deux pièces, ou aucun coup possible. Chaque joueur a neuf pièces. Les pièces claires commencent. Choisis le plateau avant la partie : moulin à neuf pièces (la carte avec trois carrés), moulin à douze pièces (trois carrés reliés aux coins par des diagonales) ou moulin à six pièces (deux carrés). Les règles ci-dessous sont celles du moulin à neuf pièces ; les deux autres les modifient comme expliqué plus bas.
 # La pose
 Au début, les joueurs posent à tour de rôle une pièce sur n'importe quel point libre, jusqu'à ce que les dix-huit pièces soient sur le plateau.
 # Les déplacements
 Ensuite, à ton tour, déplace une de tes pièces le long d'une ligne jusqu'au point voisin, s'il est libre. Un joueur à qui il ne reste que trois pièces peut voler : déplacer une pièce sur n'importe quel point libre.
 # Les moulins
 Trois de tes pièces alignées sur une même ligne forment un moulin. Chaque fois que tu formes un moulin, pendant la pose ou pendant les déplacements, retire du plateau une pièce de l'autre joueur. Tu ne peux pas prendre une pièce qui fait partie d'un moulin, sauf si toutes les pièces de l'autre joueur sont dans des moulins. Ouvrir un moulin puis le refermer forme un nouveau moulin.
+# Moulin à douze pièces
+Le plateau du moulin à neuf pièces, avec une ligne diagonale à chaque coin qui relie les trois carrés. Chaque joueur a douze pièces. Les pièces se déplacent aussi le long des diagonales, et trois pièces sur une diagonale forment un moulin. Si la pose remplit les 24 points, la partie est nulle.
+# Moulin à six pièces
+Un plateau plus petit : deux carrés, reliés par de courtes lignes au milieu de leurs côtés. Chaque joueur a six pièces. Les trois points de chaque côté d'un carré forment un moulin ; les courtes lignes entre les carrés servent seulement aux déplacements. On ne peut pas voler : un joueur à qui il ne reste que deux pièces a perdu.
 # La fin de la partie
 - Un joueur à qui il ne reste que deux pièces a perdu.
 - Un joueur qui ne peut déplacer aucune pièce a perdu.

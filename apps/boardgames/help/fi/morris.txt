@@ -1,12 +1,16 @@
 Mylly
 # Tavoite
-Jätä vastustajalle vain kaksi nappulaa tai ei yhtään siirtoa. Kummallakin pelaajalla on yhdeksän nappulaa. Vaalea aloittaa.
+Jätä vastustajalle vain kaksi nappulaa tai ei yhtään siirtoa. Kummallakin pelaajalla on yhdeksän nappulaa. Vaalea aloittaa. Valitse lauta ennen peliä: yhdeksän nappulan mylly (kortti, jossa on kolme neliötä), kahdentoista nappulan mylly (kolme neliötä, joita kulmien lävistäjät yhdistävät) tai kuuden nappulan mylly (kaksi neliötä). Alla olevat säännöt ovat yhdeksän nappulan myllyn; kaksi muuta muuttavat niitä, kuten jäljempänä kerrotaan.
 # Asettaminen
 Aluksi pelaajat asettavat vuorotellen yhden nappulan mihin tahansa tyhjään pisteeseen, kunnes kaikki kahdeksantoista nappulaa ovat laudalla.
 # Siirtäminen
 Sen jälkeen siirrät vuorollasi yhtä nappulaasi viivaa pitkin viereiseen pisteeseen, jos se on tyhjä. Pelaaja, jolla on jäljellä vain kolme nappulaa, saa lentää: siirtää nappulan mihin tahansa tyhjään pisteeseen.
 # Myllyt
 Kolme omaa nappulaasi rivissä samalla viivalla muodostavat myllyn. Aina kun muodostat myllyn, asettamis- tai siirtovaiheessa, poistat laudalta yhden vastustajan nappulan. Et saa ottaa nappulaa, joka on myllyssä, elleivät kaikki vastustajan nappulat ole myllyissä. Myllyn avaaminen ja sulkeminen uudelleen muodostaa uuden myllyn.
+# Kahdentoista nappulan mylly
+Yhdeksän nappulan myllyn lauta, jonka jokaisessa kulmassa on lävistäjä, joka yhdistää kolme neliötä. Kummallakin pelaajalla on kaksitoista nappulaa. Nappulat liikkuvat myös lävistäjiä pitkin, ja kolme nappulaa lävistäjällä muodostaa myllyn. Jos asettaminen täyttää kaikki 24 pistettä, peli päättyy tasapeliin.
+# Kuuden nappulan mylly
+Pienempi lauta: kaksi neliötä, joita yhdistävät lyhyet viivat sivujen keskeltä. Kummallakin pelaajalla on kuusi nappulaa. Neliön kunkin sivun kolme pistettä muodostavat myllyn; neliöiden väliset lyhyet viivat ovat vain siirtämistä varten. Lentää ei saa: pelaaja, jolle jää kaksi nappulaa, häviää.
 # Pelin loppu
 - Pelaaja, jolle jää kaksi nappulaa, häviää.
 - Pelaaja, joka ei voi siirtää yhtään nappulaa, häviää.

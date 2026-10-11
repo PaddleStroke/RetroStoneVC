@@ -1,6 +1,7 @@
 /*
- * Nine men's morris in RetroStone Board: the board (three squares drawn on one plank), the discs, tap or drag, the
- * mills and their removals (the rules and the notation: morris_rules.c, morris.h).
+ * The men's morris games in RetroStone Board: nine men's (three squares drawn on one plank), twelve men's (the same and
+ * the corners' diagonals), six men's (two squares); the discs, tap or drag, the mills and their removals (the rules,
+ * the boards and the notation: morris_rules.c, morris.h).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -10,20 +11,23 @@
 #include "games/morris.h"
 #include "shell.h"
 
-#define DISC 0.84f                              /* a disc's size, in cells */
+#define DISC 0.84f                              /* a disc's size, in cells (six men's larger cells: 0.72) */
 #define ANIM_MS 150
 #define FADE_MS 240
 
 static mgame G;
+static const mboard *B;                         /* the game's board */
 static mmove legal[MORRIS_MAX_MOVES];
 static int nlegal;
-static lines_geo L = {.cells = 7};              /* the plank: 7 x 7 cells, a point in 24 of them */
-static int made_small = -1;
+static lines_geo L = {.cells = 7};              /* the plank: cells x cells, a point in some of them */
+static int made_small = -1, made_cells = -1;
 static SDL_Texture *t_disc[2], *t_small[2], *t_board;
 static int sel = -1;
 static struct { int on, from, moved; float x, y; } drag;
 static struct { int on, color; mmove m; Uint32 t0; } anim;
 static const uint8_t GOLD[3] = {255, 196, 64}, BLACK[3] = {0, 0, 0};
+
+static float disc_of(const mboard *b) { return b->cells < 7 ? 0.72f : DISC; }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
 static void refresh(void)
@@ -35,8 +39,9 @@ static void refresh(void)
 
 static void start(int variant)
 {
-    (void)variant;
-    morris_new(&G);
+    morris_new(&G, variant);
+    B = morris_board(morris_pos(&G)->variant);
+    L.cells = B->cells;
     anim.on = 0;
     refresh();
 }
@@ -97,28 +102,31 @@ static int script(const char *s)
 }
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
-/* the plank with its lines (each mill's, from its first point to its last) and points: cells of s pixels in a frame
- * of f; (7 s + 2 f) squared */
-static void paint_board(int s, int f, uint8_t *o)
+/* a board's plank with its lines (each from its first point to its last) and points: cells of s pixels in a frame of
+ * f; (cells s + 2 f) squared */
+static void paint_board(const mboard *b, int s, int f, uint8_t *o)
 {
-    int8_t seg[MORRIS_MILLS][4], pt[MORRIS_POINTS][2];
-    for (int i = 0; i < MORRIS_MILLS; i++) {
-        const int8_t *m = morris_mill[i];
-        seg[i][0] = morris_x[m[0]], seg[i][1] = morris_y[m[0]], seg[i][2] = morris_x[m[2]], seg[i][3] = morris_y[m[2]];
+    int8_t seg[MORRIS_LINES][4], pt[MORRIS_POINTS][2];
+    for (int i = 0; i < b->lines; i++) {
+        const int8_t *l = b->line[i];
+        int e = l[2] >= 0 ? l[2] : l[1];
+        seg[i][0] = b->x[l[0]], seg[i][1] = b->y[l[0]], seg[i][2] = b->x[e], seg[i][3] = b->y[e];
     }
-    for (int i = 0; i < MORRIS_POINTS; i++) pt[i][0] = morris_x[i], pt[i][1] = morris_y[i];
-    lines_paint(7, s, f, (const int8_t (*)[4])seg, MORRIS_MILLS, (const int8_t (*)[2])pt, MORRIS_POINTS,
+    for (int i = 0; i < b->points; i++) pt[i][0] = b->x[i], pt[i][1] = b->y[i];
+    lines_paint(b->cells, s, f, (const int8_t (*)[4])seg, b->lines, (const int8_t (*)[2])pt, b->points,
                 fmaxf(2.0f, 0.06f * s), fmaxf(1.6f, 0.11f * s), o);
 }
 
 static void layout(box b)
 {
+    if (!B) start(MORRIS_NINE);
     int changed = lines_fit(&L, b), n = (int)lines_side(&L);
-    if (changed) {
+    if (changed || made_cells != B->lines * 100 + B->cells) {   /* the board's own lines */
+        made_cells = B->lines * 100 + B->cells;
         ui_free(&t_board);
-        paint_board(L.sq, L.fr, ui_buf(n, n));
+        paint_board(B, L.sq, L.fr, ui_buf(n, n));
         t_board = ui_tex(n, n, ui_buf(n, n));
-        int d = (int)(DISC * L.sq);
+        int d = (int)(disc_of(B) * L.sq);
         for (int c = 0; c < 2; c++) {
             ui_free(&t_disc[c]);
             art_counter(COUNTER_DISC, c, d, ui_buf(d, d));
@@ -139,36 +147,40 @@ static void layout(box b)
 /* ---- the board on the screen ------------------------------------------------------------------------------------- */
 static void pt_xy(int pt, float *x, float *y)  /* a point's centre */
 {
-    lines_xy(&L, morris_x[pt], morris_y[pt], x, y);
+    lines_xy(&L, B->x[pt], B->y[pt], x, y);
 }
 
 static int xy_pt(float x, float y)              /* the point whose cell holds (x, y); -1 */
 {
     int gx, gy;
     if (!lines_at(&L, x, y, &gx, &gy)) return -1;
-    for (int i = 0; i < MORRIS_POINTS; i++)
-        if (morris_x[i] == gx && morris_y[i] == gy) return i;
+    for (int i = 0; i < B->points; i++)
+        if (B->x[i] == gx && B->y[i] == gy) return i;
     return -1;
 }
 
 static void disc_at(int c, float cx, float cy, float d, float alpha) { ui_flat_at(t_disc[c], cx, cy, d, alpha, 0); }
 
-static void mark_last(int pt) { lines_mark_last(&L, morris_x[pt], morris_y[pt]); }
+static void mark_last(int pt) { lines_mark_last(&L, B->x[pt], B->y[pt]); }
 
-/* the mill just made: a gold line along it, a gold light under its pieces */
+/* the mill just made: a gold band along it, a gold light under its pieces */
 static void draw_mill(const mpos *p)
 {
     int to = G.move[G.ply - 1].to;
-    for (int i = 0; i < MORRIS_MILLS; i++) {
-        const int8_t *m = morris_mill[i];
-        if ((m[0] != to && m[1] != to && m[2] != to) || p->at[m[0]] != p->side || p->at[m[1]] != p->side ||
-            p->at[m[2]] != p->side)
+    for (int i = 0; i < B->lines; i++) {
+        const int8_t *m = B->line[i];
+        if (m[2] < 0 || (m[0] != to && m[1] != to && m[2] != to) || p->at[m[0]] != p->side ||
+            p->at[m[1]] != p->side || p->at[m[2]] != p->side)
             continue;
         float x0, y0, x1, y1, w = 0.17f * L.sq;
         pt_xy(m[0], &x0, &y0);
         pt_xy(m[2], &x1, &y1);
-        ui_fill(fminf(x0, x1) - w / 2, fminf(y0, y1) - w / 2, fabsf(x1 - x0) + w, fabsf(y1 - y0) + w,
-                250, 206, 80, 230);
+        if (x0 == x1 || y0 == y1)
+            ui_fill(fminf(x0, x1) - w / 2, fminf(y0, y1) - w / 2, fabsf(x1 - x0) + w, fabsf(y1 - y0) + w,
+                    250, 206, 80, 230);
+        else                                    /* a diagonal (twelve men's): gold beads along it */
+            for (int k = 0; k <= 16; k++)
+                ui_mark_gold(x0 + (x1 - x0) * k / 16, y0 + (y1 - y0) * k / 16, 0.5f * L.sq);
         for (int j = 0; j < 3; j++) {
             pt_xy(m[j], &x0, &y0);
             ui_mark_gold(x0, y0, 1.7f * L.sq);
@@ -179,7 +191,7 @@ static void draw_mill(const mpos *p)
 static void draw(void)
 {
     const mpos *p = morris_pos(&G);
-    float n = lines_side(&L), d = DISC * L.sq, x, y;
+    float n = lines_side(&L), d = disc_of(B) * L.sq, x, y;
     int st = status();
     ui_put(t_board, L.x - L.fr, L.y - L.fr, n, n);
     for (int k = G.ply - 1; k >= 0 && k >= G.ply - 2; k--) {   /* the last turn: a removal, and the move before it */
@@ -188,7 +200,7 @@ static void draw(void)
         if (G.move[k].type != M_TAKE) break;
     }
     if (p->take && G.ply) draw_mill(p);
-    if (sel >= 0) lines_mark_select(&L, morris_x[sel], morris_y[sel]);
+    if (sel >= 0) lines_mark_select(&L, B->x[sel], B->y[sel]);
     for (int i = 0; st == GS_PLAY && i < nlegal; i++) {          /* where to play, what can be removed */
         const mmove *m = &legal[i];
         if (m->type == M_TAKE) {
@@ -206,7 +218,7 @@ static void draw(void)
         else ui_animate();
         t = 1 - (1 - t) * (1 - t) * (1 - t);
     }
-    for (int i = 0; i < MORRIS_POINTS; i++) {
+    for (int i = 0; i < B->points; i++) {
         if (p->at[i] < 0 || (drag.on && drag.moved && i == drag.from) || (anim.on && anim.m.type != M_TAKE &&
                                                                           i == anim.m.to))
             continue;
@@ -215,7 +227,7 @@ static void draw(void)
     }
     if (anim.on) {
         float x0, y0;
-        if (anim.m.type == M_MOVE) {            /* a slide along the line */
+        if (anim.m.type == M_MOVE) {            /* a slide along the line (or a flight) */
             pt_xy(anim.m.from, &x0, &y0);
             pt_xy(anim.m.to, &x, &y);
             disc_at(anim.color, x0 + (x - x0) * t, y0 + (y - y0) * t, d, 1);
@@ -288,8 +300,9 @@ static void bar(int player, box b)
 {
     const mpos *p = morris_pos(&G);
     float sz = 0.6f * ui.unit, x = b.x, cy = b.y + b.h / 2, end = b.x + b.w;
-    int hand = p->hand[player], took = MORRIS_PIECES - p->hand[!player] - p->on[!player];
-    for (int i = 0; i < hand && x + sz <= end; i++, x += 0.19f * ui.unit)
+    int hand = p->hand[player], took = B->pieces - p->hand[!player] - p->on[!player];
+    float step = hand > 9 ? 0.15f : 0.19f;      /* twelve in hand: a tighter stack */
+    for (int i = 0; i < hand && x + sz <= end; i++, x += step * ui.unit)
         ui_put(t_small[player], x, cy - sz / 2, sz, sz);
     if (hand) x += sz + 0.16f * ui.unit;
     for (int i = 0; i < took && x + sz <= end; i++, x += 0.4f * ui.unit)
@@ -298,27 +311,36 @@ static void bar(int player, box b)
 
 static void token(int player, int size, uint8_t *rgba) { art_counter(COUNTER_DISC, player, size, rgba); }
 
-/* the menu's card: the board, a few discs, a mill in gold */
+/* the cards: the board, a few discs (ivory then ebony), a mill in gold: the menu's and nine men's the top row;
+ * twelve men's along a corner's diagonal, on a crowded board; six men's the top row of its two squares */
 static void thumb(int variant, int size, uint8_t *rgba)
 {
-    (void)variant;
-    int s = (int)(size / (7 + 2 * LINES_FRAME)), f = (int)(s * LINES_FRAME), n = 7 * s + 2 * f, o = (size - n) / 2;
-    int d = (int)(DISC * s), sh = (int)(1.25f * d);
+    static const struct { int mill; const char *pieces[2]; } CARD[MORRIS_VARIANTS] = {   /* ivory's, ebony's */
+        [MORRIS_NINE] = {7, {"a7 d7 g7 d2 b4", "e3 f4 d6 c3 e5 b2"}},
+        [MORRIS_TWELVE] = {16, {"a1 b2 c3 g4 e5 d7 f2 d3", "d1 f6 a4 g1 b6 c5 f4 e3 g7"}},
+        [MORRIS_SIX] = {3, {"a5 c5 e5 c2", "b3 d4 c1 e3 b4"}},
+    };
+    int v = variant < 0 ? MORRIS_NINE : variant;
+    const mboard *b = morris_board(v);
+    int c = b->cells, s = (int)(size / (c + 2 * LINES_FRAME)), f = (int)(s * LINES_FRAME), n = c * s + 2 * f;
+    int o = (size - n) / 2, d = (int)(disc_of(b) * s), sh = (int)(1.25f * d);
     uint8_t *board = ui_buf(n, n);
-    paint_board(s, f, board);
-    const int8_t *m = morris_mill[7];           /* a7 d7 g7 */
-    lines_band(board, n, lines_px(morris_x[m[0]], (float)s, (float)f), lines_py(7, morris_y[m[0]], (float)s, (float)f),
-               lines_px(morris_x[m[2]], (float)s, (float)f), lines_py(7, morris_y[m[2]], (float)s, (float)f),
+    paint_board(b, s, f, board);
+    const int8_t *m = b->line[CARD[v].mill];
+    lines_band(board, n, lines_px(b->x[m[0]], (float)s, (float)f), lines_py(c, b->y[m[0]], (float)s, (float)f),
+               lines_px(b->x[m[2]], (float)s, (float)f), lines_py(c, b->y[m[2]], (float)s, (float)f),
                0.17f * s, GOLD, 0.9f);
     art_blend(rgba, size, size, board, n, n, o, o);
-    static const char place[][3] = {"a7", "d7", "g7", "d2", "b4", "e3", "f4", "d6", "c3", "e5", "b2"};
-    for (unsigned i = 0; i < sizeof place / sizeof place[0]; i++) {
-        int pt = morris_point(place[i]), c = i >= 5;
-        float cx = o + f + (morris_x[pt] + 0.5f) * s, cy = o + f + (6 - morris_y[pt] + 0.5f) * s;
+    for (int k = 0; k < 2 * MORRIS_POINTS; k++) {   /* "a7 d7 ...": ivory's points, then ebony's */
+        int who = k >= MORRIS_POINTS;
+        const char *t = CARD[v].pieces[who] + 3 * (k % MORRIS_POINTS);
+        if ((int)strlen(CARD[v].pieces[who]) < 3 * (k % MORRIS_POINTS) + 2) continue;
+        int pt = morris_point(v, t);
+        float cx = o + f + (b->x[pt] + 0.5f) * s, cy = o + f + (c - 1 - b->y[pt] + 0.5f) * s;
         uint8_t *one = ui_buf(sh, sh);
         art_disc(sh, BLACK, 0.5f, 1.6f, one);
         art_blend(rgba, size, size, one, sh, sh, (int)(cx + 0.05f * d - sh / 2.0f), (int)(cy + 0.09f * d - sh / 2.0f));
-        art_counter(COUNTER_DISC, c, d, one);
+        art_counter(COUNTER_DISC, who, d, one);
         art_blend(rgba, size, size, one, d, d, (int)(cx - d / 2.0f + 0.5f), (int)(cy - d / 2.0f + 0.5f));
     }
 }
@@ -326,7 +348,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
 static int busy(void) { return anim.on; }     /* the end waits for the last move to finish */
 
 static const game morris_game = {
-    .id = "morris", .order = 50, .variants = 1,
+    .id = "morris", .order = 50, .variants = MORRIS_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy,

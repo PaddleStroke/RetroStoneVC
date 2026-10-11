@@ -1,12 +1,16 @@
 Trilha
 # O objetivo
-Deixar o outro jogador com só duas peças, ou sem jogada. Cada jogador tem nove peças. As peças claras começam.
+Deixar o outro jogador com só duas peças, ou sem jogada. Cada jogador tem nove peças. As peças claras começam. Escolha o tabuleiro antes da partida: trilha de nove peças (o cartão com três quadrados), trilha de doze peças (três quadrados ligados por diagonais nos cantos) ou trilha de seis peças (dois quadrados). As regras abaixo são as da trilha de nove peças; as outras duas as mudam como descrito mais adiante.
 # Colocação
 No início, os jogadores colocam, um de cada vez, uma peça em qualquer ponto vazio, até que todas as dezoito peças estejam no tabuleiro.
 # Movimento
 Depois, na sua vez, mova uma das suas peças ao longo de uma linha até o ponto vizinho, se ele estiver vazio. Um jogador que só tem três peças pode voar: mover uma peça para qualquer ponto vazio.
 # Moinhos
 Três peças suas em fila na mesma linha formam um moinho. Sempre que você forma um moinho, colocando ou movendo, retire do tabuleiro uma peça do outro jogador. Você não pode tirar uma peça que esteja em um moinho, a não ser que todas as peças do outro jogador estejam em moinhos. Abrir um moinho e fechá-lo de novo forma um novo moinho.
+# Trilha de doze peças
+O tabuleiro da trilha de nove peças, com uma linha diagonal em cada canto ligando os três quadrados. Cada jogador tem doze peças. As peças também se movem pelas diagonais, e três peças numa diagonal formam um moinho. Se a colocação preencher os 24 pontos, a partida empata.
+# Trilha de seis peças
+Um tabuleiro menor: dois quadrados, ligados por linhas curtas no meio dos lados. Cada jogador tem seis peças. Os três pontos de cada lado de um quadrado formam um moinho; as linhas curtas entre os quadrados servem só para mover. Não se pode voar: o jogador que fica com duas peças perde.
 # O fim da partida
 - Perde o jogador que fica com duas peças.
 - Perde o jogador que não consegue mover nenhuma peça.
