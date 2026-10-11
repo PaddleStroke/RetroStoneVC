@@ -1,0 +1,27 @@
+Makruk
+# The aim
+Makruk is Thai chess, a close cousin of chess. Checkmate the other Khun (king): attack it so that it cannot escape. White moves first, then the players take turns, one move each.
+# The board
+The board has eight rows of eight squares, all of one colour. Each player's back row holds, from the left: Rua, Ma, Khon, Khun, Met, Khon, Ma, Rua for White; Black's is the same turned round, so the two Khun do not face each other. The Bia stand on each player's third row, leaving the second row empty.
+# How the pieces move
+- Khun (the king's crown): one square in any direction. There is no castling.
+- Met (a diamond on a slim body): one square diagonally.
+- Khon (a temple bell with a spire): one square diagonally, or one square straight forwards.
+- Ma (the horse's head): like a chess knight, in an L shape, jumping over any piece in between.
+- Rua (the tower): any number of squares along a row or a column, like a chess rook.
+- Bia (the low shell): one square straight forwards, never two. It captures one square diagonally forwards.
+Pieces cannot pass through other pieces (except the Ma). A piece captures by moving onto a square held by an enemy piece, which leaves the board.
+# Promotion
+A Bia that reaches the sixth row, the row where the other player's Bia started, becomes a Met at once. From then on it moves as a Met.
+# Check and the end of the game
+A Khun that is attacked is in check: the next move must get it out of check. You may never make a move that leaves your own Khun in check.
+- Checkmate: the Khun is in check and no move can save it. That player loses.
+- Stalemate: the player to move has no legal move but is not in check. The game is a draw.
+- The game is also a draw when only the two Khun are left, or when the same position comes back for the third time with the same player to move.
+# Counting
+When no unpromoted Bia is left on the board, the game must end within a limited number of moves. In Thailand the weaker player counts aloud; here the device counts for you.
+- The board's count: from then on, the player who moves next counts their moves. If their count reaches 64 and the other player does not checkmate with the next move, the game is a draw.
+- The pieces' count: when a player has only their Khun left, that player counts instead, starting from the number of pieces on the board (both Khun included) plus one. The other player must give checkmate before the count passes the limit: 8 with two Rua, 16 with one Rua, 22 with two Khon, 32 with two Ma, 44 with one Khon, and 64 otherwise. The limit is set when the count starts and does not change, even if pieces are taken later.
+While a count runs, the counting player's bar shows how many moves the other player has left to checkmate.
+# Playing on the device
+Tap a piece to see where it can go, then tap a square, or drag the piece. Dots show the moves, rings the captures. A Khun in check glows red. Each bar shows the pieces that player has captured.

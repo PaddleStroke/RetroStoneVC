@@ -1,0 +1,27 @@
+Makruk
+# El objetivo
+El makruk es el ajedrez tailandés, un pariente cercano del ajedrez. Dar jaque mate al Khun (rey) contrario: atacarlo de modo que no pueda escapar. Las blancas mueven primero; después los jugadores se turnan, una jugada cada uno.
+# El tablero
+El tablero tiene ocho filas de ocho casillas, todas del mismo color. La primera fila de cada jugador lleva, empezando por la izquierda: Rua, Ma, Khon, Khun, Met, Khon, Ma, Rua para las blancas; la de las negras es la misma, pero girada, de modo que los dos Khun no quedan frente a frente. Los Bia se colocan en la tercera fila de cada jugador, y la segunda fila queda vacía.
+# Cómo se mueven las piezas
+- Khun (la corona del rey): una casilla en cualquier dirección. No hay enroque.
+- Met (un rombo sobre un cuerpo esbelto): una casilla en diagonal.
+- Khon (una campana de templo con aguja): una casilla en diagonal, o una casilla recto hacia delante.
+- Ma (la cabeza de caballo): como el caballo del ajedrez, en forma de L, saltando por encima de cualquier pieza que haya en medio.
+- Rua (la torre): cualquier número de casillas por una fila o una columna, como la torre del ajedrez.
+- Bia (la concha baja): una casilla recto hacia delante, nunca dos. Captura una casilla en diagonal hacia delante.
+Las piezas no pueden atravesar otras piezas (salvo el Ma). Una pieza captura moviéndose a una casilla ocupada por una pieza contraria, que sale del tablero.
+# La promoción
+Un Bia que llega a la sexta fila, la fila donde empezaron los Bia del otro jugador, se convierte al instante en Met. A partir de entonces se mueve como un Met.
+# El jaque y el final de la partida
+Un Khun atacado está en jaque: la siguiente jugada debe sacarlo del jaque. Nunca puedes hacer una jugada que deje a tu propio Khun en jaque.
+- Jaque mate: el Khun está en jaque y ninguna jugada puede salvarlo. Ese jugador pierde.
+- Rey ahogado: el jugador al que le toca mover no tiene ninguna jugada legal, pero no está en jaque. La partida termina en tablas.
+- La partida también termina en tablas cuando solo quedan los dos Khun, o cuando la misma posición se repite por tercera vez con el mismo jugador al turno.
+# El conteo
+Cuando ya no queda en el tablero ningún Bia sin promocionar, la partida debe terminar en un número limitado de jugadas. En Tailandia, el jugador más débil cuenta en voz alta; aquí el dispositivo cuenta por ti.
+- El conteo del tablero: a partir de ese momento, el jugador que mueve a continuación cuenta sus jugadas. Si su cuenta llega a 64 y el otro jugador no da mate con la jugada siguiente, la partida termina en tablas.
+- El conteo de las piezas: cuando a un jugador solo le queda su Khun, pasa a contar ese jugador, empezando por el número de piezas que hay en el tablero (los dos Khun incluidos) más uno. El otro jugador debe dar mate antes de que la cuenta supere el límite: 8 con dos Rua, 16 con un Rua, 22 con dos Khon, 32 con dos Ma, 44 con un Khon, y 64 en los demás casos. El límite se fija al empezar el conteo y no cambia, aunque después se capturen piezas.
+Mientras dura un conteo, la barra del jugador que cuenta muestra cuántas jugadas le quedan al otro jugador para dar mate.
+# Jugar en el dispositivo
+Toca una pieza para ver adónde puede ir y luego toca una casilla, o arrastra la pieza. Los puntos muestran las jugadas, los anillos las capturas. Un Khun en jaque brilla en rojo. Cada barra muestra las piezas que ha capturado ese jugador.

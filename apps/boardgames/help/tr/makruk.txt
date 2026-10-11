@@ -1,0 +1,27 @@
+Makruk
+# Amaç
+Makruk, Tay satrancıdır; bildiğimiz satrancın yakın bir akrabasıdır. Rakibin Khun'unu (şahını) mat et: ona kaçamayacağı şekilde saldır. Önce beyaz oynar, sonra oyuncular sırayla birer hamle yapar.
+# Tahta
+Tahtada sekizer kareli sekiz sıra vardır ve karelerin hepsi aynı renktedir. Beyazın arka sırasında soldan itibaren Rua, Ma, Khon, Khun, Met, Khon, Ma, Rua bulunur; siyahınki aynı dizilişin ters çevrilmiş hâlidir, bu yüzden iki Khun karşı karşıya gelmez. Bia'lar her oyuncunun üçüncü sırasında durur, ikinci sıra boş kalır.
+# Taşlar nasıl hareket eder
+- Khun (şahın tacı): herhangi bir yöne bir kare. Rok yoktur.
+- Met (ince bir gövde üstünde bir elmas): çapraz olarak bir kare.
+- Khon (sivri tepeli bir tapınak çanı): çapraz olarak bir kare ya da dümdüz ileri bir kare.
+- Ma (at başı): satrançtaki at gibi L şeklinde; aradaki taşların üzerinden atlar.
+- Rua (kale): yatay ya da dikey olarak istediği kadar kare, satrançtaki kale gibi.
+- Bia (alçak deniz kabuğu): dümdüz ileri bir kare, asla iki değil. Çapraz olarak bir kare ilerideki taşı alır.
+Taşlar diğer taşların içinden geçemez (Ma hariç). Bir taş, rakip taşın bulunduğu kareye giderek onu alır; alınan taş tahtadan çıkar.
+# Terfi
+Altıncı sıraya, yani rakibin Bia'larının başladığı sıraya ulaşan bir Bia hemen Met olur. O andan itibaren Met gibi hareket eder.
+# Şah ve oyunun sonu
+Saldırı altındaki Khun'a şah çekilmiş olur: bir sonraki hamle onu şahtan kurtarmalıdır. Kendi Khun'unu şah altında bırakan bir hamleyi asla yapamazsın.
+- Şah mat: Khun'a şah çekilmiştir ve hiçbir hamle onu kurtaramaz. O oyuncu kaybeder.
+- Pat: sırası gelen oyuncunun yapabileceği geçerli bir hamle yoktur ama Khun'una şah çekilmemiştir. Oyun berabere biter.
+- Oyun ayrıca tahtada yalnızca iki Khun kaldığında ya da aynı pozisyon, sıra aynı oyuncudayken üçüncü kez tekrarlandığında berabere biter.
+# Sayım
+Tahtada terfi etmemiş hiç Bia kalmadığında oyun sınırlı sayıda hamle içinde bitmelidir. Tayland'da zayıf olan oyuncu yüksek sesle sayar; burada cihaz senin yerine sayar.
+- Tahta sayımı: o andan itibaren sıradaki hamleyi yapacak oyuncu kendi hamlelerini sayar. Sayısı 64'e ulaşır ve rakip bir sonraki hamlede mat etmezse oyun berabere biter.
+- Taş sayımı: bir oyuncunun yalnızca Khun'u kaldığında sayımı bu kez o oyuncu yapar ve tahtadaki taş sayısının (iki Khun da dahil) bir fazlasından başlar. Rakip, sayı sınırı aşmadan mat etmelidir: iki Rua ile 8, bir Rua ile 16, iki Khon ile 22, iki Ma ile 32, bir Khon ile 44, diğer durumlarda 64. Sınır, sayım başladığında belirlenir ve daha sonra taş alınsa bile değişmez.
+Sayım sürerken, sayan oyuncunun şeridi rakibin mat etmek için kaç hamlesi kaldığını gösterir.
+# Cihazda oynamak
+Bir taşın nereye gidebileceğini görmek için ona dokun, sonra bir kareye dokun ya da taşı sürükle. Noktalar hamleleri, halkalar alınabilecek taşları gösterir. Şah çekilmiş Khun kırmızı parlar. Her şerit, o oyuncunun aldığı taşları gösterir.

@@ -1,0 +1,18 @@
+Bagh-Chal
+# Das Ziel
+Bagh-Chal, „Tiger und Ziegen“, stammt aus Nepal. Ein Spieler hat vier Tiger, der andere zwanzig Ziegen. Die Tiger versuchen, Ziegen zu fangen; die Ziegen versuchen, die Tiger so einzuschließen, dass keiner von ihnen mehr ziehen kann. Die Ziegen (hell) beginnen.
+# Das Brett
+Fünfundzwanzig Punkte, durch Linien verbunden: jede Reihe, jede Spalte und die auf dem Brett eingezeichneten Diagonalen. Die Figuren ziehen nur entlang dieser Linien, von einem Punkt zum nächsten. Die vier Tiger (dunkel) beginnen auf den Ecken; die Ziegen beginnen außerhalb des Bretts.
+# Ziehen
+- Zuerst kommen die Ziegen ins Spiel: In jedem ihrer Züge setzen die Ziegen eine neue Ziege auf einen beliebigen freien Punkt, bis alle zwanzig eingesetzt sind. Währenddessen ziehen die Tiger bereits. Eine Ziege auf dem Brett darf erst ziehen, wenn alle zwanzig eingesetzt sind.
+- Danach ziehen die Ziegen, wenn sie dran sind, eine Ziege entlang einer Linie auf den nächsten Punkt, falls er frei ist, in jede Richtung.
+- Ein Tiger zieht entlang einer Linie auf den nächsten freien Punkt, in jede Richtung, oder er schlägt.
+# Schlagen
+Nur die Tiger schlagen. Steht eine Ziege auf einer Linie neben einem Tiger und ist der Punkt direkt dahinter frei, darf der Tiger über sie auf diesen Punkt springen und die Ziege vom Brett nehmen. Eine Ziege pro Zug: Ein Tiger springt nie zweimal hintereinander und nie über einen anderen Tiger. Schlagen ist keine Pflicht.
+# Das Ende der Partie
+- Die Tiger gewinnen, wenn sie fünf Ziegen geschlagen haben. Das ist die verbreitetste Regel (manche spielen weiter, um mehr zu schlagen).
+- Die Ziegen gewinnen, wenn kein Tiger mehr ziehen oder springen kann.
+- Wer am Zug ist und nicht ziehen kann, verliert: Auch die Ziegen verlieren, wenn keine von ihnen ziehen kann.
+- Die Partie endet unentschieden, wenn dieselbe Stellung zum dritten Mal mit demselben Spieler am Zug entsteht, oder nach fünfzig Zügen jeder Seite ohne Schlagen, sobald alle Ziegen eingesetzt sind.
+# Spielen auf dem Gerät
+Solange noch Ziegen einzusetzen sind, tippe auf einen freien Punkt, um eine Ziege zu setzen: Punkte zeigen die freien Stellen. Danach tippe auf eine Figur und dann auf ihren neuen Punkt, oder schieb sie mit dem Finger. Die Ziegen, die die Tiger schlagen können, tragen einen Ring: Tippe auf einen Tiger und dann auf den Punkt hinter der Ziege oder auf die beringte Ziege selbst. Die Leiste der Ziegen zeigt, wie viele Ziegen noch kommen, die Leiste der Tiger, wie viele Ziegen sie geschlagen haben.

@@ -1,0 +1,27 @@
+Makruk
+# Das Ziel
+Makruk ist thailändisches Schach, ein enger Verwandter des Schachs. Setze den gegnerischen Khun (König) matt: Greife ihn so an, dass er nicht entkommen kann. Weiß beginnt, danach ziehen die Spieler abwechselnd, jeder einen Zug.
+# Das Brett
+Das Brett hat acht Reihen mit je acht Feldern, alle in derselben Farbe. In der Grundreihe jedes Spielers stehen von links: Rua, Ma, Khon, Khun, Met, Khon, Ma, Rua für Weiß; bei Schwarz ist es dieselbe Reihe, nur umgedreht, sodass die beiden Khun einander nicht gegenüberstehen. Die Bia stehen auf der dritten Reihe jedes Spielers, die zweite Reihe bleibt leer.
+# So ziehen die Figuren
+- Khun (die Königskrone): ein Feld in jede Richtung. Es gibt keine Rochade.
+- Met (eine Raute auf einem schlanken Körper): ein Feld diagonal.
+- Khon (eine Tempelglocke mit Turmspitze): ein Feld diagonal oder ein Feld geradeaus nach vorn.
+- Ma (der Pferdekopf): wie der Springer im Schach, in L-Form, wobei er über jede Figur dazwischen springt.
+- Rua (der Turm): beliebig viele Felder entlang einer Reihe oder einer Linie, wie der Turm im Schach.
+- Bia (die flache Muschel): ein Feld geradeaus nach vorn, nie zwei. Er schlägt ein Feld schräg nach vorn.
+Figuren können nicht durch andere Figuren hindurchziehen (außer dem Ma). Eine Figur schlägt, indem sie auf ein Feld zieht, auf dem eine gegnerische Figur steht; diese verlässt das Brett.
+# Umwandlung
+Ein Bia, der die sechste Reihe erreicht, also die Reihe, auf der die Bia des anderen Spielers begonnen haben, wird sofort zum Met. Von da an zieht er wie ein Met.
+# Schach und das Ende der Partie
+Ein angegriffener Khun steht im Schach: Der nächste Zug muss das Schach aufheben. Du darfst nie einen Zug machen, nach dem dein eigener Khun im Schach steht.
+- Schachmatt: Der Khun steht im Schach und kein Zug kann ihn retten. Dieser Spieler verliert.
+- Patt: Der Spieler am Zug hat keinen erlaubten Zug, steht aber nicht im Schach. Die Partie endet remis.
+- Remis ist die Partie auch, wenn nur noch die beiden Khun übrig sind oder wenn dieselbe Stellung zum dritten Mal mit demselben Spieler am Zug entsteht.
+# Das Zählen
+Steht kein nicht umgewandelter Bia mehr auf dem Brett, muss die Partie innerhalb einer begrenzten Zahl von Zügen enden. In Thailand zählt der schwächere Spieler laut mit; hier zählt das Gerät für dich.
+- Die Brettzählung: Von da an zählt der Spieler, der als Nächster zieht, seine Züge. Erreicht seine Zählung 64 und setzt der andere Spieler mit dem nächsten Zug nicht matt, endet die Partie remis.
+- Die Figurenzählung: Hat ein Spieler nur noch seinen Khun, zählt stattdessen dieser Spieler, beginnend bei der Zahl der Figuren auf dem Brett (beide Khun mitgerechnet) plus eins. Der andere Spieler muss mattsetzen, bevor die Zählung die Grenze überschreitet: 8 mit zwei Rua, 16 mit einem Rua, 22 mit zwei Khon, 32 mit zwei Ma, 44 mit einem Khon und sonst 64. Die Grenze wird zu Beginn der Zählung festgelegt und ändert sich nicht mehr, auch wenn später Figuren geschlagen werden.
+Während eine Zählung läuft, zeigt die Leiste des zählenden Spielers, wie viele Züge dem anderen Spieler zum Mattsetzen noch bleiben.
+# Spielen auf dem Gerät
+Tippe auf eine Figur, um zu sehen, wohin sie ziehen kann, und dann auf ein Feld, oder schieb die Figur mit dem Finger dorthin. Punkte zeigen die Züge, Ringe das Schlagen. Ein Khun im Schach leuchtet rot. Jede Leiste zeigt die Figuren, die der Spieler geschlagen hat.

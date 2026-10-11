@@ -1,0 +1,27 @@
+Makruk
+# Cíl hry
+Makruk jsou thajské šachy, blízký příbuzný běžných šachů. Dej soupeřovu Khunovi (králi) mat: napadni ho tak, aby nemohl uniknout. Bílý táhne první, potom se hráči střídají, každý jedním tahem.
+# Deska
+Šachovnice má osm řad po osmi polích, všechna jedné barvy. Zadní řada každého hráče obsahuje zleva: Rua, Ma, Khon, Khun, Met, Khon, Ma, Rua u bílého; u černého je stejná, jen obrácená, takže oba Khunové nestojí přímo proti sobě. Pěšci Bia stojí na třetí řadě každého hráče a druhá řada zůstává prázdná.
+# Jak se figury pohybují
+- Khun (královská koruna): o jedno pole libovolným směrem. Rošáda neexistuje.
+- Met (diamant na štíhlém těle): o jedno pole šikmo.
+- Khon (chrámový zvon s věžičkou): o jedno pole šikmo, nebo o jedno pole rovně vpřed.
+- Ma (koňská hlava): jako šachový jezdec, do tvaru písmene L, přičemž přeskočí cokoli mezi tím.
+- Rua (věž): o libovolný počet polí po řadě nebo sloupci, jako šachová věž.
+- Bia (nízká mušle): o jedno pole rovně vpřed, nikdy o dvě. Bere o jedno pole šikmo vpřed.
+Figury nemohou procházet přes jiné figury (kromě Ma). Figura bere tak, že vstoupí na pole obsazené soupeřovou figurou, která opouští šachovnici.
+# Proměna
+Když Bia dojde na šestou řadu, tedy na řadu, kde začínali soupeřovi pěšci Bia, ihned se promění v Met. Od té chvíle táhne jako Met.
+# Šach a konec partie
+Napadený Khun je v šachu: další tah ho musí ze šachu dostat. Nikdy nesmíš zahrát tah, po kterém by tvůj vlastní Khun zůstal v šachu.
+- Mat: Khun je v šachu a žádný tah ho nemůže zachránit. Tento hráč prohrává.
+- Pat: hráč na tahu nemá žádný povolený tah, ale není v šachu. Partie končí remízou.
+- Partie končí remízou také tehdy, když zbydou jen oba Khunové, nebo když se stejná pozice zopakuje potřetí se stejným hráčem na tahu.
+# Počítání
+Když na šachovnici nezůstal žádný neproměněný pěšec Bia, musí partie skončit v omezeném počtu tahů. V Thajsku počítá slabší hráč nahlas; tady počítá zařízení za tebe.
+- Počítání desky: od té chvíle počítá své tahy hráč, který táhne jako další. Pokud jeho počet dosáhne 64 a soupeř v následujícím tahu nedá mat, partie končí remízou.
+- Počítání figur: když hráči zbude jen jeho Khun, počítá místo toho on, a to od počtu figur na šachovnici (včetně obou Khunů) plus jedna. Soupeř musí dát mat dřív, než počet překročí limit: 8 se dvěma Rua, 16 s jedním Rua, 22 se dvěma Khony, 32 se dvěma Ma, 44 s jedním Khonem a jinak 64. Limit se určí na začátku počítání a už se nemění, ani když jsou později vzaty další figury.
+Během počítání ukazuje lišta počítajícího hráče, kolik tahů ještě soupeři zbývá, aby dal mat.
+# Hra na zařízení
+Klepni na figuru a uvidíš, kam může táhnout, potom klepni na pole, nebo figuru přetáhni. Tečky ukazují tahy, kroužky braní. Khun v šachu svítí červeně. Každá lišta ukazuje figury, které daný hráč vzal.

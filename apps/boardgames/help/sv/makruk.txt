@@ -1,0 +1,27 @@
+Makruk
+# Målet
+Makruk är thailändskt schack, en nära släkting till vanligt schack. Gör motståndarens Khun (kung) schack matt: angrip den så att den inte kan komma undan. Vit börjar, sedan turas spelarna om, ett drag var.
+# Brädet
+Brädet har åtta rader med åtta rutor, alla i samma färg. Varje spelares bakersta rad har, från vänster: Rua, Ma, Khon, Khun, Met, Khon, Ma, Rua för vit; svarts är likadan men omvänd, så att de två Khun inte står mitt emot varandra. Bia står på varje spelares tredje rad, så att den andra raden är tom.
+# Hur pjäserna går
+- Khun (kungens krona): en ruta åt vilket håll som helst. Det finns ingen rockad.
+- Met (en diamant på en smal kropp): en ruta diagonalt.
+- Khon (en tempelklocka med spira): en ruta diagonalt, eller en ruta rakt framåt.
+- Ma (hästhuvudet): som springaren i schack, i en L-form, och hoppar över pjäser som står emellan.
+- Rua (tornet): hur många rutor som helst längs en rad eller en linje, som tornet i schack.
+- Bia (det låga snäckskalet): en ruta rakt framåt, aldrig två. Den slår en ruta snett framåt.
+Pjäserna kan inte passera andra pjäser (utom Ma). En pjäs slår genom att flytta till en ruta där en motståndarpjäs står, som då lämnar brädet.
+# Befordran
+En Bia som når sjätte raden, den rad där motståndarens Bia stod från början, blir genast en Met. Från och med då går den som en Met.
+# Schack och partiets slut
+En Khun som är angripen står i schack: nästa drag måste få den ur schack. Du får aldrig göra ett drag som lämnar din egen Khun i schack.
+- Schack matt: Khun står i schack och inget drag kan rädda den. Den spelaren förlorar.
+- Patt: spelaren som är vid draget har inget tillåtet drag men står inte i schack. Partiet blir remi.
+- Partiet blir också remi när bara de två Khun är kvar, eller när samma ställning återkommer för tredje gången med samma spelare vid draget.
+# Räkningen
+När ingen obefordrad Bia finns kvar på brädet måste partiet ta slut inom ett begränsat antal drag. I Thailand räknar den svagare spelaren högt; här räknar enheten åt dig.
+- Brädets räkning: från och med då räknar den spelare som drar härnäst sina drag. Om räkningen når 64 och motståndaren inte gör matt med nästa drag blir partiet remi.
+- Pjäsernas räkning: när en spelare bara har sin Khun kvar är det i stället den spelaren som räknar, med start från antalet pjäser på brädet (båda Khun medräknade) plus ett. Motståndaren måste göra matt innan räkningen passerar gränsen: 8 med två Rua, 16 med en Rua, 22 med två Khon, 32 med två Ma, 44 med en Khon och annars 64. Gränsen bestäms när räkningen börjar och ändras inte, även om pjäser tas senare.
+Medan en räkning pågår visar den räknande spelarens fält hur många drag motståndaren har kvar på sig att göra matt.
+# Spela på enheten
+Tryck på en pjäs för att se vart den kan gå, tryck sedan på en ruta, eller dra pjäsen. Prickar visar dragen, ringar slagen. En Khun i schack lyser rött. Varje fält visar de pjäser som den spelaren har slagit.

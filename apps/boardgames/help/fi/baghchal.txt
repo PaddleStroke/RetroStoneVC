@@ -1,0 +1,18 @@
+Bagh-Chal
+# Tavoite
+Bagh-Chal, ”tiikerit ja vuohet”, on kotoisin Nepalista. Toisella pelaajalla on neljä tiikeriä, toisella kaksikymmentä vuohta. Tiikerit yrittävät napata vuohia; vuohet yrittävät saartaa tiikerit niin, ettei yksikään niistä pääse liikkumaan. Vuohet (vaaleat) aloittavat.
+# Lauta
+Kaksikymmentäviisi pistettä, joita yhdistävät viivat: jokainen rivi, jokainen sarake ja laudalle piirretyt lävistäjät. Nappulat liikkuvat vain näitä viivoja pitkin, pisteestä seuraavaan. Neljä tiikeriä (tummat) aloittavat kulmista; vuohet aloittavat laudan ulkopuolelta.
+# Siirtäminen
+- Ensin vuohet tuodaan laudalle: vuohien jokaisella vuorolla laudalle asetetaan yksi uusi vuohi mihin tahansa tyhjään pisteeseen, kunnes kaikki kaksikymmentä ovat laudalla. Sillä välin tiikerit liikkuvat jo. Laudalla oleva vuohi ei saa liikkua ennen kuin kaikki kaksikymmentä ovat laudalla.
+- Sen jälkeen vuohet siirtävät vuorollaan yhtä vuohta viivaa pitkin seuraavaan pisteeseen, jos se on tyhjä, mihin suuntaan tahansa.
+- Tiikeri siirtyy viivaa pitkin seuraavaan tyhjään pisteeseen mihin suuntaan tahansa, tai syö vuohen.
+# Lyöminen
+Vain tiikerit syövät. Kun vuohi on tiikerin vieressä viivalla ja heti sen takana oleva piste on tyhjä, tiikeri saa hypätä sen yli tuohon pisteeseen ja poistaa vuohen laudalta. Vain yksi vuohi vuoroa kohden: tiikeri ei koskaan hyppää kahdesti peräkkäin eikä koskaan toisen tiikerin yli. Syöminen ei ole pakollista.
+# Pelin loppu
+- Tiikerit voittavat, kun ne ovat syöneet viisi vuohta. Tämä on yleisin sääntö (jotkut pelaavat pidemmälle, useampaan vuoheen).
+- Vuohet voittavat, kun yksikään tiikeri ei voi siirtyä eikä hypätä.
+- Pelaaja, joka ei voi siirtää vuorollaan, häviää: myös vuohet häviävät, jos yksikään niistä ei voi liikkua.
+- Peli päättyy tasapeliin, kun sama asema toistuu kolmannen kerran saman pelaajan ollessa siirtovuorossa, tai kun kumpikin on tehnyt viisikymmentä siirtoa ilman syöntiä sen jälkeen, kun kaikki vuohet ovat laudalla.
+# Pelaaminen laitteella
+Niin kauan kuin vuohia on vielä tulossa, napauta tyhjää pistettä asettaaksesi vuohen: pisteet näyttävät vapaat kohdat. Napauta sen jälkeen nappulaa ja sen uutta pistettä, tai vedä sitä. Niiden vuohien ympärillä, jotka tiikerit voivat syödä, on rengas: napauta tiikeriä ja sitten vuohen takana olevaa pistettä tai renkaalla merkittyä vuohta itseään. Vuohien palkki näyttää, montako vuohta on vielä tulossa, tiikerien palkki, montako vuohta ne ovat syöneet.

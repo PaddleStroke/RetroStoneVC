@@ -1,0 +1,27 @@
+Makruk
+# Cel gry
+Makruk to szachy tajskie, bliski krewny zwykłych szachów. Zamatuj Khuna (króla) przeciwnika: zaatakuj go tak, aby nie mógł uciec. Białe zaczynają, potem gracze wykonują ruchy na zmianę, po jednym.
+# Plansza
+Plansza ma osiem rzędów po osiem pól, wszystkie w jednym kolorze. W tylnym rzędzie każdego gracza stoją, licząc od lewej: Rua, Ma, Khon, Khun, Met, Khon, Ma, Rua u białych; u czarnych jest tak samo, ale w odwrotnej kolejności, więc oba Khuny nie stoją naprzeciw siebie. Piony Bia stoją w trzecim rzędzie każdego gracza, a drugi rząd zostaje pusty.
+# Jak poruszają się bierki
+- Khun (korona króla): o jedno pole w dowolnym kierunku. Nie ma roszady.
+- Met (diament na smukłym korpusie): o jedno pole po przekątnej.
+- Khon (dzwon świątynny z iglicą): o jedno pole po przekątnej lub o jedno pole prosto do przodu.
+- Ma (głowa konia): jak skoczek w szachach, po literze L, przeskakując nad bierkami pomiędzy.
+- Rua (wieża): o dowolną liczbę pól w poziomie lub w pionie, jak wieża w szachach.
+- Bia (niska muszla): o jedno pole prosto do przodu, nigdy o dwa. Bije o jedno pole na ukos do przodu.
+Bierki nie mogą przechodzić przez inne bierki (z wyjątkiem Ma). Bierka bije, wchodząc na pole zajęte przez bierkę przeciwnika, która schodzi z planszy.
+# Promocja
+Pion Bia, który dojdzie do szóstego rzędu, czyli rzędu, w którym zaczynały piony Bia przeciwnika, od razu staje się Metem. Od tej chwili porusza się jak Met.
+# Szach i koniec partii
+Atakowany Khun jest szachowany: następny ruch musi usunąć szach. Nigdy nie możesz wykonać ruchu, po którym twój własny Khun byłby szachowany.
+- Mat: Khun jest szachowany i żaden ruch nie może go uratować. Ten gracz przegrywa.
+- Pat: gracz, który ma ruch, nie ma żadnego dozwolonego ruchu, ale nie jest szachowany. Partia kończy się remisem.
+- Partia kończy się remisem także wtedy, gdy zostaną tylko oba Khuny, lub gdy ta sama pozycja powtórzy się po raz trzeci przy ruchu tego samego gracza.
+# Liczenie
+Gdy na planszy nie ma już żadnego niepromowanego piona Bia, partia musi się skończyć w ograniczonej liczbie ruchów. W Tajlandii słabszy gracz liczy na głos; tutaj urządzenie liczy za ciebie.
+- Liczenie planszy: od tej chwili gracz, który wykonuje następny ruch, liczy swoje ruchy. Jeśli jego licznik dojdzie do 64, a przeciwnik nie da mata następnym ruchem, partia kończy się remisem.
+- Liczenie bierek: gdy graczowi zostanie tylko jego Khun, liczy zamiast tego ten gracz, zaczynając od liczby bierek na planszy (łącznie z oboma Khunami) plus jeden. Przeciwnik musi dać mata, zanim licznik przekroczy limit: 8 z dwiema Rua, 16 z jedną Rua, 22 z dwoma Khonami, 32 z dwoma Ma, 44 z jednym Khonem, a w pozostałych przypadkach 64. Limit ustala się na początku liczenia i nie zmienia się, nawet jeśli później zostaną zbite kolejne bierki.
+Podczas liczenia pasek liczącego gracza pokazuje, ile ruchów zostało przeciwnikowi na danie mata.
+# Gra na urządzeniu
+Dotknij bierki, aby zobaczyć, gdzie może się ruszyć, a potem dotknij pola, albo przeciągnij bierkę. Kropki pokazują ruchy, kółka bicia. Szachowany Khun świeci na czerwono. Każdy pasek pokazuje bierki zbite przez danego gracza.
