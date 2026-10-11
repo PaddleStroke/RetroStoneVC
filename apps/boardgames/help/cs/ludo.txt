@@ -1,18 +1,24 @@
 Člověče, nezlob se
 # Cíl hry
-Převeď své čtyři figurky celou cestu kolem desky až do středu dřív než soupeř. Každý hráč má čtyři figurky ve výchozím domečku své barvy, v protilehlých rozích. Jako první hází slonovinový hráč, potom se hráči střídají.
+Převeď své čtyři figurky celou cestu kolem desky až do středu dřív než ostatní. Hrát mohou dva, tři nebo čtyři hráči: před hrou zvol kolik a pravidla: Člověče s pěšci, nebo Petits chevaux s koníky. Každý hráč má čtyři figurky ve výchozím domečku své barvy; ve dvou sedí hráči v protilehlých rozích. Jako první hází slonovinový hráč, potom tah postupuje kolem desky ve směru hodinových ručiček.
 # Házení a tahy
 - Hoď kostkou a potom posuň jednu svou figurku po dráze ve směru hodinových ručiček o hozený počet polí.
 - Jen 6 vyvede figurku z domečku na její startovní pole, barevné pole vedle domečku. Se 6 můžeš místo toho táhnout figurkou, která už je na desce.
 - 6 ti dává další hod. Třetí 6 za sebou propadá a tvůj tah okamžitě končí.
-- Pokud žádná figurka nemůže táhnout o hozené číslo, hod propadá a tah přechází na soupeře (po 6 ale házíš znovu).
+- Pokud žádná figurka nemůže táhnout o hozené číslo, hod propadá a tah přechází na dalšího hráče (po 6 ale házíš znovu).
 # Setkání s jinými figurkami
-- Když skončíš přesně na soupeřově figurce, pošleš ji zpět do jejího domečku. Stojí-li tam dvě jeho figurky, vrátí se obě.
-- Bezpečná pole jsou čtyři startovní pole a čtyři pole označená hvězdou. Tam nikoho nelze vyhodit a figurky obou hráčů na nich smějí stát společně.
-- Tvé vlastní figurky smějí stát na jednom poli. Neblokují: soupeř je smí přeskočit nebo na ně vstoupit.
+- Když skončíš přesně na figurce jiného hráče, pošleš ji zpět do jejího domečku. Stojí-li tam dvě jeho figurky, vrátí se obě.
+- Bezpečná pole jsou čtyři startovní pole a čtyři pole označená hvězdou. Tam nikoho nelze vyhodit a figurky různých hráčů na nich smějí stát společně.
+- Tvé vlastní figurky smějí stát na jednom poli. Neblokují: ostatní je smějí přeskočit nebo na ně vstoupit.
 # Cesta domů
 Po celém kole tvoje figurka odbočí do cílové dráhy své barvy, kde je v bezpečí, a pokračuje do středu. Do středu musí dojít přesným číslem: příliš vysoký hod s touto figurkou táhnout nemůže.
+# Petits chevaux (koníčci)
+Francouzská klasika na stejné desce, s koníky. Pravidla výše se mění takto:
+- Jen 6 vyvede koníka ze stáje. Každá 6 dává další hod, bez omezení.
+- Koník nikdy nesmí předběhnout jiného koníka, tvého ani jiného hráče, a dva koníci nikdy nestojí na jednom poli. Když skončíš přesně na koníkovi jiného hráče, pošleš ho zpět do stáje, i na startovním poli: bezpečná pole tu nejsou.
+- Na konci kola musí koník zastavit přesně u paty svého schodiště, na poli těsně před barevnými schody: příliš vysoký hod s ním táhnout nemůže.
+- Potom stoupá po jednom schodu přesným číslem: 1 na schod 1, 2 na schod 2 a tak dál až 6 na schod 6. Pak ho další 6 dovede do středu. Tečky na každém schodu ukazují číslo, které potřebuje.
 # Konec hry
-Vyhrává první hráč, který dostane všechny čtyři figurky do středu.
+Vyhrává první hráč, který dostane všechny čtyři figurky do středu, a hra tím končí, i ve třech nebo ve čtyřech.
 # Hra na zařízení
-Tvoje kostka čeká v prázdném rohu vedle tebe a svítí zlatě: klepni na ni a hodíš. Tečky ukazují, kam mohou tvé figurky jít, kroužky figurku, kterou bys poslal zpět do domečku: klepni na figurku, nebo ji přetáhni na její pole, a ona tam přeskáče. Hod, kterým nešlo táhnout, zůstává ztlumený v červené záři, zatímco hází soupeř. Vrátit bere zpět tahy i hody, ale vrácený hod padne znovu stejně. Figurky, které došly do cíle, vidíš ve své liště.
+Tvoje kostka čeká a svítí zlatě v prázdném rohu vedle tebe (ve třech nebo ve čtyřech uprostřed tvého domečku): klepni na ni a hodíš. Tečky ukazují, kam mohou tvé figurky jít, kroužky figurku, kterou bys poslal zpět do domečku: klepni na figurku, nebo ji přetáhni na její pole, a ona tam přeskáče. Hod, kterým nešlo táhnout, zůstává ztlumený v červené záři, zatímco hází další hráč. Vrátit bere zpět tahy i hody, ale vrácený hod padne znovu stejně. Figurky, které došly do cíle, vidíš ve své liště.

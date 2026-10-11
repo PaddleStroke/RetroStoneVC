@@ -1,38 +1,47 @@
 /*
- * Ludo in RetroStone Board: the cross-shaped board painted on one plank, the pawns, the die (the shell's), tap or
- * drag, the tokens hopping square by square (the rules and the notation: ludo_rules.c, ludo.h).
+ * Ludo in RetroStone Board: the cross-shaped board painted on one plank, the pawns (the petits chevaux: horses, and
+ * the pips of the number each step needs), the die (the shell's), tap or drag, the tokens hopping square by square
+ * (the rules and the notation: ludo_rules.c, ludo.h). Two, three or four players.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- * The board: 15 x 15 cells. The player at the bottom has the lower left yard and throws in the lower right one (empty);
- * the player at the top, the upper right yard, its die in the upper left one. The track runs clockwise.
+ * The board: 15 x 15 cells, its four yards the seats (ludo.h), clockwise from the lower left: the player at the bottom
+ * has the lower left yard. Two players: the other one the upper right yard, and each throws in the empty yard on its
+ * right; three or four: every yard is a player's, and each throws in the middle of its own. The track runs clockwise.
+ * Everything is drawn in the player's own frame (as the bottom player's), then turned round the centre to its seat.
  */
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "games/chess.h"                        /* PAWN: the tokens are chess pawns */
+#include "games/chess.h"                        /* PAWN, KNIGHT: the tokens are chess pawns, or knights (horses) */
 #include "games/ludo.h"
 #include "shell.h"
 
 #define N 15                                    /* cells across the board */
 #define FRAME 0.55f                             /* the frame, in cells */
 #define PAWN_SIZE 1.5f                          /* a pawn's picture, in cells (the pawn stands in its lower middle) */
-#define DIE 1.9f                                /* the die, in cells */
+#define DIE 1.9f                                /* the die, in cells: in an empty yard */
+#define DIE_YARD 1.25f                          /* in the player's own yard, between its tokens */
 #define HOP_MS 125
 #define PI_F 3.14159265f
+#define ALL (LUDO_PLAYERS * LUDO_TOKENS)
 
 static lgame G;
-static int cs, fr, ps, made = -1, made_flip = -1, made_small = -1;
+static int cs, fr, ps, made = -1, made_flip = -1, made_var = -1, made_np = -1, made_small = -1, made_small_var = -1;
 static float bx, by;                            /* the cells' top left corner */
-static SDL_Texture *t_board, *t_pawn[2], *t_small[2];
+static SDL_Texture *t_board, *t_pawn[LUDO_PLAYERS], *t_small[LUDO_PLAYERS];
 static int fresh;                               /* the shell's die shows the last throw (not after an undo) */
 static uint8_t rolls[LUDO_MAX_EVENTS];          /* the game's throws so far, kept through undo: undo never rethrows */
 static int nrolls;
 static struct { int on, token, moved; float x, y; } drag;
 static struct { int on, player, token, from, hops, heard, caught; Uint32 t0; lpos before; } anim;
 static int8_t track[LUDO_TRACK][2];             /* the track's cells, from the bottom player's start square */
-static const uint8_t INK[3] = {84, 56, 36}, PALE[3] = {244, 226, 192}, TONE[2][3] = {{248, 240, 222}, {112, 84, 64}};
-static const float TONE_A[2] = {0.9f, 0.82f};   /* the players' areas: ivory and ebony tones of the wood */
+static const uint8_t INK[3] = {84, 56, 36}, PALE[3] = {244, 226, 192};
+static const uint8_t TONE[LUDO_PLAYERS][3] = {{248, 240, 222}, {112, 84, 64}, {176, 70, 52}, {74, 138, 106}};
+static const float TONE_A[LUDO_PLAYERS] = {0.9f, 0.82f, 0.78f, 0.78f};  /* the players' areas: ivory, ebony, red
+                                                                         * lacquer and jade tones on the wood */
+
+static int kind(int variant) { return variant == LUDO_CHEVAUX ? KNIGHT : PAWN; }   /* the tokens' chess piece */
 
 /* ---- the board's geometry, in cells ------------------------------------------------------------------------------ */
 static void make_track(void)
@@ -49,16 +58,38 @@ static void make_track(void)
         }
 }
 
+/* where a player sits on the screen: 0 the lower left yard, then clockwise (bottom: the player at the bottom) */
+static int screen_seat(int player, int bottom) { return (ludo_seat(player) - ludo_seat(bottom)) & 3; }
+
+/* the player at a screen seat; -1: an empty yard */
+static int seat_player(int q, int bottom, int players)
+{
+    for (int p = 0; p < players; p++)
+        if (screen_seat(p, bottom) == q) return p;
+    return -1;
+}
+
+/* a point (cells) turned q quarters clockwise round the board's centre */
+static void turn_q(int q, float *x, float *y)
+{
+    for (int i = 0; i < (q & 3); i++) {
+        float dx = *x - N / 2.0f, dy = *y - N / 2.0f;
+        *x = N / 2.0f - dy;
+        *y = N / 2.0f + dx;
+    }
+}
+
 /* the centre of token k of a player at `at` (ludo.h), in cells; bottom: the player at the bottom */
-static void place(int player, int k, int at, int bottom, float *u, float *v)
+static void place(int player, int k, int at, int bottom, int variant, float *u, float *v)
 {
     static const float spot[2] = {1.9f, 4.1f};
     float x, y;
     if (at < 0) x = spot[k & 1], y = 9 + spot[k >> 1];
     else if (at < LUDO_COLUMN) x = track[at][0] + 0.5f, y = track[at][1] + 0.5f;
-    else if (at < LUDO_HOME) x = 7.5f, y = 13.5f - (at - LUDO_COLUMN);
-    else x = 6.75f + 0.5f * k, y = 8.55f;       /* home: side by side in the player's triangle */
-    if (player != bottom) x = N - x, y = N - y; /* the other player: the board turned round */
+    else if (at < ludo_goal(variant)) x = 7.5f, y = 13.5f - (at - LUDO_COLUMN);    /* the column, the steps */
+    else if (variant == LUDO_CLASSIC) x = 6.75f + 0.5f * k, y = 8.55f;  /* home: side by side in the triangle */
+    else x = 6.82f + 0.45f * k, y = 7.85f;      /* the centre: above the sixth step */
+    turn_q(screen_seat(player, bottom), &x, &y);
     *u = x;
     *v = y;
 }
@@ -71,14 +102,14 @@ typedef struct { int player, k; float u, v, scale; } tok;
 static int gather(const lpos *p, int bottom, int skip_player, int skip_k, tok *out)
 {
     int n = 0;
-    for (int pl = 0; pl < 2; pl++)
+    for (int pl = 0; pl < p->players; pl++)
         for (int k = 0; k < LUDO_TOKENS; k++) {
             if (pl == skip_player && k == skip_k) continue;
-            out[n] = (tok){pl, k, 0, 0, p->at[pl][k] == LUDO_HOME ? 0.62f : 1};
-            place(pl, k, p->at[pl][k], bottom, &out[n].u, &out[n].v);
+            out[n] = (tok){pl, k, 0, 0, p->at[pl][k] == ludo_goal(p->variant) ? 0.62f : 1};
+            place(pl, k, p->at[pl][k], bottom, p->variant, &out[n].u, &out[n].v);
             n++;
         }
-    float du[2 * LUDO_TOKENS] = {0};
+    float du[ALL] = {0};
     for (int i = 0; i < n; i++) {
         int same = 0, rank = 0;
         for (int j = 0; j < n; j++)
@@ -101,17 +132,25 @@ static int gather(const lpos *p, int bottom, int skip_player, int skip_k, tok *o
 /* ---- the position ------------------------------------------------------------------------------------------------ */
 static void start(int variant)
 {
-    (void)variant;
-    ludo_new(&G);
+    ludo_new(&G, variant, ui.players);
     nrolls = 0;
     fresh = 0;
     anim.on = 0;
     drag.on = 0;
 }
 
-static int status(void) { return G.pos.winner < 0 ? GS_PLAY : G.pos.winner ? GS_WIN1 : GS_WIN0; }
+static int status(void) { return G.pos.winner < 0 ? GS_PLAY : gs_win(G.pos.winner); }
 static int turn(void) { return G.pos.turn; }
 static int busy(void) { return anim.on || (fresh && ui_dice_busy()); }   /* the end waits for the last hop */
+
+/* where a player sits, for the shell's bars: the middle of its yard (0..1, not flipped) */
+static void home(int player, float *fx, float *fy)
+{
+    float x = 3, y = 12;
+    turn_q(screen_seat(player, 0), &x, &y);
+    *fx = x / N;
+    *fy = y / N;
+}
 
 static void throw_die(void)
 {
@@ -225,22 +264,52 @@ static void paint_disc(uint8_t *o, int n, float cx, float cy, int d, const uint8
     free(b);
 }
 
-/* the whole board: cells of c pixels in a frame of f, (15 c + 2 f) squared; bottom: the player at the bottom */
-static void paint_board(uint8_t *o, int c, int f, int bottom)
+/* a die face's pips in the cell of c pixels at (x, y) */
+static void paint_pips(uint8_t *o, int n, int x, int y, int c, int value, const uint8_t rgb[3], float a)
+{
+    static const uint16_t face[7] = {0, 0x010, 0x101, 0x111, 0x145, 0x155, 0x16d};   /* bit 3 * row + column */
+    for (int i = 0; i < 9; i++)
+        if (face[value] >> i & 1)
+            paint_disc(o, n, x + (0.5f + 0.27f * (i % 3 - 1)) * c, y + (0.5f + 0.27f * (i / 3 - 1)) * c,
+                       (int)(0.17f * c + 1), rgb, a, 0);
+}
+
+/* the cell (x, y) of the bottom player's frame, turned to screen seat q */
+static void cell_q(int q, int x, int y, int *cx, int *cy)
+{
+    float u = x + 0.5f, v = y + 0.5f;
+    turn_q(q, &u, &v);
+    *cx = (int)floorf(u);
+    *cy = (int)floorf(v);
+}
+
+/* the player whose start square or home column (or steps) the cell is; -1: none */
+static int cell_owner(int x, int y, int bottom, int players)
+{
+    for (int q = 0; q < 4; q++) {
+        int p = seat_player(q, bottom, players), u, v;
+        if (p < 0) continue;
+        cell_q((4 - q) & 3, x, y, &u, &v);       /* back to that seat's own frame */
+        if ((u == 6 && v == 13) || (u == 7 && v >= 9 && v <= 13)) return p;
+    }
+    return -1;
+}
+
+/* the whole board: cells of c pixels in a frame of f, (15 c + 2 f) squared; bottom: the player at the bottom; Ludo's
+ * stars, or the petits chevaux's steps; the yards of `players` */
+static void paint_board(uint8_t *o, int c, int f, int bottom, int variant, int players)
 {
     int n = N * c + 2 * f, lw = c / 16 > 1 ? c / 16 : 1;
     art_board_n(N, N, c, f, 0, o);
     uint8_t *wood = malloc((size_t)n * n * 4);
     if (!wood) return;
     memcpy(wood, o, (size_t)n * n * 4);
-    int col[2] = {bottom, !bottom};             /* the colour of each seat: 0 the bottom, 1 the top */
     /* the cross: pale squares; each player's start square and home column in its tone; lines between */
     for (int y = 0; y < N; y++)
         for (int x = 0; x < N; x++) {
             if (!arm(x, y)) continue;
-            int s = (x == 6 && y == 13) || (x == 7 && y >= 9 && y <= 13) ? 0
-                  : (x == 8 && y == 1) || (x == 7 && y >= 1 && y <= 5) ? 1 : -1;
-            if (s >= 0) paint_rect(o, n, f + x * c, f + y * c, c, c, 0, TONE[col[s]], TONE_A[col[s]]);
+            int s = cell_owner(x, y, bottom, players);
+            if (s >= 0) paint_rect(o, n, f + x * c, f + y * c, c, c, 0, TONE[s], TONE_A[s]);
             else paint_rect(o, n, f + x * c, f + y * c, c, c, 0, PALE, 0.42f);
         }
     for (int y = 0; y < N; y++)
@@ -252,17 +321,18 @@ static void paint_board(uint8_t *o, int c, int f, int bottom)
             if (!arm(x + 1, y)) paint_rect(o, n, px + c, py, lw, c + lw, 0, INK, 0.6f);
             if (!arm(x, y + 1)) paint_rect(o, n, px, py + c, c + lw, lw, 0, INK, 0.6f);
         }
-    /* the yards: the two players' in their tones (four spots on bare wood), the two empty ones plain (the dice) */
+    /* the yards: the players' in their tones (four spots on bare wood), the empty ones plain (the dice) */
     for (int q = 0; q < 4; q++) {
-        int ox = f + (q == 1 || q == 3 ? 9 : 0) * c, oy = f + (q == 0 || q == 3 ? 9 : 0) * c, m = c / 6;
-        if (q < 2) {
-            const uint8_t *t = TONE[col[q]];
-            paint_rect(o, n, ox + m, oy + m, 6 * c - 2 * m, 6 * c - 2 * m, 0.5f * c, t, TONE_A[col[q]]);
+        static const int corner[4][2] = {{0, 9}, {0, 0}, {9, 0}, {9, 9}};  /* clockwise from the lower left */
+        int ox = f + corner[q][0] * c, oy = f + corner[q][1] * c, m = c / 6, pl = seat_player(q, bottom, players);
+        if (pl >= 0) {
+            const uint8_t *t = TONE[pl];
+            paint_rect(o, n, ox + m, oy + m, 6 * c - 2 * m, 6 * c - 2 * m, 0.5f * c, t, TONE_A[pl]);
             int in = (int)(0.75f * c);
             wood_back(o, wood, n, ox + in, oy + in, 6 * c - 2 * in, 6 * c - 2 * in, 0.4f * c);
             for (int k = 0; k < 4; k++) {
                 float u, v;
-                place(col[q], k, -1, bottom, &u, &v);
+                place(pl, k, -1, bottom, variant, &u, &v);
                 paint_disc(o, n, f + u * c, f + v * c, (int)(1.45f * c), t, 0.55f, 0);
                 paint_disc(o, n, f + u * c, f + v * c, (int)(1.45f * c), INK, 0.45f, 0.9f);
             }
@@ -272,17 +342,29 @@ static void paint_board(uint8_t *o, int c, int f, int bottom)
                       0.5f * c - lw);
         }
     }
+    free(wood);
     /* the centre: four triangles, the players' homes in their tones */
-    for (int s = 0; s < 4; s++) {
-        static const float tri[4][6] = {{0, 1, 1, 1, 0.5f, 0.5f}, {0, 0, 1, 0, 0.5f, 0.5f},
-                                        {0, 0, 0, 1, 0.5f, 0.5f}, {1, 0, 1, 1, 0.5f, 0.5f}};
+    for (int i = 0; i < 4; i++) {               /* bottom, top, left, right */
+        static const float tri[4][6] = {{0, 1, 1, 1, 0.5f, 0.5f}, {0, 0, 0, 1, 0.5f, 0.5f},
+                                        {0, 0, 1, 0, 0.5f, 0.5f}, {1, 0, 1, 1, 0.5f, 0.5f}};   /* screen seat q's */
+        int q = i == 1 ? 2 : i == 2 ? 1 : i, pl = seat_player(q, bottom, players);
         art_fig *fig = art_fig_new();
-        art_poly(fig, ART_PART, tri[s], 3);
-        paint_fig(o, n, fig, s < 2 ? TONE[col[s]] : PALE, (float)lw / (3 * c), f + 6 * c, f + 6 * c, 3 * c,
-                  s < 2 ? TONE_A[col[s]] + 0.05f : 0.6f);
+        art_poly(fig, ART_PART, tri[q], 3);
+        paint_fig(o, n, fig, pl >= 0 ? TONE[pl] : PALE, (float)lw / (3 * c), f + 6 * c, f + 6 * c, 3 * c,
+                  pl >= 0 ? TONE_A[pl] + 0.05f : 0.6f);
         art_fig_free(fig);
     }
-    /* the safe squares: a star (light on the ebony tone) */
+    if (variant == LUDO_CHEVAUX) {              /* each step: a die face, the number it needs (light on dark tones) */
+        for (int q = 0; q < 4; q++) {
+            int pl = seat_player(q, bottom, players), x, y;
+            for (int k = 1; k <= LUDO_STEPS && pl >= 0; k++) {
+                cell_q(q, 7, N - 1 - k, &x, &y);
+                paint_pips(o, n, f + x * c, f + y * c, c, k, pl ? TONE[0] : INK, pl ? 0.85f : 0.7f);
+            }
+        }
+        return;
+    }
+    /* Ludo's safe squares: a star (light on a dark tone) */
     art_fig *star = art_fig_new();
     float pts[20];
     for (int i = 0; i < 10; i++) {
@@ -293,11 +375,10 @@ static void paint_board(uint8_t *o, int c, int f, int bottom)
     art_poly(star, ART_PART, pts, 10);
     for (int i = 0; i < LUDO_TRACK; i++) {
         if (!ludo_safe(i)) continue;
-        int dark = (i == 0 && col[0] == 1) || (i == LUDO_TRACK / 2 && col[1] == 1);
+        int pl = i % (LUDO_TRACK / 4) ? -1 : seat_player(i / (LUDO_TRACK / 4), bottom, players), dark = pl > 0;
         paint_fig(o, n, star, dark ? TONE[0] : INK, 0, f + track[i][0] * c, f + track[i][1] * c, c, dark ? 0.8f : 0.5f);
     }
     art_fig_free(star);
-    free(wood);
 }
 
 static void layout(box b)
@@ -308,30 +389,33 @@ static void layout(box b)
     float bw = (float)N * cs + 2 * fr;
     bx = floorf(b.x + (b.w - bw) / 2) + fr;
     by = floorf(b.y + (b.h - bw) / 2) + fr;
-    if (made != cs || made_flip != ui_bottom()) {
+    if (made != cs || made_flip != ui_bottom() || made_var != G.pos.variant || made_np != G.pos.players) {
         made = cs;
         made_flip = ui_bottom();
+        made_var = G.pos.variant;
+        made_np = G.pos.players;
         int n = N * cs + 2 * fr;
         uint8_t *o = malloc((size_t)n * n * 4);
         if (o) {
-            paint_board(o, cs, fr, ui_bottom());
+            paint_board(o, cs, fr, ui_bottom(), G.pos.variant, G.pos.players);
             ui_free(&t_board);
             t_board = ui_tex(n, n, o);
             free(o);
         }
         ps = (int)(PAWN_SIZE * cs);
-        for (int p = 0; p < 2; p++) {
+        for (int p = 0; p < LUDO_PLAYERS; p++) {
             ui_free(&t_pawn[p]);
-            art_piece(PAWN, p, ps, ui_buf(ps, ps));
+            art_piece(kind(G.pos.variant), p, ps, ui_buf(ps, ps));
             t_pawn[p] = ui_tex(ps, ps, ui_buf(ps, ps));
         }
     }
     int small = (int)(0.6f * ui.unit);
-    if (made_small != small) {
+    if (made_small != small || made_small_var != G.pos.variant) {
         made_small = small;
-        for (int p = 0; p < 2; p++) {
+        made_small_var = G.pos.variant;
+        for (int p = 0; p < LUDO_PLAYERS; p++) {
             ui_free(&t_small[p]);
-            art_piece(PAWN, p, small, ui_buf(small, small));
+            art_piece(kind(G.pos.variant), p, small, ui_buf(small, small));
             t_small[p] = ui_tex(small, small, ui_buf(small, small));
         }
     }
@@ -354,12 +438,13 @@ static void pawn_at(int player, float x, float y, float scale)
     }
 }
 
-/* where a player throws: the centre of the empty yard on its right */
+/* where a player throws: two players, the centre of the empty yard on its right; more, the middle of its own */
 static void tray(int player, float *x, float *y)
 {
-    float u = player == ui_bottom() ? 12 : 3;
+    float u = G.pos.players > 2 ? 3 : 12, v = 12;
+    turn_q(screen_seat(player, ui_bottom()), &u, &v);
     *x = px_x(u);
-    *y = px_y(u);
+    *y = px_y(v);
 }
 
 static int last_throw(int player)               /* the player's last throw (0: none yet) */
@@ -377,14 +462,15 @@ static void draw_dice(void)
     for (int i = G.n - 1; i >= 0 && latest < 0; i--)
         if (G.ev[i] < LUDO_MOVE_EV) latest = G.past[i].turn;
     int lost = G.n && G.ev[G.n - 1] < LUDO_MOVE_EV && p->phase == LUDO_THROW && p->turn != latest;
-    for (int q = 0; q < 2; q++) {
+    float d = (float)(int)((p->players > 2 ? DIE_YARD : DIE) * cs), glow = p->players > 2 ? 0.75f : 1;
+    for (int q = 0; q < p->players; q++) {
         int v = last_throw(q), active = p->phase != LUDO_OVER && p->turn == q;
         int invite = active && p->phase == LUDO_THROW && !rolling, dim = !active && !(rolling && q == latest);
         if (!v && !invite) continue;
-        float x, y, d = (float)(int)(DIE * cs);
+        float x, y;
         tray(q, &x, &y);
-        if (invite) ui_mark_gold(x, y, 4.4f * cs), ui_mark_gold(x, y, 3 * cs);   /* throw me */
-        if (lost && q == latest && !rolling) ui_mark_glow(x, y, 3.2f * cs);
+        if (invite) ui_mark_gold(x, y, 4.4f * glow * cs), ui_mark_gold(x, y, 3 * glow * cs);   /* throw me */
+        if (lost && q == latest && !rolling) ui_mark_glow(x, y, 3.2f * glow * cs);
         if (fresh && q == latest) ui_dice_draw(x, y, d, (unsigned)dim);
         else ui_die_at(x, y, d, q, v ? v : 6, dim ? 110 / 255.0f : 1);
     }
@@ -398,8 +484,8 @@ static void hop_at(float t, float *u, float *v)
     if (h >= anim.hops) h = anim.hops - 1, f = 1;
     int a0 = anim.from < 0 ? -1 : anim.from + h, a1 = anim.from < 0 ? 0 : anim.from + h + 1;
     float u0, v0, u1, v1;
-    place(anim.player, anim.token, a0, ui_bottom(), &u0, &v0);
-    place(anim.player, anim.token, a1, ui_bottom(), &u1, &v1);
+    place(anim.player, anim.token, a0, ui_bottom(), G.pos.variant, &u0, &v0);
+    place(anim.player, anim.token, a1, ui_bottom(), G.pos.variant, &u1, &v1);
     *u = u0 + (u1 - u0) * f;
     *v = v0 + (v1 - v0) * f - 0.4f * sinf(f * PI_F);
 }
@@ -411,11 +497,9 @@ static void draw_targets(int rings)
     int moves = p->phase == LUDO_MOVE && !busy() ? ludo_movable(p) : 0;
     for (int k = 0; k < LUDO_TOKENS; k++) {
         if (!(moves >> k & 1)) continue;
-        int to = ludo_dest(p, k), sq = ludo_square(p->turn, to), hit = 0;
-        for (int e = 0; e < LUDO_TOKENS && sq >= 0 && !ludo_safe(sq); e++)
-            hit |= ludo_square(!p->turn, p->at[!p->turn][e]) == sq;
+        int to = ludo_dest(p, k), hit = ludo_hits(p, k) != 0;
         float u, v;
-        place(p->turn, k, to, ui_bottom(), &u, &v);
+        place(p->turn, k, to, ui_bottom(), G.pos.variant, &u, &v);
         if (hit && rings) ui_mark_ring(px_x(u), px_y(v), 1.25f * cs);
         else if (!hit && !rings) ui_mark_dot(px_x(u), px_y(v), 0.42f * cs);
     }
@@ -432,8 +516,8 @@ static void draw(void)
         int t = G.ev[i] - LUDO_MOVE_EV, from = b->at[b->turn][t], to = ludo_dest(b, t);
         for (int k = 0; k < 2; k++) {
             int at = k ? to : from;
-            if (at < 0 || at >= LUDO_HOME) continue;
-            place(b->turn, t, at, ui_bottom(), &u, &v);
+            if (at < 0 || at >= ludo_goal(b->variant)) continue;
+            place(b->turn, t, at, ui_bottom(), G.pos.variant, &u, &v);
             ui_mark_last(px_x(u - 0.5f), px_y(v - 0.5f), (float)cs, (float)cs);
         }
         break;
@@ -447,7 +531,7 @@ static void draw(void)
         if (t >= anim.hops) anim.on = 0;
         else ui_animate();
     }
-    tok all[2 * LUDO_TOKENS];                   /* the tokens standing (not the one hopping, nor the one dragged) */
+    tok all[ALL];                               /* the tokens standing (not the one hopping, nor the one dragged) */
     int n_tok = anim.on ? gather(&anim.before, ui_bottom(), anim.player, anim.token, all)
                         : gather(p, ui_bottom(), drag.on && drag.moved ? p->turn : -1, drag.token, all);
     for (int i = 0; i < n_tok && drag.on && !drag.moved; i++)   /* the token pressed */
@@ -458,7 +542,7 @@ static void draw(void)
     draw_targets(1);
     if (anim.on) {
         hop_at(t, &u, &v);
-        int home = anim.from + anim.hops >= LUDO_HOME && t >= anim.hops - 1;
+        int home = anim.from + anim.hops >= ludo_goal(G.pos.variant) && t >= anim.hops - 1;
         pawn_at(anim.player, px_x(u), px_y(v), home ? 0.62f + 0.38f * (anim.hops - t) : 1);
     }
     if (drag.on && drag.moved) {                /* the dragged token, a little bigger, above the finger */
@@ -472,14 +556,14 @@ static void draw(void)
 static int token_near(float u, float v, int dest)
 {
     const lpos *p = &G.pos;
-    tok all[2 * LUDO_TOKENS];
+    tok all[ALL];
     int n = gather(p, ui_bottom(), -1, -1, all), best = -1, moves = ludo_movable(p);
     float near = dest ? 0.6f : 0.75f;
     for (int i = 0; i < n; i++) {
         tok *t = &all[i];
         if (t->player != p->turn || !(moves >> t->k & 1)) continue;
         float tu = t->u, tv = t->v;
-        if (dest) place(t->player, t->k, ludo_dest(p, t->k), ui_bottom(), &tu, &tv);
+        if (dest) place(t->player, t->k, ludo_dest(p, t->k), ui_bottom(), G.pos.variant, &tu, &tv);
         else if (p->at[t->player][t->k] < 0) tv -= 0.1f;
         float d = hypotf(u - tu, v - tv) / (!dest && p->at[t->player][t->k] < 0 ? 1.4f : 1);
         if (d < near) near = d, best = t->k;
@@ -528,7 +612,7 @@ static void release(float x, float y)
     drag.on = 0;
     if (!drag.moved) { play(drag.token, 1); return; }   /* a tap: the token goes, hopping */
     float u, v;
-    place(G.pos.turn, drag.token, ludo_dest(&G.pos, drag.token), ui_bottom(), &u, &v);
+    place(G.pos.turn, drag.token, ludo_dest(&G.pos, drag.token), ui_bottom(), G.pos.variant, &u, &v);
     if (hypotf((x - bx) / cs - u, (y - by) / cs - v) < 0.8f) play(drag.token, 0);
     else ui_sound(SND_DENY);
 }
@@ -540,30 +624,32 @@ static void bar(int player, box b)               /* the player's tokens home */
     for (int i = 0; i < ludo_home(&G.pos, player); i++) ui_put(t_small[player], b.x + i * step, cy - sz / 2, sz, sz);
 }
 
-static void token(int player, int size, uint8_t *rgba) { art_piece(PAWN, player, size, rgba); }
+static void token(int player, int size, uint8_t *rgba) { art_piece(kind(G.pos.variant), player, size, rgba); }
 
-/* the menu's card: the lower left part of the board, pawns out and home, a die */
+/* the menu's card and the picker's: the lower left part of the board, pawns out and home, a die; the petits chevaux:
+ * horses, one climbing the steps and their pips */
 static void thumb(int variant, int size, uint8_t *rgba)
 {
-    (void)variant;
+    int ch = variant == LUDO_CHEVAUX;
     if (!track[1][1]) make_track();
     int c = (int)(size / 9.4f), f = (int)(c * FRAME), n = N * c + 2 * f, oy = n - size;
     uint8_t *o = malloc((size_t)n * n * 4);
     if (!o) return;
-    paint_board(o, c, f, 0);
+    paint_board(o, c, f, 0, ch ? LUDO_CHEVAUX : LUDO_CLASSIC, 2);
     for (int y = 0; y < size; y++)
         memcpy(rgba + 4 * (size_t)y * size, o + 4 * ((size_t)(y + oy) * n), 4 * (size_t)size);
     free(o);
-    static const int put[][3] = {{0, 0, -1}, {0, 2, -1}, {0, 1, 3}, {1, 0, 34}, {1, 1, 23}};
+    static const int put[2][5][3] = {{{0, 0, -1}, {0, 2, -1}, {0, 1, 3}, {1, 0, 34}, {1, 1, 23}},
+                                     {{0, 0, -1}, {0, 2, -1}, {0, 1, 52}, {1, 0, 34}, {1, 1, 42}}};
     int s = (int)(PAWN_SIZE * c), d = (int)(1.5f * c);
-    uint8_t *one = malloc((size_t)s * s * 4);   /* the pawn's picture; the die is smaller */
+    uint8_t *one = malloc((size_t)s * s * 4);   /* the piece's picture; the die is smaller */
     if (!one) return;
-    art_die(5, 0, d, one);
+    art_die(ch ? 6 : 5, 0, d, one);
     art_blend(rgba, size, size, one, d, d, f + 3 * c - d / 2, f + 12 * c - oy - d / 2);
-    for (unsigned i = 0; i < sizeof put / sizeof put[0]; i++) {
+    for (int i = 0; i < 5; i++) {
         float u, v;
-        place(put[i][0], put[i][1], put[i][2], 0, &u, &v);
-        art_piece(PAWN, put[i][0], s, one);
+        place(put[ch][i][0], put[ch][i][1], put[ch][i][2], 0, ch, &u, &v);
+        art_piece(kind(ch), put[ch][i][0], s, one);
         art_blend(rgba, size, size, one, s, s, (int)(f + u * c - s / 2.0f),
                   (int)(f + v * c - oy + 0.36f * c - 0.86f * s));
     }
@@ -571,9 +657,10 @@ static void thumb(int variant, int size, uint8_t *rgba)
 }
 
 static const game ludo_game = {
-    .id = "ludo", .order = 140, .variants = 1,
+    .id = "ludo", .order = 140, .variants = LUDO_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy,
+    .players = 1u << 2 | 1u << 3 | 1u << 4, .home = home,
 };
 REGISTER_GAME(ludo_game)

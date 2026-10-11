@@ -1,18 +1,24 @@
 Ludo
 # Lo scopo
-Portare le tue quattro pedine per tutto il giro del tavoliere e fino al centro prima dell'altro giocatore. Ogni giocatore ha quattro pedine in una base del suo colore, in angoli opposti. Tira per primo l'avorio, poi i giocatori si alternano.
+Portare le tue quattro pedine per tutto il giro del tavoliere e fino al centro prima degli altri. Si gioca in due, tre o quattro: scegli quanti prima della partita, e le regole: il Ludo, con i pedoni, o i Petits chevaux, con i cavalli. Ogni giocatore ha quattro pedine in una base del suo colore; in due, i giocatori stanno in angoli opposti. Tira per primo l'avorio, poi il turno passa in senso orario.
 # Tirare e muovere
 - Tira il dado, poi muovi una delle tue pedine lungo il percorso, in senso orario, del numero uscito.
 - Solo un 6 fa uscire una pedina dalla sua base, sulla sua casella di partenza, la casella colorata accanto alla base. Con un 6 puoi anche muovere invece una pedina già sul tavoliere.
 - Un 6 ti dà un altro tiro. Un terzo 6 di fila va perso e il tuo turno finisce subito.
 - Se nessuna pedina può muoversi del numero uscito, il tiro va perso e il turno passa (dopo un 6 tiri comunque di nuovo).
 # Incontrare altre pedine
-- Fermarsi esattamente su una pedina dell'altro giocatore la rimanda alla sua base. Se lì ci sono due sue pedine, tornano indietro entrambe.
-- Le caselle sicure sono le quattro caselle di partenza e le quattro caselle segnate con una stella. Lì nessuno può essere rimandato alla base, e le pedine di entrambi i giocatori possono stare insieme.
-- Le tue pedine possono stare sulla stessa casella. Non bloccano: l'altro giocatore può superarle o fermarsi su di esse.
+- Fermarsi esattamente su una pedina di un altro giocatore la rimanda alla sua base. Se lì ci sono due sue pedine, tornano indietro entrambe.
+- Le caselle sicure sono le quattro caselle di partenza e le quattro caselle segnate con una stella. Lì nessuno può essere rimandato alla base, e le pedine di giocatori diversi possono stare insieme.
+- Le tue pedine possono stare sulla stessa casella. Non bloccano: gli altri possono superarle o fermarsi su di esse.
 # Tornare a casa
 Dopo un giro completo la tua pedina entra nella corsia d'arrivo del suo colore, dove è al sicuro, e prosegue fino al centro. Deve raggiungere il centro con il numero esatto: un tiro troppo alto non può muovere quella pedina.
+# Petits chevaux (i cavallini)
+Il classico francese, sullo stesso tavoliere, con i cavalli. Le regole qui sopra cambiano così:
+- Solo un 6 fa uscire un cavallo dalla sua scuderia. Ogni 6 dà un altro tiro, senza limite.
+- Un cavallo non può mai superarne un altro, tuo o di un altro giocatore, e due cavalli non stanno mai sulla stessa casella. Fermarsi esattamente sul cavallo di un altro giocatore lo rimanda alla sua scuderia, anche su una casella di partenza: non ci sono caselle sicure.
+- Alla fine del giro, un cavallo deve fermarsi esattamente ai piedi della sua scala, la casella subito prima dei gradini colorati: un tiro troppo alto non può muoverlo.
+- Poi sale un gradino alla volta con il numero esatto: un 1 per il gradino 1, un 2 per il gradino 2, e così via fino a un 6 per il gradino 6. Poi un altro 6 lo porta al centro. I punti su ogni gradino mostrano il numero che serve.
 # La fine della partita
-Vince il primo giocatore che porta tutte e quattro le pedine al centro.
+Vince il primo giocatore che porta tutte e quattro le pedine al centro, e la partita finisce lì, anche in tre o in quattro.
 # Giocare sul dispositivo
-Il tuo dado ti aspetta nell'angolo vuoto accanto a te, illuminato d'oro: toccalo per tirare. I punti mostrano dove possono andare le tue pedine, gli anelli una pedina che rimanderesti alla base: tocca una pedina, oppure trascinala sulla sua casella, e ci arriva saltellando. Un tiro che non ha potuto muovere niente resta attenuato in un bagliore rosso mentre l'altro giocatore tira. Annulla ritira mosse e tiri, ma un tiro ritirato esce di nuovo uguale. Le tue pedine arrivate al centro compaiono nella tua barra.
+Il tuo dado ti aspetta, illuminato d'oro, nell'angolo vuoto accanto a te (in tre o in quattro, al centro della tua base): toccalo per tirare. I punti mostrano dove possono andare le tue pedine, gli anelli una pedina che rimanderesti alla base: tocca una pedina, oppure trascinala sulla sua casella, e ci arriva saltellando. Un tiro che non ha potuto muovere niente resta attenuato in un bagliore rosso mentre tira il giocatore successivo. Annulla ritira mosse e tiri, ma un tiro ritirato esce di nuovo uguale. Le tue pedine arrivate al centro compaiono nella tua barra.

@@ -1,18 +1,24 @@
 Ludo
 # Målet
-Før de fire brikkene dine hele runden rundt brettet og inn i midten før motstanderen. Hver spiller har fire brikker i et hus i sin farge, i motsatte hjørner. Elfenben kaster først, deretter bytter spillerne på.
+Før de fire brikkene dine hele runden rundt brettet og inn i midten før de andre. Dere kan være to, tre eller fire spillere: velg hvor mange før spillet, og reglene: Ludo med bønder eller Petits chevaux med hester. Hver spiller har fire brikker i et hus i sin farge; to spillere sitter i motsatte hjørner. Elfenben kaster først, deretter går turen med klokka rundt brettet.
 # Kast og trekk
 - Kast terningen, og flytt så en av brikkene dine med klokka rundt banen like mange ruter som terningen viser.
 - Bare en sekser får en brikke ut av huset, til startruten, den fargede ruten ved siden av huset. Med en sekser kan du også flytte en brikke som allerede er på brettet i stedet.
 - En sekser gir deg et nytt kast. En tredje sekser på rad går tapt, og turen din slutter med en gang.
 - Hvis ingen brikke kan flytte med tallet som ble kastet, går kastet tapt og turen går videre (etter en sekser kaster du likevel igjen).
 # Møte andre brikker
-- Den som lander nøyaktig på motstanderens brikke, sender den tilbake til huset. Står to av motstanderens brikker der, går begge tilbake.
-- De trygge rutene er de fire startrutene og de fire rutene som er merket med en stjerne. Der kan ingen sendes tilbake, og begge spillernes brikker kan dele dem.
-- Dine egne brikker kan dele en rute. De sperrer ikke: motstanderen kan passere dem eller lande på dem.
+- Den som lander nøyaktig på en annen spillers brikke, sender den tilbake til huset. Står to av brikkene hans der, går begge tilbake.
+- De trygge rutene er de fire startrutene og de fire rutene som er merket med en stjerne. Der kan ingen sendes tilbake, og brikker fra ulike spillere kan dele dem.
+- Dine egne brikker kan dele en rute. De sperrer ikke: de andre kan passere dem eller lande på dem.
 # Veien hjem
 Etter en hel runde svinger brikken din inn i hjemkolonnen i sin farge, der den er trygg, og fortsetter inn mot midten. Den må nå midten med nøyaktig riktig tall: et kast som er for stort, kan ikke flytte den brikken.
+# Petits chevaux (hestespill)
+Den franske klassikeren, på samme brett, med hester. Reglene ovenfor endres slik:
+- Bare en sekser får en hest ut av stallen. Hver sekser gir et nytt kast, uten grense.
+- En hest kan aldri passere en annen hest, din egen eller en annen spillers, og to hester står aldri på samme rute. Den som lander nøyaktig på en annen spillers hest, sender den tilbake til stallen, også på en startrute: det finnes ingen trygge ruter.
+- På slutten av runden må hesten stoppe nøyaktig ved foten av trappen sin, ruten rett før de fargede trinnene: et kast som er for stort, kan ikke flytte den.
+- Så klatrer den ett trinn om gangen med nøyaktig riktig tall: en ener til trinn 1, en toer til trinn 2 og så videre opp til en sekser til trinn 6. Deretter tar enda en sekser den inn i midten. Øynene på hvert trinn viser tallet den trenger.
 # Slutten på spillet
-Den første spilleren som får alle fire brikkene inn i midten, vinner.
+Den første spilleren som får alle fire brikkene inn i midten, vinner, og spillet slutter der, også med tre eller fire spillere.
 # Spill på enheten
-Terningen din venter i det tomme hjørnet ved siden av deg og lyser i gull: trykk på den for å kaste. Prikker viser hvor brikkene dine kan gå, ringer en brikke du ville sendt hjem: trykk på en brikke, eller dra den til ruten sin, så hopper den dit. Et kast som ikke kunne brukes, forblir dempet i et rødt skjær mens motstanderen kaster. Angre tar tilbake trekk og kast, men et kast som tas tilbake, blir det samme igjen. Brikkene dine som er kommet i mål, vises i panelet ditt.
+Terningen din venter og lyser i gull i det tomme hjørnet ved siden av deg (med tre eller fire spillere midt i huset ditt): trykk på den for å kaste. Prikker viser hvor brikkene dine kan gå, ringer en brikke du ville sendt hjem: trykk på en brikke, eller dra den til ruten sin, så hopper den dit. Et kast som ikke kunne brukes, forblir dempet i et rødt skjær mens neste spiller kaster. Angre tar tilbake trekk og kast, men et kast som tas tilbake, blir det samme igjen. Brikkene dine som er kommet i mål, vises i panelet ditt.
