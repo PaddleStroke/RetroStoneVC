@@ -1,0 +1,15 @@
+Cobras e Escadas
+# O objetivo
+Ser o primeiro a levar o seu peão até a casa 100.
+# O tabuleiro
+As casas são numeradas de 1 a 100, a partir do canto inferior esquerdo: pela fileira de baixo para a direita, depois de volta pela fileira seguinte para a esquerda, e assim por diante, subindo pelo tabuleiro, com o 100 no alto. As escadas sobem pelo tabuleiro, do pé até o topo; as cobras descem, da cabeça até a cauda.
+# A sua vez
+Os dois peões começam fora do tabuleiro, antes da casa 1. O lado claro lança primeiro. Lance o dado e avance o seu peão o número de casas tirado, uma casa de cada vez. Os dois peões podem ficar na mesma casa.
+- Se o seu peão terminar a jogada no pé de uma escada, ele sobe até o topo da escada.
+- Se terminar a jogada na cabeça de uma cobra, ele escorrega até a cauda da cobra.
+- Um 6 dá direito a lançar de novo, depois da sua jogada.
+- Senão, o dado passa para o outro jogador.
+# O fim da partida
+Você precisa chegar à casa 100 com o número exato. Se tirar mais do que precisa, o seu peão sobe até o 100 e volta as casas que sobraram: da casa 96, um 6 termina na 98. Uma escada ou uma cobra onde ele parar continua valendo. Vence o primeiro jogador que chegar à casa 100.
+# Jogando no aparelho
+O dado espera, com uma luz dourada, na ponta da barra do jogador que vai lançar: toque na tela para lançá-lo. Depois o seu peão anda sozinho. Cada barra mostra a casa onde está o peão daquele jogador e o último número que ele tirou. Desfazer volta os lances um a um; um lance desfeito sai igual quando você lança de novo.

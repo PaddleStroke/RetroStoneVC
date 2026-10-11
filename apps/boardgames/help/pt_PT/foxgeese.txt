@@ -1,0 +1,20 @@
+Raposa e gansos
+# O objetivo
+Um jogador tem treze gansos, o outro uma só raposa. Os gansos ganham se encurralarem a raposa de forma a que ela não se possa mover. A raposa ganha se capturar gansos até restarem menos de nove.
+# O tabuleiro
+O tabuleiro é uma cruz de 33 pontos ligados por linhas: ao longo das filas, ao longo das colunas e ao longo das diagonais nele desenhadas. As peças só se movem ao longo destas linhas, de um ponto para o seguinte.
+# O início
+Os gansos (claros) estão no braço de baixo da cruz e em toda a fila logo acima dele. A raposa (escura) começa no meio. Os gansos jogam primeiro.
+# Os gansos
+- Um ganso desloca-se ao longo de uma linha para o ponto seguinte, se estiver livre: para a frente, na diagonal para a frente ou para o lado, nunca para trás.
+- Os gansos nunca saltam e nunca capturam a raposa.
+# A raposa
+- A raposa desloca-se ao longo de uma linha para o ponto seguinte, se estiver livre, em qualquer direção.
+- Ou então salta por cima de um ganso vizinho, ao longo de uma linha, para o ponto livre logo a seguir, e tira esse ganso do tabuleiro.
+- Saltar não é obrigatório. Mas depois de a raposa saltar, tem de continuar a saltar, um ganso de cada vez, enquanto puder.
+# O fim do jogo
+- Os gansos ganham quando a raposa não se consegue mover nem saltar.
+- A raposa ganha quando restam menos de nove gansos, ou quando os gansos não se conseguem mover.
+- O jogo termina empatado quando a mesma posição se repete pela terceira vez, ou após cinquenta jogadas de cada lado sem capturas e sem nenhum ganso avançar.
+# Jogar no dispositivo
+Toca num ganso e depois no seu novo ponto, ou arrasta-o. Na vez da raposa, ela já está selecionada: toca no ponto para onde vai, ou arrasta-a. Os gansos que ela pode capturar têm um anel: toca no anel, ou no ponto logo a seguir, para saltar. Numa série de saltos, toca em cada salto seguinte.

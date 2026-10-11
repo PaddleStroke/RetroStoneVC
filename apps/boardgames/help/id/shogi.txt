@@ -1,0 +1,32 @@
+Shogi
+# Tujuan
+Shogi adalah catur Jepang. Skakmat raja lawan: serang raja itu sehingga tidak bisa lolos. Hitam (sente) jalan lebih dulu, lalu para pemain bergiliran, masing-masing satu langkah. Semua bidak berwarna sama: setiap bidak menghadap ke arah lawan, sehingga kamu bisa tahu bidak itu milik siapa.
+# Cara bidak bergerak
+- Raja (玉, 王): satu petak ke arah mana pun.
+- Benteng (飛): berapa pun petak sepanjang baris atau kolom.
+- Gajah (角): berapa pun petak sepanjang diagonal.
+- Jenderal emas (金): satu petak ke arah mana pun kecuali diagonal ke belakang.
+- Jenderal perak (銀): satu petak secara diagonal, atau lurus ke depan.
+- Kuda (桂): dua petak ke depan dan satu ke samping, melompati bidak apa pun di antaranya. Kuda hanya bergerak maju.
+- Tombak (香): berapa pun petak lurus ke depan.
+- Pion (歩): satu petak lurus ke depan. Pion juga memakan dengan cara itu.
+Bidak tidak bisa melewati bidak lain (kecuali kuda). Bidak memakan dengan pindah ke petak yang ditempati bidak lawan.
+# Promosi
+Tiga baris terjauh darimu adalah zona promosi. Bidak yang masuk ke zona itu, bergerak di dalamnya, atau keluar darinya boleh dipromosikan: bidak itu dibalik dan hurufnya menjadi merah.
+- Benteng menjadi naga (龍): benteng yang juga boleh bergerak satu petak secara diagonal.
+- Gajah menjadi kuda naga (馬): gajah yang juga boleh bergerak satu petak sepanjang baris atau kolom.
+- Jenderal perak, kuda, tombak, dan pion menjadi jenderal emas (全, 圭, 杏, と).
+- Raja dan jenderal emas tidak dipromosikan.
+Promosi tidak wajib, kecuali jika bidak itu tidak akan pernah bisa bergerak lagi: pion atau tombak di baris terakhir, kuda di dua baris terakhir.
+# Bidak yang dimakan
+Bidak yang dimakan berpindah ke pihak yang memakannya dan menunggu di tangan. Alih-alih melangkah, kamu boleh menjatuhkan bidak dari tanganmu ke petak kosong mana pun, dalam keadaan belum dipromosikan. Bidak yang dijatuhkan boleh memberi skak. Ada tiga batasan:
+- Tidak boleh menjatuhkan pion di kolom yang sudah berisi pionmu yang belum dipromosikan.
+- Tidak boleh menjatuhkan bidak di tempat yang membuatnya tidak akan pernah bisa bergerak (pion atau tombak di baris terakhir, kuda di dua baris terakhir).
+- Pion yang dijatuhkan tidak boleh langsung memberi skakmat (pion yang digerakkan di papan boleh).
+# Akhir permainan
+Raja yang diserang berarti sedang diskak: langkah berikutnya harus membebaskannya dari skak. Kamu tidak boleh membuat langkah yang membiarkan rajamu sendiri dalam keadaan skak.
+- Skakmat: raja sedang diskak dan tidak ada langkah yang bisa menyelamatkannya. Pemain itu kalah. Pemain yang sama sekali tidak punya langkah sah juga kalah.
+- Pengulangan: jika posisi yang sama (bidak di papan dan di tangan, dengan pemain yang sama mendapat giliran) muncul untuk keempat kalinya, permainan berakhir remis. Tetapi jika seorang pemain memberi skak di setiap langkahnya sejak posisi itu pertama kali muncul, pemain itu kalah.
+- Tidak ada aturan untuk dua raja yang sama-sama sudah masuk ke wilayah lawan: lanjutkan bermain.
+# Bermain di perangkat
+Ketuk bidak untuk melihat ke mana bidak itu bisa bergerak, lalu ketuk petak tujuan, atau seret bidaknya. Titik menunjukkan langkah, lingkaran menunjukkan bidak yang bisa dimakan. Raja yang diskak menyala merah. Bidakmu di tangan ada di bilahmu, beserta jumlahnya: ketuk salah satunya lalu ketuk sebuah petak, atau seret ke papan. Jika sebuah bidak boleh dipromosikan, pilih sisi promosinya (merah) atau biarkan seperti semula.

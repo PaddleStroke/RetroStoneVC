@@ -1,0 +1,23 @@
+Rimba
+# Tujuan
+Masukkan salah satu hewanmu ke sarang lawan, yaitu bintang bertatah di ujung seberang papan. Kamu juga menang jika memakan semua hewan lawan, atau jika lawan tidak bisa melangkah. Pihak terang jalan lebih dulu, lalu para pemain bergiliran, masing-masing satu langkah.
+# Papan
+Papan punya tujuh kolom dan sembilan baris. Di tengahnya ada dua sungai. Sarang setiap pemain ada di tengah baris belakangnya, dengan tiga perangkap di sekitarnya: petak berukir di kedua sisinya dan di depannya.
+# Hewan
+Setiap pemain punya delapan hewan. Angka pada setiap hewan adalah kekuatannya: gajah 8, singa 7, harimau 6, macan tutul 5, serigala 4, anjing 3, kucing 2, tikus 1.
+# Melangkah
+- Hewan bergerak satu petak ke depan, ke belakang, atau ke samping, tidak pernah secara diagonal.
+- Tidak ada hewan yang boleh masuk ke sarangnya sendiri.
+- Hanya tikus yang bisa berenang: tikus satu-satunya hewan yang boleh masuk ke air.
+- Singa dan harimau bisa melompati sungai, dalam garis lurus, dari tepi sungai ke petak pertama di seberang air. Keduanya tidak bisa melompat jika ada tikus, milik pemain mana pun, di air yang dilewati.
+# Memakan
+- Hewan memakan dengan pindah ke petak hewan lawan yang kekuatannya sama atau lebih rendah, yang kemudian keluar dari papan.
+- Tikus bisa memakan gajah, tetapi gajah tidak bisa memakan tikus.
+- Hewan yang berada di salah satu perangkap lawan kehilangan seluruh kekuatannya: hewan lawan mana pun bisa memakannya. Di perangkapnya sendiri, hewan itu tetap punya kekuatannya.
+- Tidak ada makan-memakan antara air dan darat: tikus di air hanya bisa memakan tikus lawan yang juga di air, dan hewan di darat tidak bisa memakan tikus di air.
+# Akhir permainan
+- Hewan yang masuk ke sarang lawan memenangkan permainan.
+- Memakan semua hewan lawan juga menang, begitu pula membuat lawan tidak bisa melangkah.
+- Permainan berakhir seri jika posisi yang sama muncul untuk ketiga kalinya, atau setelah masing-masing pihak melangkah lima puluh kali tanpa ada yang dimakan.
+# Bermain di perangkat
+Ketuk seekor hewan untuk melihat ke mana hewan itu bisa bergerak, lalu ketuk sebuah petak, atau seret hewannya. Titik menunjukkan langkah, lingkaran menunjukkan hewan yang bisa dimakan.

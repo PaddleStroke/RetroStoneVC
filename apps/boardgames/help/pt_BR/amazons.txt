@@ -1,0 +1,17 @@
+Amazonas
+# O objetivo
+Ser o último jogador capaz de se mover. Cada jogada queima mais uma casa do tabuleiro, e o espaço para se mover diminui até que um jogador fique encurralado: esse jogador perde.
+# O início
+O tabuleiro tem 10 fileiras de 10 casas. Cada jogador tem quatro amazonas. As amazonas claras ficam na fileira de baixo e na quarta fileira, as escuras na fileira de cima e na sétima fileira, de frente para elas. As claras começam; depois os jogadores se alternam.
+# A sua vez
+Cada jogada tem duas partes, as duas feitas pela mesma amazona:
+- Mover: uma das suas amazonas anda como a dama no xadrez, quantas casas quiser em linha reta, por uma fileira, uma coluna ou uma diagonal. Ela só pode atravessar casas vazias e parar nelas: as amazonas nunca pulam e nunca capturam.
+- Atirar: da casa onde parou, a amazona atira uma flecha, também como uma dama, em uma casa vazia. Essa casa fica queimada e bloqueada até o fim da partida: nenhuma amazona pode parar nela nem atravessá-la, e nenhuma flecha pode voar por cima dela.
+A flecha pode voar de volta para a casa que a amazona acabou de deixar, ou passar por ela.
+# O fim da partida
+Perde o jogador que não consegue mover nenhuma amazona no início da sua vez. Não há empates.
+# Dicas
+- As regiões do tabuleiro isoladas por casas queimadas e amazonas viram territórios particulares: conte as casas que cada jogador ainda tem para se mover.
+- Uma amazona presa em um cantinho pequeno está quase perdida: mantenha as suas amazonas em espaço aberto.
+# Jogando no aparelho
+Toque em uma das suas amazonas para ver aonde ela pode ir e depois toque em uma casa, ou arraste a amazona. Depois, luzes douradas mostram aonde a flecha dela pode voar: toque em uma, e a flecha queima essa casa. A última jogada fica marcada: de onde a amazona veio, para onde foi e a casa que ela queimou. Desfazer volta primeiro a flecha e depois o movimento.

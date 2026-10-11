@@ -1,0 +1,11 @@
+Gomoku
+# Tujuan
+Jadilah yang pertama menjajarkan lima batu dengan warnamu dalam satu deret tanpa putus: mendatar, tegak, atau diagonal. Batu dimainkan di titik-titik persilangan garis, dan tidak pernah dipindahkan setelah dimainkan. Hitam (gelap) jalan lebih dulu, lalu para pemain bergiliran, masing-masing satu batu.
+# Bebas dan standar
+Pilih aturannya sebelum bermain:
+- Bebas (kartu dengan enam batu sederet): lima batu sederet atau lebih menang.
+- Standar (kartu dengan lima batu): hanya tepat lima batu sederet yang menang. Deret enam batu atau lebih tidak dihitung, tetapi permainan berlanjut, dan deret lima yang dibuat di tempat lain tetap menang.
+# Akhir permainan
+Pemain pertama yang membentuk deret pemenang langsung menang. Jika papan penuh tanpa ada deret pemenang, permainan berakhir seri.
+# Bermain di perangkat
+Ketukan pertama menampilkan batu pucat, ketukan kedua di titik yang sama memainkannya. Dengan begitu titik kecil tetap mudah disentuh. Deret pemenang menyala keemasan.

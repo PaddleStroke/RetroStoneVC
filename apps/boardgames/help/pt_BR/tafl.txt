@@ -1,0 +1,25 @@
+Hnefatafl
+# O objetivo
+O hnefatafl, o jogo de tabuleiro dos vikings, é uma batalha entre dois lados desiguais. Os defensores, no meio, precisam ajudar o seu rei a fugir. Os atacantes, que são o dobro, cercam-nos e precisam capturar o rei. Os atacantes (escuros) começam; depois os jogadores se alternam, um lance cada um. Escolha o tabuleiro antes da partida: Hnefatafl em 11 por 11 casas, ou Tablut em 9 por 9.
+# Como as peças se movem
+- Todas as peças, inclusive o rei, andam como a torre no xadrez: quantas casas vazias quiserem por uma fileira ou uma coluna. As peças nunca pulam.
+- A casa do meio é o trono. Só o rei pode parar nele. Quando ele está vazio, qualquer peça pode passar por cima dele.
+- No Hnefatafl, só o rei pode parar nas quatro casas dos cantos.
+# Capturas
+- Uma peça é capturada quando uma peça adversária se move de modo a deixá-la presa entre dois inimigos, em uma fileira ou uma coluna. Ela sai do tabuleiro. Um lance pode capturar até três peças.
+- Os cantos e o trono vazio agem como inimigos de todas as peças: uma peça ao lado de um deles é capturada por um único inimigo do outro lado dela.
+- O rei ajuda os defensores a capturar.
+- Uma peça pode entrar sem perigo no espaço entre duas peças adversárias.
+# O rei
+- O rei é capturado quando os atacantes o cercam pelos quatro lados, ou por três lados com o trono vazio no quarto. Ele não pode ser capturado na borda do tabuleiro.
+- Os defensores vencem quando o rei chega a uma casa de canto. Os atacantes vencem quando capturam o rei.
+# Tablut (9 por 9)
+- 16 atacantes contra 8 defensores e o rei. Os cantos são casas comuns.
+- Os defensores vencem quando o rei chega a qualquer casa da borda do tabuleiro.
+- No trono ou ao lado dele, o rei é capturado como no Hnefatafl. Em qualquer outro lugar, dois atacantes em lados opostos o capturam, como qualquer outra peça.
+# O fim da partida
+- Perde o jogador que não consegue se mover.
+- Quando a mesma posição se repete pela terceira vez com o mesmo jogador da vez, a partida termina empatada. Uma partida de 1000 lances de cada lado também termina empatada.
+- Estas são as regras de Copenhague, sem as regras opcionais da parede de escudos, do forte na borda e do cerco.
+# Jogando no aparelho
+Toque em uma peça para ver aonde ela pode ir e depois toque em uma casa, ou arraste a peça. Os pontos mostram os lances. As peças capturadas vão sumindo. Um rei que os atacantes poderiam capturar no próximo lance brilha em vermelho, e luzes douradas mostram aos atacantes por onde o rei poderia fugir no próximo lance.

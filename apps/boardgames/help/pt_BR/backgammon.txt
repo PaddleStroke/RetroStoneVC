@@ -1,0 +1,23 @@
+Gamão
+# O objetivo
+Levar todas as suas quinze pedras pelo tabuleiro até o seu tabuleiro interno e depois retirá-las. Vence o primeiro jogador que retirar as quinze. Os jogadores andam em sentidos opostos, o marfim em um sentido e o ébano no outro.
+# O tabuleiro
+Há 24 triângulos estreitos, as casas, seis em cada quarto do tabuleiro. A barra no meio divide cada lado em um tabuleiro externo e um tabuleiro interno; os dois tabuleiros internos ficam de frente um para o outro, do lado da bandeja. Cada jogador numera as casas de 1, na ponta do seu próprio tabuleiro interno, até 24, na ponta do tabuleiro interno do outro jogador. No início, cada jogador tem duas pedras na sua casa 24, cinco na casa 13, três na casa 8 e cinco na casa 6.
+# Lançar e mover
+Para começar, cada jogador lança um dado. Quem tirar o número maior começa, usando os dois números lançados; se forem iguais, lancem de novo. Depois disso, os jogadores se alternam: lance os dois dados e ande o valor de cada número.
+- Uma pedra anda o valor de um número, depois uma pedra anda o valor do outro: a mesma pedra ou outra.
+- Uma pedra pode parar em uma casa vazia, em uma casa com pedras suas ou em uma casa com uma única pedra adversária.
+- Uma dupla (dois números iguais) dá quatro movimentos com esse número.
+- Você precisa usar os dois números, se puder. Se só puder usar um deles, precisa usar o maior, se possível.
+- Se nenhum movimento for possível, você perde a vez.
+# Bater e entrar
+Uma pedra sozinha em uma casa é uma pedra descoberta. Parar em cima de uma pedra descoberta adversária é bater nela: ela vai para a barra. Um jogador com uma pedra na barra precisa primeiro trazê-la de volta, entrando com ela no tabuleiro interno do outro jogador, na casa indicada por um dado (a casa 1 é a mais distante da barra). Uma casa ocupada por duas ou mais pedras adversárias está fechada. Nenhuma outra pedra pode se mover enquanto todas as suas pedras na barra não tiverem entrado.
+# Retirar as pedras
+Quando todas as suas quinze pedras estiverem no seu tabuleiro interno, você pode retirá-las: um número retira uma pedra da casa com esse número. Se essa casa estiver vazia, você precisa mover uma pedra de uma casa mais alta, se puder; sem nenhuma pedra em uma casa mais alta, o número retira uma pedra da casa mais alta que você ocupa. Uma pedra que leva uma batida precisa fazer o caminho todo de volta antes que você possa retirar pedras de novo.
+# A vitória
+- O primeiro jogador que retirar as quinze pedras ganha um ponto.
+- Gammon: se o perdedor não retirou nenhuma pedra, o vencedor marca dois pontos.
+- Backgammon: se o perdedor não retirou nenhuma pedra e ainda tem uma na barra ou no tabuleiro interno do vencedor, o vencedor marca três pontos.
+Este jogo é jogado sem o cubo de dobra.
+# Jogando no aparelho
+Toque nos dados que brilham em dourado para lançá-los. Toque em uma pedra e depois em um dos pontos, ou arraste-a; um anel mostra uma pedra descoberta em que você bateria. Cada movimento usa um dado: um dado já usado fica apagado. Para retirar uma pedra, leve-a até a bandeja à direita. As pedras na barra já vêm selecionadas. Quando um lançamento não pode ser jogado, os dados dele brilham em vermelho e a vez passa. A sua barra mostra quantas pedras você já retirou e, no fim, os pontos ganhos. Desfazer volta um movimento de cada vez, e os dados das vezes anteriores voltam como foram lançados.

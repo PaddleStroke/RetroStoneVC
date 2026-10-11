@@ -1,0 +1,12 @@
+Hex
+# O objetivo
+Ligar os seus dois lados do tabuleiro com uma corrente sem interrupção das suas pedras. As brancas (claras) ligam o lado de cima ao de baixo, as pretas (escuras) ligam a esquerda à direita: cada lado é pintado na cor do jogador que precisa ligá-lo. As brancas começam. Escolha o tabuleiro antes da partida: 7 por 7 para uma partida rápida, 9 por 9, ou 11 por 11.
+# Como jogar
+- Alternadamente, cada jogador coloca uma pedra em qualquer casa vazia. As pedras nunca se movem e nunca são capturadas.
+- Duas pedras suas estão ligadas quando as casas delas se tocam por um lado: cada casa tem seis vizinhas.
+- Vence o primeiro jogador que ligar os seus dois lados. As casas dos cantos pertencem aos dois lados que se encontram ali.
+- Nunca há empate: quando o tabuleiro está cheio, um dos jogadores sempre já ligou os seus lados.
+# A troca
+Jogar primeiro é uma grande vantagem. Para equilibrar, só no segundo lance, as pretas podem ficar com a primeira pedra das brancas em vez de colocar uma. A pedra fica preta e passa para a casa simétrica do outro lado da diagonal longa (a linha que vai do canto superior esquerdo ao canto inferior direito), de modo que vale para as pretas exatamente o que valia para as brancas. Depois as brancas jogam de novo. Por isso as brancas devem abrir com um lance que não seja nem forte demais nem fraco demais.
+# Jogando no aparelho
+Toque em uma casa vazia para colocar a sua pedra. No tabuleiro de 11 por 11, o primeiro toque mostra uma pedra pálida e um segundo toque na mesma casa a coloca: assim fica fácil acertar as casas pequenas. Para trocar, as pretas tocam na primeira pedra das brancas: uma pedra pálida mostra para onde ela vai, e um segundo toque faz a troca. Quando um jogador vence, a corrente dele se acende em dourado.

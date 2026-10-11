@@ -1,0 +1,23 @@
+Backgammon
+# Tujuan
+Bawa kelima belas bidakmu mengelilingi papan sampai ke papan rumahmu, lalu keluarkan semuanya. Pemain pertama yang mengeluarkan kelima belas bidaknya menang. Para pemain bergerak ke arah yang berlawanan, gading ke satu arah dan eboni ke arah lainnya.
+# Papan
+Ada 24 segitiga sempit yang disebut poin, enam di setiap seperempat papan. Bar di tengah membagi setiap sisi menjadi papan luar dan papan rumah; kedua papan rumah saling berhadapan, di sisi baki. Setiap pemain menomori poin dari 1, di ujung papan rumahnya sendiri, sampai 24, di ujung papan rumah lawan. Di awal, setiap pemain punya dua bidak di poin 24-nya, lima di poin 13, tiga di poin 8, dan lima di poin 6.
+# Melempar dan melangkah
+Untuk memulai, setiap pemain melempar satu dadu. Angka yang lebih tinggi jalan lebih dulu, memakai kedua angka yang dilempar; jika angkanya sama, lempar lagi. Setelah itu, para pemain bergiliran: lempar dua dadu dan langkahkan bidak sesuai setiap angka.
+- Satu bidak melangkah sesuai satu angka, lalu satu bidak melangkah sesuai angka lainnya: bidak yang sama atau bidak lain.
+- Bidak boleh berhenti di poin kosong, di poin berisi bidakmu sendiri, atau di poin yang hanya berisi satu bidak lawan.
+- Angka kembar memberi empat langkah dengan angka itu.
+- Kamu harus memakai kedua angka jika bisa. Jika hanya bisa memakai salah satunya, kamu harus memakai angka yang lebih besar jika memungkinkan.
+- Jika tidak ada langkah yang mungkin, giliranmu hilang.
+# Memukul dan masuk kembali
+Bidak yang sendirian di sebuah poin disebut blot. Berhenti di blot lawan berarti memukulnya: bidak itu pindah ke bar. Pemain yang punya bidak di bar harus memasukkannya kembali lebih dulu, ke papan rumah lawan, di poin sesuai angka dadu (poin 1 adalah yang paling jauh dari bar). Poin yang ditempati dua bidak lawan atau lebih tertutup. Tidak ada bidak lain yang boleh bergerak sebelum semua bidakmu di bar masuk kembali.
+# Mengeluarkan bidak
+Begitu kelima belas bidakmu berada di papan rumahmu, kamu boleh mengeluarkannya: sebuah angka mengeluarkan satu bidak dari poin dengan nomor itu. Jika poin itu kosong, kamu harus menggerakkan bidak dari poin yang lebih tinggi jika bisa; jika tidak ada bidak di poin yang lebih tinggi, angka itu mengeluarkan bidak dari poin tertinggi yang kamu tempati. Bidak yang terpukul harus menempuh seluruh perjalanan kembali sebelum kamu bisa mengeluarkan bidak lagi.
+# Kemenangan
+- Pemain pertama yang mengeluarkan kelima belas bidaknya memenangkan satu poin.
+- Gammon: jika pihak yang kalah belum mengeluarkan satu bidak pun, pemenang mendapat dua poin.
+- Backgammon: jika pihak yang kalah belum mengeluarkan satu bidak pun dan masih punya bidak di bar atau di papan rumah pemenang, pemenang mendapat tiga poin.
+Permainan ini dimainkan tanpa kubus penggandaan (doubling cube).
+# Bermain di perangkat
+Ketuk dadu yang menyala keemasan untuk melemparnya. Ketuk sebuah bidak, lalu salah satu titik, atau seret bidak itu; lingkaran menunjukkan blot yang akan kamu pukul. Setiap langkah memakai satu dadu: dadu yang sudah dipakai menjadi redup. Untuk mengeluarkan bidak, pindahkan bidak itu ke baki di sebelah kanan. Bidak di bar sudah langsung terambil. Jika hasil lemparan tidak bisa dimainkan, dadunya menyala merah dan giliran berpindah. Bilahmu menunjukkan jumlah bidak yang sudah kamu keluarkan, dan di akhir permainan, poin yang dimenangkan. Urungkan membatalkan satu langkah setiap kali, dan dadu giliran sebelumnya kembali seperti saat dilempar.

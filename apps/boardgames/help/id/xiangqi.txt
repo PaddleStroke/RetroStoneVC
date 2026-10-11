@@ -1,0 +1,21 @@
+Xiangqi
+# Tujuan
+Skakmat jenderal lawan: serang jenderal itu sehingga tidak bisa lolos. Merah jalan lebih dulu, lalu para pemain bergiliran, masing-masing satu langkah.
+# Papan
+Bidak berdiri di titik-titik persilangan garis, bukan di dalam kotak. Sungai yang melintang di tengah memisahkan kedua pihak. Setiap pihak punya istana: tiga kali tiga titik yang ditandai silang, tempat tinggal jenderal dan para penasihatnya.
+# Cara bidak bergerak
+- Jenderal: satu titik di sepanjang garis, di dalam istananya. Kedua jenderal tidak boleh saling berhadapan di kolom yang sama tanpa ada apa pun di antara keduanya.
+- Penasihat: satu titik secara diagonal, di dalam istananya.
+- Gajah: tepat dua titik secara diagonal. Gajah tidak bisa menyeberangi sungai, dan terhalang jika titik yang dilewatinya terisi.
+- Kuda: satu titik di sepanjang garis, lalu satu titik secara diagonal ke arah luar. Kuda terhalang jika titik pertama terisi.
+- Kereta: berapa pun titik di sepanjang garis, seperti benteng dalam catur.
+- Meriam: bergerak seperti kereta, tetapi hanya bisa memakan dengan melompati tepat satu bidak (milik pihak mana pun) dalam perjalanan menuju bidak yang dimakannya.
+- Prajurit: satu titik maju. Setelah menyeberangi sungai, prajurit juga boleh bergerak satu titik ke samping. Prajurit tidak pernah mundur.
+Bidak memakan dengan pindah ke titik yang ditempati bidak lawan, yang kemudian keluar dari papan.
+# Skak dan akhir permainan
+Jenderal yang diserang berarti sedang diskak: langkah berikutnya harus membebaskannya dari skak. Kamu tidak boleh membuat langkah yang membiarkan jenderalmu sendiri dalam keadaan skak, atau berhadapan dengan jenderal lawan.
+- Skakmat: jenderal sedang diskak dan tidak ada langkah yang bisa menyelamatkannya. Pemain itu kalah.
+- Pemain yang tidak punya langkah sah tetapi tidak sedang diskak juga kalah (tidak seperti catur).
+- Remis: jika posisi yang sama muncul untuk ketiga kalinya dengan pemain yang sama mendapat giliran, permainan berakhir remis. Aturan sederhana ini menggantikan aturan turnamen yang melarang skak abadi dan pengejaran abadi. Permainan juga berakhir remis setelah masing-masing pihak melangkah enam puluh kali tanpa memakan bidak.
+# Bermain di perangkat
+Ketuk bidak untuk melihat ke mana bidak itu bisa bergerak, lalu ketuk titik tujuan, atau seret bidaknya. Titik-titik kecil menunjukkan langkah, lingkaran menunjukkan bidak yang bisa dimakan. Jenderal yang diskak menyala merah. Setiap bilah menunjukkan bidak yang telah dimakan pemain itu.

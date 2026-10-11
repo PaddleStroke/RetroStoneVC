@@ -1,0 +1,15 @@
+Tic-Tac-Toe
+# Klasik
+Papan terdiri dari tiga baris yang masing-masing berisi tiga petak. Pihak terang memakai tanda silang dan jalan lebih dulu, pihak gelap memakai lingkaran. Saat giliranmu, taruh tandamu di petak kosong.
+- Tiga tandamu yang sederet menang: mendatar, tegak, atau diagonal.
+- Jika kesembilan petak terisi tanpa ada tiga yang sederet, permainan berakhir seri.
+# Ultimate
+Papan besar berisi sembilan papan kecil berukuran 3×3. Kamu tetap menaruh satu tanda di petak kosong, tetapi tempat kamu boleh bermain bergantung pada langkah terakhir.
+- Petak yang baru saja dimainkan lawan, di dalam papan kecilnya, mengirimmu ke papan kecil yang letaknya sama di papan besar. Bermain di petak kanan atas papan kecil mana pun mengirim lawan ke papan kecil kanan atas.
+- Jika papan yang dituju sudah selesai (sudah dimenangkan atau penuh), kamu boleh bermain di papan kecil mana pun yang masih terbuka.
+- Langkah pertama permainan boleh di mana saja.
+- Tiga sederet di papan kecil memenangkan papan itu: papan itu menjadi milikmu dan ditutup. Papan kecil yang penuh tanpa ada tiga yang sederet bukan milik siapa pun.
+- Menangkan tiga papan kecil yang sederet di papan besar, mendatar, tegak, atau diagonal, dan kamu memenangkan permainan.
+- Jika tidak ada lagi yang bisa memenangkan deret tiga papan kecil, permainan berakhir seri.
+# Bermain di perangkat
+Ketuk petak kosong untuk bermain di situ. Dalam Ultimate, papan kecil tempat kamu boleh bermain akan menyala, dan papan kecil yang sudah dimenangkan menampilkan tanda besar pemenangnya. Setiap bilah menunjukkan jumlah papan kecil yang telah dimenangkan pemain itu.

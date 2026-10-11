@@ -1,0 +1,23 @@
+Selva
+# O objetivo
+Levar um dos teus animais até à toca do outro jogador, a estrela embutida na outra ponta do tabuleiro. Também ganhas se capturares todos os animais do outro jogador, ou quando ele não se puder mover. O lado claro começa; depois os jogadores jogam à vez, uma jogada cada um.
+# O tabuleiro
+O tabuleiro tem sete colunas e nove filas. No meio há dois rios. A toca de cada jogador fica no meio da sua última fila, com três armadilhas à volta: as casas entalhadas dos lados e à frente dela.
+# Os animais
+Cada jogador tem oito animais. O número em cada animal é a sua força: elefante 8, leão 7, tigre 6, leopardo 5, lobo 4, cão 3, gato 2, rato 1.
+# Movimento
+- Um animal desloca-se uma casa para a frente, para trás ou para o lado, nunca na diagonal.
+- Nenhum animal pode entrar na sua própria toca.
+- Só o rato sabe nadar: é o único animal que pode entrar na água.
+- O leão e o tigre podem saltar por cima de um rio, em linha reta, da margem até à primeira casa depois da água. Não podem saltar se houver um rato, de qualquer jogador, na água pelo caminho.
+# Capturas
+- Um animal captura ao ir para a casa de um animal adversário de força igual ou inferior, que sai do tabuleiro.
+- O rato pode capturar o elefante, mas o elefante não pode capturar o rato.
+- Um animal numa das armadilhas do outro jogador perde toda a força: qualquer animal adversário o pode capturar. Nas suas próprias armadilhas, mantém a força.
+- Não há capturas entre a água e a terra: um rato na água só pode capturar o outro rato na água, e um animal em terra não pode capturar um rato na água.
+# O fim do jogo
+- Um animal que entra na toca do outro jogador ganha o jogo.
+- Capturar todos os animais do outro jogador também ganha, tal como deixá-lo sem jogadas.
+- O jogo termina empatado quando a mesma posição se repete pela terceira vez, ou após cinquenta jogadas de cada lado sem capturas.
+# Jogar no dispositivo
+Toca num animal para ver para onde pode ir, depois toca numa casa, ou arrasta o animal. Os pontos mostram as jogadas, os anéis as capturas.

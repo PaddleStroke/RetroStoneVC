@@ -1,0 +1,16 @@
+Breakthrough
+# Tujuan
+Tembus pertahanan pasukan lawan: jadilah yang pertama membawa salah satu bidakmu ke sisi seberang papan, yaitu baris awal lawan.
+# Awal permainan
+Permainan ini dimainkan di papan catur. Setiap pemain punya enam belas bidak, yang mengisi dua baris pertamanya. Pihak terang jalan lebih dulu, lalu para pemain bergiliran, masing-masing satu langkah.
+# Cara bidak bergerak
+- Bidak maju satu petak, lurus atau diagonal, ke petak kosong.
+- Bidak memakan dengan maju satu petak secara diagonal ke petak bidak lawan, yang kemudian keluar dari papan.
+- Bidak tidak pernah memakan lurus ke depan: bidak lawan yang tepat berada di depannya menghalanginya.
+- Bidak tidak pernah bergerak ke samping atau mundur. Memakan tidak pernah wajib.
+# Akhir permainan
+- Pemain pertama yang mencapai baris awal lawan menang.
+- Pemain yang kehilangan semua bidaknya kalah.
+Tidak ada seri: pemain yang masih punya bidak selalu bisa melangkah.
+# Bermain di perangkat
+Ketuk bidak untuk melihat ke mana bidak itu bisa bergerak, lalu ketuk sebuah petak, atau seret bidaknya. Titik menunjukkan langkah, lingkaran menunjukkan bidak yang bisa dimakan. Bidak pemenang bersinar keemasan.

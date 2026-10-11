@@ -1,0 +1,11 @@
+Titik dan Kotak
+# Tujuan
+Kuasai lebih banyak kotak daripada lawan. Papannya berupa kisi titik-titik. Pilih ukurannya sebelum bermain: 3×3 kotak untuk permainan singkat, 5×5, atau 7×7. Pihak terang jalan lebih dulu.
+# Satu giliran
+- Tarik satu garis di antara dua titik yang bersebelahan, mendatar atau tegak. Setiap garis hanya bisa ditarik sekali.
+- Jika garismu menutup sisi keempat sebuah kotak, kotak itu menjadi milikmu: kotak itu berganti warna menjadi warnamu. Satu garis bisa menutup dua kotak sekaligus.
+- Setiap kali kamu menutup kotak, kamu harus menarik satu garis lagi. Giliranmu berakhir dengan garis yang tidak menutup kotak apa pun.
+# Akhir permainan
+Permainan berakhir saat semua garis sudah ditarik. Pemain dengan kotak lebih banyak menang. Setiap papan punya jumlah kotak ganjil, jadi selalu ada pemenang.
+# Bermain di perangkat
+Ketuk di antara dua titik untuk menarik garis di situ. Tahan jarimu di layar untuk melihat garis mana yang akan ditarik, geser untuk memilih garis lain, lalu angkat jarimu untuk menariknya. Garis terakhir yang ditarik menyala, begitu juga kotak yang ditutupnya. Setiap bilah menunjukkan jumlah kotak milik pemain itu.

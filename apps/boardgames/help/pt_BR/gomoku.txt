@@ -1,0 +1,11 @@
+Gomoku
+# O objetivo
+Ser o primeiro a alinhar cinco pedras da sua cor em uma fileira sem interrupção: na horizontal, na vertical ou na diagonal. As pedras são jogadas nos pontos onde as linhas se cruzam e nunca se movem depois de jogadas. As pretas (escuras) começam; depois os jogadores se alternam, uma pedra cada um.
+# Livre e padrão
+Escolha as regras antes da partida:
+- Livre (o cartão com seis pedras em fila): cinco ou mais pedras em fila vencem.
+- Padrão (o cartão com cinco): só exatamente cinco pedras em fila vencem. Uma fila de seis ou mais não conta, mas a partida continua, e um cinco feito em outro lugar ainda vence.
+# O fim da partida
+O primeiro jogador que formar uma fila vencedora vence na hora. Se o tabuleiro encher sem nenhuma fila vencedora, a partida termina empatada.
+# Jogando no aparelho
+O primeiro toque mostra uma pedra pálida, e um segundo toque no mesmo ponto a joga. Assim fica fácil acertar os pontos pequenos. A fila vencedora se acende em dourado.

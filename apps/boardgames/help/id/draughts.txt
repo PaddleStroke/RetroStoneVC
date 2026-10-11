@@ -1,6 +1,6 @@
 Dam
 # Tujuan
-Makan semua bidak lawan, atau buat lawan tidak bisa melangkah. Bidak hanya berdiri di petak gelap dan bergerak secara diagonal. Pilih aturannya sebelum bermain: dam internasional di papan 10×10, atau dam Inggris (checkers) di papan 8×8.
+Makan semua bidak lawan, atau buat lawan tidak bisa melangkah. Pilih aturannya sebelum bermain: dam internasional di papan 10×10, atau dam Inggris (checkers), dam Rusia, dam Brasil, atau dam Turki di papan 8×8. Bidak hanya berdiri di petak gelap dan bergerak secara diagonal, kecuali dalam dam Turki.
 # Dam internasional (10×10)
 - Pihak terang jalan lebih dulu. Bidak biasa bergerak satu petak secara diagonal ke depan.
 - Bidak biasa memakan dengan melompati bidak lawan di sebelahnya ke petak kosong tepat di belakangnya. Bidak biasa bisa memakan ke depan maupun ke belakang.
@@ -13,6 +13,25 @@ Makan semua bidak lawan, atau buat lawan tidak bisa melangkah. Bidak hanya berdi
 - Memakan itu wajib, tetapi kamu boleh memilih cara memakan yang mana. Begitu sebuah bidak mulai melompat, bidak itu harus memakan setiap bidak yang bisa dimakannya di sepanjang jalan.
 - Bidak biasa yang mencapai baris terjauh menjadi raja, dan langkahnya berakhir di situ. Raja bergerak dan memakan satu petak secara diagonal ke segala arah.
 - Remis: jika posisi yang sama muncul untuk ketiga kalinya, atau setelah masing-masing pihak melangkah 40 kali tanpa memakan atau menggerakkan bidak biasa.
+# Dam Rusia (8×8)
+- Pihak terang jalan lebih dulu. Bidak biasa bergerak satu petak secara diagonal ke depan, dan memakan ke depan maupun ke belakang.
+- Raja bergerak dan memakan dari jauh sepanjang diagonal, seperti dalam dam internasional. Setelah memakan, raja harus mendarat di petak yang memungkinkannya terus memakan, jika ada.
+- Memakan itu wajib, tetapi kamu boleh memilih cara memakan yang mana. Begitu sebuah bidak mulai melompat, bidak itu harus memakan setiap bidak yang bisa dimakannya di sepanjang jalan.
+- Bidak yang dimakan diangkat di akhir langkah. Satu bidak tidak boleh dilompati dua kali.
+- Bidak biasa yang mencapai baris terjauh langsung menjadi raja, bahkan di tengah-tengah memakan, lalu terus memakan sebagai raja jika bisa.
+- Remis: jika posisi yang sama muncul untuk ketiga kalinya, atau setelah masing-masing pihak melangkah 15 kali dengan hanya raja yang bergerak dan tanpa ada yang dimakan.
+# Dam Brasil (8×8)
+- Aturan dam internasional di papan 8×8. Pihak terang jalan lebih dulu.
+- Bidak biasa memakan ke depan maupun ke belakang, raja bergerak dan memakan dari jauh, dan kamu harus memakan sebanyak mungkin bidak.
+- Bidak biasa hanya menjadi raja jika mengakhiri langkahnya di baris terjauh.
+- Remis: jika posisi yang sama muncul untuk ketiga kalinya, atau setelah masing-masing pihak melangkah 20 kali dengan hanya raja yang bergerak dan tanpa ada yang dimakan.
+# Dam Turki (8×8)
+- Semua 64 petak dipakai. Setiap pemain mulai dengan 16 bidak biasa di baris kedua dan ketiganya. Pihak terang jalan lebih dulu.
+- Bidak biasa bergerak satu petak lurus ke depan atau ke samping, tidak pernah secara diagonal dan tidak pernah mundur. Bidak biasa memakan dengan cara yang sama, melompati bidak lawan di sebelahnya ke petak kosong tepat di belakangnya.
+- Bidak biasa yang mencapai baris terjauh menjadi raja. Raja bergerak berapa pun petak sepanjang baris atau kolom dan memakan dari jauh, mendarat di petak kosong mana pun di belakang bidak yang dimakannya.
+- Memakan itu wajib, dan kamu harus memakan sebanyak mungkin bidak.
+- Setiap bidak yang dimakan langsung diangkat, begitu dilompati. Saat memakan beberapa bidak, sebuah bidak tidak boleh berbalik arah kembali ke jalan asalnya.
+- Remis: jika posisi yang sama muncul untuk ketiga kalinya, atau setelah masing-masing pihak melangkah 25 kali tanpa memakan atau menggerakkan bidak biasa.
 # Akhir permainan
 Pemain yang tidak punya bidak lagi, atau tidak bisa melangkah, kalah.
 # Bermain di perangkat

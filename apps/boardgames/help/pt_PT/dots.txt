@@ -1,0 +1,11 @@
+Pontos e quadrados
+# O objetivo
+Conquistar mais quadrados do que o outro jogador. O tabuleiro é uma grelha de pontos. Escolhe o tamanho antes da partida: 3 por 3 quadrados para uma partida rápida, 5 por 5, ou 7 por 7. O lado claro começa.
+# A tua vez
+- Traça uma linha entre dois pontos vizinhos, na horizontal ou na vertical. Cada linha só pode ser traçada uma vez.
+- Se a tua linha fechar o quarto lado de um quadrado, o quadrado é teu: fica com a tua cor. Uma linha pode fechar dois quadrados de uma vez.
+- Sempre que fechas um quadrado, tens de traçar outra linha. A tua vez termina com uma linha que não feche nenhum quadrado.
+# O fim da partida
+A partida termina quando todas as linhas estiverem traçadas. Ganha o jogador com mais quadrados. Todos os tabuleiros têm um número ímpar de quadrados, por isso há sempre um vencedor.
+# Jogar no dispositivo
+Toca entre dois pontos para traçar aí a linha. Mantém o dedo no ecrã para ver que linha vai ser, desliza-o para escolher outra e levanta-o para traçar. A última linha traçada fica acesa, tal como os quadrados que fechou. Cada barra mostra quantos quadrados tem esse jogador.

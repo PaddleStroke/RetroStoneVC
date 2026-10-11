@@ -1,0 +1,15 @@
+Ular Tangga
+# Tujuan
+Jadilah yang pertama membawa pionmu ke petak 100.
+# Papan
+Petak-petaknya bernomor 1 sampai 100, mulai dari kiri bawah: menyusuri baris paling bawah ke kanan, lalu kembali menyusuri baris berikutnya ke kiri, dan begitu seterusnya naik ke atas papan, dengan petak 100 di puncak. Tangga mengarah naik, dari kaki ke puncaknya; ular mengarah turun, dari kepala ke ekornya.
+# Satu giliran
+Kedua pion mulai di luar papan, sebelum petak 1. Pihak terang melempar lebih dulu. Lempar dadu dan majukan pionmu sebanyak angka yang keluar, satu petak demi satu petak. Kedua pion boleh berada di petak yang sama.
+- Jika pionmu berhenti di kaki tangga, pion itu naik ke puncak tangga.
+- Jika pionmu berhenti di kepala ular, pion itu meluncur turun ke ekor ular.
+- Angka 6 memberimu satu lemparan lagi, setelah kamu melangkah.
+- Selain itu, dadu berpindah ke lawan.
+# Akhir permainan
+Kamu harus mencapai petak 100 dengan angka yang pas. Jika angka yang keluar lebih besar daripada yang kamu perlukan, pionmu naik sampai 100 lalu mundur sebanyak sisanya: dari petak 96, angka 6 berakhir di petak 98. Tangga atau ular di tempat pion berhenti tetap berlaku. Pemain pertama yang sampai di petak 100 menang.
+# Bermain di perangkat
+Dadu menunggu, dengan cahaya keemasan, di ujung bilah pemain yang mendapat giliran melempar: ketuk layar untuk melemparnya. Lalu pionmu bergerak sendiri. Setiap bilah menunjukkan petak tempat pion pemain itu berada dan lemparan terakhirnya. Urungkan membatalkan lemparan satu per satu; lemparan yang dibatalkan akan keluar sama lagi saat kamu melempar ulang.

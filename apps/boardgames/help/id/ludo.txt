@@ -1,0 +1,18 @@
+Ludo
+# Tujuan
+Bawa keempat bidakmu mengelilingi papan sampai ke tengah sebelum lawan. Setiap pemain punya empat bidak di kandang berwarna miliknya, di sudut yang berseberangan. Gading melempar lebih dulu, lalu para pemain bergiliran.
+# Melempar dan melangkah
+- Lempar dadu, lalu jalankan salah satu bidakmu searah jarum jam di sepanjang lintasan sebanyak angka yang keluar.
+- Hanya angka 6 yang bisa mengeluarkan bidak dari kandangnya ke petak awalnya, yaitu petak berwarna di samping kandang. Dengan angka 6, kamu juga boleh menjalankan bidak yang sudah ada di papan.
+- Angka 6 memberimu satu lemparan lagi. Angka 6 ketiga berturut-turut hangus dan giliranmu langsung berakhir.
+- Jika tidak ada bidak yang bisa bergerak dengan angka yang keluar, lemparan itu hangus dan giliran berpindah (setelah angka 6 kamu tetap melempar lagi).
+# Bertemu bidak lain
+- Berhenti tepat di bidak lawan mengirim bidak itu kembali ke kandangnya. Jika ada dua bidak lawan di situ, keduanya kembali.
+- Petak aman adalah keempat petak awal dan keempat petak bertanda bintang. Di situ tidak ada bidak yang bisa dipulangkan, dan bidak kedua pemain boleh berbagi petak.
+- Bidakmu sendiri boleh berbagi satu petak. Bidak-bidak itu tidak menghalangi: lawan boleh melewatinya atau berhenti di atasnya.
+# Pulang
+Setelah satu putaran penuh, bidakmu berbelok masuk ke jalur pulang berwarna miliknya, tempat bidak itu aman, lalu terus ke tengah. Bidak harus mencapai tengah dengan angka yang pas: lemparan yang terlalu besar tidak bisa menjalankan bidak itu.
+# Akhir permainan
+Pemain pertama yang membawa keempat bidaknya ke tengah menang.
+# Bermain di perangkat
+Dadumu menunggu di sudut kosong di dekatmu, menyala keemasan: ketuk dadu itu untuk melempar. Titik menunjukkan ke mana bidakmu bisa bergerak, lingkaran menunjukkan bidak yang akan kamu pulangkan ke kandang: ketuk sebuah bidak, atau seret ke petaknya, lalu bidak itu melompat-lompat ke sana. Lemparan yang tidak bisa menjalankan bidak tetap redup dengan cahaya merah selama lawan melempar. Urungkan membatalkan langkah dan lemparan, tetapi lemparan yang dibatalkan akan keluar sama lagi. Bidakmu yang sudah sampai di tengah terlihat di bilahmu.

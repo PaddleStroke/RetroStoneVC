@@ -1,0 +1,15 @@
+Jogo da velha
+# Clássico
+O tabuleiro tem três fileiras de três casas. O lado claro joga com o X e começa, o lado escuro joga com a bolinha. Na sua vez, faça a sua marca em uma casa vazia.
+- Três marcas suas em linha vencem: na horizontal, na vertical ou na diagonal.
+- Se as nove casas forem preenchidas sem nenhuma linha de três, a partida termina empatada (deu velha).
+# Ultimate
+O tabuleiro grande contém nove tabuleiros pequenos de três por três. Você continua fazendo uma marca em uma casa vazia, mas onde você pode jogar depende da última jogada.
+- A casa onde o adversário acabou de jogar, dentro do tabuleiro pequeno dela, manda você para o tabuleiro pequeno que está na mesma posição no tabuleiro grande. Jogar na casa de cima à direita de qualquer tabuleiro pequeno manda o outro jogador para o tabuleiro pequeno de cima à direita.
+- Se o tabuleiro para onde você foi mandado já estiver decidido (ganho ou cheio), você pode jogar em qualquer tabuleiro pequeno ainda aberto.
+- A primeira jogada da partida pode ser em qualquer lugar.
+- Três em linha em um tabuleiro pequeno ganham esse tabuleiro: ele passa a ser seu e é fechado. Um tabuleiro pequeno preenchido sem nenhuma linha de três não é de ninguém.
+- Ganhe três tabuleiros pequenos em linha no tabuleiro grande, na horizontal, na vertical ou na diagonal, e você vence a partida.
+- Quando ninguém mais puder ganhar uma linha de três tabuleiros pequenos, a partida termina empatada.
+# Jogando no aparelho
+Toque em uma casa vazia para jogar ali. No Ultimate, os tabuleiros pequenos onde você pode jogar ficam acesos, e um tabuleiro pequeno ganho mostra a marca grande do vencedor. Cada barra mostra quantos tabuleiros pequenos aquele jogador ganhou.

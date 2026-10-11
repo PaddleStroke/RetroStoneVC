@@ -18,5 +18,9 @@ Um rei atacado está em xeque: o lance seguinte precisa tirá-lo do xeque. Você
 - Xeque-mate: o rei está em xeque e nenhum lance pode salvá-lo. Esse jogador perde.
 - Afogamento: o jogador da vez não tem nenhum lance legal, mas não está em xeque. A partida termina empatada.
 - A partida também termina empatada quando nenhum dos lados consegue mais dar xeque-mate (restam poucas peças), quando a mesma posição se repete pela terceira vez, ou depois de cinquenta lances de cada lado sem captura nem movimento de peão.
+# Xadrez 960
+O Xadrez 960 (xadrez aleatório de Fischer) segue as mesmas regras, mas as peças da primeira fileira começam em uma de 960 ordens, sorteada a cada partida. Os peões ficam como de costume, e as peças pretas ficam de frente para as brancas, coluna por coluna. Os bispos sempre ficam em casas de cores opostas, e o rei em algum lugar entre as duas torres.
+- Roque: o rei e a torre terminam nas mesmas casas que no xadrez comum: o rei em g e a torre em f com a torre do lado h, o rei em c e a torre em d com a torre do lado a. Só é permitido se nenhuma das duas peças se moveu ainda, todas as casas que elas atravessam ou onde param estão vazias (sem contar as duas), e o rei não está em xeque, não atravessa uma casa atacada e não termina em xeque.
+- Para fazer o roque, leve o rei para cima da torre com a qual ele faz o roque. Você também pode levá-lo direto para a casa de destino dele, a não ser que o rei também pudesse ir até lá com um lance comum, ou que ele já esteja nela.
 # Jogando no aparelho
-Toque em uma peça para ver aonde ela pode ir e depois toque em uma casa, ou arraste a peça. Os pontos mostram os lances, os anéis as capturas. Um rei em xeque brilha em vermelho.
+Toque em uma peça para ver aonde ela pode ir e depois toque em uma casa, ou arraste a peça. Os pontos mostram os lances, os anéis as capturas. Um rei em xeque brilha em vermelho. Para fazer o roque, leve o rei duas casas em direção à torre, ou para cima da torre.

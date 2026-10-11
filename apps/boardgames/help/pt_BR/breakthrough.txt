@@ -1,0 +1,16 @@
+Breakthrough
+# O objetivo
+Romper as linhas do exército adversário: ser o primeiro a levar uma das suas peças até o outro lado do tabuleiro, a fileira inicial do outro jogador.
+# O início
+A partida é jogada em um tabuleiro de xadrez. Cada jogador tem dezesseis peças, que ocupam as suas duas primeiras fileiras. As peças claras começam; depois os jogadores se alternam, um lance cada um.
+# Como as peças se movem
+- Uma peça anda uma casa para a frente, reto ou na diagonal, para uma casa vazia.
+- Uma peça captura andando uma casa na diagonal para a frente até uma peça adversária, que sai do tabuleiro.
+- Uma peça nunca captura reto para a frente: uma peça adversária logo à frente a bloqueia.
+- As peças nunca andam para o lado nem para trás. A captura nunca é obrigatória.
+# O fim da partida
+- Vence o primeiro jogador que chegar à fileira inicial do outro jogador.
+- Perde o jogador que perder todas as suas peças.
+Não há empates: um jogador que ainda tem peças sempre pode se mover.
+# Jogando no aparelho
+Toque em uma peça para ver aonde ela pode ir e depois toque em uma casa, ou arraste a peça. Os pontos mostram os lances, os anéis as capturas. A peça vencedora brilha em dourado.

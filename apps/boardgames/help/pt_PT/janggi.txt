@@ -1,0 +1,25 @@
+Janggi
+# O objetivo
+Dar xeque-mate ao general adversário: atacá-lo de forma a que não possa fugir. O Cho (verde-azulado) joga primeiro, depois o Han (vermelho); os jogadores jogam à vez, um lance cada um.
+# O tabuleiro
+As peças ficam nos pontos onde as linhas se cruzam, e não dentro das casas. Não há rio. Cada lado tem um palácio: os três por três pontos marcados com uma cruz, onde vivem o general e os seus guardas. As diagonais dos palácios também são linhas.
+# As peças
+Cada peça tem o seu carácter chinês na tinta do seu lado; os generais têm os nomes dos lados, Cho e Han. As peças são octógonos com o tamanho conforme a hierarquia: o general é o maior, os guardas e os soldados os mais pequenos. Cada lado começa com, a partir da sua esquerda: carro, cavalo, elefante, guarda, guarda, elefante, cavalo, carro na última fila, o general no meio do palácio, os dois canhões à frente dos cavalos e cinco soldados. Esta aplicação usa sempre esta disposição (os cavalos por fora, os elefantes por dentro); as outras três disposições dos cavalos e dos elefantes não estão disponíveis.
+# Como se movem as peças
+- General e guarda: um ponto ao longo de uma linha do palácio, incluindo as diagonais, sem sair dele.
+- Cavalo: um ponto a direito e depois um ponto na diagonal, para fora. Fica bloqueado se o primeiro ponto estiver ocupado.
+- Elefante: um ponto a direito e depois dois pontos na diagonal, para fora. Fica bloqueado se algum dos pontos por onde passa estiver ocupado.
+- Carro: quantos pontos quiseres ao longo de uma linha, como a torre no xadrez, e ao longo das diagonais de um palácio.
+- Canhão: move-se e captura só saltando por cima de exatamente uma peça (de qualquer lado) na sua linha, incluindo as diagonais de um palácio. Não pode saltar por cima de um canhão nem capturar um canhão.
+- Soldado: um ponto para a frente ou para o lado, nunca para trás. No palácio adversário, também pode avançar ao longo de uma diagonal.
+Uma peça captura ao ir para um ponto ocupado por uma peça adversária, que sai do tabuleiro.
+# Passar
+Em vez de mover, um jogador pode passar, exceto quando está em xeque. Um jogador que não tenha nenhum lance legal, mas não esteja em xeque, tem de passar.
+# O xeque e o fim da partida
+Um general atacado está em xeque: o lance seguinte tem de o tirar do xeque. Nunca podes fazer um lance que deixe o teu próprio general em xeque.
+- Xeque-mate: o general está em xeque e nenhum lance o pode salvar. Esse jogador perde.
+- Os generais frente a frente: um lance não pode deixar os dois generais frente a frente na mesma coluna sem nada entre eles. (Outras regras fazem disto uma proposta de empate; aqui simplesmente não é permitido.)
+- Empates: quando a mesma posição se repete pela terceira vez com o mesmo jogador a jogar, a partida termina empatada (quatro passes seguidos também). Uma partida de mil lances de cada lado também termina empatada.
+- A contagem de pontos que termina algumas partidas não é usada: a partida continua até ao xeque-mate ou ao empate.
+# Jogar no dispositivo
+Toca numa peça para ver para onde pode ir, depois toca num ponto, ou arrasta a peça. Os pontinhos mostram os lances, os anéis as capturas. Um general em xeque brilha a vermelho. O botão de passar está na barra do jogador que tem de jogar. Cada barra mostra as peças que esse jogador capturou.

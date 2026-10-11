@@ -1,0 +1,12 @@
+Hex
+# Tujuan
+Hubungkan kedua sisimu di papan dengan rantai batumu yang tidak terputus. Putih (terang) menghubungkan sisi atas dan bawah, Hitam (gelap) menghubungkan sisi kiri dan kanan: setiap sisi diberi warna pemain yang harus menghubungkannya. Putih jalan lebih dulu. Pilih papan sebelum bermain: 7×7 untuk permainan singkat, 9×9, atau 11×11.
+# Cara bermain
+- Secara bergiliran, setiap pemain meletakkan satu batu di petak kosong mana pun. Batu tidak pernah dipindahkan dan tidak pernah ditangkap.
+- Dua batumu terhubung jika petaknya bersentuhan pada satu sisi: setiap petak punya enam tetangga.
+- Pemain pertama yang menghubungkan kedua sisinya menang. Petak di sudut menjadi milik kedua sisi yang bertemu di situ.
+- Tidak pernah ada seri: begitu papan penuh, salah satu pemain pasti sudah menghubungkan kedua sisinya.
+# Tukar
+Jalan lebih dulu adalah keuntungan besar. Untuk menyeimbangkannya, hanya pada langkah kedua, Hitam boleh mengambil batu pertama Putih alih-alih meletakkan batu. Batu itu menjadi hitam dan pindah ke petak cerminannya di seberang diagonal panjang (garis dari sudut kiri atas ke sudut kanan bawah), sehingga posisinya bagi Hitam sama persis seperti sebelumnya bagi Putih. Lalu Putih bermain lagi. Karena itu Putih sebaiknya membuka dengan langkah yang tidak terlalu kuat dan tidak terlalu lemah.
+# Bermain di perangkat
+Ketuk petak kosong untuk meletakkan batumu. Di papan 11×11, ketukan pertama menampilkan batu pucat dan ketukan kedua di petak yang sama meletakkannya: dengan begitu petak kecil tetap mudah disentuh. Untuk bertukar, Hitam mengetuk batu pertama Putih: batu pucat menunjukkan ke mana batu itu pindah, dan ketukan kedua melakukan pertukaran. Saat seorang pemain menang, rantainya menyala keemasan.

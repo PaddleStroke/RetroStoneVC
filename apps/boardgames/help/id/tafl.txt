@@ -1,0 +1,25 @@
+Hnefatafl
+# Tujuan
+Hnefatafl, permainan papan bangsa Viking, adalah pertempuran antara dua pihak yang tidak seimbang. Para pembela, di tengah, harus membantu rajanya meloloskan diri. Para penyerang, yang jumlahnya dua kali lipat, mengepung mereka dan harus menangkap sang raja. Penyerang (gelap) jalan lebih dulu, lalu para pemain bergiliran, masing-masing satu langkah. Pilih papan sebelum bermain: Hnefatafl di papan 11×11, atau Tablut di papan 9×9.
+# Cara bidak bergerak
+- Setiap bidak, termasuk raja, bergerak seperti benteng dalam catur: berapa pun petak kosong sepanjang baris atau kolom. Bidak tidak pernah melompat.
+- Petak tengah adalah takhta. Hanya raja yang boleh berhenti di situ. Jika takhta kosong, bidak mana pun boleh melewatinya.
+- Dalam Hnefatafl, hanya raja yang boleh berhenti di keempat petak sudut.
+# Menangkap
+- Sebuah bidak tertangkap jika bidak lawan bergerak sehingga bidak itu terjepit di antara dua musuh, sepanjang baris atau kolom. Bidak itu keluar dari papan. Satu langkah bisa menangkap sampai tiga bidak.
+- Petak sudut dan takhta yang kosong berlaku sebagai musuh bagi semua bidak: bidak yang bersebelahan dengan salah satunya tertangkap oleh satu musuh saja di sisi seberangnya.
+- Raja membantu para pembela menangkap.
+- Sebuah bidak boleh masuk dengan aman ke celah di antara dua bidak lawan.
+# Raja
+- Raja tertangkap jika penyerang mengepungnya dari keempat sisi, atau dari tiga sisi dengan takhta kosong di sisi keempat. Raja tidak bisa ditangkap di tepi papan.
+- Pembela menang jika raja mencapai petak sudut. Penyerang menang jika berhasil menangkap raja.
+# Tablut (9×9)
+- 16 penyerang melawan 8 pembela dan raja. Petak sudut adalah petak biasa.
+- Pembela menang jika raja mencapai petak mana pun di tepi papan.
+- Di atas takhta atau di sebelahnya, raja ditangkap seperti dalam Hnefatafl. Di tempat lain, dua penyerang di sisi yang berseberangan menangkapnya, seperti bidak lainnya.
+# Akhir permainan
+- Pemain yang tidak bisa melangkah kalah.
+- Jika posisi yang sama muncul untuk ketiga kalinya dengan pemain yang sama mendapat giliran, permainan berakhir seri. Permainan yang mencapai 1000 langkah untuk masing-masing pihak juga berakhir seri.
+- Ini adalah aturan Kopenhagen, tanpa aturan opsional dinding perisai, benteng tepi, dan pengepungan.
+# Bermain di perangkat
+Ketuk bidak untuk melihat ke mana bidak itu bisa bergerak, lalu ketuk sebuah petak, atau seret bidaknya. Titik menunjukkan langkah. Bidak yang tertangkap memudar. Raja yang bisa ditangkap penyerang pada langkah berikutnya menyala merah, dan cahaya keemasan menunjukkan kepada penyerang ke mana raja bisa lolos pada langkah berikutnya.

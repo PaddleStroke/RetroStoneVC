@@ -1,0 +1,16 @@
+Mancala
+# O objetivo
+Capturar mais sementes do que o outro jogador. O tabuleiro tem duas filas de seis covas, com quatro sementes em cada uma. A fila mais perto de ti é a tua, com o teu depósito na ponta direita. O lado claro começa.
+# Oware
+- Na tua vez, pega em todas as sementes de uma das tuas covas e semeia-as uma a uma nas covas seguintes, no sentido contrário ao dos ponteiros do relógio. Com doze sementes ou mais, dás a volta completa: a cova que esvaziaste é saltada.
+- Se a tua última semente cair na fila do outro jogador e lá ficarem duas ou três sementes, capturas essas sementes. Capturas também as da cova anterior, e as da que vem antes dessa, desde que estejam na fila do outro jogador e tenham duas ou três sementes.
+- Uma jogada que capturaria todas as sementes do outro jogador pode ser feita, mas não captura nada.
+- Se o outro jogador não tiver sementes, tens de fazer uma jogada que lhe dê algumas, se tiveres alguma assim.
+- A partida termina quando um jogador capturou mais de 24 sementes, quando o jogador que tem de jogar não pode jogar ou quando a mesma posição se repete. Nos dois últimos casos, cada jogador soma as sementes que restam na sua própria fila. Ganha quem tiver mais sementes; 24 para cada um é empate.
+# Kalah
+- Na tua vez, pega em todas as sementes de uma das tuas covas e semeia-as uma a uma, no sentido contrário ao dos ponteiros do relógio, nas covas seguintes e no teu próprio depósito, mas não no depósito do outro jogador.
+- Se a tua última semente cair no teu depósito, voltas a jogar.
+- Se a tua última semente cair numa cova tua que estava vazia e a cova em frente tiver sementes, capturas ambas: a tua semente e as sementes da frente vão para o teu depósito.
+- A partida termina quando uma fila fica vazia: o outro jogador põe as sementes que restam na sua fila no seu depósito. Ganha quem tiver mais sementes no depósito; o mesmo número é empate.
+# Jogar no dispositivo
+Toca numa das tuas covas para a semear: as covas que podes jogar brilham. As sementes avançam uma a uma, e as sementes capturadas voam para o depósito. O número junto a cada cova mostra quantas sementes tem, e cada barra mostra as sementes que esse jogador capturou.

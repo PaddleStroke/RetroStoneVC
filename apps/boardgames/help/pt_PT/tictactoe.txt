@@ -1,0 +1,15 @@
+Jogo do galo
+# Clássico
+O tabuleiro tem três filas de três casas. O lado claro joga com as cruzes e começa, o lado escuro joga com as bolas. Na tua vez, põe a tua marca numa casa livre.
+- Três marcas tuas em linha ganham: na horizontal, na vertical ou na diagonal.
+- Se as nove casas ficarem preenchidas sem nenhuma linha de três, o jogo termina empatado.
+# Ultimate
+O tabuleiro grande tem nove tabuleiros pequenos de três por três. Continuas a pôr uma marca numa casa livre, mas o sítio onde podes jogar depende da última jogada.
+- A casa onde o adversário acabou de jogar, dentro do seu tabuleiro pequeno, manda-te para o tabuleiro pequeno que está na mesma posição no tabuleiro grande. Jogar na casa de cima à direita de qualquer tabuleiro pequeno manda o outro jogador para o tabuleiro pequeno de cima à direita.
+- Se o tabuleiro para onde foste mandado já estiver decidido (ganho ou cheio), podes jogar em qualquer tabuleiro pequeno ainda aberto.
+- A primeira jogada do jogo pode ser em qualquer sítio.
+- Três em linha num tabuleiro pequeno ganham esse tabuleiro: passa a ser teu e fica fechado. Um tabuleiro pequeno preenchido sem nenhuma linha de três não é de ninguém.
+- Ganha três tabuleiros pequenos em linha no tabuleiro grande, na horizontal, na vertical ou na diagonal, e ganhas o jogo.
+- Quando já ninguém puder ganhar uma linha de três tabuleiros pequenos, o jogo termina empatado.
+# Jogar no dispositivo
+Toca numa casa livre para jogar aí. No Ultimate, os tabuleiros pequenos onde podes jogar ficam acesos, e um tabuleiro pequeno ganho mostra a marca grande do vencedor. Cada barra mostra quantos tabuleiros pequenos esse jogador ganhou.
