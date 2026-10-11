@@ -1,0 +1,17 @@
+Amazons
+# The aim
+Be the last player able to move. Each turn burns one more square of the board, so the room to move shrinks until one player is walled in: that player loses.
+# The start
+The board has 10 rows of 10 squares. Each player has four amazons. The light amazons stand on the bottom row and on the fourth row, the dark ones on the top row and on the seventh row, facing them. Light moves first, then the players take turns.
+# A turn
+Every turn has two parts, both made by the same amazon:
+- Move: one of your amazons moves like a chess queen, any number of squares in a straight line, along a row, a column or a diagonal. It may only cross and land on empty squares: amazons never jump and never capture.
+- Shoot: from the square where it landed, the amazon shoots an arrow, also like a queen, onto an empty square. That square is burnt and blocked for the rest of the game: no amazon may stand on it or cross it, and no arrow may fly over it.
+The arrow may fly back to the square the amazon has just left, or across it.
+# The end of the game
+A player who cannot move any amazon at the start of their turn loses. There are no draws.
+# Tips
+- Areas of the board walled off by burnt squares and amazons become private territory: count the squares each player still has to move in.
+- An amazon trapped in a small pocket is nearly lost: keep your amazons in the open.
+# Playing on the device
+Tap one of your amazons to see where it can go, then tap a square, or drag the amazon. Then golden lights show where its arrow can fly: tap one, and the arrow burns that square. The last turn stays marked: where the amazon came from, where it went and the square it burnt. Undo takes back the arrow first, then the move.
