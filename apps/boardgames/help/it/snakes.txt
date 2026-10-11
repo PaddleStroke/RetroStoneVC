@@ -1,6 +1,7 @@
 Serpenti e scale
 # Lo scopo
 Essere il primo a portare la tua pedina sulla casella 100.
+Si può giocare in due, tre o quattro: scegli quanti prima della partita. In tre o in quattro le regole sono le stesse per tutti: tutte le pedine partono fuori dal tabellone e possono stare sulla stessa casella, e il dado passa a turno: chiaro, scuro, rosso e poi verde. Chiaro e rosso siedono in basso, scuro e verde in alto.
 # Il tavoliere
 Le caselle sono numerate da 1 a 100 partendo dal basso a sinistra: lungo la riga in basso verso destra, poi indietro verso sinistra lungo la riga successiva, e così via fino in cima al tavoliere, dove c'è il 100. Le scale portano in su, dal loro piede alla loro cima; i serpenti portano in giù, dalla loro testa alla loro coda.
 # Un turno

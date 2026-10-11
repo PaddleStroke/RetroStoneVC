@@ -1,6 +1,7 @@
 Snakes and Ladders
 # The aim
 Be the first to bring your pawn to square 100.
+Two, three or four can play: choose how many before the game. With three or four, the rules are the same for everyone: all the pawns start off the board and may share a square, and the die goes round in turn: Light, Dark, Red, then Green. Light and Red sit at the bottom, Dark and Green at the top.
 # The board
 The squares are numbered from 1 to 100, from the bottom left: along the bottom row to the right, then back along the next row to the left, and so on up the board, with 100 at the top. Ladders lead up the board, from their foot to their top; snakes lead down, from their head to their tail.
 # A turn

@@ -1,6 +1,7 @@
 /*
  * Snakes and ladders: the rules' test (src/games/snakes_rules.c). The zigzag numbering, the board's ladders and snakes,
- * climbing and sliding, the extra throw on a 6, the exact finish and the bounce off 100, the win, undo. No SDL.
+ * climbing and sliding, the extra throw on a 6, the exact finish and the bounce off 100, the win, undo;
+ * three and four players: the start, the turn round the table, pawns sharing a square, any one winning. No SDL.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -16,6 +17,18 @@ static int checks, failed;
 static int play(sn_game *g, const char *s)
 {
     sn_new(g);
+    for (char *end; *s; s = end) {
+        long r = strtol(s, &end, 10);
+        if (end == s) break;
+        if (!sn_play(g, (int)r)) return 0;
+    }
+    return 1;
+}
+
+/* the same with four players; 1: all played */
+static int play4(sn_game *g, const char *s)
+{
+    sn_new_players(g, 4);
     for (char *end; *s; s = end) {
         long r = strtol(s, &end, 10);
         if (end == s) break;
@@ -111,6 +124,53 @@ int main(void)
     CHECK(sn_play(&g, 2) && g.known == 2 && sn_next(&g) == 0);          /* another throw: the rest is gone */
     CHECK(play(&g, "3 6 1") && sn_undo(&g) && sn_play(&g, 1) && g.pos[1] == 7 && sn_turn(&g) == 0);
     CHECK(play(&g, "3 3 6 4 2 1") && sn_undo(&g) && sn_status(&g) == SN_PLAY && g.pos[0] == 99 && sn_turn(&g) == 0);
+
+    /* three and four players: all off the board, the die round the table 0, 1, 2 (, 3), a 6 throws again */
+    for (int np = 3; np <= 4; np++) {
+        sn_new_players(&g, np);
+        ok = g.players == np && sn_turn(&g) == 0 && sn_status(&g) == SN_PLAY;
+        for (int p = 0; p < SN_PLAYERS; p++) ok &= g.pos[p] == 0;
+        CHECK(ok);
+        ok = 1;
+        for (int i = 0; i < 2 * np; i++) {      /* a 4 each, then a 5 each: no ladder, no snake */
+            int p = sn_turn(&g);
+            ok &= p == i % np && sn_play(&g, 4 + i / np) && g.last.player == p;
+        }
+        CHECK(ok && sn_turn(&g) == 0);
+        for (int p = 0; p < np; p++) CHECK(g.pos[p] == 9);
+        CHECK(sn_play(&g, 6) && sn_turn(&g) == 0 && sn_play(&g, 1) && sn_turn(&g) == 1);   /* 6: again; then on */
+    }
+    sn_new_players(&g, 1);                      /* out of range: two at least, four at most */
+    CHECK(g.players == 2);
+    sn_new_players(&g, 9);
+    CHECK(g.players == SN_PLAYERS);
+
+    /* several pawns on one square: three on 5 (no link there) */
+    CHECK(play4(&g, "5 5 5 2"));
+    CHECK(g.pos[0] == 5 && g.pos[1] == 5 && g.pos[2] == 5 && g.pos[3] == 2 && sn_turn(&g) == 0);
+
+    /* the first on 100 wins, whoever it is: players 2 and 3 */
+    sn_new_players(&g, 3);
+    g.pos[2] = 96;
+    g.turn = 2;
+    CHECK(sn_play(&g, 4) && sn_status(&g) == SN_WIN2 && !sn_play(&g, 1));
+    sn_new_players(&g, 4);
+    g.pos[3] = 94;
+    g.pos[0] = 99;
+    g.turn = 3;
+    CHECK(sn_play(&g, 6) && sn_status(&g) == SN_WIN3 && g.winner == 3 && !sn_play(&g, 1));
+
+    /* four players, a whole game: all on 22, player 0 to 24; player 1: 6 (28: 76) and again 4 (80: 99); a 1 each
+     * for 2, 3 and 0; player 1's 1 reaches 100 */
+    CHECK(play4(&g, "3 3 3 3 2 6 4 1 1 1 1"));
+    CHECK(sn_status(&g) == SN_WIN1 && g.pos[1] == 100 && g.pos[0] == 25 && g.pos[2] == 23 && g.pos[3] == 23);
+
+    /* undo with four: back through the turns, the throws known again */
+    CHECK(sn_undo(&g) && sn_status(&g) == SN_PLAY && sn_turn(&g) == 1 && g.pos[1] == 99 && sn_next(&g) == 1);
+    for (int i = 0; i < 4; i++) CHECK(sn_undo(&g));
+    CHECK(g.n == 6 && sn_turn(&g) == 1 && g.pos[1] == 76 && g.pos[3] == 22 && g.players == 4);
+    while (sn_undo(&g)) {}
+    CHECK(g.n == 0 && sn_turn(&g) == 0 && g.pos[0] == 0 && g.pos[1] == 0 && g.pos[3] == 0 && g.players == 4);
 
     printf("snakes: %d checks, %d failed\n", checks, failed);
     return failed != 0;

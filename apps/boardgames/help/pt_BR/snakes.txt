@@ -1,6 +1,7 @@
 Cobras e Escadas
 # O objetivo
 Ser o primeiro a levar o seu peão até a casa 100.
+Podem jogar duas, três ou quatro pessoas: escolha quantas antes da partida. Com três ou quatro, as regras são as mesmas para todos: todos os peões começam fora do tabuleiro e podem dividir a mesma casa, e o dado passa em rodízio: claro, escuro, vermelho e depois verde. O claro e o vermelho ficam embaixo; o escuro e o verde, em cima.
 # O tabuleiro
 As casas são numeradas de 1 a 100, a partir do canto inferior esquerdo: pela fileira de baixo para a direita, depois de volta pela fileira seguinte para a esquerda, e assim por diante, subindo pelo tabuleiro, com o 100 no alto. As escadas sobem pelo tabuleiro, do pé até o topo; as cobras descem, da cabeça até a cauda.
 # A sua vez

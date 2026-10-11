@@ -1,6 +1,7 @@
 Leiterspiel
 # Das Ziel
 Bringe als Erster deine Spielfigur auf Feld 100.
+Zwei, drei oder vier können spielen: Wähle vor der Partie, wie viele. Zu dritt oder zu viert gelten für alle dieselben Regeln: Alle Figuren beginnen neben dem Brett und dürfen auf demselben Feld stehen, und der Würfel geht reihum: Hell, Dunkel, Rot, dann Grün. Hell und Rot sitzen unten, Dunkel und Grün oben.
 # Das Brett
 Die Felder sind von 1 bis 100 nummeriert, von unten links aus: entlang der untersten Reihe nach rechts, dann die nächste Reihe zurück nach links, und so weiter das Brett hinauf, mit 100 ganz oben. Leitern führen nach oben, von ihrem Fuß zu ihrer Spitze; Schlangen führen nach unten, von ihrem Kopf zu ihrem Schwanz.
 # Ein Zug

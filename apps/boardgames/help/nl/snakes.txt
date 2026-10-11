@@ -1,6 +1,7 @@
 Slangen en ladders
 # Het doel
 Breng als eerste je pion naar vakje 100.
+Je kunt met twee, drie of vier spelen: kies hoeveel vóór het spel. Met drie of vier gelden voor iedereen dezelfde regels: alle pionnen beginnen naast het bord en mogen op hetzelfde vakje staan, en de dobbelsteen gaat rond: Licht, Donker, Rood en dan Groen. Licht en Rood zitten onderaan, Donker en Groen bovenaan.
 # Het bord
 De vakjes zijn genummerd van 1 tot 100, vanaf linksonder: over de onderste rij naar rechts, dan over de volgende rij terug naar links, en zo verder het bord op, met 100 bovenaan. Ladders leiden omhoog, van hun voet naar hun top; slangen leiden omlaag, van hun kop naar hun staart.
 # Een beurt

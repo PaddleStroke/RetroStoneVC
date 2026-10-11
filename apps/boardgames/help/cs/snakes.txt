@@ -1,6 +1,7 @@
 Hadi a žebříky
 # Cíl hry
 Buď první, kdo dovede svou figurku na pole 100.
+Hrát mohou dva, tři nebo čtyři hráči: počet zvolíš před začátkem hry. Při třech nebo čtyřech platí pro všechny stejná pravidla: všechny figurky začínají mimo desku a mohou stát na stejném poli a kostka putuje dokola v pořadí světlý, tmavý, červený a zelený. Světlý a červený sedí dole, tmavý a zelený nahoře.
 # Deska
 Pole jsou očíslována od 1 do 100, počínaje vlevo dole: po spodní řadě doprava, pak zpět po další řadě doleva a tak dál nahoru po desce, se 100 úplně nahoře. Žebříky vedou nahoru, od paty k vrcholu; hadi vedou dolů, od hlavy k ocasu.
 # Tah

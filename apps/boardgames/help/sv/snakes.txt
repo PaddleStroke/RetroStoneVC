@@ -1,6 +1,7 @@
 Ormar och stegar
 # Målet
 Bli först med att föra din pjäs till ruta 100.
+Två, tre eller fyra kan spela: välj hur många före spelet. Med tre eller fyra gäller samma regler för alla: alla pjäser börjar utanför brädet och får stå på samma ruta, och tärningen går runt i tur och ordning: ljus, mörk, röd och sedan grön. Ljus och röd sitter nederst, mörk och grön överst.
 # Brädet
 Rutorna är numrerade från 1 till 100, med början nere till vänster: längs nedersta raden åt höger, sedan tillbaka längs nästa rad åt vänster, och så vidare uppåt, med 100 högst upp. Stegarna leder uppåt, från foten till toppen; ormarna leder nedåt, från huvudet till svansen.
 # En tur

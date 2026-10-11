@@ -1,6 +1,7 @@
 Węże i drabiny
 # Cel gry
 Jako pierwszy doprowadź swój pionek do pola 100.
+Grać mogą dwie, trzy lub cztery osoby: wybierz liczbę przed partią. We trzech lub czterech zasady są dla wszystkich takie same: wszystkie pionki zaczynają poza planszą i mogą stać na tym samym polu, a kostka krąży kolejno: jasny, ciemny, czerwony i zielony. Jasny i czerwony siedzą na dole, ciemny i zielony na górze.
 # Plansza
 Pola są ponumerowane od 1 do 100, zaczynając od lewego dolnego rogu: wzdłuż dolnego rzędu w prawo, potem z powrotem w lewo wzdłuż następnego rzędu i tak dalej w górę planszy, ze 100 na samej górze. Drabiny prowadzą w górę planszy, od podnóża do szczytu; węże prowadzą w dół, od głowy do ogona.
 # Tura

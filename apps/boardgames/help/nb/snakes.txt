@@ -1,6 +1,7 @@
 Slanger og stiger
 # Målet
 Bli den første til å få brikken din til rute 100.
+To, tre eller fire kan spille: velg hvor mange før spillet. Med tre eller fire gjelder de samme reglene for alle: alle brikkene starter utenfor brettet og kan stå på samme rute, og terningen går på rundgang: lys, mørk, rød og så grønn. Lys og rød sitter nederst, mørk og grønn øverst.
 # Brettet
 Rutene er nummerert fra 1 til 100, fra nederst til venstre: bortover den nederste raden mot høyre, så tilbake langs neste rad mot venstre, og slik videre oppover brettet, med 100 øverst. Stigene leder oppover, fra foten til toppen; slangene leder nedover, fra hodet til halen.
 # En tur
