@@ -7,3 +7,7 @@ Dva hráči sdílejí jedno zařízení a střídají se. Svítící žeton v li
 - Tváří v tvář: polož zařízení naplocho mezi sebe. Figurky a lišta horního hráče se otočí k němu.
 - Nová hra: klepni dvakrát a začneš znovu.
 - ?: tato pravidla.
+# Karetní hry
+V karetních hrách putuje zařízení kolem stolu: hráč na tahu vidí své karty velké dole, pod nimi svou lištu, a nahoře lišty ostatních hráčů. Otočení ani hra naproti tu nejsou.
+- Tajné karty: mezi dvěma tahy obrazovka zezelená a ukáže žeton dalšího hráče. Podej mu zařízení; ten hráč klepne na kulaté tlačítko a uvidí své karty.
+- U tajných karet vezme Vrátit zpět jen tahy z tvého vlastního kola, takže nikdo nikdy neuvidí karty jiného hráče.

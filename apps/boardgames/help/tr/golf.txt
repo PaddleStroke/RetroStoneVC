@@ -1,0 +1,27 @@
+Golf
+# Amaç
+Son elden sonra en düşük puana sahip olmak. Her oyuncunun önünde kapalı kartlardan bir ızgara vardır; başta kimse onları bilmez, sahibi bile. Yüksek kartlarını düşüklerle değiştir ve ızgaranı aç. Seçebileceğin iki oyun var: 52 kartlık desteyle klasik Golf ve -2'den 12'ye kartlarla oynanan bir Golf çeşidi olan Sayı Golfü. 2 ila 6 oyuncu için.
+# Bir elin başında
+- Klasik Golf: herkese 6 kart, 3'lü 2 sıra halinde. Sayı Golfü: herkese 12 kart, 4'lü 3 sıra halinde.
+- Her oyuncu kartlarından ikisini açar.
+- Klasik Golf: ilk oyuncu her elde bir kişi kayar. Sayı Golfü: açık iki kartının toplamı en yüksek olan başlar.
+# Bir sıra
+- Destenin üstündeki kartı çek ya da atılan kartlar yığınının üstündeki kartı al.
+- Onu kartlarından biriyle değiştir, açık ya da kapalı: eski kartın açık olarak atılanlara gider.
+- Ya da desteden çektiysen, onu at ve kapalı kartlarından birini aç.
+- Atılanlardan alınan kart mutlaka değiştirilmelidir.
+# Bir elin sonu
+Bir oyuncunun bütün kartları açılır açılmaz diğer her oyuncu son bir kez oynar. Sonra bütün kartlar açılır ve el sayılır.
+# Klasik Golf
+- As 1 puan, 2'den 10'a kendi değeri, vale ve kız 10, papaz 0.
+- Aynı sütunda aynı değerde iki kart 0 sayılır.
+- Oyun dokuz el, yani dokuz çukur sürer.
+# Sayı Golfü
+- Her kart kendi sayısı kadar sayılır, -2'den 12'ye. Deste: beş -2, on -1, on beş 0 ve 1'den 12'ye her karttan on tane.
+- Bir sütunda aynı sayıda üç açık kart hemen atılanlara gider ve hiç sayılmaz.
+- Eli bitiren oyuncunun puanı sıfırın üstündeyse ve elin kesin en düşüğü değilse iki katı sayılır.
+- Oyun, bir oyuncunun 100 puana ulaştığı elden sonra biter.
+# Oyunun sonu
+Toplamı en düşük olan oyuncu kazanır.
+# Cihazda oynamak
+Cihazı elden ele verin: sırası gelenin kartları her zaman altta büyük, diğerlerinin kartları üstte, pullarının altında daha küçük görünür. Çekmek için desteye ya da atılanlara dokun. Sonra değiştirmek için kartlarından birine dokun, ya da kartı atmak için atılanlara dokunup açmak için kapalı bir karta dokun. Dokunabileceğin kartlar parlar. Her elden sonra bir tablo elin puanlarını ve her oyuncunun toplamını gösterir (bir çarpı ve bir 2: iki kat); sonraki el için ona dokun. Her oyuncunun toplamı kendi şeridinde görünür. Geri al son eylemi geri alır, birer birer.

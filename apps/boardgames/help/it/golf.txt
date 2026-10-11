@@ -1,0 +1,27 @@
+Golf
+# Lo scopo
+Avere il punteggio più basso dopo l'ultima mano. Ogni giocatore ha davanti una griglia di carte coperte; all'inizio nessuno le conosce, nemmeno il proprietario. Scambia le carte alte con quelle basse e scopri la tua griglia. Due giochi a scelta: il Golf classico con un mazzo di 52 carte e il Golf dei numeri, una variante del Golf con carte da -2 a 12. Da 2 a 6 giocatori.
+# All'inizio di una mano
+- Golf classico: 6 carte a testa, in 2 file da 3. Golf dei numeri: 12 carte a testa, in 3 file da 4.
+- Ogni giocatore scopre due delle sue carte.
+- Golf classico: il primo giocatore avanza di un posto a ogni mano. Golf dei numeri: comincia il giocatore le cui due carte sommano di più.
+# Un turno
+- Pesca la carta in cima al mazzo, oppure prendi la carta in cima agli scarti.
+- Scambiala con una delle tue carte, scoperta o coperta: la tua vecchia carta va scoperta sugli scarti.
+- Oppure, se l'hai pescata dal mazzo, scartala e scopri una delle tue carte coperte.
+- Una carta presa dagli scarti va scambiata.
+# La fine di una mano
+Appena un giocatore ha tutte le carte scoperte, ognuno degli altri gioca un ultimo turno. Poi si scoprono tutte le carte e si conta la mano.
+# Golf classico
+- Asso 1 punto, dal 2 al 10 il loro valore, fante e donna 10, re 0.
+- Due carte dello stesso valore nella stessa colonna contano 0.
+- La partita dura nove mani, le nove buche.
+# Golf dei numeri
+- Ogni carta vale il suo numero, da -2 a 12. Il mazzo: cinque -2, dieci -1, quindici 0 e dieci carte per ogni numero da 1 a 12.
+- Tre carte scoperte con lo stesso numero in una colonna vanno subito negli scarti e non contano.
+- Chi ha chiuso la mano conta doppio se il suo punteggio è sopra zero e non è strettamente il più basso della mano.
+- La partita finisce dopo la mano in cui un giocatore arriva a 100 punti.
+# La fine della partita
+Vince il giocatore con il totale più basso.
+# Giocare sul dispositivo
+Passatevi il dispositivo: chi è di turno ha sempre le sue carte in grande in basso, quelle degli altri più piccole in alto, sotto le loro pedine. Tocca il mazzo o gli scarti per pescare. Poi tocca una delle tue carte per scambiarla, oppure tocca gli scarti per scartare la carta e tocca una carta coperta per scoprirla. Le carte che puoi toccare brillano. Dopo ogni mano, una tabella mostra i punti della mano e il totale di ogni giocatore (una croce e un 2: doppio); toccala per la mano successiva. Il totale di ogni giocatore compare nella sua barra. Annulla ritira l'ultima azione, una alla volta.

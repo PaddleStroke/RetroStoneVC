@@ -7,3 +7,7 @@ Dois jogadores partilham um só dispositivo e jogam à vez. A peça luminosa na 
 - Frente a frente: pousa o dispositivo deitado entre vocês. As peças e a barra do jogador de cima viram-se para ele.
 - Novo jogo: toca duas vezes para recomeçar.
 - ?: estas regras.
+# Jogos de cartas
+Nos jogos de cartas o dispositivo dá a volta à mesa: o jogador da vez vê as suas cartas em grande em baixo, com a sua barra por baixo, e as barras dos outros jogadores em cima. Não há Rodar nem Frente a frente.
+- Mãos secretas: entre duas vezes o ecrã fica verde e mostra a peça do jogador seguinte. Passa-lhe o dispositivo; esse jogador toca no botão redondo para ver as suas cartas.
+- Com mãos secretas, Anular só desfaz as jogadas da tua própria vez, para que ninguém veja a mão de outro jogador.

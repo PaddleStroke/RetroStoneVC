@@ -7,3 +7,7 @@ To spillere deler én enhed og skiftes til at spille. Den lysende markør i en s
 - Ansigt til ansigt: læg enheden fladt mellem jer. Den øverste spillers brikker og panel vender sig mod vedkommende.
 - Nyt spil: tryk to gange for at starte forfra.
 - ?: disse regler.
+# Kortspil
+I kortspil går enheden rundt om bordet: den, der har tur, ser sine egne kort stort nederst med sit panel under, og de andre spilleres paneler øverst. Der er hverken Vend eller Over for hinanden.
+- Hemmelige kort: mellem to ture bliver skærmen grøn og viser den næste spillers markør. Giv enheden videre; den spiller trykker på den runde knap for at se sine kort.
+- Med hemmelige kort tager Fortryd kun trækkene i din egen tur tilbage, så ingen nogensinde ser en anden spillers kort.

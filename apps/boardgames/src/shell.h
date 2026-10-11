@@ -58,7 +58,20 @@ typedef struct game {
      * bars go on that side of the board (top or bottom), in that order from the left. */
     unsigned players;
     void (*home)(int player, float *fx, float *fy);
+    /* card and tile games (VIEW_*; 0, VIEW_BOARD: a board everyone sees, all the above as it is): the screen shows one
+     * player's view at a time, ui.viewer's: their hand at the bottom of the table, their bar under it, the others'
+     * bars at the top (in turn order from the left), no flip nor face to face. layout() gets a rectangle, the table:
+     * all the room between the bars. The game turns the view with ui_handoff(). VIEW_OPEN: nothing is secret (golf),
+     * the view turns at once; VIEW_HIDDEN: each hand is secret, a cover hides the screen at every hand-off (and at a
+     * new game, and when the game is opened again from the menu) until the next player taps its start button. */
+    int view;
+    /* the players who share the win, read once the game is over (bit n: player n): partners (pachisi, belote), a tie
+     * for the best score (GS_DRAW: only the tied players stand). The end card stands them all in gold light together
+     * and lays the others down, dimmed; their bars all glow. NULL: gs_winner(status) alone (a draw: everyone). */
+    unsigned (*winners)(void);
 } game;
+
+enum { VIEW_BOARD, VIEW_OPEN, VIEW_HIDDEN };
 
 void game_register(const game *g);
 #define REGISTER_GAME(g) \
@@ -72,6 +85,8 @@ extern struct ui {
     int f2f;                                    /* face to face: the top player's pieces and bar turned to face them */
     int players;                                /* how many play this game (2 unless the game takes more) */
     float unit;                                 /* a ninth of the board's side: the size of the marks, the bars */
+    int viewer;                                 /* VIEW_* games: whose view is shown (their hand at the bottom); -1
+                                                 * while the hand-off cover is up (draw no hand) */
 } ui;
 
 static inline float clampf(float v, float lo, float hi) { return v < lo ? lo : v > hi ? hi : v; }
@@ -93,6 +108,9 @@ void ui_flat_at(SDL_Texture *t, float cx, float cy, float d, float alpha, int up
 void ui_number(float cx, float cy, float h, int value, int light);   /* digits centred; light: cream, else dark */
 /* the same turned round its centre (degrees: 180 for the top player face to face) */
 void ui_number_rot(float cx, float cy, float h, int value, int light, double degrees);
+/* a number that may be below zero (a minus before it), or with a plus when plus is set and it is above zero (points
+ * added): the scores of card games */
+void ui_number_signed(float cx, float cy, float h, int value, int light, int plus);
 /* in a player's bar (bar()'s box): a small piece (0.6 unit) and how many of it, in cream (pieces taken); 0: nothing */
 void ui_bar_count(box b, SDL_Texture *piece, int n);
 void ui_animate(void);                          /* draw the next frame too (an animation runs) */
@@ -129,6 +147,16 @@ void ui_dice_draw(float cx, float cy, float size, unsigned used);
 /* one die at rest, any player's, any value (a die waiting to be thrown, a past throw): alpha 0..1 */
 void ui_die_at(float cx, float cy, float size, int player, int value, float alpha);
 int  ui_dice_busy(void);                        /* 1 while they tumble */
+
+/* the hand-off (VIEW_* games): the device passes to `player`. Once the last move has landed (busy() 0), the view
+ * turns to them (ui.viewer, the bars follow); VIEW_HIDDEN first covers the whole screen (the green table, their token
+ * in gold light, a "pass the device" picture, a start button, nothing of the game) until they tap start. The same
+ * player again: nothing. A new game covers for turn() by itself; a game opened again from the menu shows the cover
+ * first. Undo never reveals a hand: a VIEW_HIDDEN game's undo() stops at its last hand-off (its own turn only), and
+ * the shell takes no undo while a hand-off waits. */
+void ui_handoff(int player);
+int  ui_handing(void);                          /* 1 while a hand-off waits or the cover is up (the game's input waits:
+                                                 * the shell sends none) */
 
 /* sound.c */
 void snd_init(void);

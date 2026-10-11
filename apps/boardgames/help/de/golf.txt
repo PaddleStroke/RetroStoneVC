@@ -1,0 +1,27 @@
+Golf
+# Das Ziel
+Nach der letzten Runde die niedrigste Punktzahl haben. Jeder Spieler hat ein Raster verdeckter Karten vor sich; anfangs kennt sie niemand, nicht einmal ihr Besitzer. Tausche hohe Karten gegen niedrige und decke dein Raster auf. Zwei Spiele zur Wahl: das klassische Golf mit 52 Karten und Zahlen-Golf, eine Golf-Variante mit Karten von -2 bis 12. Für 2 bis 6 Spieler.
+# Zu Beginn einer Runde
+- Klassisches Golf: je 6 Karten in 2 Reihen zu 3. Zahlen-Golf: je 12 Karten in 3 Reihen zu 4.
+- Jeder Spieler deckt zwei seiner Karten auf.
+- Klassisches Golf: Der erste Spieler rückt jede Runde einen Platz weiter. Zahlen-Golf: Es beginnt, wessen zwei Karten zusammen am meisten zählen.
+# Ein Zug
+- Zieh die oberste Karte vom Stapel oder nimm die oberste Karte des Ablagestapels.
+- Tausche sie gegen eine deiner Karten, offen oder verdeckt: Deine alte Karte kommt offen auf den Ablagestapel.
+- Oder, wenn du sie vom Stapel gezogen hast, wirf sie ab und decke eine deiner verdeckten Karten auf.
+- Eine Karte vom Ablagestapel muss getauscht werden.
+# Das Ende einer Runde
+Sobald ein Spieler alle Karten offen liegen hat, ist jeder andere noch ein letztes Mal am Zug. Dann werden alle Karten aufgedeckt und die Runde wird gewertet.
+# Klassisches Golf
+- Ass 1 Punkt, 2 bis 10 ihr Wert, Bube und Dame 10, König 0.
+- Zwei Karten gleichen Rangs in einer Spalte zählen 0.
+- Die Partie dauert neun Runden, die neun Löcher.
+# Zahlen-Golf
+- Jede Karte zählt ihre Zahl, von -2 bis 12. Das Spiel: fünf -2, zehn -1, fünfzehn 0 und je zehn Karten von 1 bis 12.
+- Drei offene Karten mit derselben Zahl in einer Spalte kommen sofort auf den Ablagestapel und zählen nichts.
+- Wer die Runde beendet hat, zählt doppelt, wenn sein Ergebnis über null liegt und er nicht allein das niedrigste Ergebnis der Runde hat.
+- Die Partie endet nach der Runde, in der ein Spieler 100 Punkte erreicht.
+# Das Ende der Partie
+Es gewinnt der Spieler mit der niedrigsten Summe.
+# Spielen auf dem Gerät
+Reicht das Gerät herum: Wer am Zug ist, hat seine Karten immer groß unten, die der anderen sind kleiner oben unter ihren Steinen. Tippe auf den Stapel oder den Ablagestapel, um zu ziehen. Tippe dann auf eine deiner Karten, um zu tauschen, oder auf den Ablagestapel, um die Karte abzuwerfen, und danach auf eine verdeckte Karte, um sie aufzudecken. Die Karten, die du antippen kannst, leuchten. Nach jeder Runde zeigt eine Tafel die Punkte der Runde und die Summe jedes Spielers (ein Kreuz und eine 2: doppelt gezählt); tippe darauf für die nächste Runde. Die Summe jedes Spielers steht in seiner Leiste. Rückgängig nimmt die letzte Aktion zurück, eine nach der anderen.

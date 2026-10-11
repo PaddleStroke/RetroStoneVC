@@ -1,0 +1,27 @@
+Golf
+# Cel gry
+Mieć najmniej punktów po ostatniej rundzie. Każdy gracz ma przed sobą siatkę kart leżących koszulką do góry; na początku nikt ich nie zna, nawet ich właściciel. Wymieniaj wysokie karty na niskie i odkryj swoją siatkę. Dwie gry do wyboru: klasyczny Golf z talią 52 kart oraz Golf liczbowy, odmiana Golfa z kartami od -2 do 12. Dla 2–6 graczy.
+# Na początku rundy
+- Klasyczny Golf: po 6 kart, w 2 rzędach po 3. Golf liczbowy: po 12 kart, w 3 rzędach po 4.
+- Każdy gracz odkrywa dwie ze swoich kart.
+- Klasyczny Golf: pierwszy gracz przesuwa się o jedno miejsce w każdej rundzie. Golf liczbowy: zaczyna gracz, którego dwie karty dają największą sumę.
+# Tura
+- Dobierz wierzchnią kartę ze stosu albo weź wierzchnią kartę ze stosu kart odrzuconych.
+- Zamień ją na jedną ze swoich kart, odkrytą lub zakrytą: twoja stara karta trafia odkryta na stos odrzuconych.
+- Albo, jeśli dobrałeś ją ze stosu, odrzuć ją i odkryj jedną ze swoich zakrytych kart.
+- Kartę wziętą ze stosu odrzuconych trzeba wymienić.
+# Koniec rundy
+Gdy tylko któryś gracz ma wszystkie karty odkryte, każdy z pozostałych gra jeszcze jedną, ostatnią turę. Potem wszystkie karty zostają odkryte i runda jest liczona.
+# Klasyczny Golf
+- As 1 punkt, 2–10 według wartości, walet i dama 10, król 0.
+- Dwie karty tej samej rangi w jednej kolumnie liczą się za 0.
+- Gra trwa dziewięć rund, dziewięć dołków.
+# Golf liczbowy
+- Każda karta jest warta swoją liczbę, od -2 do 12. Talia: pięć -2, dziesięć -1, piętnaście 0 i po dziesięć kart każdej liczby od 1 do 12.
+- Trzy odkryte karty z tą samą liczbą w jednej kolumnie od razu trafiają na stos odrzuconych i nic nie liczą.
+- Gracz, który zakończył rundę, liczy podwójnie, jeśli jego wynik jest powyżej zera i nie jest ściśle najniższy w rundzie.
+- Gra kończy się po rundzie, w której któryś gracz dojdzie do 100 punktów.
+# Koniec gry
+Wygrywa gracz z najmniejszą sumą punktów.
+# Gra na urządzeniu
+Podawajcie sobie urządzenie: gracz, którego jest kolej, zawsze ma swoje karty w dużym rozmiarze na dole, a karty pozostałych są mniejsze na górze, pod ich żetonami. Dotknij stosu lub stosu odrzuconych, żeby dobrać. Potem dotknij jednej ze swoich kart, żeby ją wymienić, albo dotknij stosu odrzuconych, żeby wyrzucić kartę, i dotknij zakrytej karty, żeby ją odkryć. Karty, których możesz dotknąć, świecą. Po każdej rundzie tabela pokazuje punkty z rundy i sumę każdego gracza (krzyżyk i 2: podwójnie); dotknij jej, by zacząć następną rundę. Suma każdego gracza widnieje na jego pasku. Cofnij cofa ostatnią czynność, jedną po drugiej.

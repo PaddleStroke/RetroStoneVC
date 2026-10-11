@@ -7,3 +7,7 @@ Twee spelers delen één apparaat en spelen om de beurt. Het oplichtende stuk in
 - Tegenover elkaar: leg het apparaat plat tussen jullie in. De stukken en de balk van de bovenste speler draaien naar die speler toe.
 - Nieuw spel: tik twee keer om opnieuw te beginnen.
 - ?: deze regels.
+# Kaartspellen
+Bij kaartspellen gaat het apparaat de tafel rond: wie aan de beurt is, ziet de eigen kaarten groot onderaan, met de eigen balk eronder, en bovenaan de balken van de andere spelers. Draaien en Tegenover zijn er niet.
+- Geheime kaarten: tussen twee beurten wordt het scherm groen en toont het stuk van de volgende speler. Geef het apparaat door; die speler tikt op de ronde knop om zijn kaarten te zien.
+- Bij geheime kaarten neemt Ongedaan maken alleen de zetten van je eigen beurt terug, zodat niemand ooit de kaarten van een ander ziet.

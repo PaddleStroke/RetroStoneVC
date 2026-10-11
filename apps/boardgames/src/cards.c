@@ -1,0 +1,881 @@
+/*
+ * RetroStone Board's card and tile kit (cards.h): the faces and backs painted by code at the size they are shown,
+ * a texture cache, cards drawn turned, raised, flipping, hands fanned, piles, slides.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
+ *
+ * A face is painted in pixels on a w x h canvas (straight alpha, like art.c): the card's body, then figures (suit
+ * symbols, chess figures, icons) rendered by art_render in their unit square and blended on, and digits from the
+ * font (text_glyph, help/glyphs.txt keeps them). The corner index is painted once and blended again turned round
+ * (bottom right).
+ */
+#include <math.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "cards.h"
+#include "games/chess.h"
+#include "shell.h"
+#include "text.h"
+
+#define PI_F 3.14159265f
+
+typedef struct { uint8_t *o; int w, h; } canvas;
+
+static const uint8_t IVORY[3] = {250, 246, 236}, RIM[3] = {176, 164, 140}, CREAM[3] = {246, 238, 220},
+                     INK[3] = {40, 30, 28}, GOLD[3] = {214, 168, 66}, WALNUT[3] = {92, 60, 40},
+                     FELT[3] = {46, 86, 68};
+static const uint8_t SUIT_RGB[2][3] = {{32, 30, 32}, {192, 36, 40}};          /* black, red */
+static const uint8_t TILE_RGB[4][3] = {{184, 40, 36}, {36, 74, 150}, {210, 132, 22}, {34, 32, 32}};
+static const uint8_t ACTION_RGB[4][3] = {{168, 52, 40}, {58, 124, 94}, {214, 160, 58}, {52, 84, 150}};
+static const uint8_t BAND_RGB[5][3] = {{70, 62, 138}, {82, 148, 196}, {62, 128, 98}, {222, 168, 66}, {176, 54, 42}};
+
+static int red(int suit) { return suit == SUIT_HEARTS || suit == SUIT_DIAMONDS; }
+static float clamp01(float v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+
+/* ---- painting on a canvas ---------------------------------------------------------------------------------------- */
+static art_style flat_style(const uint8_t rgb[3], float line, const uint8_t edge[3])
+{
+    art_style st;
+    memset(&st, 0, sizeof st);
+    for (int i = 0; i < 3; i++) {
+        st.fill[i] = rgb[i];
+        st.outer[i] = st.inner[i] = edge ? edge[i] : rgb[i];
+        st.mark[i] = edge ? edge[i] : rgb[i];
+    }
+    st.line = line;
+    return st;
+}
+
+/* a figure's unit square drawn `size` pixels wide at (x, y) (its top left); flip: turned round (180 degrees) */
+static void put_fig(canvas *c, const art_fig *f, const art_style *st, float x, float y, float size, int flip)
+{
+    int s = (int)ceilf(size);
+    if (s < 2) return;
+    uint8_t *b = malloc((size_t)s * s * 4);
+    if (!b) return;
+    art_render(f, st, s, s, size, 0, 0, b);
+    if (flip)                                   /* turned round: the pixels in reverse order */
+        for (int i = 0, j = s * s - 1; i < j; i++, j--) {
+            uint8_t t[4];
+            memcpy(t, b + 4 * i, 4);
+            memcpy(b + 4 * i, b + 4 * j, 4);
+            memcpy(b + 4 * j, t, 4);
+        }
+    art_blend(c->o, c->w, c->h, b, s, s, (int)floorf(x + 0.5f), (int)floorf(y + 0.5f));
+    free(b);
+}
+
+/* a rounded rectangle of one colour (alpha a) blended at (x, y) */
+static void put_rect(canvas *c, float x, float y, float w, float h, float rad, const uint8_t rgb[3], float a)
+{
+    int iw = (int)(w + 0.5f), ih = (int)(h + 0.5f);
+    if (iw < 1 || ih < 1) return;
+    const uint8_t fill[4] = {rgb[0], rgb[1], rgb[2], (uint8_t)(255 * clamp01(a))};
+    uint8_t *b = malloc((size_t)iw * ih * 4);
+    if (!b) return;
+    art_roundrect(iw, ih, rad, fill, b);
+    art_blend(c->o, c->w, c->h, b, iw, ih, (int)(x + 0.5f), (int)(y + 0.5f));
+    free(b);
+}
+
+/* a rounded rectangle's outline (thickness t) */
+static float rr_dist(float x, float y, float w, float h, float rad)
+{
+    float qx = fabsf(x - w * 0.5f) - (w * 0.5f - rad), qy = fabsf(y - h * 0.5f) - (h * 0.5f - rad);
+    return sqrtf(fmaxf(qx, 0) * fmaxf(qx, 0) + fmaxf(qy, 0) * fmaxf(qy, 0)) + fminf(fmaxf(qx, qy), 0) - rad;
+}
+
+static void put_frame(canvas *c, float x, float y, float w, float h, float rad, float t, const uint8_t rgb[3], float a)
+{
+    for (int j = (int)y; j < (int)ceilf(y + h) && j < c->h; j++)
+        for (int i = (int)x; i < (int)ceilf(x + w) && i < c->w; i++) {
+            if (i < 0 || j < 0) continue;
+            float d = rr_dist(i + 0.5f - x, j + 0.5f - y, w, h, rad);
+            float cov = clamp01(0.5f - d) * clamp01(d + t + 0.5f) * a;
+            if (cov <= 0) continue;
+            uint8_t px[4] = {rgb[0], rgb[1], rgb[2], (uint8_t)(255 * cov)};
+            art_blend(c->o, c->w, c->h, px, 1, 1, i, j);
+        }
+}
+
+/* digits from the font, bold, centred on (cx, cy), hgt pixels tall; squeeze: closer (10, 12); a minus before a value
+ * below zero; outline: a dark rim round light digits */
+static void put_digits(canvas *c, int value, float cx, float cy, float hgt, const uint8_t rgb[3], float squeeze,
+                       const uint8_t *outline)
+{
+    char s[8];
+    int n = 0, v = abs(value);
+    do { s[n++] = (char)('0' + v % 10); v /= 10; } while (v && n < 7);
+    float step = 0.68f * hgt * squeeze, dw = 0.6f * hgt, mw = value < 0 ? 0.5f * hgt : 0;
+    float total = step * (n - 1) + dw + mw, x = cx - total / 2 + mw;
+    int cw = (int)ceilf(0.9f * hgt) + 2, ch = (int)ceilf(1.3f * hgt) + 2;
+    uint8_t *b = malloc((size_t)cw * ch * 4);
+    if (!b) return;
+    float o = fmaxf(1.0f, 0.07f * hgt);
+    for (int pass = outline ? 0 : 1; pass < 2; pass++) {
+        const uint8_t *col = pass ? rgb : outline;
+        if (value < 0) {                        /* the minus: a bar */
+            float bw = 0.4f * hgt, bt = fmaxf(1.5f, 0.13f * hgt), bx = x - mw;
+            float grow = pass ? 0 : o;
+            put_rect(c, bx - grow, cy - bt / 2 - grow, bw + 2 * grow, bt + 2 * grow, 0, col, 1);
+        }
+        for (int i = 0; i < n; i++) {
+            memset(b, 0, (size_t)cw * ch * 4);
+            if (!text_glyph(s[n - 1 - i], hgt * 1.2f, 1, col, b, cw, ch)) continue;
+            float dx = x + i * step + dw / 2 - cw / 2.0f, dy = cy - ch / 2.0f;
+            if (pass) art_blend(c->o, c->w, c->h, b, cw, ch, (int)(dx + 0.5f), (int)(dy + 0.5f));
+            else
+                for (int k = 0; k < 8; k++)     /* the rim: the digit shifted all round */
+                    art_blend(c->o, c->w, c->h, b, cw, ch, (int)(dx + o * cosf(k * PI_F / 4) + 0.5f),
+                              (int)(dy + o * sinf(k * PI_F / 4) + 0.5f));
+        }
+    }
+    free(b);
+}
+
+/* a plus (drawn: no font character) centred on (cx, cy), size s */
+static void put_plus(canvas *c, float cx, float cy, float s, const uint8_t rgb[3], const uint8_t *outline)
+{
+    float t = fmaxf(1.5f, 0.24f * s), o = outline ? fmaxf(1.0f, 0.07f * s / 0.6f) : 0;
+    if (outline) {
+        put_rect(c, cx - s / 2 - o, cy - t / 2 - o, s + 2 * o, t + 2 * o, 0, outline, 1);
+        put_rect(c, cx - t / 2 - o, cy - s / 2 - o, t + 2 * o, s + 2 * o, 0, outline, 1);
+    }
+    put_rect(c, cx - s / 2, cy - t / 2, s, t, 0, rgb, 1);
+    put_rect(c, cx - t / 2, cy - s / 2, t, s, 0, rgb, 1);
+}
+
+/* ---- figures in their unit square ----------------------------------------------------------------------------- */
+/* points fitted into a box (x0, y0)-(x1, y1), keeping their shape, centred */
+static void fit(float *p, int n, float x0, float y0, float x1, float y1)
+{
+    float a = 1e9f, b = 1e9f, c = -1e9f, d = -1e9f;
+    for (int i = 0; i < n; i++) {
+        a = fminf(a, p[2 * i]);
+        c = fmaxf(c, p[2 * i]);
+        b = fminf(b, p[2 * i + 1]);
+        d = fmaxf(d, p[2 * i + 1]);
+    }
+    float k = fminf((x1 - x0) / (c - a), (y1 - y0) / (d - b)), ox = (x0 + x1 - (a + c) * k) / 2,
+          oy = (y0 + y1 - (b + d) * k) / 2;
+    for (int i = 0; i < n; i++) {
+        p[2 * i] = ox + p[2 * i] * k;
+        p[2 * i + 1] = oy + p[2 * i + 1] * k;
+    }
+}
+
+static void heart_pts(float *p, int n, int up)
+{
+    for (int i = 0; i < n; i++) {
+        float t = 2 * PI_F * i / n, s = sinf(t);
+        p[2 * i] = 16 * s * s * s;
+        p[2 * i + 1] = -(13 * cosf(t) - 5 * cosf(2 * t) - 2 * cosf(3 * t) - cosf(4 * t)) * (up ? -1 : 1);
+    }
+}
+
+static const float STEM[] = {0.5f, 0.52f, 0.455f, 0.78f, 0.31f, 0.96f, 0.69f, 0.96f, 0.545f, 0.78f};
+
+static void suit_fig(art_fig *f, int suit)
+{
+    float p[2 * 44];
+    switch (suit) {
+    case SUIT_HEARTS:
+        heart_pts(p, 44, 0);
+        fit(p, 44, 0.04f, 0.06f, 0.96f, 0.94f);
+        art_poly(f, ART_PART, p, 44);
+        break;
+    case SUIT_SPADES:
+        heart_pts(p, 44, 1);
+        fit(p, 44, 0.06f, 0.02f, 0.94f, 0.80f);
+        art_poly(f, ART_PART, p, 44);
+        art_poly(f, ART_PART, STEM, 5);
+        break;
+    case SUIT_DIAMONDS: {
+        static const float cx[4] = {0.5f, 0.85f, 0.5f, 0.15f}, cy[4] = {0.02f, 0.5f, 0.98f, 0.5f};
+        int n = 0;
+        for (int e = 0; e < 4; e++)
+            for (int k = 0; k < 8; k++) {   /* each side curved in a little */
+                float s = k / 8.0f, x = cx[e] + (cx[(e + 1) % 4] - cx[e]) * s,
+                      y = cy[e] + (cy[(e + 1) % 4] - cy[e]) * s;
+                float bow = 0.035f * sinf(PI_F * s);
+                p[n++] = x + (0.5f - x) * bow * 2.2f;
+                p[n++] = y + (0.5f - y) * bow * 2.2f;
+            }
+        art_poly(f, ART_PART, p, n / 2);
+        break;
+    }
+    default:                                    /* clubs */
+        art_ellipse(f, ART_PART, 0.5f, 0.25f, 0.205f, 0.205f);
+        art_ellipse(f, ART_PART, 0.265f, 0.555f, 0.205f, 0.205f);
+        art_ellipse(f, ART_PART, 0.735f, 0.555f, 0.205f, 0.205f);
+        art_ellipse(f, ART_PART, 0.5f, 0.47f, 0.13f, 0.13f);
+        art_poly(f, ART_PART, STEM, 5);
+        break;
+    }
+}
+
+static void star_fig(art_fig *f, float cx, float cy, float ro, float ri, int points)
+{
+    float p[2 * 40];
+    int n = points * 2 > 40 ? 20 : points;
+    for (int i = 0; i < 2 * n; i++) {
+        float a = (-90 + 180.0f * i / n) * PI_F / 180, r = i & 1 ? ri : ro;
+        p[2 * i] = cx + r * cosf(a);
+        p[2 * i + 1] = cy + r * sinf(a);
+    }
+    art_poly(f, ART_PART, p, 2 * n);
+}
+
+static void jester_fig(art_fig *f)              /* a jester's cap: two horns drooping to the sides, one up, bells */
+{
+    const float left[] = {0.24f, 0.72f, 0.20f, 0.58f, 0.13f, 0.50f, 0.06f, 0.52f, 0.05f, 0.42f, 0.10f, 0.32f,
+                          0.20f, 0.25f, 0.32f, 0.26f, 0.40f, 0.36f, 0.46f, 0.70f};
+    const float right[] = {0.76f, 0.72f, 0.80f, 0.58f, 0.87f, 0.50f, 0.94f, 0.52f, 0.95f, 0.42f, 0.90f, 0.32f,
+                           0.80f, 0.25f, 0.68f, 0.26f, 0.60f, 0.36f, 0.54f, 0.70f};
+    const float mid[] = {0.38f, 0.70f, 0.40f, 0.42f, 0.46f, 0.22f, 0.54f, 0.13f, 0.60f, 0.24f, 0.62f, 0.44f,
+                         0.62f, 0.70f};
+    const float band[] = {0.22f, 0.70f, 0.5f, 0.66f, 0.78f, 0.70f, 0.78f, 0.84f, 0.5f, 0.80f, 0.22f, 0.84f};
+    art_poly(f, ART_PART, mid, 7);
+    art_poly(f, ART_PART, left, 10);
+    art_poly(f, ART_PART, right, 10);
+    art_poly(f, ART_PART, band, 6);
+    art_ellipse(f, ART_PART, 0.065f, 0.57f, 0.055f, 0.055f);
+    art_ellipse(f, ART_PART, 0.545f, 0.10f, 0.055f, 0.055f);
+    art_ellipse(f, ART_PART, 0.935f, 0.57f, 0.055f, 0.055f);
+}
+
+/* an arrow's head at angle a (degrees, y up) on a circle of radius r round (cx, cy), pointing on round it (dir +1:
+ * anticlockwise, -1: clockwise) */
+static void head_fig(art_fig *f, float cx, float cy, float r, float a, int dir, float size)
+{
+    float rad = a * PI_F / 180, px = cx + r * cosf(rad), py = cy - r * sinf(rad);
+    float dx = -sinf(rad) * dir, dy = -cosf(rad) * dir, nx = cosf(rad), ny = -sinf(rad);
+    const float t[] = {px + dx * size * 1.2f, py + dy * size * 1.2f, px + nx * size, py + ny * size,
+                       px - nx * size, py - ny * size};
+    art_poly(f, ART_PART, t, 3);
+}
+
+/* ---- the faces --------------------------------------------------------------------------------------------------- */
+/* a suit symbol, size pixels, centred on (cx, cy); flip: turned round */
+static void put_suit(canvas *c, int suit, float cx, float cy, float size, int flip)
+{
+    art_fig *f = art_fig_new();
+    suit_fig(f, suit);
+    art_style st = flat_style(SUIT_RGB[red(suit)], 0, NULL);
+    put_fig(c, f, &st, cx - size / 2, cy - size / 2, size, flip);
+    art_fig_free(f);
+}
+
+static const art_style *court_style(int suit)
+{
+    static const art_style st[2] = {
+        {{58, 54, 54}, {10, 9, 9}, {150, 140, 132}, {205, 195, 185}, 0.35f, 0},
+        {{184, 42, 38}, {62, 12, 10}, {236, 150, 130}, {248, 226, 210}, 0.32f, 0},
+    };
+    return &st[red(suit)];
+}
+
+/* a chess figure (the court) size pixels, its unit square's top left at (x, y) */
+static void put_figure(canvas *c, int type, int suit, float x, float y, float size, int flip)
+{
+    int s = (int)ceilf(size);
+    if (s < 4) return;
+    uint8_t *b = malloc((size_t)s * s * 4);
+    if (!b) return;
+    art_piece_style(type, court_style(suit), s, b);
+    if (flip)
+        for (int i = 0, j = s * s - 1; i < j; i++, j--) {
+            uint8_t t[4];
+            memcpy(t, b + 4 * i, 4);
+            memcpy(b + 4 * i, b + 4 * j, 4);
+            memcpy(b + 4 * j, t, 4);
+        }
+    art_blend(c->o, c->w, c->h, b, s, s, (int)(x + 0.5f), (int)(y + 0.5f));
+    free(b);
+}
+
+/* the court figure of a rank (french or tarot): jack a bishop, knight a knight, queen a queen, king a king */
+static int court_of(int deck, int rank)
+{
+    if (deck == DECK_TAROT)
+        return rank == TAROT_JACK ? BISHOP : rank == TAROT_KNIGHT ? KNIGHT : rank == TAROT_QUEEN ? QUEEN
+             : rank == TAROT_KING ? KING : -1;
+    return rank == RANK_JACK ? BISHOP : rank == RANK_QUEEN ? QUEEN : rank == RANK_KING ? KING : -1;
+}
+
+static void put_star(canvas *c, float cx, float cy, float size, const uint8_t rgb[3], const uint8_t *edge)
+{
+    art_fig *f = art_fig_new();
+    star_fig(f, 0.5f, 0.53f, 0.48f, 0.2f, 5);
+    art_style st = flat_style(rgb, edge ? 0.035f : 0, edge);
+    put_fig(c, f, &st, cx - size / 2, cy - size / 2, size, 0);
+    art_fig_free(f);
+}
+
+static void put_lozenge(canvas *c, float cx, float cy, float size, const uint8_t rgb[3])
+{
+    art_fig *f = art_fig_new();
+    const float p[] = {0.5f, 0.0f, 0.82f, 0.5f, 0.5f, 1.0f, 0.18f, 0.5f};
+    art_poly(f, ART_PART, p, 4);
+    art_style st = flat_style(rgb, 0, NULL);
+    put_fig(c, f, &st, cx - size / 2, cy - size / 2, size, 0);
+    art_fig_free(f);
+}
+
+/* the gold sun of a trump: rays, a cream disc, a gold rim */
+static void put_sun(canvas *c, float cx, float cy, float r)
+{
+    art_fig *f = art_fig_new();
+    star_fig(f, 0.5f, 0.5f, 0.5f, 0.36f, 16);
+    art_style st = flat_style(GOLD, 0, NULL);
+    st.light = 0.2f;
+    put_fig(c, f, &st, cx - r, cy - r, 2 * r, 0);
+    art_fig_free(f);
+    f = art_fig_new();
+    art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.5f, 0.5f);
+    art_style disc = flat_style(IVORY, 0.05f, GOLD);
+    put_fig(c, f, &disc, cx - 0.72f * r, cy - 0.72f * r, 1.44f * r, 0);
+    art_fig_free(f);
+}
+
+/* a 6 or a 9 alone gets a bar under it (cards turn round: 6 and 9 must not be mistaken) */
+static void mark69(canvas *c, int value, float cx, float cy, float hgt, const uint8_t rgb[3], const uint8_t *outline)
+{
+    if (value != 6 && value != 9) return;
+    float bw = 0.5f * hgt, bt = fmaxf(1.5f, 0.1f * hgt), y = cy + 0.66f * hgt,
+          o = outline ? fmaxf(1.0f, 0.07f * hgt) : 0;
+    if (outline) put_rect(c, cx - bw / 2 - o, y - o, bw + 2 * o, bt + 2 * o, 0, outline, 1);
+    put_rect(c, cx - bw / 2, y, bw, bt, 0, rgb, 1);
+}
+
+/* the corner index: what the card is, over its suit; painted top left, then again turned round bottom right */
+static void corner(canvas *c, int deck, int card)
+{
+    float w = (float)c->w;
+    int cw = (int)ceilf(0.27f * w), ch = (int)ceilf(0.42f * w);
+    canvas k = {calloc((size_t)cw * ch, 4), cw, ch};
+    if (!k.o) return;
+    int suit = CARD_SUIT(card), rank = CARD_RANK(card);
+    float x = 0.125f * w, y = 0.13f * w;
+    if (deck == DECK_FRENCH || deck == DECK_TAROT) {
+        int court = suit < 4 ? court_of(deck, rank) : -1;
+        if (suit == SUIT_JOKER || (suit == SUIT_TRUMP && rank == 0)) {
+            put_star(&k, x, 0.16f * w, 0.18f * w, suit == SUIT_JOKER ? SUIT_RGB[rank == 0] : INK, NULL);
+        } else if (suit == SUIT_TRUMP) {
+            put_digits(&k, rank, x, y, 0.14f * w, INK, rank >= 10 ? 0.78f : 1, NULL);
+            put_sun(&k, x, 0.285f * w, 0.07f * w);
+        } else if (rank == 1) {
+            put_suit(&k, suit, x, 0.2f * w, 0.19f * w, 0);
+        } else {
+            if (court >= 0) put_figure(&k, court, suit, x - 0.12f * w, y - 0.14f * w, 0.24f * w, 0);
+            else put_digits(&k, rank, x, y, 0.15f * w, SUIT_RGB[red(suit)], rank >= 10 ? 0.78f : 1, NULL);
+            put_suit(&k, suit, x, 0.305f * w, 0.13f * w, 0);
+        }
+    } else if (deck == DECK_NUMBER) {
+        int v = NUMBER_VALUE(card);
+        put_digits(&k, v, (v < 0 ? 0.17f : 0.14f) * w, 0.13f * w, 0.15f * w, CREAM, 0.8f, INK);
+        mark69(&k, NUMBER_VALUE(card), 0.14f * w, 0.13f * w, 0.15f * w, CREAM, INK);
+    }
+    art_blend(c->o, c->w, c->h, k.o, cw, ch, 0, 0);
+    for (int i = 0, j = cw * ch - 1; i < j; i++, j--) {   /* turned round: bottom right */
+        uint8_t t[4];
+        memcpy(t, k.o + 4 * i, 4);
+        memcpy(k.o + 4 * i, k.o + 4 * j, 4);
+        memcpy(k.o + 4 * j, t, 4);
+    }
+    art_blend(c->o, c->w, c->h, k.o, cw, ch, c->w - cw, c->h - ch);
+    free(k.o);
+}
+
+/* the card's body: ivory in a thin rim, rounded */
+static void body(canvas *c, const uint8_t face[3], const uint8_t rim[3])
+{
+    float w = (float)c->w, h = (float)c->h, r = 0.075f * w, b = fmaxf(1, 0.014f * w);
+    const uint8_t rf[4] = {rim[0], rim[1], rim[2], 255};
+    art_roundrect(c->w, c->h, r, rf, c->o);
+    put_rect(c, b, b, w - 2 * b, h - 2 * b, r - b, face, 1);
+}
+
+/* pips: the classic layouts of 2..10 (columns left, middle, right; rows from the top 0..1), the lower ones turned */
+static void pips(canvas *c, int suit, int n, int tarot)
+{
+    static const float L9[] = {0, 1 / 3.0f, 2 / 3.0f, 1};
+    float w = (float)c->w, h = (float)c->h, col[3] = {0.325f * w, 0.5f * w, 0.675f * w};
+    float top = (tarot ? 0.18f : 0.215f) * h, bot = (tarot ? 0.82f : 0.785f) * h, size = (n >= 9 ? 0.175f : 0.195f) * w;
+    float at[10][2];
+    int k = 0;
+#define PIP(cc, rr) (at[k][0] = (float)(cc), at[k][1] = (rr), k++)
+    switch (n) {
+    case 2: PIP(1, 0); PIP(1, 1); break;
+    case 3: PIP(1, 0); PIP(1, 0.5f); PIP(1, 1); break;
+    default:
+        if (n <= 8) {
+            for (int r = 0; r < (n >= 6 ? 3 : 2); r++) { float y = n >= 6 ? r * 0.5f : r; PIP(0, y); PIP(2, y); }
+            if (n == 5) PIP(1, 0.5f);
+            if (n >= 7) PIP(1, 0.25f);
+            if (n == 8) PIP(1, 0.75f);
+        } else {
+            for (int r = 0; r < 4; r++) { PIP(0, L9[r]); PIP(2, L9[r]); }
+            if (n == 9) PIP(1, 0.5f);
+            else { PIP(1, 1 / 6.0f); PIP(1, 5 / 6.0f); }
+        }
+    }
+#undef PIP
+    for (int i = 0; i < k; i++)
+        put_suit(c, suit, col[(int)at[i][0]], top + (bot - top) * at[i][1], size, at[i][1] > 0.5f);
+}
+
+/* a court card: a pale panel in a line of the suit's colour, the figure twice, foot to foot */
+static void court(canvas *c, int type, int suit)
+{
+    float w = (float)c->w, h = (float)c->h, x0 = 0.245f * w, y0 = 0.075f * h, pw = 0.51f * w, ph = 0.85f * h;
+    static const uint8_t pale[3] = {244, 232, 204};
+    put_rect(c, x0, y0, pw, ph, 0.03f * w, pale, 1);
+    put_frame(c, x0, y0, pw, ph, 0.03f * w, fmaxf(1, 0.012f * w), SUIT_RGB[red(suit)], 0.85f);
+    float s = fminf(0.48f * h, 0.95f * w) * 0.98f;
+    put_figure(c, type, suit, w / 2 - s / 2, h / 2 - 0.905f * s, s, 0);
+    put_figure(c, type, suit, w / 2 - s / 2, h / 2 - 0.095f * s, s, 1);
+}
+
+static void face_french(canvas *c, int deck, int card)
+{
+    float w = (float)c->w, h = (float)c->h;
+    int suit = CARD_SUIT(card), rank = CARD_RANK(card), small = c->w < 52;
+    body(c, IVORY, RIM);
+    if (suit == SUIT_JOKER) {                   /* a jester's cap */
+        art_fig *f = art_fig_new();
+        jester_fig(f);
+        art_style st = *court_style(rank == 0 ? SUIT_HEARTS : SUIT_SPADES);
+        st.line = 0.025f;
+        float s = (small ? 0.9f : 0.72f) * w;
+        put_fig(c, f, &st, w / 2 - s / 2, h / 2 - s / 2, s, 0);
+        art_fig_free(f);
+        if (!small) corner(c, deck, card);
+        return;
+    }
+    if (suit == SUIT_TRUMP) {                   /* a trump: its number on a gold sun; the excuse: a star */
+        static const uint8_t sky[3] = {222, 232, 238}, line[3] = {96, 120, 140};
+        float m = small ? 0.08f * w : 0.24f * w;
+        put_rect(c, m, 0.06f * h, w - 2 * m, 0.88f * h, 0.03f * w, sky, 1);
+        put_frame(c, m, 0.06f * h, w - 2 * m, 0.88f * h, 0.03f * w, fmaxf(1, 0.012f * w), line, 0.8f);
+        if (rank == 0) {
+            put_sun(c, w / 2, h / 2, (small ? 0.46f : 0.34f) * w);
+            put_star(c, w / 2, h / 2, (small ? 0.62f : 0.46f) * w, INK, NULL);
+        } else {
+            put_sun(c, w / 2, h / 2, (small ? 0.48f : 0.36f) * w);
+            put_digits(c, rank, w / 2, h / 2, (small ? 0.36f : 0.25f) * w, INK, 0.84f, NULL);
+        }
+        if (!small) corner(c, deck, card);
+        return;
+    }
+    int type = court_of(deck, rank);
+    if (small) {                                /* small: the index big, the suit under it */
+        if (rank == 1) put_suit(c, suit, w / 2, h / 2, 0.7f * w, 0);
+        else {
+            if (type >= 0) put_figure(c, type, suit, w / 2 - 0.36f * w, 0.3f * h - 0.42f * w, 0.72f * w, 0);
+            else put_digits(c, rank, w / 2, 0.31f * h, 0.42f * w, SUIT_RGB[red(suit)], rank >= 10 ? 0.8f : 1, NULL);
+            put_suit(c, suit, w / 2, 0.71f * h, 0.46f * w, 0);
+        }
+        return;
+    }
+    if (rank == 1) put_suit(c, suit, w / 2, h / 2, 0.44f * w, 0);
+    else if (type >= 0) court(c, type, suit);
+    else pips(c, suit, rank, deck == DECK_TAROT);
+    corner(c, deck, card);
+}
+
+/* a number card: lacquer by band, a cream rim, the value big in the middle (cream, a dark rim), small in the
+ * corners */
+static void face_number(canvas *c, int card)
+{
+    float w = (float)c->w, h = (float)c->h;
+    int v = NUMBER_VALUE(card), band = v < 0 ? 0 : v == 0 ? 1 : v <= 4 ? 2 : v <= 8 ? 3 : 4, small = c->w < 52;
+    body(c, BAND_RGB[band], CREAM);
+    float b = 0.07f * w;
+    put_frame(c, b, b, w - 2 * b, h - 2 * b, 0.05f * w, fmaxf(1, 0.018f * w), CREAM, 0.55f);
+    put_digits(c, v, w / 2, h / 2, (small ? 0.55f : 0.42f) * w, CREAM, v >= 10 || v < 0 ? 0.82f : 1, INK);
+    mark69(c, v, w / 2, h / 2, (small ? 0.55f : 0.42f) * w, CREAM, INK);
+    if (!small) corner(c, DECK_NUMBER, card);
+}
+
+/* a rummy tile: ivory on a wooden side (its thickness at the bottom right), the number in its colour, a ring under it;
+ * a joker: a smiling face */
+static void face_tile(canvas *c, int card)
+{
+    float w = (float)c->w, h = (float)c->h, r = 0.12f * w;
+    static const uint8_t side[3] = {176, 140, 96}, face[3] = {248, 242, 226};
+    const uint8_t sf[4] = {side[0], side[1], side[2], 255};
+    art_roundrect(c->w, c->h, r, sf, c->o);
+    float fw = w - 0.07f * w, fh = h - 0.07f * w;
+    put_rect(c, 0, 0, fw, fh, r, face, 1);
+    put_frame(c, 0, 0, fw, fh, r, fmaxf(1, 0.02f * w), side, 0.35f);
+    int suit = CARD_SUIT(card), rank = CARD_RANK(card);
+    if (suit == SUIT_JOKER) {
+        const uint8_t *col = TILE_RGB[rank ? 3 : 0];
+        art_fig *f = art_fig_new();
+        art_arc(f, ART_PART, 0.5f, 0.5f, 0.38f, 0.46f, 0, 360);
+        art_ellipse(f, ART_PART, 0.36f, 0.38f, 0.06f, 0.08f);
+        art_ellipse(f, ART_PART, 0.64f, 0.38f, 0.06f, 0.08f);
+        art_arc(f, ART_PART, 0.5f, 0.5f, 0.2f, 0.27f, 200, 340);
+        art_style st = flat_style(col, 0, NULL);
+        float s = 0.74f * w;
+        put_fig(c, f, &st, fw / 2 - s / 2, 0.44f * fh - s / 2, s, 0);
+        art_fig_free(f);
+        return;
+    }
+    const uint8_t *col = TILE_RGB[suit & 3];
+    put_digits(c, rank, fw / 2, 0.42f * fh, 0.44f * w, col, rank >= 10 ? 0.8f : 1, NULL);
+    art_fig *f = art_fig_new();
+    art_arc(f, ART_PART, 0.5f, 0.5f, 0.3f, 0.5f, 0, 360);
+    art_style st = flat_style(col, 0, NULL);
+    float s = 0.2f * w;
+    put_fig(c, f, &st, fw / 2 - s / 2, 0.8f * fh - s / 2, s, 0);
+    art_fig_free(f);
+}
+
+/* the action deck's icons, cream with a dark rim, size pixels centred on (cx, cy) */
+static void put_action_icon(canvas *c, int card, float cx, float cy, float size, int field)
+{
+    int rank = CARD_RANK(card), wild = CARD_SUIT(card) == SUIT_JOKER;
+    art_style st = flat_style(CREAM, 0.045f, INK);
+    float x = cx - size / 2, y = cy - size / 2;
+    if (wild) {                                 /* four colour quarters in a cream ring */
+        art_fig *ring = art_fig_new();
+        art_ellipse(ring, ART_PART, 0.5f, 0.5f, 0.46f, 0.46f);
+        put_fig(c, ring, &st, x, y, size, 0);
+        art_fig_free(ring);
+        for (int q = 0; q < 4; q++) {
+            art_fig *f = art_fig_new();
+            art_arc(f, ART_PART, 0.5f, 0.5f, 0, 0.38f, 90.0f * q + 0.5f, 90.0f * q + 89.5f);
+            art_style qs = flat_style(ACTION_RGB[(q + 1) % 4], 0, NULL);
+            put_fig(c, f, &qs, x, y, size, 0);
+            art_fig_free(f);
+        }
+        if (rank == 1) {                        /* draw four: +4 over the quarters */
+            put_plus(c, cx - 0.17f * size, cy, 0.22f * size, CREAM, INK);
+            put_digits(c, 4, cx + 0.12f * size, cy, 0.36f * size, CREAM, 1, INK);
+        }
+        return;
+    }
+    art_fig *f = art_fig_new();
+    if (rank == ACTION_SKIP) {                  /* a circle with a bar across */
+        art_arc(f, ART_PART, 0.5f, 0.5f, 0.27f, 0.4f, 0, 360);
+        const float bar[] = {0.27f, 0.66f, 0.66f, 0.27f, 0.73f, 0.34f, 0.34f, 0.73f};
+        art_poly(f, ART_PART, bar, 4);
+    } else if (rank == ACTION_REVERSE) {        /* two curved arrows going round */
+        art_arc(f, ART_PART, 0.5f, 0.5f, 0.24f, 0.34f, 30, 160);
+        art_arc(f, ART_PART, 0.5f, 0.5f, 0.24f, 0.34f, 210, 340);
+        head_fig(f, 0.5f, 0.5f, 0.29f, 160, 1, 0.13f);
+        head_fig(f, 0.5f, 0.5f, 0.29f, 340, 1, 0.13f);
+    } else {                                    /* draw two: two cards stacked */
+        art_rect(f, ART_PART, 0.2f, 0.12f, 0.58f, 0.66f);
+        art_rect(f, ART_PART, 0.4f, 0.32f, 0.8f, 0.88f);
+    }
+    put_fig(c, f, &st, x, y, size, 0);
+    art_fig_free(f);
+    if (rank == ACTION_DRAW2) {                 /* +2 on the front card, in the card's colour */
+        put_plus(c, x + 0.5f * size, y + 0.6f * size, 0.13f * size, ACTION_RGB[field], NULL);
+        put_digits(c, 2, x + 0.67f * size, y + 0.6f * size, 0.24f * size, ACTION_RGB[field], 1, NULL);
+    }
+}
+
+static void face_action(canvas *c, int card)
+{
+    float w = (float)c->w, h = (float)c->h;
+    int suit = CARD_SUIT(card), rank = CARD_RANK(card), wild = suit == SUIT_JOKER, small = c->w < 52;
+    static const uint8_t ebony[3] = {44, 40, 40};
+    const uint8_t *field = wild ? ebony : ACTION_RGB[suit & 3];
+    body(c, field, CREAM);
+    float b = 0.05f * w;
+    put_frame(c, b, b, w - 2 * b, h - 2 * b, 0.05f * w, fmaxf(1, 0.012f * w), GOLD, 0.7f);
+    if (!wild) {                                /* a darker lozenge behind the middle */
+        uint8_t dk[3] = {(uint8_t)(field[0] * 0.8f), (uint8_t)(field[1] * 0.8f), (uint8_t)(field[2] * 0.8f)};
+        art_fig *f = art_fig_new();
+        const float p[] = {0.5f, 0.02f, 0.98f, 0.5f, 0.5f, 0.98f, 0.02f, 0.5f};
+        art_poly(f, ART_PART, p, 4);
+        art_style st = flat_style(dk, 0, NULL);
+        float s = (small ? 0.95f : 0.8f) * w;
+        put_fig(c, f, &st, w / 2 - s / 2, h / 2 - s / 2, s, 0);
+        art_fig_free(f);
+    }
+    float big = (small ? 0.85f : 0.62f) * w;
+    if (!wild && rank <= 9) {
+        put_digits(c, rank, w / 2, h / 2, (small ? 0.55f : 0.44f) * w, CREAM, 1, INK);
+        mark69(c, rank, w / 2, h / 2, (small ? 0.55f : 0.44f) * w, CREAM, INK);
+    } else put_action_icon(c, card, w / 2, h / 2, big, suit & 3);
+    if (small) return;
+    /* the corners: the number or a small icon, top left and turned round bottom right */
+    int cw = (int)ceilf(0.3f * w), ch = (int)ceilf(0.3f * w);
+    canvas k = {calloc((size_t)cw * ch, 4), cw, ch};
+    if (!k.o) return;
+    if (!wild) mark69(&k, rank, 0.15f * w, 0.15f * w, 0.15f * w, CREAM, INK);
+    if (!wild && rank <= 9) put_digits(&k, rank, 0.15f * w, 0.15f * w, 0.15f * w, CREAM, 1, INK);
+    else if (!wild && rank == ACTION_DRAW2) {
+        put_plus(&k, 0.09f * w, 0.15f * w, 0.08f * w, CREAM, INK);
+        put_digits(&k, 2, 0.19f * w, 0.15f * w, 0.14f * w, CREAM, 1, INK);
+    } else if (wild && rank == 1) {
+        put_plus(&k, 0.09f * w, 0.15f * w, 0.08f * w, CREAM, INK);
+        put_digits(&k, 4, 0.19f * w, 0.15f * w, 0.14f * w, CREAM, 1, INK);
+    } else put_action_icon(&k, card, 0.15f * w, 0.15f * w, 0.22f * w, suit & 3);
+    art_blend(c->o, c->w, c->h, k.o, cw, ch, 0, 0);
+    for (int i = 0, j = cw * ch - 1; i < j; i++, j--) {
+        uint8_t t[4];
+        memcpy(t, k.o + 4 * i, 4);
+        memcpy(k.o + 4 * i, k.o + 4 * j, 4);
+        memcpy(k.o + 4 * j, t, 4);
+    }
+    art_blend(c->o, c->w, c->h, k.o, cw, ch, c->w - cw, c->h - ch);
+    free(k.o);
+}
+
+/* the backs: the house's (the green table in a walnut frame, a lattice, a gold medallion), the tiles' (wood), the
+ * action deck's (ebony, the four colours in a cross) */
+static void back(canvas *c, int deck)
+{
+    float w = (float)c->w, h = (float)c->h;
+    if (deck == DECK_TILES) {
+        const uint8_t sf[4] = {150, 112, 72, 255};
+        art_roundrect(c->w, c->h, 0.12f * w, sf, c->o);
+        float fw = w - 0.07f * w, fh = h - 0.07f * w;
+        for (int y = 0; y < (int)fh; y++)       /* the wood's grain */
+            for (int x = 0; x < (int)fw; x++) {
+                float g = sinf(y * 23.0f / h + 2.4f * sinf(x * 2.0f / w + 1.3f)) * 0.5f + 0.5f,
+                      k = 1 + 0.07f * (g - 0.5f);
+                float d = rr_dist(x + 0.5f, y + 0.5f, fw, fh, 0.12f * w);
+                if (d > 0.5f) continue;
+                uint8_t px[4] = {(uint8_t)fminf(255, 222 * k), (uint8_t)fminf(255, 184 * k),
+                                 (uint8_t)fminf(255, 128 * k),
+                                 (uint8_t)(255 * clamp01(0.5f - d))};
+                art_blend(c->o, c->w, c->h, px, 1, 1, x, y);
+            }
+        return;
+    }
+    if (deck == DECK_ACTION) {
+        static const uint8_t ebony[3] = {44, 40, 40};
+        body(c, ebony, CREAM);
+        float b = 0.05f * w;
+        put_frame(c, b, b, w - 2 * b, h - 2 * b, 0.05f * w, fmaxf(1, 0.012f * w), GOLD, 0.7f);
+        float s = 0.2f * w;
+        static const float at[4][2] = {{0, -1}, {1, 0}, {0, 1}, {-1, 0}};
+        for (int q = 0; q < 4; q++) put_lozenge(c, w / 2 + at[q][0] * 0.17f * w, h / 2 + at[q][1] * 0.17f * w, s,
+                                               ACTION_RGB[q]);
+        put_frame(c, w / 2 - 0.36f * w, h / 2 - 0.36f * w, 0.72f * w, 0.72f * w, 0.36f * w, fmaxf(1, 0.02f * w), CREAM,
+                  0.8f);
+        return;
+    }
+    body(c, WALNUT, WALNUT);
+    float b = 0.07f * w;
+    put_rect(c, b, b, w - 2 * b, h - 2 * b, 0.04f * w, FELT, 1);
+    float step = 0.14f * w, lw = fmaxf(1, 0.012f * w);
+    for (int y = (int)b; y < (int)(h - b); y++)  /* a lattice of lighter lines, both ways */
+        for (int x = (int)b; x < (int)(w - b); x++) {
+            float u = (x + y) / step, v = (x - y + 1000 * step) / step;
+            float du = fabsf(u - floorf(u + 0.5f)) * step, dv = fabsf(v - floorf(v + 0.5f)) * step;
+            float a = clamp01(lw - fminf(du, dv) + 0.5f) * 0.22f;
+            if (rr_dist(x + 0.5f - b, y + 0.5f - b, w - 2 * b, h - 2 * b, 0.04f * w) > -0.5f) continue;
+            uint8_t px[4] = {150, 196, 168, (uint8_t)(255 * a)};
+            if (a > 0) art_blend(c->o, c->w, c->h, px, 1, 1, x, y);
+        }
+    put_frame(c, b + 0.04f * w, b + 0.04f * w, w - 2 * b - 0.08f * w, h - 2 * b - 0.08f * w, 0.03f * w,
+              fmaxf(1, 0.012f * w), GOLD, 0.55f);
+    float r = 0.2f * w;
+    put_rect(c, w / 2 - r, h / 2 - r, 2 * r, 2 * r, r, FELT, 1);
+    put_frame(c, w / 2 - r, h / 2 - r, 2 * r, 2 * r, r, fmaxf(1, 0.03f * w), GOLD, 0.9f);
+    put_lozenge(c, w / 2, h / 2, 0.26f * w, GOLD);
+}
+
+float cards_aspect(int deck)
+{
+    switch (deck) {
+    case DECK_TAROT: return 1.6f;
+    case DECK_TILES: return 1.3f;
+    default: return 1.4f;
+    }
+}
+
+void cards_paint(int deck, int card, int w, int h, uint8_t *rgba)
+{
+    canvas c = {rgba, w, h};
+    memset(rgba, 0, (size_t)w * h * 4);
+    if (card == CARD_NONE) back(&c, deck);
+    else if (deck == DECK_NUMBER) face_number(&c, card);
+    else if (deck == DECK_TILES) face_tile(&c, card);
+    else if (deck == DECK_ACTION) face_action(&c, card);
+    else face_french(&c, deck, card);
+}
+
+void cards_token(int player, int size, uint8_t *rgba) { art_counter(COUNTER_DISC, player, size, rgba); }
+
+/* ---- the textures ------------------------------------------------------------------------------------------------ */
+#define CACHE 256
+static struct { int deck, card, w; unsigned used; SDL_Texture *t; } cache[CACHE];
+static unsigned tick;
+
+/* a card's picture w pixels wide; near: any size already made will do (a card growing as it slides) */
+static SDL_Texture *card_tex(int deck, int card, int w, int near)
+{
+    if (w < 4) return NULL;
+    int best = -1, free_slot = 0;
+    for (int i = 0; i < CACHE; i++) {
+        if (!cache[i].t) { free_slot = i; continue; }
+        if (cache[i].deck != deck || cache[i].card != card) continue;
+        if (cache[i].w == w) { cache[i].used = ++tick; return cache[i].t; }
+        if (near && (best < 0 || abs(cache[i].w - w) < abs(cache[best].w - w))) best = i;
+    }
+    if (best >= 0) { cache[best].used = ++tick; return cache[best].t; }
+    int slot = free_slot;
+    if (cache[slot].t)                          /* full: the least used lately */
+        for (int i = 0; i < CACHE; i++)
+            if (cache[i].used < cache[slot].used) slot = i;
+    for (int i = 0; i < CACHE && cache[slot].t; i++)
+        if (!cache[i].t) slot = i;
+    ui_free(&cache[slot].t);
+    int h = (int)(w * cards_aspect(deck) + 0.5f);
+    uint8_t *b = malloc((size_t)w * h * 4);
+    if (!b) return NULL;
+    cards_paint(deck, card, w, h, b);
+    cache[slot].deck = deck;
+    cache[slot].card = card;
+    cache[slot].w = w;
+    cache[slot].used = ++tick;
+    cache[slot].t = ui_tex(w, h, b);
+    free(b);
+    return cache[slot].t;
+}
+
+/* soft shapes the size of a card, scaled: the shadow, the gold light, the empty place's outline */
+static SDL_Texture *soft(int kind, int deck)
+{
+    static SDL_Texture *t[3][DECKS];
+    if (t[kind][deck]) return t[kind][deck];
+    int w = 96, h = (int)(w * cards_aspect(deck) + 0.5f), pad = kind == 2 ? 0 : 16, W = w + 2 * pad, H = h + 2 * pad;
+    uint8_t *b = calloc((size_t)W * H, 4);
+    if (!b) return NULL;
+    for (int y = 0; y < H; y++)
+        for (int x = 0; x < W; x++) {
+            float d = rr_dist(x + 0.5f - pad, y + 0.5f - pad, (float)w, (float)h, 0.075f * w);
+            uint8_t *p = b + 4 * (y * W + x);
+            if (kind == 0) p[3] = (uint8_t)(120 * clamp01(0.5f - d / 12));          /* shadow: soft edge */
+            else if (kind == 1) {                                                  /* gold light round it */
+                p[0] = 250, p[1] = 214, p[2] = 90;
+                p[3] = (uint8_t)(230 * powf(clamp01(1 - fabsf(d) / 15), 1.6f));
+            } else {                                                               /* a faint outline */
+                p[0] = 246, p[1] = 238, p[2] = 220;
+                p[3] = (uint8_t)(90 * clamp01(0.5f - d) * clamp01(d + 2.5f)) + (uint8_t)(18 * clamp01(-d));
+            }
+        }
+    t[kind][deck] = ui_tex(W, H, b);
+    free(b);
+    return t[kind][deck];
+}
+
+/* the card's picture (or its back) at (cx, cy), w x h, narrowed to sx of its width (a flip), turned deg */
+static void put_card(int deck, int card, float cx, float cy, float w, float sx, float deg, int how, int near)
+{
+    float h = w * cards_aspect(deck), pad = 16 / 96.0f * w;
+    if (how & CD_RAISED) {                      /* lifted towards the card's top */
+        float k = 0.14f * w, a = deg * PI_F / 180;
+        cx += sinf(a) * k;
+        cy -= cosf(a) * k;
+    }
+    if (!(how & CD_FLAT)) {
+        float off = (how & CD_RAISED ? 0.09f : 0.035f) * w;
+        SDL_FRect d = {cx + off * 0.6f - (w * sx) / 2 - pad * sx, cy + off - h / 2 - pad, (w + 2 * pad) * sx,
+                       h + 2 * pad};
+        SDL_RenderCopyExF(ui.r, soft(0, deck), NULL, &d, deg, NULL, SDL_FLIP_NONE);
+    }
+    if (how & (CD_GLOW | CD_RAISED)) {
+        SDL_FRect d = {cx - (w * sx) / 2 - pad * sx, cy - h / 2 - pad, (w + 2 * pad) * sx, h + 2 * pad};
+        SDL_RenderCopyExF(ui.r, soft(1, deck), NULL, &d, deg, NULL, SDL_FLIP_NONE);
+    }
+    SDL_Texture *t = card_tex(deck, how & CD_DOWN ? CARD_NONE : card, (int)(w + 0.5f), near);
+    if (!t) return;
+    if (how & CD_DIM) SDL_SetTextureColorMod(t, 150, 150, 150);
+    SDL_FRect d = {cx - w * sx / 2, cy - h / 2, w * sx, h};
+    SDL_RenderCopyExF(ui.r, t, NULL, &d, deg, NULL, SDL_FLIP_NONE);
+    if (how & CD_DIM) SDL_SetTextureColorMod(t, 255, 255, 255);
+}
+
+void cards_draw(int deck, int card, float cx, float cy, float w, float deg, int how)
+{
+    put_card(deck, card, cx, cy, w, 1, deg, how, 0);
+}
+
+void cards_draw_flip(int deck, int card, float cx, float cy, float w, float deg, float t, int how)
+{
+    t = clamp01(t);
+    float sx = fabsf(cosf(t * PI_F)), lift = 1 + 0.08f * sinf(t * PI_F);
+    if (sx < 0.02f) sx = 0.02f;
+    put_card(deck, card, cx, cy, w * lift, sx, deg, (how & ~CD_DOWN) | (t < 0.5f ? CD_DOWN : 0), 1);
+}
+
+void cards_place(int deck, float cx, float cy, float w)
+{
+    float h = w * cards_aspect(deck);
+    ui_put_c(soft(2, deck), cx, cy, w, h);
+}
+
+void cards_pile(int deck, float cx, float cy, float w, int n, int top, int how)
+{
+    if (n <= 0) { cards_place(deck, cx, cy, w); return; }
+    int layers = n > 1 ? (n < 4 ? n - 1 : n < 20 ? 3 : n < 50 ? 4 : 5) : 0;
+    float step = fmaxf(1, 0.02f * w);
+    for (int k = layers; k >= 1; k--)           /* the cards under: their edges, lower right */
+        put_card(deck, top, cx + k * step * 0.4f, cy + k * step, w, 1, 0,
+                 (top == CARD_NONE ? CD_DOWN : 0) | (k == layers ? 0 : CD_FLAT), 0);
+    int look = (top == CARD_NONE ? CD_DOWN : 0) | (layers ? CD_FLAT : 0) | (how & ~CD_DOWN);
+    put_card(deck, top, cx, cy, w, 1, 0, look, 0);
+}
+
+/* ---- hands ------------------------------------------------------------------------------------------------------- */
+void cards_fan(float cx, float cy, float width, float w, float aspect, int n, float arc, cards_spot *s)
+{
+    (void)aspect;
+    if (n <= 0) return;
+    float step = n > 1 ? fminf(1.06f * w, (width - w) / (n - 1)) : 0;
+    for (int i = 0; i < n; i++) {
+        float t = n > 1 ? (float)i / (n - 1) - 0.5f : 0, dx = (i - (n - 1) / 2.0f) * step;
+        s[i].deg = arc * t;
+        s[i].x = cx + dx;
+        s[i].y = cy + fabsf(dx) * tanf(fabsf(s[i].deg) * PI_F / 180) * 0.5f;
+    }
+}
+
+int cards_in(float cx, float cy, float w, float aspect, float x, float y)
+{
+    return fabsf(x - cx) <= w / 2 && fabsf(y - cy) <= w * aspect / 2;
+}
+
+int cards_hit(const cards_spot *s, int n, float w, float aspect, float x, float y)
+{
+    for (int i = n - 1; i >= 0; i--) {          /* the top one first */
+        float a = -s[i].deg * PI_F / 180, dx = x - s[i].x, dy = y - s[i].y;
+        float lx = dx * cosf(a) - dy * sinf(a), ly = dx * sinf(a) + dy * cosf(a);
+        if (fabsf(lx) <= w / 2 && fabsf(ly) <= w * aspect / 2) return i;
+    }
+    return -1;
+}
+
+/* ---- slides ------------------------------------------------------------------------------------------------------ */
+void cards_slide_start(cards_slide *s, int deck, int card, float x0, float y0, float w0, float a0, int up0, float x1,
+                       float y1, float w1, float a1, int up1, int ms, int delay)
+{
+    *s = (cards_slide){1, deck, card, up0, up1, ms > 0 ? ms : 1, delay, x0, y0, w0, a0, x1, y1, w1, a1, ui_ms()};
+}
+
+int cards_slide_busy(const cards_slide *s) { return s->on && ui_ms() - s->t0 < (uint32_t)(s->ms + s->delay); }
+
+int cards_slide_draw(cards_slide *s)
+{
+    if (!s->on) return 0;
+    uint32_t el = ui_ms() - s->t0;
+    if (el >= (uint32_t)(s->ms + s->delay)) { s->on = 0; return 0; }
+    ui_animate();
+    float t = el < (uint32_t)s->delay ? 0 : (float)(el - s->delay) / s->ms, e = t * t * (3 - 2 * t);
+    float x = s->x0 + (s->x1 - s->x0) * e, y = s->y0 + (s->y1 - s->y0) * e, w = s->w0 + (s->w1 - s->w0) * e;
+    float a = s->a0 + (s->a1 - s->a0) * e, moved = hypotf(s->x1 - s->x0, s->y1 - s->y0);
+    y -= sinf(e * PI_F) * fminf(0.25f * w, 0.12f * moved);       /* a little lift on the way */
+    if (s->up0 != s->up1) cards_draw_flip(s->deck, s->card, x, y, w, a, s->up1 ? e : 1 - e, 0);
+    else put_card(s->deck, s->card, x, y, w, 1, a, s->up0 ? 0 : CD_DOWN, 1);
+    return 1;
+}

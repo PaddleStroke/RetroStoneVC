@@ -7,3 +7,7 @@ Dwóch graczy dzieli jedno urządzenie i gra na zmianę. Świecący żeton na pa
 - Twarzą w twarz: połóż urządzenie płasko między wami. Pionki i pasek gracza u góry obracają się w jego stronę.
 - Nowa gra: dotknij dwa razy, aby zacząć od nowa.
 - ?: te zasady.
+# Gry karciane
+W grach karcianych urządzenie krąży wokół stołu: gracz, którego jest kolej, widzi swoje karty w dużym rozmiarze na dole, pod nimi swój pasek, a na górze paski pozostałych graczy. Nie ma tu obracania ani gry twarzą w twarz.
+- Tajne karty: między dwiema turami ekran robi się zielony i pokazuje żeton następnego gracza. Przekaż mu urządzenie; ten gracz dotyka okrągłego przycisku, żeby zobaczyć swoje karty.
+- Przy tajnych kartach Cofnij cofa tylko ruchy z twojej własnej tury, więc nikt nigdy nie zobaczy kart innego gracza.

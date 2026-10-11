@@ -7,3 +7,7 @@ Zwei Spieler teilen sich ein Gerät und sind abwechselnd am Zug. Der leuchtende 
 - Gegenüber: Leg das Gerät flach zwischen euch. Die Figuren und die Leiste des oberen Spielers drehen sich zu ihm.
 - Neues Spiel: zweimal tippen, um neu anzufangen.
 - ?: diese Regeln.
+# Kartenspiele
+Bei Kartenspielen geht das Gerät reihum: Wer am Zug ist, sieht die eigenen Karten groß unten, darunter die eigene Leiste, und oben die Leisten der anderen Spieler. Drehen und Gegenüber gibt es hier nicht.
+- Geheime Karten: Zwischen zwei Zügen wird der Bildschirm grün und zeigt den Stein des nächsten Spielers. Gib das Gerät weiter; dieser Spieler tippt auf den runden Knopf, um seine Karten zu sehen.
+- Bei geheimen Karten nimmt Rückgängig nur die Züge deiner eigenen Runde zurück, damit niemand je die Karten eines anderen sieht.

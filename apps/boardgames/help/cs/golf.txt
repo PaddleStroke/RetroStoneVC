@@ -1,0 +1,27 @@
+Golf
+# Cíl hry
+Mít po posledním kole nejnižší skóre. Každý hráč má před sebou mřížku karet otočených rubem nahoru; zpočátku je nikdo nezná, ani jejich majitel. Vyměňuj vysoké karty za nízké a odkryj svou mřížku. Dvě hry na výběr: klasický Golf s balíčkem 52 karet a Číselný golf, varianta Golfu s kartami od -2 do 12. Pro 2 až 6 hráčů.
+# Na začátku kola
+- Klasický Golf: každý 6 karet ve 2 řadách po 3. Číselný golf: každý 12 karet ve 3 řadách po 4.
+- Každý hráč otočí dvě své karty lícem nahoru.
+- Klasický Golf: první hráč se každé kolo posune o jedno místo. Číselný golf: začíná hráč, jehož dvě karty mají největší součet.
+# Tah
+- Lízni horní kartu z balíčku, nebo vezmi horní kartu z odhazovací hromádky.
+- Vyměň ji za jednu ze svých karet, odkrytou či skrytou: tvá stará karta jde lícem nahoru na odhazovací hromádku.
+- Nebo, pokud jsi ji líznul z balíčku, odhoď ji a otoč jednu ze svých skrytých karet.
+- Kartu vzatou z odhazovací hromádky musíš vyměnit.
+# Konec kola
+Jakmile má některý hráč všechny karty odkryté, každý z ostatních odehraje ještě poslední tah. Pak se všechny karty otočí a kolo se spočítá.
+# Klasický Golf
+- Eso 1 bod, 2 až 10 svou hodnotu, kluk a dáma 10, král 0.
+- Dvě karty stejné hodnoty v jednom sloupci se počítají za 0.
+- Hra trvá devět kol, devět jamek.
+# Číselný golf
+- Každá karta má hodnotu svého čísla, od -2 do 12. Balíček: pět -2, deset -1, patnáct 0 a deset karet od každého čísla 1 až 12.
+- Tři odkryté karty se stejným číslem v jednom sloupci jdou hned na odhazovací hromádku a nepočítají se.
+- Kdo kolo ukončil, počítá se mu dvojnásobek, pokud má skóre nad nulou a nemá v kole jednoznačně nejnižší skóre.
+- Hra končí po kole, ve kterém některý hráč dosáhne 100 bodů.
+# Konec hry
+Vyhrává hráč s nejnižším součtem.
+# Hra na zařízení
+Posílejte si zařízení: hráč na tahu má své karty vždy velké dole, karty ostatních jsou menší nahoře pod jejich žetony. Klepnutím na balíček nebo odhazovací hromádku si lízneš. Pak klepni na jednu ze svých karet a vyměň ji, nebo klepni na odhazovací hromádku, kartu odhoď a klepnutím na skrytou kartu ji otoč. Karty, na které můžeš klepnout, svítí. Po každém kole ukáže tabulka body z kola a součet každého hráče (křížek a 2: dvojnásobek); klepni na ni a začne další kolo. Součet každého hráče je v jeho liště. Vrátit vezme zpět poslední akci, jednu po druhé.
