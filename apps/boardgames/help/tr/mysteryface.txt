@@ -1,0 +1,40 @@
+Gizemli Yüz
+# Amaç
+İki oyuncunun da aynı 24 yüzü vardır. Her biri gizlice birini seçer. Evet ya da hayır ile cevaplanan sorular sor ve rakibin yüzünü, o seninkini bulmadan önce bul. 2 oyuncu için.
+# Başlangıç
+Önce fildişi, sonra abanoz seçer: sırayla her biri cihazı alır, bir yüze ve ardından onay işaretine dokunur. Senin yüzün ekranının köşesinde küçük olarak kalır. Ardından ilk soruyu fildişi sorar.
+# Bir sıra
+- Bir soru sor: bir resme dokun. Şapka, gözlük, sakal, bıyık, küpe, kel, uzun saç, kıvırcık saç; bir saç rengi (siyah, kahverengi, sarı, kızıl, beyaz ya da gri); bir göz rengi (kahverengi, mavi, yeşil).
+- Cihaz rakibin yerine cevap verir: evet için yeşil bir onay işareti, hayır için kırmızı bir çarpı.
+- Sonra cevabın elediği yüzlere dokunarak onları yatır. Bu senin işin: cihaz yalnızca cevap verir. Bir yüze yeniden dokunursan yeniden ayağa kalkar.
+- Sıranı bitirmek için devretme düğmesine (iki ok arasında bir cihaz) dokun.
+# Tahmin
+Soru sormak yerine tahmin edebilirsin: büyütece, sonra hâlâ ayakta olan bir yüze dokun. Rakibin yüzüyse kazanırsın; değilse hemen kaybedersin.
+# 24 yüz
+Her soru yüzleri böler: 5'i gözlüklü, 5'i şapkalı, 5'i küpeli; 5'i sakallı, 5'i bıyıklı; 4'ü kel, 7'si uzun saçlı, 5'i kıvırcık saçlı. Saç: 6 siyah, 5 kahverengi, 5 sarı, 3 kızıl, 5 beyaz. Gözler: 12 kahverengi, 7 mavi, 5 yeşil. Hiçbir iki yüz aynı cevapları vermez. Sol üstten okuma sırasıyla (cihaz dik dururken 6'lı sıralar, yan yatınca 8'li sıralar):
+- 1: Uzun siyah saç, kahverengi göz, küpe.
+- 2: Kısa sarı saç, mavi göz, gözlük.
+- 3: Kıvırcık kızıl saç, yeşil göz.
+- 4: Kel, beyaz saç, mavi göz, gözlük, sakal, bıyık.
+- 5: Kısa kahverengi saç, kahverengi göz, şapka, bıyık.
+- 6: Kıvırcık siyah saç, kahverengi göz, küpe.
+- 7: Uzun sarı saç, yeşil göz, şapka.
+- 8: Kısa beyaz saç, kahverengi göz, bıyık.
+- 9: Uzun kahverengi saç, mavi göz, gözlük, küpe.
+- 10: Kısa siyah saç, kahverengi göz, sakal.
+- 11: Kısa kızıl saç, mavi göz, sakal, bıyık.
+- 12: Uzun beyaz saç, yeşil göz, şapka, küpe.
+- 13: Kel, siyah saç, kahverengi göz.
+- 14: Kıvırcık kahverengi saç, yeşil göz, gözlük.
+- 15: Kısa sarı saç, kahverengi göz, şapka, sakal, bıyık.
+- 16: Kıvırcık beyaz saç, mavi göz.
+- 17: Kel, kahverengi saç, kahverengi göz, sakal.
+- 18: Uzun siyah saç, mavi göz, şapka.
+- 19: Uzun kızıl saç, kahverengi göz, küpe.
+- 20: Kıvırcık sarı saç, kahverengi göz.
+- 21: Kel, beyaz saç, kahverengi göz.
+- 22: Kısa kahverengi saç, yeşil göz.
+- 23: Kısa siyah saç, mavi göz, gözlük.
+- 24: Uzun sarı saç, kahverengi göz.
+# Cihazda oynamak
+Her sıradan sonra cihaz el değiştirir: sıradaki oyuncu başlata dokunana kadar bir örtü ekranı gizler. Tahtanı ve yüzünü yalnızca sen görürsün. Her oyuncunun şeridi, tahtasında hâlâ ayakta duran yüz sayısını gösterir. Geri al, bu sırada yatırdığın ya da kaldırdığın yüzleri geri alır; sorulan soru sorulmuş kalır.

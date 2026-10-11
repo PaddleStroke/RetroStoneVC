@@ -1,0 +1,40 @@
+Mystery Face
+# The aim
+Both players have the same 24 faces. Each secretly picks one of them. Ask questions that are answered yes or no, and find the other player's face before they find yours. For 2 players.
+# The start
+Ivory picks first, then Ebony: each in turn takes the device, taps a face, then taps the tick. Your face stays small in the corner of your screen. Then Ivory asks the first question.
+# A turn
+- Ask one question: tap a picture. A hat, glasses, a beard, a moustache, earrings, bald, long hair, curly hair; a hair colour (black, brown, blond, red, white or grey); an eye colour (brown, blue, green).
+- The device answers for the other player: a green tick for yes, a red cross for no.
+- Then put down the faces the answer rules out, by tapping them. That is your job: the device only answers. Tap a face again to stand it back up.
+- Tap the pass button (a device between two arrows) to end your turn.
+# Guessing
+Instead of asking a question, you may guess: tap the magnifying glass, then a face still standing. If it is the other player's face, you win; if not, you lose at once.
+# The 24 faces
+Every question splits the faces: 5 wear glasses, 5 a hat, 5 earrings; 5 have a beard, 5 a moustache; 4 are bald, 7 have long hair, 5 curly hair. Hair: 6 black, 5 brown, 5 blond, 3 red, 5 white. Eyes: 12 brown, 7 blue, 5 green. No two faces give the same answers. In reading order from the top left (rows of 6 with the device upright, rows of 8 when it lies on its side):
+- 1: Long black hair, brown eyes, earrings.
+- 2: Short blond hair, blue eyes, glasses.
+- 3: Curly red hair, green eyes.
+- 4: Bald, white hair, blue eyes, glasses, beard, moustache.
+- 5: Short brown hair, brown eyes, hat, moustache.
+- 6: Curly black hair, brown eyes, earrings.
+- 7: Long blond hair, green eyes, hat.
+- 8: Short white hair, brown eyes, moustache.
+- 9: Long brown hair, blue eyes, glasses, earrings.
+- 10: Short black hair, brown eyes, beard.
+- 11: Short red hair, blue eyes, beard, moustache.
+- 12: Long white hair, green eyes, hat, earrings.
+- 13: Bald, black hair, brown eyes.
+- 14: Curly brown hair, green eyes, glasses.
+- 15: Short blond hair, brown eyes, hat, beard, moustache.
+- 16: Curly white hair, blue eyes.
+- 17: Bald, brown hair, brown eyes, beard.
+- 18: Long black hair, blue eyes, hat.
+- 19: Long red hair, brown eyes, earrings.
+- 20: Curly blond hair, brown eyes.
+- 21: Bald, white hair, brown eyes.
+- 22: Short brown hair, green eyes.
+- 23: Short black hair, blue eyes, glasses.
+- 24: Long blond hair, brown eyes.
+# Playing on the device
+The device passes after each turn: a cover hides the screen until the next player taps start. Only you see your board and your face. Each player's bar shows how many faces still stand on their board. Undo takes back the faces you put down or stood up in this turn; a question asked stays asked.

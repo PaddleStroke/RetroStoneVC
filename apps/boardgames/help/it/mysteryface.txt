@@ -1,0 +1,40 @@
+Volto misterioso
+# Lo scopo
+I due giocatori hanno gli stessi 24 volti. Ognuno ne sceglie uno in segreto. Fai domande a cui si risponde sì o no e trova il volto dell'altro giocatore prima che lui trovi il tuo. Per 2 giocatori.
+# L'inizio
+Sceglie per primo l'avorio, poi l'ebano: a turno ciascuno prende il dispositivo, tocca un volto e poi la spunta. Il tuo volto resta piccolo nell'angolo del tuo schermo. Poi l'avorio fa la prima domanda.
+# Un turno
+- Fai una domanda: tocca un'immagine. Un cappello, gli occhiali, la barba, i baffi, gli orecchini, calvo, capelli lunghi, capelli ricci; un colore di capelli (neri, castani, biondi, rossi, bianchi o grigi); un colore degli occhi (marroni, azzurri, verdi).
+- Il dispositivo risponde al posto dell'altro giocatore: una spunta verde per sì, una croce rossa per no.
+- Poi abbassa i volti che la risposta esclude, toccandoli. Tocca a te farlo: il dispositivo risponde soltanto. Tocca di nuovo un volto per rialzarlo.
+- Tocca il pulsante di passaggio (un dispositivo tra due frecce) per finire il turno.
+# Indovinare
+Invece di fare una domanda, puoi tentare di indovinare: tocca la lente, poi un volto ancora in piedi. Se è il volto dell'altro giocatore, vinci; altrimenti perdi subito.
+# I 24 volti
+Ogni domanda divide i volti: 5 portano gli occhiali, 5 un cappello, 5 gli orecchini; 5 hanno la barba, 5 i baffi; 4 sono calvi, 7 hanno i capelli lunghi, 5 ricci. Capelli: 6 neri, 5 castani, 5 biondi, 3 rossi, 5 bianchi. Occhi: 12 marroni, 7 azzurri, 5 verdi. Due volti non danno mai le stesse risposte. In ordine di lettura dall'angolo in alto a sinistra (file da 6 con il dispositivo in verticale, da 8 quando è in orizzontale):
+- 1: Capelli neri lunghi, occhi marroni, orecchini.
+- 2: Capelli biondi corti, occhi azzurri, occhiali.
+- 3: Capelli rossi ricci, occhi verdi.
+- 4: Calvo, capelli bianchi, occhi azzurri, occhiali, barba, baffi.
+- 5: Capelli castani corti, occhi marroni, cappello, baffi.
+- 6: Capelli neri ricci, occhi marroni, orecchini.
+- 7: Capelli biondi lunghi, occhi verdi, cappello.
+- 8: Capelli bianchi corti, occhi marroni, baffi.
+- 9: Capelli castani lunghi, occhi azzurri, occhiali, orecchini.
+- 10: Capelli neri corti, occhi marroni, barba.
+- 11: Capelli rossi corti, occhi azzurri, barba, baffi.
+- 12: Capelli bianchi lunghi, occhi verdi, cappello, orecchini.
+- 13: Calvo, capelli neri, occhi marroni.
+- 14: Capelli castani ricci, occhi verdi, occhiali.
+- 15: Capelli biondi corti, occhi marroni, cappello, barba, baffi.
+- 16: Capelli bianchi ricci, occhi azzurri.
+- 17: Calvo, capelli castani, occhi marroni, barba.
+- 18: Capelli neri lunghi, occhi azzurri, cappello.
+- 19: Capelli rossi lunghi, occhi marroni, orecchini.
+- 20: Capelli biondi ricci, occhi marroni.
+- 21: Calvo, capelli bianchi, occhi marroni.
+- 22: Capelli castani corti, occhi verdi.
+- 23: Capelli neri corti, occhi azzurri, occhiali.
+- 24: Capelli biondi lunghi, occhi marroni.
+# Giocare sul dispositivo
+Dopo ogni turno il dispositivo passa di mano: una copertura nasconde lo schermo finché il giocatore successivo non tocca il pulsante di avvio. Solo tu vedi il tuo tabellone e il tuo volto. La barra di ogni giocatore mostra quanti volti sono ancora in piedi sul suo tabellone. Annulla riprende i volti abbassati o rialzati in questo turno; una domanda fatta resta fatta.

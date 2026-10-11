@@ -1,0 +1,40 @@
+Salaiset kasvot
+# Tavoite
+Kummallakin pelaajalla on samat 24 kasvoa. Kumpikin valitsee niistä salaa yhdet. Esitä kysymyksiä, joihin vastataan kyllä tai ei, ja löydä toisen kasvot ennen kuin hän löytää sinun kasvosi. Kahdelle pelaajalle.
+# Alku
+Ensin valitsee norsunluu, sitten eebenpuu: vuorollaan kumpikin ottaa laitteen, napauttaa kasvoja ja sitten valintamerkkiä. Omat kasvosi pysyvät pieninä näytön kulmassa. Sen jälkeen norsunluu kysyy ensimmäisen kysymyksen.
+# Vuoro
+- Kysy yksi kysymys: napauta kuvaa. Hattu, silmälasit, parta, viikset, korvakorut, kalju, pitkät hiukset, kiharat hiukset; hiusten väri (mustat, ruskeat, vaaleat, punaiset, valkoiset tai harmaat); silmien väri (ruskeat, siniset, vihreät).
+- Laite vastaa toisen pelaajan puolesta: vihreä valintamerkki on kyllä, punainen risti ei.
+- Kaada sitten kasvot, jotka vastaus sulkee pois, napauttamalla niitä. Se on sinun tehtäväsi: laite vain vastaa. Napauta kasvoja uudelleen, niin ne nousevat taas pystyyn.
+- Lopeta vuorosi napauttamalla ojennuspainiketta (laite kahden nuolen välissä).
+# Arvaaminen
+Kysymyksen sijaan voit arvata: napauta suurennuslasia ja sitten kasvoja, jotka vielä seisovat. Jos ne ovat toisen pelaajan kasvot, voitat; muuten häviät heti.
+# 24 kasvoa
+Jokainen kysymys jakaa kasvot: 5:llä on silmälasit, 5:llä hattu, 5:llä korvakorut; 5:llä parta, 5:llä viikset; 4 on kaljuja, 7:llä on pitkät hiukset, 5:llä kiharat. Hiukset: 6 mustat, 5 ruskeat, 5 vaaleat, 3 punaiset, 5 valkoiset. Silmät: 12 ruskeat, 7 siniset, 5 vihreät. Mitkään kahdet kasvot eivät anna samoja vastauksia. Lukujärjestyksessä vasemmasta yläkulmasta (6 kasvoa rivissä laitteen ollessa pystyssä, 8 sen ollessa vaakatasossa):
+- 1: Pitkät mustat hiukset, ruskeat silmät, korvakorut.
+- 2: Lyhyet vaaleat hiukset, siniset silmät, silmälasit.
+- 3: Kiharat punaiset hiukset, vihreät silmät.
+- 4: Kalju, valkoiset hiukset, siniset silmät, silmälasit, parta, viikset.
+- 5: Lyhyet ruskeat hiukset, ruskeat silmät, hattu, viikset.
+- 6: Kiharat mustat hiukset, ruskeat silmät, korvakorut.
+- 7: Pitkät vaaleat hiukset, vihreät silmät, hattu.
+- 8: Lyhyet valkoiset hiukset, ruskeat silmät, viikset.
+- 9: Pitkät ruskeat hiukset, siniset silmät, silmälasit, korvakorut.
+- 10: Lyhyet mustat hiukset, ruskeat silmät, parta.
+- 11: Lyhyet punaiset hiukset, siniset silmät, parta, viikset.
+- 12: Pitkät valkoiset hiukset, vihreät silmät, hattu, korvakorut.
+- 13: Kalju, mustat hiukset, ruskeat silmät.
+- 14: Kiharat ruskeat hiukset, vihreät silmät, silmälasit.
+- 15: Lyhyet vaaleat hiukset, ruskeat silmät, hattu, parta, viikset.
+- 16: Kiharat valkoiset hiukset, siniset silmät.
+- 17: Kalju, ruskeat hiukset, ruskeat silmät, parta.
+- 18: Pitkät mustat hiukset, siniset silmät, hattu.
+- 19: Pitkät punaiset hiukset, ruskeat silmät, korvakorut.
+- 20: Kiharat vaaleat hiukset, ruskeat silmät.
+- 21: Kalju, valkoiset hiukset, ruskeat silmät.
+- 22: Lyhyet ruskeat hiukset, vihreät silmät.
+- 23: Lyhyet mustat hiukset, siniset silmät, silmälasit.
+- 24: Pitkät vaaleat hiukset, ruskeat silmät.
+# Pelaaminen laitteella
+Jokaisen vuoron jälkeen laite ojennetaan toiselle: peite kätkee näytön, kunnes seuraava pelaaja napauttaa aloitusta. Vain sinä näet oman lautasi ja omat kasvosi. Jokaisen pelaajan palkki näyttää, montako kasvoa hänen laudallaan vielä seisoo. Kumoa peruu tällä vuorolla kaadetut tai nostetut kasvot; esitetty kysymys pysyy esitettynä.

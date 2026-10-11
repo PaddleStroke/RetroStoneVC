@@ -1,0 +1,40 @@
+Tajemnicza twarz
+# Cel gry
+Obaj gracze mają te same 24 twarze. Każdy w tajemnicy wybiera jedną z nich. Zadawaj pytania, na które odpowiada się tak lub nie, i znajdź twarz przeciwnika, zanim on znajdzie twoją. Dla 2 graczy.
+# Początek
+Najpierw wybiera kość słoniowa, potem heban: po kolei każdy bierze urządzenie, dotyka twarzy, a potem znaczka zatwierdzenia. Twoja twarz zostaje mała w rogu twojego ekranu. Potem pierwsze pytanie zadaje kość słoniowa.
+# Tura
+- Zadaj jedno pytanie: dotknij obrazka. Kapelusz, okulary, broda, wąsy, kolczyki, łysina, długie włosy, kręcone włosy; kolor włosów (czarne, brązowe, blond, rude, siwe); kolor oczu (brązowe, niebieskie, zielone).
+- Urządzenie odpowiada za przeciwnika: zielony znaczek to tak, czerwony krzyżyk to nie.
+- Potem połóż twarze, które odpowiedź wyklucza, dotykając ich. To twoje zadanie: urządzenie tylko odpowiada. Dotknij twarzy ponownie, aby ją podnieść.
+- Dotknij przycisku przekazania (urządzenie między dwiema strzałkami), aby zakończyć turę.
+# Zgadywanie
+Zamiast zadać pytanie, możesz zgadywać: dotknij lupy, a potem twarzy, która jeszcze stoi. Jeśli to twarz przeciwnika, wygrywasz; jeśli nie, od razu przegrywasz.
+# 24 twarze
+Każde pytanie dzieli twarze: 5 nosi okulary, 5 kapelusz, 5 kolczyki; 5 ma brodę, 5 wąsy; 4 są łyse, 7 ma długie włosy, 5 kręcone. Włosy: 6 czarne, 5 brązowe, 5 blond, 3 rude, 5 siwe. Oczy: 12 brązowe, 7 niebieskie, 5 zielone. Żadne dwie twarze nie dają tych samych odpowiedzi. W kolejności czytania od lewego górnego rogu (rzędy po 6, gdy urządzenie stoi, po 8, gdy leży bokiem):
+- 1: Długie czarne włosy, brązowe oczy, kolczyki.
+- 2: Krótkie blond włosy, niebieskie oczy, okulary.
+- 3: Kręcone rude włosy, zielone oczy.
+- 4: Łysina, siwe włosy, niebieskie oczy, okulary, broda, wąsy.
+- 5: Krótkie brązowe włosy, brązowe oczy, kapelusz, wąsy.
+- 6: Kręcone czarne włosy, brązowe oczy, kolczyki.
+- 7: Długie blond włosy, zielone oczy, kapelusz.
+- 8: Krótkie siwe włosy, brązowe oczy, wąsy.
+- 9: Długie brązowe włosy, niebieskie oczy, okulary, kolczyki.
+- 10: Krótkie czarne włosy, brązowe oczy, broda.
+- 11: Krótkie rude włosy, niebieskie oczy, broda, wąsy.
+- 12: Długie siwe włosy, zielone oczy, kapelusz, kolczyki.
+- 13: Łysina, czarne włosy, brązowe oczy.
+- 14: Kręcone brązowe włosy, zielone oczy, okulary.
+- 15: Krótkie blond włosy, brązowe oczy, kapelusz, broda, wąsy.
+- 16: Kręcone siwe włosy, niebieskie oczy.
+- 17: Łysina, brązowe włosy, brązowe oczy, broda.
+- 18: Długie czarne włosy, niebieskie oczy, kapelusz.
+- 19: Długie rude włosy, brązowe oczy, kolczyki.
+- 20: Kręcone blond włosy, brązowe oczy.
+- 21: Łysina, siwe włosy, brązowe oczy.
+- 22: Krótkie brązowe włosy, zielone oczy.
+- 23: Krótkie czarne włosy, niebieskie oczy, okulary.
+- 24: Długie blond włosy, brązowe oczy.
+# Gra na urządzeniu
+Po każdej turze urządzenie przechodzi do drugiego gracza: zasłona kryje ekran, aż następny gracz dotknie przycisku startu. Tylko ty widzisz swoją planszę i swoją twarz. Pasek każdego gracza pokazuje, ile twarzy wciąż stoi na jego planszy. Cofnij cofa położenie lub podniesienie twarzy w tej turze; zadane pytanie zostaje.

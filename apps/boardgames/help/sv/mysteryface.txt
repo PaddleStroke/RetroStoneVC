@@ -1,0 +1,40 @@
+Det hemliga ansiktet
+# Målet
+Båda spelarna har samma 24 ansikten. Var och en väljer i hemlighet ett av dem. Ställ frågor som besvaras med ja eller nej, och hitta den andres ansikte innan den andra hittar ditt. För 2 spelare.
+# Början
+Elfenben väljer först, sedan ebenholts: i tur och ordning tar var och en enheten, trycker på ett ansikte och sedan på bocken. Ditt ansikte ligger kvar litet i hörnet av din skärm. Sedan ställer elfenben den första frågan.
+# En tur
+- Ställ en fråga: tryck på en bild. En hatt, glasögon, skägg, mustasch, örhängen, flintskallig, långt hår, lockigt hår; en hårfärg (svart, brunt, blont, rött, vitt eller grått); en ögonfärg (bruna, blå, gröna).
+- Enheten svarar åt den andra spelaren: en grön bock för ja, ett rött kryss för nej.
+- Fäll sedan de ansikten som svaret utesluter genom att trycka på dem. Det är ditt jobb: enheten bara svarar. Tryck på ett ansikte igen för att resa upp det.
+- Tryck på lämna över-knappen (en enhet mellan två pilar) för att avsluta din tur.
+# Gissa
+I stället för en fråga får du gissa: tryck på förstoringsglaset och sedan på ett ansikte som fortfarande står. Är det den andres ansikte vinner du; annars förlorar du direkt.
+# De 24 ansiktena
+Varje fråga delar ansiktena: 5 har glasögon, 5 hatt, 5 örhängen; 5 har skägg, 5 mustasch; 4 är flintskalliga, 7 har långt hår, 5 lockigt. Hår: 6 svart, 5 brunt, 5 blont, 3 rött, 5 vitt. Ögon: 12 bruna, 7 blå, 5 gröna. Inga två ansikten ger samma svar. I läsordning från övre vänstra hörnet (rader om 6 när enheten står, om 8 när den ligger):
+- 1: Långt svart hår, bruna ögon, örhängen.
+- 2: Kort blont hår, blå ögon, glasögon.
+- 3: Lockigt rött hår, gröna ögon.
+- 4: Flintskallig, vitt hår, blå ögon, glasögon, skägg, mustasch.
+- 5: Kort brunt hår, bruna ögon, hatt, mustasch.
+- 6: Lockigt svart hår, bruna ögon, örhängen.
+- 7: Långt blont hår, gröna ögon, hatt.
+- 8: Kort vitt hår, bruna ögon, mustasch.
+- 9: Långt brunt hår, blå ögon, glasögon, örhängen.
+- 10: Kort svart hår, bruna ögon, skägg.
+- 11: Kort rött hår, blå ögon, skägg, mustasch.
+- 12: Långt vitt hår, gröna ögon, hatt, örhängen.
+- 13: Flintskallig, svart hår, bruna ögon.
+- 14: Lockigt brunt hår, gröna ögon, glasögon.
+- 15: Kort blont hår, bruna ögon, hatt, skägg, mustasch.
+- 16: Lockigt vitt hår, blå ögon.
+- 17: Flintskallig, brunt hår, bruna ögon, skägg.
+- 18: Långt svart hår, blå ögon, hatt.
+- 19: Långt rött hår, bruna ögon, örhängen.
+- 20: Lockigt blont hår, bruna ögon.
+- 21: Flintskallig, vitt hår, bruna ögon.
+- 22: Kort brunt hår, gröna ögon.
+- 23: Kort svart hår, blå ögon, glasögon.
+- 24: Långt blont hår, bruna ögon.
+# Spela på enheten
+Efter varje tur lämnas enheten över: ett skydd döljer skärmen tills nästa spelare trycker på start. Bara du ser din bräda och ditt ansikte. Varje spelares fält visar hur många ansikten som fortfarande står på spelarens bräda. Ångra tar tillbaka ansikten som fällts eller rests i den här turen; en ställd fråga står kvar.

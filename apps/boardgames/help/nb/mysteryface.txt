@@ -1,0 +1,40 @@
+Det hemmelige ansiktet
+# Målet
+Begge spillerne har de samme 24 ansiktene. Hver velger ett av dem i hemmelighet. Still spørsmål som besvares med ja eller nei, og finn den andres ansikt før den andre finner ditt. For 2 spillere.
+# Starten
+Elfenben velger først, så ibenholt: etter tur tar hver enheten, trykker på et ansikt og så på haken. Ansiktet ditt blir liggende lite i hjørnet av skjermen din. Deretter stiller elfenben det første spørsmålet.
+# En tur
+- Still ett spørsmål: trykk på et bilde. En hatt, briller, skjegg, bart, øreringer, skallet, langt hår, krøllete hår; en hårfarge (svart, brunt, lyst, rødt, hvitt eller grått); en øyenfarge (brune, blå, grønne).
+- Enheten svarer for den andre spilleren: en grønn hake for ja, et rødt kryss for nei.
+- Legg så ned ansiktene svaret utelukker, ved å trykke på dem. Det er din jobb: enheten bare svarer. Trykk på et ansikt igjen for å reise det opp.
+- Trykk på videresendingsknappen (en enhet mellom to piler) for å avslutte turen.
+# Gjetting
+I stedet for et spørsmål kan du gjette: trykk på forstørrelsesglasset og så på et ansikt som fortsatt står. Er det den andres ansikt, vinner du; ellers taper du med en gang.
+# De 24 ansiktene
+Hvert spørsmål deler ansiktene: 5 har briller, 5 hatt, 5 øreringer; 5 har skjegg, 5 bart; 4 er skallet, 7 har langt hår, 5 krøllete hår. Hår: 6 svart, 5 brunt, 5 lyst, 3 rødt, 5 hvitt. Øyne: 12 brune, 7 blå, 5 grønne. Ingen to ansikter gir de samme svarene. I leseretning fra øverst til venstre (rader på 6 når enheten står, på 8 når den ligger):
+- 1: Langt svart hår, brune øyne, øreringer.
+- 2: Kort lyst hår, blå øyne, briller.
+- 3: Krøllete rødt hår, grønne øyne.
+- 4: Skallet, hvitt hår, blå øyne, briller, skjegg, bart.
+- 5: Kort brunt hår, brune øyne, hatt, bart.
+- 6: Krøllete svart hår, brune øyne, øreringer.
+- 7: Langt lyst hår, grønne øyne, hatt.
+- 8: Kort hvitt hår, brune øyne, bart.
+- 9: Langt brunt hår, blå øyne, briller, øreringer.
+- 10: Kort svart hår, brune øyne, skjegg.
+- 11: Kort rødt hår, blå øyne, skjegg, bart.
+- 12: Langt hvitt hår, grønne øyne, hatt, øreringer.
+- 13: Skallet, svart hår, brune øyne.
+- 14: Krøllete brunt hår, grønne øyne, briller.
+- 15: Kort lyst hår, brune øyne, hatt, skjegg, bart.
+- 16: Krøllete hvitt hår, blå øyne.
+- 17: Skallet, brunt hår, brune øyne, skjegg.
+- 18: Langt svart hår, blå øyne, hatt.
+- 19: Langt rødt hår, brune øyne, øreringer.
+- 20: Krøllete lyst hår, brune øyne.
+- 21: Skallet, hvitt hår, brune øyne.
+- 22: Kort brunt hår, grønne øyne.
+- 23: Kort svart hår, blå øyne, briller.
+- 24: Langt lyst hår, brune øyne.
+# Spill på enheten
+Etter hver tur går enheten videre: et deksel skjuler skjermen til neste spiller trykker på start. Bare du ser brettet ditt og ansiktet ditt. Panelet til hver spiller viser hvor mange ansikter som fortsatt står på brettet deres. Angre tar tilbake ansikter lagt ned eller reist opp i denne turen; et stilt spørsmål blir stående.
