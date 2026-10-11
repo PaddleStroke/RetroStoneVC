@@ -1,0 +1,23 @@
+Jungle
+# The aim
+Move one of your animals into the other player's den, the inlaid star at the far end of the board. You also win by taking all the other player's animals, or when the other player cannot move. Light moves first, then the players take turns, one move each.
+# The board
+The board has seven columns and nine rows. In the middle are two rivers of water. Each player's den is in the middle of their back row, with three traps around it: the carved squares to its sides and in front of it.
+# The animals
+Each player has eight animals. The number on each animal is its strength: elephant 8, lion 7, tiger 6, leopard 5, wolf 4, dog 3, cat 2, rat 1.
+# Moving
+- An animal moves one square forwards, backwards or sideways, never diagonally.
+- No animal may enter its own den.
+- Only the rat can swim: it is the only animal that may enter the water.
+- The lion and the tiger can jump across a river, in a straight line, from the bank to the first square beyond the water. They cannot jump if a rat, of either player, is in the water on the way.
+# Capturing
+- An animal captures by moving onto an enemy animal of the same or a lower strength, which leaves the board.
+- The rat can capture the elephant, but the elephant cannot capture the rat.
+- An animal in one of the other player's traps has no strength left: any enemy animal can capture it. In its own traps it keeps its strength.
+- There is no capture between the water and the land: a rat in the water can only capture the other rat in the water, and an animal on land cannot capture a rat in the water.
+# The end of the game
+- An animal that enters the other player's den wins the game.
+- Taking all the other player's animals wins, and so does leaving them without a move.
+- The game is a draw when the same position comes back for the third time, or after fifty moves each without a capture.
+# Playing on the device
+Tap an animal to see where it can go, then tap a square, or drag the animal. Dots show the moves, rings the captures.
