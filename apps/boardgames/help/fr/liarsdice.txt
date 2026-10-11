@@ -1,0 +1,15 @@
+Dés menteurs
+# Le but
+Être le dernier joueur à avoir des dés. Chacun a cinq dés sous un gobelet et ne voit que les siens ; chacun annonce ce que cachent tous les gobelets ensemble, et n'importe qui peut bluffer. De 2 à 6 joueurs.
+# Une manche
+- Chacun lance ses dés sous son gobelet et regarde les siens.
+- Le premier joueur annonce : il y a au moins tant de dés montrant telle face, en comptant tous les dés de la table.
+- Chaque joueur à son tour surenchérit, ou déclare que la dernière annonce est un mensonge.
+- Surenchérir : plus de dés (n'importe quelle face), ou autant de dés d'une face plus forte.
+- Les as sont des jokers : ils comptent pour la face annoncée. On n'annonce donc jamais d'as : faces 2 à 6 seulement.
+# Le défi
+Tous les gobelets sont levés et on compte les dés montrant la face annoncée, plus les as. S'il y en a au moins autant que l'annonce, elle tient et celui qui l'a contestée perd un dé. Sinon, c'est celui qui l'a faite qui en perd un. Celui qui a perdu un dé commence la manche suivante.
+# La fin de la partie
+Un joueur qui n'a plus de dés est éliminé (s'il a perdu la dernière manche, le joueur suivant commence). Le dernier joueur à avoir des dés gagne.
+# Jouer sur l'appareil
+Passe l'appareil de main en main : tu ne vois que tes dés, en bas, avec ton gobelet levé à côté. Les gobelets des autres sont en haut ; chaque barre montre combien de dés il reste à ce joueur. Au milieu : l'annonce à battre avec le jeton de son auteur, et les annonces précédentes de la manche en dessous. Pour annoncer, touche un nombre (combien de dés) et une face, puis la coche : le choix est toujours au-dessus de la dernière annonce. Pour la déclarer mensongère, touche le bouton au gobelet levé. Au défi, tous les gobelets se lèvent devant tout le monde : les dés qui comptent s'allument un à un pendant que le compte monte ; en or, l'annonce tient ; en rouge, c'était un mensonge ; le dé perdu s'efface. Touche la flèche ronde pour lancer la manche suivante. Tout le monde vient de voir la table : si le même joueur recommence, son gobelet reste baissé, touche-le pour regarder.

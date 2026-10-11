@@ -1,0 +1,15 @@
+Liar's Dice
+# The aim
+Be the last player with dice. Everyone has five dice under a cup and sees only their own; each one bids on what all the cups hide together, and anyone may be bluffing. For 2 to 6 players.
+# A round
+- Everyone throws their dice under their cup and looks at their own.
+- The first player bids: there are at least so many dice showing a face, counting every die on the table.
+- Each player in turn then either bids higher or calls the last bid a lie.
+- Higher means more dice (any face), or as many dice with a higher face.
+- Ones are wild: they count as the face of the bid. So nobody bids on ones: faces 2 to 6 only.
+# The call
+Every cup is lifted and the dice are counted: those showing the face of the bid, and the ones. If there are at least as many as the bid said, it holds and the caller loses a die. If not, the bidder loses one. The player who lost a die starts the next round.
+# The end of the game
+A player with no dice left is out (if they lost the last round, the next player starts). The last player with dice wins.
+# Playing on the device
+Pass the device round: you only ever see your own dice, at the bottom, with your cup lifted beside them. The others' cups are at the top; each bar shows how many dice that player has left. In the middle: the bid to beat with its bidder's chip, and the round's earlier bids under it. To bid, tap a number (how many dice) and a face, then the check: the choice is always higher than the last bid. To call the last bid a lie, tap the button with the lifted cup. On a call every cup is lifted for all to see: the dice that count light up one by one while the count climbs; gold, the bid held; red, it was a lie; the lost die fades away. Tap the round arrow to throw the next round. Everyone has just seen the table, so if the same player starts again their cup stays down: tap it to look.

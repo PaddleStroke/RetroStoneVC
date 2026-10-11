@@ -1,0 +1,15 @@
+Leugenaarsdobbelen
+# Het doel
+Als laatste speler dobbelstenen overhouden. Iedereen heeft vijf dobbelstenen onder een beker en ziet alleen de zijne; iedereen doet een bod op wat alle bekers samen verbergen, en iedereen kan bluffen. Voor 2 tot 6 spelers.
+# Een ronde
+- Iedereen gooit zijn dobbelstenen onder zijn beker en bekijkt de zijne.
+- De eerste speler biedt: er zijn minstens zoveel stenen met een bepaald aantal ogen, alle stenen op tafel meegeteld.
+- Om de beurt biedt elke speler hoger, of noemt hij het laatste bod een leugen.
+- Hoger is: meer stenen (elk aantal ogen), of evenveel stenen met meer ogen.
+- Enen zijn joker: ze tellen als het aantal ogen van het bod. Daarom biedt niemand op enen: alleen 2 tot 6.
+# De uitdaging
+Alle bekers gaan omhoog en de stenen met het geboden aantal ogen worden geteld, plus de enen. Zijn het er minstens zoveel als het bod, dan klopt het en verliest de uitdager een steen. Zo niet, dan verliest de bieder er een. Wie een steen verloor, begint de volgende ronde.
+# Het einde van de partij
+Wie geen stenen meer heeft, ligt eruit (als hij de laatste ronde verloor, begint de volgende speler). De laatste speler met stenen wint.
+# Spelen op het apparaat
+Geef het apparaat door: je ziet alleen je eigen stenen, onderaan, met je opgetilde beker ernaast. De bekers van de anderen staan bovenaan; elke balk toont hoeveel stenen die speler nog heeft. In het midden: het bod om te overtreffen met de fiche van de bieder, en daaronder de eerdere biedingen van de ronde. Om te bieden tik je op een getal (hoeveel stenen) en een aantal ogen, en dan op het vinkje: de keuze ligt altijd boven het laatste bod. Om het laatste bod een leugen te noemen, tik je op de knop met de opgetilde beker. Bij een uitdaging gaan alle bekers voor iedereen omhoog: de stenen die tellen lichten een voor een op terwijl de telling stijgt; goud: het bod klopt; rood: het was gelogen; de verloren steen vervaagt. Tik op de ronde pijl om de volgende ronde te gooien. Iedereen heeft de tafel net gezien: begint dezelfde speler opnieuw, dan blijft zijn beker omlaag; tik erop om te kijken.

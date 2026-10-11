@@ -1,0 +1,15 @@
+Løgnerterninger
+# Målet
+Vær den sidste spiller med terninger. Alle har fem terninger under et bæger og ser kun deres egne; hver byder på, hvad alle bægrene skjuler tilsammen, og alle kan bluffe. For 2 til 6 spillere.
+# En runde
+- Alle ryster deres terninger under bægeret og kigger på deres egne.
+- Den første spiller byder: der er mindst så mange terninger med et bestemt antal øjne, alle terninger på bordet talt med.
+- Efter tur byder hver spiller højere eller kalder det sidste bud løgn.
+- Højere betyder flere terninger (et vilkårligt antal øjne) eller lige så mange terninger med flere øjne.
+- Enere er jokere: de tæller som buddets antal øjne. Derfor byder ingen på enere: kun 2 til 6.
+# Udfordringen
+Alle bægre løftes, og terningerne med buddets antal øjne tælles, plus enerne. Er der mindst så mange som buddet, holder det, og den, der udfordrede, mister en terning. Ellers mister den, der bød, en. Den, der mistede en terning, starter næste runde.
+# Spillets afslutning
+En spiller uden terninger er ude (tabte han sidste runde, starter den næste spiller). Den sidste spiller med terninger vinder.
+# Spil på enheden
+Send enheden rundt: du ser kun dine egne terninger, nederst, med dit løftede bæger ved siden af. De andres bægre står øverst; hver bjælke viser, hvor mange terninger den spiller har tilbage. I midten: buddet, der skal overgås, med budgiverens jeton, og rundens tidligere bud under det. For at byde trykker du på et tal (hvor mange terninger) og et antal øjne og så på fluebenet: valget er altid højere end det sidste bud. For at kalde det sidste bud løgn trykker du på knappen med det løftede bæger. Ved en udfordring løftes alle bægre, så alle kan se: de terninger, der tæller, lyser op én ad gangen, mens tallet stiger; guld, buddet holder; rødt, det var løgn; den tabte terning blegner. Tryk på den runde pil for at ryste næste runde. Alle har lige set bordet: starter den samme spiller igen, bliver hans bæger nede; tryk på det for at kigge.

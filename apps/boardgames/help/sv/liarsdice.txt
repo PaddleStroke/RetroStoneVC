@@ -1,0 +1,15 @@
+Lögnartärningar
+# Målet
+Var den sista spelaren med tärningar. Alla har fem tärningar under en bägare och ser bara sina egna; var och en bjuder på vad alla bägare döljer tillsammans, och vem som helst kan bluffa. För 2 till 6 spelare.
+# En omgång
+- Alla skakar sina tärningar under bägaren och tittar på sina egna.
+- Den första spelaren bjuder: det finns minst så många tärningar med ett visst antal prickar, alla tärningar på bordet medräknade.
+- I tur och ordning bjuder varje spelare högre eller kallar det senaste budet en lögn.
+- Högre betyder fler tärningar (valfritt antal prickar) eller lika många tärningar med fler prickar.
+- Ettor är jokrar: de räknas som budets antal prickar. Därför bjuder ingen på ettor: bara 2 till 6.
+# Utmaningen
+Alla bägare lyfts och tärningarna med budets antal prickar räknas, plus ettorna. Finns det minst så många som budet håller det, och den som utmanade förlorar en tärning. Annars förlorar den som bjöd en. Den som förlorade en tärning börjar nästa omgång.
+# Partiets slut
+En spelare utan tärningar är ute (förlorade hen den senaste omgången börjar nästa spelare). Den sista spelaren med tärningar vinner.
+# Spela på enheten
+Skicka runt enheten: du ser bara dina egna tärningar, längst ned, med din lyfta bägare bredvid. De andras bägare står överst; varje list visar hur många tärningar den spelaren har kvar. I mitten: budet som ska överträffas med budgivarens marker, och omgångens tidigare bud under det. För att bjuda trycker du på ett tal (hur många tärningar) och ett antal prickar och sedan på bocken: valet är alltid högre än det senaste budet. För att kalla det senaste budet en lögn trycker du på knappen med den lyfta bägaren. Vid en utmaning lyfts alla bägare inför alla: tärningarna som räknas lyser upp en i taget medan siffran stiger; guld, budet håller; rött, det var lögn; den förlorade tärningen bleknar bort. Tryck på den runda pilen för att slå nästa omgång. Alla har just sett bordet: börjar samma spelare igen stannar hens bägare nere; tryck på den för att titta.

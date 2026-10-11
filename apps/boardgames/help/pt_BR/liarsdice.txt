@@ -1,0 +1,15 @@
+Dados mentirosos
+# O objetivo
+Ser o último jogador com dados. Cada um tem cinco dados sob um copo e só vê os seus; cada um aposta no que todos os copos escondem juntos, e qualquer um pode estar blefando. De 2 a 6 jogadores.
+# Uma rodada
+- Cada um rola os dados sob o seu copo e olha os seus.
+- O primeiro jogador aposta: há pelo menos tantos dados mostrando tal face, contando todos os dados da mesa.
+- Na sua vez, cada jogador aumenta a aposta ou diz que a última é mentira.
+- Aumentar é apostar mais dados (qualquer face), ou o mesmo número de dados com uma face maior.
+- Os uns são curingas: contam como a face apostada. Por isso ninguém aposta em uns: só faces de 2 a 6.
+# O desafio
+Todos os copos são levantados e contam-se os dados com a face apostada, mais os uns. Se houver pelo menos tantos quanto a aposta, ela vale e quem desafiou perde um dado. Se não, quem apostou perde um. Quem perdeu um dado começa a rodada seguinte.
+# O fim da partida
+Quem fica sem dados está fora (se perdeu a última rodada, começa o próximo jogador). Vence o último jogador com dados.
+# Jogando no aparelho
+Passem o aparelho: você só vê os seus dados, embaixo, com o seu copo levantado ao lado. Os copos dos outros ficam em cima; cada barra mostra quantos dados restam a esse jogador. No meio: a aposta a superar com a ficha de quem a fez, e embaixo as apostas anteriores da rodada. Para apostar, toque num número (quantos dados) e numa face, depois no visto: a escolha é sempre maior que a última aposta. Para dizer que a última aposta é mentira, toque no botão do copo levantado. No desafio, todos os copos se levantam à vista de todos: os dados que contam acendem um a um enquanto a contagem sobe; dourado, a aposta vale; vermelho, era mentira; o dado perdido some. Toque na seta redonda para rolar a rodada seguinte. Todos acabaram de ver a mesa: se o mesmo jogador começa de novo, o copo dele fica abaixado; toque nele para olhar.

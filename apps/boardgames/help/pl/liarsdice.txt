@@ -1,0 +1,15 @@
+Kości kłamcy
+# Cel gry
+Być ostatnim graczem, który ma kości. Każdy ma pięć kości pod kubkiem i widzi tylko swoje; każdy licytuje to, co kryją wszystkie kubki razem, a każdy może blefować. Dla 2–6 graczy.
+# Runda
+- Każdy rzuca kośćmi pod kubkiem i patrzy na swoje.
+- Pierwszy gracz licytuje: jest co najmniej tyle kości z daną liczbą oczek, licząc wszystkie kości na stole.
+- Po kolei każdy gracz albo przebija, albo nazywa ostatnią licytację kłamstwem.
+- Przebić to podać więcej kości (dowolne oczka) albo tyle samo kości z większą liczbą oczek.
+- Jedynki są dżokerami: liczą się jako oczka z licytacji. Dlatego nikt nie licytuje jedynek: tylko od 2 do 6.
+# Sprawdzenie
+Wszystkie kubki idą w górę i liczy się kości z oczkami z licytacji oraz jedynki. Jeśli jest ich co najmniej tyle, ile podano, licytacja się utrzymuje i sprawdzający traci kość. Jeśli nie, traci ją licytujący. Kto stracił kość, zaczyna następną rundę.
+# Koniec gry
+Gracz bez kości odpada (jeśli przegrał ostatnią rundę, zaczyna następny gracz). Wygrywa ostatni gracz, który ma kości.
+# Gra na urządzeniu
+Podawajcie sobie urządzenie: widzisz tylko swoje kości, na dole, z podniesionym kubkiem obok. Kubki pozostałych są na górze; każdy pasek pokazuje, ile kości zostało temu graczowi. Pośrodku: licytacja do przebicia z żetonem jej autora, a pod nią wcześniejsze licytacje rundy. Aby licytować, dotknij liczby (ile kości) i oczek, a potem ptaszka: wybór jest zawsze wyższy od ostatniej licytacji. Aby nazwać ostatnią licytację kłamstwem, dotknij przycisku z podniesionym kubkiem. Przy sprawdzeniu wszystkie kubki podnoszą się na oczach wszystkich: liczące się kości zapalają się jedna po drugiej, a licznik rośnie; złoto, licytacja się utrzymała; czerwień, to było kłamstwo; stracona kość znika. Dotknij okrągłej strzałki, by rzucić następną rundę. Wszyscy właśnie widzieli stół: jeśli ten sam gracz zaczyna znowu, jego kubek zostaje opuszczony; dotknij go, by zajrzeć.

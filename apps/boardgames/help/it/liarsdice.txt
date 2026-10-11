@@ -1,0 +1,15 @@
+Dadi bugiardi
+# Lo scopo
+Essere l'ultimo giocatore con dei dadi. Ognuno ha cinque dadi sotto un bicchiere e vede solo i propri; ognuno dichiara cosa nascondono tutti i bicchieri insieme, e chiunque può bluffare. Da 2 a 6 giocatori.
+# Una mano
+- Ognuno lancia i dadi sotto il bicchiere e guarda i propri.
+- Il primo giocatore dichiara: ci sono almeno tanti dadi con una certa faccia, contando tutti i dadi sul tavolo.
+- A turno, ogni giocatore rilancia oppure dice che l'ultima dichiarazione è una bugia.
+- Rilanciare: più dadi (qualsiasi faccia), oppure gli stessi dadi con una faccia più alta.
+- Gli uno sono jolly: contano come la faccia dichiarata. Perciò nessuno dichiara gli uno: solo facce dal 2 al 6.
+# La sfida
+Si alzano tutti i bicchieri e si contano i dadi con la faccia dichiarata, più gli uno. Se sono almeno quanti dichiarati, la dichiarazione regge e chi l'ha sfidata perde un dado. Altrimenti lo perde chi l'ha fatta. Chi ha perso un dado comincia la mano successiva.
+# La fine della partita
+Chi resta senza dadi è eliminato (se ha perso l'ultima mano, comincia il giocatore successivo). Vince l'ultimo giocatore con dei dadi.
+# Giocare sul dispositivo
+Passa il dispositivo: vedi solo i tuoi dadi, in basso, con il tuo bicchiere alzato accanto. I bicchieri degli altri sono in alto; ogni barra mostra quanti dadi restano a quel giocatore. Al centro: la dichiarazione da battere con il gettone di chi l'ha fatta, e sotto le dichiarazioni precedenti della mano. Per dichiarare, tocca un numero (quanti dadi) e una faccia, poi la spunta: la scelta è sempre più alta dell'ultima dichiarazione. Per dire che l'ultima è una bugia, tocca il pulsante con il bicchiere alzato. Nella sfida tutti i bicchieri si alzano davanti a tutti: i dadi che contano si accendono uno alla volta mentre il conto sale; oro, la dichiarazione regge; rosso, era una bugia; il dado perso svanisce. Tocca la freccia tonda per lanciare la mano successiva. Tutti hanno appena visto il tavolo: se ricomincia lo stesso giocatore, il suo bicchiere resta giù; toccalo per guardare.

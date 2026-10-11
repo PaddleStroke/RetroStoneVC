@@ -1,0 +1,15 @@
+Dadu Pembohong
+# Tujuan
+Menjadi pemain terakhir yang masih punya dadu. Setiap pemain punya lima dadu di bawah gelas dan hanya melihat dadunya sendiri; semua menawar tentang apa yang disembunyikan semua gelas bersama-sama, dan siapa pun bisa menggertak. Untuk 2 sampai 6 pemain.
+# Satu ronde
+- Setiap pemain mengocok dadunya di bawah gelas lalu melihat dadunya sendiri.
+- Pemain pertama menawar: ada sedikitnya sekian dadu yang menunjukkan mata tertentu, dihitung dari semua dadu di meja.
+- Bergiliran, setiap pemain menaikkan tawaran atau menyebut tawaran terakhir bohong.
+- Menaikkan berarti lebih banyak dadu (mata apa saja), atau jumlah dadu yang sama dengan mata yang lebih tinggi.
+- Mata satu adalah joker: dihitung sebagai mata tawaran. Karena itu tidak ada yang menawar mata satu: hanya 2 sampai 6.
+# Tantangan
+Semua gelas diangkat dan dihitung dadu yang menunjukkan mata tawaran, ditambah mata satu. Jika jumlahnya sedikitnya sebanyak tawaran, tawaran itu benar dan penantang kehilangan satu dadu. Jika tidak, penawar yang kehilangan satu. Yang kehilangan dadu memulai ronde berikutnya.
+# Akhir permainan
+Pemain tanpa dadu tersingkir (jika ia kalah di ronde terakhir, pemain berikutnya yang memulai). Pemain terakhir yang masih punya dadu menang.
+# Bermain di perangkat
+Gilirkan perangkat: kamu hanya melihat dadumu sendiri, di bawah, dengan gelasmu terangkat di sampingnya. Gelas pemain lain ada di atas; setiap bilah menunjukkan sisa dadu pemain itu. Di tengah: tawaran yang harus dilampaui beserta token penawarnya, dan di bawahnya tawaran-tawaran sebelumnya dalam ronde itu. Untuk menawar, ketuk sebuah angka (berapa dadu) dan sebuah mata, lalu tanda centang: pilihan selalu lebih tinggi dari tawaran terakhir. Untuk menyebut tawaran terakhir bohong, ketuk tombol bergambar gelas terangkat. Saat tantangan, semua gelas terangkat di depan semua orang: dadu yang dihitung menyala satu per satu sementara hitungan naik; emas, tawarannya benar; merah, itu bohong; dadu yang hilang memudar. Ketuk panah bundar untuk mengocok ronde berikutnya. Semua orang baru saja melihat meja: jika pemain yang sama memulai lagi, gelasnya tetap tertutup; ketuk gelas itu untuk melihat.
