@@ -24,7 +24,7 @@ static struct { int on, from, to; Uint32 t0; } anim;
 static struct { int on, from, to; } promo;
 static const int PICK[4] = {QUEEN, KNIGHT, ROOK, BISHOP};
 
-/* ---- the position ---------------------------------------------------------------------------------------------------- */
+/* ---- the position ------------------------------------------------------------------------------------------------ */
 static void refresh(void)
 {
     nlegal = chess_legal(game_pos(&G), legal);
@@ -119,7 +119,7 @@ static int script(const char *s)
     return 1;
 }
 
-/* ---- the board on the screen ------------------------------------------------------------------------------------------ */
+/* ---- the board on the screen ------------------------------------------------------------------------------------- */
 static void layout(box b)
 {
     sq = (int)floorf(b.w / (8 + 2 * FRAME));
@@ -255,7 +255,7 @@ static void draw(void)
     }
 }
 
-/* ---- the pointer ------------------------------------------------------------------------------------------------------- */
+/* ---- the pointer ------------------------------------------------------------------------------------------------- */
 static void press(float x, float y)
 {
     if (promo.on) {
@@ -312,7 +312,7 @@ static void release(float x, float y)
     if (s >= 0 && s != drag.from && target(drag.from, s) >= 0) move_to(drag.from, s, 0);
 }
 
-/* ---- the shell's pictures ------------------------------------------------------------------------------------------------ */
+/* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
 /* the pieces a player took from the other (a promoted pawn counts as the pawn) */
 static void bar(int player, box b)
 {
@@ -327,7 +327,8 @@ static void bar(int player, box b)
     float sz = 0.6f * ui.unit, step = 0.36f * ui.unit, x = b.x, cy = b.y + b.h / 2;
     for (int k = 0; k < 5; k++) {
         int t = order[k];
-        for (int i = 0; i < gone[t] && x + sz <= b.x + b.w; i++, x += step) ui_put(t_small[c][t], x, cy - sz / 2, sz, sz);
+        for (int i = 0; i < gone[t] && x + sz <= b.x + b.w; i++, x += step)
+            ui_put(t_small[c][t], x, cy - sz / 2, sz, sz);
         if (gone[t]) x += 0.14f * ui.unit;
     }
 }

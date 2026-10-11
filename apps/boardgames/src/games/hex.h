@@ -26,13 +26,13 @@ enum { HEX_EMPTY, HEX_IVORY, HEX_EBONY };      /* a cell: empty, or player p's s
 typedef struct {
     int n, nmoves;
     uint8_t cell[HEX_CELLS];
-    int move[HEX_CELLS + 1];                    /* a cell or HEX_SWAP (a game has at most a move a cell, and the swap) */
+    int move[HEX_CELLS + 1];                    /* a cell or HEX_SWAP (at most a move a cell, and the swap) */
     int winner;                                 /* 0, 1, or -1: playing */
 } hexgame;
 
 void hex_new(hexgame *g, int n);                /* n: 7, 9 or 11 */
 int hex_turn(const hexgame *g);                 /* the player to move */
-int hex_last(const hexgame *g);                 /* the cell of the last stone set down (the swap's: its mirror), or -1 */
+int hex_last(const hexgame *g);                 /* the cell of the last stone set down (the swap's: its mirror); -1 */
 int hex_mirror(int n, int cell);                /* (c, r) -> (r, c) */
 int hex_around(int n, int cell, int nb[6]);     /* the neighbours on the board (2 to 6) */
 int hex_legal(const hexgame *g, int cell);      /* 1: a stone may go there */
@@ -40,7 +40,7 @@ int hex_can_swap(const hexgame *g);             /* 1: the second move, ebony may
 int hex_play(hexgame *g, int cell);             /* 0: not allowed */
 int hex_swap(hexgame *g);                       /* 0: not allowed */
 int hex_undo(hexgame *g);                       /* 0: nothing to undo */
-int hex_chain(const hexgame *g, int *cells);    /* the winner's shortest chain from side to side; its length (0: none) */
+int hex_chain(const hexgame *g, int *cells);    /* the winner's shortest chain from side to side; its length, 0: none */
 int hex_cell(int n, const char *s, int *len);   /* "c4": the cell, "swap": HEX_SWAP, else HEX_NONE; len: its length */
 int hex_script(hexgame *g, const char *s);      /* plays "a1 b3 swap ..."; 0: a bad or illegal move */
 

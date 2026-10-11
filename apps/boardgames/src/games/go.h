@@ -41,7 +41,8 @@ typedef struct {
 void go_new(gogame *g, int n);                  /* n: 9, 13 or 19 */
 const gopos *go_now(const gogame *g);
 int go_last(const gogame *g);                   /* the last move: a point, GO_PASS, or GO_NONE */
-int go_try(const gogame *g, int p, gopos *out); /* the position after a stone on p; -1: not allowed, else the captures */
+/* the position after a stone on p; -1: not allowed, else the captures */
+int go_try(const gogame *g, int p, gopos *out);
 int go_play(gogame *g, int p);                  /* -1: not allowed, else the stones it captured */
 int go_pass(gogame *g);                         /* playing: a pass (the second in a row: counting); counting: done */
 int go_undo(gogame *g);                         /* over: back to counting; counting: back before the last pass */

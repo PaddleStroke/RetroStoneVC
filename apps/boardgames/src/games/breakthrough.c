@@ -23,7 +23,7 @@ static int sel = -1;
 static struct { int on, from, moved; float x, y; } drag;
 static struct { int on; btmove m; Uint32 t0; } anim;
 
-/* ---- the position ---------------------------------------------------------------------------------------------------- */
+/* ---- the position ------------------------------------------------------------------------------------------------ */
 static void refresh(void)
 {
     nlegal = bt_legal(bt_pos(&G), legal);
@@ -88,7 +88,7 @@ static int script(const char *s)
     return ok;
 }
 
-/* ---- the board on the screen ------------------------------------------------------------------------------------------ */
+/* ---- the board on the screen ------------------------------------------------------------------------------------- */
 static void layout(box b)
 {
     sq = (int)floorf(b.w / (8 + 2 * FRAME));
@@ -197,7 +197,7 @@ static void draw(void)
     }
 }
 
-/* ---- the pointer ------------------------------------------------------------------------------------------------------- */
+/* ---- the pointer ------------------------------------------------------------------------------------------------- */
 static void press(float x, float y)
 {
     if (status() != GS_PLAY) return;
@@ -239,7 +239,7 @@ static void release(float x, float y)
     if (i >= 0) play(legal[i], 0);
 }
 
-/* ---- the shell's pictures ------------------------------------------------------------------------------------------------ */
+/* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
 /* the pawns a player took from the other, closer together when there are many */
 static void bar(int player, box b)
 {

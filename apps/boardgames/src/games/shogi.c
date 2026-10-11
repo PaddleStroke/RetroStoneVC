@@ -35,7 +35,7 @@ static struct { int on, from, kind, moved; float x, y; } drag;   /* from a squar
 static struct { int on; smove m; Uint32 t0; } anim;
 static struct { int on, from, to; } promo;
 
-/* ---- the pieces ------------------------------------------------------------------------------------------------------ */
+/* ---- the pieces -------------------------------------------------------------------------------------------------- */
 static int tex_of(int pc) { return SG_KIND(pc) == SG_KING && SG_OWNER(pc) ? KING1 : SG_FACE(pc); }
 
 static int glyph_of(int ix)
@@ -144,7 +144,7 @@ static int paint_board(uint8_t *o, int n, int s, int f, int star)
     return w;
 }
 
-/* ---- the position ---------------------------------------------------------------------------------------------------- */
+/* ---- the position ------------------------------------------------------------------------------------------------ */
 static void refresh(void)
 {
     nlegal = sg_legal(sg_pos(&G), legal);
@@ -230,7 +230,7 @@ static int script(const char *s)
     return 1;
 }
 
-/* ---- the board on the screen ------------------------------------------------------------------------------------------ */
+/* ---- the board on the screen ------------------------------------------------------------------------------------- */
 static void layout(box b)
 {
     int s = (int)floorf(b.w / (9 + 2 * FRAME + 0.4f));
@@ -362,7 +362,7 @@ static void draw(void)
     }
 }
 
-/* ---- the pointer ------------------------------------------------------------------------------------------------------- */
+/* ---- the pointer ------------------------------------------------------------------------------------------------- */
 static void press(float x, float y)
 {
     if (promo.on) {
@@ -445,7 +445,7 @@ static void release(float x, float y)
     }
 }
 
-/* ---- the shell's pictures ------------------------------------------------------------------------------------------------ */
+/* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
 /* the pieces in hand, by kind, a count beside each kind held more than once */
 static void bar(int player, box b)
 {

@@ -80,7 +80,7 @@ int text_name(const char *game, char *buf, int size)
     return 1;
 }
 
-/* ---- glyphs ---------------------------------------------------------------------------------------------------------- */
+/* ---- glyphs ------------------------------------------------------------------------------------------------------ */
 static int utf8(const char **s)
 {
     const unsigned char *p = (const unsigned char *)*s;

@@ -6,9 +6,9 @@
  * The rhombus is wide (its long diagonal 1.7 times the short one): turned a little, its long diagonal runs from the top
  * left corner of the board's square to the bottom right, which makes its cells the biggest. Each side is painted the
  * colour of the player who joins it: ivory top and bottom, ebony left and right. A tap plays on an empty cell; on
- * 11 x 11 (small cells on a phone) the first tap shows a ghost stone and a second tap on it plays it, like go. The swap:
- * on the second move ebony taps ivory's stone, a ghost shows where it goes (its mirror cell, ebony's), a second tap
- * swaps. The script's moves: "a1 b3 swap" (hex.h).
+ * 11 x 11 (small cells on a phone) the first tap shows a ghost stone and a second tap on it plays it, like go. The
+ * swap: on the second move ebony taps ivory's stone, a ghost shows where it goes (its mirror cell, ebony's), a second
+ * tap swaps. The script's moves: "a1 b3 swap" (hex.h).
  */
 #include <math.h>
 #include <string.h>
@@ -17,10 +17,11 @@
 #include "shell.h"
 
 #define FRAME 0.035f                            /* the board's frame, a part of its side */
-#define TILT 15.0f                              /* degrees: the long diagonal from 30 degrees to 45 (corner to corner) */
+#define TILT 15.0f                              /* degrees: the long diagonal from 30 degrees to 45 (corner to
+                                                 * corner) */
 #define STRIP 0.55f                             /* how far the sides' colours reach beyond the cells (rows) */
-#define CUT 1.2f                                /* the acute corners cut across, this far beyond the corner cell's centre
-                                                 * (c + r, from the cell) */
+#define CUT 1.2f                                /* the acute corners cut across, this far beyond the corner cell's
+                                                 * centre (c + r, from the cell) */
 #define FILL 0.97f                             /* how much of the plank the rhombus and its strips take */
 #define TWO_TAPS 11                             /* from this size on, the first tap shows a ghost stone */
 #define PLACE_MS 150
@@ -46,7 +47,7 @@ static struct { int on, from, to, swap; Uint32 t0; } anim;
 static const int DC[6] = {-1, 1, 0, 1, -1, 0}, DR[6] = {0, 0, -1, -1, 1, 1};
 static const float COLOUR[4][3] = {{0, 0, 0}, {34, 24, 16}, {238, 228, 206}, {56, 50, 48}};
 
-/* ---- the position ---------------------------------------------------------------------------------------------------- */
+/* ---- the position ------------------------------------------------------------------------------------------------ */
 static void calm(void)
 {
     ghost.on = ghost.down = 0;
@@ -91,7 +92,7 @@ static int script(const char *s)
     return hex_script(&G, s);
 }
 
-/* ---- the geometry ------------------------------------------------------------------------------------------------------ */
+/* ---- the geometry ------------------------------------------------------------------------------------------------ */
 /* the view of an n x n board fitted in a plank of inner side `inner` centred on (cx, cy) */
 static void fit(view *v, int n, float inner, float cx, float cy, int flip)
 {
@@ -154,7 +155,7 @@ static float inside_cell(const view *v, float c, float r, int hc, int hr)
     return inside((dc + dr / 2) * v->s, dr * H * v->s, v->s);
 }
 
-/* ---- pictures --------------------------------------------------------------------------------------------------------- */
+/* ---- pictures ---------------------------------------------------------------------------------------------------- */
 /* what covers a point of the plank: the lines round the cells, the sides' strips beyond them (split at the corners) */
 static int what(const view *v, float x, float y)
 {
@@ -218,7 +219,7 @@ static void paint_last(uint8_t *o, int size, const view *v)
         }
 }
 
-/* ---- the board on the screen ------------------------------------------------------------------------------------------ */
+/* ---- the board on the screen ------------------------------------------------------------------------------------- */
 static void layout(box b)
 {
     int n = G.n;
@@ -324,10 +325,11 @@ static void draw(void)
     }
 }
 
-/* ---- the pointer ------------------------------------------------------------------------------------------------------- */
+/* ---- the pointer ------------------------------------------------------------------------------------------------- */
 static int two_taps(void) { return G.n >= TWO_TAPS; }
 
-/* the ghost to the cell if a stone may go there, or ivory's first stone may be swapped (else none: loud, the refusal) */
+/* the ghost to the cell if a stone may go there, or ivory's first stone may be swapped (else none: loud, the
+ * refusal) */
 static void aim(int cell, int loud)
 {
     ghost.on = cell >= 0 && (hex_legal(&G, cell) || swappable(cell));
@@ -372,7 +374,7 @@ static void release(float x, float y)
     if ((ghost.armed && !ghost.moved) || (!two_taps() && !swappable(ghost.cell))) play(ghost.cell);
 }
 
-/* ---- the shell's pictures ------------------------------------------------------------------------------------------------ */
+/* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
 static void token(int player, int size, uint8_t *rgba) { art_counter(COUNTER_STONE, player, size, rgba); }
 
 /* the menu's card: the board's top right corner (where ivory's side meets ebony's), a few stones; the picker's: the
