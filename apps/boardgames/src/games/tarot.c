@@ -1109,6 +1109,6 @@ static const game tarot_game = {
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .winners = winners,
-    .players = 1 << 3 | 1 << 4 | 1 << 5, .view = VIEW_HIDDEN,
+    .players = 1 << 3 | 1 << 4 | 1 << 5, .players_usual = 4, .view = VIEW_HIDDEN,
 };
 REGISTER_GAME(tarot_game)

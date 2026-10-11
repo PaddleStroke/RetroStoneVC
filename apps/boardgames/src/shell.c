@@ -73,8 +73,9 @@ static int many_counts(int g) { unsigned c = player_counts(g); return (c & (c - 
 static int players_of(int g)
 {
     unsigned c = player_counts(g);
-    if (!nplayers[g] || !(c >> nplayers[g] & 1)) {     /* two if it can, else the fewest */
-        nplayers[g] = c >> 2 & 1 ? 2 : 1;
+    if (!nplayers[g] || !(c >> nplayers[g] & 1)) {     /* the usual count, else two if it can, else the fewest */
+        int u = games[g]->players_usual;
+        nplayers[g] = u > 0 && c >> u & 1 ? u : c >> 2 & 1 ? 2 : 1;
         while (!(c >> nplayers[g] & 1)) nplayers[g]++;
     }
     return nplayers[g];
@@ -448,9 +449,11 @@ void ui_number_signed(float cx, float cy, float h, int value, int light, int plu
     float ih = floorf(h + 0.5f), dw = 0.62f * ih, step = 0.74f * ih, sw = 0.46f * ih, gap = 0.1f * ih;
     float digits = step * (n - 1) + dw, x = cx - (sw + gap + digits) / 2, t = fmaxf(1, 0.13f * ih);
     Uint8 r = light ? 246 : 40, g = light ? 238 : 34, b = light ? 220 : 30;
-    ui_fill(x, cy - t / 2, sw, t, r, g, b, 255);            /* the sign: a bar, crossed for a plus */
-    if (sign > 0) ui_fill(x + sw / 2 - t / 2, cy - sw / 2, t, (sw - t) / 2, r, g, b, 255),
-                  ui_fill(x + sw / 2 - t / 2, cy + t / 2, t, (sw - t) / 2, r, g, b, 255);
+    t = floorf(t + 0.5f);                       /* the sign on whole pixels: a bar, crossed for a plus (one bar
+                                                 * each way, so no seam makes it look like a division sign) */
+    float sx = floorf(x + 0.5f), sy = floorf(cy - t / 2 + 0.5f), s = floorf(sw + 0.5f);
+    ui_fill(sx, sy, s, t, r, g, b, 255);
+    if (sign > 0) ui_fill(sx + floorf((s - t) / 2), sy - floorf((s - t) / 2), t, s, r, g, b, 255);
     number(x + sw + gap + digits / 2, cy, h, a, light, 0);
 }
 

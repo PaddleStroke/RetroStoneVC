@@ -35,7 +35,8 @@ One look across the app, like the Arcade games' house kit:
   many; the game reads `ui.players` in `start()`. Players 2..5 are red lacquer, jade, amber, lapis (`art_player[]`,
   pieces, counters and dice all follow). `home(player)` says where each one sits (a point of the board, 0..1): their
   bar goes on that side, top or bottom; `gs_win(player)` / `gs_winner(status)` for the status. One player (a puzzle,
-  a code to find): `GS_WIN0` solved, `GS_WIN1` failed; the shell hides flip and face to face.
+  a code to find): `GS_WIN0` solved, `GS_WIN1` failed; the shell hides flip and face to face. `players_usual`: the
+  count the picker offers first (tarot 4; else two if it can, else the fewest).
 - **Sharing the win**: `winners()` (optional) gives the players who share it once the game is over (bit n: player n):
   partners (pachisi, belote: both of the team), a tie for the best score (`GS_DRAW`: the tied players). The end card
   stands them all in gold light together (a draw: standing, no gold) and lays the others down, dimmed; their bars all

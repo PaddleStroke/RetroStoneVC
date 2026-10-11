@@ -69,6 +69,8 @@ typedef struct game {
      * for the best score (GS_DRAW: only the tied players stand). The end card stands them all in gold light together
      * and lays the others down, dimmed; their bars all glow. NULL: gs_winner(status) alone (a draw: everyone). */
     unsigned (*winners)(void);
+    int players_usual;                          /* the count the picker offers first (tarot: 4); 0: two if it can,
+                                                 * else the fewest */
 } game;
 
 enum { VIEW_BOARD, VIEW_OPEN, VIEW_HIDDEN };
