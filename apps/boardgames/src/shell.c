@@ -79,7 +79,8 @@ static int by_order(const void *a, const void *b)
 /* ---- helpers for the games ----------------------------------------------------------------------------------------- */
 int ui_bottom(void) { return ui.flipped ? 1 : 0; }
 int ui_upside(int player) { return ui.f2f && player != ui_bottom(); }
-Uint32 ui_ms(void) { return SDL_GetTicks(); }
+static Uint32 ms_ahead;                         /* the picture mode: the clock moved on past the last tap */
+Uint32 ui_ms(void) { return SDL_GetTicks() + ms_ahead; }
 void ui_animate(void) { need_frame = 1; }
 
 SDL_Texture *ui_tex(int w, int h, const uint8_t *rgba)
@@ -182,34 +183,62 @@ void ui_dice_throw(int n, const int *values, int player)
         dice.tilt[i] = (float)(ui_random(31) - 15);    /* they land a little askew */
     }
     dice.player = player ? 1 : 0;
-    dice.t0 = SDL_GetTicks();
+    dice.t0 = ui_ms();
     snd_play(SND_DICE);
     need_frame = 1;
 }
 
-int ui_dice_busy(void) { return dice.n && !instant && SDL_GetTicks() - dice.t0 < DICE_MS; }
+int ui_dice_busy(void) { return dice.n && ui_ms() - dice.t0 < DICE_MS; }
+
+void ui_dice_show(int n, const int *values, int player)
+{
+    dice.n = n < 0 ? 0 : n > MAX_DICE ? MAX_DICE : n;
+    for (int i = 0; i < dice.n; i++) {
+        dice.v[i] = values[i];
+        dice.tilt[i] = 0;
+    }
+    dice.player = player ? 1 : 0;
+    dice.t0 = ui_ms() - DICE_MS;                /* already at rest */
+}
+
+static void dice_faces(int s)
+{
+    if (dice.made == s) return;
+    dice.made = s;
+    for (int p = 0; p < 2; p++)
+        for (int v = 1; v <= 6; v++) {
+            ui_free(&dice.face[p][v]);
+            art_die(v, p, s, ui_buf(s, s));
+            dice.face[p][v] = ui_tex(s, s, ui_buf(s, s));
+        }
+}
+
+void ui_die_at(float cx, float cy, float size, int player, int value, float alpha)
+{
+    int s = (int)size;
+    if (s < 4 || value < 1 || value > 6) return;
+    dice_faces(s);
+    SDL_Texture *f = dice.face[player ? 1 : 0][value];
+    Uint8 a = (Uint8)(255 * (alpha < 0 ? 0 : alpha > 1 ? 1 : alpha));
+    ui_shadow_flat(cx, cy, size * 1.1f, size * 1.1f, alpha);
+    SDL_SetTextureAlphaMod(f, a);
+    ui_put_c(f, cx, cy, size, size);
+    SDL_SetTextureAlphaMod(f, 255);
+}
 
 void ui_dice_draw(float cx, float cy, float size, unsigned used)
 {
     int s = (int)size;
     if (s < 4 || !dice.n) return;
-    if (dice.made != s) {
-        dice.made = s;
-        for (int p = 0; p < 2; p++)
-            for (int v = 1; v <= 6; v++) {
-                ui_free(&dice.face[p][v]);
-                art_die(v, p, s, ui_buf(s, s));
-                dice.face[p][v] = ui_tex(s, s, ui_buf(s, s));
-            }
-    }
+    dice_faces(s);
     int rolling = ui_dice_busy();
-    float t = rolling ? (SDL_GetTicks() - dice.t0) / (float)DICE_MS : 1, gap = 0.3f * size;
+    float t = rolling ? (ui_ms() - dice.t0) / (float)DICE_MS : 1, gap = 0.3f * size;
     float x = cx - (dice.n * size + (dice.n - 1) * gap) / 2 + size / 2;
     for (int i = 0; i < dice.n; i++, x += size + gap) {
         int v = dice.v[i];
         float a = dice.tilt[i], y = cy;
         if (rolling) {                          /* tumbling: the faces flicker, the die turns and bounces */
-            v = 1 + (int)((SDL_GetTicks() / 70 + i * 3 + dice.v[i]) % 6);
+            v = 1 + (int)((ui_ms() / 70 + i * 3 + dice.v[i]) % 6);
             a += (1 - t) * (1 - t) * 540 * (i & 1 ? -1 : 1);
             y -= (1 - t) * size * 0.6f * fabsf(sinf(t * 9.4f));
         }
@@ -871,6 +900,7 @@ static int shot(int argc, char **argv)
     int v = 0, keep = 0, pick = 0, show_help = 0;
     float scroll = 0;
     uint32_t seed = 1;
+    int at = -1;                                /* --at ms: the picture that long after the last tap (else at rest) */
     ui.w = 720;
     ui.h = 1280;
     for (int i = 1; i < argc; i++) {
@@ -888,6 +918,7 @@ static int shot(int argc, char **argv)
         else if (!strcmp(argv[i], "--help")) show_help = 1;
         else if (!strcmp(argv[i], "--scroll") && i + 1 < argc) scroll = (float)atof(argv[++i]);
         else if (!strcmp(argv[i], "--seed") && i + 1 < argc) seed = (uint32_t)strtoul(argv[++i], NULL, 10);
+        else if (!strcmp(argv[i], "--at") && i + 1 < argc) at = atoi(argv[++i]);
     }
     seed_random(seed);                          /* the same dice every time: tests and screenshots repeat */
     text_init(lang ? lang : "en");
@@ -905,6 +936,7 @@ static int shot(int argc, char **argv)
         else {
             open_game(cur, v);
             if (moves && (!games[cur]->script || !games[cur]->script(moves))) { fprintf(stderr, "bad moves\n"); return 1; }
+            draw();                             /* once before the taps, as the app always has: the bars' layout */
             for (const char *s = taps; s && *s;) {
                 float fx, fy;
                 int n = 0;
@@ -921,6 +953,7 @@ static int shot(int argc, char **argv)
     } else {
         layout();
     }
+    ms_ahead = at >= 0 ? (Uint32)at : 600000;   /* the animations the taps started: over, or caught --at ms in */
     if (show_help) {                            /* the rules page (the game's, or the app's), scrolled by --scroll px */
         open_help(id ? cur : -1);
         help_scroll(scroll);

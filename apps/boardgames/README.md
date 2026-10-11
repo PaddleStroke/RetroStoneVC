@@ -57,7 +57,7 @@ One look across the app, like the Arcade games' house kit:
 
 ```
 retrostoneboard --shot out.bmp [--size 720x1280] [--game id] [--variant n] [--moves "..."] [--taps "fx,fy ..."]
-                [--flip] [--f2f] [--keep] [--pick] [--lang fr] [--help [--scroll px]]
+                [--flip] [--f2f] [--keep] [--pick] [--lang fr] [--help [--scroll px]] [--seed n] [--at ms]
 ```
 
 No window: the menu (no `--game`), a game's picker (`--pick`), or a game after its moves (`--moves`, the game's

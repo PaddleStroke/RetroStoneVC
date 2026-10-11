@@ -76,7 +76,9 @@ void ui_number(float cx, float cy, float h, int value, int light);   /* digits c
 /* the same turned round its centre (degrees: 180 for the top player face to face) */
 void ui_number_rot(float cx, float cy, float h, int value, int light, double degrees);
 void ui_animate(void);                          /* draw the next frame too (an animation runs) */
-Uint32 ui_ms(void);
+Uint32 ui_ms(void);                             /* the clock for animations: use it, not SDL_GetTicks (the picture
+                                                 * mode moves it on so the last move's animation has ended, or to
+                                                 * --at ms after the last tap) */
 
 /* the shared marks, made for the board's size by the shell (a square of side `size`) */
 void ui_mark_last(float x, float y, float w, float h);   /* the last move's squares (a warm tint) */
@@ -95,7 +97,10 @@ void ui_sound_soft(int s, float volume);        /* quieter (0..1): many small so
  * their sound), ui_dice_draw draws them where the game wants (size: one die), the used ones dimmed (bit i: die i). */
 int  ui_random(int n);
 void ui_dice_throw(int n, const int *values, int player);
+void ui_dice_show(int n, const int *values, int player);  /* dice set to these values at once: no tumble, no sound */
 void ui_dice_draw(float cx, float cy, float size, unsigned used);
+/* one die at rest, any player's, any value (a die waiting to be thrown, a past throw): alpha 0..1 */
+void ui_die_at(float cx, float cy, float size, int player, int value, float alpha);
 int  ui_dice_busy(void);                        /* 1 while they tumble */
 
 /* sound.c */
