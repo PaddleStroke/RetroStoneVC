@@ -18,5 +18,9 @@ A king that is attacked is in check: the next move must get it out of check. You
 - Checkmate: the king is in check and no move can save it. That player loses.
 - Stalemate: the player to move has no legal move but is not in check. The game is a draw.
 - The game is also a draw when neither side can ever checkmate (too few pieces left), when the same position comes back for the third time, or after fifty moves each without a capture or a pawn move.
+# Chess960
+Chess960 (Fischer random chess) plays by the same rules, but the pieces of the back row start in one of 960 orders, drawn at random for each game. The pawns stand as usual, and Black's pieces face White's, file for file. The bishops always stand on squares of opposite colours, and the king somewhere between the two rooks.
+- Castling: the king and the rook end on the same squares as in ordinary chess: the king on g and the rook on f with the rook of the h side, the king on c and the rook on d with the rook of the a side. Allowed only if neither piece has moved yet, every square they cross or land on is empty (apart from the two of them), and the king is not in check, does not cross an attacked square and does not land in check.
+- To castle, move the king onto the rook it castles with. You may also move it onto its destination square, unless the king could go there with an ordinary move too, or it already stands there.
 # Playing on the device
-Tap a piece to see where it can go, then tap a square, or drag the piece. Dots show the moves, rings the captures. A king in check glows red.
+Tap a piece to see where it can go, then tap a square, or drag the piece. Dots show the moves, rings the captures. A king in check glows red. To castle, move the king two squares towards the rook, or onto the rook.

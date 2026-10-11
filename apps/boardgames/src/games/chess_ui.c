@@ -1,5 +1,6 @@
 /*
- * Chess in RetroStone Board: the board, the pieces, tap or drag, the promotion picker (the rules: chess.c).
+ * Chess in RetroStone Board: the board, the pieces, tap or drag, the promotion picker (the rules: chess.c). Two
+ * variants: standard chess, and Chess960 (the back rank drawn at random).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -19,7 +20,7 @@ static float bx, by;                            /* the a8 corner (h1 when flippe
 static SDL_Texture *t_piece[2][7], *t_small[2][7], *t_board, *t_pick;
 static int sel = -1;
 static struct { int on, from, moved; float x, y; } drag;
-static struct { int on; cmove m; Uint32 t0; } anim;
+static struct { int on, from, to; Uint32 t0; } anim;
 static struct { int on, from, to; } promo;
 static const int PICK[4] = {QUEEN, KNIGHT, ROOK, BISHOP};
 
@@ -34,8 +35,8 @@ static void refresh(void)
 
 static void start(int variant)
 {
-    (void)variant;
-    game_new(&G);
+    if (variant == 1) game_new960(&G, ui_random(960));
+    else game_new(&G);
     anim.on = 0;
     refresh();
 }
@@ -51,10 +52,18 @@ static int status(void)
 
 static int turn(void) { return game_pos(&G)->side; }
 
+/* where the moving piece lands: a castling move goes onto the rook, the king lands on g or c */
+static int lands(cmove m) { return m.flags & MV_CASTLE ? chess_castle_king(m) : m.to; }
+
+/* the move from one square to another; a castling king also goes onto its destination, when no other move of the
+ * king goes there (and it does move) */
 static int target(int from, int to)
 {
     for (int i = 0; i < nlegal; i++)
         if (legal[i].from == from && legal[i].to == to) return i;
+    if (to == from) return -1;
+    for (int i = 0; i < nlegal; i++)
+        if (legal[i].from == from && (legal[i].flags & MV_CASTLE) && chess_castle_king(legal[i]) == to) return i;
     return -1;
 }
 
@@ -62,7 +71,8 @@ static void play(cmove m, int animate)
 {
     game_play(&G, m);
     anim.on = animate;
-    anim.m = m;
+    anim.from = m.from;
+    anim.to = lands(m);
     anim.t0 = ui_ms();
     refresh();
     ui_sound(m.flags & MV_CAPTURE ? SND_CAPTURE : SND_MOVE);
@@ -91,7 +101,7 @@ static int undo(void)
     return 1;
 }
 
-/* "e2e4 e7e5 e7e8q": the screenshots' and the tests' moves */
+/* "e2e4 e7e5 e7e8q": the screenshots' and the tests' moves (castling: e1g1, or the king onto its rook) */
 static int script(const char *s)
 {
     while (*s) {
@@ -183,11 +193,11 @@ static void draw(void)
     const cpos *p = game_pos(&G);
     ui_put(t_board, bx - fr, by - fr, 8.0f * sq + 2 * fr, 8.0f * sq + 2 * fr);
     float x, y;
-    if (G.ply) {
+    if (G.ply) {                                /* a castling king that stays: its rook's square instead */
         cmove m = G.move[G.ply - 1];
         sq_xy(m.from, &x, &y);
         ui_mark_last(x, y, sq, sq);
-        sq_xy(m.to, &x, &y);
+        sq_xy(lands(m) == m.from ? m.to : lands(m), &x, &y);
         ui_mark_last(x, y, sq, sq);
     }
     if (sel >= 0) {
@@ -206,25 +216,28 @@ static void draw(void)
         t = 1 - (1 - t) * (1 - t) * (1 - t);
     }
     for (int s = 0; s < 64; s++) {
-        if (!p->sq[s] || (drag.on && drag.moved && s == drag.from) || (anim.on && s == anim.m.to)) continue;
+        if (!p->sq[s] || (drag.on && drag.moved && s == drag.from) || (anim.on && s == anim.to)) continue;
         sq_xy(s, &x, &y);
         piece_at(p->sq[s], x, y, (float)sq);
     }
     if (sel >= 0 && !promo.on) {                /* where the selected piece can go */
         uint64_t done = 0;
         for (int i = 0; i < nlegal; i++) {
-            if (legal[i].from != sel || (done >> legal[i].to & 1)) continue;
-            done |= 1ull << legal[i].to;
-            sq_xy(legal[i].to, &x, &y);
-            if (p->sq[legal[i].to]) ui_mark_ring(x + sq / 2.0f, y + sq / 2.0f, sq);
+            if (legal[i].from != sel) continue;
+            int castle = legal[i].flags & MV_CASTLE, to = legal[i].to;
+            if (castle && target(sel, lands(legal[i])) == i) to = lands(legal[i]);   /* the king's square, if it can */
+            if (done >> to & 1) continue;
+            done |= 1ull << to;
+            sq_xy(to, &x, &y);
+            if (p->sq[to] && !castle) ui_mark_ring(x + sq / 2.0f, y + sq / 2.0f, sq);
             else ui_mark_dot(x + sq / 2.0f, y + sq / 2.0f, 0.32f * sq);
         }
     }
     if (anim.on) {
         float x0, y0, x1, y1;
-        sq_xy(anim.m.from, &x0, &y0);
-        sq_xy(anim.m.to, &x1, &y1);
-        piece_at(p->sq[anim.m.to], x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, (float)sq);
+        sq_xy(anim.from, &x0, &y0);
+        sq_xy(anim.to, &x1, &y1);
+        piece_at(p->sq[anim.to], x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, (float)sq);
     }
     if (drag.on && drag.moved) {                /* the dragged piece, a little bigger, beside the finger */
         float s = 1.18f * sq, off = ui_upside(p->side) ? -0.25f : 0.75f;
@@ -321,10 +334,27 @@ static void bar(int player, box b)
 
 static void token(int player, int size, uint8_t *rgba) { art_piece(KING, player, size, rgba); }
 
+/* Chess960's card: a whole board at the start, the back ranks shuffled (the bishops side by side in the corner) */
+static void thumb960(int size, uint8_t *rgba)
+{
+    static const int RANK[8] = {BISHOP, BISHOP, QUEEN, KNIGHT, KNIGHT, ROOK, KING, ROOK};
+    static const int ROWS[4] = {0, 1, 6, 7};
+    int s = (int)(size / (8 + 2 * FRAME)), f = (int)(s * FRAME), n = 8 * s + 2 * f, o = (size - n) / 2;
+    uint8_t *board = ui_buf(n, n);
+    art_board(s, f, board);
+    art_blend(rgba, size, size, board, n, n, o, o);
+    for (int x = 0; x < 8; x++)
+        for (int i = 0; i < 4; i++) {           /* black's rank, its pawns, white's pawns, white's rank */
+            uint8_t *one = ui_buf(s, s);
+            art_piece(i == 1 || i == 2 ? PAWN : RANK[x], i < 2 ? BLACK : WHITE, s, one);
+            art_blend(rgba, size, size, one, s, s, o + f + x * s, o + f + ROWS[i] * s);
+        }
+}
+
 /* the menu's card: a corner of a board, a few pieces */
 static void thumb(int variant, int size, uint8_t *rgba)
 {
-    (void)variant;
+    if (variant == 1) { thumb960(size, rgba); return; }
     int s = (int)(size / (4 + 2 * FRAME)), f = (int)(s * FRAME), n = 4 * s + 2 * f, o = (size - n) / 2;
     uint8_t *board = ui_buf(n, n);
     art_board_n(4, 4, s, f, 1, board);
@@ -341,7 +371,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
 static int busy(void) { return anim.on; }     /* the end waits for the mating piece to arrive */
 
 static const game chess_game = {
-    .id = "chess", .order = 10, .variants = 1,
+    .id = "chess", .order = 10, .variants = 2,           /* 0: standard chess, 1: Chess960 */
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy,

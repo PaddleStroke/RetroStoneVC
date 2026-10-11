@@ -1,10 +1,12 @@
 /*
  * Chess rules (chess.h). Pseudo-legal moves from a plain 64-square board, kept when the mover's king is safe after
- * them. Checked against the standard perft counts (tests/perft.c).
+ * them. Castling follows Chess960's rules, of which standard castling is one case. Checked against the standard and
+ * the Chess960 perft counts (tests/perft.c).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include "chess.h"
 
+#include <stdio.h>
 #include <string.h>
 
 static const int8_t KN[8][2] = {{1, 2}, {2, 1}, {2, -1}, {1, -2}, {-1, -2}, {-2, -1}, {-2, 1}, {-1, 2}};
@@ -17,6 +19,38 @@ static int on(int f, int r) { return f >= 0 && f < 8 && r >= 0 && r < 8; }
 void chess_start(cpos *p)
 {
     chess_from_fen(p, "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+}
+
+/* the k-th empty square of the back rank */
+static void put(char *rank, int k, char piece)
+{
+    for (int f = 0; f < 8; f++)
+        if (!rank[f] && k-- == 0) { rank[f] = piece; return; }
+}
+
+/* Scharnagl's numbering: the light-squared bishop (b d f h), the dark one (a c e g), the queen on one of the six
+ * empty squares, the knights on two of the five left, then rook, king, rook on the last three */
+void chess_start960(cpos *p, int n)
+{
+    static const int8_t KNIGHTS[10][2] = {{0, 1}, {0, 2}, {0, 3}, {0, 4}, {1, 2}, {1, 3}, {1, 4}, {2, 3}, {2, 4},
+                                          {3, 4}};
+    char rank[9] = {0}, fen[96];
+    n = (n % 960 + 960) % 960;
+    rank[2 * (n % 4) + 1] = 'b';
+    n /= 4;
+    rank[2 * (n % 4)] = 'b';
+    n /= 4;
+    put(rank, n % 6, 'q');
+    n /= 6;
+    put(rank, KNIGHTS[n][1], 'n');              /* the further one first: the nearer one's count stays the same */
+    put(rank, KNIGHTS[n][0], 'n');
+    put(rank, 0, 'r');
+    put(rank, 0, 'k');
+    put(rank, 0, 'r');
+    char white[9];
+    for (int f = 0; f < 9; f++) white[f] = rank[f] ? (char)(rank[f] - 32) : 0;
+    snprintf(fen, sizeof fen, "%s/pppppppp/8/8/8/8/PPPPPPPP/%s w KQkq - 0 1", rank, white);
+    chess_from_fen(p, fen);
 }
 
 static const char *number(const char *f, int *v)
@@ -46,8 +80,23 @@ int chess_from_fen(cpos *p, const char *f)
     p->side = *f == 'b' ? BLACK : WHITE;
     if (*f) f++;
     while (*f == ' ') f++;
-    for (; *f && *f != ' '; f++)
-        p->castle |= *f == 'K' ? CASTLE_WK : *f == 'Q' ? CASTLE_WQ : *f == 'k' ? CASTLE_BK : *f == 'q' ? CASTLE_BQ : 0;
+    static const uint8_t usual[4] = {7, 0, 7, 0};
+    memcpy(p->rook, usual, 4);
+    for (; *f && *f != ' '; f++) {              /* K / Q: the outermost rook on that side (X-FEN); A..H: that file */
+        int color = *f >= 'a' ? BLACK : WHITE, c = *f | 0x20, hr = color == WHITE ? 0 : 7, k = chess_king(p, color);
+        if (k < 0 || RANK_OF(k) != hr) continue;
+        int kf = FILE_OF(k), file = -1;
+        if (c == 'k')
+            for (int x = 7; x > kf && file < 0; x--) file = p->sq[SQ(x, hr)] == PC(color, ROOK) ? x : -1;
+        else if (c == 'q')
+            for (int x = 0; x < kf && file < 0; x++) file = p->sq[SQ(x, hr)] == PC(color, ROOK) ? x : -1;
+        else if (c >= 'a' && c <= 'h')
+            file = c - 'a';
+        if (file < 0 || file == kf) continue;
+        int bit = color * 2 + (file < kf);
+        p->castle |= (uint8_t)(1 << bit);
+        p->rook[bit] = (uint8_t)file;
+    }
     while (*f == ' ') f++;
     if (*f >= 'a' && *f <= 'h' && f[1] >= '1' && f[1] <= '8') { p->ep = (int8_t)SQ(f[0] - 'a', f[1] - '1'); f += 2; }
     else if (*f == '-') f++;
@@ -115,17 +164,32 @@ static int pawn_add(cmove *out, int n, int from, int to, int flags, int promotes
     return n;
 }
 
-static int castles(const cpos *p, int us, cmove *out, int n)
+/* every square from a to b (on one rank) empty, but for the castling king and rook */
+static int clear(const cpos *p, int a, int b, int k, int r)
 {
-    int hr = us == WHITE ? 0 : 7, them = !us;
-    int ks = us == WHITE ? CASTLE_WK : CASTLE_BK, qs = us == WHITE ? CASTLE_WQ : CASTLE_BQ;
-    if (p->sq[SQ(4, hr)] != PC(us, KING) || chess_attacked(p, SQ(4, hr), them)) return n;
-    if ((p->castle & ks) && p->sq[SQ(7, hr)] == PC(us, ROOK) && !p->sq[SQ(5, hr)] && !p->sq[SQ(6, hr)] &&
-        !chess_attacked(p, SQ(5, hr), them) && !chess_attacked(p, SQ(6, hr), them))
-        n = add(out, n, SQ(4, hr), SQ(6, hr), MV_CASTLE, 0);
-    if ((p->castle & qs) && p->sq[SQ(0, hr)] == PC(us, ROOK) && !p->sq[SQ(1, hr)] && !p->sq[SQ(2, hr)] &&
-        !p->sq[SQ(3, hr)] && !chess_attacked(p, SQ(3, hr), them) && !chess_attacked(p, SQ(2, hr), them))
-        n = add(out, n, SQ(4, hr), SQ(2, hr), MV_CASTLE, 0);
+    for (int s = a < b ? a : b, e = a < b ? b : a; s <= e; s++)
+        if (p->sq[s] && s != k && s != r) return 0;
+    return 1;
+}
+
+/* the king on k castles: onto the rook's square (chess.h). The king and the rook end on g and f (or c and d), the
+ * squares they cross empty; the king not in check, crossing and reaching only squares no enemy attacks (seen with
+ * the king and the rook off the board: a rook may hide an attack on the king's new square) */
+static int castles(const cpos *p, int k, cmove *out, int n)
+{
+    int us = p->side, them = !us, hr = us == WHITE ? 0 : 7;
+    if (RANK_OF(k) != hr || chess_attacked(p, k, them)) return n;
+    for (int side = 0; side < 2; side++) {     /* 0: towards h, 1: towards a */
+        int bit = us * 2 + side;
+        if (!(p->castle >> bit & 1)) continue;
+        int r = SQ(p->rook[bit], hr), kt = SQ(side ? 2 : 6, hr), rt = SQ(side ? 3 : 5, hr);
+        if (p->sq[r] != PC(us, ROOK) || !clear(p, k, kt, k, r) || !clear(p, r, rt, k, r)) continue;
+        cpos q = *p;
+        q.sq[k] = q.sq[r] = EMPTY;
+        int safe = 1;
+        for (int s = k < kt ? k : kt, e = k < kt ? kt : k; s <= e && safe; s++) safe = !chess_attacked(&q, s, them);
+        if (safe) n = add(out, n, k, r, MV_CASTLE, 0);
+    }
     return n;
 }
 
@@ -169,7 +233,7 @@ static int pseudo(const cpos *p, cmove *out)
                 if (!q) n = add(out, n, s, to, 0, 0);
                 else if (COLOR(q) != us) n = add(out, n, s, to, MV_CAPTURE, 0);
             }
-            if (t == KING) n = castles(p, us, out, n);
+            if (t == KING) n = castles(p, s, out, n);
         } else {
             if (t != ROOK) n = slide(p, s, DIAG, 4, out, n);
             if (t != BISHOP) n = slide(p, s, ORTH, 4, out, n);
@@ -190,33 +254,26 @@ int chess_legal(const cpos *p, cmove *out)
     return k;
 }
 
-/* the castling rights a move from or to this square keeps (a king or a rook leaves, or a rook is taken) */
-static int keeps(int s)
-{
-    switch (s) {
-    case SQ(0, 0): return ~CASTLE_WQ;
-    case SQ(7, 0): return ~CASTLE_WK;
-    case SQ(4, 0): return ~(CASTLE_WK | CASTLE_WQ);
-    case SQ(0, 7): return ~CASTLE_BQ;
-    case SQ(7, 7): return ~CASTLE_BK;
-    case SQ(4, 7): return ~(CASTLE_BK | CASTLE_BQ);
-    default: return ~0;
-    }
-}
-
 void chess_make(cpos *p, cmove m)
 {
     int pc = p->sq[m.from], us = p->side, them = !us;
-    int resets = TYPE(pc) == PAWN || p->sq[m.to];
-    p->sq[m.to] = m.promo ? PC(us, m.promo) : (uint8_t)pc;
-    p->sq[m.from] = EMPTY;
-    if (m.flags & MV_EP) p->sq[SQ(FILE_OF(m.to), RANK_OF(m.from))] = EMPTY;
-    if (m.flags & MV_CASTLE) {
-        int r = RANK_OF(m.from), rf = FILE_OF(m.to) == 6 ? 7 : 0, rt = FILE_OF(m.to) == 6 ? 5 : 3;
-        p->sq[SQ(rt, r)] = p->sq[SQ(rf, r)];
-        p->sq[SQ(rf, r)] = EMPTY;
+    int resets = TYPE(pc) == PAWN || (p->sq[m.to] && !(m.flags & MV_CASTLE));
+    if (m.flags & MV_CASTLE) {                  /* the king and the rook both lift, then land */
+        int rook = p->sq[m.to];
+        p->sq[m.from] = p->sq[m.to] = EMPTY;
+        p->sq[chess_castle_king(m)] = (uint8_t)pc;
+        p->sq[chess_castle_rook(m)] = (uint8_t)rook;
+    } else {
+        p->sq[m.to] = m.promo ? PC(us, m.promo) : (uint8_t)pc;
+        p->sq[m.from] = EMPTY;
+        if (m.flags & MV_EP) p->sq[SQ(FILE_OF(m.to), RANK_OF(m.from))] = EMPTY;
     }
-    p->castle &= (uint8_t)(keeps(m.from) & keeps(m.to));
+    /* the castling rights: lost when the king moves, or a rook leaves its square or is taken there */
+    if (TYPE(pc) == KING) p->castle &= (uint8_t)~(3 << us * 2);
+    for (int i = 0; i < 4; i++) {
+        int home = SQ(p->rook[i], i < 2 ? 0 : 7);
+        if (m.from == home || m.to == home) p->castle &= (uint8_t)~(1 << i);
+    }
     p->ep = -1;
     if (m.flags & MV_DOUBLE) {                      /* only when it can be taken: repeated positions compare right */
         int f = FILE_OF(m.to), r = RANK_OF(m.to);
@@ -233,6 +290,12 @@ void game_new(cgame *g)
 {
     g->ply = 0;
     chess_start(&g->pos[0]);
+}
+
+void game_new960(cgame *g, int n)
+{
+    g->ply = 0;
+    chess_start960(&g->pos[0], n);
 }
 
 int game_play(cgame *g, cmove m)
