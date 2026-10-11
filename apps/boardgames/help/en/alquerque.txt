@@ -1,0 +1,16 @@
+Alquerque
+# The aim
+Take all the other player's pieces, or leave them with no move. Each player has twelve pieces. Light plays first.
+# The board
+Twenty-five points joined by lines: every row, every column, and the diagonals drawn on the board. Each player's pieces fill the two rows nearest to them and the two points on their right in the middle row. Only the centre point is empty.
+# Moving
+On your turn, move one of your pieces along a line to the next point, if it is empty. A piece moves forwards, straight or slanting, or sideways, but never backwards.
+# Capturing
+If an enemy piece is next to yours along a line and the point just beyond it is empty, jump over it and take it off the board. A piece may capture in any direction, backwards too. After a capture, the same piece goes on jumping while it can take another piece, all in the same turn.
+- Capturing is compulsory: when you can take a piece, you must, and a chain of captures must go on to its end. When there are several captures, you may choose any of them, not only the longest.
+- No piece is removed as a penalty for a missed capture (no huffing): a capture cannot be missed.
+# The end of the game
+- A player who cannot move, or has no pieces left, loses.
+- The game is a draw when the same position comes back for the third time, or after fifty moves each without a capture.
+# Playing on the device
+Tap your piece and then its new point, or drag it. The pieces that can be taken have a ring: with your piece selected, tap the point beyond, or the ringed piece itself. In a chain of captures, your piece stays picked up for the next jump.

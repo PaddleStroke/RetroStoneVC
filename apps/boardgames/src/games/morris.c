@@ -6,10 +6,10 @@
 #include <math.h>
 #include <string.h>
 
+#include "games/lines.h"
 #include "games/morris.h"
 #include "shell.h"
 
-#define FRAME 0.32f                             /* the board's frame, in cells (a seventh of the plank) */
 #define DISC 0.84f                              /* a disc's size, in cells */
 #define ANIM_MS 150
 #define FADE_MS 240
@@ -17,13 +17,13 @@
 static mgame G;
 static mmove legal[MORRIS_MAX_MOVES];
 static int nlegal;
-static int sq, fr, made = -1, made_small = -1;
-static float bx, by;                            /* the plank's top left corner */
+static lines_geo L = {.cells = 7};              /* the plank: 7 x 7 cells, a point in 24 of them */
+static int made_small = -1;
 static SDL_Texture *t_disc[2], *t_small[2], *t_board;
 static int sel = -1;
 static struct { int on, from, moved; float x, y; } drag;
 static struct { int on, color; mmove m; Uint32 t0; } anim;
-static const uint8_t INK[3] = {62, 40, 26}, GOLD[3] = {255, 196, 64}, BLACK[3] = {0, 0, 0};
+static const uint8_t GOLD[3] = {255, 196, 64}, BLACK[3] = {0, 0, 0};
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
 static void refresh(void)
@@ -97,73 +97,28 @@ static int script(const char *s)
 }
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
-static float cover(float a, float b, int px)    /* how much of pixel px the span a..b covers */
-{
-    float c = fminf(px + 1.0f, b) - fmaxf((float)px, a);
-    return c < 0 ? 0 : c > 1 ? 1 : c;
-}
-
-static void mix(uint8_t *p, const uint8_t c[3], float a)
-{
-    for (int k = 0; k < 3; k++) p[k] = (uint8_t)(p[k] + (c[k] - p[k]) * a + 0.5f);
-}
-
-/* a rectangle, its edges smoothed, painted over a picture n pixels wide */
-static void paint_rect(uint8_t *o, int n, float x0, float y0, float x1, float y1, const uint8_t c[3], float a)
-{
-    for (int y = (int)floorf(y0); y < (int)ceilf(y1); y++)
-        for (int x = (int)floorf(x0); x < (int)ceilf(x1); x++)
-            if (x >= 0 && y >= 0 && x < n && y < n)
-                mix(o + 4 * (y * n + x), c, a * cover(x0, x1, x) * cover(y0, y1, y));
-}
-
-static void paint_dot(uint8_t *o, int n, float cx, float cy, float r, const uint8_t c[3])
-{
-    for (int y = (int)floorf(cy - r - 1); y <= (int)ceilf(cy + r + 1); y++)
-        for (int x = (int)floorf(cx - r - 1); x <= (int)ceilf(cx + r + 1); x++) {
-            float d = hypotf(x + 0.5f - cx, y + 0.5f - cy), a = r - d + 0.5f;
-            if (x >= 0 && y >= 0 && x < n && y < n && a > 0) mix(o + 4 * (y * n + x), c, a > 1 ? 1 : a);
-        }
-}
-
-/* the line of a mill, from its first point to its last, w wide: cells of s pixels from (o, o) */
-static void mill_line(const int8_t *m, float s, float o, float w, float *x0, float *y0, float *x1, float *y1)
-{
-    float ax = o + (morris_x[m[0]] + 0.5f) * s, ay = o + (6 - morris_y[m[0]] + 0.5f) * s;
-    float bx2 = o + (morris_x[m[2]] + 0.5f) * s, by2 = o + (6 - morris_y[m[2]] + 0.5f) * s;
-    *x0 = fminf(ax, bx2) - w / 2;
-    *y0 = fminf(ay, by2) - w / 2;
-    *x1 = fmaxf(ax, bx2) + w / 2;
-    *y1 = fmaxf(ay, by2) + w / 2;
-}
-
-/* the plank with its lines and points: cells of s pixels in a frame of f; (7 s + 2 f) squared */
+/* the plank with its lines (each mill's, from its first point to its last) and points: cells of s pixels in a frame
+ * of f; (7 s + 2 f) squared */
 static void paint_board(int s, int f, uint8_t *o)
 {
-    int n = 7 * s + 2 * f;
-    art_board_n(7, 7, s, f, 0, o);
-    float w = fmaxf(2.0f, 0.06f * s), x0, y0, x1, y1;
+    int8_t seg[MORRIS_MILLS][4], pt[MORRIS_POINTS][2];
     for (int i = 0; i < MORRIS_MILLS; i++) {
-        mill_line(morris_mill[i], (float)s, (float)f, w, &x0, &y0, &x1, &y1);
-        paint_rect(o, n, x0, y0, x1, y1, INK, 1);
+        const int8_t *m = morris_mill[i];
+        seg[i][0] = morris_x[m[0]], seg[i][1] = morris_y[m[0]], seg[i][2] = morris_x[m[2]], seg[i][3] = morris_y[m[2]];
     }
-    for (int i = 0; i < MORRIS_POINTS; i++)
-        paint_dot(o, n, f + (morris_x[i] + 0.5f) * s, f + (6 - morris_y[i] + 0.5f) * s, fmaxf(1.6f, 0.11f * s), INK);
+    for (int i = 0; i < MORRIS_POINTS; i++) pt[i][0] = morris_x[i], pt[i][1] = morris_y[i];
+    lines_paint(7, s, f, (const int8_t (*)[4])seg, MORRIS_MILLS, (const int8_t (*)[2])pt, MORRIS_POINTS,
+                fmaxf(2.0f, 0.06f * s), fmaxf(1.6f, 0.11f * s), o);
 }
 
 static void layout(box b)
 {
-    sq = (int)floorf(b.w / (7 + 2 * FRAME));
-    fr = (int)(sq * FRAME);
-    int n = 7 * sq + 2 * fr;
-    bx = floorf(b.x + (b.w - n) / 2) + fr;
-    by = floorf(b.y + (b.h - n) / 2) + fr;
-    if (made != sq) {
-        made = sq;
+    int changed = lines_fit(&L, b), n = (int)lines_side(&L);
+    if (changed) {
         ui_free(&t_board);
-        paint_board(sq, fr, ui_buf(n, n));
+        paint_board(L.sq, L.fr, ui_buf(n, n));
         t_board = ui_tex(n, n, ui_buf(n, n));
-        int d = (int)(DISC * sq);
+        int d = (int)(DISC * L.sq);
         for (int c = 0; c < 2; c++) {
             ui_free(&t_disc[c]);
             art_counter(COUNTER_DISC, c, d, ui_buf(d, d));
@@ -184,19 +139,15 @@ static void layout(box b)
 /* ---- the board on the screen ------------------------------------------------------------------------------------- */
 static void pt_xy(int pt, float *x, float *y)  /* a point's centre */
 {
-    int c = morris_x[pt], r = 6 - morris_y[pt];
-    if (ui.flipped) { c = 6 - c; r = 6 - r; }
-    *x = bx + (c + 0.5f) * sq;
-    *y = by + (r + 0.5f) * sq;
+    lines_xy(&L, morris_x[pt], morris_y[pt], x, y);
 }
 
 static int xy_pt(float x, float y)              /* the point whose cell holds (x, y); -1 */
 {
-    int c = (int)floorf((x - bx) / sq), r = (int)floorf((y - by) / sq);
-    if (c < 0 || c > 6 || r < 0 || r > 6) return -1;
-    if (ui.flipped) { c = 6 - c; r = 6 - r; }
+    int gx, gy;
+    if (!lines_at(&L, x, y, &gx, &gy)) return -1;
     for (int i = 0; i < MORRIS_POINTS; i++)
-        if (morris_x[i] == c && morris_y[i] == 6 - r) return i;
+        if (morris_x[i] == gx && morris_y[i] == gy) return i;
     return -1;
 }
 
@@ -208,12 +159,7 @@ static void disc_at(int c, float cx, float cy, float d, float alpha)
     SDL_SetTextureAlphaMod(t_disc[c], 255);
 }
 
-static void mark_last(int pt)
-{
-    float x, y;
-    pt_xy(pt, &x, &y);
-    ui_mark_last(x - sq / 2.0f, y - sq / 2.0f, (float)sq, (float)sq);
-}
+static void mark_last(int pt) { lines_mark_last(&L, morris_x[pt], morris_y[pt]); }
 
 /* the mill just made: a gold line along it, a gold light under its pieces */
 static void draw_mill(const mpos *p)
@@ -224,14 +170,14 @@ static void draw_mill(const mpos *p)
         if ((m[0] != to && m[1] != to && m[2] != to) || p->at[m[0]] != p->side || p->at[m[1]] != p->side ||
             p->at[m[2]] != p->side)
             continue;
-        float x0, y0, x1, y1, w = 0.17f * sq;
+        float x0, y0, x1, y1, w = 0.17f * L.sq;
         pt_xy(m[0], &x0, &y0);
         pt_xy(m[2], &x1, &y1);
         ui_fill(fminf(x0, x1) - w / 2, fminf(y0, y1) - w / 2, fabsf(x1 - x0) + w, fabsf(y1 - y0) + w,
                 250, 206, 80, 230);
         for (int j = 0; j < 3; j++) {
             pt_xy(m[j], &x0, &y0);
-            ui_mark_gold(x0, y0, 1.7f * sq);
+            ui_mark_gold(x0, y0, 1.7f * L.sq);
         }
     }
 }
@@ -239,27 +185,24 @@ static void draw_mill(const mpos *p)
 static void draw(void)
 {
     const mpos *p = morris_pos(&G);
-    float n = 7.0f * sq + 2 * fr, d = DISC * sq, x, y;
+    float n = lines_side(&L), d = DISC * L.sq, x, y;
     int st = status();
-    ui_put(t_board, bx - fr, by - fr, n, n);
+    ui_put(t_board, L.x - L.fr, L.y - L.fr, n, n);
     for (int k = G.ply - 1; k >= 0 && k >= G.ply - 2; k--) {   /* the last turn: a removal, and the move before it */
         if (G.move[k].from >= 0) mark_last(G.move[k].from);
         if (G.move[k].to >= 0) mark_last(G.move[k].to);
         if (G.move[k].type != M_TAKE) break;
     }
     if (p->take && G.ply) draw_mill(p);
-    if (sel >= 0) {
-        pt_xy(sel, &x, &y);
-        ui_mark_select(x - sq / 2.0f, y - sq / 2.0f, (float)sq, (float)sq);
-    }
+    if (sel >= 0) lines_mark_select(&L, morris_x[sel], morris_y[sel]);
     for (int i = 0; st == GS_PLAY && i < nlegal; i++) {          /* where to play, what can be removed */
         const mmove *m = &legal[i];
         if (m->type == M_TAKE) {
             pt_xy(m->from, &x, &y);
-            ui_mark_glow(x, y, 1.5f * sq);
+            ui_mark_glow(x, y, 1.5f * L.sq);
         } else if (m->type == M_PLACE || m->from == sel) {
             pt_xy(m->to, &x, &y);
-            ui_mark_dot(x, y, 0.36f * sq);
+            ui_mark_dot(x, y, 0.36f * L.sq);
         }
     }
     float t = 1;
@@ -330,7 +273,7 @@ static void press(float x, float y)
 static void motion(float x, float y)
 {
     if (!drag.on) return;
-    if (hypotf(x - drag.x, y - drag.y) > sq * 0.12f) drag.moved = 1;
+    if (hypotf(x - drag.x, y - drag.y) > L.sq * 0.12f) drag.moved = 1;
     drag.x = x;
     drag.y = y;
     ui_animate();
@@ -365,13 +308,14 @@ static void token(int player, int size, uint8_t *rgba) { art_counter(COUNTER_DIS
 static void thumb(int variant, int size, uint8_t *rgba)
 {
     (void)variant;
-    int s = (int)(size / (7 + 2 * FRAME)), f = (int)(s * FRAME), n = 7 * s + 2 * f, o = (size - n) / 2;
+    int s = (int)(size / (7 + 2 * LINES_FRAME)), f = (int)(s * LINES_FRAME), n = 7 * s + 2 * f, o = (size - n) / 2;
     int d = (int)(DISC * s), sh = (int)(1.25f * d);
     uint8_t *board = ui_buf(n, n);
     paint_board(s, f, board);
-    float x0, y0, x1, y1;
-    mill_line(morris_mill[7], (float)s, (float)f, 0.17f * s, &x0, &y0, &x1, &y1);   /* a7 d7 g7 */
-    paint_rect(board, n, x0, y0, x1, y1, GOLD, 0.9f);
+    const int8_t *m = morris_mill[7];           /* a7 d7 g7 */
+    lines_band(board, n, lines_px(morris_x[m[0]], (float)s, (float)f), lines_py(7, morris_y[m[0]], (float)s, (float)f),
+               lines_px(morris_x[m[2]], (float)s, (float)f), lines_py(7, morris_y[m[2]], (float)s, (float)f),
+               0.17f * s, GOLD, 0.9f);
     art_blend(rgba, size, size, board, n, n, o, o);
     static const char place[][3] = {"a7", "d7", "g7", "d2", "b4", "e3", "f4", "d6", "c3", "e5", "b2"};
     for (unsigned i = 0; i < sizeof place / sizeof place[0]; i++) {
