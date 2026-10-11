@@ -1,0 +1,11 @@
+Gomoku
+# The aim
+Be the first to line up five stones of your colour in an unbroken row: across, up and down, or diagonally. Stones are played on the points where the lines cross, and never move once played. Black (dark) plays first, then the players take turns, one stone each.
+# Freestyle and standard
+Choose the rules before the game:
+- Freestyle (the card with six stones in a row): five or more stones in a row win.
+- Standard (the card with five): exactly five stones in a row win. A row of six or more does not count, but the game goes on and a five made elsewhere still wins.
+# The end of the game
+The first player to make a winning row wins at once. If the board fills up with no winning row, the game is a draw.
+# Playing on the device
+The first tap shows a pale stone, a second tap on the same point plays it. This keeps small points easy to hit. The winning row lights up in gold.
