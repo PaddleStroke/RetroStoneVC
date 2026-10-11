@@ -276,14 +276,21 @@ static void piece(art_fig *f, int type)
     }
 }
 
-const art_style art_player[2] = {
+const art_style art_player[ART_PLAYERS] = {
     {{242, 234, 216}, {36, 30, 28}, {64, 54, 48}, {36, 30, 28}, 0.22f, 0},          /* ivory */
     {{70, 64, 62}, {10, 9, 9}, {150, 140, 132}, {205, 195, 185}, 0.35f, 0},         /* ebony */
+    {{168, 52, 40}, {48, 14, 10}, {226, 140, 120}, {246, 222, 204}, 0.32f, 0},      /* red lacquer */
+    {{62, 128, 98}, {14, 40, 28}, {150, 206, 176}, {226, 242, 228}, 0.32f, 0},      /* jade */
+    {{222, 168, 66}, {66, 42, 10}, {120, 84, 30}, {62, 40, 12}, 0.26f, 0},          /* amber */
+    {{52, 84, 150}, {10, 20, 46}, {150, 176, 226}, {222, 230, 248}, 0.32f, 0},      /* lapis */
 };
+
+static int player_index(int p) { return p < 0 ? 0 : p >= ART_PLAYERS ? ART_PLAYERS - 1 : p; }
+int art_player_dark(int p) { return player_index(p) != 0 && player_index(p) != 4; }
 
 void art_piece(int type, int color, int size, uint8_t *rgba)
 {
-    art_style st = art_player[color == WHITE ? 0 : 1];
+    art_style st = art_player[player_index(color)];
     st.line = fmaxf(0.024f, 1.3f / size);
     art_fig *f = art_fig_new();
     piece(f, type);
@@ -293,14 +300,15 @@ void art_piece(int type, int color, int size, uint8_t *rgba)
 
 void art_counter(int kind, int player, int size, uint8_t *rgba)
 {
-    art_style st = art_player[player ? 1 : 0];
+    art_style st = art_player[player_index(player)];
     st.line = fmaxf(0.022f, 1.3f / size);
     art_fig *f = art_fig_new();
     if (kind == COUNTER_STONE) {                    /* glossy, a highlight towards the light */
-        st.light = player ? 0.55f : 0.28f;
+        st.light = art_player_dark(player) ? 0.55f : 0.28f;
         art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.45f, 0.45f);
         static const float hi[2][3] = {{255, 255, 250}, {150, 144, 140}};
-        memcpy(st.mark, hi[player ? 1 : 0], sizeof st.mark);
+        if (player == 0 || player == 1) memcpy(st.mark, hi[player], sizeof st.mark);
+        else for (int i = 0; i < 3; i++) st.mark[i] = fminf(255, st.fill[i] * 0.5f + 140);
         art_ellipse(f, ART_MARK, 0.36f, 0.33f, 0.09f, 0.06f);
     } else {
         art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.44f, 0.44f);
@@ -335,9 +343,9 @@ void art_die(int value, int player, int size, uint8_t *rgba)
         {{0.29f, 0.29f}, {0.71f, 0.29f}, {0.29f, 0.71f}, {0.71f, 0.71f}},
         {{0.28f, 0.28f}, {0.72f, 0.28f}, {0.5f, 0.5f}, {0.28f, 0.72f}, {0.72f, 0.72f}},
         {{0.29f, 0.26f}, {0.71f, 0.26f}, {0.29f, 0.5f}, {0.71f, 0.5f}, {0.29f, 0.74f}, {0.71f, 0.74f}}};
-    art_style st = art_player[player ? 1 : 0];
+    art_style st = art_player[player_index(player)];
     st.line = fmaxf(0.025f, 1.3f / size);
-    st.light = player ? 0.30f : 0.16f;
+    st.light = art_player_dark(player) ? 0.30f : 0.16f;
     art_fig *f = art_fig_new();
     float p[2 * 40], r = 0.17f, lo = 0.08f, hi = 0.92f;
     int n = 0;

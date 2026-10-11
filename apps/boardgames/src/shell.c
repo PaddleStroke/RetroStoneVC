@@ -6,7 +6,7 @@
  *
  *   retrostoneboard                   the app (a window; full screen on Android)
  *   retrostoneboard --shot out.bmp [--size 720x1280] [--game chess] [--variant 0] [--moves "e2e4 e7e5"]
- *                   [--taps "0.5,0.9 0.5,0.7"] [--flip] [--f2f] [--keep] [--pick]
+ *                   [--taps "0.5,0.9 0.5,0.7"] [--flip] [--f2f] [--keep] [--pick] [--players n]
  *                                     one picture, no window: the menu (no --game), the picker (--pick) or a game
  *                                     after its moves (its own notation) and taps (fractions of the board)
  * Keys: Esc / Back home (in the menu: quit), U undo, F flip, T face to face, N new game, M sound.
@@ -21,7 +21,7 @@
 
 #define MAX_GAMES 64
 
-struct ui ui;
+struct ui ui = {.players = 2};
 static const game *games[MAX_GAMES];
 static int ngames;
 static SDL_Window *win;
@@ -30,6 +30,21 @@ static int quit, need_frame;
 enum { SCR_MENU, SCR_PICK, SCR_GAME };
 static int screen, cur = -1;                    /* the game shown (games[cur]) */
 static int variant[MAX_GAMES], started[MAX_GAMES];
+static int nplayers[MAX_GAMES];                 /* how many play each game (the picker's choice; 0: not chosen) */
+
+/* the counts a game can be played with: bit n, n players */
+static unsigned player_counts(int g) { return games[g]->players ? games[g]->players : 1u << 2; }
+static int many_counts(int g) { unsigned c = player_counts(g); return (c & (c - 1)) != 0; }
+
+static int players_of(int g)
+{
+    unsigned c = player_counts(g);
+    if (!nplayers[g] || !(c >> nplayers[g] & 1)) {     /* two if it can, else the fewest */
+        nplayers[g] = c >> 2 & 1 ? 2 : 1;
+        while (!(c >> nplayers[g] & 1)) nplayers[g]++;
+    }
+    return nplayers[g];
+}
 static int last_status, over_hidden, instant;   /* instant: the picture mode (no pause before the end card) */
 static Uint32 end_seen;                         /* when the end of the game was first shown (0: not yet) */
 #define END_PAUSE 900                           /* ms of the final position before the end card */
@@ -39,18 +54,21 @@ enum { B_HOME, B_UNDO, B_FLIP, B_F2F, B_NEW, B_HELP, NBTN };
 static const int BTN_ICON[NBTN] = {ICON_HOME, ICON_UNDO, ICON_FLIP, ICON_F2F, ICON_NEW, ICON_HELP};
 
 static struct {
-    box board, bar[2];                          /* bar[player] */
+    box board, bar[MAX_PLAYERS];                /* bar[player] */
     float bx[NBTN], by[NBTN], br;               /* the buttons: centres, radius */
     float tk;                                   /* a token's size */
     /* the menu and the picker */
     int cols, card, label;                      /* label: the height of a card's name under its picture */
     box cards[MAX_GAMES];
     float snd_x, snd_y, snd_r;
+    box pills[MAX_PLAYERS + 1];                 /* the picker: how many players (pill_n[i] each) */
+    int npills, pill_n[MAX_PLAYERS + 1];
 } L;
 
 static SDL_Texture *t_bg, *t_btn, *t_btn_armed, *t_btn_on, *t_icon[ICONS], *t_card, *t_gold, *t_shadow, *t_ring,
-    *t_glow, *t_tok[2], *t_big[2], *t_bartex, *t_menu_card, *t_thumb[MAX_GAMES][8], *t_name[MAX_GAMES];
-static int made_unit = -1, made_game = -1, made_card = -1, bar_w, bar_h, bar_m;
+    *t_glow, *t_tok[MAX_PLAYERS], *t_big[MAX_PLAYERS], *t_bartex, *t_menu_card, *t_thumb[MAX_GAMES][8],
+    *t_name[MAX_GAMES], *t_pill, *t_pill_on, *t_ptok[MAX_PLAYERS];
+static int made_unit = -1, made_game = -1, made_card = -1, made_pill = -1, bar_w, bar_h, bar_m;
 
 /* the rules page (a game's, or the app's from the menu): the text drawn in tiles, scrolled */
 #define TILE 512
@@ -86,7 +104,17 @@ static int by_order(const void *a, const void *b)
 
 /* ---- helpers for the games --------------------------------------------------------------------------------------- */
 int ui_bottom(void) { return ui.flipped ? 1 : 0; }
-int ui_upside(int player) { return ui.f2f && player != ui_bottom(); }
+/* a player's bar above the board (then turned round face to face): the game's home(), else the player not at the
+ * bottom */
+static int seat_top(int p)
+{
+    if (cur < 0 || !games[cur]->home) return p != ui_bottom();
+    float fx, fy;
+    games[cur]->home(p, &fx, &fy);
+    return ui.flipped ? fy > 0.5f : fy < 0.5f;
+}
+
+int ui_upside(int player) { return ui.f2f && seat_top(player); }
 static Uint32 ms_ahead;                         /* the picture mode: the clock moved on past the last tap */
 Uint32 ui_ms(void) { return SDL_GetTicks() + ms_ahead; }
 void ui_animate(void) { need_frame = 1; }
@@ -243,7 +271,7 @@ static struct {
     int n, v[MAX_DICE], player[MAX_DICE], made;
     float tilt[MAX_DICE];
     Uint32 t0;
-    SDL_Texture *face[2][7];
+    SDL_Texture *face[MAX_PLAYERS][7];
 } dice;
 
 /* the dice set to their values and colours (players: one per die, or NULL: all `player`'s), tumbling or at rest */
@@ -252,7 +280,8 @@ static void dice_set(int n, const int *values, const int *players, int player, i
     dice.n = n < 0 ? 0 : n > MAX_DICE ? MAX_DICE : n;
     for (int i = 0; i < dice.n; i++) {
         dice.v[i] = values[i];
-        dice.player[i] = (players ? players[i] : player) ? 1 : 0;
+        int p = players ? players[i] : player;
+        dice.player[i] = p < 0 ? 0 : p >= MAX_PLAYERS ? MAX_PLAYERS - 1 : p;
         dice.tilt[i] = tumble ? (float)(ui_random(31) - 15) : 0;   /* they land a little askew */
     }
     if (!tumble) {
@@ -275,7 +304,7 @@ static void dice_faces(int s)
 {
     if (dice.made == s) return;
     dice.made = s;
-    for (int p = 0; p < 2; p++)
+    for (int p = 0; p < MAX_PLAYERS; p++)
         for (int v = 1; v <= 6; v++) {
             ui_free(&dice.face[p][v]);
             art_die(v, p, s, ui_buf(s, s));
@@ -288,7 +317,7 @@ void ui_die_at(float cx, float cy, float size, int player, int value, float alph
     int s = (int)size;
     if (s < 4 || value < 1 || value > 6) return;
     dice_faces(s);
-    SDL_Texture *f = dice.face[player ? 1 : 0][value];
+    SDL_Texture *f = dice.face[player < 0 ? 0 : player >= MAX_PLAYERS ? MAX_PLAYERS - 1 : player][value];
     Uint8 a = (Uint8)(255 * (alpha < 0 ? 0 : alpha > 1 ? 1 : alpha) + 0.5f);
     ui_shadow_flat(cx, cy, size * 1.1f, size * 1.1f, alpha);
     SDL_SetTextureAlphaMod(f, a);
@@ -442,12 +471,12 @@ static void shared_textures(void)
 
 static void game_textures(void)
 {
-    if (made_game == cur) return;
-    made_game = cur;
+    if (made_game == cur * 8 + ui.players) return;
+    made_game = cur * 8 + ui.players;
     const game *g = games[cur];
     int tk = (int)L.tk, big = (int)(2.4f * ui.unit);
     uint8_t *b = calloc((size_t)big * big, 4);  /* its own buffer: the game may use ui_buf() while drawing */
-    for (int p = 0; p < 2; p++) {
+    for (int p = 0; p < ui.players; p++) {
         ui_free(&t_tok[p]);
         memset(b, 0, (size_t)tk * tk * 4);
         g->token(p, tk, b);
@@ -461,6 +490,9 @@ static void game_textures(void)
 }
 
 /* ---- layout ------------------------------------------------------------------------------------------------------ */
+/* the buttons shown: alone (one player), no flip nor face to face */
+static int shown(int i) { return ui.players > 1 || (i != B_FLIP && i != B_F2F); }
+
 static void layout_game(void)
 {
     float m = fminf(ui.w, ui.h) * 0.025f, u;
@@ -472,8 +504,11 @@ static void layout_game(void)
         L.board = (box){x, y + 1.2f * u, 9 * u, 9 * u};
         bottom = (box){x, L.board.y + 9.2f * u, 9 * u, u};
         L.br = 0.56f * u;
-        for (int i = 0; i < NBTN; i++) {
-            L.bx[i] = ui.w / 2.0f + (i - (NBTN - 1) / 2.0f) * 1.5f * u;
+        int nb = 0;
+        for (int i = 0; i < NBTN; i++) nb += shown(i);
+        for (int i = 0, k = 0; i < NBTN; i++) {
+            if (!shown(i)) continue;
+            L.bx[i] = ui.w / 2.0f + (k++ - (nb - 1) / 2.0f) * 1.5f * u;
             L.by[i] = bottom.y + bottom.h + 0.35f * u + L.br;
         }
     } else {                                    /* landscape: the board, then a column: bar, buttons, bar */
@@ -484,14 +519,43 @@ static void layout_game(void)
         top = (box){cx, y, 4 * u, u};
         bottom = (box){cx, y + 8 * u, 4 * u, u};
         L.br = 0.55f * u;
-        for (int i = 0; i < NBTN; i++) {        /* two rows of three */
-            L.bx[i] = cx + 2 * u + (i % 3 - 1) * 1.35f * u;
-            L.by[i] = y + 4.5f * u + (i / 3 ? 0.7f : -0.7f) * u;
+        int nb = 0;
+        for (int i = 0; i < NBTN; i++) nb += shown(i);
+        int per = (nb + 1) / 2;
+        for (int i = 0, k = 0; i < NBTN; i++) {     /* two rows (of three) */
+            if (!shown(i)) continue;
+            L.bx[i] = cx + 2 * u + (k % per - (per - 1) / 2.0f) * 1.35f * u;
+            L.by[i] = y + 4.5f * u + (k / per ? 0.7f : -0.7f) * u;
+            k++;
         }
     }
     ui.unit = u;
-    L.bar[ui_bottom()] = bottom;
-    L.bar[!ui_bottom()] = top;
+    /* each player's bar on their side of the board (home()), in their order from the left: side by side sharing the
+     * bar's width (portrait), or stacked (landscape: the column is narrow) */
+    int side[2][MAX_PLAYERS], n[2] = {0, 0};
+    float key[MAX_PLAYERS];
+    for (int p = 0; p < ui.players; p++) {
+        float fx = 0.5f, fy = 0;
+        if (cur >= 0 && games[cur]->home) games[cur]->home(p, &fx, &fy);
+        key[p] = ui.flipped ? 1 - fx : fx;
+        int s = seat_top(p), k = n[s]++;
+        while (k > 0 && key[side[s][k - 1]] > key[p]) { side[s][k] = side[s][k - 1]; k--; }
+        side[s][k] = p;
+    }
+    for (int s = 0; s < 2; s++) {
+        box b = s ? top : bottom;
+        for (int k = 0; k < n[s]; k++) {
+            box c = b;
+            if (ui.w <= ui.h) {
+                float gap = 0.25f * u;
+                c.w = floorf((b.w - (n[s] - 1) * gap) / n[s]);
+                c.x = b.x + k * (c.w + gap);
+            } else {
+                c.y = b.y + (s ? 1 : -1) * k * 1.1f * u;
+            }
+            L.bar[side[s][k]] = c;
+        }
+    }
     L.tk = 0.72f * u;
     shared_textures();
     made_game = -1;
@@ -511,6 +575,43 @@ static void layout_game(void)
 static void layout_cards(int n)
 {
     float m = fminf(ui.w, ui.h) * 0.05f, g = fminf(ui.w, ui.h) * 0.04f, head = fminf(ui.w, ui.h) * 0.16f;
+    float top = head;                           /* the buttons' row (the pills go below it) */
+    L.npills = 0;
+    if (screen == SCR_PICK && many_counts(cur)) {   /* how many play: a row of pills under the buttons, each with
+                                                     * that many of the game's tokens */
+        unsigned cnt = player_counts(cur);
+        int most = 0;
+        for (int k = 1; k <= MAX_PLAYERS; k++)
+            if (cnt >> k & 1) { L.pill_n[L.npills++] = k; most = k; }
+        float ph = fminf(ui.w, ui.h) * 0.12f, pw = ph * (0.5f + most * 0.44f), pg = ph * 0.3f;
+        float fit = (ui.w - 2 * m) / (L.npills * pw + (L.npills - 1) * pg);
+        if (fit < 1) { ph *= fit; pw *= fit; pg *= fit; }
+        ph = floorf(ph);
+        pw = floorf(pw);
+        float x = (ui.w - (L.npills * pw + (L.npills - 1) * pg)) / 2;
+        for (int k = 0; k < L.npills; k++) L.pills[k] = (box){floorf(x + k * (pw + pg)), floorf(head), pw, ph};
+        head += ph + g;
+        int ts = (int)(ph * 0.56f), key = cur * 100000 + (int)pw * 100 + (int)ph;
+        if (made_pill != key) {
+            made_pill = key;
+            const uint8_t off[4] = {54, 72, 64, 255}, on[4] = {150, 118, 46, 255};
+            ui_free(&t_pill);
+            art_roundrect((int)pw, (int)ph, ph / 2, off, ui_buf((int)pw, (int)ph));
+            t_pill = ui_tex((int)pw, (int)ph, ui_buf((int)pw, (int)ph));
+            ui_free(&t_pill_on);
+            art_roundrect((int)pw, (int)ph, ph / 2, on, ui_buf((int)pw, (int)ph));
+            t_pill_on = ui_tex((int)pw, (int)ph, ui_buf((int)pw, (int)ph));
+            uint8_t *b = calloc((size_t)ts * ts, 4);   /* its own buffer: the game may use ui_buf() */
+            for (int p = 0; p < MAX_PLAYERS; p++) {
+                ui_free(&t_ptok[p]);
+                if (p >= most) continue;
+                memset(b, 0, (size_t)ts * ts * 4);
+                games[cur]->token(p, ts, b);
+                t_ptok[p] = ui_tex(ts, ts, b);
+            }
+            free(b);
+        }
+    }
     int cols = ui.w > ui.h ? (n > 3 ? 3 : n) : (n > 1 ? 2 : 1);
     if (screen == SCR_PICK) cols = ui.w > ui.h || n <= 3 ? n : 2;
     if (screen == SCR_PICK && ui.w <= ui.h && n == 3) cols = 1;
@@ -543,9 +644,9 @@ static void layout_cards(int n)
         for (int i = 0; i < MAX_GAMES; i++) ui_free(&t_name[i]);
     }
     L.card = (int)c;
-    L.snd_r = head * 0.28f;
+    L.snd_r = top * 0.28f;
     L.snd_x = ui.w - m - L.snd_r;
-    L.snd_y = head * 0.55f;
+    L.snd_y = top * 0.55f;
     ui.unit = fminf(ui.w, ui.h) / 12.0f;
     L.br = L.snd_r;
     shared_textures();
@@ -568,15 +669,19 @@ static void layout(void)
 }
 
 /* ---- the screens ------------------------------------------------------------------------------------------------- */
+/* the picker comes before a new game when there is something to choose: a variant, how many play */
+static int needs_picker(int g) { return games[g]->variants > 1 || many_counts(g); }
+
 static void open_game(int i, int fresh_variant)
 {
     cur = i;
+    ui.players = players_of(i);
     if (fresh_variant >= 0) {
         variant[i] = fresh_variant;
         games[i]->start(fresh_variant);
         started[i] = 1;
     } else if (!started[i]) {
-        if (games[i]->variants > 1) {
+        if (needs_picker(i)) {
             screen = SCR_PICK;
             layout();
             return;
@@ -601,7 +706,7 @@ static void go_home(void)
 static void new_game(void)
 {
     armed = 0;
-    if (games[cur]->variants > 1) {
+    if (needs_picker(cur)) {
         started[cur] = 0;
         screen = SCR_PICK;
         layout();
@@ -640,7 +745,7 @@ static void bar_content(int p, box b)
 {
     const game *g = games[cur];
     int st = g->status(), turn = st == GS_PLAY && g->turn() == p;
-    int won = (st == GS_WIN0 && p == 0) || (st == GS_WIN1 && p == 1);
+    int won = gs_winner(st) == p && (ui.players > 1 || st == GS_WIN0);
     float cy = b.y + b.h / 2, tx = b.x + 0.15f * ui.unit + L.tk / 2;
     if (turn || won) {                          /* the gold light: whose turn it is, or who won */
         float k = turn ? 1.8f : 2.3f;
@@ -669,9 +774,11 @@ static void draw_bar(int p)
     SDL_SetRenderTarget(ui.r, t_bartex);         /* face to face: drawn in its own frame, then turned round */
     SDL_SetRenderDrawColor(ui.r, 0, 0, 0, 0);
     SDL_RenderClear(ui.r);
-    bar_content(p, (box){(float)bar_m, (float)bar_m, (float)bar_w, (float)bar_h});
+    bar_content(p, (box){(float)bar_m, (float)bar_m, b.w, b.h});
     SDL_SetRenderTarget(ui.r, NULL);
-    ui_put_rot(t_bartex, b.x + b.w / 2, b.y + b.h / 2, (float)(bar_w + 2 * bar_m), (float)(bar_h + 2 * bar_m), 180);
+    SDL_Rect src = {0, 0, (int)b.w + 2 * bar_m, (int)b.h + 2 * bar_m};   /* this bar's part (bars may share a side) */
+    SDL_FRect d = {b.x + b.w / 2 - src.w / 2.0f, b.y + b.h / 2 - src.h / 2.0f, (float)src.w, (float)src.h};
+    SDL_RenderCopyExF(ui.r, t_bartex, &src, &d, 180, NULL, SDL_FLIP_NONE);
 }
 
 static void draw_over(void)
@@ -682,14 +789,35 @@ static void draw_over(void)
     float u = ui.unit, cx = b.x + b.w / 2, cy = b.y + b.h / 2, big = 2.4f * u;
     ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 90);
     ui_put_c(t_card, cx, cy, 6.8f * u, 3.8f * u);
-    if (st == GS_DRAW) {                        /* both standing, an equals sign between them */
+    int np = ui.players;
+    if (np == 1) {                              /* alone: in gold light when it won, else lying down */
+        if (st == GS_WIN0) ui_put_c(t_gold, cx, cy, big * 1.25f, big * 1.25f);
+        if (st == GS_WIN0) ui_put_c(t_big[0], cx, cy, big, big);
+        else ui_put_rot(t_big[0], cx, cy + 0.3f * u, 2.0f * u, 2.0f * u, 90);
+    } else if (st == GS_DRAW && np > 2) {      /* everyone standing in a row */
+        float k = fminf(2.0f * u, 6.0f * u / np);
+        for (int p = 0; p < np; p++) ui_put_c(t_big[p], cx + (p - (np - 1) / 2.0f) * k * 1.05f, cy, k, k);
+    } else if (np > 2) {                        /* the winner in gold light, the others lying down, smaller */
+        int w = gs_winner(st), k = 0;
+        ui_put_c(t_gold, cx - 1.6f * u, cy, big * 1.25f, big * 1.25f);
+        ui_put_c(t_big[w], cx - 1.6f * u, cy, big, big);
+        float s = np > 4 ? 1.0f * u : 1.3f * u;
+        int rows = np > 3 ? 2 : 1, per = (np - 1 + rows - 1) / rows;
+        for (int p = 0; p < np; p++) {
+            if (p == w) continue;
+            int r = k / per, c = k % per;
+            ui_put_rot(t_big[p], cx + 0.6f * u + (c + 0.5f) * s * 1.1f, cy + (r - (rows - 1) / 2.0f) * s * 1.15f,
+                       s, s, 90);
+            k++;
+        }
+    } else if (st == GS_DRAW) {                 /* both standing, an equals sign between them */
         float k = 2.0f * u;
         ui_put_c(t_big[0], cx - 1.7f * u, cy, k, k);
         ui_put_c(t_big[1], cx + 1.7f * u, cy, k, k);
         ui_fill(cx - 0.32f * u, cy - 0.22f * u, 0.64f * u, 0.13f * u, 246, 238, 220, 255);
         ui_fill(cx - 0.32f * u, cy + 0.09f * u, 0.64f * u, 0.13f * u, 246, 238, 220, 255);
     } else {                                    /* the winner in gold light, the loser lying down */
-        int w = st == GS_WIN1;
+        int w = gs_winner(st) == 1;
         ui_put_c(t_gold, cx - 1.0f * u, cy, big * 1.25f, big * 1.25f);
         ui_put_c(t_big[w], cx - 1.0f * u, cy, big, big);
         ui_put_rot(t_big[!w], cx + 1.6f * u, cy + 0.3f * u, 1.7f * u, 1.7f * u, 90);
@@ -701,10 +829,10 @@ static void draw_game(void)
     const game *g = games[cur];
     game_textures();
     g->draw();
-    draw_bar(0);
-    draw_bar(1);
+    for (int p = 0; p < ui.players; p++) draw_bar(p);
     if (armed && SDL_GetTicks() - armed > 2500) armed = 0;
     for (int i = 0; i < NBTN; i++) {
+        if (!shown(i)) continue;
         SDL_Texture *disc = i == B_NEW && armed ? t_btn_armed : i == B_F2F && ui.f2f ? t_btn_on : NULL;
         draw_button(L.bx[i], L.by[i], L.br, BTN_ICON[i], disc);
     }
@@ -787,6 +915,13 @@ static SDL_Texture *label(int i)
 static void draw_cards(void)
 {
     int n = screen == SCR_MENU ? ngames : games[cur]->variants;
+    for (int k = 0; k < L.npills; k++) {       /* the picker: how many play */
+        box b = L.pills[k];
+        int np = L.pill_n[k];
+        float ts = floorf(b.h * 0.56f), step = b.h * 0.44f, x0 = b.x + b.w / 2 - (np - 1) * step / 2;
+        ui_put(np == ui.players ? t_pill_on : t_pill, b.x, b.y, b.w, b.h);
+        for (int p = 0; p < np; p++) ui_put_c(t_ptok[p], x0 + p * step, b.y + b.h / 2, ts, ts);
+    }
     float dy = 0;
     if (screen == SCR_MENU && menu.max > 0) {   /* the cards' window, below the buttons */
         if (menu.vel != 0 && !menu.grabbing) {  /* the fling: slows down, stops at the ends */
@@ -934,7 +1069,7 @@ static int in_circle(float x, float y, float cx, float cy, float r) { return hyp
 
 static int press_bar(float x, float y)
 {
-    for (int p = 0; p < 2; p++) {
+    for (int p = 0; p < ui.players; p++) {
         if (!shows_pass(p)) continue;
         box b = L.bar[p];
         float lx = x - b.x, ly = y - b.y;
@@ -977,6 +1112,13 @@ static void press(float x, float y)
             return;
         }
         if (screen == SCR_PICK && in_circle(x, y, home_x, L.snd_y, L.snd_r)) { snd_play(SND_TAP); go_home(); return; }
+        for (int k = 0; k < L.npills; k++) {
+            box b = L.pills[k];
+            if (x < b.x || y < b.y || x >= b.x + b.w || y >= b.y + b.h) continue;
+            snd_play(SND_TAP);
+            nplayers[cur] = ui.players = L.pill_n[k];
+            return;
+        }
         if (screen == SCR_MENU) {               /* a card opens on release, unless the finger scrolled the list */
             menu.grabbing = y >= menu.top;
             menu.moved = menu.vel != 0;         /* a tap that stops a fling opens nothing */
@@ -999,7 +1141,7 @@ static void press(float x, float y)
         return;
     }
     for (int i = 0; i < NBTN; i++) {
-        if (!in_circle(x, y, L.bx[i], L.by[i], L.br)) continue;
+        if (!shown(i) || !in_circle(x, y, L.bx[i], L.by[i], L.br)) continue;
         if (i == B_HOME) { snd_play(SND_TAP); go_home(); }
         else if (i == B_UNDO) { snd_play(games[cur]->undo() ? SND_TAP : SND_DENY); over_hidden = 0; }
         else if (i == B_FLIP) { snd_play(SND_TAP); ui.flipped = !ui.flipped; layout(); }
@@ -1014,7 +1156,7 @@ static void press(float x, float y)
     }
     if (press_bar(x, y)) return;
     if (games[cur]->status() != GS_PLAY && !over_hidden) { over_hidden = 1; return; }
-    for (int p = 0; p < 2 && games[cur]->bar_press; p++) {   /* the game's own use of a bar */
+    for (int p = 0; p < ui.players && games[cur]->bar_press; p++) {   /* the game's own use of a bar */
         box b = L.bar[p];
         if (x < b.x || y < b.y || x >= b.x + b.w || y >= b.y + b.h) continue;
         float fx = x, fy = y;                   /* in the frame bar() drew in */
@@ -1088,7 +1230,7 @@ static int find_game(const char *id)
 static int shot(int argc, char **argv)
 {
     const char *out = NULL, *id = NULL, *moves = NULL, *taps = NULL, *lang = NULL;
-    int v = 0, keep = 0, pick = 0, show_help = 0;
+    int v = 0, keep = 0, pick = 0, show_help = 0, np = 0;
     float scroll = 0;
     uint32_t seed = 1;
     int at = -1;                                /* --at ms: the picture that long after the last tap (else at rest) */
@@ -1108,6 +1250,7 @@ static int shot(int argc, char **argv)
         else if (!strcmp(argv[i], "--lang") && i + 1 < argc) lang = argv[++i];
         else if (!strcmp(argv[i], "--help")) show_help = 1;
         else if (!strcmp(argv[i], "--scroll") && i + 1 < argc) scroll = (float)atof(argv[++i]);
+        else if (!strcmp(argv[i], "--players") && i + 1 < argc) np = atoi(argv[++i]);
         else if (!strcmp(argv[i], "--seed") && i + 1 < argc) seed = (uint32_t)strtoul(argv[++i], NULL, 10);
         else if (!strcmp(argv[i], "--at") && i + 1 < argc) at = atoi(argv[++i]);
     }
@@ -1123,6 +1266,8 @@ static int shot(int argc, char **argv)
     if (id) {
         cur = find_game(id);
         if (cur < 0) { fprintf(stderr, "no game %s\n", id); return 1; }
+        if (np) nplayers[cur] = np;             /* --players n: how many play */
+        ui.players = players_of(cur);
         if (pick) { screen = SCR_PICK; layout(); }
         else {
             open_game(cur, v);

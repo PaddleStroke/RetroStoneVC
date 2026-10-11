@@ -30,6 +30,11 @@ One look across the app, like the Arcade games' house kit:
 
 - **Players** 0 and 1. Player 0 moves first and sits at the bottom (unless flipped). Their colours are the house's
   ivory and ebony (`art_player[]`), whichever plays first by the game's tradition (reversi: ebony first).
+- **More players, or one**: `players` (bit n: n can play; ludo `1 << 2 | 1 << 3 | 1 << 4`) makes the picker ask how
+  many; the game reads `ui.players` in `start()`. Players 2..5 are red lacquer, jade, amber, lapis (`art_player[]`,
+  pieces, counters and dice all follow). `home(player)` says where each one sits (a point of the board, 0..1): their
+  bar goes on that side, top or bottom; `gs_win(player)` / `gs_winner(status)` for the status. One player (a puzzle,
+  a code to find): `GS_WIN0` solved, `GS_WIN1` failed; the shell hides flip and face to face.
 - **Wood**: every board is the house wood (`art_board_n`: checkered squares, or one plain plank with lines drawn on
   it), in its walnut frame, on the shell's green table.
 - **Pieces** from `art.c` (`art_piece`, `art_counter`), with `ui_shadow()` under the standing ones and
@@ -64,7 +69,7 @@ One look across the app, like the Arcade games' house kit:
 
 ```
 retrostoneboard --shot out.bmp [--size 720x1280] [--game id] [--variant n] [--moves "..."] [--taps "fx,fy ..."]
-                [--flip] [--f2f] [--keep] [--pick] [--lang fr] [--help [--scroll px]] [--seed n] [--at ms]
+                [--flip] [--f2f] [--keep] [--pick] [--players n] [--lang fr] [--help [--scroll px]] [--seed n] [--at ms]
 ```
 
 No window: the menu (no `--game`), a game's picker (`--pick`), or a game after its moves (`--moves`, the game's

@@ -5,7 +5,8 @@
  * (games/<id>.c) only brings its rules and its board, and registers itself with REGISTER_GAME.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- * Players: 0 and 1. Player 0 plays first and sits at the bottom (white, ivory), unless the board is flipped. No text
+ * Players: 0 and 1. Player 0 plays first and sits at the bottom (white, ivory), unless the board is flipped. A game
+ * may take more players (up to 6: ludo, halma...): the picker then asks how many, the game reads ui.players. No text
  * anywhere (nothing to translate): pictures, and digits for scores.
  */
 #ifndef SHELL_H
@@ -18,7 +19,13 @@
 
 typedef struct { float x, y, w, h; } box;
 
-enum { GS_PLAY, GS_WIN0, GS_WIN1, GS_DRAW };
+#define MAX_PLAYERS 6
+enum { GS_PLAY, GS_WIN0, GS_WIN1, GS_DRAW, GS_WIN2, GS_WIN3, GS_WIN4, GS_WIN5 };
+static inline int gs_win(int player) { return player < 2 ? GS_WIN0 + player : GS_WIN2 + player - 2; }
+static inline int gs_winner(int status)         /* the winner, or -1 (playing, a draw) */
+{
+    return status == GS_WIN0 || status == GS_WIN1 ? status - GS_WIN0 : status >= GS_WIN2 ? status - GS_WIN2 + 2 : -1;
+}
 
 typedef struct game {
     const char *id;                             /* "chess" */
@@ -46,6 +53,11 @@ typedef struct game {
     /* a press in a player's bar (shogi's pieces in hand): x, y in the frame bar() drew in (the shell turns them for
      * a bar turned round face to face); 1: taken. The motion and the release then go to press()'s usual path. */
     int  (*bar_press)(int player, float x, float y);
+    /* more than two players: the counts it can be played with (bit n: n players; 0: two only), and where each player
+     * sits (their yard, their corner of the star: a point of the board, 0..1 from its top left, not flipped). Their
+     * bars go on that side of the board (top or bottom), in that order from the left. */
+    unsigned players;
+    void (*home)(int player, float *fx, float *fy);
 } game;
 
 void game_register(const game *g);
@@ -58,6 +70,7 @@ extern struct ui {
     int w, h;                                   /* the screen, pixels */
     int flipped;                                /* player 1 at the bottom */
     int f2f;                                    /* face to face: the top player's pieces and bar turned to face them */
+    int players;                                /* how many play this game (2 unless the game takes more) */
     float unit;                                 /* a ninth of the board's side: the size of the marks, the bars */
 } ui;
 

@@ -32,8 +32,12 @@ void art_arc(art_fig *f, int role, float cx, float cy, float r0, float r1, float
 void art_render(const art_fig *f, const art_style *st, int w, int h, float scale, float ox, float oy, uint8_t *rgba);
 
 /* ---- the house style: every game uses these, for one look across the app --------------------------------------------
- * Two players everywhere: 0 ivory, 1 ebony (chess's white and black, go's stones, the discs...). */
-extern const art_style art_player[2];
+ * Two players in most games: 0 ivory, 1 ebony (chess's white and black, go's stones, the discs...). The games for
+ * more players (ludo, halma...) go on with 2 red lacquer, 3 jade, 4 amber, 5 lapis: a player's pieces, counters and
+ * dice all take these colours. */
+#define ART_PLAYERS 6
+extern const art_style art_player[ART_PLAYERS];
+int art_player_dark(int player);                    /* 1: a dark colour (light marks on it: pips, eyes) */
 
 enum { COUNTER_DISC, COUNTER_STONE, COUNTER_MAN, COUNTER_KING };
 /* a round piece of a player, seen from above, size x size: DISC a flat counter with a rim (reversi, four in a row,
