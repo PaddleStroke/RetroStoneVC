@@ -21,5 +21,7 @@ En 6'er, 10'er eller 25'er er et lykkekast: efter det kaster du igen.
 En brik kommer kun ind i charkoni med det præcise tal. Intet kast giver 1, så en brik må ikke stoppe på det sidste felt før charkoni: den ville aldrig nå i mål.
 # Spillets afslutning
 Den første spiller, der får alle otte brikker i mål, fra begge hære, vinder.
+# Fire spillere
+Med fire spillere fører hver spiller én hær, og makkerne sidder over for hinanden: elfenben og rav mod ibenholt og palisander. Turen går rundt om bordet mod uret, samme vej som brikkerne. Dine kaurisnegle og dine brikker i mål deler bakken i hjørnet til højre for dig, når du ser mod midten fra din arm. Når alle dine brikker er i mål, flytter du din makkers brikker med dine kast. Makkerne vinder sammen, når alle otte af deres brikker er i mål: begge deres paneler lyser guld.
 # Spil på enheden
 Dine kaurisnegle ligger i bakken til højre for dig, dine brikker i mål i bakken til venstre. Når det er din tur, lyser kaurisneglene guld: tryk på brættet for at kaste dem. Den kastede værdi vises ved siden af dem, i guld ved et lykkekast. Prikker viser, hvor dine brikker kan gå hen, ringe de brikker, du ville sende tilbage: tryk på en brik, eller træk den til dens felt. Hvor brikker fra begge dine hære står på samme felt og skal i forskellige retninger, trykker du på feltet og derefter på den prik, du vil have. Pas-knappen i dit panel afslår kastet. Fortryd tager træk og kast tilbage, men et kast, der er taget tilbage, falder ud på samme måde igen. Dit panel viser dine brikker i mål.

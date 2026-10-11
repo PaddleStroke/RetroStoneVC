@@ -21,5 +21,7 @@ Altı kauri kabuğunu at ve ağzı yukarı bakanları say:
 Bir piyon charkoni'ye yalnızca tam sayıyla girer. Hiçbir atış 1 değildir, bu yüzden bir piyon charkoni'den önceki son karede duramaz: oradan asla eve varamazdı.
 # Oyunun sonu
 İki ordusuyla birlikte sekiz piyonunun hepsini eve ilk getiren oyuncu kazanır.
+# Dört oyuncu
+Dört oyuncuyla her oyuncu bir orduyu yönetir ve ortaklar karşılıklı oturur: fildişi ve kehribar, abanoz ve gül ağacına karşı. Sıra, piyonların gittiği yönde, masanın çevresinde saat yönünün tersine döner. Kaurilerin ve eve varan piyonların, kendi kolundan ortaya bakarken sağındaki köşede aynı bölmeyi paylaşır. Bütün piyonların eve varınca atışların ortağının piyonlarını yürütür. Ortaklar, sekiz piyonlarının hepsi eve varınca birlikte kazanır: ikisinin de şeridi altın renginde parlar.
 # Cihazda oynamak
 Kaurilerin sağındaki bölmede, eve varan piyonların solundaki bölmede durur. Sıra sendeyken kauriler altın renginde parlar: atmak için tahtaya dokun. Atılan değer yanlarında görünür; şanslı atışsa altın renginde. Noktalar piyonlarının nereye gidebileceğini, halkalar da geri göndereceğin piyonları gösterir: bir piyona dokun ya da onu karesine sürükle. İki ordunun piyonları aynı karede farklı yönlere gidiyorsa o kareye, sonra istediğin noktaya dokun. Şeridindeki pas düğmesiyle atıştan vazgeçersin. Geri al hamleleri ve atışları geri alır, ama geri alınan bir atış yeniden aynı gelir. Şeridin eve varan piyonlarını gösterir.

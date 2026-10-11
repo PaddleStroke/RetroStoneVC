@@ -21,5 +21,7 @@ A 6, 10 or 25 is a grace: after it you throw again.
 A piece enters the charkoni with the exact number only. No throw is a 1, so a piece may not stop on the last square before the charkoni: it could never get home.
 # The end of the game
 The first player to bring all eight pieces home, both armies, wins.
+# Four players
+With four players, each plays one army and partners sit opposite: ivory and amber against ebony and rosewood. The turn goes round the table anticlockwise, the way the pieces go. Your cowries and your pieces home share the tray in the corner on your right, as you face the centre from your arm. Once all your pieces are home, your throws move your partner's pieces. The partners win together when all eight of their pieces are home: both their bars glow gold.
 # Playing on the device
 Your cowries lie in the tray on your right, your pieces home in the tray on your left. When it is your turn, the cowries glow gold: tap the board to throw them. The value thrown shows beside them, in gold for a grace. Dots show where your pieces can go, rings the pieces you would send back: tap a piece, or drag it to its square. Where pieces of both your armies share a square going different ways, tap it, then tap the dot you want. The pass button in your bar declines the throw. Undo takes back moves and throws, but a throw taken back comes out the same again. Your bar shows your pieces home.

@@ -21,5 +21,7 @@ Hoď šesti mušlemi kauri a spočítej ústí obrácená nahoru:
 Do charkoni vstoupí figurka jen přesným číslem. Žádný hod není 1, takže figurka nesmí zastavit na posledním poli před charkoni: nikdy by se nedostala domů.
 # Konec hry
 Vyhrává první hráč, který dostane domů všech osm figurek z obou armád.
+# Čtyři hráči
+Ve čtyřech hraje každý jednou armádou a spoluhráči sedí naproti sobě: slonovina a jantar proti ebenu a palisandru. Pořadí jde kolem stolu proti směru hodinových ručiček, stejně jako figurky. Tvoje mušle a tvoje figurky doma sdílejí přihrádku v rohu po tvé pravici, když se díváš ze svého ramene do středu. Když máš doma všechny své figurky, tvé hody táhnou figurkami spoluhráče. Spoluhráči vyhrávají společně, když je doma všech osm jejich figurek: obě jejich lišty svítí zlatě.
 # Hra na zařízení
 Tvoje mušle leží v přihrádce po tvé pravici, tvoje figurky doma v přihrádce po levici. Když jsi na řadě, mušle svítí zlatě: klepni na desku a hodíš jimi. Hozená hodnota se ukáže vedle nich, u šťastného hodu zlatě. Tečky ukazují, kam mohou tvé figurky jít, kroužky figurky, které bys poslal zpět: klepni na figurku, nebo ji přetáhni na její pole. Kde figurky obou tvých armád sdílejí pole, ale jdou různými směry, klepni na to pole a pak na tečku, kterou chceš. Tlačítko pasu ve tvé liště hod odmítne. Vrátit bere zpět tahy i hody, ale vrácený hod padne znovu stejně. Tvoje lišta ukazuje tvé figurky doma.

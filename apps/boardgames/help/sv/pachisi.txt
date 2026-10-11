@@ -21,5 +21,7 @@ En 6, 10 eller 25 är ett lyckokast: efter det kastar du igen.
 En pjäs går in i charkoni bara med exakt rätt tal. Inget kast blir 1, så en pjäs får inte stanna på sista rutan före charkoni: den skulle aldrig kunna komma hem.
 # Partiets slut
 Den som först får hem alla åtta pjäser, från båda arméerna, vinner.
+# Fyra spelare
+Med fyra spelare har var och en en armé, och partnerna sitter mittemot varandra: elfenben och bärnsten mot ebenholts och palisander. Turen går runt bordet moturs, åt samma håll som pjäserna. Dina kaurisnäckor och dina pjäser som har kommit hem delar facket i hörnet till höger om dig, när du ser mot mitten från din arm. När alla dina pjäser har kommit hem flyttar dina kast din partners pjäser. Partnerna vinner tillsammans när alla åtta pjäserna har kommit hem: båda deras fält lyser i guld.
 # Spela på enheten
 Dina kaurisnäckor ligger i facket till höger om dig, dina pjäser som har kommit hem i facket till vänster. När det är din tur lyser kaurisnäckorna i guld: tryck på brädet för att kasta dem. Det kastade värdet visas bredvid dem, i guld för ett lyckokast. Prickar visar vart dina pjäser kan gå, ringar de pjäser som du skulle skicka tillbaka: tryck på en pjäs, eller dra den till sin ruta. Där pjäser från båda dina arméer delar ruta men ska åt olika håll trycker du på rutan och sedan på den prick du vill ha. Passknappen i ditt fält avstår från kastet. Ångra tar tillbaka drag och kast, men ett kast som tas tillbaka blir likadant igen. Ditt fält visar dina pjäser som har kommit hem.

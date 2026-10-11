@@ -19,7 +19,7 @@ static const ppos *P = &G.pos;
 /* a position: every army's pieces (4 places each, 0 the charkoni), all armies out already, the player to throw */
 static void setup(const int at[4][4], int turn)
 {
-    pa_new(&G);
+    pa_new(&G, 2);
     for (int a = 0; a < PA_ARMIES; a++)
         for (int i = 0; i < PA_PIECES; i++) G.pos.at[a][i] = (uint8_t)at[a][i];
     G.pos.out = 0xf;
@@ -96,7 +96,7 @@ static void test_board(void)
 /* leaving the charkoni: each army's first piece with any throw, the others with a grace; a grace throws again */
 static void test_enter(void)
 {
-    pa_new(&G);
+    pa_new(&G, 2);
     CHECK(P->turn == 0 && P->phase == PA_THROW);
     CHECK(!pa_move(&G, 0));
     CHECK(pa_throw(&G, 3) == PT_MOVE && pa_movable(P) == 0xff && pa_dest(P, 0) == 3);
@@ -198,7 +198,7 @@ static void test_partners(void)
 /* declining: the throw not used; after a grace the same player throws again */
 static void test_decline(void)
 {
-    pa_new(&G);
+    pa_new(&G, 2);
     CHECK(!pa_decline(&G));
     CHECK(pa_throw(&G, 4) == PT_MOVE && pa_decline(&G) && P->turn == 1 && P->phase == PA_THROW);
     CHECK(pa_throw(&G, 6) == PT_MOVE && pa_decline(&G) && P->turn == 1 && P->phase == PA_THROW);
@@ -208,7 +208,7 @@ static void test_decline(void)
 /* undo: back to the last choice (a move or a decline), the throws after it too */
 static void test_undo(void)
 {
-    pa_new(&G);
+    pa_new(&G, 2);
     CHECK(!pa_undo(&G));
     CHECK(pa_script(&G, "3 a 10 e 2 - 4 a"));
     CHECK(P->at[0][0] == 7 && P->turn == 1 && P->throws == 4);
@@ -219,12 +219,64 @@ static void test_undo(void)
     CHECK(!pa_undo(&G));
 }
 
-/* whole games, random throws: each player moves its furthest piece that can (a capture first); someone wins */
+/* four players: an army each (player p, army p), partners opposite (0 and 2 against 1 and 3), the turn round the table
+ * (anticlockwise, as the pieces go); the partner's pieces are friends; a player whose army is home plays the partner's;
+ * the side wins when both armies are home (the winner: the partner who brought the last piece in) */
+static void setup4(const int at[4][4], int turn)
+{
+    setup(at, turn);
+    G.pos.players = 4;
+}
+
+static void test_four(void)
+{
+    pa_new(&G, 4);
+    CHECK(P->players == 4 && P->turn == 0 && P->phase == PA_THROW);
+    CHECK(pa_throw(&G, 3) == PT_MOVE && pa_movable(P) == 0x0f);   /* its own army only */
+    CHECK(pa_army(P, 0) == 0 && pa_army(P, 3) == 0 && pa_army(P, 4) == -1 && !pa_move(&G, 4) && !pa_script(&G, "e"));
+    CHECK(pa_move(&G, 0) == 1 && P->at[0][0] == 3 && P->turn == 1);
+    CHECK(pa_throw(&G, 4) == PT_MOVE && pa_army(P, 0) == 1 && pa_move(&G, 0) == 1 && P->at[1][0] == 4);
+    CHECK(P->turn == 2 && pa_throw(&G, 2) == PT_MOVE && pa_move(&G, 1) == 1 && P->at[2][1] == 2);
+    CHECK(P->turn == 3 && pa_throw(&G, 5) == PT_MOVE && pa_move(&G, 3) == 1 && P->at[3][3] == 5);
+    CHECK(P->turn == 0);                        /* round the table */
+    CHECK(pa_throw(&G, 1) == PT_MOVE && pa_move(&G, 1) == 1 && P->at[0][1] == 10 && P->turn == 0);   /* a grace */
+    CHECK(pa_throw(&G, 2) == PT_MOVE && pa_decline(&G) && P->turn == 1);
+    CHECK(pa_throw(&G, 3) == PT_MOVE && pa_decline(&G) && P->turn == 2);
+    CHECK(pa_script(&G, "3 - 3 -") && P->turn == 0);
+    /* the partner's piece is a friend; the others' pieces are taken (and a throw again) */
+    int at[4][4] = {{20, 0, 0, 0}, {0}, {0}, {0}};
+    int sq = pa_square(0, 20);
+    at[2][0] = (sq - 34 + PA_LAP) % PA_LAP + PA_END - 4;     /* player 2's piece four short of player 0's */
+    at[3][0] = (sq - 51 + PA_LAP) % PA_LAP + PA_END - 2;     /* player 3's two short */
+    setup4(at, 2);
+    CHECK(pa_throw(&G, 4) == PT_MOVE && pa_takes(P, 0) == 0 && pa_move(&G, 0) == 1);
+    CHECK(pa_square(2, P->at[2][0]) == sq && P->at[0][0] == 20 && P->turn == 3);
+    CHECK(pa_throw(&G, 2) == PT_MOVE && pa_takes(P, 0) == 2 && pa_move(&G, 0) == 3);
+    CHECK(P->at[0][0] == 0 && P->at[2][0] == 0 && P->turn == 3 && P->phase == PA_THROW);
+    /* a player whose army is home plays the partner's; one army home is not a win */
+    int b[4][4] = {{84, 84, 84, 84}, {0}, {30, 82, 84, 84}, {0}};
+    setup4(b, 0);
+    CHECK(pa_army(P, 0) == 2 && pa_home(P, 0) == 6 && pa_army_home(P, 0) == 4 && P->winner == -1);
+    CHECK(pa_throw(&G, 3) == PT_MOVE && pa_movable(P) == 1 && pa_move(&G, 0) == 1 && P->at[2][0] == 33);
+    CHECK(P->turn == 1 && pa_throw(&G, 4) == PT_PASS && P->turn == 2);   /* player 1: all in, no grace */
+    /* player 2 brings the side's last pieces home: player 2 wins, for both */
+    int c[4][4] = {{84, 84, 84, 84}, {0}, {84, 82, 84, 84}, {0}};
+    setup4(c, 2);
+    CHECK(pa_throw(&G, 2) == PT_MOVE && pa_move(&G, 1) == 1 && P->winner == 2 && P->phase == PA_OVER);
+    CHECK(pa_home(P, 0) == 8 && !pa_throw(&G, 3));
+    /* undo goes back round the table */
+    pa_new(&G, 4);
+    CHECK(pa_script(&G, "3 a 4 a 2 a"));
+    CHECK(P->turn == 3 && pa_undo(&G) && P->turn == 2 && P->phase == PA_MOVE && pa_undo(&G) && P->turn == 1);
+}
+
+/* whole games, two or four players, random throws: each player moves its furthest piece that can (a capture
+ * first); someone wins */
 static void test_games(void)
 {
-    for (int seed = 1; seed <= 20; seed++) {
+    for (int seed = 1; seed <= 40; seed++) {    /* 20 games for two, 20 for four */
         srand((unsigned)seed);
-        pa_new(&G);
+        pa_new(&G, seed > 20 ? 4 : 2);
         int ok = 1;
         while (P->phase != PA_OVER && G.n < PA_MAX_EVENTS - 1) {
             if (P->phase == PA_THROW) {
@@ -235,7 +287,7 @@ static void test_games(void)
                 int moves = pa_movable(P), best = -1, score = -1;
                 for (int i = 0; i < 8; i++) {
                     if (!(moves >> i & 1)) continue;
-                    int a = pa_army(P->turn, i), s = pa_takes(P, i) * 1000 + P->at[a][i % 4];
+                    int a = pa_army(P, i), s = pa_takes(P, i) * 1000 + P->at[a][i % 4];
                     if (s > score) score = s, best = i;
                 }
                 ok &= pa_move(&G, best) != 0;
@@ -247,7 +299,7 @@ static void test_games(void)
                 ok &= !(who[0] && who[1]);
             }
         }
-        CHECK(ok && P->phase == PA_OVER && pa_home(P, P->winner) == 8);
+        CHECK(ok && P->phase == PA_OVER && pa_home(P, P->winner & 1) == 8);
         while (pa_undo(&G)) {}
         CHECK(G.n == 0 && P->winner == -1 && pa_home(P, 0) == 0);
     }
@@ -264,6 +316,7 @@ int main(void)
     test_partners();
     test_decline();
     test_undo();
+    test_four();
     test_games();
     printf("pachisi: %d checks, %d failed\n", checks, failed);
     return failed != 0;

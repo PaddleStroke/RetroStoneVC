@@ -1,14 +1,16 @@
 /*
  * Pachisi in RetroStone Board: the cross of inlaid squares round the charkoni, its twelve castles, each player's two
- * armies of discs, six cowries thrown with a tap (they fly, flip and settle, mouths up or down), the pieces hopping
- * round (the rules and the notation: pachisi_rules.c, pachisi.h).
+ * armies of discs (four players: an army each), six cowries thrown with a tap (they fly, flip and settle, mouths up
+ * or down), the pieces hopping round (the rules and the notation: pachisi_rules.c, pachisi.h).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- * The armies: player 0's ivory and amber (the house's ivory, and the same warmed to the colour of old honey), player
- * 1's ebony and rosewood (the house's ebony, and the same reddened); each arm's middle column inlaid in its army's
- * tone, so the arms say whose they are. The bottom player's arm at the bottom (flipped: the board turned a quarter
- * round, player 1's arm at the bottom). The corners: each player's tray of pieces home on their left, the cowries'
- * tray on their right. The pieces waiting sit in the charkoni, each army on the side of its arm.
+ * The armies: ivory and amber (the house's) against ebony and rosewood (the house's ebony reddened); each arm's middle
+ * column inlaid in its army's tone, so the arms say whose they are. Two players: player 0 has ivory and amber, 1 ebony
+ * and rosewood; the bottom player's arm at the bottom (flipped: the board turned a quarter round, player 1's arm at the
+ * bottom); the corners: each player's tray of pieces home on their left, the cowries' tray on their right. Four
+ * players: player p has army p (0 ivory, 1 ebony, 2 amber, 3 rosewood: partners opposite), the turn round the table;
+ * each has one corner tray, on their right from their arm's end, for its cowries and its pieces home; flipped: a half
+ * turn. The pieces waiting sit in the charkoni, each army on the side of its arm.
  */
 #include <math.h>
 #include <stdlib.h>
@@ -43,8 +45,9 @@ static struct { int on, piece, moved; float x, y; } drag;
 static int pick = -1;                           /* a square chosen whose pieces go two ways: their targets only */
 static struct { int on, piece, army, from, to, hops, heard, caught, hop; Uint32 t0; ppos before; } anim;
 
-/* the armies' colours: the house's ivory and ebony, and each warmed (a factor per channel on the picture) */
-static const float TINT[PA_ARMIES][3] = {{1, 1, 1}, {1, 1, 1}, {1, 0.8f, 0.5f}, {1.7f, 0.92f, 0.7f}};
+/* the armies' colours: the house's ivory, ebony and amber, and rosewood: the ebony reddened (a factor per channel) */
+static const int ART[PA_ARMIES] = {0, 1, 4, 1};
+static const float ROSEWOOD[3] = {1.7f, 0.92f, 0.7f};
 /* the arms' middle columns in their armies' tones (factors on the plank: the grain stays) */
 static const float TONE[PA_ARMIES][3] = {{1.09f, 1.25f, 1.62f}, {0.42f, 0.42f, 0.5f}, {1.08f, 1.0f, 0.78f},
                                          {0.62f, 0.4f, 0.36f}};
@@ -52,15 +55,17 @@ static const float MAPLE[3] = {1.06f, 1.09f, 1.16f}, TRAY[3] = {0.8f, 0.78f, 0.7
 static const uint8_t PLANK[3] = {222, 184, 128};
 
 /* ---- where things are -------------------------------------------------------------------------------------------- */
-static int owner(int army) { return army & 1; }   /* the player */
+static int four(void) { return G.pos.players == 4; }
+static int owner(int army) { return four() ? army : army & 1; }   /* the player */
 
-/* board cells (u, v: the board with arm 0 at the bottom) to the screen's cells: a quarter turn when flipped */
+/* board cells (u, v: the board with arm 0 at the bottom) to the screen's cells. Flipped: two players, a quarter turn
+ * (player 1's arm at the bottom); four, a half turn (the shell's way for players round a board) */
 static void view(float u, float v, float *x, float *y)
 {
     if (ui.flipped) {
         float du = u - N / 2.0f, dv = v - N / 2.0f;
-        u = N / 2.0f - dv;
-        v = N / 2.0f + du;
+        if (four()) u = N / 2.0f - du, v = N / 2.0f - dv;
+        else u = N / 2.0f - dv, v = N / 2.0f + du;
     }
     *x = u;
     *y = v;
@@ -72,12 +77,60 @@ static void px_of(float u, float v, float *x, float *y)   /* screen cells to pix
     *y = by + v * cs;
 }
 
-/* a player's tray (screen cells): home (their pieces home) on their left, else the cowries' on their right */
+/* (dx, dy) turned anticlockwise (on the screen, y down) by r quarters: arm 0's frame to arm r's */
+static void turn_by(int r, float *dx, float *dy)
+{
+    for (int k = 0; k < r; k++) {
+        float t = *dx;
+        *dx = *dy;
+        *dy = -t;
+    }
+}
+
+/* a four-player game: the corner tray of player p (its cowries and its pieces home), on the board: the corner on
+ * their right, seen from their arm's end */
+static void corner(int p, float *u, float *v)
+{
+    float dx = 5.5f, dy = 5.5f;
+    turn_by(p, &dx, &dy);
+    *u = N / 2.0f + dx;
+    *v = N / 2.0f + dy;
+}
+
+/* a player's tray (screen cells). Two players: home (their pieces home) on their left, else the cowries' on their
+ * right; four: their corner, both */
 static void tray(int player, int home, float *u, float *v)
 {
+    if (four()) {
+        float cu, cv;
+        corner(player, &cu, &cv);
+        view(cu, cv, u, v);
+        return;
+    }
     int bottom = player == ui_bottom();
     *u = bottom != home ? 15 : 4;
     *v = bottom ? 15 : 4;
+}
+
+static int tray_top(int player)                 /* the tray in the upper half: turned round */
+{
+    float u, v;
+    tray(player, 0, &u, &v);
+    return v < N / 2.0f;
+}
+
+/* where each player sits, for the shell's bars (0..1 of the board, not flipped): two, at the bottom and the top;
+ * four, at their corner tray */
+static void home(int player, float *fx, float *fy)
+{
+    if (G.pos.players != 4) {
+        *fx = 0.5f;
+        *fy = player ? 0 : 1;
+        return;
+    }
+    corner(player, fx, fy);
+    *fx /= N;
+    *fy /= N;
 }
 
 /* a piece waiting in the charkoni: slot k in arm 0's triangle (cells from the centre): three, and one inside */
@@ -94,15 +147,12 @@ static void spot(int army, int place, int k, float *x, float *y)
     if (place == 0) {                           /* in the charkoni, on its arm's side */
         float dx, dy;
         wait_at(k, &dx, &dy);
-        for (int r = 0; r < army; r++) {
-            float t = dx;
-            dx = dy;
-            dy = -t;
-        }
+        turn_by(army, &dx, &dy);
         view(N / 2.0f + dx, N / 2.0f + dy, &u, &v);
-    } else if (place == PA_HOME) {              /* home: a row per army in the owner's tray */
-        int pl = owner(army), top = pl != ui_bottom();
-        float cu, cv, du = (k - 1.5f) * 1.3f, dv = army >= 2 ? 0.8f : -0.8f;
+    } else if (place == PA_HOME) {              /* home: a row per army in the owner's tray; four: a row at the far
+                                                 * side of the player's tray */
+        int pl = owner(army), top = tray_top(pl);
+        float cu, cv, du = (k - 1.5f) * 1.3f, dv = four() ? -3.0f : army >= 2 ? 0.8f : -0.8f;
         tray(pl, 1, &cu, &cv);
         if (top) du = -du, dv = -dv;
         u = cu + du;
@@ -144,7 +194,7 @@ static void piece_px(const ppos *p, int army, int i, float *x, float *y)
 }
 
 /* the mover's piece 0..7 <-> army, index */
-static int army_of(int piece) { return pa_army(G.pos.turn, piece); }
+static int army_of(int piece) { return pa_army(&G.pos, piece); }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
 static void calm(void)
@@ -156,12 +206,12 @@ static void calm(void)
 static void start(int variant)
 {
     (void)variant;
-    pa_new(&G);
+    pa_new(&G, ui.players);
     nshells = 0;
     calm();
 }
 
-static int status(void) { return G.pos.winner < 0 ? GS_PLAY : G.pos.winner ? GS_WIN1 : GS_WIN0; }
+static int status(void) { return G.pos.winner < 0 ? GS_PLAY : gs_win(G.pos.winner); }
 static int turn(void) { return G.pos.turn; }
 static int tumbling(void) { return roll.on && ui_ms() - roll.t0 < THROW_MS; }
 static int busy(void) { return anim.on || tumbling(); }   /* the end waits for the last piece */
@@ -320,9 +370,10 @@ static void paint_board(uint8_t *o, int c, int f)
 /* a piece of an army: the house's disc in its player's colour, warmed for the second army */
 static void paint_piece(int army, int size, uint8_t *o)
 {
-    art_counter(COUNTER_DISC, owner(army), size, o);
+    art_counter(COUNTER_DISC, ART[army], size, o);
+    if (army != 3) return;
     for (int i = 0; i < size * size; i++)
-        for (int k = 0; k < 3; k++) o[4 * i + k] = (uint8_t)clampf(o[4 * i + k] * TINT[army][k], 0, 255);
+        for (int k = 0; k < 3; k++) o[4 * i + k] = (uint8_t)clampf(o[4 * i + k] * ROSEWOOD[k], 0, 255);
 }
 
 /* a cowrie seen from above, its long side across: mouth up (the toothed slit), or its glossy back */
@@ -455,7 +506,7 @@ static void draw_shells(int q)
     const ppos *p = &G.pos;
     int e = last_throw(q), k = e >= 0 ? G.past[e].throws : -1, flying = tumbling() && roll.k == k && k >= 0;
     int active = p->phase != PA_OVER && p->turn == q, invite = active && p->phase == PA_THROW && !tumbling();
-    int top = q != ui_bottom(), mask = e >= 0 ? shells[k] : 0;
+    int top = tray_top(q), mask = e >= 0 ? shells[k] : 0;
     int lost = e >= 0 && e == G.n - 1 && p->turn != q && !flying;
     if (e < 0 && !invite) return;
     float cu, cv, x, y, s = SHELL * cs, alpha = active || flying ? 1 : 0.45f, t = 1;
@@ -503,7 +554,7 @@ static void mark_last(void)
         if (G.ev[i] == PA_DECLINE_EV) return;
         if (G.ev[i] < PA_MOVE_EV) continue;
         const ppos *b = &G.past[i];
-        int piece = G.ev[i] - PA_MOVE_EV, a = pa_army(b->turn, piece), from = b->at[a][piece % PA_PIECES];
+        int piece = G.ev[i] - PA_MOVE_EV, a = pa_army(b, piece), from = b->at[a][piece % PA_PIECES];
         int ends[2] = {from, pa_dest(b, piece)};
         for (int k = 0; k < 2; k++) {
             if (ends[k] <= 0 || ends[k] >= PA_HOME) continue;
@@ -578,7 +629,7 @@ static void draw(void)
 {
     const ppos *p = &G.pos;
     float n = (float)N * cs + 2 * fr, x, y, t = 0;
-    ui_put_rot(t_board, bx - fr + n / 2, by - fr + n / 2, n, n, ui.flipped ? 90 : 0);
+    ui_put_rot(t_board, bx - fr + n / 2, by - fr + n / 2, n, n, ui.flipped ? (four() ? 180 : 90) : 0);
     if (anim.on) {                              /* a hop a beat, then the glides */
         t = (ui_ms() - anim.t0) / (float)anim.hop;
         int landed = t >= anim.hops ? anim.hops : (int)t;
@@ -592,8 +643,7 @@ static void draw(void)
         else ui_animate();
     }
     mark_last();
-    draw_shells(0);
-    draw_shells(1);
+    for (int q = 0; q < G.pos.players; q++) draw_shells(q);
     if (pass_snd && !tumbling()) {
         pass_snd = 0;
         ui_sound(SND_DENY);
@@ -768,13 +818,21 @@ static void release(float x, float y)
 static void bar(int player, box b)               /* the player's pieces home, each in its army's colour */
 {
     float sz = 0.6f * ui.unit, step = fminf(0.42f * ui.unit, (b.w - sz) / 7), cy = b.y + b.h / 2;
-    int k = 0;
-    for (int a = player; a < PA_ARMIES; a += 2)
-        for (int i = 0; i < PA_PIECES; i++)
-            if (G.pos.at[a][i] == PA_HOME) ui_put(t_small[a], b.x + k++ * step, cy - sz / 2, sz, sz);
+    int won = four() && G.pos.winner >= 0 && (G.pos.winner & 1) == (player & 1);   /* four: both partners in gold */
+    for (int pass = !won; pass < 2; pass++) {   /* the gold light under them, then the pieces */
+        int k = 0;
+        for (int a = player; a < PA_ARMIES; a += four() ? PA_ARMIES : 2)   /* four: its own army */
+            for (int i = 0; i < PA_PIECES; i++) {
+                if (G.pos.at[a][i] != PA_HOME) continue;
+                float x = b.x + k++ * step;
+                if (pass) ui_put(t_small[a], x, cy - sz / 2, sz, sz);
+                else ui_mark_gold(x + sz / 2, cy, 2.1f * sz);
+            }
+    }
 }
 
-static void token(int player, int size, uint8_t *rgba) { art_counter(COUNTER_DISC, player, size, rgba); }
+/* a player's token: two players, ivory and ebony; four, its army's piece (ivory, ebony, amber, rosewood) */
+static void token(int player, int size, uint8_t *rgba) { paint_piece(player, size, rgba); }
 
 /* the menu's card: the charkoni and the corner of two arms, a few pieces, cowries in the tray */
 static void thumb(int variant, int size, uint8_t *rgba)
@@ -824,5 +882,6 @@ static const game pachisi_game = {
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .can_pass = can_pass, .pass = pass, .script = script, .busy = busy,
+    .players = 1u << 2 | 1u << 4, .home = home,
 };
 REGISTER_GAME(pachisi_game)

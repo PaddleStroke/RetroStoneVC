@@ -1,14 +1,15 @@
 /*
- * Pachisi for two players on one device: the rules and the notation (pachisi.h). No SDL.
+ * Pachisi for two or four players on one device: the rules and the notation (pachisi.h). No SDL.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <string.h>
 
 #include "games/pachisi.h"
 
-void pa_new(pgame *g)
+void pa_new(pgame *g, int players)
 {
     memset(g, 0, sizeof *g);
+    g->pos.players = (uint8_t)(players == 4 ? 4 : 2);
     g->pos.winner = -1;
 }
 
@@ -24,7 +25,20 @@ int pa_mouths(int value)
 }
 
 int pa_grace(int value) { return value == 6 || value == 10 || value == 25; }
-int pa_army(int player, int piece) { return player + (piece >= PA_PIECES ? 2 : 0); }
+int pa_army_home(const ppos *p, int army)
+{
+    int n = 0;
+    for (int i = 0; i < PA_PIECES; i++) n += p->at[army][i] == PA_HOME;
+    return n;
+}
+
+int pa_army(const ppos *p, int piece)
+{
+    if (piece < 0 || piece >= 2 * PA_PIECES) return -1;
+    if (p->players == 2) return p->turn + (piece >= PA_PIECES ? 2 : 0);
+    if (piece >= PA_PIECES) return -1;          /* four: one army, its own, or its partner's once its own is home */
+    return pa_army_home(p, p->turn) == PA_PIECES ? (p->turn + 2) % PA_ARMIES : p->turn;
+}
 
 int pa_square(int army, int place)
 {
@@ -78,12 +92,13 @@ static int enemies(const ppos *p, int player, int square)
 
 int pa_dest(const ppos *p, int piece)
 {
-    if (p->phase != PA_MOVE || piece < 0 || piece >= 2 * PA_PIECES) return -1;
-    int a = pa_army(p->turn, piece), at = p->at[a][piece % PA_PIECES], to = at + p->roll;
+    int a = pa_army(p, piece);
+    if (p->phase != PA_MOVE || a < 0) return -1;
+    int at = p->at[a][piece % PA_PIECES], to = at + p->roll;
     if (at == PA_HOME || to > PA_HOME || to == PA_HOME - 1) return -1;   /* no throw is a 1: never one short */
     if (at == 0 && !pa_grace(p->roll) && (p->out >> a & 1)) return -1;   /* out of the charkoni: a grace */
     int sq = pa_square(a, to);
-    if (pa_castle(sq) && enemies(p, p->turn, sq)) return -1;
+    if (pa_castle(sq) && enemies(p, p->turn & 1, sq)) return -1;
     return to;
 }
 
@@ -91,8 +106,8 @@ int pa_takes(const ppos *p, int piece)
 {
     int to = pa_dest(p, piece);
     if (to < 0) return 0;
-    int sq = pa_square(pa_army(p->turn, piece), to);
-    return pa_castle(sq) ? 0 : enemies(p, p->turn, sq);
+    int sq = pa_square(pa_army(p, piece), to);
+    return pa_castle(sq) ? 0 : enemies(p, p->turn & 1, sq);
 }
 
 int pa_movable(const ppos *p)
@@ -103,18 +118,15 @@ int pa_movable(const ppos *p)
     return m;
 }
 
-int pa_home(const ppos *p, int player)
+int pa_home(const ppos *p, int side)
 {
-    int n = 0;
-    for (int a = player; a < PA_ARMIES; a += 2)
-        for (int i = 0; i < PA_PIECES; i++) n += p->at[a][i] == PA_HOME;
-    return n;
+    return pa_army_home(p, side) + pa_army_home(p, side + 2);
 }
 
 static void next(ppos *p, int again)
 {
     p->phase = PA_THROW;
-    if (!again) p->turn ^= 1;
+    if (!again) p->turn = (uint8_t)((p->turn + 1) % p->players);   /* round the table */
 }
 
 int pa_throw(pgame *g, int mouths)
@@ -138,17 +150,17 @@ int pa_move(pgame *g, int piece)
     if (to < 0 || g->n >= PA_MAX_EVENTS) return 0;
     g->past[g->n] = *p;
     g->ev[g->n++] = (uint8_t)(PA_MOVE_EV + piece);
-    int a = pa_army(me, piece), sq = pa_square(a, to);
+    int a = pa_army(p, piece), sq = pa_square(a, to);
     p->at[a][piece % PA_PIECES] = (uint8_t)to;
     p->out |= (uint8_t)(1 << a);
     if (!pa_castle(sq))                         /* the other player's pieces there go back to the charkoni */
-        for (int e = !me; e < PA_ARMIES; e += 2)
+        for (int e = !(me & 1); e < PA_ARMIES; e += 2)
             for (int i = 0; i < PA_PIECES; i++)
                 if (sq >= 0 && pa_square(e, p->at[e][i]) == sq) {
                     p->at[e][i] = 0;
                     caught++;
                 }
-    if (pa_home(p, me) == 2 * PA_PIECES) {
+    if (pa_home(p, me & 1) == 2 * PA_PIECES) {   /* both armies of its side home */
         p->winner = (int8_t)me;
         p->phase = PA_OVER;
     } else {
