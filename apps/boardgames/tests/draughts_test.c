@@ -1,7 +1,9 @@
 /*
  * The draughts rules on a dozen positions: the start, the longest capture (international), flying kings, the pieces
- * taken staying on the board until the move ends, the crowning, English men and multi-jumps, the draws, the wins.
- * The squares are the standard numbers (draughts.h).
+ * taken staying on the board until the move ends, the crowning, English men and multi-jumps, the draws, the wins; then
+ * Russian (any capture, crowned in a capture), Brazilian (the maximum on 8 x 8) and Turkish draughts (straight lines,
+ * the pieces taken going at once, no turning back), and their draws. The squares are the standard numbers, or a1-h8
+ * (draughts.h).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -11,6 +13,9 @@
 
 #define I DR_INTERNATIONAL
 #define E DR_ENGLISH
+#define RU DR_RUSSIAN
+#define BR DR_BRAZILIAN
+#define TK DR_TURKISH
 
 static int fails;
 static dpos P;
@@ -49,7 +54,14 @@ static int takes(const dmove *m, int variant, int number)
     return memchr(m->cap, dr_square(variant, number), m->ncap) != NULL;
 }
 
-/* plays the moves (square numbers) from a position; the game's status after them */
+/* a square by its name ("c3") */
+static int at(int variant, const char *name)
+{
+    int used;
+    return dr_read(variant, name, &used);
+}
+
+/* plays the moves (the variant's notation) from a position; the game's status after them */
 static dstatus game(int variant, int side, const char *pieces0, const char *pieces1, int quiet, const char *moves)
 {
     static dgame g;
@@ -131,6 +143,67 @@ int main(void)
 
     ok("no move left: lost", game(I, 0, "46", "41 37", 0, "") == DR_WON1);
     ok("no piece left: lost", game(I, 0, "28", "32", 0, "28x37") == DR_WON0 && game(E, 0, "", "K32", 0, "") == DR_WON1);
+
+    /* Russian: 8 x 8, ivory first, flying kings, men take backwards, any capture, crowned in the middle of a capture */
+    dr_start(&P, RU);
+    ok("Russian start: 7 moves, c3-d4 among them", (N = dr_legal(&P, RU, M)) == 7 && has(RU, "c3-d4"));
+    pos(RU, 0, "a3 e3", "b4 f4 f6");                        /* a3 can take one, e3 two: either */
+    ok("Russian: no maximum rule", N == 2 && has(RU, "a3:c5") && has(RU, "e3:g5:e7"));
+    pos(RU, 0, "c5", "d4");
+    ok("Russian men take backwards", N == 1 && has(RU, "c5:e3"));
+    pos(RU, 0, "f6", "e7 b6");                              /* crowned on d8, the new king takes b6 from afar */
+    k = N == 1 && has(RU, "f6:d8:a5") && M[0].crown && M[0].ncap == 2 ? 0 : -1;
+    if (!k) dr_make(&P, RU, &M[0]);
+    ok("Russian: crowned in a capture, it takes on as a king", !k && P.sq[at(RU, "a5")] == DR_KING0);
+    pos(RU, 0, "Ka1", "c3 g3");                             /* past c3 only from e5 can it take on */
+    ok("Russian king: lands where it can take on", N == 1 && has(RU, "a1:e5:h2"));
+
+
+    /* Brazilian: the international rules on 8 x 8 */
+    dr_start(&P, BR);
+    ok("Brazilian start: 7 moves", (N = dr_legal(&P, BR, M)) == 7 && has(BR, "c3-d4"));
+    pos(BR, 0, "a3 e3", "b4 f4 f6");
+    ok("Brazilian: the most pieces must be taken", N == 1 && has(BR, "e3:g5:e7") && all_take(2));
+    pos(BR, 0, "f6", "e7 b6");
+    ok("Brazilian: crowned ending on the far row, no taking on", N == 1 && has(BR, "f6:d8") && M[0].crown);
+    pos(BR, 0, "Ka1", "c3");
+    ok("Brazilian: flying king", N == 5 && all_take(1) && has(BR, "a1:h8"));
+
+    /* Turkish: every square, straight lines, men forwards and sideways, pieces taken removed at once */
+    dr_start(&P, TK);
+    ok("Turkish start: 16 men each, 8 moves", (N = dr_legal(&P, TK, M)) == 8 && has(TK, "a3-a4") &&
+       P.sq[at(TK, "a2")] == DR_MAN0 && P.sq[at(TK, "h7")] == DR_MAN1 && !P.sq[at(TK, "a1")]);
+    pos(TK, 0, "d4", "h8");
+    ok("Turkish men: forwards and sideways", N == 3 && has(TK, "d4-d5") && has(TK, "d4-c4") && has(TK, "d4-e4") &&
+       !has(TK, "d4-d3") && !has(TK, "d4-e5"));
+    pos(TK, 0, "d4", "d5 c4 d3");                           /* d3 behind: not taken */
+    ok("Turkish men take forwards and sideways", N == 2 && all_take(1) && has(TK, "d4xd6") && has(TK, "d4xb4"));
+    pos(TK, 0, "a4 e4", "a5 e5 f6");
+    ok("Turkish: the most pieces must be taken", N == 1 && has(TK, "e4xe6xg6"));
+    pos(TK, 0, "Kc1", "c3 e5 g4 b3");                       /* back along row 3 over c3, gone already */
+    ok("Turkish: pieces taken go at once", N == 1 && all_take(4) && has(TK, "c1xc5xg5xg3xa3"));
+    pos(TK, 0, "Kd4", "f4 b4");                             /* past f4, back to b4: a turn back, not allowed */
+    ok("Turkish: no turning straight back", N == 3 && all_take(1));
+    pos(TK, 0, "Kd4", "h8");
+    ok("Turkish king: flies along rows and files", N == 14 && has(TK, "d4-d8") && has(TK, "d4-a4") &&
+       !has(TK, "d4-e5"));
+    pos(TK, 0, "Ka1", "a5");
+    ok("Turkish king: takes from afar", N == 3 && all_take(1) && has(TK, "a1xa6") && has(TK, "a1xa8"));
+    pos(TK, 0, "e7", "a1");
+    k = dr_parse(M, N, TK, "e7-e8", &round);
+    ok("Turkish: crowned on the far row", N == 3 && k >= 0 && M[k].crown);
+
+    /* the draws: repetition, and the moves without a capture or a man moved */
+    const char *steps = "b3-c3 g6-f6 c3-b3 f6-g6 b3-c3 g6-f6 c3-b3";
+    ok("Turkish: men stepping sideways repeat", game(TK, 0, "b3", "g6", 0, steps) == DR_PLAY &&
+       game(TK, 0, "b3", "g6", 0, "b3-c3 g6-f6 c3-b3 f6-g6 b3-c3 g6-f6 c3-b3 f6-g6") == DR_REPETITION);
+    ok("Russian: 15 moves each with kings only", game(RU, 0, "Kc1", "Kh8", 29, "c1-d2") == DR_QUIET &&
+       game(RU, 0, "Kc1", "Kh8", 28, "c1-d2") == DR_PLAY);
+    ok("Brazilian: 20 moves each", game(BR, 0, "Kc1", "Kh8", 39, "c1-d2") == DR_QUIET &&
+       game(BR, 0, "Kc1", "Kh8", 38, "c1-d2") == DR_PLAY);
+    ok("Turkish: 25 moves each", game(TK, 0, "Ka1 c3", "Kh8", 49, "a1-b1") == DR_QUIET &&
+       game(TK, 0, "Ka1 c3", "Kh8", 48, "a1-b1") == DR_PLAY && game(TK, 0, "Ka1 c3", "Kh8", 49, "c3-c4") == DR_PLAY);
+    ok("Turkish: no piece left, lost", game(TK, 0, "d4", "d5", 0, "d4xd6") == DR_WON0);
 
     printf(fails ? "%d FAILED\n" : "all passed\n", fails);
     return fails != 0;

@@ -1,11 +1,13 @@
 /*
- * Draughts in RetroStone Board: international draughts (10 x 10) and English checkers (8 x 8). The board, the men and
- * kings, tap or drag, a capture tapped landing square by landing square (the rules: draughts_rules.c).
+ * Draughts in RetroStone Board: international draughts (10 x 10), English checkers, Russian, Brazilian and Turkish
+ * draughts (8 x 8). The board, the men and kings, tap or drag, a capture tapped landing square by landing square (the
+ * rules: draughts_rules.c).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * The script's notation (the screenshots, the tests): the standard square numbers (draughts.h), "32-28" a move,
  * "19x30" a capture from 19 ending on 30, "26x37x48" a capture through its landing squares (needed only when two
- * routes end on the same square taking different pieces).
+ * routes end on the same square taking different pieces); Russian, Brazilian and Turkish draughts: a1-h8, "c3-d4",
+ * "c3:e5:g3" (or "c3xe5xg3").
  */
 #include <math.h>
 #include <string.h>
@@ -20,7 +22,7 @@
 static dgame G;
 static dmove legal[DR_MAX_MOVES];
 static int nlegal, state = GS_PLAY;
-static int n = 10, sq, fr, made = -1, made_n = -1, made_small = -1;
+static int n = 10, sq, fr, made = -1, made_n = -1, made_plain = -1, made_small = -1;
 static float bx, by;                            /* the top left square's corner */
 static SDL_Texture *t_man[2][2], *t_small[2], *t_board;   /* [colour][king] */
 static int sel = -1, steps;                     /* the selected piece; the landing squares tapped so far */
@@ -28,10 +30,10 @@ static uint8_t path[DR_MAX_STEPS];
 static struct { int on, from, moved; float x, y; } drag;
 static struct { int on, first; dmove m; Uint32 t0; } anim;
 
-/* a player's colour: international, player 0 ivory; English, dark moves first: player 0 ebony */
+/* a player's colour: English, dark moves first: player 0 ebony; the others, player 0 ivory (white) */
 static int colour(int player) { return G.variant == DR_ENGLISH ? !player : player; }
 
-/* ---- the position ---------------------------------------------------------------------------------------------------- */
+/* ---- the position ------------------------------------------------------------------------------------------------ */
 static void refresh(void)
 {
     nlegal = dr_legal(dr_pos(&G), G.variant, legal);
@@ -48,7 +50,7 @@ static void refresh(void)
 
 static void start(int variant)
 {
-    dr_new(&G, variant == 1 ? DR_ENGLISH : DR_INTERNATIONAL);
+    dr_new(&G, variant >= 0 && variant < DR_VARIANTS ? variant : DR_INTERNATIONAL);
     n = dr_size(G.variant);
     anim.on = 0;
     refresh();
@@ -122,7 +124,7 @@ static int undo(void)
     return 1;
 }
 
-/* "32-28 19x23 28x19 14x23": the screenshots' and the tests' moves (the square numbers) */
+/* "32-28 19x23 28x19 14x23", "c3-d4 f6-e5": the screenshots' and the tests' moves (the variant's notation) */
 static int script(const char *s)
 {
     while (*s == ' ') s++;
@@ -136,7 +138,26 @@ static int script(const char *s)
     return 1;
 }
 
-/* ---- the board on the screen ------------------------------------------------------------------------------------------ */
+/* ---- the board on the screen ------------------------------------------------------------------------------------- */
+/* the board's picture, k x k squares of s pixels in a frame of f: the checkered wood, or (plain: Turkish draughts,
+ * every square used) one plank ruled into squares */
+static void paint_board(uint8_t *o, int k, int s, int f, int plain)
+{
+    static const float INK[3] = {52, 34, 22};
+    art_board_n(k, k, s, f, !plain, o);
+    if (!plain) return;
+    int w = k * s + 2 * f;
+    float lw = 0.8f + 0.028f * s;               /* the lines' width, pixels */
+    for (int y = f; y < f + k * s; y++)
+        for (int x = f; x < f + k * s; x++) {
+            float dx = fmodf(x - f + 0.5f, (float)s), dy = fmodf(y - f + 0.5f, (float)s);
+            float d = fminf(fminf(dx, s - dx), fminf(dy, s - dy));   /* to the nearest line */
+            float a = 0.72f * fminf(fmaxf(lw / 2 - d + 0.5f, 0), 1);
+            uint8_t *p = o + 4 * (y * w + x);
+            for (int i = 0; i < 3; i++) p[i] = (uint8_t)(p[i] * (1 - a) + INK[i] * a + 0.5f);
+        }
+}
+
 static void layout(box b)
 {
     sq = (int)floorf(b.w / (n + 2 * FRAME));
@@ -144,9 +165,11 @@ static void layout(box b)
     float bw = (float)n * sq + 2 * fr;
     bx = floorf(b.x + (b.w - bw) / 2) + fr;
     by = floorf(b.y + (b.h - bw) / 2) + fr;
-    if (made != sq || made_n != n) {
+    int plain = dr_all(G.variant);
+    if (made != sq || made_n != n || made_plain != plain) {
         made = sq;
         made_n = n;
+        made_plain = plain;
         for (int c = 0; c < 2; c++)
             for (int k = 0; k < 2; k++) {
                 ui_free(&t_man[c][k]);
@@ -155,7 +178,7 @@ static void layout(box b)
             }
         int w = n * sq + 2 * fr;
         ui_free(&t_board);
-        art_board_n(n, n, sq, fr, 1, ui_buf(w, w));
+        paint_board(ui_buf(w, w), n, sq, fr, plain);
         t_board = ui_tex(w, w, ui_buf(w, w));
     }
     int small = (int)(0.6f * ui.unit);
@@ -180,7 +203,8 @@ static void sq_xy(int s, float *x, float *y)
 static int xy_sq(float x, float y)
 {
     int f = (int)floorf((x - bx) / sq), r = n - 1 - (int)floorf((y - by) / sq);
-    if (f < 0 || f >= n || r < 0 || r >= n || ((f + r) & 1)) return -1;   /* off the board, or a light square */
+    if (f < 0 || f >= n || r < 0 || r >= n) return -1;   /* off the board */
+    if (!dr_all(G.variant) && ((f + r) & 1)) return -1;   /* a light square */
     return ui.flipped ? (n - 1 - r) * n + n - 1 - f : r * n + f;
 }
 
@@ -262,7 +286,7 @@ static void draw(void)
     }
 }
 
-/* ---- the pointer ------------------------------------------------------------------------------------------------------- */
+/* ---- the pointer ------------------------------------------------------------------------------------------------- */
 static void press(float x, float y)
 {
     if (state != GS_PLAY) return;
@@ -303,14 +327,14 @@ static void release(float x, float y)
     if (s >= 0 && s != drag.from && !go(s, 0)) ui_sound(SND_DENY);
 }
 
-/* ---- the shell's pictures ------------------------------------------------------------------------------------------------ */
+/* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
 /* the pieces a player took: a man of the other colour, and how many */
 static void bar(int player, box b)
 {
     const dpos *p = dr_pos(&G);
     int left = 0;
     for (int s = 0; s < n * n; s++) left += p->sq[s] && DR_OWNER(p->sq[s]) != player;
-    int taken = (G.variant == DR_ENGLISH ? 12 : 20) - left;
+    int taken = dr_pieces(G.variant) - left;
     if (taken <= 0) return;
     float sz = 0.6f * ui.unit, dh = 0.46f * ui.unit, cy = b.y + b.h / 2;
     ui_put(t_small[colour(!player)], b.x, cy - sz / 2, sz, sz);
@@ -329,15 +353,33 @@ static void put_all(uint8_t *rgba, int size, int kind, int c, int s, int ox, int
 }
 
 /* the menu's card (-1): a corner of a board, men and a king; the picker's: the whole board at the start, 10 x 10
- * (ivory at the bottom) or 8 x 8 (ebony at the bottom: it moves first) */
+ * (ivory at the bottom) or 8 x 8 (English: ebony at the bottom, it moves first; Russian: ivory at the bottom),
+ * Brazilian a game going on with a king each, Turkish its men in two rows on a plank ruled into squares */
 static void thumb(int variant, int size, uint8_t *rgba)
 {
-    int k = variant < 0 ? 4 : variant == 1 ? 8 : 10;
+    int k = variant < 0 ? 4 : dr_size(variant);
     int s = (int)(size / (k + 2 * FRAME)), f = (int)(s * FRAME), w = k * s + 2 * f, o = (size - w) / 2;
     uint8_t *board = ui_buf(w, w);
-    art_board_n(k, k, s, f, 1, board);
+    paint_board(board, k, s, f, variant >= 0 && dr_all(variant));
     art_blend(rgba, size, size, board, w, w, o, o);
     o += f;
+    if (variant >= DR_RUSSIAN) {                /* the pieces of a position, ivory (player 0) at the bottom */
+        dpos p;
+        if (variant == DR_BRAZILIAN) dr_setup(&p, variant, 0, "a1 c1 b2 f2 e3 g3 d4 Kf6", "b8 d8 h8 c7 a5 e5 h6 Kb4");
+        else dr_start(&p, variant);
+        int place[2][2][16][2], count[2][2] = {{0}};   /* [player][king]: column, row from the top */
+        for (int q = 0; q < k * k; q++) {
+            int pc = p.sq[q], pl = DR_OWNER(pc), kg = DR_IS_KING(pc), *c = count[pl] + kg;
+            if (!pc || *c >= 16) continue;
+            place[pl][kg][*c][0] = q % k;
+            place[pl][kg][(*c)++][1] = k - 1 - q / k;
+        }
+        for (int pl = 0; pl < 2; pl++)
+            for (int kg = 0; kg < 2; kg++)
+                put_all(rgba, size, kg ? COUNTER_KING : COUNTER_MAN, pl, s, o, o, (const int (*)[2])place[pl][kg],
+                        count[pl][kg]);
+        return;
+    }
     if (variant < 0) {
         static const int ebony[3][2] = {{1, 0}, {3, 0}, {2, 1}}, ivory[2][2] = {{0, 3}, {2, 3}}, king[1][2] = {{1, 2}};
         put_all(rgba, size, COUNTER_MAN, 1, s, o, o, ebony, 3);
@@ -359,7 +401,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
 static int busy(void) { return anim.on; }     /* the end waits for the last move to finish */
 
 static const game draughts_game = {
-    .id = "draughts", .order = 20, .variants = 2,
+    .id = "draughts", .order = 20, .variants = DR_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy,

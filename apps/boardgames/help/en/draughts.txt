@@ -1,6 +1,6 @@
 Draughts
 # The aim
-Capture all the other player's pieces, or leave them without a move. Pieces stand on the dark squares only and move diagonally. Choose the rules before the game: international draughts on a 10 by 10 board, or English draughts (checkers) on an 8 by 8 board.
+Capture all the other player's pieces, or leave them without a move. Choose the rules before the game: international draughts on a 10 by 10 board, English draughts (checkers), Russian, Brazilian or Turkish draughts on an 8 by 8 board. Pieces stand on the dark squares only and move diagonally, except in Turkish draughts.
 # International draughts (10 by 10)
 - Light moves first. A man moves one square diagonally forward.
 - A man captures by jumping over an enemy piece next to it onto the empty square just beyond. Men capture forwards and backwards.
@@ -13,6 +13,25 @@ Capture all the other player's pieces, or leave them without a move. Pieces stan
 - Capturing is compulsory, but you may choose which capture to make. Once a piece starts jumping, it must take every piece it can along its way.
 - A man reaching the far row becomes a king, and that ends the move. A king moves and captures one square diagonally in any direction.
 - Draw: when the same position comes back for the third time, or after 40 moves each without a capture or a man moving.
+# Russian draughts (8 by 8)
+- Light moves first. A man moves one square diagonally forward, and captures forwards and backwards.
+- Kings move and capture from a distance along the diagonals, as in international draughts. After a capture, a king must land on a square from which it can go on capturing, if there is one.
+- Capturing is compulsory, but you may choose which capture to make. Once a piece starts jumping, it must take every piece it can along its way.
+- The pieces taken are removed at the end of the move. A piece cannot be jumped twice.
+- A man reaching the far row becomes a king at once, even in the middle of a capture, and then goes on capturing as a king if it can.
+- Draw: when the same position comes back for the third time, or after 15 moves each with only kings moving and no capture.
+# Brazilian draughts (8 by 8)
+- The rules of international draughts on an 8 by 8 board. Light moves first.
+- Men capture forwards and backwards, kings move and capture from a distance, and you must take the largest number of pieces possible.
+- A man becomes a king only if it ends its move on the far row.
+- Draw: when the same position comes back for the third time, or after 20 moves each with only kings moving and no capture.
+# Turkish draughts (8 by 8)
+- All 64 squares are used. Each player starts with 16 men on their second and third rows. Light moves first.
+- A man moves one square straight forward or sideways, never diagonally and never back. It captures the same way, jumping over an enemy piece next to it onto the empty square just beyond.
+- A man reaching the far row becomes a king. A king moves any number of squares along a row or a column, and captures from a distance, landing on any empty square beyond the piece it takes.
+- Capturing is compulsory, and you must take the largest number of pieces possible.
+- Each piece taken is removed at once, as it is jumped. In a capture of several pieces, a piece cannot turn straight back the way it came.
+- Draw: when the same position comes back for the third time, or after 25 moves each without a capture or a man moving.
 # The end of the game
 A player who has no pieces left, or cannot move, loses.
 # Playing on the device
