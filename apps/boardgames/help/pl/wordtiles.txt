@@ -1,0 +1,32 @@
+Płytki z literami
+# Cel gry
+Układaj płytki z literami na planszy tak, by słowa krzyżowały się jak w krzyżówce, i zdobądź najwięcej punktów. Dla 2–4 graczy. Każdy stojak jest tajny: urządzenie przechodzi z rąk do rąk.
+# Bez słownika
+Gra nigdy nie sprawdza słów. Sprawdza tylko, gdzie trafiają płytki, i liczy punkty każdego utworzonego słowa. Gracze pilnują się nawzajem dzięki sprawdzeniu.
+# Tura
+Każdy gracz ma na stojaku 7 płytek. W swojej turze zrób jedno z tych:
+- Zagraj: połóż jedną lub więcej płytek w jednym wierszu lub kolumnie, bez przerw (płytki leżące już na planszy mogą wypełnić przerwy), stykając się z płytkami już zagranymi. Pierwszy ruch pokrywa gwiazdę na środku i używa co najmniej dwóch płytek. Potem dobierz z woreczka do 7 płytek.
+- Wymień: odłóż płytki do woreczka i dobierz tyle samo nowych, dopóki w woreczku jest ich co najmniej 7.
+- Pasuj.
+# Punkty
+Każde nowe słowo utworzone ruchem, wzdłuż i w poprzek, daje wartość swoich liter. Kolorowe pola liczą się tylko dla płytek, które właśnie na nich położono:
+- Jasnozielone: podwójna litera. Ciemnozielone: potrójna litera (romby).
+- Bursztynowe: podwójne słowo. Czerwone: potrójne słowo (krążki). Gwiazda na środku podwaja słowo.
+- Dwa znaki: podwójne; trzy znaki: potrójne.
+Wszystkie siedem płytek w jednym ruchu: 50 punktów więcej.
+# Sprawdzenie
+Zanim zrobi cokolwiek innego, następny gracz może zakwestionować ostatni ruch. Nie ma słownika, więc sprawdzenie zawsze się udaje: ruch zostaje cofnięty, płytki wracają na stojak właściciela (nadal ukryte), a punkty są odejmowane. Zgodnie z oficjalną zasadą ten gracz traci turę; potem gra ten, kto zakwestionował. Kwestionować może tylko następny gracz. Graj uczciwie: kwestionuj słowo, które nie istnieje, a nie dobre.
+# Płytki
+Nasze własne zestawy, po jednym na język, wyliczone z tego, jak często każda litera występuje w danym języku: 100 liter i 2 blanki. Im częstsza litera, tym więcej płytek i tym mniej punktów. Blank zastępuje dowolną literę i nie daje punktów. Zestaw zależy od języka aplikacji. Litery z ogonkami i kreskami są osobnymi literami. Polski zestaw według punktów:
+- 1: A×8, E×7, I×7, N×5, O×7, R×5, W×5, Z×5
+- 2: C×4, D×3, K×3, M×3, P×3, S×4, T×4, Y×4
+- 3: B×2, J×2, L×2, Ł×2, U×3
+- 4: Ą×1, Ę×1, G×2, H×1
+- 5: Ó×1, Ś×1, Ż×1
+- 6: Ć×1, F×1
+- 7: Ń×1
+- 9: Ź×1
+# Koniec gry
+Gra kończy się, gdy gracz położy ostatnią płytkę przy pustym woreczku (następny gracz może jeszcze zakwestionować ten ruch albo go przyjąć), albo po sześciu turach z rzędu bez punktów (pasy, wymiany, cofnięte ruchy). Każdy traci wtedy punkty płytek pozostałych na stojaku; ten, kto skończył, zdobywa je wszystkie. Wygrywa najwyższy wynik.
+# Gra na urządzeniu
+Podawajcie sobie urządzenie: widzisz tylko swój stojak, na dole. Przeciągnij płytkę na pole albo dotknij płytki, a potem pola. Albo najpierw dotknij pola: strzałka pokazuje kierunek słowa (dotknij jej jeszcze raz, by obrócić ją w dół), a potem dotykaj swoich płytek jedna po drugiej. Dopóki palec jest na planszy, lupa nad nim pokazuje powiększone pola: przesuń palec na właściwe pole, zanim go podniesiesz. Dotknij właśnie położonej płytki, by ją zabrać, albo przeciągnij ją gdzie indziej; przeciągaj płytki wzdłuż stojaka, by je ułożyć. Blank otwiera siatkę liter: dotknij tej, którą zastępuje. Krążek w rogu słowa pokazuje, ile dałby ruch. Przyciski: zabierz płytki, przetasuj stojak, wymień (dotknij płytek do oddania, potem ptaszka), sprawdź (świeci, gdy możesz) i zagraj (ptaszek; na końcu przyjmuje ostatni ruch). Przycisk pasu jest obok twojego wyniku; woreczek pokazuje pozostałe płytki. Cofnij zabiera ostatnio położoną płytkę, nigdy poza przekazanie urządzenia. Na końcu tabela pokazuje płytki pozostałe na każdym stojaku, punkty stracone lub zdobyte i wyniki.

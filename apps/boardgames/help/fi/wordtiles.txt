@@ -1,0 +1,30 @@
+Sanalaatat
+# Tavoite
+Aseta kirjainlaattoja laudalle niin, että sanat risteävät kuin ristisanassa, ja kerää eniten pisteitä. 2–4 pelaajalle. Jokainen teline on salainen: laite kulkee kädestä käteen.
+# Ei sanakirjaa
+Peli ei koskaan tarkista sanoja. Se tarkistaa vain, mihin laatat asetetaan, ja laskee jokaisen muodostuvan sanan pisteet. Pelaajat valvovat toisiaan haastamalla.
+# Vuoro
+Jokaisella pelaajalla on telineessään 7 laattaa. Vuorollasi tee yksi näistä:
+- Pelaa: aseta yksi tai useampi laatta samalle riville tai sarakkeelle ilman aukkoja (laudalla jo olevat laatat saavat täyttää aukot) niin, että ne koskettavat jo pelattuja laattoja. Ensimmäinen siirto peittää keskitähden ja käyttää vähintään kaksi laattaa. Nosta sitten pussista, kunnes sinulla on taas 7.
+- Vaihda: palauta laattoja pussiin ja nosta yhtä monta uutta, kun pussissa on vähintään 7.
+- Ohita.
+# Pisteet
+Jokainen siirron muodostama uusi sana, pituus- ja poikkisuunnassa, tuottaa kirjaintensa arvon. Väriruudut lasketaan vain niille laatoille, jotka juuri asetettiin niiden päälle:
+- Vaaleanvihreä: kaksinkertainen kirjain. Tummanvihreä: kolminkertainen kirjain (vinoneliöt).
+- Meripihka: kaksinkertainen sana. Punainen: kolminkertainen sana (kiekot). Keskitähti tuplaa sanan.
+- Kaksi merkkiä: kaksinkertainen; kolme merkkiä: kolminkertainen.
+Kaikki seitsemän laattaa yhdellä siirrolla: 50 pistettä lisää.
+# Haaste
+Ennen kuin tekee mitään muuta, seuraava pelaaja voi haastaa edellisen siirron. Sanakirjaa ei ole, joten haaste onnistuu aina: siirto perutaan, laatat palaavat omistajansa telineeseen (yhä piilossa) ja pisteet vähennetään. Kuten virallinen sääntö sanoo, se pelaaja menetti vuoronsa; sen jälkeen pelaa haastaja. Vain seuraava pelaaja voi haastaa. Pelaa reilusti: haasta sana, jota ei ole olemassa, älä hyvää sanaa.
+# Laatat
+Omat sarjamme, yksi kullekin kielelle, laskettuna sen mukaan, kuinka usein kukin kirjain esiintyy kielessä: 100 kirjainta ja 2 tyhjää. Mitä yleisempi kirjain, sitä enemmän laattoja ja sitä vähemmän pisteitä. Tyhjä laatta käy mistä tahansa kirjaimesta eikä tuota pisteitä. Sarja seuraa sovelluksen kieltä. Ä ja Ö ovat omia kirjaimiaan. Suomalainen sarja pisteittäin:
+- 1: A×11, E×8, I×10, K×5, L×6, N×8, O×6, S×7, T×8, U×5
+- 2: M×3, R×3, Ä×4
+- 3: H×2, J×2, P×2, V×3, Y×2
+- 4: D×1
+- 6: B×1, G×1, Ö×1
+- 7: F×1
+# Pelin loppu
+Peli päättyy, kun pelaaja asettaa viimeisen laattansa pussin ollessa tyhjä (seuraava pelaaja voi vielä haastaa siirron tai hyväksyä sen), tai kuuden peräkkäisen pisteettömän vuoron jälkeen (ohitukset, vaihdot, perutut siirrot). Jokainen menettää silloin telineeseensä jääneiden laattojen pisteet; pelinsä loppuun pelannut saa ne kaikki. Suurin pistemäärä voittaa.
+# Pelaaminen laitteella
+Antakaa laite kiertää: näet vain oman telineesi, alhaalla. Vedä laatta ruutuun, tai napauta laattaa ja sitten ruutua. Tai napauta ensin ruutua: nuoli näyttää sanan suunnan (napauta uudelleen kääntääksesi sen alaspäin), ja napauta sitten laattojasi peräkkäin. Kun sormesi on laudalla, sen yläpuolella oleva suurennuslasi näyttää ruudut isoina: liu'uta oikeaan ruutuun ennen kuin nostat sormen. Napauta juuri asettamaasi laattaa ottaaksesi sen takaisin, tai vedä se muualle; vedä laattoja telinettä pitkin järjestääksesi ne. Tyhjä laatta avaa kirjainruudukon: napauta kirjainta, jota se esittää. Sanan kulmassa oleva kiekko näyttää, mitä siirto tuottaisi. Painikkeet: ota laatat takaisin, sekoita teline, vaihda (napauta palautettavia laattoja ja sitten rastia), haasta (hehkuu, kun voit) ja pelaa (rasti; lopussa se hyväksyy viimeisen siirron). Ohituspainike on pisteidesi vieressä; pussi näyttää jäljellä olevat laatat. Kumoa ottaa takaisin viimeksi asetetun laatan, ei koskaan laitteen luovutuksen yli. Lopussa taulukko näyttää kunkin telineen jäljellä olevat laatat, menetetyt tai saadut pisteet ja pistemäärät.

@@ -1,0 +1,32 @@
+Tuiles de lettres
+# Le but
+Poser des tuiles de lettres sur le plateau pour former des mots qui se croisent comme dans une grille de mots croisés, et marquer le plus de points. De 2 à 4 joueurs. Chaque chevalet est secret : l'appareil passe de main en main.
+# Pas de dictionnaire
+Le jeu ne vérifie jamais les mots. Il vérifie seulement où vont les tuiles, et compte les points de chaque mot formé. Les joueurs se surveillent entre eux grâce à la contestation.
+# Un tour
+Chaque joueur a 7 tuiles sur son chevalet. À ton tour, fais l'une de ces actions :
+- Jouer : pose une ou plusieurs tuiles sur une seule ligne ou colonne, sans trou (des tuiles déjà posées peuvent combler les trous), en touchant les tuiles déjà jouées. Le premier coup couvre l'étoile du centre et utilise au moins deux tuiles. Puis pioche dans le sac pour revenir à 7 tuiles.
+- Échanger : remets des tuiles dans le sac et pioches-en autant, tant que le sac en contient au moins 7.
+- Passer.
+# Les points
+Chaque nouveau mot formé, dans le sens du coup et en travers, rapporte la valeur de ses lettres. Les cases colorées ne comptent que pour les tuiles qu'on vient d'y poser :
+- Vert clair : lettre compte double. Vert foncé : lettre compte triple (losanges).
+- Ambre : mot compte double. Rouge : mot compte triple (disques). L'étoile du centre : mot compte double.
+- Deux marques : double ; trois marques : triple.
+Les sept tuiles en un seul coup : 50 points de plus.
+# La contestation
+Avant toute autre action, le joueur suivant peut contester le dernier coup. Il n'y a pas de dictionnaire : une contestation réussit toujours. Le coup est repris, ses tuiles retournent sur le chevalet de leur propriétaire (toujours cachées) et ses points sont retirés. Comme le veut la règle officielle, ce joueur a perdu son tour ; le contestataire joue ensuite. Seul le joueur suivant peut contester. Joue franc jeu : conteste un mot qui n'existe pas, pas un bon mot.
+# Les tuiles
+Nos propres jeux de tuiles, un par langue, calculés d'après la fréquence de chaque lettre dans la langue : 100 lettres et 2 jokers. Plus une lettre est courante, plus elle a de tuiles et moins elle vaut de points. Un joker remplace n'importe quelle lettre et ne rapporte rien. Le jeu suit la langue de l'application. Comme le veut l'usage, les accents sont ignorés. Le jeu français, par points :
+- 1: A×7, E×13, I×7, L×6, N×7, O×5, R×6, S×8, T×7, U×6
+- 2: C×4, D×4, M×3, P×3
+- 3: V×2
+- 4: B×1, F×1, G×1, Q×2
+- 5: H×1, J×1
+- 6: X×1, Y×1
+- 8: Z×1
+- 10: K×1, W×1
+# La fin de la partie
+La partie s'arrête quand un joueur pose sa dernière tuile alors que le sac est vide (le joueur suivant peut encore contester ce coup, ou l'accepter), ou après six tours de suite sans points (passes, échanges, coups repris). Chacun perd alors les points des tuiles restées sur son chevalet ; le joueur qui a fini les gagne toutes. Le meilleur score gagne.
+# Jouer sur l'appareil
+Passe l'appareil de main en main : tu ne vois que ton chevalet, en bas. Fais glisser une tuile sur une case, ou touche une tuile puis une case. Ou touche d'abord une case : une flèche montre le sens du mot (touche-la encore pour la tourner vers le bas), puis touche tes tuiles l'une après l'autre. Tant que ton doigt est sur le plateau, une loupe au-dessus montre les cases en grand : glisse jusqu'à la bonne case avant de lever le doigt. Touche une tuile que tu viens de poser pour la reprendre, ou fais-la glisser ailleurs ; fais glisser les tuiles le long du chevalet pour les ranger. Un joker ouvre une grille de lettres : touche celle qu'il remplace. Le disque au coin du mot montre ce que rapporterait le coup. Les boutons : reprendre les tuiles, mélanger le chevalet, échanger (touche les tuiles à rendre, puis la coche), contester (il brille quand c'est possible) et jouer (la coche ; à la fin, elle accepte le dernier coup). Le bouton passer est à côté de ton score ; le sac montre les tuiles restantes. Annuler reprend la dernière tuile posée, jamais au-delà du passage de l'appareil. À la fin, un tableau montre les tuiles restées sur chaque chevalet, les points perdus ou gagnés et les scores.

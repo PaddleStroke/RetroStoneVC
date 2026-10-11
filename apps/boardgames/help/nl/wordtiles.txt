@@ -1,0 +1,30 @@
+Woordtegels
+# Het doel
+Leg lettertegels op het bord zodat woorden elkaar kruisen zoals in een kruiswoordpuzzel, en scoor de meeste punten. Voor 2 tot 4 spelers. Elk plankje is geheim: het apparaat gaat van hand tot hand.
+# Geen woordenboek
+Het spel controleert nooit de woorden. Het controleert alleen waar de tegels komen en telt de punten van elk gevormd woord. De spelers houden elkaar eerlijk met de uitdaging.
+# Een beurt
+Elke speler heeft 7 tegels op zijn plankje. Als je aan de beurt bent, doe je een van deze dingen:
+- Leggen: leg een of meer tegels in één rij of kolom, zonder gat (tegels op het bord mogen de gaten vullen), aansluitend op de tegels die er al liggen. De eerste zet bedekt de ster in het midden en gebruikt minstens twee tegels. Pak daarna uit de zak tot je weer 7 tegels hebt.
+- Ruilen: leg tegels terug in de zak en pak er evenveel nieuwe, zolang de zak er minstens 7 bevat.
+- Passen.
+# De punten
+Elk nieuw woord dat een zet vormt, in de lengte en dwars, levert de waarde van zijn letters op. De gekleurde vakjes tellen alleen voor de tegels die er net op gelegd zijn:
+- Lichtgroen: letter dubbel. Donkergroen: letter driedubbel (ruitjes).
+- Amber: woord dubbel. Rood: woord driedubbel (schijfjes). De ster in het midden telt het woord dubbel.
+- Twee tekens: dubbel; drie tekens: driedubbel.
+Alle zeven tegels in één zet: 50 punten extra.
+# De uitdaging
+Voordat hij iets anders doet, mag de volgende speler de laatste zet uitdagen. Er is geen woordenboek, dus een uitdaging slaagt altijd: de zet wordt teruggenomen, de tegels gaan terug naar het plankje van hun eigenaar (nog steeds verborgen) en de punten worden afgetrokken. Zoals de officiële regel zegt, is die speler zijn beurt kwijt; daarna speelt de uitdager. Alleen de volgende speler mag uitdagen. Speel eerlijk: daag een woord uit dat niet bestaat, geen goed woord.
+# De tegels
+Onze eigen sets, één per taal, berekend uit hoe vaak elke letter in die taal voorkomt: 100 letters en 2 blanco tegels. Hoe gewoner een letter, hoe meer tegels en hoe minder punten. Een blanco tegel staat voor elke letter en levert niets op. De set volgt de taal van de app. IJ wordt met twee tegels gelegd. De Nederlandse set, per aantal punten:
+- 1: A×7, D×6, E×16, I×6, N×9, O×6, R×6, T×6
+- 2: G×3, L×4, S×4, V×3
+- 3: B×2, H×3, J×2, K×2, M×2, P×2, U×2, W×2
+- 4: C×1, Z×2
+- 5: F×1
+- 10: Q×1, X×1, Y×1
+# Het einde van de partij
+De partij eindigt als een speler zijn laatste tegel legt terwijl de zak leeg is (de volgende speler mag die zet nog uitdagen of aannemen), of na zes beurten op rij zonder punten (passen, ruilen, teruggenomen zetten). Iedereen verliest dan de punten van de tegels op zijn plankje; wie uitging, krijgt ze allemaal. De hoogste score wint.
+# Spelen op het apparaat
+Geef het apparaat door: je ziet alleen je eigen plankje, onderaan. Sleep een tegel naar een vakje, of tik op een tegel en dan op een vakje. Of tik eerst op een vakje: een pijl toont de richting van het woord (tik nog eens om hem naar beneden te draaien), en tik dan je tegels na elkaar aan. Zolang je vinger op het bord ligt, toont een loep erboven de vakjes vergroot: schuif naar het juiste vakje voor je loslaat. Tik op een net gelegde tegel om hem terug te nemen, of sleep hem ergens anders heen; sleep tegels langs het plankje om ze te ordenen. Een blanco tegel opent een raster met letters: tik op de letter waarvoor hij staat. Het schijfje op de hoek van het woord toont wat de zet zou opleveren. De knoppen: tegels terugnemen, plankje schudden, ruilen (tik de tegels aan die je teruggeeft, dan het vinkje), uitdagen (licht op als het mag) en leggen (het vinkje; aan het eind neemt het de laatste zet aan). De pasknop staat naast je score; de zak toont de tegels die over zijn. Ongedaan maken neemt de laatst gelegde tegel terug, nooit voorbij het doorgeven. Aan het eind toont een tabel de tegels die op elk plankje over zijn, de verloren of gewonnen punten en de scores.

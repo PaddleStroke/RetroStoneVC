@@ -11,3 +11,7 @@
 # mahjong solitaire: the characters suit (the numerals one to nine, wan), the winds (east south west north), the
 # red and green dragons
 一二三四五六七八九萬 東南西北 中發
+# word tiles: the letters of the sets (the ones Noto Sans CJK lacks, Polish, Czech, Turkish and Ukrainian ones,
+# come from those languages' own font: their rules list them)
+ABCDEFGHIJKLMNOPQRSTUVWXYZ ÁÄÅÆÇÉÍÑÓÖØÚÜÝĚŃŇ
+ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ

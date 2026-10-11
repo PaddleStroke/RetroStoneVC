@@ -1,0 +1,32 @@
+Slovní kamínky
+# Cíl hry
+Pokládej kamínky s písmeny na desku tak, aby se slova křížila jako v křížovce, a získej nejvíc bodů. Pro 2 až 4 hráče. Každý stojánek je tajný: zařízení putuje z ruky do ruky.
+# Žádný slovník
+Hra slova nikdy nekontroluje. Kontroluje jen, kam se kamínky kladou, a počítá body každého vytvořeného slova. Hráči se navzájem hlídají námitkou.
+# Tah
+Každý hráč má na stojánku 7 kamínků. Na tahu udělej jedno z toho:
+- Hrát: polož jeden nebo více kamínků do jedné řady nebo sloupce, bez mezer (kamínky na desce mohou mezery vyplnit), tak aby se dotýkaly už zahraných kamínků. První tah zakrývá hvězdu uprostřed a použije aspoň dva kamínky. Potom si dober ze sáčku zpět na 7.
+- Vyměnit: vrať kamínky do sáčku a vezmi si stejný počet nových, dokud je v sáčku aspoň 7.
+- Pasovat.
+# Body
+Každé nové slovo, které tah vytvoří, podélně i napříč, přinese hodnotu svých písmen. Barevná pole platí jen pro kamínky na ně právě položené:
+- Světle zelená: dvojnásobné písmeno. Tmavě zelená: trojnásobné písmeno (kosočtverce).
+- Jantarová: dvojnásobné slovo. Červená: trojnásobné slovo (kotouče). Hvězda uprostřed zdvojuje slovo.
+- Dvě značky: dvojnásobek; tři značky: trojnásobek.
+Všech sedm kamínků v jednom tahu: o 50 bodů víc.
+# Námitka
+Než udělá cokoli jiného, může další hráč vznést námitku proti poslednímu tahu. Slovník není, takže námitka vždy uspěje: tah se vezme zpět, kamínky se vrátí na stojánek majitele (stále skryté) a body se odečtou. Podle oficiálního pravidla ten hráč přišel o tah; potom hraje ten, kdo námitku vznesl. Námitku smí vznést jen další hráč. Hraj férově: namítej slovo, které neexistuje, ne dobré slovo.
+# Kamínky
+Naše vlastní sady, jedna pro každý jazyk, spočítané podle toho, jak často se každé písmeno v jazyce vyskytuje: 100 písmen a 2 žolíci. Čím běžnější písmeno, tím víc kamínků a tím méně bodů. Žolík zastoupí jakékoli písmeno a nemá žádnou hodnotu. Sada se řídí jazykem aplikace. Písmena s háčky a čárkami jsou samostatná; CH se skládá ze dvou kamínků. Česká sada podle bodů:
+- 1: A×6, E×7, N×6, O×8, S×4, T×5, V×4
+- 2: D×3, I×4, Í×3, K×4, L×4, M×3, P×3, R×3
+- 3: Á×2, B×2, C×2, J×2, U×2, Y×2, Z×2
+- 4: Č×1, É×2, Ě×2, H×1, Ř×1, Ý×1, Ž×1
+- 5: Š×1, Ů×1
+- 6: F×1
+- 8: G×1, Ň×1, Ť×1, Ú×1
+- 10: Ď×1, Ó×1, X×1
+# Konec hry
+Hra končí, když hráč položí svůj poslední kamínek a sáček je prázdný (další hráč může ještě proti tomu tahu vznést námitku, nebo ho přijmout), nebo po šesti tazích za sebou bez bodů (pasy, výměny, vzaté tahy). Každý pak ztratí body kamínků, které mu zbyly na stojánku; kdo dohrál, získá je všechny. Vyhrává nejvyšší skóre.
+# Hra na zařízení
+Posílejte si zařízení: vidíš jen svůj stojánek, dole. Přetáhni kamínek na pole, nebo klepni na kamínek a pak na pole. Nebo nejdřív klepni na pole: šipka ukáže směr slova (dalším klepnutím ji otočíš dolů), a pak klepej na své kamínky jeden po druhém. Dokud máš prst na desce, lupa nad ním ukazuje pole zvětšená: posuň prst na správné pole, než ho zvedneš. Klepnutím na právě položený kamínek ho vezmeš zpět, nebo ho přetáhni jinam; přetahováním po stojánku kamínky seřadíš. Žolík otevře mřížku písmen: klepni na to, které zastupuje. Kotouč v rohu slova ukazuje, kolik by tah vynesl. Tlačítka: vzít kamínky zpět, zamíchat stojánek, vyměnit (klepni na kamínky k vrácení, pak na fajfku), námitka (svítí, když smíš) a hrát (fajfka; na konci přijme poslední tah). Tlačítko pasu je u tvého skóre; sáček ukazuje zbylé kamínky. Zpět vezme naposledy položený kamínek, nikdy ne přes předání zařízení. Na konci tabulka ukáže kamínky, které zbyly na každém stojánku, ztracené či získané body a skóre.

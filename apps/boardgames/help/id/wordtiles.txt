@@ -1,0 +1,32 @@
+Ubin Kata
+# Tujuan
+Letakkan ubin huruf di papan sehingga kata-kata saling bersilangan seperti teka-teki silang, dan kumpulkan poin terbanyak. Untuk 2 sampai 4 pemain. Rak setiap pemain rahasia: perangkat berpindah dari tangan ke tangan.
+# Tanpa kamus
+Permainan tidak pernah memeriksa kata. Permainan hanya memeriksa ke mana ubin diletakkan dan menghitung poin setiap kata yang terbentuk. Para pemain saling mengawasi dengan gugatan.
+# Satu giliran
+Setiap pemain punya 7 ubin di raknya. Pada giliranmu, lakukan salah satu dari ini:
+- Main: letakkan satu ubin atau lebih dalam satu baris atau kolom, tanpa celah (ubin yang sudah ada di papan boleh mengisi celah), menyentuh ubin yang sudah dimainkan. Langkah pertama menutup bintang di tengah dan memakai sedikitnya dua ubin. Lalu ambil dari kantong sampai kembali 7 ubin.
+- Tukar: kembalikan beberapa ubin ke kantong dan ambil ubin baru sebanyak itu, selama kantong berisi sedikitnya 7.
+- Lewat.
+# Poin
+Setiap kata baru yang dibentuk sebuah langkah, memanjang dan melintang, memberi nilai huruf-hurufnya. Kotak berwarna hanya berlaku untuk ubin yang baru diletakkan di atasnya:
+- Hijau muda: huruf ganda. Hijau tua: huruf tiga kali (belah ketupat).
+- Kuning ambar: kata ganda. Merah: kata tiga kali (cakram). Bintang di tengah melipatgandakan kata.
+- Dua tanda: ganda; tiga tanda: tiga kali.
+Ketujuh ubin dalam satu langkah: 50 poin tambahan.
+# Gugatan
+Sebelum melakukan hal lain, pemain berikutnya boleh menggugat langkah terakhir. Tidak ada kamus, jadi gugatan selalu berhasil: langkah itu dibatalkan, ubinnya kembali ke rak pemiliknya (tetap tersembunyi) dan poinnya dihapus. Seperti aturan resminya, pemain itu kehilangan gilirannya; lalu penggugat yang bermain. Hanya pemain berikutnya yang boleh menggugat. Bermainlah jujur: gugat kata yang tidak ada, bukan kata yang benar.
+# Ubin
+Set kami sendiri, satu untuk setiap bahasa, dihitung dari seberapa sering setiap huruf muncul dalam bahasa itu: 100 huruf dan 2 ubin kosong. Makin umum sebuah huruf, makin banyak ubinnya dan makin kecil poinnya. Ubin kosong menggantikan huruf apa saja dan tidak bernilai. Set mengikuti bahasa aplikasi. Set bahasa Indonesia, menurut poin:
+- 1: A×17, E×8, I×8, N×9, T×5, U×5
+- 2: D×4, G×4, K×5, L×3, M×4, O×3, R×4, S×4
+- 3: B×3, H×3, P×3, Y×2
+- 4: J×1
+- 5: C×1, W×1
+- 7: F×1
+- 8: V×1
+- 10: Z×1
+# Akhir permainan
+Permainan berakhir ketika seorang pemain meletakkan ubin terakhirnya saat kantong kosong (pemain berikutnya masih boleh menggugat langkah itu atau menerimanya), atau setelah enam giliran berturut-turut tanpa poin (lewat, tukar, langkah yang dibatalkan). Setiap pemain lalu kehilangan poin ubin yang tersisa di raknya; pemain yang menghabiskan ubin mendapat semuanya. Skor tertinggi menang.
+# Bermain di perangkat
+Gilirkan perangkat: kamu hanya melihat rakmu sendiri, di bawah. Seret ubin ke sebuah kotak, atau ketuk ubin lalu kotak. Atau ketuk kotak dulu: panah menunjukkan arah kata (ketuk lagi untuk memutarnya ke bawah), lalu ketuk ubin-ubinmu satu per satu. Selama jarimu di papan, kaca pembesar di atasnya menampilkan kotak-kotak dengan besar: geser ke kotak yang tepat sebelum mengangkat jari. Ketuk ubin yang baru kamu letakkan untuk mengambilnya kembali, atau seret ke tempat lain; seret ubin di sepanjang rak untuk menyusunnya. Ubin kosong membuka kisi huruf: ketuk huruf yang diwakilinya. Cakram di sudut kata menunjukkan berapa nilai langkah itu. Tombol-tombolnya: ambil kembali ubin, kocok rak, tukar (ketuk ubin yang dikembalikan, lalu tanda centang), gugat (menyala bila boleh) dan main (tanda centang; di akhir ia menerima langkah terakhir). Tombol lewat ada di samping skormu; kantong menunjukkan ubin yang tersisa. Urungkan mengambil kembali ubin terakhir yang diletakkan, tidak pernah melewati serah terima perangkat. Di akhir, tabel menunjukkan ubin yang tersisa di setiap rak, poin yang hilang atau didapat, dan skornya.

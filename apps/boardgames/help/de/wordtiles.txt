@@ -1,0 +1,32 @@
+Wortsteine
+# Das Ziel
+Lege Buchstabensteine so auf das Brett, dass sich Wörter wie in einem Kreuzworträtsel kreuzen, und sammle die meisten Punkte. Für 2 bis 4 Spieler. Jede Bank ist geheim: Das Gerät geht von Hand zu Hand.
+# Kein Wörterbuch
+Das Spiel prüft die Wörter nie. Es prüft nur, wohin die Steine kommen, und zählt die Punkte jedes gebildeten Wortes. Die Spieler passen mit dem Einspruch aufeinander auf.
+# Ein Zug
+Jeder Spieler hat 7 Steine auf seiner Bank. Wenn du dran bist, tu eines davon:
+- Legen: einen oder mehrere Steine in eine einzige Reihe oder Spalte, ohne Lücke (Steine auf dem Brett dürfen Lücken füllen), angrenzend an die schon gelegten Steine. Der erste Zug bedeckt den Stern in der Mitte und braucht mindestens zwei Steine. Dann ziehst du aus dem Beutel wieder auf 7 Steine.
+- Tauschen: Lege Steine in den Beutel zurück und ziehe ebenso viele neue, solange der Beutel mindestens 7 enthält.
+- Passen.
+# Die Punkte
+Jedes neue Wort, das ein Zug bildet, in seiner Richtung und quer dazu, bringt die Werte seiner Buchstaben. Die farbigen Felder zählen nur für die Steine, die gerade darauf gelegt wurden:
+- Hellgrün: doppelter Buchstabenwert. Dunkelgrün: dreifacher Buchstabenwert (Rauten).
+- Bernstein: doppelter Wortwert. Rot: dreifacher Wortwert (Scheiben). Der Stern in der Mitte zählt das Wort doppelt.
+- Zwei Zeichen: doppelt; drei Zeichen: dreifach.
+Alle sieben Steine in einem Zug: 50 Punkte mehr.
+# Der Einspruch
+Bevor er irgendetwas anderes tut, darf der nächste Spieler gegen den letzten Zug Einspruch erheben. Es gibt kein Wörterbuch, also gelingt ein Einspruch immer: Der Zug wird zurückgenommen, seine Steine gehen auf die Bank ihres Besitzers zurück (weiter verdeckt) und seine Punkte werden abgezogen. Wie nach der offiziellen Regel hat dieser Spieler seinen Zug verloren; danach spielt, wer Einspruch erhoben hat. Nur der nächste Spieler darf Einspruch erheben. Spiel fair: Erhebe Einspruch gegen ein Wort, das es nicht gibt, nicht gegen ein gutes.
+# Die Steine
+Unsere eigenen Sätze, einer pro Sprache, berechnet danach, wie oft jeder Buchstabe in der Sprache vorkommt: 100 Buchstaben und 2 Joker. Je häufiger ein Buchstabe, desto mehr Steine und desto weniger Punkte. Ein Joker steht für jeden Buchstaben und bringt nichts. Der Satz folgt der Sprache der App. Ä, Ö und Ü sind eigene Buchstaben; ß wird als SS gelegt. Der deutsche Satz, nach Punkten:
+- 1: A×6, D×5, E×14, H×4, I×7, N×9, R×6, S×7, T×6
+- 2: C×3, G×3, L×3, U×4
+- 3: B×2, F×2, M×3, O×3, W×2
+- 4: K×1, Z×1
+- 5: Ä×1, P×1, Ü×1, V×1
+- 6: Ö×1
+- 7: J×1
+- 10: Q×1, X×1, Y×1
+# Das Ende der Partie
+Die Partie endet, wenn ein Spieler bei leerem Beutel seinen letzten Stein legt (der nächste Spieler darf noch Einspruch erheben oder den Zug annehmen), oder nach sechs Zügen ohne Punkte hintereinander (Passen, Tauschen, zurückgenommene Züge). Dann verliert jeder die Punkte der Steine auf seiner Bank; wer ausgespielt hat, bekommt sie alle. Die höchste Punktzahl gewinnt.
+# Spielen auf dem Gerät
+Gib das Gerät weiter: Du siehst immer nur deine eigene Bank, unten. Ziehe einen Stein auf ein Feld, oder tippe einen Stein und dann ein Feld an. Oder tippe zuerst ein Feld an: Ein Pfeil zeigt die Richtung des Wortes (noch einmal tippen dreht ihn nach unten), dann tippe deine Steine nacheinander an. Solange dein Finger auf dem Brett liegt, zeigt eine Lupe darüber die Felder vergrößert: Schiebe ihn auf das richtige Feld, bevor du loslässt. Tippe einen gerade gelegten Stein an, um ihn zurückzunehmen, oder ziehe ihn woandershin; ziehe Steine an der Bank entlang, um sie zu ordnen. Ein Joker öffnet ein Raster mit Buchstaben: Tippe den an, für den er steht. Die Scheibe an der Ecke des Wortes zeigt, was der Zug brächte. Die Knöpfe: Steine zurücknehmen, Bank mischen, tauschen (die Steine antippen, dann den Haken), Einspruch (er leuchtet, wenn du darfst) und legen (der Haken; am Ende nimmt er den letzten Zug an). Der Passen-Knopf ist neben deinem Punktestand; der Beutel zeigt die übrigen Steine. Rückgängig nimmt den zuletzt gelegten Stein zurück, nie über die Übergabe hinaus. Am Ende zeigt eine Tabelle die Reststeine jeder Bank, die verlorenen oder gewonnenen Punkte und die Punktestände.

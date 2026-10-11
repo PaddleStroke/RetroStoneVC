@@ -1,0 +1,31 @@
+Fichas de palabras
+# El objetivo
+Coloca fichas de letras en el tablero para formar palabras que se cruzan como en un crucigrama, y consigue más puntos que nadie. De 2 a 4 jugadores. Cada atril es secreto: el dispositivo pasa de mano en mano.
+# Sin diccionario
+El juego nunca comprueba las palabras. Solo comprueba dónde van las fichas y cuenta los puntos de cada palabra formada. Los jugadores se vigilan entre sí con la impugnación.
+# Un turno
+Cada jugador tiene 7 fichas en su atril. En tu turno, haz una de estas cosas:
+- Jugar: coloca una o más fichas en una sola fila o columna, sin huecos (las fichas ya colocadas pueden llenar los huecos), tocando las fichas ya jugadas. La primera jugada cubre la estrella central y usa al menos dos fichas. Después roba de la bolsa hasta volver a tener 7.
+- Cambiar: devuelve fichas a la bolsa y roba otras tantas, mientras la bolsa tenga al menos 7.
+- Pasar.
+# Los puntos
+Cada palabra nueva que forma una jugada, en su línea y en perpendicular, suma el valor de sus letras. Las casillas de color solo cuentan para las fichas recién colocadas sobre ellas:
+- Verde claro: letra doble. Verde oscuro: letra triple (rombos).
+- Ámbar: palabra doble. Rojo: palabra triple (discos). La estrella central es palabra doble.
+- Dos marcas: doble; tres marcas: triple.
+Las siete fichas en una sola jugada: 50 puntos más.
+# La impugnación
+Antes de hacer nada más, el jugador siguiente puede impugnar la última jugada. No hay diccionario, así que la impugnación siempre prospera: la jugada se retira, sus fichas vuelven al atril de su dueño (siempre ocultas) y se restan sus puntos. Como manda la regla oficial, ese jugador ha perdido su turno; después juega quien impugnó. Solo puede impugnar el jugador siguiente. Juega limpio: impugna una palabra que no existe, no una buena.
+# Las fichas
+Nuestros propios juegos, uno por idioma, calculados según la frecuencia de cada letra en el idioma: 100 letras y 2 comodines. Cuanto más común es una letra, más fichas tiene y menos vale. Un comodín sustituye a cualquier letra y no vale nada. El juego sigue el idioma de la aplicación. Se ignoran las tildes; la Ñ es una letra; CH, LL y RR se forman con dos fichas. El juego español, por puntos:
+- 1: A×11, C×5, D×6, E×12, I×6, L×5, N×6, O×8, R×7, S×7, T×5
+- 2: M×3, U×4
+- 3: P×3
+- 4: B×2, G×1, Q×1, V×1, Y×1
+- 5: F×1, H×1, Z×1
+- 6: J×1, Ñ×1
+- 7: X×1
+# El final de la partida
+La partida termina cuando un jugador coloca su última ficha con la bolsa vacía (el jugador siguiente aún puede impugnar esa jugada o aceptarla), o tras seis turnos seguidos sin puntos (pases, cambios, jugadas retiradas). Cada jugador pierde entonces los puntos de las fichas que le quedan en el atril; quien se quedó sin fichas los gana todos. Gana la puntuación más alta.
+# Jugar en el dispositivo
+Pasa el dispositivo: solo ves tu propio atril, abajo. Arrastra una ficha a una casilla, o toca una ficha y luego una casilla. O toca primero una casilla: una flecha muestra el sentido de la palabra (tócala otra vez para girarla hacia abajo), y luego toca tus fichas una tras otra. Mientras tu dedo está en el tablero, una lupa encima muestra las casillas ampliadas: desliza hasta la casilla correcta antes de levantar el dedo. Toca una ficha recién colocada para recuperarla, o arrástrala a otro sitio; arrastra fichas a lo largo del atril para ordenarlas. Un comodín abre una cuadrícula de letras: toca la que representa. El disco en la esquina de la palabra muestra lo que valdría la jugada. Los botones: recuperar las fichas, mezclar el atril, cambiar (toca las fichas que devuelves y luego la marca), impugnar (brilla cuando puedes) y jugar (la marca; al final acepta la última jugada). El botón de pasar está junto a tu puntuación; la bolsa muestra las fichas que quedan. Deshacer retira la última ficha colocada, nunca más allá del cambio de mano. Al final, una tabla muestra las fichas que quedan en cada atril, los puntos perdidos o ganados y las puntuaciones.
