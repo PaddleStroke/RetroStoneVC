@@ -8,3 +8,6 @@
 漢楚士象馬車包兵卒
 # shogi (Japanese chess), and the promoted pieces
 王玉飛角金銀桂香歩 龍竜馬と全圭杏成
+# mahjong solitaire: the characters suit (the numerals one to nine, wan), the winds (east south west north), the
+# red and green dragons
+一二三四五六七八九萬 東南西北 中發

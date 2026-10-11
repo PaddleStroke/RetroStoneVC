@@ -1,0 +1,18 @@
+Mahjong solitaire
+# Het doel
+De stenen van een mahjongspel liggen in een opstelling op elkaar gestapeld. Haal ze allemaal weg, in gelijke paren. Kies eerst de opstelling:
+- Schildpad: de klassieke, alle 144 stenen in vijf lagen. Op een telefoon zijn de stenen klein.
+- Piramide: 80 stenen in drie lagen, grotere stenen, een korter spel.
+Elk spel kan helemaal worden leeggespeeld.
+# De stenen
+- Drie kleuren, genummerd van 1 tot 9: stippen (cirkels), bamboe (stokjes; de 1 is een vogel) en karakters (een Chinees getal boven 萬, tienduizend).
+- De vier winden: 東 oost, 南 zuid, 西 west, 北 noord.
+- De drie draken: 中 rood, 發 groen, en de witte, een blauw kader.
+- Vier bloemen en vier seizoenen, elk met zijn nummer in een hoek.
+Elke steen van de kleuren, winden en draken komt vier keer voor; elke bloem en elk seizoen één keer.
+# Een zet
+Haal twee gelijke vrije stenen weg. Een steen is vrij als er geen steen op ligt, ook niet half, en zijn linker- of zijn rechterkant open is (geen steen direct ernaast op zijn laag). Twee stenen horen bij elkaar als ze gelijk zijn; elke bloem past bij elke bloem, en elk seizoen bij elk seizoen.
+# Het einde van het spel
+Je wint als alle stenen weg zijn. Is er geen paar vrije stenen meer, dan kun je schudden: de overgebleven stenen worden op dezelfde plaatsen opnieuw verdeeld, zodat ze nog allemaal weg kunnen. Helpt zelfs dat niet (een steen zit vast onder een andere), dan is het spel voorbij.
+# Spelen op het apparaat
+Tik op een vrije steen en dan op zijn partner: ze gaan allebei omhoog en verdwijnen. Tik nog eens op de gekozen steen om hem los te laten. Stenen die niet vrij zijn, zijn donkerder, en een tik vlak naast een vrije steen kiest die ook. De lamp in de balk wijst een paar aan. Is er geen paar meer, dan verschijnt de schudknop in de balk en in het midden van het bord. Ongedaan maken neemt een paar of een schudbeurt terug. De balk toont hoeveel stenen er nog over zijn.

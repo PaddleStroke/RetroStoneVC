@@ -1,0 +1,18 @@
+Mahjong-Solitär
+# Das Ziel
+Die Steine eines Mahjong-Spiels liegen gestapelt in einer Anordnung. Nimm sie alle weg, in gleichen Paaren. Wähle zuerst die Anordnung:
+- Schildkröte: die klassische, alle 144 Steine in fünf Lagen. Auf einem Handy sind ihre Steine klein.
+- Pyramide: 80 Steine in drei Lagen, größere Steine, eine kürzere Partie.
+Jedes Spiel lässt sich ganz abräumen.
+# Die Steine
+- Drei Farben, von 1 bis 9 nummeriert: Kreise, Bambus (Stäbe; die 1 ist ein Vogel) und Schriftzeichen (eine chinesische Zahl über 萬, zehntausend).
+- Die vier Winde: 東 Osten, 南 Süden, 西 Westen, 北 Norden.
+- Die drei Drachen: 中 rot, 發 grün, und der weiße, ein blauer Rahmen.
+- Vier Blumen und vier Jahreszeiten, jede mit ihrer Nummer in einer Ecke.
+Jeder Stein der Farben, Winde und Drachen kommt viermal vor; jede Blume und jede Jahreszeit einmal.
+# Ein Zug
+Nimm zwei gleiche freie Steine weg. Ein Stein ist frei, wenn kein Stein auf ihm liegt, auch nicht teilweise, und seine linke oder seine rechte Seite offen ist (kein Stein direkt daneben auf seiner Lage). Zwei Steine passen zusammen, wenn sie gleich sind; jede Blume passt zu jeder Blume und jede Jahreszeit zu jeder Jahreszeit.
+# Das Ende der Partie
+Du gewinnst, wenn alle Steine weg sind. Bleibt kein Paar freier Steine, kannst du mischen: Die übrigen Steine werden an denselben Plätzen neu verteilt, so dass sie sich noch alle abräumen lassen. Hilft selbst das nicht (ein Stein steckt unter einem anderen fest), ist die Partie vorbei.
+# Spielen auf dem Gerät
+Tippe einen freien Stein an, dann seinen Partner: Beide heben ab. Tippe den gewählten Stein noch einmal an, um ihn loszulassen. Steine, die nicht frei sind, sind abgedunkelt, und ein Tippen direkt neben einen freien Stein wählt ihn ebenfalls. Die Lampe in der Leiste zeigt ein Paar. Bleibt kein Paar, erscheint der Mischen-Knopf in der Leiste und in der Mitte des Bretts. Zurück nimmt ein Paar oder ein Mischen zurück. Die Leiste zeigt, wie viele Steine noch übrig sind.

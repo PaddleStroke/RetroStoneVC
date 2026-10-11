@@ -1,0 +1,18 @@
+Mahjong solitaire
+# Le but
+Les tuiles d'un jeu de mahjong sont empilées selon une disposition. Retire-les toutes, par paires identiques. Choisis d'abord la disposition :
+- Tortue : la classique, les 144 tuiles sur cinq étages. Sur un téléphone, ses tuiles sont petites.
+- Pyramide : 80 tuiles sur trois étages, des tuiles plus grandes, une partie plus courte.
+Chaque donne peut être entièrement retirée.
+# Les tuiles
+- Trois familles numérotées de 1 à 9 : les ronds (cercles), les bambous (des tiges ; le 1 est un oiseau) et les caractères (un chiffre chinois au-dessus de 萬, dix mille).
+- Les quatre vents : 東 est, 南 sud, 西 ouest, 北 nord.
+- Les trois dragons : 中 rouge, 發 vert, et le blanc, un cadre bleu.
+- Quatre fleurs et quatre saisons, chacune avec son numéro dans un coin.
+Chaque tuile des familles, des vents et des dragons existe en quatre exemplaires ; chaque fleur et chaque saison en un seul.
+# Un coup
+Retire deux tuiles libres identiques. Une tuile est libre quand aucune tuile n'est posée dessus, même en partie, et que son côté gauche ou son côté droit est dégagé (aucune tuile juste à côté sur son étage). Deux tuiles vont ensemble quand elles sont identiques ; n'importe quelle fleur va avec n'importe quelle fleur, et n'importe quelle saison avec n'importe quelle saison.
+# La fin de la partie
+Tu gagnes quand toutes les tuiles sont parties. S'il ne reste aucune paire de tuiles libres, tu peux mélanger : les tuiles restantes sont redistribuées aux mêmes places, de façon à pouvoir encore toutes les retirer. Si même cela ne peut rien (une tuile coincée sous une autre), la partie est finie.
+# Jouer sur l'appareil
+Touche une tuile libre, puis sa paire : les deux s'envolent. Touche encore la tuile choisie pour la lâcher. Les tuiles qui ne sont pas libres sont assombries, et une touche juste à côté d'une tuile libre la choisit aussi. La lampe dans la barre montre une paire. Quand il ne reste aucune paire, le bouton pour mélanger apparaît dans la barre et au milieu du plateau. Annuler reprend une paire ou un mélange. La barre indique combien de tuiles il reste.

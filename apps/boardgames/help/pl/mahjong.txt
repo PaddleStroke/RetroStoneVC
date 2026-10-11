@@ -1,0 +1,18 @@
+Pasjans mahjong
+# Cel gry
+Kamienie z gry w mahjonga leżą ułożone w stos według wzoru. Zdejmij je wszystkie, w jednakowych parach. Najpierw wybierz wzór:
+- Żółw: klasyczny, wszystkie 144 kamienie w pięciu warstwach. Na telefonie jego kamienie są małe.
+- Piramida: 80 kamieni w trzech warstwach, większe kamienie, krótsza gra.
+Każde rozdanie da się całkowicie zdjąć.
+# Kamienie
+- Trzy kolory, numerowane od 1 do 9: koła, bambusy (patyczki; jedynka to ptak) i znaki (chińska cyfra nad znakiem 萬, dziesięć tysięcy).
+- Cztery wiatry: 東 wschód, 南 południe, 西 zachód, 北 północ.
+- Trzy smoki: 中 czerwony, 發 zielony i biały, niebieska ramka.
+- Cztery kwiaty i cztery pory roku, każde ze swoim numerem w rogu.
+Każdy kamień kolorów, wiatrów i smoków występuje cztery razy; każdy kwiat i każda pora roku raz.
+# Ruch
+Zdejmij dwa jednakowe wolne kamienie. Kamień jest wolny, gdy nie leży na nim żaden kamień, nawet częściowo, a jego lewy lub prawy bok jest odsłonięty (żadnego kamienia tuż obok w tej samej warstwie). Dwa kamienie tworzą parę, gdy są jednakowe; każdy kwiat pasuje do każdego kwiatu, a każda pora roku do każdej pory roku.
+# Koniec gry
+Wygrywasz, gdy znikną wszystkie kamienie. Jeśli nie została żadna para wolnych kamieni, możesz potasować: pozostałe kamienie zostają rozdane od nowa na tych samych miejscach, tak by wciąż dało się zdjąć je wszystkie. Jeśli nawet to nie pomoże (kamień uwięziony pod innym), gra się kończy.
+# Gra na urządzeniu
+Dotknij wolnego kamienia, a potem jego pary: oba się unoszą i znikają. Dotknij wybranego kamienia jeszcze raz, by go puścić. Kamienie, które nie są wolne, są przyciemnione, a dotknięcie tuż obok wolnego kamienia też go wybiera. Lampka na pasku pokazuje parę. Gdy nie ma już żadnej pary, przycisk tasowania pojawia się na pasku i na środku planszy. Cofnij cofa parę albo tasowanie. Pasek pokazuje, ile kamieni zostało.

@@ -1,0 +1,18 @@
+Mahjong-kabal
+# Målet
+Brikkene i et mahjongspill ligger stablet i et mønster. Fjern alle sammen, i like par. Velg først mønsteret:
+- Skilpadde: det klassiske, alle 144 brikkene i fem lag. På en telefon er brikkene små.
+- Pyramide: 80 brikker i tre lag, større brikker, et kortere spill.
+Hver utdeling kan ryddes helt.
+# Brikkene
+- Tre farger, nummerert fra 1 til 9: sirkler, bambus (pinner; 1-eren er en fugl) og tegn (et kinesisk tall over 萬, ti tusen).
+- De fire vindene: 東 øst, 南 sør, 西 vest, 北 nord.
+- De tre dragene: 中 rød, 發 grønn, og den hvite, en blå ramme.
+- Fire blomster og fire årstider, hver med sitt nummer i et hjørne.
+Hver brikke i fargene, vindene og dragene finnes fire ganger; hver blomst og hver årstid én gang.
+# Et trekk
+Fjern to like frie brikker. En brikke er fri når ingen brikke ligger på den, heller ikke delvis, og venstre eller høyre side er åpen (ingen brikke rett ved siden av på samme lag). To brikker passer sammen når de er like; enhver blomst passer til enhver blomst, og enhver årstid til enhver årstid.
+# Slutten på spillet
+Du vinner når alle brikkene er borte. Er det ikke noe par med frie brikker igjen, kan du stokke: brikkene som er igjen, deles ut på nytt på de samme plassene, slik at de fortsatt kan fjernes alle sammen. Hjelper ikke engang det (en brikke sitter fast under en annen), er spillet over.
+# Spill på enheten
+Trykk på en fri brikke og så på makkeren: begge løftes bort. Trykk på den valgte brikken igjen for å slippe den. Brikker som ikke er frie, er mørkere, og et trykk rett ved siden av en fri brikke velger den også. Lampen i linjen viser et par. Når det ikke er flere par, dukker stokk-knappen opp i linjen og midt på brettet. Angre tar tilbake et par eller en stokking. Linjen viser hvor mange brikker som er igjen.

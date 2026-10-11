@@ -1,0 +1,18 @@
+Mahjong Solitaire
+# Amaç
+Bir mahjong takımının taşları bir düzen içinde üst üste yığılıdır. Hepsini aynı çiftler halinde kaldır. Önce düzeni seç:
+- Kaplumbağa: klasik olanı, 144 taşın hepsi beş katta. Telefonda taşları küçüktür.
+- Piramit: üç katta 80 taş, daha büyük taşlar, daha kısa bir oyun.
+Her dağıtım baştan sona temizlenebilir.
+# Taşlar
+- 1'den 9'a numaralı üç takım: daireler, bambular (çubuklar; 1'i bir kuştur) ve karakterler (萬, on bin, işaretinin üstünde bir Çince rakam).
+- Dört rüzgâr: 東 doğu, 南 güney, 西 batı, 北 kuzey.
+- Üç ejderha: 中 kırmızı, 發 yeşil ve beyaz olan, mavi bir çerçeve.
+- Dört çiçek ve dört mevsim, her birinin köşesinde kendi numarası.
+Takımların, rüzgârların ve ejderhaların her taşı dört kez bulunur; her çiçek ve her mevsim bir kez.
+# Bir hamle
+Aynı iki serbest taşı kaldır. Bir taşın üstünde, kısmen bile olsa, başka taş yoksa ve sol ya da sağ yanı açıksa (aynı katta hemen yanında taş yoksa) o taş serbesttir. İki taş aynıysa eşleşir; her çiçek her çiçekle, her mevsim her mevsimle eşleşir.
+# Oyunun sonu
+Bütün taşlar gidince kazanırsın. Serbest taşlardan hiç çift kalmazsa karıştırabilirsin: kalan taşlar aynı yerlere yeniden dağıtılır, böylece hâlâ hepsi kaldırılabilir. Bu da işe yaramazsa (bir taş başka bir taşın altında sıkışmışsa) oyun biter.
+# Cihazda oynamak
+Serbest bir taşa, sonra eşine dokun: ikisi de kalkıp gider. Seçtiğin taşı bırakmak için ona yeniden dokun. Serbest olmayan taşlar daha koyudur ve serbest bir taşın hemen yanına dokunmak da onu seçer. Çubuktaki lamba bir çift gösterir. Hiç çift kalmayınca karıştırma düğmesi çubukta ve tahtanın ortasında belirir. Geri al bir çifti ya da bir karıştırmayı geri alır. Çubuk kaç taş kaldığını gösterir.

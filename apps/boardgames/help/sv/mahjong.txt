@@ -1,0 +1,18 @@
+Mahjong-patiens
+# Målet
+Brickorna i ett mahjongspel ligger staplade i ett mönster. Ta bort alla, i lika par. Välj först mönster:
+- Sköldpaddan: den klassiska, alla 144 brickor i fem lager. På en telefon är brickorna små.
+- Pyramiden: 80 brickor i tre lager, större brickor, ett kortare parti.
+Varje giv kan röjas helt.
+# Brickorna
+- Tre färger, numrerade från 1 till 9: cirklar, bambu (pinnar; ettan är en fågel) och tecken (ett kinesiskt tal över 萬, tiotusen).
+- De fyra vindarna: 東 öster, 南 söder, 西 väster, 北 norr.
+- De tre drakarna: 中 röd, 發 grön, och den vita, en blå ram.
+- Fyra blommor och fyra årstider, var och en med sitt nummer i ett hörn.
+Varje bricka i färgerna, vindarna och drakarna finns fyra gånger; varje blomma och varje årstid en gång.
+# Ett drag
+Ta bort två lika fria brickor. En bricka är fri när ingen bricka ligger på den, inte ens delvis, och dess vänstra eller högra sida är öppen (ingen bricka precis bredvid i samma lager). Två brickor hör ihop när de är lika; vilken blomma som helst passar med vilken blomma som helst, och vilken årstid som helst med vilken årstid som helst.
+# Partiets slut
+Du vinner när alla brickor är borta. Finns inget par fria brickor kvar kan du blanda: brickorna som är kvar delas ut igen på samma platser, så att de fortfarande kan tas bort allihop. Hjälper inte ens det (en bricka sitter fast under en annan) är partiet slut.
+# Spela på enheten
+Tryck på en fri bricka och sedan på dess par: båda lyfts bort. Tryck på den valda brickan igen för att släppa den. Brickor som inte är fria är mörkare, och ett tryck precis bredvid en fri bricka väljer den också. Lampan i listen visar ett par. När inga par finns kvar visas blandningsknappen i listen och mitt på brädet. Ångra tar tillbaka ett par eller en blandning. Listen visar hur många brickor som är kvar.

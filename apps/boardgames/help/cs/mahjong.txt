@@ -1,0 +1,18 @@
+Mahjong solitér
+# Cíl hry
+Kameny hry mahjong leží naskládané do obrazce. Odeber je všechny, ve stejných dvojicích. Nejdřív si vyber obrazec:
+- Želva: ten klasický, všech 144 kamenů v pěti vrstvách. Na telefonu jsou jeho kameny malé.
+- Pyramida: 80 kamenů ve třech vrstvách, větší kameny, kratší hra.
+Každé rozdání se dá celé odebrat.
+# Kameny
+- Tři barvy, číslované od 1 do 9: kruhy, bambusy (tyčky; jednička je pták) a znaky (čínská číslice nad znakem 萬, deset tisíc).
+- Čtyři větry: 東 východ, 南 jih, 西 západ, 北 sever.
+- Tři draci: 中 červený, 發 zelený a bílý, modrý rámeček.
+- Čtyři květiny a čtyři roční období, každé se svým číslem v rohu.
+Každý kámen barev, větrů a draků je ve hře čtyřikrát; každá květina a každé roční období jednou.
+# Tah
+Odeber dva stejné volné kameny. Kámen je volný, když na něm neleží žádný kámen, ani zčásti, a jeho levá nebo pravá strana je volná (žádný kámen hned vedle ve stejné vrstvě). Dva kameny tvoří dvojici, když jsou stejné; jakákoli květina se hodí ke kterékoli květině a jakékoli roční období ke kterémukoli ročnímu období.
+# Konec hry
+Vyhraješ, když zmizí všechny kameny. Pokud už nezbývá žádná dvojice volných kamenů, můžeš zamíchat: zbylé kameny se znovu rozdají na stejná místa tak, aby se daly ještě všechny odebrat. Pokud nepomůže ani to (kámen uvízl pod jiným), hra končí.
+# Hra na zařízení
+Klepni na volný kámen a potom na jeho dvojici: oba se zvednou a zmizí. Dalším klepnutím na vybraný kámen ho pustíš. Kameny, které nejsou volné, jsou ztmavené, a klepnutí těsně vedle volného kamene ho také vybere. Lampa v liště ukáže dvojici. Když už žádná dvojice nezbývá, objeví se tlačítko pro zamíchání v liště a uprostřed desky. Zpět vrátí dvojici nebo zamíchání. Lišta ukazuje, kolik kamenů zbývá.

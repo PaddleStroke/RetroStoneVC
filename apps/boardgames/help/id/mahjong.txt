@@ -1,0 +1,18 @@
+Mahjong Solitaire
+# Tujuan
+Ubin-ubin satu set mahjong tersusun bertumpuk membentuk pola. Ambil semuanya, berpasangan yang sama. Pilih pola dulu:
+- Kura-kura: pola klasik, ke-144 ubin dalam lima lapis. Di ponsel ubinnya kecil.
+- Piramida: 80 ubin dalam tiga lapis, ubin lebih besar, permainan lebih singkat.
+Setiap susunan bisa dihabiskan seluruhnya.
+# Ubin
+- Tiga jenis bernomor 1 sampai 9: bulatan (lingkaran), bambu (batang; angka 1 berupa burung) dan karakter (angka Tionghoa di atas 萬, sepuluh ribu).
+- Empat angin: 東 timur, 南 selatan, 西 barat, 北 utara.
+- Tiga naga: 中 merah, 發 hijau, dan naga putih, sebuah bingkai biru.
+- Empat bunga dan empat musim, masing-masing dengan nomornya di sudut.
+Setiap ubin jenis, angin, dan naga ada empat; setiap bunga dan setiap musim hanya satu.
+# Satu langkah
+Ambil dua ubin bebas yang sama. Sebuah ubin bebas jika tidak ada ubin di atasnya, sebagian pun tidak, dan sisi kiri atau sisi kanannya terbuka (tidak ada ubin tepat di sebelahnya pada lapisnya). Dua ubin berpasangan jika sama; bunga apa pun cocok dengan bunga apa pun, dan musim apa pun dengan musim apa pun.
+# Akhir permainan
+Kamu menang jika semua ubin sudah habis. Jika tidak ada lagi pasangan ubin bebas, kamu bisa mengocok: ubin yang tersisa dibagikan ulang di tempat yang sama, sehingga masih bisa dihabiskan semua. Jika itu pun tidak menolong (sebuah ubin terjebak di bawah ubin lain), permainan selesai.
+# Bermain di perangkat
+Ketuk ubin bebas, lalu pasangannya: keduanya terangkat dan hilang. Ketuk lagi ubin yang dipilih untuk melepasnya. Ubin yang tidak bebas tampak lebih gelap, dan ketukan tepat di samping ubin bebas juga memilihnya. Lampu di bilah menunjukkan satu pasangan. Jika tidak ada pasangan lagi, tombol kocok muncul di bilah dan di tengah papan. Urungkan membatalkan satu pasangan atau satu kocokan. Bilah menunjukkan berapa ubin yang tersisa.
