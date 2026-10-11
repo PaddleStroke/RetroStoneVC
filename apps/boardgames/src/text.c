@@ -138,11 +138,25 @@ static face face_of(int bold, float size)
     return fc;
 }
 
+/* the font that has c: the face's own, else the boards' font (gen_text.py moves there what a language's font
+ * lacks: kanji in an English text shown in DejaVu...) at the same size */
+static stbtt_fontinfo *font_for(const face *fc, int c, float *scale)
+{
+    *scale = fc->scale;
+    if (c == ' ' || stbtt_FindGlyphIndex(fc->f, c)) return fc->f;
+    stbtt_fontinfo *b = &board[fc->f == &font[1] || fc->f == &board[1]];
+    if (!stbtt_FindGlyphIndex(b, c)) return fc->f;
+    *scale = stbtt_ScaleForMappingEmToPixels(b, fc->size);
+    return b;
+}
+
 static float advance(const face *fc, int c)
 {
     int adv, lsb;
-    stbtt_GetCodepointHMetrics(fc->f, c, &adv, &lsb);
-    return adv * fc->scale;
+    float scale;
+    stbtt_fontinfo *f = font_for(fc, c, &scale);
+    stbtt_GetCodepointHMetrics(f, c, &adv, &lsb);
+    return adv * scale;
 }
 
 /* paints one glyph at (x, baseline y) into rgba (w x h, rows from y0) */
@@ -151,14 +165,15 @@ static void glyph(const face *fc, int c, float x, float y, const uint8_t rgb[3],
     static unsigned char *g;
     static int cap;
     int x0, yy0, x1, yy1;
-    float fx = x - floorf(x);
-    stbtt_GetCodepointBitmapBoxSubpixel(fc->f, c, fc->scale, fc->scale, fx, 0, &x0, &yy0, &x1, &yy1);
+    float fx = x - floorf(x), scale;
+    stbtt_fontinfo *f = font_for(fc, c, &scale);
+    stbtt_GetCodepointBitmapBoxSubpixel(f, c, scale, scale, fx, 0, &x0, &yy0, &x1, &yy1);
     int gw = x1 - x0, gh = yy1 - yy0;
     if (gw <= 0 || gh <= 0) return;
     int top = (int)floorf(y) + yy0 - y0, left = (int)floorf(x) + x0;
     if (top >= h || top + gh <= 0) return;
     if (gw * gh > cap) { free(g); cap = gw * gh; g = malloc((size_t)cap); }
-    stbtt_MakeCodepointBitmapSubpixel(fc->f, g, gw, gh, gw, fc->scale, fc->scale, fx, 0, c);
+    stbtt_MakeCodepointBitmapSubpixel(f, g, gw, gh, gw, scale, scale, fx, 0, c);
     for (int j = 0; j < gh; j++) {
         int py = top + j;
         if (py < 0 || py >= h) continue;
