@@ -38,6 +38,7 @@ static int nplayers[MAX_GAMES];                 /* how many play each game (the 
 static int view_of[MAX_GAMES];
 static struct { int up, player, pending; } hand = {0, 0, -1};
 static int is_view(void) { return cur >= 0 && games[cur]->view != VIEW_BOARD; }
+static unsigned winners_of(int st);
 
 /* the menu's sections, in this order: a heading (help/<lang>/_menu.txt, a line each), then their games by menu
  * order. The games not listed are strategy games. */
@@ -813,6 +814,14 @@ static void view_to(int player)
     if (screen == SCR_GAME) layout();
 }
 
+/* the start button: the cover lifts, the view is the player's */
+static void uncover(void)
+{
+    hand.up = 0;
+    ui.viewer = view_of[cur] = hand.player;
+    if (screen == SCR_GAME) layout();
+}
+
 void ui_handoff(int player)
 {
     if (!is_view() || player < 0 || player >= ui.players) return;
@@ -938,7 +947,7 @@ static void bar_content(int p, box b)
 {
     const game *g = games[cur];
     int st = g->status(), turn = st == GS_PLAY && g->turn() == p;
-    int won = gs_winner(st) == p && (ui.players > 1 || st == GS_WIN0);
+    int won = (ui.players > 1 && (winners_of(st) >> p & 1)) || (ui.players == 1 && st == GS_WIN0);
     int narrow = b.w < 1.9f * ui.unit;          /* five or six bars side by side: closer */
     float cy = b.y + b.h / 2, tx = b.x + (narrow ? 0.06f : 0.15f) * ui.unit + L.tk / 2;
     if (turn || won) {                          /* the gold light: whose turn it is, or who won */
@@ -975,6 +984,48 @@ static void draw_bar(int p)
     SDL_RenderCopyExF(ui.r, t_bartex, &src, &d, 180, NULL, SDL_FLIP_NONE);
 }
 
+/* the players who share the win (the end card, the bars): winners() when the game has it, else gs_winner(); 0: none
+ * (playing, or a draw without winners()) */
+static unsigned winners_of(int st)
+{
+    if (st == GS_PLAY) return 0;
+    const game *g = games[cur];
+    unsigned m = g->winners ? g->winners() & ((1u << ui.players) - 1) : 0;
+    if (m) return m;
+    int w = gs_winner(st);
+    return w >= 0 ? 1u << w : 0;
+}
+
+/* the end card with winners(): the winners standing side by side (in gold light, unless it is a draw: then the tied
+ * players only), the others lying down, dimmed */
+static void draw_winners(unsigned won, int draw)
+{
+    box b = L.board;
+    float u = ui.unit, cx = b.x + b.w / 2, cy = b.y + b.h / 2;
+    int nw = 0, nl = 0;
+    for (int p = 0; p < ui.players; p++) nw += won >> p & 1;
+    nl = ui.players - nw;
+    float wx = nl ? cx - 1.25f * u : cx, ww = nl ? 3.9f * u : 6.2f * u, s = fminf(2.1f * u, ww / nw / 1.05f);
+    for (int p = 0, k = 0; p < ui.players; p++) {
+        if (!(won >> p & 1)) continue;
+        float x = wx + (k++ - (nw - 1) / 2.0f) * s * 1.05f;
+        if (!draw) ui_put_c(t_gold, x, cy, s * 1.3f, s * 1.3f);
+        ui_put_c(t_big[p], x, cy, s, s);
+    }
+    if (!nl) return;
+    int rows = nl > 2 ? 2 : 1, per = (nl + rows - 1) / rows;
+    float ls = fminf(1.3f * u, 2.3f * u / per), lx = cx + 2.1f * u;
+    for (int p = 0, k = 0; p < ui.players; p++) {
+        if (won >> p & 1) continue;
+        int r = k / per, c = k % per;
+        SDL_SetTextureAlphaMod(t_big[p], 150);
+        ui_put_rot(t_big[p], lx + (c - (per - 1) / 2.0f) * ls * 1.1f, cy + (r - (rows - 1) / 2.0f) * ls * 1.15f, ls,
+                   ls, 90);
+        SDL_SetTextureAlphaMod(t_big[p], 255);
+        k++;
+    }
+}
+
 static void draw_over(void)
 {
     const game *g = games[cur];
@@ -984,7 +1035,10 @@ static void draw_over(void)
     ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 90);
     ui_put_c(t_card, cx, cy, 6.8f * u, 3.8f * u);
     int np = ui.players;
-    if (np == 1) {                              /* alone: in gold light when it won, else lying down */
+    unsigned won = g->winners ? winners_of(st) : 0;
+    if (np > 1 && won) {                       /* winners() (partners, a shared win, a tie): they stand together */
+        draw_winners(won, st == GS_DRAW);
+    } else if (np == 1) {                              /* alone: in gold light when it won, else lying down */
         if (st == GS_WIN0) ui_put_c(t_gold, cx, cy, big * 1.25f, big * 1.25f);
         if (st == GS_WIN0) ui_put_c(t_big[0], cx, cy, big, big);
         else ui_put_rot(t_big[0], cx, cy + 0.3f * u, 2.0f * u, 2.0f * u, 90);
@@ -1451,7 +1505,7 @@ static void press(float x, float y)
     }
     if (is_view() && hand.up) {                 /* the cover: start (the view is the player's), home, the rules */
         cover_layout();
-        if (in_circle(x, y, C.sx, C.sy, C.sr)) { snd_play(SND_TAP); view_to(hand.player); }
+        if (in_circle(x, y, C.sx, C.sy, C.sr)) { snd_play(SND_TAP); uncover(); }
         else if (in_circle(x, y, C.hx, C.hy, C.r)) { snd_play(SND_TAP); go_home(); }
         else if (in_circle(x, y, C.qx, C.qy, C.r)) { snd_play(SND_TAP); open_help(cur); }
         return;
@@ -1551,7 +1605,7 @@ static void shot_settle(int reveal, int advance)
 {
     if (advance) ms_ahead += 600000;
     handoff_settle();
-    if (reveal && is_view() && hand.up) view_to(hand.player);
+    if (reveal && is_view() && hand.up) uncover();
 }
 
 static int shot(int argc, char **argv)
@@ -1626,7 +1680,7 @@ static int shot(int argc, char **argv)
         layout();
         if (!show_help) menu_wheel(scroll);     /* --scroll px: further down the menu */
     }
-    ms_ahead = base + (at >= 0 ? (Uint32)at : 600000);   /* the animations the taps started: over, or caught --at ms in */
+    ms_ahead = base + (at >= 0 ? (Uint32)at : 600000);   /* the taps' animations: over, or caught --at ms in */
     if (id && !pick && reveal) shot_settle(1, 0);
     if (show_help) {                            /* the rules page (the game's, or the app's), scrolled by --scroll px */
         open_help(id ? cur : -1);

@@ -65,6 +65,10 @@ typedef struct game {
      * the view turns at once; VIEW_HIDDEN: each hand is secret, a cover hides the screen at every hand-off (and at a
      * new game, and when the game is opened again from the menu) until the next player taps its start button. */
     int view;
+    /* the players who share the win, read once the game is over (bit n: player n): partners (pachisi, belote), a tie
+     * for the best score (GS_DRAW: only the tied players stand). The end card stands them all in gold light together
+     * and lays the others down, dimmed; their bars all glow. NULL: gs_winner(status) alone (a draw: everyone). */
+    unsigned (*winners)(void);
 } game;
 
 enum { VIEW_BOARD, VIEW_OPEN, VIEW_HIDDEN };
