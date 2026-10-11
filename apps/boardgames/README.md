@@ -32,9 +32,12 @@ One look across the app, like the Arcade games' house kit:
   ivory and ebony (`art_player[]`), whichever plays first by the game's tradition (reversi: ebony first).
 - **Wood**: every board is the house wood (`art_board_n`: checkered squares, or one plain plank with lines drawn on
   it), in its walnut frame, on the shell's green table.
-- **Pieces** from `art.c` (`art_piece`, `art_counter`), with `ui_shadow()` under the standing ones.
+- **Pieces** from `art.c` (`art_piece`, `art_counter`), with `ui_shadow()` under the standing ones and
+  `ui_shadow_flat()` under the flat ones (discs, stones, men).
 - **Marks** from the shell: `ui_mark_last` (the last move), `ui_mark_select`, `ui_mark_dot` (where a piece can go),
-  `ui_mark_ring` (a capture), `ui_mark_glow` (danger).
+  `ui_mark_ring` (a capture), `ui_mark_glow` (danger), `ui_mark_gold` (a success: a mill, a winning line).
+- **Nothing copied**: anything two games would draw the same way belongs in `art.c` or the shell, not in each game.
+- **The end waits**: `busy()` says the last move still animates; the shell shows the end of the game after it.
 - **No text on the board** (pictures, and `ui_number()` for scores and counts). The words are in the rules page only:
   `help/en/<id>.txt` (the first line the game's name, then the rules: `# ` headings, `- ` list items, paragraphs),
   translated in the 21 other languages (`help/<lang>/<id>.txt`; a missing one shows the English).
