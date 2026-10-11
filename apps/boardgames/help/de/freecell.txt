@@ -1,0 +1,18 @@
+FreeCell
+# Das Ziel
+Alle 52 Karten auf die vier Ablagestapel bringen, einen für jede Farbe, aufsteigend vom Ass bis zum König. Ein Spiel für eine Person, bei dem alle Karten von Anfang an offen liegen: Fast jedes Spiel ist zu gewinnen.
+# Der Aufbau
+- Die 52 Karten liegen offen in acht Spalten.
+- Oben links vier freie Zellen, oben rechts die vier Ablagestapel.
+# Karten bewegen
+- Bewegt wird die oberste Karte einer Spalte: auf eine Spalte, deren oberste Karte einen Rang höher ist und die andere Farbe hat (Rot auf Schwarz, Schwarz auf Rot), in eine leere freie Zelle oder auf ihren Ablagestapel.
+- Jede freie Zelle fasst eine Karte. Jede Karte darf in eine leere Spalte.
+- Eine geordnete Reihe zieht auf einmal, wenn genug Platz ist, um sie Karte für Karte zu bewegen: so viele Karten wie leere freie Zellen plus eins, verdoppelt für jede leere Spalte (die Zielspalte nicht mitgezählt). Mit zwei freien Zellen und einer leeren Spalte: sechs Karten.
+- Eine Karte auf einem Ablagestapel bleibt dort.
+- Karten, die auf dem Tisch nicht mehr gebraucht werden, wandern von selbst auf die Ablagestapel.
+# Die Spiele
+Jedes Spiel hat eine Nummer von 1 bis 32000, neben der kleinen Karte in deiner Leiste. Spiel 1 ist auch in anderen FreeCell-Spielen Spiel 1. Jedes Spiel ist zu gewinnen, außer Spiel 11982.
+# Das Ende der Partie
+Du gewinnst, wenn alle Karten auf den Ablagestapeln liegen. Kommst du nicht weiter, nimm Züge zurück oder beginne ein neues Spiel.
+# Spielen auf dem Gerät
+Tippe auf eine Karte, um sie an ihren besten Platz zu schicken: auf einen Ablagestapel, eine Spalte, eine leere Spalte oder eine freie Zelle. Tippe auf eine Karte mitten in einer Reihe, um die Reihe ab dieser Karte zu bewegen. Ein schnelles zweites Tippen schickt eine Karte nur auf einen Ablagestapel. Du kannst eine Karte oder eine Reihe auch ziehen und ablegen, wo du willst. Die Lampe in deiner Leiste zeigt einen nützlichen Zug; die Zahl nach der Spielnummer zählt deine Züge. Rückgängig nimmt Züge zurück, bis zum Geben.

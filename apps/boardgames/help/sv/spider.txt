@@ -1,0 +1,22 @@
+Spindelharpan
+# Målet
+Bygg åtta följder från kung ned till ess, var och en i en färg, och få bort alla från bordet. Ett spel för en spelare med två kortlekar: 104 kort.
+# Varianterna
+- En färg: alla kort är spader. Den lättaste.
+- Två färger: spader och hjärter.
+- Fyra färger: två hela kortlekar. Den svåraste.
+# Uppläggningen
+- Tio kolumner: 6 kort i var och en av de fyra första, 5 i de andra; bara det översta kortet i varje kolumn är synligt.
+- De andra 50 korten är talongen, längst upp till höger: en baksida för varje omgång på tio kort som återstår. Längst upp till vänster åtta platser för de färdiga följderna.
+# Flytta kort
+- På en kolumn läggs ett kort som är ett steg lägre, i vilken färg som helst: en 6 på vilken 7 som helst.
+- Flera kort flyttas bara tillsammans om de följer på varandra i samma färg.
+- Vilket kort eller vilken följd som helst får läggas i en tom kolumn.
+- När ett dolt kort hamnar överst i en kolumn vänds det upp.
+- Så snart en kolumn slutar med en hel följd i en färg, från kung till ess, lämnar följden bordet av sig själv.
+# Talongen
+Tryck på talongen för att ge ett synligt kort till varje kolumn. Som i de klassiska reglerna får man bara ge när ingen kolumn är tom.
+# Partiets slut
+Du vinner när alla åtta följderna är klara. Sitter du fast, ångra eller börja en ny giv.
+# Spela på enheten
+Tryck på ett kort för att flytta det, med korten ovanpå, till sin bästa plats: på ett kort i samma färg om det går, annars på vilket kort som helst som är ett steg högre, annars till en tom kolumn. Du kan också dra en följd dit du vill. Lampan i ditt fält visar ett nyttigt drag; talet i ditt fält räknar dina drag. Ångra tar tillbaka drag, ända till given.

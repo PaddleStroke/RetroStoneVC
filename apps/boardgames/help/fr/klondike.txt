@@ -1,0 +1,20 @@
+Réussite
+# Le but
+Monter les 52 cartes sur les quatre fondations, une par couleur, de l'as au roi. Un jeu pour un joueur, aussi appelé Klondike.
+# La mise en place
+- Sept colonnes de 1 à 7 cartes ; seule la carte du dessus de chaque colonne est face visible.
+- Les 24 autres cartes forment la pioche, face cachée, en haut à gauche ; à côté, le talon.
+- Les quatre fondations sont en haut à droite, vides au début.
+# Déplacer les cartes
+- Sur une colonne, pose une carte d'un rang de moins, rouge sur noir ou noir sur rouge : un 6 rouge sur un 7 noir.
+- Les cartes visibles qui se suivent se déplacent ensemble.
+- Seul un roi, ou une suite qui commence par un roi, peut occuper une colonne vide.
+- Quand une carte cachée se retrouve sur le dessus d'une colonne, elle se retourne.
+- Une carte d'une fondation peut redescendre sur une colonne.
+# La pioche
+- Une carte : touche la pioche pour retourner une carte sur le talon. Trois cartes : trois à la fois, et seule celle du dessus se joue.
+- Quand la pioche est vide, touche sa place pour retourner le talon, autant de fois que tu veux.
+# La fin de la partie
+Tu gagnes quand toutes les cartes sont sur les fondations. Dès que la pioche et le talon sont vides et que toutes les cartes sont visibles, elles montent toutes seules. Si tu es bloqué, commence une nouvelle donne.
+# Jouer sur l'appareil
+Touche une carte pour l'envoyer à sa meilleure place : une fondation si elle peut y aller, sinon une colonne. Une seconde touche rapide envoie une carte seulement sur une fondation. Tu peux aussi faire glisser une carte ou une suite et la poser où tu veux. La lampe de ta barre montre un coup utile ; le nombre à côté de tes cartes compte tes coups. Annuler reprend les coups, jusqu'à la donne.

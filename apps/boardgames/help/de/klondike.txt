@@ -1,0 +1,20 @@
+Klondike-Solitär
+# Das Ziel
+Alle 52 Karten auf die vier Ablagestapel bringen, einen für jede Farbe, aufsteigend vom Ass bis zum König. Ein Spiel für eine Person, auch Klondike oder Patience genannt.
+# Der Aufbau
+- Sieben Spalten mit 1 bis 7 Karten; nur die oberste Karte jeder Spalte liegt offen.
+- Die übrigen 24 Karten sind der Stapel, verdeckt oben links; daneben liegen die gezogenen Karten.
+- Die vier Ablagestapel liegen oben rechts, am Anfang leer.
+# Karten bewegen
+- Auf eine Spalte kommt eine Karte, die einen Rang niedriger ist und die andere Farbe hat, Rot auf Schwarz oder Schwarz auf Rot: eine rote 6 auf eine schwarze 7.
+- Offene Karten, die aufeinander folgen, ziehen zusammen.
+- Nur ein König oder eine Reihe, die mit einem König beginnt, darf eine leere Spalte füllen.
+- Liegt oben auf einer Spalte eine verdeckte Karte, wird sie aufgedeckt.
+- Eine Karte von einem Ablagestapel darf zurück auf eine Spalte.
+# Der Stapel
+- Eine Karte ziehen: Tippe auf den Stapel, um eine Karte aufzudecken. Drei Karten ziehen: drei auf einmal, und nur die oberste ist spielbar.
+- Ist der Stapel leer, tippe auf seinen Platz, um die gezogenen Karten wieder umzudrehen, so oft du willst.
+# Das Ende der Partie
+Du gewinnst, wenn alle Karten auf den Ablagestapeln liegen. Sind Stapel und gezogene Karten leer und alle Karten offen, wandern die Karten von selbst nach oben. Kommst du nicht weiter, beginne ein neues Spiel.
+# Spielen auf dem Gerät
+Tippe auf eine Karte, um sie an ihren besten Platz zu schicken: auf einen Ablagestapel, wenn sie dorthin passt, sonst auf eine Spalte. Ein schnelles zweites Tippen schickt eine Karte nur auf einen Ablagestapel. Du kannst eine Karte oder eine Reihe auch ziehen und ablegen, wo du willst. Die Lampe in deiner Leiste zeigt einen nützlichen Zug; die Zahl neben deinen Karten zählt deine Züge. Rückgängig nimmt Züge zurück, bis zum Geben.

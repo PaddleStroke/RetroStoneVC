@@ -1,0 +1,22 @@
+Edderkop
+# Målet
+Byg otte rækker fra konge ned til es, hver i én kulør, og få dem alle væk fra bordet. Et spil for én spiller med to spil kort: 104 kort.
+# Varianterne
+- Én kulør: alle kort er spar. Den letteste.
+- To kulører: spar og hjerter.
+- Fire kulører: to hele spil kort. Den sværeste.
+# Opstillingen
+- Ti rækker: 6 kort i hver af de første fire, 5 i de andre; kun det øverste kort i hver række er synligt.
+- De andre 50 kort er bunken, øverst til højre: én bagside for hver omgang på ti kort, der mangler. Øverst til venstre otte pladser til de færdige rækker.
+# Flyt kort
+- På en række lægges et kort, der er én lavere, i en hvilken som helst kulør: en 6 på enhver 7.
+- Flere kort flytter kun sammen, hvis de følger hinanden i samme kulør.
+- Ethvert kort og enhver række må flyttes til en tom plads.
+- Når et skjult kort ligger øverst i en række, vendes det.
+- Så snart en række slutter med en hel række i én kulør, fra konge til es, forlader den bordet af sig selv.
+# Bunken
+Tryk på bunken for at give ét synligt kort til hver række. Som i de klassiske regler må der kun gives, når ingen plads er tom.
+# Spillets afslutning
+Du vinder, når alle otte rækker er færdige. Sidder du fast, så fortryd eller start et nyt spil.
+# Spil på enheden
+Tryk på et kort for at flytte det, med kortene ovenpå, til dets bedste plads: på et kort i samme kulør, hvis det kan, ellers på et hvilket som helst kort én højere, ellers til en tom plads. Du kan også trække en række hen, hvor du vil. Lampen i dit panel viser et nyttigt træk; tallet i dit panel tæller dine træk. Fortryd tager træk tilbage, helt til kortene blev givet.

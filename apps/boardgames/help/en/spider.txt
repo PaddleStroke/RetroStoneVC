@@ -1,0 +1,22 @@
+Spider
+# The aim
+Build eight runs from king down to ace, each in one suit, and clear them all from the table. A game for one player with two packs: 104 cards.
+# The variants
+- One suit: every card is a spade. The easiest.
+- Two suits: spades and hearts.
+- Four suits: two whole packs. The hardest.
+# The layout
+- Ten columns: 6 cards in each of the first four, 5 in the others; only the top card of each column is face up.
+- The other 50 cards are the stock, at the top right: one back for each deal of ten cards still to come. At the top left, eight places for the finished runs.
+# Moving cards
+- On a column, put a card one rank lower, of any suit: a 6 on any 7.
+- Several cards move together only if they follow each other in one suit.
+- Any card or run may go to an empty column.
+- When a face-down card is left on top of a column, it turns face up.
+- As soon as a column ends with a whole run of one suit, from king to ace, the run leaves the table by itself.
+# The stock
+Tap the stock to deal one card face up onto every column. As in the classic rules, you can only deal when no column is empty.
+# The end of the game
+You win when all eight runs are complete. If you are stuck, undo or start a new deal.
+# Playing on the device
+Tap a card to move it, with the cards on top of it, to its best place: onto a card of its own suit if it can, otherwise onto any card one rank higher, otherwise to an empty column. You can also drag a run and drop it where you want. The lamp in your bar shows a useful move; the number in your bar counts your moves. Undo takes back moves, all the way to the deal.

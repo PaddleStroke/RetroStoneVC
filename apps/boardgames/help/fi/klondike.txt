@@ -1,0 +1,20 @@
+Pasianssi
+# Tavoite
+Siirrä kaikki 52 korttia neljään peruspinoon, yksi kullekin maalle, ässästä kuninkaaseen. Peli yhdelle pelaajalle, myös nimeltä Klondike.
+# Asetelma
+- Seitsemän saraketta, joissa on 1–7 korttia; vain kunkin sarakkeen päällimmäinen kortti on kuvapuoli ylöspäin.
+- Loput 24 korttia ovat pakka, kuvapuoli alaspäin, vasemmalla ylhäällä; sen vieressä on poistopino.
+- Neljä peruspinoa ovat oikealla ylhäällä, aluksi tyhjinä.
+# Korttien siirtäminen
+- Sarakkeeseen voi laittaa kortin, joka on yhtä pienempi ja eriväristä, punainen mustalle tai musta punaiselle: punainen 6 mustalle 7:lle.
+- Näkyvät kortit, jotka seuraavat toisiaan, siirtyvät yhdessä.
+- Vain kuningas, tai kuninkaasta alkava jono, saa täyttää tyhjän sarakkeen.
+- Kun piilossa oleva kortti jää sarakkeen päällimmäiseksi, se kääntyy.
+- Peruspinon kortin voi siirtää takaisin sarakkeeseen.
+# Pakka
+- Nosta yksi: napauta pakkaa kääntääksesi yhden kortin poistopinoon. Nosta kolme: kolme kerrallaan, ja vain päällimmäistä voi pelata.
+- Kun pakka on tyhjä, napauta sen paikkaa kääntääksesi poistopinon takaisin pakaksi, niin monta kertaa kuin haluat.
+# Pelin loppu
+Voitat, kun kaikki kortit ovat peruspinoissa. Heti kun pakka ja poistopino ovat tyhjiä ja kaikki kortit näkyvissä, kortit nousevat itsestään. Jos jäät jumiin, aloita uusi jako.
+# Pelaaminen laitteella
+Napauta korttia lähettääksesi sen parhaaseen paikkaansa: peruspinoon, jos se sopii sinne, muuten sarakkeeseen. Nopea toinen napautus lähettää kortin vain peruspinoon. Voit myös vetää kortin tai jonon minne haluat. Lamppu palkissasi näyttää hyödyllisen siirron; korttiesi vieressä oleva luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.

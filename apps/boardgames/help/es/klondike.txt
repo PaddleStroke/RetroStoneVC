@@ -1,0 +1,20 @@
+Solitario
+# El objetivo
+Llevar las 52 cartas a las cuatro bases, una por palo, del as al rey. Un juego para un jugador, también llamado Klondike.
+# La disposición
+- Siete columnas de 1 a 7 cartas; solo la carta de arriba de cada columna está boca arriba.
+- Las otras 24 cartas forman el mazo, boca abajo, arriba a la izquierda; a su lado, el descarte.
+- Las cuatro bases están arriba a la derecha, vacías al empezar.
+# Mover cartas
+- Sobre una columna se pone una carta de un valor menos y del otro color, roja sobre negra o negra sobre roja: un 6 rojo sobre un 7 negro.
+- Las cartas boca arriba que se siguen se mueven juntas.
+- Solo un rey, o una escalera que empiece por un rey, puede ocupar una columna vacía.
+- Cuando una carta boca abajo queda arriba de una columna, se da la vuelta.
+- Una carta de una base puede volver a bajar a una columna.
+# El mazo
+- Robar una: toca el mazo para pasar una carta al descarte. Robar tres: tres a la vez, y solo se juega la de arriba.
+- Cuando el mazo se acaba, toca su sitio para darle la vuelta al descarte, tantas veces como quieras.
+# El final de la partida
+Ganas cuando todas las cartas están en las bases. En cuanto el mazo y el descarte están vacíos y todas las cartas están boca arriba, las cartas suben solas. Si te atascas, empieza un reparto nuevo.
+# Jugar en el dispositivo
+Toca una carta para mandarla a su mejor sitio: una base si puede ir, si no, una columna. Un segundo toque rápido manda una carta solo a una base. También puedes arrastrar una carta o una escalera y soltarla donde quieras. La lámpara de tu barra muestra un movimiento útil; el número junto a tus cartas cuenta tus movimientos. Deshacer retira movimientos, hasta el reparto.

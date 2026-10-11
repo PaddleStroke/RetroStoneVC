@@ -1,0 +1,22 @@
+Pavouk
+# Cíl hry
+Složit osm řad od krále po eso, každou v jedné barvě, a všechny je odklidit ze stolu. Hra pro jednoho hráče se dvěma balíčky: 104 karet.
+# Varianty
+- Jedna barva: všechny karty jsou piky. Nejlehčí.
+- Dvě barvy: piky a srdce.
+- Čtyři barvy: dva celé balíčky. Nejtěžší.
+# Rozložení
+- Deset sloupců: po 6 kartách v prvních čtyřech, po 5 v ostatních; lícem nahoru leží jen horní karta každého sloupce.
+- Zbylých 50 karet tvoří balíček vpravo nahoře: jeden rub za každé ještě čekající rozdání deseti karet. Vlevo nahoře je osm míst pro hotové řady.
+# Přesouvání karet
+- Na sloupec patří karta o jednu nižší, v jakékoli barvě: 6 na jakoukoli 7.
+- Více karet se přesouvá spolu, jen když jdou po sobě v jedné barvě.
+- Do prázdného sloupce smí jakákoli karta nebo řada.
+- Když na vrchu sloupce zůstane karta rubem nahoru, otočí se.
+- Jakmile sloupec končí celou řadou jedné barvy, od krále po eso, řada sama opustí stůl.
+# Balíček
+Klepni na balíček a na každý sloupec se rozdá jedna karta lícem nahoru. Jako v klasických pravidlech se smí rozdávat, jen když není žádný sloupec prázdný.
+# Konec hry
+Vyhráváš, když je všech osm řad hotových. Když se zasekneš, vrať tahy nebo začni nové rozdání.
+# Hra na zařízení
+Klepni na kartu a přesuneš ji i s kartami na ní na nejlepší místo: na kartu stejné barvy, pokud to jde, jinak na jakoukoli kartu o jednu vyšší, jinak do prázdného sloupce. Řadu můžeš také přetáhnout a pustit, kam chceš. Lampička v tvé liště ukáže užitečný tah; číslo v tvé liště počítá tvoje tahy. Vrátit bere tahy zpět, až k rozdání.

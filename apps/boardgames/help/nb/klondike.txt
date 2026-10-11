@@ -1,0 +1,20 @@
+Kabal
+# Målet
+Få alle de 52 kortene opp på de fire grunnbunkene, én for hver farge, fra ess til konge. Et spill for én spiller, også kalt Klondike.
+# Oppstillingen
+- Sju rekker med 1 til 7 kort; bare det øverste kortet i hver rekke ligger med bildesiden opp.
+- De andre 24 kortene er bunken, med baksiden opp, øverst til venstre; ved siden av ligger kastebunken.
+- De fire grunnbunkene ligger øverst til høyre, tomme ved start.
+# Flytte kort
+- På en rekke legges et kort som er én lavere og har den andre fargen, rødt på svart eller svart på rødt: en rød 6 på en svart 7.
+- Synlige kort som følger hverandre, flyttes sammen.
+- Bare en konge, eller en rekke som begynner med en konge, kan fylle en tom plass.
+- Når et skjult kort ligger øverst i en rekke, snus det.
+- Et kort fra en grunnbunke kan flyttes ned på en rekke igjen.
+# Bunken
+- Trekk ett: trykk på bunken for å snu ett kort over på kastebunken. Trekk tre: tre om gangen, og bare det øverste kan spilles.
+- Når bunken er tom, trykker du på plassen dens for å snu kastebunken igjen, så ofte du vil.
+# Slutten på spillet
+Du vinner når alle kortene ligger på grunnbunkene. Så snart bunken og kastebunken er tomme og alle kortene er synlige, går kortene opp av seg selv. Står du fast, start en ny kabal.
+# Spill på enheten
+Trykk på et kort for å sende det til den beste plassen: en grunnbunke hvis det passer der, ellers en rekke. Et raskt trykk nummer to sender et kort bare til en grunnbunke. Du kan også dra et kort eller en rekke dit du vil. Lampen i panelet ditt viser et nyttig trekk; tallet ved siden av kortene dine teller trekkene dine. Angre tar tilbake trekk, helt til kortene ble delt ut.

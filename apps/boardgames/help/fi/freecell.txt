@@ -1,0 +1,18 @@
+FreeCell
+# Tavoite
+Siirrä kaikki 52 korttia neljään peruspinoon, yksi kullekin maalle, ässästä kuninkaaseen. Peli yhdelle pelaajalle, jossa kaikki kortit näkyvät alusta asti: lähes jokaisen jaon voi voittaa.
+# Asetelma
+- 52 korttia on kuvapuoli ylöspäin kahdeksassa sarakkeessa.
+- Vasemmalla ylhäällä neljä vapaata solua, oikealla ylhäällä neljä peruspinoa.
+# Korttien siirtäminen
+- Sarakkeen päällimmäisen kortin voi siirtää: sarakkeeseen, jonka päällimmäinen kortti on yhtä suurempi ja eriväristä (punainen mustalle, musta punaiselle), tyhjään vapaaseen soluun tai omaan peruspinoonsa.
+- Kuhunkin vapaaseen soluun mahtuu yksi kortti. Mikä tahansa kortti saa mennä tyhjään sarakkeeseen.
+- Järjestetty jono siirtyy kerralla, jos tilaa on siirtää se kortti kerrallaan: yhtä monta korttia kuin tyhjiä vapaita soluja plus yksi, kaksinkertaisena jokaista tyhjää saraketta kohti (kohdesaraketta ei lasketa). Kahdella vapaalla solulla ja yhdellä tyhjällä sarakkeella: kuusi korttia.
+- Peruspinossa oleva kortti pysyy siellä.
+- Kortit, joita pöydällä ei enää tarvita, nousevat itsestään peruspinoihin.
+# Jaot
+Jokaisella jaolla on numero 1–32000, palkkisi pienen kortin vieressä. Jako 1 on jako 1 myös muissa FreeCell-peleissä. Kaikki jaot voi voittaa paitsi jaon 11982.
+# Pelin loppu
+Voitat, kun kaikki kortit ovat peruspinoissa. Jos jäät jumiin, kumoa siirtoja tai aloita uusi jako.
+# Pelaaminen laitteella
+Napauta korttia lähettääksesi sen parhaaseen paikkaansa: peruspinoon, sarakkeeseen, tyhjään sarakkeeseen tai vapaaseen soluun. Napauta korttia jonon keskeltä siirtääksesi jonon siitä kortista alkaen. Nopea toinen napautus lähettää kortin vain peruspinoon. Voit myös vetää kortin tai jonon minne haluat. Lamppu palkissasi näyttää hyödyllisen siirron; jaon numeron jälkeinen luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.

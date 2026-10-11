@@ -1,0 +1,20 @@
+Solitaire
+# Tujuan
+Pindahkan ke-52 kartu ke empat fondasi, satu untuk tiap jenis, dari as sampai raja. Permainan untuk satu pemain, juga disebut Klondike.
+# Susunan
+- Tujuh kolom berisi 1 sampai 7 kartu; hanya kartu teratas tiap kolom yang terbuka.
+- Sisa 24 kartu adalah tumpukan, tertutup, di kiri atas; di sebelahnya ada tumpukan buangan.
+- Empat fondasi ada di kanan atas, kosong di awal.
+# Memindahkan kartu
+- Di atas kolom diletakkan kartu yang satu tingkat lebih rendah dan berwarna lain, merah di atas hitam atau hitam di atas merah: 6 merah di atas 7 hitam.
+- Kartu terbuka yang berurutan dipindahkan bersama.
+- Hanya raja, atau deret yang dimulai dengan raja, yang boleh mengisi kolom kosong.
+- Kartu tertutup yang tertinggal di puncak kolom akan terbuka sendiri.
+- Kartu di fondasi boleh turun lagi ke kolom.
+# Tumpukan
+- Ambil satu: ketuk tumpukan untuk membalik satu kartu ke tumpukan buangan. Ambil tiga: tiga kartu sekaligus, dan hanya yang teratas yang bisa dimainkan.
+- Jika tumpukan habis, ketuk tempatnya untuk membalik tumpukan buangan kembali, sesering yang kamu mau.
+# Akhir permainan
+Kamu menang bila semua kartu sudah di fondasi. Begitu tumpukan dan tumpukan buangan kosong dan semua kartu terbuka, kartu naik sendiri. Kalau buntu, mulai bagian baru.
+# Bermain di perangkat
+Ketuk kartu untuk mengirimnya ke tempat terbaiknya: fondasi jika bisa, kalau tidak ke kolom. Ketukan kedua yang cepat mengirim kartu hanya ke fondasi. Kamu juga bisa menyeret kartu atau deret dan melepasnya di mana saja. Lampu di bilahmu menunjukkan langkah yang berguna; angka di samping kartumu menghitung langkahmu. Urungkan membatalkan langkah, sampai ke awal pembagian.

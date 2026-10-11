@@ -1,0 +1,20 @@
+Solitaire
+# Amaç
+52 kartın hepsini dört temel yığına, her takım için bir yığın, astan papaza doğru dizmek. Tek kişilik bir oyun; Klondike diye de bilinir.
+# Diziliş
+- 1'den 7'ye kadar kart içeren yedi sütun; her sütunun yalnızca en üstteki kartı açıktır.
+- Kalan 24 kart kapalı olarak sol üstteki destedir; yanında açılan kartlar durur.
+- Dört temel yığın sağ üsttedir, başta boştur.
+# Kartları taşımak
+- Bir sütuna, bir aşağı değerde ve öbür renkte bir kart konur, siyahın üstüne kırmızı ya da kırmızının üstüne siyah: siyah bir 7'nin üstüne kırmızı bir 6.
+- Birbirini izleyen açık kartlar birlikte taşınır.
+- Boş bir sütuna yalnızca bir papaz ya da papazla başlayan bir dizi konabilir.
+- Bir sütunun üstünde kapalı bir kart kalınca kendiliğinden açılır.
+- Temel yığındaki bir kart yeniden bir sütuna inebilir.
+# Deste
+- Birer birer: desteye dokunarak bir kartı açılanlara çevir. Üçer üçer: üç kart birden, ve yalnızca en üstteki oynanabilir.
+- Deste bitince yerine dokunarak açılan kartları yeniden çevir, istediğin kadar.
+# Oyunun sonu
+Bütün kartlar temel yığınlara çıkınca kazanırsın. Deste ve açılanlar boşalıp bütün kartlar açık olunca, kartlar kendiliğinden yukarı çıkar. Takılırsan yeni bir dağıtım başlat.
+# Cihazda oynamak
+Bir kartı en iyi yerine göndermek için ona dokun: gidebiliyorsa temel yığına, gidemiyorsa bir sütuna. Hızlı ikinci bir dokunuş kartı yalnızca temel yığına gönderir. Bir kartı ya da diziyi sürükleyip istediğin yere de bırakabilirsin. Şeridindeki lamba işe yarar bir hamle gösterir; kartlarının yanındaki sayı hamlelerini sayar. Geri al, hamleleri dağıtıma kadar geri alır.

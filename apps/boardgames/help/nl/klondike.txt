@@ -1,0 +1,20 @@
+Patience
+# Het doel
+Alle 52 kaarten naar de vier aflegstapels brengen, één per kleur, oplopend van aas tot heer. Een spel voor één speler, ook Klondike genoemd.
+# De opstelling
+- Zeven kolommen van 1 tot 7 kaarten; alleen de bovenste kaart van elke kolom ligt open.
+- De andere 24 kaarten vormen de stapel, gedekt, linksboven; ernaast liggen de getrokken kaarten.
+- De vier aflegstapels liggen rechtsboven, leeg bij het begin.
+# Kaarten verplaatsen
+- Op een kolom leg je een kaart die één lager is en van de andere kleur, rood op zwart of zwart op rood: een rode 6 op een zwarte 7.
+- Open kaarten die op elkaar volgen, gaan samen mee.
+- Alleen een heer, of een reeks die met een heer begint, mag een lege kolom vullen.
+- Ligt er bovenop een kolom een gedekte kaart, dan draait die open.
+- Een kaart van een aflegstapel mag terug naar een kolom.
+# De stapel
+- Eén kaart trekken: tik op de stapel om een kaart open te leggen. Drie kaarten trekken: drie tegelijk, en alleen de bovenste is speelbaar.
+- Is de stapel op, tik dan op zijn plaats om de getrokken kaarten weer om te draaien, zo vaak als je wilt.
+# Het einde van de partij
+Je wint als alle kaarten op de aflegstapels liggen. Zodra de stapel en de getrokken kaarten op zijn en alle kaarten open liggen, gaan de kaarten vanzelf omhoog. Zit je vast, begin dan een nieuw spel.
+# Spelen op het apparaat
+Tik op een kaart om hem naar zijn beste plek te sturen: een aflegstapel als hij daar past, anders een kolom. Een snelle tweede tik stuurt een kaart alleen naar een aflegstapel. Je kunt een kaart of een reeks ook slepen en neerleggen waar je wilt. De lamp in je balk toont een nuttige zet; het getal naast je kaarten telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.

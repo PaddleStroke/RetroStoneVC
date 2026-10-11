@@ -1,0 +1,18 @@
+FreeCell
+# Cíl hry
+Přesunout všech 52 karet na čtyři cílové hromádky, jednu pro každou barvu, od esa po krále. Hra pro jednoho hráče, ve které jsou všechny karty vidět od začátku: vyhrát se dá téměř každé rozdání.
+# Rozložení
+- 52 karet leží lícem nahoru v osmi sloupcích.
+- Vlevo nahoře čtyři volná pole, vpravo nahoře čtyři cílové hromádky.
+# Přesouvání karet
+- Přesouvá se horní karta sloupce: na sloupec, jehož horní karta je o jednu vyšší a druhé barvy (červená na černou, černá na červenou), na prázdné volné pole nebo na svou cílovou hromádku.
+- Na každé volné pole se vejde jedna karta. Do prázdného sloupce smí jakákoli karta.
+- Seřazená řada se přesune najednou, pokud je místo přesunout ji kartu po kartě: tolik karet, kolik je prázdných volných polí plus jedna, a to dvakrát za každý prázdný sloupec (sloupec, kam jde, se nepočítá). Se dvěma volnými poli a jedním prázdným sloupcem: šest karet.
+- Karta na cílové hromádce už tam zůstane.
+- Karty, které stůl už nepotřebuje, se na cílové hromádky přesunou samy.
+# Rozdání
+Každé rozdání má číslo od 1 do 32000, vedle malé karty v tvé liště. Rozdání 1 je rozdání 1 i v jiných hrách FreeCell. Vyhrát se dají všechna kromě rozdání 11982.
+# Konec hry
+Vyhráváš, když jsou všechny karty na cílových hromádkách. Když se zasekneš, vrať tahy nebo začni nové rozdání.
+# Hra na zařízení
+Klepni na kartu a pošleš ji na nejlepší místo: na cílovou hromádku, na sloupec, do prázdného sloupce nebo na volné pole. Klepnutím na kartu uprostřed řady přesuneš řadu od té karty. Rychlé druhé klepnutí pošle kartu jen na cílovou hromádku. Kartu nebo řadu můžeš také přetáhnout a pustit, kam chceš. Lampička v tvé liště ukáže užitečný tah; číslo za číslem rozdání počítá tvoje tahy. Vrátit bere tahy zpět, až k rozdání.

@@ -1,0 +1,22 @@
+Spider
+# O objetivo
+Formar oito sequências do rei ao ás, cada uma de um só naipe, e tirá-las todas da mesa. Um jogo para um jogador com dois baralhos: 104 cartas.
+# As variantes
+- Um naipe: todas as cartas são de espadas. A mais fácil.
+- Dois naipes: espadas e copas.
+- Quatro naipes: dois baralhos completos. A mais difícil.
+# A disposição
+- Dez colunas: 6 cartas em cada uma das quatro primeiras, 5 nas outras; só a carta de cima de cada coluna está voltada para cima.
+- As outras 50 cartas formam o baralho, em cima à direita: um verso por cada distribuição de dez cartas que ainda falta. Em cima à esquerda, oito lugares para as sequências completas.
+# Mover as cartas
+- Numa coluna, põe uma carta de um valor abaixo, de qualquer naipe: um 6 sobre qualquer 7.
+- Várias cartas só se movem juntas se se seguirem no mesmo naipe.
+- Qualquer carta ou sequência pode ir para uma coluna vazia.
+- Quando uma carta voltada para baixo fica no topo de uma coluna, vira-se.
+- Assim que uma coluna acaba numa sequência completa de um naipe, do rei ao ás, a sequência sai da mesa sozinha.
+# O baralho
+Toca no baralho para dar uma carta voltada para cima a cada coluna. Como nas regras clássicas, só se pode dar quando nenhuma coluna está vazia.
+# O fim do jogo
+Ganhas quando as oito sequências estão completas. Se ficares bloqueado, anula ou começa uma nova distribuição.
+# Jogar no dispositivo
+Toca numa carta para a mover, com as cartas que tem por cima, para o melhor lugar: sobre uma carta do mesmo naipe, se puder, senão sobre qualquer carta de um valor acima, senão para uma coluna vazia. Também podes arrastar uma sequência e largá-la onde quiseres. A lâmpada na tua barra mostra uma jogada útil; o número na tua barra conta as tuas jogadas. Anular desfaz as jogadas, até à distribuição.

@@ -1,0 +1,22 @@
+Spider
+# Lo scopo
+Formare otto scale dal re all'asso, ognuna di un solo seme, e toglierle tutte dal tavolo. Un gioco per un giocatore con due mazzi: 104 carte.
+# Le varianti
+- Un seme: tutte le carte sono picche. La più facile.
+- Due semi: picche e cuori.
+- Quattro semi: due mazzi completi. La più difficile.
+# La disposizione
+- Dieci colonne: 6 carte in ognuna delle prime quattro, 5 nelle altre; solo la carta in cima a ogni colonna è scoperta.
+- Le altre 50 carte formano il mazzo, in alto a destra: un dorso per ogni distribuzione di dieci carte ancora da fare. In alto a sinistra, otto posti per le scale finite.
+# Muovere le carte
+- Su una colonna si mette una carta di un valore in meno, di qualsiasi seme: un 6 su qualsiasi 7.
+- Più carte si muovono insieme solo se si seguono nello stesso seme.
+- Qualsiasi carta o scala può andare in una colonna vuota.
+- Quando una carta coperta resta in cima a una colonna, si scopre.
+- Appena una colonna finisce con una scala completa di un seme, dal re all'asso, la scala lascia il tavolo da sola.
+# Il mazzo
+Tocca il mazzo per distribuire una carta scoperta su ogni colonna. Come nelle regole classiche, si può distribuire solo se nessuna colonna è vuota.
+# La fine della partita
+Vinci quando tutte e otto le scale sono complete. Se sei bloccato, annulla o inizia una nuova smazzata.
+# Giocare sul dispositivo
+Tocca una carta per muoverla, con le carte che ha sopra, al posto migliore: su una carta del suo seme se può, altrimenti su qualsiasi carta di un valore in più, altrimenti in una colonna vuota. Puoi anche trascinare una scala e lasciarla dove vuoi. La lampada nella tua barra mostra una mossa utile; il numero nella tua barra conta le tue mosse. Annulla ritira le mosse, fino alla smazzata.

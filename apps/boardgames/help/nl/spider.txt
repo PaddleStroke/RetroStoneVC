@@ -1,0 +1,22 @@
+Spider
+# Het doel
+Acht reeksen van heer tot aas leggen, elk in één kleur, en ze allemaal van tafel halen. Een spel voor één speler met twee spellen kaarten: 104 kaarten.
+# De varianten
+- Eén kleur: alle kaarten zijn schoppen. De makkelijkste.
+- Twee kleuren: schoppen en harten.
+- Vier kleuren: twee volledige spellen. De moeilijkste.
+# De opstelling
+- Tien kolommen: 6 kaarten in elk van de eerste vier, 5 in de andere; alleen de bovenste kaart van elke kolom ligt open.
+- De andere 50 kaarten vormen de stapel, rechtsboven: één achterkant voor elke ronde van tien kaarten die nog komt. Linksboven acht plaatsen voor de voltooide reeksen.
+# Kaarten verplaatsen
+- Op een kolom leg je een kaart die één lager is, van elke kleur: een 6 op elke 7.
+- Meerdere kaarten gaan alleen samen mee als ze in één kleur op elkaar volgen.
+- Elke kaart of reeks mag naar een lege kolom.
+- Ligt er bovenop een kolom een gedekte kaart, dan draait die open.
+- Zodra een kolom eindigt met een volledige reeks van één kleur, van heer tot aas, verlaat de reeks vanzelf de tafel.
+# De stapel
+Tik op de stapel om op elke kolom één kaart open te delen. Zoals in de klassieke regels mag je alleen delen als er geen kolom leeg is.
+# Het einde van de partij
+Je wint als alle acht reeksen voltooid zijn. Zit je vast, neem dan zetten terug of begin een nieuw spel.
+# Spelen op het apparaat
+Tik op een kaart om hem met de kaarten erop naar zijn beste plek te sturen: op een kaart van zijn eigen kleur als het kan, anders op een willekeurige kaart die één hoger is, anders naar een lege kolom. Je kunt een reeks ook slepen en neerleggen waar je wilt. De lamp in je balk toont een nuttige zet; het getal in je balk telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.

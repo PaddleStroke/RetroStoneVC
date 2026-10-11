@@ -1,0 +1,20 @@
+Klondike
+# Cíl hry
+Přesunout všech 52 karet na čtyři cílové hromádky, jednu pro každou barvu, od esa po krále. Hra pro jednoho hráče, známá také jako solitér.
+# Rozložení
+- Sedm sloupců s 1 až 7 kartami; lícem nahoru leží jen horní karta každého sloupce.
+- Zbylých 24 karet tvoří balíček, rubem nahoru, vlevo nahoře; vedle něj leží odhazovací hromádka.
+- Čtyři cílové hromádky jsou vpravo nahoře, na začátku prázdné.
+# Přesouvání karet
+- Na sloupec patří karta o jednu nižší a druhé barvy, červená na černou nebo černá na červenou: červená 6 na černou 7.
+- Otočené karty, které jdou po sobě, se přesouvají spolu.
+- Prázdný sloupec smí obsadit jen král nebo řada, která začíná králem.
+- Když na vrchu sloupce zůstane karta rubem nahoru, otočí se.
+- Kartu z cílové hromádky můžeš vrátit zpět na sloupec.
+# Balíček
+- Po jedné: klepni na balíček a otočíš jednu kartu na odhazovací hromádku. Po třech: tři najednou a hrát lze jen tu horní.
+- Když je balíček prázdný, klepni na jeho místo a odhazovací hromádka se znovu otočí, kolikrát chceš.
+# Konec hry
+Vyhráváš, když jsou všechny karty na cílových hromádkách. Jakmile je balíček i odhazovací hromádka prázdná a všechny karty jsou otočené, karty se přesunou samy. Když se zasekneš, začni nové rozdání.
+# Hra na zařízení
+Klepni na kartu a pošleš ji na nejlepší místo: na cílovou hromádku, pokud tam patří, jinak na sloupec. Rychlé druhé klepnutí pošle kartu jen na cílovou hromádku. Kartu nebo řadu můžeš také přetáhnout a pustit, kam chceš. Lampička v tvé liště ukáže užitečný tah; číslo vedle tvých karet počítá tvoje tahy. Vrátit bere tahy zpět, až k rozdání.

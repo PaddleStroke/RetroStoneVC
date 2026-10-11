@@ -1,0 +1,22 @@
+Paciência Spider
+# O objetivo
+Montar oito sequências do rei ao ás, cada uma de um só naipe, e tirar todas da mesa. Um jogo para um jogador com dois baralhos: 104 cartas.
+# As variantes
+- Um naipe: todas as cartas são de espadas. A mais fácil.
+- Dois naipes: espadas e copas.
+- Quatro naipes: dois baralhos completos. A mais difícil.
+# A arrumação
+- Dez colunas: 6 cartas em cada uma das quatro primeiras, 5 nas outras; só a carta de cima de cada coluna fica virada para cima.
+- As outras 50 cartas formam o monte, no alto à direita: um verso para cada distribuição de dez cartas que ainda falta. No alto à esquerda, oito lugares para as sequências completas.
+# Mover as cartas
+- Numa coluna, ponha uma carta um valor abaixo, de qualquer naipe: um 6 sobre qualquer 7.
+- Várias cartas só se movem juntas se seguem umas às outras no mesmo naipe.
+- Qualquer carta ou sequência pode ir para uma coluna vazia.
+- Quando uma carta virada para baixo fica em cima de uma coluna, ela se vira.
+- Assim que uma coluna termina com uma sequência completa de um naipe, do rei ao ás, a sequência sai da mesa sozinha.
+# O monte
+Toque no monte para dar uma carta virada para cima em cada coluna. Como nas regras clássicas, só se pode dar quando nenhuma coluna está vazia.
+# O fim da partida
+Você vence quando as oito sequências estão completas. Se ficar travado, desfaça ou comece uma nova distribuição.
+# Jogando no aparelho
+Toque numa carta para movê-la, com as cartas que estão por cima, para o melhor lugar: sobre uma carta do mesmo naipe, se puder, senão sobre qualquer carta um valor acima, senão para uma coluna vazia. Você também pode arrastar uma sequência e soltá-la onde quiser. A lâmpada na sua barra mostra uma jogada útil; o número na sua barra conta as suas jogadas. Desfazer volta as jogadas, até a distribuição.
