@@ -5,7 +5,10 @@ Be the first to line up five stones of your colour in an unbroken row: across, u
 Choose the rules before the game:
 - Freestyle (the card with six stones in a row): five or more stones in a row win.
 - Standard (the card with five): exactly five stones in a row win. A row of six or more does not count, but the game goes on and a five made elsewhere still wins.
+- Six in a row (the card with the large board): see below.
+# Six in a row
+Played on a larger board, 19 by 19. Black places one stone to begin; after that, each player places two stones on every turn. Six or more stones of your colour in a row win, even when the row is made by the first stone of a turn.
 # The end of the game
 The first player to make a winning row wins at once. If the board fills up with no winning row, the game is a draw.
 # Playing on the device
-The first tap shows a pale stone, a second tap on the same point plays it. This keeps small points easy to hit. The winning row lights up in gold.
+The first tap shows a pale stone, a second tap on the same point plays it. This keeps small points easy to hit. The winning row lights up in gold. In six in a row, your bar shows the stones you still have to place this turn, and the first stone of the pair stays highlighted until you place the second. Undo takes back one stone at a time.

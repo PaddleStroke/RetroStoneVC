@@ -5,7 +5,10 @@ Bli den første til å få fem steiner i din farge på en sammenhengende rad: va
 Velg regler før spillet:
 - Fristil (kortet med seks steiner på rad): fem eller flere steiner på rad vinner.
 - Standard (kortet med fem): nøyaktig fem steiner på rad vinner. En rad med seks eller flere teller ikke, men spillet fortsetter, og en rad på fem laget et annet sted vinner likevel.
+- Seks på rad (kortet med det store brettet): se nedenfor.
+# Seks på rad
+Spilles på et større brett, 19 ganger 19. Svart legger én stein for å begynne; deretter legger hver spiller to steiner i hver tur. Seks eller flere steiner i din farge på rad vinner, også når raden fullføres av turens første stein.
 # Slutten på spillet
 Den første spilleren som får en vinnende rad, vinner med en gang. Hvis brettet blir fullt uten noen vinnende rad, blir det uavgjort.
 # Spill på enheten
-Det første trykket viser en blek stein, et nytt trykk på samme punkt spiller den. Slik er små punkter lette å treffe. Den vinnende raden lyser i gull.
+Det første trykket viser en blek stein, et nytt trykk på samme punkt spiller den. Slik er små punkter lette å treffe. Den vinnende raden lyser i gull. I seks på rad viser panelet ditt steinene du fortsatt skal legge i denne turen, og parets første stein forblir uthevet til du legger den andre. Angre tar tilbake én stein om gangen.

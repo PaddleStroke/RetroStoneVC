@@ -5,7 +5,10 @@ Bilde als Erster eine ununterbrochene Reihe aus fünf Steinen deiner Farbe: waag
 Wähle die Regeln vor der Partie:
 - Freistil (die Karte mit sechs Steinen in einer Reihe): Fünf oder mehr Steine in einer Reihe gewinnen.
 - Standard (die Karte mit fünf): Genau fünf Steine in einer Reihe gewinnen. Eine Reihe aus sechs oder mehr zählt nicht, aber die Partie geht weiter, und eine Fünferreihe an anderer Stelle gewinnt trotzdem.
+- Sechs in einer Reihe (die Karte mit dem großen Brett): siehe unten.
+# Sechs in einer Reihe
+Gespielt wird auf einem größeren Brett, 19 mal 19. Schwarz setzt zu Beginn einen Stein; danach setzt jeder Spieler in jedem Zug zwei Steine. Sechs oder mehr Steine deiner Farbe in einer Reihe gewinnen, auch wenn schon der erste Stein eines Zuges die Reihe vollendet.
 # Das Ende der Partie
 Wer zuerst eine Gewinnreihe bildet, gewinnt sofort. Ist das Brett voll, ohne dass eine Gewinnreihe entstanden ist, endet die Partie unentschieden.
 # Spielen auf dem Gerät
-Das erste Tippen zeigt einen blassen Stein, ein zweites Tippen auf denselben Punkt setzt ihn. So lassen sich auch kleine Punkte leicht treffen. Die Gewinnreihe leuchtet golden auf.
+Das erste Tippen zeigt einen blassen Stein, ein zweites Tippen auf denselben Punkt setzt ihn. So lassen sich auch kleine Punkte leicht treffen. Die Gewinnreihe leuchtet golden auf. Bei Sechs in einer Reihe zeigt deine Leiste die Steine, die du in diesem Zug noch setzt, und der erste Stein des Paares bleibt hervorgehoben, bis du den zweiten setzt. Rückgängig nimmt jeweils einen Stein zurück.

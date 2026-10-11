@@ -5,7 +5,10 @@ Jadilah yang pertama menjajarkan lima batu dengan warnamu dalam satu deret tanpa
 Pilih aturannya sebelum bermain:
 - Bebas (kartu dengan enam batu sederet): lima batu sederet atau lebih menang.
 - Standar (kartu dengan lima batu): hanya tepat lima batu sederet yang menang. Deret enam batu atau lebih tidak dihitung, tetapi permainan berlanjut, dan deret lima yang dibuat di tempat lain tetap menang.
+- Enam berderet (kartu dengan papan besar): lihat di bawah.
+# Enam berderet
+Dimainkan di papan yang lebih besar, 19 kali 19. Hitam memulai dengan menaruh satu batu; setelah itu, setiap pemain menaruh dua batu di setiap giliran. Enam batu sederet atau lebih dengan warnamu menang, bahkan jika deretan itu terbentuk oleh batu pertama dalam satu giliran.
 # Akhir permainan
 Pemain pertama yang membentuk deret pemenang langsung menang. Jika papan penuh tanpa ada deret pemenang, permainan berakhir seri.
 # Bermain di perangkat
-Ketukan pertama menampilkan batu pucat, ketukan kedua di titik yang sama memainkannya. Dengan begitu titik kecil tetap mudah disentuh. Deret pemenang menyala keemasan.
+Ketukan pertama menampilkan batu pucat, ketukan kedua di titik yang sama memainkannya. Dengan begitu titik kecil tetap mudah disentuh. Deret pemenang menyala keemasan. Dalam enam berderet, bilahmu menunjukkan batu yang masih harus kamu taruh di giliran ini, dan batu pertama dari pasangan itu tetap disorot sampai kamu menaruh yang kedua. Urungkan mengambil kembali satu batu setiap kali.

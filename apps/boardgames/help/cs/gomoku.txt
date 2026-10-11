@@ -5,7 +5,10 @@ Buď první, kdo spojí pět kamenů své barvy do nepřerušené řady: vodorov
 Před hrou si vyber pravidla:
 - Volný styl (karta se šesti kameny v řadě): vyhrává pět nebo více kamenů v řadě.
 - Standard (karta s pěti): vyhrává přesně pět kamenů v řadě. Řada šesti nebo více kamenů se nepočítá, ale hra pokračuje a pětice vytvořená jinde stále vyhrává.
+- Šest v řadě (karta s velkou deskou): viz níže.
+# Šest v řadě
+Hraje se na větší desce, 19 × 19. Černý na začátku položí jeden kámen; potom každý hráč v každém tahu položí dva kameny. Vyhrává šest nebo více kamenů tvé barvy v řadě, i když řadu dokončí první kámen tahu.
 # Konec hry
 První hráč, který vytvoří vítěznou řadu, okamžitě vyhrává. Pokud se deska zaplní bez vítězné řady, hra končí remízou.
 # Hra na zařízení
-První klepnutí ukáže bledý kámen, druhé klepnutí na stejný bod ho zahraje. Díky tomu se snadno trefíš i do malých bodů. Vítězná řada se rozzáří zlatě.
+První klepnutí ukáže bledý kámen, druhé klepnutí na stejný bod ho zahraje. Díky tomu se snadno trefíš i do malých bodů. Vítězná řada se rozzáří zlatě. Při hře šest v řadě ukazuje tvoje lišta kameny, které ještě v tomto tahu položíš, a první kámen dvojice zůstane zvýrazněný, dokud nepoložíš druhý. Vrátit bere kameny zpět po jednom.

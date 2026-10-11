@@ -5,7 +5,10 @@ Jako pierwszy ułóż pięć kamieni w swoim kolorze w nieprzerwanym rzędzie: w
 Przed grą wybierz zasady:
 - Wolny styl (karta z sześcioma kamieniami w rzędzie): wygrywa pięć lub więcej kamieni w rzędzie.
 - Standard (karta z pięcioma): wygrywa dokładnie pięć kamieni w rzędzie. Rząd sześciu lub więcej kamieni się nie liczy, ale gra toczy się dalej, a piątka ułożona gdzie indziej nadal wygrywa.
+- Sześć w rzędzie (karta z dużą planszą): patrz niżej.
+# Sześć w rzędzie
+Gra toczy się na większej planszy, 19 na 19. Czarne zaczynają, kładąc jeden kamień; potem każdy gracz w każdej turze kładzie dwa kamienie. Wygrywa sześć lub więcej kamieni w twoim kolorze w rzędzie, nawet jeśli rząd powstaje już po pierwszym kamieniu tury.
 # Koniec gry
 Pierwszy gracz, który ułoży zwycięski rząd, od razu wygrywa. Jeśli plansza się zapełni, a nikt nie ułożył zwycięskiego rzędu, gra kończy się remisem.
 # Gra na urządzeniu
-Pierwsze dotknięcie pokazuje blady kamień, drugie dotknięcie tego samego punktu go kładzie. Dzięki temu łatwo trafić w małe punkty. Zwycięski rząd świeci na złoto.
+Pierwsze dotknięcie pokazuje blady kamień, drugie dotknięcie tego samego punktu go kładzie. Dzięki temu łatwo trafić w małe punkty. Zwycięski rząd świeci na złoto. W grze sześć w rzędzie twój pasek pokazuje kamienie, które musisz jeszcze położyć w tej turze, a pierwszy kamień z pary pozostaje podświetlony, dopóki nie położysz drugiego. Cofnij cofa po jednym kamieniu.

@@ -5,7 +5,10 @@ Ser o primeiro a alinhar cinco pedras da tua cor numa fila sem interrupções: n
 Escolhe as regras antes da partida:
 - Livre (o cartão com seis pedras em fila): cinco ou mais pedras em fila ganham.
 - Padrão (o cartão com cinco): só ganham exatamente cinco pedras em fila. Uma fila de seis ou mais não conta, mas a partida continua, e um cinco feito noutro sítio continua a ganhar.
+- Seis em linha (o cartão com o tabuleiro grande): ver abaixo.
+# Seis em linha
+Joga-se num tabuleiro maior, de 19 por 19. As pretas começam por colocar uma pedra; a seguir, cada jogador coloca duas pedras em cada vez. Seis ou mais pedras da tua cor em fila ganham, mesmo quando a fila fica completa com a primeira pedra de uma vez.
 # O fim da partida
 O primeiro jogador a fazer uma fila vencedora ganha de imediato. Se o tabuleiro ficar cheio sem nenhuma fila vencedora, a partida termina empatada.
 # Jogar no dispositivo
-O primeiro toque mostra uma pedra pálida, e um segundo toque no mesmo ponto joga-a. Assim, os pontos pequenos são fáceis de acertar. A fila vencedora acende-se a dourado.
+O primeiro toque mostra uma pedra pálida, e um segundo toque no mesmo ponto joga-a. Assim, os pontos pequenos são fáceis de acertar. A fila vencedora acende-se a dourado. No seis em linha, a tua barra mostra as pedras que ainda tens de colocar nesta vez, e a primeira pedra do par fica destacada até colocares a segunda. Anular retira uma pedra de cada vez.

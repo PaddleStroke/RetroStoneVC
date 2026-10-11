@@ -5,7 +5,10 @@ Bli först med att få fem stenar i din färg i en obruten rad: vågrätt, lodr�
 Välj regler före partiet:
 - Fri stil (kortet med sex stenar i rad): fem eller fler stenar i rad vinner.
 - Standard (kortet med fem): exakt fem stenar i rad vinner. En rad med sex eller fler räknas inte, men partiet fortsätter, och en femma som görs någon annanstans vinner ändå.
+- Sex i rad (kortet med den stora brädan): se nedan.
+# Sex i rad
+Spelas på en större bräda, 19 gånger 19. Svart börjar med att lägga en sten; därefter lägger varje spelare två stenar i varje drag. Sex eller fler stenar i din färg i rad vinner, även när raden fullbordas av dragets första sten.
 # Partiets slut
 Den som först får en vinnande rad vinner direkt. Om brädet blir fullt utan någon vinnande rad blir det oavgjort.
 # Spela på enheten
-Första trycket visar en blek sten, ett andra tryck på samma punkt spelar den. Det gör små punkter lätta att träffa. Den vinnande raden lyser i guld.
+Första trycket visar en blek sten, ett andra tryck på samma punkt spelar den. Det gör små punkter lätta att träffa. Den vinnande raden lyser i guld. I sex i rad visar ditt fält stenarna du ännu ska lägga i detta drag, och parets första sten förblir markerad tills du lägger den andra. Ångra tar tillbaka en sten i taget.

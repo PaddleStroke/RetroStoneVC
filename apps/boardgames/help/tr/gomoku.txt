@@ -5,7 +5,10 @@ Kendi renginden beş taşı kesintisiz bir sıraya ilk dizen sen ol: yatay, dike
 Oyundan önce kuralları seç:
 - Serbest (sırada altı taş olan kart): sırada beş ya da daha fazla taş kazanır.
 - Standart (beş taşlı kart): sırada tam beş taş kazanır. Altı ya da daha uzun bir sıra sayılmaz, ama oyun devam eder ve başka bir yerde yapılan beşli yine kazanır.
+- Altı Taş (büyük tahtalı kart): aşağıya bakın.
+# Altı Taş
+Daha büyük, 19'a 19'luk bir tahtada oynanır. Siyah başlarken tek taş koyar; ondan sonra her oyuncu her sırasında iki taş koyar. Kendi renginden altı ya da daha fazla taşı bir sıraya dizen kazanır; sıra, turun ilk taşıyla tamamlansa bile.
 # Oyunun sonu
 Kazandıran sırayı ilk yapan oyuncu hemen kazanır. Tahta, kazandıran bir sıra oluşmadan dolarsa oyun berabere biter.
 # Cihazda oynamak
-İlk dokunuş soluk bir taş gösterir, aynı noktaya ikinci dokunuş onu oynar. Böylece küçük noktalara dokunmak kolaylaşır. Kazandıran sıra altın renginde parlar.
+İlk dokunuş soluk bir taş gösterir, aynı noktaya ikinci dokunuş onu oynar. Böylece küçük noktalara dokunmak kolaylaşır. Kazandıran sıra altın renginde parlar. Altı Taş'ta şeridin bu turda daha koyacağın taşları gösterir ve çiftin ilk taşı, ikincisini koyana dek vurgulu kalır. Geri al, taşları birer birer geri alır.

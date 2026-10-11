@@ -5,7 +5,10 @@ Gomoku
 Choisis les règles avant la partie :
 - Libre (la carte avec six pierres alignées) : cinq pierres alignées ou plus gagnent.
 - Standard (la carte avec cinq) : il faut exactement cinq pierres alignées pour gagner. Un alignement de six ou plus ne compte pas, mais la partie continue et un cinq formé ailleurs gagne quand même.
+- Six en ligne (la carte avec le grand plateau) : voir plus bas.
+# Six en ligne
+Se joue sur un plateau plus grand, de 19 sur 19. Noir commence en posant une pierre ; ensuite, chaque joueur pose deux pierres à chaque tour. Six pierres de ta couleur alignées ou plus gagnent, même si l'alignement est formé par la première pierre d'un tour.
 # La fin de la partie
 Le premier joueur qui forme un alignement gagnant gagne aussitôt. Si le plateau se remplit sans alignement gagnant, la partie est nulle.
 # Jouer sur l'appareil
-Au premier toucher, une pierre pâle apparaît ; touche une seconde fois la même intersection pour la jouer. Ainsi, même les petites intersections sont faciles à viser. L'alignement gagnant s'illumine en or.
+Au premier toucher, une pierre pâle apparaît ; touche une seconde fois la même intersection pour la jouer. Ainsi, même les petites intersections sont faciles à viser. L'alignement gagnant s'illumine en or. En six en ligne, ta barre de joueur montre les pierres qu'il te reste à poser pendant ce tour, et la première pierre de la paire reste mise en évidence jusqu'à ce que tu poses la seconde. Annuler reprend une pierre à la fois.

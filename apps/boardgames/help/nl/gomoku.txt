@@ -5,7 +5,10 @@ Maak als eerste een ononderbroken rij van vijf stenen van je kleur: horizontaal,
 Kies de regels voor de partij:
 - Vrije stijl (de kaart met zes stenen op een rij): vijf of meer stenen op een rij winnen.
 - Standaard (de kaart met vijf): precies vijf stenen op een rij winnen. Een rij van zes of meer telt niet, maar de partij gaat door, en een vijf op een andere plek wint nog steeds.
+- Zes op een rij (de kaart met het grote bord): zie hieronder.
+# Zes op een rij
+Wordt gespeeld op een groter bord, 19 bij 19. Zwart begint met één steen; daarna legt elke speler bij elke beurt twee stenen. Zes of meer stenen van je kleur op een rij winnen, ook als de rij al met de eerste steen van een beurt ontstaat.
 # Het einde van de partij
 De eerste speler die een winnende rij maakt, wint meteen. Als het bord vol raakt zonder winnende rij, eindigt de partij in gelijkspel.
 # Spelen op het apparaat
-Bij de eerste tik verschijnt een bleke steen, een tweede tik op hetzelfde punt speelt hem. Zo zijn ook kleine punten makkelijk te raken. De winnende rij licht goud op.
+Bij de eerste tik verschijnt een bleke steen, een tweede tik op hetzelfde punt speelt hem. Zo zijn ook kleine punten makkelijk te raken. De winnende rij licht goud op. Bij zes op een rij toont je balk de stenen die je deze beurt nog moet leggen, en de eerste steen van het paar blijft gemarkeerd tot je de tweede legt. Ongedaan maken neemt één steen tegelijk terug.
