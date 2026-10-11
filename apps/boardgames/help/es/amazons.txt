@@ -1,0 +1,17 @@
+Amazonas
+# El objetivo
+Ser el último jugador que puede mover. Cada turno quema una casilla más del tablero, así que el espacio para moverse se reduce hasta que un jugador queda encerrado: ese jugador pierde.
+# La salida
+El tablero tiene 10 filas de 10 casillas. Cada jugador tiene cuatro amazonas. Las amazonas claras están en la fila de abajo y en la cuarta fila; las oscuras, en la fila de arriba y en la séptima fila, frente a ellas. Empiezan las claras; después los jugadores se turnan.
+# Un turno
+Cada turno tiene dos partes, las dos hechas por la misma amazona:
+- Mover: una de tus amazonas se mueve como la dama del ajedrez, cualquier número de casillas en línea recta, por una fila, una columna o una diagonal. Solo puede atravesar casillas vacías y detenerse en ellas: las amazonas nunca saltan y nunca capturan.
+- Disparar: desde la casilla donde se ha detenido, la amazona dispara una flecha, también como una dama, a una casilla vacía. Esa casilla queda quemada y bloqueada el resto de la partida: ninguna amazona puede detenerse en ella ni atravesarla, y ninguna flecha puede pasar por encima.
+La flecha puede volver a la casilla que la amazona acaba de dejar, o atravesarla.
+# El final de la partida
+Pierde el jugador que no puede mover ninguna amazona al principio de su turno. Nunca hay empate.
+# Consejos
+- Las zonas del tablero cerradas por casillas quemadas y amazonas se convierten en territorio propio: cuenta las casillas que le quedan a cada jugador para moverse.
+- Una amazona atrapada en un hueco pequeño está casi perdida: mantén tus amazonas en espacios abiertos.
+# Jugar en el dispositivo
+Toca una de tus amazonas para ver adónde puede ir y luego toca una casilla, o arrastra la amazona. Después, unas luces doradas muestran adónde puede volar su flecha: toca una, y la flecha quema esa casilla. El último turno queda marcado: de dónde salió la amazona, adónde fue y la casilla que quemó. Deshacer retira primero la flecha y luego el movimiento.

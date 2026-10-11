@@ -1,6 +1,6 @@
 Dames
 # Le but
-Prendre toutes les pièces de l'autre joueur, ou le laisser sans coup possible. Les pièces se placent uniquement sur les cases foncées et se déplacent en diagonale. Choisis les règles avant la partie : les dames internationales sur un damier de 10 sur 10, ou les dames anglaises (checkers) sur un damier de 8 sur 8.
+Prendre toutes les pièces de l'autre joueur, ou le laisser sans coup possible. Choisis les règles avant la partie : les dames internationales sur un damier de 10 sur 10, les dames anglaises (checkers), russes, brésiliennes ou turques sur un damier de 8 sur 8. Les pièces se placent uniquement sur les cases foncées et se déplacent en diagonale, sauf aux dames turques.
 # Dames internationales (10 sur 10)
 - Les pièces claires commencent. Un pion avance d'une case en diagonale.
 - Un pion prend en sautant par-dessus une pièce adverse voisine pour atterrir sur la case vide juste derrière. Les pions prennent vers l'avant et vers l'arrière.
@@ -13,6 +13,25 @@ Prendre toutes les pièces de l'autre joueur, ou le laisser sans coup possible. 
 - La prise est obligatoire, mais tu peux choisir quelle prise faire. Une fois qu'une pièce commence à sauter, elle doit prendre toutes les pièces qu'elle peut sur son chemin.
 - Un pion qui atteint la dernière rangée devient une dame, et le coup s'arrête là. Une dame se déplace et prend d'une case en diagonale, dans n'importe quelle direction.
 - Partie nulle : quand la même position revient pour la troisième fois, ou après 40 coups de chaque côté sans prise ni coup de pion.
+# Dames russes (8 sur 8)
+- Les pièces claires commencent. Un pion avance d'une case en diagonale, et prend vers l'avant et vers l'arrière.
+- Les dames se déplacent et prennent à distance le long des diagonales, comme aux dames internationales. Après une prise, une dame doit s'arrêter sur une case d'où elle peut continuer à prendre, s'il y en a une.
+- La prise est obligatoire, mais tu peux choisir quelle prise faire. Une fois qu'une pièce commence à sauter, elle doit prendre toutes les pièces qu'elle peut sur son chemin.
+- Les pièces prises sont retirées à la fin du coup. Une pièce ne peut pas être sautée deux fois.
+- Un pion qui atteint la dernière rangée devient dame aussitôt, même au milieu d'une rafle, et continue alors à prendre comme une dame s'il le peut.
+- Partie nulle : quand la même position revient pour la troisième fois, ou après 15 coups de chaque côté où seules des dames bougent, sans aucune prise.
+# Dames brésiliennes (8 sur 8)
+- Les règles des dames internationales, sur un damier de 8 sur 8. Les pièces claires commencent.
+- Les pions prennent vers l'avant et vers l'arrière, les dames se déplacent et prennent à distance, et tu dois prendre le plus grand nombre de pièces possible.
+- Un pion ne devient dame que s'il termine son coup sur la dernière rangée.
+- Partie nulle : quand la même position revient pour la troisième fois, ou après 20 coups de chaque côté où seules des dames bougent, sans aucune prise.
+# Dames turques (8 sur 8)
+- Les 64 cases sont utilisées. Chaque joueur commence avec 16 pions sur ses deuxième et troisième rangées. Les pièces claires commencent.
+- Un pion avance d'une case tout droit ou se déplace d'une case sur le côté, jamais en diagonale et jamais vers l'arrière. Il prend de la même façon, en sautant par-dessus une pièce adverse voisine pour atterrir sur la case vide juste derrière.
+- Un pion qui atteint la dernière rangée devient une dame. Une dame se déplace d'autant de cases qu'elle veut le long d'une rangée ou d'une colonne, et prend à distance, en s'arrêtant sur n'importe quelle case vide après la pièce prise.
+- La prise est obligatoire, et tu dois prendre le plus grand nombre de pièces possible.
+- Chaque pièce prise est retirée aussitôt, au moment où elle est sautée. Dans une rafle de plusieurs pièces, une pièce ne peut pas faire demi-tour pour repartir par où elle est venue.
+- Partie nulle : quand la même position revient pour la troisième fois, ou après 25 coups de chaque côté sans prise ni coup de pion.
 # La fin de la partie
 Un joueur qui n'a plus de pièces, ou qui ne peut plus bouger, a perdu.
 # Jouer sur l'appareil

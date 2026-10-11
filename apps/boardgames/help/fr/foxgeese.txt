@@ -1,0 +1,20 @@
+Le renard et les oies
+# Le but
+Un joueur a treize oies, l'autre un seul renard. Les oies gagnent en encerclant le renard pour qu'il ne puisse plus bouger. Le renard gagne en prenant des oies jusqu'à ce qu'il en reste moins de neuf.
+# Le plateau
+Le plateau est une croix de 33 points reliés par des lignes : le long des rangées, le long des colonnes et le long des diagonales qui y sont tracées. Les pièces se déplacent uniquement le long de ces lignes, d'un point au suivant.
+# Le départ
+Les oies (claires) occupent la branche du bas de la croix et toute la rangée juste au-dessus. Le renard (foncé) part du centre. Les oies commencent.
+# Les oies
+- Une oie se déplace le long d'une ligne jusqu'au point suivant, s'il est libre : vers l'avant, en diagonale vers l'avant ou sur le côté, jamais vers l'arrière.
+- Les oies ne sautent jamais et ne prennent jamais le renard.
+# Le renard
+- Le renard se déplace le long d'une ligne jusqu'au point suivant, s'il est libre, dans n'importe quelle direction.
+- Ou bien il saute par-dessus une oie voisine, le long d'une ligne, jusqu'au point libre juste derrière, et retire cette oie du plateau.
+- Sauter n'est pas obligatoire. Mais une fois que le renard a sauté, il doit continuer à sauter, une oie à la fois, tant qu'il le peut.
+# La fin de la partie
+- Les oies gagnent quand le renard ne peut ni bouger ni sauter.
+- Le renard gagne quand il reste moins de neuf oies, ou quand les oies ne peuvent plus bouger.
+- La partie est nulle quand la même position revient pour la troisième fois, ou après cinquante coups de chaque côté sans prise et sans qu'une oie avance.
+# Jouer sur l'appareil
+Touche une oie puis son nouveau point, ou fais-la glisser. Au tour du renard, le renard est déjà sélectionné : touche le point où il va, ou fais-le glisser. Les oies qu'il peut prendre portent un anneau : touche l'anneau, ou le point juste derrière, pour sauter. Pour une série de sauts, touche chaque saut suivant.

@@ -1,0 +1,23 @@
+Backgammon
+# Lo scopo
+Portare tutte le tue quindici pedine lungo il tavoliere fino alla tua tavola interna, e poi portarle fuori. Vince il primo giocatore che porta fuori tutte e quindici le pedine. I giocatori si muovono in direzioni opposte, l'avorio in un senso e l'ebano nell'altro.
+# Il tavoliere
+Ci sono 24 triangoli stretti, le punte, sei in ogni quarto del tavoliere. La barra al centro divide ogni lato in una tavola esterna e una tavola interna; le due tavole interne si trovano una di fronte all'altra, dal lato del vassoio. Ogni giocatore numera le punte da 1, in fondo alla propria tavola interna, fino a 24, in fondo alla tavola interna dell'altro giocatore. All'inizio ogni giocatore ha due pedine sulla sua punta 24, cinque sulla sua punta 13, tre sulla sua punta 8 e cinque sulla sua punta 6.
+# Tirare e muovere
+Per cominciare, ogni giocatore tira un dado. Il numero più alto gioca per primo, usando entrambi i numeri usciti; se sono uguali, si tira di nuovo. Poi i giocatori si alternano: tira due dadi e muovi secondo ciascun numero.
+- Una pedina avanza di un numero, poi una pedina avanza dell'altro: la stessa pedina o un'altra.
+- Una pedina può fermarsi su una punta vuota, su una punta con pedine tue o su una punta con una sola pedina avversaria.
+- Un doppio dà quattro mosse di quel numero.
+- Devi usare entrambi i numeri, se puoi. Se puoi usarne solo uno, devi usare il più alto, se possibile.
+- Se nessuna mossa è possibile, perdi il turno.
+# Colpire e rientrare
+Una pedina da sola su una punta è scoperta (un blot). Fermarsi su un blot avversario lo colpisce: va sulla barra. Un giocatore con una pedina sulla barra deve prima farla rientrare, nella tavola interna dell'altro giocatore, sulla punta indicata da un dado (la 1 è la punta più lontana dalla barra). Una punta occupata da due o più pedine avversarie è chiusa. Nient'altro può muoversi finché tutte le tue pedine sulla barra non sono rientrate.
+# Portare fuori
+Quando tutte e quindici le tue pedine sono nella tua tavola interna, puoi portarle fuori: un numero porta fuori una pedina dalla punta con quel numero. Se quella punta è vuota, devi muovere una pedina da una punta più alta, se puoi; se non ci sono pedine su nessuna punta più alta, il numero porta fuori una pedina dalla punta più alta che occupi. Una pedina colpita deve rifare tutto il giro prima che tu possa tornare a portare fuori.
+# La vittoria
+- Il primo giocatore che porta fuori tutte e quindici le pedine vince un punto.
+- Gammon: se lo sconfitto non ha portato fuori nemmeno una pedina, il vincitore segna due punti.
+- Backgammon: se lo sconfitto non ha portato fuori nessuna pedina e ne ha ancora una sulla barra o nella tavola interna del vincitore, il vincitore segna tre punti.
+Questo gioco si gioca senza il cubo del raddoppio.
+# Giocare sul dispositivo
+Tocca i dadi che brillano d'oro per tirarli. Tocca una pedina, poi uno dei punti, oppure trascinala; un anello mostra un blot che colpiresti. Ogni mossa usa un dado: un dado già usato si attenua. Per portare fuori una pedina, spostala nel vassoio a destra. Le pedine sulla barra sono già in mano. Quando un tiro non si può giocare, i suoi dadi si illuminano di rosso e il turno passa. La tua barra del giocatore mostra quante pedine hai portato fuori e, alla fine, i punti vinti. Annulla ritira una mossa alla volta, e i dadi dei turni precedenti tornano come erano usciti.

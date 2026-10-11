@@ -18,5 +18,9 @@ Un rey atacado está en jaque: la siguiente jugada debe sacarlo del jaque. Nunca
 - Jaque mate: el rey está en jaque y ninguna jugada puede salvarlo. Ese jugador pierde.
 - Rey ahogado: el jugador al que le toca mover no tiene ninguna jugada legal, pero no está en jaque. La partida termina en tablas.
 - La partida también termina en tablas cuando ningún bando puede ya dar mate (quedan muy pocas piezas), cuando la misma posición se repite por tercera vez, o tras cincuenta jugadas de cada uno sin capturas ni movimientos de peón.
+# Ajedrez 960
+El ajedrez 960 (ajedrez aleatorio de Fischer) se juega con las mismas reglas, pero las piezas de la primera fila empiezan en uno de 960 órdenes posibles, sorteado en cada partida. Los peones se colocan como siempre, y las piezas negras quedan frente a las blancas, columna por columna. Los alfiles están siempre en casillas de colores opuestos, y el rey en algún lugar entre las dos torres.
+- Enroque: el rey y la torre terminan en las mismas casillas que en el ajedrez normal: el rey en g y la torre en f con la torre del lado h, el rey en c y la torre en d con la torre del lado a. Solo se permite si ninguna de las dos piezas se ha movido aún, todas las casillas que cruzan o en las que terminan están vacías (aparte de ellas dos) y el rey no está en jaque, no cruza una casilla atacada y no termina en jaque.
+- Para enrocar, mueve el rey sobre la torre con la que enroca. También puedes moverlo a su casilla de destino, salvo que el rey pudiera ir allí también con una jugada normal, o que ya esté en ella.
 # Jugar en el dispositivo
-Toca una pieza para ver adónde puede ir y luego toca una casilla, o arrastra la pieza. Los puntos muestran las jugadas, los anillos las capturas. Un rey en jaque brilla en rojo.
+Toca una pieza para ver adónde puede ir y luego toca una casilla, o arrastra la pieza. Los puntos muestran las jugadas, los anillos las capturas. Un rey en jaque brilla en rojo. Para enrocar, mueve el rey dos casillas hacia la torre, o sobre la torre.

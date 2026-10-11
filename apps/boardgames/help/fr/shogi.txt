@@ -1,0 +1,32 @@
+Shogi
+# Le but
+Le shogi, ce sont les échecs japonais. Mettre le roi adverse échec et mat : l'attaquer de sorte qu'il ne puisse pas s'échapper. Noir (sente) commence, puis les joueurs jouent à tour de rôle, un coup chacun. Toutes les pièces sont de la même couleur : une pièce pointe vers l'adversaire, ce qui permet de savoir à qui elle appartient.
+# Le déplacement des pièces
+- Roi (玉, 王) : une case dans n'importe quelle direction.
+- Tour (飛) : d'autant de cases que tu veux le long d'une rangée ou d'une colonne.
+- Fou (角) : d'autant de cases que tu veux le long d'une diagonale.
+- Général d'or (金) : une case dans n'importe quelle direction, sauf en diagonale vers l'arrière.
+- Général d'argent (銀) : une case en diagonale, ou tout droit vers l'avant.
+- Cavalier (桂) : deux cases vers l'avant et une sur le côté, en sautant par-dessus toute pièce sur son chemin. Il ne se déplace que vers l'avant.
+- Lance (香) : d'autant de cases que tu veux tout droit vers l'avant.
+- Pion (歩) : une case tout droit vers l'avant. Il prend aussi de cette façon.
+Les pièces ne peuvent pas traverser d'autres pièces (sauf le cavalier). Une pièce prend en allant sur une case occupée par une pièce adverse.
+# La promotion
+Les trois rangées les plus éloignées de toi forment la zone de promotion. Une pièce qui entre dans cette zone, s'y déplace ou en sort peut être promue : elle se retourne et son caractère devient rouge.
+- La tour devient un dragon (龍) : une tour qui peut aussi se déplacer d'une case en diagonale.
+- Le fou devient un cheval (馬) : un fou qui peut aussi se déplacer d'une case le long d'une rangée ou d'une colonne.
+- L'argent, le cavalier, la lance et le pion deviennent des ors (全, 圭, 杏, と).
+- Le roi et l'or ne sont pas promus.
+La promotion n'est pas obligatoire, sauf quand la pièce ne pourrait plus jamais bouger : un pion ou une lance sur la dernière rangée, un cavalier sur les deux dernières rangées.
+# Les pièces prises
+Une pièce prise passe dans le camp de celui qui l'a prise et attend en main. Au lieu de déplacer une pièce, tu peux parachuter une pièce de ta main sur n'importe quelle case vide, non promue. Un parachutage peut donner échec. Trois limites :
+- Pas de pion sur une colonne qui contient déjà un de tes pions non promus.
+- Pas de pièce là où elle ne pourrait plus jamais bouger (un pion ou une lance sur la dernière rangée, un cavalier sur les deux dernières rangées).
+- Un pion parachuté ne peut pas donner échec et mat immédiatement (un pion déplacé sur le plateau le peut).
+# La fin de la partie
+Un roi attaqué est en échec : le coup suivant doit le sortir de l'échec. Tu ne peux jamais jouer un coup qui laisse ton propre roi en échec.
+- Échec et mat : le roi est en échec et aucun coup ne peut le sauver. Ce joueur a perdu. Un joueur qui n'a plus aucun coup légal perd aussi.
+- Répétition : quand la même position (les pièces sur le plateau et en main, le même joueur au trait) revient pour la quatrième fois, la partie est nulle. Mais si un joueur a donné échec à chaque coup depuis la première apparition de cette position, ce joueur perd.
+- Il n'y a pas de règle pour deux rois entrés tous les deux dans le camp adverse : la partie continue.
+# Jouer sur l'appareil
+Touche une pièce pour voir où elle peut aller, puis touche une case, ou fais glisser la pièce. Les points montrent les coups possibles, les anneaux les prises. Un roi en échec brille en rouge. Tes pièces en main sont dans ta barre, avec leur nombre : touches-en une, puis touche une case, ou fais-la glisser sur le plateau. Quand une pièce peut être promue, choisis sa face promue (rouge) ou garde-la telle quelle.

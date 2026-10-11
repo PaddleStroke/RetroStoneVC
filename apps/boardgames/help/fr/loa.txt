@@ -1,0 +1,16 @@
+Lines of Action
+# Le but
+Réunir toutes tes pièces en un seul groupe, chaque pièce touchant une autre des tiennes : côte à côte ou coin à coin. Les pièces foncées commencent, puis les joueurs jouent à tour de rôle, un coup chacun.
+# Le départ
+Chaque joueur a 12 pièces. Celles du joueur foncé sont sur les rangées du haut et du bas, celles du joueur clair sur les colonnes de gauche et de droite ; les quatre coins restent vides.
+# Le déplacement d'une pièce
+- Une pièce se déplace en ligne droite : le long de sa rangée, de sa colonne ou d'une de ses deux diagonales.
+- Elle se déplace d'exactement autant de cases qu'il y a de pièces sur toute cette ligne, des deux couleurs, la pièce qui bouge comprise. Compte toute la ligne, d'un bord du plateau à l'autre, des deux côtés de la pièce.
+- Elle peut sauter par-dessus des pièces de sa couleur, mais jamais par-dessus celles de l'autre joueur.
+- Elle peut s'arrêter sur une case vide, ou sur une pièce de l'autre joueur, qui est prise et quitte le plateau. Elle ne peut jamais s'arrêter sur une des siennes.
+# La fin de la partie
+- Un joueur dont toutes les pièces forment un seul groupe relié gagne. Une pièce restée seule compte comme un groupe, donc une prise peut faire gagner l'autre joueur.
+- Si un coup relie en même temps les groupes des deux joueurs, le joueur qui a joué ce coup gagne.
+- Un joueur qui n'a aucun coup légal passe, et l'autre joueur rejoue. L'appareil passe pour toi. Si aucun des deux joueurs ne peut bouger, ou après 1000 coups, la partie est nulle.
+# Jouer sur l'appareil
+Touche une pièce pour voir où elle peut aller, puis touche une case, ou fais glisser la pièce. Les points montrent les coups possibles, les anneaux les prises. Chaque barre indique combien de pièces il reste à ce joueur. À la fin, le groupe gagnant s'illumine en or.

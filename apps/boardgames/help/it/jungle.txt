@@ -1,0 +1,23 @@
+Gioco della giungla
+# Lo scopo
+Portare uno dei tuoi animali nella tana dell'altro giocatore, la stella intarsiata all'altra estremità del tavoliere. Vinci anche catturando tutti gli animali dell'altro giocatore, o quando l'altro giocatore non può muovere. Il chiaro muove per primo, poi i giocatori si alternano, una mossa ciascuno.
+# Il tavoliere
+Il tavoliere ha sette colonne e nove righe. Al centro ci sono due fiumi. La tana di ogni giocatore è al centro della sua riga di fondo, con tre trappole intorno: le caselle intagliate ai suoi lati e davanti.
+# Gli animali
+Ogni giocatore ha otto animali. Il numero su ogni animale è la sua forza: elefante 8, leone 7, tigre 6, leopardo 5, lupo 4, cane 3, gatto 2, topo 1.
+# Movimento
+- Un animale si muove di una casella in avanti, all'indietro o di lato, mai in diagonale.
+- Nessun animale può entrare nella propria tana.
+- Solo il topo sa nuotare: è l'unico animale che può entrare nell'acqua.
+- Il leone e la tigre possono saltare un fiume, in linea retta, dalla riva fino alla prima casella oltre l'acqua. Non possono saltare se un topo, di qualsiasi giocatore, è nell'acqua lungo il percorso.
+# Catture
+- Un animale cattura spostandosi su un animale avversario di forza uguale o minore, che esce dal tavoliere.
+- Il topo può catturare l'elefante, ma l'elefante non può catturare il topo.
+- Un animale in una delle trappole dell'altro giocatore perde tutta la sua forza: qualsiasi animale avversario può catturarlo. Nelle proprie trappole conserva la sua forza.
+- Non ci sono catture tra l'acqua e la terra: un topo nell'acqua può catturare solo l'altro topo nell'acqua, e un animale sulla terra non può catturare un topo nell'acqua.
+# La fine della partita
+- Un animale che entra nella tana dell'altro giocatore vince la partita.
+- Si vince anche catturando tutti gli animali dell'altro giocatore, o lasciandolo senza mosse.
+- La partita è patta quando la stessa posizione si ripete per la terza volta, o dopo cinquanta mosse ciascuno senza catture.
+# Giocare sul dispositivo
+Tocca un animale per vedere dove può andare, poi tocca una casella, oppure trascina l'animale. I punti mostrano le mosse, gli anelli le catture.

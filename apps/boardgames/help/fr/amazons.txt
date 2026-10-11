@@ -1,0 +1,17 @@
+Amazones
+# Le but
+Être le dernier joueur capable de bouger. Chaque tour brûle une case de plus du plateau, si bien que la place pour bouger diminue jusqu'à ce qu'un joueur soit emmuré : ce joueur a perdu.
+# Le départ
+Le plateau a 10 rangées de 10 cases. Chaque joueur a quatre amazones. Les amazones claires sont sur la rangée du bas et sur la quatrième rangée, les foncées sur la rangée du haut et sur la septième rangée, face à elles. Les claires commencent, puis les joueurs jouent à tour de rôle.
+# Un tour
+Chaque tour se joue en deux temps, tous deux par la même amazone :
+- Déplacement : une de tes amazones se déplace comme une dame aux échecs, d'autant de cases que tu veux en ligne droite, le long d'une rangée, d'une colonne ou d'une diagonale. Elle ne peut traverser que des cases vides et ne peut s'arrêter que sur une case vide : les amazones ne sautent jamais et ne prennent jamais.
+- Tir : depuis la case où elle s'est arrêtée, l'amazone tire une flèche, elle aussi comme une dame, sur une case vide. Cette case est brûlée et bloquée pour le reste de la partie : aucune amazone ne peut s'y arrêter ni la traverser, et aucune flèche ne peut passer par-dessus.
+La flèche peut revenir sur la case que l'amazone vient de quitter, ou la traverser.
+# La fin de la partie
+Un joueur qui ne peut déplacer aucune amazone au début de son tour a perdu. Il n'y a pas de partie nulle.
+# Conseils
+- Les zones du plateau isolées par des cases brûlées et des amazones deviennent des territoires privés : compte les cases où chaque joueur peut encore bouger.
+- Une amazone prise au piège dans une petite poche est presque perdue : garde tes amazones dans les espaces ouverts.
+# Jouer sur l'appareil
+Touche une de tes amazones pour voir où elle peut aller, puis touche une case, ou fais glisser l'amazone. Ensuite, des lumières dorées montrent où sa flèche peut aller : touches-en une, et la flèche brûle cette case. Le dernier tour reste marqué : d'où l'amazone est partie, où elle est allée et la case qu'elle a brûlée. Annuler reprend d'abord la flèche, puis le déplacement.

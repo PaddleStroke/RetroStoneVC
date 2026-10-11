@@ -1,0 +1,15 @@
+Serpientes y escaleras
+# El objetivo
+Ser el primero en llevar tu ficha a la casilla 100.
+# El tablero
+Las casillas están numeradas del 1 al 100 desde abajo a la izquierda: por la fila de abajo hacia la derecha, luego de vuelta hacia la izquierda por la fila siguiente, y así hasta lo alto del tablero, donde está el 100. Las escaleras suben por el tablero, de su pie a su extremo superior; las serpientes bajan, de su cabeza a su cola.
+# Un turno
+Las dos fichas empiezan fuera del tablero, antes de la casilla 1. Tiran primero las claras. Tira el dado y avanza tu ficha tantas casillas como marque, de una en una. Las dos fichas pueden estar en la misma casilla.
+- Si tu ficha termina su movimiento al pie de una escalera, sube hasta lo alto de la escalera.
+- Si termina su movimiento en la cabeza de una serpiente, baja deslizándose hasta la cola de la serpiente.
+- Un 6 te da otra tirada, después de tu movimiento.
+- Si no, el dado pasa al otro jugador.
+# El final de la partida
+Debes llegar a la casilla 100 con el número exacto. Si sacas más de lo que necesitas, tu ficha sube hasta el 100 y vuelve a bajar las casillas que sobran: desde el 96, un 6 termina en el 98. Una escalera o una serpiente donde se detiene también cuenta. Gana el primer jugador que llega a la casilla 100.
+# Jugar en el dispositivo
+El dado espera, con una luz dorada, al final de la barra del jugador que tiene que tirar: toca la pantalla para tirarlo. Después tu ficha se mueve sola. Cada barra muestra la casilla en la que está la ficha de ese jugador y su última tirada. Deshacer retira las tiradas una a una; una tirada deshecha vuelve a salir igual cuando tiras de nuevo.

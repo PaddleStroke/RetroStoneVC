@@ -1,0 +1,32 @@
+Shogi
+# El objetivo
+El shogi es el ajedrez japonés. Dar jaque mate al rey contrario: atacarlo de modo que no pueda escapar. Mueven primero las negras (sente); después los jugadores se turnan, una jugada cada uno. Todas las piezas son del mismo color: cada pieza apunta hacia el rival, y así se sabe de quién es.
+# Cómo se mueven las piezas
+- Rey (玉, 王): una casilla en cualquier dirección.
+- Torre (飛): cualquier número de casillas por una fila o una columna.
+- Alfil (角): cualquier número de casillas por una diagonal.
+- General de oro (金): una casilla en cualquier dirección, salvo en diagonal hacia atrás.
+- General de plata (銀): una casilla en diagonal, o recto hacia delante.
+- Caballo (桂): dos casillas hacia delante y una hacia un lado, saltando por encima de cualquier pieza que haya en medio. Solo se mueve hacia delante.
+- Lancero (香): cualquier número de casillas recto hacia delante.
+- Peón (歩): una casilla recto hacia delante. También captura así.
+Las piezas no pueden atravesar otras piezas (salvo el caballo). Una pieza captura moviéndose a una casilla ocupada por una pieza contraria.
+# La promoción
+Las tres filas más alejadas de ti son la zona de promoción. Una pieza que entra en ella, se mueve dentro de ella o sale de ella puede promocionar: se le da la vuelta y su carácter pasa a ser rojo.
+- La torre se convierte en dragón (龍): una torre que además puede moverse una casilla en diagonal.
+- El alfil se convierte en caballo dragón (馬): un alfil que además puede moverse una casilla por una fila o una columna.
+- La plata, el caballo, el lancero y el peón se convierten en oros (全, 圭, 杏, と).
+- El rey y el oro no promocionan.
+La promoción no es obligatoria, salvo cuando la pieza ya no podría moverse nunca: un peón o un lancero en la última fila, un caballo en las dos últimas filas.
+# Las piezas capturadas
+Una pieza capturada pasa al bando de quien la captura y espera en la mano. En lugar de mover, puedes lanzar una pieza de tu mano en cualquier casilla vacía, sin promocionar. Un lanzamiento puede dar jaque. Tres límites:
+- Ningún peón en una columna donde ya tengas un peón sin promocionar.
+- Ninguna pieza donde ya no podría moverse nunca (un peón o un lancero en la última fila, un caballo en las dos últimas filas).
+- Lanzar un peón no puede dar jaque mate inmediato (un peón movido en el tablero sí puede).
+# El final de la partida
+Un rey atacado está en jaque: la siguiente jugada debe sacarlo del jaque. Nunca puedes hacer una jugada que deje a tu propio rey en jaque.
+- Jaque mate: el rey está en jaque y ninguna jugada puede salvarlo. Ese jugador pierde. Un jugador que no tiene ninguna jugada legal también pierde.
+- Repetición: cuando la misma posición (las piezas en el tablero y en la mano, el mismo jugador al turno) se da por cuarta vez, la partida termina en tablas. Pero si un jugador ha dado jaque en cada jugada desde que apareció esa posición por primera vez, ese jugador pierde.
+- No hay ninguna regla para dos reyes que hayan entrado ambos en el campo contrario: se sigue jugando.
+# Jugar en el dispositivo
+Toca una pieza para ver adónde puede ir y luego toca una casilla, o arrastra la pieza. Los puntos muestran las jugadas, los anillos las capturas. Un rey en jaque brilla en rojo. Tus piezas en la mano están en tu barra, con su número: toca una y luego una casilla, o arrástrala al tablero. Cuando una pieza puede promocionar, elige su cara promocionada (roja) o déjala como está.

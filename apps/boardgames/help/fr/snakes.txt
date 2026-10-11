@@ -1,0 +1,15 @@
+Serpents et échelles
+# Le but
+Être le premier à amener ton pion sur la case 100.
+# Le plateau
+Les cases sont numérotées de 1 à 100 à partir d'en bas à gauche : le long de la rangée du bas vers la droite, puis en revenant vers la gauche sur la rangée suivante, et ainsi de suite jusqu'en haut du plateau, où se trouve la case 100. Les échelles font monter, de leur pied à leur sommet ; les serpents font descendre, de leur tête à leur queue.
+# Un tour
+Les deux pions partent hors du plateau, avant la case 1. Le joueur clair lance en premier. Lance le dé et avance ton pion du nombre obtenu, une case à la fois. Les deux pions peuvent se trouver sur la même case.
+- Si ton pion termine son déplacement au pied d'une échelle, il grimpe jusqu'en haut de l'échelle.
+- S'il termine son déplacement sur la tête d'un serpent, il glisse jusqu'à la queue du serpent.
+- Un 6 te donne un autre lancer, après ton déplacement.
+- Sinon, le dé passe à l'autre joueur.
+# La fin de la partie
+Tu dois atteindre la case 100 avec le nombre exact. Si tu fais plus que nécessaire, ton pion monte jusqu'à 100 puis redescend des cases en trop : depuis 96, un lancer de 6 s'arrête sur 98. Une échelle ou un serpent là où il s'arrête compte quand même. Le premier joueur sur la case 100 gagne.
+# Jouer sur l'appareil
+Le dé attend, dans une lumière dorée, au bout de la barre du joueur qui doit lancer : touche l'écran pour le lancer. Ton pion avance alors tout seul. Chaque barre indique la case où se trouve le pion de ce joueur et son dernier lancer. Annuler reprend les lancers un par un ; un lancer repris redonne le même résultat quand tu relances.

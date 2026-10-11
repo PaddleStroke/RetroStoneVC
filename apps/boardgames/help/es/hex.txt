@@ -1,0 +1,12 @@
+Hex
+# El objetivo
+Unir tus dos lados del tablero con una cadena continua de tus piedras. Las blancas (claras) unen el lado de arriba con el de abajo, las negras (oscuras) el de la izquierda con el de la derecha: cada lado está pintado del color del jugador que debe unirlo. Empiezan las blancas. Elige el tablero antes de la partida: 7 por 7 para una partida rápida, 9 por 9, u 11 por 11.
+# El juego
+- Por turnos, cada jugador coloca una piedra en cualquier casilla vacía. Las piedras no se mueven nunca y nunca se capturan.
+- Dos de tus piedras están unidas cuando sus casillas comparten un lado: cada casilla tiene seis vecinas.
+- Gana el primer jugador que une sus dos lados. Las casillas de las esquinas pertenecen a los dos lados que se juntan en ellas.
+- Nunca hay empate: cuando el tablero está lleno, uno de los jugadores siempre ha unido sus lados.
+# El cambio
+Jugar primero es una gran ventaja. Para compensarla, solo en la segunda jugada, las negras pueden quedarse con la primera piedra de las blancas en lugar de colocar una. La piedra se vuelve negra y pasa a su casilla simétrica respecto a la diagonal larga (la línea que va de la esquina superior izquierda a la esquina inferior derecha), de modo que vale para las negras lo mismo que valía para las blancas. Después las blancas vuelven a jugar. Por eso a las blancas les conviene abrir con una jugada ni demasiado fuerte ni demasiado débil.
+# Jugar en el dispositivo
+Toca una casilla vacía para colocar tu piedra. En el tablero de 11 por 11, el primer toque muestra una piedra pálida y un segundo toque en la misma casilla la coloca: así es fácil acertar en las casillas pequeñas. Para hacer el cambio, las negras tocan la primera piedra de las blancas: una piedra pálida muestra adónde va, y un segundo toque hace el cambio. Cuando un jugador gana, su cadena se ilumina en dorado.

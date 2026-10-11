@@ -1,0 +1,16 @@
+Mancala
+# El objetivo
+Capturar más semillas que el otro jugador. El tablero tiene dos filas de seis hoyos, con cuatro semillas en cada uno. La fila más cercana a ti es la tuya, con tu almacén en su extremo derecho. Empiezan las claras.
+# Oware
+- En tu turno, coge todas las semillas de uno de tus hoyos y siémbralas una a una en los hoyos siguientes, en sentido contrario a las agujas del reloj. Con doce semillas o más das la vuelta completa: el hoyo que has vaciado se salta.
+- Si tu última semilla cae en la fila del otro jugador y deja allí dos o tres semillas, las capturas. También capturas el hoyo anterior, y el anterior a ese, siempre que estén en la fila del otro jugador y tengan dos o tres semillas.
+- Una jugada que capturaría todas las semillas del otro jugador se puede hacer, pero no captura nada.
+- Si el otro jugador no tiene semillas, debes hacer una jugada que le dé alguna, si tienes una.
+- La partida termina cuando un jugador ha capturado más de 24 semillas, cuando el jugador al que le toca no puede jugar, o cuando se repite la misma posición. En los dos últimos casos, cada jugador suma las semillas que quedan en su propia fila. Gana quien tenga más semillas; 24 cada uno es un empate.
+# Kalah
+- En tu turno, coge todas las semillas de uno de tus hoyos y siémbralas una a una, en sentido contrario a las agujas del reloj, en los hoyos siguientes y en tu propio almacén, pero no en el almacén del otro jugador.
+- Si tu última semilla cae en tu almacén, vuelves a jugar.
+- Si tu última semilla cae en un hoyo tuyo vacío y el hoyo de enfrente tiene semillas, capturas ambos: tu semilla y las semillas de enfrente van a tu almacén.
+- La partida termina cuando una fila queda vacía: el otro jugador pone en su almacén las semillas que quedan en su fila. Gana quien tenga más semillas en el almacén; con el mismo número, es un empate.
+# Jugar en el dispositivo
+Toca uno de tus hoyos para sembrarlo: los hoyos que puedes jugar brillan. Las semillas viajan una a una, y las semillas capturadas vuelan al almacén. El número junto a cada hoyo muestra sus semillas, y cada barra muestra las semillas que ha capturado ese jugador.

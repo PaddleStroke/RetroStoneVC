@@ -1,6 +1,6 @@
 Damas
 # El objetivo
-Capturar todas las piezas del otro jugador o dejarlo sin movimientos. Las piezas solo ocupan las casillas oscuras y se mueven en diagonal. Elige las reglas antes de la partida: damas internacionales en un tablero de 10 por 10, o damas inglesas (checkers) en un tablero de 8 por 8.
+Capturar todas las piezas del otro jugador o dejarlo sin movimientos. Elige las reglas antes de la partida: damas internacionales en un tablero de 10 por 10, o damas inglesas (checkers), rusas, brasileñas o turcas en un tablero de 8 por 8. Las piezas solo ocupan las casillas oscuras y se mueven en diagonal, salvo en las damas turcas.
 # Damas internacionales (10 por 10)
 - Empiezan las piezas claras. Un peón avanza una casilla en diagonal.
 - Un peón captura saltando por encima de una pieza contraria contigua hasta la casilla vacía justo detrás. Los peones capturan hacia delante y hacia atrás.
@@ -13,6 +13,25 @@ Capturar todas las piezas del otro jugador o dejarlo sin movimientos. Las piezas
 - Capturar es obligatorio, pero puedes elegir qué captura hacer. Cuando una pieza empieza a saltar, debe capturar todas las piezas que pueda en su camino.
 - Un peón que llega a la última fila se convierte en dama, y con eso termina la jugada. Una dama se mueve y captura una casilla en diagonal, en cualquier dirección.
 - Tablas: cuando la misma posición se repite por tercera vez, o tras 40 jugadas de cada uno sin capturas ni movimientos de peón.
+# Damas rusas (8 por 8)
+- Empiezan las piezas claras. Un peón avanza una casilla en diagonal, y captura hacia delante y hacia atrás.
+- Las damas se mueven y capturan a distancia por las diagonales, como en las damas internacionales. Tras una captura, una dama debe caer en una casilla desde la que pueda seguir capturando, si la hay.
+- Capturar es obligatorio, pero puedes elegir qué captura hacer. Cuando una pieza empieza a saltar, debe capturar todas las piezas que pueda en su camino.
+- Las piezas capturadas se retiran al final de la jugada. Una pieza no puede ser saltada dos veces.
+- Un peón que llega a la última fila se convierte en dama en el acto, incluso en mitad de una captura, y sigue capturando como dama si puede.
+- Tablas: cuando la misma posición se repite por tercera vez, o tras 15 jugadas de cada uno en las que solo se mueven damas y no hay capturas.
+# Damas brasileñas (8 por 8)
+- Las reglas de las damas internacionales en un tablero de 8 por 8. Empiezan las piezas claras.
+- Los peones capturan hacia delante y hacia atrás, las damas se mueven y capturan a distancia, y debes capturar el mayor número de piezas posible.
+- Un peón solo se convierte en dama si termina su jugada en la última fila.
+- Tablas: cuando la misma posición se repite por tercera vez, o tras 20 jugadas de cada uno en las que solo se mueven damas y no hay capturas.
+# Damas turcas (8 por 8)
+- Se usan las 64 casillas. Cada jugador empieza con 16 peones en su segunda y su tercera fila. Empiezan las piezas claras.
+- Un peón se mueve una casilla recto hacia delante o hacia un lado, nunca en diagonal y nunca hacia atrás. Captura del mismo modo, saltando por encima de una pieza contraria contigua hasta la casilla vacía justo detrás.
+- Un peón que llega a la última fila se convierte en dama. Una dama se mueve cualquier número de casillas por una fila o una columna y captura a distancia, cayendo en cualquier casilla vacía más allá de la pieza que captura.
+- Capturar es obligatorio, y debes capturar el mayor número de piezas posible.
+- Cada pieza capturada se retira en el acto, al ser saltada. En una captura de varias piezas, una pieza no puede dar media vuelta para volver por donde ha venido.
+- Tablas: cuando la misma posición se repite por tercera vez, o tras 25 jugadas de cada uno sin capturas ni movimientos de peón.
 # El final de la partida
 Pierde el jugador que se queda sin piezas o que no puede mover.
 # Jugar en el dispositivo

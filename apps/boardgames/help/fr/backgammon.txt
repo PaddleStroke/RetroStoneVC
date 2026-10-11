@@ -1,0 +1,23 @@
+Backgammon
+# Le but
+Faire faire le tour du plateau à tes quinze dames pour les amener dans ton jan intérieur, puis les sortir. Le premier joueur qui sort ses quinze dames gagne. Les joueurs avancent en sens opposés, l'ivoire dans un sens et l'ébène dans l'autre.
+# Le plateau
+Il y a 24 triangles étroits, les flèches, six dans chaque quart du plateau. La barre, au milieu, sépare chaque côté en un jan extérieur et un jan intérieur ; les deux jans intérieurs se font face, du côté du bac. Chaque joueur numérote les flèches de 1, au bout de son propre jan intérieur, jusqu'à 24, au bout du jan intérieur de l'autre joueur. Au départ, chaque joueur a deux dames sur sa flèche 24, cinq sur sa flèche 13, trois sur sa flèche 8 et cinq sur sa flèche 6.
+# Lancer et jouer
+Pour commencer, chaque joueur lance un dé. Le plus grand nombre commence, en jouant les deux nombres obtenus ; en cas d'égalité, on relance. Ensuite, les joueurs jouent à tour de rôle : lance les deux dés et avance du nombre de chacun.
+- Une dame avance d'un des nombres, puis une dame avance de l'autre : la même dame ou une autre.
+- Une dame peut s'arrêter sur une flèche vide, sur une flèche occupée par tes propres dames, ou sur une flèche où se trouve une seule dame adverse.
+- Un double donne quatre déplacements de ce nombre.
+- Tu dois utiliser les deux nombres si tu le peux. Si tu ne peux en utiliser qu'un, tu dois utiliser le plus grand si possible.
+- Si aucun déplacement n'est possible, tu passes ton tour.
+# Frapper et rentrer
+Une dame seule sur une flèche est un blot. S'arrêter sur un blot adverse le frappe : il part sur la barre. Un joueur qui a une dame sur la barre doit d'abord la remettre en jeu, en la rentrant dans le jan intérieur de l'autre joueur sur la flèche indiquée par un dé (la 1 est la flèche la plus éloignée de la barre). Une flèche tenue par deux dames adverses ou plus est fermée. Rien d'autre ne peut bouger tant que toutes tes dames sur la barre ne sont pas rentrées.
+# Sortir les dames
+Une fois tes quinze dames dans ton jan intérieur, tu peux les sortir : un nombre sort une dame de la flèche de ce numéro. Si cette flèche est vide, tu dois jouer une dame d'une flèche plus haute si tu le peux ; s'il n'y a aucune dame sur une flèche plus haute, le nombre sort une dame de la flèche la plus haute que tu occupes. Une dame frappée doit refaire tout le chemin avant que tu puisses recommencer à sortir.
+# La victoire
+- Le premier joueur qui sort ses quinze dames gagne un point.
+- Gammon : si le perdant n'a sorti aucune dame, le gagnant marque deux points.
+- Backgammon : si le perdant n'a sorti aucune dame et en a encore une sur la barre ou dans le jan intérieur du gagnant, le gagnant marque trois points.
+Ce jeu se joue sans le videau.
+# Jouer sur l'appareil
+Touche les dés qui brillent en or pour les lancer. Touche une dame, puis un des points, ou fais-la glisser ; un anneau indique un blot que tu frapperais. Chaque déplacement utilise un dé : un dé déjà utilisé est grisé. Pour sortir une dame, amène-la dans le bac à droite. Les dames sur la barre sont déjà en main. Quand un lancer ne peut pas être joué, ses dés brillent en rouge et le tour passe. Ta barre de joueur indique combien de dames tu as sorties, et à la fin les points gagnés. Annuler reprend un coup à la fois, et les dés des tours précédents reviennent tels qu'ils avaient été lancés.

@@ -1,0 +1,11 @@
+Gomoku
+# Le but
+Être le premier à aligner cinq pierres de ta couleur, sans interruption : horizontalement, verticalement ou en diagonale. Les pierres se jouent sur les intersections des lignes et ne bougent plus une fois posées. Noir (foncé) commence, puis les joueurs jouent à tour de rôle, une pierre chacun.
+# Libre et standard
+Choisis les règles avant la partie :
+- Libre (la carte avec six pierres alignées) : cinq pierres alignées ou plus gagnent.
+- Standard (la carte avec cinq) : il faut exactement cinq pierres alignées pour gagner. Un alignement de six ou plus ne compte pas, mais la partie continue et un cinq formé ailleurs gagne quand même.
+# La fin de la partie
+Le premier joueur qui forme un alignement gagnant gagne aussitôt. Si le plateau se remplit sans alignement gagnant, la partie est nulle.
+# Jouer sur l'appareil
+Au premier toucher, une pierre pâle apparaît ; touche une seconde fois la même intersection pour la jouer. Ainsi, même les petites intersections sont faciles à viser. L'alignement gagnant s'illumine en or.

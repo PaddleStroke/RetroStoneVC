@@ -18,5 +18,9 @@ Un roi attaqué est en échec : le coup suivant doit le sortir de l'échec. Tu 
 - Échec et mat : le roi est en échec et aucun coup ne peut le sauver. Ce joueur a perdu.
 - Pat : le joueur dont c'est le tour n'a aucun coup légal mais n'est pas en échec. La partie est nulle.
 - La partie est aussi nulle quand aucun des deux camps ne peut plus jamais mater (il reste trop peu de pièces), quand la même position revient pour la troisième fois, ou après cinquante coups de chaque côté sans prise ni coup de pion.
+# Échecs 960
+Les échecs 960 (échecs aléatoires de Fischer) se jouent avec les mêmes règles, mais les pièces de la première rangée partent dans l'un de 960 ordres, tiré au sort à chaque partie. Les pions sont placés comme d'habitude, et les pièces noires font face aux pièces blanches, colonne par colonne. Les fous sont toujours sur des cases de couleurs opposées, et le roi quelque part entre les deux tours.
+- Roque : le roi et la tour finissent sur les mêmes cases qu'aux échecs ordinaires : le roi en g et la tour en f avec la tour du côté h, le roi en c et la tour en d avec la tour du côté a. Il n'est permis que si aucune des deux pièces n'a encore bougé, si toutes les cases qu'elles traversent ou sur lesquelles elles arrivent sont vides (à part elles deux), et si le roi n'est pas en échec, ne traverse pas une case attaquée et ne se retrouve pas en échec.
+- Pour roquer, place le roi sur la tour avec laquelle il roque. Tu peux aussi le placer sur sa case d'arrivée, sauf si le roi pourrait aussi y aller par un coup ordinaire, ou s'il s'y trouve déjà.
 # Jouer sur l'appareil
-Touche une pièce pour voir où elle peut aller, puis touche une case, ou fais glisser la pièce. Les points montrent les coups possibles, les anneaux les prises. Un roi en échec brille en rouge.
+Touche une pièce pour voir où elle peut aller, puis touche une case, ou fais glisser la pièce. Les points montrent les coups possibles, les anneaux les prises. Un roi en échec brille en rouge. Pour roquer, déplace le roi de deux cases vers la tour, ou place-le sur la tour.

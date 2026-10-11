@@ -1,0 +1,11 @@
+Puntos y cajas
+# El objetivo
+Conseguir más cajas que el otro jugador. El tablero es una cuadrícula de puntos. Elige su tamaño antes de la partida: 3 por 3 cajas para una partida rápida, 5 por 5, o 7 por 7. Empiezan las claras.
+# Un turno
+- Traza una línea entre dos puntos contiguos, en horizontal o en vertical. Cada línea solo puede trazarse una vez.
+- Si tu línea cierra el cuarto lado de una caja, la caja es tuya: toma tu color. Una sola línea puede cerrar dos cajas a la vez.
+- Cada vez que cierras una caja, debes trazar otra línea. Tu turno termina con una línea que no cierra ninguna caja.
+# El final de la partida
+La partida termina cuando están trazadas todas las líneas. Gana el jugador con más cajas. Todos los tableros tienen un número impar de cajas, así que siempre hay un ganador.
+# Jugar en el dispositivo
+Toca entre dos puntos para trazar ahí la línea. Mantén el dedo apoyado para ver qué línea será, deslízalo para elegir otra y levántalo para trazarla. La última línea trazada se ilumina, y también las cajas que cerró. Cada barra muestra cuántas cajas tiene ese jugador.

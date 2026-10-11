@@ -1,0 +1,16 @@
+Lines of Action
+# Lo scopo
+Riunire tutti i tuoi pezzi in un solo gruppo, con ogni pezzo che ne tocca un altro dei tuoi: di lato o d'angolo. Muovono per primi gli scuri, poi i giocatori si alternano, una mossa ciascuno.
+# La partenza
+Ogni giocatore ha 12 pezzi. Quelli scuri stanno sulla riga in alto e su quella in basso, quelli chiari sulla colonna di sinistra e su quella di destra; i quattro angoli restano vuoti.
+# Come si muove un pezzo
+- Un pezzo si muove in linea retta: lungo la sua riga, la sua colonna o una delle sue due diagonali.
+- Si muove esattamente di tante caselle quanti sono i pezzi su tutta quella linea, di entrambi i colori, compreso quello che si muove. Conta tutta la linea, da un bordo all'altro del tavoliere, da entrambi i lati del pezzo.
+- Può saltare i pezzi del suo colore, ma mai quelli dell'altro giocatore.
+- Può fermarsi su una casella vuota, o su un pezzo dell'altro giocatore, che viene catturato ed esce dal tavoliere. Non può mai fermarsi su uno dei suoi.
+# La fine della partita
+- Vince il giocatore i cui pezzi formano tutti un solo gruppo collegato. Un solo pezzo rimasto conta come un gruppo, quindi una cattura può far vincere l'altro giocatore.
+- Se una mossa collega insieme i gruppi di entrambi i giocatori, vince il giocatore che l'ha fatta.
+- Un giocatore che non ha mosse legali passa, e l'altro giocatore muove di nuovo. Il dispositivo passa per te. Se nessuno dei due può muovere, o dopo 1000 mosse, la partita è patta.
+# Giocare sul dispositivo
+Tocca un pezzo per vedere dove può andare, poi tocca una casella, oppure trascina il pezzo. I punti mostrano le mosse, gli anelli le catture. Ogni barra mostra quanti pezzi restano a quel giocatore. Alla fine, il gruppo vincente si illumina d'oro.

@@ -1,0 +1,18 @@
+Ludo
+# El objetivo
+Dar la vuelta completa al tablero con tus cuatro fichas y llevarlas al centro antes que el otro jugador. Cada jugador tiene cuatro fichas en una casa de su color, en esquinas opuestas. Tira primero el marfil; después los jugadores se turnan.
+# Tirar y mover
+- Tira el dado y mueve una de tus fichas por el recorrido, en el sentido de las agujas del reloj, tantas casillas como marque el dado.
+- Solo un 6 saca una ficha de su casa a su casilla de salida, la casilla de color junto a la casa. Con un 6 también puedes mover en su lugar una ficha que ya está en el tablero.
+- Un 6 te da otra tirada. Un tercer 6 seguido se pierde y tu turno termina en el acto.
+- Si ninguna ficha puede moverse con el número sacado, la tirada se pierde y el turno pasa (después de un 6, vuelves a tirar igualmente).
+# Encuentros con otras fichas
+- Caer justo en una ficha del otro jugador la devuelve a su casa. Si hay dos de sus fichas allí, vuelven las dos.
+- Los seguros son las cuatro casillas de salida y las cuatro casillas marcadas con una estrella. Allí nadie puede ser devuelto a casa, y las fichas de los dos jugadores pueden compartirlas.
+- Tus propias fichas pueden compartir una casilla. No forman barrera: el otro jugador puede pasarlas o caer sobre ellas.
+# Llegar a la meta
+Tras una vuelta completa, tu ficha entra en el pasillo final de su color, donde está a salvo, y sigue hasta el centro. Debe llegar al centro con el número exacto: una tirada demasiado alta no puede mover esa ficha.
+# El final de la partida
+Gana el primer jugador que lleva sus cuatro fichas al centro.
+# Jugar en el dispositivo
+Tu dado te espera en la esquina vacía junto a ti, iluminado en dorado: tócalo para tirar. Los puntos muestran adónde pueden ir tus fichas, y los anillos una ficha que mandarías a casa: toca una ficha, o arrástrala hasta su casilla, y irá dando saltitos. Una tirada que no pudo mover nada se queda atenuada con un brillo rojo mientras el otro jugador tira. Deshacer retira movimientos y tiradas, pero una tirada deshecha vuelve a salir igual. Las fichas que has llevado a la meta aparecen en tu barra.

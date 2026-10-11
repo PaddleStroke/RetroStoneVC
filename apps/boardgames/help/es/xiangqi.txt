@@ -1,0 +1,21 @@
+Xiangqi
+# El objetivo
+Dar jaque mate al general contrario: atacarlo de modo que no pueda escapar. Mueven primero las rojas; después los jugadores se turnan, una jugada cada uno.
+# El tablero
+Las piezas se colocan en los puntos donde se cruzan las líneas, no en las casillas. El río que cruza el centro separa los dos bandos. Cada bando tiene un palacio: los tres por tres puntos marcados con una cruz, donde viven el general y sus consejeros.
+# Cómo se mueven las piezas
+- General: un punto a lo largo de una línea, dentro de su palacio. Los dos generales nunca pueden quedar frente a frente en la misma columna sin nada entre ellos.
+- Consejero: un punto en diagonal, dentro de su palacio.
+- Elefante: exactamente dos puntos en diagonal. No puede cruzar el río, y queda bloqueado si el punto por el que pasa está ocupado.
+- Caballo: un punto a lo largo de una línea y luego un punto en diagonal hacia fuera. Queda bloqueado si el primer punto está ocupado.
+- Carro: cualquier número de puntos a lo largo de una línea, como una torre en el ajedrez.
+- Cañón: se mueve como el carro, pero solo captura saltando por encima de exactamente una pieza (de cualquier bando) en el camino hacia la pieza que captura.
+- Soldado: un punto hacia delante. Una vez cruzado el río, también puede moverse un punto hacia un lado. Nunca retrocede.
+Una pieza captura moviéndose a un punto ocupado por una pieza contraria, que sale del tablero.
+# El jaque y el final de la partida
+Un general atacado está en jaque: la siguiente jugada debe sacarlo del jaque. Nunca puedes hacer una jugada que deje a tu propio general en jaque, o frente al general contrario.
+- Jaque mate: el general está en jaque y ninguna jugada puede salvarlo. Ese jugador pierde.
+- Un jugador que no tiene ninguna jugada legal pero no está en jaque también pierde (a diferencia del ajedrez).
+- Tablas: cuando la misma posición se repite por tercera vez con el mismo jugador al turno, la partida termina en tablas. Esta regla sencilla sustituye a las reglas de torneo contra el jaque perpetuo y la persecución perpetua. La partida también termina en tablas tras sesenta jugadas de cada uno sin capturas.
+# Jugar en el dispositivo
+Toca una pieza para ver adónde puede ir y luego toca un punto, o arrastra la pieza. Los puntos muestran las jugadas, los anillos las capturas. Un general en jaque brilla en rojo. Cada barra muestra las piezas que ha capturado ese jugador.

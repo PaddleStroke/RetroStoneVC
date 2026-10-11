@@ -1,0 +1,25 @@
+Janggi
+# Le but
+Mettre le général adverse échec et mat : l'attaquer de sorte qu'il ne puisse pas s'échapper. Cho (bleu-vert) commence, puis Han (rouge) ; les joueurs jouent à tour de rôle, un coup chacun.
+# Le plateau
+Les pièces se placent sur les intersections des lignes, pas dans les cases. Il n'y a pas de fleuve. Chaque camp a un palais : les trois sur trois intersections marquées d'une croix, où vivent le général et ses gardes. Les diagonales des palais sont aussi des lignes.
+# Les pièces
+Chaque pièce porte son caractère chinois à l'encre de son camp ; les généraux portent les noms des camps, Cho et Han. Les pièces sont des octogones dont la taille dépend du rang : le général est le plus grand, les gardes et les soldats les plus petits. Chaque camp commence avec, en partant de sa gauche : char, cheval, éléphant, garde, garde, éléphant, cheval, char sur la rangée du fond, le général au centre du palais, les deux canons devant les chevaux et cinq soldats. Cette application utilise toujours cette disposition (les chevaux à l'extérieur, les éléphants à l'intérieur) ; les trois autres dispositions des chevaux et des éléphants ne sont pas proposées.
+# Le déplacement des pièces
+- Général et garde : une intersection le long d'une ligne du palais, diagonales comprises, sans en sortir.
+- Cheval : une intersection tout droit, puis une intersection en diagonale vers l'extérieur. Il est bloqué si la première intersection est occupée.
+- Éléphant : une intersection tout droit, puis deux intersections en diagonale vers l'extérieur. Il est bloqué si l'une des intersections qu'il traverse est occupée.
+- Char : d'autant d'intersections que tu veux le long d'une ligne, comme une tour aux échecs, et le long des diagonales d'un palais.
+- Canon : se déplace et prend uniquement en sautant par-dessus exactement une pièce (de n'importe quel camp) sur sa ligne, diagonales d'un palais comprises. Il ne peut pas sauter par-dessus un canon, ni prendre un canon.
+- Soldat : une intersection vers l'avant ou sur le côté, jamais vers l'arrière. Dans le palais adverse, il peut aussi avancer le long d'une diagonale.
+Une pièce prend en allant sur une intersection occupée par une pièce adverse, qui quitte alors le plateau.
+# Passer
+Au lieu de jouer, un joueur peut passer, sauf s'il est en échec. Un joueur qui n'a aucun coup légal mais n'est pas en échec doit passer.
+# L'échec et la fin de la partie
+Un général attaqué est en échec : le coup suivant doit le sortir de l'échec. Tu ne peux jamais jouer un coup qui laisse ton propre général en échec.
+- Échec et mat : le général est en échec et aucun coup ne peut le sauver. Ce joueur a perdu.
+- Les généraux face à face : un coup ne peut pas laisser les deux généraux face à face sur la même colonne sans rien entre eux. (D'autres règles en font une proposition de nulle ; ici, c'est simplement interdit.)
+- Parties nulles : quand la même position revient pour la troisième fois avec le même joueur au trait, la partie est nulle (quatre passes d'affilée aussi). Une partie de mille coups de chaque côté est également nulle.
+- Le décompte des points qui termine certaines parties n'est pas utilisé : la partie continue jusqu'à l'échec et mat ou la nulle.
+# Jouer sur l'appareil
+Touche une pièce pour voir où elle peut aller, puis touche une intersection, ou fais glisser la pièce. Les points montrent les coups possibles, les anneaux les prises. Un général en échec brille en rouge. Le bouton passer se trouve dans la barre du joueur au trait. Chaque barre indique les pièces prises par ce joueur.

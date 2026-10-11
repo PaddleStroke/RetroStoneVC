@@ -1,0 +1,16 @@
+Breakthrough
+# El objetivo
+Romper las líneas del ejército contrario: ser el primero en llevar una de tus piezas al otro lado del tablero, a la fila inicial del otro jugador.
+# La salida
+Se juega en un tablero de ajedrez. Cada jugador tiene dieciséis piezas, que llenan sus dos primeras filas. Empiezan las claras; después los jugadores se turnan, una jugada cada uno.
+# Cómo se mueven las piezas
+- Una pieza avanza una casilla, recto o en diagonal, a una casilla vacía.
+- Una pieza captura avanzando una casilla en diagonal sobre una pieza contraria, que sale del tablero.
+- Una pieza nunca captura recto hacia delante: una pieza contraria justo delante la bloquea.
+- Las piezas nunca se mueven hacia los lados ni hacia atrás. Capturar nunca es obligatorio.
+# El final de la partida
+- Gana el primer jugador que llega a la fila inicial del otro jugador.
+- Pierde el jugador que se queda sin piezas.
+Nunca hay empate: un jugador al que le quedan piezas siempre puede mover.
+# Jugar en el dispositivo
+Toca una pieza para ver adónde puede ir y luego toca una casilla, o arrastra la pieza. Los puntos muestran las jugadas, los anillos las capturas. La pieza ganadora brilla en dorado.

@@ -1,0 +1,16 @@
+Mancala
+# Le but
+Capturer plus de graines que l'autre joueur. Le plateau a deux rangées de six trous, avec quatre graines dans chacun. La rangée la plus proche de toi est la tienne, avec ton grenier à son extrémité droite. Le joueur clair commence.
+# Awalé (oware)
+- À ton tour, prends toutes les graines d'un de tes trous et sème-les une par une dans les trous suivants, dans le sens inverse des aiguilles d'une montre. Avec douze graines ou plus, tu fais le tour complet : le trou que tu as vidé est sauté.
+- Si ta dernière graine tombe dans la rangée de l'autre joueur et y forme deux ou trois graines, tu les captures. Tu captures aussi le trou précédent, et celui d'avant, tant qu'ils sont dans la rangée de l'autre joueur et contiennent deux ou trois graines.
+- Un coup qui capturerait toutes les graines de l'autre joueur peut être joué, mais il ne capture rien.
+- Si l'autre joueur n'a plus de graines, tu dois jouer un coup qui lui en donne, si tu en as un.
+- La partie se termine quand un joueur a capturé plus de 24 graines, quand le joueur dont c'est le tour ne peut pas jouer, ou quand la même position revient. Dans ces deux derniers cas, chaque joueur ajoute les graines restées dans sa propre rangée. Le plus de graines gagne ; 24 chacun, la partie est nulle.
+# Kalah
+- À ton tour, prends toutes les graines d'un de tes trous et sème-les une par une, dans le sens inverse des aiguilles d'une montre, dans les trous suivants et dans ton propre grenier, mais pas dans le grenier de l'autre joueur.
+- Si ta dernière graine tombe dans ton grenier, tu rejoues.
+- Si ta dernière graine tombe dans un de tes trous vides et que le trou d'en face contient des graines, tu captures les deux : ta graine et les graines d'en face vont dans ton grenier.
+- La partie se termine quand une rangée est vide : l'autre joueur met les graines restées dans sa rangée dans son grenier. Le plus de graines dans le grenier gagne ; à égalité, la partie est nulle.
+# Jouer sur l'appareil
+Touche un de tes trous pour le semer : les trous que tu peux jouer brillent. Les graines voyagent une par une, et les graines capturées s'envolent vers le grenier. Le nombre à côté de chaque trou indique ses graines, et chaque barre indique les graines capturées par ce joueur.

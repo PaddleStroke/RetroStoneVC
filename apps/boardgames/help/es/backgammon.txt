@@ -1,0 +1,23 @@
+Backgammon
+# El objetivo
+Llevar tus quince fichas alrededor del tablero hasta tu tablero interior y luego sacarlas. Gana el primer jugador que saca sus quince fichas. Los jugadores avanzan en sentidos opuestos: el marfil en un sentido y el ébano en el otro.
+# El tablero
+Hay 24 triángulos estrechos, los puntos, seis en cada cuarto del tablero. La barra del centro divide cada lado en un tablero exterior y un tablero interior; los dos tableros interiores están uno frente al otro, en el lado de la bandeja. Cada jugador numera los puntos desde el 1, al final de su propio tablero interior, hasta el 24, al final del tablero interior del otro jugador. Al empezar, cada jugador tiene dos fichas en su punto 24, cinco en su punto 13, tres en su punto 8 y cinco en su punto 6.
+# Tirar y mover
+Para empezar, cada jugador tira un dado. El número más alto juega primero, usando los dos números que han salido; si son iguales, se vuelve a tirar. Después, los jugadores se turnan: tira los dos dados y mueve según cada número.
+- Una ficha avanza lo que marca un número, y luego una ficha avanza lo que marca el otro: la misma ficha u otra.
+- Una ficha puede caer en un punto vacío, en un punto con fichas tuyas o en un punto con una sola ficha contraria.
+- Un doble da cuatro movimientos de ese número.
+- Debes usar los dos números si puedes. Si solo puedes usar uno, debes usar el mayor si es posible.
+- Si no hay ningún movimiento posible, pierdes el turno.
+# Golpear y entrar
+Una ficha sola en un punto es un blot. Caer sobre un blot contrario lo golpea: va a la barra. Un jugador con una ficha en la barra debe volver a meterla primero, entrándola en el tablero interior del otro jugador en el punto que indique un dado (el 1 es el punto más alejado de la barra). Un punto ocupado por dos o más fichas contrarias está cerrado. No puede moverse nada más hasta que hayan entrado todas tus fichas de la barra.
+# Sacar fichas
+Cuando tus quince fichas están en tu tablero interior, puedes sacarlas: un número saca una ficha del punto de ese número. Si ese punto está vacío, debes mover una ficha de un punto más alto si puedes; si no hay fichas en ningún punto más alto, el número saca una ficha del punto más alto que ocupes. Una ficha golpeada debe dar toda la vuelta de nuevo antes de que puedas volver a sacar fichas.
+# La victoria
+- El primer jugador que saca sus quince fichas gana un punto.
+- Gammon: si el perdedor no ha sacado ni una sola ficha, el ganador se anota dos puntos.
+- Backgammon: si el perdedor no ha sacado ninguna ficha y todavía tiene alguna en la barra o en el tablero interior del ganador, el ganador se anota tres puntos.
+Esta versión se juega sin el cubo doblador.
+# Jugar en el dispositivo
+Toca los dados que brillan en dorado para tirarlos. Toca una ficha y luego uno de los puntos marcados, o arrástrala; un anillo señala un blot que golpearías. Cada movimiento usa un dado: un dado ya usado se atenúa. Para sacar una ficha, llévala a la bandeja de la derecha. Las fichas de la barra ya están en la mano. Cuando una tirada no se puede jugar, sus dados brillan en rojo y el turno pasa. Tu barra de jugador muestra cuántas fichas has sacado y, al final, los puntos ganados. Deshacer retira un movimiento cada vez, y los dados de los turnos anteriores vuelven tal como salieron.

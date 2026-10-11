@@ -18,5 +18,9 @@ Un re attaccato è sotto scacco: la mossa successiva deve toglierlo dallo scacco
 - Scacco matto: il re è sotto scacco e nessuna mossa può salvarlo. Quel giocatore perde.
 - Stallo: il giocatore di turno non ha mosse legali ma non è sotto scacco. La partita è patta.
 - La partita è patta anche quando nessuno dei due può più dare scacco matto (sono rimasti troppo pochi pezzi), quando la stessa posizione si ripete per la terza volta, o dopo cinquanta mosse ciascuno senza catture né mosse di pedone.
+# Scacchi 960
+Gli scacchi 960 (scacchi casuali di Fischer) seguono le stesse regole, ma i pezzi della prima traversa partono in uno di 960 ordini possibili, sorteggiato a ogni partita. I pedoni stanno come al solito, e i pezzi neri stanno di fronte a quelli bianchi, colonna per colonna. Gli alfieri stanno sempre su caselle di colore opposto, e il re da qualche parte tra le due torri.
+- Arrocco: il re e la torre finiscono sulle stesse caselle degli scacchi normali: il re in g e la torre in f con la torre del lato h, il re in c e la torre in d con la torre del lato a. È consentito solo se nessuno dei due pezzi si è ancora mosso, tutte le caselle che attraversano o su cui arrivano sono vuote (a parte loro due) e il re non è sotto scacco, non attraversa una casella attaccata e non finisce sotto scacco.
+- Per arroccare, porta il re sulla torre con cui arrocca. Puoi anche portarlo sulla sua casella di arrivo, a meno che il re possa andarci anche con una mossa normale, o vi si trovi già.
 # Giocare sul dispositivo
-Tocca un pezzo per vedere dove può andare, poi tocca una casella, oppure trascina il pezzo. I punti mostrano le mosse, gli anelli le catture. Un re sotto scacco si illumina di rosso.
+Tocca un pezzo per vedere dove può andare, poi tocca una casella, oppure trascina il pezzo. I punti mostrano le mosse, gli anelli le catture. Un re sotto scacco si illumina di rosso. Per arroccare, sposta il re di due caselle verso la torre, oppure sulla torre.

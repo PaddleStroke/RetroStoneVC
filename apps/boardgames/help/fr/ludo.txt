@@ -1,0 +1,18 @@
+Petits chevaux
+# Le but
+Faire faire le tour complet du plateau à tes quatre pions et les amener au centre avant l'autre joueur. Chaque joueur a quatre pions dans une écurie de sa couleur, dans des coins opposés. L'ivoire lance en premier, puis les joueurs jouent à tour de rôle.
+# Lancer et avancer
+- Lance le dé, puis avance un de tes pions sur le parcours, dans le sens des aiguilles d'une montre, du nombre obtenu.
+- Seul un 6 fait sortir un pion de son écurie, sur sa case de départ, la case colorée à côté de l'écurie. Avec un 6, tu peux aussi avancer à la place un pion déjà sur le plateau.
+- Un 6 te donne un autre lancer. Un troisième 6 d'affilée est perdu et ton tour s'arrête aussitôt.
+- Si aucun pion ne peut avancer du nombre obtenu, le lancer est perdu et le tour passe (après un 6, tu relances quand même).
+# Rencontrer d'autres pions
+- S'arrêter pile sur un pion de l'autre joueur le renvoie à son écurie. Si deux de ses pions s'y trouvent, les deux repartent.
+- Les cases sûres sont les quatre cases de départ et les quatre cases marquées d'une étoile. Personne ne peut y être renvoyé, et les pions des deux joueurs peuvent s'y côtoyer.
+- Tes propres pions peuvent partager une case. Ils ne bloquent pas : l'autre joueur peut les dépasser ou s'arrêter dessus.
+# Rentrer à la maison
+Après un tour complet, ton pion entre dans l'allée d'arrivée de sa couleur, où il est en sécurité, et continue jusqu'au centre. Il doit atteindre le centre avec le nombre exact : un lancer trop grand ne peut pas faire avancer ce pion.
+# La fin de la partie
+Le premier joueur qui amène ses quatre pions au centre gagne.
+# Jouer sur l'appareil
+Ton dé t'attend dans le coin vide à côté de toi, éclairé en or : touche-le pour le lancer. Les points montrent où tes pions peuvent aller, les anneaux un pion que tu renverrais à son écurie : touche un pion, ou fais-le glisser jusqu'à sa case, et il y va en sautillant. Un lancer qui n'a pu faire avancer aucun pion reste grisé dans une lueur rouge pendant que l'autre joueur lance. Annuler reprend les coups et les lancers, mais un lancer repris ressort à l'identique. Tes pions arrivés s'affichent dans ta barre.

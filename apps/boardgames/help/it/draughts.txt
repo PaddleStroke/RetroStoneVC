@@ -1,6 +1,6 @@
 Dama
 # Lo scopo
-Catturare tutti i pezzi dell'altro giocatore, o lasciarlo senza mosse. I pezzi stanno solo sulle caselle scure e si muovono in diagonale. Scegli le regole prima della partita: la dama internazionale su una damiera 10 per 10, o la dama inglese (checkers) su una damiera 8 per 8.
+Catturare tutti i pezzi dell'altro giocatore, o lasciarlo senza mosse. Scegli le regole prima della partita: la dama internazionale su una damiera 10 per 10, o la dama inglese (checkers), russa, brasiliana o turca su una damiera 8 per 8. I pezzi stanno solo sulle caselle scure e si muovono in diagonale, tranne nella dama turca.
 # Dama internazionale (10 per 10)
 - Muovono per primi i pezzi chiari. Una pedina si muove di una casella in diagonale in avanti.
 - Una pedina cattura saltando un pezzo avversario vicino e atterrando sulla casella vuota subito dietro. Le pedine catturano in avanti e all'indietro.
@@ -13,6 +13,25 @@ Catturare tutti i pezzi dell'altro giocatore, o lasciarlo senza mosse. I pezzi s
 - La presa è obbligatoria, ma puoi scegliere quale presa fare. Quando un pezzo inizia a saltare, deve prendere tutti i pezzi che può lungo il suo percorso.
 - Una pedina che raggiunge l'ultima riga diventa dama, e la mossa finisce lì. Una dama si muove e cattura di una casella in diagonale, in qualsiasi direzione.
 - Patta: quando la stessa posizione si ripete per la terza volta, o dopo 40 mosse ciascuno senza prese né mosse di pedina.
+# Dama russa (8 per 8)
+- Muovono per primi i pezzi chiari. Una pedina si muove di una casella in diagonale in avanti, e cattura in avanti e all'indietro.
+- Le dame si muovono e catturano a distanza lungo le diagonali, come nella dama internazionale. Dopo una presa, una dama deve fermarsi su una casella da cui può continuare a prendere, se ce n'è una.
+- La presa è obbligatoria, ma puoi scegliere quale presa fare. Quando un pezzo inizia a saltare, deve prendere tutti i pezzi che può lungo il suo percorso.
+- I pezzi presi vengono tolti alla fine della mossa. Un pezzo non può essere saltato due volte.
+- Una pedina che raggiunge l'ultima riga diventa subito dama, anche nel mezzo di una presa, e poi continua a prendere come dama se può.
+- Patta: quando la stessa posizione si ripete per la terza volta, o dopo 15 mosse ciascuno in cui si muovono solo dame, senza prese.
+# Dama brasiliana (8 per 8)
+- Le regole della dama internazionale su una damiera 8 per 8. Muovono per primi i pezzi chiari.
+- Le pedine catturano in avanti e all'indietro, le dame si muovono e catturano a distanza, e devi prendere il maggior numero di pezzi possibile.
+- Una pedina diventa dama solo se termina la mossa sull'ultima riga.
+- Patta: quando la stessa posizione si ripete per la terza volta, o dopo 20 mosse ciascuno in cui si muovono solo dame, senza prese.
+# Dama turca (8 per 8)
+- Si usano tutte le 64 caselle. Ogni giocatore inizia con 16 pedine sulla sua seconda e terza riga. Muovono per primi i pezzi chiari.
+- Una pedina si muove di una casella dritto in avanti o di lato, mai in diagonale e mai all'indietro. Cattura allo stesso modo, saltando un pezzo avversario vicino e atterrando sulla casella vuota subito dietro.
+- Una pedina che raggiunge l'ultima riga diventa dama. Una dama si muove di quante caselle vuole lungo una riga o una colonna e cattura a distanza, fermandosi su qualsiasi casella vuota oltre il pezzo che prende.
+- La presa è obbligatoria, e devi prendere il maggior numero di pezzi possibile.
+- Ogni pezzo preso viene tolto subito, appena viene saltato. In una presa di più pezzi, un pezzo non può fare dietrofront e tornare da dove è venuto.
+- Patta: quando la stessa posizione si ripete per la terza volta, o dopo 25 mosse ciascuno senza prese né mosse di pedina.
 # La fine della partita
 Perde il giocatore che non ha più pezzi o che non può muovere.
 # Giocare sul dispositivo

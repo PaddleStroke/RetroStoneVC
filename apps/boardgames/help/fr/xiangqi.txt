@@ -1,0 +1,21 @@
+Xiangqi
+# Le but
+Mettre le général adverse échec et mat : l'attaquer de sorte qu'il ne puisse pas s'échapper. Rouge commence, puis les joueurs jouent à tour de rôle, un coup chacun.
+# Le plateau
+Les pièces se placent sur les intersections des lignes, pas dans les cases. Le fleuve qui traverse le milieu sépare les deux camps. Chaque camp a un palais : les trois sur trois intersections marquées d'une croix, où vivent le général et ses conseillers.
+# Le déplacement des pièces
+- Général : une intersection le long d'une ligne, à l'intérieur de son palais. Les deux généraux ne peuvent jamais se faire face sur la même colonne sans rien entre eux.
+- Conseiller : une intersection en diagonale, à l'intérieur de son palais.
+- Éléphant : exactement deux intersections en diagonale. Il ne peut pas traverser le fleuve, et il est bloqué si l'intersection qu'il enjambe est occupée.
+- Cheval : une intersection le long d'une ligne, puis une intersection en diagonale vers l'extérieur. Il est bloqué si la première intersection est occupée.
+- Char : d'autant d'intersections que tu veux le long d'une ligne, comme une tour aux échecs.
+- Canon : se déplace comme le char, mais ne prend qu'en sautant par-dessus exactement une pièce (de n'importe quel camp) sur le chemin de la pièce qu'il prend.
+- Soldat : une intersection vers l'avant. Une fois le fleuve traversé, il peut aussi se déplacer d'une intersection sur le côté. Il ne recule jamais.
+Une pièce prend en allant sur une intersection occupée par une pièce adverse, qui quitte alors le plateau.
+# L'échec et la fin de la partie
+Un général attaqué est en échec : le coup suivant doit le sortir de l'échec. Tu ne peux jamais jouer un coup qui laisse ton propre général en échec, ou face au général adverse.
+- Échec et mat : le général est en échec et aucun coup ne peut le sauver. Ce joueur a perdu.
+- Un joueur qui n'a aucun coup légal mais n'est pas en échec perd aussi (contrairement aux échecs).
+- Parties nulles : quand la même position revient pour la troisième fois avec le même joueur au trait, la partie est nulle. Cette règle simple remplace les règles de tournoi contre l'échec perpétuel et la poursuite perpétuelle. La partie est aussi nulle après soixante coups de chaque côté sans prise.
+# Jouer sur l'appareil
+Touche une pièce pour voir où elle peut aller, puis touche une intersection, ou fais glisser la pièce. Les points montrent les coups possibles, les anneaux les prises. Un général en échec brille en rouge. Chaque barre indique les pièces prises par ce joueur.

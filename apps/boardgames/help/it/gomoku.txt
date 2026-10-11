@@ -1,0 +1,11 @@
+Gomoku
+# Lo scopo
+Essere il primo ad allineare cinque pietre del tuo colore senza interruzioni: in orizzontale, in verticale o in diagonale. Le pietre si giocano sui punti dove le linee si incrociano e, una volta giocate, non si muovono più. Il Nero (scuro) gioca per primo, poi i giocatori si alternano, una pietra ciascuno.
+# Libero e standard
+Scegli le regole prima della partita:
+- Libero (la carta con sei pietre in fila): vincono cinque o più pietre in fila.
+- Standard (la carta con cinque): vincono esattamente cinque pietre in fila. Una fila di sei o più non conta, ma la partita continua e un cinque fatto altrove vince comunque.
+# La fine della partita
+Il primo giocatore che forma una fila vincente vince subito. Se il tavoliere si riempie senza nessuna fila vincente, la partita è patta.
+# Giocare sul dispositivo
+Il primo tocco mostra una pietra pallida, un secondo tocco sullo stesso punto la gioca. Così è facile colpire anche i punti piccoli. La fila vincente si illumina d'oro.

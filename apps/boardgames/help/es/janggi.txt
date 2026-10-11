@@ -1,0 +1,25 @@
+Janggi
+# El objetivo
+Dar jaque mate al general contrario: atacarlo de modo que no pueda escapar. Mueve primero Cho (azul verdoso) y después Han (rojo); los jugadores se turnan, una jugada cada uno.
+# El tablero
+Las piezas se colocan en los puntos donde se cruzan las líneas, no en las casillas. No hay río. Cada bando tiene un palacio: los tres por tres puntos marcados con una cruz, donde viven el general y sus guardias. Las diagonales de los palacios también son líneas.
+# Las piezas
+Cada pieza lleva su carácter chino con la tinta de su bando; los generales llevan los nombres de los bandos, Cho y Han. Las piezas son octógonos cuyo tamaño depende del rango: el general es el más grande, los guardias y los soldados los más pequeños. Cada bando empieza con, desde su izquierda: carro, caballo, elefante, guardia, guardia, elefante, caballo, carro en la fila del fondo, el general en el centro del palacio, los dos cañones delante de los caballos y cinco soldados. Esta aplicación usa siempre esta colocación (los caballos por fuera, los elefantes por dentro); las otras tres colocaciones de caballos y elefantes no están disponibles.
+# Cómo se mueven las piezas
+- General y guardia: un punto a lo largo de una línea del palacio, diagonales incluidas, sin salir de él.
+- Caballo: un punto recto y luego un punto en diagonal hacia fuera. Queda bloqueado si el primer punto está ocupado.
+- Elefante: un punto recto y luego dos puntos en diagonal hacia fuera. Queda bloqueado si cualquiera de los puntos por los que pasa está ocupado.
+- Carro: cualquier número de puntos a lo largo de una línea, como una torre en el ajedrez, y a lo largo de las diagonales de un palacio.
+- Cañón: se mueve y captura solo saltando por encima de exactamente una pieza (de cualquier bando) en su línea, diagonales de un palacio incluidas. No puede saltar por encima de un cañón ni capturar un cañón.
+- Soldado: un punto hacia delante o hacia un lado, nunca hacia atrás. En el palacio contrario también puede avanzar por una diagonal.
+Una pieza captura moviéndose a un punto ocupado por una pieza contraria, que sale del tablero.
+# Pasar
+En lugar de mover, un jugador puede pasar, salvo cuando está en jaque. Un jugador que no tiene ninguna jugada legal pero no está en jaque debe pasar.
+# El jaque y el final de la partida
+Un general atacado está en jaque: la siguiente jugada debe sacarlo del jaque. Nunca puedes hacer una jugada que deje a tu propio general en jaque.
+- Jaque mate: el general está en jaque y ninguna jugada puede salvarlo. Ese jugador pierde.
+- Los generales frente a frente: una jugada no puede dejar a los dos generales frente a frente en la misma columna sin nada entre ellos. (Otras reglas lo convierten en una oferta de tablas; aquí simplemente no está permitido.)
+- Tablas: cuando la misma posición se repite por tercera vez con el mismo jugador al turno, la partida termina en tablas (cuatro pases seguidos también). Una partida de mil jugadas de cada uno también termina en tablas.
+- No se usa el recuento de puntos que pone fin a algunas partidas: la partida sigue hasta el jaque mate o las tablas.
+# Jugar en el dispositivo
+Toca una pieza para ver adónde puede ir y luego toca un punto, o arrastra la pieza. Los puntos muestran las jugadas, los anillos las capturas. Un general en jaque brilla en rojo. El botón de pasar está en la barra del jugador al que le toca. Cada barra muestra las piezas que ha capturado ese jugador.
