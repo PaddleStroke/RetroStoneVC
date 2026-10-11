@@ -1,0 +1,18 @@
+Sekop
+# Tujuan
+Dua tim berisi dua rekan yang duduk berhadapan: gading dan merah melawan eboni dan giok. Setiap pemain menawar berapa trik yang akan ia ambil; lalu tim berusaha memenuhi tawarannya. Tim pertama yang mencapai 500 poin menang. Untuk 4 pemain yang saling mengoper perangkat; tak seorang pun melihat kartu pemain lain.
+# Penawaran
+Ke-52 kartu dibagikan semua, 13 per orang. Bergiliran, setiap pemain menawar 1 sampai 13 trik, atau nol: tidak mengambil satu trik pun. Tawaran kedua rekan dijumlahkan menjadi kontrak tim. Di ronde pertama gading menawar lebih dulu; setelah itu pemain pertama bergeser satu tempat setiap ronde.
+# Permainan
+- Penawar pertama membuka trik pertama. Bergiliran, setiap pemain mengikuti jenis kartu yang dibuka jika bisa; jika tidak, ia boleh memainkan kartu apa saja.
+- Sekop selalu truf: sekop tertinggi memenangkan trik, atau tanpa sekop, kartu tertinggi dari jenis yang dibuka. As adalah yang tertinggi. Pemenang membuka trik berikutnya.
+- Trik tidak boleh dibuka dengan sekop sebelum ada sekop yang dimainkan pada jenis lain (sekop sudah pecah), kecuali pembuka hanya punya sekop.
+# Skor
+- Kontrak tercapai (rekan yang tidak menawar nol mengambil paling sedikit sebanyak kontrak): 10 poin untuk setiap trik yang ditawar, dan 1 poin untuk setiap trik lebih.
+- Kontrak gagal: minus 10 poin untuk setiap trik yang ditawar.
+- Nol: 100 poin jika penawarnya tidak mengambil trik sama sekali, minus 100 jika ia mengambil satu. Trik milik penawar nol tidak pernah dihitung untuk kontrak; trik itu dihitung sebagai trik lebih.
+- Trik lebih terkumpul dari ronde ke ronde: setiap kali sebuah tim punya 10, tim itu kehilangan 100 poin dan 10 trik lebih itu hilang.
+# Akhir permainan
+Permainan berakhir setelah ronde ketika sebuah tim mencapai 500 poin; tim dengan poin lebih banyak menang. Jika kedua tim seri, dimainkan satu ronde lagi.
+# Bermain di perangkat
+Oper perangkat ke pemain yang bidaknya tampil; ia mengetuk tombol mulai dan melihat kartunya sendiri, terkipas di bawah. Bidak para pemain mengelilingi bagian tengah meja, rekanmu di seberangmu, dan setiap kartu yang dimainkan diletakkan di depan bidak pemainnya. Untuk menawar, ketuk sebuah angka (0 yang dicoret adalah nol), lalu tanda centang. Setiap tawaran tampil dalam cakram gelap di samping bidak pemainnya, dengan trik yang sudah diambil tepat di sebelahnya. Untuk bermain, ketuk kartu yang menyala agar terangkat, lalu ketuk lagi kartu itu atau tempatnya di tengah; atau seret ke sana. Ketuk tumpukan di kanan bawah untuk melihat trik terakhir. Setiap bilah menunjukkan kartu di tangan dan skor tim. Setelah setiap ronde, sebuah tabel menunjukkan untuk setiap tim poin ronde, totalnya, dan trik lebihnya dalam cakram gelap (cahaya merah: sepuluh trik lebih berharga 100); ketuk untuk ronde berikutnya. Urungkan membatalkan pilihan yang belum dikonfirmasi, tidak pernah kartu setelah perangkat dioper.

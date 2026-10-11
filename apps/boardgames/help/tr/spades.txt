@@ -1,0 +1,18 @@
+Maça
+# Amaç
+Karşılıklı oturan iki kişilik iki takım: fildişi ve kırmızı, abanoz ve yeşime karşı. Her oyuncu kaç el alacağını söyler; sonra takımlar sözlerini tutmaya çalışır. 500 puana ilk ulaşan takım kazanır. Cihazı elden ele geçiren 4 oyuncu için; kimse başkalarının kartlarını görmez.
+# İhale
+52 kartın hepsi dağıtılır, herkese 13. Sırayla herkes 1 ile 13 arasında bir el sayısı ya da sıfır söyler: hiç el almamak. İki ortağın sözleri toplanıp takımın sözleşmesi olur. İlk elde önce fildişi söyler; sonra her elde ilk oyuncu bir yer kayar.
+# Oyun
+- İlk söyleyen ilk eli açar. Sırayla herkes yapabiliyorsa açılan renkten kart atar; yapamıyorsa istediği kartı atar.
+- Maça her zaman kozdur: en büyük maça eli alır, maça yoksa açılan rengin en büyük kartı. As en büyüktür. Eli alan bir sonrakini açar.
+- Başka bir renge maça atılmadan (maça kırılmadan) maçayla el açılamaz; elinde yalnız maça kalan hariç.
+# Puanlama
+- Sözleşme tuttu (sıfır söylemeyen ortaklar birlikte en az sözleşme kadar el aldı): söylenen her el için 10 puan, fazladan her el için 1 puan.
+- Sözleşme tutmadı: söylenen her el için eksi 10 puan.
+- Sıfır: oyuncu hiç el almazsa 100 puan, bir el bile alırsa eksi 100. Sıfır söyleyenin aldığı eller sözleşmeye asla sayılmaz; fazla el sayılır.
+- Fazla eller elden ele birikir: bir takımın 10 fazla eli olduğunda 100 puan kaybeder ve bu 10 fazla el silinir.
+# Oyunun sonu
+Oyun, bir takımın 500 puana ulaştığı elden sonra biter; puanı yüksek olan takım kazanır. İki takım eşitse bir el daha oynanır.
+# Cihazda oynamak
+Cihazı, pulu görünen oyuncuya ver; başlat düğmesine dokunur ve kendi elini altta yelpaze gibi açılmış görür. Oyuncuların pulları masanın ortasının çevresindedir, ortağın tam karşında; oynanan her kart kendi oyuncusunun pulunun önüne düşer. Söz vermek için bir sayıya dokun (üstü çizili 0 sıfırdır), sonra onay işaretine. Her söz, oyuncunun pulunun yanında koyu bir diskte görünür; aldığı eller hemen yanındadır. Oynamak için parlayan bir karta dokun, kalksın; sonra ona ya da ortadaki yerine yeniden dokun; ya da onu oraya sürükle. Son eli görmek için sağ alttaki desteye dokun. Her çubuk eldeki kartları ve takımın puanını gösterir. Her elden sonra bir tablo her takım için o elin puanını, toplamı ve koyu bir diskte fazla elleri gösterir (kırmızı parıltı: on fazla el 100 puana mal oldu); sonraki el için ona dokun. Geri al, henüz onaylanmamış bir seçimi geri alır; cihaz el değiştirdikten sonra asla bir kartı geri almaz.

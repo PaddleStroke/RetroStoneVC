@@ -1,0 +1,18 @@
+Pik
+# Das Ziel
+Zwei Teams aus je zwei Partnern, die einander gegenübersitzen: Elfenbein und Rot gegen Ebenholz und Jade. Jeder sagt an, wie viele Stiche er machen wird; dann versuchen die Teams, ihre Ansage zu erfüllen. Das erste Team mit 500 Punkten gewinnt. Für 4 Spieler, die das Gerät herumreichen; niemand sieht die Karten der anderen.
+# Die Ansage
+Alle 52 Karten werden verteilt, 13 für jeden. Reihum sagt jeder eine Zahl von Stichen von 1 bis 13 an, oder Null: gar keinen Stich zu machen. Die Ansagen der beiden Partner ergeben zusammen den Kontrakt ihres Teams. In der ersten Runde sagt Elfenbein zuerst an; danach rückt der erste Spieler jede Runde einen Platz weiter.
+# Das Spiel
+- Wer zuerst angesagt hat, spielt zum ersten Stich aus. Reihum muss jeder die ausgespielte Farbe bedienen, wenn er kann, sonst darf er eine beliebige Karte spielen.
+- Pik ist immer Trumpf: Das höchste Pik gewinnt den Stich, ohne Pik die höchste Karte der ausgespielten Farbe. Das Ass ist hoch. Der Gewinner spielt zum nächsten Stich aus.
+- Pik darf erst ausgespielt werden, wenn ein Pik auf eine andere Farbe gespielt wurde (Pik ist gebrochen), außer man hat nur noch Pik.
+# Die Wertung
+- Kontrakt erfüllt (die Partner, die nicht Null angesagt haben, machten zusammen mindestens den Kontrakt): 10 Punkte für jeden angesagten Stich und 1 Punkt für jeden Stich darüber, einen Überstich.
+- Kontrakt verfehlt: minus 10 Punkte für jeden angesagten Stich.
+- Null: 100 Punkte, wenn der Spieler keinen Stich macht, minus 100, wenn er einen macht. Die Stiche eines Null-Spielers zählen nie für den Kontrakt, aber als Überstiche.
+- Überstiche sammeln sich von Runde zu Runde: Jedes Mal, wenn ein Team 10 hat, verliert es 100 Punkte, und diese 10 Überstiche verfallen.
+# Das Ende der Partie
+Die Partie endet nach der Runde, in der ein Team 500 Punkte erreicht; das Team mit mehr Punkten gewinnt. Stehen beide gleich, wird eine weitere Runde gespielt.
+# Spielen auf dem Gerät
+Gib das Gerät dem Spieler, dessen Stein erscheint; er tippt auf Start und sieht seine Hand, unten aufgefächert. Die Steine der Spieler sitzen rund um die Mitte, dein Partner dir gegenüber, und jede gespielte Karte liegt vor dem Stein ihres Spielers. Zum Ansagen tippe eine Zahl an (die durchgestrichene 0 ist Null), dann den Haken. Jede Ansage steht in einer dunklen Scheibe neben dem Stein ihres Spielers, die gemachten Stiche gleich daneben. Zum Spielen tippe eine leuchtende Karte an, damit sie sich hebt, dann tippe sie noch einmal oder ihren Platz in der Mitte an; oder ziehe sie dorthin. Tippe auf den Stapel unten rechts, um den letzten Stich zu sehen. Jede Leiste zeigt die Karten auf der Hand und den Stand des Teams. Nach jeder Runde zeigt eine Tafel für jedes Team die Punkte der Runde, die Summe und die Überstiche in einer dunklen Scheibe (rotes Leuchten: zehn Überstiche kosteten 100); tippe darauf für die nächste Runde. Rückgängig nimmt eine noch nicht bestätigte Wahl zurück, nie eine Karte, wenn das Gerät weitergegeben wurde.

@@ -1,0 +1,18 @@
+Spader
+# Målet
+Två lag med två partner som sitter mittemot varandra: elfenben och rött mot ebenholts och jade. Varje spelare bjuder på hur många stick han ska ta; sedan försöker lagen klara sitt bud. Första laget som når 500 poäng vinner. För 4 spelare som skickar enheten runt; ingen ser de andras kort.
+# Budgivningen
+Alla 52 korten delas ut, 13 var. I tur och ordning bjuder var och en ett antal stick från 1 till 13, eller noll: att inte ta ett enda stick. De två partnernas bud läggs ihop till lagets kontrakt. I första omgången bjuder elfenben först; sedan flyttar första spelaren en plats varje omgång.
+# Spelet
+- Den som bjöd först spelar ut till första sticket. I tur och ordning bekänner var och en färg om han kan, annars spelar han vilket kort som helst.
+- Spader är alltid trumf: den högsta spadern vinner sticket, eller utan spader det högsta kortet i utspelad färg. Esset är högt. Vinnaren spelar ut till nästa stick.
+- Man får inte spela ut spader förrän en spader har spelats på en annan färg (spader är brutet), om man inte bara har spader.
+# Poängen
+- Kontraktet klarat (de partner som inte bjöd noll tog tillsammans minst kontraktet): 10 poäng för varje budat stick och 1 poäng för varje extra stick, ett överstick.
+- Kontraktet förlorat: minus 10 poäng för varje budat stick.
+- Noll: 100 poäng om spelaren inte tar något stick, minus 100 om han tar ett. En nollbjudares stick räknas aldrig till kontraktet; de räknas som överstick.
+- Överstick samlas från omgång till omgång: varje gång ett lag har 10 förlorar det 100 poäng, och de 10 överstickena försvinner.
+# Partiets slut
+Partiet slutar efter den omgång där ett lag når 500 poäng; laget med flest poäng vinner. Står lagen lika spelas en omgång till.
+# Spela på enheten
+Ge enheten till spelaren vars bricka visas; han trycker på start och ser sin hand, solfjädrad längst ner. Spelarnas brickor står runt mitten, din partner mittemot dig, och varje spelat kort ligger framför sin spelares bricka. För att bjuda trycker du på ett tal (den överstrukna 0:an är noll) och sedan på bocken. Varje bud står i en mörk skiva vid spelarens bricka, med de tagna sticken alldeles intill. För att spela trycker du på ett kort som lyser så att det lyfts, och trycker på det igen eller på dess plats i mitten; eller dra dit det. Tryck på högen längst ner till höger för att se det senaste sticket. Varje list visar korten på handen och lagets poäng. Efter varje omgång visar en tavla för varje lag omgångens poäng, summan och överstickena i en mörk skiva (ett rött sken: tio överstick kostade 100); tryck på den för nästa omgång. Ångra tar tillbaka ett val som inte är bekräftat än, aldrig ett kort när enheten har skickats vidare.

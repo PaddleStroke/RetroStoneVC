@@ -1,0 +1,18 @@
+Espadas
+# O objetivo
+Duas equipas de dois parceiros sentados frente a frente: marfim e vermelho contra ébano e jade. Cada jogador diz quantas vazas vai fazer; depois as equipas tentam cumprir o que disseram. Ganha a primeira equipa a chegar aos 500 pontos. Para 4 jogadores que passam o dispositivo; ninguém vê as cartas dos outros.
+# As declarações
+As 52 cartas são todas distribuídas, 13 a cada um. À vez, cada um declara de 1 a 13 vazas, ou nulo: não fazer vaza nenhuma. As declarações dos dois parceiros somam-se no contrato da equipa. Na primeira ronda declara primeiro o marfim; depois o primeiro jogador avança um lugar em cada ronda.
+# O jogo
+- Quem declarou primeiro sai na primeira vaza. À vez, cada um assiste ao naipe de saída se puder; senão, joga qualquer carta.
+- As espadas são sempre trunfo: a espada mais alta ganha a vaza ou, sem espadas, a carta mais alta do naipe de saída. O ás é a mais alta. Quem ganha sai na vaza seguinte.
+- Não se pode sair a espadas enquanto não se tiver jogado uma espada sobre outro naipe (espadas abertas), a não ser que só tenhas espadas.
+# A pontuação
+- Contrato cumprido (os parceiros que não declararam nulo fizeram pelo menos o contrato): 10 pontos por vaza declarada e 1 ponto por cada vaza a mais, chamada sobra.
+- Contrato falhado: menos 10 pontos por vaza declarada.
+- Nulo: 100 pontos se quem o declarou não fizer nenhuma vaza, menos 100 se fizer alguma. As vazas de quem declarou nulo nunca contam para o contrato; contam como sobras.
+- As sobras acumulam-se de ronda em ronda: sempre que uma equipa junta 10, perde 100 pontos e essas 10 sobras desaparecem.
+# O fim do jogo
+O jogo termina depois da ronda em que uma equipa chega aos 500 pontos; ganha a equipa com mais pontos. Se as duas estiverem empatadas, joga-se mais uma ronda.
+# Jogar no dispositivo
+Passa o dispositivo ao jogador cuja peça aparece; ele toca no botão de início e vê a sua mão, em leque em baixo. As peças dos jogadores ficam à volta do centro da mesa, o teu parceiro à tua frente, e cada carta jogada fica diante da peça do seu jogador. Para declarar, toca num número (o 0 riscado é nulo) e depois no sinal de confirmação. Cada declaração aparece num disco escuro ao lado da peça do jogador, com as vazas feitas mesmo ao lado. Para jogar, toca numa carta que brilha para a levantar e toca-lhe outra vez ou no seu lugar no centro; ou arrasta-a até lá. Toca no monte em baixo à direita para ver a última vaza. Cada barra mostra as cartas na mão e a pontuação da equipa. Depois de cada ronda, uma tabela mostra para cada equipa os pontos da ronda, o total e as sobras num disco escuro (um brilho vermelho: dez sobras custaram 100); toca nela para a ronda seguinte. Anular desfaz uma escolha ainda não confirmada, nunca uma carta depois de o dispositivo passar.

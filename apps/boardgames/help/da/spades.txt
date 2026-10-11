@@ -1,0 +1,18 @@
+Spar
+# Målet
+To hold med to makkere, der sidder over for hinanden: elfenben og rød mod ibenholt og jade. Hver spiller melder, hvor mange stik han vil tage; så prøver holdene at klare deres melding. Det første hold, der når 500 point, vinder. For 4 spillere, der sender enheden rundt; ingen ser de andres kort.
+# Meldingen
+Alle 52 kort gives ud, 13 til hver. Efter tur melder hver spiller et antal stik fra 1 til 13, eller nul: slet ikke at tage et stik. De to makkeres meldinger lægges sammen til holdets kontrakt. I første runde melder elfenben først; derefter rykker den første spiller en plads hver runde.
+# Spillet
+- Den, der meldte først, spiller ud til første stik. Efter tur bekender hver spiller kulør, hvis han kan; ellers spiller han et vilkårligt kort.
+- Spar er altid trumf: den højeste spar vinder stikket, eller uden spar det højeste kort i den udspillede kulør. Esset er højt. Vinderen spiller ud til næste stik.
+- Man må ikke spille spar ud, før en spar er spillet på en anden kulør (spar er brudt), medmindre man kun har spar.
+# Pointene
+- Kontrakten klaret (de makkere, der ikke meldte nul, tog tilsammen mindst kontrakten): 10 point for hvert meldt stik og 1 point for hvert stik ekstra, et overstik.
+- Kontrakten tabt: minus 10 point for hvert meldt stik.
+- Nul: 100 point, hvis spilleren ikke tager et eneste stik, minus 100, hvis han tager et. En nulspillers stik tæller aldrig til kontrakten; de tæller som overstik.
+- Overstik samles fra runde til runde: hver gang et hold har 10, mister det 100 point, og de 10 overstik forsvinder.
+# Spillets afslutning
+Spillet slutter efter den runde, hvor et hold når 500 point; holdet med flest point vinder. Står holdene lige, spilles der en runde mere.
+# Spil på enheden
+Giv enheden til spilleren, hvis brik vises; han trykker på start og ser sin hånd, viftet ud forneden. Spillernes brikker står rundt om midten, din makker over for dig, og hvert spillet kort ligger foran sin spillers brik. For at melde trykker du på et tal (det overstregede 0 er nul) og så på fluebenet. Hver melding står i en mørk skive ved spillerens brik, med de tagne stik lige ved siden af. For at spille trykker du på et kort, der lyser, så det løfter sig, og trykker på det igen eller på dets plads i midten; eller træk det derhen. Tryk på bunken nederst til højre for at se det sidste stik. Hver bjælke viser kortene på hånden og holdets point. Efter hver runde viser en tavle for hvert hold rundens point, summen og overstikkene i en mørk skive (et rødt skær: ti overstik kostede 100); tryk på den for næste runde. Fortryd tager et valg tilbage, der endnu ikke er bekræftet, aldrig et kort, når enheden er givet videre.

@@ -1,0 +1,18 @@
+Piki
+# Cel gry
+Dwie pary partnerów siedzących naprzeciw siebie: kość słoniowa i czerwony przeciw hebanowi i nefrytowi. Każdy deklaruje, ile lew weźmie; potem pary starają się wypełnić deklarację. Wygrywa para, która pierwsza dojdzie do 500 punktów. Dla 4 graczy, którzy podają sobie urządzenie; nikt nie widzi kart pozostałych.
+# Licytacja
+Rozdaje się wszystkie 52 karty, po 13. Po kolei każdy deklaruje liczbę lew od 1 do 13 albo zero: nie wziąć ani jednej lewy. Deklaracje obu partnerów sumują się w kontrakt pary. W pierwszym rozdaniu pierwsza deklaruje kość słoniowa; potem pierwszy gracz przesuwa się o jedno miejsce w każdym rozdaniu.
+# Rozgrywka
+- Kto deklarował pierwszy, wychodzi do pierwszej lewy. Po kolei każdy dokłada kartę w kolorze wyjścia, jeśli może; jeśli nie, dowolną kartę.
+- Piki są zawsze atutem: najwyższy pik bierze lewę, a bez pików najwyższa karta w kolorze wyjścia. As jest najwyższy. Zdobywca lewy wychodzi do następnej.
+- Nie wolno wyjść w piki, dopóki pik nie zostanie zagrany na inny kolor (piki są przełamane), chyba że ma się same piki.
+# Punktacja
+- Kontrakt wypełniony (partnerzy, którzy nie zadeklarowali zera, wzięli razem co najmniej kontrakt): 10 punktów za każdą zadeklarowaną lewę i 1 punkt za każdą lewę nadwyżki.
+- Kontrakt niewypełniony: minus 10 punktów za każdą zadeklarowaną lewę.
+- Zero: 100 punktów, jeśli gracz nie weźmie żadnej lewy, minus 100, jeśli weźmie choć jedną. Lewy gracza z zerem nigdy nie liczą się do kontraktu; liczą się jako nadwyżki.
+- Nadwyżki sumują się z rozdania na rozdanie: za każdym razem, gdy para ma ich 10, traci 100 punktów, a te 10 nadwyżek przepada.
+# Koniec gry
+Gra kończy się po rozdaniu, w którym para dojdzie do 500 punktów; wygrywa para z większą liczbą punktów. Przy remisie gra się jeszcze jedno rozdanie.
+# Gra na urządzeniu
+Podaj urządzenie graczowi, którego pionek się pokazuje; dotyka on przycisku startu i widzi swoją rękę, rozłożoną w wachlarz na dole. Pionki graczy stoją wokół środka stołu, twój partner naprzeciw ciebie, a każda zagrana karta leży przed pionkiem swojego gracza. Aby zadeklarować, dotknij liczby (przekreślone 0 to zero), a potem znaczka zatwierdzenia. Każda deklaracja widnieje w ciemnym krążku obok pionka gracza, a wzięte lewy tuż obok. Aby zagrać, dotknij świecącej karty, żeby się uniosła, i dotknij jej jeszcze raz albo jej miejsca na środku; albo przeciągnij ją tam. Dotknij stosiku w prawym dolnym rogu, by zobaczyć ostatnią lewę. Każdy pasek pokazuje karty w ręce i wynik pary. Po każdym rozdaniu tabela pokazuje dla każdej pary punkty z rozdania, sumę i nadwyżki w ciemnym krążku (czerwona poświata: dziesięć nadwyżek kosztowało 100); dotknij jej, by przejść do następnego rozdania. Cofnij wycofuje niezatwierdzony jeszcze wybór, nigdy kartę po podaniu urządzenia.

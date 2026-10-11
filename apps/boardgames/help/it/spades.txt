@@ -1,0 +1,18 @@
+Picche
+# Lo scopo
+Due squadre di due compagni seduti uno di fronte all'altro: avorio e rosso contro ebano e giada. Ognuno dichiara quante prese farà; poi le squadre cercano di rispettare la dichiarazione. Vince la prima squadra che arriva a 500 punti. Per 4 giocatori che si passano il dispositivo; nessuno vede le carte degli altri.
+# La dichiarazione
+Si distribuiscono tutte le 52 carte, 13 a testa. A turno ognuno dichiara un numero di prese da 1 a 13, oppure nullo: non fare nessuna presa. Le dichiarazioni dei due compagni si sommano nel contratto della squadra. Nella prima mano dichiara per primo l'avorio; poi il primo giocatore avanza di un posto a ogni mano.
+# Il gioco
+- Chi ha dichiarato per primo esce nella prima presa. A turno ognuno risponde al seme di uscita se può, altrimenti gioca una carta qualsiasi.
+- Le picche sono sempre briscola: la picche più alta vince la presa oppure, senza picche, la carta più alta del seme di uscita. L'asso è la più alta. Chi vince esce nella presa successiva.
+- Non si può uscire a picche finché non è stata giocata una picche su un altro seme (le picche sono aperte), a meno di avere solo picche.
+# Il punteggio
+- Contratto riuscito (i compagni che non hanno dichiarato nullo hanno fatto almeno il contratto): 10 punti per ogni presa dichiarata e 1 punto per ogni presa in più, detta sacco.
+- Contratto mancato: meno 10 punti per ogni presa dichiarata.
+- Nullo: 100 punti se chi l'ha dichiarato non fa nessuna presa, meno 100 se ne fa una. Le prese di chi ha dichiarato nullo non contano mai per il contratto; contano come sacchi.
+- I sacchi si accumulano di mano in mano: ogni volta che una squadra ne ha 10, perde 100 punti e quei 10 sacchi spariscono.
+# La fine della partita
+La partita finisce dopo la mano in cui una squadra arriva a 500 punti; vince la squadra con più punti. Se le due squadre sono pari, si gioca un'altra mano.
+# Giocare sul dispositivo
+Passa il dispositivo al giocatore di cui appare la pedina; tocca il pulsante di avvio e vede la sua mano, a ventaglio in basso. Le pedine dei giocatori stanno intorno al centro del tavolo, il tuo compagno di fronte a te, e ogni carta giocata si posa davanti alla pedina del suo giocatore. Per dichiarare, tocca un numero (lo 0 barrato è nullo), poi il segno di spunta. Ogni dichiarazione appare in un disco scuro accanto alla pedina del giocatore, con le prese fatte lì vicino. Per giocare, tocca una carta che brilla per sollevarla, poi toccala di nuovo o tocca il suo posto al centro; oppure trascinala lì. Tocca il mazzetto in basso a destra per rivedere l'ultima presa. Ogni barra mostra le carte in mano e il punteggio della squadra. Dopo ogni mano una tabella mostra per ogni squadra i punti della mano, il totale e i sacchi in un disco scuro (un bagliore rosso: dieci sacchi sono costati 100); toccala per la mano successiva. Annulla ritira una scelta non ancora confermata, mai una carta una volta passato il dispositivo.

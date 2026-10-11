@@ -1,0 +1,18 @@
+Spades
+# The aim
+Two sides of two partners, sitting face to face: ivory and red against ebony and jade. Each player bids how many tricks they will take; then the sides try to make their bids. The first side to reach 500 points wins. For 4 players passing the device round; nobody sees the others' cards.
+# Bidding
+All 52 cards are dealt, 13 each. Each player in turn bids a number of tricks from 1 to 13, or nil: to take no trick at all. The two partners' bids add up to their side's contract. Ivory bids first in the first round; then the first player moves on one seat each round.
+# Playing
+- The first bidder leads to the first trick. Each player in turn plays a card of the suit led if they can, otherwise any card.
+- Spades are always trumps: the highest spade wins the trick, or, without a spade, the highest card of the suit led. The ace is high. The winner leads the next trick.
+- Spades may not be led until a spade has been played on another suit (spades are broken), unless the leader holds only spades.
+# Scoring
+- Contract made (the partners who did not bid nil took at least the contract): 10 points for each trick bid, and 1 point for each extra trick, called a bag.
+- Contract lost: minus 10 points for each trick bid.
+- Nil: 100 points if its bidder takes no trick, minus 100 if they take one. A nil bidder's tricks never count for the contract; they count as bags.
+- Bags add up from round to round: each time a side has 10, it loses 100 points and those 10 bags are gone.
+# The end of the game
+The game ends after the round in which a side reaches 500 points; the side with more points wins. If both sides have the same score, another round is played.
+# Playing on the device
+Pass the device to the player whose token shows; they tap start and see their own hand, fanned at the bottom. The tokens sit round the middle, your partner across from you, and each card played lies in front of its player's token. To bid, tap a number (the 0 struck through is nil), then the tick. Each bid shows in a dark disc beside its player's token, with the tricks taken next to it. To play, tap a glowing card so it rises, then tap it again or its place in the middle; or drag it there. Tap the pile at the bottom right to see the last trick. Each bar shows the cards in hand and the side's score. After each round a table shows each side's points for the round, its total and its bags in a dark disc (a red glow: ten bags cost 100); tap it for the next round. Undo takes back a choice not yet made, never a card once the device has passed.
