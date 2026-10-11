@@ -1,0 +1,13 @@
+Kinesisk skak
+# Målet
+Flyt alle dine ti kugler tværs over stjernen til spidsen over for din egen. Brættet er en sekstakket stjerne med 121 huller. Den lyse side står fra start i den nederste spids og den mørke i den øverste, som er farvet i deres farver; de fire andre spidser forbliver tomme. Den lyse side starter.
+# Et træk
+Når det er din tur, flytter du en af dine kugler på en af to måder:
+- Et skridt: til et tomt hul ved siden af. Hvert hul har op til seks naboer langs stjernens linjer.
+- Spring: over en kugle ved siden af, uanset farve, til det tomme hul lige bagved, i lige linje. Derfra må den samme kugle springe igen, så mange gange du vil og i alle retninger, men aldrig tilbage til et hul, den allerede har været i under dette træk.
+- Intet bliver nogensinde slået: de kugler, der springes over, bliver stående.
+- Et skridt og spring kan ikke blandes i ét træk. Kugler må gå gennem de tomme spidser og stoppe der, og de må forlade den spids, de er ved at fylde.
+# Spillets afslutning
+Den første spiller, der fylder den modsatte spids, vinder. En spiller kan ikke blokere spidsen ved at lade kugler blive hjemme: så snart alle hullerne i din målspids er optaget, og mindst ét af dem rummer en af dine kugler, vinder du, også selvom nogle af de andre huller dér stadig rummer modstanderens kugler. I det meget sjældne tilfælde, at spilleren i trækket slet ingen træk har, er spillet uafgjort.
+# Spil på enheden
+Tryk på en af dine kugler: prikker viser hvert hul, den kan nå med et skridt eller en kæde af spring. Tryk på et af dem, så hopper kuglen derhen, spring for spring. Du kan også trække kuglen til dens hul. Hullerne fra det sidste træk forbliver oplyst. Hvert panel viser, hvor mange af den spillers kugler der allerede har nået den modsatte spids.

@@ -1,0 +1,13 @@
+Čínská dáma
+# Cíl hry
+Převeď všech svých deset kuliček přes hvězdu do cípu naproti tvému vlastnímu. Deska je šesticípá hvězda se 121 jamkami. Světlý hráč má kuličky na začátku v dolním cípu a tmavý v horním; oba cípy jsou zbarvené jejich barvami a čtyři ostatní cípy zůstávají prázdné. Začíná světlý hráč.
+# Tah
+Ve svém tahu posuň jednu ze svých kuliček jedním ze dvou způsobů:
+- Krok: do sousední prázdné jamky. Každá jamka má až šest sousedů, podél čar hvězdy.
+- Skoky: přes sousední kuličku libovolné barvy do prázdné jamky hned za ní, v přímce. Odtud smí stejná kulička skákat znovu, kolikrát chceš a libovolným směrem, ale nikdy zpět do jamky, ve které už během tohoto tahu byla.
+- Nikdy se nic nebere: přeskočené kuličky zůstávají na místě.
+- Krok a skoky nelze v jednom tahu kombinovat. Kuličky smějí procházet prázdnými cípy a zastavit se v nich a smějí opustit cíp, který právě zaplňují.
+# Konec hry
+Vyhrává hráč, který jako první zaplní protější cíp. Hráč nemůže cíp zablokovat tím, že nechá kuličky doma: jakmile jsou všechny jamky tvého cílového cípu obsazené a aspoň v jedné z nich je tvoje kulička, vyhráváš, i když v některých dalších jamkách tam ještě zůstávají soupeřovy kuličky. Ve velmi vzácném případě, kdy hráč na tahu nemá vůbec žádný tah, končí hra remízou.
+# Hra na zařízení
+Klepni na jednu ze svých kuliček: tečky ukážou každou jamku, kam se může dostat krokem nebo řetězem skoků. Klepni na jednu z nich a kulička tam doskáče, skok po skoku. Kuličku můžeš také přetáhnout do její jamky. Jamky posledního tahu zůstávají rozsvícené. Každá lišta ukazuje, kolik kuliček daného hráče už dorazilo do protějšího cípu.

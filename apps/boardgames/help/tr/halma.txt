@@ -1,0 +1,13 @@
+Çin Daması
+# Amaç
+On bilyenin hepsini yıldızın karşı tarafına, kendi köşenin tam karşısındaki köşeye götür. Tahta, 121 delikli altı köşeli bir yıldızdır. Açık renk başta alttaki köşede, koyu renk üstteki köşededir; bu köşeler onların renklerine boyanmıştır. Diğer dört köşe boş kalır. Önce açık renk oynar.
+# Bir hamle
+Sıra sende olduğunda, bilyelerinden birini iki yoldan biriyle oynat:
+- Bir adım: yanındaki boş bir deliğe. Her deliğin, yıldızın çizgileri boyunca en fazla altı komşusu vardır.
+- Atlamalar: yanındaki bir bilyenin üzerinden, rengi ne olursa olsun, hemen arkasındaki boş deliğe, düz bir çizgide. Oradan aynı bilye, istediğin kadar ve istediğin yöne yeniden atlayabilir, ama bu hamlede daha önce bulunduğu bir deliğe asla geri dönemez.
+- Hiçbir zaman taş alınmaz: üzerinden atlanan bilyeler yerinde kalır.
+- Bir hamlede adım ve atlamalar karıştırılamaz. Bilyeler boş köşelerden geçebilir ve orada durabilir, ayrıca doldurmakta oldukları köşeden çıkabilir.
+# Oyunun sonu
+Karşı köşeyi ilk dolduran oyuncu kazanır. Bir oyuncu bilyelerini evinde bırakarak köşeyi kapatamaz: hedef köşendeki bütün delikler dolduğu ve en az birinde senin bilyen olduğu anda, oradaki diğer deliklerin bazılarında hâlâ rakibinin bilyeleri olsa bile kazanırsın. Sırası gelen oyuncunun hiç hamlesi olmadığı çok nadir durumda oyun berabere biter.
+# Cihazda oynamak
+Bilyelerinden birine dokun: noktalar, onun bir adımla ya da bir atlama zinciriyle ulaşabileceği her deliği gösterir. Bunlardan birine dokun, bilye oraya atlaya atlaya gider. Bilyeyi deliğine sürükleyebilirsin de. Son hamlenin delikleri ışıklı kalır. Her şerit, o oyuncunun kaç bilyesinin karşı köşeye ulaştığını gösterir.

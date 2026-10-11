@@ -1,0 +1,16 @@
+Alquerque
+# Tavoite
+Lyö kaikki vastustajan nappulat tai jätä vastustaja ilman siirtoa. Kummallakin pelaajalla on kaksitoista nappulaa. Vaalea aloittaa.
+# Lauta
+Kaksikymmentäviisi pistettä, joita yhdistävät viivat: jokainen rivi, jokainen sarake ja laudalle piirretyt lävistäjät. Kunkin pelaajan nappulat täyttävät kaksi häntä lähintä riviä sekä keskirivin kaksi pistettä hänen oikealla puolellaan. Vain keskipiste on tyhjä.
+# Siirtäminen
+Vuorollasi siirrät yhtä nappulaasi viivaa pitkin viereiseen pisteeseen, jos se on tyhjä. Nappula liikkuu eteenpäin, suoraan tai vinosti, tai sivuttain, mutta ei koskaan taaksepäin.
+# Lyöminen
+Jos vastustajan nappula on omasi vieressä viivalla ja sen takana oleva piste on tyhjä, hyppää sen yli ja poista se laudalta. Nappula saa lyödä mihin suuntaan tahansa, myös taaksepäin. Lyönnin jälkeen sama nappula jatkaa hyppimistä niin kauan kuin se voi lyödä toisen nappulan, kaikki samalla vuorolla.
+- Lyöminen on pakollista: kun voit lyödä nappulan, sinun on lyötävä, ja lyöntiketju on vietävä loppuun. Kun lyöntejä on useita, saat valita minkä tahansa niistä, ei vain pisintä.
+- Mitään nappulaa ei poisteta rangaistuksena väliin jääneestä lyönnistä: lyöntiä ei voi jättää väliin.
+# Pelin loppu
+- Pelaaja, joka ei voi siirtää tai jolla ei ole nappuloita jäljellä, häviää.
+- Peli päättyy tasapeliin, kun sama asema toistuu kolmannen kerran, tai kun kumpikin on tehnyt viisikymmentä siirtoa ilman lyöntiä.
+# Pelaaminen laitteella
+Napauta nappulaasi ja sitten sen uutta pistettä, tai vedä sitä. Lyötävissä olevien nappuloiden ympärillä on rengas: kun nappulasi on valittuna, napauta pistettä niiden takana tai renkaalla merkittyä nappulaa itseään. Lyöntiketjussa nappulasi pysyy nostettuna seuraavaa hyppyä varten.

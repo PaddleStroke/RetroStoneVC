@@ -1,0 +1,16 @@
+Alquerque
+# Målet
+Slå alle modstanderens brikker, eller efterlad modstanderen uden træk. Hver spiller har tolv brikker. Den lyse side starter.
+# Brættet
+Femogtyve punkter forbundet af linjer: hver række, hver kolonne og de diagonaler, der er tegnet på brættet. Hver spillers brikker fylder de to rækker nærmest spilleren og de to punkter til højre for spilleren i den midterste række. Kun midterpunktet er tomt.
+# Flytning
+Når det er din tur, flytter du en af dine brikker langs en linje til det næste punkt, hvis det er tomt. En brik flytter fremad, lige eller skråt, eller til siden, men aldrig bagud.
+# Slag
+Hvis en modstanderbrik står ved siden af din langs en linje, og punktet lige bagved er tomt, springer du over den og fjerner den fra brættet. En brik må slå i alle retninger, også bagud. Efter et slag fortsætter den samme brik med at springe, så længe den kan slå en brik mere, alt sammen i samme tur.
+- Slag er tvungent: når du kan slå en brik, skal du gøre det, og en kæde af slag skal fortsætte til ende. Når der er flere mulige slag, må du vælge et hvilket som helst af dem, ikke kun det længste.
+- Ingen brik fjernes som straf for et overset slag: et slag kan slet ikke overses.
+# Spillets afslutning
+- En spiller, der ikke kan flytte eller ikke har flere brikker, taber.
+- Spillet er uafgjort, når den samme stilling opstår for tredje gang, eller efter halvtreds træk hver uden et slag.
+# Spil på enheden
+Tryk på din brik og derefter på dens nye punkt, eller træk den. De brikker, der kan slås, har en ring: med din brik valgt trykker du på punktet bagved eller på selve brikken med ringen. I en kæde af slag forbliver din brik løftet til næste spring.

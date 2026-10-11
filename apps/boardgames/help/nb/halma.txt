@@ -1,0 +1,13 @@
+Kinasjakk
+# Målet
+Flytt alle de ti kulene dine over stjernen til spissen rett overfor din egen. Brettet er en seksuddet stjerne med 121 hull. Den lyse siden står fra start i den nederste spissen og den mørke i den øverste, som er farget i fargene deres; de fire andre spissene forblir tomme. Den lyse siden begynner.
+# Et trekk
+Når det er din tur, flytter du én av kulene dine på en av to måter:
+- Et steg: til et tomt hull ved siden av. Hvert hull har opptil seks naboer, langs linjene i stjernen.
+- Hopp: over en kule ved siden av, uansett farge, til det tomme hullet rett bak, i rett linje. Derfra kan den samme kulen hoppe igjen, så mange ganger du vil og i alle retninger, men aldri tilbake til et hull den allerede har vært i under dette trekket.
+- Ingenting blir noen gang slått: kulene det hoppes over, blir stående.
+- Et steg og hopp kan ikke blandes i ett trekk. Kuler kan gå gjennom de tomme spissene og stoppe der, og kan forlate spissen de holder på å fylle.
+# Slutten på spillet
+Den første spilleren som fyller den motsatte spissen, vinner. En spiller kan ikke blokkere spissen ved å la kuler bli stående hjemme: så snart alle hullene i målspissen din er opptatt og minst ett av dem har en av kulene dine, vinner du, selv om noen av de andre hullene der fortsatt har motstanderens kuler. I det svært sjeldne tilfellet at spilleren som er i trekket, ikke har noe trekk i det hele tatt, er spillet uavgjort.
+# Spill på enheten
+Trykk på en av kulene dine: prikker viser hvert hull den kan nå, med et steg eller en kjede av hopp. Trykk på ett av dem, så hopper kulen dit, hopp for hopp. Du kan også dra kulen til hullet. Hullene fra det siste trekket forblir opplyst. Hvert panel viser hvor mange av den spillerens kuler som allerede har nådd den motsatte spissen.

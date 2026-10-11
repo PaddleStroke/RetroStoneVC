@@ -1,0 +1,13 @@
+Damas chinas
+# El objetivo
+Llevar tus diez canicas a través de la estrella hasta la punta opuesta a la tuya. El tablero es una estrella de seis puntas con 121 agujeros. Las claras salen de la punta de abajo y las oscuras de la punta de arriba, teñidas de sus colores; las otras cuatro puntas quedan vacías. Empiezan las claras.
+# Una jugada
+En tu turno, mueve una de tus canicas de una de estas dos formas:
+- Un paso: a un agujero vacío contiguo. Cada agujero tiene hasta seis vecinos, a lo largo de las líneas de la estrella.
+- Saltos: por encima de una canica contigua, de cualquier color, hasta el agujero vacío justo detrás, en línea recta. Desde allí la misma canica puede volver a saltar, tantas veces como quieras y en cualquier dirección, pero nunca a un agujero en el que ya haya estado durante esta jugada.
+- Nunca se captura nada: las canicas saltadas se quedan donde están.
+- Un paso y saltos no se pueden mezclar en una misma jugada. Las canicas pueden atravesar las puntas vacías y detenerse en ellas, y pueden salir de la punta que están llenando.
+# El final de la partida
+Gana el primer jugador que llena la punta opuesta. Un jugador no puede bloquear la punta dejando canicas en casa: en cuanto todos los agujeros de tu punta de destino están ocupados y al menos uno tiene una canica tuya, ganas, aunque algunos de los otros agujeros de esa punta sigan ocupados por canicas del otro jugador. En el rarísimo caso de que el jugador al que le toca no tenga ninguna jugada, la partida es un empate.
+# Jugar en el dispositivo
+Toca una de tus canicas: unos puntos muestran cada agujero al que puede llegar, con un paso o una cadena de saltos. Toca uno y la canica salta hasta allí, salto a salto. También puedes arrastrar la canica hasta su agujero. Los agujeros de la última jugada quedan iluminados. Cada barra muestra cuántas canicas de ese jugador han llegado ya a la punta opuesta.

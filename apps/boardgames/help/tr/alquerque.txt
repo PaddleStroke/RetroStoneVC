@@ -1,0 +1,16 @@
+Alquerque
+# Amaç
+Rakibin bütün taşlarını al ya da onu hamlesiz bırak. Her oyuncunun on iki taşı vardır. Önce açık renk oynar.
+# Tahta
+Çizgilerle birbirine bağlı yirmi beş nokta: her sıra, her sütun ve tahtada çizili köşegenler. Her oyuncunun taşları, ona en yakın iki sırayı ve orta sırada onun sağındaki iki noktayı doldurur. Yalnızca ortadaki nokta boştur.
+# Hareket
+Sıra sende olduğunda, taşlarından birini bir çizgi boyunca, boşsa bir sonraki noktaya götür. Bir taş ileri, düz ya da çapraz, veya yana gider ama asla geri gitmez.
+# Taş alma
+Bir çizgi üzerinde senin taşının yanında bir rakip taş varsa ve hemen arkasındaki nokta boşsa, onun üzerinden atla ve onu tahtadan al. Bir taş her yöne, geriye de, taş alabilir. Bir taş aldıktan sonra aynı taş, başka bir taş alabildiği sürece atlamaya devam eder; bunların hepsi aynı sırada olur.
+- Taş almak zorunludur: bir taş alabiliyorsan almalısın ve bir taş alma zinciri sonuna kadar sürmelidir. Birden çok alma seçeneği varsa, yalnızca en uzununu değil, herhangi birini seçebilirsin.
+- Kaçırılan bir alma için ceza olarak hiçbir taş tahtadan kaldırılmaz: zaten bir alma kaçırılamaz.
+# Oyunun sonu
+- Hamle yapamayan ya da hiç taşı kalmayan oyuncu kaybeder.
+- Aynı pozisyon üçüncü kez tekrarlandığında ya da iki taraf da taş almadan ellişer hamle yaptığında oyun berabere biter.
+# Cihazda oynamak
+Taşına, sonra yeni noktasına dokun ya da onu sürükle. Alınabilecek taşların çevresinde bir halka vardır: taşın seçiliyken arkalarındaki noktaya ya da halkalı taşın kendisine dokun. Bir taş alma zincirinde taşın bir sonraki atlayış için kaldırılmış olarak kalır.

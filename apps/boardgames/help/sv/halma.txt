@@ -1,0 +1,13 @@
+Kinaschack
+# Målet
+Flytta alla dina tio kulor tvärs över stjärnan till spetsen mitt emot din egen. Brädet är en sexuddig stjärna med 121 hål. Den ljusa sidan står från början i den nedre spetsen och den mörka i den övre, som är färgade i deras färger; de fyra andra spetsarna förblir tomma. Den ljusa sidan börjar.
+# Ett drag
+När det är din tur flyttar du en av dina kulor på ett av två sätt:
+- Ett steg: till ett tomt hål bredvid. Varje hål har upp till sex grannar, längs stjärnans linjer.
+- Hopp: över en kula bredvid, av vilken färg som helst, till det tomma hålet precis bakom, i rak linje. Därifrån får samma kula hoppa igen, så många gånger du vill och i vilken riktning som helst, men aldrig tillbaka till ett hål den redan har varit i under draget.
+- Ingenting tas någonsin: kulorna som hoppas över blir kvar där de är.
+- Ett steg och hopp kan inte blandas i ett drag. Kulor får passera genom de tomma spetsarna och stanna där, och får lämna den spets de håller på att fylla.
+# Partiets slut
+Den spelare som först fyller den motsatta spetsen vinner. En spelare kan inte blockera spetsen genom att lämna kulor hemma: så snart alla hål i din målspets är upptagna och minst ett av dem har en av dina kulor, vinner du, även om några av de andra hålen där fortfarande har motståndarens kulor. I det mycket sällsynta fallet att spelaren som står på tur inte har något drag alls blir partiet oavgjort.
+# Spela på enheten
+Tryck på en av dina kulor: prickar visar varje hål den kan nå, med ett steg eller en kedja av hopp. Tryck på ett av dem så hoppar kulan dit, hopp för hopp. Du kan också dra kulan till dess hål. Hålen från det senaste draget förblir tända. Varje fält visar hur många av den spelarens kulor som redan har nått den motsatta spetsen.

@@ -1,0 +1,16 @@
+Alquerque
+# El objetivo
+Capturar todas las fichas del otro jugador o dejarlo sin movimientos. Cada jugador tiene doce fichas. Empiezan las claras.
+# El tablero
+Veinticinco puntos unidos por líneas: cada fila, cada columna y las diagonales trazadas en el tablero. Las fichas de cada jugador llenan las dos filas más cercanas a él y los dos puntos a su derecha en la fila central. Solo el punto central está vacío.
+# Movimiento
+En tu turno, mueve una de tus fichas a lo largo de una línea hasta el punto siguiente, si está vacío. Una ficha avanza, recta o en diagonal, o se mueve de lado, pero nunca hacia atrás.
+# Capturas
+Si una ficha contraria está junto a la tuya sobre una línea y el punto justo detrás de ella está vacío, salta por encima y quítala del tablero. Una ficha puede capturar en cualquier dirección, también hacia atrás. Tras una captura, la misma ficha sigue saltando mientras pueda capturar otra ficha, todo en el mismo turno.
+- Capturar es obligatorio: cuando puedes capturar una ficha, debes hacerlo, y una cadena de capturas debe seguir hasta el final. Cuando hay varias capturas, puedes elegir cualquiera, no solo la más larga.
+- No se quita ninguna ficha como castigo por una captura no hecha (no se sopla): una captura no se puede pasar por alto.
+# El final de la partida
+- Pierde el jugador que no puede mover o que se queda sin fichas.
+- La partida es un empate cuando la misma posición se repite por tercera vez, o tras cincuenta jugadas de cada uno sin ninguna captura.
+# Jugar en el dispositivo
+Toca tu ficha y luego su nuevo punto, o arrástrala. Las fichas que se pueden capturar tienen un anillo: con tu ficha seleccionada, toca el punto de detrás o la propia ficha con el anillo. En una cadena de capturas, tu ficha sigue levantada para el siguiente salto.

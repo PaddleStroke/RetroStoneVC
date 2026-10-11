@@ -1,0 +1,13 @@
+Damas chinesas
+# O objetivo
+Levar todos os teus dez berlindes através da estrela até à ponta oposta à tua. O tabuleiro é uma estrela de seis pontas com 121 buracos. Os claros partem da ponta de baixo e os escuros da ponta de cima, pintadas nas suas cores; as outras quatro pontas ficam vazias. Os berlindes claros começam.
+# Uma jogada
+Na tua vez, move um dos teus berlindes de uma de duas maneiras:
+- Um passo: para um buraco vazio vizinho. Cada buraco tem até seis vizinhos, ao longo das linhas da estrela.
+- Saltos: por cima de um berlinde vizinho, de qualquer cor, para o buraco vazio logo a seguir, em linha reta. A partir daí, o mesmo berlinde pode voltar a saltar, as vezes que quiseres e em qualquer direção, mas nunca para um buraco onde já tenha estado durante esta jogada.
+- Nunca se captura nada: os berlindes saltados ficam onde estão.
+- Não se pode misturar um passo e saltos na mesma jogada. Os berlindes podem atravessar as pontas vazias e parar lá, e podem sair da ponta que estão a preencher.
+# O fim do jogo
+Ganha o primeiro jogador a preencher a ponta oposta. Um jogador não pode bloquear a ponta deixando berlindes em casa: assim que todos os buracos da tua ponta de destino estiverem ocupados e pelo menos um deles tiver um berlinde teu, ganhas, mesmo que alguns dos outros buracos dessa ponta ainda tenham berlindes do adversário. No caso muito raro de o jogador que tem a vez não ter nenhuma jogada, o jogo termina empatado.
+# Jogar no dispositivo
+Toca num dos teus berlindes: pontos mostram cada buraco que ele pode alcançar, com um passo ou uma cadeia de saltos. Toca num deles e o berlinde salta até lá, salto a salto. Também podes arrastar o berlinde até ao buraco. Os buracos da última jogada ficam acesos. Cada barra mostra quantos berlindes desse jogador já chegaram à ponta oposta.

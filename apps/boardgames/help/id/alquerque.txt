@@ -1,0 +1,16 @@
+Alquerque
+# Tujuan
+Makan semua bidak lawan, atau buat lawan tidak bisa melangkah. Setiap pemain punya dua belas bidak. Pihak terang jalan lebih dulu.
+# Papan
+Dua puluh lima titik yang dihubungkan oleh garis: setiap baris, setiap kolom, dan diagonal yang digambar di papan. Bidak setiap pemain mengisi dua baris terdekat dengannya dan dua titik di sebelah kanannya pada baris tengah. Hanya titik pusat yang kosong.
+# Menggerakkan
+Saat giliranmu, gerakkan salah satu bidakmu di sepanjang garis ke titik berikutnya, jika titik itu kosong. Bidak bergerak maju, lurus atau miring, atau ke samping, tetapi tidak pernah mundur.
+# Memakan
+Jika bidak lawan berada di sebelah bidakmu pada satu garis dan titik tepat di belakangnya kosong, lompati bidak itu dan angkat dari papan. Bidak boleh memakan ke segala arah, termasuk ke belakang. Setelah memakan, bidak yang sama terus melompat selama masih bisa memakan bidak lain, semuanya dalam giliran yang sama.
+- Memakan itu wajib: jika kamu bisa memakan bidak, kamu harus melakukannya, dan rangkaian makan harus diteruskan sampai habis. Jika ada beberapa pilihan makan, kamu boleh memilih yang mana saja, tidak harus yang terpanjang.
+- Tidak ada bidak yang diangkat sebagai hukuman karena tidak memakan: memang tidak mungkin melewatkan makan.
+# Akhir permainan
+- Pemain yang tidak bisa melangkah, atau tidak punya bidak lagi, kalah.
+- Permainan berakhir seri jika posisi yang sama muncul untuk ketiga kalinya, atau setelah masing-masing pihak melangkah lima puluh kali tanpa memakan.
+# Bermain di perangkat
+Ketuk bidakmu lalu titik barunya, atau seret bidak itu. Bidak yang bisa dimakan diberi cincin: dengan bidakmu terpilih, ketuk titik di belakangnya, atau bidak bercincin itu sendiri. Dalam rangkaian makan, bidakmu tetap terangkat untuk lompatan berikutnya.

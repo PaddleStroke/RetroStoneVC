@@ -1,0 +1,13 @@
+Kiinanshakki
+# Tavoite
+Siirrä kaikki kymmenen kuulaasi tähden poikki omaasi vastapäiseen kärkeen. Lauta on kuusisakarainen tähti, jossa on 121 reikää. Vaalean kuulat ovat aluksi alakärjessä ja tumman yläkärjessä, jotka on värjätty heidän väreillään; neljä muuta kärkeä jäävät tyhjiksi. Vaalea aloittaa.
+# Siirto
+Vuorollasi siirrät yhtä kuulaasi jommallakummalla kahdesta tavasta:
+- Askel: viereiseen tyhjään reikään. Jokaisella reiällä on enintään kuusi naapuria tähden viivoja pitkin.
+- Hypyt: viereisen kuulan yli, kumman tahansa väristä, heti sen takana olevaan tyhjään reikään suoraa linjaa pitkin. Sieltä sama kuula saa hypätä uudelleen, niin monta kertaa kuin haluat ja mihin suuntaan tahansa, mutta ei koskaan takaisin reikään, jossa se on jo käynyt tämän siirron aikana.
+- Mitään ei koskaan lyödä: kuulat, joiden yli hypätään, jäävät paikoilleen.
+- Askelta ja hyppyjä ei voi yhdistää samaan siirtoon. Kuulat saavat kulkea tyhjien kärkien kautta ja pysähtyä niihin, ja ne saavat poistua kärjestä, jota ne ovat täyttämässä.
+# Pelin loppu
+Ensimmäinen pelaaja, joka täyttää vastakkaisen kärjen, voittaa. Pelaaja ei voi tukkia kärkeä jättämällä kuulia kotiin: heti kun maalikärkesi jokainen reikä on varattu ja ainakin yhdessä niistä on oma kuulasi, voitat, vaikka joissakin sen muissa rei'issä olisi vielä vastustajan kuulia. Siinä hyvin harvinaisessa tapauksessa, että vuorossa olevalla pelaajalla ei ole yhtään siirtoa, peli päättyy tasapeliin.
+# Pelaaminen laitteella
+Napauta yhtä kuulaasi: pisteet näyttävät jokaisen reiän, johon se pääsee askeleella tai hyppyketjulla. Napauta yhtä niistä, niin kuula hyppii sinne hyppy hypyltä. Voit myös vetää kuulan sen reikään. Viimeisen siirron reiät pysyvät valaistuina. Jokainen palkki näyttää, montako kyseisen pelaajan kuulaa on jo päässyt vastakkaiseen kärkeen.

@@ -1,0 +1,13 @@
+Chinees dammen
+# Het doel
+Breng al je tien knikkers over de ster naar de punt tegenover je eigen punt. Het bord is een zespuntige ster met 121 gaatjes. Licht staat aan het begin in de onderste punt en Donker in de bovenste, die in hun kleuren gekleurd zijn; de vier andere punten blijven leeg. Licht begint.
+# Een zet
+Als je aan de beurt bent, verplaats je een van je knikkers op een van twee manieren:
+- Een stap: naar een leeg gaatje ernaast. Elk gaatje heeft maximaal zes buren, langs de lijnen van de ster.
+- Sprongen: over een knikker ernaast, van welke kleur ook, naar het lege gaatje er direct achter, in een rechte lijn. Vanaf daar mag dezelfde knikker opnieuw springen, zo vaak als je wilt en in elke richting, maar nooit terug op een gaatje waar hij tijdens deze zet al is geweest.
+- Er wordt nooit iets geslagen: de knikkers waar overheen gesprongen wordt, blijven staan.
+- Een stap en sprongen kunnen niet in één zet worden gecombineerd. Knikkers mogen door de lege punten gaan en daar stoppen, en mogen de punt die ze aan het vullen zijn weer verlaten.
+# Het einde van het spel
+De speler die als eerste de tegenoverliggende punt vult, wint. Een speler kan de punt niet blokkeren door knikkers thuis te laten staan: zodra elk gaatje van de punt die je moet bereiken bezet is en er in minstens één daarvan een knikker van jou staat, win je, ook als in sommige andere gaatjes daar nog knikkers van je tegenstander staan. In het zeer zeldzame geval dat de speler die aan de beurt is helemaal geen zet heeft, eindigt het spel in gelijkspel.
+# Spelen op het apparaat
+Tik op een van je knikkers: stippen tonen elk gaatje dat hij kan bereiken, met een stap of een reeks sprongen. Tik op een ervan en de knikker hupt erheen, sprong voor sprong. Je kunt de knikker ook naar zijn gaatje slepen. De gaatjes van de laatste zet blijven verlicht. Elke balk laat zien hoeveel knikkers van die speler de tegenoverliggende punt al hebben bereikt.

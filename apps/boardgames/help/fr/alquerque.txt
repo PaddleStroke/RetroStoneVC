@@ -1,0 +1,16 @@
+Alquerque
+# Le but
+Prendre toutes les pièces de l'autre joueur, ou le laisser sans coup possible. Chaque joueur a douze pièces. Les pièces claires commencent.
+# Le plateau
+Vingt-cinq points reliés par des lignes : chaque rangée, chaque colonne et les diagonales tracées sur le plateau. Les pièces de chaque joueur occupent les deux rangées les plus proches de lui et les deux points à sa droite sur la rangée du milieu. Seul le point central est vide.
+# Les déplacements
+À ton tour, déplace une de tes pièces le long d'une ligne jusqu'au point voisin, s'il est libre. Une pièce avance, tout droit ou en biais, ou se déplace sur le côté, mais ne recule jamais.
+# Les prises
+Si une pièce adverse est voisine de la tienne sur une ligne et que le point juste derrière elle est libre, saute par-dessus et retire-la du plateau. Une pièce peut prendre dans toutes les directions, en arrière aussi. Après une prise, la même pièce continue de sauter tant qu'elle peut prendre une autre pièce, le tout dans le même tour.
+- La prise est obligatoire : quand tu peux prendre une pièce, tu dois le faire, et une rafle doit aller jusqu'au bout. Quand plusieurs prises sont possibles, tu peux choisir n'importe laquelle, pas seulement la plus longue.
+- Aucune pièce n'est retirée en pénalité pour une prise oubliée (pas de soufflage) : une prise ne peut pas être oubliée.
+# La fin de la partie
+- Un joueur qui ne peut pas bouger, ou qui n'a plus de pièces, a perdu.
+- La partie est nulle quand la même position revient pour la troisième fois, ou après cinquante coups de chaque côté sans prise.
+# Jouer sur l'appareil
+Touche ta pièce puis son nouveau point, ou fais-la glisser. Les pièces qui peuvent être prises sont entourées d'un anneau : ta pièce sélectionnée, touche le point juste derrière, ou la pièce entourée elle-même. Dans une rafle, ta pièce reste en main pour le saut suivant.

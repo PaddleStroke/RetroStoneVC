@@ -1,0 +1,13 @@
+Dames chinoises
+# Le but
+Amener tes dix billes à travers l'étoile jusqu'à la pointe opposée à la tienne. Le plateau est une étoile à six branches de 121 trous. Les claires partent de la pointe du bas et les foncées de la pointe du haut, teintées de leurs couleurs ; les quatre autres pointes restent vides. Les billes claires commencent.
+# Un coup
+À ton tour, déplace une de tes billes de l'une de ces deux façons :
+- Un pas : vers un trou vide voisin. Chaque trou a jusqu'à six voisins, le long des lignes de l'étoile.
+- Des sauts : par-dessus une bille voisine, de n'importe quelle couleur, jusqu'au trou vide juste derrière, en ligne droite. De là, la même bille peut sauter encore, autant de fois que tu veux et dans n'importe quelle direction, mais jamais sur un trou où elle est déjà passée pendant ce coup.
+- Rien n'est jamais pris : les billes sautées restent à leur place.
+- Un pas et des sauts ne peuvent pas se mélanger dans un même coup. Les billes peuvent traverser les pointes vides et s'y arrêter, et peuvent quitter la pointe qu'elles sont en train de remplir.
+# La fin de la partie
+Le premier joueur à remplir la pointe opposée gagne. Un joueur ne peut pas bloquer la pointe en laissant des billes chez lui : dès que tous les trous de ta pointe d'arrivée sont occupés et qu'au moins l'un d'eux contient une de tes billes, tu gagnes, même si certains des autres trous contiennent encore des billes de ton adversaire. Dans le cas très rare où le joueur qui doit jouer n'a aucun coup possible, la partie est nulle.
+# Jouer sur l'appareil
+Touche une de tes billes : des points montrent chaque trou qu'elle peut atteindre, par un pas ou une suite de sauts. Touches-en un et la bille y bondit, saut après saut. Tu peux aussi faire glisser la bille jusqu'à son trou. Les trous du dernier coup restent éclairés. Chaque barre montre combien de billes de ce joueur ont déjà atteint la pointe opposée.
