@@ -1,7 +1,8 @@
 /*
- * Backgammon in RetroStone Board: the board (24 points inlaid in the plank, the bar a fold of the walnut, the tray
- * for the checkers borne off), the dice thrown with a tap, the checkers moved one die at a time by tap or drag. The
- * rules: backgammon_rules.c.
+ * Backgammon in RetroStone Board, and plakoto, fevga and long nardy on its board: the board (24 points inlaid in the
+ * plank, the bar a fold of the walnut, the tray for the checkers borne off), the dice thrown with a tap, the checkers
+ * moved one die at a time by tap or drag. The rules: backgammon_rules.c. Plakoto's pinned checker lies under its
+ * pinner, who stands a little up the point on it.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * The board lies across the square: player 0's home board at the bottom right, player 1's at the top right (flipped:
@@ -21,8 +22,8 @@
 #define POINT 5.5f                              /* a point's length (the plank is 14 high: a gap of 3 between) */
 #define ANIM_MS 200
 
-/* the board's geometry in pixels: w a point's width; the picture's top left at (x, y) */
-typedef struct { int w, fr, tw; float x, y; int flip; } geo;
+/* the board's geometry in pixels: w a point's width; the picture's top left at (x, y); v the variant (the ways) */
+typedef struct { int w, fr, tw; float x, y; int flip, v; } geo;
 
 static bgame G;
 static bmove legal[BG_MAXMOVES];
@@ -40,7 +41,7 @@ static const int IDLE[2] = {5, 2};              /* the faces of the dice waiting
 static int fr_of(int w) { return (int)(w * FRAME); }
 static int tray_of(int w) { return (int)(w * TRAY); }
 static int width_of(int w) { return 12 * w + 5 * fr_of(w) + tray_of(w); }
-static geo geo_of(int w, float x, float y, int flip) { return (geo){w, fr_of(w), tray_of(w), x, y, flip}; }
+static geo geo_of(int w, float x, float y, int flip, int v) { return (geo){w, fr_of(w), tray_of(w), x, y, flip, v}; }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
 static int movable(int from)
@@ -88,8 +89,7 @@ static void sync(void)
 
 static void start(int variant)
 {
-    (void)variant;
-    bg_new(&G);
+    bg_new(&G, variant);
     shown = -1;
     anim.on = pass_snd = 0;
     refresh();
@@ -97,7 +97,7 @@ static void start(int variant)
 
 static int status(void)
 {
-    static const int map[] = {[BG_PLAY] = GS_PLAY, [BG_WIN0] = GS_WIN0, [BG_WIN1] = GS_WIN1};
+    static const int map[] = {[BG_PLAY] = GS_PLAY, [BG_WIN0] = GS_WIN0, [BG_WIN1] = GS_WIN1, [BG_DRAW] = GS_DRAW};
     return map[bg_status(&G)];
 }
 
@@ -155,7 +155,7 @@ static float column_x(const geo *g, int s)
 }
 
 /* checker k (0: against the frame) of n on a player's place (their own numbering: 1..24, the bar, off) */
-static void spot(const geo *g, int player, int place, int k, int n, float *cx, float *cy)
+static void spot(const geo *g, int player, int place, float k, int n, float *cx, float *cy)
 {
     float w = (float)g->w, top = g->y + g->fr, bottom = top + 14 * w, mid = top + 7 * w, step = w;
     if (place == BG_BAR) {                      /* on the bar, from the middle towards the player's side */
@@ -170,7 +170,7 @@ static void spot(const geo *g, int player, int place, int k, int n, float *cx, f
         *cy = on_top(g, player) ? top + w / 2 + k * step : bottom - w / 2 - k * step;
         return;
     }
-    int a = player ? 25 - place : place;        /* player 0's numbering: 1..6 bottom right, 13..18 top left */
+    int a = player ? bg_opp(g->v, place) : place;   /* player 0's numbering: 1..6 bottom right, 13..18 top left */
     int up = (a >= 13) ^ g->flip, s = a >= 13 ? a - 13 : 12 - a;
     if (n > 5) step = 4 * w / (n - 1);
     *cx = column_x(g, s);
@@ -197,7 +197,7 @@ static int place_at(float x, float y)
     else if (x >= right && x < right + 6 * w) s = 6 + (int)((x - right) / w);
     else return -1;
     int a = (y < y0 + 7 * w) ^ S.flip ? 13 + s : 12 - s;
-    return bg_pos(&G)->side ? 25 - a : a;
+    return bg_pos(&G)->side ? bg_opp(S.v, a) : a;
 }
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
@@ -280,7 +280,7 @@ static void layout(box b)
             t_chk[c] = ui_tex(cs, cs, ui_buf(cs, cs));
         }
     }
-    S = geo_of(w, floorf(b.x + (b.w - pic_w) / 2), floorf(b.y + (b.h - pic_h) / 2), ui.flipped);
+    S = geo_of(w, floorf(b.x + (b.w - pic_w) / 2), floorf(b.y + (b.h - pic_h) / 2), ui.flipped, bg_pos(&G)->variant);
     if (shown >= 0 && !ui_dice_busy()) show_throw(shown, 0);   /* the shell's dice ours again (after another game) */
 }
 
@@ -291,17 +291,31 @@ static void checker(int player, float cx, float cy, float k)
     ui_put_c(t_chk[player], cx, cy, d, d);
 }
 
+/* plakoto: a pinner's checkers stand on the checker they pin, a little up the point */
+static float lift(int player, int place)
+{
+    const bpos *p = bg_pos(&G);
+    return place >= 1 && place <= 24 && p->pin[!player][bg_opp(p->variant, place)] ? 0.6f : 0;
+}
+
+/* checker k of n of a player's on a place, as the board shows them now */
+static void at(int player, int place, int k, int n, float *x, float *y)
+{
+    float l = lift(player, place);
+    spot(&S, player, place, k + l, n + (l > 0), x, y);
+}
+
 /* a player's checkers on a place; skip: the top ones not drawn (moving); the count on a high stack */
 static void stack(int player, int place, int skip)
 {
     int n = bg_pos(&G)->n[player][place];
     float x, y;
     for (int k = 0; k < n - skip; k++) {
-        spot(&S, player, place, k, n, &x, &y);
+        at(player, place, k, n, &x, &y);
         checker(player, x, y, 1);
     }
     if (place != BG_OFF && n - skip > (place == BG_BAR ? 6 : 5)) {
-        spot(&S, player, place, n - skip - 1, n, &x, &y);
+        at(player, place, n - skip - 1, n, &x, &y);
         ui_number_rot(x, y, 0.42f * S.w, n - skip, player, ui_upside(player) ? 180 : 0);
     }
 }
@@ -315,9 +329,9 @@ static void mark_last(void)
     for (; k >= 0 && G.ev[k].kind == BG_EV_MOVE; k--) {
         int pl = G.ev[k].player, from = G.ev[k].m.from, to = G.ev[k].m.to, nf = p->n[pl][from], nt = p->n[pl][to];
         float x, y, w = (float)S.w;
-        spot(&S, pl, from, nf, nf + 1, &x, &y);
+        at(pl, from, nf, nf + 1, &x, &y);
         ui_mark_last(x - w / 2, y - w / 2, w, w);
-        spot(&S, pl, to, nt ? nt - 1 : 0, nt, &x, &y);
+        at(pl, to, nt ? nt - 1 : 0, nt, &x, &y);
         ui_mark_last(x - w / 2, y - w / 2, w, w);
     }
 }
@@ -362,26 +376,28 @@ static void draw(void)
         else ui_animate();
         t = 1 - (1 - t) * (1 - t) * (1 - t);
     }
-    for (int pl = 0; pl < 2; pl++)
-        for (int place = 0; place <= BG_BAR; place++) {
-            int skip = 0;
-            if (anim.on && pl == anim.player && place == anim.m.to) skip = 1;
-            if (anim.on && anim.m.hit && pl != anim.player && place == BG_BAR) skip = 1;
-            if (drag.on && drag.moved && pl == mover && place == sel) skip = 1;
-            stack(pl, place, skip);
-        }
+    for (int pass = 0; pass < 2; pass++)      /* the pinned checkers first: their pinners stand on them */
+        for (int pl = 0; pl < 2; pl++)
+            for (int place = 0; place <= BG_BAR; place++) {
+                if (p->pin[pl][place] != !pass) continue;
+                int skip = 0;
+                if (anim.on && pl == anim.player && place == anim.m.to) skip = 1;
+                if (anim.on && anim.m.hit && pl != anim.player && place == BG_BAR) skip = 1;
+                if (drag.on && drag.moved && pl == mover && place == sel) skip = 1;
+                stack(pl, place, skip);
+            }
     if (in_hand && !drag.moved) {               /* the checker in hand, and where it can go: a ring on a blot to hit */
         int n = p->n[mover][sel];
-        spot(&S, mover, sel, n - 1, n, &x, &y);
+        at(mover, sel, n - 1, n, &x, &y);
         ui_mark_select(x - w / 2, y - w / 2, w, w);
         for (int i = 0; i < nlegal; i++) {
             if (legal[i].from != sel) continue;
             int to = legal[i].to, there = p->n[mover][to];
-            if (legal[i].hit) {
-                spot(&S, !mover, 25 - to, 0, 1, &x, &y);
+            if (legal[i].hit) {                 /* a blot to hit, or (plakoto) a checker to pin */
+                spot(&S, !mover, bg_opp(S.v, to), 0, 1, &x, &y);
                 ui_mark_ring(x, y, 1.5f * w);
             } else {
-                spot(&S, mover, to, there, there + 1, &x, &y);
+                at(mover, to, there, there + 1, &x, &y);
                 ui_mark_dot(x, y, 0.55f * w);
             }
         }
@@ -390,14 +406,14 @@ static void draw(void)
         bmove m = anim.m;
         int pl = anim.player, nf = p->n[pl][m.from], nt = p->n[pl][m.to];
         float x0, y0, x1, y1;
-        if (m.hit) {                            /* the blot goes to the bar */
+        if (m.hit && S.v == BG_BACKGAMMON) {    /* the blot goes to the bar */
             int nb = p->n[!pl][BG_BAR];
             spot(&S, !pl, 25 - m.to, 0, 1, &x0, &y0);
             spot(&S, !pl, BG_BAR, nb - 1, nb, &x1, &y1);
             checker(!pl, x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, 1);
         }
-        spot(&S, pl, m.from, nf, nf + 1, &x0, &y0);
-        spot(&S, pl, m.to, nt - 1, nt, &x1, &y1);
+        at(pl, m.from, nf, nf + 1, &x0, &y0);
+        at(pl, m.to, nt - 1, nt, &x1, &y1);
         checker(pl, x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, 1 + 0.12f * sinf(t * 3.14159265f));
     }
     if (drag.on && drag.moved) checker(mover, drag.x, drag.y - 0.5f * w, 1.18f);
@@ -469,10 +485,67 @@ static void bar(int player, box b)
 
 static void token(int player, int size, uint8_t *rgba) { art_counter(COUNTER_DISC, player, size, rgba); }
 
-/* the menu's card: a corner of the board, from the bar and the middle: a home board with checkers, the tray, dice */
+/* a checker on a card (c pixels, one: its scratch), its flat shadow under it */
+static void card_checker(uint8_t *rgba, int size, uint8_t *one, int c, float x, float y, int player)
+{
+    int ox = (int)(x - c / 2.0f), oy = (int)(y - c / 2.0f);
+    art_flat_shadow(c, one);
+    art_blend(rgba, size, size, one, c, c, ox + c / 20, oy + c * 8 / 100);
+    art_counter(COUNTER_DISC, player, c, one);
+    art_blend(rgba, size, size, one, c, c, ox, oy);
+}
+
+/* the picker's cards: the whole board, a position telling the game (each player's checkers, "24:12 9:1" in their own
+ * numbering; plakoto: ebony's checker pinned on its 16 under ivory's on 9), two dice: backgammon's start; plakoto's
+ * stacks on the two right corners, a pin; fevga's diagonal corners, a runner each past the other's start; long
+ * nardy's heads and a first 6-6 played, two checkers off each head */
+static void card(int variant, int size, uint8_t *rgba)
+{
+    static const struct { const char *pos[2]; int pinned, dice[2]; } CARD[BG_VARIANTS] = {
+        [BG_BACKGAMMON] = {{"24:2 13:5 8:3 6:5", "24:2 13:5 8:3 6:5"}, 0, {3, 1}},
+        [BG_PLAKOTO] = {{"24:12 17:1 13:1 9:1", "24:12 21:1 16:1 11:1"}, 16, {4, 2}},
+        [BG_FEVGA] = {{"24:14 9:1", "24:14 9:1"}, 0, {5, 2}},
+        [BG_NARDY] = {{"24:13 18:2", "24:13 18:2"}, 0, {6, 6}},
+    };
+    int w = (int)(size / 16.6f), bw, bh, c = (int)(1.12f * w), d = (int)(1.3f * w);
+    uint8_t *pic = paint(w, &bw, &bh), *one = malloc((size_t)d * d * 4);   /* the dice, larger than a checker */
+    if (!pic || !one) { free(pic); free(one); return; }
+    int ox = (size - bw) / 2, oy = (size - bh) / 2;
+    art_blend(rgba, size, size, pic, bw, bh, ox, oy);
+    free(pic);
+    geo g = geo_of(w, (float)ox, (float)oy, 0, variant);
+    for (int pass = 0; pass < 2; pass++)        /* the pinned checker first, its pinner on it */
+        for (int pl = 0; pl < 2; pl++)
+            for (const char *t = CARD[variant].pos[pl]; *t;) {
+                char *e;
+                int place = (int)strtol(t, &e, 10), n = (int)strtol(e + 1, &e, 10);
+                t = *e ? e + 1 : e;
+                int pinned = pl == 1 && place == CARD[variant].pinned;
+                int pinner = pl == 0 && CARD[variant].pinned && bg_opp(variant, place) == CARD[variant].pinned;
+                if (pinned != !pass) continue;
+                for (int k = 0; k < n; k++) {
+                    float x, y;
+                    spot(&g, pl, place, k + (pinner ? 0.6f : 0), n + pinner, &x, &y);
+                    card_checker(rgba, size, one, c, x, y, pl);
+                }
+            }
+    float cy = g.y + g.fr + 7 * w;              /* the dice in the middle of the right half (ivory's) */
+    for (int i = 0; i < 2; i++) {
+        art_die(CARD[variant].dice[i], 0, d, one);
+        int dx = (int)(column_x(&g, 9) + (i ? 0.15f : -1.45f) * w);
+        art_blend(rgba, size, size, one, d, d, dx, (int)(cy - d / 2.0f));
+    }
+    free(one);
+}
+
+/* the menu's card: a corner of the board, from the bar and the middle: a home board with checkers, the tray, dice;
+ * the picker's: card() */
 static void thumb(int variant, int size, uint8_t *rgba)
 {
-    (void)variant;
+    if (variant >= 0) {
+        card(variant, size, rgba);
+        return;
+    }
     int w = (int)(size / 10.2f), bw, bh, c = (int)(1.12f * w), d = (int)(0.86f * w);
     uint8_t *pic = paint(w, &bw, &bh), *one = malloc((size_t)c * c * 4);
     if (!pic || !one) { free(pic); free(one); return; }
@@ -484,17 +557,13 @@ static void thumb(int variant, int size, uint8_t *rgba)
     }
     art_blend(rgba, size, size, pic, cw, ch, ox, oy);
     free(pic);
-    geo g = geo_of(w, (float)(ox - x0), (float)(oy + fr - y0), 0);
+    geo g = geo_of(w, (float)(ox - x0), (float)(oy + fr - y0), 0, BG_BACKGAMMON);
     static const int place[][3] = {{0, 6, 4}, {0, 4, 2}, {0, 5, 1}, {1, 22, 1}, {1, 24, 2}, {0, 0, 3}};
     for (unsigned i = 0; i < sizeof place / sizeof place[0]; i++)
         for (int k = 0; k < place[i][2]; k++) {
             float x, y;
-            spot(&g, place[i][0], place[i][1], k, place[i][2], &x, &y);
-            int ox = (int)(x - c / 2.0f), oy = (int)(y - c / 2.0f);
-            art_flat_shadow(c, one);
-            art_blend(rgba, size, size, one, c, c, ox + c / 20, oy + c * 8 / 100);
-            art_counter(COUNTER_DISC, place[i][0], c, one);
-            art_blend(rgba, size, size, one, c, c, ox, oy);
+            spot(&g, place[i][0], place[i][1], (float)k, place[i][2], &x, &y);
+            card_checker(rgba, size, one, c, x, y, place[i][0]);
         }
     int dy = oy + fr + (int)(0.3f * w);
     art_die(5, 0, d, one);
@@ -507,7 +576,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
 static int busy(void) { return anim.on || ui_dice_busy(); }   /* the end waits for the last checker */
 
 static const game backgammon_game = {
-    .id = "backgammon", .order = 130, .variants = 1,
+    .id = "backgammon", .order = 130, .variants = BG_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy,

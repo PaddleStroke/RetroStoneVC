@@ -1,6 +1,6 @@
 Backgammon
 # Tujuan
-Bawa kelima belas bidakmu mengelilingi papan sampai ke papan rumahmu, lalu keluarkan semuanya. Pemain pertama yang mengeluarkan kelima belas bidaknya menang. Para pemain bergerak ke arah yang berlawanan, gading ke satu arah dan eboni ke arah lainnya.
+Bawa kelima belas bidakmu mengelilingi papan sampai ke papan rumahmu, lalu keluarkan semuanya. Pemain pertama yang mengeluarkan kelima belas bidaknya menang. Para pemain bergerak ke arah yang berlawanan, gading ke satu arah dan eboni ke arah lainnya. Pilih permainan sebelum mulai: backgammon (kartu dengan susunan awal biasa), plakoto (semua bidak di kedua sudut kanan, satu terkunci), fevga (semua bidak di sudut berseberangan, satu dari masing-masing sudah jalan duluan), atau nardy panjang (sudut berseberangan, dua bidak sudah keluar dari masing-masing, dan dadu kembar enam). Aturan di bawah ini adalah aturan backgammon; tiga permainan lainnya dijelaskan sesudahnya.
 # Papan
 Ada 24 segitiga sempit yang disebut poin, enam di setiap seperempat papan. Bar di tengah membagi setiap sisi menjadi papan luar dan papan rumah; kedua papan rumah saling berhadapan, di sisi baki. Setiap pemain menomori poin dari 1, di ujung papan rumahnya sendiri, sampai 24, di ujung papan rumah lawan. Di awal, setiap pemain punya dua bidak di poin 24-nya, lima di poin 13, tiga di poin 8, dan lima di poin 6.
 # Melempar dan melangkah
@@ -19,5 +19,20 @@ Begitu kelima belas bidakmu berada di papan rumahmu, kamu boleh mengeluarkannya:
 - Gammon: jika pihak yang kalah belum mengeluarkan satu bidak pun, pemenang mendapat dua poin.
 - Backgammon: jika pihak yang kalah belum mengeluarkan satu bidak pun dan masih punya bidak di bar atau di papan rumah pemenang, pemenang mendapat tiga poin.
 Permainan ini dimainkan tanpa kubus penggandaan (doubling cube).
+# Plakoto
+Setiap pemain mulai dengan kelima belas bidaknya di poin 24 miliknya; para pemain bergerak berlawanan arah, seperti dalam backgammon. Tidak ada memukul dan tidak ada bar.
+- Bidak yang mendarat di atas satu bidak lawan yang sendirian akan menguncinya: bidak yang terkunci tidak boleh bergerak sampai bidak di atasnya pergi. Poin itu lalu menjadi milik pemain yang mengunci, dan ia boleh menambahkan bidak lain di sana.
+- Induk adalah bidak terakhir yang tersisa di poin 24 seorang pemain. Jika induk dikunci di sana, pemiliknya langsung kalah dua poin, kecuali pemain yang mengunci masih punya bidak di poin 24 miliknya sendiri: permainan berakhir begitu di sana tidak ada lagi bidaknya. Jika kedua induk terkunci, permainan seri.
+- Pemenang lemparan pembuka melempar lagi untuk langkah pertama. Pemenang mendapat satu poin, atau dua jika pihak yang kalah belum mengeluarkan satu bidak pun.
+# Fevga
+Setiap pemain mulai dengan kelima belas bidaknya di poin 24 miliknya, di sudut yang berseberangan, dan keduanya bergerak ke arah yang sama mengelilingi papan: tempat mulai lawan adalah poin 12 milikmu. Tidak ada memukul: satu bidak saja sudah menguasai sebuah poin, dan lawan tidak boleh mendarat di sana.
+- Bidak pertamamu harus melewati tempat mulai lawan sebelum bidak kedua boleh meninggalkan tempat mulaimu.
+- Kamu tidak boleh menguasai keenam poin di perempat awalmu, juga tidak enam poin berturut-turut dengan kelima belas bidak lawan di belakangnya.
+- Pemenang lemparan pembuka melempar lagi untuk langkah pertama. Pemenang mendapat satu poin, atau dua jika pihak yang kalah belum mengeluarkan satu bidak pun.
+# Nardy panjang
+Susunan awal dan arah seperti fevga: kelima belas bidak di kepala (poin 24 milikmu), di sudut berseberangan, kedua pemain bergerak ke arah yang sama. Tidak ada memukul: satu bidak saja sudah menguasai sebuah poin.
+- Di setiap giliran hanya satu bidak yang boleh meninggalkan kepala. Hanya pada lemparan pertamamu, 6-6, 4-4, atau 3-3 membolehkan dua bidak.
+- Kamu tidak boleh membuat enam poin berturut-turut kecuali setidaknya satu bidak lawan sudah melewatinya.
+- Pemenang lemparan pembuka melempar lagi untuk langkah pertama. Pemenang mendapat satu poin (oyn), atau dua (mars) jika pihak yang kalah belum mengeluarkan satu bidak pun.
 # Bermain di perangkat
-Ketuk dadu yang menyala keemasan untuk melemparnya. Ketuk sebuah bidak, lalu salah satu titik, atau seret bidak itu; lingkaran menunjukkan blot yang akan kamu pukul. Setiap langkah memakai satu dadu: dadu yang sudah dipakai menjadi redup. Untuk mengeluarkan bidak, pindahkan bidak itu ke baki di sebelah kanan. Bidak di bar sudah langsung terambil. Jika hasil lemparan tidak bisa dimainkan, dadunya menyala merah dan giliran berpindah. Bilahmu menunjukkan jumlah bidak yang sudah kamu keluarkan, dan di akhir permainan, poin yang dimenangkan. Urungkan membatalkan satu langkah setiap kali, dan dadu giliran sebelumnya kembali seperti saat dilempar.
+Ketuk dadu yang menyala keemasan untuk melemparnya. Ketuk sebuah bidak, lalu salah satu titik, atau seret bidak itu; lingkaran menunjukkan blot yang akan kamu pukul. Setiap langkah memakai satu dadu: dadu yang sudah dipakai menjadi redup. Untuk mengeluarkan bidak, pindahkan bidak itu ke baki di sebelah kanan. Bidak di bar sudah langsung terambil. Jika hasil lemparan tidak bisa dimainkan, dadunya menyala merah dan giliran berpindah. Bilahmu menunjukkan jumlah bidak yang sudah kamu keluarkan, dan di akhir permainan, poin yang dimenangkan. Urungkan membatalkan satu langkah setiap kali, dan dadu giliran sebelumnya kembali seperti saat dilempar. Dalam plakoto, cincin juga menunjukkan bidak yang akan kamu kunci, dan bidak yang terkunci terletak di bawah bidak yang menguncinya.

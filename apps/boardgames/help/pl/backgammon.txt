@@ -1,6 +1,6 @@
 Backgammon
 # Cel gry
-Przeprowadź wszystkie piętnaście swoich pionków dookoła planszy do swojego domu, a potem je wyprowadź. Wygrywa pierwszy gracz, który wyprowadzi wszystkie piętnaście. Gracze poruszają się w przeciwnych kierunkach: pionki w kolorze kości słoniowej w jedną stronę, hebanowe w drugą.
+Przeprowadź wszystkie piętnaście swoich pionków dookoła planszy do swojego domu, a potem je wyprowadź. Wygrywa pierwszy gracz, który wyprowadzi wszystkie piętnaście. Gracze poruszają się w przeciwnych kierunkach: pionki w kolorze kości słoniowej w jedną stronę, hebanowe w drugą. Przed grą wybierz grę: backgammon (karta ze zwykłym ustawieniem), plakoto (wszystkie pionki w dwóch prawych rogach, jeden przyszpilony), fevga (wszystkie pionki w przeciwległych rogach, z każdego jeden wyruszył naprzód) albo długie nardy (przeciwległe rogi, z każdego wyszły dwa pionki, i podwójna szóstka). Zasady poniżej dotyczą backgammona; pozostałe trzy gry opisano dalej.
 # Plansza
 Na planszy są 24 wąskie trójkąty, czyli punkty, po sześć w każdej ćwiartce. Banda pośrodku dzieli każdą stronę na pole zewnętrzne i dom; oba domy leżą naprzeciw siebie, po stronie tacki. Każdy gracz numeruje punkty od 1, na końcu swojego domu, aż do 24, na końcu domu przeciwnika. Na początku każdy gracz ma dwa pionki na swoim punkcie 24, pięć na punkcie 13, trzy na punkcie 8 i pięć na punkcie 6.
 # Rzuty i ruchy
@@ -19,5 +19,20 @@ Gdy wszystkie piętnaście twoich pionków jest w twoim domu, możesz je wyprowa
 - Gammon: jeśli przegrany nie wyprowadził ani jednego pionka, zwycięzca zdobywa dwa punkty.
 - Backgammon: jeśli przegrany nie wyprowadził żadnego pionka i nadal ma jakiś na bandzie lub w domu zwycięzcy, zwycięzca zdobywa trzy punkty.
 W tej grze nie używa się kostki dublującej.
+# Plakoto
+Każdy gracz zaczyna ze wszystkimi piętnastoma pionkami na swoim punkcie 24; gracze poruszają się w przeciwnych kierunkach, jak w backgammonie. Nie ma zbijania ani bandy.
+- Pionek, który stanie na pojedynczym pionku przeciwnika, przyszpila go: przyszpilony pionek nie może się ruszyć, dopóki nie odejdzie ten, który na nim stoi. Punkt należy wtedy do przyszpilającego, który może dokładać tam kolejne pionki.
+- Matka to ostatni pionek, który został graczowi na jego punkcie 24. Jeśli zostanie tam przyszpilona, jej gracz od razu przegrywa dwa punkty, chyba że przyszpilający ma jeszcze pionki na swoim punkcie 24: wtedy gra kończy się, gdy nie zostanie mu tam żaden. Jeśli przyszpilone są obie matki, jest remis.
+- Zwycięzca rzutu otwierającego rzuca ponownie do pierwszego ruchu. Zwycięzca dostaje jeden punkt albo dwa, jeśli przegrany nie wyprowadził ani jednego pionka.
+# Fevga
+Każdy gracz zaczyna ze wszystkimi piętnastoma pionkami na swoim punkcie 24, w przeciwległych rogach, i obaj okrążają planszę w tym samym kierunku: start przeciwnika to twój punkt 12. Nie ma zbijania: pojedynczy pionek zajmuje punkt i przeciwnik nie może na nim stanąć.
+- Twój pierwszy pionek musi minąć start przeciwnika, zanim drugi pionek opuści twój.
+- Nie wolno ci zająć wszystkich sześciu punktów twojej ćwiartki startowej ani sześciu punktów z rzędu, za którymi stoi wszystkie piętnaście pionków przeciwnika.
+- Zwycięzca rzutu otwierającego rzuca ponownie do pierwszego ruchu. Zwycięzca dostaje jeden punkt albo dwa, jeśli przegrany nie wyprowadził ani jednego pionka.
+# Długie nardy
+Ustawienie i kierunek jak w fevdze: wszystkie piętnaście pionków na głowie (twój punkt 24), w przeciwległych rogach, obaj gracze w tym samym kierunku. Nie ma zbijania: pojedynczy pionek zajmuje punkt.
+- W każdej turze głowę może opuścić tylko jeden pionek. Tylko w twoim pierwszym rzucie 6-6, 4-4 lub 3-3 pozwala opuścić ją dwóm.
+- Nie wolno ci zająć sześciu punktów z rzędu, chyba że co najmniej jeden pionek przeciwnika już je minął.
+- Zwycięzca rzutu otwierającego rzuca ponownie do pierwszego ruchu. Zwycięzca dostaje jeden punkt (oyn) albo dwa (mars), jeśli przegrany nie wyprowadził ani jednego pionka.
 # Gra na urządzeniu
-Dotknij kostek świecących na złoto, aby nimi rzucić. Dotknij pionka, a potem jednej z kropek, albo go przeciągnij; kółko pokazuje blot, który zostałby zbity. Każdy ruch wykorzystuje jedną kostkę: wykorzystana kostka jest przyciemniona. Aby wyprowadzić pionek, przesuń go do tacki po prawej. Pionki na bandzie są już w ręku. Gdy rzutu nie da się wykorzystać, jego kostki świecą na czerwono i tura przechodzi na przeciwnika. Twój pasek pokazuje, ile pionków już wyprowadziłeś, a na końcu wygrane punkty. Cofnij cofa po jednym ruchu, a kostki z wcześniejszych tur wracają takie, jakie zostały wyrzucone.
+Dotknij kostek świecących na złoto, aby nimi rzucić. Dotknij pionka, a potem jednej z kropek, albo go przeciągnij; kółko pokazuje blot, który zostałby zbity. Każdy ruch wykorzystuje jedną kostkę: wykorzystana kostka jest przyciemniona. Aby wyprowadzić pionek, przesuń go do tacki po prawej. Pionki na bandzie są już w ręku. Gdy rzutu nie da się wykorzystać, jego kostki świecą na czerwono i tura przechodzi na przeciwnika. Twój pasek pokazuje, ile pionków już wyprowadziłeś, a na końcu wygrane punkty. Cofnij cofa po jednym ruchu, a kostki z wcześniejszych tur wracają takie, jakie zostały wyrzucone. W plakoto pierścień pokazuje też pionek, który byś przyszpilił, a przyszpilony pionek leży pod tym, który go przyszpila.

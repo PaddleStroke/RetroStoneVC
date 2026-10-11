@@ -1,6 +1,6 @@
 Backgammon
 # Het doel
-Breng al je vijftien schijven het bord rond naar je thuisbord, en speel ze daarna uit. De eerste speler die alle vijftien heeft uitgespeeld, wint. De spelers bewegen in tegengestelde richting, ivoor de ene kant op en ebbenhout de andere.
+Breng al je vijftien schijven het bord rond naar je thuisbord, en speel ze daarna uit. De eerste speler die alle vijftien heeft uitgespeeld, wint. De spelers bewegen in tegengestelde richting, ivoor de ene kant op en ebbenhout de andere. Kies het spel voor je begint: backgammon (de kaart met de gewone beginstelling), plakoto (alle schijven in de twee rechterhoeken, één vastgezet), fevga (alle schijven in tegenoverliggende hoeken, uit elke hoek één vooruit) of lange nardy (tegenoverliggende hoeken, uit elke hoek twee schijven weg en dubbel zes). De regels hieronder zijn die van backgammon; de andere drie staan daarna.
 # Het bord
 Er zijn 24 smalle driehoeken, de punten, zes in elk kwart van het bord. De bar in het midden verdeelt elke kant in een buitenbord en een thuisbord; de twee thuisborden liggen tegenover elkaar, aan de kant van de bak. Elke speler nummert de punten van 1, aan het eind van zijn eigen thuisbord, rond tot 24, aan het eind van het thuisbord van de andere speler. Aan het begin heeft elke speler twee schijven op zijn 24-punt, vijf op zijn 13-punt, drie op zijn 8-punt en vijf op zijn 6-punt.
 # Gooien en zetten
@@ -19,5 +19,20 @@ Zodra al je vijftien schijven in je thuisbord staan, mag je ze uitspelen: een ge
 - Gammon: als de verliezer nog geen enkele schijf heeft uitgespeeld, scoort de winnaar twee punten.
 - Backgammon: als de verliezer nog geen schijf heeft uitgespeeld en er nog een op de bar of in het thuisbord van de winnaar heeft, scoort de winnaar drie punten.
 Dit spel wordt gespeeld zonder verdubbelingskubus.
+# Plakoto
+Elke speler begint met al zijn vijftien schijven op zijn punt 24; de spelers bewegen in tegengestelde richting, zoals bij backgammon. Er wordt niet geslagen en er is geen bar.
+- Een schijf die op een enkele schijf van de tegenstander komt, zet die vast: de vastgezette schijf mag niet bewegen tot de schijf erop weggaat. Het punt is dan van wie vastzet, en die mag er meer schijven bij zetten.
+- De moeder is de laatste schijf die een speler op zijn punt 24 heeft. Wordt die daar vastgezet, dan verliest haar speler meteen twee punten, tenzij wie vastzet nog schijven op zijn eigen punt 24 heeft: dan eindigt het spel zodra hij daar niets meer heeft. Worden beide moeders vastgezet, dan is het remise.
+- Wie de openingsworp wint, gooit opnieuw voor de eerste zet. De winnaar krijgt één punt, of twee als de verliezer nog geen schijf heeft uitgespeeld.
+# Fevga
+Elke speler begint met al zijn vijftien schijven op zijn punt 24, in tegenoverliggende hoeken, en beiden gaan in dezelfde richting rond het bord: de start van de ander is jouw punt 12. Er wordt niet geslagen: één schijf houdt een punt bezet, en de ander mag daar niet komen.
+- Je eerste schijf moet voorbij de start van de ander zijn voordat een tweede schijf jouw start mag verlaten.
+- Je mag niet alle zes punten van je startkwart bezetten, en ook geen zes punten op een rij met alle vijftien schijven van de ander erachter.
+- Wie de openingsworp wint, gooit opnieuw voor de eerste zet. De winnaar krijgt één punt, of twee als de verliezer nog geen schijf heeft uitgespeeld.
+# Lange nardy
+De beginstelling en richting van fevga: alle vijftien schijven op de kop (jouw punt 24), in tegenoverliggende hoeken, beide spelers in dezelfde richting. Er wordt niet geslagen: één schijf houdt een punt bezet.
+- Per beurt mag maar één schijf de kop verlaten. Alleen bij je eerste worp laat 6-6, 4-4 of 3-3 er twee gaan.
+- Je mag geen zes punten op een rij bezetten, tenzij minstens één schijf van de ander er al voorbij is.
+- Wie de openingsworp wint, gooit opnieuw voor de eerste zet. De winnaar krijgt één punt (oyn), of twee (mars) als de verliezer nog geen schijf heeft uitgespeeld.
 # Spelen op het apparaat
-Tik op de goud oplichtende dobbelstenen om te gooien. Tik op een schijf en dan op een van de stippen, of sleep hem; een ring toont een blot die je zou slaan. Elke zet gebruikt één dobbelsteen: een gebruikte dobbelsteen wordt gedimd. Om uit te spelen zet je de schijf in de bak rechts. Schijven op de bar zijn al opgepakt. Als een worp niet gespeeld kan worden, lichten de dobbelstenen rood op en gaat de beurt over. Je balk toont hoeveel schijven je hebt uitgespeeld, en aan het eind de gewonnen punten. Ongedaan maken neemt één zet tegelijk terug, en de dobbelstenen van eerdere beurten komen terug zoals ze gegooid werden.
+Tik op de goud oplichtende dobbelstenen om te gooien. Tik op een schijf en dan op een van de stippen, of sleep hem; een ring toont een blot die je zou slaan. Elke zet gebruikt één dobbelsteen: een gebruikte dobbelsteen wordt gedimd. Om uit te spelen zet je de schijf in de bak rechts. Schijven op de bar zijn al opgepakt. Als een worp niet gespeeld kan worden, lichten de dobbelstenen rood op en gaat de beurt over. Je balk toont hoeveel schijven je hebt uitgespeeld, en aan het eind de gewonnen punten. Ongedaan maken neemt één zet tegelijk terug, en de dobbelstenen van eerdere beurten komen terug zoals ze gegooid werden. Bij plakoto toont een ring ook een schijf die je zou vastzetten, en een vastgezette schijf ligt onder de schijf die hem vastzet.

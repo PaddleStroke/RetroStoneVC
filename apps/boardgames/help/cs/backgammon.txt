@@ -1,6 +1,6 @@
 Vrhcáby
 # Cíl hry
-Převeď všech patnáct svých kamenů kolem desky do svého domova a pak je vyveď. Vyhrává první hráč, který vyvede všech patnáct. Hráči táhnou opačnými směry: slonovinové kameny jedním směrem kolem desky, ebenové druhým.
+Převeď všech patnáct svých kamenů kolem desky do svého domova a pak je vyveď. Vyhrává první hráč, který vyvede všech patnáct. Hráči táhnou opačnými směry: slonovinové kameny jedním směrem kolem desky, ebenové druhým. Před hrou zvol hru: vrhcáby (karta s obvyklým rozestavením), plakoto (všechny kameny ve dvou pravých rozích, jeden přišpendlený), fevga (všechny kameny v protilehlých rozích, z každého jeden vyrazil napřed) nebo dlouhé nardy (protilehlé rohy, z každého odešly dva kameny, a dvojitá šestka). Pravidla níže platí pro vrhcáby; další tři hry jsou popsány po nich.
 # Deska
 Na desce je 24 úzkých trojúhelníků, polí, po šesti v každé čtvrtině desky. Bar uprostřed dělí každou stranu na vnější část a domov; oba domovy leží proti sobě, na straně přihrádky. Každý hráč čísluje pole od 1, na konci svého domova, až po 24, na konci soupeřova domova. Na začátku má každý hráč dva kameny na svém poli 24, pět na poli 13, tři na poli 8 a pět na poli 6.
 # Házení a tahy
@@ -19,5 +19,20 @@ Jakmile je všech patnáct tvých kamenů ve tvém domově, smíš je vyvádět:
 - Gammon: pokud poražený nevyvedl ani jeden kámen, vítěz získá dva body.
 - Backgammon: pokud poražený nevyvedl žádný kámen a ještě má nějaký na baru nebo v domově vítěze, vítěz získá tři body.
 Tato hra se hraje bez zdvojovací kostky.
+# Plakoto
+Každý hráč začíná se všemi patnácti kameny na svém poli 24; hráči táhnou opačnými směry jako ve vrhcábech. Nevyhazuje se a bar se nepoužívá.
+- Kámen, který vstoupí na osamělý soupeřův kámen, ho přišpendlí: přišpendlený kámen nesmí táhnout, dokud jeho věznitel neodejde. Pole pak patří vězniteli, který na něj smí přidávat další kameny.
+- Matka je poslední kámen, který hráči zbyl na poli 24. Je-li tam přišpendlena, její hráč okamžitě prohrává dva body, ledaže má věznitel ještě kameny na svém vlastním poli 24: pak hra skončí, jakmile tam už žádný nemá. Jsou-li přišpendleny obě matky, je to remíza.
+- Vítěz úvodního hodu hází znovu na první tah. Vítěz získá jeden bod, nebo dva, pokud poražený nevyvedl žádný kámen.
+# Fevga
+Každý hráč začíná se všemi patnácti kameny na svém poli 24, v protilehlých rozích, a oba hráči táhnou kolem desky stejným směrem: soupeřův start je tvé pole 12. Nevyhazuje se: osamělý kámen drží pole a soupeř na ně nesmí vstoupit.
+- Tvůj první kámen musí minout soupeřův start, než smí tvůj start opustit druhý kámen.
+- Nesmíš obsadit všech šest polí své startovní čtvrtiny ani šest polí za sebou, za nimiž je všech patnáct soupeřových kamenů.
+- Vítěz úvodního hodu hází znovu na první tah. Vítěz získá jeden bod, nebo dva, pokud poražený nevyvedl žádný kámen.
+# Dlouhé nardy
+Start a směr jako ve fevze: všech patnáct kamenů na hlavě (tvé pole 24), v protilehlých rozích, oba hráči táhnou stejným směrem. Nevyhazuje se: osamělý kámen drží pole.
+- Z hlavy smí v každém tahu odejít jen jeden kámen. Jen při tvém prvním hodu dovolí 6-6, 4-4 nebo 3-3 odejít dvěma kamenům.
+- Nesmíš obsadit šest polí za sebou, pokud je už alespoň jeden soupeřův kámen nemine.
+- Vítěz úvodního hodu hází znovu na první tah. Vítěz získá jeden bod (oyn), nebo dva (mars), pokud poražený nevyvedl žádný kámen.
 # Hra na zařízení
-Klepni na kostky svítící zlatě a hodíš jimi. Klepni na kámen a pak na jednu z teček, nebo ho přetáhni; kroužek ukazuje blot, který bys vyhodil. Každý tah spotřebuje jednu kostku: použitá kostka je ztlumená. Chceš-li kámen vyvést, přesuň ho do přihrádky vpravo. Kameny na baru už máš v ruce. Když hod nejde zahrát, jeho kostky svítí červeně a tah přechází na soupeře. Tvoje lišta ukazuje, kolik kamenů jsi vyvedl, a na konci získané body. Vrátit bere zpět jeden tah po druhém a kostky z dřívějších tahů se vrátí tak, jak padly.
+Klepni na kostky svítící zlatě a hodíš jimi. Klepni na kámen a pak na jednu z teček, nebo ho přetáhni; kroužek ukazuje blot, který bys vyhodil. Každý tah spotřebuje jednu kostku: použitá kostka je ztlumená. Chceš-li kámen vyvést, přesuň ho do přihrádky vpravo. Kameny na baru už máš v ruce. Když hod nejde zahrát, jeho kostky svítí červeně a tah přechází na soupeře. Tvoje lišta ukazuje, kolik kamenů jsi vyvedl, a na konci získané body. Vrátit bere zpět jeden tah po druhém a kostky z dřívějších tahů se vrátí tak, jak padly. V plakotu ukazuje kroužek i kámen, který bys přišpendlil, a přišpendlený kámen leží pod tím, kdo ho drží.
