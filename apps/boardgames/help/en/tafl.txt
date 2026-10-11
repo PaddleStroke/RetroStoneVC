@@ -1,0 +1,25 @@
+Hnefatafl
+# The aim
+Hnefatafl, the Vikings' board game, is a battle between two unequal sides. The defenders, in the middle, must help their king escape. The attackers, twice as many, surround them and must capture the king. The attackers (dark) move first, then the players take turns, one move each. Choose the board before the game: Hnefatafl on 11 by 11 squares, or Tablut on 9 by 9.
+# How the pieces move
+- Every piece, the king too, moves like a rook in chess: any number of empty squares along a row or a column. Pieces never jump.
+- The middle square is the throne. Only the king may stop on it. When it is empty, any piece may pass over it.
+- In Hnefatafl, only the king may stop on the four corner squares.
+# Capturing
+- A piece is captured when an enemy piece moves so that it is caught between two enemies along a row or a column. It leaves the board. One move can capture up to three pieces.
+- The corners and the empty throne act as enemies of every piece: a piece next to one of them is captured by a single enemy on its other side.
+- The king helps the defenders capture.
+- A piece may safely move into the gap between two enemy pieces.
+# The king
+- The king is captured when attackers close in on all four of his sides, or on three sides with the empty throne on the fourth. He cannot be captured on the edge of the board.
+- The defenders win when the king reaches a corner square. The attackers win when they capture the king.
+# Tablut (9 by 9)
+- 16 attackers against 8 defenders and the king. The corners are ordinary squares.
+- The defenders win when the king reaches any square on the edge of the board.
+- On the throne or next to it, the king is captured as in Hnefatafl. Anywhere else, two attackers on opposite sides capture him, like any other piece.
+# The end of the game
+- A player who cannot move loses.
+- When the same position comes back for the third time with the same player to move, the game is a draw. A game of 1000 moves each is also a draw.
+- These are the Copenhagen rules, without the optional shieldwall, edge fort and encirclement rules.
+# Playing on the device
+Tap a piece to see where it can go, then tap a square, or drag the piece. Dots show the moves. The captured pieces fade away. A king that the attackers could capture next move glows red, and gold lights show the attackers where the king could escape next move.
