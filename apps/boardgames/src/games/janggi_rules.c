@@ -21,7 +21,7 @@ static int link(int x0, int y0, int x1, int y1)
     return (x0 == 4 && (y0 == 1 || y0 == 8)) || (x1 == 4 && (y1 == 1 || y1 == 8));
 }
 
-void jg_start(jpos *p)
+void jn_start(jpos *p)
 {
     static const uint8_t back[JG_W] = {JG_CHARIOT, JG_HORSE, JG_ELEPHANT, JG_GUARD, JG_EMPTY, JG_GUARD,
                                        JG_ELEPHANT, JG_HORSE, JG_CHARIOT};
@@ -36,7 +36,7 @@ void jg_start(jpos *p)
     }
 }
 
-int jg_general(const jpos *p, int player)
+int jn_general(const jpos *p, int player)
 {
     for (int i = 0; i < JG_PTS; i++)
         if (p->sq[i] == JG_PC(player, JG_GENERAL)) return i;
@@ -125,9 +125,9 @@ static int pseudo(const jpos *p, int me, jmove *out)
     return n;
 }
 
-int jg_in_check(const jpos *p, int player)
+int jn_in_check(const jpos *p, int player)
 {
-    int g = jg_general(p, player);
+    int g = jn_general(p, player);
     if (g < 0) return 0;
     jmove m[JG_MAX_MOVES];
     int n = pseudo(p, !player, m);
@@ -136,16 +136,16 @@ int jg_in_check(const jpos *p, int player)
     return 0;
 }
 
-int jg_facing(const jpos *p)
+int jn_facing(const jpos *p)
 {
-    int a = jg_general(p, 0), b = jg_general(p, 1);
+    int a = jn_general(p, 0), b = jn_general(p, 1);
     if (a < 0 || b < 0 || JG_X(a) != JG_X(b)) return 0;
     for (int s = a + JG_W; s < b; s += JG_W)
         if (p->sq[s]) return 0;
     return 1;
 }
 
-void jg_make(jpos *p, jmove m)
+void jn_make(jpos *p, jmove m)
 {
     if (m.from != JG_PASS) {
         p->sq[m.to] = p->sq[m.from];
@@ -155,36 +155,36 @@ void jg_make(jpos *p, jmove m)
     p->side ^= 1;
 }
 
-int jg_legal(const jpos *p, jmove *out)
+int jn_legal(const jpos *p, jmove *out)
 {
     jmove all[JG_MAX_MOVES];
     int n = pseudo(p, p->side, all), k = 0;
     for (int i = 0; i < n; i++) {
         jpos q = *p;
-        jg_make(&q, all[i]);
-        if (!jg_in_check(&q, p->side) && !jg_facing(&q)) out[k++] = all[i];
+        jn_make(&q, all[i]);
+        if (!jn_in_check(&q, p->side) && !jn_facing(&q)) out[k++] = all[i];
     }
     return k;
 }
 
-int jg_can_pass(const jpos *p) { return !jg_in_check(p, p->side); }
+int jn_can_pass(const jpos *p) { return !jn_in_check(p, p->side); }
 
 /* ---- the notation ------------------------------------------------------------------------------------------------ */
-int jg_point(const char *s)
+int jn_point(const char *s)
 {
     if (s[0] < 'a' || s[0] > 'i' || s[1] < '0' || s[1] > '9') return -1;
     return JG_PT(s[0] - 'a', s[1] - '0');
 }
 
-int jg_parse(const jmove *legal, int n, const char *s)
+int jn_parse(const jmove *legal, int n, const char *s)
 {
-    int from = jg_point(s), to = from < 0 ? -1 : jg_point(s + 2);
+    int from = jn_point(s), to = from < 0 ? -1 : jn_point(s + 2);
     for (int i = 0; to >= 0 && i < n; i++)
         if (legal[i].from == from && legal[i].to == to) return i;
     return -1;
 }
 
-int jg_setup(jpos *p, int side, const char *pieces0, const char *pieces1)
+int jn_setup(jpos *p, int side, const char *pieces0, const char *pieces1)
 {
     static const char LETTERS[] = " KAEHRCP";
     memset(p, 0, sizeof *p);
@@ -193,7 +193,7 @@ int jg_setup(jpos *p, int side, const char *pieces0, const char *pieces1)
         for (const char *s = pl ? pieces1 : pieces0; *s;) {
             if (*s == ' ') { s++; continue; }
             const char *t = strchr(LETTERS + 1, *s);
-            int pt = jg_point(s + 1);
+            int pt = jn_point(s + 1);
             if (!t || pt < 0) return 0;
             p->sq[pt] = JG_PC(pl, (int)(t - LETTERS));
             s += 3;
@@ -202,33 +202,33 @@ int jg_setup(jpos *p, int side, const char *pieces0, const char *pieces1)
 }
 
 /* ---- a game ------------------------------------------------------------------------------------------------------ */
-void jg_new(jgame *g)
+void jn_new(jgame *g)
 {
     g->ply = 0;
-    jg_start(&g->pos[0]);
+    jn_start(&g->pos[0]);
 }
 
-int jg_play(jgame *g, jmove m)
+int jn_play(jgame *g, jmove m)
 {
     if (g->ply >= JG_MAX_PLY) return 0;
     g->pos[g->ply + 1] = g->pos[g->ply];
-    jg_make(&g->pos[g->ply + 1], m);
+    jn_make(&g->pos[g->ply + 1], m);
     g->move[g->ply++] = m;
     return 1;
 }
 
-int jg_undo(jgame *g)
+int jn_undo(jgame *g)
 {
     if (!g->ply) return 0;
     g->ply--;
     return 1;
 }
 
-jstatus jg_status(const jgame *g)
+jstatus jn_status(const jgame *g)
 {
-    const jpos *p = jg_pos(g);
+    const jpos *p = jn_pos(g);
     jmove m[JG_MAX_MOVES];
-    if (!jg_legal(p, m) && jg_in_check(p, p->side)) return JG_MATE;
+    if (!jn_legal(p, m) && jn_in_check(p, p->side)) return JG_MATE;
     int seen = 0;                               /* the same position earlier (none before the last capture) */
     for (int k = g->ply - 2; k >= 0 && k >= g->ply - p->quiet; k -= 2)
         seen += !memcmp(g->pos[k].sq, p->sq, sizeof p->sq);

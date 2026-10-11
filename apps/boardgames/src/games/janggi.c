@@ -32,10 +32,10 @@ static struct { int on; jmove m; Uint32 t0; } anim;
 /* ---- the position ------------------------------------------------------------------------------------------------ */
 static void refresh(void)
 {
-    nlegal = jg_legal(jg_pos(&G), legal);
-    switch (jg_status(&G)) {
+    nlegal = jn_legal(jn_pos(&G), legal);
+    switch (jn_status(&G)) {
     case JG_PLAY: state = GS_PLAY; break;
-    case JG_MATE: state = jg_pos(&G)->side ? GS_WIN0 : GS_WIN1; break;   /* mated: that player lost */
+    case JG_MATE: state = jn_pos(&G)->side ? GS_WIN0 : GS_WIN1; break;   /* mated: that player lost */
     default: state = GS_DRAW;
     }
     sel = -1;
@@ -45,13 +45,13 @@ static void refresh(void)
 static void start(int variant)
 {
     (void)variant;
-    jg_new(&G);
+    jn_new(&G);
     anim.on = 0;
     refresh();
 }
 
 static int status(void) { return state; }
-static int turn(void) { return jg_pos(&G)->side; }
+static int turn(void) { return jn_pos(&G)->side; }
 
 static int target(int from, int to)
 {
@@ -62,27 +62,27 @@ static int target(int from, int to)
 
 static void play(jmove m, int animate)
 {
-    jg_play(&G, m);
+    jn_play(&G, m);
     anim.on = animate;
     anim.m = m;
     anim.t0 = ui_ms();
     refresh();
     ui_sound(m.cap ? SND_CAPTURE : SND_MOVE);
-    if (state == GS_PLAY && jg_in_check(jg_pos(&G), jg_pos(&G)->side)) ui_sound(SND_CHECK);
+    if (state == GS_PLAY && jn_in_check(jn_pos(&G), jn_pos(&G)->side)) ui_sound(SND_CHECK);
 }
 
-static int can_pass(void) { return state == GS_PLAY && jg_can_pass(jg_pos(&G)); }
+static int can_pass(void) { return state == GS_PLAY && jn_can_pass(jn_pos(&G)); }
 
 static void pass(void)
 {
-    jg_play(&G, (jmove){JG_PASS, JG_PASS, 0});
+    jn_play(&G, (jmove){JG_PASS, JG_PASS, 0});
     anim.on = 0;
     refresh();
 }
 
 static int undo(void)
 {
-    if (!jg_undo(&G)) return 0;
+    if (!jn_undo(&G)) return 0;
     anim.on = 0;
     refresh();
     return 1;
@@ -99,7 +99,7 @@ static int script(const char *s)
             s += 4;
             continue;
         }
-        int k = jg_parse(legal, nlegal, s);
+        int k = jn_parse(legal, nlegal, s);
         if (k < 0) return 0;
         play(legal[k], 0);
         s += 4;
@@ -164,7 +164,7 @@ static void piece_at(int pc, float x, float y, float size, int shadow)
 
 static void draw(void)
 {
-    const jpos *p = jg_pos(&G);
+    const jpos *p = jn_pos(&G);
     int sq = B.sq;
     float x, y, h = sq / 2.0f;
     palace_board(&B, t_board);
@@ -179,8 +179,8 @@ static void draw(void)
         palace_xy(&B, sel, &x, &y);
         ui_mark_select(x - h, y - h, sq, sq);
     }
-    if (state != GS_DRAW && jg_in_check(p, p->side)) {
-        palace_xy(&B, jg_general(p, p->side), &x, &y);
+    if (state != GS_DRAW && jn_in_check(p, p->side)) {
+        palace_xy(&B, jn_general(p, p->side), &x, &y);
         ui_mark_glow(x, y, 1.6f * sq);            /* round the general, which fills its point */
     }
     float t = 1;
@@ -232,7 +232,7 @@ static void press(float x, float y)
         play(legal[target(sel, s)], 1);
         return;
     }
-    const jpos *p = jg_pos(&G);
+    const jpos *p = jn_pos(&G);
     if (p->sq[s] && JG_OWNER(p->sq[s]) == p->side) {
         sel = s;
         drag.on = 1;
@@ -271,7 +271,7 @@ static void bar(int player, box b)
 {
     static const int start_n[8] = {0, 1, 2, 2, 2, 2, 2, 5},
                      order[6] = {JG_CHARIOT, JG_CANNON, JG_HORSE, JG_ELEPHANT, JG_GUARD, JG_SOLDIER};
-    const jpos *p = jg_pos(&G);
+    const jpos *p = jn_pos(&G);
     int c = !player, gone[8] = {0}, total = 0, groups = 0;
     for (int t = 0; t < 8; t++) gone[t] = start_n[t];
     for (int s = 0; s < JG_PTS; s++)

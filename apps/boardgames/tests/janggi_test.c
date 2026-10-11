@@ -20,16 +20,16 @@ static int N;
 /* a position (player `side` to move) and its legal moves in M[0..N) */
 static void pos(int side, const char *pieces0, const char *pieces1)
 {
-    if (!jg_setup(&P, side, pieces0, pieces1)) printf("bad setup %s / %s\n", pieces0, pieces1);
-    N = jg_legal(&P, M);
+    if (!jn_setup(&P, side, pieces0, pieces1)) printf("bad setup %s / %s\n", pieces0, pieces1);
+    N = jn_legal(&P, M);
 }
 
-static int has(const char *move) { return jg_parse(M, N, move) >= 0; }
+static int has(const char *move) { return jn_parse(M, N, move) >= 0; }
 
 /* the moves of the piece on `from`, written in s: exactly these ("b0a2 b0c2") */
 static int only(const char *from, const char *moves)
 {
-    int f = jg_point(from), count = 0, want = 0;
+    int f = jn_point(from), count = 0, want = 0;
     for (int i = 0; i < N; i++) count += M[i].from == f;
     for (const char *s = moves; *s;) {
         if (*s == ' ') { s++; continue; }
@@ -45,19 +45,19 @@ static jgame G;
 /* plays the moves ("pass" a pass) on a fresh game; 0: one of them is not legal */
 static int game(const char *moves)
 {
-    jg_new(&G);
+    jn_new(&G);
     for (const char *s = moves; *s;) {
         if (*s == ' ') { s++; continue; }
         if (!strncmp(s, "pass", 4)) {
-            if (!jg_can_pass(jg_pos(&G))) return 0;
-            jg_play(&G, (jmove){JG_PASS, JG_PASS, 0});
+            if (!jn_can_pass(jn_pos(&G))) return 0;
+            jn_play(&G, (jmove){JG_PASS, JG_PASS, 0});
             s += 4;
             continue;
         }
         jmove m[JG_MAX_MOVES];
-        int k = jg_parse(m, jg_legal(jg_pos(&G), m), s);
+        int k = jn_parse(m, jn_legal(jn_pos(&G), m), s);
         if (k < 0) return 0;
-        jg_play(&G, m[k]);
+        jn_play(&G, m[k]);
         s += 4;
     }
     return 1;
@@ -66,11 +66,11 @@ static int game(const char *moves)
 int main(void)
 {
     /* the start: the generals in their palaces' middles, Cho's 31 first moves (the cannons have no screen yet) */
-    jg_start(&P);
-    N = jg_legal(&P, M);
-    CHECK(jg_general(&P, 0) == jg_point("e1") && jg_general(&P, 1) == jg_point("e8"));
-    CHECK(P.sq[jg_point("b0")] == JG_PC(0, JG_HORSE) && P.sq[jg_point("c9")] == JG_PC(1, JG_ELEPHANT));
-    CHECK(N == 31 && jg_can_pass(&P));
+    jn_start(&P);
+    N = jn_legal(&P, M);
+    CHECK(jn_general(&P, 0) == jn_point("e1") && jn_general(&P, 1) == jn_point("e8"));
+    CHECK(P.sq[jn_point("b0")] == JG_PC(0, JG_HORSE) && P.sq[jn_point("c9")] == JG_PC(1, JG_ELEPHANT));
+    CHECK(N == 31 && jn_can_pass(&P));
     CHECK(only("b2", "") && only("c0", "") && only("e1", "e1d1 e1f1 e1e0 e1e2 e1d2 e1f2"));
 
     /* the general and the guards: one point along the palace's lines, its diagonals only through the middle */
@@ -99,7 +99,7 @@ int main(void)
     pos(0, "Kd0 Rd8", "Kf9");                   /* d8: the side of Han's palace, no diagonal */
     CHECK(!has("d8e9") && !has("d8e7") && has("d8e8"));
     pos(1, "Kd0 Rf9", "Ke8");                   /* check along the diagonal */
-    CHECK(jg_in_check(&P, 1));
+    CHECK(jn_in_check(&P, 1));
 
     /* the cannon: moves and takes over exactly one piece, never a cannon, never takes a cannon */
     pos(0, "Ke1 Ca0 Pa2", "Kf8 Ra5");
@@ -115,11 +115,11 @@ int main(void)
     pos(0, "Kd1 Cd2 Pe1", "Kf8");
     CHECK(has("d2f0"));
     pos(1, "Kd0 Cf9 Pe9", "Ke8");               /* no check: the screen must be between */
-    CHECK(!jg_in_check(&P, 1));
+    CHECK(!jn_in_check(&P, 1));
     pos(1, "Kd0 Ce5 Pe6", "Ke8");               /* check over a soldier */
-    CHECK(jg_in_check(&P, 1));
+    CHECK(jn_in_check(&P, 1));
     pos(1, "Kd0 Ce5 Ce6", "Ke8");               /* no check over a cannon */
-    CHECK(!jg_in_check(&P, 1));
+    CHECK(!jn_in_check(&P, 1));
 
     /* the soldiers: forward or sideways, never back; forward along the diagonals of the other palace */
     pos(0, "Ke0 Pc4", "Kf8");
@@ -143,53 +143,53 @@ int main(void)
 
     /* check: every legal move answers it, and no pass */
     pos(0, "Ke1 Rh0", "Kf8 Re5");
-    CHECK(jg_in_check(&P, 0) && !jg_can_pass(&P) && N > 0);
+    CHECK(jn_in_check(&P, 0) && !jn_can_pass(&P) && N > 0);
     {
         int all = 1;
         for (int i = 0; i < N; i++) {
             jpos q = P;
-            jg_make(&q, M[i]);
-            all &= !jg_in_check(&q, 0);
+            jn_make(&q, M[i]);
+            all &= !jn_in_check(&q, 0);
         }
         CHECK(all && has("e1d1") && has("e1d2") && !has("e1f1") && !has("h0h1") && !has("e1e2"));   /* f1: facing */
     }
 
     /* mate: the side to move lost */
     pos(1, "Kd0 Ra9 Rb8", "Ke9");
-    CHECK(N == 0 && jg_in_check(&P, 1) && !jg_can_pass(&P));
-    jg_new(&G);
+    CHECK(N == 0 && jn_in_check(&P, 1) && !jn_can_pass(&P));
+    jn_new(&G);
     G.pos[0] = P;
-    CHECK(jg_status(&G) == JG_MATE);
+    CHECK(jn_status(&G) == JG_MATE);
     /* no move but not in check: the player passes, the game goes on */
     pos(1, "Kd0 Rb8 Rh8 Pd8 Pf8", "Ke9");
-    CHECK(N == 0 && !jg_in_check(&P, 1) && jg_can_pass(&P));
+    CHECK(N == 0 && !jn_in_check(&P, 1) && jn_can_pass(&P));
     G.pos[0] = P;
-    CHECK(jg_status(&G) == JG_PLAY);
-    jg_play(&G, (jmove){JG_PASS, JG_PASS, 0});
-    CHECK(jg_pos(&G)->side == 0 && !memcmp(jg_pos(&G)->sq, P.sq, sizeof P.sq));
+    CHECK(jn_status(&G) == JG_PLAY);
+    jn_play(&G, (jmove){JG_PASS, JG_PASS, 0});
+    CHECK(jn_pos(&G)->side == 0 && !memcmp(jn_pos(&G)->sq, P.sq, sizeof P.sq));
 
     /* a few moves and a pass, then undo all the way */
     CHECK(game("e3f3 c6d6 pass i6i5"));
-    CHECK(jg_status(&G) == JG_PLAY && G.move[2].from == JG_PASS && jg_pos(&G)->side == 0);
+    CHECK(jn_status(&G) == JG_PLAY && G.move[2].from == JG_PASS && jn_pos(&G)->side == 0);
     {
         jpos start;
-        jg_start(&start);
+        jn_start(&start);
         int n = 0;
-        while (jg_undo(&G)) n++;
-        CHECK(n == 4 && !memcmp(jg_pos(&G), &start, sizeof start) && !jg_undo(&G));
+        while (jn_undo(&G)) n++;
+        CHECK(n == 4 && !memcmp(jn_pos(&G), &start, sizeof start) && !jn_undo(&G));
     }
     CHECK(!game("e3e4 e6e5 e4e5 pass e5e6 e8e7"));   /* the soldier takes, Han passes; e7: guarded by it */
     CHECK(G.ply == 5 && G.move[2].cap == JG_PC(1, JG_SOLDIER));
 
     /* the same position a third time: a draw; four passes in a row bring it back too */
     CHECK(game("a0a1 a9a8 a1a0 a8a9 a0a1 a9a8 a1a0"));
-    CHECK(jg_status(&G) == JG_PLAY);
+    CHECK(jn_status(&G) == JG_PLAY);
     CHECK(game("a0a1 a9a8 a1a0 a8a9 a0a1 a9a8 a1a0 a8a9"));
-    CHECK(jg_status(&G) == JG_REPETITION);
-    jg_undo(&G);
-    CHECK(jg_status(&G) == JG_PLAY);
-    CHECK(game("pass pass pass") && jg_status(&G) == JG_PLAY);
-    CHECK(game("pass pass pass pass") && jg_status(&G) == JG_REPETITION);
+    CHECK(jn_status(&G) == JG_REPETITION);
+    jn_undo(&G);
+    CHECK(jn_status(&G) == JG_PLAY);
+    CHECK(game("pass pass pass") && jn_status(&G) == JG_PLAY);
+    CHECK(game("pass pass pass pass") && jn_status(&G) == JG_REPETITION);
 
     printf("%s: %d checks, %d failed\n", fails ? "FAIL" : "ok", checks, fails);
     return fails != 0;

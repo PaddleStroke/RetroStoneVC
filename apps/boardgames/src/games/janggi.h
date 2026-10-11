@@ -42,19 +42,19 @@ typedef struct { uint8_t from, to, cap; } jmove;   /* cap: the piece taken (0: n
 #define JG_PASS 0xFF                            /* a pass: from and to JG_PASS */
 #define JG_MAX_MOVES 192                        /* a position has far fewer */
 
-void jg_start(jpos *p);
-int  jg_legal(const jpos *p, jmove *out);       /* the legal moves (not the pass); their count */
-int  jg_can_pass(const jpos *p);                /* 1: the side to move may pass (not in check) */
-void jg_make(jpos *p, jmove m);                 /* plays a (legal) move, or the pass */
-int  jg_general(const jpos *p, int player);     /* the general's point (-1: none) */
-int  jg_in_check(const jpos *p, int player);    /* its general attacked */
-int  jg_facing(const jpos *p);                  /* the generals on one file, nothing between them */
-int  jg_point(const char *s);                   /* "e1" -> its point; -1: not a point */
+void jn_start(jpos *p);
+int  jn_legal(const jpos *p, jmove *out);       /* the legal moves (not the pass); their count */
+int  jn_can_pass(const jpos *p);                /* 1: the side to move may pass (not in check) */
+void jn_make(jpos *p, jmove m);                 /* plays a (legal) move, or the pass */
+int  jn_general(const jpos *p, int player);     /* the general's point (-1: none) */
+int  jn_in_check(const jpos *p, int player);    /* its general attacked */
+int  jn_facing(const jpos *p);                  /* the generals on one file, nothing between them */
+int  jn_point(const char *s);                   /* "e1" -> its point; -1: not a point */
 /* the move written in s ("e3f3"): its index in legal, -1 if none */
-int  jg_parse(const jmove *legal, int n, const char *s);
+int  jn_parse(const jmove *legal, int n, const char *s);
 /* a position from lists of pieces, a letter and a point: K general, A guard, E elephant, H horse, R chariot,
- * C cannon, P soldier: jg_setup(&p, 0, "Ke1 Rh7", "Ke8 Pc3"); 0: a bad list */
-int  jg_setup(jpos *p, int side, const char *pieces0, const char *pieces1);
+ * C cannon, P soldier: jn_setup(&p, 0, "Ke1 Rh7", "Ke8 Pc3"); 0: a bad list */
+int  jn_setup(jpos *p, int side, const char *pieces0, const char *pieces1);
 
 /* A game: every position since the start, so undo is free and repetitions can be counted. */
 typedef enum { JG_PLAY, JG_MATE, JG_REPETITION, JG_LONG } jstatus;
@@ -64,10 +64,10 @@ typedef struct {
     jmove move[JG_MAX_PLY];
     int ply;
 } jgame;
-void jg_new(jgame *g);
-int  jg_play(jgame *g, jmove m);                /* 0: the game is too long */
-int  jg_undo(jgame *g);                         /* 0: nothing to undo */
-jstatus jg_status(const jgame *g);              /* mate: the side to move lost */
-#define jg_pos(g) (&(g)->pos[(g)->ply])
+void jn_new(jgame *g);
+int  jn_play(jgame *g, jmove m);                /* 0: the game is too long */
+int  jn_undo(jgame *g);                         /* 0: nothing to undo */
+jstatus jn_status(const jgame *g);              /* mate: the side to move lost */
+#define jn_pos(g) (&(g)->pos[(g)->ply])
 
 #endif
