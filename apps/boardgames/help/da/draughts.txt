@@ -1,6 +1,6 @@
 Dam
 # Målet
-Slå alle modstanderens brikker, eller efterlad modstanderen uden træk. Brikkerne står kun på de mørke felter og flytter diagonalt. Vælg regler før spillet: international dam på et bræt med 10×10 felter, eller engelsk dam (checkers) på et bræt med 8×8 felter.
+Slå alle modstanderens brikker, eller efterlad modstanderen uden træk. Vælg regler før spillet: international dam på et bræt med 10×10 felter, engelsk dam (checkers), russisk, brasiliansk eller tyrkisk dam på et bræt med 8×8 felter. Brikkerne står kun på de mørke felter og flytter diagonalt, undtagen i tyrkisk dam.
 # International dam (10×10)
 - Den lyse side trækker først. En almindelig brik flytter ét felt skråt frem.
 - En almindelig brik slår ved at springe over en modstanderbrik ved siden af sig og lande på det tomme felt lige bagved. Almindelige brikker slår både fremad og bagud.
@@ -13,6 +13,25 @@ Slå alle modstanderens brikker, eller efterlad modstanderen uden træk. Brikker
 - Slag er tvungent, men du må vælge, hvilket slag du laver. Når en brik er begyndt at springe, skal den slå alle de brikker, den kan, undervejs.
 - En almindelig brik, der når den bageste række på den anden side, bliver en dam, og det afslutter trækket. En dam flytter og slår ét felt skråt i alle retninger.
 - Remis: når den samme stilling opstår for tredje gang, eller efter 40 træk hver uden slag eller træk med en almindelig brik.
+# Russisk dam (8×8)
+- Den lyse side trækker først. En almindelig brik flytter ét felt skråt frem og slår både fremad og bagud.
+- Damer flytter og slår på afstand langs diagonalerne, som i international dam. Efter et slag skal en dam lande på et felt, hvorfra den kan slå videre, hvis der er et.
+- Slag er tvungent, men du må vælge, hvilket slag du laver. Når en brik er begyndt at springe, skal den slå alle de brikker, den kan, undervejs.
+- De slåede brikker fjernes ved slutningen af trækket. En brik kan ikke springes over to gange.
+- En almindelig brik, der når den bageste række på den anden side, bliver straks en dam, også midt i et slag, og slår derefter videre som dam, hvis den kan.
+- Remis: når den samme stilling opstår for tredje gang, eller efter 15 træk hver, hvor kun damer har flyttet, og intet er blevet slået.
+# Brasiliansk dam (8×8)
+- Reglerne for international dam på et bræt med 8×8 felter. Den lyse side trækker først.
+- Almindelige brikker slår både fremad og bagud, damer flytter og slår på afstand, og du skal slå så mange brikker som muligt.
+- En almindelig brik bliver kun en dam, hvis den slutter sit træk på den bageste række på den anden side.
+- Remis: når den samme stilling opstår for tredje gang, eller efter 20 træk hver, hvor kun damer har flyttet, og intet er blevet slået.
+# Tyrkisk dam (8×8)
+- Alle 64 felter bruges. Hver spiller starter med 16 almindelige brikker på sin anden og tredje række. Den lyse side trækker først.
+- En almindelig brik flytter ét felt lige frem eller til siden, aldrig skråt og aldrig tilbage. Den slår på samme måde ved at springe over en modstanderbrik ved siden af sig og lande på det tomme felt lige bagved.
+- En almindelig brik, der når den bageste række på den anden side, bliver en dam. En dam flytter et vilkårligt antal felter langs en række eller en kolonne og slår på afstand: den lander på et hvilket som helst tomt felt bag den brik, den slår.
+- Slag er tvungent, og du skal slå så mange brikker som muligt.
+- Hver slået brik fjernes med det samme, når den springes over. Ved et slag af flere brikker må en brik ikke vende direkte om i den retning, den kom fra.
+- Remis: når den samme stilling opstår for tredje gang, eller efter 25 træk hver uden slag eller træk med en almindelig brik.
 # Spillets afslutning
 En spiller, der ikke har flere brikker tilbage eller ikke kan flytte, taber.
 # Spil på enheden

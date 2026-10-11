@@ -1,0 +1,15 @@
+Kryds og bolle
+# Klassisk
+Brættet har tre rækker med tre felter. Den lyse side spiller med kryds og starter, den mørke spiller med bolle. I din tur sætter du dit mærke i et tomt felt.
+- Tre af dine mærker på række vinder: vandret, lodret eller diagonalt.
+- Hvis alle ni felter er fyldt uden tre på række, ender spillet uafgjort.
+# Ultimate
+Det store bræt rummer ni små brætter med tre gange tre felter. Du sætter stadig ét mærke i et tomt felt, men hvor du må spille, afhænger af det sidste træk.
+- Det felt, modstanderen lige har spillet i, inden for sit lille bræt, sender dig til det lille bræt på samme plads på det store bræt. Spiller man i feltet øverst til højre i et hvilket som helst lille bræt, sendes den anden spiller til det lille bræt øverst til højre.
+- Hvis det bræt, du sendes til, allerede er afgjort (vundet eller fyldt), må du spille i et hvilket som helst åbent lille bræt.
+- Spillets første træk må være hvor som helst.
+- Tre på række i et lille bræt vinder det bræt: det bliver dit og lukkes. Et lille bræt, der bliver fyldt uden tre på række, tilhører ingen.
+- Vind tre små brætter på række på det store bræt, vandret, lodret eller diagonalt, så vinder du spillet.
+- Når ingen længere kan vinde en række med tre små brætter, ender spillet uafgjort.
+# Spil på enheden
+Tryk på et tomt felt for at spille der. I Ultimate lyser de små brætter, hvor du må spille, og et vundet lille bræt viser vinderens store mærke. Hvert panel viser, hvor mange små brætter den spiller har vundet.

@@ -1,6 +1,6 @@
 Dame
 # Das Ziel
-Schlage alle Steine des anderen Spielers oder lass ihm keinen Zug mehr. Die Steine stehen nur auf den dunklen Feldern und ziehen diagonal. Wähle die Regeln vor der Partie: internationales Dame auf einem Brett mit 10 mal 10 Feldern oder englisches Dame (Checkers) auf einem Brett mit 8 mal 8 Feldern.
+Schlage alle Steine des anderen Spielers oder lass ihm keinen Zug mehr. Wähle die Regeln vor der Partie: internationales Dame auf einem Brett mit 10 mal 10 Feldern, englisches Dame (Checkers), russisches, brasilianisches oder türkisches Dame auf einem Brett mit 8 mal 8 Feldern. Die Steine stehen nur auf den dunklen Feldern und ziehen diagonal, außer beim türkischen Dame.
 # Internationales Dame (10 mal 10)
 - Hell beginnt. Ein einfacher Stein zieht ein Feld diagonal vorwärts.
 - Ein einfacher Stein schlägt, indem er über einen benachbarten gegnerischen Stein auf das leere Feld direkt dahinter springt. Einfache Steine schlagen vorwärts und rückwärts.
@@ -13,6 +13,25 @@ Schlage alle Steine des anderen Spielers oder lass ihm keinen Zug mehr. Die Stei
 - Schlagen ist Pflicht, aber du darfst wählen, welchen Schlag du ausführst. Hat ein Stein einmal zu springen begonnen, muss er alle Steine schlagen, die er auf seinem Weg schlagen kann.
 - Ein einfacher Stein, der die gegnerische Grundreihe erreicht, wird zur Dame, und damit endet der Zug. Eine Dame zieht und schlägt ein Feld diagonal in jede Richtung.
 - Remis: wenn dieselbe Stellung zum dritten Mal entsteht, oder nach 40 Zügen jeder Seite ohne Schlagen und ohne Zug eines einfachen Steins.
+# Russisches Dame (8 mal 8)
+- Hell beginnt. Ein einfacher Stein zieht ein Feld diagonal vorwärts und schlägt vorwärts und rückwärts.
+- Damen ziehen und schlagen auf Distanz entlang der Diagonalen, wie beim internationalen Dame. Nach einem Schlag muss eine Dame auf einem Feld landen, von dem aus sie weiterschlagen kann, falls es eines gibt.
+- Schlagen ist Pflicht, aber du darfst wählen, welchen Schlag du ausführst. Hat ein Stein einmal zu springen begonnen, muss er alle Steine schlagen, die er auf seinem Weg schlagen kann.
+- Die geschlagenen Steine werden erst am Ende des Zuges entfernt. Ein Stein kann nicht zweimal übersprungen werden.
+- Ein einfacher Stein, der die gegnerische Grundreihe erreicht, wird sofort zur Dame, auch mitten in einem Schlag, und schlägt dann als Dame weiter, wenn er kann.
+- Remis: wenn dieselbe Stellung zum dritten Mal entsteht, oder nach 15 Zügen jeder Seite, in denen nur Damen ziehen und nichts geschlagen wird.
+# Brasilianisches Dame (8 mal 8)
+- Die Regeln des internationalen Dame auf einem Brett mit 8 mal 8 Feldern. Hell beginnt.
+- Einfache Steine schlagen vorwärts und rückwärts, Damen ziehen und schlagen auf Distanz, und du musst so viele Steine wie möglich schlagen.
+- Ein einfacher Stein wird nur zur Dame, wenn er seinen Zug auf der gegnerischen Grundreihe beendet.
+- Remis: wenn dieselbe Stellung zum dritten Mal entsteht, oder nach 20 Zügen jeder Seite, in denen nur Damen ziehen und nichts geschlagen wird.
+# Türkisches Dame (8 mal 8)
+- Alle 64 Felder werden benutzt. Jeder Spieler beginnt mit 16 einfachen Steinen auf seiner zweiten und dritten Reihe. Hell beginnt.
+- Ein einfacher Stein zieht ein Feld geradeaus vorwärts oder zur Seite, nie diagonal und nie rückwärts. Er schlägt auf dieselbe Weise, indem er über einen benachbarten gegnerischen Stein auf das leere Feld direkt dahinter springt.
+- Ein einfacher Stein, der die gegnerische Grundreihe erreicht, wird zur Dame. Eine Dame zieht beliebig viele Felder entlang einer Reihe oder Spalte und schlägt auf Distanz: Sie landet auf einem beliebigen leeren Feld hinter dem geschlagenen Stein.
+- Schlagen ist Pflicht, und du musst so viele Steine wie möglich schlagen.
+- Jeder geschlagene Stein wird sofort entfernt, sobald er übersprungen ist. Bei einem Mehrfachschlag darf ein Stein nicht direkt in die Richtung umkehren, aus der er kam.
+- Remis: wenn dieselbe Stellung zum dritten Mal entsteht, oder nach 25 Zügen jeder Seite ohne Schlagen und ohne Zug eines einfachen Steins.
 # Das Ende der Partie
 Wer keine Steine mehr hat oder nicht mehr ziehen kann, verliert.
 # Spielen auf dem Gerät

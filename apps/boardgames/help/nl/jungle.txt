@@ -1,0 +1,23 @@
+Jungleschaak
+# Het doel
+Breng een van je dieren in het hol van de andere speler, de ingelegde ster aan het andere eind van het bord. Je wint ook door alle dieren van de andere speler te slaan, of als de andere speler niet meer kan zetten. Licht begint, daarna spelen de spelers om de beurt, elk één zet.
+# Het bord
+Het bord heeft zeven kolommen en negen rijen. In het midden liggen twee rivieren. Het hol van elke speler ligt in het midden van zijn achterste rij, met drie vallen eromheen: de gesneden velden ernaast en ervoor.
+# De dieren
+Elke speler heeft acht dieren. Het getal op elk dier is zijn kracht: olifant 8, leeuw 7, tijger 6, luipaard 5, wolf 4, hond 3, kat 2, rat 1.
+# Bewegen
+- Een dier gaat één veld vooruit, achteruit of opzij, nooit diagonaal.
+- Geen enkel dier mag zijn eigen hol betreden.
+- Alleen de rat kan zwemmen: het is het enige dier dat het water in mag.
+- De leeuw en de tijger kunnen over een rivier springen, in een rechte lijn, van de oever naar het eerste veld voorbij het water. Ze kunnen niet springen als er onderweg een rat, van welke speler ook, in het water zit.
+# Slaan
+- Een dier slaat door naar een dier van de tegenstander met dezelfde of een lagere kracht te gaan; dat dier verlaat het bord.
+- De rat kan de olifant slaan, maar de olifant kan de rat niet slaan.
+- Een dier in een van de vallen van de andere speler heeft geen kracht meer: elk dier van de tegenstander kan het slaan. In zijn eigen vallen houdt het zijn kracht.
+- Er wordt niet geslagen tussen water en land: een rat in het water kan alleen de andere rat in het water slaan, en een dier op het land kan geen rat in het water slaan.
+# Het einde van de partij
+- Een dier dat het hol van de andere speler betreedt, wint de partij.
+- Wie alle dieren van de andere speler slaat, wint, en ook wie hem zonder zet laat.
+- De partij eindigt in remise als dezelfde stelling voor de derde keer terugkomt, of na vijftig zetten van elke speler zonder slag.
+# Spelen op het apparaat
+Tik op een dier om te zien waar het heen kan en tik dan op een veld, of sleep het dier. Stippen tonen de zetten, ringen het slaan.

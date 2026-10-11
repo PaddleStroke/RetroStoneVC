@@ -1,0 +1,18 @@
+Ludo
+# Het doel
+Breng je vier pionnen helemaal rond het bord en naar het midden, eerder dan de andere speler. Elke speler heeft vier pionnen in een huisje van zijn kleur, in tegenoverliggende hoeken. Ivoor gooit eerst, daarna spelen de spelers om de beurt.
+# Gooien en zetten
+- Gooi de dobbelsteen en zet dan een van je pionnen met de klok mee over de baan, evenveel vakjes als je gooide.
+- Alleen een 6 brengt een pion uit zijn huisje naar zijn startvakje, het gekleurde vakje naast het huisje. Met een 6 mag je in plaats daarvan ook een pion verzetten die al op het bord staat.
+- Een 6 geeft je nog een worp. Een derde 6 op rij vervalt, en je beurt eindigt meteen.
+- Als geen enkele pion kan zetten met het gegooide getal, vervalt de worp en gaat de beurt over (na een 6 gooi je toch nog een keer).
+# Andere pionnen tegenkomen
+- Wie precies op een pion van de andere speler landt, stuurt die terug naar zijn huisje. Staan er twee van zijn pionnen, dan gaan ze allebei terug.
+- De veilige vakjes zijn de vier startvakjes en de vier vakjes met een ster. Daar kan niemand worden teruggestuurd, en pionnen van beide spelers mogen er samen staan.
+- Je eigen pionnen mogen samen op een vakje staan. Ze blokkeren niet: de andere speler mag ze passeren of erop landen.
+# Naar huis
+Na een volle ronde draait je pion de thuisrij van zijn kleur in, waar hij veilig is, en gaat verder naar het midden. Hij moet het midden met het precieze getal bereiken: met een te hoge worp kan die pion niet zetten.
+# Het einde van de partij
+De eerste speler die alle vier pionnen in het midden heeft, wint.
+# Spelen op het apparaat
+Je dobbelsteen wacht in de lege hoek naast je, goud verlicht: tik erop om te gooien. Stippen tonen waar je pionnen heen kunnen, ringen een pion die je naar huis zou sturen: tik op een pion of sleep hem naar zijn vakje, en hij huppelt erheen. Een worp waarmee niets kon zetten, blijft gedimd in een rode gloed terwijl de andere speler gooit. Ongedaan maken neemt zetten en worpen terug, maar een teruggenomen worp valt daarna weer hetzelfde. Je pionnen die thuis zijn, staan in je balk.

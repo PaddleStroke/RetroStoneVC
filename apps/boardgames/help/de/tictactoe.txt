@@ -1,0 +1,15 @@
+Tic-Tac-Toe
+# Klassisch
+Das Brett hat drei Reihen mit je drei Feldern. Hell spielt Kreuze und beginnt, Dunkel spielt Kreise. Setze in deinem Zug dein Zeichen in ein leeres Feld.
+- Drei deiner Zeichen in einer Reihe gewinnen: waagerecht, senkrecht oder diagonal.
+- Sind alle neun Felder belegt, ohne dass drei in einer Reihe stehen, endet die Partie unentschieden.
+# Ultimate
+Das große Brett enthält neun kleine Bretter mit drei mal drei Feldern. Du setzt weiterhin ein Zeichen in ein leeres Feld, aber wo du spielen darfst, hängt vom letzten Zug ab.
+- Das Feld, auf das dein Gegner gerade gesetzt hat, schickt dich je nach seiner Lage in seinem kleinen Brett auf das kleine Brett an derselben Stelle des großen Bretts. Wer auf das Feld oben rechts eines beliebigen kleinen Bretts setzt, schickt den anderen Spieler auf das kleine Brett oben rechts.
+- Ist das Brett, auf das du geschickt wirst, schon entschieden (gewonnen oder voll), darfst du auf jedem offenen kleinen Brett spielen.
+- Der erste Zug der Partie darf überall hingehen.
+- Drei in einer Reihe auf einem kleinen Brett gewinnen dieses Brett: Es gehört dir und ist geschlossen. Ein kleines Brett, das voll ist, ohne dass drei in einer Reihe stehen, gehört niemandem.
+- Gewinne drei kleine Bretter in einer Reihe auf dem großen Brett, waagerecht, senkrecht oder diagonal, und du gewinnst die Partie.
+- Kann niemand mehr eine Reihe aus drei kleinen Brettern gewinnen, endet die Partie unentschieden.
+# Spielen auf dem Gerät
+Tippe auf ein leeres Feld, um dort zu spielen. Bei Ultimate leuchten die kleinen Bretter, auf denen du spielen darfst, und ein gewonnenes kleines Brett zeigt das große Zeichen des Siegers. Jede Leiste zeigt, wie viele kleine Bretter der Spieler gewonnen hat.

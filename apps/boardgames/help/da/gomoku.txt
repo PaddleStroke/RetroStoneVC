@@ -1,0 +1,11 @@
+Gomoku
+# Målet
+Vær den første til at få fem sten i din farve på en ubrudt række: vandret, lodret eller diagonalt. Stenene spilles på punkterne, hvor linjerne krydser hinanden, og flyttes aldrig, når de først er spillet. Sort (mørk) starter, derefter skiftes spillerne, én sten ad gangen.
+# Fristil og standard
+Vælg regler før spillet:
+- Fristil (kortet med seks sten på række): fem eller flere sten på række vinder.
+- Standard (kortet med fem): præcis fem sten på række vinder. En række på seks eller flere tæller ikke, men spillet fortsætter, og fem på række et andet sted vinder stadig.
+# Spillets afslutning
+Den første spiller, der får en vinderrække, vinder med det samme. Hvis brættet bliver fyldt uden en vinderrække, ender spillet uafgjort.
+# Spil på enheden
+Det første tryk viser en bleg sten, et andet tryk på samme punkt spiller den. Det gør små punkter lette at ramme. Vinderrækken lyser op i guld.

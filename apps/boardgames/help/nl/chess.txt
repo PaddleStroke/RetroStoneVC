@@ -18,5 +18,9 @@ Een koning die wordt aangevallen staat schaak: de volgende zet moet het schaak o
 - Schaakmat: de koning staat schaak en geen enkele zet kan hem redden. Die speler verliest.
 - Pat: de speler die aan zet is heeft geen geldige zet, maar staat niet schaak. De partij eindigt in remise.
 - De partij is ook remise als geen van beide kanten ooit nog mat kan zetten (te weinig stukken over), als dezelfde stelling voor de derde keer terugkomt, of na vijftig zetten van elke speler zonder slaan of pionzet.
+# Chess960
+Chess960 (Fischer Random Chess) volgt dezelfde regels, maar de stukken op de achterste rij beginnen in een van 960 opstellingen, voor elke partij willekeurig gekozen. De pionnen staan zoals gewoonlijk, en de stukken van zwart staan tegenover die van wit, kolom voor kolom. De lopers staan altijd op velden van verschillende kleur, en de koning ergens tussen de twee torens.
+- Rokade: de koning en de toren eindigen op dezelfde velden als bij gewoon schaken: de koning op g en de toren op f met de toren van de h-kant, de koning op c en de toren op d met de toren van de a-kant. Alleen toegestaan als geen van beide stukken al heeft bewogen, elk veld dat ze passeren of waarop ze landen leeg is (op hen tweeën na), en de koning niet schaak staat, geen aangevallen veld passeert en niet schaak komt te staan.
+- Om te rokeren zet je de koning op de toren waarmee hij rokeert. Je mag hem ook op zijn eindveld zetten, tenzij de koning daar ook met een gewone zet heen zou kunnen, of er al staat.
 # Spelen op het apparaat
-Tik op een stuk om te zien waar het heen kan en tik dan op een veld, of sleep het stuk. Stippen tonen de zetten, ringen het slaan. Een koning die schaak staat, licht rood op.
+Tik op een stuk om te zien waar het heen kan en tik dan op een veld, of sleep het stuk. Stippen tonen de zetten, ringen het slaan. Een koning die schaak staat, licht rood op. Om te rokeren zet je de koning twee velden naar de toren toe, of op de toren.

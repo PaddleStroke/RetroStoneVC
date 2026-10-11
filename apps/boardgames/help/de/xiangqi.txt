@@ -1,0 +1,21 @@
+Xiangqi
+# Das Ziel
+Setze den gegnerischen General matt: Greife ihn so an, dass er nicht entkommen kann. Rot beginnt, danach ziehen die Spieler abwechselnd, jeder einen Zug.
+# Das Brett
+Die Figuren stehen auf den Schnittpunkten der Linien, nicht in den Feldern. Der Fluss quer durch die Mitte trennt die beiden Seiten. Jede Seite hat einen Palast: die drei mal drei Punkte, die mit einem Kreuz markiert sind, wo der General und seine Berater wohnen.
+# So ziehen die Figuren
+- General: einen Punkt entlang einer Linie, innerhalb seines Palasts. Die beiden Generäle dürfen sich nie auf derselben Linie gegenüberstehen, ohne dass etwas zwischen ihnen steht.
+- Berater: einen Punkt diagonal, innerhalb seines Palasts.
+- Elefant: genau zwei Punkte diagonal. Er kann den Fluss nicht überqueren und ist blockiert, wenn der Punkt, den er überquert, besetzt ist.
+- Pferd: einen Punkt entlang einer Linie, dann einen Punkt diagonal nach außen. Es ist blockiert, wenn der erste Punkt besetzt ist.
+- Wagen: beliebig viele Punkte entlang einer Linie, wie ein Turm im Schach.
+- Kanone: zieht wie der Wagen, schlägt aber nur, indem sie auf dem Weg zur geschlagenen Figur über genau eine Figur (gleich welcher Seite) springt.
+- Soldat: einen Punkt vorwärts. Hat er den Fluss überquert, darf er auch einen Punkt zur Seite ziehen. Er zieht nie zurück.
+Eine Figur schlägt, indem sie auf einen Punkt zieht, auf dem eine gegnerische Figur steht; diese verlässt das Brett.
+# Schach und das Ende der Partie
+Ein angegriffener General steht im Schach: Der nächste Zug muss das Schach aufheben. Du darfst nie einen Zug machen, nach dem dein eigener General im Schach steht oder dem anderen General gegenübersteht.
+- Schachmatt: Der General steht im Schach und kein Zug kann ihn retten. Dieser Spieler verliert.
+- Ein Spieler, der keinen erlaubten Zug hat, aber nicht im Schach steht, verliert ebenfalls (anders als im Schach).
+- Remis: Entsteht dieselbe Stellung zum dritten Mal mit demselben Spieler am Zug, endet die Partie remis. Diese einfache Regel ersetzt die Turnierregeln gegen Dauerschach und Dauerverfolgung. Remis ist die Partie auch nach sechzig Zügen jeder Seite ohne Schlagen.
+# Spielen auf dem Gerät
+Tippe auf eine Figur, um zu sehen, wohin sie ziehen kann, und dann auf einen Punkt, oder schieb die Figur mit dem Finger dorthin. Punkte zeigen die Züge, Ringe das Schlagen. Ein General im Schach leuchtet rot. Jede Leiste zeigt die Figuren, die der Spieler geschlagen hat.

@@ -1,0 +1,18 @@
+Ludo
+# Målet
+Før dine fire brikker hele vejen rundt om brættet og ind i midten før modstanderen. Hver spiller har fire brikker i et hjem i sin farve, i modsatte hjørner. Elfenben kaster først, derefter skiftes spillerne.
+# Kast og træk
+- Kast terningen, og flyt derefter en af dine brikker med uret rundt på banen, lige så mange felter som du kastede.
+- Kun en 6'er bringer en brik ud af sit hjem og ind på sit startfelt, det farvede felt ved siden af hjemmet. Med en 6'er må du også i stedet flytte en brik, der allerede er på brættet.
+- En 6'er giver dig et ekstra kast. En tredje 6'er i træk er tabt, og din tur slutter med det samme.
+- Hvis ingen brik kan flytte med det kastede tal, er kastet tabt, og turen går videre (efter en 6'er kaster du stadig igen).
+# Møde med andre brikker
+- Lander du præcis på modstanderens brik, sendes den tilbage til sit hjem. Står der to af modstanderens brikker, ryger begge hjem.
+- De sikre felter er de fire startfelter og de fire felter med en stjerne. Der kan ingen blive slået hjem, og begge spilleres brikker må stå der sammen.
+- Dine egne brikker må stå på samme felt. De blokerer ikke: modstanderen må passere dem eller lande på dem.
+# Mod mål
+Efter en hel runde drejer din brik ind på målvejen i sin farve, hvor den er sikker, og fortsætter ind til midten. Den skal nå midten med det præcise tal: et kast, der er for stort, kan ikke flytte den brik.
+# Spillets afslutning
+Den første spiller, der får alle fire brikker ind i midten, vinder.
+# Spil på enheden
+Din terning venter i det tomme hjørne ved siden af dig og lyser guld: tryk på den for at kaste. Prikker viser, hvor dine brikker kan gå hen, ringe en brik, du ville sende hjem: tryk på en brik, eller træk den til dens felt, så hopper den derhen. Et kast, der ikke kunne flytte noget, forbliver nedtonet i et rødt skær, mens modstanderen kaster. Fortryd tager træk og kast tilbage, men et kast, der er taget tilbage, falder ud på samme måde igen. Dine brikker i mål vises i dit panel.

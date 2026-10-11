@@ -1,0 +1,16 @@
+Breakthrough
+# Målet
+Bryd igennem den anden hær: vær den første til at få en af dine brikker over til den anden side af brættet, modstanderens bageste række.
+# Starten
+Spillet spilles på et skakbræt. Hver spiller har seksten brikker, der fylder spillerens egne to første rækker. Den lyse side trækker først, derefter skiftes spillerne, ét træk ad gangen.
+# Sådan trækker brikkerne
+- En brik flytter ét felt frem, lige frem eller diagonalt, til et tomt felt.
+- En brik slår ved at flytte ét felt diagonalt frem hen på en modstanderbrik, som så forlader brættet.
+- En brik slår aldrig lige frem: en modstanderbrik lige foran den blokerer den.
+- Brikker flytter aldrig til siden eller tilbage. Det er aldrig tvungent at slå.
+# Spillets afslutning
+- Den første spiller, der når modstanderens bageste række, vinder.
+- En spiller, der mister alle sine brikker, taber.
+Spillet bliver aldrig uafgjort: en spiller med brikker tilbage kan altid flytte.
+# Spil på enheden
+Tryk på en brik for at se, hvor den kan gå hen, og tryk derefter på et felt, eller træk brikken. Prikker viser trækkene, ringe slagene. Vinderbrikken skinner i guld.

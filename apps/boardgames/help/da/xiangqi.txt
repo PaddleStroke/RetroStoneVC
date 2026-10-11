@@ -1,0 +1,21 @@
+Xiangqi
+# Målet
+Sæt modstanderens general skakmat: angrib den, så den ikke kan undslippe. Rød trækker først, derefter skiftes spillerne, ét træk ad gangen.
+# Brættet
+Brikkerne står på punkterne, hvor linjerne krydser hinanden, ikke i felterne. Floden tværs over midten deler de to sider. Hver side har et palads: de tre gange tre punkter markeret med et kryds, hvor generalen og dens rådgivere bor.
+# Sådan trækker brikkerne
+- General: ét punkt langs en linje, inden for sit palads. De to generaler må aldrig stå over for hinanden på samme linje uden noget imellem.
+- Rådgiver: ét punkt diagonalt, inden for sit palads.
+- Elefant: præcis to punkter diagonalt. Den kan ikke krydse floden, og den er blokeret, hvis det punkt, den passerer, er optaget.
+- Hest: ét punkt langs en linje, derefter ét punkt diagonalt udad. Den er blokeret, hvis det første punkt er optaget.
+- Vogn: et vilkårligt antal punkter langs en linje, ligesom et tårn i skak.
+- Kanon: flytter som vognen, men slår kun ved at springe over præcis én brik (fra en hvilken som helst side) på vej hen til den brik, den slår.
+- Soldat: ét punkt frem. Når den har krydset floden, må den også flytte ét punkt til siden. Den flytter aldrig tilbage.
+En brik slår ved at flytte hen på et punkt, hvor en modstanderbrik står, som så forlader brættet.
+# Skak og partiets afslutning
+En general, der er angrebet, står i skak: det næste træk skal bringe den ud af skak. Du må aldrig lave et træk, der efterlader din egen general i skak eller over for den anden general.
+- Skakmat: generalen står i skak, og intet træk kan redde den. Den spiller taber.
+- En spiller, der intet lovligt træk har, men ikke står i skak, taber også (modsat skak).
+- Remis: når den samme stilling opstår for tredje gang med den samme spiller i trækket, er partiet remis. Denne enkle regel træder i stedet for turneringsreglerne mod evig skak og evig jagt. Partiet er også remis efter tres træk hver uden slag.
+# Spil på enheden
+Tryk på en brik for at se, hvor den kan gå hen, og tryk derefter på et punkt, eller træk brikken. Prikker viser trækkene, ringe slagene. En general i skak lyser rødt. Hvert panel viser de brikker, den spiller har slået.

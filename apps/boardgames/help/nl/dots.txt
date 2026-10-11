@@ -1,0 +1,11 @@
+Kamertje verhuren
+# Het doel
+Verover meer hokjes dan de andere speler. Het bord is een raster van stippen. Kies de grootte voor de partij: 3 bij 3 hokjes voor een snelle partij, 5 bij 5, of 7 bij 7. Licht begint.
+# Een beurt
+- Trek één lijn tussen twee stippen die naast elkaar liggen, horizontaal of verticaal. Elke lijn kan maar één keer worden getrokken.
+- Als jouw lijn de vierde zijde van een hokje sluit, is het hokje van jou: het krijgt jouw kleur. Eén lijn kan twee hokjes tegelijk sluiten.
+- Elke keer dat je een hokje sluit, moet je nog een lijn trekken. Je beurt eindigt met een lijn die geen hokje sluit.
+# Het einde van de partij
+De partij eindigt als alle lijnen getrokken zijn. De speler met de meeste hokjes wint. Elk bord heeft een oneven aantal hokjes, dus er is altijd een winnaar.
+# Spelen op het apparaat
+Tik tussen twee stippen om daar de lijn te trekken. Houd je vinger op het scherm om te zien welke lijn het wordt, schuif hem om een andere te kiezen, en til hem op om de lijn te trekken. De laatst getrokken lijn licht op, net als de hokjes die hij sloot. Elke balk toont hoeveel hokjes die speler heeft.

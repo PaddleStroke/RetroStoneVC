@@ -1,0 +1,25 @@
+Hnefatafl
+# Het doel
+Hnefatafl, het bordspel van de Vikingen, is een strijd tussen twee ongelijke kanten. De verdedigers, in het midden, moeten hun koning helpen ontsnappen. De aanvallers, twee keer zo veel, omsingelen hen en moeten de koning vangen. De aanvallers (donker) beginnen, daarna spelen de spelers om de beurt, elk één zet. Kies het bord voor de partij: Hnefatafl op 11 bij 11 velden, of Tablut op 9 bij 9.
+# Hoe de stukken bewegen
+- Elk stuk, ook de koning, beweegt als een toren bij schaken: zoveel lege velden als je wilt over een rij of een kolom. Stukken springen nooit.
+- Het middelste veld is de troon. Alleen de koning mag erop stoppen. Als hij leeg is, mag elk stuk eroverheen gaan.
+- Bij Hnefatafl mag alleen de koning op de vier hoekvelden stoppen.
+# Slaan
+- Een stuk wordt geslagen als een stuk van de tegenstander zo zet dat het langs een rij of kolom tussen twee vijanden komt te staan. Het verlaat het bord. Eén zet kan tot drie stukken slaan.
+- De hoeken en de lege troon gelden als vijand van elk stuk: een stuk naast een ervan wordt geslagen door één enkele vijand aan zijn andere kant.
+- De koning helpt de verdedigers slaan.
+- Een stuk mag veilig in de opening tussen twee stukken van de tegenstander gaan staan.
+# De koning
+- De koning is gevangen als aanvallers hem aan alle vier kanten insluiten, of aan drie kanten met de lege troon aan de vierde. Aan de rand van het bord kan hij niet gevangen worden.
+- De verdedigers winnen als de koning een hoekveld bereikt. De aanvallers winnen als ze de koning vangen.
+# Tablut (9 bij 9)
+- 16 aanvallers tegen 8 verdedigers en de koning. De hoeken zijn gewone velden.
+- De verdedigers winnen als de koning een willekeurig veld aan de rand van het bord bereikt.
+- Op de troon of ernaast wordt de koning gevangen zoals bij Hnefatafl. Overal elders vangen twee aanvallers aan weerszijden hem, net als elk ander stuk.
+# Het einde van de partij
+- Een speler die niet kan zetten, verliest.
+- Als dezelfde stelling voor de derde keer terugkomt met dezelfde speler aan zet, eindigt de partij in remise. Een partij van 1000 zetten van elke speler is ook remise.
+- Dit zijn de Kopenhaagse regels, zonder de optionele regels voor de schildmuur, het randfort en de omsingeling.
+# Spelen op het apparaat
+Tik op een stuk om te zien waar het heen kan en tik dan op een veld, of sleep het stuk. Stippen tonen de zetten. De geslagen stukken vervagen. Een koning die de aanvallers bij de volgende zet kunnen vangen, licht rood op, en gouden lichtjes tonen de aanvallers waar de koning bij de volgende zet kan ontsnappen.

@@ -1,0 +1,25 @@
+Hnefatafl
+# Das Ziel
+Hnefatafl, das Brettspiel der Wikinger, ist eine Schlacht zwischen zwei ungleichen Seiten. Die Verteidiger in der Mitte müssen ihrem König zur Flucht verhelfen. Die Angreifer, doppelt so viele, umzingeln sie und müssen den König fangen. Die Angreifer (dunkel) beginnen, danach ziehen die Spieler abwechselnd, jeder einen Zug. Wähle das Brett vor der Partie: Hnefatafl mit 11 mal 11 Feldern oder Tablut mit 9 mal 9.
+# So ziehen die Figuren
+- Jede Figur, auch der König, zieht wie ein Turm im Schach: beliebig viele leere Felder entlang einer Reihe oder Spalte. Figuren springen nie.
+- Das mittlere Feld ist der Thron. Nur der König darf darauf stehen bleiben. Ist er leer, darf jede Figur über ihn hinwegziehen.
+- Bei Hnefatafl darf nur der König auf den vier Eckfeldern stehen bleiben.
+# Schlagen
+- Eine Figur ist geschlagen, wenn eine gegnerische Figur so zieht, dass sie entlang einer Reihe oder Spalte zwischen zwei Gegnern eingeschlossen ist. Sie verlässt das Brett. Ein Zug kann bis zu drei Figuren schlagen.
+- Die Ecken und der leere Thron wirken für jede Figur wie Gegner: Eine Figur neben einem davon wird von einem einzigen Gegner auf ihrer anderen Seite geschlagen.
+- Der König hilft den Verteidigern beim Schlagen.
+- Eine Figur darf gefahrlos in die Lücke zwischen zwei gegnerischen Figuren ziehen.
+# Der König
+- Der König ist gefangen, wenn Angreifer ihn von allen vier Seiten einschließen, oder von drei Seiten mit dem leeren Thron auf der vierten. Am Rand des Bretts kann er nicht gefangen werden.
+- Die Verteidiger gewinnen, wenn der König ein Eckfeld erreicht. Die Angreifer gewinnen, wenn sie den König fangen.
+# Tablut (9 mal 9)
+- 16 Angreifer gegen 8 Verteidiger und den König. Die Ecken sind gewöhnliche Felder.
+- Die Verteidiger gewinnen, wenn der König ein beliebiges Feld am Rand des Bretts erreicht.
+- Auf dem Thron oder daneben wird der König wie bei Hnefatafl gefangen. Überall sonst fangen ihn zwei Angreifer auf gegenüberliegenden Seiten, wie jede andere Figur.
+# Das Ende der Partie
+- Wer nicht ziehen kann, verliert.
+- Entsteht dieselbe Stellung zum dritten Mal mit demselben Spieler am Zug, endet die Partie remis. Eine Partie von 1000 Zügen jeder Seite ist ebenfalls remis.
+- Dies sind die Kopenhagener Regeln, ohne die optionalen Regeln für Schildwall, Randfestung und Einkreisung.
+# Spielen auf dem Gerät
+Tippe auf eine Figur, um zu sehen, wohin sie ziehen kann, und dann auf ein Feld, oder schieb die Figur mit dem Finger dorthin. Punkte zeigen die Züge. Die geschlagenen Figuren verblassen. Ein König, den die Angreifer im nächsten Zug fangen könnten, leuchtet rot, und goldene Lichter zeigen den Angreifern, wohin der König im nächsten Zug entkommen könnte.

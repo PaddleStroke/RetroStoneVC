@@ -1,0 +1,15 @@
+Boter-kaas-en-eieren
+# Klassiek
+Het bord heeft drie rijen van drie vakjes. Licht speelt kruisjes en begint, donker speelt rondjes. Zet in je beurt je teken in een leeg vakje.
+- Drie van je tekens op een rij winnen: horizontaal, verticaal of diagonaal.
+- Als alle negen vakjes vol zijn zonder drie op een rij, eindigt de partij in gelijkspel.
+# Ultimate
+Het grote bord bevat negen kleine borden van drie bij drie. Je zet nog steeds één teken in een leeg vakje, maar waar je mag spelen, hangt af van de vorige zet.
+- Het vakje waar je tegenstander net speelde, binnen zijn kleine bord, stuurt jou naar het kleine bord op dezelfde plek op het grote bord. Wie in het vakje rechtsboven van een klein bord speelt, stuurt de andere speler naar het kleine bord rechtsboven.
+- Als het bord waar je heen wordt gestuurd al beslist is (gewonnen of vol), mag je in elk open klein bord spelen.
+- De eerste zet van de partij mag overal.
+- Drie op een rij in een klein bord wint dat bord: het wordt van jou en is gesloten. Een klein bord dat vol raakt zonder drie op een rij, is van niemand.
+- Win drie kleine borden op een rij op het grote bord, horizontaal, verticaal of diagonaal, en je wint de partij.
+- Als niemand nog een rij van drie kleine borden kan winnen, eindigt de partij in gelijkspel.
+# Spelen op het apparaat
+Tik op een leeg vakje om daar te spelen. Bij Ultimate lichten de kleine borden op waar je mag spelen, en een gewonnen klein bord toont het grote teken van de winnaar. Elke balk toont hoeveel kleine borden die speler heeft gewonnen.

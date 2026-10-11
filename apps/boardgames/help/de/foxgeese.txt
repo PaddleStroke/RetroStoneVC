@@ -1,0 +1,20 @@
+Fuchs und Gänse
+# Das Ziel
+Ein Spieler hat dreizehn Gänse, der andere einen einzelnen Fuchs. Die Gänse gewinnen, wenn sie den Fuchs so einschließen, dass er nicht mehr ziehen kann. Der Fuchs gewinnt, wenn er so viele Gänse schlägt, dass weniger als neun übrig sind.
+# Das Brett
+Das Brett ist ein Kreuz aus 33 Punkten, die durch Linien verbunden sind: entlang der Reihen, entlang der Spalten und entlang der eingezeichneten Diagonalen. Die Figuren ziehen nur entlang dieser Linien, von einem Punkt zum nächsten.
+# Der Start
+Die Gänse (hell) stehen auf dem unteren Arm des Kreuzes und auf der ganzen Reihe darüber. Der Fuchs (dunkel) beginnt in der Mitte. Die Gänse ziehen zuerst.
+# Die Gänse
+- Eine Gans zieht entlang einer Linie zum nächsten Punkt, wenn er leer ist: vorwärts, schräg vorwärts oder zur Seite, nie rückwärts.
+- Gänse springen nie und schlagen nie den Fuchs.
+# Der Fuchs
+- Der Fuchs zieht entlang einer Linie zum nächsten Punkt, wenn er leer ist, in jede Richtung.
+- Oder er springt entlang einer Linie über eine benachbarte Gans auf den leeren Punkt direkt dahinter und nimmt diese Gans vom Brett.
+- Springen ist keine Pflicht. Ist der Fuchs aber einmal gesprungen, muss er weiterspringen, eine Gans nach der anderen, solange er kann.
+# Das Ende der Partie
+- Die Gänse gewinnen, wenn der Fuchs weder ziehen noch springen kann.
+- Der Fuchs gewinnt, wenn weniger als neun Gänse übrig sind oder wenn die Gänse nicht mehr ziehen können.
+- Die Partie endet remis, wenn dieselbe Stellung zum dritten Mal entsteht, oder nach fünfzig Zügen jeder Seite ohne Schlagen und ohne dass eine Gans vorwärts zieht.
+# Spielen auf dem Gerät
+Tippe auf eine Gans und dann auf ihren neuen Punkt, oder schieb sie mit dem Finger dorthin. Ist der Fuchs am Zug, ist er schon ausgewählt: Tippe auf den Punkt, auf den er zieht, oder schieb ihn dorthin. Die Gänse, die er schlagen kann, tragen einen Ring: Tippe auf den Ring oder auf den Punkt dahinter, um zu springen. Bei einer Folge von Sprüngen tippe auf jeden nächsten Sprung.

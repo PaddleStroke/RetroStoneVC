@@ -1,0 +1,32 @@
+Shogi
+# Målet
+Shogi er japansk skak. Sæt modstanderens konge skakmat: angrib den, så den ikke kan undslippe. Sort (sente) trækker først, derefter skiftes spillerne, ét træk ad gangen. Alle brikkerne har samme farve: en brik peger mod modstanderen, så du kan se, hvis den er.
+# Sådan trækker brikkerne
+- Konge (玉, 王): ét felt i en hvilken som helst retning.
+- Tårn (飛): et vilkårligt antal felter langs en række eller en linje.
+- Løber (角): et vilkårligt antal felter langs en diagonal.
+- Guldgeneral (金): ét felt i alle retninger undtagen skråt bagud.
+- Sølvgeneral (銀): ét felt diagonalt eller lige frem.
+- Springer (桂): to felter frem og ét til siden, hen over alle brikker imellem. Den flytter kun fremad.
+- Lanse (香): et vilkårligt antal felter lige frem.
+- Bonde (歩): ét felt lige frem. Den slår også på den måde.
+Brikkerne kan ikke passere gennem andre brikker (undtagen springeren). En brik slår ved at flytte hen på et felt, hvor en modstanderbrik står.
+# Forvandling
+De tre rækker, der ligger længst væk fra dig, er forvandlingszonen. En brik, der flytter ind i, inden for eller ud af den, må forvandles: den vendes om, og dens tegn bliver rødt.
+- Tårnet bliver en drage (龍): et tårn, der også må flytte ét felt diagonalt.
+- Løberen bliver en hest (馬): en løber, der også må flytte ét felt langs en række eller en linje.
+- Sølvet, springeren, lansen og bonden bliver til guld (全, 圭, 杏, と).
+- Kongen og guldet forvandles ikke.
+Forvandling er ikke tvungen, undtagen når brikken ellers aldrig kunne flytte igen: en bonde eller en lanse på sidste række, en springer på de to sidste rækker.
+# Slåede brikker
+En slået brik skifter til den side, der slog den, og venter på hånden. I stedet for at trække må du sætte en brik fra hånden ind på et vilkårligt tomt felt, uforvandlet. En indsat brik må give skak. Tre begrænsninger:
+- Ingen bonde på en linje, hvor du allerede har en uforvandlet bonde.
+- Ingen brik, hvor den aldrig kunne flytte (en bonde eller en lanse på sidste række, en springer på de to sidste rækker).
+- En indsat bonde må ikke give skakmat med det samme (en bonde, der flyttes på brættet, må gerne).
+# Spillets afslutning
+En konge, der er angrebet, står i skak: det næste træk skal bringe den ud af skak. Du må aldrig lave et træk, der efterlader din egen konge i skak.
+- Skakmat: kongen står i skak, og intet træk kan redde den. Den spiller taber. En spiller, der slet ikke har noget lovligt træk, taber også.
+- Gentagelse: når den samme stilling (brikkerne på brættet og på hånden, den samme spiller i trækket) opstår for fjerde gang, er partiet remis. Men hvis den ene spiller har givet skak med hvert træk, siden stillingen første gang opstod, taber den spiller.
+- Der er ingen regel for to konger, der begge er trængt ind i modstanderens lejr: spil videre.
+# Spil på enheden
+Tryk på en brik for at se, hvor den kan gå hen, og tryk derefter på et felt, eller træk brikken. Prikker viser trækkene, ringe slagene. En konge i skak lyser rødt. Dine brikker på hånden ligger i dit panel med deres antal: tryk på en og derefter på et felt, eller træk den ind på brættet. Når en brik må forvandles, så vælg dens forvandlede side (rød), eller behold den, som den er.

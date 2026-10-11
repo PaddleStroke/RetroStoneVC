@@ -1,0 +1,32 @@
+Shogi
+# Das Ziel
+Shogi ist japanisches Schach. Setze den gegnerischen König matt: Greife ihn so an, dass er nicht entkommen kann. Schwarz (Sente) beginnt, danach ziehen die Spieler abwechselnd, jeder einen Zug. Alle Figuren haben dieselbe Farbe: Eine Figur zeigt mit der Spitze zum Gegner, so erkennst du, wem sie gehört.
+# So ziehen die Figuren
+- König (玉, 王): ein Feld in jede Richtung.
+- Turm (飛): beliebig viele Felder entlang einer Reihe oder einer Linie.
+- Läufer (角): beliebig viele Felder entlang einer Diagonale.
+- Goldgeneral (金): ein Feld in jede Richtung außer schräg nach hinten.
+- Silbergeneral (銀): ein Feld diagonal oder geradeaus nach vorn.
+- Springer (桂): zwei Felder nach vorn und eins zur Seite, wobei er über jede Figur dazwischen springt. Er zieht nur vorwärts.
+- Lanze (香): beliebig viele Felder geradeaus nach vorn.
+- Bauer (歩): ein Feld geradeaus nach vorn. Er schlägt auch so.
+Figuren können nicht durch andere Figuren hindurchziehen (außer dem Springer). Eine Figur schlägt, indem sie auf ein Feld zieht, auf dem eine gegnerische Figur steht.
+# Umwandlung
+Die drei Reihen, die am weitesten von dir entfernt sind, bilden die Umwandlungszone. Eine Figur, die in sie hinein, in ihr oder aus ihr heraus zieht, darf sich umwandeln: Sie wird umgedreht, und ihr Schriftzeichen wird rot.
+- Der Turm wird zum Drachen (龍): ein Turm, der zusätzlich ein Feld diagonal ziehen darf.
+- Der Läufer wird zum Pferd (馬): ein Läufer, der zusätzlich ein Feld entlang einer Reihe oder Linie ziehen darf.
+- Silber, Springer, Lanze und Bauer werden zu Gold (全, 圭, 杏, と).
+- König und Gold wandeln sich nicht um.
+Die Umwandlung ist keine Pflicht, außer wenn die Figur sonst nie mehr ziehen könnte: ein Bauer oder eine Lanze auf der letzten Reihe, ein Springer auf den letzten beiden Reihen.
+# Geschlagene Figuren
+Eine geschlagene Figur wechselt auf die Seite dessen, der sie geschlagen hat, und wartet in seiner Hand. Statt zu ziehen, darfst du eine Figur aus deiner Hand auf ein beliebiges leeres Feld einsetzen, nicht umgewandelt. Ein Einsetzen darf Schach geben. Drei Einschränkungen:
+- Kein Bauer auf einer Linie, auf der schon einer deiner nicht umgewandelten Bauern steht.
+- Keine Figur dort, wo sie nie mehr ziehen könnte (ein Bauer oder eine Lanze auf der letzten Reihe, ein Springer auf den letzten beiden Reihen).
+- Ein eingesetzter Bauer darf nicht sofort mattsetzen (ein auf dem Brett gezogener Bauer darf es).
+# Das Ende der Partie
+Ein angegriffener König steht im Schach: Der nächste Zug muss das Schach aufheben. Du darfst nie einen Zug machen, nach dem dein eigener König im Schach steht.
+- Schachmatt: Der König steht im Schach und kein Zug kann ihn retten. Dieser Spieler verliert. Ein Spieler, der überhaupt keinen erlaubten Zug hat, verliert ebenfalls.
+- Wiederholung: Entsteht dieselbe Stellung (die Figuren auf dem Brett und in der Hand, derselbe Spieler am Zug) zum vierten Mal, endet die Partie remis. Hat aber ein Spieler seit dem ersten Auftreten dieser Stellung mit jedem Zug Schach gegeben, verliert dieser Spieler.
+- Es gibt keine Regel für zwei Könige, die beide ins gegnerische Lager eingedrungen sind: Spielt weiter.
+# Spielen auf dem Gerät
+Tippe auf eine Figur, um zu sehen, wohin sie ziehen kann, und dann auf ein Feld, oder schieb die Figur mit dem Finger dorthin. Punkte zeigen die Züge, Ringe das Schlagen. Ein König im Schach leuchtet rot. Deine Figuren in der Hand liegen in deiner Leiste, mit ihrer Anzahl: Tippe auf eine und dann auf ein Feld, oder schieb sie aufs Brett. Darf sich eine Figur umwandeln, wähle ihre umgewandelte Seite (rot) oder lass sie, wie sie ist.

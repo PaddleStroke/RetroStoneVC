@@ -1,0 +1,11 @@
+Käsekästchen
+# Das Ziel
+Erobere mehr Kästchen als der andere Spieler. Das Brett ist ein Gitter aus Punkten. Wähle seine Größe vor der Partie: 3 mal 3 Kästchen für eine schnelle Partie, 5 mal 5 oder 7 mal 7. Hell beginnt.
+# Ein Zug
+- Zeichne eine Linie zwischen zwei benachbarten Punkten, waagerecht oder senkrecht. Jede Linie kann nur einmal gezogen werden.
+- Schließt deine Linie die vierte Seite eines Kästchens, gehört das Kästchen dir: Es nimmt deine Farbe an. Eine Linie kann zwei Kästchen auf einmal schließen.
+- Jedes Mal, wenn du ein Kästchen schließt, musst du eine weitere Linie ziehen. Dein Zug endet mit einer Linie, die kein Kästchen schließt.
+# Das Ende der Partie
+Die Partie endet, wenn alle Linien gezogen sind. Wer mehr Kästchen hat, gewinnt. Jedes Brett hat eine ungerade Zahl von Kästchen, daher gibt es immer einen Sieger.
+# Spielen auf dem Gerät
+Tippe zwischen zwei Punkte, um dort die Linie zu ziehen. Lass den Finger auf dem Bildschirm, um zu sehen, welche Linie es wird, schieb ihn weiter, um eine andere zu wählen, und heb ihn an, um sie zu ziehen. Die zuletzt gezogene Linie leuchtet, ebenso die Kästchen, die sie geschlossen hat. Jede Leiste zeigt, wie viele Kästchen der Spieler hat.

@@ -1,0 +1,16 @@
+Mancala
+# Das Ziel
+Erbeute mehr Samen als der andere Spieler. Das Brett hat zwei Reihen mit je sechs Mulden, in jeder liegen vier Samen. Die Reihe, die dir näher ist, gehört dir, mit deinem Speicher an ihrem rechten Ende. Hell beginnt.
+# Oware
+- Nimm in deinem Zug alle Samen aus einer deiner Mulden und säe sie einzeln in die folgenden Mulden, gegen den Uhrzeigersinn. Mit zwölf oder mehr Samen gehst du einmal ganz herum: Die Mulde, die du geleert hast, wird übersprungen.
+- Landet dein letzter Samen in der Reihe des anderen Spielers und liegen dort dann zwei oder drei Samen, erbeutest du sie. Du erbeutest auch die Mulde davor und die davor, solange sie in der Reihe des anderen Spielers liegen und zwei oder drei Samen enthalten.
+- Ein Zug, der alle Samen des anderen Spielers erbeuten würde, darf gespielt werden, erbeutet aber nichts.
+- Hat der andere Spieler keine Samen, musst du einen Zug spielen, der ihm welche gibt, falls du einen hast.
+- Die Partie endet, wenn ein Spieler mehr als 24 Samen erbeutet hat, wenn der Spieler am Zug nicht spielen kann oder wenn dieselbe Stellung wiederkehrt. In den letzten beiden Fällen bekommt jeder Spieler die Samen hinzu, die noch in seiner eigenen Reihe liegen. Wer die meisten Samen hat, gewinnt; 24 zu 24 ist unentschieden.
+# Kalah
+- Nimm in deinem Zug alle Samen aus einer deiner Mulden und säe sie einzeln gegen den Uhrzeigersinn in die folgenden Mulden und in deinen eigenen Speicher, aber nicht in den Speicher des anderen Spielers.
+- Landet dein letzter Samen in deinem Speicher, bist du noch einmal dran.
+- Landet dein letzter Samen in einer leeren Mulde auf deiner Seite und liegen in der gegenüberliegenden Mulde Samen, erbeutest du beide: Dein Samen und die gegenüberliegenden Samen kommen in deinen Speicher.
+- Die Partie endet, wenn eine Reihe leer ist: Der andere Spieler legt die Samen, die noch in seiner Reihe liegen, in seinen Speicher. Wer die meisten Samen im Speicher hat, gewinnt; bei gleicher Zahl ist es unentschieden.
+# Spielen auf dem Gerät
+Tippe auf eine deiner Mulden, um sie zu säen: Die Mulden, die du spielen darfst, leuchten. Die Samen wandern einzeln, und erbeutete Samen fliegen in den Speicher. Die Zahl neben jeder Mulde zeigt ihre Samen, und jede Leiste zeigt die Samen, die der Spieler erbeutet hat.

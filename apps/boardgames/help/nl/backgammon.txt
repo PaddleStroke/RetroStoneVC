@@ -1,0 +1,23 @@
+Backgammon
+# Het doel
+Breng al je vijftien schijven het bord rond naar je thuisbord, en speel ze daarna uit. De eerste speler die alle vijftien heeft uitgespeeld, wint. De spelers bewegen in tegengestelde richting, ivoor de ene kant op en ebbenhout de andere.
+# Het bord
+Er zijn 24 smalle driehoeken, de punten, zes in elk kwart van het bord. De bar in het midden verdeelt elke kant in een buitenbord en een thuisbord; de twee thuisborden liggen tegenover elkaar, aan de kant van de bak. Elke speler nummert de punten van 1, aan het eind van zijn eigen thuisbord, rond tot 24, aan het eind van het thuisbord van de andere speler. Aan het begin heeft elke speler twee schijven op zijn 24-punt, vijf op zijn 13-punt, drie op zijn 8-punt en vijf op zijn 6-punt.
+# Gooien en zetten
+Om te beginnen gooit elke speler één dobbelsteen. Wie het hoogste getal gooit, begint en gebruikt beide gegooide getallen; zijn ze gelijk, dan wordt er opnieuw gegooid. Daarna spelen de spelers om de beurt: gooi twee dobbelstenen en zet met elk getal.
+- Eén schijf gaat het ene getal vooruit, daarna gaat een schijf het andere getal vooruit: dezelfde schijf of een andere.
+- Een schijf mag landen op een leeg punt, op een punt met je eigen schijven, of op een punt met één enkele schijf van de tegenstander.
+- Dubbel geeft vier zetten van dat getal.
+- Je moet beide getallen gebruiken als dat kan. Kun je er maar één gebruiken, dan moet je zo mogelijk het hoogste gebruiken.
+- Als geen enkele zet mogelijk is, verlies je de beurt.
+# Slaan en inbrengen
+Een losse schijf op een punt is een blot. Wie op een blot van de tegenstander landt, slaat hem: hij gaat naar de bar. Een speler met een schijf op de bar moet die eerst terugbrengen door hem in het thuisbord van de andere speler in te brengen, op het punt dat een dobbelsteen aangeeft (de 1 is het punt het verst van de bar). Een punt met twee of meer schijven van de tegenstander is gesloten. Niets anders mag bewegen tot al je schijven op de bar zijn ingebracht.
+# Uitspelen
+Zodra al je vijftien schijven in je thuisbord staan, mag je ze uitspelen: een getal neemt een schijf van het punt met dat nummer af. Als dat punt leeg is, moet je een schijf van een hoger punt verplaatsen als dat kan; staat er op geen enkel hoger punt een schijf, dan speelt het getal een schijf uit van het hoogste punt dat je bezet. Een schijf die geslagen wordt, moet helemaal terugkomen voordat je weer mag uitspelen.
+# Winnen
+- De eerste speler die alle vijftien schijven heeft uitgespeeld, wint één punt.
+- Gammon: als de verliezer nog geen enkele schijf heeft uitgespeeld, scoort de winnaar twee punten.
+- Backgammon: als de verliezer nog geen schijf heeft uitgespeeld en er nog een op de bar of in het thuisbord van de winnaar heeft, scoort de winnaar drie punten.
+Dit spel wordt gespeeld zonder verdubbelingskubus.
+# Spelen op het apparaat
+Tik op de goud oplichtende dobbelstenen om te gooien. Tik op een schijf en dan op een van de stippen, of sleep hem; een ring toont een blot die je zou slaan. Elke zet gebruikt één dobbelsteen: een gebruikte dobbelsteen wordt gedimd. Om uit te spelen zet je de schijf in de bak rechts. Schijven op de bar zijn al opgepakt. Als een worp niet gespeeld kan worden, lichten de dobbelstenen rood op en gaat de beurt over. Je balk toont hoeveel schijven je hebt uitgespeeld, en aan het eind de gewonnen punten. Ongedaan maken neemt één zet tegelijk terug, en de dobbelstenen van eerdere beurten komen terug zoals ze gegooid werden.

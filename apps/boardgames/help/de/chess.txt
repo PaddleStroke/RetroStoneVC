@@ -18,5 +18,9 @@ Ein angegriffener König steht im Schach: Der nächste Zug muss das Schach aufhe
 - Schachmatt: Der König steht im Schach und kein Zug kann ihn retten. Dieser Spieler verliert.
 - Patt: Der Spieler am Zug hat keinen erlaubten Zug, steht aber nicht im Schach. Die Partie endet remis.
 - Remis ist die Partie auch, wenn keine Seite je mattsetzen kann (zu wenig Figuren übrig), wenn dieselbe Stellung zum dritten Mal entsteht, oder nach fünfzig Zügen jeder Seite ohne Schlagen und ohne Bauernzug.
+# Chess960
+Chess960 (Fischer-Random-Schach) wird nach denselben Regeln gespielt, aber die Figuren der Grundreihe beginnen in einer von 960 Anordnungen, die für jede Partie zufällig ausgelost wird. Die Bauern stehen wie gewohnt, und die schwarzen Figuren stehen den weißen Linie für Linie gegenüber. Die Läufer stehen immer auf Feldern unterschiedlicher Farbe, und der König irgendwo zwischen den beiden Türmen.
+- Rochade: König und Turm landen auf denselben Feldern wie im normalen Schach: der König auf g und der Turm auf f mit dem Turm auf der h-Seite, der König auf c und der Turm auf d mit dem Turm auf der a-Seite. Nur erlaubt, wenn keine der beiden Figuren schon gezogen hat, jedes Feld, das sie überqueren oder auf dem sie landen, leer ist (abgesehen von den beiden selbst) und der König nicht im Schach steht, kein angegriffenes Feld überquert und nicht im Schach landet.
+- Zum Rochieren ziehst du den König auf den Turm, mit dem er rochiert. Du kannst ihn auch auf sein Zielfeld ziehen, außer der König könnte auch mit einem gewöhnlichen Zug dorthin ziehen oder steht bereits dort.
 # Spielen auf dem Gerät
-Tippe auf eine Figur, um zu sehen, wohin sie ziehen kann, und dann auf ein Feld, oder schieb die Figur mit dem Finger dorthin. Punkte zeigen die Züge, Ringe das Schlagen. Ein König im Schach leuchtet rot.
+Tippe auf eine Figur, um zu sehen, wohin sie ziehen kann, und dann auf ein Feld, oder schieb die Figur mit dem Finger dorthin. Punkte zeigen die Züge, Ringe das Schlagen. Ein König im Schach leuchtet rot. Zum Rochieren ziehst du den König zwei Felder auf den Turm zu oder auf den Turm.

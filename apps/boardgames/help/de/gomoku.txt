@@ -1,0 +1,11 @@
+Gomoku
+# Das Ziel
+Bilde als Erster eine ununterbrochene Reihe aus fünf Steinen deiner Farbe: waagerecht, senkrecht oder diagonal. Die Steine werden auf die Schnittpunkte der Linien gesetzt und bewegen sich danach nie mehr. Schwarz (dunkel) beginnt, danach setzen die Spieler abwechselnd, jeder einen Stein.
+# Freistil und Standard
+Wähle die Regeln vor der Partie:
+- Freistil (die Karte mit sechs Steinen in einer Reihe): Fünf oder mehr Steine in einer Reihe gewinnen.
+- Standard (die Karte mit fünf): Genau fünf Steine in einer Reihe gewinnen. Eine Reihe aus sechs oder mehr zählt nicht, aber die Partie geht weiter, und eine Fünferreihe an anderer Stelle gewinnt trotzdem.
+# Das Ende der Partie
+Wer zuerst eine Gewinnreihe bildet, gewinnt sofort. Ist das Brett voll, ohne dass eine Gewinnreihe entstanden ist, endet die Partie unentschieden.
+# Spielen auf dem Gerät
+Das erste Tippen zeigt einen blassen Stein, ein zweites Tippen auf denselben Punkt setzt ihn. So lassen sich auch kleine Punkte leicht treffen. Die Gewinnreihe leuchtet golden auf.

@@ -1,0 +1,11 @@
+Gomoku
+# Het doel
+Maak als eerste een ononderbroken rij van vijf stenen van je kleur: horizontaal, verticaal of diagonaal. Stenen worden gespeeld op de punten waar de lijnen elkaar kruisen, en bewegen nooit meer als ze eenmaal liggen. Zwart (donker) begint, daarna spelen de spelers om de beurt, elk één steen.
+# Vrije stijl en standaard
+Kies de regels voor de partij:
+- Vrije stijl (de kaart met zes stenen op een rij): vijf of meer stenen op een rij winnen.
+- Standaard (de kaart met vijf): precies vijf stenen op een rij winnen. Een rij van zes of meer telt niet, maar de partij gaat door, en een vijf op een andere plek wint nog steeds.
+# Het einde van de partij
+De eerste speler die een winnende rij maakt, wint meteen. Als het bord vol raakt zonder winnende rij, eindigt de partij in gelijkspel.
+# Spelen op het apparaat
+Bij de eerste tik verschijnt een bleke steen, een tweede tik op hetzelfde punt speelt hem. Zo zijn ook kleine punten makkelijk te raken. De winnende rij licht goud op.

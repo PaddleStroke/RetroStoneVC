@@ -1,0 +1,16 @@
+Mancala
+# Målet
+Fang flere frø end modstanderen. Brættet har to rækker med seks huller, med fire frø i hvert. Rækken nærmest dig er din, med dit depot i dens højre ende. Den lyse side starter.
+# Oware
+- Tag i din tur alle frøene fra et af dine huller, og så dem ét ad gangen i de følgende huller, mod uret. Med tolv frø eller flere kommer du hele vejen rundt: det hul, du tømte, springes over.
+- Hvis dit sidste frø lander i modstanderens række og giver to eller tre frø der, fanger du dem. Du fanger også hullet før, og hullet før det, så længe de ligger i modstanderens række og har to eller tre frø.
+- Et træk, der ville fange alle modstanderens frø, må godt spilles, men fanger ingenting.
+- Hvis modstanderen ikke har nogen frø, skal du spille et træk, der giver vedkommende nogle, hvis du har et.
+- Spillet slutter, når en spiller har fanget mere end 24 frø, når spilleren i trækket ikke kan spille, eller når den samme stilling vender tilbage. I de to sidste tilfælde lægger hver spiller de frø, der er tilbage i egen række, til sine egne. Flest frø vinder; 24 hver er uafgjort.
+# Kalah
+- Tag i din tur alle frøene fra et af dine huller, og så dem ét ad gangen mod uret i de følgende huller og i dit eget depot, men ikke i modstanderens depot.
+- Hvis dit sidste frø lander i dit depot, spiller du igen.
+- Hvis dit sidste frø lander i et tomt hul på din side, og hullet overfor har frø, fanger du begge: dit frø og frøene overfor kommer i dit depot.
+- Spillet slutter, når en række er tom: den anden spiller lægger de frø, der er tilbage i sin række, i sit depot. Flest frø i depotet vinder; samme antal er uafgjort.
+# Spil på enheden
+Tryk på et af dine huller for at så det: de huller, du må spille, lyser. Frøene vandrer ét ad gangen, og fangede frø flyver til depotet. Tallet ved hvert hul viser dets frø, og hvert panel viser de frø, den spiller har fanget.

@@ -1,0 +1,18 @@
+Ludo
+# Das Ziel
+Bringe deine vier Figuren einmal ganz um das Brett herum und vor dem anderen Spieler ins Zentrum. Jeder Spieler hat vier Figuren in einem Haus seiner Farbe, in gegenüberliegenden Ecken. Elfenbein würfelt zuerst, danach sind die Spieler abwechselnd am Zug.
+# Würfeln und Ziehen
+- Würfle und ziehe dann eine deiner Figuren im Uhrzeigersinn auf der Laufbahn um die gewürfelte Zahl weiter.
+- Nur eine 6 bringt eine Figur aus ihrem Haus auf ihr Startfeld, das farbige Feld neben dem Haus. Mit einer 6 darfst du stattdessen auch eine Figur ziehen, die schon auf dem Brett steht.
+- Eine 6 gibt dir einen weiteren Wurf. Eine dritte 6 in Folge verfällt, und dein Zug endet sofort.
+- Kann keine Figur mit der gewürfelten Zahl ziehen, verfällt der Wurf, und der andere Spieler ist am Zug (nach einer 6 würfelst du trotzdem noch einmal).
+# Auf andere Figuren treffen
+- Landest du genau auf einer Figur des anderen Spielers, muss sie zurück in ihr Haus. Stehen dort zwei seiner Figuren, müssen beide zurück.
+- Die sicheren Felder sind die vier Startfelder und die vier mit einem Stern markierten Felder. Dort kann niemand hinausgeworfen werden, und Figuren beider Spieler dürfen sich diese Felder teilen.
+- Deine eigenen Figuren dürfen auf demselben Feld stehen. Sie blockieren nicht: Der andere Spieler darf an ihnen vorbeiziehen oder auf ihnen landen.
+# Ins Ziel
+Nach einer vollen Runde biegt deine Figur in die Zielgerade ihrer Farbe ab, wo sie sicher ist, und zieht weiter ins Zentrum. Sie muss das Zentrum mit der genauen Zahl erreichen: Mit einem zu hohen Wurf kann diese Figur nicht ziehen.
+# Das Ende der Partie
+Wer zuerst alle vier Figuren ins Zentrum bringt, gewinnt.
+# Spielen auf dem Gerät
+Dein Würfel wartet in der leeren Ecke neben dir und leuchtet golden: Tippe darauf, um zu würfeln. Punkte zeigen, wohin deine Figuren ziehen können, Ringe eine Figur, die du nach Hause schicken würdest: Tippe auf eine Figur oder schieb sie auf ihr Feld, und sie hüpft dorthin. Ein Wurf, mit dem nichts ziehen konnte, bleibt abgedunkelt in rotem Schein, während der andere Spieler würfelt. Rückgängig nimmt Züge und Würfe zurück, aber ein zurückgenommener Wurf fällt danach genauso wieder. Deine Figuren im Ziel erscheinen in deiner Leiste.

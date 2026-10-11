@@ -1,0 +1,23 @@
+Backgammon
+# Das Ziel
+Bringe alle fünfzehn deiner Steine um das Brett herum in dein Heimfeld und würfle sie dann aus. Wer zuerst alle fünfzehn ausgewürfelt hat, gewinnt. Die Spieler ziehen in entgegengesetzte Richtungen, Elfenbein in die eine, Ebenholz in die andere.
+# Das Brett
+Es gibt 24 schmale Dreiecke, die Zungen, sechs in jedem Viertel des Bretts. Die Bar in der Mitte teilt jede Seite in ein Außenfeld und ein Heimfeld; die beiden Heimfelder liegen einander gegenüber, auf der Seite der Ablage. Jeder Spieler zählt die Zungen von 1, am Ende seines eigenen Heimfelds, ringsherum bis 24, am Ende des Heimfelds des anderen Spielers. Zu Beginn hat jeder Spieler zwei Steine auf seiner 24, fünf auf seiner 13, drei auf seiner 8 und fünf auf seiner 6.
+# Würfeln und Ziehen
+Zu Beginn wirft jeder Spieler einen Würfel. Wer die höhere Zahl hat, beginnt und spielt mit beiden gewürfelten Zahlen; sind sie gleich, wird neu gewürfelt. Danach sind die Spieler abwechselnd am Zug: Wirf zwei Würfel und ziehe um jede der beiden Zahlen.
+- Ein Stein zieht um die eine Zahl, dann zieht ein Stein um die andere: derselbe Stein oder ein anderer.
+- Ein Stein darf auf einer leeren Zunge landen, auf einer Zunge mit eigenen Steinen oder auf einer Zunge mit einem einzelnen gegnerischen Stein.
+- Ein Pasch gibt vier Züge um diese Zahl.
+- Du musst beide Zahlen nutzen, wenn du kannst. Kannst du nur eine davon nutzen, musst du nach Möglichkeit die höhere nehmen.
+- Ist kein Zug möglich, verfällt dein Zug.
+# Schlagen und Einsetzen
+Ein einzelner Stein auf einer Zunge ist ein Blot. Wer auf einem gegnerischen Blot landet, schlägt ihn: Er kommt auf die Bar. Ein Spieler mit einem Stein auf der Bar muss ihn zuerst zurückbringen und im Heimfeld des anderen Spielers auf der Zunge einsetzen, die ein Würfel angibt (die 1 ist die Zunge, die am weitesten von der Bar entfernt ist). Eine Zunge mit zwei oder mehr gegnerischen Steinen ist gesperrt. Nichts anderes darf ziehen, bis alle deine Steine von der Bar wieder eingesetzt sind.
+# Auswürfeln
+Sobald alle fünfzehn deiner Steine in deinem Heimfeld sind, darfst du sie auswürfeln: Eine Zahl nimmt einen Stein von der Zunge mit dieser Zahl heraus. Ist diese Zunge leer, musst du einen Stein von einer höheren Zunge ziehen, wenn du kannst; steht auf keiner höheren Zunge ein Stein, würfelt die Zahl einen Stein von der höchsten Zunge aus, die du besetzt hast. Ein Stein, der geschlagen wird, muss den ganzen Weg zurücklegen, bevor du wieder auswürfeln kannst.
+# Gewinnen
+- Wer zuerst alle fünfzehn Steine ausgewürfelt hat, gewinnt einen Punkt.
+- Gammon: Hat der Verlierer noch keinen einzigen Stein ausgewürfelt, bekommt der Sieger zwei Punkte.
+- Backgammon: Hat der Verlierer noch keinen Stein ausgewürfelt und steht noch einer auf der Bar oder im Heimfeld des Siegers, bekommt der Sieger drei Punkte.
+Dieses Spiel wird ohne Verdopplungswürfel gespielt.
+# Spielen auf dem Gerät
+Tippe auf die golden leuchtenden Würfel, um zu würfeln. Tippe auf einen Stein und dann auf einen der Punkte, oder schieb ihn mit dem Finger dorthin; ein Ring zeigt einen Blot, den du schlagen würdest. Jeder Zug verbraucht einen Würfel: Ein benutzter Würfel wird abgedunkelt. Zum Auswürfeln ziehst du den Stein in die Ablage rechts. Steine auf der Bar sind schon ausgewählt. Kann ein Wurf nicht gespielt werden, leuchten seine Würfel rot, und der andere Spieler ist am Zug. Deine Leiste zeigt, wie viele Steine du ausgewürfelt hast, und am Ende die gewonnenen Punkte. Rückgängig nimmt einen Zug nach dem anderen zurück, und die Würfel früherer Züge kommen so zurück, wie sie geworfen wurden.

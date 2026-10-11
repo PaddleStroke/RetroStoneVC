@@ -1,0 +1,17 @@
+Amazones
+# Het doel
+Wees de laatste speler die nog kan zetten. Elke beurt brandt er nog een veld van het bord af, zodat de ruimte om te bewegen krimpt tot een speler is ingesloten: die speler verliest.
+# Het begin
+Het bord heeft 10 rijen van 10 velden. Elke speler heeft vier amazones. De lichte amazones staan op de onderste rij en op de vierde rij, de donkere op de bovenste rij en op de zevende rij, tegenover hen. Licht begint, daarna spelen de spelers om de beurt.
+# Een beurt
+Elke beurt bestaat uit twee delen, allebei gedaan door dezelfde amazone:
+- Zetten: een van je amazones beweegt als een dame bij schaken, zoveel velden als je wilt in een rechte lijn, over een rij, een kolom of een diagonaal. Ze mag alleen over lege velden gaan en op lege velden landen: amazones springen nooit en slaan nooit.
+- Schieten: vanaf het veld waar ze geland is, schiet de amazone een pijl, ook als een dame, naar een leeg veld. Dat veld is afgebrand en geblokkeerd voor de rest van de partij: geen amazone mag erop staan of eroverheen gaan, en geen pijl mag eroverheen vliegen.
+De pijl mag terugvliegen naar het veld dat de amazone net heeft verlaten, of eroverheen.
+# Het einde van de partij
+Een speler die aan het begin van zijn beurt geen enkele amazone kan bewegen, verliest. Er is nooit remise.
+# Tips
+- Delen van het bord die door afgebrande velden en amazones zijn afgesloten, worden eigen gebied: tel de velden waarin elke speler nog kan bewegen.
+- Een amazone die in een kleine hoek vastzit, is zo goed als verloren: houd je amazones in de open ruimte.
+# Spelen op het apparaat
+Tik op een van je amazones om te zien waar ze heen kan en tik dan op een veld, of sleep de amazone. Daarna tonen gouden lichtjes waar haar pijl heen kan vliegen: tik op een ervan, en de pijl brandt dat veld af. De laatste beurt blijft gemarkeerd: waar de amazone vandaan kwam, waar ze heen ging en het veld dat ze afbrandde. Ongedaan maken neemt eerst de pijl terug, dan de zet.

@@ -1,0 +1,25 @@
+Janggi
+# Het doel
+Zet de andere generaal schaakmat: val hem zo aan dat hij niet kan ontsnappen. Cho (blauwgroen) begint, daarna Han (rood); de spelers spelen om de beurt, elk één zet.
+# Het bord
+De stukken staan op de punten waar de lijnen elkaar kruisen, niet op de velden. Er is geen rivier. Elke kant heeft een paleis: de drie bij drie punten met een kruis erin, waar de generaal en zijn wachters wonen. De diagonalen van de paleizen zijn ook lijnen.
+# De stukken
+Elk stuk draagt zijn Chinese teken in de inkt van zijn kant; de generaals dragen de namen van de kanten, Cho en Han. De stukken zijn achthoeken waarvan de grootte bij de rang hoort: de generaal het grootst, de wachters en soldaten het kleinst. Elke kant begint, van links af: wagen, paard, olifant, wachter, wachter, olifant, paard, wagen op de achterste rij, de generaal in het midden van het paleis, de twee kanonnen voor de paarden en vijf soldaten. Deze app gebruikt altijd deze opstelling (de paarden buiten, de olifanten binnen); de andere drie opstellingen van de paarden en olifanten worden niet aangeboden.
+# Hoe de stukken bewegen
+- Generaal en wachter: één punt langs een lijn van het paleis, de diagonalen inbegrepen, zonder het te verlaten.
+- Paard: één punt recht, dan één punt diagonaal naar buiten. Het wordt geblokkeerd als het eerste punt bezet is.
+- Olifant: één punt recht, dan twee punten diagonaal naar buiten. Hij wordt geblokkeerd als een van de punten die hij passeert bezet is.
+- Wagen: zoveel punten als je wilt langs een lijn, zoals een toren bij schaken, en langs de diagonalen van een paleis.
+- Kanon: beweegt en slaat alleen door over precies één stuk (van welke kant ook) op zijn lijn te springen, de diagonalen van een paleis inbegrepen. Het mag niet over een kanon springen, en mag geen kanon slaan.
+- Soldaat: één punt vooruit of opzij, nooit achteruit. In het paleis van de tegenstander mag hij ook vooruit langs een diagonaal.
+Een stuk slaat door naar een punt te gaan waar een stuk van de tegenstander staat; dat stuk verlaat het bord.
+# Passen
+In plaats van een zet mag een speler passen, behalve als hij schaak staat. Een speler die geen geldige zet heeft maar niet schaak staat, moet passen.
+# Schaak en het einde van de partij
+Een generaal die wordt aangevallen staat schaak: de volgende zet moet het schaak opheffen. Je mag nooit een zet doen waarna je eigen generaal schaak staat.
+- Schaakmat: de generaal staat schaak en geen enkele zet kan hem redden. Die speler verliest.
+- De generaals tegenover elkaar: na een zet mogen de twee generaals niet oog in oog op dezelfde lijn staan zonder iets ertussen. (Volgens andere regels is dit een remiseaanbod; hier is het gewoon niet toegestaan.)
+- Remise: als dezelfde stelling voor de derde keer terugkomt met dezelfde speler aan zet, eindigt de partij in remise (vier keer passen na elkaar doet dat ook). Een partij van duizend zetten van elke speler is ook remise.
+- De puntentelling die sommige partijen beëindigt, wordt niet gebruikt: de partij gaat door tot schaakmat of remise.
+# Spelen op het apparaat
+Tik op een stuk om te zien waar het heen kan en tik dan op een punt, of sleep het stuk. Stippen tonen de zetten, ringen het slaan. Een generaal die schaak staat, licht rood op. De pasknop staat in de balk van de speler die aan zet is. Elke balk toont de stukken die die speler heeft geslagen.

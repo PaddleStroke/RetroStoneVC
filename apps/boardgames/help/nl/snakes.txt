@@ -1,0 +1,15 @@
+Slangen en ladders
+# Het doel
+Breng als eerste je pion naar vakje 100.
+# Het bord
+De vakjes zijn genummerd van 1 tot 100, vanaf linksonder: over de onderste rij naar rechts, dan over de volgende rij terug naar links, en zo verder het bord op, met 100 bovenaan. Ladders leiden omhoog, van hun voet naar hun top; slangen leiden omlaag, van hun kop naar hun staart.
+# Een beurt
+Beide pionnen beginnen naast het bord, voor vakje 1. Licht gooit eerst. Gooi de dobbelsteen en zet je pion evenveel vakjes vooruit als je gooide, vakje voor vakje. Beide pionnen mogen op hetzelfde vakje staan.
+- Als je pion zijn zet eindigt aan de voet van een ladder, klimt hij naar de top van de ladder.
+- Als hij zijn zet eindigt op de kop van een slang, glijdt hij omlaag naar de staart van de slang.
+- Een 6 geeft je na je zet nog een worp.
+- Anders gaat de dobbelsteen naar de andere speler.
+# Het einde van de partij
+Je moet vakje 100 met het precieze getal bereiken. Gooi je meer dan nodig, dan gaat je pion tot 100 en de overige vakjes weer terug: vanaf 96 eindigt een worp van 6 op 98. Een ladder of slang waar hij stopt, telt nog steeds. De eerste speler op vakje 100 wint.
+# Spelen op het apparaat
+De dobbelsteen wacht, in een gouden licht, aan het eind van de balk van de speler die moet gooien: tik op het scherm om te gooien. Je pion zet dan vanzelf. Elke balk toont het vakje waar de pion van die speler staat, en zijn laatste worp. Ongedaan maken neemt worpen een voor een terug; een teruggenomen worp valt hetzelfde als je opnieuw gooit.

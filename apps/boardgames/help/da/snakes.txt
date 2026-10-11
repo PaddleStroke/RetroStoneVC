@@ -1,0 +1,15 @@
+Slanger og stiger
+# Målet
+Vær den første til at få din brik til felt 100.
+# Brættet
+Felterne er nummereret fra 1 til 100, fra nederst til venstre: hen ad den nederste række mod højre, så tilbage ad den næste række mod venstre, og så videre op ad brættet, med 100 øverst. Stiger fører op ad brættet, fra deres fod til deres top; slanger fører ned, fra deres hoved til deres hale.
+# En tur
+Begge brikker starter uden for brættet, før felt 1. Den lyse side kaster først. Kast terningen, og flyt din brik det kastede antal felter frem, ét felt ad gangen. Begge brikker må stå på samme felt.
+- Hvis din brik slutter sit træk ved foden af en stige, klatrer den op til toppen af stigen.
+- Hvis den slutter sit træk på et slangehoved, glider den ned til slangens hale.
+- En 6'er giver dig et ekstra kast efter dit træk.
+- Ellers går terningen videre til modstanderen.
+# Spillets afslutning
+Du skal nå felt 100 med det præcise tal. Kaster du mere end nødvendigt, går din brik op til 100 og tilbage igen med de overskydende felter: fra 96 ender et kast på 6 på 98. En stige eller en slange, hvor den stopper, tæller stadig. Den første spiller på felt 100 vinder.
+# Spil på enheden
+Terningen venter i et gyldent lys for enden af panelet hos den spiller, der skal kaste: tryk på skærmen for at kaste. Din brik flytter derefter af sig selv. Hvert panel viser det felt, spillerens brik står på, og spillerens sidste kast. Fortryd tager kast tilbage ét ad gangen; et kast, der er taget tilbage, falder ud på samme måde, når du kaster igen.
