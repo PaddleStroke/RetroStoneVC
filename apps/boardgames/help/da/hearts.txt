@@ -1,0 +1,20 @@
+Hjerterfri
+# Målet
+Få så få point som muligt: hvert hjerter, du vinder i et stik, koster 1 point, spar dame 13. Når nogen når 100 point, vinder den laveste sum. For 3 til 6 spillere, der sender enheden rundt; ingen ser de andres kort.
+# Kortene
+Alle 52 kort gives ud: 13 til hver med 4 spillere. Med 3 spillere tages ruder 2 ud (17 hver); med 5 ruder 2 og spar 2 (10 hver); med 6 toerne og treerne i ruder og spar (8 hver). Esset er det højeste kort, så konge, dame, knægt, 10 og så videre ned til 2.
+# At give kort videre
+Før spillet giver hver spiller tre kort videre: til venstre i første runde, til højre i anden, til den overfor i tredje (med 4 eller 6 spillere), slet ikke i fjerde, og så videre. Med 3 eller 5 spillere: venstre, højre, intet. Spillerne vælger efter tur; kortene skifter hænder, når alle har valgt.
+# Spillet
+- Den, der har klør 2, spiller den ud til første stik.
+- Efter tur bekender hver spiller kulør, hvis han kan; ellers spiller han et vilkårligt kort.
+- Det højeste kort i den udspillede kulør vinder stikket, og vinderen spiller ud til det næste. Der er ingen trumf.
+- I første stik må ingen spille hjerter eller spar dame, medmindre han ikke har andet.
+- Man må ikke spille hjerter ud, før der er spillet et hjerter (hjerter er brudt), medmindre man kun har hjerter.
+# Pointene
+- Hvert vundet hjerter: 1 point. Spar dame: 13 point.
+- At skyde månen: den, der tager alle 13 hjerter og spar dame, får intet, og hver af de andre får 26.
+# Spillets afslutning
+Spillet slutter efter den runde, hvor en spiller når 100 point. Den laveste sum vinder; spillere, der står lige, deler sejren.
+# Spil på enheden
+Giv enheden til spilleren, hvis brik vises; han trykker på start og ser sin hånd, viftet ud forneden. Spillernes brikker står rundt om midten, og hvert spillet kort ligger foran sin spillers brik; tallet ved en brik er rundens point. For at give videre trykker du på tre kort: de går til midten (tryk på et af dem dér for at tage det tilbage); tryk så på pilen, der peger på den, der får dem. De kort, du har fået, står lidt højere indtil dit første kort. For at spille trykker du på et kort, der lyser, så det løfter sig, og trykker på det igen eller på dets plads i midten; eller træk det derhen. Tryk på bunken nederst til højre for at se det sidste stik. Hver bjælke viser kortene på hånden og summen. Efter hver runde viser en tavle alles point i runden og deres sum (en måne: den, der skød den); tryk på den for næste runde. Fortryd tager et valg tilbage, der endnu ikke er bekræftet, aldrig et kort, når enheden er givet videre.

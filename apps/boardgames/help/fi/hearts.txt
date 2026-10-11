@@ -1,0 +1,20 @@
+Hertta
+# Tavoite
+Kerää mahdollisimman vähän pisteitä: jokainen tikissä voittamasi hertta maksaa 1 pisteen, patarouva 13. Kun joku saavuttaa 100 pistettä, pienin yhteissumma voittaa. 3–6 pelaajalle, jotka antavat laitetta kädestä käteen; kukaan ei näe muiden kortteja.
+# Kortit
+Kaikki 52 korttia jaetaan: neljällä pelaajalla 13 kullekin. Kolmella pelaajalla ruutukakkonen poistetaan (17 kullekin); viidellä ruutukakkonen ja patakakkonen (10 kullekin); kuudella ruudun ja padan kakkoset ja kolmoset (8 kullekin). Ässä on suurin kortti, sitten kuningas, rouva, jätkä, 10 ja niin edelleen kakkoseen asti.
+# Korttien antaminen
+Ennen pelaamista jokainen antaa kolme korttia: vasemmalle ensimmäisellä kierroksella, oikealle toisella, vastapäiselle kolmannella (4 tai 6 pelaajaa), ei kenellekään neljännellä, ja niin edelleen. Kolmella tai viidellä pelaajalla: vasen, oikea, ei mitään. Pelaajat valitsevat vuorotellen; kortit vaihtavat omistajaa, kun kaikki ovat valinneet.
+# Pelaaminen
+- Ristikakkosen haltija avaa sillä ensimmäisen tikin.
+- Vuorollaan jokainen tunnustaa avatun maan, jos voi; muuten hän pelaa minkä tahansa kortin.
+- Avatun maan suurin kortti voittaa tikin, ja voittaja avaa seuraavan. Valttia ei ole.
+- Ensimmäisessä tikissä kukaan ei saa pelata herttaa eikä patarouvaa, ellei hänellä ole muuta.
+- Hertalla ei saa avata ennen kuin herttaa on pelattu (hertat on murrettu), ellei avaajalla ole pelkkiä herttoja.
+# Pisteet
+- Jokainen saatu hertta: 1 piste. Patarouva: 13 pistettä.
+- Kuun ampuminen: pelaaja, joka saa kaikki 13 herttaa ja patarouvan, ei saa mitään, ja jokainen muu saa 26.
+# Pelin loppu
+Peli päättyy sen kierroksen jälkeen, jolla joku saavuttaa 100 pistettä. Pienin yhteissumma voittaa; tasoissa olevat jakavat voiton.
+# Pelaaminen laitteella
+Anna laite pelaajalle, jonka nappula näkyy; hän napauttaa aloitusta ja näkee oman kätensä viuhkana alhaalla. Pelaajien nappulat ovat keskustan ympärillä, ja jokainen pelattu kortti on pelaajansa nappulan edessä; nappulan vieressä oleva luku on kierroksen pisteet. Anna kortit napauttamalla kolmea korttia: ne siirtyvät keskelle (napauta siellä yhtä ottaaksesi sen takaisin); napauta sitten nuolta, joka osoittaa saajaa. Saamasi kortit ovat vähän muita korkeammalla ensimmäiseen korttiisi asti. Pelaa napauttamalla hehkuvaa korttia, jolloin se nousee, ja napauta sitä uudelleen tai sen paikkaa keskellä; tai vedä se sinne. Napauta oikean alakulman pinoa nähdäksesi viimeisen tikin. Jokainen palkki näyttää kädessä olevat kortit ja yhteissumman. Jokaisen kierroksen jälkeen taulukko näyttää kaikkien kierrospisteet ja yhteissumman (kuu: kuka sen ampui); napauta sitä seuraavaa kierrosta varten. Kumoa peruu vahvistamattoman valinnan, ei koskaan korttia sen jälkeen, kun laite on annettu eteenpäin.

@@ -1,0 +1,20 @@
+Hjärter
+# Målet
+Ta så få poäng som möjligt: varje hjärter du vinner i ett stick kostar 1 poäng, spader dam 13. När någon når 100 poäng vinner den lägsta summan. För 3 till 6 spelare som skickar enheten runt; ingen ser de andras kort.
+# Korten
+Alla 52 korten delas ut: 13 var med 4 spelare. Med 3 spelare tas ruter 2 bort (17 var); med 5 ruter 2 och spader 2 (10 var); med 6 tvåorna och treorna i ruter och spader (8 var). Esset är högsta kortet, sedan kung, dam, knekt, 10 och så vidare ner till 2.
+# Att lämna kort
+Före spelet lämnar varje spelare tre kort: till vänster i första omgången, till höger i andra, till den mittemot i tredje (med 4 eller 6 spelare), inte alls i fjärde, och så vidare. Med 3 eller 5 spelare: vänster, höger, inget. Spelarna väljer i tur och ordning; korten byter ägare när alla har valt.
+# Spelet
+- Den som har klöver 2 spelar ut den i första sticket.
+- I tur och ordning bekänner var och en färg om han kan, annars spelar han vilket kort som helst.
+- Det högsta kortet i utspelad färg vinner sticket, och vinnaren spelar ut till nästa. Det finns ingen trumf.
+- I första sticket får ingen spela hjärter eller spader dam, om han inte har något annat.
+- Man får inte spela ut hjärter förrän ett hjärter har spelats (hjärter är brutet), om man inte bara har hjärter.
+# Poängen
+- Varje vunnet hjärter: 1 poäng. Spader dam: 13 poäng.
+- Att skjuta månen: den som tar alla 13 hjärter och spader dam får ingenting, och var och en av de andra får 26.
+# Partiets slut
+Partiet slutar efter den omgång där en spelare når 100 poäng. Lägsta summan vinner; spelare som står lika delar segern.
+# Spela på enheten
+Ge enheten till spelaren vars bricka visas; han trycker på start och ser sin hand, solfjädrad längst ner. Spelarnas brickor står runt mitten, och varje spelat kort ligger framför sin spelares bricka; talet vid en bricka är poängen i omgången. För att lämna kort trycker du på tre kort: de går till mitten (tryck på ett av dem där för att ta tillbaka det); tryck sedan på pilen, som pekar på den som får dem. Korten du har fått står lite högre fram till ditt första kort. För att spela trycker du på ett kort som lyser så att det lyfts, och trycker på det igen eller på dess plats i mitten; eller dra dit det. Tryck på högen längst ner till höger för att se det senaste sticket. Varje list visar korten på handen och summan. Efter varje omgång visar en tavla allas poäng i omgången och deras summa (en måne: den som sköt den); tryck på den för nästa omgång. Ångra tar tillbaka ett val som inte är bekräftat än, aldrig ett kort när enheten har skickats vidare.

@@ -1,0 +1,20 @@
+Kierki
+# Cel gry
+Zebrać jak najmniej punktów: każdy kier wygrany w lewie kosztuje 1 punkt, dama pik 13. Gdy ktoś dojdzie do 100 punktów, wygrywa najniższa suma. Dla 3 do 6 graczy, którzy podają sobie urządzenie; nikt nie widzi kart pozostałych.
+# Karty
+Rozdaje się wszystkie 52 karty: przy 4 graczach po 13. Przy 3 graczach usuwa się dwójkę karo (po 17); przy 5 dwójkę karo i dwójkę pik (po 10); przy 6 dwójki i trójki karo i pik (po 8). As jest najwyższą kartą, potem król, dama, walet, 10 i tak dalej aż do 2.
+# Oddawanie kart
+Przed grą każdy oddaje trzy karty: w lewo w pierwszym rozdaniu, w prawo w drugim, na wprost w trzecim (przy 4 lub 6 graczach), w czwartym wcale, i tak dalej. Przy 3 lub 5 graczach: w lewo, w prawo, wcale. Gracze wybierają po kolei; karty zmieniają właściciela, gdy wszyscy już wybrali.
+# Rozgrywka
+- Gracz, który ma dwójkę trefl, wychodzi nią do pierwszej lewy.
+- Po kolei każdy dokłada kartę w kolorze wyjścia, jeśli może; jeśli nie, dowolną kartę.
+- Najwyższa karta w kolorze wyjścia bierze lewę, a jej zdobywca wychodzi do następnej. Nie ma atutów.
+- W pierwszej lewie nikt nie może zagrać kiera ani damy pik, chyba że nie ma nic innego.
+- Nie wolno wyjść w kiery, dopóki nie zagrano żadnego kiera (kiery są przełamane), chyba że ma się same kiery.
+# Punktacja
+- Każdy zdobyty kier: 1 punkt. Dama pik: 13 punktów.
+- Strzał w księżyc: kto zbierze wszystkie 13 kierów i damę pik, nie dostaje nic, a każdy z pozostałych dostaje 26.
+# Koniec gry
+Gra kończy się po rozdaniu, w którym ktoś dojdzie do 100 punktów. Wygrywa najniższa suma; gracze z równą sumą dzielą zwycięstwo.
+# Gra na urządzeniu
+Podaj urządzenie graczowi, którego pionek się pokazuje; dotyka on przycisku startu i widzi swoją rękę, rozłożoną w wachlarz na dole. Pionki graczy stoją wokół środka stołu, a każda zagrana karta leży przed pionkiem swojego gracza; liczba obok pionka to punkty z tego rozdania. Aby oddać karty, dotknij trzech kart: przejdą na środek (dotknij tam jednej, by ją cofnąć); potem dotknij strzałki, która wskazuje odbiorcę. Otrzymane karty stoją nieco wyżej aż do twojej pierwszej karty. Aby zagrać, dotknij świecącej karty, żeby się uniosła, i dotknij jej jeszcze raz albo jej miejsca na środku; albo przeciągnij ją tam. Dotknij stosiku w prawym dolnym rogu, by zobaczyć ostatnią lewę. Każdy pasek pokazuje karty w ręce i sumę. Po każdym rozdaniu tabela pokazuje punkty z rozdania i sumę każdego gracza (księżyc: kto w niego strzelił); dotknij jej, by przejść do następnego rozdania. Cofnij wycofuje niezatwierdzony jeszcze wybór, nigdy kartę po podaniu urządzenia.

@@ -1,0 +1,20 @@
+Hearts
+# Das Ziel
+Möglichst wenige Punkte sammeln: Jedes Herz, das du in einem Stich gewinnst, kostet 1 Punkt, die Pik-Dame 13. Sobald jemand 100 Punkte erreicht, gewinnt die niedrigste Summe. Für 3 bis 6 Spieler, die das Gerät herumreichen; niemand sieht die Karten der anderen.
+# Die Karten
+Alle 52 Karten werden verteilt: bei 4 Spielern 13 für jeden. Bei 3 Spielern wird die Karo-2 herausgenommen (je 17), bei 5 die Karo-2 und die Pik-2 (je 10), bei 6 die Zweien und Dreien von Karo und Pik (je 8). Das Ass ist die höchste Karte, dann König, Dame, Bube, 10 und so weiter bis zur 2.
+# Das Schieben
+Vor dem Spiel gibt jeder drei Karten weiter: in der ersten Runde nach links, in der zweiten nach rechts, in der dritten nach gegenüber (bei 4 oder 6 Spielern), in der vierten gar nicht, und so weiter. Bei 3 oder 5 Spielern: links, rechts, nichts. Die Spieler wählen nacheinander; die Karten wechseln die Hand, wenn alle gewählt haben.
+# Das Spiel
+- Wer die Kreuz-2 hat, spielt sie zum ersten Stich aus.
+- Reihum muss jeder die ausgespielte Farbe bedienen, wenn er kann, sonst darf er eine beliebige Karte spielen.
+- Die höchste Karte der ausgespielten Farbe gewinnt den Stich, und ihr Gewinner spielt zum nächsten aus. Es gibt keine Trümpfe.
+- Im ersten Stich darf niemand ein Herz oder die Pik-Dame spielen, außer er hat nichts anderes.
+- Herz darf erst ausgespielt werden, wenn schon ein Herz gespielt wurde (Herz ist gebrochen), außer man hat nur noch Herz.
+# Die Wertung
+- Jedes gewonnene Herz: 1 Punkt. Die Pik-Dame: 13 Punkte.
+- Den Mond schießen: Wer alle 13 Herzen und die Pik-Dame bekommt, schreibt nichts, und jeder andere bekommt 26.
+# Das Ende der Partie
+Die Partie endet nach der Runde, in der ein Spieler 100 Punkte erreicht. Die niedrigste Summe gewinnt; Spieler mit gleicher Summe teilen sich den Sieg.
+# Spielen auf dem Gerät
+Gib das Gerät dem Spieler, dessen Stein erscheint; er tippt auf Start und sieht seine Hand, unten aufgefächert. Die Steine der Spieler sitzen rund um die Mitte, und jede gespielte Karte liegt vor dem Stein ihres Spielers; die Zahl neben einem Stein: die Punkte dieser Runde. Zum Schieben tippe drei Karten an: Sie wandern in die Mitte (tippe dort eine an, um sie zurückzunehmen); dann tippe auf den Pfeil, der auf den Empfänger zeigt. Die erhaltenen Karten stehen etwas höher bis zu deiner ersten Karte. Zum Spielen tippe eine leuchtende Karte an, damit sie sich hebt, dann tippe sie noch einmal oder ihren Platz in der Mitte an; oder ziehe sie dorthin. Tippe auf den Stapel unten rechts, um den letzten Stich zu sehen. Jede Leiste zeigt die Karten auf der Hand und die Summe. Nach jeder Runde zeigt eine Tafel die Punkte der Runde und die Summe jedes Spielers (ein Mond: wer ihn geschossen hat); tippe darauf für die nächste Runde. Rückgängig nimmt eine noch nicht bestätigte Wahl zurück, nie eine Karte, wenn das Gerät weitergegeben wurde.

@@ -1,0 +1,20 @@
+Copas
+# O objetivo
+Apanhar o menor número de pontos possível: cada copa que ganhas numa vaza custa 1 ponto, a dama de espadas 13. Quando alguém chega aos 100 pontos, ganha o total mais baixo. De 3 a 6 jogadores que passam o dispositivo; ninguém vê as cartas dos outros.
+# As cartas
+As 52 cartas são todas distribuídas: 13 a cada um com 4 jogadores. Com 3 jogadores tira-se o 2 de ouros (17 cada); com 5, o 2 de ouros e o 2 de espadas (10 cada); com 6, os 2 e os 3 de ouros e de espadas (8 cada). O ás é a carta mais alta, depois o rei, a dama, o valete, o 10 e assim por diante até ao 2.
+# A passagem
+Antes de jogar, cada um passa três cartas: para a esquerda na primeira ronda, para a direita na segunda, para o jogador da frente na terceira (com 4 ou 6 jogadores), para ninguém na quarta, e assim por diante. Com 3 ou 5 jogadores: esquerda, direita, nada. Os jogadores escolhem à vez; as cartas mudam de mão quando todos escolheram.
+# O jogo
+- Quem tem o 2 de paus sai com ele na primeira vaza.
+- À vez, cada um assiste ao naipe de saída se puder; senão, joga qualquer carta.
+- A carta mais alta do naipe de saída ganha a vaza, e quem a ganha sai na seguinte. Não há trunfo.
+- Na primeira vaza ninguém pode jogar copas nem a dama de espadas, a não ser que não tenha mais nada.
+- Não se pode sair a copas enquanto não se tiver jogado uma copa (copas abertas), a não ser que só tenhas copas.
+# A pontuação
+- Cada copa apanhada: 1 ponto. A dama de espadas: 13 pontos.
+- Atirar à lua: quem apanha as 13 copas e a dama de espadas não marca nada, e cada um dos outros marca 26.
+# O fim do jogo
+O jogo termina depois da ronda em que um jogador chega aos 100 pontos. Ganha o total mais baixo; os empatados partilham a vitória.
+# Jogar no dispositivo
+Passa o dispositivo ao jogador cuja peça aparece; ele toca no botão de início e vê a sua mão, em leque em baixo. As peças dos jogadores ficam à volta do centro da mesa, e cada carta jogada fica diante da peça do seu jogador; o número ao lado de uma peça são os pontos apanhados na ronda. Para passar, toca em três cartas: vão para o centro (toca numa delas ali para a recuperar); depois toca na seta, que aponta para quem as recebe. As cartas recebidas ficam um pouco mais altas até à tua primeira carta. Para jogar, toca numa carta que brilha para a levantar e toca-lhe outra vez ou no seu lugar no centro; ou arrasta-a até lá. Toca no monte em baixo à direita para ver a última vaza. Cada barra mostra as cartas na mão e o total. Depois de cada ronda, uma tabela mostra os pontos da ronda e o total de cada um (uma lua: quem atirou à lua); toca nela para a ronda seguinte. Anular desfaz uma escolha ainda não confirmada, nunca uma carta depois de o dispositivo passar.
