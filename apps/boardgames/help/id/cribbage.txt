@@ -1,0 +1,31 @@
+Cribbage
+# Tujuan
+Menjadi yang pertama mengumpulkan 121 poin, yang dicatat dengan pasak di papan. Untuk 2 atau 3 pemain. Poin didapat saat kartu dimainkan, dan saat kartu di tangan dihitung dalam penghitungan (show).
+# Pembagian kartu
+- Setiap ronde, pembagi memberi 6 kartu kepada setiap pemain (3 pemain: masing-masing 5, dan satu kartu dari dek masuk ke crib).
+- Setiap pemain menyisihkan 2 kartu tertutup (3 pemain: 1). Kartu-kartu itu menjadi crib, tangan tambahan yang dihitung untuk pembagi.
+- Pemain di kiri pembagi memotong dek, dan kartu teratasnya dibuka: kartu starter. Jika kartu itu jack, pembagi mendapat 2 poin (his heels).
+- Setelah setiap ronde, giliran membagi pindah ke kiri.
+# Jalannya permainan
+- Mulai dari kiri pembagi, para pemain bergiliran meletakkan kartunya terbuka sambil terus menjumlahkan nilainya: as 1, 2 sampai 10 sesuai nilainya, jack, queen, dan king 10.
+- Jumlahnya tidak boleh melewati 31. Pemain yang tidak bisa meletakkan kartu berkata “go”, dan pemain lain melanjutkan selama mereka bisa.
+- Jumlah tepat 15 bernilai 2, tepat 31 bernilai 2.
+- Kartu dengan nilai yang sama seperti kartu sebelumnya bernilai 2 untuk sepasang, 6 untuk tiga kembar, 12 untuk empat kembar.
+- Jika 3 kartu terakhir yang diletakkan atau lebih membentuk urutan, dalam susunan apa pun, nilainya 1 poin per kartu.
+- Jika tak ada lagi yang bisa meletakkan kartu, pemain terakhir yang meletakkan kartu mendapat 1 (tidak ada tambahan pada 31). Jumlah mulai lagi dari 0 dengan pemain berikutnya yang masih punya kartu. Kartu paling terakhir dalam permainan kartu juga bernilai 1.
+# Menghitung tangan
+Kartu di tangan dihitung dengan kartu starter sebagai kartu kelima: pemain di kiri pembagi lebih dulu, pembagi terakhir, lalu crib milik pembagi.
+- Setiap kombinasi kartu yang jumlahnya 15: 2.
+- Setiap pasangan: 2 (tiga kembar berarti tiga pasang: 6).
+- Setiap urutan 3 kartu atau lebih: 1 poin per kartu (urutan ganda dihitung dua kali).
+- Empat kartu di tangan dengan jenis yang sama: 4, atau 5 jika kartu starter juga berjenis itu. Crib hanya menghitung lima kartu dengan jenis yang sama.
+- Jack di tangan yang jenisnya sama dengan kartu starter: 1 (his nobs).
+# Akhir permainan
+Pemain pertama yang mencapai 121 langsung menang, bahkan di tengah permainan kartu atau penghitungan. Karena itu urutan menghitung penting.
+# Bermain di perangkat
+Kartu di tangan dirahasiakan: oper perangkat saat layar memintanya, dan pemain berikutnya mengetuk tombol mulai. Tanganmu ada di bawah, tangan pemain lain di atas. Di papan pasak setiap pemain punya jalur: pasak maju di sepanjang satu baris dan kembali di baris lainnya, dua putaran, sampai lubang akhir. Setiap pemain punya dua pasak: pasak belakang melompati pasak depan sejauh poin yang didapat.
+- Ketuk 2 kartu (3 pemain: 1) untuk memilihnya, lalu ketuk crib untuk menyisihkannya.
+- Ketuk dek untuk memotongnya.
+- Ketuk kartu untuk memilihnya, lalu ketuk lagi (atau seret ke meja) untuk meletakkannya. Kartu yang tidak membuat jumlah melewati 31 bersinar. “Go” diucapkan otomatis: sebuah tanda muncul di bilah pemain.
+- Saat penghitungan, setiap tangan lalu crib datang ke tengah bersama kartu starter. Setiap kombinasi yang mendapat poin menyala bergiliran dan poinnya naik di atasnya (15 sebelum poin: lima belas). Lalu pasak bergerak. Ketuk untuk lanjut; ketukan saat penghitungan langsung menampilkan hasilnya.
+Urungkan membatalkan tindakanmu sendiri, sampai saat perangkat dioper.

@@ -1,0 +1,31 @@
+Cribbage
+# Het doel
+Als eerste 121 punten halen, uitgezet met pinnen op het bord. Voor 2 spelers, of 3. Punten vallen tijdens het uitspelen van de kaarten, en als de handen worden geteld in de telling (show).
+# Het delen
+- Bij elke hand deelt de gever elke speler 6 kaarten (3 spelers: 5 per speler, en één kaart van de stapel gaat naar de crib).
+- Elke speler legt 2 kaarten gedekt weg (3 spelers: 1). Die vormen de crib, een extra hand die voor de gever telt.
+- De speler links van de gever neemt de stapel af, en de bovenste kaart wordt opengedraaid: de startkaart (starter). Een boer levert de gever 2 punten op (his heels).
+- Na elke hand gaat het geven naar links.
+# Het spelen
+- Vanaf links van de gever leggen de spelers om de beurt hun kaarten open neer en houden ze het totaal van hun waarden bij: aas 1, 2 tot 10 hun waarde, boer, vrouw en heer 10.
+- Het totaal mag nooit boven 31 komen. Wie geen kaart kan leggen, zegt ‘go’, en de anderen gaan door zolang ze kunnen.
+- Een totaal van precies 15 levert 2 op, precies 31 levert 2 op.
+- Een kaart van dezelfde rang als de vorige levert 2 op voor een paar, 6 voor drie gelijke, 12 voor vier gelijke.
+- Als de laatste 3 of meer gelegde kaarten een reeks vormen, in welke volgorde ook, levert dat 1 punt per kaart op.
+- Als niemand meer een kaart kan leggen, krijgt de laatste die dat wel deed 1 punt (niets extra bij 31). Het totaal begint weer bij 0 met de volgende speler die nog kaarten heeft. De allerlaatste kaart van het uitspelen levert ook 1 op.
+# De telling
+De handen worden geteld met de startkaart als vijfde kaart: eerst de speler links van de gever, de gever als laatste, en dan de crib van de gever.
+- Elke combinatie van kaarten die samen 15 is: 2.
+- Elk paar: 2 (drie gelijke zijn drie paren: 6).
+- Elke reeks van 3 kaarten of meer: 1 punt per kaart (een dubbele reeks telt twee keer).
+- Vier kaarten van de hand in één kleur: 4, of 5 als de startkaart ook die kleur heeft. De crib telt alleen vijf kaarten van één kleur.
+- De boer in de hand van de kleur van de startkaart: 1 (his nobs).
+# Het einde van de partij
+De eerste speler die 121 haalt, wint meteen, ook midden in het uitspelen of de telling. Daarom doet de volgorde van tellen ertoe.
+# Spelen op het apparaat
+De handen zijn geheim: geef het apparaat door als het scherm erom vraagt, en de volgende speler tikt op start. Je hand ligt onderaan, die van de anderen bovenaan. Op het pinbord heeft elke speler een baan: de pinnen gaan heen langs de ene rij en terug langs de andere, twee keer rond, naar het eindgat. Elke speler heeft twee pinnen: de achterste springt over de voorste heen, zoveel gaten verder als er punten zijn gescoord.
+- Tik op 2 kaarten (3 spelers: 1) om ze te kiezen, en tik dan op de crib om ze weg te leggen.
+- Tik op de stapel om af te nemen.
+- Tik op een kaart om haar te kiezen, en tik er nog eens op (of sleep haar naar de tafel) om haar te leggen. De kaarten waarmee je niet boven 31 komt, lichten op. ‘Go’ wordt vanzelf gezegd: er verschijnt een teken in de balk van de speler.
+- Bij de telling komen elke hand en daarna de crib met de startkaart naar het midden. Elke combinatie die punten oplevert, licht om de beurt op en haar punten stijgen erboven op (een 15 voor de punten: een vijftien). Dan schuift de pin op. Tik om verder te gaan; een tik tijdens het tellen toont het meteen.
+Ongedaan maken neemt je eigen acties terug, tot het moment dat het apparaat werd doorgegeven.

@@ -1,0 +1,31 @@
+Gin rummy
+# Tavoite
+Saada ensimmäisenä 100 pistettä. 2 pelaajalle. Kokoa korttisi yhdistelmiksi, pääse eroon muista, irtokorteistasi, ja koputa lopettaaksesi jaon.
+# Kortit
+- Yhdistelmä: kolme tai neljä samanarvoista korttia tai vähintään kolme samaa maata olevaa korttia peräkkäin. Ässä on aina pieni: ässä, 2, 3 on suora; kuningatar, kuningas, ässä ei ole.
+- Irtokortit (deadwood): kortit, jotka eivät kuulu mihinkään yhdistelmään, arvonsa mukaan laskettuina: ässä 1, 2–10 arvonsa, jätkä, kuningatar ja kuningas 10.
+# Jako
+- Kumpikin pelaaja saa 10 korttia. Seuraava kortti käännetään poistopinon aluksi; loput ovat pakka.
+- Jakajan vastustaja saa ottaa tämän ensimmäisen kortin tai passata; sitten jakaja saa ottaa sen. Jos kumpikin passaa, jakajan vastustaja aloittaa nostamalla pakasta.
+- Jakovuoro vaihtuu.
+# Vuoro
+- Nosta pakan tai poistopinon päällimmäinen kortti.
+- Heitä sitten yksi kortti kuvapuoli ylöspäin poistopinoon. Juuri poistopinosta otettua korttia ei saa heittää heti takaisin.
+# Koputtaminen
+- Pelaaja, jonka irtokortit ovat heiton jälkeen yhteensä 10 tai alle, saa koputtaa: hän heittää kortin, ja jako päättyy.
+- Gin: koputtaminen ilman ainuttakaan irtokorttia.
+- Kummankin käsi näytetään yhdistelminä. Toinen pelaaja, puolustaja, saa sitten lisätä irtokortteja koputtajan yhdistelmiin: neljännen kortin samanarvoisiin, kortteja, jotka jatkavat suoraa. Giniä vastaan ei saa lisätä.
+# Pisteet
+- Koputtaja saa irtokorttien erotuksen.
+- Alitus (undercut): jos puolustajan irtokortit ovat yhtä pienet kuin koputtajan tai pienemmät, puolustaja saa erotuksen ja 25 lisää.
+- Gin antaa 25 ja puolustajan irtokortit.
+- Jos pakkaan jää heiton jälkeen vain kaksi korttia eikä kukaan ole koputtanut, jako on kuollut: kukaan ei saa pisteitä, ja sama jakaja jakaa uudelleen.
+# Pelin loppu
+Peli päättyy, kun joku saavuttaa 100 pistettä. Voittaja saa 100 lisää (pelibonus), ja kumpikin pelaaja saa 25 jokaisesta voittamastaan jaosta (jakobonus). Jos häviäjä ei voittanut yhtäkään jakoa, voittajan yhteispisteet tuplataan (nollapeli).
+# Pelaaminen laitteella
+Kädet ovat salaisia: anna laite eteenpäin, kun näyttö pyytää, ja seuraava pelaaja napauttaa aloitusta. Kätesi on alhaalla ja järjestyy itsestään: ensin yhdistelmät, kunkin alla kultainen viiva, sitten irtokorttisi ja niiden pisteet yläpuolella. Vedä korttia kättäsi pitkin siirtääksesi sen haluamaasi kohtaan; napauta irtokorttien pisteitä järjestääksesi käden uudelleen.
+- Nosta napauttamalla pakkaa tai poistopinoa. Hylkää ensimmäinen kortti napauttamalla Passaa-painiketta palkissasi.
+- Napauta korttia valitaksesi sen ja napauta sitä uudelleen tai napauta poistopinoa heittääksesi sen (tai vedä se pinoon).
+- Kun voit koputtaa, poistopinon viereen ilmestyy pyöreä painike, joka näyttää sinulle jäävät irtokortit. Napauta sitä koputtaaksesi valitulla kortilla; jos sillä kortilla ei voi koputtaa, painike valitsee parhaan, ja toinen napautus koputtaa.
+- Jaon lopussa kumpikin käsi levitetään yhdistelminä, lisätyt kortit lentävät koputtajan yhdistelmiin ja hehkuvat, ja pisteet menevät voittajalle (ne 25 erikseen, kultaisessa renkaassa). Napauta seuraavaa jakoa varten. Palkit näyttävät pisteet ja pienen kultaisen neliön jokaisesta voitetusta jaosta. Pelin lopussa taulukko näyttää kunkin pelaajan pisteet, voitetut jaot, bonukset ja yhteispisteet.
+Kumoa peruu omat toimintosi siihen hetkeen asti, jolloin laite annettiin eteenpäin.

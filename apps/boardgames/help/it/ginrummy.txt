@@ -1,0 +1,31 @@
+Gin rummy
+# Lo scopo
+Essere il primo ad arrivare a 100 punti. Per 2 giocatori. Riunisci le carte in combinazioni, liberati delle altre, le carte spaiate, e bussa per chiudere la mano.
+# Le carte
+- Una combinazione: tre o quattro carte dello stesso valore, oppure tre o più carte dello stesso seme in sequenza. L'asso è sempre basso: asso, 2, 3 è una scala, donna, re, asso no.
+- Carte spaiate (deadwood): le carte che non stanno in nessuna combinazione, contate al loro valore: asso 1, dal 2 al 10 il loro valore, fante, donna e re 10.
+# La distribuzione
+- Ogni giocatore riceve 10 carte. La carta successiva viene scoperta e avvia la pila degli scarti; il resto è il mazzo.
+- Chi non ha distribuito può prendere questa prima carta o passare; poi può prenderla il mazziere. Se passano entrambi, comincia chi non ha distribuito pescando dal mazzo.
+- Si distribuisce a turno.
+# Un turno
+- Pesca la carta in cima al mazzo o agli scarti.
+- Poi scarta una carta scoperta sugli scarti. Una carta appena presa dagli scarti non può tornarci subito.
+# Bussare
+- Chi, dopo lo scarto, avrà carte spaiate per 10 punti o meno può bussare: scarta, e la mano finisce.
+- Gin: bussare senza nessuna carta spaiata.
+- Le due mani si mostrano divise in combinazioni. L'altro giocatore, il difensore, può allora attaccare carte spaiate alle combinazioni di chi ha bussato: la quarta carta di un tris, carte che allungano una scala. Al gin non si attacca.
+# I punti
+- Chi bussa segna la differenza tra le carte spaiate dei due.
+- Undercut: se le carte spaiate del difensore valgono quanto quelle di chi bussa o meno, il difensore segna la differenza più 25.
+- Il gin vale 25 più le carte spaiate del difensore.
+- Se dopo uno scarto restano solo due carte nel mazzo e nessuno ha bussato, la mano è nulla: nessuno segna, e lo stesso mazziere distribuisce di nuovo.
+# La fine della partita
+La partita finisce quando un giocatore arriva a 100 punti. Il vincitore aggiunge 100 (il bonus partita), e ogni giocatore aggiunge 25 per ogni mano vinta (il bonus mano, box). Se il perdente non ha vinto nemmeno una mano, il totale del vincitore raddoppia (cappotto).
+# Giocare sul dispositivo
+Le mani sono segrete: passa il dispositivo quando lo chiede lo schermo, e il giocatore successivo tocca il pulsante di avvio. La tua mano è in basso e si ordina da sola: prima le combinazioni, ciascuna con una linea dorata sotto, poi le carte spaiate con i loro punti sopra. Trascina una carta lungo la mano per metterla dove vuoi; tocca i punti delle carte spaiate per riordinare la mano.
+- Tocca il mazzo o gli scarti per pescare. Per rifiutare la prima carta, tocca il pulsante passo nella tua barra.
+- Tocca una carta per sceglierla, poi toccala di nuovo o tocca gli scarti per scartarla (oppure trascinala sulla pila).
+- Quando puoi bussare, accanto agli scarti appare un pulsante rotondo con i punti delle carte spaiate che ti resterebbero. Toccalo per bussare con la carta scelta; se con quella carta non si può bussare, il pulsante sceglie la migliore, e un secondo tocco bussa.
+- Alla fine di una mano le due mani vengono stese in combinazioni, le carte attaccate volano sulle combinazioni di chi ha bussato e brillano, e i punti vanno al vincitore (il 25 a parte, in un anello dorato). Tocca per la mano successiva. Le barre mostrano i punti, e un quadratino dorato per ogni mano vinta. Alla fine della partita una tabella mostra i punti di ogni giocatore, le mani vinte, i bonus e il totale.
+Annulla ritira le tue azioni, fino al momento in cui è stato passato il dispositivo.

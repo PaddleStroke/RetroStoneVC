@@ -1,0 +1,31 @@
+Cribbage
+# Amaç
+Tahtada çivilerle işaretlenen 121 puana ilk ulaşan olmak. 2 ya da 3 oyuncu için. Puanlar hem kartlar oynanırken hem de eller sayımda hesaplanırken gelir.
+# Dağıtım
+- Her elde dağıtan, her oyuncuya 6 kart verir (3 oyuncuda: herkese 5, ve desteden bir kart kasaya gider).
+- Her oyuncu 2 kartını kapalı olarak ayırır (3 oyuncuda: 1). Bunlar kasayı (crib) oluşturur: dağıtana puan kazandıran fazladan bir el.
+- Dağıtanın solundaki oyuncu desteyi keser ve üstteki kart açılır: başlangıç kartı (starter). Bu bir valeyse dağıtan 2 puan alır (his heels).
+- Her elden sonra dağıtma sırası sola geçer.
+# Oyun
+- Dağıtanın solundan başlayarak oyuncular sırayla kartlarını açık olarak koyar ve değerlerinin toplamını sayar: as 1, 2'den 10'a kendi değeri, vale, kız ve papaz 10.
+- Toplam asla 31'i geçemez. Kart koyamayan oyuncu "pas" (go) der, diğerleri koyabildikleri sürece devam eder.
+- Toplam tam 15 olursa 2, tam 31 olursa 2 puan getirir.
+- Bir önceki kartla aynı değerdeki kart, çift için 2, üçlü için 6, dörtlü için 12 puan getirir.
+- Son konan 3 ya da daha fazla kart, sırası ne olursa olsun bir seri oluşturursa kart başına 1 puan getirir.
+- Kimse kart koyamadığında son kart koyan oyuncu 1 puan alır (31'de fazladan puan yok). Toplam, hâlâ kartı olan sıradaki oyuncuyla 0'dan yeniden başlar. Oyunun en son kartı da 1 puan getirir.
+# Sayım
+Eller, başlangıç kartı beşinci kart sayılarak hesaplanır: önce dağıtanın solundaki oyuncu, en son dağıtan, ardından dağıtanın kasası.
+- Toplamı 15 eden her kart kombinasyonu: 2.
+- Her çift: 2 (üçlü üç çift eder: 6).
+- 3 ya da daha fazla kartlık her seri: kart başına 1 puan (çift seri iki kez sayılır).
+- Eldeki dört kart aynı renkten: 4, başlangıç kartı da o renktense 5. Kasada yalnızca beş kartlık renk sayılır.
+- Elde başlangıç kartının renginden vale: 1 (his nobs).
+# Oyunun sonu
+121'e ilk ulaşan oyuncu, oyunun ya da sayımın ortasında bile olsa hemen kazanır. Sayma sırasının önemli olmasının nedeni budur.
+# Cihazda oynamak
+Eller gizlidir: ekran istediğinde cihazı ver, sıradaki oyuncu başlat düğmesine dokunur. Senin elin altta, diğerlerininki üstte. Çivili tahtada her oyuncunun bir kulvarı vardır: çiviler bir sıra boyunca gider, öbür sıradan geri döner, iki tur atarak bitiş deliğine varır. Her oyuncunun iki çivisi vardır: arkadaki, kazanılan puan kadar öndekinin ötesine sıçrar.
+- Seçmek için 2 karta dokun (3 oyuncuda: 1), sonra ayırmak için kasaya dokun.
+- Kesmek için desteye dokun.
+- Seçmek için bir karta dokun, sonra koymak için ona yeniden dokun (ya da onu masaya sürükle). Toplamı 31'in üstüne çıkarmayan kartlar parlar. Pas kendiliğinden söylenir: oyuncunun şeridinde bir işaret belirir.
+- Sayımda her el ve ardından kasa, başlangıç kartıyla birlikte ortaya gelir. Puan getiren her kombinasyon sırayla yanar ve puanları üstünde yükselir (puanlardan önce bir 15: on beş). Sonra çivi ilerler. Devam etmek için dokun; sayım sırasında bir dokunuş sayımı hemen gösterir.
+Geri al, cihazın verildiği ana kadar kendi eylemlerini geri alır.

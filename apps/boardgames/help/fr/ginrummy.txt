@@ -1,0 +1,31 @@
+Gin rami
+# Le but
+Être le premier à atteindre 100 points. À 2 joueurs. Rassemble tes cartes en combinaisons, débarrasse-toi des autres, ton bois mort, et frappe pour finir la main.
+# Les cartes
+- Une combinaison : trois ou quatre cartes de même rang, ou trois cartes ou plus d'une même couleur qui se suivent. L'as est toujours bas : as, 2, 3 est une suite ; dame, roi, as n'en est pas une.
+- Le bois mort (deadwood) : les cartes qui ne sont dans aucune combinaison, comptées à leur valeur : as 1, 2 à 10 leur valeur, valet, dame et roi 10.
+# La donne
+- Chaque joueur reçoit 10 cartes. La carte suivante est retournée pour commencer la défausse ; le reste forme la pioche.
+- Le non-donneur peut prendre cette première carte ou passer ; puis le donneur peut la prendre. Si les deux passent, le non-donneur commence en piochant dans la pioche.
+- La donne alterne.
+# Un tour
+- Pioche la carte du dessus de la pioche ou de la défausse.
+- Puis jette une carte face visible sur la défausse. Une carte qu'on vient de prendre dans la défausse ne peut pas y retourner tout de suite.
+# Frapper
+- Un joueur dont le bois mort fera 10 ou moins après sa défausse peut frapper : il se défausse, et la main s'arrête.
+- Gin : frapper sans aucun bois mort.
+- Les deux mains sont étalées en combinaisons. L'autre joueur, le défenseur, peut alors placer des cartes de son bois mort sur les combinaisons de celui qui a frappé : la quatrième carte d'un brelan, des cartes qui allongent une suite. Pas de placement contre un gin.
+# Les points
+- Celui qui a frappé marque la différence entre les deux bois morts.
+- Contre (undercut) : si le bois mort du défenseur est aussi bas que celui de l'autre ou plus bas, le défenseur marque la différence plus 25.
+- Le gin rapporte 25 plus le bois mort du défenseur.
+- S'il ne reste que deux cartes dans la pioche après une défausse et que personne n'a frappé, la main est nulle : personne ne marque, et le même donneur redonne.
+# La fin de la partie
+La partie s'arrête quand un joueur atteint 100 points. Le gagnant ajoute 100 (le bonus de partie), et chaque joueur ajoute 25 pour chaque main gagnée (le bonus de ligne). Si le perdant n'a pas gagné une seule main, le total du gagnant est doublé (un capot).
+# Jouer sur l'appareil
+Les mains sont secrètes : passe l'appareil quand l'écran le demande, et le joueur suivant touche le bouton de départ. Ta main est en bas et se trie toute seule : d'abord les combinaisons, chacune soulignée d'un trait doré, puis ton bois mort avec ses points au-dessus. Fais glisser une carte le long de ta main pour la placer où tu veux ; touche les points du bois mort pour faire trier la main à nouveau.
+- Touche la pioche ou la défausse pour piocher. Pour refuser la première carte, touche le bouton passer dans ta barre.
+- Touche une carte pour la choisir, puis touche-la encore ou touche la défausse pour la jeter (ou fais-la glisser sur la défausse).
+- Quand tu peux frapper, un bouton rond apparaît à côté de la défausse avec le bois mort que tu garderais. Touche-le pour frapper avec la carte choisie ; si cette carte ne permet pas de frapper, le bouton choisit la meilleure, et une seconde touche frappe.
+- À la fin d'une main, les deux mains sont étalées en combinaisons, les cartes placées volent vers les combinaisons de celui qui a frappé et brillent, et les points vont au gagnant (les 25 à part, dans un anneau doré). Touche pour la main suivante. Les barres montrent les points, et un petit carré doré par main gagnée. À la fin de la partie, un tableau montre les points de chaque joueur, ses mains gagnées, les bonus et le total.
+Annuler reprend tes propres actions, jusqu'au moment où l'appareil a été passé.

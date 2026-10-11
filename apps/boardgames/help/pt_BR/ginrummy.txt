@@ -1,0 +1,31 @@
+Gin Rummy
+# O objetivo
+Ser o primeiro a chegar a 100 pontos. Para 2 jogadores. Junte suas cartas em jogos, livre-se das outras, as suas cartas soltas, e bata para encerrar a mão.
+# As cartas
+- Um jogo: três ou quatro cartas do mesmo valor (uma trinca), ou três ou mais cartas do mesmo naipe em sequência. O ás é sempre baixo: ás-2-3 é uma sequência, dama-rei-ás não é.
+- Cartas soltas: as cartas que não estão em nenhum jogo, contadas pelo seu valor: ás 1, 2 a 10 o seu valor, valete, dama e rei 10.
+# A distribuição
+- Cada jogador recebe 10 cartas. A carta seguinte é virada para começar a pilha de descarte; o resto é o monte.
+- Quem não deu as cartas pode pegar essa primeira carta ou passar; depois quem deu pode pegá-la. Se os dois passarem, quem não deu começa comprando do monte.
+- Os jogadores dão as cartas alternadamente.
+# Uma jogada
+- Compre a carta de cima do monte ou da pilha de descarte.
+- Depois descarte uma carta virada para cima na pilha de descarte. Uma carta que acabou de ser pega do descarte não pode voltar direto para lá.
+# Bater
+- Um jogador cujas cartas soltas vão somar 10 ou menos depois do descarte pode bater: ele descarta e a mão termina.
+- Gin: bater sem nenhuma carta solta.
+- As duas mãos são mostradas em jogos. O outro jogador, o defensor, pode então encaixar cartas soltas nos jogos de quem bateu: a quarta carta de uma trinca, cartas que aumentam uma sequência. Contra um gin não se encaixa nada.
+# A pontuação
+- Quem bateu marca a diferença entre as cartas soltas dos dois.
+- Contra-batida (undercut): se as cartas soltas do defensor somarem o mesmo que as de quem bateu ou menos, o defensor marca a diferença e mais 25.
+- O gin vale 25 mais as cartas soltas do defensor.
+- Se só restarem duas cartas no monte depois de um descarte e ninguém tiver batido, a mão é anulada: ninguém marca, e o mesmo jogador dá as cartas de novo.
+# O fim da partida
+A partida termina quando um jogador chega a 100 pontos. O vencedor soma 100 (o bônus de partida), e cada jogador soma 25 por mão que ganhou (o bônus de mão). Se o perdedor não ganhou nenhuma mão, o total do vencedor é dobrado (capote).
+# Jogando no aparelho
+As mãos são secretas: passe o aparelho quando a tela pedir, e o próximo jogador toca no botão de início. A sua mão fica embaixo e se organiza sozinha: primeiro os jogos, cada um com uma linha dourada embaixo, depois as cartas soltas com os pontos delas em cima. Arraste uma carta ao longo da mão para colocá-la onde quiser; toque nos pontos das cartas soltas para organizar a mão de novo.
+- Toque no monte ou na pilha de descarte para comprar. Para recusar a primeira carta, toque no botão de passar na sua barra.
+- Toque numa carta para escolhê-la e depois toque nela de novo ou na pilha de descarte para descartá-la (ou arraste-a até a pilha).
+- Quando você pode bater, aparece um botão redondo ao lado da pilha de descarte com os pontos das cartas soltas que sobrariam. Toque nele para bater com a carta escolhida; se essa carta não permitir bater, o botão escolhe a melhor, e um segundo toque bate.
+- No fim de uma mão as duas mãos são abertas em jogos, as cartas encaixadas voam para os jogos de quem bateu e brilham, e os pontos vão para o vencedor (os 25 à parte, num anel dourado). Toque para a próxima mão. As barras mostram os pontos e um quadradinho dourado para cada mão ganha. No fim da partida, uma tabela mostra os pontos de cada jogador, as mãos ganhas, os bônus e o total.
+Desfazer desfaz as suas próprias ações, até o momento em que o aparelho foi passado.

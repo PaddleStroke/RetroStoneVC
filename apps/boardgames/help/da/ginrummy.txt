@@ -1,0 +1,31 @@
+Gin rummy
+# Målet
+At være den første, der når 100 point. For 2 spillere. Saml dine kort i meldinger, skil dig af med resten, dine løse kort, og bank for at afslutte omgangen.
+# Kortene
+- En melding: tre eller fire kort af samme rang, eller tre eller flere kort i samme kulør i rækkefølge. Esset er altid lavt: es, 2, 3 er en sekvens; dame, konge, es er ikke.
+- Løse kort (deadwood): de kort, der ikke indgår i nogen melding, talt efter deres værdi: es 1, 2 til 10 deres værdi, knægt, dame og konge 10.
+# Kortgivningen
+- Hver spiller får 10 kort. Det næste kort vendes og starter kastebunken; resten er bunken.
+- Den, der ikke gav, må tage dette første kort eller melde pas; derefter må giveren tage det. Hvis begge melder pas, begynder den, der ikke gav, ved at trække fra bunken.
+- Man giver på skift.
+# En tur
+- Træk det øverste kort fra bunken eller fra kastebunken.
+- Smid så et kort med billedsiden opad på kastebunken. Et kort, der lige er taget fra kastebunken, må ikke smides straks igen.
+# At banke
+- En spiller, hvis løse kort giver 10 eller mindre efter afkastet, må banke: han smider et kort, og omgangen slutter.
+- Gin: at banke helt uden løse kort.
+- Begge hænder vises i meldinger. Den anden spiller, forsvareren, må så lægge løse kort til bankerens meldinger: det fjerde kort til tre ens, kort der gør en sekvens længere. Man kan ikke lægge til mod gin.
+# Pointene
+- Bankeren får forskellen mellem de to spilleres løse kort.
+- Underbud (undercut): hvis forsvarerens løse kort er lige så lave som bankerens eller lavere, får forsvareren forskellen og 25 ekstra.
+- Gin giver 25 plus forsvarerens løse kort.
+- Hvis der kun er to kort tilbage i bunken efter et afkast, og ingen har banket, er omgangen død: ingen får point, og den samme giver giver igen.
+# Spillets afslutning
+Spillet slutter, når en spiller når 100 point. Vinderen lægger 100 til (spilbonus), og hver spiller lægger 25 til for hver vundet omgang (rundebonus). Hvis taberen ikke vandt en eneste omgang, fordobles vinderens sum (en nulsejr).
+# Spil på enheden
+Hænderne er hemmelige: giv enheden videre, når skærmen beder om det, og den næste spiller trykker på start. Din hånd er nederst og sorterer sig selv: først meldingerne, hver med en guldstreg under, derefter dine løse kort med deres point over. Træk et kort langs hånden for at placere det, hvor du vil; tryk på de løse korts point for at få hånden sorteret igen.
+- Tryk på bunken eller kastebunken for at trække. For at afslå det første kort trykker du på knappen Pas i dit panel.
+- Tryk på et kort for at vælge det, og tryk så på det igen eller på kastebunken for at smide det (eller træk det over på kastebunken).
+- Når du kan banke, vises en rund knap ved siden af kastebunken med de løse kort, du ville beholde. Tryk på den for at banke med det valgte kort; hvis det kort ikke kan banke, vælger knappen det bedste, og et tryk mere banker.
+- Ved slutningen af en omgang lægges begge hænder ud i meldinger, de tillagte kort flyver hen til bankerens meldinger og lyser, og pointene går til vinderen (de 25 for sig, i en guldring). Tryk for næste omgang. Panelerne viser pointene og en lille guldfirkant for hver vundet omgang. Ved spillets afslutning viser en tavle hver spillers point, vundne omgange, bonusser og summen.
+Fortryd tager dine egne handlinger tilbage, helt til det øjeblik, enheden blev givet videre.

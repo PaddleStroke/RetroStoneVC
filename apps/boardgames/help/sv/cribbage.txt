@@ -1,0 +1,31 @@
+Cribbage
+# Målet
+Att först nå 121 poäng, som markeras med pinnar på brädet. För 2 spelare, eller 3. Poäng fås medan korten spelas och när händerna räknas i visningen.
+# Given
+- I varje giv delar givaren ut 6 kort till varje spelare (3 spelare: 5 var, och ett kort från leken går till krubban).
+- Varje spelare lägger undan 2 kort med baksidan upp (3 spelare: 1). De bildar krubban (crib), en extra hand som ger poäng åt givaren.
+- Spelaren till vänster om givaren kuperar leken, och dess översta kort vänds upp: startkortet (starter). En knekt ger givaren 2 poäng (his heels).
+- Efter varje giv går given vidare åt vänster.
+# Spelet
+- Med början till vänster om givaren lägger spelarna i tur och ordning ut sina kort med framsidan upp och räknar ihop deras värden: ess 1, 2 till 10 sitt värde, knekt, dam och kung 10.
+- Summan får aldrig gå över 31. En spelare som inte kan lägga ett kort säger "go", och de andra fortsätter så länge de kan.
+- En summa på exakt 15 ger 2, exakt 31 ger 2.
+- Ett kort av samma valör som kortet före ger 2 för ett par, 6 för tretal, 12 för fyrtal.
+- När de 3 eller fler senast lagda korten bildar en stege, i valfri ordning, ger den 1 poäng per kort.
+- När ingen kan lägga ett kort får den som lade sist 1 poäng (inget extra på 31). Summan börjar om från 0 med nästa spelare som har kort kvar. Allra sista kortet i spelet ger också 1.
+# Visningen
+Händerna räknas med startkortet som femte kort: spelaren till vänster om givaren först, givaren sist, och sedan givarens krubba.
+- Varje kombination av kort som tillsammans blir 15: 2.
+- Varje par: 2 (ett tretal är tre par: 6).
+- Varje stege på 3 kort eller fler: 1 poäng per kort (en dubbelstege räknas två gånger).
+- Fyra kort på handen i samma färg: 4, eller 5 om startkortet också är i den färgen. Krubban räknar bara fem kort i samma färg.
+- Knekten i startkortets färg på handen: 1 (his nobs).
+# Partiets slut
+Den som först når 121 vinner direkt, även mitt i spelet eller visningen. Därför spelar räkneordningen roll.
+# Spela på enheten
+Händerna är hemliga: lämna över enheten när skärmen ber om det, så trycker nästa spelare på startknappen. Din hand ligger längst ned, de andras längst upp. På pinnbrädet har varje spelare en bana: pinnarna går ut längs en rad och tillbaka längs den andra, två varv, till målhålet. Varje spelare har två pinnar: den bakre hoppar förbi den främre lika många hål som poängen.
+- Tryck på 2 kort (3 spelare: 1) för att välja dem, och tryck sedan på krubban för att lägga undan dem.
+- Tryck på leken för att kupera den.
+- Tryck på ett kort för att välja det, och tryck på det igen (eller dra det till bordet) för att lägga det. Korten som inte tar summan över 31 lyser. Go sägs av sig självt: ett tecken visas i spelarens fält.
+- I visningen kommer varje hand och sedan krubban till mitten med startkortet. Varje kombination som ger poäng lyser upp i tur och ordning och dess poäng stiger upp ovanför den (en 15 före poängen: en femtonkombination). Sedan flyttas pinnen. Tryck för att fortsätta; ett tryck under räkningen visar den direkt.
+Ångra tar tillbaka dina egna handlingar, ända tillbaka till när enheten lämnades över.

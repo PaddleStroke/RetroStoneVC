@@ -1,0 +1,31 @@
+Cribbage
+# Das Ziel
+Als Erster 121 Punkte erreichen, gesteckt auf dem Zählbrett. Für 2 oder 3 Spieler. Punkte gibt es beim Ausspielen der Karten und beim Zählen der Hände in der Wertung.
+# Das Geben
+- In jeder Runde gibt der Geber jedem Spieler 6 Karten (bei 3 Spielern: je 5, und eine Karte vom Stapel kommt in die Crib).
+- Jeder Spieler legt 2 Karten verdeckt ab (bei 3 Spielern: 1). Sie bilden die Crib, eine zusätzliche Hand, die für den Geber zählt.
+- Der Spieler links vom Geber hebt ab, und die oberste Karte wird aufgedeckt: die Startkarte (starter). Ein Bube bringt dem Geber 2 Punkte (his heels).
+- Nach jeder Runde geht das Geben nach links weiter.
+# Der Spielverlauf
+- Links vom Geber beginnend legen die Spieler reihum ihre Karten offen aus und zählen die Werte laufend zusammen: Ass 1, 2 bis 10 ihr Wert, Bube, Dame und König 10.
+- Die Summe darf nie über 31 gehen. Wer keine Karte legen kann, sagt „Go“, und die anderen machen weiter, solange sie können.
+- Eine Summe von genau 15 zählt 2, von genau 31 zählt 2.
+- Eine Karte vom selben Rang wie die vorige zählt 2 für ein Paar, 6 für einen Drilling, 12 für einen Vierling.
+- Bilden die letzten 3 oder mehr gelegten Karten eine Folge, in beliebiger Reihenfolge, zählt sie 1 Punkt pro Karte.
+- Kann niemand mehr eine Karte legen, bekommt der Letzte, der gelegt hat, 1 Punkt (nichts mehr bei 31). Die Zählung beginnt wieder bei 0 mit dem nächsten Spieler, der noch Karten hat. Die allerletzte Karte des Ausspielens zählt ebenfalls 1.
+# Die Wertung
+Die Hände werden mit der Startkarte als fünfter Karte gezählt: zuerst der Spieler links vom Geber, der Geber zuletzt, und danach die Crib des Gebers.
+- Jede Kartenkombination mit der Summe 15: 2.
+- Jedes Paar: 2 (ein Drilling ergibt drei Paare: 6).
+- Jede Folge aus 3 oder mehr Karten: 1 Punkt pro Karte (eine doppelte Folge zählt zweimal).
+- Vier Karten der Hand in einer Farbe: 4, oder 5, wenn auch die Startkarte diese Farbe hat. In der Crib zählen nur fünf Karten einer Farbe.
+- Der Bube in der Farbe der Startkarte auf der Hand: 1 (his nobs).
+# Das Ende der Partie
+Wer zuerst 121 erreicht, gewinnt sofort, auch mitten im Ausspielen oder in der Wertung. Deshalb ist die Reihenfolge beim Zählen wichtig.
+# Spielen auf dem Gerät
+Die Hände sind geheim: Gib das Gerät weiter, wenn der Bildschirm es verlangt, und der nächste Spieler tippt auf Start. Deine Hand ist unten, die der anderen oben. Auf dem Zählbrett hat jeder Spieler eine Bahn: Die Stecker laufen eine Reihe hinaus und die andere zurück, zweimal herum, bis ins Zielloch. Jeder Spieler hat zwei Stecker: Der hintere springt um die erzielten Punkte vor den vorderen.
+- Tippe 2 Karten an (bei 3 Spielern: 1), um sie auszuwählen, und tippe dann auf die Crib, um sie abzulegen.
+- Tippe auf den Stapel, um abzuheben.
+- Tippe eine Karte an, um sie auszuwählen, und tippe sie dann noch einmal an (oder zieh sie auf den Tisch), um sie zu legen. Die Karten, die bis 31 passen, leuchten. Ein Go wird von selbst gesagt: Ein Zeichen erscheint in der Leiste des Spielers.
+- In der Wertung kommen jede Hand und dann die Crib mit der Startkarte in die Mitte. Jede punktende Kombination leuchtet nacheinander auf, und ihre Punkte steigen darüber auf (eine 15 vor den Punkten: eine Fünfzehn). Dann rückt der Stecker vor. Tippe, um weiterzumachen; ein Tippen während des Zählens zeigt das Ergebnis sofort.
+Rückgängig nimmt deine eigenen Aktionen zurück, bis zu dem Moment, als das Gerät weitergegeben wurde.
