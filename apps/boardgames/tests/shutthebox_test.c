@@ -82,6 +82,7 @@ static void test_end_of_turn(void)
     CHECK(stb_score(P, 0) == 15 && P->phase == STB_THROW);
     CHECK(stb_throw(&G, 2, 1, 2) == ST_DEAD);   /* 3: no 1, 2, 3 open */
     CHECK(P->phase == STB_OVER && P->winner == -1 && !P->boxed && stb_score(P, 0) == 15);
+    CHECK(stb_winners(P) == 0);                 /* one player: none (the status says solved or not) */
     CHECK(!stb_throw(&G, 2, 2, 2));             /* over */
     /* a throw bigger than all the open tiles */
     stb_new(&G, STB_NINE, 1);
@@ -115,10 +116,13 @@ static void test_players(void)
     CHECK(stb_script(&G, "d21 2+1"));
     CHECK(stb_throw(&G, 2, 1, 1) == ST_DEAD);   /* player 0: 42 */
     CHECK(P->turn == 1 && P->phase == STB_THROW && stb_score(P, 0) == 42 && P->played == 1);
+    CHECK(stb_winners(P) == 0);                 /* playing */
     CHECK(stb_script(&G, "d11 2 d11"));         /* player 1: 43 */
     CHECK(P->phase == STB_OVER && P->winner == 0 && !P->boxed && stb_score(P, 1) == 43);
+    CHECK(stb_winners(P) == 1);
     stb_new(&G, STB_NINE, 2);                   /* a tie: a draw */
     CHECK(stb_script(&G, "d21 2+1 d11 d21 2+1 d11") && P->phase == STB_OVER && P->winner == -1);
+    CHECK(stb_winners(P) == 3);                 /* both tied */
     stb_new(&G, STB_NINE, 1);                   /* one player: no winner but the shut box */
     CHECK(stb_script(&G, "d21 2+1 d11") && P->phase == STB_OVER && P->winner == -1 && stb_score(P, 0) == 42);
 }
@@ -132,6 +136,7 @@ static void test_players_3_4(void)
     CHECK(stb_script(&G, "d11 2 d11") && P->turn == 1);       /* player 2: 43 */
     CHECK(stb_script(&G, "d21 2+1 d21 3 d11"));               /* player 1: 39 */
     CHECK(P->phase == STB_OVER && P->winner == 1 && P->played == 7);
+    CHECK(stb_winners(P) == 2);
     stb_new(&G, STB_TEN, 4);                    /* four: 0, 2, 1, 3; a tie for the lowest (not the others) */
     CHECK(P->open[3] == stb_full(10) && stb_score(P, 3) == 55);
     CHECK(stb_script(&G, "d21 2+1 d11") && P->turn == 2);     /* player 0: 52 */
@@ -139,13 +144,16 @@ static void test_players_3_4(void)
     CHECK(stb_script(&G, "d11 2 d11") && P->turn == 3);       /* player 1: 53 */
     CHECK(P->phase == STB_THROW && stb_script(&G, "d21 2+1 d11"));    /* player 3: 52 */
     CHECK(P->phase == STB_OVER && P->winner == -1);
+    CHECK(stb_winners(P) == (1u | 1u << 2 | 1u << 3));  /* 0, 2, 3 tied on 52; not 1 (53) */
     stb_new(&G, STB_TEN, 4);
     CHECK(stb_script(&G, "d21 2+1 d11 d21 2+1 d11 d11 2 d11 d21 2+1 d21 3 d11"));   /* player 3: 49 */
     CHECK(P->phase == STB_OVER && P->winner == 3);
+    CHECK(stb_winners(P) == 1u << 3);
     stb_new(&G, STB_NINE, 4);                   /* the box shut by the last player: a win at once all the same */
     CHECK(stb_script(&G, "d21 2+1 d11 d21 2+1 d11 d11 2 d11"));
     CHECK(P->turn == 3 && stb_script(&G, "d63 9 d44 8 d52 7 d6 6 d5 5 d4 4 d3 3 d21 2+1"));
     CHECK(P->phase == STB_OVER && P->boxed && P->winner == 3);
+    CHECK(stb_winners(P) == 1u << 3);           /* the box shut: its player alone */
 }
 
 /* every variant: its tiles, a whole turn to the end */

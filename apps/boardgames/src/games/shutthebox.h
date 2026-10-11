@@ -65,6 +65,9 @@ unsigned stb_usable(const spos *p, unsigned sel);
 int  stb_throw(sgame *g, int ndice, int first, int second);   /* ST_*; 0: not now (second unused with one die) */
 int  stb_shut(sgame *g, unsigned tiles);        /* 0: not allowed; 1: shut (throw again); 2: the box shut (a win) */
 int  stb_score(const spos *p, int player);      /* the sum of the player's open tiles */
+/* once the game is over (two or more players): the players who share the win (bit p): the box shut, its player; else
+ * the lowest score, or the players tied on it. 0: playing, or one player */
+unsigned stb_winners(const spos *p);
 int  stb_undo(sgame *g);                        /* back to before the last tiles shut (the throws after dropped);
                                                  * 0: none */
 int  stb_script(sgame *g, const char *moves);   /* plays throws and shuts in the notation above; 0: one is bad */

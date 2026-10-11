@@ -63,6 +63,20 @@ unsigned stb_usable(const spos *p, unsigned sel)
 
 int stb_score(const spos *p, int player) { return stb_sum(p->open[player]); }
 
+unsigned stb_winners(const spos *p)
+{
+    if (p->phase != STB_OVER || p->players < 2) return 0;
+    if (p->boxed) return 1u << p->winner;
+    int best = 1000;
+    unsigned m = 0;
+    for (int q = 0; q < p->players; q++) {
+        int s = stb_score(p, q);
+        if (s < best) best = s, m = 0;
+        if (s == best) m |= 1u << q;
+    }
+    return m;
+}
+
 static void push(sgame *g, uint16_t ev)
 {
     g->past[g->n] = g->pos;

@@ -137,6 +137,7 @@ static int status(void)
 
 static int turn(void) { return P->turn; }
 static int busy(void) { return tip.on || dead.on || (fresh && ui_dice_busy()); }
+static unsigned winners(void) { return stb_winners(P); }     /* the tied lowest players, or the winner */
 
 /* where a player sits, for the shell's bars (0..1, not flipped): the middle of its side; the left side's bar on top,
  * the right side's at the bottom */
@@ -671,7 +672,7 @@ static const game shutthebox_game = {
     .id = "shutthebox", .order = 152, .variants = STB_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy,
+    .bar = bar, .script = script, .busy = busy, .winners = winners,
     .players = 1u << 1 | 1u << 2 | 1u << 3 | 1u << 4, .home = home,
 };
 REGISTER_GAME(shutthebox_game)
