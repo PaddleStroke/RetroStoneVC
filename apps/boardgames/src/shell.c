@@ -34,15 +34,21 @@ static int nplayers[MAX_GAMES];                 /* how many play each game (the 
 
 /* the menu's sections, in this order: a heading (help/<lang>/_menu.txt, a line each), then their games by menu
  * order. The games not listed are strategy games. */
-enum { SEC_STRATEGY, SEC_CHESS, SEC_RACE, SEC_CARDS, SEC_GUESS, SECTIONS };
+enum { SEC_STRATEGY, SEC_CHESS, SEC_RACE, SEC_CARDS, SEC_GUESS, SEC_SOLO, SECTIONS };
 static const struct { const char *id; int section; } SECTION_OF[] = {
     {"chess", SEC_CHESS}, {"makruk", SEC_CHESS}, {"shogi", SEC_CHESS}, {"xiangqi", SEC_CHESS}, {"janggi", SEC_CHESS},
     {"jungle", SEC_CHESS},
     {"backgammon", SEC_RACE}, {"ur", SEC_RACE}, {"ludo", SEC_RACE}, {"pachisi", SEC_RACE}, {"snakes", SEC_RACE},
-    {"shutthebox", SEC_RACE},
+    {"shutthebox", SEC_RACE}, {"yacht", SEC_RACE}, {"farkle", SEC_RACE}, {"fourtwoone", SEC_RACE},
+    {"liarsdice", SEC_RACE},
     {"golf", SEC_CARDS}, {"tilerummy", SEC_CARDS}, {"tarot", SEC_CARDS}, {"belote", SEC_CARDS},
-    {"crazyeights", SEC_CARDS}, {"hearts", SEC_CARDS},
+    {"crazyeights", SEC_CARDS}, {"hearts", SEC_CARDS}, {"dominoes", SEC_CARDS}, {"cribbage", SEC_CARDS},
+    {"ginrummy", SEC_CARDS}, {"spades", SEC_CARDS}, {"president", SEC_CARDS}, {"war", SEC_CARDS},
+    {"oldmaid", SEC_CARDS}, {"families", SEC_CARDS},
     {"secretcode", SEC_GUESS}, {"mysteryface", SEC_GUESS},
+    {"seabattle", SEC_GUESS}, {"wordtiles", SEC_CARDS},
+    {"klondike", SEC_SOLO}, {"freecell", SEC_SOLO}, {"spider", SEC_SOLO}, {"pegsolitaire", SEC_SOLO},
+    {"mahjong", SEC_SOLO},
 };
 
 static int section_of(const game *g)
