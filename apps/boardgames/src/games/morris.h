@@ -1,7 +1,7 @@
 /*
  * The men's morris games for two players on one device: the rules (placing, moving, flying, mills, removals, draws).
- * Nine men's morris, twelve men's morris (the same board and its four corner diagonals), six men's morris (two squares).
- * No engine, no clock.
+ * Nine men's morris, twelve men's morris (the same board and its four corner diagonals), six men's morris (two
+ * squares). No engine, no clock.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * The boards (morris_board): points on a grid (x, y from a1 at 0, 0: 7 x 7, six men's 5 x 5), numbered rank by rank

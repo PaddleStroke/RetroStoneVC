@@ -73,7 +73,8 @@ static void test_board(void)
     }
     CHECK(morris_board(MORRIS_NINE)->pieces == 9 && morris_board(MORRIS_TWELVE)->pieces == 12 &&
           morris_board(MORRIS_SIX)->pieces == 6 && morris_board(MORRIS_SIX)->points == 16);
-    CHECK(morris_point(MORRIS_SIX, "c3") < 0 && morris_point(MORRIS_SIX, "f2") < 0 && morris_point(MORRIS_SIX, "c1") == 1);
+    CHECK(morris_point(MORRIS_SIX, "c3") < 0 && morris_point(MORRIS_SIX, "f2") < 0 &&
+          morris_point(MORRIS_SIX, "c1") == 1);
 }
 
 /* a mill while placing: one removal, then the other player */
