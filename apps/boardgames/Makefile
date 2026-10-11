@@ -8,14 +8,22 @@
 # (parallel work: each its own).
 # MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
 
+.DEFAULT_GOAL := host
 D      := apps/boardgames
 B      ?= build/boardgames
 GAMES  ?= all
 GAME_SRC := $(if $(filter all,$(GAMES)),$(wildcard $(D)/src/games/*.c),\
               $(foreach g,$(GAMES),$(wildcard $(D)/src/games/$(g).c $(D)/src/games/$(g)_*.c)))
-SRC    := $(D)/src/shell.c $(D)/src/sound.c $(D)/src/art.c $(GAME_SRC)
+GEN    := $(B)/gen
+# the texts (the rules in 22 languages) and their fonts, cut down to them: tools/gen_text.py (python3, fontTools, the
+# system's fonts-noto-cjk)
+TEXT   := $(GEN)/text_data.c
+SRC    := $(D)/src/shell.c $(D)/src/sound.c $(D)/src/art.c $(D)/src/text.c $(TEXT) $(GAME_SRC)
 HDR    := $(wildcard $(D)/src/*.h $(D)/src/games/*.h)
-CFLAGS := -O2 -std=c11 -Wall -Wextra -I$(D)/src
+CFLAGS := -O2 -std=c11 -Wall -Wextra -I$(D)/src -Isdk/third_party/stb
+
+$(TEXT): $(wildcard $(D)/help/*/*.txt) $(D)/tools/gen_text.py
+	python3 $(D)/tools/gen_text.py --out $(GEN)
 TESTS  := $(if $(filter all,$(GAMES)),$(wildcard $(D)/tests/*_test.c),\
               $(foreach g,$(GAMES),$(wildcard $(D)/tests/$(g)_test.c)))
 

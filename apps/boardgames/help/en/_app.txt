@@ -1,0 +1,9 @@
+RetroStone Board
+# Playing together
+Two players share one device and take turns. The glowing token in a player's bar shows whose turn it is.
+- Home: back to the games. A game in progress waits for you.
+- Undo: takes back the last move. Tap again to go further back.
+- Flip: turns the board round, so the other player sits at the bottom.
+- Face to face: lay the device flat between you. The top player's pieces and bar turn to face them.
+- New game: tap twice to start again.
+- ?: these rules.

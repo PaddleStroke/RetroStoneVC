@@ -1,0 +1,19 @@
+Draughts
+# The aim
+Capture all the other player's pieces, or leave them without a move. Pieces stand on the dark squares only and move diagonally. Choose the rules before the game: international draughts on a 10 by 10 board, or English draughts (checkers) on an 8 by 8 board.
+# International draughts (10 by 10)
+- Light moves first. A man moves one square diagonally forward.
+- A man captures by jumping over an enemy piece next to it onto the empty square just beyond. Men capture forwards and backwards.
+- Capturing is compulsory, and you must take the largest number of pieces possible. After a jump, if another capture is possible from where the piece lands, it must go on jumping in the same move.
+- The pieces taken are removed at the end of the move. A piece cannot be jumped twice.
+- A man that ends its move on the far row becomes a king. A king moves any number of squares along a diagonal, and captures from a distance, landing on any empty square beyond the piece it takes.
+- Draw: when the same position comes back for the third time, or after 25 moves each with only kings moving and no capture.
+# English draughts (8 by 8)
+- Dark moves first. Men move and capture forwards only.
+- Capturing is compulsory, but you may choose which capture to make. Once a piece starts jumping, it must take every piece it can along its way.
+- A man reaching the far row becomes a king, and that ends the move. A king moves and captures one square diagonally in any direction.
+- Draw: when the same position comes back for the third time, or after 40 moves each without a capture or a man moving.
+# The end of the game
+A player who has no pieces left, or cannot move, loses.
+# Playing on the device
+Only the pieces that can move can be picked up. Tap a piece, then the square it lands on. For a capture of several pieces, tap each landing square in turn, or just the last one. The pieces about to be taken fade.

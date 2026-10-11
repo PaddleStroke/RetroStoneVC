@@ -52,7 +52,8 @@ void art_board(int sq, int fr, uint8_t *rgba);
 /* the same wood, n x m squares (light / dark: checkered; plain: one wood, no squares) */
 void art_board_n(int nx, int ny, int sq, int fr, int checkered, uint8_t *rgba);
 
-enum { ICON_UNDO, ICON_FLIP, ICON_NEW, ICON_HOME, ICON_F2F, ICON_PASS, ICON_SOUND, ICON_MUTE, ICONS };
+enum { ICON_UNDO, ICON_FLIP, ICON_NEW, ICON_HOME, ICON_F2F, ICON_PASS, ICON_SOUND, ICON_MUTE, ICON_HELP, ICON_CLOSE,
+       ICONS };
 /* a round button's icon (white: tint it), size x size */
 void art_icon(int which, int size, uint8_t *rgba);
 

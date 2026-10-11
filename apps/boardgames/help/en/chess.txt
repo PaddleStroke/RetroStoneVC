@@ -1,0 +1,22 @@
+Chess
+# The aim
+Checkmate the other king: attack it so that it cannot escape. White moves first, then the players take turns, one move each.
+# How the pieces move
+- King: one square in any direction.
+- Queen: any number of squares in a straight line, along a row, a column or a diagonal.
+- Rook: any number of squares along a row or a column.
+- Bishop: any number of squares along a diagonal.
+- Knight: in an L shape, two squares one way and one square to the side. It is the only piece that jumps over others.
+- Pawn: one square forward, or two from its starting square. It captures one square diagonally forward.
+Pieces cannot pass through other pieces (except the knight). A piece captures by moving onto a square held by an enemy piece, which leaves the board.
+# Special moves
+- Castling: the king moves two squares towards a rook, and the rook jumps to the square the king crossed. Allowed only if neither piece has moved yet, the squares between them are empty, and the king is not in check, does not cross an attacked square and does not land in check.
+- En passant: when a pawn moves two squares and lands beside an enemy pawn, that pawn may capture it as if it had moved only one square, on the very next move only.
+- Promotion: a pawn reaching the last row becomes a queen, rook, bishop or knight of your choice.
+# Check and the end of the game
+A king that is attacked is in check: the next move must get it out of check. You may never make a move that leaves your own king in check.
+- Checkmate: the king is in check and no move can save it. That player loses.
+- Stalemate: the player to move has no legal move but is not in check. The game is a draw.
+- The game is also a draw when neither side can ever checkmate (too few pieces left), when the same position comes back for the third time, or after fifty moves each without a capture or a pawn move.
+# Playing on the device
+Tap a piece to see where it can go, then tap a square, or drag the piece. Dots show the moves, rings the captures. A king in check glows red.

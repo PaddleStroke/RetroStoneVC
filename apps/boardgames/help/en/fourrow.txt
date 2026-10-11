@@ -1,0 +1,9 @@
+Four in a Row
+# The aim
+Be the first to line up four discs of your colour: across, up and down, or diagonally.
+# A move
+The board stands upright with seven columns. On your turn, drop one disc into a column: it falls to the lowest empty hole. A full column cannot take another disc. Light plays first.
+# The end of the game
+The first player with four discs in a row wins. If the board fills up with no row of four, the game is a draw.
+# Playing on the device
+Tap a column, or slide your disc along the top and let go. Each bar shows how many discs that player has left.

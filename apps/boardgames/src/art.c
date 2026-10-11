@@ -426,6 +426,20 @@ void art_icon(int which, int size, uint8_t *rgba)
         art_ellipse(f, ART_PART, 0.47f, 0.66f, 0.09f, 0.09f);
         break;
     }
+    case ICON_HELP: {                               /* a question mark */
+        art_arc(f, ART_PART, 0.5f, 0.37f, 0.11f, 0.195f, -75, 185);
+        const float stem[] = {0.535f, 0.47f, 0.585f, 0.535f, 0.545f, 0.56f, 0.545f, 0.65f, 0.455f, 0.65f, 0.455f, 0.53f};
+        art_poly(f, ART_PART, stem, 6);
+        art_ellipse(f, ART_PART, 0.5f, 0.775f, 0.062f, 0.062f);
+        break;
+    }
+    case ICON_CLOSE: {                              /* a cross */
+        const float a[] = {0.25f, 0.31f, 0.31f, 0.25f, 0.75f, 0.69f, 0.69f, 0.75f};
+        const float b[] = {0.69f, 0.25f, 0.75f, 0.31f, 0.31f, 0.75f, 0.25f, 0.69f};
+        art_poly(f, ART_PART, a, 4);
+        art_poly(f, ART_PART, b, 4);
+        break;
+    }
     case ICON_SOUND:
     case ICON_MUTE: {                               /* a loudspeaker, its waves (or a cross) */
         const float spk[] = {0.18f, 0.40f, 0.32f, 0.40f, 0.50f, 0.23f, 0.50f, 0.77f, 0.32f, 0.60f, 0.18f, 0.60f};

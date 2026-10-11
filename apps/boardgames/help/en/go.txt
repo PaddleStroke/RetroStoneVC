@@ -1,0 +1,15 @@
+Go
+# The aim
+Surround more of the board than the other player. Stones are played on the points where the lines cross, and never move once played. Black (dark) plays first. Choose the board before the game: 9 by 9 for a quick game, 13 by 13, or the full 19 by 19.
+# Liberties and captures
+- The empty points next to a stone, along the lines, are its liberties. Stones of the same colour that touch along the lines form a group and share their liberties.
+- When you take a group's last liberty, it is captured: its stones leave the board.
+- You may not play a stone that would have no liberty, unless it captures and so gains one.
+- Ko: you may not make a move that brings back a position seen before. When a single stone is captured and could be taken straight back, play elsewhere first.
+# Passing and counting
+Instead of playing, you may pass. When both players pass one after the other, the game stops and the counting begins.
+- Tap the groups that could not live (dead stones): they count as captured. Tap again to bring a group back.
+- When you agree, tap the pass button: done.
+- Each player scores one point for each of their stones on the board and each empty point they alone surround. White (light) also gets 7.5 points for playing second (the komi), so there is never a draw. The higher score wins.
+# Playing on the device
+The first tap shows a pale stone, a second tap on the same point plays it. This keeps small points easy to hit. Each bar shows the stones that player has captured, and the score when counting.

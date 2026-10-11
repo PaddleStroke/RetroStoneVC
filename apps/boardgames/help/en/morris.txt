@@ -1,0 +1,15 @@
+Nine Men's Morris
+# The aim
+Leave the other player with only two pieces, or with no move. Each player has nine pieces. Light plays first.
+# Placing
+At first, the players take turns placing one piece on any empty point, until all eighteen pieces are on the board.
+# Moving
+Then, on your turn, move one of your pieces along a line to the next point, if it is empty. A player with only three pieces left may fly: move a piece to any empty point.
+# Mills
+Three of your pieces in a row along one line make a mill. Each time you make a mill, while placing or while moving, remove one of the other player's pieces from the board. You may not take a piece that is in a mill, unless all their pieces are in mills. Opening a mill and closing it again makes a new mill.
+# The end of the game
+- A player left with two pieces loses.
+- A player who cannot move any piece loses.
+- The game is a draw when the same position comes back for the third time, or after fifty moves each without a mill.
+# Playing on the device
+Tap an empty point to place a piece. To move, tap your piece and then its new point, or drag it. After a mill, the pieces you may take glow: tap one.

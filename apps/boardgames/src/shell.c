@@ -12,6 +12,7 @@
  * Keys: Esc / Back home (in the menu: quit), U undo, F flip, T face to face, N new game, M sound.
  */
 #include "shell.h"
+#include "text.h"
 
 #include <math.h>
 #include <stdio.h>
@@ -34,22 +35,35 @@ static Uint32 end_seen;                         /* when the end of the game was 
 #define END_PAUSE 900                           /* ms of the final position before the end card */
 static Uint32 armed;                            /* "new game" tapped once: a second tap within 2.5 s confirms */
 
-enum { B_HOME, B_UNDO, B_FLIP, B_F2F, B_NEW, NBTN };
-static const int BTN_ICON[NBTN] = {ICON_HOME, ICON_UNDO, ICON_FLIP, ICON_F2F, ICON_NEW};
+enum { B_HOME, B_UNDO, B_FLIP, B_F2F, B_NEW, B_HELP, NBTN };
+static const int BTN_ICON[NBTN] = {ICON_HOME, ICON_UNDO, ICON_FLIP, ICON_F2F, ICON_NEW, ICON_HELP};
 
 static struct {
     box board, bar[2];                          /* bar[player] */
     float bx[NBTN], by[NBTN], br;               /* the buttons: centres, radius */
     float tk;                                   /* a token's size */
     /* the menu and the picker */
-    int cols, card;
+    int cols, card, label;                      /* label: the height of a card's name under its picture */
     box cards[MAX_GAMES];
     float snd_x, snd_y, snd_r;
 } L;
 
 static SDL_Texture *t_bg, *t_btn, *t_btn_armed, *t_btn_on, *t_icon[ICONS], *t_card, *t_gold, *t_shadow, *t_dot,
-    *t_ring, *t_glow, *t_tok[2], *t_big[2], *t_bartex, *t_menu_card, *t_thumb[MAX_GAMES][8];
+    *t_ring, *t_glow, *t_tok[2], *t_big[2], *t_bartex, *t_menu_card, *t_thumb[MAX_GAMES][8], *t_name[MAX_GAMES];
 static int made_unit = -1, made_game = -1, made_card = -1, bar_w, bar_h;
+
+/* the rules page (a game's, or the app's from the menu): the text drawn in tiles, scrolled */
+#define TILE 512
+#define MAX_TILES 64
+static struct {
+    int open, game;                             /* game: games[game], -1 the app's */
+    box card, view;                             /* the page, the text's window in it */
+    float close_x, close_y, close_r, px;
+    int h, tiles, made_w;
+    SDL_Texture *tile[MAX_TILES];
+    float scroll, grab_y, grab_scroll;
+    int grabbing;
+} help;
 
 /* ---- the registry ------------------------------------------------------------------------------------------------- */
 void game_register(const game *g)
@@ -262,9 +276,9 @@ static void layout_game(void)
         top = (box){x, y, 9 * u, u};
         L.board = (box){x, y + 1.2f * u, 9 * u, 9 * u};
         bottom = (box){x, L.board.y + 9.2f * u, 9 * u, u};
-        L.br = 0.575f * u;
+        L.br = 0.56f * u;
         for (int i = 0; i < NBTN; i++) {
-            L.bx[i] = ui.w / 2.0f + (i - 2) * 1.75f * u;
+            L.bx[i] = ui.w / 2.0f + (i - (NBTN - 1) / 2.0f) * 1.5f * u;
             L.by[i] = bottom.y + bottom.h + 0.35f * u + L.br;
         }
     } else {                                    /* landscape: the board, then a column: bar, buttons, bar */
@@ -275,10 +289,9 @@ static void layout_game(void)
         top = (box){cx, y, 4 * u, u};
         bottom = (box){cx, y + 8 * u, 4 * u, u};
         L.br = 0.55f * u;
-        for (int i = 0; i < NBTN; i++) {
-            int row = i / 3, col = row ? i - 3 : i, n = row ? 2 : 3;
-            L.bx[i] = cx + 2 * u + (col - (n - 1) / 2.0f) * 1.35f * u;
-            L.by[i] = y + 4.5f * u + (row ? 0.7f : -0.7f) * u;
+        for (int i = 0; i < NBTN; i++) {        /* two rows of three */
+            L.bx[i] = cx + 2 * u + (i % 3 - 1) * 1.35f * u;
+            L.by[i] = y + 4.5f * u + (i / 3 ? 0.7f : -0.7f) * u;
         }
     }
     ui.unit = u;
@@ -305,12 +318,18 @@ static void layout_cards(int n)
     if (screen == SCR_PICK) cols = ui.w > ui.h || n <= 3 ? n : 2;
     if (screen == SCR_PICK && ui.w <= ui.h && n == 3) cols = 1;
     int rows = (n + cols - 1) / cols;
-    float c = fminf((ui.w - 2 * m - (cols - 1) * g) / cols, (ui.h - head - 2 * m - (rows - 1) * g) / rows);
+    float lab = screen == SCR_MENU ? 0.17f : 0;  /* the menu's cards: the game's name under its picture */
+    float c = fminf((ui.w - 2 * m - (cols - 1) * g) / cols, (ui.h - head - 2 * m - (rows - 1) * g) / rows / (1 + lab));
     c = floorf(fminf(c, fminf(ui.w, ui.h) * 0.62f));
-    float x0 = (ui.w - (cols * c + (cols - 1) * g)) / 2, y0 = head + (ui.h - head - (rows * c + (rows - 1) * g)) / 2;
+    float ch = floorf(c * (1 + lab));
+    float x0 = (ui.w - (cols * c + (cols - 1) * g)) / 2, y0 = head + (ui.h - head - (rows * ch + (rows - 1) * g)) / 2;
     for (int i = 0; i < n; i++)
-        L.cards[i] = (box){floorf(x0 + (i % cols) * (c + g)), floorf(y0 + (i / cols) * (c + g)), c, c};
+        L.cards[i] = (box){floorf(x0 + (i % cols) * (c + g)), floorf(y0 + (i / cols) * (ch + g)), c, ch};
     L.cols = cols;
+    L.label = (int)(ch - c);
+    if (made_card != (int)c * 1000 + L.label) {
+        for (int i = 0; i < MAX_GAMES; i++) ui_free(&t_name[i]);
+    }
     L.card = (int)c;
     L.snd_r = head * 0.28f;
     L.snd_x = ui.w - m - L.snd_r;
@@ -318,12 +337,13 @@ static void layout_cards(int n)
     ui.unit = fminf(ui.w, ui.h) / 12.0f;
     L.br = L.snd_r;
     shared_textures();
-    if (made_card != L.card) {
-        made_card = L.card;
+    if (made_card != L.card * 1000 + L.label) {
+        made_card = L.card * 1000 + L.label;
         const uint8_t back[4] = {52, 72, 64, 255};
+        int h = L.card + L.label;
         ui_free(&t_menu_card);
-        art_roundrect(L.card, L.card, 0.1f * L.card, back, ui_buf(L.card, L.card));
-        t_menu_card = ui_tex(L.card, L.card, ui_buf(L.card, L.card));
+        art_roundrect(L.card, h, 0.1f * L.card, back, ui_buf(L.card, h));
+        t_menu_card = ui_tex(L.card, h, ui_buf(L.card, h));
         for (int i = 0; i < MAX_GAMES; i++)
             for (int v = 0; v < 8; v++) ui_free(&t_thumb[i][v]);
     }
@@ -501,6 +521,28 @@ static SDL_Texture *thumb(int i, int v)
     return t_thumb[i][k];
 }
 
+static const uint8_t CREAM[3] = {246, 238, 220};
+
+/* a menu card's name: the first line of the game's text, in the language, shrunk to fit */
+static SDL_Texture *label(int i)
+{
+    if (t_name[i] || L.label < 4) return t_name[i];
+    char name[96];
+    if (!text_name(games[i]->id, name, sizeof name)) return NULL;
+    int w = L.card, h = L.label;
+    float px = h * 0.5f;
+    int tw = text_line(name, px, 1, CREAM, NULL, 0, 0, 0, 0);
+    if (tw > 0.9f * w) {
+        px *= 0.9f * w / tw;
+        tw = text_line(name, px, 1, CREAM, NULL, 0, 0, 0, 0);
+    }
+    uint8_t *b = calloc((size_t)w * h, 4);
+    text_line(name, px, 1, CREAM, b, w, h, (w - tw) / 2, (int)((h - 1.25f * px) / 2));
+    t_name[i] = ui_tex(w, h, b);
+    free(b);
+    return t_name[i];
+}
+
 static void draw_cards(void)
 {
     int n = screen == SCR_MENU ? ngames : games[cur]->variants;
@@ -511,10 +553,109 @@ static void draw_cards(void)
             ui_put_c(t_gold, c.x + c.w / 2, c.y + c.h / 2, c.w * 1.25f, c.h * 1.25f);
         ui_put(t_menu_card, c.x, c.y, c.w, c.h);
         float s = c.w * 0.86f;
-        ui_put_c(thumb(gi, v), c.x + c.w / 2, c.y + c.h / 2, s, s);
+        ui_put_c(thumb(gi, v), c.x + c.w / 2, c.y + c.w / 2, s, s);
+        if (screen == SCR_MENU) ui_put(label(i), c.x, c.y + c.w - 0.04f * c.w, c.w, (float)L.label);
     }
-    if (screen == SCR_MENU) draw_button(L.snd_x, L.snd_y, L.snd_r, snd_muted ? ICON_MUTE : ICON_SOUND, NULL);
-    else draw_button(fminf(ui.w, ui.h) * 0.05f + L.snd_r, L.snd_y, L.snd_r, ICON_HOME, NULL);
+    float home_x = fminf(ui.w, ui.h) * 0.05f + L.snd_r;
+    if (screen == SCR_MENU) {
+        draw_button(L.snd_x, L.snd_y, L.snd_r, snd_muted ? ICON_MUTE : ICON_SOUND, NULL);
+        draw_button(home_x, L.snd_y, L.snd_r, ICON_HELP, NULL);
+    } else {
+        draw_button(home_x, L.snd_y, L.snd_r, ICON_HOME, NULL);
+    }
+}
+
+/* ---- the rules page ---------------------------------------------------------------------------------------------------- */
+static char *help_text;                         /* the game's rules, then the app's buttons */
+
+static void help_free(void)
+{
+    for (int i = 0; i < MAX_TILES; i++) ui_free(&help.tile[i]);
+    help.made_w = 0;
+}
+
+static void help_compose(void)
+{
+    const char *g = help.game >= 0 ? text_get(games[help.game]->id) : NULL, *a = text_get("_app");
+    if (a && g) a += strcspn(a, "\n") + (a[strcspn(a, "\n")] ? 1 : 0);   /* after a game: the app's part, untitled */
+    size_t n = (g ? strlen(g) : 0) + (a ? strlen(a) : 0) + 2;
+    free(help_text);
+    help_text = malloc(n);
+    snprintf(help_text, n, "%s%s%s", g ? g : "", g ? "\n" : "", a ? a : "");
+}
+
+static void help_layout(void)
+{
+    float mn = fminf(ui.w, ui.h), m = mn * 0.035f, pad = mn * 0.05f;
+    help.card = (box){m, m, ui.w - 2 * m, ui.h - 2 * m};
+    help.px = fmaxf(13, fminf(44, mn * 0.036f));
+    help.close_r = fmaxf(help.px * 1.05f, mn * 0.05f);
+    help.close_x = help.card.x + help.card.w - pad * 0.5f - help.close_r;
+    help.close_y = help.card.y + pad * 0.5f + help.close_r;
+    float top = help.card.y + pad * 0.5f + 2 * help.close_r + pad * 0.2f;
+    help.view = (box){help.card.x + pad, top, help.card.w - 2 * pad, help.card.y + help.card.h - pad * 0.6f - top};
+    int w = (int)help.view.w;
+    if (help.made_w == w) return;
+    help_free();
+    help.made_w = w;
+    help.h = text_page(help_text, w, help.px, CREAM, NULL, 0, 0);
+    help.tiles = (help.h + TILE - 1) / TILE;
+    if (help.tiles > MAX_TILES) help.tiles = MAX_TILES;
+    uint8_t *b = malloc((size_t)w * TILE * 4);
+    for (int k = 0; k < help.tiles; k++) {
+        memset(b, 0, (size_t)w * TILE * 4);
+        text_page(help_text, w, help.px, CREAM, b, k * TILE, TILE);
+        help.tile[k] = ui_tex(w, TILE, b);
+    }
+    free(b);
+}
+
+static float help_max(void) { return fmaxf(0, help.h - help.view.h); }
+
+static void open_help(int g)
+{
+    help.open = 1;
+    help.game = g;
+    help.scroll = 0;
+    help.grabbing = 0;
+    help_compose();
+    help_free();
+    help_layout();
+}
+
+static void draw_help(void)
+{
+    static SDL_Texture *page;
+    static int page_w, page_h;
+    ui_fill(0, 0, (float)ui.w, (float)ui.h, 0, 0, 0, 150);
+    if (page_w != (int)help.card.w || page_h != (int)help.card.h) {
+        page_w = (int)help.card.w;
+        page_h = (int)help.card.h;
+        const uint8_t c[4] = {28, 34, 32, 248};
+        ui_free(&page);
+        art_roundrect(page_w, page_h, fminf(ui.w, ui.h) * 0.04f, c, ui_buf(page_w, page_h));
+        page = ui_tex(page_w, page_h, ui_buf(page_w, page_h));
+    }
+    ui_put(page, help.card.x, help.card.y, help.card.w, help.card.h);
+    SDL_Rect clip = {(int)help.view.x, (int)help.view.y, (int)help.view.w, (int)help.view.h};
+    SDL_RenderSetClipRect(ui.r, &clip);
+    for (int k = 0; k < help.tiles; k++) {
+        float y = help.view.y + k * TILE - help.scroll;
+        if (y + TILE < help.view.y || y > help.view.y + help.view.h) continue;
+        ui_put(help.tile[k], help.view.x, y, help.view.w, TILE);
+    }
+    SDL_RenderSetClipRect(ui.r, NULL);
+    if (help_max() > 0) {                       /* where the page is: a thin bar on the right */
+        float th = help.view.h * help.view.h / help.h, ty = help.view.y + (help.view.h - th) * help.scroll / help_max();
+        ui_fill(help.card.x + help.card.w - fminf(ui.w, ui.h) * 0.022f, ty, fminf(ui.w, ui.h) * 0.008f, th,
+                246, 238, 220, 90);
+    }
+    draw_button(help.close_x, help.close_y, help.close_r, ICON_CLOSE, NULL);
+}
+
+static void help_scroll(float dy)
+{
+    help.scroll = fminf(help_max(), fmaxf(0, help.scroll + dy));
 }
 
 static void draw(void)
@@ -522,6 +663,7 @@ static void draw(void)
     ui_put(t_bg, 0, 0, (float)ui.w, (float)ui.h);
     if (screen == SCR_GAME) draw_game();
     else draw_cards();
+    if (help.open) draw_help();
 }
 
 /* ---- input ------------------------------------------------------------------------------------------------------------ */
@@ -546,11 +688,29 @@ static int press_bar(float x, float y)
 
 static void press(float x, float y)
 {
+    if (help.open) {                            /* the rules page: scroll it, or close it */
+        box c = help.card;
+        if (in_circle(x, y, help.close_x, help.close_y, help.close_r) || x < c.x || y < c.y || x > c.x + c.w ||
+            y > c.y + c.h) {
+            help.open = 0;
+            snd_play(SND_TAP);
+            return;
+        }
+        help.grabbing = 1;
+        help.grab_y = y;
+        help.grab_scroll = help.scroll;
+        return;
+    }
     if (screen != SCR_GAME) {
         float home_x = fminf(ui.w, ui.h) * 0.05f + L.snd_r;
         if (screen == SCR_MENU && in_circle(x, y, L.snd_x, L.snd_y, L.snd_r)) {
             snd_muted = !snd_muted;
             snd_play(SND_TAP);
+            return;
+        }
+        if (screen == SCR_MENU && in_circle(x, y, home_x, L.snd_y, L.snd_r)) {
+            snd_play(SND_TAP);
+            open_help(-1);
             return;
         }
         if (screen == SCR_PICK && in_circle(x, y, home_x, L.snd_y, L.snd_r)) { snd_play(SND_TAP); go_home(); return; }
@@ -572,6 +732,7 @@ static void press(float x, float y)
         else if (i == B_UNDO) { snd_play(games[cur]->undo() ? SND_TAP : SND_DENY); over_hidden = 0; }
         else if (i == B_FLIP) { snd_play(SND_TAP); ui.flipped = !ui.flipped; layout(); }
         else if (i == B_F2F) { snd_play(SND_TAP); ui.f2f = !ui.f2f; }
+        else if (i == B_HELP) { snd_play(SND_TAP); open_help(cur); }
         else if (games[cur]->status() == GS_PLAY && !armed && games[cur]->turn() >= 0 && started[cur]) {
             armed = SDL_GetTicks();
             snd_play(SND_TAP);
@@ -586,11 +747,19 @@ static void press(float x, float y)
 
 static void motion(float x, float y)
 {
+    if (help.open) {
+        if (help.grabbing) help.scroll = fminf(help_max(), fmaxf(0, help.grab_scroll - (y - help.grab_y)));
+        return;
+    }
     if (screen == SCR_GAME) games[cur]->motion(x, y);
 }
 
 static void release(float x, float y)
 {
+    if (help.open) {
+        help.grabbing = 0;
+        return;
+    }
     if (screen == SCR_GAME) games[cur]->release(x, y);
 }
 
@@ -604,8 +773,9 @@ static int find_game(const char *id)
 
 static int shot(int argc, char **argv)
 {
-    const char *out = NULL, *id = NULL, *moves = NULL, *taps = NULL;
-    int v = 0, keep = 0, pick = 0;
+    const char *out = NULL, *id = NULL, *moves = NULL, *taps = NULL, *lang = NULL;
+    int v = 0, keep = 0, pick = 0, show_help = 0;
+    float scroll = 0;
     ui.w = 720;
     ui.h = 1280;
     for (int i = 1; i < argc; i++) {
@@ -619,7 +789,11 @@ static int shot(int argc, char **argv)
         else if (!strcmp(argv[i], "--f2f")) ui.f2f = 1;
         else if (!strcmp(argv[i], "--keep")) keep = 1;
         else if (!strcmp(argv[i], "--pick")) pick = 1;
+        else if (!strcmp(argv[i], "--lang") && i + 1 < argc) lang = argv[++i];
+        else if (!strcmp(argv[i], "--help")) show_help = 1;
+        else if (!strcmp(argv[i], "--scroll") && i + 1 < argc) scroll = (float)atof(argv[++i]);
     }
+    text_init(lang ? lang : "en");
     instant = 1;
     SDL_Surface *surf = SDL_CreateRGBSurfaceWithFormat(0, ui.w, ui.h, 32, SDL_PIXELFORMAT_RGBA32);
     ui.r = SDL_CreateSoftwareRenderer(surf);
@@ -649,6 +823,10 @@ static int shot(int argc, char **argv)
     } else {
         layout();
     }
+    if (show_help) {                            /* the rules page (the game's, or the app's), scrolled by --scroll px */
+        open_help(id ? cur : -1);
+        help_scroll(scroll);
+    }
     draw();
     SDL_RenderPresent(ui.r);
     if (!out || SDL_SaveBMP(surf, out)) { fprintf(stderr, "%s\n", SDL_GetError()); return 1; }
@@ -668,12 +846,14 @@ static void to_pixels(int x, int y, float *fx, float *fy)
 static void key(SDL_Keycode k)
 {
     if (k == SDLK_ESCAPE || k == SDLK_AC_BACK) {
-        if (screen == SCR_MENU) quit = 1;
+        if (help.open) help.open = 0;
+        else if (screen == SCR_MENU) quit = 1;
         else go_home();
         return;
     }
     if (k == SDLK_m) snd_muted = !snd_muted;
-    if (screen != SCR_GAME) return;
+    if (k == SDLK_h || k == SDLK_F1) { if (!help.open) open_help(screen == SCR_GAME ? cur : -1); return; }
+    if (screen != SCR_GAME || help.open) return;
     if (k == SDLK_u || k == SDLK_BACKSPACE) games[cur]->undo();
     else if (k == SDLK_f) { ui.flipped = !ui.flipped; layout(); }
     else if (k == SDLK_t) ui.f2f = !ui.f2f;
@@ -688,6 +868,10 @@ int main(int argc, char **argv)
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
     SDL_SetHint(SDL_HINT_ORIENTATIONS, "Portrait PortraitUpsideDown");
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS)) { fprintf(stderr, "%s\n", SDL_GetError()); return 1; }
+    const char *lang = NULL;                    /* --lang fr: another language than the device's */
+    for (int i = 1; i + 1 < argc; i++)
+        if (!strcmp(argv[i], "--lang")) lang = argv[i + 1];
+    text_init(lang);
     snd_init();
     win = SDL_CreateWindow("RetroStone Board", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 540, 900,
                            SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
@@ -725,12 +909,20 @@ int main(int argc, char **argv)
                     key(e.key.keysym.sym);
                     after_input();
                     break;
+                case SDL_MOUSEWHEEL:
+                    if (help.open) help_scroll(-e.wheel.y * help.px * 3);
+                    break;
                 }
             } while (SDL_PollEvent(&e));
         }
         int w, h;
         SDL_GetRendererOutputSize(ui.r, &w, &h);
-        if (w != ui.w || h != ui.h) { ui.w = w; ui.h = h; layout(); }
+        if (w != ui.w || h != ui.h) {
+            ui.w = w;
+            ui.h = h;
+            layout();
+            if (help.open) help_layout();
+        }
         draw();
         SDL_RenderPresent(ui.r);
     }
