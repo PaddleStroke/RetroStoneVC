@@ -1,0 +1,20 @@
+421
+# O objetivo
+Livra-te das tuas fichas: o jogo de café francês com três dados e onze fichas. De dois a seis jogadores. Quem fica com todas as fichas perde; todos os outros ganham.
+# Os lançamentos
+Do melhor para o pior, e quanto vale cada um em fichas:
+- 4-2-1: 10.
+- 1-1-1: 7.
+- As «fiches», dois 1 e outro dado, e os trios, cada um a valer a sua face: 1-1-6 e 6-6-6: 6; 1-1-5 e 5-5-5: 5; e assim até 1-1-2 e 2-2-2: 2. Uma «fiche» ganha ao trio do mesmo valor.
+- As sequências 6-5-4, 5-4-3, 4-3-2 e 3-2-1: 2.
+- Qualquer outro lançamento: 1, quanto mais altos os dados, melhor (6-6-5, depois 6-6-4…).
+- A «nénette», 2-2-1: o pior de todos.
+Quando dois lançamentos são iguais, ganha o feito em menos lançamentos; depois, o feito primeiro.
+# A carga
+As onze fichas começam no pote. Em cada ronda, cada jogador lança uma vez. O jogador com o pior lançamento tira do pote tantas fichas quanto vale o melhor lançamento (as que restarem, no fim). Começa o marfim; depois, quem perde cada ronda começa a seguinte. Quando o pote fica vazio, começa a descarga. Um jogador que nesse momento não tenha fichas sai e fica a salvo. Se um jogador ficou com todas as fichas, perdeu logo.
+# A descarga
+Em cada ronda, os jogadores lançam até três vezes, guardando os dados que quiserem entre lançamentos. O primeiro jogador da ronda pode parar ao fim de um ou dois lançamentos: os outros não podem então lançar mais vezes do que ele. O jogador com o melhor lançamento dá ao do pior tantas fichas suas quanto vale o seu lançamento (todas as que tiver, se forem menos). Um jogador que dá a sua última ficha sai e fica a salvo. Quem perde uma ronda começa a seguinte.
+# O fim do jogo
+O jogo acaba quando um jogador tem todas as fichas: esse jogador perdeu, e todos os outros partilham a vitória.
+# Jogar no dispositivo
+Toca no feltro para lançar. Toca num dado para o guardar: desliza para baixo; toca-lhe outra vez para o voltar a lançar. Os dados pequenos por baixo do teu lançamento mostram quantos lançamentos a ronda permite, com os já usados esbatidos. O botão com um visto termina a tua vez. O lançamento de cada jogador na ronda fica, em pequeno, do seu lado do feltro, com pontos por baixo a contar os lançamentos que levou; o melhor numa luz dourada e o pior num brilho vermelho. Depois as fichas voam para quem perdeu. O pote fica ao meio durante a carga. Cada barra mostra as fichas desse jogador. Anular desfaz a última paragem; os dados nunca são lançados de novo.

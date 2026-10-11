@@ -1,0 +1,20 @@
+421
+# Het doel
+Raak je penningen kwijt: het Franse cafédobbelspel met drie dobbelstenen en elf penningen. Twee tot zes spelers. Wie aan het eind alle penningen heeft, verliest; alle anderen winnen.
+# De worpen
+Van de beste tot de slechtste, en wat elke worp waard is in penningen:
+- 4-2-1: 10.
+- 1-1-1: 7.
+- De ‘fiches’, twee 1'en en een andere dobbelsteen, en drie gelijke, elk zoveel waard als hun getal: 1-1-6 en 6-6-6: 6; 1-1-5 en 5-5-5: 5; tot 1-1-2 en 2-2-2: 2. Een fiche wint van drie gelijke van dezelfde waarde.
+- De straten 6-5-4, 5-4-3, 4-3-2 en 3-2-1: 2.
+- Elke andere worp: 1, hoe hoger de dobbelstenen hoe beter (6-6-5, dan 6-6-4…).
+- De ‘nénette’, 2-2-1: de slechtste van allemaal.
+Zijn twee worpen gelijk, dan is de worp die in minder keer gooien is gemaakt beter; daarna de worp die het eerst is gemaakt.
+# Het laden
+Bij het laden (‘la charge’) liggen de elf penningen eerst in de pot. Elke ronde gooit elke speler één keer. Wie de slechtste worp heeft, neemt uit de pot zoveel penningen als de beste worp waard is (aan het eind: wat er nog over is). Ivoor begint; daarna begint de verliezer van elke ronde de volgende. Is de pot leeg, dan begint het lossen. Een speler die dan geen penningen heeft, is uit en veilig. Heeft één speler alle penningen genomen, dan heeft hij meteen verloren.
+# Het lossen
+Bij het lossen (‘la décharge’) gooien de spelers elke ronde tot drie keer toe, en ze mogen tussen de worpen dobbelstenen houden. De eerste speler van de ronde mag na één of twee worpen stoppen: de anderen mogen dan niet vaker gooien dan hij. Wie de beste worp heeft, geeft degene met de slechtste zoveel van zijn eigen penningen als zijn worp waard is (al zijn penningen, als hij er minder heeft). Een speler die zijn laatste penning weggeeft, is uit en veilig. De verliezer van een ronde begint de volgende.
+# Het einde van de partij
+De partij eindigt als één speler alle penningen heeft: die speler heeft verloren, en alle anderen delen de winst.
+# Spelen op het apparaat
+Tik op het vilt om te gooien. Tik op een dobbelsteen om hem te houden: hij schuift omlaag; tik er nog eens op om hem opnieuw te gooien. De kleine dobbelstenen onder je worp tonen hoeveel worpen de ronde toestaat, de gebruikte gedimd. De knop met het vinkje beëindigt je beurt. De worp van elke speler in deze ronde ligt klein aan zijn kant van het vilt, met eronder stippen die tellen hoe vaak hij gooide; de beste ligt in een gouden licht en de slechtste in een rode gloed. Dan vliegen de penningen naar de verliezer. Tijdens het laden staat de pot in het midden. Elke balk toont de penningen van die speler. Ongedaan maken neemt de laatste stop terug; de dobbelstenen worden nooit opnieuw gegooid.

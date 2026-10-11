@@ -1,0 +1,20 @@
+421
+# Amaç
+Jetonlarından kurtul: üç zar ve on bir jetonla oynanan Fransız kahve oyunu. İki ile altı kişi oynar. Bütün jetonlar elinde kalan oyuncu kaybeder; diğer herkes kazanır.
+# Atışlar
+En iyiden en kötüye, her birinin jeton değeriyle:
+- 4-2-1: 10.
+- 1-1-1: 7.
+- "Fiches" (iki 1 ve başka bir zar) ve üçlüler, her biri kendi yüzü kadar: 1-1-6 ve 6-6-6: 6; 1-1-5 ve 5-5-5: 5; böylece 1-1-2 ve 2-2-2'ye kadar: 2. Aynı değerde bir fiche üçlüyü yener.
+- 6-5-4, 5-4-3, 4-3-2 ve 3-2-1 sıraları: 2.
+- Başka her atış: 1; zarlar ne kadar yüksekse o kadar iyi (6-6-5, sonra 6-6-4…).
+- "Nénette", 2-2-1: hepsinin en kötüsü.
+İki atış eşitse daha az atışta yapılan daha iyidir; o da eşitse önce yapılan.
+# Yükleme (charge)
+On bir jeton başta havuzdadır. Her turda her oyuncu bir kez atar. En kötü atışı yapan oyuncu, en iyi atışın değeri kadar jetonu havuzdan alır (sonunda, ne kaldıysa). Önce fildişi başlar; sonra her turun kaybedeni bir sonrakini başlatır. Havuz boşalınca boşaltma başlar. O anda hiç jetonu olmayan oyuncu oyundan çıkar ve kurtulmuştur. Bir oyuncu bütün jetonları aldıysa hemen kaybetmiştir.
+# Boşaltma (décharge)
+Her turda oyuncular en çok üç kez atar ve atışlar arasında istedikleri zarları ayırabilir. Turun ilk oyuncusu bir ya da iki atıştan sonra durabilir: o zaman diğerleri ondan fazla atamaz. En iyi atışı yapan oyuncu, en kötü atışı yapana kendi jetonlarından atışının değeri kadar verir (daha azı varsa hepsini). Son jetonunu veren oyuncu oyundan çıkar ve kurtulmuştur. Turun kaybedeni bir sonrakini başlatır.
+# Oyunun sonu
+Oyun, bir oyuncu bütün jetonları elinde tuttuğunda biter: o oyuncu kaybetmiştir ve diğerlerinin hepsi kazancı paylaşır.
+# Cihazda oynamak
+Zarları atmak için çuhaya dokun. Bir zarı ayırmak için ona dokun: aşağı kayar; yeniden atmak için ona tekrar dokun. Atışının altındaki küçük zarlar turun kaç atışa izin verdiğini gösterir, kullanılanlar soluktur. Onay işaretli düğme sıranı bitirir. Her oyuncunun bu turdaki atışı, çuhada kendi tarafında küçük durur; altındaki noktalar kaç atışta yapıldığını sayar. En iyisi altın renginde bir ışıkta, en kötüsü kırmızı bir parıltıdadır. Sonra jetonlar kaybedene uçar. Yükleme sırasında havuz ortadadır. Her şerit o oyuncunun jetonlarını gösterir. Geri al son durmayı geri alır; zarlar asla yeniden atılmaz.

@@ -1,0 +1,20 @@
+421
+# El objetivo
+Deshazte de tus fichas: el juego de café francés con tres dados y once fichas. Juegan de dos a seis. Quien se queda con todas las fichas pierde; todos los demás ganan.
+# Las tiradas
+De la mejor a la peor, y lo que vale cada una en fichas:
+- 4-2-1: 10.
+- 1-1-1: 7.
+- Las «fiches», dos 1 y otro dado, y los tríos valen cada uno su cara: 1-1-6 y 6-6-6: 6; 1-1-5 y 5-5-5: 5; y así hasta 1-1-2 y 2-2-2: 2. Una «fiche» gana al trío del mismo valor.
+- Las escaleras 6-5-4, 5-4-3, 4-3-2 y 3-2-1: 2.
+- Cualquier otra tirada: 1, cuanto más altos los dados, mejor (6-6-5, luego 6-6-4…).
+- La «nénette», 2-2-1: la peor de todas.
+Cuando dos tiradas son iguales, gana la conseguida en menos tiros; después, la que se hizo antes.
+# La carga
+Las once fichas empiezan en el bote. En cada ronda, cada jugador tira una vez. El jugador con la peor tirada toma del bote tantas fichas como vale la mejor tirada (las que queden, al final). Empieza marfil; después, el perdedor de cada ronda empieza la siguiente. Cuando el bote se vacía, empieza la descarga. Un jugador que entonces no tiene fichas queda fuera y a salvo. Si un jugador se ha llevado todas las fichas, ha perdido en el acto.
+# La descarga
+En cada ronda, los jugadores tiran hasta tres veces, guardando los dados que quieran entre tiro y tiro. El primer jugador de la ronda puede plantarse tras uno o dos tiros: los demás no pueden entonces tirar más veces que él. El jugador con la mejor tirada da al de la peor tantas fichas suyas como vale su tirada (todas las que tenga, si son menos). Un jugador que entrega su última ficha queda fuera y a salvo. El perdedor de una ronda empieza la siguiente.
+# El final de la partida
+La partida termina cuando un jugador tiene todas las fichas: ese jugador ha perdido, y todos los demás comparten la victoria.
+# Jugar en el dispositivo
+Toca el tapete para tirar. Toca un dado para guardarlo: se desliza hacia abajo; tócalo otra vez para volver a tirarlo. Los dados pequeños bajo tu tirada muestran cuántos tiros permite la ronda, con los usados atenuados. El botón con la marca de visto te planta. La tirada de la ronda de cada jugador aparece en pequeño en su lado del tapete, con puntos debajo que cuentan los tiros que necesitó; la mejor, con una luz dorada, y la peor, con un brillo rojo. Luego las fichas vuelan hacia el perdedor. El bote está en el centro durante la carga. Cada barra muestra las fichas de ese jugador. Deshacer retira el último plante; los dados nunca se vuelven a tirar.

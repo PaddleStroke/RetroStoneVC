@@ -1,0 +1,20 @@
+421
+# The aim
+Get rid of your chips: the French café game with three dice and eleven chips. Two to six players. The player left holding all the chips loses; everyone else wins.
+# The throws
+From the best to the worst, and what each is worth in chips:
+- 4-2-1: 10.
+- 1-1-1: 7.
+- The "fiches", two 1s and another die, and the three of a kind, each worth its face: 1-1-6 and 6-6-6: 6; 1-1-5 and 5-5-5: 5; down to 1-1-2 and 2-2-2: 2. A fiche beats the three of a kind of the same worth.
+- The runs 6-5-4, 5-4-3, 4-3-2 and 3-2-1: 2.
+- Any other throw: 1, the higher dice the better (6-6-5, then 6-6-4...).
+- The nénette, 2-2-1: the worst of all.
+When two throws are equal, the one made in fewer throws is better; then the one made first.
+# The charge
+The eleven chips start in the pot. Each round, every player throws once. The player with the worst throw takes from the pot as many chips as the best throw is worth (what is left, at the end). Ivory starts; then the loser of each round starts the next. When the pot is empty, the discharge begins. A player with no chips then is out and safe. If one player took all the chips, they have lost at once.
+# The discharge
+Each round, players throw up to three times, keeping any dice between throws. The round's first player may stop after one or two throws: the others may then throw no more times than they did. The player with the best throw gives the player with the worst as many of their own chips as their throw is worth (all they have, if fewer). A player who gives away their last chip is out and safe. The loser of a round starts the next.
+# The end of the game
+The game ends when one player holds all the chips: that player has lost, and all the others share the win.
+# Playing on the device
+Tap the felt to throw. Tap a die to keep it: it slides down; tap it again to throw it again. The small dice under your throw show how many throws the round allows, the used ones dimmed. The button with a check mark stops your turn. Each player's throw of the round lies small on their side of the felt, the dots under it counting the throws it took; the best is in a gold light and the worst in a red glow. Then the chips fly to the loser. The pot is in the middle during the charge. Each bar shows that player's chips. Undo takes back the last stop; it never throws the dice again.

@@ -1,0 +1,20 @@
+421
+# Målet
+Bli av med dina marker: det franska kaféspelet med tre tärningar och elva marker. Två till sex spelare. Den som blir sittande med alla marker förlorar; alla andra vinner.
+# Kasten
+Från det bästa till det sämsta, och vad vart och ett är värt i marker:
+- 4-2-1: 10.
+- 1-1-1: 7.
+- De så kallade ”fiches”, två ettor och en annan tärning, och tretalen, vart och ett värt sitt tal: 1-1-6 och 6-6-6: 6; 1-1-5 och 5-5-5: 5; ner till 1-1-2 och 2-2-2: 2. En fiche slår tretalet med samma värde.
+- Stegarna 6-5-4, 5-4-3, 4-3-2 och 3-2-1: 2.
+- Alla andra kast: 1, ju högre tärningar desto bättre (6-6-5, sedan 6-6-4…).
+- Den så kallade ”nénette”, 2-2-1: det allra sämsta.
+När två kast är lika är det som gjordes på färre kast bäst; sedan det som gjordes först.
+# Laddningen
+I laddningen (”la charge”) ligger de elva markerna först i potten. Varje runda kastar varje spelare en gång. Den som har sämst kast tar ur potten lika många marker som det bästa kastet är värt (det som är kvar, på slutet). Elfenben börjar; sedan börjar förloraren i varje runda nästa. När potten är tom börjar urladdningen. En spelare som då inte har några marker är ute och räddad. Har en spelare tagit alla marker har den spelaren förlorat direkt.
+# Urladdningen
+I urladdningen (”la décharge”) kastar spelarna upp till tre gånger varje runda och får spara tärningar mellan kasten. Rundans första spelare får stanna efter ett eller två kast: de andra får då inte kasta fler gånger än den gjorde. Den som har bäst kast ger den som har sämst lika många av sina egna marker som kastet är värt (alla den har, om de är färre). En spelare som ger bort sin sista mark är ute och räddad. Förloraren i en runda börjar nästa.
+# Partiets slut
+Partiet slutar när en spelare har alla marker: den spelaren har förlorat, och alla andra delar på segern.
+# Spela på enheten
+Tryck på filten för att kasta. Tryck på en tärning för att spara den: den glider ner; tryck på den igen för att kasta den igen. De små tärningarna under ditt kast visar hur många kast rundan tillåter, de använda nedtonade. Knappen med en bock avslutar din tur. Varje spelares kast i rundan ligger smått på dennes sida av filten, och prickarna under räknar hur många kast det tog; det bästa ligger i ett gyllene ljus och det sämsta i ett rött sken. Sedan flyger markerna till förloraren. Potten ligger i mitten under laddningen. Varje list visar den spelarens marker. Ångra tar tillbaka det senaste stoppet; tärningarna kastas aldrig om.
