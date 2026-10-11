@@ -22,6 +22,7 @@ extern const tx_lang tx_langs[];
 extern const int tx_nlangs;
 extern const tx_text tx_texts[];
 extern const int tx_ntexts;
+extern const unsigned char *const tx_glyph_font[2];   /* the boards' characters (help/glyphs.txt): regular, bold */
 
 /* the language: forced ("fr", "pt_BR"...), or NULL: the device's (English when it is none of the 22) */
 void text_init(const char *forced);

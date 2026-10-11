@@ -124,7 +124,8 @@ static void shade(const art_style *st, const shape *s, float x, float y, float *
 {
     float cx = (s->x0 + s->x1) * 0.5f, hw = (s->x1 - s->x0) * 0.5f + 1e-3f;
     float t = (x - cx) / hw + 0.35f;                /* round shapes, lit from the upper left */
-    float l = 1.0f + st->light * (0.55f - t * t) - st->light * 0.45f * (y - s->y0);
+    float hh = fmaxf(1, s->y1 - s->y0);          /* a figure drawn in pixel units: the shading still spans it once */
+    float l = 1.0f + st->light * (0.55f - t * t) - st->light * 0.45f * (y - s->y0) / hh;
     for (int i = 0; i < 3; i++) c[i] = clampf(st->fill[i] * l, 0, 255);
 }
 

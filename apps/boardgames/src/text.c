@@ -20,6 +20,7 @@
 
 static int cur;                                 /* tx_langs[cur] */
 static stbtt_fontinfo font[2];                  /* regular, bold */
+static stbtt_fontinfo board[2];                 /* the boards' characters, the same in every language */
 
 /* ---- the language ------------------------------------------------------------------------------------------------ */
 static int find(const char *code)
@@ -51,6 +52,8 @@ void text_init(const char *forced)
     const tx_lang *t = &tx_langs[cur];
     stbtt_InitFont(&font[0], t->font, stbtt_GetFontOffsetForIndex(t->font, 0));
     stbtt_InitFont(&font[1], t->bold, stbtt_GetFontOffsetForIndex(t->bold, 0));
+    for (int b = 0; b < 2; b++)
+        stbtt_InitFont(&board[b], tx_glyph_font[b], stbtt_GetFontOffsetForIndex(tx_glyph_font[b], 0));
 }
 
 const char *text_lang(void) { return tx_langs[cur].code; }
@@ -88,16 +91,34 @@ static int utf8(const char **s)
     return c;
 }
 
-static int cjk(int c) { return (c >= 0x2e80 && c < 0xa000) || (c >= 0xac00 && c < 0xd7b0) || (c >= 0xf900 && c < 0xfb00) || (c >= 0xff00 && c < 0xffef); }
+/* the scripts written without spaces (Chinese, Japanese): a line may break between two characters. Korean (Hangul)
+ * puts spaces between its words: it breaks at spaces only, like Latin. */
+static int cjk(int c)
+{
+    return (c >= 0x2e80 && c < 0xa000) || (c >= 0xf900 && c < 0xfb00) || (c >= 0xff00 && c < 0xffef);
+}
+
+static int in(int c, const int *k)
+{
+    for (int i = 0; k[i]; i++)
+        if (c == k[i]) return 1;
+    return 0;
+}
 
 /* the marks a line must not start with (they close or follow what comes before) */
 static int no_start(int c)
 {
     static const int k[] = {0x3001, 0x3002, 0xff0c, 0xff0e, 0xff01, 0xff1f, 0xff1a, 0xff1b, 0xff09, 0x300d, 0x300f,
-                            0x3011, 0x3009, 0x300b, 0x30fc, 0x2026, ',', '.', '!', '?', ':', ';', ')', 0};
-    for (int i = 0; k[i]; i++)
-        if (c == k[i]) return 1;
-    return 0;
+                            0x3011, 0x3009, 0x300b, 0x201d, 0x2019, 0x30fc, 0x2026, ',', '.', '!', '?', ':', ';', ')',
+                            0};
+    return in(c, k);
+}
+
+/* the marks a line must not end with (they open what comes after) */
+static int no_end(int c)
+{
+    static const int k[] = {0xff08, 0x300c, 0x300e, 0x3010, 0x3008, 0x300a, 0x201c, 0x2018, '(', '[', 0};
+    return in(c, k);
 }
 
 typedef struct {
@@ -187,7 +208,7 @@ static void block(const face *fc, const char *s, const char *end, float x, float
             else if (p < end) {                 /* between two characters of the scripts without spaces */
                 const char *r = p;
                 int next = utf8(&r);
-                if ((cjk(c) || cjk(next)) && !no_start(next) && next != ' ') brk = p;
+                if ((cjk(c) || cjk(next)) && !no_start(next) && !no_end(c) && next != ' ') brk = p;
             }
         }
         const char *e = p >= end ? end : brk;
@@ -234,6 +255,8 @@ int text_page(const char *s, int w, float px, const uint8_t rgb[3], uint8_t *rgb
 int text_glyph(int c, float px, int bold, const uint8_t rgb[3], uint8_t *rgba, int w, int h)
 {
     face fc = face_of(bold, px);
+    fc.f = &board[bold ? 1 : 0];                /* the boards' own font */
+    fc.scale = stbtt_ScaleForMappingEmToPixels(fc.f, px);
     if (!stbtt_FindGlyphIndex(fc.f, c)) return 0;
     int x0, y0, x1, y1;                         /* centred on its ink, not on its advance box */
     stbtt_GetCodepointBitmapBox(fc.f, c, fc.scale, fc.scale, &x0, &y0, &x1, &y1);

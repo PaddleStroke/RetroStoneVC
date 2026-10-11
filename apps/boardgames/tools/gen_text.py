@@ -7,12 +7,17 @@ The texts: apps/boardgames/help/<lang>/<game>.txt, the rules of each game in 22 
 a missing translation falls back to English), and help/<lang>/_app.txt, what the shell's buttons do (shown after
 every game's rules). The file's format: the first line is the game's name (the menu card, the page's title); then
 paragraphs separated by blank lines; "# " starts a heading, "- " a list item. help/glyphs.txt: the characters
-the boards themselves draw (xiangqi's, shogi's pieces...), kept in every language's font ("#" lines: comments).
+the boards themselves draw (xiangqi's, shogi's pieces...): a font of their own, the same in every language
+("#" lines: comments).
 
-The fonts: Noto Sans CJK (SIL Open Font License 1.1, the system package fonts-noto-cjk), Regular and Bold, cut down
-(fontTools) to the characters the texts use: one pair for the 19 languages written in Latin, Greek or Cyrillic
-letters (the Japanese face's), one pair each for Japanese, Korean and Chinese (their own faces: their own glyph
-shapes). The subsets keep no layout tables: the app draws glyph by glyph (stb_truetype).
+The fonts, cut down (fontTools) to the characters the texts use, Regular and Bold, no layout tables (the app draws
+glyph by glyph with stb_truetype):
+- Noto Sans CJK (SIL Open Font License 1.1, the system package fonts-noto-cjk): Japanese, Korean and Chinese (their
+  own faces: their own glyph shapes), the languages in Latin, Greek or Cyrillic letters it covers (the Japanese
+  face's letters), and the boards' characters;
+- DejaVu Sans (the Bitstream Vera licence and public domain, the system package fonts-dejavu-core) for a language
+  using a letter Noto Sans CJK lacks (Greek's accented vowels, Ukrainian's є і ї ґ...): that language's whole text,
+  so its letters match.
 MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
 """
 import argparse
@@ -27,13 +32,19 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 APP = os.path.dirname(HERE)
 LANGS = ["en", "cs", "da", "de", "el", "es", "fi", "fr", "id", "it", "ja", "ko", "nb", "nl", "pl", "pt_BR",
          "pt_PT", "ru", "sv", "tr", "uk", "zh_CN"]
-FONT_DIR = "/usr/share/fonts/opentype/noto"
-FACES = {"base": 0, "ja": 0, "ko": 1, "zh_CN": 2}  # in NotoSansCJK-*.ttc: JP, KR, SC
+NOTO = "/usr/share/fonts/opentype/noto/NotoSansCJK-%s.ttc"
+DEJAVU = "/usr/share/fonts/truetype/dejavu/DejaVuSans%s.ttf"
+# a font group: where its two fonts come from (a path pattern, Regular / Bold, the face in a collection)
+SOURCES = {"base": (NOTO, ("Regular", "Bold"), 0), "ja": (NOTO, ("Regular", "Bold"), 0),
+           "ko": (NOTO, ("Regular", "Bold"), 1), "zh_CN": (NOTO, ("Regular", "Bold"), 2),
+           "dejavu": (DEJAVU, ("", "-Bold"), None), "glyphs": (NOTO, ("Regular", "Bold"), 0)}
 ALWAYS = "".join(chr(c) for c in range(32, 127)) + "•…–—‘’“”«»×"
 
 
-def group(lang):
-    return lang if lang in ("ja", "ko", "zh_CN") else "base"
+def load(group, bold):
+    pattern, styles, face = SOURCES[group]
+    path = pattern % styles[bold]
+    return TTFont(path, fontNumber=face, lazy=False) if face is not None else TTFont(path, lazy=False)
 
 
 def read_texts():
@@ -52,11 +63,23 @@ def read_texts():
     return texts
 
 
-def cut(face, bold, chars):
-    path = os.path.join(FONT_DIR, "NotoSansCJK-Bold.ttc" if bold else "NotoSansCJK-Regular.ttc")
-    font = TTFont(path, fontNumber=FACES[face], lazy=False)
+def groups_of(texts):
+    """{lang: font group}: the CJK languages their own; the others Noto when it has all their letters, else DejaVu"""
+    noto = load("base", 0).getBestCmap()
+    out = {}
+    for lang in LANGS:
+        if lang in ("ja", "ko", "zh_CN"):
+            out[lang] = lang
+            continue
+        used = set(ALWAYS).union(*texts[lang].values()) if texts[lang] else set(ALWAYS)
+        out[lang] = "base" if all(ord(c) in noto for c in used if c != "\n") else "dejavu"
+    return out
+
+
+def cut(group, bold, chars):
+    font = load(group, bold)
     cmap = font.getBestCmap()
-    missing = sorted(c for c in chars if ord(c) not in cmap and c not in "\n")
+    missing = sorted(c for c in chars if ord(c) not in cmap and c != "\n")
     opts = subset.Options()
     opts.layout_features = []
     opts.hinting = False
@@ -92,21 +115,23 @@ def main():
     texts = read_texts()
     if "en" not in texts or not texts["en"]:
         sys.exit("gen_text: no English texts in apps/boardgames/help/en")
-    chars = {g: set(ALWAYS) for g in FACES}
+    group = groups_of(texts)
+    chars = {g: set() for g in SOURCES}
     for lang in LANGS:
+        chars[group[lang]].update(ALWAYS)
         for t in texts[lang].values():
-            chars[group(lang)].update(t)
-    # the characters the boards draw (xiangqi's and shogi's pieces...): in every language's font
+            chars[group[lang]].update(t)
     glyphs = os.path.join(APP, "help", "glyphs.txt")
     if os.path.exists(glyphs):
         with open(glyphs, encoding="utf-8") as fh:
-            board = set(c for l in fh if not l.startswith("#") for c in l if c not in " \t\r\n")
-        for g in FACES:
-            chars[g].update(board)
-    c = ["/* Generated by apps/boardgames/tools/gen_text.py: do not edit. The fonts: Noto Sans CJK (SIL OFL 1.1). */",
-         '#include "text.h"', ""]
+            chars["glyphs"] = set(c for l in fh if not l.startswith("#") for c in l if c not in " \t\r\n")
+    chars["glyphs"].add(" ")
+    c = ["/* Generated by apps/boardgames/tools/gen_text.py: do not edit. The fonts: Noto Sans CJK (SIL OFL 1.1),",
+         " * DejaVu Sans (Bitstream Vera licence, public domain). */", '#include "text.h"', ""]
     problems = 0
-    for g in FACES:
+    for g in SOURCES:
+        if not chars[g]:
+            continue
         for bold in (0, 1):
             data, missing = cut(g, bold, chars[g])
             if missing:
@@ -117,10 +142,11 @@ def main():
     c.append("")
     c.append("const tx_lang tx_langs[] = {")
     for lang in LANGS:
-        g = group(lang)
+        g = group[lang]
         c.append(f'    {{"{lang}", font_{g}_0, sizeof font_{g}_0, font_{g}_1, sizeof font_{g}_1}},')
     c.append("};")
     c.append(f"const int tx_nlangs = {len(LANGS)};")
+    c.append("const unsigned char *const tx_glyph_font[2] = {font_glyphs_0, font_glyphs_1};")
     c.append("")
     c.append("const tx_text tx_texts[] = {")
     for lang in LANGS:
@@ -136,7 +162,9 @@ def main():
         with open(path, "w", encoding="utf-8") as f:
             f.write(body)
     n = sum(len(v) for v in texts.values())
-    print(f"gen_text: {path}: {n} texts in {sum(1 for v in texts.values() if v)} languages")
+    dv = [l for l in LANGS if group[l] == "dejavu"]
+    print(f"gen_text: {path}: {n} texts in {sum(1 for v in texts.values() if v)} languages"
+          + (f"; DejaVu Sans for {' '.join(dv)}" if dv else ""))
     return 1 if problems else 0
 
 
