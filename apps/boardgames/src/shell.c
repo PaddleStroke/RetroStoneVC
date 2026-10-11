@@ -19,7 +19,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_GAMES 32
+#define MAX_GAMES 64
 
 struct ui ui;
 static const game *games[MAX_GAMES];
