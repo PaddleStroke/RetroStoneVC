@@ -1,0 +1,16 @@
+Lines of Action
+# The aim
+Bring all your pieces together into one group, every piece touching another one of yours: side by side or corner to corner. Dark moves first, then the players take turns, one move each.
+# The start
+Each player has 12 pieces. Dark's stand on the top and bottom rows, light's on the left and right columns; the four corners stay empty.
+# How a piece moves
+- A piece moves in a straight line: along its row, its column or one of its two diagonals.
+- It moves exactly as many squares as there are pieces on that whole line, both colours, the moving piece included. Count the full line, from one edge of the board to the other, on both sides of the piece.
+- It may jump over pieces of its own colour, but never over the other player's.
+- It may land on an empty square, or on a piece of the other player, which is captured and leaves the board. It may never land on one of its own.
+# The end of the game
+- A player whose pieces all form one connected group wins. A single piece left counts as a group, so a capture can make the other player win.
+- If a move joins both players' groups at once, the player who made the move wins.
+- A player who has no legal move passes, and the other player moves again. The device passes for you. If neither player can move, or after 1000 moves, the game is a draw.
+# Playing on the device
+Tap a piece to see where it can go, then tap a square, or drag the piece. Dots show the moves, rings the captures. Each bar shows how many pieces that player has left. At the end, the winning group lights up in gold.
