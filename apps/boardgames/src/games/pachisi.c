@@ -818,17 +818,18 @@ static void release(float x, float y)
 static void bar(int player, box b)               /* the player's pieces home, each in its army's colour */
 {
     float sz = 0.6f * ui.unit, step = fminf(0.42f * ui.unit, (b.w - sz) / 7), cy = b.y + b.h / 2;
-    int won = four() && G.pos.winner >= 0 && (G.pos.winner & 1) == (player & 1);   /* four: both partners in gold */
-    for (int pass = !won; pass < 2; pass++) {   /* the gold light under them, then the pieces */
-        int k = 0;
-        for (int a = player; a < PA_ARMIES; a += four() ? PA_ARMIES : 2)   /* four: its own army */
-            for (int i = 0; i < PA_PIECES; i++) {
-                if (G.pos.at[a][i] != PA_HOME) continue;
-                float x = b.x + k++ * step;
-                if (pass) ui_put(t_small[a], x, cy - sz / 2, sz, sz);
-                else ui_mark_gold(x + sz / 2, cy, 2.1f * sz);
-            }
-    }
+    int k = 0;
+    for (int a = player; a < PA_ARMIES; a += four() ? PA_ARMIES : 2)   /* four: its own army */
+        for (int i = 0; i < PA_PIECES; i++)
+            if (G.pos.at[a][i] == PA_HOME) ui_put(t_small[a], b.x + k++ * step, cy - sz / 2, sz, sz);
+}
+
+/* the players who share the win: four, both partners; two, the winner */
+static unsigned winners(void)
+{
+    int w = G.pos.winner;
+    if (w < 0) return 0;
+    return four() ? 1u << w | 1u << (w + 2) % PA_ARMIES : 1u << w;
 }
 
 /* a player's token: two players, ivory and ebony; four, its army's piece (ivory, ebony, amber, rosewood) */
@@ -882,6 +883,6 @@ static const game pachisi_game = {
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .can_pass = can_pass, .pass = pass, .script = script, .busy = busy,
-    .players = 1u << 2 | 1u << 4, .home = home,
+    .players = 1u << 2 | 1u << 4, .home = home, .winners = winners,
 };
 REGISTER_GAME(pachisi_game)
