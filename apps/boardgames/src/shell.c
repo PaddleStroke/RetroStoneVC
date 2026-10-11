@@ -65,6 +65,14 @@ static struct {
     int grabbing;
 } help;
 
+/* the menu: more games than a screen holds, so the cards scroll under the buttons (dragged, or the mouse wheel) */
+static struct {
+    float scroll, max, top;                     /* top: where the cards' window starts, below the buttons */
+    float grab_x, grab_y, grab_scroll, vel;     /* vel: the fling after a drag, pixels a ms */
+    int grabbing, moved;
+    Uint32 t;                                   /* the last drag or fling step */
+} menu;
+
 /* ---- the registry ------------------------------------------------------------------------------------------------ */
 void game_register(const game *g)
 {
@@ -506,12 +514,27 @@ static void layout_cards(int n)
     int cols = ui.w > ui.h ? (n > 3 ? 3 : n) : (n > 1 ? 2 : 1);
     if (screen == SCR_PICK) cols = ui.w > ui.h || n <= 3 ? n : 2;
     if (screen == SCR_PICK && ui.w <= ui.h && n == 3) cols = 1;
+    if (screen == SCR_MENU) {                   /* cards about a quarter of the screen's width: as many as fit */
+        cols = (int)((ui.w - 2 * m + g) / (fminf(ui.w, ui.h) * 0.26f + g));
+        cols = cols < 2 ? 2 : cols > n ? n : cols;
+        if (n == 1) cols = 1;
+    }
     int rows = (n + cols - 1) / cols;
-    float lab = screen == SCR_MENU ? 0.17f : 0;  /* the menu's cards: the game's name under its picture */
-    float c = fminf((ui.w - 2 * m - (cols - 1) * g) / cols, (ui.h - head - 2 * m - (rows - 1) * g) / rows / (1 + lab));
+    float lab = screen == SCR_MENU ? 0.22f : 0;  /* the menu's cards: the game's name under its picture */
+    float c = (ui.w - 2 * m - (cols - 1) * g) / cols;
+    if (screen != SCR_MENU) c = fminf(c, (ui.h - head - 2 * m - (rows - 1) * g) / rows / (1 + lab));
     c = floorf(fminf(c, fminf(ui.w, ui.h) * 0.62f));
-    float ch = floorf(c * (1 + lab));
-    float x0 = (ui.w - (cols * c + (cols - 1) * g)) / 2, y0 = head + (ui.h - head - (rows * ch + (rows - 1) * g)) / 2;
+    float ch = floorf(c * (1 + lab)), tall = rows * ch + (rows - 1) * g;
+    float x0 = (ui.w - (cols * c + (cols - 1) * g)) / 2, y0 = head + (ui.h - head - tall) / 2;
+    if (screen == SCR_MENU) {                   /* the picker keeps the menu's place, for the way back */
+        menu.top = head;
+        menu.max = 0;
+        if (head + m + tall + m > ui.h) {       /* taller than the screen: it scrolls */
+            y0 = head + m * 0.5f;
+            menu.max = y0 + tall + m - ui.h;
+        }
+        menu.scroll = fminf(menu.max, fmaxf(0, menu.scroll));
+    }
     for (int i = 0; i < n; i++)
         L.cards[i] = (box){floorf(x0 + (i % cols) * (c + g)), floorf(y0 + (i / cols) * (ch + g)), c, ch};
     L.cols = cols;
@@ -719,14 +742,43 @@ static SDL_Texture *label(int i)
     char name[96];
     if (!text_name(games[i]->id, name, sizeof name)) return NULL;
     int w = L.card, h = L.label;
-    float px = h * 0.5f;
+    float px = h * 0.42f;
     int tw = text_line(name, px, 1, CREAM, NULL, 0, 0, 0, 0);
     if (tw > 0.9f * w) {
         px *= 0.9f * w / tw;
         tw = text_line(name, px, 1, CREAM, NULL, 0, 0, 0, 0);
     }
+    /* too long for one line ("Snakes and Ladders"): two, split at the space nearest the middle, if that is bigger */
+    char *cut = NULL;
+    for (char *s = strchr(name, ' '); s; s = strchr(s + 1, ' '))
+        if (!cut || abs((int)(s - name) * 2 - (int)strlen(name)) < abs((int)(cut - name) * 2 - (int)strlen(name)))
+            cut = s;
+    float px2 = h * 0.36f;
+    int w1 = 0, w2 = 0;
+    if (cut && px < 0.8f * h * 0.42f) {
+        *cut = 0;
+        w1 = text_line(name, px2, 1, CREAM, NULL, 0, 0, 0, 0);
+        w2 = text_line(cut + 1, px2, 1, CREAM, NULL, 0, 0, 0, 0);
+        int wide = w1 > w2 ? w1 : w2;
+        if (wide > 0.9f * w) px2 *= 0.9f * w / wide;
+        if (px2 > px) {
+            w1 = text_line(name, px2, 1, CREAM, NULL, 0, 0, 0, 0);
+            w2 = text_line(cut + 1, px2, 1, CREAM, NULL, 0, 0, 0, 0);
+        } else {
+            *cut = ' ';
+            cut = NULL;
+        }
+    } else {
+        cut = NULL;
+    }
     uint8_t *b = calloc((size_t)w * h, 4);
-    text_line(name, px, 1, CREAM, b, w, h, (w - tw) / 2, (int)((h - 1.25f * px) / 2));
+    if (cut) {
+        float lh = 1.18f * px2, y = (h - 2 * lh) / 2;
+        text_line(name, px2, 1, CREAM, b, w, h, (w - w1) / 2, (int)y);
+        text_line(cut + 1, px2, 1, CREAM, b, w, h, (w - w2) / 2, (int)(y + lh));
+    } else {
+        text_line(name, px, 1, CREAM, b, w, h, (w - tw) / 2, (int)((h - 1.25f * px) / 2));
+    }
     t_name[i] = ui_tex(w, h, b);
     free(b);
     return t_name[i];
@@ -735,8 +787,25 @@ static SDL_Texture *label(int i)
 static void draw_cards(void)
 {
     int n = screen == SCR_MENU ? ngames : games[cur]->variants;
+    float dy = 0;
+    if (screen == SCR_MENU && menu.max > 0) {   /* the cards' window, below the buttons */
+        if (menu.vel != 0 && !menu.grabbing) {  /* the fling: slows down, stops at the ends */
+            Uint32 t = SDL_GetTicks();
+            float dt = fminf(50, (float)(t - menu.t));
+            menu.t = t;
+            menu.scroll = fminf(menu.max, fmaxf(0, menu.scroll + menu.vel * dt));
+            menu.vel *= powf(0.996f, dt);
+            if (fabsf(menu.vel) < 0.02f || menu.scroll <= 0 || menu.scroll >= menu.max) menu.vel = 0;
+            else need_frame = 1;
+        }
+        dy = -menu.scroll;
+        SDL_Rect clip = {0, (int)menu.top, ui.w, ui.h - (int)menu.top};
+        SDL_RenderSetClipRect(ui.r, &clip);
+    }
     for (int i = 0; i < n; i++) {
         box c = L.cards[i];
+        c.y += dy;
+        if (c.y > ui.h || c.y + c.h * 1.2f < menu.top) continue;
         int gi = screen == SCR_MENU ? i : cur, v = screen == SCR_MENU ? -1 : i;
         if (screen == SCR_MENU && started[i] && games[i]->status() == GS_PLAY)   /* a game in progress */
             ui_put_c(t_gold, c.x + c.w / 2, c.y + c.h / 2, c.w * 1.25f, c.h * 1.25f);
@@ -744,6 +813,11 @@ static void draw_cards(void)
         float s = c.w * 0.86f;
         ui_put_c(thumb(gi, v), c.x + c.w / 2, c.y + c.w / 2, s, s);
         if (screen == SCR_MENU) ui_put(label(i), c.x, c.y + c.w - 0.04f * c.w, c.w, (float)L.label);
+    }
+    if (screen == SCR_MENU && menu.max > 0) {   /* where the list is: a thin bar on the right */
+        SDL_RenderSetClipRect(ui.r, NULL);
+        float vh = ui.h - menu.top, th = vh * vh / (vh + menu.max), ty = menu.top + (vh - th) * menu.scroll / menu.max;
+        ui_fill(ui.w - fminf(ui.w, ui.h) * 0.016f, ty, fminf(ui.w, ui.h) * 0.008f, th, 246, 238, 220, 70);
     }
     float home_x = fminf(ui.w, ui.h) * 0.05f + L.snd_r;
     if (screen == SCR_MENU) {
@@ -903,13 +977,22 @@ static void press(float x, float y)
             return;
         }
         if (screen == SCR_PICK && in_circle(x, y, home_x, L.snd_y, L.snd_r)) { snd_play(SND_TAP); go_home(); return; }
-        int n = screen == SCR_MENU ? ngames : games[cur]->variants;
+        if (screen == SCR_MENU) {               /* a card opens on release, unless the finger scrolled the list */
+            menu.grabbing = y >= menu.top;
+            menu.moved = menu.vel != 0;         /* a tap that stops a fling opens nothing */
+            menu.vel = 0;
+            menu.grab_x = x;
+            menu.grab_y = y;
+            menu.grab_scroll = menu.scroll;
+            menu.t = SDL_GetTicks();
+            return;
+        }
+        int n = games[cur]->variants;
         for (int i = 0; i < n; i++) {
             box c = L.cards[i];
             if (x >= c.x && x < c.x + c.w && y >= c.y && y < c.y + c.h) {
                 snd_play(SND_TAP);
-                if (screen == SCR_MENU) open_game(i, -1);
-                else open_game(cur, i);
+                open_game(cur, i);
                 return;
             }
         }
@@ -947,6 +1030,16 @@ static void motion(float x, float y)
         if (help.grabbing) help.scroll = fminf(help_max(), fmaxf(0, help.grab_scroll - (y - help.grab_y)));
         return;
     }
+    if (screen == SCR_MENU && menu.grabbing) {
+        if (hypotf(x - menu.grab_x, y - menu.grab_y) > fminf(ui.w, ui.h) * 0.02f) menu.moved = 1;
+        if (!menu.moved) return;
+        float s = fminf(menu.max, fmaxf(0, menu.grab_scroll - (y - menu.grab_y)));
+        Uint32 t = SDL_GetTicks();
+        if (t > menu.t) menu.vel = 0.5f * menu.vel + 0.5f * (s - menu.scroll) / (float)(t - menu.t);
+        menu.t = t;
+        menu.scroll = s;
+        return;
+    }
     if (screen == SCR_GAME) games[cur]->motion(x, y);
 }
 
@@ -956,7 +1049,32 @@ static void release(float x, float y)
         help.grabbing = 0;
         return;
     }
+    if (screen == SCR_MENU && menu.grabbing) {
+        menu.grabbing = 0;
+        if (menu.moved) {                       /* the end of a drag: the list flies on if the finger was quick */
+            if (SDL_GetTicks() - menu.t > 80) menu.vel = 0;
+            menu.t = SDL_GetTicks();
+            need_frame = 1;
+            return;
+        }
+        for (int i = 0; i < ngames; i++) {
+            box c = L.cards[i];
+            c.y -= menu.scroll;
+            if (x >= c.x && x < c.x + c.w && y >= c.y && y < c.y + c.h) {
+                snd_play(SND_TAP);
+                open_game(i, -1);
+                return;
+            }
+        }
+        return;
+    }
     if (screen == SCR_GAME) games[cur]->release(x, y);
+}
+
+static void menu_wheel(float dy)
+{
+    menu.vel = 0;
+    menu.scroll = fminf(menu.max, fmaxf(0, menu.scroll + dy));
 }
 
 /* ---- the picture mode -------------------------------------------------------------------------------------------- */
@@ -1028,6 +1146,7 @@ static int shot(int argc, char **argv)
         }
     } else {
         layout();
+        if (!show_help) menu_wheel(scroll);     /* --scroll px: further down the menu */
     }
     ms_ahead = at >= 0 ? (Uint32)at : 600000;   /* the animations the taps started: over, or caught --at ms in */
     if (show_help) {                            /* the rules page (the game's, or the app's), scrolled by --scroll px */
@@ -1061,6 +1180,12 @@ static void key(SDL_Keycode k)
     }
     if (k == SDLK_m) snd_muted = !snd_muted;
     if (k == SDLK_h || k == SDLK_F1) { if (!help.open) open_help(screen == SCR_GAME ? cur : -1); return; }
+    if (screen == SCR_MENU && !help.open &&
+        (k == SDLK_DOWN || k == SDLK_UP || k == SDLK_PAGEDOWN || k == SDLK_PAGEUP)) {
+        float step = (k == SDLK_PAGEDOWN || k == SDLK_PAGEUP ? 3 : 1) * (L.card + L.label) * 0.5f;
+        menu_wheel(k == SDLK_DOWN || k == SDLK_PAGEDOWN ? step : -step);
+        return;
+    }
     if (screen != SCR_GAME || help.open) return;
     if (k == SDLK_u || k == SDLK_BACKSPACE) games[cur]->undo();
     else if (k == SDLK_f) { ui.flipped = !ui.flipped; layout(); }
@@ -1120,6 +1245,7 @@ int main(int argc, char **argv)
                     break;
                 case SDL_MOUSEWHEEL:
                     if (help.open) help_scroll(-e.wheel.y * help.px * 3);
+                    else if (screen == SCR_MENU) menu_wheel(-e.wheel.y * (L.card + L.label) * 0.4f);
                     break;
                 }
             } while (SDL_PollEvent(&e));
