@@ -29,7 +29,7 @@ static struct { int on, ms; lmove m; Uint32 t0; } anim;
 /* player 0 plays ebony: the house's colour 1 */
 static int colour(int player) { return !player; }
 
-/* ---- the position ---------------------------------------------------------------------------------------------------- */
+/* ---- the position ------------------------------------------------------------------------------------------------ */
 static void refresh(void)
 {
     const lpos *p = loa_pos(&G);
@@ -96,7 +96,7 @@ static int script(const char *s)
     return 1;
 }
 
-/* ---- the board on the screen ------------------------------------------------------------------------------------------ */
+/* ---- the board on the screen ------------------------------------------------------------------------------------- */
 static void layout(box b)
 {
     sq = (int)floorf(b.w / (8 + 2 * FRAME));
@@ -215,7 +215,7 @@ static void draw(void)
     }
 }
 
-/* ---- the pointer ------------------------------------------------------------------------------------------------------- */
+/* ---- the pointer ------------------------------------------------------------------------------------------------- */
 static void press(float x, float y)
 {
     if (status() != GS_PLAY) return;
@@ -259,7 +259,7 @@ static void release(float x, float y)
     else if (s != drag.from) ui_sound(SND_DENY);
 }
 
-/* ---- the shell's pictures ------------------------------------------------------------------------------------------------ */
+/* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
 /* the player's pieces left on the board */
 static void bar(int player, box b)
 {
