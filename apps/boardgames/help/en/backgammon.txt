@@ -1,0 +1,23 @@
+Backgammon
+# The aim
+Bring all fifteen of your checkers round the board into your home board, then bear them off. The first player to bear off all fifteen wins. The players move in opposite directions, ivory one way round and ebony the other.
+# The board
+There are 24 narrow triangles, the points, six in each quarter of the board. The bar down the middle divides each side into an outer board and a home board; the two home boards face each other, on the side of the tray. Each player numbers the points from 1, at the end of their own home board, round to 24, at the end of the other player's home board. At the start each player has two checkers on their 24 point, five on their 13 point, three on their 8 point and five on their 6 point.
+# Throwing and moving
+To begin, each player throws one die. The higher number plays first, using both numbers thrown; if they are the same, throw again. After that, the players take turns: throw two dice and move by each number.
+- One checker moves by one number, then a checker moves by the other: the same checker or another one.
+- A checker may land on an empty point, on a point with your own checkers, or on a point with a single enemy checker.
+- A double gives four moves of that number.
+- You must use both numbers if you can. If you can only use one of them, you must use the larger one if possible.
+- If no move is possible, you lose the turn.
+# Hitting and entering
+A single checker on a point is a blot. Landing on an enemy blot hits it: it goes to the bar. A player with a checker on the bar must bring it back first, entering it in the other player's home board on the point given by a die (the 1 is the point furthest from the bar). A point held by two or more enemy checkers is closed. Nothing else may move until all your checkers on the bar have entered.
+# Bearing off
+Once all fifteen of your checkers are in your home board, you may bear them off: a number takes a checker off the point of that number. If that point is empty, you must move a checker from a higher point if you can; with no checker on any higher point, the number bears off a checker from the highest point you hold. A checker that is hit must come all the way back before you can bear off again.
+# Winning
+- The first player to bear off all fifteen checkers wins one point.
+- A gammon: if the loser has not borne off a single checker, the winner scores two points.
+- A backgammon: if the loser has not borne off any checker and still has one on the bar or in the winner's home board, the winner scores three points.
+This game is played without the doubling cube.
+# Playing on the device
+Tap the dice glowing gold to throw them. Tap a checker, then one of the dots, or drag it; a ring shows a blot you would hit. Each move uses one die: a die that has been used is dimmed. To bear off, move the checker to the tray on the right. Checkers on the bar are already in hand. When a throw cannot be played, its dice glow red and the turn passes. Your bar shows how many checkers you have borne off, and at the end the points won. Undo takes back one move at a time, and the dice of earlier turns come back as they were thrown.
