@@ -1,0 +1,16 @@
+Shut the Box
+# Het doel
+Klap zoveel mogelijk van je genummerde klepjes dicht: je score is de som van de klepjes die blijven staan, en lager is beter. Klap ze allemaal dicht en je sluit de doos: je wint meteen. Met één tot vier spelers: kies voor de partij met hoeveel, en de klepjes:
+- 1 tot 9: de klassieke doos.
+- 1 tot 10: zoals de grote dozen voor vier spelers.
+- 1 tot 12: de langste partij.
+Elke speler heeft een eigen rij klepjes aan zijn kant van de doos. Alleen speel je tegen je eigen score.
+# Een beurt
+- Gooi de twee dobbelstenen en klap dan staande klepjes dicht waarvan de getallen samen de worp maken: één of meer. Een 8 kan de 8 dichtklappen, of 7 en 1, of 5 en 3, of 5, 2 en 1…
+- Gooi opnieuw en klap opnieuw dicht, zolang het kan.
+- Zodra je 7, 8 en 9 dicht zijn (met 10 of 12 klepjes: alle vanaf 7), mag je als je wilt met één dobbelsteen gooien.
+- Maakt geen groep van je staande klepjes de worp, dan is je beurt voorbij. Je score is de som van de klepjes die nog staan.
+# Het einde van de partij
+Elke speler speelt één hele beurt; de beurt gaat met de klok mee rond de doos, ivoor begint. Daarna wint de laagste score; zijn de laagste scores gelijk, dan is het remise. Wie de doos sluit, wint meteen, en daar eindigt de partij. Alleen is de partij opgelost als de doos dicht is; anders blijft je score staan.
+# Spelen op het apparaat
+Tik op het vilt om de dobbelstenen te gooien. Mag je met één dobbelsteen gooien, dan wacht er een losse dobbelsteen naast het paar: tik erop om hem alleen te gooien. Tik op je klepjes om ze te kiezen: ze komen omhoog, en de gekozen som staat boven de worp, naast de dobbelstenen. Klepjes die niet kunnen helpen de worp te maken, zijn gedimd. Is de som gelijk aan de worp, dan klappen de klepjes om. Tik nog eens op een gekozen klepje om het terug te zetten. Maakt geen groep de worp, dan gloeien de dobbelstenen rood en staat je score even in beeld; daarna gooit de volgende speler. Elke balk toont de score van die speler. Ongedaan maken zet de klepjes van de laatste worp weer rechtop; de dobbelstenen worden nooit opnieuw gegooid: dezelfde getallen komen terug.

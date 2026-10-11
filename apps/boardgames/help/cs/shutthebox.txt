@@ -1,0 +1,16 @@
+Zavři krabici
+# Cíl hry
+Sklop co nejvíc svých očíslovaných destiček: tvé skóre je součet destiček, které zůstaly stát, a nižší je lepší. Sklop je všechny a zavřeš krabici: hned vyhráváš. Hrají jeden až čtyři hráči: před hrou zvol, kolik vás hraje, a destičky:
+- 1 až 9: klasická krabice.
+- 1 až 10: jako velké krabice pro čtyři hráče.
+- 1 až 12: nejdelší hra.
+Každý hráč má svou vlastní řadu destiček na své straně krabice. Sám hraješ proti svému vlastnímu skóre.
+# Tah
+- Hoď dvěma kostkami a pak sklop stojící destičky, jejichž čísla dají dohromady hod: jednu nebo několik. Hod 8 může sklopit 8, nebo 7 a 1, nebo 5 a 3, nebo 5, 2 a 1…
+- Házej a sklápěj znovu, dokud můžeš.
+- Jakmile máš sklopené 7, 8 a 9 (s 10 nebo 12 destičkami: všechny od 7 výš), smíš podle chuti házet jen jednou kostkou.
+- Když žádná skupina tvých stojících destiček nedá hod, tvůj tah končí. Tvé skóre je součet destiček, které ještě stojí.
+# Konec hry
+Každý hráč odehraje jeden celý tah; tah jde po směru hodinových ručiček kolem krabice, slonovinový začíná. Potom vyhrává nejnižší skóre; jsou-li nejnižší skóre stejná, hra končí remízou. Hráč, který zavře krabici, vyhrává hned a hra tím končí. Sám máš hru vyřešenou, když zavřeš krabici; jinak platí tvé skóre.
+# Hra na zařízení
+Ťukni na plsť a hodíš kostkami. Když smíš házet jednou kostkou, vedle dvojice čeká jedna samotná kostka: ťukni na ni a hodíš jen jí. Ťukáním na destičky je vybíráš: zvednou se a vybraný součet se ukáže nad hodem vedle kostek. Destičky, které k hodu pomoci nemohou, jsou ztmavené. Jakmile se součet rovná hodu, destičky se sklopí. Dalším ťuknutím na vybranou destičku ji vrátíš. Když žádná skupina hod nedá, kostky zčervenají a na chvíli se ukáže tvé skóre; pak hází další hráč. Každý pruh ukazuje skóre toho hráče. Zpět znovu postaví destičky z posledního hodu; kostky se nikdy nehází znovu: padnou stejná čísla.

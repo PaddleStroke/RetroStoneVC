@@ -1,0 +1,16 @@
+Chiudi la scatola
+# Lo scopo
+Abbatti più tessere numerate che puoi: il tuo punteggio è la somma delle tessere rimaste in piedi, e meno è meglio. Abbattile tutte e chiudi la scatola: vinci subito. Si gioca da uno a quattro: scegli quanti prima della partita, e le tessere:
+- da 1 a 9: la scatola classica.
+- da 1 a 10: come le grandi scatole per quattro giocatori.
+- da 1 a 12: la partita più lunga.
+Ogni giocatore ha la sua fila di tessere sul suo lato della scatola. Da solo, giochi contro il tuo stesso punteggio.
+# Un turno
+- Tira i due dadi, poi abbatti tessere in piedi i cui numeri sommati fanno il lancio: una o più. Un 8 può abbattere l'8, o 7 e 1, o 5 e 3, o 5, 2 e 1…
+- Tira ancora e abbatti ancora, finché puoi.
+- Quando il tuo 7, 8 e 9 sono abbattuti (con 10 o 12 tessere: tutte dal 7 in su), puoi tirare un solo dado se vuoi.
+- Quando nessun gruppo delle tue tessere in piedi fa il lancio, il tuo turno finisce. Il tuo punteggio è la somma delle tessere ancora in piedi.
+# La fine della partita
+Ogni giocatore gioca un turno completo; il turno gira in senso orario intorno alla scatola, iniziando dall'avorio. Poi vince il punteggio più basso; se i più bassi sono uguali, la partita è patta. Chi chiude la scatola vince subito, e la partita finisce lì. Da solo, una scatola chiusa risolve la partita; altrimenti resta il tuo punteggio.
+# Giocare sul dispositivo
+Tocca il panno per tirare i dadi. Quando puoi tirare un solo dado, un dado da solo aspetta accanto alla coppia: toccalo per tirarlo da solo. Tocca le tue tessere per sceglierle: si sollevano, e la somma scelta appare sopra il lancio, accanto ai dadi. Le tessere che non possono aiutare a fare il lancio sono scurite. Quando la somma è uguale al lancio, le tessere si abbattono. Tocca di nuovo una tessera scelta per rimetterla giù. Quando nessun gruppo fa il lancio, i dadi si accendono di rosso e il tuo punteggio appare per un momento, poi tira il giocatore seguente. Ogni barra mostra il punteggio di quel giocatore. Annulla rialza le tessere dell'ultimo lancio; i dadi non vengono mai ritirati: tornano gli stessi numeri.

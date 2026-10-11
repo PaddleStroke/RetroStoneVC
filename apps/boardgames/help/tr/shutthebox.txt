@@ -1,0 +1,16 @@
+Kutuyu Kapat
+# Amaç
+Numaralı kapaklarından olabildiğince çoğunu kapat: puanın ayakta kalan kapakların toplamıdır ve düşük olan iyidir. Hepsini kapatırsan kutuyu kapatırsın: hemen kazanırsın. Bir ile dört kişi oynar: oyundan önce kaç kişi oynayacağını ve kapakları seç:
+- 1'den 9'a: klasik kutu.
+- 1'den 10'a: dört kişilik büyük kutular gibi.
+- 1'den 12'ye: en uzun oyun.
+Her oyuncunun kutunun kendi tarafında kendi kapak sırası vardır. Tek başına, kendi puanına karşı oynarsın.
+# Bir hamle
+- İki zarı at, sonra sayıları toplamı atışı veren ayaktaki kapakları kapat: bir ya da birkaç tane. 8 atışı 8'i, ya da 7 ile 1'i, ya da 5 ile 3'ü, ya da 5, 2 ve 1'i kapatabilir…
+- Yapabildiğin sürece yeniden at, yeniden kapat.
+- 7, 8 ve 9'un kapandığında (10 ya da 12 kapakla: 7 ve üstündekilerin hepsi), istersen tek zar atabilirsin.
+- Ayaktaki kapaklarının hiçbir grubu atışı vermediğinde sıran biter. Puanın hâlâ ayakta olan kapakların toplamıdır.
+# Oyunun sonu
+Her oyuncu tam bir sıra oynar; sıra kutunun çevresinde saat yönünde döner, önce fildişi başlar. Sonra en düşük puan kazanır; en düşük puanlar eşitse oyun berabere biter. Kutuyu kapatan oyuncu hemen kazanır ve oyun orada biter. Tek başına, kapalı kutu oyunu çözer; değilse puanın kalır.
+# Cihazda oynamak
+Zarları atmak için çuhaya dokun. Tek zar atabildiğinde, çiftin yanında tek bir zar bekler: yalnız atmak için ona dokun. Seçmek için kapaklarına dokun: kalkarlar ve seçilen toplam, zarların yanında atışın üstünde görünür. Atışı yapmaya yardım edemeyen kapaklar soluktur. Toplam atışa eşit olunca kapaklar devrilir. Seçili bir kapağı geri koymak için ona yeniden dokun. Hiçbir grup atışı vermediğinde zarlar kırmızı parlar ve puanın bir an görünür; sonra sıradaki oyuncu atar. Her çubuk o oyuncunun puanını gösterir. Geri al, son atışın kapaklarını yeniden kaldırır; zarlar asla yeniden atılmaz: aynı sayılar gelir.

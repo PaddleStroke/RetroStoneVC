@@ -1,0 +1,16 @@
+Klappenspiel
+# Das Ziel
+Klappe so viele deiner nummerierten Klappen zu wie möglich: Deine Punktzahl ist die Summe der Klappen, die noch stehen, und weniger ist besser. Klappst du alle zu, schließt du die Box und gewinnst sofort. Ein bis vier Spieler: Wähle vor der Partie, wie viele mitspielen, und die Klappen:
+- 1 bis 9: die klassische Box.
+- 1 bis 10: wie die großen Boxen für vier Spieler.
+- 1 bis 12: die längste Partie.
+Jeder Spieler hat seine eigene Reihe Klappen auf seiner Seite der Box. Allein spielst du gegen deine eigene Punktzahl.
+# Ein Zug
+- Wirf die zwei Würfel und klappe dann stehende Klappen zu, deren Zahlen zusammen den Wurf ergeben: eine oder mehrere. Eine 8 kann die 8 zuklappen, oder 7 und 1, oder 5 und 3, oder 5, 2 und 1 …
+- Wirf wieder und klappe wieder zu, solange es geht.
+- Sobald deine 7, 8 und 9 zu sind (mit 10 oder 12 Klappen: alle ab 7), darfst du nach Wunsch nur einen Würfel werfen.
+- Ergibt keine Gruppe deiner stehenden Klappen den Wurf, ist dein Zug vorbei. Deine Punktzahl ist die Summe der Klappen, die noch stehen.
+# Das Ende der Partie
+Jeder Spieler spielt einen ganzen Zug; es geht im Uhrzeigersinn um die Box, Elfenbein beginnt. Danach gewinnt die niedrigste Punktzahl; sind die niedrigsten gleich, endet die Partie unentschieden. Wer die Box schließt, gewinnt sofort, und die Partie endet dort. Allein ist die Partie mit geschlossener Box gelöst; sonst zählt deine Punktzahl.
+# Spielen auf dem Gerät
+Tippe auf den Filz, um die Würfel zu werfen. Darfst du einen Würfel werfen, wartet ein einzelner Würfel neben dem Paar: Tippe ihn an, um ihn allein zu werfen. Tippe deine Klappen an, um sie zu wählen: Sie heben sich, und die gewählte Summe steht über dem Wurf neben den Würfeln. Klappen, die den Wurf nicht ergeben können, sind abgedunkelt. Ergibt die Summe den Wurf, kippen die Klappen um. Tippe eine gewählte Klappe nochmals an, um sie zurückzustellen. Ergibt keine Gruppe den Wurf, glühen die Würfel rot und deine Punktzahl erscheint kurz, dann wirft der nächste Spieler. Jede Leiste zeigt die Punktzahl dieses Spielers. Rückgängig stellt die Klappen des letzten Wurfs wieder auf; die Würfel werden nie neu geworfen: Dieselben Zahlen kommen wieder.
