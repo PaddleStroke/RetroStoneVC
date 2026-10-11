@@ -1,0 +1,17 @@
+Surakarta
+# Målet
+Slå alle motstanderens brikker. Hver spiller har tolv brikker. Den lyse siden begynner. Spillet kommer fra Java i Indonesia og er oppkalt etter byen Surakarta.
+# Brettet
+Trettiseks punkter på et rutenett av seks ganger seks linjer. To baner går gjennom det: den indre (rød) langs andre og femte linje i begge retninger, den ytre (grønn) langs tredje og fjerde. I hvert hjørne forbinder en sløyfe endene av to linjer: de små sløyfene hører til den indre banen, de store til den ytre. Hver spillers brikker fyller de to radene nærmest spilleren.
+# Flytting
+Når det er din tur, flytter du én av brikkene dine ett steg til et av de åtte nabopunktene, rett eller på skrå, hvis det er tomt. Sløyfene brukes ikke til disse stegene.
+# Slag
+En brikke slår ved å bevege seg langs en bane, så langt den vil over tomme punkter og gjennom minst én sløyfe, til den møter en brikke. Er det en motstanderbrikke, fjernes den fra brettet, og den slående brikken tar plassen dens.
+- Veien må være fri: en brikke kan ikke hoppe over andre brikker. Punktet den slående brikken startet fra, regnes som tomt hvis veien krysser det igjen.
+- Et slag kan gå gjennom flere sløyfer. Det følger banen sin, fortsetter rett fram der linjer krysser hverandre, og svinger bare gjennom sløyfene.
+- Slag er aldri tvunget.
+# Slutten på spillet
+- En spiller som ikke har flere brikker igjen, eller ikke kan flytte, taper.
+- Spillet slutter også når den samme stillingen kommer igjen for tredje gang, eller etter førti trekk hver uten slag. Da vinner spilleren som har flest brikker igjen; har begge like mange, er det uavgjort.
+# Spill på enheten
+Trykk på brikken din og så på det nye punktet, eller dra den. Når brikken din er valgt, har punktene den kan flytte til, en prikk, og brikkene den kan slå, har en ring: trykk på en av dem for å sende brikken din rundt gjennom sløyfene.

@@ -1,0 +1,17 @@
+Surakarta
+# Het doel
+Sla alle stukken van de andere speler. Elke speler heeft twaalf stukken. Licht begint. Het spel komt van Java, in Indonesië, en is genoemd naar de stad Surakarta.
+# Het bord
+Zesendertig punten op een raster van zes bij zes lijnen. Er lopen twee banen doorheen: de binnenbaan (rood) langs de tweede en de vijfde lijn, zowel horizontaal als verticaal, de buitenbaan (groen) langs de derde en de vierde. In elke hoek verbindt een lus de uiteinden van twee lijnen: de kleine lussen horen bij de binnenbaan, de grote bij de buitenbaan. De stukken van elke speler vullen de twee rijen die het dichtst bij hem liggen.
+# Schuiven
+Als je aan de beurt bent, schuif je een van je stukken één stap naar een van de acht aangrenzende punten, recht of schuin, als dat leeg is. De lussen worden voor deze stappen niet gebruikt.
+# Slaan
+Een stuk slaat door een baan te volgen, zo ver als het wil over lege punten en door minstens één lus, tot het een stuk tegenkomt. Is dat een stuk van de tegenstander, dan wordt het van het bord genomen en neemt het slaande stuk zijn plaats in.
+- De weg moet vrij zijn: een stuk kan niet over andere stukken springen. Het punt waar het slaande stuk vertrok, telt als leeg als zijn weg er opnieuw langs komt.
+- Een slag mag door meerdere lussen gaan. Hij volgt zijn baan, gaat rechtdoor waar lijnen elkaar kruisen en draait alleen via de lussen.
+- Slaan is nooit verplicht.
+# Het einde van het spel
+- Een speler die geen stukken meer heeft of niet kan zetten, verliest.
+- Het spel eindigt ook als dezelfde stelling voor de derde keer terugkomt, of na veertig zetten van elke speler zonder slag. Dan wint de speler met de meeste stukken over; met evenveel stukken eindigt het in gelijkspel.
+# Spelen op het apparaat
+Tik op je stuk en dan op zijn nieuwe punt, of sleep het. Is je stuk gekozen, dan hebben de punten waar het heen kan een stip en de stukken die het kan slaan een ring: tik op een ervan om je stuk door de lussen te sturen.

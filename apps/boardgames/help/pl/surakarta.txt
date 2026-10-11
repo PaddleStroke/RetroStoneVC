@@ -1,0 +1,17 @@
+Surakarta
+# Cel gry
+Zbij wszystkie pionki przeciwnika. Każdy gracz ma dwanaście pionków. Jasne zaczynają. Gra wywodzi się z Jawy w Indonezji, a nazwę wzięła od miasta Surakarta.
+# Plansza
+Trzydzieści sześć punktów na siatce sześć na sześć linii. Przebiegają przez nią dwa tory: wewnętrzny (czerwony) wzdłuż drugiej i piątej linii w obu kierunkach, zewnętrzny (zielony) wzdłuż trzeciej i czwartej. W każdym rogu pętla łączy końce dwóch linii: małe pętle należą do toru wewnętrznego, duże do zewnętrznego. Pionki każdego gracza zajmują dwa najbliższe mu rzędy.
+# Przesuwanie
+W swojej kolejce przesuń jeden ze swoich pionków o jeden krok na dowolny z ośmiu sąsiednich punktów, prosto lub na ukos, jeśli jest wolny. Pętli nie używa się przy tych krokach.
+# Bicie
+Pionek bije, sunąc wzdłuż toru tak daleko, jak chce, przez wolne punkty i przez co najmniej jedną pętlę, aż natrafi na pionek. Jeśli to pionek przeciwnika, zostaje zdjęty z planszy, a bijący pionek zajmuje jego miejsce.
+- Droga musi być wolna: pionek nie może przeskakiwać innych pionków. Punkt, z którego wyruszył bijący pionek, liczy się jako wolny, jeśli droga znów przez niego przechodzi.
+- Bicie może prowadzić przez kilka pętli. Biegnie ono swoim torem, na skrzyżowaniach linii idzie prosto i skręca tylko w pętlach.
+- Bicie nigdy nie jest obowiązkowe.
+# Koniec gry
+- Gracz, któremu nie zostały żadne pionki albo który nie może wykonać ruchu, przegrywa.
+- Gra kończy się też, gdy ta sama pozycja powtórzy się po raz trzeci, lub po czterdziestu ruchach każdej ze stron bez bicia. Wygrywa wtedy gracz, któremu zostało więcej pionków; przy równej liczbie pionków jest remis.
+# Gra na urządzeniu
+Dotknij swojego pionka, a potem jego nowego punktu, albo przeciągnij go. Gdy pionek jest wybrany, punkty, na które może przejść, mają kropkę, a pionki, które może zbić, mają pierścień: dotknij jednego z nich, aby posłać pionek przez pętle.

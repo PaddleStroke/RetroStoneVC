@@ -1,0 +1,19 @@
+Lasca
+# Lo scopo
+Lasciare l'altro giocatore senza mosse. Il Lasca fu inventato nel 1911 dal campione del mondo di scacchi Emanuel Lasker. Si gioca come la dama, ma i pezzi presi restano sul tavoliere, prigionieri nelle colonne. Ogni giocatore ha undici pezzi. Muovono per primi i pezzi chiari.
+# Il tavoliere
+Sette caselle per sette, di cui si usano solo le 25 caselle chiare, angoli compresi. I pezzi di ciascun giocatore occupano le caselle chiare delle tre righe più vicine a lui; la riga centrale è vuota.
+# Movimento
+- I pezzi stanno in colonne. Una colonna appartiene al giocatore che ha il pezzo in cima, e si muove come quel pezzo, portando con sé tutta la colonna.
+- Un soldato (un pezzo semplice) si muove di una casella in diagonale in avanti. Un ufficiale (un pezzo con la corona) si muove di una casella in diagonale, in avanti o all'indietro.
+- Un soldato in cima alla sua colonna che raggiunge l'ultima riga diventa ufficiale.
+# Catture
+Se una colonna avversaria è accanto alla tua in diagonale e la casella subito dietro è libera, saltala. Viene preso solo il pezzo in cima alla colonna saltata: finisce sotto la tua colonna, come prigioniero. I pezzi sotto di lui restano dove sono, e quella colonna ora appartiene a chi possiede il suo nuovo pezzo in cima: è così che i prigionieri vengono liberati.
+- I soldati catturano solo in avanti, gli ufficiali in avanti e all'indietro.
+- La presa è obbligatoria. Dopo una presa, la stessa colonna continua a saltare finché può, tutto nello stesso turno, ma non salta mai due volte sopra la stessa casella. Quando ci sono più prese possibili, puoi scegliere quella che vuoi.
+- Un soldato che raggiunge l'ultima riga durante una presa diventa ufficiale, e il suo turno finisce lì.
+# La fine della partita
+- Perde il giocatore che non può muovere: tutti i suoi pezzi sono prigionieri, o tutte le sue colonne sono bloccate.
+- La partita è patta quando la stessa posizione si ripete per la terza volta, o dopo quaranta mosse ciascuno senza prese né mosse di soldato.
+# Giocare sul dispositivo
+Tocca la tua colonna e poi la sua nuova casella, oppure trascinala. Le colonne che si possono prendere hanno un anello: con la tua colonna selezionata, tocca la casella subito oltre, oppure la colonna con l'anello. In una catena di prese, la tua colonna resta sollevata per il salto successivo. Ogni pezzo di una colonna spunta da sotto quello sopra. Il numero accanto alla tua pedina nella barra conta i prigionieri nelle tue colonne.

@@ -1,0 +1,19 @@
+Lasca
+# O objetivo
+Deixar o outro jogador sem jogada. O Lasca foi inventado em 1911 pelo campeão mundial de xadrez Emanuel Lasker. Ele é jogado como as damas, mas as peças capturadas ficam no tabuleiro, como prisioneiras em colunas. Cada jogador tem onze peças. As peças claras começam.
+# O tabuleiro
+Sete casas por sete, das quais só as 25 casas claras são usadas, incluindo os cantos. As peças de cada jogador ocupam as casas claras das três fileiras mais próximas dele; a fileira do meio fica vazia.
+# Movimento
+- As peças ficam empilhadas em colunas. Uma coluna pertence ao jogador cuja peça está no topo, e anda como essa peça, levando a coluna inteira junto.
+- Um soldado (uma peça simples) anda uma casa na diagonal para a frente. Um oficial (uma peça com coroa) anda uma casa na diagonal, para a frente ou para trás.
+- Um soldado no topo da sua coluna que chega à última fileira vira oficial.
+# Captura
+Se uma coluna adversária estiver ao lado da sua na diagonal e a casa logo depois dela estiver vazia, pule por cima dela. Só a peça do topo da coluna pulada é capturada: ela vai para baixo da sua coluna, como prisioneira. As peças de baixo ficam onde estão, e essa coluna passa a ser de quem for dono da nova peça do topo: é assim que as prisioneiras são libertadas.
+- Os soldados capturam só para a frente; os oficiais, para a frente e para trás.
+- A captura é obrigatória. Depois de uma captura, a mesma coluna continua pulando enquanto puder, tudo na mesma vez, mas nunca pula duas vezes por cima da mesma casa. Quando houver várias capturas, você pode escolher qualquer uma.
+- Um soldado que chega à última fileira durante uma captura vira oficial, e a vez dele termina aí.
+# O fim da partida
+- Perde o jogador que não consegue se mover: todas as peças dele são prisioneiras, ou todas as colunas dele estão bloqueadas.
+- A partida termina empatada quando a mesma posição se repete pela terceira vez, ou depois de quarenta jogadas de cada lado sem captura nem movimento de soldado.
+# Jogando no aparelho
+Toque na sua coluna e depois na nova casa dela, ou arraste-a. As colunas que podem ser capturadas ficam com um anel: com a sua coluna selecionada, toque na casa logo depois ou na própria coluna com o anel. Numa sequência de capturas, sua coluna continua levantada para o próximo pulo. Cada peça de uma coluna aparece um pouco por baixo da de cima. O número ao lado da sua peça na barra conta as prisioneiras nas suas colunas.

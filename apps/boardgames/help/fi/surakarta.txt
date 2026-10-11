@@ -1,0 +1,17 @@
+Surakarta
+# Tavoite
+Lyö kaikki vastustajan nappulat. Kummallakin pelaajalla on kaksitoista nappulaa. Vaalea aloittaa. Peli on peräisin Jaavalta Indonesiasta, ja se on nimetty Surakartan kaupungin mukaan.
+# Lauta
+Kolmekymmentäkuusi pistettä kuuden kertaa kuuden viivan ruudukossa. Sen läpi kulkee kaksi rataa: sisempi (punainen) toista ja viidettä viivaa pitkin kumpaankin suuntaan, ulompi (vihreä) kolmatta ja neljättä pitkin. Jokaisessa kulmassa silmukka yhdistää kahden viivan päät: pienet silmukat kuuluvat sisempään rataan, isot ulompaan. Kunkin pelaajan nappulat täyttävät kaksi häntä lähintä riviä.
+# Siirtäminen
+Vuorollasi siirrät yhtä nappulaasi yhden askeleen johonkin kahdeksasta viereisestä pisteestä, suoraan tai vinosti, jos se on tyhjä. Silmukoita ei käytetä näissä askelissa.
+# Lyöminen
+Nappula lyö kulkemalla rataa pitkin niin pitkälle kuin haluaa, tyhjien pisteiden yli ja vähintään yhden silmukan kautta, kunnes se kohtaa nappulan. Jos se on vastustajan nappula, se poistetaan laudalta ja lyövä nappula asettuu sen paikalle.
+- Reitin on oltava vapaa: nappula ei voi hypätä muiden nappuloiden yli. Piste, josta lyövä nappula lähti, lasketaan tyhjäksi, jos reitti kulkee sen kautta uudelleen.
+- Lyönti voi kiertää useiden silmukoiden kautta. Se seuraa rataansa, jatkaa suoraan siellä, missä viivat risteävät, ja kääntyy vain silmukoissa.
+- Lyöminen ei ole koskaan pakollista.
+# Pelin loppu
+- Pelaaja, jolta loppuvat nappulat tai joka ei voi siirtää, häviää.
+- Peli päättyy myös, kun sama asema toistuu kolmannen kerran, tai kun kumpikin on tehnyt neljäkymmentä siirtoa ilman lyöntiä. Silloin voittaa pelaaja, jolla on enemmän nappuloita jäljellä; jos niitä on yhtä monta, peli päättyy tasapeliin.
+# Pelaaminen laitteella
+Napauta nappulaasi ja sitten sen uutta pistettä, tai vedä sitä. Kun nappulasi on valittuna, pisteet näyttävät, minne se voi astua, ja renkaat nappulat, jotka se voi lyödä: napauta jotakin niistä, niin nappulasi kiertää silmukoiden kautta.

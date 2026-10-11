@@ -1,0 +1,17 @@
+Surakarta
+# Cíl hry
+Vezmi soupeři všechny kameny. Každý hráč má dvanáct kamenů. Začíná světlý hráč. Hra pochází z Jávy v Indonésii a je pojmenována po městě Surakarta.
+# Deska
+Třicet šest bodů na mřížce šest krát šest čar. Procházejí jí dva okruhy: vnitřní (červený) po druhé a páté čáře v obou směrech, vnější (zelený) po třetí a čtvrté. V každém rohu spojuje smyčka konce dvou čar: malé smyčky patří k vnitřnímu okruhu, velké k vnějšímu. Kameny každého hráče zaplňují dvě řady, které jsou mu nejblíž.
+# Posouvání
+Ve svém tahu posuň jeden ze svých kamenů o jeden krok na kterýkoli z osmi sousedních bodů, rovně nebo šikmo, pokud je volný. Smyčky se pro tyto kroky nepoužívají.
+# Braní
+Kámen bere tak, že se pohybuje po okruhu, jak daleko chce, přes volné body a alespoň jednou smyčkou, dokud nenarazí na kámen. Je-li to soupeřův kámen, odebere se z desky a beroucí kámen zaujme jeho místo.
+- Cesta musí být volná: kámen nemůže přeskakovat jiné kameny. Bod, ze kterého beroucí kámen vyrazil, se počítá jako volný, pokud přes něj cesta vede znovu.
+- Braní může vést několika smyčkami. Drží se svého okruhu, na křížení čar pokračuje rovně a zatáčí jen ve smyčkách.
+- Braní není nikdy povinné.
+# Konec hry
+- Hráč, kterému nezbyl žádný kámen nebo který nemůže táhnout, prohrává.
+- Hra končí také, když se stejná pozice zopakuje potřetí, nebo po čtyřiceti tazích každé strany bez braní. Pak vyhrává hráč, kterému zbylo víc kamenů; při stejném počtu je to remíza.
+# Hra na zařízení
+Klepni na svůj kámen a pak na jeho nový bod, nebo ho přetáhni. Když je tvůj kámen vybraný, body, na které může postoupit, mají tečku a kameny, které může vzít, mají kroužek: klepnutím na jeden z nich pošleš svůj kámen přes smyčky.

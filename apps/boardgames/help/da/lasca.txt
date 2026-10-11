@@ -1,0 +1,19 @@
+Lasca
+# Målet
+Efterlad modstanderen uden træk. Lasca blev opfundet i 1911 af verdensmesteren i skak Emanuel Lasker. Det spilles som dam, men de slåede brikker bliver på brættet som fanger i søjler. Hver spiller har elleve brikker. Den lyse side starter.
+# Brættet
+Syv gange syv felter, hvoraf kun de 25 lyse felter bruges, hjørnerne iberegnet. Hver spillers brikker fylder de lyse felter i de tre rækker nærmest spilleren; den midterste række er tom.
+# Flytning
+- Brikkerne står i søjler. En søjle tilhører den spiller, hvis brik ligger øverst, og flytter som den brik og tager hele søjlen med sig.
+- En soldat (en almindelig brik) flytter ét felt skråt frem. En officer (en brik med en krone) flytter ét felt skråt, frem eller tilbage.
+- En soldat øverst i sin søjle, der når den bageste række på den anden side, bliver officer.
+# Slag
+Hvis en modstandersøjle står skråt ved siden af din, og feltet lige bagved er tomt, springer du over den. Kun den øverste brik i den søjle, du springer over, bliver slået: den kommer ind under din søjle som fange. Brikkerne under den bliver stående, og søjlen tilhører nu den, der ejer dens nye øverste brik: sådan bliver fanger sat fri.
+- Soldater slår kun fremad, officerer både fremad og bagud.
+- Slag er tvungent. Efter et slag fortsætter den samme søjle med at springe, så længe den kan, alt sammen i samme tur, men den springer aldrig over det samme felt to gange. Når der er flere mulige slag, må du vælge et hvilket som helst af dem.
+- En soldat, der når den bageste række på den anden side under et slag, bliver officer, og dens tur slutter der.
+# Spillets afslutning
+- En spiller, der ikke kan flytte, taber: alle spillerens brikker er fanger, eller alle spillerens søjler er blokerede.
+- Spillet er uafgjort, når den samme stilling opstår for tredje gang, eller efter fyrre træk hver uden et slag eller et træk med en soldat.
+# Spil på enheden
+Tryk på din søjle og derefter på dens nye felt, eller træk den. De søjler, der kan slås, har en ring: med din søjle valgt trykker du på feltet bagved eller på selve søjlen med ringen. I en kæde af slag forbliver din søjle løftet til næste spring. Hver brik i en søjle stikker frem under brikken ovenover. Tallet ved siden af din markør tæller fangerne i dine søjler.

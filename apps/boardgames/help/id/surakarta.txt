@@ -1,0 +1,17 @@
+Surakarta
+# Tujuan
+Makan semua bidak lawan. Setiap pemain punya dua belas bidak. Pihak terang jalan lebih dulu. Permainan ini berasal dari Jawa, dan namanya diambil dari kota Surakarta.
+# Papan
+Tiga puluh enam titik pada kisi enam garis kali enam. Dua lintasan melewatinya: lintasan dalam (merah) mengikuti garis kedua dan kelima, mendatar maupun tegak, dan lintasan luar (hijau) mengikuti garis ketiga dan keempat. Di setiap sudut, sebuah lengkungan menyambungkan ujung dua garis: lengkungan kecil termasuk lintasan dalam, lengkungan besar termasuk lintasan luar. Bidak setiap pemain mengisi dua baris terdekat dengannya.
+# Menggerakkan
+Saat giliranmu, gerakkan salah satu bidakmu satu langkah ke salah satu dari delapan titik di sekitarnya, lurus atau miring, jika titik itu kosong. Lengkungan tidak dipakai untuk langkah seperti ini.
+# Memakan
+Bidak memakan dengan berjalan di sepanjang lintasan, sejauh yang diinginkan melewati titik-titik kosong dan memutari setidaknya satu lengkungan, sampai bertemu bidak lain. Jika bidak itu milik lawan, bidak itu diangkat dari papan dan bidak yang memakan menempati tempatnya.
+- Jalannya harus bebas: bidak tidak boleh melompati bidak lain. Titik asal bidak yang memakan dihitung kosong jika jalannya melewati titik itu lagi.
+- Sekali makan boleh memutari beberapa lengkungan. Bidak mengikuti lintasannya, terus lurus di persilangan garis dan hanya berbelok lewat lengkungan.
+- Memakan tidak pernah wajib.
+# Akhir permainan
+- Pemain yang tidak punya bidak lagi, atau tidak bisa melangkah, kalah.
+- Permainan juga berakhir jika posisi yang sama muncul untuk ketiga kalinya, atau setelah masing-masing pihak melangkah empat puluh kali tanpa memakan. Pemain yang sisa bidaknya lebih banyak menang; jika jumlahnya sama, permainan berakhir seri.
+# Bermain di perangkat
+Ketuk bidakmu lalu titik barunya, atau seret bidak itu. Saat bidakmu terpilih, titik yang bisa dicapainya dengan satu langkah diberi tanda titik kecil, dan bidak yang bisa dimakannya diberi cincin: ketuk salah satunya untuk mengirim bidakmu memutari lengkungan.

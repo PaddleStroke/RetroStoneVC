@@ -1,0 +1,17 @@
+Surakarta
+# Målet
+Slå alle modstanderens brikker. Hver spiller har tolv brikker. Den lyse side starter. Spillet stammer fra Java i Indonesien og er opkaldt efter byen Surakarta.
+# Brættet
+Seksogtredive punkter på et net af seks gange seks linjer. To baner løber gennem det: den indre (rød) langs anden og femte linje i begge retninger, den ydre (grøn) langs tredje og fjerde. I hvert hjørne forbinder en sløjfe enderne af to linjer: de små sløjfer hører til den indre bane, de store til den ydre. Hver spillers brikker fylder de to rækker nærmest spilleren.
+# Flytning
+Når det er din tur, flytter du en af dine brikker ét skridt til et af de otte nabopunkter, lige eller skråt, hvis det er tomt. Sløjferne bruges ikke til disse skridt.
+# Slag
+En brik slår ved at bevæge sig langs en bane, så langt den vil over tomme punkter og gennem mindst én sløjfe, indtil den møder en brik. Er det en modstanderbrik, fjernes den fra brættet, og den slående brik tager dens plads.
+- Vejen skal være fri: en brik kan ikke springe over andre brikker. Det punkt, den slående brik startede fra, regnes som tomt, hvis vejen krydser det igen.
+- Et slag kan gå gennem flere sløjfer. Det følger sin bane, fortsætter ligeud, hvor linjer krydser hinanden, og drejer kun gennem sløjferne.
+- Slag er aldrig tvungent.
+# Spillets afslutning
+- En spiller, der ikke har flere brikker tilbage eller ikke kan flytte, taber.
+- Spillet slutter også, når den samme stilling opstår for tredje gang, eller efter fyrre træk hver uden et slag. Så vinder den spiller, der har flest brikker tilbage; har begge lige mange, er spillet uafgjort.
+# Spil på enheden
+Tryk på din brik og derefter på dens nye punkt, eller træk den. Når din brik er valgt, har de punkter, den kan flytte til, en prik, og de brikker, den kan slå, har en ring: tryk på en af dem for at sende din brik rundt gennem sløjferne.

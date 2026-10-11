@@ -1,0 +1,19 @@
+Lasca
+# El objetivo
+Dejar al otro jugador sin movimientos. El Lasca lo inventó en 1911 el campeón del mundo de ajedrez Emanuel Lasker. Se juega como las damas, pero las piezas capturadas se quedan en el tablero, como prisioneras en columnas. Cada jugador tiene once piezas. Empiezan las claras.
+# El tablero
+Siete casillas por siete, de las que solo se usan las 25 casillas claras, esquinas incluidas. Las piezas de cada jugador llenan las casillas claras de las tres filas más cercanas a él; la fila central está vacía.
+# Movimiento
+- Las piezas forman columnas. Una columna pertenece al jugador cuya pieza está arriba del todo, y se mueve como esa pieza, llevándose consigo toda la columna.
+- Un soldado (una pieza sencilla) avanza una casilla en diagonal. Un oficial (una pieza con corona) se mueve una casilla en diagonal, hacia delante o hacia atrás.
+- Un soldado en lo alto de su columna que llega a la última fila se convierte en oficial.
+# Capturas
+Si una columna contraria está junto a la tuya en diagonal y la casilla justo detrás está vacía, salta por encima. Solo se captura la pieza de arriba de la columna saltada: pasa debajo de tu columna, como prisionera. Las piezas de debajo se quedan donde están, y esa columna pasa a ser de quien tenga su nueva pieza de arriba: así es como se liberan las prisioneras.
+- Los soldados capturan solo hacia delante; los oficiales, hacia delante y hacia atrás.
+- Capturar es obligatorio. Tras una captura, la misma columna sigue saltando mientras pueda, todo en el mismo turno, pero nunca salta dos veces sobre la misma casilla. Cuando hay varias capturas, puedes elegir cualquiera.
+- Un soldado que llega a la última fila durante una captura se convierte en oficial, y su turno termina ahí.
+# El final de la partida
+- Pierde el jugador que no puede mover: todas sus piezas son prisioneras, o todas sus columnas están bloqueadas.
+- La partida es un empate cuando la misma posición se repite por tercera vez, o tras cuarenta jugadas de cada uno sin capturas ni movimientos de soldado.
+# Jugar en el dispositivo
+Toca tu columna y luego su nueva casilla, o arrástrala. Las columnas que se pueden capturar tienen un anillo: con tu columna seleccionada, toca la casilla de detrás o la propia columna con el anillo. En una cadena de capturas, tu columna sigue levantada para el siguiente salto. Cada pieza de una columna asoma por debajo de la de encima. El número junto a tu ficha de la barra cuenta las prisioneras de tus columnas.

@@ -1,0 +1,19 @@
+Lasca
+# Het doel
+Laat de andere speler zonder zet. Lasca werd in 1911 bedacht door wereldkampioen schaken Emanuel Lasker. Het wordt gespeeld zoals dammen, maar de geslagen stukken blijven op het bord, als gevangenen in torens. Elke speler heeft elf stukken. Licht begint.
+# Het bord
+Zeven bij zeven velden, waarvan alleen de 25 lichte velden worden gebruikt, de hoeken inbegrepen. De stukken van elke speler vullen de lichte velden van de drie rijen die het dichtst bij hem liggen; de middelste rij is leeg.
+# Schuiven
+- Stukken staan in torens. Een toren is van de speler wiens stuk bovenop ligt, en beweegt zoals dat stuk, met de hele toren mee.
+- Een soldaat (een gewoon stuk) gaat één veld schuin vooruit. Een officier (een stuk met een kroon) gaat één veld schuin, vooruit of achteruit.
+- Een soldaat bovenop zijn toren die de overkant bereikt, promoveert tot officier.
+# Slaan
+Staat een toren van de tegenstander schuin naast de jouwe en is het veld er direct achter leeg, dan spring je eroverheen. Alleen het bovenste stuk van de overgesprongen toren wordt geslagen: het gaat als gevangene onder jouw toren. De stukken eronder blijven staan, en die toren is nu van de speler van wie het nieuwe bovenste stuk is: zo worden gevangenen bevrijd.
+- Soldaten slaan alleen vooruit, officieren vooruit en achteruit.
+- Slaan is verplicht. Na een slag springt dezelfde toren door zolang hij kan, allemaal in dezelfde beurt, maar hij springt nooit twee keer over hetzelfde veld. Zijn er meerdere slagen mogelijk, dan mag je er willekeurig een kiezen.
+- Een soldaat die tijdens een slag de overkant bereikt, promoveert tot officier, en daar eindigt zijn beurt.
+# Het einde van het spel
+- Een speler die niet kan zetten, verliest: al zijn stukken zijn gevangen, of al zijn torens zitten vast.
+- Het spel eindigt in gelijkspel als dezelfde stelling voor de derde keer terugkomt, of na veertig zetten van elke speler zonder slag en zonder soldatenzet.
+# Spelen op het apparaat
+Tik op je toren en dan op zijn nieuwe veld, of sleep hem. De torens die geslagen kunnen worden, hebben een ring: tik, met je toren gekozen, op het veld erachter of op de toren met de ring zelf. Bij een reeks slagen blijft je toren opgepakt voor de volgende sprong. Elk stuk van een toren piept onder het stuk erboven uit. Het getal naast je stuk in de balk telt de gevangenen in je torens.

@@ -1,0 +1,17 @@
+Surakarta
+# Amaç
+Rakibin bütün taşlarını al. Her oyuncunun on iki taşı vardır. Önce açık renk oynar. Oyun Endonezya'nın Cava adasından gelir ve adını Surakarta şehrinden alır.
+# Tahta
+Altıya altı çizgiden oluşan bir ızgara üzerinde otuz altı nokta. Tahtadan iki pist geçer: iç pist (kırmızı) her iki yönde ikinci ve beşinci çizgiler boyunca, dış pist (yeşil) üçüncü ve dördüncü çizgiler boyunca uzanır. Her köşede bir kavis iki çizginin uçlarını birleştirir: küçük kavisler iç piste, büyük kavisler dış piste aittir. Her oyuncunun taşları, ona en yakın iki sırayı doldurur.
+# Hareket
+Sıra sende olduğunda, taşlarından birini, boşsa sekiz komşu noktadan birine, düz ya da çapraz, bir adım götür. Bu adımlarda kavisler kullanılmaz.
+# Taş alma
+Bir taş, bir pist boyunca giderek taş alır: boş noktaların üzerinden istediği kadar ilerler ve en az bir kavisi dolanarak bir taşa rastlayana kadar gider. O taş rakibe aitse tahtadan alınır ve alan taş onun yerine geçer.
+- Yol açık olmalıdır: bir taş başka taşların üzerinden atlayamaz. Alan taşın yola çıktığı nokta, yolu oradan yeniden geçerse boş sayılır.
+- Bir alma birkaç kavisi dolanabilir. Kendi pistini izler, çizgilerin kesiştiği yerlerde dümdüz devam eder ve yalnızca kavislerde döner.
+- Taş almak hiçbir zaman zorunlu değildir.
+# Oyunun sonu
+- Hiç taşı kalmayan ya da hamle yapamayan oyuncu kaybeder.
+- Aynı pozisyon üçüncü kez tekrarlandığında ya da iki taraf da taş almadan kırkar hamle yaptığında da oyun biter. O zaman daha çok taşı kalan oyuncu kazanır; taş sayıları eşitse oyun berabere biter.
+# Cihazda oynamak
+Taşına, sonra yeni noktasına dokun ya da onu sürükle. Taşın seçiliyken noktalar onun adım atabileceği yerleri, halkalar da alabileceği taşları gösterir: taşını kavislerden dolandırıp göndermek için birine dokun.

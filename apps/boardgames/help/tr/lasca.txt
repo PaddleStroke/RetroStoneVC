@@ -1,0 +1,19 @@
+Lasca
+# Amaç
+Rakibini hamlesiz bırak. Lasca'yı 1911'de dünya satranç şampiyonu Emanuel Lasker icat etti. Dama gibi oynanır, ama alınan taşlar tahtadan kalkmaz, kulelerin içinde esir olarak kalır. Her oyuncunun on bir taşı vardır. Önce açık renk oynar.
+# Tahta
+Yediye yedi kare; bunlardan köşeler dahil yalnızca 25 açık renkli kare kullanılır. Her oyuncunun taşları, ona en yakın üç sıradaki açık renkli kareleri doldurur; orta sıra boştur.
+# Hareket
+- Taşlar kuleler halinde durur. Bir kule, en üstteki taşın sahibi olan oyuncuya aittir ve o taş gibi hareket eder, bütün kuleyi de beraberinde taşır.
+- Asker (sıradan taş) çapraz olarak bir kare ileri gider. Subay (taçlı taş) çapraz olarak, ileri ya da geri, bir kare gider.
+- Kulesinin en üstünde olup rakibin en arka sırasına ulaşan asker subay olur.
+# Taş alma
+Bir rakip kule seninkinin çapraz olarak yanındaysa ve hemen arkasındaki kare boşsa, onun üzerinden atla. Üzerinden atlanan kulenin yalnızca en üstteki taşı alınır: esir olarak senin kulenin altına girer. Altındaki taşlar yerinde kalır ve o kule artık yeni en üst taşının sahibine aittir: esirler böyle kurtulur.
+- Askerler yalnızca ileri, subaylar hem ileri hem geri alır.
+- Taş almak zorunludur. Bir almadan sonra aynı kule, alabildiği sürece atlamaya devam eder; bunların hepsi aynı sırada olur, ama aynı karenin üzerinden asla iki kez atlamaz. Birden çok alma seçeneği varsa, herhangi birini seçebilirsin.
+- Taş alma sırasında rakibin en arka sırasına ulaşan asker subay olur ve sırası orada biter.
+# Oyunun sonu
+- Hamle yapamayan oyuncu kaybeder: ya bütün taşları esirdir ya da bütün kuleleri sıkışmıştır.
+- Aynı pozisyon üçüncü kez tekrarlandığında ya da iki taraf da taş almadan ve asker oynatmadan kırkar hamle yaptığında oyun berabere biter.
+# Cihazda oynamak
+Kulene, sonra yeni karesine dokun ya da onu sürükle. Alınabilecek kulelerin çevresinde bir halka vardır: kulen seçiliyken arkalarındaki kareye ya da halkalı kulenin kendisine dokun. Bir taş alma zincirinde kulen bir sonraki atlayış için kaldırılmış olarak kalır. Bir kuledeki her taş, üstündekinin altından biraz görünür. Pulunun yanındaki sayı, kulelerindeki esirleri sayar.

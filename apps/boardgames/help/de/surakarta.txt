@@ -1,0 +1,17 @@
+Surakarta
+# Das Ziel
+Schlage alle Steine des anderen Spielers. Jeder Spieler hat zwölf Steine. Hell beginnt. Das Spiel stammt aus Java in Indonesien und ist nach der Stadt Surakarta benannt.
+# Das Brett
+Sechsunddreißig Punkte auf einem Gitter aus sechs mal sechs Linien. Zwei Bahnen laufen hindurch: die innere (rot) entlang der zweiten und der fünften Linie, waagerecht wie senkrecht, die äußere (grün) entlang der dritten und der vierten. In jeder Ecke verbindet eine Schleife die Enden zweier Linien: Die kleinen Schleifen gehören zur inneren Bahn, die großen zur äußeren. Die Steine jedes Spielers füllen die beiden Reihen, die ihm am nächsten sind.
+# Ziehen
+Wenn du dran bist, ziehst du einen deiner Steine einen Schritt weit auf einen der acht Nachbarpunkte, gerade oder schräg, falls er frei ist. Für diese Schritte werden die Schleifen nicht benutzt.
+# Schlagen
+Ein Stein schlägt, indem er eine Bahn entlangfährt, so weit er will, über freie Punkte und durch mindestens eine Schleife, bis er auf einen Stein trifft. Ist es ein gegnerischer Stein, wird er vom Brett genommen, und der schlagende Stein nimmt seinen Platz ein.
+- Der Weg muss frei sein: Ein Stein kann nicht über andere Steine springen. Der Punkt, von dem der schlagende Stein aufgebrochen ist, gilt als frei, wenn sein Weg ihn noch einmal kreuzt.
+- Ein Schlag darf durch mehrere Schleifen führen. Er folgt seiner Bahn, fährt an Kreuzungen geradeaus weiter und biegt nur in den Schleifen ab.
+- Schlagen ist nie Pflicht.
+# Das Ende der Partie
+- Wer keine Steine mehr hat oder nicht ziehen kann, verliert.
+- Die Partie endet auch, wenn dieselbe Stellung zum dritten Mal entsteht, oder nach vierzig Zügen jeder Seite ohne Schlagen. Dann gewinnt, wer mehr Steine übrig hat; bei gleich vielen Steinen endet sie unentschieden.
+# Spielen auf dem Gerät
+Tippe auf deinen Stein und dann auf seinen neuen Punkt, oder schieb ihn mit dem Finger. Ist dein Stein ausgewählt, sind die Punkte, auf die er ziehen kann, mit einem kleinen Punkt markiert, und die Steine, die er schlagen kann, tragen einen Ring: Tippe auf einen davon, um deinen Stein durch die Schleifen zu schicken.

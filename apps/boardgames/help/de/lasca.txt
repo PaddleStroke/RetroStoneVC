@@ -1,0 +1,19 @@
+Lasca
+# Das Ziel
+Lass den anderen Spieler ohne Zug. Lasca wurde 1911 vom Schachweltmeister Emanuel Lasker erfunden. Es wird wie Dame gespielt, aber die geschlagenen Steine bleiben auf dem Brett, als Gefangene in Türmen. Jeder Spieler hat elf Steine. Hell beginnt.
+# Das Brett
+Sieben mal sieben Felder, von denen nur die 25 hellen benutzt werden, die Ecken eingeschlossen. Die Steine jedes Spielers füllen die hellen Felder der drei Reihen, die ihm am nächsten sind; die mittlere Reihe ist leer.
+# Ziehen
+- Die Steine stehen in Türmen. Ein Turm gehört dem Spieler, dessen Stein obenauf liegt, und zieht wie dieser Stein, mit dem ganzen Turm.
+- Ein Soldat (ein einfacher Stein) zieht ein Feld diagonal vorwärts. Ein Offizier (ein Stein mit Krone) zieht ein Feld diagonal, vorwärts oder rückwärts.
+- Ein Soldat, der obenauf seinem Turm liegt und die gegnerische Grundreihe erreicht, wird zum Offizier.
+# Schlagen
+Steht ein gegnerischer Turm diagonal neben deinem und ist das Feld direkt dahinter frei, springst du über ihn. Nur der oberste Stein des übersprungenen Turms wird geschlagen: Er kommt als Gefangener unter deinen Turm. Die Steine darunter bleiben stehen, und dieser Turm gehört jetzt dem Besitzer seines neuen obersten Steins: So werden Gefangene befreit.
+- Soldaten schlagen nur vorwärts, Offiziere vorwärts und rückwärts.
+- Schlagen ist Pflicht. Nach einem Schlag springt derselbe Turm weiter, solange er kann, alles im selben Zug, aber nie zweimal über dasselbe Feld. Gibt es mehrere Schläge, darfst du jeden davon wählen.
+- Ein Soldat, der während eines Schlags die gegnerische Grundreihe erreicht, wird zum Offizier, und damit endet sein Zug.
+# Das Ende der Partie
+- Wer nicht ziehen kann, verliert: Alle seine Steine sind gefangen, oder alle seine Türme sind blockiert.
+- Die Partie endet unentschieden, wenn dieselbe Stellung zum dritten Mal entsteht, oder nach vierzig Zügen jeder Seite ohne Schlagen und ohne Zug eines Soldaten.
+# Spielen auf dem Gerät
+Tippe auf deinen Turm und dann auf sein neues Feld, oder schieb ihn mit dem Finger. Die Türme, die geschlagen werden können, tragen einen Ring: Tippe bei ausgewähltem Turm auf das Feld dahinter oder auf den beringten Turm selbst. Bei einem Mehrfachschlag bleibt dein Turm für den nächsten Sprung aufgenommen. Jeder Stein eines Turms lugt unter dem darüberliegenden hervor. Die Zahl neben deinem Stein in der Leiste zählt die Gefangenen in deinen Türmen.
