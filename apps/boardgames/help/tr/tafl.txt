@@ -1,0 +1,25 @@
+Hnefatafl
+# Amaç
+Vikinglerin masa oyunu Hnefatafl, eşit olmayan iki taraf arasındaki bir savaştır. Ortadaki savunanlar, krallarının kaçmasına yardım etmelidir. Sayıca iki kat fazla olan saldıranlar onları kuşatır ve kralı yakalamalıdır. Önce saldıranlar (koyu) oynar, sonra oyuncular sırayla birer hamle yapar. Oyundan önce tahtayı seç: 11×11 karede Hnefatafl ya da 9×9 karede Tablut.
+# Taşlar nasıl hareket eder
+- Kral dahil her taş satrançtaki kale gibi hareket eder: yatay ya da dikey olarak istediği kadar boş kare. Taşlar asla atlamaz.
+- Ortadaki kare tahttır. Yalnızca kral orada durabilir. Taht boşken her taş üzerinden geçebilir.
+- Hnefatafl'da dört köşe karesinde yalnızca kral durabilir.
+# Alma
+- Bir rakip taş, bir taşı yatay ya da dikey olarak iki düşman arasında kıstıracak şekilde hareket ettiğinde o taş alınır. Taş tahtadan çıkar. Bir hamle en çok üç taş alabilir.
+- Köşeler ve boş taht her taş için düşman sayılır: bunlardan birinin yanındaki taş, öbür yanındaki tek bir düşmanla alınır.
+- Kral, savunanların taş almasına yardım eder.
+- Bir taş, iki rakip taşın arasındaki boşluğa güvenle girebilir.
+# Kral
+- Saldıranlar kralı dört yandan ya da dördüncü yanında boş taht varken üç yandan sardığında kral yakalanır. Tahtanın kenarında yakalanamaz.
+- Kral bir köşe karesine ulaştığında savunanlar kazanır. Saldıranlar kralı yakaladığında kazanır.
+# Tablut (9×9)
+- 8 savunan ve krala karşı 16 saldıran. Köşeler sıradan karelerdir.
+- Kral tahtanın kenarındaki herhangi bir kareye ulaştığında savunanlar kazanır.
+- Kral, tahtta ya da tahtın yanında Hnefatafl'daki gibi yakalanır. Başka her yerde, karşılıklı iki yanındaki iki saldıran onu diğer taşlar gibi yakalar.
+# Oyunun sonu
+- Hamle yapamayan oyuncu kaybeder.
+- Aynı pozisyon, sıra aynı oyuncudayken üçüncü kez tekrarlandığında oyun berabere biter. İki tarafın 1000'er hamle yaptığı bir oyun da berabere biter.
+- Bunlar, isteğe bağlı kalkan duvarı, kenar kalesi ve kuşatma kuralları olmadan Kopenhag kurallarıdır.
+# Cihazda oynamak
+Bir taşın nereye gidebileceğini görmek için ona dokun, sonra bir kareye dokun ya da taşı sürükle. Noktalar hamleleri gösterir. Alınan taşlar silinerek kaybolur. Saldıranların bir sonraki hamlede yakalayabileceği kral kırmızı parlar ve altın renkli ışıklar saldıranlara kralın bir sonraki hamlede nereye kaçabileceğini gösterir.

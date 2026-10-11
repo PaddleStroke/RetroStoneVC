@@ -1,0 +1,11 @@
+Kutu Kapmaca
+# Amaç
+Rakibinden daha çok kutu kap. Tahta bir nokta ızgarasıdır. Oyundan önce boyutunu seç: hızlı bir oyun için 3×3 kutu, 5×5 ya da 7×7. Önce açık renk oynar.
+# Bir hamle
+- Yan yana iki nokta arasına, yatay ya da dikey bir çizgi çiz. Her çizgi yalnızca bir kez çizilebilir.
+- Çizgin bir kutunun dördüncü kenarını kapatırsa kutu senindir: senin rengini alır. Tek bir çizgi aynı anda iki kutu kapatabilir.
+- Her kutu kapattığında bir çizgi daha çizmelisin. Sıran, hiçbir kutu kapatmayan bir çizgiyle biter.
+# Oyunun sonu
+Bütün çizgiler çizildiğinde oyun biter. Daha çok kutusu olan oyuncu kazanır. Her tahtada tek sayıda kutu vardır, bu yüzden her zaman bir kazanan olur.
+# Cihazda oynamak
+Çizgiyi çizmek için iki noktanın arasına dokun. Hangi çizgi olacağını görmek için parmağını basılı tut, başka birini seçmek için kaydır ve çizmek için kaldır. Son çizilen çizgi ve onun kapattığı kutular aydınlanır. Her şerit, o oyuncunun kaç kutusu olduğunu gösterir.

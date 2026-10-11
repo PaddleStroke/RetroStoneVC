@@ -1,0 +1,32 @@
+Shogi
+# Cel gry
+Shogi to szachy japońskie. Zamatuj króla przeciwnika: zaatakuj go tak, aby nie mógł uciec. Czarne (sente) zaczynają, potem gracze wykonują ruchy na zmianę, po jednym. Wszystkie bierki mają ten sam kolor: bierka jest zwrócona czubkiem w stronę przeciwnika, więc widać, do kogo należy.
+# Jak poruszają się bierki
+- Król (玉, 王): o jedno pole w dowolnym kierunku.
+- Wieża (飛): o dowolną liczbę pól w poziomie lub w pionie.
+- Goniec (角): o dowolną liczbę pól po przekątnej.
+- Złoty generał (金): o jedno pole w dowolnym kierunku oprócz ukośnie do tyłu.
+- Srebrny generał (銀): o jedno pole po przekątnej lub prosto do przodu.
+- Skoczek (桂): dwa pola do przodu i jedno w bok, przeskakując nad bierkami pomiędzy. Porusza się tylko do przodu.
+- Lanca (香): o dowolną liczbę pól prosto do przodu.
+- Pion (歩): o jedno pole prosto do przodu. W ten sam sposób bije.
+Bierki nie mogą przechodzić przez inne bierki (z wyjątkiem skoczka). Bierka bije, wchodząc na pole zajęte przez bierkę przeciwnika.
+# Promocja
+Trzy rzędy najdalej od ciebie to strefa promocji. Bierka, która do niej wchodzi, porusza się w niej lub z niej wychodzi, może zostać promowana: odwraca się, a jej znak staje się czerwony.
+- Wieża staje się smokiem (龍): wieżą, która może też ruszyć się o jedno pole po przekątnej.
+- Goniec staje się koniem (馬): gońcem, który może też ruszyć się o jedno pole w poziomie lub w pionie.
+- Srebrny generał, skoczek, lanca i pion stają się złotymi generałami (全, 圭, 杏, と).
+- Król i złoty generał nie podlegają promocji.
+Promocja nie jest obowiązkowa, z wyjątkiem sytuacji, gdy bierka nie mogłaby się już nigdy ruszyć: pion lub lanca w ostatnim rzędzie, skoczek w dwóch ostatnich rzędach.
+# Zbite bierki
+Zbita bierka przechodzi na stronę gracza, który ją zbił, i czeka w ręku. Zamiast wykonać ruch, możesz zrzucić bierkę z ręki na dowolne wolne pole, bez promocji. Zrzut może dać szacha. Trzy ograniczenia:
+- Nie wolno zrzucić piona do kolumny, w której jest już twój niepromowany pion.
+- Nie wolno zrzucić bierki tam, gdzie nigdy nie mogłaby się ruszyć (pion lub lanca w ostatnim rzędzie, skoczek w dwóch ostatnich rzędach).
+- Zrzut piona nie może dać natychmiastowego mata (pion przesunięty po planszy może).
+# Koniec gry
+Atakowany król jest szachowany: następny ruch musi usunąć szach. Nigdy nie możesz wykonać ruchu, po którym twój własny król byłby szachowany.
+- Mat: król jest szachowany i żaden ruch nie może go uratować. Ten gracz przegrywa. Gracz, który nie ma w ogóle żadnego dozwolonego ruchu, także przegrywa.
+- Powtórzenie: gdy ta sama pozycja (bierki na planszy i w ręku, ruch tego samego gracza) pojawi się po raz czwarty, partia kończy się remisem. Ale jeśli jeden z graczy szachował każdym ruchem, odkąd ta pozycja pojawiła się po raz pierwszy, ten gracz przegrywa.
+- Nie ma zasady dla dwóch królów, którzy obaj weszli do obozu przeciwnika: grajcie dalej.
+# Gra na urządzeniu
+Dotknij bierki, aby zobaczyć, gdzie może się ruszyć, a potem dotknij pola, albo przeciągnij bierkę. Kropki pokazują ruchy, kółka bicia. Szachowany król świeci na czerwono. Twoje bierki w ręku są na twoim pasku, z ich liczbą: dotknij jednej, a potem pola, albo przeciągnij ją na planszę. Gdy bierka może zostać promowana, wybierz jej stronę promowaną (czerwoną) albo zostaw ją bez zmian.

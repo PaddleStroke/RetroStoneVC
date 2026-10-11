@@ -1,0 +1,21 @@
+Xiangqi
+# Cel gry
+Zamatuj generała przeciwnika: zaatakuj go tak, aby nie mógł uciec. Czerwone zaczynają, potem gracze wykonują ruchy na zmianę, po jednym.
+# Plansza
+Bierki stoją na punktach przecięcia linii, a nie na polach. Rzeka przecinająca środek planszy rozdziela obie strony. Każda strona ma pałac: obszar 3×3 punktów oznaczony krzyżem, gdzie mieszkają generał i jego doradcy.
+# Jak poruszają się bierki
+- Generał: o jeden punkt wzdłuż linii, wewnątrz swojego pałacu. Dwaj generałowie nigdy nie mogą stać naprzeciw siebie na tej samej kolumnie bez niczego pomiędzy.
+- Doradca: o jeden punkt po przekątnej, wewnątrz swojego pałacu.
+- Słoń: dokładnie o dwa punkty po przekątnej. Nie może przekroczyć rzeki i jest zablokowany, jeśli punkt, nad którym przechodzi, jest zajęty.
+- Koń: o jeden punkt wzdłuż linii, a potem o jeden punkt po przekątnej na zewnątrz. Jest zablokowany, jeśli pierwszy punkt jest zajęty.
+- Rydwan: o dowolną liczbę punktów wzdłuż linii, jak wieża w szachach.
+- Armata: porusza się jak rydwan, ale bije tylko, przeskakując po drodze do zbijanej bierki dokładnie jedną bierkę (dowolnej strony).
+- Żołnierz: o jeden punkt do przodu. Gdy przekroczy rzekę, może też ruszać się o jeden punkt w bok. Nigdy się nie cofa.
+Bierka bije, wchodząc na punkt zajęty przez bierkę przeciwnika, która schodzi z planszy.
+# Szach i koniec partii
+Atakowany generał jest szachowany: następny ruch musi usunąć szach. Nigdy nie możesz wykonać ruchu, po którym twój własny generał byłby szachowany albo stał naprzeciw generała przeciwnika.
+- Mat: generał jest szachowany i żaden ruch nie może go uratować. Ten gracz przegrywa.
+- Gracz, który nie ma żadnego dozwolonego ruchu, ale nie jest szachowany, także przegrywa (inaczej niż w szachach).
+- Remisy: gdy ta sama pozycja powtórzy się po raz trzeci przy ruchu tego samego gracza, partia kończy się remisem. Ta prosta zasada zastępuje turniejowe przepisy przeciwko wiecznemu szachowi i wiecznemu ściganiu. Partia kończy się remisem także po sześćdziesięciu ruchach każdej ze stron bez bicia.
+# Gra na urządzeniu
+Dotknij bierki, aby zobaczyć, gdzie może się ruszyć, a potem dotknij punktu, albo przeciągnij bierkę. Kropki pokazują ruchy, kółka bicia. Szachowany generał świeci na czerwono. Każdy pasek pokazuje bierki zbite przez danego gracza.

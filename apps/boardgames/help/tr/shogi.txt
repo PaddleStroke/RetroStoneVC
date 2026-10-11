@@ -1,0 +1,32 @@
+Shogi
+# Amaç
+Shogi, Japon satrancıdır. Rakibin şahını mat et: ona kaçamayacağı şekilde saldır. Önce siyah (sente) oynar, sonra oyuncular sırayla birer hamle yapar. Bütün taşlar aynı renktedir: her taşın sivri ucu rakibe bakar, böylece taşın kime ait olduğunu anlayabilirsin.
+# Taşlar nasıl hareket eder
+- Şah (玉, 王): herhangi bir yöne bir kare.
+- Kale (飛): yatay ya da dikey olarak istediği kadar kare.
+- Fil (角): çapraz olarak istediği kadar kare.
+- Altın general (金): çapraz geri dışında herhangi bir yöne bir kare.
+- Gümüş general (銀): çapraz olarak bir kare ya da dümdüz ileri bir kare.
+- At (桂): iki kare ileri ve bir kare yana; aradaki taşların üzerinden atlar. Yalnızca ileri gider.
+- Mızrak (香): dümdüz ileri istediği kadar kare.
+- Piyon (歩): dümdüz ileri bir kare. Taşı da aynı yönde alır.
+Taşlar diğer taşların içinden geçemez (at hariç). Bir taş, rakip taşın bulunduğu kareye giderek onu alır.
+# Terfi
+Senden en uzak üç sıra terfi bölgesidir. Bu bölgeye giren, bölge içinde hareket eden ya da bölgeden çıkan bir taş terfi edebilir: ters çevrilir ve üzerindeki yazı kırmızı olur.
+- Kale, ejder krala (龍) dönüşür: çapraz olarak bir kare de gidebilen bir kale.
+- Fil, ejder ata (馬) dönüşür: yatay ya da dikey olarak bir kare de gidebilen bir fil.
+- Gümüş general, at, mızrak ve piyon altın generale dönüşür (全, 圭, 杏, と).
+- Şah ve altın general terfi etmez.
+Terfi zorunlu değildir; ancak taş bir daha asla hareket edemeyecekse zorunludur: son sıradaki piyon ya da mızrak, son iki sıradaki at.
+# Alınan taşlar
+Alınan taş, onu alan oyuncunun tarafına geçer ve elde bekler. Hamle yapmak yerine elindeki bir taşı terfisiz olarak herhangi bir boş kareye bırakabilirsin. Bırakılan taş şah çekebilir. Üç sınır vardır:
+- Terfi etmemiş bir piyonunun zaten bulunduğu sütuna piyon bırakılamaz.
+- Bir taş, bir daha asla hareket edemeyeceği yere bırakılamaz (son sıraya piyon ya da mızrak, son iki sıraya at).
+- Piyon bırakarak doğrudan mat edilemez (tahtada oynatılan piyonla edilebilir).
+# Oyunun sonu
+Saldırı altındaki şaha şah çekilmiş olur: bir sonraki hamle onu şahtan kurtarmalıdır. Kendi şahını şah altında bırakan bir hamleyi asla yapamazsın.
+- Mat: şaha şah çekilmiştir ve hiçbir hamle onu kurtaramaz. O oyuncu kaybeder. Hiç geçerli hamlesi olmayan oyuncu da kaybeder.
+- Tekrar: aynı pozisyon (tahtadaki ve eldeki taşlar, sıra aynı oyuncuda) dördüncü kez geldiğinde oyun berabere biter. Ama oyunculardan biri bu pozisyon ilk ortaya çıktığından beri her hamlesinde şah çektiyse, o oyuncu kaybeder.
+- İkisi de rakip kampa girmiş iki şah için bir kural yoktur: oynamaya devam edin.
+# Cihazda oynamak
+Bir taşın nereye gidebileceğini görmek için ona dokun, sonra bir kareye dokun ya da taşı sürükle. Noktalar hamleleri, halkalar alınabilecek taşları gösterir. Şah çekilmiş şah kırmızı parlar. Elindeki taşlar, sayılarıyla birlikte şeridindedir: birine, sonra bir kareye dokun ya da onu tahtaya sürükle. Bir taş terfi edebildiğinde terfili yüzünü (kırmızı) seç ya da olduğu gibi bırak.

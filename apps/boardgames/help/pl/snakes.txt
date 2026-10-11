@@ -1,0 +1,15 @@
+Węże i drabiny
+# Cel gry
+Jako pierwszy doprowadź swój pionek do pola 100.
+# Plansza
+Pola są ponumerowane od 1 do 100, zaczynając od lewego dolnego rogu: wzdłuż dolnego rzędu w prawo, potem z powrotem w lewo wzdłuż następnego rzędu i tak dalej w górę planszy, ze 100 na samej górze. Drabiny prowadzą w górę planszy, od podnóża do szczytu; węże prowadzą w dół, od głowy do ogona.
+# Tura
+Oba pionki zaczynają poza planszą, przed polem 1. Jasne rzucają pierwsze. Rzuć kostką i przesuń swój pionek do przodu o wyrzuconą liczbę oczek, pole po polu. Oba pionki mogą stać na tym samym polu.
+- Jeśli twój pionek kończy ruch u podnóża drabiny, wspina się na jej szczyt.
+- Jeśli kończy ruch na głowie węża, zsuwa się do jego ogona.
+- 6 daje ci kolejny rzut, po wykonaniu ruchu.
+- W przeciwnym razie kostka przechodzi do przeciwnika.
+# Koniec gry
+Pole 100 trzeba osiągnąć dokładną liczbą oczek. Jeśli wyrzucisz więcej, niż potrzebujesz, twój pionek dochodzi do 100 i cofa się o nadmiarowe pola: z 96 rzut 6 kończy się na 98. Drabina lub wąż tam, gdzie się zatrzyma, nadal się liczą. Wygrywa pierwszy gracz na polu 100.
+# Gra na urządzeniu
+Kostka czeka w złotym świetle na końcu paska gracza, który rzuca: dotknij ekranu, aby nią rzucić. Twój pionek porusza się wtedy sam. Każdy pasek pokazuje pole, na którym stoi pionek danego gracza, i jego ostatni rzut. Cofnij cofa rzuty jeden po drugim; cofnięty rzut wypada tak samo, gdy rzucisz ponownie.

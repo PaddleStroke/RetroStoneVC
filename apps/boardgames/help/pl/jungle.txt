@@ -1,0 +1,23 @@
+Dżungla
+# Cel gry
+Wprowadź jedno ze swoich zwierząt do legowiska przeciwnika, inkrustowanej gwiazdy na drugim końcu planszy. Wygrywasz też, zbijając wszystkie zwierzęta przeciwnika albo gdy przeciwnik nie może wykonać ruchu. Jasne zaczynają, potem gracze wykonują ruchy na zmianę, po jednym.
+# Plansza
+Plansza ma siedem kolumn i dziewięć rzędów. Pośrodku płyną dwie rzeki. Legowisko każdego gracza znajduje się na środku jego tylnego rzędu, otoczone trzema pułapkami: rzeźbionymi polami po jego bokach i przed nim.
+# Zwierzęta
+Każdy gracz ma osiem zwierząt. Liczba na każdym zwierzęciu to jego siła: słoń 8, lew 7, tygrys 6, lampart 5, wilk 4, pies 3, kot 2, szczur 1.
+# Ruch
+- Zwierzę porusza się o jedno pole do przodu, do tyłu lub w bok, nigdy po przekątnej.
+- Żadne zwierzę nie może wejść do własnego legowiska.
+- Tylko szczur umie pływać: to jedyne zwierzę, które może wejść do wody.
+- Lew i tygrys mogą przeskoczyć rzekę w linii prostej, z brzegu na pierwsze pole za wodą. Nie mogą skoczyć, jeśli na ich drodze w wodzie jest szczur, któregokolwiek gracza.
+# Bicie
+- Zwierzę bije, wchodząc na zwierzę przeciwnika o tej samej lub mniejszej sile, które schodzi z planszy.
+- Szczur może zbić słonia, ale słoń nie może zbić szczura.
+- Zwierzę w jednej z pułapek przeciwnika traci całą siłę: może je zbić każde wrogie zwierzę. We własnych pułapkach zachowuje swoją siłę.
+- Nie ma bicia między wodą a lądem: szczur w wodzie może zbić tylko drugiego szczura w wodzie, a zwierzę na lądzie nie może zbić szczura w wodzie.
+# Koniec gry
+- Zwierzę, które wejdzie do legowiska przeciwnika, wygrywa grę.
+- Zbicie wszystkich zwierząt przeciwnika daje wygraną, tak samo jak pozbawienie go ruchu.
+- Gra kończy się remisem, gdy ta sama pozycja powtórzy się po raz trzeci, lub po pięćdziesięciu ruchach każdej ze stron bez bicia.
+# Gra na urządzeniu
+Dotknij zwierzęcia, aby zobaczyć, gdzie może się ruszyć, a potem dotknij pola, albo przeciągnij zwierzę. Kropki pokazują ruchy, kółka bicia.

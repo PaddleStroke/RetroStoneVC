@@ -1,0 +1,16 @@
+Breakthrough
+# Amaç
+Rakip orduyu yar: taşlarından birini tahtanın öbür ucuna, rakibin ilk sırasına ilk getiren sen ol.
+# Başlangıç
+Oyun bir satranç tahtasında oynanır. Her oyuncunun, kendi ilk iki sırasını dolduran on altı taşı vardır. Önce açık renk oynar, sonra oyuncular sırayla birer hamle yapar.
+# Taşlar nasıl hareket eder
+- Bir taş, dümdüz ya da çapraz olarak bir kare ileri, boş bir kareye gider.
+- Bir taş, çapraz olarak bir kare ileri, rakip bir taşın üzerine giderek onu alır; alınan taş tahtadan çıkar.
+- Bir taş asla dümdüz ileri alamaz: hemen önündeki rakip taş onun yolunu keser.
+- Taşlar asla yana ya da geri gitmez. Taş almak asla zorunlu değildir.
+# Oyunun sonu
+- Rakibin ilk sırasına ilk ulaşan oyuncu kazanır.
+- Bütün taşlarını kaybeden oyuncu kaybeder.
+Beraberlik yoktur: taşı kalan oyuncu her zaman hamle yapabilir.
+# Cihazda oynamak
+Bir taşın nereye gidebileceğini görmek için ona dokun, sonra bir kareye dokun ya da taşı sürükle. Noktalar hamleleri, halkalar alınabilecek taşları gösterir. Kazanan taş altın renginde parlar.

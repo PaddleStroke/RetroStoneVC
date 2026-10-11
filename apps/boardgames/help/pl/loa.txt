@@ -1,0 +1,16 @@
+Lines of Action
+# Cel gry
+Połącz wszystkie swoje pionki w jedną grupę, w której każdy pionek styka się z innym twoim pionkiem: bokiem lub rogiem. Ciemne zaczynają, potem gracze wykonują ruchy na zmianę, po jednym.
+# Ustawienie początkowe
+Każdy gracz ma 12 pionków. Ciemne stoją w górnym i dolnym rzędzie, jasne w lewej i prawej kolumnie; cztery narożniki pozostają puste.
+# Jak porusza się pionek
+- Pionek porusza się w linii prostej: wzdłuż swojego rzędu, swojej kolumny lub jednej ze swoich dwóch przekątnych.
+- Przesuwa się dokładnie o tyle pól, ile pionków jest na całej tej linii, obu kolorów, łącznie z poruszanym pionkiem. Policz całą linię, od jednej krawędzi planszy do drugiej, po obu stronach pionka.
+- Może przeskakiwać nad pionkami swojego koloru, ale nigdy nad pionkami przeciwnika.
+- Może stanąć na wolnym polu albo na pionku przeciwnika, który zostaje zbity i schodzi z planszy. Nigdy nie może stanąć na własnym pionku.
+# Koniec gry
+- Wygrywa gracz, którego wszystkie pionki tworzą jedną połączoną grupę. Jeden pozostały pionek liczy się jako grupa, więc bicie może dać wygraną przeciwnikowi.
+- Jeśli ruch połączy naraz grupy obu graczy, wygrywa gracz, który wykonał ruch.
+- Gracz, który nie ma żadnego dozwolonego ruchu, pasuje, a przeciwnik gra ponownie. Urządzenie pasuje za ciebie. Jeśli żaden gracz nie może wykonać ruchu albo po 1000 ruchach, gra kończy się remisem.
+# Gra na urządzeniu
+Dotknij pionka, aby zobaczyć, gdzie może się ruszyć, a potem dotknij pola, albo przeciągnij pionek. Kropki pokazują ruchy, kółka bicia. Każdy pasek pokazuje, ile pionków zostało danemu graczowi. Na końcu zwycięska grupa świeci na złoto.

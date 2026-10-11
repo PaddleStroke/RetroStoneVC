@@ -1,0 +1,25 @@
+Hnefatafl
+# Cíl hry
+Hnefatafl, desková hra Vikingů, je bitva dvou nerovných stran. Obránci uprostřed musí pomoci svému králi uniknout. Útočníci, dvakrát početnější, je obklíčí a musí krále zajmout. Útočníci (tmaví) táhnou první, potom se hráči střídají, každý jedním tahem. Před hrou si vyber desku: Hnefatafl na 11×11 polích, nebo Tablut na 9×9.
+# Jak se figury pohybují
+- Každá figura, i král, táhne jako věž v šachu: o libovolný počet volných polí po řadě nebo sloupci. Figury nikdy nepřeskakují.
+- Prostřední pole je trůn. Zastavit se na něm smí jen král. Když je prázdný, smí přes něj projít kterákoli figura.
+- V Hnefataflu se na čtyřech rohových polích smí zastavit jen král.
+# Braní
+- Figura je zajata, když soupeřova figura táhne tak, že ji sevře mezi dva nepřátele po řadě nebo sloupci. Opouští desku. Jeden tah může zajmout až tři figury.
+- Rohy a prázdný trůn působí jako nepřátelé každé figury: figuru vedle jednoho z nich zajme jediný nepřítel na její druhé straně.
+- Král pomáhá obráncům brát.
+- Figura smí bezpečně vstoupit do mezery mezi dvěma soupeřovými figurami.
+# Král
+- Král je zajat, když ho útočníci obklíčí ze všech čtyř stran, nebo ze tří stran, když je na čtvrté prázdný trůn. Na okraji desky zajat být nemůže.
+- Obránci vyhrají, když král dojde na rohové pole. Útočníci vyhrají, když krále zajmou.
+# Tablut (9×9)
+- 16 útočníků proti 8 obráncům a králi. Rohy jsou obyčejná pole.
+- Obránci vyhrají, když král dojde na kterékoli pole na okraji desky.
+- Na trůnu nebo vedle něj se král zajímá jako v Hnefataflu. Kdekoli jinde ho zajmou dva útočníci na protilehlých stranách, jako každou jinou figuru.
+# Konec hry
+- Hráč, který nemůže táhnout, prohrává.
+- Když se stejná pozice zopakuje potřetí se stejným hráčem na tahu, hra končí remízou. Partie o 1000 tazích každé strany je také remíza.
+- Jde o kodaňská pravidla, bez volitelných pravidel o štítové hradbě, pevnosti na okraji a obklíčení.
+# Hra na zařízení
+Klepni na figuru a uvidíš, kam může táhnout, potom klepni na pole, nebo figuru přetáhni. Tečky ukazují tahy. Zajaté figury pomalu zmizí. Král, kterého by útočníci mohli příštím tahem zajmout, svítí červeně, a zlatá světla ukazují útočníkům, kam by král mohl příštím tahem uniknout.

@@ -1,0 +1,11 @@
+Gomoku
+# Amaç
+Kendi renginden beş taşı kesintisiz bir sıraya ilk dizen sen ol: yatay, dikey ya da çapraz. Taşlar çizgilerin kesiştiği noktalara oynanır ve oynandıktan sonra asla yer değiştirmez. Önce siyah (koyu) oynar, sonra oyuncular sırayla birer taş koyar.
+# Serbest ve standart
+Oyundan önce kuralları seç:
+- Serbest (sırada altı taş olan kart): sırada beş ya da daha fazla taş kazanır.
+- Standart (beş taşlı kart): sırada tam beş taş kazanır. Altı ya da daha uzun bir sıra sayılmaz, ama oyun devam eder ve başka bir yerde yapılan beşli yine kazanır.
+# Oyunun sonu
+Kazandıran sırayı ilk yapan oyuncu hemen kazanır. Tahta, kazandıran bir sıra oluşmadan dolarsa oyun berabere biter.
+# Cihazda oynamak
+İlk dokunuş soluk bir taş gösterir, aynı noktaya ikinci dokunuş onu oynar. Böylece küçük noktalara dokunmak kolaylaşır. Kazandıran sıra altın renginde parlar.

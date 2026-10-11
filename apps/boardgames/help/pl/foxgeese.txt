@@ -1,0 +1,20 @@
+Lis i gęsi
+# Cel gry
+Jeden gracz ma trzynaście gęsi, drugi jednego lisa. Gęsi wygrywają, osaczając lisa tak, aby nie mógł się ruszyć. Lis wygrywa, zbijając gęsi, aż zostanie ich mniej niż dziewięć.
+# Plansza
+Plansza to krzyż z 33 punktów połączonych liniami: wzdłuż rzędów, wzdłuż kolumn i wzdłuż narysowanych na niej przekątnych. Pionki poruszają się tylko po tych liniach, z jednego punktu na następny.
+# Ustawienie początkowe
+Gęsi (jasne) stoją na dolnym ramieniu krzyża i w całym rzędzie nad nim. Lis (ciemny) zaczyna na środku. Gęsi wykonują pierwszy ruch.
+# Gęsi
+- Gęś przesuwa się wzdłuż linii na następny punkt, jeśli jest wolny: do przodu, na ukos do przodu lub w bok, nigdy do tyłu.
+- Gęsi nigdy nie skaczą i nigdy nie zbijają lisa.
+# Lis
+- Lis przesuwa się wzdłuż linii na następny punkt, jeśli jest wolny, w dowolnym kierunku.
+- Może też przeskoczyć wzdłuż linii nad sąsiednią gęsią na wolny punkt tuż za nią i zdjąć tę gęś z planszy.
+- Skakanie nie jest obowiązkowe. Ale gdy lis już skoczył, musi skakać dalej, nad jedną gęsią naraz, dopóki może.
+# Koniec gry
+- Gęsi wygrywają, gdy lis nie może się ruszyć ani skoczyć.
+- Lis wygrywa, gdy zostanie mniej niż dziewięć gęsi albo gdy gęsi nie mogą się ruszyć.
+- Gra kończy się remisem, gdy ta sama pozycja powtórzy się po raz trzeci, lub po pięćdziesięciu ruchach każdej ze stron bez bicia i bez ruchu gęsi do przodu.
+# Gra na urządzeniu
+Dotknij gęsi, a potem jej nowego punktu, albo ją przeciągnij. W turze lisa lis jest już podniesiony: dotknij punktu, na który ma się przesunąć, albo go przeciągnij. Gęsi, które może zbić, mają kółko: dotknij kółka albo punktu za nim, aby skoczyć. W serii skoków dotykaj kolejno każdego następnego skoku.

@@ -1,0 +1,17 @@
+Amazonlar
+# Amaç
+Hamle yapabilen son oyuncu ol. Her tur tahtada bir kare daha yakar, böylece hareket alanı, oyunculardan biri dört yandan kuşatılana kadar daralır: o oyuncu kaybeder.
+# Başlangıç
+Tahtada 10 kareden oluşan 10 sıra vardır. Her oyuncunun dört amazonu vardır. Açık renk amazonlar en alt sırada ve dördüncü sırada, koyu renk olanlar ise onların karşısında, en üst sırada ve yedinci sırada durur. Önce açık renk oynar, sonra oyuncular sırayla oynar.
+# Bir tur
+Her tur, ikisini de aynı amazonun yaptığı iki bölümden oluşur:
+- Hareket: amazonlarından biri satrançtaki vezir gibi, düz bir çizgide, yatay, dikey ya da çapraz olarak istediği kadar kare gider. Yalnızca boş karelerden geçebilir ve boş karelere inebilir: amazonlar asla atlamaz ve asla taş almaz.
+- Atış: amazon, indiği kareden yine vezir gibi boş bir kareye bir ok atar. O kare yanar ve oyunun sonuna kadar kapanır: hiçbir amazon orada duramaz ya da oradan geçemez, hiçbir ok da üzerinden uçamaz.
+Ok, amazonun az önce ayrıldığı kareye geri ya da onun üzerinden uçabilir.
+# Oyunun sonu
+Sırasının başında hiçbir amazonunu oynatamayan oyuncu kaybeder. Beraberlik yoktur.
+# İpuçları
+- Yanmış kareler ve amazonlarla çevrilmiş tahta bölgeleri özel alan olur: her oyuncunun hareket edebileceği kaç kare kaldığını say.
+- Küçük bir cebe sıkışmış amazon neredeyse kaybedilmiştir: amazonlarını açık alanda tut.
+# Cihazda oynamak
+Amazonlarından birinin nereye gidebileceğini görmek için ona dokun, sonra bir kareye dokun ya da amazonu sürükle. Ardından altın renkli ışıklar okunun nereye uçabileceğini gösterir: birine dokun, ok o kareyi yakar. Son tur işaretli kalır: amazonun nereden geldiği, nereye gittiği ve yaktığı kare. Geri al önce oku, sonra hamleyi geri alır.

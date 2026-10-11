@@ -1,0 +1,12 @@
+Hex
+# Amaç
+Tahtanın sana ait iki kenarını kesintisiz bir taş zinciriyle birleştir. Beyaz (açık) üst ve alt kenarı, siyah (koyu) sol ve sağ kenarı birleştirir: her kenar, onu birleştirmesi gereken oyuncunun rengine boyanmıştır. Önce beyaz oynar. Oyundan önce tahtayı seç: hızlı bir oyun için 7×7, 9×9 ya da 11×11.
+# Oynanış
+- Oyuncular sırayla herhangi bir boş hücreye birer taş koyar. Taşlar asla yer değiştirmez ve asla alınmaz.
+- İki taşının hücreleri bir kenarla birbirine değiyorsa bu taşlar birleşiktir: her hücrenin altı komşusu vardır.
+- Kendi iki kenarını ilk birleştiren oyuncu kazanır. Köşe hücreleri, orada buluşan iki kenara da aittir.
+- Asla beraberlik olmaz: tahta dolduğunda oyunculardan biri her zaman kenarlarını birleştirmiş olur.
+# Takas
+İlk oynamak büyük bir avantajdır. Bunu dengelemek için siyah, yalnızca ikinci hamlede, taş koymak yerine beyazın ilk taşını alabilir. Taş siyaha döner ve uzun köşegene göre ayna hücresine geçer (sol üst köşeden sağ alt köşeye uzanan çizgi); böylece beyaz için ne anlama geliyorsa siyah için de aynı anlama gelir. Sonra beyaz yeniden oynar. Bu yüzden beyaz, ne çok güçlü ne de çok zayıf bir hamleyle açmalıdır.
+# Cihazda oynamak
+Taşını koymak için boş bir hücreye dokun. 11×11 tahtada ilk dokunuş soluk bir taş gösterir ve aynı hücreye ikinci dokunuş onu koyar: böylece küçük hücrelere dokunmak kolaylaşır. Takas için siyah, beyazın ilk taşına dokunur: soluk bir taş nereye gideceğini gösterir, ikinci dokunuş takası yapar. Bir oyuncu kazandığında zinciri altın renginde parlar.

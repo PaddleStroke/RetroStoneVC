@@ -1,0 +1,16 @@
+Lines of Action
+# Amaç
+Bütün taşlarını, her taşın senin başka bir taşına değdiği tek bir grupta topla: yan yana ya da köşe köşeye. Önce koyu renk oynar, sonra oyuncular sırayla birer hamle yapar.
+# Başlangıç
+Her oyuncunun 12 taşı vardır. Koyu taşlar üst ve alt sıralarda, açık taşlar sol ve sağ sütunlarda durur; dört köşe boş kalır.
+# Bir taş nasıl hareket eder
+- Bir taş düz bir çizgide hareket eder: kendi sırası, kendi sütunu ya da iki köşegeninden biri boyunca.
+- Tam olarak o çizginin tamamındaki taş sayısı kadar kare gider: iki rengin taşları da, hareket eden taş da sayılır. Çizginin tamamını, tahtanın bir kenarından öbürüne, taşın iki yanında da say.
+- Kendi rengindeki taşların üzerinden atlayabilir, ama rakibin taşlarının üzerinden asla atlayamaz.
+- Boş bir kareye ya da rakibin bir taşının üzerine inebilir; o taş alınır ve tahtadan çıkar. Kendi taşlarından birinin üzerine asla inemez.
+# Oyunun sonu
+- Bütün taşları tek bir bağlantılı grup oluşturan oyuncu kazanır. Kalan tek bir taş da grup sayılır, bu yüzden bir taş almak rakibin kazanmasını sağlayabilir.
+- Bir hamle iki oyuncunun gruplarını aynı anda birleştirirse, hamleyi yapan oyuncu kazanır.
+- Geçerli hamlesi olmayan oyuncu pas geçer ve rakip yeniden oynar. Cihaz senin yerine pas geçer. İki oyuncu da hamle yapamazsa ya da 1000 hamleden sonra oyun berabere biter.
+# Cihazda oynamak
+Bir taşın nereye gidebileceğini görmek için ona dokun, sonra bir kareye dokun ya da taşı sürükle. Noktalar hamleleri, halkalar alınabilecek taşları gösterir. Her şerit, o oyuncunun kaç taşı kaldığını gösterir. Sonunda kazanan grup altın renginde parlar.

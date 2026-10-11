@@ -1,0 +1,16 @@
+Mangala
+# Amaç
+Rakibinden daha çok taş topla. Tahtada altışar kuyudan oluşan iki sıra vardır, her kuyuda dört taş bulunur. Sana yakın olan sıra senindir, hazinen de bu sıranın sağ ucundadır. Önce açık renk oynar.
+# Oware
+- Sıran geldiğinde kuyularından birindeki bütün taşları al ve saat yönünün tersine, sonraki kuyulara birer birer dağıt. On iki ya da daha çok taşla tahtanın tamamını dolaşırsın: boşalttığın kuyu atlanır.
+- Son taşın rakibin sırasına düşer ve orada iki ya da üç taş olursa, onları alırsın. Rakibin sırasında oldukları ve iki ya da üç taş içerdikleri sürece, ondan önceki kuyuyu ve onun da öncekini de alırsın.
+- Rakibin bütün taşlarını alacak bir hamle oynanabilir, ama hiçbir şey almaz.
+- Rakibinin hiç taşı yoksa ve elinde ona taş verecek bir hamle varsa, o hamleyi oynamalısın.
+- Oyun, bir oyuncu 24'ten fazla taş topladığında, sırası gelen oyuncu oynayamadığında ya da aynı pozisyon yeniden geldiğinde biter. Son iki durumda her oyuncu kendi sırasında kalan taşları kendine ekler. En çok taşı olan kazanır; 24'e 24 beraberliktir.
+# Kalah
+- Sıran geldiğinde kuyularından birindeki bütün taşları al ve saat yönünün tersine, sonraki kuyulara ve kendi hazinene birer birer dağıt, ama rakibin hazinesine koyma.
+- Son taşın kendi hazinene düşerse yeniden oynarsın.
+- Son taşın kendi boş kuyularından birine düşerse ve karşısındaki kuyuda taş varsa, ikisini de alırsın: senin taşın ve karşıdaki taşlar hazinene gider.
+- Oyun, sıralardan biri boşaldığında biter: diğer oyuncu kendi sırasında kalan taşları kendi hazinesine koyar. Hazinesinde en çok taş olan kazanır; eşit sayı beraberliktir.
+# Cihazda oynamak
+Dağıtmak için kuyularından birine dokun: oynayabileceğin kuyular parlar. Taşlar birer birer ilerler, alınan taşlar hazineye uçar. Her kuyunun yanındaki sayı içindeki taşları, her şerit de o oyuncunun topladığı taşları gösterir.

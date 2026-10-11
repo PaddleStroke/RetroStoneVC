@@ -1,0 +1,16 @@
+Mankala
+# Cíl hry
+Získej víc semínek než soupeř. Deska má dvě řady po šesti důlcích, v každém čtyři semínka. Řada blíž k tobě je tvoje a na jejím pravém konci je tvůj sklad. Začíná světlý hráč.
+# Oware
+- Ve svém tahu vezmi všechna semínka z jednoho svého důlku a rozsej je po jednom do následujících důlků proti směru hodinových ručiček. S dvanácti a více semínky obejdeš celou desku: vyprázdněný důlek se přeskakuje.
+- Pokud tvé poslední semínko dopadne do soupeřovy řady a jsou tam pak dvě nebo tři semínka, získáváš je. Získáváš také důlek před ním a ten před ním, pokud leží v soupeřově řadě a jsou v nich dvě nebo tři semínka.
+- Tah, který by soupeři vzal všechna semínka, smíš zahrát, ale nic nezíská.
+- Pokud soupeř nemá žádná semínka, musíš zahrát tah, který mu nějaká dá, pokud takový máš.
+- Hra končí, když některý hráč získá více než 24 semínek, když hráč na tahu nemůže hrát, nebo když se opakuje stejná pozice. V posledních dvou případech si každý hráč přičte semínka zbylá v jeho řadě. Vyhrává ten, kdo má nejvíc semínek; 24 na 24 je remíza.
+# Kalah
+- Ve svém tahu vezmi všechna semínka z jednoho svého důlku a rozsej je po jednom proti směru hodinových ručiček do následujících důlků a do svého skladu, ale ne do soupeřova skladu.
+- Pokud tvé poslední semínko dopadne do tvého skladu, hraješ znovu.
+- Pokud tvé poslední semínko dopadne do tvého prázdného důlku a v důlku naproti jsou semínka, získáváš obojí: tvé semínko i semínka naproti jdou do tvého skladu.
+- Hra končí, když je jedna řada prázdná: druhý hráč přesune semínka zbylá ve své řadě do svého skladu. Vyhrává ten, kdo má ve skladu nejvíc semínek; stejný počet je remíza.
+# Hra na zařízení
+Klepni na jeden ze svých důlků a rozseješ ho: důlky, kterými smíš hrát, svítí. Semínka putují po jednom a získaná semínka letí do skladu. Číslo u každého důlku ukazuje jeho semínka a každá lišta ukazuje semínka, která daný hráč získal.

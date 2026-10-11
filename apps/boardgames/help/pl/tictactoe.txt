@@ -1,0 +1,15 @@
+Kółko i krzyżyk
+# Wersja klasyczna
+Plansza ma trzy rzędy po trzy pola. Jasne grają krzyżykami i zaczynają, ciemne grają kółkami. W swojej turze postaw swój znak na wolnym polu.
+- Trzy twoje znaki w rzędzie wygrywają: w poziomie, w pionie lub po przekątnej.
+- Jeśli wszystkie dziewięć pól się zapełni, a nikt nie ułożył trzech w rzędzie, gra kończy się remisem.
+# Wersja Ultimate
+Duża plansza mieści dziewięć małych plansz 3×3. Nadal stawiasz jeden znak na wolnym polu, ale to, gdzie możesz zagrać, zależy od ostatniego ruchu.
+- Pole, na którym przeciwnik właśnie zagrał, w obrębie swojej małej planszy, wysyła cię na małą planszę w tym samym miejscu dużej planszy. Ruch w prawym górnym polu dowolnej małej planszy wysyła przeciwnika na prawą górną małą planszę.
+- Jeśli plansza, na którą cię wysłano, jest już rozstrzygnięta (wygrana lub pełna), możesz zagrać na dowolnej otwartej małej planszy.
+- Pierwszy ruch partii może być w dowolnym miejscu.
+- Trzy w rzędzie na małej planszy wygrywają tę planszę: staje się twoja i zostaje zamknięta. Mała plansza zapełniona bez trzech w rzędzie nie należy do nikogo.
+- Wygraj trzy małe plansze w rzędzie na dużej planszy, w poziomie, w pionie lub po przekątnej, a wygrasz partię.
+- Gdy nikt nie może już wygrać żadnego rzędu trzech małych plansz, gra kończy się remisem.
+# Gra na urządzeniu
+Dotknij wolnego pola, aby tam zagrać. W wersji Ultimate małe plansze, na których możesz zagrać, są podświetlone, a wygrana mała plansza pokazuje duży znak zwycięzcy. Każdy pasek pokazuje, ile małych plansz wygrał dany gracz.

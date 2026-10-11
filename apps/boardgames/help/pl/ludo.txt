@@ -1,0 +1,18 @@
+Chińczyk
+# Cel gry
+Przeprowadź swoje cztery pionki dookoła planszy aż do środka przed przeciwnikiem. Każdy gracz ma cztery pionki w bazie w swoim kolorze, w przeciwległych rogach. Pierwszy rzuca gracz w kolorze kości słoniowej, potem gracze grają na zmianę.
+# Rzuty i ruchy
+- Rzuć kostką, a potem przesuń jeden ze swoich pionków po torze zgodnie z ruchem wskazówek zegara o wyrzuconą liczbę oczek.
+- Tylko 6 wyprowadza pionek z bazy na jego pole startowe, kolorowe pole obok bazy. Mając 6, możesz zamiast tego ruszyć pionkiem, który już jest na planszy.
+- 6 daje ci kolejny rzut. Trzecia 6 z rzędu przepada, a twoja tura od razu się kończy.
+- Jeśli żaden pionek nie może się ruszyć o wyrzuconą liczbę, rzut przepada i tura przechodzi na przeciwnika (po 6 nadal rzucasz ponownie).
+# Spotkania z innymi pionkami
+- Jeśli staniesz dokładnie na pionku przeciwnika, odsyłasz go z powrotem do bazy. Jeśli stoją tam dwa jego pionki, oba wracają.
+- Bezpieczne pola to cztery pola startowe i cztery pola oznaczone gwiazdką. Nikogo nie można z nich odesłać, a pionki obu graczy mogą na nich stać razem.
+- Twoje własne pionki mogą stać na jednym polu. Nie blokują: przeciwnik może je mijać lub na nich stawać.
+# Droga do domu
+Po pełnym okrążeniu twój pionek skręca do domku w swoim kolorze, gdzie jest bezpieczny, i idzie dalej do środka. Musi dojść do środka dokładną liczbą oczek: za duży rzut nie może ruszyć tego pionka.
+# Koniec gry
+Wygrywa pierwszy gracz, który wprowadzi wszystkie cztery pionki do środka.
+# Gra na urządzeniu
+Twoja kostka czeka w pustym rogu obok ciebie, podświetlona na złoto: dotknij jej, aby rzucić. Kropki pokazują, dokąd mogą pójść twoje pionki, a kółka pionek przeciwnika, który wróciłby do bazy: dotknij pionka albo przeciągnij go na jego pole, a przeskoczy tam. Rzut, którym nie dało się ruszyć, pozostaje przyciemniony w czerwonej poświacie, gdy przeciwnik rzuca. Cofnij cofa ruchy i rzuty, ale cofnięty rzut wypada potem tak samo. Pionki, które dotarły do celu, widać na twoim pasku.

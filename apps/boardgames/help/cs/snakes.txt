@@ -1,0 +1,15 @@
+Hadi a žebříky
+# Cíl hry
+Buď první, kdo dovede svou figurku na pole 100.
+# Deska
+Pole jsou očíslována od 1 do 100, počínaje vlevo dole: po spodní řadě doprava, pak zpět po další řadě doleva a tak dál nahoru po desce, se 100 úplně nahoře. Žebříky vedou nahoru, od paty k vrcholu; hadi vedou dolů, od hlavy k ocasu.
+# Tah
+Obě figurky začínají mimo desku, před polem 1. Jako první hází světlý hráč. Hoď kostkou a posuň svou figurku dopředu o hozený počet polí, pole po poli. Obě figurky smějí stát na stejném poli.
+- Pokud tvá figurka skončí tah na patě žebříku, vyšplhá po něm nahoru.
+- Pokud skončí tah na hlavě hada, sjede dolů na jeho ocas.
+- 6 ti dává další hod, po tvém tahu.
+- Jinak kostka přechází na soupeře.
+# Konec hry
+Na pole 100 musíš dojít přesným číslem. Hodíš-li víc, než potřebuješ, tvoje figurka dojde na 100 a vrátí se o přebývající pole zpět: z 96 skončí hod 6 na 98. Žebřík nebo had tam, kde se zastaví, stále platí. Vyhrává první hráč na poli 100.
+# Hra na zařízení
+Kostka čeká ve zlatém světle na konci lišty hráče, který hází: klepni na obrazovku a hodíš. Tvoje figurka se pak posune sama. Každá lišta ukazuje pole, na kterém stojí figurka daného hráče, a jeho poslední hod. Vrátit bere zpět hody jeden po druhém; vrácený hod padne stejně, až hodíš znovu.

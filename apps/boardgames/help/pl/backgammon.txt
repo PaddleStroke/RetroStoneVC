@@ -1,0 +1,23 @@
+Backgammon
+# Cel gry
+Przeprowadź wszystkie piętnaście swoich pionków dookoła planszy do swojego domu, a potem je wyprowadź. Wygrywa pierwszy gracz, który wyprowadzi wszystkie piętnaście. Gracze poruszają się w przeciwnych kierunkach: pionki w kolorze kości słoniowej w jedną stronę, hebanowe w drugą.
+# Plansza
+Na planszy są 24 wąskie trójkąty, czyli punkty, po sześć w każdej ćwiartce. Banda pośrodku dzieli każdą stronę na pole zewnętrzne i dom; oba domy leżą naprzeciw siebie, po stronie tacki. Każdy gracz numeruje punkty od 1, na końcu swojego domu, aż do 24, na końcu domu przeciwnika. Na początku każdy gracz ma dwa pionki na swoim punkcie 24, pięć na punkcie 13, trzy na punkcie 8 i pięć na punkcie 6.
+# Rzuty i ruchy
+Na początek każdy gracz rzuca jedną kostką. Kto wyrzuci więcej, zaczyna i wykorzystuje obie wyrzucone liczby; jeśli są równe, rzućcie ponownie. Potem gracze grają na zmianę: rzuć dwiema kostkami i wykonaj ruch o każdą z liczb.
+- Jeden pionek przesuwa się o jedną liczbę, potem pionek przesuwa się o drugą: ten sam pionek lub inny.
+- Pionek może stanąć na pustym punkcie, na punkcie z twoimi pionkami albo na punkcie z jednym pionkiem przeciwnika.
+- Dublet daje cztery ruchy o tę liczbę.
+- Jeśli możesz, musisz wykorzystać obie liczby. Jeśli możesz wykorzystać tylko jedną z nich, musisz w miarę możliwości wykorzystać większą.
+- Jeśli żaden ruch nie jest możliwy, tracisz turę.
+# Zbijanie i wprowadzanie
+Pojedynczy pionek na punkcie to blot. Gdy staniesz na blocie przeciwnika, zbijasz go: trafia on na bandę. Gracz, który ma pionek na bandzie, musi najpierw wprowadzić go z powrotem do gry, do domu przeciwnika, na punkt wskazany przez kostkę (1 to punkt najdalej od bandy). Punkt zajęty przez dwa lub więcej pionków przeciwnika jest zamknięty. Nic innego nie może się ruszyć, dopóki wszystkie twoje pionki z bandy nie wejdą do gry.
+# Wyprowadzanie
+Gdy wszystkie piętnaście twoich pionków jest w twoim domu, możesz je wyprowadzać: liczba zdejmuje pionek z punktu o tym numerze. Jeśli ten punkt jest pusty, musisz, o ile możesz, przesunąć pionek z wyższego punktu; gdy na żadnym wyższym punkcie nie ma pionka, liczba wyprowadza pionek z najwyższego punktu, który zajmujesz. Pionek, który zostanie zbity, musi przejść całą drogę z powrotem, zanim znów będzie można wyprowadzać.
+# Wygrana
+- Pierwszy gracz, który wyprowadzi wszystkie piętnaście pionków, wygrywa jeden punkt.
+- Gammon: jeśli przegrany nie wyprowadził ani jednego pionka, zwycięzca zdobywa dwa punkty.
+- Backgammon: jeśli przegrany nie wyprowadził żadnego pionka i nadal ma jakiś na bandzie lub w domu zwycięzcy, zwycięzca zdobywa trzy punkty.
+W tej grze nie używa się kostki dublującej.
+# Gra na urządzeniu
+Dotknij kostek świecących na złoto, aby nimi rzucić. Dotknij pionka, a potem jednej z kropek, albo go przeciągnij; kółko pokazuje blot, który zostałby zbity. Każdy ruch wykorzystuje jedną kostkę: wykorzystana kostka jest przyciemniona. Aby wyprowadzić pionek, przesuń go do tacki po prawej. Pionki na bandzie są już w ręku. Gdy rzutu nie da się wykorzystać, jego kostki świecą na czerwono i tura przechodzi na przeciwnika. Twój pasek pokazuje, ile pionków już wyprowadziłeś, a na końcu wygrane punkty. Cofnij cofa po jednym ruchu, a kostki z wcześniejszych tur wracają takie, jakie zostały wyrzucone.

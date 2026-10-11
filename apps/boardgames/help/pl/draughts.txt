@@ -1,6 +1,6 @@
 Warcaby
 # Cel gry
-Zbij wszystkie pionki przeciwnika albo pozostaw go bez ruchu. Pionki stoją tylko na ciemnych polach i poruszają się po przekątnej. Przed grą wybierz zasady: warcaby międzynarodowe na planszy 10×10 albo warcaby angielskie (checkers) na planszy 8×8.
+Zbij wszystkie pionki przeciwnika albo pozostaw go bez ruchu. Przed grą wybierz zasady: warcaby międzynarodowe na planszy 10×10, warcaby angielskie (checkers), rosyjskie, brazylijskie lub tureckie na planszy 8×8. Pionki stoją tylko na ciemnych polach i poruszają się po przekątnej, z wyjątkiem warcabów tureckich.
 # Warcaby międzynarodowe (10×10)
 - Jasne zaczynają. Zwykły pionek przesuwa się o jedno pole na ukos do przodu.
 - Zwykły pionek bije, przeskakując nad sąsiednim pionkiem przeciwnika na wolne pole tuż za nim. Zwykłe pionki biją do przodu i do tyłu.
@@ -13,6 +13,25 @@ Zbij wszystkie pionki przeciwnika albo pozostaw go bez ruchu. Pionki stoją tylk
 - Bicie jest obowiązkowe, ale możesz wybrać, które bicie wykonać. Gdy pionek zacznie skakać, musi po drodze zbić wszystkie pionki, jakie może.
 - Zwykły pionek, który dojdzie do ostatniego rzędu, staje się damką, co kończy ruch. Damka porusza się i bije o jedno pole po przekątnej w dowolnym kierunku.
 - Remis: gdy ta sama pozycja powtórzy się po raz trzeci, lub po 40 ruchach każdej ze stron bez bicia i bez ruchu zwykłym pionkiem.
+# Warcaby rosyjskie (8×8)
+- Jasne zaczynają. Zwykły pionek przesuwa się o jedno pole na ukos do przodu, a bije do przodu i do tyłu.
+- Damki poruszają się i biją z daleka po przekątnych, jak w warcabach międzynarodowych. Po biciu damka musi stanąć na polu, z którego może bić dalej, jeśli takie istnieje.
+- Bicie jest obowiązkowe, ale możesz wybrać, które bicie wykonać. Gdy pionek zacznie skakać, musi po drodze zbić wszystkie pionki, jakie może.
+- Zbite pionki są zdejmowane z planszy na końcu ruchu. Nie można przeskoczyć tego samego pionka dwa razy.
+- Zwykły pionek, który dojdzie do ostatniego rzędu, od razu staje się damką, nawet w trakcie bicia, i jeśli może, bije dalej już jako damka.
+- Remis: gdy ta sama pozycja powtórzy się po raz trzeci, lub po 15 ruchach każdej ze stron, w których ruszały się tylko damki i nie było bicia.
+# Warcaby brazylijskie (8×8)
+- Zasady warcabów międzynarodowych na planszy 8×8. Jasne zaczynają.
+- Zwykłe pionki biją do przodu i do tyłu, damki poruszają się i biją z daleka, a ty musisz zbić jak najwięcej pionków.
+- Zwykły pionek staje się damką tylko wtedy, gdy kończy ruch w ostatnim rzędzie.
+- Remis: gdy ta sama pozycja powtórzy się po raz trzeci, lub po 20 ruchach każdej ze stron, w których ruszały się tylko damki i nie było bicia.
+# Warcaby tureckie (8×8)
+- Gra się na wszystkich 64 polach. Każdy gracz zaczyna z 16 zwykłymi pionkami w swoim drugim i trzecim rzędzie. Jasne zaczynają.
+- Zwykły pionek przesuwa się o jedno pole prosto do przodu lub w bok, nigdy po przekątnej i nigdy do tyłu. Bije w ten sam sposób, przeskakując nad sąsiednim pionkiem przeciwnika na wolne pole tuż za nim.
+- Zwykły pionek, który dojdzie do ostatniego rzędu, staje się damką. Damka porusza się o dowolną liczbę pól w poziomie lub w pionie i bije z daleka, stając na dowolnym wolnym polu za zbijanym pionkiem.
+- Bicie jest obowiązkowe i musisz zbić jak najwięcej pionków.
+- Każdy zbity pionek jest zdejmowany od razu, w chwili przeskoczenia. Przy biciu kilku pionków pionek nie może zawrócić prosto w kierunku, z którego przyszedł.
+- Remis: gdy ta sama pozycja powtórzy się po raz trzeci, lub po 25 ruchach każdej ze stron bez bicia i bez ruchu zwykłym pionkiem.
 # Koniec gry
 Gracz, któremu nie zostały żadne pionki albo który nie może wykonać ruchu, przegrywa.
 # Gra na urządzeniu

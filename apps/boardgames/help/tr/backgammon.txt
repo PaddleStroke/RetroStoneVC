@@ -1,0 +1,23 @@
+Tavla
+# Amaç
+On beş pulunun hepsini tahtanın çevresinden dolaştırıp kendi evine getir, sonra onları topla. On beş pulunun hepsini ilk toplayan oyuncu kazanır. Oyuncular ters yönlerde ilerler: fildişi pullar bir yöne, abanoz pullar öbür yöne döner.
+# Tahta
+Tahtada, her çeyreğinde altışar tane olmak üzere 24 dar üçgen, yani hane vardır. Ortadaki bar, her oyuncunun tarafını bir bahçe ve bir eve böler; iki ev, toplama bölmesinin olduğu yanda karşı karşıyadır. Her oyuncu haneleri, kendi evinin ucundaki 1'den başlayıp rakibin evinin ucundaki 24'e kadar numaralar. Başlangıçta her oyuncunun kendi 24 numaralı hanesinde iki, 13 numaralı hanesinde beş, 8 numaralı hanesinde üç ve 6 numaralı hanesinde beş pulu vardır.
+# Zar atma ve hamle
+Başlamak için her oyuncu bir zar atar. Büyük sayıyı atan önce oynar ve atılan iki sayıyı da kullanır; sayılar aynıysa zarlar yeniden atılır. Ondan sonra oyuncular sırayla oynar: iki zar at ve her sayı kadar pul oynat.
+- Bir pul bir sayı kadar ilerler, sonra bir pul diğer sayı kadar ilerler: aynı pul ya da başka bir pul.
+- Bir pul boş bir haneye, kendi pullarının bulunduğu bir haneye ya da tek bir rakip pulun bulunduğu bir haneye konabilir.
+- Çift atarsan o sayıyla dört hamle yaparsın.
+- Yapabiliyorsan iki sayıyı da kullanmalısın. Yalnızca birini kullanabiliyorsan, mümkünse büyük olanı kullanmalısın.
+- Hiçbir hamle mümkün değilse sıran yanar.
+# Kırma ve içeri girme
+Bir hanede tek başına duran pul açık puldur. Rakibin açık pulunun üzerine gelirsen onu kırarsın: pul bara gider. Barda pulu olan oyuncu önce onu oyuna sokmalıdır: pul, rakibin evine bir zarın gösterdiği haneden girer (1, bara en uzak hanedir). İki ya da daha çok rakip pulun bulunduğu hane kapıdır, oraya girilemez. Bardaki bütün pulların içeri girene kadar başka hiçbir pul oynatılamaz.
+# Pul toplama
+On beş pulunun hepsi evindeyse onları toplayabilirsin: bir sayı, o numaralı haneden bir pul toplar. O hane boşsa, yapabiliyorsan daha yüksek bir haneden bir pul oynatmalısın; daha yüksek hiçbir hanede pul yoksa, sayı pulunun bulunduğu en yüksek haneden bir pul toplar. Kırılan bir pul, yeniden pul toplayabilmen için önce bütün yolu geri dönmelidir.
+# Kazanma
+- On beş pulunun hepsini ilk toplayan oyuncu bir puan kazanır.
+- Mars: kaybeden hiç pul toplamamışsa, kazanan iki puan alır.
+- Üçlü mars (backgammon): kaybeden hiç pul toplamamışsa ve hâlâ barda ya da kazananın evinde pulu varsa, kazanan üç puan alır.
+Bu oyun katlama küpü olmadan oynanır.
+# Cihazda oynamak
+Zarları atmak için altın renginde parlayan zarlara dokun. Bir pula, sonra noktalardan birine dokun ya da pulu sürükle; halka, kıracağın açık pulu gösterir. Her hamle bir zarı kullanır: kullanılmış zar soluklaşır. Pul toplamak için pulu sağdaki toplama bölmesine götür. Bardaki pullar zaten eldedir. Bir atış oynanamıyorsa zarları kırmızı parlar ve sıra rakibe geçer. Şeridin kaç pul topladığını, oyunun sonunda da kazanılan puanları gösterir. Geri al her seferinde bir hamleyi geri alır, önceki sıraların zarları da atıldıkları gibi geri gelir.

@@ -18,5 +18,9 @@ Atakowany król jest szachowany: następny ruch musi usunąć szach. Nigdy nie m
 - Mat: król jest szachowany i żaden ruch nie może go uratować. Ten gracz przegrywa.
 - Pat: gracz, który ma ruch, nie ma żadnego dozwolonego ruchu, ale nie jest szachowany. Partia kończy się remisem.
 - Partia kończy się remisem także wtedy, gdy żadna ze stron nie jest w stanie dać mata (zostało za mało bierek), gdy ta sama pozycja powtórzy się po raz trzeci, lub po pięćdziesięciu ruchach każdej ze stron bez bicia i bez ruchu pionem.
+# Chess960
+Chess960 (szachy losowe Fischera) toczą się według tych samych zasad, ale bierki z tylnego rzędu zaczynają w jednym z 960 ustawień, losowanym na każdą partię. Piony stoją jak zwykle, a bierki czarnych stoją naprzeciw bierek białych, kolumna w kolumnę. Gońce zawsze stoją na polach przeciwnego koloru, a król gdzieś między dwiema wieżami.
+- Roszada: król i wieża kończą na tych samych polach co w zwykłych szachach: król na g, a wieża na f przy roszadzie z wieżą od strony h; król na c, a wieża na d przy roszadzie z wieżą od strony a. Dozwolona tylko wtedy, gdy żadna z tych bierek jeszcze się nie ruszała, każde pole, przez które przechodzą lub na którym stają, jest puste (poza nimi dwiema), a król nie jest szachowany, nie przechodzi przez atakowane pole i nie staje na szachowanym polu.
+- Aby wykonać roszadę, przesuń króla na wieżę, z którą ją wykonuje. Możesz też przesunąć go na jego pole docelowe, chyba że król mógłby tam pójść także zwykłym ruchem albo już tam stoi.
 # Gra na urządzeniu
-Dotknij bierki, aby zobaczyć, gdzie może się ruszyć, a potem dotknij pola, albo przeciągnij bierkę. Kropki pokazują ruchy, kółka bicia. Szachowany król świeci na czerwono.
+Dotknij bierki, aby zobaczyć, gdzie może się ruszyć, a potem dotknij pola, albo przeciągnij bierkę. Kropki pokazują ruchy, kółka bicia. Szachowany król świeci na czerwono. Aby wykonać roszadę, przesuń króla o dwa pola w stronę wieży albo na wieżę.

@@ -1,0 +1,11 @@
+Tečky a čtverečky
+# Cíl hry
+Získej víc čtverečků než soupeř. Deska je mřížka teček. Před hrou si vyber její velikost: 3×3 čtverečky pro rychlou hru, 5×5, nebo 7×7. Začíná světlý hráč.
+# Tah
+- Nakresli jednu čáru mezi dvěma sousedními tečkami, vodorovně nebo svisle. Každou čáru lze nakreslit jen jednou.
+- Pokud tvá čára uzavře čtvrtou stranu čtverečku, čtvereček je tvůj: dostane tvou barvu. Jedna čára může uzavřít dva čtverečky najednou.
+- Pokaždé, když uzavřeš čtvereček, musíš nakreslit další čáru. Tvůj tah končí čarou, která neuzavře žádný čtvereček.
+# Konec hry
+Hra končí, když jsou nakresleny všechny čáry. Vyhrává hráč s více čtverečky. Každá deska má lichý počet čtverečků, takže vždy někdo vyhraje.
+# Hra na zařízení
+Klepni mezi dvě tečky a nakreslíš tam čáru. Podrž prst na displeji a uvidíš, která čára to bude, posunutím prstu vybereš jinou a zvednutím ji nakreslíš. Poslední nakreslená čára svítí, stejně jako čtverečky, které uzavřela. Každá lišta ukazuje, kolik čtverečků daný hráč má.

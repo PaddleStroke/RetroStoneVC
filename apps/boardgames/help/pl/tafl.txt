@@ -1,0 +1,25 @@
+Hnefatafl
+# Cel gry
+Hnefatafl, gra planszowa wikingów, to bitwa dwóch nierównych stron. Obrońcy, pośrodku, muszą pomóc swojemu królowi uciec. Napastnicy, dwa razy liczniejsi, otaczają ich i muszą schwytać króla. Napastnicy (ciemni) zaczynają, potem gracze wykonują ruchy na zmianę, po jednym. Przed grą wybierz planszę: Hnefatafl na planszy 11×11 albo Tablut na 9×9.
+# Jak poruszają się pionki
+- Każdy pionek, także król, porusza się jak wieża w szachach: o dowolną liczbę wolnych pól w poziomie lub w pionie. Pionki nigdy nie przeskakują.
+- Środkowe pole to tron. Tylko król może się na nim zatrzymać. Gdy tron jest pusty, każdy pionek może przez niego przejść.
+- W Hnefatafl tylko król może zatrzymać się na czterech polach narożnych.
+# Bicie
+- Pionek zostaje zbity, gdy pionek przeciwnika wykona ruch, po którym ten pionek znajdzie się między dwoma wrogami w poziomie lub w pionie. Schodzi wtedy z planszy. Jeden ruch może zbić do trzech pionków.
+- Narożniki i pusty tron działają jak wrogowie każdego pionka: pionek stojący obok jednego z nich zostaje zbity przez jednego wroga po swojej drugiej stronie.
+- Król pomaga obrońcom bić.
+- Pionek może bezpiecznie wejść w lukę między dwoma pionkami przeciwnika.
+# Król
+- Król zostaje schwytany, gdy napastnicy otoczą go ze wszystkich czterech stron albo z trzech stron, gdy po czwartej stronie jest pusty tron. Nie można go schwytać na krawędzi planszy.
+- Obrońcy wygrywają, gdy król dotrze do pola narożnego. Napastnicy wygrywają, gdy schwytają króla.
+# Tablut (9×9)
+- 16 napastników przeciwko 8 obrońcom i królowi. Narożniki są zwykłymi polami.
+- Obrońcy wygrywają, gdy król dotrze do dowolnego pola na krawędzi planszy.
+- Na tronie lub obok niego króla chwyta się tak jak w Hnefatafl. Gdzie indziej chwytają go dwaj napastnicy po przeciwnych stronach, jak każdy inny pionek.
+# Koniec gry
+- Gracz, który nie może wykonać ruchu, przegrywa.
+- Gdy ta sama pozycja powtórzy się po raz trzeci przy ruchu tego samego gracza, gra kończy się remisem. Partia licząca 1000 ruchów każdej ze stron też kończy się remisem.
+- Są to zasady kopenhaskie, bez opcjonalnych zasad muru tarcz, fortu na krawędzi i okrążenia.
+# Gra na urządzeniu
+Dotknij pionka, aby zobaczyć, gdzie może się ruszyć, a potem dotknij pola, albo przeciągnij pionek. Kropki pokazują ruchy. Zbite pionki znikają. Król, którego napastnicy mogliby schwytać w następnym ruchu, świeci na czerwono, a złote światła pokazują napastnikom, dokąd król mógłby uciec w następnym ruchu.

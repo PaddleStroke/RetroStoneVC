@@ -1,0 +1,17 @@
+Amazonki
+# Cel gry
+Bądź ostatnim graczem, który może wykonać ruch. Każda tura wypala kolejne pole planszy, więc miejsca do poruszania się ubywa, aż jeden z graczy zostanie zamurowany: ten gracz przegrywa.
+# Ustawienie początkowe
+Plansza ma 10 rzędów po 10 pól. Każdy gracz ma cztery amazonki. Jasne amazonki stoją w dolnym rzędzie i w czwartym rzędzie, ciemne w górnym rzędzie i w siódmym rzędzie, naprzeciw nich. Jasne zaczynają, potem gracze grają na zmianę.
+# Tura
+Każda tura składa się z dwóch części, wykonywanych przez tę samą amazonkę:
+- Ruch: jedna z twoich amazonek porusza się jak hetman w szachach, o dowolną liczbę pól w linii prostej: w poziomie, w pionie lub po przekątnej. Może przechodzić i stawać tylko na wolnych polach: amazonki nigdy nie przeskakują i nigdy nie biją.
+- Strzał: z pola, na którym stanęła, amazonka wystrzeliwuje strzałę, także jak hetman, na wolne pole. To pole zostaje wypalone i zablokowane do końca gry: żadna amazonka nie może na nim stanąć ani przez nie przejść, i żadna strzała nie może nad nim przelecieć.
+Strzała może polecieć z powrotem na pole, które amazonka właśnie opuściła, albo przez nie.
+# Koniec gry
+Gracz, który na początku swojej tury nie może ruszyć żadną amazonką, przegrywa. Nie ma remisów.
+# Wskazówki
+- Obszary planszy odgrodzone wypalonymi polami i amazonkami stają się prywatnym terytorium: policz pola, na których każdy gracz może się jeszcze poruszać.
+- Amazonka uwięziona w małej kieszeni jest prawie stracona: trzymaj swoje amazonki na otwartej przestrzeni.
+# Gra na urządzeniu
+Dotknij jednej ze swoich amazonek, aby zobaczyć, gdzie może się ruszyć, a potem dotknij pola, albo przeciągnij amazonkę. Następnie złote światła pokazują, dokąd może polecieć jej strzała: dotknij jednego z nich, a strzała wypali to pole. Ostatnia tura pozostaje zaznaczona: skąd przyszła amazonka, dokąd poszła i które pole wypaliła. Cofnij cofa najpierw strzałę, potem ruch.

@@ -1,0 +1,15 @@
+Křížky a kolečka
+# Klasická hra
+Deska má tři řady po třech polích. Světlý hráč hraje křížky a začíná, tmavý hraje kolečka. Ve svém tahu umísti svou značku do volného pole.
+- Tři tvé značky v řadě vyhrávají: vodorovně, svisle nebo šikmo.
+- Pokud se všech devět polí zaplní bez trojice v řadě, hra končí remízou.
+# Ultimate
+Velká deska obsahuje devět malých desek 3×3. Stále hraješ jednu značku do volného pole, ale kam smíš hrát, záleží na posledním tahu.
+- Pole, na které soupeř právě zahrál, v rámci své malé desky, tě pošle na malou desku na stejném místě velké desky. Tah do pravého horního pole kterékoli malé desky pošle soupeře na pravou horní malou desku.
+- Pokud je deska, na kterou tě poslali, už rozhodnutá (vyhraná nebo plná), smíš hrát na kterékoli otevřené malé desce.
+- První tah hry může být kdekoli.
+- Tři v řadě na malé desce ti tu desku vyhrají: stane se tvou a uzavře se. Malá deska zaplněná bez trojice v řadě nepatří nikomu.
+- Vyhraj tři malé desky v řadě na velké desce, vodorovně, svisle nebo šikmo, a vyhraješ hru.
+- Když už nikdo nemůže vyhrát žádnou řadu tří malých desek, hra končí remízou.
+# Hra na zařízení
+Klepni na volné pole a zahraješ tam. Ve hře Ultimate svítí malé desky, kde smíš hrát, a vyhraná malá deska ukazuje velkou značku vítěze. Každá lišta ukazuje, kolik malých desek daný hráč vyhrál.

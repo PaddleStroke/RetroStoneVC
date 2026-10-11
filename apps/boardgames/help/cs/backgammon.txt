@@ -1,0 +1,23 @@
+Vrhcáby
+# Cíl hry
+Převeď všech patnáct svých kamenů kolem desky do svého domova a pak je vyveď. Vyhrává první hráč, který vyvede všech patnáct. Hráči táhnou opačnými směry: slonovinové kameny jedním směrem kolem desky, ebenové druhým.
+# Deska
+Na desce je 24 úzkých trojúhelníků, polí, po šesti v každé čtvrtině desky. Bar uprostřed dělí každou stranu na vnější část a domov; oba domovy leží proti sobě, na straně přihrádky. Každý hráč čísluje pole od 1, na konci svého domova, až po 24, na konci soupeřova domova. Na začátku má každý hráč dva kameny na svém poli 24, pět na poli 13, tři na poli 8 a pět na poli 6.
+# Házení a tahy
+Na začátku hodí každý hráč jednou kostkou. Kdo hodí víc, začíná a použije obě hozená čísla; jsou-li stejná, házíte znovu. Potom se hráči střídají: hoď dvěma kostkami a táhni podle každého čísla.
+- Jeden kámen táhne o jedno číslo, potom kámen táhne o druhé: tentýž kámen nebo jiný.
+- Kámen smí skončit na prázdném poli, na poli s tvými kameny nebo na poli s jediným soupeřovým kamenem.
+- Dublet dává čtyři tahy o to číslo.
+- Musíš použít obě čísla, pokud můžeš. Pokud můžeš použít jen jedno z nich, musíš podle možnosti použít to větší.
+- Pokud není možný žádný tah, přicházíš o tah.
+# Vyhazování a nasazování
+Osamocený kámen na poli je blot. Když skončíš na soupeřově blotu, vyhodíš ho: jde na bar. Hráč, který má kámen na baru, ho musí nejprve vrátit do hry: nasadí ho do soupeřova domova na pole dané kostkou (1 je pole nejdál od baru). Pole obsazené dvěma nebo více soupeřovými kameny je zavřené. Ničím jiným nesmíš táhnout, dokud nejsou nasazeny všechny tvé kameny z baru.
+# Vyvádění
+Jakmile je všech patnáct tvých kamenů ve tvém domově, smíš je vyvádět: číslo vyvede kámen z pole s tímto číslem. Je-li toto pole prázdné, musíš, pokud můžeš, táhnout kamenem z vyššího pole; když na žádném vyšším poli kámen není, číslo vyvede kámen z nejvyššího pole, které obsazuješ. Kámen, který je vyhozen, musí ujít celou cestu zpět, než smíš znovu vyvádět.
+# Výhra
+- První hráč, který vyvede všech patnáct kamenů, vyhrává jeden bod.
+- Gammon: pokud poražený nevyvedl ani jeden kámen, vítěz získá dva body.
+- Backgammon: pokud poražený nevyvedl žádný kámen a ještě má nějaký na baru nebo v domově vítěze, vítěz získá tři body.
+Tato hra se hraje bez zdvojovací kostky.
+# Hra na zařízení
+Klepni na kostky svítící zlatě a hodíš jimi. Klepni na kámen a pak na jednu z teček, nebo ho přetáhni; kroužek ukazuje blot, který bys vyhodil. Každý tah spotřebuje jednu kostku: použitá kostka je ztlumená. Chceš-li kámen vyvést, přesuň ho do přihrádky vpravo. Kameny na baru už máš v ruce. Když hod nejde zahrát, jeho kostky svítí červeně a tah přechází na soupeře. Tvoje lišta ukazuje, kolik kamenů jsi vyvedl, a na konci získané body. Vrátit bere zpět jeden tah po druhém a kostky z dřívějších tahů se vrátí tak, jak padly.

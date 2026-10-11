@@ -18,5 +18,9 @@ Napadený král je v šachu: další tah ho musí ze šachu dostat. Nikdy nesmí
 - Mat: král je v šachu a žádný tah ho nemůže zachránit. Tento hráč prohrává.
 - Pat: hráč na tahu nemá žádný povolený tah, ale není v šachu. Partie končí remízou.
 - Partie končí remízou také tehdy, když žádná strana už nikdy nemůže dát mat (zbývá příliš málo figur), když se stejná pozice zopakuje potřetí, nebo po padesáti tazích každé strany bez braní a bez tahu pěšcem.
+# Chess960
+Chess960 (Fischerovy náhodné šachy) se hraje podle stejných pravidel, ale figury v zadní řadě začínají v jednom z 960 pořadí, vylosovaném pro každou partii. Pěšci stojí jako obvykle a figury černého stojí proti figurám bílého, sloupec po sloupci. Střelci vždy stojí na polích opačné barvy a král někde mezi oběma věžemi.
+- Rošáda: král a věž skončí na stejných polích jako v běžných šachách: král na g a věž na f s věží ze strany h, král na c a věž na d s věží ze strany a. Je povolena, jen pokud se žádná z obou figur ještě nepohnula, každé pole, přes které přecházejí nebo na které se postaví, je volné (kromě nich dvou) a král není v šachu, nepřechází přes napadené pole a nedostane se do šachu.
+- Chceš-li udělat rošádu, táhni králem na věž, se kterou rošádu dělá. Můžeš ho také táhnout na jeho cílové pole, ledaže by tam král mohl jít i běžným tahem, nebo tam už stojí.
 # Hra na zařízení
-Klepni na figuru a uvidíš, kam může táhnout, potom klepni na pole, nebo figuru přetáhni. Tečky ukazují tahy, kroužky braní. Král v šachu svítí červeně.
+Klepni na figuru a uvidíš, kam může táhnout, potom klepni na pole, nebo figuru přetáhni. Tečky ukazují tahy, kroužky braní. Král v šachu svítí červeně. Chceš-li udělat rošádu, táhni králem o dvě pole směrem k věži, nebo na věž.

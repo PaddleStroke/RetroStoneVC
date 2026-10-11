@@ -1,0 +1,15 @@
+Yılanlar ve Merdivenler
+# Amaç
+Piyonunu 100 numaralı kareye ilk getiren sen ol.
+# Tahta
+Kareler sol alttan başlayarak 1'den 100'e kadar numaralanmıştır: alt sıra boyunca sağa, sonra bir sonraki sıra boyunca sola geri ve böylece tahtanın yukarısına doğru; 100 en üsttedir. Merdivenler, ayağından tepesine doğru tahtada yukarı çıkarır; yılanlar, başından kuyruğuna doğru aşağı indirir.
+# Bir hamle
+İki piyon da tahtanın dışında, 1 numaralı kareden önce başlar. Önce açık renk zar atar. Zarı at ve piyonunu atılan sayı kadar, kare kare ileri götür. İki piyon aynı karede durabilir.
+- Piyonun hamlesini bir merdivenin ayağında bitirirse merdivenin tepesine çıkar.
+- Hamlesini bir yılanın başında bitirirse yılanın kuyruğuna kayar.
+- 6, hamlenden sonra sana bir atış daha kazandırır.
+- Aksi halde zar rakibe geçer.
+# Oyunun sonu
+100 numaralı kareye tam sayıyla ulaşmalısın. Gerekenden fazla atarsan piyonun 100'e kadar çıkar ve fazla kareler kadar geri iner: 96'dan 6 atınca 98'de durur. Durduğu yerdeki merdiven ya da yılan yine geçerlidir. 100 numaralı kareye ilk ulaşan oyuncu kazanır.
+# Cihazda oynamak
+Zar, sırası gelen oyuncunun şeridinin ucunda altın renkli bir ışık içinde bekler: atmak için ekrana dokun. Piyonun ardından kendi kendine ilerler. Her şerit, o oyuncunun piyonunun bulunduğu kareyi ve son atışını gösterir. Geri al, atışları birer birer geri alır; geri alınan bir atış, yeniden attığında aynı gelir.

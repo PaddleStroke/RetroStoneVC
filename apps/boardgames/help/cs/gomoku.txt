@@ -1,0 +1,11 @@
+Gomoku
+# Cíl hry
+Buď první, kdo spojí pět kamenů své barvy do nepřerušené řady: vodorovně, svisle nebo šikmo. Kameny se kladou na body, kde se kříží čáry, a jakmile jsou zahrány, už se nikdy nepohnou. Začíná černý (tmavý), potom se hráči střídají, každý jedním kamenem.
+# Volný styl a standard
+Před hrou si vyber pravidla:
+- Volný styl (karta se šesti kameny v řadě): vyhrává pět nebo více kamenů v řadě.
+- Standard (karta s pěti): vyhrává přesně pět kamenů v řadě. Řada šesti nebo více kamenů se nepočítá, ale hra pokračuje a pětice vytvořená jinde stále vyhrává.
+# Konec hry
+První hráč, který vytvoří vítěznou řadu, okamžitě vyhrává. Pokud se deska zaplní bez vítězné řady, hra končí remízou.
+# Hra na zařízení
+První klepnutí ukáže bledý kámen, druhé klepnutí na stejný bod ho zahraje. Díky tomu se snadno trefíš i do malých bodů. Vítězná řada se rozzáří zlatě.

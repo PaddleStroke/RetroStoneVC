@@ -1,0 +1,32 @@
+Šógi
+# Cíl hry
+Šógi, to jsou japonské šachy. Dej soupeřovu králi mat: napadni ho tak, aby nemohl uniknout. Černý (sente) táhne první, potom se hráči střídají, každý jedním tahem. Všechny figury mají stejnou barvu: figura míří špičkou k soupeři, takže poznáš, komu patří.
+# Jak se figury pohybují
+- Král (玉, 王): o jedno pole libovolným směrem.
+- Věž (飛): o libovolný počet polí po řadě nebo sloupci.
+- Střelec (角): o libovolný počet polí po diagonále.
+- Zlatý generál (金): o jedno pole libovolným směrem kromě šikmo vzad.
+- Stříbrný generál (銀): o jedno pole šikmo, nebo rovně vpřed.
+- Jezdec (桂): o dvě pole vpřed a jedno do strany, přičemž přeskočí cokoli mezi tím. Táhne jen vpřed.
+- Kopiník (香): o libovolný počet polí rovně vpřed.
+- Pěšec (歩): o jedno pole rovně vpřed. Stejně i bere.
+Figury nemohou procházet přes jiné figury (kromě jezdce). Figura bere tak, že vstoupí na pole obsazené soupeřovou figurou.
+# Proměna
+Tři řady nejdál od tebe jsou zóna proměny. Figura, která do ní vstoupí, táhne v ní nebo z ní vychází, se smí proměnit: otočí se a její znak zčervená.
+- Věž se promění v draka (龍): věž, která smí táhnout i o jedno pole šikmo.
+- Střelec se promění v koně (馬): střelec, který smí táhnout i o jedno pole po řadě nebo sloupci.
+- Stříbrný generál, jezdec, kopiník a pěšec se promění ve zlaté generály (全, 圭, 杏, と).
+- Král a zlatý generál se neproměňují.
+Proměna není povinná, kromě případu, kdy by figura už nikdy nemohla táhnout: pěšec nebo kopiník na poslední řadě, jezdec na posledních dvou řadách.
+# Zajaté figury
+Zajatá figura přechází na stranu toho, kdo ji vzal, a čeká v ruce. Místo tahu smíš figuru z ruky vysadit na libovolné volné pole, neproměněnou. Vysazení smí dát šach. Tři omezení:
+- Žádný pěšec do sloupce, kde už je tvůj neproměněný pěšec.
+- Žádná figura tam, kde by už nikdy nemohla táhnout (pěšec nebo kopiník na poslední řadě, jezdec na posledních dvou řadách).
+- Vysazení pěšce nesmí dát okamžitý mat (pěšec, který táhne po desce, smí).
+# Konec hry
+Napadený král je v šachu: další tah ho musí ze šachu dostat. Nikdy nesmíš zahrát tah, po kterém by tvůj vlastní král zůstal v šachu.
+- Mat: král je v šachu a žádný tah ho nemůže zachránit. Tento hráč prohrává. Hráč, který nemá vůbec žádný povolený tah, také prohrává.
+- Opakování: když se stejná pozice (figury na desce i v ruce, stejný hráč na tahu) objeví počtvrté, partie končí remízou. Pokud však jeden hráč od prvního výskytu této pozice dával šach každým tahem, tento hráč prohrává.
+- Pro dva krále, kteří oba vstoupili do soupeřova tábora, žádné pravidlo neplatí: hrajte dál.
+# Hra na zařízení
+Klepni na figuru a uvidíš, kam může táhnout, potom klepni na pole, nebo figuru přetáhni. Tečky ukazují tahy, kroužky braní. Král v šachu svítí červeně. Tvoje figury v ruce jsou v tvé liště, i s jejich počtem: klepni na jednu a pak na pole, nebo ji přetáhni na desku. Když se figura smí proměnit, vyber její proměněnou stranu (červenou), nebo ji nech, jak je.
