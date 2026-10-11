@@ -1,0 +1,19 @@
+Dominó
+# El objetivo
+Quedarte sin fichas antes que los demás, uniéndolas a los extremos de la línea de juego. Con el juego doble seis, de 2 a 4 jugadores, cada uno por su cuenta. Las manos son secretas: pasa el dispositivo después de cada turno. Tres juegos a elegir: el juego cerrado, el juego con robo y All Fives (Muggins).
+# El reparto
+Las 28 fichas se mezclan boca abajo. Cada jugador toma 7 fichas si son dos, 5 si son tres o cuatro. Las demás quedan boca abajo: el pozo.
+# Un turno
+- En la primera ronda, el jugador con el doble más alto lo coloca primero (si nadie tiene un doble, la ficha que más puntos tenga). En las rondas siguientes, el ganador de la última ronda empieza con la ficha que quiera.
+- Por turno, coloca una ficha con un lado igual a un extremo abierto de la línea, con las mitades iguales juntas. Los dobles se ponen atravesados.
+- Juego cerrado: si no puedes jugar, pasa.
+- Juego con robo y All Fives: si no puedes jugar, roba del pozo hasta que puedas. Cuando el pozo esté vacío, pasa.
+# All Fives
+- El primer doble jugado es la ficha giratoria (el spinner). Cuando ya se ha jugado en sus dos lados largos, también se puede jugar en sus dos lados cortos: la línea tiene entonces cuatro extremos.
+- Después de colocar tu ficha, suma los extremos abiertos. Si el total es múltiplo de 5, te lo anotas al momento. Un doble en un extremo cuenta sus dos mitades.
+# El final de una ronda
+La ronda termina cuando un jugador coloca su última ficha, o cuando nadie puede jugar. Quien se queda sin fichas, o, si el juego se cierra, quien tiene menos puntos en la mano, gana la ronda y se anota los puntos que quedan en las demás manos (All Fives: redondeados al múltiplo de 5 más cercano). Si dos jugadores empatan con menos puntos, nadie se anota nada.
+# El final de la partida
+La partida termina tras la ronda en la que un jugador llega a 100 puntos; en All Fives, en cuanto un jugador llega a 100. Gana el total más alto.
+# Jugar en el dispositivo
+Tus fichas están de pie abajo; las que no puedes jugar aparecen atenuadas. Toca una ficha y luego uno de los lugares iluminados donde encaja, o arrástrala hasta allí. Toca el pozo a la izquierda para robar; cuando solo puedes pasar, aparece el botón de pasar en tu barra. En All Fives, el contador de la derecha muestra la suma de los extremos abiertos; brilla dorado en un múltiplo de 5. La barra de cada jugador muestra su puntuación y cuántas fichas tiene. Tras cada ronda, una tabla muestra las fichas que quedan, los puntos de la ronda y los totales: tócala para la ronda siguiente.

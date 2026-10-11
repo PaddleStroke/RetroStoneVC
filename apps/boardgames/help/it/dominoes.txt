@@ -1,0 +1,19 @@
+Domino
+# Lo scopo
+Liberarsi di tutte le tessere prima degli altri, accostandole alle estremità della linea di gioco. Con il set doppio sei, da 2 a 4 giocatori, ognuno per sé. Le mani sono segrete: passa il dispositivo dopo ogni turno. Tre giochi a scelta: il gioco bloccato, il gioco con pesca e All Fives (Muggins).
+# La distribuzione
+Le 28 tessere si mescolano coperte. Ogni giocatore ne prende 7 se si gioca in due, 5 in tre o quattro. Le altre restano coperte: il mucchio.
+# Un turno
+- Nella prima mano, chi ha il doppio più alto lo posa per primo (se nessuno ha un doppio, la tessera con più punti). Nelle mani successive comincia il vincitore dell'ultima mano, con la tessera che vuole.
+- A turno, posa una tessera con un lato uguale a un'estremità aperta della linea, le metà uguali a contatto. I doppi si posano di traverso.
+- Gioco bloccato: se non puoi giocare, passa.
+- Gioco con pesca e All Fives: se non puoi giocare, pesca dal mucchio finché puoi giocare. Quando il mucchio è vuoto, passa.
+# All Fives
+- Il primo doppio giocato è lo spinner. Quando si è giocato su entrambi i suoi lati lunghi, si può posare anche sui due lati corti: la linea ha allora quattro estremità.
+- Dopo aver posato la tessera, somma le estremità aperte. Se il totale è un multiplo di 5, lo segni subito. Un doppio in fondo alla linea conta entrambe le metà.
+# La fine di una mano
+La mano finisce quando un giocatore posa la sua ultima tessera, o quando nessuno può più giocare. Chi ha finito, oppure, a gioco bloccato, chi ha meno punti in mano, vince la mano e segna i punti rimasti nelle altre mani (All Fives: arrotondati al multiplo di 5 più vicino). Se due giocatori sono pari con meno punti, nessuno segna.
+# La fine della partita
+La partita finisce dopo la mano in cui un giocatore arriva a 100 punti; ad All Fives, appena un giocatore arriva a 100. Vince il totale più alto.
+# Giocare sul dispositivo
+Le tue tessere stanno in piedi in basso; quelle che non puoi giocare sono scurite. Tocca una tessera, poi uno dei posti luminosi dove va, oppure trascinala lì. Tocca il mucchio a sinistra per pescare; quando puoi solo passare, il pulsante passa compare nella tua barra. Ad All Fives, il contatore a destra mostra la somma delle estremità aperte; si illumina d'oro su un multiplo di 5. La barra di ogni giocatore mostra il punteggio e quante tessere ha. Dopo ogni mano, una tabella mostra le tessere rimaste, i punti della mano e i totali: toccala per la mano successiva.

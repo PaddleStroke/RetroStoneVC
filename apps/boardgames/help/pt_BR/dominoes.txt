@@ -1,0 +1,19 @@
+Dominó
+# O objetivo
+Livrar-se de todas as suas pedras antes dos outros, encaixando-as nas pontas da linha de jogo. Com o jogo duplo-seis, de 2 a 4 jogadores, cada um por si. As mãos são secretas: passe o aparelho depois de cada jogada. Três jogos para escolher: o jogo fechado, o jogo com compra e All Fives (Muggins).
+# A distribuição
+As 28 pedras são embaralhadas viradas para baixo. Cada jogador pega 7 pedras com dois jogadores, 5 com três ou quatro. As outras ficam viradas para baixo: o monte.
+# Uma jogada
+- Na primeira rodada, quem tem a maior bucha a joga primeiro (se ninguém tiver bucha, a pedra com mais pontos). Nas rodadas seguintes, o vencedor da última rodada começa com a pedra que quiser.
+- Na sua vez, jogue uma pedra com um lado igual a uma ponta aberta da linha, com as metades iguais encostadas. As buchas ficam atravessadas.
+- Jogo fechado: se não puder jogar, passe a vez.
+- Jogo com compra e All Fives: se não puder jogar, compre do monte até poder. Quando o monte acabar, passe a vez.
+# All Fives
+- A primeira bucha jogada é o spinner. Depois que se jogou nos dois lados compridos dele, também se pode jogar nos dois lados curtos: a linha passa a ter quatro pontas.
+- Depois de jogar a sua pedra, some as pontas abertas. Se o total for múltiplo de 5, você marca esse total na hora. Uma bucha na ponta conta as duas metades.
+# O fim de uma rodada
+A rodada termina quando um jogador joga a sua última pedra, ou quando ninguém mais pode jogar. Quem bateu, ou, com o jogo fechado, quem tem menos pontos na mão, ganha a rodada e marca os pontos que sobraram nas outras mãos (All Fives: arredondados para o múltiplo de 5 mais próximo). Se dois jogadores empatarem com menos pontos, ninguém marca.
+# O fim da partida
+A partida termina depois da rodada em que um jogador chega a 100 pontos; no All Fives, assim que um jogador chega a 100. Ganha o maior total.
+# Jogando no aparelho
+Suas pedras ficam em pé embaixo; as que você não pode jogar ficam escurecidas. Toque uma pedra e depois um dos lugares iluminados onde ela encaixa, ou arraste-a até lá. Toque o monte à esquerda para comprar; quando você só pode passar, o botão de passar aparece na sua barra. No All Fives, o contador à direita mostra a soma das pontas abertas; ele brilha dourado num múltiplo de 5. A barra de cada jogador mostra a pontuação e quantas pedras ele tem. Depois de cada rodada, uma tabela mostra as pedras que sobraram, os pontos da rodada e os totais: toque nela para a próxima rodada.

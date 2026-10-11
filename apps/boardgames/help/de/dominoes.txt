@@ -1,0 +1,19 @@
+Domino
+# Das Ziel
+Werde alle deine Steine vor den anderen los, indem du sie an die Enden der Kette anlegst. Mit dem Doppel-Sechs-Spiel, für 2 bis 4 Spieler, jeder für sich. Die Steine auf der Hand sind geheim: Gib das Gerät nach jedem Zug weiter. Drei Spiele zur Wahl: das Blockspiel, das Ziehspiel und All Fives (Muggins).
+# Das Austeilen
+Die 28 Steine werden verdeckt gemischt. Jeder Spieler nimmt 7 Steine bei zwei Spielern, 5 bei drei oder vier. Die übrigen bleiben verdeckt liegen: der Talon.
+# Ein Zug
+- In der ersten Runde legt der Spieler mit dem höchsten Pasch ihn zuerst (hat niemand einen Pasch, den schwersten Stein). In den nächsten Runden beginnt der Gewinner der letzten Runde mit einem beliebigen Stein.
+- Lege reihum einen Stein, dessen eine Hälfte zu einem offenen Ende der Kette passt; gleiche Hälften liegen aneinander. Pasche liegen quer.
+- Blockspiel: Kannst du nicht legen, passt du.
+- Ziehspiel und All Fives: Kannst du nicht legen, ziehst du aus dem Talon, bis du legen kannst. Ist der Talon leer, passt du.
+# All Fives
+- Der erste gelegte Pasch ist der Spinner. Sobald an seine beiden Längsseiten angelegt wurde, darf man auch an seine beiden kurzen Seiten anlegen: Die Kette hat dann vier Enden.
+- Zähle nach deinem Stein die offenen Enden zusammen. Ist die Summe ein Vielfaches von 5, bekommst du sie sofort. Ein Pasch am Ende zählt mit beiden Hälften.
+# Das Ende einer Runde
+Die Runde endet, wenn ein Spieler seinen letzten Stein legt oder niemand mehr legen kann. Wer fertig ist, oder bei blockiertem Spiel, wer die wenigsten Augen auf der Hand hat, gewinnt die Runde und bekommt die Augen, die in den anderen Händen bleiben (All Fives: auf das nächste Vielfache von 5 gerundet). Haben zwei Spieler gleich wenige Augen, bekommt niemand etwas.
+# Das Ende der Partie
+Die Partie endet nach der Runde, in der ein Spieler 100 Punkte erreicht; bei All Fives, sobald ein Spieler 100 erreicht. Die höchste Summe gewinnt.
+# Spielen auf dem Gerät
+Deine Steine stehen unten; die du nicht legen kannst, sind abgedunkelt. Tippe einen Stein an, dann einen der leuchtenden Plätze, an die er passt, oder ziehe ihn dorthin. Tippe auf den Talon links, um zu ziehen; kannst du nur passen, erscheint der Passen-Knopf in deiner Leiste. Bei All Fives zeigt der Zähler rechts die Summe der offenen Enden; bei einem Vielfachen von 5 leuchtet er golden. Die Leiste jedes Spielers zeigt seine Punkte und wie viele Steine er hat. Nach jeder Runde zeigt eine Tafel die übrigen Steine, die Punkte der Runde und die Summen: Tippe darauf für die nächste Runde.

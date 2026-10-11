@@ -1,0 +1,19 @@
+Domino
+# Het doel
+Raak al je stenen kwijt voor de anderen, door ze aan te leggen aan de uiteinden van de rij. Met het dubbel-zes-spel, voor 2 tot 4 spelers, ieder voor zich. De handen zijn geheim: geef het apparaat na elke beurt door. Drie spellen om uit te kiezen: het blokspel, het trekspel en All Fives (Muggins).
+# Het delen
+De 28 stenen worden dicht geschud. Elke speler neemt 7 stenen met twee spelers, 5 met drie of vier. De rest blijft dicht liggen: de pot.
+# Een beurt
+- In de eerste ronde legt de speler met de hoogste dubbele steen die als eerste (heeft niemand een dubbele, dan de zwaarste steen). In de volgende rondes begint de winnaar van de vorige ronde met een steen naar keuze.
+- Leg om de beurt een steen met een kant die past bij een open uiteinde van de rij, gelijke helften tegen elkaar. Dubbele stenen liggen dwars.
+- Blokspel: kun je niet leggen, dan pas je.
+- Trekspel en All Fives: kun je niet leggen, trek dan uit de pot tot het wel kan. Is de pot leeg, dan pas je.
+# All Fives
+- De eerste dubbele steen die gelegd wordt, is de spinner. Zodra aan zijn beide lange kanten is aangelegd, mag je ook aan zijn twee korte kanten aanleggen: de rij heeft dan vier uiteinden.
+- Tel na het leggen van je steen de open uiteinden op. Is het totaal een veelvoud van 5, dan krijg je het meteen. Een dubbele aan een uiteinde telt met beide helften.
+# Het einde van een ronde
+De ronde eindigt als een speler zijn laatste steen legt, of als niemand meer kan leggen. Wie uit is, of bij een geblokkeerd spel wie de minste ogen in de hand heeft, wint de ronde en krijgt de ogen die in de andere handen over zijn (All Fives: afgerond op het dichtstbijzijnde veelvoud van 5). Delen twee spelers het laagste aantal ogen, dan krijgt niemand iets.
+# Het einde van de partij
+De partij eindigt na de ronde waarin een speler 100 punten haalt; bij All Fives zodra een speler 100 haalt. Het hoogste totaal wint.
+# Spelen op het apparaat
+Je stenen staan onderaan; die je niet kunt leggen, zijn gedimd. Tik een steen aan en dan een van de oplichtende plekken waar hij past, of sleep hem erheen. Tik op de pot links om te trekken; kun je alleen passen, dan verschijnt de pasknop in je balk. Bij All Fives toont de teller rechts de som van de open uiteinden; bij een veelvoud van 5 gloeit hij goud. De balk van elke speler toont zijn score en hoeveel stenen hij heeft. Na elke ronde toont een tabel de overgebleven stenen, de punten van de ronde en de totalen: tik erop voor de volgende ronde.

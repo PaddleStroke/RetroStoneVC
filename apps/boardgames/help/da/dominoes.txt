@@ -1,0 +1,19 @@
+Domino
+# Målet
+Bliv af med alle dine brikker før de andre ved at lægge dem til enderne af rækken. Med dobbelt-seks-sættet, for 2 til 4 spillere, hver for sig. Hænderne er hemmelige: giv enheden videre efter hver tur. Tre spil at vælge imellem: blokspillet, trækspillet og All Fives (Muggins).
+# Uddelingen
+De 28 brikker blandes med bagsiden op. Hver spiller tager 7 brikker med to spillere, 5 med tre eller fire. Resten bliver liggende med bagsiden op: bunken.
+# En tur
+- I første runde lægger spilleren med den højeste dobbeltbrik den først (har ingen en dobbeltbrik, den tungeste brik). I de næste runder begynder vinderen af sidste runde med en valgfri brik.
+- Læg på skift en brik, hvis ene halvdel passer til en åben ende af rækken, med de ens halvdele mod hinanden. Dobbeltbrikker ligger på tværs.
+- Blokspil: kan du ikke lægge, melder du pas.
+- Trækspil og All Fives: kan du ikke lægge, trækker du fra bunken, indtil du kan. Er bunken tom, melder du pas.
+# All Fives
+- Den første dobbeltbrik, der lægges, er spinneren. Når der er lagt til begge dens lange sider, må man også lægge til dens to korte sider: rækken har så fire ender.
+- Læg de åbne ender sammen, når du har lagt din brik. Er summen et multiplum af 5, får du den med det samme. En dobbeltbrik for enden tæller med begge halvdele.
+# Slutningen af en runde
+Runden slutter, når en spiller lægger sin sidste brik, eller når ingen kan lægge mere. Den, der gik ud, eller ved et blokeret spil den med færrest øjne på hånden, vinder runden og får øjnene på de andre hænder (All Fives: rundet til nærmeste multiplum af 5). Står to spillere lige med færrest øjne, får ingen point.
+# Spillets afslutning
+Spillet slutter efter den runde, hvor en spiller når 100 point; i All Fives, så snart en spiller når 100. Den højeste sum vinder.
+# Spil på enheden
+Dine brikker står nederst; dem, du ikke kan lægge, er nedtonede. Tryk på en brik og derefter på et af de lysende steder, hvor den passer, eller træk den derhen. Tryk på bunken til venstre for at trække; kan du kun melde pas, kommer pas-knappen frem i dit panel. I All Fives viser tælleren til højre summen af de åbne ender; den lyser gyldent ved et multiplum af 5. Hver spillers panel viser spillerens point og antal brikker. Efter hver runde viser en tavle de resterende brikker, rundens point og summerne: tryk på den for næste runde.

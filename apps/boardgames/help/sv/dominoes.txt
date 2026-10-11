@@ -1,0 +1,19 @@
+Domino
+# Målet
+Bli av med alla dina brickor före de andra genom att lägga dem mot ändarna av raden. Med dubbelsexsetet, för 2 till 4 spelare, var och en för sig. Händerna är hemliga: lämna över enheten efter varje tur. Tre spel att välja mellan: blockspelet, dragspelet och All Fives (Muggins).
+# Given
+De 28 brickorna blandas med baksidan upp. Varje spelare tar 7 brickor med två spelare, 5 med tre eller fyra. Resten ligger kvar med baksidan upp: högen.
+# En tur
+- I första omgången lägger spelaren med den högsta dubbeln ut den först (har ingen en dubbel, den tyngsta brickan). I följande omgångar börjar vinnaren av förra omgången med valfri bricka.
+- Lägg i tur och ordning en bricka vars ena halva passar en öppen ände av raden, med lika halvor mot varandra. Dubblar ligger på tvären.
+- Blockspel: kan du inte lägga står du över.
+- Dragspel och All Fives: kan du inte lägga drar du från högen tills du kan. Är högen tom står du över.
+# All Fives
+- Den första dubbeln som läggs är spinnern. När man har lagt mot båda dess långsidor får man också lägga mot dess två kortsidor: raden har då fyra ändar.
+- Lägg ihop de öppna ändarna när du har lagt din bricka. Är summan en multipel av 5 får du den direkt. En dubbel i en ände räknas med båda halvorna.
+# Slutet på en omgång
+Omgången slutar när en spelare lägger sin sista bricka, eller när ingen kan lägga. Den som gick ut, eller vid ett blockerat spel den med minst prickar på handen, vinner omgången och får prickarna som finns kvar på de andras händer (All Fives: avrundat till närmaste multipel av 5). Delar två spelare på det lägsta antalet prickar får ingen något.
+# Partiets slut
+Partiet slutar efter den omgång då en spelare når 100 poäng; i All Fives så snart en spelare når 100. Högsta summan vinner.
+# Spela på enheten
+Dina brickor står längst ned; de du inte kan lägga är nedtonade. Tryck på en bricka och sedan på en av de lysande platserna där den passar, eller dra den dit. Tryck på högen till vänster för att dra; när du bara kan stå över visas pass-knappen i ditt fält. I All Fives visar räknaren till höger summan av de öppna ändarna; den lyser guld vid en multipel av 5. Varje spelares fält visar poängen och antalet brickor. Efter varje omgång visar en tavla de kvarvarande brickorna, omgångens poäng och summorna: tryck på den för nästa omgång.

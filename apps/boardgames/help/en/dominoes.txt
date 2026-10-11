@@ -1,0 +1,19 @@
+Dominoes
+# The aim
+Get rid of all your bones before the others by matching them to the ends of the line of play. With the double-six set, for 2 to 4 players, each for themselves. The hands are secret: pass the device after every turn. Three games to choose from: the Block game, the Draw game and All Fives (Muggins).
+# The deal
+The 28 bones are shuffled face down. Each player takes 7 bones with two players, 5 with three or four. The others stay face down: the boneyard.
+# A turn
+- In the first round, the player with the highest double lays it first (if nobody has a double, the heaviest bone). In the next rounds, the winner of the last round starts with any bone.
+- In turn, lay one bone with an end matching an open end of the line, the matching halves touching. Doubles lie across the line.
+- Block game: if you cannot play, pass.
+- Draw game and All Fives: if you cannot play, draw from the boneyard until you can. Once the boneyard is empty, pass.
+# All Fives
+- The first double played is the spinner. Once both its long sides have been played on, bones can also be laid on its two short sides: the line then has four ends.
+- After laying your bone, add up the open ends. If the total is a multiple of 5, you score it at once. A double at an end counts both halves.
+# The end of a round
+The round ends when a player lays their last bone, or when nobody can play. The player who went out, or, in a blocked game, the player with the fewest pips in hand, wins the round and scores the pips left in the other hands (All Fives: rounded to the nearest 5). If two players tie for the fewest pips, nobody scores.
+# The end of the game
+The game ends after the round in which a player reaches 100 points; in All Fives, as soon as a player reaches 100. The highest total wins.
+# Playing on the device
+Your bones stand at the bottom; those you cannot play are dimmed. Tap a bone, then one of the glowing places where it fits, or drag it there. Tap the boneyard on the left to draw; when you can only pass, the pass button appears in your bar. In All Fives, the counter on the right shows the open ends added up; it glows gold on a multiple of 5. Each player's bar shows their score and how many bones they hold. After each round, a table shows the bones left, the points of the round and the totals: tap it for the next round.
