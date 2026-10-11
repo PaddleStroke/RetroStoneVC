@@ -499,7 +499,7 @@ static void face_number(canvas *c, int card)
 }
 
 /* a rummy tile: ivory on a wooden side (its thickness at the bottom right), the number in its colour, a ring under it;
- * a joker: a smiling face */
+ * a joker: the cards' jester's cap (the house's own mark, not a face) */
 static void face_tile(canvas *c, int card)
 {
     float w = (float)c->w, h = (float)c->h, r = 0.12f * w;
@@ -513,10 +513,7 @@ static void face_tile(canvas *c, int card)
     if (suit == SUIT_JOKER) {
         const uint8_t *col = TILE_RGB[rank ? 3 : 0];
         art_fig *f = art_fig_new();
-        art_arc(f, ART_PART, 0.5f, 0.5f, 0.38f, 0.46f, 0, 360);
-        art_ellipse(f, ART_PART, 0.36f, 0.38f, 0.06f, 0.08f);
-        art_ellipse(f, ART_PART, 0.64f, 0.38f, 0.06f, 0.08f);
-        art_arc(f, ART_PART, 0.5f, 0.5f, 0.2f, 0.27f, 200, 340);
+        jester_fig(f);
         art_style st = flat_style(col, 0, NULL);
         float s = 0.74f * w;
         put_fig(c, f, &st, fw / 2 - s / 2, 0.44f * fh - s / 2, s, 0);
