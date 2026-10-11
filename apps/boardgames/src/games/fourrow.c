@@ -302,10 +302,12 @@ static void thumb(int variant, int size, uint8_t *rgba)
     free(one);
 }
 
+static int busy(void) { return fall.on; }     /* the end waits for the last disc to land */
+
 static const game fourrow_game = {
     .id = "fourrow", .order = 40, .variants = 1,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script,
+    .bar = bar, .script = script, .busy = busy,
 };
 REGISTER_GAME(fourrow_game)

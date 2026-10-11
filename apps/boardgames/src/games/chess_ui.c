@@ -338,10 +338,12 @@ static void thumb(int variant, int size, uint8_t *rgba)
     }
 }
 
+static int busy(void) { return anim.on; }     /* the end waits for the mating piece to arrive */
+
 static const game chess_game = {
     .id = "chess", .order = 10, .variants = 1,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script,
+    .bar = bar, .script = script, .busy = busy,
 };
 REGISTER_GAME(chess_game)

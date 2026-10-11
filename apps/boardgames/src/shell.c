@@ -29,7 +29,9 @@ static int quit, need_frame;
 enum { SCR_MENU, SCR_PICK, SCR_GAME };
 static int screen, cur = -1;                    /* the game shown (games[cur]) */
 static int variant[MAX_GAMES], started[MAX_GAMES];
-static int last_status, over_hidden;
+static int last_status, over_hidden, instant;   /* instant: the picture mode (no pause before the end card) */
+static Uint32 end_seen;                         /* when the end of the game was first shown (0: not yet) */
+#define END_PAUSE 900                           /* ms of the final position before the end card */
 static Uint32 armed;                            /* "new game" tapped once: a second tap within 2.5 s confirms */
 
 enum { B_HOME, B_UNDO, B_FLIP, B_F2F, B_NEW, NBTN };
@@ -343,6 +345,7 @@ static void open_game(int i, int fresh_variant)
     armed = 0;
     layout();
     last_status = games[cur]->status();
+    end_seen = last_status != GS_PLAY;          /* a game that had ended: its card at once, no tune again */
 }
 
 static void go_home(void)
@@ -363,14 +366,15 @@ static void new_game(void)
     games[cur]->start(variant[cur]);
     over_hidden = 0;
     last_status = GS_PLAY;
+    end_seen = 0;
 }
 
-/* after anything a player did: the end of the game rings once */
+/* after anything a player did: a new end of the game (or none any more) is noticed; draw_game() shows it */
 static void after_input(void)
 {
     if (screen != SCR_GAME) return;
     int s = games[cur]->status();
-    if (s != last_status && s != GS_PLAY) { snd_play(SND_END); over_hidden = 0; }
+    if (s != last_status) { over_hidden = 0; end_seen = 0; }
     last_status = s;
 }
 
@@ -460,7 +464,15 @@ static void draw_game(void)
         SDL_Texture *disc = i == B_NEW && armed ? t_btn_armed : i == B_F2F && ui.f2f ? t_btn_on : NULL;
         draw_button(L.bx[i], L.by[i], L.br, BTN_ICON[i], disc);
     }
-    if (g->status() != GS_PLAY && !over_hidden) draw_over();
+    if (g->status() == GS_PLAY) return;
+    if (g->busy && g->busy()) { end_seen = 0; return; }   /* the last move still moving: the end waits */
+    Uint32 now = SDL_GetTicks();
+    if (!end_seen) {                            /* the end: its tune, the final position a moment, then the card */
+        end_seen = now ? now : 1;
+        snd_play(SND_END);
+    }
+    if (!instant && now - end_seen < END_PAUSE) ui_animate();
+    else if (!over_hidden) draw_over();
 }
 
 static SDL_Texture *thumb(int i, int v)
@@ -596,6 +608,7 @@ static int shot(int argc, char **argv)
         else if (!strcmp(argv[i], "--keep")) keep = 1;
         else if (!strcmp(argv[i], "--pick")) pick = 1;
     }
+    instant = 1;
     SDL_Surface *surf = SDL_CreateRGBSurfaceWithFormat(0, ui.w, ui.h, 32, SDL_PIXELFORMAT_RGBA32);
     ui.r = SDL_CreateSoftwareRenderer(surf);
     if (!ui.r) { fprintf(stderr, "%s\n", SDL_GetError()); return 1; }

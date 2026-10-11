@@ -316,10 +316,12 @@ static void thumb(int variant, int size, uint8_t *rgba)
     free(flat);
 }
 
+static int busy(void) { return anim.on; }     /* the end waits for the last flips */
+
 static const game reversi_game = {
     .id = "reversi", .order = 30, .variants = 1,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script,
+    .bar = bar, .script = script, .busy = busy,
 };
 REGISTER_GAME(reversi_game)

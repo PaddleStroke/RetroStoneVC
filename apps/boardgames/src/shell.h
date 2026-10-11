@@ -40,6 +40,8 @@ typedef struct game {
     int  (*can_pass)(void);                     /* 1: the player to move may pass (the pass button shows in the bar) */
     void (*pass)(void);
     int  (*script)(const char *moves);          /* plays moves in the game's notation (screenshots, tests); 0: bad */
+    int  (*busy)(void);                         /* 1 while the last move still animates: the end of the game waits
+                                                 * for it (then a pause showing the final position, then the card) */
 } game;
 
 void game_register(const game *g);
