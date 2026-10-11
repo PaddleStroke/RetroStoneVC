@@ -1,0 +1,40 @@
+Ranskalainen tarot
+# Tavoite
+Ranskalainen tarot on korttipeli, jossa on 78 korttia: neljä 14 kortin maata (kympin yläpuolella jätkä, ratsu (cavalier), kuningatar ja kuningas), 21 valttia ja Excuse. Jokaisessa jaossa yksi pelaaja, ottaja, pelaa kaikkia muita eli puolustusta vastaan. Peli kestää yhtä monta jakoa kuin on pelaajia, ja suurin yhteispistemäärä voittaa. 3–5 pelaajalle.
+# Kortit
+- Kolme oudleria (bouts) ovat 21, Petit (valttien ykkönen) ja Excuse. Mitä useamman niistä ottaja voittaa, sitä vähemmän pisteitä hän tarvitsee.
+- Pisteet: oudler tai kuningas 4,5, kuningatar 3,5, ratsu 2,5, jätkä 1,5, muut kortit 0,5. Pisteitä on yhteensä 91.
+- Pöydässä kortit lasketaan pareittain: kuningas tai oudler ja pieni kortti tekevät 5, kuningatar ja pieni kortti 4, ratsu 3, jätkä 2, kaksi pientä korttia 1. Tulos on sama.
+# Jako
+- Kortit jaetaan kolme kerrallaan pöydän ympäri jakajasta seuraavasta alkaen. Koira (le chien), sivuun jaettava pino, saa 6 korttia (viidellä pelaajalla 3) yksi kerrallaan, mutta ei koskaan ensimmäisiä eikä viimeisiä kortteja.
+- Kukin saa 24 korttia kolmella pelaajalla, 18 neljällä ja 15 viidellä.
+- Pelaaja, jonka ainoa valtti on Petit ilman Excusea (Petit sec), näyttää sen, ja jako mitätöidään. Seuraava pelaaja jakaa.
+# Tarjoukset
+Jakajasta seuraavasta alkaen jokainen puhuu kerran: hän passaa tai tarjoaa enemmän kuin kaikki aiemmat tarjoukset.
+- Pieni (Petite): ottaja saa koiran. Jako lasketaan kerran.
+- Garde: sama, mutta kaksinkertaisena.
+- Garde ilman (Garde sans): kukaan ei näe koiraa; sen kortit lasketaan ottajalle. Nelinkertaisena.
+- Garde vastaan (Garde contre): kukaan ei näe koiraa; sen kortit lasketaan puolustukselle. Kuusinkertaisena.
+Jos kaikki passaavat, jako mitätöidään ja seuraava pelaaja jakaa.
+# Viisi pelaajaa: kutsuttu kuningas
+Ennen koiraa ottaja kutsuu kuninkaan (kuningattaren, jos hänellä on kaikki neljä kuningasta). Kortin haltijasta tulee ottajan pari, mutta hän pitää sen salassa, kunnes kuningas pelataan. Jos kortti on ottajalla itsellään tai koirassa, ottaja pelaa yksin neljää vastaan.
+# Koira
+Pienellä ja Gardella koira käännetään kaikkien nähtäväksi. Sitten ottaja lisää sen käteensä ja panee salaa sivuun yhtä monta korttia: ei koskaan kuningasta eikä oudleria, ja valtin vain, jos muuta keinoa ei ole. Sivuun pannut valtit näytetään. Sivuun pannut kortit lasketaan ottajalle.
+# Tikki
+- Jakajasta seuraava aloittaa ensimmäisen tikin; tikin voittaja aloittaa seuraavan.
+- Tunnusta aloitettua maata. Jos sitä ei ole, on pelattava valtti; jos valttiakaan ei ole, pelaa mikä tahansa kortti.
+- Kun tikissä on valtti, on pelattava suurempi valtti, jos voit; jos et voi, pelaa pienempi.
+- Suurin valtti voittaa tikin; ilman valttia aloitetun maan suurin kortti.
+- Excusen voi pelata milloin tahansa toisen kortin sijaan, eikä se koskaan voita: sen omistaja pitää sen ja antaa tikin voittajalle vaihdossa puolen pisteen arvoisen kortin. Jos tikki aloitettiin Excusella, seuraava kortti määrää maan. Viimeisessä tikissä pelattuna se menee tikin voittajalle, paitsi jos sen puoli on voittanut kaikki aiemmat tikit: silloin se voittaa tuon viimeisen tikin.
+# Poignée
+Pelaaja, jolla on paljon valtteja, voi näyttää ne juuri ennen ensimmäisen korttinsa pelaamista: yksinkertainen poignée 10 valttia (kolmella pelaajalla 13, viidellä 8), kaksinkertainen 13 (15, 10) tai kolminkertainen 15 (18, 13). Excuse voi täydentää sen. Se on 20, 30 tai 40 pisteen arvoinen jaon voittavalle puolelle.
+# Pisteytys
+- Ottajan puoli tarvitsee 56 pistettä ilman oudleria, 51 yhdellä, 41 kahdella ja 36 kaikilla kolmella. Näillä pisteillä se voittaa jaon, ilman niitä häviää sen.
+- Jako on 25 pisteen arvoinen plus saatujen ja tarvittujen pisteiden erotus (puolikas piste lasketaan kokonaiseksi), kerrottuna tarjouksen mukaan 1, 2, 4 tai 6.
+- Petit au bout: viimeisessä tikissä pelattu Petit on 10 pisteen arvoinen, kerrottuna tarjouksen kertoimella, sille puolelle, joka voittaa tikin.
+- Puoli, joka voittaa kaikki tikit (chelem; sitä ei tässä koskaan ilmoiteta), saa 200 pistettä lisää.
+- Jokainen puolustaja maksaa jaon arvon ottajalle tai saa sen häneltä. Viidellä pelaajalla, kun ottajalla on pari, ottaja saa kaksi osuutta ja pari yhden. Pisteiden summa on aina nolla.
+# Pelin loppu
+Kun jakoja on pelattu yhtä monta kuin on pelaajia (mitätöityä jakoa ei lasketa), suurimman yhteispistemäärän saanut voittaa.
+# Pelaaminen laitteella
+Antakaa laite kiertää: vuorossa oleva näkee kätensä alhaalla yhdessä tai kahdessa rivissä. Jokaisen pelaajan palkki näyttää hänen yhteispisteensä, korttiensa määrän ja tarjouksensa. Tarjoa napauttamalla painiketta. Tikki on keskellä, jokainen kortti pelaajansa puolella hänen merkkinsä kanssa; juuri voitettu tikki jää paikalleen voittokortti hehkuen, kunnes seuraava tikki aloitetaan. Napauta vasemman yläkulman pinoa nähdäksesi viimeisen tikin uudelleen. Kun koira käännetään, kaikki näkevät sen, ja ottajan käsi pysyy piilossa: näyttäkää laitetta kaikille, sitten ottaja napauttaa koiraa ottaakseen sen, napauttaa sivuun pantavia kortteja (napauta korttia uudelleen ottaaksesi sen takaisin) ja pyöreää painiketta. Kun voit näyttää poignéen, ylös ilmestyy painike, jossa on sen valttien määrä. Jokaisen jaon jälkeen taulukko näyttää tarjouksen ja sen kertoimen, ottajan puolen voittamat oudlerit, sen pisteet, tarvitut pisteet ja erotuksen, bonukset sekä jokaisen pelaajan pisteet ja yhteispisteet; napauta sitä seuraavaa jakoa varten. Kumoa peruu vain omat siirtosi tältä vuorolta.

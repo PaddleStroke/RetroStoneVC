@@ -1,0 +1,40 @@
+Tarot francês
+# O objetivo
+O jogo de cartas francês tarot, com 78 cartas: quatro naipes de 14 cartas (valete, cavaleiro, dama e rei acima do 10), 21 trunfos e a Desculpa (Excuse). Em cada ronda um jogador, o atacante, joga contra todos os outros, a defesa. O jogo dura tantas rondas quantos os jogadores, e ganha o total mais alto. De 3 a 5 jogadores.
+# As cartas
+- As três cartas-chave (oudlers) são o 21, o Petit (o 1 de trunfo) e a Desculpa. Quantas mais o atacante ganhar, menos pontos precisa de fazer.
+- Pontos: uma carta-chave ou um rei 4,5, uma dama 3,5, um cavaleiro (cavalier) 2,5, um valete 1,5, qualquer outra carta 0,5. Há 91 pontos ao todo.
+- À mesa, as cartas contam-se aos pares: um rei ou uma carta-chave com uma carta pequena faz 5, uma dama com uma carta pequena 4, um cavaleiro 3, um valete 2, duas cartas pequenas 1. Dá o mesmo.
+# A distribuição
+- As cartas são dadas de três em três, à volta da mesa, a começar pelo jogador a seguir a quem dá. O cão (le chien) recebe 6 cartas (3 com cinco jogadores), uma de cada vez, nunca as primeiras nem as últimas.
+- Cada jogador recebe 24 cartas com três jogadores, 18 com quatro, 15 com cinco.
+- Um jogador cujo único trunfo é o Petit, sem a Desculpa (o Petit sec), mostra-o e a ronda é anulada. Dá as cartas o jogador seguinte.
+# Os lances
+A começar pelo jogador a seguir a quem dá, cada um fala uma só vez: diz Passo ou faz um lance mais alto do que todos os anteriores.
+- Pequena (Petite): o atacante fica com o cão. A ronda conta uma vez.
+- Guarda (Garde): o mesmo, mas conta a dobrar.
+- Guarda sem (Garde sans): ninguém vê o cão; as suas cartas contam para o atacante. Conta quatro vezes.
+- Guarda contra (Garde contre): ninguém vê o cão; as suas cartas contam para a defesa. Conta seis vezes.
+Se todos passarem, a ronda é anulada e dá as cartas o jogador seguinte.
+# Cinco jogadores: o rei chamado
+Antes do cão, o atacante chama um rei (uma dama se tiver os quatro reis). Quem tiver esse rei torna-se parceiro do atacante, mas guarda segredo até o rei ser jogado. Se o próprio atacante o tiver, ou se estiver no cão, o atacante joga sozinho contra quatro.
+# O cão
+Na Pequena e na Guarda, o cão é voltado para cima para todos o verem. Depois o atacante junta-o à sua mão e põe de parte em segredo o mesmo número de cartas: nunca um rei nem uma carta-chave, e um trunfo só se não houver outra maneira. Os trunfos postos de parte são mostrados. As cartas postas de parte contam para o atacante.
+# Uma vaza
+- O jogador a seguir a quem dá sai na primeira vaza; quem ganha uma vaza sai na seguinte.
+- Assiste ao naipe de saída. Se não o tiveres, tens de jogar um trunfo; se também não tiveres trunfo, joga qualquer carta.
+- Quando há um trunfo na vaza, tens de jogar um trunfo mais alto se puderes; se não puderes, joga um mais baixo.
+- O trunfo mais alto ganha a vaza; sem trunfo, a carta mais alta do naipe de saída.
+- A Desculpa pode ser jogada a qualquer momento em vez de outra carta e nunca ganha: o dono fica com ela e dá em troca ao vencedor da vaza uma carta de meio ponto. Se alguém sair com ela, a carta seguinte define o naipe. Jogada na última vaza, vai para o vencedor da vaza, a não ser que o lado do dono tenha ganho todas as vazas anteriores: nesse caso ganha essa última vaza.
+# Poignée
+Um jogador com muitos trunfos pode mostrá-los mesmo antes de jogar a sua primeira carta: uma poignée simples de 10 trunfos (13 com três jogadores, 8 com cinco), dupla de 13 (15, 10) ou tripla de 15 (18, 13). A Desculpa pode completá-la. Vale 20, 30 ou 40 pontos para o lado que ganhar a ronda.
+# A pontuação
+- O lado do atacante precisa de 56 pontos sem carta-chave, 51 com uma, 41 com duas, 36 com as três. Com esses pontos ganha a ronda; sem eles, perde-a.
+- A ronda vale 25 pontos mais a diferença entre os pontos feitos e os pontos necessários (meio ponto conta como um ponto inteiro), vezes 1, 2, 4 ou 6 conforme o lance.
+- Petit au bout: o Petit na última vaza vale 10 pontos, vezes o número do lance, para o lado que ganhar essa vaza.
+- Um lado que ganhe todas as vazas (um chelem, que aqui nunca se anuncia) marca mais 200 pontos.
+- Cada defensor paga o valor da ronda ao atacante, ou recebe-o dele. Com cinco jogadores e um parceiro, o atacante fica com duas partes e o parceiro com uma. A soma das pontuações é sempre zero.
+# O fim do jogo
+Depois de tantas rondas quantos os jogadores (uma ronda anulada não conta), ganha o jogador com o total mais alto.
+# Jogar no dispositivo
+Passem o dispositivo: o jogador da vez vê a sua mão em baixo, numa ou duas filas. A barra de cada jogador mostra o seu total, quantas cartas tem e o seu lance. Para fazer um lance, toca num botão. A vaza fica no centro, cada carta do lado do seu jogador, com a sua peça; a vaza acabada de ganhar fica lá, com a carta vencedora a brilhar, até se sair para a seguinte. Toca no monte em cima à esquerda para voltar a ver a última vaza. Quando o cão é voltado, todos o veem enquanto a mão do atacante fica voltada para baixo: mostra o dispositivo a todos, depois o atacante toca no cão para o tirar, toca nas cartas a pôr de parte (toca outra vez numa delas para a recuperar) e no botão redondo. Quando puderes mostrar uma poignée, aparece em cima um botão com o seu número de trunfos. Depois de cada ronda, uma tabela mostra o lance com o seu multiplicador, as cartas-chave ganhas pelo lado do atacante, os seus pontos, os pontos necessários e a diferença, os prémios, depois os pontos e o total de cada jogador; toca nela para a ronda seguinte. Anular só desfaz as tuas próprias jogadas desta vez.

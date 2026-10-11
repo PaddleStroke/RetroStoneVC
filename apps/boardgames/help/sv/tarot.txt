@@ -1,0 +1,40 @@
+Fransk tarot
+# Målet
+Det franska kortspelet tarot, med 78 kort: fyra färger om 14 kort (knekt, riddare, dam och kung över tian), 21 trumfkort och Narren (Excuse). I varje giv spelar en spelare, spelföraren, mot alla de andra, försvaret. Ett parti varar lika många givar som det finns spelare, och högsta summan vinner. För 3, 4 eller 5 spelare.
+# Korten
+- De tre nyckelkorten (oudlers, bouts) är 21:an, Petit (trumf 1) och Narren. Ju fler av dem spelföraren tar hem, desto färre poäng behövs.
+- Poäng: ett nyckelkort eller en kung 4,5, en dam 3,5, en riddare 2,5, en knekt 1,5, alla andra kort 0,5. Totalt finns det 91 poäng.
+- Vid bordet räknas korten parvis: en kung eller ett nyckelkort med ett lågt kort ger 5, en dam med ett lågt kort 4, en riddare 3, en knekt 2, två låga kort 1. Det blir samma sak.
+# Given
+- Korten delas ut tre i taget, runt bordet, med början hos spelaren efter den som ger. Talongen (le chien) får 6 kort (3 med fem spelare), ett i taget, aldrig de första eller de sista korten.
+- Varje spelare får 24 kort med tre spelare, 18 med fyra, 15 med fem.
+- En spelare vars enda trumf är Petit, utan Narren (ensam Petit, Petit sec), visar upp den och given annulleras. Nästa spelare ger.
+# Budgivningen
+Med början hos spelaren efter den som ger säger varje spelare sitt en gång: Pass, eller ett bud högre än alla tidigare bud.
+- Liten (Petite): spelföraren får talongen. Given räknas en gång.
+- Garde: samma sak, räknas dubbelt.
+- Garde utan (Garde sans): ingen ser talongen; dess kort räknas till spelföraren. Räknas fyra gånger.
+- Garde mot (Garde contre): ingen ser talongen; dess kort räknas till försvaret. Räknas sex gånger.
+Om alla säger pass annulleras given och nästa spelare ger.
+# Fem spelare: den kallade kungen
+Före talongen kallar spelföraren på en kung (en dam om spelföraren har alla fyra kungarna). Den som har kortet blir spelförarens partner men håller det hemligt tills kungen spelas. Om spelföraren själv har kortet, eller om det ligger i talongen, spelar spelföraren ensam mot fyra.
+# Talongen
+Vid Liten och Garde vänds talongen upp så att alla ser den. Sedan tar spelföraren upp den på handen och lägger i hemlighet undan lika många kort: aldrig en kung eller ett nyckelkort, och en trumf bara om det inte går på något annat sätt. Undanlagda trumfkort visas. De undanlagda korten räknas till spelföraren.
+# Ett stick
+- Spelaren efter den som ger spelar ut till första sticket; den som tar ett stick spelar ut till nästa.
+- Bekänn färg. Saknar du färgen måste du spela trumf; har du ingen trumf heller, spela vilket kort som helst.
+- När det ligger en trumf i sticket måste du spela en högre trumf om du kan; kan du inte, spela en lägre.
+- Högsta trumf tar sticket; utan trumf tar det högsta kortet i den utspelade färgen.
+- Narren kan spelas när som helst i stället och vinner aldrig: ägaren behåller den och ger stickets vinnare ett kort värt en halv poäng i utbyte. Om den spelades ut bestämmer nästa kort färgen. Spelas den i sista sticket går den till stickets vinnare, utom om dess sida har tagit alla tidigare stick: då tar den själv det sista sticket.
+# Poignée
+En spelare med många trumf får visa dem precis innan spelaren lägger sitt första kort: en enkel poignée på 10 trumf (13 med tre spelare, 8 med fem), en dubbel på 13 (15, 10) eller en trippel på 15 (18, 13). Narren får fylla ut den. Den är värd 20, 30 eller 40 poäng för den sida som vinner given.
+# Poängen
+- Spelförarens sida behöver 56 poäng utan nyckelkort, 51 med ett, 41 med två, 36 med alla tre. Med de poängen vinner den given, utan dem förlorar den.
+- Given är värd 25 poäng plus skillnaden mellan vunna och behövda poäng (en halv poäng räknas som en hel), gånger 1, 2, 4 eller 6 efter budet.
+- Petit au bout: Petit i sista sticket är värd 10 poäng, gånger budets tal, för den sida som tar det sticket.
+- En sida som tar alla stick (en chelem; den förannonseras aldrig här) får 200 till.
+- Varje försvarare betalar givens värde till spelföraren eller får det av spelföraren. Med fem spelare och en partner tar spelföraren två andelar och partnern en. Poängen blir alltid noll sammanlagt.
+# Partiets slut
+Efter lika många givar som det finns spelare (en annullerad giv räknas inte) vinner spelaren med högst summa.
+# Spela på enheten
+Skicka runt enheten: den som har tur ser sin hand längst ned, i en eller två rader. Varje spelares fält visar summan, hur många kort spelaren har och budet. Tryck på en knapp för att bjuda. Sticket ligger i mitten, varje kort på sin spelares sida, med spelarens markör; sticket som just togs ligger kvar där, med vinnarens kort lysande, tills nästa kort spelas ut. Tryck på högen uppe till vänster för att se sista sticket igen. När talongen vänds upp ser alla den medan spelförarens hand ligger dold: visa enheten runt bordet, sedan trycker spelföraren på talongen för att ta den, på korten som ska läggas undan (tryck på ett igen för att ta tillbaka det) och på den runda knappen. När du får visa en poignée dyker en knapp med antalet trumf upp längst upp. Efter varje giv visar en tavla budet med dess tal, nyckelkorten som spelförarens sida tog, sidans poäng, poängen som behövdes och skillnaden, bonusarna, och sedan varje spelares poäng och summa; tryck på den för nästa giv. Ångra tar bara tillbaka dina egna drag under den här turen.

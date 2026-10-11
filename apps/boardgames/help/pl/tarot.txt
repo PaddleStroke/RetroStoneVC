@@ -1,0 +1,40 @@
+Tarot francuski
+# Cel gry
+Francuska gra karciana tarot, na 78 kart: cztery kolory po 14 kart (walet, rycerz, dama i król powyżej 10), 21 atutów i Excuse. W każdym rozdaniu jeden gracz, rozgrywający, gra przeciwko wszystkim pozostałym, czyli obronie. Gra trwa tyle rozdań, ilu jest graczy, i wygrywa najwyższa suma. Dla 3, 4 lub 5 graczy.
+# Karty
+- Trzy karty kluczowe (oudlers) to 21, Petit (atut 1) i Excuse. Im więcej z nich zdobędzie rozgrywający, tym mniej punktów potrzebuje.
+- Punkty: karta kluczowa lub król 4,5, dama 3,5, rycerz (cavalier) 2,5, walet 1,5, każda inna karta 0,5. Razem jest 91 punktów.
+- Przy stole liczy się karty parami: król lub karta kluczowa z małą kartą daje 5, dama z małą kartą 4, rycerz 3, walet 2, dwie małe karty 1. Wychodzi na to samo.
+# Rozdawanie
+- Karty rozdaje się po trzy, dookoła stołu, zaczynając od gracza po rozdającym. Musik (le chien) dostaje 6 kart (3 przy pięciu graczach), po jednej, nigdy pierwsze ani ostatnie karty.
+- Każdy gracz dostaje 24 karty przy trzech graczach, 18 przy czterech, 15 przy pięciu.
+- Gracz, którego jedynym atutem jest Petit, bez Excuse (Petit sec), pokazuje go i rozdanie zostaje unieważnione. Rozdaje następny gracz.
+# Licytacja
+Zaczynając od gracza po rozdającym, każdy mówi tylko raz: Pas albo odzywkę wyższą od wszystkich wcześniejszych.
+- Mała (Petite): rozgrywający bierze musik. Rozdanie liczy się raz.
+- Garde: to samo, liczone dwa razy.
+- Garde bez (Garde sans): nikt nie ogląda musiku; jego karty liczą się dla rozgrywającego. Liczone cztery razy.
+- Garde przeciw (Garde contre): nikt nie ogląda musiku; jego karty liczą się dla obrony. Liczone sześć razy.
+Jeśli wszyscy spasują, rozdanie zostaje unieważnione i rozdaje następny gracz.
+# Pięciu graczy: wywołany król
+Przed musikiem rozgrywający wywołuje króla (damę, jeśli ma wszystkie cztery króle). Kto go ma, zostaje partnerem rozgrywającego, ale trzyma to w tajemnicy, dopóki król nie zostanie zagrany. Jeśli rozgrywający ma go sam albo król leży w musiku, rozgrywający gra sam przeciwko czterem.
+# Musik
+Przy Małej i Garde musik zostaje odkryty, żeby wszyscy go widzieli. Potem rozgrywający bierze go do ręki i w tajemnicy odkłada tyle samo kart: nigdy króla ani karty kluczowej, a atut tylko wtedy, gdy nie ma innego wyjścia. Odłożone atuty się pokazuje. Odłożone karty liczą się dla rozgrywającego.
+# Lewa
+- Gracz po rozdającym wychodzi do pierwszej lewy; kto weźmie lewę, wychodzi do następnej.
+- Dokładaj do koloru wyjścia. Jeśli go nie masz, musisz zagrać atut; jeśli nie masz też atutu, zagraj dowolną kartę.
+- Gdy w lewie jest atut, musisz zagrać wyższy atut, jeśli możesz; jeśli nie możesz, zagraj niższy.
+- Lewę bierze najwyższy atut; bez atutu najwyższa karta w kolorze wyjścia.
+- Excuse można zagrać zamiast tego w dowolnej chwili i nigdy nie bierze lewy: właściciel zatrzymuje ją i w zamian daje zwycięzcy lewy kartę wartą pół punktu. Jeśli ktoś nią wyszedł, kolor ustala następna karta. Zagrana w ostatniej lewie trafia do zwycięzcy lewy, chyba że strona jej właściciela wzięła wszystkie wcześniejsze lewy: wtedy bierze tę ostatnią lewę.
+# Poignée
+Gracz z wieloma atutami może je pokazać tuż przed zagraniem swojej pierwszej karty: pojedyncza poignée to 10 atutów (13 przy trzech graczach, 8 przy pięciu), podwójna 13 (15, 10), a potrójna 15 (18, 13). Excuse może ją uzupełnić. Jest warta 20, 30 lub 40 punktów dla strony, która wygra rozdanie.
+# Punktacja
+- Strona rozgrywającego potrzebuje 56 punktów bez karty kluczowej, 51 z jedną, 41 z dwiema, 36 ze wszystkimi trzema. Z tymi punktami wygrywa rozdanie, bez nich je przegrywa.
+- Rozdanie jest warte 25 punktów plus różnica między zdobytymi a potrzebnymi punktami (pół punktu liczy się jako cały), razy 1, 2, 4 lub 6 zależnie od odzywki.
+- Petit au bout: Petit w ostatniej lewie jest wart 10 punktów, razy mnożnik odzywki, dla strony, która weźmie tę lewę.
+- Strona, która weźmie wszystkie lewy (szlem, po francusku chelem; tutaj nigdy się go nie zapowiada), dostaje 200 punktów więcej.
+- Każdy obrońca płaci rozgrywającemu wartość rozdania albo ją od niego dostaje. Przy pięciu graczach z partnerem rozgrywający bierze dwie części, a partner jedną. Wyniki zawsze sumują się do zera.
+# Koniec gry
+Po tylu rozdaniach, ilu jest graczy (unieważnione rozdanie się nie liczy), wygrywa gracz z najwyższą sumą.
+# Gra na urządzeniu
+Podawajcie sobie urządzenie: gracz, którego jest kolej, widzi swoje karty na dole, w jednym lub dwóch rzędach. Pasek każdego gracza pokazuje jego sumę, liczbę kart w ręce i odzywkę. Żeby licytować, dotknij przycisku. Lewa leży na środku, każda karta po stronie swojego gracza, z jego żetonem; właśnie wzięta lewa zostaje tam, a zwycięska karta świeci, dopóki ktoś nie wyjdzie do następnej. Dotknij stosiku w lewym górnym rogu, żeby znów zobaczyć ostatnią lewę. Gdy musik jest odkryty, widzą go wszyscy, a karty rozgrywającego pozostają zakryte: pokaż urządzenie wszystkim, potem rozgrywający dotyka musiku, żeby go wziąć, dotyka kart do odłożenia (dotknij jednej ponownie, żeby ją cofnąć) i okrągłego przycisku. Gdy możesz pokazać poignée, u góry pojawia się przycisk z liczbą atutów. Po każdym rozdaniu tabela pokazuje odzywkę z jej mnożnikiem, karty kluczowe zdobyte przez stronę rozgrywającego, jej punkty, potrzebne punkty i różnicę, premie, a potem punkty i sumę każdego gracza; dotknij jej, by zacząć następne rozdanie. Cofnij cofa tylko twoje własne ruchy z tej tury.

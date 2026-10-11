@@ -1,0 +1,40 @@
+Tarot
+# Le but
+Le jeu de tarot français, avec 78 cartes : quatre couleurs de 14 cartes (valet, cavalier, dame et roi au-dessus du 10), 21 atouts et l'Excuse. À chaque donne, un joueur, le preneur, joue contre tous les autres, la défense. La partie dure autant de donnes qu'il y a de joueurs ; le plus gros total gagne. De 3 à 5 joueurs.
+# Les cartes
+- Les trois bouts (les oudlers) sont le 21, le Petit (l'atout 1) et l'Excuse. Plus le preneur en remporte, moins il lui faut de points.
+- Les points : un bout ou un roi 4,5, une dame 3,5, un cavalier 2,5, un valet 1,5, toute autre carte 0,5. Il y a 91 points en tout.
+- À table, on compte les cartes par paires : un roi ou un bout avec une petite carte font 5, une dame avec une petite 4, un cavalier 3, un valet 2, deux petites cartes 1. Le résultat est le même.
+# La donne
+- Les cartes sont distribuées trois par trois, en tournant, en commençant par le joueur qui suit le donneur. Le chien reçoit 6 cartes (3 à cinq joueurs), une à la fois, jamais les premières ni les dernières.
+- Chacun reçoit 24 cartes à trois joueurs, 18 à quatre, 15 à cinq.
+- Un joueur dont le seul atout est le Petit, sans l'Excuse (le Petit sec), le montre et la donne est annulée. Le joueur suivant donne.
+# Les enchères
+En commençant par le joueur qui suit le donneur, chacun parle une seule fois : il passe, ou annonce plus haut que toutes les enchères avant lui.
+- Petite (la prise) : le preneur prend le chien. La donne compte une fois.
+- Garde : la même chose, comptée deux fois.
+- Garde sans (le chien) : personne ne voit le chien ; ses cartes comptent pour le preneur. Comptée quatre fois.
+- Garde contre (le chien) : personne ne voit le chien ; ses cartes comptent pour la défense. Comptée six fois.
+Si tout le monde passe, la donne est annulée et le joueur suivant donne.
+# À cinq joueurs : le roi appelé
+Avant le chien, le preneur appelle un roi (une dame s'il a les quatre rois). Celui qui l'a devient son partenaire, mais le garde secret jusqu'à ce que le roi soit joué. Si le preneur l'a lui-même, ou s'il est au chien, le preneur joue seul contre quatre.
+# Le chien
+À la Petite et à la Garde, le chien est retourné et tout le monde le voit. Le preneur l'ajoute à son jeu puis écarte en secret autant de cartes : jamais de roi ni de bout, et un atout seulement s'il ne peut pas faire autrement. Les atouts écartés sont montrés. L'écart compte pour le preneur.
+# Un pli
+- Le joueur qui suit le donneur entame le premier pli ; celui qui remporte un pli entame le suivant.
+- On fournit à la couleur demandée. Si on n'en a pas, on doit couper avec un atout ; sans atout non plus, on joue n'importe quelle carte.
+- Quand un atout est dans le pli, il faut monter (jouer un atout plus fort) si on le peut ; sinon on joue un atout plus faible.
+- Le plus fort atout remporte le pli ; sans atout, la plus forte carte de la couleur demandée.
+- L'Excuse peut être jouée à tout moment à la place et ne gagne jamais : son propriétaire la garde et donne en échange au gagnant du pli une carte d'un demi-point. Si elle est entamée, la carte suivante fixe la couleur. Jouée au dernier pli, elle va au gagnant du pli, sauf si son camp a remporté tous les plis précédents : elle remporte alors ce dernier pli.
+# La poignée
+Un joueur qui a beaucoup d'atouts peut les montrer juste avant de jouer sa première carte : simple poignée de 10 atouts (13 à trois joueurs, 8 à cinq), double de 13 (15, 10), triple de 15 (18, 13). L'Excuse peut la compléter. Elle vaut 20, 30 ou 40 points au camp qui gagne la donne.
+# Le score
+- Le camp du preneur doit faire 56 points sans bout, 51 avec un, 41 avec deux, 36 avec les trois. Avec ces points il gagne la donne, sinon il chute.
+- La donne vaut 25 points plus l'écart entre les points faits et les points demandés (un demi-point compte pour un point entier), multipliés par 1, 2, 4 ou 6 selon l'enchère.
+- Le Petit au bout : le Petit dans le dernier pli vaut 10 points, multipliés comme l'enchère, au camp qui remporte ce pli.
+- Un camp qui remporte tous les plis (un chelem, jamais annoncé ici) marque 200 points de plus.
+- Chaque défenseur paie la valeur de la donne au preneur, ou la reçoit de lui. À cinq avec un partenaire, le preneur prend deux parts et le partenaire une. La somme des scores est toujours nulle.
+# La fin de la partie
+Après autant de donnes qu'il y a de joueurs (une donne annulée ne compte pas), le joueur au plus gros total gagne.
+# Jouer sur l'appareil
+L'appareil passe de main en main : le joueur dont c'est le tour voit son jeu en bas, sur une ou deux rangées. La barre de chaque joueur montre son total, son nombre de cartes et son enchère. Pour annoncer, touche un bouton. Le pli est au milieu, chaque carte du côté de son joueur, avec sa pièce ; le pli qui vient d'être remporté y reste, la carte gagnante en lumière, jusqu'à l'entame suivante. Touche le tas en haut à gauche pour revoir le dernier pli. Quand le chien est retourné, tout le monde le voit pendant que le jeu du preneur reste caché : fais passer l'appareil, puis le preneur touche le chien pour le prendre, touche les cartes à écarter (touche-en une à nouveau pour la reprendre) et le bouton rond. Quand tu peux montrer une poignée, un bouton avec son nombre d'atouts apparaît en haut. Après chaque donne, un tableau montre l'enchère et son multiplicateur, les bouts du camp du preneur, ses points, les points demandés et l'écart, les primes, puis les points et le total de chaque joueur ; touche-le pour la donne suivante. Annuler ne reprend que tes propres coups de ce tour.

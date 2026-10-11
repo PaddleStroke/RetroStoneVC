@@ -1,0 +1,40 @@
+Fransk tarot
+# Målet
+Det franske kortspil tarot med 78 kort: fire kulører på 14 kort (knægt, rytter, dame og konge over 10'eren), 21 trumfer og Excuse. I hvert giv spiller én spiller, spilføreren, mod alle de andre, forsvaret. Et spil varer lige så mange giv, som der er spillere, og den højeste sum vinder. For 3, 4 eller 5 spillere.
+# Kortene
+- De tre oudlere (bouts) er 21'eren, Petit (trumf 1) og Excuse. Jo flere af dem spilføreren vinder, jo færre point skal der til.
+- Point: en oudler eller en konge 4,5, en dame 3,5, en rytter 2,5, en knægt 1,5, alle andre kort 0,5. Der er 91 point i alt.
+- Ved bordet tælles kortene parvis: en konge eller en oudler med et lille kort giver 5, en dame med et lille kort 4, en rytter 3, en knægt 2, to små kort 1. Det giver det samme.
+# Kortgivningen
+- Kortene gives tre ad gangen, rundt om bordet, begyndende med spilleren efter giveren. Hunden (chien) får 6 kort (3 med fem spillere), ét ad gangen, aldrig de første eller de sidste kort.
+- Hver spiller får 24 kort med tre spillere, 18 med fire, 15 med fem.
+- En spiller, hvis eneste trumf er Petit, uden Excuse (Petit sec), viser den, og givet annulleres. Den næste spiller giver.
+# Budgivningen
+Begyndende med spilleren efter giveren melder hver spiller én gang: Pas, eller et højere bud end alle bud før.
+- Lille (Petite): spilføreren får hunden. Givet tæller én gang.
+- Garde: det samme, tæller dobbelt.
+- Garde uden (Garde sans): ingen ser hunden; dens kort tæller for spilføreren. Tæller fire gange.
+- Garde mod (Garde contre): ingen ser hunden; dens kort tæller for forsvaret. Tæller seks gange.
+Melder alle pas, annulleres givet, og den næste spiller giver.
+# Fem spillere: den kaldte konge
+Før hunden kalder spilføreren en konge (en dame, hvis spilføreren har alle fire konger). Den, der har kongen, bliver spilførerens makker, men holder det hemmeligt, indtil kongen er spillet. Har spilføreren den selv, eller ligger den i hunden, spiller spilføreren alene mod fire.
+# Hunden
+Ved Lille og Garde vendes hunden, så alle kan se den. Så tager spilføreren den på hånden og lægger i hemmelighed lige så mange kort til side: aldrig en konge eller en oudler, og kun en trumf, hvis der ikke er anden udvej. Trumfer, der lægges til side, vises frem. Kortene lagt til side tæller for spilføreren.
+# Et stik
+- Spilleren efter giveren spiller ud til første stik; den, der vinder et stik, spiller ud til det næste.
+- Bekend den kulør, der blev spillet ud. Har du ingen, skal du spille trumf; har du heller ingen trumf, så spil et hvilket som helst kort.
+- Ligger der en trumf i stikket, skal du spille en højere trumf, hvis du kan; kan du ikke, så spil en lavere.
+- Den højeste trumf vinder stikket; uden trumf det højeste kort i den udspillede kulør.
+- Excuse kan altid spilles i stedet og vinder aldrig: ejeren beholder den og giver til gengæld stikkets vinder et kort til et halvt point. Blev den spillet ud, bestemmer det næste kort kuløren. Spilles den i sidste stik, går den til stikkets vinder, medmindre dens side har vundet alle stik før: så vinder den det sidste stik.
+# Poignée
+En spiller med mange trumfer må vise dem lige før sit første kort: en enkelt poignée på 10 trumfer (13 med tre spillere, 8 med fem), en dobbelt på 13 (15, 10) eller en tredobbelt på 15 (18, 13). Excuse kan gøre den fuld. Den er værd 20, 30 eller 40 point for den side, der vinder givet.
+# Pointtællingen
+- Spilførerens side skal have 56 point uden oudler, 51 med én, 41 med to, 36 med alle tre. Med de point vinder den givet, uden dem taber den det.
+- Givet er værd 25 point plus forskellen mellem de vundne og de krævede point (et halvt point tæller som et helt), gange 1, 2, 4 eller 6 efter buddet.
+- Petit au bout: Petit i sidste stik er værd 10 point, gange buddets tal, for den side, der vinder det stik.
+- En side, der vinder alle stik (slem, chelem; den meldes aldrig her), får 200 ekstra.
+- Hver forsvarer betaler givets værdi til spilføreren eller får den af spilføreren. Med fem spillere og en makker får spilføreren to andele og makkeren én. Pointene giver altid nul tilsammen.
+# Spillets afslutning
+Efter lige så mange giv, som der er spillere (et annulleret giv tæller ikke), vinder spilleren med den højeste sum.
+# Spil på enheden
+Send enheden rundt: den, der har tur, ser sin hånd nederst, i en eller to rækker. Hver spillers panel viser sum, antal kort på hånden og bud. Tryk på en knap for at byde. Stikket ligger i midten, hvert kort ved sin spillers side, med spillerens markør; det netop vundne stik bliver liggende med vinderkortet lysende, indtil næste kort spilles ud. Tryk på bunken øverst til venstre for at se sidste stik igen. Når hunden vendes, ser alle den, mens spilførerens hånd forbliver skjult: vis enheden rundt, så trykker spilføreren på hunden for at tage den, trykker på de kort, der skal lægges til side (et tryk mere tager et kort tilbage), og på den runde knap. Når du må vise en poignée, vises en knap øverst med dens antal trumfer. Efter hvert giv viser en tavle buddet med dets tal, de oudlere, spilførerens side vandt, dens point, de krævede point og forskellen, bonusserne og derefter hver spillers point og sum; tryk på den for næste giv. Fortryd tager kun dine egne træk fra denne tur tilbage.
