@@ -50,7 +50,7 @@ static struct {
 
 static SDL_Texture *t_bg, *t_btn, *t_btn_armed, *t_btn_on, *t_icon[ICONS], *t_card, *t_gold, *t_shadow, *t_dot,
     *t_ring, *t_glow, *t_tok[2], *t_big[2], *t_bartex, *t_menu_card, *t_thumb[MAX_GAMES][8], *t_name[MAX_GAMES];
-static int made_unit = -1, made_game = -1, made_card = -1, bar_w, bar_h;
+static int made_unit = -1, made_game = -1, made_card = -1, bar_w, bar_h, bar_m;
 
 /* the rules page (a game's, or the app's from the menu): the text drawn in tiles, scrolled */
 #define TILE 512
@@ -223,8 +223,10 @@ void ui_dice_draw(float cx, float cy, float size, unsigned used)
     if (rolling) need_frame = 1;
 }
 
-/* digits: white textures per height (a few heights kept), tinted when drawn */
-void ui_number(float cx, float cy, float h, int value, int light)
+void ui_sound_soft(int s, float volume) { snd_play_vol(s, volume); }
+
+/* digits: white textures per height (a few heights kept), tinted when drawn, turned round their centre */
+static void number(float cx, float cy, float h, int value, int light, double deg)
 {
     static struct { int h; SDL_Texture *d[10]; } cache[4];
     static int next;
@@ -244,12 +246,24 @@ void ui_number(float cx, float cy, float h, int value, int light)
     char s[12];
     int n = snprintf(s, sizeof s, "%d", value < 0 ? 0 : value);
     float dw = 0.62f * ih, step = 0.74f * ih, x = cx - (step * (n - 1) + dw) / 2;
+    float ca = cosf((float)(deg * 3.14159265 / 180)), sa = sinf((float)(deg * 3.14159265 / 180));
     for (int i = 0; i < n; i++, x += step) {
         SDL_Texture *t = cache[k].d[s[i] - '0'];
         if (light) SDL_SetTextureColorMod(t, 246, 238, 220);
         else SDL_SetTextureColorMod(t, 40, 34, 30);
-        ui_put(t, x, cy - h / 2, dw, (float)ih);
+        if (deg == 0) ui_put(t, x, cy - h / 2, dw, (float)ih);
+        else {                                  /* the digit's centre turned round the number's */
+            float ox = x + dw / 2 - cx;
+            ui_put_rot(t, cx + ox * ca, cy + ox * sa, dw, (float)ih, deg);
+        }
     }
+}
+
+void ui_number(float cx, float cy, float h, int value, int light) { number(cx, cy, h, value, light, 0); }
+
+void ui_number_rot(float cx, float cy, float h, int value, int light, double deg)
+{
+    number(cx, cy, h, value, light, deg);
 }
 
 /* ---- pictures ------------------------------------------------------------------------------------------------------ */
@@ -375,7 +389,9 @@ static void layout_game(void)
         ui_free(&t_bartex);
         bar_w = (int)top.w;
         bar_h = (int)top.h;
-        t_bartex = SDL_CreateTexture(ui.r, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET, bar_w, bar_h);
+        bar_m = (int)(0.7f * u);                /* room around the bar: the gold light spills over its edges */
+        t_bartex = SDL_CreateTexture(ui.r, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET, bar_w + 2 * bar_m,
+                                     bar_h + 2 * bar_m);
         if (t_bartex) SDL_SetTextureBlendMode(t_bartex, SDL_BLENDMODE_BLEND);
     }
     if (cur >= 0) games[cur]->layout(L.board);
@@ -528,9 +544,9 @@ static void draw_bar(int p)
     SDL_SetRenderTarget(ui.r, t_bartex);         /* face to face: drawn in its own frame, then turned round */
     SDL_SetRenderDrawColor(ui.r, 0, 0, 0, 0);
     SDL_RenderClear(ui.r);
-    bar_content(p, (box){0, 0, (float)bar_w, (float)bar_h});
+    bar_content(p, (box){(float)bar_m, (float)bar_m, (float)bar_w, (float)bar_h});
     SDL_SetRenderTarget(ui.r, NULL);
-    ui_put_rot(t_bartex, b.x + b.w / 2, b.y + b.h / 2, (float)bar_w, (float)bar_h, 180);
+    ui_put_rot(t_bartex, b.x + b.w / 2, b.y + b.h / 2, (float)(bar_w + 2 * bar_m), (float)(bar_h + 2 * bar_m), 180);
 }
 
 static void draw_over(void)
@@ -817,7 +833,7 @@ static void press(float x, float y)
         box b = L.bar[p];
         if (x < b.x || y < b.y || x >= b.x + b.w || y >= b.y + b.h) continue;
         float fx = x, fy = y;                   /* in the frame bar() drew in */
-        if (ui_upside(p) && t_bartex) { fx = b.w - (x - b.x); fy = b.h - (y - b.y); }
+        if (ui_upside(p) && t_bartex) { fx = bar_m + b.w - (x - b.x); fy = bar_m + b.h - (y - b.y); }
         if (games[cur]->bar_press(p, fx, fy)) return;
     }
     games[cur]->press(x, y);
@@ -876,6 +892,7 @@ static int shot(int argc, char **argv)
     seed_random(seed);                          /* the same dice every time: tests and screenshots repeat */
     text_init(lang ? lang : "en");
     instant = 1;
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");     /* smooth scaling, as in the app */
     SDL_Surface *surf = SDL_CreateRGBSurfaceWithFormat(0, ui.w, ui.h, 32, SDL_PIXELFORMAT_RGBA32);
     ui.r = SDL_CreateSoftwareRenderer(surf);
     if (!ui.r) { fprintf(stderr, "%s\n", SDL_GetError()); return 1; }

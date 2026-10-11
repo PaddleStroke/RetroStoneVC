@@ -16,7 +16,7 @@ int snd_muted;
 static SDL_AudioDeviceID dev;
 static float *clip[SNDS];
 static int len[SNDS];
-static struct { int s, pos; } voice[VOICES];
+static struct { int s, pos; float vol; } voice[VOICES];
 
 /* a sine at f Hz from t0 (s), its amplitude decaying by e every `decay` seconds */
 static void tone(float *b, int n, float t0, float f, float amp, float decay)
@@ -100,7 +100,7 @@ static void mix(void *u, Uint8 *stream, int bytes)
         float v = 0;
         for (int k = 0; k < VOICES; k++) {
             if (voice[k].s < 0) continue;
-            v += clip[voice[k].s][voice[k].pos++];
+            v += clip[voice[k].s][voice[k].pos++] * voice[k].vol;
             if (voice[k].pos >= len[voice[k].s]) voice[k].s = -1;
         }
         v = v > 1 ? 1 : v < -1 ? -1 : v;
@@ -123,14 +123,17 @@ void snd_init(void)
     if (dev) SDL_PauseAudioDevice(dev, 0);
 }
 
-void snd_play(int s)
+void snd_play(int s) { snd_play_vol(s, 1); }
+
+void snd_play_vol(int s, float volume)
 {
-    if (!dev || snd_muted || s < 0 || s >= SNDS) return;
+    if (!dev || snd_muted || s < 0 || s >= SNDS || volume <= 0) return;
     SDL_LockAudioDevice(dev);
     int k = 0;
     for (int i = 0; i < VOICES; i++)
         if (voice[i].s < 0 || voice[i].pos > voice[k].pos) { k = i; if (voice[i].s < 0) break; }
     voice[k].s = s;
     voice[k].pos = 0;
+    voice[k].vol = volume > 1 ? 1 : volume;
     SDL_UnlockAudioDevice(dev);
 }

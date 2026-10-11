@@ -73,6 +73,8 @@ void ui_shadow(float x, float y, float size);   /* the soft shadow under a stand
 /* the shadow of a flat piece (disc, stone, man) drawn w x h centred on (cx, cy), towards the lower right; alpha 0..1 */
 void ui_shadow_flat(float cx, float cy, float w, float h, float alpha);
 void ui_number(float cx, float cy, float h, int value, int light);   /* digits centred; light: cream, else dark */
+/* the same turned round its centre (degrees: 180 for the top player face to face) */
+void ui_number_rot(float cx, float cy, float h, int value, int light, double degrees);
 void ui_animate(void);                          /* draw the next frame too (an animation runs) */
 Uint32 ui_ms(void);
 
@@ -86,6 +88,7 @@ void ui_mark_gold(float cx, float cy, float d);           /* a success (a mill, 
 
 enum { SND_MOVE, SND_CAPTURE, SND_PLACE, SND_DROP, SND_CHECK, SND_END, SND_TAP, SND_DENY, SND_DICE, SNDS };
 void ui_sound(int s);
+void ui_sound_soft(int s, float volume);        /* quieter (0..1): many small sounds in a row (mancala's seeds) */
 
 /* chance: the shell's dice. ui_random gives 0..n-1 (seeded at start; --seed in the picture mode, so tests and
  * screenshots repeat); the rules take the values as input. ui_dice_throw shows dice tumbling to their values (with
@@ -98,6 +101,7 @@ int  ui_dice_busy(void);                        /* 1 while they tumble */
 /* sound.c */
 void snd_init(void);
 void snd_play(int s);
+void snd_play_vol(int s, float volume);
 extern int snd_muted;
 
 #endif
