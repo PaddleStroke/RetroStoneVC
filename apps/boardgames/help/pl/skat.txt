@@ -2,12 +2,12 @@ Skat
 # Cel gry
 Wielka niemiecka gra karciana dla trzech osób. W każdym rozdaniu jeden gracz, rozgrywający, gra sam przeciw dwóm pozostałym: wygrywa licytację, wybiera grę i stara się ją wygrać. Partia to lista 12 albo 36 rozdań, do wyboru; wygrywa najwyższa suma na końcu. Obowiązują zasady Międzynarodowych Przepisów Gry w Skata. Dla 3 graczy, którzy podają sobie urządzenie; nikt nie widzi kart pozostałych.
 # Rozdanie
-Talia ma 32 karty, od siódemki do asa. Każdy gracz dostaje 10 kart; 2 kolejne leżą zakryte: to skat. Rozdający przesuwa się o jedno miejsce w każdym rozdaniu. Gracz po rozdającym to przodek; wychodzi on do pierwszej lewy. Po nim siedzą środek i zadek (rozdający).
+Talia ma 32 karty, od siódemki do asa. Każdy gracz dostaje 10 kart; 2 kolejne leżą zakryte: to skat. Rozdający przesuwa się o jedno miejsce w każdym rozdaniu. Gracz po rozdającym, pierwszy gracz, wychodzi do pierwszej lewy. Po nim siedzą drugi gracz i trzeci, czyli rozdający.
 # Licytacja
 - Odzywki to wartości gier: 18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40 i tak dalej.
-- Środek licytuje do przodka, który odpowiada „tak” (trzyma odzywkę) albo pasuje; środek podbija albo pasuje.
-- Ten, kto został, słucha potem zadka, który licytuje tak samo. Ostatni gracz, który został, jest rozgrywającym, z ostatnią odzywką.
-- Jeśli nikt nie licytuje, przodek może jeszcze powiedzieć 18. Jeśli i on spasuje, karty się wrzuca: rozdanie liczy się na liście, ale bez wyniku.
+- Drugi gracz licytuje do pierwszego, który odpowiada „tak” (trzyma odzywkę) albo pasuje; drugi podbija albo pasuje.
+- Ten, kto został, słucha potem trzeciego gracza, rozdającego, który licytuje tak samo. Ostatni gracz, który został, jest rozgrywającym, z ostatnią odzywką.
+- Jeśli nikt nie licytuje, pierwszy gracz może jeszcze powiedzieć 18. Jeśli i on spasuje, karty się wrzuca: rozdanie liczy się na liście, ale bez wyniku.
 # Skat i gra
 - Rozgrywający może podnieść skat i odłożyć dowolne dwie karty; liczą się one dla niego. Albo gra z ręki: nie rusza skatu, a ten i tak liczy się dla niego na końcu.
 - Potem zapowiada grę: grę w kolor (karo 9, kier 10, pik 11, trefl 12), granda (24: atutami są tylko walety) albo nulla.
@@ -16,7 +16,7 @@ Talia ma 32 karty, od siódemki do asa. Każdy gracz dostaje 10 kart; 2 kolejne 
 # Atuty i rozgrywka
 - W grach w kolor i w grandzie najwyższymi atutami są cztery walety, w tej kolejności: trefl, pik, kier, karo. W grze w kolor po nich idzie kolor atutowy: as, 10, król, dama, 9, 8, 7.
 - Pozostałe kolory: as, 10, król, dama, 9, 8, 7. Walet zawsze należy do atutów, nigdy do swojego koloru.
-- Wychodzi przodek. Dokładaj do koloru wyjścia, jeśli możesz; jeśli nie, zagraj dowolną kartę. Lewę bierze najwyższy atut, a bez atutu najwyższa karta w kolorze wyjścia. Zdobywca lewy wychodzi do następnej.
+- Wychodzi pierwszy gracz. Dokładaj do koloru wyjścia, jeśli możesz; jeśli nie, zagraj dowolną kartę. Lewę bierze najwyższy atut, a bez atutu najwyższa karta w kolorze wyjścia. Zdobywca lewy wychodzi do następnej.
 # Wygrana
 - Oczka: as 11, dziesiątka 10, król 4, dama 3, walet 2: razem 120. Rozgrywający dolicza skat do swoich lew i do wygranej potrzebuje 61.
 - Szneider: strona, która ma 30 oczek lub mniej. Szwarc: strona bez żadnej lewy. Zapowiedziany szneider wymaga 90 oczek, zapowiedziany szwarc — wszystkich lew.
