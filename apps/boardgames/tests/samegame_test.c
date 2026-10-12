@@ -202,12 +202,79 @@ static void games(void)
     }
 }
 
+/* the goal: the beam search's best is never below a greedy game's nor a game that clears by the kept way; the stars;
+ * a random board's goal and the time it takes */
+static void goals(void)
+{
+    static sm_game g;
+    for (uint32_t seed = 1; seed <= 20; seed++) {
+        sm_new(&g, 0, seed);
+        int greedy = sm_best(&g.start, g.w, g.h, 1), wide = sm_reference(&g, 32);
+        sm_game t = g;
+        CHECK(sm_script(&t, "=") && sm_cleared(&t));
+        CHECK(greedy > 0 && wide >= greedy && wide >= t.score && sm_goal_of(wide) == wide * 9 / 10);
+    }
+    g.goal = 100;
+    g.score = 100;
+    CHECK(sm_stars(&g) == 3);
+    g.score = 50;
+    CHECK(sm_stars(&g) == 2);
+    g.score = 49;
+    CHECK(sm_stars(&g) == 1);
+    g.goal = 0;
+    CHECK(sm_stars(&g) == 3);
+    double slowest = 0;
+    for (int v = 0; v < SM_VARIANTS; v++)
+        for (uint32_t seed = 1; seed <= 6; seed++) {
+            sm_new(&g, v, seed);
+            clock_t t0 = clock();
+            int best = sm_reference(&g, 6);
+            double ms = 1000.0 * (double)(clock() - t0) / CLOCKS_PER_SEC;
+            if (ms > slowest) slowest = ms;
+            CHECK(best > 0);
+        }
+    printf("samegame: a random board's goal in %.0f ms at most\n", slowest);
+}
+
+/* the levels: each one loads, its way clears it (the bonus earned), its goal below what that search can reach and
+ * above nothing; the first chapter's goals found again; the boards never smaller from a chapter to the next; the text
+ * read back; no two alike */
+static void levels(void)
+{
+    static sm_game g, t;
+    static char text[SM_W * SM_H * 3 + 4];
+    int last = 0;
+    for (int l = 0; l < SM_LEVELS; l++) {
+        CHECK(sm_level(&g, l));
+        CHECK(g.goal == sm_level_goal[l] && g.goal > 0 && g.score == 0 && !sm_over(&g) && g.nway > 0);
+        int blocks = sm_blocks(&g), count[8] = {0};
+        CHECK(blocks == g.w * g.h);
+        for (int x = 0; x < g.w; x++)
+            for (int y = 0; y < g.h; y++) count[g.b.c[x][y]]++;
+        for (int c = 1; c <= g.colours; c++) CHECK(count[c] >= 2);
+        t = g;
+        CHECK(sm_script(&t, "=") && sm_cleared(&t) && t.score >= SM_BONUS);
+        if (l < SM_LEVELS / SM_CHAPTERS) CHECK(sm_goal_of(sm_reference(&g, 256)) == g.goal);
+        if (l % (SM_LEVELS / SM_CHAPTERS) == 0) {
+            CHECK(g.w * g.h >= last);
+            last = g.w * g.h;
+        }
+        sm_text(&g, text);
+        CHECK(!strcmp(text, sm_levels[l]));
+        for (int k = 0; k < l; k++) CHECK(strcmp(sm_levels[k], sm_levels[l]) != 0);
+    }
+    CHECK(!sm_level(&g, SM_LEVELS) && !sm_parse(&g, "12|3") && !sm_parse(&g, "18|12 aa") && !sm_parse(&g, "12|21 az"));
+    CHECK(sm_parse(&g, "12|12 aa") && g.w == 2 && g.h == 2 && g.b.c[0][1] == 1 && g.nway == 1);
+}
+
 int main(void)
 {
     rules();
     boards();
     hints();
     games();
+    goals();
+    levels();
     if (fails) { printf("samegame: %d checks failed\n", fails); return 1; }
     printf("samegame: all checks passed\n");
     return 0;

@@ -47,7 +47,6 @@ static box last_box;
 static float bx, by, bw, bh, gx, gy0, q;        /* the tray; the grid's left and bottom, a cell's side */
 static int fr, made_key = -1, made_small = -1;
 static SDL_Texture *t_tray, *t_tile[6], *t_small, *t_plaque;
-static puz_font font;
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* a tile of colour c (1..5: COLOURS), d x d: lacquered wood, bevelled, its mark inlaid */
@@ -158,7 +157,6 @@ static void layout(box b)
         token(0, small, ui_buf(small, small));
         t_small = ui_tex(small, small, ui_buf(small, small));
     }
-    puz_font_make(&font, (int)fmaxf(12, 0.07f * S), 1);
 }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
@@ -168,17 +166,31 @@ static void calm(void)
     end.on = 0;
 }
 
-static void start(int variant)
+static void begin(void)
 {
-    sm_new(&G, variant, (uint32_t)ui_random(0x7fffffff) + 1u);
     calm();
     made_key = -1;
     if (last_box.w > 0) layout(last_box);
 }
 
+static void start(int level)                    /* a designed level, its goal kept with it */
+{
+    if (!sm_level(&G, level)) sm_level(&G, 0);
+    begin();
+}
+
+static void start_random(int variant)           /* a board made at random; its goal sought now (a narrow search) */
+{
+    sm_new(&G, variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    G.goal = sm_goal_of(sm_reference(&G, 6));
+    begin();
+}
+
 static int status(void) { return sm_over(&G) ? GS_WIN0 : GS_PLAY; }   /* over: cleared or not, done (never lost) */
 static int turn(void) { return 0; }
 static int score(void) { return G.score; }     /* the end card shows it */
+static int par(void) { return G.goal; }         /* the end card shows the goal beside it */
+static int level_stars(void) { return sm_stars(&G); }
 
 static Uint32 anim_len(void) { return POP_MS + (anim.falls ? FALL_MS : 0) + (anim.shifts ? SHIFT_MS : 0); }
 
@@ -345,7 +357,7 @@ static void draw(void)
             SDL_SetTextureAlphaMod(t_plaque, (Uint8)(255 * a));
             ui_put_c(t_plaque, cx, cy, pw, ph);
             SDL_SetTextureAlphaMod(t_plaque, 255);
-            puz_number(&font, cx, cy + 0.02f * ph, 0.58f * ph, G.score, PUZ_INK, (Uint8)(255 * a));
+            ui_number_ex(cx, cy + 0.02f * ph, 0.58f * ph, G.score, PUZ_INK, (Uint8)(255 * a), UI_NUM_TIGHT);
         }
         if (et < END_MS) ui_animate();
     }
@@ -429,23 +441,34 @@ static int bar_press(int player, float x, float y)
     return 1;
 }
 
-/* ---- the menu's and the picker's cards --------------------------------------------------------------------------- */
-static void thumb(int variant, int size, uint8_t *rgba)
+/* ---- the pictures of the shell's screens: a board, size x size --------------------------------------------------- */
+static void paint_board_of(const sm_game *T, int size, uint8_t *rgba)
 {
-    sm_game *T = malloc(sizeof *T);
-    if (!T) return;
-    sm_new(T, variant < 0 ? 0 : variant, 5);
-    if (variant < 0) sm_script(T, "=8");        /* the menu's: a few groups taken, the tiles fallen */
     float tw, th, cq;
     int f;
     fit(T->w, T->h, (float)size, &tw, &th, &cq, &f);
     int w = (int)tw, h = (int)th, ox = (size - w) / 2, oy = (size - h) / 2, d = (int)cq - (cq >= 12 ? 1 : 0);
     uint8_t *b = malloc((size_t)w * w * 4), *t = malloc((size_t)(d > 0 ? d : 1) * (d > 0 ? d : 1) * 4);
-    if (b && t && d > 2) {
+    if (b && t) {
         paint_tray(w, h, f, b);
         art_blend(rgba, size, size, b, w, h, ox, oy);
         float x0 = ox + (w - T->w * cq) / 2, y0 = oy + h - (h - T->h * cq) / 2;
-        for (int c = 1; c <= T->colours; c++) {
+        if (d <= 2) {                           /* tiny (a tab's picture): each tile a dot of its colour */
+            for (int x = 0; x < T->w; x++)
+                for (int y = 0; y < T->h; y++) {
+                    if (!T->b.c[x][y]) continue;
+                    uint8_t q[3];
+                    hue_rgb(COLOURS[T->b.c[x][y] - 1], q);
+                    int px = (int)(x0 + x * cq), py = (int)(y0 - (y + 1) * cq);
+                    for (int yy = py; yy < (int)(py + cq) && yy < size; yy++)
+                        for (int xx = px; xx < (int)(px + cq) && xx < size; xx++) {
+                            if (xx < 0 || yy < 0) continue;
+                            uint8_t *p = rgba + 4 * (yy * size + xx);
+                            p[0] = q[0], p[1] = q[1], p[2] = q[2], p[3] = 255;
+                        }
+                }
+        }
+        for (int c = 1; c <= T->colours && d > 2; c++) {
             paint_tile(c, d, t);
             for (int x = 0; x < T->w; x++)
                 for (int y = 0; y < T->h; y++)
@@ -456,6 +479,35 @@ static void thumb(int variant, int size, uint8_t *rgba)
     }
     free(b);
     free(t);
+}
+
+/* the menu's card (a few groups taken, the tiles fallen) and the picker's (a board of the size) */
+static void thumb(int variant, int size, uint8_t *rgba)
+{
+    sm_game *T = malloc(sizeof *T);
+    if (!T) return;
+    sm_new(T, variant < 0 ? 0 : variant, 5);
+    if (variant < 0) sm_script(T, "=8");
+    paint_board_of(T, size, rgba);
+    free(T);
+}
+
+/* the level screen: a level's board; a chapter's tab: a board of its size, each colour in a band */
+static void level_thumb(int level, int size, uint8_t *rgba)
+{
+    sm_game *T = malloc(sizeof *T);
+    if (T && sm_level(T, level)) paint_board_of(T, size, rgba);
+    free(T);
+}
+
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    sm_game *T = malloc(sizeof *T);
+    if (T && sm_level(T, chapter * (SM_LEVELS / SM_CHAPTERS))) {
+        for (int x = 0; x < T->w; x++)
+            for (int y = 0; y < T->h; y++) T->b.c[x][y] = (int8_t)(1 + x * T->colours / T->w);
+        paint_board_of(T, size, rgba);
+    }
     free(T);
 }
 
@@ -464,6 +516,8 @@ static const game samegame_game = {
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,
-    .score = score,
+    .score = score, .par = par, .level_stars = level_stars,
+    .levels = SM_LEVELS, .chapters = SM_CHAPTERS, .start_random = start_random, .chapter_icon = chapter_icon,
+    .level_thumb = level_thumb,
 };
 REGISTER_GAME(samegame_game)

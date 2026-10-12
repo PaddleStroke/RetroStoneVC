@@ -221,15 +221,20 @@ static int make_board(sm_game *g, uint32_t *r)
     return 1;
 }
 
+void sm_make(sm_game *g, int w, int h, int colours, uint32_t seed)
+{
+    memset(g, 0, sizeof *g);
+    g->w = w < 2 ? 2 : w > SM_W ? SM_W : w;
+    g->h = h < 2 ? 2 : h > SM_H ? SM_H : h;
+    g->colours = colours < 2 ? 2 : colours > 7 ? 7 : colours;
+    uint32_t r = pr_seed(seed);
+    while (!make_board(g, &r)) {}
+}
+
 void sm_new(sm_game *g, int variant, uint32_t seed)
 {
     int v = variant < 0 || variant >= SM_VARIANTS ? 0 : variant;
-    memset(g, 0, sizeof *g);
-    g->w = SIZES[v][0];
-    g->h = SIZES[v][1];
-    g->colours = SIZES[v][2];
-    uint32_t r = pr_seed(seed);
-    while (!make_board(g, &r)) {}
+    sm_make(g, SIZES[v][0], SIZES[v][1], SIZES[v][2], seed);
 }
 
 /* ---- the search for a way to clear ----------------------------------------------------------------------------- */
@@ -358,3 +363,159 @@ int sm_script(sm_game *g, const char *s)
     }
     return 1;
 }
+
+/* ---- the goal: a beam search ----------------------------------------------------------------------------------- */
+typedef struct { sm_board b; int score; float eval; uint64_t key; } beam_node;
+
+static int by_eval(const void *a, const void *b)
+{
+    float d = ((const beam_node *)b)->eval - ((const beam_node *)a)->eval;
+    return d < 0 ? -1 : d > 0;
+}
+
+/* what the colours left could still make: way 0, a quarter of each colour as if it came together; way 1, the most
+ * plentiful colour alone as if it came together (that colour kept for one big group at the end) */
+static float promise(const sm_board *b, int w, int h, int way)
+{
+    int count[8] = {0}, most = 0;
+    for (int x = 0; x < w; x++)
+        for (int y = 0; y < h && b->c[x][y]; y++) count[b->c[x][y]]++;
+    float p = 0;
+    for (int c = 1; c < 8; c++) {
+        p += sm_points(count[c]);
+        if (count[c] > most) most = count[c];
+    }
+    return way ? (float)sm_points(most) : p / 4;
+}
+
+static int beam(const sm_board *start, int w, int h, int width, int way);
+
+int sm_best(const sm_board *start, int w, int h, int width)
+{
+    int a = beam(start, w, h, width, 0), b = width > 1 ? beam(start, w, h, width, 1) : 0;
+    return a > b ? a : b;
+}
+
+static int beam(const sm_board *start, int w, int h, int width, int way)
+{
+    if (width < 1) width = 1;
+    beam_node *cur = malloc((size_t)width * sizeof *cur), *next = malloc((size_t)width * SM_HIST * sizeof *next);
+    int best = 0, ncur = 1;
+    if (!cur || !next) goto done;
+    cur[0].b = *start;
+    cur[0].score = 0;
+    while (ncur) {
+        int nnext = 0;
+        for (int i = 0; i < ncur; i++) {
+            uint8_t done[SM_W][SM_H] = {{0}};
+            int any = 0;
+            for (int x = 0; x < w; x++)
+                for (int y = 0; y < h && cur[i].b.c[x][y]; y++) {
+                    if (done[x][y]) continue;
+                    uint8_t m[SM_W][SM_H] = {{0}};
+                    int n = sm_group(&cur[i].b, w, h, x, y, m);
+                    for (int a = 0; a < w; a++)
+                        for (int c = 0; c < h; c++) done[a][c] |= m[a][c];
+                    if (n < 2) continue;
+                    any = 1;
+                    beam_node *k = &next[nnext];
+                    k->b = cur[i].b;
+                    take(&k->b, w, h, m);
+                    k->score = cur[i].score + sm_points(n) + (board_empty(&k->b) ? SM_BONUS : 0);
+                    k->eval = k->score + promise(&k->b, w, h, way);
+                    k->key = board_key(&k->b, w, h);
+                    nnext++;
+                }
+            if (!any && cur[i].score > best) best = cur[i].score;   /* no group left: an end */
+        }
+        qsort(next, (size_t)nnext, sizeof *next, by_eval);
+        ncur = 0;
+        for (int i = 0; i < nnext && ncur < width; i++) {
+            int seen = 0;
+            for (int j = 0; j < ncur && !seen; j++) seen = cur[j].key == next[i].key && cur[j].score == next[i].score;
+            if (!seen) cur[ncur++] = next[i];
+        }
+    }
+done:
+    free(cur);
+    free(next);
+    return best;
+}
+
+int sm_reference(const sm_game *g, int width)
+{
+    int best = sm_best(&g->start, g->w, g->h, width), greedy = sm_best(&g->start, g->w, g->h, 1), way = 0;
+    sm_board b = g->start;
+    for (int k = 0; k < g->nway; k++) {         /* the kept way: it clears the board */
+        uint8_t m[SM_W][SM_H] = {{0}};
+        int n = sm_group(&b, g->w, g->h, g->way[k][0], g->way[k][1], m);
+        if (n < 2) break;
+        take(&b, g->w, g->h, m);
+        way += sm_points(n) + (board_empty(&b) ? SM_BONUS : 0);
+    }
+    if (greedy > best) best = greedy;
+    return way > best ? way : best;
+}
+
+int sm_goal_of(int best) { return best * 9 / 10; }
+
+int sm_stars(const sm_game *g)
+{
+    if (g->goal <= 0 || g->score >= g->goal) return 3;
+    return 2 * g->score >= g->goal || 10 * sm_blocks(g) <= g->w * g->h ? 2 : 1;
+}
+
+/* ---- the levels ------------------------------------------------------------------------------------------------ */
+int sm_parse(sm_game *g, const char *s)
+{
+    memset(g, 0, sizeof *g);
+    int w = 0, h = 1;
+    while (s[w] >= '1' && s[w] <= '7') w++;
+    for (const char *p = s; *p && *p != ' '; p++) h += *p == '|';
+    if (w < 2 || w > SM_W || h < 2 || h > SM_H) return 0;
+    g->w = w;
+    g->h = h;
+    const char *p = s;
+    for (int y = h - 1; y >= 0; y--) {
+        for (int x = 0; x < w; x++, p++) {
+            if (*p < '1' || *p > '7') return 0;
+            g->b.c[x][y] = (int8_t)(*p - '0');
+            if (*p - '0' > g->colours) g->colours = *p - '0';
+        }
+        if (*p != (y ? '|' : ' ') && (y || *p)) return 0;
+        if (*p) p++;
+    }
+    for (; p[0] && p[1]; p += 2) {
+        if (g->nway >= SM_HIST || p[0] < 'a' || p[0] >= 'a' + w || p[1] < 'a' || p[1] >= 'a' + h) return 0;
+        g->way[g->nway][0] = (uint8_t)(p[0] - 'a');
+        g->way[g->nway++][1] = (uint8_t)(p[1] - 'a');
+    }
+    if (*p) return 0;
+    g->start = g->b;
+    return 1;
+}
+
+void sm_text(const sm_game *g, char *out)
+{
+    int k = 0;
+    for (int y = g->h - 1; y >= 0; y--) {
+        for (int x = 0; x < g->w; x++) out[k++] = (char)('0' + g->start.c[x][y]);
+        out[k++] = y ? '|' : ' ';
+    }
+    for (int i = 0; i < g->nway; i++) {
+        out[k++] = (char)('a' + g->way[i][0]);
+        out[k++] = (char)('a' + g->way[i][1]);
+    }
+    out[k] = 0;
+}
+
+#ifndef SM_GEN                                  /* not in the levels' tool (tools/samegame_gen.c): it makes them */
+#include "games/samegame_levels.h"
+
+int sm_level(sm_game *g, int level)
+{
+    if (level < 0 || level >= SM_LEVELS || !sm_parse(g, sm_levels[level])) return 0;
+    g->goal = sm_level_goal[level];
+    return 1;
+}
+#endif
