@@ -498,10 +498,13 @@ void art_icon(int which, int size, uint8_t *rgba)
         art_ellipse(f, ART_PART, 0.5f, 0.66f, 0.022f, 0.022f);
         art_arc(f, ART_PART, 0.5f, 0.5f, 0.33f, 0.40f, 35, 150);
         art_arc(f, ART_PART, 0.5f, 0.5f, 0.33f, 0.40f, 215, 330);
-        const float h1[] = {0.73f, 0.27f, 0.87f, 0.40f, 0.68f, 0.43f};
-        const float h2[] = {0.27f, 0.73f, 0.13f, 0.60f, 0.32f, 0.57f};
-        art_poly(f, ART_PART, h1, 3);
-        art_poly(f, ART_PART, h2, 3);
+        for (int k = 0; k < 2; k++) {               /* each head at its arc's end, along the circle */
+            float a0 = (k ? 330 : 150) * PI_F / 180, a1 = a0 + 22 * PI_F / 180, rm = 0.365f, hw = 0.09f;
+            const float hd[] = {0.5f + (rm + hw) * cosf(a0), 0.5f - (rm + hw) * sinf(a0),
+                                0.5f + rm * cosf(a1), 0.5f - rm * sinf(a1),
+                                0.5f + (rm - hw) * cosf(a0), 0.5f - (rm - hw) * sinf(a0)};
+            art_poly(f, ART_PART, hd, 3);
+        }
         break;
     }
     case ICON_PLAY: {                               /* start: a triangle pointing right */

@@ -42,9 +42,10 @@ One look across the app, like the Arcade games' house kit:
   stands them all in gold light together (a draw: standing, no gold) and lays the others down, dimmed; their bars all
   glow. The status stays `gs_win(any winner)` or `GS_DRAW`. Without it: `gs_winner(status)` alone (a draw: everyone
   stands).
-- **The menu's sections**: strategy, chess family, dice & race, cards & tiles, guessing games (headings in
-  `help/<lang>/_menu.txt`, a line each). The shell's `SECTION_OF` table files a game by its id (unlisted: strategy);
-  within a section the games go by `order`.
+- **The menu's sections**, one tab each (a picture: a man, a knight, a die, a card, a question, a marble; tap,
+  swipe sideways or the arrow keys): strategy, chess family, dice & race, cards & tiles, guessing games, solitaires &
+  puzzles (their names in `help/<lang>/_menu.txt`, a line each, over the games). The shell's `SECTION_OF` table files
+  a game by its id (unlisted: strategy); within a section the games go by `order`. `--tab n` in the picture mode.
 - **Wood**: every board is the house wood (`art_board_n`: checkered squares, or one plain plank with lines drawn on
   it), in its walnut frame, on the shell's green table.
 - **Pieces** from `art.c` (`art_piece`, `art_counter`), with `ui_shadow()` under the standing ones and
@@ -83,9 +84,10 @@ the others' bars at the top in turn order (count, score: the game's `bar()`; the
 nor face to face (they mean nothing here). `layout(box)` gets the table: a rectangle, all the room between the bars.
 
 - **The hand-off**: `ui_handoff(next)` when the device passes. The shell waits for `busy()` (the card played lands),
-  then turns the view. `VIEW_HIDDEN` first covers the whole screen: the green table, the next player's token big in
-  gold light, a "pass the device" picture, a round start button; home and the rules in the corners; nothing of the
-  game (`draw()` is not called, `ui.viewer` is -1). Tapping start shows that player's view. A new game covers for
+  then turns the view. `VIEW_HIDDEN` first covers the screen: the table greyed under it, the next player's token big
+  in gold light, a "pass the device" picture, a round start button; home and the rules in the corners. Under the
+  cover `draw()` runs with `ui.viewer` -1: it must show every hand hidden (backs, or nothing), only what all players
+  see (the table, the piles, the scores). Tapping start shows that player's view. A new game covers for
   `turn()`; a game opened again from the menu covers first. `ui_handing()`: a hand-off waits (the shell sends no
   input to the game then). `VIEW_OPEN` (golf): nothing is secret, the view just turns, no cover.
 - **Undo never shows another hand**: a `VIEW_HIDDEN` game's `undo()` stops at its last `ui_handoff()` (the player's

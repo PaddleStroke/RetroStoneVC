@@ -13,6 +13,8 @@
  * Keys: Esc / Back home (in the menu: quit), U undo, F flip, T face to face, N new game, M sound.
  */
 #include "shell.h"
+#include "cards.h"
+#include "games/chess.h"
 #include "text.h"
 
 #include <math.h>
@@ -99,12 +101,15 @@ static struct {
     box pills[MAX_PLAYERS + 1];                 /* the picker: how many players (pill_n[i] each) */
     int npills, pill_n[MAX_PLAYERS + 1];
     float sec_y[SECTIONS], sec_x, sec_w, sec_h;   /* the menu's headings (sec_y -1: an empty section) */
+    box tabs[SECTIONS];                         /* the menu's tabs, one a section with games */
+    int ntabs, tab_sec[SECTIONS];
 } L;
 
 static SDL_Texture *t_bg, *t_btn, *t_btn_armed, *t_btn_on, *t_icon[ICONS], *t_card, *t_gold, *t_shadow, *t_ring,
     *t_glow, *t_tok[MAX_PLAYERS], *t_big[MAX_PLAYERS], *t_bartex, *t_menu_card, *t_thumb[MAX_GAMES][8],
-    *t_name[MAX_GAMES], *t_pill, *t_pill_on, *t_ptok[MAX_PLAYERS], *t_sec[SECTIONS];
-static int made_unit = -1, made_game = -1, made_card = -1, made_pill = -1, bar_w, bar_h, bar_m;
+    *t_name[MAX_GAMES], *t_pill, *t_pill_on, *t_ptok[MAX_PLAYERS], *t_sec[SECTIONS],
+    *t_tab, *t_tab_on, *t_tabicon[SECTIONS];
+static int made_unit = -1, made_game = -1, made_card = -1, made_pill = -1, made_tab = -1, bar_w, bar_h, bar_m;
 
 /* the rules page (a game's, or the app's from the menu): the text drawn in tiles, scrolled */
 #define TILE 512
@@ -123,7 +128,8 @@ static struct {
 static struct {
     float scroll, max, top;                     /* top: where the cards' window starts, below the buttons */
     float grab_x, grab_y, grab_scroll, vel;     /* vel: the fling after a drag, pixels a ms */
-    int grabbing, moved;
+    int grabbing, moved, axis;                  /* axis: the drag's, 1 sideways (the tabs), 2 up and down */
+    int tab;                                    /* the section shown (its tab) */
     Uint32 t;                                   /* the last drag or fling step */
 } menu;
 
@@ -672,11 +678,67 @@ static void layout_game(void)
     if (cur >= 0) games[cur]->layout(L.board);
 }
 
+/* a tab's picture: the pieces of its section (a draughts man, a knight, a die, a card, a question, a marble) */
+static void tab_icon(int s, int d, uint8_t *o)
+{
+    memset(o, 0, (size_t)d * d * 4);
+    if (s == SEC_STRATEGY) art_counter(COUNTER_MAN, 0, d, o);
+    else if (s == SEC_CHESS) art_piece(KNIGHT, WHITE, d, o);
+    else if (s == SEC_GUESS) art_icon(ICON_HELP, d, o);
+    else if (s == SEC_SOLO) art_counter(COUNTER_STONE, 5, d, o);
+    else {                                      /* a die, a card: smaller, in the middle */
+        int h = (int)(d * (s == SEC_RACE ? 0.78f : 0.92f));
+        int w = s == SEC_RACE ? h : (int)(h / cards_aspect(DECK_FRENCH));
+        uint8_t *b = calloc((size_t)w * h, 4);
+        if (s == SEC_RACE) art_die(5, 0, h, b);
+        else cards_paint(DECK_FRENCH, CARD(SUIT_SPADES, 1), w, h, b);
+        art_blend(o, d, d, b, w, h, (d - w) / 2, (d - h) / 2);
+        free(b);
+    }
+}
+
+static void tab_textures(int tw, int th)
+{
+    if (made_tab == tw * 1000 + th) return;
+    made_tab = tw * 1000 + th;
+    const uint8_t off[4] = {40, 56, 50, 255}, on[4] = {150, 118, 46, 255};
+    ui_free(&t_tab);
+    art_roundrect(tw, th, th * 0.3f, off, ui_buf(tw, th));
+    t_tab = ui_tex(tw, th, ui_buf(tw, th));
+    ui_free(&t_tab_on);
+    art_roundrect(tw, th, th * 0.3f, on, ui_buf(tw, th));
+    t_tab_on = ui_tex(tw, th, ui_buf(tw, th));
+    int d = (int)(th * 0.66f);
+    uint8_t *b = calloc((size_t)d * d, 4);       /* its own buffer: cards_paint may use ui_buf() */
+    for (int s = 0; s < SECTIONS; s++) {
+        ui_free(&t_tabicon[s]);
+        tab_icon(s, d, b);
+        t_tabicon[s] = ui_tex(d, d, b);
+    }
+    free(b);
+    SDL_SetTextureColorMod(t_tabicon[SEC_GUESS], 246, 238, 220);
+}
+
 /* the menu (all the games) or the picker (one game's variants): cards in a grid */
 static void layout_cards(int n)
 {
     float m = fminf(ui.w, ui.h) * 0.05f, g = fminf(ui.w, ui.h) * 0.04f, head = fminf(ui.w, ui.h) * 0.16f;
-    float top = head;                           /* the buttons' row (the pills go below it) */
+    float top = head;                           /* the buttons' row (the tabs, the pills go below it) */
+    L.ntabs = 0;
+    if (screen == SCR_MENU) {                   /* the sections as tabs under the buttons, a picture each */
+        for (int s = 0; s < SECTIONS; s++)
+            for (int i = 0; i < n; i++)
+                if (section_of(games[i]) == s) { L.tab_sec[L.ntabs++] = s; break; }
+        int shown_tab = 0;
+        for (int k = 0; k < L.ntabs; k++) shown_tab |= L.tab_sec[k] == menu.tab;
+        if (!shown_tab && L.ntabs) menu.tab = L.tab_sec[0];
+        float th = floorf(fminf(ui.w, ui.h) * 0.12f), tg = floorf(g * 0.4f);
+        float tw = floorf((ui.w - 2 * m - (L.ntabs - 1) * tg) / (L.ntabs ? L.ntabs : 1));
+        float tx = (ui.w - (L.ntabs * tw + (L.ntabs - 1) * tg)) / 2;
+        for (int k = 0; k < L.ntabs; k++) L.tabs[k] = (box){floorf(tx + k * (tw + tg)), floorf(head), tw, th};
+        head += th + floorf(g * 0.3f);
+        tab_textures((int)tw, (int)th);
+    }
     L.npills = 0;
     if (screen == SCR_PICK && many_counts(cur)) {   /* how many play: a row of pills under the buttons, each with
                                                      * that many of the game's tokens */
@@ -736,6 +798,10 @@ static void layout_cards(int n)
             int first = i;
             while (i < n && section_of(games[i]) == s) i++;
             if (i == first) continue;
+            if (s != menu.tab) {                /* another tab's: not shown */
+                for (int j = first; j < i; j++) L.cards[j] = (box){0, 0, 0, 0};
+                continue;
+            }
             L.sec_y[s] = tall;
             tall += L.sec_h;
             for (int j = first; j < i; j++)
@@ -1077,7 +1143,8 @@ static void draw_over(void)
     }
 }
 
-/* the hand-off cover: nothing of the game. The next player's token big in gold light, the picture "pass the device",
+/* the hand-off cover, over the table greyed (drawn with ui.viewer -1: every hand hidden, only what all players see)
+ * and its bars and buttons. The next player's token big in gold light, the picture "pass the device",
  * a big round start button; home and the rules in the corners (as on the picker). Portrait: a column; landscape: a
  * row. */
 static struct { float tx, ty, td, ix, iy, id, sx, sy, sr, hx, hy, qx, qy, r; } C;
@@ -1152,15 +1219,19 @@ static void draw_game(void)
 {
     const game *g = games[cur];
     handoff_settle();
-    if (hand.up) { draw_cover(); return; }
     game_textures();
-    g->draw();
+    g->draw();                                  /* under the cover too: ui.viewer -1, no hand shown */
     for (int p = 0; p < ui.players; p++) draw_bar(p);
     if (armed && SDL_GetTicks() - armed > 2500) armed = 0;
     for (int i = 0; i < NBTN; i++) {
         if (!shown(i)) continue;
         SDL_Texture *disc = i == B_NEW && armed ? t_btn_armed : i == B_F2F && ui.f2f ? t_btn_on : NULL;
         draw_button(L.bx[i], L.by[i], L.br, BTN_ICON[i], disc);
+    }
+    if (hand.up) {
+        ui_fill(0, 0, (float)ui.w, (float)ui.h, 14, 22, 18, 175);
+        draw_cover();
+        return;
     }
     if (g->status() == GS_PLAY) return;
     if (g->busy && g->busy()) { end_seen = 0; return; }   /* the last move still moving: the end waits */
@@ -1275,6 +1346,13 @@ static SDL_Texture *heading(int s)
 static void draw_cards(void)
 {
     int n = screen == SCR_MENU ? ngames : games[cur]->variants;
+    for (int k = 0; k < L.ntabs && screen == SCR_MENU; k++) {   /* the tabs */
+        box b = L.tabs[k];
+        int s = L.tab_sec[k];
+        float d = floorf(b.h * 0.66f);
+        ui_put(s == menu.tab ? t_tab_on : t_tab, b.x, b.y, b.w, b.h);
+        ui_put_c(t_tabicon[s], b.x + b.w / 2, b.y + b.h / 2, d, d);
+    }
     for (int k = 0; k < L.npills; k++) {       /* the picker: how many play */
         box b = L.pills[k];
         int np = L.pill_n[k];
@@ -1300,6 +1378,7 @@ static void draw_cards(void)
     for (int i = 0; i < n; i++) {
         box c = L.cards[i];
         c.y += dy;
+        if (c.w <= 0) continue;                 /* another tab's game */
         if (c.y > ui.h || c.y + c.h * 1.2f < menu.top) continue;
         int gi = screen == SCR_MENU ? i : cur, v = screen == SCR_MENU ? -1 : i;
         if (screen == SCR_MENU && started[i] && games[i]->status() == GS_PLAY)   /* a game in progress */
@@ -1449,6 +1528,25 @@ static int press_bar(float x, float y)
     return 0;
 }
 
+/* the menu's tab: another section's games, from the top */
+static void menu_tab(int s)
+{
+    if (menu.tab == s) return;
+    menu.tab = s;
+    menu.scroll = menu.vel = 0;
+    layout();
+}
+
+static void menu_step(int d)                    /* the tab on the left (-1) or the right (1) */
+{
+    for (int k = 0; k < L.ntabs; k++)
+        if (L.tab_sec[k] == menu.tab && k + d >= 0 && k + d < L.ntabs) {
+            snd_play(SND_TAP);
+            menu_tab(L.tab_sec[k + d]);
+            return;
+        }
+}
+
 static void press(float x, float y)
 {
     if (help.open) {                            /* the rules page: scroll it, or close it */
@@ -1485,9 +1583,17 @@ static void press(float x, float y)
             solo_view();
             return;
         }
+        for (int k = 0; k < L.ntabs && screen == SCR_MENU; k++) {
+            box b = L.tabs[k];
+            if (x < b.x || y < b.y || x >= b.x + b.w || y >= b.y + b.h) continue;
+            snd_play(SND_TAP);
+            menu_tab(L.tab_sec[k]);
+            return;
+        }
         if (screen == SCR_MENU) {               /* a card opens on release, unless the finger scrolled the list */
             menu.grabbing = y >= menu.top;
             menu.moved = menu.vel != 0;         /* a tap that stops a fling opens nothing */
+            menu.axis = 0;
             menu.vel = 0;
             menu.grab_x = x;
             menu.grab_y = y;
@@ -1548,8 +1654,11 @@ static void motion(float x, float y)
         return;
     }
     if (screen == SCR_MENU && menu.grabbing) {
-        if (hypotf(x - menu.grab_x, y - menu.grab_y) > fminf(ui.w, ui.h) * 0.02f) menu.moved = 1;
-        if (!menu.moved) return;
+        if (!menu.moved && hypotf(x - menu.grab_x, y - menu.grab_y) > fminf(ui.w, ui.h) * 0.02f) {
+            menu.moved = 1;
+            menu.axis = fabsf(x - menu.grab_x) > fabsf(y - menu.grab_y) ? 1 : 2;
+        }
+        if (!menu.moved || menu.axis == 1) return;   /* sideways: another tab, on release */
         float s = fminf(menu.max, fmaxf(0, menu.grab_scroll - (y - menu.grab_y)));
         Uint32 t = SDL_GetTicks();
         if (t > menu.t) menu.vel = 0.5f * menu.vel + 0.5f * (s - menu.scroll) / (float)(t - menu.t);
@@ -1569,6 +1678,10 @@ static void release(float x, float y)
     if (screen == SCR_MENU && menu.grabbing) {
         menu.grabbing = 0;
         if (menu.moved) {                       /* the end of a drag: the list flies on if the finger was quick */
+            if (menu.axis == 1) {               /* a swipe: the next tab that way */
+                if (fabsf(x - menu.grab_x) > fminf(ui.w, ui.h) * 0.12f) menu_step(x < menu.grab_x ? 1 : -1);
+                return;
+            }
             if (SDL_GetTicks() - menu.t > 80) menu.vel = 0;
             menu.t = SDL_GetTicks();
             need_frame = 1;
@@ -1614,7 +1727,7 @@ static void shot_settle(int reveal, int advance)
 static int shot(int argc, char **argv)
 {
     const char *out = NULL, *id = NULL, *moves = NULL, *taps = NULL, *lang = NULL;
-    int v = 0, keep = 0, pick = 0, show_help = 0, np = 0, reveal = 0;
+    int v = 0, keep = 0, pick = 0, show_help = 0, np = 0, tab = -1, reveal = 0;
     float scroll = 0;
     uint32_t seed = 1;
     int at = -1;                                /* --at ms: the picture that long after the last tap (else at rest) */
@@ -1637,6 +1750,7 @@ static int shot(int argc, char **argv)
         else if (!strcmp(argv[i], "--help")) show_help = 1;
         else if (!strcmp(argv[i], "--scroll") && i + 1 < argc) scroll = (float)atof(argv[++i]);
         else if (!strcmp(argv[i], "--players") && i + 1 < argc) np = atoi(argv[++i]);
+        else if (!strcmp(argv[i], "--tab") && i + 1 < argc) tab = atoi(argv[++i]);
         else if (!strcmp(argv[i], "--seed") && i + 1 < argc) seed = (uint32_t)strtoul(argv[++i], NULL, 10);
         else if (!strcmp(argv[i], "--at") && i + 1 < argc) at = atoi(argv[++i]);
         else if (!strcmp(argv[i], "--reveal")) reveal = 1;
@@ -1681,6 +1795,7 @@ static int shot(int argc, char **argv)
         }
     } else {
         layout();
+        if (tab >= 0) menu_tab(tab);           /* --tab n: that section's tab (0 strategy .. 5 solitaires) */
         if (!show_help) menu_wheel(scroll);     /* --scroll px: further down the menu */
     }
     ms_ahead = base + (at >= 0 ? (Uint32)at : 600000);   /* the taps' animations: over, or caught --at ms in */
@@ -1716,6 +1831,10 @@ static void key(SDL_Keycode k)
     }
     if (k == SDLK_m) snd_muted = !snd_muted;
     if (k == SDLK_h || k == SDLK_F1) { if (!help.open) open_help(screen == SCR_GAME ? cur : -1); return; }
+    if (screen == SCR_MENU && !help.open && (k == SDLK_LEFT || k == SDLK_RIGHT)) {   /* the tabs */
+        menu_step(k == SDLK_RIGHT ? 1 : -1);
+        return;
+    }
     if (screen == SCR_MENU && !help.open &&
         (k == SDLK_DOWN || k == SDLK_UP || k == SDLK_PAGEDOWN || k == SDLK_PAGEUP)) {
         float step = (k == SDLK_PAGEDOWN || k == SDLK_PAGEUP ? 3 : 1) * (L.card + L.label) * 0.5f;

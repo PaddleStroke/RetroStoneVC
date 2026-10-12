@@ -151,8 +151,9 @@ void ui_die_at(float cx, float cy, float size, int player, int value, float alph
 int  ui_dice_busy(void);                        /* 1 while they tumble */
 
 /* the hand-off (VIEW_* games): the device passes to `player`. Once the last move has landed (busy() 0), the view
- * turns to them (ui.viewer, the bars follow); VIEW_HIDDEN first covers the whole screen (the green table, their token
- * in gold light, a "pass the device" picture, a start button, nothing of the game) until they tap start. The same
+ * turns to them (ui.viewer, the bars follow); VIEW_HIDDEN first covers the screen (the table greyed under it, drawn
+ * with ui.viewer -1: draw() must then show every hand hidden; their token in gold light, a "pass the device" picture,
+ * a start button) until they tap start. The same
  * player again: nothing. A new game covers for turn() by itself; a game opened again from the menu shows the cover
  * first. Undo never reveals a hand: a VIEW_HIDDEN game's undo() stops at its last hand-off (its own turn only), and
  * the shell takes no undo while a hand-off waits. */
