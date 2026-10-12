@@ -86,6 +86,8 @@ int  crib_undo(cgame *g);                       /* back one action (a replay fro
 int  crib_away(const cpos *p);                  /* how many cards each lays away (2, or 1 for three players) */
 int  crib_can_play(const cpos *p, int pl);      /* 1: the player has a card that fits under 31 */
 int  crib_fits(const cpos *p, int pl, int slot);   /* 1: kept[slot] is in hand and fits */
+/* 1: the player said "go" in this count: the turn went past them since the last card (cards in hand, none fits) */
+int  crib_said_go(const cpos *p, int pl);
 /* the show's items of four cards and the starter (crib: the crib's flush rule), in counting order: fifteens, pairs,
  * runs, the flush, his nobs; their total */
 int  crib_show(const uint8_t *four, int starter, int is_crib, crib_ev *items, int *n);

@@ -912,16 +912,14 @@ static void release(float x, float y)
 }
 
 /* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
-static void bar(int player, box b)              /* the score; the go's sign when the player cannot lay a card */
+static void bar(int player, box b)              /* the score; the go's sign once the player has said it */
 {
     const cpos *p = &G.pos;
     float h = fminf(0.46f * ui.unit, b.h * 0.6f);
     int v = p->score[player], digits = v >= 100 ? 3 : v >= 10 ? 2 : 1;
     float w = (0.74f * (digits - 1) + 0.62f) * h;
     ui_number(b.x + w / 2, b.y + b.h / 2, h, v, 1);
-    int left = 0;
-    for (int s = 0; s < 4; s++) left += p->kept[player][s] != CARD_NONE && !(p->used[player] >> s & 1);
-    if (p->phase == CP_PLAY && p->nseq && left && !crib_can_play(p, player) && t_go)
+    if (crib_said_go(p, player) && t_go)
         ui_put_c(t_go, b.x + w + 0.45f * ui.unit, b.y + b.h / 2, 0.42f * ui.unit, 0.42f * ui.unit);
 }
 

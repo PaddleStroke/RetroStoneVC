@@ -182,6 +182,21 @@ static void test_go(void)
     CHECK(P->phase == CP_SHOW);
 }
 
+/* "go" is said when the turn passes a player who cannot lay a card, not before (their hand stays secret) */
+static void test_said_go(void)
+{
+    const int a[4] = {CARD(S, 10), CARD(He, 10), CARD(S, RANK_KING), CARD(D, 9)};
+    const int b[4] = {CARD(C, 9), CARD(D, 2), CARD(C, 1), CARD(He, 1)};
+    set_play(1, a, b);
+    CHECK(!crib_said_go(P, 0) && !crib_said_go(P, 1));   /* nothing laid yet */
+    CHECK(crib_play(&G, CA_PLAY + 0) && crib_play(&G, CA_PLAY + 0) && crib_play(&G, CA_PLAY + 1) && P->count == 29);
+    CHECK(P->turn == 1 && !crib_can_play(P, 0) && !crib_said_go(P, 0) && !crib_said_go(P, 1));   /* 0 laid last */
+    CHECK(crib_play(&G, CA_PLAY + 2) && P->count == 30 && P->turn == 1);   /* an ace: 0 cannot go on */
+    CHECK(crib_said_go(P, 0) && !crib_said_go(P, 1));
+    CHECK(crib_play(&G, CA_PLAY + 3) && pts(CE_THIRTYONE) == 2 && P->count == 0);   /* the other ace: 31 */
+    CHECK(!crib_said_go(P, 0) && !crib_said_go(P, 1));   /* a new count */
+}
+
 /* the deal round the show and the next deal; his heels */
 static void test_hand(void)
 {
@@ -280,6 +295,7 @@ int main(void)
     test_play();
     test_play_more();
     test_go();
+    test_said_go();
     test_hand();
     test_end();
     test_undo();

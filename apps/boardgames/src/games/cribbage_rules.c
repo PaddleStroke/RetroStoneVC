@@ -164,6 +164,17 @@ int crib_can_play(const cpos *p, int pl)
 
 static void score_show(cpos *p);
 
+int crib_said_go(const cpos *p, int pl)
+{
+    if (p->phase != CP_PLAY || !p->nseq || p->last >= p->players) return 0;
+    for (int i = 1; i < p->players; i++) {     /* the players after the last to lay a card, up to the one to lay */
+        int q = (p->last + i) % p->players;
+        if (q == p->turn) return 0;
+        if (q == pl) return left_in_hand(p, pl) > 0 && !crib_can_play(p, pl);
+    }
+    return 0;
+}
+
 /* after a card: who lays the next one; a go, a new count, the show */
 static void advance(cpos *p)
 {
