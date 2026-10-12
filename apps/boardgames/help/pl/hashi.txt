@@ -1,0 +1,8 @@
+Mosty
+# Cel gry
+Na planszy leżą wyspy, każda z liczbą. Połącz je mostami, prosto w poziomie lub w pionie, między dwiema wyspami, między którymi nic nie ma. Między dwiema wyspami może być jeden lub dwa mosty, nigdy więcej, i żaden most nie może przecinać innego. Każda wyspa musi na końcu mieć tyle mostów, ile wynosi jej liczba, a wszystkie wyspy muszą tworzyć jedną grupę. Łamigłówka znana jest też jako Hashi. Każde zadanie ma dokładnie jedno rozwiązanie, które można znaleźć samym rozumowaniem. Najpierw wybierz rozmiar i poziom (kamienie pod każdym obrazkiem):
+- Łatwy: zawsze wystarczy liczenie: liczba wyspy wobec tego, co sąsiedzi mogą jeszcze przyjąć (czwórka z tylko dwoma sąsiadami potrzebuje dwóch podwójnych mostów).
+- Średni: trzeba też trzymać wyspy w jednej grupie: żaden most nie może zamknąć małej grupy z dala od reszty.
+- Trudny: dłuższe rozumowanie: wypróbuj most i śledź go, aż coś się nie zgodzi.
+# Gra na urządzeniu
+Przeciągnij od jednej wyspy w stronę drugiej: kładzie się most. Zrób to jeszcze raz, aby dodać drugi most, i jeszcze raz, by usunąć oba. Możesz też stuknąć wyspę, a potem inną w tej samej linii, albo stuknąć most lub wodę między dwiema wyspami. Most, który przeciąłby inny, zostaje odrzucony. Wyspa ze wszystkimi swoimi mostami świeci na złoto; wyspa z nadmiarem świeci na czerwono. Lampa na końcu paska daje podpowiedź: usuwa błędny most, a jeśli takiego nie ma, kładzie most znaleziony rozumowaniem, w złotym świetle. Cofnij cofa po jednym moście, aż do początku. Pasek pokazuje twoje ruchy. Gdy każda wyspa się zgadza i wszystkie są połączone, mosty stają się złote.

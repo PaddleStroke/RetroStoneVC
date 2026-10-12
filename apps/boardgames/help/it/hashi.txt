@@ -1,0 +1,8 @@
+Ponti
+# Lo scopo
+Sul tavoliere ci sono delle isole, ognuna con un numero. Collegale con ponti, in linea retta orizzontale o verticale, tra due isole senza niente in mezzo. Tra due isole ci possono essere uno o due ponti, mai di più, e nessun ponte può incrociarne un altro. Ogni isola deve finire con tanti ponti quanto il suo numero, e tutte le isole devono formare un solo gruppo. Il gioco è noto anche come Hashi. Ogni schema ha una sola soluzione, che si trova con il solo ragionamento. Scegli prima la dimensione e il livello (le pietre sotto ogni immagine):
+- Facile: contare basta sempre: il numero di un'isola contro ciò che le vicine possono ancora ricevere (un 4 con due sole vicine richiede due ponti doppi).
+- Medio: dovrai anche tenere le isole in un solo gruppo: nessun ponte può chiudere un piccolo gruppo lontano dagli altri.
+- Difficile: ragionamenti più lunghi: provare un ponte e seguirlo finché qualcosa non torna.
+# Giocare sul dispositivo
+Trascina da un'isola verso un'altra: viene posato un ponte. Rifallo per un secondo ponte, e ancora una volta per toglierli entrambi. Puoi anche toccare un'isola e poi un'altra allineata, oppure toccare un ponte o l'acqua tra due isole. Un ponte che ne incrocerebbe un altro è rifiutato. Un'isola con tutti i suoi ponti brilla d'oro; una con troppi brilla di rosso. La lampada in fondo alla barra dà un aiuto: toglie un ponte sbagliato, oppure posa un ponte che il ragionamento trova, in luce dorata. Annulla toglie un ponte alla volta, fino all'inizio. La barra mostra le tue mosse. Quando ogni isola è giusta e tutte sono collegate, i ponti diventano d'oro.

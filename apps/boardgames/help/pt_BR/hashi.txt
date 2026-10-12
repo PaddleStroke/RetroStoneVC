@@ -1,0 +1,8 @@
+Pontes
+# O objetivo
+Há ilhas no tabuleiro, cada uma com um número. Ligue-as com pontes, em linha reta na horizontal ou na vertical, entre duas ilhas sem nada no meio. Entre duas ilhas pode haver uma ou duas pontes, nunca mais, e nenhuma ponte pode cruzar outra. Cada ilha deve terminar com tantas pontes quanto o seu número, e todas as ilhas devem formar um único grupo. O quebra-cabeça também é conhecido como Hashi. Todo desafio tem uma única solução, encontrada só pelo raciocínio. Escolha primeiro o tamanho e o nível (as pedras sob cada figura):
+- Fácil: contar sempre basta: o número de uma ilha contra o que as vizinhas ainda podem receber (um 4 com só duas vizinhas precisa de duas pontes duplas).
+- Médio: você também vai precisar manter as ilhas num só grupo: nenhuma ponte pode fechar um grupo pequeno longe dos outros.
+- Difícil: raciocínios mais longos: testar uma ponte e segui-la até algo dar errado.
+# Jogando no aparelho
+Arraste de uma ilha até outra: uma ponte é colocada. Faça de novo para uma segunda ponte, e mais uma vez para tirar as duas. Você também pode tocar numa ilha e depois em outra alinhada com ela, ou tocar numa ponte ou na água entre duas ilhas. Uma ponte que cruzaria outra é recusada. Uma ilha com todas as suas pontes brilha dourada; uma com pontes demais brilha vermelha. A lâmpada no fim da barra dá uma dica: tira uma ponte errada ou, senão, coloca uma que o raciocínio encontra, com luz dourada. Desfazer volta uma ponte por vez, até o começo. A barra mostra as suas jogadas. Quando todas as ilhas estão certas e ligadas, as pontes ficam douradas.

@@ -1,0 +1,8 @@
+Bridges
+# The aim
+Islands lie on the board, each with a number. Join them with bridges, straight across or down, between two islands with nothing in between. Two islands may have one bridge or two between them, never more, and no bridge may cross another. Each island must end with as many bridges as its number, and all the islands must be joined into one group. The puzzle is also known as Hashi. Every puzzle has exactly one solution, found by reasoning alone. Choose the size and the level first (the stones under each picture):
+- Easy: counting is always enough: an island's number against what its neighbours can still take (a 4 with only two neighbours needs two double bridges).
+- Medium: you will also need to keep the islands in one group: no bridge may close a small group off from the others.
+- Hard: longer reasoning: try a bridge and follow it until something breaks.
+# Playing on the device
+Drag from an island towards another: a bridge is laid. Do it again for a second bridge, and once more to take both away. You can also tap an island, then another in line with it, or tap a bridge or the water between two islands. A bridge that would cross another is refused. An island with all its bridges glows gold; one with too many glows red. The lamp at the end of the bar gives a hint: it takes a wrong bridge away, or else lays one that reasoning finds, in gold light. Undo takes back one bridge at a time, all the way to the start. The bar shows your moves. When every island is right and all are joined, the bridges turn gold.

@@ -1,0 +1,8 @@
+Sillat
+# Tavoite
+Laudalla on saaria, ja jokaisessa on numero. Yhdistä ne silloilla, suoraan vaaka- tai pystysuunnassa, kahden saaren välille, joiden välissä ei ole mitään. Kahden saaren välillä saa olla yksi tai kaksi siltaa, ei koskaan enempää, eikä mikään silta saa risteytyä toisen kanssa. Jokaisella saarella on lopuksi oltava yhtä monta siltaa kuin sen numero, ja kaikkien saarten on muodostettava yksi yhtenäinen ryhmä. Pulma tunnetaan myös nimellä Hashi. Jokaisella tehtävällä on täsmälleen yksi ratkaisu, joka löytyy pelkällä päättelyllä. Valitse ensin koko ja taso (kivet kunkin kuvan alla):
+- Helppo: laskeminen riittää aina: saaren numero verrattuna siihen, mitä naapurit vielä voivat ottaa (nelonen, jolla on vain kaksi naapuria, tarvitsee kaksi kaksoissiltaa).
+- Keskitaso: saaret on myös pidettävä yhtenä ryhmänä: mikään silta ei saa sulkea pientä ryhmää erilleen muista.
+- Vaikea: pidempää päättelyä: kokeile siltaa ja seuraa sitä, kunnes jokin menee rikki.
+# Pelaaminen laitteella
+Vedä saaresta kohti toista: silta rakentuu. Toista toista siltaa varten ja vielä kerran, niin molemmat poistuvat. Voit myös napauttaa saarta ja sitten toista samalla linjalla olevaa, tai napauttaa siltaa tai vettä kahden saaren välissä. Silta, joka risteäisi toisen kanssa, torjutaan. Saari, jolla on kaikki siltansa, hehkuu kultaisena; saari, jolla on liikaa, hehkuu punaisena. Palkin päässä oleva lamppu antaa vihjeen: se poistaa väärän sillan tai muuten rakentaa sillan, jonka päättely löytää, kultaisessa valossa. Kumoa perii takaisin yhden sillan kerrallaan, alkuun asti. Palkki näyttää siirtosi. Kun jokainen saari on oikein ja kaikki ovat yhdessä, sillat muuttuvat kultaisiksi.

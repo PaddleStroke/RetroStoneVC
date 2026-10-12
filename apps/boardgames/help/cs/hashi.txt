@@ -1,0 +1,8 @@
+Mosty
+# Cíl hry
+Na desce leží ostrovy, každý s číslem. Spoj je mosty, rovně vodorovně nebo svisle, mezi dvěma ostrovy, mezi nimiž nic není. Mezi dvěma ostrovy smí být jeden nebo dva mosty, nikdy víc, a žádný most nesmí křížit jiný. Každý ostrov musí nakonec mít tolik mostů, kolik je jeho číslo, a všechny ostrovy musí tvořit jedinou skupinu. Hlavolam se také nazývá Hashi. Každá úloha má právě jedno řešení, které se dá najít jen úvahou. Nejprve vyber velikost a obtížnost (kameny pod každým obrázkem):
+- Lehká: vždy stačí počítat: číslo ostrova proti tomu, co ještě mohou přijmout jeho sousedé (čtyřka jen se dvěma sousedy potřebuje dva dvojité mosty).
+- Střední: budeš muset také držet ostrovy v jedné skupině: žádný most nesmí uzavřít malou skupinu stranou od ostatních.
+- Těžká: delší úvahy: zkusit most a sledovat ho, dokud se něco nerozbije.
+# Hra na zařízení
+Táhni od jednoho ostrova k druhému: položí se most. Zopakuj to pro druhý most a ještě jednou, abys oba odstranil. Můžeš také klepnout na ostrov a pak na jiný v jedné linii s ním, nebo klepnout na most či na vodu mezi dvěma ostrovy. Most, který by křížil jiný, se nepřijme. Ostrov se všemi svými mosty září zlatě, ostrov s příliš mnoha červeně. Lampa na konci lišty dá nápovědu: odstraní špatný most, jinak položí most, který najde úvaha, ve zlatém světle. Zpět vrací jeden most po druhém, až na začátek. Lišta ukazuje tvé tahy. Když je každý ostrov správně a všechny jsou spojené, mosty zezlátnou.

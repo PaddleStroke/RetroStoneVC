@@ -1,0 +1,8 @@
+Brücken
+# Das Ziel
+Auf dem Brett liegen Inseln, jede mit einer Zahl. Verbinde sie mit Brücken, gerade waagrecht oder senkrecht, zwischen zwei Inseln, zwischen denen nichts liegt. Zwischen zwei Inseln dürfen eine oder zwei Brücken sein, nie mehr, und keine Brücke darf eine andere kreuzen. Jede Insel muss am Ende so viele Brücken haben wie ihre Zahl, und alle Inseln müssen zu einer einzigen Gruppe verbunden sein. Das Rätsel heißt auch Hashi. Jedes Rätsel hat genau eine Lösung, die sich allein durch Nachdenken finden lässt. Wähle zuerst die Größe und die Stufe (die Steine unter jedem Bild):
+- Leicht: Zählen reicht immer: die Zahl einer Insel gegen das, was ihre Nachbarn noch aufnehmen können (eine 4 mit nur zwei Nachbarn braucht zwei Doppelbrücken).
+- Mittel: Du musst auch die Inseln in einer Gruppe halten: Keine Brücke darf eine kleine Gruppe von den anderen abschließen.
+- Schwer: längere Überlegungen: eine Brücke ausprobieren und verfolgen, bis etwas nicht mehr passt.
+# Spielen auf dem Gerät
+Ziehe von einer Insel zu einer anderen: Eine Brücke wird gelegt. Noch einmal für eine zweite Brücke, und noch einmal, um beide wegzunehmen. Du kannst auch eine Insel antippen und dann eine andere in derselben Linie, oder eine Brücke oder das Wasser zwischen zwei Inseln antippen. Eine Brücke, die eine andere kreuzen würde, wird abgelehnt. Eine Insel mit all ihren Brücken leuchtet golden, eine mit zu vielen rot. Die Lampe am Ende der Leiste gibt einen Tipp: Sie nimmt eine falsche Brücke weg oder legt sonst eine, die sich durch Nachdenken ergibt, in goldenem Licht. Rückgängig nimmt eine Brücke nach der anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge. Stimmt jede Insel und sind alle verbunden, werden die Brücken golden.

@@ -1,0 +1,8 @@
+Köprüler
+# Amaç
+Tahtada her birinin üzerinde bir sayı olan adalar var. Onları, aralarında hiçbir şey olmayan iki ada arasında, düz yatay ya da dikey köprülerle birleştir. İki ada arasında bir ya da iki köprü olabilir, asla daha fazla değil, ve hiçbir köprü başka bir köprüyü kesemez. Her ada sonunda sayısı kadar köprüye sahip olmalı ve bütün adalar tek bir grup hâlinde birleşmelidir. Bulmaca Hashi adıyla da bilinir. Her bulmacanın tek bir çözümü vardır ve yalnızca akıl yürüterek bulunur. Önce boyutu ve seviyeyi seç (her resmin altındaki taşlar):
+- Kolay: saymak her zaman yeter: bir adanın sayısı ile komşularının hâlâ alabileceği köprüler (yalnızca iki komşusu olan bir 4, iki çift köprü ister).
+- Orta: adaları tek bir grupta tutman da gerekecek: hiçbir köprü küçük bir grubu ötekilerden ayırıp kapatmamalı.
+- Zor: daha uzun akıl yürütmeler: bir köprüyü dene ve bir şey bozulana kadar izle.
+# Cihazda oynamak
+Bir adadan başka bir adaya doğru sürükle: bir köprü kurulur. İkinci köprü için tekrarla, ikisini birden kaldırmak için bir kez daha. Ayrıca bir adaya, sonra aynı hizadaki başka bir adaya dokunabilir ya da bir köprüye veya iki ada arasındaki suya dokunabilirsin. Başka bir köprüyü kesecek köprü reddedilir. Bütün köprüleri tamam olan ada altın rengi, fazlası olan kırmızı parlar. Çubuğun ucundaki lamba ipucu verir: yanlış bir köprüyü kaldırır, yoksa akıl yürütmenin bulduğu bir köprüyü altın ışıkta kurar. Geri al her seferinde bir köprüyü, en başa kadar geri alır. Çubuk hamlelerini gösterir. Her ada doğru olup hepsi birleşince köprüler altın rengine döner.

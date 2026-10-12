@@ -1,0 +1,8 @@
+Bruggen
+# Het doel
+Op het bord liggen eilanden, elk met een getal. Verbind ze met bruggen, recht horizontaal of verticaal, tussen twee eilanden met niets ertussen. Tussen twee eilanden mogen één of twee bruggen liggen, nooit meer, en geen brug mag een andere kruisen. Elk eiland moet uiteindelijk evenveel bruggen hebben als zijn getal, en alle eilanden moeten samen één groep vormen. De puzzel heet ook Hashi. Elke puzzel heeft precies één oplossing, te vinden door alleen te redeneren. Kies eerst de grootte en het niveau (de stenen onder elk plaatje):
+- Makkelijk: tellen is altijd genoeg: het getal van een eiland tegenover wat zijn buren nog kunnen hebben (een 4 met maar twee buren heeft twee dubbele bruggen nodig).
+- Gemiddeld: je moet de eilanden ook in één groep houden: geen brug mag een kleine groep van de rest afsluiten.
+- Moeilijk: langer redeneren: probeer een brug en volg die tot er iets niet klopt.
+# Spelen op het apparaat
+Sleep van een eiland naar een ander: er komt een brug. Nog eens voor een tweede brug, en nog eens om ze allebei weg te halen. Je kunt ook een eiland aantikken en dan een ander op dezelfde lijn, of een brug of het water tussen twee eilanden aantikken. Een brug die een andere zou kruisen, wordt geweigerd. Een eiland met al zijn bruggen gloeit goud; een met te veel gloeit rood. De lamp aan het eind van de balk geeft een hint: hij haalt een foute brug weg, of legt anders een brug die redeneren oplevert, in gouden licht. Ongedaan maken neemt telkens één brug terug, tot het begin. De balk toont je zetten. Klopt elk eiland en zijn ze allemaal verbonden, dan worden de bruggen goud.
