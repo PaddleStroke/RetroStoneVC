@@ -570,7 +570,11 @@ static void taken(int player, box b)
     }
 }
 
-static void token(int player, int size, uint8_t *rgba) { art_piece(KING, player, size, rgba); }
+/* a player's king; the horde's white has none: a pawn (the shell makes the tokens again when a game opens) */
+static void token(int player, int size, uint8_t *rgba)
+{
+    art_piece(rules() == CR_HORDE && player == WHITE ? PAWN : KING, player, size, rgba);
+}
 
 /* Chess960's card: a whole board at the start, the back ranks shuffled (the bishops side by side in the corner) */
 static void thumb960(int size, uint8_t *rgba)

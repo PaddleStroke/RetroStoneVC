@@ -239,7 +239,10 @@ static int castles_atomic(const cpos *p, int k, cmove *out, int n)
 
 /* the king on k castles: onto the rook's square (chess.h). The king and the rook end on g and f (or c and d), the
  * squares they cross empty; the king not in check, crossing and reaching only squares no enemy attacks (seen with
- * the king and the rook off the board: a rook may hide an attack on the king's new square) */
+ * the king and the rook off the board: a rook may hide an attack on the king's new square). Leaving the rook on gives
+ * the same moves, as chess_legal() then finds the king in check once castled: the only line the rook can shut is
+ * along the back rank from beyond it, and that line then reaches the castled king (tests/perft.c: against FIDE's
+ * rule) */
 static int castles(const cpos *p, int k, cmove *out, int n)
 {
     int us = p->side, them = !us, hr = us == WHITE ? 0 : 7;

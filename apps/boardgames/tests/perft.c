@@ -1,9 +1,9 @@
 /*
  * The rules against the standard perft counts (the number of move sequences of a given length): the start position
  * and the usual tricky ones (castling through check, en passant pins, promotions). Then the draw rules, then
- * Chess960: its perft suite, its 960 start positions, its castling. Then crazyhouse, three-check and king of the hill,
- * and losing chess, atomic, racing kings and horde: their published perft counts, their rules played out, and whole
- * random games.
+ * Chess960: its perft suite, its 960 start positions, its castling (positions made by hand, and random back ranks
+ * against the FIDE rule). Then crazyhouse, three-check and king of the hill, and losing chess, atomic, racing kings
+ * and horde: their published perft counts, their rules played out, and whole random games.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -436,6 +436,130 @@ static void starts960(void)
     fails += !ok;
 }
 
+/* Chess960 castling by the FIDE rule, read word for word, to check the generator against: every square between the
+ * king's start and end and between the rook's start and end (both ends counted) empty but for that king and rook;
+ * the king not in check, no square it crosses nor the one it lands on attacked (in the position as it stands); and,
+ * as for any move, the king not in check once castled. The moves' squares (the rook's: chess.h) in to[]; how many. */
+static int fide_castles(const cpos *p, int *to, int *naive)
+{
+    int us = p->side, them = !us, hr = us == WHITE ? 0 : 7, k = chess_king(p, us), n = 0;
+    *naive = 0;
+    if (k < 0 || RANK_OF(k) != hr) return 0;
+    for (int side = 0; side < 2; side++) {
+        int bit = us * 2 + side;
+        if (!(p->castle >> bit & 1)) continue;
+        int r = SQ(p->rook[bit], hr), kt = SQ(side ? 2 : 6, hr), rt = SQ(side ? 3 : 5, hr), good = 1;
+        if (p->sq[r] != PC(us, ROOK)) continue;
+        for (int s = 0; s < 64; s++) {
+            int in_k = s >= (k < kt ? k : kt) && s <= (k < kt ? kt : k), in_r = s >= (r < rt ? r : rt) &&
+                       s <= (r < rt ? rt : r);
+            if ((in_k || in_r) && p->sq[s] && s != k && s != r) good = 0;
+            if (in_k && chess_attacked(p, s, them)) good = 0;
+        }
+        if (!good) continue;
+        ++*naive;                               /* what a generator that never looks after the move would allow */
+        cmove m = {(uint8_t)k, (uint8_t)r, 0, MV_CASTLE, 0};
+        cpos q = *p;
+        chess_make(&q, m);
+        if (!chess_in_check(&q, us)) to[n++] = r;
+    }
+    return n;
+}
+
+/* Chess960 castling: positions made by hand, each move counted in its comment, then random back ranks against the
+ * rule above */
+static void castling960(void)
+{
+    cpos p;
+    cmove m[MAX_MOVES];
+    /* the subtle case: the castling rook on b1 hides the black rook on a1 from the king. Castling on the a side puts
+     * the king on c1 and the rook on d1: a1 then sees c1 through the empty b1, the king would stand in check, so no
+     * castling (the squares the king crosses, d1 and c1, are safe as the position stands: a generator that only
+     * checks those would wrongly allow it). The king: c1 c2 d2 e2 e1 (5, the rank is shut by b1); the rook b1 is
+     * pinned on the rank: a1 (taking) and c1 (2). 7 */
+    check("960 hidden rook", "7k/8/8/8/8/8/8/rR1K4 w B - 0 1", 1, 7);
+    chess_from_fen(&p, "7k/8/8/8/8/8/8/rR1K4 w B - 0 1");
+    ok("960 hidden rook: no castling", !find(&p, "d1b1").to);
+    /* without the black rook: the king 5, the rook a1 c1 b2..b8 (9), and castling (king c1, rook d1). 15 */
+    check("960 a side", "7k/8/8/8/8/8/8/1R1K4 w B - 0 1", 1, 15);
+    chess_from_fen(&p, "7k/8/8/8/8/8/8/1R1K4 w B - 0 1");
+    cmove c = find(&p, "d1b1");
+    chess_make(&p, c);
+    ok("960 a side: king c1, rook d1", (c.flags & MV_CASTLE) && p.sq[SQ(2, 0)] == PC(WHITE, KING) &&
+       p.sq[SQ(3, 0)] == PC(WHITE, ROOK) && !p.sq[SQ(1, 0)]);
+    /* the same for black, the board turned over: 7 */
+    check("960 hidden rook b", "Rr1k4/8/8/8/8/8/8/7K b b - 0 1", 1, 7);
+    /* the king on b1 castles on the h side over its own rook on c1 (to g1, the rook to f1); the bishop a3 attacks
+     * c1, a square the king crosses (the rook standing there changes nothing): no castling. The king a1 a2 c2 (b2:
+     * the bishop's) 3; the rook d1..h1 and c2..c8, 12. 15 */
+    check("960 over the rook", "7k/8/8/8/8/b7/8/1KR5 w C - 0 1", 1, 15);
+    /* without the bishop: the king a1 a2 b2 c2 (4), the rook 12, castling. 17 */
+    check("960 over the rook", "7k/8/8/8/8/8/8/1KR5 w C - 0 1", 1, 17);
+    /* the rook may cross and land on attacked squares: king b1 and rook a1 castle on the a side (king c1, rook d1;
+     * the king moves towards h); the bishop f3 attacks d1, the rook's end. The king a2 b2 c2 c1 (4), the rook a2..a8
+     * (7), castling. 12 */
+    check("960 rook's end attacked", "7k/8/8/8/8/5b2/8/RK6 w A - 0 1", 1, 12);
+    /* the king's end is its own rook's square, the black rook h1 behind it: king f1 and rook g1 would swap, the king
+     * then on g1 beside the black rook. The king e1 e2 f2 g2 (4: the rook g1 shuts the rank); the rook g1 is pinned:
+     * it takes h1 (1). 5 */
+    check("960 swap, rook behind", "7k/8/8/8/8/8/8/5KRr w G - 0 1", 1, 5);
+    /* the king stays on g1, only the rook h1 moves (to f1): the king f1 f2 g2 h2, the rook h2..h8, castling. 12;
+     * with the king in check from g8, no castling though the king does not move: f1 f2 h2. 3 */
+    check("960 king stays", "7k/8/8/8/8/8/8/6KR w H - 0 1", 1, 12);
+    check("960 king stays, check", "6rk/8/8/8/8/8/8/6KR w H - 0 1", 1, 3);
+
+    /* random back ranks: the white king on b1..g1, a castling rook on either side or both, now and then a white
+     * knight or bishop in the way; black pieces anywhere, rooks and queens often on the first rank. The generator's
+     * castling moves must be the rule's, for every one */
+    unsigned seed = 960u;
+    int bad = 0, some = 0, hidden = 0;
+#define RND(n) ((seed = seed * 1103515245u + 12345u), (int)((seed >> 8) % (unsigned)(n)))
+    for (int t = 0; t < 200000; t++) {
+        memset(&p, 0, sizeof p);
+        p.ep = -1;
+        p.fullmove = 1;
+        int kf = 1 + RND(6);
+        p.sq[SQ(kf, 0)] = PC(WHITE, KING);
+        if (RND(4)) {
+            int f = kf + 1 + RND(7 - kf);
+            p.sq[SQ(f, 0)] = PC(WHITE, ROOK);
+            p.castle |= CASTLE_WK;
+            p.rook[0] = (uint8_t)f;
+        }
+        if (RND(4)) {
+            int f = RND(kf);
+            p.sq[SQ(f, 0)] = PC(WHITE, ROOK);
+            p.castle |= CASTLE_WQ;
+            p.rook[1] = (uint8_t)f;
+        }
+        if (!RND(4)) {
+            int s = SQ(RND(8), 0);
+            if (!p.sq[s]) p.sq[s] = PC(WHITE, RND(2) ? KNIGHT : BISHOP);
+        }
+        static const int kinds[6] = {ROOK, QUEEN, BISHOP, KNIGHT, PAWN, KING};
+        for (int i = 0, n = 1 + RND(4); i < n; i++) {
+            int kind = kinds[RND(6)], s = kind == ROOK || kind == QUEEN ? (RND(2) ? SQ(RND(8), 0) : RND(64))
+                                                                         : RND(64);
+            if (kind == PAWN && (RANK_OF(s) == 0 || RANK_OF(s) == 7)) continue;
+            if (kind == KING && chess_king(&p, BLACK) >= 0) continue;
+            if (!p.sq[s]) p.sq[s] = PC(BLACK, kind);
+        }
+        int want[2], naive, nw = fide_castles(&p, want, &naive), n = chess_legal(&p, m), got = 0, match = 0;
+        for (int i = 0; i < n; i++)
+            if (m[i].flags & MV_CASTLE) {
+                got++;
+                for (int j = 0; j < nw; j++) match += m[i].to == want[j];
+            }
+        bad += got != nw || match != nw;
+        some += nw > 0;
+        hidden += naive > nw;
+    }
+#undef RND
+    printf("%s 960 castling, random back ranks: %d with castling, %d where castling would leave the king in check, %d"
+           " differ\n", bad || !some || !hidden ? "FAIL" : "ok  ", some, hidden, bad);
+    fails += bad || !some || !hidden;
+}
+
 int main(void)
 {
     const char *start = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
@@ -480,6 +604,7 @@ int main(void)
     check("960 sf 4", "rr6/2kpp3/1ppnb1p1/p4q1p/P4P1P/1PNN2P1/2PP2Q1/1K2RR2 w E - 1 19", 4, 2098209);
 
     starts960();
+    castling960();
     variants();
     variants2();
     printf(fails ? "%d FAILED\n" : "all passed\n", fails);
