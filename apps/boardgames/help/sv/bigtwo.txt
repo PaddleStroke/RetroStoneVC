@@ -1,0 +1,18 @@
+Big Two
+# Målet
+Att bli först med att spela alla sina kort. Ett kantonesiskt spel för 4 spelare (eller 3), med en lek på 52 kort som delas ut helt: 13 var (med 3 spelare 17 var, och det sista kortet till den som har ruter 3).
+# Korten
+- Från lägst till högst: 3, 4, 5, 6, 7, 8, 9, 10, knekt, dam, kung, ess, och 2:an, den högsta av alla.
+- Färgerna från lägst till högst: ruter, klöver, hjärter, spader. Mellan två kort av samma valör avgör färgen: spader 2 är det högsta kortet.
+# Kombinationerna
+- Ett enstaka kort, ett par, en triss.
+- En hand på fem kort, från lägst till högst: stege (fem valörer i följd, från 3-4-5-6-7 upp till 10-J-Q-K-A; 2:an är aldrig med), färg (fem kort i samma färg), kåk (en triss och ett par), fyrtal med ett valfritt femte kort, färgstege.
+- Två kombinationer av samma slag avgörs av sitt högsta kort. Färg avgörs av det högsta kortet, sedan de följande; kåk och fyrtal av valören på sina tre eller fyra lika kort.
+# Ett stick
+- Den som har ruter 3 spelar ut till första sticket, med en kombination som innehåller den.
+- I tur och ordning lägger var och en en högre kombination av samma slag och storlek, eller passar. Den som har passat får ändå spela när turen kommer tillbaka.
+- När alla de andra har passat i följd börjar den som spelade sist ett nytt stick med valfri kombination.
+# Poängen
+Den som först blir av med sina kort vinner. Var och en av de andra får en straffpoäng för varje kort kvar på handen, dubbelt med tio kort eller fler.
+# Spela på enheten
+Skicka runt enheten: varje spelare ser bara sina egna kort, längst ned, från lägst till högst. Längst upp sitter de andra: deras kort med baksidan upp, hur många de har, och ett passtecken om de har passat sedan det senaste draget. Det senaste draget ligger stort i mitten med spelarens markör, de tidigare dragen mindre bakom. Tryck på kort för att välja dem, och tryck sedan på mitten eller dra dit dem: mitten lyser upp när ditt val kan spelas. Ruter 3 lyser för den spelare som måste spela ut den. Passknappen finns i ditt fält. Till sist visar en tavla varje spelares kvarvarande kort och straffpoäng.

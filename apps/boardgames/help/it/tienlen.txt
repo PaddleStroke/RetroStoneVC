@@ -1,0 +1,26 @@
+Tiến lên
+# Lo scopo
+Essere il primo a giocare tutte le proprie carte; gli altri continuano per i piazzamenti. Un gioco vietnamita (il nome significa «avanti») da 2 a 4 giocatori, con un mazzo di 52 carte: 13 a testa (in meno di quattro, le carte avanzate restano fuori dal gioco).
+# Le carte
+- Dalla più bassa alla più alta: 3, 4, 5, 6, 7, 8, 9, 10, fante, donna, re, asso, e il 2, la più alta di tutte.
+- I semi, dal più basso al più alto: picche, fiori, quadri, cuori. Tra due carte dello stesso valore decide il seme: il 2 di cuori è la carta più alta.
+# Le combinazioni
+- Una carta singola, una coppia, un tris o un poker.
+- Una scala: tre o più carte di valori consecutivi, di qualsiasi seme. Il 2 non ne fa mai parte.
+- Una scala doppia: tre o più coppie di valori consecutivi, come 3-3-4-4-5-5, senza 2.
+- Una combinazione è battuta da un'altra dello stesso tipo, con lo stesso numero di carte e una carta più alta superiore.
+# Una presa
+- Chi ha ricevuto la carta più bassa (il 3 di picche in quattro) apre la prima presa, con una combinazione che la contiene.
+- A turno, ognuno batte l'ultima giocata oppure passa. Chi passa resta fuori dalla presa finché non ne comincia una nuova.
+- Quando tutti gli altri hanno passato, l'ultimo che ha giocato comincia una nuova presa con una combinazione qualsiasi.
+# Le bombe
+Alcune combinazioni battono i 2, e si giocano a turno come tutte le altre:
+- tre coppie consecutive battono un 2 singolo;
+- un poker batte un 2 singolo, o tre coppie consecutive;
+- quattro coppie consecutive battono un 2 singolo, una coppia di 2, un poker, o tre coppie consecutive;
+- cinque coppie consecutive battono anche un tris di 2.
+Una bomba batte anche una bomba più bassa dello stesso tipo.
+# La fine della partita
+Vince il primo giocatore che resta senza carte. Gli altri continuano: l'ordine in cui finiscono le carte dà i loro piazzamenti, e l'ultimo che ha ancora carte arriva ultimo.
+# Giocare sul dispositivo
+Passatevi il dispositivo: ognuno vede solo le proprie carte, in basso, dalla più bassa alla più alta. In alto siedono gli altri: le loro carte coperte, quante sono, e un segno di passo finché sono fuori dalla presa; quando restano senza carte, il loro piazzamento. L'ultima giocata sta in grande al centro con la pedina del suo giocatore, le giocate precedenti più piccole dietro. Tocca le carte per sceglierle, poi tocca il centro o trascinale lì: il centro si illumina quando la scelta si può giocare. La carta più bassa brilla per il giocatore che deve aprire con essa. Il pulsante passo è nella tua barra. Alla fine, una tabella mostra i piazzamenti.

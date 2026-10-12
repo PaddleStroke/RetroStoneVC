@@ -1,0 +1,27 @@
+Durak
+# Amaç
+Bütün kartlarından kurtul. Elinde hâlâ kart kalan son oyuncu durak, yani aptal olur ve kaybeder; diğerlerinin hepsi birlikte kazanır. 2 ila 6 oyuncu için (genellikle 2 ya da 3), 36 kartlık bir desteyle. Seçilebilecek iki oyun var: kart eklemeli (podkidnoy) ve aktarmalı (perevodnoy).
+# Kartlar
+- En düşükten en yükseğe: 6, 7, 8, 9, 10, vale, kız, papaz, as.
+- Her oyuncuya altı kart dağıtılır. Sonraki kart açılır ve destenin altına enine konur: rengi bütün oyun boyunca kozdur ve en son çekilecek kart odur.
+- En küçük koza sahip oyuncu ilk saldırır; sonraki oyuncu savunur.
+# Bir saldırı
+- Saldıran bir kart ya da aynı değerde birkaç kart oynar.
+- Savunan, saldırı kartlarının her birini aynı renkten daha büyük bir kartla ya da bir kozla yener. Bir koz ancak daha büyük bir kozla yenilebilir.
+- Bütün kartlar yenildiğinde, diğerleri masada zaten bulunan bir değerden daha fazla kart ekleyebilir: önce saldıran, sonra sırayla diğer her oyuncu. Savunan bunları da yenmek zorundadır.
+- Bir saldırıda en fazla altı kart olur ve hiçbir zaman savunanın saldırı başladığında elinde tuttuğundan fazla olmaz.
+- Yenemeyen ya da yenmek istemeyen savunan kartları alır: diğerleri yine de kart ekleyebilir, sonra savunan masadaki bütün kartları alır.
+# Saldırıdan sonra
+- Bütün kartlar yenildiyse ve kimse daha fazla eklemiyorsa, kartlar kenara konur ve sıradaki saldırıyı savunan yapar.
+- Savunan kartları aldıysa saldırı sırasını kaybeder: ondan sonraki oyuncu saldırır.
+- Herkes desteden çekerek elini altı karta tamamlar: önce saldıran, sonra sırayla diğerleri, en son savunan.
+# Oyunun sonu
+Deste bittikten sonra kartı kalmayan oyuncu oyundan çıkar ve kurtulmuş olur. Elinde hâlâ kart kalan son oyuncu duraktır. Son oyuncuların kartları aynı anda biterse kimse kaybetmez.
+# Aktarmalı oyun
+Savunan, hiçbir kartı yenmeden önce, saldırı kartlarıyla aynı değerde bir kart ekleyerek saldırıyı aktarabilir. Bu durumda, masadaki kart sayısı kadar ya da daha fazla kartı varsa, sonraki oyuncu hepsine karşı savunur; saldırıyı aktaran oyuncu da saldırıya katılır.
+# Cihazda oynamak
+Cihazı elden ele verin: herkes yalnızca kendi kartlarını, altta, renklere göre ve kozlar en sonda olacak şekilde görür. Üstte diğerleri oturur: kapalı kartları ve kaç tane oldukları, saldıranın yanında bir kılıç, savunanın yanında bir kalkan, pas diyen oyuncunun yanında bir pas işareti. Bir yanda deste ve altında koz kartı (deste bitince onun renginin işareti), diğer yanda kenara konan kartlar durur.
+- Saldırmak ya da kart eklemek: kartlarına dokun (ekleyebileceklerin parlar), sonra masaya dokun ya da onları oraya sürükle. Şeridindeki pas düğmesiyle pas dersin.
+- Savunmak: bir karta dokun (yenebileceği kartlar parlar), sonra yenilecek karta. Oklu yuvarlak düğme kartları alır; diğerleri kart eklerken yanmaya devam eder.
+- Aktarmalı oyunda, saldırının değerindeki bir kart saldırının yanında boş bir yeri yakar: saldırıyı aktarmak için ona dokun.
+Her saldırıdan sonra cihaz savunana geçer; her şey yenildiğinde, kart eklemek ya da pas demek için sırayla diğer her oyuncuya, önce saldırana.

@@ -1,0 +1,18 @@
+Big Two
+# Målet
+Å bli først til å spille alle kortene sine. Et kantonesisk spill for 4 spillere (eller 3), med en kortstokk på 52 kort som deles ut helt: 13 til hver (med 3 spillere 17 til hver, og det siste kortet til den som har ruter 3).
+# Kortene
+- Fra lavest til høyest: 3, 4, 5, 6, 7, 8, 9, 10, knekt, dame, konge, ess og 2-eren, den høyeste av alle.
+- Fargene fra lavest til høyest: ruter, kløver, hjerter, spar. Mellom to kort av samme valør avgjør fargen: spar 2 er det høyeste kortet.
+# Kombinasjonene
+- Ett enkelt kort, et par, tre like.
+- En hånd på fem kort, fra lavest til høyest: straight (fem valører på rad, fra 3-4-5-6-7 opp til 10-J-Q-K-A; 2-eren er aldri med), flush (fem kort i samme farge), fullt hus (tre like og et par), fire like med et valgfritt femte kort, straight flush.
+- To kombinasjoner av samme slag avgjøres av det høyeste kortet. En flush avgjøres av det høyeste kortet, så de neste; fullt hus og fire like av valøren på de tre eller fire like kortene.
+# Et stikk
+- Den som har ruter 3, spiller ut til første stikk med en kombinasjon som inneholder den.
+- Etter tur legger hver spiller en høyere kombinasjon av samme slag og størrelse, eller melder pass. En spiller som har meldt pass, kan likevel spille når turen kommer tilbake.
+- Når alle de andre har meldt pass etter hverandre, starter den som spilte sist, et nytt stikk med en valgfri kombinasjon.
+# Poengtelling
+Den første som blir kvitt kortene sine, vinner. Hver av de andre får ett straffepoeng for hvert kort som er igjen på hånden, dobbelt med ti kort eller flere.
+# Spill på enheten
+Send enheten rundt: hver spiller ser bare sine egne kort, nederst, fra lavest til høyest. Langs toppen sitter de andre: kortene deres med baksiden opp, hvor mange de har, og et pass-tegn hvis de har meldt pass siden noen sist la kort. De sist lagte kortene ligger stort i midten med markøren til den som la dem, de foregående mindre bak. Trykk på kort for å velge dem, og trykk så på midten eller dra dem dit: midten lyser opp når valget ditt kan spilles. Ruter 3 lyser for spilleren som må spille den ut. Pass-knappen er i panelet ditt. Til slutt viser en tavle hver spillers gjenværende kort og straffepoeng.

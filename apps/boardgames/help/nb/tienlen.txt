@@ -1,0 +1,26 @@
+Tiến lên
+# Målet
+Bli den første som har lagt alle kortene sine; de andre spiller videre om plasseringene. Et vietnamesisk spill (navnet betyr «fremover») for 2 til 4 spillere, med en kortstokk på 52 kort: 13 til hver (med færre enn fire spillere er resten ute av spillet).
+# Kortene
+- Fra lavest til høyest: 3, 4, 5, 6, 7, 8, 9, 10, knekt, dame, konge, ess og 2-eren, den høyeste av alle.
+- Fargene, fra lavest til høyest: spar, kløver, ruter, hjerter. Mellom to kort av samme valør avgjør fargen: hjerter 2 er det høyeste kortet.
+# Kombinasjonene
+- Ett enkeltkort, et par, tre like eller fire like.
+- En rekke: tre eller flere kort med valører på rad, i hvilke som helst farger. 2-eren er aldri med i en rekke.
+- En dobbeltrekke: tre eller flere par med valører på rad, som 3-3-4-4-5-5, uten 2-ere.
+- En kombinasjon slås av en av samme slag med like mange kort og et høyere høyeste kort.
+# Et stikk
+- Spilleren med det laveste kortet som ble delt ut (spar 3 med fire spillere), spiller ut til første stikk, med en kombinasjon som inneholder det.
+- Etter tur slår hver spiller den siste kombinasjonen eller melder pass. En spiller som melder pass, er ute av stikket til et nytt begynner.
+- Når alle de andre har meldt pass, starter den som spilte sist, et nytt stikk med en valgfri kombinasjon.
+# Bomber
+Noen kombinasjoner slår 2-ere og spilles etter tur som alle andre:
+- tre par på rad slår en enkelt 2-er;
+- fire like slår en enkelt 2-er eller tre par på rad;
+- fire par på rad slår en enkelt 2-er, et par 2-ere, fire like eller tre par på rad;
+- fem par på rad slår i tillegg tre 2-ere.
+En bombe slår også en lavere bombe av samme slag.
+# Slutten på spillet
+Den første som går tom for kort, vinner. De andre spiller videre: rekkefølgen de går ut i, gir plasseringene deres, og den siste som fortsatt har kort, blir sist.
+# Spill på enheten
+Send enheten rundt: hver spiller ser bare sine egne kort, nederst, fra lavest til høyest. Øverst sitter de andre: kortene deres med baksiden opp, hvor mange de har, og et pass-tegn så lenge de er ute av stikket; når de er tomme for kort, plasseringen deres. De sist lagte kortene ligger stort i midten med markøren til den som la dem, de foregående mindre bak. Trykk på kort for å velge dem, og trykk så på midten eller dra dem dit: midten lyser opp når valget ditt kan spilles. Det laveste kortet lyser for spilleren som må spille det ut. Pass-knappen er i panelet ditt. Til slutt viser en tavle plasseringene.

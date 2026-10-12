@@ -1,0 +1,18 @@
+Big Two
+# O objetivo
+Ser o primeiro a jogar todas as cartas. Um jogo cantonês para 4 jogadores (ou 3), com um baralho de 52 cartas dado por inteiro: 13 a cada um (com 3 jogadores, 17 a cada um, e a última carta para quem tiver o 3 de ouros).
+# As cartas
+- Da mais baixa para a mais alta: 3, 4, 5, 6, 7, 8, 9, 10, valete, dama, rei, ás, e o 2, a mais alta de todas.
+- Os naipes, do mais baixo para o mais alto: ouros, paus, copas, espadas. Entre duas cartas do mesmo valor, decide o naipe: o 2 de espadas é a carta mais alta.
+# As combinações
+- Uma carta só, um par, um trio.
+- Uma mão de cinco cartas, da mais baixa para a mais alta: sequência (cinco valores seguidos, de 3-4-5-6-7 até 10-J-Q-K-A; o 2 nunca faz parte), cor (cinco cartas do mesmo naipe), full house (um trio e um par), póquer com uma quinta carta qualquer, sequência de cor.
+- Entre duas combinações do mesmo tipo, decide a carta mais alta. Na cor conta a carta mais alta, depois as seguintes; no full house e no póquer, o valor das três ou quatro cartas iguais.
+# Uma vaza
+- Quem tiver o 3 de ouros abre a primeira vaza, com uma jogada que o inclua.
+- À vez, cada jogador joga uma combinação mais alta do mesmo tipo e tamanho, ou passa. Quem passou pode voltar a jogar quando chegar outra vez a sua vez.
+- Quando todos os outros passam seguidos, o último a jogar começa uma nova vaza com qualquer jogada.
+# A pontuação
+Ganha o primeiro a ficar sem cartas. Cada um dos outros marca um ponto de penalização por cada carta que lhe ficou na mão, a dobrar com dez cartas ou mais.
+# Jogar no dispositivo
+Passem o dispositivo: cada jogador só vê as suas cartas, em baixo, da mais baixa para a mais alta. Na parte de cima estão os outros: as cartas deles viradas para baixo, quantas são, e um sinal de passe se passaram desde a última jogada. A última jogada fica em grande no meio com a peça de quem a fez, e as jogadas anteriores, mais pequenas, atrás dela. Toca nas cartas para as escolher, depois toca no meio ou arrasta-as até lá: o meio acende-se quando a tua escolha pode ser jogada. O 3 de ouros brilha para o jogador que tem de abrir com ele. O botão de passar está na tua barra. No fim, uma tabela mostra as cartas que sobraram e a penalização de cada jogador.

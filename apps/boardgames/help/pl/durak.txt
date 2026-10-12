@@ -1,0 +1,27 @@
+Dureń
+# Cel gry
+Pozbądź się wszystkich kart. Ostatni gracz, który ma jeszcze karty, zostaje dureniem i przegrywa; wszyscy pozostali wygrywają razem. Dla 2 do 6 graczy (zwykle 2 lub 3), talią 36 kart. Dwie odmiany do wyboru: z dorzucaniem (podkidnoy) i z przekazywaniem (perevodnoy).
+# Karty
+- Od najniższej do najwyższej: 6, 7, 8, 9, 10, walet, dama, król, as.
+- Każdy gracz dostaje sześć kart. Następną kartę odkrywa się i kładzie w poprzek pod talią: jej kolor jest atutowy przez całą grę, a ona sama zostanie dobrana jako ostatnia.
+- Gracz z najniższym atutem atakuje pierwszy; następny gracz się broni.
+# Atak
+- Atakujący wykłada kartę albo kilka kart tej samej wartości.
+- Broniący przebija każdą kartę ataku wyższą kartą w jej kolorze albo atutem. Atut można przebić tylko wyższym atutem.
+- Gdy wszystkie karty są przebite, pozostali mogą dorzucać kolejne karty o wartości, która już leży na stole: najpierw atakujący, potem po kolei każdy z pozostałych. Te karty broniący też musi przebić.
+- W jednym ataku jest najwyżej sześć kart i nigdy więcej, niż broniący miał w ręce na początku.
+- Broniący, który nie może lub nie chce przebijać, bierze: pozostali mogą jeszcze dorzucić karty, a potem broniący zabiera wszystkie karty ze stołu.
+# Po ataku
+- Jeśli wszystkie karty zostały przebite i nikt już nie dorzuca, karty idą na bok, a następny atakuje broniący.
+- Jeśli broniący wziął karty, traci swoją kolej ataku: atakuje gracz po nim.
+- Wszyscy dobierają z talii do sześciu kart: najpierw atakujący, potem po kolei pozostali, broniący na końcu.
+# Koniec gry
+Gdy talia się wyczerpie, gracz bez kart wychodzi z gry, bezpieczny. Ostatni gracz, który ma jeszcze karty, zostaje dureniem. Jeśli ostatni gracze pozbędą się kart jednocześnie, nikt nie przegrywa.
+# Gra z przekazywaniem
+Zanim przebije jakąkolwiek kartę, broniący może przekazać atak dalej, dokładając kartę tej samej wartości co karty ataku. Następny gracz broni się wtedy przed nimi wszystkimi, jeśli ma co najmniej tyle kart, ile ich teraz leży na stole, a gracz, który przekazał atak, dołącza do ataku.
+# Gra na urządzeniu
+Podawajcie sobie urządzenie: każdy gracz widzi tylko swoje karty, na dole, według kolorów, atuty na końcu. U góry siedzą pozostali: ich karty koszulkami do góry i ile ich jest, miecz przy atakującym, tarcza przy broniącym, znak pasu przy graczu, który spasował. Z jednej strony leży talia z atutem pod spodem (znak jego koloru, gdy talia się skończy), z drugiej karty odłożone na bok.
+- Atak lub dorzucanie: dotknij swoich kart (świecą te, które możesz dorzucić), potem dotknij stołu albo przeciągnij je tam. Przyciskiem pasowania na twoim pasku pasujesz.
+- Obrona: dotknij karty (świecą karty, które może przebić), a potem karty do przebicia. Okrągły przycisk ze strzałką bierze karty; świeci, dopóki pozostali dorzucają.
+- W grze z przekazywaniem karta o wartości ataku zapala puste miejsce obok ataku: dotknij go, aby przekazać atak dalej.
+Po każdym ataku urządzenie trafia do broniącego; gdy wszystko jest przebite, po kolei do każdego z pozostałych, zaczynając od atakującego, by dorzucił lub spasował.

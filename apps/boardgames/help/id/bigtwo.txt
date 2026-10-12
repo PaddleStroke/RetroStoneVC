@@ -1,0 +1,18 @@
+Big Two
+# Tujuan
+Menjadi yang pertama menghabiskan semua kartumu. Permainan Kanton untuk 4 pemain (atau 3), dengan dek 52 kartu yang dibagikan semuanya: masing-masing 13 kartu (dengan 3 pemain, masing-masing 17, dan kartu terakhir untuk pemain yang memegang 3 wajik).
+# Kartu
+- Dari terendah ke tertinggi: 3, 4, 5, 6, 7, 8, 9, 10, jack, queen, king, as, dan 2, yang tertinggi dari semuanya.
+- Jenis kartu, dari terendah ke tertinggi: wajik, keriting, hati, sekop. Di antara dua kartu bernilai sama, jenisnya yang menentukan: 2 sekop adalah kartu tertinggi.
+# Kombinasi
+- Satu kartu, sepasang, tiga kartu sejenis.
+- Kombinasi lima kartu, dari terendah ke tertinggi: straight (lima nilai berurutan, dari 3-4-5-6-7 sampai 10-J-Q-K-A; angka 2 tidak pernah ikut), flush (lima kartu dari jenis yang sama), full house (tiga kartu sejenis dan sepasang), four of a kind dengan kartu kelima apa saja, straight flush.
+- Dua kombinasi yang sejenis dibandingkan menurut kartu tertingginya. Flush dibandingkan menurut kartu tertinggi, lalu kartu-kartu berikutnya; full house dan four of a kind menurut nilai tiga atau empat kartunya yang sama.
+# Satu trik
+- Pemain yang memegang 3 wajik memulai trik pertama, dengan kombinasi yang memuat kartu itu.
+- Bergiliran, setiap pemain memainkan kombinasi yang lebih tinggi dengan jenis dan jumlah kartu yang sama, atau pas. Pemain yang sudah pas tetap boleh bermain saat gilirannya tiba kembali.
+- Saat semua pemain lain pas berturut-turut, pemain terakhir yang bermain memulai trik baru dengan kombinasi apa saja.
+# Skor
+Pemain pertama yang kartunya habis menang. Setiap pemain lain mendapat satu poin penalti untuk setiap kartu yang tersisa di tangannya, dua kali lipat jika tersisa sepuluh kartu atau lebih.
+# Bermain di perangkat
+Gilirkan perangkat: setiap pemain hanya melihat kartunya sendiri, di bawah, dari terendah ke tertinggi. Di sepanjang bagian atas duduk pemain lain: kartu mereka tertutup, berapa jumlahnya, dan tanda pas jika mereka pas sejak kombinasi terakhir dimainkan. Kombinasi yang terakhir dimainkan tampil besar di tengah bersama token pemainnya, yang sebelumnya lebih kecil di belakangnya. Ketuk kartu untuk memilihnya, lalu ketuk bagian tengah atau seret kartu ke sana: bagian tengah menyala jika pilihanmu bisa dimainkan. Kartu 3 wajik bersinar bagi pemain yang harus memulai dengannya. Tombol pas ada di bilahmu. Di akhir, sebuah tabel menunjukkan sisa kartu dan penalti setiap pemain.

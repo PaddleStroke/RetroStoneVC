@@ -1,0 +1,18 @@
+Big Two
+# Tavoite
+Päästä ensimmäisenä eroon kaikista korteistaan. Kantonilainen peli 4 pelaajalle (tai 3), 52 kortin pakalla, joka jaetaan kokonaan: 13 korttia kullekin (kolmella pelaajalla 17 kullekin, ja viimeinen kortti sille, jolla on ruutukolmonen).
+# Kortit
+- Pienimmästä suurimpaan: 3, 4, 5, 6, 7, 8, 9, 10, jätkä, kuningatar, kuningas, ässä ja 2, kaikista suurin.
+- Maat pienimmästä suurimpaan: ruutu, risti, hertta, pata. Kahdesta samanarvoisesta kortista maa ratkaisee: patakakkonen on suurin kortti.
+# Yhdistelmät
+- Yksittäinen kortti, pari, kolmoset.
+- Viiden kortin käsi, pienimmästä suurimpaan: suora (viisi peräkkäistä arvoa, 3-4-5-6-7:stä 10-J-Q-K-A:han; 2 ei ole koskaan mukana), väri (viisi samaa maata olevaa korttia), täyskäsi (kolmoset ja pari), neloset ja mikä tahansa viides kortti, värisuora.
+- Kahdesta samanlaisesta yhdistelmästä ratkaisee suurin kortti. Väreissä ratkaisee suurin kortti, sitten seuraavat; täyskädessä ja nelosissa kolmen tai neljän samanarvoisen kortin arvo.
+# Tikki
+- Pelaaja, jolla on ruutukolmonen, aloittaa ensimmäisen tikin yhdistelmällä, jossa se on mukana.
+- Vuorollaan kukin pelaa suuremman samanlaisen ja samankokoisen yhdistelmän tai passaa. Passannut pelaaja saa silti pelata, kun hänen vuoronsa tulee uudelleen.
+- Kun kaikki muut ovat passanneet peräkkäin, viimeksi pelannut aloittaa uuden tikin millä tahansa yhdistelmällä.
+# Pisteet
+Ensimmäisenä korteistaan päässyt voittaa. Kukin muista saa yhden sakkopisteen jokaisesta käteen jääneestä kortista, kaksinkertaisena, jos kortteja on kymmenen tai enemmän.
+# Pelaaminen laitteella
+Antakaa laite kiertää: jokainen näkee vain omat korttinsa alhaalla, pienimmästä suurimpaan. Yläreunassa istuvat muut: heidän korttinsa kuvapuoli alaspäin, kuinka monta niitä on, ja passimerkki, jos he ovat passanneet viimeksi pelatun yhdistelmän jälkeen. Viimeksi pelattu yhdistelmä on isona keskellä pelaajansa merkin kanssa, aiemmat pienempinä sen takana. Valitse kortit napauttamalla, napauta sitten keskustaa tai vedä ne sinne: keskusta syttyy, kun valintasi on pelattavissa. Ruutukolmonen hehkuu pelaajalle, jonka täytyy aloittaa sillä. Passaa-painike on palkissasi. Lopuksi taulukko näyttää jokaisen pelaajan jäljelle jääneet kortit ja sakkopisteet.

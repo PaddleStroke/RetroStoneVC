@@ -1,0 +1,26 @@
+Tiến lên
+# El objetivo
+Sé el primero en jugar todas tus cartas; los demás siguen jugando por los puestos. Un juego vietnamita (su nombre significa «adelante») de 2 a 4 jugadores, con una baraja de 52 cartas: 13 a cada uno (con menos de cuatro jugadores, las que sobran quedan fuera del juego).
+# Las cartas
+- De menor a mayor: 3, 4, 5, 6, 7, 8, 9, 10, sota, reina, rey, as y el 2, la más alta de todas.
+- Los palos, de menor a mayor: picas, tréboles, diamantes, corazones. Entre dos cartas del mismo valor decide el palo: el 2 de corazones es la carta más alta.
+# Las jugadas
+- Una carta suelta, una pareja, un trío o un póquer.
+- Una escalera: tres o más cartas de valores seguidos, de cualquier palo. El 2 nunca forma parte de una.
+- Una escalera doble: tres o más parejas de valores seguidos, como 3-3-4-4-5-5, sin doses.
+- Una jugada se supera con otra del mismo tipo, con el mismo número de cartas y cuya carta más alta sea mayor.
+# Una baza
+- El jugador que recibió la carta más baja (el 3 de picas con cuatro jugadores) sale en la primera baza, con una jugada que la incluya.
+- Por turno, cada jugador supera la última jugada o pasa. Quien pasa queda fuera de la baza hasta que empiece una nueva.
+- Cuando todos los demás han pasado, el último que jugó empieza una baza nueva con cualquier jugada.
+# Las bombas
+Algunas jugadas superan a los doses, y se juegan en su turno como cualquier otra:
+- tres parejas seguidas superan a un 2 suelto;
+- un póquer supera a un 2 suelto o a tres parejas seguidas;
+- cuatro parejas seguidas superan a un 2 suelto, una pareja de doses, un póquer o tres parejas seguidas;
+- cinco parejas seguidas superan además a un trío de doses.
+Una bomba supera también a otra más baja de su mismo tipo.
+# El final de la partida
+Gana el primer jugador que se queda sin cartas. Los demás siguen: el orden en que terminan da sus puestos, y el último que aún tiene cartas queda el último.
+# Jugar en el dispositivo
+Pasaos el dispositivo: cada jugador solo ve sus propias cartas, abajo, de menor a mayor. Arriba se sientan los demás: sus cartas boca abajo, cuántas tienen, y un signo de paso mientras están fuera de la baza; cuando se quedan sin cartas, su puesto. La última jugada está en grande en el centro con la ficha de su jugador, y las anteriores, más pequeñas, detrás. Toca cartas para elegirlas y luego toca el centro o arrástralas hasta allí: el centro se ilumina cuando tu elección se puede jugar. La carta más baja brilla para el jugador que debe salir con ella. El botón Paso está en tu barra. Al final, una tabla muestra los puestos.

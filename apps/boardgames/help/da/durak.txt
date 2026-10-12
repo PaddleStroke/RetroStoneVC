@@ -1,0 +1,27 @@
+Durak
+# Målet
+Bliv af med alle dine kort. Den sidste spiller, der stadig har kort, er durak, tossen, og taber; alle de andre vinder sammen. For 2 til 6 spillere (oftest 2 eller 3), med et spil på 36 kort. To varianter at vælge imellem: med tilkastning (podkidnoy) og med videresendelse (perevodnoy).
+# Kortene
+- Fra lav til høj: 6, 7, 8, 9, 10, knægt, dame, konge, es.
+- Hver spiller får seks kort. Det næste kort vendes og lægges på tværs under bunken: dets kulør er trumf hele spillet, og det er det sidste kort, der trækkes.
+- Spilleren med den laveste trumf angriber først; den næste spiller forsvarer.
+# Et angreb
+- Angriberen spiller et kort ud, eller flere kort af samme rang.
+- Forsvareren slår hvert angrebskort med et højere kort i samme kulør eller med en trumf. En trumf kan kun slås af en højere trumf.
+- Når alle kort er slået, må de andre kaste flere kort til af en rang, der allerede ligger på bordet: angriberen først, derefter hver af de andre på skift. Forsvareren skal også slå dem.
+- Et angreb har højst seks kort, og aldrig flere, end forsvareren havde på hånden, da det begyndte.
+- En forsvarer, der ikke kan eller vil slå, tager kortene: de andre må stadig kaste kort til, og så samler forsvareren alle kortene på bordet op.
+# Efter et angreb
+- Blev alle kort slået, og kaster ingen flere til, lægges kortene til side, og forsvareren angriber som den næste.
+- Tog forsvareren kortene, mister han sin tur til at angribe: spilleren efter ham angriber.
+- Alle trækker op til seks kort fra bunken: angriberen først, derefter de andre på skift, forsvareren til sidst.
+# Spillets afslutning
+Når bunken er tom, er en spiller uden kort ude af spillet, i sikkerhed. Den sidste spiller, der stadig har kort, er durak. Løber de sidste spillere tør for kort samtidig, taber ingen.
+# Spillet med videresendelse
+Før han har slået noget kort, må forsvareren sende angrebet videre ved at lægge et kort af samme rang som angrebskortene til. Så forsvarer den næste spiller sig mod dem alle, hvis han har mindst lige så mange kort, som der nu ligger på bordet, og den, der sendte angrebet videre, er med i angrebet.
+# Spil på enheden
+Send enheden rundt: hver spiller ser kun sine egne kort, nederst, sorteret efter kulør, trumferne til sidst. Langs toppen sidder de andre: deres kort med bagsiden op og hvor mange, et sværd ved angriberen, et skjold ved forsvareren, et pas-tegn ved en spiller, der har meldt pas. Bunken ligger i den ene side med trumfkortet under sig (tegnet for dets kulør, når bunken er brugt op), de kort, der er lagt til side, i den anden.
+- Angribe eller kaste til: tryk på dine kort (dem, du må kaste til, lyser), og tryk så på bordet eller træk dem derhen. Med knappen Pas i dit panel melder du pas.
+- Forsvare: tryk på et kort (de kort, det kan slå, lyser), og så på det kort, der skal slås. Den runde knap med pilen tager kortene; den bliver ved med at lyse, mens de andre kaster til.
+- I spillet med videresendelse får et kort af angrebets rang en tom plads ved siden af angrebet til at lyse: tryk på den for at sende angrebet videre.
+Efter hvert angreb går enheden til forsvareren; når alt er slået, til hver af de andre på skift, angriberen først, for at kaste til eller melde pas.

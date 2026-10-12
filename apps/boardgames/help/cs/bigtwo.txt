@@ -1,0 +1,18 @@
+Big Two
+# Cíl hry
+Zbav se všech svých karet jako první. Kantonská hra pro 4 hráče (nebo 3) s balíčkem 52 karet, který se rozdá celý: každý dostane 13 karet (ve třech 17 a poslední kartu dostane ten, kdo má károvou trojku).
+# Karty
+- Od nejnižší po nejvyšší: 3, 4, 5, 6, 7, 8, 9, 10, kluk, dáma, král, eso a 2, nejvyšší ze všech.
+- Barvy od nejnižší po nejvyšší: káry, kříže, srdce, piky. Mezi dvěma kartami stejné hodnoty rozhoduje barva: piková dvojka je nejvyšší karta.
+# Kombinace
+- Jedna karta, pár, trojice.
+- Pětice karet, od nejnižší po nejvyšší: postupka (pět hodnot za sebou, od 3-4-5-6-7 až po 10-J-Q-K-A; dvojka v ní nikdy není), barva (pět karet jedné barvy), full house (trojice a pár), čtveřice s libovolnou pátou kartou, postupka v barvě.
+- Mezi dvěma kombinacemi stejného druhu rozhoduje nejvyšší karta. U barvy rozhoduje nejvyšší karta, pak další v pořadí; u full housu a čtveřice hodnota jejich tří nebo čtyř stejných karet.
+# Štych
+- Hráč s károvou trojkou vynáší do prvního štychu, a to kombinací, která ji obsahuje.
+- Postupně každý zahraje vyšší kombinaci stejného druhu a velikosti, nebo pasuje. Hráč, který pasoval, smí přesto hrát, až na něj opět přijde řada.
+- Když všichni ostatní za sebou pasují, poslední hráč, který hrál, vynáší do nového štychu libovolnou kombinaci.
+# Počítání bodů
+Vyhrává, kdo se první zbaví všech karet. Každý další hráč dostane trestný bod za každou kartu, která mu zůstala v ruce; při deseti a více kartách se body zdvojnásobí.
+# Hra na zařízení
+Posílejte si zařízení: každý hráč vidí jen své vlastní karty, dole, od nejnižší po nejvyšší. Podél horního okraje sedí ostatní: jejich karty rubem nahoru, kolik jich mají, a znak pasu, pokud od posledního zahrání pasovali. Poslední zahrání leží velké uprostřed s žetonem svého hráče, předchozí zahrání menší za ním. Klepnutím na karty je vybereš, pak klepni doprostřed nebo je tam přetáhni: střed se rozsvítí, když se tvůj výběr dá zahrát. Kárová trojka svítí hráči, který ji musí vynést. Tlačítko Pas je ve tvé liště. Na konci ukáže tabulka u každého hráče zbylé karty a trestné body.

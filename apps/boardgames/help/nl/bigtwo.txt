@@ -1,0 +1,18 @@
+Big Two
+# Het doel
+Als eerste al je kaarten spelen. Een Kantonees spel voor 4 spelers (of 3), met een spel van 52 kaarten dat helemaal wordt gegeven: 13 per speler (met z'n drieën 17 per speler, en de laatste kaart voor wie ruiten 3 heeft).
+# De kaarten
+- Van laag naar hoog: 3, 4, 5, 6, 7, 8, 9, 10, boer, vrouw, heer, aas, en de 2, de hoogste van allemaal.
+- De kleuren van laag naar hoog: ruiten, klaveren, harten, schoppen. Bij twee kaarten van dezelfde rang beslist de kleur: schoppen 2 is de hoogste kaart.
+# De combinaties
+- Een losse kaart, een paar, drie gelijke.
+- Een hand van vijf kaarten, van laag naar hoog: straat (vijf rangen op rij, van 3-4-5-6-7 tot 10-B-V-H-A; de 2 hoort er nooit bij), flush (vijf kaarten van één kleur), full house (drie gelijke en een paar), carré met een willekeurige vijfde kaart, straight flush.
+- Bij twee combinaties van dezelfde soort beslist de hoogste kaart. Bij een flush telt de hoogste kaart, dan de volgende; bij een full house en een carré de rang van hun drie of vier gelijke kaarten.
+# Een slag
+- Wie ruiten 3 heeft, komt uit in de eerste slag, met een combinatie waar die kaart in zit.
+- Om de beurt speelt elke speler een hogere combinatie van dezelfde soort en grootte, of past. Wie gepast heeft, mag toch weer spelen als zijn beurt terugkomt.
+- Als alle anderen na elkaar gepast hebben, begint wie het laatst speelde een nieuwe slag met een combinatie naar keuze.
+# De score
+Wie als eerste geen kaarten meer heeft, wint. Elke andere speler krijgt een strafpunt voor elke kaart die hij nog in de hand heeft, dubbel bij tien kaarten of meer.
+# Spelen op het apparaat
+Geef het apparaat door: elke speler ziet alleen de eigen kaarten, onderaan, van laag naar hoog. Bovenaan zitten de anderen: hun kaarten dicht, hoeveel het er zijn, en een pasteken als ze sinds de laatste zet gepast hebben. De laatste zet ligt groot in het midden met het stuk van wie hem speelde, de zetten ervoor kleiner erachter. Tik op kaarten om ze te kiezen, en tik dan op het midden of sleep ze erheen: het midden licht op als je keuze gespeeld kan worden. Ruiten 3 licht op voor de speler die ermee moet uitkomen. De pasknop staat in je balk. Aan het eind toont een tabel van elke speler de overgebleven kaarten en strafpunten.

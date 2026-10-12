@@ -1,0 +1,26 @@
+Tiến lên
+# Tujuan
+Jadilah yang pertama memainkan semua kartumu; pemain lain terus bermain untuk menentukan posisi. Permainan dari Vietnam (namanya berarti “maju”) untuk 2 sampai 4 pemain, dengan dek 52 kartu: masing-masing 13 (jika kurang dari empat pemain, sisanya tidak dipakai).
+# Kartu
+- Dari terendah ke tertinggi: 3, 4, 5, 6, 7, 8, 9, 10, jack, queen, king, as, dan 2, yang tertinggi dari semuanya.
+- Jenis kartu, dari terendah ke tertinggi: sekop, keriting, wajik, hati. Di antara dua kartu bernilai sama, jenisnya yang menentukan: 2 hati adalah kartu tertinggi.
+# Kombinasi
+- Satu kartu, sepasang, tiga kembar, atau empat kembar.
+- Seri: tiga kartu atau lebih dengan nilai berurutan, jenis apa saja. Kartu 2 tidak pernah masuk seri.
+- Seri ganda: tiga pasang atau lebih dengan nilai berurutan, misalnya 3-3-4-4-5-5, tanpa kartu 2.
+- Sebuah kombinasi dikalahkan oleh kombinasi sejenis dengan jumlah kartu yang sama dan kartu tertinggi yang lebih tinggi.
+# Satu trik
+- Pemain yang mendapat kartu terendah (3 sekop jika berempat) memulai trik pertama dengan kombinasi yang memuat kartu itu.
+- Bergiliran, setiap pemain mengalahkan kombinasi terakhir atau pas. Pemain yang pas tidak ikut lagi dalam trik itu sampai trik baru dimulai.
+- Saat semua pemain lain sudah pas, pemain terakhir yang bermain memulai trik baru dengan kombinasi apa saja.
+# Bom
+Beberapa kombinasi mengalahkan kartu 2, dan dimainkan pada gilirannya seperti kombinasi lain:
+- tiga pasang berurutan mengalahkan satu kartu 2;
+- empat kembar mengalahkan satu kartu 2, atau tiga pasang berurutan;
+- empat pasang berurutan mengalahkan satu kartu 2, sepasang 2, empat kembar, atau tiga pasang berurutan;
+- lima pasang berurutan juga mengalahkan tiga kartu 2.
+Bom juga mengalahkan bom sejenis yang lebih rendah.
+# Akhir permainan
+Pemain pertama yang kartunya habis menang. Pemain lain terus bermain: urutan mereka keluar menentukan posisi mereka, dan pemain terakhir yang masih memegang kartu berada di posisi terakhir.
+# Bermain di perangkat
+Gilirkan perangkat: setiap pemain hanya melihat kartunya sendiri, di bawah, dari terendah ke tertinggi. Di bagian atas duduk pemain lain: kartu mereka tertutup, berapa jumlahnya, dan tanda pas selama mereka tidak ikut dalam trik; setelah kartunya habis, posisi mereka. Kartu yang terakhir dimainkan tampil besar di tengah bersama token pemainnya, kartu-kartu sebelumnya lebih kecil di belakangnya. Ketuk kartu untuk memilihnya, lalu ketuk bagian tengah atau seret kartu ke sana: bagian tengah menyala saat pilihanmu bisa dimainkan. Kartu terendah bersinar bagi pemain yang harus memulai dengan kartu itu. Tombol pas ada di bilahmu. Di akhir, sebuah tabel menunjukkan posisi para pemain.

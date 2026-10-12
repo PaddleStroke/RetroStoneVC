@@ -1,0 +1,26 @@
+Tiến lên
+# Cíl hry
+Zahraj jako první všechny své karty; ostatní hrají dál o pořadí. Vietnamská hra (název znamená „vpřed“) pro 2 až 4 hráče, s balíčkem 52 karet: každý dostane 13 (při méně než čtyřech hráčích zbytek zůstane mimo hru).
+# Karty
+- Od nejnižší po nejvyšší: 3, 4, 5, 6, 7, 8, 9, 10, kluk, dáma, král, eso a 2, nejvyšší ze všech.
+- Barvy od nejnižší po nejvyšší: piky, kříže, kára, srdce. Ze dvou karet stejné hodnoty rozhoduje barva: srdcová dvojka je nejvyšší karta.
+# Kombinace
+- Jedna karta, pár, trojice nebo čtveřice.
+- Postupka: tři nebo více karet po sobě jdoucích hodnot, v libovolných barvách. Dvojka do ní nikdy nepatří.
+- Dvojitá postupka: tři nebo více párů po sobě jdoucích hodnot, například 3-3-4-4-5-5, bez dvojek.
+- Kombinaci přebije kombinace stejného druhu se stejným počtem karet a vyšší nejvyšší kartou.
+# Štych
+- Hráč s nejnižší rozdanou kartou (při čtyřech hráčích piková trojka) vynáší do prvního štychu, a to kombinací, která ji obsahuje.
+- Postupně každý hráč přebije poslední kombinaci, nebo pasuje. Kdo pasuje, zůstává mimo štych, dokud nezačne nový.
+- Když všichni ostatní pasovali, hráč, který hrál poslední, začne nový štych libovolnou kombinací.
+# Bomby
+Některé kombinace přebíjejí dvojky; hrají se na řadě jako kterékoli jiné:
+- tři páry po sobě přebijí jednu dvojku;
+- čtveřice přebije jednu dvojku nebo tři páry po sobě;
+- čtyři páry po sobě přebijí jednu dvojku, pár dvojek, čtveřici nebo tři páry po sobě;
+- pět párů po sobě přebije navíc i tři dvojky.
+Bomba přebije také nižší bombu stejného druhu.
+# Konec hry
+Vyhrává hráč, který se první zbaví karet. Ostatní hrají dál: pořadí, v jakém dohrají, určuje jejich umístění, a kdo jako poslední ještě drží karty, skončí poslední.
+# Hra na zařízení
+Posílejte si zařízení: každý hráč vidí jen své vlastní karty, dole, od nejnižší po nejvyšší. Nahoře sedí ostatní: jejich karty rubem nahoru, kolik jich mají, a znak pasu, dokud jsou mimo štych; po dohrání jejich umístění. Poslední zahrání leží velké uprostřed s žetonem svého hráče, předchozí zahrání menší za ním. Klepnutím na karty je vybereš, pak klepni doprostřed nebo je tam přetáhni: střed se rozsvítí, když tvůj výběr lze zahrát. Nejnižší karta svítí hráči, který s ní musí vynést. Tlačítko Pas je ve tvé liště. Na konci ukáže tabulka umístění.

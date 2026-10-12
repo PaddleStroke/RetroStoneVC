@@ -1,0 +1,27 @@
+Durak
+# Das Ziel
+Werde alle deine Karten los. Wer zuletzt noch Karten hat, ist der Durak, der Dummkopf, und verliert; alle anderen gewinnen gemeinsam. Für 2 bis 6 Spieler (meist 2 oder 3), mit einem Blatt von 36 Karten. Zwei Spielarten stehen zur Wahl: mit Zuwerfen (podkidnoy) und mit Weiterschieben (perevodnoy).
+# Die Karten
+- Von niedrig bis hoch: 6, 7, 8, 9, 10, Bube, Dame, König, Ass.
+- Jeder bekommt sechs Karten. Die nächste Karte wird aufgedeckt und quer unter den Stapel gelegt: Ihre Farbe ist für das ganze Spiel Trumpf, und sie wird als letzte Karte gezogen.
+- Wer den niedrigsten Trumpf hat, greift zuerst an; der nächste Spieler verteidigt.
+# Ein Angriff
+- Der Angreifer spielt eine Karte aus, oder mehrere Karten desselben Rangs.
+- Der Verteidiger schlägt jede Angriffskarte mit einer höheren Karte ihrer Farbe oder mit einem Trumpf. Ein Trumpf lässt sich nur mit einem höheren Trumpf schlagen.
+- Sind alle Karten geschlagen, dürfen die anderen weitere Karten eines Rangs zuwerfen, der schon auf dem Tisch liegt: zuerst der Angreifer, dann reihum jeder andere. Auch diese muss der Verteidiger schlagen.
+- Ein Angriff umfasst höchstens sechs Karten, und nie mehr, als der Verteidiger zu Beginn auf der Hand hatte.
+- Ein Verteidiger, der nicht schlagen kann oder will, nimmt auf: Die anderen dürfen noch Karten zuwerfen, dann nimmt er alle Karten vom Tisch auf.
+# Nach einem Angriff
+- Wurde jede Karte geschlagen und wirft niemand mehr zu, kommen die Karten beiseite, und der Verteidiger greift als Nächster an.
+- Hat der Verteidiger aufgenommen, verliert er sein Recht anzugreifen: Der Spieler nach ihm greift an.
+- Alle ziehen vom Stapel auf sechs Karten nach: zuerst der Angreifer, dann reihum die anderen, der Verteidiger zuletzt.
+# Das Ende der Partie
+Ist der Stapel leer, scheidet ein Spieler ohne Karten aus, gerettet. Wer zuletzt noch Karten hat, ist der Durak. Werden die letzten Spieler gleichzeitig ihre Karten los, verliert niemand.
+# Das Weiterschieben
+Solange er noch keine Karte geschlagen hat, darf der Verteidiger den Angriff weiterschieben, indem er eine Karte vom gleichen Rang wie die Angriffskarten dazulegt. Dann verteidigt der nächste Spieler gegen alle diese Karten, sofern er mindestens so viele Karten hat, wie jetzt auf dem Tisch liegen, und wer weitergeschoben hat, greift mit an.
+# Spielen auf dem Gerät
+Reicht das Gerät herum: Jeder sieht nur seine eigenen Karten, unten, nach Farben geordnet, die Trümpfe zuletzt. Oben sitzen die anderen: ihre verdeckten Karten und wie viele, ein Schwert beim Angreifer, ein Schild beim Verteidiger, ein Passe-Zeichen bei einem Spieler, der gepasst hat. Auf der einen Seite liegt der Stapel mit der Trumpfkarte darunter (ist der Stapel weg, das Zeichen ihrer Farbe), auf der anderen die beiseitegelegten Karten.
+- Angreifen oder zuwerfen: Tippe deine Karten an (die, die du zuwerfen darfst, leuchten), dann tippe auf den Tisch oder schieb sie dorthin. Mit dem Knopf Passe in deiner Leiste passt du.
+- Verteidigen: Tippe eine Karte an (die Karten, die sie schlagen kann, leuchten), dann die Karte, die du schlagen willst. Der runde Knopf mit dem Pfeil nimmt die Karten auf; er bleibt erleuchtet, solange die anderen zuwerfen.
+- Beim Weiterschieben lässt eine Karte vom Rang des Angriffs einen leeren Platz neben dem Angriff aufleuchten: Tippe darauf, um den Angriff weiterzuschieben.
+Nach jedem Angriff geht das Gerät an den Verteidiger; ist alles geschlagen, reihum an jeden anderen, zuerst an den Angreifer, zum Zuwerfen oder Passen.

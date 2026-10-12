@@ -1,0 +1,26 @@
+Tiến lên
+# Amaç
+Bütün kartlarını ilk oynayan olmak; diğerleri sıralama için oynamaya devam eder. 2 ila 4 oyuncu için bir Vietnam oyunu (adı “ileri” demektir), 52 kartlık desteyle oynanır: herkese 13 kart (dörtten az oyuncuda kalan kartlar oyun dışında kalır).
+# Kartlar
+- En düşükten en yükseğe: 3, 4, 5, 6, 7, 8, 9, 10, vale, kız, papaz, as ve hepsinden yüksek olan 2.
+- Renkler, en düşükten en yükseğe: maça, sinek, karo, kupa. Aynı değerdeki iki karttan rengi yüksek olan büyüktür: kupa 2 en yüksek karttır.
+# Kombinasyonlar
+- Tek kart, çift, üçlü ya da dörtlü.
+- Seri: değerleri art arda gelen üç ya da daha fazla kart, renkleri fark etmez. 2 asla seriye girmez.
+- Çift seri: değerleri art arda gelen üç ya da daha fazla çift, örneğin 3-3-4-4-5-5; içinde 2 olmaz.
+- Bir kombinasyonu, aynı türden, aynı sayıda karttan oluşan ve en yüksek kartı daha büyük olan bir kombinasyon yener.
+# Bir el
+- Dağıtılan en düşük kart kimdeyse (dört oyuncuda maça 3) ilk ele, bu kartı içeren bir kombinasyonla o başlar.
+- Sırayla her oyuncu son kombinasyonu yener ya da pas der. Pas diyen oyuncu, yeni bir el başlayana kadar o elin dışında kalır.
+- Diğerlerinin hepsi pas deyince, en son oynayan istediği bir kombinasyonla yeni bir el başlatır.
+# Bombalar
+Bazı kombinasyonlar 2'leri yener ve diğerleri gibi sırası gelince oynanır:
+- art arda üç çift tek bir 2'yi yener;
+- dörtlü tek bir 2'yi ya da art arda üç çifti yener;
+- art arda dört çift tek bir 2'yi, bir çift 2'yi, dörtlüyü ya da art arda üç çifti yener;
+- art arda beş çift ayrıca üç 2'yi de yener.
+Bir bomba, kendi türünden daha düşük bir bombayı da yener.
+# Oyunun sonu
+Kartları ilk biten oyuncu kazanır. Diğerleri devam eder: kartlarının bitme sırası sıralamadaki yerlerini belirler, elinde hâlâ kart olan son oyuncu sonuncu olur.
+# Cihazda oynamak
+Cihazı elden ele verin: herkes yalnızca kendi kartlarını, altta, en düşükten en yükseğe görür. Üst tarafta diğerleri oturur: kapalı kartları, kaç tane oldukları ve elin dışında kaldıkları sürece bir pas işareti; kartları bitince sıralamadaki yerleri. Son hamle, oynayanın puluyla ortada büyük durur, önceki hamleler arkasında daha küçük görünür. Seçmek için kartlara dokun, sonra ortaya dokun ya da onları oraya sürükle: seçimin oynanabildiğinde orta yanar. En düşük kart, onunla başlaması gereken oyuncu için parlar. Pas düğmesi senin şeridindedir. Sonunda bir tablo sıralamayı gösterir.
