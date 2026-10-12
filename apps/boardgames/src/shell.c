@@ -174,7 +174,10 @@ static struct {
     float grab_x, grab_y;
     int grabbing, moved;
 } LV = {.g = -1};
-static struct { float x, y, d; } next_btn;      /* the solved level's next button, as last drawn (d 0: none) */
+/* the solved puzzle's card: its next and replay buttons as last drawn (d 0: none); when it was first shown (its
+ * stars pop in) */
+static struct { float x, y, d; } next_btn, replay_btn;
+static Uint32 card_t0;
 
 /* ---- the registry ------------------------------------------------------------------------------------------------ */
 void game_register(const game *g)
@@ -516,6 +519,12 @@ static void star_at(float cx, float cy, float d, int kind)
 
 void ui_star(float cx, float cy, float d, int lit) { star_at(cx, cy, d, lit ? 0 : 1); }
 
+int ui_par_stars(int moves, int par)
+{
+    if (par <= 0 || moves <= par) return 3;
+    return 2 * moves <= 3 * par ? 2 : 1;
+}
+
 /* a level's tile: 0 gold (solved), 1 wood (open), 2 dark walnut (locked); rounded, a bevel lit from the upper left */
 static void paint_tile(int kind, int size, uint8_t *o)
 {
@@ -550,6 +559,8 @@ void ui_sound(int s) { snd_play(s); }
 
 /* ---- chance: the shell's dice ------------------------------------------------------------------------------------ */
 static uint32_t rng = 0x9e3779b9u;              /* xorshift; seeded at start (--seed in the picture mode) */
+static uint32_t start_rng[MAX_GAMES];            /* the state each game's last start() was given: a replay gives it
+                                                 * again (the same deal, the same puzzle) */
 
 static void seed_random(uint32_t s) { rng = s ? s : 0x9e3779b9u; }
 
@@ -1463,6 +1474,17 @@ static void solo_view(void)
     }
 }
 
+/* a new game of the open one: start(v), given a fresh random state (kept), or the one it was given last (same: a
+ * replay, the same deal or puzzle) */
+static void start_game(int v, int same)
+{
+    if (same) rng = start_rng[cur];
+    else start_rng[cur] = rng;
+    games[cur]->start(v);
+    started[cur] = 1;
+    card_t0 = 0;
+}
+
 static void open_game(int i, int fresh_variant)
 {
     cur = i;
@@ -1473,15 +1495,15 @@ static void open_game(int i, int fresh_variant)
         variant[i] = fresh_variant;
         chosen[i] = 1;
         remember_game(i);
-        games[i]->start(fresh_variant);
-        started[i] = fresh = 1;
+        start_game(fresh_variant, 0);
+        fresh = 1;
     } else if (!started[i]) {
         if (needs_picker(i)) {
             show_picker(i);
             return;
         }
-        games[i]->start(0);
-        started[i] = fresh = 1;
+        start_game(0, 0);
+        fresh = 1;
     }
     view_start(fresh);
     screen = SCR_GAME;
@@ -1500,6 +1522,17 @@ static void go_home(void)
     layout();
 }
 
+/* the game started again at once (its variant, its level): a new deal, or the same one (same: replay) */
+static void restart(int same)
+{
+    armed = 0;
+    start_game(variant[cur], same);
+    view_start(1);
+    over_hidden = 0;
+    last_status = games[cur]->status();
+    end_seen = 0;
+}
+
 static void new_game(void)
 {
     armed = 0;
@@ -1508,11 +1541,7 @@ static void new_game(void)
         show_picker(cur);
         return;
     }
-    games[cur]->start(variant[cur]);
-    view_start(1);
-    over_hidden = 0;
-    last_status = GS_PLAY;
-    end_seen = 0;
+    restart(0);
 }
 
 /* a solved level's next button: the next level, or the level screen after the last one */
@@ -1523,13 +1552,22 @@ static void level_next(void)
     else new_game();
 }
 
+/* the solved puzzle's card: replay (the same puzzle, the same level), next (the next level; a new puzzle of the same
+ * variant) */
+static void card_replay(void) { restart(1); }
+static void card_next(void)
+{
+    if (games[cur]->levels) level_next();
+    else restart(0);
+}
+
 /* after anything a player did: a new end of the game (or none any more) is noticed; draw_game() shows it */
 static void after_input(void)
 {
     if (screen != SCR_GAME) return;
     level_check();
     int s = games[cur]->status();
-    if (s != last_status) { over_hidden = 0; end_seen = 0; }
+    if (s != last_status) { over_hidden = 0; end_seen = 0; card_t0 = 0; }
     last_status = s;
 }
 
@@ -1638,24 +1676,65 @@ static void draw_winners(unsigned won, int draw)
     }
 }
 
-/* a solved level's end card: its stars (a game without stars: the player's token in gold light), then the next
- * level's button in gold light (after the last level: the level screen's) */
-static void draw_level_over(float cx, float cy, float u)
+/* a solved puzzle's card (a game of levels, or one player with stars): its stars popping in one by one (a game of
+ * levels without stars: the player's token in gold light), the moves made beside the fewest possible (score(),
+ * par(): digits, the par after a flag), then two buttons: replay (the same puzzle) and next in gold light (the next
+ * level, after the last one the level screen; a new puzzle of the same variant) */
+static void draw_solved(float cx, float cy, float u)
 {
     const game *g = games[cur];
+    int row = g->score != NULL;
+    float top = cy - (row ? 0.95f : 0.72f) * u, by = cy + (row ? 1.12f : 0.85f) * u;
     if (g->level_stars) {
         int s = g->level_stars();
-        for (int k = 0; k < 3; k++)
-            star_at(cx + (k - 1) * 1.35f * u, cy - (k == 1 ? 0.82f : 0.68f) * u, (k == 1 ? 1.3f : 1.1f) * u,
-                    k < s ? 0 : 2);
+        s = s < 0 ? 0 : s > 3 ? 3 : s;
+        if (!card_t0) {                         /* first shown: the stars to come, each with a soft knock */
+            card_t0 = instant ? ui_ms() - 100000 : ui_ms();
+            for (int k = 0; k < s && !instant; k++) snd_play_at(SND_PLACE, 0.6f, 150 + 170 * k);
+        }
+        float t = (float)(ui_ms() - card_t0);
+        for (int k = 0; k < 3; k++) {
+            float x = cx + (k - 1) * 1.25f * u, y = top - (k == 1 ? 0.14f * u : 0), d = (k == 1 ? 1.2f : 1.0f) * u;
+            star_at(x, y, d, 2);
+            if (k >= s) continue;
+            float e = (t - 150 - 170 * k) / 240;   /* 0..1: it swells past its size, then settles */
+            if (e <= 0) {
+                ui_animate();
+                continue;
+            }
+            float grow = e >= 1 ? 1 : e < 0.7f ? 1.2f * e / 0.7f : 1.2f - 0.2f * (e - 0.7f) / 0.3f;
+            if (e < 1) ui_animate();
+            star_at(x, y, d * grow, 0);
+        }
     } else {
-        ui_put_c(t_gold, cx, cy - 0.62f * u, 2.3f * u, 2.3f * u);
-        ui_put_c(t_big[0], cx, cy - 0.62f * u, 1.5f * u, 1.5f * u);
+        ui_put_c(t_gold, cx, top + 0.1f * u, 2.3f * u, 2.3f * u);
+        ui_put_c(t_big[0], cx, top + 0.1f * u, 1.5f * u, 1.5f * u);
     }
-    next_btn.x = cx;
-    next_btn.y = cy + 0.85f * u;
-    next_btn.d = 1.25f * u;
-    ui_button(next_btn.x, next_btn.y, next_btn.d, variant[cur] + 1 < nlevels(cur) ? ICON_ARROW : ICON_GRID, UI_LIT);
+    if (row) {                                  /* the moves; the par after its flag */
+        int m = g->score(), p = g->par ? g->par() : 0;
+        float h = 0.58f * u, y = cy + 0.1f * u, fd = 0.72f * u, gap = 0.45f * u;
+        m = m < 0 ? 0 : m;
+        float mw = ui_number_w(m, h), pw = p > 0 ? ui_number_w(p, h) : 0;
+        float w = mw + (p > 0 ? gap + fd + 0.06f * u + pw : 0), x = cx - w / 2;
+        ui_number(x + mw / 2, y, h, m, 1);
+        if (p > 0) {
+            SDL_Texture *flag = btn_tex(paint_btn_icon, ICON_PAR, (int)(fd + 0.5f));
+            x += mw + gap;
+            if (flag) {
+                SDL_SetTextureColorMod(flag, 255, 200, 80);
+                ui_put_c(flag, x + fd / 2, y, fd, fd);
+                SDL_SetTextureColorMod(flag, 255, 255, 255);
+            }
+            ui_number_ex(x + fd + 0.06f * u + pw / 2, y, h, p, NUM_LIGHT, 170, 0);
+        }
+    }
+    replay_btn.x = cx - 1.05f * u;
+    next_btn.x = cx + 1.05f * u;
+    replay_btn.y = next_btn.y = by;
+    replay_btn.d = next_btn.d = 1.1f * u;
+    int last = g->levels && variant[cur] + 1 >= nlevels(cur);
+    ui_button(replay_btn.x, replay_btn.y, replay_btn.d, ICON_REPLAY, 0);
+    ui_button(next_btn.x, next_btn.y, next_btn.d, last ? ICON_GRID : ICON_ARROW, UI_LIT);
 }
 
 static void draw_over(void)
@@ -1666,8 +1745,8 @@ static void draw_over(void)
     float u = ui.unit, cx = b.x + b.w / 2, cy = b.y + b.h / 2, big = 2.4f * u;
     ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 90);
     ui_put_c(t_card, cx, cy, 6.8f * u, 3.8f * u);
-    if (g->levels && st == GS_WIN0) {
-        draw_level_over(cx, cy, u);
+    if (st == GS_WIN0 && (g->levels || (ui.players == 1 && g->level_stars))) {   /* a puzzle solved */
+        draw_solved(cx, cy, u);
         return;
     }
     int np = ui.players;
@@ -1799,7 +1878,7 @@ static void draw_game(void)
     const game *g = games[cur];
     handoff_settle();
     level_check();
-    next_btn.d = 0;
+    next_btn.d = replay_btn.d = 0;
     game_textures();
     g->draw();                                  /* under the cover too: ui.viewer -1, no hand shown */
     for (int p = 0; p < ui.players; p++) draw_bar(p);
@@ -2366,15 +2445,23 @@ static void press(float x, float y)
     if (ui_handing()) return;                   /* the device is changing hands */
     if (press_bar(x, y)) return;
     if (games[cur]->status() != GS_PLAY && !over_hidden) {
-        if (next_btn.d > 0 && ui_button_hit(next_btn.x, next_btn.y, next_btn.d, x, y)) {   /* a level's next */
+        if (next_btn.d > 0 && ui_button_hit(next_btn.x, next_btn.y, next_btn.d, x, y)) {   /* a solved puzzle's next */
             snd_play(SND_TAP);
-            level_next();
+            card_next();
+            return;
+        }
+        if (replay_btn.d > 0 && ui_button_hit(replay_btn.x, replay_btn.y, replay_btn.d, x, y)) {   /* the same again */
+            snd_play(SND_TAP);
+            card_replay();
             return;
         }
         over_hidden = 1;
         return;
     }
-    if (games[cur]->levels && games[cur]->status() == GS_WIN0) { over_hidden = 0; return; }   /* its card again */
+    if (games[cur]->status() == GS_WIN0 && (games[cur]->levels || (ui.players == 1 && games[cur]->level_stars))) {
+        over_hidden = 0;                        /* a solved puzzle: its card again */
+        return;
+    }
     for (int p = 0; p < ui.players && games[cur]->bar_press; p++) {   /* the game's own use of a bar */
         box b = L.bar[p];
         if (x < b.x || y < b.y || x >= b.x + b.w || y >= b.y + b.h) continue;

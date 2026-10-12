@@ -86,7 +86,11 @@ typedef struct game {
     int (*chapter_of)(int level);               /* optional: a level's chapter (0.., never going down): uneven ones */
     void (*chapter_icon)(int chapter, int size, uint8_t *rgba);   /* optional: a tab's picture (else its number) */
     void (*level_thumb)(int level, int size, uint8_t *rgba);      /* optional: a tile's picture (else its number) */
-    int  (*level_stars)(void);                  /* the level solved: its stars 0..3 (NULL: no stars, solved only) */
+    /* the puzzle just solved (status() GS_WIN0): its stars 0..3 (NULL: no stars, solved only). A game of levels: the
+     * shell keeps the best. Any one-player game may have it, levels or not: its end card then shows the stars
+     * (popping in), the moves beside par(), a replay button (the same puzzle again) and a next one (a new puzzle of
+     * the same variant; the next level). ui_par_stars() rates moves against par. */
+    int  (*level_stars)(void);
     int levels_open;                            /* the unsolved levels open at once (0: 3) */
     /* optional: a key pressed in the game (not its repeats while held), one the shell does not use itself (Esc, Back,
      * M, H, F1, U, Backspace, F, T, N are the shell's): the arrows... Never while the rules page or the hand-off
@@ -95,6 +99,9 @@ typedef struct game {
     /* optional, one player: the score the end card shows in big digits beside the token (a final score, the moves a
      * puzzle took); read once the game is over */
     int  (*score)(void);
+    /* optional, one player: the fewest moves the puzzle just solved can take (0: not known); the end card shows the
+     * moves (score()) beside it */
+    int  (*par)(void);
 } game;
 
 enum { VIEW_BOARD, VIEW_OPEN, VIEW_HIDDEN };
@@ -244,6 +251,9 @@ void ui_save_set(const char *key, const void *data, int size);
 int  ui_level_best(int level);
 /* the shell's star, d across centred on (cx, cy): gold (lit), or a hollow in the wood (not won) */
 void ui_star(float cx, float cy, float d, int lit);
+/* the stars for a puzzle solved in `moves` when it can be done in `par`: 3 at par (or par not known, 0), 2 up to half as
+ * many again, else 1 */
+int  ui_par_stars(int moves, int par);
 
 /* sound.c */
 void snd_init(void);

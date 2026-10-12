@@ -1,11 +1,12 @@
 /*
- * The level screen's test (make ... DEMO=1, never shipped): three tiny games for one player. Each level is
+ * The level screen's test (make ... DEMO=1, never shipped): four tiny games for one player. Each level is
  * a row of discs to turn gold, a tap each; a tap on a gold one turns it back (a move wasted).
  * - "levelsdemo": 40 levels in 4 even chapters (`chapters`), the tabs' pictures (`chapter_icon`), stars (3 with no
  *   move wasted, 2 with one or two, else 1);
  * - "levelsdemo2": 30 levels in 3 uneven chapters (`chapter_of`: 12, 10, 8), the tiles' pictures (`level_thumb`), no
- *   stars, all the levels open (`levels_open`).
- * - "scoredemo": no levels, the game's keys (`key`) and a score on its end card (`score`).
+ *   stars, all the levels open (`levels_open`);
+ * - "scoredemo": no levels, the game's keys (`key`) and a score on its end card (`score`);
+ * - "stardemo": no levels, a random puzzle, the stars card (`level_stars`, `score` beside `par`, replay, next).
  * The notation (script): "t3" taps disc 3 (from 1), "=" taps every dark one.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
@@ -205,3 +206,18 @@ static const game score_game = {
     .bar = bar, .script = script, .players = 1u << 1, .key = demo_key, .score = score,
 };
 REGISTER_GAME(score_game)
+
+/* "stardemo": no levels, a random puzzle (2 to 9 discs: ui_random), the stars card (`level_stars`, the moves
+ * `score` beside `par`: replay gives the same count of discs, next a new one) */
+static int moves_made(void) { return moves; }
+static int par(void) { return n; }
+
+static void start_star(int variant) { (void)variant, start(ui_random(7)); }
+
+static const game star_game = {
+    .id = "stardemo", .order = 9003, .variants = 1,
+    .thumb = thumb, .token = token, .start = start_star, .layout = layout, .draw = draw,
+    .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
+    .bar = bar, .script = script, .players = 1u << 1, .level_stars = stars, .score = moves_made, .par = par,
+};
+REGISTER_GAME(star_game)
