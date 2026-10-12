@@ -1,0 +1,29 @@
+Mus
+# Das Ziel
+Das baskische Kartenspiel für zwei Teams aus je zwei Partnern, die einander gegenübersitzen: Elfenbein und Rot gegen Ebenholz und Jade. Jede Runde hat vier Lances; in jedem gewinnen die besten Karten, außer ein Einsatz schlägt das andere Team in die Flucht: das Bieten ist das Herz des Spiels. Das erste Team mit 40 Punkten (tantos) gewinnt. Für 4 Spieler, die das Gerät herumreichen; niemand sieht die Karten der anderen.
+# Die Karten
+Das spanische Blatt mit 40 Karten in vier Farben: oros (Münzen), copas (Kelche), espadas (Schwerter) und bastos (Keulen), von 1 bis 7, dann die sota (10, hier ein Bauer), der caballo (11, ein Springer) und der rey (12, ein König). Die Lücken in der Linie um jede Karte, die pinta, zeigen die Farbe: keine bei oros, eine bei copas, zwei bei espadas, drei bei bastos. Gespielt wird die übliche Regel mit acht Königen (ocho reyes): jede 3 zählt als rey und jede 2 als as (Ass), in allen Lances.
+# Mus
+Jeder Spieler bekommt 4 Karten. Die mano, die zuerst spricht und jeden Gleichstand gewinnt, ist der Spieler nach dem Geber; beide rücken jede Runde einen Platz weiter. Reihum ab der mano sagt jeder mus (um Karten zu tauschen) oder schneidet ab (no hay mus, „kein Mus“). Sagen alle vier mus, legt jeder der Reihe nach 1 bis 4 Karten ab und zieht ebenso viele nach, dann wird wieder nach mus gefragt. Sobald einer abschneidet, beginnen die Lances.
+# Die vier Lances
+- Grande: die höchsten Karten gewinnen, Karte für Karte verglichen: rey, caballo, sota, 7, 6, 5, 4, as.
+- Chica: die niedrigsten Karten gewinnen.
+- Pares: gleiche Karten. Ein Paar (par) zählt 1, drei gleiche (medias) 2, zwei Paare oder vier gleiche (duples) 3. Duples schlagen medias, medias schlagen ein Paar; bei Gleichem gewinnen die höheren Karten. Nur wer pares hat, spielt mit.
+- Juego: die Karten werden gezählt, Bilder 10, die anderen ihren Wert. Ab 31 hat man juego: 31 ist das beste, dann 32, 40, 37, 36, 35, 34 und 33. Nur wer juego hat, spielt mit. Hat niemand juego, wird der Lance zu Punto: die höchste Summe gewinnt.
+Bei Pares und Juego wird nicht geboten, wenn nur ein Team sie hat, und der Lance entfällt, wenn niemand sie hat. Ein Gleichstand geht immer an den Spieler, der der mano am nächsten sitzt.
+# Das Bieten (envites)
+- In jedem Lance sprechen die Spieler reihum ab der mano: passen (paso) oder setzen (envido: 2 Punkte oder mehr).
+- Auf einen Einsatz antwortet der nächste Gegner, wenn nötig dann sein Partner: annehmen (quiero), um einige Punkte erhöhen, um das ganze Spiel setzen (órdago) oder ablehnen (no quiero). Abgelehnt ist der Einsatz erst, wenn beide Gegner ablehnen.
+- Abgelehnt: das setzende Team bekommt sofort 1 Punkt, oder den Einsatz vor der letzten Erhöhung, und gewinnt den Lance.
+- Passen alle, wird der Lance „en paso“ gespielt.
+- Ein angenommener órdago: die Hände werden sofort gezeigt, und der Gewinner dieses Lances gewinnt die Partie.
+# Die Abrechnung
+Am Ende der Runde werden alle Hände gezeigt und die Lances der Reihe nach gezählt:
+- Grande und Chica: der angenommene Einsatz, oder 1 Punkt en paso.
+- Pares: der angenommene Einsatz plus der Wert der pares beider Gewinnerpartner.
+- Juego: der angenommene Einsatz plus 3 für jede 31 und 2 für jedes andere juego des Gewinnerteams. Punto: der angenommene Einsatz plus 1, oder 1 en paso.
+- Die Gewinner eines abgelehnten Lances, oder eines, den nur ihr Team hatte, zählen ihre pares oder ihr juego trotzdem.
+# Das Ende der Partie
+Das erste Team mit 40 Punkten gewinnt, auch mitten in der Abrechnung, oder sofort durch die Punkte eines abgelehnten Einsatzes. Am Tisch zählt man mit Steinen, fünf für einen amarraco; hier sind es Ziffern. Die geheimen Zeichen der Partner (señas) sind ein Tischbrauch, keine Regel: sie entfallen hier.
+# Spielen auf dem Gerät
+Gib das Gerät dem Spieler, dessen Stein leuchtet; er tippt auf Start und sieht seine Hand. Jeder Platz zeigt sein letztes Wort: mus (zwei Pfeile, je einer in jede Richtung), das Abschneiden (dieselben durchgestrichen), Passe, einen Einsatz, eine Erhöhung (ein Plus), den órdago (ein goldener Blitz auf Rot), quiero (ein Haken), no quiero (ein Kreuz). Bei Pares und Juego zeigt jeder Platz, ob er sie hat. Die vier Lances stehen oben in einer Reihe: Grande (ein Pfeil nach oben), Chica (ein Pfeil nach unten), Pares (zwei Karten), Juego (31) oder Punto (30); der laufende leuchtet, die gespielten zeigen darunter ihren Ausgang. Zum Tauschen tippe die abzulegenden Karten an, dann den Haken. Zum Setzen stelle den Betrag mit Minus und Plus ein und tippe auf den goldenen Knopf; auf einen Einsatz tippe den Haken, das Kreuz, die Erhöhung oder den Blitz. Nach jeder Runde zeigt eine Tafel alle Hände, die Gewinner und Punkte jedes Lances und den Stand; tippe darauf für die nächste Runde. Jede Leiste zeigt den Stand ihres Teams. Rückgängig nimmt eine noch nicht bestätigte Wahl zurück, nie eine, wenn das Gerät weitergegeben wurde.

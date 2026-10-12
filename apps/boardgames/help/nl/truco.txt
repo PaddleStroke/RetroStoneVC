@@ -1,0 +1,26 @@
+Truco
+# Het doel
+Argentijns Truco, voor 2 spelers, of 4 in twee teams van partners die tegenover elkaar zitten (ivoor en rood tegen ebben en jade). Win spellen van drie kaarten en zet erop in: de truco op de kaarten, de envido op twee kaarten van één kleur. Het eerste team met 15 of 30 punten, gekozen vóór de partij, wint. Niemand ziet de kaarten van de anderen.
+# De kaarten
+Het Spaanse spel van 40 kaarten, zonder 8 en 9: oros (munten), copas (bekers), espadas (zwaarden) en bastos (knotsen); de sota (10), caballo (11) en rey (12) zijn een pion, een paard en een koning. De onderbrekingen in de kaderlijn van elke kaart, de pinta, tonen de kleur: geen bij oros, één bij copas, twee bij espadas, drie bij bastos. Van hoog naar laag: de 1 van espadas (ancho de espadas), de 1 van bastos (ancho de bastos), de 7 van espadas, de 7 van oros, de 3's, de 2's, de 1'en van copas en oros, de 12's, 11's en 10's, de 7's van copas en bastos, de 6's, 5's en 4's. Even sterke kaarten staan gelijk.
+# Een spel spelen
+- Elke speler krijgt 3 kaarten. De mano, de speler na de gever, komt uit in de eerste ronde; gever en mano schuiven elk spel een plaats door.
+- Ieder speelt per ronde één kaart en legt die voor zich neer. De hoogste kaart wint de ronde, en haar speler komt uit in de volgende.
+- Gelijkspel tussen de teams is een parda, en dezelfde speler komt weer uit; partners die gelijk staan winnen de ronde samen.
+- Het team dat twee rondes wint, neemt het spel. Na een parda in de eerste ronde beslist de volgende; een parda na een gewonnen ronde gaat naar de winnaar van de eerste; drie pardas: het team van de mano.
+- Een spel is 1 punt waard.
+# Truco
+- Als je aan de beurt bent, kun je vóór het spelen truco roepen: het spel is dan 2 waard. Het andere team antwoordt quiero (aannemen), no quiero (weigeren: jij neemt het spel tegen de waarde van vóór de roep) of verhoogt: retruco (3), dan vale cuatro (4).
+- Alleen het team dat de laatste roep aannam, mag later verhogen, als het aan de beurt is.
+- Me voy al mazo ("ik ga naar de stapel"): in plaats van te spelen geeft een speler het spel op, en de tegenstanders nemen het tegen de waarde van dat moment.
+# Envido
+- Alleen in de eerste ronde, vóór je eerste kaart, kun je envido (2), real envido (3) of falta envido roepen. Wie in de eerste ronde op een truco antwoordt, mag eerst envido roepen: el envido está primero ("de envido gaat voor"). Is een truco aangenomen, dan is er geen envido meer.
+- Het antwoord: quiero, no quiero of een hogere roep: nog een envido, dan real envido, dan falta envido. Aangenomen, krijgt het team met de beste envido de som van de roepen; geweigerd, krijgen de roepers wat vóór de laatste roep was aangenomen, of 1.
+- De falta envido is waard wat het leidende team nog nodig heeft om te winnen; in een partij tot 30, zolang beide teams onder 15 zitten (las malas, "de slechte"), is hij de hele partij waard.
+- De envido van een speler: twee kaarten van één kleur tellen 20 plus hun getallen (plaatjes tellen 0); anders zijn hoogste getal. De beste envido wint; bij gelijkstand de speler die het dichtst bij de mano zit.
+# Flor
+Een variant, te kiezen vóór de partij (de bloem). Drie kaarten van één kleur zijn een flor: die wordt bij het delen getoond en is 3 punten waard voor het team, en dat spel heeft geen envido. Hebben beide teams een flor, dan neemt de beste (20 plus de drie getallen) 3 punten voor elke flor. De contraflor valt weg.
+# Het einde van de partij
+Het eerste team dat de gekozen score haalt, 15 of 30, wint meteen, ook midden in een spel.
+# Spelen op het apparaat
+Geef het apparaat aan de speler wiens fiche oplicht; die tikt op start en ziet zijn hand. Om te spelen tik je een oplichtende kaart aan zodat hij omhoog komt, en tik je hem nog eens of zijn plek aan; of sleep hem erheen. De kaarten van elke speler liggen op een rij voor zijn fiche; de verliezers van elke ronde zijn verduisterd. Je roepen verschijnen in de onderste hoeken: links envido (twee kaarten en 2), real envido (twee kaarten en 3) en falta envido (een gouden bliksem op rood, met zijn waarde); rechts de truco (de nieuwe waarde op rood) en de mazo (een kaartrug). Op een roep antwoorden: het kruis voor no quiero, het vinkje voor quiero, of een verhoging. Elke plaats toont zijn laatste woord, zijn flor (een bloem) en, eenmaal gespeeld, de beste envido. Is een truco aangenomen, dan staat de waarde van het spel linksboven bij het team dat mag verhogen. Na elk spel toont een tabel de punten van elk team voor de envido, de flor en het spel, en de stand; tik erop voor het volgende spel. Elke balk toont de stand van zijn team. Ongedaan maken neemt een nog niet bevestigde keuze terug, nooit een keuze als het apparaat al doorgegeven is.

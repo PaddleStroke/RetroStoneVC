@@ -1,0 +1,26 @@
+Truco
+# El objetivo
+El truco argentino, para 2 jugadores, o 4 en dos parejas de compañeros sentados frente a frente (marfil y rojo contra ébano y jade). Se ganan manos de tres cartas y se apuesta en ellas: el truco por las cartas, el envido por dos cartas del mismo palo. Gana la primera pareja que llega a 15 o a 30 tantos, según se elija antes de la partida. Nadie ve las cartas de los demás.
+# Las cartas
+La baraja española de 40 cartas, sin ochos ni nueves: oros, copas, espadas y bastos; la sota (10), el caballo (11) y el rey (12) son un peón, un caballo y un rey. Los cortes de la línea del marco, la pinta, dicen el palo: ninguno los oros, uno las copas, dos las espadas, tres los bastos. De mayor a menor: el ancho de espadas (el 1), el ancho de bastos, el 7 de espadas, el 7 de oros, los 3, los 2, los ases falsos (de copas y de oros), los 12, los 11, los 10, los 7 de copas y de bastos, los 6, los 5 y los 4. Las cartas de igual fuerza empatan.
+# Jugar una mano
+- Cada jugador recibe 3 cartas. La mano, el jugador que sigue al que reparte, sale en la primera baza; el que reparte y la mano avanzan un puesto en cada mano.
+- Cada uno juega una carta por baza y la deja delante de sí. La carta más alta gana la baza y su jugador sale en la siguiente.
+- Un empate entre las dos parejas es parda, y vuelve a salir el mismo jugador; si empatan dos compañeros, ganan la baza juntos.
+- La pareja que gana dos bazas se lleva la mano. Si la primera es parda, decide la siguiente; una parda tras una baza ganada es para quien ganó la primera; tres pardas: para la pareja de la mano.
+- Una mano vale 1 tanto.
+# El truco
+- En tu turno, antes de jugar, puedes cantar truco: la mano pasa a valer 2. La otra pareja responde quiero, no quiero (te llevas la mano por lo que valía antes del canto) o sube: retruco (3) y luego vale cuatro (4).
+- Solo la pareja que aceptó el último canto puede subirlo, más tarde, en uno de sus turnos.
+- Me voy al mazo: en vez de jugar, un jugador abandona la mano, y los rivales se la llevan por lo que vale en ese momento.
+# El envido
+- Solo en la primera baza, antes de jugar tu primera carta, puedes cantar envido (2), real envido (3) o falta envido. Al responder a un truco en la primera baza puedes cantar antes el envido: el envido está primero. Una vez querido un truco, ya no hay envido.
+- La respuesta: quiero, no quiero o un canto mayor: otro envido, luego real envido, luego falta envido. Querido, la pareja con el mejor envido se anota la suma de los cantos; no querido, quienes cantaron se anotan lo que se había querido antes del último canto, o 1.
+- La falta envido vale lo que le falta a la pareja que va ganando para ganar; en una partida a 30, mientras las dos parejas están por debajo de 15 (en las malas), vale la partida entera.
+- El envido de un jugador: dos cartas del mismo palo suman 20 más sus números (las figuras valen 0); sin ellas, su número más alto. Gana el mejor envido; un empate es para el jugador más cerca de la mano.
+# La flor
+Una variante que se elige antes de la partida (la flor del dibujo). Tres cartas del mismo palo son flor: se muestra al repartir y vale 3 tantos para su pareja, y en esa mano no hay envido. Si las dos parejas tienen flor, la mejor (20 más los tres números) se lleva 3 tantos por cada flor. La contraflor no se juega.
+# El final de la partida
+Gana en el acto la primera pareja que llega a los tantos elegidos, 15 o 30, aunque sea en mitad de una mano.
+# Jugar en el dispositivo
+Pasa el dispositivo al jugador cuya ficha brilla; toca el botón de inicio y ve su mano. Para jugar, toca una carta que brille para levantarla y vuelve a tocarla o toca su sitio, o arrástrala hasta allí. Las cartas de cada jugador quedan en fila delante de su ficha; las que pierden cada baza se oscurecen. Tus cantos aparecen en las esquinas de abajo: a la izquierda el envido (dos cartas y 2), el real envido (dos cartas y 3) y la falta envido (un rayo dorado sobre rojo, con su valor); a la derecha el truco (el nuevo valor sobre rojo) y el mazo (el dorso de una carta). Para responder a un canto: la cruz para no quiero, la marca de visto para quiero, o una subida. Cada puesto muestra su última palabra, su flor (una flor) y, una vez jugado, el mejor envido. Cuando se quiere un truco, el valor de la mano aparece arriba a la izquierda con la pareja que puede subirlo. Tras cada mano, una tabla muestra los tantos de cada pareja por el envido, la flor y la mano, y los marcadores; tócala para la mano siguiente. Cada barra muestra la puntuación de su pareja. Deshacer anula una elección aún no confirmada, nunca una vez pasado el dispositivo.

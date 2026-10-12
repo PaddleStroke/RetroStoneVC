@@ -1,0 +1,26 @@
+Truco
+# Le but
+Le Truco argentin, pour 2 joueurs, ou 4 en deux équipes de partenaires assis face à face (ivoire et rouge contre ébène et jade). Gagnez des mains de trois cartes et misez dessus : le truco sur les cartes, l'envido sur deux cartes d'une même couleur. La première équipe à 15 ou 30 points, au choix avant la partie, gagne. Personne ne voit les cartes des autres.
+# Les cartes
+Le jeu espagnol de 40 cartes, sans les 8 ni les 9 : oros (deniers), copas (coupes), espadas (épées) et bastos (bâtons) ; la sota (10), le caballo (11) et le rey (12) sont un pion, un cavalier et un roi. Les coupures du filet de chaque carte, la pinta, donnent la couleur : aucune pour les oros, une pour les copas, deux pour les espadas, trois pour les bastos. De la plus forte à la plus faible : le 1 d'espadas (ancho de espadas), le 1 de bastos (ancho de bastos), le 7 d'espadas, le 7 d'oros, les 3, les 2, les 1 de copas et d'oros, les 12, les 11, les 10, les 7 de copas et de bastos, les 6, les 5 et les 4. Les cartes de même force font égalité.
+# Jouer une main
+- Chaque joueur reçoit 3 cartes. La mano, le joueur après le donneur, ouvre le premier tour ; donneur et mano avancent d'une place à chaque main.
+- Chacun joue une carte par tour et la pose devant lui. La plus forte carte gagne le tour, et son joueur ouvre le suivant.
+- Une égalité entre les deux équipes est une parda, et le même joueur rejoue en premier ; des partenaires à égalité gagnent le tour ensemble.
+- L'équipe qui gagne deux tours prend la main. Après une parda au premier tour, le tour suivant décide ; une parda après un tour gagné revient au gagnant du premier tour ; trois pardas : l'équipe de la mano.
+- Une main vaut 1 point.
+# Le truco
+- À ton tour, avant de jouer, tu peux annoncer truco : la main vaut alors 2. L'autre équipe répond quiero (accepter), no quiero (refuser : tu prends la main à sa valeur d'avant l'annonce) ou relance : retruco (3), puis vale cuatro (4).
+- Seule l'équipe qui a accepté la dernière annonce peut la relancer, plus tard, à l'un de ses tours.
+- Me voy al mazo (« je retourne au paquet ») : au lieu de jouer, un joueur abandonne la main, que les adversaires prennent à sa valeur du moment.
+# L'envido
+- Au premier tour seulement, avant de jouer ta première carte, tu peux annoncer envido (2), real envido (3) ou falta envido. En répondant à un truco au premier tour, tu peux d'abord annoncer l'envido : el envido está primero (« l'envido passe d'abord »). Une fois un truco accepté, plus d'envido.
+- La réponse : quiero, no quiero ou une annonce plus haute : encore un envido, puis real envido, puis falta envido. Acceptée, l'équipe au meilleur envido marque la somme des annonces ; refusée, les annonceurs marquent ce qui avait été accepté avant la dernière annonce, ou 1.
+- La falta envido vaut ce qui manque à l'équipe en tête pour gagner ; dans une partie en 30, tant que les deux équipes sont sous 15 (las malas, « les mauvaises »), elle vaut toute la partie.
+- L'envido d'un joueur : deux cartes d'une même couleur comptent 20 plus leurs valeurs (les figures valent 0) ; sinon, sa plus haute valeur. Le meilleur envido gagne ; une égalité revient au joueur le plus proche de la mano.
+# La flor
+Une variante, à choisir avant la partie (la fleur). Trois cartes d'une même couleur font une flor : elle est montrée à la donne et vaut 3 points à son équipe, et cette main n'a pas d'envido. Si les deux équipes ont une flor, la meilleure (20 plus les trois valeurs) prend 3 points par flor. La contraflor est laissée de côté.
+# La fin de la partie
+La première équipe qui atteint le score choisi, 15 ou 30, gagne aussitôt, même au milieu d'une main.
+# Jouer sur l'appareil
+Passe l'appareil au joueur dont la pièce brille ; il touche le bouton de départ et voit sa main. Pour jouer, touche une carte qui brille pour la lever, puis touche-la encore ou touche sa place, ou fais-la glisser jusque-là. Les cartes de chaque joueur sont alignées devant sa pièce ; les perdants de chaque tour sont assombris. Tes annonces apparaissent dans les coins du bas : à gauche envido (deux cartes et 2), real envido (deux cartes et 3) et falta envido (un éclair doré sur fond rouge, avec sa valeur) ; à droite le truco (la nouvelle valeur sur fond rouge) et le mazo (un dos de carte). Pour répondre à une annonce : la croix pour no quiero, la coche pour quiero, ou une relance. Chaque place montre son dernier mot, sa flor (une fleur) et, une fois joué, le meilleur envido. Une fois un truco accepté, la valeur de la main s'affiche en haut à gauche avec l'équipe qui peut la relancer. Après chaque main, un tableau montre les points de chaque équipe pour l'envido, la flor et la main, et les scores ; touche-le pour la main suivante. Chaque barre montre le score de son équipe. Annuler reprend un choix pas encore validé, jamais un choix une fois l'appareil passé.

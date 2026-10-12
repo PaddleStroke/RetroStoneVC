@@ -1,0 +1,26 @@
+Truco
+# The aim
+Argentine Truco, for 2 players, or 4 in two partnerships sitting face to face (ivory and red against ebony and jade). Win hands of three cards and bet on them: the truco on the cards, the envido on two cards of a suit. The first side to reach 15 or 30 points, as chosen before the game, wins. Nobody sees the others' cards.
+# The cards
+The Spanish pack of 40 cards, without 8s and 9s: oros (coins), copas (cups), espadas (swords) and bastos (clubs); the sota (10), caballo (11) and rey (12) are shown as a pawn, a knight and a king. The gaps in each card's frame line, the pinta, tell the suit: none for oros, one for copas, two for espadas, three for bastos. From high to low: the 1 of espadas (ancho de espadas), the 1 of bastos (ancho de bastos), the 7 of espadas, the 7 of oros, the 3s, the 2s, the 1s of copas and oros, the 12s, the 11s, the 10s, the 7s of copas and bastos, the 6s, the 5s and the 4s. Cards of the same strength tie.
+# Playing a hand
+- Each player gets 3 cards. The mano, the player after the dealer, leads the first round; dealer and mano move on one seat each hand.
+- Each player plays one card a round and lays it in front of him. The highest card wins the round and its player leads the next.
+- A tie between the two sides is a parda, and the same player leads again; partners who tie win the round together.
+- The side that wins two rounds takes the hand. After a first-round parda, the next round decides; a parda after a won round goes to the winner of the first round; three pardas: the mano's side.
+- A hand is worth 1 point.
+# Truco
+- On your turn, before you play, you may call truco: the hand becomes worth 2. The other side answers quiero (accept), no quiero (refuse: you take the hand at its worth before the call), or raises: retruco (3), then vale cuatro (4).
+- Only the side that accepted the last call may raise it, later, on one of its turns.
+- Me voy al mazo ("I go to the deck"): instead of playing, a player gives up the hand, and the opponents take it at its current worth.
+# Envido
+- Only in the first round, before playing your first card, you may call envido (2), real envido (3) or falta envido. Answering a truco in the first round you may call envido first: el envido está primero ("the envido comes first"). Once a truco is accepted, no envido can be called.
+- The answer: quiero, no quiero, or a higher call: envido once more, then real envido, then falta envido. Accepted, the side with the best envido scores the sum of the calls; refused, the callers score what had been accepted before the last call, or 1.
+- Falta envido is worth what the leading side lacks to win; in a game to 30, while both sides are under 15 (las malas, "the bad ones"), it is worth the whole game.
+- A player's envido: two cards of one suit count 20 plus their numbers (the figures count 0); without them, his highest number. The best envido wins; a tie goes to the player nearer the mano.
+# Flor
+A variant, chosen before the game (the flower). Three cards of one suit are a flor: it is shown at the deal and is worth 3 points to its side, and that hand has no envido. If both sides have a flor, the best one (20 plus the three numbers) takes 3 points for each flor. The contraflor is left out.
+# The end of the game
+The first side to reach the chosen score, 15 or 30, wins at once, even in the middle of a hand.
+# Playing on the device
+Pass the device to the player whose token glows; they tap start and see their own hand. To play, tap a glowing card so it rises, then tap it again or its place, or drag it there. Each player's cards lie in a row in front of his token; the losers of each round are dimmed. Your calls appear at the lower corners: at the left envido (two cards and 2), real envido (two cards and 3) and falta envido (a gold bolt on red, with its worth); at the right the truco (the new worth on red) and the mazo (a card's back). To answer a call: the cross for no quiero, the tick for quiero, or a raise. Each seat shows its last word, its flor (a flower) and, once played, the best envido. Once a truco is accepted, the hand's worth shows at the top left with the side that may raise it. After each hand a table shows each side's points for the envido, the flor and the hand, and the scores; tap it for the next hand. Each bar shows its side's score. Undo takes back a choice not yet made, never one once the device has passed.

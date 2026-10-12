@@ -1,0 +1,26 @@
+Truco
+# Lo scopo
+Il Truco argentino, per 2 giocatori, o 4 in due squadre di compagni seduti uno di fronte all'altro (avorio e rosso contro ebano e giada). Si vincono mani di tre carte e ci si punta sopra: il truco sulle carte, l'envido su due carte dello stesso seme. Vince la prima squadra che arriva a 15 o a 30 punti, scelti prima della partita. Nessuno vede le carte degli altri.
+# Le carte
+Il mazzo spagnolo di 40 carte, senza 8 e 9: oros (denari), copas (coppe), espadas (spade) e bastos (bastoni); la sota (10), il caballo (11) e il rey (12) sono un pedone, un cavallo e un re degli scacchi. Le interruzioni della cornice di ogni carta, la pinta, dicono il seme: nessuna per gli oros, una per le copas, due per le espadas, tre per i bastos. Dalla più forte alla più debole: l'1 di espadas (ancho de espadas), l'1 di bastos (ancho de bastos), il 7 di espadas, il 7 di oros, i 3, i 2, gli 1 di copas e di oros, i 12, gli 11, i 10, i 7 di copas e di bastos, i 6, i 5 e i 4. Carte della stessa forza sono pari.
+# Giocare una mano
+- Ogni giocatore riceve 3 carte. La mano, il giocatore dopo il mazziere, apre il primo giro; mazziere e mano avanzano di un posto a ogni mano.
+- Ognuno gioca una carta per giro e la posa davanti a sé. La carta più alta vince il giro e il suo giocatore apre il successivo.
+- Una parità fra le due squadre è una parda, e riapre lo stesso giocatore; due compagni alla pari vincono il giro insieme.
+- La squadra che vince due giri si prende la mano. Dopo una parda al primo giro decide il giro successivo; una parda dopo un giro vinto va a chi ha vinto il primo; tre pardas: alla squadra della mano.
+- Una mano vale 1 punto.
+# Il truco
+- Al tuo turno, prima di giocare, puoi chiamare truco: la mano vale allora 2. L'altra squadra risponde quiero (accetto), no quiero (rifiuto: ti prendi la mano al valore di prima della chiamata) o rilancia: retruco (3), poi vale cuatro (4).
+- Solo la squadra che ha accettato l'ultima chiamata può rilanciarla, più tardi, a un suo turno.
+- Me voy al mazo («torno al mazzo»): invece di giocare, un giocatore abbandona la mano, che gli avversari prendono al suo valore del momento.
+# L'envido
+- Solo al primo giro, prima di giocare la tua prima carta, puoi chiamare envido (2), real envido (3) o falta envido. Rispondendo a un truco al primo giro puoi chiamare prima l'envido: el envido está primero («l'envido viene prima»). Accettato un truco, non c'è più envido.
+- La risposta: quiero, no quiero o una chiamata più alta: ancora un envido, poi real envido, poi falta envido. Accettata, la squadra con l'envido migliore segna la somma delle chiamate; rifiutata, chi ha chiamato segna quanto era stato accettato prima dell'ultima chiamata, o 1.
+- La falta envido vale quanto manca alla squadra in testa per vincere; in una partita a 30, finché le due squadre sono sotto 15 (las malas, «le cattive»), vale l'intera partita.
+- L'envido di un giocatore: due carte dello stesso seme contano 20 più i loro numeri (le figure valgono 0); altrimenti il suo numero più alto. Vince l'envido migliore; una parità va al giocatore più vicino alla mano.
+# La flor
+Una variante, da scegliere prima della partita (il fiore). Tre carte dello stesso seme sono una flor: si mostra alla distribuzione e vale 3 punti alla sua squadra, e quella mano non ha envido. Se entrambe le squadre hanno una flor, la migliore (20 più i tre numeri) prende 3 punti per ogni flor. La contraflor è esclusa.
+# La fine della partita
+Vince subito la prima squadra che raggiunge il punteggio scelto, 15 o 30, anche a metà di una mano.
+# Giocare sul dispositivo
+Passa il dispositivo al giocatore di cui brilla la pedina; tocca il pulsante di avvio e vede la sua mano. Per giocare, tocca una carta che brilla per sollevarla, poi toccala di nuovo o tocca il suo posto, oppure trascinala lì. Le carte di ogni giocatore stanno in fila davanti alla sua pedina; quelle che perdono ogni giro sono scurite. Le tue chiamate compaiono negli angoli in basso: a sinistra envido (due carte e 2), real envido (due carte e 3) e falta envido (un fulmine dorato sul rosso, con il suo valore); a destra il truco (il nuovo valore sul rosso) e il mazo (il dorso di una carta). Per rispondere a una chiamata: la croce per no quiero, la spunta per quiero, o un rilancio. Ogni posto mostra la sua ultima parola, la sua flor (un fiore) e, una volta giocato, l'envido migliore. Accettato un truco, il valore della mano appare in alto a sinistra con la squadra che può rilanciarlo. Dopo ogni mano una tabella mostra i punti di ogni squadra per l'envido, la flor e la mano, e i punteggi; toccala per la mano successiva. Ogni barra mostra il punteggio della sua squadra. Annulla ritira una scelta non ancora confermata, mai una volta passato il dispositivo.

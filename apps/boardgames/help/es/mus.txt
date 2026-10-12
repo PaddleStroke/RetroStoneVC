@@ -1,0 +1,29 @@
+Mus
+# El objetivo
+El juego de cartas vasco, para dos parejas de compañeros sentados frente a frente: marfil y rojo contra ébano y jade. En cada mano se juegan cuatro lances; en cada uno ganan las mejores cartas, salvo que un envite haga retirarse a la otra pareja: los envites son el alma del juego. Gana la primera pareja que llega a 40 tantos. Para 4 jugadores que se pasan el dispositivo; nadie ve las cartas de los demás.
+# Las cartas
+La baraja española de 40 cartas, con cuatro palos: oros, copas, espadas y bastos, del 1 al 7, y luego la sota (10, aquí un peón), el caballo (11) y el rey (12). Los cortes de la línea que rodea cada carta, la pinta, dicen el palo: ninguno los oros, uno las copas, dos las espadas, tres los bastos. Se juega con la regla habitual de ocho reyes: cada 3 cuenta como rey y cada 2 como as, en todos los lances.
+# El mus
+Cada jugador recibe 4 cartas. La mano, que habla primero y gana todos los empates, es el jugador que sigue al que reparte; los dos avanzan un puesto en cada mano. Por turno desde la mano, cada uno dice mus (para cambiar cartas) o corta (no hay mus). Si los cuatro dicen mus, cada uno a su turno se descarta de 1 a 4 cartas y roba otras tantas, y se vuelve a pedir mus. En cuanto alguien corta, empiezan los lances.
+# Los cuatro lances
+- Grande: ganan las cartas más altas, comparadas una a una: rey, caballo, sota, 7, 6, 5, 4, as.
+- Chica: ganan las cartas más bajas.
+- Pares: cartas iguales. Un par vale 1, tres iguales (medias) 2, dos pares o cuatro iguales (duples) 3. Los duples ganan a las medias y las medias a un par; entre iguales ganan las cartas más altas. Solo juegan quienes tienen pares.
+- Juego: se cuentan las cartas, las figuras 10 y las demás su número. Desde 31 hay juego: la 31 es la mejor, luego 32, 40, 37, 36, 35, 34 y 33. Solo juegan quienes tienen juego. Si nadie tiene juego, el lance es al Punto: gana la cuenta más alta.
+En Pares y Juego no hay envite si solo una pareja los tiene, y el lance se salta si nadie los tiene. Un empate siempre es para el jugador más cerca de la mano.
+# Los envites
+- En cada lance se habla por turno desde la mano: paso, o envido (2 tantos, o más).
+- Ante un envite responde el siguiente rival y, si hace falta, su compañero: quiero, subir unos tantos más, órdago (todo el juego) o no quiero. El envite solo queda rechazado si los dos rivales no quieren.
+- No querido: la pareja que envidó se apunta en el acto 1 tanto, o el envite que estaba antes de la última subida, y gana el lance.
+- Si todos pasan, el lance queda en paso.
+- Un órdago querido: se enseñan las cartas en el acto, y quien gana ese lance gana la partida.
+# El recuento
+Al final de la mano se enseñan todas las cartas y se cuentan los lances por orden:
+- Grande y Chica: el envite querido, o 1 tanto en paso.
+- Pares: el envite querido, más el valor de los pares de los dos compañeros ganadores.
+- Juego: el envite querido, más 3 por cada 31 y 2 por cualquier otro juego de la pareja ganadora. Punto: el envite querido más 1, o 1 en paso.
+- Quienes ganan un lance no querido, o uno que solo tenía su pareja, cobran igualmente sus pares o su juego.
+# El final de la partida
+Gana la primera pareja que llega a 40 tantos, aunque sea en mitad del recuento, o en el acto con los tantos de un envite no querido. En la mesa se cuenta con piedras, cinco por amarraco; aquí son cifras. Las señas entre compañeros son una costumbre de mesa, no una regla: aquí no se usan.
+# Jugar en el dispositivo
+Pasa el dispositivo al jugador cuya ficha brilla; toca el botón de inicio y ve su mano. Cada puesto muestra su última palabra: mus (dos flechas, una en cada sentido), el corte (las mismas tachadas), paso, un envite, una subida (un más), el órdago (un rayo dorado sobre rojo), quiero (una marca de visto), no quiero (una cruz). En Pares y Juego cada puesto muestra si los tiene. Los cuatro lances van en fila arriba: Grande (una flecha hacia arriba), Chica (una flecha hacia abajo), Pares (dos cartas), Juego (31) o Punto (30); el que se está jugando brilla, y los ya jugados muestran debajo cómo acabaron. Para cambiar cartas, toca las cartas de las que te descartas y luego la marca de visto. Para envidar, ajusta la cantidad con menos y más y toca el botón dorado; ante un envite, toca la marca de visto, la cruz, la subida o el rayo. Tras cada mano, una tabla muestra todas las manos, los ganadores y los tantos de cada lance, y los marcadores; tócala para la mano siguiente. Cada barra muestra la puntuación de su pareja. Deshacer anula una elección aún no confirmada, nunca una vez pasado el dispositivo.

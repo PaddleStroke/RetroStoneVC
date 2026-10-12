@@ -1,0 +1,29 @@
+Mus
+# Le but
+Le jeu de cartes basque, pour deux équipes de deux partenaires assis face à face : ivoire et rouge contre ébène et jade. Chaque donne se joue en quatre lances ; dans chacune les meilleures cartes gagnent, à moins qu'une mise ne fasse reculer l'autre équipe : les enchères sont le cœur du jeu. La première équipe à 40 points (tantos) gagne. Pour 4 joueurs qui se passent l'appareil ; personne ne voit les cartes des autres.
+# Les cartes
+Le jeu espagnol de 40 cartes, en quatre couleurs : oros (deniers), copas (coupes), espadas (épées) et bastos (bâtons), numérotées de 1 à 7, puis la sota (10, ici un pion), le caballo (11, un cavalier) et le rey (12, un roi). Les coupures du filet autour de chaque carte, la pinta, donnent la couleur : aucune pour les oros, une pour les copas, deux pour les espadas, trois pour les bastos. On joue la règle courante à huit rois (ocho reyes) : chaque 3 compte comme un rey et chaque 2 comme un as, dans toutes les lances.
+# Le mus
+Chaque joueur reçoit 4 cartes. La mano, qui parle en premier et gagne toutes les égalités, est le joueur après le donneur ; tous deux avancent d'une place à chaque donne. À tour de rôle depuis la mano, chacun dit mus (pour changer des cartes) ou coupe (no hay mus, « pas de mus »). Si les quatre disent mus, chacun écarte à son tour de 1 à 4 cartes et en reprend autant, puis on redemande le mus. Dès qu'un joueur coupe, les lances commencent.
+# Les quatre lances
+- Grande : les plus hautes cartes gagnent, comparées une à une : rey, caballo, sota, 7, 6, 5, 4, as.
+- Chica : les plus basses cartes gagnent.
+- Pares : les cartes pareilles. Une paire (par) vaut 1, trois pareilles (medias) 2, deux paires ou quatre pareilles (duples) 3. Les duples battent les medias, les medias battent une paire ; à égalité les plus hautes cartes gagnent. Seuls les joueurs qui ont des pares participent.
+- Juego : on compte les cartes, les figures 10 et les autres leur valeur. 31 ou plus fait juego : 31 est le meilleur, puis 32, 40, 37, 36, 35, 34 et 33. Seuls les joueurs qui ont juego participent. Si personne n'a juego, la lance devient Punto : le plus gros total gagne.
+En Pares et en Juego, on ne mise pas si une seule équipe en a, et la lance est sautée si personne n'en a. Une égalité revient toujours au joueur le plus proche de la mano.
+# Les enchères (envites)
+- Dans chaque lance, les joueurs parlent à tour de rôle depuis la mano : passer (paso) ou miser (envido : 2 points, ou plus).
+- Face à une mise, l'adversaire suivant répond, puis son partenaire s'il le faut : accepter (quiero), relancer de quelques points, miser toute la partie (órdago) ou refuser (no quiero). La mise n'est refusée que si les deux adversaires refusent.
+- Refusée : l'équipe qui a misé marque aussitôt 1 point, ou la mise d'avant la dernière relance, et gagne la lance.
+- Si tout le monde passe, la lance se joue « en paso ».
+- Un órdago accepté : on montre les mains aussitôt, et le gagnant de cette lance gagne la partie.
+# Le compte
+À la fin de la donne, toutes les mains sont montrées et les lances sont comptées dans l'ordre :
+- Grande et Chica : la mise acceptée, ou 1 point en paso.
+- Pares : la mise acceptée, plus la valeur des pares des deux partenaires gagnants.
+- Juego : la mise acceptée, plus 3 pour chaque 31 et 2 pour tout autre juego de l'équipe gagnante. Punto : la mise acceptée plus 1, ou 1 en paso.
+- Les gagnants d'une lance refusée, ou d'une lance que leur équipe était seule à avoir, comptent quand même leurs pares ou leur juego.
+# La fin de la partie
+La première équipe à 40 points gagne, même au milieu du compte, ou aussitôt avec les points d'une mise refusée. À table on compte avec des pierres, cinq pour un amarraco ; ici ce sont des chiffres. Les signes secrets des partenaires (señas) sont un usage de table, pas une règle : ils sont laissés de côté.
+# Jouer sur l'appareil
+Passe l'appareil au joueur dont la pièce brille ; il touche le bouton de départ et voit sa main. Chaque place montre son dernier mot : mus (deux flèches, une dans chaque sens), la coupe (les mêmes barrées), passer, une mise, une relance (un plus), l'órdago (un éclair doré sur fond rouge), quiero (une coche), no quiero (une croix). En Pares et en Juego, chaque place montre si elle en a. Les quatre lances sont alignées en haut : Grande (une flèche vers le haut), Chica (une flèche vers le bas), Pares (deux cartes), Juego (31) ou Punto (30) ; celle qu'on mise brille, et celles déjà jouées montrent leur résultat en dessous. Pour changer des cartes, touche les cartes à écarter, puis la coche. Pour miser, règle le montant avec moins et plus et touche le bouton doré ; face à une mise, touche la coche, la croix, la relance ou l'éclair. Après chaque donne, un tableau montre toutes les mains, les gagnants et les points de chaque lance, et les scores ; touche-le pour la donne suivante. Chaque barre montre le score de son équipe. Annuler reprend un choix pas encore validé, jamais un choix une fois l'appareil passé.
