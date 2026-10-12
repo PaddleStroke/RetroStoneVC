@@ -1,0 +1,27 @@
+Scopa
+# Het doel
+Kaarten van tafel pakken door een kaart van dezelfde waarde te spelen, en de tafel leegvegen: elke keer dat hij leeg is, is een scopa, goed voor een punt. Het eerste team met 11 punten wint. Voor 2 spelers, of 4 in twee teams van partners die tegenover elkaar zitten (ivoor en rood tegen ebben en jade); niemand ziet de kaarten van de anderen.
+# De kaarten
+Het Italiaanse spel van 40 kaarten in vier kleuren: munten (denari), bekers (coppe), zwaarden (spade) en staven (bastoni). Elke kleur loopt van 1 tot 7, dan de fante, die 8 waard is, de cavallo, 9, en de re, 10. Hier is de fante een pion, de cavallo een paard en de re een koning.
+# Het delen
+Elke speler krijgt 3 kaarten en er gaan er 4 open op tafel (er wordt opnieuw gedeeld als daar drie of vier re bij zitten). Telkens als alle handen leeg zijn, krijgt iedereen er 3 bij, tot de stapel op is. De gever schuift elke ronde een plaats door, en de speler na de gever begint.
+# Het spel
+- Speel een kaart uit je hand.
+- Ligt er een kaart van dezelfde waarde op tafel, dan pakt je kaart die. Liggen er meer, dan kies je welke.
+- Anders, als kaarten op tafel samen zijn waarde vormen, pakt je kaart ze allemaal. Zijn er meer zulke groepen, dan kies je er een.
+- Een losse kaart gaat altijd voor een som: met een 7 op tafel kan een 7 geen 3 en 4 pakken.
+- Een kaart die kan pakken, moet pakken. Een kaart die niets pakt, blijft op tafel liggen.
+- De tafel leegmaken is een scopa, goed voor 1 punt, behalve met de allerlaatste kaart van de ronde.
+- Aan het eind van de ronde gaan de kaarten die nog op tafel liggen naar wie het laatst heeft gepakt.
+# De telling
+Aan het eind van elke ronde krijgt elk team:
+- 1 punt voor de meeste kaarten;
+- 1 punt voor de meeste munten;
+- 1 punt voor de settebello, de munten-7;
+- 1 punt voor de primiera: elk team neemt zijn beste kaart van elke kleur, waarbij de 7 21 telt, de 6 18, de aas 16, de 5 15, de 4 14, de 3 13, de 2 12 en de plaatjes 10, en het hoogste totaal wint. Een team dat een kleur mist, heeft geen primiera;
+- 1 punt voor elke scopa.
+Bij gelijkspel krijgt niemand dat punt.
+# Het einde van de partij
+De partij eindigt na de ronde waarin een team 11 punten haalt; het team met de meeste punten wint. Staan ze gelijk, dan wordt er nog een ronde gespeeld.
+# Spelen op het apparaat
+Geef het apparaat aan de speler wiens fiche verschijnt; die tikt op start en ziet zijn hand onderaan, met links de stapel en rechts zijn gepakte kaarten. De kaarten en stapeltjes van de anderen liggen bovenaan. De kaart van elke scopa ligt dwars en open onder het stapeltje van zijn team. Tik een kaart in je hand aan: hij komt omhoog en de kaarten op tafel die hij kan pakken lichten op. Tik hem nog eens aan, of tik op de tafel, om hem te spelen; of sleep hem naar de tafel. Kan hij meer dan één kaart of groep pakken, tik dan de kaarten op tafel aan die je wilt tot de som klopt. Na elke ronde toont een tabel per team de kaarten, de munten, de settebello, de primiera, de scope (een kaart dwars op een stapeltje), de punten van de ronde en het totaal; wat een punt oplevert, licht op. Tik erop voor de volgende ronde. Elke balk toont het totaal van het team. Ongedaan maken neemt een nog niet bevestigde keuze terug, nooit een kaart als het apparaat al doorgegeven is.

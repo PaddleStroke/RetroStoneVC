@@ -1,0 +1,27 @@
+Scopa
+# Das Ziel
+Karten vom Tisch nehmen, indem man eine Karte gleichen Werts spielt, und den Tisch leerfegen: jedes Leerfegen ist eine Scopa und bringt einen Punkt. Das erste Team mit 11 Punkten gewinnt. Für 2 Spieler, oder 4 in zwei Teams aus Partnern, die einander gegenübersitzen (Elfenbein und Rot gegen Ebenholz und Jade); niemand sieht die Karten der anderen.
+# Die Karten
+Das italienische Blatt mit 40 Karten in vier Farben: Münzen (denari), Kelche (coppe), Schwerter (spade) und Stäbe (bastoni). Jede Farbe geht von 1 bis 7, dann folgen der Fante, der 8 zählt, der Cavallo, der 9 zählt, und der Re, der 10 zählt. Hier ist der Fante ein Bauer, der Cavallo ein Springer und der Re ein König.
+# Das Geben
+Jeder Spieler bekommt 3 Karten, und 4 Karten kommen offen auf den Tisch (es wird neu gegeben, wenn darunter drei oder vier Re liegen). Immer wenn alle Hände leer sind, bekommt jeder 3 weitere, bis der Stapel aufgebraucht ist. Der Geber wechselt jede Runde, und der Spieler nach ihm fängt an.
+# Das Spiel
+- Spiele eine Karte aus deiner Hand.
+- Liegt auf dem Tisch eine Karte gleichen Werts, nimmt deine Karte sie. Liegen mehrere da, wählst du eine aus.
+- Sonst, wenn Karten auf dem Tisch zusammen ihren Wert ergeben, nimmt deine Karte sie alle. Gibt es mehrere solche Gruppen, wählst du eine.
+- Eine einzelne Karte geht immer vor einer Summe: liegt eine 7 auf dem Tisch, kann eine 7 keine 3 und keine 4 nehmen.
+- Eine Karte, die nehmen kann, muss nehmen. Eine Karte, die nichts nimmt, bleibt auf dem Tisch liegen.
+- Den Tisch leer zu räumen ist eine Scopa und bringt 1 Punkt, außer mit der allerletzten Karte der Runde.
+- Am Ende der Runde gehen die übrigen Karten auf dem Tisch an den, der zuletzt genommen hat.
+# Die Wertung
+Am Ende jeder Runde bekommt jedes Team:
+- 1 Punkt für die meisten Karten;
+- 1 Punkt für die meisten Münzen;
+- 1 Punkt für den Settebello, die Münzen-7;
+- 1 Punkt für die Primiera: jedes Team nimmt seine beste Karte jeder Farbe, wobei die 7 21 zählt, die 6 18, das Ass 16, die 5 15, die 4 14, die 3 13, die 2 12 und die Bilder 10, und die höhere Summe gewinnt. Ein Team, dem eine Farbe fehlt, hat keine Primiera;
+- 1 Punkt für jede Scopa.
+Bei Gleichstand bekommt niemand diesen Punkt.
+# Das Ende der Partie
+Die Partie endet nach der Runde, in der ein Team 11 Punkte erreicht; das Team mit mehr Punkten gewinnt. Haben beide gleich viele, wird noch eine Runde gespielt.
+# Spielen auf dem Gerät
+Gib das Gerät dem Spieler, dessen Stein erscheint; er tippt auf Start und sieht seine Hand unten, links davon den Stapel und rechts seine genommenen Karten. Die Karten und Stapel der anderen liegen oben. Die Karte jeder Scopa liegt quer und offen unter dem Stapel ihres Teams. Tippe eine Karte deiner Hand an: sie hebt sich, und die Karten auf dem Tisch, die sie nehmen kann, leuchten. Tippe sie noch einmal oder den Tisch an, um sie zu spielen; oder zieh sie auf den Tisch. Kann sie mehr als eine Karte oder Gruppe nehmen, tippe die gewünschten Karten auf dem Tisch an, bis die Summe stimmt. Nach jeder Runde zeigt eine Tabelle für jedes Team die Karten, die Münzen, den Settebello, die Primiera, die Scope (eine Karte quer auf einem Stapel), die Punkte der Runde und die Summe; was einen Punkt bringt, leuchtet. Tippe sie an für die nächste Runde. Jede Leiste zeigt die Summe des Teams. Rückgängig nimmt eine noch nicht bestätigte Wahl zurück, nie eine Karte, wenn das Gerät weitergegeben wurde.

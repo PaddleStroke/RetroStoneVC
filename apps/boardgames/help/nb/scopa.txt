@@ -1,0 +1,27 @@
+Scopa
+# Målet
+Ta kort fra bordet ved å spille et kort med samme verdi, og fei bordet rent: hver gang det blir tomt, er det en scopa, som gir ett poeng. Det første laget som når 11 poeng, vinner. For 2 spillere, eller 4 i to lag med makkere som sitter overfor hverandre (elfenben og rød mot ibenholt og jade); ingen ser kortene til de andre.
+# Kortene
+Den italienske kortstokken med 40 kort i fire farger: mynter (denari), begre (coppe), sverd (spade) og køller (bastoni). Hver farge går fra 1 til 7, så kommer fante, som er verdt 8, cavallo, 9, og re, 10. Her er fante en bonde, cavallo en springer og re en konge.
+# Utdelingen
+Hver spiller får 3 kort, og 4 kort legges med forsiden opp på bordet (det deles på nytt hvis tre eller fire re ligger blant dem). Hver gang alle hendene er tomme, får alle 3 til, til stokken er brukt opp. Giveren flytter én plass hver runde, og spilleren etter giveren begynner.
+# Spillet
+- Spill et kort fra hånden din.
+- Ligger det et kort med samme verdi på bordet, tar kortet ditt det. Ligger det flere, velger du hvilket.
+- Ellers, hvis noen kort på bordet til sammen gir verdien, tar kortet ditt alle sammen. Er det flere slike grupper, velger du én.
+- Et enkelt kort går alltid foran en sum: med en 7 på bordet kan en 7 ikke ta en 3 og en 4.
+- Et kort som kan ta, må ta. Et kort som ikke tar noe, blir liggende på bordet.
+- Å tømme bordet er en scopa, som gir 1 poeng, unntatt med rundens aller siste kort.
+- Når runden er slutt, går kortene som ligger igjen på bordet, til den som tok sist.
+# Poengene
+På slutten av hver runde får hvert lag:
+- 1 poeng for flest kort;
+- 1 poeng for flest mynter;
+- 1 poeng for settebello, mynt-sjueren;
+- 1 poeng for primiera: hvert lag tar sitt beste kort i hver farge, der sjueren teller 21, seksen 18, esset 16, femmeren 15, fireren 14, treeren 13, toeren 12 og bildekortene 10, og den høyeste summen vinner. Et lag som mangler en farge, har ingen primiera;
+- 1 poeng for hver scopa.
+Ved likhet får ingen det poenget.
+# Slutten på spillet
+Spillet slutter etter runden der et lag når 11 poeng; laget med flest poeng vinner. Står lagene likt, spilles det én runde til.
+# Spill på enheten
+Gi enheten til spilleren som har brikken sin på skjermen; han trykker på start og ser hånden sin nederst, med stokken til venstre og kortene han har tatt til høyre. Kortene og haugene til de andre ligger øverst. Kortet fra hver scopa ligger på tvers med forsiden opp under haugen til laget. Trykk på et kort på hånden: det løfter seg, og kortene på bordet som det kan ta, lyser. Trykk på det igjen, eller på bordet, for å spille det; eller dra det inn på bordet. Kan det ta mer enn ett kort eller én gruppe, trykker du på kortene du vil ha på bordet til summen stemmer. Etter hver runde viser en tabell for hvert lag kortene, myntene, settebello, primiera, scope (et kort på tvers av en haug), rundens poeng og summen; det som gir poeng, lyser. Trykk på den for neste runde. Hver linje viser lagets sum. Angre tar tilbake et valg som ikke er bekreftet ennå, aldri et kort når enheten er gitt videre.

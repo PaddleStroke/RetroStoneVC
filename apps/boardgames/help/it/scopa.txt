@@ -1,0 +1,27 @@
+Scopa
+# Lo scopo
+Prendere le carte in tavola abbinandone il valore, e spazzare la tavola: ogni volta che la si svuota è una scopa, che vale un punto. Vince la prima squadra che arriva a 11 punti. Per 2 giocatori, o per 4 in due coppie sedute una di fronte all'altra (avorio e rosso contro ebano e giada); nessuno vede le carte degli altri.
+# Le carte
+Il mazzo italiano da 40 carte, in quattro semi: denari, coppe, spade e bastoni. Ogni seme va dall'asso al 7, poi il fante, che vale 8, il cavallo, che vale 9, e il re, che vale 10. Qui il fante è un pedone, il cavallo un cavallo degli scacchi e il re un re.
+# La distribuzione
+Il mazziere dà 3 carte a ciascuno e ne scopre 4 in tavola (si ridistribuisce se fra queste escono tre o quattro re). Ogni volta che tutti hanno finito le carte, se ne danno altre 3 a testa, fino a esaurire il mazzo. Il mazziere cambia a ogni smazzata e gioca per primo chi gli siede dopo.
+# Il gioco
+- Gioca una carta dalla tua mano.
+- Se in tavola c'è una carta dello stesso valore, la prendi. Se ce ne sono più d'una, scegli quale.
+- Altrimenti, se alcune carte in tavola sommano il suo valore, le prendi tutte. Se le combinazioni sono più d'una, ne scegli una.
+- La presa di una carta sola viene sempre prima della somma: con un 7 in tavola, un 7 non può prendere un 3 e un 4.
+- Una carta che può prendere deve prendere. Una carta che non prende niente resta in tavola.
+- Vuotare la tavola è una scopa e vale 1 punto, tranne che con l'ultima carta della smazzata.
+- A fine smazzata, le carte rimaste in tavola vanno a chi ha preso per ultimo.
+# Il punteggio
+Alla fine di ogni smazzata, ogni squadra conta:
+- 1 punto per le carte, a chi ne ha di più;
+- 1 punto per i denari, a chi ne ha di più;
+- 1 punto per il settebello, il 7 di denari;
+- 1 punto per la primiera: ognuno prende la sua carta migliore di ogni seme, contando il 7 21, il 6 18, l'asso 16, il 5 15, il 4 14, il 3 13, il 2 12 e le figure 10, e vince il totale più alto. Chi non ha tutti e quattro i semi non fa primiera;
+- 1 punto per ogni scopa.
+In caso di parità, quel punto non va a nessuno.
+# La fine della partita
+La partita finisce dopo la smazzata in cui una squadra arriva a 11 punti; vince chi ha più punti. Se le squadre sono pari, si gioca un'altra smazzata.
+# Giocare sul dispositivo
+Passa il dispositivo al giocatore di cui appare la pedina; tocca il pulsante di avvio e vede la sua mano in basso, con il mazzo a sinistra e le sue prese a destra. Le carte e le prese degli altri sono in alto. La carta di ogni scopa sta di traverso sul mazzetto delle prese, scoperta. Tocca una carta della tua mano: si alza e le carte in tavola che può prendere brillano. Toccala di nuovo, o tocca la tavola, per giocarla; oppure trascinala sulla tavola. Se può fare più di una presa, tocca le carte in tavola che vuoi finché la somma torna. Dopo ogni smazzata, una tabella mostra per ogni squadra le carte, i denari, il settebello, la primiera, le scope (una carta di traverso su un mazzetto), i punti della smazzata e il totale; i conteggi che fanno punto brillano. Toccala per la smazzata successiva. Ogni barra mostra il totale della squadra. Annulla ritira una scelta non ancora confermata, mai una carta una volta passato il dispositivo.

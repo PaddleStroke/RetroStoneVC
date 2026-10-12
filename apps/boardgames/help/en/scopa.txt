@@ -1,0 +1,27 @@
+Scopa
+# The aim
+Capture cards from the table by matching their value, and sweep the table clean: each sweep is a scopa, worth a point. The first side to reach 11 points wins. For 2 players, or 4 in two partnerships sitting face to face (ivory and red against ebony and jade); nobody sees the others' cards.
+# The cards
+The Italian pack of 40 cards, in four suits: coins (denari), cups (coppe), swords (spade) and clubs (bastoni). Each suit runs from 1 to 7, then the fante, worth 8, the cavallo, worth 9, and the re, worth 10. Here the fante is a pawn, the cavallo a knight and the re a king.
+# The deal
+Each player gets 3 cards, and 4 cards go face up on the table (they are dealt again if three or four re show among them). Whenever every hand is empty, everyone gets 3 more, until the pack runs out. The dealer moves on one seat each round, and the player after the dealer plays first.
+# Playing
+- Play one card from your hand.
+- If a table card has the same value, your card captures it. If several do, you choose which one.
+- Otherwise, if some table cards add up to its value, your card captures them all. If several sets do, you choose one.
+- A single card always comes before a sum: with a 7 on the table, a 7 cannot take a 3 and a 4.
+- A card that can capture must capture. A card that captures nothing stays on the table.
+- Clearing the table is a scopa, worth 1 point, except with the very last card of the round.
+- At the end of the round, the cards left on the table go to whoever captured last.
+# Scoring
+At the end of each round, each side scores:
+- 1 point for the most cards;
+- 1 point for the most coins;
+- 1 point for the settebello, the 7 of coins;
+- 1 point for the primiera: each side takes its best card in each suit, counting the 7 as 21, the 6 as 18, the ace as 16, the 5 as 15, the 4 as 14, the 3 as 13, the 2 as 12 and the courts as 10, and the higher total wins. A side missing a suit has no primiera;
+- 1 point for each scopa.
+On a tie, nobody scores that point.
+# The end of the game
+The game ends after the round in which a side reaches 11 points; the side with more points wins. If both sides have the same score, another round is played.
+# Playing on the device
+Pass the device to the player whose token shows; they tap start and see their own hand at the bottom, with the stock on its left and their captures on its right. The other players' cards and captures are at the top. Each scopa's card lies across its owner's pile, face up. Tap a card in your hand: it rises and the table cards it can capture glow. Tap it again, or tap the table, to play it; or drag it onto the table. If it could capture more than one card or set, tap the table cards you want until they add up. After each round, a table shows for each side its cards, its coins, the settebello, the primiera, its scopas (a card across a pile), the round's points and the total; the counts that win a point glow. Tap it for the next round. Each bar shows the side's total. Undo takes back a choice not yet made, never a card once the device has passed.

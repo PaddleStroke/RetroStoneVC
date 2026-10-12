@@ -1,0 +1,27 @@
+Scopa
+# Le but
+Ramasser les cartes de la table en jouant une carte de même valeur, et balayer la table : chaque table vidée est une scopa, qui vaut un point. La première équipe à 11 points gagne. Pour 2 joueurs, ou 4 en deux équipes de partenaires assis face à face (ivoire et rouge contre ébène et jade) ; personne ne voit les cartes des autres.
+# Les cartes
+Le jeu italien de 40 cartes, en quatre couleurs : deniers (denari), coupes (coppe), épées (spade) et bâtons (bastoni). Chaque couleur va de 1 à 7, puis le fante, qui vaut 8, le cavallo, qui vaut 9, et le re, qui vaut 10. Ici le fante est un pion, le cavallo un cavalier et le re un roi.
+# La donne
+Chacun reçoit 3 cartes et 4 cartes sont posées face visible sur la table (on redonne si trois ou quatre re s'y trouvent). Chaque fois que toutes les mains sont vides, chacun en reçoit 3 de plus, jusqu'à la fin du talon. Le donneur change à chaque manche, et le joueur après lui joue le premier.
+# Le jeu
+- Joue une carte de ta main.
+- Si une carte de la table a la même valeur, ta carte la ramasse. S'il y en a plusieurs, tu choisis laquelle.
+- Sinon, si des cartes de la table font ensemble sa valeur, ta carte les ramasse toutes. Si plusieurs groupes conviennent, tu en choisis un.
+- Une carte seule passe toujours avant une somme : avec un 7 sur la table, un 7 ne peut pas prendre un 3 et un 4.
+- Une carte qui peut ramasser doit ramasser. Une carte qui ne ramasse rien reste sur la table.
+- Vider la table est une scopa, qui vaut 1 point, sauf avec la toute dernière carte de la manche.
+- À la fin de la manche, les cartes restées sur la table vont à celui qui a ramassé le dernier.
+# Le score
+À la fin de chaque manche, chaque équipe marque :
+- 1 point pour le plus de cartes ;
+- 1 point pour le plus de deniers ;
+- 1 point pour le settebello, le 7 de deniers ;
+- 1 point pour la primiera : chaque équipe prend sa meilleure carte de chaque couleur, en comptant le 7 pour 21, le 6 pour 18, l'as pour 16, le 5 pour 15, le 4 pour 14, le 3 pour 13, le 2 pour 12 et les figures pour 10, et le plus grand total gagne. Une équipe à qui il manque une couleur n'a pas de primiera ;
+- 1 point par scopa.
+En cas d'égalité, personne ne marque ce point.
+# La fin de la partie
+La partie s'arrête après la manche où une équipe atteint 11 points ; celle qui a le plus de points gagne. Si les deux équipes sont à égalité, on joue une manche de plus.
+# Jouer sur l'appareil
+Passe l'appareil au joueur dont la pièce s'affiche ; il touche le bouton de départ et voit sa main en bas, avec le talon à sa gauche et ses levées à sa droite. Les cartes et les levées des autres sont en haut. La carte de chaque scopa est posée en travers du tas de son équipe, face visible. Touche une carte de ta main : elle se lève et les cartes de la table qu'elle peut ramasser brillent. Touche-la encore, ou touche la table, pour la jouer ; ou fais-la glisser sur la table. Si elle peut ramasser plusieurs cartes ou plusieurs groupes, touche les cartes de la table que tu veux jusqu'à ce que le compte y soit. Après chaque manche, un tableau montre pour chaque équipe ses cartes, ses deniers, le settebello, la primiera, ses scope (une carte en travers d'un tas), les points de la manche et le total ; les comptes qui rapportent un point brillent. Touche-le pour la manche suivante. Chaque barre affiche le total de l'équipe. Annuler reprend un choix pas encore validé, jamais une carte une fois l'appareil passé.

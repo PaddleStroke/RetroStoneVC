@@ -1,0 +1,27 @@
+Scopa
+# Tujuan
+Ambil kartu dari meja dengan memainkan kartu yang nilainya sama, dan sapu bersih meja: setiap kali meja kosong, itu sebuah scopa yang bernilai satu poin. Pihak pertama yang mencapai 11 poin menang. Untuk 2 pemain, atau 4 pemain dalam dua tim berisi dua rekan yang duduk berhadapan (gading dan merah melawan eboni dan giok); tak seorang pun melihat kartu pemain lain.
+# Kartu
+Kartu Italia berisi 40 kartu dalam empat jenis: koin (denari), piala (coppe), pedang (spade), dan tongkat (bastoni). Setiap jenis berisi kartu 1 sampai 7, lalu fante yang bernilai 8, cavallo yang bernilai 9, dan re yang bernilai 10. Di sini fante berupa bidak pion, cavallo berupa kuda, dan re berupa raja.
+# Pembagian kartu
+Setiap pemain mendapat 3 kartu, dan 4 kartu diletakkan terbuka di meja (dibagi ulang jika di antaranya ada tiga atau empat re). Setiap kali semua tangan kosong, semua mendapat 3 kartu lagi, sampai tumpukan habis. Pembagi bergeser satu kursi setiap ronde, dan pemain sesudah pembagi mulai lebih dulu.
+# Permainan
+- Mainkan satu kartu dari tanganmu.
+- Jika di meja ada kartu yang nilainya sama, kartumu mengambilnya. Jika ada beberapa, kamu memilih yang mana.
+- Jika tidak, dan beberapa kartu di meja berjumlah sama dengan nilainya, kartumu mengambil semuanya. Jika ada beberapa kelompok seperti itu, kamu memilih satu.
+- Satu kartu selalu didahulukan daripada jumlah: jika ada 7 di meja, sebuah 7 tidak boleh mengambil 3 dan 4.
+- Kartu yang bisa mengambil wajib mengambil. Kartu yang tidak mengambil apa pun tetap di meja.
+- Mengosongkan meja adalah scopa, bernilai 1 poin, kecuali dengan kartu paling akhir dalam ronde.
+- Di akhir ronde, kartu yang tersisa di meja menjadi milik pemain yang terakhir mengambil.
+# Skor
+Di akhir setiap ronde, setiap pihak mendapat:
+- 1 poin untuk kartu terbanyak;
+- 1 poin untuk koin terbanyak;
+- 1 poin untuk settebello, yaitu 7 koin;
+- 1 poin untuk primiera: setiap pihak mengambil kartu terbaiknya di setiap jenis, dengan 7 dihitung 21, 6 dihitung 18, as 16, 5 15, 4 14, 3 13, 2 12, dan kartu bergambar 10, lalu jumlah tertinggi menang. Pihak yang tidak punya salah satu jenis tidak mendapat primiera;
+- 1 poin untuk setiap scopa.
+Jika seri, poin itu tidak diberikan kepada siapa pun.
+# Akhir permainan
+Permainan berakhir setelah ronde ketika salah satu pihak mencapai 11 poin; pihak dengan poin lebih banyak menang. Jika kedua pihak sama, satu ronde lagi dimainkan.
+# Bermain di perangkat
+Oper perangkat ke pemain yang bidaknya tampil; ia mengetuk tombol mulai dan melihat kartunya sendiri di bawah, dengan tumpukan kartu di kiri dan kartu yang ia ambil di kanan. Kartu dan tumpukan pemain lain ada di atas. Kartu setiap scopa terletak melintang dan terbuka di bawah tumpukan pihaknya. Ketuk sebuah kartu di tanganmu: kartu itu naik dan kartu di meja yang bisa diambilnya bersinar. Ketuk lagi, atau ketuk meja, untuk memainkannya; atau seret ke meja. Jika kartu itu bisa mengambil lebih dari satu kartu atau kelompok, ketuk kartu di meja yang kamu inginkan sampai jumlahnya pas. Setelah setiap ronde, sebuah tabel menunjukkan untuk setiap pihak kartu, koin, settebello, primiera, scopa (kartu melintang di atas tumpukan), poin ronde, dan totalnya; hitungan yang menghasilkan poin bersinar. Ketuk tabel untuk ronde berikutnya. Setiap bilah menunjukkan total pihaknya. Urungkan membatalkan pilihan yang belum dikonfirmasi, tidak pernah kartu setelah perangkat dioper.

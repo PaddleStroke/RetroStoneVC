@@ -1,0 +1,27 @@
+Scopa
+# Tavoite
+Ota kortteja pöydästä pelaamalla samanarvoinen kortti, ja lakaise pöytä tyhjäksi: joka kerta kun pöytä tyhjenee, se on scopa ja tuo pisteen. Ensimmäisenä 11 pisteeseen ehtivä puoli voittaa. 2 pelaajalle, tai 4 pelaajalle kahtena parina, parit vastakkain (norsunluu ja punainen vastaan eebenpuu ja jade); kukaan ei näe muiden kortteja.
+# Kortit
+Italialainen 40 kortin pakka neljässä maassa: kolikot (denari), maljat (coppe), miekat (spade) ja nuijat (bastoni). Kukin maa kulkee 1:stä 7:ään, sitten tulevat fante, arvoltaan 8, cavallo, 9, ja re, 10. Tässä fante on sotilas, cavallo ratsu ja re kuningas.
+# Jako
+Jokainen saa 3 korttia, ja pöytään käännetään 4 korttia kuvapuoli ylöspäin (jaetaan uudelleen, jos niiden joukossa on kolme tai neljä re-korttia). Aina kun kaikkien kädet ovat tyhjiä, jokainen saa 3 lisää, kunnes pakka loppuu. Jakaja vaihtuu joka kierroksella, ja jakajaa seuraava pelaaja aloittaa.
+# Pelaaminen
+- Pelaa yksi kortti kädestäsi.
+- Jos pöydässä on samanarvoinen kortti, korttisi ottaa sen. Jos niitä on useita, valitset mikä.
+- Muuten, jos pöydän kortit yhteensä ovat sen arvoiset, korttisi ottaa ne kaikki. Jos tällaisia ryhmiä on useita, valitset yhden.
+- Yksittäinen kortti menee aina summan edelle: kun pöydässä on 7, 7 ei voi ottaa 3:a ja 4:ää.
+- Kortin, joka voi ottaa, on otettava. Kortti, joka ei ota mitään, jää pöytään.
+- Pöydän tyhjentäminen on scopa ja tuo 1 pisteen, paitsi kierroksen aivan viimeisellä kortilla.
+- Kierroksen lopussa pöytään jääneet kortit saa se, joka otti viimeksi.
+# Pisteet
+Jokaisen kierroksen lopussa kumpikin puoli saa:
+- 1 pisteen eniten korteista;
+- 1 pisteen eniten kolikoista;
+- 1 pisteen settebellosta, kolikoiden 7:stä;
+- 1 pisteen primierasta: kumpikin puoli ottaa parhaan korttinsa kustakin maasta, ja 7 on 21, 6 on 18, ässä 16, 5 on 15, 4 on 14, 3 on 13, 2 on 12 ja kuvakortit 10; suurempi summa voittaa. Puolella, jolta puuttuu jokin maa, ei ole primieraa;
+- 1 pisteen jokaisesta scopasta.
+Tasatilanteessa kukaan ei saa sitä pistettä.
+# Pelin loppu
+Peli päättyy sen kierroksen jälkeen, jolla jokin puoli saavuttaa 11 pistettä; enemmän pisteitä saanut voittaa. Jos pisteet ovat tasan, pelataan vielä yksi kierros.
+# Pelaaminen laitteella
+Anna laite pelaajalle, jonka nappula näkyy; hän napauttaa aloitusta ja näkee kätensä alhaalla, vasemmalla pakka ja oikealla omat otetut korttinsa. Muiden kortit ja pinot ovat ylhäällä. Jokaisen scopan kortti on poikittain ja kuvapuoli ylöspäin puolensa pinon alla. Napauta kädessäsi olevaa korttia: se nousee, ja pöydän kortit, jotka se voi ottaa, hehkuvat. Napauta sitä uudelleen tai napauta pöytää pelataksesi sen; tai vedä se pöytään. Jos se voi ottaa useamman kuin yhden kortin tai ryhmän, napauta haluamiasi pöydän kortteja, kunnes summa täsmää. Jokaisen kierroksen jälkeen taulukko näyttää kummallekin puolelle kortit, kolikot, settebellon, primieran, scopat (kortti poikittain pinon päällä), kierroksen pisteet ja kokonaissumman; pisteen tuovat luvut hehkuvat. Napauta sitä seuraavaa kierrosta varten. Jokainen palkki näyttää puolen kokonaispisteet. Kumoa peruu vahvistamattoman valinnan, ei koskaan korttia sen jälkeen, kun laite on annettu eteenpäin.
