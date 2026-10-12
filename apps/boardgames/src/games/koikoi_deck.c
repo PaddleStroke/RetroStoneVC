@@ -889,9 +889,12 @@ static void clover(int k)
 {
     /* sprays rising from one clump and arching over, left and right, like a fountain */
     static const float S[6][8] = {
-        {0.48f, 1.66f, 0.42f, 1.0f, 0.1f, 0.62f, 0.02f, 0.94f}, {0.54f, 1.66f, 0.6f, 0.92f, 0.94f, 0.46f, 1.02f, 0.8f},
-        {0.5f, 1.66f, 0.42f, 0.62f, 0.6f, 0.16f, 0.82f, 0.24f},  {0.52f, 1.66f, 0.5f, 0.74f, 0.24f, 0.18f, 0.08f, 0.32f},
-        {0.56f, 1.66f, 0.7f, 1.22f, 0.94f, 1.06f, 1.02f, 1.3f},  {0.46f, 1.66f, 0.3f, 1.3f, 0.06f, 1.16f, -0.02f, 1.36f}};
+        {0.48f, 1.66f, 0.42f, 1.0f, 0.1f, 0.62f, 0.02f, 0.94f},
+        {0.54f, 1.66f, 0.6f, 0.92f, 0.94f, 0.46f, 1.02f, 0.8f},
+        {0.5f, 1.66f, 0.42f, 0.62f, 0.6f, 0.16f, 0.82f, 0.24f},
+        {0.52f, 1.66f, 0.5f, 0.74f, 0.24f, 0.18f, 0.08f, 0.32f},
+        {0.56f, 1.66f, 0.7f, 1.22f, 0.94f, 1.06f, 1.02f, 1.3f},
+        {0.46f, 1.66f, 0.3f, 1.3f, 0.06f, 1.16f, -0.02f, 1.36f}};
     static const uint8_t SPRAYS[2][6] = {{2, 3, 0, 1, 9, 9}, {2, 3, 0, 1, 4, 5}};
     const uint8_t *use = SPRAYS[k != 0];
     if (k == 3) { flat((rgb){222, 98, 74}); mist(-0.2f, 0.36f, 1.5f, 0.12f); mist(0.66f, 1.2f, 1.36f, 0.1f); }
@@ -908,7 +911,8 @@ static void clover(int k)
             float p[40];
             bez(p, 20, q[0], q[1], q[2], q[3], q[4], q[5], q[6], q[7]);
             for (int j = 6 + 2 * pass; j < 19; j += 4) {
-                float x = p[2 * j], y = p[2 * j + 1], dx = p[2 * j + 2] - p[2 * j - 2], dy = p[2 * j + 3] - p[2 * j - 1];
+                float x = p[2 * j], y = p[2 * j + 1];
+                float dx = p[2 * j + 2] - p[2 * j - 2], dy = p[2 * j + 3] - p[2 * j - 1];
                 float a = atan2f(dy, dx), side = (j / 2) % 2 ? 1.0f : -1.0f, r = 0.042f * (1 - 0.35f * j / 19.0f);
                 for (int l = -1; l <= 1; l++) {
                     float b = a + side * (1.1f + 0.55f * l);

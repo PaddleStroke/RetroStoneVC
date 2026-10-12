@@ -103,9 +103,11 @@ static void layout(box b)
 static fgeo field_geo(const kpos *p)
 {
     fgeo g;
-    int hi = 0;
+    int hi = 0, hole = -1;                      /* the last card; the first empty place (where the next one goes) */
     for (int s = 0; s < KK_FIELD; s++)
         if (p->field[s] != KK_NONE) hi = s + 1;
+        else if (hole < 0) hole = s;
+    if (hole + 1 > hi) hi = hole + 1;
     g.cols = hi > 8 ? (hi + 1) / 2 : 4;
     box f = T.field;
     g.rowh = f.h / 2;
@@ -601,7 +603,7 @@ static void stock(float cx, float cy, float w, int n, int how)
 
 static int marked_field(const kpos *p, int card)   /* left on the field by the other's last turn */
 {
-    if (!marks_on || p->phase != KP_PLAY) return 0;
+    if (!marks_on || p->phase != KP_PLAY || ui.viewer == mark_pl) return 0;
     for (int s = 0; s < KK_FIELD; s++)
         if (mark_snap.field[s] == card) return 0;
     return 1;
@@ -609,7 +611,7 @@ static int marked_field(const kpos *p, int card)   /* left on the field by the o
 
 static int marked_cap(const kpos *p, int pl, int k)
 {
-    return marks_on && p->phase == KP_PLAY && pl == mark_pl && k >= mark_snap.ncap[pl];
+    return marks_on && p->phase == KP_PLAY && pl == mark_pl && ui.viewer != mark_pl && k >= mark_snap.ncap[pl];
 }
 
 static void draw_caps(const kpos *p, int pl)
