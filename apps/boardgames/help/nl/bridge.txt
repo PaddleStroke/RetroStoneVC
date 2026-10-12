@@ -1,0 +1,25 @@
+Bridge
+# Het doel
+Contractbridge voor vier spelers in twee paren die tegenover elkaar zitten: ivoor en rood tegen ebben en jade. In elk spel bieden de paren om het recht de troefkleur te kiezen; het paar dat het bod wint, probeert daarna de beloofde slagen te halen. Twee vormen: Chicago, vier spellen (de standaard, ideaal voor een gezellige tafel), of een robber, wie het eerst twee manches wint. Niemand ziet de kaarten van de anderen.
+# Bieden
+Alle 52 kaarten worden gedeeld, 13 per speler. De gever biedt eerst, daarna ieder om de beurt:
+- een bod: een getal van 1 tot 7 en een kleur of sans atout (zonder troef). Het belooft zoveel slagen boven de zes (1 betekent 7 slagen). Elk bod moet hoger zijn dan het vorige: een hoger getal, of hetzelfde getal in een hogere kleur. Van laag naar hoog: klaveren, ruiten, harten, schoppen, sans atout.
+- pas;
+- doublet op het laatste bod van de tegenstanders, dat de inzet verhoogt; redoublet op een bod van je eigen paar dat gedoubleerd is.
+Drie keer pas na een bod sluit de bieding. Het laatste bod is het contract en zijn kleur is troef. De leider is de speler van dat paar die deze kleur (of sans atout) het eerst noemde; zijn partner is de blinde. Vier keer pas zonder bod: er wordt opnieuw gedeeld.
+Wat een bod over een hand zegt, is een afspraak tussen partners (een biedsysteem), geen regel: spreek vooraf jullie eigen systeem af. Bieden volledig uitleggen gaat verder dan deze pagina.
+# Het spel
+- De speler links van de leider komt uit. Daarna legt de blinde zijn hand open voor iedereen, en de leider speelt die naast zijn eigen hand.
+- Beken kleur als je kunt; anders speel je een willekeurige kaart. De hoogste troef wint de slag, anders de hoogste kaart van de gevraagde kleur (de aas is het hoogst). De winnaar komt uit voor de volgende slag.
+- De leider heeft zes slagen nodig plus het geboden getal.
+# De telling
+- Contract gemaakt: elke geboden slag boven de zes telt 20 in klaveren of ruiten, 30 in harten of schoppen; in sans atout 40 voor de eerste, daarna 30. Gedoubleerd het dubbele, geredoubleerd het viervoudige. 100 van deze punten of meer vormen een manche.
+- Elke overslag: zijn slagwaarde; gedoubleerd 100 (kwetsbaar 200), geredoubleerd het dubbele. Een gemaakt gedoubleerd contract levert 50 extra op, een geredoubleerd 100.
+- Slems: 12 geboden en gehaalde slagen 500 (kwetsbaar 750), alle 13 slagen 1000 (kwetsbaar 1500).
+- Contract down: de tegenpartij schrijft elke ondeslag 50 (kwetsbaar 100). Gedoubleerd: 100, dan 200 voor de 2e en 3e, dan elk 300; kwetsbaar 200, dan elk 300. Geredoubleerd: het dubbele van gedoubleerd.
+# Het einde van de partij
+- Chicago: vier spellen. In het eerste is niemand kwetsbaar, in het tweede en derde het paar van de gever, in het vierde beide paren. Elk spel telt op zich: een manche levert 300 extra op (kwetsbaar 500), elk kleiner contract 50. Past iedereen, dan deelt dezelfde gever opnieuw.
+- Robber: de contractpunten komen onder de streep en tellen op tot een manche van 100; een manche wist de deelscores van beide paren. Een paar dat een manche gewonnen heeft, is kwetsbaar. Het eerste paar met twee manches sluit de robber: 700 extra bij twee-nul, 500 bij twee-een. Honneurs tellen alleen in de robber: de vijf hoogste troeven (aas, heer, vrouw, boer, 10) in één hand 150, vier ervan 100, de vier azen in sans atout 150, voor het paar van die hand, wat de uitkomst ook is.
+- Het paar met het hoogste totaal wint.
+# Spelen op het apparaat
+Geef het apparaat aan de speler wiens fiche verschijnt; die tikt op start en ziet zijn hand. De bieding staat in een tabel, een kolom per speler, met de fiches bovenaan: links, tegenover, rechts, jij. Een rode ring om een fiche: dat paar is kwetsbaar. Om te bieden tik je een knop van de biedbox aan (sans atout is een schijf met de vier kleuren doorgestreept; groen past, het rode kruis doubleert, twee blauwe kruisen redoubleren), dan het vinkje, of nog eens dezelfde knop. Tijdens het spel houdt de leider het apparaat ook voor de blinde; de eigenaar van de blinde kijkt alleen toe. Tik een oplichtende kaart aan zodat hij omhoog komt, en tik hem nog eens of zijn plek in het midden aan; of sleep hem erheen. De slagen stapelen zich met hun aantal op voor de leider en voor de tegenspeler die de eerste slag van zijn paar won. Tik op het contract in de bovenhoek om de bieding en de laatste slag te zien. Na elk spel toont het scorebriefje wij (jouw paar) en zij in twee kolommen; tik erop voor het volgende spel. Elke balk toont het totaal van het paar, een rode ring als het kwetsbaar is en in een robber de punten onder de streep in een donkere schijf. Ongedaan maken neemt een keuze terug die nog niet bevestigd is, nooit een bod of kaart als het apparaat is doorgegeven.

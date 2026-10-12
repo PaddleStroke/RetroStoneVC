@@ -1,0 +1,25 @@
+Bridge
+# Le but
+Le bridge contrat, pour quatre joueurs en deux équipes de partenaires assis face à face : ivoire et rouge contre ébène et jade. À chaque donne, les équipes enchérissent pour choisir l'atout ; l'équipe qui l'emporte essaie ensuite de faire les levées promises. Deux formules : le Chicago, en quatre donnes (par défaut, idéal pour une partie entre amis), ou le robre, en deux manches gagnantes. Personne ne voit les cartes des autres.
+# Les annonces
+Les 52 cartes sont distribuées, 13 chacun. Le donneur parle le premier, puis chaque joueur à son tour :
+- une enchère : un nombre de 1 à 7 et une couleur ou sans-atout. Elle promet ce nombre de levées au-delà de six (1 veut dire 7 levées). Chaque enchère doit dépasser la précédente : un nombre plus haut, ou le même nombre dans une couleur plus haute. Du plus bas au plus haut : trèfle, carreau, cœur, pique, sans-atout.
+- passe ;
+- contre sur la dernière enchère adverse, qui augmente l'enjeu ; surcontre sur une enchère de ton camp qui a été contrée.
+Trois passes après une enchère terminent les annonces. La dernière enchère est le contrat et sa couleur est l'atout. Le déclarant est le joueur de ce camp qui a nommé cette couleur (ou le sans-atout) en premier ; son partenaire est le mort. Quatre passes sans enchère : on redistribue.
+Ce qu'une enchère dit d'une main est une convention entre partenaires (un système d'enchères), pas une règle : mettez-vous d'accord sur la vôtre avant de jouer. Expliquer les enchères en détail dépasse cette page.
+# Le jeu
+- Le joueur à gauche du déclarant entame. Le mort étale alors sa main face visible pour tous, et le déclarant la joue en plus de la sienne.
+- Fournis la couleur demandée si tu peux ; sinon joue n'importe quelle carte. Le plus fort atout remporte la levée, sinon la plus forte carte de la couleur demandée (l'as est la plus forte). Le gagnant entame la levée suivante.
+- Le déclarant doit faire six levées plus le nombre annoncé.
+# Le score
+- Contrat réussi : chaque levée annoncée au-delà de six vaut 20 à trèfle ou à carreau, 30 à cœur ou à pique ; à sans-atout 40 pour la première, puis 30. Contré, le double ; surcontré, le quadruple. 100 de ces points ou plus font une manche.
+- Chaque levée de mieux : sa valeur ; contrée 100 (vulnérable 200), surcontrée le double. Un contrat contré réussi rapporte 50 de plus, surcontré 100.
+- Chelems : 12 levées annoncées et faites 500 (vulnérable 750), les 13 levées 1000 (vulnérable 1500).
+- Contrat chuté : la défense marque chaque levée de chute 50 (vulnérable 100). Contré : 100, puis 200 pour la 2e et la 3e, puis 300 chacune ; vulnérable 200, puis 300 chacune. Surcontré : le double du contré.
+# La fin de la partie
+- Chicago : quatre donnes. Personne n'est vulnérable à la première, le camp du donneur à la deuxième et à la troisième, les deux camps à la quatrième. Chaque donne se marque à part : une manche rapporte 300 de plus (vulnérable 500), tout contrat plus petit 50. Une donne où tous passent est redistribuée par le même donneur.
+- Robre : les points de contrat s'inscrivent sous la ligne et s'additionnent jusqu'à une manche de 100 ; une manche efface les partielles des deux camps. Un camp qui a gagné une manche est vulnérable. Le premier camp à deux manches termine le robre : 700 de plus pour deux manches à zéro, 500 pour deux à une. Les honneurs ne comptent qu'au robre : les cinq plus forts atouts (as, roi, dame, valet, 10) dans une main 150, quatre d'entre eux 100, les quatre as à sans-atout 150, pour le camp de cette main quel que soit le résultat.
+- Le camp au plus gros total gagne.
+# Jouer sur l'appareil
+Passe l'appareil au joueur dont la pièce s'affiche ; il touche le bouton de départ et voit sa main. Les annonces forment un tableau, une colonne par joueur, les pièces en tête : à gauche, en face, à droite, toi. Un anneau rouge autour d'une pièce : ce camp est vulnérable. Pour annoncer, touche un bouton de la boîte à enchères (le sans-atout est un disque aux quatre couleurs barrées ; le vert passe, la croix rouge contre, deux croix bleues surcontrent), puis la coche, ou le même bouton une deuxième fois. Pendant le jeu, le déclarant garde l'appareil aussi pour le mort ; le joueur du mort se contente de regarder. Touche une carte qui brille pour la lever, puis touche-la encore ou sa place au milieu ; ou fais-la glisser jusque-là. Les levées s'empilent devant le déclarant et devant le défenseur qui a fait la première levée de son camp, avec leur nombre. Touche le contrat dans le coin du haut pour revoir les annonces et la dernière levée. Après chaque donne, la feuille de marque montre nous (ton camp) et eux en deux colonnes ; touche-la pour la donne suivante. Chaque barre montre le total du camp, un anneau rouge s'il est vulnérable et, au robre, les points sous la ligne dans un disque sombre. Annuler reprend un choix pas encore validé, jamais une annonce ni une carte une fois l'appareil passé.

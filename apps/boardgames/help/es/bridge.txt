@@ -1,0 +1,25 @@
+Bridge
+# El objetivo
+Bridge de contrato para cuatro jugadores en dos parejas sentadas frente a frente: marfil y rojo contra ébano y jade. En cada mano las parejas subastan por el derecho a elegir el triunfo; la pareja que gana la subasta intenta luego hacer las bazas prometidas. Dos formas de jugar: Chicago, cuatro manos (la opción por defecto, ideal para una partida informal), o un robber, al mejor de tres mangas. Nadie ve las cartas de los demás.
+# La subasta
+Se reparten las 52 cartas, 13 a cada uno. El dador habla primero y luego cada jugador por turno:
+- una declaración: un número del 1 al 7 y un palo o sin triunfo. Promete ese número de bazas por encima de seis (1 significa 7 bazas). Cada declaración debe superar a la anterior: un número mayor, o el mismo número en un palo superior. De menor a mayor: tréboles, diamantes, corazones, picas, sin triunfo.
+- paso;
+- doblo sobre la última declaración contraria, que aumenta lo que está en juego; redoblo sobre una declaración de tu pareja que ha sido doblada.
+Tres pasos después de una declaración cierran la subasta. La última declaración es el contrato y su palo es el triunfo. El declarante es el jugador de esa pareja que nombró primero ese palo (o el sin triunfo); su compañero es el muerto. Cuatro pasos sin declaración: se vuelve a repartir.
+Lo que una declaración dice de una mano es un acuerdo entre compañeros (un sistema de subasta), no una regla: acordad el vuestro antes de empezar. Explicar la subasta a fondo queda fuera de esta página.
+# El juego
+- El jugador a la izquierda del declarante sale. Después el muerto extiende su mano boca arriba para todos y el declarante la juega además de la suya.
+- Sirve el palo de salida si puedes; si no, juega cualquier carta. El triunfo más alto gana la baza, o si no la carta más alta del palo de salida (el as es la más alta). Quien gana la baza sale en la siguiente.
+- El declarante necesita seis bazas más el número declarado.
+# La puntuación
+- Contrato cumplido: cada baza declarada por encima de seis vale 20 en tréboles o diamantes, 30 en corazones o picas; en sin triunfo 40 la primera y luego 30. Doblado, el doble; redoblado, el cuádruple. 100 de estos puntos o más forman una manga.
+- Cada baza de más: su valor; doblada 100 (vulnerable 200), redoblada el doble. Un contrato doblado cumplido da 50 más, uno redoblado 100.
+- Slams: 12 bazas declaradas y hechas 500 (vulnerable 750), las 13 bazas 1000 (vulnerable 1500).
+- Contrato fallado: los defensores se anotan cada baza de menos a 50 (vulnerable 100). Doblado: 100, luego 200 la 2.ª y la 3.ª, luego 300 cada una; vulnerable 200, luego 300 cada una. Redoblado: el doble de lo doblado.
+# El final de la partida
+- Chicago: cuatro manos. Nadie es vulnerable en la primera, la pareja del dador en la segunda y la tercera, las dos parejas en la cuarta. Cada mano se puntúa por separado: una manga da 300 más (vulnerable 500), cualquier contrato menor 50. Si todos pasan, el mismo dador vuelve a repartir.
+- Robber: los puntos de contrato van debajo de la raya y se suman hasta una manga de 100; una manga borra los parciales de ambas parejas. La pareja que ha ganado una manga es vulnerable. La primera pareja en ganar dos mangas cierra el robber: 700 más por dos mangas a cero, 500 por dos a una. Los honores solo cuentan en el robber: los cinco triunfos más altos (as, rey, dama, jota, 10) en una mano 150, cuatro de ellos 100, los cuatro ases en sin triunfo 150, para la pareja de esa mano sea cual sea el resultado.
+- Gana la pareja con el total más alto.
+# Jugar en el dispositivo
+Pasa el dispositivo al jugador cuya ficha aparece; toca el botón de inicio y ve su mano. La subasta es una tabla de declaraciones, una columna por jugador, con las fichas arriba: izquierda, enfrente, derecha, tú. Un aro rojo alrededor de una ficha: esa pareja es vulnerable. Para declarar, toca un botón de la caja de subasta (el sin triunfo es un disco con los cuatro palos tachados; el verde pasa, la cruz roja dobla, dos cruces azules redoblan) y luego la marca, o el mismo botón otra vez. Durante el juego el declarante también tiene el dispositivo para el muerto; el dueño del muerto solo mira. Toca una carta que brille para levantarla y vuelve a tocarla o toca su sitio en el centro; o arrástrala hasta allí. Las bazas se apilan, con su número, delante del declarante y del defensor que ganó la primera baza de su pareja. Toca el contrato en la esquina superior para ver la subasta y la última baza. Tras cada mano, la hoja de puntuación muestra nosotros (tu pareja) y ellos en dos columnas; tócala para la mano siguiente. Cada barra muestra el total de la pareja, un aro rojo si es vulnerable y, en el robber, los puntos debajo de la raya en un disco oscuro. Deshacer retira una elección aún no confirmada, nunca una declaración ni una carta una vez pasado el dispositivo.

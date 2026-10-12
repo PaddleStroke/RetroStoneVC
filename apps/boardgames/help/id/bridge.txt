@@ -1,0 +1,25 @@
+Bridge
+# Tujuan
+Bridge kontrak untuk empat pemain dalam dua pasangan yang duduk berhadapan: gading dan merah melawan eboni dan giok. Di setiap bagian kartu, pasangan-pasangan saling menawar untuk berhak memilih truf; pasangan yang memenangi penawaran lalu berusaha mengambil trik yang dijanjikan. Dua cara bermain: Chicago, empat bagian kartu (bawaan, paling cocok untuk meja santai), atau rubber, siapa yang lebih dulu memenangi dua game. Tidak ada yang melihat kartu pemain lain.
+# Penawaran
+Ke-52 kartu dibagikan, 13 untuk setiap pemain. Pembagi berbicara lebih dulu, lalu setiap pemain bergiliran:
+- tawaran: angka 1 sampai 7 dan sebuah jenis atau tanpa truf. Tawaran menjanjikan sebanyak itu trik di atas enam (1 berarti 7 trik). Setiap tawaran harus lebih tinggi dari sebelumnya: angka lebih besar, atau angka sama dengan jenis lebih tinggi. Dari rendah ke tinggi: keriting, wajik, hati, sekop, tanpa truf.
+- pas;
+- double atas tawaran terakhir lawan, menaikkan taruhan; redouble atas tawaran pihakmu yang di-double.
+Tiga pas setelah sebuah tawaran mengakhiri penawaran. Tawaran terakhir adalah kontrak dan jenisnya menjadi truf. Deklarer adalah pemain di pasangan itu yang pertama menyebut jenis tersebut (atau tanpa truf); rekannya menjadi dummy. Empat pas tanpa tawaran: kartu dibagikan ulang.
+Arti sebuah tawaran tentang suatu tangan adalah kesepakatan antar-rekan (sistem penawaran), bukan aturan: sepakati sistem kalian sendiri sebelum mulai. Penjelasan lengkap tentang penawaran berada di luar halaman ini.
+# Permainan
+- Pemain di kiri deklarer membuka kartu pertama. Lalu dummy membuka semua kartunya menghadap atas untuk semua orang, dan deklarer memainkannya selain kartunya sendiri.
+- Ikuti jenis yang dibuka jika bisa; jika tidak, mainkan kartu apa saja. Truf tertinggi memenangi trik, atau jika tidak ada, kartu tertinggi dari jenis yang dibuka (as tertinggi). Pemenang membuka trik berikutnya.
+- Deklarer memerlukan enam trik ditambah angka yang ditawar.
+# Skor
+- Kontrak berhasil: setiap trik yang ditawar di atas enam bernilai 20 pada keriting atau wajik, 30 pada hati atau sekop; pada tanpa truf 40 untuk yang pertama, lalu 30. Di-double dua kali lipat, di-redouble empat kali lipat. 100 poin semacam ini atau lebih membentuk sebuah game.
+- Setiap trik lebih: nilainya; di-double 100 (rentan 200), di-redouble dua kali lipat. Kontrak yang di-double dan berhasil memberi 50 lagi, yang di-redouble 100.
+- Slam: 12 trik yang ditawar dan diambil 500 (rentan 750), semua 13 trik 1000 (rentan 1500).
+- Kontrak gagal: pihak bertahan mencatat setiap trik yang kurang 50 (rentan 100). Di-double: 100, lalu 200 untuk yang ke-2 dan ke-3, lalu masing-masing 300; rentan 200, lalu masing-masing 300. Di-redouble: dua kali nilai double.
+# Akhir permainan
+- Chicago: empat bagian kartu. Pada yang pertama tidak ada yang rentan, pada yang kedua dan ketiga pasangan pembagi, pada yang keempat kedua pasangan. Setiap bagian dihitung tersendiri: sebuah game memberi 300 lagi (rentan 500), setiap kontrak yang lebih kecil 50. Jika semua pas, pembagi yang sama membagi ulang.
+- Rubber: poin kontrak ditulis di bawah garis dan dijumlahkan menuju game bernilai 100; sebuah game menghapus skor parsial kedua pasangan. Pasangan yang sudah memenangi satu game menjadi rentan. Pasangan pertama dengan dua game mengakhiri rubber: 700 lagi untuk dua-nol, 500 untuk dua-satu. Honor hanya dihitung dalam rubber: lima truf tertinggi (as, raja, ratu, jack, 10) di satu tangan 150, empat di antaranya 100, keempat as pada tanpa truf 150, untuk pasangan pemilik tangan itu apa pun hasilnya.
+- Pasangan dengan total lebih tinggi menang.
+# Bermain di perangkat
+Oper perangkat ke pemain yang bidaknya tampil; ia mengetuk tombol mulai dan melihat kartunya sendiri. Penawaran berupa tabel tawaran, satu kolom per pemain, dengan bidak di atas: kiri, seberang, kanan, kamu. Cincin merah di sekitar bidak: pasangan itu rentan. Untuk menawar, ketuk tombol di kotak penawaran (tanpa truf adalah cakram dengan keempat jenis dicoret; hijau untuk pas, silang merah untuk double, dua silang biru untuk redouble), lalu tanda centang, atau tombol yang sama sekali lagi. Selama permainan deklarer memegang perangkat juga untuk dummy; pemilik dummy hanya menonton. Ketuk kartu yang menyala agar terangkat, lalu ketuk lagi kartu itu atau tempatnya di tengah; atau seret ke sana. Trik bertumpuk beserta jumlahnya di depan deklarer dan di depan pemain bertahan yang mengambil trik pertama pihaknya. Ketuk kontrak di sudut atas untuk melihat penawaran dan trik terakhir. Setelah setiap bagian, lembar skor menampilkan kami (pasanganmu) dan mereka dalam dua kolom; ketuk untuk bagian berikutnya. Setiap bilah menunjukkan total pasangan, cincin merah bila rentan, dan dalam rubber poin di bawah garis dalam cakram gelap. Urungkan membatalkan pilihan yang belum dikonfirmasi, tidak pernah tawaran atau kartu setelah perangkat dioper.
