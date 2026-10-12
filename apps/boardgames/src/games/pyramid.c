@@ -131,13 +131,13 @@ static void thumb(int v, int size, uint8_t *rgba)
     for (int r = 0, k = 0; r < 3; r++)
         for (int c = 0; c <= r; c++, k++) {
             int lift = k == 3 || k == 5 ? (int)(0.03f * size) : 0;
-            solui_paint(rgba, size, DECK_FRENCH, cards[k], (0.5f + (c - r / 2.0f) * 0.24f) * size,
+            cards_paint_at(rgba, size, DECK_FRENCH, cards[k], (0.5f + (c - r / 2.0f) * 0.24f) * size,
                         (top + r * vs) * size - lift, (int)(w * size));
         }
     int backs = v == PY_THRICE ? 3 : 1;
     for (int k = 0; k < backs; k++)
-        solui_paint(rgba, size, DECK_FRENCH, CARD_NONE, (0.17f + 0.1f * k) * size, 0.83f * size, (int)(w * size));
-    solui_paint(rgba, size, DECK_FRENCH, CARD(SUIT_HEARTS, RANK_KING), 0.8f * size, 0.83f * size, (int)(w * size));
+        cards_paint_at(rgba, size, DECK_FRENCH, CARD_NONE, (0.17f + 0.1f * k) * size, 0.83f * size, (int)(w * size));
+    cards_paint_at(rgba, size, DECK_FRENCH, CARD(SUIT_HEARTS, RANK_KING), 0.8f * size, 0.83f * size, (int)(w * size));
 }
 
 static const game pyramid_game = {

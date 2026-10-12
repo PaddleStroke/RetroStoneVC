@@ -137,13 +137,13 @@ static void thumb(int v, int size, uint8_t *rgba)
                                CARD(SUIT_DIAMONDS, 2), CARD(SUIT_SPADES, RANK_ACE), CARD(SUIT_HEARTS, 6)};
     for (int p = 0; p < 3; p++) {
         float px = 0.2f + 0.3f * p;
-        solui_paint(rgba, size, DECK_FRENCH, CARD_NONE, px * size, 0.27f * size, (int)(w * size));
+        cards_paint_at(rgba, size, DECK_FRENCH, CARD_NONE, px * size, 0.27f * size, (int)(w * size));
         for (int k = 0; k < 2; k++)
-            solui_paint(rgba, size, DECK_FRENCH, low[2 * p + k], (px + (k ? 0.071f : -0.071f)) * size, 0.43f * size,
+            cards_paint_at(rgba, size, DECK_FRENCH, low[2 * p + k], (px + (k ? 0.071f : -0.071f)) * size, 0.43f * size,
                         (int)(w * size));
     }
-    solui_paint(rgba, size, DECK_FRENCH, CARD_NONE, 0.39f * size, 0.76f * size, (int)(w * size));
-    solui_paint(rgba, size, DECK_FRENCH, v == TP_NOWRAP ? CARD(SUIT_CLUBS, 8) : CARD(SUIT_CLUBS, RANK_KING),
+    cards_paint_at(rgba, size, DECK_FRENCH, CARD_NONE, 0.39f * size, 0.76f * size, (int)(w * size));
+    cards_paint_at(rgba, size, DECK_FRENCH, v == TP_NOWRAP ? CARD(SUIT_CLUBS, 8) : CARD(SUIT_CLUBS, RANK_KING),
                 0.58f * size, 0.76f * size, (int)(w * size));
     if (v == TP_NOWRAP) return;
     int d = (int)(0.2f * size);

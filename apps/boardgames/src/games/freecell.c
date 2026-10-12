@@ -120,8 +120,8 @@ static void thumb(int v, int size, uint8_t *rgba)
         art_blend(rgba, size, size, place, pw, ph, (int)(0.17f * size - pw / 2.0f), (int)(top * size - ph / 2.0f));
         free(place);
     }
-    solui_paint(rgba, size, DECK_FRENCH, CARD(SUIT_DIAMONDS, 4), 0.5f * size, top * size, pw);
-    solui_paint(rgba, size, DECK_FRENCH, CARD(SUIT_CLUBS, RANK_ACE), 0.83f * size, top * size, pw);
+    cards_paint_at(rgba, size, DECK_FRENCH, CARD(SUIT_DIAMONDS, 4), 0.5f * size, top * size, pw);
+    cards_paint_at(rgba, size, DECK_FRENCH, CARD(SUIT_CLUBS, RANK_ACE), 0.83f * size, top * size, pw);
     solui_paint_column(rgba, size, DECK_FRENCH, 0.17f, 0.6f, w, 0, c0, 2, 0, 0.17f);
     solui_paint_column(rgba, size, DECK_FRENCH, 0.5f, 0.6f, w, 0, c1, 2, 0, 0.17f);
     solui_paint_column(rgba, size, DECK_FRENCH, 0.83f, 0.6f, w, 0, c2, 2, 0, 0.17f);

@@ -20,12 +20,6 @@
 #ifndef TRIPEAKS_H
 #define TRIPEAKS_H
 
-#if defined(SOLITAIRE_H) && SOL_PILES < 32
-#error "include tripeaks.h before solitaire.h: it needs more piles"
-#endif
-#ifndef SOL_PILES
-#define SOL_PILES 32
-#endif
 #include "games/solitaire.h"
 
 enum { TP_WRAP, TP_NOWRAP, TP_VARIANTS };

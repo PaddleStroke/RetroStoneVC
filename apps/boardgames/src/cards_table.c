@@ -73,6 +73,14 @@ int ct_busy(const ct_moves *mv)
     return mv->quiet && now < mv->quiet;
 }
 
+Uint32 ct_quiet(const ct_moves *mv)
+{
+    Uint32 t = mv->quiet;
+    for (int i = 0; i < mv->n; i++)
+        if (mv->m[i].end > t) t = mv->m[i].end;
+    return t;
+}
+
 int ct_hides(const ct_moves *mv, int tag, int a, int b)
 {
     int n = 0;
@@ -734,4 +742,50 @@ int ct_rows_hit(const ct_rows *h, float x, float y)
     int i = cards_hit(h->spot, h->n, h->w, cards_aspect(DECK_FRENCH), x, y);
     if (i < 0) i = cards_hit(h->spot, h->n, h->w, cards_aspect(DECK_FRENCH), x, y + lift);
     return i;
+}
+
+/* ---- patience ---------------------------------------------------------------------------------------------------- */
+void ct_column_steps(int n, int down, float room, float w, float down_step, float up_step, float *dd, float *du)
+{
+    float d = down_step * w, s = up_step * w;
+    int nd = down < n - 1 ? down : n - 1, nu = n - 1 - nd;
+    if (nd < 0) nd = 0;
+    if (nu < 0) nu = 0;
+    if (nd * d + nu * s > room && nu) s = fmaxf(0.21f * w, (room - nd * d) / nu);
+    if (nd * d + nu * s > room && nd) d = fmaxf(0.045f * w, (room - nu * s) / nd);
+    if (nd * d + nu * s > room && nu) s = fmaxf(0.02f * w, (room - nd * d) / nu);
+    *dd = d;
+    *du = s;
+}
+
+void ct_run(int deck, const uint8_t *cards, int n, float x, float y, float w, float step)
+{
+    for (int k = 0; k < n; k++) cards_draw(deck, cards[k], x, y + k * step, w, 0, k == 0 ? CD_RAISED : 0);
+}
+
+void ct_leap(box b, float w, int j, float x0, float y0, float t, float *xs, float *ys)
+{
+    uint32_t h = (uint32_t)j * 2654435761u + 0x9e37u;
+    h ^= h >> 15;
+    h *= 2246822519u;
+    h ^= h >> 13;
+    float r1 = (h & 1023) / 1023.0f, r2 = ((h >> 10) & 1023) / 1023.0f;
+    float dir = x0 > b.x + b.w / 2 ? -1 : 1;
+    if ((h >> 20) % 3 == 0) dir = -dir;         /* a third of them the other way */
+    float vx = dir * (0.55f + 0.35f * r1) * b.w, vy = -(0.15f + 0.65f * r2) * b.h, g = 2.4f * b.h;
+    float floor_y = b.y + b.h - 0.7f * w, px = x0, py = y0, dt = 1 / 200.0f;
+    int at[CT_TRAIL + 1], k = CT_TRAIL;
+    for (int i = 0; i <= CT_TRAIL; i++) {
+        float ti = t - i * CT_TRAIL_MS;
+        at[i] = ti < 0 ? -1 : (int)(ti / 1000 / dt);
+        xs[i] = ys[i] = NAN;
+    }
+    while (k >= 0 && at[k] < 0) k--;
+    for (int s = 0; k >= 0; s++) {
+        while (k >= 0 && at[k] == s) xs[k] = px, ys[k] = py, k--;
+        vy += g * dt;
+        px += vx * dt;
+        py += vy * dt;
+        if (py > floor_y && vy > 0) { py = floor_y; vy = -vy * 0.74f; }
+    }
 }

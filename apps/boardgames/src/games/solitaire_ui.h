@@ -17,15 +17,13 @@
 #include <string.h>
 
 #include "cards.h"
+#include "cards_table.h"
 #include "games/solitaire.h"
 #include "shell.h"
 
-#define SOLUI_SLIDES 192
 #define SOLUI_ASPECT 1.4f
 #define SOLUI_FLIP_MS 220
 #define SOLUI_HINT_MS 2400
-#define SOLUI_TRAIL 4                           /* the ghosts a leaping card leaves behind it */
-#define SOLUI_TRAIL_MS 60
 #define SOLUI_LIFE_MS 2600                      /* a leaping card's longest flight */
 
 /* how a pile lies: stacked (its top card shows), a column fanned down, the waste (its last cards fanned right),
@@ -46,9 +44,7 @@ typedef struct {
     float w, down_step, up_step;                /* the card's width; the columns' steps (parts of w) */
     box b;
     solspot at[SOL_PILES];
-    struct { cards_slide s; int pile, idx; Uint32 vis; } mv[SOLUI_SLIDES];
-    int nmv;
-    Uint32 quiet;                               /* busy until then */
+    ct_moves mv;                                /* the cards on the move: tag the pile, a the card (-1: it moves on) */
     int16_t land[SOL_PILES][SOL_CARDS], slot[SOL_PILES][SOL_CARDS];   /* the chaining of a move's slides */
     /* the finger: pressed on card idx of pile (-1: nothing); dragging; the press, the finger, its grip on the card */
     int pile, idx, drag;
@@ -75,15 +71,7 @@ typedef struct {
 /* a column's steps: as set, closer when it would reach past its room (the face-up ones first, then the others) */
 static inline void solui_steps(const solui *u, const solpos *p, int pile, float *dd, float *du)
 {
-    float w = u->w, d = u->down_step * w, s = u->up_step * w, room = u->at[pile].room;
-    int n = p->n[pile], nd = p->down[pile] < n - 1 ? p->down[pile] : n - 1, nu = n - 1 - nd;
-    if (nd < 0) nd = 0;
-    if (nu < 0) nu = 0;
-    if (nd * d + nu * s > room && nu) s = fmaxf(0.21f * w, (room - nd * d) / nu);
-    if (nd * d + nu * s > room && nd) d = fmaxf(0.045f * w, (room - nu * s) / nd);
-    if (nd * d + nu * s > room && nu) s = fmaxf(0.02f * w, (room - nd * d) / nu);
-    *dd = d;
-    *du = s;
+    ct_column_steps(p->n[pile], p->down[pile], u->at[pile].room, u->w, u->down_step, u->up_step, dd, du);
 }
 
 static inline void solui_xy(const solui *u, const solpos *p, int pile, int i, float *x, float *y)
@@ -116,8 +104,7 @@ static inline void solui_xy(const solui *u, const solpos *p, int pile, int i, fl
 /* ---- the slides -------------------------------------------------------------------------------------------------- */
 static inline void solui_calm(solui *u)
 {
-    u->nmv = 0;
-    u->quiet = 0;
+    ct_calm(&u->mv);
     u->hint = 0;
     u->drag = 0;
     u->pile = -1;
@@ -128,23 +115,16 @@ static inline void solui_calm(solui *u)
 static inline int solui_slide(solui *u, int card, int up0, float x0, float y0, int up1, float x1, float y1, int ms,
                               int delay, int pile, int idx, Uint32 vis)
 {
-    if (u->nmv >= SOLUI_SLIDES) return -1;
-    int k = u->nmv++;
-    cards_slide_start(&u->mv[k].s, u->deck, card, x0, y0, u->w, 0, up0, x1, y1, u->w, 0, up1, ms, delay);
-    u->mv[k].pile = pile;
-    u->mv[k].idx = idx;
-    u->mv[k].vis = vis ? u->mv[k].s.t0 + vis : 0;
-    Uint32 end = u->mv[k].s.t0 + (Uint32)(delay + ms + 90);
-    if (end > u->quiet) u->quiet = end;
+    u->mv.rest = 90;
+    int k = ct_slide(&u->mv, u->deck, card, x0, y0, u->w, 0, up0, x1, y1, u->w, 0, up1, ms, delay, pile, idx, -1, -1);
+    ct_show(&u->mv, k, (int)vis);
     return k;
 }
 
 static inline int solui_hidden(const solui *u, int pile, int i)
 {
     if (u->drag && pile == u->pile && i >= u->idx) return 1;
-    for (int k = 0; k < u->nmv; k++)
-        if (u->mv[k].pile == pile && u->mv[k].idx == i && cards_slide_busy(&u->mv[k].s)) return 1;
-    return 0;
+    return ct_hides(&u->mv, pile, i, -1) > 0;
 }
 
 static inline int solui_ms_for(const solui *u, float x0, float y0, float x1, float y1)
@@ -163,7 +143,7 @@ static inline void solui_carry(solui *u, const solpos *cur, const solpos *nxt, i
     else solui_xy(u, cur, a, i, &x0, &y0);
     solui_xy(u, nxt, b, j, &x1, &y1);
     int ms = from ? 130 : solui_ms_for(u, x0, y0, x1, y1), was = u->slot[a][i];
-    if (was >= 0) u->mv[was].pile = -1;         /* it moves on: nothing to hide where it had gone */
+    if (was >= 0) u->mv.m[was].tag = -1;        /* it moves on: nothing to hide where it had gone */
     int k = solui_slide(u, cur->c[a][i], up0, x0, y0, up1, x1, y1, ms, delay, b, j, (Uint32)u->land[a][i]);
     u->slot[a][i] = -1;
     u->land[a][i] = 0;
@@ -263,36 +243,6 @@ static inline Uint32 solui_leap_end(const solui *u)
 
 static inline int solui_leaping(const solui *u) { return u->won && ui_ms() < solui_leap_end(u); }
 
-/* card j's flight, t ms after it left (x0, y0): thrown sideways, falling, bouncing on the table's bottom edge.
- * Where it is (xs[0], ys[0]) and where it was k x SOLUI_TRAIL_MS before (xs[k]; NAN: not yet thrown then). */
-static inline void solui_flight(const solui *u, int j, float x0, float y0, float t, float *xs, float *ys)
-{
-    box b = u->b;
-    uint32_t h = (uint32_t)j * 2654435761u + 0x9e37u;
-    h ^= h >> 15;
-    h *= 2246822519u;
-    h ^= h >> 13;
-    float r1 = (h & 1023) / 1023.0f, r2 = ((h >> 10) & 1023) / 1023.0f;
-    float dir = x0 > b.x + b.w / 2 ? -1 : 1;
-    if ((h >> 20) % 3 == 0) dir = -dir;         /* a third of them the other way */
-    float vx = dir * (0.55f + 0.35f * r1) * b.w, vy = -(0.15f + 0.65f * r2) * b.h, g = 2.4f * b.h;
-    float floor_y = b.y + b.h - 0.7f * u->w, px = x0, py = y0, dt = 1 / 200.0f;
-    int at[SOLUI_TRAIL + 1], k = SOLUI_TRAIL;
-    for (int i = 0; i <= SOLUI_TRAIL; i++) {
-        float ti = t - i * SOLUI_TRAIL_MS;
-        at[i] = ti < 0 ? -1 : (int)(ti / 1000 / dt);
-        xs[i] = ys[i] = NAN;
-    }
-    while (k >= 0 && at[k] < 0) k--;
-    for (int s = 0; k >= 0; s++) {
-        while (k >= 0 && at[k] == s) xs[k] = px, ys[k] = py, k--;
-        vy += g * dt;
-        px += vx * dt;
-        py += vy * dt;
-        if (py > floor_y && vy > 0) { py = floor_y; vy = -vy * 0.74f; }
-    }
-}
-
 static inline void solui_draw_leaps(const solui *u)
 {
     const solpos *p = &u->rec->pos;
@@ -310,11 +260,11 @@ static inline void solui_draw_leaps(const solui *u)
     SDL_RenderSetClipRect(ui.r, &clip);
     for (int j = 0; j < gone; j++) {
         int pile = fl[j % nf], d = j / nf, i = u->at[pile].first ? d : p->n[pile] - 1 - d;
-        float t = (float)(now - u->win_t0 - (Uint32)(j * gap)), xs[SOLUI_TRAIL + 1], ys[SOLUI_TRAIL + 1];
+        float t = (float)(now - u->win_t0 - (Uint32)(j * gap)), xs[CT_TRAIL + 1], ys[CT_TRAIL + 1];
         if (i < 0 || i >= p->n[pile] || t > SOLUI_LIFE_MS) continue;
         const solspot *s = &u->at[pile];
-        solui_flight(u, j, s->x, s->y, t, xs, ys);
-        for (int k = SOLUI_TRAIL; k >= 0; k--) {   /* the trail: its ghosts where it was (faint outlines); the card */
+        ct_leap(u->b, u->w, j, s->x, s->y, t, xs, ys);
+        for (int k = CT_TRAIL; k >= 0; k--) {   /* the trail: its ghosts where it was (faint outlines); the card */
             if (isnan(xs[k]) || xs[k] < u->b.x - u->w || xs[k] > u->b.x + u->b.w + u->w) continue;
             if (k) cards_place(u->deck, xs[k], ys[k], u->w);
             else cards_draw(u->deck, p->c[pile][i], xs[k], ys[k], u->w, 0, 0);
@@ -349,14 +299,12 @@ static inline void solui_deal(solui *u, float x, float y, int gap)
             more = 1;
         }
     }
-    for (int i = 0; i < u->nmv; i++) u->mv[i].vis = u->mv[i].s.t0 + (Uint32)u->mv[i].s.delay;
+    for (int i = 0; i < u->mv.n; i++) ct_show(&u->mv, i, u->mv.m[i].s.delay);   /* unseen till it goes */
 }
 
 static inline int solui_busy(const solui *u)
 {
-    for (int k = 0; k < u->nmv; k++)
-        if (cards_slide_busy(&u->mv[k].s)) return 1;
-    return (u->quiet && ui_ms() < u->quiet) || solui_leaping(u);
+    return ct_busy(&u->mv) || solui_leaping(u);
 }
 
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
@@ -441,19 +389,13 @@ static inline void solui_draw(solui *u)
     int leaping = u->won && now >= u->win_t0 && solui_leaping(u);
     for (int i = 0; i < p->npiles; i++)
         if (!(leaping && p->kind[i] == SP_FOUND)) solui_draw_pile(u, i);
-    for (int k = 0; k < u->nmv; k++) {
-        if (!u->mv[k].s.on) continue;
-        if (u->mv[k].vis && now < u->mv[k].vis) { ui_animate(); continue; }
-        cards_slide_draw(&u->mv[k].s);
-    }
+    ct_draw(&u->mv);
     if (u->won && !leaping && now < u->win_t0) ui_animate();   /* the leaps are coming */
     if (leaping) solui_draw_leaps(u);
     if (u->drag) {
         float du = p->kind[u->pile] == SP_TAB ? 0 : 0.3f * u->w, dd;
         if (p->kind[u->pile] == SP_TAB) solui_steps(u, p, u->pile, &dd, &du);
-        for (int i = u->idx; i < p->n[u->pile]; i++)
-            cards_draw(u->deck, p->c[u->pile][i], u->fx - u->gx, u->fy - u->gy + (i - u->idx) * du, u->w, 0,
-                       i == u->idx ? CD_RAISED : 0);
+        ct_run(u->deck, &p->c[u->pile][u->idx], p->n[u->pile] - u->idx, u->fx - u->gx, u->fy - u->gy, u->w, du);
     }
 }
 
@@ -500,7 +442,7 @@ static inline int solui_play(solui *u, solmove m, const float *drag)
     if (!u->R->play(u->rec, m)) return 0;
     solui_calm(u);
     solui_animate(u, &before, first, drag);
-    solui_check_win(u, u->quiet);
+    solui_check_win(u, ct_quiet(&u->mv));
     ui_handoff(0);
     return 1;
 }
@@ -533,10 +475,7 @@ static inline void solui_motion(solui *u, float x, float y)
     const solpos *p = &u->rec->pos;
     if (!u->drag && u->idx >= 0 && hypotf(x - u->x0, y - u->y0) > 0.14f * u->w &&
         p->kind[u->pile] != SP_STOCK && u->R->pickable(p, u->pile, u->idx)) {
-        if (u->nmv) {                           /* cards still moving: they land at once */
-            u->nmv = 0;
-            u->quiet = 0;
-        }
+        ct_calm(&u->mv);                        /* cards still moving: they land at once */
         u->drag = 1;
         u->sel = 0;
     }
@@ -753,24 +692,13 @@ static inline int solui_bar_press(solui *u, float x, float y)
 }
 
 /* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
-/* a card's picture w wide, centred on (cx, cy), painted over a picture of size x size (CARD_NONE: its back) */
-static inline void solui_paint(uint8_t *rgba, int size, int deck, int card, float cx, float cy, int w)
-{
-    int h = (int)(w * cards_aspect(deck) + 0.5f);
-    uint8_t *c = malloc((size_t)w * h * 4);
-    if (!c) return;
-    cards_paint(deck, card, w, h, c);
-    art_blend(rgba, size, size, c, w, h, (int)(cx - w / 2.0f), (int)(cy - h / 2.0f));
-    free(c);
-}
-
 /* a column in a picture: `down` backs, then the cards (fractions of size: its first card's centre, the card's width,
  * the steps) */
 static inline void solui_paint_column(uint8_t *rgba, int size, int deck, float x, float y, float w, int down,
                                       const int *cards, int n, float dd, float du)
 {
     for (int i = 0; i < down + n; i++)
-        solui_paint(rgba, size, deck, i < down ? CARD_NONE : cards[i - down], x * size,
+        cards_paint_at(rgba, size, deck, i < down ? CARD_NONE : cards[i - down], x * size,
                     (y + (i < down ? i : down) * dd + (i > down ? i - down : 0) * du) * size, (int)(w * size));
 }
 
@@ -779,8 +707,8 @@ static inline void solui_token(int size, uint8_t *rgba, int under, int over)
 {
     memset(rgba, 0, (size_t)size * size * 4);
     int w = (int)(size * 0.5f);
-    solui_paint(rgba, size, DECK_FRENCH, under, size * 0.4f, size * 0.42f, w);
-    solui_paint(rgba, size, DECK_FRENCH, over, size * 0.6f, size * 0.58f, w);
+    cards_paint_at(rgba, size, DECK_FRENCH, under, size * 0.4f, size * 0.42f, w);
+    cards_paint_at(rgba, size, DECK_FRENCH, over, size * 0.6f, size * 0.58f, w);
 }
 
 #endif

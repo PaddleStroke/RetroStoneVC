@@ -248,8 +248,10 @@ static void test_random(void)
 
 /* ---- a deal solved: a depth-first search (draw one), then the moves played again from the script ---------------- */
 #define TABLE (1 << 21)
+#define DEPTH 2000
 static uint64_t *seen;
-static solmove path[2000];
+static solmove path[DEPTH];
+static solpos *step;                            /* the positions down the search, one a depth (off the stack) */
 static int nodes;
 
 static uint64_t key(const solpos *p)
@@ -282,7 +284,7 @@ static int done(const solpos *p)                /* the rest would go up by itsel
 static int search(const solpos *p, int depth)
 {
     if (done(p)) return depth;
-    if (depth >= 1990 || ++nodes > 400000 || !visit(p)) return -1;
+    if (depth >= DEPTH - 10 || ++nodes > 400000 || !visit(p)) return -1;
     solmove list[256];
     int n = 0;
     for (int a = 0; a < KL_PILES; a++) {        /* up to the foundations */
@@ -304,10 +306,11 @@ static int search(const solpos *p, int depth)
         for (int b = 0; b < 7; b++)
             if (kl_legal(p, sol_mv(SM_MOVE, a, b, 1))) list[n++] = sol_mv(SM_MOVE, a, b, 1);
     for (int k = 0; k < n; k++) {
-        solpos q = *p;
-        sol_apply(&q, list[k]);
+        solpos *q = &step[depth];
+        *q = *p;
+        sol_apply(q, list[k]);
         path[depth] = list[k];
-        int r = search(&q, depth + 1);
+        int r = search(q, depth + 1);
         if (r >= 0) return r;
     }
     return -1;
@@ -316,9 +319,10 @@ static int search(const solpos *p, int depth)
 static void test_solved(void)
 {
     seen = calloc(TABLE, sizeof *seen);
-    if (!seen) return;
+    step = malloc(DEPTH * sizeof *step);
+    if (!seen || !step) return;
     int solved = 0;
-    static char script[2000 * 8];
+    static char script[DEPTH * 8];
     for (uint32_t seed = 1; seed <= 12 && solved < 3; seed++) {
         kl_new(&G, KL_DRAW1, seed);
         memset(seen, 0, TABLE * sizeof *seen);
@@ -344,6 +348,7 @@ static void test_solved(void)
     }
     CHECK(solved >= 2);
     free(seen);
+    free(step);
 }
 
 int main(void)

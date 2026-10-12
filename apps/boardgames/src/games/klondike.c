@@ -112,15 +112,15 @@ static void thumb(int v, int size, uint8_t *rgba)
     static const int c0[] = {CARD(SUIT_SPADES, 13), CARD(SUIT_HEARTS, 12)},
                      c1[] = {CARD(SUIT_DIAMONDS, 9), CARD(SUIT_SPADES, 8)},
                      c2[] = {CARD(SUIT_HEARTS, 5), CARD(SUIT_SPADES, 4)};
-    solui_paint(rgba, size, DECK_FRENCH, CARD_NONE, 0.17f * size, top * size, (int)(w * size));
+    cards_paint_at(rgba, size, DECK_FRENCH, CARD_NONE, 0.17f * size, top * size, (int)(w * size));
     if (v == KL_DRAW3) {
         static const int waste[] = {CARD(SUIT_CLUBS, 2), CARD(SUIT_SPADES, 10), CARD(SUIT_DIAMONDS, 7)};
-        for (int i = 0; i < 3; i++) solui_paint(rgba, size, DECK_FRENCH, waste[i], (0.4f + 0.07f * i) * size,
+        for (int i = 0; i < 3; i++) cards_paint_at(rgba, size, DECK_FRENCH, waste[i], (0.4f + 0.07f * i) * size,
                                                 top * size, (int)(w * size));
     } else {
-        solui_paint(rgba, size, DECK_FRENCH, CARD(SUIT_DIAMONDS, 7), 0.45f * size, top * size, (int)(w * size));
+        cards_paint_at(rgba, size, DECK_FRENCH, CARD(SUIT_DIAMONDS, 7), 0.45f * size, top * size, (int)(w * size));
     }
-    solui_paint(rgba, size, DECK_FRENCH, CARD(SUIT_HEARTS, RANK_ACE), 0.83f * size, top * size, (int)(w * size));
+    cards_paint_at(rgba, size, DECK_FRENCH, CARD(SUIT_HEARTS, RANK_ACE), 0.83f * size, top * size, (int)(w * size));
     solui_paint_column(rgba, size, DECK_FRENCH, 0.17f, 0.6f, w, 0, c0, 2, 0, 0.17f);
     solui_paint_column(rgba, size, DECK_FRENCH, 0.5f, 0.6f, w, 2, c1, 2, 0.03f, 0.17f);
     solui_paint_column(rgba, size, DECK_FRENCH, 0.83f, 0.6f, w, 1, c2, 2, 0.03f, 0.17f);

@@ -109,8 +109,8 @@ static void thumb(int v, int size, uint8_t *rgba)
     static const int order[4] = {SUIT_SPADES, SUIT_HEARTS, SUIT_CLUBS, SUIT_DIAMONDS};
     const float w = 0.25f;
     for (int k = 0; k < 3; k++)
-        solui_paint(rgba, size, DECK_FRENCH, CARD_NONE, (0.62f + 0.07f * k) * size, 0.2f * size, (int)(w * size));
-    solui_paint(rgba, size, DECK_FRENCH, CARD(SUIT_SPADES, RANK_KING), 0.17f * size, 0.2f * size, (int)(w * size));
+        cards_paint_at(rgba, size, DECK_FRENCH, CARD_NONE, (0.62f + 0.07f * k) * size, 0.2f * size, (int)(w * size));
+    cards_paint_at(rgba, size, DECK_FRENCH, CARD(SUIT_SPADES, RANK_KING), 0.17f * size, 0.2f * size, (int)(w * size));
     for (int c = 0; c < 3; c++) {
         int cards[4], n = 2;
         for (int i = 0; i < n; i++) cards[i] = CARD(order[c % suits], 11 - c - i);

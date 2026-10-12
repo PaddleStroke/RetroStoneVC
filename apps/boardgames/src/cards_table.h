@@ -48,6 +48,7 @@ void ct_hop(ct_moves *mv, int i, float hop, float reach);   /* move i's lift (ca
 void ct_until(ct_moves *mv, Uint32 t);          /* busy until then at least */
 int  ct_moving(const ct_moves *mv);             /* a card moves (or waits to) */
 int  ct_busy(const ct_moves *mv);               /* a card moves, or one landed a moment ago */
+Uint32 ct_quiet(const ct_moves *mv);           /* when it will be quiet: the last landing and its rest */
 int  ct_hides(const ct_moves *mv, int tag, int a, int b);   /* the cards still on their way to (tag, a, b); -1: any */
 void ct_draw(ct_moves *mv);                     /* the moving cards where they are now */
 
@@ -177,5 +178,17 @@ float ct_hand(box b, int n, float aspect, float wmax, cards_spot *spots);
 typedef struct { float w, top; int n, rows, per; cards_spot spot[CT_HAND]; } ct_rows;
 void ct_rows_layout(ct_rows *h, box b, int n, int per_row, float w_max, float h_max);
 int  ct_rows_hit(const ct_rows *h, float x, float y);
+
+/* ---- patience: a column fanned down, a run under the finger, the cards leaping off at a win --------------------
+ * A column of n cards (`down` of them face down at its bottom), w wide, steps of down_step and up_step card widths:
+ * the steps, closer when they would reach past `room` (the face-up ones first, then the others). */
+void ct_column_steps(int n, int down, float room, float w, float down_step, float up_step, float *dd, float *du);
+/* n cards fanned down from (x, y) by step, w wide, the first raised (a run dragged) */
+void ct_run(int deck, const uint8_t *cards, int n, float x, float y, float w, float step);
+/* card j's flight, t ms after it left (x0, y0): thrown sideways, falling, bouncing on the bottom edge of b (cards w
+ * wide). Where it is (xs[0], ys[0]) and where it was k x CT_TRAIL_MS before (xs[k]; NAN: not yet thrown then). */
+#define CT_TRAIL 4
+#define CT_TRAIL_MS 60
+void ct_leap(box b, float w, int j, float x0, float y0, float t, float *xs, float *ys);
 
 #endif

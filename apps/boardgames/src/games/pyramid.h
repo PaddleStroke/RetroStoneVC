@@ -23,12 +23,6 @@
 #ifndef PYRAMID_H
 #define PYRAMID_H
 
-#if defined(SOLITAIRE_H) && SOL_PILES < 32
-#error "include pyramid.h before solitaire.h: it needs 32 piles"
-#endif
-#ifndef SOL_PILES
-#define SOL_PILES 32
-#endif
 #include "games/solitaire.h"
 
 enum { PY_ONCE, PY_THRICE, PY_VARIANTS };

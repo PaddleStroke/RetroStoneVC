@@ -31,11 +31,7 @@
 
 #include "cards.h"
 
-/* the most piles a game has. A game with more (Pyramid, TriPeaks: 32) sets it in its own header, before including
- * this one, so that all its files agree (the positions of the others stay small: their tests search deep) */
-#ifndef SOL_PILES
-#define SOL_PILES 20
-#endif
+#define SOL_PILES 32                            /* the most piles a game has (Pyramid, TriPeaks: a pile a card) */
 #define SOL_CARDS 104                           /* the most a pile can hold (Spider's two packs) */
 #define SOL_MOVES 6000                          /* a game's moves, the automatic ones too */
 
