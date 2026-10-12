@@ -14,29 +14,56 @@
 #include "games/chess.h"
 
 #define SS 4
-#define MAXPT 48
-#define MAXSHAPES 32
+#define ARC_PT 22                                   /* an arc's points along each edge */
 #define PI_F 3.14159265f
 
 typedef struct { float x, y; } v2;
 enum { SH_POLY, SH_ELL };
 typedef struct {
-    int kind, role, n;
-    v2 pt[MAXPT];
+    int kind, role, n, p0;                          /* a polygon: its n points from the figure's pt[p0] */
     float cx, cy, rx, ry;
     float x0, y0, x1, y1;                           /* the bounding box */
 } shape;
-struct art_fig { shape s[MAXSHAPES]; int n; };
+/* the shapes and the polygons' points, as many as a figure has (both grow as it is drawn) */
+struct art_fig { shape *s; v2 *pt; int n, cap, npt, ptcap; };
 
 static float clampf(float v, float a, float b) { return v < a ? a : v > b ? b : v; }
 
 art_fig *art_fig_new(void) { return calloc(1, sizeof(art_fig)); }
-void art_fig_free(art_fig *f) { free(f); }
-
-static shape *add(art_fig *f, int kind, int role)
+void art_fig_free(art_fig *f)
 {
-    static shape spare;
-    shape *s = f->n < MAXSHAPES ? &f->s[f->n++] : &spare;
+    if (!f) return;
+    free(f->s);
+    free(f->pt);
+    free(f);
+}
+
+/* room for one more shape and n more points: 0 when memory ran out */
+static int room(art_fig *f, int n)
+{
+    if (f->n == f->cap) {
+        int cap = f->cap ? 2 * f->cap : 16;
+        shape *s = realloc(f->s, (size_t)cap * sizeof *s);
+        if (!s) return 0;
+        f->s = s;
+        f->cap = cap;
+    }
+    if (f->npt + n > f->ptcap) {
+        int cap = f->ptcap ? 2 * f->ptcap : 256;
+        while (cap < f->npt + n) cap *= 2;
+        v2 *p = realloc(f->pt, (size_t)cap * sizeof *p);
+        if (!p) return 0;
+        f->pt = p;
+        f->ptcap = cap;
+    }
+    return 1;
+}
+
+/* a new shape (NULL: no memory left, the shape is left out) */
+static shape *add(art_fig *f, int kind, int role, int npt)
+{
+    if (!f || !room(f, npt)) return NULL;
+    shape *s = &f->s[f->n++];
     memset(s, 0, sizeof *s);
     s->kind = kind;
     s->role = role;
@@ -55,18 +82,24 @@ static void grow(shape *s, float x, float y)
 
 void art_poly(art_fig *f, int role, const float *xy, int n)
 {
-    shape *s = add(f, SH_POLY, role);
-    s->n = n < MAXPT ? n : MAXPT;
-    for (int i = 0; i < s->n; i++) {
-        s->pt[i].x = xy[2 * i];
-        s->pt[i].y = xy[2 * i + 1];
-        grow(s, s->pt[i].x, s->pt[i].y);
+    if (n < 0) n = 0;
+    shape *s = add(f, SH_POLY, role, n);
+    if (!s) return;
+    s->n = n;
+    s->p0 = f->npt;
+    v2 *pt = f->pt + s->p0;
+    f->npt += n;
+    for (int i = 0; i < n; i++) {
+        pt[i].x = xy[2 * i];
+        pt[i].y = xy[2 * i + 1];
+        grow(s, pt[i].x, pt[i].y);
     }
 }
 
 void art_ellipse(art_fig *f, int role, float cx, float cy, float rx, float ry)
 {
-    shape *s = add(f, SH_ELL, role);
+    shape *s = add(f, SH_ELL, role, 0);
+    if (!s) return;
     s->cx = cx;
     s->cy = cy;
     s->rx = rx;
@@ -83,8 +116,8 @@ void art_rect(art_fig *f, int role, float x0, float y0, float x1, float y1)
 
 void art_arc(art_fig *f, int role, float cx, float cy, float r0, float r1, float a0, float a1)
 {
-    float p[2 * MAXPT];
-    int n = 0, k = 21;
+    float p[4 * ARC_PT];
+    int n = 0, k = ARC_PT - 1;
     for (int i = 0; i <= k; i++) {
         float a = (a0 + (a1 - a0) * i / k) * PI_F / 180;
         p[n++] = cx + r1 * cosf(a);
@@ -99,7 +132,7 @@ void art_arc(art_fig *f, int role, float cx, float cy, float r0, float r1, float
 }
 
 /* the signed distance to a shape's edge: negative inside (ellipses: a first-order estimate, close enough) */
-static float sdf(const shape *s, float x, float y)
+static float sdf(const art_fig *f, const shape *s, float x, float y)
 {
     if (s->kind == SH_ELL) {
         float u = (x - s->cx) / s->rx, v = (y - s->cy) / s->ry, l = sqrtf(u * u + v * v);
@@ -110,7 +143,7 @@ static float sdf(const shape *s, float x, float y)
     int in = 0;
     float d2 = 1e9f;
     for (int i = 0, j = s->n - 1; i < s->n; j = i++) {
-        v2 a = s->pt[j], b = s->pt[i];
+        v2 a = f->pt[s->p0 + j], b = f->pt[s->p0 + i];
         if ((b.y > y) != (a.y > y) && x < (a.x - b.x) * (y - b.y) / (a.y - b.y) + b.x) in = !in;
         float ex = a.x - b.x, ey = a.y - b.y, wx = x - b.x, wy = y - b.y;
         float t = clampf((wx * ex + wy * ey) / (ex * ex + ey * ey + 1e-12f), 0, 1);
@@ -143,7 +176,7 @@ void art_render(const art_fig *f, const art_style *st, int w, int h, float scale
                     for (int k = 0; k < f->n; k++) {
                         const shape *s = &f->s[k];
                         if (x < s->x0 - wl || x > s->x1 + wl || y < s->y0 - wl || y > s->y1 + wl) continue;
-                        float d = sdf(s, x, y);
+                        float d = sdf(f, s, x, y);
                         if (s->role == ART_MARK) {
                             if (d < 0) { memcpy(c, st->mark, sizeof c); has = 1; }
                         } else if (d < 0) {
@@ -260,7 +293,7 @@ static void mitre(art_fig *f, float cx, float cy, float rx, float ry, float tip)
 
 static void piece(art_fig *f, int type)
 {
-    f->n = 0;
+    f->n = f->npt = 0;
     base(f);
     switch (type) {
     case PAWN: {
@@ -655,6 +688,21 @@ void art_icon(int which, int size, uint8_t *rgba)
     case ICON_STAR:                                 /* a star */
         art_star(f, ART_PART, 0.5f, 0.53f, 0.36f);
         break;
+    case ICON_REPLAY: {                             /* an arrow going nearly round, its head on the upper right */
+        art_arc(f, ART_PART, 0.5f, 0.52f, 0.20f, 0.29f, 110, 385);
+        float a0 = 385 * PI_F / 180, a1 = a0 + 34 * PI_F / 180, rm = 0.245f, hw = 0.125f;
+        const float hd[] = {0.5f + (rm + hw) * cosf(a0), 0.52f - (rm + hw) * sinf(a0), 0.5f + rm * cosf(a1),
+                            0.52f - rm * sinf(a1), 0.5f + (rm - hw) * cosf(a0), 0.52f - (rm - hw) * sinf(a0)};
+        art_poly(f, ART_PART, hd, 3);
+        break;
+    }
+    case ICON_PAR: {                                /* a flag on its pole, the hole's rim at its foot */
+        const float flag[] = {0.40f, 0.17f, 0.80f, 0.32f, 0.40f, 0.47f};
+        art_ellipse(f, ART_PART, 0.37f, 0.80f, 0.19f, 0.05f);
+        art_rect(f, ART_PART, 0.335f, 0.15f, 0.405f, 0.80f);
+        art_poly(f, ART_PART, flag, 3);
+        break;
+    }
     case ICON_ARROW: {                              /* an arrow pointing right */
         const float head[] = {0.50f, 0.22f, 0.86f, 0.50f, 0.50f, 0.78f};
         art_rect(f, ART_PART, 0.14f, 0.42f, 0.56f, 0.58f);
