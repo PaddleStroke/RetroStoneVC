@@ -396,7 +396,7 @@ static void es_club(es_cv *cv, float x, float y, float s, float deg, float wide)
         for (int k = 0; k < nb; k++) {          /* knots on the wood, the stubs' cut ends */
             float sd = bump[k][0], v = bump[k][1];
             float bx = sd * (0.07f - 0.04f * (v + 0.5f)) * wide;
-            es_oval(&g, ART_PART, -sd * 0.025f * wide, v + 0.09f, 0.018f * wide, 0.026f);
+            es_oval(&g, ART_PART, -sd * 0.025f * wide, v + 0.09f, 0.012f * wide, 0.018f);
             (void)bx;
         }
         es_paint(cv, &g, &knot);
@@ -545,12 +545,12 @@ static void es_ace(es_cv *cv, int suit, es_area a)
     case ES_COPAS: es_cup(cv, cx, cy + 0.04f * ah, fminf(0.86f * ah, 1.5f * aw), 0, 1); break;
     case ES_ESPADAS:
         es_glory(cv, cx, cy - 0.1f * ah, 0.66f * aw);
-        es_sword(cv, cx, cy, 0.98f * ah, 0, 2.6f);
+        es_sword(cv, cx, cy, 0.98f * ah, 0, 1.9f);
         es_bow(cv, cx, cy + 0.3f * ah, 0.42f * aw);
         break;
     default:
         es_glory(cv, cx, cy - 0.12f * ah, 0.66f * aw);
-        es_club(cv, cx, cy, 0.98f * ah, 0, 2.1f);
+        es_club(cv, cx, cy, 0.9f * ah, 0, 1.45f);
         es_bow(cv, cx, cy + 0.27f * ah, 0.46f * aw);
     }
 }
@@ -673,7 +673,8 @@ void es_face(int card, int w, int h, uint8_t *rgba)
     float side = m + 0.05f * W, corner = ny + 0.72f * nh;
     es_area a = {side, m + 0.06f * W, W - side, H - m - 0.06f * W};
     if (rank == ES_AS) {
-        es_area big = {m + 0.1f * W, corner, W - m - 0.1f * W, H - corner};
+        float tall = suit == ES_ESPADAS || suit == ES_BASTOS ? m + 0.07f * W : corner;   /* the long ones: past the numbers */
+        es_area big = {m + 0.1f * W, tall, W - m - 0.1f * W, H - tall};
         es_ace(&cv, suit, big);
     } else if (rank >= ES_SOTA) {
         es_area in = {m + 0.035f * W, corner, W - m - 0.035f * W, H - corner};
