@@ -144,6 +144,43 @@ int main(void)
         CHECK(!memcmp(start, g.on, LMP_CELLS) && g.moves == 0);
     }
 
+    /* the levels: each one loads, its fewest presses are the ones kept (on 3 x 3 and 4 x 4 against every set of
+     * presses), the hints turn it off in exactly that many; the boards never shrink from a chapter to the next; no two
+     * alike */
+    int last_n = 0;
+    for (int l = 0; l < LMP_LEVELS; l++) {
+        lmp_game g;
+        CHECK(lmp_level(&g, l));
+        CHECK(g.best > 0 && g.best == lmp_level_par[l] && lmp_lit(&g) > 0 && g.moves == 0);
+        if (g.n <= 4) {
+            int N = g.n * g.n, few = 99;
+            for (uint32_t m = 0; m < (1u << N); m++) {
+                int w = __builtin_popcount(m);
+                if (w >= few) continue;
+                uint8_t on[LMP_CELLS];
+                memcpy(on, g.on, sizeof on);
+                for (int c = 0; c < N; c++)
+                    if (m >> c & 1) lmp_toggle(g.n, on, c);
+                if (all_off(g.n, on)) few = w;
+            }
+            CHECK(few == g.best);
+        }
+        lmp_game t = g;
+        while (!lmp_solved(&t) && t.moves <= g.best) {
+            int c = lmp_hint(&t);
+            if (c < 0) break;
+            lmp_press(&t, c);
+        }
+        CHECK(lmp_solved(&t) && t.moves == g.best);
+        if (l % (LMP_LEVELS / LMP_CHAPTERS) == 0) {
+            CHECK(g.n >= last_n);
+            last_n = g.n;
+        }
+        for (int k = 0; k < l; k++) CHECK(strcmp(lmp_levels[k], lmp_levels[l]) != 0);
+    }
+    lmp_game none;
+    CHECK(!lmp_level(&none, LMP_LEVELS) && !lmp_parse(&none, "01|1") && !lmp_parse(&none, "012|111|000"));
+
     if (fails) { printf("lights: %d failures\n", fails); return 1; }
     printf("lights: all passed\n");
     return 0;

@@ -174,12 +174,26 @@ static void calm(void)
     win.on = 0;
 }
 
-static void start(int variant)
+static void begin(void)
 {
-    lmp_new(&G, variant, (uint32_t)ui_random(0x7fffffff) + 1u);
     calm();
     if (last_box.w > 0) layout(last_box);
 }
+
+static void start(int level)                    /* a designed level */
+{
+    if (!lmp_level(&G, level)) lmp_level(&G, 0);
+    begin();
+}
+
+static void start_random(int variant)           /* a board made at random, of the variant's size */
+{
+    lmp_new(&G, variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    begin();
+}
+
+static int par(void) { return G.best > 0 ? G.best : 0; }
+static int level_stars(void) { return ui_par_stars(G.moves, par()); }
 
 static int status(void) { return lmp_solved(&G) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
@@ -343,12 +357,9 @@ static void bar(int player, box b)
     pzt_bar_two(b, t_small, G.moves, t_par, G.best, lmp_solved(&G) && G.moves == G.best);
 }
 
-/* ---- the menu's and the picker's cards: the board of the size, some lamps lit ---------------------------------- */
-static void thumb(int variant, int size, uint8_t *rgba)
+/* ---- the pictures of the shell's screens: a board of n x n lamps, those of `on` lit ---------------------------- */
+static void paint_lamps(int n, const uint8_t *on, int size, uint8_t *rgba)
 {
-    int v = variant < 0 ? 1 : variant, n = lmp_size(v);
-    uint8_t on[LMP_CELLS];
-    lmp_make(v, 11, on);
     int f = (int)(size * FRAME), q = (size - 2 * f) / n, w = n * q + 2 * f;
     uint8_t *b = calloc((size_t)w * w, 4);
     if (!b) return;
@@ -376,6 +387,31 @@ static void thumb(int variant, int size, uint8_t *rgba)
     free(b);
 }
 
+/* the menu's and the picker's cards: the board of the size, some lamps lit */
+static void thumb(int variant, int size, uint8_t *rgba)
+{
+    int v = variant < 0 ? 1 : variant;
+    uint8_t on[LMP_CELLS];
+    lmp_make(v, 11, on);
+    paint_lamps(lmp_size(v), on, size, rgba);
+}
+
+/* the level screen: a level's board; a chapter's tab: a board of its size, a cross of lamps lit in its middle */
+static void level_thumb(int level, int size, uint8_t *rgba)
+{
+    lmp_game T;
+    if (lmp_level(&T, level)) paint_lamps(T.n, T.on, size, rgba);
+}
+
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    lmp_game T;
+    if (!lmp_level(&T, chapter * (LMP_LEVELS / LMP_CHAPTERS))) return;
+    uint8_t on[LMP_CELLS] = {0};
+    lmp_toggle(T.n, on, T.n / 2 + T.n / 2 * T.n);
+    paint_lamps(T.n, on, size, rgba);
+}
+
 static int score(void) { return G.moves; }   /* the end card's number */
 
 static const game lights_game = {
@@ -383,5 +419,7 @@ static const game lights_game = {
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .score = score,
+    .levels = LMP_LEVELS, .chapters = LMP_CHAPTERS, .start_random = start_random, .chapter_icon = chapter_icon,
+    .level_thumb = level_thumb, .level_stars = level_stars, .par = par,
 };
 REGISTER_GAME(lights_game)

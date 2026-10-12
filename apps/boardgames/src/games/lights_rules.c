@@ -106,6 +106,38 @@ void lmp_new(lmp_game *g, int variant, uint32_t seed)
     lmp_load(g, lmp_size(variant < 0 || variant >= LMP_VARIANTS ? 1 : variant), on);
 }
 
+int lmp_parse(lmp_game *g, const char *rows)
+{
+    uint8_t on[LMP_CELLS];
+    int n = 0, k = 0, y = 0;
+    while (rows[n] && rows[n] != '|') n++;
+    if (n < 2 || n > LMP_MAX) return 0;
+    for (const char *p = rows;; p++) {
+        if (*p == '0' || *p == '1') {
+            if (k >= n || y >= n) return 0;
+            on[k++ + y * n] = (uint8_t)(*p - '0');
+            continue;
+        }
+        if (*p != '|' && *p) return 0;
+        if (k != n) return 0;
+        y++;
+        k = 0;
+        if (!*p) break;
+    }
+    if (y != n) return 0;
+    lmp_load(g, n, on);
+    return 1;
+}
+
+#ifndef LMP_GEN                                 /* not in the levels' tool (tools/lights_gen.c): it makes them */
+#include "games/lights_levels.h"
+
+int lmp_level(lmp_game *g, int level)
+{
+    return level >= 0 && level < LMP_LEVELS && lmp_parse(g, lmp_levels[level]);
+}
+#endif
+
 int lmp_press(lmp_game *g, int c)
 {
     if (c < 0 || c >= g->n * g->n) return 0;
