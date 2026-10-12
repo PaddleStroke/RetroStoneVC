@@ -59,6 +59,11 @@ static const struct { const char *id; int section; } SECTION_OF[] = {
     {"seabattle", SEC_GUESS}, {"wordtiles", SEC_CARDS},
     {"klondike", SEC_SOLO}, {"freecell", SEC_SOLO}, {"spider", SEC_SOLO}, {"pegsolitaire", SEC_SOLO},
     {"mahjong", SEC_SOLO},
+    {"goose", SEC_RACE}, {"nainjaune", SEC_CARDS}, {"crapette", SEC_CARDS}, {"manille", SEC_CARDS}, {"slap", SEC_CARDS},
+    {"mahjong4", SEC_CARDS}, {"koikoi", SEC_CARDS}, {"scopa", SEC_CARDS}, {"briscola", SEC_CARDS}, {"skat", SEC_CARDS},
+    {"euchre", SEC_CARDS}, {"canasta", SEC_CARDS}, {"pairs", SEC_GUESS},
+    {"sudoku", SEC_SOLO}, {"nonogram", SEC_SOLO}, {"taquin", SEC_SOLO}, {"hanoi", SEC_SOLO}, {"pyramid", SEC_SOLO},
+    {"tripeaks", SEC_SOLO},
 };
 
 static int section_of(const game *g)
