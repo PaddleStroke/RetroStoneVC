@@ -1,0 +1,14 @@
+Il gioco di Marienbad
+# Lo scopo
+Sul tavolo ci sono dei fiammiferi disposti in file. Due giocatori tolgono fiammiferi a turno; nel gioco classico perde chi è costretto a prendere l'ultimo fiammifero.
+# Le disposizioni
+- Marienbad: quattro file di 1, 3, 5 e 7 fiammiferi.
+- Casuale: da 3 a 5 file da 1 a 8 fiammiferi ciascuna, una disposizione nuova a ogni partita, con la fila più corta in alto.
+# Un turno
+Prendi uno o più fiammiferi, quanti vuoi, ma tutti dalla stessa fila. Devi prenderne almeno uno. Inizia il chiaro.
+# La fine della partita
+- Misère (la regola classica): chi prende l'ultimo fiammifero perde.
+- Gioco normale: chi prende l'ultimo fiammifero vince.
+L'elenco dei giochi offre quattro scelte: Marienbad o una disposizione casuale, ciascuna in misère o in gioco normale. Nelle loro immagini l'ultimo fiammifero brilla di rosso quando prenderlo fa perdere, e d'oro quando fa vincere; un dado contrassegna le disposizioni casuali.
+# Giocare sul dispositivo
+Tocca i fiammiferi che vuoi prendere: si sollevano. Tocca un fiammifero sollevato per rimetterlo al suo posto, oppure fai scorrere il dito lungo una fila per sollevarne diversi insieme. Tutti i fiammiferi sollevati devono essere nella stessa fila. Poi tocca il pulsante rotondo con il segno di spunta sotto le file: i fiammiferi scivolano dalla tua parte. Ogni barra mostra quanti fiammiferi ha preso quel giocatore. Annulla ritira l'ultimo turno.

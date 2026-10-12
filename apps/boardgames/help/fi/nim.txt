@@ -1,0 +1,14 @@
+Marienbadin peli
+# Tavoite
+Pöydällä on tulitikkuja riveissä. Kaksi pelaajaa ottaa vuorotellen tikkuja pois; klassisessa pelissä se, joka joutuu ottamaan viimeisen tikun, häviää.
+# Asetelmat
+- Marienbad: neljä riviä, joissa on 1, 3, 5 ja 7 tikkua.
+- Satunnainen: 3–5 riviä, kussakin 1–8 tikkua, joka pelissä uusi asetelma, lyhin rivi ylimpänä.
+# Vuoro
+Ota yksi tikku tai useampia, niin monta kuin haluat, mutta kaikki samasta rivistä. Vähintään yksi on otettava. Vaalea aloittaa.
+# Pelin loppu
+- Viimeinen häviää (klassinen sääntö): viimeisen tikun ottaja häviää.
+- Tavallinen peli: viimeisen tikun ottaja voittaa.
+Pelilistassa on neljä vaihtoehtoa: Marienbad tai satunnainen asetelma, kumpikin joko niin, että viimeinen häviää, tai tavallisena pelinä. Niiden kuvissa viimeinen tikku hehkuu punaisena, kun sen ottaja häviää, ja kultaisena, kun sen ottaja voittaa; noppa merkitsee satunnaiset asetelmat.
+# Pelaaminen laitteella
+Napauta tikkuja, jotka haluat ottaa: ne nousevat. Napauta noussutta tikkua palauttaaksesi sen, tai liu'uta sormeasi riviä pitkin nostaaksesi useita kerralla. Kaikkien nostettujen tikkujen on oltava samassa rivissä. Napauta sitten rivien alla olevaa pyöreää painiketta, jossa on valintamerkki: tikut liukuvat sinun puolellesi. Kukin palkki näyttää, montako tikkua pelaaja on ottanut. Kumoa peruu viimeisimmän vuoron.

@@ -1,0 +1,14 @@
+El juego de Marienbad
+# El objetivo
+Hay cerillas colocadas en filas sobre la mesa. Dos jugadores quitan cerillas por turnos; en el juego clásico, pierde quien tiene que llevarse la última cerilla.
+# Las disposiciones
+- Marienbad: cuatro filas de 1, 3, 5 y 7 cerillas.
+- Al azar: de 3 a 5 filas de 1 a 8 cerillas cada una, una disposición nueva en cada partida, con la fila más corta arriba.
+# Un turno
+Toma una cerilla o más, tantas como quieras, pero todas de la misma fila. Tienes que tomar al menos una. Empiezan las claras.
+# El final de la partida
+- Misère (la regla clásica): el jugador que toma la última cerilla pierde.
+- Juego normal: el jugador que toma la última cerilla gana.
+La lista de juegos ofrece cuatro opciones: Marienbad o una disposición al azar, cada una en misère o en juego normal. En sus imágenes, la última cerilla brilla en rojo cuando tomarla hace perder, y en dorado cuando hace ganar; un dado señala las disposiciones al azar.
+# Jugar en el dispositivo
+Toca las cerillas que quieres tomar: se levantan. Toca una cerilla levantada para devolverla a su sitio, o desliza el dedo a lo largo de una fila para levantar varias a la vez. Todas las cerillas levantadas deben estar en la misma fila. Después toca el botón redondo con la marca de verificación que hay bajo las filas: las cerillas se deslizan hacia tu lado. Cada barra muestra cuántas cerillas ha tomado ese jugador. Deshacer retira el último turno.

@@ -1,0 +1,14 @@
+Marienbadspelet
+# Målet
+Tändstickor ligger i rader på bordet. Två spelare turas om att ta bort tändstickor; i det klassiska spelet förlorar den som måste ta den sista tändstickan.
+# Uppställningarna
+- Marienbad: fyra rader med 1, 3, 5 och 7 tändstickor.
+- Slumpad: 3 till 5 rader med 1 till 8 tändstickor var, en ny uppställning varje parti, med den kortaste raden överst.
+# En tur
+Ta en tändsticka eller fler, så många du vill, men alla från samma rad. Du måste ta minst en. Den ljusa sidan börjar.
+# Partiets slut
+- Sista stickan förlorar (den klassiska regeln): den som tar den sista tändstickan förlorar.
+- Vanligt spel: den som tar den sista tändstickan vinner.
+Spellistan ger fyra val: Marienbad eller en slumpad uppställning, var och en med regeln att sista stickan förlorar eller med vanligt spel. På deras bilder lyser den sista tändstickan röd när man förlorar på att ta den, och guld när man vinner; en tärning märker ut de slumpade uppställningarna.
+# Spela på enheten
+Tryck på tändstickorna du vill ta: de lyfts upp. Tryck på en upplyft tändsticka för att lägga tillbaka den, eller dra fingret längs en rad för att lyfta flera på en gång. Alla upplyfta tändstickor måste ligga i samma rad. Tryck sedan på den runda knappen med bocken under raderna: tändstickorna glider över till din sida. Varje fält visar hur många tändstickor den spelaren har tagit. Ångra tar tillbaka den senaste turen.

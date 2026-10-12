@@ -1,0 +1,14 @@
+Marienbad-spillet
+# Målet
+Tændstikker ligger i rækker på bordet. To spillere skiftes til at fjerne tændstikker; i det klassiske spil taber den, der må tage den sidste tændstik.
+# Opstillingerne
+- Marienbad: fire rækker med 1, 3, 5 og 7 tændstikker.
+- Tilfældig: 3 til 5 rækker med 1 til 8 tændstikker hver, en ny opstilling hvert spil, med den korteste række øverst.
+# En tur
+Tag én tændstik eller flere, så mange du vil, men alle fra samme række. Du skal tage mindst én. Den lyse side begynder.
+# Spillets afslutning
+- Sidste tændstik taber (den klassiske regel): den, der tager den sidste tændstik, taber.
+- Normalt spil: den, der tager den sidste tændstik, vinder.
+Spillisten giver fire valg: Marienbad eller en tilfældig opstilling, hver med reglen om, at sidste tændstik taber, eller med normalt spil. På deres billeder lyser den sidste tændstik rødt, når man taber ved at tage den, og guld, når man vinder; en terning markerer de tilfældige opstillinger.
+# Spil på enheden
+Tryk på de tændstikker, du vil tage: de løftes op. Tryk på en løftet tændstik for at lægge den tilbage, eller stryg fingeren hen ad en række for at løfte flere på én gang. Alle de løftede tændstikker skal være i samme række. Tryk så på den runde knap med fluebenet under rækkerne: tændstikkerne glider over til din side. Hvert panel viser, hvor mange tændstikker spilleren har taget. Fortryd tager den sidste tur tilbage.

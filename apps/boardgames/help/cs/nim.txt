@@ -1,0 +1,14 @@
+Hra Marienbad
+# Cíl hry
+Na stole leží sirky v řadách. Dva hráči se střídají v odebírání sirek; v klasické hře prohrává ten, kdo musí vzít poslední sirku.
+# Rozestavení
+- Marienbad: čtyři řady po 1, 3, 5 a 7 sirkách.
+- Náhodné: 3 až 5 řad po 1 až 8 sirkách, v každé hře nové rozestavení, nejkratší řada nahoře.
+# Tah
+Vezmi jednu sirku nebo víc, kolik chceš, ale všechny ze stejné řady. Musíš vzít aspoň jednu. Začíná světlý hráč.
+# Konec hry
+- Poslední prohrává (klasické pravidlo): kdo vezme poslední sirku, prohrává.
+- Běžná hra: kdo vezme poslední sirku, vyhrává.
+Seznam her nabízí čtyři možnosti: Marienbad nebo náhodné rozestavení, každé s pravidlem, že poslední prohrává, nebo jako běžnou hru. Na jejich obrázcích poslední sirka svítí červeně, když její vzetí znamená prohru, a zlatě, když znamená výhru; kostka označuje náhodná rozestavení.
+# Hra na zařízení
+Klepni na sirky, které chceš vzít: zvednou se. Klepnutím na zvednutou sirku ji vrátíš zpět, nebo přejeď prstem podél řady a zvedneš jich několik najednou. Všechny zvednuté sirky musí být v jedné řadě. Pak klepni na kulaté tlačítko s fajfkou pod řadami: sirky odjedou na tvou stranu. Každá lišta ukazuje, kolik sirek daný hráč vzal. Vrátit vezme zpět poslední tah.

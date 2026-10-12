@@ -1,0 +1,14 @@
+O jogo de Marienbad
+# O objetivo
+Há fósforos dispostos em filas na mesa. Dois jogadores tiram fósforos à vez; no jogo clássico, perde quem tiver de tirar o último fósforo.
+# As disposições
+- Marienbad: quatro filas de 1, 3, 5 e 7 fósforos.
+- Aleatória: 3 a 5 filas de 1 a 8 fósforos cada, uma disposição nova em cada jogo, com a fila mais curta em cima.
+# Uma vez
+Tira um fósforo ou mais, quantos quiseres, mas todos da mesma fila. Tens de tirar pelo menos um. O lado claro começa.
+# O fim do jogo
+- Misère (a regra clássica): o jogador que tira o último fósforo perde.
+- Jogo normal: o jogador que tira o último fósforo ganha.
+A lista de jogos oferece quatro opções: Marienbad ou uma disposição aleatória, cada uma em misère ou em jogo normal. Nas suas imagens, o último fósforo brilha a vermelho quando tirá-lo faz perder, e a dourado quando faz ganhar; um dado assinala as disposições aleatórias.
+# Jogar no dispositivo
+Toca nos fósforos que queres tirar: levantam-se. Toca num fósforo levantado para o pôr de volta, ou desliza o dedo ao longo de uma fila para levantar vários de uma vez. Todos os fósforos levantados têm de estar na mesma fila. Depois toca no botão redondo com o visto, por baixo das filas: os fósforos deslizam para o teu lado. Cada barra mostra quantos fósforos esse jogador já tirou. Anular desfaz a última jogada.
