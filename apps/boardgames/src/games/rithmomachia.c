@@ -380,13 +380,9 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     const rhmpos *p = rhm_pos(&G);
-    ui_bar_number(b, t_small[!player], p->taken[player]);
     int left = RHM_QUIET - p->quiet;
-    if (left <= 20 && p->side == player && status() == GS_PLAY) {
-        float dh = 0.4f * ui.unit, w = ui_number_w(left, dh);
-        static const uint8_t dim[3] = {200, 190, 170};
-        ui_number_ex(b.x + b.w - w / 2, b.y + b.h / 2, dh, left, dim, 200, UI_NUM_REGULAR);
-    }
+    if (left <= 20 && p->side == player && status() == GS_PLAY) b = ui_bar_countdown(b, left);
+    ui_bar_number(b, t_small[!player], p->taken[player]);
 }
 
 static void token(int player, int size, uint8_t *rgba) { paint_piece(RHM_PYRAMID, player, size, rgba); }

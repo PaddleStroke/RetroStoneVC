@@ -5,8 +5,9 @@
  * move. The board stands up in portrait and lies down in landscape, whichever gives the bigger squares.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- * The players are the colours: 0 red, 1 black (their bars show their general). Before the first flip the player to
- * move counts as red; turning a black piece over makes them black, and red moves next.
+ * The players are the colours: 0 red, 1 black (their bars show their general; before the first flip, when nobody has a
+ * colour yet, a piece face down). Before the first flip the player to move counts as red; turning a black piece over
+ * makes them black, and red moves next.
  * The script's notation: "c2" turns c2 over, "c2c3" moves (files a..h along the long side, ranks 1..4); "@7" first:
  * the deal of seed 7 (the screenshots).
  */
@@ -36,9 +37,14 @@ static struct { int on; bqmove m; Uint32 t0; } anim;
 /* ---- the position ------------------------------------------------------------------------------------------------ */
 static void refresh(void)
 {
+    static int decided = -1;
     nlegal = bq_status(&G) == BQ_PLAY ? bq_legal(bq_pos(&G), legal) : 0;
     sel = -1;
     drag.on = 0;
+    if (decided != bq_pos(&G)->decided) {      /* the colours given (or taken back): the bars' tokens follow */
+        decided = bq_pos(&G)->decided;
+        ui_tokens_changed();
+    }
 }
 
 static void start(int variant)
@@ -342,9 +348,8 @@ static void bar(int player, box b)
     float u = ui.unit, end = b.x + b.w, cy = b.y + b.h / 2;
     int left = BQ_QUIET - p->quiet;
     if (left <= 20 && p->side == player && bq_status(&G) == BQ_PLAY) {
-        float dh = 0.46f * u, w = ui_number_w(left, dh);
-        ui_number(end - w / 2, cy, dh, left, 1);
-        end -= w + 0.3f * u;
+        box r = ui_bar_countdown(b, left);
+        end = r.x + r.w;
     }
     for (int k = BQ_GENERAL; k <= BQ_SOLDIER; k++)
         if (gone[k] > 0) total += gone[k], groups++;
@@ -358,7 +363,12 @@ static void bar(int player, box b)
     }
 }
 
-static void token(int player, int size, uint8_t *rgba) { xq_piece_paint(XQ_GENERAL, player, size, rgba); }
+/* a player's general; before the first flip a piece face down (no colour yet) */
+static void token(int player, int size, uint8_t *rgba)
+{
+    if (bq_pos(&G)->decided) xq_piece_paint(XQ_GENERAL, player, size, rgba);
+    else back_pic(size, rgba);
+}
 
 /* the menu's card: a corner of the board, its pieces mostly face down, one turning over */
 static void thumb(int variant, int size, uint8_t *rgba)

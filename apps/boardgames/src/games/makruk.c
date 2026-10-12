@@ -355,9 +355,8 @@ static void bar(int player, box b)
     float sz = 0.6f * ui.unit, step = 0.36f * ui.unit, x = b.x, cy = b.y + b.h / 2, end = b.x + b.w;
     int left = mk_moves_left(p);
     if (left >= 0 && p->counter == player) {
-        float dh = 0.46f * ui.unit, w = (0.74f * (left >= 10 ? 1 : 0) + 0.62f) * dh;
-        ui_number(end - w / 2, cy, dh, left, 1);
-        end -= w + 0.3f * ui.unit;
+        box r = ui_bar_countdown(b, left);
+        end = r.x + r.w;
     }
     for (int k = 0; k < 5; k++) {
         int kind = order[k], gone = start_n[kind] - n[kind];

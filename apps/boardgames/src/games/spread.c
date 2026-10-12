@@ -302,14 +302,10 @@ static void release(float x, float y)
 /* the player's discs (at the end, the empty cells they take too); the moves left before the count once few */
 static void bar(int player, box b)
 {
-    ui_bar_number(b, t_small[player], spd_score(&G, player));
     const spdpos *p = spd_pos(&G);
     int left = SPD_IDLE - p->idle;
-    if (left <= 20 && p->side == player && spd_status(&G) == SPD_PLAY) {
-        float dh = 0.4f * ui.unit, w = ui_number_w(left, dh);
-        static const uint8_t dim[3] = {200, 190, 170};
-        ui_number_ex(b.x + b.w - w / 2, b.y + b.h / 2, dh, left, dim, 200, UI_NUM_REGULAR);
-    }
+    if (left <= 20 && p->side == player && spd_status(&G) == SPD_PLAY) b = ui_bar_countdown(b, left);
+    ui_bar_number(b, t_small[player], spd_score(&G, player));
 }
 
 static void token(int player, int size, uint8_t *rgba) { art_counter(COUNTER_DISC, player, size, rgba); }

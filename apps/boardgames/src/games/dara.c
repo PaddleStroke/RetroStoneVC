@@ -288,10 +288,8 @@ static void bar(int player, box b)
     float u = ui.unit, end = b.x + b.w;
     int left = DAR_QUIET - p->quiet;
     if (p->phase != DAR_PLACE && left <= 20 && status() == GS_PLAY && p->side == player) {
-        float dh = 0.4f * u, w = ui_number_w(left, dh);
-        static const uint8_t dim[3] = {200, 190, 170};
-        ui_number_ex(end - w / 2, b.y + b.h / 2, dh, left, dim, 200, UI_NUM_REGULAR);
-        end -= w + 0.3f * u;
+        box c = ui_bar_countdown(b, left);
+        end = c.x + c.w;
     }
     box r = {b.x, b.y, end - b.x, b.h};
     if (p->phase == DAR_PLACE && p->hand[player]) {
