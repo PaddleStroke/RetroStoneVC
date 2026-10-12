@@ -1,0 +1,11 @@
+Deslize no gelo
+# O objetivo
+Um disco vermelho está sobre o gelo, entre rochas. Algures no gelo há um buraco. Empurra o disco para o buraco com o menor número de empurrões possível. Escolhe primeiro o desafio: fácil, médio ou difícil (mais gelo, mais empurrões).
+Cada desafio é novo e tem sempre solução. O seu par, o menor número de empurrões possível, é encontrado experimentando todos os caminhos.
+# Uma jogada
+Empurra o disco para cima, para baixo, para a esquerda ou para a direita. No gelo não para sozinho: desliza até uma rocha ou a borda o travarem. Se passar por cima do buraco pelo caminho, cai lá dentro.
+# O fim do jogo
+O desafio fica resolvido quando o disco cai no buraco. Resolvido no par, uma luz dourada percorre o gelo.
+# Jogar no dispositivo
+Desliza o dedo sobre o gelo na direção que queres, toca numa casa da linha ou da coluna do disco, ou toca numa das quatro setas por baixo do tabuleiro (no computador, as teclas de seta também funcionam). Uma seta fica esbatida quando o disco não pode ir para esse lado.
+A lâmpada dá uma pista: o próximo empurrão de um caminho mais curto, com a seta dourada e o trajeto ponteado a ouro. Se o buraco já não puder ser alcançado, a pista anula primeiro os empurrões que lá levaram. Anular desfaz um empurrão de cada vez, até ao início. A barra mostra os teus empurrões e, na ponta direita, o par.

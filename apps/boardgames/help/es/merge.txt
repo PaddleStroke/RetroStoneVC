@@ -1,0 +1,9 @@
+Fusión
+# El objetivo
+Hay fichas numeradas sobre una cuadrícula. Empújalas todas hacia un lado: dos fichas iguales que se encuentran se fusionan en una del doble. Consigue una ficha de 2048 (256 en la cuadrícula de 3 × 3) y luego sigue jugando para subir la puntuación, si quieres. Elige primero la cuadrícula: 4 × 4, 5 × 5 (más espacio, más fácil) o 3 × 3 (difícil).
+# Una jugada
+Empuja hacia arriba, abajo, la izquierda o la derecha: cada ficha se desliza todo lo que puede. Dos fichas iguales que se encuentran se convierten en una, y su número se suma a tu puntuación. Una ficha solo se fusiona una vez por empujón. Tras cada empujón que mueve algo, aparece una ficha nueva, un 2 o a veces un 4, en una casilla vacía. No se permite un empujón que no mueva nada.
+# El final de la partida
+Conseguir la ficha objetivo gana: aparece la tarjeta final; tócala para ocultarla y seguir. La partida termina cuando ningún empujón mueve nada; tu puntuación queda grabada en una placa bajo la cuadrícula.
+# Jugar en el dispositivo
+Desliza el dedo sobre la cuadrícula o toca una de las cuatro flechas de debajo (en un ordenador también sirven las teclas de flecha). Una flecha se atenúa cuando ese empujón no movería nada. La lámpara da una pista: un buen empujón, con su flecha dorada. Deshacer quita un empujón cada vez, hasta el principio; también las fichas nuevas, así que el mismo empujón trae la misma ficha. La barra muestra tu puntuación y, en su extremo derecho, la mejor de esta sesión para esta cuadrícula.

@@ -1,0 +1,11 @@
+Klouzání po ledě
+# Cíl hry
+Červený puk leží na ledě mezi kameny. Někde v ledě je díra. Dostrč puk do díry co nejmenším počtem šťouchnutí. Nejdřív si vyber hlavolam: lehký, střední nebo těžký (víc ledu, víc šťouchnutí).
+Každý hlavolam je nový a vždy má řešení. Jeho par, nejmenší možný počet šťouchnutí, se najde vyzkoušením každé cesty.
+# Tah
+Šťouchni puk nahoru, dolů, doleva nebo doprava. Na ledě se sám nezastaví: klouže, dokud ho nezastaví kámen nebo okraj. Když cestou přejede přes díru, spadne do ní.
+# Konec hry
+Hlavolam je vyřešen, když puk spadne do díry. Při vyřešení na par přeběhne po ledě zlaté světlo.
+# Hra na zařízení
+Přejeď prstem po ledě požadovaným směrem, klepni na pole v řádku nebo sloupci puku, nebo klepni na jednu ze čtyř šipek pod deskou (na počítači fungují i klávesy se šipkami). Šipka je ztlumená, když puk tím směrem jet nemůže.
+Lampa dá nápovědu: další šťouchnutí nejkratší cesty, jeho šipku ve zlatém světle a dráhu vytečkovanou zlatě. Když už se do díry nedá dostat, nápověda nejdřív vrátí šťouchnutí, která tam vedla. Zpět vrací jedno šťouchnutí po druhém, až na začátek. Lišta ukazuje tvá šťouchnutí a na pravém konci par.

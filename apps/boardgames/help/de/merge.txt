@@ -1,0 +1,9 @@
+Verschmelzen
+# Das Ziel
+Nummerierte Plättchen liegen auf einem Raster. Schiebe alle in eine Richtung: Zwei gleiche Plättchen, die sich treffen, verschmelzen zu einem mit der doppelten Zahl. Bilde ein Plättchen 2048 (256 auf dem 3 × 3-Raster) und spiele danach für mehr Punkte weiter, wenn du magst. Wähle zuerst das Raster: 4 × 4, 5 × 5 (mehr Platz, leichter) oder 3 × 3 (schwer).
+# Ein Zug
+Schiebe nach oben, unten, links oder rechts: Jedes Plättchen gleitet so weit es geht. Zwei gleiche Plättchen, die sich treffen, werden eins, und seine Zahl kommt zu deinen Punkten. Ein Plättchen verschmilzt nur einmal pro Schub. Nach jedem Schub, der etwas bewegt hat, erscheint auf einem leeren Feld ein neues Plättchen, eine 2 oder ab und zu eine 4. Ein Schub, der nichts bewegt, ist nicht erlaubt.
+# Das Ende der Partie
+Wer das Zielplättchen bildet, gewinnt: Die Endkarte erscheint, ein Tippen blendet sie aus, und du kannst weiterspielen. Die Partie ist vorbei, wenn kein Schub mehr etwas bewegt; deine Punkte stehen eingebrannt auf einer Tafel unter dem Raster.
+# Spielen auf dem Gerät
+Wische auf dem Raster oder tippe auf einen der vier Pfeile darunter (am Computer gehen auch die Pfeiltasten). Ein Pfeil ist abgeblendet, wenn dieser Schub nichts bewegen würde. Die Lampe gibt einen Tipp: einen guten Schub, sein Pfeil golden. Rückgängig nimmt einen Schub nach dem anderen zurück, bis zum Anfang; auch die neuen Plättchen, sodass derselbe Schub wieder dasselbe Plättchen bringt. Die Leiste zeigt deine Punkte und an ihrem rechten Ende die beste Punktzahl dieser Sitzung für dieses Raster.

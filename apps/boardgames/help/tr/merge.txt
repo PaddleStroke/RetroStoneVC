@@ -1,0 +1,9 @@
+Birleştir
+# Amaç
+Bir ızgaranın üstünde numaralı taşlar var. Hepsini bir yöne it: karşılaşan iki eş taş, sayısı iki katı olan tek bir taşa dönüşür. 2048 taşını yap (3 × 3 ızgarada 256), sonra istersen daha yüksek puan için oynamaya devam et. Önce ızgarayı seç: 4 × 4, 5 × 5 (daha çok yer, daha kolay) ya da 3 × 3 (zor).
+# Bir hamle
+Yukarı, aşağı, sola ya da sağa it: her taş gidebildiği kadar kayar. Karşılaşan iki eş taş tek taş olur ve sayısı puanına eklenir. Bir taş bir itişte yalnızca bir kez birleşir. Bir şeyi yerinden oynatan her itişten sonra boş bir karede yeni bir taş belirir: 2 ya da bazen 4. Hiçbir şeyi oynatmayan itişe izin verilmez.
+# Oyunun sonu
+Hedef taşı yapmak kazandırır: bitiş kartı çıkar; gizlemek ve devam etmek için ona dokun. Hiçbir itiş artık bir şeyi oynatmadığında oyun biter; puanın ızgaranın altındaki bir levhaya dağlanır.
+# Cihazda oynamak
+Izgaranın üstünde kaydır ya da altındaki dört oktan birine dokun (bilgisayarda ok tuşları da çalışır). O itiş hiçbir şeyi oynatmayacaksa ok soluk görünür. Lamba bir ipucu verir: iyi bir itiş, oku altın ışıkta. Geri al her seferinde bir itişi geri alır, en başa kadar; yeni taşları da, böylece aynı itiş aynı taşı getirir. Çubuk puanını ve sağ ucunda bu oturumdaki bu ızgara için en iyi puanı gösterir.

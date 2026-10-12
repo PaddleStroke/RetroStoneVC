@@ -1,0 +1,11 @@
+Jääliuku
+# Tavoite
+Punainen kiekko on jäällä kivien keskellä. Jossain jäässä on reikä. Tönäise kiekko reikään mahdollisimman vähillä tönäisyillä. Valitse ensin tehtävä: helppo, keskitaso tai vaikea (enemmän jäätä, enemmän tönäisyjä).
+Jokainen tehtävä on uusi ja aina ratkaistavissa. Sen par eli pienin mahdollinen tönäisyjen määrä löydetään kokeilemalla jokaista reittiä.
+# Siirto
+Tönäise kiekkoa ylös, alas, vasemmalle tai oikealle. Jäällä se ei pysähdy itsestään: se liukuu, kunnes kivi tai reuna pysäyttää sen. Jos se liukuu matkalla reiän yli, se putoaa siihen.
+# Pelin loppu
+Tehtävä on ratkaistu, kun kiekko putoaa reikään. Kun tehtävä ratkeaa par-määrällä tönäisyjä, kultainen valo juoksee jään yli.
+# Pelaaminen laitteella
+Pyyhkäise jäällä haluamaasi suuntaan, napauta ruutua kiekon rivillä tai sarakkeessa tai napauta yhtä laudan alla olevista neljästä nuolesta (tietokoneella myös nuolinäppäimet toimivat). Nuoli on himmennetty, kun kiekko ei pääse siihen suuntaan.
+Lamppu antaa vihjeen: lyhimmän reitin seuraavan tönäisyn, sen nuolen kultaisena ja sen radan kultaisin pistein. Jos reikään ei enää pääse, vihje peruu ensin tönäisyt, jotka johtivat sinne. Kumoa peruu yhden tönäisyn kerrallaan, aina alkuun asti. Palkki näyttää tönäisysi ja oikeassa päässä parin.

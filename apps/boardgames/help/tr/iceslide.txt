@@ -1,0 +1,11 @@
+Buzda Kayma
+# Amaç
+Kırmızı bir pak buzun üstünde, kayaların arasında duruyor. Buzun bir yerinde bir delik var. Pakı olabildiğince az itişle deliğe sok. Önce bulmacayı seç: kolay, orta ya da zor (daha çok buz, daha çok itiş).
+Her bulmaca yenidir ve her zaman çözülebilir. Parı, yani mümkün olan en az itiş sayısı, her yol denenerek bulunur.
+# Bir hamle
+Pakı yukarı, aşağı, sola ya da sağa it. Buzda kendiliğinden durmaz: bir kaya ya da kenar onu durdurana kadar kayar. Yolda deliğin üstünden geçerse içine düşer.
+# Oyunun sonu
+Pak deliğe düştüğünde bulmaca çözülmüş olur. Par sayısında çözülürse buzun üstünde altın bir ışık dolaşır.
+# Cihazda oynamak
+Buzun üstünde istediğin yöne kaydır, pakın satırındaki ya da sütunundaki bir kareye dokun veya tahtanın altındaki dört oktan birine dokun (bilgisayarda ok tuşları da çalışır). Pak o yöne gidemiyorsa ok soluk görünür.
+Lamba bir ipucu verir: en kısa yollardan birinin sonraki itişi; oku altın ışıkta, yolu altın noktalarla gösterilir. Deliğe artık ulaşılamıyorsa ipucu önce oraya götüren itişleri geri alır. Geri al her seferinde bir itişi geri alır, en başa kadar. Çubuk itişlerini ve sağ ucunda parı gösterir.

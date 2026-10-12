@@ -1,0 +1,9 @@
+Fusão
+# O objetivo
+Peças numeradas ficam sobre uma grade. Empurre todas para um lado: duas peças iguais que se encontram se fundem numa peça com o dobro do número. Faça uma peça 2048 (256 na grade 3 × 3) e depois continue jogando para aumentar a pontuação, se quiser. Escolha primeiro a grade: 4 × 4, 5 × 5 (mais espaço, mais fácil) ou 3 × 3 (difícil).
+# Uma jogada
+Empurre para cima, para baixo, para a esquerda ou para a direita: cada peça desliza o mais longe que puder. Duas peças iguais que se encontram viram uma só, e o número dela é somado à sua pontuação. Uma peça só se funde uma vez por empurrão. Depois de cada empurrão que moveu algo, uma peça nova, um 2 ou às vezes um 4, aparece numa casa vazia. Um empurrão que não move nada não é permitido.
+# O fim da partida
+Fazer a peça-alvo vence: aparece o cartão final; toque nele para escondê-lo e continuar. A partida acaba quando nenhum empurrão move mais nada; a sua pontuação fica gravada numa placa abaixo da grade.
+# Jogando no aparelho
+Deslize o dedo sobre a grade ou toque numa das quatro setas abaixo dela (no computador, as teclas de seta também funcionam). Uma seta fica apagada quando aquele empurrão não moveria nada. A lâmpada dá uma dica: um bom empurrão, com a seta dourada. Desfazer volta um empurrão de cada vez, até o começo; as peças novas também, então o mesmo empurrão traz a mesma peça. A barra mostra a sua pontuação e, na ponta direita, a melhor desta sessão para esta grade.

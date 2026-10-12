@@ -1,0 +1,9 @@
+Gabung
+# Tujuan
+Ubin-ubin bernomor ada di sebuah petak. Dorong semuanya ke satu arah: dua ubin sama yang bertemu bergabung menjadi satu ubin dengan angka dua kali lipat. Buat ubin 2048 (256 di petak 3 × 3), lalu lanjutkan bermain untuk skor lebih tinggi jika mau. Pilih dulu petaknya: 4 × 4, 5 × 5 (lebih lapang, lebih mudah), atau 3 × 3 (sulit).
+# Satu langkah
+Dorong ke atas, ke bawah, ke kiri, atau ke kanan: setiap ubin meluncur sejauh mungkin. Dua ubin sama yang bertemu menjadi satu, dan angkanya ditambahkan ke skormu. Satu ubin hanya bergabung sekali dalam satu dorongan. Setelah setiap dorongan yang menggerakkan sesuatu, ubin baru, angka 2 atau kadang 4, muncul di kotak kosong. Dorongan yang tidak menggerakkan apa pun tidak diperbolehkan.
+# Akhir permainan
+Membuat ubin sasaran berarti menang: kartu akhir muncul; ketuk untuk menyembunyikannya dan lanjut bermain. Permainan berakhir saat tidak ada dorongan yang bisa menggerakkan apa pun; skormu dibakar pada sebuah papan kecil di bawah petak.
+# Bermain di perangkat
+Usap petak atau ketuk salah satu dari empat panah di bawahnya (di komputer, tombol panah juga bisa). Panah meredup jika dorongan itu tidak akan menggerakkan apa pun. Lampu memberi petunjuk: dorongan yang baik, panahnya bercahaya emas. Urungkan membatalkan satu dorongan setiap kali, sampai ke awal; ubin baru juga ikut dibatalkan, jadi dorongan yang sama membawa ubin yang sama. Bilah menunjukkan skormu dan, di ujung kanannya, skor terbaik sesi ini untuk petak ini.

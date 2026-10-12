@@ -1,0 +1,9 @@
+Slučování
+# Cíl hry
+Na mřížce leží očíslované kostičky. Posuň je všechny jedním směrem: dvě stejné kostičky, které se potkají, se sloučí do jedné s dvojnásobným číslem. Vytvoř kostičku 2048 (na mřížce 3 × 3 kostičku 256) a pak klidně hraj dál o vyšší skóre. Nejdřív si vyber mřížku: 4 × 4, 5 × 5 (víc místa, snazší) nebo 3 × 3 (těžká).
+# Tah
+Posuň nahoru, dolů, doleva nebo doprava: každá kostička klouže, jak daleko to jde. Dvě stejné kostičky, které se potkají, se stanou jednou a její číslo se přičte k tvému skóre. Kostička se během jednoho posunu sloučí jen jednou. Po každém posunu, který něčím pohnul, se na prázdném poli objeví nová kostička, 2 nebo občas 4. Posun, který ničím nepohne, není povolen.
+# Konec hry
+Vytvořením cílové kostičky vyhráváš: objeví se karta konce hry; klepnutím ji skryješ a hraješ dál. Hra končí, když už žádný posun ničím nepohne; tvé skóre se vypálí do destičky pod mřížkou.
+# Hra na zařízení
+Přejeď prstem po mřížce nebo klepni na jednu ze čtyř šipek pod ní (na počítači fungují i klávesy se šipkami). Šipka je ztlumená, když by ten posun ničím nepohnul. Lampa dá nápovědu: dobrý posun, jeho šipku ve zlatém světle. Zpět vrací jeden posun po druhém, až na začátek; i nové kostičky, takže stejný posun přinese stejnou kostičku. Lišta ukazuje tvé skóre a na pravém konci nejlepší skóre této relace pro tuto mřížku.

@@ -1,0 +1,11 @@
+Ślizg po lodzie
+# Cel gry
+Czerwony krążek leży na lodzie wśród skał. Gdzieś w lodzie jest dziura. Wepchnij krążek do dziury jak najmniejszą liczbą pchnięć. Najpierw wybierz łamigłówkę: łatwą, średnią lub trudną (więcej lodu, więcej pchnięć).
+Każda łamigłówka jest nowa i zawsze ma rozwiązanie. Jej par, najmniejsza możliwa liczba pchnięć, jest znajdowany przez wypróbowanie każdej drogi.
+# Ruch
+Pchnij krążek w górę, w dół, w lewo lub w prawo. Na lodzie sam się nie zatrzyma: sunie, aż zatrzyma go skała albo brzeg. Jeśli po drodze przejedzie nad dziurą, wpada do niej.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy krążek wpadnie do dziury. Gdy liczba pchnięć równa się parowi, złote światło przebiega po lodzie.
+# Gra na urządzeniu
+Przesuń palcem po lodzie w wybranym kierunku, dotknij pola w wierszu lub kolumnie krążka albo dotknij jednej z czterech strzałek pod planszą (na komputerze działają też klawisze strzałek). Strzałka jest przygaszona, gdy krążek nie może pojechać w tę stronę.
+Lampa daje podpowiedź: następne pchnięcie najkrótszej drogi, jego strzałkę w złotym świetle i trasę wykropkowaną złotem. Jeśli do dziury nie da się już dotrzeć, podpowiedź najpierw cofa pchnięcia, które tam doprowadziły. Cofnij cofa po jednym pchnięciu, aż do początku. Pasek pokazuje twoje pchnięcia, a na prawym końcu par.

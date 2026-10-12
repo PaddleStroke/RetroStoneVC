@@ -1,0 +1,9 @@
+Samenvoegen
+# Het doel
+Genummerde tegels liggen op een raster. Duw ze allemaal één kant op: twee gelijke tegels die elkaar raken, smelten samen tot één tegel met het dubbele getal. Maak een tegel van 2048 (256 op het 3 × 3-raster) en speel daarna door voor een hogere score als je wilt. Kies eerst het raster: 4 × 4, 5 × 5 (meer ruimte, makkelijker) of 3 × 3 (moeilijk).
+# Een zet
+Duw omhoog, omlaag, naar links of naar rechts: elke tegel schuift zo ver als hij kan. Twee gelijke tegels die elkaar raken worden één, en het getal ervan komt bij je score. Een tegel smelt maar één keer per duw samen. Na elke duw die iets heeft verschoven, verschijnt er op een leeg vakje een nieuwe tegel, een 2 of soms een 4. Een duw die niets verschuift, mag niet.
+# Het einde van het spel
+De doeltegel maken is winnen: de eindkaart verschijnt; tik erop om hem te verbergen en door te spelen. Het spel is afgelopen als geen enkele duw nog iets verschuift; je score staat dan ingebrand in een plankje onder het raster.
+# Spelen op het apparaat
+Veeg over het raster of tik op een van de vier pijlen eronder (op een computer werken ook de pijltjestoetsen). Een pijl is gedimd als die duw niets zou verschuiven. De lamp geeft een hint: een goede duw, zijn pijl goud. Ongedaan maken neemt één duw tegelijk terug, helemaal tot het begin; ook de nieuwe tegels, dus dezelfde duw brengt weer dezelfde tegel. De balk toont je score en, aan het rechtereinde, de beste van deze sessie voor dit raster.

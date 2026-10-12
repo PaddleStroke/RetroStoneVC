@@ -1,0 +1,9 @@
+Yhdistä
+# Tavoite
+Numeroituja laattoja on ruudukolla. Työnnä ne kaikki yhteen suuntaan: kaksi samaa laattaa, jotka kohtaavat, yhdistyvät yhdeksi laataksi, jossa on kaksinkertainen luku. Tee laatta 2048 (3 × 3 -ruudukolla 256) ja jatka sen jälkeen paremman pistemäärän perään, jos haluat. Valitse ensin ruudukko: 4 × 4, 5 × 5 (enemmän tilaa, helpompi) tai 3 × 3 (vaikea).
+# Siirto
+Työnnä ylös, alas, vasemmalle tai oikealle: jokainen laatta liukuu niin pitkälle kuin pääsee. Kaksi samaa laattaa, jotka kohtaavat, muuttuvat yhdeksi, ja sen luku lisätään pisteisiisi. Laatta yhdistyy vain kerran työnnössä. Jokaisen jotain liikuttaneen työnnön jälkeen tyhjään ruutuun ilmestyy uusi laatta, 2 tai joskus 4. Työntö, joka ei liikuttaisi mitään, ei ole sallittu.
+# Pelin loppu
+Tavoitelaatan tekeminen voittaa: loppukortti tulee esiin; napauta se piiloon ja jatka pelaamista. Peli päättyy, kun mikään työntö ei enää liikuta mitään; pisteesi poltetaan laattaan ruudukon alle.
+# Pelaaminen laitteella
+Pyyhkäise ruudukolla tai napauta yhtä sen alla olevista neljästä nuolesta (tietokoneella myös nuolinäppäimet toimivat). Nuoli on himmennetty, kun se työntö ei liikuttaisi mitään. Lamppu antaa vihjeen: hyvän työnnön, sen nuolen kultaisena. Kumoa peruu yhden työnnön kerrallaan, aina alkuun asti; myös uudet laatat, joten sama työntö tuo saman laatan. Palkki näyttää pisteesi ja oikeassa päässä tämän istunnon parhaan tuloksen tällä ruudukolla.

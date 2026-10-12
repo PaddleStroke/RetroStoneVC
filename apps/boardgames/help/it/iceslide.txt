@@ -1,0 +1,11 @@
+Scivolata sul ghiaccio
+# Lo scopo
+Un disco rosso è sul ghiaccio, tra le rocce. Da qualche parte sul ghiaccio c'è una buca. Spingi il disco nella buca con il minor numero di spinte possibile. Scegli prima il rompicapo: facile, medio o difficile (più ghiaccio, più spinte).
+Ogni rompicapo è nuovo e ha sempre una soluzione. Il suo par, il minor numero di spinte possibile, si trova provando ogni percorso.
+# Una mossa
+Spingi il disco in su, in giù, a sinistra o a destra. Sul ghiaccio non si ferma da solo: scivola finché una roccia o il bordo lo fermano. Se passa sopra la buca, ci cade dentro.
+# La fine della partita
+Il rompicapo è risolto quando il disco cade nella buca. Risolto nel par, una luce dorata corre sul ghiaccio.
+# Giocare sul dispositivo
+Scorri il dito sul ghiaccio nella direzione voluta, tocca una casella nella riga o nella colonna del disco, oppure una delle quattro frecce sotto il tavoliere (sul computer funzionano anche i tasti freccia). Una freccia è attenuata quando il disco non può andare da quella parte.
+La lampada dà un suggerimento: la prossima spinta di un percorso più corto, con la freccia dorata e il tragitto punteggiato d'oro. Se la buca non è più raggiungibile, il suggerimento annulla prima le spinte che hanno portato lì. Annulla toglie una spinta alla volta, fino all'inizio. La barra mostra le tue spinte e, all'estremità destra, il par.

@@ -1,0 +1,9 @@
+Merge
+# The aim
+Numbered tiles lie on a square grid. Push them all one way: equal tiles that meet merge into one tile of twice the number. Make a tile of 2048 (256 on the small grid), then go on for a higher score if you like. Choose the grid first: 4 × 4, 5 × 5 (more room, easier) or 3 × 3 (hard).
+# A move
+Push up, down, left or right: every tile slides as far as it can that way. Two tiles of the same number that meet become one, and its number is added to your score. A tile merges only once in a push. After every push that moved something, a new tile, a 2 or now and then a 4, appears on an empty square. A push that would move nothing is not allowed.
+# The end of the game
+Making the target tile wins: the end card shows, a tap hides it and you can play on. The game is over when no push can move anything; your score is burned into a plaque under the grid.
+# Playing on the device
+Swipe on the grid, or tap one of the four arrow buttons under it (on a computer, the arrow keys work too). An arrow is dimmed when that push would move nothing. The lamp shows a hint: a good push, its arrow lit in gold. Undo takes back one push at a time, all the way to the start; the new tiles are taken back too, so the same push brings the same tile again. The bar shows your score and, at its right end, the best score of this session for this grid.

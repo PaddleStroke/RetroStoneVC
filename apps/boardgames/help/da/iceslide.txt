@@ -1,0 +1,11 @@
+Isglid
+# Målet
+En rød puck ligger på isen mellem sten. Et sted i isen er der et hul. Skub pucken ned i hullet med så få skub som muligt. Vælg først opgaven: let, middel eller svær (mere is, flere skub).
+Hver opgave er ny og kan altid løses. Dens par, det mindste mulige antal skub, findes ved at prøve hver vej.
+# Et træk
+Skub pucken op, ned, til venstre eller til højre. På isen standser den ikke af sig selv: den glider, til en sten eller kanten stopper den. Glider den hen over hullet på vejen, falder den ned i det.
+# Spillets afslutning
+Opgaven er løst, når pucken falder ned i hullet. Løst på par løber et gyldent lys ud over isen.
+# Spil på enheden
+Stryg hen over isen i den retning, du vil, tryk på et felt i puckens række eller søjle, eller tryk på en af de fire pile under brættet (på en computer virker piletasterne også). En pil er dæmpet, når pucken ikke kan gå den vej.
+Lampen giver et tip: det næste skub på en korteste vej, med pilen i guld og banen prikket i guld. Kan hullet ikke længere nås, tager tippet først de skub tilbage, der førte dertil. Fortryd tager ét skub tilbage ad gangen, helt til starten. Bjælken viser dine skub og, yderst til højre, par.

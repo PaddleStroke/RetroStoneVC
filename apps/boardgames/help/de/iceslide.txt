@@ -1,0 +1,11 @@
+Eisrutsche
+# Das Ziel
+Ein roter Puck liegt auf dem Eis zwischen Felsen. Irgendwo im Eis ist ein Loch. Stoße den Puck mit so wenigen Stößen wie möglich ins Loch. Wähle zuerst das Rätsel: leicht, mittel oder schwer (eine größere Eisfläche, mehr Stöße).
+Jedes Rätsel ist neu und immer lösbar. Sein Par, die kleinste mögliche Zahl an Stößen, wird gefunden, indem jeder Weg ausprobiert wird.
+# Ein Zug
+Stoße den Puck nach oben, unten, links oder rechts. Auf dem Eis hält er nicht von selbst an: Er gleitet, bis ein Felsen oder der Rand ihn stoppt. Fährt er unterwegs über das Loch, fällt er hinein.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn der Puck ins Loch fällt. Im Par gelöst, läuft ein goldenes Licht über das Eis.
+# Spielen auf dem Gerät
+Wische auf dem Eis in die gewünschte Richtung, tippe auf ein Feld in der Zeile oder Spalte des Pucks oder auf einen der vier Pfeile unter dem Brett (am Computer gehen auch die Pfeiltasten). Ein Pfeil ist abgeblendet, wenn der Puck nicht in diese Richtung kann.
+Die Lampe gibt einen Tipp: den nächsten Stoß eines kürzesten Wegs, sein Pfeil golden und seine Bahn golden gepunktet. Ist das Loch nicht mehr erreichbar, nimmt der Tipp zuerst die Stöße zurück, die dorthin geführt haben. Rückgängig nimmt einen Stoß nach dem anderen zurück, bis zum Anfang. Die Leiste zeigt deine Stöße und an ihrem rechten Ende das Par.

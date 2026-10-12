@@ -1,0 +1,11 @@
+IJsglijden
+# Het doel
+Een rode schijf ligt op het ijs, tussen rotsen. Ergens in het ijs zit een gat. Duw de schijf in zo weinig mogelijk duwen in het gat. Kies eerst de puzzel: makkelijk, gemiddeld of moeilijk (meer ijs, meer duwen).
+Elke puzzel is nieuw en altijd oplosbaar. Zijn par, het kleinste mogelijke aantal duwen, wordt gevonden door elke weg te proberen.
+# Een zet
+Duw de schijf omhoog, omlaag, naar links of naar rechts. Op het ijs stopt hij niet vanzelf: hij glijdt tot een rots of de rand hem tegenhoudt. Glijdt hij onderweg over het gat, dan valt hij erin.
+# Het einde van het spel
+De puzzel is opgelost als de schijf in het gat valt. Opgelost in het par, loopt er een gouden licht over het ijs.
+# Spelen op het apparaat
+Veeg over het ijs in de richting die je wilt, tik op een vakje in de rij of kolom van de schijf, of tik op een van de vier pijlen onder het bord (op een computer werken ook de pijltjestoetsen). Een pijl is gedimd als de schijf niet die kant op kan.
+De lamp geeft een hint: de volgende duw van een kortste weg, zijn pijl goud en zijn baan goud gestippeld. Is het gat niet meer te bereiken, dan neemt de hint eerst de duwen terug die daarheen leidden. Ongedaan maken neemt één duw tegelijk terug, helemaal tot het begin. De balk toont je duwen en, aan het rechtereinde, het par.

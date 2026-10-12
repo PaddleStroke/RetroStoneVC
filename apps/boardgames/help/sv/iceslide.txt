@@ -1,0 +1,11 @@
+Isglid
+# Målet
+En röd puck ligger på isen bland stenar. Någonstans i isen finns ett hål. Knuffa pucken ner i hålet med så få knuffar som möjligt. Välj först pusslet: lätt, mellan eller svårt (mer is, fler knuffar).
+Varje pussel är nytt och går alltid att lösa. Dess par, det minsta möjliga antalet knuffar, hittas genom att pröva varje väg.
+# Ett drag
+Knuffa pucken uppåt, nedåt, åt vänster eller åt höger. På isen stannar den inte av sig själv: den glider tills en sten eller kanten stoppar den. Glider den över hålet på vägen ramlar den ner.
+# Partiets slut
+Pusslet är löst när pucken ramlar ner i hålet. Löst på par springer ett guldljus ut över isen.
+# Spela på enheten
+Svep på isen åt det håll du vill, tryck på en ruta i puckens rad eller kolumn, eller tryck på en av de fyra pilarna under brädet (på en dator fungerar piltangenterna också). En pil är nedtonad när pucken inte kan gå åt det hållet.
+Lampan ger en ledtråd: nästa knuff på en kortaste väg, dess pil i guld och dess bana prickad i guld. Går hålet inte längre att nå tar ledtråden först tillbaka knuffarna som ledde dit. Ångra tar tillbaka en knuff i taget, ända till början. Listen visar dina knuffar och, längst till höger, par.
