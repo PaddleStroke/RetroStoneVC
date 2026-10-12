@@ -1,0 +1,36 @@
+Skat
+# Tujuan
+Permainan kartu besar dari Jerman untuk tiga pemain. Di setiap ronde, satu pemain, yaitu pemain tunggal, bermain sendirian melawan dua pemain lainnya: ia memenangkan penawaran, memilih jenis permainan, dan berusaha memenangkannya. Satu pertandingan terdiri dari 12 atau 36 ronde, sesuai pilihan; total tertinggi di akhir pertandingan menang. Aturannya mengikuti Peraturan Skat Internasional. Untuk 3 pemain yang saling mengoper perangkat; tak seorang pun melihat kartu pemain lain.
+# Pembagian kartu
+Deknya berisi 32 kartu, dari 7 sampai as. Setiap pemain mendapat 10 kartu; 2 kartu sisanya diletakkan tertutup: itulah skat. Pembagi kartu bergeser satu tempat setiap ronde. Pemain setelah pembagi adalah pemain depan (Vorhand) dan membuka trik pertama; lalu pemain tengah (Mittelhand) dan pemain belakang (Hinterhand, si pembagi).
+# Penawaran
+- Tawaran berupa nilai permainan: 18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40, dan seterusnya.
+- Pemain tengah menawar kepada pemain depan, yang menjawab ya (ia menahan tawaran itu) atau pas; pemain tengah lalu menawar lebih tinggi atau pas.
+- Pemain yang tersisa kemudian menghadapi pemain belakang, yang menawar dengan cara yang sama. Pemain terakhir yang tersisa menjadi pemain tunggal, dengan tawaran terakhir.
+- Jika tidak ada yang menawar, pemain depan masih boleh menawar 18. Jika ia juga pas, kartu dibatalkan: ronde itu tetap dihitung dalam daftar, tanpa skor.
+# Skat dan jenis permainan
+- Pemain tunggal boleh mengambil skat lalu menyisihkan dua kartu apa saja; kartu itu dihitung untuknya. Atau ia bermain hand: skat dibiarkan tak tersentuh, dan tetap dihitung untuknya di akhir.
+- Lalu ia menyebut jenis permainan: permainan jenis kartu (wajik 9, hati 10, sekop 11, keriting 12), grand (24: hanya jack yang truf), atau null.
+- Null: pemain tunggal tidak boleh mengambil satu trik pun. Tidak ada truf, dan setiap jenis berurutan as, king, queen, jack, 10, 9, 8, 7. Null bernilai 23, null hand 35, null ouvert 46, null ouvert hand 59. Null yang nilainya di bawah tawaran tidak bisa dipilih.
+- Dalam permainan hand, pemain tunggal boleh mengumumkan schneider, schwarz (sekaligus schneider), dan ouvert (sekaligus schwarz): kartunya lalu dibuka agar dilihat semua orang. Null ouvert juga dimainkan terbuka, dengan atau tanpa skat.
+# Truf dan jalannya permainan
+- Dalam permainan jenis kartu dan grand, keempat jack adalah truf tertinggi, dengan urutan keriting, sekop, hati, wajik. Dalam permainan jenis kartu, jenis truf menyusul: as, 10, king, queen, 9, 8, 7.
+- Jenis lainnya berurutan as, 10, king, queen, 9, 8, 7. Jack selalu termasuk truf, tidak pernah termasuk jenisnya sendiri.
+- Pemain depan membuka. Ikuti jenis kartu yang dibuka jika bisa; jika tidak, mainkan kartu apa saja. Truf tertinggi memenangkan trik; jika tidak ada truf, kartu tertinggi dari jenis yang dibuka. Pemenang membuka trik berikutnya.
+# Menang
+- Poin kartu: as 11, sepuluh 10, king 4, queen 3, jack 2: total 120. Pemain tunggal menambahkan skat ke triknya dan butuh 61 untuk menang.
+- Schneider: pihak dengan 30 poin atau kurang. Schwarz: pihak tanpa satu trik pun. Schneider yang diumumkan butuh 90 poin, schwarz yang diumumkan butuh semua trik.
+- Null kalah begitu pemain tunggal mengambil satu trik.
+# Nilai permainan
+- Permainan jenis kartu dan grand: nilai dasar (9, 10, 11, 12, atau 24) dikali pengali.
+- Matador: deretan truf teratas tanpa putus, dari jack keriting ke bawah, yang dipegang pemain tunggal ("dengan 2") atau tidak dipegangnya ("tanpa 3"), termasuk skat.
+- Pengali: jumlah matador, ditambah 1 untuk permainan, 1 untuk hand, 1 untuk schneider, 1 lagi jika diumumkan, 1 untuk schwarz, 1 lagi jika diumumkan, dan 1 untuk ouvert.
+- Contoh: keriting dengan 2, dimainkan hand: (2 + 1 + 1) x 12 = 48.
+- Tawaran berlebih: jika nilainya di bawah tawaran, permainan itu kalah. Nilainya lalu dihitung sebagai kelipatan terkecil dari nilai dasarnya yang mencapai tawaran.
+# Skor
+- Permainan yang menang memberi pemain tunggal nilainya; permainan yang kalah memberinya dua kali nilainya, di bawah nol.
+- Ditambah poin Seeger-Fabian: 50 untuk setiap permainan yang menang, minus 50 untuk setiap permainan yang kalah, dan 40 untuk masing-masing dari dua pemain lain setiap kali pemain tunggal kalah.
+# Akhir permainan
+Setelah ronde terakhir dalam daftar, total tertinggi menang. Total yang sama berbagi kemenangan.
+# Bermain di perangkat
+Oper perangkat ke pemain yang bidaknya menyala; ia mengetuk tombol mulai dan melihat kartunya sendiri. Selama penawaran, skat terletak tertutup di bagian atas. Untuk menawar, ketuk sebuah nilai (panah menampilkan nilai yang lebih tinggi), lalu tanda centang, atau ketuk pas. Untuk menjawab tawaran, ketuk tanda centang untuk ya, atau pas. Setiap kursi menunjukkan kata terakhirnya: nilai dalam cakram gelap, tanda centang untuk ya, atau tanda pas. Pemain tunggal mengetuk skat untuk mengambilnya, lalu mengetuk dua kartu untuk menyisihkannya (ketuk kartu di skat untuk mengambilnya kembali); untuk bermain hand, ia memilih jenis permainan tanpa menyentuh skat. Jenis permainan: keempat jenis kartu, grand (gambar jack), dan null (kartu yang dicoret); lalu pengumuman: 90 untuk schneider, 120 untuk schwarz, kartu terbuka untuk ouvert; lalu tanda centang. Selama permainan, kursi pemain tunggal menunjukkan tawarannya, jenis permainannya, dan dua punggung kartu untuk permainan hand. Untuk bermain, ketuk kartu yang menyala agar terangkat, lalu ketuk lagi kartu itu atau tempatnya di tengah; atau seret ke sana. Ketuk tumpukan di kanan bawah untuk melihat trik terakhir. Setelah setiap ronde, sebuah tabel menunjukkan jenis permainan dan tawarannya; jack keriting (dicoret: tanpa) dan matador, pengali dikali nilai dasar, dan nilainya (cahaya merah: tawaran berlebih); skat dan poin kartu pemain tunggal (centang emas: menang); skor setiap pemain, poin Seeger-Fabian, dan totalnya; serta daftar ronde, dengan keping berwarna pemain tunggal di setiap ronde (cahaya emas: menang, redup: kalah, cincin kosong: dibatalkan). Ketuk untuk ronde berikutnya. Setiap bilah menunjukkan kartu di tangan dan total. Urungkan membatalkan pilihan yang belum dikonfirmasi, tidak pernah pilihan setelah perangkat dioper.

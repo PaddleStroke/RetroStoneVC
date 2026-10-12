@@ -1,0 +1,36 @@
+Skat
+# O objetivo
+O grande jogo de cartas da Alemanha, para três. Em cada rodada, um jogador, o declarante, joga sozinho contra os outros dois: ele vence o leilão, escolhe o jogo e tenta cumpri-lo. Uma partida é uma série de 12 ou 36 rodadas, à escolha; no fim, vence o maior total. As regras são as do regulamento internacional do Skat. Para 3 jogadores passando o aparelho; ninguém vê as cartas dos outros.
+# A distribuição
+O baralho tem 32 cartas, do 7 ao ás. Cada jogador recebe 10 cartas; outras 2 ficam viradas para baixo: o skat. Quem dá as cartas avança um lugar a cada rodada. O jogador depois de quem dá as cartas é o primeiro (Vorhand) e abre a primeira vaza; depois vêm o segundo (Mittelhand) e o terceiro (Hinterhand), que é quem deu as cartas.
+# O leilão
+- Os lances são valores de jogo: 18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40 e assim por diante.
+- O segundo dá lances ao primeiro, que responde sim (segura o lance) ou passa; o segundo sobe ou passa.
+- Quem sobrar ouve depois o terceiro, que dá lances do mesmo jeito. O último jogador que resta é o declarante, com o último lance.
+- Se ninguém der lance, o primeiro ainda pode dar 18. Se ele também passar, as cartas são jogadas fora: a rodada conta na série, sem pontuação.
+# O skat e o jogo
+- O declarante pode pegar o skat e descartar duas cartas quaisquer, que contam para ele. Ou ele joga de mão (Hand): deixa o skat intocado, e mesmo assim o skat conta para ele no fim.
+- Depois ele escolhe o jogo: um jogo de naipe (ouros 9, copas 10, espadas 11, paus 12), Grand (24: só os valetes são trunfos) ou Null.
+- Null: o declarante não pode fazer nenhuma vaza. Não há trunfos e todo naipe segue a ordem ás, rei, dama, valete, 10, 9, 8, 7. O Null vale 23; o Null de mão, 35; o Null ouvert, 46; o Null ouvert de mão, 59. Não se pode escolher um Null que valha menos que o lance.
+- Num jogo de mão, o declarante pode anunciar Schneider, Schwarz (com Schneider) e ouvert (com Schwarz): ele então joga com as cartas viradas para cima, à vista de todos. O Null ouvert também é jogado com as cartas abertas, com ou sem o skat.
+# Os trunfos e o jogo
+- Nos jogos de naipe e no Grand, os quatro valetes são os trunfos mais altos, nesta ordem: paus, espadas, copas, ouros. Num jogo de naipe, vem em seguida o naipe de trunfo: ás, 10, rei, dama, 9, 8, 7.
+- Os outros naipes seguem a ordem ás, 10, rei, dama, 9, 8, 7. Um valete é sempre trunfo, nunca uma carta do seu próprio naipe.
+- O primeiro abre. Siga o naipe da saída se puder; senão, jogue qualquer carta. O trunfo mais alto ganha a vaza; senão, a carta mais alta do naipe da saída. Quem ganha abre a próxima vaza.
+# Ganhar o jogo
+- Pontos das cartas: ás 11, dez 10, rei 4, dama 3, valete 2: 120 no total. O declarante soma o skat às suas vazas e precisa de 61 para ganhar.
+- Schneider: um lado com 30 pontos ou menos. Schwarz: um lado sem nenhuma vaza. Um Schneider anunciado exige 90 pontos; um Schwarz anunciado, todas as vazas.
+- O Null está perdido assim que o declarante faz uma vaza.
+# O valor do jogo
+- Jogos de naipe e Grand: o valor básico (9, 10, 11, 12 ou 24) vezes o multiplicador.
+- Os matadores: a sequência sem falhas dos trunfos mais altos, do valete de paus para baixo, que o declarante tem (diz-se com 2) ou que lhe faltam (sem 3), contando o skat.
+- O multiplicador: os matadores, mais 1 pelo jogo, 1 pela mão, 1 por Schneider, mais 1 se anunciado, 1 por Schwarz, mais 1 se anunciado, e 1 por ouvert.
+- Exemplo: paus com 2, jogado de mão: (2 + 1 + 1) x 12 = 48.
+- Lance alto demais: se o valor ficar abaixo do lance, o jogo está perdido. Ele conta então como o menor múltiplo do seu valor básico que alcance o lance.
+# A pontuação
+- Um jogo ganho dá o seu valor ao declarante; um jogo perdido tira dele o dobro do valor.
+- Somam-se os pontos Seeger-Fabian: 50 por jogo ganho, menos 50 por jogo perdido, e 40 para cada um dos outros dois jogadores a cada jogo que um declarante perde.
+# O fim da partida
+Depois da última rodada da série, vence o maior total. Totais iguais dividem a vitória.
+# Jogando no aparelho
+Passe o aparelho para o jogador cuja ficha brilha; ele toca no botão de início e vê a sua mão. Durante o leilão, o skat fica virado para baixo, em cima. Para dar um lance, toque num valor (as setas mostram os mais altos) e depois no sinal de confirmação, ou toque em passar. Para responder a um lance, toque no sinal de confirmação para dizer sim, ou em passar. Cada lugar mostra a última fala do seu jogador: o valor num disco escuro, um sinal de confirmação para o sim, o sinal de passar. O declarante toca no skat para pegá-lo e depois toca em duas cartas para descartá-las (toque numa carta do skat para pegá-la de volta); para jogar de mão, ele escolhe o jogo sem tocar no skat. Os jogos: os quatro naipes, Grand (a figura do valete) e Null (uma carta riscada); depois os anúncios: 90 para Schneider, 120 para Schwarz, as cartas abertas para ouvert; depois o sinal de confirmação. Durante o jogo, o lugar do declarante mostra o lance, o jogo e, num jogo de mão, dois versos de carta. Para jogar, toque numa carta que brilha para levantá-la e toque nela de novo ou no lugar dela no centro; ou arraste-a até lá. Toque no monte embaixo à direita para ver a última vaza. Depois de cada rodada, uma tabela mostra o jogo e o lance; o valete de paus (riscado: sem) e os matadores, o multiplicador vezes o valor básico e o valor (um brilho vermelho: lance alto demais); o skat e os pontos de cartas do declarante (um sinal dourado: ganho); a pontuação, os pontos Seeger-Fabian e o total de cada jogador; e a série de rodadas, com uma ficha na cor de cada declarante (luz dourada: ganho, apagada: perdido, um anel vazio: cartas jogadas fora). Toque nela para a próxima rodada. Cada barra mostra as cartas na mão e o total. Desfazer cancela uma escolha ainda não confirmada, nunca depois que o aparelho passou.

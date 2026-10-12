@@ -1,0 +1,36 @@
+Skat
+# Cíl hry
+Velká německá karetní hra pro tři. V každém rozdání hraje jeden hráč, aktér, sám proti dvěma ostatním: vyhraje dražbu, zvolí hru a snaží se ji uhrát. Partie je řada 12 nebo 36 rozdání, podle volby; vyhrává nejvyšší součet na konci. Hraje se podle Mezinárodního skatového řádu. Pro 3 hráče, kteří si podávají zařízení; nikdo nevidí karty ostatních.
+# Rozdání
+Balíček má 32 karet, od sedmičky po eso. Každý hráč dostane 10 karet; 2 další leží rubem nahoru: to je skat. Rozdávající se každé rozdání posune o jedno místo. Hráč po rozdávajícím je forhont (Vorhand) a vynáší do prvního štychu; po něm přichází prostřední hráč a zadní hráč (rozdávající).
+# Dražba
+- Hlášky jsou hodnoty her: 18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40 a tak dále.
+- Prostřední hráč draží proti forhontovi, který odpoví ano (drží hlášku), nebo pasuje; prostřední zvýší, nebo pasuje.
+- Kdo zbyl, poslouchá pak zadního hráče, který draží stejně. Poslední, kdo zůstane, je aktér, s poslední hláškou.
+- Když nikdo nedraží, forhont ještě smí hlásit 18. Pasuje-li i on, karty se zahodí: rozdání se do řady počítá, ale bez zápisu.
+# Skat a hra
+- Aktér smí vzít skat a odložit libovolné dvě karty; počítají se jemu. Nebo hraje z ruky (Hand): skatu se nedotkne a ten se mu na konci stejně započítá.
+- Pak ohlásí hru: barevnou hru (káry 9, srdce 10, piky 11, kříže 12), grand (24: trumfy jsou jen kluci) nebo null.
+- Null: aktér nesmí udělat ani jeden štych. Trumfy nejsou a v každé barvě jdou karty v pořadí eso, král, dáma, kluk, 10, 9, 8, 7. Null má hodnotu 23, null z ruky 35, null ouvert 46, null ouvert z ruky 59. Null s nižší hodnotou, než je hláška, zvolit nelze.
+- Ve hře z ruky smí aktér ohlásit schneider, schwarz (spolu se schneiderem) a ouvert (spolu se schwarzem): jeho karty pak leží lícem nahoru, aby je všichni viděli. Null ouvert je také otevřený, se skatem i bez něj.
+# Trumfy a hra
+- V barevných hrách a v grandu jsou nejvyššími trumfy čtyři kluci, v tomto pořadí: kříže, piky, srdce, káry. V barevné hře po nich následuje trumfová barva: eso, 10, král, dáma, 9, 8, 7.
+- Ostatní barvy jdou v pořadí eso, 10, král, dáma, 9, 8, 7. Kluk patří vždy k trumfům, nikdy do své barvy.
+- Vynáší forhont. Přiznej barvu, pokud můžeš, jinak zahraj libovolnou kartu. Štych bere nejvyšší trumf, jinak nejvyšší karta vynesené barvy. Vítěz vynáší do dalšího štychu.
+# Výhra
+- Oka: eso 11, desítka 10, král 4, dáma 3, kluk 2: celkem 120. Aktér si ke svým štychům připočte skat a k výhře potřebuje 61.
+- Schneider: strana, která má 30 ok nebo méně. Schwarz: strana bez jediného štychu. Ohlášený schneider vyžaduje 90 ok, ohlášený schwarz všechny štychy.
+- Null je prohraný, jakmile aktér udělá štych.
+# Hodnota hry
+- Barevné hry a grand: základní hodnota (9, 10, 11, 12 nebo 24) krát počet stupňů.
+- Matadoři: nepřerušená řada nejvyšších trumfů od křížového kluka dolů, kterou aktér má („s 2“), nebo která mu chybí („bez 3“), včetně skatu.
+- Stupně: matadoři, plus 1 za hru, 1 za hru z ruky, 1 za schneider, další 1, byl-li ohlášen, 1 za schwarz, další 1, byl-li ohlášen, a 1 za ouvert.
+- Příklad: kříže s 2, z ruky: (2 + 1 + 1) x 12 = 48.
+- Přehlášení: je-li hodnota nižší než hláška, hra je prohraná. Počítá se pak jako nejmenší násobek své základní hodnoty, který hlášky dosáhne.
+# Počítání bodů
+- Vyhraná hra připíše aktérovi svou hodnotu; prohraná se mu počítá dvojnásobně, do minusu.
+- Přičítají se body Seeger-Fabian: 50 za každou vyhranou hru, minus 50 za každou prohranou a 40 každému z obou ostatních hráčů za každou hru, kterou aktér prohraje.
+# Konec hry
+Po posledním rozdání řady vyhrává nejvyšší součet. Při rovnosti se hráči o vítězství dělí.
+# Hra na zařízení
+Podej zařízení hráči, jehož kámen svítí; ten klepne na start a uvidí svou ruku. Během dražby leží skat rubem nahoru nahoře. Při dražbě klepni na hodnotu (šipky ukážou vyšší), pak na fajfku, nebo klepni na pas. Na hlášku odpovíš klepnutím na fajfku (ano), nebo na pas. U každého místa je vidět poslední slovo hráče: hodnota v tmavém kotouči, fajfka za ano, znak pasu. Aktér klepnutím na skat ho vezme a pak klepne na dvě karty, které odloží (klepnutím na kartu ve skatu ji vezme zpět); chce-li hrát z ruky, zvolí hru, aniž se skatu dotkne. Hry: čtyři barvy, grand (postava kluka) a null (přeškrtnutá karta); pak ohlášení: 90 za schneider, 120 za schwarz, otevřené karty za ouvert; nakonec fajfka. Během hry ukazuje místo aktéra jeho hlášku, jeho hru a při hře z ruky dva ruby karet. Pro zahrání klepni na svítící kartu, aby se zvedla, a klepni na ni znovu nebo na její místo uprostřed; nebo ji tam přetáhni. Klepnutím na hromádku vpravo dole uvidíš poslední štych. Po každém rozdání ukáže tabulka hru a její hlášku; křížového kluka (přeškrtnutý: bez) a matadory, stupně krát základní hodnotu a hodnotu (červená záře: přehlášení); skat a oka aktéra (zlatá fajfka: vyhráno); skóre každého hráče, body Seeger-Fabian a součet; a řadu rozdání, s žetonem v barvě každého aktéra (zlaté světlo: vyhráno, ztlumený: prohráno, prázdný kroužek: karty zahozeny). Klepnutím na ni začne další rozdání. Každý pruh ukazuje karty v ruce a součet. Zpět vrátí ještě nepotvrzenou volbu, nikdy volbu učiněnou předtím, než se zařízení předalo.

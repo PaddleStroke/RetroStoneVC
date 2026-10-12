@@ -1,0 +1,36 @@
+Skat
+# Tavoite
+Saksan suuri korttipeli kolmelle. Joka jaossa yksi pelaaja, pelinviejä, pelaa yksin kahta muuta vastaan: hän voittaa tarjoukset, valitsee pelin ja yrittää viedä sen läpi. Peli on 12 tai 36 jaon sarja, valinnan mukaan; suurin yhteispistemäärä lopussa voittaa. Säännöt ovat kansainvälisen skat-säännöstön mukaiset. 3 pelaajalle, jotka antavat laitetta kädestä käteen; kukaan ei näe muiden kortteja.
+# Jako
+Pakassa on 32 korttia, seiskasta ässään. Jokainen saa 10 korttia; 2 korttia jää kuvapuoli alaspäin: ne ovat skat. Jakaja siirtyy joka jaossa yhden paikan eteenpäin. Jakajasta seuraava pelaaja on etukäsi ja avaa ensimmäisen tikin; sitten tulevat keskikäsi ja takakäsi (jakaja).
+# Tarjoukset
+- Tarjoukset ovat pelien arvoja: 18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40 ja niin edelleen.
+- Keskikäsi tarjoaa etukädelle, joka vastaa kyllä (pitää tarjouksen) tai passaa; keskikäsi korottaa tai passaa.
+- Jäljelle jäänyt kuuntelee sitten takakättä, joka tarjoaa samalla tavalla. Viimeiseksi jäänyt pelaaja on pelinviejä viimeisellä tarjouksella.
+- Jos kukaan ei tarjoa, etukäsi voi vielä tarjota 18. Jos hänkin passaa, kortit heitetään kesken: jako lasketaan sarjaan, mutta ilman pisteitä.
+# Skat ja peli
+- Pelinviejä saa nostaa skatin ja panna sivuun mitkä tahansa kaksi korttia; ne lasketaan hänelle. Tai hän pelaa käsipelin (Hand): hän jättää skatin koskematta, ja se lasketaan silti hänelle lopussa.
+- Sitten hän nimeää pelin: maapelin (ruutu 9, hertta 10, pata 11, risti 12), grandin (24: valtteja ovat vain jätkät) tai nullin.
+- Null: pelinviejä ei saa ottaa yhtään tikkiä. Valtteja ei ole, ja joka maan järjestys on ässä, kuningas, kuningatar, jätkä, 10, 9, 8, 7. Null on 23 arvoinen, null käsipelinä 35, null ouvert (avoin) 46, null ouvert käsipelinä 59. Tarjousta pienempiarvoista nullia ei voi valita.
+- Käsipelissä pelinviejä voi ilmoittaa schneiderin, schwarzin (schneiderin lisäksi) ja ouvertin (schwarzin lisäksi): hänen korttinsa ovat silloin kuvapuoli ylöspäin kaikkien nähtävinä. Null ouvert on myös avoin, skatin kanssa tai ilman.
+# Valtit ja pelaaminen
+- Maapeleissä ja grandissa korkeimmat valtit ovat neljä jätkää tässä järjestyksessä: risti, pata, hertta, ruutu. Maapelissä niiden jälkeen tulee valttimaa: ässä, 10, kuningas, kuningatar, 9, 8, 7.
+- Muiden maiden järjestys on ässä, 10, kuningas, kuningatar, 9, 8, 7. Jätkä kuuluu aina valtteihin, ei koskaan omaan maahansa.
+- Etukäsi avaa. Tunnusta maata, jos voit, muuten pelaa mikä tahansa kortti. Korkein valtti voittaa tikin, muuten avatun maan korkein kortti. Voittaja avaa seuraavan tikin.
+# Voitto
+- Korttipisteet eli silmät: ässä 11, kymppi 10, kuningas 4, kuningatar 3, jätkä 2: yhteensä 120. Pelinviejä lisää skatin tikkeihinsä ja tarvitsee voittoon 61.
+- Schneider: puoli, jolla on 30 silmää tai vähemmän. Schwarz: puoli ilman yhtään tikkiä. Ilmoitettu schneider vaatii 90 silmää, ilmoitettu schwarz kaikki tikit.
+- Null kaatuu heti, kun pelinviejä ottaa tikin.
+# Pelin arvo
+- Maapelit ja grand: perusarvo (9, 10, 11, 12 tai 24) kertaa kerroin.
+- Matadorit: ristijätkästä alaspäin katkeamaton korkeimpien valttien sarja, joka pelinviejällä on ("kahden kanssa") tai joka häneltä puuttuu ("ilman kolmea"), skat mukaan lukien.
+- Kerroin: matadorit, plus 1 pelistä, 1 käsipelistä, 1 schneiderista, 1 lisää, jos se ilmoitettiin, 1 schwarzista, 1 lisää, jos se ilmoitettiin, ja 1 ouvertista.
+- Esimerkki: risti kahden kanssa, käsipelinä: (2 + 1 + 1) x 12 = 48.
+- Ylitarjous: jos arvo jää tarjousta pienemmäksi, peli on hävitty. Se lasketaan silloin perusarvonsa pienimpänä monikertana, joka yltää tarjoukseen.
+# Pisteet
+- Voitettu peli tuo pelinviejälle arvonsa; hävitty peli vie häneltä kaksinkertaisen arvonsa, miinukselle.
+- Lisäksi tulevat Seeger-Fabian-pisteet: 50 jokaisesta voitetusta pelistä, miinus 50 jokaisesta hävitystä, ja 40 kummallekin muulle pelaajalle jokaisesta pelistä, jonka pelinviejä häviää.
+# Pelin loppu
+Sarjan viimeisen jaon jälkeen suurin yhteispistemäärä voittaa. Tasapisteissä voitto jaetaan.
+# Pelaaminen laitteella
+Anna laite pelaajalle, jonka nappula hehkuu; hän napauttaa aloitusta ja näkee oman kätensä. Tarjousten ajan skat on kuvapuoli alaspäin ylhäällä. Tarjoa napauttamalla arvoa (nuolet näyttävät suuremmat) ja sitten rastia, tai napauta passia. Vastaa tarjoukseen napauttamalla rastia (kyllä) tai passia. Jokainen paikka näyttää pelaajansa viimeisen sanan: arvon tummassa kiekossa, rastin kyllä-vastauksesta, passimerkin. Pelinviejä napauttaa skatia nostaakseen sen ja sitten kahta korttia pannakseen ne sivuun (napauta skatissa olevaa korttia ottaaksesi sen takaisin); pelatakseen käsipelin hän valitsee pelin koskematta skatiin. Pelit: neljä maata, grand (jätkän hahmo) ja null (yliviivattu kortti); sitten ilmoitukset: 90 on schneider, 120 schwarz, avoimet kortit ouvert; lopuksi rasti. Pelin aikana pelinviejän paikka näyttää hänen tarjouksensa, hänen pelinsä ja käsipelissä kaksi kortin selkää. Pelaa napauttamalla hehkuvaa korttia, jolloin se nousee, ja napauta sitä uudelleen tai sen paikkaa keskellä; tai vedä se sinne. Napauta oikean alakulman pinoa nähdäksesi viimeisen tikin. Jokaisen jaon jälkeen taulukko näyttää pelin ja sen tarjouksen; ristijätkän (yliviivattu: ilman) ja matadorit, kertoimen kertaa perusarvon sekä arvon (punainen hehku: ylitarjous); skatin ja pelinviejän silmät (kultainen rasti: voitto); jokaisen pelaajan pisteet, Seeger-Fabian-pisteet ja yhteispisteet; sekä jakojen luettelon, jossa jokaisella jaolla on merkki pelinviejän värissä (kultainen valo: voitettu, himmeä: hävitty, tyhjä rengas: kortit heitetty kesken). Napauta taulukkoa seuraavaa jakoa varten. Jokainen palkki näyttää kädessä olevat kortit ja yhteispisteet. Kumoa peruu vahvistamattoman valinnan, ei koskaan valintaa sen jälkeen, kun laite on annettu eteenpäin.

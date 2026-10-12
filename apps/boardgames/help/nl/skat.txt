@@ -1,0 +1,36 @@
+Skat
+# Het doel
+Het grote kaartspel van Duitsland, voor drie. In elk spel speelt één speler, de alleenspeler, tegen de andere twee: hij wint het bieden, kiest het spel en probeert het te halen. Een partij is een lijst van 12 of 36 spellen, naar keuze; wie aan het eind het hoogste totaal heeft, wint. De regels zijn die van de internationale Skatordnung. Voor 3 spelers die het apparaat doorgeven; niemand ziet de kaarten van de anderen.
+# Het delen
+Er wordt gespeeld met 32 kaarten, van 7 tot aas. Elke speler krijgt 10 kaarten; nog 2 liggen gedekt: de skat. De gever schuift elk spel een plaats op. De speler na de gever is voorhand en komt uit in de eerste slag; dan volgen middenhand en achterhand (de gever).
+# Bieden
+- Er wordt geboden in spelwaarden: 18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40 enzovoort.
+- Middenhand biedt tegen voorhand, die ja zegt (hij houdt het bod) of past; middenhand biedt hoger of past.
+- Wie overblijft, luistert daarna naar achterhand, die op dezelfde manier biedt. De laatste die overblijft, wordt alleenspeler, voor het laatste bod.
+- Biedt niemand, dan mag voorhand nog 18 bieden. Past ook hij, dan worden de kaarten ingegooid: het spel telt mee in de lijst, zonder score.
+# De skat en het spel
+- De alleenspeler mag de skat oppakken en twee willekeurige kaarten wegleggen; die tellen voor hem. Of hij speelt uit de hand (handspel): hij laat de skat onaangeroerd, en die telt aan het eind toch voor hem.
+- Dan noemt hij het spel: een kleurspel (ruiten 9, harten 10, schoppen 11, klaveren 12), grand (24: alleen de boeren zijn troef) of nul (Null).
+- Nul: de alleenspeler mag geen enkele slag halen. Er is geen troef en elke kleur loopt aas, heer, vrouw, boer, 10, 9, 8, 7. Nul is 23 waard, nul hand 35, nul ouvert 46, nul ouvert hand 59. Een nulspel dat minder waard is dan het bod, kan niet gekozen worden.
+- In een handspel mag de alleenspeler schneider aankondigen, schwarz (met schneider) en ouvert (met schwarz): zijn kaarten liggen dan open, voor iedereen zichtbaar. Nul ouvert wordt ook open gespeeld, met of zonder skat.
+# Troef en spel
+- In kleurspellen en grand zijn de vier boeren de hoogste troeven, in deze volgorde: klaveren, schoppen, harten, ruiten. In een kleurspel volgt dan de troefkleur: aas, 10, heer, vrouw, 9, 8, 7.
+- De andere kleuren lopen aas, 10, heer, vrouw, 9, 8, 7. Een boer hoort altijd bij de troeven, nooit bij zijn eigen kleur.
+- Voorhand komt uit. Beken kleur als je kunt, anders speel je een willekeurige kaart. De hoogste troef wint de slag, anders de hoogste kaart van de gevraagde kleur. De winnaar komt uit in de volgende slag.
+# Winnen of verliezen
+- Kaartpunten: aas 11, tien 10, heer 4, vrouw 3, boer 2: samen 120. De alleenspeler telt de skat bij zijn slagen en heeft 61 nodig om te winnen.
+- Schneider: een kant met 30 punten of minder. Schwarz: een kant zonder slag. Aangekondigd schneider vraagt 90 punten, aangekondigd schwarz alle slagen.
+- Nul is verloren zodra de alleenspeler een slag haalt.
+# De spelwaarde
+- Kleurspellen en grand: de basiswaarde (9, 10, 11, 12 of 24) maal het aantal trappen.
+- De matadors: de ononderbroken reeks hoogste troeven, vanaf klaverenboer omlaag, die de alleenspeler heeft ("met 2") of mist ("zonder 3"), de skat meegerekend.
+- De trappen: de matadors, plus 1 voor het spel, 1 voor hand, 1 voor schneider, nog 1 als die aangekondigd is, 1 voor schwarz, nog 1 als die aangekondigd is, en 1 voor ouvert.
+- Voorbeeld: klaveren met 2, uit de hand gespeeld: (2 + 1 + 1) x 12 = 48.
+- Overboden: ligt de waarde onder het bod, dan is het spel verloren. Het telt dan als het kleinste veelvoud van zijn basiswaarde dat het bod haalt.
+# De telling
+- Een gewonnen spel levert de alleenspeler zijn waarde op; een verloren spel kost twee keer zijn waarde, onder nul.
+- Daarbij komen de Seeger-Fabian-punten: 50 voor elk gewonnen spel, min 50 voor elk verloren spel, en 40 voor elk van de twee andere spelers voor elk spel dat een alleenspeler verliest.
+# Het einde van de partij
+Na het laatste spel van de lijst wint het hoogste totaal. Bij een gelijk totaal delen de spelers de winst.
+# Spelen op het apparaat
+Geef het apparaat aan de speler wiens fiche oplicht; die tikt op start en ziet zijn hand. Tijdens het bieden ligt de skat gedekt bovenaan. Om te bieden tik je een waarde aan (de pijlen tonen hogere), dan het vinkje, of tik je op pas. Om op een bod te antwoorden tik je op het vinkje voor ja, of op pas. Elke plaats toont het laatste woord van zijn speler: de waarde in een donkere schijf, een vinkje voor ja, het pasteken. De alleenspeler tikt op de skat om hem op te pakken en dan op twee kaarten om ze weg te leggen (tik er een in de skat aan om hem terug te nemen); om uit de hand te spelen kiest hij het spel zonder de skat aan te raken. De spellen: de vier kleuren, grand (de figuur van de boer) en nul (een doorgestreepte kaart); dan de aankondigingen: 90 voor schneider, 120 voor schwarz, de open kaarten voor ouvert; dan het vinkje. Tijdens het spel toont de plaats van de alleenspeler zijn bod, zijn spel en, bij een handspel, twee kaartruggen. Om te spelen tik je een oplichtende kaart aan zodat hij omhoog komt, en tik je hem nog eens of zijn plek in het midden aan; of sleep hem erheen. Tik op het stapeltje rechtsonder om de laatste slag te zien. Na elk spel toont een tabel het spel en zijn bod; de klaverenboer (doorgestreept: zonder) en de matadors, de trappen maal de basiswaarde en de waarde (rode gloed: overboden); de skat en de kaartpunten van de alleenspeler (een gouden vinkje: gewonnen); de score, de Seeger-Fabian-punten en het totaal van elke speler; en de lijst van de spellen, met een fiche in de kleur van elke alleenspeler (goudlicht: gewonnen, gedimd: verloren, een lege ring: ingegooid). Tik erop voor het volgende spel. Elke balk toont de kaarten in de hand en het totaal. Ongedaan maken neemt een nog niet bevestigde keuze terug, nooit een keuze als het apparaat al doorgegeven is.

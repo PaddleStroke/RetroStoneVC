@@ -1,0 +1,36 @@
+Skat
+# Målet
+Tysklands store kortspill for tre. I hvert giv spiller én spiller, spilleføreren, alene mot de to andre: han vinner meldingen, velger spillet og prøver å vinne det. Et parti er en liste på 12 eller 36 giv, etter valg; høyeste sum til slutt vinner. Reglene følger den internasjonale skatordningen (Internationale Skatordnung). For 3 spillere som sender enheten rundt; ingen ser kortene til de andre.
+# Utdelingen
+Kortstokken har 32 kort, fra 7 til ess. Hver spiller får 10 kort; 2 til ligger med baksiden opp: skatten. Giveren flytter én plass videre for hvert giv. Spilleren etter giveren er forhånd og spiller ut til første stikk; så kommer mellomhånd og bakhånd (giveren).
+# Meldingen
+- Det meldes i spillverdier: 18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40 og så videre.
+- Mellomhånd melder til forhånd, som svarer ja (han holder budet) eller melder pass; mellomhånd melder høyere eller melder pass.
+- Den som er igjen, hører så på bakhånd, som melder på samme måte. Den siste spilleren som er igjen, blir spillefører på det siste budet.
+- Melder ingen, kan forhånd fortsatt melde 18. Melder han også pass, kastes kortene inn: givet teller i listen, uten poeng.
+# Skatten og spillet
+- Spilleføreren kan ta opp skatten og legge bort to valgfrie kort; de teller for ham. Eller han spiller håndspill: han lar skatten ligge urørt, og den teller likevel for ham til slutt.
+- Så melder han spillet: et fargespill (ruter 9, hjerter 10, spar 11, kløver 12), grand (24: bare knektene er trumf) eller null.
+- Null: spilleføreren må ikke ta et eneste stikk. Det er ingen trumf, og hver farge går ess, konge, dame, knekt, 10, 9, 8, 7. Null er verdt 23, null hånd 35, null ouvert 46, null ouvert hånd 59. Et nullspill som er verdt mindre enn budet, kan ikke velges.
+- I et håndspill kan spilleføreren melde schneider, schwarz (med schneider) og ouvert (med schwarz): kortene hans legges da med forsiden opp, så alle ser dem. Null ouvert spilles også åpent, med eller uten skatten.
+# Trumf og spill
+- I fargespill og grand er de fire knektene de høyeste trumfene, i denne rekkefølgen: kløver, spar, hjerter, ruter. I et fargespill kommer trumffargen etter dem: ess, 10, konge, dame, 9, 8, 7.
+- De andre fargene går ess, 10, konge, dame, 9, 8, 7. En knekt hører alltid til trumfene, aldri til sin egen farge.
+- Forhånd spiller ut. Følg farge hvis du kan; ellers spill et hvilket som helst kort. Høyeste trumf vinner stikket, ellers det høyeste kortet i utspilt farge. Vinneren spiller ut til neste stikk.
+# Vunnet eller tapt
+- Kortpoeng: ess 11, tier 10, konge 4, dame 3, knekt 2: 120 i alt. Spilleføreren legger skatten til stikkene sine og trenger 61 for å vinne.
+- Schneider: en side med 30 poeng eller mindre. Schwarz: en side uten stikk. Meldt schneider krever 90 poeng, meldt schwarz alle stikkene.
+- Null er tapt så snart spilleføreren tar et stikk.
+# Spillets verdi
+- Fargespill og grand: grunnverdien (9, 10, 11, 12 eller 24) ganger antall trinn.
+- Matadorene: den ubrutte rekken av de høyeste trumfene, fra kløver knekt og nedover, som spilleføreren har («med 2») eller mangler («uten 3»), skatten medregnet.
+- Trinnene: matadorene, pluss 1 for spillet, 1 for hånd, 1 for schneider, 1 til hvis den er meldt, 1 for schwarz, 1 til hvis den er meldt, og 1 for ouvert.
+- Eksempel: kløver med 2, spilt på hånden: (2 + 1 + 1) x 12 = 48.
+- Overmeldt: er verdien under budet, er spillet tapt. Det teller da som det minste multiplum av grunnverdien som når budet.
+# Poengene
+- Et vunnet spill gir spilleføreren verdien sin; et tapt spill koster det dobbelte av verdien, i minus.
+- I tillegg kommer Seeger-Fabian-poeng: 50 for hvert vunnet spill, minus 50 for hvert tapt spill, og 40 til hver av de to andre spillerne for hvert spill en spillefører taper.
+# Slutten på spillet
+Etter det siste givet i listen vinner høyeste sum. Ved lik sum deles seieren.
+# Spill på enheten
+Gi enheten til spilleren som har brikken som lyser; han trykker på start og ser hånden sin. Skatten ligger med baksiden opp øverst mens det meldes. For å melde trykker du på en verdi (pilene viser høyere verdier) og så på haken, eller du trykker på pass. For å svare på et bud trykker du på haken for ja, eller på pass. Hver plass viser spillerens siste ord: verdien i en mørk skive, en hake for ja, pass-tegnet. Spilleføreren trykker på skatten for å ta den opp og så på to kort for å legge dem bort (trykk på et kort i skatten for å ta det tilbake); for å spille håndspill velger han spillet uten å røre skatten. Spillene: de fire fargene, grand (knektens figur) og null (et overstrekt kort); så meldingene: 90 for schneider, 120 for schwarz, de åpne kortene for ouvert; så haken. Under spillet viser plassen til spilleføreren budet hans, spillet hans og, ved håndspill, to kortbaksider. For å spille trykker du på et kort som lyser, så det løfter seg, og trykker på det igjen eller på plassen dets i midten; eller dra det dit. Trykk på bunken nederst til høyre for å se det siste stikket. Etter hvert giv viser en tavle spillet og budet; kløver knekt (overstrekt: uten) og matadorene, trinnene ganger grunnverdien og verdien (et rødt skjær: overmeldt); skatten og kortpoengene til spilleføreren (en gullhake: vunnet); poengene, Seeger-Fabian-poengene og summen til hver spiller; og listen over givene, med en brikke i fargen til hver spillefører (gyllent lys: vunnet, dempet: tapt, en tom ring: kastet inn). Trykk på den for neste giv. Hver linje viser kortene på hånden og summen. Angre tar tilbake et valg som ikke er bekreftet ennå, aldri et når enheten er gitt videre.

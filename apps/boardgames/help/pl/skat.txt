@@ -1,0 +1,36 @@
+Skat
+# Cel gry
+Wielka niemiecka gra karciana dla trzech osób. W każdym rozdaniu jeden gracz, rozgrywający, gra sam przeciw dwóm pozostałym: wygrywa licytację, wybiera grę i stara się ją wygrać. Partia to lista 12 albo 36 rozdań, do wyboru; wygrywa najwyższa suma na końcu. Obowiązują zasady Międzynarodowych Przepisów Gry w Skata. Dla 3 graczy, którzy podają sobie urządzenie; nikt nie widzi kart pozostałych.
+# Rozdanie
+Talia ma 32 karty, od siódemki do asa. Każdy gracz dostaje 10 kart; 2 kolejne leżą zakryte: to skat. Rozdający przesuwa się o jedno miejsce w każdym rozdaniu. Gracz po rozdającym to przodek; wychodzi on do pierwszej lewy. Po nim siedzą środek i zadek (rozdający).
+# Licytacja
+- Odzywki to wartości gier: 18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40 i tak dalej.
+- Środek licytuje do przodka, który odpowiada „tak” (trzyma odzywkę) albo pasuje; środek podbija albo pasuje.
+- Ten, kto został, słucha potem zadka, który licytuje tak samo. Ostatni gracz, który został, jest rozgrywającym, z ostatnią odzywką.
+- Jeśli nikt nie licytuje, przodek może jeszcze powiedzieć 18. Jeśli i on spasuje, karty się wrzuca: rozdanie liczy się na liście, ale bez wyniku.
+# Skat i gra
+- Rozgrywający może podnieść skat i odłożyć dowolne dwie karty; liczą się one dla niego. Albo gra z ręki: nie rusza skatu, a ten i tak liczy się dla niego na końcu.
+- Potem zapowiada grę: grę w kolor (karo 9, kier 10, pik 11, trefl 12), granda (24: atutami są tylko walety) albo nulla.
+- Null: rozgrywający nie może wziąć ani jednej lewy. Nie ma atutów, a w każdym kolorze karty idą od asa: as, król, dama, walet, 10, 9, 8, 7. Null jest wart 23, null z ręki 35, null ouvert (otwarty) 46, null ouvert z ręki 59. Nie można wybrać nulla wartego mniej niż odzywka.
+- W grze z ręki rozgrywający może zapowiedzieć szneidra, szwarca (razem ze szneidrem) i ouvert (razem ze szwarcem): jego karty leżą wtedy odkryte, na oczach wszystkich. Null ouvert też gra się w otwarte karty, ze skatem albo bez.
+# Atuty i rozgrywka
+- W grach w kolor i w grandzie najwyższymi atutami są cztery walety, w tej kolejności: trefl, pik, kier, karo. W grze w kolor po nich idzie kolor atutowy: as, 10, król, dama, 9, 8, 7.
+- Pozostałe kolory: as, 10, król, dama, 9, 8, 7. Walet zawsze należy do atutów, nigdy do swojego koloru.
+- Wychodzi przodek. Dokładaj do koloru wyjścia, jeśli możesz; jeśli nie, zagraj dowolną kartę. Lewę bierze najwyższy atut, a bez atutu najwyższa karta w kolorze wyjścia. Zdobywca lewy wychodzi do następnej.
+# Wygrana
+- Oczka: as 11, dziesiątka 10, król 4, dama 3, walet 2: razem 120. Rozgrywający dolicza skat do swoich lew i do wygranej potrzebuje 61.
+- Szneider: strona, która ma 30 oczek lub mniej. Szwarc: strona bez żadnej lewy. Zapowiedziany szneider wymaga 90 oczek, zapowiedziany szwarc — wszystkich lew.
+- Null jest przegrany, gdy tylko rozgrywający weźmie lewę.
+# Wartość gry
+- Gry w kolor i grand: wartość podstawowa (9, 10, 11, 12 lub 24) razy liczba stopni.
+- Matadory: nieprzerwany ciąg najwyższych atutów, od waleta trefl w dół, który rozgrywający ma („z 2”) albo którego mu brakuje („bez 3”), licząc ze skatem.
+- Stopnie: matadory, plus 1 za grę, 1 za grę z ręki, 1 za szneidra, 1 więcej, jeśli był zapowiedziany, 1 za szwarca, 1 więcej, jeśli był zapowiedziany, i 1 za ouvert.
+- Przykład: trefl z 2, z ręki: (2 + 1 + 1) x 12 = 48.
+- Przelicytowanie: jeśli wartość jest niższa od odzywki, gra jest przegrana. Liczy się wtedy jako najmniejsza wielokrotność jej wartości podstawowej, która sięga odzywki.
+# Punktacja
+- Wygrana gra daje rozgrywającemu jej wartość; przegrana kosztuje go dwa razy tyle, na minus.
+- Dochodzą punkty Seeger-Fabian: 50 za każdą wygraną grę, minus 50 za każdą przegraną i po 40 dla każdego z dwóch pozostałych graczy za każdą grę przegraną przez rozgrywającego.
+# Koniec gry
+Po ostatnim rozdaniu z listy wygrywa najwyższa suma. Przy równych sumach zwycięstwo jest wspólne.
+# Gra na urządzeniu
+Podaj urządzenie graczowi, którego pionek świeci; dotyka on przycisku startu i widzi swoją rękę. Podczas licytacji skat leży zakryty u góry. Aby licytować, dotknij wartości (strzałki pokazują wyższe), a potem znaczka zatwierdzenia, albo dotknij pasu. Aby odpowiedzieć na odzywkę, dotknij znaczka zatwierdzenia na „tak” albo pasu. Przy każdym miejscu widać ostatnie słowo gracza: wartość w ciemnym krążku, znaczek zatwierdzenia na „tak” albo znak pasu. Rozgrywający dotyka skatu, by go podnieść, a potem dwóch kart, by je odłożyć (dotknij karty w skacie, by ją cofnąć); aby grać z ręki, wybiera grę, nie dotykając skatu. Gry: cztery kolory, grand (postać waleta) i null (przekreślona karta); potem zapowiedzi: 90 to szneider, 120 to szwarc, odkryte karty to ouvert; na koniec znaczek zatwierdzenia. W trakcie rozgrywki miejsce rozgrywającego pokazuje jego odzywkę, jego grę, a przy grze z ręki dwie koszulki kart. Aby zagrać, dotknij świecącej karty, żeby się uniosła, i dotknij jej jeszcze raz albo jej miejsca na środku; albo przeciągnij ją tam. Dotknij stosiku w prawym dolnym rogu, by zobaczyć ostatnią lewę. Po każdym rozdaniu tabela pokazuje grę i jej odzywkę; waleta trefl (przekreślony: bez) i matadory, stopnie razy wartość podstawową oraz wartość (czerwona poświata: przelicytowanie); skat i oczka rozgrywającego (złoty znaczek zatwierdzenia: wygrana); wynik każdego gracza, punkty Seeger-Fabian i sumę; wreszcie listę rozdań, z żetonem w kolorze każdego rozgrywającego (złote światło: wygrana, przyciemniony: przegrana, pusty pierścień: karty wrzucone). Dotknij jej, by przejść do następnego rozdania. Każdy pasek pokazuje karty w ręce i sumę. Cofnij wycofuje niezatwierdzony jeszcze wybór, nigdy wyboru sprzed podania urządzenia.

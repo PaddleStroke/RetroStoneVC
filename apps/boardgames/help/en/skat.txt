@@ -1,0 +1,36 @@
+Skat
+# The aim
+Germany's great card game for three. In each deal one player, the declarer, plays alone against the other two: he wins the bidding, chooses the game and tries to make it. A game is a list of 12 or 36 deals, as chosen; the highest total at the end wins. The rules are those of the International Skat Order. For 3 players passing the device round; nobody sees the others' cards.
+# The deal
+The pack has 32 cards, from 7 to ace. Each player gets 10 cards; 2 more lie face down: the skat. The dealer moves on one seat each deal. The player after the dealer is forehand and leads the first trick; then come middlehand and rearhand (the dealer).
+# Bidding
+- The bids are game values: 18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40 and so on.
+- Middlehand bids to forehand, who answers yes (he holds the bid) or passes; middlehand bids higher or passes.
+- The one left then listens to rearhand, who bids in the same way. The last player left is the declarer, at the last bid.
+- If nobody bids, forehand may still bid 18. If he passes too, the cards are thrown in: the deal counts in the list, with no score.
+# The skat and the game
+- The declarer may pick up the skat and lay any two cards away; they count for him. Or he plays hand: he leaves the skat untouched, and it still counts for him at the end.
+- Then he names the game: a suit game (diamonds 9, hearts 10, spades 11, clubs 12), grand (24: only the jacks are trumps) or null.
+- Null: the declarer must not take a single trick. There are no trumps and every suit ranks A K Q J 10 9 8 7. Null is worth 23, null hand 35, null ouvert 46, null ouvert hand 59. A null worth less than the bid cannot be chosen.
+- In a hand game the declarer may announce schneider, schwarz (with schneider), and ouvert (with schwarz): his cards are then laid face up for all to see. Null ouvert is open too, with or without the skat.
+# Trumps and play
+- In suit games and grand the four jacks are the highest trumps, in this order: clubs, spades, hearts, diamonds. In a suit game the trump suit comes next: A 10 K Q 9 8 7.
+- The other suits rank A 10 K Q 9 8 7. A jack always belongs to the trumps, never to its own suit.
+- Forehand leads. Follow suit if you can, otherwise play any card. The highest trump wins the trick, otherwise the highest card of the suit led. The winner leads next.
+# Winning
+- Card points: ace 11, ten 10, king 4, queen 3, jack 2: 120 in all. The declarer adds the skat to his tricks and needs 61 to win.
+- Schneider: a side with 30 points or less. Schwarz: a side without a trick. An announced schneider needs 90 points, an announced schwarz every trick.
+- Null is lost as soon as the declarer takes a trick.
+# The game value
+- Suit games and grand: the base value (9, 10, 11, 12 or 24) times the levels.
+- The matadors: the unbroken run of top trumps, from the jack of clubs down, that the declarer holds ("with 2") or lacks ("without 3"), the skat included.
+- The levels: the matadors, plus 1 for the game, 1 for hand, 1 for schneider, 1 more if announced, 1 for schwarz, 1 more if announced, and 1 for ouvert.
+- Example: clubs with 2, played hand: (2 + 1 + 1) x 12 = 48.
+- Overbid: if the value is below the bid, the game is lost. It then counts as the lowest multiple of its base value that reaches the bid.
+# Scoring
+- A game won scores its value for the declarer; a game lost scores twice its value, below zero.
+- Seeger-Fabian points are added: 50 for each game won, minus 50 for each game lost, and 40 to each of the other two players for every game a declarer loses.
+# The end of the game
+After the last deal of the list, the highest total wins. Equal totals share the win.
+# Playing on the device
+Pass the device to the player whose token glows; they tap start and see their own hand. The skat lies face down at the top while the players bid. To bid, tap a value (the arrows show higher ones), then the tick, or tap pass. To answer a bid, tap the tick for yes, or pass. Each seat shows its last word: the value in a dark disc, a tick for yes, the pass sign. The declarer taps the skat to pick it up, then taps two cards to lay them away (tap one in the skat to take it back); to play hand, he chooses the game without touching the skat. The games: the four suits, grand (the jack's figure) and null (a card crossed out); then the announcements: 90 for schneider, 120 for schwarz, the open cards for ouvert; then the tick. During play the declarer's seat shows his bid, his game, and two card backs for a hand game. To play, tap a glowing card so it rises, then tap it again or its place in the middle, or drag it there. Tap the pile at the bottom right to see the last trick. After each deal a table shows the game and its bid; the jack of clubs (struck through: without) and the matadors, the levels times the base value, and the value (a red glow: overbid); the skat and the declarer's card points (a gold tick: won); each player's score, Seeger-Fabian points and total; and the list of deals, a chip in each declarer's colour (gold light: won, dimmed: lost, an empty ring: thrown in). Tap it for the next deal. Each bar shows the cards in hand and the total. Undo takes back a choice not yet made, never one once the device has passed.
