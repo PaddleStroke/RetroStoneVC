@@ -1,12 +1,14 @@
 /*
- * The patience games (Klondike, FreeCell, Spider, Pyramid, TriPeaks): what their rules share. No SDL: the rules and
- * their tests use it.
+ * The patience games (Klondike, FreeCell, Spider, Pyramid, TriPeaks, La Belle Lucie, Yukon, Forty Thieves, Golf,
+ * Canfield, Montana, Clock): what their rules share. No SDL: the rules and their tests use it.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * A position is piles of cards: the tableau's columns (face-down cards at the bottom, then face-up ones), the
  * foundations, the free cells, the stock and the waste. A move takes cards from the top of one pile to the top of
  * another (the order kept); a face-down card left on top of a column turns up at once. The stock's moves: draw to the
- * waste (Klondike), turn the waste back over (Klondike), deal a row (Spider). A game is its deal and its moves:
+ * waste (Klondike), turn the waste back over (Klondike), deal a row (Spider). A shuffle (the redeals of La Belle Lucie
+ * and Montana) is moves too: the cards gathered on a pile of their own, swapped there (SM_SWAP) and dealt out again,
+ * so that undo replays it card for card. A game is its deal and its moves:
  * undo replays them from the deal. Moves the game makes by itself (the rest going up once the game is decided,
  * Spider's complete runs, FreeCell's safe cards) are marked SM_AUTO: undo takes them back with the player's move
  * before them, and the move counter leaves them out.
@@ -31,13 +33,15 @@
 
 #include "cards.h"
 
-#define SOL_PILES 32                            /* the most piles a game has (Pyramid, TriPeaks: a pile a card) */
+#define SOL_PILES 56                            /* the most piles a game has (Montana: a pile a place, and its hand) */
 #define SOL_CARDS 104                           /* the most a pile can hold (Spider's two packs) */
 #define SOL_MOVES 6000                          /* a game's moves, the automatic ones too */
 
 enum { SP_TAB, SP_FOUND, SP_CELL, SP_STOCK, SP_WASTE };
 /* SM_TURN: the face-down card on top of pile `from` turns face up (TriPeaks: a card of a peak uncovered) */
-enum { SM_NONE, SM_MOVE, SM_DRAW, SM_REDEAL, SM_DEAL, SM_TURN };
+/* SM_SWAP: the card at index n of pile `from` and the top card of pile `to` change places (a shuffle, a swap at a
+ * time) */
+enum { SM_NONE, SM_MOVE, SM_DRAW, SM_REDEAL, SM_DEAL, SM_TURN, SM_SWAP };
 #define SM_AUTO 0x80                            /* a move the game made by itself */
 #define SM_KIND(k) ((k) & 0x7f)
 
@@ -178,6 +182,13 @@ static inline void sol_apply(solpos *p, solmove m)
     case SM_TURN:
         if (p->n[a] && p->down[a] >= p->n[a]) p->down[a] = (uint8_t)(p->n[a] - 1);
         break;
+    case SM_SWAP:
+        if (p->n[b] && n < p->n[a]) {
+            uint8_t *x = &p->c[a][n], *y = &p->c[b][p->n[b] - 1], t = *x;
+            *x = *y;
+            *y = t;
+        }
+        break;
     }
 }
 
@@ -294,6 +305,54 @@ static inline int sol_script(solrec *r, const char *s, const solrules *R)
         s += k;
     }
     return 1;
+}
+
+/* ---- a shuffle as moves (the redeals) ---------------------------------------------------------------------------- */
+static inline uint32_t sol_rand(uint32_t *s)    /* a small generator (xorshift): the same seed, the same shuffle */
+{
+    uint32_t x = *s ? *s : 0x9e3779b9u;
+    x ^= x << 13;
+    x ^= x >> 17;
+    x ^= x << 5;
+    return *s = x;
+}
+
+/* a seed of its own for each redeal of a deal */
+static inline uint32_t sol_reseed(uint32_t seed, int k) { return seed * 2654435761u ^ (uint32_t)(k + 1) * 40503u; }
+
+/* the cards on pile `hand` dealt at random onto the piles to[0..n-1] (pile to[i] once for each card it takes), face
+ * up: a card chosen at random swapped to the top (SM_SWAP), then moved; all marked SM_AUTO */
+static inline void sol_deal_out(solrec *r, int hand, const uint8_t *to, int n, uint32_t seed)
+{
+    uint32_t s = seed;
+    for (int k = 0; k < n && r->pos.n[hand]; k++) {
+        int m = r->pos.n[hand], j = (int)(sol_rand(&s) % (uint32_t)m);
+        if (j != m - 1) sol_push(r, sol_mv(SM_SWAP | SM_AUTO, hand, hand, j));
+        sol_push(r, sol_mv(SM_MOVE | SM_AUTO, hand, to[k], 1));
+    }
+}
+
+/* the end going up by itself: when every card left can go up to the foundations in turn (from the face-up tops of
+ * the piles that are not foundations nor the stock), those moves, marked SM_AUTO; else nothing. total: the cards of
+ * the game; found_for: the foundation that takes a card (-1: none). 1: they went. */
+static inline int sol_finish(solrec *r, int total, int (*found_for)(const solpos *p, int card))
+{
+    solpos q = r->pos;
+    solmove list[2 * SOL_CARDS];
+    int k = 0;
+    while (sol_on_found(&q) < total) {
+        solmove m = sol_mv(SM_NONE, 0, 0, 0);
+        for (int a = 0; a < q.npiles && m.kind == SM_NONE; a++) {
+            if (q.kind[a] == SP_FOUND || q.kind[a] == SP_STOCK || !q.n[a] || q.down[a] >= q.n[a]) continue;
+            int f = found_for(&q, sol_top(&q, a));
+            if (f >= 0) m = sol_mv(SM_MOVE | SM_AUTO, a, f, 1);
+        }
+        if (m.kind == SM_NONE || k >= 2 * SOL_CARDS || r->n + k >= SOL_MOVES) return 0;
+        sol_apply(&q, m);
+        list[k++] = m;
+    }
+    for (int i = 0; i < k; i++) sol_push(r, list[i]);
+    return k > 0;
 }
 
 /* ---- the layouts of single cards (Pyramid, TriPeaks) ------------------------------------------------------------- */

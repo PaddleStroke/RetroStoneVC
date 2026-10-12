@@ -1,12 +1,13 @@
 /*
- * The patience games (Klondike, FreeCell, Spider, Pyramid, TriPeaks) on the screen: what they share, on top of the
- * card kit. A game sets where its piles go (solui.at[]), and the rest is here: the piles drawn (columns fanned down,
- * the waste fanned right, the stock and the foundations as piles, the single cards of a layout), the cards sliding
- * and turning over after each move (a move and what the game then did by itself, chained), the finger (a tap sends a
- * card or a run to its best place, a quick second tap only to a foundation; a drag carries a run where the finger
- * drops it; or, `pairs`, two taps pair two cards: the first one is lifted), the hint (the move blinks), the bar (the
- * deal's number, the move counter, the hint button), the empty stock's arrow going round, and the win: the cards
- * leaping off the foundations and bouncing across the table, each with a trail of copies.
+ * The patience games (Klondike, FreeCell, Spider, Pyramid, TriPeaks, La Belle Lucie, Yukon, Forty Thieves, Golf,
+ * Canfield, Montana, Clock) on the screen: what they share, on top of the card kit. A game sets where its piles go
+ * (solui.at[]), and the rest is here: the piles drawn (columns fanned down, fans to the right, the waste fanned right,
+ * the stock and the foundations as piles, the single cards of a layout), the cards sliding and turning over after
+ * each move (a move and what the game then did by itself, chained; a shuffle: each card flying to its new place), the
+ * finger (a tap sends a card or a run to its best place, a quick second tap only to a foundation; a drag carries a
+ * run where the finger drops it; or, `pairs`, two taps pair two cards: the first one is lifted), the hint (the move
+ * blinks), the bar (the deal's number, the move counter, the hint button), the empty stock's arrow going round, and
+ * the win: the cards leaping off the foundations and bouncing across the table, each with a trail of copies.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #ifndef SOLITAIRE_UI_H
@@ -28,16 +29,21 @@
 
 /* how a pile lies: stacked (its top card shows), a column fanned down, the waste (its last cards fanned right),
  * Spider's stock (a back for each row still to deal, from the right), a card of a layout (Pyramid, TriPeaks: one card
- * or nothing, not even its place; drawn in the piles' order, so the later ones lie over the earlier ones) */
-enum { SF_PILE, SF_COLUMN, SF_WASTE, SF_ROW, SF_SLOT };
+ * or nothing, not even its place; drawn in the piles' order, so the later ones lie over the earlier ones), a fan to the
+ * right (La Belle Lucie: steps of fan_step card widths, closer when its last card would reach past room). A pile shows
+ * its top card face down while all its cards are (a reserve turning its next card up). */
+enum { SF_PILE, SF_COLUMN, SF_WASTE, SF_ROW, SF_SLOT, SF_FAN };
 
 typedef struct {
     float x, y;                                 /* its first card's centre */
-    float room;                                 /* a column: how far down its last card's centre may go */
+    float room;                                 /* a column: how far down its last card's centre may go (a fan:
+                                                 * right) */
     int fan, first;                             /* first: the pile shows its bottom card (Spider's foundations) */
+    int bare;                                   /* a column or a fan: no place drawn when it is empty (a fan of La
+                                                 * Belle Lucie: never filled again) */
 } solspot;
 
-typedef struct {
+typedef struct solui {
     const solrules *R;
     solrec *rec;
     int deck, waste_fan;                        /* waste_fan: the waste's cards fanned (Klondike's draw) */
@@ -65,6 +71,10 @@ typedef struct {
     int pairs, sel;
     SDL_Texture *t_again;                       /* the empty stock's arrow (solui_again) */
     int again_size;
+    float fan_step;                             /* SF_FAN's step, card widths (0: 0.3) */
+    /* a game's own slides for the moves from `first` on, played from `before` (a shuffle: solui_rearrange); 0: the
+     * usual ones (NULL: always the usual ones) */
+    int (*animate)(struct solui *u, const solpos *before, int first);
 } solui;
 
 /* ---- where the cards lie ----------------------------------------------------------------------------------------- */
@@ -96,6 +106,12 @@ static inline void solui_xy(const solui *u, const solpos *p, int pile, int i, fl
     case SF_ROW: {
         int rows = (n + 9) / 10;
         *x -= (rows - 1 - i / 10) * 0.2f * u->w;
+        break;
+    }
+    case SF_FAN: {
+        float dd, du;
+        ct_column_steps(n, 0, s->room, u->w, 0, u->fan_step > 0 ? u->fan_step : 0.3f, &dd, &du);
+        *x += i * du;
         break;
     }
     }
@@ -172,7 +188,7 @@ static inline void solui_animate(solui *u, const solpos *before, int first, cons
                 if (u->land[a][cur.n[a] - n + k] > start) start = u->land[a][cur.n[a] - n + k];
             int snd = sounds++ % 2 == 0 || m == first ? (cur.kind[b] == SP_FOUND ? SND_PLACE : SND_MOVE) : -1;
             for (int k = 0; k < n; k++)
-                solui_carry(u, &cur, &nxt, a, cur.n[a] - n + k, b, nxt.n[b] - n + k, 1, 1,
+                solui_carry(u, &cur, &nxt, a, cur.n[a] - n + k, b, nxt.n[b] - n + k, cur.n[a] - n + k >= cur.down[a], 1,
                             start + (run ? (n - 1 - k) * 32 : 0), drag && m == first ? drag + 2 * k : NULL,
                             k == 0 ? snd : -1);
             if (cur.kind[a] == SP_TAB && nxt.down[a] < cur.down[a]) {   /* the card left on top turns up */
@@ -220,12 +236,12 @@ static inline void solui_animate(solui *u, const solpos *before, int first, cons
 }
 
 /* ---- the win: the cards leap off the foundations ----------------------------------------------------------------- */
-static inline int solui_found_n(const solui *u, int *list)   /* the foundations, in order */
+static inline int solui_found_n(const solui *u, int *list)   /* the foundations holding cards, in order */
 {
     const solpos *p = &u->rec->pos;
     int k = 0;
     for (int i = 0; i < p->npiles; i++)
-        if (p->kind[i] == SP_FOUND) list[k++] = i;
+        if (p->kind[i] == SP_FOUND && p->n[i]) list[k++] = i;
     return k;
 }
 
@@ -248,6 +264,8 @@ static inline void solui_draw_leaps(const solui *u)
     const solpos *p = &u->rec->pos;
     int fl[SOL_PILES], nf = solui_found_n(u, fl), total = sol_on_found(p), gap = solui_leap_gap(u);
     Uint32 now = ui_ms();
+    for (int i = 0; i < p->npiles; i++)        /* the empty ones (Montana's gaps) */
+        if (p->kind[i] == SP_FOUND && !p->n[i]) cards_place(u->deck, u->at[i].x, u->at[i].y, u->w);
     int gone = now < u->win_t0 ? 0 : (int)((now - u->win_t0) / (Uint32)gap) + 1;
     if (gone > total) gone = total;
     for (int f = 0; f < nf; f++) {              /* what is left on each foundation */
@@ -281,15 +299,16 @@ static inline void solui_check_win(solui *u, Uint32 at)
     u->win_t0 = at;
 }
 
-/* a new deal: the tableau's cards fly from (x, y) to their places, row by row, the top ones turning up */
-static inline void solui_deal(solui *u, float x, float y, int gap)
+/* a new deal: the cards of the piles of these kinds (bit SP_*) fly from (x, y) to their places, row by row (the
+ * first card of each pile, then the second...), the face-up ones turning up */
+static inline void solui_deal_kinds(solui *u, float x, float y, int gap, unsigned kinds)
 {
     const solpos *p = &u->rec->pos;
     int k = 0, more = 1;
     for (int r = 0; more; r++) {
         more = 0;
         for (int c = 0; c < p->npiles; c++) {
-            if (p->kind[c] != SP_TAB || r >= p->n[c]) continue;
+            if (!(kinds >> p->kind[c] & 1) || r >= p->n[c]) continue;
             float cx, cy;
             solui_xy(u, p, c, r, &cx, &cy);
             int up = r >= p->down[c];
@@ -302,9 +321,64 @@ static inline void solui_deal(solui *u, float x, float y, int gap)
     for (int i = 0; i < u->mv.n; i++) ct_show(&u->mv, i, u->mv.m[i].s.delay);   /* unseen till it goes */
 }
 
+/* a new deal: the tableau's cards fly from (x, y) to their places, row by row, the top ones turning up */
+static inline void solui_deal(solui *u, float x, float y, int gap)
+{
+    solui_deal_kinds(u, x, y, gap, 1u << SP_TAB);
+}
+
+/* a shuffle (a redeal, a card drawn from under others): each card that is no longer where it was in `before` flies
+ * from there to its new place, turning over if it must; it waits at its old place till then. They go a pile after
+ * another, each pile's top card first, gap ms apart. A pack of 52 (each card once). For the game's `animate`. */
+static inline int solui_rearrange(solui *u, const solpos *before, int gap)
+{
+    const solpos *p = &u->rec->pos;
+    int16_t to[256];
+    for (int c = 0; c < 256; c++) to[c] = -1;
+    for (int b = 0; b < p->npiles; b++)
+        for (int j = 0; j < p->n[b]; j++) to[p->c[b][j]] = (int16_t)(b * SOL_CARDS + j);
+    int k = 0;
+    for (int a = 0; a < before->npiles; a++) {  /* the slides bottom card first (drawn in that order), the top one
+                                                 * leaving first */
+        int moving = 0;
+        for (int i = 0; i < before->n[a]; i++) moving += to[before->c[a][i]] != a * SOL_CARDS + i;
+        for (int i = 0, m = 0; i < before->n[a]; i++) {
+            int card = before->c[a][i], t = to[card], b = t / SOL_CARDS, j = t % SOL_CARDS;
+            if (t < 0 || t == a * SOL_CARDS + i) continue;
+            float x0, y0, x1, y1;
+            solui_xy(u, before, a, i, &x0, &y0);
+            solui_xy(u, p, b, j, &x1, &y1);
+            int ms = solui_ms_for(u, x0, y0, x1, y1), delay = (k + moving - 1 - m) * gap;
+            solui_slide(u, card, i >= before->down[a], x0, y0, j >= p->down[b], x1, y1, ms, delay, b, j, 0);
+            if ((k + m) % 4 == 0) ui_sound_later(SND_MOVE, delay + ms - 40);
+            m++;
+        }
+        k += moving;
+    }
+    return 1;
+}
+
 static inline int solui_busy(const solui *u)
 {
     return ct_busy(&u->mv) || solui_leaping(u);
+}
+
+/* the game's undo(): back one move of the player's, the cards at rest */
+static inline int solui_undo(solui *u)
+{
+    if (!sol_undo(u->rec)) return 0;
+    solui_calm(u);
+    u->won = 0;
+    ui_handoff(0);
+    return 1;
+}
+
+/* the game's script() after its rules played the moves (ok: they all could): the cards at rest, the win at once */
+static inline int solui_scripted(solui *u, int ok)
+{
+    solui_calm(u);
+    solui_check_win(u, ui_ms());
+    return ok;
 }
 
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
@@ -328,7 +402,8 @@ static inline void solui_draw_pile(const solui *u, int pile)
     float x, y, w = u->w;
     switch (s->fan) {
     case SF_COLUMN:
-        if (!n || solui_hidden(u, pile, 0)) cards_place(deck, s->x, s->y, w);
+    case SF_FAN:
+        if ((!n || solui_hidden(u, pile, 0)) && !s->bare) cards_place(deck, s->x, s->y, w);
         if (!n && solui_glows(u, pile, -1)) ui_mark_gold(s->x, s->y, 1.3f * w);
         for (int i = 0; i < n; i++) {
             if (solui_hidden(u, pile, i)) continue;
@@ -341,7 +416,7 @@ static inline void solui_draw_pile(const solui *u, int pile)
         int k = n;
         while (k > 0 && solui_hidden(u, pile, k - 1)) k--;
         if (s->first && k < n) k = 0;           /* a run arriving: it shows once the king has landed */
-        int top = !k || p->kind[pile] == SP_STOCK ? CARD_NONE : p->c[pile][s->first ? 0 : k - 1];
+        int top = !k || p->kind[pile] == SP_STOCK || k <= p->down[pile] ? CARD_NONE : p->c[pile][s->first ? 0 : k - 1];
         int glow = solui_glows(u, pile, n - 1) || (!n && solui_glows(u, pile, -1));
         cards_pile(deck, s->x, s->y, w, k, top, (glow ? CD_GLOW : 0) | (k && solui_chosen(u, pile) ? CD_RAISED : 0));
         break;
@@ -415,10 +490,10 @@ static inline int solui_hit(const solui *u, float x, float y, int *idx)
         const solspot *s = &u->at[pile];
         int n = p->n[pile];
         if (s->fan == SF_SLOT) continue;
-        if (s->fan == SF_COLUMN) {
+        if (s->fan == SF_COLUMN || s->fan == SF_FAN) {
             for (int i = n - 1; i >= 0; i--) {
                 solui_xy(u, p, pile, i, &cx, &cy);
-                float extra = i == n - 1 ? 0.35f * h : 0;      /* a little below the last card too */
+                float extra = i == n - 1 && s->fan == SF_COLUMN ? 0.35f * h : 0;   /* a little below the last one */
                 if (fabsf(x - cx) <= w / 2 && y >= cy - h / 2 && y <= cy + h / 2 + extra) { *idx = i; return pile; }
             }
             if (!n && cards_in(s->x, s->y, w, SOLUI_ASPECT, x, y)) { *idx = -1; return pile; }
@@ -441,7 +516,7 @@ static inline int solui_play(solui *u, solmove m, const float *drag)
     int first = u->rec->n;
     if (!u->R->play(u->rec, m)) return 0;
     solui_calm(u);
-    solui_animate(u, &before, first, drag);
+    if (!u->animate || !u->animate(u, &before, first)) solui_animate(u, &before, first, drag);
     solui_check_win(u, ct_quiet(&u->mv));
     ui_handoff(0);
     return 1;
@@ -578,6 +653,18 @@ static inline void solui_again_pic(int size, uint8_t *o)
     art_poly(f, ART_PART, head, 3);
     art_render(f, &st, size, size, (float)size, 0, 0, o);
     art_fig_free(f);
+}
+
+/* the arrow in a picture (a thumbnail: round the corner), faint cream, d wide, centred on (cx, cy) */
+static inline void solui_paint_again(uint8_t *rgba, int size, float cx, float cy, int d)
+{
+    uint8_t *a = malloc((size_t)d * d * 4);
+    if (!a) return;
+    solui_again_pic(d, a);
+    for (int i = 0; i < d * d; i++)
+        a[4 * i] = 246, a[4 * i + 1] = 238, a[4 * i + 2] = 220, a[4 * i + 3] = (uint8_t)(a[4 * i + 3] * 0.85f);
+    art_blend(rgba, size, size, a, d, d, (int)(cx - d / 2.0f), (int)(cy - d / 2.0f));
+    free(a);
 }
 
 /* the arrow, faint cream, on the empty stock's place (x, y) */
