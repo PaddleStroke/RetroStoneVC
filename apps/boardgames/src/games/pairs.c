@@ -22,7 +22,6 @@
 #define FLIP_MS 300
 #define SHOW_MS 1100                            /* two cards that differ: up this long, then back */
 #define GOLD_MS 700                             /* a pair: its gold light */
-#define PI_F 3.14159265f
 
 static prgame G;
 static int variant;
@@ -95,46 +94,22 @@ static void paint_face(int pic, int w, int h, uint8_t *o)
     free(t);
 }
 
-static SDL_Texture *t_face[PR_POOL], *t_disc;
-static int face_w[PR_POOL], tok_size, disc_size;
+static SDL_Texture *t_disc;
+static int tok_size, disc_size;
 
-static SDL_Texture *face(int pic, int w)
+/* the cards: a deck of the game's own for the kit (its faces: a picture's number; the backs: the house's) */
+static int deck(void)
 {
-    if (pic < 0 || pic >= PR_POOL || w < 4) return NULL;
-    if (t_face[pic] && face_w[pic] == w) return t_face[pic];
-    int h = (int)(w * aspect() + 0.5f);
-    ui_free(&t_face[pic]);
-    paint_face(pic, w, h, ui_buf(w, h));
-    t_face[pic] = ui_tex(w, h, ui_buf(w, h));
-    face_w[pic] = w;
-    return t_face[pic];
-}
-
-/* the face laid over the kit's card (its shadow, its light): narrowed by sx (a flip), shaded (255: none) */
-static void lay(int pic, float cx, float cy, float w, float sx, Uint8 shade)
-{
-    SDL_Texture *t = face(pic, (int)(w + 0.5f));
-    if (!t) return;
-    SDL_SetTextureColorMod(t, shade, shade, shade);
-    SDL_FRect d = {cx - w * sx / 2, cy - w * aspect() / 2, w * sx, w * aspect()};
-    SDL_RenderCopyF(ui.r, t, NULL, &d);
-    SDL_SetTextureColorMod(t, 255, 255, 255);
+    static const cards_deck_def def = {1.4f, paint_face, NULL, NULL};
+    static int d = -1;
+    if (d < 0) d = cards_deck_add(&def);
+    return d;
 }
 
 /* a card face down, or up (how: the kit's CD_*) */
-static void card(int pic, float cx, float cy, float w, int up, int how, Uint8 shade)
+static void card(int pic, float cx, float cy, float w, int up, int how)
 {
-    cards_draw(DECK_FRENCH, CARD_NONE, cx, cy, w, 0, how | CD_DOWN);
-    if (up) lay(pic, cx, cy, w, 1, shade);
-}
-
-/* a card turning over: t 0 its back .. 1 its face (the kit's flip, the face laid over its second half) */
-static void card_flip(int pic, float cx, float cy, float w, float t)
-{
-    cards_draw_flip(DECK_FRENCH, CARD_NONE, cx, cy, w, 0, t, 0);
-    if (t < 0.5f) return;
-    float sx = fabsf(cosf(t * PI_F)), lift = 1 + 0.08f * sinf(t * PI_F);
-    lay(pic, cx, cy, w * lift, sx < 0.02f ? 0.02f : sx, 255);
+    cards_draw(deck(), up ? pic : CARD_NONE, cx, cy, w, 0, how | (up ? 0 : CD_DOWN));
 }
 
 /* ---- the flips --------------------------------------------------------------------------------------------------- */
@@ -272,16 +247,16 @@ static void draw(void)
         spot(i, &x, &y);
         int found = p->found[i] != PR_NONE, up = found || i == p->up[0] || i == p->up[1];
         if (t >= 0) {
-            card_flip(p->pic[i], x, y, T.w, fl[i].up ? t : 1 - t);
+            cards_draw_flip(deck(), p->pic[i], x, y, T.w, 0, fl[i].up ? t : 1 - t, 0);
             continue;
         }
         if (glowing && (i == gold[0] || i == gold[1])) {
             ui_mark_gold(x, y, 1.9f * T.w);
-            card(p->pic[i], x, y, T.w, 1, CD_RAISED, 255);
+            card(p->pic[i], x, y, T.w, 1, CD_RAISED);
             continue;
         }
         if (found) {                            /* found: dimmed, flat, the finder's chip in its corner */
-            card(p->pic[i], x, y, T.w * 0.94f, 1, CD_FLAT, 170);
+            card(p->pic[i], x, y, T.w * 0.94f, 1, CD_FLAT | CD_DIM);
             if (p->players > 1) {
                 float d = (float)tok_size;
                 ui_put_c(ct_token(p->found[i], tok_size), x + T.w * 0.47f - d * 0.6f, y + T.w * aspect() * 0.47f - d * 0.6f,
@@ -289,7 +264,7 @@ static void draw(void)
             }
             continue;
         }
-        card(p->pic[i], x, y, T.w, up, 0, 255);
+        card(p->pic[i], x, y, T.w, up, 0);
     }
     if (p->phase == PP_OVER && p->players == 1 && !busy()) {   /* solved: the moves, big */
         float cx = T.b.x + T.b.w / 2, cy = T.b.y + T.b.h / 2, d = 2.2f * ui.unit;
