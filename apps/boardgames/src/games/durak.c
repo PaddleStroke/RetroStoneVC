@@ -39,14 +39,14 @@ static Uint32 trump_go;                        /* when the trump card leaves the
 static int dealing, mark;                       /* dealing: the deal flies once the view is set; mark: undo floor */
 static uint64_t chosen;                         /* the cards chosen (bit dur_index) */
 static int raised = CARD_NONE;                  /* the defender's card risen */
-static struct { int on, moved, card; float x0, y0, x, y; } drag;
+static ct_drag drag;
 
 /* ---- the table's geometry (it follows the viewer) ---------------------------------------------------------------- */
 static struct {
     box b, hb;                                  /* the table; the hand's box */
-    int me, k, wide, cols;
+    int me, wide, cols;
     float asp, u;
-    float sy, sw, sfan;                         /* the others: the fans' centre, a card's width, a fan's width */
+    ct_others O;                                /* the others along the top */
     float wp, wt;                               /* the bout's cards, the talon's and the cards beaten off */
     float tx, ty, trx;                          /* the talon, the trump card across under it */
     float dx, dy;                               /* the cards beaten off */
@@ -55,23 +55,18 @@ static struct {
     float mid_top, mid_bot;
 } T;
 
-static float seat_x(int q) { return ct_seat_x(T.b.x, T.b.w, T.k, ct_seat(q, T.me, G.pos.players)); }
-
 static void layout(box b)
 {
     const dpos *p = &G.pos;
     T.b = b;
     T.me = ui_bottom();
     if (T.me < 0 || T.me >= p->players) T.me = 0;
-    T.k = p->players - 1;
     T.u = ui.unit;
     T.asp = cards_aspect(DECK_FRENCH);
     T.wide = b.w > b.h * 1.05f;
     T.cols = 3;
     float u = T.u, hs = b.h * (T.wide ? 0.2f : 0.16f), hh = b.h * (T.wide ? 0.28f : 0.3f), hm = b.h - hs - hh;
-    T.sw = floorf(fminf(fminf(hs * 0.6f / T.asp, b.w / T.k * 0.3f), 0.85f * u));
-    T.sfan = fminf(b.w / T.k * 0.8f, T.sw * 3.0f);
-    T.sy = b.y + hs * 0.4f;
+    ct_others_layout(&T.O, b, DECK_FRENCH, p->players, T.me, hs);
     T.mid_top = b.y + hs;
     T.mid_bot = b.y + hs + hm;
     const int rows = 2;
@@ -146,13 +141,6 @@ static int hand_hit(const uint8_t *h, int n, float x, float y)
 
 static uint64_t bit(int card) { return 1ull << dur_index(card); }
 
-static int count_bits(uint64_t m)
-{
-    int c = 0;
-    for (; m; m &= m - 1) c++;
-    return c;
-}
-
 /* the open places the card beats (bit i) */
 static unsigned targets(const dpos *p, int card)
 {
@@ -164,11 +152,6 @@ static unsigned targets(const dpos *p, int card)
 
 /* ---- the moving cards -------------------------------------------------------------------------------------------- */
 static int busy(void) { return ct_busy(&MV); }
-
-static void seat_end(int q, int count, float *x, float *y, float *deg)
-{
-    ct_backs_end(DECK_FRENCH, seat_x(q), T.sy, T.sfan, T.sw, count, x, y, deg);
-}
 
 /* the cards player q gained, from the position before (b) to the one after (p): first the nb cards of the bout
  * taken (bout, their places fx, fy, fd; `just`: those still flying there, shown from `land` on), then the ones drawn
@@ -197,8 +180,8 @@ static int gains(const dpos *b, const dpos *p, int q, const uint8_t *bout, const
                          t, H_HAND, card, src, j % 2 ? -1 : SND_MOVE);
         } else {
             float x, y, a;
-            seat_end(q, b->n[q] + j + 1, &x, &y, &a);
-            m = ct_slide(&MV, DECK_FRENCH, up0 ? card : CARD_NONE, x0, y0, w0, d0, up0, x, y, T.sw, a, 0, SLIDE_MS,
+            ct_others_end(&T.O, q, b->n[q] + j + 1, &x, &y, &a);
+            m = ct_slide(&MV, DECK_FRENCH, up0 ? card : CARD_NONE, x0, y0, w0, d0, up0, x, y, T.O.sw, a, 0, SLIDE_MS,
                          t, H_SEAT, q, src, j % 2 ? -1 : SND_MOVE);
         }
         if (from_trump) ct_show(&MV, m, t), trump_go = ui_ms() + (Uint32)t;   /* the trump stays under the talon */
@@ -262,8 +245,8 @@ static void deal_slides(void)
                          k * step, H_HAND, card, 1, k % 3 ? -1 : SND_MOVE);
             } else {
                 float x, y, a;
-                seat_end(q, c + 1, &x, &y, &a);
-                ct_slide(&MV, DECK_FRENCH, CARD_NONE, T.tx, T.ty, T.wt, 0, 0, x, y, T.sw, a, 0, DEAL_MS, k * step,
+                ct_others_end(&T.O, q, c + 1, &x, &y, &a);
+                ct_slide(&MV, DECK_FRENCH, CARD_NONE, T.tx, T.ty, T.wt, 0, 0, x, y, T.O.sw, a, 0, DEAL_MS, k * step,
                          H_SEAT, q, 1, k % 3 ? -1 : SND_MOVE);
             }
         }
@@ -284,15 +267,15 @@ static void animate(const dpos *b, uint64_t a)
     for (int i = 0, k = 0; i < n; i++) {        /* the cards that left the hand, to their places in the bout */
         int c = h[i], slot = -1, cover = 0;
         if (DA_KIND(a) == DA_PLAY && DA_MASK(a) & bit(c))   /* the places in the order of the cards (the rules') */
-            slot = b->natt + count_bits(DA_MASK(a) & (bit(c) - 1));
+            slot = b->natt + ct_count(DA_MASK(a) & (bit(c) - 1));
         else if (DA_KIND(a) == DA_SHIFT && DA_CARD(a) == c) slot = b->natt;
         else if (DA_KIND(a) == DA_BEAT && DA_CARD(a) == c) slot = DA_SLOT(a), cover = 1;
         if (slot < 0) continue;
         float x0 = s[i].x, y0 = s[i].y, d0 = s[i].deg, x1 = T.bx[slot], y1 = T.by[slot], d1 = 0;
-        if (!me) seat_end(b->turn, b->n[b->turn], &x0, &y0, &d0);
-        if (drag.on && drag.moved > 0) x0 = drag.x + k * 0.3f * w, y0 = drag.y, d0 = 0;
+        if (!me) ct_others_end(&T.O, b->turn, b->n[b->turn], &x0, &y0, &d0);
+        if (ct_dragging(&drag)) x0 = drag.x + k * 0.3f * w, y0 = drag.y, d0 = 0;
         if (cover) cover_at(slot, &x1, &y1, &d1);
-        ct_slide(&MV, DECK_FRENCH, c, x0, y0, me ? w : T.sw, d0, 1, x1, y1, T.wp, d1, 1, SLIDE_MS, 60 * k, H_BOUT, slot,
+        ct_slide(&MV, DECK_FRENCH, c, x0, y0, me ? w : T.O.sw, d0, 1, x1, y1, T.wp, d1, 1, SLIDE_MS, 60 * k, H_BOUT, slot,
                  cover, k ? -1 : SND_PLACE);
         land = SLIDE_MS + 60 * k;
         k++;
@@ -303,7 +286,7 @@ static void animate(const dpos *b, uint64_t a)
             for (int i = 0; i < DUR_CARDS; i++)
                 if (DA_MASK(a) >> i & 1) bb.att[bb.natt] = (uint8_t)dur_card(i), bb.def[bb.natt++] = DUR_NONE;
         if (DA_KIND(a) == DA_BEAT) bb.def[DA_SLOT(a)] = (uint8_t)DA_CARD(a);
-        bb.n[b->turn] = (uint8_t)(b->n[b->turn] - (DA_KIND(a) == DA_PLAY ? count_bits(DA_MASK(a))
+        bb.n[b->turn] = (uint8_t)(b->n[b->turn] - (DA_KIND(a) == DA_PLAY ? ct_count(DA_MASK(a))
                                                    : DA_KIND(a) == DA_BEAT));
         uint64_t played = DA_KIND(a) == DA_PLAY ? DA_MASK(a) : DA_KIND(a) == DA_BEAT ? bit(DA_CARD(a)) : 0;
         bout_over(&bb, p, played, land);
@@ -412,20 +395,17 @@ static void put_role(int kind, float cx, float cy, float d)
 static void draw_others(void)
 {
     const dpos *p = &G.pos;
-    float ch = T.sw * T.asp, lh = 0.48f * T.sw, ly = T.sy + 0.5f * ch + 0.3f * T.sw + 0.12f * ch;
-    int tok = (int)fmaxf(8, lh);
     for (int q = 0; q < p->players; q++) {
         if (q == T.me) continue;
         int n = p->n[q] - ct_hides(&MV, H_SEAT, q, -1);
-        float x = seat_x(q);
-        if (n > 0) ct_backs(DECK_FRENCH, x, T.sy, T.sfan, T.sw, n, 0);
-        else cards_place(DECK_FRENCH, x, T.sy, T.sw);
-        ct_label(ct_token(q, tok), x, ly, lh, n);
+        float x, y, d;
+        ct_others_draw(&T.O, q, n, 0);
         if (p->phase == DP_OVER) continue;
-        float lw = 1.15f * lh + 0.62f * lh * (n >= 10 ? 2 : 1), rd = 1.25f * lh;   /* beside the label */
-        if (q == p->defender) put_role(PIC_SHIELD, x + lw / 2 + 0.7f * rd, ly, rd);
-        else if (q == p->attacker) put_role(PIC_SWORD, x + lw / 2 + 0.7f * rd, ly, rd);
-        if (p->phase == DP_THROW && p->passed >> q & 1) ct_pass_badge(x - lw / 2 - 0.7f * rd, ly, rd);
+        ct_others_badge(&T.O, q, n, 1, &x, &y, &d);   /* beside the chip and count */
+        if (q == p->defender) put_role(PIC_SHIELD, x, y, d);
+        else if (q == p->attacker) put_role(PIC_SWORD, x, y, d);
+        ct_others_badge(&T.O, q, n, -1, &x, &y, &d);
+        if (p->phase == DP_THROW && p->passed >> q & 1) ct_pass_badge(x, y, d);
     }
 }
 
@@ -436,13 +416,7 @@ static void draw_talon(void)
     int last = ct_hides(&MV, H_HAND, -1, 2) + ct_hides(&MV, H_SEAT, -1, 2);   /* the trump card drawn, flying */
     int pending = ct_hides(&MV, H_HAND, -1, 1) + ct_hides(&MV, H_SEAT, -1, 1) + last;   /* drawn, on their way */
     int n = p->ntalon + pending, trump_moving = ct_hides(&MV, H_TRUMP, -1, -1) || (last && ui_ms() >= trump_go);
-    if (n > 0 && !trump_moving) cards_draw(DECK_FRENCH, p->trump_card, T.trx, T.ty, T.wt, 90, 0);
-    if (n > 1) cards_pile(DECK_FRENCH, T.tx, T.ty, T.wt, n - 1 > 6 ? 6 : n - 1, CARD_NONE, 0);
-    if (n > 1) ui_number(T.tx, T.ty, 0.34f * T.wt, n, 1);
-    if (n == 0) {                               /* the trump's sign where the talon was */
-        float d = 0.8f * T.wt;
-        ui_put_c(ct_suit(DECK_FRENCH, p->trump, (int)d), T.tx, T.ty, d, d);
-    }
+    ct_talon(DECK_FRENCH, T.tx, T.ty, T.trx, T.ty, T.wt, n, trump_moving ? CARD_NONE : p->trump_card, p->trump, 1);
 }
 
 static void draw_bout(int mine)
@@ -498,7 +472,7 @@ static void draw(void)
         int c = h[i];
         if (ct_hides(&MV, H_HAND, c, -1)) continue;
         if (hide) { cards_draw(DECK_FRENCH, CARD_NONE, s[i].x, s[i].y, w, s[i].deg, CD_DOWN); continue; }
-        if (drag.on && drag.moved > 0 && ((chosen & bit(c)) || c == drag.card)) continue;
+        if (ct_dragging(&drag) && ((chosen & bit(c)) || c == drag.card)) continue;
         int how = 0;
         if ((chosen & bit(c)) || c == raised) how = CD_RAISED;
         else if (mine && p->phase == DP_THROW && dur_room(p) && dur_can_throw(p, c)) how = CD_GLOW;
@@ -508,7 +482,7 @@ static void draw(void)
         cards_draw(DECK_FRENCH, c, s[i].x, s[i].y, w, s[i].deg, how);
     }
     ct_draw(&MV);
-    if (drag.on && drag.moved > 0 && !hide) {   /* the cards under the finger */
+    if (ct_dragging(&drag) && !hide) {   /* the cards under the finger */
         int k = 0;
         for (int i = 0; i < n; i++)
             if ((chosen & bit(h[i])) || h[i] == drag.card)
@@ -554,15 +528,9 @@ static void choose(int c)
         for (int i = 0; i < DUR_CARDS; i++)     /* one rank only */
             if (chosen >> i & 1 && CARD_RANK(dur_card(i)) != CARD_RANK(c)) chosen = 0;
     } else if (!dur_can_throw(p, c)) { ui_sound(SND_DENY); return; }
-    if (count_bits(chosen) >= dur_room(p)) { ui_sound(SND_DENY); return; }
+    if (ct_count(chosen) >= dur_room(p)) { ui_sound(SND_DENY); return; }
     chosen |= bit(c);
     ui_sound(SND_TAP);
-}
-
-static void drag_start(int moved, int c, float x, float y)
-{
-    drag.on = 1, drag.moved = moved, drag.card = c;
-    drag.x0 = drag.x = x, drag.y0 = drag.y = y;
 }
 
 static void press(float x, float y)
@@ -584,13 +552,13 @@ static void press(float x, float y)
             return;
         }
         if (c == raised) {                      /* tapped again: it goes where it can only go */
-            drag_start(-1, c, x, y);
+            ct_drag_start(&drag, -1, c, x, y);
             return;
         }
         if (!targets(p, c) && !dur_can_shift(p, c)) { ui_sound(SND_DENY); return; }
         raised = c;
         ui_sound(SND_TAP);
-        drag_start(0, c, x, y);
+        ct_drag_start(&drag, 0, c, x, y);
         return;
     }
     /* attacking, throwing in */
@@ -601,15 +569,12 @@ static void press(float x, float y)
     }
     int was = (chosen & bit(c)) != 0;
     if (!was) choose(c);
-    if (chosen & bit(c)) drag_start(was ? -1 : 0, c, x, y);
+    if (chosen & bit(c)) ct_drag_start(&drag, was ? -1 : 0, c, x, y);
 }
 
 static void motion(float x, float y)
 {
-    if (!drag.on) return;
-    if (drag.moved <= 0 && hypotf(x - drag.x0, y - drag.y0) > 0.25f * T.u) drag.moved = 1;
-    drag.x = x, drag.y = y;
-    if (drag.moved > 0) ui_animate();
+    ct_drag_move(&drag, x, y, 0.25f * T.u);
 }
 
 static void release(float x, float y)
@@ -636,15 +601,12 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     const dpos *p = &G.pos;
-    float u = ui.unit, cy = b.y + b.h / 2, d = fminf(0.62f * u, b.h * 0.8f), x = b.x, hc = 0.36f * u, cw = 0.28f * u;
+    float u = ui.unit, cy = b.y + b.h / 2, d = fminf(0.62f * u, b.h * 0.8f), x = b.x;
     if (p->phase != DP_OVER && (player == p->attacker || player == p->defender)) {
         put_role(player == p->defender ? PIC_SHIELD : PIC_SWORD, x + d / 2, cy, d);
         x += d + 0.12f * u;
     }
-    if (x + cw + 0.1f * u + ct_number_w(p->n[player], hc, 0) > b.x + b.w) return;
-    cards_draw(DECK_FRENCH, CARD_NONE, x + cw / 2, cy, cw, 0, CD_DOWN | CD_FLAT);
-    x += cw + 0.1f * u;
-    ui_number(x + ct_number_w(p->n[player], hc, 0) / 2, cy, hc, p->n[player], 1);
+    ct_bar_cards(b, x, DECK_FRENCH, p->n[player]);
 }
 
 static void token(int player, int size, uint8_t *rgba) { cards_token(player, size, rgba); }
