@@ -41,11 +41,11 @@
 #define SWAP_MS 650
 #define REST_MS 220
 
-static go_game G;
+static goo_game G;
 static int S, made = -1, made_icon = -1;
 static float bx, by, dcx, dcy, dsize;           /* the board; the dice (centre, a die's size) */
-static SDL_Texture *t_board, *t_pawn[GO_PLAYERS], *t_icon[3];   /* the bars' icons: the inn, the well, the prison */
-static struct { int on, hops; Uint32 t0; go_move m; int total, sounded; } anim;
+static SDL_Texture *t_board, *t_pawn[GOO_PLAYERS], *t_icon[3];   /* the bars' icons: the inn, the well, the prison */
+static struct { int on, hops; Uint32 t0; goo_move m; int total, sounded; } anim;
 
 /* ---- the spiral -------------------------------------------------------------------------------------------------- */
 static float sp_T, sp_L, sp_s[SPN + 1];
@@ -120,7 +120,7 @@ static void yard(int player, float *x, float *y, float *size)
     static const float BIG[3][2] = {{0.088f, 0.915f}, {0.205f, 0.925f}, {0.082f, 0.795f}};
     static const float SMALL[6][2] = {{0.072f, 0.935f}, {0.152f, 0.938f}, {0.232f, 0.942f},
                                       {0.070f, 0.855f}, {0.150f, 0.858f}, {0.068f, 0.775f}};
-    int p = player < 0 ? 0 : player % GO_PLAYERS;
+    int p = player < 0 ? 0 : player % GOO_PLAYERS;
     if (G.players <= 3) *x = BIG[p % 3][0], *y = BIG[p % 3][1], *size = PAWN_SZ;
     else *x = SMALL[p][0], *y = SMALL[p][1], *size = 0.72f;
 }
@@ -130,7 +130,7 @@ static void square_at(int sq, int player, float *x, float *y, float *size)
 {
     *size = PAWN_SZ;
     if (sq <= 0) yard(player, x, y, size);
-    else if (sq >= GO_LAST) *x = 0.5f, *y = 0.53f, *size = 1.1f;
+    else if (sq >= GOO_LAST) *x = 0.5f, *y = 0.53f, *size = 1.1f;
     else sp_at(cell_t(sq), 0, x, y);
 }
 
@@ -411,7 +411,7 @@ static void board_pic(int n, uint8_t *o, int detail)
                 c = c < 1 ? 1 : c > CELLS ? CELLS : c;
                 float along = fminf(s - (c - 1) * Lc, c * Lc - s) * rho / sp_r(t);
                 d = fminf(along, PITCH / 2 - fabsf(off)) * n;
-                int kind = go_kind(c);
+                int kind = goo_kind(c);
                 static const float A[3] = {1.13f, 1.09f, 1.02f}, B[3] = {1.04f, 0.99f, 0.92f};
                 static const float GOOSE_T[3] = {1.20f, 1.18f, 1.12f}, HAZ[3] = {1.08f, 0.95f, 0.88f};
                 const float *k = kind == GK_GOOSE ? GOOSE_T
@@ -433,8 +433,8 @@ static void board_pic(int n, uint8_t *o, int detail)
     star(o, n, 0.885f * n, 0.115f * n, 0.075f * n);
     star(o, n, 0.885f * n, 0.885f * n, 0.075f * n);
     if (!detail) return;
-    for (int c = 1; c < GO_LAST; c++) {         /* the squares' pictures, a little inward of the number */
-        int kind = go_kind(c), fig = kind == GK_GOOSE ? FIG_GOOSE : kind == GK_BRIDGE ? FIG_BRIDGE
+    for (int c = 1; c < GOO_LAST; c++) {         /* the squares' pictures, a little inward of the number */
+        int kind = goo_kind(c), fig = kind == GK_GOOSE ? FIG_GOOSE : kind == GK_BRIDGE ? FIG_BRIDGE
                                      : kind == GK_INN ? FIG_INN : kind == GK_WELL ? FIG_WELL
                                      : kind == GK_MAZE ? FIG_MAZE : kind == GK_PRISON ? FIG_PRISON
                                      : kind == GK_DEATH ? FIG_DEATH : -1;
@@ -455,38 +455,38 @@ static void board_pic(int n, uint8_t *o, int detail)
 static void start(int variant)
 {
     (void)variant;
-    go_new(&G, ui.players);
+    goo_new(&G, ui.players);
     anim.on = 0;
 }
 
 static int status(void)
 {
-    int s = go_status(&G);
-    return s == GO_PLAY ? GS_PLAY : gs_win(s - GO_WIN0);
+    int s = goo_status(&G);
+    return s == GOO_PLAY ? GS_PLAY : gs_win(s - GOO_WIN0);
 }
 
-static int turn(void) { return go_turn(&G); }
+static int turn(void) { return goo_turn(&G); }
 
 /* the moving pawn's timeline: when each step starts (ms after the dice settle), the pause before it, its length */
-static int step_pause(const go_move *m, int i)
+static int step_pause(const goo_move *m, int i)
 {
     int n = m->d1 + m->d2;
     if (i == 0) return 0;
-    if (m->step[i].how != GO_HOP) return PAUSE_MS;
+    if (m->step[i].how != GOO_HOP) return PAUSE_MS;
     return i % n == 0 ? PAUSE_MS : 0;           /* a goose's flight again */
 }
 
-static int step_ms(const go_move *m, int i)
+static int step_ms(const goo_move *m, int i)
 {
     int from = i ? m->step[i - 1].sq : m->from, to = m->step[i].sq;
     switch (m->step[i].how) {
-    case GO_GLIDE: return 260 + GLIDE_MS * abs(to - from);
-    case GO_FLY: return FLY_MS;
+    case GOO_GLIDE: return 260 + GLIDE_MS * abs(to - from);
+    case GOO_FLY: return FLY_MS;
     default: return HOP_MS;
     }
 }
 
-static int move_ms(const go_move *m)
+static int move_ms(const goo_move *m)
 {
     int t = 0;
     for (int i = 0; i < m->n; i++) t += step_pause(m, i) + step_ms(m, i);
@@ -504,39 +504,39 @@ static int busy(void)
 static void throw_dice(void)
 {
     int d[2];
-    if (!go_next(&G, &d[0], &d[1])) d[0] = 1 + ui_random(6), d[1] = 1 + ui_random(6);
-    int p = go_turn(&G);
+    if (!goo_next(&G, &d[0], &d[1])) d[0] = 1 + ui_random(6), d[1] = 1 + ui_random(6);
+    int p = goo_turn(&G);
     ui_dice_throw(2, d, p);
-    go_play(&G, d[0], d[1]);
+    goo_play(&G, d[0], d[1]);
     anim.m = G.last;
     anim.on = 1;
     anim.t0 = ui_ms() + RACE_TUMBLE_MS;         /* its way starts once the dice lie still */
     anim.total = move_ms(&anim.m);
     anim.hops = anim.sounded = 0;
-    ui_handoff(go_turn(&G));                    /* once the pawn has landed */
+    ui_handoff(goo_turn(&G));                    /* once the pawn has landed */
 }
 
 static int undo(void)
 {
-    if (!go_undo(&G)) return 0;
+    if (!goo_undo(&G)) return 0;
     anim.on = 0;
     if (G.n) {                                  /* the dice show the throw before */
         int d[2] = {G.dice[G.n - 1][0], G.dice[G.n - 1][1]};
         ui_dice_show(2, d, G.who[G.n - 1]);
     }
-    ui_handoff(go_turn(&G));
+    ui_handoff(goo_turn(&G));
     return 1;
 }
 
 static int script(const char *s)
 {
-    int ok = go_script(&G, s);
+    int ok = goo_script(&G, s);
     anim.on = 0;
     if (G.n) {
         int d[2] = {G.dice[G.n - 1][0], G.dice[G.n - 1][1]};
         ui_dice_show(2, d, G.who[G.n - 1]);
     }
-    ui_handoff(go_turn(&G));
+    ui_handoff(goo_turn(&G));
     return ok;
 }
 
@@ -564,7 +564,7 @@ static void layout(box b)
         ui_free(&t_board);
         t_board = ui_tex(S, S, ui_buf(S, S));
         int p = (int)(PAWN_SZ * 1.3f * PITCH * S);
-        for (int q = 0; q < GO_PLAYERS; q++) {
+        for (int q = 0; q < GOO_PLAYERS; q++) {
             ui_free(&t_pawn[q]);
             art_piece(PAWN, q, p, ui_buf(p, p));
             t_pawn[q] = ui_tex(p, p, ui_buf(p, p));
@@ -595,7 +595,7 @@ static void pawn(int p, float x, float y, float size)
 /* where the moving pawn is now (its foot, fractions) and how high it hops; 0: its way is over (it stands on m->to) */
 static int moving(float *x, float *y, float *lift, int *at)
 {
-    const go_move *m = &anim.m;
+    const goo_move *m = &anim.m;
     float s0;
     *lift = 0;
     *at = m->from;
@@ -616,14 +616,14 @@ static int moving(float *x, float *y, float *lift, int *at)
             square_at(to, m->player, &x1, &y1, &s0);
             if (anim.sounded < i + 1) {         /* each step's sound once */
                 anim.sounded = i + 1;
-                if (how == GO_FLY) ui_sound(to == 0 ? SND_CAPTURE : SND_CHECK);
-                else if (how == GO_GLIDE) ui_sound(to < from ? SND_CAPTURE : SND_CHECK);
+                if (how == GOO_FLY) ui_sound(to == 0 ? SND_CAPTURE : SND_CHECK);
+                else if (how == GOO_GLIDE) ui_sound(to < from ? SND_CAPTURE : SND_CHECK);
                 else {
                     if (step_pause(m, i)) ui_sound(SND_CHECK);   /* a goose: off again */
                     ui_sound_later(SND_MOVE, len > 40 ? len - 40 : 0);
                 }
             }
-            if (how == GO_GLIDE) {              /* along the spiral */
+            if (how == GOO_GLIDE) {              /* along the spiral */
                 float t0 = cell_t(from), t1 = cell_t(to);
                 sp_at(t0 + (t1 - t0) * e, 0, x, y);
                 *lift = 0.15f * PITCH * sinf(RACE_PI * f);
@@ -631,7 +631,7 @@ static int moving(float *x, float *y, float *lift, int *at)
                 *x = x0 + (x1 - x0) * e;
                 *y = y0 + (y1 - y0) * e;
                 float far = hypotf(x1 - x0, y1 - y0);
-                *lift = (how == GO_FLY ? 0.3f * far + 0.05f : 0.32f * PITCH) * sinf(RACE_PI * f);
+                *lift = (how == GOO_FLY ? 0.3f * far + 0.05f : 0.32f * PITCH) * sinf(RACE_PI * f);
             }
             *at = f > 0.5f ? to : from;
             return 1;
@@ -641,7 +641,7 @@ static int moving(float *x, float *y, float *lift, int *at)
     }
     if (anim.sounded <= m->n) {                 /* the end of its way: held by the inn, the well, the prison */
         anim.sounded = m->n + 1;
-        int k = go_kind(m->to);
+        int k = goo_kind(m->to);
         if (k == GK_WELL || k == GK_PRISON) ui_sound(SND_DROP);
         else if (k == GK_INN) ui_sound(SND_PLACE);
     }
@@ -654,7 +654,7 @@ static int moving(float *x, float *y, float *lift, int *at)
  * 0: it stands where it goes */
 static int swapping(float *x, float *y, float *lift)
 {
-    const go_move *m = &anim.m;
+    const goo_move *m = &anim.m;
     float s0, x0, y0, x1, y1;
     *lift = 0;
     square_at(m->to, m->swap, &x0, &y0, &s0);
@@ -674,10 +674,10 @@ static int swapping(float *x, float *y, float *lift)
 static void draw(void)
 {
     ui_put(t_board, bx, by, (float)S, (float)S);
-    for (int c = 1; c <= GO_LAST; c++) {        /* the numbers: big on a plain square, small beside a picture */
+    for (int c = 1; c <= GOO_LAST; c++) {        /* the numbers: big on a plain square, small beside a picture */
         float x, y, h;
-        int kind = go_kind(c);
-        if (c == GO_LAST) {
+        int kind = goo_kind(c);
+        if (c == GOO_LAST) {
             ui_number(bx + 0.5f * S, by + (0.5f - 0.66f * RG) * S, 0.3f * PITCH * S, c, 1);
             continue;
         }
@@ -686,11 +686,11 @@ static void draw(void)
         ui_number(bx + x * S, by + y * S, h * S, c, 0);
     }
     /* each pawn's foot and size; the moving one and the one it sends back where they are now */
-    float px[GO_PLAYERS], py[GO_PLAYERS], ps[GO_PLAYERS], lift = 0;
-    int order[GO_PLAYERS], np = G.players, at, still = 1;
+    float px[GOO_PLAYERS], py[GOO_PLAYERS], ps[GOO_PLAYERS], lift = 0;
+    int order[GOO_PLAYERS], np = G.players, at, still = 1;
     for (int q = 0; q < np; q++) square_at(G.pos[q], q, &px[q], &py[q], &ps[q]);
     if (anim.on) {
-        const go_move *m = &anim.m;
+        const goo_move *m = &anim.m;
         int a = moving(&px[m->player], &py[m->player], &lift, &at);
         py[m->player] -= lift;
         if (a) ps[m->player] = PAWN_SZ;
@@ -723,14 +723,14 @@ static void draw(void)
         }
     int waiting = status() == GS_PLAY && still && !ui_dice_busy();
     if (waiting) {                              /* the pawn of the player to throw */
-        int p = go_turn(&G);
+        int p = goo_turn(&G);
         ui_mark_gold(bx + px[p] * S, by + (py[p] - 0.25f * PITCH) * S, 1.6f * PITCH * S);
     }
     for (int i = 0; i < np; i++) pawn(order[i], px[order[i]], py[order[i]], ps[order[i]]);
     /* the dice: thrown, or waiting in a gold light for the player to throw (their last throw, in their colour) */
     if (waiting) {
-        int p = go_turn(&G), d1 = 6, d2 = 3;
-        go_last_throw(&G, p, &d1, &d2);
+        int p = goo_turn(&G), d1 = 6, d2 = 3;
+        goo_last_throw(&G, p, &d1, &d2);
         float gap = 0.65f * dsize;
         ui_mark_gold(dcx, dcy, 3.2f * dsize);
         ui_die_at(dcx - gap, dcy, dsize, p, d1, 1);
@@ -762,10 +762,10 @@ static void bar(int player, box b)
         moving(&x, &y, &l, &at);
     }
     if (anim.on && player == anim.m.swap && busy()) at = anim.m.to;
-    int w = G.wait[player], kind = go_kind(G.pos[player]), icon = -1;
+    int w = G.wait[player], kind = goo_kind(G.pos[player]), icon = -1;
     if (!(anim.on && (player == anim.m.player || player == anim.m.swap))) {
         if (w > 0) icon = 0;
-        else if (w == GO_HELD) icon = kind == GK_WELL ? 1 : 2;
+        else if (w == GOO_HELD) icon = kind == GK_WELL ? 1 : 2;
     }
     float digits = at >= 10 ? 2 : 1, nw = (0.74f * (digits - 1) + 0.62f) * h, ic = 0.62f * u;
     int narrow = b.w < nw + ic + 0.3f * u;

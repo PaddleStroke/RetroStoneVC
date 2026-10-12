@@ -7,7 +7,7 @@
 
 #include "games/goose.h"
 
-int go_kind(int s)
+int goo_kind(int s)
 {
     switch (s) {
     case 6: return GK_BRIDGE;
@@ -17,37 +17,37 @@ int go_kind(int s)
     case 52: return GK_PRISON;
     case 58: return GK_DEATH;
     case 26: case 53: return GK_DICE;
-    case GO_LAST: return GK_GARDEN;
+    case GOO_LAST: return GK_GARDEN;
     }
-    return s > 0 && s < GO_LAST && (s % 9 == 0 || s % 9 == 5) ? GK_GOOSE : GK_PLAIN;
+    return s > 0 && s < GOO_LAST && (s % 9 == 0 || s % 9 == 5) ? GK_GOOSE : GK_PLAIN;
 }
 
-void go_new(go_game *g, int players)
+void goo_new(goo_game *g, int players)
 {
     memset(g, 0, sizeof *g);
-    g->players = players < 2 ? 2 : players > GO_PLAYERS ? GO_PLAYERS : players;
+    g->players = players < 2 ? 2 : players > GOO_PLAYERS ? GOO_PLAYERS : players;
     g->winner = -1;
 }
 
-int go_turn(const go_game *g) { return g->turn; }
-int go_status(const go_game *g) { return g->winner < 0 ? GO_PLAY : GO_WIN0 + g->winner; }
+int goo_turn(const goo_game *g) { return g->turn; }
+int goo_status(const goo_game *g) { return g->winner < 0 ? GOO_PLAY : GOO_WIN0 + g->winner; }
 
-static void step(go_move *m, int sq, int how)
+static void step(goo_move *m, int sq, int how)
 {
-    if (m->n < GO_STEPS) m->step[m->n++] = (go_step){(uint8_t)sq, (uint8_t)how};
+    if (m->n < GOO_STEPS) m->step[m->n++] = (goo_step){(uint8_t)sq, (uint8_t)how};
 }
 
 /* the next to throw after `p`: the players at the inn miss their turns (one less to wait each), those in the well or
  * the prison are passed over; two held and nobody free to come: the next one is freed */
-static int next_player(go_game *g, int p)
+static int next_player(goo_game *g, int p)
 {
     int c = p;
-    for (int guard = 0; guard < 64 * GO_PLAYERS; guard++) {
+    for (int guard = 0; guard < 64 * GOO_PLAYERS; guard++) {
         c = (c + 1) % g->players;
         if (g->wait[c] > 0) { g->wait[c]--; continue; }
-        if (g->wait[c] == GO_HELD) {
+        if (g->wait[c] == GOO_HELD) {
             int free_one = 0;
-            for (int q = 0; q < g->players; q++) free_one |= q != c && g->wait[q] != GO_HELD;
+            for (int q = 0; q < g->players; q++) free_one |= q != c && g->wait[q] != GOO_HELD;
             if (free_one) continue;
             g->wait[c] = 0;                     /* nobody can come: freed */
             g->last.freed = c;
@@ -58,28 +58,28 @@ static int next_player(go_game *g, int p)
 }
 
 /* one throw on the position (the history is the caller's) */
-static void apply(go_game *g, int d1, int d2)
+static void apply(goo_game *g, int d1, int d2)
 {
     int p = g->turn, from = g->pos[p], n = d1 + d2;
-    go_move m = {.player = p, .from = from, .d1 = d1, .d2 = d2, .swap = -1, .freed = -1};
+    goo_move m = {.player = p, .from = from, .d1 = d1, .d2 = d2, .swap = -1, .freed = -1};
     int s = from;
     if (from == 0 && n == 9) {                  /* the opening throws */
         s = d1 == 6 || d2 == 6 ? 26 : 53;
-        step(&m, s, GO_FLY);
+        step(&m, s, GOO_FLY);
     } else {
         int dir = 1;
         for (int chain = 0; chain < 32; chain++) {
             for (int k = 0; k < n; k++) {       /* square by square, bouncing off 63 */
-                if (s == GO_LAST) dir = -1;
+                if (s == GOO_LAST) dir = -1;
                 if (s + dir < 0) break;
                 s += dir;
-                step(&m, s, GO_HOP);
+                step(&m, s, GOO_HOP);
             }
-            int kind = go_kind(s);
+            int kind = goo_kind(s);
             if (kind == GK_GOOSE) continue;     /* again, the same way */
-            if (kind == GK_BRIDGE) s = 12, step(&m, s, GO_GLIDE);
-            else if (kind == GK_MAZE) s = 30, step(&m, s, GO_GLIDE);
-            else if (kind == GK_DEATH) s = 0, step(&m, s, GO_FLY);
+            if (kind == GK_BRIDGE) s = 12, step(&m, s, GOO_GLIDE);
+            else if (kind == GK_MAZE) s = 30, step(&m, s, GOO_GLIDE);
+            else if (kind == GK_DEATH) s = 0, step(&m, s, GOO_FLY);
             break;
         }
     }
@@ -92,18 +92,18 @@ static void apply(go_game *g, int d1, int d2)
                 m.swap = q;
             }
     g->pos[p] = s;
-    int kind = go_kind(s);
-    g->wait[p] = kind == GK_INN ? 2 : kind == GK_WELL || kind == GK_PRISON ? GO_HELD : 0;
+    int kind = goo_kind(s);
+    g->wait[p] = kind == GK_INN ? 2 : kind == GK_WELL || kind == GK_PRISON ? GOO_HELD : 0;
     g->last = m;
-    if (s == GO_LAST) g->winner = p;
+    if (s == GOO_LAST) g->winner = p;
     else g->turn = next_player(g, p);
 }
 
 static int valid(int d) { return d >= 1 && d <= 6; }
 
-int go_play(go_game *g, int d1, int d2)
+int goo_play(goo_game *g, int d1, int d2)
 {
-    if (!valid(d1) || !valid(d2) || g->winner >= 0 || g->n >= GO_MAX_THROWS) return 0;
+    if (!valid(d1) || !valid(d2) || g->winner >= 0 || g->n >= GOO_MAX_THROWS) return 0;
     if (g->n >= g->known || g->dice[g->n][0] != d1 || g->dice[g->n][1] != d2) g->known = g->n + 1;
     g->dice[g->n][0] = (uint8_t)d1;
     g->dice[g->n][1] = (uint8_t)d2;
@@ -112,13 +112,13 @@ int go_play(go_game *g, int d1, int d2)
     return 1;
 }
 
-int go_undo(go_game *g)
+int goo_undo(goo_game *g)
 {
     if (!g->n) return 0;
     int n = g->n - 1, known = g->known, players = g->players;
-    static uint8_t dice[GO_MAX_THROWS][2];
+    static uint8_t dice[GOO_MAX_THROWS][2];
     memcpy(dice, g->dice, sizeof dice);
-    go_new(g, players);
+    goo_new(g, players);
     memcpy(g->dice, dice, sizeof dice);
     for (int i = 0; i < n; i++) {
         g->who[i] = (uint8_t)g->turn;
@@ -129,7 +129,7 @@ int go_undo(go_game *g)
     return 1;
 }
 
-int go_next(const go_game *g, int *d1, int *d2)
+int goo_next(const goo_game *g, int *d1, int *d2)
 {
     if (g->n >= g->known) return 0;
     *d1 = g->dice[g->n][0];
@@ -137,7 +137,7 @@ int go_next(const go_game *g, int *d1, int *d2)
     return 1;
 }
 
-int go_last_throw(const go_game *g, int player, int *d1, int *d2)
+int goo_last_throw(const goo_game *g, int player, int *d1, int *d2)
 {
     for (int i = g->n - 1; i >= 0; i--)
         if (g->who[i] == player) {
@@ -148,13 +148,13 @@ int go_last_throw(const go_game *g, int player, int *d1, int *d2)
     return 0;
 }
 
-int go_script(go_game *g, const char *s)
+int goo_script(goo_game *g, const char *s)
 {
     while (*s) {
         while (*s == ' ') s++;
         if (!*s) break;
         if (s[0] < '1' || s[0] > '6' || s[1] < '1' || s[1] > '6') return 0;
-        if (!go_play(g, s[0] - '0', s[1] - '0')) return 0;
+        if (!goo_play(g, s[0] - '0', s[1] - '0')) return 0;
         s += 2;
     }
     return 1;

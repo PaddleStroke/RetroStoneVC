@@ -20,6 +20,7 @@
 typedef struct { float x, y, w, h; } box;
 
 #define MAX_PLAYERS 6
+enum { FINGER_DOWN, FINGER_MOVE, FINGER_UP };    /* game.finger()'s phases */
 enum { GS_PLAY, GS_WIN0, GS_WIN1, GS_DRAW, GS_WIN2, GS_WIN3, GS_WIN4, GS_WIN5 };
 static inline int gs_win(int player) { return player < 2 ? GS_WIN0 + player : GS_WIN2 + player - 2; }
 static inline int gs_winner(int status)         /* the winner, or -1 (playing, a draw) */
@@ -71,6 +72,9 @@ typedef struct game {
     unsigned (*winners)(void);
     int players_usual;                          /* the count the picker offers first (tarot: 4); 0: two if it can,
                                                  * else the fewest */
+    /* several fingers at once (bataille corse's slaps): each finger touching the board, with its own id; then press(),
+     * motion() and release() get only the mouse (a computer). NULL: one touch at a time, as press() 's. */
+    void (*finger)(int id, int phase, float x, float y);
 } game;
 
 enum { VIEW_BOARD, VIEW_OPEN, VIEW_HIDDEN };

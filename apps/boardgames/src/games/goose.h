@@ -25,47 +25,47 @@
 
 #include <stdint.h>
 
-#define GO_LAST 63
-#define GO_PLAYERS 6
-#define GO_MAX_THROWS 8192
-#define GO_STEPS 160
-#define GO_HELD (-1)                            /* wait[]: held in the well or the prison until freed */
+#define GOO_LAST 63
+#define GOO_PLAYERS 6
+#define GOO_MAX_THROWS 8192
+#define GOO_STEPS 160
+#define GOO_HELD (-1)                            /* wait[]: held in the well or the prison until freed */
 
 enum { GK_PLAIN, GK_GOOSE, GK_BRIDGE, GK_INN, GK_WELL, GK_MAZE, GK_PRISON, GK_DEATH, GK_GARDEN, GK_DICE };
-enum { GO_HOP, GO_GLIDE, GO_FLY };              /* how the pawn reaches a step's square: one square on, along the
+enum { GOO_HOP, GOO_GLIDE, GOO_FLY };              /* how the pawn reaches a step's square: one square on, along the
                                                  * spiral (the bridge, the maze), through the air (death, 26, 53) */
-enum { GO_PLAY, GO_WIN0 };                      /* go_status: GO_WIN0 + the winner */
+enum { GOO_PLAY, GOO_WIN0 };                      /* goo_status: GOO_WIN0 + the winner */
 
-typedef struct { uint8_t sq, how; } go_step;
+typedef struct { uint8_t sq, how; } goo_step;
 
 typedef struct {
     int player, from, d1, d2;
     int n;                                      /* the steps of its way */
-    go_step step[GO_STEPS];
+    goo_step step[GOO_STEPS];
     int to;                                     /* where it ends */
     int swap;                                   /* the player sent to `from` (-1: none) */
     int freed;                                  /* two held: the one freed after it, to throw next (-1: none) */
-} go_move;
+} goo_move;
 
 typedef struct {
-    uint8_t dice[GO_MAX_THROWS][2];             /* the throws, in order; those after n were undone (known: how many) */
-    uint8_t who[GO_MAX_THROWS];                 /* who threw each */
+    uint8_t dice[GOO_MAX_THROWS][2];             /* the throws, in order; those after n were undone (known: how many) */
+    uint8_t who[GOO_MAX_THROWS];                 /* who threw each */
     int n, known;
     int players;
-    int pos[GO_PLAYERS];                        /* each pawn's square (0: the start) */
-    int wait[GO_PLAYERS];                       /* turns still to miss at the inn; GO_HELD */
+    int pos[GOO_PLAYERS];                        /* each pawn's square (0: the start) */
+    int wait[GOO_PLAYERS];                       /* turns still to miss at the inn; GOO_HELD */
     int turn, winner;                           /* winner -1: nobody yet */
-    go_move last;                               /* the last throw's move (n > 0) */
-} go_game;
+    goo_move last;                               /* the last throw's move (n > 0) */
+} goo_game;
 
-void go_new(go_game *g, int players);           /* 2..6 */
-int  go_play(go_game *g, int d1, int d2);       /* the player to move throws; 0: not allowed (bad dice, or over) */
-int  go_undo(go_game *g);                       /* the last throw taken back (it stays known); 0: none */
-int  go_next(const go_game *g, int *d1, int *d2);   /* the throw undone at this point; 0: none */
-int  go_turn(const go_game *g);
-int  go_status(const go_game *g);
-int  go_kind(int square);                       /* GK_* */
-int  go_last_throw(const go_game *g, int player, int *d1, int *d2);   /* the player's last throw; 0: none yet */
-int  go_script(go_game *g, const char *throws); /* 0: a throw is bad */
+void goo_new(goo_game *g, int players);           /* 2..6 */
+int  goo_play(goo_game *g, int d1, int d2);       /* the player to move throws; 0: not allowed (bad dice, or over) */
+int  goo_undo(goo_game *g);                       /* the last throw taken back (it stays known); 0: none */
+int  goo_next(const goo_game *g, int *d1, int *d2);   /* the throw undone at this point; 0: none */
+int  goo_turn(const goo_game *g);
+int  goo_status(const goo_game *g);
+int  goo_kind(int square);                       /* GK_* */
+int  goo_last_throw(const goo_game *g, int player, int *d1, int *d2);   /* the player's last throw; 0: none yet */
+int  goo_script(goo_game *g, const char *throws); /* 0: a throw is bad */
 
 #endif

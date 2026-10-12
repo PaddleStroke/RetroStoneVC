@@ -782,7 +782,8 @@ static void layout_cards(int n)
         }
     }
     int cols = ui.w > ui.h ? (n > 3 ? 3 : n) : (n > 1 ? 2 : 1);
-    if (screen == SCR_PICK) cols = ui.w > ui.h || n <= 3 ? n : 2;
+    if (screen == SCR_PICK) cols = ui.w > ui.h ? (n <= 5 ? n : (n + 1) / 2) : n <= 3 ? n : 2;   /* landscape: two rows
+                                                 * past five (draughts' eight) */
     if (screen == SCR_PICK && ui.w <= ui.h && n == 3) cols = 1;
     if (screen == SCR_MENU) {                   /* cards about a quarter of the screen's width: as many as fit */
         cols = (int)((ui.w - 2 * m + g) / (fminf(ui.w, ui.h) * 0.26f + g));
@@ -1713,6 +1714,39 @@ static void menu_wheel(float dy)
     menu.scroll = fminf(menu.max, fmaxf(0, menu.scroll + dy));
 }
 
+/* ---- several fingers at once (a game's finger(): slaps) -------------------------------------------------------- */
+static int fingers_on(void)
+{
+    return screen == SCR_GAME && games[cur]->finger && !help.open && !(is_view() && hand.up);
+}
+
+/* a finger: on the shell's buttons or the bars it is an ordinary tap (press); elsewhere the game's, with its id */
+static void touch(Uint32 type, long long id, float x, float y)
+{
+    enum { MAX_FINGERS = 10 };
+    static long long shell_id[MAX_FINGERS];
+    static int nshell;
+    if (type == SDL_FINGERDOWN) {
+        int hit = 0;
+        for (int i = 0; i < NBTN && !hit; i++) hit = shown(i) && in_circle(x, y, L.bx[i], L.by[i], L.br);
+        for (int p = 0; p < ui.players && !hit; p++)
+            hit = x >= L.bar[p].x && y >= L.bar[p].y && x < L.bar[p].x + L.bar[p].w && y < L.bar[p].y + L.bar[p].h;
+        if (hit) {
+            if (nshell < MAX_FINGERS) shell_id[nshell++] = id;
+            press(x, y);
+            return;
+        }
+    }
+    for (int k = 0; k < nshell; k++)            /* a finger that began on a button: the shell's to its end */
+        if (shell_id[k] == id) {
+            if (type == SDL_FINGERUP) shell_id[k] = shell_id[--nshell];
+            return;
+        }
+    if (!fingers_on()) return;                  /* the button left the game */
+    int phase = type == SDL_FINGERDOWN ? FINGER_DOWN : type == SDL_FINGERUP ? FINGER_UP : FINGER_MOVE;
+    games[cur]->finger((int)(id & 0x7fffffff), phase, x, y);
+}
+
 /* ---- the picture mode -------------------------------------------------------------------------------------------- */
 static int find_game(const char *id)
 {
@@ -1884,18 +1918,29 @@ int main(int argc, char **argv)
                 float fx, fy;
                 switch (e.type) {
                 case SDL_QUIT: quit = 1; break;
+                case SDL_FINGERDOWN:
+                case SDL_FINGERMOTION:
+                case SDL_FINGERUP:
+                    if (fingers_on()) {
+                        touch(e.type, (long long)e.tfinger.fingerId, e.tfinger.x * ui.w, e.tfinger.y * ui.h);
+                        after_input();
+                    }
+                    break;
                 case SDL_MOUSEBUTTONDOWN:
                     if (e.button.button != SDL_BUTTON_LEFT) break;
+                    if (e.button.which == SDL_TOUCH_MOUSEID && fingers_on()) break;   /* the fingers say it */
                     to_pixels(e.button.x, e.button.y, &fx, &fy);
                     press(fx, fy);
                     after_input();
                     break;
                 case SDL_MOUSEMOTION:
+                    if (e.motion.which == SDL_TOUCH_MOUSEID && fingers_on()) break;
                     to_pixels(e.motion.x, e.motion.y, &fx, &fy);
                     motion(fx, fy);
                     break;
                 case SDL_MOUSEBUTTONUP:
                     if (e.button.button != SDL_BUTTON_LEFT) break;
+                    if (e.button.which == SDL_TOUCH_MOUSEID && fingers_on()) break;
                     to_pixels(e.button.x, e.button.y, &fx, &fy);
                     release(fx, fy);
                     after_input();
