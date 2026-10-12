@@ -1,0 +1,12 @@
+Sortera vattnet
+# Målet
+Glasrör rymmer lager av färgad vätska, helt hopblandade, och två rör är tomma. Häll över tills varje färg fyller ett eget rör. Välj först storlek: 4 färger i 6 rör, 7 i 9, 10 i 12 eller 12 i 14. Ett rör rymmer fyra lager.
+Alla pussel går att lösa: datorn löser vart och ett innan du får se det, och de som kräver flest hällningar behålls.
+# Ett drag
+Häll från ett rör till ett annat. Det översta lagret rinner över, tillsammans med varje lager av samma färg direkt under, så långt det finns plats i det andra röret. Du får bara hälla på samma färg eller i ett tomt rör.
+# Det extra röret
+En gång per pussel får du ställa ett extra tomt rör på hyllan. Det behåller en mässingsring runt foten, så att man ser att det har använts.
+# Partiets slut
+Pusslet är löst när varje färg fyller ett eget rör och de andra rören är tomma. Varje fullt rör får en kork, och sedan lyser alla rören upp i guld.
+# Spela på enheten
+Tryck på ett rör: det lyfts. Tryck på ett annat rör: det första flyger dit, lutar sig och häller. Är hällningen inte tillåten skakar röret; tryck på det igen för att ställa ned det. Du kan också dra ett rör till ett annat. Varje lager har ett litet tecken utöver sin färg. För att använda det extra röret, tryck på dess plats i slutet av den sista hyllan (ett blekt rör med ett plus). Lampan i listen ger en ledtråd: den lyfter röret att hälla från och tänder röret att hälla i, eller det extra rörets plats. Lyser lampan röd finns det ingen väg ut härifrån: ångra några drag. Ångra tar tillbaka ett drag i taget, ända till början, även det extra röret. Listen räknar dina hällningar.

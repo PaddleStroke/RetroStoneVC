@@ -1,0 +1,12 @@
+Ordenar as bolas
+# O objetivo
+Tubos de vidro guardam bolas coloridas, todas misturadas, e dois tubos estão vazios. Muda as bolas de sítio até cada cor encher um tubo só seu. Escolhe primeiro o tamanho: 4 cores em 6 tubos, 7 em 9, 10 em 12 ou 12 em 14. Um tubo leva quatro bolas.
+Todos os quebra-cabeças têm solução: o computador resolve cada um antes de o veres, e ficam os que exigem mais jogadas.
+# Uma jogada
+Põe a bola de cima de um tubo sobre uma bola da mesma cor, ou num tubo vazio, se esse tubo tiver espaço. Só se move uma bola de cada vez.
+# O tubo extra
+Uma vez por quebra-cabeças, podes pôr um tubo vazio a mais na prateleira. Fica com um anel de latão no pé, para se ver que foi usado.
+# O fim do jogo
+O quebra-cabeças está resolvido quando cada cor enche um tubo só seu e os outros tubos estão vazios. Cada tubo cheio leva uma rolha e depois todos os tubos se acendem a dourado.
+# Jogar no dispositivo
+Toca num tubo: a bola de cima sobe. Toca noutro tubo: a bola desliza até ele e cai lá dentro. Se a jogada não for permitida, a bola treme; toca outra vez no tubo dela para a repor. Também podes arrastar uma bola para outro tubo. Cada bola tem um pequeno sinal além da sua cor. Para usar o tubo extra, toca no seu lugar ao fundo da última prateleira (um tubo esbatido com um sinal de mais). A lâmpada na barra dá uma ajuda: levanta a bola a mover e ilumina o tubo para onde a levar, ou o lugar do tubo extra. Se a lâmpada ficar vermelha, já não há saída a partir daqui: anula algumas jogadas. Anular desfaz uma jogada de cada vez, até ao início, incluindo o tubo extra. A barra conta as tuas jogadas.

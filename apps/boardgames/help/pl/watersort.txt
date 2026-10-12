@@ -1,0 +1,12 @@
+Sortowanie wody
+# Cel gry
+Szklane probówki mieszczą warstwy kolorowych płynów, zupełnie pomieszane, a dwie probówki są puste. Przelewaj, aż każdy kolor wypełni własną probówkę. Najpierw wybierz wielkość: 4 kolory w 6 probówkach, 7 w 9, 10 w 12 albo 12 w 14. Probówka mieści cztery warstwy.
+Każdą łamigłówkę da się rozwiązać: komputer rozwiązuje każdą, zanim ją zobaczysz, i zostawia te, które wymagają najwięcej przelewań.
+# Ruch
+Przelej z jednej probówki do drugiej. Przelewa się górna warstwa razem z każdą warstwą tego samego koloru tuż pod nią, o ile druga probówka ma miejsce. Lać wolno tylko na ten sam kolor albo do pustej probówki.
+# Dodatkowa probówka
+Raz na łamigłówkę możesz postawić na półce dodatkową pustą probówkę. U jej podstawy zostaje mosiężna opaska, żeby było widać, że jej użyto.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy każdy kolor wypełnia własną probówkę, a pozostałe probówki są puste. Każda pełna probówka dostaje korek, a potem wszystkie probówki rozbłyskują złotem.
+# Gra na urządzeniu
+Dotknij probówki: unosi się. Dotknij innej probówki: pierwsza przelatuje do niej, przechyla się i przelewa. Jeśli przelanie jest niedozwolone, probówka drży; dotknij jej jeszcze raz, aby ją odstawić. Możesz też przeciągnąć probówkę na inną. Każda warstwa ma oprócz koloru mały znak. Aby użyć dodatkowej probówki, dotknij jej miejsca na końcu ostatniej półki (blada probówka z plusem). Lampa na pasku daje podpowiedź: unosi probówkę, z której trzeba lać, i podświetla tę, do której lać, albo miejsce dodatkowej probówki. Jeśli lampa świeci na czerwono, stąd nie ma już wyjścia: cofnij kilka ruchów. Cofnij cofa po jednym ruchu, aż do początku, także dodatkową probówkę. Pasek liczy twoje przelewania.

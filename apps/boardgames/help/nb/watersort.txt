@@ -1,0 +1,12 @@
+Sorter vannet
+# Målet
+Glassrør inneholder lag av farget væske, helt blandet sammen, og to rør er tomme. Hell over til hver farge fyller sitt eget rør. Velg først størrelse: 4 farger i 6 rør, 7 i 9, 10 i 12 eller 12 i 14. Et rør rommer fire lag.
+Alle oppgavene kan løses: datamaskinen løser hver oppgave før du får se den, og de som krever at du heller flest ganger, blir beholdt.
+# Et trekk
+Hell fra ett rør over i et annet. Det øverste laget renner over, sammen med alle lag i samme farge rett under, så langt det er plass i det andre røret. Du får bare helle oppå samme farge eller i et tomt rør.
+# Det ekstra røret
+Én gang per oppgave kan du sette et ekstra tomt rør på hylla. Det beholder en messingring rundt foten, så man ser at det er brukt.
+# Slutten på spillet
+Oppgaven er løst når hver farge fyller sitt eget rør og de andre rørene er tomme. Hvert fullt rør får en kork, og så lyser alle rørene opp i gull.
+# Spill på enheten
+Trykk på et rør: det løftes. Trykk på et annet rør: det første flyr bort dit, vipper og heller. Er det ikke lov, rister røret; trykk på det igjen for å sette det ned. Du kan også dra et rør over på et annet. Hvert lag har et lite tegn i tillegg til fargen. For å bruke det ekstra røret, trykk på plassen til røret ytterst på den siste hylla (et blekt rør med et pluss). Lampen i linjen gir et hint: den løfter røret du skal helle fra, og lyser opp røret du skal helle i, eller plassen til det ekstra røret. Lyser lampen rødt, finnes det ingen vei ut herfra: angre noen trekk. Angre tar tilbake ett trekk om gangen, helt til starten, også det ekstra røret. Linjen teller hvor mange ganger du har helt.

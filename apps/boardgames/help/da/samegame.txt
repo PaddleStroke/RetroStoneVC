@@ -1,0 +1,12 @@
+Same Game
+# Målet
+En bakke er fuld af farvede brikker. Fjern grupper af brikker for at få så mange point som muligt, og ryd hele bakken, hvis du kan. Vælg først størrelsen: 10 × 10 brikker i 3 farver, 15 × 10 i 4 eller 20 × 12 i 5.
+Alle bakker kan ryddes: hver af dem er bygget baglæns op fra en tom bakke. Det er op til dig at finde vejen.
+# Et træk
+En gruppe er to eller flere brikker i samme farve, der rører hinanden side mod side (ikke kun hjørne mod hjørne). Fjern en gruppe: brikkerne ovenover falder ned i hullerne, og når en søjle bliver tom, rykker søjlerne til højre for den ind mod venstre. En enkelt brik kan aldrig fjernes.
+# Pointtælling
+En gruppe på n brikker giver (n - 2) × (n - 2) point: 2 brikker giver 0, 3 giver 1, 4 giver 4, 5 giver 9, 10 giver 64. Store grupper giver langt mere, så lad brikkerne i én farve samle sig, før du tager dem. Rydder du hele bakken, får du 1000 point ekstra.
+# Spillets afslutning
+Spillet slutter, når der ikke er flere grupper tilbage. En ryddet bakke lyser op i guld. Under alle omstændigheder står din slutscore på en messingplade.
+# Spil på enheden
+Tryk på en gruppe: den får en gylden kant, de andre brikker bliver mørkere, og dens point vises over den. Tryk på den igen for at fjerne den, eller tryk på en anden gruppe i stedet. Hver farve har også et lille tegn. Lampen i bjælken giver et tip: den vælger en gruppe at fjerne, som blinker i guld (så længe bakken stadig kan ryddes, viser den en vej til at rydde den); tryk på gruppen for at fjerne den. Fortryd tager ét træk tilbage ad gangen, helt til starten. Bjælken viser dine point.

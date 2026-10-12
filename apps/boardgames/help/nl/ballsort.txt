@@ -1,0 +1,12 @@
+Ballen sorteren
+# Het doel
+Glazen buizen bevatten gekleurde ballen, flink door elkaar, en twee buizen zijn leeg. Verplaats de ballen tot elke kleur een eigen buis vult. Kies eerst de grootte: 4 kleuren in 6 buizen, 7 in 9, 10 in 12 of 12 in 14. In een buis passen vier ballen.
+Elke puzzel is oplosbaar: de computer lost hem op voordat jij hem ziet, en alleen de puzzels die de meeste zetten vragen blijven over.
+# Een zet
+Leg de bovenste bal van een buis op een bal van dezelfde kleur, of in een lege buis, als daar plaats is. Er gaat steeds maar één bal tegelijk.
+# De extra buis
+Eén keer per puzzel mag je een extra lege buis op de plank zetten. Die houdt een ring van messing aan zijn voet, zodat je ziet dat hij gebruikt is.
+# Het einde van het spel
+De puzzel is opgelost als elke kleur een eigen buis vult en de andere buizen leeg zijn. Elke volle buis krijgt een kurk, en daarna lichten alle buizen goud op.
+# Spelen op het apparaat
+Tik op een buis: de bovenste bal gaat omhoog. Tik op een andere buis: de bal glijdt erheen en valt erin. Mag dat niet, dan trilt de bal; tik nog eens op zijn buis om hem terug te leggen. Je kunt een bal ook naar een andere buis slepen. Elke bal draagt behalve zijn kleur ook een klein teken. Wil je de extra buis, tik dan op zijn plek aan het eind van de laatste plank (een vage buis met een plus). De lamp in de balk geeft een hint: hij tilt de bal op die moet verhuizen en laat de buis oplichten waar hij heen moet, of de plek van de extra buis. Gloeit de lamp rood, dan is er vanaf hier geen uitweg meer: maak een paar zetten ongedaan. Ongedaan maken neemt één zet tegelijk terug, helemaal tot het begin, ook de extra buis. De balk telt je zetten.

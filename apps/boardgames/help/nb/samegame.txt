@@ -1,0 +1,12 @@
+Same Game
+# Målet
+Et brett er fullt av fargede brikker. Fjern grupper av brikker for å få så mange poeng som mulig, og tøm hele brettet hvis du klarer det. Velg først størrelse: 10 × 10 brikker i 3 farger, 15 × 10 i 4 eller 20 × 12 i 5.
+Alle brettene kan tømmes: hvert av dem er bygd opp baklengs fra et tomt brett. Å finne veien er opp til deg.
+# Et trekk
+En gruppe er to eller flere brikker i samme farge som ligger inntil hverandre side mot side (ikke bare hjørne mot hjørne). Fjern en gruppe: brikkene over faller ned i hullene, og når en kolonne blir tom, rykker kolonnene til høyre for den inn mot venstre. En enkelt brikke kan aldri fjernes.
+# Poengtelling
+En gruppe på n brikker gir (n - 2) × (n - 2) poeng: 2 brikker gir 0, 3 gir 1, 4 gir 4, 5 gir 9, 10 gir 64. Store grupper gir mye mer, så la brikkene i én farge samle seg før du tar dem. Tømmer du hele brettet, får du 1000 poeng ekstra.
+# Slutten på spillet
+Spillet slutter når det ikke er noen grupper igjen. Et tømt brett lyser opp i gull. Uansett står sluttpoengsummen din på en messingplate.
+# Spill på enheten
+Trykk på en gruppe: den får en gyllen kant, de andre brikkene blir mørkere, og poengene dens vises over den. Trykk på den igjen for å fjerne den, eller trykk heller på en annen gruppe. Hver farge har også et lite tegn. Lampen i linjen gir et hint: den velger en gruppe å fjerne, som blinker i gull (så lenge brettet fortsatt kan tømmes, viser den en vei til å tømme det); trykk på gruppen for å fjerne den. Angre tar tilbake ett trekk om gangen, helt til starten. Linjen viser poengene dine.

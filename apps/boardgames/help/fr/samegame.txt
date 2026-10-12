@@ -1,0 +1,12 @@
+Same Game
+# Le but
+Un plateau est rempli de carreaux de couleur. Retire des groupes de carreaux pour marquer le plus de points possible, et vide tout le plateau si tu y arrives. Choisis d'abord la taille : 10 × 10 carreaux en 3 couleurs, 15 × 10 en 4 ou 20 × 12 en 5.
+Chaque plateau peut être vidé : il est construit à l'envers, en partant d'un plateau vide. À toi de trouver le chemin.
+# Un coup
+Un groupe, ce sont deux carreaux ou plus de la même couleur qui se touchent par un côté (pas par un coin). Retire un groupe : les carreaux du dessus tombent dans les trous, et quand une colonne se vide, les colonnes à sa droite se resserrent vers la gauche. Un carreau seul ne peut jamais être retiré.
+# Le score
+Un groupe de n carreaux rapporte (n - 2) × (n - 2) : 2 carreaux font 0, 3 font 1, 4 font 4, 5 font 9, 10 font 64. Les grands groupes rapportent bien plus, alors laisse les carreaux d'une couleur se rassembler avant de les retirer. Vider tout le plateau rapporte 1000 points de plus.
+# La fin de la partie
+La partie se termine quand il ne reste plus aucun groupe. Un plateau vidé s'illumine d'or. Dans tous les cas, ton score final s'affiche sur une plaque de laiton.
+# Jouer sur l'appareil
+Touche un groupe : il prend un liseré doré, les autres carreaux pâlissent, et ses points s'affichent au-dessus. Touche-le encore pour le retirer, ou touche plutôt un autre groupe. Chaque couleur porte aussi un petit signe. La lampe dans la barre donne un indice : elle choisit un groupe à retirer, qui clignote en doré (tant que le plateau peut encore être vidé, elle montre un chemin pour le vider) ; touche-le pour le retirer. Annuler reprend un coup à la fois, jusqu'au début. La barre montre ton score.

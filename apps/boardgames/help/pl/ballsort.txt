@@ -1,0 +1,12 @@
+Sortowanie kulek
+# Cel gry
+Szklane probówki mieszczą kolorowe kulki, zupełnie pomieszane, a dwie probówki są puste. Przekładaj kulki, aż każdy kolor wypełni własną probówkę. Najpierw wybierz wielkość: 4 kolory w 6 probówkach, 7 w 9, 10 w 12 albo 12 w 14. Probówka mieści cztery kulki.
+Każdą łamigłówkę da się rozwiązać: komputer rozwiązuje każdą, zanim ją zobaczysz, i zostawia te, które wymagają najwięcej ruchów.
+# Ruch
+Przełóż górną kulkę z probówki na kulkę tego samego koloru albo do pustej probówki, jeśli jest w niej miejsce. Naraz rusza się tylko jedna kulka.
+# Dodatkowa probówka
+Raz na łamigłówkę możesz postawić na półce dodatkową pustą probówkę. U jej podstawy zostaje mosiężna opaska, żeby było widać, że jej użyto.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy każdy kolor wypełnia własną probówkę, a pozostałe probówki są puste. Każda pełna probówka dostaje korek, a potem wszystkie probówki rozbłyskują złotem.
+# Gra na urządzeniu
+Dotknij probówki: jej górna kulka się unosi. Dotknij innej probówki: kulka sunie do niej i wpada do środka. Jeśli ruch jest niedozwolony, kulka drży; dotknij jeszcze raz jej probówki, aby ją odłożyć. Możesz też przeciągnąć kulkę do innej probówki. Każda kulka ma oprócz koloru mały znak. Aby użyć dodatkowej probówki, dotknij jej miejsca na końcu ostatniej półki (blada probówka z plusem). Lampa na pasku daje podpowiedź: unosi kulkę do przełożenia i podświetla probówkę, do której ją przełożyć, albo miejsce dodatkowej probówki. Jeśli lampa świeci na czerwono, stąd nie ma już wyjścia: cofnij kilka ruchów. Cofnij cofa po jednym ruchu, aż do początku, także dodatkową probówkę. Pasek liczy twoje ruchy.

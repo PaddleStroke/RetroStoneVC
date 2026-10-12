@@ -1,0 +1,12 @@
+Tri des liquides
+# Le but
+Des tubes de verre contiennent des couches de liquides colorés, toutes mélangées, et deux tubes sont vides. Transvase-les jusqu'à ce que chaque couleur remplisse un tube à elle seule. Choisis d'abord la taille : 4 couleurs dans 6 tubes, 7 dans 9, 10 dans 12 ou 12 dans 14. Un tube contient quatre couches.
+Chaque casse-tête a une solution : l'ordinateur le résout avant de te le montrer, et seuls ceux qui demandent le plus de versements sont gardés.
+# Un coup
+Verse un tube dans un autre. La couche du dessus part, avec toutes les couches de la même couleur juste en dessous, tant que l'autre tube a de la place. On ne verse que sur la même couleur, ou dans un tube vide.
+# Le tube en plus
+Une fois par casse-tête, tu peux poser un tube vide de plus sur l'étagère. Il garde une bague de laiton à son pied, pour qu'on voie qu'il a servi.
+# La fin de la partie
+Le casse-tête est résolu quand chaque couleur remplit un tube à elle seule et que les autres tubes sont vides. Chaque tube plein reçoit un bouchon, puis tous les tubes s'illuminent d'or.
+# Jouer sur l'appareil
+Touche un tube : il se soulève. Touche un autre tube : le premier vole jusqu'à lui, se penche et verse. Un versement interdit fait trembler le tube ; touche-le encore pour le reposer. Tu peux aussi faire glisser un tube sur un autre. Chaque couche porte un petit signe en plus de sa couleur. Pour prendre le tube en plus, touche sa place au bout de la dernière étagère (un tube pâle avec un plus). La lampe dans la barre donne un indice : elle soulève le tube à verser et éclaire celui où verser, ou la place du tube en plus. Si la lampe brille en rouge, il n'y a plus d'issue à partir d'ici : annule quelques coups. Annuler reprend un coup à la fois, jusqu'au début, le tube en plus compris. La barre compte tes versements.

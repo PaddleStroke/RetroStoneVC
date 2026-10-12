@@ -1,0 +1,12 @@
+Same Game
+# O objetivo
+Um tabuleiro está cheio de peças coloridas. Retira grupos de peças para fazeres o máximo de pontos possível, e esvazia o tabuleiro todo se conseguires. Escolhe primeiro o tamanho: 10 × 10 peças em 3 cores, 15 × 10 em 4 ou 20 × 12 em 5.
+Todos os tabuleiros podem ser esvaziados: cada um é construído ao contrário, a partir de um tabuleiro vazio. Encontrar o caminho fica por tua conta.
+# Uma jogada
+Um grupo são duas ou mais peças da mesma cor ligadas pelo lado (não pelo canto). Retira um grupo: as peças de cima caem para os buracos e, quando uma coluna fica vazia, as colunas à sua direita encostam-se para a esquerda. Uma peça sozinha nunca pode ser retirada.
+# A pontuação
+Um grupo de n peças vale (n - 2) × (n - 2): 2 peças valem 0, 3 valem 1, 4 valem 4, 5 valem 9, 10 valem 64. Os grupos grandes rendem muito mais, por isso deixa as peças de uma cor juntarem-se antes de as retirares. Esvaziar o tabuleiro todo dá mais 1000 pontos.
+# O fim do jogo
+O jogo acaba quando já não resta nenhum grupo. Um tabuleiro esvaziado acende-se a dourado. Em qualquer caso, a tua pontuação final aparece numa placa de latão.
+# Jogar no dispositivo
+Toca num grupo: fica com um rebordo dourado, as outras peças escurecem e os seus pontos aparecem por cima. Toca-lhe outra vez para o retirar, ou toca antes noutro grupo. Cada cor tem também um pequeno sinal. A lâmpada na barra dá uma ajuda: escolhe um grupo para retirar, que pisca a dourado (enquanto o tabuleiro ainda puder ser esvaziado, mostra um caminho para o esvaziar); toca-lhe para o retirar. Anular desfaz uma jogada de cada vez, até ao início. A barra mostra a tua pontuação.

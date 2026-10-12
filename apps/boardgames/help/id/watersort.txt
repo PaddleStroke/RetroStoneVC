@@ -1,0 +1,12 @@
+Urutkan Air
+# Tujuan
+Tabung-tabung kaca berisi lapisan cairan berwarna yang tercampur aduk, dengan dua tabung kosong. Tuangkan cairan sampai setiap warna mengisi tabungnya sendiri. Pilih dulu ukurannya: 4 warna dalam 6 tabung, 7 dalam 9, 10 dalam 12, atau 12 dalam 14. Satu tabung memuat empat lapisan.
+Setiap teka-teki bisa dipecahkan: komputer memecahkan masing-masing sebelum kamu melihatnya, dan yang disimpan adalah yang butuh tuangan paling banyak.
+# Satu langkah
+Tuang dari satu tabung ke tabung lain. Lapisan teratas berpindah, bersama setiap lapisan berwarna sama tepat di bawahnya, sejauh tabung lain masih muat. Kamu hanya boleh menuang ke atas warna yang sama, atau ke tabung kosong.
+# Tabung tambahan
+Sekali dalam setiap teka-teki, kamu boleh menaruh satu tabung kosong tambahan di rak. Di kakinya tetap terpasang cincin kuningan, supaya terlihat bahwa tabung itu sudah dipakai.
+# Akhir permainan
+Teka-teki terpecahkan saat setiap warna mengisi tabungnya sendiri dan tabung lainnya kosong. Setiap tabung yang penuh diberi gabus, lalu semua tabung bersinar keemasan.
+# Bermain di perangkat
+Ketuk sebuah tabung: tabung itu terangkat. Ketuk tabung lain: tabung pertama terbang ke sana, miring, dan menuang. Jika tuangan itu tidak boleh, tabungnya bergetar; ketuk lagi untuk menurunkannya. Kamu juga bisa menyeret tabung ke atas tabung lain. Setiap lapisan punya tanda kecil selain warnanya. Untuk memakai tabung tambahan, ketuk tempatnya di ujung rak terakhir (tabung samar bertanda plus). Lampu di bilah memberi petunjuk: lampu mengangkat tabung yang harus dituang dan menyalakan tabung tujuannya, atau tempat tabung tambahan. Jika lampu menyala merah, tidak ada jalan keluar lagi dari sini: urungkan beberapa langkah. Urungkan membatalkan satu langkah setiap kali, sampai ke awal, termasuk tabung tambahan. Bilah menghitung tuanganmu.

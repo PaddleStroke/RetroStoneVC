@@ -1,0 +1,12 @@
+Same Game
+# Amaç
+Bir tepsi renkli karolarla doludur. Olabildiğince çok puan toplamak için karo gruplarını kaldır, becerebilirsen bütün tepsiyi boşalt. Önce boyutu seç: 3 renkte 10 × 10 karo, 4 renkte 15 × 10 ya da 5 renkte 20 × 12.
+Her tepsi boşaltılabilir: her biri boş bir tepsiden geriye doğru kurulur. Yolu bulmak sana kalmış.
+# Bir hamle
+Grup, kenar kenara bitişik (yalnızca köşeden değil) aynı renkten iki ya da daha çok karodur. Bir grubu kaldır: üstündeki karolar boşluklara düşer, bir sütun boşalınca da sağındaki sütunlar sola kayarak kapanır. Tek başına bir karo asla kaldırılamaz.
+# Puanlama
+n karoluk bir grup (n - 2) × (n - 2) puan getirir: 2 karo 0, 3 karo 1, 4 karo 4, 5 karo 9, 10 karo 64 puan. Büyük gruplar çok daha fazla getirir, bu yüzden bir rengin karolarını kaldırmadan önce bir araya toplanmalarına fırsat ver. Bütün tepsiyi boşaltmak 1000 puan daha kazandırır.
+# Oyunun sonu
+Hiç grup kalmayınca oyun biter. Boşaltılmış bir tepsi altın gibi parlar. Her iki durumda da son puanın pirinç bir levhada görünür.
+# Cihazda oynamak
+Bir gruba dokun: altın bir kenarlık alır, öbür karolar kararır ve puanı üstünde görünür. Kaldırmak için ona yeniden dokun ya da onun yerine başka bir gruba dokun. Her rengin ayrıca küçük bir işareti vardır. Çubuktaki lamba bir ipucu verir: kaldırılacak bir grup seçer, grup altın renginde yanıp söner (tepsi hâlâ boşaltılabiliyorsa, onu boşaltmanın bir yolunu gösterir); kaldırmak için ona dokun. Geri al her seferinde bir hamleyi geri alır, en başa kadar. Çubuk puanını gösterir.

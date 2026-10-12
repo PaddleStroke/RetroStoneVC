@@ -1,0 +1,12 @@
+Ordenar a água
+# O objetivo
+Tubos de vidro guardam camadas de líquidos coloridos, todas misturadas, e dois tubos estão vazios. Verte de uns para os outros até cada cor encher um tubo só seu. Escolhe primeiro o tamanho: 4 cores em 6 tubos, 7 em 9, 10 em 12 ou 12 em 14. Um tubo leva quatro camadas.
+Todos os quebra-cabeças têm solução: o computador resolve cada um antes de o veres, e ficam os que exigem mais transvazes.
+# Uma jogada
+Verte um tubo para outro. Passa a camada de cima e todas as camadas da mesma cor logo por baixo dela, enquanto houver espaço no outro tubo. Só se pode verter para cima da mesma cor ou para um tubo vazio.
+# O tubo extra
+Uma vez por quebra-cabeças, podes pôr um tubo vazio a mais na prateleira. Fica com um anel de latão no pé, para se ver que foi usado.
+# O fim do jogo
+O quebra-cabeças está resolvido quando cada cor enche um tubo só seu e os outros tubos estão vazios. Cada tubo cheio leva uma rolha e depois todos os tubos se acendem a dourado.
+# Jogar no dispositivo
+Toca num tubo: levanta-se. Toca noutro tubo: o primeiro voa até ele, inclina-se e verte. Se o transvaze não for permitido, o tubo treme; toca-lhe outra vez para o pousar. Também podes arrastar um tubo para cima de outro. Cada camada tem um pequeno sinal além da sua cor. Para usar o tubo extra, toca no seu lugar ao fundo da última prateleira (um tubo esbatido com um sinal de mais). A lâmpada na barra dá uma ajuda: levanta o tubo de onde verter e ilumina o tubo para onde verter, ou o lugar do tubo extra. Se a lâmpada ficar vermelha, já não há saída a partir daqui: anula algumas jogadas. Anular desfaz uma jogada de cada vez, até ao início, incluindo o tubo extra. A barra conta os teus transvazes.

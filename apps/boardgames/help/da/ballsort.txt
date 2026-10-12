@@ -1,0 +1,12 @@
+Sortér kuglerne
+# Målet
+Glasrør rummer farvede kugler, helt blandet sammen, og to rør er tomme. Flyt kuglerne, til hver farve fylder sit eget rør. Vælg først størrelsen: 4 farver i 6 rør, 7 i 9, 10 i 12 eller 12 i 14. Et rør kan rumme fire kugler.
+Alle opgaver kan løses: computeren løser hver enkelt, før du ser den, og de opgaver, der kræver flest træk, bliver beholdt.
+# Et træk
+Flyt den øverste kugle i et rør over på en kugle i samme farve eller ned i et tomt rør, hvis der er plads i røret. Der flyttes kun én kugle ad gangen.
+# Det ekstra rør
+Én gang pr. opgave må du stille et ekstra tomt rør på hylden. Det beholder en messingring om foden, så man kan se, at det er brugt.
+# Spillets afslutning
+Opgaven er løst, når hver farve fylder sit eget rør, og de andre rør er tomme. Hvert fyldt rør får en prop i, og så lyser alle rørene op i guld.
+# Spil på enheden
+Tryk på et rør: dets øverste kugle stiger op. Tryk på et andet rør: kuglen glider derhen og falder ned i det. Er trækket ikke tilladt, ryster kuglen; tryk på dens rør igen for at lægge den tilbage. Du kan også trække en kugle hen til et andet rør. Hver kugle har et lille tegn ud over sin farve. Vil du bruge det ekstra rør, så tryk på dets plads for enden af den sidste hylde (et svagt rør med et plus). Lampen i bjælken giver et tip: den løfter kuglen, der skal flyttes, og lyser røret op, den skal hen i, eller det ekstra rørs plads. Lyser lampen rødt, er der ingen vej ud herfra: fortryd nogle træk. Fortryd tager ét træk tilbage ad gangen, helt til starten, også det ekstra rør. Bjælken tæller dine træk.

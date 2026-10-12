@@ -1,0 +1,12 @@
+Třídění vody
+# Cíl hry
+Skleněné zkumavky obsahují vrstvy barevných tekutin, úplně promíchané, a dvě zkumavky jsou prázdné. Přelévej, dokud každá barva nezaplní vlastní zkumavku. Nejprve zvol velikost: 4 barvy v 6 zkumavkách, 7 v 9, 10 ve 12 nebo 12 ve 14. Do zkumavky se vejdou čtyři vrstvy.
+Každý hlavolam jde vyřešit: počítač každý vyřeší dřív, než ho uvidíš, a ponechá ty, které potřebují nejvíc přelití.
+# Tah
+Přelij jednu zkumavku do druhé. Přeteče horní vrstva a s ní každá vrstva stejné barvy hned pod ní, pokud je ve druhé zkumavce místo. Lít smíš jen na stejnou barvu, nebo do prázdné zkumavky.
+# Zkumavka navíc
+Jednou za hlavolam smíš postavit na polici prázdnou zkumavku navíc. U paty jí zůstane mosazný kroužek, aby bylo vidět, že byla použita.
+# Konec hry
+Hlavolam je vyřešený, když každá barva zaplní vlastní zkumavku a ostatní zkumavky jsou prázdné. Každá plná zkumavka dostane zátku a pak se všechny zkumavky rozzáří zlatem.
+# Hra na zařízení
+Klepni na zkumavku: zvedne se. Klepni na jinou zkumavku: první k ní přeletí, nakloní se a přelije. Když přelití není dovolené, zkumavka se zachvěje; dalším klepnutím na ni ji položíš zpět. Zkumavku můžeš také přetáhnout na jinou. Každá vrstva má kromě barvy i malou značku. Chceš-li použít zkumavku navíc, klepni na její místo na konci poslední police (bledá zkumavka s plusem). Lampa v liště dá nápovědu: zvedne zkumavku, ze které lít, a rozsvítí tu, do které lít, nebo místo zkumavky navíc. Když lampa svítí červeně, odsud už nevede žádná cesta ven: vezmi pár tahů zpět. Zpět vrací jeden tah po druhém, až na začátek, i zkumavku navíc. Lišta počítá tvá přelití.

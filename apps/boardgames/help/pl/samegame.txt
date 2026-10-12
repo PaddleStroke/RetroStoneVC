@@ -1,0 +1,12 @@
+Same Game
+# Cel gry
+Taca jest pełna kolorowych płytek. Zdejmuj grupy płytek, aby zdobyć jak najwięcej punktów, i opróżnij całą tacę, jeśli zdołasz. Najpierw wybierz wielkość: 10 × 10 płytek w 3 kolorach, 15 × 10 w 4 albo 20 × 12 w 5.
+Każdą tacę da się opróżnić: każda jest budowana od końca, z pustej tacy. Znalezienie drogi należy do ciebie.
+# Ruch
+Grupa to dwie lub więcej płytek tego samego koloru, które stykają się bokami (nie tylko rogami). Zdejmij grupę: płytki nad nią spadają w luki, a gdy kolumna się opróżni, kolumny na prawo od niej przysuwają się w lewo. Pojedynczej płytki nigdy nie można zdjąć.
+# Punktacja
+Grupa z n płytek daje (n - 2) × (n - 2) punktów: 2 płytki dają 0, 3 dają 1, 4 dają 4, 5 daje 9, 10 daje 64. Duże grupy dają o wiele więcej, więc pozwól płytkom jednego koloru się zebrać, zanim je zdejmiesz. Za opróżnienie całej tacy dostajesz 1000 punktów więcej.
+# Koniec gry
+Gra kończy się, gdy nie zostaje żadna grupa. Opróżniona taca rozbłyskuje złotem. Tak czy inaczej, twój końcowy wynik pojawia się na mosiężnej tabliczce.
+# Gra na urządzeniu
+Dotknij grupy: dostaje złotą obwódkę, pozostałe płytki przygasają, a nad nią pojawiają się jej punkty. Dotknij jej jeszcze raz, aby ją zdjąć, albo dotknij zamiast tego innej grupy. Każdy kolor ma też mały znak. Lampa na pasku daje podpowiedź: wybiera grupę do zdjęcia, która miga złotem (dopóki tacę da się jeszcze opróżnić, pokazuje drogę do jej opróżnienia); dotknij jej, aby ją zdjąć. Cofnij cofa po jednym ruchu, aż do początku. Pasek pokazuje twój wynik.

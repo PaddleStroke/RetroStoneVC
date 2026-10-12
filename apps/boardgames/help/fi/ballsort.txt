@@ -1,0 +1,12 @@
+Pallojen lajittelu
+# Tavoite
+Lasiputkissa on värillisiä palloja sekaisin, ja kaksi putkea on tyhjiä. Siirrä palloja, kunnes jokainen väri täyttää oman putkensa. Valitse ensin koko: 4 väriä 6 putkessa, 7 väriä 9:ssä, 10 väriä 12:ssa tai 12 väriä 14:ssä. Putkeen mahtuu neljä palloa.
+Jokainen tehtävä on ratkaistavissa: tietokone ratkaisee jokaisen ennen kuin näet sen, ja jäljelle jätetään ne, jotka vaativat eniten siirtoja.
+# Siirto
+Siirrä putken päällimmäinen pallo samanvärisen pallon päälle tai tyhjään putkeen, jos putkessa on tilaa. Kerrallaan liikkuu vain yksi pallo.
+# Lisäputki
+Kerran tehtävää kohden saat nostaa hyllylle ylimääräisen tyhjän putken. Sen juureen jää messinkirengas, josta näkee, että sitä on käytetty.
+# Pelin loppu
+Tehtävä on ratkaistu, kun jokainen väri täyttää oman putkensa ja muut putket ovat tyhjiä. Jokainen täysi putki saa korkin, ja sitten kaikki putket syttyvät kultaisiksi.
+# Pelaaminen laitteella
+Napauta putkea: sen päällimmäinen pallo nousee. Napauta toista putkea: pallo liukuu sinne ja putoaa sisään. Jos siirto ei ole sallittu, pallo tärisee; napauta sen putkea uudelleen laskeaksesi sen takaisin. Voit myös vetää pallon toiseen putkeen. Jokaisessa pallossa on värin lisäksi pieni merkki. Kun haluat käyttää lisäputkea, napauta sen paikkaa viimeisen hyllyn päässä (haalea putki, jossa on plus). Palkin lamppu antaa vihjeen: se nostaa siirrettävän pallon ja valaisee putken, johon se siirretään, tai lisäputken paikan. Jos lamppu hehkuu punaisena, tästä ei ole enää ulospääsyä: kumoa muutama siirto. Kumoa peruu yhden siirron kerrallaan, aina alkuun asti, myös lisäputken. Palkki laskee siirtosi.

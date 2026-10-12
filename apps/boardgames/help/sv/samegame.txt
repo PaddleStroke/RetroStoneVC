@@ -1,0 +1,12 @@
+Same Game
+# Målet
+En bricka är full av färgade plattor. Ta bort grupper av plattor för att få så många poäng som möjligt, och töm hela brickan om du kan. Välj först storlek: 10 × 10 plattor i 3 färger, 15 × 10 i 4 eller 20 × 12 i 5.
+Varje bricka går att tömma: var och en byggs upp baklänges från en tom bricka. Att hitta vägen är upp till dig.
+# Ett drag
+En grupp är två eller fler plattor av samma färg som ligger kant i kant (inte bara hörn mot hörn). Ta bort en grupp: plattorna ovanför faller ned i luckorna, och när en kolumn blir tom flyttar kolumnerna till höger om den ihop åt vänster. En ensam platta kan aldrig tas bort.
+# Poängen
+En grupp med n plattor ger (n - 2) × (n - 2) poäng: 2 plattor ger 0, 3 ger 1, 4 ger 4, 5 ger 9, 10 ger 64. Stora grupper ger mycket mer, så låt plattorna av en färg samlas innan du tar dem. Tömmer du hela brickan får du 1000 poäng extra.
+# Partiets slut
+Partiet slutar när ingen grupp finns kvar. En tömd bricka lyser upp i guld. Hur det än går visas din slutpoäng på en mässingsskylt.
+# Spela på enheten
+Tryck på en grupp: den får en guldkant, de andra plattorna mörknar och dess poäng visas ovanför. Tryck på den igen för att ta bort den, eller tryck på en annan grupp i stället. Varje färg har också ett litet tecken. Lampan i listen ger en ledtråd: den väljer en grupp att ta bort, som blinkar i guld (så länge brickan fortfarande kan tömmas visar den en väg till att tömma den); tryck på gruppen för att ta bort den. Ångra tar tillbaka ett drag i taget, ända till början. Listen visar dina poäng.

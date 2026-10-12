@@ -1,0 +1,12 @@
+Sortera kulorna
+# Målet
+Glasrör rymmer färgade kulor, helt hopblandade, och två rör är tomma. Flytta kulorna tills varje färg fyller ett eget rör. Välj först storlek: 4 färger i 6 rör, 7 i 9, 10 i 12 eller 12 i 14. Ett rör rymmer fyra kulor.
+Alla pussel går att lösa: datorn löser vart och ett innan du får se det, och de som kräver flest drag behålls.
+# Ett drag
+Flytta den översta kulan i ett rör till en kula av samma färg, eller till ett tomt rör, om det finns plats i röret. Bara en kula flyttas åt gången.
+# Det extra röret
+En gång per pussel får du ställa ett extra tomt rör på hyllan. Det behåller en mässingsring runt foten, så att man ser att det har använts.
+# Partiets slut
+Pusslet är löst när varje färg fyller ett eget rör och de andra rören är tomma. Varje fullt rör får en kork, och sedan lyser alla rören upp i guld.
+# Spela på enheten
+Tryck på ett rör: dess översta kula stiger. Tryck på ett annat rör: kulan glider dit och faller ned i det. Är draget inte tillåtet skakar kulan; tryck på dess rör igen för att lägga tillbaka den. Du kan också dra en kula till ett annat rör. Varje kula har ett litet tecken utöver sin färg. För att använda det extra röret, tryck på dess plats i slutet av den sista hyllan (ett blekt rör med ett plus). Lampan i listen ger en ledtråd: den lyfter kulan som ska flyttas och tänder röret den ska till, eller det extra rörets plats. Lyser lampan röd finns det ingen väg ut härifrån: ångra några drag. Ångra tar tillbaka ett drag i taget, ända till början, även det extra röret. Listen räknar dina drag.

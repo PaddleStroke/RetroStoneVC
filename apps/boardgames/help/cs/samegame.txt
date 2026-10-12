@@ -1,0 +1,12 @@
+Same Game
+# Cíl hry
+Podnos je plný barevných kostiček. Odebírej skupiny kostiček, získej za ně co nejvíc bodů a vyprázdni celý podnos, pokud to dokážeš. Nejprve zvol velikost: 10 × 10 kostiček ve 3 barvách, 15 × 10 ve 4 nebo 20 × 12 v 5.
+Každý podnos jde vyprázdnit: každý je postavený pozpátku z prázdného podnosu. Najít cestu je na tobě.
+# Tah
+Skupina jsou dvě nebo víc kostiček stejné barvy, které se dotýkají stranou (ne jen rohem). Odeber skupinu: kostičky nad ní spadnou do mezer, a když se sloupec vyprázdní, sloupce napravo od něj se posunou doleva. Samotnou kostičku nelze odebrat nikdy.
+# Počítání bodů
+Skupina z n kostiček dá (n - 2) × (n - 2) bodů: 2 kostičky dají 0, 3 dají 1, 4 dají 4, 5 dá 9, 10 dá 64. Velké skupiny vynesou mnohem víc, takže kostičky jedné barvy odebírej, až se jich sejde víc. Za vyprázdnění celého podnosu získáš o 1000 bodů víc.
+# Konec hry
+Hra končí, když nezbývá žádná skupina. Vyprázdněný podnos se rozzáří zlatem. V každém případě se tvé konečné skóre ukáže na mosazné destičce.
+# Hra na zařízení
+Klepni na skupinu: dostane zlatý okraj, ostatní kostičky ztmavnou a nad ní se ukážou její body. Dalším klepnutím ji odebereš, nebo místo toho klepni na jinou skupinu. Každá barva má navíc malou značku. Lampa v liště dá nápovědu: vybere skupinu k odebrání, která bliká zlatě (dokud jde podnos ještě vyprázdnit, ukazuje cestu, jak ho vyprázdnit); klepnutím na ni ji odebereš. Zpět vrací jeden tah po druhém, až na začátek. Lišta ukazuje tvé skóre.

@@ -1,0 +1,12 @@
+Top Sıralama
+# Amaç
+Cam tüplerde renkli toplar birbirine karışmış durur ve iki tüp boştur. Her renk kendine ait bir tüpü dolduruncaya kadar topları taşı. Önce boyutu seç: 6 tüpte 4 renk, 9 tüpte 7, 12 tüpte 10 ya da 14 tüpte 12. Bir tüp dört top alır.
+Her bulmaca çözülebilir: bilgisayar her birini sen görmeden önce çözer ve en çok hamle gerektirenleri saklar.
+# Bir hamle
+Bir tüpün en üstteki topunu, tüpte yer varsa, aynı renkten bir topun üstüne ya da boş bir tüpe taşı. Her seferinde yalnızca bir top hareket eder.
+# Ek tüp
+Her bulmacada bir kez rafa fazladan boş bir tüp koyabilirsin. Kullanıldığı belli olsun diye dibinde pirinç bir halka kalır.
+# Oyunun sonu
+Her renk kendine ait bir tüpü doldurduğunda ve öbür tüpler boş olduğunda bulmaca çözülür. Her dolu tüpe bir mantar tıpa takılır, sonra bütün tüpler altın gibi parlar.
+# Cihazda oynamak
+Bir tüpe dokun: en üstteki topu yükselir. Başka bir tüpe dokun: top oraya kayar ve içine düşer. İzin verilmeyen bir hamlede top titrer; geri koymak için tüpüne yeniden dokun. Bir topu başka bir tüpe sürükleyebilirsin de. Her topun renginin yanı sıra küçük bir işareti de vardır. Ek tüpü kullanmak için son rafın ucundaki yerine dokun (artı işaretli soluk bir tüp). Çubuktaki lamba bir ipucu verir: taşınacak topu kaldırır ve gideceği tüpü ya da ek tüpün yerini aydınlatır. Lamba kırmızı yanıyorsa buradan artık çıkış yoktur: birkaç hamleyi geri al. Geri al her seferinde bir hamleyi geri alır, en başa kadar; ek tüpü de. Çubuk hamlelerini sayar.

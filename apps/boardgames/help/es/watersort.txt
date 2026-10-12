@@ -1,0 +1,12 @@
+Ordenar el agua
+# El objetivo
+Unos tubos de cristal guardan capas de líquidos de colores, todas mezcladas, y dos tubos están vacíos. Trasvasa hasta que cada color llene un tubo para él solo. Elige primero el tamaño: 4 colores en 6 tubos, 7 en 9, 10 en 12 o 12 en 14. En un tubo caben cuatro capas.
+Todos los rompecabezas tienen solución: el ordenador resuelve cada uno antes de que lo veas, y se quedan los que piden más trasvases.
+# Una jugada
+Vierte un tubo en otro. Pasa la capa de arriba y todas las del mismo color que haya justo debajo, mientras quepan en el otro tubo. Solo se puede verter sobre el mismo color o en un tubo vacío.
+# El tubo extra
+Una vez por rompecabezas puedes poner un tubo vacío más en el estante. Conserva un aro de latón en el pie, para que se vea que se ha usado.
+# El final de la partida
+El rompecabezas está resuelto cuando cada color llena un tubo para él solo y los demás tubos están vacíos. Cada tubo lleno recibe un tapón de corcho y luego todos los tubos se iluminan en dorado.
+# Jugar en el dispositivo
+Toca un tubo: se levanta. Toca otro tubo: el primero vuela hasta él, se inclina y vierte. Si el trasvase no está permitido, el tubo tiembla; vuelve a tocarlo para dejarlo en su sitio. También puedes arrastrar un tubo sobre otro. Cada capa lleva un pequeño signo además de su color. Para usar el tubo extra, toca su sitio al final del último estante (un tubo tenue con un más). La lámpara de la barra da una pista: levanta el tubo del que verter e ilumina el tubo donde verter, o el sitio del tubo extra. Si la lámpara brilla en rojo, ya no hay salida desde aquí: deshaz algunas jugadas. Deshacer anula una jugada cada vez, hasta el principio, también el tubo extra. La barra cuenta tus trasvases.

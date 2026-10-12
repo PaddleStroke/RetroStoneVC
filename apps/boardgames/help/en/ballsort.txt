@@ -1,0 +1,12 @@
+Ball Sort
+# The aim
+Glass tubes hold coloured balls, all mixed up, with two tubes empty. Move the balls until each colour fills a tube of its own. Choose the size first: 4 colours in 6 tubes, 7 in 9, 10 in 12 or 12 in 14. A tube holds four balls.
+Every puzzle can be solved: each one is solved by the computer before you see it, and the ones that need the most moves are kept.
+# A move
+Move the top ball of a tube onto a ball of the same colour, or into an empty tube, if the tube has room. One ball moves at a time.
+# The extra tube
+Once per puzzle you may set an extra empty tube on the shelf. It keeps a brass band at its foot, so you can see it was used.
+# The end of the game
+The puzzle is solved when every colour fills a tube of its own and the other tubes are empty. Each full tube gets a cork, and then all the tubes light up in gold.
+# Playing on the device
+Tap a tube: its top ball rises. Tap another tube: the ball glides over and drops in. A move that is not allowed makes the ball shake; tap its tube again to put it back. You can also drag a ball onto another tube. Each ball carries a small sign as well as its colour. To use the extra tube, tap its place at the end of the last shelf (a faint tube with a plus). The lamp in the bar gives a hint: it lifts the ball to move and lights the tube to move it to, or the extra tube's place. If the lamp glows red, there is no way out from here: undo some moves. Undo takes back one move at a time, all the way to the start, the extra tube too. The bar counts your moves.

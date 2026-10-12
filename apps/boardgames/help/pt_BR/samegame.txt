@@ -1,0 +1,12 @@
+Same Game
+# O objetivo
+Uma bandeja está cheia de peças coloridas. Tire grupos de peças para fazer o máximo de pontos que puder, e esvazie a bandeja inteira se conseguir. Escolha primeiro o tamanho: 10 × 10 peças em 3 cores, 15 × 10 em 4 ou 20 × 12 em 5.
+Toda bandeja pode ser esvaziada: cada uma é montada de trás para a frente, a partir de uma bandeja vazia. Achar o caminho é com você.
+# Uma jogada
+Um grupo são duas ou mais peças da mesma cor ligadas pelo lado (não pela ponta). Tire um grupo: as peças de cima caem nos buracos e, quando uma coluna fica vazia, as colunas à direita dela se juntam para a esquerda. Uma peça sozinha nunca pode ser tirada.
+# A pontuação
+Um grupo de n peças vale (n - 2) × (n - 2): 2 peças valem 0, 3 valem 1, 4 valem 4, 5 valem 9, 10 valem 64. Grupos grandes rendem muito mais, então deixe as peças de uma cor se juntarem antes de tirá-las. Esvaziar a bandeja inteira dá 1000 pontos a mais.
+# O fim da partida
+A partida termina quando não sobra nenhum grupo. Uma bandeja esvaziada se acende em dourado. De todo jeito, a sua pontuação final aparece numa placa de latão.
+# Jogando no aparelho
+Toque num grupo: ele ganha uma borda dourada, as outras peças escurecem e os pontos dele aparecem acima. Toque nele de novo para tirá-lo, ou toque em outro grupo. Cada cor também traz um pequeno sinal. A lâmpada na barra dá uma dica: ela escolhe um grupo para tirar, que pisca em dourado (enquanto a bandeja ainda puder ser esvaziada, ela mostra um caminho para esvaziá-la); toque nele para tirá-lo. Desfazer volta uma jogada de cada vez, até o começo. A barra mostra a sua pontuação.

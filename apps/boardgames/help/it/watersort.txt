@@ -1,0 +1,12 @@
+Ordina l'acqua
+# Lo scopo
+Delle provette di vetro contengono strati di liquidi colorati, tutti mescolati, e due provette sono vuote. Travasa finché ogni colore non riempie una provetta tutta sua. Scegli prima la grandezza: 4 colori in 6 provette, 7 in 9, 10 in 12 o 12 in 14. Una provetta contiene quattro strati.
+Ogni rompicapo si può risolvere: il computer li risolve tutti prima che tu li veda, e tiene quelli che richiedono più travasi.
+# Una mossa
+Versa da una provetta in un'altra. Passa lo strato in cima, insieme a ogni strato dello stesso colore subito sotto, finché c'è posto nell'altra provetta. Puoi versare solo sullo stesso colore o in una provetta vuota.
+# La provetta in più
+Una volta per rompicapo puoi mettere sulla mensola una provetta vuota in più. Tiene un anello d'ottone alla base, così si vede che è stata usata.
+# La fine della partita
+Il rompicapo è risolto quando ogni colore riempie una provetta tutta sua e le altre provette sono vuote. Ogni provetta piena riceve un tappo di sughero, poi tutte le provette si illuminano d'oro.
+# Giocare sul dispositivo
+Tocca una provetta: si solleva. Tocca un'altra provetta: la prima vola fin lì, si inclina e versa. Se il travaso non è permesso, la provetta trema; toccala di nuovo per rimetterla giù. Puoi anche trascinare una provetta su un'altra. Ogni strato porta un piccolo segno oltre al suo colore. Per usare la provetta in più, tocca il suo posto in fondo all'ultima mensola (una provetta sbiadita con un più). La lampada nella barra dà un suggerimento: solleva la provetta da cui versare e illumina quella in cui versare, oppure il posto della provetta in più. Se la lampada si accende di rosso, da qui non c'è più via d'uscita: annulla qualche mossa. Annulla toglie una mossa alla volta, fino all'inizio, compresa la provetta in più. La barra conta i tuoi travasi.

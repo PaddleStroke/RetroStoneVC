@@ -1,0 +1,12 @@
+Su Sıralama
+# Amaç
+Cam tüplerde renkli sıvı katmanları birbirine karışmış durur ve iki tüp boştur. Her renk kendine ait bir tüpü dolduruncaya kadar sıvıları dök. Önce boyutu seç: 6 tüpte 4 renk, 9 tüpte 7, 12 tüpte 10 ya da 14 tüpte 12. Bir tüp dört katman alır.
+Her bulmaca çözülebilir: bilgisayar her birini sen görmeden önce çözer ve en çok dökme gerektirenleri saklar.
+# Bir hamle
+Bir tüpü başka bir tüpe dök. En üstteki katman ve hemen altındaki aynı renkten her katman, öbür tüpte yer olduğu kadar geçer. Yalnızca aynı rengin üstüne ya da boş bir tüpe dökebilirsin.
+# Ek tüp
+Her bulmacada bir kez rafa fazladan boş bir tüp koyabilirsin. Kullanıldığı belli olsun diye dibinde pirinç bir halka kalır.
+# Oyunun sonu
+Her renk kendine ait bir tüpü doldurduğunda ve öbür tüpler boş olduğunda bulmaca çözülür. Her dolu tüpe bir mantar tıpa takılır, sonra bütün tüpler altın gibi parlar.
+# Cihazda oynamak
+Bir tüpe dokun: kalkar. Başka bir tüpe dokun: ilki oraya uçar, eğilir ve döker. İzin verilmeyen bir dökmede tüp titrer; yerine koymak için ona yeniden dokun. Bir tüpü başka bir tüpün üstüne sürükleyebilirsin de. Her katmanın renginin yanı sıra küçük bir işareti de vardır. Ek tüpü kullanmak için son rafın ucundaki yerine dokun (artı işaretli soluk bir tüp). Çubuktaki lamba bir ipucu verir: dökülecek tüpü kaldırır ve içine dökülecek tüpü ya da ek tüpün yerini aydınlatır. Lamba kırmızı yanıyorsa buradan artık çıkış yoktur: birkaç hamleyi geri al. Geri al her seferinde bir hamleyi geri alır, en başa kadar; ek tüpü de. Çubuk dökmelerini sayar.
