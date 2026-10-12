@@ -1,12 +1,12 @@
 /*
  * Scopa in RetroStoneBoard: 2 players, or 4 in two partnerships, passing the device round, each hand secret
- * (VIEW_HIDDEN; the rules: scopa_rules.c, scopa.h). The Italian pack (games/italian_deck.h). The table: the cards
- * face up in the middle, the viewer's hand at the bottom with the stock on its left and their captures on its right,
- * the others at the top (their cards face down, their captures; partners: the middle seat). The captures are a pile
- * face down, each scopa's card across it face up. Playing: tap a card (it rises; the cards it can take glow), then tap
- * it again, or the table, or drag it there; when it could take more than one set, tap the cards to take until they
- * add up. The played card flies onto what it takes, they glow a moment and go to the player's pile. After each round
- * a table of icons and digits: cards, coins, the settebello, the primiera, the scopas, the round's points, the total.
+ * (VIEW_HIDDEN; the rules: scopa_rules.c, scopa.h). The Italian pack (the card kit's DECK_ITALIAN). The table: the
+ * cards face up in the middle, the viewer's hand at the bottom with the stock on its left and their captures on its
+ * right, the others at the top (their cards face down, their captures; partners: the middle seat). The captures are a
+ * pile face down, each scopa's card across it face up. Playing: tap a card (it rises; the cards it can take glow), then
+ * tap it again, or the table, or drag it there; when it could take more than one set, tap the cards to take until they
+ * add up. The played card flies onto what it takes, they glow a moment and go to the player's pile. After each round a
+ * table of icons and digits: cards, coins, the settebello, the primiera, the scopas, the round's points, the total.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -14,7 +14,7 @@
 #include <string.h>
 
 #include "games/cardtable.h"
-#include "games/italian_deck.h"
+#include "cards_table.h"
 #include "games/scopa.h"
 #include "shell.h"
 
@@ -22,7 +22,7 @@
 #define LOOK_MS 560                             /* the cards taken glow a moment before they go */
 #define TAKE_MS 400
 #define DEAL_MS 240
-#define ASP IT_ASPECT
+#define ASP cards_aspect(DECK_ITALIAN)
 
 enum { H_NONE, H_HAND, H_TABLE, H_PILE, H_SEAT };
 
@@ -141,7 +141,7 @@ static void calm(void)
 static int slide(int card, float x0, float y0, float w0, float a0, int up0, float x1, float y1, float w1, float a1,
                  int up1, int ms, int delay, int tag, int a, int b, int sound)
 {
-    return ct_slide(&MV, DECK_FRENCH, card, x0, y0, w0, a0, up0, x1, y1, w1, a1, up1, ms, delay, tag, a, b, sound);
+    return ct_slide(&MV, DECK_ITALIAN, card, x0, y0, w0, a0, up0, x1, y1, w1, a1, up1, ms, delay, tag, a, b, sound);
 }
 
 /* the hands dealt: from the stock to each hand, three each from the player after the dealer, after `delay` */
@@ -375,7 +375,7 @@ static void draw_pile(int pl)
     for (int k = 0; k < sc; k++) {              /* the scopas: across, under the pile */
         float sx, sy, sw;
         pile_at(pl, 1, k, &sx, &sy, &sw);
-        it_draw(p->scopa_card[pl][k], sx, sy, sw, 90, k ? CD_FLAT : 0);
+        cards_draw(DECK_ITALIAN, p->scopa_card[pl][k], sx, sy, sw, 90, k ? CD_FLAT : 0);
     }
     if (n - sc > 0) cards_pile(DECK_FRENCH, x, y, w, n - sc, CARD_NONE, 0);
     else if (!sc) cards_place(DECK_FRENCH, x, y, w);
@@ -406,12 +406,13 @@ static void draw_summary(void)
     for (int k = 1; k < 8; k++) cx[k] = x0 + 0.2f * u + tw + cw * (k - 0.5f) + (k >= 6 ? 0.1f * cw * (k - 5) : 0);
     /* the icons: a small pile, a coin, the settebello, the four suits, a card across a pile */
     cards_pile(DECK_FRENCH, cx[1], hy, 0.5f * ic, 6, CARD_NONE, CD_FLAT);
-    ui_put_c(it_symbol_tex(IT_COINS, (int)ic), cx[2], hy, 0.8f * ic, 0.8f * ic);
-    it_draw(CARD(IT_COINS, 7), cx[3], hy, 0.62f * ic, 0, CD_FLAT);
+    ui_put_c(ct_suit(DECK_ITALIAN, IT_COINS, (int)ic), cx[2], hy, 0.8f * ic, 0.8f * ic);
+    cards_draw(DECK_ITALIAN, CARD(IT_COINS, 7), cx[3], hy, 0.62f * ic, 0, CD_FLAT);
     for (int s = 0; s < 4; s++)
-        ui_put_c(it_symbol_tex(s, (int)(0.46f * ic)), cx[4] + (s & 1 ? 0.24f : -0.24f) * ic,
+        ui_put_c(ct_suit(DECK_ITALIAN, s, (int)(0.46f * ic)), cx[4] + (s & 1 ? 0.24f : -0.24f) * ic,
                  hy + (s & 2 ? 0.24f : -0.24f) * ic, 0.46f * ic, 0.46f * ic);
-    it_draw(CARD(IT_COINS, 1), cx[5], hy + 0.08f * ic, 0.46f * ic, 90, CD_FLAT);   /* a scopa: across, under the pile */
+    /* a scopa: across, under the pile */
+    cards_draw(DECK_ITALIAN, CARD(IT_COINS, 1), cx[5], hy + 0.08f * ic, 0.46f * ic, 90, CD_FLAT);
     cards_pile(DECK_FRENCH, cx[5], hy, 0.34f * ic, 4, CARD_NONE, CD_FLAT);
     ui_fill(x0 + 0.3f * u, y0 + 0.2f * u + hh, pw - 0.6f * u, fmaxf(1, 0.02f * u), 246, 238, 220, 60);
     int lead = p->score[0] == p->score[1] ? -1 : p->score[1] > p->score[0];
@@ -425,7 +426,7 @@ static void draw_summary(void)
             float x = cx[1 + k];
             if (p->won[s][k]) ui_mark_gold(x, y, 1.5f * fminf(cw, rh));
             if (k == SCORE_SETTEBELLO) {
-                if (p->count[s][k]) it_draw(CARD(IT_COINS, 7), x, y, 0.5f * ic, 0, CD_FLAT);
+                if (p->count[s][k]) cards_draw(DECK_ITALIAN, CARD(IT_COINS, 7), x, y, 0.5f * ic, 0, CD_FLAT);
                 continue;
             }
             ui_number(x, y, nh, p->count[s][k], 1);
@@ -470,7 +471,7 @@ static void draw(void)
     for (int i = 0; i < p->ntable; i++) {
         if (ct_hides(&MV, H_TABLE, i, -1)) continue;
         int how = F.picks >> i & 1 ? CD_RAISED : nopt && (all >> i & 1) ? CD_GLOW : 0;
-        it_draw(p->table[i], x[i], y[i], w, 0, how);
+        cards_draw(DECK_ITALIAN, p->table[i], x[i], y[i], w, 0, how);
     }
     if (preview) {                              /* where it would lie */
         ui_mark_gold(x[p->ntable], y[p->ntable], 1.3f * w * ASP);
@@ -484,10 +485,10 @@ static void draw(void)
         int c = p->hand[T.me][i];
         if (ct_hides(&MV, H_HAND, T.me, i) || (F.on && F.card == c)) continue;
         int how = hide ? CD_DOWN : c == F.raised ? CD_RAISED : live && F.raised < 0 ? CD_GLOW : 0;
-        it_draw(c, s[i].x, s[i].y, T.wh, s[i].deg, how);
+        cards_draw(DECK_ITALIAN, c, s[i].x, s[i].y, T.wh, s[i].deg, how);
     }
-    ct_draw(&MV, it_slide_draw);
-    if (F.on && F.card >= 0 && !hide) it_draw(F.card, F.x, F.y, T.wh, 0, CD_RAISED);
+    ct_draw(&MV, NULL);
+    if (F.on && F.card >= 0 && !hide) cards_draw(DECK_ITALIAN, F.card, F.x, F.y, T.wh, 0, CD_RAISED);
     (void)u;
     if ((p->phase == SC_ROUND || p->phase == SC_OVER) && !busy()) draw_summary();
 }
@@ -615,7 +616,8 @@ static void thumb(int v, int size, uint8_t *rgba)
     static const float at[4][3] = {{0.27f, 0.62f, -6}, {0.5f, 0.64f, 3}, {0.73f, 0.6f, 8}, {0.42f, 0.38f, -14}};
     memset(rgba, 0, (size_t)size * size * 4);
     for (int i = 0; i < 4; i++)
-        it_thumb_card(rgba, size, cards[i], at[i][0] * size, at[i][1] * size, 0.36f * size, at[i][2]);
+        cards_paint_turned(rgba, size, DECK_ITALIAN, cards[i], at[i][0] * size, at[i][1] * size,
+                           0.36f * size, at[i][2]);
 }
 
 static const game scopa_game = {

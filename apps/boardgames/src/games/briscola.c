@@ -1,12 +1,12 @@
 /*
  * Briscola in RetroStoneBoard: 2 players, or 4 in two partnerships, passing the device round, each hand secret
- * (VIEW_HIDDEN; the rules: briscola_rules.c, briscola.h). The Italian pack (games/italian_deck.h) on the trick-taking
- * table (games/tricks_ui.h: the seats, the trick, the hand, the touch, the summary's panel; the cards drawn with the
- * Italian faces). The stock at the lower left, the briscola across under it, face up; once it is drawn, its suit's
- * symbol stays in its place. Playing: tap a card (it rises), then tap it again or its place in the middle; or drag it
- * there. A full trick stays a moment, then goes to its winner; then each player draws, the winner first. The trick
- * pile at the lower right: tap it to see the last trick. At the end, each side's counting cards (aces, threes, re,
- * cavalli, fanti) in a row and its points.
+ * (VIEW_HIDDEN; the rules: briscola_rules.c, briscola.h). The Italian pack (the card kit's DECK_ITALIAN) on the
+ * trick-taking table (games/tricks_ui.h: the seats, the trick, the hand, the touch, the summary's panel). The stock at
+ * the lower left, the briscola across under it, face up; once it is drawn, its suit's symbol stays in its place.
+ * Playing: tap a card (it rises), then tap it again or its place in the middle; or drag it there. A full trick stays a
+ * moment, then goes to its winner; then each player draws, the winner first. The trick pile at the lower right: tap it
+ * to see the last trick. At the end, each side's counting cards (aces, threes, re, cavalli, fanti) in a row and its
+ * points.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -14,7 +14,7 @@
 #include <string.h>
 
 #include "games/briscola.h"
-#include "games/italian_deck.h"
+#include "cards_table.h"
 #include "games/tricks_ui.h"
 #include "shell.h"
 
@@ -33,8 +33,8 @@ static void layout(box b)
 {
     tk_layout(&T, b, G.pos.players, ui_bottom(), 5);   /* as for a hand of 5: the three spread out */
     ws = floorf(0.78f * T.wt);
-    stx = b.x + 0.35f * T.u + 0.5f * ws * IT_ASPECT;
-    sty = T.hand_top - 0.5f * ws * IT_ASPECT - 0.1f * T.u;
+    stx = b.x + 0.35f * T.u + 0.5f * ws * cards_aspect(DECK_ITALIAN);
+    sty = T.hand_top - 0.5f * ws * cards_aspect(DECK_ITALIAN) - 0.1f * T.u;
 }
 
 static void reset_ui(void)
@@ -56,6 +56,7 @@ static void start(int v)
     (void)v;
     briscola_new(&G, ui.players, (uint32_t)ui_random(1 << 30));
     tk_calm(&A);
+    A.deck = DECK_ITALIAN;
     reset_ui();
     floor_n = 0;
     seen = 0;
@@ -158,19 +159,11 @@ static int script(const char *s)
 static int busy(void) { return tk_busy(&A); }
 
 /* ---- drawing: the trick table's parts with the Italian faces ----------------------------------------------------- */
-static void moves_draw(void)
-{
-    for (int i = 0; i < A.n; i++) {
-        if (ui_ms() < A.m[i].show_after) { ui_animate(); continue; }
-        it_slide_draw(&A.m[i].s);
-    }
-}
-
 static void trick_draw(const brpos *p)
 {
     for (int i = 0; i < p->ntrick; i++) {
         int pl = (p->leader + i) % p->players;
-        if (!tk_hides(&A, TK_TRICK, pl)) it_draw(p->trick[i], T.tx[pl], T.ty[pl], T.wt, T.tdeg[pl], 0);
+        if (!tk_hides(&A, TK_TRICK, pl)) cards_draw(DECK_ITALIAN, p->trick[i], T.tx[pl], T.ty[pl], T.wt, T.tdeg[pl], 0);
     }
 }
 
@@ -180,7 +173,8 @@ static void last_draw(const brpos *p)
     ui_mark_gold(T.sx[p->last_winner], T.sy[p->last_winner], 2.6f * T.tok);
     for (int i = 0; i < p->players; i++) {
         int pl = (p->last_leader + i) % p->players;
-        it_draw(p->last[i], T.tx[pl], T.ty[pl], T.wt, T.tdeg[pl], pl == p->last_winner ? CD_RAISED : 0);
+        cards_draw(DECK_ITALIAN, p->last[i], T.tx[pl], T.ty[pl], T.wt, T.tdeg[pl],
+                   pl == p->last_winner ? CD_RAISED : 0);
     }
 }
 
@@ -195,9 +189,9 @@ static void stock_draw(const brpos *p)
     n += gone;
     float tx, ty;
     trump_at(&tx, &ty);
-    if (n >= 1) it_draw(p->briscola, tx, ty, ws, 90, 0);
+    if (n >= 1) cards_draw(DECK_ITALIAN, p->briscola, tx, ty, ws, 90, 0);
     else {
-        SDL_Texture *t = it_symbol_tex(p->trump, (int)(0.7f * ws));
+        SDL_Texture *t = ct_suit(DECK_ITALIAN, p->trump, (int)(0.7f * ws));
         SDL_SetTextureAlphaMod(t, 120);
         ui_put_c(t, tx, ty, 0.7f * ws, 0.7f * ws);
         SDL_SetTextureAlphaMod(t, 255);
@@ -226,9 +220,9 @@ static void draw_summary(void)
             for (int i = 0; i < p->ntook[s]; i++)
                 if (CARD_RANK(p->took[s][i]) == order[r] && n < 20) c[n++] = p->took[s][i];
         float left = tx + (four ? 1.4f : 0.8f) * d, right = x0 + pw - 1.6f * u;
-        float cw = fminf(0.62f * rh / IT_ASPECT, 0.9f * u);
+        float cw = fminf(0.62f * rh / cards_aspect(DECK_ITALIAN), 0.9f * u);
         float step = n > 1 ? fminf(1.05f * cw, (right - left - cw) / (n - 1)) : 0;
-        for (int i = 0; i < n; i++) it_draw(c[i], left + cw / 2 + i * step, y, cw, 0, CD_FLAT);
+        for (int i = 0; i < n; i++) cards_draw(DECK_ITALIAN, c[i], left + cw / 2 + i * step, y, cw, 0, CD_FLAT);
         ui_number(x0 + pw - 0.85f * u, y, 0.5f * rh, p->points[s], 1);
         if (s == 0) tk_row_line(x0, pw, y + rh / 2, u);
     }
@@ -259,10 +253,10 @@ static void draw(void)
         tk_fan(&T, n, s);
         for (int i = 0; i < n; i++)
             if (!(F.on && h[i] == F.card) && !tk_hides(&A, TK_HAND_TAG, h[i]))
-                it_draw(h[i], s[i].x, s[i].y, T.wh, s[i].deg, how[i]);
+                cards_draw(DECK_ITALIAN, h[i], s[i].x, s[i].y, T.wh, s[i].deg, how[i]);
     }
-    moves_draw();
-    if (!hide && F.card != CARD_NONE && F.on) it_draw(F.card, F.x, F.y, T.wh, 0, CD_RAISED);
+    tk_draw_moves(&A);
+    if (!hide && F.card != CARD_NONE && F.on) cards_draw(DECK_ITALIAN, F.card, F.x, F.y, T.wh, 0, CD_RAISED);
     if (show_last && p->last_winner != BRISCOLA_NONE) last_draw(p);
     if (p->phase == BR_OVER && !tk_busy(&A)) draw_summary();
 }
@@ -316,10 +310,10 @@ static void thumb(int v, int size, uint8_t *rgba)
     (void)v;
     float w = 0.34f * size;
     memset(rgba, 0, (size_t)size * size * 4);
-    it_thumb_card(rgba, size, CARD(IT_CLUBS, 7), 0.4f * size, 0.71f * size, 0.8f * w, 90);
-    it_thumb_card(rgba, size, CARD_NONE, 0.27f * size, 0.71f * size, 0.8f * w, 0);
-    it_thumb_card(rgba, size, CARD(IT_CUPS, 3), 0.42f * size, 0.38f * size, w, -10);
-    it_thumb_card(rgba, size, CARD(IT_COINS, 1), 0.67f * size, 0.42f * size, w, 8);
+    cards_paint_turned(rgba, size, DECK_ITALIAN, CARD(IT_CLUBS, 7), 0.4f * size, 0.71f * size, 0.8f * w, 90);
+    cards_paint_turned(rgba, size, DECK_ITALIAN, CARD_NONE, 0.27f * size, 0.71f * size, 0.8f * w, 0);
+    cards_paint_turned(rgba, size, DECK_ITALIAN, CARD(IT_CUPS, 3), 0.42f * size, 0.38f * size, w, -10);
+    cards_paint_turned(rgba, size, DECK_ITALIAN, CARD(IT_COINS, 1), 0.67f * size, 0.42f * size, w, 8);
 }
 
 static const game briscola_game = {

@@ -22,6 +22,8 @@
 #include "games/koikoi_deck.h"
 #include "shell.h"
 
+#define HD hana_deck()                          /* the hanafuda deck, drawn by the card kit */
+
 #define SLIDE_MS 300
 #define FLIP_MS 300
 #define DEAL_MS 240
@@ -231,7 +233,7 @@ static void slide(int card, int up0, float x0, float y0, float w0, int up1, floa
                   int delay, int show, int sound)
 {
     if (nmv >= MOVES) return;
-    cards_slide_start(&mv[nmv].s, DECK_TAROT, card, x0, y0, w0, 0, up0, x1, y1, w1, 0, up1, ms, delay);
+    cards_slide_start(&mv[nmv].s, HD, card, x0, y0, w0, 0, up0, x1, y1, w1, 0, up1, ms, delay);
     mv[nmv].show = (Uint32)show;
     mv[nmv].card = card;
     nmv++;
@@ -260,7 +262,7 @@ static void moves_draw(void)
     for (int i = 0; i < nmv; i++) {
         if (!mv[i].s.on) continue;
         if (now - mv[i].s.t0 < mv[i].show) { ui_animate(); continue; }
-        hana_slide_draw(&mv[i].s);
+        cards_slide_draw(&mv[i].s);
     }
 }
 
@@ -594,11 +596,12 @@ static void badge_row(const int *pts, int koi, box b, int left, float scale)
 /* the stock: a few backs, its thickness */
 static void stock(float cx, float cy, float w, int n, int how)
 {
-    if (n <= 0) { cards_place(DECK_TAROT, cx, cy, w); return; }
+    if (n <= 0) { cards_place(HD, cx, cy, w); return; }
     int layers = n < 4 ? n - 1 : n < 16 ? 3 : 4;
     float step = fmaxf(1, 0.025f * w);
-    for (int k = layers; k >= 1; k--) hana_draw(KK_NONE, cx + k * step * 0.4f, cy + k * step, w, 0, CD_DOWN | CD_FLAT);
-    hana_draw(KK_NONE, cx, cy, w, 0, CD_DOWN | (layers ? CD_FLAT : 0) | how);
+    for (int k = layers; k >= 1; k--)
+        cards_draw(HD, KK_NONE, cx + k * step * 0.4f, cy + k * step, w, 0, CD_DOWN | CD_FLAT);
+    cards_draw(HD, KK_NONE, cx, cy, w, 0, CD_DOWN | (layers ? CD_FLAT : 0) | how);
 }
 
 static int marked_field(const kpos *p, int card)   /* left on the field by the other's last turn */
@@ -623,14 +626,14 @@ static void draw_caps(const kpos *p, int pl)
         if (!n[g]) {
             float x, y;
             group_spot(s, g, 0, 1, &x, &y);
-            cards_place(DECK_TAROT, x, y, cw);
+            cards_place(HD, x, y, cw);
         }
     for (int k = 0; k < p->ncap[pl]; k++) {
         int c = p->cap[pl][k], g = group_of(c);
         float x, y;
         group_spot(s, g, at[g]++, n[g], &x, &y);
         if (moving(c)) continue;
-        hana_draw(c, x, y, cw, 0, CD_FLAT);
+        cards_draw(HD, c, x, y, cw, 0, CD_FLAT);
         if (marked_cap(p, pl, k)) ui_mark_last(x - 0.5f * cw, y - 0.5f * cw * ASP, cw, cw * ASP);
     }
     for (int g = 0; g < HTYPES; g++) {          /* each group's count, on its last card's corner */
@@ -653,7 +656,7 @@ static void draw_hand(const kpos *p, int pl)
         float x, y, w;
         hand_at(p, pl, i, &x, &y, &w);
         int how = show ? (c == sel ? CD_RAISED : 0) : CD_DOWN;
-        hana_draw(c, x, y, w, 0, how);
+        cards_draw(HD, c, x, y, w, 0, how);
     }
 }
 
@@ -729,7 +732,8 @@ static void draw_round(const kpos *p)
             int w = r->winner;
             float cw = floorf(fminf((pw - 2 * u) / 6.2f, 1.6f * bh / ASP)), step = 0.62f * cw;
             float x0 = px + pw / 2 - (7 * step + cw + 0.9f * u) / 2 + cw / 2;
-            for (int i = 0; i < p->nh[w]; i++) hana_draw(p->hand[w][i], x0 + i * step, y + 0.85f * bh, cw, 0, CD_FLAT);
+            for (int i = 0; i < p->nh[w]; i++)
+                cards_draw(HD, p->hand[w][i], x0 + i * step, y + 0.85f * bh, cw, 0, CD_FLAT);
             ui_number(x0 + 7 * step + cw / 2 + 0.5f * u, y + 0.85f * bh, 0.5f * u, r->points, 1);
         } else {
             badge_row(pts, 0, (box){px + 0.3f * u, y, pw - 0.6f * u, 1.7f * bh}, 0, 1.8f);
@@ -776,7 +780,7 @@ static void draw(void)
         if (c == KK_NONE || moving(c)) continue;
         float x, y;
         slot_at(&g, s, &x, &y);
-        hana_draw(c, x, y, g.w, 0, HANA_MONTH(c) == month ? CD_GLOW : 0);
+        cards_draw(HD, c, x, y, g.w, 0, HANA_MONTH(c) == month ? CD_GLOW : 0);
         if (marked_field(p, c)) ui_mark_last(x - 0.5f * g.w, y - 0.5f * g.w * ASP, g.w, g.w * ASP);
     }
     if (month >= 0 && ph == KP_PLAY && kk_matches(p, sel != KK_NONE ? sel : drag.card, NULL) == 0) {
@@ -784,7 +788,7 @@ static void draw(void)
             if (p->field[s] == KK_NONE) {
                 float x, y;
                 slot_at(&g, s, &x, &y);
-                cards_place(DECK_TAROT, x, y, g.w);
+                cards_place(HD, x, y, g.w);
                 ui_mark_dot(x, y, 0.5f * ui.unit);
                 break;
             }
@@ -792,7 +796,7 @@ static void draw(void)
     if (ph == KP_CHOOSE && !moving(p->held)) {
         float x, y;
         held_at(&g, &x, &y);
-        hana_draw(p->held, x, y, g.w, 0, CD_RAISED);
+        cards_draw(HD, p->held, x, y, g.w, 0, CD_RAISED);
     }
     /* the captures, the badges, the hands */
     for (int q = 0; q < 2; q++) {
@@ -803,7 +807,7 @@ static void draw(void)
         draw_hand(p, q);
     }
     moves_draw();
-    if (drag.on && drag.moved && drag.card != KK_NONE) hana_draw(drag.card, drag.x, drag.y, T.hw, 0, CD_RAISED);
+    if (drag.on && drag.moved && drag.card != KK_NONE) cards_draw(HD, drag.card, drag.x, drag.y, T.hw, 0, CD_RAISED);
     if (ph == KP_DECIDE && mine) draw_decide(p);
     if ((ph == KP_ROUND || ph == KP_OVER) && !b) draw_round(p);
     if (b) ui_animate();

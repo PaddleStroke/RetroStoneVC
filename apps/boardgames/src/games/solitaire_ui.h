@@ -395,7 +395,6 @@ static inline void solui_draw_pile(const solui *u, int pile)
         if (s->first && k < n) k = 0;           /* a run arriving: it shows once the king has landed */
         int top = !k || p->kind[pile] == SP_STOCK ? CARD_NONE : p->c[pile][s->first ? 0 : k - 1];
         int glow = solui_glows(u, pile, n - 1) || (!n && solui_glows(u, pile, -1));
-        if (!k && glow) ui_mark_gold(s->x, s->y, 1.3f * w);
         cards_pile(deck, s->x, s->y, w, k, top, (glow ? CD_GLOW : 0) | (k && solui_chosen(u, pile) ? CD_RAISED : 0));
         break;
     }

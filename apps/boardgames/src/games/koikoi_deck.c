@@ -1,8 +1,8 @@
 /*
  * The hanafuda deck's pictures (koikoi_deck.h): each card painted by code with the art kit's figures (art.h), layer
  * by layer (one colour a layer, its ink outline), in card units: x 0..1 across, y 0..1.6 down. A month's plant is
- * drawn once for its four cards; each card adds its subject. A texture cache, and cards drawn, flipped and slid over
- * the card kit's shadow and light (cards.h).
+ * drawn once for its four cards; each card adds its subject. The card kit draws the cards as a deck of its own
+ * (hana_deck: cards_deck_add): its texture cache, shadows, gold light, flips and slides.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -1592,84 +1592,17 @@ void hana_fan(const uint8_t *cards, int n, int cw, int w, int h, uint8_t *rgba)
     free(b);
 }
 
-/* ---- the textures and the drawing -------------------------------------------------------------------------------- */
-#define CACHE 160
-static struct { int card, w; unsigned used; SDL_Texture *t; } cache[CACHE];
-static unsigned tick;
-
-static SDL_Texture *face(int card, int w, int near)
+/* ---- the deck for the card kit (its texture cache, shadows, gold light, flips and slides) ------------------------ */
+static void hana_face(int card, int w, int h, uint8_t *rgba)
 {
-    if (w < 4) return NULL;
-    if (card < 0 || card >= KK_CARDS) card = KK_NONE;
-    int slot = 0, best = -1;
-    for (int i = 0; i < CACHE; i++) {
-        if (!cache[i].t) { slot = i; continue; }
-        if (cache[i].card != card) continue;
-        if (cache[i].w == w) { cache[i].used = ++tick; return cache[i].t; }
-        if (near && (best < 0 || abs(cache[i].w - w) < abs(cache[best].w - w))) best = i;
-    }
-    if (best >= 0) { cache[best].used = ++tick; return cache[best].t; }
-    if (cache[slot].t)                          /* full: the least used lately */
-        for (int i = 0; i < CACHE; i++)
-            if (cache[i].used < cache[slot].used) slot = i;
-    ui_free(&cache[slot].t);
-    int h = (int)(w * HANA_ASPECT + 0.5f);
-    uint8_t *b = malloc((size_t)w * h * 4);
-    if (!b) return NULL;
-    hana_paint(card, w, h, b);
-    cache[slot].card = card;
-    cache[slot].w = w;
-    cache[slot].used = ++tick;
-    cache[slot].t = ui_tex(w, h, b);
-    free(b);
-    return cache[slot].t;
+    hana_paint(card < KK_CARDS ? card : KK_NONE, w, h, rgba);
 }
+static void hana_back(int w, int h, uint8_t *rgba) { hana_paint(KK_NONE, w, h, rgba); }
 
-/* the card over the kit's (its shadow, its light, its lift): sx narrowed (a flip) */
-static void lay(int card, float cx, float cy, float w, float sx, float deg, int how, int near)
+int hana_deck(void)
 {
-    if (how & CD_RAISED) {                      /* lifted as the kit lifts its cards */
-        float a = deg * PI_F / 180;
-        cx += sinf(a) * 0.14f * w;
-        cy -= cosf(a) * 0.14f * w;
-    }
-    SDL_Texture *t = face(how & CD_DOWN ? KK_NONE : card, (int)(w + 0.5f), near);
-    if (!t) return;
-    if (how & CD_DIM) SDL_SetTextureColorMod(t, 150, 150, 150);
-    SDL_FRect d = {cx - w * sx / 2, cy - w * HANA_ASPECT / 2, w * sx, w * HANA_ASPECT};
-    SDL_RenderCopyExF(ui.r, t, NULL, &d, deg, NULL, SDL_FLIP_NONE);
-    if (how & CD_DIM) SDL_SetTextureColorMod(t, 255, 255, 255);
-}
-
-void hana_draw(int card, float cx, float cy, float w, float deg, int how)
-{
-    cards_draw(DECK_TAROT, CARD_NONE, cx, cy, w, deg, how | CD_DOWN);   /* the kit's shadow and light (1.6 tall) */
-    lay(card, cx, cy, w, 1, deg, how, 0);
-}
-
-void hana_draw_flip(int card, float cx, float cy, float w, float deg, float t, int how)
-{
-    t = t < 0 ? 0 : t > 1 ? 1 : t;
-    float sx = fabsf(cosf(t * PI_F)), lift = 1 + 0.08f * sinf(t * PI_F);
-    if (sx < 0.02f) sx = 0.02f;
-    cards_draw_flip(DECK_TAROT, CARD_NONE, cx, cy, w, deg, t, how & ~CD_DOWN);
-    lay(card, cx, cy, w * lift, sx, deg, (how & ~CD_DOWN) | (t < 0.5f ? CD_DOWN : 0), 1);
-}
-
-int hana_slide_draw(cards_slide *s)
-{
-    if (!s->on) return 0;
-    uint32_t el = ui_ms() - s->t0;
-    if (el >= (uint32_t)(s->ms + s->delay)) { s->on = 0; return 0; }
-    ui_animate();
-    float t = el < (uint32_t)s->delay ? 0 : (float)(el - s->delay) / s->ms, e = t * t * (3 - 2 * t);
-    float x = s->x0 + (s->x1 - s->x0) * e, y = s->y0 + (s->y1 - s->y0) * e, w = s->w0 + (s->w1 - s->w0) * e;
-    float a = s->a0 + (s->a1 - s->a0) * e;
-    y -= sinf(e * PI_F) * fminf(0.25f * w, 0.12f * hypotf(s->x1 - s->x0, s->y1 - s->y0));
-    if (s->up0 != s->up1) hana_draw_flip(s->card, x, y, w, a, s->up1 ? e : 1 - e, 0);
-    else {
-        cards_draw(DECK_TAROT, CARD_NONE, x, y, w, a, CD_DOWN);
-        lay(s->card, x, y, w, 1, a, s->up0 ? 0 : CD_DOWN, 1);
-    }
-    return 1;
+    static const cards_deck_def def = {HANA_ASPECT, hana_face, hana_back};
+    static int deck = -1;
+    if (deck < 0) deck = cards_deck_add(&def);
+    return deck;
 }

@@ -107,7 +107,7 @@ typedef struct {
 } tk_move;
 typedef struct {
     tk_move m[TK_MOVES];
-    int n;
+    int n, deck;                                /* deck: the cards' (0: DECK_FRENCH) */
     Uint32 quiet;                               /* busy until then (the last card landed, and a moment) */
 } tk_anim;
 
@@ -125,7 +125,7 @@ static inline void tk_slide(tk_anim *a, int card, float x0, float y0, float w0, 
 {
     if (a->n >= TK_MOVES) return;
     tk_move *m = &a->m[a->n++];
-    cards_slide_start(&m->s, DECK_FRENCH, card, x0, y0, w0, a0, up0, x1, y1, w1, a1, up1, ms, delay);
+    cards_slide_start(&m->s, a->deck, card, x0, y0, w0, a0, up0, x1, y1, w1, a1, up1, ms, delay);
     m->tag = tag;
     m->idx = idx;
     m->show_after = ui_ms() + (Uint32)show_after;

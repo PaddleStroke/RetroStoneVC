@@ -815,8 +815,26 @@ static void back(canvas *c, int deck)
     put_lozenge(c, w / 2, h / 2, 0.26f * w, GOLD);
 }
 
+/* ---- the games' own decks ---------------------------------------------------------------------------------------- */
+static const cards_deck_def *own[DECKS_MAX - DECKS];
+static int nown;
+
+int cards_deck_add(const cards_deck_def *def)
+{
+    if (nown >= DECKS_MAX - DECKS) return -1;
+    own[nown] = def;
+    return DECKS + nown++;
+}
+
+static const cards_deck_def *own_def(int deck)
+{
+    return deck >= DECKS && deck < DECKS + nown ? own[deck - DECKS] : NULL;
+}
+
 float cards_aspect(int deck)
 {
+    const cards_deck_def *d = own_def(deck);
+    if (d) return d->aspect;
     switch (deck) {
     case DECK_TAROT: return 1.6f;
     case DECK_TILES: return 1.3f;
@@ -827,15 +845,85 @@ float cards_aspect(int deck)
 void cards_paint(int deck, int card, int w, int h, uint8_t *rgba)
 {
     canvas c = {rgba, w, h};
+    const cards_deck_def *d = own_def(deck);
     memset(rgba, 0, (size_t)w * h * 4);
-    if (card == CARD_NONE) back(&c, deck);
+    if (d) {
+        if (card != CARD_NONE) d->face(card, w, h, rgba);
+        else if (d->back) d->back(w, h, rgba);
+        else back(&c, DECK_FRENCH);
+    } else if (card == CARD_NONE) back(&c, deck);
     else if (deck == DECK_NUMBER) face_number(&c, card);
     else if (deck == DECK_TILES) face_tile(&c, card);
     else if (deck == DECK_ACTION) face_action(&c, card);
+    else if (deck == DECK_ITALIAN) cards_italian_face(card, w, h, rgba);
     else face_french(&c, deck, card);
 }
 
 void cards_token(int player, int size, uint8_t *rgba) { art_counter(COUNTER_DISC, player, size, rgba); }
+
+/* a French suit's sign: the pip in the middle of an ace's face (as big, at the same place: the small face's below
+ * 52 px), on an ivory disc, its edge smoothed, a thin walnut rim */
+void cards_suit_icon(int deck, int suit, int size, uint8_t *rgba)
+{
+    if (deck == DECK_ITALIAN) { cards_italian_symbol(suit, size, rgba); return; }
+    int s = size, w = s < 52 ? s : (int)ceilf(s / 0.6f), h = (int)(w * cards_aspect(DECK_FRENCH));
+    canvas c = {rgba, s, s};
+    for (int i = 0; i < s * s; i++) memcpy(rgba + 4 * i, (const uint8_t[4]){IVORY[0], IVORY[1], IVORY[2], 255}, 4);
+    float x0 = (float)((w - s) / 2), y0 = (float)((h - s) / 2);
+    put_suit(&c, suit & 3, w / 2.0f - x0, h / 2.0f - y0, (s < 52 ? 0.7f : 0.44f) * w, 0);
+    float r = s / 2.0f;
+    for (int y = 0; y < s; y++)                 /* the disc: everything outside its circle clear */
+        for (int x = 0; x < s; x++) {
+            float d = hypotf(x + 0.5f - r, y + 0.5f - r), a = clampf(r - d, 0, 1);
+            uint8_t *p = rgba + ((size_t)y * s + x) * 4;
+            p[3] = (uint8_t)(p[3] * a);
+        }
+    static const uint8_t walnut[3] = {70, 48, 30};
+    uint8_t *ring = malloc((size_t)s * s * 4);
+    if (!ring) return;
+    art_ring(s, 0.9f, walnut, 0.75f, ring);
+    art_blend(rgba, s, s, ring, s, s, 0, 0);
+    free(ring);
+}
+
+void cards_paint_at(uint8_t *rgba, int size, int deck, int card, float cx, float cy, int w)
+{
+    int h = (int)(w * cards_aspect(deck) + 0.5f);
+    uint8_t *c = malloc((size_t)w * h * 4);
+    if (!c) return;
+    cards_paint(deck, card, w, h, c);
+    art_blend(rgba, size, size, c, w, h, (int)(cx - w / 2.0f), (int)(cy - h / 2.0f));
+    free(c);
+}
+
+void cards_paint_turned(uint8_t *rgba, int size, int deck, int card, float cx, float cy, float w, float deg)
+{
+    int cw = (int)w, ch = (int)(w * cards_aspect(deck));
+    uint8_t *b = malloc((size_t)cw * ch * 4);
+    if (!b) return;
+    cards_paint(deck, card, cw, ch, b);
+    float a = deg * PI_F / 180, ca = cosf(a), sa = sinf(a), r = 0.5f * hypotf((float)cw, (float)ch) + 1;
+    for (int y = (int)fmaxf(0, cy - r); y < (int)fminf((float)size, cy + r + 1); y++)
+        for (int x = (int)fmaxf(0, cx - r); x < (int)fminf((float)size, cx + r + 1); x++) {
+            float dx = x + 0.5f - cx, dy = y + 0.5f - cy;
+            float u = dx * ca + dy * sa + cw / 2.0f - 0.5f, v = -dx * sa + dy * ca + ch / 2.0f - 0.5f;
+            int u0 = (int)floorf(u), v0 = (int)floorf(v);
+            float fu = u - u0, fv = v - v0, acc[4] = {0, 0, 0, 0};
+            for (int k = 0; k < 4; k++) {       /* the four pixels round it, weighted (outside: clear) */
+                int uu = u0 + (k & 1), vv = v0 + (k >> 1);
+                if (uu < 0 || vv < 0 || uu >= cw || vv >= ch) continue;
+                const uint8_t *p = b + 4 * ((size_t)vv * cw + uu);
+                float wt = (k & 1 ? fu : 1 - fu) * (k >> 1 ? fv : 1 - fv) * p[3] / 255.0f;
+                for (int i = 0; i < 3; i++) acc[i] += wt * p[i];
+                acc[3] += wt;
+            }
+            if (acc[3] <= 0.003f) continue;
+            uint8_t px[4] = {(uint8_t)(acc[0] / acc[3]), (uint8_t)(acc[1] / acc[3]), (uint8_t)(acc[2] / acc[3]),
+                             (uint8_t)(255 * fminf(1, acc[3]))};
+            art_blend(rgba, size, size, px, 1, 1, x, y);
+        }
+    free(b);
+}
 
 /* ---- the textures ------------------------------------------------------------------------------------------------ */
 #define CACHE 256
@@ -877,7 +965,7 @@ static SDL_Texture *card_tex(int deck, int card, int w, int near)
 /* soft shapes the size of a card, scaled: the shadow, the gold light, the empty place's outline */
 static SDL_Texture *soft(int kind, int deck)
 {
-    static SDL_Texture *t[3][DECKS];
+    static SDL_Texture *t[3][DECKS_MAX];
     if (t[kind][deck]) return t[kind][deck];
     int w = 96, h = (int)(w * cards_aspect(deck) + 0.5f), pad = kind == 2 ? 0 : 16, W = w + 2 * pad, H = h + 2 * pad;
     uint8_t *b = calloc((size_t)W * H, 4);
@@ -900,8 +988,18 @@ static SDL_Texture *soft(int kind, int deck)
     return t[kind][deck];
 }
 
-/* the card's picture (or its back) at (cx, cy), w x h, narrowed to sx of its width (a flip), turned deg */
-static void put_card(int deck, int card, float cx, float cy, float w, float sx, float deg, int how, int near)
+/* a texture drawn at d turned deg, faded (alpha below 255: set for this copy only) */
+static void put_tex(SDL_Texture *t, const SDL_FRect *d, float deg, Uint8 alpha)
+{
+    if (!t) return;
+    if (alpha < 255) SDL_SetTextureAlphaMod(t, alpha);
+    SDL_RenderCopyExF(ui.r, t, NULL, d, deg, NULL, SDL_FLIP_NONE);
+    if (alpha < 255) SDL_SetTextureAlphaMod(t, 255);
+}
+
+/* the card's picture (or its back) at (cx, cy), w x h, narrowed to sx of its width (a flip), turned deg, faded */
+static void put_card(int deck, int card, float cx, float cy, float w, float sx, float deg, int how, int near,
+                     Uint8 alpha)
 {
     float h = w * cards_aspect(deck), pad = 16 / 96.0f * w;
     if (how & CD_RAISED) {                      /* lifted towards the card's top */
@@ -913,23 +1011,28 @@ static void put_card(int deck, int card, float cx, float cy, float w, float sx, 
         float off = (how & CD_RAISED ? 0.09f : 0.035f) * w;
         SDL_FRect d = {cx + off * 0.6f - (w * sx) / 2 - pad * sx, cy + off - h / 2 - pad, (w + 2 * pad) * sx,
                        h + 2 * pad};
-        SDL_RenderCopyExF(ui.r, soft(0, deck), NULL, &d, deg, NULL, SDL_FLIP_NONE);
+        put_tex(soft(0, deck), &d, deg, alpha);
     }
     if (how & (CD_GLOW | CD_RAISED)) {
         SDL_FRect d = {cx - (w * sx) / 2 - pad * sx, cy - h / 2 - pad, (w + 2 * pad) * sx, h + 2 * pad};
-        SDL_RenderCopyExF(ui.r, soft(1, deck), NULL, &d, deg, NULL, SDL_FLIP_NONE);
+        put_tex(soft(1, deck), &d, deg, alpha);
     }
     SDL_Texture *t = card_tex(deck, how & CD_DOWN ? CARD_NONE : card, (int)(w + 0.5f), near);
     if (!t) return;
     if (how & CD_DIM) SDL_SetTextureColorMod(t, 150, 150, 150);
     SDL_FRect d = {cx - w * sx / 2, cy - h / 2, w * sx, h};
-    SDL_RenderCopyExF(ui.r, t, NULL, &d, deg, NULL, SDL_FLIP_NONE);
+    put_tex(t, &d, deg, alpha);
     if (how & CD_DIM) SDL_SetTextureColorMod(t, 255, 255, 255);
 }
 
 void cards_draw(int deck, int card, float cx, float cy, float w, float deg, int how)
 {
-    put_card(deck, card, cx, cy, w, 1, deg, how, 0);
+    put_card(deck, card, cx, cy, w, 1, deg, how, 0, 255);
+}
+
+void cards_draw_alpha(int deck, int card, float cx, float cy, float w, float deg, int how, float alpha)
+{
+    put_card(deck, card, cx, cy, w, 1, deg, how, 0, (Uint8)(255 * clamp01(alpha) + 0.5f));
 }
 
 void cards_draw_flip(int deck, int card, float cx, float cy, float w, float deg, float t, int how)
@@ -937,7 +1040,7 @@ void cards_draw_flip(int deck, int card, float cx, float cy, float w, float deg,
     t = clamp01(t);
     float sx = fabsf(cosf(t * PI_F)), lift = 1 + 0.08f * sinf(t * PI_F);
     if (sx < 0.02f) sx = 0.02f;
-    put_card(deck, card, cx, cy, w * lift, sx, deg, (how & ~CD_DOWN) | (t < 0.5f ? CD_DOWN : 0), 1);
+    put_card(deck, card, cx, cy, w * lift, sx, deg, (how & ~CD_DOWN) | (t < 0.5f ? CD_DOWN : 0), 1, 255);
 }
 
 void cards_place(int deck, float cx, float cy, float w)
@@ -948,14 +1051,18 @@ void cards_place(int deck, float cx, float cy, float w)
 
 void cards_pile(int deck, float cx, float cy, float w, int n, int top, int how)
 {
-    if (n <= 0) { cards_place(deck, cx, cy, w); return; }
+    if (n <= 0) {
+        if (how & CD_GLOW) ui_mark_gold(cx, cy, 1.3f * w);   /* an empty place to tap */
+        cards_place(deck, cx, cy, w);
+        return;
+    }
     int layers = n > 1 ? (n < 4 ? n - 1 : n < 20 ? 3 : n < 50 ? 4 : 5) : 0;
     float step = fmaxf(1, 0.02f * w);
     for (int k = layers; k >= 1; k--)           /* the cards under: their edges, lower right */
         put_card(deck, top, cx + k * step * 0.4f, cy + k * step, w, 1, 0,
-                 (top == CARD_NONE ? CD_DOWN : 0) | (k == layers ? 0 : CD_FLAT), 0);
+                 (top == CARD_NONE ? CD_DOWN : 0) | (k == layers ? 0 : CD_FLAT), 0, 255);
     int look = (top == CARD_NONE ? CD_DOWN : 0) | (layers ? CD_FLAT : 0) | (how & ~CD_DOWN);
-    put_card(deck, top, cx, cy, w, 1, 0, look, 0);
+    put_card(deck, top, cx, cy, w, 1, 0, look, 0, 255);
 }
 
 /* ---- hands ------------------------------------------------------------------------------------------------------- */
@@ -991,7 +1098,7 @@ int cards_hit(const cards_spot *s, int n, float w, float aspect, float x, float 
 void cards_slide_start(cards_slide *s, int deck, int card, float x0, float y0, float w0, float a0, int up0, float x1,
                        float y1, float w1, float a1, int up1, int ms, int delay)
 {
-    *s = (cards_slide){1, deck, card, up0, up1, ms > 0 ? ms : 1, delay, x0, y0, w0, a0, x1, y1, w1, a1, ui_ms()};
+    *s = (cards_slide){1, deck, card, up0, up1, ms > 0 ? ms : 1, delay, x0, y0, w0, a0, x1, y1, w1, a1, ui_ms(), 0, 0};
 }
 
 int cards_slide_busy(const cards_slide *s) { return s->on && ui_ms() - s->t0 < (uint32_t)(s->ms + s->delay); }
@@ -1005,8 +1112,9 @@ int cards_slide_draw(cards_slide *s)
     float t = el < (uint32_t)s->delay ? 0 : (float)(el - s->delay) / s->ms, e = t * t * (3 - 2 * t);
     float x = s->x0 + (s->x1 - s->x0) * e, y = s->y0 + (s->y1 - s->y0) * e, w = s->w0 + (s->w1 - s->w0) * e;
     float a = s->a0 + (s->a1 - s->a0) * e, moved = hypotf(s->x1 - s->x0, s->y1 - s->y0);
-    y -= sinf(e * PI_F) * fminf(0.25f * w, 0.12f * moved);       /* a little lift on the way */
+    float hop = s->hop > 0 ? s->hop : 0.25f, reach = s->reach > 0 ? s->reach : 0.12f;
+    y -= sinf(e * PI_F) * fminf(hop * w, reach * moved);       /* a little lift on the way */
     if (s->up0 != s->up1) cards_draw_flip(s->deck, s->card, x, y, w, a, s->up1 ? e : 1 - e, 0);
-    else put_card(s->deck, s->card, x, y, w, 1, a, s->up0 ? 0 : CD_DOWN, 1);
+    else put_card(s->deck, s->card, x, y, w, 1, a, s->up0 ? 0 : CD_DOWN, 1, 255);
     return 1;
 }

@@ -64,7 +64,7 @@ static void test_order(void)
     CHECK(briscola_points(card("Cb")) == 3 && briscola_points(card("Fd")) == 2 && briscola_points(card("7d")) == 0);
     int total = 0;
     uint8_t all[40];
-    it_pack(all);
+    cards_pack(PACK_40, all);
     for (int i = 0; i < 40; i++) total += briscola_points(all[i]);
     CHECK(total == BRISCOLA_TOTAL);
     const char *order[10] = {"1c", "3c", "Rc", "Cc", "Fc", "7c", "6c", "5c", "4c", "2c"};

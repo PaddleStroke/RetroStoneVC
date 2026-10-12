@@ -20,7 +20,8 @@ GEN    := $(B)/gen
 TEXT   := $(GEN)/text_data.c
 # the pictures (art/: the tarot's 1898 faces, JPEG) as bytes: tools/gen_art.py (python3)
 ART    := $(GEN)/art_data.c
-SRC    := $(D)/src/shell.c $(D)/src/sound.c $(D)/src/art.c $(D)/src/cards.c $(D)/src/text.c $(TEXT) $(ART) $(GAME_SRC)
+SRC    := $(D)/src/shell.c $(D)/src/sound.c $(D)/src/art.c $(wildcard $(D)/src/card*.c) $(D)/src/text.c $(TEXT) \
+          $(ART) $(GAME_SRC)
 HDR    := $(wildcard $(D)/src/*.h $(D)/src/games/*.h)
 CFLAGS := -O2 -std=c11 -Wall -Wextra -I$(D)/src -Isdk/third_party/stb
 

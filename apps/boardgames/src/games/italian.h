@@ -1,10 +1,10 @@
 /*
- * The Italian-suited pack of 40 (Scopa, Briscola): the cards as bytes and their notation. No SDL: the rules and their
- * tests use it; the pictures are games/italian_deck.h.
+ * The Italian-suited pack of 40 (Scopa, Briscola): its notation. No SDL: the rules and their tests use it. The cards,
+ * the pack (PACK_40) and their pictures (DECK_ITALIAN) are the card kit's (cards.h).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Four suits: coins (denari), cups (coppe), swords (spade), clubs (bastoni); in each, 1 (the ace) to 7, then the three
- * courts: fante 8, cavallo 9, re 10. A card is cards.h's byte: CARD(suit, rank).
+ * courts: fante 8, cavallo 9, re 10. A card is cards.h's byte: CARD(suit, rank), IT_COINS.. and IT_ACE.. IT_RE.
  * Notation: a rank (1..7, F fante, C cavallo, R re; A for the ace too) and a suit (d denari, c coppe, s spade,
  * b bastoni): "7d" the settebello, "Rb" the re of clubs.
  */
@@ -16,17 +16,6 @@
 #include "cards.h"
 
 #define IT_CARDS 40
-enum { IT_COINS, IT_CUPS, IT_SWORDS, IT_CLUBS };
-enum { IT_ACE = 1, IT_FANTE = 8, IT_CAVALLO = 9, IT_RE = 10 };
-
-/* the 40 cards in order (suit by suit, 1..re) into out; their number */
-static inline int it_pack(uint8_t *out)
-{
-    int n = 0;
-    for (int s = 0; s < 4; s++)
-        for (int r = 1; r <= IT_RE; r++) out[n++] = CARD(s, r);
-    return n;
-}
 
 /* a card read at *s (moved past it); CARD_NONE: not a card */
 static inline int it_parse(const char **s)

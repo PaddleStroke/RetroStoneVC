@@ -7,7 +7,7 @@
  * Each month draws its plant once for its four cards and adds each card's own subject; the ribbons are red (the
  * poetry ribbons carry strokes like brush writing, never real text) or blue. The cards are tall (1.6 times as high as
  * wide), paper in a dark rim; the back is black lacquer in a thin gold line. Shadows, the gold light of a card to tap
- * and the lift of a chosen card are the card kit's (cards.h).
+ * and the lift of a chosen card are the card kit's (cards.h): hana_deck().
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #ifndef KOIKOI_DECK_H
@@ -28,9 +28,7 @@ enum { HI_STOP, HI_KOI };
 void hana_icon(int which, int size, uint8_t *rgba);
 /* n cards side by side, overlapping, each cw wide, in a w x h picture (a yaku's badge) */
 void hana_fan(const uint8_t *cards, int n, int cw, int w, int h, uint8_t *rgba);
-/* a card drawn like the kit's (cards_draw's `how`: CD_DOWN its back, CD_RAISED, CD_GLOW, CD_DIM, CD_FLAT) */
-void hana_draw(int card, float cx, float cy, float w, float deg, int how);
-void hana_draw_flip(int card, float cx, float cy, float w, float deg, float t, int how);   /* t 0 back .. 1 face */
-int  hana_slide_draw(cards_slide *s);           /* a kit slide (its deck ignored) with these cards */
+/* the deck for the card kit: its number for cards_draw, cards_pile, slides (registered once: cards_deck_add) */
+int hana_deck(void);
 
 #endif

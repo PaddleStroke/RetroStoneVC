@@ -1,6 +1,6 @@
 /*
  * Happy Families (le jeu des 7 familles) in RetroStone Board: 2 to 6 players passing the device round, with an
- * original deck of animal families (families_deck.c; the rules: families_rules.c, families.h). Each hand is secret
+ * original deck of animal families (families_deck.h; the rules: families_rules.c, families.h). Each hand is secret
  * (VIEW_HIDDEN): the player to move sees their hand at the bottom, their families laid down above it, the others'
  * hands as small fans of backs along the top (their families under them), the stock and the last question in the
  * middle. To ask: tap the player to ask (the next one is chosen at first), tap a card of your hand (its family's six
@@ -99,13 +99,13 @@ static void deal_slides(void)
             cards_spot s[FAM_CARDS];
             float w = hand_spots(p->n[q], s);
             for (int i = 0; i < p->n[q]; i++, k++)
-                ct_slide(&MV, DECK_FRENCH, p->hand[q][i], T.sx, T.cy, T.wp, 0, 0, s[i].x, s[i].y, w, s[i].deg, 1, 300,
+                ct_slide(&MV, fam_deck(), p->hand[q][i], T.sx, T.cy, T.wp, 0, 0, s[i].x, s[i].y, w, s[i].deg, 1, 300,
                          k * 50, H_HAND, q, p->hand[q][i], k % 3 ? -1 : SND_MOVE);
         } else {
             for (int i = 0; i < p->n[q]; i++, k++) {
                 float x, y, a;
                 ct_backs_end(DECK_FRENCH, seat_x(q), T.sy, T.sfan, T.sw, i + 1, &x, &y, &a);
-                ct_slide(&MV, DECK_FRENCH, CARD_NONE, T.sx, T.cy, T.wp, 0, 0, x, y, T.sw, a, 0, 260, k * 50, H_SEAT,
+                ct_slide(&MV, fam_deck(), CARD_NONE, T.sx, T.cy, T.wp, 0, 0, x, y, T.sw, a, 0, 260, k * 50, H_SEAT,
                          q, -1, k % 3 ? -1 : SND_MOVE);
             }
         }
@@ -134,14 +134,14 @@ static void animate(const fpos *b)
             }
             if (!put) v[n++] = (uint8_t)in;
             int j = spot_of(v, n, in, s, &w), first;
-            first = ct_slide(&MV, DECK_FRENCH, in, x0, y0, w0, a0, 0, s[j].x, s[j].y, w, s[j].deg, 1, SLIDE_MS, 0, 0,
+            first = ct_slide(&MV, fam_deck(), in, x0, y0, w0, a0, 0, s[j].x, s[j].y, w, s[j].deg, 1, SLIDE_MS, 0, 0,
                              -1, -1, SND_PLACE);
             float lx, ly, ls;
             laid_at(pl, p->nlaid[pl] - 1, &lx, &ly, &ls);
             for (int m = 0, k = 0; m < FAM_MEMBERS; m++) {
                 int c = FAM_CARD(laid, m), i = spot_of(v, n, c, s, &w);
                 if (i < 0) continue;
-                int mv = ct_slide(&MV, DECK_FRENCH, c, s[i].x, s[i].y, w, s[i].deg, 1, lx, ly, ls * 0.7f, 0, 1,
+                int mv = ct_slide(&MV, fam_deck(), c, s[i].x, s[i].y, w, s[i].deg, 1, lx, ly, ls * 0.7f, 0, 1,
                                   SLIDE_MS, SLIDE_MS + 350 + 60 * k, H_LAID, pl, laid, k ? -1 : SND_CAPTURE);
                 if (c == in) ct_after(&MV, mv, first);
                 k++;
@@ -150,7 +150,7 @@ static void animate(const fpos *b)
         } else {
             int j = spot_of(p->hand[pl], p->n[pl], in, s, &w);
             if (j >= 0)
-                ct_slide(&MV, DECK_FRENCH, in, x0, y0, w0, a0, 0, s[j].x, s[j].y, w, s[j].deg, 1, SLIDE_MS, 0,
+                ct_slide(&MV, fam_deck(), in, x0, y0, w0, a0, 0, s[j].x, s[j].y, w, s[j].deg, 1, SLIDE_MS, 0,
                          H_HAND, pl, in, SND_PLACE);
             delay = SLIDE_MS;
         }
@@ -160,13 +160,13 @@ static void animate(const fpos *b)
         if (q == pl || p->n[q] <= b->n[q] - (given && q == p->ask_to)) continue;
         float x, y, a;
         ct_backs_end(DECK_FRENCH, seat_x(q), T.sy, T.sfan, T.sw, p->n[q], &x, &y, &a);
-        ct_slide(&MV, DECK_FRENCH, CARD_NONE, T.sx, T.cy, T.wp, 0, 0, x, y, T.sw, a, 0, SLIDE_MS, delay, H_SEAT, q, -1,
+        ct_slide(&MV, fam_deck(), CARD_NONE, T.sx, T.cy, T.wp, 0, 0, x, y, T.sw, a, 0, SLIDE_MS, delay, H_SEAT, q, -1,
                  SND_MOVE);
     }
     if (p->refills > b->refills && p->turn == pl && p->n[pl] == 1) {   /* the asker's own, after laying the last */
         cards_spot s[FAM_CARDS];
         float w = hand_spots(1, s);
-        ct_slide(&MV, DECK_FRENCH, p->hand[pl][0], T.sx, T.cy, T.wp, 0, 0, s[0].x, s[0].y, w, s[0].deg, 1, SLIDE_MS,
+        ct_slide(&MV, fam_deck(), p->hand[pl][0], T.sx, T.cy, T.wp, 0, 0, s[0].x, s[0].y, w, s[0].deg, 1, SLIDE_MS,
                  delay, H_HAND, pl, p->hand[pl][0], SND_MOVE);
     }
 }
@@ -280,13 +280,13 @@ static void draw(void)
     if (chosen >= 0 && ready) {
         for (int m = 0; m < FAM_MEMBERS; m++) {
             int c = FAM_CARD(chosen, m), held = fam_holds(p, T.me, c);
-            fam_draw(c, T.ax + m * 1.06f * T.aw, y, T.aw, 0, held ? CD_DIM : CD_GLOW);
+            cards_draw(fam_deck(), c, T.ax + m * 1.06f * T.aw, y, T.aw, 0, held ? CD_DIM : CD_GLOW);
         }
     } else if (p->ask_from != FAM_NONE) {
         float cx = T.ax + 2.65f * 1.06f * T.aw, d = 0.62f * T.aw, gap = 1.25f * T.aw;
         ui_put_c(t_tok[p->ask_from], cx - gap, y, d, d);
         ui_put_c(t_tok[p->ask_to], cx + gap, y, d, d);
-        fam_draw(p->ask_card, cx, y, T.aw, 0, p->answer == FAM_MISSED ? CD_DIM : CD_GLOW);
+        cards_draw(fam_deck(), p->ask_card, cx, y, T.aw, 0, p->answer == FAM_MISSED ? CD_DIM : CD_GLOW);
         if (p->answer != FAM_GIVEN)             /* pioche: a back over the stock's way */
             cards_draw(DECK_FRENCH, CARD_NONE, cx + 0.45f * T.aw, y + 0.5f * T.aw, 0.5f * T.aw, 12,
                        CD_DOWN | (p->answer == FAM_LUCKY ? CD_GLOW : 0));
@@ -298,12 +298,12 @@ static void draw(void)
     for (int i = 0; i < n; i++) {
         int c = p->hand[T.me][i];
         if (ct_hides(&MV, H_HAND, T.me, c)) continue;
-        if (ui.viewer < 0) { fam_draw(CARD_NONE, s[i].x, s[i].y, w, s[i].deg, CD_DOWN); continue; }
+        if (ui.viewer < 0) { cards_draw(fam_deck(), CARD_NONE, s[i].x, s[i].y, w, s[i].deg, CD_DOWN); continue; }
         int how = ready && chosen < 0 ? CD_GLOW : ready && FAM_FAMILY(c) == chosen ? CD_RAISED : 0;
         if (c == flash_card && ui_ms() < flash_t) { ui_mark_gold(s[i].x, s[i].y, 1.7f * w); ui_animate(); }
-        fam_draw(c, s[i].x, s[i].y, w, s[i].deg, how);
+        cards_draw(fam_deck(), c, s[i].x, s[i].y, w, s[i].deg, how);
     }
-    ct_draw(&MV, fam_slide_draw);
+    ct_draw(&MV, NULL);
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */

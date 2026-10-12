@@ -40,7 +40,7 @@ void briscola_new(brgame *g, int players, uint32_t seed)
     brpos *p = &g->pos;
     p->players = g->players;
     p->seed = seed;
-    p->nstock = (uint8_t)it_pack(p->stock);
+    p->nstock = (uint8_t)cards_pack(PACK_40, p->stock);
     cards_shuffle(p->stock, p->nstock, it_mix(seed, 77));
     for (int k = 0; k < p->players; k++)        /* three each, from player 0 (the dealer the last player) */
         for (int i = 0; i < BRISCOLA_HAND; i++) p->hand[k][p->n[k]++] = p->stock[--p->nstock];

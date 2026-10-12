@@ -1,23 +1,17 @@
 /*
- * The Italian-suited pack of 40 drawn by code in the house style (Scopa, Briscola): an original rendition, no image
- * files, no letters. The suits are the traditional symbols: coins (denari) gold discs with a red rosette, cups (coppe)
- * gold goblets with the wine showing, swords (spade) steel blades with a gold guard, clubs (bastoni) knotty batons
- * putting out leaves. The number cards: the coins and cups in two columns, the swords and clubs in a lattice crossing
- * in the middle; the settebello (the 7 of coins) framed in gold; the aces one big symbol, the swords' and clubs' in a
- * laurel wreath, the coins' with rays. The courts single-headed, as in the regional patterns (Napoletane, Piacentine):
- * a figure under an arch on a tiled floor, the house's chess figure in the suit's colour (fante a pawn, the foot
- * soldier; cavallo a knight; re a king), a coin or a cup held up over it, a sword or a club on its shoulder. The
- * corner index: the digit 1..10 (the courts' 8, 9, 10, as the modern Italian packs print them) over the suit. Under
- * about 52 px a plainer face: the digit big over the symbol. The back is the house's (the kit's).
+ * The card kit's Italian-suited pack of 40 (DECK_ITALIAN: Scopa, Briscola), drawn by code in the house style: an
+ * original rendition, no image files, no letters. The suits are the traditional symbols: coins (denari) gold discs
+ * with a red rosette, cups (coppe) gold goblets with the wine showing, swords (spade) steel blades with a gold guard,
+ * clubs (bastoni) knotty batons putting out leaves. The number cards: the coins and cups in two columns, the swords
+ * and clubs in a lattice crossing in the middle; the settebello (the 7 of coins) framed in gold; the aces one big
+ * symbol, the swords' and clubs' in a laurel wreath, the coins' with rays. The courts single-headed, as in the
+ * regional patterns (Napoletane, Piacentine): a figure under an arch on a tiled floor, the house's chess figure in
+ * the suit's colour (fante a pawn, the foot soldier; cavallo a knight; re a king), a coin or a cup held up over it, a
+ * sword or a club on its shoulder. The corner index: the digit 1..10 (the courts' 8, 9, 10, as the modern Italian
+ * packs print them) over the suit. Under about 52 px a plainer face: the digit big over the symbol. The back is the
+ * house's; the cards are 1.4 times as tall as wide, like the French ones.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
- *
- * Static inline: the drawing helpers of each game that uses it (a texture cache each); the painting part (it_paint,
- * it_symbol) needs art.c and text.c only. Cards are 1.4 times as tall as wide, like the kit's, so the kit's back,
- * shadow, gold light and places fit them.
  */
-#ifndef ITALIAN_DECK_H
-#define ITALIAN_DECK_H
-
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
@@ -25,18 +19,15 @@
 #include "art.h"
 #include "cards.h"
 #include "games/chess.h"
-#include "games/italian.h"
-#include "shell.h"
 #include "text.h"
 
-#define IT_ASPECT 1.4f
 #define IT_PI 3.14159265f
 
 /* ---- the colours ------------------------------------------------------------------------------------------------- */
 enum { ITC_IVORY, ITC_RIM, ITC_GOLD, ITC_GOLD_D, ITC_RED, ITC_RED_D, ITC_WINE, ITC_STEEL, ITC_STEEL_D, ITC_WOOD,
        ITC_WOOD_D, ITC_CUT, ITC_LEAF, ITC_LEAF_D, ITC_PANEL, ITC_FLOOR, ITC_BLUE, ITC_N };
 
-static inline const uint8_t *it_rgb(int k)
+static const uint8_t *it_rgb(int k)
 {
     static const uint8_t c[ITC_N][3] = {
         {250, 246, 236}, {176, 164, 140}, {238, 188, 66}, {120, 72, 20}, {200, 46, 40}, {92, 20, 16},
@@ -48,13 +39,13 @@ static inline const uint8_t *it_rgb(int k)
 
 /* each suit's ink (the index) and its figure's style (the courts): coins amber, cups red, swords lapis, clubs jade:
  * the house's own colours */
-static inline const uint8_t *it_ink(int suit)
+static const uint8_t *it_ink(int suit)
 {
     static const uint8_t c[4][3] = {{176, 108, 16}, {184, 36, 36}, {38, 68, 146}, {32, 108, 66}};
     return c[suit & 3];
 }
 
-static inline const art_style *it_figure_style(int suit)
+static const art_style *it_figure_style(int suit)
 {
     static const art_style st[4] = {
         {{226, 166, 54}, {82, 48, 10}, {150, 96, 28}, {252, 238, 204}, 0.34f, 0},
@@ -70,20 +61,20 @@ typedef struct { uint8_t *o; int w, h; } it_canvas;
 typedef struct { art_fig *f; float x0, y0, x1, y1; } it_pen;
 typedef struct { float x, y, s, c, n; } it_xf;  /* a local point (u, v) goes to (x, y) + s * (u, v) turned */
 
-static inline it_xf it_at(float x, float y, float s, float deg)
+static it_xf it_at(float x, float y, float s, float deg)
 {
     float a = deg * IT_PI / 180;
     return (it_xf){x, y, s, cosf(a), sinf(a)};
 }
 
-static inline void it_pen_new(it_pen *p)
+static void it_pen_new(it_pen *p)
 {
     p->f = art_fig_new();
     p->x0 = p->y0 = 1e9f;
     p->x1 = p->y1 = -1e9f;
 }
 
-static inline void it_grow(it_pen *p, float x, float y)
+static void it_grow(it_pen *p, float x, float y)
 {
     p->x0 = fminf(p->x0, x);
     p->y0 = fminf(p->y0, y);
@@ -91,7 +82,7 @@ static inline void it_grow(it_pen *p, float x, float y)
     p->y1 = fmaxf(p->y1, y);
 }
 
-static inline void it_poly(it_pen *p, int role, it_xf t, const float *uv, int n)
+static void it_poly(it_pen *p, int role, it_xf t, const float *uv, int n)
 {
     float q[2 * 48];
     if (n > 48) n = 48;
@@ -105,7 +96,7 @@ static inline void it_poly(it_pen *p, int role, it_xf t, const float *uv, int n)
 }
 
 /* an ellipse in local units (turned with t): a polygon */
-static inline void it_oval(it_pen *p, int role, it_xf t, float cx, float cy, float rx, float ry)
+static void it_oval(it_pen *p, int role, it_xf t, float cx, float cy, float rx, float ry)
 {
     float uv[2 * 32];
     for (int i = 0; i < 32; i++) {
@@ -116,21 +107,21 @@ static inline void it_oval(it_pen *p, int role, it_xf t, float cx, float cy, flo
     it_poly(p, role, t, uv, 32);
 }
 
-static inline void it_box(it_pen *p, int role, it_xf t, float u0, float v0, float u1, float v1)
+static void it_box(it_pen *p, int role, it_xf t, float u0, float v0, float u1, float v1)
 {
     const float uv[8] = {u0, v0, u1, v0, u1, v1, u0, v1};
     it_poly(p, role, t, uv, 4);
 }
 
 /* a band round a circle (pixels, not turned) */
-static inline void it_ring(it_pen *p, int role, float cx, float cy, float r0, float r1)
+static void it_ring(it_pen *p, int role, float cx, float cy, float r0, float r1)
 {
     if (p->f) art_arc(p->f, role, cx, cy, r0, r1, 0, 360);
     it_grow(p, cx - r1, cy - r1);
     it_grow(p, cx + r1, cy + r1);
 }
 
-static inline art_style it_style(int fill, int line, float lw, float light)
+static art_style it_style(int fill, int line, float lw, float light)
 {
     art_style st;
     const uint8_t *f = it_rgb(fill), *l = it_rgb(line);
@@ -141,7 +132,7 @@ static inline art_style it_style(int fill, int line, float lw, float light)
 }
 
 /* the pen's shapes painted on the canvas (only over their bounds), the pen emptied */
-static inline void it_ink_pen(it_canvas *c, it_pen *p, const art_style *st)
+static void it_ink_pen(it_canvas *c, it_pen *p, const art_style *st)
 {
     if (!p->f) return;
     float m = st->line + 2;
@@ -161,7 +152,7 @@ static inline void it_ink_pen(it_canvas *c, it_pen *p, const art_style *st)
 }
 
 /* a rounded rectangle of one colour (alpha 0..1) */
-static inline void it_fill(it_canvas *c, float x, float y, float w, float h, float rad, const uint8_t rgb[3], float a)
+static void it_fill(it_canvas *c, float x, float y, float w, float h, float rad, const uint8_t rgb[3], float a)
 {
     int iw = (int)(w + 0.5f), ih = (int)(h + 0.5f);
     if (iw < 1 || ih < 1) return;
@@ -174,7 +165,7 @@ static inline void it_fill(it_canvas *c, float x, float y, float w, float h, flo
 }
 
 /* a frame: a rounded rectangle less a smaller one inside it, t thick */
-static inline void it_frame(it_canvas *c, float x, float y, float w, float h, float rad, float t, const uint8_t rgb[3],
+static void it_frame(it_canvas *c, float x, float y, float w, float h, float rad, float t, const uint8_t rgb[3],
                             float a)
 {
     for (int j = (int)y; j < (int)ceilf(y + h) && j < c->h; j++)
@@ -190,7 +181,7 @@ static inline void it_frame(it_canvas *c, float x, float y, float w, float h, fl
 }
 
 /* digits from the font, bold, centred on (cx, cy), hgt pixels tall; a 6 or a 9 underlined (it may show turned) */
-static inline void it_digits(it_canvas *c, int value, float cx, float cy, float hgt, const uint8_t rgb[3])
+static void it_digits(it_canvas *c, int value, float cx, float cy, float hgt, const uint8_t rgb[3])
 {
     char s[4];
     int n = value >= 10 ? 2 : 1;
@@ -214,10 +205,10 @@ static inline void it_digits(it_canvas *c, int value, float cx, float cy, float 
 }
 
 /* ---- the suits' symbols: centred on (x, y), `s` pixels tall, turned deg ---------------------------------------- */
-static inline float it_lw(float s) { return fmaxf(0.9f, 0.045f * s); }   /* an outline for a symbol s tall */
+static float it_lw(float s) { return fmaxf(0.9f, 0.045f * s); }   /* an outline for a symbol s tall */
 
 /* a coin: a gold disc, a red ring in it, a rosette in the middle (rich: rays round it, the aces) */
-static inline void it_coin(it_canvas *c, float x, float y, float s, int rich)
+static void it_coin(it_canvas *c, float x, float y, float s, int rich)
 {
     float r = s / 2, lw = fminf(it_lw(s) * 0.8f, 2.4f);
     it_pen p;
@@ -258,7 +249,7 @@ static inline void it_coin(it_canvas *c, float x, float y, float s, int rich)
 }
 
 /* a cup: a goblet, its bowl showing the wine, a red knot on the stem, a broad foot; local units: 1 tall */
-static inline void it_cup(it_canvas *c, float x, float y, float s, float deg, int rich)
+static void it_cup(it_canvas *c, float x, float y, float s, float deg, int rich)
 {
     it_xf t = it_at(x, y, s, deg);
     float lw = fminf(it_lw(s) * 0.8f, 2.4f);
@@ -322,7 +313,7 @@ static inline void it_cup(it_canvas *c, float x, float y, float s, float deg, in
 
 /* a sword: a steel blade (a dark fuller along it), a gold guard and pommel, a red grip; local units: 1 long, the
  * point up */
-static inline void it_sword(it_canvas *c, float x, float y, float s, float deg, float wide, float hilt)
+static void it_sword(it_canvas *c, float x, float y, float s, float deg, float wide, float hilt)
 {
     it_xf t = it_at(x, y, s, deg);
     float lw = fminf(it_lw(0.32f * s), 2.2f), bw = 0.042f * wide, gw = wide * hilt;
@@ -352,7 +343,7 @@ static inline void it_sword(it_canvas *c, float x, float y, float s, float deg, 
 }
 
 /* a club: a knotty baton, thick at its head, cut branches with leaves sprouting; local units: 1 long, the head up */
-static inline void it_club(it_canvas *c, float x, float y, float s, float deg, float wide, int twigs)
+static void it_club(it_canvas *c, float x, float y, float s, float deg, float wide, int twigs)
 {
     it_xf t = it_at(x, y, s, deg);
     float lw = fminf(it_lw(0.32f * s), 2.2f);
@@ -410,7 +401,7 @@ static inline void it_club(it_canvas *c, float x, float y, float s, float deg, f
 }
 
 /* a laurel wreath (the aces of swords and clubs): two branches of leaves round (x, y), radius r */
-static inline void it_wreath(it_canvas *c, float x, float y, float r)
+static void it_wreath(it_canvas *c, float x, float y, float r)
 {
     it_pen p;
     it_pen_new(&p);
@@ -432,7 +423,7 @@ static inline void it_wreath(it_canvas *c, float x, float y, float r)
 }
 
 /* a suit's symbol, s tall (the coins: s wide), centred on (x, y), turned deg (swords and clubs) */
-static inline void it_sym(it_canvas *c, int suit, float x, float y, float s, float deg)
+static void it_sym(it_canvas *c, int suit, float x, float y, float s, float deg)
 {
     switch (suit & 3) {
     case IT_COINS: it_coin(c, x, y, s, 0); break;
@@ -445,7 +436,7 @@ static inline void it_sym(it_canvas *c, int suit, float x, float y, float s, flo
 /* ---- the faces --------------------------------------------------------------------------------------------------- */
 /* the number cards' pips: coins and cups in two columns (the 7 with one in the middle above, the settebello's
  * classic look); swords and clubs in a sheaf crossing in the middle, the ends on an ellipse */
-static inline void it_pips(it_canvas *c, int suit, int n)
+static void it_pips(it_canvas *c, int suit, int n)
 {
     float W = (float)c->w, H = (float)c->h, cx = W / 2, cy = H / 2;
     if (suit == IT_COINS || suit == IT_CUPS) {
@@ -508,7 +499,7 @@ static inline void it_pips(it_canvas *c, int suit, int n)
 }
 
 /* the ace: one big symbol (coins with rays; cups ornate; swords and clubs in a laurel wreath) */
-static inline void it_ace(it_canvas *c, int suit)
+static void it_ace(it_canvas *c, int suit)
 {
     float W = (float)c->w, H = (float)c->h, cx = W / 2, cy = H / 2;
     switch (suit) {
@@ -523,7 +514,7 @@ static inline void it_ace(it_canvas *c, int suit)
 
 /* a court: a pale niche with a round arch (the spandrels in the suit's colour), a tiled floor, the chess figure
  * standing on it with the suit's symbol: a coin or a cup held up over it, a sword or a club shouldered behind it */
-static inline void it_court(it_canvas *c, int suit, int rank)
+static void it_court(it_canvas *c, int suit, int rank)
 {
     float W = (float)c->w, H = (float)c->h, x0 = 0.215f * W, x1 = 0.785f * W, y0 = 0.055f * H, y1 = 0.945f * H;
     float pw = x1 - x0, ph = y1 - y0, lt = fmaxf(1, 0.012f * W), rad = 0.04f * W;
@@ -581,7 +572,7 @@ static inline void it_court(it_canvas *c, int suit, int rank)
 }
 
 /* the corner index: the digit over the suit, top left, then again turned round bottom right */
-static inline void it_corner(it_canvas *c, int card)
+static void it_corner(it_canvas *c, int card)
 {
     float W = (float)c->w;
     int suit = CARD_SUIT(card), rank = CARD_RANK(card), cw = (int)ceilf(0.22f * W), ch = (int)ceilf(0.42f * W);
@@ -605,7 +596,7 @@ static inline void it_corner(it_canvas *c, int card)
 }
 
 /* a face, w x h (CARD_NONE: nothing; the back is the kit's) */
-static inline void it_paint(int card, int w, int h, uint8_t *rgba)
+void cards_italian_face(int card, int w, int h, uint8_t *rgba)
 {
     it_canvas c = {rgba, w, h};
     memset(rgba, 0, (size_t)w * h * 4);
@@ -621,7 +612,8 @@ static inline void it_paint(int card, int w, int h, uint8_t *rgba)
         else it_sym(&c, suit, W / 2, 0.69f * H, 0.62f * W, 30);
         return;
     }
-    if (card == CARD(IT_COINS, 7)) {           /* the settebello, the card every Scopa player is after: framed in gold */
+    /* the settebello, the card every Scopa player is after: framed in gold */
+    if (card == CARD(IT_COINS, 7)) {
         float m = 0.034f * W;
         it_frame(&c, m, m, W - 2 * m, H - 2 * m, r - m, fmaxf(1.2f, 0.016f * W), it_rgb(ITC_GOLD), 1);
         it_frame(&c, m, m, W - 2 * m, H - 2 * m, r - m, fmaxf(0.6f, 0.006f * W), it_rgb(ITC_GOLD_D), 0.5f);
@@ -633,7 +625,7 @@ static inline void it_paint(int card, int w, int h, uint8_t *rgba)
 }
 
 /* a suit's symbol alone, size x size (icons: the scores) */
-static inline void it_symbol(int suit, int size, uint8_t *rgba)
+void cards_italian_symbol(int suit, int size, uint8_t *rgba)
 {
     it_canvas c = {rgba, size, size};
     memset(rgba, 0, (size_t)size * size * 4);
@@ -643,140 +635,3 @@ static inline void it_symbol(int suit, int size, uint8_t *rgba)
     else it_sym(&c, suit, s / 2, s / 2, 1.2f * s, 35);
 }
 
-/* ---- the cards on the screen: the kit's card (its back, shadow, gold light) with these faces laid over it ------ */
-static inline SDL_Texture *it_tex(int card, int w)
-{
-    enum { CACHE = 96 };
-    static struct { int card, w; unsigned used; SDL_Texture *t; } cache[CACHE];
-    static unsigned tick;
-    if (w < 4) return NULL;
-    int slot = -1;
-    for (int i = 0; i < CACHE; i++) {
-        if (cache[i].t && cache[i].card == card && cache[i].w == w) { cache[i].used = ++tick; return cache[i].t; }
-        if (!cache[i].t && slot < 0) slot = i;
-    }
-    if (slot < 0) {                             /* full: the least used lately */
-        slot = 0;
-        for (int i = 1; i < CACHE; i++)
-            if (cache[i].used < cache[slot].used) slot = i;
-    }
-    ui_free(&cache[slot].t);
-    int h = (int)(w * IT_ASPECT + 0.5f);
-    uint8_t *b = malloc((size_t)w * h * 4);
-    if (!b) return NULL;
-    it_paint(card, w, h, b);
-    cache[slot].card = card;
-    cache[slot].w = w;
-    cache[slot].used = ++tick;
-    cache[slot].t = ui_tex(w, h, b);
-    free(b);
-    return cache[slot].t;
-}
-
-/* the face, sx of its width (a flip), lifted as the kit lifts a raised card */
-static inline void it_face(int card, float cx, float cy, float w, float sx, float deg, int how)
-{
-    if (how & CD_RAISED) {
-        float a = deg * IT_PI / 180;
-        cx += sinf(a) * 0.14f * w;
-        cy -= cosf(a) * 0.14f * w;
-    }
-    SDL_Texture *t = it_tex(card, (int)(w + 0.5f));
-    if (!t) return;
-    if (how & CD_DIM) SDL_SetTextureColorMod(t, 150, 150, 150);
-    SDL_FRect d = {cx - w * sx / 2, cy - w * IT_ASPECT / 2, w * sx, w * IT_ASPECT};
-    SDL_RenderCopyExF(ui.r, t, NULL, &d, deg, NULL, SDL_FLIP_NONE);
-    if (how & CD_DIM) SDL_SetTextureColorMod(t, 255, 255, 255);
-}
-
-/* a card as cards_draw draws one (`how`: CD_DOWN its back, CD_RAISED, CD_GLOW, CD_DIM, CD_FLAT) */
-static inline void it_draw(int card, float cx, float cy, float w, float deg, int how)
-{
-    cards_draw(DECK_FRENCH, CARD_NONE, cx, cy, w, deg, how | CD_DOWN);
-    if (!(how & CD_DOWN) && card != CARD_NONE) it_face(card, cx, cy, w, 1, deg, how);
-}
-
-/* turning over in place: t 0 its back .. 1 its face */
-static inline void it_draw_flip(int card, float cx, float cy, float w, float deg, float t, int how)
-{
-    t = t < 0 ? 0 : t > 1 ? 1 : t;
-    cards_draw_flip(DECK_FRENCH, CARD_NONE, cx, cy, w, deg, t, how);
-    if (t < 0.5f || card == CARD_NONE) return;
-    float sx = fabsf(cosf(t * IT_PI)), lift = 1 + 0.08f * sinf(t * IT_PI);
-    it_face(card, cx, cy, w * lift, sx < 0.02f ? 0.02f : sx, deg, how & ~CD_RAISED);
-}
-
-/* a kit slide (cards_slide_start; its deck ignored) drawn with these faces: 1 while it moves or waits */
-static inline int it_slide_draw(cards_slide *s)
-{
-    if (!s->on) return 0;
-    uint32_t el = ui_ms() - s->t0;
-    if (el >= (uint32_t)(s->ms + s->delay)) { s->on = 0; return 0; }
-    ui_animate();
-    float t = el < (uint32_t)s->delay ? 0 : (float)(el - s->delay) / s->ms, e = t * t * (3 - 2 * t);
-    float w = s->w0 + (s->w1 - s->w0) * e, dist = hypotf(s->x1 - s->x0, s->y1 - s->y0);
-    float x = s->x0 + (s->x1 - s->x0) * e, y = s->y0 + (s->y1 - s->y0) * e;
-    y -= sinf(e * IT_PI) * fminf(0.25f * w, 0.12f * dist);   /* a little lift on the way */
-    float a = s->a0 + (s->a1 - s->a0) * e;
-    if (s->up0 != s->up1) it_draw_flip(s->card, x, y, w, a, s->up1 ? e : 1 - e, 0);
-    else it_draw(s->card, x, y, w, a, s->up0 ? 0 : CD_DOWN);
-    return 1;
-}
-
-/* a suit's symbol as a texture, painted once at a size and kept (a few sizes of each) */
-static inline SDL_Texture *it_symbol_tex(int suit, int size)
-{
-    enum { KEEP = 12 };
-    static struct { int suit, size; unsigned used; SDL_Texture *t; } k[KEEP];
-    static unsigned tick;
-    suit &= 3;
-    if (size < 4) size = 4;
-    int slot = 0;
-    for (int i = 0; i < KEEP; i++) {
-        if (k[i].t && k[i].suit == suit && k[i].size == size) { k[i].used = ++tick; return k[i].t; }
-        if (!k[i].t || k[i].used < k[slot].used) slot = i;
-        if (!k[i].t) break;
-    }
-    ui_free(&k[slot].t);
-    it_symbol(suit, size, ui_buf(size, size));
-    k[slot].t = ui_tex(size, size, ui_buf(size, size));
-    k[slot].suit = suit;
-    k[slot].size = size;
-    k[slot].used = ++tick;
-    return k[slot].t;
-}
-
-
-/* a card painted into a picture (the menu's cards), centred on (cx, cy), w wide, turned deg (sampled smoothly);
- * CARD_NONE: the kit's back */
-static inline void it_thumb_card(uint8_t *rgba, int size, int card, float cx, float cy, float w, float deg)
-{
-    int cw = (int)w, ch = (int)(w * IT_ASPECT);
-    uint8_t *b = malloc((size_t)cw * ch * 4);
-    if (!b) return;
-    if (card == CARD_NONE) cards_paint(DECK_FRENCH, CARD_NONE, cw, ch, b);
-    else it_paint(card, cw, ch, b);
-    float a = deg * IT_PI / 180, ca = cosf(a), sa = sinf(a), r = 0.5f * hypotf((float)cw, (float)ch) + 1;
-    for (int y = (int)fmaxf(0, cy - r); y < (int)fminf((float)size, cy + r + 1); y++)
-        for (int x = (int)fmaxf(0, cx - r); x < (int)fminf((float)size, cx + r + 1); x++) {
-            float dx = x + 0.5f - cx, dy = y + 0.5f - cy;
-            float u = dx * ca + dy * sa + cw / 2.0f - 0.5f, v = -dx * sa + dy * ca + ch / 2.0f - 0.5f;
-            int u0 = (int)floorf(u), v0 = (int)floorf(v);
-            float fu = u - u0, fv = v - v0, acc[4] = {0, 0, 0, 0};
-            for (int k = 0; k < 4; k++) {       /* the four pixels round it, weighted (outside: clear) */
-                int uu = u0 + (k & 1), vv = v0 + (k >> 1);
-                if (uu < 0 || vv < 0 || uu >= cw || vv >= ch) continue;
-                const uint8_t *p = b + 4 * ((size_t)vv * cw + uu);
-                float wt = (k & 1 ? fu : 1 - fu) * (k >> 1 ? fv : 1 - fv) * p[3] / 255.0f;
-                for (int i = 0; i < 3; i++) acc[i] += wt * p[i];
-                acc[3] += wt;
-            }
-            if (acc[3] <= 0.003f) continue;
-            uint8_t px[4] = {(uint8_t)(acc[0] / acc[3]), (uint8_t)(acc[1] / acc[3]), (uint8_t)(acc[2] / acc[3]),
-                             (uint8_t)(255 * fminf(1, acc[3]))};
-            art_blend(rgba, size, size, px, 1, 1, x, y);
-        }
-    free(b);
-}
-
-#endif

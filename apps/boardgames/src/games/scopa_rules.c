@@ -33,7 +33,7 @@ static void deal_round(scpos *p)
 {
     p->dealer = (uint8_t)((p->round + p->players - 1) % p->players);
     for (uint32_t k = 0;; k++) {                /* three or four re on the table: dealt again */
-        p->nstock = (uint8_t)it_pack(p->stock);
+        p->nstock = (uint8_t)cards_pack(PACK_40, p->stock);
         cards_shuffle(p->stock, p->nstock, it_mix(p->seed, 1000u * p->round + k));
         int re = 0;
         for (int i = 0; i < 4; i++) re += CARD_RANK(p->stock[p->nstock - 1 - p->players * SCOPA_HAND - i]) == IT_RE;

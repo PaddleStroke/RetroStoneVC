@@ -130,54 +130,40 @@ static void tint_back(uint8_t *px, int n)
     }
 }
 
-static SDL_Texture *back_tex(float w)
+/* each player's pack for the card kit: player 0's the kit's French pack, player 1's the same with the red back */
+static void face_of(int card, int w, int h, uint8_t *rgba) { cards_paint(DECK_FRENCH, card, w, h, rgba); }
+
+static void red_back(int w, int h, uint8_t *rgba)
 {
-    static SDL_Texture *t[6];
-    static int made[6], next;
-    int iw = (int)(w + 0.5f);
-    if (iw < 4) iw = 4;
-    for (int i = 0; i < 6; i++)
-        if (t[i] && made[i] == iw) return t[i];
-    int ih = (int)(iw * cards_aspect(DECK_FRENCH) + 0.5f), k = next++ % 6;
-    uint8_t *px = malloc((size_t)iw * ih * 4);
-    if (!px) return NULL;
-    cards_paint(DECK_FRENCH, CARD_NONE, iw, ih, px);
-    tint_back(px, iw * ih);
-    ui_free(&t[k]);
-    t[k] = ui_tex(iw, ih, px);
-    made[k] = iw;
-    free(px);
-    return t[k];
+    cards_paint(DECK_FRENCH, CARD_NONE, w, h, rgba);
+    tint_back(rgba, w * h);
 }
 
-/* a back of `owner`'s pack: the kit's (its shadow, its glow), player 1's red laid over it */
+static int deck_of(int owner)
+{
+    static const cards_deck_def red = {1.4f, face_of, red_back};
+    static int deck = -1;
+    if (owner != 1) return DECK_FRENCH;
+    if (deck < 0) deck = cards_deck_add(&red);
+    return deck;
+}
+
+/* a back of `owner`'s pack */
 static void back_draw(int owner, float cx, float cy, float w, int how)
 {
-    cards_draw(DECK_FRENCH, CARD_NONE, cx, cy, w, 0, how | CD_DOWN);
-    if (owner != 1) return;
-    SDL_Texture *t = back_tex(w);
-    if (t) ui_put_c(t, cx, cy, w, w * cards_aspect(DECK_FRENCH));
+    cards_draw(deck_of(owner), CARD_NONE, cx, cy, w, 0, how | CD_DOWN);
 }
 
 /* a card turning over (t 0 its back, 1 its face) */
 static void flip_draw(int owner, int card, float cx, float cy, float w, float t)
 {
-    cards_draw_flip(DECK_FRENCH, card, cx, cy, w, 0, t, 0);
-    if (t >= 0.5f || owner != 1) return;
-    float sx = fmaxf(0.02f, fabsf(cosf(t * PI_F))), lw = w * (1 + 0.08f * sinf(t * PI_F));
-    SDL_Texture *tx = back_tex(lw);
-    if (tx) ui_put_c(tx, cx, cy, lw * sx, lw * cards_aspect(DECK_FRENCH));
+    cards_draw_flip(deck_of(owner), card, cx, cy, w, 0, t, 0);
 }
 
 /* a pile of n backs, its thickness showing */
 static void backs_pile(int owner, float cx, float cy, float w, int n, int how)
 {
-    if (n <= 0) return;
-    int layers = n > 1 ? (n < 4 ? n - 1 : n < 20 ? 3 : 4) : 0;
-    float step = fmaxf(1, 0.02f * w);
-    for (int k = layers; k >= 1; k--)
-        back_draw(owner, cx + k * step * 0.4f, cy + k * step, w, k == layers ? 0 : CD_FLAT);
-    back_draw(owner, cx, cy, w, (layers ? CD_FLAT : 0) | how);
+    if (n > 0) cards_pile(deck_of(owner), cx, cy, w, n, CARD_NONE, how);
 }
 
 /* ---- cards turning over on their way (the talon's, the deal's): drawn with their own pack's back ----------------- */
@@ -679,7 +665,7 @@ static void thumb(int v, int size, uint8_t *rgba)
     memset(rgba, 0, (size_t)size * size * 4);
     cards_paint(DECK_FRENCH, CARD_NONE, cw, ch, b);
     art_blend(rgba, size, size, b, cw, ch, (int)(size * 0.04f), (int)(size * 0.03f));
-    tint_back(b, cw * ch);
+    cards_paint(deck_of(1), CARD_NONE, cw, ch, b);
     art_blend(rgba, size, size, b, cw, ch, size - cw - (int)(size * 0.04f), (int)(size * 0.03f));
     static const uint8_t run[3] = {CARD(SUIT_HEARTS, 6), CARD(SUIT_SPADES, 5), CARD(SUIT_HEARTS, 4)};
     for (int i = 0; i < 3; i++) {
