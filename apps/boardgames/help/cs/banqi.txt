@@ -1,0 +1,21 @@
+Banqi
+# Cíl hry
+Vezmi soupeři všechny figury, nebo ho nech bez tahu. Banqi (čínský skrytý šach) se hraje s 32 figurami xiangqi na polovině jeho desky, 4×8 polí. Figury na začátku leží lícem dolů, zamíchané, na každém poli jedna: nikdo neví, co kde je. Platí tchajwanská pravidla.
+# Barvy
+První hráč otočí libovolnou figuru: její barva, červená nebo černá, se stane jeho barvou a soupeř dostane tu druhou. Do té doby je lišta dole červená, ale rozhoduje první figura.
+# Tah
+Udělej jedno z toho:
+- Otoč libovolnou skrytou figuru, kterékoli barvy.
+- Posuň jednu ze svých odkrytých figur o jedno pole po řadě nebo sloupci na prázdné pole.
+- Braní: posuň jednu ze svých odkrytých figur o jedno pole na odkrytou soupeřovu figuru, kterou smí vzít.
+# Hodnosti
+Od nejvyšší: generál, rádce, slon, vůz, kůň, dělo, voják. Figura bere figury stejné nebo nižší hodnosti, se dvěma výjimkami:
+- Voják bere generála (a vojáky). Generál nemůže vzít vojáka.
+- Dělo bere jinak: skáče po řadě nebo sloupci přes přesně jednu figuru (odkrytou nebo skrytou, kterékoli barvy), na libovolnou vzdálenost, a dopadne na soupeřovu figuru hned za ní. Takto může vzít kteroukoli odkrytou soupeřovu figuru, ale nikdy ne figuru hned vedle sebe. Když nebere, táhne o jedno pole jako ostatní.
+Skryté figury nelze nikdy vzít.
+# Konec hry
+- Hráč, který přišel o všech šestnáct figur, prohrává.
+- Hráč, který nemůže táhnout, když je na tahu, prohrává.
+- Po 50 tazích v řadě (počítají se tahy obou hráčů) bez otočení figury a bez braní končí hra remízou.
+# Hra na zařízení
+Posílejte si zařízení: hráč na tahu má svou lištu dole. Klepnutím na skrytou figuru ji otočíš. Klepni na svou figuru a uvidíš, kam může táhnout, potom klepni na pole, nebo figuru přetáhni. Tečky ukazují tahy, kroužky braní. Každá lišta ukazuje figury, které daný hráč vzal. Když do remízy zbývá jen pár tahů, jejich počet se ukáže na konci lišty hráče na tahu.

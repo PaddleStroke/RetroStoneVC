@@ -1,0 +1,31 @@
+Rithmomachia
+# Tujuan
+Rithmomachia, "pertempuran angka", adalah permainan para cendekiawan di Eropa abad pertengahan. Dua pasukan angka berhadapan di papan 8 kali 16 petak: bilangan genap (terang) dan bilangan ganjil (gelap). Setiap pasukan punya 24 bidak: 8 bundar, 8 segitiga, 7 persegi, dan satu piramida, masing-masing membawa sebuah angka. Menanglah dengan memakan bidak lawan (kemenangan biasa) atau dengan menempatkan tiga bidakmu dalam harmoni di separuh papan lawan (kemenangan sejati). Genap jalan lebih dulu.
+# Pasukan
+Bidak disusun seperti yang dijelaskan Claude de Boissière (1556) serta Lever dan Fulke (1563). Angka-angkanya tumbuh dari empat angka kecil: 2, 4, 6, 8 untuk genap, 3, 5, 7, 9 untuk ganjil.
+- Bundar: angka-angka kecil dan kuadratnya (genap: 2 4 6 8 dan 4 16 36 64).
+- Segitiga: setiap angka kecil ditambah kuadratnya, dan kuadrat angka berikutnya (genap: 6 20 42 72 dan 9 25 49 81).
+- Persegi: jumlah kedua segitiga, dan kuadrat dari dua kali angka kecil ditambah satu (genap: 15 45 153 dan 25 81 169 289).
+- Piramida adalah tumpukan kuadrat: 91 = 1 + 4 + 9 + 16 + 25 + 36 untuk genap, 190 = 16 + 25 + 36 + 49 + 64 untuk ganjil.
+# Menggerakkan
+Bidak bergerak ke petak kosong dan tidak pernah melompati bidak lain.
+- Bundar: satu petak diagonal.
+- Segitiga: tepat dua petak sepanjang baris atau kolom.
+- Persegi: tepat tiga petak sepanjang baris atau kolom.
+- Piramida: seperti salah satu dari ketiganya.
+# Memakan
+Setelah langkahmu, kamu memakan setiap bidak lawan yang tertangkap dengan salah satu dari empat cara ini. Bidakmu sendiri tetap di tempatnya.
+- Pertemuan: salah satu bidakmu dengan angka yang sama bisa bergerak ke petaknya.
+- Serbuan: bidakmu yang lebih kecil di salah satu garis geraknya, hanya dengan petak kosong di antaranya: angkanya dikali jumlah petak kosong sama dengan angka lawan.
+- Sergapan: dua bidakmu yang sama-sama bisa bergerak ke petaknya berjumlah sama dengan angkanya.
+- Kepungan: bidak-bidakmu ada di keempat sisinya, mendatar dan tegak; tepi papan juga menutup satu sisi.
+Piramida dihitung sebagai satu bidak dengan angka utuhnya, saat menyerang maupun saat diserang.
+# Kemenangan
+Pilih sebelum bermain:
+- Makan 8 bidak: pemain pertama yang memakan 8 bidak lawan menang.
+- Makan 12 bidak: sama, permainan yang lebih panjang.
+- Kemenangan sejati: pemain pertama yang menempatkan tiga bidaknya dalam harmoni menang. Ketiganya berada di separuh papan lawan (melewati garis di tengah), pada satu baris, kolom, atau diagonal, berjarak sama, dan angkanya, menurut urutan sepanjang garis, membentuk barisan: aritmetika (4 6 8: selisih yang sama), geometri (4 16 64: rasio yang sama), atau harmonik (3 4 6: angka tengah adalah dua kali hasil kali kedua angka lain dibagi jumlahnya).
+# Akhir permainan
+Pemain yang tidak bisa melangkah kalah. Setelah 100 langkah berturut-turut (langkah kedua pemain dihitung) tanpa memakan, permainan seri.
+# Bermain di perangkat
+Gilirkan perangkat: papan berputar sehingga pasukan pemain yang mendapat giliran ada di bawah (di kiri dalam posisi mendatar), bersama bilahnya. Ketuk salah satu bidakmu untuk melihat ke mana ia bisa bergerak, lalu ketuk sebuah petak, atau seret bidaknya. Titik menunjukkan langkah; lingkaran di sekitar titik berarti langkah itu akan memakan sesuatu. Setelah melangkah, bidakmu yang memakan menyala emas, dan bidak yang dimakan menyala merah saat menghilang. Setiap bilah menunjukkan jumlah bidak yang telah dimakan pemain itu. Jika tinggal sedikit langkah sebelum seri, jumlahnya muncul di ujung bilah pemain yang mendapat giliran.

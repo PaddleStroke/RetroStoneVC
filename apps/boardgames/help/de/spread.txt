@@ -1,0 +1,17 @@
+Ausbreitung
+# Das Ziel
+Am Ende die meisten Steine auf dem Brett haben. Das Brett hat 7 mal 7 Felder; jeder Spieler beginnt mit zwei Steinen in gegenüberliegenden Ecken. Hell beginnt.
+# Ein Zug
+Ziehe einen deiner Steine auf ein leeres Feld, auf eine von zwei Arten:
+- Klonen: auf ein Nachbarfeld, Diagonalen eingeschlossen. Dort erscheint ein neuer Stein, und der alte bleibt stehen.
+- Springen: auf ein Feld, das zwei Felder entfernt liegt, in beliebiger Richtung. Der Stein verlässt sein Feld.
+Danach wird jeder gegnerische Stein neben dem erreichten Feld, Diagonalen eingeschlossen, zu einem deiner Steine.
+# Die Bretter
+Wähle das Brett vor der Partie: das leere Brett oder eines mit ein paar gesperrten Feldern (vier Blöcke, ein Kreuz oder vier Tore). Auf ein gesperrtes Feld kann nichts, aber Steine dürfen darüber springen.
+# Das Ende der Partie
+- Ist das Brett voll, gewinnt der Spieler mit mehr Steinen.
+- Hat der Spieler am Zug keinen Zug (kein Stein mehr oder alle Steine eingeschlossen), endet die Partie, und der andere Spieler bekommt alle leeren Felder. Dann werden die Steine gezählt.
+- Nach 50 Zügen in Folge, die keinen Stein hinzufügen (nur Sprünge), werden die Steine gezählt, wie sie stehen.
+Gleich viele Steine sind ein Unentschieden.
+# Spielen auf dem Gerät
+Tippe auf einen deiner Steine und dann auf ein Feld, oder schieb den Stein mit dem Finger dorthin. Ein großer Punkt ist ein Klon, ein kleiner Punkt ein Sprung. Die gegnerischen Steine rund um das Feld drehen sich dann nacheinander um. Endet die Partie, weil ein Spieler keinen Zug hatte, schimmern die leeren Felder blass in der Farbe des Spielers, der sie bekommt. Jede Leiste zeigt, wie viele Steine der Spieler hat. Wenn nur noch wenige Züge bis zur Zählung bleiben, steht ihre Zahl am Ende der Leiste des Spielers am Zug.

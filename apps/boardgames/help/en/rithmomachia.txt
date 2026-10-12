@@ -1,0 +1,31 @@
+Rithmomachia
+# The aim
+Rithmomachia, the "battle of numbers", was the game of scholars in medieval Europe. Two armies of numbers face each other on a board of 8 by 16 squares: the evens (light) and the odds (dark). Each army has 24 pieces: 8 rounds, 8 triangles, 7 squares and a pyramid, each carrying a number. Win by taking enemy pieces (the common victory) or by setting three of your pieces in harmony in the enemy's half (the proper victory). The evens move first.
+# The armies
+The pieces are laid out as Claude de Boissière (1556) and Lever and Fulke (1563) describe them. Their numbers grow from four small numbers: 2, 4, 6, 8 for the evens, 3, 5, 7, 9 for the odds.
+- Rounds: the small numbers and their squares (evens: 2 4 6 8 and 4 16 36 64).
+- Triangles: each small number plus its square, and the next number squared (evens: 6 20 42 72 and 9 25 49 81).
+- Squares: the two triangles added, and the square of twice the small number plus one (evens: 15 45 153 and 25 81 169 289).
+- The pyramid is a stack of squares: 91 = 1 + 4 + 9 + 16 + 25 + 36 for the evens, 190 = 16 + 25 + 36 + 49 + 64 for the odds.
+# Moving
+A piece moves to an empty square and never jumps over another piece.
+- Round: one square diagonally.
+- Triangle: exactly two squares along a row or a column.
+- Square: exactly three squares along a row or a column.
+- Pyramid: like any of the three.
+# Captures
+After your move, you take every enemy piece caught in one of these four ways. Your own pieces stay where they are.
+- Meeting: one of your pieces with the same number could move onto it.
+- Assault: a smaller piece of yours on one of the lines it moves along, with only empty squares between them: its number times the number of empty squares equals the enemy's number.
+- Ambush: two of your pieces that could both move onto it add up to its number.
+- Siege: your pieces stand on all four sides of it, across and up and down; the edge of the board closes a side too.
+The pyramid counts as a single piece with its whole number, when it attacks and when it is attacked.
+# Victories
+Choose before the game:
+- Take 8 pieces: the first player to take 8 enemy pieces wins.
+- Take 12 pieces: the same, a longer game.
+- Proper victory: the first player to set three of their pieces in harmony wins. The three stand in the enemy's half (beyond the line across the middle), on one row, column or diagonal, equally spaced, and their numbers form a progression in their order along the line: arithmetic (4 6 8: the same difference), geometric (4 16 64: the same ratio) or harmonic (3 4 6: the middle number is twice the product of the other two divided by their sum).
+# The end of the game
+A player who cannot move loses. After 100 moves in a row (both players' moves counted) without a capture, the game is a draw.
+# Playing on the device
+Pass the device round: the board turns so that the army of the player to move is at the bottom (on the left in landscape), with their bar. Tap one of your pieces to see where it can go, then tap a square, or drag the piece. Dots show the moves; a ring round a dot means the move will take something. After a move your capturing pieces glow gold, and the pieces taken glow red as they leave. Each bar shows how many pieces that player has taken. When few moves are left before the draw, their number shows at the end of the bar of the player to move.

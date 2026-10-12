@@ -1,0 +1,13 @@
+Dara
+# Das Ziel
+Schlage die Steine des anderen Spielers, bis er nur noch zwei hat. Dara ist ein Reihenspiel aus Nigeria und Niger, gespielt auf 5 Reihen zu 6 Mulden, die oft in den Sand gegraben werden. Jeder Spieler hat 12 Steine. Hell setzt und zieht zuerst.
+# Setzen
+Die Spieler setzen abwechselnd je einen Stein in eine beliebige leere Mulde, bis alle Steine auf dem Brett sind. Du darfst nie so setzen, dass drei oder mehr deiner Steine in einer Reihe stehen, waagerecht oder senkrecht. Wer keine erlaubte Mulde mehr hat, setzt aus; können beide nicht mehr setzen, bleiben die Steine, die noch in der Hand sind, aus dem Spiel.
+# Ziehen
+Danach ziehst du, wenn du dran bist, einen deiner Steine eine Mulde waagerecht oder senkrecht (nie diagonal) in eine leere Mulde. Entsteht durch den Zug eine Reihe aus genau drei deiner Steine, waagerecht oder senkrecht, nimmst du einen beliebigen gegnerischen Stein vom Brett. Eine Viererreihe zählt nicht. Wer mit einem Zug zwei Reihen bildet, nimmt trotzdem nur einen Stein.
+# Das Ende der Partie
+- Wer nur noch zwei Steine hat, verliert: Er kann nie wieder eine Reihe bilden.
+- Wer am Zug ist und nicht ziehen kann, verliert.
+- Nach 100 Zügen in Folge (die Züge beider Spieler mitgezählt) ohne Schlagen endet die Partie unentschieden.
+# Spielen auf dem Gerät
+Zum Setzen tippe auf eine Mulde mit Punkt: Die Mulden ohne Punkt würden eine Dreierreihe ergeben. Zum Ziehen tippe auf einen deiner Steine und dann auf einen Punkt, oder schieb den Stein mit dem Finger dorthin. Ein Punkt in goldenem Licht ergibt eine Dreierreihe. Dann leuchtet die Reihe golden, und die Steine, die du nehmen darfst, leuchten rot: Tippe auf einen. Beim Setzen zeigt jede Leiste die Steine, die noch in der Hand sind; später die Steine, die der Spieler genommen hat. Wenn nur noch wenige Züge bis zum Unentschieden bleiben, steht ihre Zahl am Ende der Leiste des Spielers am Zug.

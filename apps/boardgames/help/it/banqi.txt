@@ -1,0 +1,21 @@
+Banqi
+# Lo scopo
+Catturare tutti i pezzi dell'avversario, o lasciarlo senza mosse. Il Banqi (gli scacchi cinesi al buio) usa i 32 pezzi dello xiangqi su metà della sua scacchiera, 4 per 8 caselle. I pezzi partono coperti e mescolati, uno su ogni casella: nessuno sa dove si trovi cosa. Queste sono le regole taiwanesi.
+# I colori
+Il primo giocatore scopre un pezzo qualsiasi: il suo colore, rosso o nero, diventa il suo, e l'altro giocatore prende l'altro colore. Fino ad allora la barra in basso mostra il rosso, ma decide il primo pezzo.
+# Un turno
+Fai una di queste cose:
+- Scopri un pezzo coperto qualsiasi, di uno o dell'altro colore.
+- Muovi uno dei tuoi pezzi scoperti di una casella lungo una riga o una colonna, su una casella vuota.
+- Cattura: muovi uno dei tuoi pezzi scoperti di una casella su un pezzo nemico scoperto che può catturare.
+# I gradi
+Dal più alto: generale, consigliere, elefante, carro, cavallo, cannone, soldato. Un pezzo cattura i pezzi del suo grado o di grado inferiore, con due eccezioni:
+- Il soldato cattura il generale (e i soldati). Il generale non può catturare un soldato.
+- Il cannone cattura in un altro modo: salta lungo una riga o una colonna esattamente un pezzo (scoperto o coperto, di qualsiasi colore), a qualsiasi distanza, e atterra sul pezzo nemico subito dopo. Così può catturare qualsiasi pezzo nemico scoperto, ma mai quello accanto. Senza catturare, si muove di una casella come gli altri.
+I pezzi coperti non possono mai essere catturati.
+# La fine della partita
+- Perde il giocatore a cui sono stati catturati tutti e sedici i pezzi.
+- Perde il giocatore che non può muovere quando è il suo turno.
+- Dopo 50 turni di fila (contando quelli di entrambi i giocatori) senza scoprire un pezzo e senza catture, la partita è patta.
+# Giocare sul dispositivo
+Passatevi il dispositivo: chi è di turno ha la sua barra in basso. Tocca un pezzo coperto per scoprirlo. Tocca uno dei tuoi pezzi per vedere dove può andare, poi tocca una casella, oppure trascina il pezzo. I punti mostrano le mosse, gli anelli le catture. Ogni barra mostra i pezzi catturati da quel giocatore. Quando restano pochi turni prima della patta, il loro numero compare in fondo alla barra di chi è di turno.

@@ -1,0 +1,13 @@
+Dara
+# Tujuan
+Makan bidak lawan sampai lawan hanya punya dua. Dara adalah permainan barisan dari Nigeria dan Niger, dimainkan di 5 baris berisi 6 lubang, sering digali di pasir. Setiap pemain punya 12 bidak. Terang menempatkan dan melangkah lebih dulu.
+# Menempatkan
+Bergantian, pemain menaruh satu bidak di lubang kosong mana saja, sampai semua bidak ada di papan. Kamu tidak boleh menaruh bidak sehingga tiga bidakmu atau lebih berderet, mendatar atau tegak. Pemain yang tidak punya lubang yang boleh lagi melewatkan giliran; jika keduanya tidak bisa menaruh, bidak yang masih di tangan tidak ikut bermain.
+# Menggerakkan
+Lalu, pada giliranmu, gerakkan salah satu bidakmu satu lubang mendatar atau tegak (tidak pernah diagonal) ke lubang kosong. Jika langkah itu membuat deretan tepat tiga bidakmu, mendatar atau tegak, ambil satu bidak lawan mana saja dari papan. Deretan empat tidak dihitung. Membuat dua deretan dengan satu langkah tetap hanya mengambil satu bidak.
+# Akhir permainan
+- Pemain yang tinggal punya dua bidak kalah: ia tidak akan pernah bisa membuat deretan lagi.
+- Pemain yang tidak bisa melangkah pada gilirannya kalah.
+- Setelah 100 langkah berturut-turut (langkah kedua pemain dihitung) tanpa makan, permainan seri.
+# Bermain di perangkat
+Untuk menempatkan, ketuk lubang bertitik: lubang tanpa titik akan membuat deretan tiga. Untuk melangkah, ketuk salah satu bidakmu, lalu sebuah titik, atau seret bidaknya. Titik dengan cahaya emas membuat deretan tiga. Lalu deretan itu menyala emas dan bidak yang boleh kamu ambil menyala merah: ketuk salah satunya. Saat menempatkan, setiap bilah menunjukkan bidak yang masih di tangan; setelah itu, bidak yang telah dimakan pemain itu. Jika tinggal sedikit langkah sebelum seri, jumlahnya muncul di ujung bilah pemain yang mendapat giliran.

@@ -1,0 +1,13 @@
+Dara
+# Tavoite
+Lyö vastustajan nappuloita, kunnes hänellä on jäljellä vain kaksi. Dara on Nigeriasta ja Nigeristä kotoisin oleva rivipeli, jota pelataan 5 rivillä, joissa kussakin on 6 kuoppaa, usein hiekkaan kaivettuina. Kummallakin pelaajalla on 12 nappulaa. Vaalea asettaa ja siirtää ensin.
+# Asettaminen
+Pelaajat asettavat vuorotellen yhden nappulan mihin tahansa tyhjään kuoppaan, kunnes kaikki nappulat ovat laudalla. Et saa koskaan asettaa nappulaa niin, että kolme tai useampi omaa nappulaasi on rivissä vaaka- tai pystysuunnassa. Pelaaja, jolla ei ole enää yhtään sallittua kuoppaa, jättää vuoronsa väliin; kun kumpikaan ei voi asettaa, kädessä vielä olevat nappulat jäävät pelin ulkopuolelle.
+# Siirtäminen
+Sen jälkeen siirrät vuorollasi yhtä nappulaasi yhden kuopan vaaka- tai pystysuunnassa (ei koskaan viistosti) tyhjään kuoppaan. Jos siirto muodostaa tasan kolmen oman nappulasi rivin vaaka- tai pystysuunnassa, poista laudalta mikä tahansa vastustajan nappula. Neljän rivi ei kelpaa. Kahden rivin muodostaminen yhdellä siirrolla vie silti vain yhden nappulan.
+# Pelin loppu
+- Pelaaja, jolle jää kaksi nappulaa, häviää: hän ei voi enää koskaan muodostaa riviä.
+- Pelaaja, joka ei voi siirtää vuorollaan, häviää.
+- Kun 100 siirtoa peräkkäin (kummankin pelaajan siirrot lasketaan) on tehty ilman lyöntiä, peli päättyy tasapeliin.
+# Pelaaminen laitteella
+Aseta nappula napauttamalla kuoppaa, jossa on piste: kuopat ilman pistettä muodostaisivat kolmen rivin. Siirtääksesi napauta nappulaasi ja sitten pistettä, tai vedä nappulaa. Kultaisessa valossa oleva piste muodostaa kolmen rivin. Silloin rivi hehkuu kultaisena ja nappulat, jotka saat ottaa, hehkuvat punaisina: napauta yhtä. Asettamisen aikana kukin palkki näyttää kädessä vielä olevat nappulat; myöhemmin nappulat, jotka kyseinen pelaaja on ottanut. Kun tasapeliin on jäljellä vain muutama siirto, niiden määrä näkyy vuorossa olevan pelaajan palkin lopussa.

@@ -1,0 +1,17 @@
+Spread
+# The aim
+Have the most pieces on the board at the end. The board has 7 by 7 cells; each player starts with two pieces in opposite corners. Light moves first.
+# A move
+Move one of your pieces to an empty cell, in one of two ways:
+- Clone: to a cell next to it, diagonals included. A new piece appears there and the old one stays.
+- Jump: to a cell two cells away, in any direction. The piece leaves its cell.
+Then every enemy piece next to the cell you reached, diagonals included, becomes one of yours.
+# Boards
+Choose the board before the game: the plain board, or one with a few blocked cells (four blocks, a cross, or four gates). Nothing can go on a blocked cell, but pieces may jump over it.
+# The end of the game
+- When the board is full, the player with more pieces wins.
+- When the player to move has no move (no piece left, or every piece hemmed in), the game ends and the other player takes all the empty cells. Then the pieces are counted.
+- After 50 moves in a row that add no piece (only jumps), the pieces are counted as they stand.
+The same number of pieces is a draw.
+# Playing on the device
+Tap one of your pieces, then a cell, or drag the piece. A big dot is a clone, a small dot a jump. The enemy pieces around the cell then turn over one after another. When the game ends because a player had no move, the empty cells show faintly in the colour of the player who takes them. Each bar shows how many pieces that player has. When few moves are left before the count, their number shows at the end of the bar of the player to move.

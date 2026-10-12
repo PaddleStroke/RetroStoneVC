@@ -1,0 +1,13 @@
+Dara
+# O objetivo
+Capturar as peças do outro jogador até ele ficar com apenas duas. O Dara é um jogo de fileiras da Nigéria e do Níger, jogado em 5 fileiras de 6 buracos, muitas vezes cavados na areia. Cada jogador tem 12 peças. As claras colocam e jogam primeiro.
+# Colocação
+Os jogadores se revezam colocando uma peça em qualquer buraco vazio, até todas as peças estarem no tabuleiro. Você nunca pode colocar uma peça de modo que três ou mais das suas peças fiquem em fila, na horizontal ou na vertical. Quem não tem mais nenhum buraco possível passa; quando nenhum dos dois pode colocar, as peças que sobraram na mão ficam fora do jogo.
+# Movimento
+Depois, na sua vez, mova uma das suas peças um buraco na horizontal ou na vertical (nunca na diagonal) para um buraco vazio. Se o movimento formar uma fila de exatamente três peças suas, na horizontal ou na vertical, tire do tabuleiro qualquer peça inimiga. Uma fila de quatro não conta. Formar duas filas com um só movimento tira mesmo assim só uma peça.
+# O fim da partida
+- Perde quem fica com duas peças: nunca mais poderá formar uma fila.
+- Perde quem não pode mover na sua vez.
+- Depois de 100 lances seguidos (contando os dos dois jogadores) sem captura, a partida termina empatada.
+# Jogando no aparelho
+Para colocar, toque em um buraco com um ponto: os buracos sem ponto formariam uma fila de três. Para mover, toque em uma das suas peças e depois em um ponto, ou arraste a peça. Um ponto com uma luz dourada forma uma fila de três. Então a fila brilha em dourado e as peças que você pode tirar brilham em vermelho: toque em uma. Durante a colocação, cada barra mostra as peças ainda na mão; depois, as peças que aquele jogador capturou. Quando faltam poucos lances para o empate, o número deles aparece no fim da barra do jogador da vez.

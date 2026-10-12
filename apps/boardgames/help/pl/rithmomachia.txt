@@ -1,0 +1,31 @@
+Rytmomachia
+# Cel gry
+Rytmomachia, „bitwa liczb”, była grą uczonych w średniowiecznej Europie. Dwie armie liczb stają naprzeciw siebie na planszy 8 na 16 pól: parzyste (jasne) i nieparzyste (ciemne). Każda armia ma 24 bierki: 8 okrągłych, 8 trójkątów, 7 kwadratów i piramidę, każda z liczbą. Wygrywa się, zbijając bierki przeciwnika (zwycięstwo zwykłe) albo ustawiając trzy swoje bierki w harmonii na połowie przeciwnika (zwycięstwo właściwe). Zaczynają parzyste.
+# Armie
+Bierki są ustawione tak, jak opisują je Claude de Boissière (1556) oraz Lever i Fulke (1563). Ich liczby wyrastają z czterech małych liczb: 2, 4, 6, 8 dla parzystych, 3, 5, 7, 9 dla nieparzystych.
+- Okrągłe: małe liczby i ich kwadraty (parzyste: 2 4 6 8 oraz 4 16 36 64).
+- Trójkąty: każda mała liczba plus jej kwadrat oraz kwadrat następnej liczby (parzyste: 6 20 42 72 oraz 9 25 49 81).
+- Kwadraty: suma dwóch trójkątów oraz kwadrat podwojonej małej liczby powiększonej o jeden (parzyste: 15 45 153 oraz 25 81 169 289).
+- Piramida to stos kwadratów: 91 = 1 + 4 + 9 + 16 + 25 + 36 dla parzystych, 190 = 16 + 25 + 36 + 49 + 64 dla nieparzystych.
+# Ruchy
+Bierka przechodzi na puste pole i nigdy nie przeskakuje innej bierki.
+- Okrągła: jedno pole po skosie.
+- Trójkąt: dokładnie dwa pola wzdłuż rzędu lub kolumny.
+- Kwadrat: dokładnie trzy pola wzdłuż rzędu lub kolumny.
+- Piramida: jak każda z tych trzech.
+# Bicie
+Po swoim ruchu zbijasz każdą bierkę przeciwnika schwytaną na jeden z tych czterech sposobów. Twoje bierki zostają na miejscu.
+- Spotkanie: jedna z twoich bierek z tą samą liczbą mogłaby przejść na jej pole.
+- Szturm: twoja mniejsza bierka na jednej z linii, po których się porusza, z samymi pustymi polami pomiędzy: jej liczba razy liczba pustych pól równa się liczbie przeciwnika.
+- Zasadzka: dwie twoje bierki, które obie mogłyby przejść na jej pole, dają razem jej liczbę.
+- Oblężenie: twoje bierki stoją po wszystkich czterech jej stronach, poziomo i pionowo; krawędź planszy też zamyka stronę.
+Piramida liczy się jako jedna bierka z całą swoją liczbą, gdy atakuje i gdy jest atakowana.
+# Zwycięstwa
+Wybierz przed grą:
+- Zbij 8 bierek: wygrywa, kto pierwszy zbije 8 bierek przeciwnika.
+- Zbij 12 bierek: to samo, dłuższa gra.
+- Zwycięstwo właściwe: wygrywa, kto pierwszy ustawi trzy swoje bierki w harmonii. Te trzy stoją na połowie przeciwnika (za linią przez środek), w jednym rzędzie, kolumnie albo na jednej przekątnej, w równych odstępach, a ich liczby w kolejności wzdłuż linii tworzą ciąg: arytmetyczny (4 6 8: ta sama różnica), geometryczny (4 16 64: ten sam iloraz) albo harmoniczny (3 4 6: środkowa liczba to podwojony iloczyn dwóch pozostałych podzielony przez ich sumę).
+# Koniec gry
+Przegrywa gracz, który nie może się ruszyć. Po 100 ruchach z rzędu (licząc ruchy obu graczy) bez bicia gra kończy się remisem.
+# Gra na urządzeniu
+Podawajcie sobie urządzenie: plansza obraca się tak, by armia gracza, którego jest kolej, była na dole (w poziomie po lewej), razem z jego paskiem. Dotknij swojej bierki, aby zobaczyć, gdzie może się ruszyć, a potem dotknij pola, albo przeciągnij bierkę. Kropki pokazują ruchy; kółko wokół kropki oznacza, że ruch coś zbije. Po ruchu twoje bijące bierki świecą na złoto, a zbite bierki świecą na czerwono, znikając. Każdy pasek pokazuje, ile bierek zbił dany gracz. Gdy do remisu zostaje niewiele ruchów, ich liczba pojawia się na końcu paska gracza, którego jest kolej.

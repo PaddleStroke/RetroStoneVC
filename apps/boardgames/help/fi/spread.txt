@@ -1,0 +1,17 @@
+Leviäminen
+# Tavoite
+Ole se, jolla on lopussa laudalla eniten nappuloita. Laudalla on 7×7 ruutua; kumpikin pelaaja aloittaa kahdella nappulalla vastakkaisissa kulmissa. Vaalea aloittaa.
+# Siirto
+Siirrä yksi nappulasi tyhjään ruutuun jommallakummalla kahdesta tavasta:
+- Kloonaus: viereiseen ruutuun, viistot mukaan lukien. Sinne ilmestyy uusi nappula, ja vanha jää paikalleen.
+- Hyppy: kahden ruudun päässä olevaan ruutuun mihin suuntaan tahansa. Nappula lähtee ruudustaan.
+Sen jälkeen jokainen vastustajan nappula, joka on saavuttamasi ruudun vieressä, viistot mukaan lukien, muuttuu sinun nappulaksesi.
+# Laudat
+Valitse lauta ennen peliä: tyhjä lauta tai lauta, jossa on muutama suljettu ruutu (neljä estettä, risti tai neljä porttia). Suljettuun ruutuun ei voi mennä mitään, mutta nappulat saavat hypätä sen yli.
+# Pelin loppu
+- Kun lauta on täynnä, pelaaja, jolla on enemmän nappuloita, voittaa.
+- Kun vuorossa olevalla pelaajalla ei ole siirtoa (nappuloita ei ole jäljellä tai kaikki on saarrettu), peli päättyy ja toinen pelaaja saa kaikki tyhjät ruudut. Sitten nappulat lasketaan.
+- Kun 50 siirtoa peräkkäin ei ole tuonut yhtään uutta nappulaa (pelkkiä hyppyjä), nappulat lasketaan sellaisinaan.
+Sama määrä nappuloita on tasapeli.
+# Pelaaminen laitteella
+Napauta nappulaasi ja sitten ruutua, tai vedä nappulaa. Iso piste on kloonaus, pieni piste hyppy. Ruudun ympärillä olevat vastustajan nappulat kääntyvät sitten yksi kerrallaan. Kun peli päättyy siksi, ettei pelaajalla ollut siirtoa, tyhjät ruudut näkyvät himmeästi sen pelaajan värisinä, joka ne saa. Kukin palkki näyttää, montako nappulaa kyseisellä pelaajalla on. Kun laskentaan on jäljellä vain muutama siirto, niiden määrä näkyy vuorossa olevan pelaajan palkin lopussa.

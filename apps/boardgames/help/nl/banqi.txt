@@ -1,0 +1,21 @@
+Banqi
+# Het doel
+Sla alle stukken van de andere speler, of laat hem zonder zet. Banqi (Chinees blindschaak) gebruikt de 32 stukken van xiangqi op de helft van zijn bord, 4 bij 8 velden. De stukken beginnen gedekt en geschud, één op elk veld: niemand weet waar wat ligt. Dit zijn de Taiwanese regels.
+# De kleuren
+De eerste speler draait een willekeurig stuk om: de kleur ervan, rood of zwart, wordt de zijne, en de andere speler krijgt de andere kleur. Tot dan toont de balk onderaan rood, maar het eerste stuk beslist.
+# Een beurt
+Doe een van deze dingen:
+- Draai een gedekt stuk om, van welke kleur ook.
+- Verzet een van je open stukken één veld langs een rij of kolom naar een leeg veld.
+- Slaan: verzet een van je open stukken één veld naar een open vijandelijk stuk dat het mag slaan.
+# Rangen
+Van hoog naar laag: generaal, raadgever, olifant, wagen, paard, kanon, soldaat. Een stuk slaat stukken van zijn eigen rang of lager, met twee uitzonderingen:
+- De soldaat slaat de generaal (en soldaten). De generaal kan geen soldaat slaan.
+- Het kanon slaat anders: het springt langs een rij of kolom over precies één stuk (open of gedekt, van welke kleur ook), op elke afstand, en landt op het vijandelijke stuk net daarachter. Zo kan het elk open vijandelijk stuk slaan, maar nooit het stuk ernaast. Zonder te slaan gaat het één veld, zoals de andere.
+Gedekte stukken kunnen nooit geslagen worden.
+# Het einde van de partij
+- Een speler van wie alle zestien stukken geslagen zijn, verliest.
+- Een speler die aan de beurt niet kan zetten, verliest.
+- Na 50 beurten op rij (die van beide spelers geteld) zonder een stuk om te draaien en zonder te slaan, is de partij remise.
+# Spelen op het apparaat
+Geef het apparaat door: wie aan de beurt is, heeft zijn balk onderaan. Tik op een gedekt stuk om het om te draaien. Tik op een van je stukken om te zien waar het heen kan en tik dan op een veld, of sleep het stuk. Stippen tonen de zetten, ringen het slaan. Elke balk toont de stukken die die speler heeft geslagen. Als er nog maar weinig beurten zijn tot de remise, staat hun aantal aan het eind van de balk van wie aan de beurt is.

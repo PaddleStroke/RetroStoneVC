@@ -1,0 +1,13 @@
+Dara
+# Cíl hry
+Ber soupeřovy kameny, dokud mu nezbudou jen dva. Dara je hra řad z Nigérie a Nigeru, hraje se na 5 řadách po 6 jamkách, často vyhloubených v písku. Každý hráč má 12 kamenů. Světlý hráč pokládá i táhne první.
+# Rozmisťování
+Hráči střídavě pokládají po jednom kameni do libovolné prázdné jamky, dokud nejsou všechny kameny na desce. Nikdy nesmíš položit kámen tak, aby tři nebo více tvých kamenů stály v řadě, vodorovně nebo svisle. Hráč, kterému nezbyla žádná povolená jamka, vynechává; když nemůže pokládat ani jeden, kameny, které zbyly v ruce, zůstanou mimo hru.
+# Posouvání
+Potom ve svém tahu posuň jeden ze svých kamenů o jednu jamku vodorovně nebo svisle (nikdy šikmo) do prázdné jamky. Pokud tah vytvoří řadu přesně tří tvých kamenů, vodorovně nebo svisle, odeber z desky libovolný soupeřův kámen. Řada čtyř se nepočítá. Vytvoříš-li jedním tahem dvě řady, bereš stejně jen jeden kámen.
+# Konec hry
+- Hráč, kterému zbudou dva kameny, prohrává: už nikdy nemůže vytvořit řadu.
+- Hráč, který nemůže táhnout, když je na tahu, prohrává.
+- Po 100 tazích v řadě (počítají se tahy obou hráčů) bez braní končí hra remízou.
+# Hra na zařízení
+Kámen položíš klepnutím na jamku s tečkou: jamky bez tečky by vytvořily řadu tří. Chceš-li táhnout, klepni na svůj kámen a pak na tečku, nebo kámen přetáhni. Tečka ve zlatém světle vytvoří řadu tří. Potom řada září zlatě a kameny, které smíš vzít, svítí červeně: klepni na jeden. Během rozmisťování ukazuje každá lišta kameny, které zbývají v ruce; později kameny, které daný hráč vzal. Když do remízy zbývá jen pár tahů, jejich počet se ukáže na konci lišty hráče na tahu.

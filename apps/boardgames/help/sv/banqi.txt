@@ -1,0 +1,21 @@
+Banqi
+# Målet
+Slå alla den andra spelarens pjäser, eller lämna honom utan drag. Banqi (kinesiskt mörkerschack) använder de 32 pjäserna från xiangqi på halva brädet, 4 gånger 8 rutor. Pjäserna börjar med framsidan nedåt, blandade, en på varje ruta: ingen vet var något finns. Det här är de taiwanesiska reglerna.
+# Färgerna
+Den första spelaren vänder en valfri pjäs: dess färg, röd eller svart, blir hans, och den andra spelaren får den andra färgen. Fram till dess visar fältet längst ned rött, men det är den första pjäsen som avgör.
+# En tur
+Gör ett av följande:
+- Vänd en valfri pjäs som ligger med framsidan nedåt, av vilken färg som helst.
+- Flytta en av dina uppvända pjäser en ruta längs en rad eller kolumn till en tom ruta.
+- Slå: flytta en av dina uppvända pjäser en ruta till en uppvänd fientlig pjäs som den får slå.
+# Rang
+Från högst: general, rådgivare, elefant, vagn, häst, kanon, soldat. En pjäs slår pjäser av samma rang eller lägre, med två undantag:
+- Soldaten slår generalen (och soldater). Generalen kan inte slå en soldat.
+- Kanonen slår på ett annat sätt: den hoppar längs en rad eller kolumn över exakt en pjäs (uppvänd eller nedvänd, av vilken färg som helst), på vilket avstånd som helst, och landar på den fientliga pjäsen strax bakom. Så kan den slå vilken uppvänd fientlig pjäs som helst, men aldrig pjäsen bredvid. Utan att slå går den en ruta som de andra.
+Nedvända pjäser kan aldrig slås.
+# Partiets slut
+- En spelare som har fått alla sina sexton pjäser slagna förlorar.
+- En spelare som inte kan flytta på sin tur förlorar.
+- Efter 50 turer i rad (båda spelarnas räknade) utan att en pjäs vänds och utan slag blir partiet remi.
+# Spela på enheten
+Skicka runt enheten: den som har tur har sitt fält längst ned. Tryck på en nedvänd pjäs för att vända den. Tryck på en av dina pjäser för att se vart den kan gå, tryck sedan på en ruta, eller dra pjäsen. Prickar visar dragen, ringar slagen. Varje fält visar de pjäser som den spelaren har slagit. När det är få turer kvar till remi syns antalet i slutet av fältet för den som har tur.

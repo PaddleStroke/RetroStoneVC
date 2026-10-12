@@ -1,0 +1,21 @@
+Banqi
+# Amaç
+Rakibin bütün taşlarını almak ya da onu hamlesiz bırakmak. Banqi (Çin karanlık satrancı), xiangqi'nin 32 taşıyla, tahtasının yarısında, 4'e 8 karede oynanır. Taşlar başta ters çevrilmiş ve karıştırılmış olarak her kareye bir tane konur: hiç kimse neyin nerede olduğunu bilmez. Bunlar Tayvan kurallarıdır.
+# Renkler
+İlk oyuncu herhangi bir taşı açar: taşın rengi, kırmızı ya da siyah, onun rengi olur; diğer oyuncu öbür rengi alır. O zamana kadar alttaki şerit kırmızıyı gösterir, ama karar ilk taşındır.
+# Bir sıra
+Şunlardan birini yap:
+- Herhangi bir renkten, kapalı herhangi bir taşı aç.
+- Açık taşlarından birini bir satır ya da sütun boyunca bir kare, boş bir kareye götür.
+- Alma: açık taşlarından birini bir kare ilerideki, alabileceği açık bir rakip taşın üstüne götür.
+# Rütbeler
+En yüksekten: general, danışman, fil, savaş arabası, at, top, asker. Bir taş kendi rütbesindeki ya da daha düşük rütbeli taşları alır; iki istisna vardır:
+- Asker generali (ve askerleri) alır. General asker alamaz.
+- Top başka türlü alır: bir satır ya da sütun boyunca, herhangi bir uzaklıktan, tam olarak bir taşın (açık ya da kapalı, herhangi bir renkten) üzerinden atlar ve hemen arkasındaki rakip taşa iner. Böylece açık her rakip taşı alabilir, ama yanındaki taşı asla. Almadığında diğerleri gibi bir kare gider.
+Kapalı taşlar asla alınamaz.
+# Oyunun sonu
+- On altı taşının hepsi alınan oyuncu kaybeder.
+- Sırası geldiğinde hamle yapamayan oyuncu kaybeder.
+- Arka arkaya 50 sıra boyunca (iki oyuncunun sıraları birlikte sayılır) hiçbir taş açılmaz ve alınmazsa oyun berabere biter.
+# Cihazda oynamak
+Cihazı elden ele verin: sırası gelenin şeridi altta olur. Kapalı bir taşı açmak için ona dokun. Bir taşının nereye gidebileceğini görmek için ona dokun, sonra bir kareye dokun ya da taşı sürükle. Noktalar hamleleri, halkalar alınabilecek taşları gösterir. Her şerit, o oyuncunun aldığı taşları gösterir. Beraberliğe az sıra kaldığında, kalan sayı sırası gelenin şeridinin sonunda görünür.

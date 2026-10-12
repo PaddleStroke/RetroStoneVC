@@ -1,0 +1,17 @@
+Propagation
+# Le but
+Avoir le plus de pièces sur le plateau à la fin. Le plateau a 7 sur 7 cases ; chaque joueur commence avec deux pièces dans des coins opposés. Les pièces claires commencent.
+# Un coup
+Déplace une de tes pièces vers une case vide, de l'une de ces deux façons :
+- Clonage : vers une case voisine, diagonales comprises. Une nouvelle pièce y apparaît et l'ancienne reste en place.
+- Saut : vers une case située à deux cases de là, dans n'importe quelle direction. La pièce quitte sa case.
+Ensuite, chaque pièce adverse voisine de la case atteinte, diagonales comprises, devient l'une des tiennes.
+# Les plateaux
+Choisis le plateau avant la partie : le plateau nu, ou un plateau avec quelques cases bloquées (quatre blocs, une croix ou quatre portes). Rien ne peut aller sur une case bloquée, mais les pièces peuvent sauter par-dessus.
+# La fin de la partie
+- Quand le plateau est plein, le joueur qui a le plus de pièces gagne.
+- Quand le joueur dont c'est le tour n'a aucun coup (plus aucune pièce, ou toutes ses pièces encerclées), la partie s'arrête et l'autre joueur prend toutes les cases vides. Puis on compte les pièces.
+- Après 50 coups d'affilée qui n'ajoutent aucune pièce (seulement des sauts), on compte les pièces telles qu'elles sont.
+Le même nombre de pièces donne une partie nulle.
+# Jouer sur l'appareil
+Touche une de tes pièces, puis une case, ou fais glisser la pièce. Un gros point est un clonage, un petit point un saut. Les pièces adverses autour de la case se retournent ensuite les unes après les autres. Quand la partie s'arrête parce qu'un joueur n'avait aucun coup, les cases vides prennent une teinte pâle de la couleur du joueur qui les prend. Chaque barre indique combien de pièces a ce joueur. Quand il reste peu de coups avant le décompte, leur nombre s'affiche au bout de la barre du joueur dont c'est le tour.

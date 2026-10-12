@@ -1,0 +1,21 @@
+Banqi
+# O objetivo
+Capturar todas as peças do outro jogador, ou deixá-lo sem lances. O Banqi (o xadrez chinês no escuro) usa as 32 peças do xiangqi em metade do seu tabuleiro, 4 por 8 casas. As peças começam viradas para baixo e embaralhadas, uma em cada casa: ninguém sabe onde está cada uma. Estas são as regras de Taiwan.
+# As cores
+O primeiro jogador vira uma peça qualquer: a cor dela, vermelha ou preta, passa a ser a dele, e o outro jogador fica com a outra cor. Até lá a barra de baixo mostra o vermelho, mas quem decide é a primeira peça.
+# Uma jogada
+Faça uma destas coisas:
+- Vire qualquer peça virada para baixo, de qualquer cor.
+- Mova uma das suas peças viradas para cima uma casa ao longo de uma fileira ou coluna, para uma casa vazia.
+- Capture: mova uma das suas peças viradas para cima uma casa para cima de uma peça inimiga virada para cima que ela possa capturar.
+# As patentes
+Da mais alta: general, conselheiro, elefante, carruagem, cavalo, canhão, soldado. Uma peça captura as peças da mesma patente ou de patente mais baixa, com duas exceções:
+- O soldado captura o general (e os soldados). O general não pode capturar um soldado.
+- O canhão captura de outro jeito: ele salta ao longo de uma fileira ou coluna sobre exatamente uma peça (virada para cima ou para baixo, de qualquer cor), a qualquer distância, e cai na peça inimiga logo depois. Assim ele pode capturar qualquer peça inimiga virada para cima, mas nunca a que está ao lado. Sem capturar, ele anda uma casa como as outras.
+As peças viradas para baixo nunca podem ser capturadas.
+# O fim da partida
+- Perde o jogador que teve as dezesseis peças capturadas.
+- Perde o jogador que não pode jogar na sua vez.
+- Depois de 50 jogadas seguidas (contando as dos dois jogadores) sem virar uma peça e sem captura, a partida termina empatada.
+# Jogando no aparelho
+Passem o aparelho: o jogador da vez tem a sua barra embaixo. Toque em uma peça virada para baixo para virá-la. Toque em uma das suas peças para ver aonde ela pode ir e depois toque em uma casa, ou arraste a peça. Os pontinhos mostram os lances, os anéis as capturas. Cada barra mostra as peças que aquele jogador capturou. Quando faltam poucas jogadas para o empate, o número delas aparece no fim da barra do jogador da vez.

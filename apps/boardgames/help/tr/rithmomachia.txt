@@ -1,0 +1,31 @@
+Ritmomakya
+# Amaç
+Ritmomakya, "sayıların savaşı", Orta Çağ Avrupası'nda bilginlerin oyunuydu. İki sayı ordusu 8'e 16 karelik bir tahtada karşı karşıya gelir: çiftler (açık) ve tekler (koyu). Her ordunun 24 taşı vardır: 8 yuvarlak, 8 üçgen, 7 kare ve bir piramit; her birinin üstünde bir sayı yazar. Rakip taşları alarak (sıradan zafer) ya da üç taşını rakibin yarısında uyum içinde dizerek (gerçek zafer) kazanılır. İlk hamleyi çiftler yapar.
+# Ordular
+Taşlar, Claude de Boissière'in (1556) ve Lever ile Fulke'un (1563) anlattığı gibi dizilir. Sayıları dört küçük sayıdan doğar: çiftler için 2, 4, 6, 8, tekler için 3, 5, 7, 9.
+- Yuvarlaklar: küçük sayılar ve kareleri (çiftler: 2 4 6 8 ve 4 16 36 64).
+- Üçgenler: her küçük sayı artı karesi, ve bir sonraki sayının karesi (çiftler: 6 20 42 72 ve 9 25 49 81).
+- Kareler: iki üçgenin toplamı, ve küçük sayının iki katının bir fazlasının karesi (çiftler: 15 45 153 ve 25 81 169 289).
+- Piramit bir kareler yığınıdır: çiftler için 91 = 1 + 4 + 9 + 16 + 25 + 36, tekler için 190 = 16 + 25 + 36 + 49 + 64.
+# Hareket
+Bir taş boş bir kareye gider ve asla başka bir taşın üzerinden atlamaz.
+- Yuvarlak: çapraz olarak bir kare.
+- Üçgen: bir satır ya da sütun boyunca tam iki kare.
+- Kare: bir satır ya da sütun boyunca tam üç kare.
+- Piramit: üçünden herhangi biri gibi.
+# Taş alma
+Hamlenden sonra, şu dört yoldan biriyle yakalanan her rakip taşı alırsın. Kendi taşların yerinde kalır.
+- Karşılaşma: aynı sayıyı taşıyan taşlarından biri onun karesine gidebilir.
+- Saldırı: daha küçük bir taşın, gittiği çizgilerden birinde, aralarında yalnızca boş kareler varken: onun sayısı çarpı boş kare sayısı rakibin sayısına eşittir.
+- Pusu: onun karesine ikisi de gidebilen iki taşının toplamı onun sayısını verir.
+- Kuşatma: taşların onun dört yanında da, yatay ve dikey olarak durur; tahtanın kenarı da bir yanı kapatır.
+Piramit, saldırırken de saldırıya uğrarken de bütün sayısıyla tek bir taş sayılır.
+# Zaferler
+Oyundan önce seç:
+- 8 taş al: rakibin 8 taşını ilk alan kazanır.
+- 12 taş al: aynısı, daha uzun bir oyun.
+- Gerçek zafer: üç taşını ilk uyum içinde dizen kazanır. Üçü de rakibin yarısında (ortadan geçen çizginin ötesinde), aynı satır, sütun ya da çaprazda, eşit aralıklarla durur ve sayıları çizgi boyunca sırasıyla bir dizi oluşturur: aritmetik (4 6 8: aynı fark), geometrik (4 16 64: aynı oran) ya da harmonik (3 4 6: ortadaki sayı, diğer ikisinin çarpımının iki katının toplamlarına bölümüdür).
+# Oyunun sonu
+Hamle yapamayan oyuncu kaybeder. Arka arkaya 100 hamle boyunca (iki oyuncunun hamleleri birlikte sayılır) taş alınmazsa oyun berabere biter.
+# Cihazda oynamak
+Cihazı elden ele verin: tahta, sırası gelen oyuncunun ordusu altta (yatay ekranda solda) olacak biçimde, şeridiyle birlikte döner. Bir taşının nereye gidebileceğini görmek için ona dokun, sonra bir kareye dokun ya da taşı sürükle. Noktalar hamleleri gösterir; bir noktanın çevresindeki halka, hamlenin taş alacağı anlamına gelir. Hamleden sonra alan taşların altın gibi parlar, alınan taşlar da giderken kırmızı parlar. Her şerit, o oyuncunun kaç taş aldığını gösterir. Beraberliğe az hamle kaldığında, kalan sayı sırası gelenin şeridinin sonunda görünür.

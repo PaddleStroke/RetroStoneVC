@@ -1,0 +1,17 @@
+Espansione
+# Lo scopo
+Avere più pezzi sulla scacchiera alla fine. La scacchiera ha 7 per 7 caselle; ogni giocatore parte con due pezzi in angoli opposti. Muove per primo il chiaro.
+# Una mossa
+Muovi uno dei tuoi pezzi su una casella vuota, in uno di due modi:
+- Clone: su una casella accanto, diagonali comprese. Lì compare un nuovo pezzo e quello vecchio resta dov'è.
+- Salto: su una casella a due caselle di distanza, in qualsiasi direzione. Il pezzo lascia la sua casella.
+Poi ogni pezzo nemico accanto alla casella raggiunta, diagonali comprese, diventa tuo.
+# Le scacchiere
+Scegli la scacchiera prima della partita: quella semplice, o una con qualche casella bloccata (quattro blocchi, una croce o quattro porte). Su una casella bloccata non può andare niente, ma i pezzi possono saltarla.
+# La fine della partita
+- Quando la scacchiera è piena, vince chi ha più pezzi.
+- Quando chi è di turno non ha mosse (nessun pezzo, o tutti i pezzi bloccati), la partita finisce e l'altro giocatore prende tutte le caselle vuote. Poi si contano i pezzi.
+- Dopo 50 mosse di fila che non aggiungono pezzi (solo salti), si contano i pezzi così come sono.
+Con lo stesso numero di pezzi la partita è patta.
+# Giocare sul dispositivo
+Tocca uno dei tuoi pezzi, poi una casella, oppure trascina il pezzo. Un punto grande è un clone, un punto piccolo un salto. I pezzi nemici intorno alla casella si girano poi uno dopo l'altro. Quando la partita finisce perché un giocatore non aveva mosse, le caselle vuote si colorano debolmente del colore di chi le prende. Ogni barra mostra quanti pezzi ha quel giocatore. Quando restano poche mosse prima del conteggio, il loro numero compare in fondo alla barra di chi è di turno.

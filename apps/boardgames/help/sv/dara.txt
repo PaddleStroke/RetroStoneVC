@@ -1,0 +1,13 @@
+Dara
+# Målet
+Slå den andra spelarens pjäser tills han bara har två kvar. Dara är ett radspel från Nigeria och Niger, som spelas på 5 rader med 6 gropar, ofta grävda i sanden. Varje spelare har 12 pjäser. Ljus sätter ut och flyttar först.
+# Utsättning
+Spelarna sätter i tur och ordning en pjäs i en valfri tom grop, tills alla pjäser är på brädet. Du får aldrig sätta en pjäs så att tre eller fler av dina pjäser står i rad, vågrätt eller lodrätt. Den som inte har någon möjlig grop kvar står över; när ingen av dem kan sätta ut stannar pjäserna som är kvar i handen utanför spelet.
+# Förflyttning
+Sedan flyttar du på din tur en av dina pjäser en grop vågrätt eller lodrätt (aldrig diagonalt) till en tom grop. Om draget bildar en rad med exakt tre av dina pjäser, vågrätt eller lodrätt, tar du bort en valfri fientlig pjäs från brädet. En rad med fyra räknas inte. Två rader med ett drag ger ändå bara en pjäs.
+# Partiets slut
+- En spelare med två pjäser kvar förlorar: han kan aldrig mer bilda en rad.
+- En spelare som inte kan flytta på sin tur förlorar.
+- Efter 100 drag i rad (båda spelarnas räknade) utan slag blir partiet remi.
+# Spela på enheten
+För att sätta ut trycker du på en grop med en prick: groparna utan prick skulle bilda en rad med tre. För att flytta trycker du på en av dina pjäser och sedan på en prick, eller drar pjäsen. En prick i ett gyllene sken bildar en rad med tre. Då lyser raden guld och pjäserna du får ta lyser rött: tryck på en. Under utsättningen visar varje fält pjäserna som är kvar i handen; sedan de pjäser den spelaren har slagit. När det är få drag kvar till remi syns antalet i slutet av fältet för den som har tur.

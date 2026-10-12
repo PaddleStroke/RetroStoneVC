@@ -1,0 +1,31 @@
+Rithmomachie
+# Het doel
+Rithmomachie, de "strijd der getallen", was het spel van de geleerden in het middeleeuwse Europa. Twee legers van getallen staan tegenover elkaar op een bord van 8 bij 16 velden: de even getallen (licht) en de oneven getallen (donker). Elk leger heeft 24 stukken: 8 ronde, 8 driehoeken, 7 vierkanten en een piramide, elk met een getal. Je wint door vijandelijke stukken te slaan (de gewone overwinning) of door drie van je stukken in harmonie op de vijandelijke helft te zetten (de echte overwinning). Even begint.
+# De legers
+De stukken staan opgesteld zoals Claude de Boissière (1556) en Lever en Fulke (1563) ze beschrijven. Hun getallen groeien uit vier kleine getallen: 2, 4, 6, 8 voor even, 3, 5, 7, 9 voor oneven.
+- Ronde: de kleine getallen en hun kwadraten (even: 2 4 6 8 en 4 16 36 64).
+- Driehoeken: elk klein getal plus zijn kwadraat, en het kwadraat van het volgende getal (even: 6 20 42 72 en 9 25 49 81).
+- Vierkanten: de twee driehoeken opgeteld, en het kwadraat van tweemaal het kleine getal plus één (even: 15 45 153 en 25 81 169 289).
+- De piramide is een stapel kwadraten: 91 = 1 + 4 + 9 + 16 + 25 + 36 voor even, 190 = 16 + 25 + 36 + 49 + 64 voor oneven.
+# Zetten
+Een stuk gaat naar een leeg veld en springt nooit over een ander stuk.
+- Rond: één veld diagonaal.
+- Driehoek: precies twee velden langs een rij of kolom.
+- Vierkant: precies drie velden langs een rij of kolom.
+- Piramide: als elk van de drie.
+# Slaan
+Na je zet sla je elk vijandelijk stuk dat op een van deze vier manieren gevangen is. Je eigen stukken blijven staan.
+- Ontmoeting: een van je stukken met hetzelfde getal zou naar zijn veld kunnen gaan.
+- Bestorming: een kleiner stuk van jou op een van de lijnen waarlangs het zet, met alleen lege velden ertussen: zijn getal maal het aantal lege velden is het getal van de vijand.
+- Hinderlaag: twee van je stukken die allebei naar zijn veld zouden kunnen gaan, zijn samen zijn getal.
+- Beleg: je stukken staan aan alle vier zijn kanten, horizontaal en verticaal; de rand van het bord sluit ook een kant af.
+De piramide telt als één stuk met haar hele getal, bij aanvallen en bij aangevallen worden.
+# Overwinningen
+Kies voor de partij:
+- 8 stukken slaan: wie als eerste 8 vijandelijke stukken slaat, wint.
+- 12 stukken slaan: hetzelfde, een langere partij.
+- Echte overwinning: wie als eerste drie van zijn stukken in harmonie zet, wint. De drie staan op de vijandelijke helft (voorbij de lijn over het midden), op één rij, kolom of diagonaal, op gelijke afstanden, en hun getallen vormen in hun volgorde langs de lijn een reeks: rekenkundig (4 6 8: hetzelfde verschil), meetkundig (4 16 64: dezelfde verhouding) of harmonisch (3 4 6: het middelste getal is tweemaal het product van de andere twee gedeeld door hun som).
+# Het einde van de partij
+Een speler die niet kan zetten, verliest. Na 100 zetten op rij (die van beide spelers geteld) zonder te slaan, is de partij remise.
+# Spelen op het apparaat
+Geef het apparaat door: het bord draait zodat het leger van wie aan de beurt is onderaan staat (links bij liggend scherm), met zijn balk. Tik op een van je stukken om te zien waar het heen kan en tik dan op een veld, of sleep het stuk. Stippen tonen de zetten; een ring om een stip betekent dat de zet iets slaat. Na een zet lichten je slaande stukken goud op, en de geslagen stukken lichten rood op terwijl ze verdwijnen. Elke balk toont hoeveel stukken die speler heeft geslagen. Als er nog maar weinig zetten zijn tot de remise, staat hun aantal aan het eind van de balk van wie aan de beurt is.

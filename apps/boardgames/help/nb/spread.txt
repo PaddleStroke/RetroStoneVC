@@ -1,0 +1,17 @@
+Spredning
+# Målet
+Ha flest brikker på brettet til slutt. Brettet har 7 ganger 7 felt; hver spiller starter med to brikker i motsatte hjørner. Lys begynner.
+# Et trekk
+Flytt en av brikkene dine til et tomt felt, på en av to måter:
+- Kloning: til et felt ved siden av, diagonalt medregnet. En ny brikke dukker opp der, og den gamle blir stående.
+- Hopp: til et felt to felt unna, i hvilken som helst retning. Brikken forlater feltet sitt.
+Deretter blir hver fiendtlig brikke ved siden av feltet du kom til, diagonalt medregnet, din.
+# Brett
+Velg brett før spillet: det enkle brettet, eller et med noen sperrede felt (fire blokker, et kors eller fire porter). Ingenting kan stå på et sperret felt, men brikker kan hoppe over det.
+# Slutten på spillet
+- Når brettet er fullt, vinner den som har flest brikker.
+- Når den som har tur, ikke har noe trekk (ingen brikker igjen, eller alle innestengt), er spillet over og den andre spilleren får alle de tomme feltene. Så telles brikkene.
+- Etter 50 trekk på rad som ikke gir noen ny brikke (bare hopp), telles brikkene slik de står.
+Like mange brikker er remis.
+# Spill på enheten
+Trykk på en av brikkene dine og så på et felt, eller dra brikken. En stor prikk er en kloning, en liten prikk et hopp. De fiendtlige brikkene rundt feltet snus så én etter én. Når spillet slutter fordi en spiller ikke hadde noe trekk, vises de tomme feltene svakt i fargen til den som får dem. Hvert panel viser hvor mange brikker den spilleren har. Når det er få trekk igjen før tellingen, vises antallet på slutten av panelet til den som har tur.

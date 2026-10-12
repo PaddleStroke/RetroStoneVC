@@ -1,0 +1,17 @@
+Spridning
+# Målet
+Ha flest pjäser på brädet i slutet. Brädet har 7 gånger 7 rutor; varje spelare börjar med två pjäser i motsatta hörn. Ljus börjar.
+# Ett drag
+Flytta en av dina pjäser till en tom ruta, på ett av två sätt:
+- Kloning: till en ruta bredvid, diagonalt medräknat. En ny pjäs dyker upp där och den gamla står kvar.
+- Hopp: till en ruta två rutor bort, åt vilket håll som helst. Pjäsen lämnar sin ruta.
+Sedan blir varje fientlig pjäs bredvid rutan du nådde, diagonalt medräknat, din.
+# Bräden
+Välj bräde före partiet: det enkla brädet, eller ett med några spärrade rutor (fyra block, ett kors eller fyra portar). Inget kan stå på en spärrad ruta, men pjäser får hoppa över den.
+# Partiets slut
+- När brädet är fullt vinner den som har flest pjäser.
+- När den som har tur saknar drag (inga pjäser kvar, eller alla instängda) är partiet slut och den andra spelaren får alla tomma rutor. Sedan räknas pjäserna.
+- Efter 50 drag i rad som inte ger någon ny pjäs (bara hopp) räknas pjäserna som de står.
+Lika många pjäser är remi.
+# Spela på enheten
+Tryck på en av dina pjäser och sedan på en ruta, eller dra pjäsen. En stor prick är en kloning, en liten prick ett hopp. De fientliga pjäserna runt rutan vänds sedan en efter en. När partiet slutar för att en spelare saknade drag visas de tomma rutorna svagt i färgen hos den som får dem. Varje fält visar hur många pjäser den spelaren har. När det är få drag kvar till räkningen syns antalet i slutet av fältet för den som har tur.

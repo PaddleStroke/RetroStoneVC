@@ -1,0 +1,21 @@
+Banqi
+# Målet
+Slå alle brikkene til den andre spilleren, eller la ham stå uten trekk. Banqi (kinesisk mørkesjakk) bruker de 32 brikkene fra xiangqi på halve brettet, 4 ganger 8 ruter. Brikkene starter med forsiden ned, stokket, én på hver rute: ingen vet hvor noe er. Dette er de taiwanske reglene.
+# Fargene
+Den første spilleren snur en hvilken som helst brikke: fargen dens, rød eller svart, blir hans, og den andre spilleren får den andre fargen. Til da viser panelet nederst rødt, men det er den første brikken som avgjør.
+# En tur
+Gjør ett av disse:
+- Snu en hvilken som helst brikke med forsiden ned, av hvilken som helst farge.
+- Flytt en av dine åpne brikker én rute langs en rad eller kolonne til en tom rute.
+- Slå: flytt en av dine åpne brikker én rute over på en åpen fiendtlig brikke som den kan slå.
+# Rang
+Fra høyest: general, rådgiver, elefant, vogn, hest, kanon, soldat. En brikke slår brikker av samme rang eller lavere, med to unntak:
+- Soldaten slår generalen (og soldater). Generalen kan ikke slå en soldat.
+- Kanonen slår på en annen måte: den hopper langs en rad eller kolonne over nøyaktig én brikke (åpen eller lukket, av hvilken som helst farge), på hvilken som helst avstand, og lander på den fiendtlige brikken rett bak. Slik kan den slå hvilken som helst åpen fiendtlig brikke, men aldri brikken ved siden av. Uten å slå går den én rute som de andre.
+Brikker med forsiden ned kan aldri slås.
+# Slutten på spillet
+- En spiller som har fått alle sine seksten brikker slått, taper.
+- En spiller som ikke kan flytte når det er hans tur, taper.
+- Etter 50 turer på rad (begge spilleres turer telt med) uten at en brikke blir snudd og uten slag, blir det remis.
+# Spill på enheten
+Send enheten rundt: den som har tur, har panelet sitt nederst. Trykk på en brikke med forsiden ned for å snu den. Trykk på en av brikkene dine for å se hvor den kan gå, og trykk så på en rute, eller dra brikken. Prikker viser trekkene, ringer slagene. Hvert panel viser brikkene den spilleren har slått. Når det er få turer igjen før remis, vises antallet på slutten av panelet til den som har tur.

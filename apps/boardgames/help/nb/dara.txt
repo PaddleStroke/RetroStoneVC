@@ -1,0 +1,13 @@
+Dara
+# Målet
+Slå brikkene til den andre spilleren til han bare har to igjen. Dara er et rekkespill fra Nigeria og Niger, spilt på 5 rader med 6 hull, ofte gravd i sanden. Hver spiller har 12 brikker. Lys setter ut og flytter først.
+# Utsetting
+Spillerne setter etter tur en brikke i et valgfritt tomt hull, til alle brikkene er på brettet. Du kan aldri sette en brikke slik at tre eller flere av brikkene dine står på rad, vannrett eller loddrett. Den som ikke har noe mulig hull igjen, står over; når ingen av dem kan sette ut, blir brikkene som er igjen på hånden utenfor spillet.
+# Flytting
+Deretter flytter du på din tur en av brikkene dine ett hull vannrett eller loddrett (aldri diagonalt) til et tomt hull. Lager trekket en rad med nøyaktig tre av brikkene dine, vannrett eller loddrett, tar du en valgfri fiendtlig brikke av brettet. En rad på fire teller ikke. To rader i ett trekk gir likevel bare én brikke.
+# Slutten på spillet
+- En spiller med to brikker igjen taper: han kan aldri lage en rad igjen.
+- En spiller som ikke kan flytte når det er hans tur, taper.
+- Etter 100 trekk på rad (begge spilleres trekk telt med) uten slag, blir det remis.
+# Spill på enheten
+For å sette ut trykker du på et hull med en prikk: hullene uten prikk ville gitt en rad på tre. For å flytte trykker du på en av brikkene dine og så på en prikk, eller drar brikken. En prikk i et gyllent lys lager en rad på tre. Da lyser raden gull, og brikkene du kan ta lyser rødt: trykk på én. Under utsettingen viser hvert panel brikkene som fortsatt er på hånden; senere brikkene den spilleren har slått. Når det er få trekk igjen før remis, vises antallet på slutten av panelet til den som har tur.

@@ -1,0 +1,13 @@
+Dara
+# El objetivo
+Capturar fichas del otro jugador hasta que solo le queden dos. El dara es un juego de líneas de Nigeria y Níger, que se juega en 5 filas de 6 hoyos, a menudo excavados en la arena. Cada jugador tiene 12 fichas. Las claras colocan y mueven primero.
+# Colocación
+Los jugadores colocan por turnos una ficha en cualquier hoyo vacío, hasta que todas las fichas están en el tablero. Nunca puedes colocar una ficha de modo que tres o más de tus fichas queden en fila, en horizontal o en vertical. El jugador que ya no tiene ningún hoyo permitido pasa; cuando ninguno de los dos puede colocar, las fichas que quedan en la mano se quedan fuera del juego.
+# Movimiento
+Después, en tu turno, mueve una de tus fichas un hoyo en horizontal o en vertical (nunca en diagonal) a un hoyo vacío. Si la jugada forma una fila de exactamente tres de tus fichas, en horizontal o en vertical, quita del tablero la ficha contraria que quieras. Una fila de cuatro no cuenta. Formar dos filas con una sola jugada sigue quitando solo una ficha.
+# El final de la partida
+- Pierde el jugador al que solo le quedan dos fichas: ya nunca podrá formar una fila.
+- Pierde el jugador que no puede mover en su turno.
+- Tras 100 jugadas seguidas (contando las de ambos jugadores) sin capturas, la partida termina en tablas.
+# Jugar en el dispositivo
+Para colocar, toca un hoyo con un punto: los hoyos sin punto formarían una fila de tres. Para mover, toca una de tus fichas y luego un punto, o arrastra la ficha. Un punto con un brillo dorado forma una fila de tres. Entonces la fila brilla en dorado y las fichas que puedes quitar brillan en rojo: toca una. Durante la colocación, cada barra muestra las fichas que quedan en la mano; después, las fichas que ha quitado ese jugador. Cuando quedan pocas jugadas para las tablas, su número aparece al final de la barra del jugador al que le toca.

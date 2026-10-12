@@ -1,0 +1,31 @@
+Ritmomaquia
+# El objetivo
+La ritmomaquia, la «batalla de los números», era el juego de los eruditos en la Europa medieval. Dos ejércitos de números se enfrentan en un tablero de 8 por 16 casillas: los pares (claros) y los impares (oscuros). Cada ejército tiene 24 piezas: 8 círculos, 8 triángulos, 7 cuadrados y una pirámide, cada una con un número. Se gana capturando piezas contrarias (la victoria común) o colocando tres piezas propias en armonía en la mitad contraria (la victoria propia). Empiezan los pares.
+# Los ejércitos
+Las piezas se disponen como las describen Claude de Boissière (1556) y Lever y Fulke (1563). Sus números nacen de cuatro números pequeños: 2, 4, 6, 8 para los pares; 3, 5, 7, 9 para los impares.
+- Círculos: los números pequeños y sus cuadrados (pares: 2 4 6 8 y 4 16 36 64).
+- Triángulos: cada número pequeño más su cuadrado, y el cuadrado del número siguiente (pares: 6 20 42 72 y 9 25 49 81).
+- Cuadrados: los dos triángulos sumados, y el cuadrado del doble del número pequeño más uno (pares: 15 45 153 y 25 81 169 289).
+- La pirámide es una pila de cuadrados: 91 = 1 + 4 + 9 + 16 + 25 + 36 para los pares, 190 = 16 + 25 + 36 + 49 + 64 para los impares.
+# Movimiento
+Una pieza se mueve a una casilla vacía y nunca salta por encima de otra pieza.
+- Círculo: una casilla en diagonal.
+- Triángulo: exactamente dos casillas a lo largo de una fila o una columna.
+- Cuadrado: exactamente tres casillas a lo largo de una fila o una columna.
+- Pirámide: como cualquiera de los tres.
+# Capturas
+Tras tu jugada, capturas cada pieza contraria atrapada de una de estas cuatro maneras. Tus propias piezas se quedan donde están.
+- Encuentro: una de tus piezas con el mismo número podría moverse a su casilla.
+- Asalto: una pieza tuya más pequeña está en una de las líneas por las que se mueve, con solo casillas vacías entre ambas: su número multiplicado por el número de casillas vacías es igual al número de la pieza contraria.
+- Emboscada: dos piezas tuyas que podrían moverse ambas a su casilla suman su número.
+- Asedio: tus piezas la rodean por los cuatro lados, en horizontal y en vertical; el borde del tablero también cierra un lado.
+La pirámide cuenta como una sola pieza con su número entero, tanto al atacar como al ser atacada.
+# Victorias
+Elige antes de la partida:
+- Capturar 8 piezas: gana el primer jugador que captura 8 piezas contrarias.
+- Capturar 12 piezas: lo mismo, en una partida más larga.
+- Victoria propia: gana el primer jugador que coloca tres de sus piezas en armonía. Las tres están en la mitad contraria (más allá de la línea que cruza el centro), en una misma fila, columna o diagonal, a la misma distancia entre sí, y sus números forman una progresión en su orden a lo largo de la línea: aritmética (4 6 8: la misma diferencia), geométrica (4 16 64: la misma razón) o armónica (3 4 6: el número del medio es el doble del producto de los otros dos dividido entre su suma).
+# El final de la partida
+Pierde el jugador que no puede mover. Tras 100 jugadas seguidas (contando las de ambos jugadores) sin capturas, la partida termina en tablas.
+# Jugar en el dispositivo
+Pasaos el dispositivo: el tablero gira para que el ejército del jugador al que le toca quede abajo (a la izquierda en horizontal), con su barra. Toca una de tus piezas para ver adónde puede ir y luego toca una casilla, o arrastra la pieza. Los puntos muestran las jugadas; un anillo alrededor de un punto significa que la jugada capturará algo. Tras una jugada, tus piezas que capturan brillan en dorado y las piezas capturadas brillan en rojo mientras se van. Cada barra muestra cuántas piezas ha capturado ese jugador. Cuando quedan pocas jugadas para las tablas, su número aparece al final de la barra del jugador al que le toca.

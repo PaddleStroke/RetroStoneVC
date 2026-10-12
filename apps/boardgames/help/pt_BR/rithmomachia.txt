@@ -1,0 +1,31 @@
+Ritmomaquia
+# O objetivo
+A ritmomaquia, a "batalha dos números", era o jogo dos eruditos na Europa medieval. Dois exércitos de números se enfrentam em um tabuleiro de 8 por 16 casas: os pares (claros) e os ímpares (escuros). Cada exército tem 24 peças: 8 redondas, 8 triângulos, 7 quadrados e uma pirâmide, cada uma com um número. Vence-se capturando peças inimigas (a vitória comum) ou colocando três das suas peças em harmonia na metade inimiga (a vitória própria). Os pares jogam primeiro.
+# Os exércitos
+As peças são dispostas como Claude de Boissière (1556) e Lever e Fulke (1563) as descrevem. Os números delas nascem de quatro números pequenos: 2, 4, 6, 8 para os pares, 3, 5, 7, 9 para os ímpares.
+- Redondas: os números pequenos e seus quadrados (pares: 2 4 6 8 e 4 16 36 64).
+- Triângulos: cada número pequeno mais o seu quadrado, e o quadrado do número seguinte (pares: 6 20 42 72 e 9 25 49 81).
+- Quadrados: a soma dos dois triângulos, e o quadrado do dobro do número pequeno mais um (pares: 15 45 153 e 25 81 169 289).
+- A pirâmide é uma pilha de quadrados: 91 = 1 + 4 + 9 + 16 + 25 + 36 para os pares, 190 = 16 + 25 + 36 + 49 + 64 para os ímpares.
+# Movimento
+Uma peça se move para uma casa vazia e nunca salta por cima de outra peça.
+- Redonda: uma casa na diagonal.
+- Triângulo: exatamente duas casas ao longo de uma fileira ou coluna.
+- Quadrado: exatamente três casas ao longo de uma fileira ou coluna.
+- Pirâmide: como qualquer uma das três.
+# As capturas
+Depois do seu lance, você captura toda peça inimiga apanhada de uma destas quatro maneiras. As suas peças ficam onde estão.
+- Encontro: uma das suas peças com o mesmo número poderia se mover para a casa dela.
+- Assalto: uma peça sua menor, em uma das linhas por onde se move, só com casas vazias entre elas: o número dela vezes o número de casas vazias é igual ao número do inimigo.
+- Emboscada: duas peças suas que poderiam ambas se mover para a casa dela somam o número dela.
+- Cerco: as suas peças estão nos quatro lados dela, na horizontal e na vertical; a borda do tabuleiro também fecha um lado.
+A pirâmide conta como uma única peça com o seu número inteiro, ao atacar e ao ser atacada.
+# As vitórias
+Escolha antes da partida:
+- Capturar 8 peças: vence quem capturar primeiro 8 peças inimigas.
+- Capturar 12 peças: o mesmo, uma partida mais longa.
+- Vitória própria: vence quem colocar primeiro três das suas peças em harmonia. As três ficam na metade inimiga (além da linha que cruza o meio), em uma mesma fileira, coluna ou diagonal, à mesma distância umas das outras, e os números delas, na ordem ao longo da linha, formam uma progressão: aritmética (4 6 8: a mesma diferença), geométrica (4 16 64: a mesma razão) ou harmônica (3 4 6: o número do meio é o dobro do produto dos outros dois dividido pela soma deles).
+# O fim da partida
+Perde quem não pode jogar. Depois de 100 lances seguidos (contando os dos dois jogadores) sem captura, a partida termina empatada.
+# Jogando no aparelho
+Passem o aparelho: o tabuleiro gira para que o exército do jogador da vez fique embaixo (à esquerda na horizontal), com a sua barra. Toque em uma das suas peças para ver aonde ela pode ir e depois toque em uma casa, ou arraste a peça. Os pontos mostram os lances; um anel em volta de um ponto quer dizer que o lance vai capturar algo. Depois de um lance, as suas peças que capturam brilham em dourado, e as peças capturadas brilham em vermelho ao sair. Cada barra mostra quantas peças aquele jogador capturou. Quando faltam poucos lances para o empate, o número deles aparece no fim da barra do jogador da vez.

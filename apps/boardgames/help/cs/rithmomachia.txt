@@ -1,0 +1,31 @@
+Rytmomachie
+# Cíl hry
+Rytmomachie, „bitva čísel“, byla hrou učenců ve středověké Evropě. Dvě armády čísel stojí proti sobě na desce 8×16 polí: sudá čísla (světlá) a lichá čísla (tmavá). Každá armáda má 24 figur: 8 kruhů, 8 trojúhelníků, 7 čtverců a pyramidu, každá nese číslo. Vyhrává se braním soupeřových figur (obyčejné vítězství), nebo postavením tří vlastních figur do harmonie v soupeřově polovině (pravé vítězství). Začínají sudá.
+# Armády
+Figury jsou rozestavěny tak, jak je popisují Claude de Boissière (1556) a Lever a Fulke (1563). Jejich čísla vycházejí ze čtyř malých čísel: 2, 4, 6, 8 u sudých, 3, 5, 7, 9 u lichých.
+- Kruhy: malá čísla a jejich druhé mocniny (sudá: 2 4 6 8 a 4 16 36 64).
+- Trojúhelníky: každé malé číslo plus jeho druhá mocnina a druhá mocnina následujícího čísla (sudá: 6 20 42 72 a 9 25 49 81).
+- Čtverce: součet obou trojúhelníků a druhá mocnina dvojnásobku malého čísla zvětšeného o jedna (sudá: 15 45 153 a 25 81 169 289).
+- Pyramida je hromada čtverců: 91 = 1 + 4 + 9 + 16 + 25 + 36 u sudých, 190 = 16 + 25 + 36 + 49 + 64 u lichých.
+# Posouvání
+Figura táhne na prázdné pole a nikdy nepřeskakuje jinou figuru.
+- Kruh: o jedno pole šikmo.
+- Trojúhelník: přesně o dvě pole po řadě nebo sloupci.
+- Čtverec: přesně o tři pole po řadě nebo sloupci.
+- Pyramida: jako kterákoli z těch tří.
+# Braní
+Po svém tahu vezmeš každou soupeřovu figuru chycenou jedním z těchto čtyř způsobů. Tvé vlastní figury zůstávají, kde stojí.
+- Setkání: některá tvá figura se stejným číslem by mohla táhnout na její pole.
+- Útok: menší tvá figura stojí na jedné z čar, po kterých táhne, a mezi nimi jsou jen prázdná pole: její číslo krát počet prázdných polí se rovná číslu soupeřovy figury.
+- Léčka: dvě tvé figury, které by obě mohly táhnout na její pole, dávají dohromady její číslo.
+- Obléhání: tvé figury ji obklopují ze všech čtyř stran, vodorovně i svisle; okraj desky také uzavírá stranu.
+Pyramida se počítá jako jediná figura se svým celým číslem, když útočí i když je napadena.
+# Vítězství
+Před hrou zvol:
+- Vzít 8 figur: vyhrává hráč, který první vezme 8 soupeřových figur.
+- Vzít 12 figur: totéž, delší hra.
+- Pravé vítězství: vyhrává hráč, který první postaví tři své figury do harmonie. Ty tři stojí v soupeřově polovině (za čárou přes střed desky), na jedné řadě, sloupci nebo úhlopříčce, ve stejných rozestupech, a jejich čísla tvoří v pořadí podél čáry posloupnost: aritmetickou (4 6 8: stejný rozdíl), geometrickou (4 16 64: stejný poměr) nebo harmonickou (3 4 6: prostřední číslo je dvojnásobek součinu ostatních dvou dělený jejich součtem).
+# Konec hry
+Hráč, který nemůže táhnout, prohrává. Po 100 tazích v řadě (počítají se tahy obou hráčů) bez braní končí hra remízou.
+# Hra na zařízení
+Posílejte si zařízení: deska se otočí tak, aby armáda hráče na tahu byla dole (na šířku vlevo), i s jeho lištou. Klepni na svou figuru a uvidíš, kam může táhnout, potom klepni na pole, nebo figuru přetáhni. Tečky ukazují tahy; kroužek kolem tečky znamená, že tah něco vezme. Po tahu tvé beroucí figury září zlatě a vzaté figury při odchodu svítí červeně. Každá lišta ukazuje, kolik figur daný hráč vzal. Když do remízy zbývá jen pár tahů, jejich počet se ukáže na konci lišty hráče na tahu.

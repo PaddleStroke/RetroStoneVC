@@ -1,0 +1,17 @@
+Spredning
+# Målet
+Hav flest brikker på brættet til sidst. Brættet har 7 gange 7 felter; hver spiller starter med to brikker i modsatte hjørner. Den lyse side starter.
+# Et træk
+Flyt en af dine brikker til et tomt felt, på en af to måder:
+- Klon: til et nabofelt, diagonaler medregnet. Der dukker en ny brik op, og den gamle bliver stående.
+- Spring: til et felt to felter væk, i en hvilken som helst retning. Brikken forlader sit felt.
+Derefter bliver hver modstanderbrik ved siden af det felt, du nåede, diagonaler medregnet, til en af dine.
+# Brætterne
+Vælg brættet før spillet: det tomme bræt eller et med nogle få spærrede felter (fire blokke, et kors eller fire porte). Intet kan stå på et spærret felt, men brikker må springe over det.
+# Spillets afslutning
+- Når brættet er fuldt, vinder spilleren med flest brikker.
+- Når den spiller, der har tur, ikke har noget træk (ingen brikker tilbage, eller alle brikker spærret inde), slutter spillet, og modstanderen får alle de tomme felter. Derefter tælles brikkerne.
+- Efter 50 træk i streg, der ikke tilføjer nogen brik (kun spring), tælles brikkerne, som de står.
+Lige mange brikker er uafgjort.
+# Spil på enheden
+Tryk på en af dine brikker og derefter på et felt, eller træk brikken. En stor prik er en klon, en lille prik et spring. Modstanderens brikker omkring feltet vendes derefter én efter én. Når spillet slutter, fordi en spiller ikke havde noget træk, lyser de tomme felter svagt i farven hos den spiller, der får dem. Hvert panel viser, hvor mange brikker den spiller har. Når der er få træk tilbage før optællingen, står antallet for enden af panelet hos den spiller, der har tur.
