@@ -156,7 +156,7 @@ int main(void)
                 glass += g.kind[c] == MR_GLASS;
             }
             CHECK(gems >= 2 && pivots >= 3 && g.loose == (level > 2 ? 3 : level));
-            CHECK(level < 3 || glass == 1);
+            CHECK(level < 2 || glass == 1);
             CHECK(level < 1 || bombs >= 1);
             mr_game same;
             mr_new(&same, level, (uint32_t)seed * 7919u + (uint32_t)level);

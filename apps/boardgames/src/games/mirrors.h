@@ -12,7 +12,7 @@
  * search (mr_solve: it follows the beam and tries each choice it meets) finds one way only, and when that search has
  * enough work to do for the level:
  *   0 easy: 5 x 5, pivoting mirrors only;  1 medium: 6 x 6, one loose mirror, a bomb;
- *   2 hard: 7 x 7, two loose mirrors, bombs;  3 expert: 8 x 8, three loose mirrors, a glass plate, more bombs.
+ *   2 hard: 7 x 7, two loose mirrors, a glass plate, bombs;  3 expert: 8 x 8, three loose mirrors, more bombs.
  * Cells: x + y * n from the top left. Directions: 0 east, 1 north, 2 west, 3 south. A mirror's way: 0 '/', 1 '\'.
  * The notation (script, the screenshots, the tests): a cell is its column letter a.. and its row 1.. from the top;
  * "c4" taps it (a pivot: turned; an empty cell: a loose mirror stood '/', then '\', then taken off), "c4s" sets it '/',
