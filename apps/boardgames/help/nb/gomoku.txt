@@ -6,8 +6,14 @@ Velg regler før spillet:
 - Fristil (kortet med seks steiner på rad): fem eller flere steiner på rad vinner.
 - Standard (kortet med fem): nøyaktig fem steiner på rad vinner. En rad med seks eller flere teller ikke, men spillet fortsetter, og en rad på fem laget et annet sted vinner likevel.
 - Seks på rad (kortet med det store brettet): se nedenfor.
+- Renju (kortet med det røde krysset): se nedenfor.
 # Seks på rad
 Spilles på et større brett, 19 ganger 19. Svart legger én stein for å begynne; deretter legger hver spiller to steiner i hver tur. Seks eller flere steiner i din farge på rad vinner, også når raden fullføres av turens første stein.
+# Renju
+Spilles på brettet med 15×15 punkter, med regler som begrenser fordelen Svart har ved å begynne.
+- Åpning: Svarts første stein legges på midtpunktet, Hvits første stein rett ved siden av, og Svarts andre stein høyst to punkter fra midten. Byttet og valget av Svarts femte trekk fra turneringer er utelatt.
+- Svart kan ikke lage dobbel tre (to åpne treere samtidig), dobbel fire eller en rad på seks eller flere, med mindre den samme steinen gir fem. Når det er Svarts tur, har disse punktene et lite rødt kryss og kan ikke spilles.
+- Svart vinner bare med nøyaktig fem på rad. Hvit har ingen forbudte punkter, og fem eller flere på rad vinner.
 # Slutten på spillet
 Den første spilleren som får en vinnende rad, vinner med en gang. Hvis brettet blir fullt uten noen vinnende rad, blir det uavgjort.
 # Spill på enheten

@@ -6,8 +6,14 @@ Przed grą wybierz zasady:
 - Wolny styl (karta z sześcioma kamieniami w rzędzie): wygrywa pięć lub więcej kamieni w rzędzie.
 - Standard (karta z pięcioma): wygrywa dokładnie pięć kamieni w rzędzie. Rząd sześciu lub więcej kamieni się nie liczy, ale gra toczy się dalej, a piątka ułożona gdzie indziej nadal wygrywa.
 - Sześć w rzędzie (karta z dużą planszą): patrz niżej.
+- Renju (karta z czerwonym krzyżykiem): patrz niżej.
 # Sześć w rzędzie
 Gra toczy się na większej planszy, 19 na 19. Czarne zaczynają, kładąc jeden kamień; potem każdy gracz w każdej turze kładzie dwa kamienie. Wygrywa sześć lub więcej kamieni w twoim kolorze w rzędzie, nawet jeśli rząd powstaje już po pierwszym kamieniu tury.
+# Renju
+Gra się na planszy 15×15, z zasadami, które ograniczają przewagę czarnych, zaczynających grę.
+- Otwarcie: pierwszy kamień czarnych idzie na środkowy punkt, pierwszy kamień białych tuż obok, a drugi kamień czarnych najwyżej dwa punkty od środka. Wymiana i wybór piątego ruchu czarnych, stosowane na turniejach, są pominięte.
+- Czarne nie mogą ułożyć podwójnej trójki (dwóch otwartych trójek naraz), podwójnej czwórki ani rzędu sześciu lub więcej kamieni, chyba że ten sam kamień tworzy piątkę. Gdy ruch mają czarne, te punkty mają mały czerwony krzyżyk i nie można na nie zagrać.
+- Czarne wygrywają tylko dokładnie pięcioma kamieniami w rzędzie. Białe nie mają zakazanych punktów, a pięć lub więcej w rzędzie wygrywa.
 # Koniec gry
 Pierwszy gracz, który ułoży zwycięski rząd, od razu wygrywa. Jeśli plansza się zapełni, a nikt nie ułożył zwycięskiego rzędu, gra kończy się remisem.
 # Gra na urządzeniu

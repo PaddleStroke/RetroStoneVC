@@ -32,6 +32,23 @@ Makan semua bidak lawan, atau buat lawan tidak bisa melangkah. Pilih aturannya s
 - Memakan itu wajib, dan kamu harus memakan sebanyak mungkin bidak.
 - Setiap bidak yang dimakan langsung diangkat, begitu dilompati. Saat memakan beberapa bidak, sebuah bidak tidak boleh berbalik arah kembali ke jalan asalnya.
 - Remis: jika posisi yang sama muncul untuk ketiga kalinya, atau setelah masing-masing pihak melangkah 25 kali tanpa memakan atau menggerakkan bidak biasa.
+# Dam Frisia (10×10)
+- Pihak terang jalan lebih dulu. Bidak biasa bergerak satu petak secara diagonal ke depan, seperti dalam dam internasional.
+- Bidak dan raja juga memakan lurus sepanjang baris dan kolom: melompati bidak lawan di petak gelap berikutnya, dua petak jauhnya, ke petak gelap tepat di belakangnya. Bidak biasa juga memakan ke belakang.
+- Raja bergerak berapa pun petak sepanjang diagonal, dan memakan dari jauh ke delapan arah.
+- Memakan itu wajib, dan kamu harus memakan bidak yang paling bernilai: raja bernilai lebih dari satu bidak tetapi kurang dari dua. Jika raja dan bidak biasa bisa memakan nilai yang sama, raja yang harus memakan.
+- Bidak biasa yang mengakhiri langkahnya di baris terjauh menjadi raja.
+- Selama kamu masih punya bidak biasa, raja yang sama tidak boleh melangkah lebih dari tiga kali berturut-turut tanpa memakan; setelah itu bidak lain harus melangkah.
+- Seri: jika dua raja melawan satu dan masing-masing sudah melangkah tujuh kali, jika satu raja melawan satu dan masing-masing sudah melangkah dua kali, atau jika posisi yang sama muncul untuk ketiga kalinya.
+# Dam Kanada (12×12)
+Aturan dam internasional di papan 12×12, dengan 30 bidak untuk tiap pemain.
+# Bashni (8×8)
+Dam menara Rusia: aturan dam Rusia, tetapi bidak yang dimakan tetap ada dalam permainan.
+- Memakan hanya mengambil bidak teratas dari menara yang dilompati, lalu menaruhnya di bawah menara yang memakan. Bidak yang tersisa di bawah tetap di tempat dan menuruti bidak teratas yang baru.
+- Menara milik pemain yang bidaknya ada di puncak, dan bergerak seperti bidak itu, sebagai bidak biasa atau raja. Hanya bidak teratas yang menjadi raja.
+- Satu menara hanya bisa dilompati sekali dalam satu kali memakan. Bidak yang dimakan masuk ke bawah menara yang memakan saat langkah selesai.
+- Setiap bilah menunjukkan berapa bidak lawan yang ditahan pemain itu di menaranya. Pemain yang tidak bisa melangkah kalah, meski punya bidak di bawah menara lawan.
+- Seri: seperti dalam dam Rusia.
 # Akhir permainan
 Pemain yang tidak punya bidak lagi, atau tidak bisa melangkah, kalah.
 # Bermain di perangkat

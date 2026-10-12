@@ -22,5 +22,15 @@ Een koning die wordt aangevallen staat schaak: de volgende zet moet het schaak o
 Chess960 (Fischer Random Chess) volgt dezelfde regels, maar de stukken op de achterste rij beginnen in een van 960 opstellingen, voor elke partij willekeurig gekozen. De pionnen staan zoals gewoonlijk, en de stukken van zwart staan tegenover die van wit, kolom voor kolom. De lopers staan altijd op velden van verschillende kleur, en de koning ergens tussen de twee torens.
 - Rokade: de koning en de toren eindigen op dezelfde velden als bij gewoon schaken: de koning op g en de toren op f met de toren van de h-kant, de koning op c en de toren op d met de toren van de a-kant. Alleen toegestaan als geen van beide stukken al heeft bewogen, elk veld dat ze passeren of waarop ze landen leeg is (op hen tweeën na), en de koning niet schaak staat, geen aangevallen veld passeert en niet schaak komt te staan.
 - Om te rokeren zet je de koning op de toren waarmee hij rokeert. Je mag hem ook op zijn eindveld zetten, tenzij de koning daar ook met een gewone zet heen zou kunnen, of er al staat.
+# Crazyhouse
+Schaken met één soort zet meer: een stuk dat je slaat, wisselt van kant en gaat naar je voorraad, die in je balk staat. In plaats van een zet mag je een stuk uit je voorraad op een leeg veld naar keuze inzetten.
+- Een pion mag niet op de eerste of de laatste rij worden ingezet. Inzetten mag schaak geven, zelfs mat.
+- Een gepromoveerd stuk dat geslagen wordt, gaat als pion terug naar de voorraad.
+- Geen remise door te weinig materiaal: geen stuk verlaat ooit het spel.
+- Om in te zetten tik je het stuk in je balk aan en dan een veld (stippen tonen waar het heen kan), of sleep je het op het bord.
+# Driemaal schaak
+Schaken, maar wie als eerste drie keer schaak geeft, wint. Mat wint ook. Elke balk heeft drie vakjes, en bij elk schaak dat die speler geeft, gaat er in een ervan een rood licht aan.
+# Koning van de heuvel
+Schaken, maar wiens koning als eerste een van de vier middenvelden (d4, e4, d5, e5) bereikt, goud omlijst, wint meteen. Mat wint ook. De koning mag nog steeds nooit schaak komen te staan.
 # Spelen op het apparaat
 Tik op een stuk om te zien waar het heen kan en tik dan op een veld, of sleep het stuk. Stippen tonen de zetten, ringen het slaan. Een koning die schaak staat, licht rood op. Om te rokeren zet je de koning twee velden naar de toren toe, of op de toren.

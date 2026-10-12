@@ -11,5 +11,7 @@ Invece di giocare, puoi passare. Quando entrambi i giocatori passano uno dopo l'
 - Tocca i gruppi che non potevano vivere (pietre morte): contano come catturati. Tocca di nuovo per ripristinare un gruppo.
 - Quando siete d'accordo, tocca il pulsante passa: fatto.
 - Ogni giocatore segna un punto per ogni sua pietra sul tavoliere e per ogni punto vuoto circondato solo da lui. Il Bianco (chiaro) riceve anche 7,5 punti perché gioca per secondo (il komi), quindi non c'è mai patta. Vince il punteggio più alto.
+# Go a cattura
+Un primo gioco per principianti e bambini, sul goban 9 per 9 o 13 per 13 (le carte con una pietra catturata). Le regole del go, ma vince subito il primo giocatore che cattura. Non si passa e non si conta. Chi non ha più punti dove giocare (in ogni punto vuoto la sua pietra resterebbe senza libertà) perde.
 # Giocare sul dispositivo
 Il primo tocco mostra una pietra pallida, un secondo tocco sullo stesso punto la gioca. Così è facile colpire anche i punti piccoli. Ogni barra mostra le pietre catturate da quel giocatore e, durante il conteggio, il punteggio.

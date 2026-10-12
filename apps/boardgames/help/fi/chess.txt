@@ -22,5 +22,15 @@ Uhattu kuningas on shakissa: seuraavan siirron on päästettävä se pois shakis
 Chess960 (Fischerin satunnaisshakki) pelataan samoilla säännöillä, mutta takarivin nappulat aloittavat yhdessä 960 järjestyksestä, joka arvotaan jokaiseen peliin. Sotilaat ovat tavallisilla paikoillaan, ja mustan nappulat ovat valkean nappuloita vastapäätä, linja linjalta. Lähetit ovat aina erivärisillä ruuduilla ja kuningas jossakin kahden tornin välissä.
 - Linnoitus: kuningas ja torni päätyvät samoihin ruutuihin kuin tavallisessa shakissa: kuningas g-linjalle ja torni f-linjalle h-puolen tornin kanssa, kuningas c-linjalle ja torni d-linjalle a-puolen tornin kanssa. Sallittu vain, jos kumpikaan nappula ei ole vielä liikkunut, jokainen ruutu, jonka yli ne kulkevat tai johon ne päätyvät, on tyhjä (niitä kahta lukuun ottamatta), eikä kuningas ole shakissa, kulje uhatun ruudun yli eikä päädy shakkiin.
 - Linnoittaaksesi siirrä kuningas sen tornin päälle, jonka kanssa se linnoittautuu. Voit myös siirtää sen kohderuutuunsa, paitsi jos kuningas voisi mennä sinne myös tavallisella siirrolla tai se on jo siellä.
+# Crazyhouse
+Shakkia yhdellä lisäsiirtotavalla: lyömäsi nappula vaihtaa puolta ja siirtyy varastoosi, joka näkyy palkissasi. Siirron sijaan voit pudottaa nappulan varastostasi mihin tahansa tyhjään ruutuun.
+- Sotilasta ei saa pudottaa ensimmäiselle eikä viimeiselle riville. Pudotus saa antaa shakin, jopa matin.
+- Korotettu nappula, joka lyödään, palaa varastoon sotilaana.
+- Ei tasapeliä liian vähäisen materiaalin takia: yksikään nappula ei koskaan poistu pelistä.
+- Pudota napauttamalla nappulaa palkissasi ja sitten ruutua (pisteet näyttävät, minne se voi mennä), tai vedä se laudalle.
+# Kolme shakkia
+Shakkia, mutta voittaja on se, joka ensimmäisenä antaa shakin kolme kertaa. Myös matti voittaa. Kussakin palkissa on kolme paikkaa, ja yhteen niistä syttyy punainen valo jokaisesta pelaajan antamasta shakista.
+# Kukkulan kuningas
+Shakkia, mutta se, jonka kuningas ensimmäisenä pääsee johonkin neljästä keskiruudusta (d4, e4, d5, e5), jotka on kehystetty kullalla, voittaa heti. Myös matti voittaa. Kuningas ei silti koskaan saa siirtyä shakkiin.
 # Pelaaminen laitteella
 Napauta nappulaa nähdäksesi, minne se voi liikkua, ja napauta sitten ruutua, tai vedä nappulaa. Pisteet näyttävät siirrot, renkaat lyönnit. Shakissa oleva kuningas hehkuu punaisena. Linnoittaaksesi siirrä kuningasta kaksi ruutua tornia kohti tai tornin päälle.

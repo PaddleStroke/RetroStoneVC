@@ -32,6 +32,23 @@ Zbij wszystkie pionki przeciwnika albo pozostaw go bez ruchu. Przed grą wybierz
 - Bicie jest obowiązkowe i musisz zbić jak najwięcej pionków.
 - Każdy zbity pionek jest zdejmowany od razu, w chwili przeskoczenia. Przy biciu kilku pionków pionek nie może zawrócić prosto w kierunku, z którego przyszedł.
 - Remis: gdy ta sama pozycja powtórzy się po raz trzeci, lub po 25 ruchach każdej ze stron bez bicia i bez ruchu zwykłym pionkiem.
+# Warcaby fryzyjskie (10×10)
+- Jasne zaczynają. Zwykły pionek przesuwa się o jedno pole na ukos do przodu, jak w warcabach międzynarodowych.
+- Pionki i damki biją też prosto, wzdłuż rzędów i kolumn: nad pionkiem przeciwnika na następnym ciemnym polu, dwa pola dalej, na ciemne pole tuż za nim. Zwykłe pionki biją też do tyłu.
+- Damka porusza się o dowolną liczbę pól po przekątnej i bije z daleka we wszystkich ośmiu kierunkach.
+- Bicie jest obowiązkowe i trzeba zbić najcenniejsze pionki: damka jest warta więcej niż jeden pionek, ale mniej niż dwa. Jeśli damka i zwykły pionek mogą zbić tę samą wartość, bić musi damka.
+- Pionek, który zakończy ruch na ostatnim rzędzie, staje się damką.
+- Dopóki masz zwykłe pionki, ta sama damka może wykonać najwyżej trzy ruchy z rzędu bez bicia; potem musi ruszyć się inny pionek.
+- Remis: gdy dwie damki stoją przeciw jednej i każdy wykonał siedem ruchów, gdy damka stoi przeciw damce i każdy wykonał dwa ruchy, albo gdy ta sama pozycja powtórzy się po raz trzeci.
+# Warcaby kanadyjskie (12×12)
+Zasady warcabów międzynarodowych na planszy 12×12, po 30 pionków na gracza.
+# Baszni (8×8)
+Rosyjskie warcaby wieżowe: zasady warcabów rosyjskich, ale zbite pionki zostają w grze.
+- Bicie zabiera tylko górny pionek przeskoczonej wieży i kładzie go pod wieżą, która bije. Pionki pod spodem zostają na miejscu i słuchają swojego nowego górnego pionka.
+- Wieża należy do gracza, którego pionek jest na górze, i porusza się jak on, jako zwykły pionek albo damka. Damką zostaje tylko górny pionek.
+- Tę samą wieżę można przeskoczyć tylko raz w jednym biciu. Zbite pionki trafiają pod wieżę, która bije, na końcu ruchu.
+- Każdy pasek pokazuje, ile pionków przeciwnika gracz trzyma w swoich wieżach. Kto nie może się ruszyć, przegrywa, nawet z pionkami pod wieżami przeciwnika.
+- Remis: jak w warcabach rosyjskich.
 # Koniec gry
 Gracz, któremu nie zostały żadne pionki albo który nie może wykonać ruchu, przegrywa.
 # Gra na urządzeniu

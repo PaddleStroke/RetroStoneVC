@@ -78,6 +78,20 @@ int go_try(const gogame *g, int p, gopos *out)
     return took;
 }
 
+void go_new_capture(gogame *g, int n)
+{
+    go_new(g, n == 13 ? 13 : 9);
+    g->capture = 1;
+}
+
+int go_can_play(const gogame *g)
+{
+    gopos next;
+    for (int p = 0; p < g->n * g->n; p++)
+        if (go_now(g)->pt[p] == GO_EMPTY && go_try(g, p, &next) >= 0) return 1;
+    return 0;
+}
+
 int go_play(gogame *g, int p)
 {
     gopos next;
@@ -85,11 +99,13 @@ int go_play(gogame *g, int p)
     if (took < 0) return -1;
     g->move[g->nmoves++] = p;
     g->pos[g->nmoves] = next;
+    if (g->capture && (took || !go_can_play(g))) g->phase = GO_OVER;   /* the first capture wins; nowhere to play */
     return took;
 }
 
 int go_pass(gogame *g)
 {
+    if (g->capture) return 0;                   /* capture go: no pass */
     if (g->phase == GO_COUNT) { g->phase = GO_OVER; return 1; }
     if (g->phase != GO_PLAY || g->nmoves >= GO_HIST) return 0;
     g->pos[g->nmoves + 1] = g->pos[g->nmoves];
@@ -104,6 +120,7 @@ int go_pass(gogame *g)
 
 int go_undo(gogame *g)
 {
+    if (g->phase == GO_OVER && g->capture) g->phase = GO_PLAY;   /* capture go: the move that won */
     if (g->phase == GO_OVER) { g->phase = GO_COUNT; return 1; }
     if (g->phase == GO_COUNT) g->phase = GO_PLAY;
     else if (!g->nmoves) return 0;
@@ -158,6 +175,7 @@ void go_score(const gogame *g, int8_t owner[GO_PTS], float score[2])
 int go_winner(const gogame *g)
 {
     if (g->phase != GO_OVER) return -1;
+    if (g->capture) return !go_now(g)->side;    /* the last to play: they captured, or the other cannot play */
     int8_t owner[GO_PTS];
     float score[2];
     go_score(g, owner, score);

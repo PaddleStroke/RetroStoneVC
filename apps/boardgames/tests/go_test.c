@@ -86,6 +86,59 @@ int main(void)
     go_score(&G, owner, sc);
     CHECK(G.phase == GO_OVER && sc[0] == 0 && sc[1] == GO_KOMI && go_winner(&G) == 1);
 
+    /* capture go: the first capture wins at once (either player), no pass, undo takes the winning move back */
+    go_new_capture(&G, 9);
+    CHECK(G.n == 9 && G.capture && go_script(&G, "d5 e5 f5 a1 e4 a2") && G.phase == GO_PLAY && go_winner(&G) == -1);
+    CHECK(go_play(&G, at("e6")) == 1 && G.phase == GO_OVER && go_winner(&G) == 0);
+    CHECK(go_play(&G, at("j9")) < 0 && !go_pass(&G));
+    CHECK(go_undo(&G) && G.phase == GO_PLAY && stone("e5") == GO_IVORY && stone("e6") == GO_EMPTY);
+    go_new_capture(&G, 13);
+    CHECK(G.n == 13 && go_script(&G, "a2 a1 j9 b1") && G.phase == GO_PLAY);
+    CHECK(go_play(&G, at("b2")) == 0 && go_script(&G, "c1") && G.phase == GO_PLAY);   /* b1, a1: two liberties */
+    CHECK(!go_script(&G, "pass") && go_script(&G, "j8 c2") == 1 && G.phase == GO_PLAY);
+    go_new_capture(&G, 9);
+    CHECK(go_script(&G, "e5 d5 j9 c5 j8 d4 j7 d6 j6") && G.phase == GO_PLAY);
+    CHECK(go_play(&G, at("e4")) == 0 && go_script(&G, "j5 e6 j4 f5") && G.phase == GO_OVER && go_winner(&G) == 1);
+
+    /* nowhere to play: every empty point would take the stone's own last liberty, nothing captured */
+    go_new_capture(&G, 9);
+    gopos *full = &G.pos[0];
+    for (int p = 0; p < 81; p++) full->pt[p] = GO_EBONY;
+    full->pt[at("a1")] = full->pt[at("j9")] = GO_EMPTY;
+    full->side = 1;
+    CHECK(!go_can_play(&G));
+    full->side = 0;
+    full->pt[at("e5")] = GO_EMPTY;
+    full->pt[at("j9")] = GO_IVORY;
+    CHECK(go_can_play(&G));
+
+    /* whole random capture games (a seed each): each ends at its first capture, the one who made it the winner */
+    int bad = 0, captured = 0;
+    unsigned seed = 2026;
+    for (int k = 0; k < 60; k++) {
+        go_new_capture(&G, k & 1 ? 13 : 9);
+        while (G.phase == GO_PLAY && G.nmoves < GO_HIST) {
+            int empty[GO_PTS], ne = 0;
+            for (int p = 0; p < G.n * G.n; p++)
+                if (go_now(&G)->pt[p] == GO_EMPTY) empty[ne++] = p;
+            int took = -1;
+            while (took < 0 && ne) {
+                seed = seed * 1103515245u + 12345u;
+                int i = (int)((seed >> 8) % (unsigned)ne);
+                took = go_play(&G, empty[i]);
+                empty[i] = empty[--ne];
+            }
+            if (took < 0) { bad++; break; }
+            if (took > 0 && G.phase != GO_OVER) bad++;
+        }
+        const gopos *p = go_now(&G);
+        int caps = p->caps[0] + p->caps[1];
+        captured += caps > 0;
+        if (G.phase != GO_OVER || (caps && p->caps[go_winner(&G)] != caps) || (!caps && go_can_play(&G))) bad++;
+    }
+    CHECK(!bad && captured > 50);
+    printf("go: 60 random capture games, %d ended by a capture, %d bad\n", captured, bad);
+
     printf("go: %d checks, %d failed\n", checks, fails);
     return fails != 0;
 }

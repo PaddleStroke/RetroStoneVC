@@ -6,8 +6,14 @@ Kies de regels voor de partij:
 - Vrije stijl (de kaart met zes stenen op een rij): vijf of meer stenen op een rij winnen.
 - Standaard (de kaart met vijf): precies vijf stenen op een rij winnen. Een rij van zes of meer telt niet, maar de partij gaat door, en een vijf op een andere plek wint nog steeds.
 - Zes op een rij (de kaart met het grote bord): zie hieronder.
+- Renju (de kaart met het rode kruisje): zie hieronder.
 # Zes op een rij
 Wordt gespeeld op een groter bord, 19 bij 19. Zwart begint met één steen; daarna legt elke speler bij elke beurt twee stenen. Zes of meer stenen van je kleur op een rij winnen, ook als de rij al met de eerste steen van een beurt ontstaat.
+# Renju
+Gespeeld op het bord van 15 bij 15, met regels die het voordeel van zwart, dat begint, beperken.
+- Opening: de eerste steen van zwart komt op het middelpunt, de eerste steen van wit ernaast en de tweede steen van zwart hoogstens twee punten van het midden. De ruil en de keuze van de vijfde zet van zwart uit toernooien zijn weggelaten.
+- Zwart mag geen dubbele drie (twee open drieën tegelijk), geen dubbele vier en geen rij van zes of meer maken, tenzij dezelfde steen vijf maakt. Als zwart aan zet is, staat op die punten een klein rood kruisje en kunnen ze niet gespeeld worden.
+- Zwart wint alleen met precies vijf op een rij. Wit heeft geen verboden punten, en vijf of meer op een rij winnen.
 # Het einde van de partij
 De eerste speler die een winnende rij maakt, wint meteen. Als het bord vol raakt zonder winnende rij, eindigt de partij in gelijkspel.
 # Spelen op het apparaat

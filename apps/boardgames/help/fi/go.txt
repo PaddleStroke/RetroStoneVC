@@ -11,5 +11,7 @@ Pelaamisen sijaan voit passata. Kun molemmat pelaajat passaavat peräkkäin, pel
 - Napauta ryhmiä, jotka eivät voineet elää (kuolleet kivet): ne lasketaan vangituiksi. Napauta uudelleen palauttaaksesi ryhmän.
 - Kun olette samaa mieltä, napauta passausnappia: valmis.
 - Kukin pelaaja saa yhden pisteen jokaisesta omasta kivestään laudalla ja jokaisesta tyhjästä pisteestä, jota vain hän ympäröi. Valkoinen (vaalea) saa lisäksi 7,5 pistettä toisena pelaamisesta (komi), joten tasapeliä ei koskaan tule. Suurempi pistemäärä voittaa.
+# Vangitsemisgo
+Ensimmäinen peli aloittelijoille ja lapsille, 9×9- tai 13×13-laudalla (kortit, joissa kiveä vangitaan). Go:n säännöt, mutta ensimmäisenä vangitseva pelaaja voittaa heti. Passata ei voi, eikä pisteitä lasketa. Pelaaja, jolla ei ole enää paikkaa pelata (jokaisessa tyhjässä pisteessä kivi jäisi ilman vapautta), häviää.
 # Pelaaminen laitteella
 Ensimmäinen napautus näyttää haalean kiven, toinen napautus samaan pisteeseen pelaa sen. Näin pieniin pisteisiin on helppo osua. Kukin palkki näyttää kivet, jotka pelaaja on vanginnut, ja laskennan aikana pisteet.

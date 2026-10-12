@@ -6,8 +6,14 @@ Před hrou si vyber pravidla:
 - Volný styl (karta se šesti kameny v řadě): vyhrává pět nebo více kamenů v řadě.
 - Standard (karta s pěti): vyhrává přesně pět kamenů v řadě. Řada šesti nebo více kamenů se nepočítá, ale hra pokračuje a pětice vytvořená jinde stále vyhrává.
 - Šest v řadě (karta s velkou deskou): viz níže.
+- Renju (karta s červeným křížkem): viz níže.
 # Šest v řadě
 Hraje se na větší desce, 19 × 19. Černý na začátku položí jeden kámen; potom každý hráč v každém tahu položí dva kameny. Vyhrává šest nebo více kamenů tvé barvy v řadě, i když řadu dokončí první kámen tahu.
+# Renju
+Hraje se na desce 15×15 s pravidly, která omezují výhodu černého z prvního tahu.
+- Zahájení: první kámen černého jde na střední bod, první kámen bílého hned vedle něj a druhý kámen černého nejvýš dva body od středu. Výměna a volba pátého tahu černého, používané na turnajích, jsou vynechány.
+- Černý nesmí vytvořit dvojitou trojku (dvě otevřené trojky naráz), dvojitou čtyřku ani řadu šesti a více kamenů, ledaže stejný kámen vytvoří pětici. Když je na tahu černý, mají tyto body malý červený křížek a nelze na ně hrát.
+- Černý vyhrává jen přesně pěti kameny v řadě. Bílý nemá žádné zakázané body a vyhrává pěti i více kameny v řadě.
 # Konec hry
 První hráč, který vytvoří vítěznou řadu, okamžitě vyhrává. Pokud se deska zaplní bez vítězné řady, hra končí remízou.
 # Hra na zařízení

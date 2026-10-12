@@ -1,5 +1,6 @@
 /*
- * Go in RetroStone Board: the board (9 x 9, 13 x 13, 19 x 19), the stones, the counting (the rules: go_rules.c).
+ * Go in RetroStone Board: the board (9 x 9, 13 x 13, 19 x 19), the stones, the counting (the rules: go_rules.c); and
+ * capture go for children (9 x 9, 13 x 13: the first capture wins, its stone in gold light; no pass button).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * A tap shows a ghost stone on the nearest point (19 x 19 points are small on a phone), a second tap on it plays it;
@@ -32,10 +33,13 @@ static void calm(void)
     fade.on = 0;
 }
 
+enum { V_9, V_13, V_19, V_CAPTURE9, V_CAPTURE13, VARIANTS };
+
 static void start(int variant)
 {
-    B.n = variant == 0 ? 9 : variant == 1 ? 13 : 19;
-    go_new(&G, B.n);
+    B.n = variant == V_9 || variant == V_CAPTURE9 ? 9 : variant == V_13 || variant == V_CAPTURE13 ? 13 : 19;
+    if (variant == V_CAPTURE9 || variant == V_CAPTURE13) go_new_capture(&G, B.n);
+    else go_new(&G, B.n);
     calm();
 }
 
@@ -71,7 +75,7 @@ static void play(int pt)
     ui_sound(took ? SND_CAPTURE : SND_PLACE);
 }
 
-static int can_pass(void) { return G.phase != GO_OVER; }
+static int can_pass(void) { return G.phase != GO_OVER && !G.capture; }   /* capture go: no pass */
 
 static void pass(void)
 {
@@ -142,10 +146,14 @@ static void draw(void)
     const gopos *p = go_now(&G);
     float x, y;
     grid_board(&B);
-    int counting = G.phase != GO_PLAY;
+    int counting = G.phase != GO_PLAY && !G.capture, last = go_last(&G);
     int8_t owner[GO_PTS];
     float score[2];
     if (counting) go_score(&G, owner, score);
+    if (G.capture && G.phase == GO_OVER && last >= 0) {   /* capture go: the stone that won, in gold light */
+        grid_xy(&B, last, &x, &y);
+        ui_mark_gold(x, y, 2.6f * B.sq);
+    }
     grid_stones(&B, p->pt, counting ? G.dead : NULL, -1);   /* the dead stones faded */
     if (fade.on) {
         float t = (ui_ms() - fade.t0) / (float)FADE_MS;
@@ -158,7 +166,6 @@ static void draw(void)
             }
         }
     }
-    int last = go_last(&G);
     if (last >= 0 && p->pt[last] != GO_EMPTY && !(counting && G.dead[last])) grid_last(&B, last, p->pt[last] - 1);
     if (counting)
         for (int pt = 0; pt < B.n * B.n; pt++) {
@@ -194,7 +201,7 @@ static void release(float x, float y)
  * of the player's colour, the points; ivory's half point of the komi) */
 static void bar(int player, box b)
 {
-    if (G.phase == GO_PLAY) {
+    if (G.phase == GO_PLAY || G.capture) {
         ui_bar_count(b, t_small[!player], go_now(&G)->caps[player]);
         return;
     }
@@ -212,9 +219,32 @@ static void bar(int player, box b)
     }
 }
 
-/* the menu's card: a board's corner, a few stones; the picker's: the whole board of each size */
+/* capture go's cards: the whole board (9 x 9, 13 x 13), an ivory stone taken in the middle (faded, the last of four
+ * ebony stones round it in gold light), a few stones about */
+static void thumb_capture(int nn, int size, uint8_t *rgba)
+{
+    static const uint8_t gold[3] = {255, 196, 64};
+    grid_pic pic = grid_thumb(nn, 0, size, rgba);
+    int c = nn / 2, s = pic.s, g = (int)(2.6f * s);
+    art_disc(g, gold, 0.75f, 1.3f, ui_buf(g, g));   /* the stone that took it: c + 1, c */
+    art_blend(rgba, size, size, ui_buf(g, g), g, g, pic.x0 + (c + 1) * s + s / 2 - g / 2, pic.y0 + c * s + s / 2 - g / 2);
+    static const int around[][3] = {{-1, 0, 0}, {0, -1, 0}, {0, 1, 0}, {1, 0, 0}, {-1, -1, 1}, {1, 1, 1}, {-2, 1, 1},
+                                    {2, -2, 0}};
+    for (unsigned i = 0; i < sizeof around / sizeof around[0]; i++)
+        grid_thumb_stone(pic, c + around[i][0], c + around[i][1], around[i][2], size, rgba);
+    uint8_t *one = ui_buf(s, s);                /* the stone taken, fading */
+    grid_token(1, s, one);
+    for (int i = 0; i < s * s; i++) one[4 * i + 3] = (uint8_t)(one[4 * i + 3] * 0.4f);
+    art_blend(rgba, size, size, one, s, s, pic.x0 + c * s, pic.y0 + c * s);
+}
+
+/* the menu's card: a board's corner, a few stones; the picker's: the whole board of each size, then capture go's */
 static void thumb(int variant, int size, uint8_t *rgba)
 {
+    if (variant == V_CAPTURE9 || variant == V_CAPTURE13) {
+        thumb_capture(variant == V_CAPTURE9 ? 9 : 13, size, rgba);
+        return;
+    }
     int corner = variant < 0, nn = corner ? 5 : variant == 0 ? 9 : variant == 1 ? 13 : 19;
     grid_pic pic = grid_thumb(nn, corner, size, rgba);
     static const int corner_st[][3] = {{2, 2, 0}, {3, 1, 0}, {1, 3, 0}, {2, 1, 1}, {1, 2, 1}, {4, 3, 1}};
@@ -229,10 +259,12 @@ static void thumb(int variant, int size, uint8_t *rgba)
     }
 }
 
+static int busy(void) { return fade.on; }     /* capture go: the end waits for the stones taken to fade */
+
 static const game go_game = {
-    .id = "go", .order = 60, .variants = 3,
+    .id = "go", .order = 60, .variants = VARIANTS,       /* 9, 13, 19; capture go on 9 and 13 */
     .thumb = thumb, .token = grid_token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .can_pass = can_pass, .pass = pass, .script = script,
+    .bar = bar, .can_pass = can_pass, .pass = pass, .script = script, .busy = busy,
 };
 REGISTER_GAME(go_game)

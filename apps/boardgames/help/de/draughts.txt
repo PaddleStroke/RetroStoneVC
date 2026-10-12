@@ -32,6 +32,23 @@ Schlage alle Steine des anderen Spielers oder lass ihm keinen Zug mehr. Wähle d
 - Schlagen ist Pflicht, und du musst so viele Steine wie möglich schlagen.
 - Jeder geschlagene Stein wird sofort entfernt, sobald er übersprungen ist. Bei einem Mehrfachschlag darf ein Stein nicht direkt in die Richtung umkehren, aus der er kam.
 - Remis: wenn dieselbe Stellung zum dritten Mal entsteht, oder nach 25 Zügen jeder Seite ohne Schlagen und ohne Zug eines einfachen Steins.
+# Friesisches Dame (10 mal 10)
+- Hell beginnt. Ein einfacher Stein zieht ein Feld diagonal vorwärts, wie beim internationalen Dame.
+- Steine und Damen schlagen auch gerade entlang der Reihen und Spalten: über einen gegnerischen Stein auf dem nächsten dunklen Feld, zwei Felder weiter, auf das dunkle Feld direkt dahinter. Einfache Steine schlagen auch rückwärts.
+- Eine Dame zieht beliebig viele Felder entlang einer Diagonale und schlägt auf Distanz in alle acht Richtungen.
+- Schlagen ist Pflicht, und du musst die wertvollsten Steine schlagen: Eine Dame ist mehr wert als ein Stein, aber weniger als zwei. Können eine Dame und ein Stein gleich viel Wert schlagen, muss die Dame schlagen.
+- Ein Stein, der seinen Zug auf der gegnerischen Grundreihe beendet, wird zur Dame.
+- Solange du noch einfache Steine hast, darf dieselbe Dame höchstens dreimal hintereinander ziehen, ohne zu schlagen; danach muss ein anderer Stein ziehen.
+- Remis: wenn zwei Damen gegen eine stehen und jeder sieben Züge gemacht hat, wenn eine Dame gegen eine steht und jeder zwei Züge gemacht hat, oder wenn dieselbe Stellung zum dritten Mal entsteht.
+# Kanadisches Dame (12 mal 12)
+Die Regeln des internationalen Dame auf einem Brett von 12 mal 12, mit je 30 Steinen.
+# Baschni (8 mal 8)
+Russisches Säulendame: die Regeln des russischen Dame, aber geschlagene Steine bleiben im Spiel.
+- Ein Schlag nimmt nur den obersten Stein der übersprungenen Säule und legt ihn unter die schlagende Säule. Die Steine darunter bleiben stehen und gehorchen ihrem neuen obersten Stein.
+- Eine Säule gehört dem Spieler, dessen Stein oben liegt, und zieht wie dieser: als einfacher Stein oder als Dame. Nur der oberste Stein wird zur Dame.
+- Eine Säule kann in einem Schlag nur einmal übersprungen werden. Die geschlagenen Steine kommen am Ende des Zuges unter die schlagende Säule.
+- Jede Leiste zeigt, wie viele gegnerische Steine der Spieler in seinen Säulen hält. Wer nicht mehr ziehen kann, verliert, auch mit Steinen unter den gegnerischen Säulen.
+- Remis: wie beim russischen Dame.
 # Das Ende der Partie
 Wer keine Steine mehr hat oder nicht mehr ziehen kann, verliert.
 # Spielen auf dem Gerät

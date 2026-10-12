@@ -6,8 +6,14 @@ Wähle die Regeln vor der Partie:
 - Freistil (die Karte mit sechs Steinen in einer Reihe): Fünf oder mehr Steine in einer Reihe gewinnen.
 - Standard (die Karte mit fünf): Genau fünf Steine in einer Reihe gewinnen. Eine Reihe aus sechs oder mehr zählt nicht, aber die Partie geht weiter, und eine Fünferreihe an anderer Stelle gewinnt trotzdem.
 - Sechs in einer Reihe (die Karte mit dem großen Brett): siehe unten.
+- Renju (die Karte mit dem roten Kreuz): siehe unten.
 # Sechs in einer Reihe
 Gespielt wird auf einem größeren Brett, 19 mal 19. Schwarz setzt zu Beginn einen Stein; danach setzt jeder Spieler in jedem Zug zwei Steine. Sechs oder mehr Steine deiner Farbe in einer Reihe gewinnen, auch wenn schon der erste Stein eines Zuges die Reihe vollendet.
+# Renju
+Gespielt auf dem Brett 15 mal 15, mit Regeln, die den Vorteil von Schwarz, der beginnt, begrenzen.
+- Eröffnung: Der erste Stein von Schwarz kommt auf den Mittelpunkt, der erste Stein von Weiß direkt daneben und der zweite Stein von Schwarz höchstens zwei Punkte von der Mitte entfernt. Der Tausch und die Wahl des fünften Zuges von Schwarz aus Turnieren entfallen.
+- Schwarz darf keinen Doppel-Dreier (zwei offene Dreierreihen zugleich), keinen Doppel-Vierer und keine Reihe aus sechs oder mehr bilden, außer derselbe Stein bildet eine Fünferreihe. Ist Schwarz am Zug, tragen diese Punkte ein kleines rotes Kreuz und können nicht besetzt werden.
+- Schwarz gewinnt nur mit genau fünf in einer Reihe. Weiß hat keine verbotenen Punkte, und fünf oder mehr in einer Reihe gewinnen.
 # Das Ende der Partie
 Wer zuerst eine Gewinnreihe bildet, gewinnt sofort. Ist das Brett voll, ohne dass eine Gewinnreihe entstanden ist, endet die Partie unentschieden.
 # Spielen auf dem Gerät

@@ -6,8 +6,14 @@ Pilih aturannya sebelum bermain:
 - Bebas (kartu dengan enam batu sederet): lima batu sederet atau lebih menang.
 - Standar (kartu dengan lima batu): hanya tepat lima batu sederet yang menang. Deret enam batu atau lebih tidak dihitung, tetapi permainan berlanjut, dan deret lima yang dibuat di tempat lain tetap menang.
 - Enam berderet (kartu dengan papan besar): lihat di bawah.
+- Renju (kartu dengan silang merah): lihat di bawah.
 # Enam berderet
 Dimainkan di papan yang lebih besar, 19 kali 19. Hitam memulai dengan menaruh satu batu; setelah itu, setiap pemain menaruh dua batu di setiap giliran. Enam batu sederet atau lebih dengan warnamu menang, bahkan jika deretan itu terbentuk oleh batu pertama dalam satu giliran.
+# Renju
+Dimainkan di papan 15×15, dengan aturan yang membatasi keuntungan Hitam karena jalan lebih dulu.
+- Pembukaan: batu pertama Hitam diletakkan di titik tengah, batu pertama Putih tepat di sebelahnya, dan batu kedua Hitam paling jauh dua titik dari tengah. Pertukaran dan pilihan langkah kelima Hitam yang dipakai di turnamen tidak disertakan.
+- Hitam tidak boleh membuat tiga ganda (dua deret tiga terbuka sekaligus), empat ganda, atau deret enam batu atau lebih, kecuali batu yang sama membuat lima. Saat giliran Hitam, titik-titik itu diberi silang merah kecil dan tidak bisa dimainkan.
+- Hitam hanya menang dengan tepat lima sederet. Putih tidak punya titik terlarang, dan lima sederet atau lebih menang.
 # Akhir permainan
 Pemain pertama yang membentuk deret pemenang langsung menang. Jika papan penuh tanpa ada deret pemenang, permainan berakhir seri.
 # Bermain di perangkat

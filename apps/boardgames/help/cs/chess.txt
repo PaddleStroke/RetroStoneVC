@@ -22,5 +22,15 @@ Napadený král je v šachu: další tah ho musí ze šachu dostat. Nikdy nesmí
 Chess960 (Fischerovy náhodné šachy) se hraje podle stejných pravidel, ale figury v zadní řadě začínají v jednom z 960 pořadí, vylosovaném pro každou partii. Pěšci stojí jako obvykle a figury černého stojí proti figurám bílého, sloupec po sloupci. Střelci vždy stojí na polích opačné barvy a král někde mezi oběma věžemi.
 - Rošáda: král a věž skončí na stejných polích jako v běžných šachách: král na g a věž na f s věží ze strany h, král na c a věž na d s věží ze strany a. Je povolena, jen pokud se žádná z obou figur ještě nepohnula, každé pole, přes které přecházejí nebo na které se postaví, je volné (kromě nich dvou) a král není v šachu, nepřechází přes napadené pole a nedostane se do šachu.
 - Chceš-li udělat rošádu, táhni králem na věž, se kterou rošádu dělá. Můžeš ho také táhnout na jeho cílové pole, ledaže by tam král mohl jít i běžným tahem, nebo tam už stojí.
+# Crazyhouse
+Šachy s jedním druhem tahu navíc: figura, kterou vezmeš, změní stranu a přejde do tvé zásoby, zobrazené ve tvé liště. Místo tahu můžeš figuru ze zásoby nasadit na libovolné prázdné pole.
+- Pěšce nelze nasadit na první ani poslední řadu. Nasazení smí dát šach, a dokonce i mat.
+- Proměněná figura, která je vzata, se vrací do zásoby jako pěšec.
+- Žádná remíza pro nedostatek materiálu: žádná figura nikdy hru neopouští.
+- Pro nasazení klepni na figuru ve své liště a pak na pole (tečky ukazují, kam může jít), nebo ji přetáhni na šachovnici.
+# Tři šachy
+Šachy, ale vyhrává ten, kdo jako první třikrát dá šach. Mat také vyhrává. Každá lišta má tři místa a za každý šach, který hráč dá, se v jednom z nich rozsvítí červené světlo.
+# Král kopce
+Šachy, ale okamžitě vyhrává hráč, jehož král jako první dojde na jedno ze čtyř středových polí (d4, e4, d5, e5), orámovaných zlatem. Mat také vyhrává. Král se ani tak nesmí postavit do šachu.
 # Hra na zařízení
 Klepni na figuru a uvidíš, kam může táhnout, potom klepni na pole, nebo figuru přetáhni. Tečky ukazují tahy, kroužky braní. Král v šachu svítí červeně. Chceš-li udělat rošádu, táhni králem o dvě pole směrem k věži, nebo na věž.

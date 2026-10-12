@@ -32,6 +32,23 @@ Rakibin bütün taşlarını al ya da onu hamlesiz bırak. Oyundan önce kuralla
 - Taş almak (yemek) zorunludur ve alabileceğin en çok sayıda taşı almalısın.
 - Alınan her taş, üzerinden atlanır atlanmaz kaldırılır. Birden çok taş alırken taş, geldiği yöne doğru geri dönemez.
 - Beraberlik: aynı pozisyon üçüncü kez tekrarlandığında ya da iki taraf da taş almadan ve dama olmayan bir taş oynatmadan 25'er hamle yaptığında.
+# Frizya daması (10×10)
+- Önce açık renk oynar. Sıradan bir taş, uluslararası damadaki gibi çapraz olarak bir kare ileri gider.
+- Taşlar ve damalar satırlar ve sütunlar boyunca düz de alır: bir sonraki koyu karedeki, yani iki kare ötedeki rakip taşın üzerinden hemen arkasındaki koyu kareye atlayarak. Sıradan taşlar geriye doğru da alır.
+- Dama bir çapraz boyunca istediği kadar kare gider ve sekiz yönün hepsinde uzaktan alır.
+- Taş almak zorunludur ve en değerli taşları almalısın: bir dama bir taştan daha değerli, iki taştan daha az değerlidir. Bir dama ve sıradan bir taş aynı değeri alabiliyorsa, damanın alması gerekir.
+- Hamlesini en uzak sırada bitiren sıradan taş dama olur.
+- Sıradan taşın kaldıkça, aynı dama taş almadan arka arkaya en fazla üç hamle yapabilir; sonra başka bir taş oynamalıdır.
+- Beraberlik: iki dama bir damaya karşıyken ve her oyuncu yedi hamle yaptığında, bir dama bir damaya karşıyken ve her oyuncu iki hamle yaptığında ya da aynı konum üçüncü kez oluştuğunda.
+# Kanada daması (12×12)
+12×12 tahtada, oyuncu başına 30 taşla uluslararası dama kuralları.
+# Başni (8×8)
+Rus kule daması: Rus daması kuralları, ama alınan taşlar oyunda kalır.
+- Almak, üzerinden atlanan kulenin yalnızca en üstteki taşını alır ve onu alan kulenin altına koyar. Altta kalan taşlar yerinde durur ve yeni en üstteki taşlarına uyar.
+- Kule, en üstteki taşın sahibine aittir ve o taş gibi, sıradan taş ya da dama olarak hareket eder. Yalnızca en üstteki taş dama olur.
+- Aynı kulenin üzerinden bir almada yalnızca bir kez atlanabilir. Alınan taşlar hamle bitince alan kulenin altına geçer.
+- Her şerit, oyuncunun kulelerinde tuttuğu rakip taş sayısını gösterir. Hamle yapamayan oyuncu, rakip kulelerin altında taşı olsa bile kaybeder.
+- Beraberlik: Rus damasındaki gibi.
 # Oyunun sonu
 Hiç taşı kalmayan ya da hamle yapamayan oyuncu kaybeder.
 # Cihazda oynamak

@@ -22,5 +22,15 @@ En konge, der er angrebet, står i skak: det næste træk skal bringe den ud af 
 Chess960 (Fischer Random-skak) spilles efter de samme regler, men brikkerne på bageste række starter i én af 960 opstillinger, der trækkes tilfældigt til hvert parti. Bønderne står som sædvanlig, og sorts brikker står over for hvids, linje for linje. Løberne står altid på felter af hver sin farve, og kongen et sted mellem de to tårne.
 - Rokade: kongen og tårnet ender på de samme felter som i almindelig skak: kongen på g og tårnet på f med tårnet på h-siden, kongen på c og tårnet på d med tårnet på a-siden. Kun tilladt, hvis ingen af de to brikker har flyttet endnu, alle felter, de passerer eller lander på, er tomme (bortset fra de to selv), og kongen ikke står i skak, ikke passerer et angrebet felt og ikke ender i skak.
 - For at rokere flytter du kongen hen på det tårn, den rokerer med. Du kan også flytte den til dens slutfelt, medmindre kongen også kunne komme derhen med et almindeligt træk, eller allerede står der.
+# Crazyhouse
+Skak med én slags træk mere: en brik, du slår, skifter side og kommer i din reserve, som vises i dit panel. I stedet for at flytte må du sætte en brik fra din reserve ind på et vilkårligt tomt felt.
+- En bonde må ikke sættes ind på første eller sidste række. En indsættelse må give skak, endda skakmat.
+- En forvandlet brik, der bliver slået, kommer tilbage i reserven som bonde.
+- Ingen remis på grund af for lidt materiale: ingen brik forlader nogensinde spillet.
+- For at sætte ind skal du trykke på brikken i dit panel og derefter på et felt (prikker viser, hvor den kan sættes), eller trække den ind på brættet.
+# Tre skak
+Skak, men den første spiller, der giver skak tre gange, vinder. Skakmat vinder også. Hvert panel har tre pladser, og der tændes et rødt lys i en af dem for hver skak, spilleren giver.
+# Bakkens konge
+Skak, men den første spiller, hvis konge når et af de fire midterfelter (d4, e4, d5, e5), som er indrammet med guld, vinder med det samme. Skakmat vinder også. Kongen må stadig aldrig stille sig i skak.
 # Spil på enheden
 Tryk på en brik for at se, hvor den kan gå hen, og tryk derefter på et felt, eller træk brikken. Prikker viser trækkene, ringe slagene. En konge i skak lyser rødt. For at rokere flytter du kongen to felter mod tårnet eller hen på tårnet.

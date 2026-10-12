@@ -1,20 +1,17 @@
 /*
  * Lasca in RetroStone Board: the 7 x 7 checkered board (its 25 light squares used), the columns drawn as the house's
- * men and kings stacked (each piece beneath peeking out under the one above it, the deep ones closer together), tap
- * or drag, a capture a jump at a time: the column hops over, the top piece it takes slides in under it (the rules and
- * the notation: lasca_rules.c, lasca.h).
+ * men and kings stacked (column.h, shared with draughts' bashni), tap or drag, a capture a jump at a time: the column
+ * hops over, the top piece it takes slides in under it (the rules and the notation: lasca_rules.c, lasca.h).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
 
+#include "games/column.h"
 #include "games/lasca.h"
 #include "games/lines.h"
 #include "shell.h"
 
 #define PIECE 0.94f                             /* a piece's picture, in squares */
-#define RISE 0.1f                               /* a piece's rise over the one beneath it, in squares: the top five */
-#define RISE_DEEP 0.035f                        /* deeper down, closer together (a tall column stays on its square) */
-#define TOP_LAYERS 4
 #define STEP_MS 160
 #define JUMP_MS 300
 #define PI_F 3.14159265f
@@ -132,14 +129,6 @@ static void layout(box b)
     }
 }
 
-/* how high the piece k from the top of a column h high stands over the column's foot, in squares */
-static float rise(int h, int k)
-{
-    float r = 0;
-    for (int j = k; j < h - 1; j++) r += j < TOP_LAYERS ? RISE : RISE_DEEP;
-    return r;
-}
-
 /* ---- the board on the screen ------------------------------------------------------------------------------------- */
 static void sq_xy(int s, float *x, float *y) { lines_xy(&L, ls_x(s), ls_y(s), x, y); }
 
@@ -154,19 +143,9 @@ static int xy_sq(float x, float y)
 }
 
 /* a column standing on (cx, cy) (its foot), size its pieces' picture, lifted (pixels) */
-static void column_at(lscol c, float cx, float cy, float size, float lift, float alpha)
+static void column_on(lscol c, float cx, float cy, float size, float lift, float alpha)
 {
-    if (!c.h) return;
-    ui_shadow_flat(cx, cy, size, size, alpha * (1 - fminf(lift / L.sq, 0.6f)));
-    for (int k = c.h - 1; k >= 0; k--) {
-        int pc = ls_piece(c, k);
-        SDL_Texture *t = t_pc[LS_OWNER(pc)][LS_OFFICER(pc)];
-        float y = cy - lift - rise(c.h, k) * L.sq;
-        SDL_SetTextureAlphaMod(t, (Uint8)(255 * alpha));
-        if (ui_upside(LS_OWNER(pc))) ui_put_rot(t, cx, y, size, size, 180);
-        else ui_put_c(t, cx, y, size, size);
-        SDL_SetTextureAlphaMod(t, 255);
-    }
+    column_at(c.pc, c.h, t_pc, cx, cy, (float)L.sq, size, lift, alpha);
 }
 
 static void draw(void)
@@ -199,7 +178,7 @@ static void draw(void)
         if (anim.on && sq == anim.m.over && t < handover) c = before->col[sq];
         if (drag.on && drag.moved && sq == drag.from) continue;
         sq_xy(sq, &x, &y);
-        column_at(c, x, y, d, 0, 1);
+        column_on(c, x, y, d, 0, 1);
     }
     if (status() == GS_PLAY)
         for (int i = 0; i < nlegal; i++) {      /* the columns that can be taken, where the selected one can go */
@@ -224,14 +203,14 @@ static void draw(void)
             float k = (t - handover) / (1 - handover), ox, oy;
             k = k * k * (3 - 2 * k);
             sq_xy(anim.m.over, &ox, &oy);
-            oy -= rise(v.h, 0) * L.sq;
-            column_at(one, ox + (cx - ox) * k, oy + (cy - lift - oy) * k, d, 0, 1);
+            oy -= column_rise(v.h, 0) * L.sq;
+            column_on(one, ox + (cx - ox) * k, oy + (cy - lift - oy) * k, d, 0, 1);
         }
-        column_at(mover, cx, cy, d * (1 + 0.06f * sinf(PI_F * t)), lift, 1);
+        column_on(mover, cx, cy, d * (1 + 0.06f * sinf(PI_F * t)), lift, 1);
     }
     if (drag.on && drag.moved) {                /* the dragged column, a little bigger, beside the finger */
         float s = 1.12f * d, off = ui_upside(p->side) ? -0.45f : 0.55f;
-        column_at(p->col[drag.from], drag.x, drag.y - s * off, s, 0, 1);
+        column_on(p->col[drag.from], drag.x, drag.y - s * off, s, 0, 1);
     }
 }
 
@@ -302,18 +281,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
         for (int c = 0; c < LS_SIDE; c++) {
             lscol col = p.col[c + LS_SIDE * r];
             float cx = o + lines_px(c, (float)s, (float)f), cy = o + lines_py(LS_SIDE, r, (float)s, (float)f);
-            for (int k = col.h - 1; k >= 0; k--) {
-                int pc = ls_piece(col, k);
-                uint8_t *one = ui_buf(d, d);
-                if (k == col.h - 1) {
-                    art_flat_shadow(d, one);
-                    art_blend(rgba, size, size, one, d, d, (int)(cx + 0.06f * d - d / 2.0f),
-                              (int)(cy + 0.1f * d - d / 2.0f));
-                }
-                art_counter(LS_OFFICER(pc) ? COUNTER_KING : COUNTER_MAN, LS_OWNER(pc), d, one);
-                art_blend(rgba, size, size, one, d, d, (int)(cx - d / 2.0f + 0.5f),
-                          (int)(cy - rise(col.h, k) * s - d / 2.0f + 0.5f));
-            }
+            column_thumb(rgba, size, col.pc, col.h, cx, cy, s, d);
         }
 }
 

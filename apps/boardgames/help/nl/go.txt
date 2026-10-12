@@ -11,5 +11,7 @@ In plaats van te spelen mag je passen. Als beide spelers na elkaar passen, stopt
 - Tik op de groepen die niet konden leven (dode stenen): ze tellen als geslagen. Tik nog eens om een groep terug te zetten.
 - Als jullie het eens zijn, tik dan op de pasknop: klaar.
 - Elke speler krijgt één punt voor elke eigen steen op het bord en voor elk leeg punt dat alleen hij omsingelt. Wit (licht) krijgt daarnaast 7,5 punt omdat hij als tweede speelt (de komi), dus is het nooit gelijkspel. De hoogste score wint.
+# Vang-go
+Een eerste spel voor beginners en kinderen, op het bord van 9 bij 9 of 13 bij 13 (de kaarten met een steen die geslagen wordt). De regels van go, maar wie als eerste slaat, wint meteen. Er wordt niet gepast en niet geteld. Wie nergens meer kan spelen (op elk leeg punt zou de steen geen vrijheid hebben), verliest.
 # Spelen op het apparaat
 Bij de eerste tik verschijnt een bleke steen, een tweede tik op hetzelfde punt speelt hem. Zo zijn ook kleine punten makkelijk te raken. Elke balk toont de stenen die die speler heeft geslagen, en tijdens het tellen de score.

@@ -22,5 +22,15 @@ Um rei atacado está em xeque: o lance seguinte tem de o tirar do xeque. Nunca p
 O Xadrez 960 (xadrez aleatório de Fischer) joga-se com as mesmas regras, mas as peças da primeira fila começam numa de 960 ordens, sorteada para cada partida. Os peões ficam como habitualmente, e as peças pretas ficam frente a frente com as brancas, coluna a coluna. Os bispos ficam sempre em casas de cores opostas, e o rei algures entre as duas torres.
 - Roque: o rei e a torre acabam nas mesmas casas que no xadrez normal: o rei em g e a torre em f com a torre do lado h, o rei em c e a torre em d com a torre do lado a. Só é permitido se nenhuma das duas peças se tiver movido ainda, se todas as casas que atravessam ou onde ficam estiverem vazias (à exceção delas próprias) e se o rei não estiver em xeque, não atravessar uma casa atacada e não ficar em xeque.
 - Para fazer o roque, leva o rei para cima da torre com que faz o roque. Também o podes levar diretamente para a sua casa de destino, a não ser que o rei também pudesse ir para lá com um lance normal, ou que já lá esteja.
+# Crazyhouse
+Xadrez com mais um tipo de lance: uma peça que capturas muda de lado e vai para a tua reserva, mostrada na tua barra. Em vez de mover, podes colocar uma peça da reserva em qualquer casa vazia.
+- Um peão não pode ser colocado na primeira nem na última fila. Uma colocação pode dar xeque, e até xeque-mate.
+- Uma peça promovida que é capturada volta à reserva como peão.
+- Não há empate por falta de material: nenhuma peça sai do jogo.
+- Para colocar, toca na peça da tua barra e depois numa casa (os pontos mostram para onde pode ir), ou arrasta-a para o tabuleiro.
+# Três xeques
+Xadrez, mas ganha o primeiro jogador a dar xeque três vezes. O xeque-mate também ganha. Cada barra tem três espaços, e acende-se uma luz vermelha num deles por cada xeque dado por esse jogador.
+# Rei da colina
+Xadrez, mas ganha de imediato o primeiro jogador cujo rei chegue a uma das quatro casas centrais (d4, e4, d5, e5), emolduradas a dourado. O xeque-mate também ganha. O rei continua a não poder colocar-se em xeque.
 # Jogar no dispositivo
 Toca numa peça para ver para onde pode ir, depois toca numa casa, ou arrasta a peça. Os pontos mostram os lances, os anéis as capturas. Um rei em xeque brilha a vermelho. Para fazer o roque, leva o rei duas casas em direção à torre, ou para cima da torre.

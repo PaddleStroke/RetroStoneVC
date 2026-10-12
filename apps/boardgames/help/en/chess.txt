@@ -22,5 +22,15 @@ A king that is attacked is in check: the next move must get it out of check. You
 Chess960 (Fischer random chess) plays by the same rules, but the pieces of the back row start in one of 960 orders, drawn at random for each game. The pawns stand as usual, and Black's pieces face White's, file for file. The bishops always stand on squares of opposite colours, and the king somewhere between the two rooks.
 - Castling: the king and the rook end on the same squares as in ordinary chess: the king on g and the rook on f with the rook of the h side, the king on c and the rook on d with the rook of the a side. Allowed only if neither piece has moved yet, every square they cross or land on is empty (apart from the two of them), and the king is not in check, does not cross an attacked square and does not land in check.
 - To castle, move the king onto the rook it castles with. You may also move it onto its destination square, unless the king could go there with an ordinary move too, or it already stands there.
+# Crazyhouse
+Chess with one more kind of move: a piece you capture changes sides and goes into your hand, shown in your bar. Instead of moving, you may drop a piece from your hand onto any empty square.
+- A pawn may not be dropped on the first or the last row. A drop may give check, and even checkmate.
+- A promoted piece that is captured goes into the hand as a pawn again.
+- No draw for lack of pieces: no piece ever leaves the game.
+- To drop, tap the piece in your bar, then a square (dots show where it can go), or drag it onto the board.
+# Three-check
+Chess, but the first player to give check three times wins. Checkmate also wins. Each bar has three slots, and a red light comes on in one of them for every check that player gives.
+# King of the Hill
+Chess, but the first player whose king reaches one of the four centre squares (d4, e4, d5, e5), framed in gold, wins at once. Checkmate also wins. The king may still never move into check.
 # Playing on the device
 Tap a piece to see where it can go, then tap a square, or drag the piece. Dots show the moves, rings the captures. A king in check glows red. To castle, move the king two squares towards the rook, or onto the rook.

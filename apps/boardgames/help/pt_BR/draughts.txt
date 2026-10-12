@@ -32,6 +32,23 @@ Capturar todas as peças do outro jogador ou deixá-lo sem jogada. Escolha as re
 - A captura é obrigatória, e você deve capturar o maior número possível de peças.
 - Cada peça capturada é retirada na hora, assim que é pulada. Em uma captura de várias peças, uma peça não pode dar meia-volta e voltar direto pelo caminho por onde veio.
 - Empate: quando a mesma posição se repete pela terceira vez, ou depois de 25 lances de cada lado sem captura nem movimento de pedra.
+# Damas frísias (10 por 10)
+- As peças claras começam. Uma pedra anda uma casa na diagonal para a frente, como nas damas internacionais.
+- Pedras e damas também capturam em linha reta, pelas fileiras e colunas: por cima de uma peça adversária na próxima casa escura, a duas casas, até a casa escura logo atrás. As pedras também capturam para trás.
+- Uma dama anda quantas casas quiser na diagonal, e captura à distância nas oito direções.
+- A captura é obrigatória, e você deve capturar as peças de maior valor: uma dama vale mais que uma pedra, mas menos que duas. Se uma dama e uma pedra puderem capturar o mesmo valor, a dama deve capturar.
+- Uma pedra que termina o lance na última fileira vira dama.
+- Enquanto você tiver pedras, a mesma dama não pode fazer mais de três lances seguidos sem capturar; depois outra peça deve se mover.
+- Empate: quando duas damas enfrentam uma e cada jogador fez sete lances, quando uma dama enfrenta outra e cada um fez dois lances, ou quando a mesma posição aparece pela terceira vez.
+# Damas canadenses (12 por 12)
+As regras das damas internacionais em um tabuleiro de 12 por 12, com 30 pedras para cada um.
+# Bashni (8 por 8)
+Damas russas em colunas: as regras das damas russas, mas as peças capturadas continuam no jogo.
+- Uma captura leva só a peça de cima da coluna saltada e a coloca embaixo da coluna que captura. As peças que ficam embaixo continuam no lugar e passam a obedecer à nova peça de cima.
+- Uma coluna pertence ao jogador cuja peça está em cima, e se move como ela, como pedra ou como dama. Só a peça de cima é promovida.
+- Uma coluna só pode ser saltada uma vez na mesma captura. As peças capturadas vão para baixo da coluna que captura no fim do lance.
+- Cada barra mostra quantas peças adversárias aquele jogador tem em suas colunas. Quem não pode mover perde, mesmo com peças embaixo das colunas adversárias.
+- Empate: como nas damas russas.
 # O fim da partida
 Perde o jogador que fica sem peças ou que não consegue se mover.
 # Jogando no aparelho

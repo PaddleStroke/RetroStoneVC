@@ -32,6 +32,23 @@ Ta alla motståndarens pjäser, eller lämna motståndaren utan drag. Välj regl
 - Slag är tvingande, och du måste ta så många pjäser som möjligt.
 - Varje tagen pjäs tas bort direkt, när den hoppas över. Vid ett slag av flera pjäser får en pjäs inte vända rakt tillbaka åt det håll den kom ifrån.
 - Remi: när samma ställning återkommer för tredje gången, eller efter 25 drag var utan slag eller brickdrag.
+# Frisiskt dam (10×10)
+- Den ljusa sidan börjar. En bricka flyttas en ruta snett framåt, som i internationellt dam.
+- Brickor och damer slår också rakt längs rader och kolumner: över en motståndarpjäs på nästa mörka ruta, två rutor bort, till den mörka rutan precis bakom. Brickor slår också bakåt.
+- En dam flyttar hur många rutor den vill längs en diagonal och slår på avstånd i alla åtta riktningar.
+- Slag är tvingande, och du måste ta de mest värdefulla pjäserna: en dam är värd mer än en bricka men mindre än två. Om en dam och en bricka kan ta samma värde måste damen slå.
+- En bricka som avslutar sitt drag på motståndarens bakersta rad blir dam.
+- Så länge du har brickor kvar får samma dam inte flytta mer än tre gånger i rad utan att slå; sedan måste en annan pjäs flytta.
+- Remi: när två damer står mot en och var och en har gjort sju drag, när en dam står mot en och var och en har gjort två drag, eller när samma ställning återkommer för tredje gången.
+# Kanadensiskt dam (12×12)
+Reglerna för internationellt dam på ett bräde med 12×12 rutor och 30 brickor var.
+# Bashni (8×8)
+Ryskt torndam: reglerna för ryskt dam, men slagna pjäser stannar i spelet.
+- Ett slag tar bara den översta pjäsen i tornet som hoppas över och lägger den under det slående tornet. Pjäserna under står kvar och lyder sin nya översta pjäs.
+- Ett torn tillhör den spelare vars pjäs ligger överst, och flyttar som den, som bricka eller som dam. Bara den översta pjäsen blir dam.
+- Ett torn kan bara hoppas över en gång i samma slag. De slagna pjäserna läggs under det slående tornet när draget är klart.
+- Varje fält visar hur många av motståndarens pjäser spelaren håller i sina torn. Den som inte kan flytta förlorar, även med pjäser under motståndarens torn.
+- Remi: som i ryskt dam.
 # Partiets slut
 En spelare som inte har några pjäser kvar, eller inte kan flytta, förlorar.
 # Spela på enheten

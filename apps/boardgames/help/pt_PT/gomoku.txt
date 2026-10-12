@@ -6,8 +6,14 @@ Escolhe as regras antes da partida:
 - Livre (o cartão com seis pedras em fila): cinco ou mais pedras em fila ganham.
 - Padrão (o cartão com cinco): só ganham exatamente cinco pedras em fila. Uma fila de seis ou mais não conta, mas a partida continua, e um cinco feito noutro sítio continua a ganhar.
 - Seis em linha (o cartão com o tabuleiro grande): ver abaixo.
+- Renju (o cartão com a cruz vermelha): ver abaixo.
 # Seis em linha
 Joga-se num tabuleiro maior, de 19 por 19. As pretas começam por colocar uma pedra; a seguir, cada jogador coloca duas pedras em cada vez. Seis ou mais pedras da tua cor em fila ganham, mesmo quando a fila fica completa com a primeira pedra de uma vez.
+# Renju
+Joga-se no tabuleiro de 15 por 15, com regras que limitam a vantagem das pretas por começarem.
+- Abertura: a primeira pedra preta fica no ponto central, a primeira branca ao lado dela, e a segunda preta a dois pontos do centro, no máximo. A troca e a escolha do quinto lance das pretas usadas nos torneios ficam de fora.
+- As pretas não podem fazer um duplo três (dois três abertos ao mesmo tempo), um duplo quatro nem uma fila de seis ou mais, a não ser que a mesma pedra faça cinco. Na vez das pretas, esses pontos têm uma pequena cruz vermelha e não podem ser jogados.
+- As pretas só ganham com exatamente cinco em fila. As brancas não têm pontos proibidos, e cinco ou mais em fila ganham.
 # O fim da partida
 O primeiro jogador a fazer uma fila vencedora ganha de imediato. Se o tabuleiro ficar cheio sem nenhuma fila vencedora, a partida termina empatada.
 # Jogar no dispositivo

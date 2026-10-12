@@ -22,5 +22,15 @@ Un rey atacado está en jaque: la siguiente jugada debe sacarlo del jaque. Nunca
 El ajedrez 960 (ajedrez aleatorio de Fischer) se juega con las mismas reglas, pero las piezas de la primera fila empiezan en uno de 960 órdenes posibles, sorteado en cada partida. Los peones se colocan como siempre, y las piezas negras quedan frente a las blancas, columna por columna. Los alfiles están siempre en casillas de colores opuestos, y el rey en algún lugar entre las dos torres.
 - Enroque: el rey y la torre terminan en las mismas casillas que en el ajedrez normal: el rey en g y la torre en f con la torre del lado h, el rey en c y la torre en d con la torre del lado a. Solo se permite si ninguna de las dos piezas se ha movido aún, todas las casillas que cruzan o en las que terminan están vacías (aparte de ellas dos) y el rey no está en jaque, no cruza una casilla atacada y no termina en jaque.
 - Para enrocar, mueve el rey sobre la torre con la que enroca. También puedes moverlo a su casilla de destino, salvo que el rey pudiera ir allí también con una jugada normal, o que ya esté en ella.
+# Crazyhouse
+Ajedrez con un tipo de jugada más: una pieza que capturas cambia de bando y pasa a tu reserva, que se ve en tu barra. En lugar de mover, puedes colocar una pieza de tu reserva en cualquier casilla vacía.
+- Un peón no puede colocarse en la primera ni en la última fila. Una colocación puede dar jaque, e incluso mate.
+- Una pieza coronada que es capturada vuelve a la reserva como peón.
+- No hay tablas por falta de material: ninguna pieza sale nunca del juego.
+- Para colocar, toca la pieza en tu barra y después una casilla (los puntos muestran dónde puede ir), o arrástrala al tablero.
+# Tres jaques
+Ajedrez, pero gana el primer jugador que da jaque tres veces. El mate también gana. Cada barra tiene tres huecos, y se enciende una luz roja en uno de ellos por cada jaque que da ese jugador.
+# Rey de la colina
+Ajedrez, pero gana al instante el primer jugador cuyo rey llega a una de las cuatro casillas centrales (d4, e4, d5, e5), enmarcadas en oro. El mate también gana. El rey sigue sin poder ponerse en jaque.
 # Jugar en el dispositivo
 Toca una pieza para ver adónde puede ir y luego toca una casilla, o arrastra la pieza. Los puntos muestran las jugadas, los anillos las capturas. Un rey en jaque brilla en rojo. Para enrocar, mueve el rey dos casillas hacia la torre, o sobre la torre.

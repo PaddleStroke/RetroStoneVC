@@ -11,5 +11,7 @@ Oynamak yerine pas geçebilirsin. İki oyuncu art arda pas geçtiğinde oyun dur
 - Yaşayamayan gruplara (ölü taşlar) dokun: esir alınmış sayılırlar. Bir grubu geri getirmek için yeniden dokun.
 - Anlaştığınızda pas düğmesine dokun: bitti.
 - Her oyuncu, tahtadaki her taşı ve yalnızca kendisinin çevrelediği her boş nokta için bir puan alır. Beyaz (açık), ikinci oynadığı için ayrıca 7,5 puan alır (komi), bu yüzden oyun asla berabere bitmez. Yüksek puanı olan kazanır.
+# Esir Go
+Yeni başlayanlar ve çocuklar için ilk oyun, 9×9 ya da 13×13 tahtada (esir alınan bir taşın olduğu kartlar). Go kuralları, ama ilk esir alan oyuncu hemen kazanır. Pas ve sayım yoktur. Oynayacak yeri kalmayan oyuncu (her boş noktada taşının hiç özgürlüğü kalmayacaksa) kaybeder.
 # Cihazda oynamak
 İlk dokunuş soluk bir taş gösterir, aynı noktaya ikinci dokunuş onu oynar. Böylece küçük noktalara dokunmak kolaylaşır. Her şerit, o oyuncunun esir aldığı taşları ve sayım sırasında puanı gösterir.

@@ -32,6 +32,23 @@ Lyö kaikki vastustajan nappulat tai jätä vastustaja ilman siirtoa. Valitse s�
 - Lyöminen on pakollista, ja sinun on lyötävä mahdollisimman monta nappulaa.
 - Jokainen lyöty nappula poistetaan heti, kun sen yli hypätään. Usean nappulan lyönnissä nappula ei saa kääntyä suoraan takaisin sinne, mistä se tuli.
 - Tasapeli: kun sama asema toistuu kolmannen kerran, tai kun kumpikin on tehnyt 25 siirtoa ilman lyöntiä tai tavallisen nappulan siirtoa.
+# Friisiläinen tammi (10×10)
+- Vaalea aloittaa. Tavallinen nappula siirtyy yhden ruudun viistosti eteenpäin, kuten kansainvälisessä tammessa.
+- Nappulat ja kuninkaat lyövät myös suoraan rivejä ja sarakkeita pitkin: seuraavassa tummassa ruudussa, kahden ruudun päässä, olevan vastustajan nappulan yli sen takana olevaan tummaan ruutuun. Tavalliset nappulat lyövät myös taaksepäin.
+- Kuningas liikkuu viistoa pitkin niin monta ruutua kuin haluaa, ja lyö kaukaa kaikkiin kahdeksaan suuntaan.
+- Lyöminen on pakollista, ja on lyötävä arvokkaimmat nappulat: kuningas on arvokkaampi kuin yksi nappula mutta vähemmän arvokas kuin kaksi. Jos kuningas ja tavallinen nappula voivat lyödä yhtä paljon arvoa, kuninkaan on lyötävä.
+- Tavallinen nappula, joka päättää siirtonsa vastustajan takariville, muuttuu kuninkaaksi.
+- Niin kauan kuin sinulla on tavallisia nappuloita, sama kuningas ei saa siirtyä useammin kuin kolme kertaa peräkkäin lyömättä; sen jälkeen on siirrettävä jotakin muuta nappulaa.
+- Tasapeli: kun kaksi kuningasta on yhtä vastaan ja kumpikin on tehnyt seitsemän siirtoa, kun yksi kuningas on yhtä vastaan ja kumpikin on tehnyt kaksi siirtoa, tai kun sama asema toistuu kolmannen kerran.
+# Kanadalainen tammi (12×12)
+Kansainvälisen tammen säännöt 12×12-laudalla, kummallakin 30 nappulaa.
+# Bashni (8×8)
+Venäläinen tornitammi: venäläisen tammen säännöt, mutta lyödyt nappulat pysyvät pelissä.
+- Lyönti vie vain hypätyn tornin päällimmäisen nappulan ja panee sen lyövän tornin alle. Alle jääneet nappulat pysyvät paikallaan ja tottelevat uutta päällimmäistä nappulaansa.
+- Torni kuuluu pelaajalle, jonka nappula on päällimmäisenä, ja liikkuu kuten se, tavallisena nappulana tai kuninkaana. Vain päällimmäinen nappula kruunataan.
+- Saman tornin yli voi hypätä vain kerran samassa lyönnissä. Lyödyt nappulat siirtyvät lyövän tornin alle siirron päättyessä.
+- Kukin palkki näyttää, montako vastustajan nappulaa pelaajalla on torneissaan. Pelaaja, joka ei voi siirtää, häviää, vaikka hänellä olisi nappuloita vastustajan tornien alla.
+- Tasapeli: kuten venäläisessä tammessa.
 # Pelin loppu
 Pelaaja, jolta loppuvat nappulat tai joka ei voi siirtää, häviää.
 # Pelaaminen laitteella

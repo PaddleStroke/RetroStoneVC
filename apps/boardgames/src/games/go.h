@@ -8,6 +8,9 @@
  * Points: x + y * n, x from the left, y from the bottom, as go's notation names them: a letter (a, b, ... skipping i)
  * and a number from the bottom: "d4 q16 pass". The moves of a script: points and "pass"; a pass while counting means
  * the players are done (the game is over).
+ *
+ * Capture go (go_new_capture; for children, on 9 x 9 or 13 x 13): the first player to capture wins at once. No pass
+ * and no counting; suicide is still not allowed, so a player with no point left to play loses.
  */
 #ifndef GO_H
 #define GO_H
@@ -33,12 +36,15 @@ typedef struct {
 
 typedef struct {
     int n, phase, nmoves;
+    int capture;                                /* capture go: the first capture wins */
     gopos pos[GO_HIST + 1];                     /* pos[k]: after k moves */
     int move[GO_HIST];                          /* a point or GO_PASS */
     uint8_t dead[GO_PTS];                       /* counting: the stones marked dead */
 } gogame;
 
 void go_new(gogame *g, int n);                  /* n: 9, 13 or 19 */
+void go_new_capture(gogame *g, int n);          /* capture go, n: 9 or 13 */
+int go_can_play(const gogame *g);               /* 1: the player to move has a point to play */
 const gopos *go_now(const gogame *g);
 int go_last(const gogame *g);                   /* the last move: a point, GO_PASS, or GO_NONE */
 /* the position after a stone on p; -1: not allowed, else the captures */

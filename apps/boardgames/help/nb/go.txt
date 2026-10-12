@@ -11,5 +11,7 @@ I stedet for å spille kan du passe. Når begge spillerne passer rett etter hver
 - Trykk på gruppene som ikke kunne leve (døde steiner): de teller som fanget. Trykk igjen for å hente en gruppe tilbake.
 - Når dere er enige, trykk på pass-knappen: ferdig.
 - Hver spiller får ett poeng for hver av sine steiner på brettet og for hvert tomme punkt som bare vedkommende omringer. Hvit (lys) får i tillegg 7,5 poeng for å spille som nummer to (komi), så det blir aldri uavgjort. Høyest poengsum vinner.
+# Fange-go
+Et første spill for nybegynnere og barn, på brettet med 9×9 eller 13×13 punkter (kortene med en stein som blir fanget). Reglene for go, men den første som fanger, vinner med en gang. Man kan ikke passe, og det telles ikke opp. Den som ikke har noe sted å spille (på hvert tomt punkt ville steinen være uten frihet), taper.
 # Spill på enheten
 Det første trykket viser en blek stein, et nytt trykk på samme punkt spiller den. Slik er små punkter lette å treffe. Hvert panel viser steinene den spilleren har fanget, og poengsummen under opptellingen.

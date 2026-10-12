@@ -22,5 +22,15 @@ Un roi attaqué est en échec : le coup suivant doit le sortir de l'échec. Tu 
 Les échecs 960 (échecs aléatoires de Fischer) se jouent avec les mêmes règles, mais les pièces de la première rangée partent dans l'un de 960 ordres, tiré au sort à chaque partie. Les pions sont placés comme d'habitude, et les pièces noires font face aux pièces blanches, colonne par colonne. Les fous sont toujours sur des cases de couleurs opposées, et le roi quelque part entre les deux tours.
 - Roque : le roi et la tour finissent sur les mêmes cases qu'aux échecs ordinaires : le roi en g et la tour en f avec la tour du côté h, le roi en c et la tour en d avec la tour du côté a. Il n'est permis que si aucune des deux pièces n'a encore bougé, si toutes les cases qu'elles traversent ou sur lesquelles elles arrivent sont vides (à part elles deux), et si le roi n'est pas en échec, ne traverse pas une case attaquée et ne se retrouve pas en échec.
 - Pour roquer, place le roi sur la tour avec laquelle il roque. Tu peux aussi le placer sur sa case d'arrivée, sauf si le roi pourrait aussi y aller par un coup ordinaire, ou s'il s'y trouve déjà.
+# Crazyhouse
+Les échecs avec un coup de plus : une pièce que tu prends change de camp et va dans ta réserve, affichée dans ta barre. Au lieu de jouer un coup, tu peux parachuter une pièce de ta réserve sur n'importe quelle case vide.
+- Un pion ne peut pas être parachuté sur la première ni sur la dernière rangée. Un parachutage peut donner échec, et même mat.
+- Une pièce issue d'une promotion qui est prise retourne dans la réserve sous forme de pion.
+- Pas de nulle faute de matériel : aucune pièce ne quitte jamais la partie.
+- Pour parachuter, touche la pièce dans ta barre, puis une case (les points montrent où elle peut aller), ou fais-la glisser sur l'échiquier.
+# Trois échecs
+Les échecs, mais le premier joueur qui donne trois fois échec gagne. Le mat gagne aussi. Chaque barre a trois cases, et une lumière rouge s'allume dans l'une d'elles à chaque échec donné par ce joueur.
+# Roi de la colline
+Les échecs, mais le premier joueur dont le roi atteint l'une des quatre cases du centre (d4, e4, d5, e5), encadrées d'or, gagne aussitôt. Le mat gagne aussi. Le roi ne peut toujours pas se mettre en échec.
 # Jouer sur l'appareil
 Touche une pièce pour voir où elle peut aller, puis touche une case, ou fais glisser la pièce. Les points montrent les coups possibles, les anneaux les prises. Un roi en échec brille en rouge. Pour roquer, déplace le roi de deux cases vers la tour, ou place-le sur la tour.

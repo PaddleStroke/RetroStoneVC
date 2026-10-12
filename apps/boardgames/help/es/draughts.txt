@@ -32,6 +32,23 @@ Capturar todas las piezas del otro jugador o dejarlo sin movimientos. Elige las 
 - Capturar es obligatorio, y debes capturar el mayor número de piezas posible.
 - Cada pieza capturada se retira en el acto, al ser saltada. En una captura de varias piezas, una pieza no puede dar media vuelta para volver por donde ha venido.
 - Tablas: cuando la misma posición se repite por tercera vez, o tras 25 jugadas de cada uno sin capturas ni movimientos de peón.
+# Damas frisonas (10 por 10)
+- Empiezan las piezas claras. Un peón avanza una casilla en diagonal, como en las damas internacionales.
+- Peones y damas también capturan en línea recta por filas y columnas: por encima de una pieza rival en la siguiente casilla oscura, a dos casillas, hasta la casilla oscura justo detrás. Los peones capturan también hacia atrás.
+- Una dama se mueve cuantas casillas quiera en diagonal, y captura a distancia en las ocho direcciones.
+- Capturar es obligatorio, y debes capturar las piezas de más valor: una dama vale más que un peón pero menos que dos. Si una dama y un peón pueden capturar el mismo valor, debe capturar la dama.
+- Un peón que termina su jugada en la última fila se convierte en dama.
+- Mientras te queden peones, una misma dama no puede hacer más de tres jugadas seguidas sin capturar; después debe mover otra pieza.
+- Tablas: cuando dos damas se enfrentan a una y cada jugador ha hecho siete jugadas, cuando una dama se enfrenta a otra y cada uno ha hecho dos jugadas, o cuando la misma posición se repite por tercera vez.
+# Damas canadienses (12 por 12)
+Las reglas de las damas internacionales en un tablero de 12 por 12, con 30 peones cada uno.
+# Bashni (8 por 8)
+Damas rusas en columnas: las reglas de las damas rusas, pero las piezas capturadas siguen en juego.
+- Una captura solo se lleva la pieza de arriba de la columna saltada y la pone debajo de la columna que captura. Las piezas que quedan debajo se quedan en su sitio y obedecen a su nueva pieza de arriba.
+- Una columna es del jugador cuya pieza está arriba, y se mueve como ella, como peón o como dama. Solo se corona la pieza de arriba.
+- Una columna solo puede saltarse una vez en la misma captura. Las piezas capturadas pasan debajo de la columna que captura al terminar la jugada.
+- Cada barra muestra cuántas piezas rivales tiene ese jugador en sus columnas. Quien no puede mover pierde, aunque tenga piezas bajo las columnas rivales.
+- Tablas: como en las damas rusas.
 # El final de la partida
 Pierde el jugador que se queda sin piezas o que no puede mover.
 # Jugar en el dispositivo

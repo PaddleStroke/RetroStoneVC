@@ -22,5 +22,15 @@ En kung som är angripen står i schack: nästa drag måste få den ur schack. D
 Chess960 (Fischers slumpschack) spelas med samma regler, men pjäserna på den bakersta raden börjar i en av 960 uppställningar, som lottas fram för varje parti. Bönderna står som vanligt, och svarts pjäser står mitt emot vits, linje för linje. Löparna står alltid på rutor av olika färg, och kungen någonstans mellan de två tornen.
 - Rockad: kungen och tornet hamnar på samma rutor som i vanligt schack: kungen på g och tornet på f med tornet på h-sidan, kungen på c och tornet på d med tornet på a-sidan. Tillåtet bara om ingen av pjäserna har flyttat än, varje ruta som de passerar eller hamnar på är tom (bortsett från de två själva), och kungen inte står i schack, inte passerar en angripen ruta och inte hamnar i schack.
 - För att rockera flyttar du kungen till tornet som den rockerar med. Du kan också flytta den till dess målruta, utom när kungen skulle kunna gå dit med ett vanligt drag också, eller redan står där.
+# Crazyhouse
+Schack med ytterligare ett slags drag: en pjäs du slår byter sida och hamnar i din reserv, som visas i ditt fält. I stället för att flytta får du sätta in en pjäs från reserven på valfri tom ruta.
+- En bonde får inte sättas in på första eller sista raden. En insättning får ge schack, till och med schackmatt.
+- En förvandlad pjäs som slås går tillbaka till reserven som bonde.
+- Ingen remi för för lite material: ingen pjäs lämnar någonsin spelet.
+- För att sätta in trycker du på pjäsen i ditt fält och sedan på en ruta (prickar visar var den kan sättas), eller drar den till brädet.
+# Tre schackar
+Schack, men den som först ger schack tre gånger vinner. Schackmatt vinner också. Varje fält har tre platser, och ett rött ljus tänds i en av dem för varje schack spelaren ger.
+# Kung på kullen
+Schack, men den spelare vars kung först når en av de fyra mittrutorna (d4, e4, d5, e5), inramade i guld, vinner direkt. Schackmatt vinner också. Kungen får fortfarande aldrig ställa sig i schack.
 # Spela på enheten
 Tryck på en pjäs för att se vart den kan gå, tryck sedan på en ruta, eller dra pjäsen. Prickar visar dragen, ringar slagen. En kung i schack lyser rött. För att rockera, flytta kungen två rutor mot tornet, eller till tornet.

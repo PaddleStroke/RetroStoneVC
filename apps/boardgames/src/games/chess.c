@@ -67,12 +67,23 @@ int chess_from_fen(cpos *p, const char *f)
     static const char types[] = "pnbrqk";
     memset(p, 0, sizeof *p);
     p->ep = -1;
-    int r = 7, c = 0;
+    int r = 7, c = 0, hand = 0;
     for (; *f && *f != ' '; f++) {
+        if (*f == '[') { hand = 1; continue; }                  /* crazyhouse: the pieces in hand */
+        if (*f == ']') { hand = 0; continue; }
+        if (*f == '~') {                                        /* the piece before it was a pawn */
+            if (c > 0 && r >= 0) p->promoted |= 1ull << SQ(c - 1, r);
+            continue;
+        }
         if (*f == '/') { r--; c = 0; continue; }
-        if (*f >= '1' && *f <= '8') { c += *f - '0'; continue; }
+        if (!hand && *f >= '1' && *f <= '8') { c += *f - '0'; continue; }
         const char *t = strchr(types, *f | 0x20);
-        if (!t || c > 7 || r < 0) return 0;
+        if (!t || !*t) return 0;
+        if (hand) {
+            p->hand[*f >= 'a' ? BLACK : WHITE][(int)(t - types) + 1]++;
+            continue;
+        }
+        if (c > 7 || r < 0) return 0;
         p->sq[SQ(c, r)] = PC(*f >= 'a' ? BLACK : WHITE, (int)(t - types) + 1);
         c++;
     }
@@ -100,9 +111,21 @@ int chess_from_fen(cpos *p, const char *f)
     while (*f == ' ') f++;
     if (*f >= 'a' && *f <= 'h' && f[1] >= '1' && f[1] <= '8') { p->ep = (int8_t)SQ(f[0] - 'a', f[1] - '1'); f += 2; }
     else if (*f == '-') f++;
-    int hm = 0, fm = 1;
-    f = number(f, &hm);
-    number(f, &fm);
+    int hm = 0, fm = 1, nums = 0;
+    for (;;) {                                  /* the move counters, and three-check's counts ("3+3" or "+0+0") */
+        while (*f == ' ') f++;
+        if (f[0] == '+' && f[1] >= '0' && f[1] <= '3' && f[2] == '+' && f[3] >= '0' && f[3] <= '3') {
+            p->checks[WHITE] = (uint8_t)(f[1] - '0');
+            p->checks[BLACK] = (uint8_t)(f[3] - '0');
+            f += 4;
+        } else if (f[0] >= '0' && f[0] <= '3' && f[1] == '+' && f[2] >= '0' && f[2] <= '3') {
+            p->checks[WHITE] = (uint8_t)(3 - (f[0] - '0'));
+            p->checks[BLACK] = (uint8_t)(3 - (f[2] - '0'));
+            f += 3;
+        } else if (*f >= '0' && *f <= '9' && nums < 2) {
+            f = number(f, nums++ ? &fm : &hm);
+        } else break;
+    }
     p->halfmove = (uint16_t)hm;
     p->fullmove = (uint16_t)fm;
     return 1;
@@ -154,6 +177,7 @@ static int add(cmove *out, int n, int from, int to, int flags, int promo)
     out[n].to = (uint8_t)to;
     out[n].flags = (uint8_t)flags;
     out[n].promo = (uint8_t)promo;
+    out[n].drop = 0;
     return n + 1;
 }
 
@@ -242,10 +266,37 @@ static int pseudo(const cpos *p, cmove *out)
     return n;
 }
 
+/* crazyhouse: the pieces in hand onto every empty square (a pawn not on the first or the last rank) */
+static int drops(const cpos *p, cmove *out, int n)
+{
+    for (int t = PAWN; t <= QUEEN; t++) {
+        if (!p->hand[p->side][t]) continue;
+        for (int s = 0; s < 64; s++)
+            if (!p->sq[s] && (t != PAWN || (RANK_OF(s) > 0 && RANK_OF(s) < 7))) {
+                n = add(out, n, s, s, MV_DROP, 0);
+                out[n - 1].drop = (uint8_t)t;
+            }
+    }
+    return n;
+}
+
+int chess_over(const cpos *p)
+{
+    if (p->rules == CR_THREECHECK && (p->checks[WHITE] >= 3 || p->checks[BLACK] >= 3)) return ST_CHECKS;
+    if (p->rules == CR_HILL)
+        for (int c = 0; c < 2; c++) {
+            int k = chess_king(p, c);
+            if (k >= 0 && CHESS_HILL(k)) return ST_HILL;
+        }
+    return 0;
+}
+
 int chess_legal(const cpos *p, cmove *out)
 {
     cmove all[MAX_MOVES];
+    if (p->rules != CR_CHESS && chess_over(p)) return 0;
     int n = pseudo(p, all), k = 0;
+    if (p->rules == CR_CRAZYHOUSE) n = drops(p, all, n);
     for (int i = 0; i < n; i++) {
         cpos q = *p;
         chess_make(&q, all[i]);
@@ -254,10 +305,34 @@ int chess_legal(const cpos *p, cmove *out)
     return k;
 }
 
+/* crazyhouse: the piece taken on s goes to the taker's hand (a promoted one as a pawn) */
+static void to_hand(cpos *p, int s, int us)
+{
+    if (!p->sq[s]) return;
+    p->hand[us][p->promoted >> s & 1 ? PAWN : TYPE(p->sq[s])]++;
+    p->promoted &= ~(1ull << s);
+}
+
 void chess_make(cpos *p, cmove m)
 {
     int pc = p->sq[m.from], us = p->side, them = !us;
     int resets = TYPE(pc) == PAWN || (p->sq[m.to] && !(m.flags & MV_CASTLE));
+    if (m.flags & MV_DROP) {                    /* a piece from the hand: nothing else changes but the turn */
+        p->sq[m.to] = PC(us, m.drop);
+        p->hand[us][m.drop]--;
+        p->ep = -1;
+        p->halfmove++;
+        if (us == BLACK) p->fullmove++;
+        p->side = (uint8_t)them;
+        if (p->rules == CR_THREECHECK && chess_in_check(p, them)) p->checks[us]++;
+        return;
+    }
+    if (p->rules == CR_CRAZYHOUSE && !(m.flags & MV_CASTLE)) {
+        to_hand(p, m.flags & MV_EP ? SQ(FILE_OF(m.to), RANK_OF(m.from)) : m.to, us);
+        int was = p->promoted >> m.from & 1;
+        p->promoted &= ~(1ull << m.from);
+        if (was || m.promo) p->promoted |= 1ull << m.to;
+    }
     if (m.flags & MV_CASTLE) {                  /* the king and the rook both lift, then land */
         int rook = p->sq[m.to];
         p->sq[m.from] = p->sq[m.to] = EMPTY;
@@ -283,6 +358,7 @@ void chess_make(cpos *p, cmove m)
     p->halfmove = resets ? 0 : (uint16_t)(p->halfmove + 1);
     if (us == BLACK) p->fullmove++;
     p->side = (uint8_t)them;
+    if (p->rules == CR_THREECHECK && chess_in_check(p, them)) p->checks[us]++;
 }
 
 /* ---- the game ---------------------------------------------------------------------------------------------------- */
@@ -296,6 +372,13 @@ void game_new960(cgame *g, int n)
 {
     g->ply = 0;
     chess_start960(&g->pos[0], n);
+}
+
+void game_new_rules(cgame *g, int rules)
+{
+    g->ply = 0;
+    chess_start(&g->pos[0]);
+    g->pos[0].rules = (uint8_t)rules;
 }
 
 int game_play(cgame *g, cmove m)
@@ -316,13 +399,21 @@ int game_undo(cgame *g)
 
 static int same(const cpos *a, const cpos *b)
 {
-    return !memcmp(a->sq, b->sq, 64) && a->side == b->side && a->castle == b->castle && a->ep == b->ep;
+    return !memcmp(a->sq, b->sq, 64) && a->side == b->side && a->castle == b->castle && a->ep == b->ep &&
+           !memcmp(a->hand, b->hand, sizeof a->hand) && a->promoted == b->promoted &&
+           a->checks[0] == b->checks[0] && a->checks[1] == b->checks[1];
 }
 
 /* no checkmate is possible: kings alone, a king and one minor piece, or bishops all on one colour of squares */
 static int insufficient(const cpos *p)
 {
     int minors = 0, bishops[2] = {0, 0};
+    if (p->rules == CR_CRAZYHOUSE || p->rules == CR_HILL) return 0;   /* drops; a king walking to the hill */
+    if (p->rules == CR_THREECHECK) {            /* any piece may still check */
+        for (int s = 0; s < 64; s++)
+            if (p->sq[s] && TYPE(p->sq[s]) != KING) return 0;
+        return 1;
+    }
     for (int s = 0; s < 64; s++) {
         int t = TYPE(p->sq[s]);
         if (!t || t == KING) continue;
@@ -338,6 +429,8 @@ cstatus game_status(const cgame *g)
 {
     const cpos *p = game_pos(g);
     cmove m[MAX_MOVES];
+    int over = p->rules == CR_CHESS ? 0 : chess_over(p);
+    if (over) return (cstatus)over;
     if (!chess_legal(p, m)) return chess_in_check(p, p->side) ? ST_CHECKMATE : ST_STALEMATE;
     if (insufficient(p)) return ST_INSUFFICIENT;
     if (p->halfmove >= 100) return ST_FIFTY;

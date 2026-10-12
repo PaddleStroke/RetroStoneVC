@@ -22,5 +22,15 @@ Atakowany król jest szachowany: następny ruch musi usunąć szach. Nigdy nie m
 Chess960 (szachy losowe Fischera) toczą się według tych samych zasad, ale bierki z tylnego rzędu zaczynają w jednym z 960 ustawień, losowanym na każdą partię. Piony stoją jak zwykle, a bierki czarnych stoją naprzeciw bierek białych, kolumna w kolumnę. Gońce zawsze stoją na polach przeciwnego koloru, a król gdzieś między dwiema wieżami.
 - Roszada: król i wieża kończą na tych samych polach co w zwykłych szachach: król na g, a wieża na f przy roszadzie z wieżą od strony h; król na c, a wieża na d przy roszadzie z wieżą od strony a. Dozwolona tylko wtedy, gdy żadna z tych bierek jeszcze się nie ruszała, każde pole, przez które przechodzą lub na którym stają, jest puste (poza nimi dwiema), a król nie jest szachowany, nie przechodzi przez atakowane pole i nie staje na szachowanym polu.
 - Aby wykonać roszadę, przesuń króla na wieżę, z którą ją wykonuje. Możesz też przesunąć go na jego pole docelowe, chyba że król mógłby tam pójść także zwykłym ruchem albo już tam stoi.
+# Crazyhouse
+Szachy z jeszcze jednym rodzajem ruchu: zbita przez ciebie bierka zmienia stronę i trafia do twojego zapasu, widocznego na twoim pasku. Zamiast ruchu możesz postawić bierkę z zapasu na dowolnym pustym polu.
+- Pionka nie wolno postawić na pierwszej ani ostatniej linii. Postawienie może dać szacha, a nawet mata.
+- Promowana bierka, gdy zostanie zbita, wraca do zapasu jako pionek.
+- Nie ma remisu z braku materiału: żadna bierka nigdy nie opuszcza gry.
+- Aby postawić bierkę, dotknij jej na swoim pasku, a potem pola (kropki pokazują, gdzie może stanąć), albo przeciągnij ją na szachownicę.
+# Trzy szachy
+Szachy, ale wygrywa gracz, który pierwszy da szacha trzy razy. Mat też wygrywa. Każdy pasek ma trzy miejsca i w jednym z nich zapala się czerwone światło za każdego szacha danego przez tego gracza.
+# Król wzgórza
+Szachy, ale od razu wygrywa gracz, którego król pierwszy dotrze na jedno z czterech środkowych pól (d4, e4, d5, e5), obramowanych złotem. Mat też wygrywa. Król nadal nie może wejść pod szacha.
 # Gra na urządzeniu
 Dotknij bierki, aby zobaczyć, gdzie może się ruszyć, a potem dotknij pola, albo przeciągnij bierkę. Kropki pokazują ruchy, kółka bicia. Szachowany król świeci na czerwono. Aby wykonać roszadę, przesuń króla o dwa pola w stronę wieży albo na wieżę.

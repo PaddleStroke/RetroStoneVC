@@ -32,6 +32,23 @@ Sla alle stukken van de andere speler, of laat hem zonder zet. Kies de regels vo
 - Slaan is verplicht, en je moet zoveel mogelijk stukken slaan.
 - Elk geslagen stuk wordt meteen weggenomen, zodra het is overgesprongen. Bij een slag van meerdere stukken mag een stuk niet rechtsomkeert maken in de richting waar het vandaan kwam.
 - Remise: als dezelfde stelling voor de derde keer terugkomt, of na 25 zetten van elke speler zonder slag en zonder schijfzet.
+# Fries dammen (10 bij 10)
+- Licht begint. Een schijf gaat één veld schuin vooruit, zoals bij internationaal dammen.
+- Schijven en dammen slaan ook recht langs rijen en kolommen: over een stuk van de tegenstander op het volgende donkere veld, twee velden verder, naar het donkere veld er direct achter. Schijven slaan ook achteruit.
+- Een dam gaat zoveel velden als hij wil over een diagonaal, en slaat op afstand in alle acht richtingen.
+- Slaan is verplicht, en je moet de meest waardevolle stukken slaan: een dam is meer waard dan één schijf maar minder dan twee. Kunnen een dam en een schijf evenveel waarde slaan, dan moet de dam slaan.
+- Een schijf die zijn zet op de achterste rij van de tegenstander eindigt, wordt een dam.
+- Zolang je nog schijven hebt, mag dezelfde dam niet vaker dan drie keer achter elkaar zetten zonder te slaan; daarna moet een ander stuk zetten.
+- Remise: als twee dammen tegen één staan en ieder zeven zetten heeft gedaan, als één dam tegen één staat en ieder twee zetten heeft gedaan, of als dezelfde stelling voor de derde keer terugkomt.
+# Canadees dammen (12 bij 12)
+De regels van internationaal dammen op een bord van 12 bij 12, met 30 schijven per speler.
+# Bashni (8 bij 8)
+Russisch torendammen: de regels van Russisch dammen, maar geslagen stukken blijven in het spel.
+- Een slag neemt alleen het bovenste stuk van de overgesprongen toren en legt het onder de slaande toren. De stukken die eronder liggen, blijven staan en gehoorzamen hun nieuwe bovenste stuk.
+- Een toren is van de speler wiens stuk bovenop ligt, en beweegt zoals dat stuk: als schijf of als dam. Alleen het bovenste stuk promoveert.
+- Een toren kan in één slag maar één keer worden overgesprongen. De geslagen stukken gaan aan het eind van de zet onder de slaande toren.
+- Elke balk toont hoeveel stukken van de tegenstander die speler in zijn torens heeft. Wie niet meer kan zetten, verliest, ook met stukken onder de torens van de tegenstander.
+- Remise: zoals bij Russisch dammen.
 # Het einde van de partij
 Een speler die geen stukken meer heeft, of niet meer kan zetten, verliest.
 # Spelen op het apparaat

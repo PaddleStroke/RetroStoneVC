@@ -6,8 +6,14 @@ Choose the rules before the game:
 - Freestyle (the card with six stones in a row): five or more stones in a row win.
 - Standard (the card with five): exactly five stones in a row win. A row of six or more does not count, but the game goes on and a five made elsewhere still wins.
 - Six in a row (the card with the large board): see below.
+- Renju (the card with the red cross): see below.
 # Six in a row
 Played on a larger board, 19 by 19. Black places one stone to begin; after that, each player places two stones on every turn. Six or more stones of your colour in a row win, even when the row is made by the first stone of a turn.
+# Renju
+Played on the 15 by 15 board, with rules that limit Black's advantage of moving first.
+- Opening: Black's first stone goes on the centre point, White's first stone next to it, and Black's second stone within two points of the centre. The swap and the choice of Black's fifth move used in tournaments are left out.
+- Black may not make a double three (two open rows of three at once), a double four, or a row of six or more, unless the same stone makes five. While Black is to move, these points carry a small red cross and cannot be played.
+- Black wins only with exactly five in a row. White has no forbidden points, and five or more in a row wins.
 # The end of the game
 The first player to make a winning row wins at once. If the board fills up with no winning row, the game is a draw.
 # Playing on the device

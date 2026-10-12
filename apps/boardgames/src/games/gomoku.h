@@ -2,7 +2,13 @@
  * Gomoku's rules for RetroStone Board (no SDL): the stones never move, a row of them wins (across, down or diagonal).
  * Freestyle (15 x 15): five or more in a row; standard (15 x 15): exactly five (six or more in a row do not win);
  * six in a row (19 x 19): ebony first places one stone, then each player places two stones a turn, six or more in a
- * row win. A full board with no winner is a draw. Tested by tests/gomoku_test.c.
+ * row win. A full board with no winner is a draw. Renju (15 x 15): ebony may not play a double three (two open threes
+ * at once), a double four or an overline (six or more), unless the stone also makes a five; ebony wins with exactly
+ * five, ivory with five or more. The classic opening: ebony's first stone in the middle, ivory's next to it, ebony's
+ * second within two points of the middle (the later swap and the fifth move's choice are left out). Here a forbidden
+ * point cannot be played at all (it does not lose the game). Tested by tests/gomoku_test.c.
+ * A three: a row that one more stone (on a point not forbidden itself) makes a straight four, four in a row with both
+ * ends free, each making exactly five. A four: a row that one more stone makes exactly five.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Players: 0 ebony (plays first), 1 ivory.
@@ -20,7 +26,7 @@
 #define GK_MAXPTS (GK_MAX * GK_MAX)
 
 enum { GK_EMPTY, GK_EBONY, GK_IVORY };          /* a point: empty, or player p's stone (p + 1) */
-enum { GK_FREESTYLE, GK_STANDARD, GK_SIX, GK_VARIANTS };   /* the variants */
+enum { GK_FREESTYLE, GK_STANDARD, GK_SIX, GK_RENJU, GK_VARIANTS };   /* the variants */
 enum { GK_PLAY, GK_WIN0, GK_WIN1, GK_DRAW };
 
 typedef struct {
@@ -36,6 +42,10 @@ int gk_left(const gkgame *g);                   /* the stones the player to move
 int gk_turn_start(const gkgame *g, int k);      /* the first stone (move index) of the turn stone k belongs to */
 int gk_status(const gkgame *g);                 /* GK_PLAY, GK_WIN0, GK_WIN1, GK_DRAW */
 int gk_play(gkgame *g, int p);                  /* 0: not allowed (taken, off the board, the game over) */
+/* renju: 1 if ebony may not play on the empty point p (a double three, a double four, an overline, without a five);
+ * the other variants: 0 */
+int gk_forbidden(const gkgame *g, int p);
+int gk_allowed(const gkgame *g, int p);         /* 1: the player to move may play p now (renju: its opening too) */
 int gk_undo(gkgame *g);                         /* one stone back; 0: nothing to undo */
 int gk_last(const gkgame *g);                   /* the last point played, or -1 */
 /* the winning stones (the line or lines the last stone made): line[p] set (n * n of them); their count, 0 if none */

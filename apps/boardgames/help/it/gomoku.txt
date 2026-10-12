@@ -6,8 +6,14 @@ Scegli le regole prima della partita:
 - Libero (la carta con sei pietre in fila): vincono cinque o più pietre in fila.
 - Standard (la carta con cinque): vincono esattamente cinque pietre in fila. Una fila di sei o più non conta, ma la partita continua e un cinque fatto altrove vince comunque.
 - Sei in fila (la carta con la scacchiera grande): vedi sotto.
+- Renju (la carta con la croce rossa): vedi sotto.
 # Sei in fila
 Si gioca su un goban più grande, 19 per 19. Il Nero inizia posando una pietra; dopo, ogni giocatore posa due pietre a ogni turno. Vincono sei o più pietre del tuo colore in fila, anche quando la fila è completata dalla prima pietra di un turno.
+# Renju
+Si gioca sul tavoliere 15 per 15, con regole che limitano il vantaggio del Nero, che muove per primo.
+- Apertura: la prima pietra del Nero va sul punto centrale, la prima del Bianco accanto a essa e la seconda del Nero entro due punti dal centro. Lo scambio e la scelta della quinta mossa del Nero usati nei tornei sono omessi.
+- Il Nero non può fare un doppio tre (due tre aperti insieme), un doppio quattro né una fila di sei o più, a meno che la stessa pietra non faccia cinque. Quando tocca al Nero, questi punti hanno una piccola croce rossa e non si possono giocare.
+- Il Nero vince solo con esattamente cinque in fila. Il Bianco non ha punti proibiti, e cinque o più in fila lo fanno vincere.
 # La fine della partita
 Il primo giocatore che forma una fila vincente vince subito. Se il tavoliere si riempie senza nessuna fila vincente, la partita è patta.
 # Giocare sul dispositivo

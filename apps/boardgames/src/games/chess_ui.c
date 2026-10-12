@@ -1,6 +1,8 @@
 /*
- * Chess in RetroStone Board: the board, the pieces, tap or drag, the promotion picker (the rules: chess.c). Two
- * variants: standard chess, and Chess960 (the back rank drawn at random).
+ * Chess in RetroStone Board: the board, the pieces, tap or drag, the promotion picker (the rules: chess.c). Five
+ * variants: standard chess, Chess960 (the back rank drawn at random), crazyhouse (the pieces taken in the players'
+ * bars, dropped back with a tap on one then a square, or dragged), three-check (the checks given in the bars: three
+ * slots, a red light for each), king of the hill (the four squares of the hill framed in gold).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -12,14 +14,18 @@
 #define FRAME 0.32f                             /* the board's frame, in squares */
 #define ANIM_MS 150
 
+enum { V_STANDARD, V_960, V_CRAZYHOUSE, V_THREECHECK, V_HILL, VARIANTS };
+
 static cgame G;
 static cmove legal[MAX_MOVES];
 static int nlegal;
-static int sq, fr, made = -1, made_small = -1;
+static int sq, fr, made = -1, made_small = -1, made_hand = -1;
 static float bx, by;                            /* the a8 corner (h1 when flipped) */
 static SDL_Texture *t_piece[2][7], *t_small[2][7], *t_board, *t_pick;
-static int sel = -1;
-static struct { int on, from, moved; float x, y; } drag;
+static SDL_Texture *t_hand[2][7], *t_slot;      /* crazyhouse's pieces in hand; three-check's slot */
+static int sel = -1, hand_sel;                  /* the selected square, or the type chosen in hand (crazyhouse) */
+static box hand_at[2][7];                       /* the pieces in hand, in the frame each bar was drawn in */
+static struct { int on, from, moved, kind; float x, y; } drag;   /* from a square, or (kind) from the hand */
 static struct { int on, from, to; Uint32 t0; } anim;
 static struct { int on, from, to; } promo;
 static const int PICK[4] = {QUEEN, KNIGHT, ROOK, BISHOP};
@@ -29,13 +35,15 @@ static void refresh(void)
 {
     nlegal = chess_legal(game_pos(&G), legal);
     sel = -1;
+    hand_sel = 0;
     promo.on = 0;
     drag.on = 0;
 }
 
 static void start(int variant)
 {
-    if (variant == 1) game_new960(&G, ui_random(960));
+    if (variant == V_960) game_new960(&G, ui_random(960));
+    else if (variant >= V_CRAZYHOUSE && variant < VARIANTS) game_new_rules(&G, CR_CRAZYHOUSE + variant - V_CRAZYHOUSE);
     else game_new(&G);
     anim.on = 0;
     refresh();
@@ -45,9 +53,19 @@ static int status(void)
 {
     switch (game_status(&G)) {
     case ST_PLAY: return GS_PLAY;
-    case ST_CHECKMATE: return game_pos(&G)->side == WHITE ? GS_WIN1 : GS_WIN0;
+    case ST_CHECKMATE: case ST_CHECKS: case ST_HILL: return game_pos(&G)->side == WHITE ? GS_WIN1 : GS_WIN0;
     default: return GS_DRAW;
     }
+}
+
+static int rules(void) { return game_pos(&G)->rules; }
+
+/* the drop of a piece of that type from the hand onto s; -1 */
+static int drop_at(int kind, int s)
+{
+    for (int i = 0; i < nlegal; i++)
+        if (legal[i].drop == kind && legal[i].to == s) return i;
+    return -1;
 }
 
 static int turn(void) { return game_pos(&G)->side; }
@@ -60,7 +78,7 @@ static int lands(cmove m) { return m.flags & MV_CASTLE ? chess_castle_king(m) : 
 static int target(int from, int to)
 {
     for (int i = 0; i < nlegal; i++)
-        if (legal[i].from == from && legal[i].to == to) return i;
+        if (legal[i].from == from && legal[i].to == to && !legal[i].drop) return i;
     if (to == from) return -1;
     for (int i = 0; i < nlegal; i++)
         if (legal[i].from == from && (legal[i].flags & MV_CASTLE) && chess_castle_king(legal[i]) == to) return i;
@@ -75,7 +93,7 @@ static void play(cmove m, int animate)
     anim.to = lands(m);
     anim.t0 = ui_ms();
     refresh();
-    ui_sound(m.flags & MV_CAPTURE ? SND_CAPTURE : SND_MOVE);
+    ui_sound(m.flags & MV_CAPTURE ? SND_CAPTURE : m.drop ? SND_PLACE : SND_MOVE);
     if (status() == GS_PLAY && chess_in_check(game_pos(&G), game_pos(&G)->side)) ui_sound(SND_CHECK);
 }
 
@@ -101,11 +119,22 @@ static int undo(void)
     return 1;
 }
 
-/* "e2e4 e7e5 e7e8q": the screenshots' and the tests' moves (castling: e1g1, or the king onto its rook) */
+/* "e2e4 e7e5 e7e8q": the screenshots' and the tests' moves (castling: e1g1, or the king onto its rook; crazyhouse's
+ * drops: "N@f3") */
 static int script(const char *s)
 {
+    static const char types[] = "PNBRQ";
     while (*s) {
         while (*s == ' ') s++;
+        if (s[0] && s[1] == '@') {
+            const char *t = strchr(types, s[0]);
+            int k = t && s[2] >= 'a' && s[2] <= 'h' && s[3] >= '1' && s[3] <= '8'
+                    ? drop_at((int)(t - types) + PAWN, (s[2] - 'a') + (s[3] - '1') * 8) : -1;
+            if (k < 0) return 0;
+            play(legal[k], 0);
+            s += 4;
+            continue;
+        }
         if (strlen(s) < 4) break;
         int from = (s[0] - 'a') + (s[1] - '1') * 8, to = (s[2] - 'a') + (s[3] - '1') * 8, k = target(from, to);
         if (k < 0) return 0;
@@ -154,6 +183,21 @@ static void layout(box b)
                 t_small[c][t] = ui_tex(small, small, ui_buf(small, small));
             }
     }
+    int hs = (int)(0.74f * ui.unit);
+    if (made_hand != hs) {                      /* the variants' bars: the pieces in hand, the checks' slots */
+        made_hand = hs;
+        for (int c = 0; c < 2; c++)
+            for (int t = PAWN; t <= QUEEN; t++) {
+                ui_free(&t_hand[c][t]);
+                art_piece(t, c, hs, ui_buf(hs, hs));
+                t_hand[c][t] = ui_tex(hs, hs, ui_buf(hs, hs));
+            }
+        static const uint8_t cream[3] = {246, 238, 220};
+        int ss = (int)(0.34f * ui.unit);
+        ui_free(&t_slot);
+        art_ring(ss, 0.72f, cream, 0.45f, ui_buf(ss, ss));
+        t_slot = ui_tex(ss, ss, ui_buf(ss, ss));
+    }
 }
 
 static void sq_xy(int s, float *x, float *y)
@@ -188,18 +232,40 @@ static void piece_at(int pc, float x, float y, float size)
     else ui_put(t_piece[c][TYPE(pc)], x, y, size, size);
 }
 
+/* king of the hill: the four middle squares framed by a thin line of gold, inside their edge (the same squares turned
+ * round: the frame stays put when flipped) */
+static void hill(void)
+{
+    float t = fmaxf(2, roundf(0.045f * sq)), i = roundf(0.06f * sq), x = bx + 3 * sq + i, y = by + 3 * sq + i;
+    float w = 2.0f * sq - 2 * i;
+    ui_fill(x, y, w, t, 214, 168, 64, 210);
+    ui_fill(x, y + w - t, w, t, 214, 168, 64, 210);
+    ui_fill(x, y + t, t, w - 2 * t, 214, 168, 64, 210);
+    ui_fill(x + w - t, y + t, t, w - 2 * t, 214, 168, 64, 210);
+}
+
 static void draw(void)
 {
     const cpos *p = game_pos(&G);
     ui_put(t_board, bx - fr, by - fr, 8.0f * sq + 2 * fr, 8.0f * sq + 2 * fr);
     float x, y;
-    if (G.ply) {                                /* a castling king that stays: its rook's square instead */
+    if (p->rules == CR_HILL) hill();
+    if (G.ply && G.move[G.ply - 1].drop) {     /* a drop: the square it landed on */
+        sq_xy(G.move[G.ply - 1].to, &x, &y);
+        ui_mark_last(x, y, sq, sq);
+    } else if (G.ply) {                         /* a castling king that stays: its rook's square instead */
         cmove m = G.move[G.ply - 1];
         sq_xy(m.from, &x, &y);
         ui_mark_last(x, y, sq, sq);
         sq_xy(lands(m) == m.from ? m.to : lands(m), &x, &y);
         ui_mark_last(x, y, sq, sq);
     }
+    if (p->rules == CR_HILL && game_status(&G) == ST_HILL)   /* the king that reached the hill, in gold light */
+        for (int s = 0; s < 64; s++)
+            if (CHESS_HILL(s) && TYPE(p->sq[s]) == KING) {
+                sq_xy(s, &x, &y);
+                ui_mark_gold(x + sq / 2.0f, y + sq / 2.0f, 2.2f * sq);
+            }
     if (sel >= 0) {
         sq_xy(sel, &x, &y);
         ui_mark_select(x, y, sq, sq);
@@ -220,6 +286,12 @@ static void draw(void)
         sq_xy(s, &x, &y);
         piece_at(p->sq[s], x, y, (float)sq);
     }
+    if (hand_sel && !promo.on)                  /* where the piece chosen in hand can be dropped */
+        for (int i = 0; i < nlegal; i++)
+            if (legal[i].drop == hand_sel) {
+                sq_xy(legal[i].to, &x, &y);
+                ui_mark_dot(x + sq / 2.0f, y + sq / 2.0f, 0.32f * sq);
+            }
     if (sel >= 0 && !promo.on) {                /* where the selected piece can go */
         uint64_t done = 0;
         for (int i = 0; i < nlegal; i++) {
@@ -241,7 +313,7 @@ static void draw(void)
     }
     if (drag.on && drag.moved) {                /* the dragged piece, a little bigger, beside the finger */
         float s = 1.18f * sq, off = ui_upside(p->side) ? -0.25f : 0.75f;
-        piece_at(p->sq[drag.from], drag.x - s / 2, drag.y - s * off, s);
+        piece_at(drag.kind ? PC(p->side, drag.kind) : p->sq[drag.from], drag.x - s / 2, drag.y - s * off, s);
     }
     if (promo.on) {
         ui_fill(bx, by, 8.0f * sq, 8.0f * sq, 0, 0, 0, 110);
@@ -275,7 +347,11 @@ static void press(float x, float y)
     }
     if (status() != GS_PLAY) return;
     int s = xy_sq(x, y);
-    if (s < 0) { sel = -1; return; }
+    if (s < 0) { sel = -1; hand_sel = 0; return; }
+    if (hand_sel) {                             /* the piece chosen in hand, dropped there */
+        int k = drop_at(hand_sel, s);
+        if (k >= 0) { play(legal[k], 1); return; }
+    }
     if (sel >= 0 && target(sel, s) >= 0) {
         move_to(sel, s, 1);
         return;
@@ -283,21 +359,39 @@ static void press(float x, float y)
     const cpos *p = game_pos(&G);
     if (p->sq[s] && COLOR(p->sq[s]) == p->side) {
         sel = s;
+        hand_sel = 0;
         drag.on = 1;
         drag.from = s;
-        drag.moved = 0;
+        drag.moved = drag.kind = 0;
         drag.x = x;
         drag.y = y;
         return;
     }
-    if (sel >= 0) ui_sound(SND_DENY);
+    if (sel >= 0 || hand_sel) ui_sound(SND_DENY);
     sel = -1;
+    hand_sel = 0;
+}
+
+/* crazyhouse: a piece in hand chosen for a drop (a second tap puts it back), or dragged onto the board */
+static int bar_press(int player, float x, float y)
+{
+    if (rules() != CR_CRAZYHOUSE || status() != GS_PLAY || promo.on) return 0;
+    for (int k = PAWN; k <= QUEEN; k++) {
+        box b = hand_at[player][k];
+        if (!b.w || x < b.x || y < b.y || x >= b.x + b.w || y >= b.y + b.h) continue;
+        if (player != turn()) { ui_sound(SND_DENY); return 1; }
+        sel = -1;
+        hand_sel = hand_sel == k ? 0 : k;
+        if (hand_sel) { drag.on = 1; drag.from = -1; drag.kind = k; drag.moved = 0; }
+        return 1;
+    }
+    return 0;
 }
 
 static void motion(float x, float y)
 {
     if (!drag.on) return;
-    if (hypotf(x - drag.x, y - drag.y) > sq * 0.12f) drag.moved = 1;
+    if (drag.kind ? xy_sq(x, y) >= 0 : hypotf(x - drag.x, y - drag.y) > sq * 0.12f) drag.moved = 1;
     drag.x = x;
     drag.y = y;
     ui_animate();
@@ -309,12 +403,63 @@ static void release(float x, float y)
     drag.on = 0;
     if (!drag.moved) return;                    /* a tap: the piece stays selected */
     int s = xy_sq(x, y);
+    if (drag.kind) {
+        int k = s >= 0 ? drop_at(drag.kind, s) : -1;
+        if (k >= 0) play(legal[k], 0);
+        else if (s >= 0) ui_sound(SND_DENY);
+        return;
+    }
     if (s >= 0 && s != drag.from && target(drag.from, s) >= 0) move_to(drag.from, s, 0);
 }
 
 /* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
 /* the pieces a player took from the other (a promoted pawn counts as the pawn) */
+static void taken(int player, box b);
+
+/* crazyhouse: the pieces in the player's hand, by type, a count beside each type held more than once (as shogi's) */
+static void hand_bar(int player, box b)
+{
+    static const int order[5] = {QUEEN, ROOK, BISHOP, KNIGHT, PAWN};
+    const cpos *p = game_pos(&G);
+    memset(hand_at[player], 0, sizeof hand_at[player]);
+    int kinds = 0;
+    for (int i = 0; i < 5; i++) kinds += p->hand[player][order[i]] > 0;
+    if (!kinds) return;
+    float cw = fminf(1.05f * ui.unit, b.w / kinds), ps = fminf(0.74f * ui.unit, cw / 1.4f), x = b.x;
+    float cy = b.y + b.h / 2;
+    for (int i = 0; i < 5; i++) {
+        int k = order[i], n = p->hand[player][k];
+        if (!n) continue;
+        hand_at[player][k] = (box){x, b.y, cw, b.h};
+        if (hand_sel == k && player == p->side) ui_mark_select(x, cy - ps / 2, ps, ps);
+        ui_put(t_hand[player][k], x, cy - ps / 2, ps, ps);
+        if (n > 1) ui_number(x + 1.2f * ps, cy + 0.05f * ps, 0.5f * ps, n, 1);
+        x += cw;
+    }
+}
+
+/* three-check: the checks the player gave, three slots at the bar's right end, a red light in each one filled */
+static void checks_bar(int player, box b)
+{
+    float d = 0.34f * ui.unit, step = 0.5f * ui.unit, cy = b.y + b.h / 2, x0 = b.x + b.w - 3 * step + step / 2;
+    int n = game_pos(&G)->checks[player];
+    for (int i = 0; i < 3; i++) {
+        float cx = x0 + i * step;
+        if (i < n) ui_mark_glow(cx, cy, 1.5f * d);
+        ui_put_c(t_slot, cx, cy, d, d);
+    }
+    b.w -= 3 * step + 0.1f * ui.unit;           /* the pieces taken: before them */
+    taken(player, b);
+}
+
 static void bar(int player, box b)
+{
+    if (rules() == CR_CRAZYHOUSE) hand_bar(player, b);
+    else if (rules() == CR_THREECHECK) checks_bar(player, b);
+    else taken(player, b);
+}
+
+static void taken(int player, box b)
 {
     static const int start_n[7] = {0, 8, 2, 2, 2, 1, 1}, order[5] = {QUEEN, ROOK, BISHOP, KNIGHT, PAWN};
     const cpos *p = game_pos(&G);
@@ -352,10 +497,72 @@ static void thumb960(int size, uint8_t *rgba)
         }
 }
 
+/* a light (a disc fading out: gold, red) centred on (cx, cy), d across, on a card */
+static void thumb_light(uint8_t *rgba, int size, const uint8_t rgb[3], float a0, float power, int cx, int cy, int d)
+{
+    uint8_t *one = ui_buf(d, d);
+    art_disc(d, rgb, a0, power, one);
+    art_blend(rgba, size, size, one, d, d, cx - d / 2, cy - d / 2);
+}
+
+/* the variants' cards: four squares by four of a board, pieces (column, row from the top; type + 8: ebony's), and
+ * what tells the rules apart: crazyhouse an ivory knight dropping onto an empty square (its shadow there, ebony pieces
+ * gone from the board); three-check an ebony king in check in red light, three red lights above it; the hill the
+ * middle four squares framed in gold, the ivory king on them in gold light */
+static void thumb_rules(int variant, int size, uint8_t *rgba)
+{
+    static const uint8_t gold[3] = {255, 196, 64}, red[3] = {235, 40, 30};
+    static const int zh[][3] = {{0, 0, ROOK + 8}, {1, 0, KING + 8}, {0, 1, PAWN + 8}, {3, 1, PAWN + 8},
+                                {1, 3, KING}, {0, 3, ROOK}, {3, 3, BISHOP}, {1, 2, PAWN}},
+                     check[][3] = {{2, 1, KING + 8}, {1, 0, PAWN + 8}, {3, 0, PAWN + 8}, {0, 3, QUEEN}, {3, 3, KING},
+                                   {2, 3, ROOK}},
+                     hillp[][3] = {{1, 2, KING}, {3, 0, KING + 8}, {0, 0, PAWN + 8}, {2, 3, PAWN}, {0, 3, KNIGHT}};
+    int s = (int)(size / (4 + 2 * FRAME)), f = (int)(s * FRAME), n = 4 * s + 2 * f, o = (size - n) / 2, b0 = o + f;
+    uint8_t *board = ui_buf(n, n);
+    art_board_n(4, 4, s, f, 1, board);
+    art_blend(rgba, size, size, board, n, n, o, o);
+    const int (*place)[3] = variant == V_CRAZYHOUSE ? zh : variant == V_THREECHECK ? check : hillp;
+    int count = variant == V_CRAZYHOUSE ? 8 : variant == V_THREECHECK ? 6 : 5;
+    if (variant == V_HILL) {                    /* the hill: a gold frame round the middle four squares */
+        int t = s / 14 > 2 ? s / 14 : 2, i = s / 12, x0 = b0 + s + i, w = 2 * s - 2 * i;
+        uint8_t *line = ui_buf(w, w);
+        memset(line, 0, (size_t)w * w * 4);
+        for (int y = 0; y < w; y++)
+            for (int x = 0; x < w; x++)
+                if (x < t || y < t || x >= w - t || y >= w - t) {
+                    uint8_t *q = line + 4 * (y * w + x);
+                    q[0] = 214, q[1] = 168, q[2] = 64, q[3] = 230;
+                }
+        art_blend(rgba, size, size, line, w, w, x0, x0);
+        thumb_light(rgba, size, gold, 0.75f, 1.3f, b0 + s + s / 2, b0 + 2 * s + s / 2, 2 * s);
+    }
+    if (variant == V_THREECHECK) {              /* the king in check, and three checks: three red lights */
+        thumb_light(rgba, size, red, 0.9f, 1.5f, b0 + 2 * s + s / 2, b0 + s + s / 2, (int)(1.3f * s));
+        for (int i = 0; i < 3; i++)
+            thumb_light(rgba, size, red, 1, 0.8f, b0 + s / 2 + i * s / 2, b0 + 2 * s + s / 4, s / 3);
+    }
+    for (int i = 0; i < count; i++) {
+        uint8_t *one = ui_buf(s, s);
+        art_piece(place[i][2] & 7, place[i][2] >> 3, s, one);
+        art_blend(rgba, size, size, one, s, s, b0 + place[i][0] * s, b0 + place[i][1] * s);
+    }
+    if (variant == V_CRAZYHOUSE) {              /* the knight in the air over c2, its shadow and a dot below it */
+        int d = (int)(0.9f * s);
+        uint8_t *sh = ui_buf(d, d);
+        art_flat_shadow(d, sh);
+        art_blend(rgba, size, size, sh, d, d, b0 + 2 * s + (s - d) / 2 + s / 12, b0 + 2 * s + (s - d) / 2 + s / 8);
+        int k = (int)(1.15f * s);
+        uint8_t *one = ui_buf(k, k);
+        art_piece(KNIGHT, WHITE, k, one);
+        art_blend(rgba, size, size, one, k, k, b0 + 2 * s + (s - k) / 2, b0 + 2 * s - (int)(0.55f * s));
+    }
+}
+
 /* the menu's card: a corner of a board, a few pieces */
 static void thumb(int variant, int size, uint8_t *rgba)
 {
-    if (variant == 1) { thumb960(size, rgba); return; }
+    if (variant == V_960) { thumb960(size, rgba); return; }
+    if (variant >= V_CRAZYHOUSE) { thumb_rules(variant, size, rgba); return; }
     int s = (int)(size / (4 + 2 * FRAME)), f = (int)(s * FRAME), n = 4 * s + 2 * f, o = (size - n) / 2;
     uint8_t *board = ui_buf(n, n);
     art_board_n(4, 4, s, f, 1, board);
@@ -372,9 +579,9 @@ static void thumb(int variant, int size, uint8_t *rgba)
 static int busy(void) { return anim.on; }     /* the end waits for the mating piece to arrive */
 
 static const game chess_game = {
-    .id = "chess", .order = 10, .variants = 2,           /* 0: standard chess, 1: Chess960 */
+    .id = "chess", .order = 10, .variants = VARIANTS,    /* standard, Chess960, crazyhouse, three-check, the hill */
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy,
+    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press,
 };
 REGISTER_GAME(chess_game)

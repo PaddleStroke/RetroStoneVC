@@ -1,19 +1,23 @@
 /*
  * Draughts in RetroStone Board: international draughts (10 x 10), English checkers, Russian, Brazilian and Turkish
- * draughts (8 x 8). The board, the men and kings, tap or drag, a capture tapped landing square by landing square (the
- * rules: draughts_rules.c).
+ * draughts (8 x 8), Frisian (10 x 10), Canadian (12 x 12), bashni (8 x 8, columns drawn as lasca's: column.h). The
+ * board, the men and kings, tap or drag, a capture tapped landing square by landing square (the rules:
+ * draughts_rules.c).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * The script's notation (the screenshots, the tests): the standard square numbers (draughts.h), "32-28" a move,
  * "19x30" a capture from 19 ending on 30, "26x37x48" a capture through its landing squares (needed only when two
- * routes end on the same square taking different pieces); Russian, Brazilian and Turkish draughts: a1-h8, "c3-d4",
- * "c3:e5:g3" (or "c3xe5xg3").
+ * routes end on the same square taking different pieces); Russian, Brazilian, Turkish draughts and bashni: a1-h8,
+ * "c3-d4", "c3:e5:g3" (or "c3xe5xg3").
  */
 #include <math.h>
 #include <string.h>
 
+#include "games/column.h"
 #include "games/draughts.h"
 #include "shell.h"
+
+#define PIECE 0.94f                             /* bashni: a column's pieces, in squares (as lasca's) */
 
 #define FRAME 0.32f                             /* the board's frame, in squares */
 #define STEP_MS 150                             /* the slide: a plain move, or each jump of a capture */
@@ -204,7 +208,8 @@ static int xy_sq(float x, float y)
 {
     int f = (int)floorf((x - bx) / sq), r = n - 1 - (int)floorf((y - by) / sq);
     if (f < 0 || f >= n || r < 0 || r >= n) return -1;   /* off the board */
-    if (!dr_all(G.variant) && ((f + r) & 1)) return -1;   /* a light square */
+    if (!dr_all(G.variant) && ((f + r) & 1))            /* a light square (bashni: the column below, rising into it) */
+        return dr_columns(G.variant) && y + 0.5f * sq < by + n * sq ? xy_sq(x, y + 0.5f * sq) : -1;
     return ui.flipped ? (n - 1 - r) * n + n - 1 - f : r * n + f;
 }
 
@@ -213,6 +218,14 @@ static void piece_at(int pc, float x, float y, float size, Uint8 alpha)
 {
     int pl = DR_OWNER(pc);                      /* a man lies flat, like the discs */
     ui_flat_at(t_man[colour(pl)][DR_IS_KING(pc)], x + size / 2, y + size / 2, size, alpha / 255.0f, ui_upside(pl));
+}
+
+/* the piece on square s of a position, at (x, y) (its square's corner): bashni's whole column */
+static void stack_at(const dpos *p, int s, float x, float y, float size, Uint8 alpha)
+{
+    if (!dr_columns(G.variant)) { piece_at(p->sq[s], x, y, size, alpha); return; }
+    column_at(dr_column(p, s), dr_height(p, s), t_man, x + size / 2, y + size / 2, (float)sq, PIECE * size, 0,
+              alpha / 255.0f);
 }
 
 static void draw(void)
@@ -251,10 +264,13 @@ static void draw(void)
         for (int k = 0; k < m->ncap; k++) ring[m->cap[k]] = 1;
         dot[m->path[steps]] = dot[m->path[m->n - 1]] = 1;
     }
-    for (int s = 0; s < n * n; s++) {
+    int cols = dr_columns(G.variant);
+    for (int i = 0; i < n * n; i++) {           /* bashni: the rows from the top of the screen (a column rises over
+                                                 * the one behind it) */
+        int s = !cols ? i : i % n + n * (ui.flipped ? i / n : n - 1 - i / n);
         if (!shown->sq[s] || s == sel || (anim.on && s == anim.m.from)) continue;
         sq_xy(s, &x, &y);
-        piece_at(shown->sq[s], x, y, (float)sq, ring[s] ? 140 : 255);   /* the pieces taken: faded, ringed */
+        stack_at(shown, s, x, y, (float)sq, ring[s] ? 140 : 255);   /* the pieces taken: faded, ringed */
         if (ring[s]) ui_mark_ring(x + h, y + h, 1.12f * sq);
     }
     for (int s = 0; s < n * n; s++)
@@ -264,7 +280,8 @@ static void draw(void)
         }
     if (sel >= 0 && !(drag.on && drag.moved)) {
         sq_xy(at, &x, &y);
-        piece_at(p->sq[sel], x, y, (float)sq, 255);
+        if (cols) column_at(dr_column(p, sel), dr_height(p, sel), t_man, x + h, y + h, (float)sq, PIECE * sq, 0, 1);
+        else piece_at(p->sq[sel], x, y, (float)sq, 255);
     }
     if (anim.on) {                              /* the slide, square to square along the path */
         int segs = anim.m.n - anim.first, k = (int)(t * segs);
@@ -273,11 +290,11 @@ static void draw(void)
         float x0, y0, x1, y1, f = t * segs - k;
         sq_xy(a, &x0, &y0);
         sq_xy(b, &x1, &y1);
-        piece_at(shown->sq[anim.m.from], x0 + (x1 - x0) * f, y0 + (y1 - y0) * f, (float)sq, 255);
+        stack_at(shown, anim.m.from, x0 + (x1 - x0) * f, y0 + (y1 - y0) * f, (float)sq, 255);
     }
     if (drag.on && drag.moved) {                /* the dragged piece, a little bigger, beside the finger */
         float s = 1.18f * sq, off = ui_upside(p->side) ? -0.25f : 0.75f;
-        piece_at(p->sq[drag.from], drag.x - s / 2, drag.y - s * off, s, 255);
+        stack_at(p, drag.from, drag.x - s / 2, drag.y - s * off, s, 255);
     }
 }
 
@@ -328,6 +345,10 @@ static void bar(int player, box b)
 {
     const dpos *p = dr_pos(&G);
     int left = 0;
+    if (dr_columns(G.variant)) {                /* bashni: the other's pieces held in the player's columns */
+        ui_bar_count(b, t_small[colour(!player)], dr_prisoners(p, player));
+        return;
+    }
     for (int s = 0; s < n * n; s++) left += p->sq[s] && DR_OWNER(p->sq[s]) != player;
     ui_bar_count(b, t_small[colour(!player)], dr_pieces(G.variant) - left);
 }
@@ -343,9 +364,63 @@ static void put_all(uint8_t *rgba, int size, int kind, int c, int s, int ox, int
     for (int i = 0; i < count; i++) art_blend(rgba, size, size, one, s, s, ox + place[i][0] * s, oy + place[i][1] * s);
 }
 
+/* Frisian's card: a game going on, a man taking along a row: the man taken faded in its ring, a dot beyond it */
+static void thumb_frisian(uint8_t *rgba, int size, int s, int o)
+{
+    static const uint8_t shade[3] = {24, 34, 26}, dark[3] = {40, 34, 30}, cream[3] = {246, 238, 220},
+                         gold[3] = {255, 196, 64};
+    int g = 3 * s;                              /* the row taken along, in a gold light */
+    art_disc(g, gold, 0.6f, 1.3f, ui_buf(g, g));
+    art_blend(rgba, size, size, ui_buf(g, g), g, g, o + 4 * s + s / 2 - g / 2, o + 5 * s + s / 2 - g / 2);
+    static const int ivory[][3] = {{0, 9, 0}, {4, 9, 0}, {8, 9, 0}, {1, 8, 0}, {5, 8, 0}, {7, 6, 0}, {2, 5, 0},
+                                   {6, 3, 1}},
+                     ebony[][3] = {{1, 0, 0}, {5, 0, 0}, {9, 0, 0}, {2, 1, 0}, {6, 1, 0}, {3, 2, 0}, {0, 3, 0}};
+    uint8_t *one = ui_buf(s, s);
+    for (int pl = 0; pl < 2; pl++) {
+        const int (*list)[3] = pl ? ebony : ivory;
+        int count = pl ? 7 : 8;
+        for (int i = 0; i < count; i++) {
+            art_counter(list[i][2] ? COUNTER_KING : COUNTER_MAN, pl, s, one);
+            art_blend(rgba, size, size, one, s, s, o + list[i][0] * s, o + list[i][1] * s);
+        }
+    }
+    art_counter(COUNTER_MAN, 1, s, one);        /* the man taken, on the row of the taker, two squares on */
+    for (int i = 0; i < s * s; i++) one[4 * i + 3] = (uint8_t)(one[4 * i + 3] * 0.55f);
+    art_blend(rgba, size, size, one, s, s, o + 4 * s, o + 5 * s);
+    int d = (int)(1.12f * s);
+    art_ring(d, 0.82f, shade, 0.30f, ui_buf(d, d));
+    art_blend(rgba, size, size, ui_buf(d, d), d, d, o + 4 * s + (s - d) / 2, o + 5 * s + (s - d) / 2);
+    int dot = (int)(0.5f * s), in = (int)(0.4f * s);   /* the landing square beyond: a dark dot in a cream rim */
+    art_disc(dot, cream, 1, 0, ui_buf(dot, dot));
+    art_blend(rgba, size, size, ui_buf(dot, dot), dot, dot, o + 6 * s + (s - dot) / 2, o + 5 * s + (s - dot) / 2);
+    art_disc(in, dark, 1, 0, ui_buf(in, in));
+    art_blend(rgba, size, size, ui_buf(in, in), in, in, o + 6 * s + (s - in) / 2, o + 5 * s + (s - in) / 2);
+}
+
+/* bashni's card: a game going on, columns of every height (the back rows first) */
+static void thumb_bashni(uint8_t *rgba, int size, int k, int s, int o)
+{
+    dpos p;
+    dr_setup(&p, DR_BASHNI, 0, "a1 c1 b2 d2 c3 g3 d4 e5", "h8 f8 e7 a5 g5 f6 Kd6");
+    static const char *under[][2] = {{"d2", "b"}, {"c3", "bw"}, {"d4", "bbw"}, {"f6", "w"}, {"g5", "wb"}};
+    for (unsigned i = 0; i < sizeof under / sizeof under[0]; i++) {
+        int used;
+        dr_stack(&p, dr_read(DR_BASHNI, under[i][0], &used), under[i][1]);
+    }
+    int d = (int)(PIECE * s);
+    for (int r = 0; r < k; r++)
+        for (int c = 0; c < k; c++) {
+            int q = c + k * (k - 1 - r);
+            if (p.sq[q])
+                column_thumb(rgba, size, dr_column(&p, q), dr_height(&p, q), o + c * s + s / 2.0f,
+                             o + r * s + s / 2.0f, s, d);
+        }
+}
+
 /* the menu's card (-1): a corner of a board, men and a king; the picker's: the whole board at the start, 10 x 10
  * (ivory at the bottom) or 8 x 8 (English: ebony at the bottom, it moves first; Russian: ivory at the bottom),
- * Brazilian a game going on with a king each, Turkish its men in two rows on a plank ruled into squares */
+ * Brazilian a game going on with a king each, Turkish its men in two rows on a plank ruled into squares, Frisian a
+ * capture along a row, Canadian the 12 x 12 board at the start, bashni its columns */
 static void thumb(int variant, int size, uint8_t *rgba)
 {
     int k = variant < 0 ? 4 : dr_size(variant);
@@ -354,14 +429,16 @@ static void thumb(int variant, int size, uint8_t *rgba)
     paint_board(board, k, s, f, variant >= 0 && dr_all(variant));
     art_blend(rgba, size, size, board, w, w, o, o);
     o += f;
+    if (variant == DR_FRISIAN) { thumb_frisian(rgba, size, s, o); return; }
+    if (variant == DR_BASHNI) { thumb_bashni(rgba, size, k, s, o); return; }
     if (variant >= DR_RUSSIAN) {                /* the pieces of a position, ivory (player 0) at the bottom */
         dpos p;
         if (variant == DR_BRAZILIAN) dr_setup(&p, variant, 0, "a1 c1 b2 f2 e3 g3 d4 Kf6", "b8 d8 h8 c7 a5 e5 h6 Kb4");
         else dr_start(&p, variant);
-        int place[2][2][16][2], count[2][2] = {{0}};   /* [player][king]: column, row from the top */
+        int place[2][2][30][2], count[2][2] = {{0}};   /* [player][king]: column, row from the top */
         for (int q = 0; q < k * k; q++) {
             int pc = p.sq[q], pl = DR_OWNER(pc), kg = DR_IS_KING(pc), *c = count[pl] + kg;
-            if (!pc || *c >= 16) continue;
+            if (!pc || *c >= 30) continue;
             place[pl][kg][*c][0] = q % k;
             place[pl][kg][(*c)++][1] = k - 1 - q / k;
         }

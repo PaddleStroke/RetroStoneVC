@@ -11,5 +11,7 @@ Em vez de jogar, podes passar. Quando os dois jogadores passam um a seguir ao ou
 - Toca nos grupos que não podiam viver (pedras mortas): contam como capturados. Toca outra vez para recuperar um grupo.
 - Quando estiverem de acordo, toca no botão de passar: está feito.
 - Cada jogador marca um ponto por cada pedra sua no tabuleiro e por cada ponto vazio que só ele cerca. As brancas (claras) recebem ainda 7,5 pontos por jogarem em segundo lugar (o komi), por isso nunca há empate. Ganha a pontuação mais alta.
+# Go de captura
+Um primeiro jogo para principiantes e crianças, no tabuleiro de 9 por 9 ou de 13 por 13 (os cartões com uma pedra a ser capturada). As regras do go, mas ganha de imediato o primeiro jogador a capturar. Não se passa nem se conta. Quem não tiver onde jogar (em qualquer ponto vazio a pedra ficaria sem liberdade) perde.
 # Jogar no dispositivo
 O primeiro toque mostra uma pedra pálida, e um segundo toque no mesmo ponto joga-a. Assim, os pontos pequenos são fáceis de acertar. Cada barra mostra as pedras que esse jogador capturou e, durante a contagem, a pontuação.

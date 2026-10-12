@@ -11,5 +11,7 @@ Au lieu de jouer, tu peux passer. Quand les deux joueurs passent l'un après l'a
 - Touche les groupes qui ne pouvaient pas vivre (les pierres mortes) : ils comptent comme capturés. Touche encore pour rétablir un groupe.
 - Quand vous êtes d'accord, touche le bouton passer : c'est terminé.
 - Chaque joueur marque un point pour chacune de ses pierres sur le plateau et pour chaque intersection vide entourée par lui seul. Blanc (clair) reçoit aussi 7,5 points parce qu'il joue en second (le komi), il n'y a donc jamais de partie nulle. Le score le plus élevé gagne.
+# Go de capture
+Un premier jeu pour les débutants et les enfants, sur le plateau de 9 sur 9 ou de 13 sur 13 (les cartes avec une pierre capturée). Les règles du go, mais le premier joueur qui capture gagne aussitôt. On ne passe pas et on ne compte pas. Un joueur qui n'a plus aucune intersection où jouer (sa pierre y serait toujours sans liberté) perd.
 # Jouer sur l'appareil
 Au premier toucher, une pierre pâle apparaît ; touche une seconde fois la même intersection pour la jouer. Ainsi, même les petites intersections sont faciles à viser. Chaque barre indique les pierres capturées par ce joueur, et le score pendant le décompte.

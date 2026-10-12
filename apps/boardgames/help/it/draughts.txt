@@ -32,6 +32,23 @@ Catturare tutti i pezzi dell'altro giocatore, o lasciarlo senza mosse. Scegli le
 - La presa è obbligatoria, e devi prendere il maggior numero di pezzi possibile.
 - Ogni pezzo preso viene tolto subito, appena viene saltato. In una presa di più pezzi, un pezzo non può fare dietrofront e tornare da dove è venuto.
 - Patta: quando la stessa posizione si ripete per la terza volta, o dopo 25 mosse ciascuno senza prese né mosse di pedina.
+# Dama frisone (10 per 10)
+- Muovono per primi i pezzi chiari. Una pedina si muove di una casella in diagonale in avanti, come nella dama internazionale.
+- Pedine e dame catturano anche in linea retta lungo righe e colonne: sopra un pezzo avversario sulla casella scura successiva, a due caselle, fino alla casella scura subito dietro. Le pedine catturano anche all'indietro.
+- Una dama si muove di quante caselle vuole in diagonale, e cattura a distanza in tutte e otto le direzioni.
+- La presa è obbligatoria, e devi prendere i pezzi di maggior valore: una dama vale più di una pedina ma meno di due. Se una dama e una pedina possono prendere lo stesso valore, deve prendere la dama.
+- Una pedina che termina la mossa sull'ultima riga diventa dama.
+- Finché hai ancora pedine, la stessa dama non può fare più di tre mosse di fila senza catturare; poi deve muovere un altro pezzo.
+- Patta: quando due dame affrontano una dama e ognuno ha fatto sette mosse, quando una dama ne affronta un'altra e ognuno ha fatto due mosse, o quando la stessa posizione si ripete per la terza volta.
+# Dama canadese (12 per 12)
+Le regole della dama internazionale su una scacchiera di 12 per 12, con 30 pedine a testa.
+# Bashni (8 per 8)
+La dama russa a colonne: le regole della dama russa, ma i pezzi presi restano in gioco.
+- Una presa toglie solo il pezzo in cima alla colonna saltata e lo mette sotto la colonna che cattura. I pezzi rimasti sotto restano al loro posto e obbediscono al nuovo pezzo in cima.
+- Una colonna appartiene al giocatore che ha il pezzo in cima, e si muove come quel pezzo, da pedina o da dama. Solo il pezzo in cima viene promosso.
+- Una colonna può essere saltata una sola volta nella stessa presa. I pezzi presi vanno sotto la colonna che cattura alla fine della mossa.
+- Ogni barra mostra quanti pezzi avversari quel giocatore tiene nelle sue colonne. Chi non può muovere perde, anche con pezzi sotto le colonne avversarie.
+- Patta: come nella dama russa.
 # La fine della partita
 Perde il giocatore che non ha più pezzi o che non può muovere.
 # Giocare sul dispositivo

@@ -33,6 +33,87 @@ static int lit(void)
     return gk_line(&G, line);
 }
 
+/* a renju position set down at once (no opening rule): the stones listed, ebony's and ivory's in turn; the player to
+ * move follows from their counts */
+static void stones(const char *ebony, const char *ivory)
+{
+    const char *list[2] = {ebony, ivory};
+    int pts[2][64], n[2] = {0, 0};
+    gk_new(&G, GK_RENJU);
+    for (int c = 0; c < 2; c++)
+        for (const char *s = list[c]; *s;) {
+            int len, p = gk_point(GK_N, s, &len);
+            if (p < 0) { printf("bad point %s\n", s); return; }
+            pts[c][n[c]++] = p;
+            s += len;
+            while (*s == ' ') s++;
+        }
+    for (int i = 0; i < n[0] || i < n[1]; i++)
+        for (int c = 0; c < 2; c++)
+            if (i < n[c]) {
+                G.pt[pts[c][i]] = (uint8_t)(c + 1);
+                G.move[G.nmoves++] = pts[c][i];
+            }
+}
+
+/* renju: the classic opening, ebony's forbidden points (three-three, four-four, overline; a false three; a five
+ * first), ivory's overline, whole random games */
+static void renju(void)
+{
+    gk_new(&G, GK_RENJU);
+    CHECK(G.n == 15 && !gk_play(&G, at("a1")) && !gk_play(&G, at("g7")) && gk_play(&G, at("h8")));
+    CHECK(!gk_play(&G, at("j10")) && !gk_play(&G, at("h10")) && gk_play(&G, at("i9")));
+    CHECK(!gk_play(&G, at("k11")) && !gk_play(&G, at("h11")) && gk_play(&G, at("j10")) && gk_play(&G, at("a1")));
+
+    stones("g8 h8 i6 i7", "a1 a3 a5 a15");
+    CHECK(gk_side(&G) == 0 && gk_forbidden(&G, at("i8")) && !gk_play(&G, at("i8")));   /* two open threes */
+    CHECK(!gk_forbidden(&G, at("j8")) && !gk_forbidden(&G, at("f8")));               /* one three */
+    stones("g8 h8 i6 i7", "a1 a3 a5 f8");                                            /* the row's three closed */
+    CHECK(!gk_forbidden(&G, at("i8")));
+    stones("e8 f8 g8 h5 h6 h7", "a1 a3 a5 a7 a9 a11");
+    CHECK(gk_forbidden(&G, at("h8")));                                               /* four-four */
+    stones("c8 d8 e8 i8 j8 k8", "a1 a3 a5 a7 a9 a11");
+    CHECK(gk_forbidden(&G, at("g8")));                                               /* four-four in one row */
+    stones("b8 c8 d8 e8 g8 h8", "a1 a3 a5 a7 a9 a11");
+    CHECK(gk_forbidden(&G, at("f8")) && !gk_play(&G, at("f8")));                     /* overline */
+    stones("d8 e8 f8 g8 h5 h6 h7", "a1 a3 a5 a7 a9 a11 a13");
+    CHECK(!gk_forbidden(&G, at("h8")) && gk_play(&G, at("h8")) && gk_status(&G) == GK_WIN0 && lit() == 5);
+    /* the row's three is false: each way to a straight four ends in an overline (b8, j8) */
+    stones("b8 j8 e8 f8 g6 g7", "a1 a3 a5 a7 a9 a11");
+    CHECK(!gk_forbidden(&G, at("g8")));
+    stones("e8 f8 g6 g7", "a1 a3 a5 a7");
+    CHECK(gk_forbidden(&G, at("g8")));
+    /* ivory: no point forbidden, an overline wins */
+    stones("a1 a3 a5 a7 a9 a11 a13", "b8 c8 d8 e8 g8 h8");
+    CHECK(gk_side(&G) == 1 && !gk_forbidden(&G, at("f8")) && gk_play(&G, at("f8")) && gk_status(&G) == GK_WIN1 &&
+          lit() == 7);
+
+    /* whole random games (a seed each): ebony never on a forbidden point, a win by the colour's own rule */
+    int bad = 0, won = 0;
+    unsigned seed = 99;
+    for (int k = 0; k < 30; k++) {
+        gk_new(&G, GK_RENJU);
+        while (gk_status(&G) == GK_PLAY) {
+            int p, tries = 0;
+            do {
+                seed = seed * 1103515245u + 12345u;
+                p = (int)((seed >> 8) % GK_PTS);
+                if (G.nmoves < 3) p = at("h8") + (int)(seed >> 20) % 3 - 1 + GK_N * ((int)(seed >> 24) % 3 - 1);
+            } while (!gk_allowed(&G, p) && ++tries < 5000);
+            int forbid = gk_side(&G) == 0 && gk_forbidden(&G, p);
+            if (forbid || !gk_play(&G, p)) { bad++; break; }
+        }
+        int st = gk_status(&G);
+        uint8_t line[GK_MAXPTS];
+        int lights = gk_line(&G, line);
+        if (st == GK_WIN0 && lights != 5) bad++;
+        if (st == GK_WIN1 && lights < 5) bad++;
+        won += st == GK_WIN0 || st == GK_WIN1;
+    }
+    CHECK(!bad && won > 25);
+    printf("gomoku: 30 random renju games, %d won, %d bad\n", won, bad);
+}
+
 int main(void)
 {
     /* notation: a..o (the i too), numbers from the bottom */
@@ -171,6 +252,8 @@ int main(void)
     CHECK(ok && G.nmoves == GK_MAXPTS && gk_status(&G) == GK_DRAW);
     gk_new(&G, GK_SIX);
     CHECK(!gk_script(&G, "t5") && gk_script(&G, "s19 a1"));
+
+    renju();
 
     printf("gomoku: %d checks, %d failed\n", checks, fails);
     return fails != 0;

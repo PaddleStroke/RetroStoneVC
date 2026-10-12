@@ -32,6 +32,23 @@ Slå alle motstanderens brikker, eller la motstanderen stå uten trekk. Velg reg
 - Slag er tvunget, og du må slå så mange brikker som mulig.
 - Hver slåtte brikke fjernes med en gang, idet den hoppes over. Ved slag av flere brikker kan en brikke ikke snu rett tilbake dit den kom fra.
 - Remis: når den samme stillingen kommer igjen for tredje gang, eller etter 25 trekk hver uten slag eller trekk med en vanlig brikke.
+# Frisisk dam (10×10)
+- Den lyse siden trekker først. En vanlig brikke flytter én rute skrått fram, som i internasjonal dam.
+- Brikker og damer slår også rett langs rader og kolonner: over en motstanderbrikke på neste mørke rute, to ruter unna, til den mørke ruten rett bak. Vanlige brikker slår også bakover.
+- En dam flytter så mange ruter den vil langs en diagonal, og slår på avstand i alle åtte retninger.
+- Slag er tvunget, og du må slå de mest verdifulle brikkene: en dam er verdt mer enn én brikke, men mindre enn to. Kan en dam og en vanlig brikke slå like mye verdi, må damen slå.
+- En brikke som avslutter trekket sitt på bakerste rad, blir dam.
+- Så lenge du har vanlige brikker igjen, kan den samme damen ikke flytte mer enn tre ganger på rad uten å slå; deretter må en annen brikke flytte.
+- Remis: når to damer står mot én og hver har gjort sju trekk, når én dam står mot én og hver har gjort to trekk, eller når samme stilling kommer for tredje gang.
+# Kanadisk dam (12×12)
+Reglene for internasjonal dam på et brett med 12×12 ruter, med 30 brikker hver.
+# Bashni (8×8)
+Russisk tårndam: reglene for russisk dam, men slåtte brikker blir i spillet.
+- Et slag tar bare den øverste brikken i tårnet det hoppes over, og legger den under det slående tårnet. Brikkene under blir stående og adlyder den nye øverste brikken.
+- Et tårn tilhører spilleren som har brikken øverst, og flytter som den, som vanlig brikke eller som dam. Bare den øverste brikken blir dam.
+- Et tårn kan bare hoppes over én gang i samme slag. De slåtte brikkene legges under det slående tårnet når trekket er ferdig.
+- Hvert panel viser hvor mange av motstanderens brikker spilleren holder i tårnene sine. Den som ikke kan flytte, taper, selv med brikker under motstanderens tårn.
+- Remis: som i russisk dam.
 # Slutten på spillet
 En spiller som ikke har flere brikker igjen, eller ikke kan flytte, taper.
 # Spill på enheten

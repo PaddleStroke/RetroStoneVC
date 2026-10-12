@@ -11,5 +11,7 @@ Statt zu spielen, darfst du passen. Passen beide Spieler direkt nacheinander, en
 - Tippe auf die Gruppen, die nicht leben konnten (tote Steine): Sie zählen als geschlagen. Tippe erneut, um eine Gruppe zurückzuholen.
 - Wenn ihr euch einig seid, tippe auf die Passen-Taste: fertig.
 - Jeder Spieler bekommt einen Punkt für jeden seiner Steine auf dem Brett und für jeden leeren Punkt, den nur er umschließt. Weiß (hell) bekommt außerdem 7,5 Punkte dafür, als Zweiter zu spielen (das Komi), daher gibt es nie ein Unentschieden. Die höhere Punktzahl gewinnt.
+# Fang-Go
+Ein erstes Spiel für Anfänger und Kinder, auf dem Brett 9 mal 9 oder 13 mal 13 (die Karten mit einem Stein, der geschlagen wird). Die Regeln des Go, aber wer als Erster schlägt, gewinnt sofort. Es gibt kein Passen und kein Zählen. Wer nirgends mehr setzen kann (jeder freie Punkt ließe den Stein ohne Freiheit), verliert.
 # Spielen auf dem Gerät
 Das erste Tippen zeigt einen blassen Stein, ein zweites Tippen auf denselben Punkt setzt ihn. So lassen sich auch kleine Punkte leicht treffen. Jede Leiste zeigt die Steine, die der Spieler geschlagen hat, und beim Zählen die Punktzahl.

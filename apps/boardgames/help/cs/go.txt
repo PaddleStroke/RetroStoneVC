@@ -11,5 +11,7 @@ Místo tahu můžeš pasovat. Když oba hráči pasují jeden po druhém, hra se
 - Klepni na skupiny, které nemohly žít (mrtvé kameny): počítají se jako zajaté. Dalším klepnutím skupinu vrátíš.
 - Až se shodnete, klepni na tlačítko pasu: hotovo.
 - Každý hráč získá jeden bod za každý svůj kámen na desce a za každý volný bod, který obklopuje jen on. Bílý (světlý) navíc dostane 7,5 bodu za to, že hraje druhý (komi), takže remíza nikdy nenastane. Vyhrává vyšší skóre.
+# Go na první zajetí
+První hra pro začátečníky a děti, na desce 9×9 nebo 13×13 (karty se zajímaným kamenem). Pravidla go, ale hráč, který jako první zajme kámen, okamžitě vyhrává. Nepasuje se a nepočítá se. Hráč, který už nemá kam hrát (na každém prázdném bodě by jeho kámen neměl žádnou svobodu), prohrává.
 # Hra na zařízení
 První klepnutí ukáže bledý kámen, druhé klepnutí na stejný bod ho zahraje. Díky tomu se snadno trefíš i do malých bodů. Každá lišta ukazuje kameny, které hráč zajal, a při počítání skóre.

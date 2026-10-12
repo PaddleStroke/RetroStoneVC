@@ -11,5 +11,7 @@ I stedet for at spille må du melde pas. Når begge spillere melder pas lige eft
 - Tryk på de grupper, der ikke kunne leve (døde sten): de tæller som fangede. Tryk igen for at tage en gruppe tilbage.
 - Når I er enige, så tryk på pas-knappen: færdig.
 - Hver spiller får ét point for hver af sine sten på brættet og for hvert tomt punkt, som kun vedkommende omringer. Hvid (lys) får desuden 7,5 point for at spille som nummer to (komi), så spillet bliver aldrig uafgjort. Den højeste score vinder.
+# Fange-go
+Et første spil for begyndere og børn, på brættet med 9×9 eller 13×13 punkter (kortene med en sten, der bliver fanget). Reglerne for go, men den første spiller, der fanger, vinder med det samme. Man melder ikke pas, og der tælles ikke op. Den, der ikke har noget sted at spille (på hvert tomt punkt ville stenen være uden frihed), taber.
 # Spil på enheden
 Det første tryk viser en bleg sten, et andet tryk på samme punkt spiller den. Det gør små punkter lette at ramme. Hvert panel viser de sten, den spiller har fanget, og scoren under optællingen.

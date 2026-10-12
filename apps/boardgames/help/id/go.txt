@@ -11,5 +11,7 @@ Alih-alih bermain, kamu boleh pas. Jika kedua pemain pas berturut-turut, permain
 - Ketuk kelompok yang tidak bisa hidup (batu mati): kelompok itu dihitung sebagai tertangkap. Ketuk lagi untuk mengembalikannya.
 - Jika kalian sudah sepakat, ketuk tombol pas: selesai.
 - Setiap pemain mendapat satu poin untuk setiap batunya di papan dan setiap titik kosong yang hanya dikepung olehnya. Putih (terang) juga mendapat 7,5 poin karena bermain kedua (komi), sehingga tidak pernah ada seri. Skor tertinggi menang.
+# Go tangkap
+Permainan pertama untuk pemula dan anak-anak, di papan 9×9 atau 13×13 (kartu dengan batu yang sedang ditangkap). Aturan go, tetapi pemain pertama yang menangkap langsung menang. Tidak ada pas dan tidak ada penghitungan. Pemain yang tidak punya tempat lagi untuk bermain (di setiap titik kosong batunya tidak akan punya kebebasan) kalah.
 # Bermain di perangkat
 Ketukan pertama menampilkan batu pucat, ketukan kedua di titik yang sama memainkannya. Dengan begitu titik kecil tetap mudah disentuh. Setiap bilah menunjukkan batu yang telah ditangkap pemain itu, dan skornya saat penghitungan.

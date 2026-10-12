@@ -11,5 +11,7 @@ I stället för att spela får du passa. När båda spelarna passar efter varand
 - Tryck på de grupper som inte kunde leva (döda stenar): de räknas som fångade. Tryck igen för att ta tillbaka en grupp.
 - När ni är överens, tryck på passknappen: klart.
 - Varje spelare får en poäng för varje egen sten på brädet och för varje tom punkt som bara hen omringar. Vit (ljus) får dessutom 7,5 poäng för att spela som tvåa (komi), så det blir aldrig oavgjort. Högst poäng vinner.
+# Fånga-go
+Ett första spel för nybörjare och barn, på brädet med 9×9 eller 13×13 punkter (korten med en sten som fångas). Reglerna för go, men den som först fångar vinner direkt. Man passar inte och räknar inte. Den som inte har någonstans att spela (på varje tom punkt skulle stenen sakna frihet) förlorar.
 # Spela på enheten
 Första trycket visar en blek sten, ett andra tryck på samma punkt spelar den. Det gör små punkter lätta att träffa. Varje fält visar de stenar som den spelaren har fångat, och poängen under räkningen.

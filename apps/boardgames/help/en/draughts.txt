@@ -32,6 +32,23 @@ Capture all the other player's pieces, or leave them without a move. Choose the 
 - Capturing is compulsory, and you must take the largest number of pieces possible.
 - Each piece taken is removed at once, as it is jumped. In a capture of several pieces, a piece cannot turn straight back the way it came.
 - Draw: when the same position comes back for the third time, or after 25 moves each without a capture or a man moving.
+# Frisian draughts (10 by 10)
+- Light moves first. A man moves one square diagonally forward, as in international draughts.
+- Men and kings also capture straight along the rows and columns: over an enemy piece on the next dark square, two squares away, onto the dark square just beyond. Men capture backwards too.
+- A king moves any number of squares along a diagonal, and captures from a distance in all eight directions.
+- Capturing is compulsory, and you must take the most valuable pieces: a king is worth more than one man but less than two. When a king and a man can take the same value, the king must capture.
+- A man that ends its move on the far row becomes a king.
+- While you still have men, the same king may not make more than three moves in a row without capturing; then another piece must move.
+- Draw: when two kings face one and both players have made seven moves, when one king faces one and both have made two moves, or when the same position comes back for the third time.
+# Canadian draughts (12 by 12)
+The rules of international draughts on a 12 by 12 board, with 30 men each.
+# Bashni (8 by 8)
+Russian column draughts: the rules of Russian draughts, but the pieces taken stay in the game.
+- A capture takes only the top piece of the column it jumps, and puts it under the capturing column. The pieces left beneath stay where they are, commanded by their new top piece.
+- A column belongs to the player whose piece is on top, and moves as that piece does, as a man or as a king. Only the top piece is crowned.
+- A column can be jumped only once in a capture. The pieces taken go under the capturing column when the move ends.
+- Each bar shows how many of the other player's pieces that player holds in their columns. A player who cannot move loses, even with pieces held under the other's columns.
+- Draw: as in Russian draughts.
 # The end of the game
 A player who has no pieces left, or cannot move, loses.
 # Playing on the device

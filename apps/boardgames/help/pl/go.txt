@@ -11,5 +11,7 @@ Zamiast zagrać, możesz spasować. Gdy obaj gracze spasują jeden po drugim, gr
 - Dotknij grup, które nie mogły przeżyć (martwe kamienie): liczą się jako zbite. Dotknij ponownie, aby przywrócić grupę.
 - Gdy się zgadzacie, dotknij przycisku pasowania: gotowe.
 - Każdy gracz dostaje jeden punkt za każdy swój kamień na planszy i za każdy wolny punkt, który otacza tylko on. Białe (jasne) dostają też 7,5 punktu za grę jako drugie (komi), więc nigdy nie ma remisu. Wygrywa wyższy wynik.
+# Go do pierwszego bicia
+Pierwsza gra dla początkujących i dzieci, na planszy 9×9 albo 13×13 (karty z bitym kamieniem). Zasady go, ale od razu wygrywa gracz, który pierwszy coś zbije. Nie ma pasowania ani liczenia. Gracz, który nie ma już gdzie zagrać (na każdym pustym punkcie jego kamień zostałby bez oddechu), przegrywa.
 # Gra na urządzeniu
 Pierwsze dotknięcie pokazuje blady kamień, drugie dotknięcie tego samego punktu go kładzie. Dzięki temu łatwo trafić w małe punkty. Każdy pasek pokazuje kamienie zbite przez danego gracza, a podczas liczenia wynik.

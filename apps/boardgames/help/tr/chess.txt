@@ -22,5 +22,15 @@ Saldırı altındaki şaha şah çekilmiş olur: bir sonraki hamle onu şahtan k
 Chess960 (Fischer rastgele satrancı) aynı kurallarla oynanır, ama arka sıradaki taşlar, her oyun için rastgele çekilen 960 dizilişten biriyle başlar. Piyonlar her zamanki gibi durur ve siyahın taşları, sütun sütun beyazın taşlarının karşısında durur. Filler her zaman zıt renkli karelerde, şah da iki kalenin arasında bir yerde durur.
 - Rok: şah ve kale, normal satrançtakiyle aynı karelere gelir: h tarafındaki kaleyle şah g'ye, kale f'ye; a tarafındaki kaleyle şah c'ye, kale d'ye gider. Yalnızca iki taş da henüz hiç oynamamışsa, geçtikleri ya da indikleri her kare (ikisi dışında) boşsa ve şaha şah çekilmemişse, şah saldırı altındaki bir kareden geçmiyorsa ve şah çekilen bir kareye inmiyorsa yapılabilir.
 - Rok yapmak için şahı, rok yaptığı kalenin üzerine götür. Şahı varış karesine de götürebilirsin; ancak şah oraya normal bir hamleyle de gidebiliyorsa ya da zaten oradaysa bu olmaz.
+# Crazyhouse
+Bir hamle türü daha eklenmiş satranç: aldığın taş taraf değiştirir ve şeridinde görünen yedeğine geçer. Hamle yapmak yerine yedeğindeki bir taşı herhangi bir boş kareye koyabilirsin.
+- Piyon birinci ya da son sıraya konamaz. Bir koyuş şah çekebilir, hatta mat edebilir.
+- Terfi etmiş bir taş alınırsa yedeğe piyon olarak döner.
+- Yetersiz malzemeden beraberlik yoktur: hiçbir taş oyundan hiç çıkmaz.
+- Koymak için şeridindeki taşa, sonra bir kareye dokun (noktalar nereye gidebileceğini gösterir) ya da taşı tahtaya sürükle.
+# Üç şah
+Satranç, ama üç kez şah çeken ilk oyuncu kazanır. Mat da kazandırır. Her şeritte üç yuva vardır ve oyuncunun çektiği her şah için bunlardan birinde kırmızı bir ışık yanar.
+# Tepenin Kralı
+Satranç, ama şahı dört merkez karesinden birine (altın çerçeveli d4, e4, d5, e5) ilk ulaşan oyuncu hemen kazanır. Mat da kazandırır. Şah yine de hiçbir zaman şah altındaki bir kareye gidemez.
 # Cihazda oynamak
 Bir taşın nereye gidebileceğini görmek için ona dokun, sonra bir kareye dokun ya da taşı sürükle. Noktalar hamleleri, halkalar alınabilecek taşları gösterir. Şah çekilmiş şah kırmızı parlar. Rok yapmak için şahı kaleye doğru iki kare ya da kalenin üzerine götür.

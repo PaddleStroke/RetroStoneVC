@@ -11,5 +11,7 @@ Instead of playing, you may pass. When both players pass one after the other, th
 - Tap the groups that could not live (dead stones): they count as captured. Tap again to bring a group back.
 - When you agree, tap the pass button: done.
 - Each player scores one point for each of their stones on the board and each empty point they alone surround. White (light) also gets 7.5 points for playing second (the komi), so there is never a draw. The higher score wins.
+# Capture go
+A first game for beginners and children, on the 9 by 9 or the 13 by 13 board (the cards with a stone being captured). The rules of go, but the first player to capture wins at once. There is no passing and no counting. A player with nowhere left to play (every empty point would leave the stone without a liberty) loses.
 # Playing on the device
 The first tap shows a pale stone, a second tap on the same point plays it. This keeps small points easy to hit. Each bar shows the stones that player has captured, and the score when counting.
