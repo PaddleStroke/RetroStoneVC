@@ -1,0 +1,12 @@
+Dominosa
+# Cel gry
+Na diagramie ułożono pełny komplet kostek domina, a potem starto linie między nimi: zostały tylko liczby. Odkryj, gdzie leży każda kostka. Każda kostka kompletu, od 0-0 do najwyższego dubletu (4-4, 6-6 lub 8-8), jest w diagramie dokładnie raz. Każda łamigłówka ma dokładnie jedno rozwiązanie, które da się znaleźć samym rozumowaniem. Wybierz komplet i poziom (czarne kamyki pod każdym obrazkiem):
+- Łatwy: zawsze wystarczą pole, które ma już tylko jednego sąsiada do pary, i kostka, która ma już tylko jedno miejsce.
+- Średni: potrzebne będą też pola, których wszystkie możliwe pary tworzą tę samą kostkę, oraz pary, które zostawiłyby sąsiednie pole samo.
+- Trudny: śledzenie kostki do końca, by zobaczyć, dokąd prowadzi.
+# Ruch
+Połącz dwa sąsiednie pola w kostkę albo usuń kostkę. Nowa kostka zastępuje te, które leżały na jej polach.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy kostki zakrywają diagram, każda kostka kompletu jeden raz: po planszy przebiega fala złotego światła.
+# Gra na urządzeniu
+Przeciągnij palcem z pola na jego sąsiada albo dotknij jednego, a potem drugiego: kładzie się na nich kostka z kości słoniowej, której oczka pokazują obie liczby. Dotknij kostki, aby ją usunąć. Kostka położona dwa razy robi się czerwona. Lampa po prawej stronie paska daje podpowiedź: usuwa błędną kostkę, a jeśli takiej nie ma, kładzie najłatwiejszą poprawną, w złotym świetle. Cofnij cofa po jednej czynności, aż do początku. Pasek pokazuje twoje ruchy.

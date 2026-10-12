@@ -1,0 +1,12 @@
+Retângulos
+# O objetivo
+Divida a grade em retângulos (quadrados também valem) para que cada casa pertença a um retângulo e cada retângulo tenha um único número: o número de casas que ele cobre. Cada grade tem uma única solução, encontrada só pelo raciocínio. Escolha o tamanho (de 7 × 7 a 16 × 16) e o nível (as peças sob cada imagem):
+- Fácil: as casas cobertas por todos os retângulos possíveis de um número com certeza são dele.
+- Médio: você também vai precisar das casas que só um número alcança, e dos retângulos que não deixariam espaço para outro número.
+- Difícil: os retângulos que deixariam alguma casa sem como ser coberta, e seguir um retângulo até o fim para ver aonde ele leva.
+# Uma jogada
+Desenhe um retângulo ou tire um. Um retângulo novo substitui os que ele cobre.
+# O fim da partida
+A grade está resolvida quando os retângulos a cobrem, cada um com um número igual à sua área: uma onda de luz dourada percorre o tabuleiro.
+# Jogando no aparelho
+Arraste o dedo de uma casa até outra: o retângulo com esses dois cantos cresce junto, com o número de casas acima do dedo, e é colocado como uma peça de madeira quando você levanta o dedo. Você também pode tocar numa casa e depois em outra (duas vezes a mesma: uma casa só). Toque numa peça para tirá-la. Uma peça sem número, com dois números ou com um número que não é a sua área fica pálida. A lâmpada à direita da barra dá uma dica: tira uma peça errada ou, se não houver, coloca a certa mais fácil, numa luz dourada. Desfazer volta uma ação por vez, até o início. A barra mostra suas jogadas.

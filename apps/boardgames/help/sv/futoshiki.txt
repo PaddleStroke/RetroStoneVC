@@ -1,0 +1,17 @@
+Futoshiki
+# Målet
+Fyll det kvadratiska rutnätet så att varje rad och varje kolumn innehåller varje tal från 1 till rutnätets storlek exakt en gång. Tecknen mellan grannrutor måste stämma: varje tecken pekar mot det mindre talet (2 < 5, och likadant uppifrån och ned). Några tal kan vara givna. Varje pussel har exakt en lösning, som går att hitta enbart genom att tänka. Välj storlek (4 × 4 till 7 × 7) och nivå (stenarna under varje bild):
+- Lätt: en ruta där bara ett tal återstår, ett tal med bara en plats kvar i sin rad eller kolumn, och gränserna som tecknen sätter räcker alltid.
+- Medel: du behöver också par: två rutor i en rad eller kolumn som bara kan rymma samma två tal.
+- Svår: längre mönster, och att följa ett tal till slutet för att se vart det leder.
+# Ett drag
+Skriv ett tal i en tom ruta. Du kan ändra eller ta bort det när du vill; de givna talen står kvar. Små anteckningar i en ruta hjälper dig att minnas vilka tal den fortfarande kan rymma.
+# Partiets slut
+Pusslet är löst när rutnätet är fullt och rätt: en våg av gyllene ljus sveper över brädet.
+# Spela på enheten
+Tryck på en ruta och sedan på en tangent under brädet: dess tal skrivs in med blått bläck (de givna talen är mörka). Tryck på samma tangent igen för att ta bort det, eller dra en tangent till en ruta. Rutans rad och kolumn lyser svagt, och rutor med samma tal varmare. Är ingen tom ruta vald tänder en tangent rutorna med dess tal. Knapparna bredvid brädet:
+- Penna: anteckningar. Tangenterna sätter då små tal i rutan eller tar bort dem. Ett tal du skriver in suddar ut den anteckningen i sin rad och kolumn.
+- Suddgummi: tar bort rutans tal eller dess anteckningar.
+- Lampa: en ledtråd. Den rättar ett felaktigt tal, eller fyller annars den lättaste rutan, i gyllene ljus.
+- Öga: visar fel (ett tal som står två gånger i en rad eller kolumn, eller ett tecken som inte stämmer, blir rött). Det är på från början; tryck på det för att dölja dem.
+En tangent bleknar när dess tal finns i varje rad. Ångra tar tillbaka en handling i taget, ända till början. Listen visar dina drag.

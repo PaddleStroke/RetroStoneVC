@@ -1,0 +1,12 @@
+Dominosa
+# El objetivo
+Se colocó un juego completo de dominó sobre la cuadrícula y luego se borraron las líneas entre las fichas: solo quedan los números. Descubre dónde está cada ficha. Cada ficha del juego, del 0-0 al doble más alto (4-4, 6-6 u 8-8), está en la cuadrícula exactamente una vez. Cada cuadrícula tiene una sola solución, que se encuentra solo razonando. Elige el juego y el nivel (las piedras negras bajo cada imagen):
+- Fácil: siempre bastan una casilla a la que solo le queda una vecina para emparejarse y una ficha a la que solo le queda un sitio.
+- Medio: también necesitarás las casillas cuyas parejas posibles forman todas la misma ficha, y las parejas que dejarían sola a una casilla vecina.
+- Difícil: seguir una ficha hasta el final para ver adónde lleva.
+# Una jugada
+Une dos casillas vecinas en una ficha, o quita una ficha. Una ficha nueva sustituye a las que había en sus casillas.
+# El final de la partida
+La cuadrícula está resuelta cuando las fichas la cubren, cada ficha del juego una vez: una ola de luz dorada recorre el tablero.
+# Jugar en el dispositivo
+Arrastra de una casilla a su vecina, o toca una y luego la otra: se coloca encima una ficha de marfil, cuyos puntos muestran los dos números. Toca una ficha para quitarla. Una ficha colocada dos veces se vuelve roja. La lámpara a la derecha de la barra da una pista: quita una ficha equivocada o, si no, coloca la correcta más fácil, con luz dorada. Deshacer quita una acción cada vez, hasta el principio. La barra muestra tus jugadas.

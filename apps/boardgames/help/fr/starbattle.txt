@@ -1,0 +1,13 @@
+Star Battle
+# Le but
+Place des étoiles dans la grille pour que chaque ligne, chaque colonne et chaque région entourée en contienne autant : une sur les grilles de 6 × 6 et 8 × 8, deux sur la grille de 10 × 10. Deux étoiles ne se touchent jamais, pas même par un coin. Chaque grille a une seule solution, qu'on trouve par le seul raisonnement. Choisis la grille et le niveau (les pions sous chaque image) :
+- Facile : les cases autour d'une étoile sont vides ; une ligne ou une région qui a toutes ses étoiles n'en reçoit plus ; celle à qui il reste autant de cases que d'étoiles manquantes a une étoile dans chacune.
+- Moyen : il te faudra aussi les cases dont l'étoile laisserait trop peu de place à une ligne ou une région, et les régions serrées dans une seule ligne (le reste de cette ligne est alors vide).
+- Difficile : deux ou trois régions serrées dans autant de lignes, et suivre une étoile jusqu'au bout pour voir où elle mène.
+La grille à deux étoiles est d'un cran plus dure à chaque niveau : ses grilles faciles demandent déjà les raisonnements du niveau moyen.
+# Un coup
+Mets une étoile dans une case, ou un point dans une case que tu sais vide. Les points ne sont que des notes pour toi.
+# La fin de la partie
+La grille est résolue quand toutes les étoiles sont en place : une vague de lumière dorée parcourt le plateau.
+# Jouer sur l'appareil
+Touche une case pour y mettre une étoile, encore pour un point, et une fois de plus pour la vider. Fais glisser ton doigt le long d'une ligne ou d'une colonne depuis une case vide pour mettre des points dans les cases vides du trajet, ou depuis un point pour enlever les points. Des étoiles qui se touchent, ou trop d'étoiles dans une ligne ou une région, deviennent rouges. La lampe à droite de la barre donne un indice : elle enlève une étoile ou un point faux, ou sinon place l'étoile la plus facile, dans une lumière dorée. Annuler reprend une action à la fois, jusqu'au début. La barre montre tes coups.

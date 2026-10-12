@@ -1,0 +1,17 @@
+Futoshiki
+# The aim
+Fill the square grid so that every row and every column holds each number from 1 to the grid's size exactly once. The signs between neighbouring cells must hold: each sign points at the smaller number (2 < 5, and the same up and down). Some numbers may be given at the start. Every puzzle has exactly one solution, found by reasoning alone. Choose the size (4 × 4 to 7 × 7) and the level (the stones under each picture):
+- Easy: a cell with only one number left, a number with only one place left in its line, and the limits the signs set are always enough.
+- Medium: you will also need pairs: two cells of a line that can only hold the same two numbers.
+- Hard: longer patterns, and following a number through to see where it leads.
+# A move
+Put a number in an empty cell. You can change it or take it out at any time; the given numbers stay. Small notes in a cell help you remember the numbers it could still hold.
+# The end of the game
+The puzzle is solved when the grid is full and right: a wave of gold light runs over the board.
+# Playing on the device
+Tap a cell, then a key under the board: its number goes in, in blue ink (the given numbers are dark). Tap the same key again to take it out, or drag a key onto a cell. The cell's row and column are lit faintly, and every cell holding its number more warmly. With no empty cell picked, a key lights the cells of its number. The buttons beside the board:
+- Pencil: notes. The keys then put small numbers in the cell, or take them out. A number you put in clears that note from its row and column.
+- Eraser: takes out the cell's number, or its notes.
+- Lamp: a hint. It puts a wrong number right, or else fills the easiest cell, in gold light.
+- Eye: shows mistakes (a number twice in a line, or a sign that does not hold, turns red). It is on at first; tap it to hide them.
+A key fades once its number is in every row. Undo takes back one action at a time, all the way to the start. The bar shows your moves.

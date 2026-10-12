@@ -1,0 +1,12 @@
+Rectángulos
+# El objetivo
+Divide la cuadrícula en rectángulos (los cuadrados también valen) para que cada casilla pertenezca a un rectángulo y cada rectángulo tenga un solo número: el número de casillas que cubre. Cada cuadrícula tiene una sola solución, que se encuentra solo razonando. Elige el tamaño (de 7 × 7 a 16 × 16) y el nivel (las fichas bajo cada imagen):
+- Fácil: las casillas que cubren todos los rectángulos posibles de un número son seguro suyas.
+- Medio: también necesitarás las casillas a las que solo llega un número, y los rectángulos que dejarían sin sitio a otro número.
+- Difícil: los rectángulos que dejarían alguna casilla sin forma de cubrirse, y seguir un rectángulo hasta el final para ver adónde lleva.
+# Una jugada
+Dibuja un rectángulo o quita uno. Un rectángulo nuevo sustituye a los que cubre.
+# El final de la partida
+La cuadrícula está resuelta cuando los rectángulos la cubren, cada uno con un número igual a su área: una ola de luz dorada recorre el tablero.
+# Jugar en el dispositivo
+Arrastra de una casilla a otra: el rectángulo con esas dos esquinas crece contigo, con su número de casillas encima del dedo, y se coloca como una pieza de madera al levantar el dedo. También puedes tocar una casilla y luego otra (dos veces la misma: una sola casilla). Toca una pieza para quitarla. Una pieza sin número, con dos números o con un número que no es su área se ve pálida. La lámpara a la derecha de la barra da una pista: quita una pieza equivocada o, si no, coloca la correcta más fácil, con luz dorada. Deshacer quita una acción cada vez, hasta el principio. La barra muestra tus jugadas.

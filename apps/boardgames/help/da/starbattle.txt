@@ -1,0 +1,13 @@
+Star Battle
+# Målet
+Sæt stjerner i gitteret, så hver række, hver kolonne og hvert indrammet område indeholder lige mange stjerner: én på gitrene 6 × 6 og 8 × 8, to på gitteret 10 × 10. To stjerner rører aldrig hinanden, heller ikke med et hjørne. Hver opgave har præcis én løsning, som kan findes ved ren tankekraft. Vælg gitter og niveau (stenene under hvert billede):
+- Let: felterne rundt om en stjerne er tomme; en række, kolonne eller et område med alle sine stjerner får ikke flere; en med lige så mange felter tilbage, som der mangler stjerner, har en stjerne i hvert.
+- Mellem: du får også brug for felter, hvis stjerne ville give en række, kolonne eller et område for lidt plads, og områder, der er klemt inde i én række eller kolonne (resten af den er så tom).
+- Svær: to eller tre områder klemt inde i lige så mange rækker eller kolonner, og at følge en stjerne til ende for at se, hvor den fører hen.
+Gitteret med to stjerner er et trin sværere på hvert niveau: dets lette opgaver kræver allerede mellemniveauets slutninger.
+# Et træk
+Sæt en stjerne i et felt, eller en prik i et felt, som du ved er tomt. Prikkerne er kun noter til dig selv.
+# Spillets afslutning
+Opgaven er løst, når alle stjernerne er på plads: en bølge af gyldent lys løber over brættet.
+# Spil på enheden
+Tryk på et felt for en stjerne, igen for en prik og én gang til for at tømme det. Træk langs en række eller kolonne fra et tomt felt for at sætte prikker i de tomme felter på vejen, eller fra en prik for at fjerne prikkerne. Stjerner, der rører hinanden, eller for mange stjerner i en række, kolonne eller et område, bliver røde. Lampen til højre i bjælken giver et tip: den fjerner en forkert stjerne eller prik eller sætter ellers den letteste stjerne, i gyldent lys. Fortryd tager én handling tilbage ad gangen, helt til starten. Bjælken viser dine træk.

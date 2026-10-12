@@ -1,0 +1,13 @@
+Star Battle
+# Lo scopo
+Metti delle stelle nella griglia in modo che ogni riga, ogni colonna e ogni regione delimitata ne contenga lo stesso numero: una nelle griglie 6 × 6 e 8 × 8, due nella griglia 10 × 10. Due stelle non si toccano mai, nemmeno per un angolo. Ogni schema ha una sola soluzione, che si trova solo ragionando. Scegli la griglia e il livello (le pedine sotto ogni immagine):
+- Facile: le caselle intorno a una stella sono vuote; una riga, colonna o regione che ha tutte le sue stelle non ne riceve altre; una a cui restano tante caselle quante stelle le mancano ha una stella in ciascuna.
+- Medio: serviranno anche le caselle la cui stella lascerebbe troppo poco spazio a una riga, colonna o regione, e le regioni strette in una sola riga o colonna (il resto di quella riga o colonna è allora vuoto).
+- Difficile: due o tre regioni strette in altrettante righe o colonne, e seguire una stella fino in fondo per vedere dove porta.
+La griglia a due stelle è un gradino più dura a ogni livello: i suoi schemi facili chiedono già i ragionamenti del livello medio.
+# Una mossa
+Metti una stella in una casella, o un punto in una casella che sai vuota. I punti sono solo note per te.
+# La fine della partita
+Lo schema è risolto quando tutte le stelle sono al loro posto: un'onda di luce dorata attraversa il tavoliere.
+# Giocare sul dispositivo
+Tocca una casella per metterci una stella, di nuovo per un punto, e ancora una volta per svuotarla. Trascina lungo una riga o una colonna partendo da una casella vuota per mettere punti nelle caselle vuote lungo il percorso, o partendo da un punto per togliere i punti. Le stelle che si toccano, o troppe stelle in una riga, colonna o regione, diventano rosse. La lampada a destra nella barra dà un aiuto: toglie una stella o un punto sbagliato, altrimenti mette la stella più facile, in una luce dorata. Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue mosse.

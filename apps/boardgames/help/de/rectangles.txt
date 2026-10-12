@@ -1,0 +1,12 @@
+Rechtecke
+# Das Ziel
+Teile das Gitter in Rechtecke (Quadrate zählen auch), sodass jedes Feld zu einem Rechteck gehört und jedes Rechteck genau eine Zahl enthält: die Zahl der Felder, die es bedeckt. Jedes Rätsel hat genau eine Lösung, die sich allein durch Nachdenken finden lässt. Wähle die Größe (7 × 7 bis 16 × 16) und die Stufe (die Steine unter jedem Bild):
+- Leicht: Die Felder, die jedes mögliche Rechteck einer Zahl bedeckt, gehören sicher zu ihr.
+- Mittel: Du brauchst auch Felder, die nur eine Zahl erreichen kann, und Rechtecke, die einer anderen Zahl keinen Platz ließen.
+- Schwer: Rechtecke, nach denen ein Feld nicht mehr bedeckt werden könnte, und ein Rechteck bis zum Ende verfolgen, um zu sehen, wohin es führt.
+# Ein Zug
+Zeichne ein Rechteck oder nimm eines weg. Ein neues Rechteck ersetzt die, die es überdeckt.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn die Rechtecke das Gitter bedecken, jedes mit einer Zahl gleich seiner Fläche: Eine Welle goldenen Lichts läuft über das Brett.
+# Spielen auf dem Gerät
+Ziehe von einem Feld zu einem anderen: Das Rechteck mit diesen beiden Ecken wächst mit, seine Felderzahl steht über deinem Finger, und es wird als Holzplättchen gelegt, wenn du den Finger hebst. Du kannst auch ein Feld antippen und dann ein anderes (zweimal dasselbe: ein einzelnes Feld). Tippe ein Plättchen an, um es wegzunehmen. Ein Plättchen ohne Zahl, mit zwei Zahlen oder mit einer Zahl, die nicht seine Fläche ist, ist blass. Die Lampe rechts in der Leiste gibt einen Tipp: Sie nimmt ein falsches Plättchen weg oder legt sonst das leichteste richtige, in goldenem Licht. Rückgängig nimmt eine Aktion nach der anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge.

@@ -1,0 +1,12 @@
+Dikdörtgenler
+# Amaç
+Izgarayı dikdörtgenlere böl (kare biçimliler de sayılır): her kare bir dikdörtgene ait olsun ve her dikdörtgende tam bir sayı bulunsun: kapladığı karelerin sayısı. Her bulmacanın tek bir çözümü vardır ve yalnızca akıl yürüterek bulunur. Boyutu (7 × 7'den 16 × 16'ya) ve seviyeyi (her resmin altındaki taşlar) seç:
+- Kolay: bir sayının bütün olası dikdörtgenlerinin kapladığı kareler kesinlikle onundur.
+- Orta: yalnızca bir sayının ulaşabildiği karelere ve başka bir sayıya yer bırakmayacak dikdörtgenlere de ihtiyacın olacak.
+- Zor: bir kareyi kapatılamaz bırakacak dikdörtgenler ve bir dikdörtgeni nereye vardığını görmek için sonuna kadar izlemek.
+# Bir hamle
+Bir dikdörtgen çiz ya da birini kaldır. Yeni bir dikdörtgen, kapladığı dikdörtgenlerin yerini alır.
+# Oyunun sonu
+Dikdörtgenler ızgarayı kapladığında ve her birinde alanına eşit tek bir sayı olduğunda bulmaca çözülmüştür: tahtanın üzerinden altın bir ışık dalgası geçer.
+# Cihazda oynamak
+Bir kareden diğerine sürükle: köşeleri bu iki kare olan dikdörtgen sen ilerledikçe büyür, kare sayısı parmağının üstünde görünür ve parmağını kaldırınca ahşap bir karo olarak yerleşir. Bir kareye, sonra başka birine de dokunabilirsin (aynı kareye iki kez: tek bir kare). Bir karoyu kaldırmak için ona dokun. Sayısı olmayan, iki sayılı ya da sayısı alanına eşit olmayan bir karo soluk görünür. Çubuğun sağındaki lamba ipucu verir: yanlış bir karoyu kaldırır, yoksa doğru karoların en kolayını altın bir ışık içinde yerleştirir. Geri al her seferinde bir işlemi geri alır, en başa kadar. Çubuk hamlelerini gösterir.

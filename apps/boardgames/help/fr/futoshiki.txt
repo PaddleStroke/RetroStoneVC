@@ -1,0 +1,17 @@
+Futoshiki
+# Le but
+Remplis la grille carrée pour que chaque ligne et chaque colonne contienne une fois chaque nombre de 1 à la taille de la grille. Les signes entre deux cases voisines doivent être respectés : chaque signe pointe vers le plus petit nombre (2 < 5, et de même de haut en bas). Certains nombres peuvent être donnés au départ. Chaque grille a une seule solution, qu'on trouve par le seul raisonnement. Choisis la taille (de 4 × 4 à 7 × 7) et le niveau (les pions sous chaque image) :
+- Facile : une case où il ne reste qu'un nombre, un nombre qui n'a plus qu'une place dans sa ligne, et les limites que posent les signes suffisent toujours.
+- Moyen : il te faudra aussi des paires : deux cases d'une ligne qui ne peuvent contenir que les deux mêmes nombres.
+- Difficile : des figures plus longues, et suivre un nombre jusqu'au bout pour voir où il mène.
+# Un coup
+Mets un nombre dans une case vide. Tu peux le changer ou l'enlever à tout moment ; les nombres donnés restent. De petites notes dans une case t'aident à retenir les nombres qu'elle peut encore recevoir.
+# La fin de la partie
+La grille est résolue quand elle est pleine et juste : une vague de lumière dorée parcourt le plateau.
+# Jouer sur l'appareil
+Touche une case, puis une touche sous le plateau : son nombre s'y inscrit, à l'encre bleue (les nombres donnés sont foncés). Touche encore la même touche pour l'enlever, ou fais glisser une touche sur une case. La ligne et la colonne de la case s'éclairent légèrement, et les cases qui portent son nombre plus chaudement. Sans case vide choisie, une touche éclaire les cases de son nombre. Les boutons à côté du plateau :
+- Crayon : les notes. Les touches mettent alors de petits nombres dans la case, ou les enlèvent. Un nombre posé efface cette note de sa ligne et de sa colonne.
+- Gomme : enlève le nombre de la case, ou ses notes.
+- Lampe : un indice. Elle corrige un nombre faux, ou sinon remplit la case la plus facile, dans une lumière dorée.
+- Œil : montre les erreurs (un nombre présent deux fois dans une ligne, ou un signe non respecté, devient rouge). Il est allumé au départ ; touche-le pour les cacher.
+Une touche pâlit quand son nombre est dans chaque ligne. Annuler reprend une action à la fois, jusqu'au début. La barre montre tes coups.

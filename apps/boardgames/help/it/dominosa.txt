@@ -1,0 +1,12 @@
+Dominosa
+# Lo scopo
+Un gioco completo di domino è stato posato sulla griglia, poi le linee tra le tessere sono state cancellate: restano solo i numeri. Trova dove sta ogni tessera. Ogni tessera del gioco, dallo 0-0 al doppio più alto (4-4, 6-6 o 8-8), è nella griglia una sola volta. Ogni schema ha una sola soluzione, che si trova solo ragionando. Scegli il gioco e il livello (le pedine sotto ogni immagine):
+- Facile: bastano sempre una casella a cui resta una sola vicina con cui fare coppia, e una tessera a cui resta un solo posto.
+- Medio: serviranno anche le caselle le cui coppie possibili formano tutte la stessa tessera, e le coppie che lascerebbero sola una casella vicina.
+- Difficile: seguire una tessera fino in fondo per vedere dove porta.
+# Una mossa
+Unisci due caselle vicine in una tessera, o togli una tessera. Una tessera nuova sostituisce quelle che stavano sulle sue caselle.
+# La fine della partita
+Lo schema è risolto quando le tessere coprono la griglia, ogni tessera del gioco una volta: un'onda di luce dorata attraversa il tavoliere.
+# Giocare sul dispositivo
+Trascina il dito da una casella alla sua vicina, oppure tocca l'una e poi l'altra: ci viene posata sopra una tessera d'avorio, i cui punti mostrano i due numeri. Tocca una tessera per toglierla. Una tessera posata due volte diventa rossa. La lampada a destra nella barra dà un aiuto: toglie una tessera sbagliata, altrimenti posa la più facile di quelle giuste, in una luce dorata. Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue mosse.

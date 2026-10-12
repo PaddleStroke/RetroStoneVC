@@ -1,0 +1,12 @@
+Prostokąty
+# Cel gry
+Podziel diagram na prostokąty (kwadraty też się liczą) tak, aby każde pole należało do jednego prostokąta, a każdy prostokąt zawierał dokładnie jedną liczbę: liczbę pól, które zakrywa. Każda łamigłówka ma dokładnie jedno rozwiązanie, które da się znaleźć samym rozumowaniem. Wybierz rozmiar (od 7 × 7 do 16 × 16) i poziom (kamienie pod każdym obrazkiem):
+- Łatwy: pola, które zakrywają wszystkie możliwe prostokąty danej liczby, na pewno do niej należą.
+- Średni: potrzebne będą też pola, do których sięga tylko jedna liczba, oraz prostokąty, które nie zostawiłyby miejsca innej liczbie.
+- Trudny: prostokąty, po których jakiegoś pola nie dałoby się już zakryć, i śledzenie prostokąta do końca, by zobaczyć, dokąd prowadzi.
+# Ruch
+Narysuj prostokąt albo usuń jeden. Nowy prostokąt zastępuje te, które zakrywa.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy prostokąty zakrywają cały diagram, każdy z jedną liczbą równą swojej powierzchni: po planszy przebiega fala złotego światła.
+# Gra na urządzeniu
+Przeciągnij palcem z jednego pola na inne: prostokąt o tych dwóch narożnikach rośnie razem z ruchem, nad palcem widać liczbę jego pól, a gdy podniesiesz palec, kładzie się jako drewniany kafelek. Możesz też dotknąć pola, a potem innego (dwa razy tego samego: pojedyncze pole). Dotknij kafelka, aby go usunąć. Kafelek bez liczby, z dwiema liczbami albo z liczbą różną od swojej powierzchni jest blady. Lampa po prawej stronie paska daje podpowiedź: usuwa błędny kafelek, a jeśli takiego nie ma, kładzie najłatwiejszy poprawny, w złotym świetle. Cofnij cofa po jednej czynności, aż do początku. Pasek pokazuje twoje ruchy.

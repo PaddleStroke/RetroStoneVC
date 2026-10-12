@@ -1,0 +1,17 @@
+Futoshiki
+# O objetivo
+Preencha a grade quadrada para que cada linha e cada coluna tenha uma vez cada número de 1 até o tamanho da grade. Os sinais entre casas vizinhas precisam ser respeitados: cada sinal aponta para o número menor (2 < 5, e o mesmo de cima para baixo). Alguns números podem vir dados. Cada grade tem uma única solução, encontrada só pelo raciocínio. Escolha o tamanho (de 4 × 4 a 7 × 7) e o nível (as peças sob cada imagem):
+- Fácil: sempre bastam uma casa onde só cabe um número, um número que só tem um lugar na sua linha, e os limites que os sinais impõem.
+- Médio: você também vai precisar de pares: duas casas de uma linha que só podem ter os mesmos dois números.
+- Difícil: figuras mais longas, e seguir um número até o fim para ver aonde ele leva.
+# Uma jogada
+Coloque um número numa casa vazia. Você pode trocá-lo ou tirá-lo quando quiser; os números dados ficam. Pequenas anotações numa casa ajudam a lembrar os números que ela ainda pode ter.
+# O fim da partida
+A grade está resolvida quando está cheia e certa: uma onda de luz dourada percorre o tabuleiro.
+# Jogando no aparelho
+Toque numa casa e depois numa tecla abaixo do tabuleiro: o número dela entra, em tinta azul (os números dados são escuros). Toque de novo na mesma tecla para tirá-lo, ou arraste uma tecla até uma casa. A linha e a coluna da casa se iluminam de leve, e as casas com o mesmo número, mais forte. Sem uma casa vazia escolhida, uma tecla ilumina as casas do seu número. Os botões ao lado do tabuleiro:
+- Lápis: anotações. As teclas passam a pôr números pequenos na casa, ou a tirá-los. Um número que você coloca apaga essa anotação da sua linha e da sua coluna.
+- Borracha: tira o número da casa, ou as anotações dela.
+- Lâmpada: uma dica. Ela corrige um número errado ou, se não houver, preenche a casa mais fácil, numa luz dourada.
+- Olho: mostra os erros (um número repetido numa linha, ou um sinal que não se cumpre, fica vermelho). Ele começa ligado; toque nele para escondê-los.
+Uma tecla fica apagada quando o número dela já está em todas as linhas. Desfazer volta uma ação por vez, até o início. A barra mostra suas jogadas.

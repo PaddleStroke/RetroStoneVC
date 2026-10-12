@@ -1,0 +1,13 @@
+Star Battle
+# Målet
+Placera stjärnor i rutnätet så att varje rad, varje kolumn och varje inramat område innehåller lika många stjärnor: en på rutnäten 6 × 6 och 8 × 8, två på rutnätet 10 × 10. Två stjärnor rör aldrig varandra, inte ens med ett hörn. Varje pussel har exakt en lösning, som går att hitta enbart genom att tänka. Välj rutnät och nivå (stenarna under varje bild):
+- Lätt: rutorna runt en stjärna är tomma; en rad, kolumn eller ett område med alla sina stjärnor får inga fler; en som har lika många rutor kvar som stjärnor som saknas har en stjärna i varje.
+- Medel: du behöver också rutor vars stjärna skulle lämna för lite plats åt en rad, kolumn eller ett område, och områden som är inklämda i en enda rad eller kolumn (resten av den är då tom).
+- Svår: två eller tre områden inklämda i lika många rader eller kolumner, och att följa en stjärna till slutet för att se vart den leder.
+Rutnätet med två stjärnor är ett steg svårare på varje nivå: dess lätta pussel kräver redan medelnivåns resonemang.
+# Ett drag
+Sätt en stjärna i en ruta, eller en prick i en ruta som du vet är tom. Prickarna är bara anteckningar för dig.
+# Partiets slut
+Pusslet är löst när alla stjärnor är på plats: en våg av gyllene ljus sveper över brädet.
+# Spela på enheten
+Tryck på en ruta för en stjärna, igen för en prick och en gång till för att tömma den. Dra längs en rad eller kolumn från en tom ruta för att sätta prickar i de tomma rutorna på vägen, eller från en prick för att ta bort prickarna. Stjärnor som rör varandra, eller för många stjärnor i en rad, kolumn eller ett område, blir röda. Lampan till höger i listen ger en ledtråd: den tar bort en felaktig stjärna eller prick, eller sätter annars den lättaste stjärnan, i gyllene ljus. Ångra tar tillbaka en handling i taget, ända till början. Listen visar dina drag.

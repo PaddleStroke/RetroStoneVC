@@ -1,0 +1,12 @@
+Rectangles
+# Le but
+Découpe la grille en rectangles (les carrés comptent aussi) pour que chaque case appartienne à un rectangle et que chaque rectangle contienne un seul nombre : le nombre de cases qu'il couvre. Chaque grille a une seule solution, qu'on trouve par le seul raisonnement. Choisis la taille (de 7 × 7 à 16 × 16) et le niveau (les pions sous chaque image) :
+- Facile : les cases que couvrent tous les rectangles possibles d'un nombre sont sûrement à lui.
+- Moyen : il te faudra aussi les cases qu'un seul nombre peut atteindre, et les rectangles qui ne laisseraient plus de place à un autre nombre.
+- Difficile : les rectangles qui laisseraient une case impossible à couvrir, et suivre un rectangle jusqu'au bout pour voir où il mène.
+# Un coup
+Trace un rectangle, ou enlèves-en un. Un nouveau rectangle remplace ceux qu'il recouvre.
+# La fin de la partie
+La grille est résolue quand les rectangles la couvrent, chacun avec un seul nombre égal à son aire : une vague de lumière dorée parcourt le plateau.
+# Jouer sur l'appareil
+Fais glisser ton doigt d'une case à une autre : le rectangle qui a ces deux coins grandit à mesure, son nombre de cases affiché au-dessus du doigt, et se pose en tuile de bois quand tu lèves le doigt. Tu peux aussi toucher une case, puis une autre (deux fois la même : une seule case). Touche une tuile pour l'enlever. Une tuile sans nombre, avec deux nombres, ou avec un nombre qui n'est pas son aire, est pâle. La lampe à droite de la barre donne un indice : elle enlève une tuile fausse, ou sinon pose la plus facile des bonnes, dans une lumière dorée. Annuler reprend une action à la fois, jusqu'au début. La barre montre tes coups.

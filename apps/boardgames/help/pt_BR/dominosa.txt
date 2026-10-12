@@ -1,0 +1,12 @@
+Dominosa
+# O objetivo
+Um jogo completo de dominó foi colocado sobre a grade e depois as linhas entre as pedras foram apagadas: só sobraram os números. Descubra onde está cada pedra. Cada pedra do jogo, do 0-0 até a carroça mais alta (4-4, 6-6 ou 8-8), está na grade exatamente uma vez. Cada grade tem uma única solução, encontrada só pelo raciocínio. Escolha o jogo e o nível (as bolinhas pretas sob cada imagem):
+- Fácil: sempre bastam uma casa que só tem uma vizinha para formar par, e uma pedra que só tem um lugar.
+- Médio: você também vai precisar das casas cujos pares possíveis formam todos a mesma pedra, e dos pares que deixariam uma casa vizinha sozinha.
+- Difícil: seguir uma pedra até o fim para ver aonde ela leva.
+# Uma jogada
+Junte duas casas vizinhas numa pedra, ou tire uma pedra. Uma pedra nova substitui as que estavam nas suas casas.
+# O fim da partida
+A grade está resolvida quando as pedras a cobrem, cada pedra do jogo uma vez: uma onda de luz dourada percorre o tabuleiro.
+# Jogando no aparelho
+Arraste o dedo de uma casa até a vizinha, ou toque numa e depois na outra: uma pedra de marfim é colocada sobre elas, com pontos que mostram os dois números. Toque numa pedra para tirá-la. Uma pedra colocada duas vezes fica vermelha. A lâmpada à direita da barra dá uma dica: tira uma pedra errada ou, se não houver, coloca a certa mais fácil, numa luz dourada. Desfazer volta uma ação por vez, até o início. A barra mostra suas jogadas.

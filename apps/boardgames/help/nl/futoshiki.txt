@@ -1,0 +1,17 @@
+Futoshiki
+# Het doel
+Vul het vierkante rooster zo dat elke rij en elke kolom elk getal van 1 tot de grootte van het rooster precies één keer bevat. De tekens tussen buurvakjes moeten kloppen: elk teken wijst met de punt naar het kleinere getal (2 < 5, en net zo van boven naar beneden). Sommige getallen kunnen gegeven zijn. Elke puzzel heeft precies één oplossing, die je alleen door redeneren vindt. Kies de grootte (4 × 4 tot 7 × 7) en het niveau (de stenen onder elk plaatje):
+- Makkelijk: een vakje waar nog maar één getal in past, een getal met nog maar één plek in zijn rij of kolom, en de grenzen die de tekens stellen, zijn altijd genoeg.
+- Gemiddeld: je hebt ook paren nodig: twee vakjes van een rij of kolom waar alleen dezelfde twee getallen in passen.
+- Moeilijk: langere patronen, en een getal tot het eind volgen om te zien waar het heen leidt.
+# Een zet
+Zet een getal in een leeg vakje. Je kunt het altijd veranderen of weghalen; de gegeven getallen blijven staan. Kleine notities in een vakje helpen je te onthouden welke getallen er nog in kunnen.
+# Het einde van het spel
+De puzzel is opgelost als het rooster vol en goed is: een golf van gouden licht loopt over het bord.
+# Spelen op het apparaat
+Tik op een vakje en dan op een toets onder het bord: het getal komt erin, in blauwe inkt (de gegeven getallen zijn donker). Tik nog eens op dezelfde toets om het weg te halen, of sleep een toets naar een vakje. De rij en kolom van het vakje lichten zacht op, en de vakjes met hetzelfde getal sterker. Is er geen leeg vakje gekozen, dan laat een toets de vakjes van zijn getal oplichten. De knoppen naast het bord:
+- Potlood: notities. De toetsen zetten dan kleine getallen in het vakje of halen ze weg. Een getal dat je invult, wist die notitie in zijn rij en kolom.
+- Gum: haalt het getal van het vakje weg, of de notities.
+- Lamp: een hint. Hij verbetert een fout getal, of vult anders het makkelijkste vakje, in gouden licht.
+- Oog: toont fouten (een getal dat twee keer in een rij of kolom staat, of een teken dat niet klopt, wordt rood). Het staat eerst aan; tik erop om ze te verbergen.
+Een toets vervaagt zodra zijn getal in elke rij staat. Ongedaan maken neemt één actie tegelijk terug, helemaal tot het begin. De balk toont je zetten.

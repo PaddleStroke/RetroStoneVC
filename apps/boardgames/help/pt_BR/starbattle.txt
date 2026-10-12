@@ -1,0 +1,13 @@
+Star Battle
+# O objetivo
+Coloque estrelas na grade para que cada linha, cada coluna e cada região contornada tenha o mesmo número de estrelas: uma nas grades de 6 × 6 e 8 × 8, duas na grade de 10 × 10. Duas estrelas nunca se tocam, nem pela ponta. Cada grade tem uma única solução, encontrada só pelo raciocínio. Escolha a grade e o nível (as peças sob cada imagem):
+- Fácil: as casas em volta de uma estrela ficam vazias; uma linha ou região com todas as suas estrelas não recebe mais nenhuma; uma que tem tantas casas livres quantas estrelas faltam tem uma estrela em cada uma.
+- Médio: você também vai precisar das casas cuja estrela deixaria pouco espaço para uma linha ou região, e das regiões espremidas numa só linha (o resto dessa linha fica vazio).
+- Difícil: duas ou três regiões espremidas em outras tantas linhas, e seguir uma estrela até o fim para ver aonde ela leva.
+A grade de duas estrelas é um degrau mais difícil em cada nível: as fáceis já pedem os raciocínios do nível médio.
+# Uma jogada
+Coloque uma estrela numa casa, ou um ponto numa casa que você sabe que está vazia. Os pontos são só anotações para você.
+# O fim da partida
+A grade está resolvida quando todas as estrelas estão no lugar: uma onda de luz dourada percorre o tabuleiro.
+# Jogando no aparelho
+Toque numa casa para pôr uma estrela, de novo para um ponto e mais uma vez para esvaziá-la. Arraste ao longo de uma linha ou coluna a partir de uma casa vazia para pôr pontos nas casas vazias do caminho, ou a partir de um ponto para tirar os pontos. Estrelas que se tocam, ou estrelas demais numa linha ou região, ficam vermelhas. A lâmpada à direita da barra dá uma dica: tira uma estrela ou um ponto errado ou, se não houver, coloca a estrela mais fácil, numa luz dourada. Desfazer volta uma ação por vez, até o início. A barra mostra suas jogadas.

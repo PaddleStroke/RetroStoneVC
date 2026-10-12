@@ -1,0 +1,12 @@
+Dominosa
+# O objetivo
+Um jogo completo de dominó foi pousado na grelha e depois as linhas entre as pedras foram apagadas: só ficaram os números. Descobre onde está cada pedra. Cada pedra do jogo, do 0-0 até ao duplo mais alto (4-4, 6-6 ou 8-8), está na grelha exatamente uma vez. Cada grelha tem uma única solução, que se encontra só a raciocinar. Escolhe o jogo e o nível (as bolinhas pretas sob cada imagem):
+- Fácil: bastam sempre uma casa que só tem uma vizinha com quem formar par, e uma pedra que só tem um lugar.
+- Médio: vais precisar também das casas cujos pares possíveis formam todos a mesma pedra, e dos pares que deixariam uma casa vizinha sozinha.
+- Difícil: seguir uma pedra até ao fim para ver onde leva.
+# Uma jogada
+Junta duas casas vizinhas numa pedra, ou tira uma pedra. Uma pedra nova substitui as que estavam nas suas casas.
+# O fim do jogo
+A grelha está resolvida quando as pedras a cobrem, cada pedra do jogo uma vez: uma onda de luz dourada percorre o tabuleiro.
+# Jogar no dispositivo
+Arrasta o dedo de uma casa até à vizinha, ou toca numa e depois na outra: uma pedra de marfim é pousada sobre elas, com pintas que mostram os dois números. Toca numa pedra para a tirar. Uma pedra pousada duas vezes fica vermelha. A lâmpada à direita da barra dá uma ajuda: tira uma pedra errada ou, se não houver, pousa a certa mais fácil, numa luz dourada. Anular desfaz uma ação de cada vez, até ao início. A barra mostra as tuas jogadas.

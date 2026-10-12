@@ -1,0 +1,17 @@
+Futoshiki
+# Lo scopo
+Riempi la griglia quadrata in modo che ogni riga e ogni colonna contenga una volta ciascun numero da 1 alla misura della griglia. I segni tra caselle vicine vanno rispettati: ogni segno punta verso il numero più piccolo (2 < 5, e lo stesso dall'alto in basso). Alcuni numeri possono essere dati all'inizio. Ogni schema ha una sola soluzione, che si trova solo ragionando. Scegli la misura (da 4 × 4 a 7 × 7) e il livello (le pedine sotto ogni immagine):
+- Facile: bastano sempre una casella in cui resta un solo numero, un numero che ha un solo posto nella sua riga o colonna, e i limiti posti dai segni.
+- Medio: serviranno anche le coppie: due caselle di una riga o colonna che possono contenere solo gli stessi due numeri.
+- Difficile: figure più lunghe, e seguire un numero fino in fondo per vedere dove porta.
+# Una mossa
+Metti un numero in una casella vuota. Puoi cambiarlo o toglierlo quando vuoi; i numeri dati restano. Piccole note in una casella ti aiutano a ricordare i numeri che può ancora contenere.
+# La fine della partita
+Lo schema è risolto quando la griglia è piena e giusta: un'onda di luce dorata attraversa il tavoliere.
+# Giocare sul dispositivo
+Tocca una casella, poi un tasto sotto il tavoliere: il suo numero entra, in inchiostro blu (i numeri dati sono scuri). Tocca di nuovo lo stesso tasto per toglierlo, oppure trascina un tasto su una casella. La riga e la colonna della casella si illuminano appena, e le caselle con il suo numero di più. Senza una casella vuota scelta, un tasto illumina le caselle del suo numero. I pulsanti accanto al tavoliere:
+- Matita: le note. I tasti mettono allora piccoli numeri nella casella, o li tolgono. Un numero inserito cancella quella nota dalla sua riga e dalla sua colonna.
+- Gomma: toglie il numero della casella, o le sue note.
+- Lampada: un aiuto. Corregge un numero sbagliato, altrimenti riempie la casella più facile, in una luce dorata.
+- Occhio: mostra gli errori (un numero ripetuto in una riga o colonna, o un segno non rispettato, diventa rosso). All'inizio è acceso; toccalo per nasconderli.
+Un tasto sbiadisce quando il suo numero è in ogni riga. Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue mosse.

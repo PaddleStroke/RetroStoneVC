@@ -1,0 +1,13 @@
+Star Battle
+# Tavoite
+Aseta ruudukkoon tähtiä niin, että jokaisella rivillä, jokaisessa sarakkeessa ja jokaisella rajatulla alueella on yhtä monta tähteä: yksi ruudukoissa 6 × 6 ja 8 × 8, kaksi ruudukossa 10 × 10. Kaksi tähteä ei koskaan kosketa toisiaan, ei edes kulmittain. Jokaisella tehtävällä on täsmälleen yksi ratkaisu, jonka löytää pelkällä päättelyllä. Valitse ruudukko ja taso (kivet kunkin kuvan alla):
+- Helppo: tähden ympärillä olevat ruudut ovat tyhjiä; rivi, sarake tai alue, jolla on jo kaikki tähtensä, ei saa enempää; sellainen, jolla on jäljellä yhtä monta ruutua kuin tähtiä puuttuu, saa tähden jokaiseen.
+- Keskitaso: tarvitset myös ruutuja, joiden tähti jättäisi riville, sarakkeelle tai alueelle liian vähän tilaa, ja alueita, jotka ovat puristuneet yhdelle riville tai sarakkeelle (sen loppu on silloin tyhjä).
+- Vaikea: kaksi tai kolme aluetta puristuneena yhtä moneen riviin tai sarakkeeseen, ja tähden seuraamista loppuun asti nähdäksesi, mihin se johtaa.
+Kahden tähden ruudukko on jokaisella tasolla askeleen vaikeampi: sen helpotkin tehtävät vaativat jo keskitason päättelyä.
+# Siirto
+Laita tähti ruutuun, tai piste ruutuun, jonka tiedät tyhjäksi. Pisteet ovat vain muistiinpanoja sinulle.
+# Pelin loppu
+Tehtävä on ratkaistu, kun kaikki tähdet ovat paikallaan: kultainen valoaalto kulkee laudan yli.
+# Pelaaminen laitteella
+Napauta ruutua saadaksesi tähden, uudelleen pisteen ja vielä kerran tyhjentääksesi sen. Vedä rivin tai sarakkeen suuntaan tyhjästä ruudusta lisätäksesi pisteitä matkan tyhjiin ruutuihin, tai pisteestä poistaaksesi pisteet. Toisiaan koskettavat tähdet tai liian monta tähteä rivillä, sarakkeessa tai alueella muuttuvat punaisiksi. Palkin oikean reunan lamppu antaa vihjeen: se poistaa väärän tähden tai pisteen tai muuten asettaa helpoimman tähden, kultaisessa valossa. Kumoa peruu yhden toiminnon kerrallaan, aina alkuun asti. Palkki näyttää siirtosi.

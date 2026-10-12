@@ -1,0 +1,12 @@
+Suorakulmiot
+# Tavoite
+Jaa ruudukko suorakulmioiksi (myös neliöt käyvät) niin, että jokainen ruutu kuuluu yhteen suorakulmioon ja jokaisessa suorakulmiossa on täsmälleen yksi luku: sen peittämien ruutujen määrä. Jokaisella tehtävällä on täsmälleen yksi ratkaisu, jonka löytää pelkällä päättelyllä. Valitse koko (7 × 7 – 16 × 16) ja taso (kivet kunkin kuvan alla):
+- Helppo: ruudut, jotka luvun jokainen mahdollinen suorakulmio peittää, kuuluvat varmasti sille.
+- Keskitaso: tarvitset myös ruutuja, joihin ylettyy vain yksi luku, ja suorakulmioita, jotka eivät jättäisi tilaa toiselle luvulle.
+- Vaikea: suorakulmioita, joiden jälkeen jotain ruutua ei voisi enää peittää, ja suorakulmion seuraamista loppuun asti nähdäksesi, mihin se johtaa.
+# Siirto
+Piirrä suorakulmio tai poista yksi. Uusi suorakulmio korvaa ne, jotka se peittää.
+# Pelin loppu
+Tehtävä on ratkaistu, kun suorakulmiot peittävät ruudukon ja jokaisessa on yksi luku, joka on sen pinta-ala: kultainen valoaalto kulkee laudan yli.
+# Pelaaminen laitteella
+Vedä ruudusta toiseen: suorakulmio, jonka kulmat ovat nämä kaksi ruutua, kasvaa vetäessäsi, sen ruutujen määrä näkyy sormesi yllä, ja se asettuu puulaataksi, kun nostat sormen. Voit myös napauttaa ruutua ja sitten toista (sama ruutu kahdesti: yksittäinen ruutu). Napauta laattaa poistaaksesi sen. Laatta, jossa ei ole lukua, on kaksi lukua tai luku, joka ei ole sen pinta-ala, on haalea. Palkin oikean reunan lamppu antaa vihjeen: se poistaa väärän laatan tai muuten asettaa helpoimman oikean, kultaisessa valossa. Kumoa peruu yhden toiminnon kerrallaan, aina alkuun asti. Palkki näyttää siirtosi.

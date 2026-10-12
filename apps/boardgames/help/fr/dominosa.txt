@@ -1,0 +1,12 @@
+Dominosa
+# Le but
+Un jeu complet de dominos a été posé sur la grille, puis les traits entre eux ont été effacés : il ne reste que les nombres. Retrouve où se trouve chaque domino. Chaque domino du jeu, du 0-0 au plus grand double (4-4, 6-6 ou 8-8), est dans la grille une seule fois. Chaque grille a une seule solution, qu'on trouve par le seul raisonnement. Choisis le jeu et le niveau (les pions sous chaque image) :
+- Facile : une case qui n'a plus qu'une voisine avec qui s'apparier, et un domino qui n'a plus qu'une place, suffisent toujours.
+- Moyen : il te faudra aussi les cases dont toutes les paires possibles forment le même domino, et les paires qui laisseraient une case voisine seule.
+- Difficile : suivre un domino jusqu'au bout pour voir où il mène.
+# Un coup
+Réunis deux cases voisines en un domino, ou enlève un domino. Un nouveau domino remplace ceux qui étaient sur ses cases.
+# La fin de la partie
+La grille est résolue quand les dominos la couvrent, chaque domino du jeu une fois : une vague de lumière dorée parcourt le plateau.
+# Jouer sur l'appareil
+Fais glisser ton doigt d'une case à sa voisine, ou touche l'une puis l'autre : un domino d'ivoire s'y pose, ses points montrant les deux nombres. Touche un domino pour l'enlever. Un domino posé deux fois devient rouge. La lampe à droite de la barre donne un indice : elle enlève un domino faux, ou sinon pose le plus facile des bons, dans une lumière dorée. Annuler reprend une action à la fois, jusqu'au début. La barre montre tes coups.

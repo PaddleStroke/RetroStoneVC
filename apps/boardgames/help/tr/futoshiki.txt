@@ -1,0 +1,17 @@
+Futoshiki
+# Amaç
+Kare ızgarayı, her satırda ve her sütunda 1'den ızgaranın boyutuna kadar her sayı tam bir kez olacak şekilde doldur. Komşu kareler arasındaki işaretler doğru olmalı: her işaretin ucu küçük sayıyı gösterir (2 < 5, yukarıdan aşağıya da aynı). Bazı sayılar baştan verilmiş olabilir. Her bulmacanın tek bir çözümü vardır ve yalnızca akıl yürüterek bulunur. Boyutu (4 × 4'ten 7 × 7'ye) ve seviyeyi (her resmin altındaki taşlar) seç:
+- Kolay: yalnızca tek bir sayının sığdığı bir kare, satırında ya da sütununda tek bir yeri kalan bir sayı ve işaretlerin koyduğu sınırlar her zaman yeter.
+- Orta: çiftlere de ihtiyacın olacak: bir satır ya da sütunda yalnızca aynı iki sayının sığabildiği iki kare.
+- Zor: daha uzun desenler ve bir sayıyı nereye vardığını görmek için sonuna kadar izlemek.
+# Bir hamle
+Boş bir kareye bir sayı yaz. Onu istediğin zaman değiştirebilir ya da silebilirsin; verilen sayılar yerinde kalır. Bir karedeki küçük notlar, oraya hâlâ hangi sayıların sığabileceğini hatırlamana yardım eder.
+# Oyunun sonu
+Izgara dolu ve doğru olduğunda bulmaca çözülmüştür: tahtanın üzerinden altın bir ışık dalgası geçer.
+# Cihazda oynamak
+Bir kareye, sonra tahtanın altındaki bir tuşa dokun: tuşun sayısı mavi mürekkeple yazılır (verilen sayılar koyudur). Silmek için aynı tuşa yeniden dokun ya da bir tuşu bir kareye sürükle. Karenin satırı ve sütunu hafifçe, aynı sayıyı taşıyan kareler daha sıcak bir ışıkla aydınlanır. Boş bir kare seçili değilken bir tuş, kendi sayısının bulunduğu kareleri aydınlatır. Tahtanın yanındaki düğmeler:
+- Kalem: notlar. Tuşlar o zaman kareye küçük sayılar koyar ya da onları siler. Yazdığın bir sayı, satırındaki ve sütunundaki o notu siler.
+- Silgi: karenin sayısını ya da notlarını siler.
+- Lamba: bir ipucu. Yanlış bir sayıyı düzeltir, yoksa en kolay kareyi altın bir ışık içinde doldurur.
+- Göz: hataları gösterir (bir satır ya da sütunda iki kez geçen sayı ya da tutmayan bir işaret kırmızıya döner). Başta açıktır; gizlemek için ona dokun.
+Sayısı her satırda bulunan tuş solar. Geri al her seferinde bir işlemi geri alır, en başa kadar. Çubuk hamlelerini gösterir.

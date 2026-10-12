@@ -1,0 +1,13 @@
+Star Battle
+# Målet
+Sett stjerner i rutenettet slik at hver rad, hver kolonne og hvert innrammet område inneholder like mange stjerner: én på rutenettene 6 × 6 og 8 × 8, to på rutenettet 10 × 10. To stjerner berører aldri hverandre, heller ikke med et hjørne. Hver oppgave har nøyaktig én løsning, som kan finnes bare ved å tenke. Velg rutenett og nivå (steinene under hvert bilde):
+- Lett: rutene rundt en stjerne er tomme; en rad, kolonne eller et område med alle stjernene sine får ingen flere; en med like mange ruter igjen som stjerner som mangler, har en stjerne i hver.
+- Middels: du trenger også ruter der en stjerne ville gi en rad, kolonne eller et område for lite plass, og områder som er klemt inn i én rad eller kolonne (resten av den er da tom).
+- Vanskelig: to eller tre områder klemt inn i like mange rader eller kolonner, og å følge en stjerne til endes for å se hvor den fører.
+Rutenettet med to stjerner er et hakk vanskeligere på hvert nivå: de lette oppgavene der krever allerede slutningene fra middels nivå.
+# Et trekk
+Sett en stjerne i en rute, eller en prikk i en rute du vet er tom. Prikkene er bare notater for deg selv.
+# Slutten på spillet
+Oppgaven er løst når alle stjernene er på plass: en bølge av gyllent lys går over brettet.
+# Spill på enheten
+Trykk på en rute for en stjerne, igjen for en prikk og én gang til for å tømme den. Dra langs en rad eller kolonne fra en tom rute for å sette prikker i de tomme rutene på veien, eller fra en prikk for å ta bort prikkene. Stjerner som berører hverandre, eller for mange stjerner i en rad, kolonne eller et område, blir røde. Lampen til høyre på linjen gir et tips: den tar bort en feil stjerne eller prikk, eller setter ellers den letteste stjernen, i gyllent lys. Angre tar tilbake én handling om gangen, helt til starten. Linjen viser trekkene dine.
