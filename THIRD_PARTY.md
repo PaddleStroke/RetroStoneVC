@@ -5,7 +5,7 @@ All third-party code is permissive and vendored under `sdk/third_party/`.
 | Component | Version | Licence | Where | Used for |
 |---|---|---|---|---|
 | libxmp-lite (Claudio Matsuoka, Hipolito Carraro Jr and contributors) | 4.7.3 | MIT | `sdk/third_party/libxmp-lite/` (licence text in its `README`) | tracker music (MOD, S3M, XM, IT) |
-| stb_image, stb_image_write (Sean Barrett) | stb_image 2.30, stb_image_write 1.16 | MIT or public domain (dual) | `sdk/third_party/stb/` (licence at the end of each file) | PNG reading (tests) and writing (screenshots) |
+| stb_image, stb_image_write (Sean Barrett) | stb_image 2.30, stb_image_write 1.16 | MIT or public domain (dual) | `sdk/third_party/stb/` (licence at the end of each file) | PNG reading (tests) and writing (screenshots); JPEG decoding of the French tarot's pictures (apps/boardgames, `src/cards.c`) |
 | stb_truetype (Sean Barrett) | 1.26 | MIT or public domain (dual) | `sdk/third_party/stb/stb_truetype.h` (licence at the end) | the board games' texts (apps/boardgames) |
 | Noto Sans CJK (Adobe, Google) | 2.004 | SIL Open Font License 1.1 | not vendored: the system package `fonts-noto-cjk`, cut down at build time to the characters of the texts (`apps/boardgames/tools/gen_text.py`); licence: `apps/boardgames/fonts/LICENSE-NotoSansCJK-OFL.txt` | the board games' texts in 22 languages |
 | libretro.h (The RetroArch team) | API v1 | MIT | `sdk/third_party/libretro/libretro.h` | libretro core API |

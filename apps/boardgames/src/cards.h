@@ -111,8 +111,10 @@ static inline void cards_shuffle(uint8_t *c, int n, uint32_t seed)
  * A card is drawn w pixels wide, cards_aspect(deck) times as tall. The faces: no letters. French and tarot: the
  * index in the corners (digits; the court's figure; the ace's big pip) over the suit; pips in the classic layouts;
  * the courts as the house's chess figures in the suit's colour, double-headed: jack a bishop, (tarot) knight a knight,
- * queen a queen, king a king; jokers a jester's cap; tarot's trumps their number on a gold sun, the excuse a star.
- * Small cards (under about 52 px) get a plainer face: the index big, the suit under it. Number cards: lacquer by band
+ * queen a queen, king a king; jokers a jester's cap. The tarot's trumps, excuse and courts: the original pictures of
+ * the 1898 "Tarot nouveau" (art/tarot, public domain) in the kit's rim; the trumps (and the excuse: a star) get a
+ * small corner index, readable in a fanned hand (the courts have their suit in the corner already). Small cards (under about 52 px) get a plainer face: the index big, the suit under it (the tarot's
+ * trumps: their number on a gold sun, the excuse a star, its courts the chess figure). Number cards: lacquer by band
  * (-2..-1 lapis, 0 sky, 1..4 jade, 5..8 amber, 9..12 red). Tiles: ivory on wood, the number in its colour. The action
  * deck: lacquer cards, drawn icons for its actions. Backs: the green table in a walnut frame (tiles: wood; the action
  * deck: its own, ebony). */
@@ -155,5 +157,11 @@ int  cards_slide_busy(const cards_slide *s);
 
 /* a card game's token (the bars, the cover, the end card): a player's chip, a flat disc in their colour */
 void cards_token(int player, int size, uint8_t *rgba);
+
+/* the tarot's pictures, JPEG (generated from art/tarot by tools/gen_art.py): the excuse, the trumps 1..21, then each
+ * suit's (spades, hearts, diamonds, clubs) jack, knight, queen, king */
+typedef struct { const unsigned char *jpg; int size; } cards_jpeg;
+enum { TAROT_ART_EXCUSE, TAROT_ART_TRUMP1, TAROT_ART_COURTS = 22, TAROT_ART_N = 38 };
+extern const cards_jpeg cards_tarot_art[TAROT_ART_N];
 
 #endif

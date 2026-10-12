@@ -6,7 +6,9 @@
  * A face is painted in pixels on a w x h canvas (straight alpha, like art.c): the card's body, then figures (suit
  * symbols, chess figures, icons) rendered by art_render in their unit square and blended on, and digits from the
  * font (text_glyph, help/glyphs.txt keeps them). The corner index is painted once and blended again turned round
- * (bottom right).
+ * (bottom right). The tarot's trumps, excuse and courts are pictures: the 1898 "Tarot nouveau" (art/tarot, embedded
+ * by tools/gen_art.py), decoded (stb_image) and scaled to the card when its face is painted (the texture cache keeps
+ * the result).
  */
 #include <math.h>
 #include <stdlib.h>
@@ -16,6 +18,17 @@
 #include "games/chess.h"
 #include "shell.h"
 #include "text.h"
+
+#define STB_IMAGE_IMPLEMENTATION                /* the tarot's pictures: JPEG only, from memory */
+#define STBI_ONLY_JPEG
+#define STBI_NO_STDIO
+#define STBI_NO_LINEAR
+#define STBI_NO_HDR
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"     /* the library's parts this kit does not use */
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#include "stb_image.h"
+#pragma GCC diagnostic pop
 
 #define PI_F 3.14159265f
 
@@ -437,10 +450,131 @@ static void court(canvas *c, int type, int suit)
     put_figure(c, type, suit, w / 2 - s / 2, h / 2 - 0.095f * s, s, 1);
 }
 
+/* ---- the tarot's pictures ---------------------------------------------------------------------------------------- */
+/* a tarot card's picture (cards_tarot_art): the excuse, a trump, a court; -1: none (a number card) */
+static int tarot_art_of(int card)
+{
+    int suit = CARD_SUIT(card), rank = CARD_RANK(card);
+    if (suit == SUIT_TRUMP) return rank <= 21 ? TAROT_ART_EXCUSE + rank : -1;
+    if (suit < 4 && rank >= TAROT_JACK && rank <= TAROT_KING) return TAROT_ART_COURTS + 4 * suit + rank - TAROT_JACK;
+    return -1;
+}
+
+/* one axis of a resampling, n samples to m: each output's source samples and weights (area averaging when it
+ * shrinks, linear when it grows) */
+typedef struct { int first, count; float w[64]; } tap;
+
+static tap *taps(int n, int m)
+{
+    tap *t = malloc(sizeof *t * (size_t)m);
+    if (!t) return NULL;
+    float scale = (float)n / m;
+    for (int i = 0; i < m; i++) {
+        if (scale > 1) {                        /* the source span [a, b) this pixel covers */
+            float a = i * scale, b = a + scale;
+            int j0 = (int)a, j1 = (int)ceilf(b);
+            if (j1 > n) j1 = n;
+            if (j1 - j0 > 64) j1 = j0 + 64;
+            t[i].first = j0;
+            t[i].count = j1 - j0;
+            for (int j = j0; j < j1; j++) t[i].w[j - j0] = (fminf(b, j + 1.0f) - fmaxf(a, (float)j)) / scale;
+        } else {
+            float c = (i + 0.5f) * scale - 0.5f;
+            int j0 = (int)floorf(c);
+            float f = c - j0;
+            if (j0 < 0) j0 = 0, f = 0;
+            if (j0 >= n - 1) j0 = n - 1, f = 0;
+            t[i].first = j0;
+            t[i].count = f > 0 ? 2 : 1;
+            t[i].w[0] = 1 - f;
+            t[i].w[1] = f;
+        }
+    }
+    return t;
+}
+
+/* picture idx scaled to w x h, its corners rounded (rad), blended at (x, y) */
+static void put_scan(canvas *c, int idx, float x, float y, float w, float h, float rad)
+{
+    int sw, sh, n, tw = (int)(w + 0.5f), th = (int)(h + 0.5f);
+    if (tw < 2 || th < 2) return;
+    uint8_t *s = stbi_load_from_memory(cards_tarot_art[idx].jpg, cards_tarot_art[idx].size, &sw, &sh, &n, 3);
+    if (!s) return;
+    tap *tx = taps(sw, tw), *ty = taps(sh, th);
+    float *mid = malloc(sizeof *mid * (size_t)tw * sh * 3);
+    uint8_t *o = malloc((size_t)tw * th * 4);
+    if (tx && ty && mid && o) {
+        for (int j = 0; j < sh; j++)            /* across, each source row */
+            for (int i = 0; i < tw; i++) {
+                float acc[3] = {0, 0, 0};
+                for (int k = 0; k < tx[i].count; k++) {
+                    const uint8_t *p = s + 3 * ((size_t)j * sw + tx[i].first + k);
+                    for (int ch = 0; ch < 3; ch++) acc[ch] += tx[i].w[k] * p[ch];
+                }
+                memcpy(mid + 3 * ((size_t)j * tw + i), acc, sizeof acc);
+            }
+        for (int j = 0; j < th; j++)            /* down */
+            for (int i = 0; i < tw; i++) {
+                float acc[3] = {0, 0, 0};
+                for (int k = 0; k < ty[j].count; k++) {
+                    const float *p = mid + 3 * ((size_t)(ty[j].first + k) * tw + i);
+                    for (int ch = 0; ch < 3; ch++) acc[ch] += ty[j].w[k] * p[ch];
+                }
+                uint8_t *q = o + 4 * ((size_t)j * tw + i);
+                for (int ch = 0; ch < 3; ch++) q[ch] = (uint8_t)fminf(255, fmaxf(0, acc[ch] + 0.5f));
+                q[3] = (uint8_t)(255 * clamp01(0.5f - rr_dist(i + 0.5f, j + 0.5f, (float)tw, (float)th, rad)));
+            }
+        art_blend(c->o, c->w, c->h, o, tw, th, (int)(x + 0.5f), (int)(y + 0.5f));
+    }
+    free(tx);
+    free(ty);
+    free(mid);
+    free(o);
+    stbi_image_free(s);
+}
+
+/* a pictured trump's corner index, top left and turned round bottom right: its number (the excuse: a star), dark
+ * in an ivory rim, on the picture's corner ornament. The 1898 trumps carry their number at the top in the middle,
+ * hidden in a fanned hand (only a card's left part shows); the courts carry their suit in the corner already. */
+static void scan_corner(canvas *c, int card)
+{
+    float w = (float)c->w;
+    int cw = (int)ceilf(0.28f * w), ch = (int)ceilf(0.26f * w);
+    canvas k = {calloc((size_t)cw * ch, 4), cw, ch};
+    if (!k.o) return;
+    int rank = CARD_RANK(card);
+    float x = 0.13f * w, y = 0.125f * w;
+    if (rank == 0) put_star(&k, x, y, 0.19f * w, INK, IVORY);
+    else put_digits(&k, rank, x, y, 0.15f * w, INK, rank >= 10 ? 0.78f : 1, IVORY);
+    art_blend(c->o, c->w, c->h, k.o, cw, ch, 0, 0);
+    for (int i = 0, j = cw * ch - 1; i < j; i++, j--) {
+        uint8_t t[4];
+        memcpy(t, k.o + 4 * i, 4);
+        memcpy(k.o + 4 * i, k.o + 4 * j, 4);
+        memcpy(k.o + 4 * j, t, 4);
+    }
+    art_blend(c->o, c->w, c->h, k.o, cw, ch, c->w - cw, c->h - ch);
+    free(k.o);
+}
+
+/* a pictured tarot card: the kit's rim, the picture inside it, a trump's corner index */
+static void face_scan(canvas *c, int card, int idx)
+{
+    float w = (float)c->w, h = (float)c->h, r = 0.075f * w, b = fmaxf(1, 0.014f * w);
+    body(c, IVORY, RIM);
+    put_scan(c, idx, b, b, w - 2 * b, h - 2 * b, r - b);
+    if (CARD_SUIT(card) == SUIT_TRUMP) scan_corner(c, card);
+}
+
 static void face_french(canvas *c, int deck, int card)
 {
     float w = (float)c->w, h = (float)c->h;
     int suit = CARD_SUIT(card), rank = CARD_RANK(card), small = c->w < 52;
+    int pic = deck == DECK_TAROT && !small ? tarot_art_of(card) : -1;
+    if (pic >= 0) {                             /* small: the drawn face below (a picture is unreadable there) */
+        face_scan(c, card, pic);
+        return;
+    }
     body(c, IVORY, RIM);
     if (suit == SUIT_JOKER) {                   /* a jester's cap */
         art_fig *f = art_fig_new();
