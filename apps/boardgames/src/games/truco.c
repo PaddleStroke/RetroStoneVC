@@ -1,7 +1,7 @@
 /*
  * Truco in RetroStone Board: 2 players, or 4 in two partnerships, passing the device round, each hand secret
- * (VIEW_HIDDEN; the rules: truco_rules.c, truco.h). The Spanish pack (spanish.h, the kit's cards_spanish.c) on the card
- * table (the kit's cards_table.h): the viewer's three cards at the bottom, the seats round the middle, each player's
+ * (VIEW_HIDDEN; the rules: truco_rules.c, truco.h). The kit's Spanish pack (DECK_SPANISH) on the card table (the
+ * kit's cards_table.h): the viewer's three cards at the bottom, the seats round the middle, each player's
  * cards played in a row in front of his chip, round after round (a round's losers dimmed). The calls are buttons at
  * the lower corners of the table: the envido's (a pair of cards and its worth: envido 2, real envido 3; the falta a
  * gold bolt on red) at the left; the truco (its worth on red: truco 2, retruco 3, vale cuatro 4) and the mazo (a card's
@@ -39,7 +39,7 @@ static void reset_ui(void) { ct_touch_reset(&F); }
 
 static void layout(box b)
 {
-    T.deck = es_deck();
+    T.deck = DECK_SPANISH;
     ct_layout(&T, b, G.pos.players ? G.pos.players : 2, ui_bottom(), 5);
 }
 
@@ -87,7 +87,7 @@ static void start(int v)
 {
     variant = v;
     truco_new(&G, ui.players, v & 1 ? 30 : 15, v >= 2, (uint32_t)ui_random(1 << 30));
-    T.deck = es_deck();
+    T.deck = DECK_SPANISH;
     ct_calm(&A);
     reset_ui();
     floor_n = 0;
@@ -340,7 +340,8 @@ static void draw(void)
 {
     const tpos *p = &G.pos;
     int hide = ui.viewer < 0, live = !ui_handing() && !ct_busy(&A);
-    if (T.deck != es_deck() || T.players != p->players || T.me != (ui_bottom() < 0 ? T.me : ui_bottom())) layout(T.b);
+    if (T.deck != DECK_SPANISH || T.players != p->players || T.me != (ui_bottom() < 0 ? T.me : ui_bottom()))
+        layout(T.b);
     uint8_t h[3];
     int n = hand(h);
     if (!(seen >> T.me & 1) && !ui_handing() && p->phase == TP_PLAY && p->round == 0 &&
@@ -447,7 +448,7 @@ static void paint_digits(uint8_t *rgba, int size, int v, float cx, float cy, flo
 /* the menu's card: the two anchos and the 7 of espadas; the picker's: the game's length on red, a flower for the flor */
 static void thumb(int v, int size, uint8_t *rgba)
 {
-    int deck = es_deck();
+    int deck = DECK_SPANISH;
     float w = 0.34f * size;
     memset(rgba, 0, (size_t)size * size * 4);
     float lift = v < 0 ? 0 : 0.07f * size;

@@ -140,7 +140,7 @@ static void red_back(int w, int h, uint8_t *rgba)
 
 static int deck_of(int owner)
 {
-    static const cards_deck_def red = {1.4f, face_of, red_back};
+    static const cards_deck_def red = {1.4f, face_of, red_back, NULL};
     static int deck = -1;
     if (owner != 1) return DECK_FRENCH;
     if (deck < 0) deck = cards_deck_add(&red);

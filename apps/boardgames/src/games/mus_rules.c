@@ -135,7 +135,7 @@ static int jugadas(const mpos *p, int lance, int s)
 static void deal(mpos *p)
 {
     uint8_t pack[48];
-    int n = es_pack(0, pack), k = 0;
+    int n = cards_pack(PACK_ES40, pack), k = 0;
     cards_shuffle(pack, n, es_mix(p->seed, 1000u + p->deal));
     p->dealer = (uint8_t)((3 + p->deal) % MUS_P);
     p->mano = (uint8_t)((p->dealer + 1) % MUS_P);

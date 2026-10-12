@@ -79,7 +79,7 @@ static int best_of(const tpos *p, const uint8_t *value, unsigned mask)
 static void deal(tpos *p)
 {
     uint8_t pack[48];
-    int n = es_pack(0, pack), k = 0;
+    int n = cards_pack(PACK_ES40, pack), k = 0;
     cards_shuffle(pack, n, es_mix(p->seed, 2000u + p->deal));
     p->dealer = (uint8_t)((p->players - 1 + p->deal) % p->players);
     p->mano = (uint8_t)next_pl(p, p->dealer);

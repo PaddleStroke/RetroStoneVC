@@ -20,11 +20,9 @@
 #include "art.h"
 #include "cards.h"
 #include "games/chess.h"
-#include "games/spanish.h"
 #include "text.h"
 
 #define ES_PI 3.14159265f
-#define ES_ASPECT 1.5f
 
 /* ---- the colours ------------------------------------------------------------------------------------------------- */
 enum { EC_FACE, EC_RIM, EC_GOLD, EC_GOLD_D, EC_STAR, EC_RED, EC_RED_D, EC_WINE, EC_BLUE, EC_BLUE_D, EC_STEEL,
@@ -632,7 +630,7 @@ static void es_court(es_cv *cv, int suit, int rank, es_area a)
     }
 }
 
-void es_face(int card, int w, int h, uint8_t *rgba)
+void cards_spanish_face(int card, int w, int h, uint8_t *rgba)
 {
     es_cv cv = {rgba, w, h};
     memset(rgba, 0, (size_t)w * h * 4);
@@ -686,7 +684,7 @@ void es_face(int card, int w, int h, uint8_t *rgba)
     }
 }
 
-void es_symbol(int suit, int size, uint8_t *rgba)
+void cards_spanish_symbol(int suit, int size, uint8_t *rgba)
 {
     es_cv cv = {rgba, size, size};
     memset(rgba, 0, (size_t)size * size * 4);
@@ -694,12 +692,4 @@ void es_symbol(int suit, int size, uint8_t *rgba)
     if (suit == ES_OROS) es_coin(&cv, s / 2, s / 2, 0.92f * s, 0);
     else if (suit == ES_COPAS) es_cup(&cv, s / 2, s / 2, 0.96f * s, 0, 0);
     else es_sym(&cv, suit, s / 2, s / 2, 1.22f * s, 38);
-}
-
-int es_deck(void)
-{
-    static const cards_deck_def def = {ES_ASPECT, es_face, NULL};
-    static int deck = -1;
-    if (deck < 0) deck = cards_deck_add(&def);
-    return deck;
 }

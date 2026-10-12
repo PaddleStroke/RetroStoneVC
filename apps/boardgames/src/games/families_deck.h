@@ -390,7 +390,7 @@ static inline void fam_emblem(int family, int size, uint8_t *rgba)
 /* the deck for the card kit: its number (registered once) */
 static inline int fam_deck(void)
 {
-    static const cards_deck_def def = {1.4f, fam_paint, NULL};
+    static const cards_deck_def def = {1.4f, fam_paint, NULL, NULL};
     static int deck = -1;
     if (deck < 0) deck = cards_deck_add(&def);
     return deck;

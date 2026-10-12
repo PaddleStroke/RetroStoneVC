@@ -837,6 +837,7 @@ float cards_aspect(int deck)
     if (d) return d->aspect;
     switch (deck) {
     case DECK_TAROT: return 1.6f;
+    case DECK_SPANISH: return 1.5f;
     case DECK_TILES: return 1.3f;
     default: return 1.4f;
     }
@@ -856,16 +857,21 @@ void cards_paint(int deck, int card, int w, int h, uint8_t *rgba)
     else if (deck == DECK_TILES) face_tile(&c, card);
     else if (deck == DECK_ACTION) face_action(&c, card);
     else if (deck == DECK_ITALIAN) cards_italian_face(card, w, h, rgba);
+    else if (deck == DECK_SPANISH) cards_spanish_face(card, w, h, rgba);
     else face_french(&c, deck, card);
 }
 
 void cards_token(int player, int size, uint8_t *rgba) { art_counter(COUNTER_DISC, player, size, rgba); }
 
-/* a French suit's sign: the pip in the middle of an ace's face (as big, at the same place: the small face's below
- * 52 px), on an ivory disc, its edge smoothed, a thin walnut rim */
+/* a suit's sign: the Italian and Spanish packs' symbols, a game's own deck's (its `symbol`); else the French pip in the
+ * middle of an ace's face (as big, at the same place: the small face's below 52 px), on an ivory disc, its edge
+ * smoothed, a thin walnut rim */
 void cards_suit_icon(int deck, int suit, int size, uint8_t *rgba)
 {
+    const cards_deck_def *d = own_def(deck);
     if (deck == DECK_ITALIAN) { cards_italian_symbol(suit, size, rgba); return; }
+    if (deck == DECK_SPANISH) { cards_spanish_symbol(suit, size, rgba); return; }
+    if (d && d->symbol) { d->symbol(suit, size, rgba); return; }
     int s = size, w = s < 52 ? s : (int)ceilf(s / 0.6f), h = (int)(w * cards_aspect(DECK_FRENCH));
     canvas c = {rgba, s, s};
     int ix = (w - s) / 2, iy = (h - s) / 2;

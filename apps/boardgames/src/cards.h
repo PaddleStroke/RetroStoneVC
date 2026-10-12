@@ -14,7 +14,7 @@
 #include <stdint.h>
 
 /* ---- the cards: suit (or colour) and rank in one byte ------------------------------------------------------------ */
-enum { DECK_FRENCH, DECK_TAROT, DECK_NUMBER, DECK_TILES, DECK_ACTION, DECK_ITALIAN, DECKS };
+enum { DECK_FRENCH, DECK_TAROT, DECK_NUMBER, DECK_TILES, DECK_ACTION, DECK_ITALIAN, DECK_SPANISH, DECKS };
 #define DECKS_MAX 16                            /* the kit's decks and the games' own (cards_deck_add) */
 enum { SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS, SUIT_CLUBS, SUIT_TRUMP, SUIT_JOKER };
 #define CARD(suit, rank) ((uint8_t)((suit) << 5 | (rank)))
@@ -43,15 +43,21 @@ enum { ACTION_SKIP = 10, ACTION_REVERSE, ACTION_DRAW2 };
  * (bastoni); in each 1 (the ace) to 7, then the courts: fante 8, cavallo 9, re 10 */
 enum { IT_COINS, IT_CUPS, IT_SWORDS, IT_CLUBS };
 enum { IT_ACE = 1, IT_FANTE = 8, IT_CAVALLO = 9, IT_RE = 10 };
+/* DECK_SPANISH (the Spanish-suited pack: Mus, Truco): oros (coins), copas (cups), espadas (swords), bastos (clubs); in
+ * each 1 (the as) to 9, then the courts with the numbers they carry: sota 10 (the page), caballo 11 (the knight), rey
+ * 12 (the king). The 8s and 9s belong to the pack of 48 only. */
+enum { ES_OROS, ES_COPAS, ES_ESPADAS, ES_BASTOS };
+enum { ES_AS = 1, ES_SOTA = 10, ES_CABALLO = 11, ES_REY = 12 };
 
 /* ---- the packs --------------------------------------------------------------------------------------------------- */
-enum { PACK_52, PACK_54, PACK_32, PACK_TAROT, PACK_NUMBER, PACK_TILES, PACK_ACTION, PACK_40 };
+enum { PACK_52, PACK_54, PACK_32, PACK_TAROT, PACK_NUMBER, PACK_TILES, PACK_ACTION, PACK_40, PACK_ES40, PACK_ES48 };
 #define CARDS_MAX 160                           /* the biggest pack: number golf's 150 */
 
 /* a whole pack in order, into out (CARDS_MAX); its size. PACK_54: the 52 and two jokers; PACK_32: piquet; PACK_NUMBER:
  * 150 cards, five -2, ten -1, fifteen 0, ten of each 1..12; PACK_TILES: 106, each colour's 1..13 twice and two
  * jokers; PACK_ACTION: 108, a 0 of each colour, two of each 1..9, skip, reverse and draw two of each colour, four
- * wilds and four wild draw fours; PACK_40: the Italian pack, suit by suit, 1..re. */
+ * wilds and four wild draw fours; PACK_40: the Italian pack, suit by suit, 1..re; PACK_ES40, PACK_ES48: the Spanish
+ * pack, suit by suit, 1..7 (48: 1..9), sota, caballo, rey. */
 static inline int cards_pack(int pack, uint8_t *out)
 {
     int n = 0;
@@ -90,6 +96,12 @@ static inline int cards_pack(int pack, uint8_t *out)
         for (int s = 0; s < 4; s++)
             for (int r = 1; r <= IT_RE; r++) out[n++] = CARD(s, r);
         break;
+    case PACK_ES40:
+    case PACK_ES48:
+        for (int s = 0; s < 4; s++)
+            for (int r = 1; r <= ES_REY; r++)
+                if (pack == PACK_ES48 || r <= 7 || r >= ES_SOTA) out[n++] = CARD(s, r);
+        break;
     }
     return n;
 }
@@ -127,24 +139,28 @@ static inline void cards_shuffle(uint8_t *c, int n, uint32_t seed)
  * star, its courts the chess figure). Number cards: lacquer by band (-2..-1 lapis, 0 sky, 1..4 jade, 5..8 amber, 9..12
  * red). Tiles: ivory on wood, the number in its colour. The action deck: lacquer cards, drawn icons for its actions.
  * The Italian pack (cards_italian.c): its traditional suits (gold coins, goblets, steel swords, knotty clubs), the
- * courts single-headed under an arch (fante a pawn, cavallo a knight, re a king), the settebello framed in gold. Backs:
- * the green table in a walnut frame (tiles: wood; the action deck: its own, ebony). */
+ * courts single-headed under an arch (fante a pawn, cavallo a knight, re a king), the settebello framed in gold. The
+ * Spanish pack (cards_spanish.c): oros, copas, espadas and bastos in the frame broken by their pinta, the courts on a
+ * tiled floor (sota a pawn, caballo a knight, rey a king), 1.5 times as tall as wide. Backs: the green table in a
+ * walnut frame (tiles: wood; the action deck: its own, ebony). */
 float cards_aspect(int deck);                   /* height / width */
 void cards_paint(int deck, int card, int w, int h, uint8_t *rgba);   /* a face (CARD_NONE: the back), w x h */
 
 /* A game's own deck (the families' animals, the hanafuda, a pack with a second back), drawn by the kit like its own:
  * the texture cache, the shadow, the gold light, raised, dimmed, flipping, sliding, in piles. `face` paints a face
  * w x h (card: the game's byte, never CARD_NONE); `back` its back (NULL: the house's). The definition must stay
- * (static). cards_deck_add gives its number (DECKS and up), for every call of the kit; -1: no room. */
+ * (static). `symbol` paints a suit's sign size x size (cards_suit_icon, ct_suit: a call, the trumps; NULL: the French
+ * suit's). cards_deck_add gives its number (DECKS and up), for every call of the kit; -1: no room. */
 typedef struct {
     float aspect;                               /* height / width */
     void (*face)(int card, int w, int h, uint8_t *rgba);
     void (*back)(int w, int h, uint8_t *rgba);
+    void (*symbol)(int suit, int size, uint8_t *rgba);
 } cards_deck_def;
 int cards_deck_add(const cards_deck_def *def);
 
 /* a suit's sign alone, size x size: the French suits' pip on an ivory disc in a thin walnut rim (a call, the trumps);
- * DECK_ITALIAN: the suit's symbol (a coin, a cup, a sword, a club) */
+ * DECK_ITALIAN, DECK_SPANISH: the suit's symbol (a coin, a cup, a sword, a club); a game's own deck: its `symbol` */
 void cards_suit_icon(int deck, int suit, int size, uint8_t *rgba);
 /* a picture of size x size made a disc: everything outside its circle cleared; a thin walnut rim round it */
 void cards_disc_cut(uint8_t *rgba, int size);
@@ -197,6 +213,9 @@ void cards_token(int player, int size, uint8_t *rgba);
 /* the Italian pack's pictures (cards_italian.c): a face w x h, a suit's symbol size x size */
 void cards_italian_face(int card, int w, int h, uint8_t *rgba);
 void cards_italian_symbol(int suit, int size, uint8_t *rgba);
+/* the Spanish pack's pictures (cards_spanish.c): a face w x h, a suit's symbol size x size */
+void cards_spanish_face(int card, int w, int h, uint8_t *rgba);
+void cards_spanish_symbol(int suit, int size, uint8_t *rgba);
 
 /* the tarot's pictures, JPEG (generated from art/tarot by tools/gen_art.py): the excuse, the trumps 1..21, then each
  * suit's (spades, hearts, diamonds, clubs) jack, knight, queen, king */

@@ -1601,7 +1601,7 @@ static void hana_back(int w, int h, uint8_t *rgba) { hana_paint(KK_NONE, w, h, r
 
 int hana_deck(void)
 {
-    static const cards_deck_def def = {HANA_ASPECT, hana_face, hana_back};
+    static const cards_deck_def def = {HANA_ASPECT, hana_face, hana_back, NULL};
     static int deck = -1;
     if (deck < 0) deck = cards_deck_add(&def);
     return deck;

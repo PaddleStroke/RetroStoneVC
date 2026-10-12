@@ -1,7 +1,7 @@
 /*
  * Mus in RetroStone Board: four players in two partnerships passing the device round, each hand secret (VIEW_HIDDEN;
- * the rules: mus_rules.c, mus.h). The Spanish pack (spanish.h, the kit's cards_spanish.c) on the card table (the kit's
- * cards_table.h): the viewer's four cards at the bottom, the seats round the middle (the partner across), each with its
+ * the rules: mus_rules.c, mus.h). The kit's Spanish pack (DECK_SPANISH) on the card table (the kit's cards_table.h):
+ * the viewer's four cards at the bottom, the seats round the middle (the partner across), each with its
  * last word: mus (two arrows, one each way) or the cut (struck through), the cards it took, a pass, a bet, a raise (a
  * plus), the ordago (a gold bolt on red), quiero (a tick), no quiero (a cross); in Pares and Juego whether it has them.
  * Along the top of the middle the four lances (grande an arrow up, chica an arrow down, pares a pair of cards, juego
@@ -101,7 +101,7 @@ static void geometry(void)
 
 static void layout(box b)
 {
-    T.deck = es_deck();
+    T.deck = DECK_SPANISH;
     ct_layout(&T, b, MUS_P, ui_bottom(), 6);
 }
 
@@ -395,7 +395,7 @@ static void draw(void)
 {
     const mpos *p = &G.pos;
     int hide = ui.viewer < 0, live = !ui_handing() && !ct_busy(&A);
-    if (T.deck != es_deck()) layout(T.b);
+    if (T.deck != DECK_SPANISH) layout(T.b);
     if (!(seen >> T.me & 1) && !ui_handing() && p->phase == MP_MUS && !p->rounds) {
         seen |= 1u << T.me;                     /* the deal, as each player first sees it */
         ct_deal(&A, &T, p->hand[T.me], 4);
@@ -474,7 +474,7 @@ static void token(int player, int size, uint8_t *rgba) { cards_token(player, siz
 static void thumb(int v, int size, uint8_t *rgba)
 {
     (void)v;
-    int deck = es_deck();
+    int deck = DECK_SPANISH;
     float w = 0.36f * size;
     memset(rgba, 0, (size_t)size * size * 4);
     cards_paint_turned(rgba, size, deck, CARD(ES_COPAS, 3), 0.3f * size, 0.52f * size, w, -14);
