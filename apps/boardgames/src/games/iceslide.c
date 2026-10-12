@@ -226,9 +226,10 @@ static void calm(void)
 }
 
 static void push(int way);
-static void key_push(int way)
+static void key(SDL_Keycode k)                  /* the arrow keys */
 {
-    if (!ics_solved(&G)) push(way);
+    int w = swp_key_way(k);
+    if (w >= 0 && !ics_solved(&G)) push(w);
 }
 
 static void start(int variant)
@@ -236,7 +237,6 @@ static void start(int variant)
     ics_new(&G, variant, (uint32_t)ui_random(0x7fffffff) + 1u);
     serial++;
     calm();
-    swp_keys(key_push);
     if (last_box.w > 0) layout(last_box);
 }
 
@@ -311,7 +311,6 @@ static void cell_xy(int c, float *x, float *y)
 
 static void draw(void)
 {
-    swp_keys_drawn();
     if (made_cell < 0) layout(last_box);
     Uint32 now = ui_ms();
     ui_put(t_board, ox - fr, oy - fr, (float)bw, (float)bh);
@@ -460,6 +459,6 @@ static const game iceslide_game = {
     .id = "iceslide", .order = 423, .variants = ICS_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .players = 1u << 1,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .key = key,
 };
 REGISTER_GAME(iceslide_game)

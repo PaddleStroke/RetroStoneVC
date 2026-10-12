@@ -178,6 +178,7 @@ static void start(int variant)
 
 static int status(void) { return sm_over(&G) ? GS_WIN0 : GS_PLAY; }   /* over: cleared or not, done (never lost) */
 static int turn(void) { return 0; }
+static int score(void) { return G.score; }     /* the end card shows it */
 
 static Uint32 anim_len(void) { return POP_MS + (anim.falls ? FALL_MS : 0) + (anim.shifts ? SHIFT_MS : 0); }
 
@@ -463,5 +464,6 @@ static const game samegame_game = {
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,
+    .score = score,
 };
 REGISTER_GAME(samegame_game)

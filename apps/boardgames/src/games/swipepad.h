@@ -4,12 +4,9 @@
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Written once, here, as static inline functions: the build takes a game's own files only, so a shared .c file would
- * be left out of one game's build or the other's. Each game that includes it has its own copy of the state below.
+ * be left out of one game's build or the other's.
  *
- * The arrow keys: the shell sends no keys to the games, so this watches SDL's events itself (SDL_AddEventWatch). A
- * key counts only on the main thread (where the shell takes its events; on Android a key may come from another one:
- * ignored) and only while the game is on the screen: its draw() calls swp_keys_drawn() every frame, and the shell
- * draws at least every 250 ms, so a key more than 400 ms after the game's last frame belongs to another screen.
+ * The arrow keys: the shell gives the game its keys (game.key); swp_key_way() turns an arrow into its push.
  */
 #ifndef SWIPEPAD_H
 #define SWIPEPAD_H
@@ -128,38 +125,16 @@ static inline int swp_end(swp_swipe *s, float x, float y, float near, int *tap)
 }
 
 /* ---- the arrow keys ---------------------------------------------------------------------------------------------- */
-static Uint32 swp_drawn_at;
-static SDL_threadID swp_main;
-static void (*swp_on_key)(int way);
-static int swp_watching;
-
-static int SDLCALL swp_watch(void *data, SDL_Event *e)
+/* a key the shell gave the game (game.key): the push of an arrow, else -1 */
+static inline int swp_key_way(SDL_Keycode k)
 {
-    (void)data;
-    if (e->type != SDL_KEYDOWN || e->key.repeat || !swp_on_key || !swp_drawn_at) return 1;
-    if (SDL_ThreadID() != swp_main || SDL_GetTicks() - swp_drawn_at > 400) return 1;
-    SDL_Keycode k = e->key.keysym.sym;
-    int way = k == SDLK_UP ? SWP_UP : k == SDLK_RIGHT ? SWP_RIGHT : k == SDLK_DOWN ? SWP_DOWN : -1;
-    if (k == SDLK_LEFT) way = SWP_LEFT;
-    if (way >= 0) swp_on_key(way);
-    return 1;
-}
-
-/* the game's push for the arrow keys (once: start()) */
-static inline void swp_keys(void (*on_key)(int way))
-{
-    swp_on_key = on_key;
-    if (!swp_watching) {
-        swp_watching = 1;
-        SDL_AddEventWatch(swp_watch, NULL);
+    switch (k) {
+    case SDLK_UP: return SWP_UP;
+    case SDLK_RIGHT: return SWP_RIGHT;
+    case SDLK_DOWN: return SWP_DOWN;
+    case SDLK_LEFT: return SWP_LEFT;
+    default: return -1;
     }
-}
-
-/* every frame the game draws: it is on the screen */
-static inline void swp_keys_drawn(void)
-{
-    swp_drawn_at = SDL_GetTicks();
-    swp_main = SDL_ThreadID();
 }
 
 #endif

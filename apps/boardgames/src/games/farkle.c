@@ -100,6 +100,8 @@ static int status(void)
     return P->winner >= 0 ? gs_win(P->winner) : GS_DRAW;
 }
 
+static int score(void) { return P->score[0]; }  /* alone: the total banked, on the end card */
+
 static unsigned winners(void)                   /* a tie for the highest score: they share the win */
 {
     unsigned m = 0;
@@ -437,6 +439,6 @@ static const game farkle_game = {
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .winners = winners,
-    .players = 1u << 1 | 1u << 2 | 1u << 3 | 1u << 4 | 1u << 5 | 1u << 6, .home = home,
+    .players = 1u << 1 | 1u << 2 | 1u << 3 | 1u << 4 | 1u << 5 | 1u << 6, .home = home, .score = score,
 };
 REGISTER_GAME(farkle_game)

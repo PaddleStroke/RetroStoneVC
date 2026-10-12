@@ -12,7 +12,7 @@
  * The target made: a gold light pulses on that tile and runs over the others, and the end card shows (solved); a tap
  * hides it and the game goes on (the next push carries on playing: the status is back to playing). No push left: the
  * game is over; the buttons give way to a wooden plaque with the score burned in (in gold light when it is the best of
- * the session), and the end card shows: in gold when the target was made, else the token lying down.
+ * the session), and the end card shows the score beside the token: in gold when the target was made, else lying down.
  * The bar: the score, and at its right end the best score of the session (this size) by a gold star (narrow bars: the
  * two in two rows).
  */
@@ -244,6 +244,7 @@ static int status(void)
 }
 
 static int turn(void) { return 0; }
+static int score(void) { return (int)G.p.score; }   /* the end card shows it */
 
 static Uint32 fx_len(void) { return fx.end ? (Uint32)(2 * G.n * WAVE_STEP + WAVE_LEN + 200) : TARGET_MS; }
 
@@ -294,14 +295,17 @@ static void push(int way)
     ui_animate();
 }
 
-static void key_push(int way) { push(way); }
+static void key(SDL_Keycode k)                  /* the arrow keys */
+{
+    int w = swp_key_way(k);
+    if (w >= 0) push(w);
+}
 
 static void start(int variant)
 {
     mrg_new(&G, variant, (uint32_t)ui_random(0x7fffffff) + 1u);
     best_before = best[G.variant];
     calm();
-    swp_keys(key_push);
     made_key = -1;
     if (last_box.w > 0) layout(last_box);
 }
@@ -379,7 +383,6 @@ static void draw_plaque(void)
 
 static void draw(void)
 {
-    swp_keys_drawn();
     if (made_key < 0) layout(last_box);
     Uint32 now = ui_ms();
     ui_put(t_tray, tx, ty, (float)tw, (float)tw);
@@ -525,6 +528,6 @@ static const game merge_game = {
     .id = "merge", .order = 424, .variants = MRG_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .players = 1u << 1,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .key = key, .score = score,
 };
 REGISTER_GAME(merge_game)
