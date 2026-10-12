@@ -8,7 +8,8 @@
  * down at the side. The viewer's hand along the bottom in the game's order, low to high. Tap cards to choose them (the
  * card the first play must hold glows), then tap the middle or drag them there: the middle lights once they make a
  * play that may go; the pass button in the bar passes. At the end, a panel: Big Two the cards each one has left and
- * their penalty, Tiến lên the places.
+ * their penalty, Tiến lên the places. What every card game shares (the others along the top, the summary's panel, the
+ * finger dragging the chosen cards, the bars' cards) is the kit's; this keeps the climbing games' own table.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #ifndef SHED_UI_H
@@ -38,20 +39,18 @@ static int (*shui_penalty)(int left);
 static ct_moves SM = {.rest = 320};
 static int shui_dealing, shui_mark;             /* the deal flies once the view is set; undo's floor */
 static uint64_t shui_chosen;                    /* the cards chosen (shed_bit) */
-static struct { int on, moved; float x0, y0, x, y; } shui_drag;
+static ct_drag shui_drag;
 
 /* ---- the table's geometry: the viewer at the bottom, the others along the top in turn order -------------------- */
 static struct {
     box b;
-    int me, k;
-    float sy, sw, sfan;                         /* the others: the fans' centre, a card's width, a fan's width */
+    int me;
+    ct_others O;                                /* the others along the top */
     float pw, cx, cy;                           /* the trick's cards, its centre */
     float dx, dy, dw;                           /* the tricks over */
     float hw, hand_max;                         /* the hand's card width, the room it may take */
     float asp;
 } ST;
-
-static float shui_seat_x(int q) { return ct_seat_x(ST.b.x, ST.b.w, ST.k, ct_seat(q, ST.me, SG.pos.players)); }
 
 static void shui_hand(const shed_pos *p, int pl, ct_rows *h)
 {
@@ -66,12 +65,9 @@ static void shui_layout(box b)
     ST.b = b;
     ST.me = ui_bottom();
     if (ST.me < 0 || ST.me >= p->players) ST.me = 0;
-    ST.k = p->players - 1;
     ST.asp = cards_aspect(DECK_FRENCH);
     float u = ui.unit, hs = b.h * (b.w > b.h ? 0.22f : 0.17f);
-    ST.sw = floorf(fminf(fminf(hs * 0.6f / ST.asp, b.w / ST.k * 0.3f), 0.85f * u));
-    ST.sfan = fminf(b.w / ST.k * 0.8f, ST.sw * 3.0f);
-    ST.sy = b.y + hs * 0.4f;
+    ct_others_layout(&ST.O, b, DECK_FRENCH, p->players, ST.me, hs);
     ST.hand_max = b.h * 0.3f;
     ST.hw = floorf(fminf(b.w / 4.5f, ST.hand_max / (ST.asp * 1.2f)));
     ct_rows h;
@@ -99,11 +95,6 @@ static void shui_play_spot(int k, int n, int back, float *x, float *y, float *w)
 /* ---- the moving cards -------------------------------------------------------------------------------------------- */
 static int shui_busy(void) { return ct_busy(&SM); }
 
-static void shui_seat_end(int q, int count, float *x, float *y, float *deg)
-{
-    ct_backs_end(DECK_FRENCH, shui_seat_x(q), ST.sy, ST.sfan, ST.sw, count, x, y, deg);
-}
-
 /* the deal: one card at a time round the table, from the middle */
 static void shui_deal_slides(void)
 {
@@ -124,8 +115,8 @@ static void shui_deal_slides(void)
                          h.spot[i].deg, 1, SHUI_DEAL_MS + 80, k * step, SHUI_HAND, mine[i], 0, k % 3 ? -1 : SND_MOVE);
             } else {
                 float x, y, a;
-                shui_seat_end(q, c + 1, &x, &y, &a);
-                ct_slide(&SM, DECK_FRENCH, CARD_NONE, ST.cx, ST.cy, ST.dw, 0, 0, x, y, ST.sw, a, 0, SHUI_DEAL_MS,
+                ct_others_end(&ST.O, q, c + 1, &x, &y, &a);
+                ct_slide(&SM, DECK_FRENCH, CARD_NONE, ST.cx, ST.cy, ST.dw, 0, 0, x, y, ST.O.sw, a, 0, SHUI_DEAL_MS,
                          k * step, SHUI_SEAT, q, 0, k % 3 ? -1 : SND_MOVE);
             }
             k++;
@@ -165,7 +156,7 @@ static void shui_animate(const shed_pos *b, uint64_t a)
         int i = shed_find(b, pl, cards[k]);
         float x, y, w, x0 = h.spot[i].x, y0 = h.spot[i].y;
         shui_play_spot(k, cnt, 0, &x, &y, &w);
-        if (shui_drag.on && shui_drag.moved > 0) x0 = shui_drag.x + (k - (cnt - 1) / 2.0f) * 0.35f * h.w, y0 = shui_drag.y;
+        if (ct_dragging(&shui_drag)) x0 = shui_drag.x + (k - (cnt - 1) / 2.0f) * 0.35f * h.w, y0 = shui_drag.y;
         ct_slide(&SM, DECK_FRENCH, cards[k], x0, y0, h.w, h.spot[i].deg, 1, x, y, w, 0, 1, SHUI_PLAY_MS, k * 45,
                  SHUI_PILE, k, 0, k == 0 ? SND_PLACE : -1);
     }
@@ -243,19 +234,15 @@ static void shui_pass(void) { shui_act(SHED_PASS); }
 static void shui_draw_others(void)
 {
     const shed_pos *p = &SG.pos;
-    float ch = ST.sw * ST.asp, lh = 0.48f * ST.sw, ly = ST.sy + 0.5f * ch + 0.3f * ST.sw + 0.12f * ch;
-    int tok = (int)fmaxf(8, lh);
     for (int q = 0; q < p->players; q++) {
         if (q == ST.me) continue;
         int n = p->n[q] - ct_hides(&SM, SHUI_SEAT, q, -1), place = shed_place(p, q);
-        float x = shui_seat_x(q), lw = 1.15f * lh + 0.62f * lh * (n >= 10 ? 2 : 1), rd = 1.25f * lh;
-        if (q == p->turn && p->phase == SP_PLAY) ui_mark_gold(x, ST.sy, 2.4f * ST.sw);
-        if (n > 0) ct_backs(DECK_FRENCH, x, ST.sy, ST.sfan, ST.sw, n, 0);
-        else cards_place(DECK_FRENCH, x, ST.sy, ST.sw);
+        float x, y, d;
+        ct_others_draw(&ST.O, q, n, q == p->turn && p->phase == SP_PLAY);
         if (place >= 0 && (p->phase == SP_PLAY || shui_scoring == SHUI_PLACES))   /* out: the place */
-            ct_badge(x, ST.sy, 1.1f * ST.sw, place + 1);
-        ct_label(ct_token(q, tok), x, ly, lh, n);
-        if (p->phase == SP_PLAY && p->passed >> q & 1 && place < 0) ct_pass_badge(x + lw / 2 + 0.7f * rd, ly, rd);
+            ct_badge(ct_others_x(&ST.O, q), ST.O.sy, 1.1f * ST.O.sw, place + 1);
+        ct_others_badge(&ST.O, q, n, 1, &x, &y, &d);
+        if (p->phase == SP_PLAY && p->passed >> q & 1 && place < 0) ct_pass_badge(x, y, d);
     }
 }
 
@@ -290,14 +277,11 @@ static void shui_draw_trick(int glow)
 static void shui_draw_summary(void)
 {
     const shed_pos *p = &SG.pos;
-    box b = ST.b;
-    float u = ui.unit, rh = fminf(1.05f * u, b.h * 0.8f / p->players), pw = fminf(b.w * 0.92f, 7.0f * u);
-    float ph = rh * p->players + 0.5f * u, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
-    ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 70);
-    ct_panel(x0, y0, pw, ph, 255);
+    float u = ui.unit, x0, pw, y0, rh;
+    ct_summary_in(ST.b, p->players, &x0, &pw, &y0, &rh);
     for (int i = 0; i < p->nout; i++) {
         int q = p->out[i];
-        float cy = y0 + 0.25f * u + (i + 0.5f) * rh, d = fminf(0.72f * rh, 0.8f * u), tx = x0 + 0.75f * u;
+        float cy = y0 + i * rh, d = fminf(0.72f * rh, 0.8f * u), tx = x0 + 0.75f * u;
         float nh = 0.42f * rh;
         if (i == 0) ui_mark_gold(tx, cy, 2.0f * d);
         ui_put_c(ct_token(q, (int)d), tx, cy, d, d);
@@ -337,12 +321,12 @@ static void shui_draw(void)
             continue;
         }
         int on = (shui_chosen & shed_bit(c)) != 0;
-        if (shui_drag.on && shui_drag.moved > 0 && on) continue;
+        if (ct_dragging(&shui_drag) && on) continue;
         int how = on ? CD_RAISED : mine && c == p->must ? CD_GLOW : 0;
         cards_draw(DECK_FRENCH, c, h.spot[i].x, h.spot[i].y, h.w, h.spot[i].deg, how);
     }
     ct_draw(&SM);
-    if (shui_drag.on && shui_drag.moved > 0 && !hide) {
+    if (ct_dragging(&shui_drag) && !hide) {
         int k = 0, n = 0;
         for (uint64_t m = shui_chosen; m; m &= m - 1) n++;
         for (int i = 0; i < p->n[ST.me]; i++)
@@ -374,17 +358,10 @@ static void shui_press(float x, float y)
         shui_chosen |= bit;
         ui_sound(SND_TAP);
     }
-    shui_drag.on = 1, shui_drag.moved = was ? -1 : 0;   /* a chosen card tapped: left when released without a drag */
-    shui_drag.x0 = shui_drag.x = x, shui_drag.y0 = shui_drag.y = y;
+    ct_drag_start(&shui_drag, was ? -1 : 0, CARD_NONE, x, y);   /* a chosen card tapped: left when released, not dragged */
 }
 
-static void shui_motion(float x, float y)
-{
-    if (!shui_drag.on) return;
-    if (shui_drag.moved <= 0 && hypotf(x - shui_drag.x0, y - shui_drag.y0) > 0.12f * ST.hw) shui_drag.moved = 1;
-    shui_drag.x = x, shui_drag.y = y;
-    if (shui_drag.moved > 0) ui_animate();
-}
+static void shui_motion(float x, float y) { ct_drag_move(&shui_drag, x, y, 0.12f * ST.hw); }
 
 static void shui_release(float x, float y)
 {
@@ -409,17 +386,14 @@ static void shui_release(float x, float y)
 static void shui_bar(int player, box b)
 {
     const shed_pos *p = &SG.pos;
-    float u = ui.unit, cy = b.y + b.h / 2, hc = 0.36f * u, cw = 0.28f * u, x = b.x;
+    float u = ui.unit, cy = b.y + b.h / 2;
     int place = shed_place(p, player);
     if (place >= 0 && (p->phase == SP_PLAY || shui_scoring == SHUI_PLACES)) {
         float d = fminf(0.62f * u, b.h * 0.8f);
-        ct_badge(x + d / 2, cy, d, place + 1);
+        ct_badge(b.x + d / 2, cy, d, place + 1);
         return;
     }
-    if (x + cw + 0.1f * u + ct_number_w(p->n[player], hc, 0) > b.x + b.w) return;
-    cards_draw(DECK_FRENCH, CARD_NONE, x + cw / 2, cy, cw, 0, CD_DOWN | CD_FLAT);
-    x += cw + 0.1f * u;
-    ui_number(x + ct_number_w(p->n[player], hc, 0) / 2, cy, hc, p->n[player], 1);
+    ct_bar_cards(b, b.x, DECK_FRENCH, p->n[player]);
 }
 
 static void shui_token(int player, int size, uint8_t *rgba) { cards_token(player, size, rgba); }
