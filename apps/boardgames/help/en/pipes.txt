@@ -1,0 +1,13 @@
+Pipes
+# The aim
+Every tile holds a piece of brass pipe: an end, a straight, a bend or a tee. Turn the tiles so that all the pipes join into one network fed by the tank in the middle, with no pipe left open: no pipe facing a tile that doesn't meet it, none running into the edge of the board. The water then fills every tile. Choose the size first: 5 × 5, 7 × 7, 9 × 9, 11 × 11, or 9 × 9 wrapped (brass portholes round the frame): there a pipe leaving one edge comes back in at the opposite edge.
+Every puzzle can be solved by reasoning alone and has only one solution.
+# A move
+Turn one tile a quarter turn clockwise.
+# The end of the game
+When every tile is joined and no pipe is open, the water reaches every tile and a gold light runs out from the tank.
+# Playing on the device
+- Tap a tile to turn it a quarter turn clockwise.
+- The water runs from the tank along every pipe joined to it. Where it reaches an open pipe, it spills: look for the drops.
+- The lamp at the right end of the bar gives a hint: it turns one wrong tile the right way (next to the water when it can), in gold light.
+Undo takes back one turn or hint at a time, all the way to the start. The bar shows your moves.

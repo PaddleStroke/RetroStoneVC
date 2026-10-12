@@ -1,0 +1,15 @@
+Cesty
+# Cíl hry
+Na mřížce leží dvojice teček stejné barvy. Spoj obě tečky každé dvojice cestou, která vede z políčka na políčko: nahoru, dolů, doleva nebo doprava. Cesty se nesmějí křížit ani sdílet políčka a dohromady musejí zaplnit celou mřížku. Každá dvojice má také vlastní značku (tečku, kroužek, čtverec, hvězdu...), takže žádnou barvu nemusíš poznávat jen okem. Nejdřív si vyber velikost: 5 × 5, 7 × 7, 9 × 9 nebo 12 × 12.
+Každý hlavolam má právě jedno řešení, které se najde pouhou úvahou.
+# Tah
+Nakreslit nebo změnit jednu cestu.
+# Konec hry
+Když jsou všechny dvojice spojené a žádné políčko nezůstane prázdné, hlavolam je vyřešen: po každé cestě proběhne zlaté světlo.
+# Hra na zařízení
+- Táhni od tečky: její cesta začne znovu od ní a sleduje tvůj prst. Táhni od políčka cesty a pokračuj odtud (zbytek té cesty zmizí).
+- Návrat po cestě ji zkracuje. Přejetí přes jinou cestu ji přeruší; vrátí se, když couvneš dřív, než zvedneš prst. Cesta nikdy nevede přes tečku jiné barvy.
+- Když cesta dorazí ke své druhé tečce, dvojice je spojená a její tečky zazvoní.
+- Jen klepáním: klepni na tečku nebo políčko cesty (její konec se označí) a pak na políčko ve stejném řádku nebo sloupci: cesta tam vede rovně. Dalším klepnutím na označený konec ho pustíš.
+- Lampa na pravém konci lišty dává nápovědu: položí cestu jedné dvojice jako v řešení, ve zlatém světle.
+Políčka cesty se zbarví jejím odstínem. Zpět vrací jeden tah nebo nápovědu najednou, až na začátek. Lišta ukazuje tvé tahy.

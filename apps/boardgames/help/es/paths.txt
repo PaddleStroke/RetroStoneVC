@@ -1,0 +1,15 @@
+Caminos
+# El objetivo
+En la cuadrícula hay parejas de puntos del mismo color. Une los dos puntos de cada pareja con un camino que va de casilla en casilla: arriba, abajo, a la izquierda o a la derecha. Los caminos no pueden cruzarse ni compartir casillas, y entre todos deben llenar la cuadrícula entera. Cada pareja lleva además su propia marca (un punto, un anillo, un cuadrado, una estrella...), así que ningún color hay que distinguirlo solo a ojo. Elige primero el tamaño: 5 × 5, 7 × 7, 9 × 9 o 12 × 12.
+Cada puzle tiene una única solución, que se encuentra solo razonando.
+# Una jugada
+Trazar o cambiar un camino.
+# El final de la partida
+Cuando todas las parejas están unidas y no queda ninguna casilla vacía, el puzle está resuelto: una luz dorada recorre cada camino.
+# Jugar en el dispositivo
+- Arrastra desde un punto: su camino vuelve a empezar desde él y sigue tu dedo. Arrastra desde una casilla de un camino para seguir desde ahí (el resto de ese camino se borra).
+- Volver sobre tus pasos acorta el camino. Pasar sobre otro camino lo corta; vuelve si retrocedes antes de levantar el dedo. Un camino nunca pasa por un punto de otro color.
+- Cuando un camino llega a su otro punto, la pareja queda unida y sus puntos suenan.
+- Solo con toques: toca un punto o una casilla de un camino (su extremo queda marcado) y luego una casilla de la misma fila o columna: el camino va recto hasta allí. Vuelve a tocar el extremo marcado para soltarlo.
+- La lámpara al final de la barra da una pista: traza el camino de una pareja como en la solución, con luz dorada.
+Las casillas de un camino se tiñen de su color. Deshacer anula un trazo o una pista cada vez, hasta el principio. La barra muestra tus jugadas.

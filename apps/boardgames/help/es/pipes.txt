@@ -1,0 +1,13 @@
+Tuberías
+# El objetivo
+Cada ficha lleva un trozo de tubería de latón: un extremo, un tramo recto, un codo o una T. Gira las fichas para que todas las tuberías formen una sola red alimentada por el depósito del centro, sin ninguna abierta: ninguna frente a una ficha que no la recibe, ninguna contra el borde del tablero. El agua llena entonces todas las fichas. Elige primero el tamaño: 5 × 5, 7 × 7, 9 × 9, 11 × 11 o 9 × 9 sin bordes (ojos de buey de latón en el marco): ahí una tubería que sale por un lado vuelve a entrar por el lado opuesto.
+Cada puzle se resuelve solo razonando y tiene una única solución.
+# Una jugada
+Girar una ficha un cuarto de vuelta en el sentido de las agujas del reloj.
+# El final de la partida
+Cuando todas las fichas están unidas y ninguna tubería queda abierta, el agua llega a cada ficha y una luz dorada sale del depósito.
+# Jugar en el dispositivo
+- Toca una ficha para girarla un cuarto de vuelta.
+- El agua corre desde el depósito por todas las tuberías unidas a él. Donde llega a una tubería abierta, se derrama: busca las gotas.
+- La lámpara al final de la barra da una pista: gira bien una ficha equivocada (junto al agua si puede), con luz dorada.
+Deshacer anula un giro o una pista cada vez, hasta el principio. La barra muestra tus jugadas.

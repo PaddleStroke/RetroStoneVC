@@ -1,0 +1,15 @@
+Percorsi
+# Lo scopo
+Sulla griglia ci sono coppie di punti dello stesso colore. Collega i due punti di ogni coppia con un percorso che va di casella in casella: in alto, in basso, a sinistra o a destra. I percorsi non possono incrociarsi né condividere caselle, e insieme devono riempire tutta la griglia. Ogni coppia ha anche un suo segno (un punto, un anello, un quadrato, una stella...), così nessun colore va riconosciuto solo a occhio. Scegli prima la misura: 5 × 5, 7 × 7, 9 × 9 o 12 × 12.
+Ogni rompicapo ha una sola soluzione, che si trova con il solo ragionamento.
+# Una mossa
+Tracciare o cambiare un percorso.
+# La fine della partita
+Quando tutte le coppie sono collegate e nessuna casella resta vuota, il rompicapo è risolto: una luce dorata corre lungo ogni percorso.
+# Giocare sul dispositivo
+- Trascina da un punto: il suo percorso riparte da lì e segue il dito. Trascina da una casella di un percorso per proseguire da lì (il resto di quel percorso sparisce).
+- Tornare indietro accorcia il percorso. Passare su un altro percorso lo taglia; torna com'era se arretri prima di alzare il dito. Un percorso non passa mai su un punto di un altro colore.
+- Quando un percorso raggiunge l'altro punto, la coppia è collegata e i suoi punti suonano.
+- Solo con tocchi: tocca un punto o una casella di un percorso (la sua estremità viene segnata), poi una casella della stessa riga o colonna: il percorso va dritto fin lì. Tocca di nuovo l'estremità segnata per lasciarla.
+- La lampada in fondo alla barra dà un aiuto: traccia il percorso di una coppia come nella soluzione, in luce dorata.
+Le caselle di un percorso prendono una tinta del suo colore. Annulla toglie un tratto o un aiuto alla volta, fino all'inizio. La barra mostra le tue mosse.

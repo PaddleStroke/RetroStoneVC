@@ -1,0 +1,15 @@
+Polut
+# Tavoite
+Ruudukossa on samanvärisiä pistepareja. Yhdistä kunkin parin kaksi pistettä polulla, joka kulkee ruudusta ruutuun: ylös, alas, vasemmalle tai oikealle. Polut eivät saa risteytyä eivätkä jakaa ruutuja, ja yhdessä niiden on täytettävä koko ruudukko. Jokaisella parilla on myös oma merkkinsä (piste, rengas, neliö, tähti...), joten mitään väriä ei tarvitse tunnistaa pelkällä silmällä. Valitse ensin koko: 5 × 5, 7 × 7, 9 × 9 tai 12 × 12.
+Jokaisessa tehtävässä on täsmälleen yksi ratkaisu, joka löytyy pelkällä päättelyllä.
+# Siirto
+Polun piirtäminen tai muuttaminen.
+# Pelin loppu
+Kun kaikki parit on yhdistetty eikä yksikään ruutu jää tyhjäksi, tehtävä on ratkaistu: kultainen valo kulkee jokaista polkua pitkin.
+# Pelaaminen laitteella
+- Vedä pisteestä: sen polku alkaa siitä alusta ja seuraa sormeasi. Vedä polun ruudusta jatkaaksesi siitä (polun loppuosa katoaa).
+- Polkua pitkin takaisin kulkeminen lyhentää sitä. Toisen polun ylittäminen katkaisee sen; se palaa, jos peräännyt ennen kuin nostat sormen. Polku ei koskaan kulje toisen värin pisteen yli.
+- Kun polku saavuttaa toisen pisteensä, pari on yhdistetty ja sen pisteet soivat.
+- Pelkillä napautuksilla: napauta pistettä tai polun ruutua (sen pää merkitään) ja sitten ruutua samalla rivillä tai sarakkeella: polku kulkee suoraan sinne. Napauta merkittyä päätä uudelleen päästääksesi siitä.
+- Palkin oikeassa päässä oleva lamppu antaa vihjeen: se piirtää yhden parin polun kuten ratkaisussa, kultaisessa valossa.
+Polun ruudut sävyttyvät sen värillä. Kumoa peruu yhden vedon tai vihjeen kerrallaan aina alkuun asti. Palkki näyttää siirtosi.

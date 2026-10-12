@@ -1,0 +1,13 @@
+Trubky
+# Cíl hry
+Na každé destičce je kus mosazné trubky: konec, rovný kus, koleno nebo odbočka T. Otáčej destičkami tak, aby všechny trubky tvořily jedinou síť napájenou nádrží uprostřed a žádná trubka nezůstala otevřená: žádná nesmí mířit na destičku, která na ni nenavazuje, ani na okraj desky. Pak voda naplní každou destičku. Nejdřív si vyber velikost: 5 × 5, 7 × 7, 9 × 9, 11 × 11 nebo 9 × 9 bez okrajů (mosazná okénka kolem rámu): tam se trubka, která vyjde jedním okrajem, vrátí protějším.
+Každý hlavolam jde vyřešit pouhou úvahou a má jediné řešení.
+# Tah
+Otočit jednu destičku o čtvrt otáčky po směru hodinových ručiček.
+# Konec hry
+Když jsou všechny destičky spojené a žádná trubka není otevřená, voda doteče do každé destičky a od nádrže se rozběhne zlaté světlo.
+# Hra na zařízení
+- Klepnutím otočíš destičku o čtvrt otáčky.
+- Voda teče z nádrže do všech trubek, které na ni navazují. Kde dorazí k otevřené trubce, přetéká: hledej kapky.
+- Lampa na pravém konci lišty dává nápovědu: otočí jednu špatnou destičku správně (vedle vody, když to jde), ve zlatém světle.
+Zpět vrací jedno otočení nebo nápovědu najednou, až na začátek. Lišta ukazuje tvé tahy.

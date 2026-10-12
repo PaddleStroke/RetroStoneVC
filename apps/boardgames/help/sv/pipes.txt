@@ -1,0 +1,13 @@
+Rör
+# Målet
+Varje bricka har en bit mässingsrör: en ände, en rak bit, en böj eller ett T-rör. Vrid brickorna så att alla rör bildar ett enda nät som matas av tanken i mitten, utan öppna rör: inget rör vänt mot en bricka som inte möter det, inget mot kanten. Då fyller vattnet varje bricka. Välj först storleken: 5 × 5, 7 × 7, 9 × 9, 11 × 11 eller 9 × 9 utan kanter (ventiler av mässing runt ramen): där kommer ett rör som lämnar en sida in igen från motsatta sidan.
+Varje gåta kan lösas med ren slutledning och har bara en lösning.
+# Ett drag
+Vrida en bricka ett kvarts varv medurs.
+# Partiets slut
+När alla brickor hänger ihop och inget rör är öppet når vattnet varje bricka, och ett gyllene ljus går ut från tanken.
+# Spela på enheten
+- Tryck på en bricka för att vrida den ett kvarts varv.
+- Vattnet rinner från tanken genom varje rör som är kopplat till den. Där det når ett öppet rör rinner det över: leta efter dropparna.
+- Lampan längst till höger i fältet ger en ledtråd: den vrider en fel bricka rätt (bredvid vattnet när den kan), i gyllene ljus.
+Ångra tar tillbaka en vridning eller ledtråd i taget, ända till början. Fältet visar dina drag.

@@ -1,0 +1,15 @@
+Caminhos
+# O objetivo
+Há pares de pontos da mesma cor na grade. Ligue os dois pontos de cada par com um caminho que vai de casa em casa: para cima, para baixo, para a esquerda ou para a direita. Os caminhos não podem se cruzar nem dividir casas, e juntos devem preencher a grade inteira. Cada par tem também sua própria marca (um ponto, um anel, um quadrado, uma estrela...), para que nenhuma cor precise ser reconhecida só de olho. Escolha primeiro o tamanho: 5 × 5, 7 × 7, 9 × 9 ou 12 × 12.
+Todo quebra-cabeça tem uma única solução, encontrada só com raciocínio.
+# Uma jogada
+Traçar ou mudar um caminho.
+# O fim da partida
+Quando todos os pares estão ligados e nenhuma casa fica vazia, o quebra-cabeça está resolvido: uma luz dourada percorre cada caminho.
+# Jogando no aparelho
+- Arraste a partir de um ponto: o caminho dele recomeça ali e segue seu dedo. Arraste a partir de uma casa de um caminho para continuar dali (o resto desse caminho some).
+- Voltar pelo caminho o encurta. Passar por outro caminho o corta; ele volta se você recuar antes de levantar o dedo. Um caminho nunca passa por um ponto de outra cor.
+- Quando um caminho chega ao outro ponto, o par fica ligado e seus pontos tocam.
+- Só com toques: toque num ponto ou numa casa de um caminho (a ponta fica marcada), depois numa casa da mesma linha ou coluna: o caminho vai reto até lá. Toque de novo na ponta marcada para soltá-la.
+- A lâmpada no fim da barra dá uma dica: traça o caminho de um par como na solução, com luz dourada.
+As casas de um caminho ficam tingidas da sua cor. Desfazer volta um traço ou uma dica de cada vez, até o início. A barra mostra suas jogadas.

@@ -1,0 +1,13 @@
+Buizen
+# Het doel
+Op elke tegel ligt een stuk koperen buis: een eindstuk, een recht stuk, een bocht of een T-stuk. Draai de tegels zo dat alle buizen één netwerk vormen dat gevoed wordt door de tank in het midden, zonder open buis: geen buis die wijst naar een tegel die er niet op aansluit, geen buis tegen de rand. Dan vult het water elke tegel. Kies eerst de grootte: 5 × 5, 7 × 7, 9 × 9, 11 × 11 of 9 × 9 zonder randen (koperen patrijspoorten rond de lijst): daar komt een buis die aan één kant naar buiten gaat aan de overkant weer binnen.
+Elke puzzel is met redeneren alleen op te lossen en heeft maar één oplossing.
+# Een zet
+Een tegel een kwartslag met de klok mee draaien.
+# Het einde van het spel
+Als alle tegels verbonden zijn en geen buis open is, bereikt het water elke tegel en loopt er een gouden licht vanaf de tank.
+# Spelen op het apparaat
+- Tik op een tegel om hem een kwartslag te draaien.
+- Het water stroomt vanuit de tank door elke buis die erop aansluit. Waar het een open buis bereikt, loopt het over: let op de druppels.
+- De lamp aan het rechtereinde van de balk geeft een hint: hij draait een verkeerde tegel goed (naast het water als het kan), in gouden licht.
+Ongedaan maken neemt telkens één draai of hint terug, tot aan het begin. De balk toont je zetten.

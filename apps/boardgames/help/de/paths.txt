@@ -1,0 +1,15 @@
+Pfade
+# Das Ziel
+Auf dem Gitter liegen Paare gleichfarbiger Punkte. Verbinde die beiden Punkte jedes Paars mit einem Pfad von Feld zu Feld: nach oben, unten, links oder rechts. Pfade dürfen sich nicht kreuzen und kein Feld teilen, und zusammen müssen sie das ganze Gitter füllen. Jedes Paar hat außerdem ein eigenes Zeichen (Punkt, Ring, Quadrat, Stern...), sodass keine Farbe allein mit dem Auge erkannt werden muss. Wähle zuerst die Größe: 5 × 5, 7 × 7, 9 × 9 oder 12 × 12.
+Jedes Rätsel hat genau eine Lösung, die sich allein durch Nachdenken finden lässt.
+# Ein Zug
+Einen Pfad ziehen oder ändern.
+# Das Ende der Partie
+Wenn alle Paare verbunden sind und kein Feld leer bleibt, ist das Rätsel gelöst: Ein goldenes Licht läuft jeden Pfad entlang.
+# Spielen auf dem Gerät
+- Ziehe von einem Punkt aus: Sein Pfad beginnt dort neu und folgt deinem Finger. Ziehe von einem Feld eines Pfads aus, um dort weiterzumachen (der Rest dieses Pfads verschwindet).
+- Zurückgehen verkürzt den Pfad. Über einen anderen Pfad zu ziehen schneidet ihn ab; er kommt zurück, wenn du vor dem Loslassen zurückgehst. Ein Pfad führt nie über einen Punkt einer anderen Farbe.
+- Erreicht ein Pfad seinen anderen Punkt, ist das Paar verbunden, und seine Punkte klingen.
+- Nur mit Tippen: Tippe auf einen Punkt oder ein Feld eines Pfads (sein Ende wird markiert), dann auf ein Feld in derselben Zeile oder Spalte: Der Pfad läuft gerade dorthin. Tippe noch einmal auf das markierte Ende, um es loszulassen.
+- Die Lampe am rechten Ende der Leiste gibt einen Tipp: Sie legt den Pfad eines Paars wie in der Lösung, in goldenem Licht.
+Die Felder eines Pfads sind in seiner Farbe getönt. Rückgängig nimmt einen Zug oder Tipp nach dem anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge.

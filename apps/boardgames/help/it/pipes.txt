@@ -1,0 +1,13 @@
+Tubi
+# Lo scopo
+Ogni tessera porta un pezzo di tubo d'ottone: un terminale, un tratto dritto, una curva o una T. Ruota le tessere perché tutti i tubi formino una sola rete alimentata dal serbatoio al centro, senza tubi aperti: nessun tubo rivolto verso una tessera che non lo raccoglie, nessuno contro il bordo. Allora l'acqua riempie ogni tessera. Scegli prima la misura: 5 × 5, 7 × 7, 9 × 9, 11 × 11 oppure 9 × 9 senza bordi (oblò d'ottone intorno alla cornice): lì un tubo che esce da un lato rientra dal lato opposto.
+Ogni rompicapo si risolve con il solo ragionamento e ha una sola soluzione.
+# Una mossa
+Ruotare una tessera di un quarto di giro in senso orario.
+# La fine della partita
+Quando tutte le tessere sono collegate e nessun tubo è aperto, l'acqua raggiunge ogni tessera e una luce dorata parte dal serbatoio.
+# Giocare sul dispositivo
+- Tocca una tessera per ruotarla di un quarto di giro.
+- L'acqua scorre dal serbatoio in tutti i tubi collegati. Dove raggiunge un tubo aperto, trabocca: cerca le gocce.
+- La lampada in fondo alla barra dà un aiuto: gira nel verso giusto una tessera sbagliata (accanto all'acqua se può), in luce dorata.
+Annulla toglie un giro o un aiuto alla volta, fino all'inizio. La barra mostra le tue mosse.

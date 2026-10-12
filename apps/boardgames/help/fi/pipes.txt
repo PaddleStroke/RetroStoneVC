@@ -1,0 +1,13 @@
+Putket
+# Tavoite
+Jokaisessa laatassa on pala messinkiputkea: pääte, suora, mutka tai T-haara. Käännä laattoja niin, että kaikki putket muodostavat yhden verkon, jota keskellä oleva säiliö syöttää, eikä yksikään putki jää auki: mikään putki ei osoita laattaan, joka ei kohtaa sitä, eikä mikään vie laudan reunaan. Silloin vesi täyttää jokaisen laatan. Valitse ensin koko: 5 × 5, 7 × 7, 9 × 9, 11 × 11 tai reunaton 9 × 9 (messinkiset ikkunat kehyksen ympärillä): siinä toisesta reunasta lähtevä putki tulee takaisin vastakkaisesta.
+Jokainen tehtävä ratkeaa pelkällä päättelyllä, ja siinä on vain yksi ratkaisu.
+# Siirto
+Laatan kääntäminen neljänneskierros myötäpäivään.
+# Pelin loppu
+Kun kaikki laatat ovat yhteydessä eikä mikään putki ole auki, vesi ulottuu jokaiseen laattaan ja kultainen valo lähtee säiliöstä.
+# Pelaaminen laitteella
+- Napauta laattaa kääntääksesi sitä neljänneskierroksen.
+- Vesi virtaa säiliöstä jokaiseen siihen liittyvään putkeen. Kun se saavuttaa avoimen putken, se valuu yli: katso pisaroita.
+- Palkin oikeassa päässä oleva lamppu antaa vihjeen: se kääntää yhden väärän laatan oikein (veden vierestä, jos voi) kultaisessa valossa.
+Kumoa peruu yhden käännön tai vihjeen kerrallaan aina alkuun asti. Palkki näyttää siirtosi.

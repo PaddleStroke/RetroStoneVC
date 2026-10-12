@@ -1,0 +1,13 @@
+Canos
+# O objetivo
+Cada peça tem um pedaço de cano de latão: uma ponta, um troço reto, uma curva ou um T. Roda as peças para que todos os canos formem uma só rede alimentada pelo depósito do meio, sem nenhum cano aberto: nenhum virado para uma peça que não o recebe, nenhum contra a borda do tabuleiro. A água enche então todas as peças. Escolhe primeiro o tamanho: 5 × 5, 7 × 7, 9 × 9, 11 × 11 ou 9 × 9 sem bordas (vigias de latão na moldura): aí um cano que sai por um lado volta a entrar pelo lado oposto.
+Cada quebra-cabeças resolve-se só pelo raciocínio e tem uma única solução.
+# Uma jogada
+Rodar uma peça um quarto de volta no sentido dos ponteiros do relógio.
+# O fim do jogo
+Quando todas as peças estão ligadas e nenhum cano está aberto, a água chega a cada peça e uma luz dourada parte do depósito.
+# Jogar no dispositivo
+- Toca numa peça para a rodar um quarto de volta.
+- A água corre do depósito por todos os canos ligados a ele. Onde chega a um cano aberto, transborda: procura as gotas.
+- A lâmpada no fim da barra dá uma dica: roda bem uma peça errada (junto à água quando pode), com luz dourada.
+Anular desfaz uma rotação ou uma dica de cada vez, até ao início. A barra mostra as tuas jogadas.
