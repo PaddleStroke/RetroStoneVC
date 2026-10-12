@@ -1,12 +1,13 @@
 Tangram
 # Het doel
-De tangram is een oude Chinese puzzel: een vierkant dat in zeven stukken is gesneden, de tans. Twee grote driehoeken, een middelgrote, twee kleine, een vierkant en een parallellogram. Vul met alle zeven het donkere silhouet, zonder dat er iets overlapt. Kies eerst een reeks: dieren, mensen of dingen; elke reeks bevat 20 silhouetten die voor dit spel zijn gemaakt, en een nieuw spel kiest er een uit.
+Tangram is een oude Chinese puzzel: een vierkant, in zeven stukken gesneden, de tans. Twee grote driehoeken, een middelgrote, twee kleine, een vierkant en een parallellogram. Gebruik alle zeven om het donkere silhouet te vullen, zonder dat ze overlappen. Er zijn 98 figuren in zes hoofdstukken: vormen, mensen, dieren, boten en huizen, dingen, letters en cijfers. Elke figuur is voor dit spel met de zeven tans gelegd, dus elke figuur is op te lossen.
 # Een zet
-Verplaats een tan, draai hem, of keer het parallellogram om (de andere zien er aan beide kanten hetzelfde uit). Tans liggen plat en overlappen nooit.
+Verschuif een tan, draai hem een achtste slag of keer het parallellogram om (de andere zien er aan beide kanten hetzelfde uit). Tans liggen plat en overlappen nooit.
 # Het einde van het spel
-De puzzel is opgelost als de zeven tans het silhouet precies bedekken: er gaat gouden licht over ze heen. Er kan meer dan één manier zijn; elke manier die het silhouet vult, telt.
+De figuur is opgelost als de zeven tans het silhouet precies bedekken: goud licht loopt over ze heen. Elke manier die het silhouet vult telt, niet alleen die waarmee het gemaakt is. Drie sterren zonder hint, twee met een of twee hints, een met meer.
 # Spelen op het apparaat
-- Sleep een tan op het silhouet. Als je loslaat, valt hij in het raster van het silhouet, als zijn stand bij het raster past.
+Kies een figuur op het levelscherm; opgeloste figuren tonen hun sterren.
+- Sleep een tan. Laat je hem los, dan valt hij op een passende plek: zijn hoeken komen op de hoeken van het silhouet of van een andere tan.
 - Tik op een tan: hij draait een achtste slag.
 - Tik twee keer snel op het parallellogram: het keert om.
-De tan die je het laatst hebt aangeraakt, ligt bovenop. De lamp naast de tafel geeft een hint: hij schuift één tan op zijn plek, in gouden licht. Ongedaan maken neemt één actie tegelijk terug, helemaal tot het begin. De balk toont je acties.
+De tan die je het laatst aanraakte ligt bovenop. De lamp geeft een hint: hij schuift een tan op zijn plek, in goud licht. Ongedaan maken neemt één actie tegelijk terug, tot aan het begin. De balk toont je acties.

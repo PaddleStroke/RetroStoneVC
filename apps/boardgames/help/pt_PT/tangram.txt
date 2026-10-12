@@ -1,12 +1,13 @@
 Tangram
 # O objetivo
-O tangram é um antigo quebra-cabeças chinês: um quadrado cortado em sete peças, os tans. Dois triângulos grandes, um médio, dois pequenos, um quadrado e um paralelogramo. Usa os sete para preencher a silhueta escura, sem nenhuma sobreposição. Escolhe primeiro uma coleção: animais, pessoas ou objetos; cada uma tem 20 silhuetas feitas para este jogo, e um novo jogo escolhe uma delas.
+O tangram é um antigo quebra-cabeças chinês: um quadrado cortado em sete peças, os tans. Dois triângulos grandes, um médio, dois pequenos, um quadrado e um paralelogramo. Usa os sete para preencher a silhueta escura, sem nenhuma sobreposição. Há 98 figuras em seis capítulos: formas, pessoas, animais, barcos e casas, objetos, letras e números. Cada uma foi feita para este jogo com os sete tans, por isso todas têm solução.
 # Uma jogada
-Move um tan, roda-o ou vira o paralelogramo ao contrário (os outros ficam iguais de ambos os lados). Os tans ficam deitados e nunca se sobrepõem.
+Move um tan, roda-o um oitavo de volta ou vira o paralelogramo ao contrário (os outros ficam iguais de ambos os lados). Os tans ficam deitados e nunca se sobrepõem.
 # O fim do jogo
-O quebra-cabeças está resolvido quando os sete tans cobrem exatamente a silhueta: uma luz dourada percorre-os. Pode haver mais de uma maneira; qualquer maneira que preencha a silhueta conta.
+A figura está resolvida quando os sete tans cobrem exatamente a silhueta: uma luz dourada percorre-os. Qualquer maneira que preencha a silhueta conta, não só aquela com que foi feita. Três estrelas sem pistas, duas com uma ou duas pistas, uma com mais.
 # Jogar no dispositivo
-- Arrasta um tan para a silhueta. Quando o largas, encaixa na grelha da silhueta, se estiver alinhado com ela.
+Escolhe uma figura no ecrã de níveis; as resolvidas mostram as suas estrelas.
+- Arrasta um tan. Quando o largas, encaixa num lugar que lhe serve: os seus cantos juntam-se aos cantos da silhueta ou de outro tan.
 - Toca num tan: roda um oitavo de volta.
 - Toca duas vezes rapidamente no paralelogramo: vira ao contrário.
-O último tan em que tocaste fica por cima. A lâmpada ao lado da mesa dá uma pista: desliza um tan para o seu lugar, em luz dourada. Anular desfaz uma ação de cada vez, até ao início. A barra mostra as tuas ações.
+O último tan em que tocaste fica por cima. A lâmpada dá uma pista: desliza um tan para o seu lugar, em luz dourada. Anular desfaz uma ação de cada vez, até ao início. A barra mostra as tuas ações.

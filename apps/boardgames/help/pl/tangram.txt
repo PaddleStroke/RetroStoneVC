@@ -1,12 +1,13 @@
 Tangram
 # Cel gry
-Tangram to stara chińska łamigłówka: kwadrat pocięty na siedem części, zwanych tanami. Dwa duże trójkąty, jeden średni, dwa małe, kwadrat i równoległobok. Użyj wszystkich siedmiu, aby wypełnić ciemną sylwetkę, tak by nic na siebie nie nachodziło. Najpierw wybierz zestaw: zwierzęta, ludzie albo przedmioty; każdy zawiera 20 sylwetek stworzonych dla tej gry, a nowa gra wybiera jedną z nich.
+Tangram to stara chińska łamigłówka: kwadrat pocięty na siedem części, zwanych tanami. Dwa duże trójkąty, jeden średni, dwa małe, kwadrat i równoległobok. Użyj wszystkich siedmiu, aby wypełnić ciemną sylwetkę, tak by nic na siebie nie nachodziło. Jest 98 figur w sześciu rozdziałach: kształty, ludzie, zwierzęta, łodzie i domy, przedmioty, litery i cyfry. Każdą ułożono do tej gry z siedmiu tanów, więc każdą da się rozwiązać.
 # Ruch
-Przesuń tan, obróć go albo odwróć równoległobok na drugą stronę (pozostałe wyglądają tak samo z obu stron). Tany leżą płasko i nigdy na siebie nie nachodzą.
+Przesuń tan, obróć go o jedną ósmą obrotu albo odwróć równoległobok na drugą stronę (pozostałe wyglądają tak samo z obu stron). Tany leżą płasko i nigdy na siebie nie nachodzą.
 # Koniec gry
-Łamigłówka jest rozwiązana, gdy siedem tanów dokładnie pokrywa sylwetkę: przebiega po nich złote światło. Sposobów może być więcej niż jeden; liczy się każdy, który wypełnia sylwetkę.
+Figura jest rozwiązana, gdy siedem tanów dokładnie pokrywa sylwetkę: przebiega po nich złote światło. Liczy się każdy sposób, który wypełnia sylwetkę, nie tylko ten, którym ją ułożono. Trzy gwiazdki bez podpowiedzi, dwie z jedną lub dwiema, jedna z większą liczbą.
 # Gra na urządzeniu
-- Przeciągnij tan na sylwetkę. Gdy go puścisz, ułoży się na siatce sylwetki, jeśli jest obrócony zgodnie z nią.
+Wybierz figurę na ekranie poziomów; rozwiązane pokazują swoje gwiazdki.
+- Przeciągnij tan. Gdy go puścisz, ułoży się w pasującym miejscu: jego rogi spotkają się z rogami sylwetki lub innego tana.
 - Dotknij tana: obraca się o jedną ósmą obrotu.
 - Dotknij szybko dwa razy równoległoboku: odwraca się na drugą stronę.
-Tan dotknięty jako ostatni leży na wierzchu. Lampa obok stołu daje podpowiedź: wsuwa jeden tan na jego miejsce, w złotym świetle. Cofnij cofa po jednej czynności, aż do początku. Pasek pokazuje twoje czynności.
+Tan dotknięty jako ostatni leży na wierzchu. Lampa daje podpowiedź: wsuwa jeden tan na jego miejsce, w złotym świetle. Cofnij cofa po jednej czynności, aż do początku. Pasek pokazuje twoje czynności.

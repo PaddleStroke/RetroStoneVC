@@ -1,12 +1,13 @@
 Tangram
 # Målet
-Tangram er et gammelt kinesisk puslespil: et kvadrat skåret i syv stykker, kaldet tans. To store trekanter, en mellemstor, to små, et kvadrat og et parallelogram. Brug alle syv til at udfylde den mørke silhuet, uden at nogen overlapper. Vælg først et sæt: dyr, mennesker eller ting; hvert rummer 20 silhuetter lavet til dette spil, og et nyt spil vælger en af dem.
+Tangram er et gammelt kinesisk puslespil: et kvadrat skåret i syv stykker, kaldet tans. To store trekanter, en mellemstor, to små, et kvadrat og et parallelogram. Brug alle syv til at udfylde den mørke silhuet, uden at nogen overlapper. Der er 98 figurer i seks kapitler: former, mennesker, dyr, både og huse, ting, bogstaver og tal. Hver figur er lagt til dette spil med de syv tans, så alle kan løses.
 # Et træk
-Flyt en tan, drej den, eller vend parallelogrammet (de andre ser ens ud fra begge sider). Tans ligger fladt og overlapper aldrig.
+Flyt en tan, drej den en ottendedel omgang, eller vend parallelogrammet (de andre ser ens ud fra begge sider). Tans ligger fladt og overlapper aldrig.
 # Spillets afslutning
-Opgaven er løst, når de syv tans dækker silhuetten præcist: et gyldent lys løber over dem. Der kan være mere end én måde; enhver måde, der fylder silhuetten, tæller.
+Figuren er løst, når de syv tans dækker silhuetten præcist: et gyldent lys løber over dem. Enhver måde, der fylder silhuetten, tæller, ikke kun den, figuren blev lagt med. Tre stjerner uden tip, to med et eller to tip, én med flere.
 # Spil på enheden
-- Træk en tan hen på silhuetten. Når du slipper, falder den på plads i silhuettens gitter, hvis den står lige i forhold til det.
+Vælg en figur på baneskærmen; de løste viser deres stjerner.
+- Træk en tan. Når du slipper, falder den på en plads, der passer: dens hjørner møder hjørnerne på silhuetten eller på en anden tan.
 - Tryk på en tan: den drejer en ottendedel omgang.
 - Tryk hurtigt to gange på parallelogrammet: det vender.
-Den tan, du sidst rørte ved, ligger øverst. Lampen ved siden af bordet giver et tip: den skubber én tan på plads, i gyldent lys. Fortryd tager én handling tilbage ad gangen, helt til starten. Bjælken viser dine handlinger.
+Den tan, du sidst rørte ved, ligger øverst. Lampen giver et tip: den skubber én tan på plads, i gyldent lys. Fortryd tager én handling tilbage ad gangen, helt til starten. Bjælken viser dine handlinger.

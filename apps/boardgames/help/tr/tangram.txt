@@ -1,12 +1,13 @@
 Tangram
 # Amaç
-Tangram eski bir Çin bulmacasıdır: yedi parçaya, yani tanlara kesilmiş bir kare. İki büyük üçgen, bir orta boy, iki küçük, bir kare ve bir paralelkenar. Yedisini de kullanarak koyu silueti, hiçbir parça üst üste binmeden doldur. Önce bir set seç: hayvanlar, insanlar ya da nesneler; her birinde bu oyun için yapılmış 20 siluet vardır ve yeni bir oyun bunlardan birini seçer.
+Tangram eski bir Çin bulmacasıdır: yedi parçaya, yani tanlara kesilmiş bir kare. İki büyük üçgen, bir orta boy, iki küçük, bir kare ve bir paralelkenar. Yedisini de kullanarak koyu silueti, hiçbir parça üst üste binmeden doldur. Altı bölümde 98 şekil var: biçimler, insanlar, hayvanlar, tekneler ve evler, eşyalar, harfler ve rakamlar. Her biri bu oyun için yedi tanla dizildi, yani hepsinin bir çözümü var.
 # Bir hamle
-Bir tanı taşı, döndür ya da paralelkenarı ters çevir (diğerleri iki yüzde de aynı görünür). Tanlar düz yatar ve asla üst üste binmez.
+Bir tanı taşı, sekizde bir tur döndür ya da paralelkenarı ters çevir (diğerleri iki yüzde de aynı görünür). Tanlar düz yatar ve asla üst üste binmez.
 # Oyunun sonu
-Yedi tan silueti tam olarak kapladığında bulmaca çözülür: üzerlerinden altın bir ışık geçer. Birden fazla yol olabilir; silueti dolduran her yol geçerlidir.
+Yedi tan silueti tam olarak kapladığında şekil çözülür: üzerlerinden altın bir ışık geçer. Silueti dolduran her yol geçerlidir, yalnızca şeklin dizildiği yol değil. İpucusuz üç yıldız, bir ya da iki ipucuyla iki, daha fazlasıyla bir yıldız.
 # Cihazda oynamak
-- Bir tanı siluetin üstüne sürükle. Bıraktığında, siluetin ızgarasıyla düz hizadaysa ona oturur.
+Seviye ekranında bir şekil seç; çözülenler yıldızlarını gösterir.
+- Bir tanı sürükle. Bıraktığında uygun bir yere oturur: köşeleri siluetin ya da başka bir tanın köşeleriyle buluşur.
 - Bir tana dokun: sekizde bir tur döner.
 - Paralelkenara hızlıca iki kez dokun: ters döner.
-En son dokunduğun tan en üstte durur. Masanın yanındaki lamba bir ipucu verir: altın ışıkla bir tanı yerine kaydırır. Geri al her seferinde bir işlemi geri alır, en başa kadar. Çubuk işlemlerini gösterir.
+En son dokunduğun tan en üstte durur. Lamba bir ipucu verir: altın ışıkla bir tanı yerine kaydırır. Geri al her seferinde bir işlemi geri alır, en başa kadar. Çubuk işlemlerini gösterir.

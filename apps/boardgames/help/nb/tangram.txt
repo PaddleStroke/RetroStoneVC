@@ -1,12 +1,13 @@
 Tangram
 # Målet
-Tangram er et gammelt kinesisk puslespill: et kvadrat skåret i sju biter, tans. To store trekanter, en middels, to små, et kvadrat og et parallellogram. Bruk alle sju til å fylle den mørke silhuetten, uten noen overlapping. Velg først en samling: dyr, mennesker eller ting; hver har 20 silhuetter laget for dette spillet, og et nytt spill velger én av dem.
+Tangram er et gammelt kinesisk puslespill: et kvadrat skåret i sju biter, tans. To store trekanter, en middels, to små, et kvadrat og et parallellogram. Bruk alle sju til å fylle den mørke silhuetten, uten noen overlapping. Det finnes 98 figurer i seks kapitler: former, mennesker, dyr, båter og hus, ting, bokstaver og tall. Hver av dem er lagt for dette spillet med de sju tans, så alle kan løses.
 # Et trekk
-Flytt en tan, drei den, eller snu parallellogrammet (de andre ser like ut begge veier). Tans ligger flatt og overlapper aldri.
+Flytt en tan, drei den en åttendedels omdreining, eller snu parallellogrammet (de andre ser like ut begge veier). Tans ligger flatt og overlapper aldri.
 # Slutten på spillet
-Oppgaven er løst når de sju tans dekker silhuetten nøyaktig: gyllent lys går over dem. Det kan finnes mer enn én måte; enhver måte som fyller silhuetten, teller.
+Figuren er løst når de sju tans dekker silhuetten nøyaktig: gyllent lys går over dem. Enhver måte som fyller silhuetten, teller, ikke bare den figuren ble lagt med. Tre stjerner uten hint, to med ett eller to hint, én med flere.
 # Spill på enheten
-- Dra en tan over på silhuetten. Når du slipper, legger den seg på silhuettens rutenett, hvis den står rett i forhold til det.
+Velg en figur på nivåskjermen; de løste viser stjernene sine.
+- Dra en tan. Når du slipper, legger den seg på en plass som passer: hjørnene møter hjørnene til silhuetten eller til en annen tan.
 - Trykk på en tan: den dreier en åttendedels omdreining.
 - Trykk raskt to ganger på parallellogrammet: det snus.
-Tanen du rørte sist, ligger øverst. Lampen ved siden av bordet gir et hint: den skyver én tan på plass, i gyllent lys. Angre tar tilbake én handling om gangen, helt til starten. Linjen viser handlingene dine.
+Tanen du rørte sist, ligger øverst. Lampen gir et hint: den skyver én tan på plass, i gyllent lys. Angre tar tilbake én handling om gangen, helt til starten. Linjen viser handlingene dine.

@@ -1,13 +1,15 @@
 /*
- * Tangram in RetroStone Board, for one player: the silhouette laid dark on the green felt, the seven tans in the
- * house's woods (maple, oak, cherry, walnut, amber...) bevelled and lit from the top left, the shell's hint button
- * beside the table (the rules: tangram_rules.c).
+ * Tangram in RetroStone Board, for one player: a plank of the house wood in its walnut frame, the silhouette inlaid
+ * dark in it, the seven tans cut from the plank and lacquered (red, lapis, jade, amber, ivory, walnut), bevelled and
+ * lit from the top left; the tray beside the silhouette; the shell's hint button at the right (the rules:
+ * tangram_rules.c). The shell's level screen chooses the figure: six chapters, the stars for the hints not taken.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- * Drag a tan: let go, it settles on the grid of the silhouette (when it stands at right angles). Tap a tan: it turns
- * an eighth of a turn; tap the parallelogram twice quickly: it turns over instead. The tan touched last lies on top.
- * The hint slides one tan into its place, in gold light. Undo takes back one action (a move, a turn, a turning over,
- * a hint), all the way to the start. The bar: the actions. Solved: gold light runs over the tans one after another.
+ * Drag a tan: let go, it settles in a fitting place (its corners onto the silhouette's, another tan's, or the grid).
+ * Tap a tan: it turns an eighth of a turn; tap the parallelogram twice quickly: it turns over instead. The tan touched
+ * last lies on top. The hint slides one tan into its place, in gold light. Undo takes back one action (a move, a
+ * turn, a turning over, a hint), all the way to the start. The bar: the actions. Solved: gold light runs over the
+ * tans one after another.
  */
 #include <math.h>
 #include <stdlib.h>
@@ -20,6 +22,7 @@
 
 #define SLIDE_MS 260
 #define SNAP_MS 90
+#define TURN_MS 130
 #define DOUBLE_MS 330
 #define HINT_MS 1200
 #define WAVE_STEP 110
@@ -27,12 +30,14 @@
 
 enum { B_HINT, BTNS };
 
-static const uint8_t WOOD[TGM_PIECES][3] = {{198, 120, 72}, {214, 164, 96}, {150, 98, 60}, {236, 206, 150},
-                                           {222, 184, 128}, {176, 82, 52}, {242, 222, 176}};
+/* the lacquers: red, lapis, jade, amber (both small triangles), ivory, walnut */
+static const uint8_t LACQUER[TGM_PIECES][3] = {{186, 62, 46}, {60, 96, 168}, {66, 140, 106}, {230, 172, 70},
+                                              {230, 172, 70}, {244, 232, 206}, {150, 100, 62}};
 
 static tgm_game G;
-static int set_no, zorder[TGM_PIECES];
+static int zorder[TGM_PIECES];
 static struct { int piece; float x0, y0; Uint32 t0, ms; } slide[TGM_PIECES];   /* a tan gliding to its place */
+static struct { int piece, rot0, flip0; Uint32 t0; } turning = {-1, 0, 0, 0};    /* a tan turning an eighth */
 static struct { int on; Uint32 t0; } win;
 static struct { int piece; Uint32 t0; } hint = {-1, 0};
 static struct { int on, piece, moved; float x0, y0, gx, gy, x, y; } ptr;   /* gx, gy: the grip, in units */
@@ -40,15 +45,16 @@ static struct { int piece; Uint32 t; } last_tap = {-1, 0};
 
 static box last_box;
 static pzt_column col;
-static float k, tx, ty;                         /* pixels a unit; the table's top left */
-static int made_fig = -1, made_k = -1, made_small = -1;
-static SDL_Texture *t_shadow, *t_tan[TGM_PIECES][16], *t_small;
+static float k, tx, ty;                         /* pixels a unit; the table's top left (inside the frame) */
+static int made_level = -1, made_k = -1, made_right = -1, made_small = -1, frame;
+static SDL_Texture *t_board, *t_tan[TGM_PIECES][16], *t_small;
 static float tan_off[TGM_PIECES][16][2];        /* each texture's top left from the tan's middle (pixels) */
 static int tan_w[TGM_PIECES][16], tan_h[TGM_PIECES][16];
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
-/* a tan painted into a picture (w x h): its corners in pixels, its wood, a bevel lit from the top left, a shadow */
-static void paint_tan(uint8_t *o, int w, int h, int piece, const float *xy, int n, float unit)
+/* a tan painted into a picture (w x h): its corners in pixels, the plank lacquered, a bevel lit from the top left, a
+ * shadow under it */
+static void paint_tan(uint8_t *o, int w, int h, int piece, const float *xy, int n, float unit, int shadow)
 {
     float x0 = 1e9f, y0 = 1e9f, x1 = -1e9f, y1 = -1e9f, area = 0;
     for (int i = 0; i < n; i++) {
@@ -59,7 +65,7 @@ static void paint_tan(uint8_t *o, int w, int h, int piece, const float *xy, int 
         int j = (i + 1) % n;
         area += xy[2 * i] * xy[2 * j + 1] - xy[2 * j] * xy[2 * i + 1];
     }
-    float sh = 0.07f * unit, bev = fmaxf(1.5f, 0.09f * unit), sxy[8];
+    float sh = shadow ? 0.07f * unit : 0, bev = fmaxf(1.2f, 0.08f * unit), sxy[8];
     for (int i = 0; i < 2 * n; i++) sxy[i] = xy[i] + sh * (i & 1 ? 1.2f : 0.8f);
     int ww = (int)ceilf(x1 - x0) + 1, hh = (int)ceilf(y1 - y0) + 1;
     uint8_t *plank = malloc((size_t)ww * hh * 4);
@@ -69,7 +75,7 @@ static void paint_tan(uint8_t *o, int w, int h, int piece, const float *xy, int 
         for (int x = (int)floorf(x0); x <= (int)ceilf(x1 + sh); x++) {
             if (x < 0 || y < 0 || x >= w || y >= h) continue;
             uint8_t *p = o + 4 * (y * w + x);
-            float s = pzt_cover(sxy, n, (float)x, (float)y) * 0.4f;   /* the shadow, under */
+            float s = shadow ? pzt_cover(sxy, n, (float)x, (float)y) * 0.4f : 0;   /* the shadow, under */
             if (s > 0 && p[3] < 255) {
                 float a = s + p[3] / 255.0f * (1 - s);
                 for (int c = 0; c < 3; c++) p[c] = (uint8_t)((p[c] * (p[3] / 255.0f) * (1 - s)) / (a > 0 ? a : 1));
@@ -82,8 +88,8 @@ static void paint_tan(uint8_t *o, int w, int h, int piece, const float *xy, int 
             py = py < 0 ? 0 : py >= hh ? hh - 1 : py;
             uint8_t wood[4];
             memcpy(wood, plank + 4 * (py * ww + px), 4);
-            pzt_tint(wood, WOOD[piece], 1);
-            /* the bevel: the nearest edge's facing (outward), lit when it faces the top left */
+            pzt_tint(wood, LACQUER[piece], 1);
+            /* the bevel: the nearest edge's facing (outward), lit when it faces the top left; a sheen across */
             float best = 1e9f, lit = 0;
             for (int i = 0, j = n - 1; i < n; j = i++) {
                 float ax = xy[2 * j], ay = xy[2 * j + 1], dx = xy[2 * i] - ax, dy = xy[2 * i + 1] - ay;
@@ -97,7 +103,8 @@ static void paint_tan(uint8_t *o, int w, int h, int piece, const float *xy, int 
                     lit = -(nx + ny) * 0.7071f;
                 }
             }
-            float kf = best < bev ? 1 + 0.38f * lit * (1 - best / bev) : 1;
+            float kf = best < bev ? 1 + 0.4f * lit * (1 - best / bev) : 1;
+            kf *= 1.06f - 0.12f * ((x - x0) + (y - y0)) / (x1 - x0 + y1 - y0 + 1);   /* the lacquer's sheen */
             float a = cov + p[3] / 255.0f * (1 - cov);
             for (int c = 0; c < 3; c++) {
                 float v = clampf(wood[c] * kf, 0, 255);
@@ -108,50 +115,71 @@ static void paint_tan(uint8_t *o, int w, int h, int piece, const float *xy, int 
     free(plank);
 }
 
-/* is (u, v) (units, from the silhouette's corner) inside it */
-static int in_figure(const tgm_game *g, float u, float v)
+/* a level's tans fitted in a square picture: laid in their lacquers (tans 1), or the silhouette in ink */
+static void paint_figure(int level, int size, uint8_t *rgba, int tans, const uint8_t ink[3])
 {
-    if (u < 0 || v < 0 || u >= g->tw || v >= g->th) return 0;
-    int cx = (int)u, cy = (int)v;
-    float a = u - cx, b = v - cy;
-    int q = b < a && b < 1 - a ? 0 : a > b && a > 1 - b ? 1 : b > a && b > 1 - a ? 2 : 3;
-    return g->target[cy][cx] >> q & 1;
-}
-
-/* the silhouette: dark on the felt, its edges smooth */
-static void paint_shadow(const tgm_game *g, float unit, uint8_t *o, int w, int h)
-{
-    for (int y = 0; y < h; y++)
-        for (int x = 0; x < w; x++) {
-            int in = 0;
-            for (int s = 0; s < 9; s++)
-                in += in_figure(g, (x + (s % 3 + 0.5f) / 3) / unit, (y + (s / 3 + 0.5f) / 3) / unit);
-            uint8_t *p = o + 4 * (y * w + x);
-            p[0] = 16, p[1] = 30, p[2] = 25, p[3] = (uint8_t)(235 * in / 9);
-        }
-}
-
-static void paint_figure(int fig, int size, uint8_t *rgba)   /* a silhouette's tans, laid (the cards, the token) */
-{
-    tgm_game T;
-    tgm_new(&T, fig / TGM_PER_SET, fig % TGM_PER_SET, 1);
-    float unit = size * 0.9f / (T.tw > T.th ? T.tw : T.th);
-    float ox = (size - T.tw * unit) / 2, oy = (size - T.th * unit) / 2;
+    tgm_place s[TGM_PIECES];
+    double W, H;
+    tgm_solution(level, s, &W, &H);
+    float unit = size * 0.88f / (float)(W > H ? W : H);
+    float ox = (size - (float)W * unit) / 2, oy = (size - (float)H * unit) / 2;
+    float poly[TGM_PIECES][8];
+    int n[TGM_PIECES];
     for (int i = 0; i < TGM_PIECES; i++) {
-        float xy[8];
-        int n = tgm_corners(i, &T.slot[i], xy);
-        for (int j = 0; j < n; j++) {
-            xy[2 * j] = ox + (xy[2 * j] - T.fx) * unit;
-            xy[2 * j + 1] = oy + xy[2 * j + 1] * unit;
+        double xy[8];
+        n[i] = tgm_corners(i, &s[i], xy);
+        for (int j = 0; j < n[i]; j++) {
+            poly[i][2 * j] = ox + (float)xy[2 * j] * unit;
+            poly[i][2 * j + 1] = oy + (float)xy[2 * j + 1] * unit;
         }
-        paint_tan(rgba, size, size, i, xy, n, unit);
+        if (tans) paint_tan(rgba, size, size, i, poly[i], n[i], unit, 0);
     }
+    if (tans) return;
+    for (int y = 0; y < size; y++)
+        for (int x = 0; x < size; x++) {
+            float c = 0;
+            for (int i = 0; i < TGM_PIECES && c < 1; i++) c += pzt_cover(poly[i], n[i], (float)x, (float)y);
+            if (c <= 0) continue;
+            uint8_t *p = rgba + 4 * (y * size + x);
+            p[0] = ink[0], p[1] = ink[1], p[2] = ink[2], p[3] = (uint8_t)(255 * fminf(c, 1));
+        }
 }
 
 static void token(int player, int size, uint8_t *rgba)
 {
     (void)player;
-    paint_figure(2 * TGM_PER_SET, size, rgba);  /* a house of tans */
+    paint_figure(0, size, rgba, 1, NULL);   /* the square of the seven tans */
+}
+
+/* the board: the plank in its frame, the silhouette inlaid dark (a sunken edge: shaded at the top left, lit at the
+ * bottom right) */
+static void paint_board(void)
+{
+    int W = G.table_w * (int)k + 2 * frame, H = G.table_h * (int)k + 2 * frame;
+    uint8_t *o = ui_buf(W, H);
+    art_board_n(G.table_w, G.table_h, (int)k, frame, 0, o);
+    static const uint8_t INK[3] = {40, 28, 22};
+    int X0 = frame + (int)floor(G.fx * k) - 2, Y0 = frame + (int)floor(G.fy * k) - 2;
+    int X1 = frame + (int)ceil((G.fx + G.fw) * k) + 2, Y1 = frame + (int)ceil((G.fy + G.fh) * k) + 2;
+    float e = fmaxf(1.5f, 0.05f * k);
+    for (int y = Y0; y < Y1; y++)
+        for (int x = X0; x < X1; x++) {
+            if (x < 0 || y < 0 || x >= W || y >= H) continue;
+            int in = 0, up = 0, down = 0;
+            for (int s = 0; s < 9; s++) {
+                double u = (x - frame + (s % 3 + 0.5) / 3) / k, v = (y - frame + (s / 3 + 0.5) / 3) / k;
+                if (!tgm_inside(&G, u, v)) continue;
+                in++;
+                up += !tgm_inside(&G, u - e / k, v - e / k);
+                down += !tgm_inside(&G, u + e / k, v + e / k);
+            }
+            if (!in) continue;
+            uint8_t *p = o + 4 * (y * W + x);
+            float a = in / 9.0f * 0.88f, lift = (down - up) / 9.0f * 0.22f;
+            for (int c = 0; c < 3; c++) p[c] = (uint8_t)clampf(p[c] + (INK[c] - p[c]) * a + 255 * lift * a, 0, 255);
+        }
+    ui_free(&t_board);
+    t_board = ui_tex(W, H, o);
 }
 
 /* a tan's texture for its turning (made at the table's scale when first drawn) */
@@ -160,11 +188,12 @@ static SDL_Texture *tan_tex(int piece, int rot, int flip)
     int v = rot + 8 * flip;
     if (t_tan[piece][v]) return t_tan[piece][v];
     tgm_place pl = {0, 0, rot, flip};
+    double c[8];
     float xy[8], x0 = 1e9f, y0 = 1e9f, x1 = -1e9f, y1 = -1e9f;
-    int n = tgm_corners(piece, &pl, xy);
+    int n = tgm_corners(piece, &pl, c);
     for (int i = 0; i < n; i++) {
-        xy[2 * i] *= k;
-        xy[2 * i + 1] *= k;
+        xy[2 * i] = (float)c[2 * i] * k;
+        xy[2 * i + 1] = (float)c[2 * i + 1] * k;
         x0 = fminf(x0, xy[2 * i]);
         y0 = fminf(y0, xy[2 * i + 1]);
         x1 = fmaxf(x1, xy[2 * i]);
@@ -178,7 +207,7 @@ static SDL_Texture *tan_tex(int piece, int rot, int flip)
     }
     uint8_t *o = ui_buf(w, h);
     memset(o, 0, (size_t)w * h * 4);
-    paint_tan(o, w, h, piece, xy, n, k);
+    paint_tan(o, w, h, piece, xy, n, k, 1);
     t_tan[piece][v] = ui_tex(w, h, o);
     tan_off[piece][v][0] = x0 - m;
     tan_off[piece][v][1] = y0 - m;
@@ -192,20 +221,29 @@ static void layout(box b)
     last_box = b;
     pzt_column_fit(&col, b, BTNS);
     box r = col.room;
-    k = floorf(fminf(r.w / G.table_w, r.h / G.table_h));
+    /* the tray under the silhouette or at its right: whichever lets the table be the larger */
+    tgm_game a = G, c = G;
+    tgm_arrange(&a, 0);
+    tgm_arrange(&c, 1);
+    float ka = floorf(fminf(r.w / (a.table_w + 0.5f), r.h / (a.table_h + 0.5f)));
+    float kc = floorf(fminf(r.w / (c.table_w + 0.5f), r.h / (c.table_h + 0.5f)));
+    int right = kc > ka;
+    if (right != G.tray_right) {
+        tgm_arrange(&G, right);
+        for (int i = 0; i < TGM_PIECES; i++) slide[i].ms = 0;
+    }
+    k = right ? kc : ka;
+    if (k < 4) k = 4;
+    frame = (int)(0.25f * k);
     tx = floorf(r.x + (r.w - G.table_w * k) / 2);
     ty = floorf(r.y + (r.h - G.table_h * k) / 2);
     if (made_k != (int)k)
         for (int i = 0; i < TGM_PIECES; i++)
             for (int v = 0; v < 16; v++) ui_free(&t_tan[i][v]);
-    if (made_fig != G.figure || made_k != (int)k) {
-        made_fig = G.figure;
-        int w = (int)ceilf(G.tw * k), h = (int)ceilf(G.th * k);
-        ui_free(&t_shadow);
-        paint_shadow(&G, k, ui_buf(w, h), w, h);
-        t_shadow = ui_tex(w, h, ui_buf(w, h));
-    }
+    if (made_level != G.level || made_k != (int)k || made_right != G.tray_right) paint_board();
+    made_level = G.level;
     made_k = (int)k;
+    made_right = G.tray_right;
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;
@@ -221,14 +259,15 @@ static void calm(void)
 {
     for (int i = 0; i < TGM_PIECES; i++) slide[i].ms = 0;
     win.on = 0;
-    hint.piece = last_tap.piece = -1;
+    hint.piece = last_tap.piece = turning.piece = -1;
     memset(&ptr, 0, sizeof ptr);
 }
 
-static void start(int variant)
+static void start(int level)                    /* a level of the shell's level screen */
 {
-    set_no = variant < 0 || variant >= TGM_SETS ? 0 : variant;
-    tgm_new(&G, set_no, ui_random(TGM_PER_SET), (uint32_t)ui_random(0x7fffffff) + 1u);
+    int right = G.tray_right;
+    tgm_new(&G, level, (uint32_t)ui_random(0x7fffffff) + 1u);
+    tgm_arrange(&G, right);
     for (int i = 0; i < TGM_PIECES; i++) zorder[i] = i;
     calm();
     if (last_box.w > 0) layout(last_box);
@@ -236,6 +275,8 @@ static void start(int variant)
 
 static int status(void) { return tgm_solved(&G) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
+static int level_stars(void) { return tgm_stars(&G); }
+static int chapter_of(int level) { return tgm_chapter(level); }
 
 static Uint32 win_end(void) { return win.t0 + (Uint32)(TGM_PIECES * WAVE_STEP + WAVE_LEN); }
 
@@ -244,6 +285,7 @@ static int busy(void)
     Uint32 now = ui_ms();
     for (int i = 0; i < TGM_PIECES; i++)
         if (slide[i].ms && now - slide[i].t0 < slide[i].ms) return 1;
+    if (turning.piece >= 0 && now - turning.t0 < TURN_MS) return 1;
     return win.on && now < win_end();
 }
 
@@ -288,7 +330,7 @@ static int script(const char *moves)
 {
     calm();
     int ok = tgm_script(&G, moves);
-    if (made_fig != G.figure && last_box.w > 0) layout(last_box);
+    if (made_level != G.level && last_box.w > 0) layout(last_box);
     if (tgm_solved(&G)) { win.on = 1; win.t0 = ui_ms(); }
     return ok;
 }
@@ -296,8 +338,8 @@ static int script(const char *moves)
 /* ---- the table on the screen ------------------------------------------------------------------------------------- */
 static void place_of(int i, Uint32 now, float *x, float *y)   /* its middle (units), gliding or carried */
 {
-    *x = G.p[i].x;
-    *y = G.p[i].y;
+    *x = (float)G.p[i].x;
+    *y = (float)G.p[i].y;
     if (ptr.on && ptr.moved && ptr.piece == i) {
         *x = (ptr.x - tx) / k - ptr.gx;
         *y = (ptr.y - ty) / k - ptr.gy;
@@ -311,23 +353,33 @@ static void place_of(int i, Uint32 now, float *x, float *y)   /* its middle (uni
     }
 }
 
+static void put_tan(int i, int rot, int flip, float px, float py, float lift, float deg)
+{
+    SDL_Texture *t = tan_tex(i, rot, flip);
+    int v = rot + 8 * flip;
+    float w = tan_w[i][v] * lift, h = tan_h[i][v] * lift;
+    float ox = tan_off[i][v][0] * lift + w / 2, oy = tan_off[i][v][1] * lift + h / 2;   /* its centre from its middle */
+    if (deg == 0) { ui_put(t, px + ox - w / 2, py + oy - h / 2, w, h); return; }
+    float a = deg * PUZ_PI / 180, c = cosf(a), s = sinf(a);
+    ui_put_rot(t, px + ox * c - oy * s, py + ox * s + oy * c, w, h, deg);
+}
+
 static void draw(void)
 {
     if (made_k < 0) layout(last_box);
     Uint32 now = ui_ms();
-    ui_put(t_shadow, tx + G.fx * k, ty, G.tw * k, G.th * k);
+    ui_put(t_board, tx - frame, ty - frame, G.table_w * k + 2 * frame, G.table_h * k + 2 * frame);
     float wt = win.on && now >= win.t0 ? (float)(now - win.t0) : -1;
     if (win.on && now < win_end()) ui_animate();
     if (wt >= 0) {                              /* the whole silhouette glows as it fills */
         float p = puz_pulse(wt, 0, TGM_PIECES * WAVE_STEP + WAVE_LEN);
-        ui_mark_gold(tx + (G.fx + G.tw / 2.0f) * k, ty + G.th / 2.0f * k, 1.3f * fmaxf(G.tw, G.th) * k * p);
+        ui_mark_gold(tx + (float)(G.fx + G.fw / 2) * k, ty + (float)(G.fy + G.fh / 2) * k,
+                     1.3f * (float)fmax(G.fw, G.fh) * k * p);
     }
     for (int z = 0; z < TGM_PIECES; z++) {
         int i = zorder[z];
         float x, y;
         place_of(i, now, &x, &y);
-        SDL_Texture *t = tan_tex(i, G.p[i].rot, G.p[i].flip);
-        int v = G.p[i].rot + 8 * G.p[i].flip;
         float px = tx + x * k, py = ty + y * k;
         if (wt >= 0) {
             float p = puz_pulse(wt, z * WAVE_STEP, WAVE_LEN);
@@ -339,8 +391,13 @@ static void draw(void)
             else hint.piece = -1;
         }
         float lift = ptr.on && ptr.moved && ptr.piece == i ? 1.04f : 1;
-        float w = tan_w[i][v] * lift, h = tan_h[i][v] * lift;
-        ui_put(t, px + tan_off[i][v][0] * lift, py + tan_off[i][v][1] * lift, w, h);
+        if (turning.piece == i && now - turning.t0 < TURN_MS) {   /* the old turning, swung round */
+            float t = puz_ease((now - turning.t0) / (float)TURN_MS);
+            put_tan(i, turning.rot0, turning.flip0, px, py, lift, 45 * t);
+            ui_animate();
+            continue;
+        }
+        put_tan(i, G.p[i].rot, G.p[i].flip, px, py, lift, 0);
     }
     ui_button(col.x, col.y[B_HINT], col.d, ICON_HINT, tgm_solved(&G) ? UI_DIM : 0);
 }
@@ -352,14 +409,15 @@ static int tan_at(float x, float y)              /* the top tan under a point (a
     for (int pass = 0; pass < 2; pass++)
         for (int z = TGM_PIECES - 1; z >= 0; z--) {
             int i = zorder[z];
+            double c[8];
             float xy[8];
-            int n = tgm_corners(i, &G.p[i], xy);
-            int c = 0;
+            int n = tgm_corners(i, &G.p[i], c), in = 0;
+            for (int j = 0; j < 2 * n; j++) xy[j] = (float)c[j];
             for (int a = 0, b = n - 1; a < n; b = a++) {
                 float xa = xy[2 * a], ya = xy[2 * a + 1], xb = xy[2 * b], yb = xy[2 * b + 1];
-                if ((ya > v) != (yb > v) && u < (xb - xa) * (v - ya) / (yb - ya) + xa) c = !c;
+                if ((ya > v) != (yb > v) && u < (xb - xa) * (v - ya) / (yb - ya) + xa) in = !in;
             }
-            if (c) return i;
+            if (in) return i;
             if (pass && pzt_edge_dist(xy, n, u, v) < 0.25f) return i;   /* near its edge: still it */
         }
     return -1;
@@ -371,7 +429,7 @@ static void press(float x, float y)
     if (tgm_solved(&G)) return;
     if (pzt_column_hit(&col, x, y) == B_HINT) {
         float x0[TGM_PIECES], y0[TGM_PIECES];
-        for (int i = 0; i < TGM_PIECES; i++) x0[i] = G.p[i].x, y0[i] = G.p[i].y;
+        for (int i = 0; i < TGM_PIECES; i++) x0[i] = (float)G.p[i].x, y0[i] = (float)G.p[i].y;
         int i = tgm_hint(&G);
         if (i < 0) { ui_sound(SND_DENY); return; }
         on_top(i);
@@ -390,8 +448,8 @@ static void press(float x, float y)
     ptr.piece = i;
     ptr.x = ptr.x0 = x;
     ptr.y = ptr.y0 = y;
-    ptr.gx = (x - tx) / k - G.p[i].x;
-    ptr.gy = (y - ty) / k - G.p[i].y;
+    ptr.gx = (x - tx) / k - (float)G.p[i].x;
+    ptr.gy = (y - ty) / k - (float)G.p[i].y;
     ui_animate();
 }
 
@@ -420,15 +478,23 @@ static void release(float x, float y)
         return;
     }
     Uint32 now = ui_ms();
+    float x0 = (float)G.p[i].x, y0 = (float)G.p[i].y;
     if (i == 6 && last_tap.piece == 6 && now - last_tap.t < DOUBLE_MS) {   /* twice: turned over instead */
         tgm_undo(&G);
+        x0 = (float)G.p[i].x;
+        y0 = (float)G.p[i].y;
         tgm_flip(&G, 6);
-        last_tap.piece = -1;
+        turning.piece = last_tap.piece = -1;
     } else {
+        turning.piece = i;
+        turning.rot0 = G.p[i].rot;
+        turning.flip0 = G.p[i].flip;
+        turning.t0 = now;
         tgm_turn(&G, i);
         last_tap.piece = i;
         last_tap.t = now;
     }
+    glide(i, x0, y0, SNAP_MS);
     ui_sound(SND_TAP);
     after();
 }
@@ -440,18 +506,35 @@ static void bar(int player, box b)
     puz_bar_moves(b, t_small, G.moves);
 }
 
-/* ---- the menu's and the picker's cards: a silhouette of the set laid in tans ---------------------------------- */
+/* ---- the pictures for the shell: the level screen's tiles (the silhouette), its tabs (the chapter's first
+ * figure), the menu's card (the square of the seven tans) -------------------------------------------------------- */
+static void level_thumb(int level, int size, uint8_t *rgba)
+{
+    static const uint8_t ink[3] = {44, 30, 22};
+    paint_figure(level, size, rgba, 0, ink);
+}
+
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    int level = 0;
+    while (level < TGM_LEVELS - 1 && tgm_chapter(level) < chapter) level++;
+    paint_figure(level, size, rgba, 0, PZT_CREAM);
+}
+
 static void thumb(int variant, int size, uint8_t *rgba)
 {
-    paint_figure(variant < 0 ? 0 : variant * TGM_PER_SET, size, rgba);
+    (void)variant;
+    paint_figure(0, size, rgba, 1, NULL);
 }
 
 static int score(void) { return G.moves; }   /* the end card's number */
 
 static const game tangram_game = {
-    .id = "tangram", .order = 444, .variants = TGM_SETS,
+    .id = "tangram", .order = 444, .variants = 1,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .score = score,
+    .levels = TGM_LEVELS, .chapters = TGM_CHAPTERS, .chapter_of = chapter_of, .chapter_icon = chapter_icon,
+    .level_thumb = level_thumb, .level_stars = level_stars, .levels_open = TGM_LEVELS,
 };
 REGISTER_GAME(tangram_game)

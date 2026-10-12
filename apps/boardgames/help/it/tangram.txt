@@ -1,12 +1,13 @@
 Tangram
 # Lo scopo
-Il tangram è un antico rompicapo cinese: un quadrato tagliato in sette pezzi, i tan. Due triangoli grandi, uno medio, due piccoli, un quadrato e un parallelogramma. Usali tutti e sette per riempire la sagoma scura, senza nessuna sovrapposizione. Scegli prima una serie: animali, persone o oggetti; ognuna contiene 20 sagome fatte per questo gioco, e una nuova partita ne sceglie una.
+Il tangram è un antico rompicapo cinese: un quadrato tagliato in sette pezzi, i tan. Due triangoli grandi, uno medio, due piccoli, un quadrato e un parallelogramma. Usa tutti e sette per riempire la sagoma scura, senza sovrapposizioni. Ci sono 98 figure in sei capitoli: forme, persone, animali, barche e case, oggetti, lettere e numeri. Ognuna è stata composta per questo gioco con i sette tan, quindi ogni figura ha una soluzione.
 # Una mossa
-Sposta un tan, giralo, o capovolgi il parallelogramma (gli altri sono uguali da entrambi i lati). I tan restano piatti e non si sovrappongono mai.
+Sposta un tan, giralo di un ottavo di giro o capovolgi il parallelogramma (gli altri sono uguali da entrambi i lati). I tan restano piatti e non si sovrappongono mai.
 # La fine della partita
-Il rompicapo è risolto quando i sette tan coprono esattamente la sagoma: una luce dorata li percorre. Ci può essere più di un modo; vale qualsiasi modo che riempia la sagoma.
+La figura è risolta quando i sette tan coprono esattamente la sagoma: una luce dorata li percorre. Vale ogni modo di riempire la sagoma, non solo quello con cui è stata fatta. Tre stelle senza aiuti, due con uno o due aiuti, una con di più.
 # Giocare sul dispositivo
-- Trascina un tan sulla sagoma. Quando lo lasci, si assesta sulla griglia della sagoma, se è in squadra con essa.
-- Tocca un tan: ruota di un ottavo di giro.
-- Tocca due volte rapidamente il parallelogramma: si capovolge.
-L'ultimo tan toccato sta sopra. La lampada accanto al tavolo dà un suggerimento: fa scivolare un tan al suo posto, in luce dorata. Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue azioni.
+Scegli una figura nella schermata dei livelli; quelle risolte mostrano le loro stelle.
+- Trascina un tan. Quando lo lasci, si sistema in un posto adatto: i suoi angoli incontrano quelli della sagoma o di un altro tan.
+- Tocca un tan: gira di un ottavo di giro.
+- Tocca due volte in fretta il parallelogramma: si capovolge.
+L'ultimo tan toccato sta sopra. La lampada dà un aiuto: porta un tan al suo posto, in una luce dorata. Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue azioni.
