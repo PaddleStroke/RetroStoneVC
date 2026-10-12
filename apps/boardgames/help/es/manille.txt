@@ -1,0 +1,22 @@
+Manille
+# El objetivo
+Un juego de bazas francés para cuatro, en dos equipos de compañeros sentados frente a frente. Gana las bazas con los dieces y los ases, las mejores cartas, y sé el primer equipo en llegar a 34 puntos.
+# Las cartas
+- 32 cartas, del 7 al as. En cada palo el diez, la manille, es la carta más alta, después el as, el manillon, y luego rey, dama, jota, 9, 8 y 7.
+- El diez vale 5 puntos, el as 4, el rey 3, la dama 2, la jota 1: 60 en la baraja. Cada baza vale 1 punto más: 68 por mano.
+# El reparto
+El que da reparte 8 cartas a cada jugador, de 4 en 4, empezando por el jugador que le sigue. Su propia última carta se pone boca arriba: su palo es el triunfo, y la carta se queda en su mano. El que da avanza un puesto en cada mano.
+# Doblar
+Antes de la primera carta, cada jugador por turno, empezando después del que da, pasa o dobla: la mano cuenta doble. Tras un doble, los rivales del equipo que dobló pueden redoblar: la mano cuenta cuatro veces.
+# Cómo se juega
+- El jugador que sigue al que da sale a la primera baza; quien gana una baza sale a la siguiente.
+- Sigue el palo si puedes. Si un rival gana la baza con una carta de ese palo, debes superarla si puedes.
+- Si no puedes seguir el palo y un rival gana la baza, debes fallar con triunfo, y superar el triunfo de un rival si puedes; si no puedes, juega cualquier carta.
+- Cuando tu compañero gana la baza, puedes jugar cualquier carta si no tienes el palo.
+- El triunfo más alto gana la baza; sin triunfo, la carta más alta del palo de salida.
+# La puntuación
+Cada equipo suma los puntos de sus cartas y 1 punto por baza. El equipo que pasa de 34 se anota la diferencia, doblada o cuadruplicada si la mano lo estaba. Con 34 cada uno, nadie se anota nada.
+# El final de la partida
+Gana el primer equipo que llega a 34 puntos.
+# Jugar en el dispositivo
+Pasa el dispositivo al jugador cuya ficha aparece; toca el botón de inicio y ve su mano, en abanico abajo, con los triunfos a la izquierda. La carta volteada del que da queda junto a su ficha hasta el final de la primera baza; el triunfo (su as) y un posible doble quedan en la esquina de arriba a la izquierda. Para doblar, toca el botón redondo del centro (una cruz y un 2; una cruz y un 4 para redoblar); para pasar, el botón de pasar de tu barra. Para jugar, toca una carta que brille para levantarla y vuelve a tocarla o toca su sitio en el centro; o arrástrala hasta allí. Toca el montón de abajo a la derecha para ver la última baza. Cada barra muestra las cartas en la mano y la puntuación del equipo. Tras cada mano, una tabla muestra los puntos de cada equipo, la puntuación de la mano y los totales; tócala para la mano siguiente. Deshacer anula una elección aún no confirmada, nunca una carta una vez pasado el dispositivo.

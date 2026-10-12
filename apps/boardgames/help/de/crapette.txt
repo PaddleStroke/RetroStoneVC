@@ -1,0 +1,24 @@
+Crapette
+# Das Ziel
+Die französische Wettlauf-Patience für zwei, auch Russische Bank genannt. Jeder hat sein eigenes Blatt mit 52 Karten, und beide legen auf dieselben Ablagestapel. Sei der Erste, der alle Karten seiner Crapette, seines Talons und seines Abwurfstapels los ist.
+# Die Auslage
+- Jeder legt sein eigenes Blatt aus: 13 Karten als Stapel, die Crapette, die oberste offen; 4 Karten offen in einer Spalte von Häusern neben der Mitte; die übrigen 35 verdeckt, der Talon. Neben dem Talon wächst im Spiel ein Abwurfstapel.
+- Die 8 Häuser und die 8 Ablagestapel in der Mitte gehören beiden Spielern.
+- Wessen Crapette die höhere Karte zeigt, beginnt (das Ass ist niedrig, der König hoch); bei Gleichstand entscheiden die Karten der Häuser.
+# Karten bewegen
+- Du darfst die oberste Karte deiner Crapette bewegen (die nächste wird sofort aufgedeckt), die oberste Karte jedes Hauses und die Karte, die du vom Talon aufgedeckt hast. Nie eine Karte deines eigenen Abwurfstapels und nie die Stapel des Gegners.
+- Ablagestapel: ein Ass eröffnet einen, dann geht es in derselben Farbe aufwärts bis zum König.
+- Häuser: abwärts in wechselnden Farben, eine rote 7 auf eine schwarze 8. Ein leeres Haus nimmt jede Karte.
+- Beladen: Du darfst eine Karte auf die Crapette oder den Abwurfstapel des Gegners legen, wenn sie dieselbe Farbe hat und einen Rang über oder unter der obersten Karte liegt.
+# Die Vorrangregeln
+- Eine Karte, die auf einen Ablagestapel kann, muss vor allem anderen dorthin, und die Karte deiner Crapette zuerst.
+- Wenn die Karte deiner Crapette irgendwo gespielt werden kann, spiele sie, bevor du eine Karte vom Talon aufdeckst.
+- Sonst bist du frei: Züge zwischen den Häusern und die Talonkarte spielen oder nicht.
+# Der Talon
+Decke die oberste Karte deines Talons auf: Spiele sie und decke die nächste auf, oder lege sie auf deinen Abwurfstapel, womit dein Zug endet. Ist dein Talon aufgebraucht, wird der Abwurfstapel umgedreht und wird zum neuen Talon. Ohne Talon und Abwurfstapel passt du.
+# Crapette!
+Verletzt du eine Vorrangregel, darf dein Gegner vor dem Ende deines Zugs „Crapette!“ rufen. Das Spiel geht zurück zur Lage vor deinem Fehler, deine aufgedeckte Talonkarte kommt auf deinen Abwurfstapel, und dein Gegner ist am Zug.
+# Das Ende der Partie
+Wer zuerst Crapette, Talon und Abwurfstapel geleert hat, gewinnt. Geht nichts mehr, gewinnt, wer weniger Karten in diesen Stapeln übrig hat.
+# Spielen auf dem Gerät
+Die Ansicht dreht sich jeden Zug: Wer am Zug ist, sitzt immer unten, der Gegner gegenüber. Das Blatt von Elfenbein hat grüne Rücken, das von Ebenholz rote. Tippe eine Karte an, um sie zu heben (ein Punkt zeigt, wohin sie darf), dann tippe auf ihr Ziel oder ziehe sie dorthin; tippst du sie noch einmal an, geht sie auf einen Ablagestapel. Tippe auf deinen Talon, um eine Karte aufzudecken, und auf deinen Abwurfstapel, um die aufgedeckte Karte dort abzulegen. Die App verbietet keinen Zug, der eine Vorrangregel verletzt, aber sie zeigt ihn: Die Karte, die hätte gespielt werden müssen, leuchtet rot, und der Crapette-Knopf in der Leiste des wartenden Spielers, ein rotes Kreuz, leuchtet auf. Der wartende Spieler tippt darauf, um „Crapette!“ zu rufen. Jede Leiste zeigt die oberste Karte der Crapette und ihre Kartenzahl, dann Talon und Abwurfstapel zusammen. Der Passen-Knopf erscheint, wenn du nichts mehr aufdecken kannst. Rückgängig nimmt den letzten Zug zurück, aber nie einen Fehler, der noch gerufen werden kann.

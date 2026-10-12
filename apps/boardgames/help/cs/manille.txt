@@ -1,0 +1,22 @@
+Manille
+# Cíl hry
+Francouzská štychová hra pro čtyři ve dvou dvojicích, spoluhráči sedí proti sobě. Získej štychy s desítkami a esy, nejlepšími kartami, a dosáhni jako první dvojice 34 bodů.
+# Karty
+- 32 karet, od sedmy po eso. V každé barvě je desítka, manille, nejvyšší karta, pak eso, manillon, pak král, dáma, kluk, 9, 8 a 7.
+- Desítka má 5 bodů, eso 4, král 3, dáma 2, kluk 1: v balíčku 60. Každý štych má 1 bod navíc: 68 v rozdání.
+# Rozdání
+Rozdávající dá každému 8 karet, po 4, počínaje hráčem po sobě. Jeho vlastní poslední karta se otočí: její barva jsou trumfy a karta mu zůstává v ruce. Rozdávající se každé rozdání posune o jedno místo.
+# Zdvojení
+Před první kartou každý postupně, počínaje hráčem po rozdávajícím, pasuje nebo zdvojí: rozdání se pak počítá dvakrát. Po zdvojení smějí soupeři zdvojující dvojice znovu zdvojit: rozdání se počítá čtyřikrát.
+# Hra
+- Hráč po rozdávajícím vynáší do prvního štychu; kdo štych vezme, vynáší do dalšího.
+- Přiznej barvu, můžeš-li. Drží-li štych soupeř kartou té barvy, musíš ho přebít, můžeš-li.
+- Nemůžeš-li přiznat barvu a štych drží soupeř, musíš trumfovat, a přetrumfnout soupeřův trumf, můžeš-li; jinak zahraj jakoukoli kartu.
+- Drží-li štych tvůj spoluhráč, smíš zahrát jakoukoli kartu, když nemůžeš přiznat barvu.
+- Štych bere nejvyšší trumf; bez trumfu nejvyšší karta vynesené barvy.
+# Počítání bodů
+Každá dvojice sečte body svých karet a 1 bod za štych. Dvojice s více než 34 získá rozdíl, dvojnásobný nebo čtyřnásobný, bylo-li rozdání zdvojené. Při 34 na 34 nezíská nikdo nic.
+# Konec hry
+Vyhrává první dvojice, která dosáhne 34 bodů.
+# Hra na zařízení
+Podej zařízení hráči, jehož kámen se ukáže; ten klepne na start a uvidí svou ruku rozloženou do vějíře dole, trumfy vlevo. Otočená karta rozdávajícího leží u jeho kamene až do konce prvního štychu; trumfy (jejich eso) a případné zdvojení jsou v levém horním rohu. Pro zdvojení klepni na kulaté tlačítko uprostřed (křížek a 2; křížek a 4 znovu zdvojí); pro pas na tlačítko pasovat ve svém pruhu. Pro zahrání klepni na svítící kartu, aby se zvedla, a klepni na ni znovu nebo na její místo uprostřed; nebo ji tam přetáhni. Klepnutím na hromádku vpravo dole uvidíš poslední štych. Každý pruh ukazuje karty v ruce a body dvojice. Po každém rozdání ukáže tabulka body každé dvojice, výsledek rozdání a součty; klepni na ni pro další rozdání. Vrátit vezme zpět volbu, která ještě nebyla potvrzena, nikdy kartu, když už zařízení přešlo dál.

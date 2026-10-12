@@ -1,0 +1,22 @@
+Manille
+# O objetivo
+Um jogo de vazas francês para quatro, em duas duplas de parceiros sentados frente a frente. Ganhe as vazas com os dez e os ases, as melhores cartas, e seja a primeira dupla a chegar a 34 pontos.
+# As cartas
+- 32 cartas, do 7 ao ás. Em cada naipe o dez, a manille, é a carta mais alta, depois o ás, o manillon, depois rei, dama, valete, 9, 8 e 7.
+- O dez vale 5 pontos, o ás 4, o rei 3, a dama 2, o valete 1: 60 no baralho. Cada vaza vale 1 ponto a mais: 68 por mão.
+# A distribuição
+Quem dá distribui 8 cartas a cada jogador, de 4 em 4, começando pelo jogador seguinte. A sua própria última carta é virada: o naipe dela é o trunfo, e a carta fica na sua mão. Quem dá avança um lugar a cada mão.
+# Dobrar
+Antes da primeira carta, cada jogador na sua vez, começando depois de quem deu, passa ou dobra: a mão vale o dobro. Depois de uma dobra, os adversários da dupla que dobrou podem redobrar: a mão vale quatro vezes.
+# Jogando as cartas
+- O jogador seguinte a quem deu sai na primeira vaza; quem ganha uma vaza sai na seguinte.
+- Siga o naipe se puder. Se um adversário leva a vaza com uma carta desse naipe, você deve superá-la se puder.
+- Se você não tem o naipe e um adversário leva a vaza, deve trunfar, e superar o trunfo de um adversário se puder; se não puder, jogue qualquer carta.
+- Quando o seu parceiro leva a vaza, você pode jogar qualquer carta se não tiver o naipe.
+- O trunfo mais alto ganha a vaza; sem trunfo, a carta mais alta do naipe de saída.
+# A pontuação
+Cada dupla soma os pontos das suas cartas e 1 ponto por vaza. A dupla que passa de 34 marca a diferença, dobrada ou quadruplicada se a mão foi. Com 34 para cada, ninguém marca.
+# O fim da partida
+Ganha a primeira dupla a chegar a 34 pontos.
+# Jogando no aparelho
+Passe o aparelho para o jogador cuja ficha aparece; ele toca no botão de início e vê a sua mão, em leque embaixo, os trunfos à esquerda. A carta virada de quem deu fica ao lado da ficha dele até o fim da primeira vaza; o trunfo (o seu ás) e uma eventual dobra ficam no canto de cima à esquerda. Para dobrar, toque no botão redondo do centro (uma cruz e um 2; uma cruz e um 4 para redobrar); para passar, no botão de passar da sua barra. Para jogar, toque numa carta que brilha para levantá-la e toque nela de novo ou no lugar dela no centro; ou arraste-a até lá. Toque no monte embaixo à direita para ver a última vaza. Cada barra mostra as cartas na mão e a pontuação da dupla. Depois de cada mão, uma tabela mostra os pontos de cada dupla, a pontuação da mão e os totais; toque nela para a próxima mão. Desfazer cancela uma escolha ainda não confirmada, nunca uma carta depois que o aparelho passou.

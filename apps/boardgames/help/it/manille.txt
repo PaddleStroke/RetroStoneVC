@@ -1,0 +1,22 @@
+Manille
+# Lo scopo
+Un gioco di prese francese per quattro, in due squadre di compagni seduti uno di fronte all'altro. Vinci le prese con i dieci e gli assi, le carte migliori, e sii la prima squadra ad arrivare a 34 punti.
+# Le carte
+- 32 carte, dal 7 all'asso. In ogni seme il dieci, la manille, è la carta più alta, poi l'asso, il manillon, poi re, donna, fante, 9, 8 e 7.
+- Il dieci vale 5 punti, l'asso 4, il re 3, la donna 2, il fante 1: 60 nel mazzo. Ogni presa vale 1 punto in più: 68 per mano.
+# La distribuzione
+Il mazziere dà 8 carte a ciascuno, 4 alla volta, cominciando dal giocatore dopo di lui. La sua ultima carta viene scoperta: il suo seme è la briscola, e la carta resta nella sua mano. Il mazziere avanza di un posto a ogni mano.
+# Raddoppiare
+Prima della prima carta, ognuno a turno, cominciando dopo il mazziere, passa o raddoppia: la mano conta doppio. Dopo un raddoppio, gli avversari della squadra che ha raddoppiato possono rilanciare: la mano conta quattro volte.
+# Il gioco
+- Il giocatore dopo il mazziere apre la prima presa; chi vince una presa apre la successiva.
+- Rispondi al seme se puoi. Se un avversario tiene la presa con una carta di quel seme, devi superarla se puoi.
+- Se non hai il seme e un avversario tiene la presa, devi giocare briscola, e superare la briscola di un avversario se puoi; altrimenti gioca qualsiasi carta.
+- Quando la presa è del tuo compagno, puoi giocare qualsiasi carta se non hai il seme.
+- La briscola più alta vince la presa; senza briscole, la carta più alta del seme di uscita.
+# Il punteggio
+Ogni squadra somma i punti delle sue carte e 1 punto per presa. La squadra che supera 34 segna la differenza, raddoppiata o quadruplicata se la mano lo era. Con 34 a testa nessuno segna.
+# La fine della partita
+Vince la prima squadra che arriva a 34 punti.
+# Giocare sul dispositivo
+Passa il dispositivo al giocatore di cui appare la pedina; tocca il pulsante di avvio e vede la sua mano, a ventaglio in basso, con le briscole a sinistra. La carta scoperta del mazziere resta accanto alla sua pedina fino alla fine della prima presa; la briscola (il suo asso) e un eventuale raddoppio restano nell'angolo in alto a sinistra. Per raddoppiare, tocca il pulsante rotondo al centro (una croce e un 2; una croce e un 4 per rilanciare); per passare, il pulsante passo nella tua barra. Per giocare, tocca una carta che brilla per sollevarla, poi toccala di nuovo o tocca il suo posto al centro; oppure trascinala lì. Tocca il mazzetto in basso a destra per rivedere l'ultima presa. Ogni barra mostra le carte in mano e il punteggio della squadra. Dopo ogni mano una tabella mostra i punti di ogni squadra, il punteggio della mano e i totali; toccala per la mano successiva. Annulla ritira una scelta non ancora confermata, mai una carta una volta passato il dispositivo.

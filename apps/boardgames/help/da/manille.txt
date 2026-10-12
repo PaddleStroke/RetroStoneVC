@@ -1,0 +1,22 @@
+Manille
+# Målet
+Et fransk stikspil for fire, i to hold af makkere, der sidder over for hinanden. Tag stikkene med tiere og esser, de bedste kort, og bliv det første hold, der når 34 point.
+# Kortene
+- 32 kort, fra 7 til es. I hver kulør er tieren, manillen, det højeste kort, så esset, manillon, så konge, dame, knægt, 9, 8 og 7.
+- Tieren er 5 point værd, esset 4, kongen 3, damen 2, knægten 1: 60 i spillet. Hvert stik er 1 point mere værd: 68 pr. runde.
+# Kortgivningen
+Kortgiveren giver hver spiller 8 kort, 4 ad gangen, begyndende med spilleren efter sig. Kortgiverens eget sidste kort vendes: dets kulør er trumf, og kortet bliver på kortgiverens hånd. Kortgiveren rykker en plads hver runde.
+# Doble
+Før første kort melder hver spiller på skift pas eller dobler, begyndende efter kortgiveren: runden tæller så dobbelt. Efter en dobling må det doblende holds modstandere redoble: runden tæller firedobbelt.
+# Spillet
+- Spilleren efter kortgiveren spiller ud til første stik; den, der vinder et stik, spiller ud til det næste.
+- Bekend kulør, hvis du kan. Har en modstander stikket med et kort i den kulør, skal du gå over, hvis du kan.
+- Kan du ikke bekende, og en modstander har stikket, skal du trumfe, og overtrumfe en modstanders trumf, hvis du kan; ellers spiller du et vilkårligt kort.
+- Har din makker stikket, må du spille et vilkårligt kort, hvis du ikke kan bekende.
+- Den højeste trumf vinder stikket; uden trumf det højeste kort i den udspillede kulør.
+# Pointtælling
+Hvert hold tæller pointene i sine kort og 1 point pr. stik. Holdet med mere end 34 får forskellen, doblet eller firedoblet, hvis runden var det. Ved 34 hver får ingen noget.
+# Spillets afslutning
+Det første hold, der når 34 point, vinder.
+# Spil på enheden
+Giv enheden til spilleren, hvis brik vises; han trykker på start og ser sin hånd, viftet ud forneden, med trumferne til venstre. Kortgiverens vendte kort ligger ved hans brik, til første stik er slut; trumfen (dens es) og en eventuel dobling står i hjørnet øverst til venstre. For at doble trykker du på den runde knap i midten (et kryds og 2; et kryds og 4 for at redoble); for at melde pas på pas-knappen i din bjælke. For at spille trykker du på et kort, der lyser, så det løftes, og trykker på det igen eller på dets plads i midten; eller træk det derhen. Tryk på bunken nederst til højre for at se det sidste stik. Hver bjælke viser kortene på hånden og holdets point. Efter hver runde viser en tavle hvert holds point, rundens resultat og summerne; tryk på den for næste runde. Fortryd tager et valg tilbage, der endnu ikke er bekræftet, aldrig et kort, når enheden er givet videre.

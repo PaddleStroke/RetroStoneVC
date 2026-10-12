@@ -1,0 +1,22 @@
+Manille
+# Tavoite
+Ranskalainen tikkipeli neljälle kahdessa joukkueessa, parit istuvat vastakkain. Voita tikit, joissa ovat kympit ja ässät, parhaat kortit, ja ole ensimmäinen joukkue, joka saa 34 pistettä.
+# Kortit
+- 32 korttia, seiskasta ässään. Jokaisessa maassa kymppi, manille, on suurin kortti, sitten ässä, manillon, sitten kuningas, rouva, sotilas, 9, 8 ja 7.
+- Kymppi on 5 pisteen arvoinen, ässä 4, kuningas 3, rouva 2, sotilas 1: pakassa 60. Jokainen tikki on 1 piste lisää: jaossa 68.
+# Jako
+Jakaja antaa jokaiselle 8 korttia, 4 kerrallaan, aloittaen itseään seuraavasta pelaajasta. Jakajan oma viimeinen kortti käännetään: sen maa on valtti, ja kortti jää jakajan käteen. Jakaja siirtyy yhden paikan joka jaossa.
+# Tuplaus
+Ennen ensimmäistä korttia jokainen vuorollaan, jakajan jälkeen aloittaen, passaa tai tuplaa: jako lasketaan silloin kahteen kertaan. Tuplauksen jälkeen tuplanneen joukkueen vastustajat voivat vastatuplata: jako lasketaan nelinkertaisena.
+# Pelin kulku
+- Jakajaa seuraava pelaaja aloittaa ensimmäisen tikin; tikin voittaja aloittaa seuraavan.
+- Tunnusta maata, jos voit. Jos vastustajalla on tikki sen maan kortilla, sinun on mentävä yli, jos voit.
+- Jos et voi tunnustaa ja vastustajalla on tikki, sinun on valtattava, ja ylivaltattava vastustajan valtti, jos voit; muuten pelaa mikä tahansa kortti.
+- Kun tikki on parillasi, saat pelata minkä tahansa kortin, jos et voi tunnustaa.
+- Suurin valtti voittaa tikin; ilman valttia aloitetun maan suurin kortti.
+# Pisteet
+Kumpikin joukkue laskee korttiensa pisteet ja 1 pisteen tikiltä. Joukkue, jolla on yli 34, saa erotuksen, kaksin- tai nelinkertaisena, jos jako oli tuplattu. Tasan 34–34 kukaan ei saa mitään.
+# Pelin loppu
+Ensimmäinen joukkue, joka saa 34 pistettä, voittaa.
+# Pelaaminen laitteella
+Anna laite pelaajalle, jonka nappula näkyy; hän napauttaa aloitusta ja näkee oman kätensä viuhkana alhaalla, valtit vasemmalla. Jakajan käännetty kortti on hänen nappulansa vieressä ensimmäisen tikin loppuun asti; valtti (sen ässä) ja mahdollinen tuplaus näkyvät vasemmassa yläkulmassa. Tuplataksesi napauta keskellä olevaa pyöreää painiketta (risti ja 2; risti ja 4 vastatuplaukseen); passataksesi napauta palkkisi passaa-painiketta. Pelataksesi napauta hehkuvaa korttia, jotta se nousee, ja napauta sitä uudelleen tai sen paikkaa keskellä; tai vedä se sinne. Napauta pinoa oikeassa alakulmassa nähdäksesi edellisen tikin. Jokainen palkki näyttää kädessä olevat kortit ja joukkueen pisteet. Jokaisen jaon jälkeen taulukko näyttää joukkueiden pisteet, jaon tuloksen ja yhteispisteet; napauta sitä seuraavaa jakoa varten. Kumoa peruu vahvistamattoman valinnan, ei koskaan korttia, kun laite on jo annettu eteenpäin.

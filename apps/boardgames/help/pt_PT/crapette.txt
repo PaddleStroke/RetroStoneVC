@@ -1,0 +1,24 @@
+Crapette
+# O objetivo
+A paciência de corrida francesa para dois, também chamada Banca Russa. Cada jogador tem o seu próprio baralho de 52 cartas, e os dois constroem sobre as mesmas bases. Sê o primeiro a livrar-te de todas as cartas da tua crapette, do teu talão e do teu monte de descarte.
+# A disposição
+- Cada jogador dispõe o seu baralho: 13 cartas num monte, a crapette, com a de cima voltada para cima; 4 cartas voltadas numa coluna de casas ao lado do centro; as outras 35 voltadas para baixo, o talão. Durante o jogo cresce um monte de descarte ao lado do talão.
+- As 8 casas e as 8 bases do centro são dos dois jogadores.
+- Começa quem tem a carta mais alta na crapette (o ás é baixo, o rei alto); se forem iguais, decidem as cartas das casas.
+# Mover as cartas
+- Podes mover a carta de cima da tua crapette (a seguinte é voltada logo), a carta de cima de qualquer casa e a carta que voltaste do talão. Nunca uma carta do teu próprio descarte nem dos montes do adversário.
+- Bases: um ás começa uma, que depois sobe no mesmo naipe até ao rei.
+- Casas: desce-se alternando as cores, um 7 vermelho sobre um 8 preto. Uma casa vazia aceita qualquer carta.
+- Carregar: podes pôr uma carta na crapette ou no descarte do adversário se for do mesmo naipe e um valor acima ou abaixo da carta de cima.
+# As prioridades
+- Uma carta que pode ir para uma base tem de ir para lá antes de tudo, e a carta da tua crapette primeiro.
+- Se a carta da tua crapette pode ser jogada em algum lado, joga-a antes de voltar uma carta do talão.
+- De resto és livre: movimentos entre casas, e jogar ou não a carta do talão.
+# O talão
+Volta a carta de cima do teu talão: joga-a e volta a seguinte, ou põe-na no teu descarte, o que termina a tua vez. Quando o talão acaba, o descarte é virado e passa a ser o novo talão. Sem talão nem descarte, passas.
+# Crapette!
+Se não respeitares uma prioridade, o adversário pode gritar «Crapette!» antes de a tua vez acabar. O jogo volta a como estava antes do teu erro, a carta do talão que tinhas voltado vai para o teu descarte, e a vez passa ao adversário.
+# O fim do jogo
+Ganha o primeiro que esvaziar a crapette, o talão e o descarte. Se já nada se puder mover, ganha quem tiver menos cartas nesses montes.
+# Jogar no dispositivo
+A vista roda a cada vez: quem joga fica sempre em baixo, o adversário à frente. O baralho do marfim tem costas verdes, o do ébano costas vermelhas. Toca numa carta para a levantar (um ponto marca para onde pode ir), depois toca no destino ou arrasta-a até lá; toca-lhe outra vez para a mandar para uma base. Toca no talão para voltar uma carta e no teu descarte para lá pôr a carta voltada. A app não impede uma jogada que quebra uma prioridade, mas mostra-a: a carta que devia ser jogada brilha a vermelho, e o botão crapette na barra de quem espera, uma cruz vermelha, acende-se. Quem espera toca-lhe para gritar «Crapette!». Cada barra mostra a carta de cima da crapette e quantas cartas tem, depois o talão e o descarte juntos. O botão de passar aparece quando já não tens nada para voltar. Anular desfaz a última jogada, mas nunca um erro que ainda pode ser apontado.

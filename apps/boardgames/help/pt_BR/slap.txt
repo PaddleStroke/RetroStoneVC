@@ -1,0 +1,16 @@
+Batalha corsa
+# O objetivo
+Ganhe todas as cartas. Um jogo rápido de nervos, na França “Bataille corse”: todo mundo joga no mesmo aparelho e bate no monte em tempo real. De 2 a 4 jogadores.
+# Virar as cartas
+- As 52 cartas são distribuídas viradas para baixo, um monte por jogador. Ninguém olha as suas cartas.
+- Na sua vez, cada jogador vira a carta de cima do seu monte sobre o monte do centro.
+- Um ás, rei, dama ou valete exige tributo: o jogador seguinte vira cartas até virar uma dessas também, com 4 tentativas para um ás, 3 para um rei, 2 para uma dama e 1 para um valete. Se conseguir, o tributo passa para o jogador seguinte; se não, quem jogou a figura ganha o monte inteiro, põe embaixo do seu e joga de novo.
+# Bater
+- Qualquer um pode bater no monte a qualquer momento. Um par, duas cartas do mesmo valor uma sobre a outra, dá o monte a quem bater primeiro, que joga em seguida.
+- No jogo com sanduíche (a carta da escolha com um rei, um quatro e um rei), vale também o sanduíche: duas cartas do mesmo valor com uma carta entre elas.
+- Bater errado custa uma carta: a de cima do seu monte vai virada para baixo embaixo do monte do centro.
+- Quem fica sem cartas não vira mais nada, mas ainda pode bater para voltar. Se bater errado sem carta para dar, está fora.
+# O fim da partida
+Quem ganha todas as cartas ganha a partida.
+# Jogando no aparelho
+Deixe o aparelho deitado entre os jogadores. A mesa é dividida numa zona por jogador: meia tela para cada um com dois, a metade de cima dividida em duas com três, um quarto para cada um com quatro. As zonas do outro lado ficam viradas para os seus jogadores. A sua zona mostra o seu monte, a sua ficha e quantas cartas você tem. Na sua vez, o seu monte brilha: toque nele para virar uma carta. Para bater, toque em qualquer outro lugar da sua zona. Cada ponto acima de um monte é uma tentativa que resta para pagar um tributo. Ganha a primeira batida que o aparelho vê: uma batida certa acende a zona em dourado, uma errada em vermelho. Quando um tributo não é pago, o monte espera um momento para que ainda se possa bater num último par, e depois vai para quem jogou a figura, que também pode tocar na sua zona para pegá-lo na hora. A tela segue um dedo de cada vez: bata com um toque rápido. Desfazer cancela a última ação.

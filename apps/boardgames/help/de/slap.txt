@@ -1,0 +1,16 @@
+Korsische Schlacht
+# Das Ziel
+Gewinne alle Karten. Ein schnelles Nervenspiel, in Frankreich „Bataille corse“ genannt: Alle spielen auf demselben Gerät und schlagen in Echtzeit auf den Stapel. Für 2 bis 4 Spieler.
+# Karten aufdecken
+- Alle 52 Karten werden verdeckt verteilt, ein Stapel pro Spieler. Niemand schaut seine Karten an.
+- Reihum deckt jeder die oberste Karte seines Stapels auf den Stapel in der Mitte auf.
+- Ein Ass, König, eine Dame oder ein Bube verlangt Tribut: Der nächste Spieler deckt Karten auf, bis er selbst eine solche Karte aufdeckt, mit 4 Versuchen bei einem Ass, 3 bei einem König, 2 bei einer Dame und 1 bei einem Buben. Schafft er es, schuldet der nächste Spieler Tribut; sonst gewinnt der Spieler der Bildkarte den ganzen Stapel, legt ihn unter seinen eigenen und spielt weiter.
+# Schlagen
+- Jeder darf jederzeit auf den Stapel schlagen. Ein Paar, zwei Karten gleichen Rangs übereinander, gewinnt den Stapel für den Ersten, der schlägt; er spielt weiter.
+- Im Spiel mit Sandwich (die Auswahlkarte mit König, Vier und König) zählt auch ein Sandwich: zwei Karten gleichen Rangs mit einer Karte dazwischen.
+- Falsch geschlagen kostet eine Karte: Deine oberste Karte kommt verdeckt unter den Stapel in der Mitte.
+- Wer keine Karten mehr hat, deckt nichts mehr auf, darf aber schlagen, um zurückzukommen. Schlägt er falsch und hat keine Karte zu geben, scheidet er aus.
+# Das Ende der Partie
+Wer alle Karten gewinnt, gewinnt die Partie.
+# Spielen auf dem Gerät
+Lege das Gerät flach zwischen die Spieler. Der Tisch ist in eine Zone pro Spieler geteilt: zu zweit je eine Bildschirmhälfte, zu dritt die obere Hälfte geteilt, zu viert je ein Viertel. Die Zonen gegenüber sind zu ihren Spielern gedreht. Deine Zone zeigt deinen Stapel, deinen Stein und deine Kartenzahl. Bist du am Zug, leuchtet dein Stapel: Tippe darauf, um eine Karte aufzudecken. Zum Schlagen tippe irgendwo sonst in deine Zone. Jeder Punkt über einem Stapel ist ein Versuch, der für einen Tribut bleibt. Der erste Schlag, den das Gerät bemerkt, gewinnt: Ein richtiger Schlag lässt die Zone golden aufleuchten, ein falscher rot. Wird ein Tribut nicht bezahlt, wartet der Stapel einen Moment, damit man noch auf ein letztes Paar schlagen kann, dann geht er an den Spieler der Bildkarte, der auch auf seine Zone tippen kann, um ihn sofort zu nehmen. Der Bildschirm folgt immer nur einem Finger: Schlage mit einem kurzen Tippen. Rückgängig nimmt die letzte Aktion zurück.

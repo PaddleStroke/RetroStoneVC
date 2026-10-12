@@ -1,0 +1,22 @@
+Manille
+# Tujuan
+Permainan trik dari Prancis untuk empat orang, dalam dua tim berpasangan yang duduk berhadapan. Menangkan trik yang berisi kartu sepuluh dan as, kartu terbaik, dan jadilah tim pertama yang mencapai 34 poin.
+# Kartu
+- 32 kartu, dari 7 sampai as. Di setiap jenis, sepuluh, disebut manille, adalah kartu tertinggi, lalu as, disebut manillon, lalu raja, ratu, jack, 9, 8, dan 7.
+- Sepuluh bernilai 5 poin, as 4, raja 3, ratu 2, jack 1: 60 dalam satu dek. Setiap trik bernilai 1 poin lagi: 68 dalam satu bagian.
+# Pembagian
+Pembagi memberi setiap pemain 8 kartu, 4 sekaligus, mulai dari pemain sesudahnya. Kartu terakhirnya sendiri dibuka: jenisnya menjadi truf, dan kartu itu tetap di tangannya. Pembagi bergeser satu kursi setiap bagian.
+# Menggandakan
+Sebelum kartu pertama, setiap pemain bergiliran, mulai dari sesudah pembagi, lewat atau menggandakan: bagian itu dihitung dua kali. Setelah penggandaan, lawan tim yang menggandakan boleh menggandakan lagi: bagian itu dihitung empat kali.
+# Jalannya permainan
+- Pemain sesudah pembagi membuka trik pertama; pemenang sebuah trik membuka trik berikutnya.
+- Ikuti jenis jika bisa. Jika lawan memegang trik dengan kartu jenis itu, kamu harus melampauinya jika bisa.
+- Jika tidak bisa mengikuti jenis dan lawan memegang trik, kamu harus memotong dengan truf, dan melampaui truf lawan jika bisa; jika tidak bisa, mainkan kartu apa saja.
+- Jika rekanmu memegang trik, kamu boleh memainkan kartu apa saja saat tidak bisa mengikuti jenis.
+- Truf tertinggi memenangkan trik; tanpa truf, kartu tertinggi dari jenis yang dibuka.
+# Skor
+Setiap tim menjumlahkan poin kartunya dan 1 poin per trik. Tim yang lebih dari 34 mencatat selisihnya, dua atau empat kali lipat jika bagian itu digandakan. Jika 34 lawan 34, tidak ada yang mencatat.
+# Akhir permainan
+Tim pertama yang mencapai 34 poin menang.
+# Bermain di perangkat
+Oper perangkat ke pemain yang bidaknya tampil; ia mengetuk tombol mulai dan melihat kartunya sendiri, terkipas di bawah, truf di kiri. Kartu terbuka milik pembagi ada di samping bidaknya sampai trik pertama selesai; truf (asnya) dan penggandaan tampil di pojok kiri atas. Untuk menggandakan, ketuk tombol bulat di tengah (tanda silang dan 2; tanda silang dan 4 untuk menggandakan lagi); untuk lewat, ketuk tombol lewat di bilahmu. Untuk bermain, ketuk kartu yang menyala agar terangkat, lalu ketuk lagi kartu itu atau tempatnya di tengah; atau seret ke sana. Ketuk tumpukan di kanan bawah untuk melihat trik terakhir. Setiap bilah menunjukkan kartu di tangan dan skor tim. Setelah setiap bagian, sebuah tabel menunjukkan poin setiap tim, skor bagian itu, dan totalnya; ketuk untuk bagian berikutnya. Urungkan membatalkan pilihan yang belum dikonfirmasi, tidak pernah kartu setelah perangkat dioper.

@@ -1,0 +1,22 @@
+Manille
+# Het doel
+Een Frans slagenspel voor vier, in twee teams van partners die tegenover elkaar zitten. Haal de slagen met de tienen en de azen, de beste kaarten, en wees het eerste team met 34 punten.
+# De kaarten
+- 32 kaarten, van 7 tot aas. In elke kleur is de tien, de manille, de hoogste kaart, dan de aas, de manillon, dan heer, vrouw, boer, 9, 8 en 7.
+- De tien is 5 punten waard, de aas 4, de heer 3, de vrouw 2, de boer 1: 60 in het spel. Elke slag is 1 punt meer waard: 68 per spel.
+# Het delen
+De gever geeft iedereen 8 kaarten, 4 tegelijk, te beginnen bij de speler na hem. Zijn eigen laatste kaart wordt opengedraaid: haar kleur is troef, en de kaart blijft in zijn hand. De gever schuift elk spel een plaats op.
+# Doubleren
+Voor de eerste kaart past of doubleert ieder op zijn beurt, te beginnen na de gever: het spel telt dan dubbel. Na een doublet mogen de tegenstanders van het doublerende team redoubleren: het spel telt viervoudig.
+# Het spelen
+- De speler na de gever komt uit in de eerste slag; wie een slag wint, komt uit in de volgende.
+- Bekennen als je kunt. Heeft een tegenstander de slag met een kaart van die kleur, dan moet je hoger spelen als je kunt.
+- Kun je niet bekennen en heeft een tegenstander de slag, dan moet je troeven, en de troef van een tegenstander overtroeven als je kunt; anders speel je een willekeurige kaart.
+- Heeft je partner de slag, dan mag je elke kaart spelen als je niet kunt bekennen.
+- De hoogste troef wint de slag; zonder troef de hoogste kaart van de gevraagde kleur.
+# De score
+Elk team telt de punten van zijn kaarten en 1 punt per slag. Het team met meer dan 34 krijgt het verschil, verdubbeld of verviervoudigd als het spel dat was. Bij 34 elk krijgt niemand iets.
+# Het einde van de partij
+Het eerste team met 34 punten wint.
+# Spelen op het apparaat
+Geef het apparaat aan de speler wiens fiche verschijnt; die tikt op start en ziet zijn hand, onderaan in een waaier, de troeven links. De opengedraaide kaart van de gever ligt naast zijn fiche tot het einde van de eerste slag; de troef (haar aas) en een doublet staan in de hoek linksboven. Om te doubleren tik je op de ronde knop in het midden (een kruis en 2; een kruis en 4 om te redoubleren); om te passen op de pasknop in je balk. Om te spelen tik je een oplichtende kaart aan zodat hij omhoog komt, en tik je hem nog eens of zijn plek in het midden aan; of sleep hem erheen. Tik op het stapeltje rechtsonder om de laatste slag te zien. Elke balk toont de kaarten in de hand en de stand van het team. Na elk spel toont een tabel de punten van elk team, de score van het spel en de totalen; tik erop voor het volgende spel. Ongedaan maken neemt een nog niet bevestigde keuze terug, nooit een kaart als het apparaat al doorgegeven is.

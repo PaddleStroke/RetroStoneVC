@@ -1,0 +1,24 @@
+Crapette
+# Le but
+La réussite à deux, où l'on fait la course : chaque joueur a son propre jeu de 52 cartes, et tous deux montent sur les mêmes as. Sois le premier à te débarrasser de toutes les cartes de ta crapette, de ton talon et de ta défausse.
+# La mise en place
+- Chaque joueur dispose son propre jeu : 13 cartes en tas, la crapette, la carte du dessus retournée ; 4 cartes visibles en colonne à côté du milieu, les maisons ; les 35 autres face cachée, le talon. Une défausse se forme à côté du talon en cours de partie.
+- Les 8 maisons et les 8 piles d'as du milieu sont communes aux deux joueurs.
+- Celui dont la crapette montre la plus forte carte commence (l'as est la plus faible, le roi la plus forte) ; à égalité, les cartes des maisons départagent.
+# Déplacer les cartes
+- Tu peux jouer la carte du dessus de ta crapette (la suivante se retourne aussitôt), la carte du dessus de n'importe quelle maison et la carte que tu as retournée de ton talon. Jamais une carte de ta propre défausse, ni des tas de l'adversaire.
+- Les as : un as commence une pile, qui monte ensuite dans la couleur jusqu'au roi.
+- Les maisons : on descend en alternant rouge et noir, un 7 rouge sur un 8 noir. Une maison vide reçoit n'importe quelle carte.
+- Charger : tu peux poser une carte sur la crapette ou la défausse de l'adversaire si elle est de la même couleur et d'un rang juste au-dessus ou juste en dessous de sa carte du dessus.
+# Les priorités
+- Une carte qui peut aller sur les as doit y aller avant tout autre coup, et la carte de ta crapette en premier.
+- Si la carte de ta crapette peut se jouer quelque part, joue-la avant de retourner une carte de ton talon.
+- Pour le reste tu es libre : les déplacements entre maisons, et jouer ou non la carte du talon.
+# Le talon
+Retourne la carte du dessus de ton talon : joue-la et retourne la suivante, ou pose-la sur ta défausse, ce qui termine ton tour. Quand ton talon est épuisé, ta défausse retournée devient ton nouveau talon. Sans talon ni défausse, tu passes.
+# Crapette !
+Si tu ne respectes pas une priorité, ton adversaire peut crier « Crapette ! » avant la fin de ton tour. Le jeu revient alors comme il était avant ta faute, la carte de talon que tu avais retournée va sur ta défausse, et la main passe à ton adversaire.
+# La fin de la partie
+Le premier qui a vidé sa crapette, son talon et sa défausse gagne. Si plus rien ne bouge, celui à qui il reste le moins de cartes dans ces tas gagne.
+# Jouer sur l'appareil
+La vue tourne à chaque tour : le joueur qui joue est toujours en bas, son adversaire en face. Le jeu de l'ivoire a des dos verts, celui de l'ébène des dos rouges. Touche une carte pour la lever (un point marque les places où elle peut aller), puis touche l'endroit où elle va, ou fais-la glisser jusque-là ; touche-la une seconde fois pour l'envoyer sur les as. Touche ton talon pour retourner une carte, et ta défausse pour y poser la carte retournée. L'application n'interdit pas un coup qui viole une priorité, mais elle le montre : la carte qui devait être jouée brille en rouge, et le bouton crapette dans la barre du joueur qui attend, une croix rouge, s'allume. Le joueur qui attend le touche pour crier « Crapette ! ». Chaque barre montre la carte du dessus de la crapette et son nombre de cartes, puis le talon et la défausse ensemble. Le bouton passer apparaît quand tu n'as plus rien à retourner. Annuler reprend le dernier coup, mais jamais une faute qui peut encore être sanctionnée.

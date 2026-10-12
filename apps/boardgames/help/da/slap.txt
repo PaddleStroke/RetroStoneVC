@@ -1,0 +1,16 @@
+Korsikansk slag
+# Målet
+Vind alle kortene. Et hurtigt nervespil, i Frankrig kaldet »Bataille corse«: alle spiller på den samme enhed og slår på bunken i realtid. For 2 til 4 spillere.
+# Vende kort
+- Alle 52 kort gives ud med bagsiden op, en bunke til hver spiller. Ingen kigger på sine kort.
+- På skift vender hver spiller det øverste kort i sin bunke op på bunken i midten.
+- Et es, en konge, en dame eller en knægt kræver tribut: den næste spiller vender kort, til han selv vender et af dem, med 4 forsøg for et es, 3 for en konge, 2 for en dame og 1 for en knægt. Lykkes det, går tributten videre til den næste spiller; ellers vinder den, der lagde billedkortet, hele bunken, lægger den under sin egen og spiller igen.
+# Slå
+- Enhver må slå på bunken når som helst. Et par, to kort af samme værdi oven på hinanden, giver bunken til den, der slår først, og som så spiller videre.
+- I spillet med sandwich (valgkortet med konge, fire og konge) tæller også en sandwich: to kort af samme værdi med ét kort imellem.
+- Et forkert slag koster et kort: dit øverste kort lægges med bagsiden op under bunken i midten.
+- Den, der ikke har flere kort, vender ikke flere, men må slå for at komme tilbage. Slår han forkert uden et kort at give, er han ude.
+# Spillets afslutning
+Den, der vinder alle kortene, vinder spillet.
+# Spil på enheden
+Læg enheden fladt mellem spillerne. Bordet er delt i en zone pr. spiller: en halv skærm hver ved to, den øverste halvdel delt i to ved tre, en fjerdedel hver ved fire. Zonerne på den anden side er vendt mod deres spillere. Din zone viser din bunke, din brik og hvor mange kort du har. Når det er din tur, lyser din bunke: tryk på den for at vende et kort. For at slå trykker du et vilkårligt andet sted i din zone. Hver prik over en bunke er et forsøg, der er tilbage til at betale en tribut. Det første slag, enheden ser, vinder: et rigtigt slag tænder zonen i guld, et forkert i rødt. Bliver en tribut ikke betalt, venter bunken et øjeblik, så man stadig kan slå på et sidste par, og går så til den, der lagde billedkortet, som også kan trykke på sin zone for at tage den med det samme. Skærmen følger én finger ad gangen: slå med et hurtigt tryk. Fortryd tager den sidste handling tilbage.

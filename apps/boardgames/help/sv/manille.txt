@@ -1,0 +1,22 @@
+Manille
+# Målet
+Ett franskt sticktagningsspel för fyra, i två lag av partner som sitter mittemot varandra. Ta sticken med tior och ess, de bästa korten, och bli första laget som når 34 poäng.
+# Korten
+- 32 kort, från 7 till ess. I varje färg är tian, manillen, det högsta kortet, sedan esset, manillon, sedan kung, dam, knekt, 9, 8 och 7.
+- Tian är värd 5 poäng, esset 4, kungen 3, damen 2, knekten 1: 60 i leken. Varje stick är värt 1 poäng till: 68 per giv.
+# Given
+Givaren delar ut 8 kort till var och en, 4 åt gången, med början hos spelaren efter sig. Givarens eget sista kort vänds upp: dess färg är trumf, och kortet stannar på givarens hand. Givaren flyttar en plats för varje giv.
+# Dubbla
+Före första kortet passar eller dubblar var och en i tur och ordning, med början efter givaren: given räknas då dubbelt. Efter en dubbling får det dubblande lagets motståndare redubbla: given räknas fyrdubbelt.
+# Spelet
+- Spelaren efter givaren spelar ut till första sticket; den som tar ett stick spelar ut till nästa.
+- Bekänn färg om du kan. Har en motståndare sticket med ett kort i den färgen, måste du gå över om du kan.
+- Kan du inte bekänna och en motståndare har sticket, måste du trumfa, och övertrumfa en motståndares trumf om du kan; annars spelar du vilket kort som helst.
+- Har din partner sticket får du spela vilket kort som helst om du inte kan bekänna.
+- Högsta trumf tar sticket; utan trumf det högsta kortet i utspelad färg.
+# Poängen
+Varje lag räknar poängen i sina kort och 1 poäng per stick. Laget med mer än 34 får skillnaden, dubblad eller fyrdubblad om given var det. Med 34 var får ingen något.
+# Partiets slut
+Första laget som når 34 poäng vinner.
+# Spela på enheten
+Ge enheten till spelaren vars bricka visas; han trycker på start och ser sin hand, solfjädrad längst ner, med trumferna till vänster. Givarens uppvända kort ligger vid hans bricka tills första sticket är klart; trumfen (dess ess) och en eventuell dubbling står i hörnet uppe till vänster. För att dubbla trycker du på den runda knappen i mitten (ett kryss och 2; ett kryss och 4 för att redubbla); för att passa på passknappen i din list. För att spela trycker du på ett kort som lyser så att det lyfts, och trycker på det igen eller på dess plats i mitten; eller dra dit det. Tryck på högen längst ner till höger för att se det senaste sticket. Varje list visar korten på handen och lagets poäng. Efter varje giv visar en tavla varje lags poäng, givens resultat och summorna; tryck på den för nästa giv. Ångra tar tillbaka ett val som inte är bekräftat än, aldrig ett kort när enheten har skickats vidare.

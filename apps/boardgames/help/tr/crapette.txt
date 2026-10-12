@@ -1,0 +1,24 @@
+Crapette
+# Amaç
+İki kişilik Fransız yarış falı, Rus Bankası diye de bilinir. Her oyuncunun 52 kartlık kendi destesi vardır ve ikisi de aynı temel destelerine dizer. Crapette'indeki, talonundaki ve atık destendeki bütün kartlardan ilk kurtulan sen ol.
+# Diziliş
+- Herkes kendi destesini dizer: 13 kart bir deste hâlinde, crapette, en üstteki açık; 4 kart açık olarak ortanın yanında bir ev sütununa; kalan 35 kart kapalı, talon. Oyun sırasında talonun yanında bir atık destesi büyür.
+- Ortadaki 8 ev ve 8 temel destesi iki oyuncunundur.
+- Crapette'inde daha büyük kart olan başlar (as küçük, papaz büyüktür); eşitlikte evlerdeki kartlar karar verir.
+# Kart taşımak
+- Crapette'inin en üstteki kartını (bir sonraki hemen açılır), herhangi bir evin en üstteki kartını ve talonundan açtığın kartı taşıyabilirsin. Kendi atık destendeki bir kartı ya da rakibin destelerini asla.
+- Temel desteler: bir as bir deste başlatır, sonra aynı türde papaza kadar yukarı çıkar.
+- Evler: kırmızı ve siyah sırayla aşağı doğru, siyah bir 8'in üstüne kırmızı bir 7. Boş bir ev her kartı alır.
+- Yükleme: aynı türden ve en üstteki karttan bir değer büyük ya da küçük bir kartı rakibin crapette'ine veya atık destesine koyabilirsin.
+# Öncelikler
+- Bir temel destesine gidebilen kart her şeyden önce oraya gitmelidir, en önce de crapette'inin kartı.
+- Crapette'inin kartı bir yere oynanabiliyorsa, talondan kart açmadan önce onu oyna.
+- Bunun dışında serbestsin: evler arasında hamleler, talon kartını oynayıp oynamamak.
+# Talon
+Talonunun en üstteki kartını aç: onu oyna ve sonrakini aç ya da atık destene koy; böylece sıran biter. Talon bitince atık deste ters çevrilip yeni talon olur. Talonun ve atık desten kalmadıysa pas geçersin.
+# Crapette!
+Bir önceliği çiğnersen, rakibin sıran bitmeden "Crapette!" diye bağırabilir. Oyun hatandan önceki hâline döner, açtığın talon kartı atık destene gider ve sıra rakibine geçer.
+# Oyunun sonu
+Crapette'ini, talonunu ve atık destesini ilk boşaltan kazanır. Artık hiçbir şey kıpırdayamıyorsa, bu destelerde daha az kartı kalan kazanır.
+# Cihazda oynamak
+Görünüm her sırada döner: sırası gelen hep altta oturur, rakibi karşıda. Fildişinin destesinin sırtı yeşil, abanozunki kırmızıdır. Bir kartı kaldırmak için ona dokun (bir nokta gidebileceği yerleri gösterir), sonra gideceği yere dokun ya da onu oraya sürükle; temel destesine göndermek için ona yeniden dokun. Kart açmak için talonuna, açtığın kartı koymak için atık destene dokun. Uygulama bir önceliği çiğneyen hamleyi yasaklamaz ama gösterir: oynanması gereken kart kırmızı parlar ve bekleyen oyuncunun çubuğundaki crapette düğmesi, kırmızı bir çarpı, yanar. Bekleyen oyuncu "Crapette!" demek için ona dokunur. Her çubuk crapette'in en üstteki kartını ve kart sayısını, ardından talonla atık desteyi birlikte gösterir. Açacak bir şeyin kalmadığında pas düğmesi görünür. Geri al son hamleyi geri alır, ama henüz bildirilebilecek bir hatayı asla.

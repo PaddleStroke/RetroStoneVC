@@ -1,0 +1,22 @@
+Manille
+# O objetivo
+Um jogo de vazas francês para quatro, em duas equipas de parceiros sentados frente a frente. Ganha as vazas com os dez e os ases, as melhores cartas, e sê a primeira equipa a chegar aos 34 pontos.
+# As cartas
+- 32 cartas, do 7 ao ás. Em cada naipe o dez, a manille, é a carta mais alta, depois o ás, o manillon, depois rei, dama, valete, 9, 8 e 7.
+- O dez vale 5 pontos, o ás 4, o rei 3, a dama 2, o valete 1: 60 no baralho. Cada vaza vale mais 1 ponto: 68 por mão.
+# A distribuição
+Quem dá distribui 8 cartas a cada jogador, de 4 em 4, a começar pelo jogador seguinte. A sua própria última carta é voltada: o naipe dela é o trunfo, e a carta fica na sua mão. Quem dá avança um lugar em cada mão.
+# Dobrar
+Antes da primeira carta, cada jogador na sua vez, a começar depois de quem deu, passa ou dobra: a mão conta a dobrar. Depois de uma dobra, os adversários da equipa que dobrou podem redobrar: a mão conta quatro vezes.
+# Jogar as cartas
+- O jogador seguinte a quem deu sai na primeira vaza; quem ganha uma vaza sai na seguinte.
+- Assiste ao naipe se puderes. Se um adversário leva a vaza com uma carta desse naipe, tens de a superar se puderes.
+- Se não tens o naipe e um adversário leva a vaza, tens de trunfar, e superar o trunfo de um adversário se puderes; se não puderes, joga qualquer carta.
+- Quando o teu parceiro leva a vaza, podes jogar qualquer carta se não tiveres o naipe.
+- O trunfo mais alto ganha a vaza; sem trunfo, a carta mais alta do naipe de saída.
+# A pontuação
+Cada equipa soma os pontos das suas cartas e 1 ponto por vaza. A equipa que passa dos 34 marca a diferença, a dobrar ou a quadruplicar se a mão o foi. Com 34 para cada, ninguém marca.
+# O fim do jogo
+Ganha a primeira equipa a chegar aos 34 pontos.
+# Jogar no dispositivo
+Passa o dispositivo ao jogador cuja peça aparece; ele toca no botão de início e vê a sua mão, em leque em baixo, os trunfos à esquerda. A carta voltada de quem deu fica ao lado da sua peça até ao fim da primeira vaza; o trunfo (o seu ás) e uma eventual dobra ficam no canto de cima à esquerda. Para dobrar, toca no botão redondo do centro (uma cruz e um 2; uma cruz e um 4 para redobrar); para passar, no botão de passar da tua barra. Para jogar, toca numa carta que brilha para a levantar e toca-lhe outra vez ou no seu lugar no centro; ou arrasta-a até lá. Toca no monte em baixo à direita para ver a última vaza. Cada barra mostra as cartas na mão e a pontuação da equipa. Depois de cada mão, uma tabela mostra os pontos de cada equipa, a pontuação da mão e os totais; toca nela para a mão seguinte. Anular desfaz uma escolha ainda não confirmada, nunca uma carta depois de o dispositivo passar.

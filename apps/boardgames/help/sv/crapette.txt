@@ -1,0 +1,24 @@
+Crapette
+# Målet
+Den franska kapplöpningspatiensen för två, även kallad Ryska banken. Varje spelare har en egen kortlek med 52 kort, och båda bygger på samma grundhögar. Bli först med att bli av med alla kort i din crapette, din talong och din slänghög.
+# Uppläggningen
+- Var och en lägger ut sin egen lek: 13 kort i en hög, crapetten, med det översta uppvänt; 4 uppvända kort i en kolumn av hus bredvid mitten; de övriga 35 nedvända, talongen. Under spelet växer en slänghög bredvid talongen.
+- De 8 husen och de 8 grundhögarna i mitten hör till båda spelarna.
+- Den vars crapette visar det högre kortet börjar (esset är lågt, kungen hög); vid lika avgör husens kort.
+# Flytta kort
+- Du får flytta det översta kortet i din crapette (nästa vänds upp direkt), det översta kortet i vilket hus som helst och kortet du har vänt upp från talongen. Aldrig ett kort ur din egen slänghög, och aldrig motståndarens högar.
+- Grundhögar: ett ess börjar en, som sedan byggs uppåt i samma färg till kungen.
+- Hus: nedåt i växlande färger, en röd 7 på en svart 8. Ett tomt hus tar vilket kort som helst.
+- Lasta: du får lägga ett kort på motståndarens crapette eller slänghög om det är i samma färg och en valör över eller under det översta kortet.
+# Turordningen
+- Ett kort som kan gå till en grundhög måste dit före allt annat, och kortet i din crapette först av allt.
+- Kan kortet i din crapette spelas någonstans, spela det innan du vänder ett kort från talongen.
+- I övrigt är du fri: drag mellan husen, och att spela talongkortet eller inte.
+# Talongen
+Vänd det översta kortet i din talong: spela det och vänd nästa, eller lägg det på din slänghög, vilket avslutar din tur. När talongen är slut vänds slänghögen och blir en ny talong. Utan talong och slänghög passar du.
+# Crapette!
+Bryter du mot turordningen får motståndaren ropa ”Crapette!” innan din tur är slut. Spelet går tillbaka till hur det var före ditt misstag, talongkortet du hade vänt hamnar på din slänghög, och turen går till motståndaren.
+# Partiets slut
+Den som först har tömt crapette, talong och slänghög vinner. Om inget längre kan flyttas vinner den som har minst kort kvar i de högarna.
+# Spela på enheten
+Vyn vänds varje tur: den som är på tur sitter alltid längst ner, motståndaren mittemot. Elfenbens lek har gröna baksidor, ebenholts röda. Tryck på ett kort för att lyfta det (en prick visar vart det får gå), tryck sedan där det ska ligga eller dra dit det; tryck på det igen för att skicka det till en grundhög. Tryck på talongen för att vända ett kort, och på slänghögen för att lägga det vända kortet där. Appen förbjuder inte ett drag som bryter mot turordningen, men visar det: kortet som skulle ha spelats lyser rött, och crapetteknappen i den väntande spelarens list, ett rött kryss, tänds. Den väntande spelaren trycker på den för att ropa ”Crapette!”. Varje list visar crapettens översta kort och hur många kort den har, sedan talong och slänghög tillsammans. Passknappen syns när du inte har något mer att vända. Ångra tar tillbaka det senaste draget, men aldrig ett misstag som fortfarande kan ropas.

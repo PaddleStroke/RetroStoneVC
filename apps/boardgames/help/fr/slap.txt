@@ -1,0 +1,16 @@
+Bataille corse
+# Le but
+Gagner toutes les cartes. Un jeu de rapidité et de nerfs : tout le monde joue sur le même appareil et tape sur le tas en temps réel. De 2 à 4 joueurs.
+# Retourner les cartes
+- Les 52 cartes sont distribuées face cachée, un tas par joueur. Personne ne regarde ses cartes.
+- Chacun à son tour retourne la carte du dessus de son tas sur le tas du milieu.
+- Un as, un roi, une dame ou un valet exige un tribut : le joueur suivant retourne des cartes jusqu'à ce qu'il en retourne une à son tour, avec 4 essais pour un as, 3 pour un roi, 2 pour une dame et 1 pour un valet. S'il y arrive, c'est au joueur suivant de payer ; sinon, celui qui a posé la figure ramasse tout le tas, le met sous le sien et rejoue.
+# Taper
+- Chacun peut taper sur le tas à tout moment. Un doublé, deux cartes de même rang l'une sur l'autre, donne le tas au premier qui tape, et c'est lui qui rejoue.
+- Dans le jeu avec sandwich (la carte du choix avec un roi, un quatre et un roi), le sandwich compte aussi : deux cartes de même rang séparées par une carte.
+- Taper à tort coûte une carte : celle du dessus de ton tas va face cachée sous le tas du milieu.
+- Un joueur sans cartes ne retourne plus rien, mais il peut encore taper pour revenir. S'il tape à tort sans carte à donner, il est éliminé.
+# La fin de la partie
+Le joueur qui gagne toutes les cartes gagne la partie.
+# Jouer sur l'appareil
+Pose l'appareil à plat entre les joueurs. La table est coupée en une zone par joueur : une moitié d'écran chacun à deux, la moitié du haut partagée en deux à trois, un quart chacun à quatre. Les zones d'en face sont tournées vers leurs joueurs. Ta zone montre ton tas, ta pièce et ton nombre de cartes. Quand c'est ton tour, ton tas brille : touche-le pour retourner une carte. Pour taper, touche n'importe où ailleurs dans ta zone. Chaque point au-dessus d'un tas est un essai qui reste pour payer un tribut. La première tape que voit l'appareil gagne : une bonne tape allume la zone en or, une mauvaise en rouge. Quand un tribut n'est pas payé, le tas attend un instant pour qu'on puisse encore taper sur un dernier doublé, puis va au joueur de la figure, qui peut aussi toucher sa zone pour le prendre tout de suite. L'écran suit un seul doigt à la fois : tape d'un coup bref. Annuler reprend la dernière action.

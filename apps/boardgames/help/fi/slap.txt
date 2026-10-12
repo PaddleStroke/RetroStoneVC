@@ -1,0 +1,16 @@
+Korsikalainen taistelu
+# Tavoite
+Voita kaikki kortit. Nopea hermopeli, Ranskassa nimeltään ”Bataille corse”: kaikki pelaavat samalla laitteella ja lyövät pinoa reaaliajassa. 2–4 pelaajalle.
+# Korttien kääntäminen
+- Kaikki 52 korttia jaetaan kuvapuoli alaspäin, yksi pino kullekin. Kukaan ei katso korttejaan.
+- Vuorotellen jokainen kääntää pinonsa päällimmäisen kortin keskipinoon.
+- Ässä, kuningas, rouva tai sotilas vaatii veroa: seuraava pelaaja kääntää kortteja, kunnes hänkin kääntää sellaisen, ja yrityksiä on ässälle 4, kuninkaalle 3, rouvalle 2 ja sotilaalle 1. Jos se onnistuu, vero siirtyy seuraavalle pelaajalle; muuten kuvakortin pelaaja voittaa koko pinon, laittaa sen omansa alle ja pelaa taas.
+# Lyöminen
+- Kuka tahansa saa lyödä pinoa milloin tahansa. Pari, kaksi samanarvoista korttia päällekkäin, antaa pinon ensimmäiselle lyöjälle, joka jatkaa peliä.
+- Voileipäpelissä (valintakortti, jossa kuningas, nelonen ja kuningas) myös voileipä lasketaan: kaksi samanarvoista korttia, joiden välissä on yksi kortti.
+- Väärä lyönti maksaa kortin: päällimmäinen korttisi menee kuvapuoli alaspäin keskipinon alle.
+- Pelaaja, jolta kortit loppuivat, ei enää käännä kortteja, mutta voi lyödä palatakseen peliin. Jos hän lyö väärin eikä hänellä ole korttia annettavaksi, hän putoaa pelistä.
+# Pelin loppu
+Pelaaja, joka voittaa kaikki kortit, voittaa pelin.
+# Pelaaminen laitteella
+Aseta laite pöydälle pelaajien väliin. Pöytä on jaettu alueeseen kullekin pelaajalle: kahdella kummallekin puolet näytöstä, kolmella yläpuolisko jaettuna kahtia, neljällä kullekin neljännes. Vastakkaiset alueet on käännetty pelaajiaan kohti. Alueesi näyttää pinosi, nappulasi ja korttiesi määrän. Kun on vuorosi, pinosi hehkuu: napauta sitä kääntääksesi kortin. Lyödäksesi napauta mitä tahansa muuta kohtaa alueellasi. Jokainen piste pinon yläpuolella on jäljellä oleva yritys veron maksamiseen. Ensimmäinen lyönti, jonka laite havaitsee, voittaa: oikea lyönti sytyttää alueen kultaiseksi, väärä punaiseksi. Kun vero jää maksamatta, pino odottaa hetken, jotta viimeistä paria voi vielä lyödä, ja menee sitten kuvakortin pelaajalle, joka voi myös napauttaa aluettaan ottaakseen sen heti. Näyttö seuraa yhtä sormea kerrallaan: lyö nopealla napautuksella. Kumoa peruu viimeisen toiminnon.

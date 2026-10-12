@@ -1,0 +1,24 @@
+Crapette
+# El objetivo
+El solitario de carreras francés para dos, también llamado Banca Rusa. Cada jugador tiene su propia baraja de 52 cartas y los dos construyen sobre las mismas bases. Sé el primero en deshacerte de todas las cartas de tu crapette, tu talón y tu descarte.
+# La disposición
+- Cada jugador reparte su propia baraja: 13 cartas en un montón, la crapette, con la de arriba boca arriba; 4 cartas boca arriba en una columna de casas junto al centro; las otras 35 boca abajo, el talón. Durante la partida crece un descarte junto al talón.
+- Las 8 casas y las 8 bases del centro son de los dos jugadores.
+- Empieza aquel cuya crapette muestra la carta más alta (el as es bajo, el rey alto); si son iguales, deciden las cartas de las casas.
+# Mover cartas
+- Puedes mover la carta de arriba de tu crapette (la siguiente se descubre en seguida), la carta de arriba de cualquier casa y la carta que has sacado de tu talón. Nunca una carta de tu propio descarte ni de los montones del rival.
+- Bases: un as empieza una, que sube luego en su palo hasta el rey.
+- Casas: se baja alternando colores, un 7 rojo sobre un 8 negro. Una casa vacía acepta cualquier carta.
+- Cargar: puedes poner una carta sobre la crapette o el descarte del rival si es del mismo palo y un rango por encima o por debajo de su carta de arriba.
+# Las prioridades
+- Una carta que puede ir a una base debe ir allí antes que nada, y la carta de tu crapette la primera.
+- Si la carta de tu crapette puede jugarse en algún sitio, juégala antes de sacar una carta del talón.
+- Por lo demás eres libre: mover entre casas y jugar o no la carta del talón.
+# El talón
+Descubre la carta de arriba de tu talón: juégala y descubre la siguiente, o ponla en tu descarte, lo que termina tu turno. Cuando se acaba el talón, tu descarte se da la vuelta y forma uno nuevo. Sin talón ni descarte, pasas.
+# ¡Crapette!
+Si no respetas una prioridad, tu rival puede gritar «¡Crapette!» antes de que acabe tu turno. El juego vuelve a como estaba antes de tu error, la carta del talón que tenías va a tu descarte y el turno pasa a tu rival.
+# El final de la partida
+Gana el primero que vacía su crapette, su talón y su descarte. Si ya no se puede mover nada, gana quien tiene menos cartas en esos montones.
+# Jugar en el dispositivo
+La vista gira en cada turno: quien juega se sienta siempre abajo y su rival enfrente. La baraja de marfil tiene dorsos verdes y la de ébano dorsos rojos. Toca una carta para levantarla (un punto marca adónde puede ir), luego toca su destino o arrástrala hasta allí; tócala otra vez para mandarla a una base. Toca tu talón para descubrir una carta y tu descarte para dejar allí la carta descubierta. La app no impide una jugada que rompe una prioridad, pero la muestra: la carta que debía jugarse brilla en rojo y el botón crapette de la barra del jugador que espera, una cruz roja, se enciende. El jugador que espera lo toca para gritar «¡Crapette!». Cada barra muestra la carta de arriba de la crapette y cuántas cartas tiene, y luego el talón y el descarte juntos. El botón de pasar aparece cuando ya no te queda nada que descubrir. Deshacer anula la última jugada, pero nunca un error que todavía se puede cantar.

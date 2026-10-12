@@ -1,0 +1,24 @@
+Crapette
+# Målet
+Den franske kapløbskabale for to, også kaldet Russisk bank. Hver spiller har sit eget spil med 52 kort, og begge bygger på de samme grundbunker. Bliv den første, der er af med alle kortene i sin crapette, sin talon og sin afkastbunke.
+# Opstillingen
+- Hver spiller lægger sit eget spil ud: 13 kort i en bunke, crapetten, med det øverste vendt op; 4 kort med billedsiden op i en søjle af huse ved siden af midten; de andre 35 med bagsiden op, talonen. Under spillet vokser en afkastbunke ved siden af talonen.
+- De 8 huse og de 8 grundbunker i midten tilhører begge spillere.
+- Den, hvis crapette viser det højeste kort, begynder (esset er lavt, kongen høj); ved lighed afgør husenes kort.
+# Flytte kort
+- Du må flytte det øverste kort i din crapette (det næste vendes straks), det øverste kort i ethvert hus og det kort, du har vendt fra talonen. Aldrig et kort fra din egen afkastbunke og aldrig modstanderens bunker.
+- Grundbunker: et es starter en, som derefter bygges opad i samme kulør til kongen.
+- Huse: nedad i skiftende farver, en rød 7 på en sort 8. Et tomt hus tager ethvert kort.
+- Læsse: du må lægge et kort på modstanderens crapette eller afkastbunke, hvis det er i samme kulør og én værdi over eller under det øverste kort.
+# Rækkefølgen
+- Et kort, der kan komme på en grundbunke, skal derhen før alt andet, og kortet i din crapette allerførst.
+- Kan kortet i din crapette spilles et sted, så spil det, før du vender et kort fra talonen.
+- Ellers er du fri: træk mellem husene, og om du vil spille talonkortet eller ej.
+# Talonen
+Vend det øverste kort i din talon: spil det og vend det næste, eller læg det på din afkastbunke, hvilket afslutter din tur. Når talonen er brugt op, vendes afkastbunken og bliver en ny talon. Uden talon og afkastbunke melder du pas.
+# Crapette!
+Bryder du rækkefølgen, må modstanderen råbe »Crapette!«, før din tur er slut. Spillet går tilbage til, hvordan det var før din fejl, talonkortet, du havde vendt, kommer på din afkastbunke, og turen går til modstanderen.
+# Spillets afslutning
+Den, der først har tømt crapette, talon og afkastbunke, vinder. Kan intet flyttes mere, vinder den, der har færrest kort tilbage i de bunker.
+# Spil på enheden
+Visningen drejer hver tur: den, der er i tur, sidder altid nederst, modstanderen overfor. Elfenbens spil har grønne bagsider, ibenholts røde. Tryk på et kort for at løfte det (en prik viser, hvor det må lægges), tryk så på stedet, eller træk det derhen; tryk på det igen for at sende det til en grundbunke. Tryk på talonen for at vende et kort og på afkastbunken for at lægge det vendte kort der. Appen forbyder ikke et træk, der bryder rækkefølgen, men viser det: kortet, der skulle have været spillet, lyser rødt, og crapette-knappen i den ventende spillers bjælke, et rødt kryds, tændes. Den ventende spiller trykker på den for at råbe »Crapette!«. Hver bjælke viser crapettens øverste kort og hvor mange kort den har, derefter talon og afkastbunke tilsammen. Pas-knappen viser sig, når du ikke har mere at vende. Fortryd tager det sidste træk tilbage, men aldrig en fejl, der stadig kan råbes.

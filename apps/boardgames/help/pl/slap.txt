@@ -1,0 +1,16 @@
+Bitwa korsykańska
+# Cel gry
+Zdobądź wszystkie karty. Szybka gra na refleks i nerwy, we Francji zwana „Bataille corse”: wszyscy grają na tym samym urządzeniu i uderzają w stos w czasie rzeczywistym. Dla 2 do 4 graczy.
+# Odkrywanie kart
+- Wszystkie 52 karty rozdaje się zakryte, jeden stos na gracza. Nikt nie ogląda swoich kart.
+- Po kolei każdy odkrywa wierzchnią kartę swojego stosu na stos na środku.
+- As, król, dama lub walet żąda haraczu: następny gracz odkrywa karty, aż sam odkryje taką kartę, mając 4 próby przy asie, 3 przy królu, 2 przy damie i 1 przy walecie. Jeśli mu się uda, haracz płaci kolejny gracz; jeśli nie, gracz, który położył figurę, wygrywa cały stos, kładzie go pod swój i gra dalej.
+# Uderzanie
+- Każdy może w każdej chwili uderzyć w stos. Para, dwie karty tej samej wartości jedna na drugiej, daje stos temu, kto uderzy pierwszy, i to on gra dalej.
+- W grze z kanapką (karta wyboru z królem, czwórką i królem) liczy się też kanapka: dwie karty tej samej wartości z jedną kartą pomiędzy.
+- Błędne uderzenie kosztuje kartę: twoja wierzchnia karta idzie zakryta pod stos na środku.
+- Gracz bez kart nic już nie odkrywa, ale może uderzać, aby wrócić. Jeśli uderzy błędnie i nie ma karty do oddania, odpada.
+# Koniec gry
+Grę wygrywa ten, kto zdobędzie wszystkie karty.
+# Gra na urządzeniu
+Połóż urządzenie płasko między graczami. Stół jest podzielony na strefę dla każdego gracza: przy dwóch po pół ekranu, przy trzech górna połowa podzielona na dwie, przy czterech po ćwiartce. Strefy naprzeciwko są obrócone do swoich graczy. Twoja strefa pokazuje twój stos, twój pionek i liczbę twoich kart. Gdy jest twoja kolej, twój stos świeci: dotknij go, by odkryć kartę. Aby uderzyć, dotknij dowolnego innego miejsca swojej strefy. Każda kropka nad stosem to pozostała próba zapłacenia haraczu. Wygrywa pierwsze uderzenie, które zobaczy urządzenie: dobre rozświetla strefę na złoto, błędne na czerwono. Gdy haracz nie zostanie zapłacony, stos chwilę czeka, by można było jeszcze uderzyć w ostatnią parę, a potem idzie do gracza figury, który może też dotknąć swojej strefy, by wziąć go od razu. Ekran śledzi jeden palec naraz: uderzaj krótkim dotknięciem. Cofnij wycofuje ostatnią akcję.

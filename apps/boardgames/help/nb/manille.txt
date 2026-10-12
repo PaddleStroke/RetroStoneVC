@@ -1,0 +1,22 @@
+Manille
+# Målet
+Et fransk stikkspill for fire, i to lag av makkere som sitter rett overfor hverandre. Ta stikkene med tiere og ess, de beste kortene, og bli det første laget som når 34 poeng.
+# Kortene
+- 32 kort, fra 7 til ess. I hver farge er tieren, manillen, det høyeste kortet, så esset, manillon, så konge, dame, knekt, 9, 8 og 7.
+- Tieren er verdt 5 poeng, esset 4, kongen 3, damen 2, knekten 1: 60 i stokken. Hvert stikk er verdt 1 poeng til: 68 per runde.
+# Utdelingen
+Giveren deler ut 8 kort til hver, 4 om gangen, og begynner med spilleren etter seg. Giverens eget siste kort snus: fargen er trumf, og kortet blir på giverens hånd. Giveren flytter én plass hver runde.
+# Doble
+Før første kort står hver spiller over eller dobler etter tur, og det begynner etter giveren: runden teller da dobbelt. Etter en dobling kan motstanderne til laget som doblet, redoble: runden teller firedobbelt.
+# Spillet
+- Spilleren etter giveren spiller ut til første stikk; den som vinner et stikk, spiller ut til det neste.
+- Følg farge hvis du kan. Har en motstander stikket med et kort i den fargen, må du gå over hvis du kan.
+- Kan du ikke følge farge og en motstander har stikket, må du trumfe, og overtrumfe en motstanders trumf hvis du kan; ellers spiller du et hvilket som helst kort.
+- Har makkeren din stikket, kan du spille hvilket som helst kort hvis du ikke kan følge farge.
+- Den høyeste trumfen vinner stikket; uten trumf det høyeste kortet i utspilt farge.
+# Poengtelling
+Hvert lag teller poengene i kortene sine og 1 poeng per stikk. Laget med mer enn 34 får forskjellen, doblet eller firedoblet hvis runden var det. Ved 34 hver får ingen noe.
+# Slutten på spillet
+Det første laget som når 34 poeng, vinner.
+# Spill på enheten
+Gi enheten til spilleren som har brikken sin vist; han trykker på start og ser hånden sin, viftet ut nederst, med trumfene til venstre. Giverens snudde kort ligger ved brikken hans til første stikk er ferdig; trumfen (esset) og en eventuell dobling står i hjørnet oppe til venstre. For å doble trykker du på den runde knappen i midten (et kryss og 2; et kryss og 4 for å redoble); for å stå over, på stå over-knappen i linjen din. For å spille trykker du på et kort som lyser, så det løftes, og trykker på det igjen eller på plassen i midten; eller dra det dit. Trykk på bunken nede til høyre for å se det siste stikket. Hver linje viser kortene på hånden og lagets poeng. Etter hver runde viser en tavle poengene til hvert lag, rundens resultat og summene; trykk på den for neste runde. Angre tar tilbake et valg som ikke er bekreftet ennå, aldri et kort når enheten er gitt videre.
