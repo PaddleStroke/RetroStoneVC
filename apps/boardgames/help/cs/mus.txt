@@ -1,0 +1,29 @@
+Mus
+# Cíl hry
+Baskická karetní hra pro dvě dvojice spoluhráčů, kteří sedí naproti sobě: slonovinový a červený proti ebenovému a nefritovému. V každém rozdání se hrají čtyři lances; v každém vyhrávají nejlepší karty, pokud sázka nezažene druhou dvojici: sázení je srdcem hry. Vyhrává dvojice, která první dosáhne 40 bodů (tantos). Pro 4 hráče, kteří si podávají zařízení; nikdo nevidí karty ostatních.
+# Karty
+Španělské karty, 40 listů ve čtyřech barvách: oros (mince), copas (poháry), espadas (meče) a bastos (kyje), s čísly 1 až 7, pak sota (10, zde pěšec), caballo (11, jezdec) a rey (12, král). Přerušení linky kolem každé karty, pinta, ukazují barvu: oros žádné, copas jedno, espadas dvě, bastos tři. Hraje se běžné pravidlo osmi králů (ocho reyes): každá 3 se počítá jako rey a každá 2 jako as (eso), ve všech lances.
+# Mus
+Každý hráč dostane 4 karty. Mano, který mluví první a vyhrává každou shodu, je hráč po rozdávajícím; oba se každé rozdání posunou o místo. Popořadě od mana každý řekne mus (chce měnit karty), nebo utne (no hay mus, „mus není“). Řeknou-li mus všichni čtyři, každý popořadě odloží 1 až 4 karty a dobere stejný počet, a znovu se ptá na mus. Jakmile někdo utne, začínají lances.
+# Čtyři lances
+- Grande: vyhrávají nejvyšší karty, porovnané jedna po druhé: rey, caballo, sota, 7, 6, 5, 4, as.
+- Chica: vyhrávají nejnižší karty.
+- Pares: stejné karty. Pár (par) má hodnotu 1, tři stejné (medias) 2, dva páry nebo čtyři stejné (duples) 3. Duples porážejí medias a medias pár; při shodě vyhrávají vyšší karty. Hrají jen ti, kdo pares mají.
+- Juego: karty se sečtou, figury za 10 a ostatní za své číslo. Od 31 je juego: nejlepší je 31, pak 32, 40, 37, 36, 35, 34 a 33. Hrají jen ti, kdo juego mají. Nemá-li juego nikdo, lance se mění na Punto: vyhrává nejvyšší součet.
+V Pares a Juego se nesází, má-li je jen jedna dvojice, a lance se vynechá, nemá-li je nikdo. Shodu vždy vyhrává hráč nejblíž manovi.
+# Sázky (envites)
+- V každém lance hráči mluví popořadě od mana: pas (paso), nebo sázka (envido: 2 body či víc).
+- Na sázku odpovídá další soupeř, je-li třeba pak jeho spoluhráč: přijmout (quiero), zvýšit o několik bodů, vsadit celou hru (órdago), nebo odmítnout (no quiero). Sázka je odmítnutá, až když odmítnou oba soupeři.
+- Odmítnutá: sázející dvojice hned získá 1 bod, nebo sázku platnou před posledním zvýšením, a vyhrává lance.
+- Pasují-li všichni, lance se hraje „en paso“.
+- Přijaté órdago: karty se hned ukážou a vítěz toho lance vyhrává hru.
+# Počítání
+Na konci rozdání se ukážou všechny karty a lances se počítají popořadě:
+- Grande a Chica: přijatá sázka, nebo 1 bod en paso.
+- Pares: přijatá sázka plus hodnota pares obou vítězných spoluhráčů.
+- Juego: přijatá sázka plus 3 za každé 31 a 2 za každé jiné juego vítězné dvojice. Punto: přijatá sázka plus 1, nebo 1 en paso.
+- Vítězové odmítnutého lance, nebo lance, který měla jen jejich dvojice, si přesto započtou své pares nebo juego.
+# Konec hry
+Vyhrává dvojice, která první dosáhne 40 bodů, i uprostřed počítání, nebo hned body z odmítnuté sázky. U stolu se body počítají kamínky, pět za jeden amarraco; zde jsou to číslice. Tajná znamení spoluhráčů (señas) jsou zvyk u stolu, ne pravidlo: zde se nepoužívají.
+# Hra na zařízení
+Podej zařízení hráči, jehož kámen svítí; ten klepne na start a uvidí svou ruku. Každé místo ukazuje své poslední slovo: mus (dvě šipky, každá jedním směrem), utnutí (tytéž přeškrtnuté), pas, sázku, zvýšení (plus), órdago (zlatý blesk na červené), quiero (fajfka), no quiero (křížek). V Pares a Juego každé místo ukazuje, zda je má. Čtyři lances jsou nahoře v řadě: Grande (šipka nahoru), Chica (šipka dolů), Pares (dvě karty), Juego (31) nebo Punto (30); právě hraný svítí, odehrané ukazují pod sebou výsledek. Chceš-li měnit karty, klepni na karty k odložení a pak na fajfku. Chceš-li vsadit, nastav částku minusem a plusem a klepni na zlaté tlačítko; na sázku klepni na fajfku, křížek, zvýšení nebo blesk. Po každém rozdání ukáže tabulka všechny ruce, vítěze a body každého lance a stav; klepnutím na ni začne další rozdání. Každý pruh ukazuje body své dvojice. Zpět vrátí ještě nepotvrzenou volbu, nikdy volbu učiněnou předtím, než se zařízení předalo.

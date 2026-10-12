@@ -1,0 +1,29 @@
+Mus
+# Amaç
+Bask kart oyunu; karşılıklı oturan iki kişilik iki takım için: fildişi ve kırmızı, abanoz ve yeşime karşı. Her dağıtımda dört lance oynanır; her birinde en iyi kartlar kazanır, meğer ki bir bahis öbür takımı geri çekilmeye zorlasın: bahisler oyunun kalbidir. 40 puana (tantos) ilk ulaşan takım kazanır. Cihazı elden ele geçiren 4 oyuncu için; kimse başkalarının kartlarını görmez.
+# Kartlar
+Dört renkli 40 kartlık İspanyol destesi: oros (sikkeler), copas (kupalar), espadas (kılıçlar) ve bastos (sopalar); 1'den 7'ye kadar numaralı, ardından sota (10, burada piyon), caballo (11, at) ve rey (12, şah). Her kartın çevresindeki çizgideki boşluklar, pinta, rengi gösterir: oros'ta hiç, copas'ta bir, espadas'ta iki, bastos'ta üç. Yaygın sekiz kral kuralı (ocho reyes) oynanır: her 3 rey, her 2 as sayılır, tüm lance'larda.
+# Mus
+Her oyuncu 4 kart alır. Önce konuşan ve her eşitliği kazanan mano, dağıtandan sonraki oyuncudur; ikisi de her dağıtımda bir yer ilerler. Mano'dan başlayarak sırayla herkes mus der (kart değiştirmek için) ya da keser (no hay mus, "mus yok"). Dördü de mus derse, herkes sırayla 1 ila 4 kart bırakır ve o kadar kart çeker, sonra yeniden mus sorulur. Biri keser kesmez lance'lar başlar.
+# Dört lance
+- Grande: en yüksek kartlar kazanır, tek tek karşılaştırılır: rey, caballo, sota, 7, 6, 5, 4, as.
+- Chica: en düşük kartlar kazanır.
+- Pares: aynı kartlar. Bir çift (par) 1, üç aynı (medias) 2, iki çift ya da dört aynı (duples) 3 değerindedir. Duples medias'ı, medias çifti yener; eşitse yüksek kartlar kazanır. Yalnızca pares'i olanlar katılır.
+- Juego: kartlar toplanır, resimli kartlar 10, ötekiler kendi sayısı. 31 ve üstü juego'dur: en iyisi 31, sonra 32, 40, 37, 36, 35, 34 ve 33. Yalnızca juego'su olanlar katılır. Kimsede juego yoksa lance Punto olur: en yüksek toplam kazanır.
+Pares ve Juego'da yalnızca bir takımda varsa bahis yapılmaz, kimsede yoksa lance atlanır. Eşitlik her zaman mano'ya en yakın oyuncuya gider.
+# Bahisler (envites)
+- Her lance'ta oyuncular mano'dan başlayarak sırayla konuşur: pas (paso) ya da bahis (envido: 2 puan ya da fazlası).
+- Bir bahise karşı sıradaki rakip, gerekirse ardından ortağı cevap verir: kabul (quiero), birkaç puan artırma, bütün oyunu ortaya koyma (órdago) ya da ret (no quiero). Bahis ancak iki rakip de reddederse reddedilmiş olur.
+- Reddedilirse: bahsi yapan takım hemen 1 puan, ya da son artırmadan önceki bahsi alır ve lance'ı kazanır.
+- Herkes pas derse lance "en paso" oynanır.
+- Kabul edilen bir órdago: eller hemen açılır ve o lance'ı kazanan oyunu kazanır.
+# Sayım
+Dağıtımın sonunda bütün eller açılır ve lance'lar sırayla sayılır:
+- Grande ve Chica: kabul edilen bahis, ya da en paso 1 puan.
+- Pares: kabul edilen bahis, artı kazanan iki ortağın pares değeri.
+- Juego: kabul edilen bahis, artı kazanan takımdaki her 31 için 3 ve diğer her juego için 2. Punto: kabul edilen bahis artı 1, ya da en paso 1.
+- Reddedilen bir lance'ı, ya da yalnızca kendi takımında olan bir lance'ı kazananlar yine de pares'lerini ya da juego'larını sayar.
+# Oyunun sonu
+40 puana ilk ulaşan takım kazanır; sayımın ortasında da olsa, ya da reddedilen bir bahsin puanlarıyla hemen. Masada puanlar taşlarla sayılır, bir amarraco beş taştır; burada rakamlardır. Ortakların gizli işaretleri (señas) bir masa geleneğidir, kural değildir: burada yoktur.
+# Cihazda oynamak
+Cihazı, pulu parlayan oyuncuya ver; başlat düğmesine dokunur ve kendi elini görür. Her yer son sözünü gösterir: mus (her yöne bir tane, iki ok), kesme (aynı oklar üstü çizili), pas, bir bahis, bir artırma (bir artı), órdago (kırmızı üstünde altın bir şimşek), quiero (onay işareti), no quiero (çarpı). Pares ve Juego'da her yer onlara sahip olup olmadığını gösterir. Dört lance üstte sıralanır: Grande (yukarı ok), Chica (aşağı ok), Pares (iki kart), Juego (31) ya da Punto (30); oynanmakta olan parlar, oynanmış olanların altında sonucu görünür. Kart değiştirmek için bırakacağın kartlara, sonra onay işaretine dokun. Bahis yapmak için miktarı eksi ve artı ile ayarla ve altın düğmeye dokun; bir bahise karşı onay işaretine, çarpıya, artırmaya ya da şimşeğe dokun. Her dağıtımdan sonra bir tablo bütün elleri, her lance'ın kazananlarını ve puanlarını ve skorları gösterir; sonraki dağıtım için ona dokun. Her çubuk takımının puanını gösterir. Geri al, henüz onaylanmamış bir seçimi geri alır; cihaz el değiştirdikten sonra asla geri almaz.

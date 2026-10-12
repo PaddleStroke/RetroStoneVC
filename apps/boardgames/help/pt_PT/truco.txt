@@ -1,0 +1,26 @@
+Truco
+# O objetivo
+O Truco argentino, para 2 jogadores, ou 4 em duas equipas de parceiros sentados frente a frente (marfim e vermelho contra ébano e jade). Ganha mãos de três cartas e aposta nelas: o truco nas cartas, o envido em duas cartas do mesmo naipe. Ganha a primeira equipa a chegar aos 15 ou aos 30 pontos, escolhidos antes do jogo. Ninguém vê as cartas dos outros.
+# As cartas
+O baralho espanhol de 40 cartas, sem 8 nem 9: oros (ouros), copas, espadas e bastos (paus); a sota (10), o caballo (11) e o rey (12) são um peão, um cavalo e um rei. Os cortes na linha do quadro de cada carta, a pinta, indicam o naipe: nenhum nos oros, um nas copas, dois nas espadas, três nos bastos. Da mais forte para a mais fraca: o 1 de espadas (ancho de espadas), o 1 de bastos (ancho de bastos), o 7 de espadas, o 7 de oros, os 3, os 2, os 1 de copas e de oros, os 12, os 11, os 10, os 7 de copas e de bastos, os 6, os 5 e os 4. Cartas da mesma força empatam.
+# Jogar uma mão
+- Cada jogador recebe 3 cartas. A mano, o jogador a seguir a quem dá, abre a primeira volta; quem dá e a mano avançam um lugar em cada mão.
+- Cada um joga uma carta por volta e pousa-a à sua frente. A carta mais alta ganha a volta, e o seu jogador abre a seguinte.
+- Um empate entre as equipas é uma parda, e o mesmo jogador volta a abrir; parceiros empatados ganham a volta juntos.
+- A equipa que ganha duas voltas leva a mão. Depois de uma parda na primeira volta, decide a seguinte; uma parda depois de uma volta ganha vai para quem ganhou a primeira; três pardas: a equipa da mano.
+- Uma mão vale 1 ponto.
+# O truco
+- Na tua vez, antes de jogares, podes cantar truco: a mão passa a valer 2. A outra equipa responde quiero (aceito), no quiero (recuso: levas a mão pelo valor de antes do canto) ou sobe: retruco (3), depois vale cuatro (4).
+- Só a equipa que aceitou o último canto o pode subir, mais tarde, numa das suas vezes.
+- Me voy al mazo («vou para o baralho»): em vez de jogar, um jogador desiste da mão, e os adversários levam-na pelo valor desse momento.
+# O envido
+- Só na primeira volta, antes de jogares a tua primeira carta, podes cantar envido (2), real envido (3) ou falta envido. Ao responder a um truco na primeira volta podes cantar primeiro o envido: el envido está primero («o envido vem primeiro»). Depois de um truco aceite, já não há envido.
+- A resposta: quiero, no quiero ou um canto maior: mais um envido, depois real envido, depois falta envido. Aceite, a equipa com o melhor envido marca a soma dos cantos; recusado, quem cantou marca o que tinha sido aceite antes do último canto, ou 1.
+- A falta envido vale o que falta à equipa que vai à frente para ganhar; num jogo a 30, enquanto as duas equipas estão abaixo de 15 (las malas, «as más»), vale o jogo inteiro.
+- O envido de um jogador: duas cartas do mesmo naipe valem 20 mais os seus números (as figuras valem 0); sem elas, o seu número mais alto. Ganha o melhor envido; um empate vai para o jogador mais próximo da mano.
+# A flor
+Uma variante, escolhida antes do jogo (a flor no desenho). Três cartas do mesmo naipe são uma flor: mostra-se ao dar as cartas e vale 3 pontos à sua equipa, e essa mão não tem envido. Se as duas equipas tiverem flor, a melhor (20 mais os três números) leva 3 pontos por cada flor. A contraflor fica de fora.
+# O fim do jogo
+Ganha logo a primeira equipa que chega à pontuação escolhida, 15 ou 30, mesmo a meio de uma mão.
+# Jogar no dispositivo
+Passa o dispositivo ao jogador cuja peça brilha; ele toca no botão de início e vê a sua mão. Para jogar, toca numa carta que brilha para a levantar e toca-lhe outra vez ou no seu lugar, ou arrasta-a até lá. As cartas de cada jogador ficam em fila diante da sua peça; as que perdem cada volta ficam escurecidas. Os teus cantos aparecem nos cantos de baixo: à esquerda envido (duas cartas e 2), real envido (duas cartas e 3) e falta envido (um raio dourado sobre vermelho, com o seu valor); à direita o truco (o novo valor sobre vermelho) e o mazo (o verso de uma carta). Para responder a um canto: a cruz para no quiero, o sinal de confirmação para quiero, ou uma subida. Cada lugar mostra a sua última palavra, a sua flor (uma flor) e, depois de jogado, o melhor envido. Aceite um truco, o valor da mão aparece em cima à esquerda com a equipa que o pode subir. Depois de cada mão, uma tabela mostra os pontos de cada equipa pelo envido, pela flor e pela mão, e as pontuações; toca nela para a mão seguinte. Cada barra mostra a pontuação da sua equipa. Anular desfaz uma escolha ainda não confirmada, nunca depois de o dispositivo passar.

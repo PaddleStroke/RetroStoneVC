@@ -1,0 +1,29 @@
+Mus
+# Målet
+Det baskiska kortspelet för två lag med två partner som sitter mittemot varandra: elfenben och rött mot ebenholts och jade. Varje giv har fyra lances; i varje vinner de bästa korten, om inte ett bud skrämmer bort det andra laget: budgivningen är spelets hjärta. Första laget som når 40 poäng (tantos) vinner. För 4 spelare som skickar enheten runt; ingen ser de andras kort.
+# Korten
+Den spanska kortleken med 40 kort i fyra färger: oros (mynt), copas (bägare), espadas (svärd) och bastos (klubbor), numrerade 1 till 7, sedan sota (10, här en bonde), caballo (11, en springare) och rey (12, en kung). Avbrotten i linjen runt varje kort, pinta, visar färgen: inget för oros, ett för copas, två för espadas, tre för bastos. Man spelar den vanliga regeln med åtta kungar (ocho reyes): varje 3 räknas som rey och varje 2 som as (ess), i alla lances.
+# Mus
+Varje spelare får 4 kort. Mano, som talar först och vinner varje lika läge, är spelaren efter givaren; båda flyttar en plats framåt varje giv. I tur och ordning från mano säger var och en mus (för att byta kort) eller skär av (no hay mus, ”ingen mus”). Säger alla fyra mus, lägger var och en i tur bort 1 till 4 kort och drar lika många, och man frågar om mus igen. Så snart någon skär av börjar lances.
+# De fyra lances
+- Grande: de högsta korten vinner, jämförda ett i taget: rey, caballo, sota, 7, 6, 5, 4, as.
+- Chica: de lägsta korten vinner.
+- Pares: lika kort. Ett par (par) är värt 1, tre lika (medias) 2, två par eller fyra lika (duples) 3. Duples slår medias och medias slår ett par; vid lika vinner de högsta korten. Bara de som har pares deltar.
+- Juego: korten räknas, klädda kort 10 och de andra sitt tal. Från 31 har man juego: 31 är bäst, sedan 32, 40, 37, 36, 35, 34 och 33. Bara de som har juego deltar. Har ingen juego blir lancen Punto: högsta summan vinner.
+I Pares och Juego bjuds inget om bara ett lag har dem, och lancen hoppas över om ingen har dem. Lika läge går alltid till spelaren närmast mano.
+# Budgivningen (envites)
+- I varje lance talar spelarna i tur från mano: passa (paso) eller bjuda (envido: 2 poäng eller mer).
+- Mot ett bud svarar nästa motståndare, vid behov sedan hans partner: anta (quiero), höja med några poäng, bjuda hela partiet (órdago) eller avböja (no quiero). Budet är avböjt först när båda motståndarna avböjer.
+- Avböjt: laget som bjöd får genast 1 poäng, eller budet från före den sista höjningen, och vinner lancen.
+- Passar alla spelas lancen ”en paso”.
+- En antagen órdago: händerna visas genast, och vinnaren av den lancen vinner partiet.
+# Räkningen
+När given är slut visas alla händer och lances räknas i ordning:
+- Grande och Chica: det antagna budet, eller 1 poäng en paso.
+- Pares: det antagna budet plus värdet av pares hos båda de vinnande partnerna.
+- Juego: det antagna budet plus 3 för varje 31 och 2 för varje annat juego i det vinnande laget. Punto: det antagna budet plus 1, eller 1 en paso.
+- Vinnarna av en avböjd lance, eller av en som bara deras lag hade, räknar ändå sina pares eller sitt juego.
+# Partiets slut
+Första laget som når 40 poäng vinner, även mitt i räkningen, eller genast med poängen från ett avböjt bud. Vid bordet räknar man med stenar, fem per amarraco; här är det siffror. Partnernas hemliga tecken (señas) är en bordssed, inte en regel: de är utelämnade.
+# Spela på enheten
+Ge enheten till spelaren vars bricka lyser; han trycker på start och ser sin hand. Varje plats visar sitt senaste ord: mus (två pilar, en åt vardera hållet), avskärningen (samma överstrukna), pass, ett bud, en höjning (ett plus), órdago (en gyllene blixt på rött), quiero (en bock), no quiero (ett kryss). I Pares och Juego visar varje plats om den har dem. De fyra lances står i en rad överst: Grande (en pil uppåt), Chica (en pil nedåt), Pares (två kort), Juego (31) eller Punto (30); den som bjuds lyser, och de spelade visar sitt utfall under. För att byta kort trycker du på korten som ska läggas bort och sedan på bocken. För att bjuda ställer du in beloppet med minus och plus och trycker på den gyllene knappen; mot ett bud trycker du på bocken, krysset, höjningen eller blixten. Efter varje giv visar en tavla alla händer, vinnarna och poängen i varje lance och ställningen; tryck på den för nästa giv. Varje list visar lagets poäng. Ångra tar tillbaka ett val som inte är bekräftat än, aldrig ett när enheten har skickats vidare.

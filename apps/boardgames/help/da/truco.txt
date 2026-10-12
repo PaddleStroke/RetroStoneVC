@@ -1,0 +1,26 @@
+Truco
+# Målet
+Argentinsk Truco, for 2 spillere eller 4 i to hold med makkere, der sidder over for hinanden (elfenben og rød mod ibenholt og jade). Vind givene med tre kort og byd på dem: truco på kortene, envido på to kort i samme kulør. Det første hold, der når 15 eller 30 point, valgt før spillet, vinder. Ingen ser de andres kort.
+# Kortene
+Det spanske spil med 40 kort, uden 8'ere og 9'ere: oros (mønter), copas (bægre), espadas (sværd) og bastos (køller); sota (10), caballo (11) og rey (12) er en bonde, en springer og en konge. Afbrydelserne i rammestregen på hvert kort, pinta, viser kuløren: ingen for oros, én for copas, to for espadas, tre for bastos. Fra højest til lavest: 1'eren i espadas (ancho de espadas), 1'eren i bastos (ancho de bastos), 7'eren i espadas, 7'eren i oros, 3'erne, 2'erne, 1'erne i copas og oros, 12'erne, 11'erne, 10'erne, 7'erne i copas og bastos, 6'erne, 5'erne og 4'erne. Lige stærke kort står lige.
+# At spille et giv
+- Hver spiller får 3 kort. Mano, spilleren efter giveren, spiller ud i første runde; giver og mano rykker én plads frem hvert giv.
+- Hver spiller ét kort pr. runde og lægger det foran sig. Det højeste kort vinder runden, og dets spiller spiller ud i den næste.
+- Lighed mellem holdene er en parda, og den samme spiller spiller ud igen; makkere, der står lige, vinder runden sammen.
+- Holdet, der vinder to runder, tager givet. Efter en parda i første runde afgør den næste; en parda efter en vundet runde går til vinderen af den første; tre pardas: mano's hold.
+- Et giv er 1 point værd.
+# Truco
+- Når det er din tur, kan du før du spiller sige truco: givet er så 2 værd. Det andet hold svarer quiero (tager imod), no quiero (afslår: du tager givet til værdien fra før kaldet) eller hæver: retruco (3), derefter vale cuatro (4).
+- Kun holdet, der tog imod det sidste kald, må hæve det, senere, i en af sine ture.
+- Me voy al mazo ("jeg går til bunken"): i stedet for at spille opgiver en spiller givet, og modstanderne tager det til dets nuværende værdi.
+# Envido
+- Kun i første runde, før du spiller dit første kort, kan du sige envido (2), real envido (3) eller falta envido. Når du svarer på en truco i første runde, må du sige envido først: el envido está primero ("envido kommer først"). Når en truco er modtaget, kan der ikke siges envido.
+- Svaret: quiero, no quiero eller et højere kald: envido én gang til, derefter real envido, derefter falta envido. Modtaget får holdet med den bedste envido summen af kaldene; afslået får de, der kaldte, det, der var modtaget før det sidste kald, eller 1.
+- Falta envido er værd, hvad det førende hold mangler for at vinde; i et spil til 30, så længe begge hold er under 15 (las malas, "de dårlige"), er den hele spillet værd.
+- En spillers envido: to kort i samme kulør tæller 20 plus deres tal (billedkort tæller 0); ellers hans højeste tal. Den bedste envido vinder; lighed går til spilleren nærmest mano.
+# Flor
+En variant, valgt før spillet (blomsten). Tre kort i samme kulør er en flor: den vises ved givningen og er 3 point værd for holdet, og det giv har ingen envido. Har begge hold en flor, tager den bedste (20 plus de tre tal) 3 point for hver flor. Contraflor er udeladt.
+# Spillets afslutning
+Det første hold, der når den valgte score, 15 eller 30, vinder straks, også midt i et giv.
+# Spil på enheden
+Giv enheden til spilleren, hvis brik lyser; han trykker på start og ser sin hånd. For at spille trykker du på et kort, der lyser, så det løfter sig, og trykker på det igen eller på dets plads; eller træk det derhen. Hver spillers kort ligger på række foran hans brik; taberne i hver runde er nedtonede. Dine kald vises i de nederste hjørner: til venstre envido (to kort og 2), real envido (to kort og 3) og falta envido (et gyldent lyn på rødt med dets værdi); til højre truco (den nye værdi på rødt) og mazo (en kortbagside). For at svare på et kald: krydset for no quiero, fluebenet for quiero, eller en forhøjelse. Hver plads viser sit sidste ord, sin flor (en blomst) og, når den er spillet, den bedste envido. Når en truco er modtaget, står givets værdi øverst til venstre ved holdet, der må hæve den. Efter hvert giv viser en tavle hvert holds point for envido, flor og givet samt stillingen; tryk på den for næste giv. Hver bjælke viser holdets point. Fortryd tager et valg tilbage, der endnu ikke er bekræftet, aldrig et, når enheden er givet videre.

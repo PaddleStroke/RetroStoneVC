@@ -1,0 +1,26 @@
+Truco
+# Målet
+Argentinsk Truco, for 2 spillere eller 4 i to lag med makkere som sitter overfor hverandre (elfenben og rød mot ibenholt og jade). Vinn giv med tre kort og by på dem: truco på kortene, envido på to kort i samme farge. Det første laget som når 15 eller 30 poeng, valgt før spillet, vinner. Ingen ser kortene til de andre.
+# Kortene
+Den spanske kortstokken med 40 kort, uten 8 og 9: oros (mynter), copas (begre), espadas (sverd) og bastos (køller); sota (10), caballo (11) og rey (12) er en bonde, en springer og en konge. Bruddene i rammestreken på hvert kort, pinta, viser fargen: ingen for oros, ett for copas, to for espadas, tre for bastos. Fra høyest til lavest: 1-eren i espadas (ancho de espadas), 1-eren i bastos (ancho de bastos), 7-eren i espadas, 7-eren i oros, 3-erne, 2-erne, 1-erne i copas og oros, 12-erne, 11-erne, 10-erne, 7-erne i copas og bastos, 6-erne, 5-erne og 4-erne. Like sterke kort står likt.
+# Å spille et giv
+- Hver spiller får 3 kort. Mano, spilleren etter giveren, spiller ut i første runde; giver og mano flytter én plass videre hvert giv.
+- Hver spiller ett kort per runde og legger det foran seg. Det høyeste kortet vinner runden, og spilleren spiller ut i neste.
+- Likhet mellom lagene er en parda, og den samme spilleren spiller ut igjen; makkere som står likt, vinner runden sammen.
+- Laget som vinner to runder, tar givet. Etter en parda i første runde avgjør den neste; en parda etter en vunnet runde går til vinneren av den første; tre pardas: laget til mano.
+- Et giv er verdt 1 poeng.
+# Truco
+- Når det er din tur, kan du før du spiller si truco: givet er da verdt 2. Det andre laget svarer quiero (tar imot), no quiero (avslår: du tar givet til verdien fra før kallet) eller hever: retruco (3), så vale cuatro (4).
+- Bare laget som tok imot det siste kallet, kan heve det, senere, i en av sine turer.
+- Me voy al mazo («jeg går til bunken»): i stedet for å spille gir en spiller opp givet, og motstanderne tar det til verdien det har da.
+# Envido
+- Bare i første runde, før du spiller ditt første kort, kan du si envido (2), real envido (3) eller falta envido. Når du svarer på en truco i første runde, kan du si envido først: el envido está primero («envido kommer først»). Når en truco er mottatt, kan det ikke sies envido.
+- Svaret: quiero, no quiero eller et høyere kall: envido én gang til, så real envido, så falta envido. Mottatt får laget med beste envido summen av kallene; avslått får de som kalte, det som var mottatt før siste kall, eller 1.
+- Falta envido er verdt det ledende lag mangler for å vinne; i et spill til 30, så lenge begge lag er under 15 (las malas, «de dårlige»), er den verdt hele spillet.
+- En spillers envido: to kort i samme farge teller 20 pluss tallene sine (bildekort teller 0); ellers hans høyeste tall. Beste envido vinner; likhet går til spilleren nærmest mano.
+# Flor
+En variant, valgt før spillet (blomsten). Tre kort i samme farge er en flor: den vises ved utdelingen og er verdt 3 poeng for laget, og det givet har ingen envido. Har begge lag en flor, tar den beste (20 pluss de tre tallene) 3 poeng for hver flor. Contraflor er utelatt.
+# Slutten på spillet
+Det første laget som når den valgte poengsummen, 15 eller 30, vinner straks, også midt i et giv.
+# Spill på enheten
+Gi enheten til spilleren som har brikken som lyser; han trykker på start og ser hånden sin. For å spille trykker du på et kort som lyser, så det løfter seg, og trykker på det igjen eller på plassen dets; eller dra det dit. Kortene til hver spiller ligger på rad foran brikken hans; taperne i hver runde er nedtonet. Kallene dine vises i de nederste hjørnene: til venstre envido (to kort og 2), real envido (to kort og 3) og falta envido (et gyllent lyn på rødt, med verdien); til høyre truco (den nye verdien på rødt) og mazo (en kortbakside). For å svare på et kall: krysset for no quiero, haken for quiero, eller en heving. Hver plass viser sitt siste ord, sin flor (en blomst) og, når den er spilt, beste envido. Når en truco er mottatt, står verdien av givet øverst til venstre ved laget som kan heve den. Etter hvert giv viser en tavle poengene til hvert lag for envido, flor og givet, og stillingen; trykk på den for neste giv. Hver linje viser poengene til laget. Angre tar tilbake et valg som ikke er bekreftet ennå, aldri et når enheten er gitt videre.

@@ -1,0 +1,29 @@
+Mus
+# Tujuan
+Permainan kartu dari Basque untuk dua tim berisi dua rekan yang duduk berhadapan: gading dan merah melawan eboni dan giok. Setiap putaran memainkan empat lance; di tiap lance kartu terbaik yang menang, kecuali sebuah taruhan membuat tim lawan mundur: taruhan adalah inti permainan ini. Tim pertama yang mencapai 40 poin (tantos) menang. Untuk 4 pemain yang saling mengoper perangkat; tak seorang pun melihat kartu pemain lain.
+# Kartu
+Kartu Spanyol berisi 40 kartu dalam empat jenis: oros (koin), copas (piala), espadas (pedang), dan bastos (gada), bernomor 1 sampai 7, lalu sota (10, di sini bidak pion), caballo (11, kuda), dan rey (12, raja). Celah pada garis di sekeliling tiap kartu, pinta, menunjukkan jenisnya: tidak ada untuk oros, satu untuk copas, dua untuk espadas, tiga untuk bastos. Dimainkan dengan aturan umum delapan raja (ocho reyes): setiap 3 dihitung sebagai rey dan setiap 2 sebagai as, di semua lance.
+# Mus
+Setiap pemain mendapat 4 kartu. Mano, yang bicara lebih dulu dan memenangkan setiap seri, adalah pemain sesudah pembagi; keduanya bergeser satu kursi setiap putaran. Bergiliran mulai dari mano, setiap pemain mengatakan mus (untuk menukar kartu) atau memotong (no hay mus, "tidak ada mus"). Jika keempatnya berkata mus, masing-masing bergiliran menyisihkan 1 sampai 4 kartu dan mengambil kartu sebanyak itu, lalu mus ditanyakan lagi. Begitu seseorang memotong, lance dimulai.
+# Empat lance
+- Grande: kartu tertinggi menang, dibandingkan satu per satu: rey, caballo, sota, 7, 6, 5, 4, as.
+- Chica: kartu terendah menang.
+- Pares: kartu yang sama. Sepasang (par) bernilai 1, tiga yang sama (medias) 2, dua pasang atau empat yang sama (duples) 3. Duples mengalahkan medias, dan medias mengalahkan sepasang; jika setara, kartu lebih tinggi menang. Hanya pemain yang punya pares ikut.
+- Juego: kartu dijumlahkan, kartu bergambar 10 dan lainnya sesuai angkanya. Mulai 31 disebut juego: 31 yang terbaik, lalu 32, 40, 37, 36, 35, 34, dan 33. Hanya pemain yang punya juego ikut. Jika tak ada yang punya juego, lance itu menjadi Punto: jumlah tertinggi menang.
+Di Pares dan Juego tidak ada taruhan bila hanya satu tim yang punya, dan lance dilewati bila tak ada yang punya. Seri selalu dimenangkan pemain yang paling dekat dengan mano.
+# Taruhan (envites)
+- Di setiap lance pemain bicara bergiliran mulai dari mano: lewat (paso) atau bertaruh (envido: 2 poin atau lebih).
+- Menghadapi taruhan, lawan berikutnya menjawab, lalu rekannya bila perlu: menerima (quiero), menaikkan beberapa poin, mempertaruhkan seluruh permainan (órdago), atau menolak (no quiero). Taruhan baru tertolak bila kedua lawan menolak.
+- Ditolak: tim yang bertaruh langsung mendapat 1 poin, atau taruhan sebelum kenaikan terakhir, dan memenangkan lance.
+- Jika semua lewat, lance dimainkan "en paso".
+- Órdago yang diterima: semua kartu langsung dibuka, dan pemenang lance itu memenangkan permainan.
+# Penghitungan
+Di akhir putaran semua kartu dibuka dan lance dihitung berurutan:
+- Grande dan Chica: taruhan yang diterima, atau 1 poin en paso.
+- Pares: taruhan yang diterima, ditambah nilai pares kedua rekan yang menang.
+- Juego: taruhan yang diterima, ditambah 3 untuk setiap 31 dan 2 untuk setiap juego lain di tim pemenang. Punto: taruhan yang diterima ditambah 1, atau 1 en paso.
+- Pemenang lance yang ditolak, atau lance yang hanya dimiliki timnya, tetap menghitung pares atau juego mereka.
+# Akhir permainan
+Tim pertama yang mencapai 40 poin menang, bahkan di tengah penghitungan, atau langsung dengan poin dari taruhan yang ditolak. Di meja poin dihitung dengan batu, lima untuk satu amarraco; di sini berupa angka. Isyarat rahasia antarrekan (señas) adalah kebiasaan di meja, bukan aturan: di sini tidak dipakai.
+# Bermain di perangkat
+Oper perangkat ke pemain yang bidaknya menyala; ia mengetuk tombol mulai dan melihat kartunya sendiri. Setiap kursi menunjukkan kata terakhirnya: mus (dua panah, satu ke tiap arah), memotong (panah yang sama dicoret), lewat, taruhan, kenaikan (tanda tambah), órdago (petir emas di atas merah), quiero (tanda centang), no quiero (tanda silang). Di Pares dan Juego setiap kursi menunjukkan apakah ia punya. Keempat lance berjajar di atas: Grande (panah ke atas), Chica (panah ke bawah), Pares (dua kartu), Juego (31) atau Punto (30); yang sedang dipertaruhkan menyala, dan yang sudah dimainkan menunjukkan hasilnya di bawahnya. Untuk menukar kartu, ketuk kartu yang akan disisihkan, lalu tanda centang. Untuk bertaruh, atur jumlahnya dengan kurang dan tambah, lalu ketuk tombol emas; menghadapi taruhan, ketuk tanda centang, tanda silang, kenaikan, atau petir. Setelah setiap putaran, sebuah tabel menunjukkan semua kartu, pemenang dan poin setiap lance, dan skornya; ketuk untuk putaran berikutnya. Setiap bilah menunjukkan skor timnya. Urungkan membatalkan pilihan yang belum dikonfirmasi, tidak pernah pilihan setelah perangkat dioper.

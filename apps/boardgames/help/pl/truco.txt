@@ -1,0 +1,26 @@
+Truco
+# Cel gry
+Argentyńskie Truco dla 2 graczy albo 4 w dwóch parach partnerów siedzących naprzeciw siebie (kość słoniowa i czerwony przeciw hebanowi i nefrytowi). Wygrywajcie rozdania po trzy karty i obstawiajcie je: truco na karty, envido na dwie karty jednego koloru. Wygrywa para, która pierwsza dojdzie do 15 lub 30 punktów, wybranych przed grą. Nikt nie widzi kart pozostałych.
+# Karty
+Hiszpańska talia 40 kart bez ósemek i dziewiątek: oros (monety), copas (puchary), espadas (miecze) i bastos (pałki); sota (10), caballo (11) i rey (12) to pionek, skoczek i król. Przerwy w ramce każdej karty, pinta, pokazują kolor: oros żadnej, copas jedną, espadas dwie, bastos trzy. Od najwyższej do najniższej: 1 espadas (ancho de espadas), 1 bastos (ancho de bastos), 7 espadas, 7 oros, trójki, dwójki, jedynki copas i oros, dwunastki, jedenastki, dziesiątki, siódemki copas i bastos, szóstki, piątki i czwórki. Karty tej samej siły remisują.
+# Rozgrywanie rozdania
+- Każdy gracz dostaje 3 karty. Mano, gracz po rozdającym, wychodzi w pierwszej rundzie; rozdający i mano przesuwają się o miejsce co rozdanie.
+- Każdy zagrywa jedną kartę na rundę i kładzie ją przed sobą. Najwyższa karta wygrywa rundę, a jej gracz wychodzi w następnej.
+- Remis między parami to parda, i ten sam gracz wychodzi ponownie; partnerzy z remisem wygrywają rundę razem.
+- Para, która wygra dwie rundy, bierze rozdanie. Po pardzie w pierwszej rundzie rozstrzyga następna; parda po wygranej rundzie przypada zwycięzcy pierwszej; trzy pardy: para mana.
+- Rozdanie jest warte 1 punkt.
+# Truco
+- W swojej kolejce, przed zagraniem, możesz zawołać truco: rozdanie jest wtedy warte 2. Druga para odpowiada quiero (przyjmuje), no quiero (odmawia: bierzesz rozdanie za wartość sprzed zawołania) albo podbija: retruco (3), potem vale cuatro (4).
+- Podbić może tylko para, która przyjęła ostatnie zawołanie, później, w swojej kolejce.
+- Me voy al mazo („idę do talii”): zamiast zagrać, gracz poddaje rozdanie, a przeciwnicy biorą je za jego obecną wartość.
+# Envido
+- Tylko w pierwszej rundzie, zanim zagrasz pierwszą kartę, możesz zawołać envido (2), real envido (3) albo falta envido. Odpowiadając na truco w pierwszej rundzie, możesz najpierw zawołać envido: el envido está primero („envido ma pierwszeństwo”). Po przyjęciu truco envido już nie ma.
+- Odpowiedź: quiero, no quiero albo wyższe zawołanie: jeszcze jedno envido, potem real envido, potem falta envido. Przyjęte: para z najlepszym envido dostaje sumę zawołań; odrzucone: wołający dostają to, co przyjęto przed ostatnim zawołaniem, albo 1.
+- Falta envido jest warte tyle, ile prowadzącej parze brakuje do zwycięstwa; w grze do 30, dopóki obie pary mają mniej niż 15 (las malas, „złe”), jest warte całą grę.
+- Envido gracza: dwie karty jednego koloru liczą się jako 20 plus ich numery (figury 0); w przeciwnym razie jego najwyższy numer. Wygrywa najlepsze envido; remis wygrywa gracz najbliżej mana.
+# Flor
+Wariant wybierany przed grą (kwiatek). Trzy karty jednego koloru to flor: pokazuje się ją przy rozdaniu i daje swojej parze 3 punkty, a w tym rozdaniu nie ma envido. Jeśli obie pary mają flor, najlepsza (20 plus trzy numery) bierze 3 punkty za każdą flor. Contraflor się nie gra.
+# Koniec gry
+Para, która pierwsza osiągnie wybrany wynik, 15 lub 30, wygrywa od razu, nawet w środku rozdania.
+# Gra na urządzeniu
+Podaj urządzenie graczowi, którego pionek świeci; dotyka on przycisku startu i widzi swoją rękę. Aby zagrać, dotknij świecącej karty, żeby się uniosła, i dotknij jej jeszcze raz albo jej miejsca; albo przeciągnij ją tam. Karty każdego gracza leżą w rzędzie przed jego pionkiem; przegrane karty każdej rundy są przyciemnione. Twoje zawołania pojawiają się w dolnych rogach: po lewej envido (dwie karty i 2), real envido (dwie karty i 3) i falta envido (złota błyskawica na czerwonym, z wartością); po prawej truco (nowa wartość na czerwonym) i mazo (rewers karty). Odpowiedź na zawołanie: krzyżyk to no quiero, znaczek zatwierdzenia to quiero, albo podbicie. Każde miejsce pokazuje swoje ostatnie słowo, swoją flor (kwiatek) i, po rozegraniu, najlepsze envido. Po przyjęciu truco wartość rozdania widać w lewym górnym rogu przy parze, która może ją podbić. Po każdym rozdaniu tabela pokazuje punkty każdej pary za envido, flor i rozdanie oraz wynik; dotknij jej, by przejść do następnego rozdania. Każdy pasek pokazuje wynik swojej pary. Cofnij wycofuje niezatwierdzony jeszcze wybór, nigdy wyboru sprzed podania urządzenia.

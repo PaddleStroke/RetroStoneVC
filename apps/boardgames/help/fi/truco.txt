@@ -1,0 +1,26 @@
+Truco
+# Tavoite
+Argentiinalainen Truco 2 pelaajalle tai 4 pelaajalle kahtena parina, parit vastakkain (norsunluu ja punainen vastaan eebenpuu ja jade). Voita kolmen kortin jakoja ja panosta niihin: truco korteista, envido kahdesta saman maan kortista. Ensimmäisenä 15 tai 30 pisteeseen, ennen peliä valittuna, ehtivä pari voittaa. Kukaan ei näe muiden kortteja.
+# Kortit
+Espanjalainen 40 kortin pakka ilman 8- ja 9-kortteja: oros (kolikot), copas (maljat), espadas (miekat) ja bastos (nuijat); sota (10), caballo (11) ja rey (12) ovat sotilas, ratsu ja kuningas. Kunkin kortin kehysviivan katkokset, pinta, kertovat maan: oros ei yhtään, copas yksi, espadas kaksi, bastos kolme. Vahvimmasta heikoimpaan: espadasin 1 (ancho de espadas), bastosin 1 (ancho de bastos), espadasin 7, orosin 7, kolmoset, kakkoset, copasin ja orosin ykköset, 12:t, 11:t, 10:t, copasin ja bastosin seiskat, kutoset, vitoset ja neloset. Yhtä vahvat kortit ovat tasoissa.
+# Jaon pelaaminen
+- Jokainen saa 3 korttia. Mano, jakajan jälkeinen pelaaja, aloittaa ensimmäisen kierroksen; jakaja ja mano siirtyvät paikan eteenpäin joka jaossa.
+- Kukin pelaa yhden kortin kierroksella ja asettaa sen eteensä. Korkein kortti voittaa kierroksen, ja sen pelaaja aloittaa seuraavan.
+- Parien välinen tasapeli on parda, ja sama pelaaja aloittaa uudelleen; tasoihin päätyneet parikumppanit voittavat kierroksen yhdessä.
+- Kaksi kierrosta voittanut pari vie jaon. Ensimmäisen kierroksen pardan jälkeen seuraava ratkaisee; voitetun kierroksen jälkeinen parda menee ensimmäisen voittajalle; kolme pardaa: manon pari.
+- Jako on 1 pisteen arvoinen.
+# Truco
+- Vuorollasi voit ennen pelaamista huutaa truco: jako on silloin 2 arvoinen. Toinen pari vastaa quiero (hyväksyy), no quiero (kieltäytyy: viet jaon huutoa edeltävällä arvolla) tai korottaa: retruco (3), sitten vale cuatro (4).
+- Vain viimeisen huudon hyväksynyt pari saa korottaa sitä, myöhemmin, omalla vuorollaan.
+- Me voy al mazo (”menen pakkaan”): pelaamisen sijaan pelaaja luovuttaa jaon, ja vastustajat vievät sen sen hetkisellä arvolla.
+# Envido
+- Vain ensimmäisellä kierroksella, ennen ensimmäistä korttiasi, voit huutaa envido (2), real envido (3) tai falta envido. Vastatessasi trucoon ensimmäisellä kierroksella voit huutaa ensin envidon: el envido está primero (”envido tulee ensin”). Kun truco on hyväksytty, envidoa ei enää voi huutaa.
+- Vastaus: quiero, no quiero tai korkeampi huuto: vielä yksi envido, sitten real envido, sitten falta envido. Hyväksyttynä parhaan envidon pari saa huutojen summan; hylättynä huutajat saavat sen, mitä ennen viimeistä huutoa oli hyväksytty, tai 1.
+- Falta envido on arvoltaan se, mitä johtavalta parilta puuttuu voittoon; 30 pisteen pelissä, niin kauan kuin molemmat parit ovat alle 15:n (las malas, ”huonot”), se on koko pelin arvoinen.
+- Pelaajan envido: kaksi saman maan korttia on 20 plus niiden numerot (kuvakortit 0); muuten hänen korkein numeronsa. Paras envido voittaa; tasatilanne menee manoa lähimmälle pelaajalle.
+# Flor
+Muunnelma, valitaan ennen peliä (kukka). Kolme saman maan korttia on flor: se näytetään jaossa ja on 3 pisteen arvoinen parilleen, eikä siinä jaossa ole envidoa. Jos molemmilla pareilla on flor, paras (20 plus kolme numeroa) vie 3 pistettä jokaisesta florista. Contraflor on jätetty pois.
+# Pelin loppu
+Ensimmäisenä valittuun pistemäärään, 15 tai 30, ehtivä pari voittaa heti, myös kesken jaon.
+# Pelaaminen laitteella
+Anna laite pelaajalle, jonka nappula hehkuu; hän napauttaa aloitusta ja näkee oman kätensä. Pelaa napauttamalla hehkuvaa korttia, jolloin se nousee, ja napauta sitä uudelleen tai sen paikkaa; tai vedä se sinne. Kunkin pelaajan kortit ovat rivissä hänen nappulansa edessä; kunkin kierroksen häviäjät on himmennetty. Huutosi näkyvät alakulmissa: vasemmalla envido (kaksi korttia ja 2), real envido (kaksi korttia ja 3) ja falta envido (kultainen salama punaisella, arvonsa kanssa); oikealla truco (uusi arvo punaisella) ja mazo (kortin selkä). Huutoon vastaaminen: risti on no quiero, rasti quiero, tai korotus. Jokainen paikka näyttää viimeisen sanansa, florinsa (kukka) ja pelattuna parhaan envidon. Kun truco on hyväksytty, jaon arvo näkyy vasemmassa yläkulmassa sen parin vieressä, joka saa korottaa. Jokaisen jaon jälkeen taulukko näyttää kummankin parin pisteet envidosta, florista ja jaosta sekä tilanteen; napauta sitä seuraavaa jakoa varten. Jokainen palkki näyttää parinsa pisteet. Kumoa peruu vahvistamattoman valinnan, ei koskaan valintaa sen jälkeen, kun laite on annettu eteenpäin.

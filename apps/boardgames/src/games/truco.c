@@ -235,7 +235,8 @@ static void draw_words(void)
         float fx = k ? x1 : x, fy = k ? y1 : y;
         if (p->flor_mask >> q & 1) {           /* a flor: a gold flower */
             ui_mark_gold(fx, fy, 1.5f * d);
-            vt_badge(VT_FLOWER, fx, fy, d);
+            ct_pic(CT_DISC_DARK, fx, fy, d, 0, 255, 255, 255, 255);
+            vt_icon(VT_FLOWER, fx, fy, 0.7f * d, 246, 206, 90, 255);
             k = 1, fx = x1, fy = y1;
         }
         if (p->env_winner == q) {               /* the best envido */
