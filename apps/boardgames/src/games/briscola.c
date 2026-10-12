@@ -169,14 +169,7 @@ static void stock_draw(const brpos *p)
     n += gone;
     float tx, ty;
     trump_at(&tx, &ty);
-    if (n >= 1) cards_draw(DECK_ITALIAN, p->briscola, tx, ty, ws, 90, 0);
-    else {
-        SDL_Texture *t = ct_suit(DECK_ITALIAN, p->trump, (int)(0.7f * ws));
-        SDL_SetTextureAlphaMod(t, 120);
-        ui_put_c(t, tx, ty, 0.7f * ws, 0.7f * ws);
-        SDL_SetTextureAlphaMod(t, 255);
-    }
-    if (n >= 2) cards_pile(DECK_FRENCH, stx, sty, ws, n - 1, CARD_NONE, 0);
+    ct_talon(DECK_ITALIAN, stx, sty, tx, ty, ws, n, p->briscola, p->trump, 0);
 }
 
 /* the end: a row a side, its tokens, its counting cards in a row (aces, threes, re, cavalli, fanti), its points */

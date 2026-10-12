@@ -130,13 +130,7 @@ static void geo(void)
         int len[4] = {0}, longest = 1;
         for (int i = 0; i < BRG_HAND; i++) len[trick_suit_order(CARD_SUIT(p->orig[dummy][i]))]++;
         for (int k = 0; k < 4; k++) longest = len[k] > longest ? len[k] : longest;
-        float w = floorf(fminf(0.8f * L.hw, C.w / 4.35f)), hh = w * L.asp;
-        if (hh * (1 + 0.26f * (longest - 1)) > C.h) {
-            w = floorf(C.h / (L.asp * (1 + 0.26f * (longest - 1))));
-            hh = w * L.asp;
-        }
-        L.dw = w;
-        L.dstep = longest > 1 ? fminf(0.36f * hh, (C.h - hh) / (longest - 1)) : 0;
+        L.dw = ct_columns_fit(C, 0.8f * L.hw, longest, L.asp, &L.dstep);
         L.C = C;
     }
 
@@ -167,23 +161,13 @@ static void layout(box b)
 static void hand_rows(const brg_pos *p, ct_rows *h) { ct_rows_layout(h, tb, p->n[L.me], BRG_HAND, L.hw, tb.h * 0.26f); }
 
 /* the dummy's cards in the order drawn (column by column, the highest at the top) and their centres */
+static int suit_col(int card) { return trick_suit_order(CARD_SUIT(card)); }
+
 static int dummy_spots(const brg_pos *p, uint8_t *cards, float *x, float *y)
 {
-    int d = brg_dummy(p), k = 0;
+    int d = brg_dummy(p);
     if (d == BRG_NONE || L.dseat < 0) return 0;
-    float h = L.dw * L.asp;
-    for (int col = 0; col < 4; col++) {
-        int i = 0;
-        for (int j = p->n[d] - 1; j >= 0; j--) {
-            int c = p->hand[d][j];
-            if (trick_suit_order(CARD_SUIT(c)) != col) continue;
-            cards[k] = (uint8_t)c;
-            x[k] = L.C.x + L.C.w / 2 + (col - 1.5f) * 1.08f * L.dw;
-            y[k] = L.C.y + h / 2 + i * L.dstep;
-            k++, i++;
-        }
-    }
-    return k;
+    return ct_columns(L.C, L.dw, L.dstep, L.asp, p->hand[d], p->n[d], suit_col, cards, x, y);
 }
 
 static int dummy_at(const brg_pos *p, float px, float py)
@@ -191,9 +175,8 @@ static int dummy_at(const brg_pos *p, float px, float py)
     uint8_t c[BRG_HAND];
     float x[BRG_HAND], y[BRG_HAND];
     int n = dummy_spots(p, c, x, y);
-    for (int i = n - 1; i >= 0; i--)
-        if (cards_in(x[i], y[i] - (c[i] == sel ? 0.12f * L.dw : 0), L.dw, L.asp, px, py)) return c[i];
-    return CARD_NONE;
+    int i = ct_columns_hit(c, x, y, n, L.dw, L.asp, sel, px, py);
+    return i < 0 ? CARD_NONE : c[i];
 }
 
 /* ---- the moving cards ------------------------------------------------------------------------------------------------ */
