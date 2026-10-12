@@ -66,7 +66,7 @@ static const struct { const char *id; int section; } SECTION_OF[] = {
     {"mahjong4", SEC_CARDS}, {"koikoi", SEC_CARDS}, {"scopa", SEC_CARDS}, {"briscola", SEC_CARDS}, {"skat", SEC_CARDS},
     {"euchre", SEC_CARDS}, {"canasta", SEC_CARDS}, {"pairs", SEC_GUESS},
     {"sudoku", SEC_SOLO}, {"nonogram", SEC_SOLO}, {"taquin", SEC_SOLO}, {"hanoi", SEC_SOLO}, {"pyramid", SEC_SOLO},
-    {"tripeaks", SEC_SOLO},
+    {"tripeaks", SEC_SOLO}, {"logicgates", SEC_SOLO},
 };
 
 static int section_of(const game *g)
@@ -392,6 +392,49 @@ void ui_button(float cx, float cy, float d, int icon, int how)
 }
 
 int ui_button_hit(float cx, float cy, float d, float x, float y) { return hypotf(x - cx, y - cy) <= 0.56f * d; }
+
+SDL_Texture *ui_word(const char *key, int i, float px, float maxw, const uint8_t rgb[3], int *w, int *h)
+{
+    enum { KEEP = 32 };
+    static struct { char key[32]; int i, px4, maxw; uint8_t rgb[3]; Uint32 used; int w, h; SDL_Texture *t; } c[KEEP];
+    static Uint32 clock;
+    int px4 = (int)(px * 4), mw = (int)maxw, k = 0;
+    clock++;
+    for (int j = 0; j < KEEP; j++) {
+        if (c[j].t && c[j].i == i && c[j].px4 == px4 && c[j].maxw == mw && !memcmp(c[j].rgb, rgb, 3) &&
+            !strcmp(c[j].key, key)) {
+            c[j].used = clock;
+            *w = c[j].w;
+            *h = c[j].h;
+            return c[j].t;
+        }
+        if (!c[j].t) { k = j; break; }
+        if (c[j].used < c[k].used) k = j;
+    }
+    char s[96];
+    if (!text_word(key, i, s, sizeof s)) return NULL;
+    int tw = text_line(s, px, 1, rgb, NULL, 0, 0, 0, 0);
+    if (tw > maxw && tw > 0) {
+        px = fmaxf(6, px * maxw / tw);
+        tw = text_line(s, px, 1, rgb, NULL, 0, 0, 0, 0);
+    }
+    int W = tw + 4, H = (int)ceilf(px * 1.55f);
+    uint8_t *b = calloc((size_t)W * H, 4);
+    if (!b) return NULL;
+    text_line(s, px, 1, rgb, b, W, H, 2, (int)((H - 1.25f * px) / 2));
+    ui_free(&c[k].t);
+    c[k].t = ui_tex(W, H, b);
+    free(b);
+    snprintf(c[k].key, sizeof c[k].key, "%s", key);
+    c[k].i = i;
+    c[k].px4 = px4;
+    c[k].maxw = mw;
+    memcpy(c[k].rgb, rgb, 3);
+    c[k].used = clock;
+    *w = c[k].w = W;
+    *h = c[k].h = H;
+    return c[k].t;
+}
 
 void ui_button_pic(uint8_t *o, int w, int h, float cx, float cy, int d, ui_painter paint, int kind, float k, int how)
 {

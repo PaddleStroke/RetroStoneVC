@@ -162,6 +162,11 @@ int  ui_button_hit(float cx, float cy, float d, float x, float y);   /* (x, y) o
 void ui_button_pic(uint8_t *rgba, int w, int h, float cx, float cy, int d, ui_painter paint, int kind, float k,
                    int how);
 
+/* a game's own words in the game (a bid, a call; no other words outside the rules page): line i of its words
+ * (text_word: help/<lang>/<id>_words.txt, key "<id>_words") as a picture, bold, px pixels, no wider than maxw (made
+ * smaller to fit), in rgb. The shell keeps it; *w x *h its size (the ink centred in it, 1.55 px high). NULL: none. */
+SDL_Texture *ui_word(const char *key, int i, float px, float maxw, const uint8_t rgb[3], int *w, int *h);
+
 enum { SND_MOVE, SND_CAPTURE, SND_PLACE, SND_DROP, SND_CHECK, SND_END, SND_TAP, SND_DENY, SND_DICE, SNDS };
 void ui_sound(int s);
 void ui_sound_soft(int s, float volume);        /* quieter (0..1): many small sounds in a row (mancala's seeds) */

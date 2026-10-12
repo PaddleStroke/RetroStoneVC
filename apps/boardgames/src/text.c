@@ -21,6 +21,8 @@
 static int cur;                                 /* tx_langs[cur] */
 static stbtt_fontinfo font[2];                  /* regular, bold */
 static stbtt_fontinfo board[2];                 /* the boards' characters, the same in every language */
+static stbtt_fontinfo board2[2];                /* the ones board lacks (DejaVu Sans) */
+static int has_board2;
 
 /* ---- the language ------------------------------------------------------------------------------------------------ */
 static int find(const char *code)
@@ -54,6 +56,17 @@ void text_init(const char *forced)
     stbtt_InitFont(&font[1], t->bold, stbtt_GetFontOffsetForIndex(t->bold, 0));
     for (int b = 0; b < 2; b++)
         stbtt_InitFont(&board[b], tx_glyph_font[b], stbtt_GetFontOffsetForIndex(tx_glyph_font[b], 0));
+    has_board2 = tx_glyph_font2[0] && tx_glyph_font2[1];
+    for (int b = 0; b < 2 && has_board2; b++)
+        stbtt_InitFont(&board2[b], tx_glyph_font2[b], stbtt_GetFontOffsetForIndex(tx_glyph_font2[b], 0));
+}
+
+/* the boards' font that has c (bold or not): the first, else the second; NULL: neither */
+static stbtt_fontinfo *board_for(int c, int bold)
+{
+    if (stbtt_FindGlyphIndex(&board[bold], c)) return &board[bold];
+    if (has_board2 && stbtt_FindGlyphIndex(&board2[bold], c)) return &board2[bold];
+    return NULL;
 }
 
 const char *text_lang(void) { return tx_langs[cur].code; }
@@ -69,10 +82,18 @@ const char *text_get(const char *game)
     return en;
 }
 
-int text_name(const char *game, char *buf, int size)
+int text_name(const char *game, char *buf, int size) { return text_word(game, -1, buf, size); }
+
+int text_word(const char *key, int i, char *buf, int size)
 {
-    const char *t = text_get(game);
-    if (!t || size < 1) return 0;
+    const char *t = text_get(key);
+    if (size < 1) return 0;
+    buf[0] = 0;
+    for (int k = -1; t && k < i; k++) {        /* past the title, then i lines */
+        t = strchr(t, '\n');
+        if (t) t++;
+    }
+    if (!t || !*t) return 0;
     int n = (int)strcspn(t, "\n");
     if (n >= size) n = size - 1;
     memcpy(buf, t, (size_t)n);
@@ -144,8 +165,8 @@ static stbtt_fontinfo *font_for(const face *fc, int c, float *scale)
 {
     *scale = fc->scale;
     if (c == ' ' || stbtt_FindGlyphIndex(fc->f, c)) return fc->f;
-    stbtt_fontinfo *b = &board[fc->f == &font[1] || fc->f == &board[1]];
-    if (!stbtt_FindGlyphIndex(b, c)) return fc->f;
+    stbtt_fontinfo *b = board_for(c, fc->f == &font[1] || fc->f == &board[1] || fc->f == &board2[1]);
+    if (!b) return fc->f;
     *scale = stbtt_ScaleForMappingEmToPixels(b, fc->size);
     return b;
 }
@@ -270,9 +291,9 @@ int text_page(const char *s, int w, float px, const uint8_t rgb[3], uint8_t *rgb
 int text_glyph(int c, float px, int bold, const uint8_t rgb[3], uint8_t *rgba, int w, int h)
 {
     face fc = face_of(bold, px);
-    fc.f = &board[bold ? 1 : 0];                /* the boards' own font */
+    fc.f = board_for(c, bold ? 1 : 0);          /* the boards' own fonts */
+    if (!fc.f) return 0;
     fc.scale = stbtt_ScaleForMappingEmToPixels(fc.f, px);
-    if (!stbtt_FindGlyphIndex(fc.f, c)) return 0;
     int x0, y0, x1, y1;                         /* centred on its ink, not on its advance box */
     stbtt_GetCodepointBitmapBox(fc.f, c, fc.scale, fc.scale, &x0, &y0, &x1, &y1);
     float x = (w - (x1 - x0)) / 2.0f - x0, base = (h - (y1 - y0)) / 2.0f - y0;

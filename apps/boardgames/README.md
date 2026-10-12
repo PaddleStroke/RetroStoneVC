@@ -21,7 +21,7 @@ make -f apps/boardgames/Makefile win64           # dist/windows/RetroStoneBoard.
 | `src/art.c` `art.h` | the pictures, drawn by code at the screen's resolution: shapes (`art_fig`; strokes `art_band`, arrow heads `art_head`, one-colour styles `art_flat`, a figure into a picture `art_fig_blend` / `art_fig_paint`), the house pieces (`art_piece` for chess, `art_counter` for discs, go stones, draughts men and kings, `art_die`), the wooden boards (`art_board_n`), carved holes (`art_recess`), the dice games' felt (`art_felt`), a flat piece and its shadow in a thumbnail (`art_flat_put`), icons. |
 | `src/cards.c` `cards.h` | the card and tile kit: five decks drawn by code, a texture cache, cards drawn and moved, hands, piles (see "Card and tile games"). |
 | `src/sound.c` | the sounds, made by code: `ui_sound(SND_MOVE / CAPTURE / PLACE / DROP / CHECK / END / TAP / DENY)`. |
-| `src/text.c` `text.h`, `help/<lang>/<id>.txt`, `tools/gen_text.py` | the texts: each game's rules (the ? button) and name (the menu card) in 22 languages, the device's language; Noto Sans CJK cut down at build time to the characters used, drawn with stb_truetype. `help/<lang>/_app.txt`: the buttons, after every game's rules. |
+| `src/text.c` `text.h`, `help/<lang>/<id>.txt`, `tools/gen_text.py` | the texts: each game's rules (the ? button) and name (the menu card) in 22 languages, the device's language; Noto Sans CJK (and DejaVu Sans for the letters it lacks) cut down at build time to the characters used, drawn with stb_truetype. `help/<lang>/_app.txt`: the buttons, after every game's rules. |
 | `src/games/<id>.c` | a game: its board on the screen, its input; registers itself (`REGISTER_GAME`). |
 | `src/games/<id>_rules.c` `<id>.h` | its rules, without SDL (tested by `tests/<id>_test.c`). Chess: `chess.c` / `chess_ui.c`, `tests/perft.c`. |
 
@@ -79,7 +79,13 @@ One look across the app, like the Arcade games' house kit:
 - **The end waits**: `busy()` says the last move still animates; the shell shows the end of the game after it.
 - **No text on the board** (pictures, and `ui_number()` for scores and counts). The words are in the rules page only:
   `help/en/<id>.txt` (the first line the game's name, then the rules: `# ` headings, `- ` list items, paragraphs),
-  translated in the 21 other languages (`help/<lang>/<id>.txt`; a missing one shows the English).
+  translated in the 21 other languages (`help/<lang>/<id>.txt`; a missing one shows the English). A game that truly
+  needs a few words in play (tarot's bids) keeps them in `help/<lang>/<id>_words.txt` (a title line for the
+  translators, then a word a line, in all 22 languages): `text_word(key, i, ...)` reads line i, `ui_word(key, i, px,
+  maxw, rgb, &w, &h)` gives it as a texture fitted to a width (kept by the shell). Tarot's `tarot_bids.txt` is the
+  first such file.
+- **Characters on pieces and tiles** (xiangqi, shogi, mahjong, word tiles): add them to `help/glyphs.txt`; draw them
+  with `text_glyph`. Noto Sans CJK draws them, DejaVu Sans the ones it lacks (Ą Ł Ş Є...), in every language.
 - **Tap, or drag**: every move can be made with taps alone; a tap on something not allowed: `SND_DENY`.
 - **Face to face** (`ui.f2f`): pieces that have a top and a bottom are drawn turned round for the top player
   (`ui_upside(player)`); the shell turns that player's bar itself.

@@ -188,44 +188,14 @@ static int mine(void)                           /* the viewer may act now */
 /* ---- the tiles' pictures ----------------------------------------------------------------------------------------- */
 static const uint8_t INK[3] = {44, 32, 26}, PALE_INK[3] = {150, 104, 64};
 
-/* the set's letters all from one font: the boards' font (help/glyphs.txt) when it has them all; else (Polish, Czech,
- * Turkish, Ukrainian letters it lacks) the language's own font, which has them: its rules list the set */
-static int own_font(void)
+/* a character of the boards' fonts (help/glyphs.txt: every set's letters), centred on its ink at (cx, cy) */
+static void glyph_at(uint8_t *o, int s, uint32_t cp, float em, float cx, float cy, const uint8_t rgb[3])
 {
-    static int set = -1, own;
-    if (set != P->set) {
-        uint8_t t[16 * 16 * 4];
-        const wset *s = wt_set(P->set);
-        own = 0;
-        for (int i = 0; i < s->n && !own; i++) own = !text_glyph((int)s->l[i].cp, 8, 1, INK, t, 16, 16);
-        set = P->set;
-    }
-    return own;
-}
-
-/* a character centred on its ink at (cx, cy): from the boards' font, or (own) drawn as a line of one letter in the
- * language's font and centred by its ink */
-static void glyph_at(uint8_t *o, int s, uint32_t cp, float em, float cx, float cy, const uint8_t rgb[3], int own)
-{
-    int g = (int)(em * 1.6f) + 2, dx = 0, dy = 0;
+    int g = (int)(em * 1.6f) + 2;
     uint8_t *t = calloc((size_t)g * g, 4);
     if (!t) return;
-    if (own || !text_glyph((int)cp, em, 1, rgb, t, g, g)) {
-        char u[5] = {0};
-        if (cp < 0x80) u[0] = (char)cp;
-        else if (cp < 0x800) u[0] = (char)(0xc0 | cp >> 6), u[1] = (char)(0x80 | (cp & 63));
-        else u[0] = (char)(0xe0 | cp >> 12), u[1] = (char)(0x80 | (cp >> 6 & 63)), u[2] = (char)(0x80 | (cp & 63));
-        text_line(u, em, 1, rgb, t, g, g, g / 6, g / 8);
-        int x0 = g, y0 = g, x1 = -1, y1 = -1;
-        for (int y = 0; y < g; y++)
-            for (int x = 0; x < g; x++)
-                if (t[4 * ((size_t)y * g + x) + 3] > 40) {
-                    x0 = x < x0 ? x : x0, x1 = x > x1 ? x : x1;
-                    y0 = y < y0 ? y : y0, y1 = y > y1 ? y : y1;
-                }
-        if (x1 >= 0) dx = g / 2 - (x0 + x1 + 1) / 2, dy = g / 2 - (y0 + y1 + 1) / 2;
-    }
-    art_blend(o, s, s, t, g, g, (int)lroundf(cx - g / 2.0f) + dx, (int)lroundf(cy - g / 2.0f) + dy);
+    text_glyph((int)cp, em, 1, rgb, t, g, g);
+    art_blend(o, s, s, t, g, g, (int)lroundf(cx - g / 2.0f), (int)lroundf(cy - g / 2.0f));
     free(t);
 }
 
@@ -256,13 +226,13 @@ static void tile_paint(int code, int s, uint8_t *o)
     if (!cp) return;                            /* a blank on a rack: plain */
     int blank = code & WT_BLANK, v = blank ? 0 : wt_value(P, code);
     float cx = blank ? 0.5f * s : 0.45f * s, cy = blank ? 0.47f * s : 0.45f * s;
-    glyph_at(o, s, cp, (blank ? 0.66f : 0.62f) * s, cx, cy, blank ? PALE_INK : INK, own_font());
+    glyph_at(o, s, cp, (blank ? 0.66f : 0.62f) * s, cx, cy, blank ? PALE_INK : INK);
     if (v > 0) {
         float em = 0.27f * s, x = 0.81f * s, y = 0.79f * s;
         if (v >= 10) {
-            glyph_at(o, s, '1', em, x - 0.15f * s, y, INK, 0);
-            glyph_at(o, s, '0' + v % 10, em, x + 0.02f * s, y, INK, 0);
-        } else glyph_at(o, s, '0' + v, em, x, y, INK, 0);
+            glyph_at(o, s, '1', em, x - 0.15f * s, y, INK);
+            glyph_at(o, s, '0' + v % 10, em, x + 0.02f * s, y, INK);
+        } else glyph_at(o, s, '0' + v, em, x, y, INK);
     }
 }
 

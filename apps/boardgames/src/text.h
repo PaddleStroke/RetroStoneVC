@@ -23,6 +23,7 @@ extern const int tx_nlangs;
 extern const tx_text tx_texts[];
 extern const int tx_ntexts;
 extern const unsigned char *const tx_glyph_font[2];   /* the boards' characters (help/glyphs.txt): regular, bold */
+extern const unsigned char *const tx_glyph_font2[2];  /* the ones the first lacks (DejaVu Sans; NULL: none) */
 
 /* the language: forced ("fr", "pt_BR"...), or NULL: the device's (English when it is none of the 22) */
 void text_init(const char *forced);
@@ -32,14 +33,19 @@ const char *text_lang(void);
 const char *text_get(const char *game);
 /* the game's name: the first line of its text (in buf); 0: none */
 int text_name(const char *game, char *buf, int size);
+/* a game's own short words, shown in the game (a bid, a call): help/<lang>/<id>_words.txt, its first line a title (for
+ * the translators), then a word or a few a line. Line i (0: the first after the title) of text `key` ("<id>_words";
+ * tarot's is "tarot_bids") into buf; 0: none. The shell draws one with ui_word(). */
+int text_word(const char *key, int i, char *buf, int size);
 
 /* a page: the text laid out to a width (pixels) with a font size (pixels): its first line as the title (bold,
  * larger), "# " headings (bold), "- " list items, paragraphs; colour rgb on a clear picture. Returns the height;
  * draws into rgba (w x h_max, cleared by the caller) when it is not NULL, only the rows in [y0, y0 + h_max). */
 int text_page(const char *s, int w, float px, const uint8_t rgb[3], uint8_t *rgba, int y0, int h_max);
 
-/* one character (a codepoint the boards draw: help/glyphs.txt keeps it in the fonts), bold or not, centred in a
- * w x h picture, its em `px` pixels: for pieces that carry a character (xiangqi, shogi). 0: no such glyph.
+/* one character (a codepoint the boards draw: help/glyphs.txt keeps it in the fonts), bold or not, centred on its ink
+ * in a w x h picture, its em `px` pixels: for pieces that carry a character (xiangqi, shogi, word tiles). 0: no such
+ * glyph.
  * Draw it into a CLEAR picture (the ink's coverage becomes the alpha), then art_blend() it onto the piece. */
 int text_glyph(int codepoint, float px, int bold, const uint8_t rgb[3], uint8_t *rgba, int w, int h);
 
