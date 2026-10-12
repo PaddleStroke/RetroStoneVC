@@ -1,24 +1,23 @@
 /*
  * Tents in RetroStone Board, for one player: the house plank ruled in cells, the trees painted on it, the rows' and
  * columns' tent counts burned along darker bands to the left and on top, amber tents and tufts of grass (the rules:
- * tents_rules.c; what the logic grids share: logicgrid.h).
+ * tents_rules.c; what the logic grids share: bench.h, bench_ui.h).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Tap a cell to pitch a tent (again: take it down); hold it a moment to put grass instead (a note: no tent here).
  * Drag along a row or a column to put grass in the cells of the stretch that were as the first one (or take it out of
- * a stretch of grass). The buttons at the right end of the bar: what a tap does (a tent, or grass: tap it to swap tap
- * and hold), and the hint (a wrong
- * cell put right, else the next cell reasoning finds, in gold light). Tents touching glow red, and so does a tree
- * left with no room for its tent; a count turns red past its tents and fades once they are all there. Undo takes
- * back one action, all the way to the start. The bar: the moves. Solved: a wave of gold light runs over the field.
+ * a stretch of grass). The shell's tools: what a tap does (a tent, or grass: tap it to swap tap and hold), and the
+ * hint (a wrong cell put right, else the next cell reasoning finds, in gold light). Tents touching glow red, and so
+ * does a tree left with no room for its tent; a count turns red past its tents and fades once they are all there.
+ * Undo takes back one action, all the way to the start. The bar: the moves. Solved: a wave of gold light runs over
+ * the field; the stars count the hints and the mistakes (bench.h).
  */
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "shell.h"
-#include "games/logicgrid.h"
-#include "games/puzzles.h"
+#include "games/bench_ui.h"
 #include "games/tents.h"
 
 #define BAND 0.72f                              /* the counts' bands, in cells */
@@ -27,20 +26,20 @@ static const uint8_t LEAF[3] = {72, 136, 80}, LEAF_DARK[3] = {34, 74, 44}, TRUNK
                      CANVAS[3] = {222, 160, 70}, CANVAS_DARK[3] = {120, 66, 30}, DOOR[3] = {64, 40, 26},
                      GRASS[3] = {104, 156, 64}, COUNT[3] = {44, 30, 20};
 
-enum { K_TENT, K_GRASS };                   /* the bar's mode button: what a tap puts */
+enum { K_TENT, K_GRASS };                       /* the mode tool: what a tap puts */
+enum { T_MODE, T_HINT, TOOLS };
 
 static tn_game G;
-static gl_geo geo;
-static gl_touch touch;
-static gl_light hint, win;
-static int grass;                               /* taps put grass (the bar's button) */
+static bench_geo geo;
+static bench_touch touch;
+static bench_flash hint, pop;
+static bench_wave win;
+static int grass;                               /* taps put grass (the mode tool) */
 static int serial;
-static struct { int cell; Uint32 t0; } pop = {-1, 0};
 
-static box last_box, barbox;
+static box last_box;
 static int made_key = -1, made_small = -1;
 static SDL_Texture *t_board, *t_tent, *t_grass, *t_small;
-static puz_font f_count;
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* a tree seen from the side: a round crown of leaves on a short trunk */
@@ -48,7 +47,7 @@ static void tree_pic(int size, uint8_t *o)
 {
     art_fig *f = art_fig_new();
     art_rect(f, ART_PART, 0.44f, 0.56f, 0.56f, 0.86f);
-    art_fig_paint(o, size, f, TRUNK, GL_DARK, 0.03f, 0.3f);
+    art_fig_paint(o, size, f, TRUNK, PUZ_INK, 0.03f, 0.3f);
     f = art_fig_new();
     art_ellipse(f, ART_PART, 0.35f, 0.5f, 0.2f, 0.18f);
     art_ellipse(f, ART_PART, 0.65f, 0.5f, 0.2f, 0.18f);
@@ -61,7 +60,7 @@ static void tent_pic(int size, uint8_t *o)
 {
     art_fig *f = art_fig_new();
     art_rect(f, ART_PART, 0.48f, 0.14f, 0.52f, 0.3f);
-    art_fig_paint(o, size, f, TRUNK, GL_DARK, 0.02f, 0);
+    art_fig_paint(o, size, f, TRUNK, PUZ_INK, 0.02f, 0);
     f = art_fig_new();
     const float body[] = {0.5f, 0.2f, 0.86f, 0.8f, 0.14f, 0.8f};
     art_poly(f, ART_PART, body, 3);
@@ -85,24 +84,26 @@ static void grass_pic(int size, uint8_t *o)
     art_fig_paint(o, size, f, GRASS, LEAF_DARK, 0.02f, 0.2f);
 }
 
-/* a picture made by paint(size, rgba) laid over another (S square) at (x, y), size across */
-static void pic_into(uint8_t *o, int S, void (*paint)(int, uint8_t *), float x, float y, int size)
+/* a picture made by paint(size, rgba) laid over another (w x h) at (x, y), size across */
+static void pic_into(uint8_t *o, int w, int h, void (*paint)(int, uint8_t *), float x, float y, int size)
 {
     uint8_t *b = calloc((size_t)size * size, 4);
     if (!b) return;
     paint(size, b);
-    art_blend(o, S, S, b, size, size, (int)lroundf(x), (int)lroundf(y));
+    art_blend(o, w, h, b, size, size, (int)lroundf(x), (int)lroundf(y));
     free(b);
 }
 
 /* the plank with its bands and its trees (a field's), into a picture laid out by g */
-static void paint_board(const gl_geo *g, const tn_puzzle *p, uint8_t *o)
+static void paint_field(const bench_geo *g, const tn_puzzle *p, uint8_t *o)
 {
-    gl_paint(g, o);
-    int S = (int)g->side, q = g->cs;
+    bench_paint_grid(g, o);
+    int q = g->cs;
     for (int c = 0; c < p->n * p->n; c++)
-        if (p->tree[c]) pic_into(o, S, tree_pic, g->ox + c % p->n * q, g->oy + c / p->n * q, q);
+        if (p->tree[c]) pic_into(o, g->w, g->h, tree_pic, g->ox + c % p->n * q, g->oy + c / p->n * q, q);
 }
+
+static void paint_board(const bench_geo *g, uint8_t *o) { paint_field(g, &G.p, o); }
 
 /* the token: a tent beside a tree on a wooden tile */
 static void token(int player, int size, uint8_t *rgba)
@@ -112,19 +113,19 @@ static void token(int player, int size, uint8_t *rgba)
     uint8_t *b = calloc((size_t)w * w, 4);
     if (!b) return;
     art_board_n(1, 1, w, 0, 0, b);
-    pic_into(b, w, tree_pic, w * 0.02f, w * 0.06f, d);
-    pic_into(b, w, tent_pic, w * 0.36f, w * 0.34f, d);
+    pic_into(b, w, w, tree_pic, w * 0.02f, w * 0.06f, d);
+    pic_into(b, w, w, tent_pic, w * 0.36f, w * 0.34f, d);
     puz_bevel(b, w, w, 0.12f * w, fmaxf(1, 0.06f * w), 0.3f);
     art_blend(rgba, size, size, b, w, w, o, o);
     free(b);
 }
 
-static void fit(gl_geo *g, int n, box b)
+static int fit(bench_geo *g, int n, box b)
 {
     g->cols = g->rows = n;
     g->lm = g->tm = BAND;
     g->rm = g->bm = 0;
-    gl_fit(g, b);
+    return bench_fit(g, b);
 }
 
 static SDL_Texture *pic_tex(void (*paint)(int, uint8_t *), int q)
@@ -137,37 +138,25 @@ static SDL_Texture *pic_tex(void (*paint)(int, uint8_t *), int q)
 static void layout(box b)
 {
     last_box = b;
-    int was = geo.cs;
-    fit(&geo, G.p.n, b);
-    int key = ((int)geo.side * 64 + serial % 64) * 16 + G.p.n;
-    if (was != geo.cs || made_key != key) {
+    int changed = fit(&geo, G.p.n, b), key = serial % 4096 * 16 + G.p.n;
+    if (changed || made_key != key) {
         made_key = key;
-        int S = (int)geo.side, q = geo.cs;
         ui_free(&t_board);
-        paint_board(&geo, &G.p, ui_buf(S, S));
-        t_board = ui_tex(S, S, ui_buf(S, S));
+        t_board = bench_tex(&geo, paint_board);
         ui_free(&t_tent);
-        t_tent = pic_tex(tent_pic, q);
+        t_tent = pic_tex(tent_pic, geo.cs);
         ui_free(&t_grass);
-        t_grass = pic_tex(grass_pic, q);
-        puz_font_make(&f_count, (int)(0.56f * q), 1);
+        t_grass = pic_tex(grass_pic, geo.cs);
     }
-    int small = (int)(0.6f * ui.unit);
-    if (made_small != small) {
-        made_small = small;
-        ui_free(&t_small);
-        memset(ui_buf(small, small), 0, (size_t)small * small * 4);
-        token(0, small, ui_buf(small, small));
-        t_small = ui_tex(small, small, ui_buf(small, small));
-    }
+    bench_small(&t_small, &made_small, token);
 }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
 static void calm(void)
 {
     memset(&touch, 0, sizeof touch);
-    hint.on = win.on = 0;
-    pop.cell = -1;
+    hint.at = pop.at = -1;
+    win.on = 0;
 }
 
 static void start(int variant)
@@ -181,13 +170,15 @@ static void start(int variant)
 
 static int status(void) { return tn_solved(&G) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
-static int busy(void) { return gl_wave_busy(&win, &geo); }
+static int busy(void) { return bench_wave_busy(&win); }
+static int score(void) { return G.hist.moves; }
+static int stars(void) { return ui_logic_stars(G.hist.hints, G.hist.mistakes); }
 
 static void after(int cell)
 {
     if (tn_solved(&G) && !win.on) {
-        gl_light_start(&win, cell);
-        hint.on = 0;
+        bench_wave_from(&win, cell, G.p.n, G.p.n);
+        hint.at = -1;
     }
     ui_animate();
 }
@@ -207,34 +198,38 @@ static int script(const char *moves)
     return ok;
 }
 
-/* ---- the board on the screen ------------------------------------------------------------------------------------- */
-static int preview(int c)
+/* ---- the marks: a tap a tent, a hold grass, a drag grass --------------------------------------------------------- */
+static int st_of(int c) { return G.st[c]; }
+static int free_of(int c) { return tn_free(&G, c); }
+static int tap_of(int c) { return tn_tap_state(&G, c); }
+static int hold_of(int c) { return tn_hold_state(&G, c); }
+static int paint(const int *cells, int n, int state) { return tn_paint(&G, cells, n, state); }
+static const bench_marks marks = {st_of, free_of, tap_of, hold_of, paint, NULL, 1};
+
+/* ---- the board on the screen, the tools -------------------------------------------------------------------------- */
+static void paint_button(int kind, int size, uint8_t *o)   /* what a tap puts: a tent, or grass */
 {
-    int a = touch.a;
-    if (!touch.on || !tn_free(&G, a) || !tn_free(&G, c)) return G.st[c];
-    if (touch.moved ? !gl_in_run(&geo, c, a, touch.b) || G.st[c] != G.st[a] : c != a) return G.st[c];
-    if (touch.moved) return tn_hold_state(&G, a);   /* a drag: marks */
-    return gl_holding(&touch) == grass ? tn_tap_state(&G, a) : tn_hold_state(&G, a);
+    (kind == K_TENT ? tent_pic : grass_pic)(size, o);
 }
 
 static void draw(void)
 {
     if (made_key < 0) layout(last_box);
     int n = G.p.n, q = geo.cs, solved = tn_solved(&G);
-    ui_put(t_board, geo.bx, geo.by, geo.side, geo.side);
+    ui_put(t_board, geo.bx, geo.by, (float)geo.w, (float)geo.h);
     static uint16_t real[TN_CELLS];
-    memcpy(real, G.st, sizeof real);            /* the field as the finger would leave it */
-    for (int c = 0; c < n * n; c++) G.st[c] = (uint16_t)preview(c);
+    bench_marks_show(&marks, &touch, &geo, grass, G.st, real, n * n);   /* the field as the finger would leave it */
     for (int way = 0; way < 2; way++)           /* the counts: red past their tents, faded with all of them */
         for (int i = 0; i < n; i++) {
             int want = G.p.count[way][i], have = tn_line_tents(&G, way, i);
             if (want < 0) continue;
             float x = way ? geo.gx + (i + 0.5f) * q : geo.gx - BAND * q / 2;
             float y = way ? geo.gy - BAND * q / 2 : geo.gy + (i + 0.5f) * q;
-            puz_number(&f_count, x, y, 0.56f * q, want, have > want ? GL_RED : COUNT, have == want ? 100 : 255);
+            ui_number_ex(x, y, 0.56f * q, want, have > want ? BENCH_RED : COUNT, have == want ? 100 : 255,
+                         UI_NUM_TIGHT);
         }
     for (int c = 0; c < n * n; c++) {
-        float mx = gl_mid_x(&geo, c), my = gl_mid_y(&geo, c);
+        float mx = bench_mid_x(&geo, c), my = bench_mid_y(&geo, c);
         if (G.p.tree[c]) {
             if (!solved && tn_tree_lost(&G, c)) ui_mark_glow(mx, my, 1.25f * q);
             continue;
@@ -242,94 +237,61 @@ static void draw(void)
         if (G.st[c] == TN_GRASS) ui_put_c(t_grass, mx, my, (float)q, (float)q);
         if (G.st[c] != TN_TENT) continue;
         if (!solved && tn_touching(&G, c)) ui_mark_glow(mx, my, 1.25f * q);
-        float s = c == pop.cell ? gl_pop(pop.t0) : 1;
+        float s = bench_pop(&pop, c, 0.35f);
         ui_shadow_flat(mx + 0.04f * q, my + 0.22f * q * s, 0.7f * q * s, 0.24f * q * s, 0.55f);
         ui_put_c(t_tent, mx, my, q * s, q * s);
     }
-    memcpy(G.st, real, sizeof real);
-    gl_touch_ring(&touch, &geo);
-    gl_hint_draw(&hint, &geo);
-    gl_wave_draw(&win, &geo);
+    bench_marks_back(G.st, real, n * n);
+    bench_touch_ring(&touch, &geo);
+    if (hint.at >= 0) bench_glow(&hint, bench_mid_x(&geo, hint.at), bench_mid_y(&geo, hint.at), 2.6f * q);
+    bench_wave_cells(&win, &geo, 2.3f);
+    ui_tool_paint(T_MODE, paint_button, grass ? K_GRASS : K_TENT, 0.72f, solved ? UI_DIM : grass ? UI_ON : 0);
+    ui_tool(T_HINT, ICON_HINT, solved ? UI_DIM : 0);
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
-static void press(float x, float y)
+static void tool(int t)
 {
-    if (tn_solved(&G)) return;
-    gl_press(&touch, &geo, x, y);
+    if (t == T_MODE) {
+        grass = !grass;
+        ui_sound(SND_TAP);
+        ui_animate();
+        return;
+    }
+    int c = tn_hint(&G);
+    if (c < 0) { ui_sound(SND_DENY); return; }
+    bench_flash_start(&hint, c);
+    bench_flash_start(&pop, c);
+    ui_sound(SND_PLACE);
+    after(c);
 }
 
-static void motion(float x, float y) { gl_motion(&touch, &geo, x, y, 1); }
+static void press(float x, float y)
+{
+    memset(&touch, 0, sizeof touch);
+    if (tn_solved(&G)) return;
+    int t = ui_tool_hit(x, y);
+    if (t >= 0) { tool(t); return; }
+    bench_press(&touch, &geo, x, y);
+}
+
+static void motion(float x, float y) { bench_motion(&touch, &geo, x, y, 1); }
 
 static void release(float x, float y)
 {
     (void)x;
     (void)y;
-    int a = touch.a, kind = gl_release(&touch);
-    if (kind == GL_NOTHING) return;
-    if (!tn_free(&G, a)) { ui_sound(SND_DENY); return; }
-    int mark = kind >= GL_DRAG || (kind == GL_HOLD) != grass;   /* a drag marks; the button swaps tap and hold */
-    int to = mark ? tn_hold_state(&G, a) : tn_tap_state(&G, a), cells[TN_MAX], k = 0, run[TN_MAX];
-    int nr = kind >= GL_DRAG ? gl_run(&geo, a, touch.b, run) : (run[0] = a, 1);
-    for (int i = 0; i < nr; i++)
-        if (tn_free(&G, run[i]) && G.st[run[i]] == G.st[a]) cells[k++] = run[i];
-    if (!tn_paint(&G, cells, k, to)) return;
-    if (to == TN_TENT) {
-        pop.cell = a;
-        pop.t0 = ui_ms();
-    }
+    int to, a = bench_marks_release(&marks, &touch, &geo, grass, &to);
+    if (a < 0) return;
+    if (to == TN_TENT) bench_flash_start(&pop, a);
     ui_sound(to == TN_TENT ? SND_PLACE : SND_TAP);
     after(a);
 }
 
-/* ---- the bar: the moves; what a tap does, the hint ------------------------------------------------------------- */
-static void paint_button(int kind, int size, uint8_t *o)   /* what a tap puts: a tent, or grass */
-{
-    (kind == K_TENT ? tent_pic : grass_pic)(size, o);
-}
-
-static float btn_d;                             /* the bar's buttons' size, as fitted */
-
 static void bar(int player, box b)
 {
     (void)player;
-    barbox = b;
-    ui_count moves = {t_small, G.hist.moves};
-    btn_d = ui_bar_fit(b, &moves, 1, 2);         /* the moves, the two buttons: fitted to the bar */
-    if (tn_solved(&G)) return;
-    float x, y;
-    ui_bar_spot(b, 1, btn_d, &x, &y);
-    ui_button_paint(x, y, btn_d, paint_button, grass ? K_GRASS : K_TENT, 0.72f, grass ? UI_ON : 0);
-    ui_bar_spot(b, 0, btn_d, &x, &y);
-    ui_button(x, y, btn_d, ICON_HINT, 0);
-}
-
-static int bar_hit(int i, float x, float y)
-{
-    float cx, cy;
-    ui_bar_spot(barbox, i, btn_d, &cx, &cy);
-    return barbox.w > 0 && ui_button_hit(cx, cy, btn_d, x, y);
-}
-
-static int bar_press(int player, float x, float y)
-{
-    (void)player;
-    if (tn_solved(&G)) return 0;
-    if (bar_hit(1, x, y)) {
-        grass = !grass;
-        ui_sound(SND_TAP);
-        ui_animate();
-        return 1;
-    }
-    if (!bar_hit(0, x, y)) return 0;
-    int c = tn_hint(&G);
-    if (c < 0) { ui_sound(SND_DENY); return 1; }
-    gl_light_start(&hint, c);
-    pop.cell = c;
-    pop.t0 = ui_ms();
-    ui_sound(SND_PLACE);
-    after(c);
-    return 1;
+    bench_bar_moves(b, t_small, G.hist.moves);
 }
 
 /* ---- the menu's and the picker's cards: a field of the size with its tents (the menu's: half of them) ------------
@@ -340,24 +302,25 @@ static void field_pic(int v, int size, int side, int half, uint8_t *rgba)
     tn_puzzle p;
     uint8_t sol[TN_CELLS];
     tn_make(tn_size(v), tn_level(v), 2026u + (uint32_t)v, &p, sol);
-    gl_geo g;
+    bench_geo g;
     memset(&g, 0, sizeof g);
     fit(&g, p.n, (box){0, 0, (float)side, (float)side});
-    uint8_t *b = calloc((size_t)side * side, 4);
+    uint8_t *b = calloc((size_t)g.w * g.h, 4);
     if (!b) return;
-    paint_board(&g, &p, b);
+    paint_field(&g, &p, b);
     int n = p.n, q = g.cs;
     for (int c = 0; c < n * n; c++)
         if (sol[c] && (!half || c < n * n / 2))
-            pic_into(b, side, tent_pic, g.ox + c % n * q, g.oy + c / n * q, q);
+            pic_into(b, g.w, g.h, tent_pic, g.ox + c % n * q, g.oy + c / n * q, q);
     if (q >= 9)
         for (int way = 0; way < 2; way++)
             for (int i = 0; i < n; i++) {
                 float x = way ? g.ox + (i + 0.5f) * q : g.ox - BAND * q / 2;
                 float y = way ? g.oy - BAND * q / 2 : g.oy + (i + 0.5f) * q;
-                puz_digits(b, side, side, p.count[way][i], x, y, 0.56f * q, COUNT, 1, 1);
+                puz_digits(b, g.w, g.h, p.count[way][i], x, y, 0.56f * q, COUNT, 1, 1);
             }
-    art_blend(rgba, size, size, b, side, side, (size - side) / 2, half ? (size - side) / 2 : 0);
+    int ox = (size - side) / 2 + (int)g.bx, oy = (half ? (size - side) / 2 : 0) + (int)g.by;
+    art_blend(rgba, size, size, b, g.w, g.h, ox, oy);
     free(b);
 }
 
@@ -366,7 +329,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
 {
     int v = variant < 0 ? 1 : variant, side = variant < 0 ? size : (int)(0.84f * size);
     field_pic(v, size, side, variant < 0, rgba);
-    if (variant >= 0) gl_stones(rgba, size, tn_level(v), side);
+    if (variant >= 0) bench_stones(rgba, size, side, tn_level(v));
 }
 
 /* the picker's sizes: the field at the medium level, the whole card */
@@ -376,7 +339,8 @@ static const game tents_game = {
     .id = "tents", .order = 412, .variants = TN_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1,
     .axes = {TN_SIZES, 3}, .axis_pic = {size_pic, NULL},
+    .score = score, .level_stars = stars, .fill = 1, .tools = TOOLS,
 };
 REGISTER_GAME(tents_game)

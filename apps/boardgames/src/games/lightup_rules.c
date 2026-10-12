@@ -67,13 +67,13 @@ static void ctx_make(ctx *k, const lu_puzzle *p)
             }
 }
 
-static void grid_of(const ctx *k, gl_grid *g)
+static void grid_of(const ctx *k, bench_grid *g)
 {
     memset(g, 0, sizeof *g);
     for (int c = 0; c < k->cells; c++) g->d[c] = (uint8_t)(white(k->p, c) ? BOTH : OFF);
 }
 
-static int lit(const ctx *k, const gl_grid *g, int c)
+static int lit(const ctx *k, const bench_grid *g, int c)
 {
     if (g->d[c] == ON) return 1;
     for (int i = 0; i < k->nsee[c]; i++)
@@ -82,7 +82,7 @@ static int lit(const ctx *k, const gl_grid *g, int c)
 }
 
 /* the lamps and the free cells of every stretch of white cells (a row's or a column's, between walls) */
-static void tally(const ctx *k, const gl_grid *g, uint8_t *lamps, uint8_t *free_)
+static void tally(const ctx *k, const bench_grid *g, uint8_t *lamps, uint8_t *free_)
 {
     memset(lamps, 0, (size_t)k->nsegs);
     memset(free_, 0, (size_t)k->nsegs);
@@ -96,7 +96,7 @@ static void tally(const ctx *k, const gl_grid *g, uint8_t *lamps, uint8_t *free_
 }
 
 /* easy: a lamp's lines; the numbers' counts; a dark cell with one cell left to light it */
-static int easy(gl_grid *g, const ctx *k)
+static int easy(bench_grid *g, const ctx *k)
 {
     int ch = 0;
     uint8_t lamps[2 * LU_CELLS], free_[2 * LU_CELLS];
@@ -145,7 +145,7 @@ static int easy(gl_grid *g, const ctx *k)
 
 /* medium: a lamp tried in a free cell, only its own light followed (the cells it sees can hold no lamp): a number
  * left short of room, or a dark cell it does not light left with no lamp to light it, rules the cell out */
-static int medium(gl_grid *g, const ctx *k)
+static int medium(bench_grid *g, const ctx *k)
 {
     static uint8_t is_lit[LU_CELLS], src[LU_CELLS];
     static int seen_by[LU_CELLS], killed[LU_CELLS], stamp[LU_CELLS], dec[LU_CELLS], serial;
@@ -197,12 +197,12 @@ static int medium(gl_grid *g, const ctx *k)
     return 0;
 }
 
-static int deduce(gl_grid *g, int tier, const void *c)
+static int deduce(bench_grid *g, int tier, void *c)
 {
     return tier ? medium(g, (const ctx *)c) : easy(g, (const ctx *)c);
 }
 
-static int valid(const gl_grid *g, const void *c)
+static int valid(const bench_grid *g, void *c)
 {
     const ctx *k = c;
     for (int i = 0; i < k->cells; i++) {
@@ -220,37 +220,38 @@ static int valid(const gl_grid *g, const void *c)
     return 1;
 }
 
-static gl_rules rules_of(const ctx *k, long *work)
+static bench_rules rules_of(ctx *k, long *work)
 {
-    return (gl_rules){k->cells, 2, 1, deduce, valid, k, work};
+    return (bench_rules){.vars = k->cells, .tiers = 2, .probe_tiers = 1,
+                        .deduce = deduce, .valid = valid, .ctx = k, .work = work};
 }
 
 /* the grade, no further than the cap; the solution in sol (may be NULL), where the reasoning ended in end (may be
  * NULL) */
-static int grade_work(const lu_puzzle *p, uint8_t *sol, long *work, int cap, gl_grid *end)
+static int grade_work(const lu_puzzle *p, uint8_t *sol, long *work, int cap, bench_grid *end)
 {
     static ctx k;
     ctx_make(&k, p);
-    gl_rules r = rules_of(&k, work);
-    gl_grid g, out;
+    bench_rules r = rules_of(&k, work);
+    bench_grid g;
     grid_of(&k, &g);
-    int lv = gl_grade_upto(&g, &r, &out, cap);
-    if (sol && lv >= GL_EASY && lv <= GL_HARD)
-        for (int c = 0; c < k.cells; c++) sol[c] = out.d[c] == ON;
-    if (end) *end = out;
+    int lv = bench_grade(&g, &r, cap);
+    if (sol && lv >= BENCH_EASY && lv <= BENCH_HARD)
+        for (int c = 0; c < k.cells; c++) sol[c] = g.d[c] == ON;
+    if (end) *end = g;
     return lv;
 }
 
-int lu_grade(const lu_puzzle *p, uint8_t *sol) { return grade_work(p, sol, NULL, GL_HARD, NULL); }
+int lu_grade(const lu_puzzle *p, uint8_t *sol) { return grade_work(p, sol, NULL, BENCH_HARD, NULL); }
 
 int lu_count(const lu_puzzle *p, int limit)
 {
     static ctx k;
     ctx_make(&k, p);
-    gl_rules r = rules_of(&k, NULL);
-    gl_grid g;
+    bench_rules r = rules_of(&k, NULL);
+    bench_grid g;
     grid_of(&k, &g);
-    return gl_search(&g, &r, limit, NULL, NULL, 0);
+    return bench_search(&g, &r, limit, NULL, NULL, 0);
 }
 
 /* ---- making a puzzle --------------------------------------------------------------------------------------------- */
@@ -261,7 +262,7 @@ static void light(lu_puzzle *p, uint32_t *s, uint8_t *sol)
     static ctx k;
     int cells = p->n * p->n, order[LU_CELLS];
     ctx_make(&k, p);
-    gl_grid g;
+    bench_grid g;
     grid_of(&k, &g);
     for (int c = 0; c < cells; c++)
         if (white(p, c) && sol[c]) g.d[c] = ON;
@@ -328,17 +329,17 @@ static void maker_clue(void *u, int c, int on)
 void lu_make(int n, int level, uint32_t seed, lu_puzzle *p, uint8_t *sol)
 {
     if (n < 4 || n > LU_MAX) n = 7;
-    if (level < GL_EASY || level > GL_HARD) level = GL_EASY;
+    if (level < BENCH_EASY || level > BENCH_HARD) level = BENCH_EASY;
     uint32_t s = pr_seed(seed);
     long work = 0;
     lu_puzzle best, q;
     uint8_t best_sol[LU_CELLS], qs[LU_CELLS];
     int best_lv = -2;
     maker m = {&q, {0}, &work};
-    gl_maker mk = {&m, maker_grade, maker_clue};
+    bench_maker mk = {&m, maker_grade, maker_clue};
     for (int attempt = 0; attempt < 3000; attempt++) {
         layout(n, &s, &q, qs);                  /* every wall numbered: solvable within the level? */
-        gl_grid end;
+        bench_grid end;
         int lv = grade_work(&q, NULL, &work, level, &end);
         for (int fix = 0; fix < n && lv > level; fix++) {   /* stuck: a wall where it is stuck (no lamp) */
             int stuck[LU_CELLS], ns = 0;
@@ -348,19 +349,19 @@ void lu_make(int n, int level, uint32_t seed, lu_puzzle *p, uint8_t *sol)
             wall_in(&q, &s, qs, stuck[pr_below(&s, ns)]);
             lv = grade_work(&q, NULL, &work, level, &end);
         }
-        if (lv < GL_EASY || lv > level) continue;
+        if (lv < BENCH_EASY || lv > level) continue;
         int order[LU_CELLS], nw = 0;
         for (int c = 0; c < n * n; c++)
             if (q.wall[c] >= 0) order[nw++] = c;
         memcpy(m.num, q.wall, sizeof m.num);
         pr_shuffle(&s, order, nw);
-        lv = gl_reduce(&mk, order, nw, level, &work, MAKE_LIMIT);
+        lv = bench_reduce(&mk, order, nw, level, &work, MAKE_LIMIT);
         if (lv > best_lv && lv <= level) {
             best_lv = lv;
             best = q;
             memcpy(best_sol, qs, sizeof best_sol);
         }
-        if (best_lv == level || (work >= MAKE_LIMIT && best_lv >= GL_EASY)) break;
+        if (best_lv == level || (work >= MAKE_LIMIT && best_lv >= BENCH_EASY)) break;
     }
     *p = best;
     memcpy(sol, best_sol, (size_t)n * n);
@@ -393,17 +394,26 @@ int lu_white(const lu_game *g, int c) { return c >= 0 && c < g->p.n * g->p.n && 
 int lu_tap_state(const lu_game *g, int c) { return g->st[c] == LU_LAMP ? LU_EMPTY : LU_LAMP; }
 int lu_hold_state(const lu_game *g, int c) { return g->st[c] == LU_DOT ? LU_EMPTY : LU_DOT; }
 
+/* the wrong marks on the board: a lamp the solution has not, a dot where it has one (the stars' mistakes) */
+static int wrongs(const lu_game *g)
+{
+    int k = 0;
+    for (int c = 0; c < g->p.n * g->p.n; c++)
+        k += white(&g->p, c) && g->st[c] != LU_EMPTY && (g->st[c] == LU_LAMP) != g->sol[c];
+    return k;
+}
+
 int lu_paint(lu_game *g, const int *cells, int n, int state)
 {
-    gl_begin(&g->hist, n);
+    bench_begin(&g->hist, n);
     for (int i = 0; i < n; i++)
-        if (lu_white(g, cells[i])) gl_set(&g->hist, g->st, cells[i], state);
-    return gl_end(&g->hist);
+        if (lu_white(g, cells[i])) bench_set(&g->hist, g->st, cells[i], state);
+    return bench_done(&g->hist, wrongs(g));
 }
 
 static int put(lu_game *g, int c, int state) { return lu_paint(g, &c, 1, state); }
 
-int lu_hint(lu_game *g)
+static int hint_step(lu_game *g)
 {
     int cells = g->p.n * g->p.n;
     for (int c = 0; c < cells; c++)             /* a wrong cell first */
@@ -411,12 +421,12 @@ int lu_hint(lu_game *g)
             return put(g, c, g->sol[c] ? LU_LAMP : LU_DOT) ? c : -1;
     static ctx k;
     ctx_make(&k, &g->p);
-    gl_rules r = rules_of(&k, NULL);
-    gl_grid d;
+    bench_rules r = rules_of(&k, NULL);
+    bench_grid d;
     grid_of(&k, &d);
     for (int c = 0; c < cells; c++)
         if (white(&g->p, c) && g->st[c] != LU_EMPTY) d.d[c] = (uint8_t)(g->sol[c] ? ON : OFF);
-    int c = gl_next(&d, &r);
+    int c = bench_next(&d, &r);
     if (c < 0)
         for (int i = 0; i < cells && c < 0; i++)
             if (white(&g->p, i) && g->st[i] == LU_EMPTY) c = i;
@@ -424,7 +434,18 @@ int lu_hint(lu_game *g)
     return put(g, c, g->sol[c] ? LU_LAMP : LU_DOT) ? c : -1;
 }
 
-int lu_undo(lu_game *g) { return gl_undo(&g->hist, g->st); }
+int lu_hint(lu_game *g)
+{
+    return bench_hinted(&g->hist, hint_step(g));
+}
+
+int lu_undo(lu_game *g)
+{
+    int c = bench_undo_cells(&g->hist, g->st);
+    bench_undone(&g->hist, wrongs(g));
+    return c;
+}
+
 
 static int lamp(const lu_game *g, int x, int y) { return g->st[y * g->p.n + x] == LU_LAMP; }
 
@@ -484,12 +505,12 @@ int lu_script(lu_game *g, const char *s)
         }
         int hold = *s == '.', len = 0;
         if (hold) s++;
-        int a = gl_cell(s, n, n, &len);
+        int a = bench_cell(s, n, n, &len);
         if (a < 0 || !white(&g->p, a)) return 0;
         s += len;
         int b = a;
         if (*s == '-') {
-            b = gl_cell(s + 1, n, n, &len);
+            b = bench_cell(s + 1, n, n, &len);
             if (b < 0 || (b % n != a % n && b / n != a / n)) return 0;
             s += 1 + len;
         }

@@ -6,7 +6,7 @@
  *
  * The variants: 7 x 7, 10 x 10, 14 x 14, each easy, medium or hard (variant = size * 3 + level). A puzzle is made
  * from a seed: walls by chance (the same turned half round), lamps put where it is still dark until all is lit, every
- * wall numbered, then numbers taken away as long as the solver (logicgrid.h) still solves it within its level. The
+ * wall numbered, then numbers taken away as long as the solver (bench.h) still solves it within its level. The
  * ways of reasoning (lu_rules), by level:
  *   easy: a lamp's lines hold no other lamp; a number with as many free cells round it as it lacks lamps, or with its
  *     lamps all there; a dark cell that only one free cell can still light;
@@ -25,7 +25,7 @@
 
 #include <stdint.h>
 
-#include "games/logicgrid.h"
+#include "games/bench.h"
 
 #define LU_SIZES 3
 #define LU_VARIANTS (LU_SIZES * 3)
@@ -47,13 +47,13 @@ typedef struct {
     uint32_t seed;
     uint8_t sol[LU_CELLS];                      /* 1: a lamp in the solution */
     uint16_t st[LU_CELLS];                      /* LU_EMPTY, LU_LAMP, LU_DOT */
-    gl_hist hist;
+    bench_hist hist;
 } lu_game;
 
 int  lu_size(int variant);                      /* 7, 10, 14 */
-int  lu_level(int variant);                     /* GL_EASY .. GL_HARD */
+int  lu_level(int variant);                     /* BENCH_EASY .. BENCH_HARD */
 
-int  lu_grade(const lu_puzzle *p, uint8_t *sol);   /* GL_* (the solution in sol when it solves it; may be NULL) */
+int  lu_grade(const lu_puzzle *p, uint8_t *sol); /* BENCH_* (the solution in sol when it solves it; may be NULL) */
 int  lu_count(const lu_puzzle *p, int limit);   /* the solutions, up to limit */
 void lu_make(int n, int level, uint32_t seed, lu_puzzle *p, uint8_t *sol);
 

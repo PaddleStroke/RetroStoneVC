@@ -50,7 +50,7 @@ static void line_of(const ctx *k, int l, int *cells, int *a, int *b)
 }
 
 /* easy */
-static int easy(gl_grid *g, const ctx *k)
+static int easy(bench_grid *g, const ctx *k)
 {
     int n = k->n, ch = 0, all = (1 << n) - 1;
     for (int edge = 0; edge < 4; edge++)        /* the edge numbers */
@@ -71,12 +71,12 @@ static int easy(gl_grid *g, const ctx *k)
         unsigned used = 0;
         for (int j = 0; j < n; j++) {           /* a height used: not elsewhere */
             uint8_t d = g->d[cells[j]];
-            if (!gl_one(d)) continue;
+            if (!bench_one(d)) continue;
             if (used & d) return -1;
             used |= d;
         }
         for (int j = 0; j < n; j++)
-            if (!gl_one(g->d[cells[j]]) && (g->d[cells[j]] & used)) g->d[cells[j]] &= (uint8_t)~used, ch = 1;
+            if (!bench_one(g->d[cells[j]]) && (g->d[cells[j]] & used)) g->d[cells[j]] &= (uint8_t)~used, ch = 1;
         for (int h = 0; h < n; h++) {           /* a height with one place */
             int places = 0, last = -1;
             for (int j = 0; j < n; j++)
@@ -87,8 +87,8 @@ static int easy(gl_grid *g, const ctx *k)
         uint8_t hs[SKY_MAX];                    /* a full line: its numbers */
         int full = 1;
         for (int j = 0; j < n; j++) {
-            full &= gl_one(g->d[cells[j]]);
-            hs[j] = (uint8_t)(gl_low(g->d[cells[j]]) + 1);
+            full &= bench_one(g->d[cells[j]]);
+            hs[j] = (uint8_t)(bench_low(g->d[cells[j]]) + 1);
         }
         if (!full) continue;
         if (a && sky_seen(hs, n) != a) return -1;
@@ -128,7 +128,7 @@ static void order_from(orders *o, int pos, unsigned used, int top, int seen)
         return;
     }
     for (unsigned m = o->dom[pos] & ~used; m; m &= m - 1) {
-        int h = gl_low(m) + 1, s = seen + (h > top), t = h > top ? h : top;
+        int h = bench_low(m) + 1, s = seen + (h > top), t = h > top ? h : top;
         if (o->a) {
             if (s > o->a) continue;
             int higher = 0;                     /* the most it can still see: the heights above t left */
@@ -142,7 +142,7 @@ static void order_from(orders *o, int pos, unsigned used, int top, int seen)
 }
 
 /* medium: a line seen whole */
-static int medium(gl_grid *g, const ctx *k)
+static int medium(bench_grid *g, const ctx *k)
 {
     int n = k->n;
     for (int l = 0; l < 2 * n; l++) {
@@ -151,7 +151,7 @@ static int medium(gl_grid *g, const ctx *k)
         uint8_t dom[SKY_MAX];
         for (int j = 0; j < n; j++) {
             dom[j] = g->d[cells[j]];
-            open += !gl_one(dom[j]);
+            open += !bench_one(dom[j]);
         }
         if (!open) continue;
         orders o;
@@ -168,12 +168,12 @@ static int medium(gl_grid *g, const ctx *k)
     return 0;
 }
 
-static int deduce(gl_grid *g, int tier, const void *c)
+static int deduce(bench_grid *g, int tier, void *c)
 {
     return tier ? medium(g, (const ctx *)c) : easy(g, (const ctx *)c);
 }
 
-static int valid(const gl_grid *g, const void *cv)
+static int valid(const bench_grid *g, void *cv)
 {
     const ctx *k = cv;
     for (int l = 0; l < 2 * k->n; l++) {
@@ -182,9 +182,9 @@ static int valid(const gl_grid *g, const void *cv)
         uint8_t hs[SKY_MAX], rev[SKY_MAX];
         unsigned used = 0;
         for (int j = 0; j < k->n; j++) {
-            if (!gl_one(g->d[cells[j]]) || (used & g->d[cells[j]])) return 0;
+            if (!bench_one(g->d[cells[j]]) || (used & g->d[cells[j]])) return 0;
             used |= g->d[cells[j]];
-            hs[j] = (uint8_t)(gl_low(g->d[cells[j]]) + 1);
+            hs[j] = (uint8_t)(bench_low(g->d[cells[j]]) + 1);
         }
         for (int j = 0; j < k->n; j++) rev[j] = hs[k->n - 1 - j];
         if ((a && sky_seen(hs, k->n) != a) || (b && sky_seen(rev, k->n) != b)) return 0;
@@ -192,14 +192,15 @@ static int valid(const gl_grid *g, const void *cv)
     return 1;
 }
 
-static void setup(ctx *k, const sky_puzzle *p, gl_rules *r, long *work)
+static void setup(ctx *k, const sky_puzzle *p, bench_rules *r, long *work)
 {
     k->p = p;
     k->n = p->n;
-    *r = (gl_rules){p->n * p->n, 2, 1, deduce, valid, k, work};
+    *r = (bench_rules){.vars = p->n * p->n, .tiers = 2, .probe_tiers = 1,
+                      .deduce = deduce, .valid = valid, .ctx = k, .work = work};
 }
 
-static void grid_of(const sky_puzzle *p, gl_grid *g)
+static void grid_of(const sky_puzzle *p, bench_grid *g)
 {
     memset(g, 0, sizeof *g);
     for (int c = 0; c < p->n * p->n; c++) g->d[c] = (uint8_t)(p->given[c] ? 1u << (p->given[c] - 1) : (1u << p->n) - 1);
@@ -208,26 +209,26 @@ static void grid_of(const sky_puzzle *p, gl_grid *g)
 static int grade_work(const sky_puzzle *p, uint8_t *sol, long *work, int cap)
 {
     ctx k;
-    gl_rules r;
+    bench_rules r;
     setup(&k, p, &r, work);
-    gl_grid g, out;
+    bench_grid g;
     grid_of(p, &g);
-    int lv = gl_grade_upto(&g, &r, &out, cap);
-    if (sol && lv >= GL_EASY && lv <= GL_HARD)
-        for (int c = 0; c < p->n * p->n; c++) sol[c] = (uint8_t)(gl_low(out.d[c]) + 1);
+    int lv = bench_grade(&g, &r, cap);
+    if (sol && lv >= BENCH_EASY && lv <= BENCH_HARD)
+        for (int c = 0; c < p->n * p->n; c++) sol[c] = (uint8_t)(bench_low(g.d[c]) + 1);
     return lv;
 }
 
-int sky_grade(const sky_puzzle *p, uint8_t *sol) { return grade_work(p, sol, NULL, GL_HARD); }
+int sky_grade(const sky_puzzle *p, uint8_t *sol) { return grade_work(p, sol, NULL, BENCH_HARD); }
 
 int sky_count(const sky_puzzle *p, int limit)
 {
     ctx k;
-    gl_rules r;
+    bench_rules r;
     setup(&k, p, &r, NULL);
-    gl_grid g;
+    bench_grid g;
     grid_of(p, &g);
-    return gl_search(&g, &r, limit, NULL, NULL, 0);
+    return bench_search(&g, &r, limit, NULL, NULL, 0);
 }
 
 /* ---- making a puzzle --------------------------------------------------------------------------------------------- */
@@ -257,7 +258,7 @@ static void maker_clue(void *u, int i, int on)
 void sky_make(int n, int level, uint32_t seed, sky_puzzle *p, uint8_t *sol)
 {
     if (n < 3 || n > SKY_MAX) n = 4;
-    if (level < GL_EASY || level > GL_HARD) level = GL_EASY;
+    if (level < BENCH_EASY || level > BENCH_HARD) level = BENCH_EASY;
     uint32_t s = pr_seed(seed);
     long work = 0;
     sky_puzzle best, q;
@@ -267,17 +268,17 @@ void sky_make(int n, int level, uint32_t seed, sky_puzzle *p, uint8_t *sol)
     memset(&m, 0, sizeof m);
     m.q = &q;
     m.work = &work;
-    gl_maker mk = {&m, maker_grade, maker_clue};
+    bench_maker mk = {&m, maker_grade, maker_clue};
     for (int attempt = 0; attempt < 400; attempt++) {
         memset(&q, 0, sizeof q);                /* a town by chance */
         q.n = n;
         ctx k;
-        gl_rules r;
+        bench_rules r;
         setup(&k, &q, &r, &work);
-        gl_grid g, full;
+        bench_grid g, full;
         grid_of(&q, &g);
-        if (gl_search(&g, &r, 1, &full, &s, work + 4000) != 1) continue;
-        for (int c = 0; c < cells; c++) m.sol[c] = (uint8_t)(gl_low(full.d[c]) + 1);
+        if (bench_search(&g, &r, 1, &full, &s, work + 4000) != 1) continue;
+        for (int c = 0; c < cells; c++) m.sol[c] = (uint8_t)(bench_low(full.d[c]) + 1);
         for (int edge = 0; edge < 4; edge++)    /* every number told */
             for (int i = 0; i < n; i++) {
                 uint8_t hs[SKY_MAX];
@@ -288,23 +289,23 @@ void sky_make(int n, int level, uint32_t seed, sky_puzzle *p, uint8_t *sol)
         for (int c = 0; c < cells; c++) cell_order[c] = c;
         pr_shuffle(&s, cell_order, cells);
         int lv = grade_work(&q, NULL, &work, level);
-        for (int i = 0; i < cells && (lv < GL_EASY || lv > level); i++) {   /* heights given, if need be */
+        for (int i = 0; i < cells && (lv < BENCH_EASY || lv > level); i++) {   /* heights given, if need be */
             q.given[cell_order[i]] = m.sol[cell_order[i]];
             lv = grade_work(&q, NULL, &work, level);
         }
-        if (lv < GL_EASY || lv > level) continue;
+        if (lv < BENCH_EASY || lv > level) continue;
         for (int i = 0; i < cells; i++)         /* the heights first: a town told by its edges is nicer */
             if (q.given[cell_order[i]]) order[no++] = 4 * n + cell_order[i];
         int first_edge = no;
         for (int i = 0; i < 4 * n; i++) order[no++] = i;
         pr_shuffle(&s, order + first_edge, 4 * n);
-        lv = gl_reduce(&mk, order, no, level, &work, 3 * MAKE_BUDGET);
+        lv = bench_reduce(&mk, order, no, level, &work, 3 * MAKE_BUDGET);
         if (lv > best_lv && lv <= level) {
             best_lv = lv;
             best = q;
             memcpy(best_sol, m.sol, sizeof best_sol);
         }
-        if (best_lv == level || (work >= 3 * MAKE_BUDGET && best_lv >= GL_EASY)) break;   /* past it: the nearest */
+        if (best_lv == level || (work >= 3 * MAKE_BUDGET && best_lv >= BENCH_EASY)) break;   /* past it: the nearest */
     }
     *p = best;
     memcpy(sol, best_sol, (size_t)cells);
@@ -343,36 +344,45 @@ int sky_free(const sky_game *g, int c) { return c >= 0 && c < g->p.n * g->p.n &&
 
 static int same_line(int n, int a, int b) { return a != b && (a / n == b / n || a % n == b % n); }
 
+/* the wrong entries on the board (the stars' mistakes) */
+static int wrongs(const sky_game *g)
+{
+    int k = 0;
+    for (int c = 0; c < g->p.n * g->p.n; c++)
+        k += sky_free(g, c) && SKY_HEIGHT(g->st[c]) && SKY_HEIGHT(g->st[c]) != g->sol[c];
+    return k;
+}
+
 int sky_put(sky_game *g, int c, int h)
 {
     int n = g->p.n;
     if (!sky_free(g, c) || h < 0 || h > n || g->st[c] == h) return 0;
-    gl_begin(&g->hist, 2 * n);
-    gl_set(&g->hist, g->st, c, h);
+    bench_begin(&g->hist, 2 * n);
+    bench_set(&g->hist, g->st, c, h);
     if (h)
         for (int o = 0; o < n * n; o++)
             if (same_line(n, c, o) && !SKY_HEIGHT(g->st[o]) && SKY_NOTE(g->st[o], h))
-                gl_set(&g->hist, g->st, o, g->st[o] & ~(1u << (3 + h)));
-    return gl_end(&g->hist);
+                bench_set(&g->hist, g->st, o, g->st[o] & ~(1u << (3 + h)));
+    return bench_done(&g->hist, wrongs(g));
 }
 
 int sky_note(sky_game *g, int c, int h)
 {
     if (!sky_free(g, c) || h < 1 || h > g->p.n || SKY_HEIGHT(g->st[c])) return 0;
-    gl_begin(&g->hist, 1);
-    gl_set(&g->hist, g->st, c, g->st[c] ^ (1u << (3 + h)));
-    return gl_end(&g->hist);
+    bench_begin(&g->hist, 1);
+    bench_set(&g->hist, g->st, c, g->st[c] ^ (1u << (3 + h)));
+    return bench_done(&g->hist, wrongs(g));
 }
 
 int sky_clear(sky_game *g, int c)
 {
     if (!sky_free(g, c) || !g->st[c]) return 0;
-    gl_begin(&g->hist, 1);
-    gl_set(&g->hist, g->st, c, 0);
-    return gl_end(&g->hist);
+    bench_begin(&g->hist, 1);
+    bench_set(&g->hist, g->st, c, 0);
+    return bench_done(&g->hist, wrongs(g));
 }
 
-int sky_hint(sky_game *g)
+static int hint_step(sky_game *g)
 {
     int n = g->p.n, cells = n * n;
     for (int c = 0; c < cells; c++) {           /* a wrong height first */
@@ -380,20 +390,31 @@ int sky_hint(sky_game *g)
         if (h && h != g->sol[c]) return sky_put(g, c, g->sol[c]) ? c : -1;
     }
     ctx k;
-    gl_rules r;
+    bench_rules r;
     setup(&k, &g->p, &r, NULL);
-    gl_grid d;
+    bench_grid d;
     grid_of(&g->p, &d);
     for (int c = 0; c < cells; c++)
         if (SKY_HEIGHT(g->st[c])) d.d[c] = (uint8_t)(1u << (SKY_HEIGHT(g->st[c]) - 1));
-    int c = gl_next(&d, &r);
+    int c = bench_next(&d, &r);
     for (int i = 0; i < cells && c < 0; i++)
         if (!SKY_HEIGHT(g->st[i])) c = i;
     if (c < 0) return -1;
     return sky_put(g, c, g->sol[c]) ? c : -1;
 }
 
-int sky_undo(sky_game *g) { return gl_undo(&g->hist, g->st); }
+int sky_hint(sky_game *g)
+{
+    return bench_hinted(&g->hist, hint_step(g));
+}
+
+int sky_undo(sky_game *g)
+{
+    int c = bench_undo_cells(&g->hist, g->st);
+    bench_undone(&g->hist, wrongs(g));
+    return c;
+}
+
 
 int sky_clash(const sky_game *g, int c)
 {
@@ -445,7 +466,7 @@ int sky_script(sky_game *g, const char *s)
                 if (SKY_HEIGHT(g->st[c]) != g->sol[c]) sky_put(g, c, g->sol[c]), k--;
             continue;
         }
-        int len = 0, c = gl_cell(s, n, n, &len);
+        int len = 0, c = bench_cell(s, n, n, &len);
         if (c < 0) return 0;
         s += len;
         if ((*s != '=' && *s != '\'') || s[1] < '0' || s[1] > '9') return 0;

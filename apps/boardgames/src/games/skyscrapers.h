@@ -6,7 +6,7 @@
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * The variants: 4 x 4, 5 x 5, 6 x 6, 7 x 7, each easy, medium or hard (variant = size * 3 + level). A puzzle is made
- * from a seed: a town by chance (the solver's search, logicgrid.h), every edge number told (and heights given if the
+ * from a seed: a town by chance (the solver's search, bench.h), every edge number told (and heights given if the
  * numbers are not enough), then numbers and heights taken away as long as the solver still solves it within its
  * level. The ways of reasoning, by level:
  *   easy: a height used in a row or a column is not elsewhere in it; a height with one place left in a line; a cell
@@ -25,7 +25,7 @@
 
 #include <stdint.h>
 
-#include "games/logicgrid.h"
+#include "games/bench.h"
 
 #define SKY_SIZES 4
 #define SKY_VARIANTS (SKY_SIZES * 3)
@@ -46,7 +46,7 @@ typedef struct {
     uint32_t seed;
     uint8_t sol[SKY_CELLS];                     /* the heights */
     uint16_t st[SKY_CELLS];                     /* the grid now: the height (low 4 bits), the notes (bit 3 + h) */
-    gl_hist hist;
+    bench_hist hist;
 } sky_game;
 
 #define SKY_HEIGHT(st) ((st) & 15)
@@ -55,7 +55,7 @@ typedef struct {
 int  sky_size(int variant);                     /* 4, 5, 6, 7 */
 int  sky_level(int variant);
 
-int  sky_grade(const sky_puzzle *p, uint8_t *sol);   /* GL_* (the solution in sol when it solves it; may be NULL) */
+int  sky_grade(const sky_puzzle *p, uint8_t *sol); /* BENCH_* (the solution in sol when it solves it; may be NULL) */
 int  sky_count(const sky_puzzle *p, int limit);
 void sky_make(int n, int level, uint32_t seed, sky_puzzle *p, uint8_t *sol);
 /* the buildings seen along a line from an edge (heights in the order seen; 0: an empty cell stops the count: -1) */

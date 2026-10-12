@@ -51,7 +51,7 @@ static void ctx_make(ctx *k, const tn_puzzle *p)
     }
 }
 
-static void grid_of(const ctx *k, gl_grid *g)
+static void grid_of(const ctx *k, bench_grid *g)
 {
     memset(g, 0, sizeof *g);
     for (int c = 0; c < k->cells; c++) g->d[c] = (uint8_t)(k->p->tree[c] ? OFF : BOTH);
@@ -59,7 +59,7 @@ static void grid_of(const ctx *k, gl_grid *g)
 
 static int at(int n, int way, int i, int j) { return way ? j * n + i : i * n + j; }
 
-static int has_tent(const ctx *k, const gl_grid *g, int t)
+static int has_tent(const ctx *k, const bench_grid *g, int t)
 {
     for (int j = 0; j < k->nspot[t]; j++)
         if (g->d[k->spot[t][j]] == ON) return 1;
@@ -67,7 +67,7 @@ static int has_tent(const ctx *k, const gl_grid *g, int t)
 }
 
 /* the trees surely taken: by a tent with no other tree beside it (1 each); -1 if two tents need the same one */
-static int owned(const ctx *k, const gl_grid *g, uint8_t *own)
+static int owned(const ctx *k, const bench_grid *g, uint8_t *own)
 {
     memset(own, 0, (size_t)k->cells);
     for (int c = 0; c < k->cells; c++) {
@@ -80,7 +80,7 @@ static int owned(const ctx *k, const gl_grid *g, uint8_t *own)
 }
 
 /* easy */
-static int easy(gl_grid *g, const ctx *k)
+static int easy(bench_grid *g, const ctx *k)
 {
     int n = k->n, ch = 0, tents = 0;
     for (int c = 0; c < k->cells; c++) {
@@ -130,7 +130,7 @@ static int easy(gl_grid *g, const ctx *k)
 
 /* a line's tents and the most it could still take: stretches of free cells (a tent in every other one); the cells
  * marked in skip (== mark) count as grass, `tent` as a tent */
-static void room(const ctx *k, const gl_grid *g, int way, int i, const int *skip, int mark, int tent, int *on,
+static void room(const ctx *k, const bench_grid *g, int way, int i, const int *skip, int mark, int tent, int *on,
                  int *most)
 {
     int n = k->n, run = 0;
@@ -148,7 +148,7 @@ static void room(const ctx *k, const gl_grid *g, int way, int i, const int *skip
 }
 
 /* medium */
-static int medium(gl_grid *g, const ctx *k)
+static int medium(bench_grid *g, const ctx *k)
 {
     static int mark[TN_CELLS], serial;
     int n = k->n;
@@ -213,13 +213,13 @@ static int medium(gl_grid *g, const ctx *k)
     return 0;
 }
 
-static int deduce(gl_grid *g, int tier, const void *c)
+static int deduce(bench_grid *g, int tier, void *c)
 {
     return tier ? medium(g, (const ctx *)c) : easy(g, (const ctx *)c);
 }
 
 /* every tree its own tent beside it: a matching of trees and tents (each tree tries its cells in turn) */
-static int match_tree(const ctx *k, const gl_grid *g, int t, uint8_t *seen, int *tree_at)
+static int match_tree(const ctx *k, const bench_grid *g, int t, uint8_t *seen, int *tree_at)
 {
     for (int j = 0; j < k->nspot[t]; j++) {
         int c = k->spot[t][j];
@@ -233,7 +233,7 @@ static int match_tree(const ctx *k, const gl_grid *g, int t, uint8_t *seen, int 
     return 0;
 }
 
-static int matched(const ctx *k, const gl_grid *g)
+static int matched(const ctx *k, const bench_grid *g)
 {
     int tree_at[TN_CELLS];
     for (int c = 0; c < k->cells; c++) tree_at[c] = -1;
@@ -245,7 +245,7 @@ static int matched(const ctx *k, const gl_grid *g)
     return 1;
 }
 
-static int valid(const gl_grid *g, const void *cv)
+static int valid(const bench_grid *g, void *cv)
 {
     const ctx *k = cv;
     int n = k->n, tents = 0;
@@ -265,34 +265,35 @@ static int valid(const gl_grid *g, const void *cv)
     return matched(k, g);
 }
 
-static gl_rules rules_of(const ctx *k, long *work)
+static bench_rules rules_of(ctx *k, long *work)
 {
-    return (gl_rules){k->cells, 2, 1, deduce, valid, k, work};
+    return (bench_rules){.vars = k->cells, .tiers = 2, .probe_tiers = 1,
+                        .deduce = deduce, .valid = valid, .ctx = k, .work = work};
 }
 
 static int grade_work(const tn_puzzle *p, uint8_t *sol, long *work, int cap)
 {
     ctx k;
     ctx_make(&k, p);
-    gl_rules r = rules_of(&k, work);
-    gl_grid g, out;
+    bench_rules r = rules_of(&k, work);
+    bench_grid g;
     grid_of(&k, &g);
-    int lv = gl_grade_upto(&g, &r, &out, cap);
-    if (sol && lv >= GL_EASY && lv <= GL_HARD)
-        for (int c = 0; c < k.cells; c++) sol[c] = out.d[c] == ON && !p->tree[c];
+    int lv = bench_grade(&g, &r, cap);
+    if (sol && lv >= BENCH_EASY && lv <= BENCH_HARD)
+        for (int c = 0; c < k.cells; c++) sol[c] = g.d[c] == ON && !p->tree[c];
     return lv;
 }
 
-int tn_grade(const tn_puzzle *p, uint8_t *sol) { return grade_work(p, sol, NULL, GL_HARD); }
+int tn_grade(const tn_puzzle *p, uint8_t *sol) { return grade_work(p, sol, NULL, BENCH_HARD); }
 
 int tn_count(const tn_puzzle *p, int limit)
 {
     ctx k;
     ctx_make(&k, p);
-    gl_rules r = rules_of(&k, NULL);
-    gl_grid g;
+    bench_rules r = rules_of(&k, NULL);
+    bench_grid g;
     grid_of(&k, &g);
-    return gl_search(&g, &r, limit, NULL, NULL, 0);
+    return bench_search(&g, &r, limit, NULL, NULL, 0);
 }
 
 /* ---- making a field ---------------------------------------------------------------------------------------------- */
@@ -337,7 +338,7 @@ static void layout(int n, uint32_t *s, tn_puzzle *p, uint8_t *sol)
 void tn_make(int n, int level, uint32_t seed, tn_puzzle *p, uint8_t *sol)
 {
     if (n < 4 || n > TN_MAX) n = 6;
-    if (level < GL_EASY || level > GL_HARD) level = GL_EASY;
+    if (level < BENCH_EASY || level > BENCH_HARD) level = BENCH_EASY;
     uint32_t s = pr_seed(seed);
     long work = 0;
     tn_puzzle best, q;
@@ -346,13 +347,13 @@ void tn_make(int n, int level, uint32_t seed, tn_puzzle *p, uint8_t *sol)
     for (int attempt = 0; attempt < 5000; attempt++) {
         layout(n, &s, &q, qs);
         int lv = grade_work(&q, NULL, &work, level);
-        if (lv < GL_EASY || lv > level) continue;
+        if (lv < BENCH_EASY || lv > level) continue;
         if (lv > best_lv) {
             best_lv = lv;
             best = q;
             memcpy(best_sol, qs, sizeof best_sol);
         }
-        if (best_lv == level || (work >= 3 * MAKE_BUDGET && best_lv >= GL_EASY)) break;   /* past it: the nearest */
+        if (best_lv == level || (work >= 3 * MAKE_BUDGET && best_lv >= BENCH_EASY)) break;   /* past it: the nearest */
     }
     *p = best;
     memcpy(sol, best_sol, (size_t)n * n);
@@ -384,17 +385,26 @@ int tn_free(const tn_game *g, int c) { return c >= 0 && c < g->p.n * g->p.n && !
 int tn_tap_state(const tn_game *g, int c) { return g->st[c] == TN_TENT ? TN_EMPTY : TN_TENT; }
 int tn_hold_state(const tn_game *g, int c) { return g->st[c] == TN_GRASS ? TN_EMPTY : TN_GRASS; }
 
+/* the wrong entries on the board (the stars' mistakes) */
+static int wrongs(const tn_game *g)
+{
+    int k = 0;
+    for (int c = 0; c < g->p.n * g->p.n; c++)
+        k += tn_free(g, c) && g->st[c] != TN_EMPTY && (g->st[c] == TN_TENT) != g->sol[c];
+    return k;
+}
+
 int tn_paint(tn_game *g, const int *cells, int n, int state)
 {
-    gl_begin(&g->hist, n);
+    bench_begin(&g->hist, n);
     for (int i = 0; i < n; i++)
-        if (tn_free(g, cells[i])) gl_set(&g->hist, g->st, cells[i], state);
-    return gl_end(&g->hist);
+        if (tn_free(g, cells[i])) bench_set(&g->hist, g->st, cells[i], state);
+    return bench_done(&g->hist, wrongs(g));
 }
 
 static int put(tn_game *g, int c, int state) { return tn_paint(g, &c, 1, state); }
 
-int tn_hint(tn_game *g)
+static int hint_step(tn_game *g)
 {
     int cells = g->p.n * g->p.n;
     for (int c = 0; c < cells; c++)             /* a wrong cell first */
@@ -402,19 +412,30 @@ int tn_hint(tn_game *g)
             return put(g, c, g->sol[c] ? TN_TENT : TN_GRASS) ? c : -1;
     ctx k;
     ctx_make(&k, &g->p);
-    gl_rules r = rules_of(&k, NULL);
-    gl_grid d;
+    bench_rules r = rules_of(&k, NULL);
+    bench_grid d;
     grid_of(&k, &d);
     for (int c = 0; c < cells; c++)
         if (tn_free(g, c) && g->st[c] != TN_EMPTY) d.d[c] = (uint8_t)(g->sol[c] ? ON : OFF);
-    int c = gl_next(&d, &r);
+    int c = bench_next(&d, &r);
     for (int i = 0; i < cells && c < 0; i++)
         if (tn_free(g, i) && g->st[i] == TN_EMPTY && g->sol[i]) c = i;
     if (c < 0) return -1;
     return put(g, c, g->sol[c] ? TN_TENT : TN_GRASS) ? c : -1;
 }
 
-int tn_undo(tn_game *g) { return gl_undo(&g->hist, g->st); }
+int tn_hint(tn_game *g)
+{
+    return bench_hinted(&g->hist, hint_step(g));
+}
+
+int tn_undo(tn_game *g)
+{
+    int c = bench_undo_cells(&g->hist, g->st);
+    bench_undone(&g->hist, wrongs(g));
+    return c;
+}
+
 
 int tn_touching(const tn_game *g, int c)
 {
@@ -454,7 +475,7 @@ int tn_solved(const tn_game *g)
 {
     ctx k;
     ctx_make(&k, &g->p);
-    gl_grid d;
+    bench_grid d;
     memset(&d, 0, sizeof d);
     for (int c = 0; c < k.cells; c++) d.d[c] = (uint8_t)(g->st[c] == TN_TENT && !g->p.tree[c] ? ON : OFF);
     if (!valid(&d, &k)) return 0;
@@ -486,12 +507,12 @@ int tn_script(tn_game *g, const char *s)
         }
         int hold = *s == '.', len = 0;
         if (hold) s++;
-        int a = gl_cell(s, n, n, &len);
+        int a = bench_cell(s, n, n, &len);
         if (!tn_free(g, a)) return 0;
         s += len;
         int b = a;
         if (*s == '-') {
-            b = gl_cell(s + 1, n, n, &len);
+            b = bench_cell(s + 1, n, n, &len);
             if (b < 0 || (b % n != a % n && b / n != a / n)) return 0;
             s += 1 + len;
         }

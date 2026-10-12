@@ -5,7 +5,7 @@
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * The variants: 6 x 6, 8 x 8, 10 x 10, 12 x 12, each easy, medium or hard (variant = size * 3 + level). A puzzle is
- * made from a seed: a full grid by chance (the solver's search, logicgrid.h), then discs taken away as long as the
+ * made from a seed: a full grid by chance (the solver's search, bench.h), then discs taken away as long as the
  * solver still solves it within its level. The ways of reasoning, by level:
  *   easy: two alike side by side, or two alike with a gap between them: the cells beside them (in the gap) the other
  *     colour; a line with all its discs of a colour: the rest the other colour;
@@ -23,7 +23,7 @@
 
 #include <stdint.h>
 
-#include "games/logicgrid.h"
+#include "games/bench.h"
 
 #define BN_SIZES 4
 #define BN_VARIANTS (BN_SIZES * 3)
@@ -43,13 +43,13 @@ typedef struct {
     uint32_t seed;
     uint8_t sol[BN_CELLS];                      /* BN_IVORY, BN_EBONY */
     uint16_t st[BN_CELLS];                      /* the grid now */
-    gl_hist hist;
+    bench_hist hist;
 } bn_game;
 
 int  bn_size(int variant);                      /* 6, 8, 10, 12 */
 int  bn_level(int variant);
 
-int  bn_grade(const bn_puzzle *p, uint8_t *sol);   /* GL_* (the solution in sol when it solves it; may be NULL) */
+int  bn_grade(const bn_puzzle *p, uint8_t *sol); /* BENCH_* (the solution in sol when it solves it; may be NULL) */
 int  bn_count(const bn_puzzle *p, int limit);
 void bn_make(int n, int level, uint32_t seed, bn_puzzle *p, uint8_t *sol);
 

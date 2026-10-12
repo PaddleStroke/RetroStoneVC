@@ -22,7 +22,7 @@ static int nlines[BN_SIZES];
 static int line_ok(unsigned m, int n)
 {
     unsigned all = (1u << n) - 1, z = ~m & all;
-    return gl_bits(m) == n / 2 && !(m & m >> 1 & m >> 2) && !(z & z >> 1 & z >> 2);
+    return bench_bits(m) == n / 2 && !(m & m >> 1 & m >> 2) && !(z & z >> 1 & z >> 2);
 }
 
 static int size_index(int n) { return n <= 6 ? 0 : n <= 8 ? 1 : n <= 10 ? 2 : 3; }
@@ -44,19 +44,19 @@ typedef struct {
 static int at(int n, int line, int i) { return line < n ? line * n + i : i * n + line - n; }
 
 /* a line's ebony cells and its decided ones, as masks */
-static void masks(const gl_grid *g, int n, int line, unsigned *ebony, unsigned *known)
+static void masks(const bench_grid *g, int n, int line, unsigned *ebony, unsigned *known)
 {
     *ebony = *known = 0;
     for (int i = 0; i < n; i++) {
         uint8_t d = g->d[at(n, line, i)];
-        if (!gl_one(d)) continue;
+        if (!bench_one(d)) continue;
         *known |= 1u << i;
         if (d == 2) *ebony |= 1u << i;
     }
 }
 
 /* full lines alike: rows with rows, columns with columns */
-static int twins(const gl_grid *g, int n)
+static int twins(const bench_grid *g, int n)
 {
     unsigned full[2 * BN_MAX];
     int is_full[2 * BN_MAX];
@@ -72,7 +72,7 @@ static int twins(const gl_grid *g, int n)
 }
 
 /* easy: three cells side by side, two alike: the third the other colour; a colour's count reached */
-static int easy(gl_grid *g, const ctx *k)
+static int easy(bench_grid *g, const ctx *k)
 {
     int n = k->n, ch = 0;
     for (int l = 0; l < 2 * n; l++) {
@@ -100,7 +100,7 @@ static int easy(gl_grid *g, const ctx *k)
 }
 
 /* medium: a line seen whole: the ways it can be filled (unlike the full lines of its kind) all agree on a cell */
-static int medium(gl_grid *g, const ctx *k)
+static int medium(bench_grid *g, const ctx *k)
 {
     int n = k->n, ch = 0;
     unsigned all = (1u << n) - 1, eb[2 * BN_MAX], kn[2 * BN_MAX];
@@ -136,12 +136,12 @@ static int medium(gl_grid *g, const ctx *k)
     return 0;
 }
 
-static int deduce(gl_grid *g, int tier, const void *c)
+static int deduce(bench_grid *g, int tier, void *c)
 {
     return tier ? medium(g, (const ctx *)c) : easy(g, (const ctx *)c);
 }
 
-static int valid(const gl_grid *g, const void *c)
+static int valid(const bench_grid *g, void *c)
 {
     const ctx *k = c;
     for (int l = 0; l < 2 * k->n; l++) {
@@ -152,16 +152,17 @@ static int valid(const gl_grid *g, const void *c)
     return !twins(g, k->n);
 }
 
-static void setup(ctx *k, int n, gl_rules *r, long *work)
+static void setup(ctx *k, int n, bench_rules *r, long *work)
 {
     lines_make(n);
     k->n = n;
     k->lines = LINES[size_index(n)];
     k->nlines = nlines[size_index(n)];
-    *r = (gl_rules){n * n, 2, 1, deduce, valid, k, work};
+    *r = (bench_rules){.vars = n * n, .tiers = 2, .probe_tiers = 1,
+                      .deduce = deduce, .valid = valid, .ctx = k, .work = work};
 }
 
-static void grid_of(const bn_puzzle *p, gl_grid *g)
+static void grid_of(const bn_puzzle *p, bench_grid *g)
 {
     memset(g, 0, sizeof *g);
     for (int c = 0; c < p->n * p->n; c++) g->d[c] = (uint8_t)(p->given[c] ? p->given[c] : 3);
@@ -170,26 +171,26 @@ static void grid_of(const bn_puzzle *p, gl_grid *g)
 static int grade_work(const bn_puzzle *p, uint8_t *sol, long *work, int cap)
 {
     ctx k;
-    gl_rules r;
+    bench_rules r;
     setup(&k, p->n, &r, work);
-    gl_grid g, out;
+    bench_grid g;
     grid_of(p, &g);
-    int lv = gl_grade_upto(&g, &r, &out, cap);
-    if (sol && lv >= GL_EASY && lv <= GL_HARD)
-        for (int c = 0; c < p->n * p->n; c++) sol[c] = out.d[c];
+    int lv = bench_grade(&g, &r, cap);
+    if (sol && lv >= BENCH_EASY && lv <= BENCH_HARD)
+        for (int c = 0; c < p->n * p->n; c++) sol[c] = g.d[c];
     return lv;
 }
 
-int bn_grade(const bn_puzzle *p, uint8_t *sol) { return grade_work(p, sol, NULL, GL_HARD); }
+int bn_grade(const bn_puzzle *p, uint8_t *sol) { return grade_work(p, sol, NULL, BENCH_HARD); }
 
 int bn_count(const bn_puzzle *p, int limit)
 {
     ctx k;
-    gl_rules r;
+    bench_rules r;
     setup(&k, p->n, &r, NULL);
-    gl_grid g;
+    bench_grid g;
     grid_of(p, &g);
-    return gl_search(&g, &r, limit, NULL, NULL, 0);
+    return bench_search(&g, &r, limit, NULL, NULL, 0);
 }
 
 /* ---- making a puzzle --------------------------------------------------------------------------------------------- */
@@ -216,34 +217,34 @@ static void maker_clue(void *u, int c, int on)
 void bn_make(int n, int level, uint32_t seed, bn_puzzle *p, uint8_t *sol)
 {
     if (n < 4 || n > BN_MAX || n % 2) n = 6;
-    if (level < GL_EASY || level > GL_HARD) level = GL_EASY;
+    if (level < BENCH_EASY || level > BENCH_HARD) level = BENCH_EASY;
     uint32_t s = pr_seed(seed);
     long work = 0;
     bn_puzzle best, q;
     uint8_t best_sol[BN_CELLS];
     int best_lv = -2, cells = n * n;
     maker m = {&q, {0}, &work};
-    gl_maker mk = {&m, maker_grade, maker_clue};
+    bench_maker mk = {&m, maker_grade, maker_clue};
     for (int attempt = 0; attempt < 400; attempt++) {
         ctx k;
-        gl_rules r;
+        bench_rules r;
         setup(&k, n, &r, &work);
-        gl_grid g, full;                        /* a full grid by chance */
+        bench_grid g, full;                     /* a full grid by chance */
         memset(&g, 0, sizeof g);
         for (int c = 0; c < cells; c++) g.d[c] = 3;
-        if (gl_search(&g, &r, 1, &full, &s, work + 4000) != 1) continue;
+        if (bench_search(&g, &r, 1, &full, &s, work + 4000) != 1) continue;
         q.n = n;
         for (int c = 0; c < cells; c++) q.given[c] = m.full[c] = full.d[c];
         int order[BN_CELLS];
         for (int c = 0; c < cells; c++) order[c] = c;
         pr_shuffle(&s, order, cells);
-        int lv = gl_reduce(&mk, order, cells, level, &work, 3 * MAKE_BUDGET);
+        int lv = bench_reduce(&mk, order, cells, level, &work, 3 * MAKE_BUDGET);
         if (lv > best_lv && lv <= level) {
             best_lv = lv;
             best = q;
             memcpy(best_sol, m.full, sizeof best_sol);
         }
-        if (best_lv == level || (work >= 3 * MAKE_BUDGET && best_lv >= GL_EASY)) break;   /* past it: the nearest */
+        if (best_lv == level || (work >= 3 * MAKE_BUDGET && best_lv >= BENCH_EASY)) break;   /* past it: the nearest */
     }
     *p = best;
     memcpy(sol, best_sol, (size_t)cells);
@@ -277,35 +278,55 @@ int bn_free(const bn_game *g, int c) { return c >= 0 && c < g->p.n * g->p.n && !
 int bn_tap_state(const bn_game *g, int c) { return (g->st[c] + 1) % 3; }
 int bn_hold_state(const bn_game *g, int c) { return (g->st[c] + 2) % 3; }
 
+/* the wrong entries on the board (the stars' mistakes) */
+static int wrongs(const bn_game *g)
+{
+    int k = 0;
+    for (int c = 0; c < g->p.n * g->p.n; c++)
+        k += bn_free(g, c) && g->st[c] && g->st[c] != g->sol[c];
+    return k;
+}
+
 int bn_paint(bn_game *g, const int *cells, int n, int state)
 {
-    gl_begin(&g->hist, n);
+    bench_begin(&g->hist, n);
     for (int i = 0; i < n; i++)
-        if (bn_free(g, cells[i])) gl_set(&g->hist, g->st, cells[i], state);
-    return gl_end(&g->hist);
+        if (bn_free(g, cells[i])) bench_set(&g->hist, g->st, cells[i], state);
+    return bench_done(&g->hist, wrongs(g));
 }
 
 static int put(bn_game *g, int c, int state) { return bn_paint(g, &c, 1, state); }
 
-int bn_hint(bn_game *g)
+static int hint_step(bn_game *g)
 {
     int n = g->p.n, cells = n * n;
     for (int c = 0; c < cells; c++)             /* a wrong disc first */
         if (g->st[c] && g->st[c] != g->sol[c]) return put(g, c, g->sol[c]) ? c : -1;
     ctx k;
-    gl_rules r;
+    bench_rules r;
     setup(&k, n, &r, NULL);
-    gl_grid d;
+    bench_grid d;
     memset(&d, 0, sizeof d);
     for (int c = 0; c < cells; c++) d.d[c] = (uint8_t)(g->st[c] ? g->st[c] : 3);
-    int c = gl_next(&d, &r);
+    int c = bench_next(&d, &r);
     for (int i = 0; i < cells && c < 0; i++)
         if (!g->st[i]) c = i;
     if (c < 0) return -1;
     return put(g, c, g->sol[c]) ? c : -1;
 }
 
-int bn_undo(bn_game *g) { return gl_undo(&g->hist, g->st); }
+int bn_hint(bn_game *g)
+{
+    return bench_hinted(&g->hist, hint_step(g));
+}
+
+int bn_undo(bn_game *g)
+{
+    int c = bench_undo_cells(&g->hist, g->st);
+    bench_undone(&g->hist, wrongs(g));
+    return c;
+}
+
 
 static int st_at(const bn_game *g, int line, int i) { return g->st[at(g->p.n, line, i)]; }
 
@@ -380,12 +401,12 @@ int bn_script(bn_game *g, const char *s)
         }
         int hold = *s == '.', len = 0;
         if (hold) s++;
-        int a = gl_cell(s, n, n, &len);
+        int a = bench_cell(s, n, n, &len);
         if (!bn_free(g, a)) return 0;
         s += len;
         int b = a;
         if (*s == '-') {
-            b = gl_cell(s + 1, n, n, &len);
+            b = bench_cell(s + 1, n, n, &len);
             if (b < 0 || (b % n != a % n && b / n != a / n)) return 0;
             s += 1 + len;
         }

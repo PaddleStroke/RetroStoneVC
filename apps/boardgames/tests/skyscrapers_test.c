@@ -65,7 +65,7 @@ int main(void)
     clues_of(&p, town);
     uint8_t sol[SKY_CELLS];
     int lv = sky_grade(&p, sol);
-    CHECK(lv >= GL_EASY && lv <= GL_HARD && !memcmp(sol, town, 16) && sky_count(&p, 2) == 1);
+    CHECK(lv >= BENCH_EASY && lv <= BENCH_HARD && !memcmp(sol, town, 16) && sky_count(&p, 2) == 1);
     sky_puzzle few = p;
     for (int e = 0; e < 4; e++) few.clue[e][1] = few.clue[e][3] = 0;
     CHECK(sky_count(&few, 2) >= 1);
@@ -73,11 +73,11 @@ int main(void)
     memset(&none, 0, sizeof none);
     none.n = 4;
     none.clue[SKY_LEFT][0] = none.clue[SKY_RIGHT][0] = 1;
-    CHECK(sky_count(&none, 2) == 0 && sky_grade(&none, NULL) == GL_NONE);
+    CHECK(sky_count(&none, 2) == 0 && sky_grade(&none, NULL) == BENCH_NONE);
     sky_puzzle open;
     memset(&open, 0, sizeof open);
     open.n = 4;
-    CHECK(sky_count(&open, 2) == 2 && sky_grade(&open, NULL) == GL_GUESS);
+    CHECK(sky_count(&open, 2) == 2 && sky_grade(&open, NULL) == BENCH_GUESS);
 
     /* the puzzles from many seeds: one solution, of their level, quick */
     clock_t t0 = clock();

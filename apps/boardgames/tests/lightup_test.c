@@ -50,7 +50,7 @@ int main(void)
     /* drawn by hand: a 4 needs its four lamps, then one corner is left that only one cell lights */
     static const char *const four[] = {"....", ".4..", "....", "...."};
     puzzle_of(&p, 4, four);
-    CHECK(lu_grade(&p, sol) == GL_EASY);
+    CHECK(lu_grade(&p, sol) == BENCH_EASY);
     CHECK(sol[1] && sol[4] && sol[6] && sol[9] && sol[15]);
     int lamps = 0;
     for (int c = 0; c < 16; c++) lamps += sol[c];
@@ -60,16 +60,16 @@ int main(void)
     static const char *const open[] = {"....", "....", "....", "...."};
     puzzle_of(&p, 4, open);
     CHECK(lu_count(&p, 2) == 2);
-    CHECK(lu_grade(&p, NULL) == GL_GUESS);
+    CHECK(lu_grade(&p, NULL) == BENCH_GUESS);
     static const char *const none[] = {"4...", "....", "....", "...."};
     puzzle_of(&p, 4, none);
     CHECK(lu_count(&p, 2) == 0);
-    CHECK(lu_grade(&p, NULL) == GL_NONE);
+    CHECK(lu_grade(&p, NULL) == BENCH_NONE);
     /* a 1 between two cells that see each other's lines: the cell seeing both of them can hold no lamp (medium) */
     static const char *const mid[] = {".#...", "#1.#.", "..#..", "..#..", "#...#"};
     puzzle_of(&p, 5, mid);
     int g = lu_grade(&p, sol);
-    CHECK(g >= GL_EASY && g <= GL_HARD ? keeps_rules(&p, sol) && lu_count(&p, 2) == 1 : lu_count(&p, 2) != 1);
+    CHECK(g >= BENCH_EASY && g <= BENCH_HARD ? keeps_rules(&p, sol) && lu_count(&p, 2) == 1 : lu_count(&p, 2) != 1);
 
     /* the puzzles from many seeds: one solution, of their level, quick */
     clock_t t0 = clock();
@@ -127,6 +127,16 @@ int main(void)
     CHECK(lu_undo(&G) == w && G.st[w] == LU_LAMP && G.hist.moves == 1);
     CHECK(lu_undo(&G) == w && G.st[w] == LU_EMPTY && G.hist.moves == 0);
     CHECK(lu_undo(&G) < 0);
+    {                                           /* the stars' counts (bench.h): a wrong lamp undone */
+        lu_game S;
+        lu_new(&S, 0, 7);
+        int f = -1;
+        for (int c = 0; c < n * n && f < 0; c++)
+            if (lu_white(&S, c) && !S.sol[c]) f = c;
+        CHECK(lu_paint(&S, &f, 1, LU_LAMP) && S.hist.mistakes == 0);
+        CHECK(lu_undo(&S) == f && S.hist.mistakes == 1);
+        CHECK(lu_hint(&S) >= 0 && S.hist.hints == 1);
+    }
     /* two lamps in one stretch: both clash */
     int w2 = -1;
     for (int c = w + 1; c < n * n && c / n == w / n && lu_white(&G, c); c++) w2 = c;

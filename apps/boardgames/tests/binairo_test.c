@@ -49,19 +49,19 @@ int main(void)
     puzzle_of(&p, 6, full);
     CHECK(keeps_rules(6, p.given));
     p.given[0] = p.given[7] = p.given[14] = p.given[35] = BN_EMPTY;
-    CHECK(bn_grade(&p, sol) == GL_EASY && keeps_rules(6, sol));
+    CHECK(bn_grade(&p, sol) == BENCH_EASY && keeps_rules(6, sol));
     CHECK(bn_count(&p, 3) == 1);
     static const char *const empty[] = {"......", "......", "......", "......", "......", "......"};
     puzzle_of(&p, 6, empty);
     CHECK(bn_count(&p, 2) == 2);
-    CHECK(bn_grade(&p, NULL) == GL_GUESS);
+    CHECK(bn_grade(&p, NULL) == BENCH_GUESS);
     static const char *const bad[] = {"ooo...", "......", "......", "......", "......", "......"};
     puzzle_of(&p, 6, bad);
-    CHECK(bn_count(&p, 2) == 0 && bn_grade(&p, NULL) == GL_NONE);
+    CHECK(bn_count(&p, 2) == 0 && bn_grade(&p, NULL) == BENCH_NONE);
     /* a row with two cells left: its column's count says which */
     static const char *const two[] = {"oxoxox", "xoxoxo", "oxxoox", "xooxxo", "ox..xo", "xoxoox"};
     puzzle_of(&p, 6, two);
-    CHECK(bn_count(&p, 3) == 1 && bn_grade(&p, sol) == GL_EASY && sol[26] == BN_IVORY && sol[27] == BN_EBONY);
+    CHECK(bn_count(&p, 3) == 1 && bn_grade(&p, sol) == BENCH_EASY && sol[26] == BN_IVORY && sol[27] == BN_EBONY);
 
     /* the puzzles from many seeds: one solution, of their level, quick */
     clock_t t0 = clock();

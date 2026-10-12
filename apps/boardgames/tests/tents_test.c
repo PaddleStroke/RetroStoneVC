@@ -52,15 +52,15 @@ int main(void)
     static const char *const two[] = {"T...", "....", "....", "...T"};
     static const int two_counts[] = {0, 1, 1, 0, 1, 0, 0, 1};
     field_of(&p, 4, two, two_counts);
-    CHECK(tn_grade(&p, sol) == GL_EASY && sol[4] && sol[11] && keeps_rules(&p, sol));
+    CHECK(tn_grade(&p, sol) == BENCH_EASY && sol[4] && sol[11] && keeps_rules(&p, sol));
     CHECK(tn_count(&p, 3) == 1);
     /* no counts: two ways; counts of nothing: none; two tents touching are no way */
     static const int unknown[] = {-1, -1, -1, -1, -1, -1, -1, -1};
     field_of(&p, 4, two, unknown);
-    CHECK(tn_count(&p, 10) > 1 && tn_grade(&p, NULL) == GL_GUESS);
+    CHECK(tn_count(&p, 10) > 1 && tn_grade(&p, NULL) == BENCH_GUESS);
     static const int zero[] = {0, 0, 0, 0, 0, 0, 0, 0};
     field_of(&p, 4, two, zero);
-    CHECK(tn_count(&p, 2) == 0 && tn_grade(&p, NULL) == GL_NONE);
+    CHECK(tn_count(&p, 2) == 0 && tn_grade(&p, NULL) == BENCH_NONE);
     static const char *const pair[] = {"T...", "T...", "....", "...."};
     static const int touch_counts[] = {1, 1, 0, 0, 0, 2, 0, 0};   /* both tents in column b: they would touch */
     field_of(&p, 4, pair, touch_counts);
@@ -69,7 +69,7 @@ int main(void)
     static const char *const share[] = {"T.T.", "....", "....", "...."};
     static const int share_counts[] = {1, 0, 0, 0, 0, 1, 0, 0};
     field_of(&p, 4, share, share_counts);
-    CHECK(tn_count(&p, 2) == 0 && tn_grade(&p, NULL) == GL_NONE);
+    CHECK(tn_count(&p, 2) == 0 && tn_grade(&p, NULL) == BENCH_NONE);
 
     /* the fields from many seeds: one solution, of their level, quick */
     clock_t t0 = clock();

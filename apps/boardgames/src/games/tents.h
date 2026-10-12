@@ -6,7 +6,7 @@
  *
  * The variants: 6 x 6, 8 x 8, 10 x 10, 12 x 12, each easy, medium or hard (variant = size * 3 + level). A field is
  * made from a seed: tents put by chance where they touch none, each with its tree beside it, every row and column
- * counted; fields are drawn until the solver (logicgrid.h) solves one at its level, and none past it. The ways of
+ * counted; fields are drawn until the solver (bench.h) solves one at its level, and none past it. The ways of
  * reasoning, by level:
  *   easy: no tent away from the trees, nor round a tent; a line with all its tents, or with just room for them; a
  *     tree with one place left for its tent; a tree whose tent can only be one tent next to it (that tent is its own),
@@ -27,7 +27,7 @@
 
 #include <stdint.h>
 
-#include "games/logicgrid.h"
+#include "games/bench.h"
 
 #define TN_SIZES 4
 #define TN_VARIANTS (TN_SIZES * 3)
@@ -48,13 +48,13 @@ typedef struct {
     uint32_t seed;
     uint8_t sol[TN_CELLS];                      /* 1: a tent in the solution */
     uint16_t st[TN_CELLS];                      /* TN_EMPTY, TN_TENT, TN_GRASS */
-    gl_hist hist;
+    bench_hist hist;
 } tn_game;
 
 int  tn_size(int variant);                      /* 6, 8, 10, 12 */
 int  tn_level(int variant);
 
-int  tn_grade(const tn_puzzle *p, uint8_t *sol);   /* GL_* (the solution in sol when it solves it; may be NULL) */
+int  tn_grade(const tn_puzzle *p, uint8_t *sol); /* BENCH_* (the solution in sol when it solves it; may be NULL) */
 int  tn_count(const tn_puzzle *p, int limit);
 void tn_make(int n, int level, uint32_t seed, tn_puzzle *p, uint8_t *sol);
 
