@@ -67,8 +67,11 @@ One look across the app, like the Arcade games' house kit:
   `UI_DIM` (not now), `UI_ON` (the gold disc: a mode on, the action ready), `UI_IVORY` (an ivory medallion, a picture
   in its own colours), `UI_TINT` (a white picture tinted cream), `UI_UPSIDE` (the top player's). `ui_button_hit` for
   the finger; `ui_button_pic` paints one into a thumbnail. No walnut knobs, no copies of the disc.
-- **Dice** from the shell: `ui_dice_throw` / `ui_dice_show` (a player's dice; `_each`: a colour each, backgammon's
-  opening), `ui_dice_draw`, `ui_die_at` (one die at rest: waiting to be thrown, a past throw), `ui_random`.
+- **Dice** from the shell: `ui_dice_throw` / `ui_dice_show` (a player's dice, up to `UI_MAX_DICE` in a row; `_each`:
+  a colour each, backgammon's opening), `ui_dice_draw`, `ui_die_at` (one die at rest: waiting to be thrown, a past
+  throw), `ui_random`. Dice laid out by the game itself (kept, set aside, under a cup), one at a time: `ui_die` (turned,
+  lifted, faded, darkened) and `ui_die_thrown` (tumbling `UI_DICE_MS`, then at rest); `ui_die_tumble` the same motion
+  for a lot of the game's own (Ur's pyramids, pachisi's cowries); `art_die_blend` a die in a picture (a thumbnail).
 - **Nothing copied**: anything two games would draw the same way belongs in `art.c` or the shell, not in each game.
 - **The end waits**: `busy()` says the last move still animates; the shell shows the end of the game after it.
 - **No text on the board** (pictures, and `ui_number()` for scores and counts). The words are in the rules page only:

@@ -106,7 +106,7 @@ static void start(int variant)
 
 static int status(void) { return G.pos.winner < 0 ? GS_PLAY : G.pos.winner ? GS_WIN1 : GS_WIN0; }
 static int turn(void) { return G.pos.turn; }
-static int tumbling(void) { return roll.on && ui_ms() - roll.t0 < RACE_TUMBLE_MS; }
+static int tumbling(void) { return roll.on && ui_ms() - roll.t0 < UI_DICE_MS; }
 static int busy(void) { return anim.on || tumbling(); }   /* the end waits for the last piece */
 
 static int count(int m) { return (m & 1) + (m >> 1 & 1) + (m >> 2 & 1) + (m >> 3 & 1); }
@@ -203,9 +203,9 @@ static void paint_rosette(uint8_t *o, int pw, int ph, int x, int y, int w)
         float a = 45 * i * RACE_PI / 180;
         art_ellipse(f, ART_PART, 0.5f + 0.41f * cosf(a), 0.5f + 0.41f * sinf(a), 0.028f, 0.028f);
     }
-    art_style st = race_style(RACE_PALE, RACE_INK, fmaxf(0.018f, 1.0f / w), 0.25f);
+    art_style st = art_flat(RACE_PALE, RACE_INK, fmaxf(0.018f, 1.0f / w), 0.25f);
     memcpy(st.mark, (float[3]){ROSE_WOOD[0], ROSE_WOOD[1], ROSE_WOOD[2]}, sizeof st.mark);
-    race_fig(o, pw, ph, f, &st, x, y, w, 1);
+    art_fig_blend(o, pw, ph, f, &st, x, y, w, 1);
     art_fig_free(f);
 }
 
@@ -226,9 +226,9 @@ static void paint_motif(uint8_t *o, int pw, int ph, float cx, float cy, float w,
             art_ellipse(f, ART_PART, 0.5f + dx, 0.5f + dy, 0.075f, 0.075f);
         }
     }
-    art_style st = race_style(RACE_INK, RACE_INK, 0, 0);
+    art_style st = art_flat(RACE_INK, RACE_INK, 0, 0);
     int s = (int)w;
-    race_fig(o, pw, ph, f, &st, (int)(cx - s / 2.0f), (int)(cy - s / 2.0f), s, 0.5f);
+    art_fig_blend(o, pw, ph, f, &st, (int)(cx - s / 2.0f), (int)(cy - s / 2.0f), s, 0.5f);
     art_fig_free(f);
 }
 
@@ -290,7 +290,7 @@ static void paint_die(int player, int marked, int size, uint8_t *o)
         const float *a = corner[face[j][0]], *b = corner[face[j][1]];
         float pt[6] = {top[0], top[1], a[0], a[1], b[0], b[1]};
         art_poly(g, ART_PART, pt, 3);
-        race_fig(o, size, size, g, &fs, 0, 0, size, 1);
+        art_fig_blend(o, size, size, g, &fs, 0, 0, size, 1);
         art_fig_free(g);
     }
     uint8_t ridge[3], mark[3];
@@ -389,7 +389,7 @@ static void draw_dice(int q)
         int marked = mask >> i & 1;
         float tilt = (race_hash(k, i) - 0.5f) * 24, turn_by = 0, lift = 0;
         if (rolling) {                          /* tumbling: the tip flickers, the die spins and bounces */
-            race_tumble((int)t, i, &turn_by, &lift);
+            ui_die_tumble((int)t, i, &turn_by, &lift);
             marked = (int)((t / 70 + (unsigned)i * 3 + (unsigned)mask) % 2);
         }
         ui_shadow_flat(x, y + 0.05f * s, s * 1.0f, s * 0.92f, alpha);

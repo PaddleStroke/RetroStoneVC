@@ -141,7 +141,7 @@ enum { FIG_GOOSE, FIG_BRIDGE, FIG_INN, FIG_WELL, FIG_MAZE, FIG_PRISON, FIG_DEATH
 
 static art_style flat(const uint8_t rgb[3], const uint8_t ink[3], const uint8_t mark[3], float light)
 {
-    art_style st = race_style(rgb, ink, 0.028f, light);
+    art_style st = art_flat(rgb, ink, 0.028f, light);
     for (int c = 0; c < 3; c++) {
         st.inner[c] = (rgb[c] + ink[c]) / 2.0f;
         st.mark[c] = mark[c];
@@ -342,8 +342,8 @@ static void star(uint8_t *o, int n, float cx, float cy, float r)
                           0.5f + tip * sinf(a), 0.5f + ri * cosf(a1), 0.5f + ri * sinf(a1)};
             art_poly(f, ART_PART, p, 4);
         }
-        art_style st = race_style(pass ? dark_ : light, ink, 0.012f, 0.25f);
-        race_fig(o, n, n, f, &st, (int)(cx - w / 2.0f), (int)(cy - w / 2.0f), w, 0.85f);
+        art_style st = art_flat(pass ? dark_ : light, ink, 0.012f, 0.25f);
+        art_fig_blend(o, n, n, f, &st, (int)(cx - w / 2.0f), (int)(cy - w / 2.0f), w, 0.85f);
         art_fig_free(f);
     }
 }
@@ -379,13 +379,13 @@ static void garden(uint8_t *o, int n)
             float b = j * 2 * RACE_PI / 5;
             art_ellipse(f, ART_PART, 0.5f + 0.24f * cosf(b), 0.5f + 0.24f * sinf(b), 0.2f, 0.2f);
         }
-        art_style st = race_style(petals[k % 4], ink, 0.04f, 0.2f);
-        race_fig(o, n, n, f, &st, (int)(cx + r * cosf(a) - w / 2.0f), (int)(cy + r * sinf(a) - w / 2.0f), w, 1);
+        art_style st = art_flat(petals[k % 4], ink, 0.04f, 0.2f);
+        art_fig_blend(o, n, n, f, &st, (int)(cx + r * cosf(a) - w / 2.0f), (int)(cy + r * sinf(a) - w / 2.0f), w, 1);
         art_fig_free(f);
         f = art_fig_new();
         art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.14f, 0.14f);
-        st = race_style(heart, ink, 0.04f, 0.3f);
-        race_fig(o, n, n, f, &st, (int)(cx + r * cosf(a) - w / 2.0f), (int)(cy + r * sinf(a) - w / 2.0f), w, 1);
+        st = art_flat(heart, ink, 0.04f, 0.3f);
+        art_fig_blend(o, n, n, f, &st, (int)(cx + r * cosf(a) - w / 2.0f), (int)(cy + r * sinf(a) - w / 2.0f), w, 1);
         art_fig_free(f);
     }
     int w = (int)(1.15f * R);
@@ -445,8 +445,8 @@ static void board_pic(int n, uint8_t *o, int detail)
             paint_figure(o, n, n, fig, (int)(x * n - w / 2.0f), (int)(y * n - w / 2.0f), w);
         } else if (kind == GK_DICE) {           /* 26: 6 and 3; 53: 5 and 4 */
             int w = (int)(0.3f * PITCH * n);
-            cup_paint_die(o, n, n, x * n - 0.6f * w, y * n, w, 0, c == 26 ? 6 : 5, -12);
-            cup_paint_die(o, n, n, x * n + 0.6f * w, y * n + 0.1f * w, w, 0, c == 26 ? 3 : 4, 9);
+            art_die_blend(o, n, n, x * n - 0.6f * w, y * n, w, 0, c == 26 ? 6 : 5, -12);
+            art_die_blend(o, n, n, x * n + 0.6f * w, y * n + 0.1f * w, w, 0, c == 26 ? 3 : 4, 9);
         }
     }
 }
@@ -510,7 +510,7 @@ static void throw_dice(void)
     goo_play(&G, d[0], d[1]);
     anim.m = G.last;
     anim.on = 1;
-    anim.t0 = ui_ms() + RACE_TUMBLE_MS;         /* its way starts once the dice lie still */
+    anim.t0 = ui_ms() + UI_DICE_MS;         /* its way starts once the dice lie still */
     anim.total = move_ms(&anim.m);
     anim.hops = anim.sounded = 0;
     ui_handoff(goo_turn(&G));                    /* once the pawn has landed */

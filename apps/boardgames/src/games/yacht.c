@@ -144,7 +144,7 @@ static int sliding(void)
     return 0;
 }
 
-static int busy(void) { return (tumble.on && ui_ms() - tumble.t0 < RACE_TUMBLE_MS) || sliding(); }
+static int busy(void) { return (tumble.on && ui_ms() - tumble.t0 < UI_DICE_MS) || sliding(); }
 static void home(int player, float *fx, float *fy) { cup_home(player, P->players, fx, fy); }
 
 static void throw_dice(void)
@@ -214,7 +214,7 @@ static int script(const char *s)
         tumble.on = 1;
         tumble.key = throw_key(P->turns, P->throws - 1);
         tumble.mask = 0;
-        tumble.t0 = ui_ms() - RACE_TUMBLE_MS;
+        tumble.t0 = ui_ms() - UI_DICE_MS;
     }
     return ok;
 }
@@ -228,7 +228,7 @@ static void paint_row(uint8_t *o, int n, float cx, float cy, int d, const int *f
     float w = d * (1 + step * (count - 1));
     for (int i = 0; i < count; i++) {
         float x = cx - w / 2 + d / 2.0f + i * step * d, y = cy + (i - (count - 1) / 2.0f) * rise * d;
-        cup_paint_die(o, n, n, x, y, d, 0, faces[i], 0);
+        art_die_blend(o, n, n, x, y, d, 0, faces[i], 0);
     }
 }
 
@@ -243,8 +243,8 @@ static void paint_star(uint8_t *o, int n, float cx, float cy, float r)
     }
     art_fig *f = art_fig_new();
     art_poly(f, ART_PART, pts, 10);
-    art_style st = race_style(gold, edge, 0.04f, 0.3f);
-    race_fig(o, n, n, f, &st, (int)(cx - r), (int)(cy - r), (int)(2 * r), 1);
+    art_style st = art_flat(gold, edge, 0.04f, 0.3f);
+    art_fig_blend(o, n, n, f, &st, (int)(cx - r), (int)(cy - r), (int)(2 * r), 1);
     art_fig_free(f);
 }
 
@@ -265,7 +265,7 @@ static void paint_icon(uint8_t *o, int n, int kind, int cat, int variant, float 
         return;
     }
     if (ya_is_upper(cat)) {
-        cup_paint_die(o, n, n, cx, cy, d, 0, cat + 1, 0);
+        art_die_blend(o, n, n, cx, cy, d, 0, cat + 1, 0);
         return;
     }
     int small = (int)fminf(0.6f * h, w * 0.9f / 5.25f);
@@ -302,7 +302,7 @@ static void paint_icon(uint8_t *o, int n, int kind, int cat, int variant, float 
                                        {0.33f, -0.1f, 38}};
         static const int faces[4] = {3, 6, 1, 4};
         for (int i = 0; i < 4; i++)
-            cup_paint_die(o, n, n, cx + at[i][0] * w, cy + at[i][1] * h, (int)(0.82f * d), 0, faces[i], at[i][2]);
+            art_die_blend(o, n, n, cx + at[i][0] * w, cy + at[i][1] * h, (int)(0.82f * d), 0, faces[i], at[i][2]);
         break;
     }
     }
@@ -386,7 +386,7 @@ static void draw_sheet(geom g)
         float cx = col_x(g, p) + g.cw / 2;
         int up = ui_upside(p);
         if (p == cur) ui_mark_gold(X(cx), Y(top - g.hdr / 2), 1.2f * g.hdr * S);
-        cup_die(X(cx), Y(top - g.hdr / 2), 0.62f * g.hdr * S, p, 5, up ? 180 : 0, 0, 1);
+        ui_die(X(cx), Y(top - g.hdr / 2), 0.62f * g.hdr * S, p, 5, up ? 180 : 0, 0, 1, 1);
         for (int r = 0; r < g.nrows; r++) {
             float cy = row_y(g, r) + g.row / 2;
             int v = -1;
@@ -436,7 +436,7 @@ static void draw_felt(geom g)
             float x = px0 + (k - 1) * 0.07f;
             int left = k >= P->throws;
             if (left && can_throw) ui_mark_gold(X(x), Y(PIPS_Y), 0.085f * S);
-            cup_die(X(x), Y(PIPS_Y), 0.045f * S, me, 6 - k, 0, 0, left ? 1 : 0.28f);
+            ui_die(X(x), Y(PIPS_Y), 0.045f * S, me, 6 - k, 0, 0, left ? 1 : 0.28f, 1);
         }
     if (!P->throws) {                           /* waiting to be thrown: the player's five dice */
         if (P->over) return;
@@ -444,11 +444,11 @@ static void draw_felt(geom g)
         for (int i = 0; i < YA_DICE; i++) {
             float x, y, deg;
             die_spot(g, i, 0, -1, &x, &y, &deg);
-            cup_die(X(x), Y(y), ds, me, idle[i], 0, 0, 0.9f);
+            ui_die(X(x), Y(y), ds, me, idle[i], 0, 0, 0.9f, 1);
         }
         return;
     }
-    int t = tumble.on ? (int)(now - tumble.t0) : RACE_TUMBLE_MS;
+    int t = tumble.on ? (int)(now - tumble.t0) : UI_DICE_MS;
     int key = tumble.on ? tumble.key : throw_key(P->turns, P->throws - 1);
     for (int i = 0; i < YA_DICE; i++) {
         int kept = P->kept >> i & 1;
@@ -464,9 +464,9 @@ static void draw_felt(geom g)
                 ui_animate();
             }
         }
-        if (tumble.on && (tumble.mask >> i & 1) && t < RACE_TUMBLE_MS)
-            cup_die_thrown(X(x), Y(y), ds, me, P->dice[i], deg, i, t, 1);
-        else cup_die(X(x), Y(y), ds, me, P->dice[i], deg, 0, 1);
+        if (tumble.on && (tumble.mask >> i & 1) && t < UI_DICE_MS)
+            ui_die_thrown(X(x), Y(y), ds, me, P->dice[i], deg, i, t, 1);
+        else ui_die(X(x), Y(y), ds, me, P->dice[i], deg, 0, 1, 1);
     }
 }
 
@@ -482,7 +482,7 @@ static void draw(void)
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
 static void press(float x, float y)
 {
-    if (P->over || (tumble.on && ui_ms() - tumble.t0 < RACE_TUMBLE_MS)) return;   /* not while they tumble */
+    if (P->over || (tumble.on && ui_ms() - tumble.t0 < UI_DICE_MS)) return;   /* not while they tumble */
     geom g = now_geom();
     float u = (x - bx) / S, v = (y - by) / S;
     if (u >= g.sx0 && u <= g.sx1 && v >= row_y(g, 0) && v < row_y(g, g.nrows)) {   /* a row of the scorecard */
@@ -550,7 +550,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
     cup_well(rgba, size, g.fx0, IN0, g.fx1, IN1);
     static const int faces[YA_VARIANTS][3] = {{6, 6, 6}, {2, 3, 4}, {5, 5, 5}};
     for (int i = 0; i < 3; i++)
-        cup_paint_die(rgba, size, size, (g.fx0 + g.fx1) / 2 * size + (i == 1 ? 0.03f : -0.02f) * size,
+        art_die_blend(rgba, size, size, (g.fx0 + g.fx1) / 2 * size + (i == 1 ? 0.03f : -0.02f) * size,
                       (0.25f + 0.25f * i) * size, (int)(0.15f * size), 0, faces[v][i], (float)(i * 23 - 20));
 }
 

@@ -1,14 +1,12 @@
 /*
- * What the dice games played on the felt share (yacht, farkle, fourtwoone): the green felt in its walnut frame, the
- * dice in a player's colour drawn anywhere on it (turned, tumbling, sliding), the throws remembered so that undo never
- * throws again, the round wooden buttons on the felt (throw, bank, stop), a bone chip, where the players sit.
+ * What the dice games played on the felt share (yacht, farkle, fourtwoone): the green felt in its walnut frame, a die's
+ * rest and slide on it, the throws remembered so that undo never throws again, the pictures of the felt's buttons
+ * (throw, bank; the buttons are the shell's), a bone chip, where the players sit. The dice themselves are the shell's,
+ * each at its own place (ui_die, ui_die_thrown).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Written once, here, as static inline functions: the build takes a game's own files only (GAMES="yacht" builds
  * yacht.c and yacht_*.c), so a shared .c file would be left out of one game's build or the other's (as race.h).
- * The shell's dice (ui_dice_throw, ui_dice_draw) are four at most, side by side in one row; these games throw three,
- * five or six, each die at its own place (thrown, kept, set aside), so they draw them here with the shell's art_die
- * and race.h's tumble (the shell's feel).
  */
 #ifndef DICECUP_H
 #define DICECUP_H
@@ -67,53 +65,6 @@ static inline void cup_rect(uint8_t *o, int w, int h, float x0, float y0, float 
         }
 }
 
-/* a picture (sw x sh) painted over another (w x h), centred on (cx, cy) and turned by deg: bilinear, alpha blended */
-static inline void cup_blend_rot(uint8_t *o, int w, int h, const uint8_t *src, int sw, int sh, float cx, float cy,
-                                 float deg)
-{
-    float a = deg * RACE_PI / 180, c = cosf(a), s = sinf(a), r = 0.5f * hypotf((float)sw, (float)sh) + 1;
-    for (int y = (int)(cy - r); y <= (int)(cy + r); y++)
-        for (int x = (int)(cx - r); x <= (int)(cx + r); x++) {
-            if (x < 0 || y < 0 || x >= w || y >= h) continue;
-            float dx = x + 0.5f - cx, dy = y + 0.5f - cy;
-            float u = c * dx + s * dy + sw / 2.0f - 0.5f, v = -s * dx + c * dy + sh / 2.0f - 0.5f;
-            if (u < -1 || v < -1 || u > sw || v > sh) continue;
-            int u0 = (int)floorf(u), v0 = (int)floorf(v);
-            float fu = u - u0, fv = v - v0, px[4] = {0, 0, 0, 0};
-            for (int k = 0; k < 4; k++) {
-                int su = u0 + (k & 1), sv = v0 + (k >> 1);
-                if (su < 0 || sv < 0 || su >= sw || sv >= sh) continue;
-                float wk = (k & 1 ? fu : 1 - fu) * (k >> 1 ? fv : 1 - fv);
-                const uint8_t *q = src + 4 * ((size_t)sv * sw + su);
-                float al = q[3] / 255.0f * wk;
-                for (int ch = 0; ch < 3; ch++) px[ch] += q[ch] * al;
-                px[3] += al;
-            }
-            if (px[3] <= 0.001f) continue;
-            uint8_t *p = o + 4 * ((size_t)y * w + x);
-            float al = clampf(px[3], 0, 1), da = p[3] / 255.0f, oa = al + da * (1 - al);
-            for (int ch = 0; ch < 3; ch++) {
-                float sc = px[ch] / px[3];
-                p[ch] = (uint8_t)clampf((sc * al + p[ch] * da * (1 - al)) / (oa > 0 ? oa : 1), 0, 255);
-            }
-            p[3] = (uint8_t)clampf(oa * 255, 0, 255);
-        }
-}
-
-/* a die (a player's colour, a face) painted into a picture with its soft shadow, centred, turned by deg */
-static inline void cup_paint_die(uint8_t *o, int w, int h, float cx, float cy, int size, int player, int value,
-                                 float deg)
-{
-    if (size < 3) return;
-    uint8_t *b = malloc((size_t)size * size * 4);
-    if (!b) return;
-    art_flat_shadow(size, b);
-    cup_blend_rot(o, w, h, b, size, size, cx + size / 14.0f, cy + size / 10.0f, 0);
-    art_die(value, player, size, b);
-    cup_blend_rot(o, w, h, b, size, size, cx, cy, deg);
-    free(b);
-}
-
 /* the board: a plank of the house wood in its walnut frame (n x n) */
 static inline void cup_board(uint8_t *o, int n)
 {
@@ -131,65 +82,6 @@ static inline void cup_well(uint8_t *o, int n, float x0, float y0, float x1, flo
     cup_rect(o, n, n, ix0 - e, iy1 - 0.5f * e, ix1 + e, iy1 + e, CUP_INK, 0.45f);
     cup_rect(o, n, n, ix0 - e, iy0, ix0 + 0.5f * e, iy1, CUP_INK, 0.45f);
     cup_rect(o, n, n, ix1 - 0.5f * e, iy0, ix1 + e, iy1, CUP_INK, 0.45f);
-}
-
-/* ---- the dice on the screen -------------------------------------------------------------------------------------- */
-/* a die's picture, a player's, a face, at a size (made once for each, remade when the size changes) */
-static inline SDL_Texture *cup_face(int player, int value, int size)
-{
-    static SDL_Texture *t[MAX_PLAYERS][7];
-    static int made;
-    if (size < 4) return NULL;
-    if (made != size) {
-        for (int p = 0; p < MAX_PLAYERS; p++)
-            for (int v = 1; v <= 6; v++) ui_free(&t[p][v]);
-        made = size;
-    }
-    player = player < 0 ? 0 : player >= MAX_PLAYERS ? MAX_PLAYERS - 1 : player;
-    value = value < 1 ? 1 : value > 6 ? 6 : value;
-    if (!t[player][value]) {
-        art_die(value, player, size, ui_buf(size, size));
-        t[player][value] = ui_tex(size, size, ui_buf(size, size));
-    }
-    return t[player][value];
-}
-
-/* one die at (cx, cy), turned by deg, lifted (pixels: its shadow stays on the felt), faded (alpha 0..1), darkened
- * (shade 0..1: 1 as it is; a die that cannot be used) */
-static inline void cup_die_ex(float cx, float cy, float size, int player, int value, float deg, float lift,
-                              float alpha, float shade)
-{
-    SDL_Texture *f = cup_face(player, value, (int)(size + 0.5f));
-    if (!f) return;
-    ui_shadow_flat(cx, cy, size * 1.1f, size * 1.1f, alpha * (lift > 0 ? 0.7f : 1));
-    Uint8 k = (Uint8)(255 * clampf(shade, 0, 1) + 0.5f);
-    SDL_SetTextureAlphaMod(f, (Uint8)(255 * clampf(alpha, 0, 1) + 0.5f));
-    SDL_SetTextureColorMod(f, k, k, k);
-    ui_put_rot(f, cx, cy - lift, size, size, deg);
-    SDL_SetTextureAlphaMod(f, 255);
-    SDL_SetTextureColorMod(f, 255, 255, 255);
-}
-
-static inline void cup_die(float cx, float cy, float size, int player, int value, float deg, float lift, float alpha)
-{
-    cup_die_ex(cx, cy, size, player, value, deg, lift, alpha, 1);
-}
-
-/* a die thrown t ms ago (from 0: tumbling, its faces flickering; then at rest on `value`, tilted by deg): i, which
- * die (each spins its own way); shade: cup_die_ex's. 1 while it still tumbles. */
-static inline int cup_die_thrown(float cx, float cy, float size, int player, int value, float deg, int i, int t,
-                                 float shade)
-{
-    if (t >= RACE_TUMBLE_MS) {
-        cup_die_ex(cx, cy, size, player, value, deg, 0, 1, shade);
-        return 0;
-    }
-    float turn, lift;
-    race_tumble(t < 0 ? 0 : t, i, &turn, &lift);
-    int v = 1 + (int)((unsigned)(ui_ms() / 70 + i * 3 + value) % 6);
-    cup_die(cx, cy, size, player, v, deg + turn, lift * size, 1);
-    ui_animate();
-    return 1;
 }
 
 /* a die's rest on the felt after throw `key`: a small steady tilt (degrees) and offset (-1..1) for die i */
@@ -286,13 +178,13 @@ static inline void cup_chip_pic(int size, uint8_t *o)
     memset(o, 0, (size_t)size * size * 4);
     art_fig *f = art_fig_new();
     art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.46f, 0.46f);
-    art_style st = race_style(bone, rim, 0.05f, 0.4f);
+    art_style st = art_flat(bone, rim, 0.05f, 0.4f);
     art_render(f, &st, size, size, (float)size, 0, 0, o);
     art_fig_free(f);
     f = art_fig_new();
     art_arc(f, ART_PART, 0.5f, 0.5f, 0.27f, 0.33f, 0, 360);
     art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.1f, 0.1f);
-    st = race_style(inlay, inlay, 0, 0.1f);
+    st = art_flat(inlay, inlay, 0, 0.1f);
     uint8_t *b = calloc((size_t)size * size, 4);
     if (b) {
         art_render(f, &st, size, size, (float)size, 0, 0, b);

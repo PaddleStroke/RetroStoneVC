@@ -94,9 +94,9 @@ static int status(void)
 }
 
 static int turn(void) { return P->turn; }
-static int holding(void) { return shown.on && shown.ended && ui_ms() - shown.t0 < RACE_TUMBLE_MS + HOLD_MS; }
+static int holding(void) { return shown.on && shown.ended && ui_ms() - shown.t0 < UI_DICE_MS + HOLD_MS; }
 static int flying(void) { return fly.on && ui_ms() - fly.t0 < (Uint32)(FLY_MS + FLY_GAP * (fly.n - 1) + 120); }
-static int busy(void) { return (shown.on && ui_ms() - shown.t0 < RACE_TUMBLE_MS) || holding() || flying(); }
+static int busy(void) { return (shown.on && ui_ms() - shown.t0 < UI_DICE_MS) || holding() || flying(); }
 static void home(int player, float *fx, float *fy) { cup_home(player, P->players, fx, fy); }
 
 /* the chips of the round just settled: from the pot (in the frame of the one to throw next) or the winner, to the
@@ -142,7 +142,7 @@ static void throw_dice(void)
     slide_mask = 0;
     ui_sound(SND_DICE);
     if (P->rounds != rounds)
-        start_fly(up_pot && P->phase != FTO_OVER ? upside_of(P->turn) : upside_of(me), RACE_TUMBLE_MS);
+        start_fly(up_pot && P->phase != FTO_OVER ? upside_of(P->turn) : upside_of(me), UI_DICE_MS);
 }
 
 static void stop(void)
@@ -175,7 +175,7 @@ static int undo(void)
         shown.mask = 0;
         shown.ended = 0;
         memcpy(shown.dice, P->dice, sizeof shown.dice);
-        shown.t0 = ui_ms() - RACE_TUMBLE_MS;
+        shown.t0 = ui_ms() - UI_DICE_MS;
     }
     return 1;
 }
@@ -200,7 +200,7 @@ static int script(const char *s)
         shown.mask = 0;
         shown.ended = 0;
         memcpy(shown.dice, P->dice, sizeof shown.dice);
-        shown.t0 = ui_ms() - RACE_TUMBLE_MS;
+        shown.t0 = ui_ms() - UI_DICE_MS;
     }
     return ok;
 }
@@ -262,7 +262,7 @@ static void draw_sides(void)
         if (marks && q == worst && worst != best) ui_mark_glow(bx + x * S, by + y * S, 0.24f * S);
         for (int i = 0; i < FTO_DICE; i++) {
             float dx = x + (up ? -1 : 1) * (i - 1) * SMALL * 1.12f;
-            cup_die(bx + dx * S, by + y * S, SMALL * S, q, d[i], up ? 180 : 0, 0, 1);
+            ui_die(bx + dx * S, by + y * S, SMALL * S, q, d[i], up ? 180 : 0, 0, 1, 1);
         }
         for (int k = 0; k < throws; k++) {     /* how many throws it took: small dots under it */
             float dx = x + (k - (throws - 1) / 2.0f) * 0.022f, dy = y + (top ? -1 : 1) * 0.05f;
@@ -294,14 +294,14 @@ static void draw(void)
     if (P->phase == FTO_CHARGE || (fly.on && P->last_pot)) draw_pot(upside_of(P->turn));
     draw_sides();
     draw_fly(now);
-    int t = shown.on ? (int)(now - shown.t0) : RACE_TUMBLE_MS;
-    if (holding() || (shown.on && shown.ended && t < RACE_TUMBLE_MS)) {   /* the throw that ended a turn */
+    int t = shown.on ? (int)(now - shown.t0) : UI_DICE_MS;
+    if (holding() || (shown.on && shown.ended && t < UI_DICE_MS)) {   /* the throw that ended a turn */
         int up = upside_of(shown.player);
         for (int i = 0; i < FTO_DICE; i++) {
             float x = die_x(i), y = DICE_Y, deg = cup_tilt(shown.key, i);
-            if (shown.mask >> i & 1) cup_die_thrown(SX(x, up), SY(y, up), DIE * S, shown.player, shown.dice[i],
+            if (shown.mask >> i & 1) ui_die_thrown(SX(x, up), SY(y, up), DIE * S, shown.player, shown.dice[i],
                                                     deg + (up ? 180 : 0), i, t, 1);
-            else cup_die(SX(x, up), SY(y, up), DIE * S, shown.player, shown.dice[i], up ? 180 : 0, 0, 1);
+            else ui_die(SX(x, up), SY(y, up), DIE * S, shown.player, shown.dice[i], up ? 180 : 0, 0, 1, 1);
         }
         ui_animate();
         return;
@@ -313,12 +313,12 @@ static void draw(void)
         float x = 0.5f + (k - (P->limit - 1) / 2.0f) * 0.07f;
         int left = k >= P->throws;
         if (left && can_throw) ui_mark_gold(SX(x, up), SY(PIPS_Y, up), 0.085f * S);
-        cup_die(SX(x, up), SY(PIPS_Y, up), 0.045f * S, me, 6 - k, up ? 180 : 0, 0, left ? 1 : 0.28f);
+        ui_die(SX(x, up), SY(PIPS_Y, up), 0.045f * S, me, 6 - k, up ? 180 : 0, 0, left ? 1 : 0.28f, 1);
     }
     if (!P->throws) {                           /* waiting to be thrown */
         static const int idle[FTO_DICE] = {4, 2, 1};
         for (int i = 0; i < FTO_DICE; i++)
-            cup_die(SX(die_x(i), up), SY(DICE_Y, up), DIE * S, me, idle[i], up ? 180 : 0, 0, 0.9f);
+            ui_die(SX(die_x(i), up), SY(DICE_Y, up), DIE * S, me, idle[i], up ? 180 : 0, 0, 0.9f, 1);
         return;
     }
     for (int i = 0; i < FTO_DICE; i++) {
@@ -331,9 +331,9 @@ static void draw(void)
                 ui_animate();
             }
         }
-        if (shown.on && (shown.mask >> i & 1) && t < RACE_TUMBLE_MS)
-            cup_die_thrown(SX(x, up), SY(y, up), DIE * S, me, P->dice[i], deg + (up ? 180 : 0), i, t, 1);
-        else cup_die(SX(x, up), SY(y, up), DIE * S, me, P->dice[i], deg + (up ? 180 : 0), 0, 1);
+        if (shown.on && (shown.mask >> i & 1) && t < UI_DICE_MS)
+            ui_die_thrown(SX(x, up), SY(y, up), DIE * S, me, P->dice[i], deg + (up ? 180 : 0), i, t, 1);
+        else ui_die(SX(x, up), SY(y, up), DIE * S, me, P->dice[i], deg + (up ? 180 : 0), 0, 1, 1);
     }
     if (P->limit > 1) cup_button_at(CUP_STOP, SX(STOP_X, up), SY(STOP_Y, up), BTN * S, fto_can_stop(P), up ? 180 : 0);
 }
@@ -341,7 +341,7 @@ static void draw(void)
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
 static void press(float x, float y)
 {
-    if (P->phase == FTO_OVER || (shown.on && ui_ms() - shown.t0 < RACE_TUMBLE_MS) || holding()) return;
+    if (P->phase == FTO_OVER || (shown.on && ui_ms() - shown.t0 < UI_DICE_MS) || holding()) return;
     int up = upside_of(P->turn);
     float u = (x - bx) / S, v = (y - by) / S;
     if (up) { u = 1 - u; v = 1 - v; }
@@ -381,7 +381,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
     }
     static const int faces[3] = {4, 2, 1};
     for (int i = 0; i < 3; i++)
-        cup_paint_die(rgba, size, size, (0.3f + 0.22f * i) * size, (0.32f + (i == 1 ? 0.04f : 0)) * size,
+        art_die_blend(rgba, size, size, (0.3f + 0.22f * i) * size, (0.32f + (i == 1 ? 0.04f : 0)) * size,
                       (int)(0.22f * size), 0, faces[i], (float)(i * 17 - 15));
 }
 

@@ -359,7 +359,7 @@ static void marks(uint8_t *o, int n, int x, int y, int sq, int q)
             } else art_ellipse(f, ART_PART, mx, 0.5f, r, r);
         }
     static const uint8_t gold[3] = {240, 200, 96}, cream[3] = {250, 242, 222}, dark[3] = {70, 46, 30};
-    art_style st = race_style(q == WQ_STAR ? gold : cream, dark, q == WQ_STAR ? 0.03f : 0.02f, 0.2f);
+    art_style st = art_flat(q == WQ_STAR ? gold : cream, dark, q == WQ_STAR ? 0.03f : 0.02f, 0.2f);
     uint8_t *b = calloc((size_t)sq * sq, 4);
     if (b) {
         art_render(f, &st, sq, sq, (float)sq, 0, 0, b);

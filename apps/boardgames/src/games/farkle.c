@@ -111,7 +111,7 @@ static unsigned winners(void)                   /* a tie for the highest score: 
 }
 
 static int turn(void) { return P->turn; }
-static int rolling(void) { return tumble.on && ui_ms() - tumble.t0 < RACE_TUMBLE_MS; }
+static int rolling(void) { return tumble.on && ui_ms() - tumble.t0 < UI_DICE_MS; }
 static int busy(void)
 {
     return rolling() || dead.on || banked.on || (aside.on && ui_ms() - aside.t0 < 2 * CUP_SLIDE_MS);
@@ -191,7 +191,7 @@ static int undo(void)
     if (P->phase == FK_CHOOSE) {                /* the throw at rest again */
         tumble.on = 1;
         tumble.key = throw_key(P->turns, P->throws - 1);
-        tumble.t0 = ui_ms() - RACE_TUMBLE_MS;
+        tumble.t0 = ui_ms() - UI_DICE_MS;
     }
     return 1;
 }
@@ -211,7 +211,7 @@ static int script(const char *s)
     if (P->phase == FK_CHOOSE) {
         tumble.on = 1;
         tumble.key = throw_key(P->turns, P->throws - 1);
-        tumble.t0 = ui_ms() - RACE_TUMBLE_MS;
+        tumble.t0 = ui_ms() - UI_DICE_MS;
     } else if (G.n && G.ev[G.n - 1].kind == FE_THROW) {   /* the last throw a farkle: its pause to come */
         const fpos *b = &G.past[G.n - 1];
         const fevent *e = &G.ev[G.n - 1];
@@ -224,7 +224,7 @@ static int script(const char *s)
         memcpy(dead.v, e->v, sizeof dead.v);
         tumble.on = 1;
         tumble.key = dead.key;
-        tumble.t0 = ui_ms() - RACE_TUMBLE_MS;
+        tumble.t0 = ui_ms() - UI_DICE_MS;
     }
     return ok;
 }
@@ -275,7 +275,7 @@ static void draw_rack(const fpos *p, int me, int up, Uint32 now)
                 ui_animate();
             }
         }
-        cup_die(SX(x, y, up), SY(x, y, up), RACK_DIE * S, me, p->aside[k], up ? 180 : 0, 0, 1);
+        ui_die(SX(x, y, up), SY(x, y, up), RACK_DIE * S, me, p->aside[k], up ? 180 : 0, 0, 1, 1);
     }
 }
 
@@ -299,7 +299,7 @@ static void draw(void)
         int up = up_now();
         float x = 0.1f, y = FELT0 + 0.06f;
         ui_mark_gold(SX(x, y, up), SY(x, y, up), 0.1f * S);
-        cup_die(SX(x, y, up), SY(x, y, up), 0.055f * S, P->final_by, 5, 0, 0, 1);
+        ui_die(SX(x, y, up), SY(x, y, up), 0.055f * S, P->final_by, 5, 0, 0, 1, 1);
     }
     if (banked.on) {                            /* the points banked, a moment */
         if (now - banked.t0 >= BANKED_MS) banked.on = 0;
@@ -313,7 +313,7 @@ static void draw(void)
     }
     if (dead.on) {                              /* a farkle: the dice in a red glow, the points lost */
         int up = ui_upside(dead.player), t = (int)(now - tumble.t0);
-        if (!dead.landed && t >= RACE_TUMBLE_MS) {
+        if (!dead.landed && t >= UI_DICE_MS) {
             dead.landed = 1;
             dead.t0 = now;
             ui_sound(SND_DENY);
@@ -324,7 +324,7 @@ static void draw(void)
                 float x, y, deg;
                 die_spot(i, dead.nd, dead.key, &x, &y, &deg);
                 if (dead.landed) ui_mark_glow(SX(x, y, up), SY(x, y, up), 1.9f * DIE * S);
-                cup_die_thrown(SX(x, y, up), SY(x, y, up), DIE * S, dead.player, dead.v[i], deg + (up ? 180 : 0), i, t,
+                ui_die_thrown(SX(x, y, up), SY(x, y, up), DIE * S, dead.player, dead.v[i], deg + (up ? 180 : 0), i, t,
                                1);
             }
             if (dead.landed && dead.lost) {
@@ -344,13 +344,13 @@ static void draw(void)
         for (int i = 0; i < FK_DICE; i++) {
             float x, y, deg;
             die_spot(i, FK_DICE, -1, &x, &y, &deg);
-            cup_die(SX(x, y, up), SY(x, y, up), DIE * S, me, idle[i], up ? 180 : 0, 0, 0.9f);
+            ui_die(SX(x, y, up), SY(x, y, up), DIE * S, me, idle[i], up ? 180 : 0, 0, 0.9f, 1);
         }
         cup_button_at(CUP_THROW, SX(THROW_X, RACK_Y, up), SY(THROW_X, RACK_Y, up), bd, 1, up ? 180 : 0);
         cup_button_at(CUP_BANK, SX(BANK_X, RACK_Y, up), SY(BANK_X, RACK_Y, up), bd, 0, up ? 180 : 0);
         return;
     }
-    int t = rolling() ? (int)(now - tumble.t0) : RACE_TUMBLE_MS, settled = t >= RACE_TUMBLE_MS;
+    int t = rolling() ? (int)(now - tumble.t0) : UI_DICE_MS, settled = t >= UI_DICE_MS;
     unsigned can = settled ? fk_scoring(P) : 0;
     for (int i = 0; i < P->nd; i++) {
         float x, y, deg;
@@ -361,7 +361,7 @@ static void draw(void)
             y -= 0.015f;
         }
         float a = settled && !chosen && !(can >> i & 1) ? 0.7f : 1;   /* a die that cannot score: darker */
-        cup_die_thrown(SX(x, y, up), SY(x, y, up), DIE * S, me, P->dice[i], deg + (up ? 180 : 0), i, t, a);
+        ui_die_thrown(SX(x, y, up), SY(x, y, up), DIE * S, me, P->dice[i], deg + (up ? 180 : 0), i, t, a);
     }
     if (!settled) return;
     int v = sel ? fk_sel_value(P, sel) : 0;
@@ -425,7 +425,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
     int d = (int)(0.2f * size);
     for (int i = 0; i < 6; i++) {
         float x = (0.2f + 0.3f * (i % 3)) * size, y = (0.22f + 0.28f * (i / 3)) * size;
-        cup_paint_die(rgba, size, size, x, y, d, 0, faces[i], (float)((i * 37) % 40 - 20));
+        art_die_blend(rgba, size, size, x, y, d, 0, faces[i], (float)((i * 37) % 40 - 20));
     }
     int bsz = (int)(0.24f * size);
     ui_button_pic(rgba, size, size, 0.2f * size, 0.86f * size, bsz, cup_button_pic, CUP_BANK, 1, 0);

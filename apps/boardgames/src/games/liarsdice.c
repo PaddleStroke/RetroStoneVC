@@ -132,7 +132,7 @@ static void cup_paint(int player, int s, uint8_t *o)
     static const float body[] = {0.3f, 0.12f, 0.7f, 0.12f, 0.86f, 0.88f, 0.14f, 0.88f};
     art_poly(f, ART_PART, body, 4);
     art_ellipse(f, ART_PART, 0.5f, 0.88f, 0.36f, 0.06f);
-    art_style st = race_style(LEATHER, LEATHER_INK, 0.025f, 0.45f);
+    art_style st = art_flat(LEATHER, LEATHER_INK, 0.025f, 0.45f);
     art_render(f, &st, s, s, (float)s, 0, 0, o);
     art_fig_free(f);
     f = art_fig_new();                          /* the top, a little lighter */

@@ -320,8 +320,8 @@ static void paint_cross(uint8_t *o, int n, int x, int y, int w, int pale)
         art_poly(f, ART_PART, band, 6);
     }
     art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.09f, 0.09f);
-    art_style st = race_style(pale ? RACE_PALE : RACE_INK, RACE_INK, 0, 0);
-    race_fig(o, n, n, f, &st, x, y, w, pale ? 0.8f : 0.5f);
+    art_style st = art_flat(pale ? RACE_PALE : RACE_INK, RACE_INK, 0, 0);
+    art_fig_blend(o, n, n, f, &st, x, y, w, pale ? 0.8f : 0.5f);
     art_fig_free(f);
 }
 
@@ -359,8 +359,8 @@ static void paint_board(uint8_t *o, int c, int f)
         art_poly(fig, ART_PART, tri, 3);
         uint8_t rgb[3];
         tone_rgb(TONE[a], rgb);
-        art_style st = race_style(rgb, RACE_INK, fmaxf(0.006f, 1.0f / w), 0.15f);
-        race_fig(o, n, n, fig, &st, (int)k, (int)k, (int)w, 0.92f);
+        art_style st = art_flat(rgb, RACE_INK, fmaxf(0.006f, 1.0f / w), 0.15f);
+        art_fig_blend(o, n, n, fig, &st, (int)k, (int)k, (int)w, 0.92f);
         art_fig_free(fig);
     }
     lines_dot(o, n, f + 9.5f * c, f + 9.5f * c, 0.17f * c, RACE_INK);
@@ -403,7 +403,7 @@ static void paint_shell(int up, int size, uint8_t *o)
             art_ellipse(f, ART_MARK, 0.3f + 0.08f * i + 0.02f * (i & 1), 0.42f + 0.1f * (i % 3 == 1) + 0.04f * (i & 1),
                         0.025f, 0.02f);
     }
-    art_style st = race_style(up ? shell : back, RACE_INK, line, up ? 0.3f : 0.55f);
+    art_style st = art_flat(up ? shell : back, RACE_INK, line, up ? 0.3f : 0.55f);
     memcpy(st.mark, (float[3]){up ? slit[0] : spot_c[0], up ? slit[1] : spot_c[1], up ? slit[2] : spot_c[2]},
            sizeof st.mark);
     art_render(f, &st, size, size, (float)size, 0, 0, o);
@@ -416,8 +416,8 @@ static void paint_shell(int up, int size, uint8_t *o)
         }
     else                                        /* the gloss */
         art_ellipse(g, ART_PART, 0.4f, 0.36f, 0.16f, 0.06f);
-    art_style ts = race_style(up ? shell : gloss, RACE_INK, 0, 0);
-    race_fig(o, size, size, g, &ts, 0, 0, size, up ? 1 : 0.55f);
+    art_style ts = art_flat(up ? shell : gloss, RACE_INK, 0, 0);
+    art_fig_blend(o, size, size, g, &ts, 0, 0, size, up ? 1 : 0.55f);
     art_fig_free(g);
 }
 

@@ -137,14 +137,14 @@ static void match_pic(int w, int h, uint8_t *o)
     float k = (float)h, ox = (w - k) / 2;
     art_fig *f = art_fig_new();
     art_rect(f, ART_PART, 0.455f, 0.10f, 0.545f, 0.985f);
-    art_style st = race_style(STICK, STICK_INK, 0.012f, 0.35f);
+    art_style st = art_flat(STICK, STICK_INK, 0.012f, 0.35f);
     uint8_t *b = calloc((size_t)w * h, 4);
     if (!b) { art_fig_free(f); return; }
     art_render(f, &st, w, h, k, ox, 0, o);
     art_fig_free(f);
     f = art_fig_new();
     art_ellipse(f, ART_PART, 0.5f, 0.105f, 0.076f, 0.1f);
-    st = race_style(HEAD, HEAD_INK, 0.012f, 0.6f);
+    st = art_flat(HEAD, HEAD_INK, 0.012f, 0.6f);
     art_render(f, &st, w, h, k, ox, 0, b);
     art_blend(o, w, h, b, w, h, 0, 0);
     art_fig_free(f);
@@ -319,7 +319,7 @@ static void thumb(int v, int size, uint8_t *rgba)
     free(m);
     if (random_rows) {
         int d = (int)(0.2f * size);
-        cup_paint_die(rgba, size, size, 0.8f * size, 0.82f * size, d, 0, 3, 14);
+        art_die_blend(rgba, size, size, 0.8f * size, 0.82f * size, d, 0, 3, 14);
     }
 }
 
