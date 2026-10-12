@@ -1,0 +1,27 @@
+Logiska grindar
+# Målet
+Ett kretskort: strömbrytare längst ner, logiska grindar ovanför dem, lampor högst upp. Varje ledning för en signal uppåt, 0 (mörk) eller 1 (gyllene och lysande). Ställ strömbrytarna så att alla lampor tänds, medan de röda larmlamporna förblir släckta. Det finns 150 banor i 6 kapitel.
+# Grindarna
+Varje grind är en mässingsform på en platta av valnöt: ingångarna kommer in nedtill, utgången går ut upptill. En liten ring överst på en grind vänder på svaret. Här nedanför ingångarna och utgången i varje fall: 01 → 1 betyder första ingången 0, andra ingången 1, utgång 1.
+- NOT (ICKE), en triangel med en ring i spetsen: motsatsen till ingången. 0 → 1, 1 → 0.
+- AND (OCH), en kupol, platt nedtill och rund upptill: 1 bara när alla ingångar är 1. 00 → 0, 01 → 0, 10 → 0, 11 → 1.
+- OR (ELLER), en spetsig sköld, urholkad nedtill: 1 när minst en ingång är 1. 00 → 0, 01 → 1, 10 → 1, 11 → 1.
+- XOR (exklusivt ELLER), OR-formen med ännu en böjd linje under: 1 när ingångarna skiljer sig. 00 → 0, 01 → 1, 10 → 1, 11 → 0.
+- NAND, AND-kupolen med en ring: 00 → 1, 01 → 1, 10 → 1, 11 → 0.
+- NOR, OR-skölden med en ring: 00 → 1, 01 → 0, 10 → 0, 11 → 0.
+Längre fram har vissa grindar tre ingångar: AND, OR, NAND och NOR fungerar på samma sätt, och XOR ger 1 när ett udda antal ingångar är 1.
+# Växlar
+En platta där ledningen delar sig, åt vänster och åt höger. Signalen fortsätter åt det håll mässingsspåret pekar; det andra hållet för 0. Tryck på den för att skicka signalen åt andra hållet.
+# Ledningar att klippa
+Vissa ledningar har en liten krämvit säkring. Tryck på säkringen för att klippa av ledningen: gnistor flyger, och efter säkringen för ledningen 0, som om den vore urkopplad. Ett klipp kan inte lagas, utom med Ångra eller genom att börja om banan. Vissa banor tillåter färre klipp än de har säkringar: listen visar hur många du har kvar.
+# Låsta strömbrytare
+En strömbrytare med en fastskruvad mässingslist över sig stannar som den är.
+# Banor och stjärnor
+Kapitlen: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 växlar; 4 ledningar att klippa; 5 längre kedjor, en strömbrytare till flera grindar, grindar med tre ingångar; 6 stora kretsar med allt blandat.
+Ett drag är en omkoppling eller ett klipp. Varje bana har ett par, det minsta antalet drag som löser den. Löst på par: 3 stjärnor; upp till två drag till: 2 stjärnor; annars 1. Ber du om en ledtråd ger banan högst 2 stjärnor. Ångra tar tillbaka ett drag, och det räknas inte längre. Lösta banor förblir öppna, och det gör även de tre första olösta.
+# Spela på enheten
+- Banöversikten: en flik för varje kapitel och sedan dess banor: lösta i guld med sina stjärnor, öppna i trä, låsta i mörkt trä. Tryck på en bana för att spela den.
+- Tryck på en strömbrytare för att slå om den, på en växel för att vrida den, på en säkring för att klippa dess ledning. Ändringen löper uppför ledningarna, grind efter grind.
+- Bredvid kortet: rutnätsknappen leder tillbaka till banorna; sedan kapitlet och banans nummer; den runda pilen börjar om banan; lampan ger en ledtråd: nästa del att ändra blinkar. Blinkar omstartsknappen i stället är dina klipp fel: ångra dem.
+- När alla lampor lyser flammar de upp i guld. Tryck på kortet för nästa bana. Nytt parti leder också tillbaka till banöversikten.
+- Listen visar dina drag, klippen som är kvar och, längst till höger, par bredvid tre stjärnor.

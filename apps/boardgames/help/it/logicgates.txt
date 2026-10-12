@@ -1,0 +1,27 @@
+Porte logiche
+# Lo scopo
+Un circuito stampato: interruttori in basso, porte logiche sopra di essi, lampade in alto. Ogni filo porta un segnale verso l'alto, 0 (spento) o 1 (dorato e luminoso). Imposta gli interruttori in modo che tutte le lampade si accendano, mentre le lampade d'allarme rosse restano spente. Ci sono 150 livelli in 6 capitoli.
+# Le porte
+Ogni porta è una forma d'ottone su una targa di noce: gli ingressi arrivano dal basso, l'uscita parte dall'alto. Un piccolo cerchio in cima a una porta ne inverte la risposta. Qui sotto, gli ingressi e l'uscita per ogni caso: 01 → 1 significa primo ingresso 0, secondo ingresso 1, uscita 1.
+- NOT, un triangolo con un cerchio in punta: il contrario del suo ingresso. 0 → 1, 1 → 0.
+- AND, una cupola, piatta in basso e tonda in alto: 1 solo se tutti gli ingressi sono 1. 00 → 0, 01 → 0, 10 → 0, 11 → 1.
+- OR, uno scudo appuntito, incavato in basso: 1 se almeno un ingresso è 1. 00 → 0, 01 → 1, 10 → 1, 11 → 1.
+- XOR (OR esclusivo), la forma dell'OR con una seconda linea curva sotto: 1 se gli ingressi sono diversi. 00 → 0, 01 → 1, 10 → 1, 11 → 0.
+- NAND, la cupola dell'AND con un cerchio: 00 → 1, 01 → 1, 10 → 1, 11 → 0.
+- NOR, lo scudo dell'OR con un cerchio: 00 → 1, 01 → 0, 10 → 0, 11 → 0.
+Più avanti alcune porte hanno tre ingressi: AND, OR, NAND e NOR funzionano allo stesso modo, e XOR dà 1 quando un numero dispari di ingressi vale 1.
+# I deviatori
+Una targa dove il filo si divide, a sinistra e a destra. Il segnale prosegue dal lato indicato dalla pista d'ottone; l'altro lato porta 0. Toccalo per mandare il segnale dall'altra parte.
+# I fili da tagliare
+Alcuni fili hanno un piccolo fusibile color crema. Tocca il fusibile per tagliare il filo: volano scintille e, oltre il fusibile, il filo porta 0, come scollegato. Un taglio non si ripara, se non con Annulla o ricominciando il livello. Alcuni livelli permettono meno tagli dei fusibili che hanno: la barra mostra i tagli che ti restano.
+# Gli interruttori bloccati
+Un interruttore con una barra d'ottone avvitata sopra resta com'è.
+# Livelli e stelle
+I capitoli: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 deviatori; 4 fili da tagliare; 5 catene più lunghe, un interruttore che alimenta più porte, porte a tre ingressi; 6 grandi circuiti che mescolano tutto.
+Una mossa è uno scatto o un taglio. Ogni livello ha un par, il minimo di mosse che lo risolvono. Risolto al par: 3 stelle; fino a due mosse in più: 2 stelle; altrimenti 1. Chiedere un suggerimento limita il livello a 2 stelle. Annulla toglie una mossa, che non conta più. I livelli risolti restano aperti, e così i primi tre non risolti.
+# Giocare sul dispositivo
+- La griglia dei livelli: una scheda per capitolo, poi i suoi livelli: risolti in oro con le loro stelle, aperti in legno, chiusi in legno scuro. Tocca un livello per giocarlo.
+- Tocca un interruttore per farlo scattare, un deviatore per girarlo, un fusibile per tagliarne il filo. Il cambiamento sale lungo i fili, porta dopo porta.
+- Accanto alla scheda: il pulsante a griglia torna ai livelli; poi il capitolo e il numero del livello; la freccia tonda ricomincia il livello; la lampada dà un suggerimento: lampeggia il prossimo pezzo da cambiare. Se lampeggia invece il pulsante per ricominciare, i tuoi tagli sono sbagliati: annullali.
+- Quando tutte le lampade sono accese, divampano d'oro. Tocca la scheda per il livello successivo. Anche Nuova partita torna alla griglia dei livelli.
+- La barra mostra le tue mosse, i tagli rimasti e, all'estremità destra, il par accanto a tre stelle.

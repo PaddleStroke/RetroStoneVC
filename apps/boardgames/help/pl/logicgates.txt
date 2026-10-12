@@ -1,0 +1,27 @@
+Bramki logiczne
+# Cel gry
+Płytka drukowana: na dole przełączniki, nad nimi bramki logiczne, na górze żarówki. Każdy przewód niesie sygnał w górę, 0 (ciemny) albo 1 (świecący złotem). Ustaw przełączniki tak, by zapaliły się wszystkie żarówki, a czerwone lampki alarmowe pozostały zgaszone. Gra ma 150 poziomów w 6 rozdziałach.
+# Bramki
+Każda bramka to mosiężny kształt na orzechowej tabliczce: wejścia wchodzą od dołu, wyjście wychodzi u góry. Małe kółko na szczycie bramki odwraca jej odpowiedź. Poniżej wejścia i wyjście w każdym przypadku: 01 → 1 oznacza pierwsze wejście 0, drugie wejście 1, wyjście 1.
+- NOT (negacja), trójkąt z kółkiem na czubku: odwrotność wejścia. 0 → 1, 1 → 0.
+- AND (iloczyn), kopuła, płaska u dołu i okrągła u góry: 1 tylko wtedy, gdy wszystkie wejścia są 1. 00 → 0, 01 → 0, 10 → 0, 11 → 1.
+- OR (suma), spiczasta tarcza, wklęsła u dołu: 1, gdy choć jedno wejście jest 1. 00 → 0, 01 → 1, 10 → 1, 11 → 1.
+- XOR (alternatywa wykluczająca), kształt OR z drugą wygiętą linią pod spodem: 1, gdy wejścia się różnią. 00 → 0, 01 → 1, 10 → 1, 11 → 0.
+- NAND, kopuła AND z kółkiem: 00 → 1, 01 → 1, 10 → 1, 11 → 0.
+- NOR, tarcza OR z kółkiem: 00 → 1, 01 → 0, 10 → 0, 11 → 0.
+Dalej niektóre bramki mają trzy wejścia: AND, OR, NAND i NOR działają tak samo, a XOR daje 1, gdy nieparzysta liczba wejść jest 1.
+# Zwrotnice
+Tabliczka, na której przewód rozgałęzia się w lewo i w prawo. Sygnał biegnie tam, gdzie wskazuje mosiężny tor; druga strona niesie 0. Dotknij zwrotnicy, by posłać sygnał w drugą stronę.
+# Przewody do przecięcia
+Niektóre przewody mają mały kremowy bezpiecznik. Dotknij bezpiecznika, by przeciąć przewód: lecą iskry, a za bezpiecznikiem przewód niesie 0, jakby był odłączony. Cięcia nie da się naprawić, chyba że przyciskiem Cofnij albo zaczynając poziom od nowa. Niektóre poziomy pozwalają na mniej cięć, niż mają bezpieczników: pasek pokazuje, ile ci zostało.
+# Zablokowane przełączniki
+Przełącznik z przykręconą mosiężną listwą zostaje taki, jaki jest.
+# Poziomy i gwiazdki
+Rozdziały: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 zwrotnice; 4 przewody do przecięcia; 5 dłuższe łańcuchy, jeden przełącznik zasilający kilka bramek, bramki o trzech wejściach; 6 duże układy, w których jest wszystko.
+Ruch to jedno przełączenie albo jedno cięcie. Każdy poziom ma par, najmniejszą liczbę ruchów, która go rozwiązuje. Rozwiązany w par: 3 gwiazdki; do dwóch ruchów więcej: 2 gwiazdki; inaczej 1. Prośba o podpowiedź ogranicza poziom do 2 gwiazdek. Cofnij cofa ruch, który przestaje się liczyć. Rozwiązane poziomy pozostają otwarte, tak samo jak trzy pierwsze nierozwiązane.
+# Gra na urządzeniu
+- Siatka poziomów: zakładka dla każdego rozdziału, a pod nią jego poziomy: rozwiązane złote z gwiazdkami, otwarte drewniane, zamknięte z ciemnego drewna. Dotknij poziomu, aby w niego zagrać.
+- Dotknij przełącznika, by go przełączyć, zwrotnicy, by ją obrócić, bezpiecznika, by przeciąć jego przewód. Zmiana biegnie w górę przewodów, bramka po bramce.
+- Obok płytki: przycisk z siatką wraca do poziomów; dalej rozdział i numer poziomu; okrągła strzałka zaczyna poziom od nowa; żarówka daje podpowiedź: miga następna część do zmiany. Jeśli zamiast tego miga przycisk zaczynania od nowa, twoje cięcia są błędne: cofnij je.
+- Gdy świecą wszystkie żarówki, rozbłyskują złotem. Dotknij płytki, by przejść do następnego poziomu. Nowa gra też wraca do siatki poziomów.
+- Pasek pokazuje twoje ruchy, pozostałe cięcia i na prawym końcu par obok trzech gwiazdek.

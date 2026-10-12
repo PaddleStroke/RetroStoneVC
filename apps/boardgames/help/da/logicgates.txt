@@ -1,0 +1,27 @@
+Logiske porte
+# Målet
+Et printkort: kontakter forneden, logiske porte over dem, lamper øverst. Hver ledning fører et signal opad, 0 (mørk) eller 1 (gyldent lysende). Stil kontakterne, så alle lamper lyser, mens de røde alarmlamper forbliver slukket. Der er 150 baner i 6 kapitler.
+# Portene
+Hver port er en messingfigur på en plade af valnød: indgangene kommer ind forneden, udgangen går ud foroven. En lille ring øverst på en port vender dens svar om. Herunder indgangene og udgangen for hvert tilfælde: 01 → 1 betyder første indgang 0, anden indgang 1, udgang 1.
+- NOT (IKKE), en trekant med en ring i spidsen: det modsatte af indgangen. 0 → 1, 1 → 0.
+- AND (OG), en kuppel, flad forneden og rund foroven: kun 1, når alle indgange er 1. 00 → 0, 01 → 0, 10 → 0, 11 → 1.
+- OR (ELLER), et spidst skjold, hult forneden: 1, når mindst én indgang er 1. 00 → 0, 01 → 1, 10 → 1, 11 → 1.
+- XOR (eksklusiv ELLER), OR-formen med endnu en buet streg under: 1, når indgangene er forskellige. 00 → 0, 01 → 1, 10 → 1, 11 → 0.
+- NAND, AND-kuplen med en ring: 00 → 1, 01 → 1, 10 → 1, 11 → 0.
+- NOR, OR-skjoldet med en ring: 00 → 1, 01 → 0, 10 → 0, 11 → 0.
+Senere har nogle porte tre indgange: AND, OR, NAND og NOR virker på samme måde, og XOR giver 1, når et ulige antal indgange er 1.
+# Sporskifter
+En plade, hvor ledningen deler sig til venstre og højre. Signalet fortsætter den vej, messingsporet peger; den anden vej fører 0. Tryk på den for at sende signalet den anden vej.
+# Ledninger, der kan klippes
+Nogle ledninger har en lille cremefarvet sikring. Tryk på sikringen for at klippe ledningen over: gnister flyver, og efter sikringen fører ledningen 0, som om den var afbrudt. Et klip kan ikke repareres, undtagen med Fortryd eller ved at starte banen forfra. Nogle baner tillader færre klip, end de har sikringer: bjælken viser, hvor mange du har tilbage.
+# Låste kontakter
+En kontakt med en påskruet messingstang hen over bliver, som den er.
+# Baner og stjerner
+Kapitlerne: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 sporskifter; 4 ledninger, der kan klippes; 5 længere kæder, én kontakt til flere porte, porte med tre indgange; 6 store kredsløb med det hele.
+Et træk er ét skift eller ét klip. Hver bane har et par, det mindste antal træk, der løser den. Løst på par: 3 stjerner; op til to træk mere: 2 stjerner; ellers 1. Beder du om et tip, kan banen højst give 2 stjerner. Fortryd tager et træk tilbage, og det tæller ikke længere. Løste baner forbliver åbne, og det gør de første tre uløste også.
+# Spil på enheden
+- Baneoversigten: en fane for hvert kapitel og derefter dets baner: løste i guld med deres stjerner, åbne i træ, låste i mørkt træ. Tryk på en bane for at spille den.
+- Tryk på en kontakt for at skifte den, på et sporskifte for at dreje det, på en sikring for at klippe dens ledning. Ændringen løber op ad ledningerne, port efter port.
+- Ved siden af printkortet: gitterknappen fører tilbage til banerne; så kapitlet og banens nummer; den runde pil starter banen forfra; lampen giver et tip: den næste del, der skal ændres, blinker. Blinker genstartsknappen i stedet, er dine klip forkerte: fortryd dem.
+- Når alle lamper lyser, blusser de op i guld. Tryk på printkortet for næste bane. Nyt spil fører også tilbage til baneoversigten.
+- Bjælken viser dine træk, de klip, der er tilbage, og yderst til højre par ved siden af tre stjerner.

@@ -1,0 +1,27 @@
+Mantık Kapıları
+# Amaç
+Bir devre kartı: altta anahtarlar, onların üstünde mantık kapıları, en üstte lambalar. Her tel yukarı doğru bir sinyal taşır, 0 (karanlık) ya da 1 (altın gibi parlar). Anahtarları öyle ayarla ki bütün lambalar yansın, kırmızı alarm lambaları ise sönük kalsın. 6 bölümde 150 seviye var.
+# Kapılar
+Her kapı ceviz bir levha üzerinde pirinçten bir şekildir: girişleri alttan girer, çıkışı üstten çıkar. Bir kapının tepesindeki küçük halka cevabını tersine çevirir. Aşağıda her durum için girişler ve çıkış: 01 → 1, birinci giriş 0, ikinci giriş 1, çıkış 1 demektir.
+- NOT (DEĞİL), ucunda halka olan bir üçgen: girişinin tersi. 0 → 1, 1 → 0.
+- AND (VE), altı düz, üstü yuvarlak bir kubbe: yalnızca bütün girişler 1 olunca 1. 00 → 0, 01 → 0, 10 → 0, 11 → 1.
+- OR (VEYA), altı oyuk, sivri bir kalkan: en az bir giriş 1 olunca 1. 00 → 0, 01 → 1, 10 → 1, 11 → 1.
+- XOR (özel VEYA), altında ikinci bir kavisli çizgi olan OR şekli: girişler farklı olunca 1. 00 → 0, 01 → 1, 10 → 1, 11 → 0.
+- NAND, halkalı AND kubbesi: 00 → 1, 01 → 1, 10 → 1, 11 → 0.
+- NOR, halkalı OR kalkanı: 00 → 1, 01 → 0, 10 → 0, 11 → 0.
+İleride bazı kapıların üç girişi olur: AND, OR, NAND ve NOR aynı şekilde çalışır, XOR ise tek sayıda giriş 1 olunca 1 verir.
+# Makaslar
+Telin sola ve sağa ayrıldığı bir levha. Sinyal pirinç yolun gösterdiği yönde devam eder; öbür yön 0 taşır. Sinyali öbür yöne göndermek için ona dokun.
+# Kesilebilen teller
+Bazı tellerde küçük, krem renkli bir sigorta vardır. Teli kesmek için sigortaya dokun: kıvılcımlar saçılır ve sigortadan sonra tel, bağlantısı kopmuş gibi 0 taşır. Kesik onarılamaz; yalnızca Geri al ile ya da seviyeye baştan başlayarak geri dönülür. Bazı seviyeler sigorta sayısından daha az kesmeye izin verir: kaç kesme hakkın kaldığını çubuk gösterir.
+# Kilitli anahtarlar
+Üstüne pirinç bir çubuk vidalanmış anahtar olduğu gibi kalır.
+# Seviyeler ve yıldızlar
+Bölümler: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 makaslar; 4 kesilebilen teller; 5 daha uzun zincirler, birkaç kapıyı besleyen tek anahtar, üç girişli kapılar; 6 her şeyin karıştığı büyük devreler.
+Bir hamle, bir anahtarı çevirmek ya da bir teli kesmektir. Her seviyenin bir par değeri vardır: onu çözen en az hamle sayısı. Par ile çözülürse 3 yıldız; en fazla iki hamle fazlasıyla 2 yıldız; yoksa 1. İpucu istersen seviye en fazla 2 yıldız verir. Geri al bir hamleyi geri alır, o hamle artık sayılmaz. Çözülen seviyeler açık kalır; çözülmemiş ilk üç seviye de açıktır.
+# Cihazda oynamak
+- Seviye tablosu: her bölüm için bir sekme, altında da o bölümün seviyeleri: çözülenler yıldızlarıyla altın, açık olanlar ahşap, kilitliler koyu ahşap. Oynamak için bir seviyeye dokun.
+- Çevirmek için bir anahtara, döndürmek için bir makasa, telini kesmek için bir sigortaya dokun. Değişiklik teller boyunca kapı kapı yukarı koşar.
+- Kartın yanında: ızgara düğmesi seviyelere döner; sonra bölüm ve seviyenin numarası; yuvarlak ok seviyeyi baştan başlatır; lamba ipucu verir: değiştirilecek sonraki parça yanıp söner. Bunun yerine yeniden başlatma düğmesi yanıp sönüyorsa kesiklerin yanlıştır: onları geri al.
+- Bütün lambalar yanınca altın gibi parlarlar. Sonraki seviye için karta dokun. Yeni oyun da seviye tablosuna döner.
+- Çubuk hamlelerini, kalan kesme hakkını ve sağ ucunda üç yıldızın yanında par değerini gösterir.

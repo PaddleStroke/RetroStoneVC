@@ -1,0 +1,27 @@
+Logic Gates
+# The aim
+A circuit board: switches along the bottom, logic gates above them, lamps at the top. Each wire carries a signal upwards, 0 (dark) or 1 (glowing gold). Set the switches so that every lamp lights up, while any red alarm lamp stays dark. There are 150 levels in 6 chapters.
+# The gates
+Each gate is a brass shape on a walnut plaque: its inputs come in at the bottom, its output leaves at the top. A small ring at the top of a gate turns its answer round. Below, the inputs and the output for every case: 01 → 1 means first input 0, second input 1, output 1.
+- NOT, a triangle with a ring at its tip: the opposite of its input. 0 → 1, 1 → 0.
+- AND, a dome, flat at the bottom and round at the top: 1 only when all its inputs are 1. 00 → 0, 01 → 0, 10 → 0, 11 → 1.
+- OR, a shield coming to a point, hollow at the bottom: 1 when any input is 1. 00 → 0, 01 → 1, 10 → 1, 11 → 1.
+- XOR, the OR shape with a second curved line under it: 1 when its inputs differ. 00 → 0, 01 → 1, 10 → 1, 11 → 0.
+- NAND, the AND dome with a ring: 00 → 1, 01 → 1, 10 → 1, 11 → 0.
+- NOR, the OR shield with a ring: 00 → 1, 01 → 0, 10 → 0, 11 → 0.
+Later gates may have three inputs: AND, OR, NAND and NOR work the same way, and XOR gives 1 when an odd number of its inputs are 1.
+# Route switches
+A plaque where the wire forks, left and right. The signal goes on along the way the brass track points; the other way carries 0. Tap it to send the signal the other way.
+# Cuttable wires
+Some wires carry a small cream fuse. Tap the fuse to cut the wire: sparks fly, and beyond the fuse the wire carries 0, as if disconnected. A cut cannot be mended, except by undo or by starting the level again. Some levels allow fewer cuts than they have fuses: the bar shows the cuts you have left.
+# Locked switches
+A switch with a brass bar screwed across it stays as it is.
+# Levels and stars
+The chapters: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 route switches; 4 cuttable wires; 5 longer chains, one switch feeding several gates, gates with three inputs; 6 big circuits mixing everything.
+A move is one flip or one cut. Each level has a par, the fewest moves that solve it. Solved at par: 3 stars; up to two moves more: 2 stars; otherwise 1. Asking for a hint keeps the level to 2 stars. Undo takes a move back, and it no longer counts. Solved levels stay open, and so do the first three unsolved ones.
+# Playing on the device
+- The level grid: a tab for each chapter, then the chapter's levels: solved in gold with their stars, open in wood, locked in dark wood. Tap a level to play it.
+- Tap a switch to flip it, a route switch to turn it, a fuse to cut its wire. The change runs up the wires, gate after gate.
+- Beside the board: the grid button goes back to the levels; then the chapter and the level's number; the round arrow starts the level again; the lamp shows a hint: the next part to change blinks. If the restart button blinks instead, your cuts have gone wrong: undo them.
+- When every lamp is lit, the lamps flare up in gold. Tap the board for the next level. New game also goes back to the level grid.
+- The bar shows your moves, the cuts left and, at its right end, the par next to three stars.

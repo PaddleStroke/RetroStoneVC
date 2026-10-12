@@ -1,0 +1,27 @@
+Puertas lógicas
+# El objetivo
+Una placa de circuito: interruptores abajo, puertas lógicas encima y lámparas arriba. Cada cable lleva una señal hacia arriba, 0 (oscuro) o 1 (dorado y brillante). Pon los interruptores de forma que todas las lámparas se enciendan, mientras las lámparas de alarma rojas siguen apagadas. Hay 150 niveles en 6 capítulos.
+# Las puertas
+Cada puerta es una figura de latón sobre una placa de nogal: sus entradas llegan por abajo y su salida sale por arriba. Un pequeño círculo en lo alto de una puerta invierte su respuesta. Abajo, las entradas y la salida de cada caso: 01 → 1 quiere decir primera entrada 0, segunda entrada 1, salida 1.
+- NOT (NO), un triángulo con un círculo en la punta: lo contrario de su entrada. 0 → 1, 1 → 0.
+- AND (Y), una cúpula, plana abajo y redonda arriba: 1 solo si todas sus entradas son 1. 00 → 0, 01 → 0, 10 → 0, 11 → 1.
+- OR (O), un escudo acabado en punta, hueco por abajo: 1 si alguna entrada es 1. 00 → 0, 01 → 1, 10 → 1, 11 → 1.
+- XOR (O exclusiva), la forma de OR con una segunda línea curva debajo: 1 si sus entradas son distintas. 00 → 0, 01 → 1, 10 → 1, 11 → 0.
+- NAND, la cúpula de AND con un círculo: 00 → 1, 01 → 1, 10 → 1, 11 → 0.
+- NOR, el escudo de OR con un círculo: 00 → 1, 01 → 0, 10 → 0, 11 → 0.
+Más adelante algunas puertas tienen tres entradas: AND, OR, NAND y NOR funcionan igual, y XOR da 1 cuando un número impar de sus entradas vale 1.
+# Los desvíos
+Una placa donde el cable se divide, a la izquierda y a la derecha. La señal sigue por el lado al que apunta la pista de latón; el otro lado lleva 0. Tócalo para mandar la señal por el otro lado.
+# Los cables que se cortan
+Algunos cables llevan un pequeño fusible color crema. Toca el fusible para cortar el cable: saltan chispas y, pasado el fusible, el cable lleva 0, como desconectado. Un corte no se repara, salvo con Deshacer o empezando de nuevo el nivel. Algunos niveles permiten menos cortes que fusibles tienen: la barra muestra los cortes que te quedan.
+# Los interruptores bloqueados
+Un interruptor con una barra de latón atornillada encima se queda como está.
+# Niveles y estrellas
+Los capítulos: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 desvíos; 4 cables que se cortan; 5 cadenas más largas, un interruptor que alimenta varias puertas, puertas de tres entradas; 6 grandes circuitos que lo mezclan todo.
+Una jugada es un cambio o un corte. Cada nivel tiene un par, el mínimo de jugadas que lo resuelven. Resuelto en el par: 3 estrellas; hasta dos jugadas más: 2 estrellas; si no, 1. Pedir una pista deja el nivel en 2 estrellas como máximo. Deshacer anula una jugada, que ya no cuenta. Los niveles resueltos siguen abiertos, y también los tres primeros sin resolver.
+# Jugar en el dispositivo
+- La cuadrícula de niveles: una pestaña por capítulo y luego sus niveles: resueltos en oro con sus estrellas, abiertos en madera, cerrados en madera oscura. Toca un nivel para jugarlo.
+- Toca un interruptor para cambiarlo, un desvío para girarlo, un fusible para cortar su cable. El cambio sube por los cables, puerta tras puerta.
+- Junto a la placa: el botón de cuadrícula vuelve a los niveles; luego el capítulo y el número del nivel; la flecha redonda empieza de nuevo el nivel; la lámpara da una pista: parpadea la próxima pieza que hay que cambiar. Si parpadea el botón de empezar de nuevo, tus cortes están mal: deshazlos.
+- Cuando todas las lámparas se encienden, brillan en oro. Toca la placa para pasar al siguiente nivel. Nueva partida también vuelve a la cuadrícula.
+- La barra muestra tus jugadas, los cortes que quedan y, en su extremo derecho, el par junto a tres estrellas.

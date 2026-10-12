@@ -1,0 +1,27 @@
+Logikgatter
+# Das Ziel
+Eine Schaltplatine: unten Schalter, darüber Logikgatter, oben Lampen. Jeder Draht führt ein Signal nach oben, 0 (dunkel) oder 1 (golden leuchtend). Stelle die Schalter so, dass alle Lampen leuchten, während die roten Alarmlampen dunkel bleiben. 150 Level in 6 Kapiteln.
+# Die Gatter
+Jedes Gatter ist eine Messingform auf einer Nussbaumplakette: Seine Eingänge kommen unten herein, sein Ausgang geht oben hinaus. Ein kleiner Kreis oben an einem Gatter kehrt seine Antwort um. Unten die Eingänge und der Ausgang für jeden Fall: 01 → 1 heißt erster Eingang 0, zweiter Eingang 1, Ausgang 1.
+- NICHT (NOT), ein Dreieck mit einem Kreis an der Spitze: das Gegenteil seines Eingangs. 0 → 1, 1 → 0.
+- UND (AND), eine Kuppel, unten flach und oben rund: nur 1, wenn alle Eingänge 1 sind. 00 → 0, 01 → 0, 10 → 0, 11 → 1.
+- ODER (OR), ein spitzer Schild, unten ausgehöhlt: 1, wenn mindestens ein Eingang 1 ist. 00 → 0, 01 → 1, 10 → 1, 11 → 1.
+- Exklusives ODER (XOR), die ODER-Form mit einer zweiten gebogenen Linie darunter: 1, wenn die Eingänge verschieden sind. 00 → 0, 01 → 1, 10 → 1, 11 → 0.
+- NAND, die UND-Kuppel mit Kreis: 00 → 1, 01 → 1, 10 → 1, 11 → 0.
+- NOR, der ODER-Schild mit Kreis: 00 → 1, 01 → 0, 10 → 0, 11 → 0.
+Später haben manche Gatter drei Eingänge: UND, ODER, NAND und NOR arbeiten genauso, und XOR gibt 1, wenn eine ungerade Zahl seiner Eingänge 1 ist.
+# Weichen
+Eine Plakette, an der sich der Draht nach links und rechts teilt. Das Signal läuft in die Richtung weiter, in die die Messingbahn zeigt; die andere Richtung führt 0. Tippe die Weiche an, um das Signal in die andere Richtung zu schicken.
+# Drähte zum Durchtrennen
+Manche Drähte tragen eine kleine cremefarbene Sicherung. Tippe die Sicherung an, um den Draht zu durchtrennen: Funken sprühen, und hinter der Sicherung führt der Draht 0, als wäre er abgeklemmt. Ein Schnitt lässt sich nicht flicken, außer mit Rückgängig oder einem Neustart des Levels. Manche Level erlauben weniger Schnitte, als sie Sicherungen haben: Die Leiste zeigt, wie viele dir bleiben.
+# Gesperrte Schalter
+Ein Schalter mit einer aufgeschraubten Messingleiste bleibt, wie er ist.
+# Level und Sterne
+Die Kapitel: 1 NICHT, UND, ODER; 2 XOR, NAND, NOR; 3 Weichen; 4 Drähte zum Durchtrennen; 5 längere Ketten, ein Schalter für mehrere Gatter, Gatter mit drei Eingängen; 6 große Schaltungen mit allem.
+Ein Zug ist ein Umschalten oder ein Schnitt. Jedes Level hat ein Par, die wenigsten Züge, die es lösen. Gelöst mit Par: 3 Sterne; bis zu zwei Züge mehr: 2 Sterne; sonst 1. Wer einen Tipp holt, bekommt höchstens 2 Sterne. Rückgängig nimmt einen Zug zurück, und er zählt nicht mehr. Gelöste Level bleiben offen, ebenso die ersten drei ungelösten.
+# Spielen auf dem Gerät
+- Die Levelübersicht: ein Reiter je Kapitel, darunter dessen Level: gelöste in Gold mit ihren Sternen, offene in Holz, gesperrte in dunklem Holz. Tippe ein Level an, um es zu spielen.
+- Tippe einen Schalter an, um ihn umzulegen, eine Weiche, um sie umzustellen, eine Sicherung, um ihren Draht zu durchtrennen. Die Änderung läuft die Drähte hinauf, Gatter für Gatter.
+- Neben der Platine: Der Gitterknopf führt zurück zu den Leveln; dann Kapitel und Nummer des Levels; der runde Pfeil startet das Level neu; die Lampe gibt einen Tipp: Das nächste zu ändernde Teil blinkt. Blinkt stattdessen der Neustart-Knopf, sind deine Schnitte falsch: Nimm sie zurück.
+- Leuchten alle Lampen, flammen sie golden auf. Tippe auf die Platine für das nächste Level. Neues Spiel führt ebenfalls zur Levelübersicht.
+- Die Leiste zeigt deine Züge, die übrigen Schnitte und am rechten Ende das Par neben drei Sternen.
