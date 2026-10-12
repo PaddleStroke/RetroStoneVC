@@ -1,0 +1,16 @@
+Binairo
+# O objetivo
+Preenche a grelha com peças de marfim e de ébano. Três peças da mesma cor nunca podem ficar lado a lado numa linha ou coluna. Cada linha e cada coluna tem tantas peças de marfim como de ébano. Não pode haver duas linhas iguais, nem duas colunas.
+Algumas peças já são dadas, em casas mais escuras. Cada tabuleiro tem uma única solução, que se encontra só a raciocinar. Escolhe o tamanho (de 6 × 6 a 12 × 12) e o nível (as peças sob cada imagem):
+- Fácil: duas iguais lado a lado, ou duas iguais com uma casa entre elas, dão a cor das casas vizinhas; uma linha que já tem todas as peças de uma cor leva a outra cor no resto.
+- Médio: vais precisar também de olhar para uma linha inteira: todas as maneiras de a preencher concordam em algumas casas.
+- Difícil: cadeias de raciocínio mais longas, nunca ao acaso.
+# Uma jogada
+Põe uma peça numa casa vazia, muda a sua cor ou tira-a. As peças dadas ficam.
+# O fim do jogo
+O tabuleiro está resolvido quando a grelha está cheia e cumpre todas as regras: uma onda de luz dourada percorre o tabuleiro.
+# Jogar no dispositivo
+- Toca numa casa vazia para uma peça de marfim, outra vez para uma de ébano, mais uma vez para a esvaziar.
+- Mantém o dedo numa casa por um instante para dar a volta ao contrário: ébano primeiro.
+- Arrasta ao longo de uma linha ou coluna para fazer o mesmo num troço inteiro. Só mudam as casas que estavam como a primeira.
+Três iguais seguidas brilham a vermelho; uma linha ou coluna com peças a mais de uma cor, ou cheia e igual a outra, fica vermelha. O botão na ponta direita da barra é a lâmpada acesa: uma ajuda. Corrige uma peça errada ou, se não houver, mostra a próxima casa que o raciocínio encontra, com luz dourada. Anular desfaz uma ação de cada vez, até ao início. A barra mostra as tuas jogadas.

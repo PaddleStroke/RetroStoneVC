@@ -1,0 +1,19 @@
+Tält
+# Målet
+Slå upp ett tält bredvid varje träd: precis ovanför, under, till vänster eller till höger om det. Varje träd har sitt eget tält och varje tält sitt eget träd. Tälten rör aldrig varandra, inte ens snett. Talen till vänster om raderna och ovanför kolumnerna säger hur många tält de har.
+Varje fält har exakt en lösning, som går att hitta enbart genom att resonera. Välj storlek (från 6 × 6 till 12 × 12) och nivå (stenarna under varje bild):
+- Lätt: en blick räcker alltid: inget tält långt från träden eller runt ett tält; en linje med alla sina tält, eller med precis plats för dem; ett träd med bara en plats kvar.
+- Medel: du behöver också sträckorna av fria rutor där en linjes tält precis får plats, och tänka ett tält framåt: ett tält här skulle lämna ett träd eller en linje utan plats.
+- Svår: längre kedjor av slutsatser, aldrig gissningar.
+# Ett drag
+Slå upp ett tält i en ruta, eller ta ner det. Du kan också lägga gräs i en ruta för att komma ihåg att inget tält ska stå där; gräset är bara en anteckning för dig.
+# Partiets slut
+Fältet är löst när varje träd har sitt tält, inga tält rör varandra och varje tal stämmer: en våg av gyllene ljus sveper över fältet.
+# Spela på enheten
+- Tryck på en ruta för att slå upp ett tält; tryck igen för att ta ner det.
+- Håll kvar fingret en stund på en ruta för att lägga gräs, eller ta bort det.
+- Dra längs en rad eller kolumn för att lägga gräs i en hel sträcka (eller ta bort det från en sträcka med gräs).
+Tält som rör varandra glöder rött, liksom ett träd utan plats för sitt tält. Ett tal blir rött när dess linje har för många tält, och bleknar när den har alla. Knapparna längst till höger i listen:
+- Tält eller gräs: vad ett tryck sätter. Tryck på den för att byta plats på tryck och håll.
+- Glödlampa: ett tips. Den rättar en felaktig ruta eller visar annars nästa ruta som resonemanget hittar, i gyllene ljus.
+Ångra tar tillbaka en handling i taget, ända till början. Listen visar dina drag.

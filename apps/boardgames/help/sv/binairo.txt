@@ -1,0 +1,16 @@
+Binairo
+# Målet
+Fyll rutnätet med brickor av elfenben och ebenholts. Tre brickor av samma färg får aldrig stå bredvid varandra i en rad eller kolumn. Varje rad och varje kolumn har lika många ljusa som mörka brickor. Inga två rader får vara likadana, och inga två kolumner.
+Några brickor är givna från början, på mörkare rutor. Varje pussel har exakt en lösning, som går att hitta enbart genom att resonera. Välj storlek (från 6 × 6 till 12 × 12) och nivå (stenarna under varje bild):
+- Lätt: två lika bredvid varandra, eller två lika med en lucka emellan, ger färgen på rutorna intill; en linje som har alla brickor av en färg får den andra färgen överallt annars.
+- Medel: du måste också titta på en hel linje: alla sätt att fylla den är överens om vissa rutor.
+- Svår: längre kedjor av slutsatser, aldrig gissningar.
+# Ett drag
+Sätt en bricka i en tom ruta, byt dess färg eller ta bort den. De givna brickorna ligger kvar.
+# Partiets slut
+Pusslet är löst när rutnätet är fullt och följer alla regler: en våg av gyllene ljus sveper över brädet.
+# Spela på enheten
+- Tryck på en tom ruta för en ljus bricka, igen för en mörk, en gång till för att tömma den.
+- Håll kvar fingret en stund på en ruta för att gå åt andra hållet: mörk först.
+- Dra längs en rad eller kolumn för att göra samma sak med en hel sträcka. Bara rutor som var som den första ändras.
+Tre lika i rad glöder rött; en rad eller kolumn med för många brickor av en färg, eller full och likadan som en annan, blir röd. Knappen längst till höger i listen är glödlampan: ett tips. Den rättar en felaktig bricka eller visar annars nästa ruta som resonemanget hittar, i gyllene ljus. Ångra tar tillbaka en handling i taget, ända till början. Listen visar dina drag.

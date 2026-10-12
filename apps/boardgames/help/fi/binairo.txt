@@ -1,0 +1,16 @@
+Binairo
+# Tavoite
+Täytä ruudukko norsunluun- ja eebenpuunvärisillä nappuloilla. Kolme samanväristä nappulaa ei saa koskaan olla vierekkäin rivillä tai sarakkeessa. Jokaisella rivillä ja jokaisessa sarakkeessa on yhtä monta vaaleaa ja tummaa nappulaa. Kaksi riviä ei saa olla samanlaisia, eikä kaksi saraketta.
+Osa nappuloista on annettu valmiiksi tummemmissa ruuduissa. Jokaisella tehtävällä on täsmälleen yksi ratkaisu, jonka löytää pelkällä päättelyllä. Valitse koko (6 × 6:sta 12 × 12:een) ja taso (kivet kunkin kuvan alla):
+- Helppo: kaksi samanlaista vierekkäin, tai kaksi samanlaista yhden ruudun välein, kertovat viereisten ruutujen värin; linja, jolla on jo kaikki yhden värin nappulat, saa muualle toisen värin.
+- Keskitaso: sinun on myös katsottava koko linjaa: kaikki tavat täyttää se ovat samaa mieltä joistakin ruuduista.
+- Vaikea: pidempiä päättelyketjuja, ei koskaan arvaamista.
+# Siirto
+Aseta nappula tyhjään ruutuun, vaihda sen väri tai poista se. Annetut nappulat pysyvät paikallaan.
+# Pelin loppu
+Tehtävä on ratkaistu, kun ruudukko on täynnä ja noudattaa kaikkia sääntöjä: kultaisen valon aalto kulkee laudan yli.
+# Pelaaminen laitteella
+- Napauta tyhjää ruutua saadaksesi vaalean nappulan, uudelleen tumman, vielä kerran tyhjentääksesi sen.
+- Pidä sormea hetki ruudulla kiertääksesi toiseen suuntaan: tumma ensin.
+- Vedä pitkin riviä tai saraketta tehdäksesi saman koko jaksolle. Vain ensimmäisen ruudun kaltaiset ruudut muuttuvat.
+Kolme samanlaista peräkkäin hehkuu punaisena; rivi tai sarake, jossa on liikaa yhden värin nappuloita tai joka on täynnä ja samanlainen kuin toinen, muuttuu punaiseksi. Palkin oikean pään nappi on hehkulamppu: vihje. Se korjaa väärän nappulan tai muuten näyttää seuraavan ruudun, jonka päättely löytää, kultaisessa valossa. Kumoa peruu yhden toiminnon kerrallaan, aina alkuun asti. Palkki näyttää siirtosi.

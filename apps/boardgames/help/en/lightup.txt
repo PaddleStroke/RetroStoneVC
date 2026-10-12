@@ -1,0 +1,19 @@
+Light Up
+# The aim
+Put lamps in the white cells so that every white cell is lit. A lamp lights its own cell and its whole row and column, both ways, up to a dark wall or the edge. No lamp may light another lamp. A wall with a number has exactly that many lamps next to it (above, below, left and right); a wall without a number may have any.
+Every puzzle has exactly one solution, found by reasoning alone. Choose the size (7 × 7, 10 × 10 or 14 × 14) and the level (the stones under each picture):
+- Easy: one look is always enough: a number that needs all its free cells, a number that has all its lamps, a dark cell that only one cell can still light.
+- Medium: you will also need to look one lamp ahead: a lamp here would leave a number, or a dark cell, without enough room.
+- Hard: longer chains of reasoning, never a guess.
+# A move
+Put a lamp in a white cell, or take it out. You can also put a dot in a cell to remember that no lamp goes there; the dots are only notes for you.
+# The end of the game
+The puzzle is solved when every white cell is lit, no lamp lights another and every number has its lamps: a wave of gold light runs over the board.
+# Playing on the device
+- Tap a white cell to put a lamp in it; tap it again to take it out.
+- Hold a cell a moment to put a dot in it, or take the dot out.
+- Drag along a row or a column to put dots in a whole stretch (or take them out of a stretch of dots).
+The lit cells glow warm. Two lamps that light each other glow red; a number turns red when it has too many lamps, and fades once it has all of them. The buttons at the right end of the bar:
+- Lamp or dot: what a tap puts. Tap it to swap tap and hold.
+- Light bulb: a hint. It puts a wrong cell right, or else shows the next cell reasoning finds, in gold light.
+Undo takes back one action at a time, all the way to the start. The bar shows your moves.

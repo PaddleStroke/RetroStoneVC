@@ -1,0 +1,19 @@
+Telte
+# Målet
+Slå et telt op ved siden af hvert træ: lige over, under, til venstre eller til højre for det. Hvert træ har sit eget telt og hvert telt sit eget træ. Telte rører aldrig hinanden, heller ikke på skrå. Tallene til venstre for rækkerne og over kolonnerne fortæller, hvor mange telte de har.
+Hver mark har præcis én løsning, som kan findes ved ren tankegang. Vælg størrelse (fra 6 × 6 til 12 × 12) og niveau (stenene under hvert billede):
+- Let: Et blik er altid nok: intet telt langt fra træerne eller omkring et telt; en linje med alle sine telte, eller med præcis plads nok til dem; et træ med kun én plads tilbage.
+- Mellem: Du skal også bruge de stykker af frie felter, hvor en linjes telte lige akkurat kan være, og tænke ét telt frem: Et telt her ville efterlade et træ eller en linje uden plads.
+- Svær: længere kæder af slutninger, aldrig gætteri.
+# Et træk
+Slå et telt op i et felt, eller tag det ned. Du kan også lægge græs i et felt for at huske, at der ikke skal være et telt; græsset er kun en note til dig selv.
+# Spillets afslutning
+Marken er løst, når hvert træ har sit telt, ingen telte rører hinanden, og hvert tal passer: En bølge af gyldent lys løber over marken.
+# Spil på enheden
+- Tryk på et felt for at slå et telt op; tryk igen for at tage det ned.
+- Hold fingeren et øjeblik på et felt for at lægge græs, eller fjerne det.
+- Træk langs en række eller kolonne for at lægge græs i et helt stykke (eller fjerne det fra et stykke med græs).
+Telte, der rører hinanden, gløder rødt, og det samme gør et træ uden plads til sit telt. Et tal bliver rødt, når dets linje har for mange telte, og blegner, når den har dem alle. Knapperne yderst til højre i bjælken:
+- Telt eller græs: hvad et tryk sætter. Tryk på den for at bytte om på tryk og hold.
+- Elpære: et tip. Den retter et forkert felt eller viser ellers det næste felt, tankegangen finder, i gyldent lys.
+Fortryd tager én handling tilbage ad gangen, helt til starten. Bjælken viser dine træk.

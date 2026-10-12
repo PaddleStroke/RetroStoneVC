@@ -1,0 +1,19 @@
+Accendi la luce
+# Lo scopo
+Metti delle lampade nelle caselle bianche in modo che tutte le caselle bianche siano illuminate. Una lampada illumina la sua casella e tutta la sua riga e la sua colonna, nei due sensi, fino a un muro scuro o al bordo. Nessuna lampada deve illuminarne un'altra. Un muro con un numero ha esattamente quel numero di lampade accanto (sopra, sotto, a sinistra e a destra); un muro senza numero può averne quante vuole.
+Ogni schema ha una sola soluzione, che si trova solo ragionando. Scegli la dimensione (7 × 7, 10 × 10 o 14 × 14) e il livello (le pedine sotto ogni immagine):
+- Facile: basta sempre un'occhiata: un numero che ha bisogno di tutte le sue caselle libere, un numero che ha già tutte le sue lampade, una casella buia che una sola casella può ancora illuminare.
+- Medio: dovrai anche pensare una lampada in anticipo: una lampada qui lascerebbe un numero, o una casella buia, senza spazio sufficiente.
+- Difficile: catene di ragionamento più lunghe, mai a caso.
+# Una mossa
+Metti una lampada in una casella bianca, o toglila. Puoi anche mettere un punto in una casella per ricordarti che lì non va nessuna lampada; i punti sono solo note per te.
+# La fine della partita
+Lo schema è risolto quando tutte le caselle bianche sono illuminate, nessuna lampada ne illumina un'altra e ogni numero ha le sue lampade: un'onda di luce dorata attraversa il tavoliere.
+# Giocare sul dispositivo
+- Tocca una casella bianca per metterci una lampada; toccala di nuovo per toglierla.
+- Tieni premuta una casella per un attimo per metterci un punto, o toglierlo.
+- Trascina lungo una riga o una colonna per mettere punti in un intero tratto (o toglierli da un tratto di punti).
+Le caselle illuminate prendono una luce calda. Due lampade che si illuminano a vicenda brillano di rosso; un numero diventa rosso quando ha troppe lampade, e sbiadisce quando le ha tutte. I pulsanti in fondo alla barra:
+- Lampada o punto: ciò che mette un tocco. Toccalo per scambiare tocco e pressione prolungata.
+- Lampadina: un aiuto. Corregge una casella sbagliata, altrimenti mostra la prossima casella che il ragionamento trova, in luce dorata.
+Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue mosse.

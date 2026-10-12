@@ -1,0 +1,16 @@
+Binairo
+# Målet
+Fyll rutenettet med brikker av elfenben og ibenholt. Tre brikker med samme farge får aldri stå ved siden av hverandre i en rad eller kolonne. Hver rad og hver kolonne har like mange lyse som mørke brikker. Ingen to rader får være like, og heller ingen to kolonner.
+Noen brikker er gitt fra start, på mørkere ruter. Hver oppgave har nøyaktig én løsning, som kan finnes bare ved å resonnere. Velg størrelse (fra 6 × 6 til 12 × 12) og nivå (steinene under hvert bilde):
+- Lett: To like side om side, eller to like med et hull imellom, gir fargen på rutene ved siden av; en linje som har alle brikkene av én farge, får den andre fargen alle andre steder.
+- Middels: Du må også se på en hel linje: Alle måtene å fylle den på er enige om noen ruter.
+- Vanskelig: lengre kjeder av slutninger, aldri gjetting.
+# Et trekk
+Sett en brikke i en tom rute, bytt fargen eller ta den bort. De gitte brikkene blir stående.
+# Slutten på spillet
+Oppgaven er løst når rutenettet er fullt og følger alle reglene: En bølge av gyllent lys går over brettet.
+# Spill på enheten
+- Trykk på en tom rute for en lys brikke, igjen for en mørk, én gang til for å tømme den.
+- Hold fingeren et øyeblikk på en rute for å gå andre veien rundt: mørk først.
+- Dra langs en rad eller kolonne for å gjøre det samme med et helt stykke. Bare ruter som var som den første, endres.
+Tre like på rad gløder rødt; en rad eller kolonne med for mange brikker av én farge, eller full og lik en annen, blir rød. Knappen ytterst til høyre på linjen er lyspæren: et hint. Den retter en feil brikke eller viser ellers neste rute resonneringen finner, i gyllent lys. Angre tar tilbake én handling om gangen, helt til starten. Linjen viser trekkene dine.

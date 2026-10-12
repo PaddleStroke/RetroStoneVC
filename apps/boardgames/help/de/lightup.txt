@@ -1,0 +1,19 @@
+Lichter an
+# Das Ziel
+Setze Lampen in die weißen Felder, sodass jedes weiße Feld beleuchtet ist. Eine Lampe beleuchtet ihr eigenes Feld und ihre ganze Zeile und Spalte in beide Richtungen, bis zu einer dunklen Wand oder zum Rand. Keine Lampe darf eine andere beleuchten. Eine Wand mit einer Zahl hat genau so viele Lampen neben sich (oben, unten, links und rechts); eine Wand ohne Zahl darf beliebig viele haben.
+Jedes Rätsel hat genau eine Lösung, die sich allein durch Nachdenken finden lässt. Wähle die Größe (7 × 7, 10 × 10 oder 14 × 14) und die Stufe (die Steine unter jedem Bild):
+- Leicht: Ein Blick reicht immer: eine Zahl, die alle ihre freien Felder braucht, eine Zahl, die schon alle Lampen hat, ein dunkles Feld, das nur noch ein Feld beleuchten kann.
+- Mittel: Du musst auch eine Lampe vorausdenken: Eine Lampe hier ließe einer Zahl oder einem dunklen Feld zu wenig Platz.
+- Schwer: längere Ketten von Schlüssen, nie Raten.
+# Ein Zug
+Setze eine Lampe in ein weißes Feld oder nimm sie heraus. Du kannst auch einen Punkt in ein Feld setzen, um dir zu merken, dass dort keine Lampe hinkommt; die Punkte sind nur Notizen für dich.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn jedes weiße Feld beleuchtet ist, keine Lampe eine andere beleuchtet und jede Zahl ihre Lampen hat: Eine Welle goldenen Lichts läuft über das Brett.
+# Spielen auf dem Gerät
+- Tippe ein weißes Feld an, um eine Lampe hineinzusetzen; tippe noch einmal, um sie herauszunehmen.
+- Halte ein Feld einen Moment, um einen Punkt hineinzusetzen oder ihn zu entfernen.
+- Ziehe entlang einer Zeile oder Spalte, um Punkte in einen ganzen Abschnitt zu setzen (oder sie aus einem Abschnitt voller Punkte zu entfernen).
+Beleuchtete Felder leuchten warm. Zwei Lampen, die sich gegenseitig beleuchten, glühen rot; eine Zahl wird rot, wenn sie zu viele Lampen hat, und verblasst, sobald sie alle hat. Die Knöpfe am rechten Ende der Leiste:
+- Lampe oder Punkt: was ein Tippen setzt. Tippe ihn an, um Tippen und Halten zu tauschen.
+- Glühbirne: ein Tipp. Sie berichtigt ein falsches Feld oder zeigt sonst das nächste Feld, das sich erschließen lässt, in goldenem Licht.
+Rückgängig nimmt eine Aktion nach der anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge.

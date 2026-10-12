@@ -1,0 +1,19 @@
+Tendas
+# O objetivo
+Monta uma tenda ao lado de cada árvore: logo acima, abaixo, à esquerda ou à direita dela. Cada árvore tem a sua tenda e cada tenda a sua árvore. As tendas nunca se tocam, nem sequer pelo canto. Os números à esquerda das linhas e por cima das colunas dizem quantas tendas têm.
+Cada campo tem uma única solução, que se encontra só a raciocinar. Escolhe o tamanho (de 6 × 6 a 12 × 12) e o nível (as peças sob cada imagem):
+- Fácil: basta sempre um olhar: nenhuma tenda longe das árvores ou à volta de uma tenda; uma linha com todas as suas tendas, ou com o espaço certo para elas; uma árvore a que só resta um lugar.
+- Médio: vais precisar também dos troços de casas livres onde as tendas de uma linha cabem à justa, e de pensar uma tenda à frente: uma tenda aqui deixaria uma árvore ou uma linha sem espaço.
+- Difícil: cadeias de raciocínio mais longas, nunca ao acaso.
+# Uma jogada
+Monta uma tenda numa casa, ou desmonta-a. Também podes pôr relva numa casa para te lembrares de que ali não vai nenhuma tenda; a relva é só uma nota para ti.
+# O fim do jogo
+O campo está resolvido quando cada árvore tem a sua tenda, nenhuma tenda toca outra e cada número está certo: uma onda de luz dourada percorre o campo.
+# Jogar no dispositivo
+- Toca numa casa para montar uma tenda; toca outra vez para a desmontar.
+- Mantém o dedo numa casa por um instante para pôr relva, ou a tirar.
+- Arrasta ao longo de uma linha ou coluna para pôr relva num troço inteiro (ou tirá-la de um troço de relva).
+As tendas que se tocam brilham a vermelho, tal como uma árvore sem espaço para a sua tenda. Um número fica vermelho quando a sua linha tem tendas a mais, e esbate-se quando já as tem todas. Os botões na ponta direita da barra:
+- Tenda ou relva: o que um toque põe. Toca-lhe para trocar tocar e manter o dedo.
+- Lâmpada acesa: uma ajuda. Corrige uma casa errada ou, se não houver, mostra a próxima casa que o raciocínio encontra, com luz dourada.
+Anular desfaz uma ação de cada vez, até ao início. A barra mostra as tuas jogadas.

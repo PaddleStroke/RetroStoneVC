@@ -1,0 +1,16 @@
+Binairo
+# Cíl hry
+Vyplň mřížku kameny ze slonoviny a ebenu. Tři kameny stejné barvy nesmějí nikdy stát vedle sebe v řádku ani ve sloupci. Každý řádek a každý sloupec obsahuje stejně světlých jako tmavých kamenů. Žádné dva řádky nesmějí být stejné, ani žádné dva sloupce.
+Některé kameny jsou dané předem, na tmavších políčkách. Každá úloha má právě jedno řešení, které lze najít jen úvahou. Zvol velikost (od 6 × 6 do 12 × 12) a obtížnost (kameny pod každým obrázkem):
+- Lehká: dva stejné vedle sebe, nebo dva stejné s mezerou mezi nimi, určí barvu sousedních políček; řada, která už má všechny kameny jedné barvy, dostane všude jinde druhou barvu.
+- Střední: musíš se také podívat na celou řadu: všechny způsoby, jak ji vyplnit, se v některých políčkách shodují.
+- Těžká: delší řetězce úvah, nikdy hádání.
+# Tah
+Polož kámen na prázdné políčko, změň jeho barvu nebo ho odeber. Dané kameny zůstávají.
+# Konec hry
+Úloha je vyřešená, když je mřížka plná a splňuje všechna pravidla: po desce přeběhne vlna zlatého světla.
+# Hra na zařízení
+- Klepnutím na prázdné políčko položíš světlý kámen, dalším tmavý, ještě dalším políčko vyprázdníš.
+- Když na políčku chvíli podržíš prst, půjdeš opačně: nejdřív tmavý.
+- Táhni prstem po řádku nebo sloupci a uděláš totéž s celým úsekem. Mění se jen políčka, která byla jako první.
+Tři stejné za sebou svítí červeně; řádek nebo sloupec s příliš mnoha kameny jedné barvy, nebo plný a stejný jako jiný, zčervená. Tlačítko na pravém konci lišty je žárovka: nápověda. Opraví chybný kámen, nebo ukáže další políčko, ke kterému úvaha vede, ve zlatém světle. Zpět vrací jednu akci po druhé, až na začátek. Lišta ukazuje tvé tahy.

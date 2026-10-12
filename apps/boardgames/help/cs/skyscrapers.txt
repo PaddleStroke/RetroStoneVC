@@ -1,0 +1,16 @@
+Mrakodrapy
+# Cíl hry
+Mřížka je město viděné shora. Postav na každé políčko budovu s výškou od 1 do velikosti mřížky, každou výšku jednou v každém řádku a každém sloupci. Číslo na okraji říká, kolik budov je odtud vidět při pohledu podél toho řádku nebo sloupce: vyšší budova zakryje všechny nižší za sebou.
+Některé výšky mohou být dané předem, na tmavších políčkách. Každá úloha má právě jedno řešení, které lze najít jen úvahou. Zvol velikost (od 4 × 4 do 7 × 7) a obtížnost (kameny pod každým obrázkem):
+- Lehká: výška, která má ve svém řádku nebo sloupci jediné místo, políčko s jedinou možnou výškou a to, co číslo na okraji dovoluje ve své blízkosti (1: nejvyšší stojí vpředu; plný počet: všechny popořadě, od nejnižší).
+- Střední: musíš se také podívat na celou řadu: všechna pořadí jejích výšek, která sedí k jejím číslům, se v některých políčkách shodují.
+- Těžká: delší řetězce úvah, nikdy hádání.
+# Tah
+Vepiš výšku do políčka, změň ji nebo ji odeber. Malé poznámky v políčku ti pomohou zapamatovat si výšky, které tam ještě mohou být.
+# Konec hry
+Úloha je vyřešená, když má každé políčko svou budovu a město splňuje všechna pravidla: po desce přeběhne vlna zlatého světla.
+# Hra na zařízení
+Klepni na políčko a pak na klávesu pod deskou: její výška se vepíše (stejná klávesa ji znovu odebere). Klávesu můžeš také přetáhnout na políčko. Dalším klepnutím na vybrané políčko zvýšíš budovu o patro; když na políčku chvíli podržíš prst, vyprázdníš ho. Budovy jsou malé dřevěné věže: čím vyšší, tím větší. Tlačítka na pravém konci lišty:
+- Tužka: poznámky. Klávesy pak vpisují do políčka malé výšky, nebo je odebírají. Vepsaná výška smaže tuto poznámku ve svém řádku a sloupci.
+- Žárovka: nápověda. Opraví chybnou výšku, nebo vyplní další políčko, ke kterému úvaha vede, ve zlatém světle.
+Výška, která je v řádku nebo sloupci dvakrát, zčervená. Číslo na okraji vybledne, když jeho plná řada ukazuje správný počet, a zčervená, když ukazuje jiný. Klávesa vybledne, jakmile je její výška v každém řádku. Zpět vrací jednu akci po druhé, až na začátek. Lišta ukazuje tvé tahy.

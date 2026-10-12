@@ -1,0 +1,16 @@
+Binairo
+# Målet
+Fyld gitteret med brikker af elfenben og ibenholt. Tre brikker af samme farve må aldrig stå side om side i en række eller kolonne. Hver række og hver kolonne har lige mange lyse og mørke brikker. To rækker må ikke være ens, og heller ikke to kolonner.
+Nogle brikker er givet fra start, på mørkere felter. Hver opgave har præcis én løsning, som kan findes ved ren tankegang. Vælg størrelse (fra 6 × 6 til 12 × 12) og niveau (stenene under hvert billede):
+- Let: To ens side om side, eller to ens med et hul imellem, giver farven på felterne ved siden af; en linje, der har alle brikker af én farve, får den anden farve alle andre steder.
+- Mellem: Du skal også se på en hel linje: Alle måder at fylde den på er enige om nogle felter.
+- Svær: længere kæder af slutninger, aldrig gætteri.
+# Et træk
+Sæt en brik i et tomt felt, skift dens farve eller fjern den. De givne brikker bliver stående.
+# Spillets afslutning
+Opgaven er løst, når gitteret er fyldt og overholder alle reglerne: En bølge af gyldent lys løber over brættet.
+# Spil på enheden
+- Tryk på et tomt felt for en lys brik, igen for en mørk, én gang til for at tømme det.
+- Hold fingeren et øjeblik på et felt for at gå den anden vej rundt: mørk først.
+- Træk langs en række eller kolonne for at gøre det samme ved et helt stykke. Kun felter, der var som det første, ændres.
+Tre ens i træk gløder rødt; en række eller kolonne med for mange brikker af én farve, eller fuld og magen til en anden, bliver rød. Knappen yderst til højre i bjælken er elpæren: et tip. Den retter en forkert brik eller viser ellers det næste felt, tankegangen finder, i gyldent lys. Fortryd tager én handling tilbage ad gangen, helt til starten. Bjælken viser dine træk.

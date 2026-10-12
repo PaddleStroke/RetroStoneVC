@@ -1,0 +1,19 @@
+Acende a Luz
+# O objetivo
+Põe lâmpadas nas casas brancas de modo que todas as casas brancas fiquem iluminadas. Uma lâmpada ilumina a sua casa e toda a sua linha e coluna, nos dois sentidos, até uma parede escura ou ao bordo. Nenhuma lâmpada pode iluminar outra. Uma parede com número tem exatamente esse número de lâmpadas ao lado (em cima, em baixo, à esquerda e à direita); uma parede sem número pode ter quantas quiser.
+Cada tabuleiro tem uma única solução, que se encontra só a raciocinar. Escolhe o tamanho (7 × 7, 10 × 10 ou 14 × 14) e o nível (as peças sob cada imagem):
+- Fácil: basta sempre um olhar: um número que precisa de todas as suas casas livres, um número que já tem todas as lâmpadas, uma casa escura que só uma casa ainda pode iluminar.
+- Médio: vais precisar também de pensar uma lâmpada à frente: uma lâmpada aqui deixaria um número, ou uma casa escura, sem espaço suficiente.
+- Difícil: cadeias de raciocínio mais longas, nunca ao acaso.
+# Uma jogada
+Põe uma lâmpada numa casa branca, ou tira-a. Também podes pôr um ponto numa casa para te lembrares de que ali não vai nenhuma lâmpada; os pontos são só notas para ti.
+# O fim do jogo
+O tabuleiro está resolvido quando todas as casas brancas estão iluminadas, nenhuma lâmpada ilumina outra e cada número tem as suas lâmpadas: uma onda de luz dourada percorre o tabuleiro.
+# Jogar no dispositivo
+- Toca numa casa branca para pôr uma lâmpada; toca outra vez para a tirar.
+- Mantém o dedo numa casa por um instante para pôr um ponto, ou o tirar.
+- Arrasta ao longo de uma linha ou coluna para pôr pontos num troço inteiro (ou tirá-los de um troço de pontos).
+As casas iluminadas brilham num tom quente. Duas lâmpadas que se iluminam uma à outra brilham a vermelho; um número fica vermelho quando tem lâmpadas a mais, e esbate-se quando já as tem todas. Os botões na ponta direita da barra:
+- Lâmpada ou ponto: o que um toque põe. Toca-lhe para trocar tocar e manter o dedo.
+- Lâmpada acesa: uma ajuda. Corrige uma casa errada ou, se não houver, mostra a próxima casa que o raciocínio encontra, com luz dourada.
+Anular desfaz uma ação de cada vez, até ao início. A barra mostra as tuas jogadas.

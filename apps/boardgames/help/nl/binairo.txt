@@ -1,0 +1,16 @@
+Binairo
+# Het doel
+Vul het rooster met ivoren en ebbenhouten schijven. Drie schijven van dezelfde kleur mogen nooit naast elkaar staan in een rij of kolom. Elke rij en elke kolom bevat evenveel ivoren als ebbenhouten schijven. Geen twee rijen mogen gelijk zijn, en geen twee kolommen.
+Een paar schijven zijn gegeven, op donkerdere vakjes. Elke puzzel heeft precies één oplossing, die je alleen door redeneren vindt. Kies de grootte (van 6 × 6 tot 12 × 12) en het niveau (de stenen onder elk plaatje):
+- Makkelijk: twee gelijke naast elkaar, of twee gelijke met een gat ertussen, geven de kleur van de vakjes ernaast; een lijn die al zijn schijven van één kleur heeft, krijgt overal elders de andere kleur.
+- Gemiddeld: je moet ook naar een hele lijn kijken: alle manieren om hem te vullen zijn het over sommige vakjes eens.
+- Moeilijk: langere redeneringen achter elkaar, nooit gokken.
+# Een zet
+Zet een schijf in een leeg vakje, verander de kleur of haal hem weg. De gegeven schijven blijven staan.
+# Het einde van het spel
+De puzzel is opgelost als het rooster vol is en zich aan alle regels houdt: een golf van gouden licht gaat over het bord.
+# Spelen op het apparaat
+- Tik op een leeg vakje voor een ivoren schijf, nog eens voor een ebbenhouten, nog een keer om het te legen.
+- Houd een vakje even vast om de andere kant op te gaan: eerst ebbenhout.
+- Sleep langs een rij of kolom om hetzelfde met een heel stuk te doen. Alleen de vakjes die waren zoals het eerste, veranderen.
+Drie gelijke op een rij gloeien rood; een rij of kolom met te veel schijven van één kleur, of vol en gelijk aan een andere, wordt rood. De knop aan het rechtereinde van de balk is de gloeilamp: een hint. Hij verbetert een foute schijf, of toont anders het volgende vakje dat redeneren oplevert, in gouden licht. Ongedaan maken neemt één actie tegelijk terug, helemaal tot het begin. De balk toont je zetten.

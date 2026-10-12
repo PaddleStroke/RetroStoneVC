@@ -1,0 +1,19 @@
+Ilumina
+# El objetivo
+Pon lámparas en las casillas blancas para que todas las casillas blancas queden iluminadas. Una lámpara ilumina su casilla y toda su fila y su columna, en los dos sentidos, hasta una pared oscura o el borde. Ninguna lámpara puede iluminar a otra. Una pared con número tiene exactamente ese número de lámparas a su lado (arriba, abajo, a la izquierda y a la derecha); una pared sin número puede tener las que sean.
+Cada tablero tiene una sola solución, que se encuentra solo razonando. Elige el tamaño (7 × 7, 10 × 10 o 14 × 14) y el nivel (las fichas bajo cada imagen):
+- Fácil: siempre basta un vistazo: un número que necesita todas sus casillas libres, un número que ya tiene todas sus lámparas, una casilla oscura que solo una casilla puede iluminar.
+- Medio: también tendrás que pensar una lámpara por adelantado: una lámpara aquí dejaría a un número, o a una casilla oscura, sin sitio suficiente.
+- Difícil: cadenas de razonamiento más largas, nunca al azar.
+# Una jugada
+Pon una lámpara en una casilla blanca, o quítala. También puedes poner un punto en una casilla para recordar que ahí no va ninguna lámpara; los puntos son solo notas para ti.
+# El final de la partida
+El tablero está resuelto cuando todas las casillas blancas están iluminadas, ninguna lámpara ilumina a otra y cada número tiene sus lámparas: una ola de luz dorada recorre el tablero.
+# Jugar en el dispositivo
+- Toca una casilla blanca para poner una lámpara; tócala otra vez para quitarla.
+- Mantén pulsada una casilla un momento para poner un punto, o quitarlo.
+- Arrastra a lo largo de una fila o una columna para poner puntos en todo un tramo (o quitarlos de un tramo de puntos).
+Las casillas iluminadas brillan con un tono cálido. Dos lámparas que se iluminan entre sí brillan en rojo; un número se vuelve rojo cuando tiene demasiadas lámparas, y se apaga cuando ya las tiene todas. Los botones al final de la barra:
+- Lámpara o punto: lo que pone un toque. Tócalo para intercambiar tocar y mantener pulsado.
+- Bombilla: una pista. Corrige una casilla equivocada o, si no hay ninguna, muestra la siguiente casilla que encuentra el razonamiento, con luz dorada.
+Deshacer anula una acción cada vez, hasta el principio. La barra muestra tus jugadas.

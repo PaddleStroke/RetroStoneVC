@@ -1,0 +1,16 @@
+Binairo
+# Cel gry
+Wypełnij diagram pionkami z kości słoniowej i hebanu. Trzy pionki tego samego koloru nigdy nie mogą stać obok siebie w wierszu ani w kolumnie. Każdy wiersz i każda kolumna ma tyle samo jasnych co ciemnych pionków. Żadne dwa wiersze nie mogą być takie same, ani żadne dwie kolumny.
+Niektóre pionki są podane na starcie, na ciemniejszych polach. Każda łamigłówka ma dokładnie jedno rozwiązanie, do którego dochodzi się samym rozumowaniem. Wybierz rozmiar (od 6 × 6 do 12 × 12) i poziom (kamienie pod każdym obrazkiem):
+- Łatwy: dwa takie same obok siebie albo dwa takie same z luką pomiędzy dają kolor sąsiednich pól; linia, która ma już wszystkie pionki jednego koloru, dostaje wszędzie indziej drugi kolor.
+- Średni: trzeba też spojrzeć na całą linię: wszystkie sposoby jej wypełnienia zgadzają się co do niektórych pól.
+- Trudny: dłuższe łańcuchy rozumowania, nigdy zgadywanie.
+# Ruch
+Postaw pionek na pustym polu, zmień jego kolor albo go zdejmij. Podane pionki zostają.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy diagram jest pełny i spełnia wszystkie zasady: po planszy przebiega fala złotego światła.
+# Gra na urządzeniu
+- Dotknij pustego pola, aby postawić jasny pionek, jeszcze raz dla ciemnego, kolejny raz, aby je opróżnić.
+- Przytrzymaj chwilę palec na polu, aby iść w drugą stronę: najpierw ciemny.
+- Przeciągnij wzdłuż wiersza lub kolumny, aby zrobić to samo z całym odcinkiem. Zmieniają się tylko pola, które były takie jak pierwsze.
+Trzy takie same pod rząd świecą na czerwono; wiersz lub kolumna z za dużą liczbą pionków jednego koloru albo pełna i taka sama jak inna robi się czerwona. Przycisk na prawym końcu paska to żarówka: podpowiedź. Poprawia błędny pionek albo pokazuje następne pole, do którego prowadzi rozumowanie, w złotym świetle. Cofnij cofa po jednej czynności, aż do początku. Pasek pokazuje twoje ruchy.

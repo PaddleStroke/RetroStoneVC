@@ -1,0 +1,16 @@
+Binairo
+# Lo scopo
+Riempi la griglia di pedine d'avorio e d'ebano. Tre pedine dello stesso colore non devono mai stare una accanto all'altra in una riga o in una colonna. Ogni riga e ogni colonna contiene tante pedine d'avorio quante d'ebano. Non possono esserci due righe uguali, né due colonne.
+Alcune pedine sono date all'inizio, su caselle più scure. Ogni schema ha una sola soluzione, che si trova solo ragionando. Scegli la dimensione (da 6 × 6 a 12 × 12) e il livello (le pedine sotto ogni immagine):
+- Facile: due uguali vicine, o due uguali con una casella in mezzo, danno il colore delle caselle accanto; una linea che ha già tutte le pedine di un colore prende l'altro colore in tutto il resto.
+- Medio: dovrai anche guardare una linea intera: tutti i modi di riempirla concordano su alcune caselle.
+- Difficile: catene di ragionamento più lunghe, mai a caso.
+# Una mossa
+Metti una pedina in una casella vuota, cambiane il colore o toglila. Le pedine date restano.
+# La fine della partita
+Lo schema è risolto quando la griglia è piena e rispetta tutte le regole: un'onda di luce dorata attraversa il tavoliere.
+# Giocare sul dispositivo
+- Tocca una casella vuota per una pedina d'avorio, di nuovo per una d'ebano, ancora una volta per svuotarla.
+- Tieni premuta una casella per un attimo per fare il giro al contrario: prima l'ebano.
+- Trascina lungo una riga o una colonna per fare lo stesso su un intero tratto. Cambiano solo le caselle che erano come la prima.
+Tre uguali di fila brillano di rosso; una riga o una colonna con troppe pedine di un colore, o piena e uguale a un'altra, diventa rossa. Il pulsante in fondo alla barra è la lampadina: un aiuto. Corregge una pedina sbagliata, altrimenti mostra la prossima casella che il ragionamento trova, in luce dorata. Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue mosse.

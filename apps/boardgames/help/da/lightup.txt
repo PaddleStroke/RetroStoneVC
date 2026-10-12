@@ -1,0 +1,19 @@
+Tænd lyset
+# Målet
+Sæt lamper i de hvide felter, så hvert hvidt felt er oplyst. En lampe lyser sit eget felt op og hele sin række og kolonne i begge retninger, helt til en mørk mur eller kanten. Ingen lampe må lyse en anden lampe op. En mur med et tal har præcis så mange lamper ved siden af sig (over, under, til venstre og til højre); en mur uden tal må have et vilkårligt antal.
+Hver opgave har præcis én løsning, som kan findes ved ren tankegang. Vælg størrelse (7 × 7, 10 × 10 eller 14 × 14) og niveau (stenene under hvert billede):
+- Let: Et blik er altid nok: et tal, der skal bruge alle sine frie felter, et tal, der allerede har alle sine lamper, et mørkt felt, som kun ét felt stadig kan lyse op.
+- Mellem: Du skal også tænke én lampe frem: En lampe her ville give et tal, eller et mørkt felt, for lidt plads.
+- Svær: længere kæder af slutninger, aldrig gætteri.
+# Et træk
+Sæt en lampe i et hvidt felt, eller fjern den. Du kan også sætte en prik i et felt for at huske, at der ikke skal være en lampe; prikkerne er kun noter til dig selv.
+# Spillets afslutning
+Opgaven er løst, når hvert hvidt felt er oplyst, ingen lampe lyser en anden op, og hvert tal har sine lamper: En bølge af gyldent lys løber over brættet.
+# Spil på enheden
+- Tryk på et hvidt felt for at sætte en lampe; tryk igen for at fjerne den.
+- Hold fingeren et øjeblik på et felt for at sætte en prik, eller fjerne den.
+- Træk langs en række eller kolonne for at sætte prikker i et helt stykke (eller fjerne dem fra et stykke med prikker).
+De oplyste felter gløder varmt. To lamper, der lyser hinanden op, gløder rødt; et tal bliver rødt, når det har for mange lamper, og blegner, når det har dem alle. Knapperne yderst til højre i bjælken:
+- Lampe eller prik: hvad et tryk sætter. Tryk på den for at bytte om på tryk og hold.
+- Elpære: et tip. Den retter et forkert felt eller viser ellers det næste felt, tankegangen finder, i gyldent lys.
+Fortryd tager én handling tilbage ad gangen, helt til starten. Bjælken viser dine træk.

@@ -1,0 +1,19 @@
+Tende
+# Lo scopo
+Pianta una tenda accanto a ogni albero: subito sopra, sotto, a sinistra o a destra. Ogni albero ha la sua tenda e ogni tenda il suo albero. Le tende non si toccano mai, nemmeno in diagonale. I numeri a sinistra delle righe e sopra le colonne dicono quante tende contengono.
+Ogni campo ha una sola soluzione, che si trova solo ragionando. Scegli la dimensione (da 6 × 6 a 12 × 12) e il livello (le pedine sotto ogni immagine):
+- Facile: basta sempre un'occhiata: nessuna tenda lontano dagli alberi o attorno a una tenda; una linea con tutte le sue tende, o con lo spazio giusto per loro; un albero a cui resta un solo posto.
+- Medio: serviranno anche i tratti di caselle libere in cui le tende di una linea entrano appena, e pensare una tenda in anticipo: una tenda qui lascerebbe un albero o una linea senza spazio.
+- Difficile: catene di ragionamento più lunghe, mai a caso.
+# Una mossa
+Pianta una tenda in una casella, o smontala. Puoi anche mettere dell'erba in una casella per ricordarti che lì non va nessuna tenda; l'erba è solo una nota per te.
+# La fine della partita
+Il campo è risolto quando ogni albero ha la sua tenda, nessuna tenda ne tocca un'altra e ogni numero è giusto: un'onda di luce dorata attraversa il campo.
+# Giocare sul dispositivo
+- Tocca una casella per piantare una tenda; toccala di nuovo per smontarla.
+- Tieni premuta una casella per un attimo per metterci dell'erba, o toglierla.
+- Trascina lungo una riga o una colonna per mettere erba in un intero tratto (o toglierla da un tratto d'erba).
+Le tende che si toccano brillano di rosso, come un albero che non ha più posto per la sua tenda. Un numero diventa rosso quando la sua linea ha troppe tende, e sbiadisce quando le ha tutte. I pulsanti in fondo alla barra:
+- Tenda o erba: ciò che mette un tocco. Toccalo per scambiare tocco e pressione prolungata.
+- Lampadina: un aiuto. Corregge una casella sbagliata, altrimenti mostra la prossima casella che il ragionamento trova, in luce dorata.
+Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue mosse.

@@ -1,0 +1,16 @@
+Arranha-céus
+# O objetivo
+A grelha é uma cidade vista de cima. Põe um prédio em cada casa, com altura de 1 até ao tamanho da grelha, cada altura uma vez em cada linha e em cada coluna. Um número no bordo diz quantos prédios se veem dali, olhando ao longo dessa linha ou coluna: um prédio mais alto esconde todos os mais baixos atrás de si.
+Algumas alturas podem ser dadas, em casas mais escuras. Cada tabuleiro tem uma única solução, que se encontra só a raciocinar. Escolhe o tamanho (de 4 × 4 a 7 × 7) e o nível (as peças sob cada imagem):
+- Fácil: uma altura com um só lugar na sua linha ou coluna, uma casa com uma só altura possível, e o que um número do bordo permite perto de si (1: o mais alto fica à frente; a contagem toda: todos por ordem, do mais baixo ao mais alto).
+- Médio: vais precisar também de olhar para uma linha inteira: todas as ordens das suas alturas que batem certo com os seus números concordam em algumas casas.
+- Difícil: cadeias de raciocínio mais longas, nunca ao acaso.
+# Uma jogada
+Põe uma altura numa casa, muda-a ou tira-a. Pequenas notas numa casa ajudam-te a lembrar as alturas que ela ainda pode ter.
+# O fim do jogo
+O tabuleiro está resolvido quando cada casa tem o seu prédio e a cidade cumpre todas as regras: uma onda de luz dourada percorre o tabuleiro.
+# Jogar no dispositivo
+Toca numa casa e depois numa tecla por baixo do tabuleiro: a altura entra (a mesma tecla outra vez tira-a). Também podes arrastar uma tecla até uma casa. Toca outra vez na casa escolhida para subir o prédio um andar; mantém o dedo numa casa por um instante para a esvaziar. Os prédios são pequenas torres de madeira: quanto mais altos, maiores. Os botões na ponta direita da barra:
+- Lápis: notas. As teclas passam a pôr alturas pequenas na casa, ou a tirá-las. Uma altura colocada apaga essa nota da sua linha e coluna.
+- Lâmpada acesa: uma ajuda. Corrige uma altura errada ou, se não houver, preenche a próxima casa que o raciocínio encontra, com luz dourada.
+Uma altura repetida numa linha ou coluna fica vermelha. Um número do bordo esbate-se quando a sua linha cheia mostra a contagem certa, e fica vermelho quando mostra outra. Uma tecla esbate-se quando a sua altura já está em todas as linhas. Anular desfaz uma ação de cada vez, até ao início. A barra mostra as tuas jogadas.

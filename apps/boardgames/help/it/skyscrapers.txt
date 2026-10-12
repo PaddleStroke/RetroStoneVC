@@ -1,0 +1,16 @@
+Grattacieli
+# Lo scopo
+La griglia è una città vista dall'alto. Metti un edificio in ogni casella, alto da 1 fino alla dimensione della griglia, ogni altezza una volta in ogni riga e in ogni colonna. Un numero sul bordo dice quanti edifici si vedono da lì guardando lungo quella riga o colonna: un edificio più alto nasconde tutti quelli più bassi dietro di sé.
+Alcune altezze possono essere date all'inizio, su caselle più scure. Ogni schema ha una sola soluzione, che si trova solo ragionando. Scegli la dimensione (da 4 × 4 a 7 × 7) e il livello (le pedine sotto ogni immagine):
+- Facile: un'altezza che ha un solo posto nella sua riga o colonna, una casella con una sola altezza possibile, e ciò che un numero del bordo permette vicino a sé (1: il più alto sta davanti; il conto pieno: tutti in ordine, dal più basso).
+- Medio: dovrai anche guardare una linea intera: tutti gli ordini delle sue altezze che vanno d'accordo con i suoi numeri concordano su alcune caselle.
+- Difficile: catene di ragionamento più lunghe, mai a caso.
+# Una mossa
+Metti un'altezza in una casella, cambiala o toglila. Piccole note in una casella ti aiutano a ricordare le altezze che può ancora contenere.
+# La fine della partita
+Lo schema è risolto quando ogni casella ha il suo edificio e la città rispetta tutte le regole: un'onda di luce dorata attraversa il tavoliere.
+# Giocare sul dispositivo
+Tocca una casella, poi un tasto sotto il tavoliere: la sua altezza entra (lo stesso tasto di nuovo la toglie). Puoi anche trascinare un tasto su una casella. Tocca di nuovo la casella scelta per alzare il suo edificio di un piano; tieni premuta una casella per un attimo per svuotarla. Gli edifici sono piccole torri di legno: più sono alti, più sono grandi. I pulsanti in fondo alla barra:
+- Matita: le note. I tasti mettono allora piccole altezze nella casella, o le tolgono. Un'altezza inserita cancella quella nota dalla sua riga e colonna.
+- Lampadina: un aiuto. Corregge un'altezza sbagliata, altrimenti riempie la prossima casella che il ragionamento trova, in luce dorata.
+Un'altezza presente due volte in una riga o colonna diventa rossa. Un numero del bordo sbiadisce quando la sua linea piena mostra il conto giusto, e diventa rosso quando ne mostra un altro. Un tasto sbiadisce quando la sua altezza è in tutte le righe. Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue mosse.

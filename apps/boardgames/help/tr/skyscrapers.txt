@@ -1,0 +1,16 @@
+Gökdelenler
+# Amaç
+Izgara yukarıdan görülen bir şehirdir. Her kareye 1'den ızgaranın boyutuna kadar yüksekliği olan bir bina koy; her yükseklik her satırda ve her sütunda bir kez. Kenardaki bir sayı, o satır ya da sütun boyunca bakınca oradan kaç bina görüldüğünü söyler: daha yüksek bir bina arkasındaki bütün alçak binaları gizler.
+Bazı yükseklikler baştan, daha koyu karelerde verilmiş olabilir. Her bulmacanın tek bir çözümü vardır ve yalnızca akıl yürüterek bulunur. Boyutu (4 × 4'ten 7 × 7'ye) ve seviyeyi seç (her resmin altındaki taşlar):
+- Kolay: satırında ya da sütununda tek yeri kalmış bir yükseklik, tek yüksekliği kalmış bir kare ve bir kenar sayısının yakınında izin verdikleri (1: en yüksek öndedir; tam sayı: hepsi sırayla, en alçaktan başlayarak).
+- Orta: bütün bir çizgiye de bakman gerekir: sayılarına uyan bütün yükseklik sıraları bazı karelerde birleşir.
+- Zor: daha uzun akıl yürütme zincirleri, asla tahmin yok.
+# Bir hamle
+Bir kareye yükseklik koy, değiştir ya da kaldır. Bir karedeki küçük notlar, orada hâlâ olabilecek yükseklikleri hatırlamana yardım eder.
+# Oyunun sonu
+Her karenin binası olduğunda ve şehir bütün kurallara uyduğunda bulmaca çözülür: tahtanın üzerinden altın bir ışık dalgası geçer.
+# Cihazda oynamak
+Bir kareye, sonra tahtanın altındaki bir tuşa dokun: yüksekliği kareye girer (aynı tuş yeniden dokununca kaldırır). Bir tuşu bir kareye sürükleyebilirsin de. Binayı bir kat yükseltmek için seçili kareye yeniden dokun; bir kareyi boşaltmak için parmağını üzerinde bir an tut. Binalar küçük ahşap kulelerdir: ne kadar yüksekse o kadar büyük. Çubuğun sağ ucundaki düğmeler:
+- Kalem: notlar. Tuşlar o zaman kareye küçük yükseklikler koyar ya da kaldırır. Koyduğun bir yükseklik, satırındaki ve sütunundaki o notu siler.
+- Ampul: bir ipucu. Yanlış bir yüksekliği düzeltir ya da akıl yürütmenin bulduğu bir sonraki kareyi altın ışıkla doldurur.
+Bir satırda ya da sütunda iki kez bulunan yükseklik kırmızıya döner. Bir kenar sayısı, dolu çizgisi doğru sayıyı gösterince solar, başka bir sayı gösterince kırmızıya döner. Yüksekliği her satırda bulunan tuş solar. Geri al her seferinde bir işlemi geri alır, en başa kadar. Çubuk hamlelerini gösterir.

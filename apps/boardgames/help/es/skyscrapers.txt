@@ -1,0 +1,16 @@
+Rascacielos
+# El objetivo
+La cuadrícula es una ciudad vista desde arriba. Pon un edificio en cada casilla, de altura 1 hasta el tamaño de la cuadrícula, cada altura una vez en cada fila y cada columna. Un número del borde dice cuántos edificios se ven desde allí mirando a lo largo de esa fila o columna: un edificio más alto tapa a todos los más bajos que tiene detrás.
+Algunas alturas pueden venir dadas, en casillas más oscuras. Cada tablero tiene una sola solución, que se encuentra solo razonando. Elige el tamaño (de 4 × 4 a 7 × 7) y el nivel (las fichas bajo cada imagen):
+- Fácil: una altura con un solo sitio en su fila o columna, una casilla con una sola altura posible, y lo que un número del borde permite cerca de él (1: el más alto está delante; la cuenta completa: todos en orden, del más bajo al más alto).
+- Medio: también tendrás que mirar una línea entera: todos los órdenes de sus alturas que encajan con sus números coinciden en algunas casillas.
+- Difícil: cadenas de razonamiento más largas, nunca al azar.
+# Una jugada
+Pon una altura en una casilla, cámbiala o quítala. Unas notas pequeñas en una casilla te ayudan a recordar las alturas que aún puede llevar.
+# El final de la partida
+El tablero está resuelto cuando cada casilla tiene su edificio y la ciudad cumple todas las reglas: una ola de luz dorada recorre el tablero.
+# Jugar en el dispositivo
+Toca una casilla y luego una tecla bajo el tablero: su altura entra (la misma tecla otra vez la quita). También puedes arrastrar una tecla hasta una casilla. Toca otra vez la casilla elegida para subir su edificio un piso; mantén pulsada una casilla un momento para vaciarla. Los edificios son torrecitas de madera: cuanto más altos, más grandes. Los botones al final de la barra:
+- Lápiz: notas. Las teclas ponen entonces alturas pequeñas en la casilla, o las quitan. Una altura que pones borra esa nota de su fila y su columna.
+- Bombilla: una pista. Corrige una altura equivocada o, si no hay ninguna, rellena la siguiente casilla que encuentra el razonamiento, con luz dorada.
+Una altura repetida en una fila o columna se vuelve roja. Un número del borde se apaga cuando su línea llena muestra la cuenta correcta, y se vuelve rojo cuando muestra otra. Una tecla se apaga cuando su altura ya está en todas las filas. Deshacer anula una acción cada vez, hasta el principio. La barra muestra tus jugadas.

@@ -1,0 +1,16 @@
+Pilvenpiirtäjät
+# Tavoite
+Ruudukko on kaupunki ylhäältä katsottuna. Rakenna jokaiseen ruutuun talo, jonka korkeus on 1:stä ruudukon kokoon, jokainen korkeus kerran jokaisella rivillä ja jokaisessa sarakkeessa. Reunan luku kertoo, montako taloa sieltä näkyy, kun katsoo pitkin riviä tai saraketta: korkeampi talo peittää kaikki matalammat takanaan.
+Osa korkeuksista voi olla annettu valmiiksi tummemmissa ruuduissa. Jokaisella tehtävällä on täsmälleen yksi ratkaisu, jonka löytää pelkällä päättelyllä. Valitse koko (4 × 4:stä 7 × 7:ään) ja taso (kivet kunkin kuvan alla):
+- Helppo: korkeus, jolla on vain yksi paikka rivillään tai sarakkeessaan, ruutu, johon käy enää yksi korkeus, ja se, mitä reunaluku sallii lähellään (1: korkein on edessä; täysi määrä: kaikki järjestyksessä, matalin ensin).
+- Keskitaso: sinun on myös katsottava koko linjaa: kaikki sen korkeuksien järjestykset, jotka sopivat sen lukuihin, ovat samaa mieltä joistakin ruuduista.
+- Vaikea: pidempiä päättelyketjuja, ei koskaan arvaamista.
+# Siirto
+Aseta korkeus ruutuun, vaihda se tai poista se. Pienet muistiinpanot ruudussa auttavat muistamaan korkeudet, jotka siihen vielä käyvät.
+# Pelin loppu
+Tehtävä on ratkaistu, kun jokaisessa ruudussa on talonsa ja kaupunki noudattaa kaikkia sääntöjä: kultaisen valon aalto kulkee laudan yli.
+# Pelaaminen laitteella
+Napauta ruutua ja sitten näppäintä laudan alla: sen korkeus menee ruutuun (sama näppäin uudelleen poistaa sen). Voit myös vetää näppäimen ruutuun. Napauta valittua ruutua uudelleen nostaaksesi taloa yhden kerroksen; pidä sormea hetki ruudulla tyhjentääksesi sen. Talot ovat pieniä puutorneja: mitä korkeampi, sitä isompi. Palkin oikean pään napit:
+- Kynä: muistiinpanot. Näppäimet laittavat silloin ruutuun pieniä korkeuksia tai poistavat niitä. Asettamasi korkeus poistaa saman muistiinpanon rivillään ja sarakkeessaan.
+- Hehkulamppu: vihje. Se korjaa väärän korkeuden tai muuten täyttää seuraavan ruudun, jonka päättely löytää, kultaisessa valossa.
+Korkeus, joka on kahdesti samalla rivillä tai sarakkeessa, muuttuu punaiseksi. Reunaluku haalistuu, kun sen täysi linja näyttää oikean määrän, ja muuttuu punaiseksi, kun se näyttää muun. Näppäin haalistuu, kun sen korkeus on jokaisella rivillä. Kumoa peruu yhden toiminnon kerrallaan, aina alkuun asti. Palkki näyttää siirtosi.

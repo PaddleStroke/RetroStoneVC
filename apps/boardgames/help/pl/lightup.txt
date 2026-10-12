@@ -1,0 +1,19 @@
+Zapal światło
+# Cel gry
+Postaw lampy na białych polach tak, aby każde białe pole było oświetlone. Lampa oświetla swoje pole oraz cały swój wiersz i kolumnę w obie strony, aż do ciemnego muru albo krawędzi. Żadna lampa nie może oświetlać innej lampy. Mur z liczbą ma obok siebie dokładnie tyle lamp (nad, pod, z lewej i z prawej); mur bez liczby może mieć ich dowolnie wiele.
+Każda łamigłówka ma dokładnie jedno rozwiązanie, do którego dochodzi się samym rozumowaniem. Wybierz rozmiar (7 × 7, 10 × 10 lub 14 × 14) i poziom (kamienie pod każdym obrazkiem):
+- Łatwy: zawsze wystarczy jedno spojrzenie: liczba, która potrzebuje wszystkich wolnych pól, liczba, która ma już wszystkie lampy, ciemne pole, które może oświetlić już tylko jedno pole.
+- Średni: trzeba też myśleć jedną lampę naprzód: lampa tutaj zostawiłaby liczbie albo ciemnemu polu za mało miejsca.
+- Trudny: dłuższe łańcuchy rozumowania, nigdy zgadywanie.
+# Ruch
+Postaw lampę na białym polu albo ją zdejmij. Możesz też postawić na polu kropkę, by pamiętać, że nie ma tam lampy; kropki to tylko twoje notatki.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy każde białe pole jest oświetlone, żadna lampa nie oświetla innej, a każda liczba ma swoje lampy: po planszy przebiega fala złotego światła.
+# Gra na urządzeniu
+- Dotknij białego pola, aby postawić lampę; dotknij jeszcze raz, aby ją zdjąć.
+- Przytrzymaj chwilę palec na polu, aby postawić kropkę albo ją usunąć.
+- Przeciągnij wzdłuż wiersza lub kolumny, aby postawić kropki na całym odcinku (albo usunąć je z odcinka kropek).
+Oświetlone pola świecą ciepło. Dwie lampy, które oświetlają się nawzajem, świecą na czerwono; liczba robi się czerwona, gdy ma za dużo lamp, i blednie, gdy ma je wszystkie. Przyciski na prawym końcu paska:
+- Lampa albo kropka: co stawia dotknięcie. Dotknij go, aby zamienić dotknięcie z przytrzymaniem.
+- Żarówka: podpowiedź. Poprawia błędne pole albo pokazuje następne pole, do którego prowadzi rozumowanie, w złotym świetle.
+Cofnij cofa po jednej czynności, aż do początku. Pasek pokazuje twoje ruchy.

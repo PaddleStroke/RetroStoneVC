@@ -1,0 +1,19 @@
+Rozsviť
+# Cíl hry
+Rozmísti lampy do bílých políček tak, aby bylo každé bílé políčko osvětlené. Lampa osvětluje své políčko a celý svůj řádek i sloupec oběma směry, až k tmavé zdi nebo k okraji. Žádná lampa nesmí osvětlovat jinou lampu. Zeď s číslem má vedle sebe (nahoře, dole, vlevo a vpravo) přesně tolik lamp; zeď bez čísla jich může mít libovolně.
+Každá úloha má právě jedno řešení, které lze najít jen úvahou. Zvol velikost (7 × 7, 10 × 10 nebo 14 × 14) a obtížnost (kameny pod každým obrázkem):
+- Lehká: vždy stačí jeden pohled: číslo, které potřebuje všechna svá volná políčka, číslo, které už má všechny lampy, tmavé políčko, které může osvětlit už jen jedno políčko.
+- Střední: musíš také myslet o lampu dopředu: lampa tady by nechala číslu nebo tmavému políčku málo místa.
+- Těžká: delší řetězce úvah, nikdy hádání.
+# Tah
+Postav lampu na bílé políčko, nebo ji odeber. Do políčka můžeš také dát tečku, abys věděl, že tam lampa nepatří; tečky jsou jen tvé poznámky.
+# Konec hry
+Úloha je vyřešená, když je každé bílé políčko osvětlené, žádná lampa neosvětluje jinou a každé číslo má své lampy: po desce přeběhne vlna zlatého světla.
+# Hra na zařízení
+- Klepnutím na bílé políčko postavíš lampu; dalším klepnutím ji odebereš.
+- Když na políčku chvíli podržíš prst, dáš do něj tečku, nebo ji odebereš.
+- Táhni prstem po řádku nebo sloupci a dáš tečky do celého úseku (nebo je z úseku teček odebereš).
+Osvětlená políčka hřejivě září. Dvě lampy, které se navzájem osvětlují, svítí červeně; číslo zčervená, když má příliš mnoho lamp, a vybledne, když má všechny. Tlačítka na pravém konci lišty:
+- Lampa nebo tečka: co klepnutí postaví. Klepnutím na něj prohodíš klepnutí a podržení.
+- Žárovka: nápověda. Opraví chybné políčko, nebo ukáže další políčko, ke kterému úvaha vede, ve zlatém světle.
+Zpět vrací jednu akci po druhé, až na začátek. Lišta ukazuje tvé tahy.

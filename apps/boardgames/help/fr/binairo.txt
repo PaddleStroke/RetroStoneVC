@@ -1,0 +1,16 @@
+Binairo
+# Le but
+Remplis la grille de pions ivoire et ébène. Trois pions de la même couleur ne doivent jamais se suivre dans une ligne ou une colonne. Chaque ligne et chaque colonne contient autant de pions ivoire que de pions ébène. Deux lignes ne peuvent pas être pareilles, ni deux colonnes.
+Certains pions sont donnés au départ, sur des cases plus sombres. Chaque grille a une seule solution, qu'on trouve par le seul raisonnement. Choisis la taille (de 6 × 6 à 12 × 12) et le niveau (les pions sous chaque image) :
+- Facile : deux pions pareils côte à côte, ou séparés par une case, donnent la couleur des cases voisines ; une ligne qui a tous ses pions d'une couleur prend l'autre couleur partout ailleurs.
+- Moyen : il faut aussi regarder une ligne en entier : toutes les façons de la remplir s'accordent sur certaines cases.
+- Difficile : des raisonnements enchaînés plus longs, jamais au hasard.
+# Un coup
+Mets un pion dans une case vide, change sa couleur ou enlève-le. Les pions donnés restent.
+# La fin de la partie
+La grille est résolue quand elle est pleine et respecte toutes les règles : une vague de lumière dorée parcourt le plateau.
+# Jouer sur l'appareil
+- Touche une case vide pour un pion ivoire, encore pour un pion ébène, une fois de plus pour la vider.
+- Garde le doigt un instant sur une case pour faire le tour dans l'autre sens : ébène d'abord.
+- Fais glisser le doigt le long d'une ligne ou d'une colonne pour faire de même sur toute une suite. Seules changent les cases qui étaient comme la première.
+Trois pions pareils à la suite luisent en rouge ; une ligne ou une colonne qui a trop de pions d'une couleur, ou qui est pleine et pareille à une autre, devient rouge. Le bouton au bout de la barre est l'ampoule : un indice. Elle corrige un pion faux, ou sinon montre la prochaine case que le raisonnement trouve, dans une lumière dorée. Annuler reprend une action à la fois, jusqu'au début. La barre montre tes coups.

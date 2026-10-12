@@ -1,0 +1,16 @@
+Binairo
+# Amaç
+Izgarayı fildişi ve abanoz taşlarla doldur. Aynı renkten üç taş bir satırda ya da sütunda asla yan yana duramaz. Her satırda ve her sütunda açık renkli taşlar kadar koyu renkli taş vardır. İki satır aynı olamaz, iki sütun da.
+Bazı taşlar baştan, daha koyu karelerde verilir. Her bulmacanın tek bir çözümü vardır ve yalnızca akıl yürüterek bulunur. Boyutu (6 × 6'dan 12 × 12'ye) ve seviyeyi seç (her resmin altındaki taşlar):
+- Kolay: yan yana iki aynı taş ya da aralarında bir boşluk olan iki aynı taş, yanlarındaki karelerin rengini verir; bir rengin bütün taşlarını almış bir çizgi, geri kalan her yerde öteki rengi alır.
+- Orta: bütün bir çizgiye de bakman gerekir: onu doldurmanın bütün yolları bazı karelerde birleşir.
+- Zor: daha uzun akıl yürütme zincirleri, asla tahmin yok.
+# Bir hamle
+Boş bir kareye taş koy, rengini değiştir ya da kaldır. Verilen taşlar yerinde kalır.
+# Oyunun sonu
+Izgara dolu olduğunda ve bütün kurallara uyduğunda bulmaca çözülür: tahtanın üzerinden altın bir ışık dalgası geçer.
+# Cihazda oynamak
+- Açık renkli bir taş için boş bir kareye dokun, koyu için yeniden dokun, boşaltmak için bir kez daha dokun.
+- Ters yönde gitmek için parmağını bir karenin üzerinde bir an tut: önce koyu.
+- Bütün bir parçada aynısını yapmak için bir satır ya da sütun boyunca sürükle. Yalnızca ilk kare gibi olan kareler değişir.
+Arka arkaya üç aynı taş kırmızı parlar; bir renkten fazla taşı olan ya da dolu ve başka biriyle aynı olan satır veya sütun kırmızıya döner. Çubuğun sağ ucundaki düğme ampuldür: bir ipucu. Yanlış bir taşı düzeltir ya da akıl yürütmenin bulduğu bir sonraki kareyi altın ışıkla gösterir. Geri al her seferinde bir işlemi geri alır, en başa kadar. Çubuk hamlelerini gösterir.

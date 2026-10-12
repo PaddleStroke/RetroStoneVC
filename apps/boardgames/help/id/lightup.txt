@@ -1,0 +1,19 @@
+Nyalakan Lampu
+# Tujuan
+Pasang lampu di kotak-kotak putih sehingga setiap kotak putih terang. Sebuah lampu menerangi kotaknya sendiri serta seluruh baris dan kolomnya ke dua arah, sampai ke dinding gelap atau tepi papan. Tidak ada lampu yang boleh menerangi lampu lain. Dinding berangka punya tepat sebanyak itu lampu di sebelahnya (atas, bawah, kiri, dan kanan); dinding tanpa angka boleh punya berapa saja.
+Setiap teka-teki punya tepat satu jawaban, yang bisa ditemukan hanya dengan bernalar. Pilih ukurannya (7 × 7, 10 × 10, atau 14 × 14) dan tingkatnya (batu di bawah setiap gambar):
+- Mudah: sekali lihat selalu cukup: angka yang butuh semua kotak kosongnya, angka yang sudah punya semua lampunya, kotak gelap yang hanya bisa diterangi satu kotak lagi.
+- Sedang: kamu juga perlu berpikir satu lampu ke depan: lampu di sini akan membuat sebuah angka, atau kotak gelap, kekurangan tempat.
+- Sulit: rantai penalaran yang lebih panjang, tanpa pernah menebak.
+# Satu langkah
+Pasang lampu di kotak putih, atau ambil lagi. Kamu juga bisa memberi titik pada sebuah kotak untuk mengingat bahwa di situ tidak ada lampu; titik-titik itu hanya catatan untukmu.
+# Akhir permainan
+Teka-teki selesai saat setiap kotak putih terang, tidak ada lampu yang menerangi lampu lain, dan setiap angka punya lampunya: gelombang cahaya emas menyapu papan.
+# Bermain di perangkat
+- Ketuk kotak putih untuk memasang lampu; ketuk lagi untuk mengambilnya.
+- Tahan jari sebentar di sebuah kotak untuk memberi titik, atau menghapusnya.
+- Seret di sepanjang baris atau kolom untuk memberi titik pada satu deretan (atau menghapusnya dari deretan bertitik).
+Kotak yang terang bersinar hangat. Dua lampu yang saling menerangi bersinar merah; sebuah angka menjadi merah jika lampunya terlalu banyak, dan memudar setelah semua lampunya lengkap. Tombol di ujung kanan bilah:
+- Lampu atau titik: apa yang dipasang oleh ketukan. Ketuk tombol ini untuk menukar ketukan dan tahanan.
+- Bola lampu: petunjuk. Memperbaiki kotak yang salah, atau menunjukkan kotak berikutnya yang ditemukan penalaran, dengan cahaya emas.
+Urungkan membatalkan satu tindakan setiap kali, sampai ke awal. Bilah menunjukkan langkahmu.

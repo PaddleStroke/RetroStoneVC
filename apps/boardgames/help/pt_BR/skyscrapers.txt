@@ -1,0 +1,16 @@
+Arranha-céus
+# O objetivo
+A grade é uma cidade vista de cima. Ponha um prédio em cada casa, com altura de 1 até o tamanho da grade, cada altura uma vez em cada linha e em cada coluna. Um número na borda diz quantos prédios se veem dali, olhando ao longo daquela linha ou coluna: um prédio mais alto esconde todos os mais baixos atrás dele.
+Algumas alturas podem vir dadas, em casas mais escuras. Cada tabuleiro tem uma única solução, encontrada só pelo raciocínio. Escolha o tamanho (de 4 × 4 a 7 × 7) e o nível (as peças sob cada imagem):
+- Fácil: uma altura com um só lugar na sua linha ou coluna, uma casa com uma só altura possível, e o que um número da borda permite perto dele (1: o mais alto fica na frente; a contagem toda: todos em ordem, do mais baixo ao mais alto).
+- Médio: você também vai precisar olhar uma linha inteira: todas as ordens das suas alturas que combinam com os seus números concordam em algumas casas.
+- Difícil: cadeias de raciocínio mais longas, nunca no chute.
+# Uma jogada
+Ponha uma altura numa casa, troque-a ou tire-a. Notas pequenas numa casa ajudam a lembrar as alturas que ela ainda pode ter.
+# O fim da partida
+O tabuleiro está resolvido quando cada casa tem o seu prédio e a cidade segue todas as regras: uma onda de luz dourada percorre o tabuleiro.
+# Jogando no aparelho
+Toque numa casa e depois numa tecla embaixo do tabuleiro: a altura entra (a mesma tecla de novo a tira). Você também pode arrastar uma tecla até uma casa. Toque de novo na casa escolhida para subir o prédio um andar; segure uma casa por um instante para esvaziá-la. Os prédios são torrezinhas de madeira: quanto mais altos, maiores. Os botões na ponta direita da barra:
+- Lápis: notas. As teclas passam a pôr alturas pequenas na casa, ou a tirá-las. Uma altura colocada apaga essa nota da sua linha e coluna.
+- Lâmpada acesa: uma dica. Corrige uma altura errada ou, se não houver, preenche a próxima casa que o raciocínio encontra, com luz dourada.
+Uma altura repetida numa linha ou coluna fica vermelha. Um número da borda fica apagado quando a sua linha cheia mostra a contagem certa, e fica vermelho quando mostra outra. Uma tecla fica apagada quando a sua altura já está em todas as linhas. Desfazer volta uma ação de cada vez, até o começo. A barra mostra as suas jogadas.

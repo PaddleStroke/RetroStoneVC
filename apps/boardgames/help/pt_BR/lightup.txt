@@ -1,0 +1,19 @@
+Acenda a Luz
+# O objetivo
+Coloque lâmpadas nas casas brancas para que todas as casas brancas fiquem iluminadas. Uma lâmpada ilumina a própria casa e toda a sua linha e coluna, nos dois sentidos, até uma parede escura ou a borda. Nenhuma lâmpada pode iluminar outra. Uma parede com número tem exatamente esse número de lâmpadas ao lado (em cima, embaixo, à esquerda e à direita); uma parede sem número pode ter quantas forem.
+Cada tabuleiro tem uma única solução, encontrada só pelo raciocínio. Escolha o tamanho (7 × 7, 10 × 10 ou 14 × 14) e o nível (as peças sob cada imagem):
+- Fácil: sempre basta uma olhada: um número que precisa de todas as suas casas livres, um número que já tem todas as lâmpadas, uma casa escura que só uma casa ainda pode iluminar.
+- Médio: você também vai precisar pensar uma lâmpada à frente: uma lâmpada aqui deixaria um número, ou uma casa escura, sem espaço suficiente.
+- Difícil: cadeias de raciocínio mais longas, nunca no chute.
+# Uma jogada
+Coloque uma lâmpada numa casa branca, ou tire-a. Você também pode pôr um ponto numa casa para lembrar que ali não vai lâmpada; os pontos são só anotações suas.
+# O fim da partida
+O tabuleiro está resolvido quando todas as casas brancas estão iluminadas, nenhuma lâmpada ilumina outra e cada número tem as suas lâmpadas: uma onda de luz dourada percorre o tabuleiro.
+# Jogando no aparelho
+- Toque numa casa branca para pôr uma lâmpada; toque de novo para tirá-la.
+- Segure uma casa por um instante para pôr um ponto, ou tirá-lo.
+- Arraste ao longo de uma linha ou coluna para pôr pontos num trecho inteiro (ou tirá-los de um trecho de pontos).
+As casas iluminadas brilham num tom quente. Duas lâmpadas que se iluminam brilham em vermelho; um número fica vermelho quando tem lâmpadas demais, e fica apagado quando já tem todas. Os botões na ponta direita da barra:
+- Lâmpada ou ponto: o que um toque coloca. Toque nele para trocar tocar e segurar.
+- Lâmpada acesa: uma dica. Corrige uma casa errada ou, se não houver, mostra a próxima casa que o raciocínio encontra, com luz dourada.
+Desfazer volta uma ação de cada vez, até o começo. A barra mostra as suas jogadas.

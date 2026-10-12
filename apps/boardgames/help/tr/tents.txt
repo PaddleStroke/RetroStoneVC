@@ -1,0 +1,19 @@
+Çadırlar
+# Amaç
+Her ağacın yanına bir çadır kur: hemen üstüne, altına, soluna ya da sağına. Her ağacın kendi çadırı, her çadırın kendi ağacı vardır. Çadırlar birbirine asla değmez, köşeden bile. Satırların solundaki ve sütunların üstündeki sayılar kaç çadır olduğunu söyler.
+Her alanın tek bir çözümü vardır ve yalnızca akıl yürüterek bulunur. Boyutu (6 × 6'dan 12 × 12'ye) ve seviyeyi seç (her resmin altındaki taşlar):
+- Kolay: bir bakış her zaman yeter: ağaçlardan uzakta ya da bir çadırın çevresinde çadır olmaz; bütün çadırları yerinde ya da onlara tam yetecek yeri olan bir çizgi; tek yeri kalmış bir ağaç.
+- Orta: bir çizginin çadırlarının ancak sığdığı boş kare parçalarına da ihtiyacın olur ve bir çadır ilerisini düşünmen gerekir: buraya bir çadır, bir ağacı ya da bir çizgiyi yersiz bırakırdı.
+- Zor: daha uzun akıl yürütme zincirleri, asla tahmin yok.
+# Bir hamle
+Bir kareye çadır kur ya da onu sök. Oraya çadır gelmeyeceğini hatırlamak için bir kareye çimen de koyabilirsin; çimen yalnızca senin notundur.
+# Oyunun sonu
+Her ağacın çadırı olduğunda, hiçbir çadır birbirine değmediğinde ve her sayı doğru olduğunda alan çözülür: alanın üzerinden altın bir ışık dalgası geçer.
+# Cihazda oynamak
+- Çadır kurmak için bir kareye dokun; sökmek için yeniden dokun.
+- Çimen koymak ya da kaldırmak için parmağını bir karenin üzerinde bir an tut.
+- Bütün bir parçaya çimen koymak (ya da çimenli bir parçadan kaldırmak) için bir satır ya da sütun boyunca sürükle.
+Birbirine değen çadırlar kırmızı parlar, çadırına yer kalmamış bir ağaç da öyle. Bir sayı, çizgisinde fazla çadır olunca kırmızıya döner, hepsi tamam olunca solar. Çubuğun sağ ucundaki düğmeler:
+- Çadır ya da çimen: bir dokunuşun ne koyduğu. Dokunma ile basılı tutmanın yerini değiştirmek için ona dokun.
+- Ampul: bir ipucu. Yanlış bir kareyi düzeltir ya da akıl yürütmenin bulduğu bir sonraki kareyi altın ışıkla gösterir.
+Geri al her seferinde bir işlemi geri alır, en başa kadar. Çubuk hamlelerini gösterir.
