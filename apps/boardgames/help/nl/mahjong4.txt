@@ -1,0 +1,39 @@
+Mahjong
+# Het doel
+Het klassieke tafelspel voor vier spelers, volgens de Hongkongse regels (oude stijl). Maak als eerste een hand van 14 stenen af en scoor er punten mee. De handen zijn geheim: het apparaat gaat van speler naar speler. Kies de lengte van de partij: alleen de oostronde, of de oost- en de zuidronde.
+# De stenen
+- Drie kleuren, genummerd van 1 tot 9: stippen (cirkels), bamboe (stokjes; de 1 is een vogel) en karakters (een Chinees getal boven 萬).
+- De eerstenen: de winden 東 oost, 南 zuid, 西 west, 北 noord, en de draken 中 rood, 發 groen en wit (een blauw kader).
+- Elk daarvan komt vier keer voor. De vier bloemen en de vier seizoenen, elk één keer, zijn bonusstenen: leg ze opzij zodra je ze krijgt en neem een vervanger van het einde van de muur.
+# Het delen
+De vier muren, twee stenen hoog, vormen een vierkant. De gever, oost, gooit drie dobbelstenen om te bepalen waar de muur wordt geopend. Iedereen krijgt 13 stenen, de gever 14. De laatste 14 stenen van de muur vormen de dode muur: de vervangers voor bloemen en kongs komen van het einde ervan. De plaatswinden: de gever is oost, daarna volgen zuid, west en noord.
+# Een beurt
+Trek een steen van de muur, of eis de laatst afgelegde steen op; leg daarna een steen open voor je af. Voor het afleggen mag je ook:
+- een kong melden: vier gelijke in je hand, of de vierde steen bij een pung die je al hebt neergelegd. Trek een vervanger en leg dan af.
+- melden dat je wint.
+# Combinaties en opeisen
+- Een chow is drie opeenvolgende stenen van één kleur, een pung drie gelijke, een kong vier gelijke, een paar twee gelijke.
+- Elke speler mag de laatst afgelegde steen opeisen om er met stenen uit zijn hand een pung of een kong mee te maken, of om ermee te winnen. Alleen de volgende speler mag hem opeisen voor een chow. De combinatie wordt open neergelegd; wie opeiste, legt daarna af, en het spel gaat verder bij de speler na hem.
+- Winnen gaat voor een pung of een kong, en die gaan voor een chow. Willen twee spelers winnen, dan krijgt wie in de beurtvolgorde het eerst na de afgooier komt de steen.
+- Een steen die bij een pung wordt gelegd om er een kong van te maken, kan worden geroofd door een speler die ermee wint.
+- Is de muur op, dan mag de laatst afgelegde steen alleen nog worden opgeëist om te winnen; anders eindigt het spel onbeslist.
+# Winnen
+Een winnende hand bestaat uit vier combinaties (chows, pungs of kongs) en een paar, of uit zeven verschillende paren, of uit dertien wezen (van elke 1, 9 en eersteen één, plus nog één daarvan). Hij moet minstens 3 faan waard zijn.
+# Faan
+- 1: zelf getrokken; gesloten hand (geen opgeëiste combinaties); alleen chows; elke pung draken; een pung van je plaatswind; een pung van de rondewind; elk van je eigen bloem en seizoen (oost 1, zuid 2, west 3, noord 4); helemaal geen bloemen of seizoenen; winnen met de laatste steen, met een vervanger of door een kong te roven.
+- 2: alle vier de bloemen, of alle vier de seizoenen.
+- 3: alleen pungs; halve kleur (één kleur plus eerstenen).
+- 4: zeven paren.
+- 5: kleine drie draken (twee pungs draken en een paar van de derde), geteld in plaats van de drakenpungs.
+- 7: volle kleur (maar één kleur).
+- 8: grote drie draken.
+- 10, het maximum: dertien wezen, alleen eerstenen, alleen enen en negens, kleine of grote vier winden, negen poorten (1112345678999 van één kleur plus nog een steen van die kleur), vier kongs, vier gesloten pungs.
+Een hand telt op de gunstigste manier waarop hij te lezen is, tot 10 faan.
+# Betalen
+Een hand van 3 tot 10 faan is 8, 16, 24, 32, 48, 64, 96 of 128 punten waard. Gewonnen met een afgelegde steen: wie hem aflegde, betaalt de winnaar het dubbele, de twee anderen het enkele. Zelf getrokken: alle drie betalen het dubbele. Een onbeslist spel: niemand betaalt.
+# Het einde van de partij
+Wint de gever, dan geeft hij opnieuw; anders gaat het geven naar de volgende speler. Als iedereen gegeven heeft, is de ronde voorbij en verandert de rondewind van oost in zuid. De partij eindigt na de laatst gekozen ronde; het hoogste totaal wint.
+# Spelen op het apparaat
+Je hand staat onderaan, de steen die je net trok iets apart; je combinaties en bloemen erboven. Tik een steen aan om hem op te tillen, en tik hem nog eens of tik op de tafel om hem af te leggen, of sleep hem naar de tafel. Kun je winnen of een kong, een pung of een chow maken, dan lichten de combinaties boven je hand op: tik er een aan. Met de pasknop in je balk laat je een afgelegde steen gaan; ben je aan de beurt, dan trek je met een tik op de muren.
+Na het afleggen gaat het apparaat alleen naar spelers die de steen zouden kunnen opeisen. Kan een van de twee spelers die twee en drie plaatsen na de afgooier zitten dat, dan worden ze altijd allebei gevraagd, in die volgorde, zodat niemand kan zien wie. Een speler die niets kan opeisen, ziet de afgelegde steen alleen even; daarna trekt de volgende speler.
+Na elk spel toont een paneel de winnende hand combinatie voor combinatie, de faan, wat elke speler betaalt en de totalen: tik erop voor het volgende spel. Het midden van de tafel toont de rondewind, het hoeveelste spel van de ronde het is, de dobbelstenen en het aantal stenen dat nog in de muur zit. Elke balk toont de plaatswind en het totaal van de speler.

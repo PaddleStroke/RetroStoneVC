@@ -1,0 +1,39 @@
+Mahjong
+# Målet
+Det klassiska bordsspelet för fyra spelare, med Hongkongreglerna (gammal stil). Bli först med att fullborda en hand på 14 brickor och få poäng för den. Händerna är hemliga: enheten går från spelare till spelare. Välj partiets längd: bara östrundan, eller öst- och sydrundan.
+# Brickorna
+- Tre färger, numrerade från 1 till 9: cirklar, bambu (pinnar; ettan är en fågel) och tecken (ett kinesiskt tal över 萬).
+- Hedersbrickorna: vindarna 東 öster, 南 söder, 西 väster, 北 norr, och drakarna 中 röd, 發 grön och vit (en blå ram).
+- Var och en av dem finns fyra gånger. De fyra blommorna och de fyra årstiderna, en av varje, är bonusbrickor: lägg undan dem så fort du får dem och ta en ersättare från murens slut.
+# Given
+De fyra murarna, två brickor höga, bildar en fyrkant. Givaren, öster, kastar tre tärningar för att avgöra var muren bryts. Alla får 13 brickor, givaren 14. Murens sista 14 brickor är den döda muren: ersättarna för blommor och kongs tas från dess slut. Platsvindarna: givaren är öster, sedan följer söder, väster och norr.
+# En tur
+Dra en bricka från muren, eller ta den senast kastade brickan; kasta sedan en bricka med framsidan upp framför dig. Innan du kastar får du också:
+- deklarera en kong: fyra lika på handen, eller den fjärde brickan lagd till en pung du har lagt ut. Dra en ersättare och kasta sedan.
+- deklarera vinst.
+# Kombinationer och anspråk
+- En chow är tre brickor i följd i samma färg, en pung tre lika, en kong fyra lika, ett par två lika.
+- Vilken spelare som helst får ta den senast kastade brickan för att bilda en pung eller en kong med brickor från handen, eller för att vinna med den. Bara nästa spelare får ta den till en chow. Kombinationen läggs ut med framsidan upp; den som tog brickan kastar sedan, och spelet fortsätter efter honom.
+- Vinst går före en pung eller en kong, som går före en chow. Vill två spelare vinna får den som kommer först efter kastaren i turordningen brickan.
+- En bricka som läggs till en pung för att göra en kong kan rånas av en spelare som vinner med den.
+- När muren är slut kan den senast kastade brickan bara tas för vinst; annars blir given oavgjord.
+# Vinst
+En vinnande hand är fyra kombinationer (chows, pungs eller kongs) och ett par, eller sju olika par, eller tretton föräldralösa (en av varje etta, nia och hedersbricka, plus en till av dem). Den måste vara värd minst 3 faan.
+# Faan
+- 1: egen dragning; dold hand (inga tagna kombinationer); bara chows; varje pung drakar; en pung av din platsvind; en pung av rundvinden; var och en av din egen blomma och årstid (öster 1, söder 2, väster 3, norr 4); inga blommor eller årstider alls; vinst på sista brickan, på en ersättare eller genom att råna en kong.
+- 2: alla fyra blommorna, eller alla fyra årstiderna.
+- 3: bara pungs; halv färg (en färg och hedersbrickor).
+- 4: sju par.
+- 5: små tre drakar (två pungs drakar och ett par av den tredje), räknas i stället för drakarnas pungs.
+- 7: ren färg (bara en färg).
+- 8: stora tre drakar.
+- 10, maxgränsen: tretton föräldralösa, bara hedersbrickor, bara ettor och nior, små eller stora fyra vindar, nio portar (1112345678999 i en färg och en till i samma färg), fyra kongs, fyra dolda pungs.
+En hand räknas på det bästa sätt den kan läsas, upp till 10 faan.
+# Betalning
+En hand på 3 till 10 faan är värd 8, 16, 24, 32, 48, 64, 96 eller 128 poäng. Vunnen på ett kast: kastaren betalar vinnaren dubbelt, de två andra enkelt. Egen dragning: alla tre betalar dubbelt. En oavgjord giv: ingen betalar.
+# Partiets slut
+Vinner givaren ger han igen; annars blir nästa spelare givare. När alla har gett är rundan slut, och rundvinden byts från öster till söder. Partiet slutar efter den sista valda rundan; högsta summan vinner.
+# Spela på enheten
+Din hand står längst ned, brickan du nyss drog lite för sig; dina kombinationer och blommor ovanför. Tryck på en bricka för att lyfta den, och tryck sedan på den igen eller på bordet för att kasta den, eller dra den till bordet. När du kan vinna eller bilda en kong, en pung eller en chow lyser kombinationerna ovanför din hand: tryck på en. Pass-knappen i ditt fält låter ett kast gå förbi; när det är din tur drar du med ett tryck på murarna.
+Efter ett kast går enheten bara till spelare som kan tänkas ta brickan. Om någon av de två spelarna som sitter två och tre platser efter kastaren kan det, tillfrågas alltid båda, i den ordningen, så att ingen kan se vem. En spelare som inte har något att ta ser bara kastet en stund; sedan drar nästa spelare.
+Efter varje giv visar en tavla den vinnande handen kombination för kombination, dess faan, varje spelares betalning och summorna: tryck på den för nästa giv. Mitt på bordet visas rundvinden, vilken giv i rundan det är, tärningarna och hur många brickor som är kvar i muren. Varje fält visar spelarens platsvind och summa.

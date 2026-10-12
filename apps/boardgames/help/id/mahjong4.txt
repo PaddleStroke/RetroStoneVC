@@ -1,0 +1,39 @@
+Mahjong
+# Tujuan
+Permainan meja klasik untuk empat pemain, dengan aturan Hong Kong (gaya lama). Jadilah yang pertama melengkapi tangan berisi 14 ubin, dan raih poin dengannya. Ubin di tangan dirahasiakan: perangkat berpindah dari pemain ke pemain. Pilih panjang permainan: ronde timur saja, atau ronde timur dan selatan.
+# Ubin
+- Tiga jenis bernomor 1 sampai 9: bulatan (lingkaran), bambu (batang; angka 1 berupa burung) dan karakter (angka Tionghoa di atas 萬).
+- Ubin kehormatan: angin 東 timur, 南 selatan, 西 barat, 北 utara, serta naga 中 merah, 發 hijau dan putih (bingkai biru).
+- Masing-masing ada empat. Empat bunga dan empat musim, masing-masing satu, adalah ubin bonus: sisihkan begitu kamu mendapatkannya, lalu ambil penggantinya dari ujung tembok.
+# Pembagian
+Keempat tembok, setinggi dua ubin, membentuk persegi. Pembagi, yaitu timur, melempar tiga dadu untuk menentukan di mana tembok dibuka. Setiap pemain mendapat 13 ubin, pembagi 14. Ke-14 ubin terakhir tembok adalah tembok mati: pengganti untuk bunga dan kong diambil dari ujungnya. Angin kursi: pembagi adalah timur, lalu berurutan selatan, barat, dan utara.
+# Satu giliran
+Ambil satu ubin dari tembok, atau klaim ubin buangan terakhir; lalu buang satu ubin terbuka di depanmu. Sebelum membuang, kamu juga boleh:
+- menyatakan kong: empat ubin sama di tanganmu, atau ubin keempat yang ditambahkan ke pung yang sudah kamu turunkan. Ambil ubin pengganti, lalu buang.
+- menyatakan menang.
+# Set dan klaim
+- Chow adalah tiga ubin berurutan dari satu jenis, pung tiga ubin sama, kong empat ubin sama, pasangan dua ubin sama.
+- Pemain mana pun boleh mengklaim ubin buangan terakhir untuk membentuk pung atau kong dengan ubin dari tangannya, atau untuk menang dengannya. Hanya pemain berikutnya yang boleh mengklaimnya untuk chow. Set itu diturunkan terbuka; pengklaim lalu membuang, dan permainan berlanjut setelah dia.
+- Menang mengalahkan pung atau kong, dan keduanya mengalahkan chow. Jika dua pemain ingin menang, ubin itu didapat oleh yang lebih dulu sesudah pembuang menurut urutan giliran.
+- Ubin yang ditambahkan ke pung untuk membentuk kong bisa dirampok oleh pemain yang menang dengannya.
+- Setelah tembok habis, ubin buangan terakhir hanya boleh diklaim untuk menang; jika tidak, babak berakhir seri.
+# Menang
+Tangan yang menang terdiri dari empat set (chow, pung, atau kong) dan satu pasangan, atau tujuh pasangan berbeda, atau tiga belas yatim (masing-masing satu dari setiap 1, 9, dan ubin kehormatan, ditambah satu lagi dari salah satunya). Nilainya harus minimal 3 faan.
+# Faan
+- 1: tarik sendiri; tangan tertutup (tanpa set hasil klaim); semua chow; setiap pung naga; pung angin kursimu; pung angin ronde; setiap bunga dan musim milikmu sendiri (timur 1, selatan 2, barat 3, utara 4); sama sekali tanpa bunga atau musim; menang dengan ubin terakhir, dengan ubin pengganti, atau dengan merampok kong.
+- 2: keempat bunga, atau keempat musim.
+- 3: semua pung; setengah murni (satu jenis dan ubin kehormatan).
+- 4: tujuh pasangan.
+- 5: tiga naga kecil (dua pung naga dan sepasang naga ketiga), dihitung sebagai pengganti nilai pung naganya.
+- 7: murni (satu jenis saja).
+- 8: tiga naga besar.
+- 10, batas maksimum: tiga belas yatim, semua ubin kehormatan, semua 1 dan 9, empat angin kecil atau besar, sembilan gerbang (1112345678999 dari satu jenis ditambah satu lagi dari jenis itu), empat kong, empat pung tertutup.
+Sebuah tangan dihitung menurut cara membacanya yang paling menguntungkan, hingga 10 faan.
+# Pembayaran
+Tangan 3 sampai 10 faan bernilai 8, 16, 24, 32, 48, 64, 96, atau 128 poin. Menang dari buangan: pembuang membayar pemenang dua kali nilai itu, dua pemain lainnya satu kali. Tarik sendiri: ketiganya membayar dua kali. Babak seri: tidak ada yang membayar.
+# Akhir permainan
+Pembagi tetap membagi jika menang; jika tidak, giliran membagi pindah ke pemain berikutnya. Setelah semua pemain menjadi pembagi, ronde selesai dan angin ronde berganti dari timur ke selatan. Permainan berakhir setelah ronde terakhir yang dipilih; total tertinggi menang.
+# Bermain di perangkat
+Tanganmu ada di bawah, ubin yang baru kamu ambil sedikit terpisah; set dan bungamu di atasnya. Ketuk ubin untuk mengangkatnya, lalu ketuk lagi ubin itu atau meja untuk membuangnya, atau seret ke meja. Jika kamu bisa menang, membentuk kong, pung, atau chow, set-set itu menyala di atas tanganmu: ketuk salah satunya. Tombol lewati di bilahmu membiarkan buangan lewat; saat giliranmu, ketukan pada tembok mengambil ubin.
+Setelah ada buangan, perangkat hanya berpindah ke pemain yang mungkin mengklaimnya. Jika salah satu dari dua pemain yang duduk dua dan tiga kursi setelah pembuang bisa mengklaimnya, keduanya selalu ditanya, dengan urutan itu, sehingga tak ada yang tahu yang mana. Pemain yang tidak punya apa pun untuk diklaim hanya melihat buangan itu sejenak; lalu pemain berikutnya mengambil ubin.
+Setelah setiap babak, sebuah panel menunjukkan tangan pemenang set demi set, faannya, pembayaran setiap pemain, dan totalnya: ketuk untuk babak berikutnya. Bagian tengah meja menunjukkan angin ronde, babak keberapa dalam ronde itu, dadu, dan sisa ubin di tembok. Setiap bilah menunjukkan angin kursi dan total pemain.

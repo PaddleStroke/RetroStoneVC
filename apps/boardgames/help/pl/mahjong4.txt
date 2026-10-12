@@ -1,0 +1,39 @@
+Mahjong
+# Cel gry
+Klasyczna gra stołowa dla czterech graczy, według zasad hongkońskich (w starym stylu). Jako pierwszy skompletuj rękę z 14 kamieni i zdobądź za nią punkty. Ręce są tajne: urządzenie przechodzi od gracza do gracza. Wybierz długość gry: tylko runda wschodu albo rundy wschodu i południa.
+# Kamienie
+- Trzy kolory, numerowane od 1 do 9: koła (kółka), bambusy (patyczki; jedynka to ptak) i znaki (chińska cyfra nad znakiem 萬).
+- Honory: wiatry 東 wschód, 南 południe, 西 zachód, 北 północ oraz smoki 中 czerwony, 發 zielony i biały (niebieska ramka).
+- Każdy z nich występuje cztery razy. Cztery kwiaty i cztery pory roku, każde po jednym, to kamienie premiowe: odłóż je, gdy tylko je dostaniesz, i dobierz zamiennik z końca muru.
+# Rozdanie
+Cztery mury, każdy wysoki na dwa kamienie, tworzą kwadrat. Rozdający, czyli wschód, rzuca trzema kostkami, by wyznaczyć miejsce, w którym mur zostanie rozbity. Każdy bierze 13 kamieni, rozdający 14. Ostatnie 14 kamieni muru to martwy mur: z jego końca pochodzą zamienniki za kwiaty i kongi. Wiatry miejsc: rozdający to wschód, a po nim kolejno południe, zachód i północ.
+# Tura
+Dobierz kamień z muru albo weź ostatni odrzucony kamień; potem odrzuć jeden kamień odkryty przed siebie. Przed odrzuceniem możesz też:
+- zgłosić konga: cztery jednakowe kamienie w ręce albo czwarty kamień dołożony do wyłożonego punga. Dobierz zamiennik, potem odrzuć.
+- zgłosić wygraną.
+# Układy i branie kamieni
+- Chow to trzy kolejne kamienie jednego koloru, pung to trzy jednakowe, kong cztery jednakowe, a para dwa jednakowe.
+- Każdy gracz może wziąć ostatni odrzucony kamień, by ułożyć z kamieniami z ręki punga lub konga albo by nim wygrać. Na chowa może go wziąć tylko następny gracz. Układ wykłada się odkryty; biorący potem odrzuca kamień, a gra toczy się dalej od gracza po nim.
+- Wygrana ma pierwszeństwo przed pungiem lub kongiem, a te przed chowem. Jeśli wygrać chcą dwaj gracze, kamień bierze ten, który jest wcześniej w kolejce po odrzucającym.
+- Kamień dokładany do punga, by zrobić z niego konga, może przechwycić gracz, który nim wygrywa.
+- Gdy mur się wyczerpie, ostatni odrzucony kamień można wziąć już tylko do wygranej; inaczej rozdanie kończy się remisem.
+# Wygrana
+Ręka wygrywająca to cztery układy (chowy, pungi lub kongi) i para, albo siedem różnych par, albo trzynaście sierot (po jednym z każdej jedynki, dziewiątki i honoru oraz jeszcze jeden z nich). Musi być warta co najmniej 3 faan.
+# Faan
+- 1: wygrana z własnego dobrania; ręka zakryta (bez wziętych układów); same chowy; każdy pung smoków; pung wiatru twojego miejsca; pung wiatru rundy; każdy twój własny kwiat i każda twoja pora roku (wschód 1, południe 2, zachód 3, północ 4); brak jakichkolwiek kwiatów i pór roku; wygrana ostatnim kamieniem, kamieniem zastępczym albo przechwyceniem konga.
+- 2: wszystkie cztery kwiaty albo wszystkie cztery pory roku.
+- 3: same pungi; mieszany kolor (jeden kolor i honory).
+- 4: siedem par.
+- 5: małe trzy smoki (dwa pungi smoków i para trzeciego), liczone zamiast pungów smoków.
+- 7: czysty kolor (tylko jeden kolor).
+- 8: wielkie trzy smoki.
+- 10, limit: trzynaście sierot, same honory, same jedynki i dziewiątki, małe lub wielkie cztery wiatry, dziewięć bram (1112345678999 w jednym kolorze i jeszcze jeden kamień tego koloru), cztery kongi, cztery zakryte pungi.
+Ręka liczy się tak, jak da się ją odczytać najkorzystniej, najwyżej do 10 faan.
+# Płatności
+Ręka warta od 3 do 10 faan daje 8, 16, 24, 32, 48, 64, 96 lub 128 punktów. Wygrana z odrzutu: odrzucający płaci zwycięzcy podwójnie, dwaj pozostali pojedynczo. Wygrana z własnego dobrania: wszyscy trzej płacą podwójnie. Remis: nikt nie płaci.
+# Koniec gry
+Rozdający, który wygrał, rozdaje dalej; w przeciwnym razie rozdaje następny gracz. Gdy każdy już rozdawał, runda się kończy, a wiatr rundy zmienia się ze wschodu na południe. Gra kończy się po ostatniej wybranej rundzie; wygrywa najwyższa suma.
+# Gra na urządzeniu
+Twoja ręka jest na dole, a właśnie dobrany kamień nieco z boku; nad nią leżą twoje układy i kwiaty. Dotknij kamienia, by go unieść, a potem dotknij go jeszcze raz albo stołu, by go odrzucić, lub przeciągnij go na stół. Gdy możesz wygrać albo ułożyć konga, punga lub chowa, układy świecą nad twoją ręką: dotknij jednego z nich. Przycisk pasowania na twoim pasku przepuszcza odrzucony kamień; gdy jest twoja kolej, dotknięcie muru dobiera kamień.
+Po odrzuceniu urządzenie trafia tylko do graczy, którzy mogliby wziąć kamień. Jeśli mógłby to zrobić któryś z dwóch graczy siedzących dwa i trzy miejsca za odrzucającym, zawsze pytani są obaj, w tej kolejności, więc nikt nie wie, o którego chodzi. Gracz, który nie ma czego wziąć, tylko przez chwilę widzi odrzucony kamień; potem dobiera następny gracz.
+Po każdym rozdaniu tabela pokazuje wygrywającą rękę układ po układzie, jej faan, płatność każdego gracza i sumy: dotknij jej, by zacząć następne rozdanie. Środek stołu pokazuje wiatr rundy, które to rozdanie w rundzie, kostki i liczbę kamieni pozostałych w murze. Pasek każdego gracza pokazuje wiatr jego miejsca i jego sumę.
