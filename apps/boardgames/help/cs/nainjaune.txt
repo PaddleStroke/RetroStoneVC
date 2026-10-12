@@ -1,0 +1,22 @@
+Žlutý trpaslík
+# Cíl hry
+Mít na konci hry nejvíc žetonů. Vykládej karty v postupkách, sbírej žetony z pěti přihrádek desky tím, že zahraješ jejich karty, a zbav se jako první všech karet. Pro 3 až 6 hráčů, s balíčkem 52 karet. Francouzsky se hra jmenuje Nain jaune.
+# Deska
+Pět přihrádek, každá se svou kartou: kárová desítka, křížový kluk, piková dáma a srdcový král v rozích a uprostřed kárová sedmička, žlutý trpaslík. Každý začíná se 100 žetony. Před každým rozdáním vsadí každý hráč 1 žeton na desítku, 2 na kluka, 3 na dámu, 4 na krále a 5 na žlutého trpaslíka.
+# Rozdávání
+Karty se rozdávají po jedné: při 3 hráčích po 15, při 4 po 12, při 5 po 9, při 6 po 8. Zbylé karty tvoří talon; zůstávají lícem dolů a nehrají se. Rozdávající se při každém rozdání posune o jedno místo kolem stolu.
+# Průběh hry
+Karty jdou od esa (1) po krále; na barvě nezáleží.
+- Hráč vlevo od rozdávajícího zahraje libovolnou kartu a pokračuje další vyšší kartou libovolné barvy, dokud může: 4, 5, 6...
+- Když nemá další kartu, pokračuje další hráč kolem stolu, který ji má, a tak dál. Hráči, kteří ji nemají, se přeskakují.
+- Máš-li další kartu, musíš ji zahrát; máš-li jich víc, vybereš si, kterou.
+- Král postupku ukončí: hráč, který ho zahrál, začne novou libovolnou kartou. Nemá-li nikdo další kartu, začne novou postupku ten, kdo hrál naposledy.
+- Kdo zahraje jednu z pěti karet desky, vezme všechny žetony v její přihrádce.
+# Konec rozdání
+První hráč, kterému nezbyla žádná karta, vyhrává rozdání. Každý z ostatních mu zaplatí 1 žeton za každou kartu, kterou má ještě v ruce. Hráč, který ještě drží jednu z pěti karet desky, navíc znovu zaplatí její sázku do její přihrádky (1 za desítku, 2 za kluka, 3 za dámu, 4 za krále, 5 za žlutého trpaslíka). Žetony, které nikdo nevzal, zůstávají v přihrádkách na další rozdání. Hráč, který nemůže zaplatit, zaplatí, co má.
+# Grand opéra
+V klasické hře hráč, který se zbaví všech karet dřív, než kterýkoli jiný hráč zahraje jedinou kartu, udělá grand opéra: vezme i žetony ze všech pěti přihrádek. Druhá možnost v seznamu her se hraje bez grand opéra; její obrázek ukazuje žlutého trpaslíka bez žetonů.
+# Konec hry
+Hra končí, když každý hráč dvakrát rozdával, nebo dřív, jakmile některý hráč nemůže zaplatit 15 žetonů sázek na nové rozdání. Vyhrává hráč s nejvíce žetony; hráči se stejným počtem se o vítězství dělí.
+# Hra na zařízení
+Posílejte si zařízení: každý hráč vidí jen svou vlastní ruku, seřazenou, dole. Ruce ostatních hráčů jsou nahoře jako vějíře karet, s počtem karet každého z nich. Deska s žetony je uprostřed; vedle ní hraná postupka a talon. Klepni na svítící kartu a zahraješ ji. Když je na tahu někdo jiný, obrazovka zakryje tvé karty, dokud na ni další hráč neklepne. Po každém rozdání ukáže tabulka pro každého hráče žetony zaplacené nebo získané za karty, žetony vyhrané z přihrádek (bez znovu zaplacených sázek) a žetony, které má teď; klepni na ni pro další rozdání. Každá lišta ukazuje žetony daného hráče. Vrátit bere zpět tvé vlastní tahy, ale jen do chvíle, kdy bylo zařízení předáno.

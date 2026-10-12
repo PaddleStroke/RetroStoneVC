@@ -1,0 +1,22 @@
+Kurcaci Kuning
+# Tujuan
+Memiliki keping terbanyak di akhir permainan. Turunkan kartumu dalam urutan, kumpulkan keping dari lima kotak di papan dengan memainkan kartu kotak-kotak itu, dan jadilah yang pertama menghabiskan kartu di tanganmu. Nama Prancisnya Nain jaune. Untuk 3 sampai 6 pemain, dengan satu dek 52 kartu.
+# Papan
+Lima kotak, masing-masing dengan kartunya: sepuluh wajik, jack keriting, ratu sekop, dan raja hati di sudut-sudut, dan di tengah tujuh wajik, si kurcaci kuning. Setiap pemain mulai dengan 100 keping. Sebelum setiap ronde, setiap pemain memasang taruhan 1 keping di sepuluh, 2 di jack, 3 di ratu, 4 di raja, dan 5 di kurcaci kuning.
+# Pembagian kartu
+Kartu dibagikan satu per satu: masing-masing 15 untuk 3 pemain, 12 untuk 4, 9 untuk 5, 8 untuk 6. Sisa kartu menjadi tumpukan sisa; kartu-kartu itu tetap tertutup dan tidak dimainkan. Pembagi kartu bergeser satu tempat mengelilingi meja setiap ronde.
+# Permainan
+Urutan kartu dari as (1) sampai raja; jenis tidak berpengaruh.
+- Pemain di kiri pembagi kartu memainkan kartu apa saja, lalu melanjutkan dengan kartu satu tingkat di atasnya, dari jenis apa pun, selama ia bisa: 4, 5, 6...
+- Jika ia tidak punya kartu berikutnya, pemain berikutnya di sekeliling meja yang memilikinya melanjutkan, dan seterusnya. Pemain yang tidak memilikinya dilewati.
+- Jika kamu punya kartu berikutnya, kamu wajib memainkannya; jika punya beberapa, kamu memilih yang mana.
+- Raja mengakhiri urutan: pemain yang memainkannya memulai urutan baru dengan kartu apa saja. Jika tidak ada yang punya kartu berikutnya, pemain terakhir yang bermain memulai urutan baru.
+- Siapa pun yang memainkan salah satu dari lima kartu papan mengambil semua keping di kotaknya.
+# Akhir ronde
+Pemain pertama yang kartunya habis memenangkan ronde. Setiap pemain lain membayarnya 1 keping untuk setiap kartu yang masih ada di tangannya. Pemain yang masih memegang salah satu dari lima kartu papan juga membayar taruhannya sekali lagi ke kotaknya (1 untuk sepuluh, 2 untuk jack, 3 untuk ratu, 4 untuk raja, 5 untuk kurcaci kuning). Keping yang tidak diambil siapa pun tetap di kotaknya untuk ronde berikutnya. Pemain yang tidak sanggup membayar menyerahkan semua yang ia punya.
+# Grand opéra
+Dalam permainan klasik, pemain yang menghabiskan semua kartunya sebelum pemain lain mana pun memainkan satu kartu pun membuat grand opéra: ia juga mengambil keping dari kelima kotak. Pilihan lain di daftar permainan dimainkan tanpa grand opéra; gambarnya menunjukkan kurcaci kuning tanpa keping.
+# Akhir permainan
+Permainan berakhir setelah setiap pemain dua kali membagi kartu, atau lebih awal begitu seorang pemain tidak sanggup membayar 15 keping taruhan untuk ronde baru. Pemain dengan keping terbanyak menang; pemain dengan jumlah sama berbagi kemenangan.
+# Bermain di perangkat
+Gilirkan perangkat: setiap pemain hanya melihat tangannya sendiri, terurut, di bawah. Tangan pemain lain tampil sebagai kipas kartu di sepanjang bagian atas, dengan jumlah kartu masing-masing. Papan dan kepingnya ada di tengah; di sampingnya, urutan yang sedang dimainkan dan tumpukan sisa. Ketuk kartu yang bersinar untuk memainkannya. Saat giliran orang lain, sebuah layar menutupi kartumu sampai pemain berikutnya mengetuknya. Setelah setiap ronde, sebuah tabel menunjukkan untuk setiap pemain keping yang dibayar atau diterima untuk kartu, keping yang dimenangkan dari kotak (dikurangi taruhan yang dibayar lagi), dan keping yang kini dimilikinya; ketuk tabel itu untuk ronde berikutnya. Setiap bilah menunjukkan keping pemain itu. Urungkan membatalkan langkahmu sendiri, sampai saat perangkat dioper.

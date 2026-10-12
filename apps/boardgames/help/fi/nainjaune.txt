@@ -1,0 +1,22 @@
+Keltainen kääpiö
+# Tavoite
+Saada pelin lopussa eniten pelimerkkejä. Pelaa korttisi sarjoina, kerää laudan viiden lokeron pelimerkit pelaamalla niiden kortit ja pääse ensimmäisenä eroon kaikista korteistasi. 3–6 pelaajalle, 52 kortin pakalla. Ranskaksi peli tunnetaan nimellä Nain jaune.
+# Lauta
+Viisi lokeroa, kussakin oma korttinsa: ruutukymppi, ristijätkä, patarouva ja herttakuningas kulmissa ja keskellä ruutuseiska, keltainen kääpiö. Jokainen aloittaa 100 pelimerkillä. Ennen jokaista jakoa jokainen pelaaja panee panokseksi 1 pelimerkin kympille, 2 jätkälle, 3 rouvalle, 4 kuninkaalle ja 5 keltaiselle kääpiölle.
+# Jako
+Kortit jaetaan yksi kerrallaan: kolmella pelaajalla 15 kullekin, neljällä 12, viidellä 9, kuudella 8. Ylijääneet kortit muodostavat sivupakan; ne jäävät kuvapuoli alaspäin eikä niitä pelata. Jakaja vaihtuu joka jaossa yhden paikan pöydän ympäri.
+# Pelin kulku
+Korttien arvojärjestys on ässästä (1) kuninkaaseen; maalla ei ole merkitystä.
+- Jakajasta vasemmalla oleva pelaaja pelaa minkä tahansa kortin ja jatkaa seuraavaksi suuremmalla kortilla, mitä tahansa maata, niin kauan kuin pystyy: 4, 5, 6...
+- Kun hänellä ei ole seuraavaa korttia, jatkaa pöydän ympäri seuraava pelaaja, jolla se on, ja niin edelleen. Pelaajat, joilla sitä ei ole, ohitetaan.
+- Jos sinulla on seuraava kortti, sinun on pelattava se; jos niitä on useita, valitset itse, minkä.
+- Kuningas päättää sarjan: sen pelannut pelaaja aloittaa uuden millä tahansa kortilla. Jos kenelläkään ei ole seuraavaa korttia, viimeksi pelannut aloittaa uuden sarjan.
+- Joka pelaa jonkin laudan viidestä kortista, saa kaikki sen lokeron pelimerkit.
+# Jaon loppu
+Ensimmäinen pelaaja, jolta kortit loppuvat, voittaa jaon. Jokainen muu pelaaja maksaa hänelle 1 pelimerkin jokaisesta kädessään yhä olevasta kortista. Pelaaja, jolla on yhä jokin laudan viidestä kortista, maksaa lisäksi sen panoksen uudelleen sen lokeroon (1 kympistä, 2 jätkästä, 3 rouvasta, 4 kuninkaasta, 5 keltaisesta kääpiöstä). Pelimerkit, joita kukaan ei ole saanut, jäävät lokeroihin seuraavaan jakoon. Pelaaja, joka ei pysty maksamaan, maksaa sen, mitä hänellä on.
+# Grand opéra
+Klassisessa pelissä pelaaja, joka pääsee eroon kaikista korteistaan ennen kuin kukaan muu on pelannut yhtäkään korttia, tekee grand opéran: hän saa lisäksi kaikkien viiden lokeron pelimerkit. Pelilistan toinen vaihtoehto pelataan ilman grand opéraa; sen kuvassa keltaisella kääpiöllä ei ole pelimerkkejä.
+# Pelin loppu
+Peli päättyy, kun jokainen pelaaja on jakanut kahdesti, tai aiemmin heti, kun joku pelaaja ei pysty maksamaan uuden jaon panosten 15 pelimerkkiä. Eniten pelimerkkejä saanut voittaa; tasatilanteessa voitto jaetaan.
+# Pelaaminen laitteella
+Antakaa laite kiertää: jokainen pelaaja näkee vain oman kätensä, järjestettynä, alhaalla. Muiden pelaajien kädet näkyvät korttiviuhkoina ylhäällä, kunkin korttien määrän kera. Lauta pelimerkkeineen on keskellä; sen vieressä ovat pelattava sarja ja sivupakka. Napauta hehkuvaa korttia pelataksesi sen. Kun vuoro on jollakulla muulla, välinäyttö peittää korttisi, kunnes seuraava pelaaja napauttaa sitä. Jokaisen jaon jälkeen taulukko näyttää kullekin pelaajalle korteista maksetut tai saadut pelimerkit, lokeroista voitetut pelimerkit (miinus uudelleen maksetut panokset) ja pelimerkit, jotka hänellä nyt on; napauta sitä seuraavaa jakoa varten. Kukin palkki näyttää pelaajan pelimerkit. Kumoa peruu omat siirtosi, mutta vain siihen hetkeen asti, jolloin laite annettiin eteenpäin.

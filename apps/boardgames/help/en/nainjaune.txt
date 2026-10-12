@@ -1,0 +1,22 @@
+Yellow Dwarf
+# The aim
+Have the most chips at the end of the game. Lay down your cards in sequences, collect the chips of the board's five compartments by playing their cards, and be the first to empty your hand. For 3 to 6 players, with a pack of 52 cards.
+# The board
+Five compartments, each with its card: the ten of diamonds, the jack of clubs, the queen of spades and the king of hearts in the corners, and in the middle the seven of diamonds, the yellow dwarf. Everyone starts with 100 chips. Before each deal, every player stakes 1 chip on the ten, 2 on the jack, 3 on the queen, 4 on the king and 5 on the yellow dwarf.
+# The deal
+The cards are dealt one at a time: 15 each for 3 players, 12 for 4, 9 for 5, 8 for 6. The cards left over form the talon; they stay face down and are not played. The dealer moves one seat round the table at each deal.
+# Playing
+The cards rank from the ace (1) up to the king; suits do not count.
+- The player on the dealer's left plays any card, then goes on with the next card up, of any suit, for as long as they can: a 4, a 5, a 6...
+- When they do not have the next card, the next player round the table who has it goes on, and so on. Players who do not have it are passed over.
+- If you have the next card, you must play it; with several, you choose which one.
+- A king ends the sequence: the player who played it starts a new one with any card. If nobody has the next card, the last player who played starts a new sequence.
+- Whoever plays one of the five cards of the board takes all the chips in its compartment.
+# The end of a deal
+The first player with no cards left wins the deal. Every other player pays them 1 chip for each card still in their hand. A player who still holds one of the five cards of the board also pays its stake again into its compartment (1 for the ten, 2 for the jack, 3 for the queen, 4 for the king, 5 for the yellow dwarf). The chips nobody has taken stay in the compartments for the next deal. A player who cannot pay pays what they have.
+# Grand opera
+In the classic game, a player who gets rid of all their cards before any other player has played a single card makes a grand opera: they also take the chips of all five compartments. The other choice in the game list plays without grand opera; its picture shows the yellow dwarf without chips.
+# The end of the game
+The game ends when every player has dealt twice, or earlier as soon as a player cannot pay the 15 chips of the stakes for a new deal. The player with the most chips wins; equal players share the win.
+# Playing on the device
+Pass the device round: each player sees only their own hand, sorted, at the bottom. The other players' hands show as fans of cards along the top, with how many cards each holds. The board and its chips are in the middle; beside it, the sequence being played and the talon. Tap a glowing card to play it. When it is someone else's turn, a screen hides your cards until the next player taps it. After each deal, a table shows for each player the chips paid or received for the cards, the chips won from the compartments (less the stakes paid again), and the chips they now have; tap it for the next deal. Each bar shows that player's chips. Undo takes back your own plays, up to the moment the device was passed.

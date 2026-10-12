@@ -1,0 +1,22 @@
+De Gele Dwerg
+# Het doel
+Aan het eind van de partij de meeste penningen hebben. Leg je kaarten in reeksen, pak de penningen uit de vijf vakken van het bord door hun kaarten te spelen, en zorg dat je als eerste geen kaarten meer hebt. Voor 3 tot 6 spelers, met een spel van 52 kaarten. In het Frans heet het spel Nain jaune.
+# Het bord
+Vijf vakken, elk met zijn kaart: ruiten tien, klaveren boer, schoppen vrouw en harten heer in de hoeken, en in het midden ruiten zeven, de gele dwerg. Iedereen begint met 100 penningen. Voor elke ronde zet elke speler 1 penning in op de tien, 2 op de boer, 3 op de vrouw, 4 op de heer en 5 op de gele dwerg.
+# Het delen
+De kaarten worden één voor één gedeeld: 15 per speler met 3 spelers, 12 met 4, 9 met 5, 8 met 6. De kaarten die overblijven vormen de stok; ze blijven gedekt en worden niet gespeeld. De gever schuift elke ronde een plaats op rond de tafel.
+# Het spelen
+De kaarten lopen van de aas (1) tot de heer; de kleuren tellen niet.
+- De speler links van de gever speelt een willekeurige kaart en gaat dan door met de eerstvolgende hogere kaart, van welke kleur ook, zolang hij kan: een 4, een 5, een 6...
+- Heeft hij de volgende kaart niet, dan gaat de eerstvolgende speler rond de tafel die haar wel heeft verder, enzovoort. Spelers die haar niet hebben, worden overgeslagen.
+- Heb je de volgende kaart, dan moet je haar spelen; heb je er meerdere, dan kies je welke.
+- Een heer sluit de reeks af: wie hem speelde, begint een nieuwe met een willekeurige kaart. Heeft niemand de volgende kaart, dan begint de speler die het laatst speelde een nieuwe reeks.
+- Wie een van de vijf kaarten van het bord speelt, pakt alle penningen uit haar vak.
+# Het einde van een ronde
+De eerste speler zonder kaarten wint de ronde. Elke andere speler betaalt hem 1 penning voor elke kaart die hij nog in de hand heeft. Wie nog een van de vijf kaarten van het bord heeft, betaalt bovendien haar inzet opnieuw in haar vak (1 voor de tien, 2 voor de boer, 3 voor de vrouw, 4 voor de heer, 5 voor de gele dwerg). De penningen die niemand heeft gepakt, blijven in de vakken liggen voor de volgende ronde. Wie niet kan betalen, betaalt wat hij heeft.
+# Grand opéra
+In het klassieke spel maakt een speler die al zijn kaarten kwijtraakt voordat een andere speler ook maar één kaart heeft gespeeld, grand opéra: hij pakt ook de penningen uit alle vijf vakken. De andere keuze in de spellenlijst speelt zonder grand opéra; het plaatje daarvan toont de gele dwerg zonder penningen.
+# Het einde van de partij
+De partij eindigt als elke speler twee keer heeft gedeeld, of eerder zodra een speler de 15 penningen inzet voor een nieuwe ronde niet kan betalen. De speler met de meeste penningen wint; spelers die gelijk eindigen, delen de overwinning.
+# Spelen op het apparaat
+Geef het apparaat door: elke speler ziet onderaan alleen zijn eigen hand, gesorteerd. De handen van de andere spelers staan bovenaan als waaiers van kaarten, met het aantal kaarten van elk. Het bord met zijn penningen ligt in het midden; ernaast de reeks die gespeeld wordt en de stok. Tik op een oplichtende kaart om haar te spelen. Is iemand anders aan de beurt, dan verbergt een scherm je kaarten tot de volgende speler erop tikt. Na elke ronde toont een tabel voor elke speler de penningen die voor de kaarten zijn betaald of ontvangen, de penningen gewonnen uit de vakken (min de opnieuw betaalde inzetten) en de penningen die hij nu heeft; tik erop voor de volgende ronde. Elke balk toont de penningen van die speler. Ongedaan maken neemt je eigen zetten terug, tot het moment dat het apparaat werd doorgegeven.

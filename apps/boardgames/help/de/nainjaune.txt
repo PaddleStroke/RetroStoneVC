@@ -1,0 +1,22 @@
+Gelber Zwerg
+# Das Ziel
+Am Ende der Partie die meisten Jetons haben. Lege deine Karten in Folgen ab, kassiere die Jetons der fünf Felder des Bretts, indem du ihre Karten spielst, und werde als Erster alle Karten los. Für 3 bis 6 Spieler, mit einem Blatt aus 52 Karten. Auf Französisch heißt das Spiel Nain jaune.
+# Das Brett
+Fünf Felder, jedes mit seiner Karte: die Karo-Zehn, der Kreuz-Bube, die Pik-Dame und der Herz-König in den Ecken, und in der Mitte die Karo-Sieben, der Gelbe Zwerg. Jeder beginnt mit 100 Jetons. Vor jeder Runde setzt jeder Spieler 1 Jeton auf die Zehn, 2 auf den Buben, 3 auf die Dame, 4 auf den König und 5 auf den Gelben Zwerg.
+# Das Geben
+Die Karten werden einzeln verteilt: 15 für jeden bei 3 Spielern, 12 bei 4, 9 bei 5, 8 bei 6. Die übrigen Karten bilden den Talon; sie bleiben verdeckt und werden nicht gespielt. Der Geber rückt jede Runde einen Platz am Tisch weiter.
+# Der Spielverlauf
+Die Karten gehen vom Ass (1) bis zum König; die Farben zählen nicht.
+- Der Spieler links vom Geber legt eine beliebige Karte und macht dann mit der nächsthöheren Karte weiter, in beliebiger Farbe, solange er kann: eine 4, eine 5, eine 6...
+- Hat er die nächste Karte nicht, macht der nächste Spieler reihum weiter, der sie hat, und so fort. Wer sie nicht hat, wird übergangen.
+- Hast du die nächste Karte, musst du sie spielen; hast du mehrere, wählst du, welche.
+- Ein König beendet die Folge: Wer ihn gespielt hat, beginnt mit einer beliebigen Karte eine neue. Hat niemand die nächste Karte, beginnt der Spieler, der zuletzt gespielt hat, eine neue Folge.
+- Wer eine der fünf Karten des Bretts spielt, nimmt alle Jetons aus ihrem Feld.
+# Das Ende einer Runde
+Wer als Erster keine Karten mehr hat, gewinnt die Runde. Jeder andere Spieler zahlt ihm 1 Jeton für jede Karte, die er noch auf der Hand hat. Wer noch eine der fünf Karten des Bretts hält, zahlt außerdem ihren Einsatz noch einmal in ihr Feld (1 für die Zehn, 2 für den Buben, 3 für die Dame, 4 für den König, 5 für den Gelben Zwerg). Die Jetons, die niemand genommen hat, bleiben für die nächste Runde in den Feldern. Wer nicht zahlen kann, zahlt, was er hat.
+# Grand opéra
+Im klassischen Spiel macht ein Spieler, der alle seine Karten loswird, bevor irgendein anderer Spieler eine einzige Karte gespielt hat, ein Grand opéra: Er nimmt zusätzlich die Jetons aller fünf Felder. Die andere Möglichkeit in der Spieleliste spielt ohne Grand opéra; ihr Bild zeigt den Gelben Zwerg ohne Jetons.
+# Das Ende der Partie
+Die Partie endet, wenn jeder Spieler zweimal gegeben hat, oder früher, sobald ein Spieler die 15 Jetons Einsatz für eine neue Runde nicht zahlen kann. Wer die meisten Jetons hat, gewinnt; bei Gleichstand teilen sich die Spieler den Sieg.
+# Spielen auf dem Gerät
+Reicht das Gerät herum: Jeder sieht unten nur seine eigene Hand, sortiert. Die Hände der anderen Spieler erscheinen oben als Kartenfächer, mit der Anzahl ihrer Karten. Das Brett mit seinen Jetons liegt in der Mitte; daneben die laufende Folge und der Talon. Tippe auf eine leuchtende Karte, um sie zu spielen. Ist jemand anderes am Zug, verdeckt ein Bildschirm deine Karten, bis der nächste Spieler darauf tippt. Nach jeder Runde zeigt eine Tafel für jeden Spieler die für die Karten gezahlten oder erhaltenen Jetons, die aus den Feldern gewonnenen Jetons (abzüglich der erneut gezahlten Einsätze) und die Jetons, die er jetzt hat; tippe darauf für die nächste Runde. Jede Leiste zeigt die Jetons des Spielers. Rückgängig nimmt deine eigenen Züge zurück, bis zu dem Moment, in dem das Gerät weitergereicht wurde.

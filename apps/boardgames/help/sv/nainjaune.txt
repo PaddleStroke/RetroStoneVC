@@ -1,0 +1,22 @@
+Den gula dvärgen
+# Målet
+Att ha flest marker när partiet är slut. Lägg ut dina kort i följder, samla markerna i brädets fem fack genom att spela deras kort, och bli först med att tömma handen. För 3 till 6 spelare, med en kortlek på 52 kort. På franska heter spelet Nain jaune.
+# Brädet
+Fem fack, vart och ett med sitt kort: ruter tio, klöver knekt, spader dam och hjärter kung i hörnen, och i mitten ruter sju, den gula dvärgen. Alla börjar med 100 marker. Före varje giv satsar varje spelare 1 mark på tian, 2 på knekten, 3 på damen, 4 på kungen och 5 på den gula dvärgen.
+# Given
+Korten delas ut ett i taget: 15 var med 3 spelare, 12 med 4, 9 med 5, 8 med 6. Korten som blir över bildar talongen; de ligger kvar med baksidan upp och spelas inte. Givaren flyttar en plats runt bordet för varje giv.
+# Spelet
+Korten går från ess (1) upp till kung; färgerna spelar ingen roll.
+- Spelaren till vänster om givaren lägger valfritt kort och fortsätter med nästa kort uppåt, i valfri färg, så länge hen kan: en fyra, en femma, en sexa ...
+- När hen inte har nästa kort fortsätter nästa spelare runt bordet som har det, och så vidare. Spelare som inte har det hoppas över.
+- Har du nästa kort måste du spela det; har du flera väljer du vilket.
+- En kung avslutar följden: spelaren som lade den börjar en ny med valfritt kort. Har ingen nästa kort börjar den som spelade senast en ny följd.
+- Den som spelar ett av brädets fem kort tar alla marker i dess fack.
+# Slutet på en giv
+Den första spelaren utan kort kvar vinner given. Var och en av de andra betalar vinnaren 1 mark för varje kort som finns kvar på handen. En spelare som fortfarande har ett av brädets fem kort betalar dessutom dess insats igen till dess fack (1 för tian, 2 för knekten, 3 för damen, 4 för kungen, 5 för den gula dvärgen). Marker som ingen har tagit ligger kvar i facken till nästa giv. En spelare som inte kan betala betalar det hen har.
+# Grand opéra
+I det klassiska spelet gör en spelare som blir av med alla sina kort innan någon annan spelare har lagt ett enda kort grand opéra: hen tar också markerna i alla fem facken. Det andra valet i spellistan spelas utan grand opéra; dess bild visar den gula dvärgen utan marker.
+# Partiets slut
+Partiet slutar när varje spelare har gett två gånger, eller tidigare så snart en spelare inte kan betala de 15 markerna i insats för en ny giv. Spelaren med flest marker vinner; spelare med lika många delar segern.
+# Spela på enheten
+Skicka runt enheten: varje spelare ser bara sin egen hand, sorterad, längst ned. De andras händer visas som solfjädrar av kort längst upp, med hur många kort var och en har. Brädet och dess marker finns i mitten; bredvid ligger följden som spelas och talongen. Tryck på ett kort som lyser för att spela det. När det är någon annans tur döljer en skärm dina kort tills nästa spelare trycker på den. Efter varje giv visar en tabell för varje spelare markerna som betalats eller tagits emot för korten, markerna som vunnits ur facken (minus insatserna som betalats igen) och markerna spelaren nu har; tryck på den för nästa giv. Varje fält visar den spelarens marker. Ångra tar tillbaka dina egna drag, men inte längre bak än till när enheten skickades vidare.
