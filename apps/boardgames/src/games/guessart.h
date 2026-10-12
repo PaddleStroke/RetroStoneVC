@@ -1,8 +1,7 @@
 /*
  * The guessing games' shared drawing (Mystery Face, Sea Battle): a pen for pictures of many colours (art.h's figures
- * drawn one colour at a time, each layer rendered only in its bounds and blended over the last), round buttons on the
- * table in the shell's own look (its dark disc, its cream icons; gold when on; an ivory medallion for a button that
- * shows a picture in its colours), and a tick.
+ * drawn one colour at a time, each layer rendered only in its bounds and blended over the last). Their round buttons
+ * are the shell's (ui_button).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #ifndef GUESSART_H
@@ -111,79 +110,6 @@ static inline void ga_end(ga_pen *p)
 {
     art_fig_free(p->f);
     p->f = NULL;
-}
-
-/* a tick, white (tint it), size x size */
-static inline void ga_tick(int size, uint8_t *rgba)
-{
-    static const float tick[] = {0.17f, 0.53f, 0.29f, 0.41f, 0.42f, 0.55f, 0.72f, 0.22f, 0.84f, 0.34f, 0.42f, 0.78f};
-    art_style st = {{255, 255, 255}, {0, 0, 0}, {0, 0, 0}, {255, 255, 255}, 0, 0};
-    art_fig *f = art_fig_new();
-    art_poly(f, ART_PART, tick, 6);
-    art_render(f, &st, size, size, (float)size, 0, 0, rgba);
-    art_fig_free(f);
-}
-
-/* ---- round buttons ----------------------------------------------------------------------------------------------- */
-enum { GA_ON = 1, GA_DIM = 2, GA_IVORY = 4 };
-typedef struct { SDL_Texture *disc, *on, *ivory, *ivory_on; int d; } ga_buttons;
-
-/* the discs, d pixels across: the shell's dark green (on: its gold); ivory: a medallion inside the rim */
-static inline void ga_buttons_make(ga_buttons *b, int d)
-{
-    if (b->d == d) return;
-    b->d = d;
-    static const uint8_t dark[3] = {54, 72, 64}, gold[3] = {150, 118, 46};
-    SDL_Texture **t[4] = {&b->disc, &b->on, &b->ivory, &b->ivory_on};
-    for (int k = 0; k < 4; k++) {
-        uint8_t *o = ui_buf(d, d);
-        art_disc(d, k & 1 ? gold : dark, 1, 0, o);
-        if (k >= 2) {                           /* the ivory medallion */
-            int m = (int)(0.8f * d), off = (d - m) / 2;
-            uint8_t *in = malloc((size_t)m * m * 4);
-            if (in) {
-                static const uint8_t ivory[3] = {242, 234, 216};
-                art_disc(m, ivory, 1, 0, in);
-                art_blend(o, d, d, in, m, m, off, off);
-                free(in);
-            }
-        }
-        ui_free(t[k]);
-        *t[k] = ui_tex(d, d, o);
-    }
-}
-
-/* a button centred on (cx, cy), d across, its icon k times as wide; how: GA_ON (gold), GA_DIM (faded), GA_IVORY */
-static inline void ga_button(const ga_buttons *b, SDL_Texture *icon, float cx, float cy, float d, float k, int how)
-{
-    SDL_Texture *disc = how & GA_IVORY ? (how & GA_ON ? b->ivory_on : b->ivory) : how & GA_ON ? b->on : b->disc;
-    Uint8 a = how & GA_DIM ? 100 : 255;
-    if (disc) {
-        SDL_SetTextureAlphaMod(disc, a);
-        ui_put_c(disc, cx, cy, d, d);
-        SDL_SetTextureAlphaMod(disc, 255);
-    }
-    if (icon) {
-        SDL_SetTextureAlphaMod(icon, a);
-        ui_put_c(icon, cx, cy, d * k, d * k);
-        SDL_SetTextureAlphaMod(icon, 255);
-    }
-}
-
-/* (x, y) on a button d across (a finger's width of slack) */
-static inline int ga_in(float cx, float cy, float d, float x, float y)
-{
-    return hypotf(x - cx, y - cy) <= d * 0.56f;
-}
-
-/* an icon texture from a painter (cream when tinted: the shell's icons) */
-static inline SDL_Texture *ga_icon(void (*paint)(int, uint8_t *), int size, int cream)
-{
-    uint8_t *o = ui_buf(size, size);
-    paint(size, o);
-    SDL_Texture *t = ui_tex(size, size, o);
-    if (t && cream) SDL_SetTextureColorMod(t, 252, 244, 226);
-    return t;
 }
 
 #endif

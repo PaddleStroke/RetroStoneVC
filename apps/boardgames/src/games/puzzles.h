@@ -1,7 +1,8 @@
 /*
  * What the one-player puzzles share on the screen (Sudoku, Nonograms, the 15 Puzzle, the Tower of Hanoi): wooden
- * tiles cut from the house plank (rounded, bevelled, lit from the top left), digits burned into them or drawn in any
- * ink, the move counter in the bar, and the win's light running over the board.
+ * tiles cut from the house plank (rounded, bevelled, lit from the top left), digits burned into them, and the win's
+ * light running over the board. The digits on the screen and the move counter are the shell's (ui_number_ex,
+ * ui_bar_number).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Written once, here, as static inline functions: the build takes a game's own files only (GAMES="sudoku" builds
@@ -100,63 +101,6 @@ static inline void puz_burn(uint8_t *o, int w, int h, int value, float cx, float
     float off = fmaxf(1, dh / 22);
     puz_digits(o, w, h, value, cx + 0.4f * off, cy + off, dh, PUZ_CREAM, 0.55f, 1);
     puz_digits(o, w, h, value, cx, cy, dh, PUZ_INK, 1, 1);
-}
-
-/* the ten digits as white textures h pixels high (tinted when drawn), remade when h changes */
-typedef struct { int h, bold; SDL_Texture *t[10]; } puz_font;
-
-static inline void puz_font_make(puz_font *f, int h, int bold)
-{
-    if (f->h == h && f->bold == bold && f->t[0]) return;
-    f->h = h;
-    f->bold = bold;
-    int w = (int)(0.62f * h + 1);
-    for (int i = 0; i < 10; i++) {
-        ui_free(&f->t[i]);
-        uint8_t *b = ui_buf(w, h);
-        memset(b, 0, (size_t)w * h * 4);
-        text_glyph('0' + i, h * 1.2f, bold, PUZ_WHITE, b, w, h);
-        f->t[i] = ui_tex(w, h, b);
-    }
-}
-
-/* a number centred at (cx, cy), dh high (scaled from the font's size), tinted rgb, alpha a (0..255) */
-static inline void puz_number(const puz_font *f, float cx, float cy, float dh, int value, const uint8_t rgb[3],
-                              Uint8 a)
-{
-    char s[12];
-    int n = snprintf(s, sizeof s, "%d", value < 0 ? 0 : value);
-    float dw = 0.62f * dh, step = 0.66f * dh, x = cx - (step * (n - 1) + dw) / 2;
-    for (int i = 0; i < n; i++, x += step) {
-        SDL_Texture *t = f->t[s[i] - '0'];
-        if (!t) continue;
-        SDL_SetTextureColorMod(t, rgb[0], rgb[1], rgb[2]);
-        SDL_SetTextureAlphaMod(t, a);
-        ui_put(t, x, cy - dh / 2, dw, dh);
-        SDL_SetTextureAlphaMod(t, 255);
-    }
-}
-
-static inline float puz_number_w(int value, float dh)
-{
-    int n = 1;
-    for (int v = value; v >= 10; v /= 10) n++;
-    return 0.66f * dh * (n - 1) + 0.62f * dh;
-}
-
-/* the bar: a small picture (0.6 unit), then the moves (0 too) in cream; the x after them */
-static inline float puz_bar_moves(box b, SDL_Texture *icon, int moves)
-{
-    float u = ui.unit, sz = 0.6f * u, dh = 0.46f * u, cy = b.y + b.h / 2, x = b.x;
-    if (icon) {
-        ui_put(icon, x, cy - sz / 2, sz, sz);
-        x += sz + 0.12f * u;
-    }
-    int digits = 1;
-    for (int v = moves; v >= 10; v /= 10) digits++;
-    float w = (0.74f * (digits - 1) + 0.62f) * dh;
-    ui_number(x + w / 2, cy, dh, moves < 0 ? 0 : moves, 1);
-    return x + w;
 }
 
 #endif

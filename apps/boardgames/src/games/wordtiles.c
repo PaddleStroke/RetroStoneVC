@@ -28,7 +28,6 @@
 
 #include "cards.h"
 #include "cards_table.h"
-#include "games/knobs.h"
 #include "games/race.h"
 #include "games/wordtiles.h"
 #include "shell.h"
@@ -393,41 +392,55 @@ static void board_paint(int sq, int fr, uint8_t *o)
 /* ---- the textures made for the layout ---------------------------------------------------------------------------- */
 static SDL_Texture *t_board, *t_plank, *t_bag, *t_arrow, *t_disc;
 static int made_board = -1, made_plank = -1, made_bag = -1, made_arrow = -1, made_disc = -1;
-static knob_set KS;
+static const uint8_t CREAM[3] = {246, 238, 220}, DARK[3] = {52, 34, 22};
 
+/* the buttons' pictures (play: the shell's tick) */
 static void paint_knob(int kind, int s, uint8_t *o)
 {
     art_fig *f = art_fig_new();
     switch (kind) {
     case K_RECALL:                              /* an arrow down to the rack */
-        knob_band(f, 0.5f, 0.24f, 0.5f, 0.56f, 0.09f);
-        knob_head(f, 0.5f, 0.6f, 90, 0.2f);
+        art_band(f, ART_PART, 0.5f, 0.24f, 0.5f, 0.56f, 0.09f);
+        art_head(f, ART_PART, 0.5f, 0.6f, 90, 0.2f);
         art_rect(f, ART_PART, 0.27f, 0.7f, 0.73f, 0.77f);
         break;
     case K_SHUFFLE:                             /* two arrows crossing */
-        knob_band(f, 0.24f, 0.36f, 0.66f, 0.64f, 0.07f);
-        knob_band(f, 0.24f, 0.64f, 0.66f, 0.36f, 0.07f);
-        knob_head(f, 0.7f, 0.66f, 34, 0.17f);
-        knob_head(f, 0.7f, 0.34f, -34, 0.17f);
+        art_band(f, ART_PART, 0.24f, 0.36f, 0.66f, 0.64f, 0.07f);
+        art_band(f, ART_PART, 0.24f, 0.64f, 0.66f, 0.36f, 0.07f);
+        art_head(f, ART_PART, 0.7f, 0.66f, 34, 0.17f);
+        art_head(f, ART_PART, 0.7f, 0.34f, -34, 0.17f);
         break;
     case K_EXCHANGE:                            /* two arrows going round: tiles out, tiles in */
         art_arc(f, ART_PART, 0.5f, 0.5f, 0.2f, 0.27f, 200, 340);
         art_arc(f, ART_PART, 0.5f, 0.5f, 0.2f, 0.27f, 20, 160);
-        knob_head(f, 0.73f, 0.43f, 80, 0.17f);
-        knob_head(f, 0.27f, 0.57f, 260, 0.17f);
+        art_head(f, ART_PART, 0.73f, 0.43f, 80, 0.17f);
+        art_head(f, ART_PART, 0.27f, 0.57f, 260, 0.17f);
         break;
-    case K_CHALLENGE:
-        art_fig_free(f);
-        knob_flag(o, s);
-        return;
-    case K_PLAY:
-        knob_check(f);
-        break;
-    default:                                    /* the score's disc: plain */
-        art_fig_free(f);
+    default: {                                  /* the challenge: a red pennant on a pole */
+        static const uint8_t red[3] = {196, 64, 48};
+        static const float flag[] = {0.38f, 0.23f, 0.74f, 0.33f, 0.38f, 0.5f};
+        art_rect(f, ART_PART, 0.33f, 0.2f, 0.38f, 0.8f);
+        art_ellipse(f, ART_PART, 0.355f, 0.2f, 0.04f, 0.04f);
+        art_fig_paint(o, s, f, CREAM, DARK, 0.01f, 0.1f);
+        f = art_fig_new();
+        art_poly(f, ART_PART, flag, 3);
+        art_fig_paint(o, s, f, red, DARK, 0.015f, 0.1f);
         return;
     }
-    knob_paint(o, s, f, KNOB_CREAM, NULL, 0);
+    }
+    art_fig_paint(o, s, f, CREAM, NULL, 0, 0.1f);
+}
+
+/* the score's disc: turned walnut */
+static void disc_paint(int s, uint8_t *o)
+{
+    static const uint8_t walnut[3] = {104, 70, 46};
+    memset(o, 0, (size_t)s * s * 4);
+    art_fig *f = art_fig_new();
+    art_style st = art_flat(walnut, DARK, 0.035f, 0.35f);
+    art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.47f, 0.47f);
+    art_render(f, &st, s, s, (float)s, 0, 0, o);
+    art_fig_free(f);
 }
 
 static void bag_paint(int s, uint8_t *o)        /* a cloth bag tied at its neck */
@@ -438,12 +451,12 @@ static void bag_paint(int s, uint8_t *o)        /* a cloth bag tied at its neck 
     static const float neck[] = {0.36f, 0.12f, 0.64f, 0.12f, 0.58f, 0.3f, 0.42f, 0.3f};
     art_poly(f, ART_PART, neck, 4);
     art_ellipse(f, ART_PART, 0.5f, 0.62f, 0.38f, 0.33f);
-    art_style st = race_style(cloth, ink, 0.03f, 0.4f);
+    art_style st = art_flat(cloth, ink, 0.03f, 0.4f);
     art_render(f, &st, s, s, (float)s, 0, 0, o);
     art_fig_free(f);
     f = art_fig_new();
     art_rect(f, ART_PART, 0.38f, 0.27f, 0.62f, 0.32f);
-    knob_paint(o, s, f, cord, ink, 0.01f);
+    art_fig_paint(o, s, f, cord, ink, 0.01f, 0.1f);
 }
 
 static void textures(void)
@@ -481,14 +494,14 @@ static void textures(void)
         art_fig *f = art_fig_new();
         static const float tri[] = {0.2f, 0.12f, 0.88f, 0.5f, 0.2f, 0.88f};
         art_poly(f, ART_PART, tri, 3);
-        knob_paint(o, as, f, KNOB_CREAM, KNOB_DARK, 0.06f);
+        art_fig_paint(o, as, f, CREAM, DARK, 0.06f, 0.1f);
         t_arrow = ui_tex(as, as, o);
     }
     int ds = (int)(0.66f * T.sq + 6);
     if (made_disc != ds) {
         made_disc = ds;
         ui_free(&t_disc);
-        knob_disc(ds, ui_buf(ds, ds));
+        disc_paint(ds, ui_buf(ds, ds));
         t_disc = ui_tex(ds, ds, ui_buf(ds, ds));
     }
 }
@@ -911,14 +924,16 @@ static void draw_knobs(void)
         ok = wt_eval(P, &a, NULL) >= 0;
     }
     int st[KNOBS] = {0};
-    st[K_RECALL] = m && npl ? KNOB_READY : KNOB_DIM;
-    st[K_SHUFFLE] = m && play ? KNOB_READY : KNOB_DIM;
-    st[K_EXCHANGE] = exch & 128 ? KNOB_ON : m && play && wt_can_exchange(P) ? KNOB_READY : KNOB_DIM;
-    st[K_CHALLENGE] = m && wt_can_challenge(P) ? KNOB_LIT : KNOB_DIM;
-    st[K_PLAY] = !m ? KNOB_DIM : (exch & 128) ? (exch & 127 ? KNOB_LIT : KNOB_DIM)
-                 : P->phase == WP_FINAL ? KNOB_LIT : ok ? KNOB_LIT : KNOB_DIM;
-    for (int k = K_RECALL; k < KNOBS; k++)
-        knob_at(knob_tex(&KS, k, (int)d, paint_knob), T.kx[k], T.ky[k], d, st[k]);
+    st[K_RECALL] = m && npl ? 0 : UI_DIM;
+    st[K_SHUFFLE] = m && play ? 0 : UI_DIM;
+    st[K_EXCHANGE] = exch & 128 ? UI_ON : m && play && wt_can_exchange(P) ? 0 : UI_DIM;
+    st[K_CHALLENGE] = m && wt_can_challenge(P) ? UI_LIT : UI_DIM;
+    st[K_PLAY] = !m ? UI_DIM : (exch & 128) ? (exch & 127 ? UI_LIT : UI_DIM)
+                 : P->phase == WP_FINAL ? UI_LIT : ok ? UI_LIT : UI_DIM;
+    for (int k = K_RECALL; k < KNOBS; k++) {
+        if (k == K_PLAY) ui_button(T.kx[k], T.ky[k], d, ICON_TICK, st[k]);
+        else ui_button_paint(T.kx[k], T.ky[k], d, paint_knob, k, 1, st[k]);
+    }
     /* the bag and the tiles still in it */
     float bs = 0.9f * T.kd;
     ui_shadow_flat(T.kx[K_BAG], T.ky[K_BAG] + 0.1f * bs, bs * 0.8f, bs * 0.7f, 0.6f);
@@ -1069,7 +1084,7 @@ static void press(float x, float y)
         return;
     }
     for (int k = K_RECALL; k < KNOBS; k++) {
-        if (!knob_hit(T.kx[k], T.ky[k], T.kd, x, y)) continue;
+        if (!ui_button_hit(T.kx[k], T.ky[k], T.kd, x, y)) continue;
         fing.down = 0;
         switch (k) {
         case K_RECALL: recall(); break;

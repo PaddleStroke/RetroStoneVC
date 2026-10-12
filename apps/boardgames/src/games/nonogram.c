@@ -15,7 +15,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "games/knobs.h"
 #include "games/nonogram.h"
 #include "games/puzzles.h"
 #include "shell.h"
@@ -40,7 +39,6 @@ static box last_box, barbox;
 static float bx, by, side, gx0, gy0;            /* the board's corner; the grid's */
 static int fr, cs, max_r, max_c, made_key = -1, made_small = -1;
 static SDL_Texture *t_board, *t_cross, *t_small;
-static puz_font f_clue;
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 static void clue_sizes(const ng_game *g, int *r, int *c)
@@ -87,9 +85,9 @@ static void paint_board(uint8_t *o, int S, int f, int n, int q, int r, int c, fl
 static void cross_pic(int size, uint8_t *o)
 {
     art_fig *f = art_fig_new();
-    knob_band(f, 0.24f, 0.24f, 0.76f, 0.76f, 0.11f);
-    knob_band(f, 0.76f, 0.24f, 0.24f, 0.76f, 0.11f);
-    art_style st = race_style(EBONY, EBONY, 0, 0);
+    art_band(f, ART_PART, 0.24f, 0.24f, 0.76f, 0.76f, 0.11f);
+    art_band(f, ART_PART, 0.76f, 0.24f, 0.24f, 0.76f, 0.11f);
+    art_style st = art_flat(EBONY, EBONY, 0, 0);
     art_render(f, &st, size, size, (float)size, 0, 0, o);
     art_fig_free(f);
 }
@@ -99,13 +97,13 @@ static void paint_mode(int kind, int size, uint8_t *o)
 {
     art_fig *f = art_fig_new();
     if (kind) {
-        knob_band(f, 0.32f, 0.32f, 0.68f, 0.68f, 0.1f);
-        knob_band(f, 0.68f, 0.32f, 0.32f, 0.68f, 0.1f);
-        knob_paint(o, size, f, KNOB_CREAM, KNOB_CREAM, 0);
+        art_band(f, ART_PART, 0.32f, 0.32f, 0.68f, 0.68f, 0.1f);
+        art_band(f, ART_PART, 0.68f, 0.32f, 0.32f, 0.68f, 0.1f);
+        art_fig_paint(o, size, f, PUZ_CREAM, NULL, 0, 0.1f);
         return;
     }
     art_rect(f, ART_PART, 0.3f, 0.3f, 0.7f, 0.7f);
-    knob_paint(o, size, f, EBONY, KNOB_CREAM, 0.035f);
+    art_fig_paint(o, size, f, EBONY, PUZ_CREAM, 0.035f, 0.1f);
 }
 
 /* the token: a little picture (the heart) on a wooden tile, its clue band */
@@ -153,7 +151,6 @@ static void layout(box b)
         memset(ui_buf(cs, cs), 0, (size_t)cs * cs * 4);
         cross_pic(cs, ui_buf(cs, cs));
         t_cross = ui_tex(cs, cs, ui_buf(cs, cs));
-        puz_font_make(&f_clue, (int)(0.56f * cs), 1);
     }
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
@@ -291,7 +288,7 @@ static void draw(void)
                     x = gx0 + (i + 0.5f) * cs;
                     y = gy0 - (from_end + 0.5f) * SLOT_H * cs - 0.06f * cs;
                 }
-                puz_number(&f_clue, x, y, 0.56f * cs * (v >= 10 ? 0.86f : 1), v, CLUE, a);
+                ui_number_ex(x, y, 0.56f * cs * (v >= 10 ? 0.86f : 1), v, CLUE, a, UI_NUM_TIGHT);
             }
         }
     if (wt >= 0 && win.on) {                    /* the gold light over the picture, corner to corner */
@@ -363,12 +360,11 @@ static void bar(int player, box b)
 {
     (void)player;
     barbox = b;
-    puz_bar_moves(b, t_small, G.moves);
+    ui_bar_number(b, t_small, G.moves);
     if (ng_solved(&G)) return;
     float x, y, d;
     mode_button(&x, &y, &d);
-    static knob_set ks;
-    knob_at(knob_tex(&ks, crossing, (int)d, paint_mode), x, y, d, crossing ? KNOB_ON : KNOB_READY);
+    ui_button_paint(x, y, d, paint_mode, crossing, 1, crossing ? UI_ON : 0);
 }
 
 static int bar_press(int player, float x, float y)
@@ -376,7 +372,7 @@ static int bar_press(int player, float x, float y)
     (void)player;
     float kx, ky, d;
     mode_button(&kx, &ky, &d);
-    if (!barbox.w || ng_solved(&G) || !knob_hit(kx, ky, d, x, y)) return 0;
+    if (!barbox.w || ng_solved(&G) || !ui_button_hit(kx, ky, d, x, y)) return 0;
     crossing = !crossing;
     ui_sound(SND_TAP);
     ui_animate();

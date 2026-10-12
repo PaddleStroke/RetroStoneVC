@@ -109,7 +109,13 @@ static void paint_aim(int size, uint8_t *o)
     art_fig_free(f);
 }
 
-static void paint_die(int size, uint8_t *o) { art_die(5, 0, size, o); }
+/* the buttons' pictures: fire (the aim, white: tinted), a die (place the ships again) */
+enum { PIC_FIRE, PIC_DIE };
+static void paint_button(int kind, int size, uint8_t *o)
+{
+    if (kind == PIC_DIE) art_die(5, 0, size, o);
+    else paint_aim(size, o);
+}
 
 /* ---- the table's geometry ---------------------------------------------------------------------------------------- */
 static struct {
@@ -173,9 +179,8 @@ static void layout(box b)
 }
 
 /* ---- the textures ------------------------------------------------------------------------------------------------ */
-static SDL_Texture *t_sea[2], *t_ship[2][6], *t_peg[2][2], *t_aim, *t_fire, *t_die, *t_tick, *t_boat;
-static int made_sq = -1, made_ssq = -1, made_bd = -1, made_boat = -1;
-static ga_buttons btn;
+static SDL_Texture *t_sea[2], *t_ship[2][6], *t_peg[2][2], *t_aim, *t_boat;
+static int made_sq = -1, made_ssq = -1, made_boat = -1;
 
 static void make_set(int k, int sq, int fr)
 {
@@ -205,23 +210,14 @@ static void textures(void)
         made_sq = T.sq;
         make_set(0, T.sq, T.fr);
         ui_free(&t_aim);
-        t_aim = ga_icon(paint_aim, (int)(0.9f * T.sq), 0);
+        int a = (int)(0.9f * T.sq);
+        paint_aim(a, ui_buf(a, a));
+        t_aim = ui_tex(a, a, ui_buf(a, a));
         if (t_aim) SDL_SetTextureColorMod(t_aim, 250, 214, 90);
     }
     if (made_ssq != T.ssq) {
         made_ssq = T.ssq;
         make_set(1, T.ssq, T.sfr);
-    }
-    if (made_bd != (int)T.bd) {
-        made_bd = (int)T.bd;
-        ga_buttons_make(&btn, made_bd);
-        int is = (int)(0.62f * T.bd);
-        ui_free(&t_fire);
-        t_fire = ga_icon(paint_aim, is, 1);
-        ui_free(&t_tick);
-        t_tick = ga_icon(ga_tick, is, 1);
-        ui_free(&t_die);
-        t_die = ga_icon(paint_die, is, 0);
     }
 }
 
@@ -423,8 +419,8 @@ static void draw(void)
             }
             put_ship(0, T.sq, drag.x - drag.dx, drag.y - drag.dy, s->len, s->vert, 0.92f, 1);
         }
-        ga_button(&btn, t_die, T.px, T.py, T.bd, 0.62f, mine ? 0 : GA_DIM);
-        ga_button(&btn, t_tick, T.qx, T.py, T.bd, 0.62f, mine ? GA_ON : GA_DIM);
+        ui_button_paint(T.px, T.py, T.bd, paint_button, PIC_DIE, 0.62f, mine ? 0 : UI_DIM);
+        ui_button(T.qx, T.py, T.bd, ICON_TICK, mine ? UI_ON : UI_DIM);
         return;
     }
     /* firing: theirs big (my shots), mine small (theirs) */
@@ -436,7 +432,7 @@ static void draw(void)
     draw_sea(1, m, own, T.sx, T.sy, T.ssq, T.sfr);
     if (P->phase == SP_SHOOT) {
         int n = sb_shots(P), left = n - naim, ready = mine && naim == n && !busy();
-        ga_button(&btn, t_fire, T.kx, T.ky, T.bd, 0.62f, ready ? GA_ON : GA_DIM);
+        ui_button_paint(T.kx, T.ky, T.bd, paint_button, PIC_FIRE, 0.62f, (ready ? UI_ON : UI_DIM) | UI_TINT);
         if (mine && n > 1) ui_number(T.ax, T.ay, 0.6f * ui.unit, left, 1);   /* the shots still to aim */
     }
 }
@@ -447,13 +443,13 @@ static void press(float x, float y)
     if (P->phase == SP_OVER || busy()) return;
     if (P->turn != me()) { ui_sound(SND_DENY); return; }
     if (P->phase == SP_PLACE) {
-        if (ga_in(T.px, T.py, T.bd, x, y)) {
+        if (ui_button_hit(T.px, T.py, T.bd, x, y)) {
             sb_reroll(&G);
             selected = -1;
             ui_sound(SND_DICE);
             return;
         }
-        if (ga_in(T.qx, T.py, T.bd, x, y)) {
+        if (ui_button_hit(T.qx, T.py, T.bd, x, y)) {
             if (!sb_ready(&G)) { ui_sound(SND_DENY); return; }
             calm();
             ui_sound(SND_PLACE);
@@ -482,7 +478,7 @@ static void press(float x, float y)
         return;
     }
     int n = sb_shots(P);
-    if (ga_in(T.kx, T.ky, T.bd, x, y)) {
+    if (ui_button_hit(T.kx, T.ky, T.bd, x, y)) {
         if (naim == n) fire();
         else ui_sound(SND_DENY);
         return;

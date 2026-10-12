@@ -54,9 +54,19 @@ One look across the app, like the Arcade games' house kit:
 - **Marks** from the shell: `ui_mark_last` (the last move), `ui_mark_select` (and `_round` for round holes and
   points), `ui_mark_dot` (where a piece can go: a dark dot in a thin cream rim, readable on light wood, dark wood and
   a dark point), `ui_mark_ring` (a capture), `ui_mark_glow` (danger), `ui_mark_gold` (a success: a mill, a winning
-  line).
-- **The bars**: `ui_number()` for a count or a score, `ui_bar_count(box, piece, n)` for a small piece and how many
-  (the pieces taken).
+  line; `ui_mark_gold_a` fainter, a light coming or pulsing).
+- **Numbers**: `ui_number()` (cream or dark), `ui_number_rot`, `ui_number_signed`; `ui_number_ex` in any colour and
+  alpha, regular or bold, set tight (a number in a cell); `ui_number_w` its width.
+- **The bars**: `ui_bar_count(box, piece, n)` for a small piece and how many (the pieces taken; 0 shows nothing),
+  `ui_bar_number` the same showing 0 too, the piece optional (a move counter; it returns the x after the number).
+  `ui_bar_box(player, &upside)`: where a player's bar is (something flying to it).
+- **Buttons** of a game's own (on its table, in its bar): `ui_button(cx, cy, d, ICON_*, how)` the shell's disc with
+  one of its icons (`ICON_TICK` done, `ICON_ARROW` next, `ICON_HINT` a lamp, `ICON_DEVICE`...), or
+  `ui_button_paint(cx, cy, d, paint, kind, k, how)` with the game's picture (a painter: `paint(kind, size, rgba)`, k
+  of the disc across; the shell makes it at the size shown and keeps it). `how`: `UI_LIT` (a gold light: press me),
+  `UI_DIM` (not now), `UI_ON` (the gold disc: a mode on, the action ready), `UI_IVORY` (an ivory medallion, a picture
+  in its own colours), `UI_TINT` (a white picture tinted cream), `UI_UPSIDE` (the top player's). `ui_button_hit` for
+  the finger; `ui_button_pic` paints one into a thumbnail. No walnut knobs, no copies of the disc.
 - **Dice** from the shell: `ui_dice_throw` / `ui_dice_show` (a player's dice; `_each`: a colour each, backgammon's
   opening), `ui_dice_draw`, `ui_die_at` (one die at rest: waiting to be thrown, a past throw), `ui_random`.
 - **Nothing copied**: anything two games would draw the same way belongs in `art.c` or the shell, not in each game.

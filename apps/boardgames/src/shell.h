@@ -117,8 +117,17 @@ void ui_number_rot(float cx, float cy, float h, int value, int light, double deg
 /* a number that may be below zero (a minus before it), or with a plus when plus is set and it is above zero (points
  * added): the scores of card games */
 void ui_number_signed(float cx, float cy, float h, int value, int light, int plus);
+/* any colour, faded (alpha 0..255); how: UI_NUM_REGULAR the regular digits (else bold), UI_NUM_TIGHT set closer (a
+ * number in a small cell) */
+enum { UI_NUM_REGULAR = 1, UI_NUM_TIGHT = 2 };
+void ui_number_ex(float cx, float cy, float h, int value, const uint8_t rgb[3], Uint8 alpha, int how);
+float ui_number_w(int value, float h);          /* how wide ui_number draws it */
 /* in a player's bar (bar()'s box): a small piece (0.6 unit) and how many of it, in cream (pieces taken); 0: nothing */
 void ui_bar_count(box b, SDL_Texture *piece, int n);
+/* the same showing 0 too (a move counter), the piece optional (NULL); returns the x after the number */
+float ui_bar_number(box b, SDL_Texture *piece, int n);
+/* where a player's bar is on the screen (cards flying to it, a glow); upside: it is drawn turned round (face to face) */
+box  ui_bar_box(int player, int *upside);
 void ui_animate(void);                          /* draw the next frame too (an animation runs) */
 Uint32 ui_ms(void);                             /* the clock for animations: use it, not SDL_GetTicks (the picture
                                                  * mode has a clock of its own: still, moved on past each gesture's
@@ -134,6 +143,24 @@ void ui_mark_dot(float cx, float cy, float d);            /* a possible move: a 
 void ui_mark_ring(float cx, float cy, float d);           /* a possible capture: a ring */
 void ui_mark_glow(float cx, float cy, float d);           /* danger (check): a red glow */
 void ui_mark_gold(float cx, float cy, float d);           /* a success (a mill, a winning line): a gold light */
+void ui_mark_gold_a(float cx, float cy, float d, float a); /* the same fainter (a 0..1: a light coming, pulsing) */
+
+/* ---- a game's own round buttons (on its table, in its bar): the shell's disc, a picture on it -------------------
+ * how: UI_LIT a gold light round it (it can be pressed now), UI_DIM faded (not now), UI_ON the gold disc (a mode that
+ * is on, the action ready), UI_IVORY an ivory medallion in the disc (a picture in its own colours), UI_TINT the
+ * picture (white) tinted cream like the shell's icons, UI_UPSIDE the picture turned round (the top player's). The
+ * pictures are made at the size shown and kept. */
+enum { UI_LIT = 1, UI_DIM = 2, UI_ON = 4, UI_IVORY = 8, UI_TINT = 16, UI_UPSIDE = 32 };
+typedef void (*ui_painter)(int kind, int size, uint8_t *rgba);   /* paints kind's picture on a clear size x size */
+/* d across, centred on (cx, cy): one of the shell's icons (ICON_*, cream, 0.62 of d) */
+void ui_button(float cx, float cy, float d, int icon, int how);
+/* the same with the game's picture: paint(kind, (int)(k * d), ...), shown k * d wide (k 1: the whole disc) */
+void ui_button_paint(float cx, float cy, float d, ui_painter paint, int kind, float k, int how);
+int  ui_button_hit(float cx, float cy, float d, float x, float y);   /* (x, y) on it, a finger's slack round it */
+/* a button's picture painted into a picture (a thumbnail's): its disc d across centred on (cx, cy), the game's
+ * picture on it (paint, k, how as above; how: UI_ON, UI_IVORY, UI_TINT) */
+void ui_button_pic(uint8_t *rgba, int w, int h, float cx, float cy, int d, ui_painter paint, int kind, float k,
+                   int how);
 
 enum { SND_MOVE, SND_CAPTURE, SND_PLACE, SND_DROP, SND_CHECK, SND_END, SND_TAP, SND_DENY, SND_DICE, SNDS };
 void ui_sound(int s);
@@ -142,7 +169,11 @@ void ui_sound_later(int s, int ms);             /* in ms: when a sliding piece l
 
 /* chance: the shell's dice. ui_random gives 0..n-1 (seeded at start; --seed in the picture mode, so tests and
  * screenshots repeat); the rules take the values as input. ui_dice_throw shows dice tumbling to their values (with
- * their sound), ui_dice_draw draws them where the game wants (size: one die), the used ones dimmed (bit i: die i). */
+ * their sound), ui_dice_draw draws them in a row where the game wants (size: one die; up to UI_MAX_DICE), the used
+ * ones dimmed (bit i: die i). A game that lays its dice out itself (kept, set aside, in a cup...) draws them one by
+ * one: ui_die, ui_die_thrown. */
+#define UI_MAX_DICE 8
+#define UI_DICE_MS 650                          /* a throw's tumble */
 int  ui_random(int n);
 void ui_dice_throw(int n, const int *values, int player);
 void ui_dice_show(int n, const int *values, int player);  /* dice set to these values at once: no tumble, no sound */
@@ -153,6 +184,15 @@ void ui_dice_draw(float cx, float cy, float size, unsigned used);
 /* one die at rest, any player's, any value (a die waiting to be thrown, a past throw): alpha 0..1 */
 void ui_die_at(float cx, float cy, float size, int player, int value, float alpha);
 int  ui_dice_busy(void);                        /* 1 while they tumble */
+/* one die anywhere: turned by deg, lifted (pixels: its shadow stays on the table), faded (alpha 0..1), darkened
+ * (shade 0..1: 1 as it is; a die that cannot be used) */
+void ui_die(float cx, float cy, float size, int player, int value, float deg, float lift, float alpha, float shade);
+/* a die thrown t ms ago: tumbling (its faces flickering, turning, bouncing; i: which die, each spins its own way),
+ * then at rest on value, tilted by deg; shade as ui_die's. 1 while it still tumbles. */
+int  ui_die_thrown(float cx, float cy, float size, int player, int value, float deg, int i, int t, float shade);
+/* the tumble's motion t ms after a throw (0..UI_DICE_MS), for a lot of the game's own (cowries, pyramid dice): how far
+ * it has turned (degrees, added to its tilt) and how high it bounces (a part of its size) */
+void ui_die_tumble(int t, int i, float *turn, float *lift);
 
 /* the hand-off (VIEW_* games): the device passes to `player`. Once the last move has landed (busy() 0), the view
  * turns to them (ui.viewer, the bars follow); VIEW_HIDDEN first covers the screen (the table greyed under it, drawn

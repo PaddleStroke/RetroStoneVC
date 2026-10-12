@@ -125,17 +125,6 @@ static void key_pic(int ebony, int size, uint8_t *rgba)
     free(b);
 }
 
-/* the check: a tick, white (tinted when drawn) */
-static void check_pic(int size, uint8_t *rgba)
-{
-    art_style st = {{255, 255, 255}, {0, 0, 0}, {0, 0, 0}, {255, 255, 255}, 0, 0};
-    art_fig *f = art_fig_new();
-    const float tick[] = {0.22f, 0.52f, 0.31f, 0.43f, 0.43f, 0.555f, 0.70f, 0.28f, 0.79f, 0.37f, 0.43f, 0.735f};
-    art_poly(f, ART_PART, tick, 6);
-    art_render(f, &st, size, size, (float)size, 0, 0, rgba);
-    art_fig_free(f);
-}
-
 /* ---- the board: the house plank, its holes bored ----------------------------------------------------------------- */
 /* a round hole bored in the wood at (cx, cy): dark inside, its wall in shadow at the top left, its far rim lit */
 static void bore(uint8_t *o, int w, int h, float cx, float cy, float R)
@@ -258,7 +247,7 @@ static int q, fr, pp, pf, made = -1, made_bar = -1;
 static float bx, by, tx, ty;                    /* the board's and the tray's top left corners */
 static box last_box;
 static SDL_Texture *t_board, *t_tray, *t_lid, *t_lid_shadow, *t_peg[SC_MAXCOLOURS], *t_tpeg[SC_MAXCOLOURS],
-    *t_key[2], *t_tick, *t_disc, *t_row;
+    *t_key[2], *t_row;
 static box barbox;                                 /* the bar's frame, for its check button */
 
 static void layout(box b);
@@ -399,21 +388,12 @@ static void layout(box b)
     }
 }
 
-/* the bar's pictures: the button's disc and its tick, a row of the board (the guesses left) */
+/* the bar's picture: a row of the board (the guesses left) */
 static void bar_textures(void)
 {
     int key = (int)ui.unit;
     if (made_bar == key) return;
     made_bar = key;
-    static const uint8_t gold[3] = {150, 118, 46};
-    int d = (int)(0.84f * ui.unit), ic = (int)(0.52f * ui.unit);
-    ui_free(&t_disc);
-    art_disc(d, gold, 1, 0, ui_buf(d, d));
-    t_disc = ui_tex(d, d, ui_buf(d, d));
-    ui_free(&t_tick);
-    check_pic(ic, ui_buf(ic, ic));
-    t_tick = ui_tex(ic, ic, ui_buf(ic, ic));
-    SDL_SetTextureColorMod(t_tick, 252, 244, 226);
     int s = (int)(0.6f * ui.unit), rq = s / 10 > 1 ? s / 10 : 1, rf = rq;   /* a row: four holes in a strip */
     int rw = 9 * rq + 2 * rf, rh = 2 * rq + 2 * rf;
     uint8_t *b = ui_buf(s, s);
@@ -508,9 +488,7 @@ static void draw(void)
         if (sc_full(&G)) {                      /* the row full: the check in its key holes */
             float r;
             key_button(&x, &y, &r);
-            bar_textures();
-            ui_put_c(t_disc, x, y, 2 * r, 2 * r);
-            ui_put_c(t_tick, x, y, 1.3f * r, 1.3f * r);
+            ui_button(x, y, 2 * r, ICON_TICK, UI_ON);
         }
     }
     float tw = (float)(pp + 2 * pf);
@@ -614,8 +592,7 @@ static void bar(int player, box b)
     float x, y, r;
     if (sc_full(&G)) {
         bar_button(&x, &y, &r);
-        ui_put_c(t_disc, x, y, 2 * r, 2 * r);
-        ui_put_c(t_tick, x, y, 1.24f * r, 1.24f * r);
+        ui_button(x, y, 2 * r, ICON_TICK, UI_ON);
         b.w -= 2 * r + 0.3f * ui.unit;
     }
     ui_bar_count(b, t_row, sc_left(&G));

@@ -19,7 +19,6 @@
 #include <string.h>
 
 #include "cards.h"
-#include "games/knobs.h"
 #include "games/liarsdice.h"
 #include "games/race.h"
 #include "shell.h"
@@ -139,7 +138,7 @@ static void cup_paint(int player, int s, uint8_t *o)
     f = art_fig_new();                          /* the top, a little lighter */
     art_ellipse(f, ART_PART, 0.5f, 0.12f, 0.2f, 0.045f);
     const uint8_t top[3] = {150, 96, 60};
-    knob_paint(o, s, f, top, LEATHER_INK, 0.015f);
+    art_fig_paint(o, s, f, top, LEATHER_INK, 0.015f, 0.1f);
     f = art_fig_new();                          /* the band */
     static const float band[] = {0.188f, 0.68f, 0.812f, 0.68f, 0.835f, 0.79f, 0.165f, 0.79f};
     art_poly(f, ART_PART, band, 4);
@@ -158,67 +157,41 @@ static void cup_paint(int player, int s, uint8_t *o)
         art_rect(f, ART_PART, 0.5f - 0.006f, y, 0.5f + 0.006f, y + 0.03f);
     }
     const uint8_t stitch[3] = {214, 182, 140};
-    knob_paint(o, s, f, stitch, NULL, 0);
+    art_fig_paint(o, s, f, stitch, NULL, 0, 0.1f);
 }
 
 static SDL_Texture *t_cup[LD_MAXP], *t_tok[LD_MAXP], *t_chip, *t_chip_on, *t_small[LD_MAXP];
 static int made_cup = -1, made_tok = -1, made_chip = -1, made_small = -1;
-static knob_set KS;
-
-static SDL_Texture *die_tex(int player, int value, int size)
-{
-    static SDL_Texture *t[LD_MAXP][7];
-    static int made = -1;
-    if (size < 4) return NULL;
-    if (made != size) {
-        for (int p = 0; p < LD_MAXP; p++)
-            for (int v = 0; v < 7; v++) ui_free(&t[p][v]);
-        made = size;
-    }
-    player = player < 0 ? 0 : player % LD_MAXP;
-    value = value < 1 ? 1 : value > 6 ? 6 : value;
-    if (!t[player][value]) {
-        art_die(value, player, size, ui_buf(size, size));
-        t[player][value] = ui_tex(size, size, ui_buf(size, size));
-    }
-    return t[player][value];
-}
 
 /* a die at (cx, cy), turned, lifted (its shadow stays down), faded */
 static void die_at(int player, int value, float cx, float cy, float size, float deg, float lift, float alpha)
 {
-    SDL_Texture *t = die_tex(player, value, (int)(size + 0.5f));
-    if (!t) return;
-    ui_shadow_flat(cx, cy, size * 1.1f, size * 1.1f, alpha * (lift > 0 ? 0.6f : 1));
-    SDL_SetTextureAlphaMod(t, (Uint8)(255 * clampf(alpha, 0, 1)));
-    ui_put_rot(t, cx, cy - lift, size, size, deg);
-    SDL_SetTextureAlphaMod(t, 255);
+    ui_die(cx, cy, size, player, value, deg, lift, alpha, 1);
 }
 
+/* the buttons' pictures (the bid is the shell's tick): next, an arrow going round; liar, a cup lifted off two dice,
+ * an arrow up beside it */
 static void paint_knob(int kind, int s, uint8_t *o)
 {
+    static const uint8_t cream[3] = {246, 238, 220}, red[3] = {196, 64, 48}, dark[3] = {52, 34, 22};
     art_fig *f = art_fig_new();
-    if (kind == K_BID || kind == K_NEXT) {      /* a check; next: an arrow on round */
-        if (kind == K_BID) knob_check(f);
-        else {
-            art_arc(f, ART_PART, 0.5f, 0.52f, 0.17f, 0.25f, 200, 480);
-            knob_head(f, 0.29f, 0.45f, 250, 0.2f);
-        }
-        knob_paint(o, s, f, KNOB_CREAM, NULL, 0);
+    if (kind == K_NEXT) {
+        art_arc(f, ART_PART, 0.5f, 0.52f, 0.17f, 0.25f, 200, 480);
+        art_head(f, ART_PART, 0.29f, 0.45f, 250, 0.2f);
+        art_fig_paint(o, s, f, cream, NULL, 0, 0.1f);
         return;
     }
-    /* liar: a cup lifted off two dice, an arrow up beside it */
     static const float body[] = {0.36f, 0.16f, 0.6f, 0.16f, 0.68f, 0.48f, 0.28f, 0.48f};
     art_poly(f, ART_PART, body, 4);
-    knob_paint(o, s, f, KNOB_RED, KNOB_DARK, 0.02f);
+    art_fig_paint(o, s, f, red, dark, 0.02f, 0.1f);
     f = art_fig_new();
     art_rect(f, ART_PART, 0.27f, 0.58f, 0.45f, 0.76f);
     art_rect(f, ART_PART, 0.51f, 0.6f, 0.69f, 0.78f);
-    knob_paint(o, s, f, KNOB_CREAM, KNOB_DARK, 0.015f);
+    art_fig_paint(o, s, f, cream, dark, 0.015f, 0.1f);
     f = art_fig_new();
-    knob_band(f, 0.79f, 0.52f, 0.79f, 0.28f, 0.05f);
-    knob_head(f, 0.79f, 0.25f, -90, 0.13f);
-    knob_paint(o, s, f, KNOB_CREAM, NULL, 0);
+    art_band(f, ART_PART, 0.79f, 0.52f, 0.79f, 0.28f, 0.05f);
+    art_head(f, ART_PART, 0.79f, 0.25f, -90, 0.13f);
+    art_fig_paint(o, s, f, cream, NULL, 0, 0.1f);
 }
 
 static void textures(void)
@@ -453,14 +426,8 @@ static void draw_mine(void)
     if (rolled[me] != P->round + 1) { rolled[me] = P->round + 1; roll_t0 = ui_ms(); ui_sound(SND_DICE); }
     int t = (int)(ui_ms() - roll_t0);
     for (int i = 0; i < n; i++) {
-        float x = x0 + i * (s + gap), turn = 0, lift = 0, tilt = (race_hash(P->round * 7 + me, i) - 0.5f) * 20;
-        int v = P->dice[me][i];
-        if (t < RACE_TUMBLE_MS) {
-            race_tumble(t, i, &turn, &lift);
-            v = 1 + (int)((unsigned)(ui_ms() / 70 + i * 3 + v) % 6);
-            ui_animate();
-        }
-        die_at(me, v, x, cy, s, tilt + turn, lift * s, 1);
+        float x = x0 + i * (s + gap), tilt = (race_hash(P->round * 7 + me, i) - 0.5f) * 20;
+        ui_die_thrown(x, cy, s, me, P->dice[me][i], tilt, i, t, 1);
     }
     float ux = x0 + n * (s + gap) + 0.25f * cs, uy = cy - 0.15f * cs;   /* the cup, lifted, tipped beside them */
     ui_shadow_flat(ux, cy + 0.4f * cs, 0.9f * cs, 0.22f * cs, 0.5f);
@@ -488,10 +455,10 @@ static void draw_picker(void)
     }
     float x, y, d;
     knob_xy(K_LIAR, &x, &y, &d);
-    knob_at(knob_tex(&KS, K_LIAR, (int)d, paint_knob), x, y, d, my && P->count ? KNOB_READY : KNOB_DIM);
+    ui_button_paint(x, y, d, paint_knob, K_LIAR, 1, my && P->count ? 0 : UI_DIM);
     knob_xy(K_BID, &x, &y, &d);
     int ok = my && sel_count && ld_raises(P, sel_count, sel_face);
-    knob_at(knob_tex(&KS, K_BID, (int)d, paint_knob), x, y, d, ok ? KNOB_LIT : KNOB_DIM);
+    ui_button(x, y, d, ICON_TICK, ok ? UI_LIT : UI_DIM);
 }
 
 /* the call: a row a player (their chip, their dice), the dice that count lighting up, the verdict */
@@ -556,7 +523,7 @@ static void draw_reveal(void)
         float x, y, d;
         knob_xy(K_NEXT, &x, &y, &d);
         y = b.y + b.h - 0.7f * d;
-        knob_at(knob_tex(&KS, K_NEXT, (int)d, paint_knob), x, y, d, KNOB_LIT);
+        ui_button_paint(x, y, d, paint_knob, K_NEXT, 1, UI_LIT);
     }
 }
 
@@ -594,13 +561,13 @@ static void press(float x, float y)
     }
     float kx, ky, d;
     knob_xy(K_BID, &kx, &ky, &d);
-    if (knob_hit(kx, ky, d, x, y)) {
+    if (ui_button_hit(kx, ky, d, x, y)) {
         if (sel_count && ld_raises(P, sel_count, sel_face)) act(LD_ACT(LA_BID, sel_count, sel_face));
         else ui_sound(SND_DENY);
         return;
     }
     knob_xy(K_LIAR, &kx, &ky, &d);
-    if (knob_hit(kx, ky, d, x, y)) {
+    if (ui_button_hit(kx, ky, d, x, y)) {
         if (P->count) act(LD_ACT(LA_LIAR, 0, 0));
         else ui_sound(SND_DENY);
         return;

@@ -353,7 +353,7 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    puz_bar_moves(b, t_small, G.moves);
+    ui_bar_number(b, t_small, G.moves);
 }
 
 /* ---- the menu's and the picker's cards --------------------------------------------------------------------------- */

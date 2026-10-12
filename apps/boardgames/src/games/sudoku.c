@@ -17,7 +17,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "games/knobs.h"
 #include "games/puzzles.h"
 #include "games/sudoku.h"
 #include "shell.h"
@@ -46,8 +45,6 @@ static box last_box;
 static float gx, gy, gw, kx0, ky, kp, kw, kh, tx, ty[TOOLS], td;
 static int cs, fr, made_w = -1, made_small = -1;
 static SDL_Texture *t_board, *t_key, *t_small;
-static puz_font f_given, f_entry, f_note;
-static knob_set knobs;
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* the plank ruled: thin lines between the cells, thick ones round the boxes */
@@ -67,46 +64,31 @@ static void paint_board(uint8_t *o, int q, int f)
     }
 }
 
-/* the buttons' pictures, over the walnut disc */
+/* the buttons' pictures (the hint is the shell's lamp) */
 static void paint_tool(int kind, int size, uint8_t *o)
 {
+    static const uint8_t red[3] = {196, 64, 48}, dark[3] = {52, 34, 22}, gold[3] = {232, 190, 92};
     art_fig *f = art_fig_new();
     switch (kind) {
     case T_NOTES: {                             /* a pencil */
-        knob_band(f, 0.40f, 0.60f, 0.72f, 0.28f, 0.15f);
-        knob_paint(o, size, f, KNOB_CREAM, KNOB_DARK, 0.02f);
+        art_band(f, ART_PART, 0.40f, 0.60f, 0.72f, 0.28f, 0.15f);
+        art_fig_paint(o, size, f, PUZ_CREAM, dark, 0.02f, 0.1f);
         f = art_fig_new();
         const float tip[] = {0.347f, 0.547f, 0.453f, 0.653f, 0.27f, 0.73f};
         art_poly(f, ART_PART, tip, 3);
-        knob_paint(o, size, f, KNOB_GOLD, KNOB_DARK, 0.02f);
+        art_fig_paint(o, size, f, gold, dark, 0.02f, 0.1f);
         f = art_fig_new();
         const float lead[] = {0.30f, 0.66f, 0.34f, 0.70f, 0.27f, 0.73f};
         art_poly(f, ART_PART, lead, 3);
-        knob_paint(o, size, f, KNOB_DARK, KNOB_DARK, 0.01f);
+        art_fig_paint(o, size, f, dark, dark, 0.01f, 0.1f);
         return;
     }
     case T_ERASE:                               /* an eraser, half worn */
-        knob_band(f, 0.30f, 0.62f, 0.50f, 0.46f, 0.26f);
-        knob_paint(o, size, f, KNOB_RED, KNOB_DARK, 0.02f);
+        art_band(f, ART_PART, 0.30f, 0.62f, 0.50f, 0.46f, 0.26f);
+        art_fig_paint(o, size, f, red, dark, 0.02f, 0.1f);
         f = art_fig_new();
-        knob_band(f, 0.50f, 0.46f, 0.72f, 0.29f, 0.26f);
-        knob_paint(o, size, f, KNOB_CREAM, KNOB_DARK, 0.02f);
-        return;
-    case T_HINT:                                /* a lamp, lit */
-        art_ellipse(f, ART_PART, 0.5f, 0.44f, 0.17f, 0.17f);
-        {
-            const float neck[] = {0.40f, 0.55f, 0.60f, 0.55f, 0.575f, 0.66f, 0.425f, 0.66f};
-            art_poly(f, ART_PART, neck, 4);
-        }
-        knob_paint(o, size, f, KNOB_GOLD, KNOB_DARK, 0.02f);
-        f = art_fig_new();
-        art_rect(f, ART_PART, 0.425f, 0.68f, 0.575f, 0.72f);
-        art_rect(f, ART_PART, 0.445f, 0.74f, 0.555f, 0.78f);
-        for (int i = -2; i <= 2; i++) {
-            float a = (90 + 40 * i) * PUZ_PI / 180, c = cosf(a), s = -sinf(a);
-            knob_band(f, 0.5f + c * 0.23f, 0.44f + s * 0.23f, 0.5f + c * 0.31f, 0.44f + s * 0.31f, 0.045f);
-        }
-        knob_paint(o, size, f, KNOB_CREAM, KNOB_CREAM, 0.0f);
+        art_band(f, ART_PART, 0.50f, 0.46f, 0.72f, 0.29f, 0.26f);
+        art_fig_paint(o, size, f, PUZ_CREAM, dark, 0.02f, 0.1f);
         return;
     default: {                                  /* an eye: the clashes seen */
         float lens[2 * 26];
@@ -118,13 +100,13 @@ static void paint_tool(int kind, int size, uint8_t *o)
             lens[2 * (13 + i) + 1] = 0.5f + 0.2f * sinf(PUZ_PI * t);
         }
         art_poly(f, ART_PART, lens, 26);
-        knob_paint(o, size, f, KNOB_CREAM, KNOB_DARK, 0.02f);
+        art_fig_paint(o, size, f, PUZ_CREAM, dark, 0.02f, 0.1f);
         f = art_fig_new();
         art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.13f, 0.13f);
-        knob_paint(o, size, f, KNOB_RED, KNOB_DARK, 0.015f);
+        art_fig_paint(o, size, f, red, dark, 0.015f, 0.1f);
         f = art_fig_new();
         art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.055f, 0.055f);
-        knob_paint(o, size, f, KNOB_DARK, KNOB_DARK, 0.0f);
+        art_fig_paint(o, size, f, dark, dark, 0.0f, 0.1f);
         return;
     }
     }
@@ -192,9 +174,6 @@ static void layout(box b)
         memset(ui_buf(iw, ih), 0, (size_t)iw * ih * 4);
         paint_key(iw, ih, ui_buf(iw, ih));
         t_key = ui_tex(iw, ih, ui_buf(iw, ih));
-        puz_font_make(&f_given, (int)(0.64f * cs), 1);
-        puz_font_make(&f_entry, (int)(0.64f * cs), 0);
-        puz_font_make(&f_note, (int)fmaxf(6, 0.27f * cs), 1);
     }
     int small = (int)(0.6f * u);
     if (made_small != small) {
@@ -335,7 +314,7 @@ static int key_at(float x, float y)
 static int tool_at(float x, float y)
 {
     for (int i = 0; i < TOOLS; i++)
-        if (knob_hit(tx, ty[i], td, x, y)) return i;
+        if (ui_button_hit(tx, ty[i], td, x, y)) return i;
     return -1;
 }
 
@@ -347,9 +326,9 @@ static void draw_key(int d, float x, float y, float s, Uint8 a)
     SDL_SetTextureAlphaMod(t_key, 255);
     if (notes_mode) {                           /* notes: the digit small, in its corner of the cell */
         float nx = x + ((d - 1) % 3 - 1) * 0.26f * kw * s, ny = y + ((d - 1) / 3 - 1) * 0.25f * kh * s;
-        puz_number(&f_given, nx, ny, 0.36f * kh * s, d, PUZ_INK, a);
+        ui_number_ex(nx, ny, 0.36f * kh * s, d, PUZ_INK, a, UI_NUM_TIGHT);
     } else {
-        puz_number(&f_given, x, y, 0.58f * kh * s, d, PUZ_INK, a);
+        ui_number_ex(x, y, 0.58f * kh * s, d, PUZ_INK, a, UI_NUM_TIGHT);
     }
 }
 
@@ -400,13 +379,13 @@ static void draw(void)
                 if (t < 1) { k = 1 + 0.4f * (1 - puz_ease(t)); ui_animate(); }
             }
             const uint8_t *ink = G.given[c] ? GIVEN : show_clash && !solved && su_clash(&G, c) ? CLASH : ENTRY;
-            puz_number(G.given[c] ? &f_given : &f_entry, mx, my + 0.02f * cs, 0.64f * cs * k, v, ink, 255);
+            ui_number_ex(mx, my + 0.02f * cs, 0.64f * cs * k, v, ink, 255, G.given[c] ? UI_NUM_TIGHT : UI_NUM_TIGHT | UI_NUM_REGULAR);
         } else if (G.notes[c]) {
             for (int d = 1; d <= 9; d++) {
                 if (!(G.notes[c] >> d & 1)) continue;
                 float nx = mx + ((d - 1) % 3 - 1) * 0.31f * cs, ny = my + ((d - 1) / 3 - 1) * 0.30f * cs;
                 if (d == hd) ui_mark_last(nx - 0.15f * cs, ny - 0.15f * cs, 0.3f * cs, 0.3f * cs);
-                puz_number(&f_note, nx, ny, 0.27f * cs, d, d == hd ? ENTRY : NOTE, 255);
+                ui_number_ex(nx, ny, 0.27f * cs, d, d == hd ? ENTRY : NOTE, 255, UI_NUM_TIGHT);
             }
         }
     }
@@ -422,9 +401,11 @@ static void draw(void)
         draw_key(d, kx, ky, 1, (Uint8)(held ? 90 : full ? 105 : 255));
     }
     int erasable = editable(sel) && (G.val[sel] || G.notes[sel]);
-    int states[TOOLS] = {notes_mode ? KNOB_ON : KNOB_READY, erasable ? KNOB_READY : KNOB_DIM,
-                         solved ? KNOB_DIM : KNOB_READY, show_clash ? KNOB_ON : KNOB_READY};
-    for (int i = 0; i < TOOLS; i++) knob_at(knob_tex(&knobs, i, (int)td, paint_tool), tx, ty[i], td, states[i]);
+    int states[TOOLS] = {notes_mode ? UI_ON : 0, erasable ? 0 : UI_DIM, solved ? UI_DIM : 0, show_clash ? UI_ON : 0};
+    for (int i = 0; i < TOOLS; i++) {
+        if (i == T_HINT) ui_button(tx, ty[i], td, ICON_HINT, states[i]);
+        else ui_button_paint(tx, ty[i], td, paint_tool, i, 1, states[i]);
+    }
     if (ptr.on && ptr.key && ptr.moved) {       /* a key carried, above the finger */
         int c = cell_at(ptr.x, ptr.y - 0.6f * kh);
         if (editable(c)) {
@@ -490,7 +471,7 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    puz_bar_moves(b, t_small, G.moves);
+    ui_bar_number(b, t_small, G.moves);
 }
 
 /* ---- the menu's and the picker's cards: a puzzle of the level (its clues) and as many ebony stones as its level

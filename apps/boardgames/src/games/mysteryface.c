@@ -328,8 +328,9 @@ static void paint_question(int q, int size, uint8_t *o)
 }
 
 /* the guess: a magnifying glass (white: tinted cream) */
-static void paint_glass(int size, uint8_t *o)
+static void paint_glass(int kind, int size, uint8_t *o)
 {
+    (void)kind;
     art_style st = {{255, 255, 255}, {0, 0, 0}, {0, 0, 0}, {255, 255, 255}, 0, 0};
     art_fig *f = art_fig_new();
     art_arc(f, ART_PART, 0.43f, 0.42f, 0.17f, 0.25f, 0, 360);
@@ -338,8 +339,6 @@ static void paint_glass(int size, uint8_t *o)
     art_render(f, &st, size, size, (float)size, 0, 0, o);
     art_fig_free(f);
 }
-
-static void paint_device(int size, uint8_t *o) { art_icon(ICON_DEVICE, size, o); }
 
 /* ---- the table's geometry ---------------------------------------------------------------------------------------- */
 static struct {
@@ -436,10 +435,8 @@ static int face_at(float x, float y)
 }
 
 /* ---- the textures ------------------------------------------------------------------------------------------------ */
-static SDL_Texture *t_face[MF_FACES], *t_back, *t_plank, *t_q[MF_QUESTIONS], *t_glass, *t_device, *t_tick,
-    *t_yes, *t_no, *t_mini;
-static int made_fw = -1, made_plank = -1, made_q = -1, made_ad = -1, made_mini = -1;
-static ga_buttons btn;
+static SDL_Texture *t_face[MF_FACES], *t_back, *t_plank, *t_yes, *t_no, *t_mini;
+static int made_fw = -1, made_plank = -1, made_ad = -1, made_mini = -1;
 
 static void textures(void)
 {
@@ -468,24 +465,6 @@ static void textures(void)
         ui_free(&t_plank);
         t_plank = ui_tex(T.bw, T.bh, o);
     }
-    int qs = (int)(T.qd * 0.8f);
-    if (made_q != qs * 4096 + (int)T.bd) {
-        made_q = qs * 4096 + (int)T.bd;
-        for (int q = 0; q < MF_QUESTIONS; q++) {
-            ui_free(&t_q[q]);
-            uint8_t *o = ui_buf(qs, qs);
-            paint_question(q, qs, o);
-            t_q[q] = ui_tex(qs, qs, o);
-        }
-        int is = (int)(T.bd * 0.62f);
-        ui_free(&t_glass);
-        t_glass = ga_icon(paint_glass, is, 1);
-        ui_free(&t_device);
-        t_device = ga_icon(paint_device, is, 1);
-        ui_free(&t_tick);
-        t_tick = ga_icon(ga_tick, is, 1);
-        ga_buttons_make(&btn, (int)T.bd);
-    }
     int ad = (int)T.ad;
     if (made_ad != ad) {                        /* the answer: a jade disc and a tick, a red one and a cross */
         made_ad = ad;
@@ -496,7 +475,7 @@ static void textures(void)
             uint8_t *o = ui_buf(ad, ad);
             art_disc(ad, k ? red : jade, 1, 0, o);
             if (k) art_icon(ICON_CLOSE, ic, mark);
-            else ga_tick(ic, mark);
+            else art_icon(ICON_TICK, ic, mark);
             art_blend(o, ad, ad, mark, ic, ic, (ad - ic) / 2, (ad - ic) / 2);
             SDL_Texture **t = k ? &t_no : &t_yes;
             ui_free(t);
@@ -645,10 +624,10 @@ static void draw(void)
     /* the questions: one a turn (the one asked gold, the others faded once it is asked) */
     int can_ask = mine && ph == MF_PLAY && P->asked < 0 && !guessing;
     for (int q = 0; q < MF_QUESTIONS; q++) {
-        int how = GA_IVORY;
-        if (ph == MF_PLAY && P->asked == q && P->turn == m) how |= GA_ON;
-        else if (!can_ask) how |= GA_DIM;
-        ga_button(&btn, t_q[q], T.qx[q], T.qy[q], T.qd, 0.8f, how);
+        int how = UI_IVORY;
+        if (ph == MF_PLAY && P->asked == q && P->turn == m) how |= UI_ON;
+        else if (!can_ask) how |= UI_DIM;
+        ui_button_paint(T.qx[q], T.qy[q], T.qd, paint_question, q, 0.8f, how);
     }
     draw_secret();
     if (ph == MF_PLAY && P->asked >= 0 && P->turn == m) {   /* the answer pops up */
@@ -656,7 +635,7 @@ static void draw(void)
         if (t >= 1) pop_on = 0;
         else ui_animate();
         float k = t >= 1 ? 1 : 0.4f + 0.6f * sinf(fminf(1, t) * 1.9f) / sinf(1.9f);
-        ga_button(&btn, t_q[P->asked], T.kx, T.ay, T.qd * 0.86f, 0.8f, GA_IVORY);
+        ui_button_paint(T.kx, T.ay, T.qd * 0.86f, paint_question, P->asked, 0.8f, UI_IVORY);
         ui_put_c(P->answer ? t_yes : t_no, T.ax, T.ay, T.ad * k, T.ad * k);
     } else if (ph == MF_OVER) {                 /* the other's face, shown at last */
         int s = P->secret[!m];
@@ -666,11 +645,11 @@ static void draw(void)
         if (s >= 0) ui_put(t_face[s], x, y, w, h);
     }
     if (ph == MF_PICK) {
-        ga_button(&btn, t_tick, T.ex, T.ey, T.bd, 0.62f, mine && P->secret[m] >= 0 ? GA_ON : GA_DIM);
+        ui_button(T.ex, T.ey, T.bd, ICON_TICK, mine && P->secret[m] >= 0 ? UI_ON : UI_DIM);
     } else {
-        int gh = mine && P->asked < 0 ? (guessing ? GA_ON : 0) : GA_DIM;
-        ga_button(&btn, t_glass, T.gx, T.gy, T.bd, 0.62f, gh);
-        ga_button(&btn, t_device, T.ex, T.ey, T.bd, 0.62f, mine && P->asked >= 0 ? GA_ON : GA_DIM);
+        int gh = mine && P->asked < 0 ? (guessing ? UI_ON : 0) : UI_DIM;
+        ui_button_paint(T.gx, T.gy, T.bd, paint_glass, 0, 0.62f, gh | UI_TINT);
+        ui_button(T.ex, T.ey, T.bd, ICON_DEVICE, mine && P->asked >= 0 ? UI_ON : UI_DIM);
     }
 }
 
@@ -679,15 +658,15 @@ static void press(float x, float y)
 {
     if (P->phase == MF_OVER) return;
     if (P->turn != me()) { ui_sound(SND_DENY); return; }
-    if (ga_in(T.ex, T.ey, T.bd, x, y)) { act(MA_END); return; }
-    if (P->phase == MF_PLAY && ga_in(T.gx, T.gy, T.bd, x, y)) {
+    if (ui_button_hit(T.ex, T.ey, T.bd, x, y)) { act(MA_END); return; }
+    if (P->phase == MF_PLAY && ui_button_hit(T.gx, T.gy, T.bd, x, y)) {
         if (P->asked >= 0) { ui_sound(SND_DENY); return; }
         guessing = !guessing;
         ui_sound(SND_TAP);
         return;
     }
     for (int q = 0; q < MF_QUESTIONS; q++)
-        if (ga_in(T.qx[q], T.qy[q], T.qd, x, y)) {
+        if (ui_button_hit(T.qx[q], T.qy[q], T.qd, x, y)) {
             if (guessing || P->phase != MF_PLAY) ui_sound(SND_DENY);
             else act(MA_ASK | q);
             return;

@@ -30,6 +30,20 @@ void art_rect(art_fig *f, int role, float x0, float y0, float x1, float y1);
 void art_arc(art_fig *f, int role, float cx, float cy, float r0, float r1, float deg0, float deg1);  /* a band */
 /* w x h pixels; scale: pixels per unit; the unit square's (0, 0) at pixel (ox, oy) */
 void art_render(const art_fig *f, const art_style *st, int w, int h, float scale, float ox, float oy, uint8_t *rgba);
+/* the figure rendered w x w (its unit square) and blended over a picture (pw x ph) at (x, y), faded (alpha 0..1) */
+void art_fig_blend(uint8_t *rgba, int pw, int ph, const art_fig *f, const art_style *st, int x, int y, int w,
+                   float alpha);
+/* a stroke: a band from (x0, y0) to (x1, y1), wd wide, its ends square */
+void art_band(art_fig *f, int role, float x0, float y0, float x1, float y1, float wd);
+/* an arrow head at (x, y) pointing at deg (0 right, 90 down), l long */
+void art_head(art_fig *f, int role, float x, float y, float deg, float l);
+/* a flat style: one fill colour, its outline `line` wide (of the unit square) in ink (marks in ink too), lit by
+ * `light` (0: flat) */
+art_style art_flat(const uint8_t fill[3], const uint8_t ink[3], float line, float light);
+/* a figure painted flat (art_flat; ink NULL: the fill's) over a picture size x size (its unit square), then freed:
+ * a picture drawn colour by colour */
+void art_fig_paint(uint8_t *rgba, int size, art_fig *f, const uint8_t fill[3], const uint8_t ink[3], float line,
+                   float light);
 
 /* ---- the house style: every game uses these, for one look across the app --------------------------------------------
  * Two players in most games: 0 ivory, 1 ebony (chess's white and black, go's stones, the discs...). The games for
@@ -51,6 +65,9 @@ void art_flat_shadow(int size, uint8_t *rgba);
 /* a die showing 1..6, a player's colour (ivory with ebony pips, or ebony with ivory pips), seen from above,
  * size x size */
 void art_die(int value, int player, int size, uint8_t *rgba);
+/* the same painted into a picture (w x h) with its flat shadow, centred on (cx, cy), turned by deg (a thumbnail's
+ * dice, a button's picture) */
+void art_die_blend(uint8_t *rgba, int w, int h, float cx, float cy, int size, int player, int value, float deg);
 
 /* ---- ready-made pictures ----------------------------------------------------------------------------------------- */
 /* a chess piece (games/chess.h PAWN..KING, WHITE / BLACK), size x size */
@@ -63,9 +80,10 @@ void art_board(int sq, int fr, uint8_t *rgba);
 /* the same wood, n x m squares (light / dark: checkered; plain: one wood, no squares) */
 void art_board_n(int nx, int ny, int sq, int fr, int checkered, uint8_t *rgba);
 
-/* ICON_DEVICE: pass the device (a device and two arrows going round it: the hand-off cover); ICON_PLAY: start */
+/* ICON_DEVICE: pass the device (a device and two arrows going round it: the hand-off cover); ICON_PLAY: start;
+ * ICON_HINT: a lamp, lit (a hint); ICON_TICK: done, ready, check; ICON_ARROW: an arrow pointing right (next, on) */
 enum { ICON_UNDO, ICON_FLIP, ICON_NEW, ICON_HOME, ICON_F2F, ICON_PASS, ICON_SOUND, ICON_MUTE, ICON_HELP, ICON_CLOSE,
-       ICON_DEVICE, ICON_PLAY, ICONS };
+       ICON_DEVICE, ICON_PLAY, ICON_HINT, ICON_TICK, ICON_ARROW, ICONS };
 /* a round button's icon (white: tint it), size x size */
 void art_icon(int which, int size, uint8_t *rgba);
 
@@ -80,5 +98,7 @@ void art_ring(int size, float r_in, const uint8_t rgb[3], float a, uint8_t *rgba
 
 /* paints src (sw x sh) over dst (dw x dh) at (x, y): alpha blending, clipped */
 void art_blend(uint8_t *dst, int dw, int dh, const uint8_t *src, int sw, int sh, int x, int y);
+/* the same centred on (cx, cy) and turned by deg: bilinear */
+void art_blend_rot(uint8_t *dst, int dw, int dh, const uint8_t *src, int sw, int sh, float cx, float cy, float deg);
 
 #endif

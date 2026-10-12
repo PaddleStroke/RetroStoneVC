@@ -37,7 +37,7 @@ static struct { int on, a, b, shuffle; Uint32 t0; } hint;
 static box last_box, barbox;
 static int fw, fh, th, made_key = -1, made_bar = -1;
 static float ox, oy;                            /* where the layout's (0, 0) on layer 0 is drawn */
-static SDL_Texture *t_tile, *t_shadow, *t_face[MJ_FACES], *t_small, *t_disc, *t_disc_on, *t_icon[2];
+static SDL_Texture *t_tile, *t_shadow, *t_face[MJ_FACES], *t_small;
 
 static void layout(box b);
 
@@ -178,32 +178,21 @@ static void layout(box b)
     }
 }
 
-/* ---- the buttons' pictures: a hint (a lamp) and a shuffle (two arrows crossing) ---------------------------------- */
-static void icon_pic(int which, int size, uint8_t *o)
+/* ---- the buttons: the hint (the shell's lamp), the shuffle (two arrows crossing, white: tinted) ------------------ */
+static void paint_shuffle(int kind, int size, uint8_t *o)
 {
+    (void)kind;
     art_style st = {{255, 255, 255}, {0, 0, 0}, {0, 0, 0}, {255, 255, 255}, 0, 0};
     art_fig *f = art_fig_new();
-    if (!which) {                               /* the hint: a lamp, lit */
-        art_ellipse(f, ART_PART, 0.5f, 0.42f, 0.19f, 0.19f);
-        const float neck[] = {0.38f, 0.54f, 0.62f, 0.54f, 0.585f, 0.68f, 0.415f, 0.68f};
-        art_poly(f, ART_PART, neck, 4);
-        art_rect(f, ART_PART, 0.415f, 0.70f, 0.585f, 0.74f);
-        art_rect(f, ART_PART, 0.44f, 0.76f, 0.56f, 0.80f);
-        for (int i = 0; i < 5; i++) {           /* its rays */
-            float a = (90 + (i - 2) * 40) * PI_F / 180, c = cosf(a), s = -sinf(a);
-            mjt_band(f, ART_PART, 0.5f + c * 0.26f, 0.42f + s * 0.26f, 0.5f + c * 0.34f, 0.42f + s * 0.34f, 0.045f);
-        }
-    } else {                                    /* the shuffle: two arrows crossing */
-        mjt_band(f, ART_PART, 0.18f, 0.34f, 0.40f, 0.34f, 0.075f);
-        mjt_band(f, ART_PART, 0.38f, 0.34f, 0.62f, 0.66f, 0.075f);
-        mjt_band(f, ART_PART, 0.60f, 0.66f, 0.70f, 0.66f, 0.075f);
-        mjt_band(f, ART_PART, 0.18f, 0.66f, 0.40f, 0.66f, 0.075f);
-        mjt_band(f, ART_PART, 0.38f, 0.66f, 0.62f, 0.34f, 0.075f);
-        mjt_band(f, ART_PART, 0.60f, 0.34f, 0.70f, 0.34f, 0.075f);
-        const float a1[] = {0.68f, 0.22f, 0.84f, 0.34f, 0.68f, 0.46f}, a2[] = {0.68f, 0.54f, 0.84f, 0.66f, 0.68f, 0.78f};
-        art_poly(f, ART_PART, a1, 3);
-        art_poly(f, ART_PART, a2, 3);
-    }
+    art_band(f, ART_PART, 0.18f, 0.34f, 0.40f, 0.34f, 0.075f);
+    art_band(f, ART_PART, 0.38f, 0.34f, 0.62f, 0.66f, 0.075f);
+    art_band(f, ART_PART, 0.60f, 0.66f, 0.70f, 0.66f, 0.075f);
+    art_band(f, ART_PART, 0.18f, 0.66f, 0.40f, 0.66f, 0.075f);
+    art_band(f, ART_PART, 0.38f, 0.66f, 0.62f, 0.34f, 0.075f);
+    art_band(f, ART_PART, 0.60f, 0.34f, 0.70f, 0.34f, 0.075f);
+    const float a1[] = {0.68f, 0.22f, 0.84f, 0.34f, 0.68f, 0.46f}, a2[] = {0.68f, 0.54f, 0.84f, 0.66f, 0.68f, 0.78f};
+    art_poly(f, ART_PART, a1, 3);
+    art_poly(f, ART_PART, a2, 3);
     art_render(f, &st, size, size, (float)size, 0, 0, o);
     art_fig_free(f);
 }
@@ -232,30 +221,16 @@ static void bar_textures(void)
     int key = (int)ui.unit;
     if (made_bar == key) return;
     made_bar = key;
-    static const uint8_t house[3] = {54, 72, 64}, gold[3] = {150, 118, 46};
-    int d = (int)(1.7f * ui.unit), ic = (int)(1.05f * ui.unit), s = (int)(0.6f * ui.unit);
-    ui_free(&t_disc);
-    art_disc(d, house, 1, 0, ui_buf(d, d));
-    t_disc = ui_tex(d, d, ui_buf(d, d));
-    ui_free(&t_disc_on);
-    art_disc(d, gold, 1, 0, ui_buf(d, d));
-    t_disc_on = ui_tex(d, d, ui_buf(d, d));
-    for (int i = 0; i < 2; i++) {
-        ui_free(&t_icon[i]);
-        icon_pic(i, ic, ui_buf(ic, ic));
-        t_icon[i] = ui_tex(ic, ic, ui_buf(ic, ic));
-        SDL_SetTextureColorMod(t_icon[i], 252, 244, 226);
-    }
+    int s = (int)(0.6f * ui.unit);
     ui_free(&t_small);
     token(0, s, ui_buf(s, s));
     t_small = ui_tex(s, s, ui_buf(s, s));
 }
 
-static void button(float x, float y, float r, int icon, int on)
+static void button(float x, float y, float r, int shuffle, int on)
 {
-    bar_textures();
-    ui_put_c(on ? t_disc_on : t_disc, x, y, 2 * r, 2 * r);
-    ui_put_c(t_icon[icon], x, y, 1.3f * r, 1.3f * r);
+    if (shuffle) ui_button_paint(x, y, 2 * r, paint_shuffle, 0, 0.65f, (on ? UI_ON : 0) | UI_TINT);
+    else ui_button(x, y, 2 * r, ICON_HINT, on ? UI_ON : 0);
 }
 
 /* the big shuffle button in the middle of the board, when no pair is left */

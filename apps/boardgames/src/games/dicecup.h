@@ -240,25 +240,17 @@ static inline void cup_home(int player, int players, float *fx, float *fy)
     }
 }
 
-/* ---- the felt's buttons: round, walnut, a cream picture on it ---------------------------------------------------- */
+/* ---- the felt's buttons: the shell's (ui_button), their pictures: throw, bank; stop is the shell's tick ---------- */
 enum { CUP_THROW, CUP_BANK, CUP_STOP, CUP_BUTTONS };
 
 static inline void cup_button_pic(int kind, int size, uint8_t *o)
 {
-    static const uint8_t walnut[3] = {104, 70, 46}, dark[3] = {52, 34, 22}, gold[3] = {232, 190, 92};
-    memset(o, 0, (size_t)size * size * 4);
-    art_fig *f = art_fig_new();
-    art_style st = race_style(walnut, dark, 0.035f, 0.35f);
-    art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.47f, 0.47f);
-    art_render(f, &st, size, size, (float)size, 0, 0, o);
-    art_fig_free(f);
-    int d = (int)(0.58f * size);
     if (kind == CUP_THROW) {                    /* a die in mid-air, turning, two marks of its flight */
-        cup_paint_die(o, size, size, 0.56f * size, 0.47f * size, d, 0, 5, -18);
-        f = art_fig_new();
+        art_die_blend(o, size, size, 0.56f * size, 0.47f * size, (int)(0.58f * size), 0, 5, -18);
+        art_fig *f = art_fig_new();
         art_arc(f, ART_PART, 0.5f, 0.5f, 0.33f, 0.37f, 150, 200);
         art_arc(f, ART_PART, 0.5f, 0.5f, 0.24f, 0.28f, 155, 195);
-        st = race_style(CUP_CREAM, CUP_CREAM, 0, 0);
+        art_style st = art_flat(CUP_CREAM, CUP_CREAM, 0, 0);
         uint8_t *b = calloc((size_t)size * size, 4);
         if (b) {
             art_render(f, &st, size, size, (float)size, -0.06f * size, 0.02f * size, b);
@@ -267,64 +259,24 @@ static inline void cup_button_pic(int kind, int size, uint8_t *o)
         }
         art_fig_free(f);
     } else if (kind == CUP_BANK) {              /* a stack of gold coins */
-        f = art_fig_new();
+        static const uint8_t gold[3] = {232, 190, 92}, ink[3] = {120, 84, 30};
+        art_fig *f = art_fig_new();
         for (int k = 0; k < 4; k++) {
             float y = 0.68f - 0.11f * k;
             art_rect(f, ART_PART, 0.29f, y - 0.05f, 0.71f, y + 0.02f);
             art_ellipse(f, ART_PART, 0.5f, y + 0.02f, 0.21f, 0.07f);
             art_ellipse(f, ART_PART, 0.5f, y - 0.05f, 0.21f, 0.07f);
         }
-        st = race_style(gold, (const uint8_t[3]){120, 84, 30}, 0.025f, 0.3f);
-        uint8_t *b = calloc((size_t)size * size, 4);
-        if (b) {
-            art_render(f, &st, size, size, (float)size, 0, 0, b);
-            art_blend(o, size, size, b, size, size, 0, 0);
-            free(b);
-        }
-        art_fig_free(f);
-    } else {                                    /* a check mark: done */
-        f = art_fig_new();
-        static const float tick[] = {0.25f, 0.52f, 0.33f, 0.44f, 0.45f, 0.56f, 0.70f, 0.29f, 0.78f, 0.37f, 0.45f,
-                                     0.72f};
-        art_poly(f, ART_PART, tick, 6);
-        st = race_style(CUP_CREAM, CUP_CREAM, 0, 0.1f);
-        uint8_t *b = calloc((size_t)size * size, 4);
-        if (b) {
-            art_render(f, &st, size, size, (float)size, 0, 0, b);
-            art_blend(o, size, size, b, size, size, 0, 0);
-            free(b);
-        }
-        art_fig_free(f);
+        art_fig_paint(o, size, f, gold, ink, 0.025f, 0.3f);
     }
 }
 
-/* a button's picture, at a size (made once, remade when the size changes) */
-static inline SDL_Texture *cup_button(int kind, int size)
-{
-    static SDL_Texture *t[CUP_BUTTONS];
-    static int made;
-    if (size < 4 || kind < 0 || kind >= CUP_BUTTONS) return NULL;
-    if (made != size) {
-        for (int k = 0; k < CUP_BUTTONS; k++) ui_free(&t[k]);
-        made = size;
-    }
-    if (!t[kind]) {
-        cup_button_pic(kind, size, ui_buf(size, size));
-        t[kind] = ui_tex(size, size, ui_buf(size, size));
-    }
-    return t[kind];
-}
-
-/* a button on the screen: lit (it can be pressed: a gold light round it) or dimmed, turned by deg */
+/* a button on the felt: lit (it can be pressed: a gold light round it) or dimmed, upside down for the top player */
 static inline void cup_button_at(int kind, float cx, float cy, float d, int lit, float deg)
 {
-    SDL_Texture *t = cup_button(kind, (int)(d + 0.5f));
-    if (!t) return;
-    if (lit) ui_mark_gold(cx, cy, 1.6f * d);
-    ui_shadow_flat(cx, cy, d * 1.05f, d * 1.05f, lit ? 0.7f : 0.35f);
-    SDL_SetTextureAlphaMod(t, lit ? 255 : 120);
-    ui_put_rot(t, cx, cy, d, d, deg);
-    SDL_SetTextureAlphaMod(t, 255);
+    int how = (lit ? UI_LIT : UI_DIM) | (deg != 0 ? UI_UPSIDE : 0);
+    if (kind == CUP_STOP) ui_button(cx, cy, d, ICON_TICK, how);
+    else ui_button_paint(cx, cy, d, cup_button_pic, kind, 1, how);
 }
 
 /* ---- a chip (421's jetons): a bone token, its rim turned, a ring inlaid ------------------------------------------ */

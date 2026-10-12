@@ -428,14 +428,8 @@ static void thumb(int variant, int size, uint8_t *rgba)
         cup_paint_die(rgba, size, size, x, y, d, 0, faces[i], (float)((i * 37) % 40 - 20));
     }
     int bsz = (int)(0.24f * size);
-    uint8_t *b = malloc((size_t)bsz * bsz * 4);
-    if (b) {
-        cup_button_pic(CUP_BANK, bsz, b);
-        art_blend(rgba, size, size, b, bsz, bsz, (int)(0.2f * size) - bsz / 2, (int)(0.86f * size) - bsz / 2);
-        cup_button_pic(CUP_THROW, bsz, b);
-        art_blend(rgba, size, size, b, bsz, bsz, (int)(0.8f * size) - bsz / 2, (int)(0.86f * size) - bsz / 2);
-        free(b);
-    }
+    ui_button_pic(rgba, size, size, 0.2f * size, 0.86f * size, bsz, cup_button_pic, CUP_BANK, 1, 0);
+    ui_button_pic(rgba, size, size, 0.8f * size, 0.86f * size, bsz, cup_button_pic, CUP_THROW, 1, 0);
 }
 
 static const game farkle_game = {

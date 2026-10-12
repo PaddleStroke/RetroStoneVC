@@ -171,6 +171,51 @@ void art_render(const art_fig *f, const art_style *st, int w, int h, float scale
         }
 }
 
+void art_fig_blend(uint8_t *o, int pw, int ph, const art_fig *f, const art_style *st, int x, int y, int w, float a)
+{
+    if (w < 2) return;
+    uint8_t *b = malloc((size_t)w * w * 4);
+    if (!b) return;
+    art_render(f, st, w, w, (float)w, 0, 0, b);
+    if (a < 1)
+        for (int i = 0; i < w * w; i++) b[4 * i + 3] = (uint8_t)(b[4 * i + 3] * a);
+    art_blend(o, pw, ph, b, w, w, x, y);
+    free(b);
+}
+
+void art_band(art_fig *f, int role, float x0, float y0, float x1, float y1, float wd)
+{
+    float dx = x1 - x0, dy = y1 - y0, l = hypotf(dx, dy) + 1e-6f, nx = -dy / l * wd / 2, ny = dx / l * wd / 2;
+    const float q[] = {x0 + nx, y0 + ny, x1 + nx, y1 + ny, x1 - nx, y1 - ny, x0 - nx, y0 - ny};
+    art_poly(f, role, q, 4);
+}
+
+void art_head(art_fig *f, int role, float x, float y, float deg, float l)
+{
+    float a = deg * PI_F / 180, c = cosf(a), s = sinf(a), bx = x - c * l * 0.45f, by = y - s * l * 0.45f;
+    const float q[] = {x + c * l * 0.55f, y + s * l * 0.55f, bx - s * l * 0.5f, by + c * l * 0.5f, bx + s * l * 0.5f,
+                       by - c * l * 0.5f};
+    art_poly(f, role, q, 3);
+}
+
+art_style art_flat(const uint8_t fill[3], const uint8_t ink[3], float line, float light)
+{
+    art_style st = {{0}, {0}, {0}, {0}, light, line};
+    for (int k = 0; k < 3; k++) {
+        st.fill[k] = fill[k];
+        st.outer[k] = st.inner[k] = st.mark[k] = ink[k];
+    }
+    return st;
+}
+
+void art_fig_paint(uint8_t *o, int size, art_fig *f, const uint8_t fill[3], const uint8_t ink[3], float line,
+                   float light)
+{
+    art_style st = art_flat(fill, ink ? ink : fill, line, light);
+    art_fig_blend(o, size, size, f, &st, 0, 0, size, 1);
+    art_fig_free(f);
+}
+
 /* ---- the chess pieces -------------------------------------------------------------------------------------------- */
 static void base(art_fig *f)
 {
@@ -374,6 +419,18 @@ void art_die(int value, int player, int size, uint8_t *rgba)
     art_fig_free(f);
 }
 
+void art_die_blend(uint8_t *o, int w, int h, float cx, float cy, int size, int player, int value, float deg)
+{
+    if (size < 3) return;
+    uint8_t *b = malloc((size_t)size * size * 4);
+    if (!b) return;
+    art_flat_shadow(size, b);
+    art_blend_rot(o, w, h, b, size, size, cx + size / 14.0f, cy + size / 10.0f, 0);
+    art_die(value, player, size, b);
+    art_blend_rot(o, w, h, b, size, size, cx, cy, deg);
+    free(b);
+}
+
 /* ---- the board --------------------------------------------------------------------------------------------------- */
 static float hash(int a, int b)
 {
@@ -512,6 +569,29 @@ void art_icon(int which, int size, uint8_t *rgba)
         art_poly(f, ART_PART, tri, 3);
         break;
     }
+    case ICON_HINT: {                               /* a lamp, lit: its bulb, its neck, its screw, its rays */
+        art_ellipse(f, ART_PART, 0.5f, 0.42f, 0.19f, 0.19f);
+        const float neck[] = {0.38f, 0.54f, 0.62f, 0.54f, 0.585f, 0.68f, 0.415f, 0.68f};
+        art_poly(f, ART_PART, neck, 4);
+        art_rect(f, ART_PART, 0.415f, 0.70f, 0.585f, 0.74f);
+        art_rect(f, ART_PART, 0.44f, 0.76f, 0.56f, 0.80f);
+        for (int i = 0; i < 5; i++) {
+            float a = (90 + (i - 2) * 40) * PI_F / 180, c = cosf(a), s = -sinf(a);
+            art_band(f, ART_PART, 0.5f + c * 0.26f, 0.42f + s * 0.26f, 0.5f + c * 0.34f, 0.42f + s * 0.34f, 0.045f);
+        }
+        break;
+    }
+    case ICON_TICK: {                               /* a tick */
+        const float tick[] = {0.17f, 0.53f, 0.29f, 0.41f, 0.42f, 0.55f, 0.72f, 0.22f, 0.84f, 0.34f, 0.42f, 0.78f};
+        art_poly(f, ART_PART, tick, 6);
+        break;
+    }
+    case ICON_ARROW: {                              /* an arrow pointing right */
+        const float head[] = {0.50f, 0.22f, 0.86f, 0.50f, 0.50f, 0.78f};
+        art_rect(f, ART_PART, 0.14f, 0.42f, 0.56f, 0.58f);
+        art_poly(f, ART_PART, head, 3);
+        break;
+    }
     case ICON_SOUND:
     case ICON_MUTE: {                               /* a loudspeaker, its waves (or a cross) */
         const float spk[] = {0.18f, 0.40f, 0.32f, 0.40f, 0.50f, 0.23f, 0.50f, 0.77f, 0.32f, 0.60f, 0.18f, 0.60f};
@@ -587,4 +667,35 @@ void art_blend(uint8_t *dst, int dw, int dh, const uint8_t *src, int sw, int sh,
             d[3] = (uint8_t)(oa * 255 + 0.5f);
         }
     }
+}
+
+void art_blend_rot(uint8_t *o, int w, int h, const uint8_t *src, int sw, int sh, float cx, float cy, float deg)
+{
+    float a = deg * PI_F / 180, c = cosf(a), s = sinf(a), r = 0.5f * hypotf((float)sw, (float)sh) + 1;
+    for (int y = (int)(cy - r); y <= (int)(cy + r); y++)
+        for (int x = (int)(cx - r); x <= (int)(cx + r); x++) {
+            if (x < 0 || y < 0 || x >= w || y >= h) continue;
+            float dx = x + 0.5f - cx, dy = y + 0.5f - cy;
+            float u = c * dx + s * dy + sw / 2.0f - 0.5f, v = -s * dx + c * dy + sh / 2.0f - 0.5f;
+            if (u < -1 || v < -1 || u > sw || v > sh) continue;
+            int u0 = (int)floorf(u), v0 = (int)floorf(v);
+            float fu = u - u0, fv = v - v0, px[4] = {0, 0, 0, 0};
+            for (int k = 0; k < 4; k++) {
+                int su = u0 + (k & 1), sv = v0 + (k >> 1);
+                if (su < 0 || sv < 0 || su >= sw || sv >= sh) continue;
+                float wk = (k & 1 ? fu : 1 - fu) * (k >> 1 ? fv : 1 - fv);
+                const uint8_t *q = src + 4 * ((size_t)sv * sw + su);
+                float al = q[3] / 255.0f * wk;
+                for (int ch = 0; ch < 3; ch++) px[ch] += q[ch] * al;
+                px[3] += al;
+            }
+            if (px[3] <= 0.001f) continue;
+            uint8_t *p = o + 4 * ((size_t)y * w + x);
+            float al = clampf(px[3], 0, 1), da = p[3] / 255.0f, oa = al + da * (1 - al);
+            for (int ch = 0; ch < 3; ch++) {
+                float sc = px[ch] / px[3];
+                p[ch] = (uint8_t)clampf((sc * al + p[ch] * da * (1 - al)) / (oa > 0 ? oa : 1), 0, 255);
+            }
+            p[3] = (uint8_t)clampf(oa * 255, 0, 255);
+        }
 }

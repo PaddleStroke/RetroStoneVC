@@ -310,6 +310,110 @@ void ui_mark_dot(float cx, float cy, float d)
 void ui_mark_ring(float cx, float cy, float d) { ui_put_c(t_ring, cx, cy, d, d); }
 void ui_mark_glow(float cx, float cy, float d) { ui_put_c(t_glow, cx, cy, d, d); }
 
+void ui_mark_gold_a(float cx, float cy, float d, float a)
+{
+    SDL_SetTextureAlphaMod(t_gold, (Uint8)(255 * clampf(a, 0, 1) + 0.5f));
+    ui_put_c(t_gold, cx, cy, d, d);
+    SDL_SetTextureAlphaMod(t_gold, 255);
+}
+
+/* ---- the games' round buttons ------------------------------------------------------------------------------------ */
+#define BTN_CREAM 252, 244, 226                 /* the icons' tint, as the shell's buttons' */
+
+/* a button's disc: the shell's dark green, or its gold (kind bit 0); an ivory medallion inside the rim (bit 1) */
+static void paint_btn_disc(int kind, int size, uint8_t *o)
+{
+    static const uint8_t dark[3] = {54, 72, 64}, gold[3] = {150, 118, 46}, ivory[3] = {242, 234, 216};
+    art_disc(size, kind & 1 ? gold : dark, 1, 0, o);
+    if (!(kind & 2)) return;
+    int m = (int)(0.8f * size), off = (size - m) / 2;
+    uint8_t *in = malloc((size_t)m * m * 4);
+    if (!in) return;
+    art_disc(m, ivory, 1, 0, in);
+    art_blend(o, size, size, in, m, m, off, off);
+    free(in);
+}
+
+static void paint_btn_icon(int icon, int size, uint8_t *o) { art_icon(icon, size, o); }
+
+/* the buttons' pictures, made at the size shown (painter, kind, size), the least used one remade */
+static SDL_Texture *btn_tex(ui_painter paint, int kind, int size)
+{
+    enum { KEEP = 64 };
+    static struct { ui_painter paint; int kind, size; Uint32 used; SDL_Texture *t; } c[KEEP];
+    static Uint32 clock;
+    if (size < 2 || !paint) return NULL;
+    int lru = 0;
+    clock++;
+    for (int i = 0; i < KEEP; i++) {
+        if (c[i].t && c[i].paint == paint && c[i].kind == kind && c[i].size == size) {
+            c[i].used = clock;
+            return c[i].t;
+        }
+        if (!c[i].t) { lru = i; break; }
+        if (c[i].used < c[lru].used) lru = i;
+    }
+    uint8_t *b = calloc((size_t)size * size, 4);   /* its own: a painter may use ui_buf() */
+    if (!b) return NULL;
+    paint(kind, size, b);
+    ui_free(&c[lru].t);
+    c[lru].t = ui_tex(size, size, b);
+    free(b);
+    c[lru].paint = paint;
+    c[lru].kind = kind;
+    c[lru].size = size;
+    c[lru].used = clock;
+    return c[lru].t;
+}
+
+void ui_button_paint(float cx, float cy, float d, ui_painter paint, int kind, float k, int how)
+{
+    if (how & UI_LIT) ui_mark_gold(cx, cy, 2.0f * d);
+    Uint8 a = how & UI_DIM ? 100 : 255;
+    SDL_Texture *disc = btn_tex(paint_btn_disc, (how & UI_ON ? 1 : 0) | (how & UI_IVORY ? 2 : 0), (int)(d + 0.5f));
+    if (disc) {
+        SDL_SetTextureAlphaMod(disc, a);
+        ui_put_c(disc, cx, cy, d, d);
+        SDL_SetTextureAlphaMod(disc, 255);
+    }
+    SDL_Texture *t = btn_tex(paint, kind, (int)(k * d));
+    if (!t) return;
+    if (how & UI_TINT) SDL_SetTextureColorMod(t, BTN_CREAM);
+    SDL_SetTextureAlphaMod(t, a);
+    if (how & UI_UPSIDE) ui_put_rot(t, cx, cy, k * d, k * d, 180);
+    else ui_put_c(t, cx, cy, k * d, k * d);
+    SDL_SetTextureAlphaMod(t, 255);
+    SDL_SetTextureColorMod(t, 255, 255, 255);
+}
+
+void ui_button(float cx, float cy, float d, int icon, int how)
+{
+    ui_button_paint(cx, cy, d, paint_btn_icon, icon, 0.62f, how | UI_TINT);
+}
+
+int ui_button_hit(float cx, float cy, float d, float x, float y) { return hypotf(x - cx, y - cy) <= 0.56f * d; }
+
+void ui_button_pic(uint8_t *o, int w, int h, float cx, float cy, int d, ui_painter paint, int kind, float k, int how)
+{
+    int s = (int)(k * d), x0 = (int)lroundf(cx - d / 2.0f), y0 = (int)lroundf(cy - d / 2.0f);
+    uint8_t *b = calloc((size_t)d * d, 4);
+    if (!b) return;
+    paint_btn_disc((how & UI_ON ? 1 : 0) | (how & UI_IVORY ? 2 : 0), d, b);
+    if (s >= 2 && paint) {
+        uint8_t *p = calloc((size_t)s * s, 4);
+        if (p) {
+            paint(kind, s, p);
+            static const uint8_t cream[3] = {BTN_CREAM};
+            for (int i = 0; i < s * s && (how & UI_TINT); i++)
+                for (int c = 0; c < 3; c++) p[4 * i + c] = (uint8_t)(p[4 * i + c] * cream[c] / 255);
+            art_blend(b, d, d, p, s, s, (d - s) / 2, (d - s) / 2);
+            free(p);
+        }
+    }
+    art_blend(o, w, h, b, d, d, x0, y0);
+    free(b);
+}
+
 void ui_sound(int s) { snd_play(s); }
 
 /* ---- chance: the shell's dice ------------------------------------------------------------------------------------ */
@@ -325,19 +429,40 @@ int ui_random(int n)
     return n > 0 ? (int)(rng % (uint32_t)n) : 0;
 }
 
-#define MAX_DICE 4
-#define DICE_MS 650
+#define DICE_MS UI_DICE_MS
 static struct {
-    int n, v[MAX_DICE], player[MAX_DICE], made;
-    float tilt[MAX_DICE];
+    int n, v[UI_MAX_DICE], player[UI_MAX_DICE];
+    float tilt[UI_MAX_DICE];
     Uint32 t0;
-    SDL_Texture *face[MAX_PLAYERS][7];
 } dice;
+
+/* the dice's faces at a few sizes, each face made when first shown */
+#define FACE_SIZES 4
+static SDL_Texture *die_face(int size, int player, int value)
+{
+    static struct { int size; SDL_Texture *t[MAX_PLAYERS][7]; } c[FACE_SIZES];
+    static int next;
+    int k;
+    for (k = 0; k < FACE_SIZES && c[k].size != size; k++) {}
+    if (k == FACE_SIZES) {
+        k = next++ % FACE_SIZES;
+        for (int p = 0; p < MAX_PLAYERS; p++)
+            for (int v = 0; v < 7; v++) ui_free(&c[k].t[p][v]);
+        c[k].size = size;
+    }
+    player = player < 0 ? 0 : player >= MAX_PLAYERS ? MAX_PLAYERS - 1 : player;
+    value = value < 1 ? 1 : value > 6 ? 6 : value;
+    if (!c[k].t[player][value]) {
+        art_die(value, player, size, ui_buf(size, size));
+        c[k].t[player][value] = ui_tex(size, size, ui_buf(size, size));
+    }
+    return c[k].t[player][value];
+}
 
 /* the dice set to their values and colours (players: one per die, or NULL: all `player`'s), tumbling or at rest */
 static void dice_set(int n, const int *values, const int *players, int player, int tumble)
 {
-    dice.n = n < 0 ? 0 : n > MAX_DICE ? MAX_DICE : n;
+    dice.n = n < 0 ? 0 : n > UI_MAX_DICE ? UI_MAX_DICE : n;
     for (int i = 0; i < dice.n; i++) {
         dice.v[i] = values[i];
         int p = players ? players[i] : player;
@@ -360,24 +485,21 @@ void ui_dice_show_each(int n, const int *values, const int *players) { dice_set(
 
 int ui_dice_busy(void) { return dice.n && ui_ms() - dice.t0 < DICE_MS; }
 
-static void dice_faces(int s)
+void ui_die_tumble(int t, int i, float *turn, float *lift)
 {
-    if (dice.made == s) return;
-    dice.made = s;
-    for (int p = 0; p < MAX_PLAYERS; p++)
-        for (int v = 1; v <= 6; v++) {
-            ui_free(&dice.face[p][v]);
-            art_die(v, p, s, ui_buf(s, s));
-            dice.face[p][v] = ui_tex(s, s, ui_buf(s, s));
-        }
+    float f = clampf(t / (float)DICE_MS, 0, 1);
+    *turn = (1 - f) * (1 - f) * 540 * (i & 1 ? -1 : 1);
+    *lift = (1 - f) * 0.6f * fabsf(sinf(f * 9.4f));
 }
+
+/* a tumbling die's face: they flicker */
+static int tumble_face(int i, int value) { return 1 + (int)((unsigned)(ui_ms() / 70 + i * 3 + value) % 6); }
 
 void ui_die_at(float cx, float cy, float size, int player, int value, float alpha)
 {
     int s = (int)size;
     if (s < 4 || value < 1 || value > 6) return;
-    dice_faces(s);
-    SDL_Texture *f = dice.face[player < 0 ? 0 : player >= MAX_PLAYERS ? MAX_PLAYERS - 1 : player][value];
+    SDL_Texture *f = die_face(s, player, value);
     Uint8 a = (Uint8)(255 * (alpha < 0 ? 0 : alpha > 1 ? 1 : alpha) + 0.5f);
     ui_shadow_flat(cx, cy, size * 1.1f, size * 1.1f, alpha);
     SDL_SetTextureAlphaMod(f, a);
@@ -385,24 +507,51 @@ void ui_die_at(float cx, float cy, float size, int player, int value, float alph
     SDL_SetTextureAlphaMod(f, 255);
 }
 
+void ui_die(float cx, float cy, float size, int player, int value, float deg, float lift, float alpha, float shade)
+{
+    int s = (int)(size + 0.5f);
+    if (s < 4) return;
+    SDL_Texture *f = die_face(s, player, value);
+    ui_shadow_flat(cx, cy, size * 1.1f, size * 1.1f, alpha * (lift > 0 ? 0.7f : 1));
+    Uint8 k = (Uint8)(255 * clampf(shade, 0, 1) + 0.5f);
+    SDL_SetTextureAlphaMod(f, (Uint8)(255 * clampf(alpha, 0, 1) + 0.5f));
+    SDL_SetTextureColorMod(f, k, k, k);
+    ui_put_rot(f, cx, cy - lift, size, size, deg);
+    SDL_SetTextureAlphaMod(f, 255);
+    SDL_SetTextureColorMod(f, 255, 255, 255);
+}
+
+int ui_die_thrown(float cx, float cy, float size, int player, int value, float deg, int i, int t, float shade)
+{
+    if (t >= DICE_MS) {
+        ui_die(cx, cy, size, player, value, deg, 0, 1, shade);
+        return 0;
+    }
+    float turn, lift;
+    ui_die_tumble(t < 0 ? 0 : t, i, &turn, &lift);
+    ui_die(cx, cy, size, player, tumble_face(i, value), deg + turn, lift * size, 1, 1);
+    need_frame = 1;
+    return 1;
+}
+
 void ui_dice_draw(float cx, float cy, float size, unsigned used)
 {
     int s = (int)size;
     if (s < 4 || !dice.n) return;
-    dice_faces(s);
     int rolling = ui_dice_busy();
-    float t = rolling ? (ui_ms() - dice.t0) / (float)DICE_MS : 1, gap = 0.3f * size;
-    float x = cx - (dice.n * size + (dice.n - 1) * gap) / 2 + size / 2;
+    float gap = 0.3f * size, x = cx - (dice.n * size + (dice.n - 1) * gap) / 2 + size / 2;
     for (int i = 0; i < dice.n; i++, x += size + gap) {
         int v = dice.v[i];
         float a = dice.tilt[i], y = cy;
         if (rolling) {                          /* tumbling: the faces flicker, the die turns and bounces */
-            v = 1 + (int)((ui_ms() / 70 + i * 3 + dice.v[i]) % 6);
-            a += (1 - t) * (1 - t) * 540 * (i & 1 ? -1 : 1);
-            y -= (1 - t) * size * 0.6f * fabsf(sinf(t * 9.4f));
+            float turn, lift;
+            ui_die_tumble((int)(ui_ms() - dice.t0), i, &turn, &lift);
+            v = tumble_face(i, dice.v[i]);
+            a += turn;
+            y -= lift * size;
         }
         Uint8 alpha = used >> i & 1 ? 110 : 255;
-        SDL_Texture *f = dice.face[dice.player[i]][v];
+        SDL_Texture *f = die_face(s, dice.player[i], v);
         ui_shadow_flat(x, cy, size * 1.1f, size * 1.1f, alpha / 255.0f);
         SDL_SetTextureAlphaMod(f, alpha);
         ui_put_rot(f, x, y, size, size, a);
@@ -414,41 +563,51 @@ void ui_dice_draw(float cx, float cy, float size, unsigned used)
 void ui_sound_soft(int s, float volume) { snd_play_vol(s, volume); }
 void ui_sound_later(int s, int ms) { snd_play_at(s, 1, ms); }
 
-/* digits: white textures per height (a few heights kept), tinted when drawn, turned round their centre */
-static void number(float cx, float cy, float h, int value, int light, double deg)
+/* digits: white textures per height and weight (a few kept), tinted when drawn, turned round their centre */
+static const uint8_t NUM_LIGHT[3] = {246, 238, 220}, NUM_DARK[3] = {40, 34, 30};
+
+static void digits_at(float cx, float cy, float h, int value, const uint8_t rgb[3], Uint8 alpha, int how, double deg)
 {
-    static struct { int h; SDL_Texture *d[10]; } cache[4];
+    enum { KEEP = 6 };
+    static struct { int h, regular; SDL_Texture *d[10]; } cache[KEEP];
     static int next;
-    int ih = (int)(h + 0.5f), k;
+    int ih = (int)(h + 0.5f), k, regular = how & UI_NUM_REGULAR;
     if (ih < 4) return;
-    for (k = 0; k < 4 && cache[k].h != ih; k++) {}
-    if (k == 4) {
-        k = next++ & 3;
+    for (k = 0; k < KEEP && (cache[k].h != ih || cache[k].regular != regular); k++) {}
+    if (k == KEEP) {
+        k = next++ % KEEP;
         for (int i = 0; i < 10; i++) ui_free(&cache[k].d[i]);
         int w = (int)(0.62f * ih + 1);
         static const uint8_t white[3] = {255, 255, 255};
-        for (int i = 0; i < 10; i++) {          /* the font's bold digits (help/glyphs.txt keeps them), tinted */
+        for (int i = 0; i < 10; i++) {          /* the font's digits (help/glyphs.txt keeps them), tinted */
             uint8_t *b = ui_buf(w, ih);
             memset(b, 0, (size_t)w * ih * 4);
-            text_glyph('0' + i, ih * 1.2f, 1, white, b, w, ih);
+            text_glyph('0' + i, ih * 1.2f, !regular, white, b, w, ih);
             cache[k].d[i] = ui_tex(w, ih, b);
         }
         cache[k].h = ih;
+        cache[k].regular = regular;
     }
     char s[12];
     int n = snprintf(s, sizeof s, "%d", value < 0 ? 0 : value);
-    float dw = 0.62f * ih, step = 0.74f * ih, x = cx - (step * (n - 1) + dw) / 2;
+    float dw = 0.62f * ih, step = (how & UI_NUM_TIGHT ? 0.66f : 0.74f) * ih, x = cx - (step * (n - 1) + dw) / 2;
     float ca = cosf((float)(deg * 3.14159265 / 180)), sa = sinf((float)(deg * 3.14159265 / 180));
     for (int i = 0; i < n; i++, x += step) {
         SDL_Texture *t = cache[k].d[s[i] - '0'];
-        if (light) SDL_SetTextureColorMod(t, 246, 238, 220);
-        else SDL_SetTextureColorMod(t, 40, 34, 30);
+        SDL_SetTextureColorMod(t, rgb[0], rgb[1], rgb[2]);
+        SDL_SetTextureAlphaMod(t, alpha);
         if (deg == 0) ui_put(t, x, cy - h / 2, dw, (float)ih);
         else {                                  /* the digit's centre turned round the number's */
             float ox = x + dw / 2 - cx;
             ui_put_rot(t, cx + ox * ca, cy + ox * sa, dw, (float)ih, deg);
         }
+        SDL_SetTextureAlphaMod(t, 255);
     }
+}
+
+static void number(float cx, float cy, float h, int value, int light, double deg)
+{
+    digits_at(cx, cy, h, value, light ? NUM_LIGHT : NUM_DARK, 255, 0, deg);
 }
 
 void ui_number(float cx, float cy, float h, int value, int light) { number(cx, cy, h, value, light, 0); }
@@ -456,6 +615,18 @@ void ui_number(float cx, float cy, float h, int value, int light) { number(cx, c
 void ui_number_rot(float cx, float cy, float h, int value, int light, double deg)
 {
     number(cx, cy, h, value, light, deg);
+}
+
+void ui_number_ex(float cx, float cy, float h, int value, const uint8_t rgb[3], Uint8 alpha, int how)
+{
+    digits_at(cx, cy, h, value, rgb, alpha, how, 0);
+}
+
+float ui_number_w(int value, float h)
+{
+    int n = 1;
+    for (int v = value; v >= 10; v /= 10) n++;
+    return (0.74f * (n - 1) + 0.62f) * h;
 }
 
 void ui_number_signed(float cx, float cy, float h, int value, int light, int plus)
@@ -474,13 +645,24 @@ void ui_number_signed(float cx, float cy, float h, int value, int light, int plu
     number(x + sw + gap + digits / 2, cy, h, a, light, 0);
 }
 
+float ui_bar_number(box b, SDL_Texture *piece, int n)
+{
+    float sz = 0.6f * ui.unit, dh = 0.46f * ui.unit, cy = b.y + b.h / 2, x = b.x;
+    if (n < 0) n = 0;
+    if (piece) {
+        ui_put(piece, x, cy - sz / 2, sz, sz);
+        x = x + sz + 0.12f * ui.unit;
+    }
+    int digits = 1;
+    for (int v = n; v >= 10; v /= 10) digits++;
+    float w = (0.74f * (digits - 1) + 0.62f) * dh;
+    ui_number(x + w / 2, cy, dh, n, 1);
+    return x + w;
+}
+
 void ui_bar_count(box b, SDL_Texture *piece, int n)
 {
-    if (n <= 0) return;
-    float sz = 0.6f * ui.unit, dh = 0.46f * ui.unit, cy = b.y + b.h / 2;
-    int digits = n >= 100 ? 3 : n >= 10 ? 2 : 1;
-    ui_put(piece, b.x, cy - sz / 2, sz, sz);
-    ui_number(b.x + sz + 0.12f * ui.unit + (0.74f * (digits - 1) + 0.62f) * dh / 2, cy, dh, n, 1);
+    if (n > 0) ui_bar_number(b, piece, n);
 }
 
 /* ---- pictures ---------------------------------------------------------------------------------------------------- */
@@ -1063,6 +1245,13 @@ static void draw_bar(int p)
     SDL_Rect src = {0, 0, (int)b.w + 2 * bar_m, (int)b.h + 2 * bar_m};   /* this bar's part (bars may share a side) */
     SDL_FRect d = {b.x + b.w / 2 - src.w / 2.0f, b.y + b.h / 2 - src.h / 2.0f, (float)src.w, (float)src.h};
     SDL_RenderCopyExF(ui.r, t_bartex, &src, &d, 180, NULL, SDL_FLIP_NONE);
+}
+
+box ui_bar_box(int player, int *upside)
+{
+    int ok = cur >= 0 && player >= 0 && player < ui.players;
+    if (upside) *upside = ok && ui_upside(player) && t_bartex;
+    return ok ? L.bar[player] : (box){0, 0, 0, 0};
 }
 
 /* the players who share the win (the end card, the bars): winners() when the game has it, else gs_winner(); 0: none
@@ -1945,7 +2134,8 @@ int main(int argc, char **argv)
     for (int i = 1; i < argc; i++)
         if (!strcmp(argv[i], "--shot")) return shot(argc, argv);
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
-    SDL_SetHint(SDL_HINT_ORIENTATIONS, "Portrait PortraitUpsideDown");
+    /* every way round: with a resizable window SDL would otherwise lock Android to portrait (the manifest ignored) */
+    SDL_SetHint(SDL_HINT_ORIENTATIONS, "LandscapeLeft LandscapeRight Portrait PortraitUpsideDown");
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS)) { fprintf(stderr, "%s\n", SDL_GetError()); return 1; }
     const char *lang = NULL;                    /* --lang fr: another language than the device's */
     for (int i = 1; i + 1 < argc; i++)

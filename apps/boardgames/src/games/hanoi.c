@@ -443,10 +443,10 @@ static void bar(int player, box b)
     float need = (0.74f * (digits - 1) + 0.62f) * dh2 + 0.35f * u + sz + 0.12f * u + nw;
     int room = b.w >= need + sz + 0.12f * u;
     if (b.w < need) {
-        puz_bar_moves(b, NULL, G.moves);
+        ui_bar_number(b, NULL, G.moves);
         return;
     }
-    puz_bar_moves(b, room ? t_small : NULL, G.moves);
+    ui_bar_number(b, room ? t_small : NULL, G.moves);
     int perfect = hn_solved(&G) && G.moves == best;
     ui_mark_gold(x - 0.12f * u - sz / 2, cy, (perfect ? 2.4f : 1.5f) * sz);
     ui_put(t_tower, x - 0.12f * u - sz, cy - sz / 2, sz, sz);
