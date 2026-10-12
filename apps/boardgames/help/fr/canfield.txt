@@ -1,0 +1,21 @@
+Canfield
+# Le but
+Monter les 52 cartes sur les quatre fondations, une par couleur. Un jeu pour un joueur.
+# La mise en place
+- La réserve, à gauche : 13 cartes, seule celle du dessus est face visible.
+- Une carte face visible sur la première fondation : son rang ouvre toutes les fondations.
+- Quatre piles du tableau, d'une carte chacune, sous les fondations.
+- Les 34 autres cartes forment la pioche, face cachée, en haut à gauche ; à côté, le talon.
+# Déplacer les cartes
+- Les fondations commencent par les quatre cartes du rang de la première carte et montent par couleur, en boucle : après le roi vient l'as.
+- Sur le tableau, pose une carte d'un rang de moins, rouge sur noir ou noir sur rouge, en boucle aussi : un roi noir sur un as rouge.
+- Déplace la carte du dessus d'une pile, ou une pile entière d'un coup, jamais une partie de pile.
+- La carte du dessus de la réserve peut aller sur une fondation ou sur le tableau.
+- Une pile vidée est aussitôt remplie par la carte du dessus de la réserve. Quand la réserve est vide, n'importe quelle carte peut l'occuper.
+- Une carte posée sur une fondation y reste.
+# La pioche
+Touche la pioche pour retourner trois cartes sur le talon (moins à la fin) ; seule la carte du dessus du talon se joue. Quand la pioche est vide, touche sa place pour retourner le talon, autant de fois que tu veux.
+# La fin de la partie
+Tu gagnes quand toutes les cartes sont sur les fondations. Dès que la pioche, le talon et la réserve sont vides et que les cartes restantes peuvent toutes monter à la suite, elles montent toutes seules. Vide d'abord la réserve : c'est la clé du jeu.
+# Jouer sur l'appareil
+Touche une carte pour l'envoyer à sa meilleure place : une fondation si elle peut y aller, sinon le tableau. Touche la première carte d'une pile pour déplacer toute la pile. Une seconde touche rapide envoie une carte seulement sur une fondation. Tu peux aussi faire glisser des cartes où tu veux. La lampe de ta barre montre un coup utile ; le nombre à côté de tes cartes compte tes coups. Annuler reprend les coups, jusqu'à la donne.

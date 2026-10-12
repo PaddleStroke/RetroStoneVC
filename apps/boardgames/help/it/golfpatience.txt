@@ -1,0 +1,17 @@
+Solitario Golf
+# Lo scopo
+Svuotare le sette colonne giocando le loro carte sugli scarti, un valore sopra o sotto. Un gioco per un giocatore, da non confondere con il gioco di carte Golf.
+# La disposizione
+- Sette colonne di cinque carte, tutte scoperte.
+- Una carta scoperta sugli scarti; le altre 16 carte formano il mazzo, coperto, accanto.
+# Muovere le carte
+- Si muove solo la carta in cima a una colonna. Va sugli scarti se ha un valore in più o in meno della carta in cima agli scarti, di qualunque seme: un 7 o un 9 su un 8.
+- La regola classica: l'asso e il re non si seguono, quindi su un re va solo una donna e su un asso solo un 2. L'altra scelta, in cerchio: anche l'asso e il re si seguono.
+# Il mazzo
+Quando nessuna carta può andare, tocca il mazzo per girare la sua prima carta sugli scarti. Il mazzo si scorre una volta sola.
+# Il punteggio
+Come nel golf, meno è meglio. Il numero accanto agli scarti conta le carte rimaste nelle colonne. Quando tutte le colonne sono vuote, il punteggio scende sotto zero: meno le carte rimaste nel mazzo.
+# La fine della partita
+Vinci quando le colonne sono vuote. La partita è persa quando il mazzo è vuoto e nessuna carta può andare. Non tutte le smazzate si possono vincere.
+# Giocare sul dispositivo
+Tocca una carta in cima per giocarla sugli scarti, o trascinala lì. La lampada nella tua barra mostra una buona mossa: la carta che apre la serie più lunga che vede. Il numero accanto alle tue carte conta le tue mosse. Annulla ritira le mosse, fino alla smazzata.

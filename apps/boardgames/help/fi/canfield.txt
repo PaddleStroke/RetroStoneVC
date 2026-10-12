@@ -1,0 +1,21 @@
+Canfield
+# Tavoite
+Siirrä kaikki 52 korttia neljään peruspinoon, yksi kullekin maalle. Peli yhdelle pelaajalle.
+# Asetelma
+- Reservi vasemmalla: 13 korttia, vain päällimmäinen kuvapuoli ylöspäin.
+- Yksi kortti kuvapuoli ylöspäin ensimmäisessä peruspinossa: sen arvosta alkavat kaikki peruspinot.
+- Neljä pelipinoa, joissa kussakin on yksi kortti, peruspinojen alla.
+- Loput 34 korttia ovat pakka, kuvapuoli alaspäin, vasemmalla ylhäällä; sen vieressä on poistopino.
+# Korttien siirtäminen
+- Peruspinot alkavat ensimmäisen kortin arvoisilla neljällä kortilla ja kasvavat maittain, kulman ympäri: kuninkaan jälkeen tulee ässä.
+- Pelipinoon voi laittaa kortin, joka on yhtä pienempi ja eriväristä, myös kulman ympäri: musta kuningas punaisen ässän päälle.
+- Siirrä pinon päällimmäinen kortti tai koko pino kerralla, ei koskaan osaa siitä.
+- Reservin päällimmäinen kortti voi mennä peruspinoon tai pelipinoon.
+- Tyhjäksi jäänyt pelipino täytetään heti reservin päällimmäisellä kortilla. Kun reservi on tyhjä, minkä tahansa kortin voi laittaa siihen.
+- Peruspinossa oleva kortti jää sinne.
+# Pakka
+Napauta pakkaa kääntääksesi kolme korttia poistopinoon (lopussa vähemmän); vain poistopinon päällimmäistä korttia voi pelata. Kun pakka on tyhjä, napauta sen paikkaa kääntääksesi poistopinon takaisin pakaksi, niin monta kertaa kuin haluat.
+# Pelin loppu
+Voitat, kun kaikki kortit ovat peruspinoissa. Heti kun pakka, poistopino ja reservi ovat tyhjät ja loput kortit pääsevät nousemaan vuorotellen, ne nousevat itsestään. Tyhjennä reservi ensin: se on pelin avain.
+# Pelaaminen laitteella
+Napauta korttia lähettääksesi sen parhaaseen paikkaansa: peruspinoon, jos se sopii sinne, muuten pelipinoon. Napauta pinon ensimmäistä korttia siirtääksesi koko pinon. Nopea toinen napautus lähettää kortin vain peruspinoon. Voit myös vetää kortteja minne haluat. Lamppu palkissasi näyttää hyödyllisen siirron; korttiesi vieressä oleva luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.

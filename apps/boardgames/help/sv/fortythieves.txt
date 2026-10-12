@@ -1,0 +1,18 @@
+Fyrtio rövare
+# Målet
+Få upp alla 104 korten från två kortlekar på de åtta grundhögarna, två för varje färg, från ess till kung. Ett spel för en spelare, och ett svårt.
+# Uppläggningen
+- Tio kolumner med fyra kort, alla med framsidan upp.
+- De andra 64 korten är talongen, med baksidan upp, längst upp till vänster; bredvid ligger slänghögen.
+- De åtta grundhögarna ligger överst, tomma från början.
+# Flytta kort
+- På en kolumn läggs ett kort som är ett steg lägre och i samma färg: klöver 6 på klöver 7.
+- Bara ett kort flyttas åt gången, aldrig en följd.
+- Vilket kort som helst får fylla en tom kolumn.
+- Ett kort på en grundhög ligger kvar där.
+# Talongen
+Tryck på talongen för att vända upp ett kort på slänghögen; slänghögens översta kort kan spelas. Talongen går bara igenom en gång: det blir ingen ny giv.
+# Partiets slut
+Du vinner när alla kort ligger på grundhögarna. Så snart talongen och slänghögen är tomma och resten av korten kan gå upp ett efter ett går de upp av sig själva. Få givar går ut: tänk framåt och spara dina tomma kolumner.
+# Spela på enheten
+Tryck på ett översta kort för att skicka det till sin bästa plats: en grundhög, nästa kort i samma färg eller en tom kolumn. Ett snabbt andra tryck skickar ett kort bara till en grundhög. Du kan också dra ett kort dit du vill. Lampan i ditt fält visar ett nyttigt drag; talet bredvid dina kort räknar dina drag. Ångra tar tillbaka drag, ända till given.

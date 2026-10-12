@@ -1,0 +1,17 @@
+Golf Solitaire
+# The aim
+Clear the seven columns by playing their cards onto the waste, one rank up or down. A game for one player, not to be mixed up with the card game Golf.
+# The layout
+- Seven columns of five cards, all face up.
+- One card face up on the waste; the other 16 cards are the stock, face down, next to it.
+# Moving cards
+- Only the top card of a column can move. It goes onto the waste if it is one rank higher or lower than the top card of the waste, whatever its suit: a 7 or a 9 on an 8.
+- The classic rule: an ace and a king do not follow each other, so only a queen goes on a king and only a 2 on an ace. The other choice, round the corner: an ace and a king follow each other too.
+# The stock
+When no card can go, tap the stock to turn its top card onto the waste. The stock is gone through only once.
+# The score
+As in golf, the fewer the better. The number next to the waste counts the cards left in the columns. When all the columns are cleared, the score is the cards left in the stock, below zero.
+# The end of the game
+You win when the columns are cleared. The game is over when the stock is empty and no card can go. Not every deal can be won.
+# Playing on the device
+Tap a top card to play it onto the waste, or drag it there. The lamp in your bar shows a good move: the card that starts the longest run it can see. The number next to your cards counts your moves. Undo takes back moves, all the way to the deal.

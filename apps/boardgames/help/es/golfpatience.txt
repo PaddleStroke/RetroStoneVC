@@ -1,0 +1,17 @@
+Solitario Golf
+# El objetivo
+Vaciar las siete columnas jugando sus cartas sobre el descarte, un rango arriba o abajo. Un juego para un jugador, que no hay que confundir con el juego de cartas Golf.
+# La disposición
+- Siete columnas de cinco cartas, todas boca arriba.
+- Una carta boca arriba en el descarte; las otras 16 cartas forman el mazo, boca abajo, a su lado.
+# Mover cartas
+- Solo se mueve la carta de arriba de una columna. Va al descarte si tiene un rango más o uno menos que la carta de arriba del descarte, sea cual sea su palo: un 7 o un 9 sobre un 8.
+- La regla clásica: el as y el rey no se siguen, así que sobre un rey solo va una reina y sobre un as solo un 2. La otra opción, en círculo: el as y el rey también se siguen.
+# El mazo
+Cuando ninguna carta puede ir, toca el mazo para poner su carta de arriba en el descarte. El mazo se recorre una sola vez.
+# La puntuación
+Como en el golf, cuanto menos, mejor. El número junto al descarte cuenta las cartas que quedan en las columnas. Cuando todas las columnas están vacías, la puntuación baja de cero: menos las cartas que quedan en el mazo.
+# El final de la partida
+Ganas cuando las columnas quedan vacías. La partida se pierde cuando el mazo está vacío y ninguna carta puede ir. No todos los repartos se pueden ganar.
+# Jugar en el dispositivo
+Toca una carta de arriba para jugarla en el descarte, o arrástrala hasta allí. La lámpara de tu barra muestra un buen movimiento: la carta que empieza la racha más larga que ve. El número junto a tus cartas cuenta tus movimientos. Deshacer retira movimientos, hasta el reparto.

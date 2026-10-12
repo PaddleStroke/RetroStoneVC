@@ -1,0 +1,17 @@
+Yukon
+# Tavoite
+Siirrä kaikki 52 korttia neljään peruspinoon, yksi kullekin maalle, ässästä kuninkaaseen. Peli yhdelle pelaajalle, tavallisen pasianssin sukulainen, mutta ilman pakkaa.
+# Asetelma
+- Seitsemän saraketta: ensimmäisessä on yksi kortti kuvapuoli ylöspäin; muissa on 1–6 korttia kuvapuoli alaspäin ja niiden päällä 5 korttia kuvapuoli ylöspäin.
+- Kaikki kortit jaetaan: pakkaa ei ole.
+- Neljä peruspinoa ovat oikealla ylhäällä, aluksi tyhjinä.
+# Korttien siirtäminen
+- Sarakkeeseen voi laittaa kortin, joka on yhtä pienempi ja eriväristä, punainen mustalle tai musta punaiselle: punainen 6 mustalle 7:lle.
+- Minkä tahansa näkyvän kortin voi siirtää yhdessä kaikkien sen päällä olevien korttien kanssa, vaikka ne eivät olisi järjestyksessä.
+- Vain kuningas, päällään olevine kortteineen, saa täyttää tyhjän sarakkeen.
+- Kun piilossa oleva kortti jää sarakkeen päällimmäiseksi, se kääntyy.
+- Peruspinon kortin voi siirtää takaisin sarakkeeseen.
+# Pelin loppu
+Voitat, kun kaikki kortit ovat peruspinoissa. Heti kun kaikki kortit ovat näkyvissä ja pääsevät nousemaan vuorotellen, ne nousevat itsestään. Jos jäät jumiin, kumoa siirtoja tai aloita uusi jako.
+# Pelaaminen laitteella
+Napauta korttia lähettääksesi sen päällä olevine kortteineen parhaaseen paikkaansa: peruspinoon, jos se sopii sinne, muuten sarakkeeseen. Nopea toinen napautus lähettää kortin vain peruspinoon. Voit myös vetää kortteja minne haluat. Lamppu palkissasi näyttää hyödyllisen siirron; korttiesi vieressä oleva luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.

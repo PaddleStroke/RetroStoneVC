@@ -1,0 +1,17 @@
+Solitário Golfe
+# O objetivo
+Esvaziar as sete colunas jogando as suas cartas no descarte, um valor acima ou abaixo. Um jogo para um jogador, que não se deve confundir com o jogo de cartas Golfe.
+# A disposição
+- Sete colunas de cinco cartas, todas voltadas para cima.
+- Uma carta voltada para cima no descarte; as outras 16 cartas formam o baralho, voltadas para baixo, ao lado.
+# Mover as cartas
+- Só a carta de cima de uma coluna se move. Vai para o descarte se tiver um valor acima ou abaixo da carta de cima do descarte, seja qual for o naipe: um 7 ou um 9 sobre um 8.
+- A regra clássica: o ás e o rei não se seguem, por isso só uma dama vai sobre um rei e só um 2 sobre um ás. A outra opção, a dar a volta: o ás e o rei também se seguem.
+# O baralho
+Quando nenhuma carta pode ir, toca no baralho para virar a sua carta de cima para o descarte. O baralho só se percorre uma vez.
+# A pontuação
+Como no golfe, quanto menos, melhor. O número ao lado do descarte conta as cartas que restam nas colunas. Quando todas as colunas estão vazias, a pontuação são as cartas que restam no baralho, abaixo de zero.
+# O fim do jogo
+Ganhas quando as colunas estão vazias. O jogo acaba quando o baralho está vazio e nenhuma carta pode ir. Nem todas as distribuições se podem ganhar.
+# Jogar no dispositivo
+Toca numa carta de cima para a jogar no descarte, ou arrasta-a até lá. A lâmpada na tua barra mostra uma boa jogada: a carta que começa a sequência mais longa que consegue ver. O número ao lado das tuas cartas conta as tuas jogadas. Anular desfaz as jogadas, até à distribuição.

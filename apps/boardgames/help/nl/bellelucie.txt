@@ -1,0 +1,16 @@
+La Belle Lucie
+# Het doel
+Alle 52 kaarten naar de vier aflegstapels brengen, één per kleur, oplopend van aas tot heer. Een spel voor één speler, ook Waaier genoemd.
+# De opstelling
+- De kaarten worden open gedeeld in 18 waaiers van drie; de laatste waaier heeft maar één kaart.
+- Bovenaan: de hand (om opnieuw te delen), de plaats van de merci en de vier aflegstapels.
+# Kaarten verplaatsen
+- Alleen de bovenste kaart van een waaier mag weg: naar zijn aflegstapel, of op de bovenste kaart van een andere waaier van dezelfde kleur en één hoger: harten 6 op harten 7.
+- Een lege waaier blijft leeg.
+# Opnieuw delen
+- Twee keer per partij tik je op de hand (de plaats met de draaiende pijl, linksboven): de kaarten die nog in de waaiers liggen, worden verzameld, geschud en opnieuw in waaiers van drie gedeeld. Het getal in de hand toont hoe vaak dat nog kan.
+- Bij de laatste deling komt de merci, het cadeautje van de klassieke regels: één keer mag je op een kaart tikken die in een waaier verstopt ligt om hem eruit te halen. Hij wacht op zijn eigen plaats tot je hem op een aflegstapel of een waaier speelt.
+# Het einde van de partij
+Je wint als alle kaarten op de aflegstapels liggen; zodra ze er een voor een heen kunnen, gaan ze vanzelf omhoog. De partij is voorbij als er geen zet meer is. Niet elk spel is te winnen.
+# Spelen op het apparaat
+Tik op een bovenste kaart om hem naar zijn aflegstapel of zijn waaier te sturen, of sleep hem erheen. Een snelle tweede tik stuurt een kaart alleen naar een aflegstapel. De lamp in je balk toont een nuttige zet; het getal naast je kaarten telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.

@@ -1,0 +1,21 @@
+Canfield
+# Målet
+Få alle 52 kort op på de fire grundbunker, én for hver kulør. Et spil for én spiller.
+# Opstillingen
+- Reserven, til venstre: 13 kort, kun det øverste med billedsiden op.
+- Ét synligt kort på den første grundbunke: dets værdi er starten på alle grundbunker.
+- Fire spillebunker med ét kort hver, under grundbunkerne.
+- De andre 34 kort er bunken, med bagsiden op, øverst til venstre; ved siden af ligger kastebunken.
+# Flyt kort
+- Grundbunkerne starter med de fire kort af det første korts værdi og bygges op i kulør, hele vejen rundt: efter kongen kommer esset.
+- På spillebunkerne lægges et kort, der er én lavere og har den anden farve, også hele vejen rundt: en sort konge på et rødt es.
+- Flyt det øverste kort i en bunke eller en hel bunke på én gang, aldrig en del af den.
+- Reservens øverste kort kan gå op på en grundbunke eller ned på en spillebunke.
+- En tom spillebunke fyldes straks med reservens øverste kort. Når reserven er tom, må ethvert kort fylde den.
+- Et kort på en grundbunke bliver liggende.
+# Bunken
+Tryk på bunken for at vende tre kort over på kastebunken (færre til sidst); kun kastebunkens øverste kort kan spilles. Når bunken er tom, så tryk på dens plads for at vende kastebunken om igen, så tit du vil.
+# Spillets afslutning
+Du vinder, når alle kort ligger på grundbunkerne. Så snart bunken, kastebunken og reserven er tomme og de resterende kort kan gå op efter hinanden, går de op af sig selv. Tøm reserven først: den er nøglen til spillet.
+# Spil på enheden
+Tryk på et kort for at sende det til dets bedste plads: en grundbunke, hvis det kan, ellers en spillebunke. Tryk på det første kort i en bunke for at flytte hele bunken. Et hurtigt tryk nummer to sender et kort kun til en grundbunke. Du kan også trække kort hen, hvor du vil. Lampen i dit panel viser et nyttigt træk; tallet ved siden af dine kort tæller dine træk. Fortryd tager træk tilbage, helt til kortene blev givet.

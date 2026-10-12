@@ -1,0 +1,18 @@
+Kırk Haramiler
+# Amaç
+İki destenin 104 kartının hepsini sekiz temel yığına, her takım için iki yığın, astan papaza doğru dizmek. Tek kişilik, üstelik zor bir oyun.
+# Diziliş
+- Dörder kartlık on sütun, hepsi açık.
+- Kalan 64 kart kapalı olarak sol üstteki destedir; yanında açılan kartlar durur.
+- Sekiz temel yığın üsttedir, başta boştur.
+# Kartları taşımak
+- Bir sütuna, aynı takımdan bir aşağı değerde bir kart konur: sinek 6, sinek 7'nin üstüne.
+- Her seferinde yalnızca bir kart taşınır, asla bir dizi.
+- Boş bir sütuna herhangi bir kart konabilir.
+- Temel yığındaki bir kart orada kalır.
+# Deste
+Desteye dokunarak bir kartı açılanlara çevir; açılanların en üstteki kartı oynanabilir. Desteden yalnızca bir kez geçilir: yeniden dağıtım yoktur.
+# Oyunun sonu
+Bütün kartlar temel yığınlardayken kazanırsın. Deste ve açılan kartlar bitip kalan kartlar sırayla çıkabilir hâle gelince kendiliğinden çıkarlar. Pek az dağıtım kazanılır: önceden düşün ve boş sütunlarını koru.
+# Cihazda oynamak
+En üstteki bir kartı en iyi yerine göndermek için ona dokun: bir temel yığına, kendi takımının bir sonraki kartına ya da boş bir sütuna. Hızlı ikinci bir dokunuş kartı yalnızca temel yığına gönderir. Bir kartı istediğin yere de sürükleyebilirsin. Şeridindeki lamba işe yarar bir hamle gösterir; kartlarının yanındaki sayı hamlelerini sayar. Geri al, hamleleri dağıtıma kadar geri alır.

@@ -1,0 +1,14 @@
+Kello
+# Tavoite
+Käännä kaikki kortit kuvapuoli ylöspäin ennen kuin neljäs kuningas tulee esiin. Pieni puhtaan onnen peli yhdelle pelaajalle, ihana lapsille: kortit pelaavat itse.
+# Asetelma
+- Kortit jaetaan kuvapuoli alaspäin 13 neljän kortin pinoon: kaksitoista kellotaulun ympärille, yksi kullekin tunnille, ja kuninkaiden pino keskelle.
+- Ässä kuuluu kello yhdelle, 2 kello kahdelle ja niin edelleen: jätkä yhdelletoista, kuningatar kahdelletoista.
+# Korttien siirtäminen
+- Käännä keskipinon päällimmäinen kortti ja laita se kuvapuoli ylöspäin oman tuntinsa pinon alle; kuningas menee keskipinon alle.
+- Käännä sitten sen pinon päällimmäinen kortti, jonka alle juuri laitoit kortin, ja jatka.
+- Kellon kultainen viisari osoittaa pinoa, josta seuraava kortti tulee.
+# Pelin loppu
+Voitat, jos kaikki kortit ovat kuvapuoli ylöspäin, kun neljäs kuningas kääntyy. Jos neljäs kuningas tulee, kun kortteja on vielä piilossa, peli on hävitty. Mitään ei tarvitse valita: nauti vain, kun kello kiertää.
+# Pelaaminen laitteella
+Napauta mitä tahansa kohtaa pöydällä kääntääksesi seuraavan kortin: se lentää tunnilleen. Lamppu palkissasi näyttää seuraavan kortin; korttiesi vieressä oleva luku laskee käännetyt kortit. Kumoa peruu siirtoja aina jakoon asti.

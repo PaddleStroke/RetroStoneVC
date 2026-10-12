@@ -1,0 +1,18 @@
+Fyrretyve røvere
+# Målet
+Få alle 104 kort fra to spil kort op på de otte grundbunker, to for hver kulør, fra es til konge. Et spil for én spiller, og et svært et.
+# Opstillingen
+- Ti rækker med fire kort, alle med billedsiden op.
+- De andre 64 kort er bunken, med bagsiden op, øverst til venstre; ved siden af ligger kastebunken.
+- De otte grundbunker ligger øverst, tomme fra start.
+# Flyt kort
+- På en række lægges et kort, der er én lavere og i samme kulør: klør 6 på klør 7.
+- Der flyttes kun ét kort ad gangen, aldrig en række af kort.
+- Ethvert kort må fylde en tom plads.
+- Et kort på en grundbunke bliver liggende.
+# Bunken
+Tryk på bunken for at vende ét kort over på kastebunken; det øverste kort på kastebunken kan spilles. Bunken gennemgås kun én gang: der gives ikke om.
+# Spillets afslutning
+Du vinder, når alle kort ligger på grundbunkerne. Så snart bunken og kastebunken er tomme og de resterende kort kan gå op efter hinanden, går de op af sig selv. Kun få kabaler går op: tænk dig om og pas på dine tomme pladser.
+# Spil på enheden
+Tryk på et øverste kort for at sende det til dets bedste plads: en grundbunke, det næste kort i samme kulør eller en tom plads. Et hurtigt tryk nummer to sender et kort kun til en grundbunke. Du kan også trække et kort hen, hvor du vil. Lampen i dit panel viser et nyttigt træk; tallet ved siden af dine kort tæller dine træk. Fortryd tager træk tilbage, helt til kortene blev givet.

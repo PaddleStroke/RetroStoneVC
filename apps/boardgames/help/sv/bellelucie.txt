@@ -1,0 +1,16 @@
+La Belle Lucie
+# Målet
+Få upp alla 52 korten på de fyra grundhögarna, en för varje färg, från ess till kung. Ett spel för en spelare, även kallat Solfjädern.
+# Uppläggningen
+- Korten läggs ut med framsidan upp i 18 solfjädrar med tre kort; den sista solfjädern har bara ett kort.
+- Överst: handen (för de nya givarna), platsen för merci och de fyra grundhögarna.
+# Flytta kort
+- Bara det översta kortet i en solfjäder kan flyttas: upp på sin grundhög, eller på det översta kortet i en annan solfjäder i samma färg och ett steg högre: hjärter 6 på hjärter 7.
+- En tom solfjäder förblir tom.
+# Nya givar
+- Två gånger per parti kan du trycka på handen (platsen med pilen som går runt, längst upp till vänster): korten som fortfarande ligger i solfjädrarna samlas ihop, blandas och läggs ut igen i solfjädrar med tre. Talet i handen visar hur många givar som är kvar.
+- Vid den sista given kommer merci, de klassiska reglernas gåva: en gång får du trycka på ett kort som ligger dolt i en solfjäder för att dra fram det. Det väntar på sin egen plats tills du spelar det på en grundhög eller en solfjäder.
+# Partiets slut
+Du vinner när alla kort ligger på grundhögarna; så snart de kan gå upp ett efter ett går de upp av sig själva. Partiet är slut när inget drag finns kvar. Alla givar går inte ut.
+# Spela på enheten
+Tryck på ett översta kort för att skicka det till sin grundhög eller sin solfjäder, eller dra det dit. Ett snabbt andra tryck skickar ett kort bara till en grundhög. Lampan i ditt fält visar ett nyttigt drag; talet bredvid dina kort räknar dina drag. Ångra tar tillbaka drag, ända till given.

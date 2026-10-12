@@ -1,0 +1,21 @@
+Canfield
+# O objetivo
+Levar as 52 cartas para as quatro fundações, uma por naipe. Um jogo para um jogador.
+# A arrumação
+- A reserva, à esquerda: 13 cartas, só a de cima virada para cima.
+- Uma carta virada para cima na primeira fundação: o valor dela é o começo de todas as fundações.
+- Quatro pilhas de jogo com uma carta cada, embaixo das fundações.
+- As outras 34 cartas formam o monte, viradas para baixo, no alto à esquerda; ao lado, o descarte.
+# Mover as cartas
+- As fundações começam com as quatro cartas do valor da primeira carta e sobem por naipe, dando a volta: depois do rei vem o ás.
+- Nas pilhas de jogo, ponha uma carta um valor abaixo e da outra cor, também dando a volta: um rei preto sobre um ás vermelho.
+- Mova a carta de cima de uma pilha, ou a pilha inteira de uma vez, nunca só uma parte.
+- A carta de cima da reserva pode ir para uma fundação ou para uma pilha de jogo.
+- Uma pilha que fica vazia é preenchida na hora com a carta de cima da reserva. Quando a reserva acaba, qualquer carta pode ocupá-la.
+- Uma carta numa fundação fica lá.
+# O monte
+Toque no monte para virar três cartas no descarte (menos no final); só a carta de cima do descarte pode ser jogada. Quando o monte acaba, toque no lugar dele para virar o descarte de novo, quantas vezes quiser.
+# O fim da partida
+Você vence quando todas as cartas estão nas fundações. Assim que o monte, o descarte e a reserva estão vazios e as cartas que restam podem subir uma após a outra, elas sobem sozinhas. Esvazie a reserva primeiro: ela é a chave do jogo.
+# Jogando no aparelho
+Toque numa carta para mandá-la para o melhor lugar: uma fundação, se ela puder ir, senão uma pilha de jogo. Toque na primeira carta de uma pilha para mover a pilha inteira. Um segundo toque rápido manda a carta só para uma fundação. Você também pode arrastar as cartas para onde quiser. A lâmpada na sua barra mostra uma jogada útil; o número ao lado das suas cartas conta as suas jogadas. Desfazer volta as jogadas, até a distribuição.

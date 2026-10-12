@@ -1,0 +1,14 @@
+L'orologio
+# Lo scopo
+Scoprire tutte le carte prima che esca il quarto re. Un piccolo gioco di puro caso per un giocatore, bellissimo per i bambini: le carte giocano da sole.
+# La disposizione
+- Le carte sono distribuite coperte in 13 mucchietti da quattro: dodici intorno al quadrante di un orologio, uno per ogni ora, e il mucchietto dei re al centro.
+- L'asso va all'una, il 2 alle due, e così via: il fante alle undici, la donna alle dodici.
+# Muovere le carte
+- Gira la carta in cima al mucchietto centrale e mettila scoperta sotto il mucchietto della sua ora; un re va sotto il mucchietto centrale.
+- Poi gira la carta in cima al mucchietto sotto cui hai appena messo una carta, e continua così.
+- La lancetta dorata indica il mucchietto da cui viene la prossima carta.
+# La fine della partita
+Vinci se tutte le carte sono scoperte quando esce il quarto re. Se il quarto re arriva mentre ci sono ancora carte coperte, la partita è persa. Non c'è niente da scegliere: goditi l'orologio che gira.
+# Giocare sul dispositivo
+Tocca un punto qualsiasi del tavolo per girare la prossima carta: vola alla sua ora. La lampada nella tua barra mostra la prossima carta; il numero accanto alle tue carte conta le carte girate. Annulla ritira le mosse, fino alla smazzata.

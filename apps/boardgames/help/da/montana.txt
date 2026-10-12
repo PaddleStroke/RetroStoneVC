@@ -1,0 +1,16 @@
+Montana
+# Målet
+Læg kortene i fire rækker, hver i én kulør fra 2 til konge, ved at flytte kort ind i hullerne. Et spil for én spiller, også kaldet Hullerne.
+# Opstillingen
+De 52 kort gives med billedsiden op i fire rækker med 13; så tages de fire esser væk, og der bliver fire huller.
+# Flyt kort
+- Et hul fyldes med kortet i samme kulør, der er én højere end kortet til venstre for hullet: efter klør 5 kommer klør 6.
+- Et hul i første kolonne tager enhver 2.
+- Et hul efter en konge kan ikke fyldes.
+- En række i orden begynder med en 2 i første kolonne og fortsætter i samme kulør; den lyser svagt.
+# Nye uddelinger
+Tre gange i et spil kan du trykke på hånden (pladsen med pilen, der drejer rundt): de kort, der endnu ikke ligger i orden, samles, blandes og gives igen på pladserne efter hver rækkes følge, så der er ét hul lige efter den. Tallet under hånden viser, hvor mange uddelinger der er tilbage.
+# Spillets afslutning
+Du vinder, når de fire rækker ligger i orden, hver med sit hul til sidst. Spillet er slut, når intet hul kan fyldes og der ikke er flere uddelinger. Ikke alle kabaler kan gå op.
+# Spil på enheden
+Tryk på et kort for at sende det til det hul, det passer i, eller tryk på et hul for at hente det kort, der passer i det. Du kan også trække et kort hen til sit hul. Lampen i dit panel viser et nyttigt træk; tallet ved siden af dine kort tæller dine træk. Fortryd tager træk tilbage, helt til kortene blev givet.

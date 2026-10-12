@@ -1,0 +1,16 @@
+Montana
+# O objetivo
+Arrumar as cartas em quatro filas, cada uma de um só naipe, do 2 ao rei, movendo cartas para os buracos. Um jogo para um jogador, também chamado Buracos.
+# A disposição
+As 52 cartas são distribuídas voltadas para cima em quatro filas de 13; depois tiram-se os quatro ases, o que deixa quatro buracos.
+# Mover as cartas
+- Um buraco preenche-se com a carta do mesmo naipe e de um valor acima da carta à sua esquerda: depois do 5 de paus, o 6 de paus.
+- Um buraco na primeira coluna aceita qualquer 2.
+- Nada pode preencher um buraco depois de um rei.
+- Uma fila em ordem começa com um 2 na primeira coluna e continua no mesmo naipe; brilha suavemente.
+# As redistribuições
+Três vezes no jogo, toca na mão (o lugar com a seta a girar): as cartas que ainda não estão em ordem são juntadas, baralhadas e distribuídas outra vez nos lugares a seguir à sequência de cada fila, deixando um buraco logo a seguir. O número por baixo da mão mostra as redistribuições que restam.
+# O fim do jogo
+Ganhas quando as quatro filas estão em ordem, cada uma com o seu buraco no fim. O jogo acaba quando nenhum buraco se pode preencher e não resta nenhuma redistribuição. Nem todas as distribuições se podem ganhar.
+# Jogar no dispositivo
+Toca numa carta para a mandar para o buraco que preenche, ou toca num buraco para trazer a carta que o preenche. Também podes arrastar uma carta até ao seu buraco. A lâmpada na tua barra mostra uma jogada útil; o número ao lado das tuas cartas conta as tuas jogadas. Anular desfaz as jogadas, até à distribuição.

@@ -1,0 +1,21 @@
+Canfield
+# Cíl hry
+Přesunout všech 52 karet na čtyři cílové hromádky, jednu pro každou barvu. Hra pro jednoho hráče.
+# Rozložení
+- Rezerva vlevo: 13 karet, lícem nahoru jen ta horní.
+- Jedna karta lícem nahoru na první cílové hromádce: její hodnotou začínají všechny cílové hromádky.
+- Čtyři herní hromádky po jedné kartě, pod cílovými hromádkami.
+- Zbylých 34 karet tvoří balíček, rubem nahoru, vlevo nahoře; vedle něj leží odhazovací hromádka.
+# Přesouvání karet
+- Cílové hromádky začínají čtyřmi kartami hodnoty první karty a stavějí se nahoru v barvě, dokola: po králi přijde eso.
+- Na herní hromádky patří karta o jednu nižší a druhé barvy, také dokola: černý král na červené eso.
+- Přesouvej horní kartu hromádky nebo celou hromádku najednou, nikdy jen její část.
+- Horní karta rezervy může jít na cílovou hromádku nebo na herní hromádku.
+- Prázdnou herní hromádku hned zaplní horní karta rezervy. Když je rezerva prázdná, může ji zaplnit jakákoli karta.
+- Karta na cílové hromádce už tam zůstane.
+# Balíček
+Klepni na balíček a otočíš tři karty na odhazovací hromádku (na konci méně); hrát lze jen její horní kartu. Když je balíček prázdný, klepni na jeho místo a odhazovací hromádka se znovu otočí, kolikrát chceš.
+# Konec hry
+Vyhraješ, když jsou všechny karty na cílových hromádkách. Jakmile jsou balíček, odhazovací hromádka i rezerva prázdné a zbylé karty tam mohou postupně dojít, přesunou se samy. Nejdřív vyprázdni rezervu: je to klíč ke hře.
+# Hra na zařízení
+Klepni na kartu a pošleš ji na nejlepší místo: na cílovou hromádku, pokud tam patří, jinak na herní hromádku. Klepni na první kartu hromádky a přesuneš celou hromádku. Rychlé druhé klepnutí pošle kartu jen na cílovou hromádku. Karty můžeš také přetáhnout, kam chceš. Lampička v tvé liště ukáže užitečný tah; číslo vedle tvých karet počítá tvoje tahy. Vrátit bere tahy zpět, až k rozdání.

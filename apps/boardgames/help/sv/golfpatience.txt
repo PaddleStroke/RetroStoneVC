@@ -1,0 +1,17 @@
+Golfpatiens
+# Målet
+Töm de sju kolumnerna genom att spela deras kort på slänghögen, ett steg upp eller ned. Ett spel för en spelare, inte att förväxla med kortspelet Golf.
+# Uppläggningen
+- Sju kolumner med fem kort, alla med framsidan upp.
+- Ett synligt kort på slänghögen; de andra 16 korten är talongen, med baksidan upp, bredvid.
+# Flytta kort
+- Bara det översta kortet i en kolumn kan flyttas. Det går till slänghögen om det är ett steg högre eller lägre än slänghögens översta kort, oavsett färg: en 7 eller en 9 på en 8.
+- Den klassiska regeln: ess och kung följer inte på varandra, så bara en dam går på en kung och bara en 2 på ett ess. Det andra valet, runt hörnet: ess och kung följer också på varandra.
+# Talongen
+När inget kort kan gå trycker du på talongen för att vända upp dess översta kort på slänghögen. Talongen går bara igenom en gång.
+# Poängen
+Som i golf: ju färre, desto bättre. Talet bredvid slänghögen räknar korten som är kvar i kolumnerna. När alla kolumner är tömda blir poängen korten som är kvar i talongen, under noll.
+# Partiets slut
+Du vinner när kolumnerna är tömda. Partiet är slut när talongen är tom och inget kort kan gå. Alla givar går inte ut.
+# Spela på enheten
+Tryck på ett översta kort för att spela det på slänghögen, eller dra det dit. Lampan i ditt fält visar ett bra drag: kortet som börjar den längsta följd den kan se. Talet bredvid dina kort räknar dina drag. Ångra tar tillbaka drag, ända till given.

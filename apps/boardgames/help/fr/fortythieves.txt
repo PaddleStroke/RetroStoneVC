@@ -1,0 +1,18 @@
+Les quarante voleurs
+# Le but
+Monter les 104 cartes de deux jeux sur les huit fondations, deux par couleur, de l'as au roi. Un jeu pour un joueur, et pas des plus faciles.
+# La mise en place
+- Dix colonnes de quatre cartes, toutes face visible.
+- Les 64 autres cartes forment la pioche, face cachée, en haut à gauche ; à côté, le talon.
+- Les huit fondations sont en haut, vides au début.
+# Déplacer les cartes
+- Sur une colonne, pose une carte d'un rang de moins et de la même couleur : le 6 de trèfle sur le 7 de trèfle.
+- Une seule carte bouge à la fois, jamais une suite.
+- N'importe quelle carte peut occuper une colonne vide.
+- Une carte posée sur une fondation y reste.
+# La pioche
+Touche la pioche pour retourner une carte sur le talon ; la carte du dessus du talon peut être jouée. La pioche ne se parcourt qu'une fois : il n'y a pas de redonne.
+# La fin de la partie
+Tu gagnes quand toutes les cartes sont sur les fondations. Dès que la pioche et le talon sont vides et que les cartes restantes peuvent toutes monter à la suite, elles montent toutes seules. Peu de donnes se gagnent : réfléchis à l'avance et garde tes colonnes vides.
+# Jouer sur l'appareil
+Touche une carte du dessus pour l'envoyer à sa meilleure place : une fondation, la carte qui la suit dans sa couleur ou une colonne vide. Une seconde touche rapide envoie une carte seulement sur une fondation. Tu peux aussi faire glisser une carte où tu veux. La lampe de ta barre montre un coup utile ; le nombre à côté de tes cartes compte tes coups. Annuler reprend les coups, jusqu'à la donne.

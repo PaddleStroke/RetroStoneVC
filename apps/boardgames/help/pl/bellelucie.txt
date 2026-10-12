@@ -1,0 +1,16 @@
+La Belle Lucie
+# Cel gry
+Przełożyć wszystkie 52 karty na cztery stosy docelowe, po jednym na każdy kolor, od asa do króla. Gra dla jednej osoby, zwana też Wachlarzem.
+# Rozłożenie
+- Karty rozdaje się odkryte w 18 wachlarzy po trzy; ostatni wachlarz ma tylko jedną kartę.
+- U góry: ręka (do ponownych rozdań), miejsce na merci i cztery stosy docelowe.
+# Przekładanie kart
+- Przełożyć można tylko wierzchnią kartę wachlarza: na jej stos docelowy albo na wierzchnią kartę innego wachlarza w tym samym kolorze i o jeden wyższą: 6 kier na 7 kier.
+- Wachlarz, który się opróżni, zostaje pusty.
+# Ponowne rozdania
+- Dwa razy w grze dotknij ręki (miejsca z krążącą strzałką, w lewym górnym rogu): karty, które zostały w wachlarzach, zbiera się, tasuje i rozdaje na nowo w wachlarze po trzy. Liczba na ręce pokazuje, ile rozdań zostało.
+- W ostatnim rozdaniu przychodzi merci, prezent klasycznych zasad: raz możesz dotknąć karty schowanej w wachlarzu, by ją wyciągnąć. Czeka na swoim miejscu, aż zagrasz ją na stos docelowy albo na wachlarz.
+# Koniec gry
+Wygrywasz, gdy wszystkie karty są na stosach docelowych; gdy wszystkie mogą tam po kolei trafić, przechodzą same. Gra kończy się, gdy nie ma już żadnego ruchu. Nie każde rozdanie da się wygrać.
+# Gra na urządzeniu
+Dotknij wierzchniej karty, by wysłać ją na jej stos docelowy albo wachlarz, lub przeciągnij ją tam. Szybkie drugie dotknięcie wysyła kartę tylko na stos docelowy. Lampka na twoim pasku pokazuje przydatny ruch; liczba obok twoich kart liczy twoje ruchy. Cofnij cofa ruchy, aż do rozdania.

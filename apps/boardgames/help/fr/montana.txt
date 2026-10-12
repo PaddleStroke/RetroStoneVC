@@ -1,0 +1,16 @@
+Montana
+# Le but
+Ranger les cartes en quatre rangées, chacune d'une seule couleur, du 2 au roi, en déplaçant des cartes dans les trous. Un jeu pour un joueur, aussi appelé les Trous.
+# La mise en place
+Les 52 cartes sont posées face visible en quatre rangées de 13 ; puis on retire les quatre as, ce qui laisse quatre trous.
+# Déplacer les cartes
+- Un trou se remplit avec la carte de la même couleur et d'un rang de plus que la carte à sa gauche : après le 5 de trèfle, le 6 de trèfle.
+- Un trou dans la première colonne prend n'importe quel 2.
+- Rien ne peut remplir un trou qui suit un roi.
+- Une rangée en ordre commence par un 2 dans la première colonne et continue dans la même couleur ; elle brille doucement.
+# Les redonnes
+Trois fois par partie, touche la place à la flèche qui tourne : les cartes qui ne sont pas encore en ordre sont ramassées, mélangées et redistribuées dans les places qui suivent la suite de chaque rangée, en laissant un trou juste après elle. Le nombre sous cette place indique les redonnes qui restent.
+# La fin de la partie
+Tu gagnes quand les quatre rangées sont en ordre, chacune avec son trou au bout. La partie est perdue quand aucun trou ne peut être rempli et qu'il ne reste plus de redonne. Toutes les donnes ne peuvent pas être gagnées.
+# Jouer sur l'appareil
+Touche une carte pour l'envoyer dans le trou qu'elle remplit, ou touche un trou pour y amener la carte qui le remplit. Tu peux aussi faire glisser une carte dans son trou. La lampe de ta barre montre un coup utile ; le nombre à côté de tes cartes compte tes coups. Annuler reprend les coups, jusqu'à la donne.

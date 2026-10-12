@@ -1,0 +1,14 @@
+Relógio
+# O objetivo
+Virar todas as cartas para cima antes que o quarto rei apareça. Um joguinho de pura sorte para um jogador, ótimo para crianças: as cartas jogam sozinhas.
+# A arrumação
+- As cartas são distribuídas viradas para baixo em 13 montinhos de quatro: doze em volta de um mostrador de relógio, um para cada hora, e o montinho dos reis no meio.
+- O ás é da uma hora, o 2 das duas horas, e assim por diante: o valete das onze, a dama das doze.
+# Mover as cartas
+- Vire a carta de cima do montinho do meio e coloque-a virada para cima embaixo do montinho da sua hora; um rei vai para baixo do montinho do meio.
+- Depois vire a carta de cima do montinho onde você acabou de colocar uma carta, e continue.
+- O ponteiro dourado do relógio aponta para o montinho de onde vem a próxima carta.
+# O fim da partida
+Você vence se todas as cartas estiverem viradas para cima quando o quarto rei aparecer. Se o quarto rei vier enquanto ainda houver cartas viradas para baixo, a partida está perdida. Não há nada para escolher: é só curtir o relógio girando.
+# Jogando no aparelho
+Toque em qualquer lugar da mesa para virar a próxima carta: ela voa para a sua hora. A lâmpada na sua barra mostra a próxima carta; o número ao lado das suas cartas conta as cartas viradas. Desfazer volta as jogadas, até a distribuição.

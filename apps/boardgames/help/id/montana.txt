@@ -1,0 +1,16 @@
+Montana
+# Tujuan
+Susun kartu menjadi empat baris, masing-masing satu jenis dari 2 sampai raja, dengan memindahkan kartu ke celah-celah. Permainan untuk satu pemain, juga disebut Celah.
+# Susunan
+Ke-52 kartu dibagikan terbuka dalam empat baris berisi 13; lalu keempat as diambil, sehingga ada empat celah.
+# Memindahkan kartu
+- Sebuah celah diisi kartu sejenis yang satu tingkat lebih tinggi daripada kartu di sebelah kirinya: sesudah 5 keriting, 6 keriting.
+- Celah di kolom pertama menerima 2 mana pun.
+- Celah sesudah raja tidak bisa diisi.
+- Baris yang sudah urut dimulai dengan 2 di kolom pertama dan berlanjut dengan jenis yang sama; baris itu bercahaya lembut.
+# Pembagian ulang
+Tiga kali dalam satu permainan, ketuk tangan (tempat dengan panah yang berputar): kartu yang belum urut dikumpulkan, dikocok, dan dibagikan lagi ke tempat-tempat sesudah bagian urut tiap baris, dengan satu celah tepat sesudahnya. Angka di bawah tangan menunjukkan sisa pembagian ulang.
+# Akhir permainan
+Kamu menang saat keempat baris sudah urut, masing-masing dengan celahnya di ujung. Permainan selesai saat tidak ada celah yang bisa diisi dan tidak ada pembagian ulang lagi. Tidak semua pembagian bisa dimenangkan.
+# Bermain di perangkat
+Ketuk kartu untuk mengirimnya ke celah yang diisinya, atau ketuk celah untuk memanggil kartu yang cocok. Kamu juga bisa menyeret kartu ke celahnya. Lampu di bilahmu menunjukkan langkah yang berguna; angka di samping kartumu menghitung langkahmu. Urungkan membatalkan langkah, sampai ke awal pembagian.

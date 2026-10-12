@@ -1,0 +1,18 @@
+Čtyřicet loupežníků
+# Cíl hry
+Přesunout všech 104 karet ze dvou balíčků na osm cílových hromádek, dvě pro každou barvu, od esa po krále. Hra pro jednoho hráče, a to těžká.
+# Rozložení
+- Deset sloupců po čtyřech kartách, všechny lícem nahoru.
+- Zbylých 64 karet tvoří balíček, rubem nahoru, vlevo nahoře; vedle něj leží odhazovací hromádka.
+- Osm cílových hromádek je nahoře, na začátku prázdných.
+# Přesouvání karet
+- Na sloupec patří karta o jednu nižší ve stejné barvě: křížová 6 na křížovou 7.
+- Přesouvá se vždy jen jedna karta, nikdy řada.
+- Prázdný sloupec smí obsadit jakákoli karta.
+- Karta na cílové hromádce už tam zůstane.
+# Balíček
+Klepni na balíček a otočíš jednu kartu na odhazovací hromádku; její horní kartu lze zahrát. Balíčkem se projde jen jednou: nové rozdání není.
+# Konec hry
+Vyhraješ, když jsou všechny karty na cílových hromádkách. Jakmile jsou balíček i odhazovací hromádka prázdné a zbylé karty tam mohou postupně dojít, přesunou se samy. Vyhrát jde jen málokteré rozdání: plánuj dopředu a šetři prázdné sloupce.
+# Hra na zařízení
+Klepni na horní kartu a pošleš ji na nejlepší místo: na cílovou hromádku, na další kartu její barvy nebo do prázdného sloupce. Rychlé druhé klepnutí pošle kartu jen na cílovou hromádku. Kartu můžeš také přetáhnout, kam chceš. Lampička v tvé liště ukáže užitečný tah; číslo vedle tvých karet počítá tvoje tahy. Vrátit bere tahy zpět, až k rozdání.

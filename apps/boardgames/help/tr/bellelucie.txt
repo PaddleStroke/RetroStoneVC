@@ -1,0 +1,16 @@
+La Belle Lucie
+# Amaç
+52 kartın hepsini dört temel yığına, her takım için bir yığın, astan papaza doğru dizmek. Tek kişilik bir oyun; Yelpaze diye de bilinir.
+# Diziliş
+- Kartlar açık olarak üçerli 18 yelpazeye dağıtılır; son yelpazede tek bir kart vardır.
+- Üstte: el (yeniden dağıtımlar için), merci'nin yeri ve dört temel yığın.
+# Kartları taşımak
+- Bir yelpazenin yalnızca en üstteki kartı taşınabilir: kendi temel yığınına ya da aynı takımdan ve bir yüksek olan başka bir yelpazenin en üstteki kartının üstüne: kupa 6, kupa 7'nin üstüne.
+- Boşalan bir yelpaze boş kalır.
+# Yeniden dağıtımlar
+- Oyunda iki kez ele dokun (sol üstte, dönen okun olduğu yer): yelpazelerde kalan kartlar toplanır, karılır ve yeniden üçerli yelpazelere dağıtılır. Eldeki sayı kalan yeniden dağıtımları gösterir.
+- Son dağıtımda merci gelir, klasik kuralların armağanı: bir kez, bir yelpazede gömülü kalmış bir karta dokunarak onu çekip çıkarabilirsin. Kart, sen onu bir temel yığına ya da bir yelpazeye oynayana kadar kendi yerinde bekler.
+# Oyunun sonu
+Bütün kartlar temel yığınlardayken kazanırsın; hepsi sırayla çıkabilir hâle gelince kendiliğinden çıkarlar. Hiç hamle kalmayınca oyun biter. Her dağıtım kazanılamaz.
+# Cihazda oynamak
+En üstteki bir kartı temel yığınına ya da yelpazesine göndermek için ona dokun ya da onu oraya sürükle. Hızlı ikinci bir dokunuş kartı yalnızca temel yığına gönderir. Şeridindeki lamba işe yarar bir hamle gösterir; kartlarının yanındaki sayı hamlelerini sayar. Geri al, hamleleri dağıtıma kadar geri alır.

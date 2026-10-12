@@ -1,0 +1,21 @@
+Canfield
+# Het doel
+Alle 52 kaarten naar de vier aflegstapels brengen, één per kleur. Een spel voor één speler.
+# De opstelling
+- De reserve, links: 13 kaarten, alleen de bovenste open.
+- Eén open kaart op de eerste aflegstapel: haar waarde is het begin van elke aflegstapel.
+- Vier speelstapels van één kaart, onder de aflegstapels.
+- De andere 34 kaarten vormen de stapel, gedekt, linksboven; ernaast liggen de getrokken kaarten.
+# Kaarten verplaatsen
+- De aflegstapels beginnen met de vier kaarten van de waarde van de eerste kaart en lopen op per kleur, de hoek om: na de heer komt de aas.
+- Op de speelstapels leg je een kaart die één lager is en van de andere kleur, ook de hoek om: een zwarte heer op een rode aas.
+- Verplaats de bovenste kaart van een stapel, of een hele stapel tegelijk, nooit een deel ervan.
+- De bovenste kaart van de reserve mag naar een aflegstapel of een speelstapel.
+- Een lege speelstapel wordt meteen gevuld met de bovenste kaart van de reserve. Is de reserve op, dan mag elke kaart hem vullen.
+- Een kaart op een aflegstapel blijft daar.
+# De stapel
+Tik op de stapel om drie kaarten open te leggen (aan het eind minder); alleen de bovenste getrokken kaart is speelbaar. Is de stapel op, tik dan op zijn plaats om de getrokken kaarten weer om te draaien, zo vaak als je wilt.
+# Het einde van de partij
+Je wint als alle kaarten op de aflegstapels liggen. Zodra de stapel, de getrokken kaarten en de reserve op zijn en de overige kaarten er een voor een heen kunnen, gaan ze vanzelf omhoog. Maak eerst de reserve leeg: daar draait het spel om.
+# Spelen op het apparaat
+Tik op een kaart om hem naar zijn beste plek te sturen: een aflegstapel als hij daar past, anders een speelstapel. Tik op de eerste kaart van een stapel om de hele stapel te verplaatsen. Een snelle tweede tik stuurt een kaart alleen naar een aflegstapel. Je kunt kaarten ook slepen waar je wilt. De lamp in je balk toont een nuttige zet; het getal naast je kaarten telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.

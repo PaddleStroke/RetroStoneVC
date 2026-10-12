@@ -1,0 +1,17 @@
+Golf-Patience
+# Das Ziel
+Räume die sieben Spalten ab, indem du ihre Karten auf die Ablage legst, einen Rang höher oder tiefer. Ein Spiel für einen Spieler, nicht zu verwechseln mit dem Kartenspiel Golf.
+# Der Aufbau
+- Sieben Spalten mit je fünf Karten, alle offen.
+- Eine offene Karte auf der Ablage; die übrigen 16 Karten sind der Stapel, verdeckt daneben.
+# Karten bewegen
+- Nur die oberste Karte einer Spalte darf ziehen. Sie kommt auf die Ablage, wenn sie einen Rang höher oder tiefer ist als deren oberste Karte, egal in welcher Farbe: eine 7 oder eine 9 auf eine 8.
+- Die klassische Regel: Ass und König folgen nicht aufeinander, also kommt auf einen König nur eine Dame und auf ein Ass nur eine 2. Die andere Wahl, im Kreis: Ass und König folgen auch aufeinander.
+# Der Stapel
+Wenn keine Karte passt, tippe auf den Stapel, um seine oberste Karte auf die Ablage zu legen. Der Stapel wird nur einmal durchgespielt.
+# Die Wertung
+Wie beim Golf gilt: je weniger, desto besser. Die Zahl neben der Ablage zählt die Karten, die noch in den Spalten liegen. Sind alle Spalten abgeräumt, geht die Wertung unter null: minus die Zahl der Karten, die noch im Stapel liegen.
+# Das Ende der Partie
+Du gewinnst, wenn die Spalten abgeräumt sind. Die Partie ist verloren, wenn der Stapel leer ist und keine Karte passt. Nicht jedes Spiel ist zu gewinnen.
+# Spielen auf dem Gerät
+Tippe auf eine oberste Karte, um sie auf die Ablage zu spielen, oder ziehe sie dorthin. Die Lampe in deiner Leiste zeigt einen guten Zug: die Karte, mit der die längste Serie beginnt, die sie sieht. Die Zahl neben deinen Karten zählt deine Züge. Rückgängig nimmt Züge zurück, bis zum Geben.

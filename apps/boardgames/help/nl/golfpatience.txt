@@ -1,0 +1,17 @@
+Golfpatience
+# Het doel
+De zeven kolommen leegmaken door hun kaarten op de getrokken kaarten te spelen, één hoger of lager. Een spel voor één speler, niet te verwarren met het kaartspel Golf.
+# De opstelling
+- Zeven kolommen van vijf kaarten, allemaal open.
+- Eén open kaart als eerste getrokken kaart; de andere 16 kaarten vormen de stapel, gedekt, ernaast.
+# Kaarten verplaatsen
+- Alleen de bovenste kaart van een kolom mag weg. Hij gaat op de getrokken kaarten als hij één hoger of lager is dan de bovenste, welke kleur ook: een 7 of een 9 op een 8.
+- De klassieke regel: aas en heer volgen niet op elkaar, dus op een heer kan alleen een vrouw en op een aas alleen een 2. De andere keuze, de hoek om: aas en heer volgen ook op elkaar.
+# De stapel
+Kan er geen kaart meer, tik dan op de stapel om de bovenste kaart open te leggen. De stapel gaat maar één keer rond.
+# De score
+Net als bij golf: hoe minder, hoe beter. Het getal naast de getrokken kaarten telt de kaarten die nog in de kolommen liggen. Zijn alle kolommen leeg, dan is de score het aantal kaarten dat nog in de stapel zit, onder nul.
+# Het einde van de partij
+Je wint als de kolommen leeg zijn. De partij is voorbij als de stapel op is en er geen kaart meer kan. Niet elk spel is te winnen.
+# Spelen op het apparaat
+Tik op een bovenste kaart om hem te spelen, of sleep hem erheen. De lamp in je balk toont een goede zet: de kaart waarmee de langste reeks begint die hij kan zien. Het getal naast je kaarten telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.

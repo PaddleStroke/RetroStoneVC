@@ -1,0 +1,17 @@
+Yukon
+# Cel gry
+Przełożyć wszystkie 52 karty na cztery stosy docelowe, po jednym na każdy kolor, od asa do króla. Gra dla jednej osoby, bliska zwykłemu pasjansowi, ale bez talii.
+# Rozłożenie
+- Siedem kolumn: pierwsza to jedna odkryta karta; pozostałe mają od 1 do 6 kart zakrytych pod 5 kartami odkrytymi.
+- Rozdaje się wszystkie karty: nie ma talii.
+- Cztery stosy docelowe są w prawym górnym rogu, na początku puste.
+# Przekładanie kart
+- Na kolumnę kładzie się kartę o jeden niższą i w drugim kolorze, czerwoną na czarną albo czarną na czerwoną: czerwoną 6 na czarną 7.
+- Każdą odkrytą kartę można przełożyć razem ze wszystkimi kartami, które na niej leżą, nawet jeśli nie są po kolei.
+- Pustą kolumnę może zająć tylko król, z tym, co na nim leży.
+- Gdy na wierzchu kolumny zostaje zakryta karta, odwraca się.
+- Kartę ze stosu docelowego można przełożyć z powrotem na kolumnę.
+# Koniec gry
+Wygrywasz, gdy wszystkie karty są na stosach docelowych. Gdy wszystkie karty są odkryte i mogą po kolei trafić na stosy, przechodzą tam same. Jeśli utkniesz, cofnij ruchy albo zacznij nowe rozdanie.
+# Gra na urządzeniu
+Dotknij karty, by wysłać ją razem z kartami, które na niej leżą, na najlepsze miejsce: na stos docelowy, jeśli tam pasuje, a jeśli nie, na kolumnę. Szybkie drugie dotknięcie wysyła kartę tylko na stos docelowy. Karty możesz też przeciągnąć, gdzie chcesz. Lampka na twoim pasku pokazuje przydatny ruch; liczba obok twoich kart liczy twoje ruchy. Cofnij cofa ruchy, aż do rozdania.

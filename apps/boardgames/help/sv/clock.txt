@@ -1,0 +1,14 @@
+Klockan
+# Målet
+Vänd upp alla kort innan den fjärde kungen kommer fram. Ett litet spel av ren tur för en spelare, härligt för barn: korten spelar själva.
+# Uppläggningen
+- Korten läggs ut med baksidan upp i 13 högar med fyra: tolv runt en urtavla, en för varje timme, och kungarnas hög i mitten.
+- Esset hör till klockan ett, 2:an till klockan två och så vidare: knekten till elva, damen till tolv.
+# Flytta kort
+- Vänd upp det översta kortet i mitthögen och lägg det med framsidan upp under högen för sin timme; en kung läggs under mitthögen.
+- Vänd sedan upp det översta kortet i högen som du just lade ett kort under, och fortsätt.
+- Klockans gyllene visare pekar på högen som nästa kort kommer från.
+# Partiets slut
+Du vinner om alla kort är uppvända när den fjärde kungen kommer fram. Kommer den fjärde kungen medan kort fortfarande är dolda är partiet förlorat. Det finns inget att välja: njut bara av att se klockan gå runt.
+# Spela på enheten
+Tryck var som helst på bordet för att vända upp nästa kort: det flyger till sin timme. Lampan i ditt fält visar nästa kort; talet bredvid dina kort räknar de uppvända korten. Ångra tar tillbaka drag, ända till given.

@@ -1,0 +1,16 @@
+La Belle Lucie
+# Målet
+Få alle de 52 kortene opp på de fire grunnbunkene, én for hver farge, fra ess til konge. Et spill for én spiller, også kalt Vifta.
+# Oppstillingen
+- Kortene deles ut med bildesiden opp i 18 vifter med tre kort; den siste vifta har bare ett kort.
+- Øverst: hånden (til de nye utdelingene), plassen til merci og de fire grunnbunkene.
+# Flytte kort
+- Bare det øverste kortet i en vifte kan flyttes: opp på grunnbunken sin, eller over på det øverste kortet i en annen vifte i samme farge og én høyere: hjerter 6 på hjerter 7.
+- En tom vifte forblir tom.
+# Nye utdelinger
+- To ganger i et spill kan du trykke på hånden (plassen med pila som går rundt, øverst til venstre): kortene som fortsatt ligger i viftene, samles, stokkes og deles ut igjen i vifter med tre. Tallet i hånden viser hvor mange utdelinger som er igjen.
+- Ved den siste utdelingen kommer merci, gaven fra de klassiske reglene: én gang kan du trykke på et kort som ligger skjult i en vifte, for å trekke det ut. Det venter på sin egen plass til du spiller det på en grunnbunke eller en vifte.
+# Slutten på spillet
+Du vinner når alle kortene ligger på grunnbunkene; så snart de kan gå opp etter hverandre, går de opp av seg selv. Spillet er slutt når det ikke finnes flere trekk. Ikke alle kabaler går opp.
+# Spill på enheten
+Trykk på et øverste kort for å sende det til grunnbunken eller vifta si, eller dra det dit. Et raskt trykk nummer to sender et kort bare til en grunnbunke. Lampen i panelet ditt viser et nyttig trekk; tallet ved siden av kortene dine teller trekkene dine. Angre tar tilbake trekk, helt til kortene ble delt ut.

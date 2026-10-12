@@ -1,0 +1,17 @@
+Yukon
+# O objetivo
+Levar as 52 cartas para as quatro fundações, uma por naipe, do ás ao rei. Um jogo para um jogador, parecido com a Paciência clássica, mas sem monte.
+# A arrumação
+- Sete colunas: a primeira é uma só carta virada para cima; as outras têm de 1 a 6 cartas viradas para baixo sob 5 cartas viradas para cima.
+- Todas as cartas são distribuídas: não há monte.
+- As quatro fundações ficam no alto à direita, vazias no começo.
+# Mover as cartas
+- Numa coluna, ponha uma carta um valor abaixo e da outra cor, vermelha sobre preta ou preta sobre vermelha: um 6 vermelho sobre um 7 preto.
+- Qualquer carta virada para cima pode se mover, junto com todas as cartas que estão sobre ela, mesmo fora de ordem.
+- Só um rei, com o que está sobre ele, pode ocupar uma coluna vazia.
+- Quando uma carta virada para baixo fica em cima de uma coluna, ela se vira.
+- Uma carta de uma fundação pode voltar para uma coluna.
+# O fim da partida
+Você vence quando todas as cartas estão nas fundações. Assim que todas estão viradas para cima e podem subir uma após a outra, elas sobem sozinhas. Se ficar travado, desfaça ou comece uma nova distribuição.
+# Jogando no aparelho
+Toque numa carta para mandá-la, com as cartas sobre ela, para o melhor lugar: uma fundação, se ela puder ir, senão uma coluna. Um segundo toque rápido manda a carta só para uma fundação. Você também pode arrastar as cartas e soltá-las onde quiser. A lâmpada na sua barra mostra uma jogada útil; o número ao lado das suas cartas conta as suas jogadas. Desfazer volta as jogadas, até a distribuição.

@@ -1,0 +1,16 @@
+Montana
+# Cíl hry
+Seřadit karty do čtyř řad, každou v jedné barvě od 2 po krále, přesouváním karet do mezer. Hra pro jednoho hráče, známá také jako Mezery.
+# Rozložení
+52 karet se rozdá lícem nahoru do čtyř řad po 13; pak se odeberou čtyři esa, a tak vzniknou čtyři mezery.
+# Přesouvání karet
+- Mezeru zaplní karta stejné barvy a o jednu vyšší než karta vlevo od ní: po křížové 5 přijde křížová 6.
+- Mezera v prvním sloupci přijme jakoukoli 2.
+- Mezeru za králem nelze zaplnit.
+- Seřazená řada začíná 2 v prvním sloupci a pokračuje ve stejné barvě; jemně svítí.
+# Nová rozdání
+Třikrát za hru klepni na ruku (místo s kroužící šipkou): karty, které ještě nejsou seřazené, se seberou, zamíchají a znovu rozdají na místa za seřazenou částí každé řady, takže hned za ní zůstane jedna mezera. Číslo pod rukou ukazuje, kolik rozdání zbývá.
+# Konec hry
+Vyhraješ, když jsou všechny čtyři řady seřazené, každá s mezerou na konci. Hra končí, když nejde zaplnit žádná mezera a nezbývá žádné rozdání. Ne každé rozdání se dá vyhrát.
+# Hra na zařízení
+Klepni na kartu a pošleš ji do mezery, kterou zaplní, nebo klepni na mezeru a přivoláš kartu, která do ní patří. Kartu můžeš také přetáhnout do její mezery. Lampička v tvé liště ukáže užitečný tah; číslo vedle tvých karet počítá tvoje tahy. Vrátit bere tahy zpět, až k rozdání.

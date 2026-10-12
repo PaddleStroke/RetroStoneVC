@@ -1,0 +1,21 @@
+Canfield
+# Lo scopo
+Portare tutte le 52 carte sulle quattro basi, una per seme. Un gioco per un giocatore.
+# La disposizione
+- La riserva, a sinistra: 13 carte, solo quella in cima è scoperta.
+- Una carta scoperta sulla prima base: il suo valore apre tutte le basi.
+- Quattro colonne di una carta ciascuna, sotto le basi.
+- Le altre 34 carte formano il mazzo, coperto, in alto a sinistra; accanto, gli scarti.
+# Muovere le carte
+- Le basi cominciano con le quattro carte del valore della prima carta e salgono per seme, in cerchio: dopo il re viene l'asso.
+- Su una colonna si mette una carta di un valore in meno e dell'altro colore, anche qui in cerchio: un re nero su un asso rosso.
+- Muovi la carta in cima a una colonna, o un'intera colonna in una volta, mai solo una parte.
+- La carta in cima alla riserva può andare su una base o su una colonna.
+- Una colonna rimasta vuota si riempie subito con la carta in cima alla riserva. Quando la riserva è vuota, qualsiasi carta può occuparla.
+- Una carta su una base resta lì.
+# Il mazzo
+Tocca il mazzo per girare tre carte sugli scarti (meno alla fine); si gioca solo la carta in cima agli scarti. Quando il mazzo è finito, tocca il suo posto per rigirare gli scarti, quante volte vuoi.
+# La fine della partita
+Vinci quando tutte le carte sono sulle basi. Appena il mazzo, gli scarti e la riserva sono vuoti e le carte rimaste possono salire tutte una dopo l'altra, salgono da sole. Svuota prima la riserva: è la chiave del gioco.
+# Giocare sul dispositivo
+Tocca una carta per mandarla al posto migliore: una base se può andarci, altrimenti una colonna. Tocca la prima carta di una colonna per muovere tutta la colonna. Un secondo tocco rapido manda una carta solo su una base. Puoi anche trascinare le carte dove vuoi. La lampada nella tua barra mostra una mossa utile; il numero accanto alle tue carte conta le tue mosse. Annulla ritira le mosse, fino alla smazzata.

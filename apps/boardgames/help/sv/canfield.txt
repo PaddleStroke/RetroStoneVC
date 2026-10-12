@@ -1,0 +1,21 @@
+Canfield
+# Målet
+Få upp alla 52 korten på de fyra grundhögarna, en för varje färg. Ett spel för en spelare.
+# Uppläggningen
+- Reserven, till vänster: 13 kort, bara det översta med framsidan upp.
+- Ett synligt kort på den första grundhögen: dess valör är början på alla grundhögar.
+- Fyra spelhögar med ett kort var, under grundhögarna.
+- De andra 34 korten är talongen, med baksidan upp, längst upp till vänster; bredvid ligger slänghögen.
+# Flytta kort
+- Grundhögarna börjar med de fyra korten av det första kortets valör och byggs uppåt i färg, runt hörnet: efter kungen kommer esset.
+- På spelhögarna läggs ett kort som är ett steg lägre och har den andra färgen, också runt hörnet: en svart kung på ett rött ess.
+- Flytta det översta kortet i en hög eller en hel hög på en gång, aldrig en del av den.
+- Reservens översta kort kan gå till en grundhög eller till en spelhög.
+- En tom spelhög fylls genast med reservens översta kort. När reserven är tom får vilket kort som helst fylla den.
+- Ett kort på en grundhög ligger kvar där.
+# Talongen
+Tryck på talongen för att vända upp tre kort på slänghögen (färre i slutet); bara slänghögens översta kort kan spelas. När talongen är tom trycker du på dess plats för att vända slänghögen igen, så många gånger du vill.
+# Partiets slut
+Du vinner när alla kort ligger på grundhögarna. Så snart talongen, slänghögen och reserven är tomma och resten av korten kan gå upp ett efter ett går de upp av sig själva. Töm reserven först: den är nyckeln till spelet.
+# Spela på enheten
+Tryck på ett kort för att skicka det till sin bästa plats: en grundhög om det passar där, annars en spelhög. Tryck på det första kortet i en hög för att flytta hela högen. Ett snabbt andra tryck skickar ett kort bara till en grundhög. Du kan också dra kort dit du vill. Lampan i ditt fält visar ett nyttigt drag; talet bredvid dina kort räknar dina drag. Ångra tar tillbaka drag, ända till given.

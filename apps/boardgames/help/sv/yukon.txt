@@ -1,0 +1,17 @@
+Yukon
+# Målet
+Få upp alla 52 korten på de fyra grundhögarna, en för varje färg, från ess till kung. Ett spel för en spelare, nära släkt med Harpan men utan talong.
+# Uppläggningen
+- Sju kolumner: den första är ett enda synligt kort; de andra har 1 till 6 dolda kort under 5 synliga kort.
+- Alla kort läggs ut: det finns ingen talong.
+- De fyra grundhögarna ligger längst upp till höger, tomma från början.
+# Flytta kort
+- På en kolumn läggs ett kort som är ett steg lägre och har den andra färgen, rött på svart eller svart på rött: en röd 6 på en svart 7.
+- Vilket synligt kort som helst kan flyttas, tillsammans med alla kort som ligger på det, även om de inte ligger i ordning.
+- Bara en kung, med det som ligger på den, får fylla en tom kolumn.
+- När ett dolt kort hamnar överst i en kolumn vänds det upp.
+- Ett kort från en grundhög får flyttas ned på en kolumn igen.
+# Partiets slut
+Du vinner när alla kort ligger på grundhögarna. Så snart alla kort är synliga och kan gå upp ett efter ett går de upp av sig själva. Sitter du fast, ångra eller börja en ny giv.
+# Spela på enheten
+Tryck på ett kort för att skicka det, med korten som ligger på det, till sin bästa plats: en grundhög om det passar där, annars en kolumn. Ett snabbt andra tryck skickar ett kort bara till en grundhög. Du kan också dra kort dit du vill. Lampan i ditt fält visar ett nyttigt drag; talet bredvid dina kort räknar dina drag. Ångra tar tillbaka drag, ända till given.

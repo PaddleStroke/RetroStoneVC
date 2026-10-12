@@ -1,0 +1,21 @@
+Canfield
+# Amaç
+52 kartın hepsini dört temel yığına, her takım için bir yığın, dizmek. Tek kişilik bir oyun.
+# Diziliş
+- Solda yedek: 13 kart, yalnızca en üstteki açık.
+- İlk temel yığında bir açık kart: onun değeri bütün temel yığınların başlangıcıdır.
+- Temel yığınların altında birer kartlık dört oyun yığını.
+- Kalan 34 kart kapalı olarak sol üstteki destedir; yanında açılan kartlar durur.
+# Kartları taşımak
+- Temel yığınlar ilk kartın değerindeki dört kartla başlar ve takıma göre yukarı doğru, köşeden dönerek dizilir: papazdan sonra as gelir.
+- Oyun yığınlarına bir aşağı değerde ve öbür renkte bir kart konur, yine köşeden dönerek: kırmızı bir asın üstüne siyah bir papaz.
+- Bir yığının en üstteki kartını ya da bütün yığını birden taşı, asla bir parçasını.
+- Yedeğin en üstteki kartı bir temel yığına ya da bir oyun yığınına gidebilir.
+- Boşalan bir oyun yığını hemen yedeğin en üstteki kartıyla doldurulur. Yedek bitince oraya herhangi bir kart konabilir.
+- Temel yığındaki bir kart orada kalır.
+# Deste
+Desteye dokunarak üç kartı açılanlara çevir (sona doğru daha az); yalnızca açılanların en üstteki kartı oynanabilir. Deste bitince yerine dokunarak açılan kartları yeniden çevir, istediğin kadar.
+# Oyunun sonu
+Bütün kartlar temel yığınlardayken kazanırsın. Deste, açılanlar ve yedek bitip kalan kartlar sırayla çıkabilir hâle gelince kendiliğinden çıkarlar. Önce yedeği boşalt: oyunun anahtarı odur.
+# Cihazda oynamak
+Bir kartı en iyi yerine göndermek için ona dokun: gidebiliyorsa temel yığına, gidemiyorsa bir oyun yığınına. Bütün yığını taşımak için yığının ilk kartına dokun. Hızlı ikinci bir dokunuş kartı yalnızca temel yığına gönderir. Kartları istediğin yere de sürükleyebilirsin. Şeridindeki lamba işe yarar bir hamle gösterir; kartlarının yanındaki sayı hamlelerini sayar. Geri al, hamleleri dağıtıma kadar geri alır.

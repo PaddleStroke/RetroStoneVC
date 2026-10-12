@@ -1,0 +1,21 @@
+Canfield
+# The aim
+Move all 52 cards to the four foundations, one for each suit. A game for one player.
+# The layout
+- The reserve, at the left: 13 cards, only the top one face up.
+- One card face up on the first foundation: its rank starts every foundation.
+- Four tableau piles of one card each, under the foundations.
+- The other 34 cards are the stock, face down, at the top left; next to it, the waste.
+# Moving cards
+- The foundations start with the four cards of the first card's rank and are built up by suit, round the corner: after the king comes the ace.
+- On the tableau, put a card one rank lower and of the other colour, round the corner too: a black king on a red ace.
+- Move the top card of a pile, or a whole pile at once, never part of one.
+- The top card of the reserve can go to a foundation or onto the tableau.
+- A pile left empty is filled at once with the top card of the reserve. Once the reserve is empty, any card may fill it.
+- A card on a foundation stays there.
+# The stock
+Tap the stock to turn three cards onto the waste (fewer at its end); only the top card of the waste can be played. When the stock is empty, tap its place to turn the waste back over, as many times as you like.
+# The end of the game
+You win when all the cards are on the foundations. Once the stock, the waste and the reserve are empty and the cards left can all go up in turn, they go up by themselves. Empty the reserve first: it is the key to the game.
+# Playing on the device
+Tap a card to send it to its best place: a foundation if it can go there, otherwise the tableau. Tap the first card of a pile to move the whole pile. A quick second tap sends a card only to a foundation. You can also drag cards where you want. The lamp in your bar shows a useful move; the number next to your cards counts your moves. Undo takes back moves, all the way to the deal.

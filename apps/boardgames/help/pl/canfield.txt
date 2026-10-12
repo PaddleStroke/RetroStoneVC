@@ -1,0 +1,21 @@
+Canfield
+# Cel gry
+Przełożyć wszystkie 52 karty na cztery stosy docelowe, po jednym na każdy kolor. Gra dla jednej osoby.
+# Rozłożenie
+- Rezerwa, po lewej: 13 kart, odkryta tylko wierzchnia.
+- Jedna odkryta karta na pierwszym stosie docelowym: jej wartość rozpoczyna wszystkie stosy docelowe.
+- Cztery stosy gry po jednej karcie, pod stosami docelowymi.
+- Pozostałe 34 karty to talia, zakryta, w lewym górnym rogu; obok leży stos odrzuconych.
+# Przekładanie kart
+- Stosy docelowe zaczynają się od czterech kart o wartości pierwszej karty i rosną w kolorze, dookoła: po królu przychodzi as.
+- Na stosy gry kładzie się kartę o jeden niższą i w drugim kolorze, także dookoła: czarnego króla na czerwonego asa.
+- Przekładaj wierzchnią kartę stosu albo cały stos naraz, nigdy jego część.
+- Wierzchnia karta rezerwy może pójść na stos docelowy albo na stos gry.
+- Pusty stos gry od razu zajmuje wierzchnia karta rezerwy. Gdy rezerwa się skończy, może go zająć dowolna karta.
+- Karta ze stosu docelowego już na nim zostaje.
+# Talia
+Dotknij talii, by odkryć trzy karty na stos odrzuconych (pod koniec mniej); zagrać można tylko wierzchnią kartę tego stosu. Gdy talia się skończy, dotknij jej miejsca, by odwrócić stos odrzuconych, tyle razy, ile chcesz.
+# Koniec gry
+Wygrywasz, gdy wszystkie karty są na stosach docelowych. Gdy talia, stos odrzuconych i rezerwa są puste, a pozostałe karty mogą po kolei trafić na stosy, przechodzą tam same. Najpierw opróżnij rezerwę: to klucz do gry.
+# Gra na urządzeniu
+Dotknij karty, by wysłać ją na najlepsze miejsce: na stos docelowy, jeśli tam pasuje, a jeśli nie, na stos gry. Dotknij pierwszej karty stosu, by przełożyć cały stos. Szybkie drugie dotknięcie wysyła kartę tylko na stos docelowy. Karty możesz też przeciągnąć, gdzie chcesz. Lampka na twoim pasku pokazuje przydatny ruch; liczba obok twoich kart liczy twoje ruchy. Cofnij cofa ruchy, aż do rozdania.

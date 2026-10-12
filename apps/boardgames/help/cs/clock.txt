@@ -1,0 +1,14 @@
+Hodiny
+# Cíl hry
+Otočit všechny karty lícem nahoru dřív, než přijde čtvrtý král. Malá hra čistého štěstí pro jednoho hráče, krásná pro děti: karty hrají samy.
+# Rozložení
+- Karty se rozdají rubem nahoru do 13 hromádek po čtyřech: dvanáct kolem ciferníku, jedna pro každou hodinu, a hromádka králů uprostřed.
+- Eso patří k jedné hodině, 2 ke druhé a tak dále: kluk k jedenácté, dáma ke dvanácté.
+# Přesouvání karet
+- Otoč horní kartu prostřední hromádky a polož ji lícem nahoru pod hromádku její hodiny; král jde pod prostřední hromádku.
+- Pak otoč horní kartu hromádky, pod kterou jsi právě položil kartu, a pokračuj.
+- Zlatá ručička hodin ukazuje na hromádku, ze které přijde další karta.
+# Konec hry
+Vyhraješ, když jsou všechny karty otočené ve chvíli, kdy se objeví čtvrtý král. Když čtvrtý král přijde a některé karty jsou ještě rubem nahoru, hra je prohraná. Není tu co vybírat: jen se dívej, jak hodiny jdou dokola.
+# Hra na zařízení
+Klepni kamkoli na stůl a otočíš další kartu: přiletí ke své hodině. Lampička v tvé liště ukáže další kartu; číslo vedle tvých karet počítá otočené karty. Vrátit bere tahy zpět, až k rozdání.

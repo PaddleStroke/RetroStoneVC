@@ -1,0 +1,16 @@
+Montana
+# Målet
+Ordna korten i fyra rader, var och en i en enda färg från 2 till kung, genom att flytta kort in i luckorna. Ett spel för en spelare, även kallat Luckorna.
+# Uppläggningen
+De 52 korten läggs ut med framsidan upp i fyra rader med 13; sedan tas de fyra essen bort, och fyra luckor blir kvar.
+# Flytta kort
+- En lucka fylls med kortet i samma färg som är ett steg högre än kortet till vänster om luckan: efter klöver 5 kommer klöver 6.
+- En lucka i första kolumnen tar vilken 2:a som helst.
+- En lucka efter en kung kan inte fyllas.
+- En rad i ordning börjar med en 2:a i första kolumnen och fortsätter i samma färg; den lyser svagt.
+# Nya givar
+Tre gånger per parti kan du trycka på handen (platsen med pilen som går runt): korten som ännu inte ligger i ordning samlas ihop, blandas och läggs ut igen på platserna efter varje rads följd, så att en lucka blir kvar direkt efter den. Talet under handen visar hur många givar som är kvar.
+# Partiets slut
+Du vinner när de fyra raderna ligger i ordning, var och en med sin lucka sist. Partiet är slut när ingen lucka kan fyllas och inga givar finns kvar. Alla givar går inte ut.
+# Spela på enheten
+Tryck på ett kort för att skicka det till luckan det fyller, eller tryck på en lucka för att hämta kortet som fyller den. Du kan också dra ett kort till sin lucka. Lampan i ditt fält visar ett nyttigt drag; talet bredvid dina kort räknar dina drag. Ångra tar tillbaka drag, ända till given.

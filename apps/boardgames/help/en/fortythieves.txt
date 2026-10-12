@@ -1,0 +1,18 @@
+Forty Thieves
+# The aim
+Move all 104 cards of two packs to the eight foundations, two for each suit, built up from the ace to the king. A game for one player, and a hard one.
+# The layout
+- Ten columns of four cards, all face up.
+- The other 64 cards are the stock, face down, at the top left; next to it, the waste.
+- The eight foundations are at the top, empty at the start.
+# Moving cards
+- On a column, put a card one rank lower of the same suit: the 6 of clubs on the 7 of clubs.
+- Only one card moves at a time, never a run.
+- Any card may fill an empty column.
+- A card on a foundation stays there.
+# The stock
+Tap the stock to turn one card onto the waste; the top card of the waste can be played. The stock is gone through only once: there is no redeal.
+# The end of the game
+You win when all the cards are on the foundations. Once the stock and the waste are empty and the cards left can all go up in turn, they go up by themselves. Few deals can be won: plan ahead and keep your empty columns.
+# Playing on the device
+Tap a top card to send it to its best place: a foundation, the next card of its suit, or an empty column. A quick second tap sends a card only to a foundation. You can also drag a card where you want. The lamp in your bar shows a useful move; the number next to your cards counts your moves. Undo takes back moves, all the way to the deal.

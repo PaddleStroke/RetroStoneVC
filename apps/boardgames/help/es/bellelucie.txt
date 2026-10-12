@@ -1,0 +1,16 @@
+La Belle Lucie
+# El objetivo
+Llevar las 52 cartas a las cuatro bases, una por palo, del as al rey. Un juego para un jugador, también llamado el Abanico.
+# La disposición
+- Las cartas se reparten boca arriba en 18 abanicos de tres; el último abanico tiene una sola carta.
+- Arriba: el sitio de los nuevos repartos, el sitio del «merci» y las cuatro bases.
+# Mover cartas
+- Solo se mueve la carta de arriba de un abanico: a su base, o sobre la carta de arriba de otro abanico si es del mismo palo y de un valor más: el 6 de corazones sobre el 7 de corazones.
+- Un abanico que se vacía se queda vacío.
+# Los nuevos repartos
+- Dos veces por partida, toca el sitio de la flecha que gira, arriba a la izquierda: las cartas que quedan en los abanicos se recogen, se barajan y se vuelven a repartir en abanicos de tres. El número de ese sitio indica los repartos que quedan.
+- En el último reparto llega el «merci», el regalo de las reglas clásicas: una sola vez, toca una carta enterrada en un abanico para sacarla. Espera en su propio sitio hasta que la juegues en una base o en un abanico.
+# El final de la partida
+Ganas cuando todas las cartas están en las bases; en cuanto todas pueden subir una tras otra, suben solas. La partida se pierde cuando no queda ningún movimiento. No todos los repartos se pueden ganar.
+# Jugar en el dispositivo
+Toca una carta de arriba para mandarla a su base o a su abanico, o arrástrala hasta allí. Un segundo toque rápido manda una carta solo a una base. La lámpara de tu barra muestra un movimiento útil; el número junto a tus cartas cuenta tus movimientos. Deshacer retira movimientos, hasta el reparto.

@@ -1,0 +1,16 @@
+La Belle Lucie
+# Cíl hry
+Přesunout všech 52 karet na čtyři cílové hromádky, jednu pro každou barvu, od esa po krále. Hra pro jednoho hráče, známá také jako Vějíř.
+# Rozložení
+- Karty se rozdají lícem nahoru do 18 vějířů po třech; poslední vějíř má jen jednu kartu.
+- Nahoře: ruka (pro nová rozdání), místo pro merci a čtyři cílové hromádky.
+# Přesouvání karet
+- Přesunout lze jen horní kartu vějíře: na její cílovou hromádku, nebo na horní kartu jiného vějíře ve stejné barvě a o jednu vyšší: srdcovou 6 na srdcovou 7.
+- Vějíř, který se vyprázdní, zůstane prázdný.
+# Nová rozdání
+- Dvakrát za hru klepni na ruku (místo s kroužící šipkou, vlevo nahoře): karty, které zůstaly ve vějířích, se seberou, zamíchají a znovu rozdají do vějířů po třech. Číslo v ruce ukazuje, kolik rozdání zbývá.
+- V posledním rozdání přichází merci, dárek klasických pravidel: jednou smíš klepnout na kartu schovanou ve vějíři a vytáhnout ji. Počká na svém místě, dokud ji nezahraješ na cílovou hromádku nebo na vějíř.
+# Konec hry
+Vyhraješ, když jsou všechny karty na cílových hromádkách; jakmile tam mohou postupně dojít všechny, přesunou se samy. Hra končí, když nezbývá žádný tah. Ne každé rozdání se dá vyhrát.
+# Hra na zařízení
+Klepni na horní kartu a pošleš ji na její cílovou hromádku nebo na její vějíř, nebo ji tam přetáhni. Rychlé druhé klepnutí pošle kartu jen na cílovou hromádku. Lampička v tvé liště ukáže užitečný tah; číslo vedle tvých karet počítá tvoje tahy. Vrátit bere tahy zpět, až k rozdání.

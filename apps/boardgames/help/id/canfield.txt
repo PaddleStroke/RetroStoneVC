@@ -1,0 +1,21 @@
+Canfield
+# Tujuan
+Pindahkan ke-52 kartu ke empat fondasi, satu untuk tiap jenis. Permainan untuk satu pemain.
+# Susunan
+- Cadangan, di kiri: 13 kartu, hanya yang teratas terbuka.
+- Satu kartu terbuka di fondasi pertama: nilainya menjadi awal semua fondasi.
+- Empat tumpukan main berisi satu kartu, di bawah fondasi.
+- Sisa 34 kartu adalah tumpukan, tertutup, di kiri atas; di sebelahnya ada tumpukan buangan.
+# Memindahkan kartu
+- Fondasi dimulai dengan empat kartu bernilai sama dengan kartu pertama dan disusun naik menurut jenis, memutar: sesudah raja datang as.
+- Di tumpukan main diletakkan kartu yang satu tingkat lebih rendah dan berwarna lain, juga memutar: raja hitam di atas as merah.
+- Pindahkan kartu teratas sebuah tumpukan, atau seluruh tumpukan sekaligus, tidak pernah sebagian.
+- Kartu teratas cadangan bisa pindah ke fondasi atau ke tumpukan main.
+- Tumpukan main yang kosong langsung diisi kartu teratas cadangan. Setelah cadangan habis, kartu apa pun boleh mengisinya.
+- Kartu di fondasi tetap di sana.
+# Tumpukan
+Ketuk tumpukan untuk membalik tiga kartu ke tumpukan buangan (lebih sedikit di akhir); hanya kartu teratas tumpukan buangan yang bisa dimainkan. Jika tumpukan habis, ketuk tempatnya untuk membalik tumpukan buangan kembali, sesering yang kamu mau.
+# Akhir permainan
+Kamu menang saat semua kartu ada di fondasi. Begitu tumpukan, tumpukan buangan, dan cadangan kosong dan sisa kartu bisa naik satu per satu, kartu-kartu itu naik sendiri. Kosongkan cadangan lebih dulu: itulah kunci permainannya.
+# Bermain di perangkat
+Ketuk kartu untuk mengirimnya ke tempat terbaiknya: fondasi jika bisa, kalau tidak ke tumpukan main. Ketuk kartu pertama sebuah tumpukan untuk memindahkan seluruh tumpukan. Ketukan kedua yang cepat mengirim kartu hanya ke fondasi. Kamu juga bisa menyeret kartu ke mana saja. Lampu di bilahmu menunjukkan langkah yang berguna; angka di samping kartumu menghitung langkahmu. Urungkan membatalkan langkah, sampai ke awal pembagian.

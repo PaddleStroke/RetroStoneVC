@@ -1,0 +1,14 @@
+Clock
+# The aim
+Turn every card face up before the fourth king comes out. A little game of pure chance for one player, lovely for children: the cards play themselves.
+# The layout
+- The cards are dealt face down in 13 piles of four: twelve around a clock face, one for each hour, and the kings' pile in the middle.
+- The ace belongs to one o'clock, the 2 to two o'clock, and so on: the jack to eleven, the queen to twelve.
+# Moving cards
+- Turn the top card of the middle pile and put it face up under the pile of its hour; a king goes under the middle pile.
+- Then turn the top card of the pile you have just put a card under, and go on.
+- The golden clock hand points at the pile the next card comes from.
+# The end of the game
+You win if all the cards are face up when the fourth king turns up. If the fourth king comes while cards are still face down, the game is lost. There is nothing to choose: just enjoy watching the clock go round.
+# Playing on the device
+Tap anywhere on the table to turn the next card: it flies to its hour. The lamp in your bar shows the next card; the number next to your cards counts the cards turned. Undo takes back moves, all the way to the deal.

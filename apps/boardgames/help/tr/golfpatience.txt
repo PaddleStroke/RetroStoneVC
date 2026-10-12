@@ -1,0 +1,17 @@
+Golf Solitaire
+# Amaç
+Yedi sütunu, kartlarını açılanların üstüne bir yukarı ya da bir aşağı oynayarak boşaltmak. Tek kişilik bir oyun; Golf kart oyunuyla karıştırma.
+# Diziliş
+- Beşer kartlık yedi sütun, hepsi açık.
+- Açılanlarda bir açık kart; kalan 16 kart kapalı olarak yanındaki destedir.
+# Kartları taşımak
+- Bir sütunun yalnızca en üstteki kartı taşınabilir. Açılanların en üstteki kartından bir yüksek ya da bir düşükse, takımı ne olursa olsun, açılanlara gider: bir 8'in üstüne 7 ya da 9.
+- Klasik kural: as ile papaz birbirini izlemez, bu yüzden papazın üstüne yalnızca kız, asın üstüne yalnızca 2 gelir. Öbür seçenek, köşeden dönerek: as ile papaz da birbirini izler.
+# Deste
+Hiçbir kart gidemiyorsa desteye dokunarak en üstteki kartını açılanlara çevir. Desteden yalnızca bir kez geçilir.
+# Puan
+Golfteki gibi, ne kadar az o kadar iyi. Açılanların yanındaki sayı sütunlarda kalan kartları sayar. Bütün sütunlar boşalınca puan, destede kalan kartların sıfırın altındaki sayısıdır.
+# Oyunun sonu
+Sütunlar boşalınca kazanırsın. Deste bitip hiçbir kart gidemeyince oyun biter. Her dağıtım kazanılamaz.
+# Cihazda oynamak
+En üstteki bir kartı açılanlara oynamak için ona dokun ya da onu oraya sürükle. Şeridindeki lamba iyi bir hamle gösterir: görebildiği en uzun diziyi başlatan kart. Kartlarının yanındaki sayı hamlelerini sayar. Geri al, hamleleri dağıtıma kadar geri alır.

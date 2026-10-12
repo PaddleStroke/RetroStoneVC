@@ -1,0 +1,16 @@
+Montana
+# Lo scopo
+Ordinare le carte in quattro file, ognuna di un solo seme dal 2 al re, spostando le carte nei buchi. Un gioco per un giocatore, detto anche i Buchi.
+# La disposizione
+Le 52 carte sono distribuite scoperte in quattro file da 13; poi si tolgono i quattro assi, e restano quattro buchi.
+# Muovere le carte
+- Un buco si riempie con la carta dello stesso seme e di un valore in più della carta alla sua sinistra: dopo il 5 di fiori, il 6 di fiori.
+- Un buco nella prima colonna accetta qualsiasi 2.
+- Niente può riempire un buco dopo un re.
+- Una fila in ordine comincia con un 2 nella prima colonna e continua nello stesso seme; brilla piano.
+# Le ridistribuzioni
+Tre volte per partita, tocca il posto con la freccia che gira: le carte non ancora in ordine vengono raccolte, mescolate e ridistribuite nei posti dopo la scala di ogni fila, lasciando un buco subito dopo. Il numero sotto quel posto indica le ridistribuzioni rimaste.
+# La fine della partita
+Vinci quando le quattro file sono in ordine, ognuna con il suo buco alla fine. La partita è persa quando nessun buco si può riempire e non resta nessuna ridistribuzione. Non tutte le smazzate si possono vincere.
+# Giocare sul dispositivo
+Tocca una carta per mandarla nel buco che riempie, o tocca un buco per portarci la carta che lo riempie. Puoi anche trascinare una carta nel suo buco. La lampada nella tua barra mostra una mossa utile; il numero accanto alle tue carte conta le tue mosse. Annulla ritira le mosse, fino alla smazzata.
