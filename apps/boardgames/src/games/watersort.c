@@ -7,4 +7,4 @@
 #include "games/sorting_ui.h"
 #include "games/watersort.h"
 
-SUI_GAME(watersort_game, "watersort", 420, 0, ws_new)
+SUI_GAME(watersort_game, "watersort", 420, 0, ws_new, ws_level, WS_LEVELS, WS_CHAPTERS)

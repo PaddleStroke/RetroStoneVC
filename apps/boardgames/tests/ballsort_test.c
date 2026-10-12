@@ -22,6 +22,7 @@ int main(void)
     sc_script(bs_new, 1);
     h = g;
     CHECK(bs_script(&h, "=2") && h.moves == 2);
+    sc_levels(bs_level, bs_levels, bs_level_par, BS_LEVELS, BS_CHAPTERS, 1);
     if (fails) { printf("ballsort: %d checks failed\n", fails); return 1; }
     printf("ballsort: all checks passed\n");
     return 0;

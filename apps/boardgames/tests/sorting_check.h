@@ -2,7 +2,7 @@
  * The checks Water Sort's and Ball Sort's tests share (their engine is one, games/sorting.h): the generator's
  * guarantees over hundreds of seeds (the colours all there, no tube already done, a way that solves it, the time
  * taken), the search against a plain breadth-first search (the shortest way), positions with no way, whole games of
- * random moves and undos from a seed, the hint played to the end, the notation.
+ * random moves and undos from a seed, the hint played to the end, the notation, the levels.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #ifndef SORTING_CHECK_H
@@ -249,6 +249,45 @@ static void sc_script(sc_new_fn make, int one)
     CHECK(!srt_script(&h, "az"));
     h = g;
     CHECK(srt_script(&h, "ae") && h.p.h[4] == (one ? 1 : srt_run(&g.p, 0)));
+}
+
+/* the levels: each one loads (the colours all there, two empty tubes, none complete), its par is the shortest way
+ * (the exact search, when it finishes within the test's room; else a way is found, never shorter), the colours never
+ * fewer from a chapter to the next, no two alike; a tray as text read back */
+typedef int (*sc_level_fn)(srt_game *g, int level);
+
+static void sc_levels(sc_level_fn level_of, const char *const *texts, const uint8_t *pars, int levels, int chapters,
+                      int one)
+{
+    static srt_move way[SRT_PATH];
+    static srt_game g, h;
+    int exact = 0, last = 0;
+    clock_t t0 = clock();
+    for (int l = 0; l < levels; l++) {
+        CHECK(level_of(&g, l));
+        CHECK(sc_same_layers(&g) && g.base == g.colours + 2 && g.par == pars[l] && g.par > 0 && g.moves == 0);
+        int empty = 0, done = 0;
+        for (int t = 0; t < g.tubes; t++) empty += !g.p.h[t], done += srt_complete(&g.p, t);
+        CHECK(empty == 2 && !done && g.one == one);
+        int full, len = srt_solve(&g.p, g.tubes, one, 400000, 4, way, NULL, &full);
+        if (!full) {
+            CHECK(len == g.par);
+            exact++;
+        } else CHECK(srt_way(&g.p, g.tubes, one, way) >= g.par);
+        if (l % (levels / chapters) == 0) {
+            CHECK(g.colours >= last);
+            last = g.colours;
+        }
+        char text[SRT_TUBES * 5 + 1];
+        srt_text(&g.p, g.tubes, text);
+        CHECK(!strcmp(text, texts[l]) && srt_parse(&h, text, one) && sc_same_pos(&h.p, &g.p, g.tubes));
+        for (int k = 0; k < l; k++) CHECK(strcmp(texts[k], texts[l]) != 0);
+    }
+    CHECK(!level_of(&g, levels) && !level_of(&g, -1));
+    CHECK(!srt_parse(&g, "1121|2222|", one) && !srt_parse(&g, "1g11|1", one) && !srt_parse(&g, "11111", one));
+    CHECK(srt_parse(&g, "1213|2321|3132||", one) && g.colours == 3 && g.tubes == 5);
+    printf("  levels: %d of %d checked against the exact search, %.1f s\n", exact, levels,
+           (double)(clock() - t0) / CLOCKS_PER_SEC);
 }
 
 #endif

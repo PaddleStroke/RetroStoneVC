@@ -12,6 +12,10 @@
  * one is solved by the search below before it is given (so every puzzle can be solved), and of a few drawn the one
  * whose shortest way is the longest is kept (the puzzles that need the most moves).
  * The helper: once a puzzle, an extra empty tube may be set on the rack (an action, which undo takes back).
+ * The par: the shortest way's length when the search finished (always for the levels, made offline by
+ * tools/watersort_gen.c and tools/ballsort_gen.c with room to search); for the largest random Ball Sort puzzles, when
+ * the shortest way takes too long to find, the nearly shortest one found. A tray as text (the levels): the tubes from
+ * the left, '|' between them, each one's colours from the bottom (1..9 a b c), "1213|2321|3132||".
  * The search: a weighted A* over the positions, the tubes' order forgotten (a position and the same tubes in another
  * order are one), with a lower bound of the moves left: every run of colour lying on another colour must leave its tube
  * once (Ball Sort: every ball of it), and of the tubes whose bottom is the same colour all but one must be emptied.
@@ -43,6 +47,7 @@ typedef struct {
     srt_pos p, start;
     srt_move hist[SRT_HIST];
     int nh, moves;                              /* moves: the pours (the extra tube is not one) */
+    int par;                                    /* the shortest way from the start (see above; 0: not known) */
 } srt_game;
 
 /* ---- a position ---------------------------------------------------------------------------------------------------- */
@@ -333,6 +338,7 @@ static inline int srt_generate(srt_game *g, int colours, int one, uint32_t seed,
         best = 0;
     }
     srt_load(g, colours, colours + 2, one, &keep);
+    g->par = best;
     return best;
 }
 
@@ -423,6 +429,45 @@ static inline int srt_hint(const srt_game *g, int *from, int *to, int *extra)
         if (srt_way(&q, g->tubes + 1, g->one, way) >= 0) *extra = 1;
     }
     return -1;
+}
+
+/* ---- a tray as text (the levels) -------------------------------------------------------------------------------- */
+#define SRT_DIGITS "123456789abc"
+
+/* 0: not a tray (a colour not four times, colours missing from 1 up, too many tubes, a tube over full) */
+static inline int srt_parse(srt_game *g, const char *s, int one)
+{
+    srt_pos p;
+    memset(&p, 0, sizeof p);
+    int t = 0, count[SRT_COLOURS + 1] = {0}, colours = 0;
+    for (;; s++) {
+        if (*s == '|' || !*s) {
+            if (++t >= SRT_TUBES) return 0;     /* the extra tube's place stays free */
+            if (!*s) break;
+            continue;
+        }
+        const char *c = strchr(SRT_DIGITS, *s);
+        if (!c || p.h[t] >= SRT_CAP) return 0;
+        int col = (int)(c - SRT_DIGITS) + 1;
+        p.c[t][p.h[t]++] = (uint8_t)col;
+        count[col]++;
+    }
+    while (colours < SRT_COLOURS && count[colours + 1]) colours++;
+    for (int c = 1; c <= SRT_COLOURS; c++)
+        if (count[c] != (c <= colours ? SRT_CAP : 0)) return 0;
+    if (!colours) return 0;
+    srt_load(g, colours, t, one, &p);
+    return 1;
+}
+
+static inline void srt_text(const srt_pos *p, int tubes, char *out)   /* tubes * 5 bytes at most */
+{
+    int k = 0;
+    for (int t = 0; t < tubes; t++) {
+        if (t) out[k++] = '|';
+        for (int i = 0; i < p->h[t]; i++) out[k++] = SRT_DIGITS[p->c[t][i] - 1];
+    }
+    out[k] = 0;
 }
 
 /* the notation: a move is its two tubes, a b c... from the left, "ac bd"; "+" sets the extra tube; "=k" plays the next

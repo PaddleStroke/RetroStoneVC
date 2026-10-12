@@ -14,3 +14,14 @@ int bs_new(srt_game *g, int variant, uint32_t seed, srt_move *way)
 int bs_move(srt_game *g, int from, int to) { return srt_move_do(g, from, to); }
 
 int bs_script(srt_game *g, const char *moves) { return srt_script(g, moves); }
+
+#ifndef SRT_GEN                                 /* not in the levels' tool (tools/ballsort_gen.c): it makes them */
+#include "games/ballsort_levels.h"
+
+int bs_level(srt_game *g, int level)
+{
+    if (level < 0 || level >= BS_LEVELS || !srt_parse(g, bs_levels[level], 1)) return 0;
+    g->par = bs_level_par[level];
+    return 1;
+}
+#endif

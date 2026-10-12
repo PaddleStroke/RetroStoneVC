@@ -44,6 +44,7 @@
 #define SUI_ARC 13                              /* the interior's points: 4 corners, 9 round its bottom */
 
 typedef int (*sui_new_fn)(srt_game *g, int variant, uint32_t seed, srt_move *way);
+typedef int (*sui_level_fn)(srt_game *g, int level);
 
 typedef struct {
     int balls;
@@ -459,12 +460,30 @@ static inline void sui_calm(sui *s)
     sui_corks_now(s);
 }
 
-static inline void sui_start(sui *s, int variant)
+static inline void sui_begin(sui *s)
 {
-    s->make(&s->G, variant, (uint32_t)ui_random(0x7fffffff) + 1u, NULL);
     sui_calm(s);
     s->made_key = -1;
     if (s->last_box.w > 0) sui_layout(s, s->last_box);
+}
+
+static inline void sui_start(sui *s, int variant)   /* a puzzle made at random */
+{
+    s->make(&s->G, variant, (uint32_t)ui_random(0x7fffffff) + 1u, NULL);
+    sui_begin(s);
+}
+
+static inline void sui_start_level(sui *s, sui_level_fn level_of, int level)   /* a designed level */
+{
+    if (!level_of(&s->G, level)) level_of(&s->G, 0);
+    sui_begin(s);
+}
+
+/* the stars: the pours against the par; the extra tube used, two at most */
+static inline int sui_stars(const sui *s)
+{
+    int k = ui_par_stars(s->G.moves, s->G.par);
+    return s->G.tubes > s->G.base && k > 2 ? 2 : k;
 }
 
 static inline Uint32 sui_win_len(const sui *s) { return (Uint32)(s->G.tubes * SUI_WAVE_STEP + SUI_WAVE_LEN + 600); }
@@ -1022,17 +1041,14 @@ static inline void sui_make_small(sui *s)
     s->t_small = ui_tex(small, small, ui_buf(small, small));
 }
 
-/* the menu's card (variant -1: a small rack half sorted) and the picker's (each size's puzzle, all its tubes) */
-static inline void sui_thumb(int balls, sui_new_fn make, int variant, int size, uint8_t *rgba)
+/* a rack painted into a picture: G's tubes (show: only the first few, close up; 0 all) */
+static inline void sui_rack_pic(int balls, const srt_game *G, int show, int size, uint8_t *rgba)
 {
-    sui T;
+    static sui T;
     memset(&T, 0, sizeof T);
     T.balls = balls;
-    make(&T.G, variant < 0 ? 0 : variant, 11, NULL);
-    if (variant < 0) {                          /* the menu's: four tubes close up, half sorted */
-        srt_script(&T.G, "=6");
-        T.show = 4;
-    }
+    T.G = *G;
+    T.show = show;
     T.bs = (float)size;
     sui_fit(&T, (float)size);
     uint8_t *b = malloc((size_t)size * size * 4);
@@ -1049,12 +1065,54 @@ static inline void sui_thumb(int balls, sui_new_fn make, int variant, int size, 
     }
 }
 
+/* the menu's card (variant -1: a small rack half sorted) and the picker's (each size's puzzle, all its tubes) */
+static inline void sui_thumb(int balls, sui_new_fn make, int variant, int size, uint8_t *rgba)
+{
+    static srt_game G;
+    make(&G, variant < 0 ? 0 : variant, 11, NULL);
+    if (variant < 0) srt_script(&G, "=6");      /* the menu's: four tubes close up, half sorted */
+    sui_rack_pic(balls, &G, variant < 0 ? 4 : 0, size, rgba);
+}
+
+/* the level screen: a level's rack; a chapter's tab: the rack of its first level, sorted and corked */
+static inline void sui_level_thumb(int balls, sui_level_fn level_of, int level, int size, uint8_t *rgba)
+{
+    static srt_game G;
+    if (level_of(&G, level)) sui_rack_pic(balls, &G, 0, size, rgba);
+}
+
+static inline void sui_chapter_icon(int balls, sui_level_fn level_of, int first, int size, uint8_t *rgba)
+{
+    static srt_game G;
+    if (!level_of(&G, first)) return;
+    srt_pos p;
+    memset(&p, 0, sizeof p);
+    for (int t = 0; t < G.colours; t++) {
+        p.h[t] = SRT_CAP;
+        for (int i = 0; i < SRT_CAP; i++) p.c[t][i] = (uint8_t)(t + 1);
+    }
+    srt_load(&G, G.colours, G.base, balls, &p);
+    sui_rack_pic(balls, &G, 0, size, rgba);
+}
+
 /* ---- the game for the shell: one state, the shell's calls passed to it ----------------------------------------------- */
-#define SUI_GAME(NAME, ID, ORDER, BALLS, MAKE)                                                                      \
+#define SUI_GAME(NAME, ID, ORDER, BALLS, MAKE, LEVEL, LEVELS, CHAPTERS)                                             \
     static sui S = {.balls = BALLS, .make = MAKE, .lifted = -1, .made_key = -1, .made_small = -1};                  \
     static void token(int player, int size, uint8_t *rgba) { (void)player; sui_token(BALLS, size, rgba); }        \
     static void thumb(int variant, int size, uint8_t *rgba) { sui_thumb(BALLS, MAKE, variant, size, rgba); }      \
-    static void start(int variant) { sui_start(&S, variant); }                                                      \
+    static void level_thumb(int level, int size, uint8_t *rgba)                                                     \
+    {                                                                                                               \
+        sui_level_thumb(BALLS, LEVEL, level, size, rgba);                                                           \
+    }                                                                                                               \
+    static void chapter_icon(int chapter, int size, uint8_t *rgba)                                                  \
+    {                                                                                                               \
+        sui_chapter_icon(BALLS, LEVEL, chapter * ((LEVELS) / (CHAPTERS)), size, rgba);                              \
+    }                                                                                                               \
+    static void start(int level) { sui_start_level(&S, LEVEL, level); }                                             \
+    static void start_random(int variant) { sui_start(&S, variant); }                                               \
+    static int level_stars(void) { return sui_stars(&S); }                                                          \
+    static int score(void) { return S.G.moves; }                                                                    \
+    static int par(void) { return S.G.par; }                                                                        \
     static void layout(box b) { sui_layout(&S, b); sui_make_small(&S); }                                           \
     static void draw(void) { sui_draw(&S); }                                                                        \
     static void press(float x, float y) { sui_press(&S, x, y); }                                                    \
@@ -1072,6 +1130,8 @@ static inline void sui_thumb(int balls, sui_new_fn make, int variant, int size, 
         .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,                             \
         .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,         \
         .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,                     \
+        .levels = LEVELS, .chapters = CHAPTERS, .start_random = start_random, .chapter_icon = chapter_icon,         \
+        .level_thumb = level_thumb, .level_stars = level_stars, .score = score, .par = par,                         \
     };                                                                                                              \
     REGISTER_GAME(NAME)
 

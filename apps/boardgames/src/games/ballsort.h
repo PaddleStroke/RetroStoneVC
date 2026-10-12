@@ -14,10 +14,18 @@
 #include "games/sorting.h"
 
 #define BS_VARIANTS SRT_VARIANTS
+#define BS_LEVELS 150
+#define BS_CHAPTERS 6
 
 /* a new puzzle from a seed: its shortest way's length (the way itself in way, when not NULL) */
 int bs_new(srt_game *g, int variant, uint32_t seed, srt_move *way);
 int bs_move(srt_game *g, int from, int to);     /* 1: moved; 0: not allowed */
 int bs_script(srt_game *g, const char *moves);
+
+/* the levels: 150 of our own in six chapters, from 3 colours to 12, made by tools/ballsort_gen.c
+ * (ballsort_levels.h: the trays as text, each one's shortest way, checked by the tests) */
+extern const char *const bs_levels[BS_LEVELS];
+extern const uint8_t bs_level_par[BS_LEVELS];
+int bs_level(srt_game *g, int level);          /* 0: none */
 
 #endif

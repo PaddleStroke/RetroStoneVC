@@ -7,4 +7,4 @@
 #include "games/ballsort.h"
 #include "games/sorting_ui.h"
 
-SUI_GAME(ballsort_game, "ballsort", 421, 1, bs_new)
+SUI_GAME(ballsort_game, "ballsort", 421, 1, bs_new, bs_level, BS_LEVELS, BS_CHAPTERS)

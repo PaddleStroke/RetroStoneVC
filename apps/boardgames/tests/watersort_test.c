@@ -23,6 +23,7 @@ int main(void)
     sc_script(ws_new, 0);
     h = g;
     CHECK(ws_script(&h, "=2") && h.moves == 2);
+    sc_levels(ws_level, ws_levels, ws_level_par, WS_LEVELS, WS_CHAPTERS, 0);
     if (fails) { printf("watersort: %d checks failed\n", fails); return 1; }
     printf("watersort: all checks passed\n");
     return 0;
