@@ -13,6 +13,10 @@
  * enough work to do for the level:
  *   0 easy: 5 x 5, pivoting mirrors only;  1 medium: 6 x 6, one loose mirror, a bomb;
  *   2 hard: 7 x 7, two loose mirrors, a glass plate, bombs;  3 expert: 8 x 8, three loose mirrors, more bombs.
+ * The levels (mirrors_levels.h, made by tools/mirrors_gen.c): 150 puzzles in six chapters, 5 x 5 to 8 x 8, the loose
+ * mirrors, bombs and glass coming in chapter by chapter; each kept as text (mr_encode). Stars: the moves against par,
+ * the fewest actions from the start to the one solution (a pivot turned: one; a loose mirror stood '/': one, '\': two,
+ * a tap more to turn it), worked out by mr_par; a hint caps them (pzkit.h).
  * Cells: x + y * n from the top left. Directions: 0 east, 1 north, 2 west, 3 south. A mirror's way: 0 '/', 1 '\'.
  * The notation (script, the screenshots, the tests): a cell is its column letter a.. and its row 1.. from the top;
  * "c4" taps it (a pivot: turned; an empty cell: a loose mirror stood '/', then '\', then taken off), "c4s" sets it '/',
@@ -27,6 +31,8 @@
 #define MR_MAX 8
 #define MR_CELLS (MR_MAX * MR_MAX)
 #define MR_HIST 2048
+#define MR_LEVELS 150
+#define MR_CHAPTERS 6
 
 enum { MR_EMPTY, MR_WALL, MR_LAMP, MR_GEM, MR_BOMB, MR_PIVOT, MR_LOOSE, MR_GLASS };   /* what a cell holds */
 enum { MR_SLASH, MR_BACK };                     /* a mirror's way: '/' '\' */
@@ -44,7 +50,18 @@ typedef struct {
     int norder;
     mr_change hist[MR_HIST];
     int nh, moves;
+    int par;                                    /* the fewest actions from the start to the solution */
+    int hints;                                  /* the hints given (undo does not take them back) */
 } mr_game;
+
+/* what the maker makes: the board's size, the mirrors on the beam's way (pivoting, loose, a glass), the gems, bombs,
+ * blocks and misleading pivots, the search's work the puzzle must take (choices tried), the fewest steps from the
+ * solution */
+typedef struct {
+    int n, pivots, loose, glass, gems, bombs, walls, decoys;
+    long work_min, work_max;
+    int steps;
+} mr_config;
 
 /* the beam: what it crosses (bit d of side[c]: it goes through side d of cell c, to or from its middle), how far
  * along it reaches a cell's middle (cells; 0xffff: never), the gems it lights, the bomb it touches */
@@ -64,11 +81,20 @@ int  mr_loose_left(const mr_game *g);           /* loose mirrors still in the tr
  * g->sol and g->order; *work: the choices the search tried */
 int  mr_solve(mr_game *g, int limit, long *work);
 void mr_new(mr_game *g, int level, uint32_t seed);
+/* a puzzle of a config (tries at most that many; 0: none found); its solution and par worked out */
+int  mr_make(mr_game *g, const mr_config *cf, uint32_t seed, int tries);
+int  mr_par(const mr_game *g);                  /* the fewest actions from now to g->sol (mr_solve's) */
+/* a level kept as text: "<n><loose>:" then a character a cell: '.' empty, '#' a block, '*' a gem, 'x' a bomb, 'p' a
+ * pivot '/', 'b' a pivot '\', 'g' a glass '/', 'h' a glass '\', the lamp 'E' 'N' 'W' 'S' (its direction).
+ * mr_decode: 0 when it is not one, or has not one solution (its solution and par worked out) */
+int  mr_encode(const mr_game *g, char *out, int size);
+int  mr_decode(mr_game *g, const char *code);
 
 int  mr_tap(mr_game *g, int cell);              /* 0: nothing to do there */
 int  mr_set(mr_game *g, int cell, int to);      /* to: 0 '/', 1 '\', 2 a loose mirror taken off; 0: not allowed */
 int  mr_move(mr_game *g, int from, int to);     /* a loose mirror carried to an empty cell (its way kept) */
-int  mr_hint(mr_game *g);                       /* one step towards the solution: the cell changed; -1: none */
+int  mr_hint(mr_game *g);                       /* one step towards the solution: the cell changed; -1: none. One
+                                                 * action, counted in hints */
 int  mr_undo(mr_game *g);                       /* the last action taken back: a cell it changed; -1: none */
 int  mr_cell(const mr_game *g, const char *s);  /* "c4": its cell; -1: none */
 int  mr_script(mr_game *g, const char *moves);  /* 0 at the first bad one */

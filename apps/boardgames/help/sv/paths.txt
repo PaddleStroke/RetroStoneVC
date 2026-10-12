@@ -6,6 +6,8 @@ Varje gåta har exakt en lösning, som hittas med ren slutledning.
 Dra eller ändra en stig.
 # Partiets slut
 När alla par är förbundna och ingen ruta är tom är gåtan löst: ett gyllene ljus löper längs varje stig.
+# Banor och stjärnor
+Det finns 150 banor i sex kapitel, från 5 × 5 upp till 12 × 12, var och en med bara en lösning; välj en i banöversikten. Fliken med tärningen efter kapitlen gör en ny gåta på slump, med det val som beskrivs ovan. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är ett streck som lägger en stig över en ruta som i lösningen hör till en annan färg; Ångra tar inte bort det.
 # Spela på enheten
 - Dra från en prick: dess stig börjar om därifrån och följer fingret. Dra från en ruta på en stig för att fortsätta därifrån (resten av stigen försvinner).
 - Att gå tillbaka längs stigen kortar den. Att korsa en annan stig klipper av den; den kommer tillbaka om du backar innan du lyfter fingret. En stig går aldrig över en prick i en annan färg.

@@ -9,6 +9,8 @@ Cada problema tiene una sola solución, que se encuentra razonando. Los tableros
 Pon un tramo de vía en una casilla, cámbialo, o marca con una cruz una casilla que sabes vacía. Las cruces son solo notas para ti.
 # El final de la partida
 Cuando la línea está completa y todos los números son correctos, el problema está resuelto: un trenecito recorre la vía de la entrada a la salida y las casillas se iluminan en dorado tras él.
+# Niveles y estrellas
+Hay 150 niveles en seis capítulos, del 5 × 5 al 10 × 10, cada uno con una sola solución; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, crea un puzle nuevo al azar, con la elección descrita arriba. Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una pieza puesta en una casilla que la vía no usa, o una cruz en una casilla que sí usa; Deshacer no lo borra.
 # Jugar en el dispositivo
 - Arrastra de casilla en casilla para tender la vía bajo tu dedo; se une a los tramos ya puestos.
 - Toca una casilla para poner una vía (primero la que mejor encaja con sus vecinas), otra vez para la siguiente; tras la sexta, la casilla queda vacía.

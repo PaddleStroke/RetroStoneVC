@@ -10,6 +10,8 @@ Ogni rompicapo ha una sola soluzione, che si trova seguendo il raggio e ragionan
 Gira uno specchio sul suo perno, oppure posa uno specchio libero su una casella vuota, giralo, spostalo o riprendilo.
 # La fine della partita
 Quando tutte le gemme sono illuminate e nessuna bomba è toccata, il rompicapo è risolto: una luce dorata percorre il raggio dalla lampada e le gemme scintillano.
+# Livelli e stelle
+Ci sono 150 livelli in sei capitoli, dai tavolieri 5 × 5 con soli specchi su perno fino ai tavolieri 8 × 8 con specchi liberi, bombe e vetro, ognuno con una sola soluzione; scegline uno nella schermata dei livelli. La scheda del dado, dopo i capitoli, crea un nuovo rompicapo a caso, con la scelta descritta sopra. Ogni rompicapo ha un par: il minimo di azioni che lo risolvono (uno specchio libero da mettere nell'altro verso costa un tocco in più). Risolto al par: 3 stelle; con fino a metà mosse in più: 2 stelle; altrimenti 1. Un suggerimento limita il rompicapo a 2 stelle, più di due suggerimenti a 1. Annulla toglie una mossa, che non conta più.
 # Giocare sul dispositivo
 - Tocca uno specchio sul perno per girarlo.
 - Tocca una casella vuota per posarvi uno specchio libero; toccala di nuovo per girarlo, una terza volta per rimandarlo nel vassoio. Puoi anche trascinare uno specchio dal vassoio a una casella, da una casella all'altra o fuori dal tavoliere.

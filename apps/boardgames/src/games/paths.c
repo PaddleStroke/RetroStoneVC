@@ -6,11 +6,14 @@
  * paths_rules.c).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
+ * The shell's level screen chooses a level (150 in six chapters, paths_levels.h), or its die tab a puzzle made at
+ * random (the variants). Stars: no hint and no mistake 3, up to two of them 2, else 1 (paths.h, pzkit.h).
  * Drag from a dot (its path starts again from it) or from a path's square (the path is cut back to it): the path
  * follows the finger square by square; over another path it cuts it (the cut part comes back if the finger backs
  * off); back along itself it shortens; onto its other dot the pair is linked (both dots ring). With taps alone: tap a
  * dot or a path's square (its end is marked), then a square in the same row or column: the path runs straight there.
- * The squares a path covers are washed in its colour. The lamp at the right end of the bar: a hint (one pair's path
+ * The squares a path covers are washed in its colour. The lamp (the shell's hint button) at the right end of the
+ * bar: a hint (one pair's path
  * laid as in the solution, in gold light). Undo takes back one stroke or hint, all the way to the start. The bar: the moves.
  * Solved: every pair linked and every square covered; a gold light runs along every path from its dots.
  */
@@ -19,8 +22,9 @@
 #include <string.h>
 
 #include "games/paths.h"
+#include "games/paths_levels.h"
 #include "games/puzzles.h"
-#include "games/routes.h"
+#include "games/pzkit.h"
 #include "shell.h"
 
 #define FRAME 0.035f
@@ -43,11 +47,10 @@ static int light_colour(int c)                  /* 1: a light colour (its mark d
 }
 
 static nk_game G;
-static box last_box;
-static float bx, by, side;
+static box last_box, barbox;
+static float bx, by, side, btn_d;
 static int fr, cs, ox, oy, made_key = -1, made_small = -1, serial;
 static SDL_Texture *t_board, *t_dot[NK_COLOURS], *t_small;
-static rte_lamp lamp;
 static int active = -1, anchor = -1;           /* the colour picked for taps (its path's end marked), its dot */
 static struct { int on, cell, moved, line, was_active, from, linked; } ptr;
 static int from_cell(void);
@@ -113,11 +116,11 @@ static void paint_dot(int c, int size, uint8_t *o)
     memset(o, 0, (size_t)size * size * 4);
     art_fig *f = art_fig_new();
     art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.46f, 0.46f);
-    rte_paint(o, size, f, NK_RGB[c], INK, fmaxf(0.03f, 1.3f / size), 0.4f);
+    art_fig_paint(o, size, f, NK_RGB[c], INK, fmaxf(0.03f, 1.3f / size), 0.4f);
     f = art_fig_new();
     mark_fig(f, c);
     const uint8_t *m = light_colour(c) ? INK : CREAM;
-    rte_paint(o, size, f, m, m, 0, 0);
+    art_fig_paint(o, size, f, m, m, 0, 0);
 }
 
 /* the token: a wooden tile, two red dots joined by a path */
@@ -162,7 +165,7 @@ static void layout(box b)
         made_key = key;
         int w = (int)S, d = (int)(DOT * cs);
         ui_free(&t_board);
-        rte_tiles(ui_buf(w, w), w, fr, G.n, cs, ox, oy);
+        pzk_tiles(ui_buf(w, w), w, fr, G.n, G.n, cs, ox, oy);
         t_board = ui_tex(w, w, ui_buf(w, w));
         for (int c = 0; c < NK_COLOURS; c++) {
             ui_free(&t_dot[c]);
@@ -189,13 +192,27 @@ static void calm(void)
     active = -1;
 }
 
-static void start(int variant)
+static void begin(void)
 {
-    nk_new(&G, variant < 0 || variant >= NK_VARIANTS ? 1 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
     serial++;
     calm();
     if (last_box.w > 0) layout(last_box);
 }
+
+static void start(int level)                    /* a level of the shell's level screen */
+{
+    if (!nk_decode(&G, nk_levels[level < 0 || level >= NK_LEVELS ? 0 : level])) nk_new(&G, 0, 1);
+    begin();
+}
+
+static void start_random(int variant)           /* a puzzle made at random (the die tab) */
+{
+    nk_new(&G, variant < 0 || variant >= NK_VARIANTS ? 1 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    begin();
+}
+
+static int score(void) { return G.moves; }
+static int level_stars(void) { return pzk_stars(3, G.hints, G.mistakes); }
 
 static int status(void) { return nk_solved(&G) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
@@ -449,14 +466,21 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    puz_bar_moves(b, t_small, G.moves);
-    rte_lamp_draw(&lamp, b, !nk_solved(&G));
+    barbox = b;
+    pzk_count it[1] = {{t_small, G.moves}};
+    btn_d = pzk_bar(b, it, 1, 1);
+    float x, y;
+    pzk_bar_btn(b, 0, btn_d, &x, &y);
+    ui_button(x, y, btn_d, ICON_HINT, nk_solved(&G) ? UI_DIM : 0);
 }
 
 static int bar_press(int player, float x, float y)
 {
     (void)player;
-    if (!rte_lamp_hit(&lamp, x, y)) return 0;
+    float hx, hy;
+    if (!barbox.w) return 0;
+    pzk_bar_btn(barbox, 0, btn_d, &hx, &hy);
+    if (!ui_button_hit(hx, hy, btn_d, x, y)) return 0;
     int before = linked_now(), c = nk_hint(&G);
     if (c < 0) { ui_sound(SND_DENY); return 1; }
     active = -1;
@@ -478,7 +502,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
     int n = T->n, f = (int)(size * FRAME), q = (size - 2 * f) / n, o = (size - n * q) / 2;
     uint8_t *b = malloc((size_t)size * size * 4);
     if (!b) { free(T); return; }
-    rte_tiles(b, size, f, n, q, o, o);
+    pzk_tiles(b, size, f, n, n, q, o, o);
     for (int c = 0; c < T->pairs; c++) {
         if (c % 3 == 2) continue;               /* a third of the pairs still to link */
         float w = BAND * q, r = fmaxf(0.6f, 0.045f * q);
@@ -507,10 +531,19 @@ static void thumb(int variant, int size, uint8_t *rgba)
     free(T);
 }
 
+/* a chapter's tab: a small board of its biggest size */
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    static const int SIZE[NK_CHAPTERS] = {6, 7, 8, 9, 10, 12};
+    pzk_grid_icon(rgba, size, SIZE[chapter < 0 ? 0 : chapter >= NK_CHAPTERS ? NK_CHAPTERS - 1 : chapter]);
+}
+
 static const game paths_game = {
     .id = "paths", .order = 401, .variants = NK_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,
+    .levels = NK_LEVELS, .chapters = NK_CHAPTERS, .chapter_icon = chapter_icon, .start_random = start_random,
+    .level_stars = level_stars, .score = score,
 };
 REGISTER_GAME(paths_game)

@@ -6,6 +6,8 @@ Jokainen tehtävä ratkeaa pelkällä päättelyllä, ja siinä on vain yksi rat
 Laatan kääntäminen neljänneskierros myötäpäivään.
 # Pelin loppu
 Kun kaikki laatat ovat yhteydessä eikä mikään putki ole auki, vesi ulottuu jokaiseen laattaan ja kultainen valo lähtee säiliöstä.
+# Tasot ja tähdet
+Tasoja on 150 kuudessa luvussa, koosta 4 × 4 kokoon 11 × 11 ja reunattomiin lautoihin, ja jokaisessa on vain yksi ratkaisu; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Jokaisella tehtävällä on par eli pienin määrä neljänneskierroksia, joilla sen ratkaisee. Ratkaistu parilla: 3 tähteä; enintään puolet enemmän siirtoja: 2 tähteä; muuten 1. Vihje rajaa tehtävän 2 tähteen ja useampi kuin kaksi vihjettä 1 tähteen. Kumoa peruu siirron, eikä sitä enää lasketa.
 # Pelaaminen laitteella
 - Napauta laattaa kääntääksesi sitä neljänneskierroksen.
 - Vesi virtaa säiliöstä jokaiseen siihen liittyvään putkeen. Kun se saavuttaa avoimen putken, se valuu yli: katso pisaroita.

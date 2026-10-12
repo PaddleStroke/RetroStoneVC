@@ -10,6 +10,8 @@ Varje pussel har exakt en lösning, som man hittar genom att följa strålen och
 Vrid en spegel på sin tapp, eller ställ en lös spegel på en tom ruta, vrid den, flytta den eller ta tillbaka den.
 # Partiets slut
 När alla ädelstenar lyser och ingen bomb rörs är pusslet löst: ett gyllene ljus löper längs strålen från lampan och ädelstenarna glittrar.
+# Banor och stjärnor
+Det finns 150 banor i sex kapitel, från 5 × 5 med bara vridbara speglar upp till 8 × 8 med lösa speglar, bomber och glas, var och en med bara en lösning; välj en i banöversikten. Fliken med tärningen efter kapitlen gör en ny gåta på slump, med det val som beskrivs ovan. Varje gåta har ett par: det minsta antalet handlingar som löser den (en lös spegel som ska stå åt andra hållet kostar ett tryck till). Löst på par: 3 stjärnor; med upp till hälften så många drag till: 2 stjärnor; annars 1. En ledtråd ger högst 2 stjärnor, fler än två ledtrådar högst 1. Ångra tar tillbaka ett drag, och det räknas inte längre.
 # Spela på enheten
 - Tryck på en spegel på en tapp för att vrida den.
 - Tryck på en tom ruta för att ställa en lös spegel där; tryck igen för att vrida den och en tredje gång för att lägga tillbaka den i facket. Du kan också dra en spegel från facket till en ruta, från en ruta till en annan eller av brädet.

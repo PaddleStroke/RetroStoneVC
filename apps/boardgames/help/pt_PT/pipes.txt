@@ -6,6 +6,8 @@ Cada quebra-cabeças resolve-se só pelo raciocínio e tem uma única solução.
 Rodar uma peça um quarto de volta no sentido dos ponteiros do relógio.
 # O fim do jogo
 Quando todas as peças estão ligadas e nenhum cano está aberto, a água chega a cada peça e uma luz dourada parte do depósito.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, do 4 × 4 ao 11 × 11 e aos tabuleiros sem bordas, cada um com uma única solução; escolhe um no ecrã de níveis. O separador do dado, depois dos capítulos, cria um novo quebra-cabeças ao acaso, com a escolha descrita acima. Cada quebra-cabeças tem um par: o mínimo de quartos de volta que o resolvem. Resolvido no par: 3 estrelas; com até metade mais de jogadas: 2 estrelas; senão, 1. Uma pista limita o quebra-cabeças a 2 estrelas, mais de duas pistas a 1. Anular desfaz uma jogada, que deixa de contar.
 # Jogar no dispositivo
 - Toca numa peça para a rodar um quarto de volta.
 - A água corre do depósito por todos os canos ligados a ele. Onde chega a um cano aberto, transborda: procura as gotas.

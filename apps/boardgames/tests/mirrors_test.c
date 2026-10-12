@@ -1,7 +1,8 @@
 /*
  * Mirrors' rules: the beam (mirrors, glass, blocks, bombs, the board's edge), the search on small hand-made puzzles,
  * the puzzles made from many seeds (one way to solve them, the level's work, never solved from the start, the same
- * from the same seed, made fast), taps, moves, hints to the end and undo all the way back.
+ * from the same seed, made fast), taps, moves, hints to the end and undo all the way back; every level (one way to
+ * solve it, solved in exactly par actions by the fewest taps on the solution's cells).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -9,6 +10,7 @@
 #include <time.h>
 
 #include "games/mirrors.h"
+#include "games/mirrors_levels.h"
 
 static int fails;
 #define CHECK(c)                                                                                                    \
@@ -178,6 +180,36 @@ int main(void)
         }
         printf("mirrors level %d: work mean %.1f max %ld, slowest %.1f ms\n", level, (double)wsum / seeds, wmax, worst);
         CHECK(worst < 500);
+    }
+
+    /* every level: it reads back the same, has one way to solve it (mr_decode checks it), is not solved at the start,
+     * and the fewest taps on the solution's cells solve it in exactly par actions; hints count; no two alike */
+    {
+        static mr_game g;
+        int last_n = 0, grows = 1;
+        for (int i = 0; i < MR_LEVELS; i++) {
+            CHECK(mr_decode(&g, mr_levels[i]));
+            char code[MR_CELLS + 8];
+            CHECK(mr_encode(&g, code, sizeof code) && !strcmp(code, mr_levels[i]));
+            CHECK(!mr_solved(&g) && g.par >= 1 && g.moves == 0 && g.hints == 0);
+            if (i < 25) CHECK(g.n <= 5 && g.loose == 0);
+            grows &= g.n >= last_n - 1;
+            last_n = g.n;
+            for (int k = 0; k < g.norder; k++) {
+                int c = g.order[k], want = g.sol[c];
+                if (want < 0 || want == 2) continue;
+                if (g.kind[c] == MR_PIVOT && g.way[c] != want) CHECK(mr_tap(&g, c));
+                if (g.kind[c] == MR_EMPTY) {
+                    CHECK(mr_tap(&g, c));       /* '/' */
+                    if (want == MR_BACK) CHECK(mr_tap(&g, c));
+                }
+            }
+            CHECK(mr_solved(&g) && g.moves == g.par);
+            for (int j = 0; j < i; j++) CHECK(strcmp(mr_levels[i], mr_levels[j]));
+        }
+        CHECK(grows);
+        CHECK(mr_decode(&g, mr_levels[0]) && mr_hint(&g) >= 0 && mr_undo(&g) >= 0 && g.hints == 1 && g.moves == 0);
+        CHECK(!mr_decode(&g, "50:x") && !mr_decode(&g, "9") && !mr_decode(&g, "20:...."));
     }
 
     if (fails) printf("mirrors: %d failures\n", fails);

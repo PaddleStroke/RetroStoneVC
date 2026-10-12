@@ -1,7 +1,9 @@
 /*
- * What three of the one-player puzzles share on the screen (Mirrors, Tracks, Untangle): round walnut buttons at the
- * right end of the bar (the hint's lamp, a mode), lines and dots drawn at any angle with soft edges (a beam of light
- * and its glow, a cord between two pegs), and strokes painted into a picture with smooth edges (rails, a brass plate).
+ * What the route puzzles share (Pipes, Paths, Mirrors, Tracks, Untangle): the tiles of a board cut in the house plank
+ * (each square bevelled, a groove between them), an inlaid cell, strokes and discs painted into a picture with smooth
+ * edges (rails, a brass plate, a beam's glow), lines and dots drawn on the screen at any angle with soft edges (a beam
+ * of light, a cord between two pins), the bar's counts with room for the shell's round buttons (ui_button), and the
+ * stars' rule of the family.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Written once, here, as static inline functions: the build takes a game's own files only (GAMES="tracks" builds
@@ -20,6 +22,15 @@
 
 static const uint8_t PZK_WALNUT[3] = {108, 72, 47}, PZK_DARK[3] = {50, 33, 22}, PZK_GOLD[3] = {236, 194, 96},
                      PZK_RED[3] = {200, 62, 46};
+
+/* ---- the stars: one rule for the family -------------------------------------------------------------------------
+ * A solved puzzle's stars: `base` from its own rule (the moves against par: ui_par_stars; 3 for the puzzles rated by
+ * their help alone), then no more than the help allows: no hint and no mistake keeps 3, up to two of them 2, more 1. */
+static inline int pzk_stars(int base, int hints, int mistakes)
+{
+    int help = hints + mistakes, cap = help == 0 ? 3 : help <= 2 ? 2 : 1;
+    return base < cap ? base : cap;
+}
 
 /* ---- painting into a picture (RGBA, straight alpha) -------------------------------------------------------------- */
 /* a colour laid over one pixel, covering it by a (0..1) */
@@ -105,82 +116,71 @@ static inline void pzk_ball(uint8_t *o, int w, int h, float cx, float cy, float 
         }
 }
 
-/* ---- the buttons: a turned walnut disc, a cream picture on it ---------------------------------------------------- */
-static inline void pzk_btn_disc(int size, uint8_t *o)
+/* ---- the boards -------------------------------------------------------------------------------------------------- */
+/* the plank in its walnut frame (S x S, frame f), w x h squares of q pixels from (ox, oy) cut in it: each one bevelled
+ * (lit at the top left), a dark groove between them */
+static inline void pzk_tiles(uint8_t *o, int S, int f, int w, int h, int q, int ox, int oy)
 {
-    memset(o, 0, (size_t)size * size * 4);
-    float r = 0.47f * size, c = size / 2.0f;
-    pzk_ball(o, size, size, c, c, r, PZK_WALNUT, 1, 0.7f);
-    for (int y = 0; y < size; y++)               /* the turned rings, and a dark rim */
-        for (int x = 0; x < size; x++) {
-            uint8_t *p = o + 4 * (y * size + x);
-            if (!p[3]) continue;
-            float d = hypotf(x + 0.5f - c, y + 0.5f - c) / r;
-            float k = 1 - 0.06f * (0.5f + 0.5f * sinf(d * 34)) - (d > 0.9f ? 0.45f * (d - 0.9f) / 0.1f : 0);
+    art_board_n(1, 1, S - 2 * f, f, 0, o);
+    float b = fmaxf(1.5f, 0.07f * q), groove = fmaxf(1, 0.035f * q);
+    for (int y = oy < 0 ? 0 : oy; y < oy + h * q && y < S; y++)
+        for (int x = ox < 0 ? 0 : ox; x < ox + w * q && x < S; x++) {
+            float px = (float)((x - ox) % q) + 0.5f, py = (float)((y - oy) % q) + 0.5f;
+            float dl = px, dr = q - px, dt = py, db = q - py, d = fminf(fminf(dl, dr), fminf(dt, db));
+            uint8_t *p = o + 4 * ((size_t)y * S + x);
+            float k = 1;
+            if (d < groove) k = 0.55f + 0.2f * d / groove;
+            else if (d < b) {
+                float s = d == dl || d == dt ? 1 : -1;   /* the top and left lit, the bottom and right shaded */
+                k = 1 + s * 0.16f * (1 - (d - groove) / (b - groove));
+            }
             for (int i = 0; i < 3; i++) p[i] = (uint8_t)clampf(p[i] * k, 0, 255);
         }
 }
 
-/* the hint: an oil lamp's glass, its brass foot, its light round it */
-static inline void pzk_lamp(int size, uint8_t *o)
+/* an inlaid cell: the wood under a rounded rectangle tinted (tone: a factor per channel, so the grain stays), a darker
+ * seam round it (seam pixels wide) */
+static inline void pzk_inlay(uint8_t *o, int pw, int ph, float x0, float y0, float w, float h, float rad,
+                             const float tone[3], float seam)
 {
-    float s = (float)size;
-    for (int i = -2; i <= 2; i++) {
-        float a = (90 + 38 * i) * PUZ_PI / 180, cx = 0.5f * s, cy = 0.43f * s;
-        pzk_stroke(o, size, size, cx + cosf(a) * 0.24f * s, cy - sinf(a) * 0.24f * s, cx + cosf(a) * 0.32f * s,
-                   cy - sinf(a) * 0.32f * s, 0.025f * s, PUZ_CREAM, 1);
+    for (int y = (int)floorf(y0); y < (int)ceilf(y0 + h); y++)
+        for (int x = (int)floorf(x0); x < (int)ceilf(x0 + w); x++) {
+            if (x < 0 || y < 0 || x >= pw || y >= ph) continue;
+            float px = x + 0.5f - x0, py = y + 0.5f - y0;
+            float dx = fmaxf(rad - px, px - (w - rad)), dy = fmaxf(rad - py, py - (h - rad)), d;
+            if (dx > 0 && dy > 0) d = rad - hypotf(dx, dy);                 /* in a rounded corner */
+            else d = fminf(fminf(px, w - px), fminf(py, h - py));           /* inside: to the nearest side */
+            float in = clampf(d + 0.5f, 0, 1);
+            if (in <= 0) continue;
+            float k = d < seam ? 0.72f + 0.28f * clampf(d / seam - 0.4f, 0, 1) : 1;   /* the seam */
+            uint8_t *p = o + 4 * ((size_t)y * pw + x);
+            for (int c = 0; c < 3; c++) {
+                float v = p[c] * tone[c] * k;
+                p[c] = (uint8_t)clampf(p[c] + (v - p[c]) * in, 0, 255);
+            }
+        }
+}
+
+/* a chapter's tab picture: a small plank in its walnut frame, ruled in n x n cells (its boards' size) */
+static inline void pzk_grid_icon(uint8_t *rgba, int size, int n)
+{
+    int S = (int)(0.9f * size), f = (int)fmaxf(1, 0.07f * S), o = (size - S) / 2;
+    uint8_t *b = S > 4 && n > 0 ? malloc((size_t)S * S * 4) : NULL;
+    if (!b) return;
+    art_board_n(1, 1, S - 2 * f, f, 0, b);
+    float q = (float)(S - 2 * f) / n, t = fmaxf(1, 0.1f * q);
+    for (int i = 1; i < n; i++) {
+        float p = f + i * q;
+        puz_ink_rect(b, S, S, p - t / 2, (float)f, p + t / 2, (float)(S - f), PUZ_INK, 0.6f);
+        puz_ink_rect(b, S, S, (float)f, p - t / 2, (float)(S - f), p + t / 2, PUZ_INK, 0.6f);
     }
-    pzk_ball(o, size, size, 0.5f * s, 0.43f * s, 0.155f * s, PZK_GOLD, 1, 0.6f);
-    pzk_stroke(o, size, size, 0.42f * s, 0.61f * s, 0.58f * s, 0.61f * s, 0.045f * s, PZK_GOLD, 1);
-    pzk_stroke(o, size, size, 0.44f * s, 0.69f * s, 0.56f * s, 0.69f * s, 0.03f * s, PUZ_CREAM, 1);
-    pzk_stroke(o, size, size, 0.465f * s, 0.75f * s, 0.535f * s, 0.75f * s, 0.022f * s, PUZ_CREAM, 1);
+    art_blend(rgba, size, size, b, S, S, o, o);
+    free(b);
 }
 
-/* a set of button pictures made at one size: paint(kind, size, o) paints kind's picture over the disc */
-typedef struct { int size; SDL_Texture *t[8]; } pzk_btns;
-
-static inline SDL_Texture *pzk_btn(pzk_btns *b, int kind, int size, void (*paint)(int kind, int size, uint8_t *o))
-{
-    if (size < 4 || kind < 0 || kind >= 8) return NULL;
-    if (b->size != size) {
-        for (int i = 0; i < 8; i++) ui_free(&b->t[i]);
-        b->size = size;
-    }
-    if (!b->t[kind]) {
-        uint8_t *o = ui_buf(size, size);
-        pzk_btn_disc(size, o);
-        paint(kind, size, o);
-        b->t[kind] = ui_tex(size, size, o);
-    }
-    return b->t[kind];
-}
-
-enum { PZK_DIM, PZK_READY, PZK_ON, PZK_LIT };   /* not now; can be pressed; a mode that is on; glowing (a hint) */
-static inline void pzk_btn_draw(SDL_Texture *t, float cx, float cy, float d, int state)
-{
-    if (!t) return;
-    if (state == PZK_ON || state == PZK_LIT) ui_mark_gold(cx, cy, 1.55f * d);
-    ui_shadow_flat(cx, cy, d, d, state == PZK_DIM ? 0.25f : 0.6f);
-    SDL_SetTextureAlphaMod(t, state == PZK_DIM ? 100 : 255);
-    if (state == PZK_ON) SDL_SetTextureColorMod(t, 214, 204, 184);
-    float s = state == PZK_ON ? 0.93f : 1;
-    ui_put_c(t, cx, cy + (state == PZK_ON ? 0.03f * d : 0), d * s, d * s);
-    SDL_SetTextureColorMod(t, 255, 255, 255);
-    SDL_SetTextureAlphaMod(t, 255);
-}
-
-static inline int pzk_btn_hit(float cx, float cy, float d, float x, float y) { return hypotf(x - cx, y - cy) <= 0.6f * d; }
-
-/* the bar's buttons, from its right end: button i's centre, for buttons d across (pzk_bar's) */
-static inline void pzk_bar_btn(box b, int i, float d, float *cx, float *cy)
-{
-    *cx = b.x + b.w - d / 2 - 0.05f * ui.unit - i * (d + 0.3f * ui.unit);
-    *cy = b.y + b.h / 2;
-}
-
-/* the bar of a puzzle: counts from its left (each a small picture, or none, and its number in cream: the moves
- * first), and room for n buttons at its right end; their size. A narrow bar (landscape) first drops the first
- * count's picture, then makes everything smaller. */
+/* ---- the bar: counts from its left (each a small picture, or none, and its number in cream: the moves first), and
+ * room for n of the shell's round buttons (ui_button) at its right end; their size. A narrow bar (landscape) first
+ * drops the first count's picture, then makes everything smaller. ----------------------------------------------- */
 typedef struct { SDL_Texture *icon; int value; } pzk_count;
 
 static inline float pzk_bar(box b, const pzk_count *it, int ni, int n)
@@ -193,10 +193,8 @@ static inline float pzk_bar(box b, const pzk_count *it, int ni, int n)
         k = scales[pass];
         float w = 0;
         for (int i = 0; i < ni; i++) {
-            int digits = 1;
-            for (int v = it[i].value; v >= 10; v /= 10) digits++;
             if (it[i].icon && !(drop && i == 0)) w += (0.6f + 0.12f) * u * k;
-            w += (0.74f * (digits - 1) + 0.62f) * 0.46f * u * k + (i ? 0.35f * u * k : 0);
+            w += ui_number_w(it[i].value < 0 ? 0 : it[i].value, 0.46f * u * k) + (i ? 0.35f * u * k : 0);
         }
         d = (b.w - w - 0.25f * u - (n - 1) * 0.3f * u) / (n ? n : 1);
         if (d >= 0.8f * u) break;
@@ -209,13 +207,19 @@ static inline float pzk_bar(box b, const pzk_count *it, int ni, int n)
             ui_put(it[i].icon, x, cy - sz / 2, sz, sz);
             x += sz + 0.12f * u * k;
         }
-        int digits = 1;
-        for (int v = it[i].value; v >= 10; v /= 10) digits++;
-        float w = (0.74f * (digits - 1) + 0.62f) * dh;
-        ui_number(x + w / 2, cy, dh, it[i].value < 0 ? 0 : it[i].value, 1);
+        int v = it[i].value < 0 ? 0 : it[i].value;
+        float w = ui_number_w(v, dh);
+        ui_number(x + w / 2, cy, dh, v, 1);
         x += w;
     }
     return d;
+}
+
+/* the bar's button i (from its right end): its centre, for buttons d across (pzk_bar's) */
+static inline void pzk_bar_btn(box b, int i, float d, float *cx, float *cy)
+{
+    *cx = b.x + b.w - d / 2 - 0.05f * ui.unit - i * (d + 0.3f * ui.unit);
+    *cy = b.y + b.h / 2;
 }
 
 /* ---- lines and dots on the screen, soft edged, at any angle ------------------------------------------------------

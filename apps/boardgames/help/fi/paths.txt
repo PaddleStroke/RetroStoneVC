@@ -6,6 +6,8 @@ Jokaisessa tehtävässä on täsmälleen yksi ratkaisu, joka löytyy pelkällä 
 Polun piirtäminen tai muuttaminen.
 # Pelin loppu
 Kun kaikki parit on yhdistetty eikä yksikään ruutu jää tyhjäksi, tehtävä on ratkaistu: kultainen valo kulkee jokaista polkua pitkin.
+# Tasot ja tähdet
+Tasoja on 150 kuudessa luvussa, koosta 5 × 5 kokoon 12 × 12, ja jokaisessa on vain yksi ratkaisu; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on veto, joka vie polun ruutuun, joka ratkaisussa kuuluu toiselle värille; Kumoa ei poista sitä.
 # Pelaaminen laitteella
 - Vedä pisteestä: sen polku alkaa siitä alusta ja seuraa sormeasi. Vedä polun ruudusta jatkaaksesi siitä (polun loppuosa katoaa).
 - Polkua pitkin takaisin kulkeminen lyhentää sitä. Toisen polun ylittäminen katkaisee sen; se palaa, jos peräännyt ennen kuin nostat sormen. Polku ei koskaan kulje toisen värin pisteen yli.

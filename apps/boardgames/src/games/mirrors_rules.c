@@ -5,6 +5,7 @@
  */
 #include "games/mirrors.h"
 
+#include <stdio.h>
 #include <string.h>
 
 #include "games/puzrand.h"
@@ -201,14 +202,11 @@ int mr_solve(mr_game *g, int limit, long *work)
 }
 
 /* ---- the maker --------------------------------------------------------------------------------------------------- */
-static const struct {
-    int n, pivots, loose, glass, gems, bombs, walls, decoys;
-    long work_min, work_max;
-} LEVEL[MR_VARIANTS] = {
-    {5, 4, 0, 0, 2, 0, 1, 1, 5, 400},
-    {6, 3, 1, 0, 3, 1, 2, 1, 10, 4000},
-    {7, 3, 2, 1, 3, 2, 3, 2, 40, 40000},
-    {8, 3, 3, 1, 4, 3, 3, 2, 200, 300000},
+static const mr_config LEVEL[MR_VARIANTS] = {
+    {5, 4, 0, 0, 2, 0, 1, 1, 5, 400, 2},
+    {6, 3, 1, 0, 3, 1, 2, 1, 10, 4000, 2},
+    {7, 3, 2, 1, 3, 2, 3, 2, 40, 40000, 3},
+    {8, 3, 3, 1, 4, 3, 3, 2, 200, 300000, 3},
 };
 
 static int pick(uint32_t *r, const int *list, int n) { return n ? list[pr_below(r, n)] : -1; }
@@ -254,13 +252,12 @@ static int near_beam(const mr_game *g, const mr_beam *b, int c)
     return 0;
 }
 
-static int try_make(mr_game *g, int level, uint32_t *r)
+static int try_make(mr_game *g, const mr_config *cf, uint32_t *r)
 {
-    int n = LEVEL[level].n, cells = n * n;
+    int n = cf->n, cells = n * n;
     memset(g->kind, 0, sizeof g->kind);
     memset(g->way, 0, sizeof g->way);
     g->n = n;
-    g->level = level;
     /* the lamp: on the board's edge mostly, facing in */
     int lx = pr_below(r, n), ly = pr_below(r, n), d;
     if (pr_below(r, 4)) {
@@ -277,11 +274,11 @@ static int try_make(mr_game *g, int level, uint32_t *r)
     if (ahead < 0 || step(n, ahead, d) < 0) return 0;
     g->kind[g->lamp] = MR_LAMP;
     g->way[g->lamp] = (uint8_t)d;
-    for (int i = 0; i < LEVEL[level].walls; i++) {
+    for (int i = 0; i < cf->walls; i++) {
         int c = pr_below(r, cells);
         if (g->kind[c] == MR_EMPTY && c != ahead) g->kind[c] = MR_WALL;
     }
-    int pivots = LEVEL[level].pivots, loose = LEVEL[level].loose, glass = LEVEL[level].glass;
+    int pivots = cf->pivots, loose = cf->loose, glass = cf->glass;
     int turns = pivots + loose + glass;
     if (!walk(g, r, turns, glass ? 1 + pr_below(r, turns - 1) : -1)) return 0;
     /* which of the path's mirrors pivot, which are loose */
@@ -301,9 +298,9 @@ static int try_make(mr_game *g, int level, uint32_t *r)
             lit[nl++] = c;
             if (far < 0 || b.dist[c] > b.dist[far]) far = c;
         }
-    if (nl < LEVEL[level].gems + 1) return 0;
+    if (nl < cf->gems + 1) return 0;
     g->kind[far] = MR_GEM;
-    for (int i = 1, tries = 0; i < LEVEL[level].gems && tries < 200; tries++) {
+    for (int i = 1, tries = 0; i < cf->gems && tries < 200; tries++) {
         int c = pick(r, lit, nl);
         if (g->kind[c] != MR_EMPTY) continue;
         g->kind[c] = MR_GEM;
@@ -311,7 +308,7 @@ static int try_make(mr_game *g, int level, uint32_t *r)
     }
     /* the bombs beside the beam, the misleading pivots off it */
     for (int pass = 0; pass < 2; pass++) {
-        int want = pass ? LEVEL[level].decoys : LEVEL[level].bombs, cand[MR_CELLS], nc = 0;
+        int want = pass ? cf->decoys : cf->bombs, cand[MR_CELLS], nc = 0;
         for (int c = 0; c < cells; c++)
             if (g->kind[c] == MR_EMPTY && !b.side[c] && near_beam(g, &b, c)) cand[nc++] = c;
         pr_shuffle(r, cand, nc);
@@ -333,21 +330,86 @@ static int try_make(mr_game *g, int level, uint32_t *r)
         else right[nr++] = c;
     }
     pr_shuffle(r, right, nr);                   /* a few steps from the solution at least */
-    for (int i = 0; i < nr && wrong + g->loose < 2 + level / 2; i++, wrong++) g->way[right[i]] ^= 1;
+    for (int i = 0; i < nr && wrong + g->loose < cf->steps; i++, wrong++) g->way[right[i]] ^= 1;
     if (mr_solved(g)) return 0;
     long work;
     if (mr_solve(g, 2, &work) != 1) return 0;
-    return work >= LEVEL[level].work_min && work <= LEVEL[level].work_max;
+    return work >= cf->work_min && work <= cf->work_max;
+}
+
+int mr_par(const mr_game *g)
+{
+    int par = 0;
+    for (int i = 0; i < g->norder; i++) {
+        int c = g->order[i], want = g->sol[c], k = g->kind[c], have = is_mirror(k) ? g->way[c] : 2;
+        if (want < 0 || have == want) continue;
+        if (k == MR_PIVOT) par += 1;            /* turned */
+        else if (k == MR_LOOSE) par += want == 2 ? 1 : want == MR_BACK ? 1 : 2;   /* off; turned; off then on */
+        else par += want == MR_SLASH ? 1 : want == MR_BACK ? 2 : 0;   /* stood '/', then turned '\' */
+    }
+    return par;
+}
+
+int mr_make(mr_game *g, const mr_config *cf, uint32_t seed, int tries)
+{
+    uint32_t r = pr_seed(seed);
+    int ok = 0;
+    memset(g, 0, sizeof *g);
+    for (int t = 0; t < tries && !ok; t++) ok = try_make(g, cf, &r);
+    g->nh = g->moves = g->hints = 0;
+    g->par = ok ? mr_par(g) : 0;
+    return ok;
 }
 
 void mr_new(mr_game *g, int level, uint32_t seed)
 {
     if (level < 0 || level >= MR_VARIANTS) level = 0;
-    uint32_t r = pr_seed(seed);
+    mr_make(g, &LEVEL[level], seed, 20000);
+    g->level = level;
+}
+
+static const char CELL_CODE[] = ".#*xpbghENWS";
+
+int mr_encode(const mr_game *g, char *out, int size)
+{
+    int n = g->n, k = snprintf(out, (size_t)size, "%d%d:", n, g->loose);
+    if (k < 0 || k + n * n + 1 > size) return 0;
+    for (int c = 0; c < n * n; c++) {
+        int kind = g->kind[c], w = g->way[c], i = 0;
+        if (kind == MR_WALL) i = 1;
+        else if (kind == MR_GEM) i = 2;
+        else if (kind == MR_BOMB) i = 3;
+        else if (kind == MR_PIVOT) i = 4 + (w == MR_BACK);
+        else if (kind == MR_GLASS) i = 6 + (w == MR_BACK);
+        else if (kind == MR_LAMP) i = 8 + (w & 3);
+        out[k++] = CELL_CODE[i];
+    }
+    out[k] = 0;
+    return 1;
+}
+
+int mr_decode(mr_game *g, const char *s)
+{
+    if (s[0] < '2' || s[0] > '0' + MR_MAX || s[1] < '0' || s[1] > '9' || s[2] != ':') return 0;
+    int n = s[0] - '0', lamps = 0;
     memset(g, 0, sizeof *g);
-    for (int tries = 0; tries < 20000; tries++)
-        if (try_make(g, level, &r)) break;
-    g->nh = g->moves = 0;
+    g->n = n;
+    g->loose = s[1] - '0';
+    s += 3;
+    if ((int)strlen(s) != n * n) return 0;
+    for (int c = 0; c < n * n; c++) {
+        const char *p = strchr(CELL_CODE, s[c]);
+        if (!p) return 0;
+        int i = (int)(p - CELL_CODE);
+        static const uint8_t KIND[12] = {MR_EMPTY, MR_WALL, MR_GEM, MR_BOMB, MR_PIVOT, MR_PIVOT, MR_GLASS, MR_GLASS,
+                                         MR_LAMP, MR_LAMP, MR_LAMP, MR_LAMP};
+        g->kind[c] = KIND[i];
+        g->way[c] = (uint8_t)(i >= 8 ? i - 8 : i >= 4 ? (i & 1 ? MR_BACK : MR_SLASH) : 0);
+        if (i >= 8) g->lamp = c, lamps++;
+    }
+    if (lamps != 1 || mr_solve(g, 2, NULL) != 1) return 0;
+    g->par = mr_par(g);
+    return 1;
 }
 
 /* ---- the player's mirrors ---------------------------------------------------------------------------------------- */
@@ -408,7 +470,16 @@ int mr_move(mr_game *g, int from, int to)
     return 1;
 }
 
+static int hint_step(mr_game *g);
+
 int mr_hint(mr_game *g)
+{
+    int c = hint_step(g);
+    if (c >= 0) g->hints++;
+    return c;
+}
+
+static int hint_step(mr_game *g)
 {
     if (mr_solved(g)) return -1;
     for (int i = 0; i < g->norder; i++) {      /* the first cell on the solution's path not as it should be */

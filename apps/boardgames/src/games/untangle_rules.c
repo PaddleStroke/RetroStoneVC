@@ -6,6 +6,7 @@
 #include "games/untangle.h"
 
 #include <math.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -110,9 +111,8 @@ static float dist_to_segment(float px, float py, float ax, float ay, float bx, f
 
 static float frand(uint32_t *r) { return (pr_next(r) >> 8) / 16777216.0f; }
 
-static int try_make(ut_game *g, int variant, uint32_t *r)
+static int try_make(ut_game *g, int nv, int ncords, uint32_t *r)
 {
-    int nv = DOTS[variant];
     float dmin = 0.66f / sqrtf((float)nv);
     memset(g, 0, sizeof *g);
     g->nv = nv;
@@ -156,7 +156,7 @@ static int try_make(ut_game *g, int variant, uint32_t *r)
     pr_shuffle(r, order, g->ne);
     uint8_t gone[UT_MAXE] = {0};
     int left = g->ne;
-    for (int k = 0; k < g->ne && left > CORDS[variant]; k++) {
+    for (int k = 0; k < g->ne && left > ncords; k++) {
         int i = order[k], a = g->e[i][0], b = g->e[i][1];
         if (deg[a] <= 2 || deg[b] <= 2) continue;
         ut_game t = *g;                         /* still joined without it? */
@@ -172,7 +172,7 @@ static int try_make(ut_game *g, int variant, uint32_t *r)
     for (int i = 0; i < g->ne; i++)
         if (!gone[i]) g->e[ne][0] = g->e[i][0], g->e[ne][1] = g->e[i][1], ne++;
     g->ne = ne;
-    if (ne != CORDS[variant] || ut_crossings(g)) return 0;
+    if (ne != ncords || ut_crossings(g)) return 0;
     /* the dots round a circle, shuffled: tangled */
     int perm[UT_MAXV];
     for (int i = 0; i < nv; i++) perm[i] = i;
@@ -189,14 +189,138 @@ static int try_make(ut_game *g, int variant, uint32_t *r)
     return 0;
 }
 
+int ut_make(ut_game *g, int nv, int ne, uint32_t seed)
+{
+    uint32_t r = pr_seed(seed);
+    int ok = 0;
+    if (nv < 4 || nv > UT_MAXV) nv = 10;
+    if (ne > 3 * nv - 6) ne = 3 * nv - 6;
+    for (int tries = 0; tries < 200 && !ok; tries++) ok = try_make(g, nv, ne, &r);
+    g->nh = g->moves = g->hints = 0;
+    memset(g->home, 0, sizeof g->home);
+    return ok;
+}
+
 void ut_new(ut_game *g, int variant, uint32_t seed)
 {
     if (variant < 0 || variant >= UT_VARIANTS) variant = 0;
-    uint32_t r = pr_seed(seed);
-    for (int tries = 0; tries < 200; tries++)
-        if (try_make(g, variant, &r)) break;
-    g->nh = g->moves = 0;
-    memset(g->home, 0, sizeof g->home);
+    ut_make(g, DOTS[variant], CORDS[variant], seed);
+    g->par = ut_upper(g);
+}
+
+/* ---- par: how many dots must move -------------------------------------------------------------------------------- */
+typedef struct { uint64_t dots[UT_MAXE * UT_MAXE / 2]; int n, best, limit; long nodes; } cover_search;
+
+static void cover_dfs(cover_search *s, uint64_t taken, int size)
+{
+    if (size >= s->best || ++s->nodes > 20000000L) return;
+    int open = -1;
+    for (int i = 0; i < s->n && open < 0; i++)
+        if (!(s->dots[i] & taken)) open = i;
+    if (open < 0) {
+        s->best = size;
+        return;
+    }
+    for (int v = 0; v < 64; v++)                /* one of this crossing's dots moves */
+        if (s->dots[open] >> v & 1) cover_dfs(s, taken | 1ull << v, size + 1);
+}
+
+int ut_cover(const ut_game *g, int limit)
+{
+    static cover_search s;
+    s.n = 0;
+    s.limit = limit;
+    s.best = limit + 1;
+    s.nodes = 0;
+    for (int i = 0; i < g->ne; i++)
+        for (int j = i + 1; j < g->ne; j++)
+            if (ut_cords_cross(g, i, j))
+                s.dots[s.n++] = 1ull << g->e[i][0] | 1ull << g->e[i][1] | 1ull << g->e[j][0] | 1ull << g->e[j][1];
+    cover_dfs(&s, 0, 0);
+    return s.best;
+}
+
+int ut_upper(const ut_game *g)
+{
+    static ut_game t;
+    t = *g;
+    int stay = 0;
+    memcpy(t.x, g->hx, sizeof t.x);             /* every dot in the layout: no crossing */
+    memcpy(t.y, g->hy, sizeof t.y);
+    for (int v = 0; v < g->nv; v++) {           /* then each dot left where it is, while that crosses nothing */
+        t.x[v] = g->x[v];
+        t.y[v] = g->y[v];
+        if (ut_crossings(&t)) {
+            t.x[v] = g->hx[v];
+            t.y[v] = g->hy[v];
+        } else {
+            stay++;
+        }
+    }
+    return g->nv - stay;
+}
+
+/* ---- the levels as text ------------------------------------------------------------------------------------------ */
+static int code_of(char ch)
+{
+    const char *p = ch ? strchr(UT_CODE, ch) : NULL;
+    return p ? (int)(p - UT_CODE) : -1;
+}
+
+static int grid_of(float v)                     /* a place to its step on the grid */
+{
+    int q = (int)lroundf((v - 0.06f) / 0.88f * 63);
+    return q < 0 ? 0 : q > 63 ? 63 : q;
+}
+
+int ut_encode(const ut_game *g, char *out, int size)
+{
+    int nv = g->nv, k = snprintf(out, (size_t)size, "%d:", nv);
+    if (k < 0 || k + 4 * nv + 2 * g->ne + 1 > size) return 0;
+    for (int v = 0; v < nv; v++) {
+        out[k++] = UT_CODE[grid_of(g->hx[v])];
+        out[k++] = UT_CODE[grid_of(g->hy[v])];
+    }
+    for (int v = 0; v < nv; v++) {
+        out[k++] = UT_CODE[grid_of(g->x[v])];
+        out[k++] = UT_CODE[grid_of(g->y[v])];
+    }
+    for (int i = 0; i < g->ne; i++) {
+        out[k++] = UT_CODE[g->e[i][0]];
+        out[k++] = UT_CODE[g->e[i][1]];
+    }
+    out[k] = 0;
+    return 1;
+}
+
+int ut_decode(ut_game *g, const char *s)
+{
+    int nv = 0;
+    while (*s >= '0' && *s <= '9') nv = nv * 10 + *s++ - '0';
+    if (*s++ != ':') return 0;
+    int len = (int)strlen(s);
+    if (nv < 3 || nv > UT_MAXV || len < 4 * nv || (len - 4 * nv) % 2 || (len - 4 * nv) / 2 > UT_MAXE) return 0;
+    memset(g, 0, sizeof *g);
+    g->nv = nv;
+    g->ne = (len - 4 * nv) / 2;
+    for (int i = 0; i < len; i++)
+        if (code_of(s[i]) < 0) return 0;
+    for (int v = 0; v < nv; v++) {
+        g->hx[v] = ut_grid(code_of(s[2 * v]));
+        g->hy[v] = ut_grid(code_of(s[2 * v + 1]));
+    }
+    for (int v = 0; v < nv; v++) {
+        g->x[v] = ut_grid(code_of(s[2 * nv + 2 * v]));
+        g->y[v] = ut_grid(code_of(s[2 * nv + 2 * v + 1]));
+        g->par += g->x[v] != g->hx[v] || g->y[v] != g->hy[v];
+    }
+    for (int i = 0; i < g->ne; i++) {
+        int a = code_of(s[4 * nv + 2 * i]), b = code_of(s[4 * nv + 2 * i + 1]);
+        if (a >= nv || b >= nv || a == b) return 0;
+        g->e[i][0] = (uint8_t)a;
+        g->e[i][1] = (uint8_t)b;
+    }
+    return 1;
 }
 
 /* ---- the player's moves ------------------------------------------------------------------------------------------ */
@@ -232,7 +356,16 @@ static int crowded(const ut_game *g, int v, float x, float y)   /* too near anot
     return 0;
 }
 
+static int hint_step(ut_game *g);
+
 int ut_hint(ut_game *g)
+{
+    int v = hint_step(g);
+    if (v >= 0) g->hints++;
+    return v;
+}
+
+static int hint_step(ut_game *g)
 {
     if (ut_solved(g)) return -1;
     enum { GRID = 13, TOP = 10 };

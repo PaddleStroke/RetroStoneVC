@@ -16,6 +16,10 @@
  *   3: also trying a side and following it to a contradiction.
  * The sizes 6, 8 and 10 (the variants) also want more of these: 6 needs at most level 1, 8 at least level 1, 10 at
  * least level 2.
+ * The levels (tracks_levels.h, made by tools/tracks_gen.c): 150 puzzles in six chapters, 5 x 5 to 10 x 10, the
+ * reasoning they need growing with them; each kept as its size and a character a cell (tk_encode). Stars (a logic
+ * puzzle: no par): 3 with no hint and no mistake, 2 with up to two of them, else 1 (pzkit.h). A mistake: an action
+ * that lays a piece on a cell the line does not use, or crosses a cell it uses (once an action; undo keeps it).
  * Cells: x + y * n from the top left. A piece is its two ends, as bits: TK_N up, TK_E right, TK_S down, TK_W left.
  * The notation (script, the screenshots, the tests): a cell is its column letter a.. and its row 1.. from the top;
  * "c4" taps it (the next piece; an X is cleared), "c4ne" lays that piece (any two of n e s w), "c4x" marks it X,
@@ -31,6 +35,8 @@
 #define TK_MAX 10
 #define TK_CELLS (TK_MAX * TK_MAX)
 #define TK_HIST 4096
+#define TK_LEVELS 150
+#define TK_CHAPTERS 6
 
 enum { TK_N = 1, TK_E = 2, TK_S = 4, TK_W = 8, TK_X = 16 };
 
@@ -46,7 +52,12 @@ typedef struct {
     uint8_t cell[TK_CELLS];                     /* the player's: a piece, TK_X, or 0 */
     tk_change hist[TK_HIST];
     int nh, moves;
+    int hints, mistakes;                        /* the hints given, the actions that went wrong (undo keeps them) */
 } tk_game;
+
+/* what the maker makes: the size, the line's length (lmin..lmax cells), the reasoning the solver may use (level) and
+ * the least it must need (grade) */
+typedef struct { int n, lmin, lmax, level, gmin; } tk_config;
 
 static inline int tk_opp(int side) { return ((side << 2) | (side >> 2)) & 15; }
 static inline int tk_piece(int v) { return v & 15; }           /* the piece in a cell (0: none, an X) */
@@ -58,6 +69,14 @@ int  tk_deduce(const tk_game *g, int level, int *grade, uint8_t *out);
  * gave up (too long) */
 int  tk_count(const tk_game *g, int limit);
 void tk_new(tk_game *g, int variant, uint32_t seed);
+/* a puzzle of a config (tries at most that many; trials: the solver's budget of tries at level 3); 2: found, 1: one
+ * that needs less reasoning than gmin, 0: none */
+int  tk_make(tk_game *g, const tk_config *cf, uint32_t seed, int tries, long trials);
+/* a level kept as text: "<n>:" then a character a cell: '.' no track, 'a'..'f' a piece (e-w, n-s, n-e, e-s, s-w, n-w),
+ * in capitals when given; the entry and the exit are the two pieces running off the board (the entry the first in
+ * reading order). tk_decode: 0 when it is not one */
+int  tk_encode(const tk_game *g, char *out, int size);
+int  tk_decode(tk_game *g, const char *code);
 
 int  tk_tap(tk_game *g, int cell);              /* the cell's next piece (an X cleared); 0: a given cell */
 int  tk_set(tk_game *g, int cell, int v);       /* a piece, TK_X or 0; 0: not allowed or no change */
@@ -66,7 +85,8 @@ int  tk_lay(tk_game *g, const int *cells, int len);
 /* crosses along cells: every one without a piece crossed (or, when the first is crossed, every cross cleared): one
  * action; 0: nothing changed */
 int  tk_mark(tk_game *g, const int *cells, int len);
-int  tk_hint(tk_game *g);                       /* one cell set right: the cell; -1: none */
+int  tk_hint(tk_game *g);                       /* one cell set right: the cell; -1: none. One action, counted in
+                                                 * hints */
 int  tk_undo(tk_game *g);                       /* the last action taken back: a cell it changed; -1: none */
 int  tk_solved(const tk_game *g);
 int  tk_line_count(const tk_game *g, int way, int i);   /* the cells of a row (0) or column (1) holding a piece */

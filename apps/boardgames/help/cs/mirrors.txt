@@ -10,6 +10,8 @@ Každá hádanka má právě jedno řešení, které najdeš sledováním paprsk
 Otoč zrcadlo na čepu, nebo postav volné zrcadlo na prázdné pole, otoč ho, přesuň ho nebo ho vezmi zpět.
 # Konec hry
 Když svítí všechny drahokamy a žádná bomba není zasažena, je hádanka vyřešena: zlaté světlo proběhne po paprsku od lampy a drahokamy zajiskří.
+# Úrovně a hvězdy
+Úrovní je 150 v šesti kapitolách, od desek 5 × 5 jen se zrcadly na čepu po desky 8 × 8 s volnými zrcadly, bombami a sklem, každá s jediným řešením; vyber si ji v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Každý hlavolam má par: nejmenší počet akcí, který ho vyřeší (volné zrcadlo, které má stát obráceně, stojí o klepnutí víc). Vyřešeno na par: 3 hvězdy; nejvýš o polovinu víc tahů: 2 hvězdy; jinak 1. Rada omezí hlavolam na 2 hvězdy, víc než dvě rady na 1. Vrátit vezme tah zpět a ten se už nepočítá.
 # Hra na zařízení
 - Ťukni na zrcadlo na čepu a otočíš ho.
 - Ťukni na prázdné pole a postavíš na něj volné zrcadlo; ťukni znovu a otočíš ho, potřetí ho vrátíš do přihrádky. Zrcadlo můžeš také přetáhnout z přihrádky na pole, z pole na jiné pole nebo mimo desku.

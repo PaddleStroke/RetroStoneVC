@@ -14,6 +14,10 @@
  * that fills every tile counts). The deductions, as a person makes them: a tile's turns that fit what is known of
  * its sides; a pipe that would close a loop; a group of joined tiles that would be shut off from the rest (it must
  * keep a way out: its last one is forced open).
+ * The levels (pipes_levels.h, made by tools/pipes_gen.c): 150 puzzles in six chapters, 4 x 4 to 11 x 11, the last
+ * ones wrapped; each kept as its size and a character a tile (its solution's sides and the turns that scramble it).
+ * Stars: the moves (each a quarter turn) against par, the fewest quarter turns from the start to the one solution
+ * (pp_load works it out); a hint caps them (pzkit.h's rule).
  * Tiles: x + y * n from the top left. Sides: bit 0 up (north), 1 right, 2 down, 3 left. The notation (script, the
  * screenshots, the tests): a tile is its column letter a.. and its row 1.. from the top; "c4" turns it once, "c4*3"
  * three times (one action each), "?" a hint, "=n" puts the next n tiles that are wrong right (reading order, one
@@ -28,6 +32,8 @@
 #define PP_MAX 11
 #define PP_TILES (PP_MAX * PP_MAX)
 #define PP_HIST 4096
+#define PP_LEVELS 150
+#define PP_CHAPTERS 6
 
 enum { PP_UP = 1, PP_RIGHT = 2, PP_DOWN = 4, PP_LEFT = 8 };
 enum { PP_END, PP_STRAIGHT, PP_BEND, PP_TEE };   /* the shapes, drawn turned: end up; straight up-down; bend
@@ -41,6 +47,8 @@ typedef struct {
     uint8_t now[PP_TILES];                      /* the sides with a pipe now (the tile as the player turned it) */
     pp_change hist[PP_HIST];                    /* each action's tile and its sides before it */
     int nh, moves;
+    int par;                                    /* the fewest quarter turns from the start to the solution */
+    int hints;                                  /* the hints given (undo does not take them back) */
 } pp_game;
 
 void pp_variant(int variant, int *n, int *wrap);
@@ -57,12 +65,23 @@ int  pp_make(int n, int wrap, uint32_t seed, uint8_t *sol, int *source);
 int  pp_deduce(int n, int wrap, const uint8_t *sides, uint8_t *out);
 /* the solutions (any turn of each tile making one network with no open end), counted up to limit */
 int  pp_count(int n, int wrap, const uint8_t *sides, int limit);
+/* how hard the deductions are: the fewest kinds of them that find every tile (0: each tile's own sides; 1: also no
+ * loop; 2: also every group of joined tiles keeps a way out; 3: also two groups never joined into one shut off), -1:
+ * none does; *rounds: the passes of deductions it took */
+int  pp_grade(int n, int wrap, const uint8_t *sides, int *rounds);
+/* a level kept as text: "<n>[w]:" then a character a tile (PP_CODE[sides of the solution * 4 + turns: the start is
+ * the solution turned that many quarter turns]); the source in the middle. pp_decode: 0 when it is not one */
+#define PP_CODE "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_"
+int  pp_encode(const pp_game *g, char *out, int size);
+int  pp_decode(pp_game *g, const char *code);
 
 void pp_new(pp_game *g, int variant, uint32_t seed);
+/* a puzzle set up from its solution and its start (moves, hints 0, its par worked out) */
 void pp_load(pp_game *g, int n, int wrap, int source, const uint8_t *sol, const uint8_t *now);
+int  pp_par(int n, const uint8_t *sol, const uint8_t *now);   /* the fewest quarter turns from now to sol */
 int  pp_tap(pp_game *g, int t);                 /* a quarter turn clockwise: one action; 0: not a tile, or solved */
 int  pp_hint(pp_game *g);                       /* a wrong tile turned right (next to the water if it can): the tile;
-                                                 * -1: none */
+                                                 * -1: none. One action, counted in hints */
 int  pp_undo(pp_game *g);                       /* the last action taken back: its tile; -1: none */
 /* the water: each tile's distance from the source along joined pipes (-1: dry), and the tile it comes from (-1: the
  * source, or dry); how many tiles are wet. from may be NULL. */

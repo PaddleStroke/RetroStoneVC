@@ -10,6 +10,8 @@ Cada problema tem uma única solução, que se encontra seguindo o raio e racioc
 Roda um espelho no seu pivô, ou coloca um espelho solto numa casa vazia, roda-o, muda-o de sítio ou retira-o.
 # O fim do jogo
 Quando todas as gemas estão iluminadas e nenhuma bomba é tocada, o problema está resolvido: uma luz dourada percorre o raio a partir da lâmpada e as gemas cintilam.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, de tabuleiros 5 × 5 só com espelhos de pivô até tabuleiros 8 × 8 com espelhos soltos, bombas e vidro, cada um com uma única solução; escolhe um no ecrã de níveis. O separador do dado, depois dos capítulos, cria um novo quebra-cabeças ao acaso, com a escolha descrita acima. Cada quebra-cabeças tem um par: o mínimo de ações que o resolvem (um espelho solto que deve ficar para o outro lado custa um toque a mais). Resolvido no par: 3 estrelas; com até metade mais de jogadas: 2 estrelas; senão, 1. Uma pista limita o quebra-cabeças a 2 estrelas, mais de duas pistas a 1. Anular desfaz uma jogada, que deixa de contar.
 # Jogar no dispositivo
 - Toca num espelho com pivô para o rodar.
 - Toca numa casa vazia para lá pôr um espelho solto; toca outra vez para o rodar e uma terceira vez para o devolver à arrumação. Também podes arrastar um espelho da arrumação para uma casa, de uma casa para outra ou para fora do tabuleiro.

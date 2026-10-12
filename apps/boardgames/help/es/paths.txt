@@ -6,6 +6,8 @@ Cada puzle tiene una única solución, que se encuentra solo razonando.
 Trazar o cambiar un camino.
 # El final de la partida
 Cuando todas las parejas están unidas y no queda ninguna casilla vacía, el puzle está resuelto: una luz dorada recorre cada camino.
+# Niveles y estrellas
+Hay 150 niveles en seis capítulos, del 5 × 5 al 12 × 12, cada uno con una sola solución; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, crea un puzle nuevo al azar, con la elección descrita arriba. Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es un trazo que pone un camino sobre una casilla que en la solución es de otro color; Deshacer no lo borra.
 # Jugar en el dispositivo
 - Arrastra desde un punto: su camino vuelve a empezar desde él y sigue tu dedo. Arrastra desde una casilla de un camino para seguir desde ahí (el resto de ese camino se borra).
 - Volver sobre tus pasos acorta el camino. Pasar sobre otro camino lo corta; vuelve si retrocedes antes de levantar el dedo. Un camino nunca pasa por un punto de otro color.

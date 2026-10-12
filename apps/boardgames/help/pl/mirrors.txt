@@ -10,6 +10,8 @@ Każda łamigłówka ma dokładnie jedno rozwiązanie, które znajdziesz, śledz
 Obróć lustro na czopie albo postaw luźne lustro na pustym polu, obróć je, przenieś lub zabierz.
 # Koniec gry
 Gdy wszystkie klejnoty świecą i żadna bomba nie jest dotknięta, łamigłówka jest rozwiązana: złote światło biegnie wzdłuż promienia od lampy, a klejnoty migoczą.
+# Poziomy i gwiazdki
+Jest 150 poziomów w sześciu rozdziałach, od plansz 5 × 5 tylko z lustrami na czopie do plansz 8 × 8 z luźnymi lustrami, bombami i szkłem, każdy z jednym rozwiązaniem; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo, z wyborem opisanym wyżej. Każda łamigłówka ma par: najmniejszą liczbę czynności, która ją rozwiązuje (luźne lustro, które ma stać w drugą stronę, kosztuje jedno dotknięcie więcej). Rozwiązana w par: 3 gwiazdki; najwyżej o połowę więcej ruchów: 2 gwiazdki; inaczej 1. Podpowiedź ogranicza łamigłówkę do 2 gwiazdek, więcej niż dwie podpowiedzi do 1. Cofnij cofa ruch, który przestaje się liczyć.
 # Gra na urządzeniu
 - Dotknij lustra na czopie, aby je obrócić.
 - Dotknij pustego pola, aby postawić na nim luźne lustro; dotknij ponownie, aby je obrócić, a trzeci raz, aby odłożyć je do korytka. Możesz też przeciągnąć lustro z korytka na pole, z pola na pole albo poza planszę.

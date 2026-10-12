@@ -4,11 +4,13 @@
  * inlaid cells, the line running off the board at the entry and the exit (the rules: tracks_rules.c).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
+ * The shell's level screen chooses a level (150 in six chapters, tracks_levels.h), or its die tab a puzzle made at
+ * random (the variants). Stars: no hint and no mistake 3, up to two of them 2, else 1 (tracks.h, pzkit.h).
  * Drag from cell to cell to lay the track along the finger (it joins the pieces already there). Tap a cell for a
  * piece (the one that best meets its neighbours first), again for the next, and after the sixth the cell is empty
  * again. Hold a cell a moment to cross it (no track here); the bar's cross button makes taps and drags cross instead.
- * A count is faded when its line has that many pieces, red past it. The bar: the moves, the cross button, the lamp
- * (a hint: one cell set right, in gold light). Undo takes back one action, all the way to the start.
+ * A count is faded when its line has that many pieces, red past it. The bar: the moves, the cross button, the
+ * shell's hint button (one cell set right, in gold light). Undo takes back one action, all the way to the start.
  * Solved: a little train runs the line from the entry to the exit, the cells lighting gold behind it.
  */
 #include <math.h>
@@ -17,8 +19,8 @@
 
 #include "games/puzzles.h"
 #include "games/pzkit.h"
-#include "games/race.h"
 #include "games/tracks.h"
+#include "games/tracks_levels.h"
 #include "shell.h"
 
 #define FRAME 0.035f
@@ -45,8 +47,6 @@ static float btn_d;                             /* the bar's buttons' size */
 static float bx, by, side, gx, gy;
 static int fr, cs, made_key = -1, made_small = -1;
 static SDL_Texture *t_board, *t_piece[2][6], *t_cross, *t_loco, *t_wagon[2], *t_small;
-static puz_font f_clue;
-static pzk_btns btns;
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* a piece in a q x q picture: sleepers across the line, two brass rails along it */
@@ -165,8 +165,8 @@ static void paint_board(uint8_t *o, int S, int f, const tk_game *g, float ox, fl
     const float tone[3] = {0.8f, 0.76f, 0.74f};
     for (int c = 0; c < n * n; c++)
         if (g->given[c])
-            race_inlay(o, S, S, ox + c % n * q + 0.04f * q, oy + c / n * q + 0.04f * q, 0.92f * q, 0.92f * q, 0.1f * q,
-                       tone, fmaxf(1, 0.03f * q));
+            pzk_inlay(o, S, S, ox + c % n * q + 0.04f * q, oy + c / n * q + 0.04f * q, 0.92f * q, 0.92f * q, 0.1f * q,
+                      tone, fmaxf(1, 0.03f * q));
     for (int i = 0; i <= n; i++) {
         float t = i == 0 || i == n ? fmaxf(2, 0.05f * q) : fmaxf(1, 0.02f * q), a = i == 0 || i == n ? 0.8f : 0.32f;
         float p = i * q, lo = p - t / 2, hi = p + t / 2;
@@ -196,10 +196,10 @@ static void token(int player, int size, uint8_t *rgba)
     free(b);
 }
 
-static void paint_lamp_btn(int kind, int size, uint8_t *o)
+/* the cross button's picture (what a tap does): kind 1 a cross, 2 a piece of track */
+static void paint_mode(int kind, int size, uint8_t *o)
 {
-    if (kind == 0) { pzk_lamp(size, o); return; }
-    float s = (float)size;                      /* the cross button: what a tap does */
+    float s = (float)size;
     if (kind == 1) {
         pzk_stroke(o, size, size, 0.33f * s, 0.33f * s, 0.67f * s, 0.67f * s, 0.05f * s, PUZ_CREAM, 1);
         pzk_stroke(o, size, size, 0.67f * s, 0.33f * s, 0.33f * s, 0.67f * s, 0.05f * s, PUZ_CREAM, 1);
@@ -259,7 +259,6 @@ static void layout(box b)
             paint_car(ui_buf(cw, ch), cw, ch, i);
             *cars[i] = ui_tex(cw, ch, ui_buf(cw, ch));
         }
-        puz_font_make(&f_clue, (int)(0.5f * cs), 1);
     }
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
@@ -307,15 +306,29 @@ static void after(void)
     ui_animate();
 }
 
-static void start(int variant)
+static void begin(void)
 {
-    tk_new(&G, variant < 0 || variant >= TK_VARIANTS ? 0 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
     serial++;
     calm();
     crossing = 0;
     find_route();
     if (last_box.w > 0) layout(last_box);
 }
+
+static void start(int level)                    /* a level of the shell's level screen */
+{
+    if (!tk_decode(&G, tk_levels[level < 0 || level >= TK_LEVELS ? 0 : level])) tk_new(&G, 0, 1);
+    begin();
+}
+
+static void start_random(int variant)           /* a puzzle made at random (the die tab) */
+{
+    tk_new(&G, variant < 0 || variant >= TK_VARIANTS ? 0 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    begin();
+}
+
+static int score(void) { return G.moves; }
+static int level_stars(void) { return pzk_stars(3, G.hints, G.mistakes); }
 
 static int status(void) { return tk_solved(&G) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
@@ -441,7 +454,7 @@ static void draw(void)
             int clue = way ? G.cols[i] : G.rows[i], have = tk_line_count(V, way, i);
             float x = way ? gx + (i + 0.5f) * cs : gx - 0.62f * BAND * cs, y = way ? gy - 0.6f * BAND * cs
                                                                                   : gy + (i + 0.5f) * cs;
-            puz_number(&f_clue, x, y, 0.5f * cs, clue, have > clue ? OVER : CLUE, have == clue ? 95 : 255);
+            ui_number_ex(x, y, 0.5f * cs, clue, have > clue ? OVER : CLUE, have == clue ? 95 : 255, UI_NUM_TIGHT);
         }
     if (wt >= 0) {                              /* the win: the train along the line, the cells lit behind it */
         float s = wt * speed;
@@ -551,10 +564,9 @@ static void bar(int player, box b)
     float d = btn_d = pzk_bar(b, it, 1, 2), x, y;
     int solved = tk_solved(&G);
     pzk_bar_btn(b, 0, d, &x, &y);
-    pzk_btn_draw(pzk_btn(&btns, 0, (int)d, paint_lamp_btn), x, y, d, solved ? PZK_DIM : PZK_READY);
+    ui_button(x, y, d, ICON_HINT, solved ? UI_DIM : 0);
     pzk_bar_btn(b, 1, d, &x, &y);
-    pzk_btn_draw(pzk_btn(&btns, crossing ? 1 : 2, (int)d, paint_lamp_btn), x, y, d,
-                 solved ? PZK_DIM : crossing ? PZK_ON : PZK_READY);
+    ui_button_paint(x, y, d, paint_mode, crossing ? 1 : 2, 1, solved ? UI_DIM : crossing ? UI_ON : 0);
 }
 
 static int bar_press(int player, float x, float y)
@@ -563,7 +575,7 @@ static int bar_press(int player, float x, float y)
     if (!barbox.w) return 0;
     float bx0, by0, d = btn_d;
     pzk_bar_btn(barbox, 1, d, &bx0, &by0);
-    if (pzk_btn_hit(bx0, by0, d, x, y)) {
+    if (ui_button_hit(bx0, by0, d, x, y)) {
         if (tk_solved(&G)) { ui_sound(SND_DENY); return 1; }
         crossing = !crossing;
         ui_sound(SND_TAP);
@@ -571,7 +583,7 @@ static int bar_press(int player, float x, float y)
         return 1;
     }
     pzk_bar_btn(barbox, 0, d, &bx0, &by0);
-    if (!pzk_btn_hit(bx0, by0, d, x, y)) return 0;
+    if (!ui_button_hit(bx0, by0, d, x, y)) return 0;
     int c = tk_hint(&G);
     if (c < 0) { ui_sound(SND_DENY); return 1; }
     hint.cell = c;
@@ -615,10 +627,19 @@ static void thumb(int variant, int size, uint8_t *rgba)
     free(b);
 }
 
+/* a chapter's tab: a small board of its biggest size */
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    static const int SIZE[TK_CHAPTERS] = {6, 7, 8, 9, 10, 10};
+    pzk_grid_icon(rgba, size, SIZE[chapter < 0 ? 0 : chapter >= TK_CHAPTERS ? TK_CHAPTERS - 1 : chapter]);
+}
+
 static const game tracks_game = {
     .id = "tracks", .order = 403, .variants = TK_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,
+    .levels = TK_LEVELS, .chapters = TK_CHAPTERS, .chapter_icon = chapter_icon, .start_random = start_random,
+    .level_stars = level_stars, .score = score,
 };
 REGISTER_GAME(tracks_game)

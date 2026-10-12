@@ -10,6 +10,8 @@ Her bulmacanın tam olarak bir çözümü vardır; ışını izleyip akıl yür�
 Bir aynayı milinde döndür ya da serbest bir aynayı boş bir kareye koy, döndür, taşı veya geri al.
 # Oyunun sonu
 Bütün mücevherler aydınlandığında ve hiçbir bombaya dokunulmadığında bulmaca çözülmüştür: altın bir ışık lambadan başlayarak ışın boyunca koşar ve mücevherler parlar.
+# Seviyeler ve yıldızlar
+Altı bölümde 150 seviye var; yalnızca milli aynaların olduğu 5 × 5 tahtalardan serbest aynaların, bombaların ve camın olduğu 8 × 8 tahtalara kadar uzanıyorlar ve her birinin tek bir çözümü var. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir bulmaca yapar. Her bulmacanın bir par değeri vardır: onu çözen en az eylem sayısı (öbür yöne durması gereken serbest bir ayna bir dokunuş daha ister). Par ile çözülürse 3 yıldız; par değerinin en fazla yarısı kadar fazla hamleyle 2 yıldız; yoksa 1. Bir ipucu bulmacayı en fazla 2 yıldızla, ikiden fazla ipucu 1 yıldızla sınırlar. Geri al bir hamleyi geri alır, o hamle artık sayılmaz.
 # Cihazda oynamak
 - Mil üzerindeki bir aynaya dokunarak onu döndür.
 - Boş bir kareye dokunarak oraya serbest bir ayna koy; yeniden dokunarak döndür, üçüncü kez dokunarak kutuya geri gönder. Bir aynayı kutudan bir kareye, bir kareden ötekine ya da tahtanın dışına da sürükleyebilirsin.

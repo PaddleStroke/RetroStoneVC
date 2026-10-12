@@ -6,5 +6,7 @@ Todos os problemas se podem desembaraçar: os alfinetes foram primeiro dispostos
 Move um alfinete para qualquer sítio do tabuleiro; os seus cordões acompanham-no.
 # O fim do jogo
 Quando nenhum cordão cruza outro nem toca num alfinete que não é o seu, o problema está resolvido: os cordões ficam dourados e uma luz dourada percorre os alfinetes.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, de 6 a 36 alfinetes: em cada um, alguns alfinetes foram tirados do lugar numa disposição sem nenhum cruzamento. Escolhe um no ecrã de níveis. O separador do dado, depois dos capítulos, cria um novo quebra-cabeças ao acaso, com a escolha descrita acima. Cada quebra-cabeças tem um par: num nível, o número de alfinetes tirados do lugar; ao acaso, o mínimo de alfinetes a mover que se conhece. Resolvido no par: 3 estrelas; com até metade mais de jogadas: 2 estrelas; senão, 1. Uma pista limita o quebra-cabeças a 2 estrelas, mais de duas pistas a 1. Anular desfaz uma jogada, que deixa de contar.
 # Jogar no dispositivo
 Arrasta um alfinete com o dedo. Enquanto o moves, cada cordão que cruza outro acende-se a vermelho; quando não resta nenhum, ficam todos dourados. A barra mostra as tuas jogadas e os cruzamentos que faltam. A lâmpada da barra é uma ajuda: move um alfinete para onde tira mais cruzamentos ou, quando nenhum movimento sozinho ajuda, põe-no onde está numa disposição sem cruzamentos; o alfinete desliza até lá numa luz dourada. Anular desfaz uma jogada de cada vez, até ao início.

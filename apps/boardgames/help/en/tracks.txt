@@ -9,6 +9,8 @@ Every puzzle has exactly one solution, found by reasoning alone. The bigger boar
 Lay a piece of track in a cell, change it, or mark with a cross a cell you know stays empty. The crosses are only notes for you.
 # The end of the game
 When the line is complete and every count is right, the puzzle is solved: a little train runs from the entry to the exit, and the cells light up in gold behind it.
+# Levels and stars
+There are 150 levels in six chapters, from 5 × 5 up to 10 × 10, each with one solution; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a piece laid in a cell the line does not use, or a cross on a cell it does use; undo does not take it back.
 # Playing on the device
 - Drag from cell to cell to lay the track along your finger; it joins the pieces already there.
 - Tap a cell for a piece (the one that best meets its neighbours comes first), again for the next one; after the sixth the cell is empty again.

@@ -6,5 +6,7 @@ Every puzzle can be untangled: the pins were first laid out with no crossing at 
 Move one pin anywhere on the board; its cords follow it.
 # The end of the game
 When no cord crosses another, nor touches a pin it does not belong to, the puzzle is solved: the cords turn gold and a gold light runs over the pins.
+# Levels and stars
+There are 150 levels in six chapters, from 6 pins up to 36: in each, a few pins were moved out of a layout without any crossing. Choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. Each puzzle has a par: in a level, the number of pins that were moved; in a random puzzle, the fewest pins found that must move. Solved at par: 3 stars; with up to half as many moves again: 2 stars; otherwise 1. A hint keeps the puzzle to 2 stars, and more than two hints to 1. Undo takes a move back, and it no longer counts.
 # Playing on the device
 Drag a pin with your finger. While you move it, every cord that crosses another glows red; when none is left, they all turn gold. The bar shows your moves and the crossings left. The lamp in the bar is a hint: it moves one pin to where it removes the most crossings or, when no single move helps, puts a pin where it stands in a layout without any crossing; the pin slides there in gold light. Undo takes back one move at a time, all the way to the start.

@@ -9,6 +9,8 @@ Jokaisessa tehtävässä on täsmälleen yksi ratkaisu, joka löytyy pelkällä 
 Laita ruutuun raidepala, vaihda se, tai merkitse ristillä ruutu, jonka tiedät jäävän tyhjäksi. Ristit ovat vain muistiinpanojasi.
 # Pelin loppu
 Kun linja on valmis ja jokainen luku täsmää, tehtävä on ratkaistu: pieni juna ajaa sisäänajosta ulosajoon, ja ruudut syttyvät kultaisiksi sen perässä.
+# Tasot ja tähdet
+Tasoja on 150 kuudessa luvussa, koosta 5 × 5 kokoon 10 × 10, ja jokaisessa on vain yksi ratkaisu; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on kiskopala ruudussa, jota rata ei käytä, tai risti ruudussa, jota se käyttää; Kumoa ei poista sitä.
 # Pelaaminen laitteella
 - Vedä ruudusta ruutuun rakentaaksesi raiteen sormesi alle; se liittyy jo oleviin paloihin.
 - Napauta ruutua saadaksesi palan (naapureihin parhaiten sopiva ensin), uudelleen seuraavan; kuudennen jälkeen ruutu on taas tyhjä.

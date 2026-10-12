@@ -10,6 +10,8 @@ Cada problema tiene una sola solución, que se encuentra siguiendo el rayo y raz
 Gira un espejo sobre su pivote, o coloca un espejo suelto en una casilla vacía, gíralo, muévelo o recógelo.
 # El final de la partida
 Cuando todas las gemas están iluminadas y ninguna bomba es tocada, el problema está resuelto: una luz dorada recorre el rayo desde la lámpara y las gemas destellan.
+# Niveles y estrellas
+Hay 150 niveles en seis capítulos, desde tableros de 5 × 5 solo con espejos de pivote hasta tableros de 8 × 8 con espejos sueltos, bombas y cristal, cada uno con una sola solución; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, crea un puzle nuevo al azar, con la elección descrita arriba. Cada puzle tiene un par: el mínimo de acciones que lo resuelven (un espejo suelto que debe ir hacia el otro lado cuesta un toque más). Resuelto en el par: 3 estrellas; con hasta la mitad más de jugadas: 2 estrellas; si no, 1. Una pista deja el puzle en 2 estrellas como máximo, y más de dos pistas en 1. Deshacer anula una jugada, que ya no cuenta.
 # Jugar en el dispositivo
 - Toca un espejo con pivote para girarlo.
 - Toca una casilla vacía para colocar allí un espejo suelto; tócala otra vez para girarlo y una tercera vez para devolverlo a la bandeja. También puedes arrastrar un espejo de la bandeja a una casilla, de una casilla a otra o fuera del tablero.

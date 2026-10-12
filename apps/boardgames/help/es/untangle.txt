@@ -6,5 +6,7 @@ Todo problema se puede desenredar: los alfileres se colocaron primero sin ningú
 Mueve un alfiler a cualquier lugar del tablero; sus cordones lo siguen.
 # El final de la partida
 Cuando ningún cordón cruza a otro ni toca un alfiler que no es suyo, el problema está resuelto: los cordones se vuelven dorados y una luz dorada recorre los alfileres.
+# Niveles y estrellas
+Hay 150 niveles en seis capítulos, de 6 a 36 alfileres: en cada uno, unos pocos alfileres se han sacado de una disposición sin ningún cruce. Elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, crea un puzle nuevo al azar, con la elección descrita arriba. Cada puzle tiene un par: en un nivel, el número de alfileres movidos; al azar, el mínimo de alfileres que se sabe que hay que mover. Resuelto en el par: 3 estrellas; con hasta la mitad más de jugadas: 2 estrellas; si no, 1. Una pista deja el puzle en 2 estrellas como máximo, y más de dos pistas en 1. Deshacer anula una jugada, que ya no cuenta.
 # Jugar en el dispositivo
 Arrastra un alfiler con el dedo. Mientras lo mueves, cada cordón que cruza a otro se ilumina en rojo; cuando no queda ninguno, todos se vuelven dorados. La barra muestra tus jugadas y los cruces que quedan. La lámpara de la barra es una pista: mueve un alfiler adonde elimina más cruces o, si ningún movimiento solo ayuda, lo pone donde está en una disposición sin cruces; el alfiler se desliza hasta allí con una luz dorada. Deshacer anula una jugada cada vez, hasta el principio.

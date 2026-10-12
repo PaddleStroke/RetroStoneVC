@@ -4,10 +4,12 @@
  * and the beam of light, gold and red, traced again at every change (the rules: mirrors_rules.c).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
+ * The shell's level screen chooses a level (150 in six chapters, mirrors_levels.h), or its die tab a puzzle made at
+ * random (the variants). Stars: the moves against par (the fewest actions), a hint caps them (pzkit.h).
  * Tap a pivoting mirror to turn it. Tap an empty cell to stand a loose mirror there ('/'), again to turn it ('\'),
  * again to take it back to the tray; or drag one from the tray to a cell, from a cell to another, or off the board.
- * A lit gem glows; a bomb touched by the beam glows red. The bar: the moves, and the lamp (a hint: one mirror set
- * right, in gold light). Undo takes back one action, all the way to the start.
+ * A lit gem glows; a bomb touched by the beam glows red. The bar: the moves, and the shell's hint button (one mirror
+ * set right, in gold light). Undo takes back one action, all the way to the start.
  * Solved: a gold light runs along the beam from the lamp, and the gems flash.
  */
 #include <math.h>
@@ -15,9 +17,9 @@
 #include <string.h>
 
 #include "games/mirrors.h"
+#include "games/mirrors_levels.h"
 #include "games/puzzles.h"
 #include "games/pzkit.h"
-#include "games/race.h"
 #include "shell.h"
 
 #define FRAME 0.035f
@@ -42,7 +44,6 @@ static float btn_d;                             /* the bar's buttons' size */
 static float bx, by, side, gx, gy, tray_y, tray_h;
 static int fr, cs, made_key = -1, made_small = -1;
 static SDL_Texture *t_board, *t_plate, *t_glass, *t_base, *t_rivet, *t_lamp, *t_gem[2], *t_bomb, *t_small;
-static pzk_btns btns;
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* a plate lying along x in a w x h picture: polished brass (the light along its upper edge), or glass */
@@ -183,7 +184,7 @@ static void paint_board(uint8_t *o, int S, int fr, const mr_game *g, float ox, f
     if (th > 0) {                               /* the tray: a groove, a slot for each loose mirror */
         const float tone[3] = {0.66f, 0.62f, 0.6f};
         float tw = fminf(gw, (g->loose + 0.6f) * 1.35f * q), tx = ox + (gw - tw) / 2;
-        race_inlay(o, S, S, tx, ty, tw, th, th * 0.3f, tone, fmaxf(1, 0.04f * q));
+        pzk_inlay(o, S, S, tx, ty, tw, th, th * 0.3f, tone, fmaxf(1, 0.04f * q));
     }
 }
 
@@ -207,12 +208,6 @@ static void token(int player, int size, uint8_t *rgba)
     pzk_stroke(b, w, w, c - d, c + d, c + d, c - d, 0.055f * W, BRASS, 1);
     art_blend(rgba, size, size, b, w, w, o, o);
     free(b);
-}
-
-static void paint_hint(int kind, int size, uint8_t *o)
-{
-    (void)kind;
-    pzk_lamp(size, o);
 }
 
 static SDL_Texture *tex_of(int w, int h, void (*paint)(uint8_t *, int, int, int), int arg)
@@ -304,14 +299,29 @@ static void after(void)
     ui_animate();
 }
 
-static void start(int variant)
+static void begin(void)
 {
-    mr_new(&G, variant < 0 || variant >= MR_VARIANTS ? 0 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
     serial++;
     calm();
     mr_trace(&G, &beam);
     if (last_box.w > 0) layout(last_box);
 }
+
+static void start(int level)                    /* a level of the shell's level screen */
+{
+    if (!mr_decode(&G, mr_levels[level < 0 || level >= MR_LEVELS ? 0 : level])) mr_new(&G, 0, 1);
+    begin();
+}
+
+static void start_random(int variant)           /* a puzzle made at random (the die tab) */
+{
+    mr_new(&G, variant < 0 || variant >= MR_VARIANTS ? 0 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    begin();
+}
+
+static int score(void) { return G.moves; }
+static int par(void) { return G.par; }
+static int level_stars(void) { return pzk_stars(ui_par_stars(G.moves, G.par), G.hints, 0); }
 
 static int status(void) { return mr_solved(&G) ? GS_WIN0 : GS_PLAY; }
 static int turn_of(void) { return 0; }
@@ -591,7 +601,7 @@ static void bar(int player, box b)
     btn_d = pzk_bar(b, it, 1, 1);
     float x, y;
     pzk_bar_btn(b, 0, btn_d, &x, &y);
-    pzk_btn_draw(pzk_btn(&btns, 0, (int)btn_d, paint_hint), x, y, btn_d, mr_solved(&G) ? PZK_DIM : PZK_READY);
+    ui_button(x, y, btn_d, ICON_HINT, mr_solved(&G) ? UI_DIM : 0);
 }
 
 static int bar_press(int player, float x, float y)
@@ -600,7 +610,7 @@ static int bar_press(int player, float x, float y)
     float bx0, by0;
     if (!barbox.w) return 0;
     pzk_bar_btn(barbox, 0, btn_d, &bx0, &by0);
-    if (!pzk_btn_hit(bx0, by0, btn_d, x, y)) return 0;
+    if (!ui_button_hit(bx0, by0, btn_d, x, y)) return 0;
     if (mr_solved(&G)) { ui_sound(SND_DENY); return 1; }
     uint8_t way[MR_CELLS], kind[MR_CELLS];
     memcpy(way, G.way, sizeof way);
@@ -689,10 +699,19 @@ static void thumb(int variant, int size, uint8_t *rgba)
     free(st);
 }
 
+/* a chapter's tab: a small board of its biggest size */
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    static const int SIZE[MR_CHAPTERS] = {5, 6, 7, 7, 8, 8};
+    pzk_grid_icon(rgba, size, SIZE[chapter < 0 ? 0 : chapter >= MR_CHAPTERS ? MR_CHAPTERS - 1 : chapter]);
+}
+
 static const game mirrors_game = {
     .id = "mirrors", .order = 402, .variants = MR_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn_of, .status = status,
     .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,
+    .levels = MR_LEVELS, .chapters = MR_CHAPTERS, .chapter_icon = chapter_icon, .start_random = start_random,
+    .level_stars = level_stars, .score = score, .par = par,
 };
 REGISTER_GAME(mirrors_game)

@@ -3,12 +3,14 @@
  * a channel down its middle), a brass tank in the middle of the board that holds the water (the rules: pipes_rules.c).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
+ * The shell's level screen chooses a level (150 in six chapters, pipes_levels.h), or its die tab a puzzle made at
+ * random (the variants). Stars: the moves against par (the fewest quarter turns), a hint caps them (pzkit.h).
  * Tap a tile: its pipe turns a quarter turn clockwise. The water runs from the tank along every pipe joined to it, tile
  * by tile (a cool blue filling the channels, the round basins at the pipes' ends); a pipe turned away cuts the flow and
  * what lay beyond drains. A pipe that ends open where the water reaches it spills (drops at its mouth). The wrapped
- * board has brass portholes all round its frame: a pipe leaving one edge comes in at the other. The lamp at the right
- * end of the bar: a hint (a wrong tile turned right, next to the water when it can be, in gold light). Undo takes back
- * one turn or hint, all the way to the start. The bar: the moves.
+ * board has brass portholes all round its frame: a pipe leaving one edge comes in at the other. The lamp (the shell's
+ * hint button) at the right end of the bar: a hint (a wrong tile turned right, next to the water when it can be, in
+ * gold light). Undo takes back one turn or hint, all the way to the start. The bar: the moves.
  * Solved: the water fills every tile, then a gold light runs out from the tank along the pipes.
  */
 #include <math.h>
@@ -16,8 +18,9 @@
 #include <string.h>
 
 #include "games/pipes.h"
+#include "games/pipes_levels.h"
 #include "games/puzzles.h"
-#include "games/routes.h"
+#include "games/pzkit.h"
 #include "shell.h"
 
 #define FRAME 0.035f
@@ -37,11 +40,10 @@
 enum { K_BASIN = 1, K_WET = 2, K_TANK = 4 };
 
 static pp_game G;
-static box last_box;
-static float bx, by, side;
+static box last_box, barbox;
+static float bx, by, side, btn_d;
 static int fr, cs, ox, oy, made_key = -1, made_small = -1, serial;
 static SDL_Texture *t_board, *t_pipe[4], *t_strip, *t_hub, *t_basin, *t_tank, *t_small;
-static rte_lamp lamp;
 
 /* the water and the turns, on the screen */
 static uint8_t wet[PP_TILES], wet_mask[PP_TILES];
@@ -211,7 +213,7 @@ static void portholes(uint8_t *o, int S, int f, int n, int q, int x0, int y0)
 /* the board: the plank in its frame, the tiles cut in it; the wrapped board's portholes */
 static void paint_board(uint8_t *o, int S, int f, int n, int q, int x0, int y0, int wrap)
 {
-    rte_tiles(o, S, f, n, q, x0, y0);
+    pzk_tiles(o, S, f, n, n, q, x0, y0);
     if (wrap) portholes(o, S, f, n, q, x0, y0);
 }
 
@@ -351,15 +353,30 @@ static void reset_water(void)
     for (int t = 0; t < PP_TILES; t++) wet_from[t] = -1;
 }
 
-static void start(int variant)
+static void begin(void)
 {
-    pp_new(&G, variant < 0 || variant >= PP_VARIANTS ? 1 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
     serial++;
     calm();
     reset_water();
     flow();
     if (last_box.w > 0) layout(last_box);
 }
+
+static void start(int level)                    /* a level of the shell's level screen */
+{
+    if (!pp_decode(&G, pp_levels[level < 0 || level >= PP_LEVELS ? 0 : level])) pp_new(&G, 0, 1);
+    begin();
+}
+
+static void start_random(int variant)           /* a puzzle made at random (the die tab) */
+{
+    pp_new(&G, variant < 0 || variant >= PP_VARIANTS ? 1 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    begin();
+}
+
+static int score(void) { return G.moves; }
+static int par(void) { return G.par; }
+static int level_stars(void) { return pzk_stars(ui_par_stars(G.moves, G.par), G.hints, 0); }
 
 static int status(void) { return pp_solved(&G) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
@@ -567,14 +584,21 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    puz_bar_moves(b, t_small, G.moves);
-    rte_lamp_draw(&lamp, b, !pp_solved(&G));
+    barbox = b;
+    pzk_count it[1] = {{t_small, G.moves}};
+    btn_d = pzk_bar(b, it, 1, 1);
+    float x, y;
+    pzk_bar_btn(b, 0, btn_d, &x, &y);
+    ui_button(x, y, btn_d, ICON_HINT, pp_solved(&G) ? UI_DIM : 0);
 }
 
 static int bar_press(int player, float x, float y)
 {
     (void)player;
-    if (!rte_lamp_hit(&lamp, x, y)) return 0;
+    float hx, hy;
+    if (!barbox.w) return 0;
+    pzk_bar_btn(barbox, 0, btn_d, &hx, &hy);
+    if (!ui_button_hit(hx, hy, btn_d, x, y)) return 0;
     uint8_t was[PP_TILES];
     memcpy(was, G.now, sizeof was);
     int t = pp_hint(&G);
@@ -616,10 +640,19 @@ static void thumb(int variant, int size, uint8_t *rgba)
     free(b);
 }
 
+/* a chapter's tab: a small board of its biggest size */
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    static const int SIZE[PP_CHAPTERS] = {5, 6, 7, 8, 9, 11};
+    pzk_grid_icon(rgba, size, SIZE[chapter < 0 ? 0 : chapter >= PP_CHAPTERS ? PP_CHAPTERS - 1 : chapter]);
+}
+
 static const game pipes_game = {
     .id = "pipes", .order = 400, .variants = PP_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,
+    .levels = PP_LEVELS, .chapters = PP_CHAPTERS, .chapter_icon = chapter_icon, .start_random = start_random,
+    .level_stars = level_stars, .score = score, .par = par,
 };
 REGISTER_GAME(pipes_game)

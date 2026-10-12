@@ -103,6 +103,9 @@ static int set_side(const board *b, dstate *s, int t, int d, int is_open, int *c
     return 1;
 }
 
+/* the kinds of deductions used (pp_grade: fewer of them), the passes made */
+static int rule_level = 3, rounds_made;
+
 static int root(int *p, int x)
 {
     while (p[x] != x) x = p[x] = p[p[x]];
@@ -116,6 +119,7 @@ static int propagate(const board *b, dstate *s)
     int par[PP_TILES], size[PP_TILES], out[PP_TILES], ways[PP_TILES];
     while (changed) {
         changed = 0;
+        rounds_made++;
         /* the tiles: the turns that fit the known sides; the sides all those turns agree on */
         for (int t = 0; t < nt; t++) {
             uint16_t c = 0;
@@ -135,7 +139,7 @@ static int propagate(const board *b, dstate *s)
                 else if (!(any >> d & 1)) { if (!set_side(b, s, t, d, 0, &changed)) return 0; }
             }
         }
-        if (changed) continue;
+        if (changed || rule_level < 1) continue;
         /* the groups of tiles joined by open sides: a loop is a contradiction */
         for (int t = 0; t < nt; t++) par[t] = t, size[t] = 1;
         for (int t = 0; t < nt; t++)
@@ -152,7 +156,7 @@ static int propagate(const board *b, dstate *s)
                 if (s->known[t] >> d & 1) continue;
                 if (root(par, t) == root(par, b->nb[t][d]) && !set_side(b, s, t, d, 0, &changed)) return 0;
             }
-        if (changed) continue;
+        if (changed || rule_level < 2) continue;
         /* each group needs a way out (unless it is the whole board): its tiles' unknown sides, as many as each tile
          * can still open */
         for (int t = 0; t < nt; t++) out[t] = ways[t] = 0;
@@ -173,7 +177,7 @@ static int propagate(const board *b, dstate *s)
                     for (int d = 0; d < 4; d++)
                         if (!(s->known[u] >> d & 1) && !set_side(b, s, u, d, 1, &changed)) return 0;
         }
-        if (changed) continue;
+        if (changed || rule_level < 3) continue;
         /* a side joining two groups that would then have no way out: closed (two ends facing each other...) */
         for (int t = 0; t < nt; t++)
             for (int d = 1; d <= 2; d++) {
@@ -203,6 +207,19 @@ static int found(const board *b, const dstate *s)
     int k = 0;
     for (int t = 0; t < b->nt; t++) k += bits(s->cand[t]) == 1;
     return k;
+}
+
+int pp_grade(int n, int wrap, const uint8_t *sides, int *rounds)
+{
+    int grade = -1;
+    for (int level = 0; level <= 3 && grade < 0; level++) {
+        rule_level = level;
+        rounds_made = 0;
+        if (pp_deduce(n, wrap, sides, NULL) == n * n) grade = level;
+    }
+    rule_level = 3;
+    if (rounds) *rounds = rounds_made;
+    return grade;
 }
 
 int pp_deduce(int n, int wrap, const uint8_t *sides, uint8_t *out)
@@ -288,6 +305,17 @@ int pp_make(int n, int wrap, uint32_t seed, uint8_t *sol, int *source)
 }
 
 /* ---- the player's tiles ------------------------------------------------------------------------------------------ */
+int pp_par(int n, const uint8_t *sol, const uint8_t *now)
+{
+    int par = 0;
+    for (int t = 0; t < n * n; t++) {
+        int k = 0;
+        while (k < 4 && pp_turn(now[t], k) != sol[t]) k++;
+        par += k < 4 ? k : 0;
+    }
+    return par;
+}
+
 void pp_load(pp_game *g, int n, int wrap, int source, const uint8_t *sol, const uint8_t *now)
 {
     memset(g, 0, sizeof *g);
@@ -296,6 +324,38 @@ void pp_load(pp_game *g, int n, int wrap, int source, const uint8_t *sol, const 
     g->source = source;
     memcpy(g->sol, sol, (size_t)n * n);
     memcpy(g->now, now, (size_t)n * n);
+    g->par = pp_par(n, sol, now);
+}
+
+int pp_encode(const pp_game *g, char *out, int size)
+{
+    int n = g->n, k = snprintf(out, (size_t)size, "%d%s:", n, g->wrap ? "w" : "");
+    if (k < 0 || k + n * n + 1 > size) return 0;
+    for (int t = 0; t < n * n; t++) {
+        int turns = 0;
+        while (turns < 3 && pp_turn(g->sol[t], turns) != g->now[t]) turns++;
+        out[k++] = PP_CODE[g->sol[t] * 4 + turns];
+    }
+    out[k] = 0;
+    return 1;
+}
+
+int pp_decode(pp_game *g, const char *s)
+{
+    int n = 0, wrap = 0;
+    while (*s >= '0' && *s <= '9') n = n * 10 + *s++ - '0';
+    if (*s == 'w') wrap = 1, s++;
+    if (*s++ != ':' || n < 2 || n > PP_MAX || (int)strlen(s) != n * n) return 0;
+    uint8_t sol[PP_TILES], now[PP_TILES];
+    for (int t = 0; t < n * n; t++) {
+        const char *c = strchr(PP_CODE, s[t]);
+        if (!c || !s[t]) return 0;
+        int v = (int)(c - PP_CODE);
+        sol[t] = (uint8_t)(v / 4);
+        now[t] = pp_turn(sol[t], v % 4);
+    }
+    pp_load(g, n, wrap, n / 2 * n + n / 2, sol, now);
+    return 1;
 }
 
 void pp_new(pp_game *g, int variant, uint32_t seed)
@@ -351,6 +411,7 @@ int pp_hint(pp_game *g)
         if (g->now[t] != g->sol[t]) pick = t;
     if (pick < 0) return -1;
     set(g, pick, g->sol[pick]);
+    g->hints++;
     return pick;
 }
 

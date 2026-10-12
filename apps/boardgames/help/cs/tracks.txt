@@ -9,6 +9,8 @@ Každá hádanka má právě jedno řešení, které najdeš samotnou úvahou. V
 Polož kus trati do pole, změň ho, nebo označ křížkem pole, o kterém víš, že zůstane prázdné. Křížky jsou jen tvoje poznámky.
 # Konec hry
 Když je trať celá a každé číslo sedí, je hádanka vyřešena: malý vláček projede od vjezdu k výjezdu a pole se za ním rozzáří zlatem.
+# Úrovně a hvězdy
+Úrovní je 150 v šesti kapitolách, od 5 × 5 po 10 × 10, každá s jediným řešením; vyber si ji v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Bez rady a bez chyby: 3 hvězdy; nejvýš dvě rady a chyby dohromady: 2 hvězdy; jinak 1. Chyba je kus trati na poli, které trať nepoužívá, nebo křížek na poli, které používá; Vrátit ji nesmaže.
 # Hra na zařízení
 - Táhni z pole na pole a pokládáš trať pod prstem; napojí se na kusy, které už leží.
 - Ťukni na pole a dostaneš kus (nejdřív ten, který nejlépe navazuje na sousedy), znovu další; po šestém je pole zase prázdné.

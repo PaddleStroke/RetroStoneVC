@@ -9,6 +9,8 @@ Cada problema tem uma única solução, encontrada só com raciocínio. Os tabul
 Coloque um trilho numa casa, troque-o, ou marque com um X uma casa que você sabe que fica vazia. Os X são só anotações suas.
 # O fim da partida
 Quando a linha está completa e todos os números batem, o problema está resolvido: um trenzinho percorre a linha da entrada até a saída, e as casas se acendem em dourado atrás dele.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, do 5 × 5 ao 10 × 10, cada um com uma única solução; escolha um na tela de níveis. A aba do dado, depois dos capítulos, cria um novo quebra-cabeça ao acaso, com a escolha descrita acima. Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma peça posta numa casa que a linha não usa, ou uma cruz numa casa que ela usa; Desfazer não o apaga.
 # Jogando no aparelho
 - Arraste de casa em casa para assentar o trilho sob o dedo; ele se liga aos trilhos que já estão lá.
 - Toque numa casa para um trilho (primeiro o que melhor se encaixa nos vizinhos), de novo para o seguinte; depois do sexto, a casa fica vazia.

@@ -6,5 +6,7 @@ Jokainen tehtävä on selvitettävissä: nastat asetettiin ensin ilman yhtään 
 Siirrä yksi nasta mihin tahansa laudalla; sen narut seuraavat mukana.
 # Pelin loppu
 Kun mikään naru ei risteä toisen kanssa eikä kosketa vierasta nastaa, tehtävä on ratkaistu: narut muuttuvat kultaisiksi ja kultainen valo kulkee nastojen yli.
+# Tasot ja tähdet
+Tasoja on 150 kuudessa luvussa, 6 nastasta 36 nastaan: jokaisessa muutama nasta on siirretty pois asetelmasta, jossa ei ole yhtään risteystä. Valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Jokaisella tehtävällä on par: tasolla siirrettyjen nastojen määrä; sattumanvaraisessa tehtävässä pienin tunnettu määrä nastoja, jotka on siirrettävä. Ratkaistu parilla: 3 tähteä; enintään puolet enemmän siirtoja: 2 tähteä; muuten 1. Vihje rajaa tehtävän 2 tähteen ja useampi kuin kaksi vihjettä 1 tähteen. Kumoa peruu siirron, eikä sitä enää lasketa.
 # Pelaaminen laitteella
 Vedä nastaa sormella. Kun liikutat sitä, jokainen toisen kanssa risteävä naru hehkuu punaisena; kun niitä ei enää ole, kaikki muuttuvat kultaisiksi. Palkki näyttää siirtosi ja jäljellä olevat risteykset. Palkin lamppu on vihje: se siirtää yhden nastan kohtaan, jossa se poistaa eniten risteyksiä, tai, jos mikään yksittäinen siirto ei auta, paikalleen asetelmassa, jossa ei ole risteyksiä; nasta liukuu sinne kultaisessa valossa. Kumoa perää yhden siirron kerrallaan aina alkuun asti.

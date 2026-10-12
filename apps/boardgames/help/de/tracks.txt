@@ -9,6 +9,8 @@ Jedes Rätsel hat genau eine Lösung, die man allein durch Überlegen findet. Di
 Lege ein Gleisstück in ein Feld, ändere es, oder markiere ein Feld, das sicher leer bleibt, mit einem Kreuz. Die Kreuze sind nur Notizen für dich.
 # Das Ende der Partie
 Wenn die Linie vollständig ist und jede Zahl stimmt, ist das Rätsel gelöst: Ein kleiner Zug fährt von der Einfahrt zur Ausfahrt, und hinter ihm leuchten die Felder golden auf.
+# Level und Sterne
+Es gibt 150 Level in sechs Kapiteln, von 5 × 5 bis 10 × 10, jedes mit nur einer Lösung; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist ein Gleisstück auf einem Feld, das die Strecke nicht benutzt, oder ein Kreuz auf einem Feld, das sie benutzt; Rückgängig löscht ihn nicht.
 # Spielen auf dem Gerät
 - Ziehe von Feld zu Feld, um das Gleis unter deinem Finger zu legen; es schließt an die vorhandenen Stücke an.
 - Tippe auf ein Feld für ein Stück (das am besten an die Nachbarn passende zuerst), erneut für das nächste; nach dem sechsten ist das Feld wieder leer.

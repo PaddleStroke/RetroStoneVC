@@ -6,6 +6,8 @@ Her bulmaca yalnızca akıl yürüterek çözülür ve tek bir çözümü vardı
 Bir kareyi saat yönünde çeyrek tur döndürmek.
 # Oyunun sonu
 Bütün kareler birleşip hiçbir boru açık kalmayınca su her kareye ulaşır ve depodan altın bir ışık yayılır.
+# Seviyeler ve yıldızlar
+Altı bölümde 150 seviye var; 4 × 4'ten 11 × 11'e ve kenarsız tahtalara kadar uzanıyorlar ve her birinin tek bir çözümü var. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir bulmaca yapar. Her bulmacanın bir par değeri vardır: onu çözen en az çeyrek dönüş sayısı. Par ile çözülürse 3 yıldız; par değerinin en fazla yarısı kadar fazla hamleyle 2 yıldız; yoksa 1. Bir ipucu bulmacayı en fazla 2 yıldızla, ikiden fazla ipucu 1 yıldızla sınırlar. Geri al bir hamleyi geri alır, o hamle artık sayılmaz.
 # Cihazda oynamak
 - Bir kareye dokunarak onu çeyrek tur döndür.
 - Su, depodan ona bağlı her boruya akar. Açık bir boruya ulaştığı yerde taşar: damlalara bak.

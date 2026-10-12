@@ -10,6 +10,8 @@ Jokaisessa tehtävässä on täsmälleen yksi ratkaisu, joka löytyy sädettä s
 Käännä peiliä sen tapilla, tai aseta irtopeili tyhjään ruutuun, käännä sitä, siirrä sitä tai ota se pois.
 # Pelin loppu
 Kun kaikki jalokivet loistavat eikä yhteenkään pommiin osu, tehtävä on ratkaistu: kultainen valo kulkee lampusta säteen mukana ja jalokivet välkkyvät.
+# Tasot ja tähdet
+Tasoja on 150 kuudessa luvussa, 5 × 5 -laudoista, joilla on vain tapillisia peilejä, 8 × 8 -lautoihin, joilla on irtopeilejä, pommeja ja lasia, ja jokaisessa on vain yksi ratkaisu; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Jokaisella tehtävällä on par eli pienin määrä toimintoja, joilla sen ratkaisee (irtopeili, jonka pitää olla toisin päin, vaatii yhden napautuksen lisää). Ratkaistu parilla: 3 tähteä; enintään puolet enemmän siirtoja: 2 tähteä; muuten 1. Vihje rajaa tehtävän 2 tähteen ja useampi kuin kaksi vihjettä 1 tähteen. Kumoa peruu siirron, eikä sitä enää lasketa.
 # Pelaaminen laitteella
 - Napauta tapilla olevaa peiliä kääntääksesi sitä.
 - Napauta tyhjää ruutua asettaaksesi siihen irtopeilin; napauta uudelleen kääntääksesi sitä ja kolmannen kerran palauttaaksesi sen lokeroon. Voit myös vetää peilin lokerosta ruutuun, ruudusta toiseen tai pois laudalta.

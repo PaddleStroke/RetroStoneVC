@@ -6,6 +6,8 @@ Hver oppgave har nøyaktig én løsning, som finnes med ren tankekraft.
 Tegne eller endre en sti.
 # Slutten på spillet
 Når alle parene er forbundet og ingen rute står tom, er oppgaven løst: et gyllent lys går langs hver sti.
+# Brett og stjerner
+Det er 150 brett i seks kapitler, fra 5 × 5 opp til 12 × 12, hvert med bare én løsning; velg et i brettoversikten. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er et strøk som legger en sti over en rute som i løsningen hører til en annen farge; Angre sletter den ikke.
 # Spill på enheten
 - Dra fra en prikk: stien dens begynner på nytt derfra og følger fingeren din. Dra fra en rute på en sti for å fortsette derfra (resten av stien forsvinner).
 - Å gå tilbake langs stien gjør den kortere. Å krysse en annen sti klipper den av; den kommer tilbake hvis du går tilbake før du løfter fingeren. En sti går aldri over en prikk i en annen farge.

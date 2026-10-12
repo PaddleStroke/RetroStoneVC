@@ -2,7 +2,8 @@
  * Paths' rules: the solver on known grids (one solution, two, none), the puzzles from many seeds (the grid filled by
  * paths that touch themselves nowhere, as many pairs as the size wants, one solution only, the same from the same
  * seed), the maker's time on every size, the strokes (on free squares, cutting another path and giving it back,
- * backing off, never onto another colour's dot, stopping at its own), hints, undo, and whole games from seeds.
+ * backing off, never onto another colour's dot, stopping at its own), hints, undo, mistakes, whole games from seeds,
+ * and every level (one solution, found by the deductions alone; solved stroke by stroke without a mistake).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -11,6 +12,7 @@
 #include <time.h>
 
 #include "games/paths.h"
+#include "games/paths_levels.h"
 #include "games/puzrand.h"
 
 static int fails;
@@ -190,6 +192,53 @@ int main(void)
             while (nk_hint(g) >= 0) hints++;
             CHECK(nk_solved(g) && hints == g->pairs && g->moves == hints);
         }
+    /* mistakes: a stroke over a square of another colour in the solution, once a stroke; undo keeps the count */
+    nk_new(g, 1, 5);
+    {
+        int c = 0, a = g->end[0][0], wrong = -1, n = g->n;
+        for (int d = 0; d < 4 && wrong < 0; d++) {   /* a square beside a's dot, not a's colour, not a dot */
+            int x = a % n + (d == 1) - (d == 3), y = a / n + (d == 2) - (d == 0), b = y * n + x;
+            if (x >= 0 && y >= 0 && x < n && y < n && g->scol[b] != c && !g->dot[b]) wrong = b;
+        }
+        if (wrong >= 0) {
+            CHECK(nk_begin(g, a) == c && nk_toward(g, wrong) == 1 && nk_end(g));
+            CHECK(g->mistakes == 1);
+            CHECK(nk_undo(g) && g->mistakes == 1);
+        }
+        char s[NK_CELLS * 5];
+        stroke_of(g, 0, s);
+        CHECK(nk_script(g, s) && g->mistakes == (wrong >= 0));
+        int h = nk_hint(g);
+        CHECK(h >= 0 && g->hints == 1 && g->mistakes == (wrong >= 0));
+    }
+
+    /* every level: it reads back the same, has one solution that the deductions alone find, the first chapter's are
+     * small; drawn stroke by stroke from the solution it is solved without a mistake; no two alike */
+    {
+        int grades[3] = {0};
+        for (int i = 0; i < NK_LEVELS; i++) {
+            CHECK(nk_decode(g, nk_levels[i]));
+            int rounds, grade = nk_grade(g->n, g->pairs, (const uint8_t (*)[2])g->end, &rounds);
+            CHECK(grade >= 0);
+            if (grade >= 0) grades[grade]++;
+            CHECK(nk_count(g->n, g->pairs, (const uint8_t (*)[2])g->end, 2, 1000000) == 1);
+            if (i < 25) CHECK(g->n <= 6);
+            char code[NK_CELLS + 8];
+            CHECK(nk_encode(g->n, g->scol, (const uint8_t (*)[2])g->end, g->pairs, code, sizeof code) &&
+                  !strcmp(code, nk_levels[i]));
+            for (int c = 0; c < g->pairs; c++) {
+                char s[NK_CELLS * 5];
+                CHECK(!nk_solved(g));
+                stroke_of(g, c, s);
+                CHECK(nk_script(g, s));
+            }
+            CHECK(nk_solved(g) && g->mistakes == 0 && g->moves == g->pairs);
+            for (int j = 0; j < i; j++) CHECK(strcmp(nk_levels[i], nk_levels[j]));
+        }
+        printf("paths levels: grades %d %d %d\n", grades[0], grades[1], grades[2]);
+    }
+    CHECK(!nk_decode(g, "3:Aaa") && !nk_decode(g, "3:AaAbbbBcC") && !nk_decode(g, "x"));
+
     nk_new(g, 3, 9);
     CHECK(nk_cell(g, "l12", NULL) == 143 && nk_cell(g, "a10", NULL) == 108 && nk_cell(g, "m1", NULL) < 0 &&
           nk_cell(g, "a13", NULL) < 0);

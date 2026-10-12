@@ -6,6 +6,8 @@ Varje gåta kan lösas med ren slutledning och har bara en lösning.
 Vrida en bricka ett kvarts varv medurs.
 # Partiets slut
 När alla brickor hänger ihop och inget rör är öppet når vattnet varje bricka, och ett gyllene ljus går ut från tanken.
+# Banor och stjärnor
+Det finns 150 banor i sex kapitel, från 4 × 4 upp till 11 × 11 och bräden utan kanter, var och en med bara en lösning; välj en i banöversikten. Fliken med tärningen efter kapitlen gör en ny gåta på slump, med det val som beskrivs ovan. Varje gåta har ett par: det minsta antalet kvartsvarv som löser den. Löst på par: 3 stjärnor; med upp till hälften så många drag till: 2 stjärnor; annars 1. En ledtråd ger högst 2 stjärnor, fler än två ledtrådar högst 1. Ångra tar tillbaka ett drag, och det räknas inte längre.
 # Spela på enheten
 - Tryck på en bricka för att vrida den ett kvarts varv.
 - Vattnet rinner från tanken genom varje rör som är kopplat till den. Där det når ett öppet rör rinner det över: leta efter dropparna.

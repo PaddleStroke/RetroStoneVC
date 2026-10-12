@@ -6,5 +6,7 @@ Każdą łamigłówkę da się rozplątać: szpilki najpierw ustawiono bez żadn
 Przesuń jedną szpilkę w dowolne miejsce planszy; jej sznurki idą za nią.
 # Koniec gry
 Gdy żaden sznurek nie krzyżuje innego ani nie dotyka cudzej szpilki, łamigłówka jest rozwiązana: sznurki stają się złote, a po szpilkach przebiega złote światło.
+# Poziomy i gwiazdki
+Jest 150 poziomów w sześciu rozdziałach, od 6 do 36 szpilek: w każdym kilka szpilek przesunięto z układu bez żadnego skrzyżowania. Wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo, z wyborem opisanym wyżej. Każda łamigłówka ma par: w poziomie liczbę przesuniętych szpilek; w łamigłówce losowej najmniejszą znaną liczbę szpilek do przesunięcia. Rozwiązana w par: 3 gwiazdki; najwyżej o połowę więcej ruchów: 2 gwiazdki; inaczej 1. Podpowiedź ogranicza łamigłówkę do 2 gwiazdek, więcej niż dwie podpowiedzi do 1. Cofnij cofa ruch, który przestaje się liczyć.
 # Gra na urządzeniu
 Przeciągnij szpilkę palcem. Gdy ją przesuwasz, każdy sznurek krzyżujący inny świeci na czerwono; gdy nie zostanie żaden, wszystkie stają się złote. Pasek pokazuje twoje ruchy i pozostałe skrzyżowania. Lampa na pasku to podpowiedź: przesuwa jedną szpilkę tam, gdzie usuwa najwięcej skrzyżowań, albo, gdy żaden pojedynczy ruch nie pomaga, stawia ją tam, gdzie stoi w układzie bez skrzyżowań; szpilka przesuwa się tam w złotym świetle. Cofnij cofa jeden ruch naraz, aż do początku.

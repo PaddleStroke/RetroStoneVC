@@ -6,6 +6,8 @@ Every puzzle can be solved by reasoning alone and has only one solution.
 Turn one tile a quarter turn clockwise.
 # The end of the game
 When every tile is joined and no pipe is open, the water reaches every tile and a gold light runs out from the tank.
+# Levels and stars
+There are 150 levels in six chapters, from 4 × 4 up to 11 × 11 and wrapped boards, each with one solution; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. Each puzzle has a par: the fewest quarter turns that solve it. Solved at par: 3 stars; with up to half as many moves again: 2 stars; otherwise 1. A hint keeps the puzzle to 2 stars, and more than two hints to 1. Undo takes a move back, and it no longer counts.
 # Playing on the device
 - Tap a tile to turn it a quarter turn clockwise.
 - The water runs from the tank along every pipe joined to it. Where it reaches an open pipe, it spills: look for the drops.

@@ -9,6 +9,8 @@ Hver opgave har præcis én løsning, som findes ved at ræsonnere. De større b
 Læg et sporstykke i et felt, skift det ud, eller sæt et kryds i et felt, du ved forbliver tomt. Krydsene er kun noter til dig selv.
 # Spillets afslutning
 Når linjen er hel og hvert tal passer, er opgaven løst: et lille tog kører fra indkørslen til udkørslen, og felterne lyser op i guld bag det.
+# Baner og stjerner
+Der er 150 baner i seks kapitler, fra 5 × 5 op til 10 × 10, hver med kun én løsning; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et skinnestykke i et felt, som linjen ikke bruger, eller et kryds i et felt, som den bruger; Fortryd sletter den ikke.
 # Spil på enheden
 - Træk fra felt til felt for at lægge sporet under fingeren; det sætter sig til de stykker, der allerede ligger der.
 - Tryk på et felt for et stykke (det, der passer bedst til naboerne, kommer først), igen for det næste; efter det sjette er feltet tomt igen.

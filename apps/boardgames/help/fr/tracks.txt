@@ -9,6 +9,8 @@ Chaque problème a une seule solution, que l'on trouve en raisonnant. Les grands
 Pose un rail dans une case, change-le, ou marque d'une croix une case que tu sais vide. Les croix ne sont que des notes pour toi.
 # La fin de la partie
 Quand la ligne est complète et que chaque nombre est juste, le problème est résolu : un petit train roule de l'entrée à la sortie, et les cases s'illuminent d'or derrière lui.
+# Niveaux et étoiles
+Il y a 150 niveaux en six chapitres, du 5 × 5 jusqu'au 10 × 10, chacun avec une seule solution ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une pièce posée sur une case que la ligne n'emprunte pas, ou une croix sur une case qu'elle emprunte ; Annuler ne l'efface pas.
 # Jouer sur l'appareil
 - Fais glisser le doigt de case en case pour poser la voie sous ton doigt ; elle se raccorde aux rails déjà posés.
 - Touche une case pour un rail (celui qui se raccorde le mieux aux voisins vient d'abord), encore pour le suivant ; après le sixième, la case est de nouveau vide.

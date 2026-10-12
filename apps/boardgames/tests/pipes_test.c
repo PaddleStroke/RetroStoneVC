@@ -1,7 +1,8 @@
 /*
  * Pipes' rules: the shapes and their turns, the maker's trees (every tile used, no cross, one network), the puzzles
  * from many seeds (found by deduction alone, so one solution, checked by the counter), the solver on known cases, the
- * water's way, taps, hints, undo, and whole games played from a seed; the maker's time on the biggest boards.
+ * water's way, taps, hints, undo, and whole games played from a seed; the maker's time on the biggest boards; every
+ * level (one solution found by deduction alone, its par reached by turning each tile the fewest times).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -9,6 +10,7 @@
 #include <time.h>
 
 #include "games/pipes.h"
+#include "games/pipes_levels.h"
 #include "games/puzrand.h"
 
 static int fails;
@@ -176,6 +178,41 @@ int main(void)
     pp_new(&g, 3, 5);
     CHECK(pp_tile(&g, "k11") == 120 && pp_tile(&g, "a10") == 99 && pp_tile(&g, "l1") < 0 && pp_tile(&g, "a12") < 0);
     CHECK(pp_script(&g, "k11 a10*2 =5") && g.moves >= 5);
+
+    /* par and hints */
+    pp_new(&g, 1, 11);
+    CHECK(g.par == pp_par(g.n, g.sol, g.now) && g.par >= 1 && g.hints == 0);
+    pp_hint(&g);
+    pp_undo(&g);
+    CHECK(g.hints == 1 && g.moves == 0);
+
+    /* every level: it reads back, has one solution that the deductions alone find, is not solved at the start, and is
+     * solved in exactly par turns (each tile the fewest times); its text again from the game; no two alike */
+    {
+        int grades[4] = {0}, last_n = 0, sizes_ok = 1;
+        for (int i = 0; i < PP_LEVELS; i++) {
+            CHECK(pp_decode(&g, pp_levels[i]));
+            int nt = g.n * g.n, rounds;
+            CHECK(g.source == g.n / 2 * g.n + g.n / 2);
+            CHECK(pp_count(g.n, g.wrap, g.sol, 2) == 1);
+            int grade = pp_grade(g.n, g.wrap, g.sol, &rounds);
+            CHECK(grade >= 0);
+            if (grade >= 0) grades[grade]++;
+            if (i < 25) CHECK(g.n <= 5 && !g.wrap);   /* the first chapter: small */
+            CHECK(!pp_solved(&g) && g.par >= 1);
+            char code[PP_TILES + 8];
+            CHECK(pp_encode(&g, code, sizeof code) && !strcmp(code, pp_levels[i]));
+            sizes_ok &= g.n >= last_n - 4;
+            last_n = g.n;
+            for (int t = 0; t < nt; t++)
+                while (g.now[t] != g.sol[t] && g.moves <= 4 * nt) pp_tap(&g, t);
+            CHECK(pp_solved(&g) && g.moves == g.par);
+            for (int j = 0; j < i; j++) CHECK(strcmp(pp_levels[i], pp_levels[j]));
+        }
+        CHECK(sizes_ok);
+        printf("pipes levels: grades %d %d %d %d\n", grades[0], grades[1], grades[2], grades[3]);
+    }
+    CHECK(!pp_decode(&g, "5:00") && !pp_decode(&g, "x") && !pp_decode(&g, "13:0"));
 
     if (fails) {
         printf("pipes: %d failed\n", fails);

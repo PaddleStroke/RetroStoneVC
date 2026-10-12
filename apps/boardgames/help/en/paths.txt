@@ -6,6 +6,8 @@ Every puzzle has exactly one solution, found by reasoning alone.
 Draw or change one path.
 # The end of the game
 When every pair is joined and no square is left empty, the puzzle is solved: a gold light runs along every path.
+# Levels and stars
+There are 150 levels in six chapters, from 5 × 5 up to 12 × 12, each with one solution; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a stroke that lays a path on a square that belongs to another colour in the solution; undo does not take it back.
 # Playing on the device
 - Drag from a dot: its path starts again from it and follows your finger. Drag from a square of a path to go on from there (the rest of that path goes).
 - Going back along a path shortens it. Crossing another path cuts it; it comes back if you back off before lifting your finger. A path never passes over a dot of another colour.

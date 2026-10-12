@@ -6,6 +6,8 @@ Chaque grille se résout par le raisonnement seul et n'a qu'une solution.
 Tourner une tuile d'un quart de tour dans le sens des aiguilles d'une montre.
 # La fin de la partie
 Quand toutes les tuiles sont reliées et qu'aucun tuyau n'est ouvert, l'eau atteint chaque tuile et une lumière dorée part du réservoir.
+# Niveaux et étoiles
+Il y a 150 niveaux en six chapitres, du 4 × 4 jusqu'au 11 × 11 et aux plateaux sans bords, chacun avec une seule solution ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Chaque casse-tête a un par : le moins de quarts de tour qui le résolvent. Résolu au par : 3 étoiles ; jusqu'à moitié plus de coups : 2 étoiles ; sinon 1. Un indice limite le casse-tête à 2 étoiles, plus de deux indices à 1. Annuler reprend un coup, qui ne compte plus.
 # Jouer sur l'appareil
 - Touche une tuile pour la tourner d'un quart de tour.
 - L'eau coule du réservoir dans tous les tuyaux qui y sont reliés. Là où elle atteint un tuyau ouvert, elle déborde : cherche les gouttes.

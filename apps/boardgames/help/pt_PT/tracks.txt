@@ -9,6 +9,8 @@ Cada problema tem uma única solução, que se encontra só a raciocinar. Os tab
 Põe um carril numa casa, troca-o, ou marca com uma cruz uma casa que sabes que fica vazia. As cruzes são apenas notas para ti.
 # O fim do jogo
 Quando a linha está completa e todos os números estão certos, o problema está resolvido: um pequeno comboio percorre a linha da entrada à saída e as casas acendem-se a dourado atrás dele.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, do 5 × 5 ao 10 × 10, cada um com uma única solução; escolhe um no ecrã de níveis. O separador do dado, depois dos capítulos, cria um novo quebra-cabeças ao acaso, com a escolha descrita acima. Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é uma peça posta numa casa que a linha não usa, ou uma cruz numa casa que ela usa; Anular não o apaga.
 # Jogar no dispositivo
 - Arrasta de casa em casa para assentar a via debaixo do dedo; liga-se aos carris que já lá estão.
 - Toca numa casa para um carril (primeiro o que melhor encaixa nos vizinhos), outra vez para o seguinte; depois do sexto, a casa fica vazia.

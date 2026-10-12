@@ -1,7 +1,8 @@
 /*
  * Tracks' rules: the solver and the search on a small hand-made puzzle (and what each level of reasoning can do), the
  * puzzles made from many seeds (the solver finds the line, the search finds no other, the size's reasoning, made
- * fast, the same from the same seed), taps, strokes, crosses, hints to the end and undo all the way back.
+ * fast, the same from the same seed), taps, strokes, crosses, hints to the end and undo all the way back; mistakes;
+ * every level (the solver lays the one line; laid cell by cell it is solved without a mistake).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -9,6 +10,7 @@
 #include <time.h>
 
 #include "games/tracks.h"
+#include "games/tracks_levels.h"
 
 static int fails;
 #define CHECK(c)                                                                                                    \
@@ -155,6 +157,49 @@ int main(void)
         printf("tracks %dx%d: grades %d %d %d %d, %d searched, slowest %.1f ms\n", 6 + 2 * v, 6 + 2 * v, grades[0],
                grades[1], grades[2], grades[3], counted, worst);
         CHECK(worst < 400);
+    }
+
+    /* mistakes: a piece on a cell off the line, a cross on a cell of it; once an action, kept by undo; hints count */
+    {
+        static tk_game g;
+        tk_new(&g, 0, 17);
+        int off = -1, on = -1;
+        for (int c = 0; c < g.n * g.n; c++) {
+            if (!g.sol[c] && off < 0) off = c;
+            if (g.sol[c] && !g.given[c] && on < 0) on = c;
+        }
+        CHECK(off >= 0 && on >= 0);
+        CHECK(tk_set(&g, off, TK_N | TK_S) && g.mistakes == 1);
+        CHECK(tk_set(&g, off, TK_E | TK_W) && g.mistakes == 1);   /* still wrong: not a new one */
+        CHECK(tk_set(&g, on, TK_X) && g.mistakes == 2);
+        CHECK(tk_undo(&g) >= 0 && g.mistakes == 2);
+        CHECK(tk_set(&g, on, g.sol[on]) && g.mistakes == 2);
+        CHECK(tk_hint(&g) >= 0 && g.hints == 1 && g.mistakes == 2);
+    }
+
+    /* every level: it reads back the same, the solver lays its one line (a search finds no other on the smaller
+     * ones), the first chapter needs the plainest reasoning; laid cell by cell, solved without a mistake */
+    {
+        static tk_game g;
+        int grades[4] = {0};
+        for (int i = 0; i < TK_LEVELS; i++) {
+            CHECK(tk_decode(&g, tk_levels[i]));
+            int n = g.n, grade;
+            char code[TK_CELLS + 8];
+            CHECK(tk_encode(&g, code, sizeof code) && !strcmp(code, tk_levels[i]));
+            uint8_t out[TK_CELLS];
+            CHECK(tk_deduce(&g, 3, &grade, out) && !memcmp(out, g.sol, (size_t)(n * n)));
+            grades[grade < 0 ? 0 : grade > 3 ? 3 : grade]++;
+            if (i < 25) CHECK(grade == 0 && n <= 6);
+            if (n <= 7) CHECK(tk_count(&g, 2) == 1);
+            CHECK(g.given[g.a] && g.given[g.b] && !tk_solved(&g));
+            for (int c = 0; c < n * n; c++)
+                if (g.sol[c] && !g.given[c]) CHECK(tk_set(&g, c, g.sol[c]));
+            CHECK(tk_solved(&g) && g.mistakes == 0 && g.hints == 0);
+            for (int j = 0; j < i; j++) CHECK(strcmp(tk_levels[i], tk_levels[j]));
+        }
+        printf("tracks levels: grades %d %d %d %d\n", grades[0], grades[1], grades[2], grades[3]);
+        CHECK(!tk_decode(&g, "3:...") && !tk_decode(&g, "3:a.") && !tk_decode(&g, "x"));
     }
     CHECK(fails == 0);
 

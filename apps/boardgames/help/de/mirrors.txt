@@ -10,6 +10,8 @@ Jedes Rätsel hat genau eine Lösung, die man findet, indem man dem Strahl folgt
 Drehe einen Spiegel auf seinem Drehteller, oder stelle einen losen Spiegel auf ein leeres Feld, drehe ihn, versetze ihn oder nimm ihn zurück.
 # Das Ende der Partie
 Wenn alle Edelsteine leuchten und keine Bombe berührt wird, ist das Rätsel gelöst: Ein goldenes Licht läuft von der Lampe den Strahl entlang, und die Edelsteine funkeln.
+# Level und Sterne
+Es gibt 150 Level in sechs Kapiteln, von 5 × 5 nur mit drehbaren Spiegeln bis 8 × 8 mit losen Spiegeln, Bomben und Glas, jedes mit nur einer Lösung; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Jedes Rätsel hat ein Par: die wenigsten Aktionen, die es lösen (ein loser Spiegel, der andersherum stehen muss, kostet ein Tippen mehr). Gelöst mit Par: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1. Ein Tipp begrenzt das Rätsel auf 2 Sterne, mehr als zwei Tipps auf 1. Rückgängig nimmt einen Zug zurück, und er zählt nicht mehr.
 # Spielen auf dem Gerät
 - Tippe auf einen Spiegel auf einem Drehteller, um ihn zu drehen.
 - Tippe auf ein leeres Feld, um dort einen losen Spiegel aufzustellen; tippe erneut, um ihn zu drehen, ein drittes Mal, um ihn in die Leiste zurückzulegen. Du kannst einen Spiegel auch aus der Leiste auf ein Feld ziehen, von einem Feld auf ein anderes oder vom Brett herunter.

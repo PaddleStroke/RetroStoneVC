@@ -9,6 +9,8 @@ Setiap teka-teki punya tepat satu jawaban, yang ditemukan hanya dengan bernalar.
 Pasang potongan rel di sebuah kotak, ganti, atau tandai dengan silang kotak yang kamu tahu tetap kosong. Tanda silang hanya catatan untukmu.
 # Akhir permainan
 Saat jalur lengkap dan setiap angka cocok, teka-teki selesai: sebuah kereta kecil berjalan dari pintu masuk ke pintu keluar, dan kotak-kotak menyala emas di belakangnya.
+# Level dan bintang
+Ada 150 level dalam enam bab, dari 5 × 5 sampai 10 × 10, masing-masing dengan satu jawaban saja; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah potongan rel di kotak yang tidak dipakai jalur, atau tanda silang di kotak yang dipakai jalur; Urungkan tidak menghapusnya.
 # Bermain di perangkat
 - Seret dari kotak ke kotak untuk memasang rel di bawah jarimu; rel tersambung dengan potongan yang sudah ada.
 - Ketuk kotak untuk sebuah potongan (yang paling cocok dengan tetangganya lebih dulu), ketuk lagi untuk potongan berikutnya; setelah yang keenam kotak kosong lagi.

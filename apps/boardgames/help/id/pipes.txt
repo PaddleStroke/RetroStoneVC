@@ -6,6 +6,8 @@ Setiap teka-teki bisa diselesaikan hanya dengan penalaran dan punya satu jawaban
 Memutar satu ubin seperempat putaran searah jarum jam.
 # Akhir permainan
 Saat semua ubin tersambung dan tidak ada pipa yang terbuka, air mencapai setiap ubin dan cahaya emas mengalir dari tangki.
+# Level dan bintang
+Ada 150 level dalam enam bab, dari 4 × 4 sampai 11 × 11 dan papan tanpa tepi, masing-masing dengan satu jawaban saja; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Setiap teka-teki punya par, jumlah putaran seperempat paling sedikit untuk menyelesaikannya. Selesai tepat par: 3 bintang; dengan tambahan langkah paling banyak setengah dari par: 2 bintang; selain itu 1. Petunjuk membatasi teka-teki paling banyak 2 bintang, lebih dari dua petunjuk 1 bintang. Urungkan membatalkan satu langkah, dan langkah itu tidak dihitung lagi.
 # Bermain di perangkat
 - Ketuk ubin untuk memutarnya seperempat putaran.
 - Air mengalir dari tangki ke setiap pipa yang tersambung dengannya. Di tempat air mencapai pipa terbuka, air tumpah: cari tetesannya.

@@ -6,6 +6,8 @@ Každý hlavolam má právě jedno řešení, které se najde pouhou úvahou.
 Nakreslit nebo změnit jednu cestu.
 # Konec hry
 Když jsou všechny dvojice spojené a žádné políčko nezůstane prázdné, hlavolam je vyřešen: po každé cestě proběhne zlaté světlo.
+# Úrovně a hvězdy
+Úrovní je 150 v šesti kapitolách, od 5 × 5 po 12 × 12, každá s jediným řešením; vyber si ji v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Bez rady a bez chyby: 3 hvězdy; nejvýš dvě rady a chyby dohromady: 2 hvězdy; jinak 1. Chyba je čára, která vede cestu přes pole, jež v řešení patří jiné barvě; Vrátit ji nesmaže.
 # Hra na zařízení
 - Táhni od tečky: její cesta začne znovu od ní a sleduje tvůj prst. Táhni od políčka cesty a pokračuj odtud (zbytek té cesty zmizí).
 - Návrat po cestě ji zkracuje. Přejetí přes jinou cestu ji přeruší; vrátí se, když couvneš dřív, než zvedneš prst. Cesta nikdy nevede přes tečku jiné barvy.

@@ -6,6 +6,8 @@ Setiap teka-teki punya tepat satu jawaban, yang bisa ditemukan hanya dengan pena
 Menggambar atau mengubah satu jalur.
 # Akhir permainan
 Saat semua pasangan terhubung dan tak ada kotak yang kosong, teka-teki selesai: cahaya emas berlari di sepanjang setiap jalur.
+# Level dan bintang
+Ada 150 level dalam enam bab, dari 5 × 5 sampai 12 × 12, masing-masing dengan satu jawaban saja; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah goresan yang meletakkan jalur di kotak yang dalam jawaban milik warna lain; Urungkan tidak menghapusnya.
 # Bermain di perangkat
 - Seret dari sebuah titik: jalurnya dimulai lagi dari situ dan mengikuti jarimu. Seret dari kotak sebuah jalur untuk melanjutkan dari sana (sisa jalur itu hilang).
 - Kembali menyusuri jalur akan memendekkannya. Melewati jalur lain akan memotongnya; jalur itu kembali bila kamu mundur sebelum mengangkat jari. Jalur tidak pernah melewati titik warna lain.

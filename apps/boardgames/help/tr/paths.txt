@@ -6,6 +6,8 @@ Her bulmacanın tam olarak bir çözümü vardır ve yalnızca akıl yürüterek
 Bir yol çizmek ya da değiştirmek.
 # Oyunun sonu
 Bütün çiftler birleşip hiçbir kare boş kalmayınca bulmaca çözülür: her yol boyunca altın bir ışık koşar.
+# Seviyeler ve yıldızlar
+Altı bölümde 150 seviye var; 5 × 5'ten 12 × 12'ye kadar uzanıyorlar ve her birinin tek bir çözümü var. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir bulmaca yapar. İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, çözümde başka bir renge ait bir kareden yol geçiren bir çizimdir; geri al onu silmez.
 # Cihazda oynamak
 - Bir noktadan sürükle: yolu oradan yeniden başlar ve parmağını izler. Bir yolun karesinden sürükleyerek oradan devam et (yolun geri kalanı silinir).
 - Yol boyunca geri dönmek onu kısaltır. Başka bir yolun üstünden geçmek onu keser; parmağını kaldırmadan geri çekilirsen geri gelir. Bir yol başka renkte bir noktanın üstünden asla geçmez.

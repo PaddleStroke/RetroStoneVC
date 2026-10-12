@@ -3,9 +3,12 @@
  * untangle_rules.c).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
+ * The shell's level screen chooses a level (150 in six chapters, untangle_levels.h: a few pins moved out of a layout
+ * without crossings), or its die tab a puzzle made at random (the variants: the pins round a circle). Stars: the
+ * moves against par (untangle.h), a hint caps them (pzkit.h).
  * Drag a pin anywhere on the board: its cords follow, and every cord that crosses another glows red, there and then.
  * When none crosses, they all turn gold. The bar: the moves, the crossings left (a small red cross of cords), and the
- * lamp (a hint: a pin moved where it lowers the crossings most, or set where it sits in a layout without any, sliding
+ * shell's hint button (a hint: a pin moved where it lowers the crossings most, or set where it sits in a layout without any, sliding
  * there in gold light). Undo takes back one move, all the way to the start.
  * Solved: the cords turn gold and a gold light runs over the pins from the last one moved.
  */
@@ -16,6 +19,7 @@
 #include "games/puzzles.h"
 #include "games/pzkit.h"
 #include "games/untangle.h"
+#include "games/untangle_levels.h"
 #include "shell.h"
 
 #define FRAME 0.035f
@@ -36,7 +40,6 @@ static float btn_d;                             /* the bar's buttons' size */
 static float bx, by, side, px0, py0, pw, dot;   /* the field: its corner, its side; a pin's size */
 static int fr, made_key = -1, made_small = -1, made_dot = -1;
 static SDL_Texture *t_board, *t_pin, *t_small, *t_knot;
-static pzk_btns btns;
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* a brass pin seen from above: its round head, lit from the top left, a dark rim */
@@ -80,12 +83,6 @@ static void paint_knot(uint8_t *o, int s)
     pzk_ball(o, s, s, 0.85f * S, 0.75f * S, 0.1f * S, BRASS, 1, 0.6f);
     pzk_ball(o, s, s, 0.15f * S, 0.75f * S, 0.1f * S, BRASS, 1, 0.6f);
     pzk_ball(o, s, s, 0.85f * S, 0.25f * S, 0.1f * S, BRASS, 1, 0.6f);
-}
-
-static void paint_hint(int kind, int size, uint8_t *o)
-{
-    (void)kind;
-    pzk_lamp(size, o);
 }
 
 static void layout(box b)
@@ -150,12 +147,23 @@ static void after(int v)
     ui_animate();
 }
 
-static void start(int variant)
+static void start(int level)                    /* a level of the shell's level screen */
+{
+    if (!ut_decode(&G, ut_levels[level < 0 || level >= UT_LEVELS ? 0 : level])) ut_new(&G, 0, 1);
+    calm();
+    if (last_box.w > 0) layout(last_box);
+}
+
+static void start_random(int variant)           /* a puzzle made at random (the die tab) */
 {
     ut_new(&G, variant < 0 || variant >= UT_VARIANTS ? 0 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
     calm();
     if (last_box.w > 0) layout(last_box);
 }
+
+static int score(void) { return G.moves; }
+static int par(void) { return G.par; }
+static int level_stars(void) { return pzk_stars(ui_par_stars(G.moves, G.par), G.hints, 0); }
 
 static int status(void) { return ut_solved(&G) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
@@ -313,7 +321,7 @@ static void bar(int player, box b)
     pzk_count it[2] = {{t_small, G.moves}, {t_knot, left}};
     float d = btn_d = pzk_bar(b, it, 2, 1), hx, hy;
     pzk_bar_btn(b, 0, d, &hx, &hy);
-    pzk_btn_draw(pzk_btn(&btns, 0, (int)d, paint_hint), hx, hy, d, left ? PZK_READY : PZK_DIM);
+    ui_button(hx, hy, d, ICON_HINT, left ? 0 : UI_DIM);
 }
 
 static int bar_press(int player, float x, float y)
@@ -322,7 +330,7 @@ static int bar_press(int player, float x, float y)
     if (!barbox.w) return 0;
     float hx, hy, d = btn_d;
     pzk_bar_btn(barbox, 0, d, &hx, &hy);
-    if (!pzk_btn_hit(hx, hy, d, x, y)) return 0;
+    if (!ui_button_hit(hx, hy, d, x, y)) return 0;
     float ox[UT_MAXV], oy[UT_MAXV];
     memcpy(ox, G.x, sizeof ox);
     memcpy(oy, G.y, sizeof oy);
@@ -368,10 +376,33 @@ static void thumb(int variant, int size, uint8_t *rgba)
     free(b);
 }
 
+/* a chapter's tab: pins and their cords, more of them chapter by chapter, two of them crossing in red */
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    int n = 4 + (chapter < 0 ? 0 : chapter > 5 ? 5 : chapter);   /* pins round a ring, a cord to the next */
+    float S = (float)size, c = S / 2, R = 0.36f * S, px[9], py[9];
+    for (int i = 0; i < n; i++) {
+        float a = -PUZ_PI / 2 + 2 * PUZ_PI * i / n;
+        px[i] = c + R * cosf(a);
+        py[i] = c + R * sinf(a);
+    }
+    const uint8_t ink[3] = {62, 42, 30};
+    for (int i = 0; i < n; i++)
+        pzk_stroke(rgba, size, size, px[i], py[i], px[(i + 1) % n], py[(i + 1) % n], fmaxf(0.8f, 0.03f * S), ink, 1);
+    pzk_stroke(rgba, size, size, px[0], py[0], px[n / 2], py[n / 2], fmaxf(0.8f, 0.03f * S), PZK_RED, 1);
+    pzk_stroke(rgba, size, size, px[1], py[1], px[n - 1], py[n - 1], fmaxf(0.8f, 0.03f * S), PZK_RED, 1);
+    for (int i = 0; i < n; i++) {
+        pzk_ball(rgba, size, size, px[i], py[i], 0.085f * S, PZK_DARK, 1, 0);
+        pzk_ball(rgba, size, size, px[i], py[i], 0.068f * S, BRASS, 1, 0.9f);
+    }
+}
+
 static const game untangle_game = {
     .id = "untangle", .order = 404, .variants = UT_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,
+    .levels = UT_LEVELS, .chapters = UT_CHAPTERS, .chapter_icon = chapter_icon, .start_random = start_random,
+    .level_stars = level_stars, .score = score, .par = par,
 };
 REGISTER_GAME(untangle_game)

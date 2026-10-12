@@ -20,6 +20,10 @@
  * another path's square (that path is cut there; it comes back if the stroke backs off), back along itself (cut back),
  * or onto its other dot (the pair is linked; it can go no further). Never onto another colour's dot. A stroke is one
  * action (undo takes it back).
+ * The levels (paths_levels.h, made by tools/paths_gen.c): 150 puzzles in six chapters, 5 x 5 to 12 x 12, each kept
+ * as its size and a letter a square (its colour in the solution; the dots in capitals). Stars (a logic puzzle: no
+ * par): 3 with no hint and no mistake, 2 with up to two of them, else 1 (pzkit.h). A mistake: a stroke that lays a
+ * path over a square the solution gives another colour (counted once a stroke; undo does not take it back).
  * Squares: x + y * n from the top left. The notation (script, the screenshots, the tests): a square is its column
  * letter a.. and its row 1.. from the top; "a1-a4-c4" is a stroke from a1, straight on to a4, then to c4; "?" a hint
  * (one pair's path laid as in the solution); "=n" lays the next n pairs that are not right, the same way.
@@ -34,6 +38,8 @@
 #define NK_CELLS (NK_MAX * NK_MAX)
 #define NK_COLOURS 14
 #define NK_HIST 600
+#define NK_LEVELS 150
+#define NK_CHAPTERS 6
 
 typedef struct { uint8_t len[NK_COLOURS], cells[NK_CELLS]; } nk_snap;   /* every path, one after another */
 
@@ -42,12 +48,14 @@ typedef struct {
     uint8_t end[NK_COLOURS][2];                 /* each pair's dots */
     uint8_t dot[NK_CELLS];                      /* the colour + 1 of the dot on a square (0: none) */
     uint8_t slen[NK_COLOURS], spath[NK_COLOURS][NK_CELLS];   /* the solution: each path from its first dot */
+    uint8_t scol[NK_CELLS];                     /* the solution: each square's colour */
     uint8_t len[NK_COLOURS], path[NK_COLOURS][NK_CELLS];     /* the paths drawn, each from one of its dots */
     uint8_t own[NK_CELLS];                      /* the colour + 1 on each square now (a path, a dot; 0: free) */
     int stroke;                                 /* the colour being drawn, or -1 */
     nk_snap before;                             /* the paths when the stroke began */
     nk_snap hist[NK_HIST];
     int nh, moves;
+    int hints, mistakes;                        /* the hints given, the strokes that went wrong (undo keeps them) */
 } nk_game;
 
 void nk_variant(int variant, int *n, int *lo, int *hi);   /* its size, and the pairs it may have */
@@ -56,6 +64,16 @@ void nk_variant(int variant, int *n, int *lo, int *hi);   /* its size, and the p
 int  nk_count(int n, int pairs, const uint8_t (*end)[2], int limit, long budget);
 /* a puzzle: the colour of each square in its one solution, each pair's dots, the pairs; returns the tries made */
 int  nk_make(int variant, uint32_t seed, uint8_t *colour, uint8_t (*end)[2], int *pairs);
+/* the same for any size n (up to NK_MAX), lo to hi pairs */
+int  nk_make_n(int n, int lo, int hi, uint32_t seed, uint8_t *colour, uint8_t (*end)[2], int *pairs);
+/* how hard the deductions are: the fewest kinds of them that solve it without a guess (0: the links each square
+ * needs, a path's one colour, no loop; 1: also each pair's dots joined through squares that may take its colour; 2:
+ * also the squares every such way passes through), -1: none does; *rounds: the passes of deductions it took */
+int  nk_grade(int n, int pairs, const uint8_t (*end)[2], int *rounds);
+/* a level kept as text: "<n>:" then a letter a square, its colour in the solution ('a'..; the dots 'A'..).
+ * nk_decode: 0 when it is not one */
+int  nk_encode(int n, const uint8_t *colour, const uint8_t (*end)[2], int pairs, char *out, int size);
+int  nk_decode(nk_game *g, const char *code);
 
 void nk_new(nk_game *g, int variant, uint32_t seed);
 void nk_load(nk_game *g, int n, int pairs, const uint8_t *colour, const uint8_t (*end)[2]);
@@ -69,7 +87,8 @@ int  nk_linked(const nk_game *g, int colour);  /* 1: its path joins its two dots
 int  nk_right(const nk_game *g, int colour);   /* 1: its path is the solution's */
 int  nk_free(const nk_game *g);                /* the squares no path covers */
 int  nk_solved(const nk_game *g);
-int  nk_hint(nk_game *g);                      /* a pair's path laid as in the solution: its colour; -1: none */
+int  nk_hint(nk_game *g);                      /* a pair's path laid as in the solution: its colour; -1: none.
+                                                 * One action, counted in hints */
 int  nk_undo(nk_game *g);                      /* the last action taken back; 0: none */
 int  nk_cell(const nk_game *g, const char *s, int *used);   /* "c4": its square, and the characters read; -1 */
 int  nk_script(nk_game *g, const char *moves); /* 0 at the first bad one */

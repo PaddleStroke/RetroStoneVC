@@ -6,6 +6,8 @@ Każda łamigłówka ma dokładnie jedno rozwiązanie, które da się znaleźć 
 Narysowanie lub zmiana jednej ścieżki.
 # Koniec gry
 Gdy wszystkie pary są połączone i żadne pole nie zostaje puste, łamigłówka jest rozwiązana: wzdłuż każdej ścieżki biegnie złote światło.
+# Poziomy i gwiazdki
+Jest 150 poziomów w sześciu rozdziałach, od 5 × 5 do 12 × 12, każdy z jednym rozwiązaniem; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to pociągnięcie, które kładzie ścieżkę na polu należącym w rozwiązaniu do innego koloru; Cofnij go nie usuwa.
 # Gra na urządzeniu
 - Przeciągnij od kropki: jej ścieżka zaczyna się od niej od nowa i podąża za palcem. Przeciągnij od pola ścieżki, aby ciągnąć ją dalej stamtąd (reszta tej ścieżki znika).
 - Cofanie się po ścieżce ją skraca. Przejście przez inną ścieżkę przecina ją; wraca, jeśli się wycofasz przed podniesieniem palca. Ścieżka nigdy nie przechodzi przez kropkę innego koloru.

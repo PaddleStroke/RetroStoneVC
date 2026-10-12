@@ -10,6 +10,8 @@ Hver opgave har præcis én løsning, som man finder ved at følge strålen og t
 Drej et spejl på sin tap, eller stil et løst spejl på et tomt felt, drej det, flyt det eller tag det tilbage.
 # Spillets afslutning
 Når alle ædelstene lyser og ingen bombe bliver ramt, er opgaven løst: et gyldent lys løber langs strålen fra lampen, og ædelstenene funkler.
+# Baner og stjerner
+Der er 150 baner i seks kapitler, fra 5 × 5 med kun drejelige spejle op til 8 × 8 med løse spejle, bomber og glas, hver med kun én løsning; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Hver opgave har et par: det mindste antal handlinger, der løser den (et løst spejl, der skal stå den anden vej, koster et tryk mere). Løst på par: 3 stjerner; med op til halvt så mange træk mere: 2 stjerner; ellers 1. Et tip giver højst 2 stjerner, mere end to tip højst 1. Fortryd tager et træk tilbage, og det tæller ikke længere.
 # Spil på enheden
 - Tryk på et spejl på en tap for at dreje det.
 - Tryk på et tomt felt for at stille et løst spejl der; tryk igen for at dreje det og en tredje gang for at lægge det tilbage i bakken. Du kan også trække et spejl fra bakken til et felt, fra et felt til et andet eller af brættet.

@@ -6,6 +6,7 @@
  */
 #include "games/paths.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -71,6 +72,9 @@ static int link_set(const solver *s, pstate *p, int a, int d, int on, int *chang
 
 static const uint8_t POP4[16] = {0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4};
 
+/* the kinds of deductions used (nk_grade: fewer of them), the passes made */
+static int rule_level = 2, rounds_made;
+
 static int root(int *par, int x)
 {
     while (par[x] != x) x = par[x] = par[par[x]];
@@ -110,6 +114,7 @@ static int propagate(const solver *s, pstate *p)
     uint8_t seen[NK_CELLS];
     while (changed) {
         changed = 0;
+        rounds_made++;
         for (int a = 0; a < nc; a++) {         /* the links each square needs */
             int on = POP4[p->e[a] & 15], off = POP4[p->e[a] >> 4], unk = 4 - on - off;
             if (on > s->need[a] || on + unk < s->need[a]) return 0;
@@ -140,7 +145,7 @@ static int propagate(const solver *s, pstate *p)
                     (par[a] == par[b] || !(p->col[a] & p->col[b])) && !link_set(s, p, a, d, 0, &changed))
                     return 0;
             }
-        if (changed) continue;
+        if (changed || rule_level < 1) continue;
         for (int c = 0; c < s->pairs; c++) {   /* each colour's dots joined through squares that may take it */
             uint32_t bit = 1u << c;
             if (par[s->dot[c][0]] == par[s->dot[c][1]]) continue;   /* linked already */
@@ -165,6 +170,7 @@ static int propagate(const solver *s, pstate *p)
                     changed = 1;
                 }
             /* the squares every way between the two dots passes through: that colour */
+            if (rule_level < 2) continue;
             sep_walk w;
             w.s = s, w.p = p, w.bit = bit, w.t = 0;
             memset(w.disc, 0, sizeof w.disc[0] * (size_t)nc);
@@ -444,12 +450,33 @@ static int deduced(const cover *v)
     return nk_count(v->n, v->np, (const uint8_t (*)[2])end, 2, 1) == 1;
 }
 
+int nk_grade(int n, int pairs, const uint8_t (*end)[2], int *rounds)
+{
+    int grade = -1;
+    for (int level = 0; level <= 2 && grade < 0; level++) {
+        rule_level = level;
+        rounds_made = 0;
+        if (nk_count(n, pairs, end, 2, 1) == 1) grade = level;
+    }
+    rule_level = 2;
+    if (rounds) *rounds = rounds_made;
+    return grade;
+}
+
 int nk_make(int variant, uint32_t seed, uint8_t *colour, uint8_t (*end)[2], int *pairs)
+{
+    int n, lo, hi;
+    nk_variant(variant, &n, &lo, &hi);
+    return nk_make_n(n, lo, hi, seed, colour, end, pairs);
+}
+
+int nk_make_n(int n, int lo, int hi, uint32_t seed, uint8_t *colour, uint8_t (*end)[2], int *pairs)
 {
     static cover v, w;
     static int cand[NK_SOLVE * NK_SOLVE * 4];
-    int n, lo, hi;
-    nk_variant(variant, &n, &lo, &hi);
+    if (n < 3 || n > NK_MAX) n = 7;
+    if (hi > NK_COLOURS) hi = NK_COLOURS;
+    if (lo > hi) lo = hi;
     int nc = n * n, many = hi + 1 + n / 2;      /* first more paths than wanted: easily deduced */
     uint32_t rng = pr_seed(seed);
     for (int tries = 1; tries <= 2 * NK_TRIES; tries++) {
@@ -539,6 +566,8 @@ void nk_load(nk_game *g, int n, int pairs, const uint8_t *colour, const uint8_t 
         g->end[c][0] = end[c][0];
         g->end[c][1] = end[c][1];
         g->dot[end[c][0]] = g->dot[end[c][1]] = (uint8_t)(c + 1);
+        for (int i = 0; i < n * n; i++)
+            if (colour[i] == c) g->scol[i] = (uint8_t)c;
         int prev = -1, cur = end[c][0];         /* the solution's path, walked from the first dot */
         while (cur >= 0 && g->slen[c] < n * n) {
             g->spath[c][g->slen[c]++] = (uint8_t)cur;
@@ -553,6 +582,41 @@ void nk_load(nk_game *g, int n, int pairs, const uint8_t *colour, const uint8_t 
         }
     }
     own_make(g);
+}
+
+int nk_encode(int n, const uint8_t *colour, const uint8_t (*end)[2], int pairs, char *out, int size)
+{
+    int k = snprintf(out, (size_t)size, "%d:", n);
+    if (k < 0 || k + n * n + 1 > size) return 0;
+    for (int i = 0; i < n * n; i++) {
+        int dot = 0;
+        for (int c = 0; c < pairs; c++) dot |= end[c][0] == i || end[c][1] == i;
+        out[k++] = (char)((dot ? 'A' : 'a') + colour[i]);
+    }
+    out[k] = 0;
+    return 1;
+}
+
+int nk_decode(nk_game *g, const char *s)
+{
+    int n = 0, pairs = 0, ends[NK_COLOURS] = {0};
+    uint8_t colour[NK_CELLS] = {0}, end[NK_COLOURS][2] = {{0}};
+    while (*s >= '0' && *s <= '9') n = n * 10 + *s++ - '0';
+    if (*s++ != ':' || n < 3 || n > NK_MAX || (int)strlen(s) != n * n) return 0;
+    for (int i = 0; i < n * n; i++) {
+        int dot = s[i] >= 'A' && s[i] < 'A' + NK_COLOURS, c = dot ? s[i] - 'A' : s[i] - 'a';
+        if (c < 0 || c >= NK_COLOURS) return 0;
+        colour[i] = (uint8_t)c;
+        if (c + 1 > pairs) pairs = c + 1;
+        if (dot) {
+            if (ends[c] >= 2) return 0;
+            end[c][ends[c]++] = (uint8_t)i;
+        }
+    }
+    for (int c = 0; c < pairs; c++)
+        if (ends[c] != 2) return 0;
+    nk_load(g, n, pairs, colour, (const uint8_t (*)[2])end);
+    return 1;
 }
 
 void nk_new(nk_game *g, int variant, uint32_t seed)
@@ -674,6 +738,17 @@ int nk_end(nk_game *g)
     room(g);
     g->hist[g->nh++] = g->before;
     g->moves++;
+    /* a mistake: a square now covered by a colour the solution does not give it, that was not so before */
+    uint8_t was[NK_CELLS] = {0};
+    for (int c = 0, k = 0; c < NK_COLOURS; c++)
+        for (int i = 0; i < g->before.len[c]; i++, k++) was[g->before.cells[k]] = (uint8_t)(c + 1);
+    int wrong = 0;
+    for (int c = 0; c < g->pairs && !wrong; c++)
+        for (int i = 0; i < g->len[c] && !wrong; i++) {
+            int x = g->path[c][i];
+            wrong = g->scol[x] != c && was[x] != c + 1;
+        }
+    g->mistakes += wrong;
     return 1;
 }
 
@@ -717,6 +792,7 @@ int nk_hint(nk_game *g)
     memcpy(g->path[best], g->spath[best], g->slen[best]);
     rebuild(g);
     nk_end(g);
+    g->hints++;
     return best;
 }
 

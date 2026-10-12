@@ -6,6 +6,8 @@ Cada puzle se resuelve solo razonando y tiene una única solución.
 Girar una ficha un cuarto de vuelta en el sentido de las agujas del reloj.
 # El final de la partida
 Cuando todas las fichas están unidas y ninguna tubería queda abierta, el agua llega a cada ficha y una luz dorada sale del depósito.
+# Niveles y estrellas
+Hay 150 niveles en seis capítulos, del 4 × 4 al 11 × 11 y a los tableros sin bordes, cada uno con una sola solución; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, crea un puzle nuevo al azar, con la elección descrita arriba. Cada puzle tiene un par: el mínimo de cuartos de vuelta que lo resuelven. Resuelto en el par: 3 estrellas; con hasta la mitad más de jugadas: 2 estrellas; si no, 1. Una pista deja el puzle en 2 estrellas como máximo, y más de dos pistas en 1. Deshacer anula una jugada, que ya no cuenta.
 # Jugar en el dispositivo
 - Toca una ficha para girarla un cuarto de vuelta.
 - El agua corre desde el depósito por todas las tuberías unidas a él. Donde llega a una tubería abierta, se derrama: busca las gotas.

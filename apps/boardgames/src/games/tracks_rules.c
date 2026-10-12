@@ -6,6 +6,7 @@
  */
 #include "games/tracks.h"
 
+#include <stdio.h>
 #include <string.h>
 
 #include "games/puzrand.h"
@@ -314,7 +315,7 @@ int tk_count(const tk_game *g, int limit)
 }
 
 /* ---- the maker --------------------------------------------------------------------------------------------------- */
-static const struct { int n, lmin, lmax, level, gmin; } SIZE[TK_VARIANTS] = {
+static const tk_config SIZE[TK_VARIANTS] = {
     {6, 13, 22, 1, 0},
     {8, 24, 40, 2, 1},
     {10, 38, 62, 3, 2},
@@ -381,12 +382,12 @@ static int draw_line(tk_game *g, uint32_t *r, int lmin, int lmax)
     return 0;
 }
 
-static int try_make(tk_game *g, int variant, uint32_t *r)
+static int try_make(tk_game *g, const tk_config *cf, uint32_t *r)
 {
-    int n = SIZE[variant].n, level = SIZE[variant].level;
+    int n = cf->n, level = cf->level;
     memset(g, 0, sizeof *g);
     g->n = n;
-    if (!draw_line(g, r, SIZE[variant].lmin, SIZE[variant].lmax)) return 0;
+    if (!draw_line(g, r, cf->lmin, cf->lmax)) return 0;
     for (int c = 0; c < n * n; c++)
         if (g->sol[c]) g->rows[c / n]++, g->cols[c % n]++;
     g->given[g->a] = g->given[g->b] = 1;
@@ -414,29 +415,82 @@ static int try_make(tk_game *g, int variant, uint32_t *r)
     uint8_t out[TK_CELLS];
     if (!tk_deduce(g, level, &grade, out) || memcmp(out, g->sol, (size_t)(n * n))) return 0;
     g->grade = grade;
-    return grade >= SIZE[variant].gmin;
+    return grade >= cf->gmin;
+}
+
+int tk_make(tk_game *g, const tk_config *cf, uint32_t seed, int tries, long trials)
+{
+    uint32_t r = pr_seed(seed);
+    static tk_game best;
+    int have = 0;
+    trial_budget = trials;                      /* the maker's time: past it, trying stops */
+    for (int t = 0; t < tries; t++) {
+        if (try_make(g, cf, &r)) { have = 2; break; }
+        if (!have && g->n && g->b != g->a && tk_deduce(g, cf->level, NULL, NULL)) best = *g, have = 1;
+    }
+    if (have == 1) *g = best;                   /* none needs the size's reasoning: the last one solvable */
+    trial_budget = -1;
+    memset(g->cell, 0, sizeof g->cell);
+    g->nh = g->moves = g->hints = g->mistakes = 0;
+    return have;
 }
 
 void tk_new(tk_game *g, int variant, uint32_t seed)
 {
     if (variant < 0 || variant >= TK_VARIANTS) variant = 0;
-    uint32_t r = pr_seed(seed);
-    static tk_game best;
-    int have = 0;
-    trial_budget = 12000;                       /* the maker's time: past it, trying stops */
-    for (int tries = 0; tries < 400; tries++) {
-        if (try_make(g, variant, &r)) { have = 2; break; }
-        if (!have && g->n && g->b != g->a && tk_deduce(g, SIZE[variant].level, NULL, NULL)) best = *g, have = 1;
+    tk_make(g, &SIZE[variant], seed, 400, 12000);
+}
+
+int tk_encode(const tk_game *g, char *out, int size)
+{
+    int n = g->n, k = snprintf(out, (size_t)size, "%d:", n);
+    if (k < 0 || k + n * n + 1 > size) return 0;
+    for (int c = 0; c < n * n; c++) {
+        int i = 0;
+        while (i < 6 && PIECES[i] != g->sol[c]) i++;
+        out[k++] = i < 6 ? (char)((g->given[c] ? 'A' : 'a') + i) : '.';
     }
-    if (have == 1) *g = best;                   /* none needs the size's reasoning: the last one solvable */
-    trial_budget = -1;
-    memset(g->cell, 0, sizeof g->cell);
-    g->nh = g->moves = 0;
+    out[k] = 0;
+    return 1;
+}
+
+int tk_decode(tk_game *g, const char *s)
+{
+    int n = 0, ends = 0;
+    while (*s >= '0' && *s <= '9') n = n * 10 + *s++ - '0';
+    if (*s++ != ':' || n < 3 || n > TK_MAX || (int)strlen(s) != n * n) return 0;
+    memset(g, 0, sizeof *g);
+    g->n = n;
+    for (int c = 0; c < n * n; c++) {
+        int ch = s[c], i = ch >= 'a' && ch <= 'f' ? ch - 'a' : ch >= 'A' && ch <= 'F' ? ch - 'A' : -1;
+        if (ch != '.' && i < 0) return 0;
+        if (i < 0) continue;
+        g->sol[c] = (uint8_t)PIECES[i];
+        g->given[c] = ch <= 'F';
+        g->rows[c / n]++;
+        g->cols[c % n]++;
+        for (int k = 0; k < 4; k++)
+            if ((PIECES[i] & SIDE[k]) && next_to(n, c, SIDE[k]) < 0) {   /* running off the board: an end */
+                if (ends == 0) g->a = c, g->a_side = (uint8_t)SIDE[k];
+                else g->b = c, g->b_side = (uint8_t)SIDE[k];
+                ends++;
+            }
+    }
+    return ends == 2 && g->a != g->b;
 }
 
 /* ---- the player's cells ------------------------------------------------------------------------------------------ */
+/* the action being made went wrong: a piece on a cell off the line, a cross on a cell of it, where there was none */
+static int action_wrong;
+
+static int wrong_kind(const tk_game *g, int c, int v)
+{
+    return (v & 15) ? !g->sol[c] : v == TK_X && g->sol[c];
+}
+
 static void change(tk_game *g, int c, int v, int first)
 {
+    if (wrong_kind(g, c, v) && !wrong_kind(g, c, g->cell[c])) action_wrong = 1;
     if (g->nh >= TK_HIST) {
         int k = 1;
         while (k < g->nh && !g->hist[k].first) k++;
@@ -453,8 +507,10 @@ int tk_set(tk_game *g, int c, int v)
 {
     if (c < 0 || c >= g->n * g->n || g->given[c] || g->cell[c] == v) return 0;
     if (v != 0 && v != TK_X && (bits(v) != 2 || v > 15)) return 0;
+    action_wrong = 0;
     change(g, c, v, 1);
     g->moves++;
+    g->mistakes += action_wrong;
     return 1;
 }
 
@@ -528,6 +584,7 @@ int tk_lay(tk_game *g, const int *cells, int len)
         val[i] = ends;
     }
     int first = 1;
+    action_wrong = 0;
     for (int i = 0; i < len; i++)
         if (!g->given[cells[i]] && g->cell[cells[i]] != val[i]) {
             change(g, cells[i], val[i], first);
@@ -535,6 +592,7 @@ int tk_lay(tk_game *g, const int *cells, int len)
         }
     if (first) return 0;
     g->moves++;
+    g->mistakes += action_wrong;
     return 1;
 }
 
@@ -542,6 +600,7 @@ int tk_mark(tk_game *g, const int *cells, int len)
 {
     if (len < 1 || cells[0] < 0 || cells[0] >= g->n * g->n) return 0;
     int clear = g->cell[cells[0]] == TK_X, first = 1;
+    action_wrong = 0;
     for (int i = 0; i < len; i++) {
         int c = cells[i];
         if (c < 0 || c >= g->n * g->n || g->given[c]) continue;
@@ -552,6 +611,7 @@ int tk_mark(tk_game *g, const int *cells, int len)
     }
     if (first) return 0;
     g->moves++;
+    g->mistakes += action_wrong;
     return 1;
 }
 
@@ -565,7 +625,16 @@ int tk_solved(const tk_game *g)
     return 1;
 }
 
+static int hint_step(tk_game *g);
+
 int tk_hint(tk_game *g)
+{
+    int c = hint_step(g);
+    if (c >= 0) g->hints++;
+    return c;
+}
+
+static int hint_step(tk_game *g)
 {
     int n = g->n;
     if (tk_solved(g)) return -1;

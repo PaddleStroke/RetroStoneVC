@@ -2,7 +2,9 @@
  * Untangle's rules: the crossings (proper, touching, a dot on a cord, cords sharing a dot, running along each
  * other), the solved check, the puzzles made from many seeds (the maker's layout has no crossing, the circle has many,
  * every dot keeps two cords, all joined, the counts, made fast, the same from the same seed), moves kept on the board,
- * hints to the end and undo all the way back.
+ * hints to the end and undo all the way back; par (the fewest dots that must move: a lower bound, an upper bound);
+ * every level (its layout without crossings; its par tight: at most one dot fewer might do, and those dots put back
+ * solve it).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -11,6 +13,7 @@
 #include <time.h>
 
 #include "games/untangle.h"
+#include "games/untangle_levels.h"
 
 static int fails;
 #define CHECK(c)                                                                                                    \
@@ -137,6 +140,49 @@ int main(void)
                "slowest %.1f ms to make, %.1f ms a hint\n",
                dots[v], g.ne, (double)crossings / seeds, hints_max, worst, hint_worst);
         CHECK(worst < 300 && hint_worst < 300);
+    }
+
+    /* par: a random puzzle's, moving that many dots to the maker's layout while the others stay is enough */
+    {
+        static ut_game g, t;
+        for (uint32_t seed = 1; seed <= 20; seed++) {
+            ut_new(&g, (int)(seed % 2), seed);
+            CHECK(g.par >= 1 && g.par <= g.nv && g.hints == 0);
+            t = g;                              /* the dots that cannot stay sent to the layout */
+            int moved = 0;
+            memcpy(t.x, g.hx, sizeof t.x);
+            memcpy(t.y, g.hy, sizeof t.y);
+            for (int v = 0; v < g.nv; v++) {
+                t.x[v] = g.x[v], t.y[v] = g.y[v];
+                if (ut_crossings(&t)) t.x[v] = g.hx[v], t.y[v] = g.hy[v], moved++;
+            }
+            CHECK(ut_solved(&t) && moved == g.par);
+        }
+        ut_new(&g, 0, 3);
+        CHECK(ut_hint(&g) >= 0 && ut_undo(&g) >= 0 && g.hints == 1 && g.moves == 0);
+    }
+
+    /* every level: it reads back the same; its layout has no crossing; it starts tangled; at most one dot fewer than
+     * par might untangle it, and the dots moved, put back, solve it in par moves; the first chapter is small; no two
+     * alike */
+    {
+        static ut_game g, h;
+        for (int i = 0; i < UT_LEVELS; i++) {
+            CHECK(ut_decode(&g, ut_levels[i]));
+            char code[8 + 4 * UT_MAXV + 2 * UT_MAXE];
+            CHECK(ut_encode(&g, code, sizeof code) && !strcmp(code, ut_levels[i]));
+            h = g;
+            memcpy(h.x, g.hx, sizeof h.x);
+            memcpy(h.y, g.hy, sizeof h.y);
+            CHECK(ut_solved(&h) && !ut_solved(&g) && g.par >= 2);
+            CHECK(ut_cover(&g, g.par) >= g.par - 1);
+            if (i < 25) CHECK(g.nv <= 8 && g.par <= 3);
+            for (int v = 0; v < g.nv; v++)
+                if (g.x[v] != g.hx[v] || g.y[v] != g.hy[v]) CHECK(ut_move(&g, v, g.hx[v], g.hy[v]));
+            CHECK(ut_solved(&g) && g.moves == g.par);
+            for (int j = 0; j < i; j++) CHECK(strcmp(ut_levels[i], ut_levels[j]));
+        }
+        CHECK(!ut_decode(&g, "3:") && !ut_decode(&g, "x") && !ut_decode(&g, "3:000000000000!!"));
     }
 
     if (fails) printf("untangle: %d failures\n", fails);

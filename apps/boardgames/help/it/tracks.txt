@@ -9,6 +9,8 @@ Ogni rompicapo ha una sola soluzione, che si trova solo ragionando. I tavolieri 
 Posa un pezzo di binario in una casella, cambialo, o segna con una croce una casella che sai vuota. Le croci sono solo appunti per te.
 # La fine della partita
 Quando la linea è completa e ogni numero torna, il rompicapo è risolto: un trenino corre dall'ingresso all'uscita e le caselle si accendono d'oro dietro di lui.
+# Livelli e stelle
+Ci sono 150 livelli in sei capitoli, dal 5 × 5 al 10 × 10, ognuno con una sola soluzione; scegline uno nella schermata dei livelli. La scheda del dado, dopo i capitoli, crea un nuovo rompicapo a caso, con la scelta descritta sopra. Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Un errore è un pezzo posato su una casella che la linea non usa, o una croce su una casella che usa; Annulla non lo cancella.
 # Giocare sul dispositivo
 - Trascina da casella a casella per posare il binario sotto il dito; si collega ai pezzi già posati.
 - Tocca una casella per un binario (prima quello che meglio si raccorda ai vicini), di nuovo per il successivo; dopo il sesto la casella torna vuota.

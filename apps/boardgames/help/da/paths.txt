@@ -6,6 +6,8 @@ Hver opgave har præcis én løsning, som findes ved ren tankegang.
 Tegne eller ændre en sti.
 # Spillets afslutning
 Når alle par er forbundet, og intet felt står tomt, er opgaven løst: et gyldent lys løber langs hver sti.
+# Baner og stjerner
+Der er 150 baner i seks kapitler, fra 5 × 5 op til 12 × 12, hver med kun én løsning; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et strøg, der lægger en sti hen over et felt, som i løsningen hører til en anden farve; Fortryd sletter den ikke.
 # Spil på enheden
 - Træk fra en prik: dens sti begynder forfra derfra og følger din finger. Træk fra et felt på en sti for at fortsætte derfra (resten af stien forsvinder).
 - At gå tilbage ad stien gør den kortere. At krydse en anden sti klipper den over; den kommer igen, hvis du går tilbage, før du løfter fingeren. En sti går aldrig over en prik i en anden farve.
