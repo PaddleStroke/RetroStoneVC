@@ -1,0 +1,36 @@
+Schafkopf
+# The aim
+Bavaria's great card game for four. In each deal the player who wins the bidding plays a game, with a partner he calls or alone, against the others; the game is paid in points by the tariff. A game is a list of 12 deals; the highest total at the end wins. The rules are the Bavarian ones. For 4 players passing the device round; nobody sees the others' cards.
+# The cards
+The pack has 32 cards, 7 to ace. Schafkopf is played with German suits; here they have French ones, which are widely used for it too: clubs for acorns (Eichel), spades for leaves (Gras), hearts for hearts (Herz), diamonds for bells (Schellen). The queens are the Obers, the jacks the Unters, the aces the Sau. German suits may come later.
+# The deal
+Each player gets 8 cards. Jade deals first; the deal then moves on one seat each time. The player after the dealer speaks first and leads the first trick.
+# Bidding
+- Each player in turn passes (weiter) or says he would play, choosing his game in secret: a Rufspiel, a Wenz or a Solo.
+- Rufspiel: he calls the ace (Sau) of a suit (clubs, spades or diamonds, never hearts) of which he holds a card, but not that ace. The player holding it is his partner, unknown until the ace is played.
+- Wenz and Solo: he plays alone against the three others.
+- The highest game is played: Solo, then Wenz, then Rufspiel; between equal games the first to speak. If everyone passes, the cards are thrown in, or, with Ramsch chosen, a Ramsch is played.
+# Trumps
+- Rufspiel: the four Obers (clubs, spades, hearts, diamonds) are the highest trumps, then the four Unters in the same order, then the hearts: ace, 10, king, 9, 8, 7. 14 trumps.
+- Solo: the same, with the chosen suit in place of hearts.
+- Wenz: only the four Unters are trumps.
+- The other suits rank ace, 10, king, (Ober), (Unter), 9, 8, 7.
+# Playing
+- Follow suit if you can (all trumps count as one suit); otherwise play any card. The highest trump wins the trick, otherwise the highest card of the suit led. The winner leads next.
+- The called ace: when its suit is led for the first time, its holder must play the ace. Until then he may not throw the ace away on another suit, and may lead that suit only with the ace, unless he holds four or more cards of it: then he may run away (davonlaufen) with another one. In the last trick anything goes.
+# Winning
+- Card points: ace 11, 10 10, king 4, Ober 3, Unter 2: 120 in all.
+- The player and his partner (or the soloist) win with 61 points or more.
+- Schneider: the losing side has 30 points or fewer. Schwarz: the losing side took no trick.
+# The tariff
+- Rufspiel 10 points; Solo and Wenz 50.
+- Schneider 10 more, schwarz 10 more.
+- Laufende: the unbroken run of top trumps from the club Ober down (in the Wenz from the club Unter) held by one side, the playing side or the other: 10 each, from 3 on (in the Wenz from 2 on).
+- Rufspiel: each winner scores the value, each loser loses it. Solo and Wenz: the soloist scores or loses three times the value, each other player once.
+- Not played here: doubling (Kontra, Re), Tout, Sie and other house games.
+# Ramsch
+When everyone passes and Ramsch was chosen, each plays for himself, with the Rufspiel's trumps. The player with the most card points pays 10 to each of the others; at equal points the one with more tricks pays, and if still equal, each of them pays. Taking every trick (Durchmarsch) wins 50 from each.
+# The end of the game
+After the 12th deal, the highest total wins. Equal totals share the win.
+# Playing on the device
+Pass the device to the player whose token glows; they tap start and see their own hand. To bid, tap a game, then the tick (or the same game again): one of the three aces for a Rufspiel (greyed when you may not call it), the bishop (the Unter's figure) for a Wenz, or a suit's sign for that Solo; to pass, tap pass. Each seat shows its word: the pass sign, or a tick for a player who would play. During play the player's seat shows his game: the ace called, the Wenz or the Solo's suit; the partner's seat shows the ace too once it is played. To play, tap a glowing card so it rises, then tap it again or its place in the middle, or drag it there. Tap the pile at the bottom right to see the last trick. After each deal a table shows the playing side with its game and card points (a gold tick: won), 90 for schneider and 120 for schwarz; the club Ober (in a Wenz the club Unter) with the Laufende counted, the tariff (times 3 for a soloist) and the value; in a Ramsch each player's card points, the payers in red. Then each player's score and total, and the list of deals, the players' chips in gold when they won. Tap it for the next deal. Each bar shows the cards in hand and the total. Undo takes back a choice not yet made, never one once the device has passed.

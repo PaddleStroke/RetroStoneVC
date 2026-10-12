@@ -1,0 +1,31 @@
+Jass
+# The aim
+The Schieber, Switzerland's favourite way of playing Jass: two teams of two partners sitting face to face, ivory and red against ebony and jade. Both teams count the points they take; the first team to reach 1000 points (or 2500 in the long game) wins. For 4 players passing the device round; nobody sees the others' cards.
+# The cards
+The pack has 36 cards, 6 to ace. In German-speaking Switzerland Jass is mostly played with Swiss suits (bells, shields, roses, acorns); here the cards have French suits, as in the west of the country. Swiss suits may come later.
+# The deal
+Each player gets 9 cards. Jade deals first; the deal then moves on one seat each time. The player after the dealer chooses the game and leads the first trick.
+# Choosing the game
+- The chooser names a trump suit, or Obenabe (no trumps, the ace is high) or Undeufe (no trumps, the six is high).
+- Or he pushes (schieben): his partner must then choose. The first trick is still led by the player who pushed.
+# Trumps
+- The jack of trumps, the Puur, is the highest card (20 points), then the 9, the Nell (14), then ace 11, king 4, queen 3, 10 10, 8, 7, 6.
+- The other suits rank ace 11, king 4, queen 3, jack 2, 10 10, 9, 8, 7, 6.
+- Obenabe: every suit ranks ace to six, and the 8s are worth 8. Undeufe: every suit ranks six to ace, the 6s are worth 11, the 8s 8 and the aces nothing.
+- The last trick is worth 5 more: 157 points in all. A match (all nine tricks) is worth 257.
+# Playing
+- Follow suit, or play a trump instead. If you cannot follow, play any card.
+- No undertrumping: when another suit was led, you may not play a trump lower than one already in the trick, unless you hold only trumps.
+- When trumps are led you must follow with a trump, but you never have to play the Puur: holding no other trump, you may play any card.
+- In Obenabe and Undeufe, simply follow suit if you can.
+# Weis and Stöck
+- Weis are declared with your first card: three cards in sequence in one suit 20, four 50, five 100, six 150, seven 200, eight 250, nine 300; four jacks 200, four nines 150, four aces, kings, queens or tens 100. The order of a sequence is 6 7 8 9 10 J Q K A.
+- Only the team with the best single weis scores, all the weis of both its players. The best one has the most points; when equal, four of a kind beats a sequence, then the higher top card, then a sequence in trumps, then the player who played first.
+- Stöck: the king and queen of trumps in one hand are worth 20, counted when the second of them is played.
+# Scoring
+- Each team scores its card points, its weis and its Stöck.
+- The long game (to 2500) multiplies everything: diamonds and hearts once, spades and clubs twice, Obenabe and Undeufe three times.
+# The end of the game
+The first team to reach 1000 (2500) points wins. Stöck counts as soon as it is played, then the weis after the first trick, then the tricks at the end of the deal; the deal is always played out. If both teams pass the mark with the tricks of the same deal, the higher total wins.
+# Playing on the device
+Pass the device to the player whose token glows; they tap start and see their own hand. To choose the game, tap a suit's sign, the arrow up (Obenabe) or the arrow down (Undeufe), then the tick (or the same again); to push, tap the pass button. The chooser's seat shows the game, the one who pushed shows the pass sign. In the first trick, when your hand holds weis, a button across from the trick pile shows its points: tap it before playing your card to declare it. Each seat shows the weis declared, then only those of the team that scores them, in gold light; Stöck shows as the king and queen of trumps at the seat that scored it. To play, tap a glowing card so it rises, then tap it again or its place in the middle, or drag it there. Tap the pile at the bottom right to see the last trick. After each deal a table shows each team's game (with its multiplier in the long game), card points (in gold light for a match), weis and Stöck, the deal's score and the total; under it both teams' chips along the way to the target. Tap it for the next deal. Each bar shows the cards in hand and the team's total. Undo takes back a choice not yet made, never one once the device has passed.

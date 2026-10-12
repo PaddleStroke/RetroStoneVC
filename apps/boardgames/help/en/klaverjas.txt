@@ -1,0 +1,32 @@
+Klaverjas
+# The aim
+The Netherlands' favourite card game: two teams of two partners sitting face to face, ivory and red against ebony and jade. In each deal one team chooses trumps and must then make more than half of all the points. A game has 16 deals; the higher total at the end wins. The rules are the Rotterdam ones (Rotterdams): you must always trump when you cannot follow suit. For 4 players passing the device round; nobody sees the others' cards.
+# The deal
+The pack has 32 cards, 7 to ace, in French suits. Each player gets 8 cards. Jade deals first; the deal then moves on one seat each time. The player after the dealer (voorhand) speaks first and always leads the first trick.
+# Trumps
+- From voorhand round the table, each player in turn names a trump suit or passes. The first to name one plays: his team must make the game.
+- If all four pass, voorhand must name a suit (verplicht).
+# The cards' order
+- Trumps: jack 20, nine 14, ace 11, ten 10, king 4, queen 3, eight, seven.
+- The other suits: ace 11, ten 10, king 4, queen 3, jack 2, nine, eight, seven.
+- The last trick is worth 10 more: 162 points in all.
+# Playing
+- Follow suit if you can.
+- If you cannot, you must trump, even when your partner is winning the trick, and go over the highest trump already in it if you can.
+- If you cannot go over it, play a card of another suit; you may undertrump only when you hold nothing but lower trumps.
+- When trumps are led, play a higher trump than the best one in the trick if you can.
+- The highest trump wins the trick, otherwise the highest card of the suit led. The winner leads next.
+# Roem
+Roem (bonus points) is counted in each trick as it lies, for the team that takes it:
+- three cards in sequence in one suit 20, four 50 (the order 7 8 9 10 J Q K A);
+- the king and queen of trumps (stuk) 20, also together with a sequence;
+- four aces, kings, queens or tens 100; four jacks 200.
+- Pit: a team that takes all eight tricks gets 100 roem more.
+# Scoring
+- The playing team must make more than half of all the points: both teams' card points and roem together.
+- If it does, each team scores its own points and roem.
+- If not, it is nat (wet): the other team scores everything, 162 and all the roem.
+# The end of the game
+After the 16th deal, the higher total wins. Equal totals share the win.
+# Playing on the device
+Pass the device to the player whose token glows; they tap start and see their own hand. To name trumps, tap a suit, then the tick (or the same suit again); to pass, tap pass. When all four have passed, voorhand has no pass button. Each seat shows its pass; then the player who named trumps shows their suit. Roem rises in points from the seat of the player who takes it. To play, tap a glowing card so it rises, then tap it again or its place in the middle, or drag it there. Tap the pile at the bottom right to see the last trick. After each deal a table shows for each team its card points (in gold light for pit), its roem, the deal's score and the total; the playing team's trumps are struck through when it is nat. Below, the list of the 16 deals shows the playing team's chips, in gold light when it made the game. Tap it for the next deal. Each bar shows the cards in hand and the team's total. Undo takes back a choice not yet made, never one once the device has passed.

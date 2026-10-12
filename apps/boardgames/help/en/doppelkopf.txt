@@ -1,0 +1,46 @@
+Doppelkopf
+# The aim
+Germany's favourite card game for four, played with a double pack. In each deal the two players holding the queens of clubs, the Re party, play against the other two, the Kontra party; but at first nobody knows who is with whom. A game is a list of 12 or 24 deals, as chosen; the highest total at the end wins. The rules are the tournament rules of the German Doppelkopf League (DDV). The cards have French suits, as Doppelkopf is often played; German suits (acorns, leaves, hearts, bells) may come later. For 4 players passing the device round; nobody sees the others' cards.
+# The deal
+The pack has 48 cards: 9, 10, jack, queen, king and ace of each suit, each card twice. Each player gets 12 cards. Jade deals first; the deal then moves on one seat each time. The player after the dealer speaks first and leads the first trick.
+# Reservations
+- Before the first card, each player in turn says healthy (gesund) or that he has a reservation (Vorbehalt). What he wants stays secret: a solo, or a marriage.
+- A player holding both queens of clubs may announce a marriage (Hochzeit). It is his choice: he may also keep quiet and play a silent solo against the other three.
+- The first solo in turn is played; otherwise the marriage; otherwise the normal game.
+# Trumps
+- In the normal game the 10 of hearts (the Dulle) is the highest trump. Then come the queens and the jacks, each in the order clubs, spades, hearts, diamonds, then the ace, 10, king and 9 of diamonds: 26 trumps.
+- The other suits rank ace, 10, king, 9; hearts has only ace, king and 9.
+- Of two equal cards in a trick, the first one played wins.
+# The parties
+- The holders of the queens of clubs (the Alten) are Re, the others Kontra. Each player knows his own party, not the others'. A party shows when a queen of clubs is played or when someone announces.
+- Marriage: the first trick among the first three won by another player makes that player the bride's partner. If the bride takes all three, she plays alone, as a solo.
+# Solos
+One player, the soloist (Re), plays against the three others (Kontra).
+- Queens' solo: only the eight queens are trumps.
+- Jacks' solo: only the eight jacks are trumps.
+- Suit solo: the trumps of the normal game, with the chosen suit in place of diamonds.
+- Fleshless (Fleischlos): no trumps; every suit ranks ace, 10, king, queen, jack, 9.
+# Playing
+Follow suit if you can (all trumps count as one suit); otherwise play any card. The highest trump wins the trick, otherwise the highest card of the suit led. The winner leads next.
+# Announcements
+- Before playing a card, a player may announce for his party: Re or Kontra while holding at least 11 cards, no 90 (keine 90) at least 10, no 60 at least 9, no 30 at least 8, schwarz at least 7. Each announcement includes the ones below it.
+- Once the other party has announced, Re or Kontra may still be said in reply, one card later than that announcement's own limit.
+- In a marriage nothing may be announced before the partner is found; the limits then move on by the number of tricks it took.
+- Here a player announces on his own turn, while the device is in his hands.
+# Winning
+- Card points: ace 11, 10 10, king 4, queen 3, jack 2: 240 in all.
+- Re wins with 121 points, Kontra with 120. If only Kontra was announced, Re wins with 120 and Kontra needs 121.
+- A party that announced no 90 (no 60, no 30, schwarz) must keep the other party under 90 (60, 30, without a trick), otherwise the other party wins. If both parties fail such announcements, nobody wins.
+# The game value
+- Won: 1. The losers under 90, under 60, under 30, and without a trick (schwarz): 1 each.
+- Re announced: 2. Kontra announced: 2. Each no 90, no 60, no 30 and schwarz announced: 1.
+- 120 reached against the other party's no 90, 90 against no 60, 60 against no 30, 30 against schwarz: 1 each.
+- Extra points (Sonderpunkte), in the normal game and the marriage only, for the party that makes them: a fox caught (an opponent's ace of diamonds in a trick you take), a Doppelkopf (a trick of 40 points or more), Karlchen (the last trick won with the jack of clubs), and against the Alten (Kontra wins): 1 each. The two parties' extra points cancel out.
+# Scoring
+- Normal game: each Re player scores the game value if Re won (below zero if Kontra won), plus Re's extra points, minus Kontra's; each Kontra player scores the opposite.
+- Solo: the soloist scores three times as much, each opponent once.
+- There are no compulsory solos here.
+# The end of the game
+After the last deal of the list, the highest total wins. Equal totals share the win.
+# Playing on the device
+Pass the device to the player whose token glows; they tap start and see their own hand. To say healthy, tap pass. For a reservation, tap a game, then the tick (or the same game again): a suit solo (the suit's sign), the queens' solo (a queen), the jacks' solo (a bishop, the jack's figure), fleshless (four aces), or the marriage (two queens of clubs, only when you hold both). Each seat shows its word: the pass sign for healthy, a lamp for a reservation. During play each seat shows what the table knows: the queen of clubs for Re, struck through for Kontra, in gold light once announced; your own party always shows at your seat. The soloist's seat shows the solo, the bride's the marriage until her partner is found; no 90, no 60, no 30 and schwarz show as 90, 60, 30 and 0 in a dark disc. When you may announce, the button across from the trick pile shows your next announcement: tap it before playing your card. To play, tap a glowing card so it rises, then tap it again or its place in the middle, or drag it there. Tap the pile at the bottom right to see the last trick. After each deal a table shows each party with its card points, its announcements, its extra points (the ace of diamonds: a fox; 40: a Doppelkopf; the jack of clubs: Karlchen; the struck queen: against the Alten) and a gold tick for the winners; then the game value, the balance of extra points and each Re player's points (times 3 for a soloist); each player's score and total; and the list of deals, with the winners' chips in gold light. Tap it for the next deal. Each bar shows the cards in hand and the total. Undo takes back a choice not yet made, never one once the device has passed.
