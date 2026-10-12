@@ -8,6 +8,10 @@
  * A legal move that is not the one of the line is a mistake (counted, and not played), unless it mates: any mate wins.
  * The player's pawns promote to a queen (the collection holds no puzzle where the player must under-promote).
  * The collection: chesspuzzles_data.h, made by tools/pick_chess_puzzles.py (its record's layout is described there).
+ * The levels: 150 of them in six chapters (chesspuzzles_levels.h, chosen by tools/chesspuzzles_gen.c on a rising
+ * rating: mates in one, material won, mates in two, combinations, endgames, the hardest), records of the same layout;
+ * the random puzzles (the packs) never deal one of them. The stars: 3 with no mistake and no hint, 2 with one slip
+ * (a mistake or a hint), else 1.
  */
 #ifndef CHESSPUZZLES_H
 #define CHESSPUZZLES_H
@@ -18,6 +22,8 @@
 
 enum { CPZ_BEGINNER, CPZ_EASY, CPZ_MEDIUM, CPZ_HARD, CPZ_EXPERT, CPZ_MATES, CPZ_VARIANTS };
 #define CPZ_MAX_MOVES 8                         /* the opponent's first move included */
+#define CPZ_LEVELS 150
+#define CPZ_CHAPTERS 6
 
 typedef struct {
     cpos start;                                 /* before the opponent's first move */
@@ -30,7 +36,7 @@ typedef struct {
 
 typedef struct {
     cpz_puzzle pz;
-    int pack, index;
+    int pack, index;                            /* a level: pack -1, index the level */
     cpos pos[CPZ_MAX_MOVES + 1];                /* pos[k]: after k moves */
     cmove played[CPZ_MAX_MOVES];                /* the moves played (another mate may stand for the line's last) */
     int ply;                                    /* the moves played: 1 once the opponent's first is on the board */
@@ -44,8 +50,15 @@ enum { CPZ_ILLEGAL, CPZ_WRONG, CPZ_RIGHT, CPZ_SOLVED };
 int  cpz_count(int pack);                       /* the puzzles in a pack */
 int  cpz_total(void);
 int  cpz_load(cpz_puzzle *pz, int pack, int index);   /* 0: not a good record (every one is: the test checks) */
+/* a record of the collection (its bytes, how many); 0: none */
+int  cpz_record(int pack, int index, const uint8_t **rec);
+int  cpz_level_load(cpz_puzzle *pz, int level);   /* level 0..CPZ_LEVELS-1; 0: not a good record (tested) */
+int  cpz_is_level(const char *id);              /* 1: a level's puzzle (the packs' random deals pass it by) */
 /* a puzzle: its start, the opponent's first move played (ply 1); 0: a bad record */
 int  cpz_start(cpz_game *g, int pack, int index);
+int  cpz_level(cpz_game *g, int level);         /* a level's puzzle, started as cpz_start */
+/* a pack's random puzzle: the pick-th (mod the pack's count), or the next one that is not a level's; 0: none */
+int  cpz_start_random(cpz_game *g, int pack, int pick);
 /* the move from -> to (promotion: a queen; castling: e1g1 or the king onto its rook). CPZ_ILLEGAL: not a legal move
  * (nothing counted); CPZ_WRONG: legal, not the line's (a mistake, not played); CPZ_RIGHT: played, the line goes on
  * (the reply is due: cpz_reply); CPZ_SOLVED: played, the end of the line or a mate */
@@ -57,6 +70,7 @@ int  cpz_to_find(const cpz_game *g);            /* 1: the player is to move, and
 cmove cpz_expected(const cpz_game *g);          /* the line's move the player must find */
 int  cpz_hint(cpz_game *g);                     /* the hint's next level (1 the piece, 2 its square); 0: none to give */
 int  cpz_undo(cpz_game *g);                     /* back to the player's previous move; 0: nothing to undo */
+int  cpz_stars(const cpz_game *g);              /* solved: 1..3 */
 #define cpz_pos(g) (&(g)->pos[(g)->ply])
 /* the moves where the moving piece lands (a castling king: on g or c) */
 int  cpz_lands(cmove m);

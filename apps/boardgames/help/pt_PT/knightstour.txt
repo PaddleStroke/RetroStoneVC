@@ -1,9 +1,11 @@
 Passeio do cavalo
 # O objetivo
-Move um cavalo de modo que passe por todas as casas do tabuleiro uma única vez. Escolhe o tabuleiro: 5 × 5, 6 × 6 ou 8 × 8. O cavalo parte de uma casa escolhida para ti, sempre uma de onde existe um passeio completo.
+Move um cavalo de modo que passe por todas as casas do tabuleiro uma única vez. Alguns tabuleiros têm buracos: casas recortadas, por cima das quais o cavalo salta mas onde nunca cai. O cavalo parte da casa indicada, sempre uma de onde existe um passeio completo.
 # Uma jogada
 O cavalo salta como no xadrez: duas casas numa direção e depois uma para o lado. Nunca pode cair numa casa já visitada.
 # O fim do jogo
-O passeio fica completo quando todas as casas foram visitadas. Se a última casa estiver a um salto de cavalo da primeira, o passeio é fechado: uma linha dourada une as pontas e um anel dourado aparece na barra. Se o cavalo ficar sem lances antes do fim, brilha a vermelho: anula e experimenta outro caminho.
+O passeio fica completo quando todas as casas foram visitadas. Se a última casa estiver a um salto de cavalo da primeira, o passeio é fechado: uma linha dourada une as pontas e um anel dourado aparece na barra. Se o cavalo ficar sem lances antes do fim, brilha a vermelho: é um beco sem saída. Anula e experimenta outro caminho.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, de tabuleiros de 8 casas até tabuleiros de 100: retângulos, cruzes, molduras, losangos e tabuleiros com buracos; escolhe um no ecrã de níveis. O separador do dado, depois dos capítulos, começa um passeio ao acaso num tabuleiro de 5 × 5, 6 × 6 ou 8 × 8, a partir de uma casa escolhida para ti. Sem pistas nem becos sem saída: 3 estrelas; até duas pistas e becos sem saída no total: 2 estrelas; senão, 1. Um beco sem saída é um salto depois do qual o cavalo fica sem lances; Anular não o apaga.
 # Jogar no dispositivo
-Toca numa casa marcada com um ponto, ou arrasta o cavalo até ela. As casas visitadas guardam o seu número. A lâmpada segue a regra de Warnsdorff: cada casa ao alcance mostra quantos saltos restariam a partir dela, e a melhor acende a dourado, escolhida para que um passeio completo continue possível. Se já nenhum passeio puder ser terminado, o cavalo brilha a vermelho. Anular desfaz um salto de cada vez, até ao início. A barra mostra as casas visitadas do total.
+Toca numa casa marcada com um ponto, ou arrasta o cavalo até ela. As casas visitadas guardam o seu número. A lâmpada segue a regra de Warnsdorff: cada casa ao alcance mostra quantos saltos restariam a partir dela, e a melhor acende a dourado, escolhida para que um passeio completo continue possível. Se já nenhum passeio puder ser terminado a partir daqui, o cavalo brilha a vermelho. Anular desfaz um salto de cada vez, até ao início. A barra mostra as casas visitadas do total.

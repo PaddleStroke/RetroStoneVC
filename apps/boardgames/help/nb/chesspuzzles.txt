@@ -1,9 +1,11 @@
 Sjakkoppgaver
 # Målet
-Finn de vinnende trekkene i stillinger fra ekte partier. Hver oppgave har én trekkrekke som vinner: en matt, en vunnet brikke, en bonde som forvandles. Velg en serie: nybegynner (rating under 1000), lett (1000 til 1400), middels (1400 til 1800), vanskelig (1800 til 2200), ekspert (2200 og over), eller matt i ett, to eller tre trekk, på alle nivåer.
+Finn de vinnende trekkene i stillinger fra ekte partier. Hver oppgave har én trekkrekke som vinner: en matt, en vunnet brikke, en bonde som forvandles.
 # Et trekk
 Brikkene går som i sjakk. Motstanderen spiller det første trekket selv; så er det din tur: finn det beste trekket. Etter hvert riktige trekk du gjør, svarer motstanderen selv, til trekkrekken er slutt. Bøndene dine forvandles alltid til dronning.
 # Slutten på spillet
 Oppgaven er løst når hele trekkrekken er spilt. Et trekk som gir sjakkmatt, er alltid riktig, selv om det ikke er det ventede. Et feil trekk taper aldri: det blir rødt, tas tilbake og teller som en feil.
+# Brett og stjerner
+Det er 150 brett i seks kapitler, vanskeligere for hvert kapittel: matt i ett trekk, materiellgevinst, matt i to trekk, kombinasjoner, sluttspill og de aller vanskeligste; velg et i brettoversikten. Fanen med terningen etter kapitlene gir en tilfeldig oppgave fra en serie: nybegynner (rating under 1000), lett (1000 til 1400), middels (1400 til 1800), vanskelig (1800 til 2200), ekspert (2200 og over), eller matt i ett, to eller tre trekk, på alle nivåer. Uten feil og uten hint: 3 stjerner; én feil eller ett hint: 2 stjerner; ellers 1.
 # Spill på enheten
-Brettet snus slik at brikkene dine står nederst. Trykk på en brikke og så på en rute, eller dra brikken dit. Lampen i linjen: et første trykk lyser opp brikken som skal flyttes, et andre også ruten dens. Angre tar tilbake ditt siste trekk og svaret, helt til starten. Linjen viser oppgavens rating, rekken din (oppgaver løst på rad uten feil og uten hint) og oppgavene du har løst i denne økten. Når en oppgave er løst, trykker du på brettet for den neste i serien.
+Brettet snus slik at brikkene dine står nederst. Trykk på en brikke og så på en rute, eller dra brikken dit. Lampen i linjen: et første trykk lyser opp brikken som skal flyttes, et andre også ruten dens. Angre tar tilbake ditt siste trekk og svaret, helt til starten. Linjen viser oppgavens rating, rekken din (oppgaver løst på rad uten feil og uten hint) og oppgavene du har løst i denne økten.

@@ -1,9 +1,11 @@
 Problemas de xadrez
 # O objetivo
-Encontre os lances vencedores em posições tiradas de partidas reais. Cada problema tem uma única sequência que vence: um mate, uma peça ganha, um peão que é promovido. Escolha uma série: iniciante (rating abaixo de 1000), fácil (1000 a 1400), médio (1400 a 1800), difícil (1800 a 2200), especialista (2200 ou mais), ou os mates em um, dois ou três lances, de todos os níveis.
+Encontre os lances vencedores em posições tiradas de partidas reais. Cada problema tem uma única sequência que vence: um mate, uma peça ganha, um peão que é promovido.
 # Uma jogada
 As peças se movem como no xadrez. O adversário faz o primeiro lance sozinho; depois é a sua vez: encontre o melhor lance. Depois de cada lance certo seu, o adversário responde sozinho, até o fim da sequência. Seus peões são sempre promovidos a dama.
 # O fim da partida
 O problema está resolvido quando toda a sequência foi jogada. Um lance que dá xeque-mate está sempre certo, mesmo que não seja o esperado. Um lance errado nunca faz perder: fica vermelho, é desfeito e conta como um erro.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, cada um mais difícil que o anterior: mates em um lance, ganho de material, mates em dois lances, combinações, finais e os mais difíceis de todos; escolha um na tela de níveis. A aba do dado, depois dos capítulos, sorteia um problema de uma série: iniciante (rating abaixo de 1000), fácil (1000 a 1400), médio (1400 a 1800), difícil (1800 a 2200), especialista (2200 ou mais), ou os mates em um, dois ou três lances, de todos os ratings. Sem erros nem dicas: 3 estrelas; um erro ou uma dica: 2 estrelas; senão, 1.
 # Jogando no aparelho
-O tabuleiro gira para que suas peças fiquem embaixo. Toque numa peça e depois numa casa, ou arraste a peça. A lâmpada na barra: um primeiro toque acende a peça a mover, um segundo também a sua casa. Desfazer volta seu último lance e a resposta, até o começo. A barra mostra o rating do problema, sua sequência (problemas resolvidos seguidos sem erro nem dica) e os problemas resolvidos nesta sessão. Com o problema resolvido, toque no tabuleiro para ir ao próximo da série.
+O tabuleiro gira para que suas peças fiquem embaixo. Toque numa peça e depois numa casa, ou arraste a peça. A lâmpada na barra: um primeiro toque acende a peça a mover, um segundo também a sua casa. Desfazer volta seu último lance e a resposta, até o começo. A barra mostra o rating do problema, sua sequência (problemas resolvidos seguidos sem erro nem dica) e os problemas resolvidos nesta sessão.

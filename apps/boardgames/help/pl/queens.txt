@@ -1,9 +1,11 @@
 Osiem hetmanów
 # Cel gry
-Ustaw N hetmanów na szachownicy N × N tak, by żaden nie atakował innego: nigdy dwóch w tym samym rzędzie, kolumnie ani na tej samej przekątnej. Wybierz szachownicę: 5 × 5, 6 × 6, 8 × 8 (klasyczna łamigłówka) lub 10 × 10. Jeden czarny hetman stoi już na miejscu i nie można go ruszyć.
+Ustaw hetmany na szachownicy tak, by żaden nie atakował innego: nigdy dwóch w tym samym rzędzie, kolumnie ani na tej samej przekątnej. Każdy rząd dostaje jednego hetmana. Czarne hetmany stoją już na miejscu i nie można ich ruszyć. Niektóre szachownice mają dziury: wycięte pola, na których nie może stanąć żaden hetman; linie hetmanów biegną przez nie dalej.
 # Ruch
 Postaw hetmana na pustym polu albo zdejmij jednego ze swoich hetmanów.
 # Koniec gry
-Łamigłówka jest rozwiązana, gdy N hetmanów stoi na szachownicy i żaden nie atakuje innego. Każda szachownica ma wiele rozwiązań (92 na 8 × 8): pasek liczy różne rozwiązania znalezione w tej sesji, a nowa gra zaczyna się od hetmana z rozwiązania, którego jeszcze nie znalazłeś.
+Łamigłówka jest rozwiązana, gdy w każdym rzędzie stoi jego hetman i żaden nie atakuje innego.
+# Poziomy i gwiazdki
+Jest 150 poziomów w sześciu rozdziałach, od 4 × 4 do 10 × 10, każdy z jednym rozwiązaniem, które znajdziesz samym rozumowaniem; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami zaczyna losową grę na szachownicy 5 × 5, 6 × 6, 8 × 8 (klasyczna łamigłówka) lub 10 × 10 z jednym czarnym hetmanem: te szachownice mają wiele rozwiązań (92 na 8 × 8); pasek liczy różne rozwiązania znalezione w tej sesji, a nowa gra zaczyna się od hetmana z rozwiązania, którego jeszcze nie znalazłeś. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to hetman postawiony na polu atakowanym przez innego hetmana; Cofnij go nie usuwa.
 # Gra na urządzeniu
-Dotknij pola, aby postawić hetmana, i dotknij ponownie, aby go zdjąć. Pola atakowane przez hetmany są zacienione; przycisk z promieniami wyłącza i włącza cień. Hetmany, które się atakują, świecą na czerwono. Lampa podświetla na złoto pole, na którym powinien stanąć hetman, albo, gdy hetmany na szachownicy nie mogą już prowadzić do rozwiązania, otacza tego, którego trzeba zdjąć. Cofnij cofa po jednym dotknięciu. Pasek pokazuje twoje dotknięcia i znalezione rozwiązania spośród wszystkich na tej szachownicy.
+Dotknij pola, aby postawić hetmana, i dotknij ponownie, aby go zdjąć. Pola atakowane przez hetmany są zacienione; przycisk z promieniami wyłącza i włącza cień. Hetmany, które się atakują, świecą na czerwono. Lampa podświetla na złoto pole, na którym powinien stanąć hetman, albo, gdy hetmany na szachownicy nie mogą już prowadzić do rozwiązania, otacza tego, którego trzeba zdjąć. Cofnij cofa po jednym dotknięciu. Pasek pokazuje twoje dotknięcia, a w grze losowej znalezione rozwiązania spośród wszystkich na tej szachownicy.

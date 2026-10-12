@@ -2,7 +2,8 @@
  * The Knight's Tour's rules: the moves and undo, the solver (on 5 x 5 checked square by square against a full search:
  * a tour from each of the 13 squares of the corners' colour, none from the 12 others), the starts drawn from hundreds
  * of seeds (each one with a tour, found and played), whole tours played by following the hint alone, the hint never
- * leading into a dead end (and saying so when no tour can be finished), the closed tours, and the time it all takes.
+ * leading into a dead end (and saying so when no tour can be finished), the closed tours, holes and dead ends, every
+ * level toured by the solver and by the hint alone, and the time it all takes.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -33,16 +34,16 @@ static int valid_tour(const kt_game *g)
     int seen[KT_MAX] = {0};
     for (int i = 0; i < g->len; i++) {
         if (seen[g->path[i]]++) return 0;
-        if (i && !knight_step(g->n, g->path[i - 1], g->path[i])) return 0;
+        if (i && !knight_step(g->w, g->path[i - 1], g->path[i])) return 0;
         if (g->order[g->path[i]] != i + 1) return 0;
     }
-    return g->len == g->n * g->n;
+    return g->len == g->cells;
 }
 
 int main(void)
 {
     kt_game g;
-    int8_t out[KT_MAX];
+    uint8_t out[KT_MAX];
 
     /* the moves, undo */
     kt_new_at(&g, 5, 0);
@@ -79,7 +80,7 @@ int main(void)
             kt_new(&g, v, seed);
             double dt = (double)(clock() - a) / CLOCKS_PER_SEC;
             if (dt > worst) worst = dt;
-            CHECK(g.n == n && g.len == 1);
+            CHECK(g.w == n && g.h == n && g.cells == n * n && g.len == 1);
             if (n == 5) CHECK((g.path[0] % 5 + g.path[0] / 5) % 2 == 0);
             CHECK(kt_solve(&g, out, 1L << 30) == 1);
             kt_game h = g;
@@ -111,7 +112,7 @@ int main(void)
         kt_new(&g, v, seed);
         int steps = 3 + pr_below(&rs, 12);
         for (int i = 0; i < steps; i++) {
-            int8_t to[8];
+            uint8_t to[8];
             int k = kt_moves(&g, to);
             if (!k) break;
             kt_move(&g, to[pr_below(&rs, k)]);
@@ -148,6 +149,68 @@ int main(void)
         }
         CHECK(seen_open);
         printf("closed tour seen on 6 x 6: %d\n", seen_closed);
+    }
+
+    /* holes: never visited, never a move; a board with holes done when every other square is */
+    {
+        static const uint8_t ring[9] = {0, 0, 0, 0, 1, 0, 0, 0, 0};   /* 3 x 3 without its middle: a ring of 8 */
+        CHECK(kt_setup(&g, 3, 3, ring, 0) && g.cells == 8 && !kt_setup(&g, 3, 3, ring, 4));
+        kt_setup(&g, 3, 3, ring, 0);
+        CHECK(!kt_can(&g, 4) && kt_script(&g, "b3 c1 a2 c3 b1 a3 c2") && kt_done(&g) && kt_closed(&g));
+        CHECK(valid_tour(&g) && kt_stars(&g) == 3);
+        CHECK(kt_load(&g, "N.#|#..|...") && g.w == 3 && g.h == 3 && g.cells == 7 && g.path[0] == 6 && g.hole[8]);
+        CHECK(!kt_load(&g, "N..|..") && !kt_load(&g, "...|...") && !kt_load(&g, "N.N|...") && !kt_load(&g, "N.x"));
+        /* a dead end counted (and not by the hint's look ahead); the stars */
+        kt_new_at(&g, 4, 0);                    /* 4 x 4: no tour, any walk ends stuck */
+        int dead = 0;
+        for (int i = 0; i < 30 && !dead; i++) {     /* the first square each time, until stuck */
+            uint8_t to[8];
+            if (!kt_moves(&g, to)) break;
+            kt_move(&g, to[0]);
+            dead = kt_stuck(&g);
+        }
+        CHECK(dead && g.dead_ends == 1 && kt_stars(&g) == 2);
+        kt_new_at(&g, 6, 0);
+        kt_hint(&g);
+        CHECK(g.dead_ends == 0 && g.hints == 1 && kt_stars(&g) == 2);
+        g.hints = 3;
+        CHECK(kt_stars(&g) == 1);
+    }
+
+    /* every level: a board within the bounds, a tour from its start found by the solver and by the hint alone (in a
+     * moment), the chapters' sizes growing, no level twice */
+    {
+        static const int lo[KT_CHAPTERS] = {8, 20, 30, 40, 52, 68}, hi[KT_CHAPTERS] = {20, 30, 40, 52, 68, 101};
+        clock_t t0 = clock();
+        double worst = 0;
+        int holes = 0, shapes = 0;
+        for (int l = 0; l < KT_LEVELS; l++) {
+            if (!kt_levels[l] || !kt_level(&g, l)) {
+                printf("FAIL level %d: not loaded\n", l + 1);
+                fails++;
+                continue;
+            }
+            int c = l / (KT_LEVELS / KT_CHAPTERS);
+            CHECK(g.cells >= lo[c] && g.cells < hi[c]);
+            CHECK(g.w >= 3 && g.h >= 3 && g.w <= KT_MAXW && g.h <= KT_MAXW && g.len == 1);
+            holes += g.cells < g.w * g.h;
+            shapes += g.w != g.h;
+            for (int m = 0; m < l; m++) CHECK(!kt_levels[m] || strcmp(kt_levels[m], kt_levels[l]) != 0);
+            kt_game h = g;
+            CHECK(kt_solve(&h, out, 1L << 30) == 1);
+            clock_t a = clock();
+            while (!kt_done(&h)) {
+                int s = kt_hint(&h);
+                if (s < 0 || !kt_move(&h, s)) break;
+            }
+            double dt = (double)(clock() - a) / CLOCKS_PER_SEC;
+            if (dt > worst) worst = dt;
+            CHECK(kt_done(&h) && valid_tour(&h) && h.dead_ends == 0);
+            if (!kt_done(&h)) printf("FAIL level %d: the hint does not get round\n", l + 1);
+        }
+        printf("%d levels: %d with holes, %d not square; the slowest tour by the hint %.3f s, all %.2f s\n", KT_LEVELS,
+               holes, shapes, worst, (double)(clock() - t0) / CLOCKS_PER_SEC);
+        CHECK(worst < 1.0 && holes > 50 && shapes > 30);
     }
 
     if (fails) {

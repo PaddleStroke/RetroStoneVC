@@ -2,7 +2,8 @@
  * Chess Puzzles' rules: every puzzle of the collection unpacked and played through with chess.c's rules (each move of
  * its line legal where it stands, the mates really mates, the ratings in their pack's band, the ids unique), the
  * mistakes (a legal move off the line: counted, not played), another mate accepted, the hints, undo, and whole
- * sessions of random tries driven by seeds.
+ * sessions of random tries driven by seeds, the stars, and every level (played through, its rating in its chapter's
+ * band; the random deals never give one).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * The Makefile links a game's test with its *_rules.c only; these rules need chess.c too, so it is compiled in here
@@ -209,6 +210,65 @@ int main(void)
             CHECK(cpz_to_find(&G) || cpz_solved(&G));
         }
         CHECK(cpz_solved(&G) && G.mistakes == mistakes);
+    }
+
+    /* the stars: 3 clean, 2 with one slip (a mistake or a hint), else 1 */
+    CHECK(cpz_start(&G, CPZ_EASY, 5));
+    CHECK(cpz_stars(&G) == 3);
+    G.hints = 1;
+    CHECK(cpz_stars(&G) == 2);
+    G.mistakes = 1;
+    CHECK(cpz_stars(&G) == 1);
+    G.hints = 0;
+    CHECK(cpz_stars(&G) == 2);
+
+    /* every level: loaded, its line played through to the end (its mate a mate), in its chapter's band of rating and
+     * rising within it, no level twice; and the packs' random deals never give a level's puzzle */
+    {
+        static const int lo[CPZ_CHAPTERS] = {0, 900, 1250, 1550, 1850, 2150};
+        static char lids[CPZ_LEVELS][6];
+        int last = -1;
+        for (int l = 0; l < CPZ_LEVELS; l++) {
+            if (!cpz_level(&G, l)) {
+                printf("FAIL level %d: not loaded\n", l + 1);
+                fails++;
+                continue;
+            }
+            const cpz_puzzle *pz = &G.pz;
+            int c = l / (CPZ_LEVELS / CPZ_CHAPTERS);
+            if (l % (CPZ_LEVELS / CPZ_CHAPTERS) == 0) last = -1;
+            CHECK(pz->rating >= lo[c] - 8 && (c == CPZ_CHAPTERS - 1 || pz->rating < lo[c + 1] + 8));
+            CHECK(pz->rating >= last);
+            last = pz->rating;
+            CHECK(G.pack == -1 && G.index == l && G.ply == 1 && cpz_to_find(&G));
+            CHECK(cpz_is_level(pz->id));
+            memcpy(lids[l], pz->id, 6);
+            for (int m = 0; m < l; m++) CHECK(strcmp(lids[m], lids[l]) != 0);
+            if (c == 0 || c == 2) CHECK((pz->themes & CPZ_TH_MATE) && pz->n == 2 * (c == 0 ? 1 : 2));
+            while (!cpz_solved(&G)) {
+                cmove m = cpz_expected(&G);
+                int r = cpz_try(&G, m.from, cpz_lands(m));
+                CHECK(r == CPZ_RIGHT || r == CPZ_SOLVED);
+                if (r != CPZ_RIGHT && r != CPZ_SOLVED) break;
+                if (r == CPZ_RIGHT) cpz_reply(&G);
+            }
+            CHECK(G.ply == pz->n && cpz_stars(&G) == 3);
+            if (pz->themes & CPZ_TH_MATE) CHECK(is_mate(cpz_pos(&G)));
+        }
+        CHECK(!cpz_level(&G, -1) && !cpz_level(&G, CPZ_LEVELS));
+        int dealt = 0;
+        for (int seed = 1; seed <= 3000; seed++) {
+            uint32_t rs = pr_seed((uint32_t)seed);
+            int pack = pr_below(&rs, CPZ_VARIANTS);
+            CHECK(cpz_start_random(&G, pack, (int)(pr_next(&rs) % 100000)));
+            CHECK(G.pack == pack && !cpz_is_level(G.pz.id));
+            dealt++;
+        }
+        int levels_in_packs = 0;                /* the levels are the collection's own puzzles */
+        for (int i = 0; i < total; i++) levels_in_packs += cpz_is_level(ids[i]);
+        printf("%d levels; %d of them in the packs; %d random deals, none a level\n", CPZ_LEVELS, levels_in_packs,
+               dealt);
+        CHECK(levels_in_packs == CPZ_LEVELS);
     }
 
     if (fails) {

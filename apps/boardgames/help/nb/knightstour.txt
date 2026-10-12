@@ -1,9 +1,11 @@
 Springerproblemet
 # Målet
-Flytt en springer slik at den besøker hver rute på brettet nøyaktig én gang. Velg brett: 5 × 5, 6 × 6 eller 8 × 8. Springeren starter på en rute som er valgt for deg, alltid en rute der en hel rundtur finnes.
+Flytt en springer slik at den besøker hver rute på brettet nøyaktig én gang. Noen brett har hull: utskårne ruter som springeren hopper over, men aldri lander på. Springeren starter på den angitte ruten, alltid en rute der en hel rundtur finnes.
 # Et trekk
 Springeren hopper som i sjakk: to ruter i én retning og så én til siden. Den kan aldri lande på en rute den allerede har besøkt.
 # Slutten på spillet
-Rundturen er ferdig når alle rutene er besøkt. Ligger den siste ruten et springerhopp fra den første, er rundturen lukket: en gullinje forbinder endene, og en gullring vises i linjen. Har springeren ingen trekk igjen før slutten, lyser den rødt: angre og prøv en annen vei.
+Rundturen er ferdig når alle rutene er besøkt. Ligger den siste ruten et springerhopp fra den første, er rundturen lukket: en gullinje forbinder endene, og en gullring vises i linjen. Har springeren ingen trekk igjen før slutten, lyser den rødt: en blindvei. Angre og prøv en annen vei.
+# Brett og stjerner
+Det er 150 brett i seks kapitler, fra brett med 8 ruter opp til 100: rektangler, kors, rammer, romber og brett med hull; velg et i brettoversikten. Fanen med terningen etter kapitlene starter en tilfeldig rundtur på et brett på 5 × 5, 6 × 6 eller 8 × 8, fra en rute som er valgt for deg. Uten hint og uten blindvei: 3 stjerner; opptil to hint og blindveier til sammen: 2 stjerner; ellers 1. En blindvei er et hopp som etterlater springeren uten flere trekk; Angre sletter den ikke.
 # Spill på enheten
 Trykk på en rute med en prikk, eller dra springeren dit. Besøkte ruter beholder nummeret sitt. Lampen følger Warnsdorffs regel: hver rute innen rekkevidde viser hvor mange hopp som ville være igjen derfra, og den beste lyser i gull, valgt slik at en hel rundtur fortsatt er mulig. Kan ingen rundtur lenger fullføres, lyser springeren rødt. Angre tar tilbake ett hopp om gangen, helt til starten. Linjen viser de besøkte rutene av alle.

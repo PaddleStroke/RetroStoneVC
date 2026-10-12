@@ -2,7 +2,8 @@
  * Eight Queens' rules: the solutions of each board (their known counts, each one checked, none twice), the attacks,
  * putting queens on and off and undo, the fixed queen drawn from hundreds of seeds (always in a solution, one not found
  * yet when there is one), whole games solved by following the hint alone from the start and from random boards, the
- * hint leading to the solutions not found yet, and the time it takes.
+ * hint leading to the solutions not found yet, holes, fixed queens and mistakes, every level (one solution, solved by
+ * the hint alone), and the time it takes.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -95,6 +96,45 @@ int main(void)
         printf("%d x %d: %d solutions, all found by new games and hints; the slowest game %.4f s, all %.2f s\n", n, n,
                total, worst, (double)(clock() - t0) / CLOCKS_PER_SEC);
         CHECK(worst < 0.1);
+    }
+
+    /* holes and fixed queens, mistakes, the stars */
+    CHECK(qn_load(&g, "Q...|..#.|....|....") && g.n == 4 && g.fixed[12] && g.q[12] && g.count == 1 && g.hole[10]);
+    CHECK(!qn_toggle(&g, 12) && !qn_toggle(&g, 10) && g.moves == 0);
+    CHECK(!qn_load(&g, "Q...|....|....") && !qn_load(&g, "Q..|...|...") && !qn_load(&g, "Q...|..x.|....|...."));
+    qn_load(&g, "Q...|..#.|....|....");
+    CHECK(qn_toggle(&g, 13) && g.mistakes == 1 && qn_undo(&g) && g.mistakes == 1);   /* b4: in the fixed queen's row */
+    CHECK(qn_stars(&g) == 2);
+    qn_load(&g, "Q...|..#.|....|....");
+    CHECK(qn_toggle(&g, 1) && g.mistakes == 0 && qn_stars(&g) == 3);   /* b1: not attacked */
+    g.hints = 2;
+    CHECK(qn_stars(&g) == 2);
+    g.hints = 3;
+    CHECK(qn_stars(&g) == 1);
+
+    /* every level: its size in its chapter's, one solution only, solved by the hint alone (queens put on only), no
+     * level twice */
+    {
+        static const int lo[QN_CHAPTERS] = {4, 6, 7, 8, 9, 10}, hi[QN_CHAPTERS] = {5, 7, 8, 8, 9, 10};
+        int holes = 0, fixed = 0;
+        for (int l = 0; l < QN_LEVELS; l++) {
+            if (!qn_level(&g, l)) {
+                printf("FAIL level %d: not loaded\n", l + 1);
+                fails++;
+                continue;
+            }
+            int c = l / (QN_LEVELS / QN_CHAPTERS), given = g.count;
+            CHECK(g.n >= lo[c] && g.n <= hi[c]);
+            uint64_t key = 0;
+            int k = qn_count(&g, &key);
+            CHECK(k == 1);
+            if (k != 1) printf("FAIL level %d: %d solutions\n", l + 1, k);
+            for (int s = 0; s < g.n * g.n; s++) holes += g.hole[s], fixed += g.fixed[s];
+            for (int m = 0; m < l; m++) CHECK(!qn_levels[m] || strcmp(qn_levels[m], qn_levels[l]) != 0);
+            CHECK(by_hint(&g, NULL, 0, g.n) == g.n - given);
+            CHECK(qn_solved(&g) && qn_key(&g) == key && g.mistakes == 0);
+        }
+        printf("%d levels: %d holes, %d fixed queens, each with one solution\n", QN_LEVELS, holes, fixed);
     }
 
     if (fails) {

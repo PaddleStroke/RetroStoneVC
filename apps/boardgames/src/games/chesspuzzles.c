@@ -1,7 +1,8 @@
 /*
  * Chess Puzzles in RetroStone Board, for one player: a position from a real game, a winning line to find (the rules:
- * chesspuzzles_rules.c, with chess.c's; the collection: chesspuzzles_data.h). Six packs: beginner, easy, medium, hard,
- * expert (by rating) and the mates (in one, two and three moves).
+ * chesspuzzles_rules.c, with chess.c's; the collection: chesspuzzles_data.h). The level screen: 150 levels in six
+ * chapters on a rising rating (chesspuzzles_levels.h), and a die tab for a random puzzle from one of six packs:
+ * beginner, easy, medium, hard, expert (by rating) and the mates (in one, two and three moves).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * The board turns so the player's side is at the bottom. The opponent's first move comes by itself, then the player
@@ -9,8 +10,8 @@
  * A move off the line is marked red and taken back after a moment (a mistake; any mate is accepted). The lamp in the
  * bar: the piece to move lights up, a second press its square too. Undo takes back the player's last move and its
  * reply, all the way to the start. The bar: the puzzle's rating, the streak (puzzles solved in a row without a mistake
- * or a hint) and the puzzles solved this session. Solved: a gold light spreads from the last move; a tap then opens
- * the next puzzle of the pack (as does the new game button).
+ * or a hint) and the puzzles solved this session. Solved: a gold light spreads from the last move, then the stars: 3
+ * with no mistake and no hint, 2 with one slip, else 1.
  */
 #include <math.h>
 #include <stdlib.h>
@@ -31,7 +32,6 @@
 static cpz_game G;
 static bpz_board B;
 static bpz_pics P;
-static bpz_discs D;
 static box last_box, barbox;
 static int made_small = -1;
 static SDL_Texture *t_small;                    /* the bar's token for the end card */
@@ -44,8 +44,7 @@ static struct { int on, from, to, slid; Uint32 t0; } wrong;
 static struct { int on; Uint32 t0; } win;
 static struct { int on, from, moved; float x, y, x0, y0; } drag;
 
-/* the session: the next puzzle of each pack, the streak, the puzzles solved */
-static int cursor[CPZ_VARIANTS] = {-1, -1, -1, -1, -1, -1};
+/* the session: the streak, the puzzles solved */
 static int streak, solved, counted;
 
 static int flip(void) { return G.solver == BLACK; }
@@ -66,13 +65,9 @@ static void calm(void)
     refresh();
 }
 
-static void start(int variant)
+/* the puzzle just set up in G: shown, then the opponent's first move */
+static void begun(void)
 {
-    int pack = variant < 0 || variant >= CPZ_VARIANTS ? CPZ_EASY : variant, n = cpz_count(pack);
-    if (n <= 0) return;
-    int idx = cursor[pack] < 0 ? ui_random(n) : (cursor[pack] + 1) % n;
-    for (int tries = 0; tries < 16 && !cpz_start(&G, pack, idx); tries++) idx = (idx + 1) % n;   /* never: tested */
-    cursor[pack] = idx;
     counted = 0;
     calm();
     anim.on[0] = 1;                             /* the opponent's first move, after a moment */
@@ -80,6 +75,21 @@ static void start(int variant)
     ui_sound_later(G.played[0].flags & MV_CAPTURE ? SND_CAPTURE : SND_MOVE, INTRO_MS + ANIM_MS);
     if (last_box.w > 0) ui_animate();
 }
+
+static void start(int level)                    /* a level of the level screen */
+{
+    if (!cpz_level(&G, level)) cpz_start_random(&G, CPZ_BEGINNER, 0);   /* never: every level is tested */
+    begun();
+}
+
+static void start_random(int variant)           /* the die tab: a pack's random puzzle */
+{
+    int pack = variant < 0 || variant >= CPZ_VARIANTS ? CPZ_EASY : variant;
+    cpz_start_random(&G, pack, ui_random(cpz_count(pack) > 0 ? cpz_count(pack) : 1));
+    begun();
+}
+
+static int level_stars(void) { return cpz_stars(&G); }
 
 static int status(void) { return cpz_solved(&G) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
@@ -122,13 +132,13 @@ static int undo(void)
     return 1;
 }
 
-/* the player's moves ("e2e4 g1f3"; the replies by themselves); "#n" first: the pack's puzzle n (the pictures) */
+/* the player's moves ("e2e4 g1f3"; the replies by themselves); "#n" first: the pack's puzzle n, or level n + 1 in a
+ * game of levels (the pictures) */
 static int script(const char *moves)
 {
     if (moves[0] == '#') {
         int n = atoi(moves + 1);
-        if (n < 0 || n >= cpz_count(G.pack) || !cpz_start(&G, G.pack, n)) return 0;
-        cursor[G.pack] = n;
+        if (G.pack < 0 ? !cpz_level(&G, n) : n < 0 || n >= cpz_count(G.pack) || !cpz_start(&G, G.pack, n)) return 0;
         counted = 0;
         while (*moves && *moves != ' ') moves++;
     }
@@ -346,12 +356,6 @@ static int mine(int s) { return s >= 0 && cpz_pos(&G)->sq[s] && COLOR(cpz_pos(&G
 static void press(float x, float y)
 {
     memset(&drag, 0, sizeof drag);
-    if (cpz_solved(&G)) {                       /* solved: the next puzzle */
-        if (busy()) return;
-        ui_sound(SND_TAP);
-        start(G.pack);
-        return;
-    }
     if (busy() || !cpz_to_find(&G)) return;
     int s = sq_at(x, y);
     if (s < 0) return;
@@ -415,7 +419,7 @@ static void bar(int player, box b)
         x = bpz_bar_pic(&P, BPZ_TICK, x, cy, 1);
         bpz_bar_number(x, cy, solved);
     }
-    if (!cpz_solved(&G)) bpz_button(&D, &P, BPZ_LAMP, b, 0, G.hint_level > 0, G.hint_level >= 2);
+    if (!cpz_solved(&G)) bpz_button(-1, b, 0, G.hint_level > 0, G.hint_level >= 2);
 }
 
 static int bar_press(int player, float x, float y)
@@ -477,10 +481,38 @@ static void thumb(int variant, int size, uint8_t *rgba)
     free(g);
 }
 
+/* a chapter's tab: the mates (1 and 3) the black king in a red glow over one or two gold pips; then the knight
+ * (material won), the bishop (combinations), the pawn (endgames), the queen (the hardest) */
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    static const uint8_t gold[3] = {255, 196, 64}, red[3] = {235, 40, 30};
+    static const int piece[CPZ_CHAPTERS] = {KING, KNIGHT, KING, BISHOP, PAWN, QUEEN};
+    int c = chapter < 0 ? 0 : chapter >= CPZ_CHAPTERS ? CPZ_CHAPTERS - 1 : chapter, mate = c == 0 || c == 2;
+    int d = (int)(0.84f * size), x = (size - d) / 2, y = (size - d) / 2 - (mate ? size / 10 : 0);
+    if (mate) {
+        uint8_t *g = malloc((size_t)size * size * 4);
+        if (g) {
+            art_disc(size, red, 0.8f, 1.4f, g);
+            art_blend(rgba, size, size, g, size, size, 0, -size / 10);
+            free(g);
+        }
+    }
+    bpz_thumb_piece(rgba, size, piece[c], mate ? BLACK : WHITE, x, y, d);
+    if (!mate) return;
+    int pd = (int)fmaxf(3, 0.16f * size), n = c == 0 ? 1 : 2, gap = pd / 2, w = n * pd + (n - 1) * gap;
+    uint8_t *g = malloc((size_t)pd * pd * 4);
+    if (!g) return;
+    art_disc(pd, gold, 1, 0, g);
+    for (int i = 0; i < n; i++) art_blend(rgba, size, size, g, pd, pd, size / 2 - w / 2 + i * (pd + gap), size - pd);
+    free(g);
+}
+
 static const game chesspuzzles_game = {
     .id = "chesspuzzles", .order = 430, .variants = CPZ_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,
+    .levels = CPZ_LEVELS, .chapters = CPZ_CHAPTERS, .start_random = start_random, .chapter_icon = chapter_icon,
+    .level_stars = level_stars,
 };
 REGISTER_GAME(chesspuzzles_game)

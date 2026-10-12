@@ -1,13 +1,14 @@
 /*
  * What the three chessboard puzzles share on the screen (Chess Puzzles, the Knight's Tour, Eight Queens): the house
- * board of n x n squares in its walnut frame, the house chess pieces, round buttons in the bar (the lamp: a hint; the
- * queens' lines: the attacked squares shaded), the bar's small pictures and numbers, and the win's gold light.
+ * board of nx x ny squares in its walnut frame (squares cut away: holes, dark recesses in the wood), the house chess
+ * pieces, the round buttons in the bar (the shell's: ICON_HINT, a hint; the queens' lines, the attacked squares
+ * shaded, painted here), the bar's small pictures and numbers, and the win's gold light.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Written once, here, as static inline functions: the build takes a game's own files only (GAMES="queens" builds
  * queens.c and queens_*.c), so a shared .c file would be left out of one game's build or another's.
- * Squares: file (0 = a, the left from the first player's side) and rank (0 = the bottom row); flip turns the board
- * round (Chess Puzzles: black at the bottom).
+ * Squares: file (0 = a, the left from the first player's side) and rank (0 = the bottom row); a square's index (holes)
+ * rank * nx + file; flip turns the board round (Chess Puzzles: black at the bottom).
  */
 #ifndef BOARDPUZ_H
 #define BOARDPUZ_H
@@ -23,31 +24,73 @@
 
 #define BPZ_FRAME 0.32f                         /* the frame, in squares */
 
-static const uint8_t BPZ_BTN[3] = {54, 72, 64}, BPZ_BTN_ON[3] = {150, 118, 46}, BPZ_GOLD[3] = {232, 190, 92},
-                     BPZ_RED[3] = {196, 64, 48};
+static const uint8_t BPZ_GOLD[3] = {232, 190, 92}, BPZ_RED[3] = {196, 64, 48};
 
 typedef struct {
-    int n, sq, fr, made_sq, made_n, made_piece;
+    int nx, ny, sq, fr, made_sq, made_nx, made_ny, made_piece;
+    uint32_t made_holes;                        /* the holes painted (a hash: 0 none) */
     float x, y;                                 /* the top left square's corner */
     SDL_Texture *board, *piece[2][7];
 } bpz_board;
 
-/* the board of n x n squares as big as it fits in the area, centred; its pictures (and the pieces' when asked) */
-static inline void bpz_layout(bpz_board *b, int n, box area, int pieces)
+/* a hole: a square cut out of the board, a recess in the wood (its floor dark, its upper and left walls in shade, its
+ * lower and right walls lit), sq x sq at (x0, y0) of a picture w wide */
+static inline void bpz_carve(uint8_t *o, int w, int x0, int y0, int sq)
 {
-    float side = fminf(area.w, area.h);
-    b->n = n;
-    b->sq = (int)floorf(side / (n + 2 * BPZ_FRAME));
+    static const float FLOOR[3] = {70, 48, 32}, SHADE[3] = {36, 25, 17}, LIT[3] = {132, 96, 64};
+    float b = fmaxf(1.5f, sq * 0.11f);
+    for (int y = 0; y < sq; y++)
+        for (int x = 0; x < sq; x++) {
+            float dl = x + 0.5f, dt = y + 0.5f, dr = sq - dl, db = sq - dt;
+            float near = fminf(dl, dt), far = fminf(dr, db), m = fminf(near, far);
+            float soft = 0.78f + 0.22f * clampf((near - b) / (2 * b), 0, 1);   /* the floor's shadow by the walls */
+            const float *wall = near <= far ? SHADE : LIT;
+            float t = clampf(b - m + 0.5f, 0, 1);
+            uint8_t *p = o + 4 * ((y0 + y) * w + x0 + x);
+            for (int i = 0; i < 3; i++) {       /* one dark wood whatever the square's, a little of its grain kept */
+                float c = FLOOR[i] * soft + (wall[i] - FLOOR[i] * soft) * t;
+                p[i] = (uint8_t)clampf(c * (0.9f + 0.2f * p[i] / 255.0f), 0, 255);
+            }
+        }
+}
+
+static inline uint32_t bpz_holes_hash(int cells, const uint8_t *holes)
+{
+    uint32_t h = 2166136261u;
+    for (int i = 0; holes && i < cells; i++) h = (h ^ (holes[i] ? 1u + (uint32_t)i : 0u)) * 16777619u;
+    return h | 1;
+}
+
+/* the board picture: nx x ny squares of sq pixels in a frame of fr, the holes (rank * nx + file; NULL: none) carved */
+static inline void bpz_paint_board(int nx, int ny, int sq, int fr, const uint8_t *holes, uint8_t *o)
+{
+    art_board_n(nx, ny, sq, fr, 1, o);
+    int w = nx * sq + 2 * fr;
+    for (int r = 0; holes && r < ny; r++)
+        for (int f = 0; f < nx; f++)
+            if (holes[r * nx + f]) bpz_carve(o, w, fr + f * sq, fr + (ny - 1 - r) * sq, sq);
+}
+
+/* the board of nx x ny squares as big as it fits in the area, centred; its pictures (and the pieces' when asked) */
+static inline void bpz_layout_holes(bpz_board *b, int nx, int ny, box area, int pieces, const uint8_t *holes)
+{
+    b->nx = nx;
+    b->ny = ny;
+    b->sq = (int)floorf(fminf(area.w / (nx + 2 * BPZ_FRAME), area.h / (ny + 2 * BPZ_FRAME)));
+    if (b->sq < 2) b->sq = 2;
     b->fr = (int)(b->sq * BPZ_FRAME);
-    int w = n * b->sq + 2 * b->fr;
+    int w = nx * b->sq + 2 * b->fr, h = ny * b->sq + 2 * b->fr;
+    uint32_t hh = holes ? bpz_holes_hash(nx * ny, holes) : 0;
     b->x = floorf(area.x + (area.w - w) / 2) + b->fr;
-    b->y = floorf(area.y + (area.h - w) / 2) + b->fr;
-    if (b->made_sq != b->sq || b->made_n != n || !b->board) {
+    b->y = floorf(area.y + (area.h - h) / 2) + b->fr;
+    if (b->made_sq != b->sq || b->made_nx != nx || b->made_ny != ny || b->made_holes != hh || !b->board) {
         b->made_sq = b->sq;
-        b->made_n = n;
+        b->made_nx = nx;
+        b->made_ny = ny;
+        b->made_holes = hh;
         ui_free(&b->board);
-        art_board_n(n, n, b->sq, b->fr, 1, ui_buf(w, w));
-        b->board = ui_tex(w, w, ui_buf(w, w));
+        bpz_paint_board(nx, ny, b->sq, b->fr, holes, ui_buf(w, h));
+        b->board = ui_tex(w, h, ui_buf(w, h));
     }
     if (pieces && b->made_piece != b->sq) {
         b->made_piece = b->sq;
@@ -60,18 +103,23 @@ static inline void bpz_layout(bpz_board *b, int n, box area, int pieces)
     }
 }
 
+static inline void bpz_layout(bpz_board *b, int n, box area, int pieces)
+{
+    bpz_layout_holes(b, n, n, area, pieces, NULL);
+}
+
 static inline void bpz_draw_board(const bpz_board *b)
 {
-    float w = (float)(b->n * b->sq + 2 * b->fr);
-    ui_put(b->board, b->x - b->fr, b->y - b->fr, w, w);
+    ui_put(b->board, b->x - b->fr, b->y - b->fr, (float)(b->nx * b->sq + 2 * b->fr),
+           (float)(b->ny * b->sq + 2 * b->fr));
 }
 
 /* a square's top left corner */
 static inline void bpz_xy(const bpz_board *b, int file, int rank, int flip, float *x, float *y)
 {
-    if (flip) { file = b->n - 1 - file; rank = b->n - 1 - rank; }
+    if (flip) { file = b->nx - 1 - file; rank = b->ny - 1 - rank; }
     *x = b->x + file * b->sq;
-    *y = b->y + (b->n - 1 - rank) * b->sq;
+    *y = b->y + (b->ny - 1 - rank) * b->sq;
 }
 
 /* a square's centre */
@@ -85,15 +133,15 @@ static inline void bpz_centre(const bpz_board *b, int file, int rank, int flip, 
 /* the square under (x, y): 0 when off the board */
 static inline int bpz_at(const bpz_board *b, float x, float y, int flip, int *file, int *rank)
 {
-    int f = (int)floorf((x - b->x) / b->sq), r = b->n - 1 - (int)floorf((y - b->y) / b->sq);
-    if (f < 0 || f >= b->n || r < 0 || r >= b->n) return 0;
-    *file = flip ? b->n - 1 - f : f;
-    *rank = flip ? b->n - 1 - r : r;
+    int f = (int)floorf((x - b->x) / b->sq), r = b->ny - 1 - (int)floorf((y - b->y) / b->sq);
+    if (f < 0 || f >= b->nx || r < 0 || r >= b->ny) return 0;
+    *file = flip ? b->nx - 1 - f : f;
+    *rank = flip ? b->ny - 1 - r : r;
     return 1;
 }
 
-/* 1: a light square (the top left one is light, as the house board's; on 8 x 8, a1 dark) */
-static inline int bpz_light(int n, int file, int rank) { return !((file + n - 1 - rank) & 1); }
+/* 1: a light square (the top left one is light, as the house board's; on 8 x 8, a1 dark); ny: the board's rows */
+static inline int bpz_light(int ny, int file, int rank) { return !((file + ny - 1 - rank) & 1); }
 
 /* a standing piece at (x, y), a square's size (scaled by k), with its shadow; faded by alpha (0..255) */
 static inline void bpz_piece_at(const bpz_board *b, int type, int color, float x, float y, float k, Uint8 alpha)
@@ -120,15 +168,7 @@ static inline void bpz_tint(const bpz_board *b, int file, int rank, int flip, Ui
 /* ---- pictures drawn by code: a figure in a unit square, painted flat in one colour ------------------------------- */
 static inline void bpz_paint(uint8_t *o, int size, art_fig *f, const uint8_t rgb[3])
 {
-    art_style st = {{rgb[0], rgb[1], rgb[2]}, {rgb[0], rgb[1], rgb[2]}, {rgb[0], rgb[1], rgb[2]},
-                    {rgb[0], rgb[1], rgb[2]}, 0.1f, 0};
-    uint8_t *t = calloc((size_t)size * size, 4);
-    if (t) {
-        art_render(f, &st, size, size, (float)size, 0, 0, t);
-        art_blend(o, size, size, t, size, size, 0, 0);
-        free(t);
-    }
-    art_fig_free(f);
+    art_fig_paint(o, size, f, rgb, NULL, 0, 0);
 }
 
 /* a stroke from (x0, y0) to (x1, y1), wd wide */
@@ -139,36 +179,23 @@ static inline void bpz_stroke(art_fig *f, float x0, float y0, float x1, float y1
     art_poly(f, ART_PART, q, 4);
 }
 
-enum { BPZ_LAMP, BPZ_LINES, BPZ_FLAME, BPZ_TICK, BPZ_LOOP, BPZ_SLASH, BPZ_PICS };
+enum { BPZ_LINES, BPZ_FLAME, BPZ_TICK, BPZ_LOOP, BPZ_SLASH, BPZ_PICS };
 
-/* a picture (size x size, cleared first): the lamp (a hint), the queen's lines (eight rays: the attacked squares),
- * the flame (a streak), the tick (solved), the loop (a closed tour), the slash (between two numbers) */
+/* a picture (size x size, cleared first): the queen's lines (eight rays: the attacked squares, white: a button's
+ * picture, tinted by the shell), the flame (a streak), the tick (solved), the loop (a closed tour), the slash (between
+ * two numbers). Its signature is the shell's ui_painter. */
 static inline void bpz_picture(int which, int size, uint8_t *o)
 {
     memset(o, 0, (size_t)size * size * 4);
     art_fig *f = art_fig_new();
     switch (which) {
-    case BPZ_LAMP:
-        art_ellipse(f, ART_PART, 0.5f, 0.42f, 0.2f, 0.2f);
-        {
-            const float neck[] = {0.38f, 0.55f, 0.62f, 0.55f, 0.59f, 0.68f, 0.41f, 0.68f};
-            art_poly(f, ART_PART, neck, 4);
-        }
-        art_rect(f, ART_PART, 0.41f, 0.71f, 0.59f, 0.75f);
-        art_rect(f, ART_PART, 0.44f, 0.78f, 0.56f, 0.83f);
-        for (int i = -2; i <= 2; i++) {
-            float a = (90 + 38 * i) * PUZ_PI / 180, c = cosf(a), s = -sinf(a);
-            bpz_stroke(f, 0.5f + c * 0.27f, 0.42f + s * 0.27f, 0.5f + c * 0.37f, 0.42f + s * 0.37f, 0.05f);
-        }
-        bpz_paint(o, size, f, PUZ_CREAM);
-        return;
     case BPZ_LINES:
         for (int i = 0; i < 8; i++) {
             float a = i * PUZ_PI / 4, c = cosf(a), s = sinf(a), l = i % 2 ? 0.33f : 0.38f;
             bpz_stroke(f, 0.5f + c * 0.12f, 0.5f + s * 0.12f, 0.5f + c * l, 0.5f + s * l, 0.06f);
         }
         art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.08f, 0.08f);
-        bpz_paint(o, size, f, PUZ_CREAM);
+        bpz_paint(o, size, f, PUZ_WHITE);
         return;
     case BPZ_FLAME: {
         float pts[2 * 24];
@@ -252,39 +279,22 @@ static inline void bpz_button_at(box bar, int i, float *x, float *y, float *d)
     *y = bar.y + bar.h / 2;
 }
 
-typedef struct { int size; SDL_Texture *disc, *on; } bpz_discs;
-
-/* a round button as the shell's own: a green disc (gold-brown when on), the cream picture; dimmed when it can do
- * nothing now */
-static inline void bpz_button(bpz_discs *ds, bpz_pics *p, int which, box bar, int i, int on, int dim)
+/* the shell's round button there: the lamp (ICON_HINT), or one of the pictures above (BPZ_LINES) when which >= 0;
+ * on: the gold disc (a mode on, a hint showing); dim: it can do nothing now */
+static inline void bpz_button(int which, box bar, int i, int on, int dim)
 {
     float x, y, d;
     bpz_button_at(bar, i, &x, &y, &d);
-    int s = (int)d;
-    if (ds->size != s) {
-        ui_free(&ds->disc);
-        ui_free(&ds->on);
-        art_disc(s, BPZ_BTN, 1, 0, ui_buf(s, s));
-        ds->disc = ui_tex(s, s, ui_buf(s, s));
-        art_disc(s, BPZ_BTN_ON, 1, 0, ui_buf(s, s));
-        ds->on = ui_tex(s, s, ui_buf(s, s));
-        ds->size = s;
-    }
-    SDL_Texture *disc = on ? ds->on : ds->disc, *pic = bpz_pic(p, which, (int)(0.62f * d));
-    Uint8 a = dim ? 110 : 255;
-    SDL_SetTextureAlphaMod(disc, a);
-    SDL_SetTextureAlphaMod(pic, a);
-    ui_put_c(disc, x, y, d, d);
-    ui_put_c(pic, x, y, 0.62f * d, 0.62f * d);
-    SDL_SetTextureAlphaMod(disc, 255);
-    SDL_SetTextureAlphaMod(pic, 255);
+    int how = (on ? UI_ON : 0) | (dim ? UI_DIM : 0);
+    if (which < 0) ui_button(x, y, d, ICON_HINT, how);
+    else ui_button_paint(x, y, d, bpz_picture, which, 0.62f, how | UI_TINT);
 }
 
 static inline int bpz_button_hit(box bar, int i, float px, float py)
 {
     float x, y, d;
     bpz_button_at(bar, i, &x, &y, &d);
-    return bar.w > 0 && hypotf(px - x, py - y) <= 0.62f * d;   /* a little beyond the disc: an easy target */
+    return bar.w > 0 && ui_button_hit(x, y, d, px, py);
 }
 
 /* ---- the win's light: a gold glow on a square, q 0..1 ------------------------------------------------------------ */
@@ -296,28 +306,42 @@ static inline void bpz_glow(const bpz_board *b, int file, int rank, int flip, fl
     ui_mark_gold(x, y, 1.9f * b->sq * q);
 }
 
-/* the menu's and the picker's cards: an n x n board filling the card, its frame thin; the square's size and the
- * top left square's corner */
-static inline int bpz_thumb_board(int n, int size, uint8_t *rgba, int *ox)
+/* the menu's, the picker's and the level screen's cards: an nx x ny board filling the card, its frame thin, the holes
+ * carved (NULL: none); the square's size, the top left square's corner (*ox, *oy) */
+static inline int bpz_thumb_board_holes(int nx, int ny, const uint8_t *holes, int size, uint8_t *rgba, int *ox,
+                                        int *oy)
 {
-    int fr = (int)fmaxf(2, size * 0.035f), sq = (size - 2 * fr) / n, w = n * sq + 2 * fr;
-    uint8_t *b = malloc((size_t)w * w * 4);
+    int big = nx > ny ? nx : ny, fr = (int)fmaxf(2, size * 0.035f), sq = (size - 2 * fr) / big;
+    if (sq < 1) return 0;
+    int w = nx * sq + 2 * fr, h = ny * sq + 2 * fr;
+    uint8_t *b = malloc((size_t)w * h * 4);
     if (!b) return 0;
-    art_board_n(n, n, sq, fr, 1, b);
-    art_blend(rgba, size, size, b, w, w, (size - w) / 2, (size - w) / 2);
+    bpz_paint_board(nx, ny, sq, fr, holes, b);
+    art_blend(rgba, size, size, b, w, h, (size - w) / 2, (size - h) / 2);
     free(b);
     *ox = (size - w) / 2 + fr;
+    *oy = (size - h) / 2 + fr;
     return sq;
+}
+
+static inline int bpz_thumb_board(int n, int size, uint8_t *rgba, int *ox)
+{
+    int oy;
+    return bpz_thumb_board_holes(n, n, NULL, size, rgba, ox, &oy);
 }
 
 /* a chess piece blended into a card at (x, y), d pixels */
 static inline void bpz_thumb_piece(uint8_t *rgba, int size, int type, int color, int x, int y, int d)
 {
+    if (d < 2) return;
     uint8_t *p = calloc((size_t)d * d, 4);
     if (!p) return;
     art_piece(type, color, d, p);
     art_blend(rgba, size, size, p, d, d, x, y);
     free(p);
 }
+
+/* the stars of the logic puzzles: 3 with no hint and no mistake, 2 with up to two hints, else 1 */
+static inline int bpz_logic_stars(int hints, int mistakes) { return !hints && !mistakes ? 3 : hints <= 2 ? 2 : 1; }
 
 #endif

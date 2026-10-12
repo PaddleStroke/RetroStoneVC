@@ -1,9 +1,11 @@
 Oito damas
 # O objetivo
-Coloca N damas num tabuleiro de N × N casas sem que nenhuma ataque outra: nunca duas na mesma fila, coluna ou diagonal. Escolhe o tabuleiro: 5 × 5, 6 × 6, 8 × 8 (o problema clássico) ou 10 × 10. Uma dama preta já está colocada e não pode ser movida.
+Coloca damas num tabuleiro sem que nenhuma ataque outra: nunca duas na mesma fila, coluna ou diagonal. Cada fila recebe uma dama. As damas pretas já estão colocadas e não podem ser movidas. Alguns tabuleiros têm buracos: casas recortadas onde nenhuma dama pode ficar; as linhas das damas continuam através delas.
 # Uma jogada
 Põe uma dama numa casa vazia, ou tira uma das tuas damas.
 # O fim do jogo
-O problema fica resolvido quando as N damas estão no tabuleiro e nenhuma ataca outra. Cada tabuleiro tem muitas soluções (92 no 8 × 8): a barra conta as soluções diferentes que encontraste nesta sessão, e um jogo novo começa com uma dama de uma solução ainda não encontrada.
+O problema fica resolvido quando cada fila tem a sua dama e nenhuma ataca outra.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, do 4 × 4 ao 10 × 10, cada um com uma única solução, que se encontra só a raciocinar; escolhe um no ecrã de níveis. O separador do dado, depois dos capítulos, começa um jogo ao acaso num tabuleiro de 5 × 5, 6 × 6, 8 × 8 (o problema clássico) ou 10 × 10 com uma dama preta: estes tabuleiros têm muitas soluções (92 no 8 × 8); a barra conta as soluções diferentes que encontraste nesta sessão, e um jogo novo começa com uma dama de uma solução ainda não encontrada. Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é uma dama posta numa casa atacada por outra dama; Anular não o apaga.
 # Jogar no dispositivo
-Toca numa casa para pôr uma dama e toca outra vez para a tirar. As casas atacadas pelas damas ficam sombreadas; o botão com os raios tira ou põe a sombra. As damas que se atacam brilham a vermelho. A lâmpada acende a dourado uma casa onde cabe uma dama ou, quando as damas no tabuleiro já não podem levar a uma solução, rodeia a que deve sair. Anular desfaz um toque de cada vez. A barra mostra os teus toques e as soluções encontradas do total do tabuleiro.
+Toca numa casa para pôr uma dama e toca outra vez para a tirar. As casas atacadas pelas damas ficam sombreadas; o botão com os raios tira ou põe a sombra. As damas que se atacam brilham a vermelho. A lâmpada acende a dourado uma casa onde cabe uma dama ou, quando as damas no tabuleiro já não podem levar a uma solução, rodeia a que deve sair. Anular desfaz um toque de cada vez. A barra mostra os teus toques e, num jogo ao acaso, as soluções encontradas do total do tabuleiro.

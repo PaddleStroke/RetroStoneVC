@@ -1,5 +1,6 @@
 /*
- * Chess Puzzles' rules (chesspuzzles.h): the collection unpacked, a puzzle's line followed with chess.c's rules.
+ * Chess Puzzles' rules (chesspuzzles.h): the collection and the levels unpacked, a puzzle's line followed with
+ * chess.c's rules.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include "games/chesspuzzles.h"
@@ -7,10 +8,13 @@
 #include <string.h>
 
 #include "games/chesspuzzles_data.h"
+#include "games/chesspuzzles_levels.h"
 
 static const char B62[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 static uint32_t offset[CPZ_TOTAL];              /* each record's start in cpz_data, found once */
 static int indexed;
+static uint32_t level_at[CPZ_LEVELS + 1];      /* each level's record in cpz_level_data, found once (the end last) */
+static int levels_indexed;
 
 static uint32_t le32(const uint8_t *p) { return p[0] | p[1] << 8 | p[2] << 16 | (uint32_t)p[3] << 24; }
 
@@ -62,16 +66,23 @@ int cpz_find(const cpos *p, int from, int to, int promo, cmove *m)
 
 int cpz_lands(cmove m) { return m.flags & MV_CASTLE ? chess_castle_king(m) : m.to; }
 
-int cpz_load(cpz_puzzle *pz, int pack, int index)
+int cpz_record(int pack, int index, const uint8_t **rec)
 {
-    memset(pz, 0, sizeof *pz);
     if (pack < 0 || pack >= CPZ_PACKS || index < 0 || index >= cpz_pack_size[pack]) return 0;
     index_all();
     int k = index;
     for (int p = 0; p < pack; p++) k += cpz_pack_size[p];
     uint32_t at = offset[k];
     if (at + 19 > CPZ_DATA_BYTES || at + length(cpz_data + at) > CPZ_DATA_BYTES) return 0;
-    const uint8_t *r = cpz_data + at;
+    *rec = cpz_data + at;
+    return (int)length(cpz_data + at);
+}
+
+/* a record (avail bytes from r) unpacked, each move checked legal where it is played; 0: not a good one */
+static int parse(cpz_puzzle *pz, const uint8_t *r, uint32_t avail)
+{
+    memset(pz, 0, sizeof *pz);
+    if (avail < 19 || length(r) > avail) return 0;
     pz->n = r[0] & 15;
     if (pz->n < 2 || pz->n > CPZ_MAX_MOVES) return 0;
     pz->rating = r[2] * 16;
@@ -111,19 +122,94 @@ int cpz_load(cpz_puzzle *pz, int pack, int index)
     return 1;
 }
 
-int cpz_start(cpz_game *g, int pack, int index)
+int cpz_load(cpz_puzzle *pz, int pack, int index)
 {
-    memset(g, 0, sizeof *g);
-    g->pack = pack;
-    g->index = index;
-    if (!cpz_load(&g->pz, pack, index)) return 0;
+    const uint8_t *r = NULL;
+    int n = cpz_record(pack, index, &r);
+    if (!n) {
+        memset(pz, 0, sizeof *pz);
+        return 0;
+    }
+    return parse(pz, r, (uint32_t)n);
+}
+
+static void index_levels(void)
+{
+    if (levels_indexed) return;
+    uint32_t at = 0;
+    for (int i = 0; i < CPZ_LEVELS; i++) {
+        level_at[i] = at;
+        at += at + 19 <= CPZ_LEVEL_BYTES ? length(cpz_level_data + at) : 0;
+        if (at > CPZ_LEVEL_BYTES) at = CPZ_LEVEL_BYTES;
+    }
+    level_at[CPZ_LEVELS] = at;
+    levels_indexed = 1;
+}
+
+int cpz_level_load(cpz_puzzle *pz, int level)
+{
+    memset(pz, 0, sizeof *pz);
+    if (level < 0 || level >= CPZ_LEVELS) return 0;
+    index_levels();
+    uint32_t at = level_at[level], end = level_at[level + 1];
+    return end > at && parse(pz, cpz_level_data + at, end - at);
+}
+
+int cpz_is_level(const char *id)
+{
+    static char ids[CPZ_LEVELS][6];
+    static int made;
+    if (!made) {
+        for (int i = 0; i < CPZ_LEVELS; i++) {
+            cpz_puzzle pz;
+            if (cpz_level_load(&pz, i)) memcpy(ids[i], pz.id, 6);
+        }
+        made = 1;
+    }
+    for (int i = 0; i < CPZ_LEVELS; i++)
+        if (ids[i][0] && !strcmp(ids[i], id)) return 1;
+    return 0;
+}
+
+/* the puzzle loaded into g->pz: its start, the opponent's first move played */
+static void begin(cpz_game *g)
+{
     g->pos[0] = g->pz.start;
     g->solver = !g->pz.start.side;
     g->played[0] = g->pz.move[0];
     g->pos[1] = g->pos[0];
     chess_make(&g->pos[1], g->pz.move[0]);
     g->ply = 1;
+}
+
+int cpz_start(cpz_game *g, int pack, int index)
+{
+    memset(g, 0, sizeof *g);
+    g->pack = pack;
+    g->index = index;
+    if (!cpz_load(&g->pz, pack, index)) return 0;
+    begin(g);
     return 1;
+}
+
+int cpz_level(cpz_game *g, int level)
+{
+    memset(g, 0, sizeof *g);
+    g->pack = -1;
+    g->index = level;
+    if (!cpz_level_load(&g->pz, level)) return 0;
+    begin(g);
+    return 1;
+}
+
+int cpz_start_random(cpz_game *g, int pack, int pick)
+{
+    int n = cpz_count(pack);
+    if (n <= 0) return 0;
+    int idx = (pick % n + n) % n;
+    for (int tries = 0; tries < n; tries++, idx = (idx + 1) % n)
+        if (cpz_start(g, pack, idx) && !cpz_is_level(g->pz.id)) return 1;
+    return 0;
 }
 
 static int mated(const cpos *p)
@@ -182,6 +268,12 @@ int cpz_hint(cpz_game *g)
     if (!cpz_to_find(g) || g->hint_level >= 2) return 0;
     if (!g->hint_level) g->hints++;
     return ++g->hint_level;
+}
+
+int cpz_stars(const cpz_game *g)
+{
+    int slips = g->mistakes + g->hints;
+    return !slips ? 3 : slips == 1 ? 2 : 1;
 }
 
 int cpz_undo(cpz_game *g)

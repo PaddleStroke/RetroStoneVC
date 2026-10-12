@@ -1,15 +1,17 @@
 /*
- * The Knight's Tour in RetroStone Board, for one player: the house board (5 x 5, 6 x 6 or 8 x 8) and a knight that
- * must visit every square once (the rules: knightstour_rules.c).
+ * The Knight's Tour in RetroStone Board, for one player: the house board and a knight that must visit every square
+ * once (the rules: knightstour_rules.c).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- * The knight starts on a square drawn for the game. Tap a square it can reach (the dots), or drag it there: it jumps,
- * and the square it left keeps its number, a faint line joining the path. Stuck with squares left: a red glow (undo).
- * The lamp in the bar (Warnsdorff's rule): each square the knight can reach shows how many moves it would have from
- * there, and the best one lights up in gold (a search checks it still leads to a whole tour; a red glow on the knight
- * when none can be finished from here). Undo takes back one jump, all the way to the start. The bar: the squares
- * visited and the board's count. Done: a gold light runs along the path in its order; a closed tour (the last square
- * a knight's move from the first) also joins the ends with a gold line, and a gold ring shows in the bar.
+ * The level screen: 150 levels in six chapters (boards of every shape, holes cut in them, the start given), and a
+ * die tab for a random tour on 5 x 5, 6 x 6 or 8 x 8 (the start drawn). Tap a square the knight can reach (the dots),
+ * or drag it there: it jumps, and the square it left keeps its number, a faint line joining the path. Stuck with
+ * squares left: a red glow (a dead end; undo). The lamp in the bar (Warnsdorff's rule): each square the knight can
+ * reach shows how many moves it would have from there, and the best one lights up in gold (a search checks it still
+ * leads to a whole tour; a red glow on the knight when none can be finished from here). Undo takes back one jump,
+ * all the way to the start. The bar: the squares visited and the board's count. Done: a gold light runs along the
+ * path in its order; a closed tour (the last square a knight's move from the first) also joins the ends with a gold
+ * line, and a gold ring shows in the bar. The stars: 3 with no hint and no dead end, 2 with up to two hints, else 1.
  */
 #include <math.h>
 #include <stdlib.h>
@@ -27,7 +29,6 @@
 static kt_game G;
 static bpz_board B;
 static bpz_pics P;
-static bpz_discs D;
 static puz_font F;
 static box last_box, barbox;
 static int made_small = -1, made_line = -1;
@@ -47,17 +48,29 @@ static void calm(void)
     memset(&drag, 0, sizeof drag);
 }
 
-static void start(int variant)
+static void begun(void)
 {
-    kt_new(&G, variant < 0 || variant >= KT_VARIANTS ? KT_5 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
     calm();
     if (last_box.w > 0) ui_animate();
 }
 
+static void start(int level)                    /* a level of the level screen */
+{
+    if (!kt_level(&G, level)) kt_new(&G, KT_5, 1);   /* never: every level is tested */
+    begun();
+}
+
+static void start_random(int variant)           /* the die tab: a random tour */
+{
+    kt_new(&G, variant < 0 || variant >= KT_VARIANTS ? KT_5 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    begun();
+}
+
 static int status(void) { return kt_done(&G) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
-static int step_ms(void) { return WAVE_TOTAL / (G.n * G.n); }
-static int win_end(void) { return G.n * G.n * step_ms() + WAVE_LEN + (kt_closed(&G) ? CLOSE_MS : 0); }
+static int level_stars(void) { return kt_stars(&G); }
+static int step_ms(void) { return WAVE_TOTAL / (G.cells > 0 ? G.cells : 1); }
+static int win_end(void) { return G.cells * step_ms() + WAVE_LEN + (kt_closed(&G) ? CLOSE_MS : 0); }
 
 static int busy(void)
 {
@@ -115,7 +128,8 @@ static void ask_hint(void)
 static void layout(box b)
 {
     last_box = b;
-    bpz_layout(&B, G.n ? G.n : 5, b, 1);
+    if (G.w) bpz_layout_holes(&B, G.w, G.h, b, 1, G.hole);
+    else bpz_layout(&B, 5, b, 1);
     puz_font_make(&F, (int)(0.44f * B.sq), 1);
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
@@ -132,12 +146,12 @@ static void layout(box b)
     }
 }
 
-static void centre(int s, float *x, float *y) { bpz_centre(&B, s % G.n, s / G.n, 0, x, y); }
+static void centre(int s, float *x, float *y) { bpz_centre(&B, s % G.w, s / G.w, 0, x, y); }
 
 static int sq_at(float x, float y)
 {
     int f, r;
-    return bpz_at(&B, x, y, 0, &f, &r) ? r * G.n + f : -1;
+    return bpz_at(&B, x, y, 0, &f, &r) && !G.hole[r * G.w + f] ? r * G.w + f : -1;
 }
 
 /* a stroke from one square's centre to another's: tint, alpha, thickness (a part of a square) */
@@ -155,9 +169,9 @@ static void stroke(int a, int b, Uint8 r, Uint8 g, Uint8 bl, Uint8 al, float th)
 
 static void draw(void)
 {
-    if (B.n != G.n || !B.board) layout(last_box);
+    if (B.nx != G.w || B.ny != G.h || B.made_holes != bpz_holes_hash(G.w * G.h, G.hole) || !B.board) layout(last_box);
     Uint32 now = ui_ms();
-    int n = G.n, at = G.path[G.len - 1];
+    int w = G.w, at = G.path[G.len - 1];
     bpz_draw_board(&B);
     float st = anim.on ? (now - anim.t0) / (float)ANIM_MS : 2;
     if (anim.on && st >= 1) anim.on = 0;
@@ -168,27 +182,28 @@ static void draw(void)
         stroke(G.path[i - 1], G.path[i], 52, 34, 22, 80, 0.06f);
     }
     if (win.on && kt_closed(&G)) {              /* the closed tour's ends joined in gold */
-        float q = clampf((wt - n * n * step_ms() - WAVE_LEN * 0.4f) / CLOSE_MS, 0, 1);
+        float q = clampf((wt - G.cells * step_ms() - WAVE_LEN * 0.4f) / CLOSE_MS, 0, 1);
         if (q > 0) stroke(G.path[G.len - 1], G.path[0], 232, 190, 92, (Uint8)(230 * q), 0.09f);
     } else if (kt_closed(&G))
         stroke(G.path[G.len - 1], G.path[0], 232, 190, 92, 230, 0.09f);
     if (wt >= 0) {
         for (int i = 0; i < G.len; i++) {
             int s = G.path[i];
-            bpz_glow(&B, s % n, s / n, 0, 0.75f * puz_pulse(wt, (float)i * step_ms(), WAVE_LEN));
+            bpz_glow(&B, s % w, s / w, 0, 0.75f * puz_pulse(wt, (float)i * step_ms(), WAVE_LEN));
         }
         if (wt < win_end()) ui_animate();
         else win.on = 0;
     }
-    for (int s = 0; s < n * n; s++) {
+    for (int s = 0; s < w * G.h; s++) {
         if (!G.order[s] || s == at) continue;     /* under the knight: none */
         float x, y;
         centre(s, &x, &y);
-        int light = bpz_light(n, s % n, s / n);
-        puz_number(&F, x, y, 0.44f * B.sq, G.order[s], light ? PUZ_INK : PUZ_CREAM, light ? 230 : 245);
+        int light = bpz_light(G.h, s % w, s / w);
+        float dh = (G.order[s] >= 100 ? 0.36f : 0.44f) * B.sq;
+        puz_number(&F, x, y, dh, G.order[s], light ? PUZ_INK : PUZ_CREAM, light ? 230 : 245);
     }
     /* where the knight can go; the hint's counts and its square */
-    int8_t to[8];
+    uint8_t to[8];
     int k = anim.on || kt_done(&G) ? 0 : kt_moves(&G, to);
     for (int i = 0; i < k; i++) {
         float x, y;
@@ -205,10 +220,10 @@ static void draw(void)
     }
     /* the knight */
     float x, y;
-    bpz_xy(&B, at % n, at / n, 0, &x, &y);
+    bpz_xy(&B, at % w, at / w, 0, &x, &y);
     if (anim.on) {
         float x0, y0, t = puz_ease(st);
-        bpz_xy(&B, anim.from % n, anim.from / n, 0, &x0, &y0);
+        bpz_xy(&B, anim.from % w, anim.from / w, 0, &x0, &y0);
         x = x0 + (x - x0) * t;
         y = y0 + (y - y0) * t - sinf(PUZ_PI * t) * 0.35f * B.sq;   /* a knight leaps */
         stroke(anim.from, G.path[G.len - 1], 52, 34, 22, (Uint8)(80 * t), 0.06f);
@@ -266,15 +281,15 @@ static void bar(int player, box b)
     (void)player;
     barbox = b;
     float u = ui.unit, cy = b.y + b.h / 2, room = b.w - (kt_done(&G) ? 0 : 1.1f * u);
-    float w_moves = 0.72f * u + bpz_number_w(G.len), w_total = 0.6f * u + bpz_number_w(G.n * G.n);
+    float w_moves = 0.72f * u + bpz_number_w(G.len), w_total = 0.6f * u + bpz_number_w(G.cells);
     float x = puz_bar_moves(b, t_small, G.len) + 0.08f * u;
     if (w_moves + w_total <= room) {            /* a narrow bar (landscape): the board's count left out */
         x = bpz_bar_pic(&P, BPZ_SLASH, x, cy, 0.8f);
-        x = bpz_bar_number(x, cy, G.n * G.n);
+        x = bpz_bar_number(x, cy, G.cells);
     }
     x += 0.3f * u;
     if (kt_closed(&G) && !(win.on && busy()) && x + 0.6f * u <= b.x + b.w) bpz_bar_pic(&P, BPZ_LOOP, x, cy, 1);
-    if (!kt_done(&G)) bpz_button(&D, &P, BPZ_LAMP, b, 0, hint.sq >= 0, kt_stuck(&G));
+    if (!kt_done(&G)) bpz_button(-1, b, 0, hint.sq >= 0, kt_stuck(&G));
 }
 
 static int bar_press(int player, float x, float y)
@@ -292,25 +307,46 @@ static void token(int player, int size, uint8_t *rgba)
     art_piece(KNIGHT, WHITE, size, rgba);
 }
 
+/* a board in a card: its squares and holes, the first `steps` squares of a tour numbered, the knight on its square */
+static void board_pic(kt_game *T, int steps, int size, uint8_t *rgba)
+{
+    uint8_t out[KT_MAX];
+    if (steps > 0 && kt_solve(T, out, 200000) == 1)
+        for (int i = 0; i < steps && T->len < T->cells; i++) kt_move(T, out[i]);
+    int ox = 0, oy = 0, w = T->w, sq = bpz_thumb_board_holes(w, T->h, T->hole, size, rgba, &ox, &oy);
+    if (!sq) return;
+    for (int i = 0; i + 1 < T->len; i++) {
+        int s = T->path[i], f = s % w, r = T->h - 1 - s / w, light = bpz_light(T->h, s % w, s / w);
+        puz_digits(rgba, size, size, i + 1, ox + (f + 0.5f) * sq, oy + (r + 0.53f) * sq, 0.5f * sq,
+                   light ? PUZ_INK : PUZ_CREAM, 1, 1);
+    }
+    int s = T->path[T->len - 1], d = (int)(1.1f * sq);
+    bpz_thumb_piece(rgba, size, KNIGHT, WHITE, ox + s % w * sq + (sq - d) / 2,
+                    oy + (T->h - 1 - s / w) * sq + (sq - d) / 2, d);
+}
+
 /* the menu's card and the picker's: the board, the start of a tour numbered, the knight on its last square */
 static void thumb(int variant, int size, uint8_t *rgba)
 {
-    int v = variant < 0 ? KT_5 : variant, ox = 0;
+    int v = variant < 0 ? KT_5 : variant;
     kt_game T;
     kt_new_at(&T, kt_size(v), 0);
-    int8_t out[KT_MAX];
-    if (kt_solve(&T, out, 200000) == 1)
-        for (int i = 0; i < (variant < 0 ? 9 : T.n + 2); i++) kt_move(&T, out[i]);
-    int n = T.n, sq = bpz_thumb_board(n, size, rgba, &ox);
-    if (!sq) return;
-    for (int i = 0; i + 1 < T.len; i++) {
-        int s = T.path[i], f = s % n, r = n - 1 - s / n, light = bpz_light(n, s % n, s / n);
-        puz_digits(rgba, size, size, i + 1, ox + (f + 0.5f) * sq, ox + (r + 0.53f) * sq, 0.5f * sq,
-                   light ? PUZ_INK : PUZ_CREAM, 1, 1);
-    }
-    int s = T.path[T.len - 1], d = (int)(1.1f * sq);
-    bpz_thumb_piece(rgba, size, KNIGHT, WHITE, ox + s % n * sq + (sq - d) / 2, ox + (n - 1 - s / n) * sq + (sq - d) / 2,
-                    d);
+    board_pic(&T, variant < 0 ? 9 : T.w + 2, size, rgba);
+}
+
+/* a level's tile: its board, its holes, the knight on the start */
+static void level_thumb(int level, int size, uint8_t *rgba)
+{
+    kt_game T;
+    if (kt_level(&T, level)) board_pic(&T, 0, size, rgba);
+}
+
+/* a chapter's tab: a small board of its size (4 x 4 .. 9 x 9), the knight in its corner */
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    int n = 4 + (chapter < 0 ? 0 : chapter > 5 ? 5 : chapter), ox = 0, oy = 0;
+    int sq = bpz_thumb_board_holes(n, n, NULL, size, rgba, &ox, &oy), d = (int)(2.2f * sq);
+    if (sq) bpz_thumb_piece(rgba, size, KNIGHT, WHITE, ox, oy + n * sq - d, d);
 }
 
 static const game knightstour_game = {
@@ -318,5 +354,7 @@ static const game knightstour_game = {
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,
+    .levels = KT_LEVELS, .chapters = KT_CHAPTERS, .start_random = start_random, .chapter_icon = chapter_icon,
+    .level_thumb = level_thumb, .level_stars = level_stars,
 };
 REGISTER_GAME(knightstour_game)

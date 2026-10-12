@@ -1,9 +1,11 @@
 Åtta damer
 # Målet
-Ställ N damer på ett bräde med N × N rutor så att ingen dam hotar en annan: aldrig två på samma rad, linje eller diagonal. Välj bräde: 5 × 5, 6 × 6, 8 × 8 (det klassiska problemet) eller 10 × 10. En svart dam står redan på plats och kan inte flyttas.
+Ställ damer på ett bräde så att ingen dam hotar en annan: aldrig två på samma rad, linje eller diagonal. Varje rad får en dam. De svarta damerna står redan på plats och kan inte flyttas. Vissa bräden har hål: bortskurna rutor där ingen dam får stå; damernas linjer fortsätter tvärs över dem.
 # Ett drag
 Ställ en dam på en tom ruta, eller ta bort en av dina damer.
 # Partiets slut
-Problemet är löst när alla N damer står på brädet och ingen hotar en annan. Varje bräde har många lösningar (92 på 8 × 8): listen räknar de olika lösningar du har hittat under sessionen, och ett nytt parti börjar med en dam ur en lösning som du ännu inte har hittat.
+Problemet är löst när varje rad har sin dam och ingen hotar en annan.
+# Banor och stjärnor
+Det finns 150 banor i sex kapitel, från 4 × 4 upp till 10 × 10, var och en med bara en lösning, som hittas genom att resonera; välj en i banöversikten. Fliken med tärningen efter kapitlen startar ett parti på slump på ett bräde på 5 × 5, 6 × 6, 8 × 8 (det klassiska problemet) eller 10 × 10 med en svart dam: de här brädena har många lösningar (92 på 8 × 8); listen räknar de olika lösningar du har hittat under sessionen, och ett nytt parti börjar med en dam ur en lösning som du ännu inte har hittat. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en dam som ställs på en ruta som en annan dam hotar; Ångra tar inte bort det.
 # Spela på enheten
-Tryck på en ruta för att ställa en dam där, och tryck igen för att ta bort den. Rutorna som damerna hotar är skuggade; knappen med strålarna slår av och på skuggan. Damer som hotar varandra lyser röda. Lampan lyser upp en ruta i guld där en dam hör hemma, eller ringar in, när damerna på brädet inte längre kan leda till en lösning, den dam som ska bort. Ångra tar tillbaka ett tryck i taget. Listen visar dina tryck och de hittade lösningarna av brädets alla.
+Tryck på en ruta för att ställa en dam där, och tryck igen för att ta bort den. Rutorna som damerna hotar är skuggade; knappen med strålarna slår av och på skuggan. Damer som hotar varandra lyser röda. Lampan lyser upp en ruta i guld där en dam hör hemma, eller ringar in, när damerna på brädet inte längre kan leda till en lösning, den dam som ska bort. Ångra tar tillbaka ett tryck i taget. Listen visar dina tryck och, i ett parti på slump, de hittade lösningarna av brädets alla.

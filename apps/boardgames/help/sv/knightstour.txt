@@ -1,9 +1,11 @@
 Springarproblemet
 # Målet
-Flytta en springare så att den besöker varje ruta på brädet exakt en gång. Välj bräde: 5 × 5, 6 × 6 eller 8 × 8. Springaren börjar på en ruta som valts åt dig, alltid en ruta där en hel vandring är möjlig.
+Flytta en springare så att den besöker varje ruta på brädet exakt en gång. Vissa bräden har hål: bortskurna rutor som springaren hoppar över men aldrig landar på. Springaren börjar på den angivna rutan, alltid en ruta där en hel vandring är möjlig.
 # Ett drag
 Springaren hoppar som i schack: två rutor åt ett håll och sedan en åt sidan. Den får aldrig landa på en ruta som den redan har besökt.
 # Partiets slut
-Vandringen är klar när alla rutor är besökta. Ligger den sista rutan ett springarhopp från den första är vandringen sluten: en guldlinje förenar ändarna och en guldring syns i listen. Har springaren inga drag kvar före slutet lyser den röd: ångra och pröva en annan väg.
+Vandringen är klar när alla rutor är besökta. Ligger den sista rutan ett springarhopp från den första är vandringen sluten: en guldlinje förenar ändarna och en guldring syns i listen. Har springaren inga drag kvar före slutet lyser den röd: en återvändsgränd. Ångra och pröva en annan väg.
+# Banor och stjärnor
+Det finns 150 banor i sex kapitel, från bräden med 8 rutor upp till 100: rektanglar, kors, ramar, romber och bräden med hål; välj en i banöversikten. Fliken med tärningen efter kapitlen startar en vandring på slump på ett bräde på 5 × 5, 6 × 6 eller 8 × 8, från en ruta som valts åt dig. Utan ledtråd och utan återvändsgränd: 3 stjärnor; upp till två ledtrådar och återvändsgränder tillsammans: 2 stjärnor; annars 1. En återvändsgränd är ett hopp efter vilket springaren inte har några drag kvar; Ångra tar inte bort den.
 # Spela på enheten
 Tryck på en ruta med en prick, eller dra springaren dit. Besökta rutor behåller sitt nummer. Lampan följer Warnsdorffs regel: varje ruta inom räckhåll visar hur många hopp som skulle finnas kvar därifrån, och den bästa lyser i guld, vald så att en hel vandring fortfarande är möjlig. Kan ingen vandring längre fullbordas lyser springaren röd. Ångra tar tillbaka ett hopp i taget, ända till början. Listen visar besökta rutor av alla.
