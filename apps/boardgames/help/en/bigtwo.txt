@@ -1,0 +1,18 @@
+Big Two
+# The aim
+Be the first to play all your cards. A Cantonese game for 4 players (or 3), with a pack of 52 cards dealt out: 13 each (with 3 players, 17 each, and the last card to the player holding the 3 of diamonds).
+# The cards
+- From low to high: 3, 4, 5, 6, 7, 8, 9, 10, jack, queen, king, ace, and the 2, the highest of all.
+- The suits, from low to high: diamonds, clubs, hearts, spades. Two cards of the same rank go by their suit: the 2 of spades is the highest card.
+# The plays
+- A single card, a pair, three of a kind.
+- A hand of five cards, from low to high: a straight (five ranks in a row, from 3-4-5-6-7 up to 10-J-Q-K-A; the 2 is never part of one), a flush (five cards of one suit), a full house (three of a kind and a pair), four of a kind with any fifth card, a straight flush.
+- Two plays of the same kind go by their highest card. Flushes go by their highest card, then the next ones; a full house and four of a kind by the rank of their three or four cards.
+# A trick
+- The player holding the 3 of diamonds leads the first trick, with a play that includes it.
+- In turn, each player plays a higher play of the same kind and size, or passes. A player who passed may still play when their turn comes round again.
+- When all the others have passed in a row, the last player who played starts a new trick with any play.
+# The score
+The first player out of cards wins. Each other player scores a penalty point for each card left in their hand, doubled with ten cards or more.
+# Playing on the device
+Pass the device round: each player sees only their own cards, at the bottom, from low to high. Along the top sit the others: their cards face down, how many, and a pass sign if they passed since the last play. The last play lies big in the middle with its player's chip, the plays before it smaller behind. Tap cards to choose them, then tap the middle or drag them there: the middle lights up when your choice can be played. The 3 of diamonds glows for the player who must lead it. The pass button is in your bar. At the end, a table shows each player's cards left and penalty.
