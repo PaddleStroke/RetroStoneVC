@@ -97,23 +97,56 @@ nor face to face (they mean nothing here). `layout(box)` gets the table: a recta
   king 13; jokers `CARD(SUIT_JOKER, 0 red / 1 black)`), `DECK_TAROT` (14 a suit: jack 11, knight 12, queen 13, king
   14; trumps `CARD(SUIT_TRUMP, 1..21)`, `TAROT_EXCUSE`), `DECK_NUMBER` (`NUMBER_CARD(-2..12)`), `DECK_TILES` (colours
   0..3, 1..13, two jokers), `DECK_ACTION` (colours 0..3: 0..9, `ACTION_SKIP`, `ACTION_REVERSE`, `ACTION_DRAW2`;
-  `ACTION_WILD`, `ACTION_WILD4`). `cards_pack(PACK_52 / 54 / 32 / TAROT / NUMBER / TILES / ACTION, out)` and
-  `cards_shuffle(cards, n, seed)` have no SDL: the rules deal from a seed (take it from `ui_random()`: tests and
-  pictures repeat), undo replays. No letters on the faces: digits, pips, the courts as the house's chess figures in the
-  suit's colour (jack a bishop, knight a knight, queen a queen, king a king), aces one big pip, trumps on a gold sun,
-  the excuse a star, jokers a jester's cap; under about 52 px a plainer face (the index big). A 6 or 9 alone is
-  underlined.
+  `ACTION_WILD`, `ACTION_WILD4`), `DECK_ITALIAN` (`IT_COINS`, `IT_CUPS`, `IT_SWORDS`, `IT_CLUBS`; 1 .. 7, `IT_FANTE`
+  8, `IT_CAVALLO` 9, `IT_RE` 10; `cards_italian.c`; its notation: `games/italian.h`).
+  `cards_pack(PACK_52 / 54 / 32 / TAROT / NUMBER / TILES / ACTION / 40, out)` and `cards_shuffle(cards, n, seed)` have
+  no SDL: the rules deal from a seed (take it from `ui_random()`: tests and pictures repeat), undo replays. No letters
+  on the faces: digits, pips, the courts as the house's chess figures in the suit's colour (jack a bishop, knight a
+  knight, queen a queen, king a king), aces one big pip, trumps on a gold sun, the excuse a star, jokers a jester's
+  cap; under about 52 px a plainer face (the index big). A 6 or 9 alone is underlined.
+- **A game's own deck**: `cards_deck_add(&def)` (`{aspect, face(card, w, h, rgba), back(w, h, rgba) or NULL: the
+  house's}`, kept static) gives a deck number for every call below: the kit draws, flips, slides and piles its cards
+  with its own shadow, gold light and lift (the families' animals: `games/families_deck.h` `fam_deck()`; the hanafuda:
+  `hana_deck()`; Crapette's second pack with a red back).
 - **Drawing**: `cards_draw(deck, card, cx, cy, w, deg, how)` (`CD_DOWN` its back, `CD_RAISED` chosen, `CD_GLOW` a
-  card to tap, `CD_DIM` not playable, `CD_FLAT` no shadow); `cards_draw_flip(..., t)` (0 back .. 1 face: scale-x);
-  `cards_pile(deck, cx, cy, w, n, top, how)` (`top` `CARD_NONE`: face down); `cards_place` an empty place;
-  `cards_aspect(deck)` the height / width. The textures are cached by deck, card and width.
+  card to tap, `CD_DIM` not playable, `CD_FLAT` no shadow), `cards_draw_alpha(..., alpha)` faded;
+  `cards_draw_flip(..., t)` (0 back .. 1 face: scale-x); `cards_pile(deck, cx, cy, w, n, top, how)` (`top`
+  `CARD_NONE`: face down; n 0: the empty place, in gold light with `CD_GLOW`); `cards_place` an empty place;
+  `cards_aspect(deck)` the height / width. The textures are cached by deck, card and width. Pictures:
+  `cards_paint_at` / `cards_paint_turned` (a card in a thumbnail), `cards_suit_icon(deck, suit, size)` (a French
+  suit's pip on an ivory disc; an Italian suit's symbol), `cards_token(player, size)` a chip in the player's colour.
 - **Hands**: `cards_fan(cx, cy, width, w, aspect, n, arc, spots)` (overlapping when they must, fanned by `arc`
   degrees), `cards_hit(spots, n, w, aspect, x, y)` the top card under the finger; `cards_in` for a card lying straight.
-- **Moving cards**: `cards_slide_start(&s, deck, card, A, up0, B, up1, ms, delay)` and `cards_slide_draw(&s)` each
+- **Moving a card**: `cards_slide_start(&s, deck, card, A, up0, B, up1, ms, delay)` and `cards_slide_draw(&s)` each
   frame (1 while it moves: hide the card at its destination until then); a flip in place is a slide from A to A.
-- **Tokens**: `cards_token(player, size)` a chip in the player's colour. Scores below zero: `ui_number_signed`.
-- **Golf** (`games/golf.c`) is the example: the view following the player to move, slides and flips, a round's
-  summary, scores in the bars.
+- **The card table** (`cards_table.h`, prefix `ct_`): what card games draw round their cards, written once.
+  - Moving cards: one list, `ct_moves M = {.rest = 300}` (busy that long after each card lands), `ct_slide(&M, deck,
+    card, A, up0, B, up1, ms, delay, tag, a, b, sound)` (its index), `ct_hides(&M, tag, a, b)` the cards still on
+    their way there (-1: any; leave them out of their place until they land), `ct_show` (unseen at first: a card that
+    waits), `ct_after` (drawn once another one has landed), `ct_rest`, `ct_hop`, `ct_until`, `ct_busy` (the game's
+    `busy()`), `ct_moving`, `ct_quiet`, `ct_draw(&M)` each frame, `ct_calm` (they land at once).
+  - The trick table (`ct_table`, `ct_layout(&T, box, players, viewer, max_hand)`; `T.deck` its cards): the viewer at
+    the bottom, the others round the middle in turn order (`ct_draw_seats`, `ct_seat_spot` for what goes beside a
+    chip), the trick (`ct_draw_trick`, `ct_gather`, `ct_draw_last`; `who`: each card's player for a lone hand, or
+    NULL), the trick pile (`ct_draw_pile`, `ct_on_pile`), the viewer's hand (`ct_fan`, `ct_hand_draw`,
+    `ct_hand_backs` under the cover, `ct_hand_at`, `ct_deal`, `ct_play`) and the finger (`ct_touch`: a tap raises
+    the card, a second tap, its place in the trick or a drag plays it: `ct_touch_down / move / up`, `ct_tap_play`,
+    `ct_draw_target`). The rules' side of trick games is `games/tricks.h` (no SDL).
+  - The others along the top: `ct_seat`, `ct_seat_x`, `ct_backs` (a small fan of backs), `ct_backs_end`, `ct_label`
+    (their chip and count). The viewer's hand fitted in a box (`ct_hand`) or along the table's bottom in one or two
+    rows (`ct_rows_layout`, `ct_rows_hit`).
+  - Pictures kept at the size they are drawn (take them each frame): `ct_token`, `ct_suit`, `ct_disc`, `ct_round`,
+    `ct_icon` (tinted), `ct_picture` (a game's own painter); `ct_pic(CT_ARROW / TICK / SLASH / MOON / DISC_*)`,
+    `ct_button`, `ct_on`, `ct_number` (nil: struck out), `ct_badge`, `ct_pass`, `ct_pass_badge`, `ct_choice`.
+  - The round's summary: `ct_summary(&T, rows, ...)` or `ct_panel(x, y, w, h, alpha)` over the dimmed table, rows
+    split by `ct_rule`; `ct_number_w` a number's width; `ct_bar` (cards in hand and a score); points rising
+    (`ct_floats`, `ct_float`, `ct_plus`).
+  - Patience: `ct_column_steps` (a column fanned down, closer when long), `ct_run` (a run under the finger),
+    `ct_leap` (the cards leaping off at a win); the games' rules share `games/solitaire.h`, their screen
+    `games/solitaire_ui.h`.
+- Scores below zero: `ui_number_signed`.
+- **Golf** (`games/golf.c`) is the example: the view following the player to move, slides and flips (`ct_moves`), a
+  round's summary, scores in the bars.
 
 ## Picture mode
 
