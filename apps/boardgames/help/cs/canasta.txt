@@ -1,0 +1,42 @@
+Kanasta
+# Cíl hry
+Jako první strana dosáhnout 5000 bodů. Pro 4 hráče ve dvou dvojicích (partneři sedí proti sobě a sdílejí své vyložené skupiny), nebo pro 2 hráče. Vykládej karty stejné hodnoty, skládej kanasty ze sedmi karet a zbav se karet.
+# Karty
+- Dva balíčky po 52 kartách a čtyři žolíci: 108 karet.
+- Žolíci a dvojky jsou divoké karty: ve skupině zastoupí jakoukoli hodnotu.
+- Hodnota karet: žolík 50, eso a 2 po 20, král až 8 po 10, 7 až 4 po 5, černá 3 5.
+- Červené trojky jsou prémiové karty. Červenou 3, kterou dostaneš nebo si lízneš, hned vyložíš vedle skupin své strany a místo ní si lízneš jinou kartu. Každá má hodnotu 100, všechny čtyři 800; počítají se proti straně, která na konci rozdání nic nevyložila.
+- Černé trojky blokují odhazovací balíček: nikdo ho nesmí vzít, dokud je navrchu černá 3.
+# Rozdávání
+- Každý dostane 11 karet (2 hráči: 15). Další karta začne odhazovací balíček; zbytek je dobírací balíček. Je-li ta karta divoká nebo červená 3, zakryje ji další karta a odhazovací balíček je zmrazený.
+- Rozdává se každé kolo o místo dál.
+# Tah
+- Lízni si horní kartu z dobíracího balíčku (2 hráči: dvě karty), nebo vezmi celý odhazovací balíček.
+- Vylož skupiny, chceš-li.
+- Odhoď jednu kartu lícem nahoru: tvůj tah končí.
+# Skupiny a kanasty
+- Skupina: tři nebo více karet stejné hodnoty (esa, čtyřky až krále), aspoň dvě přirozené a nejvýš tři divoké. Tvá strana má jednu skupinu od každé hodnoty: další karty té hodnoty se k ní přidávají.
+- Kanasta: skupina ze sedmi nebo více karet. Čistá (bez divoké karty) 500 bodů, smíšená 300.
+- První vyložení: první skupiny tvé strany, vyložené v jednom tahu, musí mít hodnotu aspoň 50 (hodnota karet), dokud má strana méně než 1500 bodů, od 1500 bodů 90, od 3000 bodů 120 a 15, dokud je pod nulou. Můžeš je vyložit před líznutím, abys s nimi vzal odhazovací balíček.
+# Odhazovací balíček
+- Abys ho vzal, jeho horní karta musí hned do skupiny: s kartami z ruky, nebo do skupiny tvé strany. Pak jde zbytek balíčku do tvé ruky.
+- Balíček je zmrazený, dokud je v něm divoká karta (položená napříč), a pro stranu, která ještě nic nevyložila. Pak se smí vzít jen s přirozeným párem hodnoty horní karty z ruky.
+- Nikdy, když je navrchu černá 3 nebo divoká karta.
+# Zbavení se karet
+- Zbavíš se karet, když se zbavíš poslední karty: vyložíš všechny, nebo všechny kromě jedné, kterou odhodíš. Až když má tvá strana kanastu (2 hráči: dvě). Do té doby nesmíš vykládat tak, aby ti zbyly méně než dvě karty.
+- Černé trojky se smějí vyložit (tři nebo čtyři, bez divokých karet) jen při zbavení se karet.
+- Zbavení se karet dává 100. Skryté zbavení se karet dává 200: celá ruka vyložená v jednom tahu, po líznutí z dobíracího balíčku, bez předchozího vykládání v tomto rozdání; pak první vyložení nemá žádné minimum.
+- Když dojde dobírací balíček, hráč, který může přiložit horní kartu odhazovacího balíčku ke skupině své strany, musí balíček vzít; jinak rozdání končí.
+# Body
+Na konci rozdání si každá strana započítá vyložené karty, kanasty, červené trojky a zbavení se karet, minus karty, které zůstaly v rukou jejích hráčů.
+# Konec hry
+Hra končí po rozdání, v němž některá strana dosáhne 5000 bodů. Vyhrává nejvyšší součet; při rovnosti se vítězství dělí.
+# Hra na zařízení
+Ruce jsou tajné: předej zařízení, když o to obrazovka požádá, a další hráč klepne na tlačítko startu. Tvá ruka je dole, seřazená podle hodnoty. Ostatní ruce jsou malé vějíře nahoře. Skupiny tvé strany jsou nad tvou rukou, skupiny druhé strany pod vějíři, sloupec pro každou hodnotu. Kanasta se zavře do balíčku s počtem karet pod ním: ve zlatém světle, je-li čistá, s divokou kartou napříč pod ní, je-li smíšená. Žetony a červené trojky každé strany jsou vlevo v její řadě. Dokud strana nic nevyložila, tmavý kotouč vpravo ukazuje, kolik vyžaduje první vyložení, a vedle něj, co je vyloženo v tomto tahu. Každá lišta ukazuje karty v ruce a body strany.
+- Klepni na dobírací balíček, abys lízl.
+- Klepnutím na karty v ruce je vybereš; dalším klepnutím kartu vrátíš.
+- Pak klepni na skupinu své strany, abys je přidal, nebo na řadu své strany pro novou skupinu. Před líznutím klepni na odhazovací balíček, abys ho s nimi vzal. Po líznutí vyber jednu kartu a klepni na odhazovací balíček, abys ji odhodil. Kartu tam můžeš také přetáhnout.
+- Co vybrané karty mohou udělat, svítí: balíček, skupina, volné místo.
+- Když je dobírací balíček prázdný a nesmíš vzít odhazovací, klepni na prázdný dobírací balíček a rozdání skončí.
+- Na konci rozdání tabulka ukáže pro každou stranu vyložené karty, kanasty, červené trojky, zbavení se karet, karty v ruce, body rozdání a součty. Klepni pro další rozdání.
+Zpět vrátí tvé vlastní akce, až do chvíle, kdy bylo zařízení předáno.

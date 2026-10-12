@@ -1,0 +1,42 @@
+Canasta
+# Tujuan
+Menjadi pihak pertama yang mencapai 5000 poin. Untuk 4 pemain dalam dua pasangan (pasangan duduk berhadapan dan berbagi kombinasi) atau untuk 2 pemain. Turunkan kartu dengan nilai yang sama, bentuk canasta dari tujuh kartu, lalu habiskan kartu.
+# Kartu
+- Dua pak berisi 52 kartu dan empat joker: 108 kartu.
+- Joker dan kartu 2 adalah kartu bebas: dalam kombinasi, kartu ini bisa menggantikan nilai apa pun.
+- Nilai kartu: joker 50, as dan 2 masing-masing 20, raja sampai 8 masing-masing 10, 7 sampai 4 masing-masing 5, 3 hitam 5.
+- Kartu 3 merah adalah kartu bonus. Kartu 3 merah yang kamu terima atau ambil langsung diletakkan di samping kombinasi pihakmu, lalu kamu mengambil kartu lain sebagai gantinya. Masing-masing bernilai 100, keempatnya 800; nilainya menjadi minus bagi pihak yang belum menurunkan apa pun saat ronde berakhir.
+- Kartu 3 hitam mengunci tumpukan buangan: tidak ada yang boleh mengambilnya selama 3 hitam ada di atas.
+# Pembagian kartu
+- Masing-masing 11 kartu (2 pemain: 15). Kartu berikutnya memulai tumpukan buangan; sisanya adalah tumpukan ambil. Jika kartu itu kartu bebas atau 3 merah, kartu lain menutupnya dan tumpukan buangan dibekukan.
+- Giliran membagi berpindah ke pemain berikutnya setiap ronde.
+# Satu giliran
+- Ambil kartu teratas dari tumpukan ambil (2 pemain: dua kartu), atau ambil seluruh tumpukan buangan.
+- Turunkan kombinasi jika mau.
+- Buang satu kartu terbuka: giliranmu selesai.
+# Kombinasi dan canasta
+- Kombinasi: tiga kartu atau lebih dengan nilai yang sama (as, 4 sampai raja), paling sedikit dua alami dan paling banyak tiga kartu bebas. Pihakmu hanya punya satu kombinasi untuk setiap nilai: kartu lain dengan nilai itu ditambahkan ke sana.
+- Canasta: kombinasi tujuh kartu atau lebih. Murni (tanpa kartu bebas) 500 poin, campuran 300.
+- Turun pertama: kombinasi pertama pihakmu, yang diturunkan dalam satu giliran, harus bernilai paling sedikit 50 (nilai kartu) selama skornya di bawah 1500, 90 mulai 1500, 120 mulai 3000, dan 15 selama skornya di bawah nol. Kamu boleh menurunkannya sebelum mengambil kartu, untuk mengambil tumpukan buangan bersamanya.
+# Tumpukan buangan
+- Untuk mengambilnya, kartu teratasnya harus langsung masuk ke kombinasi: bersama kartu dari tanganmu, atau ke kombinasi pihakmu. Lalu sisa tumpukan masuk ke tanganmu.
+- Tumpukan dibekukan selama ada kartu bebas di dalamnya (diletakkan melintang), dan bagi pihak yang belum menurunkan apa pun. Saat itu tumpukan hanya bisa diambil dengan sepasang kartu alami dari tanganmu yang nilainya sama dengan kartu teratas.
+- Tidak pernah bila kartu teratas adalah 3 hitam atau kartu bebas.
+# Menghabiskan kartu
+- Kamu habis saat kartu terakhirmu hilang: dengan menurunkan semuanya, atau semuanya kecuali satu yang kamu buang. Hanya setelah pihakmu punya canasta (2 pemain: dua). Sebelum itu, kamu tidak boleh menurunkan kartu hingga tersisa kurang dari dua di tangan.
+- Kartu 3 hitam hanya boleh diturunkan (tiga atau empat, tanpa kartu bebas) saat menghabiskan kartu.
+- Habis bernilai 100. Habis tersembunyi bernilai 200: seluruh tangan diturunkan dalam satu giliran, setelah mengambil dari tumpukan ambil, tanpa pernah menurunkan apa pun sebelumnya di ronde ini; maka turun pertama tidak punya batas minimum.
+- Bila tumpukan ambil habis, pemain yang bisa meletakkan kartu teratas tumpukan buangan ke kombinasi pihaknya wajib mengambil tumpukan itu; jika tidak, ronde berakhir.
+# Poin
+Di akhir ronde, setiap pihak mendapat nilai kartu yang diturunkan, canasta, kartu 3 merah, dan bonus habis, dikurangi kartu yang tersisa di tangan para pemainnya.
+# Akhir permainan
+Permainan berakhir setelah ronde ketika satu pihak mencapai 5000 poin. Total tertinggi menang; jika totalnya sama, kemenangan dibagi.
+# Bermain di perangkat
+Kartu di tangan bersifat rahasia: serahkan perangkat saat layar memintanya, lalu pemain berikutnya mengetuk tombol mulai. Tanganmu ada di bawah, diurutkan menurut nilai. Tangan lainnya berupa kipas kecil di atas. Kombinasi pihakmu ada di atas tanganmu, kombinasi pihak lain di bawah kipas, satu kolom untuk setiap nilai. Canasta menutup menjadi tumpukan dengan jumlah kartunya di bawah: bercahaya emas jika murni, dengan kartu bebas melintang di bawahnya jika campuran. Bidak dan kartu 3 merah setiap pihak ada di kiri barisnya. Selama satu pihak belum menurunkan apa pun, cakram gelap di kanan menunjukkan nilai yang dibutuhkan turun pertama, dan di sampingnya apa yang sudah diturunkan giliran ini. Setiap bilah menunjukkan kartu di tangan dan skor pihak.
+- Ketuk tumpukan ambil untuk mengambil kartu.
+- Ketuk kartu di tanganmu untuk memilihnya; ketuk lagi untuk mengembalikannya.
+- Lalu ketuk kombinasi pihakmu untuk menambahkannya, atau baris pihakmu untuk kombinasi baru. Sebelum mengambil kartu, ketuk tumpukan buangan untuk mengambilnya bersama kartu-kartu itu. Setelah mengambil kartu, pilih satu kartu dan ketuk tumpukan buangan untuk membuangnya. Kamu juga bisa menyeret kartu ke sana.
+- Apa yang bisa dilakukan kartu terpilih akan bercahaya: tumpukan buangan, sebuah kombinasi, tempat kosong.
+- Bila tumpukan ambil kosong dan kamu tidak boleh mengambil tumpukan buangan, ketuk tumpukan ambil yang kosong untuk mengakhiri ronde.
+- Di akhir ronde, sebuah tabel menunjukkan untuk setiap pihak kartu yang diturunkan, canasta, kartu 3 merah, bonus habis, kartu di tangan, poin ronde, dan totalnya. Ketuk untuk ronde berikutnya.
+Urungkan membatalkan tindakanmu sendiri, sampai saat perangkat diserahkan.

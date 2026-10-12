@@ -1,0 +1,42 @@
+Canasta
+# Målet
+At være det første hold, der når 5000 point. For 4 spillere i to makkerpar (makkerne sidder over for hinanden og deler deres meldinger) eller for 2 spillere. Meld kort af samme værdi, byg canastaer af syv kort, og gå ud.
+# Kortene
+- To spil med 52 kort og fire jokere: 108 kort.
+- Jokere og 2'ere er vilde kort: i en melding gælder de for enhver værdi.
+- Kortenes værdi: joker 50, es og 2 20, konge til 8 10, 7 til 4 5, sort 3 5.
+- Røde 3'ere er bonuskort. En rød 3, du får eller trækker, lægges straks ved siden af dit holds meldinger, og du trækker et andet kort i stedet. Hver er 100 værd, alle fire 800; de tæller imod et hold, der ikke har meldt noget, når spillet slutter.
+- Sorte 3'ere spærrer bunken: ingen må tage den, så længe en sort 3 ligger øverst.
+# Kortgivningen
+- 11 kort til hver (2 spillere: 15). Det næste kort begynder kastebunken; resten er talonen. Er det kort et vildt kort eller en rød 3, dækkes det af et andet kort, og bunken er frosset.
+- Kortgivningen går videre til næste spiller hvert spil.
+# En tur
+- Træk det øverste kort fra talonen (2 spillere: to kort), eller tag hele kastebunken.
+- Meld, hvis du vil.
+- Smid et kort med billedsiden op: din tur er slut.
+# Meldinger og canastaer
+- En melding: tre eller flere kort af samme værdi (esser, 4'ere til konger), mindst to naturlige og højst tre vilde. Dit hold har én melding af hver værdi: flere kort af den værdi lægges på den.
+- En canasta: en melding på syv kort eller flere. Ren (uden vildt kort) 500 point, blandet 300.
+- Første melding: dit holds første meldinger, lagt i én tur, skal være mindst 50 værd (kortenes værdi), så længe holdets stilling er under 1500, 90 fra 1500, 120 fra 3000 og 15, så længe den er under nul. Du må lægge dem, før du trækker, for at tage bunken med dem.
+# Kastebunken
+- For at tage den skal det øverste kort straks ind i en melding: med kort fra din hånd eller på en melding fra dit hold. Så kommer resten af bunken på din hånd.
+- Bunken er frosset, så længe der er et vildt kort i den (lagt på tværs), og for et hold, der endnu ikke har meldt. Så må du kun tage den med et naturligt par af det øverste korts værdi fra din hånd.
+- Aldrig når en sort 3 eller et vildt kort ligger øverst.
+# At gå ud
+- Du går ud, når du kommer af med dit sidste kort: ved at melde dem alle eller alle undtagen ét, som du smider. Først når dit hold har en canasta (2 spillere: to). Indtil da må du ikke melde, så du har færre end to kort tilbage.
+- Sorte 3'ere må kun meldes (tre eller fire, uden vilde kort), når du går ud.
+- At gå ud giver 100. At gå skjult ud giver 200: hele hånden meldt i én tur, efter at have trukket fra talonen, uden at have meldt noget før i dette spil; så kræves der intet minimum for første melding.
+- Når talonen er tom, skal en spiller, der kan lægge bunkens øverste kort på en melding fra sit hold, tage bunken; ellers slutter spillet.
+# Pointene
+Når et spil slutter, får hvert hold sine meldte kort, sine canastaer, sine røde 3'ere og udgangen, minus de kort, der er tilbage på dets spilleres hænder.
+# Spillets afslutning
+Spillet slutter efter det spil, hvor et hold når 5000 point. Den højeste stilling vinder; ved lige stilling deles sejren.
+# Spil på enheden
+Hænderne er hemmelige: giv enheden videre, når skærmen beder om det, og næste spiller trykker på startknappen. Din hånd ligger nederst, sorteret efter værdi. De andre hænder er små vifter øverst. Dit holds meldinger ligger over din hånd, det andet holds under vifterne, en kolonne for hver værdi. En canasta lukkes til en bunke med antallet af kort under sig: i gyldent lys, når den er ren, med et vildt kort på tværs under sig, når den er blandet. Hvert holds brikker og røde 3'ere ligger til venstre i dets række. Så længe et hold ikke har meldt, viser en mørk skive til højre, hvad første melding kræver, og ved siden af, hvad der er lagt i denne tur. Hver bjælke viser kortene på hånden og holdets stilling.
+- Tryk på talonen for at trække.
+- Tryk på kort på din hånd for at vælge dem; tryk på et igen for at lægge det tilbage.
+- Tryk så på en melding fra dit hold for at lægge dem til, eller på dit holds række for en ny melding. Før du trækker, tryk på kastebunken for at tage den med dem. Efter at have trukket, vælg ét kort og tryk på kastebunken for at smide det. Du kan også trække et kort derhen.
+- Det, de valgte kort kan bruges til, lyser: bunken, en melding, en ledig plads.
+- Når talonen er tom, og du ikke må tage bunken, tryk på den tomme talon for at afslutte spillet.
+- Når et spil slutter, viser en tabel for hvert hold de meldte kort, canastaerne, de røde 3'ere, udgangen, kortene på hånden, spillets point og stillingen. Tryk for næste spil.
+Fortryd tager dine egne handlinger tilbage, indtil det øjeblik enheden blev givet videre.

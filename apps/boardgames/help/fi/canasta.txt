@@ -1,0 +1,42 @@
+Canasta
+# Tavoite
+Olla ensimmäinen puoli, joka saa 5000 pistettä. Neljälle pelaajalle kahtena parina (parit istuvat vastakkain ja jakavat sarjansa) tai kahdelle pelaajalle. Pane pöytään samanarvoisia kortteja, kokoa seitsemän kortin canastoja ja pääse pois.
+# Kortit
+- Kaksi 52 kortin pakkaa ja neljä jokeria: 108 korttia.
+- Jokerit ja kakkoset ovat villejä kortteja: sarjassa ne käyvät minkä tahansa arvon paikalle.
+- Korttien arvot: jokeri 50, ässä ja 2 20, kuningas–8 10, 7–4 5, musta 3 5.
+- Punaiset kolmoset ovat bonuskortteja. Saamasi tai nostamasi punainen 3 pannaan heti puolesi sarjojen viereen, ja nostat sen tilalle toisen kortin. Kukin on 100 arvoinen, kaikki neljä 800; ne lasketaan miinukseksi puolelle, joka ei ole pannut mitään pöytään jaon loppuun mennessä.
+- Mustat kolmoset tukkivat poistopakan: kukaan ei saa ottaa sitä, kun päällimmäisenä on musta 3.
+# Jako
+- 11 korttia kullekin (2 pelaajaa: 15). Seuraava kortti aloittaa poistopakan; loput ovat nostopakka. Jos se kortti on villi tai punainen 3, toinen kortti peittää sen ja poistopakka on jäässä.
+- Jakovuoro siirtyy seuraavalle joka jaossa.
+# Vuoro
+- Nosta nostopakan päällimmäinen kortti (2 pelaajaa: kaksi korttia) tai ota koko poistopakka.
+- Pane sarjoja pöytään, jos haluat.
+- Poista yksi kortti kuvapuoli ylöspäin: vuorosi päättyy.
+# Sarjat ja canastat
+- Sarja: kolme tai useampia samanarvoisia kortteja (ässät, nelosista kuninkaisiin), vähintään kaksi luonnollista ja enintään kolme villiä. Puolellasi on yksi sarja kutakin arvoa: lisää sen arvon kortteja menee siihen.
+- Canasta: seitsemän kortin tai pidempi sarja. Puhdas (ilman villiä korttia) 500 pistettä, sekoitettu 300.
+- Ensimmäinen avaus: puolesi ensimmäisten sarjojen, yhdellä vuorolla pantujen, pitää olla arvoltaan vähintään 50 (korttien arvot), kun puolen pisteet ovat alle 1500, 90 1500:sta alkaen, 120 3000:sta alkaen ja 15, kun ne ovat alle nollan. Voit panna ne ennen nostoa, jotta voit ottaa poistopakan niiden kanssa.
+# Poistopakka
+- Ottaaksesi sen sen päällimmäisen kortin pitää mennä heti sarjaan: kädestäsi otettujen korttien kanssa tai puolesi sarjaan. Sitten loput poistopakasta menevät käteesi.
+- Poistopakka on jäässä niin kauan kuin siinä on villi kortti (poikittain), ja puolelle, joka ei ole vielä avannut. Silloin sen saa ottaa vain kädestä otetulla luonnollisella parilla, joka on päällimmäisen kortin arvoinen.
+- Ei koskaan, kun päällimmäisenä on musta 3 tai villi kortti.
+# Pois pääseminen
+- Pääset pois, kun pääset eroon viimeisestä kortistasi: panemalla kaikki pöytään tai kaikki paitsi yhden, jonka poistat. Vasta kun puolellasi on canasta (2 pelaajaa: kaksi). Siihen asti et saa panna kortteja pöytään niin, että kädessä jää alle kaksi korttia.
+- Mustia kolmosia saa panna pöytään (kolme tai neljä, ei villejä) vain pois päästessä.
+- Pois pääseminen tuo 100. Piilossa pois pääseminen tuo 200: koko käsi pöytään yhdellä vuorolla, nostopakasta noston jälkeen, kun ei ole pannut mitään aiemmin tässä jaossa; silloin avaukselta ei vaadita minimiä.
+- Kun nostopakka on lopussa, pelaajan, joka voi panna poistopakan päällimmäisen kortin puolensa sarjaan, on otettava poistopakka; muuten jako päättyy.
+# Pisteet
+Jaon lopussa kukin puoli saa pöytään pannut korttinsa, canastansa, punaiset kolmosensa ja pois pääsemisen, miinus pelaajiensa käsiin jääneet kortit.
+# Pelin loppu
+Peli päättyy sen jaon jälkeen, jossa jokin puoli saavuttaa 5000 pistettä. Suurin summa voittaa; tasapelissä voitto jaetaan.
+# Pelaaminen laitteella
+Kädet ovat salaisia: anna laite eteenpäin, kun näyttö pyytää, ja seuraava pelaaja napauttaa aloituspainiketta. Kätesi on alhaalla arvon mukaan järjestettynä. Muut kädet ovat pieniä viuhkoja ylhäällä. Puolesi sarjat ovat kätesi yläpuolella, toisen puolen viuhkojen alla, sarake kullekin arvolle. Canasta sulkeutuu pinoksi, jonka alla on korttien määrä: kultaisessa valossa, kun se on puhdas, ja villi kortti poikittain alla, kun se on sekoitettu. Kunkin puolen pelimerkit ja punaiset kolmoset ovat sen rivin vasemmassa päässä. Niin kauan kuin puoli ei ole avannut, oikealla oleva tumma kiekko näyttää avauksen vaatiman määrän ja vieressä, mitä tällä vuorolla on pantu. Jokainen palkki näyttää kädessä olevat kortit ja puolen pisteet.
+- Napauta nostopakkaa nostaaksesi.
+- Napauta kätesi kortteja valitaksesi ne; napauta korttia uudelleen palauttaaksesi sen.
+- Napauta sitten puolesi sarjaa lisätäksesi ne siihen tai puolesi riviä uutta sarjaa varten. Ennen nostoa napauta poistopakkaa ottaaksesi sen niiden kanssa. Noston jälkeen valitse yksi kortti ja napauta poistopakkaa poistaaksesi sen. Voit myös vetää kortin sinne.
+- Se, mitä valitut kortit voivat tehdä, hehkuu: poistopakka, sarja, vapaa paikka.
+- Kun nostopakka on tyhjä etkä saa ottaa poistopakkaa, napauta tyhjää nostopakkaa lopettaaksesi jaon.
+- Jaon lopussa taulukko näyttää kummallekin puolelle pöytään pannut kortit, canastat, punaiset kolmoset, pois pääsemisen, käteen jääneet kortit, jaon pisteet ja summat. Napauta seuraavaa jakoa varten.
+Kumoa peruu omat toimintosi siihen hetkeen asti, kun laite annettiin eteenpäin.

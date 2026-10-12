@@ -1,0 +1,42 @@
+Canasta
+# Das Ziel
+Als erste Partei 5000 Punkte erreichen. Für 4 Spieler in zwei Parteien (die Partner sitzen sich gegenüber und teilen ihre Meldungen) oder für 2 Spieler. Lege Karten gleichen Rangs aus, bilde Canastas aus sieben Karten und gehe aus.
+# Die Karten
+- Zwei Pakete zu 52 Karten und vier Joker: 108 Karten.
+- Joker und Zweier sind Jokerkarten: in einer Meldung stehen sie für jeden Rang.
+- Kartenwerte: Joker 50, Ass und 2 je 20, König bis 8 je 10, 7 bis 4 je 5, schwarze 3 5.
+- Rote Dreier sind Prämienkarten. Eine rote 3, die du bekommst oder ziehst, wird sofort neben die Meldungen deiner Partei gelegt, und du ziehst eine andere Karte dafür. Jede zählt 100, alle vier 800; sie zählen gegen eine Partei, die am Ende des Spiels nichts gemeldet hat.
+- Schwarze Dreier sperren den Ablagestapel: niemand darf ihn nehmen, solange eine schwarze 3 obenauf liegt.
+# Das Geben
+- Jeder bekommt 11 Karten (2 Spieler: 15). Die nächste Karte beginnt den Ablagestapel, der Rest ist der Talon. Ist diese Karte ein Joker, eine 2 oder eine rote 3, deckt eine weitere Karte sie zu, und der Stapel ist eingefroren.
+- Das Geben wandert jedes Spiel einen Platz weiter.
+# Ein Zug
+- Ziehe die oberste Karte des Talons (2 Spieler: zwei Karten) oder nimm den ganzen Ablagestapel.
+- Melde, wenn du willst.
+- Lege eine Karte offen ab: dein Zug ist zu Ende.
+# Meldungen und Canastas
+- Eine Meldung: drei oder mehr Karten gleichen Rangs (Asse, Vierer bis Könige), davon mindestens zwei natürliche und höchstens drei Jokerkarten. Deine Partei hat eine Meldung je Rang: weitere Karten dieses Rangs kommen dazu.
+- Eine Canasta: eine Meldung aus sieben oder mehr Karten. Rein (ohne Jokerkarte) 500 Punkte, gemischt 300.
+- Die Erstmeldung: die ersten Meldungen deiner Partei, in einem Zug gelegt, müssen mindestens 50 wert sein (die Kartenwerte), solange ihr Stand unter 1500 liegt, ab 1500 90, ab 3000 120, und 15, solange er unter null liegt. Du darfst sie vor dem Ziehen legen, um damit den Stapel zu nehmen.
+# Der Ablagestapel
+- Um ihn zu nehmen, muss seine oberste Karte sofort in eine Meldung: mit Karten aus deiner Hand oder auf eine Meldung deiner Partei. Dann kommt der Rest des Stapels in deine Hand.
+- Der Stapel ist eingefroren, solange eine Jokerkarte darin liegt (quer gelegt), und für eine Partei, die noch nichts gemeldet hat. Dann darfst du ihn nur mit einem natürlichen Paar vom Rang der obersten Karte aus deiner Hand nehmen.
+- Nie, wenn eine schwarze 3 oder eine Jokerkarte obenauf liegt.
+# Ausgehen
+- Du gehst aus, wenn du deine letzte Karte los wirst: indem du alle meldest oder alle bis auf eine und diese ablegst. Erst wenn deine Partei eine Canasta hat (2 Spieler: zwei). Bis dahin darfst du deine Hand nicht unter zwei Karten herunter melden.
+- Schwarze Dreier dürfen nur beim Ausgehen gemeldet werden (drei oder vier, ohne Jokerkarte).
+- Ausgehen bringt 100. Verdeckt ausgehen bringt 200: die ganze Hand in einem Zug gemeldet, nach dem Ziehen vom Talon, ohne vorher in diesem Spiel etwas gemeldet zu haben; dann gilt keine Mindestzahl für die Erstmeldung.
+- Ist der Talon leer, muss ein Spieler, der die oberste Karte des Stapels an eine Meldung seiner Partei legen kann, den Stapel nehmen; sonst endet das Spiel.
+# Die Punkte
+Am Ende eines Spiels zählt jede Partei ihre gemeldeten Karten, ihre Canastas, ihre roten Dreier und das Ausgehen, abzüglich der Karten, die ihre Spieler noch in der Hand halten.
+# Das Ende der Partie
+Die Partie endet nach dem Spiel, in dem eine Partei 5000 Punkte erreicht. Der höchste Stand gewinnt; bei Gleichstand wird der Sieg geteilt.
+# Spielen auf dem Gerät
+Die Hände sind geheim: gib das Gerät weiter, wenn der Bildschirm es verlangt, und der nächste Spieler tippt auf den Startknopf. Deine Hand liegt unten, nach Rang sortiert. Die anderen Hände sind kleine Fächer oben. Die Meldungen deiner Partei liegen über deiner Hand, die der anderen Partei unter den Fächern, eine Spalte je Rang. Eine Canasta schließt sich zu einem Stapel mit ihrer Kartenzahl darunter: in goldenem Licht, wenn sie rein ist, mit einer quer liegenden Jokerkarte darunter, wenn sie gemischt ist. Die Spielsteine und roten Dreier jeder Partei liegen links in ihrer Reihe. Solange eine Partei nichts gemeldet hat, zeigt eine dunkle Scheibe rechts die Mindestzahl ihrer Erstmeldung und daneben, was in diesem Zug liegt. Jede Leiste zeigt die Karten in der Hand und den Stand der Partei.
+- Tippe auf den Talon, um zu ziehen.
+- Tippe Karten deiner Hand an, um sie zu wählen; tippe eine noch einmal an, um sie zurückzunehmen.
+- Tippe dann eine Meldung deiner Partei an, um sie dazuzulegen, oder die Reihe deiner Partei für eine neue Meldung. Vor dem Ziehen tippe auf den Ablagestapel, um ihn mit ihnen zu nehmen. Nach dem Ziehen wähle eine Karte und tippe auf den Ablagestapel, um sie abzulegen. Du kannst eine Karte auch dorthin ziehen.
+- Was die gewählten Karten tun können, leuchtet: der Stapel, eine Meldung, ein freier Platz.
+- Ist der Talon leer und darfst du den Stapel nicht nehmen, tippe auf den leeren Talon, um das Spiel zu beenden.
+- Am Ende eines Spiels zeigt eine Tabelle für jede Partei die gemeldeten Karten, die Canastas, die roten Dreier, das Ausgehen, die Karten in der Hand, die Punkte des Spiels und die Summen. Tippe für das nächste Spiel.
+Rückgängig nimmt deine eigenen Aktionen zurück, bis zu dem Moment, als das Gerät weitergegeben wurde.

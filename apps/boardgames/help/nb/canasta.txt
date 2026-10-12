@@ -1,0 +1,42 @@
+Canasta
+# Målet
+Å være det første laget som når 5000 poeng. For 4 spillere i to makkerpar (makkerne sitter overfor hverandre og deler meldingene sine) eller for 2 spillere. Meld kort av samme valør, bygg canastaer på sju kort, og gå ut.
+# Kortene
+- To kortstokker med 52 kort og fire jokere: 108 kort.
+- Jokere og toere er ville kort: i en melding gjelder de for hvilken som helst valør.
+- Kortenes verdi: joker 50, ess og 2 20, konge til 8 10, 7 til 4 5, svart 3 5.
+- Røde treere er bonuskort. En rød 3 du får eller trekker, legges straks ved siden av lagets meldinger, og du trekker et annet kort i stedet. Hver er verdt 100, alle fire 800; de teller mot et lag som ikke har meldt noe når spillet slutter.
+- Svarte treere sperrer kastebunken: ingen kan ta den så lenge en svart 3 ligger øverst.
+# Utdelingen
+- 11 kort hver (2 spillere: 15). Det neste kortet begynner kastebunken; resten er talongen. Er det kortet et vilt kort eller en rød 3, dekkes det av et annet kort, og bunken er frosset.
+- Utdelingen går videre til neste spiller for hvert spill.
+# En tur
+- Trekk det øverste kortet fra talongen (2 spillere: to kort), eller ta hele kastebunken.
+- Meld hvis du vil.
+- Kast ett kort med forsiden opp: turen din er slutt.
+# Meldinger og canastaer
+- En melding: tre eller flere kort av samme valør (ess, firere til konger), minst to naturlige og høyst tre ville. Laget ditt har én melding av hver valør: flere kort av den valøren legges på den.
+- En canasta: en melding på sju kort eller flere. Ren (uten vilt kort) 500 poeng, blandet 300.
+- Førstemeldingen: lagets første meldinger, lagt i én tur, må være verdt minst 50 (kortenes verdi) så lenge lagets poengsum er under 1500, 90 fra 1500, 120 fra 3000, og 15 så lenge den er under null. Du kan legge dem før du trekker, for å ta bunken med dem.
+# Kastebunken
+- For å ta den må det øverste kortet straks inn i en melding: med kort fra hånden eller på en av lagets meldinger. Så går resten av bunken på hånden din.
+- Bunken er frosset så lenge det ligger et vilt kort i den (lagt på tvers), og for et lag som ikke har meldt ennå. Da kan du bare ta den med et naturlig par av det øverste kortets valør fra hånden.
+- Aldri når en svart 3 eller et vilt kort ligger øverst.
+# Å gå ut
+- Du går ut når du blir kvitt det siste kortet: ved å melde alle, eller alle unntatt ett som du kaster. Først når laget ditt har en canasta (2 spillere: to). Inntil da kan du ikke melde deg ned til færre enn to kort.
+- Svarte treere kan bare meldes (tre eller fire, uten ville kort) når du går ut.
+- Å gå ut gir 100. Å gå skjult ut gir 200: hele hånden meldt i én tur, etter å ha trukket fra talongen, uten å ha meldt noe før i dette spillet; da kreves ikke noe minimum for førstemeldingen.
+- Når talongen er tom, må en spiller som kan legge bunkens øverste kort på en av lagets meldinger, ta bunken; ellers slutter spillet.
+# Poengene
+Når et spill slutter, får hvert lag de meldte kortene, canastaene, de røde treerne og utgangen, minus kortene som er igjen på spillernes hender.
+# Slutten på spillet
+Partiet slutter etter spillet der et lag når 5000 poeng. Høyeste sum vinner; ved lik sum deles seieren.
+# Spill på enheten
+Hendene er hemmelige: gi enheten videre når skjermen ber om det, og neste spiller trykker på startknappen. Hånden din ligger nederst, sortert etter valør. De andre hendene er små vifter øverst. Lagets meldinger ligger over hånden din, det andre lagets under viftene, en kolonne for hver valør. En canasta lukkes til en bunke med antall kort under: i gyllent lys når den er ren, med et vilt kort på tvers under når den er blandet. Hvert lags brikker og røde treere ligger til venstre i raden. Så lenge et lag ikke har meldt, viser en mørk skive til høyre hva førstemeldingen krever, og ved siden av hva som er lagt denne turen. Hver linje viser kortene på hånden og lagets poengsum.
+- Trykk på talongen for å trekke.
+- Trykk på kort på hånden for å velge dem; trykk på et igjen for å legge det tilbake.
+- Trykk så på en av lagets meldinger for å legge dem til, eller på lagets rad for en ny melding. Før du trekker, trykk på kastebunken for å ta den med dem. Etter at du har trukket, velg ett kort og trykk på kastebunken for å kaste det. Du kan også dra et kort dit.
+- Det de valgte kortene kan brukes til, lyser: bunken, en melding, en ledig plass.
+- Når talongen er tom og du ikke kan ta bunken, trykk på den tomme talongen for å avslutte spillet.
+- Når et spill slutter, viser en tabell for hvert lag de meldte kortene, canastaene, de røde treerne, utgangen, kortene på hånden, spillets poeng og summene. Trykk for neste spill.
+Angre tar tilbake dine egne handlinger, helt til enheten ble gitt videre.

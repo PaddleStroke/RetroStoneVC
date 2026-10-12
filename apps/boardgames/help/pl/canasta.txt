@@ -1,0 +1,42 @@
+Kanasta
+# Cel gry
+Jako pierwsza drużyna zdobyć 5000 punktów. Dla 4 graczy w dwóch parach (partnerzy siedzą naprzeciw siebie i mają wspólne układy) albo dla 2 graczy. Wykładaj karty tej samej wysokości, buduj kanasty z siedmiu kart i zejdź.
+# Karty
+- Dwie talie po 52 karty i cztery jokery: 108 kart.
+- Jokery i dwójki są dzikie: w układzie zastępują dowolną wysokość.
+- Wartość kart: joker 50, as i 2 po 20, od króla do 8 po 10, od 7 do 4 po 5, czarna 3 5.
+- Czerwone trójki to karty premiowe. Czerwoną 3, którą dostajesz albo dobierasz, od razu kładziesz obok układów swojej drużyny i dobierasz w jej miejsce inną kartę. Każda jest warta 100, wszystkie cztery 800; liczą się na minus drużynie, która do końca rozdania nic nie wyłożyła.
+- Czarne trójki blokują stos odrzuconych: nikt nie może go wziąć, gdy na wierzchu leży czarna 3.
+# Rozdanie
+- Każdy dostaje 11 kart (2 graczy: 15). Następna karta zaczyna stos odrzuconych; reszta to talia do dobierania. Jeśli ta karta jest dzika albo jest czerwoną 3, przykrywa ją kolejna karta, a stos jest zamrożony.
+- Rozdający zmienia się w każdym rozdaniu.
+# Tura
+- Dobierz wierzchnią kartę z talii (2 graczy: dwie karty) albo weź cały stos odrzuconych.
+- Wyłóż układy, jeśli chcesz.
+- Odrzuć jedną kartę odkrytą: twoja tura się kończy.
+# Układy i kanasty
+- Układ: trzy lub więcej kart tej samej wysokości (asy, od czwórek do królów), co najmniej dwie naturalne i najwyżej trzy dzikie. Twoja drużyna ma jeden układ każdej wysokości: kolejne karty tej wysokości trafiają do niego.
+- Kanasta: układ z siedmiu lub więcej kart. Czysta (bez dzikiej karty) 500 punktów, mieszana 300.
+- Pierwsze wyłożenie: pierwsze układy twojej drużyny, wyłożone w jednej turze, muszą być warte co najmniej 50 (wartości kart), dopóki jej wynik jest poniżej 1500, 90 od 1500, 120 od 3000, a 15, dopóki jest poniżej zera. Możesz je wyłożyć przed dobraniem, żeby wziąć z nimi stos.
+# Stos odrzuconych
+- Żeby go wziąć, jego wierzchnia karta musi od razu trafić do układu: z kartami z twojej ręki albo do układu twojej drużyny. Potem reszta stosu trafia do twojej ręki.
+- Stos jest zamrożony, dopóki leży w nim dzika karta (położona w poprzek), oraz dla drużyny, która jeszcze nic nie wyłożyła. Wtedy można go wziąć tylko z naturalną parą wysokości wierzchniej karty z ręki.
+- Nigdy, gdy na wierzchu leży czarna 3 albo dzika karta.
+# Zejście
+- Schodzisz, gdy pozbędziesz się ostatniej karty: wykładając wszystkie albo wszystkie oprócz jednej, którą odrzucasz. Dopiero gdy twoja drużyna ma kanastę (2 graczy: dwie). Do tego czasu nie możesz wykładać tak, by zostały ci mniej niż dwie karty.
+- Czarne trójki wolno wyłożyć (trzy lub cztery, bez dzikich kart) tylko przy zejściu.
+- Zejście daje 100. Zejście z ręki daje 200: cała ręka wyłożona w jednej turze, po dobraniu z talii, bez wcześniejszego wykładania w tym rozdaniu; wtedy pierwsze wyłożenie nie ma minimum.
+- Gdy talia się skończy, gracz, który może dołożyć wierzchnią kartę stosu do układu swojej drużyny, musi wziąć stos; w przeciwnym razie rozdanie się kończy.
+# Punkty
+Na koniec rozdania każda drużyna liczy wyłożone karty, kanasty, czerwone trójki i zejście, minus karty, które zostały w rękach jej graczy.
+# Koniec gry
+Gra kończy się po rozdaniu, w którym jakaś drużyna osiągnie 5000 punktów. Wygrywa najwyższy wynik; przy remisie zwycięstwo jest wspólne.
+# Gra na urządzeniu
+Ręce są tajne: przekaż urządzenie, gdy ekran o to poprosi, a następny gracz dotyka przycisku startu. Twoja ręka jest na dole, posortowana według wysokości. Pozostałe ręce to małe wachlarze u góry. Układy twojej drużyny są nad twoją ręką, układy drugiej drużyny pod wachlarzami, kolumna na każdą wysokość. Kanasta zamyka się w stosik z liczbą kart pod spodem: w złotym blasku, gdy jest czysta, z dziką kartą w poprzek pod spodem, gdy jest mieszana. Żetony i czerwone trójki każdej drużyny są z lewej strony jej rzędu. Dopóki drużyna nic nie wyłożyła, ciemny krążek z prawej pokazuje, ile wymaga pierwsze wyłożenie, a obok to, co wyłożono w tej turze. Każdy pasek pokazuje karty w ręce i wynik drużyny.
+- Dotknij talii, żeby dobrać.
+- Dotykaj kart w ręce, żeby je wybrać; dotknij karty jeszcze raz, żeby ją odłożyć.
+- Potem dotknij układu swojej drużyny, żeby je dołożyć, albo rzędu swojej drużyny, żeby zrobić nowy układ. Przed dobraniem dotknij stosu odrzuconych, żeby wziąć go z nimi. Po dobraniu wybierz jedną kartę i dotknij stosu, żeby ją odrzucić. Możesz też przeciągnąć tam kartę.
+- To, co mogą zrobić wybrane karty, świeci: stos, układ, wolne miejsce.
+- Gdy talia jest pusta i nie możesz wziąć stosu, dotknij pustej talii, żeby zakończyć rozdanie.
+- Na koniec rozdania tabela pokazuje dla każdej drużyny wyłożone karty, kanasty, czerwone trójki, zejście, karty w ręce, punkty rozdania i sumy. Dotknij, żeby przejść do następnego rozdania.
+Cofnij wycofuje twoje własne ruchy, aż do chwili przekazania urządzenia.
