@@ -8,8 +8,9 @@
  * random (the variants). Stars: the moves against par (the fewest actions), a hint caps them (pzkit.h).
  * Tap a pivoting mirror to turn it. Tap an empty cell to stand a loose mirror there ('/'), again to turn it ('\'),
  * again to take it back to the tray; or drag one from the tray to a cell, from a cell to another, or off the board.
- * A lit gem glows; a bomb touched by the beam glows red. The bar: the moves, and the shell's hint button (one mirror
- * set right, in gold light). Undo takes back one action, all the way to the start.
+ * A lit gem glows; a bomb touched by the beam glows red. The board takes the room the shell gives (game.fill); the
+ * shell's tool: the hint (one mirror set right, in gold light). The bar: the moves. Undo takes back one action, all
+ * the way to the start.
  * Solved: a gold light runs along the beam from the lamp, and the gems flash.
  */
 #include <math.h>
@@ -39,8 +40,7 @@ static struct { float deg0; Uint32 t0; } turn[MR_CELLS];
 static struct { int cell; Uint32 t0; } hint = {-1, 0};
 static struct { int on; Uint32 t0; } win;
 
-static box last_box, barbox;
-static float btn_d;                             /* the bar's buttons' size */
+static box last_box;
 static float bx, by, side, gx, gy, tray_y, tray_h;
 static int fr, cs, made_key = -1, made_small = -1;
 static SDL_Texture *t_board, *t_plate, *t_glass, *t_base, *t_rivet, *t_lamp, *t_gem[2], *t_bomb, *t_small;
@@ -536,8 +536,16 @@ static void draw(void)
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
+static void use_tool(int t);
+
 static void press(float x, float y)
 {
+    int tool = ui_tool_hit(x, y);
+    if (tool >= 0) {
+        memset(&ptr, 0, sizeof ptr);
+        use_tool(tool);
+        return;
+    }
     memset(&ptr, 0, sizeof ptr);
     if (mr_solved(&G)) return;
     int c = cell_at(x, y);
@@ -596,33 +604,28 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    barbox = b;
-    pzk_count it[1] = {{t_small, G.moves}};
-    btn_d = pzk_bar(b, it, 1, 1);
-    float x, y;
-    pzk_bar_btn(b, 0, btn_d, &x, &y);
-    ui_button(x, y, btn_d, ICON_HINT, mr_solved(&G) ? UI_DIM : 0);
+    ui_count c[1] = {{t_small, G.moves}};
+    ui_bar_fit(b, c, 1, 0);
 }
 
-static int bar_press(int player, float x, float y)
+static void use_hint(void)
 {
-    (void)player;
-    float bx0, by0;
-    if (!barbox.w) return 0;
-    pzk_bar_btn(barbox, 0, btn_d, &bx0, &by0);
-    if (!ui_button_hit(bx0, by0, btn_d, x, y)) return 0;
-    if (mr_solved(&G)) { ui_sound(SND_DENY); return 1; }
+    if (mr_solved(&G)) { ui_sound(SND_DENY); return; }
     uint8_t way[MR_CELLS], kind[MR_CELLS];
     memcpy(way, G.way, sizeof way);
     memcpy(kind, G.kind, sizeof kind);
     int c = mr_hint(&G);
-    if (c < 0) { ui_sound(SND_DENY); return 1; }
+    if (c < 0) { ui_sound(SND_DENY); return; }
     if (kind[c] == G.kind[c] && way[c] != G.way[c]) turned(c, way[c]);
     hint.cell = c;
     hint.t0 = ui_ms();
     ui_sound(SND_PLACE);
     after();
-    return 1;
+}
+
+static void use_tool(int t)
+{
+    if (t == 0) use_hint();
 }
 
 /* ---- the menu's and the picker's cards: a puzzle of the level solved, its beam lit; as many ebony stones as its level
@@ -706,11 +709,18 @@ static void chapter_icon(int chapter, int size, uint8_t *rgba)
     pzk_grid_icon(rgba, size, SIZE[chapter < 0 ? 0 : chapter >= MR_CHAPTERS ? MR_CHAPTERS - 1 : chapter]);
 }
 
+/* the board, then the shell's tools: the hint */
+static void draw_all(void)
+{
+    draw();
+    ui_tool(0, ICON_HINT, mr_solved(&G) ? UI_DIM : 0);
+}
+
 static const game mirrors_game = {
     .id = "mirrors", .order = 402, .variants = MR_VARIANTS,
-    .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
+    .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw_all,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn_of, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .fill = 1, .tools = 1,
     .levels = MR_LEVELS, .chapters = MR_CHAPTERS, .chapter_icon = chapter_icon, .start_random = start_random,
     .level_stars = level_stars, .score = score, .par = par,
 };

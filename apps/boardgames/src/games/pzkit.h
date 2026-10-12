@@ -2,8 +2,7 @@
  * What the route puzzles share (Pipes, Paths, Mirrors, Tracks, Untangle): the tiles of a board cut in the house plank
  * (each square bevelled, a groove between them), an inlaid cell, strokes and discs painted into a picture with smooth
  * edges (rails, a brass plate, a beam's glow), lines and dots drawn on the screen at any angle with soft edges (a beam
- * of light, a cord between two pins), the bar's counts with room for the shell's round buttons (ui_button), and the
- * stars' rule of the family.
+ * of light, a cord between two pins), the chapters' tab pictures, and the stars' rule of the family.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Written once, here, as static inline functions: the build takes a game's own files only (GAMES="tracks" builds
@@ -176,50 +175,6 @@ static inline void pzk_grid_icon(uint8_t *rgba, int size, int n)
     }
     art_blend(rgba, size, size, b, S, S, o, o);
     free(b);
-}
-
-/* ---- the bar: counts from its left (each a small picture, or none, and its number in cream: the moves first), and
- * room for n of the shell's round buttons (ui_button) at its right end; their size. A narrow bar (landscape) first
- * drops the first count's picture, then makes everything smaller. ----------------------------------------------- */
-typedef struct { SDL_Texture *icon; int value; } pzk_count;
-
-static inline float pzk_bar(box b, const pzk_count *it, int ni, int n)
-{
-    float u = ui.unit, k = 1, d = 0;
-    int drop = 0;
-    static const float scales[5] = {1, 1, 0.9f, 0.8f, 0.7f};
-    for (int pass = 0; pass < 5; pass++) {
-        drop = pass >= 1;
-        k = scales[pass];
-        float w = 0;
-        for (int i = 0; i < ni; i++) {
-            if (it[i].icon && !(drop && i == 0)) w += (0.6f + 0.12f) * u * k;
-            w += ui_number_w(it[i].value < 0 ? 0 : it[i].value, 0.46f * u * k) + (i ? 0.35f * u * k : 0);
-        }
-        d = (b.w - w - 0.25f * u - (n - 1) * 0.3f * u) / (n ? n : 1);
-        if (d >= 0.8f * u) break;
-    }
-    d = floorf(clampf(d, 0.5f * u, 0.84f * u));
-    float x = b.x, cy = b.y + b.h / 2, dh = 0.46f * u * k, sz = 0.6f * u * k;
-    for (int i = 0; i < ni; i++) {
-        if (i) x += 0.35f * u * k;
-        if (it[i].icon && !(drop && i == 0)) {
-            ui_put(it[i].icon, x, cy - sz / 2, sz, sz);
-            x += sz + 0.12f * u * k;
-        }
-        int v = it[i].value < 0 ? 0 : it[i].value;
-        float w = ui_number_w(v, dh);
-        ui_number(x + w / 2, cy, dh, v, 1);
-        x += w;
-    }
-    return d;
-}
-
-/* the bar's button i (from its right end): its centre, for buttons d across (pzk_bar's) */
-static inline void pzk_bar_btn(box b, int i, float d, float *cx, float *cy)
-{
-    *cx = b.x + b.w - d / 2 - 0.05f * ui.unit - i * (d + 0.3f * ui.unit);
-    *cy = b.y + b.h / 2;
 }
 
 /* ---- lines and dots on the screen, soft edged, at any angle ------------------------------------------------------

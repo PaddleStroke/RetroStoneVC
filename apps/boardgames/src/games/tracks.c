@@ -8,9 +8,10 @@
  * random (the variants). Stars: no hint and no mistake 3, up to two of them 2, else 1 (tracks.h, pzkit.h).
  * Drag from cell to cell to lay the track along the finger (it joins the pieces already there). Tap a cell for a
  * piece (the one that best meets its neighbours first), again for the next, and after the sixth the cell is empty
- * again. Hold a cell a moment to cross it (no track here); the bar's cross button makes taps and drags cross instead.
- * A count is faded when its line has that many pieces, red past it. The bar: the moves, the cross button, the
- * shell's hint button (one cell set right, in gold light). Undo takes back one action, all the way to the start.
+ * again. Hold a cell a moment to cross it (no track here); the cross tool makes taps and drags cross instead.
+ * A count is faded when its line has that many pieces, red past it. The board takes the room the shell gives
+ * (game.fill); the shell's tools: the hint (one cell set right, in gold light) and the cross mode. The bar: the
+ * moves. Undo takes back one action, all the way to the start.
  * Solved: a little train runs the line from the entry to the exit, the cells lighting gold behind it.
  */
 #include <math.h>
@@ -42,8 +43,7 @@ static struct { int cell; Uint32 t0; } hint = {-1, 0};
 static struct { int on; Uint32 t0; } win;
 static int route[TK_CELLS + 2], route_in[TK_CELLS + 2], nroute;   /* the line in order, each cell's way in */
 
-static box last_box, barbox;
-static float btn_d;                             /* the bar's buttons' size */
+static box last_box;
 static float bx, by, side, gx, gy;
 static int fr, cs, made_key = -1, made_small = -1;
 static SDL_Texture *t_board, *t_piece[2][6], *t_cross, *t_loco, *t_wagon[2], *t_small;
@@ -492,8 +492,16 @@ static void preview(void)
     if (ptr.len >= 2) tk_lay(&P, ptr.path, ptr.len);
 }
 
+static void use_tool(int t);
+
 static void press(float x, float y)
 {
+    int tool = ui_tool_hit(x, y);
+    if (tool >= 0) {
+        memset(&ptr, 0, sizeof ptr);
+        use_tool(tool);
+        return;
+    }
     memset(&ptr, 0, sizeof ptr);
     if (tk_solved(&G)) return;
     int c = cell_at(x, y);
@@ -559,38 +567,27 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    barbox = b;
-    pzk_count it[1] = {{t_small, G.moves}};
-    float d = btn_d = pzk_bar(b, it, 1, 2), x, y;
-    int solved = tk_solved(&G);
-    pzk_bar_btn(b, 0, d, &x, &y);
-    ui_button(x, y, d, ICON_HINT, solved ? UI_DIM : 0);
-    pzk_bar_btn(b, 1, d, &x, &y);
-    ui_button_paint(x, y, d, paint_mode, crossing ? 1 : 2, 1, solved ? UI_DIM : crossing ? UI_ON : 0);
+    ui_count c[1] = {{t_small, G.moves}};
+    ui_bar_fit(b, c, 1, 0);
 }
 
-static int bar_press(int player, float x, float y)
+static void use_hint(void)
 {
-    (void)player;
-    if (!barbox.w) return 0;
-    float bx0, by0, d = btn_d;
-    pzk_bar_btn(barbox, 1, d, &bx0, &by0);
-    if (ui_button_hit(bx0, by0, d, x, y)) {
-        if (tk_solved(&G)) { ui_sound(SND_DENY); return 1; }
-        crossing = !crossing;
-        ui_sound(SND_TAP);
-        ui_animate();
-        return 1;
-    }
-    pzk_bar_btn(barbox, 0, d, &bx0, &by0);
-    if (!ui_button_hit(bx0, by0, d, x, y)) return 0;
     int c = tk_hint(&G);
-    if (c < 0) { ui_sound(SND_DENY); return 1; }
+    if (c < 0) { ui_sound(SND_DENY); return; }
     hint.cell = c;
     hint.t0 = ui_ms();
     ui_sound(SND_PLACE);
     after();
-    return 1;
+}
+
+static void use_tool(int t)              /* 0 the hint, 1 the cross mode */
+{
+    if (t == 0) { use_hint(); return; }
+    if (tk_solved(&G)) { ui_sound(SND_DENY); return; }
+    crossing = !crossing;
+    ui_sound(SND_TAP);
+    ui_animate();
 }
 
 /* ---- the menu's and the picker's cards: a board of the size, its counts, part of its line laid ------------------- */
@@ -634,11 +631,19 @@ static void chapter_icon(int chapter, int size, uint8_t *rgba)
     pzk_grid_icon(rgba, size, SIZE[chapter < 0 ? 0 : chapter >= TK_CHAPTERS ? TK_CHAPTERS - 1 : chapter]);
 }
 
+/* the board, then the shell's tools: the hint, the cross mode */
+static void draw_all(void)
+{
+    draw();
+    ui_tool(0, ICON_HINT, tk_solved(&G) ? UI_DIM : 0);
+    ui_tool_paint(1, paint_mode, crossing ? 1 : 2, 1, tk_solved(&G) ? UI_DIM : crossing ? UI_ON : 0);
+}
+
 static const game tracks_game = {
     .id = "tracks", .order = 403, .variants = TK_VARIANTS,
-    .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
+    .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw_all,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .fill = 1, .tools = 2,
     .levels = TK_LEVELS, .chapters = TK_CHAPTERS, .chapter_icon = chapter_icon, .start_random = start_random,
     .level_stars = level_stars, .score = score,
 };

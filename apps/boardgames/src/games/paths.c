@@ -12,9 +12,9 @@
  * follows the finger square by square; over another path it cuts it (the cut part comes back if the finger backs
  * off); back along itself it shortens; onto its other dot the pair is linked (both dots ring). With taps alone: tap a
  * dot or a path's square (its end is marked), then a square in the same row or column: the path runs straight there.
- * The squares a path covers are washed in its colour. The lamp (the shell's hint button) at the right end of the
- * bar: a hint (one pair's path
- * laid as in the solution, in gold light). Undo takes back one stroke or hint, all the way to the start. The bar: the moves.
+ * The squares a path covers are washed in its colour. The board takes the room the shell gives (game.fill); the
+ * shell's tool: the hint (one pair's path laid as in the solution, in gold light). Undo takes back one stroke or hint,
+ * all the way to the start. The bar: the moves.
  * Solved: every pair linked and every square covered; a gold light runs along every path from its dots.
  */
 #include <math.h>
@@ -47,8 +47,8 @@ static int light_colour(int c)                  /* 1: a light colour (its mark d
 }
 
 static nk_game G;
-static box last_box, barbox;
-static float bx, by, side, btn_d;
+static box last_box;
+static float bx, by, side;
 static int fr, cs, ox, oy, made_key = -1, made_small = -1, serial;
 static SDL_Texture *t_board, *t_dot[NK_COLOURS], *t_small;
 static int active = -1, anchor = -1;           /* the colour picked for taps (its path's end marked), its dot */
@@ -399,8 +399,16 @@ static int line_to(int s)
     return 1;
 }
 
+static void use_tool(int t);
+
 static void press(float x, float y)
 {
+    int tool = ui_tool_hit(x, y);
+    if (tool >= 0) {
+        memset(&ptr, 0, sizeof ptr);
+        use_tool(tool);
+        return;
+    }
     memset(&ptr, 0, sizeof ptr);
     if (nk_solved(&G)) return;
     int s = cell_at(x, y);
@@ -466,29 +474,24 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    barbox = b;
-    pzk_count it[1] = {{t_small, G.moves}};
-    btn_d = pzk_bar(b, it, 1, 1);
-    float x, y;
-    pzk_bar_btn(b, 0, btn_d, &x, &y);
-    ui_button(x, y, btn_d, ICON_HINT, nk_solved(&G) ? UI_DIM : 0);
+    ui_count c[1] = {{t_small, G.moves}};
+    ui_bar_fit(b, c, 1, 0);
 }
 
-static int bar_press(int player, float x, float y)
+static void use_hint(void)
 {
-    (void)player;
-    float hx, hy;
-    if (!barbox.w) return 0;
-    pzk_bar_btn(barbox, 0, btn_d, &hx, &hy);
-    if (!ui_button_hit(hx, hy, btn_d, x, y)) return 0;
     int before = linked_now(), c = nk_hint(&G);
-    if (c < 0) { ui_sound(SND_DENY); return 1; }
+    if (c < 0) { ui_sound(SND_DENY); return; }
     active = -1;
     hint.colour = c;
     hint.t0 = ui_ms();
     ui_sound(SND_PLACE);
     after(before);
-    return 1;
+}
+
+static void use_tool(int t)
+{
+    if (t == 0) use_hint();
 }
 
 /* ---- the menu's and the picker's cards: a puzzle of the size, part of its paths drawn ---------------------------- */
@@ -538,11 +541,18 @@ static void chapter_icon(int chapter, int size, uint8_t *rgba)
     pzk_grid_icon(rgba, size, SIZE[chapter < 0 ? 0 : chapter >= NK_CHAPTERS ? NK_CHAPTERS - 1 : chapter]);
 }
 
+/* the board, then the shell's tools: the hint */
+static void draw_all(void)
+{
+    draw();
+    ui_tool(0, ICON_HINT, nk_solved(&G) ? UI_DIM : 0);
+}
+
 static const game paths_game = {
     .id = "paths", .order = 401, .variants = NK_VARIANTS,
-    .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
+    .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw_all,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .fill = 1, .tools = 1,
     .levels = NK_LEVELS, .chapters = NK_CHAPTERS, .chapter_icon = chapter_icon, .start_random = start_random,
     .level_stars = level_stars, .score = score,
 };

@@ -8,9 +8,9 @@
  * Tap a tile: its pipe turns a quarter turn clockwise. The water runs from the tank along every pipe joined to it, tile
  * by tile (a cool blue filling the channels, the round basins at the pipes' ends); a pipe turned away cuts the flow and
  * what lay beyond drains. A pipe that ends open where the water reaches it spills (drops at its mouth). The wrapped
- * board has brass portholes all round its frame: a pipe leaving one edge comes in at the other. The lamp (the shell's
- * hint button) at the right end of the bar: a hint (a wrong tile turned right, next to the water when it can be, in
- * gold light). Undo takes back one turn or hint, all the way to the start. The bar: the moves.
+ * board has brass portholes all round its frame: a pipe leaving one edge comes in at the other. The board takes the
+ * room the shell gives (game.fill); the shell's tool: the hint (a wrong tile turned right, next to the water when it
+ * can be, in gold light). Undo takes back one turn or hint, all the way to the start. The bar: the moves.
  * Solved: the water fills every tile, then a gold light runs out from the tank along the pipes.
  */
 #include <math.h>
@@ -40,8 +40,8 @@
 enum { K_BASIN = 1, K_WET = 2, K_TANK = 4 };
 
 static pp_game G;
-static box last_box, barbox;
-static float bx, by, side, btn_d;
+static box last_box;
+static float bx, by, side;
 static int fr, cs, ox, oy, made_key = -1, made_small = -1, serial;
 static SDL_Texture *t_board, *t_pipe[4], *t_strip, *t_hub, *t_basin, *t_tank, *t_small;
 
@@ -550,8 +550,16 @@ static void draw(void)
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
+static void use_tool(int t);
+
 static void press(float x, float y)
 {
+    int tool = ui_tool_hit(x, y);
+    if (tool >= 0) {
+        memset(&ptr, 0, sizeof ptr);
+        use_tool(tool);
+        return;
+    }
     memset(&ptr, 0, sizeof ptr);
     if (pp_solved(&G)) return;
     int t = tile_at(x, y);
@@ -584,31 +592,26 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    barbox = b;
-    pzk_count it[1] = {{t_small, G.moves}};
-    btn_d = pzk_bar(b, it, 1, 1);
-    float x, y;
-    pzk_bar_btn(b, 0, btn_d, &x, &y);
-    ui_button(x, y, btn_d, ICON_HINT, pp_solved(&G) ? UI_DIM : 0);
+    ui_count c[1] = {{t_small, G.moves}};
+    ui_bar_fit(b, c, 1, 0);
 }
 
-static int bar_press(int player, float x, float y)
+static void use_hint(void)
 {
-    (void)player;
-    float hx, hy;
-    if (!barbox.w) return 0;
-    pzk_bar_btn(barbox, 0, btn_d, &hx, &hy);
-    if (!ui_button_hit(hx, hy, btn_d, x, y)) return 0;
     uint8_t was[PP_TILES];
     memcpy(was, G.now, sizeof was);
     int t = pp_hint(&G);
-    if (t < 0) { ui_sound(SND_DENY); return 1; }
+    if (t < 0) { ui_sound(SND_DENY); return; }
     spin(t, was[t], G.now[t], 1);
     hint.tile = t;
     hint.t0 = ui_ms();
     ui_sound(SND_PLACE);
     flow();
-    return 1;
+}
+
+static void use_tool(int t)
+{
+    if (t == 0) use_hint();
 }
 
 /* ---- the menu's and the picker's cards: a board of the size, part of it turned right and full of water ---------- */
@@ -647,11 +650,18 @@ static void chapter_icon(int chapter, int size, uint8_t *rgba)
     pzk_grid_icon(rgba, size, SIZE[chapter < 0 ? 0 : chapter >= PP_CHAPTERS ? PP_CHAPTERS - 1 : chapter]);
 }
 
+/* the board, then the shell's tools: the hint */
+static void draw_all(void)
+{
+    draw();
+    ui_tool(0, ICON_HINT, pp_solved(&G) ? UI_DIM : 0);
+}
+
 static const game pipes_game = {
     .id = "pipes", .order = 400, .variants = PP_VARIANTS,
-    .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
+    .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw_all,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .fill = 1, .tools = 1,
     .levels = PP_LEVELS, .chapters = PP_CHAPTERS, .chapter_icon = chapter_icon, .start_random = start_random,
     .level_stars = level_stars, .score = score, .par = par,
 };

@@ -7,9 +7,10 @@
  * without crossings), or its die tab a puzzle made at random (the variants: the pins round a circle). Stars: the
  * moves against par (untangle.h), a hint caps them (pzkit.h).
  * Drag a pin anywhere on the board: its cords follow, and every cord that crosses another glows red, there and then.
- * When none crosses, they all turn gold. The bar: the moves, the crossings left (a small red cross of cords), and the
- * shell's hint button (a hint: a pin moved where it lowers the crossings most, or set where it sits in a layout without any, sliding
- * there in gold light). Undo takes back one move, all the way to the start.
+ * When none crosses, they all turn gold. The board takes the room the shell gives (game.fill). The bar: the moves,
+ * the crossings left (a small red cross of cords). The shell's tool: the hint (a pin moved where it lowers the
+ * crossings most, or set where it sits in a layout without any, sliding there in gold light). Undo takes back one
+ * move, all the way to the start.
  * Solved: the cords turn gold and a gold light runs over the pins from the last one moved.
  */
 #include <math.h>
@@ -35,8 +36,7 @@ static struct { int on, v, moved; float dx, dy, x0, y0, ox, oy; } ptr;   /* a pi
 static struct { int v; float fx, fy; Uint32 t0; } slide = {-1, 0, 0, 0};
 static struct { int on, from; Uint32 t0; } win;
 
-static box last_box, barbox;
-static float btn_d;                             /* the bar's buttons' size */
+static box last_box;
 static float bx, by, side, px0, py0, pw, dot;   /* the field: its corner, its side; a pin's size */
 static int fr, made_key = -1, made_small = -1, made_dot = -1;
 static SDL_Texture *t_board, *t_pin, *t_small, *t_knot;
@@ -269,8 +269,16 @@ static int pin_at(float x, float y)
     return best;
 }
 
+static void use_tool(int t);
+
 static void press(float x, float y)
 {
+    int tool = ui_tool_hit(x, y);
+    if (tool >= 0) {
+        memset(&ptr, 0, sizeof ptr);
+        use_tool(tool);
+        return;
+    }
     memset(&ptr, 0, sizeof ptr);
     if (ut_solved(&G)) return;
     int v = pin_at(x, y);
@@ -316,33 +324,28 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    barbox = b;
-    int left = ut_crossings(&G);
-    pzk_count it[2] = {{t_small, G.moves}, {t_knot, left}};
-    float d = btn_d = pzk_bar(b, it, 2, 1), hx, hy;
-    pzk_bar_btn(b, 0, d, &hx, &hy);
-    ui_button(hx, hy, d, ICON_HINT, left ? 0 : UI_DIM);
+    ui_count c[2] = {{t_small, G.moves}, {t_knot, ut_crossings(&G)}};
+    ui_bar_fit(b, c, 2, 0);
 }
 
-static int bar_press(int player, float x, float y)
+static void use_hint(void)
 {
-    (void)player;
-    if (!barbox.w) return 0;
-    float hx, hy, d = btn_d;
-    pzk_bar_btn(barbox, 0, d, &hx, &hy);
-    if (!ui_button_hit(hx, hy, d, x, y)) return 0;
     float ox[UT_MAXV], oy[UT_MAXV];
     memcpy(ox, G.x, sizeof ox);
     memcpy(oy, G.y, sizeof oy);
     int v = ut_hint(&G);
-    if (v < 0) { ui_sound(SND_DENY); return 1; }
+    if (v < 0) { ui_sound(SND_DENY); return; }
     slide.v = v;
     slide.fx = ox[v];
     slide.fy = oy[v];
     slide.t0 = ui_ms();
     ui_sound(SND_PLACE);
     after(v);
-    return 1;
+}
+
+static void use_tool(int t)
+{
+    if (t == 0) use_hint();
 }
 
 /* ---- the menu's and the picker's cards: the picker's a puzzle of the size as it starts (its pins round a circle, its
@@ -397,11 +400,18 @@ static void chapter_icon(int chapter, int size, uint8_t *rgba)
     }
 }
 
+/* the board, then the shell's tools: the hint */
+static void draw_all(void)
+{
+    draw();
+    ui_tool(0, ICON_HINT, ut_solved(&G) ? UI_DIM : 0);
+}
+
 static const game untangle_game = {
     .id = "untangle", .order = 404, .variants = UT_VARIANTS,
-    .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
+    .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw_all,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .fill = 1, .tools = 1,
     .levels = UT_LEVELS, .chapters = UT_CHAPTERS, .chapter_icon = chapter_icon, .start_random = start_random,
     .level_stars = level_stars, .score = score, .par = par,
 };
