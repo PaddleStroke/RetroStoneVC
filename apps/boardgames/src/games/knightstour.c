@@ -1,17 +1,18 @@
 /*
- * The Knight's Tour in RetroStone Board, for one player: the house board and a knight that must visit every square
- * once (the rules: knightstour_rules.c).
+ * The Knight's Tour in RetroStone Board, for one player: the house board and a knight that must visit every square once
+ * (the rules: knightstour_rules.c).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- * The level screen: 150 levels in six chapters (boards of every shape, holes cut in them, the start given), and a
- * die tab for a random tour on 5 x 5, 6 x 6 or 8 x 8 (the start drawn). Tap a square the knight can reach (the dots),
- * or drag it there: it jumps, and the square it left keeps its number, a faint line joining the path. Stuck with
- * squares left: a red glow (a dead end; undo). The lamp in the bar (Warnsdorff's rule): each square the knight can
- * reach shows how many moves it would have from there, and the best one lights up in gold (a search checks it still
- * leads to a whole tour; a red glow on the knight when none can be finished from here). Undo takes back one jump,
- * all the way to the start. The bar: the squares visited and the board's count. Done: a gold light runs along the
- * path in its order; a closed tour (the last square a knight's move from the first) also joins the ends with a gold
- * line, and a gold ring shows in the bar. The stars: 3 with no hint and no dead end, 2 with up to two hints, else 1.
+ * The level screen: 150 levels in six chapters (boards of every shape, holes cut in them, the start given), and a die
+ * tab for a random tour on 5 x 5, 6 x 6 or 8 x 8 (the start drawn). Tap a square the knight can reach (the dots), or
+ * drag it there: it jumps, and the square it left keeps its number, a faint line joining the path. Stuck with squares
+ * left: a red glow (a dead end; undo). The lamp, the shell's tool (Warnsdorff's rule): each square the knight can reach
+ * shows how many moves it would have from there, and the best one lights up in gold (a search checks it still leads to
+ * a whole tour; a red glow on the knight when none can be finished from here). Undo takes back one jump, all the way to
+ * the start. The bar: the squares visited and the board's count. Done: a gold light runs along the path in its order; a
+ * closed tour (the last square a knight's move from the first) also joins the ends with a gold line, and a gold ring
+ * shows in the bar. The stars: 3 with no hint and no dead end, 2 with up to two hints and dead ends together, else 1.
+ * The board fills the room the shell gives, turned a quarter when that makes its squares bigger.
  */
 #include <math.h>
 #include <stdlib.h>
@@ -30,7 +31,7 @@ static kt_game G;
 static bpz_board B;
 static bpz_pics P;
 static puz_font F;
-static box last_box, barbox;
+static box last_box;
 static int made_small = -1, made_line = -1;
 static SDL_Texture *t_small, *t_line;
 
@@ -198,7 +199,7 @@ static void draw(void)
         if (!G.order[s] || s == at) continue;     /* under the knight: none */
         float x, y;
         centre(s, &x, &y);
-        int light = bpz_light(G.h, s % w, s / w);
+        int light = bpz_light_on(&B, s % w, s / w);
         float dh = (G.order[s] >= 100 ? 0.36f : 0.44f) * B.sq;
         puz_number(&F, x, y, dh, G.order[s], light ? PUZ_INK : PUZ_CREAM, light ? 230 : 245);
     }
@@ -234,12 +235,17 @@ static void draw(void)
         y = drag.y - 0.62f * B.sq;
     }
     bpz_piece_at(&B, KNIGHT, WHITE, x, y, drag.on && drag.moved ? 1.12f : 1, 255);
+    ui_tool(0, ICON_HINT, (hint.sq >= 0 ? UI_ON : 0) | (kt_done(&G) || kt_stuck(&G) ? UI_DIM : 0));   /* the lamp */
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
 static void press(float x, float y)
 {
     memset(&drag, 0, sizeof drag);
+    if (ui_tool_hit(x, y) == 0) {               /* the lamp */
+        ask_hint();
+        return;
+    }
     if (busy() || kt_done(&G)) return;
     int s = sq_at(x, y);
     if (s < 0) return;
@@ -275,12 +281,11 @@ static void release(float x, float y)
     else ui_sound(SND_DENY);
 }
 
-/* ---- the bar: the squares visited, of all; the closed tour's ring; the lamp -------------------------------------- */
+/* ---- the bar: the squares visited, of all; the closed tour's ring ------------------------------------------------ */
 static void bar(int player, box b)
 {
     (void)player;
-    barbox = b;
-    float u = ui.unit, cy = b.y + b.h / 2, room = b.w - (kt_done(&G) ? 0 : 1.1f * u);
+    float u = ui.unit, cy = b.y + b.h / 2, room = b.w;
     float w_moves = 0.72f * u + bpz_number_w(G.len), w_total = 0.6f * u + bpz_number_w(G.cells);
     float x = puz_bar_moves(b, t_small, G.len) + 0.08f * u;
     if (w_moves + w_total <= room) {            /* a narrow bar (landscape): the board's count left out */
@@ -289,15 +294,6 @@ static void bar(int player, box b)
     }
     x += 0.3f * u;
     if (kt_closed(&G) && !(win.on && busy()) && x + 0.6f * u <= b.x + b.w) bpz_bar_pic(&P, BPZ_LOOP, x, cy, 1);
-    if (!kt_done(&G)) bpz_button(-1, b, 0, hint.sq >= 0, kt_stuck(&G));
-}
-
-static int bar_press(int player, float x, float y)
-{
-    (void)player;
-    if (kt_done(&G) || !bpz_button_hit(barbox, 0, x, y)) return 0;
-    ask_hint();
-    return 1;
 }
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
@@ -353,7 +349,7 @@ static const game knightstour_game = {
     .id = "knightstour", .order = 431, .variants = KT_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .fill = 1, .tools = 1,
     .levels = KT_LEVELS, .chapters = KT_CHAPTERS, .start_random = start_random, .chapter_icon = chapter_icon,
     .level_thumb = level_thumb, .level_stars = level_stars,
 };

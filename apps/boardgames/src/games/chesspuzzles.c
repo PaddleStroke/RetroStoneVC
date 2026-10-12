@@ -6,12 +6,12 @@
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * The board turns so the player's side is at the bottom. The opponent's first move comes by itself, then the player
- * finds each of their moves (a tap on a piece then a square, or a drag); the opponent's replies come by themselves.
- * A move off the line is marked red and taken back after a moment (a mistake; any mate is accepted). The lamp in the
- * bar: the piece to move lights up, a second press its square too. Undo takes back the player's last move and its
- * reply, all the way to the start. The bar: the puzzle's rating, the streak (puzzles solved in a row without a mistake
- * or a hint) and the puzzles solved this session. Solved: a gold light spreads from the last move, then the stars: 3
- * with no mistake and no hint, 2 with one slip, else 1.
+ * finds each of their moves (a tap on a piece then a square, or a drag); the opponent's replies come by themselves. A
+ * move off the line is marked red and taken back after a moment (a mistake; any mate is accepted). The lamp (the
+ * shell's tool): the piece to move lights up, a second press its square too. Undo takes back the player's last move and
+ * its reply, all the way to the start. The bar: the puzzle's rating, the streak (puzzles solved in a row without a
+ * mistake or a hint) and the puzzles solved this session. Solved: a gold light spreads from the last move, then the
+ * stars: 3 with no mistake and no hint, 2 with one slip, else 1.
  */
 #include <math.h>
 #include <stdlib.h>
@@ -32,7 +32,7 @@
 static cpz_game G;
 static bpz_board B;
 static bpz_pics P;
-static box last_box, barbox;
+static box last_box;
 static int made_small = -1;
 static SDL_Texture *t_small;                    /* the bar's token for the end card */
 
@@ -348,6 +348,7 @@ static void draw(void)
         int pc = p->sq[drag.from];
         if (pc) bpz_piece_at(&B, TYPE(pc), COLOR(pc), drag.x - B.sq / 2.0f, drag.y - 0.62f * B.sq, 1.12f, 255);
     }
+    ui_tool(0, ICON_HINT, (G.hint_level > 0 ? UI_ON : 0) | (G.hint_level >= 2 || cpz_solved(&G) ? UI_DIM : 0));
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
@@ -356,6 +357,10 @@ static int mine(int s) { return s >= 0 && cpz_pos(&G)->sq[s] && COLOR(cpz_pos(&G
 static void press(float x, float y)
 {
     memset(&drag, 0, sizeof drag);
+    if (ui_tool_hit(x, y) == 0) {               /* the lamp */
+        hint();
+        return;
+    }
     if (busy() || !cpz_to_find(&G)) return;
     int s = sq_at(x, y);
     if (s < 0) return;
@@ -399,13 +404,12 @@ static void release(float x, float y)
     attempt(from, s, 0);
 }
 
-/* ---- the bar: the rating, the streak, the puzzles solved; the lamp ----------------------------------------------- */
+/* ---- the bar: the rating, the streak, the puzzles solved --------------------------------------------------------- */
 static void bar(int player, box b)
 {
     (void)player;
-    barbox = b;
     float u = ui.unit, cy = b.y + b.h / 2, x = b.x, gap = 0.34f * u, pic = 0.7f * u;
-    float room = b.w - (cpz_solved(&G) ? 0 : 1.1f * u);   /* left of the lamp */
+    float room = b.w;
     float w_streak = pic + bpz_number_w(streak), w_solved = pic + bpz_number_w(solved);
     float w = bpz_number_w(G.pz.rating) + w_streak + w_solved;
     if (w + 2 * gap > room) gap = 0.12f * u;    /* a narrow bar (landscape): closer, and what does not fit left out */
@@ -419,15 +423,6 @@ static void bar(int player, box b)
         x = bpz_bar_pic(&P, BPZ_TICK, x, cy, 1);
         bpz_bar_number(x, cy, solved);
     }
-    if (!cpz_solved(&G)) bpz_button(-1, b, 0, G.hint_level > 0, G.hint_level >= 2);
-}
-
-static int bar_press(int player, float x, float y)
-{
-    (void)player;
-    if (cpz_solved(&G) || !bpz_button_hit(barbox, 0, x, y)) return 0;
-    hint();
-    return 1;
 }
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
@@ -511,7 +506,7 @@ static const game chesspuzzles_game = {
     .id = "chesspuzzles", .order = 430, .variants = CPZ_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .fill = 1, .tools = 1,
     .levels = CPZ_LEVELS, .chapters = CPZ_CHAPTERS, .start_random = start_random, .chapter_icon = chapter_icon,
     .level_stars = level_stars,
 };

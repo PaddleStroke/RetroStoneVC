@@ -1,8 +1,8 @@
 /*
  * What the three chessboard puzzles share on the screen (Chess Puzzles, the Knight's Tour, Eight Queens): the house
  * board of nx x ny squares in its walnut frame (squares cut away: holes, dark recesses in the wood), the house chess
- * pieces, the round buttons in the bar (the shell's: ICON_HINT, a hint; the queens' lines, the attacked squares
- * shaded, painted here), the bar's small pictures and numbers, and the win's gold light.
+ * pieces (the board turned a quarter when that makes its squares bigger), the queens' lines (a tool's picture: the
+ * attacked squares shaded), the bar's small pictures and numbers, and the win's gold light.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Written once, here, as static inline functions: the build takes a game's own files only (GAMES="queens" builds
@@ -27,9 +27,9 @@
 static const uint8_t BPZ_GOLD[3] = {232, 190, 92}, BPZ_RED[3] = {196, 64, 48};
 
 typedef struct {
-    int nx, ny, sq, fr, made_sq, made_nx, made_ny, made_piece;
+    int nx, ny, sq, fr, turned, made_sq, made_nx, made_ny, made_turned, made_piece;
     uint32_t made_holes;                        /* the holes painted (a hash: 0 none) */
-    float x, y;                                 /* the top left square's corner */
+    float x, y;                                 /* the top left square's corner on the screen */
     SDL_Texture *board, *piece[2][7];
 } bpz_board;
 
@@ -61,35 +61,60 @@ static inline uint32_t bpz_holes_hash(int cells, const uint8_t *holes)
     return h | 1;
 }
 
-/* the board picture: nx x ny squares of sq pixels in a frame of fr, the holes (rank * nx + file; NULL: none) carved */
-static inline void bpz_paint_board(int nx, int ny, int sq, int fr, const uint8_t *holes, uint8_t *o)
+/* where a square (file, rank) of an nx x ny board stands on the screen: its column and row from the top left; turned:
+ * the board a quarter turn clockwise (its ranks across the screen, rank 0 at the left; file 0 at the top) */
+static inline void bpz_screen(int nx, int ny, int turned, int file, int rank, int *col, int *row)
 {
-    art_board_n(nx, ny, sq, fr, 1, o);
-    int w = nx * sq + 2 * fr;
-    for (int r = 0; holes && r < ny; r++)
-        for (int f = 0; f < nx; f++)
-            if (holes[r * nx + f]) bpz_carve(o, w, fr + f * sq, fr + (ny - 1 - r) * sq, sq);
+    (void)nx;
+    if (turned) { *col = rank; *row = file; }
+    else { *col = file; *row = ny - 1 - rank; }
 }
 
-/* the board of nx x ny squares as big as it fits in the area, centred; its pictures (and the pieces' when asked) */
+/* the board picture: nx x ny squares of sq pixels in a frame of fr (turned: as on the screen, ny wide), the holes
+ * (rank * nx + file; NULL: none) carved */
+static inline void bpz_paint_board_turned(int nx, int ny, int turned, int sq, int fr, const uint8_t *holes, uint8_t *o)
+{
+    int cols = turned ? ny : nx, rows = turned ? nx : ny, w = cols * sq + 2 * fr;
+    art_board_n(cols, rows, sq, fr, 1, o);
+    for (int r = 0; holes && r < ny; r++)
+        for (int f = 0; f < nx; f++) {
+            int c, y;
+            if (!holes[r * nx + f]) continue;
+            bpz_screen(nx, ny, turned, f, r, &c, &y);
+            bpz_carve(o, w, fr + c * sq, fr + y * sq, sq);
+        }
+}
+
+static inline void bpz_paint_board(int nx, int ny, int sq, int fr, const uint8_t *holes, uint8_t *o)
+{
+    bpz_paint_board_turned(nx, ny, 0, sq, fr, holes, o);
+}
+
+/* the board of nx x ny squares as big as it fits in the area (the shell's whole room), centred, turned a quarter
+ * when that makes the squares bigger (ui_grid_fit); its pictures (and the pieces' when asked) */
 static inline void bpz_layout_holes(bpz_board *b, int nx, int ny, box area, int pieces, const uint8_t *holes)
 {
+    ui_grid g = ui_grid_fit(area, nx, ny, BPZ_FRAME);
     b->nx = nx;
     b->ny = ny;
-    b->sq = (int)floorf(fminf(area.w / (nx + 2 * BPZ_FRAME), area.h / (ny + 2 * BPZ_FRAME)));
+    b->turned = g.turned;
+    b->sq = (int)floorf(g.cell);
     if (b->sq < 2) b->sq = 2;
     b->fr = (int)(b->sq * BPZ_FRAME);
-    int w = nx * b->sq + 2 * b->fr, h = ny * b->sq + 2 * b->fr;
+    int cols = b->turned ? ny : nx, rows = b->turned ? nx : ny;
+    int w = cols * b->sq + 2 * b->fr, h = rows * b->sq + 2 * b->fr;
     uint32_t hh = holes ? bpz_holes_hash(nx * ny, holes) : 0;
     b->x = floorf(area.x + (area.w - w) / 2) + b->fr;
     b->y = floorf(area.y + (area.h - h) / 2) + b->fr;
-    if (b->made_sq != b->sq || b->made_nx != nx || b->made_ny != ny || b->made_holes != hh || !b->board) {
+    if (b->made_sq != b->sq || b->made_nx != nx || b->made_ny != ny || b->made_holes != hh ||
+        b->made_turned != b->turned || !b->board) {
         b->made_sq = b->sq;
         b->made_nx = nx;
         b->made_ny = ny;
         b->made_holes = hh;
+        b->made_turned = b->turned;
         ui_free(&b->board);
-        bpz_paint_board(nx, ny, b->sq, b->fr, holes, ui_buf(w, h));
+        bpz_paint_board_turned(nx, ny, b->turned, b->sq, b->fr, holes, ui_buf(w, h));
         b->board = ui_tex(w, h, ui_buf(w, h));
     }
     if (pieces && b->made_piece != b->sq) {
@@ -110,16 +135,18 @@ static inline void bpz_layout(bpz_board *b, int n, box area, int pieces)
 
 static inline void bpz_draw_board(const bpz_board *b)
 {
-    ui_put(b->board, b->x - b->fr, b->y - b->fr, (float)(b->nx * b->sq + 2 * b->fr),
-           (float)(b->ny * b->sq + 2 * b->fr));
+    int cols = b->turned ? b->ny : b->nx, rows = b->turned ? b->nx : b->ny;
+    ui_put(b->board, b->x - b->fr, b->y - b->fr, (float)(cols * b->sq + 2 * b->fr), (float)(rows * b->sq + 2 * b->fr));
 }
 
 /* a square's top left corner */
 static inline void bpz_xy(const bpz_board *b, int file, int rank, int flip, float *x, float *y)
 {
     if (flip) { file = b->nx - 1 - file; rank = b->ny - 1 - rank; }
-    *x = b->x + file * b->sq;
-    *y = b->y + (b->ny - 1 - rank) * b->sq;
+    int c, r;
+    bpz_screen(b->nx, b->ny, b->turned, file, rank, &c, &r);
+    *x = b->x + c * b->sq;
+    *y = b->y + r * b->sq;
 }
 
 /* a square's centre */
@@ -133,15 +160,25 @@ static inline void bpz_centre(const bpz_board *b, int file, int rank, int flip, 
 /* the square under (x, y): 0 when off the board */
 static inline int bpz_at(const bpz_board *b, float x, float y, int flip, int *file, int *rank)
 {
-    int f = (int)floorf((x - b->x) / b->sq), r = b->ny - 1 - (int)floorf((y - b->y) / b->sq);
-    if (f < 0 || f >= b->nx || r < 0 || r >= b->ny) return 0;
+    int c = (int)floorf((x - b->x) / b->sq), r = (int)floorf((y - b->y) / b->sq), f, k;
+    if (b->turned) { f = r; k = c; }
+    else { f = c; k = b->ny - 1 - r; }
+    if (f < 0 || f >= b->nx || k < 0 || k >= b->ny) return 0;
     *file = flip ? b->nx - 1 - f : f;
-    *rank = flip ? b->ny - 1 - r : r;
+    *rank = flip ? b->ny - 1 - k : k;
     return 1;
 }
 
 /* 1: a light square (the top left one is light, as the house board's; on 8 x 8, a1 dark); ny: the board's rows */
 static inline int bpz_light(int ny, int file, int rank) { return !((file + ny - 1 - rank) & 1); }
+
+/* the same on the board as it stands on the screen (turned or not) */
+static inline int bpz_light_on(const bpz_board *b, int file, int rank)
+{
+    int c, r;
+    bpz_screen(b->nx, b->ny, b->turned, file, rank, &c, &r);
+    return !((c + r) & 1);
+}
 
 /* a standing piece at (x, y), a square's size (scaled by k), with its shadow; faded by alpha (0..255) */
 static inline void bpz_piece_at(const bpz_board *b, int type, int color, float x, float y, float k, Uint8 alpha)
@@ -269,32 +306,6 @@ static inline float bpz_bar_pic(bpz_pics *p, int which, float x, float cy, float
     float s = 0.6f * ui.unit * k;
     ui_put(bpz_pic(p, which, (int)(0.6f * ui.unit)), x, cy - s / 2, s, s);
     return x + s + 0.1f * ui.unit;
-}
-
-/* the round buttons at the bar's right end, i = 0 the rightmost: their centre and diameter */
-static inline void bpz_button_at(box bar, int i, float *x, float *y, float *d)
-{
-    *d = 0.84f * ui.unit;
-    *x = bar.x + bar.w - *d / 2 - 0.05f * ui.unit - i * (*d + 0.18f * ui.unit);
-    *y = bar.y + bar.h / 2;
-}
-
-/* the shell's round button there: the lamp (ICON_HINT), or one of the pictures above (BPZ_LINES) when which >= 0;
- * on: the gold disc (a mode on, a hint showing); dim: it can do nothing now */
-static inline void bpz_button(int which, box bar, int i, int on, int dim)
-{
-    float x, y, d;
-    bpz_button_at(bar, i, &x, &y, &d);
-    int how = (on ? UI_ON : 0) | (dim ? UI_DIM : 0);
-    if (which < 0) ui_button(x, y, d, ICON_HINT, how);
-    else ui_button_paint(x, y, d, bpz_picture, which, 0.62f, how | UI_TINT);
-}
-
-static inline int bpz_button_hit(box bar, int i, float px, float py)
-{
-    float x, y, d;
-    bpz_button_at(bar, i, &x, &y, &d);
-    return bar.w > 0 && ui_button_hit(x, y, d, px, py);
 }
 
 /* ---- the win's light: a gold glow on a square, q 0..1 ------------------------------------------------------------ */

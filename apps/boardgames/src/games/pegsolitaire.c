@@ -4,15 +4,15 @@
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * The level screen: 150 levels in six chapters (positions on the six boards, the classic full boards ending their
- * chapters), and a die tab for a random position on any of the boards. The goal hole has a brass ring. The holes lie
- * in the middle of the board's square, a hole spacing apart: the crosses and the diamond on a square grid, the
- * triangles on their three lines. Round them, the gutter: a groove where the marbles taken off sit in a row, from the
- * top round to the right. The input: tap a marble (its jumps show as dots), then a dot; or drag the marble there; or
- * tap an empty hole only one marble can jump into. The marble hops over its neighbour, which lifts off and rolls into
- * the gutter. Stuck with several marbles: they glow red (undo). Undo takes back one jump, all the way to the start.
- * The bar: the marbles left; the lamp at its end: the jump to make lights up (in gold when it leads to one marble in
- * the goal; the marbles glow red when no way to one marble is left). The stars: one marble in the goal with no hint:
- * 3; a star less for missing the goal, a star less for any hint.
+ * chapters), and a die tab for a random position on any of the boards. The goal hole has a brass ring. The holes lie in
+ * the middle of the board's square, a hole spacing apart: the crosses and the diamond on a square grid, the triangles
+ * on their three lines. Round them, the gutter: a groove where the marbles taken off sit in a row, from the top round
+ * to the right. The input: tap a marble (its jumps show as dots), then a dot; or drag the marble there; or tap an empty
+ * hole only one marble can jump into. The marble hops over its neighbour, which lifts off and rolls into the gutter.
+ * Stuck with several marbles: they glow red (undo). Undo takes back one jump, all the way to the start. The bar: the
+ * marbles left. The lamp (the shell's tool): the jump to make lights up (in gold when it leads to one marble in the
+ * goal; the marbles glow red when no way to one marble is left). The stars: one marble in the goal with no hint: 3; a
+ * star less for missing the goal, a star less for any hint.
  */
 #include <math.h>
 #include <stdlib.h>
@@ -46,7 +46,6 @@ static int nopts;
 static struct { int on, from, moved, fresh, target; float x, y, x0, y0; } ptr;   /* fresh: picked by this press */
 static struct { int on, dropped; psmove m; Uint32 t0; } anim;
 static struct { int on, gold, none; psmove m; } hint;
-static box barbox;
 
 /* ---- the geometry ------------------------------------------------------------------------------------------------ */
 static const psgame *board_of(int b)            /* each board's holes, made once */
@@ -343,7 +342,7 @@ static void marble(float x, float y, float d, float lift)
     ui_put_c(t, x, y - 0.3f * d * lift, d * (1 + 0.18f * lift), d * (1 + 0.18f * lift));
 }
 
-static void draw(void)
+static void draw_board(void)
 {
     if (made_b != G.board || made_goal != G.goal) layout(last_box);   /* a new game: its board's picture */
     float w = 9.0f * q + 2 * fr, d = MARBLE * s, td = TRAY * s, x, y;
@@ -419,6 +418,12 @@ static void draw(void)
     }
 }
 
+static void draw(void)
+{
+    draw_board();
+    ui_tool(0, ICON_HINT, (hint.on ? UI_ON : 0) | (ps_status(&G) != PS_PLAY ? UI_DIM : 0));   /* the lamp */
+}
+
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
 static int target_of(int h)                     /* the picked marble's jump landing in h; -1 */
 {
@@ -430,6 +435,10 @@ static int target_of(int h)                     /* the picked marble's jump land
 static void press(float x, float y)
 {
     memset(&ptr, 0, sizeof ptr);
+    if (ui_tool_hit(x, y) == 0) {               /* the lamp */
+        ask_hint();
+        return;
+    }
     if (ps_status(&G) != PS_PLAY) return;
     anim.on = 0;
     int h = xy_hole(x, y);
@@ -487,33 +496,11 @@ static void release(float x, float y)
     if (!ptr.fresh && xy_hole(x, y) == sel) pick(-1);   /* a tap on the marble picked: let it go */
 }
 
-/* ---- the bar: the marbles left; the lamp ------------------------------------------------------------------------- */
-static void lamp_at(box b, float *x, float *y, float *d)
-{
-    *d = 0.84f * ui.unit;
-    *x = b.x + b.w - *d / 2 - 0.05f * ui.unit;
-    *y = b.y + b.h / 2;
-}
-
+/* ---- the bar: the marbles left ----------------------------------------------------------------------------------- */
 static void bar(int player, box b)
 {
     (void)player;
-    barbox = b;
     ui_bar_count(b, t_small, G.pegs);
-    if (ps_status(&G) == PS_ONE) return;
-    float x, y, d;
-    lamp_at(b, &x, &y, &d);
-    ui_button(x, y, d, ICON_HINT, (hint.on ? UI_ON : 0) | (ps_status(&G) != PS_PLAY ? UI_DIM : 0));
-}
-
-static int bar_press(int player, float px, float py)
-{
-    (void)player;
-    float x, y, d;
-    lamp_at(barbox, &x, &y, &d);
-    if (ps_status(&G) == PS_ONE || barbox.w <= 0 || !ui_button_hit(x, y, d, px, py)) return 0;
-    ask_hint();
-    return 1;
 }
 
 static void token(int player, int size, uint8_t *rgba)
@@ -600,7 +587,7 @@ static const game pegsolitaire_game = {
     .id = "pegsolitaire", .order = 300, .variants = PS_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .fill = 1, .tools = 1,
     .levels = PS_LEVELS, .chapters = PS_CHAPTERS, .start_random = start_random, .chapter_icon = chapter_icon,
     .level_thumb = level_thumb, .level_stars = level_stars,
 };

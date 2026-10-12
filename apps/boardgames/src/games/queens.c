@@ -5,14 +5,14 @@
  *
  * The level screen: 150 levels in six chapters (boards of 4 x 4 to 10 x 10 with holes and fixed queens, one solution
  * each), and a die tab for a random game (5 x 5, 6 x 6, 8 x 8 or 10 x 10, one fixed queen, many solutions). The fixed
- * queens are ebony, the holes dark recesses where no queen may stand: tap a square to put an ivory queen on it, tap
- * a queen to take it off. The squares the queens attack are shaded (the queen's lines button in the bar turns the
- * shade off and on); queens that attack each other glow red. The lamp: a square to fill lights up in gold, or, when
- * the queens on the board can no longer all be part of a solution, the one to take off in red. Undo takes back one
- * tap, all the way to the start. The bar: the taps, then (a random game) the solutions found this session out of the
- * board's count. Solved: a gold light spreads from the last queen; a solution found for the first time this session
- * glows in the bar too. The stars: 3 with no hint and no mistake (a queen put where another attacks it), 2 with up to
- * two hints, else 1.
+ * queens are ebony, the holes dark recesses where no queen may stand: tap a square to put an ivory queen on it, tap a
+ * queen to take it off. The squares the queens attack are shaded (the queen's lines, a tool, turn the shade off and
+ * on); queens that attack each other glow red. The lamp: a square to fill lights up in gold, or, when the queens on the
+ * board can no longer all be part of a solution, the one to take off in red. Undo takes back one tap, all the way to
+ * the start. The bar: the taps, then (a random game) the solutions found this session out of the board's count. Solved:
+ * a gold light spreads from the last queen; a solution found for the first time this session glows in the bar too. The
+ * stars: 3 with no hint and no mistake (a queen put where another attacks it), 2 when hints and mistakes together are
+ * two at most, else 1. The lamp and the lines are the shell's tools; the board fills its room.
  */
 #include <math.h>
 #include <stdlib.h>
@@ -30,7 +30,7 @@ static qn_game G;
 static int variant_now = -1;                   /* the random game's variant; -1: a level */
 static bpz_board B;
 static bpz_pics P;
-static box last_box, barbox;
+static box last_box;
 static int made_small = -1, shade = 1;
 static SDL_Texture *t_small;
 
@@ -189,10 +189,21 @@ static void draw(void)
         }
         bpz_piece_at(&B, QUEEN, G.fixed[s] ? BLACK : WHITE, x, y, k, s == hint.sq && hint.remove ? 120 : 255);
     }
+    int solved = qn_solved(&G);                 /* the tools: the lamp, the queens' lines */
+    ui_tool(0, ICON_HINT, (hint.sq >= 0 ? UI_ON : 0) | (solved ? UI_DIM : 0));
+    ui_tool_paint(1, bpz_picture, BPZ_LINES, 0.62f, UI_TINT | (shade ? UI_ON : 0) | (solved ? UI_DIM : 0));
 }
 
 static void press(float x, float y)
 {
+    int t = ui_tool_hit(x, y);
+    if (t == 0) { ask_hint(); return; }
+    if (t == 1) {                               /* the queens' lines: the shade off and on */
+        shade = !shade;
+        ui_sound(SND_TAP);
+        ui_animate();
+        return;
+    }
     if (busy() || qn_solved(&G)) return;
     int f, r;
     if (!bpz_at(&B, x, y, 0, &f, &r)) return;
@@ -202,14 +213,13 @@ static void press(float x, float y)
 static void motion(float x, float y) { (void)x; (void)y; }
 static void release(float x, float y) { (void)x; (void)y; }
 
-/* ---- the bar: the taps; the solutions found of all; the shade and the lamp --------------------------------------- */
+/* ---- the bar: the taps; the solutions found of all --------------------------------------------------------------- */
 static void bar(int player, box b)
 {
     (void)player;
-    barbox = b;
     float u = ui.unit, cy = b.y + b.h / 2, x = b.x;
     int level = variant_now < 0, total = qn_solutions(G.n), have = level ? 0 : nfound[variant_now];
-    float room = b.w - (qn_solved(&G) ? 0 : 2.0f * u);   /* left of the two buttons */
+    float room = b.w;
     if (level) {                                /* a level: the taps */
         puz_bar_moves(b, t_small, G.moves);
         room = 0;
@@ -229,23 +239,6 @@ static void bar(int player, box b)
         x = bpz_bar_pic(&P, BPZ_SLASH, x + 0.08f * u, cy, 0.8f);
         bpz_bar_number(x, cy, total);
     }
-    if (qn_solved(&G)) return;
-    bpz_button(-1, b, 0, hint.sq >= 0, 0);
-    bpz_button(BPZ_LINES, b, 1, shade, 0);
-}
-
-static int bar_press(int player, float x, float y)
-{
-    (void)player;
-    if (qn_solved(&G)) return 0;
-    if (bpz_button_hit(barbox, 0, x, y)) { ask_hint(); return 1; }
-    if (bpz_button_hit(barbox, 1, x, y)) {
-        shade = !shade;
-        ui_sound(SND_TAP);
-        ui_animate();
-        return 1;
-    }
-    return 0;
 }
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
@@ -309,7 +302,7 @@ static const game queens_game = {
     .id = "queens", .order = 432, .variants = QN_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .fill = 1, .tools = 2,
     .levels = QN_LEVELS, .chapters = QN_CHAPTERS, .start_random = start_random, .chapter_icon = chapter_icon,
     .level_thumb = level_thumb, .level_stars = level_stars,
 };
