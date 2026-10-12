@@ -31,7 +31,7 @@
 
 #include <stdint.h>
 
-#include "games/logicgrid2.h"
+#include "games/bench.h"
 
 #define DSA_MAXN 8
 #define DSA_MAXW (DSA_MAXN + 2)
@@ -65,7 +65,7 @@ typedef struct {
     dsa_puz p;
     uint8_t sol[DSA_CELLS];                     /* the solution: each cell's other half */
     uint8_t link[DSA_CELLS];                    /* the player's: each cell's other half + 1 (0: none) */
-    lg2_hist hist;
+    bench_hist hist;
 } dsa_game;
 
 /* the solutions of a puzzle, counted up to limit; the first found in sol (each cell's other half; may be NULL) */

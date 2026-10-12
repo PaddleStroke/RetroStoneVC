@@ -28,7 +28,7 @@
 
 #include <stdint.h>
 
-#include "games/logicgrid2.h"
+#include "games/bench.h"
 
 #define RCT_MAX 16
 #define RCT_CELLS (RCT_MAX * RCT_MAX)
@@ -65,7 +65,7 @@ typedef struct {
     rct_puz p;
     uint32_t sol[RCT_CELLS];                    /* the solution: each cell's rectangle */
     uint32_t own[RCT_CELLS];                    /* the player's: each cell's rectangle (0: none) */
-    lg2_hist hist;
+    bench_hist hist;
 } rct_game;
 
 /* the solutions of a puzzle, counted up to limit; the first found in sol (each cell's rectangle; may be NULL) */

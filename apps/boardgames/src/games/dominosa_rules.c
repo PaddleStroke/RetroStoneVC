@@ -413,10 +413,19 @@ void dsa_new(dsa_game *g, int variant, uint32_t seed)
 
 static int cells_of(const dsa_game *g) { return g->p.w * g->p.h; }
 
+/* the wrong entries on the board (the stars' mistakes) */
+static int wrongs(const dsa_game *g)
+{
+    int k = 0;
+    for (int c = 0; c < g->p.w * g->p.h; c++)
+        k += g->link[c] && g->link[c] - 1 > c && g->link[c] - 1 != g->sol[c];
+    return k;
+}
+
 static void set_link(dsa_game *g, int c, int v)
 {
     if (g->link[c] == v) return;
-    lg2_log(&g->hist, c, g->link[c]);
+    bench_log(&g->hist, c, g->link[c]);
     g->link[c] = (uint8_t)v;
 }
 
@@ -438,23 +447,23 @@ int dsa_lay(dsa_game *g, int a, int b)
 {
     if (a < 0 || b < 0 || a >= cells_of(g) || b >= cells_of(g) || !neighbours(g, a, b)) return 0;
     if (g->link[a] == b + 1) return 0;
-    lg2_begin(&g->hist, 6);
+    bench_begin(&g->hist, 6);
     unlink_cell(g, a);
     unlink_cell(g, b);
     set_link(g, a, b + 1);
     set_link(g, b, a + 1);
-    return lg2_end(&g->hist);
+    return bench_done(&g->hist, wrongs(g));
 }
 
 int dsa_lift(dsa_game *g, int c)
 {
     if (c < 0 || c >= cells_of(g) || !g->link[c]) return 0;
-    lg2_begin(&g->hist, 2);
+    bench_begin(&g->hist, 2);
     unlink_cell(g, c);
-    return lg2_end(&g->hist);
+    return bench_done(&g->hist, wrongs(g));
 }
 
-int dsa_hint(dsa_game *g)
+static int hint_step(dsa_game *g)
 {
     int cells = cells_of(g);
     for (int c = 0; c < cells; c++)             /* a wrong domino first */
@@ -479,7 +488,18 @@ int dsa_hint(dsa_game *g)
 
 static void put_back(void *ctx, int cell, uint32_t was) { ((dsa_game *)ctx)->link[cell] = (uint8_t)was; }
 
-int dsa_undo(dsa_game *g) { return lg2_undo(&g->hist, put_back, g); }
+int dsa_hint(dsa_game *g)
+{
+    return bench_hinted(&g->hist, hint_step(g));
+}
+
+int dsa_undo(dsa_game *g)
+{
+    int c = bench_undo(&g->hist, put_back, g);
+    bench_undone(&g->hist, wrongs(g));
+    return c;
+}
+
 
 static int type_at(const dsa_game *g, int c)    /* the domino on the cell (-1: none) */
 {
@@ -532,14 +552,14 @@ int dsa_script(dsa_game *g, const char *s)
         }
         int len, len2;
         if (*s == 'x') {
-            int c = lg2_cell(s + 1, w, h, &len);
+            int c = bench_cell(s + 1, w, h, &len);
             if (c < 0 || !dsa_lift(g, c)) return 0;
             s += 1 + len;
             continue;
         }
-        int a = lg2_cell(s, w, h, &len);
+        int a = bench_cell(s, w, h, &len);
         if (a < 0 || s[len] != '-') return 0;
-        int b = lg2_cell(s + len + 1, w, h, &len2);
+        int b = bench_cell(s + len + 1, w, h, &len2);
         if (b < 0 || !dsa_lay(g, a, b)) return 0;
         s += len + 1 + len2;
     }

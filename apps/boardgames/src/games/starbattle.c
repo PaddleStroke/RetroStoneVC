@@ -1,36 +1,31 @@
 /*
  * Star Battle in RetroStone Board, for one player: the house plank cut into regions, each region its own wood tone
  * (two touching regions never the same), thick ink between regions and fine lines between cells, gold stars, ink dots
- * (the rules: starbattle_rules.c).
+ * (the rules: starbattle_rules.c; what the logic grids share: bench.h, bench_ui.h).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Tap a cell: a star; again: a dot (sure to be empty, a note); again: nothing. Drag along a row or a column from an
  * empty cell to dot the empty cells of the run, or from a dot to take the dots away. Two stars touching, or too many
- * in a row, column or region, turn red. The lamp at the right of the bar: a hint (a wrong star or dot taken away, else
+ * in a row, column or region, turn red. The shell's tool, the lamp: a hint (a wrong star or dot taken away, else
  * the easiest star placed, in gold light). Undo takes back one action, all the way to the start. The bar: the moves.
- * Solved: a wave of gold light from the last star.
+ * Solved: a wave of gold light from the last star; the stars count the hints and the mistakes (bench.h).
  */
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "games/logicgrid2_ui.h"
-#include "games/puzzles.h"
+#include "games/bench_ui.h"
 #include "games/starbattle.h"
 #include "shell.h"
-
-#define FRAME 0.035f
-#define POP_MS 220
 
 static const uint8_t STAR_GOLD[3] = {236, 190, 70}, STAR_EDGE[3] = {120, 76, 20};
 
 static sbx_game G;
 static int serial;
-static struct { int on, a, b, moved, to; } ptr;
-static struct { int cell; Uint32 t0; } hint = {-1, 0}, pop = {-1, 0};
-static lg2_wave win;
-static lg2_bar barl;
-static lg2_buttons buttons;
+static bench_geo geo;                           /* the cells (the finger's runs) */
+static bench_touch touch;
+static bench_flash hint = {-1, 0}, pop = {-1, 0};
+static bench_wave win;
 
 static box last_box;
 static float bx, by, side, gx, gy, cs;
@@ -55,7 +50,7 @@ static void paint_star(int size, uint8_t *o)
     memset(o, 0, (size_t)size * size * 4);
     art_fig *f = art_fig_new();
     star_fig(f);
-    art_style st = race_style(STAR_GOLD, STAR_EDGE, 0.035f, 0.75f);
+    art_style st = art_flat(STAR_GOLD, STAR_EDGE, 0.035f, 0.75f);
     art_render(f, &st, size, size, (float)size, 0, 0, o);
     art_fig_free(f);
 }
@@ -72,8 +67,8 @@ static void region_tones(const sbx_puz *p, int *tone)
             for (int i = 0; i < 4; i++)
                 if (nb[i] >= 0 && nb[i] < n * n && p->region[nb[i]] < r) used |= 1u << tone[p->region[nb[i]]];
         }
-        int t = (r * 5 + 1) % LG2_TONES;
-        for (int i = 0; i < LG2_TONES && (used >> t & 1); i++) t = (t + 1) % LG2_TONES;
+        int t = (r * 5 + 1) % BENCH_TONES;
+        for (int i = 0; i < BENCH_TONES && (used >> t & 1); i++) t = (t + 1) % BENCH_TONES;
         tone[r] = t;
     }
 }
@@ -82,13 +77,13 @@ static void region_tones(const sbx_puz *p, int *tone)
 static void paint_board(uint8_t *o, int S, int f, const sbx_puz *p, float q, float ox, float oy)
 {
     int n = p->n, tone[SBX_MAX];
-    lg2_plank(o, S, S, f);
+    bench_plank(o, S, S, f);
     region_tones(p, tone);
     for (int y = (int)oy; y < (int)ceilf(oy + n * q); y++)
         for (int x = (int)ox; x < (int)ceilf(ox + n * q); x++) {
             int cx = (int)((x + 0.5f - ox) / q), cy = (int)((y + 0.5f - oy) / q);
             if (cx < 0 || cy < 0 || cx >= n || cy >= n || x >= S || y >= S) continue;
-            const float *t = LG2_TONE[tone[p->region[cy * n + cx]]];
+            const float *t = BENCH_TONE[tone[p->region[cy * n + cx]]];
             uint8_t *px = o + 4 * ((size_t)y * S + x);
             for (int i = 0; i < 3; i++) px[i] = (uint8_t)clampf(px[i] * t[i], 0, 255);
         }
@@ -126,7 +121,7 @@ static void token(int player, int size, uint8_t *rgba)
     int w = (int)(size * 0.86f);
     uint8_t *b = malloc((size_t)w * w * 4), *s = malloc((size_t)w * w * 4);
     if (!b || !s) { free(b); free(s); return; }
-    lg2_tile(b, w, w, 0.16f * w, LG2_TONE[1]);
+    bench_tile(b, w, w, 0.16f * w, BENCH_TONE[1]);
     int ss = (int)(0.86f * w);
     paint_star(ss, s);
     art_blend(b, w, w, s, ss, ss, (w - ss) / 2, (w - ss) / 2);
@@ -142,11 +137,12 @@ static void layout(box b)
     side = floorf(fminf(b.w, b.h));
     bx = floorf(b.x + (b.w - side) / 2);
     by = floorf(b.y + (b.h - side) / 2);
-    fr = (int)(side * FRAME);
+    fr = (int)(side * BENCH_FRAME);
     cs = floorf((side - 2 * fr - 0.25f * side / n) / n);
     float o = floorf((side - n * cs) / 2);
     gx = bx + o;
     gy = by + o;
+    geo = (bench_geo){.cols = n, .rows = n, .cs = (int)cs, .gx = gx, .gy = gy};
     int key = ((int)side * 16 + n) * 64 + serial % 64;
     if (made_key != key) {
         made_key = key;
@@ -163,15 +159,15 @@ static void layout(box b)
         art_disc(d, PUZ_INK, 1, 0, ui_buf(d, d));
         t_dot = ui_tex(d, d, ui_buf(d, d));
     }
-    lg2_small(&t_small, &made_small, token);
+    bench_small(&t_small, &made_small, token);
 }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
 static void calm(void)
 {
-    hint.cell = pop.cell = -1;
+    hint.at = pop.at = -1;
     win.on = 0;
-    memset(&ptr, 0, sizeof ptr);
+    memset(&touch, 0, sizeof touch);
 }
 
 static void start(int variant)
@@ -184,11 +180,13 @@ static void start(int variant)
 
 static int status(void) { return sbx_solved(&G) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
-static int busy(void) { return lg2_wave_busy(&win, G.p.n, G.p.n); }
+static int busy(void) { return bench_wave_busy(&win); }
+static int score(void) { return G.hist.moves; }
+static int stars(void) { return ui_logic_stars(G.hist.hints, G.hist.mistakes); }
 
 static void after(int cell)
 {
-    if (sbx_solved(&G) && !win.on) lg2_wave_start(&win, (float)(cell % G.p.n), (float)(cell / G.p.n));
+    if (sbx_solved(&G) && !win.on) bench_wave_from(&win, cell, G.p.n, G.p.n);
     ui_animate();
 }
 
@@ -208,51 +206,24 @@ static int script(const char *moves)
 }
 
 /* ---- the board on the screen ------------------------------------------------------------------------------------- */
-static int cell_at(float x, float y)
-{
-    int n = G.p.n, cx = (int)floorf((x - gx) / cs), cy = (int)floorf((y - gy) / cs);
-    if (cx < 0 || cy < 0 || cx >= n || cy >= n) return -1;
-    return cy * n + cx;
-}
+static int running(void) { return touch.on && touch.moved && touch.b != touch.a; }   /* a run along the cells */
 
-/* the run from a towards the finger, along a's row or column (whichever the finger has gone further along) */
-static int run_end(int a, float x, float y)
-{
-    int n = G.p.n, ax = a % n, ay = a / n;
-    int fx = (int)floorf((x - gx) / cs), fy = (int)floorf((y - gy) / cs);
-    fx = fx < 0 ? 0 : fx >= n ? n - 1 : fx;
-    fy = fy < 0 ? 0 : fy >= n ? n - 1 : fy;
-    return abs(fx - ax) >= abs(fy - ay) ? ay * n + fx : fy * n + ax;
-}
-
-static int in_run(int c, int a, int b)
-{
-    int n = G.p.n, x = c % n, y = c / n;
-    int x0 = a % n < b % n ? a % n : b % n, x1 = a % n < b % n ? b % n : a % n;
-    int y0 = a / n < b / n ? a / n : b / n, y1 = a / n < b / n ? b / n : a / n;
-    return x >= x0 && x <= x1 && y >= y0 && y <= y1;
-}
+static int run_to(void) { return G.mark[touch.a] == SBX_DOT ? SBX_NONE : SBX_DOT; }   /* what it makes of them */
 
 static void draw(void)
 {
     if (made_key < 0) layout(last_box);
     int n = G.p.n, solved = sbx_solved(&G);
-    Uint32 now = ui_ms();
     ui_put(t_board, bx, by, side, side);
-    if (hint.cell >= 0 && !lg2_hint_glow(hint.t0, gx + (hint.cell % n + 0.5f) * cs, gy + (hint.cell / n + 0.5f) * cs, cs))
-        hint.cell = -1;
-    int from = ptr.on && ptr.moved ? G.mark[ptr.a] : -1;
+    if (hint.at >= 0) bench_glow(&hint, bench_mid_x(&geo, hint.at), bench_mid_y(&geo, hint.at), 2.6f * cs);
+    int from = running() ? G.mark[touch.a] : -1;
     for (int c = 0; c < n * n; c++) {
-        float mx = gx + (c % n + 0.5f) * cs, my = gy + (c / n + 0.5f) * cs;
-        lg2_wave_cell(&win, (float)(c % n), (float)(c / n), mx, my, cs);
+        float mx = bench_mid_x(&geo, c), my = bench_mid_y(&geo, c);
+        bench_wave_at(&win, c % n + 0.5f, c / n + 0.5f, mx, my, 2.3f * cs);
         int m = G.mark[c];
-        if (from >= 0 && in_run(c, ptr.a, ptr.b) && m == from) m = ptr.to;   /* the run as it will be */
+        if (from >= 0 && bench_in_run(&geo, c, touch.a, touch.b) && m == from) m = run_to();   /* the run to be */
         if (m == SBX_STAR) {
-            float k = 1;
-            if (c == pop.cell) {
-                float t = (now - pop.t0) / (float)POP_MS;
-                if (t < 1) { k = 1 + 0.35f * (1 - puz_ease(t)); ui_animate(); }
-            }
+            float k = bench_pop(&pop, c, 0.35f);
             int bad = !solved && sbx_clash(&G, c);
             if (bad) ui_mark_glow(mx, my, 1.3f * cs);
             ui_shadow_flat(mx, my + 0.04f * cs, 0.6f * cs, 0.6f * cs, 0.45f);
@@ -263,47 +234,43 @@ static void draw(void)
             ui_put_c(t_dot, mx, my, 0.22f * cs, 0.22f * cs);
         }
     }
-    lg2_wave_tick(&win, n, n);
+    bench_wave_tick(&win);
+    ui_tool(0, ICON_HINT, solved ? UI_DIM : 0);
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
 static void press(float x, float y)
 {
-    memset(&ptr, 0, sizeof ptr);
+    memset(&touch, 0, sizeof touch);
     if (sbx_solved(&G)) return;
-    int c = cell_at(x, y);
-    if (c < 0) return;
-    ptr.on = 1;
-    ptr.a = ptr.b = c;
-    ptr.to = G.mark[c] == SBX_DOT ? SBX_NONE : SBX_DOT;
-    ui_animate();
+    if (ui_tool_hit(x, y) == 0) {               /* the shell's tool: the hint */
+        int c = sbx_hint(&G);
+        if (c < 0) { ui_sound(SND_DENY); return; }
+        bench_flash_start(&hint, c);
+        if (G.mark[c] == SBX_STAR) bench_flash_start(&pop, c);
+        ui_sound(SND_PLACE);
+        after(c);
+        return;
+    }
+    bench_press(&touch, &geo, x, y);
 }
 
-static void motion(float x, float y)
-{
-    if (!ptr.on) return;
-    int b = run_end(ptr.a, x, y);
-    if (b != ptr.a && G.mark[ptr.a] != SBX_STAR) ptr.moved = 1;   /* a run starts from an empty cell or a dot */
-    if (ptr.moved) ptr.b = b;
-    ui_animate();
-}
+/* a run starts from an empty cell or a dot */
+static void motion(float x, float y) { bench_motion(&touch, &geo, x, y, touch.on && G.mark[touch.a] != SBX_STAR); }
 
 static void release(float x, float y)
 {
     (void)x;
     (void)y;
-    if (!ptr.on) return;
-    ptr.on = 0;
-    ui_animate();
-    int c = ptr.a;
-    if (ptr.moved) {
-        if (sbx_run(&G, ptr.a, ptr.b, ptr.to)) ui_sound(SND_TAP);
+    int run = running(), to = run_to(), c = touch.a;
+    if (bench_release(&touch) == BENCH_NOTHING) return;
+    if (run) {
+        if (sbx_run(&G, touch.a, touch.b, to)) ui_sound(SND_TAP);
         return;
     }
     if (!sbx_tap(&G, c)) return;
     if (G.mark[c] == SBX_STAR) {
-        pop.cell = c;
-        pop.t0 = ui_ms();
+        bench_flash_start(&pop, c);
         ui_sound(SND_PLACE);
     } else {
         ui_sound(SND_TAP);
@@ -311,36 +278,22 @@ static void release(float x, float y)
     after(c);
 }
 
-/* ---- the bar: the moves, the lamp -------------------------------------------------------------------------------- */
+/* ---- the bar: the moves ------------------------------------------------------------------------------------------ */
 static void bar(int player, box b)
 {
     (void)player;
-    lg2_bar_draw(&barl, &buttons, b, t_small, G.hist.moves, !sbx_solved(&G));
-}
-
-static int bar_press(int player, float x, float y)
-{
-    (void)player;
-    if (sbx_solved(&G) || !lg2_bar_lamp(&barl, x, y)) return 0;
-    int c = sbx_hint(&G);
-    if (c < 0) { ui_sound(SND_DENY); return 1; }
-    hint.cell = c;
-    hint.t0 = ui_ms();
-    if (G.mark[c] == SBX_STAR) pop.cell = c, pop.t0 = hint.t0;
-    ui_sound(SND_PLACE);
-    after(c);
-    return 1;
+    bench_bar_moves(b, t_small, G.hist.moves);
 }
 
 /* ---- the menu's and the picker's cards: a puzzle of the size and level, the stars of its first row (the menu's: of
  * its top half), and as many ebony stones as its level ------------------------------------------------------------- */
-static void thumb(int variant, int size, uint8_t *rgba)
+static void card(int variant, int size, int bare, uint8_t *rgba)
 {
     int v = variant < 0 ? 4 : variant, n = sbx_size_of(v);
     sbx_puz p;
     uint8_t sol[SBX_CELLS];
     sbx_make(n, sbx_stars_of(v), sbx_level_of(v), 2026u + (uint32_t)v, &p, sol);
-    int S = variant < 0 ? size : (int)(0.84f * size), f = (int)(S * FRAME);
+    int S = variant < 0 || bare ? size : (int)(0.84f * size), f = (int)(S * BENCH_FRAME);
     float q = floorf((S - 2 * f - 0.25f * S / n) / n), o = floorf((S - n * q) / 2);
     uint8_t *b = calloc((size_t)S * S, 4);
     int ss = (int)(0.86f * q);
@@ -358,13 +311,20 @@ static void thumb(int variant, int size, uint8_t *rgba)
     int ox = (size - S) / 2;
     art_blend(rgba, size, size, b, S, S, ox, variant < 0 ? ox : 0);
     free(b);
-    if (variant >= 0) lg2_stones(rgba, size, S + (size - S - (int)(0.1f * size)) / 2, sbx_level_of(v));
+    if (variant >= 0 && !bare) bench_stones(rgba, size, S, sbx_level_of(v));
 }
+
+static void thumb(int variant, int size, uint8_t *rgba) { card(variant, size, 0, rgba); }
+
+/* the picker's sizes (game.axes, above the levels): a puzzle of the size at the medium level, on the whole card */
+static void size_pic(int i, int size, uint8_t *rgba) { card(i * 3 + 1, size, 1, rgba); }
 
 static const game starbattle_game = {
     .id = "starbattle", .order = 416, .variants = SBX_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1,
+    .axes = {SBX_SIZES, 3}, .axis_pic = {size_pic, NULL},
+    .score = score, .level_stars = stars, .fill = 1, .tools = 1,
 };
 REGISTER_GAME(starbattle_game)

@@ -25,7 +25,7 @@
 
 #include <stdint.h>
 
-#include "games/logicgrid2.h"
+#include "games/bench.h"
 
 #define FSK_MIN 4
 #define FSK_MAX 7
@@ -53,7 +53,7 @@ typedef struct {
     uint8_t sol[FSK_CELLS];                     /* the solution */
     uint8_t val[FSK_CELLS];                     /* the grid now (0: empty) */
     uint8_t notes[FSK_CELLS];                   /* the pencil marks: bit d for the digit d */
-    lg2_hist hist;
+    bench_hist hist;
 } fsk_game;
 
 /* the solutions of a puzzle, counted up to limit; the first found in sol (may be NULL) */

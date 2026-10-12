@@ -171,7 +171,7 @@ static void combos_for(int n)
     combo_n = n;
     ncombo[1] = ncombo[2] = ncombo[3] = 0;
     for (unsigned set = 1; set < 1u << n; set++) {
-        int b = lg2_bits(set);
+        int b = bench_bits(set);
         if (b <= 3) combo[b][ncombo[b]++] = set;
     }
 }
@@ -203,19 +203,19 @@ static int packed(grid *g, int m)
             unsigned bset = 0;
             int need_a = 0;
             for (unsigned q = set; q; q &= q - 1) {
-                int u = ka * n + lg2_low(q);
+                int u = ka * n + bench_low(q);
                 need_a += need[u];
                 bset |= touch[u][kb];
             }
-            if (lg2_bits(bset) != m) continue;
+            if (bench_bits(bset) != m) continue;
             int need_b = 0;
             cells in = {0, 0}, rest = {0, 0};
             for (unsigned q = bset; q; q &= q - 1) {
-                need_b += need[kb * n + lg2_low(q)];
-                rest = c_or(rest, uo[kb * n + lg2_low(q)]);
+                need_b += need[kb * n + bench_low(q)];
+                rest = c_or(rest, uo[kb * n + bench_low(q)]);
             }
             if (need_a != need_b) continue;
-            for (unsigned q = set; q; q &= q - 1) in = c_or(in, uo[ka * n + lg2_low(q)]);
+            for (unsigned q = set; q; q &= q - 1) in = c_or(in, uo[ka * n + bench_low(q)]);
             rest = c_and(rest, c_not(in, T.all));
             if (!c_any(rest)) continue;
             g->empty = c_or(g->empty, rest);
@@ -535,19 +535,28 @@ void sbx_new(sbx_game *g, int variant, uint32_t seed)
 
 static int in_grid(const sbx_game *g, int c) { return c >= 0 && c < g->p.n * g->p.n; }
 
+/* the wrong entries on the board (the stars' mistakes) */
+static int wrongs(const sbx_game *g)
+{
+    int k = 0;
+    for (int c = 0; c < g->p.n * g->p.n; c++)
+        k += (g->mark[c] == SBX_STAR && !g->sol[c]) || (g->mark[c] == SBX_DOT && g->sol[c]);
+    return k;
+}
+
 static void mark(sbx_game *g, int c, int m)
 {
     if (g->mark[c] == m) return;
-    lg2_log(&g->hist, c, g->mark[c]);
+    bench_log(&g->hist, c, g->mark[c]);
     g->mark[c] = (uint8_t)m;
 }
 
 int sbx_set(sbx_game *g, int c, int m)
 {
     if (!in_grid(g, c) || m < SBX_NONE || m > SBX_DOT) return 0;
-    lg2_begin(&g->hist, 1);
+    bench_begin(&g->hist, 1);
     mark(g, c, m);
-    return lg2_end(&g->hist);
+    return bench_done(&g->hist, wrongs(g));
 }
 
 int sbx_tap(sbx_game *g, int c)
@@ -562,15 +571,15 @@ int sbx_run(sbx_game *g, int a, int b, int to)
     if (!in_grid(g, a) || !in_grid(g, b) || (a % n != b % n && a / n != b / n) || to < SBX_NONE || to > SBX_DOT)
         return 0;
     int step = a == b ? 1 : a % n == b % n ? (b > a ? n : -n) : (b > a ? 1 : -1), from = g->mark[a];
-    lg2_begin(&g->hist, SBX_MAX);
+    bench_begin(&g->hist, SBX_MAX);
     for (int c = a;; c += step) {
         if (g->mark[c] == from) mark(g, c, to);
         if (c == b) break;
     }
-    return lg2_end(&g->hist);
+    return bench_done(&g->hist, wrongs(g));
 }
 
-int sbx_hint(sbx_game *g)
+static int hint_step(sbx_game *g)
 {
     int n = g->p.n;
     for (int c = 0; c < n * n; c++)             /* a wrong star or dot first */
@@ -594,7 +603,18 @@ int sbx_hint(sbx_game *g)
 
 static void put_back(void *ctx, int cell, uint32_t was) { ((sbx_game *)ctx)->mark[cell] = (uint8_t)was; }
 
-int sbx_undo(sbx_game *g) { return lg2_undo(&g->hist, put_back, g); }
+int sbx_hint(sbx_game *g)
+{
+    return bench_hinted(&g->hist, hint_step(g));
+}
+
+int sbx_undo(sbx_game *g)
+{
+    int c = bench_undo(&g->hist, put_back, g);
+    bench_undone(&g->hist, wrongs(g));
+    return c;
+}
+
 
 static int unit_stars(const sbx_game *g, int way, int i)
 {
@@ -644,11 +664,11 @@ int sbx_script(sbx_game *g, const char *s)
         }
         int m = *s == '*' ? SBX_STAR : *s == '.' ? SBX_DOT : *s == '-' ? SBX_NONE : -1, len, len2;
         if (m < 0) return 0;
-        int a = lg2_cell(s + 1, n, n, &len);
+        int a = bench_cell(s + 1, n, n, &len);
         if (a < 0) return 0;
         s += 1 + len;
         if (*s == '-') {
-            int b = lg2_cell(s + 1, n, n, &len2);
+            int b = bench_cell(s + 1, n, n, &len2);
             if (b < 0 || !sbx_run(g, a, b, m)) return 0;
             s += 1 + len2;
         } else if (!sbx_set(g, a, m)) {

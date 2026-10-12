@@ -445,10 +445,27 @@ void rct_new(rct_game *g, int variant, uint32_t seed)
     g->seed = seed;
 }
 
+/* a cell where a rectangle has its top left corner */
+static int is_corner(const rct_game *g, int c)
+{
+    int x, y, w, h;
+    rct_unpack(g->own[c], &x, &y, &w, &h);
+    return y * g->n + x == c;
+}
+
+/* the wrong entries on the board (the stars' mistakes) */
+static int wrongs(const rct_game *g)
+{
+    int k = 0;
+    for (int c = 0; c < g->n * g->n; c++)
+        k += g->own[c] && g->own[c] != g->sol[c] && is_corner(g, c);
+    return k;
+}
+
 static void set_cell(rct_game *g, int c, uint32_t r)
 {
     if (g->own[c] == r) return;
-    lg2_log(&g->hist, c, g->own[c]);
+    bench_log(&g->hist, c, g->own[c]);
     g->own[c] = r;
 }
 
@@ -468,7 +485,7 @@ int rct_draw(rct_game *g, int a, int b)
     int x0 = a % n < b % n ? a % n : b % n, x1 = a % n < b % n ? b % n : a % n;
     int y0 = a / n < b / n ? a / n : b / n, y1 = a / n < b / n ? b / n : a / n;
     uint32_t r = rct_pack(x0, y0, x1 - x0 + 1, y1 - y0 + 1);
-    lg2_begin(&g->hist, 2 * n * n);
+    bench_begin(&g->hist, 2 * n * n);
     for (int y = y0; y <= y1; y++)              /* the rectangles under it go */
         for (int x = x0; x <= x1; x++) {
             uint32_t o = g->own[y * n + x];
@@ -476,15 +493,15 @@ int rct_draw(rct_game *g, int a, int b)
         }
     for (int y = y0; y <= y1; y++)
         for (int x = x0; x <= x1; x++) set_cell(g, y * n + x, r);
-    return lg2_end(&g->hist);
+    return bench_done(&g->hist, wrongs(g));
 }
 
 int rct_erase(rct_game *g, int c)
 {
     if (c < 0 || c >= g->n * g->n || !g->own[c]) return 0;
-    lg2_begin(&g->hist, g->n * g->n);
+    bench_begin(&g->hist, g->n * g->n);
     clear_rect(g, g->own[c]);
-    return lg2_end(&g->hist);
+    return bench_done(&g->hist, wrongs(g));
 }
 
 int rct_good(const rct_game *g, uint32_t r)
@@ -522,7 +539,7 @@ static int draw_sol(rct_game *g, uint32_t r)
     return rct_draw(g, y * n + x, (y + h - 1) * n + x + w - 1);
 }
 
-int rct_hint(rct_game *g)
+static int hint_step(rct_game *g)
 {
     int n = g->n;
     for (int c = 0; c < n * n; c++)             /* a wrong rectangle first */
@@ -554,7 +571,18 @@ int rct_hint(rct_game *g)
 
 static void put_back(void *ctx, int cell, uint32_t was) { ((rct_game *)ctx)->own[cell] = was; }
 
-int rct_undo(rct_game *g) { return lg2_undo(&g->hist, put_back, g); }
+int rct_hint(rct_game *g)
+{
+    return bench_hinted(&g->hist, hint_step(g));
+}
+
+int rct_undo(rct_game *g)
+{
+    int c = bench_undo(&g->hist, put_back, g);
+    bench_undone(&g->hist, wrongs(g));
+    return c;
+}
+
 
 int rct_script(rct_game *g, const char *s)
 {
@@ -575,14 +603,14 @@ int rct_script(rct_game *g, const char *s)
         }
         int len, len2;
         if (*s == 'x') {
-            int c = lg2_cell(s + 1, n, n, &len);
+            int c = bench_cell(s + 1, n, n, &len);
             if (c < 0 || !rct_erase(g, c)) return 0;
             s += 1 + len;
             continue;
         }
-        int a = lg2_cell(s, n, n, &len);
+        int a = bench_cell(s, n, n, &len);
         if (a < 0 || s[len] != '-') return 0;
-        int b = lg2_cell(s + len + 1, n, n, &len2);
+        int b = bench_cell(s + len + 1, n, n, &len2);
         if (b < 0 || !rct_draw(g, a, b)) return 0;
         s += len + 1 + len2;
     }

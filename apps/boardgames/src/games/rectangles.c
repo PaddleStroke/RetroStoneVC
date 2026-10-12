@@ -1,25 +1,26 @@
 /*
  * Rectangles in RetroStone Board, for one player: a darker tray ruled in cells in the house's walnut frame, the
  * numbers burned into it, and the player's rectangles laid on it as wooden tiles in several tones (two touching tiles
- * never the same), each number still showing through its tile (the rules: rectangles_rules.c).
+ * never the same), each number still showing through its tile (the rules: rectangles_rules.c; what the logic grids
+ * share: bench.h, bench_ui.h).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Drag from a cell to another: the rectangle with these corners is drawn as you go (its cell count shown above the
  * finger) and laid when you lift it; the tiles under it go. Or tap a cell, then another (the same one again: a single
- * cell). Tap a tile to take it away. A tile holding no number, two numbers, or a number not its area is pale. The lamp
- * at the right of the bar: a hint (a wrong tile taken away, else the easiest right one laid, in gold light). Undo
- * takes back one action, all the way to the start. The bar: the moves. Solved: a wave of gold light over the tiles.
+ * cell). Tap a tile to take it away. A tile holding no number, two numbers, or a number not its area is pale. The
+ * shell's tool, the lamp: a hint (a wrong tile taken away, else the easiest right one laid, in gold light). Undo
+ * takes back one action, all the way to the start. The bar: the moves. Solved: a wave of gold light over the tiles;
+ * the stars count the hints and the mistakes (bench.h).
  */
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "games/logicgrid2_ui.h"
-#include "games/puzzles.h"
+#include "games/bench_ui.h"
+#include "games/race.h"
 #include "games/rectangles.h"
 #include "shell.h"
 
-#define FRAME 0.035f
 #define INSET 0.055f                            /* a tile's gap to its cells' edges, a part of a cell */
 #define CACHE 64
 
@@ -28,10 +29,8 @@ static const float TRAY[3] = {0.74f, 0.70f, 0.66f};
 static rct_game G;
 static int pending = -1, serial;                /* pending: a tapped corner waiting for the other */
 static struct { int on, a, b, moved; float x, y; } ptr;
-static struct { int cell; Uint32 t0; } hint = {-1, 0};
-static lg2_wave win;
-static lg2_bar barl;
-static lg2_buttons buttons;
+static bench_flash hint = {-1, 0};
+static bench_wave win;
 
 static box last_box;
 static float bx, by, side, gx, gy, cs;
@@ -43,7 +42,7 @@ static puz_font f_num;
 /* the board: the plank in its frame, the grid's tray darker, ruled in cells */
 static void paint_board(uint8_t *o, int S, int f, int n, float q, float ox, float oy)
 {
-    lg2_plank(o, S, S, f);
+    bench_plank(o, S, S, f);
     float g = n * q;
     for (int y = (int)oy; y < (int)ceilf(oy + g); y++)
         for (int x = (int)ox; x < (int)ceilf(ox + g); x++) {
@@ -80,7 +79,7 @@ static SDL_Texture *tile_tex(int w, int h, int tone)
     ui_free(&cache[slot].t);
     uint8_t *b = malloc((size_t)w * h * 4);
     if (!b) return NULL;
-    lg2_tile(b, w, h, fminf(0.16f * cs, 0.3f * fminf(w, h)), LG2_TONE[tone]);
+    bench_tile(b, w, h, fminf(0.16f * cs, 0.3f * fminf(w, h)), BENCH_TONE[tone]);
     cache[slot] = (cached){w, h, tone, ++tick, ui_tex(w, h, b)};
     free(b);
     return cache[slot].t;
@@ -98,7 +97,7 @@ static void token(int player, int size, uint8_t *rgba)
         int w = t[i].w * u - 2 * g, h = t[i].h * u - 2 * g;
         uint8_t *b = malloc((size_t)w * h * 4);
         if (!b) return;
-        lg2_tile(b, w, h, 0.18f * u, LG2_TONE[t[i].tone]);
+        bench_tile(b, w, h, 0.18f * u, BENCH_TONE[t[i].tone]);
         if (t[i].v) puz_burn(b, w, h, t[i].v, w / 2.0f, h * 0.53f, 0.62f * h);
         art_blend(rgba, size, size, b, w, h, ox + t[i].x * u + g, oy + t[i].y * u + g);
         free(b);
@@ -112,7 +111,7 @@ static void layout(box b)
     side = floorf(fminf(b.w, b.h));
     bx = floorf(b.x + (b.w - side) / 2);
     by = floorf(b.y + (b.h - side) / 2);
-    fr = (int)(side * FRAME);
+    fr = (int)(side * BENCH_FRAME);
     cs = floorf((side - 2 * fr - 0.3f * side / n) / n);
     float ox = floorf((side - n * cs) / 2);
     gx = bx + ox;
@@ -127,14 +126,14 @@ static void layout(box b)
         for (int i = 0; i < CACHE; i++) ui_free(&cache[i].t);
         puz_font_make(&f_num, (int)(0.6f * cs), 1);
     }
-    lg2_small(&t_small, &made_small, token);
+    bench_small(&t_small, &made_small, token);
 }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
 static void calm(void)
 {
     pending = -1;
-    hint.cell = -1;
+    hint.at = -1;
     win.on = 0;
     memset(&ptr, 0, sizeof ptr);
 }
@@ -149,12 +148,14 @@ static void start(int variant)
 
 static int status(void) { return rct_solved(&G) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
-static int busy(void) { return lg2_wave_busy(&win, G.n, G.n); }
+static int busy(void) { return bench_wave_busy(&win); }
+static int score(void) { return G.hist.moves; }
+static int stars(void) { return ui_logic_stars(G.hist.hints, G.hist.mistakes); }
 
 static void after(int cell)
 {
     if (rct_solved(&G) && !win.on) {
-        lg2_wave_start(&win, (float)(cell % G.n), (float)(cell / G.n));
+        bench_wave_start(&win, (cell % G.n) + 0.5f, (cell / G.n) + 0.5f, G.n, G.n);
         pending = -1;
     }
     ui_animate();
@@ -208,8 +209,8 @@ static int tones_of(uint8_t *tone)
                 rct_unpack(o, &ox, &oy, &ow, &oh);
                 if (oy * n + ox < c) used |= 1u << tone[oy * n + ox];
             }
-        int t = (int)(race_hash(c, (int)r) * LG2_TONES) % LG2_TONES;
-        for (int i = 0; i < LG2_TONES && (used >> t & 1); i++) t = (t + 1) % LG2_TONES;
+        int t = (int)(race_hash(c, (int)r) * BENCH_TONES) % BENCH_TONES;
+        for (int i = 0; i < BENCH_TONES && (used >> t & 1); i++) t = (t + 1) % BENCH_TONES;
         tone[c] = (uint8_t)t;
         k++;
     }
@@ -254,20 +255,20 @@ static void draw(void)
         ui_mark_select(gx + x0 * cs, gy + y0 * cs, (x1 - x0 + 1) * cs, (y1 - y0 + 1) * cs);
     }
     if (pending >= 0) ui_mark_select(gx + pending % n * cs, gy + pending / n * cs, cs, cs);
-    if (hint.cell >= 0) {
-        uint32_t r = G.own[hint.cell];
-        int x = hint.cell % n, y = hint.cell / n, w = 1, h = 1;
+    if (hint.at >= 0) {
+        uint32_t r = G.own[hint.at];
+        int x = hint.at % n, y = hint.at / n, w = 1, h = 1;
         if (r) rct_unpack(r, &x, &y, &w, &h);
-        if (!lg2_hint_glow(hint.t0, gx + (x + w / 2.0f) * cs, gy + (y + h / 2.0f) * cs, cs * sqrtf((float)(w * h))))
-            hint.cell = -1;
+        bench_glow(&hint, gx + (x + w / 2.0f) * cs, gy + (y + h / 2.0f) * cs, 2.6f * cs * sqrtf((float)(w * h)));
     }
     for (int c = 0; c < n * n; c++) {           /* the numbers, and the win's light */
         float mx = gx + (c % n + 0.5f) * cs, my = gy + (c / n + 0.5f) * cs;
-        lg2_wave_cell(&win, (float)(c % n), (float)(c / n), mx, my, cs);
+        bench_wave_at(&win, c % n + 0.5f, c / n + 0.5f, mx, my, 2.3f * cs);
         int v = G.p.clue[c];
         if (v) puz_number(&f_num, mx, my + 0.03f * cs, 0.6f * cs * (v >= 10 ? 0.85f : 1), v, PUZ_INK, 255);
     }
-    lg2_wave_tick(&win, n, n);
+    bench_wave_tick(&win);
+    ui_tool(0, ICON_HINT, rct_solved(&G) ? UI_DIM : 0);
     if (ptr.on && ptr.moved) {                  /* its cell count, above the finger */
         int a = ptr.a, b = ptr.b, cnt = (abs(a % n - b % n) + 1) * (abs(a / n - b / n) + 1);
         float d = 1.1f * ui.unit, x = clampf(ptr.x, bx + d / 2, bx + side - d / 2), y = ptr.y - 1.2f * ui.unit;
@@ -286,6 +287,15 @@ static void press(float x, float y)
 {
     memset(&ptr, 0, sizeof ptr);
     if (rct_solved(&G)) return;
+    if (ui_tool_hit(x, y) == 0) {               /* the shell's tool: the hint */
+        pending = -1;
+        int c = rct_hint(&G);
+        if (c < 0) { ui_sound(SND_DENY); return; }
+        bench_flash_start(&hint, c);
+        ui_sound(SND_PLACE);
+        after(c);
+        return;
+    }
     int c = cell_at(x, y, 0);
     if (c < 0) {                                /* off the grid: a tapped corner forgotten */
         if (pending >= 0) pending = -1, ui_animate();
@@ -340,32 +350,18 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    lg2_bar_draw(&barl, &buttons, b, t_small, G.hist.moves, !rct_solved(&G));
-}
-
-static int bar_press(int player, float x, float y)
-{
-    (void)player;
-    if (rct_solved(&G) || !lg2_bar_lamp(&barl, x, y)) return 0;
-    pending = -1;
-    int c = rct_hint(&G);
-    if (c < 0) { ui_sound(SND_DENY); return 1; }
-    hint.cell = c;
-    hint.t0 = ui_ms();
-    ui_sound(SND_PLACE);
-    after(c);
-    return 1;
+    bench_bar_moves(b, t_small, G.hist.moves);
 }
 
 /* ---- the menu's and the picker's cards: a puzzle of the size and level, some tiles laid, and as many ebony stones
  * as its level; the menu's a 7 x 7 half done ----------------------------------------------------------------------- */
-static void thumb(int variant, int size, uint8_t *rgba)
+static void card(int variant, int size, int bare, uint8_t *rgba)
 {
     int v = variant < 0 ? 1 : variant, n = rct_size_of(v);
     rct_puz p;
     static uint32_t sol[RCT_CELLS];
     rct_make(n, rct_level_of(v), 2026u + (uint32_t)v, &p, sol);
-    int S = variant < 0 ? size : (int)(0.84f * size), f = (int)(S * FRAME);
+    int S = variant < 0 || bare ? size : (int)(0.84f * size), f = (int)(S * BENCH_FRAME);
     float q = floorf((S - 2 * f - 0.3f * S / n) / n), o = floorf((S - n * q) / 2);
     uint8_t *b = calloc((size_t)S * S, 4);
     if (!b) return;
@@ -380,7 +376,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
         if (tw < 3 || th < 3) continue;
         uint8_t *t = malloc((size_t)tw * th * 4);
         if (!t) continue;
-        lg2_tile(t, tw, th, fminf(0.16f * q, 0.3f * fminf(tw, th)), LG2_TONE[k % LG2_TONES]);
+        bench_tile(t, tw, th, fminf(0.16f * q, 0.3f * fminf(tw, th)), BENCH_TONE[k % BENCH_TONES]);
         art_blend(b, S, S, t, tw, th, (int)(o + x * q + in), (int)(o + y * q + in));
         free(t);
     }
@@ -392,13 +388,20 @@ static void thumb(int variant, int size, uint8_t *rgba)
     int ox = (size - S) / 2;
     art_blend(rgba, size, size, b, S, S, ox, variant < 0 ? ox : 0);
     free(b);
-    if (variant >= 0) lg2_stones(rgba, size, S + (size - S - (int)(0.1f * size)) / 2, rct_level_of(v));
+    if (variant >= 0 && !bare) bench_stones(rgba, size, S, rct_level_of(v));
 }
+
+static void thumb(int variant, int size, uint8_t *rgba) { card(variant, size, 0, rgba); }
+
+/* the picker's sizes (game.axes, above the levels): a puzzle of the size at the medium level, on the whole card */
+static void size_pic(int i, int size, uint8_t *rgba) { card(i * 3 + 1, size, 1, rgba); }
 
 static const game rectangles_game = {
     .id = "rectangles", .order = 415, .variants = RCT_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1,
+    .axes = {RCT_SIZES, 3}, .axis_pic = {size_pic, NULL},
+    .score = score, .level_stars = stars, .fill = 1, .tools = 1,
 };
 REGISTER_GAME(rectangles_game)

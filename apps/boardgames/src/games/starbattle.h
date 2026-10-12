@@ -32,7 +32,7 @@
 
 #include <stdint.h>
 
-#include "games/logicgrid2.h"
+#include "games/bench.h"
 
 #define SBX_MAX 10
 #define SBX_CELLS (SBX_MAX * SBX_MAX)
@@ -59,7 +59,7 @@ typedef struct {
     sbx_puz p;
     uint8_t sol[SBX_CELLS];                     /* 1: a star in the solution */
     uint8_t mark[SBX_CELLS];                    /* the player's: SBX_NONE, SBX_STAR, SBX_DOT */
-    lg2_hist hist;
+    bench_hist hist;
 } sbx_game;
 
 /* the solutions of a puzzle, counted up to limit; the first found in sol (1: a star; may be NULL) */

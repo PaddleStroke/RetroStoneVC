@@ -52,7 +52,7 @@ static int broken(const pen *s)                 /* a cell with nothing left, a d
     for (int u = 0; u < 2 * n; u++) {
         unsigned seen = 0;
         for (int j = 0; j < n; j++) seen |= s->cand[ucell(n, u, j)];
-        if (lg2_bits(seen) < n) return 1;
+        if (bench_bits(seen) < n) return 1;
     }
     return 0;
 }
@@ -67,9 +67,9 @@ static int all_placed(const pen *s)
 static int naked_single(pen *s, int *cell)
 {
     for (int c = 0; c < s->n * s->n; c++)
-        if (!s->v[c] && lg2_bits(s->cand[c]) == 1) {
+        if (!s->v[c] && bench_bits(s->cand[c]) == 1) {
             if (cell) *cell = c;
-            place(s, c, lg2_low(s->cand[c]));
+            place(s, c, bench_low(s->cand[c]));
             return 1;
         }
     return 0;
@@ -104,8 +104,8 @@ static int bounds(pen *s)
             if (!r || (way ? c / n >= n - 1 : c % n >= n - 1)) continue;
             int o = way ? c + n : c + 1, lo = r == FSK_LT ? c : o, hi = r == FSK_LT ? o : c;
             if (!s->cand[lo] || !s->cand[hi]) return 1;
-            unsigned ml = s->cand[lo] & ((1u << lg2_high(s->cand[hi])) - 1);
-            unsigned mh = s->cand[hi] & ~((2u << lg2_low(s->cand[lo])) - 1);
+            unsigned ml = s->cand[lo] & ((1u << bench_high(s->cand[hi])) - 1);
+            unsigned mh = s->cand[hi] & ~((2u << bench_low(s->cand[lo])) - 1);
             if (ml != s->cand[lo] || mh != s->cand[hi]) ch = 1;
             s->cand[lo] = (uint16_t)ml;
             s->cand[hi] = (uint16_t)mh;
@@ -128,14 +128,14 @@ static int naked(pen *s, int k)
         unsigned open = 0;
         for (int j = 0; j < n; j++)
             if (!s->v[ucell(n, u, j)]) open |= 1u << j;
-        if (lg2_bits(open) <= k) continue;
+        if (bench_bits(open) <= k) continue;
         for (unsigned set = 1; set < 1u << n; set++) {
-            if (lg2_bits(set) != k || (set & ~open)) continue;
+            if (bench_bits(set) != k || (set & ~open)) continue;
             unsigned uni = 0;
-            for (unsigned m = set; m; m &= m - 1) uni |= s->cand[ucell(n, u, lg2_low(m))];
-            if (lg2_bits(uni) != k) continue;
+            for (unsigned m = set; m; m &= m - 1) uni |= s->cand[ucell(n, u, bench_low(m))];
+            if (bench_bits(uni) != k) continue;
             int ch = 0;
-            for (unsigned m = open & ~set; m; m &= m - 1) ch |= remove_cand(s, ucell(n, u, lg2_low(m)), uni);
+            for (unsigned m = open & ~set; m; m &= m - 1) ch |= remove_cand(s, ucell(n, u, bench_low(m)), uni);
             if (ch) return 1;
         }
     }
@@ -157,14 +157,14 @@ static int hidden(pen *s, int k)
             }
             if (!placed) free_d |= 1u << d;
         }
-        if (lg2_bits(free_d) <= k) continue;
+        if (bench_bits(free_d) <= k) continue;
         for (unsigned set = 2; set < 2u << n; set += 2) {
-            if (lg2_bits(set) != k || (set & ~free_d)) continue;
+            if (bench_bits(set) != k || (set & ~free_d)) continue;
             unsigned cells = 0;
-            for (unsigned m = set; m; m &= m - 1) cells |= pl[lg2_low(m)];
-            if (lg2_bits(cells) != k) continue;
+            for (unsigned m = set; m; m &= m - 1) cells |= pl[bench_low(m)];
+            if (bench_bits(cells) != k) continue;
             int ch = 0;
-            for (unsigned m = cells; m; m &= m - 1) ch |= remove_cand(s, ucell(n, u, lg2_low(m)), ~set);
+            for (unsigned m = cells; m; m &= m - 1) ch |= remove_cand(s, ucell(n, u, bench_low(m)), ~set);
             if (ch) return 1;
         }
     }
@@ -187,20 +187,20 @@ static int fish(pen *s, int k)
                 }
             }
             for (unsigned set = 1; set < 1u << n; set++) {
-                if (lg2_bits(set) != k) continue;
+                if (bench_bits(set) != k) continue;
                 unsigned uni = 0;
                 int ok = 1;
                 for (unsigned m = set; m; m &= m - 1) {
-                    unsigned q = pl[lg2_low(m)];
-                    if (lg2_bits(q) < 2 || lg2_bits(q) > k) ok = 0;
+                    unsigned q = pl[bench_low(m)];
+                    if (bench_bits(q) < 2 || bench_bits(q) > k) ok = 0;
                     uni |= q;
                 }
-                if (!ok || lg2_bits(uni) != k) continue;
+                if (!ok || bench_bits(uni) != k) continue;
                 int ch = 0;
                 for (unsigned m = uni; m; m &= m - 1)
                     for (int i = 0; i < n; i++)
                         if (!(set >> i & 1)) {
-                            int c = ucell(n, way * n + i, lg2_low(m));
+                            int c = ucell(n, way * n + i, bench_low(m));
                             if (!s->v[c]) ch |= remove_cand(s, c, 1u << d);
                         }
                 if (ch) return 1;
@@ -226,10 +226,10 @@ static int contradiction(pen *s)
     int n = s->n;
     for (int k = 2; k <= n; k++)
         for (int c = 0; c < n * n; c++) {
-            if (s->v[c] || lg2_bits(s->cand[c]) != k) continue;
+            if (s->v[c] || bench_bits(s->cand[c]) != k) continue;
             for (unsigned m = s->cand[c]; m; m &= m - 1) {
                 pen t = *s;
-                place(&t, c, lg2_low(m));
+                place(&t, c, bench_low(m));
                 if (!settle(&t)) {
                     s->cand[c] &= (uint16_t)~(m & -m);
                     return 1;
@@ -279,13 +279,13 @@ static void search(counter *k, pen *s)
     if (!settle(s)) return;
     int best = -1, bn = 99, n = s->n;
     for (int c = 0; c < n * n; c++)
-        if (!s->v[c] && lg2_bits(s->cand[c]) < bn) bn = lg2_bits(s->cand[c]), best = c;
+        if (!s->v[c] && bench_bits(s->cand[c]) < bn) bn = bench_bits(s->cand[c]), best = c;
     if (best < 0) {
         if (!k->count++ && k->sol) memcpy(k->sol, s->v, FSK_CELLS);
         return;
     }
     int ds[FSK_MAX], nd = 0;
-    for (unsigned m = s->cand[best]; m; m &= m - 1) ds[nd++] = lg2_low(m);
+    for (unsigned m = s->cand[best]; m; m &= m - 1) ds[nd++] = bench_low(m);
     if (k->rng) pr_shuffle(k->rng, ds, nd);
     for (int i = 0; i < nd && k->count < k->limit; i++) {
         pen t = *s;
@@ -401,10 +401,19 @@ void fsk_new(fsk_game *g, int variant, uint32_t seed)
     g->seed = seed;
 }
 
+/* the wrong entries on the board (the stars' mistakes) */
+static int wrongs(const fsk_game *g)
+{
+    int k = 0;
+    for (int c = 0; c < g->n * g->n; c++)
+        k += g->val[c] && g->val[c] != g->sol[c];
+    return k;
+}
+
 static void change(fsk_game *g, int c, int val, unsigned notes)
 {
     if (g->val[c] == val && g->notes[c] == notes) return;
-    lg2_log(&g->hist, c, (uint32_t)(g->val[c] | g->notes[c] << 8));
+    bench_log(&g->hist, c, (uint32_t)(g->val[c] | g->notes[c] << 8));
     g->val[c] = (uint8_t)val;
     g->notes[c] = (uint8_t)notes;
 }
@@ -415,7 +424,7 @@ int fsk_put(fsk_game *g, int c, int d)
 {
     int n = g->n;
     if (!in_grid(g, c) || d < 0 || d > n || g->p.g[c] || g->val[c] == d) return 0;
-    lg2_begin(&g->hist, 2 * n + 2);
+    bench_begin(&g->hist, 2 * n + 2);
     change(g, c, d, 0);
     if (d)
         for (int j = 0; j < n; j++) {
@@ -423,15 +432,15 @@ int fsk_put(fsk_game *g, int c, int d)
             if (a != c && g->notes[a] >> d & 1) change(g, a, g->val[a], g->notes[a] & ~(1u << d));
             if (b != c && g->notes[b] >> d & 1) change(g, b, g->val[b], g->notes[b] & ~(1u << d));
         }
-    return lg2_end(&g->hist);
+    return bench_done(&g->hist, wrongs(g));
 }
 
 int fsk_note(fsk_game *g, int c, int d)
 {
     if (!in_grid(g, c) || d < 1 || d > g->n || g->p.g[c] || g->val[c]) return 0;
-    lg2_begin(&g->hist, 1);
+    bench_begin(&g->hist, 1);
     change(g, c, 0, g->notes[c] ^ (1u << d));
-    return lg2_end(&g->hist);
+    return bench_done(&g->hist, wrongs(g));
 }
 
 int fsk_erase(fsk_game *g, int c)
@@ -439,12 +448,12 @@ int fsk_erase(fsk_game *g, int c)
     if (!in_grid(g, c) || g->p.g[c]) return 0;
     if (g->val[c]) return fsk_put(g, c, 0);
     if (!g->notes[c]) return 0;
-    lg2_begin(&g->hist, 1);
+    bench_begin(&g->hist, 1);
     change(g, c, 0, 0);
-    return lg2_end(&g->hist);
+    return bench_done(&g->hist, wrongs(g));
 }
 
-int fsk_hint(fsk_game *g)
+static int hint_step(fsk_game *g)
 {
     int n = g->n;
     for (int c = 0; c < n * n; c++)             /* a wrong digit first */
@@ -460,7 +469,7 @@ int fsk_hint(fsk_game *g)
     if (c < 0) {                                /* stuck: the empty cell with the fewest digits left */
         int bn = 99;
         for (int i = 0; i < n * n; i++)
-            if (!g->val[i] && lg2_bits(s.cand[i]) < bn) bn = lg2_bits(s.cand[i]), c = i;
+            if (!g->val[i] && bench_bits(s.cand[i]) < bn) bn = bench_bits(s.cand[i]), c = i;
     }
     if (c < 0) return -1;
     return fsk_put(g, c, g->sol[c]) ? c : -1;
@@ -473,7 +482,18 @@ static void put_back(void *ctx, int cell, uint32_t was)
     g->notes[cell] = (uint8_t)(was >> 8);
 }
 
-int fsk_undo(fsk_game *g) { return lg2_undo(&g->hist, put_back, g); }
+int fsk_hint(fsk_game *g)
+{
+    return bench_hinted(&g->hist, hint_step(g));
+}
+
+int fsk_undo(fsk_game *g)
+{
+    int c = bench_undo(&g->hist, put_back, g);
+    bench_undone(&g->hist, wrongs(g));
+    return c;
+}
+
 
 int fsk_clash(const fsk_game *g, int c)
 {
@@ -526,7 +546,7 @@ int fsk_script(fsk_game *g, const char *s)
                 if (!g->val[c]) { fsk_put(g, c, g->sol[c]); k--; }
             continue;
         }
-        int len, c = lg2_cell(s, n, n, &len);
+        int len, c = bench_cell(s, n, n, &len);
         if (c < 0 || (s[len] != '=' && s[len] != '\'') || s[len + 1] < '0' || s[len + 1] > '9') return 0;
         int ok = s[len] == '=' ? fsk_put(g, c, s[len + 1] - '0') : fsk_note(g, c, s[len + 1] - '0');
         if (!ok) return 0;
