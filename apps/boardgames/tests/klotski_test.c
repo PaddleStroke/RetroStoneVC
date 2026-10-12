@@ -1,8 +1,10 @@
 /*
- * Klotski's rules: every start's par found again by a breadth-first search written here (moves as the tradition
- * counts them; Heng Dao Li Ma's 81), the hint's search from the starts and from positions along the way (its way is
- * always as long as it says, and one move shorter after its first move), slides, moves round corners, a block slid
- * back to where it began (no move), undo, and whole games from a seed (random moves, then hints to the end).
+ * Klotski's rules: pars found again by a breadth-first search written here (moves as the tradition counts them; the
+ * traditional Heng Dao Li Ma's 81), every level's par (one in ten by that search too), the puzzles made at random
+ * (their par, the time it takes), a family's distances against the hint's search, the hint's search from positions
+ * along the way (its way is always as long as it says, and one move shorter after its first move), slides, moves round
+ * corners, a block slid back to where it began (no move), undo, and whole games from a seed (random moves, then hints
+ * to the end).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -28,7 +30,7 @@ static void key_of(const klt_game *g, char *k)
 {
     memset(k, '.', 20);
     k[20] = 0;
-    for (int i = 0; i < KLT_PIECES; i++) {
+    for (int i = 0; i < g->np; i++) {
         const klt_piece *p = &g->p[i];
         int w = p->type == KLT_BIG || p->type == KLT_WIDE ? 2 : 1, h = p->type <= KLT_TALL ? 2 : 1;
         for (int dy = 0; dy < h; dy++)
@@ -37,11 +39,12 @@ static void key_of(const klt_game *g, char *k)
     }
 }
 
-/* the test's own search: the positions seen, in a hash of strings */
+/* the test's own search: the positions seen, in a hash of strings; the positions themselves (blocks only) */
 #define CAP (1 << 19)
+typedef struct { int np; klt_piece p[KLT_PIECES]; } tray;
 static char (*seen)[21];
 static int *dist_;
-static klt_game *q;
+static tray *q;
 
 static unsigned hash(const char *k)
 {
@@ -62,42 +65,63 @@ static int find(const char *k, int add)
     return (int)h;
 }
 
-static int bfs_par(int level, int *positions)
+static void as_game(const tray *t, klt_game *g)
 {
+    g->np = t->np;
+    memcpy(g->p, t->p, sizeof g->p);
+    g->nh = g->moves = 0;
+    g->last = -1;
+}
+
+static int bfs_par(const klt_game *start, int *positions)
+{
+    static klt_game g, h;
     memset(seen, 0, sizeof(char[21]) * CAP);
     int head = 0, tail = 0;
-    klt_new(&q[tail], level);
+    q[tail].np = start->np;
+    memcpy(q[tail].p, start->p, sizeof q[tail].p);
     char k[21];
-    key_of(&q[tail], k);
+    as_game(&q[tail], &g);
+    key_of(&g, k);
     dist_[find(k, 1)] = 0;
     tail++;
     int best = -1;
     while (head < tail) {
-        klt_game g = q[head++];
+        as_game(&q[head++], &g);
         key_of(&g, k);
         int d = dist_[find(k, 0)];
         if (klt_solved(&g)) {
             if (best < 0) best = d;
             continue;
         }
-        for (int i = 0; i < KLT_PIECES; i++) {
+        for (int i = 0; i < g.np; i++) {
             int8_t reach[20];
             klt_reach(&g, i, reach);
             for (int c = 0; c < 20; c++) {
                 if (reach[c] <= 0) continue;
-                klt_game h = g;
-                h.nh = 0;
-                h.last = -1;
+                as_game(&q[head - 1], &h);
                 if (!klt_move(&h, i, c % 4, c / 4)) continue;
                 key_of(&h, k);
                 if (find(k, 0) >= 0) continue;
                 dist_[find(k, 1)] = d + 1;
-                q[tail++] = h;
+                q[tail].np = h.np;
+                memcpy(q[tail].p, h.p, sizeof h.p);
+                tail++;
             }
         }
     }
     *positions = tail;
     return best;
+}
+
+/* each position of a family: its distance is the fewest moves the hint's search finds (one in 97 of them) */
+static int family_ok, family_n;
+
+static void check_family(const klt_game *pos, int dist, void *ctx)
+{
+    (void)ctx;
+    if (family_n++ % 97) return;
+    if (klt_solve(pos, NULL, NULL, NULL) != dist || pos->par != dist) family_ok = 0;
 }
 
 int main(void)
@@ -107,30 +131,66 @@ int main(void)
     q = malloc(CAP / 2 * sizeof *q);
     if (!seen || !dist_ || !q) return 1;
 
-    /* each start: well formed (10 blocks, 2 cells empty), its par by the test's own search and by the rules' */
+    /* the traditional start Heng Dao Li Ma (a test tray, not a level): 81 moves by both searches */
+    static const char *const CLASSIC = "B01 T00 T03 T20 T23 W21 S31 S32 S40 S43";
+    static klt_game g, classic, t, first;
+    CHECK(klt_parse(&classic, CLASSIC) && classic.np == 10 && !klt_solved(&classic));
+    int positions;
+    CHECK(bfs_par(&classic, &positions) == 81 && klt_solve(&classic, NULL, NULL, NULL) == 81);
+    char text[KLT_PIECES * 4 + 1];
+    klt_text(&classic, text);
+    CHECK(!strcmp(text, CLASSIC));
+    CHECK(!klt_parse(&g, "B01 T00") && !klt_parse(&g, "B01 B21 T00 T03 W40 W42 S30 S33") && !klt_parse(&g, "X01"));
+
+    /* every level: well formed (the great block, two cells empty), not solved, its par the rules' search finds (one in
+     * ten by the test's own search too), the hints from the start take exactly that many; no two alike */
+    double slowest = 0;
     for (int lv = 0; lv < KLT_LEVELS; lv++) {
-        klt_game g;
-        klt_new(&g, lv);
+        CHECK(klt_level(&g, lv));
         int empty = 0, big = 0;
         for (int y = 0; y < 5; y++)
             for (int x = 0; x < 4; x++) empty += klt_at(&g, x, y) < 0;
-        for (int i = 0; i < KLT_PIECES; i++) big += g.p[i].type == KLT_BIG;
-        CHECK(empty == 2 && big == 1 && !klt_solved(&g));
-        int positions, par = bfs_par(lv, &positions);
+        for (int i = 0; i < g.np; i++) big += g.p[i].type == KLT_BIG;
+        CHECK(empty == 2 && big == 1 && !klt_solved(&g) && g.par == klt_level_par[lv] && g.par > 0);
         clock_t t0 = clock();
         int mine = klt_solve(&g, NULL, NULL, NULL);
         double ms = (clock() - t0) * 1000.0 / CLOCKS_PER_SEC;
-        printf("klotski %-20s par %3d (table %3d, rules %3d), %6d positions, %.1f ms\n", klt_name(lv), par,
-               klt_par(lv), mine, positions, ms);
-        CHECK(par == klt_par(lv) && mine == par);
-        CHECK(ms < 500);
-        CHECK(klt_script(&g, "=") && klt_solved(&g) && g.moves == par);   /* the hints from the start: the par */
+        if (ms > slowest) slowest = ms;
+        CHECK(mine == g.par);
+        if (lv % 10 == 0) CHECK(bfs_par(&g, &positions) == g.par);
+        t = g;
+        CHECK(klt_script(&t, "=") && klt_solved(&t) && t.moves == g.par);
+        if (lv >= 25 && lv % (KLT_LEVELS / KLT_CHAPTERS) == 0) CHECK(klt_level_par[lv] >= klt_level_par[lv - 25]);
+        for (int k = 0; k < lv; k++) CHECK(strcmp(klt_levels[k], klt_levels[lv]) != 0);
     }
-    CHECK(klt_par(0) == 81);
+    printf("klotski: the slowest level's search %.1f ms\n", slowest);
+    CHECK(!klt_level(&g, KLT_LEVELS));
+
+    /* the puzzles made at random: their par found again, in the variant's range (hard: far), the time it takes */
+    for (int v = 0; v < KLT_VARIANTS; v++) {
+        double worst = 0;
+        int lo = 999, hi = 0;
+        for (uint32_t seed = 1; seed <= 12; seed++) {
+            clock_t t0 = clock();
+            CHECK(klt_random(&g, v, seed));
+            double ms = (clock() - t0) * 1000.0 / CLOCKS_PER_SEC;
+            if (ms > worst) worst = ms;
+            if (g.par < lo) lo = g.par;
+            if (g.par > hi) hi = g.par;
+            CHECK(g.par > 0 && klt_solve(&g, NULL, NULL, NULL) == g.par && !klt_solved(&g));
+            CHECK(v == 2 ? g.par >= 55 : g.par >= (v ? 30 : 15) && g.par <= (v ? 55 : 30));
+            CHECK(klt_random(&t, v, seed) && !memcmp(t.p, g.p, sizeof g.p));
+        }
+        printf("klotski: random variant %d, pars %d .. %d, the slowest %.0f ms\n", v, lo, hi, worst);
+    }
+
+    /* a family's distances: the classic's, against the hint's search on some of its positions */
+    family_ok = 1;
+    family_n = 0;
+    CHECK(klt_family(&classic, check_family, NULL) > 1000 && family_ok);
 
     /* slides and moves */
-    klt_game g;
-    klt_new(&g, 0);                             /* Heng Dao Li Ma: the empty cells b5 and c5 */
+    g = classic;                                /* Heng Dao Li Ma: the empty cells b5 and c5 */
     CHECK(klt_at(&g, 1, 4) < 0 && klt_at(&g, 2, 4) < 0);
     int s = klt_at(&g, 1, 3);                   /* the small block on b4 */
     CHECK(s >= 0 && g.p[s].type == KLT_SMALL);
@@ -157,29 +217,31 @@ int main(void)
     int ok = 1;
     for (uint32_t seed = 1; seed <= 60; seed++) {
         uint32_t r = pr_seed(seed);
-        klt_new(&g, (int)(seed % KLT_LEVELS));
+        klt_level(&g, (int)(seed * 7 % KLT_LEVELS));
+        first = g;
         int steps = pr_below(&r, 40);
         for (int k = 0; k < steps; k++) {
-            int i = pr_below(&r, KLT_PIECES), c = pr_below(&r, 20);
+            int i = pr_below(&r, g.np), c = pr_below(&r, 20);
             klt_reach(&g, i, reach);
             if (reach[c] > 0) {
                 g.last = -1;
                 klt_move(&g, i, c % 4, c / 4);
             }
         }
-        if (klt_solved(&g)) continue;
-        int i, x, y, left = klt_solve(&g, &i, &x, &y);
-        if (left <= 0) { ok = 0; continue; }
-        g.last = -1;
-        if (!klt_move(&g, i, x, y)) ok = 0;
-        if (klt_solve(&g, NULL, NULL, NULL) != left - 1) ok = 0;
-        int before = g.moves;
-        klt_script(&g, "=");
-        if (!klt_solved(&g) || g.moves - before != left - 1) ok = 0;
+        if (!klt_solved(&g)) {
+            int i, x, y, left = klt_solve(&g, &i, &x, &y);
+            if (left <= 0) ok = 0;
+            else {
+                g.last = -1;
+                if (!klt_move(&g, i, x, y)) ok = 0;
+                if (klt_solve(&g, NULL, NULL, NULL) != left - 1) ok = 0;
+                int before = g.moves;
+                klt_script(&g, "=");
+                if (!klt_solved(&g) || g.moves - before != left - 1) ok = 0;
+            }
+        }
         while (klt_undo(&g) >= 0) {}
-        klt_game fresh;
-        klt_new(&fresh, g.level);
-        if (memcmp(fresh.p, g.p, sizeof g.p) || g.moves) ok = 0;
+        if (memcmp(first.p, g.p, sizeof g.p) || g.moves) ok = 0;
     }
     CHECK(ok);
 

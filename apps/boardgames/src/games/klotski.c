@@ -1,7 +1,7 @@
 /*
  * Klotski (Huarong Dao) in RetroStone Board, for one player: a walnut tray of 4 x 5 cells, an opening cut in the middle
- * of its foot, and ten wooden blocks: the great one in red lacquer with a gold inlay, the five long ones in a darker
- * wood, the four small ones pale; the shell's hint button beside the tray (the rules: klotski_rules.c).
+ * of its foot, and its wooden blocks: the great one in red lacquer with a gold inlay, the long ones in a darker wood,
+ * the small ones pale; the tray in all the room the shell gives, the hint one of its tools (the rules: klotski_rules.c).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Drag a block: it follows the finger cell by cell, round corners too. Or tap it: a block with only one place to go
@@ -39,7 +39,6 @@ static struct { int on; Uint32 t0; } win;
 static struct { int on, piece, moved; float x, y, x0, y0, gx, gy; } ptr;
 
 static box last_box;
-static pzt_column col;
 static float bx, by;
 static int q, fr, made_key = -1, made_small = -1;
 static SDL_Texture *t_board, *t_piece[4], *t_small;
@@ -111,8 +110,7 @@ static void token(int player, int size, uint8_t *rgba)
 static void layout(box b)
 {
     last_box = b;
-    pzt_column_fit(&col, b, BTNS);
-    box r = col.room;
+    box r = b;                                  /* the whole room (game.fill); the hint is the shell's tool */
     float S = fminf(r.w, r.h);
     fr = (int)(S * FRAME);
     q = (int)fminf((r.w - 2 * fr) / 4, (r.h - 2 * fr - 0.3f * ui.unit) / 5);
@@ -151,14 +149,22 @@ static void calm(void)
     memset(&ptr, 0, sizeof ptr);
 }
 
-static void start(int variant)
+static void start(int level)                    /* a designed level */
 {
-    klt_new(&G, variant);
+    if (!klt_level(&G, level)) klt_level(&G, 0);
+    calm();
+}
+
+static void start_random(int variant)           /* a tray made at random: easy, medium or hard */
+{
+    if (!klt_random(&G, variant, (uint32_t)ui_random(0x7fffffff) + 1u)) klt_level(&G, 0);
     calm();
 }
 
 static int status(void) { return klt_solved(&G) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
+static int par(void) { return G.par; }
+static int level_stars(void) { return ui_par_stars(G.moves, G.par); }
 
 static Uint32 anim_end(void) { return anim.on ? anim.t0 + (Uint32)(anim.n * STEP_MS) : 0; }
 
@@ -202,7 +208,7 @@ static int undo(void)
 {
     if (!G.nh) return 0;
     int8_t before[KLT_PIECES][2];
-    for (int i = 0; i < KLT_PIECES; i++) before[i][0] = G.p[i].x, before[i][1] = G.p[i].y;
+    for (int i = 0; i < G.np; i++) before[i][0] = G.p[i].x, before[i][1] = G.p[i].y;
     int i = klt_undo(&G);
     calm();
     if (i >= 0) {                               /* it glides straight back */
@@ -286,7 +292,7 @@ static void draw(void)
                 ui_mark_dot(cell_x(c % 4 + 0.5f), cell_y(c / 4 + 0.5f), 0.32f * q);
     }
     for (int pass = 0; pass < 2; pass++)        /* the moving block last, over the others */
-        for (int i = 0; i < KLT_PIECES; i++) {
+        for (int i = 0; i < G.np; i++) {
             int moving = (anim.on && anim.piece == i && now < anim_end()) || (ptr.on && ptr.moved && ptr.piece == i) ||
                          (win.on && G.p[i].type == KLT_BIG);
             if (moving != pass) continue;
@@ -317,7 +323,7 @@ static void draw(void)
     }
     if (shake.piece >= 0 && now - shake.t0 < SHAKE_MS) ui_animate();
     if (win.on && now < win.t0 + OUT_MS + 400) ui_animate();
-    ui_button(col.x, col.y[B_HINT], col.d, ICON_HINT, klt_solved(&G) ? UI_DIM : 0);
+    ui_tool(B_HINT, ICON_HINT, klt_solved(&G) ? UI_DIM : 0);
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
@@ -334,7 +340,7 @@ static void press(float x, float y)
 {
     memset(&ptr, 0, sizeof ptr);
     if (klt_solved(&G)) return;
-    if (pzt_column_hit(&col, x, y) == B_HINT) { use_hint(); return; }
+    if (ui_tool_hit(x, y) == B_HINT) { use_hint(); return; }
     if (anim.on && ui_ms() < anim_end()) anim.on = 0;   /* a slide still going: done at once */
     int cx, cy;
     ptr.on = 1;
@@ -398,7 +404,7 @@ static void tap(int cx, int cy)
     }
     /* an empty cell: the picked block (or the only block that can) comes over it, the shortest way */
     int best = -1, bc = -1, bd = 99, many = 0;
-    for (int k = 0; k < KLT_PIECES; k++) {
+    for (int k = 0; k < G.np; k++) {
         if (sel >= 0 && k != sel) continue;
         int8_t reach[20];
         klt_reach(&G, k, reach);
@@ -440,37 +446,71 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    pzt_bar_two(b, NULL, G.moves, t_small, klt_par(G.level), klt_solved(&G) && G.moves <= klt_par(G.level));
+    pzt_bar_two(b, NULL, G.moves, t_small, G.par, klt_solved(&G) && G.moves <= G.par);
 }
 
-/* ---- the menu's and the picker's cards: the start ---------------------------------------------------------------- */
-static void thumb(int variant, int size, uint8_t *rgba)
+/* ---- the pictures of the shell's screens: a tray, its blocks where they are ------------------------------------- */
+static void paint_trayful(const klt_game *T, int size, uint8_t *rgba)
 {
-    klt_game T;
-    klt_new(&T, variant < 0 ? 0 : variant);
     int f = (int)(size * 0.03f), cq = (int)((size * 0.94f - 2 * f) / 5), w = 4 * cq + 2 * f, h = 5 * cq + 2 * f;
     uint8_t *b = calloc((size_t)w * h, 4);
     if (!b) return;
     paint_tray(b, cq, f);
     int gap = (int)fmaxf(1, 0.04f * cq);
-    for (int i = 0; i < KLT_PIECES; i++) {
-        int t = T.p[i].type, pw = PW[t] * cq - 2 * gap, ph = PH[t] * cq - 2 * gap;
+    for (int i = 0; i < T->np; i++) {
+        int t = T->p[i].type, pw = PW[t] * cq - 2 * gap, ph = PH[t] * cq - 2 * gap;
         uint8_t *pc = calloc((size_t)pw * ph, 4);
         if (!pc) continue;
         paint_block(t, pw, ph, pc);
-        art_blend(b, w, h, pc, pw, ph, f + T.p[i].x * cq + gap, f + T.p[i].y * cq + gap);
+        art_blend(b, w, h, pc, pw, ph, f + T->p[i].x * cq + gap, f + T->p[i].y * cq + gap);
         free(pc);
     }
     art_blend(rgba, size, size, b, w, h, (size - w) / 2, (size - h) / 2);
     free(b);
 }
 
+/* the trays the pictures show, each made once: the menu's and the random variants' (a fixed seed), the levels' */
+static klt_game *pic_tray(int which)            /* which: -1 the menu, -2.. a variant, 0.. a level */
+{
+    static klt_game T;
+    static int made = -1000;
+    if (made == which) return &T;
+    int ok = which >= 0 ? klt_level(&T, which) : which == -1 ? klt_level(&T, 0) : klt_random(&T, -2 - which, 3);
+    made = ok ? which : -1000;
+    return ok ? &T : NULL;
+}
+
+static void thumb(int variant, int size, uint8_t *rgba)
+{
+    klt_game *T = pic_tray(variant < 0 ? -1 : -2 - variant);
+    if (T) paint_trayful(T, size, rgba);
+}
+
+static void level_thumb(int level, int size, uint8_t *rgba)
+{
+    klt_game *T = pic_tray(level);
+    if (T) paint_trayful(T, size, rgba);
+}
+
+/* a chapter's tab: the great block, and as many small blocks under it as the chapter's number */
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    klt_game T;
+    memset(&T, 0, sizeof T);
+    T.p[T.np++] = (klt_piece){KLT_BIG, 1, 0};
+    for (int k = 0; k <= chapter && k < 6; k++)
+        T.p[T.np++] = (klt_piece){KLT_SMALL, (int8_t)(k % 4), (int8_t)(2 + k / 4)};
+    paint_trayful(&T, size, rgba);
+}
+
 static int score(void) { return G.moves; }   /* the end card's number */
 
 static const game klotski_game = {
-    .id = "klotski", .order = 441, .variants = KLT_LEVELS,
+    .id = "klotski", .order = 441, .variants = KLT_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .score = score,
+    .levels = KLT_LEVELS, .chapters = KLT_CHAPTERS, .start_random = start_random, .chapter_icon = chapter_icon,
+    .level_thumb = level_thumb, .level_stars = level_stars, .par = par, .fill = 1, .tools = BTNS,
 };
 REGISTER_GAME(klotski_game)
