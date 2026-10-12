@@ -1,11 +1,11 @@
 /*
  * Nonograms in RetroStone Board, for one player: the house plank ruled in squares (a thicker line every five), the
  * clues burned along a darker band to the left of the rows and above the columns, the squares filled in ebony ink or
- * crossed (the rules: nonogram_rules.c).
+ * crossed (the rules: nonogram_rules.c; what the logic grids share: bench.h, bench_ui.h).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- * Tap a square to fill it (again: empty); hold it a moment to cross it instead. The button at the right end of the
- * bar turns taps into crosses and back (it shows what a tap does: an ebony square, or a cross). Drag along a row or a
+ * Tap a square to fill it (again: empty); hold it a moment to cross it instead. The shell's tool turns taps into
+ * crosses and back (it shows what a tap does: an ebony square, or a cross). Drag along a row or a
  * column to do the same to the whole run: the squares in the state the first one was (a fill run passes over the
  * crosses). A line whose filled squares make its clue has its clue faded. Undo takes back one tap or run, all the way
  * to the start. The bar: the moves.
@@ -15,14 +15,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "games/bench_ui.h"
 #include "games/nonogram.h"
-#include "games/puzzles.h"
 #include "shell.h"
 
-#define FRAME 0.035f
 #define SLOT_W 0.68f                            /* a row clue's number: its width, in squares */
 #define SLOT_H 0.58f                            /* a column clue's number: its height */
-#define HOLD_MS 420                             /* a press held this long crosses */
 #define COLOUR_MS 700                           /* solved: the picture's colours coming out */
 #define WAVE_STEP 40
 #define WAVE_LEN 520
@@ -32,10 +30,11 @@ static const uint8_t EBONY[3] = {46, 38, 34}, CLUE[3] = {44, 30, 20};
 static ng_game G;
 static int crossing;                            /* taps cross (the bar's button) */
 static int serial;                              /* the puzzle's number: its board remade */
-static struct { int on, a, b, to, moved; float x0, y0; Uint32 t0; } ptr;
+static bench_geo geo;                           /* the squares (the finger's runs) */
+static bench_touch touch;
 static struct { int on; Uint32 t0; } win;
 
-static box last_box, barbox;
+static box last_box;
 static float bx, by, side, gx0, gy0;            /* the board's corner; the grid's */
 static int fr, cs, max_r, max_c, made_key = -1, made_small = -1;
 static SDL_Texture *t_board, *t_cross, *t_small;
@@ -53,7 +52,7 @@ static void clue_sizes(const ng_game *g, int *r, int *c)
 /* the square's size for a board of side S: the grid and its clue bands fit inside the frame */
 static int square_size(const ng_game *g, float S, int r, int c)
 {
-    float inner = S - 2 * (int)(S * FRAME) - 0.025f * S;
+    float inner = S - 2 * (int)(S * BENCH_FRAME) - 0.025f * S;
     return (int)fminf(inner / (g->n + SLOT_W * r + 0.15f), inner / (g->n + SLOT_H * c + 0.15f));
 }
 
@@ -133,13 +132,14 @@ static void layout(box b)
     side = S;
     bx = floorf(b.x + (b.w - S) / 2);
     by = floorf(b.y + (b.h - S) / 2);
-    fr = (int)(S * FRAME);
+    fr = (int)(S * BENCH_FRAME);
     clue_sizes(&G, &max_r, &max_c);
     cs = square_size(&G, S, max_r, max_c);
     float lw = SLOT_W * max_r * cs, th = SLOT_H * max_c * cs, inner = S - 2 * fr;
     float ox = floorf(fr + (inner - lw - G.n * cs) / 2 + lw), oy = floorf(fr + (inner - th - G.n * cs) / 2 + th);
     gx0 = bx + ox;
     gy0 = by + oy;
+    geo = (bench_geo){.cols = G.n, .rows = G.n, .cs = cs, .gx = gx0, .gy = gy0};
     int key = ((int)S * 64 + serial % 64) * 4 + G.n % 4;
     if (made_key != key) {
         made_key = key;
@@ -165,7 +165,7 @@ static void layout(box b)
 /* ---- the position ------------------------------------------------------------------------------------------------ */
 static void calm(void)
 {
-    memset(&ptr, 0, sizeof ptr);
+    memset(&touch, 0, sizeof touch);
     win.on = 0;
 }
 
@@ -182,6 +182,8 @@ static int status(void) { return ng_solved(&G) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
 static Uint32 win_end(void) { return (Uint32)(COLOUR_MS + 2 * G.n * WAVE_STEP + WAVE_LEN); }
 static int busy(void) { return win.on && ui_ms() - win.t0 < win_end(); }
+static int score(void) { return G.hist.moves; }
+static int stars(void) { return ui_logic_stars(G.hist.hints, G.hist.mistakes); }
 
 static void after(void)
 {
@@ -206,32 +208,21 @@ static int script(const char *moves)
     return ok;
 }
 
+/* ---- the marks: a tap fills (or crosses: the mode tool), a hold crosses; a drag as its start -------------------- */
+static int target(int a, int cross)             /* what a stroke from a makes of the squares as a is */
+{
+    int want = cross ? NG_CROSS : NG_FILL;
+    return G.sq[a] == want ? NG_EMPTY : want;
+}
+
+static int st_of(int s) { return G.sq[s]; }
+static int free_of(int s) { return s >= 0 && s < G.n * G.n; }
+static int tap_of(int s) { return target(s, crossing); }
+static int hold_of(int s) { return target(s, 1); }
+static int paint_run(int a, int b, int to) { return ng_paint(&G, a, b, to); }
+static const bench_marks marks = {st_of, free_of, tap_of, hold_of, NULL, paint_run, 0};
+
 /* ---- the board on the screen ------------------------------------------------------------------------------------- */
-static int square_at(float x, float y)
-{
-    float ix = x - gx0, iy = y - gy0;
-    if (ix < 0 || iy < 0 || ix >= G.n * cs || iy >= G.n * cs) return -1;
-    return (int)(iy / cs) * G.n + (int)(ix / cs);
-}
-
-/* the run from a towards the finger's square, along a's row or column (whichever the finger has gone further along) */
-static int run_end(int a, float x, float y)
-{
-    int n = G.n, ax = a % n, ay = a / n;
-    int bxi = (int)floorf((x - gx0) / cs), byi = (int)floorf((y - gy0) / cs);
-    bxi = bxi < 0 ? 0 : bxi >= n ? n - 1 : bxi;
-    byi = byi < 0 ? 0 : byi >= n ? n - 1 : byi;
-    return abs(bxi - ax) >= abs(byi - ay) ? ay * n + bxi : byi * n + ax;
-}
-
-static int in_run(int s, int a, int b)
-{
-    int n = G.n, x = s % n, y = s / n;
-    int x0 = a % n < b % n ? a % n : b % n, x1 = a % n < b % n ? b % n : a % n;
-    int y0 = a / n < b / n ? a / n : b / n, y1 = a / n < b / n ? b / n : a / n;
-    return x >= x0 && x <= x1 && y >= y0 && y <= y1;
-}
-
 static void draw(void)
 {
     if (made_key < 0) layout(last_box);
@@ -240,18 +231,14 @@ static void draw(void)
     ui_put(t_board, bx, by, side, side);
     float wt = win.on ? (float)(now - win.t0) : solved ? 1e9f : -1;
     float colour = wt >= 0 ? clampf(wt / COLOUR_MS, 0, 1) : 0;
-    int hold = ptr.on && !ptr.moved && now - ptr.t0 >= HOLD_MS;   /* held: this press crosses */
-    if (ptr.on && !solved) {                    /* the lines being touched: their clues lit */
-        int a = ptr.a;
+    if (touch.on && !solved) {                  /* the lines being touched: their clues lit */
+        int a = touch.a;
         ui_mark_last(gx0 - SLOT_W * max_r * cs, gy0 + a / n * cs, SLOT_W * max_r * cs, (float)cs);
         ui_mark_last(gx0 + a % n * cs, gy0 - SLOT_H * max_c * cs, (float)cs, SLOT_H * max_c * cs);
     }
     for (int s = 0; s < n * n; s++) {
         float x = gx0 + s % n * cs, y = gy0 + s / n * cs;
-        int st = G.sq[s];
-        if (ptr.on && in_run(s, ptr.a, ptr.b) && G.sq[s] == G.sq[ptr.a]) {   /* the run as it will be */
-            st = hold ? (G.sq[s] == NG_CROSS ? NG_EMPTY : NG_CROSS) : ptr.to;
-        }
+        int st = bench_marks_preview(&marks, &touch, &geo, 0, s);   /* the run as it will be */
         float in = fmaxf(1, 0.05f * cs);
         if (st == NG_FILL || (colour > 0 && G.sol[s])) {
             const uint8_t *c = ng_rgb[G.colour[s] ? G.colour[s] : 1];
@@ -266,14 +253,7 @@ static void draw(void)
             SDL_SetTextureAlphaMod(t_cross, 255);
         }
     }
-    if (ptr.on && !ptr.moved && !solved && !hold) {   /* a press growing into a cross: its ring */
-        float t = (now - ptr.t0) / (float)HOLD_MS;
-        if (t > 0.25f) {
-            float x = gx0 + ptr.a % n * cs + cs / 2.0f, y = gy0 + ptr.a / n * cs + cs / 2.0f;
-            ui_mark_select_round(x, y, cs * (0.6f + 0.8f * t));
-        }
-        ui_animate();
-    }
+    if (!solved) bench_touch_ring(&touch, &geo);   /* a press growing into a cross: its ring */
     for (int way = 0; way < 2; way++)           /* the clues: right of the row band, at the foot of the column band */
         for (int i = 0; i < n; i++) {
             int k = G.runs[way][i];
@@ -300,83 +280,43 @@ static void draw(void)
         if (wt < win_end()) ui_animate();
         else win.on = 0;
     }
+    ui_tool_paint(0, paint_mode, crossing, 1, solved ? UI_DIM : crossing ? UI_ON : 0);   /* what a tap does */
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
-static int target(int a, int cross)             /* what a stroke from a makes of the squares as a is */
-{
-    int want = cross ? NG_CROSS : NG_FILL;
-    return G.sq[a] == want ? NG_EMPTY : want;
-}
-
 static void press(float x, float y)
 {
-    memset(&ptr, 0, sizeof ptr);
+    memset(&touch, 0, sizeof touch);
     if (ng_solved(&G)) return;
-    int s = square_at(x, y);
-    if (s < 0) return;
-    ptr.on = 1;
-    ptr.a = ptr.b = s;
-    ptr.to = target(s, crossing);
-    ptr.x0 = x;
-    ptr.y0 = y;
-    ptr.t0 = ui_ms();
-    ui_animate();
+    if (ui_tool_hit(x, y) == 0) {               /* the mode tool: taps fill, or cross */
+        crossing = !crossing;
+        ui_sound(SND_TAP);
+        ui_animate();
+        return;
+    }
+    bench_press(&touch, &geo, x, y);
 }
 
-static void motion(float x, float y)
-{
-    if (!ptr.on) return;
-    if (!ptr.moved && hypotf(x - ptr.x0, y - ptr.y0) > 0.35f * cs) {
-        if (ui_ms() - ptr.t0 >= HOLD_MS) ptr.to = target(ptr.a, 1);   /* held, then dragged: a run of crosses */
-        ptr.moved = 1;
-    }
-    if (ptr.moved) ptr.b = run_end(ptr.a, x, y);
-    ui_animate();
-}
+static void motion(float x, float y) { bench_motion(&touch, &geo, x, y, 1); }
 
 static void release(float x, float y)
 {
     (void)x;
     (void)y;
-    if (!ptr.on) return;
-    ptr.on = 0;
-    int to = ptr.to;
-    if (!ptr.moved && ui_ms() - ptr.t0 >= HOLD_MS) to = target(ptr.a, 1);
-    if (!ng_paint(&G, ptr.a, ptr.b, to)) { ui_animate(); return; }
+    int to, a = bench_marks_release(&marks, &touch, &geo, 0, &to);
+    if (a < 0) {
+        ui_animate();
+        return;
+    }
     ui_sound(to == NG_FILL ? SND_PLACE : SND_TAP);
     after();
 }
 
-/* ---- the bar: the moves, and what a tap does ---------------------------------------------------------------------- */
-static void mode_button(float *x, float *y, float *d)
-{
-    *d = 0.84f * ui.unit;
-    *x = barbox.x + barbox.w - *d / 2 - 0.05f * ui.unit;
-    *y = barbox.y + barbox.h / 2;
-}
-
+/* ---- the bar: the moves ------------------------------------------------------------------------------------------ */
 static void bar(int player, box b)
 {
     (void)player;
-    barbox = b;
-    ui_bar_number(b, t_small, G.moves);
-    if (ng_solved(&G)) return;
-    float x, y, d;
-    mode_button(&x, &y, &d);
-    ui_button_paint(x, y, d, paint_mode, crossing, 1, crossing ? UI_ON : 0);
-}
-
-static int bar_press(int player, float x, float y)
-{
-    (void)player;
-    float kx, ky, d;
-    mode_button(&kx, &ky, &d);
-    if (!barbox.w || ng_solved(&G) || !ui_button_hit(kx, ky, d, x, y)) return 0;
-    crossing = !crossing;
-    ui_sound(SND_TAP);
-    ui_animate();
-    return 1;
+    bench_bar_moves(b, t_small, G.hist.moves);
 }
 
 /* ---- the menu's and the picker's cards: a picture of the size, half found ---------------------------------------- */
@@ -388,7 +328,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
     ng_load_picture(&T, pics[v]);
     int r, c;
     clue_sizes(&T, &r, &c);
-    int f = (int)(size * FRAME), q = square_size(&T, (float)size, r, c), n = T.n;
+    int f = (int)(size * BENCH_FRAME), q = square_size(&T, (float)size, r, c), n = T.n;
     float lw = SLOT_W * r * q, th = SLOT_H * c * q, inner = (float)(size - 2 * f);
     float ox = floorf(f + (inner - lw - n * q) / 2 + lw), oy = floorf(f + (inner - th - n * q) / 2 + th);
     uint8_t *b = malloc((size_t)size * size * 4);
@@ -416,6 +356,7 @@ static const game nonogram_game = {
     .id = "nonogram", .order = 355, .variants = NG_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1,
+    .score = score, .level_stars = stars, .fill = 1, .tools = 1,
 };
 REGISTER_GAME(nonogram_game)

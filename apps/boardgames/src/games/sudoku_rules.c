@@ -427,53 +427,42 @@ void su_new(su_game *g, int level, uint32_t seed)
     g->seed = seed;
 }
 
-/* the history: each cell's state before a change, the first of each action marked */
-static void room(su_game *g)
-{
-    if (g->nh + 24 <= SU_HIST) return;
-    int k = SU_HIST / 2;                        /* forget the oldest half, at an action's start */
-    while (k < g->nh && !g->hist[k].first) k++;
-    memmove(g->hist, g->hist + k, (size_t)(g->nh - k) * sizeof g->hist[0]);
-    g->nh -= k;
-}
-
-static void change(su_game *g, int c, int val, unsigned notes, int *first)
+/* the history (bench.h): each cell's state before a change (its digit, its notes), an action undone whole */
+static void change(su_game *g, int c, int val, unsigned notes)
 {
     if (g->val[c] == val && g->notes[c] == notes) return;
-    g->hist[g->nh++] = (su_change){(uint8_t)c, g->val[c], (uint8_t)*first, g->notes[c]};
-    *first = 0;
+    bench_log(&g->hist, c, (uint32_t)g->val[c] << 16 | g->notes[c]);
     g->val[c] = (uint8_t)val;
     g->notes[c] = (uint16_t)notes;
 }
 
-static int action_end(su_game *g, int first)
+/* the wrong digits on the board (the stars' mistakes) */
+static int wrongs(const su_game *g)
 {
-    if (first) return 0;                        /* nothing changed */
-    g->moves++;
-    return 1;
+    int k = 0;
+    for (int c = 0; c < SU_CELLS; c++) k += g->val[c] && g->val[c] != g->sol[c];
+    return k;
 }
 
 int su_put(su_game *g, int c, int d)
 {
     if (c < 0 || c >= SU_CELLS || d < 0 || d > 9 || g->given[c] || g->val[c] == d) return 0;
-    room(g);
-    int first = 1;
-    change(g, c, d, 0, &first);
+    bench_begin(&g->hist, 24);
+    change(g, c, d, 0);
     if (d)
         for (int i = 0; i < 20; i++) {
             int p = PEER[c][i];
-            if (g->notes[p] >> d & 1) change(g, p, g->val[p], g->notes[p] & ~(1u << d), &first);
+            if (g->notes[p] >> d & 1) change(g, p, g->val[p], g->notes[p] & ~(1u << d));
         }
-    return action_end(g, first);
+    return bench_done(&g->hist, wrongs(g));
 }
 
 int su_note(su_game *g, int c, int d)
 {
     if (c < 0 || c >= SU_CELLS || d < 1 || d > 9 || g->given[c] || g->val[c]) return 0;
-    room(g);
-    int first = 1;
-    change(g, c, 0, g->notes[c] ^ (1u << d), &first);
-    return action_end(g, first);
+    bench_begin(&g->hist, 24);
+    change(g, c, 0, g->notes[c] ^ (1u << d));
+    return bench_done(&g->hist, wrongs(g));
 }
 
 int su_erase(su_game *g, int c)
@@ -481,13 +470,12 @@ int su_erase(su_game *g, int c)
     if (c < 0 || c >= SU_CELLS || g->given[c]) return 0;
     if (g->val[c]) return su_put(g, c, 0);
     if (!g->notes[c]) return 0;
-    room(g);
-    int first = 1;
-    change(g, c, 0, 0, &first);
-    return action_end(g, first);
+    bench_begin(&g->hist, 24);
+    change(g, c, 0, 0);
+    return bench_done(&g->hist, wrongs(g));
 }
 
-int su_hint(su_game *g)
+static int hint_step(su_game *g)
 {
     for (int c = 0; c < SU_CELLS; c++)          /* a wrong digit first */
         if (g->val[c] && g->val[c] != g->sol[c]) return su_put(g, c, g->sol[c]) ? c : -1;
@@ -503,20 +491,25 @@ int su_hint(su_game *g)
     return su_put(g, c, g->sol[c]) ? c : -1;
 }
 
+int su_hint(su_game *g)
+{
+    return bench_hinted(&g->hist, hint_step(g));
+}
+
+static void put_back(void *ctx, int c, uint32_t was)
+{
+    su_game *g = ctx;
+    g->val[c] = (uint8_t)(was >> 16);
+    g->notes[c] = (uint16_t)was;
+}
+
 int su_undo(su_game *g)
 {
-    if (!g->nh) return -1;
-    int c = -1;
-    while (g->nh) {
-        su_change h = g->hist[--g->nh];
-        g->val[h.cell] = h.val;
-        g->notes[h.cell] = h.notes;
-        c = h.cell;
-        if (h.first) break;
-    }
-    g->moves--;
+    int c = bench_undo(&g->hist, put_back, g);
+    bench_undone(&g->hist, wrongs(g));
     return c;
 }
+
 
 int su_clash(const su_game *g, int c)
 {

@@ -246,6 +246,14 @@ void ng_new(ng_game *g, int variant, uint32_t seed)
 }
 
 /* ---- the player's squares ---------------------------------------------------------------------------------------- */
+/* the wrong marks on the board: a square filled off the picture, a cross on it (the stars' mistakes) */
+static int wrongs(const ng_game *g)
+{
+    int k = 0;
+    for (int s = 0; s < g->n * g->n; s++) k += g->sq[s] == NG_FILL ? !g->sol[s] : g->sq[s] == NG_CROSS && g->sol[s];
+    return k;
+}
+
 int ng_paint(ng_game *g, int a, int b, int to)
 {
     int n = g->n;
@@ -253,39 +261,27 @@ int ng_paint(ng_game *g, int a, int b, int to)
     int ax = a % n, ay = a / n, bx = b % n, by = b / n;
     if (ax != bx && ay != by) return 0;
     int step = ax == bx ? (by > ay ? n : -n) : (bx > ax ? 1 : -1);
-    if (g->nh + NG_MAX > NG_HIST) {             /* forget the oldest half, at an action's start */
-        int k = NG_HIST / 2;
-        while (k < g->nh && !g->hist[k].first) k++;
-        memmove(g->hist, g->hist + k, (size_t)(g->nh - k) * sizeof g->hist[0]);
-        g->nh -= k;
-    }
-    int first = 1, from = g->sq[a];
+    int from = g->sq[a];
+    bench_begin(&g->hist, NG_MAX);
     for (int s = a;; s += step) {
         if (g->sq[s] == from && from != to) {
-            g->hist[g->nh++] = (ng_change){(uint8_t)s, g->sq[s], (uint8_t)first};
-            first = 0;
+            bench_log(&g->hist, s, g->sq[s]);
             g->sq[s] = (uint8_t)to;
         }
         if (s == b) break;
     }
-    if (first) return 0;
-    g->moves++;
-    return 1;
+    return bench_done(&g->hist, wrongs(g));
 }
+
+static void put_back(void *ctx, int s, uint32_t was) { ((ng_game *)ctx)->sq[s] = (uint8_t)was; }
 
 int ng_undo(ng_game *g)
 {
-    if (!g->nh) return -1;
-    int s = -1;
-    while (g->nh) {
-        ng_change h = g->hist[--g->nh];
-        g->sq[h.sq] = h.was;
-        s = h.sq;
-        if (h.first) break;
-    }
-    g->moves--;
+    int s = bench_undo(&g->hist, put_back, g);
+    bench_undone(&g->hist, wrongs(g));
     return s;
 }
+
 
 int ng_line_done(const ng_game *g, int way, int i)
 {

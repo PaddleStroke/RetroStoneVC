@@ -26,16 +26,12 @@
 
 #include <stdint.h>
 
+#include "games/bench.h"
+
 #define SU_VARIANTS 4
 #define SU_CELLS 81
-#define SU_HIST 4096                            /* the cells' changes undo can take back */
 
 enum { SU_EASY, SU_MEDIUM, SU_HARD, SU_EXPERT };
-
-typedef struct {
-    uint8_t cell, val, first;                   /* first: the first change of an action */
-    uint16_t notes;
-} su_change;
 
 typedef struct {
     int level;
@@ -44,9 +40,7 @@ typedef struct {
     uint8_t sol[SU_CELLS];                      /* the solution */
     uint8_t val[SU_CELLS];                      /* the grid now (0: empty) */
     uint16_t notes[SU_CELLS];                   /* the pencil marks: bit d for the digit d */
-    su_change hist[SU_HIST];
-    int nh;
-    int moves;                                  /* the actions played (undo takes one back) */
+    bench_hist hist;                            /* the actions played (hist.moves), undone one by one */
 } su_game;
 
 /* the solutions of a grid (0: empty), counted up to limit; the first found in sol (may be NULL) */

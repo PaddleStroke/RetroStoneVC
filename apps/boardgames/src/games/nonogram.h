@@ -20,16 +20,15 @@
 
 #include <stdint.h>
 
+#include "games/bench.h"
+
 #define NG_VARIANTS 3
 #define NG_MAX 15
 #define NG_SQ (NG_MAX * NG_MAX)
 #define NG_RUNS 8                               /* a line of 15 has at most 8 runs */
-#define NG_HIST 4096
 
 enum { NG_EMPTY, NG_FILL, NG_CROSS };           /* a square as the player left it */
 enum { NG_UNKNOWN = 0, NG_ON = 1, NG_OFF = 2 }; /* a square for the line solver */
-
-typedef struct { uint8_t sq, was, first; } ng_change;
 
 typedef struct {
     int n;                                      /* squares a side */
@@ -39,8 +38,7 @@ typedef struct {
     uint8_t clue[2][NG_MAX][NG_RUNS];           /* [0] the rows', [1] the columns' runs */
     uint8_t runs[2][NG_MAX];                    /* how many (0: an empty line) */
     uint8_t sq[NG_SQ];                          /* NG_EMPTY, NG_FILL, NG_CROSS */
-    ng_change hist[NG_HIST];
-    int nh, moves;
+    bench_hist hist;                            /* the actions played (hist.moves), undone one by one */
 } ng_game;
 
 /* the colours of the pictures: 0 none, then ebony, red lacquer, amber, jade, lapis, ivory, walnut, plum, sky,

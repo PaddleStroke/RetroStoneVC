@@ -96,13 +96,13 @@ int main(void)
     /* the player's squares: a tap fills, again empties; crosses; a run painted in one action; undo */
     ng_game g;
     ng_load_picture(&g, 0);                     /* the heart */
-    CHECK(ng_script(&g, "b1") && g.sq[1] == NG_FILL && g.moves == 1);
-    CHECK(ng_script(&g, "b1") && g.sq[1] == NG_EMPTY && g.moves == 2);
+    CHECK(ng_script(&g, "b1") && g.sq[1] == NG_FILL && g.hist.moves == 1);
+    CHECK(ng_script(&g, "b1") && g.sq[1] == NG_EMPTY && g.hist.moves == 2);
     CHECK(ng_script(&g, "xa1") && g.sq[0] == NG_CROSS);
-    CHECK(ng_script(&g, "a2-e2") && g.moves == 4);
+    CHECK(ng_script(&g, "a2-e2") && g.hist.moves == 4);
     for (int x = 0; x < 5; x++) CHECK(g.sq[5 + x] == NG_FILL);
     CHECK(ng_line_done(&g, 0, 1) && !ng_line_done(&g, 0, 0));
-    CHECK(ng_undo(&g) >= 0 && g.sq[5] == NG_EMPTY && g.sq[9] == NG_EMPTY && g.moves == 3);
+    CHECK(ng_undo(&g) >= 0 && g.sq[5] == NG_EMPTY && g.sq[9] == NG_EMPTY && g.hist.moves == 3);
     CHECK(!ng_script(&g, "a1-b2"));             /* not a line */
     CHECK(!ng_paint(&g, 0, 0, NG_CROSS));       /* nothing changes */
     CHECK(ng_script(&g, "xc2 a2-e2") && g.sq[7] == NG_CROSS && g.sq[5] == NG_FILL && g.sq[9] == NG_FILL);
@@ -110,7 +110,7 @@ int main(void)
     CHECK(ng_script(&g, "b1 d1 a2-e2 a3-e3 b4-d4 c5"));
     CHECK(ng_solved(&g));                       /* the cross in a1 is only a note */
     while (ng_undo(&g) >= 0) {}
-    CHECK(g.moves == 0);
+    CHECK(g.hist.moves == 0);
     for (int s = 0; s < 25; s++) CHECK(g.sq[s] == NG_EMPTY);
 
     /* whole games from seeds: solved by its picture's squares, not before the last one */
@@ -123,7 +123,7 @@ int main(void)
             snprintf(m, sizeof m, "=%d", on - 1);
             CHECK(ng_script(&g, m) && !ng_solved(&g));
             CHECK(ng_script(&g, "=1") && ng_solved(&g));
-            CHECK(g.moves == on);
+            CHECK(g.hist.moves == on);
         }
     ng_load_picture(&g, 0);
     CHECK(ng_square(&g, "a1") == 0 && ng_square(&g, "e5") == 24 && ng_square(&g, "f1") < 0 && ng_square(&g, "a6") < 0);

@@ -102,6 +102,22 @@ int main(void)
     su_new(&b, SU_MEDIUM, 42);
     CHECK(!memcmp(a.val, b.val, SU_CELLS) && !memcmp(a.sol, b.sol, SU_CELLS));
 
+    /* the stars' counts (bench.h): a wrong digit undone is a mistake, written over it is not; the hints counted */
+    {
+        su_game S;
+        su_new(&S, SU_EASY, 11);
+        int w = -1;
+        for (int c = 0; c < SU_CELLS && w < 0; c++)
+            if (!S.given[c]) w = c;
+        int bad = S.sol[w] % 9 + 1;
+        CHECK(su_put(&S, w, bad) && su_put(&S, w, S.sol[w]) && S.hist.mistakes == 0);   /* written over */
+        CHECK(su_undo(&S) == w && su_undo(&S) == w && S.hist.mistakes == 1);   /* undone */
+        su_new(&S, SU_EASY, 11);
+        CHECK(su_hint(&S) >= 0 && S.hist.hints == 1);
+        CHECK(su_hint(&S) >= 0 && su_hint(&S) >= 0 && S.hist.hints == 3);
+        CHECK(su_script(&S, "+81") && su_solved(&S) && S.hist.mistakes == 0 && S.hist.hints == 3);
+    }
+
     /* the player's grid: digits, the notes they clear, clashes, undo */
     su_game G;
     su_new(&G, SU_EASY, 7);
@@ -115,14 +131,14 @@ int main(void)
     while (G.given[peer]) peer = peer / 9 == e / 9 && peer % 9 < 8 ? peer + 1 : (peer + 9) % SU_CELLS;
     CHECK(su_note(&G, peer, 4) && su_note(&G, peer, 6) && G.notes[peer] == (1u << 4 | 1u << 6));
     CHECK(su_note(&G, e, 2) && G.notes[e] == 1u << 2);
-    CHECK(G.moves == 3);
+    CHECK(G.hist.moves == 3);
     int same_unit = peer / 9 == e / 9 || peer % 9 == e % 9;
     CHECK(su_put(&G, e, 4) && G.val[e] == 4 && G.notes[e] == 0);
     if (same_unit) CHECK(G.notes[peer] == 1u << 6);   /* the note 4 gone from its row */
     CHECK(!su_put(&G, e, 4));                   /* the same digit again: nothing */
-    CHECK(G.moves == 4);
+    CHECK(G.hist.moves == 4);
     CHECK(su_undo(&G) == e && G.val[e] == 0 && G.notes[e] == 1u << 2 && G.notes[peer] == (1u << 4 | 1u << 6));
-    CHECK(G.moves == 3);
+    CHECK(G.hist.moves == 3);
     CHECK(su_put(&G, e, G.sol[e]) && !su_clash(&G, e));
     int d = G.sol[e];
     for (int c = 0; c < 9; c++) {               /* the same digit elsewhere in its row: a clash */
@@ -170,7 +186,7 @@ int main(void)
     CHECK(su_script(&G, moves) || G.given[c0 + 1]);
     CHECK(su_solved(&G));
     while (su_undo(&G) >= 0) {}
-    CHECK(!memcmp(G.val, start.val, SU_CELLS) && !memcmp(G.notes, start.notes, sizeof G.notes) && G.moves == 0);
+    CHECK(!memcmp(G.val, start.val, SU_CELLS) && !memcmp(G.notes, start.notes, sizeof G.notes) && G.hist.moves == 0);
     CHECK(!su_script(&G, "a1=x") && su_cell("e5") == 40 && su_cell("j1") < 0);
 
     if (fails) {
