@@ -1,7 +1,7 @@
 /*
  * Schafkopf in RetroStone Board: four players passing the device round, each hand secret (VIEW_HIDDEN; the rules:
  * schafkopf_rules.c, schafkopf.h). French-suited cards: clubs for acorns, spades for leaves, diamonds for bells; the
- * queens are the Obers, the jacks the Unters. The table (games/trick4_ui.h on the kit's cards_table.h): the viewer's
+ * queens are the Obers, the jacks the Unters. The table (the kit's ct_game on cards_table.h): the viewer's
  * hand fanned at the bottom, the seats round the middle, the trick, the trick pile (tap it: the last trick). Bidding:
  * the Rufspiel's three aces to call (the ones the hand may call), the Wenz (the Unter's figure), the four Solos (a
  * suit's sign): tap one, then the tick (or the same again), or the pass button. Each seat shows its word (a pass, a
@@ -17,20 +17,21 @@
 
 #include "cards.h"
 #include "cards_table.h"
+#include "games/chess.h"
 #include "games/schafkopf.h"
-#include "games/trick4_ui.h"
+#include "games/trick4.h"
 #include "shell.h"
 
 static sfgame G;
-static tk4_ui U;
+static ct_game U;
 static int pick = -1;                           /* the game chosen in the bidding */
 
-static void layout(box b) { tk4u_layout(&U, b, SFK_HAND); }
+static void layout(box b) { ct_layout(&U.T, b, TK4_P, ui_bottom(), SFK_HAND); }
 
 static void reset_ui(void)
 {
     pick = -1;
-    tk4u_reset(&U);
+    ct_game_reset(&U);
 }
 
 static int can_play(int card) { return sfk_can_play(&G.pos, card); }
@@ -38,7 +39,7 @@ static int can_play(int card) { return sfk_can_play(&G.pos, card); }
 /* a game's picture: the ace called, the Unter's figure (Wenz), the Solo's suit */
 static int game_pic(int kind, int suit)
 {
-    return kind == SFG_RUF ? TK4_PIC_CARD | CARD(suit, RANK_ACE) : kind == SFG_WENZ ? TK4_PIC_FIG | BISHOP : suit;
+    return kind == SFG_RUF ? CT_CALL_CARD | CARD(suit, RANK_ACE) : kind == SFG_WENZ ? CT_CALL_FIG | BISHOP : suit;
 }
 
 /* ---- the bidding's buttons in the middle ------------------------------------------------------------------------- */
@@ -64,7 +65,7 @@ static void controls(void)
 static void start(int v)
 {
     sfk_new(&G, v, (uint32_t)ui_random(1 << 30));
-    tk4u_new(&U);
+    ct_game_new(&U);
     reset_ui();
 }
 
@@ -85,14 +86,13 @@ static int turn(void) { return G.pos.turn; }
 static void act(int a)
 {
     sfpos before = G.pos;
-    uint8_t h[CT_HAND];
-    int how[CT_HAND];
-    int n = tk4u_hand(&U, &G.pos.t, 0, 0, can_play, h, how);
     if (!sfk_play(&G, a)) { ui_sound(SND_DENY); return; }
     const sfpos *p = &G.pos;
     ct_calm(&U.A);
     U.fl.n = 0;
-    if (SFA_KIND(a) == SFA_PLAY) tk4u_played(&U, &p->t, before.t.tricks, SFA_ARG(a), h, n);
+    if (SFA_KIND(a) == SFA_PLAY)
+        ct_game_played(&U, SFA_ARG(a), before.t.hand[U.T.me], before.t.n[U.T.me],
+                       p->t.tricks != before.t.tricks ? p->t.last : NULL, p->t.last_leader, p->t.last_winner);
     else ui_sound(SFA_KIND(a) == SFA_PASS ? SND_TAP : SND_PLACE);
     reset_ui();
     if (SFA_KIND(a) == SFA_NEXT) U.seen = 0;
@@ -129,7 +129,7 @@ static void draw_bidding(int live)
     const sfpos *p = &G.pos;
     for (int i = 0; i < CHOICES; i++) {
         int g = CHOICE[i];
-        ct_choice(tk4u_tex(game_pic(SFG_KIND(g), SFG_SUIT(g)), K.d), K.at[i].x, K.at[i].y, K.d, g == pick,
+        ct_choice(ct_call_tex(game_pic(SFG_KIND(g), SFG_SUIT(g)), K.d), K.at[i].x, K.at[i].y, K.d, g == pick,
                   sfk_game_ok(p, g));
     }
     ct_pass(K.pass.x, K.pass.y, K.d, 0);
@@ -148,9 +148,9 @@ static void draw_words(void)
         ct_seat_spot(&U.T, q, 0, &x, &y);
         if (p->phase == SFP_BID) {
             if (p->word[q] == SFW_PASS) ct_pass_badge(x, y, d);
-            else if (p->word[q] == SFW_PLAY) tk4u_tick_badge(x, y, d);
+            else if (p->word[q] == SFW_PLAY) ct_badge_pic(CT_TICK, x, y, d, 0.7f, CT_GOLD[0], CT_GOLD[1], CT_GOLD[2]);
         } else if (q == p->declarer || (q == p->partner && p->revealed))
-            tk4u_pic(game_pic(p->kind, p->suit), x, y, 1.1f * d, 255);
+            ct_call(game_pic(p->kind, p->suit), x, y, 1.1f * d, 255);
     }
 }
 
@@ -173,20 +173,20 @@ static void draw_summary(void)
     if (normal) {
         unsigned side = 1u << r->declarer | (r->partner != SFK_NONE ? 1u << r->partner : 0);
         /* the side, its game, its card points (won: a gold tick; lost: a red glow), schneider, schwarz */
-        float w = tk4u_chips(side, L, y, d, 255), x = L + w - d / 2 + 0.75f * d;
-        tk4u_pic(game_pic(r->kind, r->suit), x, y, 0.9f * d, 255);
+        float w = ct_chips(side, L, y, d, 255), x = L + w - d / 2 + 0.75f * d;
+        ct_call(game_pic(r->kind, r->suit), x, y, 0.9f * d, 255);
         float xe = x0 + 0.5f * pw;
         if (!r->won) ui_mark_glow(xe, y, 1.3f * d);
         ui_number(xe, y, nh, r->side, 1);
-        if (r->won) ct_pic(CT_TICK, xe + 0.5f * ct_number_w(r->side, nh, 0) + 0.5f * d, y, 0.8f * d, 0, TK4_GOLD[0],
-                           TK4_GOLD[1], TK4_GOLD[2], 255);
+        if (r->won) ct_pic(CT_TICK, xe + 0.5f * ct_number_w(r->side, nh, 0) + 0.5f * d, y, 0.8f * d, 0, CT_GOLD[0],
+                           CT_GOLD[1], CT_GOLD[2], 255);
         if (r->schwarz) ct_badge(R - 0.45f * d, y, 0.95f * d, 120);
         if (r->schneider) ct_badge(R - (r->schwarz ? 1.5f : 0.45f) * d, y, 0.95f * d, 90);
         ct_rule(x0 + 0.3f * u, y + rh / 2, pw - 0.6f * u);
         y += rh;
         /* the top trump and the Laufende counted, the tariff, the value */
         int top = r->kind == SFG_WENZ ? CARD(SUIT_CLUBS, RANK_JACK) : CARD(SUIT_CLUBS, RANK_QUEEN);
-        tk4u_card(top, L, y, 0.75f * rh, r->runners ? 0 : CD_DIM);
+        ct_card_flat(DECK_FRENCH, top, L, y, 0.75f * rh, r->runners ? 0 : CD_DIM);
         ui_number(L + 0.85f * d, y, nh, r->runners, 1);
         float xt = x0 + 0.42f * pw;
         ui_number(xt, y, nh, r->kind == SFG_RUF ? 10 : 50, 1);
@@ -196,7 +196,7 @@ static void draw_summary(void)
             ui_number(xm + 0.6f * nh, y, 0.8f * nh, 3, 1);
         }
         ct_pic(CT_ARROW, x0 + 0.66f * pw, y, 0.8f * nh, 0, 246, 238, 220, 200);
-        tk4u_total(R, y, 1.2f * nh, r->value);
+        ct_total(R, y, 1.2f * nh, r->value);
     } else if (r->kind == SFG_RAMSCH) {         /* each one's card points, the payers in red */
         for (int q = 0; q < TK4_P; q++) {
             float x = x0 + pw * (q + 0.5f) / TK4_P - 0.4f * d;
@@ -220,7 +220,7 @@ static void draw_summary(void)
         if (p->total[q] == best) ui_mark_gold(L, y, 1.8f * d);
         ui_put_c(ct_token(q, (int)d), L, y, d, d);
         if (r->score[q]) ui_number_signed(x0 + 0.5f * pw, y, nh, r->score[q], 1, 1);
-        tk4u_total(R, y, 1.2f * nh, p->total[q]);
+        ct_total(R, y, 1.2f * nh, p->total[q]);
         ct_rule(x0 + 0.3f * u, y + rh / 2, pw - 0.6f * u);
     }
     uint8_t who[SFK_DEALS], made[SFK_DEALS];
@@ -235,21 +235,23 @@ static void draw_summary(void)
             made[i] = e->won;
         }
     }
-    tk4u_deal_list(x0, pw, y, rh, SFK_DEALS, SFK_DEALS, p->ndeals, who, made);
+    ct_deal_list(x0, pw, y, rh, SFK_DEALS, SFK_DEALS, p->ndeals, who, made);
 }
 
 static void draw(void)
 {
     const sfpos *p = &G.pos;
     int live = !ui_handing() && !ct_busy(&U.A), ph = p->phase, hide = ui.viewer < 0;
-    tk4u_look(&U, &p->t, ph == SFP_BID);
+    ct_game_look(&U, p->t.hand[U.T.me], p->t.n[U.T.me], ph == SFP_BID);
     controls();
     ct_draw_seats(&U.T, ph < SFP_DEAL ? p->turn : -1);
     draw_words();
     if (ph == SFP_BID && p->turn == U.T.me && !hide) draw_bidding(live);
-    tk4u_draw_middle(&U, &p->t, live, ph == SFP_PLAY);
+    ct_game_draw_middle(&U, p->t.tricks, p->t.trick, NULL, p->t.ntrick, p->t.leader, live && ph == SFP_PLAY);
     int summary = ph >= SFP_DEAL && !ct_busy(&U.A);
-    tk4u_draw_hand(&U, &p->t, live, ph == SFP_PLAY, can_play, hide, summary);
+    int mine = live && ph == SFP_PLAY && tk4_turn(&p->t) == U.T.me;
+    ct_game_draw_hand(&U, p->t.hand[U.T.me], summary ? 0 : p->t.n[U.T.me], mine, can_play, hide);
+    ct_game_draw_last(&U, p->t.last, NULL, TK4_P, p->t.last_leader, p->t.last_winner);
     if (summary) draw_summary();
 }
 
@@ -279,19 +281,19 @@ static void press_bidding(float x, float y)
 static void press(float x, float y)
 {
     const sfpos *p = &G.pos;
-    if (tk4u_press_first(&U)) return;
+    if (ct_game_press_first(&U)) return;
     if (p->phase == SFP_DEAL) { act(SFA_NEXT); return; }
     if (p->phase == SFP_OVER) return;
-    if (tk4u_press_pile(&U, &p->t, x, y)) return;
+    if (ct_game_press_pile(&U, p->t.tricks, x, y)) return;
     if (p->turn != U.T.me) { ui_sound(SND_DENY); return; }
     controls();
     if (p->phase == SFP_BID) press_bidding(x, y);
-    else tk4u_press_card(&U, &p->t, can_play, send, x, y);
+    else ct_game_press_card(&U, p->t.hand[U.T.me], p->t.n[U.T.me], can_play, send, x, y);
 }
 
-static void motion(float x, float y) { tk4u_motion(&U, x, y); }
+static void motion(float x, float y) { ct_touch_move(&U.F, x, y); }
 
-static void release(float x, float y) { tk4u_release(&U, can_play, send, x, y); }
+static void release(float x, float y) { ct_game_release(&U, can_play, send, x, y); }
 
 /* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
 static void bar(int player, box b) { ct_bar(b, U.T.deck, G.pos.t.n[player], G.pos.total[player]); }

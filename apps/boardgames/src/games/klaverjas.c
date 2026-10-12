@@ -1,6 +1,6 @@
 /*
  * Klaverjas in RetroStone Board: four players in two partnerships passing the device round, each hand secret
- * (VIEW_HIDDEN; the rules: klaverjas_rules.c, klaverjas.h, Rotterdams). The table (games/trick4_ui.h on the kit's
+ * (VIEW_HIDDEN; the rules: klaverjas_rules.c, klaverjas.h, Rotterdams). The table (the kit's ct_game on
  * cards_table.h): the viewer's hand fanned at the bottom, the seats round the middle (the partner across), the trick,
  * the trick pile (tap it: the last trick). Bidding: tap a suit, then the tick, or the pass button (gone when all four
  * have passed: voorhand must name one). Each seat shows its pass; then the player who named trumps shows their suit.
@@ -16,19 +16,19 @@
 #include "cards.h"
 #include "cards_table.h"
 #include "games/klaverjas.h"
-#include "games/trick4_ui.h"
+#include "games/trick4.h"
 #include "shell.h"
 
 static kvgame G;
-static tk4_ui U;
+static ct_game U;
 static int pick = -1;                           /* the suit chosen in the bidding */
 
-static void layout(box b) { tk4u_layout(&U, b, KVJ_HAND); }
+static void layout(box b) { ct_layout(&U.T, b, TK4_P, ui_bottom(), KVJ_HAND); }
 
 static void reset_ui(void)
 {
     pick = -1;
-    tk4u_reset(&U);
+    ct_game_reset(&U);
 }
 
 static int can_play(int card) { return kvj_can_play(&G.pos, card); }
@@ -55,7 +55,7 @@ static void start(int v)
 {
     (void)v;
     kvj_new(&G, (uint32_t)ui_random(1 << 30));
-    tk4u_new(&U);
+    ct_game_new(&U);
     reset_ui();
 }
 
@@ -74,16 +74,14 @@ static int turn(void) { return G.pos.turn; }
 static void act(int a)
 {
     kvpos before = G.pos;
-    uint8_t h[CT_HAND];
-    int how[CT_HAND];
-    int n = tk4u_hand(&U, &G.pos.t, 0, 0, can_play, h, how);
     if (!kvj_play(&G, a)) { ui_sound(SND_DENY); return; }
     const kvpos *p = &G.pos;
     ct_calm(&U.A);
     U.fl.n = 0;
     if (KA_KIND(a) == KA_PLAY) {
-        tk4u_played(&U, &p->t, before.t.tricks, KA_ARG(a), h, n);
-        if (p->t.tricks != before.t.tricks && p->trick_roem) tk4u_float(&U, p->t.last_winner, p->trick_roem, 0);
+        ct_game_played(&U, KA_ARG(a), before.t.hand[U.T.me], before.t.n[U.T.me],
+                       p->t.tricks != before.t.tricks ? p->t.last : NULL, p->t.last_leader, p->t.last_winner);
+        if (p->t.tricks != before.t.tricks && p->trick_roem) ct_game_float(&U, p->t.last_winner, p->trick_roem, 0);
     } else
         ui_sound(KA_KIND(a) == KA_PASS ? SND_TAP : SND_PLACE);
     reset_ui();
@@ -120,7 +118,7 @@ static int busy(void) { return ct_busy(&U.A); }
 static void draw_bidding(int live)
 {
     for (int i = 0; i < 4; i++)
-        ct_choice(tk4u_tex(SUIT_ORDER[i], K.d), K.suit[i].x, K.suit[i].y, K.d, SUIT_ORDER[i] == pick, 1);
+        ct_choice(ct_call_tex(SUIT_ORDER[i], K.d), K.suit[i].x, K.suit[i].y, K.d, SUIT_ORDER[i] == pick, 1);
     if (!kvj_must_name(&G.pos)) ct_pass(K.pass.x, K.pass.y, K.d, 0);
     if (pick >= 0 && live) ui_mark_gold(K.ok.x, K.ok.y, 1.9f * K.d);
     ct_button(K.ok.x, K.ok.y, K.d, pick >= 0, CT_TICK, 0);
@@ -137,7 +135,7 @@ static void draw_words(void)
         if (p->phase == KP_BID) {
             if (p->word[q] == KW_PASS) ct_pass_badge(x, y, d);
         } else if (p->phase == KP_PLAY && q == p->taker)
-            tk4u_pic(p->trump, x, y, d, 255);
+            ct_call(p->trump, x, y, d, 255);
     }
 }
 
@@ -153,12 +151,12 @@ static void draw_summary(void)
     int P = tk4_team(r->taker), lead = p->total[0] == p->total[1] ? -1 : p->total[1] > p->total[0];
     for (int k = 0; k < 2; k++, y += rh) {
         if (k == lead) ui_mark_gold(L + 0.4f * d, y, 2.4f * d);
-        tk4u_chips(1u << k | 1u << (k + 2), L, y, d, 255);
+        ct_chips(1u << k | 1u << (k + 2), L, y, d, 255);
         float tx = L + 2.0f * d;
         if (k == P) {                           /* the playing team: their trumps (nat: struck through) */
             if (!r->made) ui_mark_glow(tx, y, 1.4f * d);
-            tk4u_pic(r->trump, tx, y, 0.85f * d, 255);
-            if (!r->made) tk4u_strike(tx, y, d);
+            ct_call(r->trump, tx, y, 0.85f * d, 255);
+            if (!r->made) ct_strike(tx, y, d);
         }
         float xe = x0 + 0.385f * pw;
         if (r->pit == k + 1) ui_mark_gold(xe, y, 1.4f * d);
@@ -167,7 +165,7 @@ static void draw_summary(void)
         float xs = x0 + 0.7f * pw;
         ct_pic(CT_ARROW, x0 + 0.607f * pw, y, 0.7f * nh, 0, 246, 238, 220, 200);
         ui_number(xs, y, 0.95f * nh, r->score[k], 1);
-        tk4u_total(R, y, 1.1f * nh, p->total[k]);
+        ct_total(R, y, 1.1f * nh, p->total[k]);
         ct_rule(x0 + 0.3f * u, y + rh / 2, pw - 0.6f * u);
     }
     uint8_t who[KVJ_DEALS], made[KVJ_DEALS];
@@ -176,21 +174,23 @@ static void draw_summary(void)
         who[i] = (uint8_t)(1u << t | 1u << (t + 2));
         made[i] = p->list[i].made;
     }
-    tk4u_deal_list(x0, pw, y + 0.1f * rh, rh, KVJ_DEALS, 8, p->ndeals, who, made);
+    ct_deal_list(x0, pw, y + 0.1f * rh, rh, KVJ_DEALS, 8, p->ndeals, who, made);
 }
 
 static void draw(void)
 {
     const kvpos *p = &G.pos;
     int live = !ui_handing() && !ct_busy(&U.A), ph = p->phase, hide = ui.viewer < 0;
-    tk4u_look(&U, &p->t, ph == KP_BID);
+    ct_game_look(&U, p->t.hand[U.T.me], p->t.n[U.T.me], ph == KP_BID);
     controls();
     ct_draw_seats(&U.T, ph < KP_DEAL ? p->turn : -1);
     draw_words();
     if (ph == KP_BID && p->turn == U.T.me && !hide) draw_bidding(live);
-    tk4u_draw_middle(&U, &p->t, live, ph == KP_PLAY);
+    ct_game_draw_middle(&U, p->t.tricks, p->t.trick, NULL, p->t.ntrick, p->t.leader, live && ph == KP_PLAY);
     int summary = ph >= KP_DEAL && !ct_busy(&U.A);
-    tk4u_draw_hand(&U, &p->t, live, ph == KP_PLAY, can_play, hide, summary);
+    int mine = live && ph == KP_PLAY && tk4_turn(&p->t) == U.T.me;
+    ct_game_draw_hand(&U, p->t.hand[U.T.me], summary ? 0 : p->t.n[U.T.me], mine, can_play, hide);
+    ct_game_draw_last(&U, p->t.last, NULL, TK4_P, p->t.last_leader, p->t.last_winner);
     if (summary) draw_summary();
 }
 
@@ -218,19 +218,19 @@ static void press_bidding(float x, float y)
 static void press(float x, float y)
 {
     const kvpos *p = &G.pos;
-    if (tk4u_press_first(&U)) return;
+    if (ct_game_press_first(&U)) return;
     if (p->phase == KP_DEAL) { act(KA_NEXT); return; }
     if (p->phase == KP_OVER) return;
-    if (tk4u_press_pile(&U, &p->t, x, y)) return;
+    if (ct_game_press_pile(&U, p->t.tricks, x, y)) return;
     if (p->turn != U.T.me) { ui_sound(SND_DENY); return; }
     controls();
     if (p->phase == KP_BID) press_bidding(x, y);
-    else tk4u_press_card(&U, &p->t, can_play, send, x, y);
+    else ct_game_press_card(&U, p->t.hand[U.T.me], p->t.n[U.T.me], can_play, send, x, y);
 }
 
-static void motion(float x, float y) { tk4u_motion(&U, x, y); }
+static void motion(float x, float y) { ct_touch_move(&U.F, x, y); }
 
-static void release(float x, float y) { tk4u_release(&U, can_play, send, x, y); }
+static void release(float x, float y) { ct_game_release(&U, can_play, send, x, y); }
 
 /* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
 static void bar(int player, box b) { ct_bar(b, U.T.deck, G.pos.t.n[player], G.pos.total[tk4_team(player)]); }

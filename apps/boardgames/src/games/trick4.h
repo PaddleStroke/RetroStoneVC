@@ -1,7 +1,7 @@
 /*
  * The four-handed trick games of Central Europe and the Low Countries (Doppelkopf, Schafkopf, Jass, Klaverjas): the
  * rules they share. No SDL; static inline, each game takes what it uses (its tests link only its own rules). The
- * drawing side is games/trick4_ui.h.
+ * drawing side is the kit's (cards_table.h: ct_game, the calls' pictures, the summaries' pieces).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Four players round the table, play going from player to player + 1; partners (when they are fixed) sit across:
