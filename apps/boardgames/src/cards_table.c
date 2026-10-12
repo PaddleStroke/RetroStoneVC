@@ -219,13 +219,90 @@ SDL_Texture *ct_picture(void (*paint)(int kind, int size, uint8_t *rgba), int ki
     return pic(paint_user, paint, kind, 0, 0, 0, size < 4 ? 4 : size, size < 4 ? 4 : size);
 }
 
-/* the kit's own pictures: white figures, a cream moon, the buttons' discs */
+/* the calls' signs, white on clear, size x size (the marks cut out of the cards: clear holes) */
+static void paint_call(int kind, int size, uint8_t *rgba)
+{
+    art_style st = {{255, 255, 255}, {150, 150, 150}, {150, 150, 150}, {120, 120, 120}, 0, 0};
+    art_fig *f = art_fig_new();
+    memset(rgba, 0, (size_t)size * size * 4);
+    switch (kind) {
+    case CT_CROSS: {
+        const float a[] = {0.2f, 0.28f, 0.28f, 0.2f, 0.8f, 0.72f, 0.72f, 0.8f};
+        const float b[] = {0.72f, 0.2f, 0.8f, 0.28f, 0.28f, 0.8f, 0.2f, 0.72f};
+        art_poly(f, ART_PART, a, 4);
+        art_poly(f, ART_PART, b, 4);
+        break;
+    }
+    case CT_BOLT: {
+        const float b[] = {0.58f, 0.06f, 0.24f, 0.56f, 0.47f, 0.56f, 0.38f, 0.94f, 0.78f, 0.4f, 0.54f, 0.4f, 0.68f, 0.06f};
+        art_poly(f, ART_PART, b, 7);
+        break;
+    }
+    case CT_CYCLE: {                            /* two arrows, one each way */
+        const float r[] = {0.14f, 0.3f, 0.6f, 0.3f, 0.6f, 0.18f, 0.86f, 0.36f, 0.6f, 0.54f, 0.6f, 0.42f, 0.14f, 0.42f};
+        const float l[] = {0.86f, 0.58f, 0.4f, 0.58f, 0.4f, 0.46f, 0.14f, 0.64f, 0.4f, 0.82f, 0.4f, 0.7f, 0.86f, 0.7f};
+        art_poly(f, ART_PART, r, 7);
+        art_poly(f, ART_PART, l, 7);
+        break;
+    }
+    case CT_HIGH:
+    case CT_LOW: {                              /* a card and an arrow */
+        int up = kind == CT_HIGH;
+        float h0 = up ? 0.16f : 0.36f;
+        art_rect(f, ART_PART, 0.18f, h0, 0.5f, 0.86f);
+        art_rect(f, ART_MARK, 0.23f, h0 + 0.05f, 0.45f, 0.81f);
+        const float upa[] = {0.72f, 0.14f, 0.92f, 0.42f, 0.79f, 0.42f, 0.79f, 0.7f, 0.65f, 0.7f, 0.65f, 0.42f,
+                             0.52f, 0.42f};
+        const float dna[] = {0.72f, 0.86f, 0.92f, 0.58f, 0.79f, 0.58f, 0.79f, 0.3f, 0.65f, 0.3f, 0.65f, 0.58f,
+                             0.52f, 0.58f};
+        art_poly(f, ART_PART, up ? upa : dna, 7);
+        st.mark[0] = st.mark[1] = st.mark[2] = 0;
+        break;
+    }
+    case CT_PAIR:                               /* two cards side by side, alike */
+        for (int k = 0; k < 2; k++) {
+            float x = 0.14f + 0.38f * k;
+            art_rect(f, ART_PART, x, 0.18f, x + 0.34f, 0.82f);
+            art_ellipse(f, ART_MARK, x + 0.17f, 0.5f, 0.09f, 0.09f);
+        }
+        st.mark[0] = st.mark[1] = st.mark[2] = 0;
+        break;
+    case CT_FLOWER:                             /* five petals round a heart */
+        for (int k = 0; k < 5; k++) {
+            float a = (-90 + 72.0f * k) * PI_F / 180;
+            art_ellipse(f, ART_PART, 0.5f + 0.22f * cosf(a), 0.5f + 0.22f * sinf(a), 0.16f, 0.16f);
+        }
+        art_ellipse(f, ART_MARK, 0.5f, 0.5f, 0.11f, 0.11f);
+        st.mark[0] = 0, st.mark[1] = 0, st.mark[2] = 0;
+        break;
+    case CT_CARD:                               /* a card's outline */
+        art_rect(f, ART_PART, 0.26f, 0.14f, 0.74f, 0.86f);
+        art_rect(f, ART_MARK, 0.31f, 0.19f, 0.69f, 0.81f);
+        st.mark[0] = st.mark[1] = st.mark[2] = 0;
+        break;
+    }
+    art_render(f, &st, size, size, (float)size, 0, 0, rgba);
+    art_fig_free(f);
+    if (kind >= CT_HIGH)
+        for (int i = 0; i < size * size; i++)   /* the marks cut out: a clear hole */
+            if (rgba[4 * i] < 128 && rgba[4 * i + 3]) {
+                int k = rgba[4 * i];
+                rgba[4 * i + 3] = (uint8_t)(rgba[4 * i + 3] * k / 128);
+                rgba[4 * i] = rgba[4 * i + 1] = rgba[4 * i + 2] = 255;
+            }
+}
+
+/* the kit's own pictures: white figures, a cream moon, the buttons' discs, the calls' signs */
 static void paint_kit(const int *k, int s, int h, uint8_t *rgba, user_painter u)
 {
     static const uint8_t off_c[3] = {54, 72, 64}, on_c[3] = {150, 118, 46}, dark_c[3] = {22, 30, 27},
                          cream[3] = {246, 226, 160}, black[3] = {0, 0, 0};
     int kind = k[0];
     (void)h, (void)u;
+    if (kind >= CT_CROSS) {
+        paint_call(kind, s, rgba);
+        return;
+    }
     if (kind >= CT_DISC_OFF) {
         art_disc(s, kind == CT_DISC_ON ? on_c : kind == CT_DISC_OFF ? off_c : dark_c, kind == CT_DISC_DARK ? 0.85f : 1,
                  0, rgba);
@@ -308,6 +385,75 @@ void ct_pass_badge(float cx, float cy, float d)
     ct_pic(CT_DISC_DARK, cx, cy, d, 0, 255, 255, 255, 255);
     int s = (int)(0.6f * d);
     ui_put_c(ct_icon(ICON_PASS, s, 246, 238, 220), cx, cy, (float)s, (float)s);
+}
+
+void ct_pic_paint(int kind, int size, uint8_t *rgba)
+{
+    const int k[4] = {kind, 0, 0, 0};
+    memset(rgba, 0, (size_t)size * size * 4);
+    paint_kit(k, size, size, rgba, NULL);
+}
+
+void ct_btn_row(ct_btn *b, int n, float cx, float y, float d, float step)
+{
+    for (int i = 0; i < n; i++) b[i].x = cx + (i - (n - 1) / 2.0f) * step * d, b[i].y = y, b[i].d = d;
+}
+
+int ct_btn_hit(const ct_btn *b, int n, float x, float y)
+{
+    for (int i = 0; i < n; i++)
+        if (ct_on(b[i].x, b[i].y, b[i].d, x, y)) return b[i].id;
+    return -1;
+}
+
+void ct_step(float cx, float cy, float d, int plus, int enabled)
+{
+    ct_button(cx, cy, d, 0, -1, 0);
+    Uint8 a = enabled ? 255 : 90;
+    float w = 0.46f * d, t = fmaxf(2, roundf(0.11f * d));
+    SDL_Texture *bar = ct_round((int)w, (int)t, t / 2, (const uint8_t[4]){255, 255, 255, 255});
+    SDL_SetTextureAlphaMod(bar, a);
+    ui_put_c(bar, cx, cy, w, t);
+    if (plus) ui_put_rot(bar, cx, cy, w, t, 90);
+    SDL_SetTextureAlphaMod(bar, 255);
+}
+
+void ct_amount(float cx, float cy, float d, int n, int plus, int live)
+{
+    if (live) ui_mark_gold(cx, cy, 1.8f * d);
+    ct_button(cx, cy, d, 1, -1, 0);
+    if (plus) ct_plus(cx, cy, (n >= 10 ? 0.32f : 0.4f) * d, n);
+    else ui_number(cx, cy, (n >= 10 ? 0.38f : 0.46f) * d, n, 1);
+}
+
+void ct_badge_plus(float cx, float cy, float d, int v)
+{
+    ct_pic(CT_DISC_DARK, cx, cy, d, 0, 255, 255, 255, 255);
+    ct_plus(cx, cy, (v >= 10 ? 0.34f : 0.42f) * d, v);
+}
+
+void ct_badge_pic(int kind, float cx, float cy, float d, float k, Uint8 r, Uint8 g, Uint8 b)
+{
+    ct_pic(CT_DISC_DARK, cx, cy, d, 0, 255, 255, 255, 255);
+    ct_pic(kind, cx, cy, k * d, 0, r, g, b, 255);
+}
+
+void ct_badge_icon(int icon, float cx, float cy, float d, Uint8 r, Uint8 g, Uint8 b)
+{
+    ct_pic(CT_DISC_DARK, cx, cy, d, 0, 255, 255, 255, 255);
+    int s = (int)(0.62f * d);
+    ui_put_c(ct_icon(icon, s < 2 ? 2 : s, r, g, b), cx, cy, (float)s, (float)s);
+}
+
+void ct_badge_yes(float cx, float cy, float d) { ct_badge_pic(CT_TICK, cx, cy, d, 0.68f, 140, 220, 150); }
+void ct_badge_no(float cx, float cy, float d) { ct_badge_pic(CT_CROSS, cx, cy, d, 0.7f, 236, 110, 90); }
+
+void ct_red_disc(float cx, float cy, float d) { ui_put_c(ct_disc(CT_RED, 100, (int)(d + 0.5f)), cx, cy, d, d); }
+
+void ct_bolt(float cx, float cy, float d)
+{
+    ct_red_disc(cx, cy, d);
+    ct_pic(CT_BOLT, cx, cy, 0.72f * d, 0, CT_GOLD[0], CT_GOLD[1], CT_GOLD[2], 255);
 }
 
 void ct_choice(SDL_Texture *p, float cx, float cy, float d, int chosen, int enabled)

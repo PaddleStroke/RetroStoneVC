@@ -15,7 +15,6 @@
 #include <string.h>
 
 #include "cards_table.h"
-#include "games/envite.h"
 #include "games/spanish.h"
 #include "games/truco.h"
 #include "shell.h"
@@ -30,7 +29,7 @@ static unsigned seen;
 
 enum { TB_ENVIDO, TB_REAL, TB_FALTA, TB_TRUCO, TB_MAZO, TB_QUIERO, TB_NOQUIERO, TB_N };
 static struct {
-    vt_btn b[TB_N];
+    ct_btn b[TB_N];
     int nb;
     float wp;                                   /* the played cards' width */
 } K;
@@ -77,9 +76,9 @@ static void geometry(void)
     float top = p->players == 4 ? T.sy[(me + 1) % 4] + T.tok + 0.5f * d : T.b.y + 0.6f * d;
     int per = (int)fmaxf(1, floorf((y - top) / step) + 1);
     for (int i = 0; i < nl; i++)
-        K.b[K.nb++] = (vt_btn){xl + (i / per) * step, y - (i % per) * step, d, left[i], 1};
+        K.b[K.nb++] = (ct_btn){xl + (i / per) * step, y - (i % per) * step, d, left[i], 1};
     for (int i = 0; i < nr; i++)
-        K.b[K.nb++] = (vt_btn){xr - (i / per) * step, y - (i % per) * step, d, right[i], 1};
+        K.b[K.nb++] = (ct_btn){xr - (i / per) * step, y - (i % per) * step, d, right[i], 1};
 }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
@@ -190,17 +189,17 @@ static void side_chips(int s, float cx, float cy, float d)
 /* a truco's worth on red lacquer */
 static void truco_sign(float cx, float cy, float d, int worth)
 {
-    vt_red(cx, cy, d);
+    ct_red_disc(cx, cy, d);
     ui_number(cx, cy, 0.46f * d, worth, 1);
 }
 
 /* an envido's call: a pair of cards and its worth (falta: the bolt) */
 static void envido_sign(int kind, float cx, float cy, float d, int button)
 {
-    if (kind == TE_FALTA) { vt_bolt(cx, cy, d); return; }
+    if (kind == TE_FALTA) { ct_bolt(cx, cy, d); return; }
     if (button) ct_button(cx, cy, d, kind == TE_REAL, -1, 0);
     else ct_pic(CT_DISC_DARK, cx, cy, d, 0, 255, 255, 255, 255);
-    vt_icon(VT_PAIR, cx, cy - 0.17f * d, 0.5f * d, 246, 238, 220, 255);
+    ct_pic(CT_PAIR, cx, cy - 0.17f * d, 0.5f * d, 0, 246, 238, 220, 255);
     ui_number(cx, cy + 0.2f * d, 0.3f * d, kind == TE_REAL ? 3 : 2, 1);
 }
 
@@ -226,8 +225,8 @@ static void draw_words(void)
         case TW_ENVIDO: envido_sign(TE_ENVIDO, x, y, d, 0); break;
         case TW_REAL: envido_sign(TE_REAL, x, y, d, 0); break;
         case TW_FALTA: envido_sign(TE_FALTA, x, y, d, 0); break;
-        case TW_QUIERO: vt_quiero(x, y, d); break;
-        case TW_NOQUIERO: vt_noquiero(x, y, d); break;
+        case TW_QUIERO: ct_badge_yes(x, y, d); break;
+        case TW_NOQUIERO: ct_badge_no(x, y, d); break;
         case TW_MAZO: mazo_sign(x, y, d, 0); break;
         default: break;
         }
@@ -236,7 +235,7 @@ static void draw_words(void)
         if (p->flor_mask >> q & 1) {           /* a flor: a gold flower */
             ui_mark_gold(fx, fy, 1.5f * d);
             ct_pic(CT_DISC_DARK, fx, fy, d, 0, 255, 255, 255, 255);
-            vt_icon(VT_FLOWER, fx, fy, 0.7f * d, 246, 206, 90, 255);
+            ct_pic(CT_FLOWER, fx, fy, 0.7f * d, 0, 246, 206, 90, 255);
             k = 1, fx = x1, fy = y1;
         }
         if (p->env_winner == q) {               /* the best envido */
@@ -277,12 +276,12 @@ static void draw_worth(void)
 static void draw_pad(int live)
 {
     for (int i = 0; i < K.nb; i++) {
-        const vt_btn *b = &K.b[i];
+        const ct_btn *b = &K.b[i];
         switch (b->id) {
         case TB_ENVIDO: envido_sign(TE_ENVIDO, b->x, b->y, b->d, 1); break;
         case TB_REAL: envido_sign(TE_REAL, b->x, b->y, b->d, 1); break;
         case TB_FALTA: {
-            vt_bolt(b->x, b->y, b->d);
+            ct_bolt(b->x, b->y, b->d);
             int f = truco_falta(&G.pos, T.me & 1);
             ct_badge(b->x + 0.36f * b->d, b->y + 0.36f * b->d, 0.5f * b->d, f);
             break;
@@ -298,7 +297,7 @@ static void draw_pad(int live)
             break;
         case TB_NOQUIERO:
             ct_button(b->x, b->y, b->d, 0, -1, 0);
-            vt_icon(VT_CROSS, b->x, b->y, 0.7f * b->d, 240, 120, 100, 255);
+            ct_pic(CT_CROSS, b->x, b->y, 0.7f * b->d, 0, 240, 120, 100, 255);
             break;
         }
     }
@@ -315,7 +314,7 @@ static void draw_summary(void)
     float cols[4] = {x0 + 0.33f * pw, x0 + 0.53f * pw, x0 + 0.73f * pw, x0 + pw - 0.7f * u};
     /* the heads: envido, flor, the hand */
     envido_sign(TE_ENVIDO, cols[0], y, d, 0);
-    if (p->flor) vt_badge(VT_FLOWER, cols[1], y, d);
+    if (p->flor) ct_badge_pic(CT_FLOWER, cols[1], y, d, 0.66f, 246, 238, 220);
     truco_sign(cols[2], y, d, p->hand_pts ? p->hand_pts : p->level);
     y += rh;
     ct_rule(x0 + 0.3f * u, y - rh / 2, pw - 0.6f * u);
@@ -384,7 +383,7 @@ static void press(float x, float y)
     if (p->phase != TP_PLAY) return;
     if (truco_actor(p) != T.me) { ui_sound(SND_DENY); return; }
     geometry();
-    switch (vt_hit(K.b, K.nb, x, y)) {
+    switch (ct_btn_hit(K.b, K.nb, x, y)) {
     case TB_ENVIDO: act(TA_ENVIDO); return;
     case TB_REAL: act(TA_REAL); return;
     case TB_FALTA: act(TA_FALTA); return;
@@ -459,13 +458,13 @@ static void thumb(int v, int size, uint8_t *rgba)
     int ds = (int)(0.3f * size);
     uint8_t *b = calloc((size_t)ds * ds, 4);
     if (!b) return;
-    art_disc(ds, VT_RED, 1, 0, b);
+    art_disc(ds, CT_RED, 1, 0, b);
     float bx = (v >= 2 ? 0.36f : 0.5f) * size, by = 0.8f * size;
     art_blend(rgba, size, size, b, ds, ds, (int)(bx - ds / 2.0f), (int)(by - ds / 2.0f));
     paint_digits(rgba, size, v & 1 ? 30 : 15, bx, by, 0.13f * size);
     if (v >= 2) {
         memset(b, 0, (size_t)ds * ds * 4);
-        vt_paint(VT_FLOWER, ds, b);
+        ct_pic_paint(CT_FLOWER, ds, b);
         for (int i = 0; i < ds * ds; i++) b[4 * i] = 246, b[4 * i + 1] = 206, b[4 * i + 2] = 90;
         art_blend(rgba, size, size, b, ds, ds, (int)(0.64f * size - ds / 2.0f), (int)(by - ds / 2.0f));
     }

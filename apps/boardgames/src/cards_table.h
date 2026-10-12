@@ -65,15 +65,36 @@ SDL_Texture *ct_icon(int which, int size, Uint8 r, Uint8 g, Uint8 b);       /* t
 SDL_Texture *ct_picture(void (*paint)(int kind, int size, uint8_t *rgba), int kind, int size);
 
 /* the kit's pictures, white (tinted when drawn): an arrow pointing right, a tick, a slash (a 0 struck through, a
- * player out), a cream crescent moon; discs in the shell's button colours (off, on) and a dark one (a badge) */
-enum { CT_ARROW, CT_TICK, CT_SLASH, CT_MOON, CT_DISC_OFF, CT_DISC_ON, CT_DISC_DARK };
-/* a picture centred, d wide, turned deg, tinted (r, g, b, a) */
+ * player out), a cream crescent moon; discs in the shell's button colours (off, on) and a dark one (a badge). The
+ * calls' signs (no text): a cross (no, no quiero), a bolt (the whole game at stake), two arrows one each way (changing
+ * cards), a card with an arrow up or down (the highest cards, the lowest), two cards alike (a pair), a flower (the
+ * flor), a card's outline */
+enum { CT_ARROW, CT_TICK, CT_SLASH, CT_MOON, CT_DISC_OFF, CT_DISC_ON, CT_DISC_DARK, CT_CROSS, CT_BOLT, CT_CYCLE,
+       CT_HIGH, CT_LOW, CT_PAIR, CT_FLOWER, CT_CARD };
+static const uint8_t CT_GOLD[3] = {250, 214, 90}, CT_CREAM[3] = {246, 238, 220}, CT_RED[3] = {176, 50, 40};
+/* a picture centred, d wide, turned deg, tinted (r, g, b, a); _paint: painted white into size x size */
 void ct_pic(int kind, float cx, float cy, float d, double deg, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+void ct_pic_paint(int kind, int size, uint8_t *rgba);
 /* a round button (the shell's colours): `on` gold, its picture (CT_ARROW, CT_TICK; -1: none) turned deg, faint off */
 void ct_button(float cx, float cy, float d, int on, int pic, double deg);
 int  ct_on(float cx, float cy, float d, float x, float y);   /* (x, y) on a round button d wide */
+/* a row of round buttons: each its place, size, the game's id and whether it is lit */
+typedef struct { float x, y, d; int id, on; } ct_btn;
+void ct_btn_row(ct_btn *b, int n, float cx, float y, float d, float step);   /* centred on (cx, y), d * step apart */
+int  ct_btn_hit(const ct_btn *b, int n, float x, float y);   /* the id under (x, y); -1: none */
+void ct_step(float cx, float cy, float d, int plus, int enabled);   /* a stepper's minus or plus on a round button */
+/* an amount on a gold button (plus: a plus before it, a raise), in gold light when it may be tapped (live) */
+void ct_amount(float cx, float cy, float d, int n, int plus, int live);
 void ct_number(float cx, float cy, float h, int v, int nil);   /* a number in cream, h high; nil: the 0 struck out */
 void ct_badge(float cx, float cy, float d, int v);   /* a number in a dark disc (a bid) */
+void ct_badge_plus(float cx, float cy, float d, int v);   /* a plus and the number in a dark disc (a raise) */
+/* a kit picture k * d wide in a dark disc, tinted (yes: CT_TICK; no: CT_CROSS; a word said) */
+void ct_badge_pic(int kind, float cx, float cy, float d, float k, Uint8 r, Uint8 g, Uint8 b);
+void ct_badge_icon(int icon, float cx, float cy, float d, Uint8 r, Uint8 g, Uint8 b);   /* a shell icon (ICON_*) */
+void ct_badge_yes(float cx, float cy, float d);   /* yes (quiero): a green tick in a dark disc */
+void ct_badge_no(float cx, float cy, float d);    /* no (no quiero): a red cross in a dark disc */
+void ct_red_disc(float cx, float cy, float d);  /* a disc of red lacquer (a call that raises the stakes) */
+void ct_bolt(float cx, float cy, float d);      /* the whole game at stake: a gold bolt on red lacquer */
 void ct_pass(float cx, float cy, float d, int glow);   /* the pass button: the shell's pass icon on a round button */
 void ct_pass_badge(float cx, float cy, float d);     /* the pass icon in a dark disc (a player who passed) */
 /* a choice (a suit, a game): its picture on the button, raised in gold light when chosen, faint when it cannot be */

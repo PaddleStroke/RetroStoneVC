@@ -17,7 +17,6 @@
 #include <string.h>
 
 #include "cards_table.h"
-#include "games/envite.h"
 #include "games/mus.h"
 #include "games/spanish.h"
 #include "shell.h"
@@ -34,7 +33,7 @@ static struct {
     float strip_y, cell, step;                  /* the lances' row: its centre, a cell's size and the step */
     float mid_y;                                /* the middle: the piles, the bet */
     float pw;                                   /* the piles' cards' width */
-    vt_btn b[B_N];
+    ct_btn b[B_N];
     int nb;
 } K;
 
@@ -63,28 +62,28 @@ static void geometry(void)
     int mine = p->turn == me && !ui_handing() && ui.viewer >= 0;
     K.nb = 0;
     if (mine && p->phase == MP_MUS) {
-        K.b[K.nb++] = (vt_btn){0, 0, 0, B_MUS, 1};
-        K.b[K.nb++] = (vt_btn){0, 0, 0, B_CUT, 1};
-        vt_row(K.b, 2, T.cx, bot - 0.65f * d, d, 1.6f);
+        K.b[K.nb++] = (ct_btn){0, 0, 0, B_MUS, 1};
+        K.b[K.nb++] = (ct_btn){0, 0, 0, B_CUT, 1};
+        ct_btn_row(K.b, 2, T.cx, bot - 0.65f * d, d, 1.6f);
     } else if (mine && p->phase == MP_DISCARD) {
-        K.b[K.nb++] = (vt_btn){0, 0, 0, B_OK, sel != 0};
-        vt_row(K.b, 1, T.cx, bot - 0.65f * d, d, 1);
+        K.b[K.nb++] = (ct_btn){0, 0, 0, B_OK, sel != 0};
+        ct_btn_row(K.b, 1, T.cx, bot - 0.65f * d, d, 1);
     } else if (mine && p->phase == MP_BET) {
         if (!facing()) {
-            vt_btn r[5] = {{0, 0, 0, B_PASS, 1}, {0, 0, 0, B_MINUS, 1}, {0, 0, 0, B_BET, 1}, {0, 0, 0, B_PLUS, 1},
+            ct_btn r[5] = {{0, 0, 0, B_PASS, 1}, {0, 0, 0, B_MINUS, 1}, {0, 0, 0, B_BET, 1}, {0, 0, 0, B_PLUS, 1},
                            {0, 0, 0, B_ORDAGO, 1}};
-            vt_row(r, 5, T.cx, bot - 0.65f * d, d, 1.18f);
+            ct_btn_row(r, 5, T.cx, bot - 0.65f * d, d, 1.18f);
             memcpy(K.b, r, sizeof r);
             K.nb = 5;
         } else {
-            vt_btn r1[2] = {{0, 0, 0, B_NOQUIERO, 1}, {0, 0, 0, B_QUIERO, 1}};
-            vt_row(r1, 2, T.cx, bot - 0.65f * d, d, 1.6f);
+            ct_btn r1[2] = {{0, 0, 0, B_NOQUIERO, 1}, {0, 0, 0, B_QUIERO, 1}};
+            ct_btn_row(r1, 2, T.cx, bot - 0.65f * d, d, 1.6f);
             memcpy(K.b, r1, sizeof r1);
             K.nb = 2;
             if (!p->ordago) {
-                vt_btn r2[4] = {{0, 0, 0, B_MINUS, 1}, {0, 0, 0, B_BET, 1}, {0, 0, 0, B_PLUS, 1},
+                ct_btn r2[4] = {{0, 0, 0, B_MINUS, 1}, {0, 0, 0, B_BET, 1}, {0, 0, 0, B_PLUS, 1},
                                 {0, 0, 0, B_ORDAGO, 1}};
-                vt_row(r2, 4, T.cx, bot - 1.95f * d, d, 1.18f);
+                ct_btn_row(r2, 4, T.cx, bot - 1.95f * d, d, 1.18f);
                 memcpy(K.b + 2, r2, sizeof r2);
                 K.nb = 6;
                 rows = 2;
@@ -216,7 +215,7 @@ static void lance_sign(int l, int punto, float cx, float cy, float d, Uint8 a)
         ui_number(cx, cy, 0.4f * d, punto ? 30 : 31, 1);
         return;
     }
-    vt_icon(l == ML_GRANDE ? VT_UP : l == ML_CHICA ? VT_DOWN : VT_PAIR, cx, cy, 0.7f * d, 246, 238, 220, a);
+    ct_pic(l == ML_GRANDE ? CT_HIGH : l == ML_CHICA ? CT_LOW : CT_PAIR, cx, cy, 0.7f * d, 0, 246, 238, 220, a);
 }
 
 /* a lance's outcome, d wide: en paso, the bet accepted, refused (its points, the side that took them), one side only,
@@ -235,7 +234,7 @@ static void outcome(const mpos *p, int l, float cx, float cy, float d)
         break;
     case LS_ONE: side_chips(p->lside[l], cx, cy, 0.7f * d); break;
     case LS_NONE: ct_pic(CT_SLASH, cx, cy, 0.7f * d, 0, 246, 238, 220, 160); break;
-    case LS_ORDAGO: vt_bolt(cx, cy, d); break;
+    case LS_ORDAGO: ct_bolt(cx, cy, d); break;
     }
 }
 
@@ -263,21 +262,21 @@ static void draw_words(void)
         ct_seat_spot(&T, q, 1, &x1, &y1);
         if (p->phase >= MP_HAND) continue;
         switch (p->word[q]) {
-        case MW_MUS: vt_badge(VT_CYCLE, x, y, d); break;
+        case MW_MUS: ct_badge_pic(CT_CYCLE, x, y, d, 0.66f, 246, 238, 220); break;
         case MW_CUT:
-            vt_badge(VT_CYCLE, x, y, d);
+            ct_badge_pic(CT_CYCLE, x, y, d, 0.66f, 246, 238, 220);
             ct_pic(CT_SLASH, x, y, 0.95f * d, 0, 236, 110, 90, 255);
             break;
         case MW_PASS: ct_pass_badge(x, y, d); break;
         case MW_BET: ct_badge(x, y, d, p->wordn[q]); break;
-        case MW_RAISE: vt_raise(x, y, d, p->wordn[q]); break;
-        case MW_ORDAGO: vt_bolt(x, y, d); break;
-        case MW_QUIERO: vt_quiero(x, y, d); break;
-        case MW_NOQUIERO: vt_noquiero(x, y, d); break;
+        case MW_RAISE: ct_badge_plus(x, y, d, p->wordn[q]); break;
+        case MW_ORDAGO: ct_bolt(x, y, d); break;
+        case MW_QUIERO: ct_badge_yes(x, y, d); break;
+        case MW_NOQUIERO: ct_badge_no(x, y, d); break;
         default:
             if ((p->phase == MP_MUS || p->phase == MP_DISCARD) && p->took[q]) {
                 ct_badge(x, y, d, p->took[q]);  /* the cards taken in the last change */
-                vt_icon(VT_CARD, x + 0.4f * d, y - 0.36f * d, 0.55f * d, 246, 238, 220, 255);
+                ct_pic(CT_CARD, x + 0.4f * d, y - 0.36f * d, 0.55f * d, 0, 246, 238, 220, 255);
             }
         }
         if (p->phase == MP_BET && p->lance >= ML_PARES && !(p->lance == ML_JUEGO && p->punto)) {
@@ -308,7 +307,7 @@ static void draw_middle(void)
     if (p->phase != MP_BET || !facing()) return;
     float d = 0.8f * K.cell, x = T.cx + (p->lance - 1.5f) * K.step, y = K.strip_y + 1.0f * K.cell;
     ui_mark_gold(x, y, 1.7f * d);                /* the bet on the table, under its lance */
-    if (p->ordago) vt_bolt(x, y, d);
+    if (p->ordago) ct_bolt(x, y, d);
     else ct_badge(x, y, d, p->bet);
 }
 
@@ -316,15 +315,15 @@ static void draw_pad(int live)
 {
     const mpos *p = &G.pos;
     for (int i = 0; i < K.nb; i++) {
-        const vt_btn *b = &K.b[i];
+        const ct_btn *b = &K.b[i];
         switch (b->id) {
         case B_MUS:
             ct_button(b->x, b->y, b->d, 0, -1, 0);
-            vt_icon(VT_CYCLE, b->x, b->y, 0.7f * b->d, 255, 255, 255, 255);
+            ct_pic(CT_CYCLE, b->x, b->y, 0.7f * b->d, 0, 255, 255, 255, 255);
             break;
         case B_CUT:
             ct_button(b->x, b->y, b->d, 0, -1, 0);
-            vt_icon(VT_CYCLE, b->x, b->y, 0.7f * b->d, 255, 255, 255, 140);
+            ct_pic(CT_CYCLE, b->x, b->y, 0.7f * b->d, 0, 255, 255, 255, 140);
             ct_pic(CT_SLASH, b->x, b->y, 0.85f * b->d, 0, 236, 110, 90, 255);
             break;
         case B_OK:
@@ -332,17 +331,17 @@ static void draw_pad(int live)
             ct_button(b->x, b->y, b->d, b->on, CT_TICK, 0);
             break;
         case B_PASS: ct_pass(b->x, b->y, b->d, 0); break;
-        case B_MINUS: vt_step(b->x, b->y, b->d, 0, amount > min_amount()); break;
-        case B_PLUS: vt_step(b->x, b->y, b->d, 1, p->bet + amount < MUS_MAX_BET); break;
-        case B_BET: vt_bet_button(b->x, b->y, b->d, amount, facing(), live); break;
-        case B_ORDAGO: vt_bolt(b->x, b->y, b->d); break;
+        case B_MINUS: ct_step(b->x, b->y, b->d, 0, amount > min_amount()); break;
+        case B_PLUS: ct_step(b->x, b->y, b->d, 1, p->bet + amount < MUS_MAX_BET); break;
+        case B_BET: ct_amount(b->x, b->y, b->d, amount, facing(), live); break;
+        case B_ORDAGO: ct_bolt(b->x, b->y, b->d); break;
         case B_QUIERO:
             ct_button(b->x, b->y, b->d, 0, -1, 0);
             ct_pic(CT_TICK, b->x, b->y, 0.66f * b->d, 0, 160, 236, 170, 255);
             break;
         case B_NOQUIERO:
             ct_button(b->x, b->y, b->d, 0, -1, 0);
-            vt_icon(VT_CROSS, b->x, b->y, 0.7f * b->d, 240, 120, 100, 255);
+            ct_pic(CT_CROSS, b->x, b->y, 0.7f * b->d, 0, 240, 120, 100, 255);
             break;
         }
     }
@@ -364,7 +363,7 @@ static void draw_summary(void)
                                                0, CD_FLAT);
         float xr = x0 + pw - 0.6f * u;
         if (pares) {
-            vt_badge(VT_PAIR, xr - 1.25f * d, y, 0.8f * d);
+            ct_badge_pic(CT_PAIR, xr - 1.25f * d, y, 0.8f * d, 0.66f, 246, 238, 220);
             ui_number(xr - 1.25f * d + 0.48f * d, y + 0.3f * d, 0.3f * d, pares, 1);
         }
         if (pts >= 31) ui_mark_gold(xr, y, 1.4f * d);
@@ -433,7 +432,7 @@ static void press(float x, float y)
             return;
         }
     }
-    switch (vt_hit(K.b, K.nb, x, y)) {
+    switch (ct_btn_hit(K.b, K.nb, x, y)) {
     case B_MUS: act(MA_MUS); break;
     case B_CUT: act(MA_CUT); break;
     case B_OK:
