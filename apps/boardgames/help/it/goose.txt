@@ -1,0 +1,22 @@
+Gioco dell'oca
+# Lo scopo
+Essere il primo a portare la tua pedina sulla casella 63, il giardino dell'oca, al centro della spirale. Da 2 a 6 giocatori.
+# Un turno
+Tutte le pedine partono dall'angolo in basso a sinistra, prima della casella 1. Si gioca a turno, e inizia il chiaro. Tira i due dadi e fai avanzare la tua pedina della loro somma, una casella alla volta, lungo la spirale.
+- Un 9 tirato dalla partenza non porta alla casella 9: 6 e 3 portano direttamente alla 26, 5 e 4 alla 53, le caselle con i dadi. Vale per il primo tiro, e di nuovo dopo che la morte ti ha rimandato alla partenza.
+- La casella 63 va raggiunta con il numero esatto. Se tiri di più, la tua pedina arriva alla 63 e torna indietro dei punti in eccesso: dalla 60, un tiro di 6 finisce sulla 60.
+# Le caselle
+- Le oche (5, 9, 14, 18, 23, 27, 32, 36, 41, 45, 50, 54 e 59): muovi ancora dello stesso tiro, nella stessa direzione, di oca in oca. Dopo il rimbalzo sulla 63, un'oca ti manda ancora più indietro.
+- Il ponte (6): prosegui fino alla 12.
+- La locanda (19): salti i tuoi due turni successivi.
+- Il pozzo (31): resti lì finché un'altra pedina non ci cade e ti libera.
+- Il labirinto (42): torna alla 30.
+- La prigione (52): resti lì finché un'altra pedina non ci entra e ti libera.
+- La morte (58): torna alla partenza.
+# Incontrare altre pedine
+Due pedine non stanno mai sulla stessa casella, tranne alla partenza. Se la tua pedina finisce la mossa su una casella dove c'è un'altra pedina, quella va sulla casella da cui sei arrivato, ed è di nuovo libera se la tratteneva la locanda, il pozzo o la prigione; la casella su cui arriva non ha alcun effetto su di lei. La tua pedina prende il suo posto, e anche la sua casella: nel pozzo o nella prigione, ora sei tu ad aspettare. Passare sopra una pedina non fa nulla.
+In due, se una pedina è nel pozzo e l'altra nella prigione, nessuno può venire a liberarle: il prossimo giocatore che tira viene liberato e continua a giocare.
+# La fine della partita
+Vince il primo giocatore che arriva sulla casella 63.
+# Giocare sul dispositivo
+Passatevi il dispositivo: il giocatore che deve tirare ha sempre la sua barra in basso. I suoi due dadi aspettano accanto al tavoliere, in una luce dorata, e la sua pedina brilla: tocca lo schermo per tirare. Poi la pedina si muove da sola. Ogni barra mostra la casella su cui si trova la pedina di quel giocatore e cosa la trattiene: la locanda (con i turni ancora da saltare), il pozzo o la prigione. Annulla ritira i tiri uno alla volta; un tiro ritirato esce di nuovo uguale quando tiri ancora.

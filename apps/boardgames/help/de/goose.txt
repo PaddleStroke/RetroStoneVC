@@ -1,0 +1,22 @@
+Gänsespiel
+# Das Ziel
+Bringe als Erster deine Figur auf Feld 63, den Garten der Gans in der Mitte der Spirale. Für 2 bis 6 Spieler.
+# Ein Zug
+Alle Figuren beginnen in der Ecke unten links, vor Feld 1. Die Spieler sind reihum am Zug, Hell zuerst. Wirf die zwei Würfel und ziehe deine Figur um ihre Summe vorwärts, Feld für Feld, entlang der Spirale.
+- Eine 9 vom Start aus führt nicht auf Feld 9: 6 und 3 führen direkt auf 26, 5 und 4 auf 53, die Felder mit den Würfeln. Das gilt für den ersten Wurf und erneut, nachdem dich der Tod an den Start zurückgeschickt hat.
+- Feld 63 muss genau erreicht werden. Bei mehr Augen zieht deine Figur bis 63 und um die überzähligen Punkte wieder zurück: Von 60 aus endet eine 6 auf 60.
+# Die Felder
+- Die Gänse (5, 9, 14, 18, 23, 27, 32, 36, 41, 45, 50, 54 und 59): Ziehe noch einmal um denselben Wurf weiter, in dieselbe Richtung, von Gans zu Gans. Nach dem Abprallen von 63 schickt dich eine Gans weiter zurück.
+- Die Brücke (6): weiter bis 12.
+- Das Wirtshaus (19): Du setzt deine nächsten zwei Züge aus.
+- Der Brunnen (31): Bleib dort, bis eine andere Figur hineinfällt und dich befreit.
+- Das Labyrinth (42): zurück auf 30.
+- Das Gefängnis (52): Bleib dort, bis eine andere Figur hineinkommt und dich befreit.
+- Der Tod (58): zurück an den Start.
+# Auf andere Figuren treffen
+Zwei Figuren stehen nie auf demselben Feld, außer am Start. Endet deine Figur ihren Zug auf einem Feld, auf dem eine andere Figur steht, geht diese auf das Feld, von dem du gekommen bist, und ist wieder frei, falls das Wirtshaus, der Brunnen oder das Gefängnis sie festhielt; das Feld, auf dem sie landet, wirkt nicht auf sie. Deine Figur nimmt ihren Platz ein und auch ihr Feld: Im Brunnen oder im Gefängnis wartest jetzt du. Über eine Figur hinwegzuziehen bewirkt nichts.
+Zu zweit kann niemand kommen und die Figuren befreien, wenn die eine im Brunnen und die andere im Gefängnis steckt: Wer als Nächstes würfelt, ist frei und spielt weiter.
+# Das Ende der Partie
+Wer zuerst auf Feld 63 steht, gewinnt.
+# Spielen auf dem Gerät
+Reicht das Gerät herum: Wer würfeln muss, hat seine Leiste immer unten. Seine zwei Würfel warten golden leuchtend neben dem Brett, und seine Figur leuchtet: Tippe auf den Bildschirm, um zu würfeln. Die Figur zieht dann von selbst. Jede Leiste zeigt das Feld, auf dem die Figur des Spielers steht, und was sie festhält: das Wirtshaus (mit den noch auszusetzenden Zügen), den Brunnen oder das Gefängnis. Rückgängig nimmt Würfe einzeln zurück; ein zurückgenommener Wurf fällt genauso, wenn du erneut würfelst.

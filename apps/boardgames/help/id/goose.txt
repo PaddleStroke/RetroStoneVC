@@ -1,0 +1,22 @@
+Permainan Angsa
+# Tujuan
+Jadilah yang pertama membawa bidakmu ke petak 63, taman angsa di tengah spiral. Untuk 2 sampai 6 pemain.
+# Satu giliran
+Semua bidak mulai di sudut kiri bawah, sebelum petak 1. Pemain bergiliran, terang lebih dulu. Lempar kedua dadu dan majukan bidakmu sebanyak jumlah keduanya, satu petak demi satu petak, menyusuri spiral.
+- Angka 9 yang keluar dari awal tidak menuju petak 9: 6 dan 3 langsung ke 26, 5 dan 4 ke 53, petak-petak bergambar dadu. Ini berlaku untuk lemparan pertama, dan berlaku lagi setelah kematian mengirimmu kembali ke awal.
+- Petak 63 harus dicapai dengan angka yang pas. Jika lebih, bidakmu maju sampai 63 lalu mundur sebanyak kelebihannya: dari petak 60, lemparan 6 berakhir di 60.
+# Petak-petak
+- Angsa (5, 9, 14, 18, 23, 27, 32, 36, 41, 45, 50, 54, dan 59): melangkah lagi sebanyak lemparan yang sama, ke arah yang sama, dari angsa ke angsa. Setelah memantul dari 63, angsa mengirimmu mundur lebih jauh.
+- Jembatan (6): lanjut ke 12.
+- Penginapan (19): kamu kehilangan dua giliran berikutnya.
+- Sumur (31): tinggal di sana sampai bidak lain jatuh ke dalamnya dan membebaskanmu.
+- Labirin (42): kembali ke 30.
+- Penjara (52): tinggal di sana sampai bidak lain masuk dan membebaskanmu.
+- Kematian (58): kembali ke awal.
+# Bertemu bidak lain
+Dua bidak tidak pernah berada di petak yang sama, kecuali di awal. Jika bidakmu berhenti di petak yang ditempati bidak lain, bidak itu pindah ke petak asal bidakmu, dan bebas lagi jika tadinya ditahan penginapan, sumur, atau penjara; petak tempatnya mendarat tidak berpengaruh padanya. Bidakmu mengambil tempatnya, beserta efek petaknya: di sumur atau penjara, sekarang kamulah yang menunggu. Sekadar melewati sebuah bidak tidak berpengaruh apa pun.
+Dengan dua pemain, jika satu bidak ada di sumur dan yang lain di penjara, tidak ada yang bisa datang membebaskan mereka: pemain berikutnya yang melempar dibebaskan dan terus bermain.
+# Akhir permainan
+Pemain pertama yang sampai di petak 63 menang.
+# Bermain di perangkat
+Gilirkan perangkat: bilah pemain yang akan melempar selalu berada di bawah. Kedua dadunya menunggu di samping papan, dengan cahaya keemasan, dan bidaknya bersinar: ketuk layar untuk melempar. Lalu bidak bergerak sendiri. Setiap bilah menunjukkan petak tempat bidak pemain itu berada, dan apa yang menahannya: penginapan (dengan sisa giliran yang masih harus dilewatkan), sumur, atau penjara. Urungkan membatalkan lemparan satu per satu; lemparan yang dibatalkan akan keluar sama lagi saat kamu melempar ulang.

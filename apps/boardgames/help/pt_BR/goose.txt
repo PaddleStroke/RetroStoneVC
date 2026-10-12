@@ -1,0 +1,22 @@
+Jogo do Ganso
+# O objetivo
+Ser o primeiro a levar o seu peão até a casa 63, o jardim do ganso, no meio da espiral. De 2 a 6 jogadores.
+# Uma jogada
+Todos os peões começam no canto inferior esquerdo, antes da casa 1. Os jogadores jogam em rodízio, o lado claro primeiro. Lance os dois dados e avance o seu peão o total tirado, uma casa de cada vez, ao longo da espiral.
+- Um 9 tirado na saída não leva à casa 9: 6 e 3 levam direto à 26, e 5 e 4 à 53, as casas com os dados. Isso vale para o primeiro lance, e de novo depois que a morte mandou você de volta para a saída.
+- A casa 63 tem de ser alcançada com o número exato. Com mais, o seu peão vai até a 63 e volta os pontos que sobraram: da 60, um lance de 6 termina na 60.
+# As casas
+- Os gansos (5, 9, 14, 18, 23, 27, 32, 36, 41, 45, 50, 54 e 59): ande de novo o mesmo lance, no mesmo sentido, de ganso em ganso. Depois de bater na 63 e voltar, um ganso manda você ainda mais para trás.
+- A ponte (6): siga até a 12.
+- A estalagem (19): você perde as suas duas próximas vezes.
+- O poço (31): fique lá até que outro peão caia nele e liberte você.
+- O labirinto (42): volte para a 30.
+- A prisão (52): fique lá até que outro peão entre e liberte você.
+- A morte (58): volte para a saída.
+# Encontrar outros peões
+Dois peões nunca dividem uma casa, a não ser na saída. Se o seu peão termina o movimento numa casa onde há outro peão, esse peão vai para a casa de onde você veio, e fica livre de novo se a estalagem, o poço ou a prisão o prendia; a casa onde ele chega não tem efeito sobre ele. O seu peão fica no lugar dele, e com a casa dele: no poço ou na prisão, agora é você quem espera. Passar por cima de um peão não faz nada.
+Com dois jogadores, se um peão está no poço e o outro na prisão, ninguém pode vir libertá-los: o próximo jogador a lançar é libertado e continua jogando.
+# O fim da partida
+Vence o primeiro jogador a chegar à casa 63.
+# Jogando no aparelho
+Passem o aparelho: o jogador que vai lançar sempre tem a barra dele embaixo. Os dois dados dele esperam ao lado do tabuleiro, com uma luz dourada, e o peão dele brilha: toque na tela para lançar. Depois o peão anda sozinho. Cada barra mostra a casa onde está o peão daquele jogador e o que o prende: a estalagem (com as vezes que ele ainda vai perder), o poço ou a prisão. Desfazer volta os lances um a um; um lance desfeito sai igual quando você lança de novo.

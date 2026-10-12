@@ -1,0 +1,22 @@
+Jogo da Glória
+# O objetivo
+Ser o primeiro a levar o teu peão até à casa 63, o jardim do ganso, no meio da espiral. De 2 a 6 jogadores.
+# Uma vez
+Todos os peões começam no canto inferior esquerdo, antes da casa 1. Os jogadores jogam à vez, o lado claro primeiro. Lança os dois dados e avança o teu peão tantas casas quanto a soma, uma casa de cada vez, ao longo da espiral.
+- Um 9 tirado à partida não leva à casa 9: 6 e 3 levam diretamente à 26, e 5 e 4 à 53, as casas com os dados. Isto vale para o primeiro lançamento, e de novo depois de a morte te ter mandado de volta à partida.
+- A casa 63 tem de ser alcançada com o número exato. Com mais, o teu peão vai até à 63 e recua os pontos a mais: da 60, um lançamento de 6 termina na 60.
+# As casas
+- Os gansos (5, 9, 14, 18, 23, 27, 32, 36, 41, 45, 50, 54 e 59): avança outra vez o mesmo lançamento, no mesmo sentido, de ganso em ganso. Depois de ressaltar na 63, um ganso manda-te ainda mais para trás.
+- A ponte (6): segue até à 12.
+- A estalagem (19): perdes as tuas duas vezes seguintes.
+- O poço (31): ficas lá até outro peão cair lá dentro e te libertar.
+- O labirinto (42): volta à 30.
+- A prisão (52): ficas lá até outro peão entrar e te libertar.
+- A morte (58): volta à partida.
+# Encontrar outros peões
+Dois peões nunca partilham uma casa, exceto na partida. Se o teu peão terminar o movimento numa casa onde está outro peão, esse peão vai para a casa de onde vieste, e fica livre outra vez se a estalagem, o poço ou a prisão o prendiam; a casa onde cai não tem qualquer efeito sobre ele. O teu peão fica com o lugar dele, e com a sua casa: no poço ou na prisão, agora és tu quem espera. Passar por cima de um peão não faz nada.
+A dois, se um peão estiver no poço e o outro na prisão, ninguém pode vir libertá-los: o próximo jogador a lançar é libertado e continua a jogar.
+# O fim do jogo
+Ganha o primeiro jogador a chegar à casa 63.
+# Jogar no dispositivo
+Passem o dispositivo: o jogador que vai lançar tem sempre a sua barra em baixo. Os seus dois dados esperam ao lado do tabuleiro, com uma luz dourada, e o seu peão brilha: toca no ecrã para lançar. Depois, o peão avança sozinho. Cada barra mostra a casa onde está o peão desse jogador e o que o prende: a estalagem (com as vezes que ainda tem de perder), o poço ou a prisão. Anular desfaz os lançamentos um a um; um lançamento desfeito volta a sair igual quando lanças outra vez.

@@ -1,0 +1,22 @@
+Hanhipeli
+# Tavoite
+Vie ensimmäisenä nappulasi ruutuun 63, hanhen puutarhaan spiraalin keskelle. 2–6 pelaajalle.
+# Vuoro
+Kaikki nappulat aloittavat vasemmasta alakulmasta, ennen ruutua 1. Pelaajat heittävät vuorotellen, vaalea ensin. Heitä kahta noppaa ja siirrä nappulaasi eteenpäin niiden summan verran, ruutu kerrallaan, spiraalia pitkin.
+- Lähdöstä heitetty 9 ei vie ruutuun 9: 6 ja 3 vievät suoraan ruutuun 26, 5 ja 4 ruutuun 53, nopparuutuihin. Tämä koskee ensimmäistä heittoa ja jälleen sitä, kun kuolema on lähettänyt sinut takaisin lähtöön.
+- Ruutuun 63 on päästävä tarkalleen oikealla luvulla. Jos heität enemmän, nappulasi menee ruutuun 63 ja palaa ylimenevien pisteiden verran takaisin: ruudusta 60 heitto 6 päättyy ruutuun 60.
+# Ruudut
+- Hanhet (5, 9, 14, 18, 23, 27, 32, 36, 41, 45, 50, 54 ja 59): siirry uudelleen saman heiton verran, samaan suuntaan, hanhesta hanheen. Kun olet kimmonnut ruudusta 63, hanhi vie sinua vielä kauemmas taaksepäin.
+- Silta (6): jatka ruutuun 12.
+- Majatalo (19): jätä kaksi seuraavaa vuoroasi väliin.
+- Kaivo (31): jää sinne, kunnes toinen nappula putoaa kaivoon ja vapauttaa sinut.
+- Labyrintti (42): palaa ruutuun 30.
+- Vankila (52): jää sinne, kunnes toinen nappula tulee sisään ja vapauttaa sinut.
+- Kuolema (58): palaa lähtöön.
+# Kohtaamiset
+Kaksi nappulaa ei ole koskaan samassa ruudussa, paitsi lähdössä. Jos nappulasi päättää siirtonsa ruutuun, jossa on toinen nappula, se nappula siirtyy ruutuun, josta sinä tulit, ja se vapautuu, jos majatalo, kaivo tai vankila piti sitä; ruutu, johon se päätyy, ei vaikuta siihen. Nappulasi ottaa sen paikan ja sen ruudun: kaivossa tai vankilassa nyt sinä odotat. Toisen nappulan ohittaminen ei tee mitään.
+Kahdella pelaajalla, jos toinen nappula on kaivossa ja toinen vankilassa, kukaan ei voi tulla vapauttamaan niitä: seuraavana heittävä pelaaja vapautuu ja jatkaa peliä.
+# Pelin loppu
+Ensimmäisenä ruutuun 63 päässyt pelaaja voittaa.
+# Pelaaminen laitteella
+Antakaa laite kiertää: heittovuorossa olevan pelaajan palkki on aina alhaalla. Hänen kaksi noppaansa odottavat laudan vieressä kultaisessa valossa, ja hänen nappulansa hehkuu: napauta näyttöä heittääksesi. Nappula siirtyy sitten itsestään. Kukin palkki näyttää, missä ruudussa pelaajan nappula on ja mikä sitä pitää: majatalo (ja vielä väliin jäävät vuorot), kaivo tai vankila. Kumoa peruu heitot yksi kerrallaan; peruttu heitto tulee samana, kun heität uudelleen.
