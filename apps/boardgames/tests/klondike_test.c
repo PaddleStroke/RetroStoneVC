@@ -281,11 +281,9 @@ static int done(const solpos *p)                /* the rest would go up by itsel
     return 1;
 }
 
-static int search(const solpos *p, int depth)
+/* the moves worth trying from p, into list (256 at most), in the order tried */
+static int moves_from(const solpos *p, solmove *list)
 {
-    if (done(p)) return depth;
-    if (depth >= DEPTH - 10 || ++nodes > 400000 || !visit(p)) return -1;
-    solmove list[256];
     int n = 0;
     for (int a = 0; a < KL_PILES; a++) {        /* up to the foundations */
         int t = p->kind[a] == SP_TAB || a == KL_WASTE ? sol_top(p, a) : CARD_NONE;
@@ -305,13 +303,35 @@ static int search(const solpos *p, int depth)
     for (int a = KL_FOUND; a < KL_STOCK; a++)   /* a card back down from a foundation */
         for (int b = 0; b < 7; b++)
             if (kl_legal(p, sol_mv(SM_MOVE, a, b, 1))) list[n++] = sol_mv(SM_MOVE, a, b, 1);
-    for (int k = 0; k < n; k++) {
-        solpos *q = &step[depth];
-        *q = *p;
-        sol_apply(q, list[k]);
-        path[depth] = list[k];
-        int r = search(q, depth + 1);
-        if (r >= 0) return r;
+    return n;
+}
+
+/* depth first, iterative (the stacks on the heap: deep searches need no big stack): step[d] the position at depth
+ * d, list + 256 d its moves, next[d] the one to try next; the moves found in path; their count (-1: none) */
+static solmove *list;
+static int count[DEPTH], next[DEPTH];
+
+static int open_at(int d)                       /* the moves from step[d]; 0: cut (too deep, too long, seen) */
+{
+    if (d >= DEPTH - 10 || ++nodes > 400000 || !visit(&step[d])) return 0;
+    count[d] = moves_from(&step[d], list + 256 * d);
+    next[d] = 0;
+    return 1;
+}
+
+static int search(const solpos *start)
+{
+    step[0] = *start;
+    if (done(&step[0])) return 0;
+    if (!open_at(0)) return -1;
+    for (int d = 0; d >= 0;) {
+        if (next[d] >= count[d]) { d--; continue; }
+        solmove m = list[256 * d + next[d]++];
+        step[d + 1] = step[d];
+        sol_apply(&step[d + 1], m);
+        path[d] = m;
+        if (done(&step[d + 1])) return d + 1;
+        if (open_at(d + 1)) d++;
     }
     return -1;
 }
@@ -319,15 +339,16 @@ static int search(const solpos *p, int depth)
 static void test_solved(void)
 {
     seen = calloc(TABLE, sizeof *seen);
-    step = malloc(DEPTH * sizeof *step);
-    if (!seen || !step) return;
+    step = malloc((DEPTH + 1) * sizeof *step);
+    list = malloc((size_t)DEPTH * 256 * sizeof *list);
+    if (!seen || !step || !list) return;
     int solved = 0;
     static char script[DEPTH * 8];
     for (uint32_t seed = 1; seed <= 12 && solved < 3; seed++) {
         kl_new(&G, KL_DRAW1, seed);
         memset(seen, 0, TABLE * sizeof *seen);
         nodes = 0;
-        int n = search(&G.pos, 0);
+        int n = search(&G.pos);
         if (n < 0) continue;
         solpos q = G.pos;                       /* the moves in the notation */
         script[0] = 0;
@@ -349,6 +370,7 @@ static void test_solved(void)
     CHECK(solved >= 2);
     free(seen);
     free(step);
+    free(list);
 }
 
 int main(void)

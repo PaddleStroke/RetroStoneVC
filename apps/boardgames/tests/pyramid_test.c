@@ -200,27 +200,38 @@ static void test_random(void)
 static int nodes;
 static solmove path[200];
 
-static int solve(solrec *r, int depth)
+/* depth first, iterative (the stacks in static memory, not on the stack: a position is big): at depth d its moves
+ * list[d], the next to try next[d], the record as it was there saved[d] (played again from it before each move) */
+#define SOLVE_DEPTH 200
+static solmove list[SOLVE_DEPTH][80];
+static int count[SOLVE_DEPTH], next[SOLVE_DEPTH], saved_n[SOLVE_DEPTH], saved_moves[SOLVE_DEPTH];
+static solpos saved[SOLVE_DEPTH];
+
+static int open_at(const solrec *r, int d)      /* the moves from here; 0: cut (too many nodes, too deep) */
 {
-    if (py_won(&r->pos)) return depth;
-    if (++nodes > 300000 || depth >= 200) return -1;
+    if (++nodes > 300000 || d >= SOLVE_DEPTH) return 0;
     const solpos *p = &r->pos;
-    solmove list[80];
     int n = 0;
     for (int a = 0; a < PY_PILES; a++)
         for (int b = a; b < PY_PILES; b++)
-            if (n < 79 && py_legal(p, sol_mv(SM_MOVE, a, b, 1))) list[n++] = sol_mv(SM_MOVE, a, b, 1);
-    if (py_rules.stock(p).kind != SM_NONE) list[n++] = py_rules.stock(p);
-    for (int i = 0; i < n; i++) {
-        solpos save = r->pos;
-        int sn = r->n, sm = r->moves;
-        py_play(r, list[i]);
-        path[depth] = list[i];
-        int d = solve(r, depth + 1);
-        if (d >= 0) return d;
-        r->pos = save;
-        r->n = sn;
-        r->moves = sm;
+            if (n < 79 && py_legal(p, sol_mv(SM_MOVE, a, b, 1))) list[d][n++] = sol_mv(SM_MOVE, a, b, 1);
+    if (py_rules.stock(p).kind != SM_NONE) list[d][n++] = py_rules.stock(p);
+    count[d] = n, next[d] = 0;
+    saved[d] = r->pos, saved_n[d] = r->n, saved_moves[d] = r->moves;
+    return 1;
+}
+
+static int solve(solrec *r)
+{
+    if (py_won(&r->pos)) return 0;
+    if (!open_at(r, 0)) return -1;
+    for (int d = 0; d >= 0;) {
+        if (next[d] >= count[d]) { d--; continue; }
+        r->pos = saved[d], r->n = saved_n[d], r->moves = saved_moves[d];
+        path[d] = list[d][next[d]++];
+        py_play(r, path[d]);
+        if (py_won(&r->pos)) return d + 1;
+        if (open_at(r, d + 1)) d++;
     }
     return -1;
 }
@@ -233,7 +244,7 @@ static void test_solved(void)
     for (uint32_t seed = 1; seed <= 60 && solved < 3; seed++) {
         py_new(&Q, PY_THRICE, seed);
         nodes = 0;
-        int n = solve(&Q, 0);
+        int n = solve(&Q);
         if (n < 0) continue;
         char script[2048] = "", mv[8];
         py_new(&H, PY_THRICE, seed);

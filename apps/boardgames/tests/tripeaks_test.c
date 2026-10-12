@@ -207,25 +207,36 @@ static void test_random(void)
 static int nodes;
 static solmove path[64];
 
-static int solve(solrec *r, int depth)
+/* depth first, iterative (the stacks in static memory, not on the stack: a position is big): at depth d its moves
+ * list[d], the next to try next[d], the record as it was there saved[d] (played again from it before each move) */
+#define SOLVE_DEPTH 64
+static solmove list[SOLVE_DEPTH][32];
+static int count[SOLVE_DEPTH], next[SOLVE_DEPTH], saved_n[SOLVE_DEPTH], saved_moves[SOLVE_DEPTH];
+static solpos saved[SOLVE_DEPTH];
+
+static int open_at(const solrec *r, int d)      /* the moves from here; 0: cut (too many nodes, too deep) */
 {
-    if (tp_won(&r->pos)) return depth;
-    if (++nodes > 400000 || depth >= 64) return -1;
-    solmove list[32];
+    if (++nodes > 400000 || d >= SOLVE_DEPTH) return 0;
     int n = 0;
     for (int a = 0; a < TP_SLOTS; a++)
-        if (tp_legal(&r->pos, sol_mv(SM_MOVE, a, TP_WASTE, 1))) list[n++] = sol_mv(SM_MOVE, a, TP_WASTE, 1);
-    if (r->pos.n[TP_STOCK]) list[n++] = sol_mv(SM_DRAW, TP_STOCK, TP_WASTE, 1);
-    for (int i = 0; i < n; i++) {
-        solpos save = r->pos;
-        int sn = r->n, sm = r->moves;
-        tp_play(r, list[i]);
-        path[depth] = list[i];
-        int d = solve(r, depth + 1);
-        if (d >= 0) return d;
-        r->pos = save;
-        r->n = sn;
-        r->moves = sm;
+        if (tp_legal(&r->pos, sol_mv(SM_MOVE, a, TP_WASTE, 1))) list[d][n++] = sol_mv(SM_MOVE, a, TP_WASTE, 1);
+    if (r->pos.n[TP_STOCK]) list[d][n++] = sol_mv(SM_DRAW, TP_STOCK, TP_WASTE, 1);
+    count[d] = n, next[d] = 0;
+    saved[d] = r->pos, saved_n[d] = r->n, saved_moves[d] = r->moves;
+    return 1;
+}
+
+static int solve(solrec *r)
+{
+    if (tp_won(&r->pos)) return 0;
+    if (!open_at(r, 0)) return -1;
+    for (int d = 0; d >= 0;) {
+        if (next[d] >= count[d]) { d--; continue; }
+        r->pos = saved[d], r->n = saved_n[d], r->moves = saved_moves[d];
+        path[d] = list[d][next[d]++];
+        tp_play(r, path[d]);
+        if (tp_won(&r->pos)) return d + 1;
+        if (open_at(r, d + 1)) d++;
     }
     return -1;
 }
@@ -237,7 +248,7 @@ static void test_solved(void)
     for (uint32_t seed = 1; seed <= 40 && solved < 3; seed++) {
         tp_new(&H, TP_WRAP, seed);
         nodes = 0;
-        int n = solve(&H, 0);
+        int n = solve(&H);
         if (n < 0) continue;
         char script[512], mv[4];
         sprintf(script, "#%u", seed);
