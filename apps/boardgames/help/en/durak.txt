@@ -1,0 +1,27 @@
+Durak
+# The aim
+Get rid of all your cards. The last player still holding cards is the durak, the fool, and loses; all the others win together. For 2 to 6 players (usually 2 or 3), with a pack of 36 cards. Two games to choose from: the throw-in game (podkidnoy) and the transfer game (perevodnoy).
+# The cards
+- From low to high: 6, 7, 8, 9, 10, jack, queen, king, ace.
+- Each player is dealt six cards. The next card is turned face up and laid across under the stock: its suit is trumps for the whole game, and it will be the last card drawn.
+- The player with the lowest trump attacks first; the next player defends.
+# A bout
+- The attacker leads a card, or several cards of the same rank.
+- The defender beats each attacking card with a higher card of its suit, or with a trump. A trump can only be beaten by a higher trump.
+- Once every card is beaten, the others may throw in more cards of a rank already on the table: the attacker first, then each other player in turn. The defender must beat these too.
+- A bout holds at most six attacking cards, and never more than the defender held when it began.
+- A defender who cannot or will not beat takes: the others may still throw in cards, then the defender picks up every card on the table.
+# After a bout
+- If every card was beaten and nobody throws in any more, the cards are set aside and the defender attacks next.
+- If the defender took the cards, they lose their turn to attack: the player after them attacks.
+- Everyone draws back up to six cards from the stock: the attacker first, then the others in turn, the defender last.
+# The end
+Once the stock is empty, a player with no cards left is out of the game, safe. The last player still holding cards is the durak. If the last players run out of cards at the same time, nobody loses.
+# The transfer game
+Before beating any card, the defender may pass the attack on by adding a card of the same rank as the attacking cards. The next player then defends against all of them, if they hold at least as many cards as are now on the table, and the player who passed it on joins the attack.
+# Playing on the device
+Pass the device round: each player sees only their own cards, at the bottom, by suit, trumps last. Along the top sit the others: their cards face down and how many, a sword by the attacker, a shield by the defender, a pass sign for a player who has passed. The stock lies on one side with the trump card under it (its suit sign once the stock is gone), the cards set aside on the other.
+- Attacking or throwing in: tap your cards (those you may throw in glow), then tap the table or drag them there. The pass button in your bar passes.
+- Defending: tap a card (the cards it can beat glow), then the card to beat. The round button with the arrow takes the cards; it stays lit while the others throw in.
+- In the transfer game, a card of the attack's rank lights an empty place beside the attack: tap it to pass the attack on.
+The device goes to the defender after each attack; once everything is beaten, to each other player in turn, the attacker first, to throw in or pass.
