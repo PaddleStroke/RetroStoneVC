@@ -1,34 +1,30 @@
 /*
  * Loop in RetroStone Board, for one player: the house plank with a brass pin at every dot, the numbers burned into
  * their cells, the loop a brass wire laid from pin to pin, gold once it is solved; a crossed side a small dark cross
- * (the rules: loop_rules.c).
+ * (the rules: loop_rules.c; what the logic grids share: bench.h, bench_ui.h).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Tap a side: a line, then a cross, then nothing again. Or drag along the pins: every side the finger runs along
  * becomes a line (a drag that begins along a line takes the lines away instead); a drag is undone in one go. A number
- * whose lines are all drawn fades (a 0 once crossed all round); one with too many turns red. The lamp at the bar's
- * end: a hint (a wrong mark put right, else a side that reasoning finds, in gold light). Undo takes back one action
+ * whose lines are all drawn fades (a 0 once crossed all round); one with too many turns red. The shell's tool, the
+ * lamp: a hint (a wrong mark put right, else a side that reasoning finds, in gold light). Undo takes back one action
  * at a time, all the way to the start. The bar: the moves. Solved: the wire turns gold and a wave of gold light runs
- * round the board.
+ * round the board; the stars count the hints and the mistakes (bench.h).
  */
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
 
+#include "games/bench_ui.h"
 #include "games/loop.h"
-#include "games/puzzles.h"
-#include "games/pzbench_ui.h"
 #include "shell.h"
-
-#define FRAME 0.035f
 
 static const uint8_t BRASS[3] = {222, 176, 84}, BRASS_DARK[3] = {104, 70, 24}, RED_INK[3] = {178, 40, 30};
 
 static slk_game G;
 static int serial;
-static struct { int side; Uint32 t0; } hint = {-1, 0};
-static pzb_wave win;
-static pzb_bar barl;
+static bench_flash hint = {-1, 0};             /* at: a side */
+static bench_wave win;
 /* the finger: down at (x0, y0); a stroke along the pins (last: the pin it reached last, erase: taking lines away) */
 static struct { int on, moved, stroke, last, erase, sides; float x0, y0; } fing;
 
@@ -112,7 +108,7 @@ static void layout(box b)
     last_box = b;
     int n = G.p.n ? G.p.n : 5;
     float S = fminf(b.w, b.h);
-    int fw = (int)(S * FRAME);                  /* the frame, then a margin of plank round the dots */
+    int fw = (int)(S * BENCH_FRAME);                  /* the frame, then a margin of plank round the dots */
     q = (int)((S - 2 * fw) / (n + 0.6f));
     fr = fw + (int)(0.3f * q);
     int w = n * q + 2 * fr;
@@ -143,13 +139,13 @@ static void layout(box b)
         t_cross = ui_tex(x, x, o);
         puz_font_make(&f_clue, (int)(0.56f * q), 1);
     }
-    pzb_small(&t_small, &made_small, token);
+    bench_small(&t_small, &made_small, token);
 }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
 static void calm(void)
 {
-    hint.side = -1;
+    hint.at = -1;
     win.on = 0;
     memset(&fing, 0, sizeof fing);
 }
@@ -164,8 +160,9 @@ static void start(int variant)
 
 static int status(void) { return slk_solved(&G) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
-static int busy(void) { return pzb_wave_busy(&win); }
+static int busy(void) { return bench_wave_busy(&win); }
 static int score(void) { return G.hist.moves; }   /* the end card: the moves it took */
+static int stars(void) { return ui_logic_stars(G.hist.hints, G.hist.mistakes); }
 
 static void dot_xy(int x, int y, float *px, float *py)
 {
@@ -178,7 +175,7 @@ static void after(int side)
     if (slk_solved(&G) && !win.on) {
         int x0, y0, x1, y1;
         slk_ends(G.p.n, side < 0 ? 0 : side, &x0, &y0, &x1, &y1);
-        pzb_wave_start(&win, (float)x0, (float)y0, (float)G.p.n);
+        bench_wave_start(&win, (float)x0, (float)y0, G.p.n, G.p.n);
     }
     ui_animate();
 }
@@ -202,8 +199,7 @@ static void lamp(void)
 {
     int s = slk_hint(&G);
     if (s < 0) { ui_sound(SND_DENY); return; }
-    hint.side = s;
-    hint.t0 = ui_ms();
+    bench_flash_start(&hint, s);
     ui_sound(SND_PLACE);
     after(s);
 }
@@ -261,17 +257,17 @@ static void draw(void)
     int n = G.p.n, solved = slk_solved(&G), w = n * q + 2 * fr;
     ui_put(t_board, bx, by, (float)w, (float)w);
     float px, py;
-    if (hint.side >= 0) {
+    if (hint.at >= 0) {
         int x0, y0, x1, y1;
-        slk_ends(n, hint.side, &x0, &y0, &x1, &y1);
+        slk_ends(n, hint.at, &x0, &y0, &x1, &y1);
         dot_xy(x0, y0, &px, &py);
         float qx, qy;
         dot_xy(x1, y1, &qx, &qy);
-        if (!pzb_hint_glow(hint.t0, (px + qx) / 2, (py + qy) / 2, 1.8f * q)) hint.side = -1;
+        bench_glow(&hint, (px + qx) / 2, (py + qy) / 2, 1.8f * q);
     }
     for (int c = 0; c < n * n; c++) {           /* the numbers: faded once met, red when passed */
         float cx = bx + fr + (c % n + 0.5f) * q, cy = by + fr + (c / n + 0.5f) * q;
-        pzb_wave_at(&win, c % n + 0.5f, c / n + 0.5f, cx, cy, 2.2f * q);
+        bench_wave_at(&win, c % n + 0.5f, c / n + 0.5f, cx, cy, 2.2f * q);
         int want = G.p.clue[c];
         if (want < 0) continue;
         int has = slk_lines(&G, c), x = c % n, y = c / n, crossed = 0;
@@ -307,7 +303,8 @@ static void draw(void)
             SDL_SetTextureAlphaMod(t_cap, 255);
             SDL_SetTextureColorMod(t_cap, 255, 255, 255);
         }
-    pzb_wave_tick(&win);
+    bench_wave_tick(&win);
+    ui_tool(0, ICON_HINT, solved ? UI_DIM : 0);
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
@@ -337,6 +334,10 @@ static void press(float x, float y)
 {
     memset(&fing, 0, sizeof fing);
     if (slk_solved(&G)) return;
+    if (ui_tool_hit(x, y) == 0) {               /* the shell's tool: the hint */
+        lamp();
+        return;
+    }
     fing.on = 1;
     fing.x0 = x;
     fing.y0 = y;
@@ -370,26 +371,18 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    pzb_bar_draw(&barl, b, t_small, G.hist.moves, slk_solved(&G) ? UI_DIM : 0);
-}
-
-static int bar_press(int player, float x, float y)
-{
-    (void)player;
-    if (!pzb_bar_lamp(&barl, x, y)) return 0;
-    if (!slk_solved(&G)) lamp();
-    return 1;
+    bench_bar_moves(b, t_small, G.hist.moves);
 }
 
 /* ---- the menu's and the picker's cards: a puzzle of the size and level with its loop, the level's ebony stones
  * under it ------------------------------------------------------------------------------------------------------ */
-static void thumb(int variant, int size, uint8_t *rgba)
+static void card(int variant, int size, int bare, uint8_t *rgba)
 {
     int n = variant < 0 ? 5 : slk_size_of(variant), level = variant < 0 ? SLK_MEDIUM : slk_level_of(variant);
     slk_puzzle p;
     slk_make(n, level, 2026u + (uint32_t)(variant + 1), &p);
-    int side = variant < 0 ? size : (int)(0.84f * size);
-    int fw = (int)(side * FRAME), c = (int)((side - 2 * fw) / (n + 0.6f)), f = fw + (int)(0.3f * c);
+    int side = variant < 0 || bare ? size : (int)(0.84f * size);
+    int fw = (int)(side * BENCH_FRAME), c = (int)((side - 2 * fw) / (n + 0.6f)), f = fw + (int)(0.3f * c);
     int w = n * c + 2 * f, o = (size - w) / 2;
     uint8_t *b = calloc((size_t)w * w, 4);
     if (!b) return;
@@ -420,13 +413,20 @@ static void thumb(int variant, int size, uint8_t *rgba)
     }
     art_blend(rgba, size, size, b, w, w, o, variant < 0 ? o : 0);
     free(b);
-    if (variant >= 0) pzb_stones(rgba, size, w + (size - w - (int)(0.1f * size)) / 2, level);
+    if (variant >= 0 && !bare) bench_stones(rgba, size, w, level);
 }
+
+static void thumb(int variant, int size, uint8_t *rgba) { card(variant, size, 0, rgba); }
+
+/* the picker's sizes (game.axes, above the levels): a puzzle of the size at the medium level, on the whole card */
+static void size_pic(int i, int size, uint8_t *rgba) { card(i * 3 + 1, size, 1, rgba); }
 
 static const game loop_game = {
     .id = "loop", .order = 448, .variants = SLK_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1, .score = score,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1,
+    .axes = {SLK_SIZES, 3}, .axis_pic = {size_pic, NULL},
+    .score = score, .level_stars = stars, .fill = 1, .tools = 1,
 };
 REGISTER_GAME(loop_game)

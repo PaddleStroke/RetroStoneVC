@@ -1,5 +1,5 @@
 /*
- * Bridges: the rules (hashi.h): the links between islands and their crossings, the solver that grades (pzbench.h) and
+ * Bridges: the rules (hashi.h): the links between islands and their crossings, the solver that grades (bench.h) and
  * the one that counts, the maker, and the player's bridges with their undo. No SDL: tested by tests/hashi_test.c.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
@@ -58,10 +58,10 @@ typedef struct {
     uint8_t ncross[HSH_LINKS], cross[HSH_LINKS][CROSS];
 } ctx_t;
 
-static int lo(unsigned m) { return pzb_low(m); }
-static int hi(unsigned m) { return pzb_high(m); }
+static int lo(unsigned m) { return bench_low(m); }
+static int hi(unsigned m) { return bench_high(m); }
 
-static int cut(pzb_grid *g, int l, unsigned keep)
+static int cut(bench_grid *g, int l, unsigned keep)
 {
     unsigned m = g->d[l] & keep;
     if (m == g->d[l]) return 0;
@@ -71,7 +71,7 @@ static int cut(pzb_grid *g, int l, unsigned keep)
 
 /* the groups the sure bridges make: each island's group (its first island), how much the group still lacks (the
  * numbers less the sure bridges), its size */
-static void groups(const pzb_grid *g, const ctx_t *x, int *root, int *lack, int *size)
+static void groups(const bench_grid *g, const ctx_t *x, int *root, int *lack, int *size)
 {
     const hsh_puzzle *p = x->p;
     for (int i = 0; i < p->nisl; i++) root[i] = i;
@@ -96,7 +96,7 @@ static void groups(const pzb_grid *g, const ctx_t *x, int *root, int *lack, int 
     }
 }
 
-static int deduce(pzb_grid *g, int tier, void *cx)
+static int deduce(bench_grid *g, int tier, void *cx)
 {
     ctx_t *x = cx;
     const hsh_puzzle *p = x->p;
@@ -153,25 +153,25 @@ static int deduce(pzb_grid *g, int tier, void *cx)
     return found;
 }
 
-static int valid(const pzb_grid *g, void *cx)
+static int valid(const bench_grid *g, void *cx)
 {
     const ctx_t *x = cx;
     const hsh_puzzle *p = x->p;
     for (int i = 0; i < p->nisl; i++) {
         int have = 0;
-        for (int k = 0; k < x->nof[i]; k++) have += pzb_low(g->d[x->of[i][k]]);
+        for (int k = 0; k < x->nof[i]; k++) have += bench_low(g->d[x->of[i][k]]);
         if (have != p->need[i]) return 0;
     }
     for (int l = 0; l < p->nlink; l++)
-        if (pzb_low(g->d[l]))
+        if (bench_low(g->d[l]))
             for (int k = 0; k < x->ncross[l]; k++)
-                if (pzb_low(g->d[x->cross[l][k]])) return 0;
+                if (bench_low(g->d[x->cross[l][k]])) return 0;
     int root[HSH_ISLANDS], lack[HSH_ISLANDS], size[HSH_ISLANDS];
     groups(g, x, root, lack, size);
     return size[0] == p->nisl;
 }
 
-static void rules_of(pzb_rules *r, ctx_t *x, const hsh_puzzle *p, pzb_grid *g)
+static void rules_of(bench_rules *r, ctx_t *x, const hsh_puzzle *p, bench_grid *g)
 {
     x->p = p;
     memset(x->nof, 0, sizeof x->nof);
@@ -190,6 +190,7 @@ static void rules_of(pzb_rules *r, ctx_t *x, const hsh_puzzle *p, pzb_grid *g)
     r->vars = p->nlink;
     r->tiers = 2;
     r->probe_tiers = 2;
+    r->order = BENCH_PAIRS;                     /* the trials the makers were tuned with */
     r->deduce = deduce;
     r->valid = valid;
     r->ctx = x;
@@ -200,32 +201,32 @@ static void rules_of(pzb_rules *r, ctx_t *x, const hsh_puzzle *p, pzb_grid *g)
 /* graded up to `most`; the links still open (which may be NULL) */
 static int grade(const hsh_puzzle *p, int most, int *open, uint8_t *which)
 {
-    static pzb_rules r;
+    static bench_rules r;
     static ctx_t x;
-    pzb_grid g;
+    bench_grid g;
     rules_of(&r, &x, p, &g);
-    int res = pzb_grade(&g, &r, most);
+    int res = bench_grade(&g, &r, most);
     if (open) {
         *open = 0;
         for (int l = 0; l < p->nlink; l++)
-            if (!pzb_single(g.d[l])) which[(*open)++] = (uint8_t)l;
+            if (!bench_one(g.d[l])) which[(*open)++] = (uint8_t)l;
     }
     return res;
 }
 
-int hsh_rate(const hsh_puzzle *p) { return grade(p, PZB_HARD, NULL, NULL); }
+int hsh_rate(const hsh_puzzle *p) { return grade(p, BENCH_HARD, NULL, NULL); }
 
-static int count_rec(pzb_grid *g, pzb_rules *r, int limit)
+static int count_rec(bench_grid *g, bench_rules *r, int limit)
 {
     int used = 0;
-    if (pzb_settle(g, r, 1, &used) < 0) return 0;
+    if (bench_settle(g, r, 1, &used) < 0) return 0;
     int best = -1;
     for (int l = 0; l < r->vars && best < 0; l++)
-        if (!pzb_single(g->d[l])) best = l;
+        if (!bench_one(g->d[l])) best = l;
     if (best < 0) return r->valid(g, r->ctx);
     int found = 0;
     for (unsigned m = g->d[best]; m && found < limit; m &= m - 1) {
-        pzb_grid t = *g;
+        bench_grid t = *g;
         t.d[best] = (uint16_t)(m & -m);
         found += count_rec(&t, r, limit - found);
     }
@@ -234,9 +235,9 @@ static int count_rec(pzb_grid *g, pzb_rules *r, int limit)
 
 int hsh_count(const hsh_puzzle *p, int limit)
 {
-    static pzb_rules r;
+    static bench_rules r;
     static ctx_t x;
-    pzb_grid g;
+    bench_grid g;
     rules_of(&r, &x, p, &g);
     r.budget = 0;
     return count_rec(&g, &r, limit);
@@ -348,11 +349,11 @@ static int make_one(uint32_t *rng, int n, int level, hsh_puzzle *p)
     lay_out(rng, n, p);
     if (p->nisl < 4) return 0;
     int nopen, stuck = 0, r = grade(p, level, &nopen, open);
-    for (int step = 0; r == PZB_GUESS && step < 20 * n && stuck < 8 * n; step++) {
+    for (int step = 0; r == BENCH_GUESS && step < 20 * n && stuck < 8 * n; step++) {
         hsh_puzzle was = *p;
         if (!nopen || !change(rng, p, open[pr_below(rng, nopen)])) { stuck++; continue; }
         int n2, r2 = grade(p, level, &n2, open2);
-        if (r2 >= 0 && (r2 != PZB_GUESS || n2 <= nopen || pr_below(rng, 10) == 0)) {
+        if (r2 >= 0 && (r2 != BENCH_GUESS || n2 <= nopen || pr_below(rng, 10) == 0)) {
             r = r2;
             nopen = n2;
             memcpy(open, open2, (size_t)n2);
@@ -361,13 +362,13 @@ static int make_one(uint32_t *rng, int n, int level, hsh_puzzle *p)
             stuck++;
         }
     }
-    if (r == PZB_GUESS || r < 0) return 0;
+    if (r == BENCH_GUESS || r < 0) return 0;
     for (int step = 0; r < level && step < 20 * n; step++) {   /* then harder, a link at a time */
         hsh_puzzle was = *p;
         if (!change(rng, p, pr_below(rng, p->nlink))) continue;
         int r2 = grade(p, level - 1, NULL, NULL);
-        if (r2 == PZB_GUESS) r2 = grade(p, level, NULL, NULL);
-        if (r2 == PZB_GUESS || r2 < 0) *p = was;
+        if (r2 == BENCH_GUESS) r2 = grade(p, level, NULL, NULL);
+        if (r2 == BENCH_GUESS || r2 < 0) *p = was;
         else r = r2;
     }
     return r == level;
@@ -393,13 +394,22 @@ void hsh_new(hsh_game *g, int variant, uint32_t seed)
     g->level = hsh_level_of(variant);
     g->seed = seed;
     hsh_make(hsh_size_of(variant), g->level, seed, &g->p);
-    pzb_hist_clear(&g->hist);
+    bench_clear(&g->hist);
 }
 
 static void restore(void *cx, int at, uint32_t was)
 {
     hsh_game *g = cx;
     g->br[at] = (uint8_t)was;
+}
+
+/* the wrong entries on the board (the stars' mistakes) */
+static int wrongs(const hsh_game *g)
+{
+    int k = 0;
+    for (int c = 0; c < g->p.nlink; c++)
+        k += (g->br[c] > g->p.sol[c]) * (g->br[c] - g->p.sol[c]);
+    return k;
 }
 
 int hsh_blocked(const hsh_game *g, int l)
@@ -413,10 +423,10 @@ int hsh_set(hsh_game *g, int l, int count)
 {
     if (l < 0 || l >= g->p.nlink || count < 0 || count > 2 || g->br[l] == count) return 0;
     if (count && hsh_blocked(g, l) >= 0) return 0;
-    pzb_begin(&g->hist, 1);
-    pzb_log(&g->hist, l, g->br[l]);
+    bench_begin(&g->hist, 1);
+    bench_log(&g->hist, l, g->br[l]);
     g->br[l] = (uint8_t)count;
-    return pzb_end(&g->hist);
+    return bench_done(&g->hist, wrongs(g));
 }
 
 int hsh_cycle(hsh_game *g, int l)
@@ -433,28 +443,39 @@ int hsh_has(const hsh_game *g, int i)
     return k;
 }
 
-int hsh_hint(hsh_game *g)
+static int hint_step(hsh_game *g)
 {
     const hsh_puzzle *p = &g->p;
     for (int l = 0; l < p->nlink; l++)          /* too many bridges somewhere: taken down to the solution's */
         if (g->br[l] > p->sol[l]) return hsh_set(g, l, p->sol[l]) ? l : -1;
-    static pzb_rules r;
+    static bench_rules r;
     static ctx_t x;
-    pzb_grid s;
+    bench_grid s;
     rules_of(&r, &x, p, &s);
     for (int l = 0; l < p->nlink; l++) s.d[l] = (uint16_t)(7u & ~((1u << g->br[l]) - 1));  /* at least those */
     int used = 0;
-    pzb_settle(&s, &r, 1, &used);
+    bench_settle(&s, &r, 1, &used);
     int best = -1;
     for (int l = 0; l < p->nlink && best < 0; l++)   /* a link reasoning settles that is not yet as it should be */
-        if (g->br[l] != p->sol[l] && pzb_single(s.d[l])) best = l;
+        if (g->br[l] != p->sol[l] && bench_one(s.d[l])) best = l;
     for (int l = 0; l < p->nlink && best < 0; l++)
         if (g->br[l] != p->sol[l]) best = l;
     if (best < 0) return -1;
     return hsh_set(g, best, p->sol[best]) ? best : -1;
 }
 
-int hsh_undo(hsh_game *g) { return pzb_undo(&g->hist, restore, g); }
+int hsh_hint(hsh_game *g)
+{
+    return bench_hinted(&g->hist, hint_step(g));
+}
+
+int hsh_undo(hsh_game *g)
+{
+    int c = bench_undo(&g->hist, restore, g);
+    bench_undone(&g->hist, wrongs(g));
+    return c;
+}
+
 
 int hsh_solved(const hsh_game *g)
 {
@@ -465,7 +486,7 @@ int hsh_solved(const hsh_game *g)
 
 static int island_at(const hsh_game *g, const char *s, int *len)
 {
-    int c = pzb_cell(s, g->p.n, g->p.n, len);
+    int c = bench_cell(s, g->p.n, g->p.n, len);
     return c < 0 ? -1 : g->p.at[c];
 }
 

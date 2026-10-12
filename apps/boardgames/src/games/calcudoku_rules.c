@@ -1,5 +1,5 @@
 /*
- * Calcudoku: the rules (calcudoku.h): the cages' arithmetic, the solver that grades (pzbench.h) and the one that
+ * Calcudoku: the rules (calcudoku.h): the cages' arithmetic, the solver that grades (bench.h) and the one that
  * counts, the maker, and the player's grid with its notes and undo. No SDL: tested by tests/calcudoku_test.c.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
@@ -66,7 +66,7 @@ static void scan_rec(scan_t *s, int i, int acc)
         if (s->same[i] >> j & 1) m &= ~(1u << s->v[j]);
     int left = k->n - i - 1;
     for (; m; m &= m - 1) {
-        int d = pzb_low(m), a = acc;
+        int d = bench_low(m), a = acc;
         if (k->op == CDK_ADD) {
             a = acc + d;
             if (a + left > k->target) break;        /* the digits come up in order: larger ones only worse */
@@ -126,7 +126,7 @@ static void ctx_init(ctx_t *x, const cdk_puzzle *p)
 static int line_cell(int n, int l, int i) { return l < n ? l * n + i : i * n + (l - n); }
 
 /* ---- the solver's tiers ------------------------------------------------------------------------------------------ */
-static int cut(pzb_grid *g, int c, unsigned keep)
+static int cut(bench_grid *g, int c, unsigned keep)
 {
     unsigned m = g->d[c] & keep;
     if (m == g->d[c]) return 0;
@@ -134,14 +134,14 @@ static int cut(pzb_grid *g, int c, unsigned keep)
     return 1;
 }
 
-static int deduce(pzb_grid *g, int tier, void *cx)
+static int deduce(bench_grid *g, int tier, void *cx)
 {
     ctx_t *x = cx;
     int n = x->n, found = 0;
     scan_t s;
     if (tier == 0) {
         for (int c = 0; c < n * n; c++) {       /* a digit placed: not again in its row and column */
-            if (!pzb_single(g->d[c])) continue;
+            if (!bench_one(g->d[c])) continue;
             for (int i = 0; i < n; i++) {
                 int r = c / n * n + i, k = i * n + c % n;
                 if (r != c) found |= cut(g, r, ~(unsigned)g->d[c]);
@@ -177,27 +177,27 @@ static int deduce(pzb_grid *g, int tier, void *cx)
     for (int l = 0; l < 2 * n; l++) {           /* naked and hidden pairs and triples in a line */
         int cells[CDK_MAX], m = 0;
         for (int i = 0; i < n; i++)
-            if (!pzb_single(g->d[line_cell(n, l, i)])) cells[m++] = line_cell(n, l, i);
+            if (!bench_one(g->d[line_cell(n, l, i)])) cells[m++] = line_cell(n, l, i);
         for (int size = 2; size <= 3; size++)
             for (unsigned set = 0; set < 1u << m; set++) {
-                if (pzb_bits(set) != size) continue;
+                if (bench_bits(set) != size) continue;
                 unsigned uni = 0;
                 for (int i = 0; i < m; i++)
                     if (set >> i & 1) uni |= g->d[cells[i]];
-                if (pzb_bits(uni) < size) return -1;
-                if (pzb_bits(uni) == size)
+                if (bench_bits(uni) < size) return -1;
+                if (bench_bits(uni) == size)
                     for (int i = 0; i < m; i++)
                         if (!(set >> i & 1)) found |= cut(g, cells[i], ~uni);
             }
         unsigned digits = 0;                    /* hidden: size digits whose places are size cells */
         for (int i = 0; i < m; i++) digits |= g->d[cells[i]];
         for (unsigned ds = digits; ds; ds = (ds - 1) & digits) {
-            int size = pzb_bits(ds);
+            int size = bench_bits(ds);
             if (size < 2 || size > 3) continue;
             unsigned places = 0;
             for (int i = 0; i < m; i++)
                 if (g->d[cells[i]] & ds) places |= 1u << i;
-            if (pzb_bits(places) == size)
+            if (bench_bits(places) == size)
                 for (int i = 0; i < m; i++)
                     if (places >> i & 1) found |= cut(g, cells[i], ds);
         }
@@ -206,25 +206,26 @@ static int deduce(pzb_grid *g, int tier, void *cx)
     return found;
 }
 
-static int valid(const pzb_grid *g, void *cx)
+static int valid(const bench_grid *g, void *cx)
 {
     const ctx_t *x = cx;
     const cdk_puzzle *p = x->p;
     for (int c = 0; c < p->ncages; c++) {
         int v[CDK_CAGE];
-        for (int i = 0; i < p->cage[c].n; i++) v[i] = pzb_low(g->d[p->cage[c].cell[i]]);
+        for (int i = 0; i < p->cage[c].n; i++) v[i] = bench_low(g->d[p->cage[c].cell[i]]);
         if (cdk_value(p->cage[c].op, v, p->cage[c].n) != p->cage[c].target) return 0;
     }
     return 1;
 }
 
-static void rules_of(pzb_rules *r, ctx_t *x, const cdk_puzzle *p, pzb_grid *g)
+static void rules_of(bench_rules *r, ctx_t *x, const cdk_puzzle *p, bench_grid *g)
 {
     ctx_init(x, p);
     memset(r, 0, sizeof *r);
     r->vars = p->n * p->n;
     r->tiers = 2;
     r->probe_tiers = 1;
+    r->order = BENCH_PAIRS;                     /* the trials the makers were tuned with */
     r->deduce = deduce;
     r->valid = valid;
     r->ctx = x;
@@ -235,30 +236,30 @@ static void rules_of(pzb_rules *r, ctx_t *x, const cdk_puzzle *p, pzb_grid *g)
 
 static int rate_upto(const cdk_puzzle *p, int most, long budget)
 {
-    pzb_rules r;
+    bench_rules r;
     ctx_t x;
-    pzb_grid g;
+    bench_grid g;
     rules_of(&r, &x, p, &g);
     if (budget) r.budget = budget;
-    return pzb_grade(&g, &r, most);
+    return bench_grade(&g, &r, most);
 }
 
-int cdk_rate(const cdk_puzzle *p) { return rate_upto(p, PZB_HARD, 0); }
+int cdk_rate(const cdk_puzzle *p) { return rate_upto(p, BENCH_HARD, 0); }
 
 /* ---- counting: depth first, the cell with the fewest digits first, the easy deductions between ------------------ */
-static int count_rec(pzb_grid *g, pzb_rules *r, int limit)
+static int count_rec(bench_grid *g, bench_rules *r, int limit)
 {
     int used = 0;
-    if (pzb_settle(g, r, 0, &used) < 0) return 0;
+    if (bench_settle(g, r, 0, &used) < 0) return 0;
     int best = -1, bn = 99;
     for (int c = 0; c < r->vars; c++) {
-        int b = pzb_bits(g->d[c]);
+        int b = bench_bits(g->d[c]);
         if (b > 1 && b < bn) bn = b, best = c;
     }
     if (best < 0) return r->valid(g, r->ctx);
     int found = 0;
     for (unsigned m = g->d[best]; m && found < limit; m &= m - 1) {
-        pzb_grid t = *g;
+        bench_grid t = *g;
         t.d[best] = (uint16_t)(m & -m);
         found += count_rec(&t, r, limit - found);
     }
@@ -267,9 +268,9 @@ static int count_rec(pzb_grid *g, pzb_rules *r, int limit)
 
 int cdk_count(const cdk_puzzle *p, int limit)
 {
-    pzb_rules r;
+    bench_rules r;
     ctx_t x;
-    pzb_grid g;
+    bench_grid g;
     rules_of(&r, &x, p, &g);
     r.budget = 0;
     return count_rec(&g, &r, limit);
@@ -498,7 +499,7 @@ void cdk_make(int n, int level, uint32_t seed, cdk_puzzle *p)
         operations(&rng, p);
         int r = rate_upto(p, level, 0);         /* no trials for the easier levels: quicker */
         if (r == level) return;
-        if (r >= 0 && r < PZB_GUESS && r > near_level) near = *p, near_level = r;  /* the hardest below, kept */
+        if (r >= 0 && r < BENCH_GUESS && r > near_level) near = *p, near_level = r;  /* the hardest below, kept */
     }
     if (near_level >= 0) { *p = near; return; }
     for (;;) {                                   /* never left without one: single cells until it is easy */
@@ -506,7 +507,7 @@ void cdk_make(int n, int level, uint32_t seed, cdk_puzzle *p)
         cages(&rng, n, CDK_EASY, p);
         operations(&rng, p);
         int r = cdk_rate(p);
-        if (r >= 0 && r < PZB_GUESS) return;
+        if (r >= 0 && r < BENCH_GUESS) return;
     }
 }
 
@@ -519,7 +520,7 @@ void cdk_new(cdk_game *g, int variant, uint32_t seed)
     g->level = cdk_level_of(variant);
     g->seed = seed;
     cdk_make(cdk_size_of(variant), g->level, seed, &g->p);
-    pzb_hist_clear(&g->hist);
+    bench_clear(&g->hist);
 }
 
 static void restore(void *cx, int at, uint32_t was)
@@ -529,10 +530,19 @@ static void restore(void *cx, int at, uint32_t was)
     g->notes[at] = (uint16_t)was;
 }
 
+/* the wrong entries on the board (the stars' mistakes) */
+static int wrongs(const cdk_game *g)
+{
+    int k = 0;
+    for (int c = 0; c < g->p.n * g->p.n; c++)
+        k += g->val[c] && g->val[c] != g->p.sol[c];
+    return k;
+}
+
 static void set(cdk_game *g, int c, int val, unsigned notes)
 {
     if (g->val[c] == val && g->notes[c] == notes) return;
-    pzb_log(&g->hist, c, (uint32_t)g->val[c] << 16 | g->notes[c]);
+    bench_log(&g->hist, c, (uint32_t)g->val[c] << 16 | g->notes[c]);
     g->val[c] = (uint8_t)val;
     g->notes[c] = (uint16_t)notes;
 }
@@ -545,7 +555,7 @@ int cdk_put(cdk_game *g, int c, int d)
     if (c < 0 || c >= cells(g) || d < 0 || d > n) return 0;
     if (d && g->val[c] == d) return 0;
     if (!d && !g->val[c]) return 0;
-    pzb_begin(&g->hist, 2 * n + 1);
+    bench_begin(&g->hist, 2 * n + 1);
     set(g, c, d, d ? 0 : g->notes[c]);
     if (d)
         for (int i = 0; i < n; i++) {           /* the note d goes from the row and the column */
@@ -553,42 +563,42 @@ int cdk_put(cdk_game *g, int c, int d)
             if (g->notes[r] >> d & 1) set(g, r, g->val[r], g->notes[r] & ~(1u << d));
             if (g->notes[k] >> d & 1) set(g, k, g->val[k], g->notes[k] & ~(1u << d));
         }
-    return pzb_end(&g->hist);
+    return bench_done(&g->hist, wrongs(g));
 }
 
 int cdk_note(cdk_game *g, int c, int d)
 {
     if (c < 0 || c >= cells(g) || d < 1 || d > g->p.n || g->val[c]) return 0;
-    pzb_begin(&g->hist, 1);
+    bench_begin(&g->hist, 1);
     set(g, c, 0, g->notes[c] ^ (1u << d));
-    return pzb_end(&g->hist);
+    return bench_done(&g->hist, wrongs(g));
 }
 
 int cdk_erase(cdk_game *g, int c)
 {
     if (c < 0 || c >= cells(g) || (!g->val[c] && !g->notes[c])) return 0;
-    pzb_begin(&g->hist, 1);
+    bench_begin(&g->hist, 1);
     set(g, c, 0, g->val[c] ? g->notes[c] : 0);
-    return pzb_end(&g->hist);
+    return bench_done(&g->hist, wrongs(g));
 }
 
-int cdk_hint(cdk_game *g)
+static int hint_step(cdk_game *g)
 {
     int n = g->p.n, N = cells(g);
     for (int c = 0; c < N; c++)                 /* a wrong digit first */
         if (g->val[c] && g->val[c] != g->p.sol[c]) return cdk_put(g, c, g->p.sol[c]) ? c : -1;
-    pzb_rules r;
+    bench_rules r;
     ctx_t x;
-    pzb_grid s;
+    bench_grid s;
     rules_of(&r, &x, &g->p, &s);
     for (int c = 0; c < N; c++)
         if (g->val[c]) s.d[c] = (uint16_t)(1u << g->val[c]);
     int used = 0;
-    pzb_settle(&s, &r, 1, &used);               /* what reasoning finds from here: the first such cell */
+    bench_settle(&s, &r, 1, &used);             /* what reasoning finds from here: the first such cell */
     int best = -1, bn = 99;
     for (int c = 0; c < N; c++) {
         if (g->val[c]) continue;
-        int b = pzb_bits(s.d[c]);
+        int b = bench_bits(s.d[c]);
         if (b < bn) bn = b, best = c;
     }
     (void)n;
@@ -596,7 +606,18 @@ int cdk_hint(cdk_game *g)
     return cdk_put(g, best, g->p.sol[best]) ? best : -1;
 }
 
-int cdk_undo(cdk_game *g) { return pzb_undo(&g->hist, restore, g); }
+int cdk_hint(cdk_game *g)
+{
+    return bench_hinted(&g->hist, hint_step(g));
+}
+
+int cdk_undo(cdk_game *g)
+{
+    int c = bench_undo(&g->hist, restore, g);
+    bench_undone(&g->hist, wrongs(g));
+    return c;
+}
+
 
 int cdk_clash(const cdk_game *g, int c)
 {
@@ -644,7 +665,7 @@ int cdk_script(cdk_game *g, const char *s)
                 if (g->val[c] != g->p.sol[c]) { cdk_put(g, c, g->p.sol[c]); k--; }
             continue;
         }
-        int len, c = pzb_cell(s, n, n, &len);
+        int len, c = bench_cell(s, n, n, &len);
         if (c < 0 || (s[len] != '=' && s[len] != '\'') || s[len + 1] < '0' || s[len + 1] > '9') return 0;
         int ok = s[len] == '=' ? cdk_put(g, c, s[len + 1] - '0') : cdk_note(g, c, s[len + 1] - '0');
         if (!ok) return 0;

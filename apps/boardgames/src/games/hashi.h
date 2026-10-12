@@ -9,7 +9,7 @@
  * seed: islands set down one from another along the grid's lines, joined by one or two bridges as they come (so they
  * are all joined), a few bridges more where they fit; the numbers counted. Then, where the reasoning is stuck,
  * bridges added, doubled or taken away until the solver finishes it at its level and not below. The level is the
- * reasoning the solver needs (pzbench.h):
+ * reasoning the solver needs (bench.h):
  *   0 easy: counting: an island's bridges against its number and what its neighbours can still take (a 4 with two
  *     neighbours: two double bridges); a bridge that is sure blocks those it would cross;
  *   1 medium: also the group: no bridges that would close a group of islands off from the others, and a group with
@@ -25,7 +25,7 @@
 
 #include <stdint.h>
 
-#include "games/pzbench.h"
+#include "games/bench.h"
 
 #define HSH_MAX 16
 #define HSH_CELLS (HSH_MAX * HSH_MAX)
@@ -54,7 +54,7 @@ typedef struct {
     uint32_t seed;
     hsh_puzzle p;
     uint8_t br[HSH_LINKS];                      /* the bridges now */
-    pzb_hist hist;
+    bench_hist hist;
 } hsh_game;
 
 /* the links of a puzzle from its islands (p->at, ix, iy, nisl set): nlink, la, lb */

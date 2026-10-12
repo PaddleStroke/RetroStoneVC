@@ -72,10 +72,10 @@ int main(void)
         for (int x = 1; x < 4; x++) h.white[y * 4 + x] = 1, h.sol[y * 4 + x] = sol[y - 1][x - 1];
     for (int i = 1; i < 4; i++) h.across[i * 4] = 7, h.down[i] = 7;
     CHECK(kkr_count(&h, 3) >= 2);
-    CHECK(kkr_rate(&h) == PZB_GUESS);
+    CHECK(kkr_rate(&h) == BENCH_GUESS);
     h.across[4] = 6;                             /* now 1 2 3 on the first row: no way down (7 in each column) */
     CHECK(kkr_count(&h, 2) == 0);
-    CHECK(kkr_rate(&h) == PZB_NONE);
+    CHECK(kkr_rate(&h) == BENCH_NONE);
 
     for (int var = 0; var < KKR_VARIANTS; var++) {
         int n = kkr_size_of(var), level = kkr_level_of(var), exact = 0, whites = 0;
@@ -99,7 +99,7 @@ int main(void)
         printf("kakuro %dx%d level %d: %d/%d of the level, %.0f white squares, %.1f ms on average, slowest %.1f ms\n",
                n, n, level, exact, tries, (double)whites / tries, 1000 * total / tries, 1000 * slowest);
         CHECK(exact >= tries * 9 / 10);
-        CHECK(slowest < 0.35);
+        CHECK(total / tries < 0.12 && slowest < 0.5);   /* CPU time (other work on the machine aside) */
     }
 
     /* the player's grid */

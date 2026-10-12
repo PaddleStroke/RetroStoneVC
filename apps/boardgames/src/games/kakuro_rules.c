@@ -1,5 +1,5 @@
 /*
- * Kakuro: the rules (kakuro.h): the runs and the ways of making their clues, the solver that grades (pzbench.h) and
+ * Kakuro: the rules (kakuro.h): the runs and the ways of making their clues, the solver that grades (bench.h) and
  * the one that counts, the maker, and the player's grid with its notes and undo. No SDL: tested by tests/kakuro_test.c.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
@@ -64,7 +64,7 @@ typedef struct {
     int nruns;
 } ctx_t;
 
-static int cut(pzb_grid *g, int c, unsigned keep)
+static int cut(bench_grid *g, int c, unsigned keep)
 {
     unsigned m = g->d[c] & keep;
     if (m == g->d[c]) return 0;
@@ -74,7 +74,7 @@ static int cut(pzb_grid *g, int c, unsigned keep)
 
 /* the ways of making a run's clue that fit what is known: their count; the digits placed in the run, the digits of
  * any way (uni), the digits of every way (every) */
-static int ways_of(const pzb_grid *g, const kkr_run *r, unsigned *placed, unsigned *uni, unsigned *every)
+static int ways_of(const bench_grid *g, const kkr_run *r, unsigned *placed, unsigned *uni, unsigned *every)
 {
     unsigned can = 0;
     int ways = 0;
@@ -83,7 +83,7 @@ static int ways_of(const pzb_grid *g, const kkr_run *r, unsigned *placed, unsign
     *every = DIGITS;
     for (int i = 0; i < r->len; i++) {
         unsigned m = g->d[r->cell[i]];
-        if (pzb_single(m)) {
+        if (bench_one(m)) {
             if (*placed & m) return 0;          /* twice in the run */
             *placed |= m;
         }
@@ -104,27 +104,27 @@ static int ways_of(const pzb_grid *g, const kkr_run *r, unsigned *placed, unsign
 }
 
 /* easy: a digit placed is not used again in its run; a square keeps only the digits of the ways */
-static int run_easy(pzb_grid *g, const kkr_run *r)
+static int run_easy(bench_grid *g, const kkr_run *r)
 {
     unsigned placed, uni, every;
     int found = 0;
     if (!ways_of(g, r, &placed, &uni, &every)) return -1;
     for (int i = 0; i < r->len; i++) {
         unsigned m = g->d[r->cell[i]];
-        found |= cut(g, r->cell[i], pzb_single(m) ? m : uni & ~placed);
+        found |= cut(g, r->cell[i], bench_one(m) ? m : uni & ~placed);
     }
     return found;
 }
 
 /* medium: a digit every way needs, with one square left for it; two or three squares that share two or three
  * digits between them (those digits leave the run's other squares) */
-static int run_medium(pzb_grid *g, const kkr_run *r)
+static int run_medium(bench_grid *g, const kkr_run *r)
 {
     unsigned placed, uni, every;
     int found = 0, open[9], m = 0;
     if (!ways_of(g, r, &placed, &uni, &every)) return -1;
     for (unsigned need = every & ~placed; need; need &= need - 1) {
-        int d = pzb_low(need), at = -1, places = 0;
+        int d = bench_low(need), at = -1, places = 0;
         for (int i = 0; i < r->len; i++)
             if (g->d[r->cell[i]] >> d & 1) places++, at = r->cell[i];
         if (!places) return -1;
@@ -132,15 +132,15 @@ static int run_medium(pzb_grid *g, const kkr_run *r)
     }
     if (found) return 1;
     for (int i = 0; i < r->len; i++)
-        if (!pzb_single(g->d[r->cell[i]])) open[m++] = r->cell[i];
+        if (!bench_one(g->d[r->cell[i]])) open[m++] = r->cell[i];
     for (unsigned set = 3; set < 1u << m; set++) {
-        int size = pzb_bits(set);
+        int size = bench_bits(set);
         if (size < 2 || size > 3) continue;
         unsigned u = 0;
         for (int i = 0; i < m; i++)
             if (set >> i & 1) u |= g->d[open[i]];
-        if (pzb_bits(u) < size) return -1;
-        if (pzb_bits(u) == size)
+        if (bench_bits(u) < size) return -1;
+        if (bench_bits(u) == size)
             for (int i = 0; i < m; i++)
                 if (!(set >> i & 1)) found |= cut(g, open[i], ~u);
     }
@@ -149,7 +149,7 @@ static int run_medium(pzb_grid *g, const kkr_run *r)
 
 /* the run worked out whole: the digits each square takes in some filling of the run without repeats (the sets of
  * digits a front part can take, layer by layer, then back from the clue) */
-static int run_whole(pzb_grid *g, const kkr_run *r)
+static int run_whole(bench_grid *g, const kkr_run *r)
 {
     static uint16_t lay[10][512];
     static uint32_t in[10][512], ok[10][512], stamp;
@@ -188,7 +188,7 @@ static int run_whole(pzb_grid *g, const kkr_run *r)
     return found;
 }
 
-static int deduce(pzb_grid *g, int tier, void *cx)
+static int deduce(bench_grid *g, int tier, void *cx)
 {
     ctx_t *x = cx;
     int found = 0;
@@ -201,7 +201,7 @@ static int deduce(pzb_grid *g, int tier, void *cx)
     return found;
 }
 
-static int valid(const pzb_grid *g, void *cx)
+static int valid(const bench_grid *g, void *cx)
 {
     const ctx_t *x = cx;
     for (int k = 0; k < x->nruns; k++) {
@@ -210,14 +210,14 @@ static int valid(const pzb_grid *g, void *cx)
             unsigned m = g->d[x->run[k].cell[i]];
             if (used & m) return 0;
             used |= m;
-            sum += (unsigned)pzb_low(m);
+            sum += (unsigned)bench_low(m);
         }
         if (sum != x->run[k].sum) return 0;
     }
     return 1;
 }
 
-static void rules_of(pzb_rules *r, ctx_t *x, const kkr_puzzle *p, pzb_grid *g)
+static void rules_of(bench_rules *r, ctx_t *x, const kkr_puzzle *p, bench_grid *g)
 {
     init();
     x->p = p;
@@ -226,6 +226,7 @@ static void rules_of(pzb_rules *r, ctx_t *x, const kkr_puzzle *p, pzb_grid *g)
     r->vars = p->n * p->n;
     r->tiers = 3;
     r->probe_tiers = 1;
+    r->order = BENCH_PAIRS;                     /* the trials the makers were tuned with */
     r->deduce = deduce;
     r->valid = valid;
     r->ctx = x;
@@ -233,38 +234,38 @@ static void rules_of(pzb_rules *r, ctx_t *x, const kkr_puzzle *p, pzb_grid *g)
     for (int c = 0; c < r->vars; c++) g->d[c] = (uint16_t)(p->white[c] ? DIGITS : 1u);
 }
 
-/* graded up to `most` (trials: 1 allowed): the level, or PZB_GUESS / PZB_NONE; the squares still open */
+/* graded up to `most` (trials: 1 allowed): the level, or BENCH_GUESS / BENCH_NONE; the squares still open */
 static int grade(const kkr_puzzle *p, int most, int trials, int *open, uint8_t *which)
 {
-    static pzb_rules r;
+    static bench_rules r;
     static ctx_t x;
-    pzb_grid g;
+    bench_grid g;
     rules_of(&r, &x, p, &g);
     r.no_trials = !trials;
-    int res = pzb_grade(&g, &r, most);
+    int res = bench_grade(&g, &r, most);
     if (open) {
         *open = 0;
         for (int c = 0; c < r.vars; c++)
-            if (!pzb_single(g.d[c])) which[(*open)++] = (uint8_t)c;
+            if (!bench_one(g.d[c])) which[(*open)++] = (uint8_t)c;
     }
     return res;
 }
 
-int kkr_rate(const kkr_puzzle *p) { return grade(p, PZB_HARD, 1, NULL, NULL); }
+int kkr_rate(const kkr_puzzle *p) { return grade(p, BENCH_HARD, 1, NULL, NULL); }
 
-static int count_rec(pzb_grid *g, pzb_rules *r, int limit)
+static int count_rec(bench_grid *g, bench_rules *r, int limit)
 {
     int used = 0;
-    if (pzb_settle(g, r, 0, &used) < 0) return 0;
+    if (bench_settle(g, r, 0, &used) < 0) return 0;
     int best = -1, bn = 99;
     for (int c = 0; c < r->vars; c++) {
-        int k = pzb_bits(g->d[c]);
+        int k = bench_bits(g->d[c]);
         if (k > 1 && k < bn) bn = k, best = c;
     }
     if (best < 0) return r->valid(g, r->ctx);
     int found = 0;
     for (unsigned m = g->d[best]; m && found < limit; m &= m - 1) {
-        pzb_grid t = *g;
+        bench_grid t = *g;
         t.d[best] = (uint16_t)(m & -m);
         found += count_rec(&t, r, limit - found);
     }
@@ -273,9 +274,9 @@ static int count_rec(pzb_grid *g, pzb_rules *r, int limit)
 
 int kkr_count(const kkr_puzzle *p, int limit)
 {
-    static pzb_rules r;
+    static bench_rules r;
     static ctx_t x;
-    pzb_grid g;
+    bench_grid g;
     rules_of(&r, &x, p, &g);
     r.budget = 0;
     return count_rec(&g, &r, limit);
@@ -417,15 +418,15 @@ static int change(uint32_t *rng, kkr_puzzle *p, const uint8_t (*run_of)[2], cons
     if (pr_below(rng, 4)) {                     /* the fewest ways, mostly */
         int best = 1 << 30, ties = 0;
         for (unsigned f = free; f; f &= f - 1) {
-            int d = pzb_low(f), s0 = sum[0] - p->sol[c] + d, s1 = sum[1] - p->sol[c] + d;
+            int d = bench_low(f), s0 = sum[0] - p->sol[c] + d, s1 = sum[1] - p->sol[c] + d;
             int score = NWAYS[len[0]][s0] + NWAYS[len[1]][s1];
             if (score < best) best = score, pick = d, ties = 1;
             else if (score == best && pr_below(rng, ++ties) == 0) pick = d;
         }
     } else {
-        int k = pr_below(rng, pzb_bits(free));
+        int k = pr_below(rng, bench_bits(free));
         while (k--) free &= free - 1;
-        pick = pzb_low(free);
+        pick = bench_low(free);
     }
     p->sol[c] = (uint8_t)pick;
     clues(p);
@@ -446,11 +447,11 @@ static int make_one(uint32_t *rng, int n, int level, kkr_puzzle *p)
     clues(p);
     /* first the squares where the reasoning (up to the level) is stuck changed, until it is stuck nowhere */
     int nopen, stuck = 0, r = grade(p, level, 0, &nopen, open);
-    for (int step = 0; r == PZB_GUESS && step < 40 * n && stuck < 12 * n; step++) {
+    for (int step = 0; r == BENCH_GUESS && step < 40 * n && stuck < 12 * n; step++) {
         kkr_puzzle was = *p;
         if (!change(rng, p, (const uint8_t (*)[2])run_of, runs, open[pr_below(rng, nopen)])) continue;
         int n2, r2 = grade(p, level, 0, &n2, open2);
-        if (r2 != PZB_GUESS || n2 <= nopen || pr_below(rng, 10) == 0) {
+        if (r2 != BENCH_GUESS || n2 <= nopen || pr_below(rng, 10) == 0) {
             r = r2;
             nopen = n2;
             memcpy(open, open2, (size_t)n2);
@@ -459,7 +460,7 @@ static int make_one(uint32_t *rng, int n, int level, kkr_puzzle *p)
             stuck++;
         }
     }
-    if (r == PZB_GUESS || r < 0) return 0;
+    if (r == BENCH_GUESS || r < 0) return 0;
     /* then made harder a digit at a time: kept while it stays solved, done when it needs the level's ways */
     int whites[KKR_CELLS], nw = 0;
     for (int c = 0; c < n * n; c++)
@@ -468,8 +469,8 @@ static int make_one(uint32_t *rng, int n, int level, kkr_puzzle *p)
         kkr_puzzle was = *p;
         if (!change(rng, p, (const uint8_t (*)[2])run_of, runs, whites[pr_below(rng, nw)])) continue;
         int r2 = grade(p, level - 1, 0, NULL, NULL);   /* the easier ways first: quicker */
-        if (r2 == PZB_GUESS) r2 = grade(p, level, 0, NULL, NULL);
-        if (r2 == PZB_GUESS || r2 < 0) *p = was;
+        if (r2 == BENCH_GUESS) r2 = grade(p, level, 0, NULL, NULL);
+        if (r2 == BENCH_GUESS || r2 < 0) *p = was;
         else r = r2;
     }
     return r == level;
@@ -496,7 +497,7 @@ void kkr_new(kkr_game *g, int variant, uint32_t seed)
     g->seed = seed;
     kkr_make(kkr_size_of(variant), g->level, seed, &g->p);
     g->nruns = kkr_runs(&g->p, g->run, g->run_of);
-    pzb_hist_clear(&g->hist);
+    bench_clear(&g->hist);
 }
 
 static void restore(void *cx, int at, uint32_t was)
@@ -506,10 +507,19 @@ static void restore(void *cx, int at, uint32_t was)
     g->notes[at] = (uint16_t)was;
 }
 
+/* the wrong entries on the board (the stars' mistakes) */
+static int wrongs(const kkr_game *g)
+{
+    int k = 0;
+    for (int c = 0; c < g->p.n * g->p.n; c++)
+        k += g->p.white[c] && g->val[c] && g->val[c] != g->p.sol[c];
+    return k;
+}
+
 static void set(kkr_game *g, int c, int val, unsigned notes)
 {
     if (g->val[c] == val && g->notes[c] == notes) return;
-    pzb_log(&g->hist, c, (uint32_t)g->val[c] << 16 | g->notes[c]);
+    bench_log(&g->hist, c, (uint32_t)g->val[c] << 16 | g->notes[c]);
     g->val[c] = (uint8_t)val;
     g->notes[c] = (uint16_t)notes;
 }
@@ -521,7 +531,7 @@ int kkr_put(kkr_game *g, int c, int d)
     if (c < 0 || c >= cells(g) || !g->p.white[c] || d < 0 || d > 9) return 0;
     if (d && g->val[c] == d) return 0;
     if (!d && !g->val[c]) return 0;
-    pzb_begin(&g->hist, 19);
+    bench_begin(&g->hist, 19);
     set(g, c, d, d ? 0 : g->notes[c]);
     if (d)
         for (int t = 0; t < 2; t++) {           /* the note d goes from its runs */
@@ -531,49 +541,60 @@ int kkr_put(kkr_game *g, int c, int d)
                 if (g->notes[k] >> d & 1) set(g, k, g->val[k], g->notes[k] & ~(1u << d));
             }
         }
-    return pzb_end(&g->hist);
+    return bench_done(&g->hist, wrongs(g));
 }
 
 int kkr_note(kkr_game *g, int c, int d)
 {
     if (c < 0 || c >= cells(g) || !g->p.white[c] || d < 1 || d > 9 || g->val[c]) return 0;
-    pzb_begin(&g->hist, 1);
+    bench_begin(&g->hist, 1);
     set(g, c, 0, g->notes[c] ^ (1u << d));
-    return pzb_end(&g->hist);
+    return bench_done(&g->hist, wrongs(g));
 }
 
 int kkr_erase(kkr_game *g, int c)
 {
     if (c < 0 || c >= cells(g) || !g->p.white[c] || (!g->val[c] && !g->notes[c])) return 0;
-    pzb_begin(&g->hist, 1);
+    bench_begin(&g->hist, 1);
     set(g, c, 0, g->val[c] ? g->notes[c] : 0);
-    return pzb_end(&g->hist);
+    return bench_done(&g->hist, wrongs(g));
 }
 
-int kkr_hint(kkr_game *g)
+static int hint_step(kkr_game *g)
 {
     int N = cells(g);
     for (int c = 0; c < N; c++)
         if (g->p.white[c] && g->val[c] && g->val[c] != g->p.sol[c]) return kkr_put(g, c, g->p.sol[c]) ? c : -1;
-    static pzb_rules r;
+    static bench_rules r;
     static ctx_t x;
-    pzb_grid s;
+    bench_grid s;
     rules_of(&r, &x, &g->p, &s);
     for (int c = 0; c < N; c++)
         if (g->val[c]) s.d[c] = (uint16_t)(1u << g->val[c]);
     int used = 0;
-    pzb_settle(&s, &r, 1, &used);
+    bench_settle(&s, &r, 1, &used);
     int best = -1, bn = 99;
     for (int c = 0; c < N; c++) {
         if (!g->p.white[c] || g->val[c]) continue;
-        int b = pzb_bits(s.d[c]);
+        int b = bench_bits(s.d[c]);
         if (b < bn) bn = b, best = c;
     }
     if (best < 0) return -1;
     return kkr_put(g, best, g->p.sol[best]) ? best : -1;
 }
 
-int kkr_undo(kkr_game *g) { return pzb_undo(&g->hist, restore, g); }
+int kkr_hint(kkr_game *g)
+{
+    return bench_hinted(&g->hist, hint_step(g));
+}
+
+int kkr_undo(kkr_game *g)
+{
+    int c = bench_undo(&g->hist, restore, g);
+    bench_undone(&g->hist, wrongs(g));
+    return c;
+}
+
 
 int kkr_clash(const kkr_game *g, int c)
 {
@@ -616,7 +637,7 @@ int kkr_script(kkr_game *g, const char *s)
                 if (g->p.white[c] && g->val[c] != g->p.sol[c]) { kkr_put(g, c, g->p.sol[c]); k--; }
             continue;
         }
-        int len, c = pzb_cell(s, n, n, &len);
+        int len, c = bench_cell(s, n, n, &len);
         if (c < 0 || (s[len] != '=' && s[len] != '\'') || s[len + 1] < '0' || s[len + 1] > '9') return 0;
         int ok = s[len] == '=' ? kkr_put(g, c, s[len + 1] - '0') : kkr_note(g, c, s[len + 1] - '0');
         if (!ok) return 0;

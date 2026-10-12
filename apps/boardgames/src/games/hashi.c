@@ -1,34 +1,30 @@
 /*
  * Bridges in RetroStone Board, for one player: the house plank, faint burned dots where islands may lie, the islands
  * brass rings round a disc of wood with their numbers burned in, the bridges wooden planks laid between them (one, or
- * two side by side) (the rules: hashi_rules.c).
+ * two side by side) (the rules: hashi_rules.c; what the logic grids share: bench.h, bench_ui.h).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Drag from an island towards another: a bridge (a second one, then none again). Or tap an island, then another in
  * line with it; or tap a bridge, or the water between two islands that see each other: the same. A bridge that would
- * cross another is refused. An island with all its bridges glows gold, one with too many red. The lamp at the bar's
- * end: a hint (a wrong bridge taken away, else one that reasoning finds, in gold light). Undo takes back one bridge
+ * cross another is refused. An island with all its bridges glows gold, one with too many red. The shell's tool, the
+ * lamp: a hint (a wrong bridge taken away, else one that reasoning finds, in gold light). Undo takes back one bridge
  * at a time, all the way to the start. The bar: the moves. Solved: the planks turn gold and a wave of gold light runs
- * over the islands.
+ * over the islands; the stars count the hints and the mistakes (bench.h).
  */
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
 
+#include "games/bench_ui.h"
 #include "games/hashi.h"
-#include "games/puzzles.h"
-#include "games/pzbench_ui.h"
 #include "shell.h"
-
-#define FRAME 0.035f
 
 static const uint8_t BRASS[3] = {214, 168, 82}, BRASS_DARK[3] = {112, 78, 30};
 
 static hsh_game G;
 static int sel = -1, serial;
-static struct { int link; Uint32 t0; } hint = {-1, 0}, pop = {-1, 0};
-static pzb_wave win;
-static pzb_bar barl;
+static bench_flash hint = {-1, 0}, pop = {-1, 0};   /* at: a link */
+static bench_wave win;
 static struct { int on, from, moved; float x, y, x0, y0; } drag;
 
 static box last_box;
@@ -111,7 +107,7 @@ static void layout(box b)
     last_box = b;
     int n = G.p.n ? G.p.n : 7;
     float S = fminf(b.w, b.h);
-    fr = (int)(S * FRAME);
+    fr = (int)(S * BENCH_FRAME);
     q = (int)((S - 2 * fr) / n);
     int w = n * q + 2 * fr;
     bx = floorf(b.x + (b.w - w) / 2);
@@ -137,14 +133,14 @@ static void layout(box b)
         paint_plank(t, len, th);
         t_plank = ui_tex(len, th, t);
     }
-    pzb_small(&t_small, &made_small, token);
+    bench_small(&t_small, &made_small, token);
 }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
 static void calm(void)
 {
     sel = -1;
-    hint.link = pop.link = -1;
+    hint.at = pop.at = -1;
     win.on = 0;
     memset(&drag, 0, sizeof drag);
 }
@@ -159,8 +155,9 @@ static void start(int variant)
 
 static int status(void) { return hsh_solved(&G) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
-static int busy(void) { return pzb_wave_busy(&win); }
+static int busy(void) { return bench_wave_busy(&win); }
 static int score(void) { return G.hist.moves; }   /* the end card: the moves it took */
+static int stars(void) { return ui_logic_stars(G.hist.hints, G.hist.mistakes); }
 
 static void point_xy(int x, int y, float *px, float *py)
 {
@@ -172,7 +169,7 @@ static void after(int link)
 {
     if (hsh_solved(&G) && !win.on) {
         int a = G.p.la[link < 0 ? 0 : link];
-        pzb_wave_start(&win, G.p.ix[a], G.p.iy[a], (float)G.p.n);
+        bench_wave_start(&win, G.p.ix[a] + 0.5f, G.p.iy[a] + 0.5f, G.p.n, G.p.n);
         sel = -1;
     }
     ui_animate();
@@ -199,9 +196,8 @@ static void build(int l)
 {
     if (l < 0) { ui_sound(SND_DENY); return; }
     int before = G.br[l];
-    if (!hsh_cycle(&G, l)) { ui_sound(SND_DENY); hint.link = -1; return; }
-    pop.link = l;
-    pop.t0 = ui_ms();
+    if (!hsh_cycle(&G, l)) { ui_sound(SND_DENY); hint.at = -1; return; }
+    bench_flash_start(&pop, l);
     ui_sound(G.br[l] > before ? SND_PLACE : SND_TAP);
     after(l);
 }
@@ -210,8 +206,8 @@ static void lamp(void)
 {
     int l = hsh_hint(&G);
     if (l < 0) { ui_sound(SND_DENY); return; }
-    hint.link = pop.link = l;
-    hint.t0 = pop.t0 = ui_ms();
+    bench_flash_start(&hint, l);
+    bench_flash_start(&pop, l);
     sel = -1;
     ui_sound(SND_PLACE);
     after(l);
@@ -298,12 +294,11 @@ static void draw(void)
     int n = G.p.n, solved = hsh_solved(&G), w = n * q + 2 * fr;
     ui_put(t_board, bx, by, (float)w, (float)w);
     float px, py;
-    if (hint.link >= 0) {                       /* the hint's link: a gold light along it */
+    if (hint.at >= 0) {                         /* the hint's link: a gold light along it */
         float ax, ay, cx, cy;
-        point_xy(G.p.ix[G.p.la[hint.link]], G.p.iy[G.p.la[hint.link]], &ax, &ay);
-        point_xy(G.p.ix[G.p.lb[hint.link]], G.p.iy[G.p.lb[hint.link]], &cx, &cy);
-        if (!pzb_hint_glow(hint.t0, (ax + cx) / 2, (ay + cy) / 2, 0.9f * hypotf(cx - ax, cy - ay) + 1.5f * q))
-            hint.link = -1;
+        point_xy(G.p.ix[G.p.la[hint.at]], G.p.iy[G.p.la[hint.at]], &ax, &ay);
+        point_xy(G.p.ix[G.p.lb[hint.at]], G.p.iy[G.p.lb[hint.at]], &cx, &cy);
+        bench_glow(&hint, (ax + cx) / 2, (ay + cy) / 2, 0.9f * hypotf(cx - ax, cy - ay) + 1.5f * q);
     }
     for (int l = 0; l < G.p.nlink; l++)
         if (G.br[l]) planks(l, G.br[l], 1, solved);
@@ -315,7 +310,7 @@ static void draw(void)
     int target = aim < 0 ? -1 : G.p.la[aim] == drag.from ? G.p.lb[aim] : G.p.la[aim];
     for (int i = 0; i < G.p.nisl; i++) {
         point_xy(G.p.ix[i], G.p.iy[i], &px, &py);
-        pzb_wave_at(&win, G.p.ix[i], G.p.iy[i], px, py, 2.4f * q);
+        bench_wave_at(&win, G.p.ix[i] + 0.5f, G.p.iy[i] + 0.5f, px, py, 2.4f * q);
         int has = hsh_has(&G, i), need = G.p.need[i];
         if (!solved && has == need) ui_mark_gold(px, py, 1.5f * q);
         if (!solved && has > need) ui_mark_glow(px, py, 1.3f * q);
@@ -330,7 +325,8 @@ static void draw(void)
             point_xy(G.p.ix[other], G.p.iy[other], &px, &py);
             ui_mark_dot(px + 0.36f * q, py - 0.36f * q, 0.3f * q);
         }
-    pzb_wave_tick(&win);
+    bench_wave_tick(&win);
+    ui_tool(0, ICON_HINT, solved ? UI_DIM : 0);
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
@@ -338,6 +334,10 @@ static void press(float x, float y)
 {
     memset(&drag, 0, sizeof drag);
     if (hsh_solved(&G)) return;
+    if (ui_tool_hit(x, y) == 0) {               /* the shell's tool: the hint */
+        lamp();
+        return;
+    }
     int i = island_at(x, y);
     if (i >= 0) {
         drag.on = 1;
@@ -396,26 +396,18 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    pzb_bar_draw(&barl, b, t_small, G.hist.moves, hsh_solved(&G) ? UI_DIM : 0);
-}
-
-static int bar_press(int player, float x, float y)
-{
-    (void)player;
-    if (!pzb_bar_lamp(&barl, x, y)) return 0;
-    if (!hsh_solved(&G)) lamp();
-    return 1;
+    bench_bar_moves(b, t_small, G.hist.moves);
 }
 
 /* ---- the menu's and the picker's cards: a puzzle of the size and level with its bridges, the level's ebony stones
  * under it ------------------------------------------------------------------------------------------------------ */
-static void thumb(int variant, int size, uint8_t *rgba)
+static void card(int variant, int size, int bare, uint8_t *rgba)
 {
     int n = variant < 0 ? 7 : hsh_size_of(variant), level = variant < 0 ? HSH_MEDIUM : hsh_level_of(variant);
     static hsh_puzzle p;
     hsh_make(n, level, 2026u + (uint32_t)(variant + 1), &p);
-    int side = variant < 0 ? size : (int)(0.84f * size);
-    int f = (int)(side * FRAME), c = (side - 2 * f) / n, w = n * c + 2 * f, o = (size - w) / 2;
+    int side = variant < 0 || bare ? size : (int)(0.84f * size);
+    int f = (int)(side * BENCH_FRAME), c = (side - 2 * f) / n, w = n * c + 2 * f, o = (size - w) / 2;
     uint8_t *b = calloc((size_t)w * w, 4);
     if (!b) return;
     paint_board(b, n, c, f, c >= 14);   /* the dots only where they show */
@@ -436,13 +428,20 @@ static void thumb(int variant, int size, uint8_t *rgba)
         paint_island(b, w, w, f + (p.ix[i] + 0.5f) * c, f + (p.iy[i] + 0.5f) * c, (int)(0.86f * c), p.need[i]);
     art_blend(rgba, size, size, b, w, w, o, variant < 0 ? o : 0);
     free(b);
-    if (variant >= 0) pzb_stones(rgba, size, w + (size - w - (int)(0.1f * size)) / 2, level);
+    if (variant >= 0 && !bare) bench_stones(rgba, size, w, level);
 }
+
+static void thumb(int variant, int size, uint8_t *rgba) { card(variant, size, 0, rgba); }
+
+/* the picker's sizes (game.axes, above the levels): a puzzle of the size at the medium level, on the whole card */
+static void size_pic(int i, int size, uint8_t *rgba) { card(i * 3 + 1, size, 1, rgba); }
 
 static const game hashi_game = {
     .id = "hashi", .order = 447, .variants = HSH_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1, .score = score,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1,
+    .axes = {HSH_SIZES, 3}, .axis_pic = {size_pic, NULL},
+    .score = score, .level_stars = stars, .fill = 1, .tools = 1,
 };
 REGISTER_GAME(hashi_game)

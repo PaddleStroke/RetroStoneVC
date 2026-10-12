@@ -8,7 +8,7 @@
  *
  * The variants: the five sizes, each at three levels (4 easy, 4 medium, 4 hard, 5 easy...). A puzzle is made from a
  * seed: a Latin square filled by chance, cut into cages (the harder, the larger), an operation chosen for each; then
- * graded, and made again until it is of its level. The level is the reasoning the solver needs (pzbench.h):
+ * graded, and made again until it is of its level. The level is the reasoning the solver needs (bench.h):
  *   0 easy: what each cage allows on its own (the digits of every way of making its target) and the singles (a cell
  *     with one digit left; a digit with one place left in a row or column);
  *   1 medium: also a cage's digits that must lie in one row or column (taken from the rest of that line), and naked
@@ -24,7 +24,7 @@
 
 #include <stdint.h>
 
-#include "games/pzbench.h"
+#include "games/bench.h"
 
 #define CDK_MAX 9
 #define CDK_CELLS (CDK_MAX * CDK_MAX)
@@ -59,12 +59,12 @@ typedef struct {
     cdk_puzzle p;
     uint8_t val[CDK_CELLS];                     /* the grid now (0: empty) */
     uint16_t notes[CDK_CELLS];                  /* bit d: the note d */
-    pzb_hist hist;
+    bench_hist hist;
 } cdk_game;
 
 /* the solutions, counted up to limit (a plain search: the tests' check) */
 int  cdk_count(const cdk_puzzle *p, int limit);
-/* the level the solver needs (CDK_EASY..CDK_HARD), PZB_GUESS when it is stuck, PZB_NONE: no solution */
+/* the level the solver needs (CDK_EASY..CDK_HARD), BENCH_GUESS when it is stuck, BENCH_NONE: no solution */
 int  cdk_rate(const cdk_puzzle *p);
 /* a puzzle n x n of the level from the seed */
 void cdk_make(int n, int level, uint32_t seed, cdk_puzzle *p);

@@ -1,41 +1,35 @@
 /*
  * Calcudoku in RetroStone Board, for one player: the house plank ruled in n x n cells, the cages' thick lines, each
  * cage's target and operation burned into its first cell (the signs drawn, not written), the player's digits in blue
- * ink, a row of wooden keys 1..n under the board and four buttons beside it (the rules: calcudoku_rules.c).
+ * ink, a row of wooden keys 1..n under the board (the rules: calcudoku_rules.c; what the logic grids share: bench.h,
+ * bench_ui.h).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Tap a cell, then a key: its digit goes in (the same key again takes it out); or drag a key onto a cell. The cell's
  * row and column are lit faintly, its cage a little more, and every cell holding its digit warmly (a key tapped with
- * no empty cell picked lights its digit's cells instead). The buttons, top to bottom: the pencil (notes: the keys then
- * put small digits in the cell, or take them out), the eraser, the lamp (a hint: a wrong digit put right, else a cell
+ * no empty cell picked lights its digit's cells instead). The shell's tools: the pencil (notes: the keys then put
+ * small digits in the cell, or take them out), the eraser, the lamp (a hint: a wrong digit put right, else a cell
  * that reasoning finds, in gold light) and the eye (clashes shown: a digit twice in a line, a full cage missing its
  * target, in red; on at first). Undo takes back one action, all the way to the start. The bar: the moves. Solved: a
- * wave of gold light runs over the board from the last cell filled.
+ * wave of gold light runs over the board from the last cell filled; the stars count the hints and the mistakes
+ * (bench.h).
  */
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
 
+#include "games/bench_ui.h"
 #include "games/calcudoku.h"
-#include "games/puzzles.h"
-#include "games/pzbench_ui.h"
 #include "shell.h"
 
-#define FRAME 0.035f                            /* the board's frame, a part of its side */
-
-enum { T_NOTES, T_ERASE, T_HINT, T_CLASH, TOOLS };
-
 static cdk_game G;
-static int sel = -1, lit_digit, notes_mode, show_clash = 1, serial;
-static struct { int cell; Uint32 t0; } pop = {-1, 0}, hint = {-1, 0};
-static pzb_wave win;
-static pzb_pad pad;
+static bench_dg dg;
+static int serial;
 
 static box last_box;
 static float bx, by;
 static int q, fr, made_key = -1, made_small;
 static SDL_Texture *t_board, *t_small;
-static puz_font f_entry, f_note;
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* an operation's sign, ink on the wood: a unit square's figure */
@@ -124,7 +118,7 @@ static void token(int player, int size, uint8_t *rgba)
     puz_ink_rect(b, w, w, f + c - thick / 2, (float)f, f + c + thick / 2, (float)(f + c), PUZ_INK, 0.4f);
     cdk_cage k = {CDK_MUL, 2, {0, 1}, 6};
     label(b, w, w, &k, f + 0.1f * c, f + 0.08f * c, 0.36f * c);
-    puz_digits(b, w, w, 3, f + 1.5f * c, f + 1.55f * c, 0.7f * c, PZB_BLUE, 1, 0);
+    puz_digits(b, w, w, 3, f + 1.5f * c, f + 1.55f * c, 0.7f * c, BENCH_BLUE, 1, 0);
     art_blend(rgba, size, size, b, w, w, (size - w) / 2, (size - w) / 2);
     free(b);
 }
@@ -133,12 +127,14 @@ static void layout(box b)
 {
     last_box = b;
     int n = G.p.n ? G.p.n : 4;
-    pzb_pad_layout(&pad, b, n, TOOLS);
-    fr = (int)(pad.gw * FRAME);
-    q = (int)((pad.gw - 2 * fr) / n);
+    bench_pad_layout(&dg.pad, b, n);
+    box sq = dg.pad.board;
+    fr = (int)(sq.w * BENCH_FRAME);
+    q = (int)((sq.w - 2 * fr) / n);
     int w = n * q + 2 * fr;
-    bx = floorf(pad.gx + (pad.gw - w) / 2);
-    by = floorf(pad.gy + (pad.gw - w) / 2);
+    bx = floorf(sq.x + (sq.w - w) / 2);
+    by = floorf(sq.y + (sq.w - w) / 2);
+    dg.cs = (float)q;
     int key = (w * 16 + n) * 4096 + serial % 4096;
     if (made_key != key) {
         made_key = key;
@@ -146,114 +142,11 @@ static void layout(box b)
         uint8_t *o = ui_buf(w, w);
         paint_board(o, &G.p, q, fr);
         t_board = ui_tex(w, w, o);
-        puz_font_make(&f_entry, (int)(0.6f * q), 0);
-        puz_font_make(&f_note, (int)fmaxf(6, 0.22f * q), 1);
     }
-    pzb_small(&t_small, &made_small, token);
+    bench_small(&t_small, &made_small, token);
 }
 
-/* ---- the position ------------------------------------------------------------------------------------------------ */
-static void calm(void)
-{
-    sel = -1;
-    lit_digit = 0;
-    pop.cell = hint.cell = -1;
-    win.on = 0;
-    memset(&pad.drag, 0, sizeof pad.drag);
-}
-
-static void start(int variant)
-{
-    cdk_new(&G, variant < 0 || variant >= CDK_VARIANTS ? 0 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
-    serial++;
-    calm();
-    notes_mode = 0;
-    if (last_box.w > 0) layout(last_box);
-}
-
-static int status(void) { return cdk_solved(&G) ? GS_WIN0 : GS_PLAY; }
-static int turn(void) { return 0; }
-static int busy(void) { return pzb_wave_busy(&win); }
-static int score(void) { return G.hist.moves; }   /* the end card: the moves it took */
-
-static void after(int cell)                     /* an action done: solved by it, the wave from that cell */
-{
-    if (cdk_solved(&G) && !win.on) {
-        pzb_wave_start(&win, (float)(cell % G.p.n), (float)(cell / G.p.n), (float)G.p.n);
-        sel = -1;
-        lit_digit = 0;
-    }
-    ui_animate();
-}
-
-static int undo(void)
-{
-    int c = cdk_undo(&G);
-    if (c < 0) return 0;
-    calm();
-    sel = c;
-    return 1;
-}
-
-static int script(const char *moves)
-{
-    calm();
-    int ok = cdk_script(&G, moves);
-    if (cdk_solved(&G)) after(G.p.n * G.p.n / 2);
-    return ok;
-}
-
-static int cells(void) { return G.p.n * G.p.n; }
-
-static void enter(int d)
-{
-    if (sel < 0) {                              /* nothing picked: the key lights its digit's cells */
-        lit_digit = lit_digit == d ? 0 : d;
-        ui_sound(SND_TAP);
-        return;
-    }
-    lit_digit = 0;
-    if (notes_mode) {
-        if (G.val[sel] || !cdk_note(&G, sel, d)) { ui_sound(SND_DENY); return; }
-        ui_sound(SND_TAP);
-        return;
-    }
-    if (G.val[sel] == d) {                      /* the same digit again: taken out */
-        cdk_put(&G, sel, 0);
-        ui_sound(SND_TAP);
-        return;
-    }
-    cdk_put(&G, sel, d);
-    pop.cell = sel;
-    pop.t0 = ui_ms();
-    ui_sound(SND_PLACE);
-    after(sel);
-}
-
-static void tool(int i)
-{
-    switch (i) {
-    case T_NOTES: notes_mode = !notes_mode; ui_sound(SND_TAP); break;
-    case T_CLASH: show_clash = !show_clash; ui_sound(SND_TAP); break;
-    case T_ERASE:
-        if (sel < 0 || !cdk_erase(&G, sel)) { ui_sound(SND_DENY); break; }
-        ui_sound(SND_TAP);
-        break;
-    default: {
-        int c = cdk_hint(&G);
-        if (c < 0) { ui_sound(SND_DENY); break; }
-        sel = c;
-        lit_digit = 0;
-        hint.cell = pop.cell = c;
-        hint.t0 = pop.t0 = ui_ms();
-        ui_sound(SND_PLACE);
-        after(c);
-    }
-    }
-    ui_animate();
-}
-
-/* ---- the board on the screen ------------------------------------------------------------------------------------- */
+/* ---- the game's side of the digit bench -------------------------------------------------------------------------- */
 static void cell_xy(int c, float *x, float *y)  /* its top left corner */
 {
     *x = bx + fr + (c % G.p.n) * q;
@@ -268,143 +161,111 @@ static int cell_at(float x, float y)
     return (int)(iy / q) * n + (int)(ix / q);
 }
 
+static int peer(int s, int c)                   /* its cage, then its row and column */
+{
+    int n = G.p.n;
+    return G.p.cage_of[c] == G.p.cage_of[s] ? 52 : c / n == s / n || c % n == s % n ? 30 : 0;
+}
+
+static int val(int c) { return G.val[c]; }
+static unsigned notes(int c) { return G.notes[c]; }
+static int put(int c, int d) { return cdk_put(&G, c, d); }
+static int note(int c, int d) { return cdk_note(&G, c, d); }
+static int erase(int c) { return cdk_erase(&G, c); }
+static int hint(void) { return cdk_hint(&G); }
+static int solved(void) { return cdk_solved(&G); }
+static int clash(int c) { return cdk_clash(&G, c); }
+static int full(int d) { return cdk_count_digit(&G, d) >= G.p.n; }
+
+static const bench_dg_game digits = {cell_at, cell_xy, NULL, NULL, NULL, val, notes, put, note, erase, hint,
+                                     solved, clash, full, peer};
+
+/* ---- the position ------------------------------------------------------------------------------------------------ */
+static void start(int variant)
+{
+    cdk_new(&G, variant < 0 || variant >= CDK_VARIANTS ? 0 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    serial++;
+    bench_dg_start(&dg, &digits, G.p.n, G.p.n);
+    dg.look = (bench_dg_look){0.12f, 0.5f, 0.26f, 0.46f, 0.24f, 0.2f, 0.2f, 0.22f};   /* under the cage's label */
+    if (last_box.w > 0) layout(last_box);
+}
+
+static int status(void) { return cdk_solved(&G) ? GS_WIN0 : GS_PLAY; }
+static int turn(void) { return 0; }
+static int busy(void) { return bench_wave_busy(&dg.win); }
+static int score(void) { return G.hist.moves; }   /* the end card: the moves it took */
+static int stars(void) { return ui_logic_stars(G.hist.hints, G.hist.mistakes); }
+
+static int undo(void)
+{
+    int c = cdk_undo(&G);
+    if (c < 0) return 0;
+    bench_dg_undone(&dg, c);
+    return 1;
+}
+
+static int script(const char *moves)
+{
+    bench_dg_calm(&dg);
+    int ok = cdk_script(&G, moves);
+    if (cdk_solved(&G)) bench_dg_after(&dg, G.p.n * G.p.n / 2);
+    return ok;
+}
+
+/* ---- the board on the screen, the finger ------------------------------------------------------------------------ */
 static void draw(void)
 {
     if (made_key < 0) layout(last_box);
-    int n = G.p.n, N = cells(), solved = cdk_solved(&G), w = n * q + 2 * fr;
-    Uint32 now = ui_ms();
+    int w = G.p.n * q + 2 * fr;
     ui_put(t_board, bx, by, (float)w, (float)w);
-    float x, y;
-    int hd = sel >= 0 && G.val[sel] ? G.val[sel] : lit_digit;   /* the digit lit */
-    if (!solved) {
-        for (int c = 0; c < N; c++) {
-            cell_xy(c, &x, &y);
-            if (sel >= 0 && c != sel) {
-                if (G.p.cage_of[c] == G.p.cage_of[sel]) ui_fill(x, y, (float)q, (float)q, 250, 214, 90, 52);
-                else if (c / n == sel / n || c % n == sel % n) ui_fill(x, y, (float)q, (float)q, 250, 214, 90, 30);
-            }
-            if (hd && G.val[c] == hd && c != sel) ui_mark_last(x, y, (float)q, (float)q);
-            if (show_clash && cdk_clash(&G, c)) ui_fill(x, y, (float)q, (float)q, 214, 60, 44, 56);
-        }
-        if (sel >= 0) {
-            cell_xy(sel, &x, &y);
-            ui_mark_select(x, y, (float)q, (float)q);
-        }
-    }
-    if (hint.cell >= 0) {
-        cell_xy(hint.cell, &x, &y);
-        if (!pzb_hint_glow(hint.t0, x + q / 2.0f, y + q / 2.0f, 2.6f * q)) hint.cell = -1;
-    }
-    for (int c = 0; c < N; c++) {
-        cell_xy(c, &x, &y);
-        float mx = x + q / 2.0f, my = y + 0.62f * q;
-        pzb_wave_at(&win, (float)(c % n), (float)(c / n), mx, my, 2.3f * q);
-        int v = G.val[c];
-        if (v) {
-            float k = 1;
-            if (c == pop.cell) {
-                float t = (now - pop.t0) / (float)PZB_POP_MS;
-                if (t < 1) { k = 1 + 0.4f * (1 - puz_ease(t)); ui_animate(); }
-            }
-            const uint8_t *ink = show_clash && !solved && cdk_clash(&G, c) ? PZB_CLASH : PZB_BLUE;
-            puz_number(&f_entry, mx, my, 0.5f * q * k, v, ink, 255);
-        } else if (G.notes[c]) {
-            for (int d = 1; d <= n; d++) {
-                if (!(G.notes[c] >> d & 1)) continue;
-                float nx = x + (0.26f + 0.24f * ((d - 1) % 3)) * q, ny = y + (0.46f + 0.2f * ((d - 1) / 3)) * q;
-                if (d == hd) ui_mark_last(nx - 0.11f * q, ny - 0.1f * q, 0.22f * q, 0.2f * q);
-                puz_number(&f_note, nx, ny, 0.2f * q, d, d == hd ? PZB_BLUE : PZB_NOTE, 255);
-            }
-        }
-    }
-    pzb_wave_tick(&win);
-    unsigned faded = 0;
-    for (int d = 1; d <= n; d++)
-        if (cdk_count_digit(&G, d) >= n) faded |= 1u << d;
-    pzb_keys(&pad, solved ? 0 : hd, faded, notes_mode);
-    int erasable = sel >= 0 && (G.val[sel] || G.notes[sel]);
-    static const int kinds[TOOLS] = {PZB_PENCIL, PZB_ERASER, -1, PZB_EYE};
-    int how[TOOLS] = {notes_mode ? UI_ON : 0, erasable ? 0 : UI_DIM, solved ? UI_DIM : 0, show_clash ? UI_ON : 0};
-    pzb_tools(&pad, kinds, how);
-    float kx, ky;
-    int d = pzb_carried(&pad, &kx, &ky);
-    if (d) {                                    /* a key carried, above the finger */
-        int c = cell_at(kx, ky);
-        if (c >= 0) {
-            cell_xy(c, &x, &y);
-            ui_mark_select(x, y, (float)q, (float)q);
-        }
-        pzb_key(&pad, d, kx, ky, 1.1f, 255, notes_mode);
-    }
+    bench_dg_marks(&dg);
+    bench_dg_cells(&dg);
+    bench_dg_pad(&dg);
 }
 
-/* ---- the pointer ------------------------------------------------------------------------------------------------- */
-static void press(float x, float y)
-{
-    if (cdk_solved(&G)) return;
-    int c = cell_at(x, y), t = pzb_tool_at(&pad, x, y);
-    if (c >= 0) {
-        if (sel != c) ui_sound(SND_TAP);
-        sel = c;
-        lit_digit = 0;
-        ui_animate();
-        return;
-    }
-    if (pzb_pad_press(&pad, x, y)) return;      /* a key: on release (a tap), or carried to a cell */
-    if (t >= 0) { tool(t); return; }
-    sel = -1;                                   /* elsewhere: nothing picked */
-    lit_digit = 0;
-    ui_animate();
-}
-
-static void motion(float x, float y) { pzb_pad_motion(&pad, x, y); }
-
-static void release(float x, float y)
-{
-    int tapped;
-    float dx, dy;
-    int d = pzb_pad_release(&pad, x, y, &tapped, &dx, &dy);
-    if (!d) return;
-    if (tapped) { enter(d); return; }
-    int c = cell_at(dx, dy);                    /* dropped: on the cell under the key */
-    if (c < 0) c = cell_at(x, y);
-    if (c < 0) { ui_sound(SND_DENY); return; }
-    sel = c;
-    enter(d);
-}
+static void press(float x, float y) { bench_dg_press(&dg, x, y); }
+static void motion(float x, float y) { bench_dg_motion(&dg, x, y); }
+static void release(float x, float y) { bench_dg_release(&dg, x, y); }
 
 static void bar(int player, box b)
 {
     (void)player;
-    ui_bar_number(b, t_small, G.hist.moves);
+    bench_bar_moves(b, t_small, G.hist.moves);
 }
 
 /* ---- the menu's and the picker's cards: a puzzle of the size and level, the level's ebony stones under it (one:
  * easy .. three: hard); the menu's a 5 x 5 puzzle half done ------------------------------------------------------ */
-static void thumb(int variant, int size, uint8_t *rgba)
+static void card(int variant, int size, int bare, uint8_t *rgba)
 {
     int n = variant < 0 ? 5 : cdk_size_of(variant), level = variant < 0 ? CDK_MEDIUM : cdk_level_of(variant);
     cdk_puzzle p;
     cdk_make(n, level, 2026u + (uint32_t)(variant + 1), &p);
-    int side = variant < 0 ? size : (int)(0.84f * size);
-    int f = (int)(side * FRAME), c = (side - 2 * f) / n, w = n * c + 2 * f, o = (size - w) / 2;
+    int side = variant < 0 || bare ? size : (int)(0.84f * size);
+    int f = (int)(side * BENCH_FRAME), c = (side - 2 * f) / n, w = n * c + 2 * f, o = (size - w) / 2;
     uint8_t *b = calloc((size_t)w * w, 4);
     if (!b) return;
     paint_board(b, &p, c, f);
     if (variant < 0)
         for (int k = 0; k < n * n; k++)
             if (k % 3 != 1 && k < 15)
-                puz_digits(b, w, w, p.sol[k], f + (k % n + 0.5f) * c, f + (k / n + 0.58f) * c, 0.56f * c, PZB_BLUE, 1,
-                           0);
+                puz_digits(b, w, w, p.sol[k], f + (k % n + 0.5f) * c, f + (k / n + 0.58f) * c, 0.56f * c, BENCH_BLUE,
+                           1, 0);
     art_blend(rgba, size, size, b, w, w, o, variant < 0 ? o : 0);
     free(b);
-    if (variant >= 0) pzb_stones(rgba, size, w + (size - w - (int)(0.1f * size)) / 2, level);
+    if (variant >= 0 && !bare) bench_stones(rgba, size, w, level);
 }
+
+static void thumb(int variant, int size, uint8_t *rgba) { card(variant, size, 0, rgba); }
+
+/* the picker's sizes (game.axes, above the levels): a puzzle of the size at the medium level, on the whole card */
+static void size_pic(int i, int size, uint8_t *rgba) { card(i * 3 + 1, size, 1, rgba); }
 
 static const game calcudoku_game = {
     .id = "calcudoku", .order = 445, .variants = CDK_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .score = score,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1,
+    .axes = {CDK_SIZES, 3}, .axis_pic = {size_pic, NULL},
+    .score = score, .level_stars = stars, .fill = 1, .tools = BENCH_TOOLS,
 };
 REGISTER_GAME(calcudoku_game)

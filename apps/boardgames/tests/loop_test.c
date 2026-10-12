@@ -57,10 +57,10 @@ int main(void)
     const int8_t nums[9] = {2, 2, 1, 2, 2, 1, 1, 1, 0};
     memcpy(h.clue, nums, 9);
     CHECK(slk_count(&h, 2) == 1);
-    CHECK(slk_rate(&h) >= 0 && slk_rate(&h) < PZB_GUESS);
+    CHECK(slk_rate(&h) >= 0 && slk_rate(&h) < BENCH_GUESS);
     for (int c = 0; c < 9; c++) h.clue[c] = -1;  /* no numbers: many loops */
     CHECK(slk_count(&h, 2) == 2);
-    CHECK(slk_rate(&h) == PZB_GUESS);
+    CHECK(slk_rate(&h) == BENCH_GUESS);
 
     for (int var = 0; var < SLK_VARIANTS; var++) {
         n = slk_size_of(var);

@@ -1,5 +1,5 @@
 /*
- * Loop: the rules (loop.h): the sides, the dots and the numbers, the solver that grades (pzbench.h) and the one that
+ * Loop: the rules (loop.h): the sides, the dots and the numbers, the solver that grades (bench.h) and the one that
  * counts, the maker, and the player's marks with their undo. No SDL: tested by tests/loop_test.c.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
@@ -61,7 +61,7 @@ static void shape(ctx_t *x, const slk_puzzle *p)
 }
 
 /* ---- the solver ------------------------------------------------------------------------------------------------- */
-static int cut(pzb_grid *g, int s, unsigned keep)
+static int cut(bench_grid *g, int s, unsigned keep)
 {
     unsigned m = g->d[s] & keep;
     if (m == g->d[s]) return 0;
@@ -77,7 +77,7 @@ static int find(int *root, int a)
 
 /* the lines drawn: their pieces (dots joined), each piece's lines, whether one is closed; -1 when a closed loop leaves
  * lines elsewhere; *closed: 1 when the lines are one closed loop */
-static int pieces(const pzb_grid *g, const ctx_t *x, int *root, int *lines, int *total, int *closed)
+static int pieces(const bench_grid *g, const ctx_t *x, int *root, int *lines, int *total, int *closed)
 {
     int n = x->n, dots = (n + 1) * (n + 1), loops = 0, loop_root = -1;
     for (int d = 0; d < dots; d++) root[d] = d, lines[d] = 0;
@@ -99,7 +99,7 @@ static int pieces(const pzb_grid *g, const ctx_t *x, int *root, int *lines, int 
     return 0;
 }
 
-static int deduce(pzb_grid *g, int tier, void *cx)
+static int deduce(bench_grid *g, int tier, void *cx)
 {
     ctx_t *x = cx;
     const slk_puzzle *p = x->p;
@@ -170,7 +170,7 @@ static int deduce(pzb_grid *g, int tier, void *cx)
          * give its dot two lines or none (the corners share no side, so each is worked out alone) */
         unsigned side_ok[4] = {0}, out_ok[4][2] = {{0}};
         for (unsigned a = 0; a < 16; a++) {
-            if (pzb_bits(a) != p->clue[c]) continue;
+            if (bench_bits(a) != p->clue[c]) continue;
             int ok = 1;
             for (int e = 0; e < 4 && ok; e++) ok = (g->d[cs[e]] >> (a >> e & 1) & 1) != 0;
             unsigned corner_ok[4] = {0};        /* bit o: the outer pair o (bit t: side t a line) fits */
@@ -182,7 +182,7 @@ static int deduce(pzb_grid *g, int tier, void *cx)
                         int s = x->outer[c][k][t], v = o >> t & 1;
                         fits = s < 0 ? !v : (g->d[s] >> v & 1) != 0;
                     }
-                    int dd = deg + pzb_bits(o);
+                    int dd = deg + bench_bits(o);
                     if (fits && (dd == 0 || dd == 2)) corner_ok[k] |= 1u << o;
                 }
                 ok = corner_ok[k] != 0;
@@ -220,7 +220,7 @@ static int clues_met(const ctx_t *x, const uint8_t *on)
     return 1;
 }
 
-static int valid(const pzb_grid *g, void *cx)
+static int valid(const bench_grid *g, void *cx)
 {
     const ctx_t *x = cx;
     uint8_t on[SLK_SIDES];
@@ -247,13 +247,14 @@ int slk_loop_ok(int n, const uint8_t *on)
     return 1;
 }
 
-static void rules_of(pzb_rules *r, ctx_t *x, const slk_puzzle *p, pzb_grid *g)
+static void rules_of(bench_rules *r, ctx_t *x, const slk_puzzle *p, bench_grid *g)
 {
     shape(x, p);
     memset(r, 0, sizeof *r);
     r->vars = x->sides;
     r->tiers = 2;
     r->probe_tiers = 1;
+    r->order = BENCH_PAIRS;                     /* the trials the makers were tuned with */
     r->deduce = deduce;
     r->valid = valid;
     r->ctx = x;
@@ -263,22 +264,22 @@ static void rules_of(pzb_rules *r, ctx_t *x, const slk_puzzle *p, pzb_grid *g)
 
 static int grade(const slk_puzzle *p, int most, int trials, long budget)
 {
-    static pzb_rules r;
+    static bench_rules r;
     static ctx_t x;
-    pzb_grid g;
+    bench_grid g;
     rules_of(&r, &x, p, &g);
     r.no_trials = !trials;
     if (budget) r.budget = budget;
-    return pzb_grade(&g, &r, most);
+    return bench_grade(&g, &r, most);
 }
 
-int slk_rate(const slk_puzzle *p) { return grade(p, PZB_HARD, 1, 0); }
+int slk_rate(const slk_puzzle *p) { return grade(p, BENCH_HARD, 1, 0); }
 
-static int count_rec(pzb_grid *g, pzb_rules *r, int limit)
+static int count_rec(bench_grid *g, bench_rules *r, int limit)
 {
     const ctx_t *x = r->ctx;
     int used = 0, n = x->n;
-    if (pzb_settle(g, r, 1, &used) < 0) return 0;
+    if (bench_settle(g, r, 1, &used) < 0) return 0;
     int best = -1;
     for (int d = 0; d < (n + 1) * (n + 1) && best < 0; d++) {   /* a side at a line's loose end first */
         int on = 0, open = -1;
@@ -291,11 +292,11 @@ static int count_rec(pzb_grid *g, pzb_rules *r, int limit)
         if (on == 1 && open >= 0) best = open;
     }
     for (int s = 0; s < r->vars && best < 0; s++)
-        if (!pzb_single(g->d[s])) best = s;
+        if (!bench_one(g->d[s])) best = s;
     if (best < 0) return r->valid(g, r->ctx);
     int found = 0;
     for (unsigned m = ON; m && found < limit; m >>= 1) {    /* a line first */
-        pzb_grid t = *g;
+        bench_grid t = *g;
         t.d[best] = (uint16_t)m;
         found += count_rec(&t, r, limit - found);
     }
@@ -304,9 +305,9 @@ static int count_rec(pzb_grid *g, pzb_rules *r, int limit)
 
 int slk_count(const slk_puzzle *p, int limit)
 {
-    static pzb_rules r;
+    static bench_rules r;
     static ctx_t x;
-    pzb_grid g;
+    bench_grid g;
     rules_of(&r, &x, p, &g);
     r.budget = 0;
     return count_rec(&g, &r, limit);
@@ -393,11 +394,11 @@ static int make_one(uint32_t *rng, int n, int level, slk_puzzle *p)
         int c = order[k], was = p->clue[c];
         p->clue[c] = -1;
         int r = grade(p, top, 0, 0);
-        if (r < 0 || r == PZB_GUESS) p->clue[c] = (int8_t)was;
+        if (r < 0 || r == BENCH_GUESS) p->clue[c] = (int8_t)was;
     }
     int r = grade(p, top, 0, 0);
     if (level < SLK_HARD) return r == level;
-    if (r < 0 || r == PZB_GUESS) return 0;
+    if (r < 0 || r == BENCH_GUESS) return 0;
     for (int k = 0, tries = 0; k < n * n && tries < 6; k++) {   /* hard: one more taken away, trials needed */
         int c = order[k], was = p->clue[c];
         if (was < 0) continue;
@@ -429,7 +430,7 @@ void slk_new(slk_game *g, int variant, uint32_t seed)
     g->level = slk_level_of(variant);
     g->seed = seed;
     slk_make(slk_size_of(variant), g->level, seed, &g->p);
-    pzb_hist_clear(&g->hist);
+    bench_clear(&g->hist);
 }
 
 static void restore(void *cx, int at, uint32_t was)
@@ -438,13 +439,22 @@ static void restore(void *cx, int at, uint32_t was)
     g->side[at] = (uint8_t)was;
 }
 
+/* the wrong entries on the board (the stars' mistakes) */
+static int wrongs(const slk_game *g)
+{
+    int k = 0;
+    for (int c = 0; c < slk_sides(g->p.n); c++)
+        k += (g->side[c] == SLK_LINE && !g->p.sol[c]) || (g->side[c] == SLK_CROSS && g->p.sol[c]);
+    return k;
+}
+
 int slk_set(slk_game *g, int s, int state)
 {
     if (s < 0 || s >= slk_sides(g->p.n) || state < 0 || state > 2 || g->side[s] == state) return 0;
-    pzb_begin(&g->hist, 1);
-    pzb_log(&g->hist, s, g->side[s]);
+    bench_begin(&g->hist, 1);
+    bench_log(&g->hist, s, g->side[s]);
     g->side[s] = (uint8_t)state;
-    return pzb_end(&g->hist);
+    return bench_done(&g->hist, wrongs(g));
 }
 
 int slk_cycle(slk_game *g, int s)
@@ -457,10 +467,11 @@ int slk_stroke(slk_game *g, int s, int state, int first)
 {
     if (first || !g->hist.n) return slk_set(g, s, state);
     if (s < 0 || s >= slk_sides(g->p.n) || state < 0 || state > 2 || g->side[s] == state) return 0;
-    pzb_begin(&g->hist, 1);
+    bench_begin(&g->hist, 1);
     g->hist.open = 0;                           /* joined to the action before */
-    pzb_log(&g->hist, s, g->side[s]);
+    bench_log(&g->hist, s, g->side[s]);
     g->side[s] = (uint8_t)state;
+    g->hist.wrongs = wrongs(g);
     return 1;
 }
 
@@ -481,21 +492,21 @@ int slk_dot_lines(const slk_game *g, int x, int y)
     return k;
 }
 
-int slk_hint(slk_game *g)
+static int hint_step(slk_game *g)
 {
     const slk_puzzle *p = &g->p;
     int S = slk_sides(p->n);
     for (int s = 0; s < S; s++)                 /* a wrong mark first: a line off the loop, a cross on it */
         if ((g->side[s] == SLK_LINE && !p->sol[s]) || (g->side[s] == SLK_CROSS && p->sol[s]))
             return slk_set(g, s, p->sol[s] ? SLK_LINE : SLK_CROSS) ? s : -1;
-    static pzb_rules r;
+    static bench_rules r;
     static ctx_t x;
-    pzb_grid d;
+    bench_grid d;
     rules_of(&r, &x, p, &d);
     for (int s = 0; s < S; s++)
         if (g->side[s]) d.d[s] = g->side[s] == SLK_LINE ? ON : OFF;
     int used = 0;
-    pzb_settle(&d, &r, 1, &used);
+    bench_settle(&d, &r, 1, &used);
     int best = -1;
     for (int pass = 0; pass < 3 && best < 0; pass++)   /* a line reasoning finds, a cross, else any line missing */
         for (int s = 0; s < S && best < 0; s++) {
@@ -507,7 +518,18 @@ int slk_hint(slk_game *g)
     return slk_set(g, best, p->sol[best] ? SLK_LINE : SLK_CROSS) ? best : -1;
 }
 
-int slk_undo(slk_game *g) { return pzb_undo(&g->hist, restore, g); }
+int slk_hint(slk_game *g)
+{
+    return bench_hinted(&g->hist, hint_step(g));
+}
+
+int slk_undo(slk_game *g)
+{
+    int c = bench_undo(&g->hist, restore, g);
+    bench_undone(&g->hist, wrongs(g));
+    return c;
+}
+
 
 int slk_solved(const slk_game *g)
 {
@@ -533,9 +555,9 @@ int slk_script(slk_game *g, const char *s)
                 if (g->p.sol[e] && g->side[e] != SLK_LINE) { slk_set(g, e, SLK_LINE); k--; }
             continue;
         }
-        int la, lb, a = pzb_cell(s, n + 1, n + 1, &la);
+        int la, lb, a = bench_cell(s, n + 1, n + 1, &la);
         if (a < 0 || s[la] != '-') return 0;
-        int b = pzb_cell(s + la + 1, n + 1, n + 1, &lb);
+        int b = bench_cell(s + la + 1, n + 1, n + 1, &lb);
         if (b < 0) return 0;
         s += la + 1 + lb;
         int ax = a % (n + 1), ay = a / (n + 1), bx = b % (n + 1), by = b / (n + 1), side;

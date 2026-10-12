@@ -9,7 +9,7 @@
  * seed: a pattern of dark squares (turned half round it stays the same; every run two squares or more, nine at
  * most; the white squares all joined), digits put in by chance, the clues added up; then digits changed one at a
  * time where the reasoning is stuck until the solver finishes it, at its level and not below. The level is the
- * reasoning the solver needs (pzbench.h):
+ * reasoning the solver needs (bench.h):
  *   0 easy: the ways of making each clue with its run's length (a square keeps the digits of those ways), a digit
  *     placed is not used again in its runs, a digit every way needs with one square left for it;
  *   1 medium: also every run worked out whole (the digits its squares can take together, without repeats);
@@ -24,7 +24,7 @@
 
 #include <stdint.h>
 
-#include "games/pzbench.h"
+#include "games/bench.h"
 
 #define KKR_MAX 12
 #define KKR_CELLS (KKR_MAX * KKR_MAX)
@@ -60,13 +60,13 @@ typedef struct {
     uint8_t run_of[KKR_CELLS][2];               /* a white square's runs: across, down */
     uint8_t val[KKR_CELLS];
     uint16_t notes[KKR_CELLS];
-    pzb_hist hist;
+    bench_hist hist;
 } kkr_game;
 
 /* the runs of a puzzle: their count; run_of may be NULL */
 int  kkr_runs(const kkr_puzzle *p, kkr_run *runs, uint8_t (*run_of)[2]);
 int  kkr_count(const kkr_puzzle *p, int limit); /* the solutions, up to limit (a plain search) */
-int  kkr_rate(const kkr_puzzle *p);             /* KKR_EASY..KKR_HARD; PZB_GUESS stuck; PZB_NONE none */
+int  kkr_rate(const kkr_puzzle *p);             /* KKR_EASY..KKR_HARD; BENCH_GUESS stuck; BENCH_NONE none */
 void kkr_make(int n, int level, uint32_t seed, kkr_puzzle *p);
 
 void kkr_new(kkr_game *g, int variant, uint32_t seed);

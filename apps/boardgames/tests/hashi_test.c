@@ -88,7 +88,7 @@ int main(void)
     CHECK(hsh_count(&p, 3) >= 1);
     hsh_puzzle q = p;
     q.need[0] = 7;                               /* two links can take four at most */
-    CHECK(hsh_count(&q, 2) == 0 && hsh_rate(&q) == PZB_NONE);
+    CHECK(hsh_count(&q, 2) == 0 && hsh_rate(&q) == BENCH_NONE);
     /* crossing: an across link over a down one */
     hsh_puzzle x;
     memset(&x, 0, sizeof x);

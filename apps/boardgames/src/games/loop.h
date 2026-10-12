@@ -7,7 +7,7 @@
  * The variants: the four sizes, each at three levels (5 easy, 5 medium, 5 hard, 7 easy...). A puzzle is made from a
  * seed: a region of cells grown by chance (all in one piece, no holes, never touching itself at a corner), its
  * border the loop; every cell's number counted, then numbers taken away one by one (in a random order) as long as the
- * solver still finishes it at its level. The level is the reasoning the solver needs (pzbench.h):
+ * solver still finishes it at its level. The level is the reasoning the solver needs (bench.h):
  *   0 easy: a number's sides (all its lines drawn: the others crossed; as many sides left as lines missing: all
  *     drawn), a dot's two lines (a dot has two lines or none), and no small loop closed while lines lie elsewhere;
  *   1 medium: also a number seen with the dots at its corners (its four sides and the sides leaving its corners
@@ -24,7 +24,7 @@
 
 #include <stdint.h>
 
-#include "games/pzbench.h"
+#include "games/bench.h"
 
 #define SLK_MAX 15
 #define SLK_CELLS (SLK_MAX * SLK_MAX)
@@ -66,7 +66,7 @@ typedef struct {
     uint32_t seed;
     slk_puzzle p;
     uint8_t side[SLK_SIDES];                    /* SLK_EMPTY, SLK_LINE, SLK_CROSS */
-    pzb_hist hist;
+    bench_hist hist;
 } slk_game;
 
 int  slk_count(const slk_puzzle *p, int limit);
