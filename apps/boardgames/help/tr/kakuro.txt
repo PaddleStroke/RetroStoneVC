@@ -1,0 +1,13 @@
+Kakuro
+# Amaç
+Her beyaz kareye 1'den 9'a kadar bir rakam yaz. Dizi, koyu kareler arasındaki yatay ya da dikey bir beyaz kare sırasıdır; önündeki koyu kare onun toplamını taşır. Bir dizinin rakamlarının toplamı bu sayıyı verir ve hiçbir rakam bir dizide iki kez geçmez. Koyu bir karede köşegenin üstündeki toplam sağındaki diziye, altındaki toplam altındaki diziye aittir. Her bulmacanın tek bir çözümü vardır ve yalnızca akıl yürüterek bulunur. Önce boyutu ve seviyeyi seç (her resmin altındaki taşlar):
+- Kolay: her toplamı dizisinin uzunluğuyla elde etmenin yolları her zaman yeter (iki karede 3 ancak 1 ile 2 olabilir).
+- Orta: tüm yolların gerektirdiği ve tek bir karesi kalan bir rakam ile bir dizideki çiftler de gerekecek.
+- Zor: bütün bir diziyi bir kerede düşünmen (hangi rakam hangi kareye girebilir) ya da bir rakamı deneyip izlemen gerekecek.
+# Cihazda oynamak
+Beyaz bir kareye, sonra tahtanın altındaki bir tuşa dokun: rakamı mavi mürekkeple yazılır. Silmek için aynı tuşa yeniden dokun ya da bir tuşu bir kareye sürükle. Karenin iki dizisi aydınlanır, toplamları altın rengini alır; aynı rakamı taşıyan kareler sıcak bir ışıkla parlar. Hiçbir kare seçili değilken bir tuş kendi rakamının karelerini aydınlatır. Tahtanın yanındaki düğmeler:
+- Kalem: notlar. Tuşlar o zaman kareye küçük rakamlar koyar ya da onları siler.
+- Silgi: karenin rakamını ya da notlarını siler.
+- Lamba: ipucu. Yanlış bir rakamı düzeltir, yoksa akıl yürütmenin bulduğu bir kareyi altın ışıkta doldurur.
+- Göz: hataları kırmızıyla gösterir (bir dizide iki kez geçen rakam, toplamını aşan dizi ya da toplamı yanlış dolu dizi). Başta açıktır.
+Geri al her seferinde bir işlemi, en başa kadar geri alır. Çubuk hamlelerini gösterir. Bütün kareler doğru olunca tahtanın üzerinden altın renkli bir ışık dalgası geçer.

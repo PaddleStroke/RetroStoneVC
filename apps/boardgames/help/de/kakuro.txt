@@ -1,0 +1,13 @@
+Kakuro
+# Das Ziel
+Fülle jedes weiße Feld mit einer Zahl von 1 bis 9. Ein Block ist eine Reihe weißer Felder, waagrecht oder senkrecht, zwischen dunklen Feldern; das dunkle Feld davor trägt seine Summe. Die Zahlen eines Blocks ergeben zusammen seine Summe, und keine Zahl kommt in einem Block zweimal vor. In einem dunklen Feld gilt die Summe über der Diagonale für den Block rechts davon, die darunter für den Block darunter. Jedes Rätsel hat genau eine Lösung, die sich allein durch Nachdenken finden lässt. Wähle zuerst die Größe und die Stufe (die Steine unter jedem Bild):
+- Leicht: Die Möglichkeiten, jede Summe mit der Länge ihres Blocks zu bilden, reichen immer (3 in zwei Feldern geht nur mit 1 und 2).
+- Mittel: Du brauchst auch eine Zahl, die jede Möglichkeit enthält und für die nur noch ein Feld bleibt, und Paare in einem Block.
+- Schwer: Du musst einen ganzen Block auf einmal durchdenken (welche Zahl in welches Feld kann) oder eine Zahl ausprobieren und verfolgen.
+# Spielen auf dem Gerät
+Tippe ein weißes Feld an, dann eine Taste unter dem Brett: Ihre Zahl kommt hinein, in blauer Tinte. Tippe dieselbe Taste noch einmal, um sie herauszunehmen, oder ziehe eine Taste auf ein Feld. Die beiden Blöcke des Felds leuchten auf, ihre Summen golden, alle Felder mit seiner Zahl wärmer. Ist kein Feld gewählt, lässt eine Taste die Felder ihrer Zahl aufleuchten. Die Knöpfe neben dem Brett:
+- Bleistift: Notizen. Die Tasten setzen dann kleine Zahlen ins Feld oder nehmen sie heraus.
+- Radiergummi: nimmt die Zahl des Felds heraus oder seine Notizen.
+- Lampe: ein Tipp. Sie berichtigt eine falsche Zahl oder füllt sonst ein Feld, das sich durch Nachdenken ergibt, in goldenem Licht.
+- Auge: zeigt Fehler rot (eine Zahl zweimal in einem Block, ein Block über seiner Summe oder ein voller Block mit falscher Summe). Es ist zu Beginn an.
+Rückgängig nimmt eine Aktion nach der anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge. Ist jedes Feld richtig, läuft eine Welle goldenen Lichts über das Brett.

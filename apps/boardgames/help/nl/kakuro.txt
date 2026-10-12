@@ -1,0 +1,13 @@
+Kakuro
+# Het doel
+Vul elk wit vakje met een cijfer van 1 tot 9. Een reeks is een rij witte vakjes, horizontaal of verticaal, tussen donkere vakjes; het donkere vakje ervoor bevat de som. De cijfers van een reeks tellen op tot die som, en geen cijfer komt twee keer in een reeks voor. In een donker vakje hoort de som boven de diagonaal bij de reeks rechts ervan, de som eronder bij de reeks eronder. Elke puzzel heeft precies één oplossing, te vinden door alleen te redeneren. Kies eerst de grootte en het niveau (de stenen onder elk plaatje):
+- Makkelijk: de manieren om elke som te maken met de lengte van de reeks zijn altijd genoeg (3 in twee vakjes kan alleen 1 en 2 zijn).
+- Gemiddeld: je hebt ook een cijfer nodig dat in elke manier zit en nog maar één vakje heeft, en paren in een reeks.
+- Moeilijk: je moet een hele reeks in één keer doordenken (welk cijfer in welk vakje kan), of een cijfer proberen en volgen.
+# Spelen op het apparaat
+Tik een wit vakje aan en dan een toets onder het bord: het cijfer komt erin, in blauwe inkt. Tik nog eens op dezelfde toets om het weg te halen, of sleep een toets naar een vakje. De twee reeksen van het vakje lichten op, hun sommen in goud, en elk vakje met hetzelfde cijfer warm. Is er geen vakje gekozen, dan laat een toets de vakjes met zijn cijfer oplichten. De knoppen naast het bord:
+- Potlood: notities. De toetsen zetten dan kleine cijfers in het vakje of halen ze weg.
+- Gum: haalt het cijfer van het vakje weg, of de notities.
+- Lamp: een hint. Hij verbetert een fout cijfer, of vult anders een vakje dat redeneren oplevert, in gouden licht.
+- Oog: toont fouten in rood (een cijfer twee keer in een reeks, een reeks boven zijn som, of een volle reeks met de verkeerde som). Het staat aan het begin aan.
+Ongedaan maken neemt telkens één handeling terug, helemaal tot het begin. De balk toont je zetten. Is elk vakje goed, dan gaat er een golf van gouden licht over het bord.
