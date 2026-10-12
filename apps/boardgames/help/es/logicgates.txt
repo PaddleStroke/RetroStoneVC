@@ -20,8 +20,8 @@ Un interruptor con una barra de latón atornillada encima se queda como está.
 Los capítulos: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 desvíos; 4 cables que se cortan; 5 cadenas más largas, un interruptor que alimenta varias puertas, puertas de tres entradas; 6 grandes circuitos que lo mezclan todo.
 Una jugada es un cambio o un corte. Cada nivel tiene un par, el mínimo de jugadas que lo resuelven. Resuelto en el par: 3 estrellas; hasta dos jugadas más: 2 estrellas; si no, 1. Pedir una pista deja el nivel en 2 estrellas como máximo. Deshacer anula una jugada, que ya no cuenta. Los niveles resueltos siguen abiertos, y también los tres primeros sin resolver.
 # Jugar en el dispositivo
-- La cuadrícula de niveles: una pestaña por capítulo y luego sus niveles: resueltos en oro con sus estrellas, abiertos en madera, cerrados en madera oscura. Toca un nivel para jugarlo.
+- La cuadrícula de niveles: una pestaña por capítulo y luego sus niveles: resueltos en oro con sus estrellas, abiertos en madera, cerrados en madera oscura. Toca un nivel para jugarlo. Tus estrellas quedan guardadas en el dispositivo.
 - Toca un interruptor para cambiarlo, un desvío para girarlo, un fusible para cortar su cable. El cambio sube por los cables, puerta tras puerta.
-- Junto a la placa: el botón de cuadrícula vuelve a los niveles; luego el capítulo y el número del nivel; la flecha redonda empieza de nuevo el nivel; la lámpara da una pista: parpadea la próxima pieza que hay que cambiar. Si parpadea el botón de empezar de nuevo, tus cortes están mal: deshazlos.
-- Cuando todas las lámparas se encienden, brillan en oro. Toca la placa para pasar al siguiente nivel. Nueva partida también vuelve a la cuadrícula.
+- Junto a la placa: el capítulo y el número del nivel; la flecha redonda empieza de nuevo el nivel; la lámpara da una pista: parpadea la próxima pieza que hay que cambiar. Si parpadea el botón de empezar de nuevo, tus cortes están mal: deshazlos.
+- Cuando todas las lámparas se encienden, brillan en oro; luego aparecen tus estrellas con el botón del siguiente nivel. Nueva partida (el botón de cuadrícula) vuelve a la cuadrícula de niveles.
 - La barra muestra tus jugadas, los cortes que quedan y, en su extremo derecho, el par junto a tres estrellas.

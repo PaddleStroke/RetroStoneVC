@@ -20,8 +20,8 @@ Un interrupteur barré d'une plaque de laiton vissée reste comme il est.
 Les chapitres : 1 NON, ET, OU ; 2 OU exclusif, NON-ET, NON-OU ; 3 aiguillages ; 4 fils à couper ; 5 chaînes plus longues, un interrupteur qui alimente plusieurs portes, portes à trois entrées ; 6 grands circuits qui mélangent tout.
 Un coup, c'est une bascule ou une coupure. Chaque niveau a un par, le moins de coups qui le résolvent. Résolu au par : 3 étoiles ; jusqu'à deux coups de plus : 2 étoiles ; sinon 1. Demander un indice limite le niveau à 2 étoiles. Annuler reprend un coup, qui ne compte plus. Les niveaux résolus restent ouverts, ainsi que les trois premiers non résolus.
 # Jouer sur l'appareil
-- La grille des niveaux : un onglet par chapitre, puis les niveaux du chapitre : résolus en or avec leurs étoiles, ouverts en bois, fermés en bois sombre. Touche un niveau pour le jouer.
+- La grille des niveaux : un onglet par chapitre, puis les niveaux du chapitre : résolus en or avec leurs étoiles, ouverts en bois, fermés en bois sombre. Touche un niveau pour le jouer. Tes étoiles restent gardées sur l'appareil.
 - Touche un interrupteur pour le basculer, un aiguillage pour le tourner, un fusible pour couper son fil. Le changement remonte les fils, porte après porte.
-- À côté du plateau : le bouton grille ramène aux niveaux ; puis le chapitre et le numéro du niveau ; la flèche ronde recommence le niveau ; la lampe donne un indice : la prochaine pièce à changer clignote. Si c'est le bouton Recommencer qui clignote, tes coupures sont fausses : annule-les.
-- Quand toutes les lampes sont allumées, elles s'embrasent d'or. Touche le plateau pour le niveau suivant. Nouvelle partie ramène aussi à la grille des niveaux.
+- À côté du plateau : le chapitre et le numéro du niveau ; la flèche ronde recommence le niveau ; la lampe donne un indice : la prochaine pièce à changer clignote. Si c'est le bouton Recommencer qui clignote, tes coupures sont fausses : annule-les.
+- Quand toutes les lampes sont allumées, elles s'embrasent d'or ; puis tes étoiles apparaissent avec le bouton du niveau suivant. Nouvelle partie (le bouton grille) ramène à la grille des niveaux.
 - La barre montre tes coups, les coupures restantes et, à son extrémité droite, le par à côté de trois étoiles.

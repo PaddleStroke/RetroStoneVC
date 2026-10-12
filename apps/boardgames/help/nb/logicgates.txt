@@ -20,8 +20,8 @@ En bryter med en fastskrudd messingstang over seg blir som den er.
 Kapitlene: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 sporvekslere; 4 ledninger som kan kuttes; 5 lengre kjeder, én bryter til flere porter, porter med tre innganger; 6 store kretser med alt om hverandre.
 Et trekk er ett skifte eller ett kutt. Hvert brett har en par, færrest trekk som løser det. Løst på par: 3 stjerner; opptil to trekk mer: 2 stjerner; ellers 1. Ber du om et hint, gir brettet høyst 2 stjerner. Angre tar tilbake et trekk, og det teller ikke lenger. Løste brett forblir åpne, og det gjør også de tre første uløste.
 # Spill på enheten
-- Brettoversikten: en fane for hvert kapittel, deretter brettene i det: løste i gull med stjernene sine, åpne i tre, låste i mørkt tre. Trykk på et brett for å spille det.
+- Brettoversikten: en fane for hvert kapittel, deretter brettene i det: løste i gull med stjernene sine, åpne i tre, låste i mørkt tre. Trykk på et brett for å spille det. Stjernene dine lagres på enheten.
 - Trykk på en bryter for å slå den om, på en sporveksler for å snu den, på en sikring for å kutte ledningen. Endringen løper opp ledningene, port for port.
-- Ved siden av kortet: rutenettknappen går tilbake til brettene; så kapitlet og brettets nummer; den runde pilen starter brettet på nytt; lampen gir et hint: den neste delen som skal endres, blinker. Blinker omstartknappen i stedet, er kuttene dine feil: angre dem.
-- Når alle lampene lyser, blusser de opp i gull. Trykk på kortet for neste brett. Nytt spill går også tilbake til brettoversikten.
+- Ved siden av kortet: kapitlet og brettets nummer; den runde pilen starter brettet på nytt; lampen gir et hint: den neste delen som skal endres, blinker. Blinker omstartknappen i stedet, er kuttene dine feil: angre dem.
+- Når alle lampene lyser, blusser de opp i gull; så vises stjernene dine med knappen til neste brett. Nytt spill (rutenettknappen) går tilbake til brettoversikten.
 - Linjen viser trekkene dine, kuttene som er igjen og, ytterst til høyre, par ved siden av tre stjerner.

@@ -20,8 +20,8 @@ Un interruttore con una barra d'ottone avvitata sopra resta com'è.
 I capitoli: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 deviatori; 4 fili da tagliare; 5 catene più lunghe, un interruttore che alimenta più porte, porte a tre ingressi; 6 grandi circuiti che mescolano tutto.
 Una mossa è uno scatto o un taglio. Ogni livello ha un par, il minimo di mosse che lo risolvono. Risolto al par: 3 stelle; fino a due mosse in più: 2 stelle; altrimenti 1. Chiedere un suggerimento limita il livello a 2 stelle. Annulla toglie una mossa, che non conta più. I livelli risolti restano aperti, e così i primi tre non risolti.
 # Giocare sul dispositivo
-- La griglia dei livelli: una scheda per capitolo, poi i suoi livelli: risolti in oro con le loro stelle, aperti in legno, chiusi in legno scuro. Tocca un livello per giocarlo.
+- La griglia dei livelli: una scheda per capitolo, poi i suoi livelli: risolti in oro con le loro stelle, aperti in legno, chiusi in legno scuro. Tocca un livello per giocarlo. Le tue stelle restano salvate sul dispositivo.
 - Tocca un interruttore per farlo scattare, un deviatore per girarlo, un fusibile per tagliarne il filo. Il cambiamento sale lungo i fili, porta dopo porta.
-- Accanto alla scheda: il pulsante a griglia torna ai livelli; poi il capitolo e il numero del livello; la freccia tonda ricomincia il livello; la lampada dà un suggerimento: lampeggia il prossimo pezzo da cambiare. Se lampeggia invece il pulsante per ricominciare, i tuoi tagli sono sbagliati: annullali.
-- Quando tutte le lampade sono accese, divampano d'oro. Tocca la scheda per il livello successivo. Anche Nuova partita torna alla griglia dei livelli.
+- Accanto alla scheda: il capitolo e il numero del livello; la freccia tonda ricomincia il livello; la lampada dà un suggerimento: lampeggia il prossimo pezzo da cambiare. Se lampeggia invece il pulsante per ricominciare, i tuoi tagli sono sbagliati: annullali.
+- Quando tutte le lampade sono accese, divampano d'oro; poi compaiono le tue stelle con il pulsante del livello successivo. Nuova partita (il pulsante a griglia) torna alla griglia dei livelli.
 - La barra mostra le tue mosse, i tagli rimasti e, all'estremità destra, il par accanto a tre stelle.

@@ -20,8 +20,8 @@ Um interruptor com uma barra de latão aparafusada por cima fica como está.
 Os capítulos: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 desvios; 4 fios a cortar; 5 cadeias mais longas, um interruptor que alimenta várias portas, portas de três entradas; 6 circuitos grandes que misturam tudo.
 Uma jogada é uma mudança ou um corte. Cada nível tem um par, o mínimo de jogadas que o resolvem. Resolvido no par: 3 estrelas; até duas jogadas a mais: 2 estrelas; senão, 1. Pedir uma pista limita o nível a 2 estrelas. Anular desfaz uma jogada, que deixa de contar. Os níveis resolvidos ficam abertos, tal como os três primeiros por resolver.
 # Jogar no dispositivo
-- A grelha de níveis: um separador por capítulo e depois os seus níveis: resolvidos em ouro com as suas estrelas, abertos em madeira, fechados em madeira escura. Toca num nível para o jogar.
+- A grelha de níveis: um separador por capítulo e depois os seus níveis: resolvidos em ouro com as suas estrelas, abertos em madeira, fechados em madeira escura. Toca num nível para o jogar. As tuas estrelas ficam guardadas no dispositivo.
 - Toca num interruptor para o mudar, num desvio para o rodar, num fusível para cortar o seu fio. A mudança sobe pelos fios, porta após porta.
-- Ao lado da placa: o botão de grelha volta aos níveis; depois vêm o capítulo e o número do nível; a seta redonda recomeça o nível; a lâmpada dá uma pista: pisca a próxima peça a mudar. Se piscar o botão de recomeçar, os teus cortes estão errados: anula-os.
-- Quando todas as lâmpadas se acendem, brilham em ouro. Toca na placa para passar ao nível seguinte. Novo jogo também volta à grelha de níveis.
+- Ao lado da placa: o capítulo e o número do nível; a seta redonda recomeça o nível; a lâmpada dá uma pista: pisca a próxima peça a mudar. Se piscar o botão de recomeçar, os teus cortes estão errados: anula-os.
+- Quando todas as lâmpadas se acendem, brilham em ouro; depois aparecem as tuas estrelas com o botão do nível seguinte. Novo jogo (o botão de grelha) volta à grelha de níveis.
 - A barra mostra as tuas jogadas, os cortes que restam e, na ponta direita, o par ao lado de três estrelas.

@@ -2,14 +2,14 @@
  * Logic Gates in RetroStone Board, for one player (the rules: logicgates_rules.c, logicgates.h): a circuit board of
  * dark green in a walnut frame, brass traces on it, the gates as brass shapes inlaid in walnut plaques (the classic
  * shapes, no letters), the switches along the bottom, the lamps at the top. A wire carrying 1 glows gold; after each
- * move the change runs up the wires, gate after gate. Solved: the lamps flare in a gold burst, then a tap opens the
- * next level.
+ * move the change runs up the wires, gate after gate. Solved: the lamps flare in a gold burst, then the shell's end
+ * card (the stars, the next level).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- * No level open: the level grid (a tab for each chapter, 25 numbered tiles: solved in gold with their stars, open in
- * wood, locked dark; the first three unsolved levels are open). In a level, the tools beside the board (above it
- * standing, at its right lying): back to the grid, the level's number, restart, the hint (one part to change blinks).
- * The shell's new game also goes back to the grid. The bar: the moves made, the par (three stars), the cuts left.
+ * The levels: the shell's level screen (a tab for each chapter with its emblem, the chapter's 25 levels as tiles; the
+ * shell keeps the stars won); its new game goes back to it. In a level, the tools beside the board (above it standing,
+ * at its right lying): the level (its chapter's emblem, its number), restart, the hint (one part to change blinks). The
+ * bar: the moves made, the par (three stars), the cuts left.
  * Tap a switch or a route switch to flip it, a fuse to cut its wire (sparks); undo takes a move back.
  */
 #include <math.h>
@@ -30,10 +30,6 @@
 #define SPARKS 12
 
 static lg_game G;
-static int playing;                             /* a level open; else the level grid */
-static int page;                                /* the grid's chapter */
-static uint8_t stars[LG_LEVELS];
-static int loaded;
 
 /* the animations */
 static Uint32 t0;                               /* the last move: its change runs up from there */
@@ -49,11 +45,9 @@ static Uint32 solved_t;                         /* when the lamps light up (the 
 static box B, panel;                            /* the game's room; the framed board */
 static int wide, fr;                            /* lying: the tools at the right */
 static float ox, oy, cw, ch, tw;                /* grid (x, y) at (ox + x cw, oy - y ch); the traces' width */
-static float tbx[3], tby[3], tbr, labx, laby;   /* the tools: grid, restart, hint; the level's number */
-static box tabs[LG_CHAPTERS], tiles[LG_PER_CHAPTER];
-static float tile_w;
+static float tbx[2], tby[2], tbr, labx, laby;   /* the tools: restart, hint; the level's number */
 
-enum { T_GRID, T_RESET, T_HINT };
+enum { T_RESET, T_HINT };
 
 static float PX(float x) { return ox + x * cw; }
 static float PY(float y) { return oy - y * ch; }
@@ -356,24 +350,17 @@ static void paint_star(int size, const uint8_t rgb[3], uint8_t *o)
     art_fig_free(f);
 }
 
-/* the tools' icons (white, tinted): the level grid (nine squares), restart (an arrow going round) */
-static void paint_icon(int which, int size, uint8_t *o)
+/* the restart tool's icon (white): an arrow going round */
+static void paint_restart(int size, uint8_t *o)
 {
     memset(o, 0, (size_t)size * size * 4);
     const uint8_t white[3] = {255, 255, 255};
     art_style st = style(white, 0, 0);
     art_fig *f = art_fig_new();
-    if (which == T_GRID) {
-        for (int i = 0; i < 9; i++) {
-            float x = 0.2f + (i % 3) * 0.22f, y = 0.2f + (i / 3) * 0.22f;
-            art_rect(f, ART_PART, x, y, x + 0.16f, y + 0.16f);
-        }
-    } else {
-        art_arc(f, ART_PART, 0.5f, 0.52f, 0.2f, 0.29f, -10, 250);
-        float a = -10 * 3.14159265f / 180, px = 0.5f + 0.245f * cosf(a), py = 0.52f - 0.245f * sinf(a);
-        const float head[] = {px - 0.13f, py, px + 0.13f, py, px, py + 0.15f};
-        art_poly(f, ART_PART, head, 3);
-    }
+    art_arc(f, ART_PART, 0.5f, 0.52f, 0.2f, 0.29f, -10, 250);
+    float a = -10 * 3.14159265f / 180, px = 0.5f + 0.245f * cosf(a), py = 0.52f - 0.245f * sinf(a);
+    const float head[] = {px - 0.13f, py, px + 0.13f, py, px, py + 0.15f};
+    art_poly(f, ART_PART, head, 3);
     art_render(f, &st, size, size, (float)size, 0, 0, o);
     art_fig_free(f);
 }
@@ -439,21 +426,10 @@ static void token(int player, int size, uint8_t *rgba)
 
 /* ---- the textures ------------------------------------------------------------------------------------------------ */
 static SDL_Texture *t_board, *t_plaque, *t_gate[LG_KINDS][2][2], *t_route[2][2], *t_switch[2], *t_lock, *t_lamp[2][2],
-    *t_fuse[2], *t_dot, *t_glow, *t_star, *t_star_dim, *t_tool[2], *t_bulb, *t_disc, *t_play, *t_emblem[LG_CHAPTERS],
-    *t_tile[3], *t_tab[2], *t_next;
-static int made_board = -1, made_parts = -1, made_grid = -1, made_bar = -1;
+    *t_fuse[2], *t_dot, *t_glow, *t_tool, *t_bulb, *t_disc, *t_emblem[LG_CHAPTERS];
+static int made_board = -1, made_parts = -1, made_shared = -1, made_bar = -1;
 static float pw, ph, sw_w, sw_h, lamp_w, lamp_h, fuse_l, fuse_t, gate_w[2], gate_h;
 static puz_font font;
-
-static SDL_Texture *tex_of(int w, int h, void (*paint)(int, int, uint8_t *), int arg)
-{
-    uint8_t *b = calloc((size_t)w * h, 4);
-    if (!b) return NULL;
-    paint(arg, w, b);
-    SDL_Texture *t = ui_tex(w, h, b);
-    free(b);
-    return t;
-}
 
 static SDL_Texture *tex_buf(int w, int h, uint8_t *b)
 {
@@ -547,10 +523,9 @@ static void part_textures(void)
 static void shared_textures(void)
 {
     int key = (int)ui.unit;
-    if (made_grid == key) return;
-    made_grid = key;
-    const uint8_t white[3] = {255, 255, 255}, gold[3] = {255, 200, 80}, dim[3] = {70, 64, 52},
-                  house[3] = {54, 72, 64};
+    if (made_shared == key) return;
+    made_shared = key;
+    const uint8_t white[3] = {255, 255, 255}, gold[3] = {255, 200, 80}, house[3] = {54, 72, 64};
     int d = (int)(0.5f * ui.unit) | 1;
     ui_free(&t_dot);
     uint8_t *b = calloc((size_t)d * d, 4);
@@ -559,32 +534,18 @@ static void shared_textures(void)
     ui_free(&t_glow);
     b = calloc((size_t)g * g, 4);
     if (b) { art_disc(g, gold, 0.85f, 1.6f, b); t_glow = tex_buf(g, g, b); }
-    int s = (int)(0.8f * ui.unit);
-    ui_free(&t_star);
-    b = calloc((size_t)s * s, 4);
-    if (b) { paint_star(s, gold, b); t_star = tex_buf(s, s, b); }
-    ui_free(&t_star_dim);
-    b = calloc((size_t)s * s, 4);
-    if (b) { paint_star(s, dim, b); t_star_dim = tex_buf(s, s, b); }
     int ic = (int)(0.62f * ui.unit);
-    for (int i = 0; i < 2; i++) {
-        ui_free(&t_tool[i]);
-        t_tool[i] = tex_of(ic, ic, paint_icon, i);
-    }
+    ui_free(&t_tool);
+    b = calloc((size_t)ic * ic, 4);
+    if (b) { paint_restart(ic, b); t_tool = tex_buf(ic, ic, b); }
     ui_free(&t_bulb);
     b = calloc((size_t)ic * ic, 4);
     if (b) { art_icon(ICON_HINT, ic, b); t_bulb = tex_buf(ic, ic, b); }
     SDL_SetTextureColorMod(t_bulb, 252, 236, 170);
-    ui_free(&t_play);
-    b = calloc((size_t)ic * ic, 4);
-    if (b) { art_icon(ICON_ARROW, ic, b); t_play = tex_buf(ic, ic, b); }
     int dd = (int)(1.0f * ui.unit);
     ui_free(&t_disc);
     b = calloc((size_t)dd * dd, 4);
     if (b) { art_disc(dd, house, 1, 0, b); t_disc = tex_buf(dd, dd, b); }
-    ui_free(&t_next);
-    b = calloc((size_t)dd * dd, 4);
-    if (b) { const uint8_t on_c[3] = {150, 118, 46}; art_disc(dd, on_c, 1, 0, b); t_next = tex_buf(dd, dd, b); }
     int e = (int)(0.7f * ui.unit);
     for (int c = 0; c < LG_CHAPTERS; c++) {
         ui_free(&t_emblem[c]);
@@ -595,37 +556,8 @@ static void shared_textures(void)
     puz_font_make(&font, (int)(0.6f * ui.unit), 1);
 }
 
-static SDL_Texture *t_knob, *t_card;
-static int made_tiles = -1, made_knob = -1, made_card = -1;
-
-/* the level grid's tiles (gold: solved, wood: open, dark: locked) and the chapters' tabs */
-static void grid_textures(void)
-{
-    int key = (int)tile_w * 4096 + (int)tabs[0].w * 64 + (int)tabs[0].h;
-    if (made_tiles == key) return;
-    made_tiles = key;
-    static const uint8_t gold[3] = {214, 172, 76}, wood[3] = {222, 184, 128}, tab_off[3] = {40, 56, 50},
-                         tab_on[3] = {150, 118, 46};
-    int t = (int)tile_w;
-    for (int k = 0; k < 3; k++) {
-        ui_free(&t_tile[k]);
-        uint8_t *b = calloc((size_t)t * t, 4);
-        if (!b) continue;
-        if (k == 0) paint_plate(b, t, t, gold, 1, 0.08f);
-        else if (k == 1) paint_plate(b, t, t, wood, 1, 0.1f);
-        else paint_plate(b, t, t, WALNUT, 0.62f, 0.12f);
-        t_tile[k] = tex_buf(t, t, b);
-    }
-    int w = (int)tabs[0].w, h = (int)tabs[0].h;
-    for (int k = 0; k < 2; k++) {
-        ui_free(&t_tab[k]);
-        uint8_t *b = calloc((size_t)w * h, 4);
-        if (!b) continue;
-        const uint8_t *c = k ? tab_on : tab_off, rgba[4] = {c[0], c[1], c[2], 255};
-        art_roundrect(w, h, 0.25f * fminf(w, h), rgba, b);
-        t_tab[k] = tex_buf(w, h, b);
-    }
-}
+static SDL_Texture *t_knob;
+static int made_knob = -1;
 
 static void knob_texture(void)
 {
@@ -635,17 +567,6 @@ static void knob_texture(void)
     ui_free(&t_knob);
     uint8_t *b = calloc((size_t)d * d, 4);
     if (b) { art_counter(COUNTER_DISC, 0, d, b); t_knob = tex_buf(d, d, b); }
-}
-
-/* the level's end: a walnut card for its stars and the next level's button */
-static void card_texture(void)
-{
-    int w = (int)(3.6f * ui.unit), h = (int)(2.5f * ui.unit);
-    if (made_card == w) return;
-    made_card = w;
-    ui_free(&t_card);
-    uint8_t *b = calloc((size_t)w * h, 4);
-    if (b) { paint_walnut(b, w, h, 1.1f); t_card = tex_buf(w, h, b); }
 }
 
 /* ---- the layout -------------------------------------------------------------------------------------------------- */
@@ -677,55 +598,26 @@ static void layout(box b)
         panel = (box){b.x, b.y, floorf(b.w - tcw - 0.2f * u), b.h};
         labx = cx;
         laby = b.y + 0.75f * u;
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {           /* under the level's number */
             tbx[i] = cx;
             tby[i] = b.y + (2.0f + 1.25f * i) * u;
         }
-        float th = b.h / LG_CHAPTERS;
-        for (int c = 0; c < LG_CHAPTERS; c++)
-            tabs[c] = (box){b.x + b.w - tcw, b.y + c * th + 0.06f * u, tcw, th - 0.12f * u};
     } else {
         float th = 1.15f * u, cy = b.y + th / 2;
         panel = (box){b.x, b.y + th + 0.15f * u, b.w, b.h - th - 0.15f * u};
-        tbx[T_GRID] = b.x + 0.6f * u;
         tbx[T_RESET] = b.x + b.w - 1.85f * u;
         tbx[T_HINT] = b.x + b.w - 0.6f * u;
-        for (int i = 0; i < 3; i++) tby[i] = cy;
+        for (int i = 0; i < 2; i++) tby[i] = cy;
         labx = b.x + b.w / 2;
         laby = cy;
-        float tw6 = b.w / LG_CHAPTERS;
-        for (int c = 0; c < LG_CHAPTERS; c++) tabs[c] = (box){b.x + c * tw6 + 0.06f * u, b.y, tw6 - 0.12f * u, th};
     }
     tbr = 0.48f * u;
     shared_textures();
     board_textures();
-    card_texture();
-    float iw = panel.w - 2 * fr, ih = panel.h - 2 * fr, side = fminf(iw, ih) * 0.94f, pitch = side / 5;
-    tile_w = floorf(pitch * 0.84f);
-    for (int i = 0; i < LG_PER_CHAPTER; i++) {
-        float cx = panel.x + panel.w / 2 + (i % 5 - 2) * pitch, cy = panel.y + panel.h / 2 + (i / 5 - 2) * pitch;
-        tiles[i] = (box){floorf(cx - tile_w / 2), floorf(cy - tile_w / 2), tile_w, tile_w};
-    }
-    grid_textures();
-    if (playing) fit();
+    if (G.L.cols) fit();                        /* a level open */
 }
 
-/* ---- the levels and the progress --------------------------------------------------------------------------------- */
-static int first_unsolved(void)
-{
-    for (int l = 0; l < LG_LEVELS; l++)
-        if (!stars[l]) return l;
-    return LG_LEVELS - 1;
-}
-
-static int is_open(int level)
-{
-    if (stars[level]) return 1;
-    int before = 0;
-    for (int l = 0; l < level; l++) before += !stars[l];
-    return before < 3;
-}
-
+/* ---- the level --------------------------------------------------------------------------------------------------- */
 static int lamp_depth(void)
 {
     int d = 0;
@@ -743,45 +635,18 @@ static void calm(void)
     deny_reset = 0;
 }
 
-static void record(void)
-{
-    if (!lg_solved(&G) || G.level < 0) return;
-    int s = lg_stars(&G);
-    if (s > stars[G.level]) {
-        stars[G.level] = (uint8_t)s;
-        lg_progress_save(stars);
-    }
-}
-
 static void open_level(int level)
 {
     if (!lg_open(&G, level)) return;
-    playing = 1;
-    page = level / LG_PER_CHAPTER;
     calm();
     if (B.w > 0) fit();
 }
 
-static void to_grid(void)
-{
-    if (playing) page = G.level / LG_PER_CHAPTER;
-    playing = 0;
-    calm();
-}
+static void start(int level) { open_level(level); }   /* the shell's level screen: 0..LG_LEVELS-1 */
 
-static void start(int variant)
-{
-    (void)variant;
-    if (!loaded) {
-        lg_progress_load(stars);
-        loaded = 1;
-        page = first_unsolved() / LG_PER_CHAPTER;
-    }
-    to_grid();
-}
-
-static int status(void) { return playing && lg_solved(&G) ? GS_WIN0 : GS_PLAY; }
+static int status(void) { return lg_solved(&G) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
+static int level_stars(void) { return lg_stars(&G); }
 
 /* after a move (or undo, restart): the change runs up the wires from now */
 static void moved(const lg_game *before)
@@ -792,16 +657,12 @@ static void moved(const lg_game *before)
     memcpy(old_val, before->val, sizeof old_val);
     t0 = ui_ms();
     if (!t0) t0 = 1;
-    if (lg_solved(&G)) {
-        solved_t = t0 + (Uint32)(lamp_depth() * STEP_MS);
-        record();
-    }
+    if (lg_solved(&G)) solved_t = t0 + (Uint32)(lamp_depth() * STEP_MS);
     ui_animate();
 }
 
 static int busy(void)
 {
-    if (!playing) return 0;
     Uint32 now = ui_ms();
     if (t0 && now - t0 < (Uint32)((G.L.maxdepth + 1) * STEP_MS)) return 1;
     if (flip_node >= 0 && now - flip_t < FLIP_MS) return 1;
@@ -811,7 +672,6 @@ static int busy(void)
 
 static int undo(void)
 {
-    if (!playing) return 0;
     static lg_game before;
     before = G;
     if (!lg_undo(&G)) return 0;
@@ -829,7 +689,7 @@ static void restart(void)
     moved(&before);
 }
 
-/* the notation (logicgates.h); the grid's and the hint's here, the moves in the rules */
+/* the notation (logicgates.h); the hint's here (shown blinking), the moves in the rules */
 static int script(const char *moves)
 {
     char tok[32];
@@ -841,20 +701,7 @@ static int script(const char *moves)
         memcpy(tok, s, (size_t)n);
         tok[n] = 0;
         s += n;
-        int v = atoi(tok + 1);
-        if (tok[0] == 'L') {
-            if (v < 1 || v > LG_LEVELS) ok = 0;
-            else open_level(v - 1);
-        } else if (tok[0] == 'P') {
-            if (v < 1 || v > LG_CHAPTERS) ok = 0;
-            else { playing = 0; page = v - 1; }
-        } else if (tok[0] == '+') {
-            const char *colon = strchr(tok, ':');
-            int k = colon ? atoi(colon + 1) : 3;
-            for (int l = 0; l < v && l < LG_LEVELS; l++) stars[l] = (uint8_t)(k < 1 ? 1 : k > 3 ? 3 : k);
-        } else if (!playing) {
-            ok = 0;
-        } else if (tok[0] == 'h' && !tok[1]) {
+        if (tok[0] == 'h' && !tok[1]) {
             ok = lg_hint(&G, &hint.m);
             hint.on = ok;
             hint.t = ui_ms();
@@ -867,10 +714,7 @@ static int script(const char *moves)
     t0 = 0;
     flip_node = -1;
     spark.wire = -1;
-    if (playing && lg_solved(&G)) {
-        record();
-        solved_t = ui_ms() - BURST_MS;
-    }
+    if (lg_solved(&G)) solved_t = ui_ms() - BURST_MS;
     return ok;
 }
 
@@ -1175,33 +1019,16 @@ static void burst(void)
     }
 }
 
-/* the solved level's card: its stars, the next level's button */
-static void draw_next(void)
-{
-    if (!lg_solved(&G) || (t0 && (int)(now_ms - solved_t) < BURST_MS)) return;
-    float u = ui.unit, cx = panel.x + panel.w / 2, cy = panel.y + panel.h / 2, by_ = cy + 0.55f * u, br_ = 0.5f * u;
-    ui_shadow_flat(cx + 0.06f * u, cy + 0.1f * u, 3.6f * u, 2.5f * u, 0.6f);
-    ui_put_c(t_card, cx, cy, 3.6f * u, 2.5f * u);
-    int s = lg_stars(&G);
-    for (int k = 0; k < 3; k++) {
-        float sz = (k == 1 ? 0.95f : 0.8f) * u;
-        ui_put_c(k < s ? t_star : t_star_dim, cx + (k - 1) * 0.95f * u, cy - 0.5f * u - (k == 1) * 0.12f * u, sz, sz);
-    }
-    ui_mark_gold(cx, by_, 2.6f * br_);
-    ui_put_c(t_next, cx, by_, 2 * br_, 2 * br_);
-    ui_put_c(t_play, cx, by_, 1.3f * br_, 1.3f * br_);
-}
-
 static void draw_tools(void)
 {
     float u = ui.unit;
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 2; i++) {
         if (i == T_RESET && deny_reset && now_ms - (Uint32)deny_reset < HINT_MS) {
             if ((now_ms - (Uint32)deny_reset) / 300 % 2 == 0) ui_mark_gold(tbx[i], tby[i], 3 * tbr);
             ui_animate();
         }
         ui_put_c(t_disc, tbx[i], tby[i], 2 * tbr, 2 * tbr);
-        ui_put_c(i == T_HINT ? t_bulb : t_tool[i], tbx[i], tby[i], 1.3f * tbr, 1.3f * tbr);
+        ui_put_c(i == T_HINT ? t_bulb : t_tool, tbx[i], tby[i], 1.3f * tbr, 1.3f * tbr);
     }
     /* the level: its chapter's emblem, its number in the chapter */
     int n = G.level % LG_PER_CHAPTER + 1, c = G.level / LG_PER_CHAPTER;
@@ -1216,8 +1043,10 @@ static void draw_tools(void)
     }
 }
 
-static void draw_level(void)
+static void draw(void)
 {
+    now_ms = ui_ms();
+    if (made_shared < 0) layout(B);
     ui_put(t_board, panel.x, panel.y, panel.w, panel.h);
     draw_wires();
     draw_fuses();
@@ -1226,53 +1055,7 @@ static void draw_level(void)
     burst();
     hint_mark();
     draw_tools();
-    draw_next();
     if (t0 && now_ms - t0 < (Uint32)((G.L.maxdepth + 1) * STEP_MS)) ui_animate();
-}
-
-static void draw_grid(void)
-{
-    float u = ui.unit;
-    for (int c = 0; c < LG_CHAPTERS; c++) {
-        box t = tabs[c];
-        int any = 0;
-        for (int l = c * LG_PER_CHAPTER; l < (c + 1) * LG_PER_CHAPTER; l++) any |= is_open(l);
-        ui_put(t_tab[c == page], t.x, t.y, t.w, t.h);
-        float e = fminf(0.62f * u, 0.8f * t.h), dh = 0.42f * u, nw = puz_number_w(c + 1, dh);
-        float x0 = t.x + t.w / 2 - (e + 0.1f * u + nw) / 2, cy = t.y + t.h / 2;
-        SDL_SetTextureAlphaMod(t_emblem[c], any ? 255 : 90);
-        ui_put_c(t_emblem[c], x0 + e / 2, cy, e, e);
-        SDL_SetTextureAlphaMod(t_emblem[c], 255);
-        puz_number(&font, x0 + e + 0.1f * u + nw / 2, cy, dh, c + 1, PUZ_CREAM, any ? 255 : 110);
-    }
-    ui_put(t_board, panel.x, panel.y, panel.w, panel.h);
-    int next = first_unsolved();
-    static const uint8_t dim[3] = {150, 120, 90};
-    for (int i = 0; i < LG_PER_CHAPTER; i++) {
-        int l = page * LG_PER_CHAPTER + i, s = stars[l], open = is_open(l);
-        box t = tiles[i];
-        float cx = t.x + t.w / 2, cy = t.y + t.h / 2;
-        if (l == next && !s) {
-            float q = 0.5f + 0.5f * sinf(now_ms * 0.004f);
-            ui_mark_gold(cx, cy, t.w * (1.35f + 0.15f * q));
-            ui_animate();
-        }
-        ui_shadow_flat(cx + 0.04f * t.w, cy + 0.06f * t.w, t.w, t.w, 0.55f);
-        ui_put(t_tile[s ? 0 : open ? 1 : 2], t.x, t.y, t.w, t.h);
-        puz_number(&font, cx, cy - (s ? 0.12f * t.w : 0), 0.4f * t.w, i + 1, open ? PUZ_INK : dim, open ? 255 : 160);
-        for (int k = 0; s && k < 3; k++) {
-            float sz = 0.24f * t.w;
-            ui_put_c(k < s ? t_star : t_star_dim, cx + (k - 1) * 0.25f * t.w, cy + 0.28f * t.w, sz, sz);
-        }
-    }
-}
-
-static void draw(void)
-{
-    now_ms = ui_ms();
-    if (made_grid < 0) layout(B);
-    if (playing) draw_level();
-    else draw_grid();
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
@@ -1295,26 +1078,10 @@ static void do_move(lg_move m, int node, int wire)
     }
 }
 
-static int in_box(box b, float x, float y) { return x >= b.x && y >= b.y && x < b.x + b.w && y < b.y + b.h; }
-
 static void press(float x, float y)
 {
-    if (!playing) {
-        for (int c = 0; c < LG_CHAPTERS; c++)
-            if (in_box(tabs[c], x, y)) { ui_sound(SND_TAP); page = c; return; }
-        for (int i = 0; i < LG_PER_CHAPTER; i++)
-            if (in_box(tiles[i], x, y)) {
-                int l = page * LG_PER_CHAPTER + i;
-                if (!is_open(l)) { ui_sound(SND_DENY); return; }
-                ui_sound(SND_TAP);
-                open_level(l);
-                return;
-            }
-        return;
-    }
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 2; i++) {
         if (hypotf(x - tbx[i], y - tby[i]) > 1.15f * tbr) continue;
-        if (i == T_GRID) { ui_sound(SND_TAP); to_grid(); return; }
         if (i == T_RESET) {
             if (!G.nh) { ui_sound(SND_DENY); return; }
             ui_sound(SND_TAP);
@@ -1335,13 +1102,7 @@ static void press(float x, float y)
         ui_animate();
         return;
     }
-    if (lg_solved(&G)) {                        /* the next level */
-        if (!in_box(panel, x, y) || busy()) return;
-        ui_sound(SND_TAP);
-        if (G.level + 1 < LG_LEVELS) open_level(G.level + 1);
-        else to_grid();
-        return;
-    }
+    if (lg_solved(&G)) return;                  /* the lamps flaring; then the shell's card (the next level) */
     /* a part's own box first, then the fuses, then a part's surroundings */
     for (int pass = 0; pass < 2; pass++) {
         for (int i = 0; i < G.L.nn; i++) {
@@ -1376,7 +1137,7 @@ static void press(float x, float y)
 static void motion(float x, float y) { (void)x; (void)y; }
 static void release(float x, float y) { (void)x; (void)y; }
 
-/* ---- the bar: the moves, the par (three stars), the cuts left; on the grid, the stars won ------------------------ */
+/* ---- the bar: the moves, the par (three stars), the cuts left ---------------------------------------------------- */
 static SDL_Texture *t_bar_star, *t_bar_fuse;
 
 static void bar(int player, box b)
@@ -1393,12 +1154,6 @@ static void bar(int player, box b)
         ui_free(&t_bar_fuse);
         bf = calloc((size_t)fl * ft, 4);
         if (bf) { paint_fuse(0, fl, ft, bf); t_bar_fuse = tex_buf(fl, ft, bf); }
-    }
-    if (!playing) {
-        int total = 0;
-        for (int l = 0; l < LG_LEVELS; l++) total += stars[l];
-        puz_bar_moves(b, t_bar_star, total);
-        return;
     }
     puz_bar_moves(b, NULL, G.nh);
     float x = b.x + b.w, nw = puz_number_w(G.par, dh);   /* from the right: the par, the cuts left */
@@ -1471,5 +1226,6 @@ static const game logicgates_game = {
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .view = VIEW_OPEN,
+    .levels = LG_LEVELS, .chapters = LG_CHAPTERS, .chapter_icon = paint_emblem, .level_stars = level_stars,
 };
 REGISTER_GAME(logicgates_game)

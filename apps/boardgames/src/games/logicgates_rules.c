@@ -661,7 +661,6 @@ int lg_script(lg_game *g, const char *s)
         long n = strtol(s, &end, 10);
         if (end == s || n < 1) return 0;
         s = end;
-        if (c == 'L') { if (!lg_open(g, (int)n - 1)) return 0; continue; }
         lg_move m = {c == 's' ? LG_MSWITCH : c == 'r' ? LG_MROUTE : LG_MCUT, (uint8_t)(n - 1)};
         if ((c != 's' && c != 'r' && c != 'c') || !lg_play(g, m)) return 0;
     }

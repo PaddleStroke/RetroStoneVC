@@ -20,8 +20,8 @@ Um interruptor com uma barra de latão parafusada por cima fica como está.
 Os capítulos: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 desvios; 4 fios de cortar; 5 cadeias mais longas, um interruptor alimentando várias portas, portas de três entradas; 6 circuitos grandes que misturam tudo.
 Uma jogada é uma troca ou um corte. Cada nível tem um par, o mínimo de jogadas que o resolvem. Resolvido no par: 3 estrelas; até duas jogadas a mais: 2 estrelas; senão, 1. Pedir uma dica limita o nível a 2 estrelas. Desfazer volta uma jogada, que deixa de contar. Os níveis resolvidos ficam abertos, assim como os três primeiros ainda não resolvidos.
 # Jogando no aparelho
-- A grade de níveis: uma aba por capítulo e depois os níveis dele: resolvidos em ouro com suas estrelas, abertos em madeira, fechados em madeira escura. Toque num nível para jogá-lo.
+- A grade de níveis: uma aba por capítulo e depois os níveis dele: resolvidos em ouro com suas estrelas, abertos em madeira, fechados em madeira escura. Toque num nível para jogá-lo. Suas estrelas ficam guardadas no aparelho.
 - Toque num interruptor para trocá-lo, num desvio para girá-lo, num fusível para cortar o fio dele. A mudança sobe pelos fios, porta após porta.
-- Ao lado da placa: o botão de grade volta aos níveis; depois vêm o capítulo e o número do nível; a seta redonda recomeça o nível; a lâmpada dá uma dica: pisca a próxima peça a mudar. Se piscar o botão de recomeçar, seus cortes estão errados: desfaça-os.
-- Quando todas as lâmpadas acendem, elas brilham em ouro. Toque na placa para ir ao próximo nível. Novo jogo também volta à grade de níveis.
+- Ao lado da placa: o capítulo e o número do nível; a seta redonda recomeça o nível; a lâmpada dá uma dica: pisca a próxima peça a mudar. Se piscar o botão de recomeçar, seus cortes estão errados: desfaça-os.
+- Quando todas as lâmpadas acendem, elas brilham em ouro; depois aparecem suas estrelas com o botão do próximo nível. Novo jogo (o botão de grade) volta à grade de níveis.
 - A barra mostra as suas jogadas, os cortes que restam e, na ponta direita, o par ao lado de três estrelas.

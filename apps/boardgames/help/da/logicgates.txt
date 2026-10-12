@@ -20,8 +20,8 @@ En kontakt med en påskruet messingstang hen over bliver, som den er.
 Kapitlerne: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 sporskifter; 4 ledninger, der kan klippes; 5 længere kæder, én kontakt til flere porte, porte med tre indgange; 6 store kredsløb med det hele.
 Et træk er ét skift eller ét klip. Hver bane har et par, det mindste antal træk, der løser den. Løst på par: 3 stjerner; op til to træk mere: 2 stjerner; ellers 1. Beder du om et tip, kan banen højst give 2 stjerner. Fortryd tager et træk tilbage, og det tæller ikke længere. Løste baner forbliver åbne, og det gør de første tre uløste også.
 # Spil på enheden
-- Baneoversigten: en fane for hvert kapitel og derefter dets baner: løste i guld med deres stjerner, åbne i træ, låste i mørkt træ. Tryk på en bane for at spille den.
+- Baneoversigten: en fane for hvert kapitel og derefter dets baner: løste i guld med deres stjerner, åbne i træ, låste i mørkt træ. Tryk på en bane for at spille den. Dine stjerner gemmes på enheden.
 - Tryk på en kontakt for at skifte den, på et sporskifte for at dreje det, på en sikring for at klippe dens ledning. Ændringen løber op ad ledningerne, port efter port.
-- Ved siden af printkortet: gitterknappen fører tilbage til banerne; så kapitlet og banens nummer; den runde pil starter banen forfra; lampen giver et tip: den næste del, der skal ændres, blinker. Blinker genstartsknappen i stedet, er dine klip forkerte: fortryd dem.
-- Når alle lamper lyser, blusser de op i guld. Tryk på printkortet for næste bane. Nyt spil fører også tilbage til baneoversigten.
+- Ved siden af printkortet: kapitlet og banens nummer; den runde pil starter banen forfra; lampen giver et tip: den næste del, der skal ændres, blinker. Blinker genstartsknappen i stedet, er dine klip forkerte: fortryd dem.
+- Når alle lamper lyser, blusser de op i guld; så kommer dine stjerner frem med knappen til næste bane. Nyt spil (gitterknappen) fører tilbage til baneoversigten.
 - Bjælken viser dine træk, de klip, der er tilbage, og yderst til højre par ved siden af tre stjerner.

@@ -20,8 +20,8 @@ A switch with a brass bar screwed across it stays as it is.
 The chapters: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 route switches; 4 cuttable wires; 5 longer chains, one switch feeding several gates, gates with three inputs; 6 big circuits mixing everything.
 A move is one flip or one cut. Each level has a par, the fewest moves that solve it. Solved at par: 3 stars; up to two moves more: 2 stars; otherwise 1. Asking for a hint keeps the level to 2 stars. Undo takes a move back, and it no longer counts. Solved levels stay open, and so do the first three unsolved ones.
 # Playing on the device
-- The level grid: a tab for each chapter, then the chapter's levels: solved in gold with their stars, open in wood, locked in dark wood. Tap a level to play it.
+- The level grid: a tab for each chapter, then the chapter's levels: solved in gold with their stars, open in wood, locked in dark wood. Tap a level to play it. Your stars are kept on the device.
 - Tap a switch to flip it, a route switch to turn it, a fuse to cut its wire. The change runs up the wires, gate after gate.
-- Beside the board: the grid button goes back to the levels; then the chapter and the level's number; the round arrow starts the level again; the lamp shows a hint: the next part to change blinks. If the restart button blinks instead, your cuts have gone wrong: undo them.
-- When every lamp is lit, the lamps flare up in gold. Tap the board for the next level. New game also goes back to the level grid.
+- Beside the board: the chapter and the level's number; the round arrow starts the level again; the lamp shows a hint: the next part to change blinks. If the restart button blinks instead, your cuts have gone wrong: undo them.
+- When every lamp is lit, the lamps flare up in gold; then your stars appear with the button for the next level. New game (the grid button) goes back to the level grid.
 - The bar shows your moves, the cuts left and, at its right end, the par next to three stars.

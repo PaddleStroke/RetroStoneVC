@@ -20,8 +20,8 @@ Ein Schalter mit einer aufgeschraubten Messingleiste bleibt, wie er ist.
 Die Kapitel: 1 NICHT, UND, ODER; 2 XOR, NAND, NOR; 3 Weichen; 4 Drähte zum Durchtrennen; 5 längere Ketten, ein Schalter für mehrere Gatter, Gatter mit drei Eingängen; 6 große Schaltungen mit allem.
 Ein Zug ist ein Umschalten oder ein Schnitt. Jedes Level hat ein Par, die wenigsten Züge, die es lösen. Gelöst mit Par: 3 Sterne; bis zu zwei Züge mehr: 2 Sterne; sonst 1. Wer einen Tipp holt, bekommt höchstens 2 Sterne. Rückgängig nimmt einen Zug zurück, und er zählt nicht mehr. Gelöste Level bleiben offen, ebenso die ersten drei ungelösten.
 # Spielen auf dem Gerät
-- Die Levelübersicht: ein Reiter je Kapitel, darunter dessen Level: gelöste in Gold mit ihren Sternen, offene in Holz, gesperrte in dunklem Holz. Tippe ein Level an, um es zu spielen.
+- Die Levelübersicht: ein Reiter je Kapitel, darunter dessen Level: gelöste in Gold mit ihren Sternen, offene in Holz, gesperrte in dunklem Holz. Tippe ein Level an, um es zu spielen. Deine Sterne bleiben auf dem Gerät gespeichert.
 - Tippe einen Schalter an, um ihn umzulegen, eine Weiche, um sie umzustellen, eine Sicherung, um ihren Draht zu durchtrennen. Die Änderung läuft die Drähte hinauf, Gatter für Gatter.
-- Neben der Platine: Der Gitterknopf führt zurück zu den Leveln; dann Kapitel und Nummer des Levels; der runde Pfeil startet das Level neu; die Lampe gibt einen Tipp: Das nächste zu ändernde Teil blinkt. Blinkt stattdessen der Neustart-Knopf, sind deine Schnitte falsch: Nimm sie zurück.
-- Leuchten alle Lampen, flammen sie golden auf. Tippe auf die Platine für das nächste Level. Neues Spiel führt ebenfalls zur Levelübersicht.
+- Neben der Platine: Kapitel und Nummer des Levels; der runde Pfeil startet das Level neu; die Lampe gibt einen Tipp: Das nächste zu ändernde Teil blinkt. Blinkt stattdessen der Neustart-Knopf, sind deine Schnitte falsch: Nimm sie zurück.
+- Leuchten alle Lampen, flammen sie golden auf; dann erscheinen deine Sterne mit dem Knopf zum nächsten Level. Neues Spiel (der Gitterknopf) führt zurück zur Levelübersicht.
 - Die Leiste zeigt deine Züge, die übrigen Schnitte und am rechten Ende das Par neben drei Sternen.

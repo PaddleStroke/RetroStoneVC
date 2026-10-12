@@ -29,12 +29,11 @@
  * (lg_route checks it: each wire rises from its source, runs along a track in the gap under its destination's row,
  * and rises into it).
  *
- * The notation (script, the screenshots, the tests): "L12" opens level 12 (1..150, chapter after chapter); "P3"
- * shows the level grid at chapter 3; "s3" flips switch 3, "r2" route switch 2, "c5" cuts fuse 5 (numbered from 1:
- * the switches and the route switches in reading order from the bottom left, row by row; the fuses by the part they
- * lead into, in the same order, then from the left); "u" undoes, "x" restarts the level, "h" asks a hint (the screen
- * shows it blinking; lg_script plays it); "=" plays the level's best solution; "+n" marks levels 1..n solved (3
- * stars), "+n:k" with k stars (the screen only).
+ * The notation (script, the screenshots, the tests), in the level open (lg_open; the screenshots: --level n): "s3"
+ * flips switch 3, "r2" route switch 2, "c5" cuts fuse 5 (numbered from 1: the switches and the route switches in
+ * reading order from the bottom left, row by row; the fuses by the part they lead into, in the same order, then from
+ * the left); "u" undoes, "x" restarts the level, "h" asks a hint (the screen shows it blinking; lg_script plays it);
+ * "=" plays the level's best solution.
  */
 #ifndef LOGICGATES_H
 #define LOGICGATES_H
@@ -154,9 +153,5 @@ typedef struct {
     int gates;                                  /* gates per row, at most */
 } lg_params;
 int lg_generate(uint32_t seed, const lg_params *p, char *out, int size);   /* 0: nothing came out of this seed */
-
-/* the player's progress (logicgates_progress.c): the stars of each level, 0 unsolved */
-void lg_progress_load(uint8_t stars[LG_LEVELS]);
-void lg_progress_save(const uint8_t stars[LG_LEVELS]);
 
 #endif

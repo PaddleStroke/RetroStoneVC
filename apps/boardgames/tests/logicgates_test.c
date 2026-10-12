@@ -169,6 +169,8 @@ static void stars(void)
     CHECK(lg_script(&G, "h s2") && lg_solved(&G) && G.hinted && lg_stars(&G) == 2);   /* a hint: two at most */
     CHECK(!lg_script(&G, "s7"));
     CHECK(!lg_script(&G, "q1"));
+    CHECK(!lg_script(&G, "L1"));                /* the levels open by lg_open (the shell's level screen) */
+    CHECK(!lg_open(&G, LG_LEVELS) && !lg_open(&G, -1) && lg_open(&G, LG_LEVELS - 1) && G.level == LG_LEVELS - 1);
 }
 
 static void undo_all(void)
@@ -226,9 +228,7 @@ static void levels(void)
         CHECK(lg_solved(&h) && steps == lg_pars[l]);
         /* the notation: open it, play the best solution */
         lg_game s;
-        char moves[16];
-        snprintf(moves, sizeof moves, "L%d =", l + 1);
-        CHECK(lg_script(&s, moves) && lg_solved(&s) && s.nh == lg_pars[l] && lg_stars(&s) == 3);
+        CHECK(lg_open(&s, l) && lg_script(&s, "=") && lg_solved(&s) && s.nh == lg_pars[l] && lg_stars(&s) == 3);
         /* random moves, then solved from there (undoing the cuts that block it) */
         for (int k = 0; k < 6; k++) {
             lg_game r = G;

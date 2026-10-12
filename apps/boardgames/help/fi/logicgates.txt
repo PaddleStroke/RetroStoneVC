@@ -20,8 +20,8 @@ Kytkin, jonka päälle on ruuvattu messinkilista, pysyy sellaisenaan.
 Luvut: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 vaihteet; 4 katkaistavat johdot; 5 pidemmät ketjut, yksi kytkin usealle portille, kolmen tulon portit; 6 suuret piirit, joissa on kaikkea.
 Siirto on yksi kääntö tai yksi katkaisu. Jokaisella tasolla on par eli pienin siirtomäärä, jolla sen ratkaisee. Ratkaistu parilla: 3 tähteä; enintään kaksi siirtoa enemmän: 2 tähteä; muuten 1. Vihjeen pyytäminen rajaa tason 2 tähteen. Kumoa peruu siirron, eikä sitä enää lasketa. Ratkaistut tasot pysyvät auki, samoin kolme ensimmäistä ratkaisematonta.
 # Pelaaminen laitteella
-- Tasoruudukko: välilehti jokaiselle luvulle ja sen jälkeen luvun tasot: ratkaistut kultaisina tähtineen, avoimet puisina, lukitut tummina. Napauta tasoa pelataksesi sitä.
+- Tasoruudukko: välilehti jokaiselle luvulle ja sen jälkeen luvun tasot: ratkaistut kultaisina tähtineen, avoimet puisina, lukitut tummina. Napauta tasoa pelataksesi sitä. Tähtesi säilyvät laitteella.
 - Napauta kytkintä kääntääksesi sen, vaihdetta kääntääksesi sen, sulaketta katkaistaksesi sen johdon. Muutos kulkee johtoja ylös portti portilta.
-- Levyn vieressä: ruudukkopainike vie takaisin tasoihin; sitten luku ja tason numero; pyöreä nuoli aloittaa tason alusta; lamppu antaa vihjeen: seuraava muutettava osa vilkkuu. Jos sen sijaan aloitusnappi vilkkuu, katkaisusi ovat menneet väärin: kumoa ne.
-- Kun kaikki lamput palavat, ne leimahtavat kultaisina. Napauta levyä siirtyäksesi seuraavaan tasoon. Uusi peli vie myös takaisin tasoruudukkoon.
+- Levyn vieressä: luku ja tason numero; pyöreä nuoli aloittaa tason alusta; lamppu antaa vihjeen: seuraava muutettava osa vilkkuu. Jos sen sijaan aloitusnappi vilkkuu, katkaisusi ovat menneet väärin: kumoa ne.
+- Kun kaikki lamput palavat, ne leimahtavat kultaisina; sitten näkyvät tähtesi ja seuraavan tason painike. Uusi peli (ruudukkopainike) vie takaisin tasoruudukkoon.
 - Palkki näyttää siirtosi, jäljellä olevat katkaisut ja oikeassa päässä parin kolmen tähden vieressä.
