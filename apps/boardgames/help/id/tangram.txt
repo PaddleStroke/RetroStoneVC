@@ -1,0 +1,12 @@
+Tangram
+# Tujuan
+Tangram adalah teka-teki kuno Tiongkok: sebuah persegi yang dipotong menjadi tujuh keping, yaitu tan. Dua segitiga besar, satu sedang, dua kecil, sebuah persegi, dan sebuah jajaran genjang. Gunakan ketujuhnya untuk mengisi siluet gelap, tanpa ada yang bertumpuk. Pilih dulu satu set: hewan, orang, atau benda; masing-masing berisi 20 siluet yang dibuat untuk permainan ini, dan permainan baru memilih salah satunya.
+# Satu langkah
+Pindahkan sebuah tan, putar, atau balik jajaran genjang (yang lain tampak sama dari kedua sisi). Tan selalu terbaring datar dan tidak pernah bertumpuk.
+# Akhir permainan
+Teka-teki terpecahkan saat ketujuh tan menutupi siluet dengan tepat: cahaya emas menyapu tan-tan itu. Bisa ada lebih dari satu cara; cara apa pun yang mengisi siluet dihitung.
+# Bermain di perangkat
+- Seret tan ke siluet. Saat kamu melepasnya, tan itu menempel pada kisi siluet, jika posisinya lurus dengan kisi itu.
+- Ketuk tan: tan berputar seperdelapan putaran.
+- Ketuk jajaran genjang dua kali dengan cepat: ia terbalik.
+Tan yang terakhir kamu sentuh berada paling atas. Lampu di samping meja memberi petunjuk: lampu menggeser satu tan ke tempatnya, dengan cahaya emas. Urungkan membatalkan satu tindakan setiap kali, sampai ke awal. Bilah menunjukkan tindakanmu.

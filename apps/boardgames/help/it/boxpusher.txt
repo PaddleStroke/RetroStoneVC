@@ -1,0 +1,13 @@
+Spingi-casse
+# Lo scopo
+Sei il custode di un magazzino. Spingi ogni cassa su uno degli anelli d'ottone incastonati nel pavimento: ci sono tanti anelli quante casse. Ci sono 60 livelli in tre capitoli, a partire dal più facile. I livelli sono fatti per questo gioco: un computer ha controllato che ognuno abbia una soluzione, e il numero minimo di spinte che richiede è noto.
+# Una mossa
+Il custode cammina una casella alla volta: in su, in giù, a sinistra o a destra, mai attraverso muri o casse. Se cammina contro una cassa, la spinge di una casella più in là, se la casella oltre è libera. Le casse non si tirano mai, e due casse in fila sono troppo pesanti da spingere. Pensa in anticipo: una cassa spinta in un angolo non ne può più uscire.
+# La fine della partita
+Il livello è risolto quando ogni cassa sta su un anello: le casse si illuminano d'oro. Tre stelle se hai usato il minor numero di spinte possibile, due se ci sei andato vicino, una altrimenti.
+# Giocare sul dispositivo
+Scegli un livello nella schermata dei livelli; quelli risolti mostrano le loro stelle.
+- Scorri il dito: il custode avanza in quella direzione, di tante caselle quanto è lungo il tuo gesto, spingendo ciò che ha davanti.
+- Tocca una casella libera: il custode ci va, girando intorno alle casse.
+- Tocca una cassa accanto al custode: viene spinta di una casella, lontano dal custode. Tocca un'altra cassa: dei punti mostrano dove può essere spinta in linea retta; tocca un punto, e il custode fa il giro e la spinge lì.
+La lampada dà un suggerimento: il custode fa la prossima spinta di un percorso più corto, in luce dorata. Se una cassa è bloccata, il suggerimento torna prima indietro fin dove resta una via. Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra i passi del custode e, all'estremità destra, le spinte.

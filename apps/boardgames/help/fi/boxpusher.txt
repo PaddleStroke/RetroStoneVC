@@ -1,0 +1,13 @@
+Laatikontyöntäjä
+# Tavoite
+Olet varaston vartija. Työnnä jokainen laatikko johonkin lattiaan upotetuista messinkirenkaista: renkaita on yhtä monta kuin laatikoita. Tasoja on 60 kolmessa luvussa, helpoimmasta alkaen. Tasot on tehty tätä peliä varten: tietokone on tarkistanut, että jokainen on ratkaistavissa, ja kunkin vaatima pienin työntöjen määrä tiedetään.
+# Siirto
+Vartija kävelee ruudun kerrallaan: ylös, alas, vasemmalle tai oikealle, ei koskaan seinien tai laatikoiden läpi. Kun vartija kävelee laatikkoa päin, laatikko siirtyy ruudun eteenpäin, jos sen takana oleva ruutu on vapaa. Laatikoita ei koskaan vedetä, ja kaksi peräkkäistä laatikkoa on liian painava työnnettäväksi. Ajattele etukäteen: nurkkaan työnnetty laatikko ei pääse sieltä koskaan pois.
+# Pelin loppu
+Taso on ratkaistu, kun jokainen laatikko on renkaan päällä: laatikot syttyvät kultaisiksi. Kolme tähteä, jos käytit mahdollisimman vähän työntöjä, kaksi, jos pääsit lähelle, muuten yksi.
+# Pelaaminen laitteella
+Valitse taso tasonäkymästä; ratkaistut näyttävät tähtensä.
+- Pyyhkäise: vartija astelee siihen suuntaan niin monta ruutua kuin pyyhkäisysi on pitkä ja työntää edessään olevaa.
+- Napauta vapaata ruutua: vartija kävelee sinne laatikoiden ympäri.
+- Napauta vartijan vieressä olevaa laatikkoa: se työntyy ruudun poispäin vartijasta. Napauta mitä tahansa muuta laatikkoa: pisteet näyttävät, minne sen voi työntää suoraan; napauta pistettä, niin vartija kiertää ja työntää sen sinne.
+Lamppu antaa vihjeen: vartija tekee lyhimmän reitin seuraavan työnnön kultaisessa valossa. Jos laatikko on jumissa, vihje palaa ensin kohtaan, josta reitti vielä löytyy. Kumoa peruu yhden toiminnon kerrallaan, aina alkuun asti. Palkki näyttää vartijan askeleet ja oikeassa päässä työnnöt.

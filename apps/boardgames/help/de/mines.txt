@@ -1,0 +1,16 @@
+Minen
+# Das Ziel
+Unter einigen der Holzplättchen des Felds sind Minen versteckt. Hebe jedes Plättchen an, unter dem keine Mine liegt. Wähle zuerst das Feld: 9 × 9 mit 10 Minen, 8 × 12 mit 15 (gemacht für ein hochkant gehaltenes Handy), 16 × 16 mit 40 oder 16 × 30 mit 99.
+Die ersten vier Bilder sind Felder ohne Raten: Jedes lässt sich vom ersten Plättchen an allein durch Nachdenken räumen, nie durch Glück. Die Bilder mit einem Würfel werden rein zufällig erzeugt, wie im klassischen Spiel: Ab und zu hilft nur Raten.
+# Ein Zug
+Hebe ein Plättchen an. Darunter findest du eine Mine oder eine Zahl: wie viele seiner acht Nachbarn eine Mine verbergen. Ein Plättchen ohne Mine ringsum hebt seine Nachbarn von selbst an, sodass sich ganze Bereiche auf einmal öffnen. Dein erstes Plättchen ist nie eine Mine und öffnet immer einen Bereich.
+Stecke eine Fahne auf ein Plättchen, unter dem sicher eine Mine liegt. Fahnen sind Notizen für dich; sie schützen ein Plättchen auch davor, versehentlich angehoben zu werden. Hat eine Zahl alle ihre Fahnen um sich, tippe sie an, um ihre übrigen Nachbarn auf einmal anzuheben.
+# Das Ende der Partie
+Das Feld ist geräumt, wenn jedes Plättchen ohne Mine angehoben ist: Die Minen zeigen sich unter ihren Fahnen, und eine Welle goldenen Lichts läuft über das Feld.
+Eine angehobene Mine glüht rot. Nichts ist verloren: Rückgängig nimmt sie zurück, und du spielst weiter.
+# Spielen auf dem Gerät
+- Tippe ein Plättchen an, um es anzuheben.
+- Halte ein Plättchen einen Moment, um eine Fahne zu stecken oder zu ziehen. Der Fahnenknopf neben dem Feld lässt Tippen stattdessen Fahnen stecken (Halten hebt dann an).
+- Auf den größeren Feldern holt die Lupe das Feld heran: Verschiebe es mit dem Finger. Dünne Balken am Rahmen zeigen, wo du bist. Tippe noch einmal auf die Lupe, um das ganze Feld zu sehen.
+- Die Lampe gibt einen Tipp: ein sicheres Plättchen angehoben, eine sichere Mine mit einer Fahne markiert oder eine falsche Fahne gezogen, in goldenem Licht. Nach einer Mine leuchtet die Lampe und nimmt sie zurück.
+Rückgängig nimmt eine Aktion nach der anderen zurück, bis zum Anfang. Die Leiste zeigt deine Aktionen und am rechten Ende die übrigen Minen: die Minen abzüglich deiner Fahnen.

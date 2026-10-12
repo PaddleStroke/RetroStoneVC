@@ -1,0 +1,28 @@
+Klotski
+# Målet
+Tio träklossar fyller alla utom två av rutorna i en ram på 4 × 5. Flytta ned den stora röda klossen till öppningen mitt på nederkanten, så att den kan glida ut. Detta är det gamla kinesiska pusslet Huarong Dao: den stora klossen är en general, instängd med sina officerare och soldater i ett trångt pass.
+Välj först startställning. De är traditionella, var och en med sitt kinesiska namn:
+- Heng Dao Li Ma (ett svärd hållet på tvären, en häst som tyglas): den klassiska, 81 drag.
+- Jie Zu Xian Deng (den snabba foten kommer först): 32.
+- Yi Lu Shun Feng (medvind hela vägen): 39.
+- Yu Sheng Xi Li (regnets smatter): 47.
+- Zuo You Bu Bing (soldater till vänster och höger): 54.
+- Yi Lu Jin Jun (en armé som marscherar i en kolonn): 58.
+- Qi Tou Bing Jin (sida vid sida): 60.
+- Cha Chi Nan Fei (inte ens med vingar finns en väg ut): 62.
+- Zhi Hui Ruo Ding (lugn i befälet): 70.
+- Tao Hua Yuan Zhong (i persikoträdgården): 70.
+- Bing Fen San Lu (trupperna delas åt tre håll): 72.
+- Jiang Yong Cao Ying (officerare som trängs i lägret): 72.
+- Ceng Ceng She Fang (försvar på varje nivå): 102.
+- Feng Hui Lu Zhuan (stigen slingrar sig runt topparna): 138.
+Talen är det minsta antalet drag, framtaget av en dator som prövat varje ställning.
+# Ett drag
+En kloss glider in i tomma rutor, en ruta i taget, uppåt, nedåt, åt vänster eller åt höger; den lyfts aldrig. Enligt traditionens räkning är ett drag en kloss som skjuts hur långt som helst, till och med runt ett hörn, innan du rör en annan kloss.
+# Partiets slut
+När den stora klossen står mitt i den nedersta raden glider den ut genom öppningen i gyllene ljus: löst.
+# Spela på enheten
+- Dra en kloss: den följer fingret ruta för ruta.
+- Eller tryck på en kloss. Har den bara ett ställe att gå till går den dit. Har den fler blir den vald, och prickar visar rutorna den kan nå: tryck på en, så går den dit den kortaste vägen.
+- Tryck på en tom ruta som bara en kloss kan nå: den klossen kommer dit.
+Lampan bredvid ramen ger en ledtråd: det första draget på en kortaste väg, i gyllene ljus. Ångra tar tillbaka ett drag i taget, ända till början. Listen visar dina drag och, längst till höger, minsta möjliga antal för den här startställningen; det lyser guld när du når det.

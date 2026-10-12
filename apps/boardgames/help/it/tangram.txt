@@ -1,0 +1,12 @@
+Tangram
+# Lo scopo
+Il tangram è un antico rompicapo cinese: un quadrato tagliato in sette pezzi, i tan. Due triangoli grandi, uno medio, due piccoli, un quadrato e un parallelogramma. Usali tutti e sette per riempire la sagoma scura, senza nessuna sovrapposizione. Scegli prima una serie: animali, persone o oggetti; ognuna contiene 20 sagome fatte per questo gioco, e una nuova partita ne sceglie una.
+# Una mossa
+Sposta un tan, giralo, o capovolgi il parallelogramma (gli altri sono uguali da entrambi i lati). I tan restano piatti e non si sovrappongono mai.
+# La fine della partita
+Il rompicapo è risolto quando i sette tan coprono esattamente la sagoma: una luce dorata li percorre. Ci può essere più di un modo; vale qualsiasi modo che riempia la sagoma.
+# Giocare sul dispositivo
+- Trascina un tan sulla sagoma. Quando lo lasci, si assesta sulla griglia della sagoma, se è in squadra con essa.
+- Tocca un tan: ruota di un ottavo di giro.
+- Tocca due volte rapidamente il parallelogramma: si capovolge.
+L'ultimo tan toccato sta sopra. La lampada accanto al tavolo dà un suggerimento: fa scivolare un tan al suo posto, in luce dorata. Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue azioni.

@@ -1,0 +1,16 @@
+Miny
+# Cíl hry
+Pod některými dřevěnými destičkami pole jsou ukryté miny. Zvedni každou destičku, pod kterou mina není. Nejprve zvol pole: 9 × 9 s 10 minami, 8 × 12 s 15 (pro telefon držený na výšku), 16 × 16 se 40 nebo 16 × 30 s 99.
+První čtyři obrázky jsou pole bez hádání: každé se dá od první destičky vyčistit jen úvahou, nikdy štěstím. Obrázky s kostkou jsou rozdané čistě náhodně, jako v klasické hře: tu a tam nezbude než hádat.
+# Tah
+Zvedni destičku. Pod ní najdeš minu, nebo číslo: kolik z osmi sousedních destiček skrývá minu. Destička, kolem které žádná mina není, zvedne své sousedky sama, takže se naráz otevírají celé oblasti. Tvoje první destička nikdy není mina a vždy otevře oblast.
+Na destičku, pod kterou určitě je mina, zapíchni vlaječku. Vlaječky jsou poznámky pro tebe; také chrání destičku před nechtěným zvednutím. Když má číslo kolem sebe všechny své vlaječky, klepni na něj a jeho ostatní sousední destičky se zvednou naráz.
+# Konec hry
+Pole je vyčištěné, když je zvednutá každá destička bez miny: miny se ukážou pod svými vlaječkami a po poli přeběhne vlna zlatého světla.
+Zvednutá mina červeně zazáří. Nic není ztraceno: Zpět ji vrátí a hraješ dál.
+# Hra na zařízení
+- Klepnutím na destičku ji zvedneš.
+- Podržením destičky na okamžik zapíchneš nebo vytáhneš vlaječku. Tlačítko s vlaječkou vedle pole přepne klepání na zapichování vlaječek (podržení pak zvedá).
+- Na větších polích lupa pole přiblíží: posouvej ho prstem. Tenké pruhy podél rámu ukazují, kde jsi. Dalším klepnutím na lupu uvidíš celé pole.
+- Lampa dá nápovědu: zvedne bezpečnou destičku, označí vlaječkou jistou minu nebo vytáhne chybnou vlaječku, ve zlatém světle. Po zvednuté mině lampa svítí a minu vrátí.
+Zpět vrací jednu akci po druhé, až na začátek. Lišta ukazuje tvé akce a na pravém konci zbývající miny: počet min minus tvé vlaječky.

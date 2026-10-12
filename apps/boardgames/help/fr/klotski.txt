@@ -1,0 +1,28 @@
+Klotski
+# Le but
+Dix blocs de bois remplissent un cadre de 4 × 5 cases, toutes sauf deux. Amène le grand bloc rouge jusqu'à l'ouverture au milieu du bord du bas, pour qu'il puisse sortir en glissant. C'est le vieux casse-tête chinois Huarong Dao : le grand bloc est un général, pris au piège avec ses officiers et ses soldats dans un défilé étroit.
+Choisis d'abord le départ. Ils sont traditionnels, chacun avec son nom chinois :
+- Heng Dao Li Ma (une épée tenue en travers, un cheval retenu) : le classique, 81 coups.
+- Jie Zu Xian Deng (le pied rapide arrive le premier) : 32.
+- Yi Lu Shun Feng (bon vent tout le long du chemin) : 39.
+- Yu Sheng Xi Li (le crépitement de la pluie) : 47.
+- Zuo You Bu Bing (des soldats à gauche et à droite) : 54.
+- Yi Lu Jin Jun (une armée en marche sur une seule colonne) : 58.
+- Qi Tou Bing Jin (tous de front) : 60.
+- Cha Chi Nan Fei (même avec des ailes, pas d'issue) : 62.
+- Zhi Hui Ruo Ding (le calme dans le commandement) : 70.
+- Tao Hua Yuan Zhong (dans le jardin des pêchers) : 70.
+- Bing Fen San Lu (les troupes divisées en trois) : 72.
+- Jiang Yong Cao Ying (des officiers qui se pressent dans le camp) : 72.
+- Ceng Ceng She Fang (des défenses à chaque étage) : 102.
+- Feng Hui Lu Zhuan (le chemin serpente autour des sommets) : 138.
+Les nombres sont le moins de coups possible, trouvé par un ordinateur qui a essayé chaque position.
+# Un coup
+Un bloc glisse dans des cases vides, une case à la fois, vers le haut, le bas, la gauche ou la droite ; on ne le soulève jamais. Selon le compte traditionnel, un coup, c'est un bloc qu'on fait glisser aussi loin qu'on veut, même en tournant un coin, avant de toucher un autre bloc.
+# La fin de la partie
+Quand le grand bloc se trouve au milieu de la rangée du bas, il sort par l'ouverture dans une lumière dorée : résolu.
+# Jouer sur l'appareil
+- Fais glisser un bloc : il suit ton doigt case par case.
+- Ou touche un bloc. S'il n'a qu'un endroit où aller, il y va. S'il en a plusieurs, il est sélectionné et des points montrent les cases qu'il peut atteindre : touches-en une, et il y va par le plus court chemin.
+- Touche une case vide qu'un seul bloc peut atteindre : ce bloc vient.
+La lampe à côté du cadre donne un indice : le premier coup d'un plus court chemin, dans une lumière dorée. Annuler reprend un coup à la fois, jusqu'au début. La barre montre tes coups et, à son extrémité droite, le moins possible pour ce départ ; elle brille d'or quand tu l'égales.

@@ -1,0 +1,28 @@
+Klotski
+# Tavoite
+Kymmenen puupalikkaa täyttää 4 × 5 ruudun kehyksen kahta ruutua lukuun ottamatta. Tuo suuri punainen palikka alareunan keskellä olevalle aukolle, jotta se pääsee liukumaan ulos. Tämä on vanha kiinalainen pulmapeli Huarong Dao: suuri palikka on kenraali, joka on loukussa upseeriensa ja sotilaidensa kanssa kapeassa solassa.
+Valitse ensin aloitus. Ne ovat perinteisiä, ja jokaisella on kiinalainen nimensä:
+- Heng Dao Li Ma (miekka poikittain, hevonen ohjaksissa): klassikko, 81 siirtoa.
+- Jie Zu Xian Deng (nopea jalka ehtii ensin): 32.
+- Yi Lu Shun Feng (myötätuuli koko matkan): 39.
+- Yu Sheng Xi Li (sateen ropina): 47.
+- Zuo You Bu Bing (sotilaat vasemmalla ja oikealla): 54.
+- Yi Lu Jin Jun (armeija marssii yhdessä jonossa): 58.
+- Qi Tou Bing Jin (kaikki rinta rinnan): 60.
+- Cha Chi Nan Fei (siivilläkään ei pääse pois): 62.
+- Zhi Hui Ruo Ding (tyynenä komennossa): 70.
+- Tao Hua Yuan Zhong (persikkatarhassa): 70.
+- Bing Fen San Lu (joukot jakautuvat kolmeen suuntaan): 72.
+- Jiang Yong Cao Ying (upseerit tungeksivat leirissä): 72.
+- Ceng Ceng She Fang (puolustus joka tasolla): 102.
+- Feng Hui Lu Zhuan (polku kiertää huippujen ympäri): 138.
+Luvut ovat pienimmät mahdolliset siirtomäärät, jotka tietokone löysi kokeilemalla jokaista asemaa.
+# Siirto
+Palikka liukuu tyhjiin ruutuihin ruutu kerrallaan, ylös, alas, vasemmalle tai oikealle; sitä ei koskaan nosteta. Perinteisen laskutavan mukaan yksi siirto on yhden palikan liu'uttaminen niin pitkälle kuin haluat, vaikka kulman ympäri, ennen kuin kosket toiseen palikkaan.
+# Pelin loppu
+Kun suuri palikka on alarivin keskellä, se liukuu ulos aukosta kultaisessa valossa: ratkaistu.
+# Pelaaminen laitteella
+- Vedä palikkaa: se seuraa sormeasi ruutu ruudulta.
+- Tai napauta palikkaa. Jos sillä on vain yksi paikka, minne mennä, se menee sinne. Jos paikkoja on useampia, palikka valitaan ja pisteet näyttävät ruudut, joihin se pääsee: napauta yhtä, niin se menee sinne lyhintä reittiä.
+- Napauta tyhjää ruutua, johon vain yksi palikka pääsee: se palikka tulee.
+Kehyksen vieressä oleva lamppu antaa vihjeen: lyhimmän reitin ensimmäisen siirron kultaisessa valossa. Kumoa peruu yhden siirron kerrallaan, aina alkuun asti. Palkki näyttää siirtosi ja oikeassa päässä tämän aloituksen pienimmän mahdollisen määrän; se hehkuu kultaisena, kun yllät siihen.

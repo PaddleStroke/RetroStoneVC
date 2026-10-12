@@ -1,0 +1,10 @@
+Luzes
+# O objetivo
+Algumas lâmpadas de latão do tabuleiro estão acesas. Apaga todas as lâmpadas. Escolhe primeiro o tabuleiro: 3 × 3, 5 × 5 ou 7 × 7; quanto maior o tabuleiro, mais jogadas são precisas.
+Cada tabuleiro é feito carregando ao acaso em lâmpadas de um tabuleiro apagado, por isso pode sempre ser apagado.
+# Uma jogada
+Carrega numa lâmpada: ela troca (de acesa para apagada, ou de apagada para acesa), e as vizinhas de cima, de baixo, da esquerda e da direita também. A ordem das jogadas não importa, e carregar duas vezes numa lâmpada é o mesmo que nunca carregar nela.
+# O fim do jogo
+O quebra-cabeças está resolvido quando todas as lâmpadas estão apagadas: uma onda de luz dourada percorre o tabuleiro. O mínimo de jogadas possível é calculado para cada tabuleiro; tenta igualá-lo.
+# Jogar no dispositivo
+Toca numa lâmpada para carregar nela. A lâmpada ao lado do tabuleiro dá uma pista: carrega numa lâmpada do caminho mais curto, em luz dourada. Anular desfaz uma jogada de cada vez, até ao início. A barra mostra as tuas jogadas e, na ponta direita, o mínimo possível desde o início; brilha dourada quando o igualas.

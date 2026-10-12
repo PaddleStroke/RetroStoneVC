@@ -1,0 +1,12 @@
+Tangram
+# Målet
+Tangram er et gammelt kinesisk puslespil: et kvadrat skåret i syv stykker, kaldet tans. To store trekanter, en mellemstor, to små, et kvadrat og et parallelogram. Brug alle syv til at udfylde den mørke silhuet, uden at nogen overlapper. Vælg først et sæt: dyr, mennesker eller ting; hvert rummer 20 silhuetter lavet til dette spil, og et nyt spil vælger en af dem.
+# Et træk
+Flyt en tan, drej den, eller vend parallelogrammet (de andre ser ens ud fra begge sider). Tans ligger fladt og overlapper aldrig.
+# Spillets afslutning
+Opgaven er løst, når de syv tans dækker silhuetten præcist: et gyldent lys løber over dem. Der kan være mere end én måde; enhver måde, der fylder silhuetten, tæller.
+# Spil på enheden
+- Træk en tan hen på silhuetten. Når du slipper, falder den på plads i silhuettens gitter, hvis den står lige i forhold til det.
+- Tryk på en tan: den drejer en ottendedel omgang.
+- Tryk hurtigt to gange på parallelogrammet: det vender.
+Den tan, du sidst rørte ved, ligger øverst. Lampen ved siden af bordet giver et tip: den skubber én tan på plads, i gyldent lys. Fortryd tager én handling tilbage ad gangen, helt til starten. Bjælken viser dine handlinger.

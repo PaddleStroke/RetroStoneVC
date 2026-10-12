@@ -1,0 +1,16 @@
+Minas
+# O objetivo
+Há minas escondidas sob algumas das peças de madeira do campo. Levante todas as peças que não têm mina embaixo. Escolha primeiro o campo: 9 × 9 com 10 minas, 8 × 12 com 15 (feito para um celular na vertical), 16 × 16 com 40 ou 16 × 30 com 99.
+As quatro primeiras imagens são campos sem chute: cada um pode ser limpo desde a primeira peça só com raciocínio, nunca com sorte. As imagens com um dado são sorteadas puramente ao acaso, como no jogo clássico: de vez em quando, só um chute resolve.
+# Uma jogada
+Levante uma peça. Embaixo dela você encontra uma mina ou um número: quantas das suas oito vizinhas escondem uma mina. Uma peça sem nenhuma mina em volta levanta as vizinhas sozinha, então áreas inteiras se abrem de uma vez. A sua primeira peça nunca é uma mina e sempre abre uma área.
+Coloque uma bandeira numa peça que você tem certeza de que esconde uma mina. As bandeiras são anotações suas; elas também impedem que uma peça seja levantada por engano. Quando um número tem todas as suas bandeiras em volta, toque nele para levantar as outras vizinhas de uma vez.
+# O fim da partida
+O campo está limpo quando todas as peças sem mina foram levantadas: as minas aparecem sob as bandeiras, e uma onda de luz dourada percorre o campo.
+Uma mina levantada brilha vermelha. Nada está perdido: Desfazer volta essa jogada, e você continua.
+# Jogando no aparelho
+- Toque numa peça para levantá-la.
+- Segure uma peça por um momento para colocar ou tirar uma bandeira. O botão de bandeira ao lado do campo faz os toques colocarem bandeiras (aí, segurar levanta).
+- Nos campos maiores, a lupa aproxima o campo: arraste-o com o dedo. Barrinhas finas ao longo da moldura mostram onde você está. Toque na lupa de novo para ver o campo inteiro.
+- A lâmpada dá uma dica: levanta uma peça segura, marca com bandeira uma mina certa ou tira uma bandeira errada, em luz dourada. Depois de uma mina, a lâmpada fica acesa e desfaz a jogada.
+Desfazer volta uma ação de cada vez, até o começo. A barra mostra as suas ações e, na ponta direita, as minas restantes: as minas menos as suas bandeiras.

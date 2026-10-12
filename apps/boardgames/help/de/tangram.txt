@@ -1,0 +1,12 @@
+Tangram
+# Das Ziel
+Das Tangram ist ein altes chinesisches Rätsel: ein Quadrat, in sieben Teile geschnitten, die Tans. Zwei große Dreiecke, ein mittleres, zwei kleine, ein Quadrat und ein Parallelogramm. Fülle mit allen sieben die dunkle Silhouette, ohne dass sich etwas überlappt. Wähle zuerst eine Sammlung: Tiere, Menschen oder Dinge; jede enthält 20 für dieses Spiel gemachte Silhouetten, und eine neue Partie wählt eine davon.
+# Ein Zug
+Verschiebe einen Tan, drehe ihn oder wende das Parallelogramm (die anderen sehen von beiden Seiten gleich aus). Tans liegen flach und überlappen sich nie.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn die sieben Tans die Silhouette genau bedecken: Goldenes Licht läuft über sie. Es kann mehr als einen Weg geben; jeder, der die Silhouette füllt, zählt.
+# Spielen auf dem Gerät
+- Ziehe einen Tan auf die Silhouette. Lässt du los, rastet er im Raster der Silhouette ein, wenn er gerade zu ihr steht.
+- Tippe einen Tan an: Er dreht sich um eine Achteldrehung.
+- Tippe das Parallelogramm zweimal schnell an: Es wird gewendet.
+Der zuletzt berührte Tan liegt oben. Die Lampe neben dem Tisch gibt einen Tipp: Sie schiebt einen Tan an seinen Platz, in goldenem Licht. Rückgängig nimmt eine Aktion nach der anderen zurück, bis zum Anfang. Die Leiste zeigt deine Aktionen.

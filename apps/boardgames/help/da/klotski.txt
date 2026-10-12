@@ -1,0 +1,28 @@
+Klotski
+# Målet
+Ti træklodser fylder en ramme på 4 × 5 felter, alle på nær to. Få den store røde klods ned til åbningen midt på den nederste kant, så den kan glide ud. Det er det gamle kinesiske puslespil Huarong Dao: den store klods er en general, fanget med sine officerer og soldater i et smalt pas.
+Vælg først startopstillingen. De er traditionelle, hver med sit kinesiske navn:
+- Heng Dao Li Ma (et sværd holdt på tværs, en hest holdt stramt i tøjlerne): klassikeren, 81 træk.
+- Jie Zu Xian Deng (den hurtige fod kommer først): 32.
+- Yi Lu Shun Feng (medvind hele vejen): 39.
+- Yu Sheng Xi Li (regnens trommen): 47.
+- Zuo You Bu Bing (soldater til venstre og højre): 54.
+- Yi Lu Jin Jun (en hær, der marcherer i én kolonne): 58.
+- Qi Tou Bing Jin (alle side om side): 60.
+- Cha Chi Nan Fei (selv med vinger ingen vej ud): 62.
+- Zhi Hui Ruo Ding (rolig i kommandoen): 70.
+- Tao Hua Yuan Zhong (i ferskenhaven): 70.
+- Bing Fen San Lu (tropperne deler sig i tre): 72.
+- Jiang Yong Cao Ying (officerer, der trænges i lejren): 72.
+- Ceng Ceng She Fang (forsvar på hvert niveau): 102.
+- Feng Hui Lu Zhuan (stien snor sig om tinderne): 138.
+Tallene er det mindste antal træk, fundet af en computer, der har prøvet hver stilling.
+# Et træk
+En klods glider ind på tomme felter, ét felt ad gangen, op, ned, til venstre eller til højre; den løftes aldrig. Efter traditionens optælling er ét træk én klods, der skubbes så langt du vil, også om et hjørne, før du rører en anden klods.
+# Spillets afslutning
+Når den store klods står midt i den nederste række, glider den ud gennem åbningen i gyldent lys: løst.
+# Spil på enheden
+- Træk i en klods: den følger din finger felt for felt.
+- Eller tryk på en klods. Har den kun ét sted at gå hen, går den derhen. Har den flere, bliver den valgt, og prikker viser de felter, den kan nå: tryk på et af dem, og den går derhen ad den korteste vej.
+- Tryk på et tomt felt, som kun én klods kan nå: den klods kommer.
+Lampen ved siden af rammen giver et tip: det første træk på en korteste vej, i gyldent lys. Fortryd tager ét træk tilbage ad gangen, helt til starten. Bjælken viser dine træk og, yderst til højre, det mindste mulige antal for denne startopstilling; den gløder gyldent, når du når det.

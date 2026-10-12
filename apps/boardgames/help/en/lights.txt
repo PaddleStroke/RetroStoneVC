@@ -1,0 +1,10 @@
+Lights
+# The aim
+Some brass lamps in the board are lit. Turn every lamp off. Choose the board first: 3 × 3, 5 × 5 or 7 × 7; the larger the board, the more presses it takes.
+Every board is made by pressing lamps of a dark board at random, so it can always be turned off.
+# A move
+Press a lamp: it turns over (lit to dark, or dark to lit), and so do its neighbours above, below, left and right. The order of your presses does not matter, and pressing a lamp twice is the same as never pressing it.
+# The end of the game
+The puzzle is solved when every lamp is dark: a wave of gold light runs over the board. The fewest presses possible are worked out for every board; match them if you can.
+# Playing on the device
+Tap a lamp to press it. The lamp beside the board gives a hint: it presses one lamp of the shortest way, in gold light. Undo takes back one press at a time, all the way to the start. The bar shows your presses and, at its right end, the fewest possible from the start; it glows gold when you match it.

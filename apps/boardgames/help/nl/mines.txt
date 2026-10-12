@@ -1,0 +1,16 @@
+Mijnen
+# Het doel
+Onder sommige houten tegels van het veld liggen mijnen verborgen. Til elke tegel op waar geen mijn onder ligt. Kies eerst het veld: 9 × 9 met 10 mijnen, 8 × 12 met 15 (gemaakt voor een telefoon die je rechtop houdt), 16 × 16 met 40, of 16 × 30 met 99.
+De eerste vier plaatjes zijn velden zonder gokken: elk ervan is vanaf de eerste tegel met alleen redeneren te ruimen, nooit met geluk. De plaatjes met een dobbelsteen zijn puur door het toeval getekend, zoals in het klassieke spel: af en toe helpt alleen gokken.
+# Een zet
+Til een tegel op. Eronder vind je een mijn, of een getal: hoeveel van zijn acht buren een mijn verbergen. Een tegel zonder mijnen eromheen tilt zelf zijn buren op, zodat hele gebieden in één keer opengaan. Je eerste tegel is nooit een mijn, en opent altijd een gebied.
+Zet een vlag op een tegel waarvan je zeker weet dat er een mijn onder ligt. Vlaggen zijn notities voor jezelf; ze voorkomen ook dat een tegel per ongeluk wordt opgetild. Heeft een getal al zijn vlaggen om zich heen, tik er dan op om de andere buren in één keer op te tillen.
+# Het einde van het spel
+Het veld is geruimd als elke tegel zonder mijn is opgetild: de mijnen verschijnen onder hun vlaggen, en een golf van gouden licht gaat over het veld.
+Een opgetilde mijn gloeit rood. Er is niets verloren: ongedaan maken neemt hem terug, en je speelt verder.
+# Spelen op het apparaat
+- Tik op een tegel om hem op te tillen.
+- Houd een tegel even vast om een vlag te zetten of weg te halen. Met de vlagknop naast het veld zetten tikken in plaats daarvan vlaggen (vasthouden tilt dan op).
+- Op de grotere velden haalt het vergrootglas het veld dichtbij: sleep het rond met een vinger. Dunne streepjes langs de rand tonen waar je bent. Tik nog eens op het vergrootglas om het hele veld te zien.
+- De lamp geeft een hint: hij tilt een veilige tegel op, zet een vlag op een zekere mijn of haalt een verkeerde vlag weg, in gouden licht. Na een mijn brandt de lamp en neemt hij de mijn terug.
+Ongedaan maken neemt één actie tegelijk terug, helemaal tot het begin. De balk toont je acties en, aan het rechtereinde, de mijnen die over zijn: de mijnen min je vlaggen.

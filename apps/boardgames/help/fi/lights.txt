@@ -1,0 +1,10 @@
+Lamput
+# Tavoite
+Osa laudan messinkilampuista palaa. Sammuta kaikki lamput. Valitse ensin lauta: 3 × 3, 5 × 5 tai 7 × 7; mitä suurempi lauta, sitä enemmän painalluksia tarvitaan.
+Jokainen lauta tehdään painamalla pimeän laudan lamppuja satunnaisesti, joten sen voi aina sammuttaa.
+# Siirto
+Paina lamppua: se vaihtaa tilaa (palavasta pimeäksi tai pimeästä palavaksi), ja samoin sen naapurit ylhäällä, alhaalla, vasemmalla ja oikealla. Painallusten järjestyksellä ei ole väliä, ja lampun painaminen kahdesti on sama kuin jos sitä ei painaisi lainkaan.
+# Pelin loppu
+Tehtävä on ratkaistu, kun jokainen lamppu on pimeä: kultainen valoaalto kulkee laudan yli. Pienin mahdollinen painallusten määrä lasketaan jokaiselle laudalle; yritä yltää siihen.
+# Pelaaminen laitteella
+Napauta lamppua painaaksesi sitä. Laudan vieressä oleva lamppu antaa vihjeen: se painaa yhtä lyhimmän reitin lamppua kultaisessa valossa. Kumoa peruu yhden painalluksen kerrallaan, aina alkuun asti. Palkki näyttää painalluksesi ja oikeassa päässä pienimmän mahdollisen määrän alusta; se hehkuu kultaisena, kun yllät siihen.

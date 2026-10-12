@@ -1,0 +1,28 @@
+Klotski
+# Cel gry
+Dziesięć drewnianych klocków wypełnia ramkę 4 × 5 pól, wszystkie oprócz dwóch. Sprowadź wielki czerwony klocek w dół do otworu pośrodku dolnej krawędzi, aby mógł się wysunąć. To stara chińska łamigłówka Huarong Dao: wielki klocek to generał, uwięziony ze swoimi oficerami i żołnierzami w wąskim przesmyku.
+Najpierw wybierz ustawienie początkowe. Wszystkie są tradycyjne, każde ma swoją chińską nazwę:
+- Heng Dao Li Ma (miecz trzymany w poprzek, koń ściągnięty wodzami): klasyczne, 81 ruchów.
+- Jie Zu Xian Deng (szybka stopa dociera pierwsza): 32.
+- Yi Lu Shun Feng (pomyślny wiatr przez całą drogę): 39.
+- Yu Sheng Xi Li (szmer deszczu): 47.
+- Zuo You Bu Bing (żołnierze z lewej i z prawej): 54.
+- Yi Lu Jin Jun (armia maszerująca w jednej kolumnie): 58.
+- Qi Tou Bing Jin (wszyscy ramię w ramię): 60.
+- Cha Chi Nan Fei (nawet ze skrzydłami nie ma wyjścia): 62.
+- Zhi Hui Ruo Ding (spokój w dowodzeniu): 70.
+- Tao Hua Yuan Zhong (w brzoskwiniowym ogrodzie): 70.
+- Bing Fen San Lu (wojska dzielą się na trzy drogi): 72.
+- Jiang Yong Cao Ying (oficerowie tłoczą się w obozie): 72.
+- Ceng Ceng She Fang (obrona na każdym poziomie): 102.
+- Feng Hui Lu Zhuan (ścieżka wije się wokół szczytów): 138.
+Liczby to najmniejsze liczby ruchów, znalezione przez komputer, który wypróbował każde ustawienie.
+# Ruch
+Klocek wsuwa się w puste pola, po jednym polu, w górę, w dół, w lewo lub w prawo; nigdy się go nie podnosi. Według tradycji jeden ruch to jeden klocek przesunięty tak daleko, jak chcesz, nawet za róg, zanim dotkniesz innego klocka.
+# Koniec gry
+Gdy wielki klocek stanie pośrodku dolnego rzędu, wysuwa się przez otwór w złotym świetle: rozwiązane.
+# Gra na urządzeniu
+- Przeciągnij klocek: podąża za palcem pole po polu.
+- Albo dotknij klocka. Jeśli może pójść tylko w jedno miejsce, idzie tam. Jeśli w więcej, zostaje wybrany, a kropki pokazują pola, do których może dotrzeć: dotknij jednej z nich, a pojedzie tam najkrótszą drogą.
+- Dotknij pustego pola, do którego może dotrzeć tylko jeden klocek: ten klocek podjedzie.
+Lampa obok ramki daje podpowiedź: pierwszy ruch najkrótszej drogi, w złotym świetle. Cofnij cofa po jednym ruchu, aż do początku. Pasek pokazuje twoje ruchy, a na prawym końcu najmniejszą możliwą liczbę dla tego ustawienia; świeci złotem, gdy jej dorównasz.

@@ -1,0 +1,16 @@
+Mines
+# The aim
+Mines are hidden under some of the wooden tiles of the field. Lift every tile that has no mine under it. Choose the field first: 9 × 9 with 10 mines, 8 × 12 with 15 (made for a phone held upright), 16 × 16 with 40, or 16 × 30 with 99.
+The first four pictures are fields without guessing: each one can be cleared from the first tile by reasoning alone, never by luck. The pictures with a die are drawn by pure chance, as in the classic game: now and then only a guess will do.
+# A move
+Lift a tile. Under it you find a mine, or a number: how many of its eight neighbours hide a mine. A tile with no mine around it lifts its neighbours by itself, so whole areas open at once. Your first tile is never a mine, and always opens an area.
+Plant a flag on a tile you are sure hides a mine. Flags are notes for you; they also keep a tile from being lifted by mistake. When a number has all its flags around it, tap it to lift its other neighbours at once.
+# The end of the game
+The field is cleared when every tile without a mine is lifted: the mines show under their flags, and a wave of gold light runs over the field.
+A mine lifted glows red. Nothing is lost: undo takes it back, and you go on.
+# Playing on the device
+- Tap a tile to lift it.
+- Hold a tile a moment to plant or pull up a flag. The flag button beside the field makes taps plant flags instead (hold then lifts).
+- On the larger fields, the magnifying glass brings the field near: drag it round with a finger. Thin bars along the frame show where you are. Tap the glass again to see the whole field.
+- The lamp gives a hint: a safe tile lifted, or a sure mine flagged, or a wrong flag pulled up, in gold light. After a mine, the lamp is lit and takes it back.
+Undo takes back one action at a time, all the way to the start. The bar shows your actions and, at its right end, the mines left: the mines less your flags.

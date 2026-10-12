@@ -1,0 +1,16 @@
+Minas
+# O objetivo
+Há minas escondidas debaixo de algumas das peças de madeira do campo. Levanta todas as peças que não têm mina por baixo. Escolhe primeiro o campo: 9 × 9 com 10 minas, 8 × 12 com 15 (feito para um telemóvel na vertical), 16 × 16 com 40 ou 16 × 30 com 99.
+As quatro primeiras imagens são campos sem palpites: cada um pode ser limpo a partir da primeira peça só com raciocínio, nunca com sorte. As imagens com um dado são tiradas puramente à sorte, como no jogo clássico: de vez em quando, só um palpite resolve.
+# Uma jogada
+Levanta uma peça. Por baixo encontras uma mina ou um número: quantas das suas oito vizinhas escondem uma mina. Uma peça sem nenhuma mina à volta levanta as vizinhas sozinha, por isso zonas inteiras abrem-se de uma vez. A tua primeira peça nunca é uma mina e abre sempre uma zona.
+Põe uma bandeira numa peça que tens a certeza de que esconde uma mina. As bandeiras são notas para ti; também impedem que uma peça seja levantada por engano. Quando um número tem todas as suas bandeiras à volta, toca nele para levantar as outras vizinhas de uma vez.
+# O fim do jogo
+O campo fica limpo quando todas as peças sem mina estão levantadas: as minas aparecem debaixo das bandeiras, e uma onda de luz dourada percorre o campo.
+Uma mina levantada brilha a vermelho. Nada está perdido: Anular desfaz essa jogada, e continuas.
+# Jogar no dispositivo
+- Toca numa peça para a levantar.
+- Mantém o dedo numa peça um momento para pôr ou tirar uma bandeira. O botão da bandeira ao lado do campo faz com que os toques ponham bandeiras (aí, manter o dedo levanta).
+- Nos campos maiores, a lupa aproxima o campo: arrasta-o com o dedo. Barrinhas finas ao longo da moldura mostram onde estás. Toca outra vez na lupa para veres o campo inteiro.
+- A lâmpada dá uma pista: levanta uma peça segura, põe uma bandeira numa mina certa ou tira uma bandeira errada, em luz dourada. Depois de uma mina, a lâmpada fica acesa e anula essa jogada.
+Anular desfaz uma ação de cada vez, até ao início. A barra mostra as tuas ações e, na ponta direita, as minas que faltam: as minas menos as tuas bandeiras.

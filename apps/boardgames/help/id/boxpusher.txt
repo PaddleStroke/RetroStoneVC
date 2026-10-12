@@ -1,0 +1,13 @@
+Pendorong Peti
+# Tujuan
+Kamu adalah penjaga sebuah gudang. Dorong setiap peti ke salah satu cincin kuningan yang terpasang di lantai: jumlah cincin sama dengan jumlah peti. Ada 60 level dalam tiga bab, mulai dari yang termudah. Level-levelnya dibuat untuk permainan ini: setiap level sudah diperiksa komputer agar pasti bisa diselesaikan, dan jumlah dorongan paling sedikit yang dibutuhkannya sudah diketahui.
+# Satu langkah
+Penjaga berjalan satu petak setiap kali: ke atas, bawah, kiri, atau kanan, tidak pernah menembus dinding atau peti. Berjalan ke arah peti akan mendorongnya satu petak lebih jauh, jika petak di baliknya kosong. Peti tidak pernah ditarik, dan dua peti berderet terlalu berat untuk didorong. Pikirkan ke depan: peti yang terdorong ke sudut tidak akan pernah bisa keluar.
+# Akhir permainan
+Level terpecahkan saat setiap peti berdiri di atas cincin: peti-peti bersinar keemasan. Tiga bintang jika kamu memakai dorongan sesedikit mungkin, dua jika mendekati, satu jika tidak.
+# Bermain di perangkat
+Pilih level di layar level; yang sudah terpecahkan menunjukkan bintangnya.
+- Usap: penjaga melangkah ke arah itu, sebanyak petak sepanjang usapanmu, sambil mendorong apa yang ada di depannya.
+- Ketuk petak kosong: penjaga berjalan ke sana, mengitari peti.
+- Ketuk peti di sebelah penjaga: peti itu terdorong satu petak menjauhi penjaga. Ketuk peti lain mana pun: titik-titik menunjukkan ke mana peti itu bisa didorong dalam garis lurus; ketuk sebuah titik, dan penjaga memutar lalu mendorongnya ke sana.
+Lampu memberi petunjuk: penjaga melakukan dorongan berikutnya dari jalan terpendek, dengan cahaya emas. Jika ada peti yang macet, petunjuk lebih dulu kembali ke posisi yang masih punya jalan. Urungkan membatalkan satu tindakan setiap kali, sampai ke awal. Bilah menunjukkan langkah penjaga dan, di ujung kanannya, jumlah dorongan.

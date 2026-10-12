@@ -1,0 +1,10 @@
+Lampu
+# Tujuan
+Beberapa lampu kuningan di papan menyala. Matikan semua lampu. Pilih dulu papannya: 3 × 3, 5 × 5, atau 7 × 7; makin besar papannya, makin banyak tekanan yang dibutuhkan.
+Setiap papan dibuat dengan menekan lampu-lampu secara acak di papan yang gelap, jadi selalu bisa dimatikan.
+# Satu langkah
+Tekan sebuah lampu: lampu itu berbalik (dari menyala jadi gelap, atau dari gelap jadi menyala), begitu juga tetangganya di atas, bawah, kiri, dan kanan. Urutan tekananmu tidak penting, dan menekan lampu dua kali sama saja dengan tidak pernah menekannya.
+# Akhir permainan
+Teka-teki terpecahkan saat semua lampu gelap: gelombang cahaya emas menyapu papan. Jumlah tekanan paling sedikit dihitung untuk setiap papan; samai jika kamu bisa.
+# Bermain di perangkat
+Ketuk lampu untuk menekannya. Lampu di samping papan memberi petunjuk: lampu itu menekan satu lampu dari jalan terpendek, dengan cahaya emas. Urungkan membatalkan satu tekanan setiap kali, sampai ke awal. Bilah menunjukkan tekananmu dan, di ujung kanannya, jumlah paling sedikit dari awal; bilah bersinar keemasan saat kamu menyamainya.

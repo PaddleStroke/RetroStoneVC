@@ -1,0 +1,13 @@
+Empurra-caixas
+# O objetivo
+És o guarda de um armazém. Empurra cada caixa para um dos anéis de latão embutidos no chão: há tantos anéis como caixas. Há 60 níveis em três capítulos, a começar pelo mais fácil. Os níveis foram feitos para este jogo: um computador verificou que cada um tem solução, e o menor número de empurrões de que precisa é conhecido.
+# Uma jogada
+O guarda anda uma casa de cada vez: para cima, para baixo, para a esquerda ou para a direita, nunca através de paredes ou caixas. Ao andar contra uma caixa, empurra-a uma casa mais à frente, se a casa seguinte estiver livre. As caixas nunca são puxadas, e duas caixas seguidas são pesadas demais para empurrar. Pensa com antecedência: uma caixa empurrada para um canto nunca mais de lá sai.
+# O fim do jogo
+O nível está resolvido quando todas as caixas estão em cima de um anel: as caixas acendem-se a dourado. Três estrelas se usaste o menor número de empurrões possível, duas se ficaste perto, uma nos outros casos.
+# Jogar no dispositivo
+Escolhe um nível no ecrã de níveis; os resolvidos mostram as suas estrelas.
+- Desliza o dedo: o guarda anda nessa direção, tantas casas quanto o comprimento do teu gesto, empurrando o que tiver à frente.
+- Toca numa casa livre: o guarda anda até lá, contornando as caixas.
+- Toca numa caixa ao lado do guarda: é empurrada uma casa para longe dele. Toca noutra caixa qualquer: pontos mostram para onde pode ser empurrada em linha reta; toca num ponto, e o guarda dá a volta e empurra-a até lá.
+A lâmpada dá uma pista: o guarda faz o próximo empurrão de um caminho mais curto, em luz dourada. Se uma caixa estiver encravada, a pista volta primeiro atrás até onde ainda há um caminho. Anular desfaz uma ação de cada vez, até ao início. A barra mostra os passos do guarda e, na ponta direita, os empurrões.

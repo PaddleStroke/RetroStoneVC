@@ -1,0 +1,12 @@
+Tangram
+# Het doel
+De tangram is een oude Chinese puzzel: een vierkant dat in zeven stukken is gesneden, de tans. Twee grote driehoeken, een middelgrote, twee kleine, een vierkant en een parallellogram. Vul met alle zeven het donkere silhouet, zonder dat er iets overlapt. Kies eerst een reeks: dieren, mensen of dingen; elke reeks bevat 20 silhouetten die voor dit spel zijn gemaakt, en een nieuw spel kiest er een uit.
+# Een zet
+Verplaats een tan, draai hem, of keer het parallellogram om (de andere zien er aan beide kanten hetzelfde uit). Tans liggen plat en overlappen nooit.
+# Het einde van het spel
+De puzzel is opgelost als de zeven tans het silhouet precies bedekken: er gaat gouden licht over ze heen. Er kan meer dan één manier zijn; elke manier die het silhouet vult, telt.
+# Spelen op het apparaat
+- Sleep een tan op het silhouet. Als je loslaat, valt hij in het raster van het silhouet, als zijn stand bij het raster past.
+- Tik op een tan: hij draait een achtste slag.
+- Tik twee keer snel op het parallellogram: het keert om.
+De tan die je het laatst hebt aangeraakt, ligt bovenop. De lamp naast de tafel geeft een hint: hij schuift één tan op zijn plek, in gouden licht. Ongedaan maken neemt één actie tegelijk terug, helemaal tot het begin. De balk toont je acties.

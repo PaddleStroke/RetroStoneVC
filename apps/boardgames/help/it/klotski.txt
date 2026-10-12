@@ -1,0 +1,28 @@
+Klotski
+# Lo scopo
+Dieci blocchi di legno riempiono una cornice di 4 × 5 caselle, tutte tranne due. Porta il grande blocco rosso fino all'apertura al centro del bordo inferiore, così che possa uscire scivolando. È l'antico rompicapo cinese Huarong Dao: il grande blocco è un generale, intrappolato con i suoi ufficiali e soldati in uno stretto passo.
+Scegli prima la partenza. Sono tradizionali, ognuna col suo nome cinese:
+- Heng Dao Li Ma (una spada tenuta di traverso, un cavallo trattenuto): il classico, 81 mosse.
+- Jie Zu Xian Deng (il piede svelto arriva primo): 32.
+- Yi Lu Shun Feng (vento favorevole per tutta la strada): 39.
+- Yu Sheng Xi Li (il picchiettare della pioggia): 47.
+- Zuo You Bu Bing (soldati a sinistra e a destra): 54.
+- Yi Lu Jin Jun (un esercito in marcia in un'unica colonna): 58.
+- Qi Tou Bing Jin (tutti affiancati): 60.
+- Cha Chi Nan Fei (anche con le ali, nessuna via d'uscita): 62.
+- Zhi Hui Ruo Ding (calma nel comando): 70.
+- Tao Hua Yuan Zhong (nel giardino dei peschi): 70.
+- Bing Fen San Lu (le truppe divise in tre): 72.
+- Jiang Yong Cao Ying (ufficiali che affollano l'accampamento): 72.
+- Ceng Ceng She Fang (difese a ogni livello): 102.
+- Feng Hui Lu Zhuan (il sentiero gira intorno alle vette): 138.
+I numeri sono il minimo di mosse, trovato da un computer provando ogni posizione.
+# Una mossa
+Un blocco scorre nelle caselle vuote, una casella alla volta, in su, in giù, a sinistra o a destra; non si solleva mai. Come vuole la tradizione, una mossa è un blocco fatto scorrere quanto vuoi, anche girando un angolo, prima di toccare un altro blocco.
+# La fine della partita
+Quando il grande blocco sta al centro della riga in basso, esce dall'apertura in luce dorata: risolto.
+# Giocare sul dispositivo
+- Trascina un blocco: segue il tuo dito casella per casella.
+- Oppure tocca un blocco. Se ha un solo posto dove andare, ci va. Se ne ha di più, viene scelto e dei punti mostrano le caselle che può raggiungere: toccane una, e ci va per la via più breve.
+- Tocca una casella vuota che un solo blocco può raggiungere: quel blocco arriva.
+La lampada accanto alla cornice dà un suggerimento: la prima mossa di un percorso più corto, in luce dorata. Annulla toglie una mossa alla volta, fino all'inizio. La barra mostra le tue mosse e, all'estremità destra, il minimo possibile per questa partenza; si illumina d'oro quando lo eguagli.

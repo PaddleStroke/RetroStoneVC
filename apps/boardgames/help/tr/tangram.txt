@@ -1,0 +1,12 @@
+Tangram
+# Amaç
+Tangram eski bir Çin bulmacasıdır: yedi parçaya, yani tanlara kesilmiş bir kare. İki büyük üçgen, bir orta boy, iki küçük, bir kare ve bir paralelkenar. Yedisini de kullanarak koyu silueti, hiçbir parça üst üste binmeden doldur. Önce bir set seç: hayvanlar, insanlar ya da nesneler; her birinde bu oyun için yapılmış 20 siluet vardır ve yeni bir oyun bunlardan birini seçer.
+# Bir hamle
+Bir tanı taşı, döndür ya da paralelkenarı ters çevir (diğerleri iki yüzde de aynı görünür). Tanlar düz yatar ve asla üst üste binmez.
+# Oyunun sonu
+Yedi tan silueti tam olarak kapladığında bulmaca çözülür: üzerlerinden altın bir ışık geçer. Birden fazla yol olabilir; silueti dolduran her yol geçerlidir.
+# Cihazda oynamak
+- Bir tanı siluetin üstüne sürükle. Bıraktığında, siluetin ızgarasıyla düz hizadaysa ona oturur.
+- Bir tana dokun: sekizde bir tur döner.
+- Paralelkenara hızlıca iki kez dokun: ters döner.
+En son dokunduğun tan en üstte durur. Masanın yanındaki lamba bir ipucu verir: altın ışıkla bir tanı yerine kaydırır. Geri al her seferinde bir işlemi geri alır, en başa kadar. Çubuk işlemlerini gösterir.

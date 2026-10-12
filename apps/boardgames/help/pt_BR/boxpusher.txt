@@ -1,0 +1,13 @@
+Empurra-caixas
+# O objetivo
+Você é o guardião de um armazém. Empurre cada caixa para um dos anéis de latão encravados no chão: há tantos anéis quanto caixas. São 60 fases em três capítulos, a começar pela mais fácil. As fases foram feitas para este jogo: um computador verificou que cada uma tem solução, e o menor número de empurrões de que ela precisa é conhecido.
+# Uma jogada
+O guardião anda uma casa de cada vez: para cima, para baixo, para a esquerda ou para a direita, nunca através de paredes ou caixas. Andando contra uma caixa, ele a empurra uma casa adiante, se a casa seguinte estiver livre. As caixas nunca são puxadas, e duas caixas em fila são pesadas demais para empurrar. Pense antes: uma caixa empurrada para um canto nunca mais sai de lá.
+# O fim da partida
+A fase está resolvida quando todas as caixas estão sobre um anel: as caixas se acendem em dourado. Três estrelas se você usou o menor número de empurrões possível, duas se chegou perto, uma nos outros casos.
+# Jogando no aparelho
+Escolha uma fase na tela de fases; as resolvidas mostram suas estrelas.
+- Deslize o dedo: o guardião anda para aquele lado, tantas casas quanto o comprimento do seu gesto, empurrando o que estiver à frente.
+- Toque numa casa livre: o guardião anda até lá, contornando as caixas.
+- Toque numa caixa ao lado do guardião: ela é empurrada uma casa para longe dele. Toque em qualquer outra caixa: pontos mostram aonde ela pode ser empurrada em linha reta; toque num ponto, e o guardião dá a volta e a empurra até lá.
+A lâmpada dá uma dica: o guardião faz o próximo empurrão de um caminho mais curto, em luz dourada. Se uma caixa estiver presa, a dica primeiro volta até onde ainda existe um caminho. Desfazer volta uma ação de cada vez, até o começo. A barra mostra os passos do guardião e, na ponta direita, os empurrões.

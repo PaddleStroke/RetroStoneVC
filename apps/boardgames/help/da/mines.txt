@@ -1,0 +1,16 @@
+Miner
+# Målet
+Under nogle af markens træbrikker ligger der skjulte miner. Løft hver brik, der ikke har en mine under sig. Vælg først marken: 9 × 9 med 10 miner, 8 × 12 med 15 (lavet til en telefon, der holdes på højkant), 16 × 16 med 40 eller 16 × 30 med 99.
+De første fire billeder er marker uden gætteri: hver kan ryddes fra første brik med ren logik, aldrig med held. Billederne med en terning er trukket helt tilfældigt, som i det klassiske spil: en gang imellem hjælper kun et gæt.
+# Et træk
+Løft en brik. Under den finder du en mine eller et tal: hvor mange af dens otte naboer der skjuler en mine. En brik uden miner omkring sig løfter selv sine naboer, så hele områder åbner sig på én gang. Din første brik er aldrig en mine og åbner altid et område.
+Sæt et flag på en brik, du er sikker på skjuler en mine. Flag er noter til dig selv; de forhindrer også, at en brik bliver løftet ved et uheld. Når et tal har alle sine flag omkring sig, så tryk på det for at løfte dets andre naboer på én gang.
+# Spillets afslutning
+Marken er ryddet, når hver brik uden mine er løftet: minerne viser sig under deres flag, og en bølge af gyldent lys løber over marken.
+En løftet mine gløder rødt. Intet er tabt: Fortryd tager den tilbage, og du spiller videre.
+# Spil på enheden
+- Tryk på en brik for at løfte den.
+- Hold en brik et øjeblik for at sætte eller fjerne et flag. Flagknappen ved siden af marken får tryk til at sætte flag i stedet (så løfter et langt tryk).
+- På de større marker henter luppen marken tæt på: træk den rundt med en finger. Tynde streger langs rammen viser, hvor du er. Tryk på luppen igen for at se hele marken.
+- Lampen giver et tip: en sikker brik løftet, en sikker mine markeret med flag eller et forkert flag fjernet, i gyldent lys. Efter en mine lyser lampen og tager den tilbage.
+Fortryd tager én handling tilbage ad gangen, helt til starten. Bjælken viser dine handlinger og, yderst til højre, de resterende miner: minerne minus dine flag.

@@ -1,0 +1,16 @@
+Mines
+# Le but
+Des mines sont cachées sous certaines tuiles de bois du terrain. Soulève toutes les tuiles qui n'ont pas de mine dessous. Choisis d'abord le terrain : 9 × 9 avec 10 mines, 8 × 12 avec 15 (fait pour un téléphone tenu à la verticale), 16 × 16 avec 40, ou 16 × 30 avec 99.
+Les quatre premières images sont des terrains sans devinette : chacun se déblaie depuis la première tuile par le seul raisonnement, jamais par chance. Les images avec un dé sont tirées au pur hasard, comme dans le jeu classique : de temps en temps, il ne reste qu'à deviner.
+# Un coup
+Soulève une tuile. Dessous, tu trouves une mine, ou un nombre : combien de ses huit voisines cachent une mine. Une tuile sans mine autour d'elle soulève toute seule ses voisines, si bien que des zones entières s'ouvrent d'un coup. Ta première tuile n'est jamais une mine, et ouvre toujours une zone.
+Plante un drapeau sur une tuile dont tu es sûr qu'elle cache une mine. Les drapeaux sont des notes pour toi ; ils empêchent aussi de soulever une tuile par erreur. Quand un nombre a tous ses drapeaux autour de lui, touche-le pour soulever d'un coup ses autres voisines.
+# La fin de la partie
+Le terrain est déblayé quand chaque tuile sans mine est soulevée : les mines apparaissent sous leurs drapeaux, et une vague de lumière dorée parcourt le terrain.
+Une mine soulevée brille en rouge. Rien n'est perdu : Annuler la reprend, et tu continues.
+# Jouer sur l'appareil
+- Touche une tuile pour la soulever.
+- Garde le doigt un instant sur une tuile pour planter ou arracher un drapeau. Avec le bouton drapeau à côté du terrain, toucher plante des drapeaux (l'appui long soulève alors).
+- Sur les grands terrains, la loupe rapproche le terrain : déplace-le du doigt. De fines bandes le long du cadre montrent où tu es. Touche encore la loupe pour voir tout le terrain.
+- La lampe donne un indice : une tuile sûre soulevée, une mine certaine marquée d'un drapeau, ou un drapeau faux arraché, dans une lumière dorée. Après une mine, la lampe est allumée et reprend la mine.
+Annuler reprend une action à la fois, jusqu'au début. La barre montre tes actions et, à son extrémité droite, les mines restantes : les mines moins tes drapeaux.

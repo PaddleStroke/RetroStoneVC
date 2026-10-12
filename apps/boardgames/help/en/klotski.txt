@@ -1,0 +1,28 @@
+Klotski
+# The aim
+Ten wooden blocks fill a tray of 4 × 5 cells, all but two. Bring the great red block down to the opening in the middle of the bottom edge, so it can slide out. This is the old Chinese puzzle Huarong Dao: the great block is a general, trapped with his officers and soldiers in a narrow pass.
+Choose the start first. They are traditional, each with its Chinese name:
+- Heng Dao Li Ma (a sword held across, a horse reined in): the classic, 81 moves.
+- Jie Zu Xian Deng (the quick foot gets there first): 32.
+- Yi Lu Shun Feng (a fair wind all the way): 39.
+- Yu Sheng Xi Li (the patter of rain): 47.
+- Zuo You Bu Bing (soldiers on left and right): 54.
+- Yi Lu Jin Jun (an army marching in one column): 58.
+- Qi Tou Bing Jin (all abreast): 60.
+- Cha Chi Nan Fei (even with wings, no way out): 62.
+- Zhi Hui Ruo Ding (calm in command): 70.
+- Tao Hua Yuan Zhong (in the peach garden): 70.
+- Bing Fen San Lu (the troops split three ways): 72.
+- Jiang Yong Cao Ying (officers crowding the camp): 72.
+- Ceng Ceng She Fang (defences on every level): 102.
+- Feng Hui Lu Zhuan (the path winds round the peaks): 138.
+The numbers are the fewest moves, found by a computer trying every position.
+# A move
+A block slides into empty cells, one cell at a time, up, down, left or right; it is never lifted. As the tradition counts, one move is one block slid as far as you like, even round a corner, before you touch another block.
+# The end of the game
+When the great block stands in the middle of the bottom row, it slides out through the opening in gold light: solved.
+# Playing on the device
+- Drag a block: it follows your finger cell by cell.
+- Or tap a block. If it has only one place to go, it goes there. If it has more, it is picked and dots show the cells it can reach: tap one, and it goes there by the shortest way.
+- Tap an empty cell that only one block can reach: that block comes.
+The lamp beside the tray gives a hint: the first move of a shortest way, in gold light. Undo takes back one move at a time, all the way to the start. The bar shows your moves and, at its right end, the fewest possible for this start; it glows gold when you match it.

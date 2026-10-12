@@ -1,0 +1,12 @@
+Tangram
+# Målet
+Tangram är ett gammalt kinesiskt pussel: en kvadrat som skurits i sju bitar, tanerna. Två stora trianglar, en mellanstor, två små, en kvadrat och ett parallellogram. Använd alla sju för att fylla den mörka siluetten, utan att något överlappar. Välj först en samling: djur, människor eller saker; var och en rymmer 20 siluetter gjorda för det här spelet, och ett nytt parti väljer en av dem.
+# Ett drag
+Flytta en tan, vrid den eller vänd på parallellogrammet (de andra ser likadana ut åt båda hållen). Tanerna ligger platt och överlappar aldrig.
+# Partiets slut
+Pusslet är löst när de sju tanerna täcker siluetten exakt: ett guldljus sveper över dem. Det kan finnas mer än ett sätt; varje sätt som fyller siluetten räknas.
+# Spela på enheten
+- Dra en tan till siluetten. När du släpper den lägger den sig i siluettens rutnät, om den står rakt mot det.
+- Tryck på en tan: den vrids en åttondels varv.
+- Tryck två gånger snabbt på parallellogrammet: det vänds.
+Tanen du rörde sist ligger överst. Lampan bredvid bordet ger en ledtråd: den skjuter en tan på plats, i gyllene ljus. Ångra tar tillbaka en handling i taget, ända till början. Listen visar dina handlingar.

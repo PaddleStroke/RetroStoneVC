@@ -1,0 +1,28 @@
+Klotski
+# Das Ziel
+Zehn Holzklötze füllen einen Rahmen von 4 × 5 Feldern, bis auf zwei. Bringe den großen roten Klotz hinunter zur Öffnung in der Mitte des unteren Rands, damit er hinausgleiten kann. Das ist das alte chinesische Rätsel Huarong Dao: Der große Klotz ist ein General, der mit seinen Offizieren und Soldaten in einem engen Pass gefangen ist.
+Wähle zuerst die Startstellung. Alle sind überliefert, jede mit ihrem chinesischen Namen:
+- Heng Dao Li Ma (ein quer gehaltenes Schwert, ein gezügeltes Pferd): die klassische, 81 Züge.
+- Jie Zu Xian Deng (der schnelle Fuß kommt zuerst an): 32.
+- Yi Lu Shun Feng (guter Wind den ganzen Weg): 39.
+- Yu Sheng Xi Li (das Trommeln des Regens): 47.
+- Zuo You Bu Bing (Soldaten links und rechts): 54.
+- Yi Lu Jin Jun (ein Heer, das in einer Kolonne marschiert): 58.
+- Qi Tou Bing Jin (alle Seite an Seite): 60.
+- Cha Chi Nan Fei (selbst mit Flügeln kein Entkommen): 62.
+- Zhi Hui Ruo Ding (ruhig im Kommando): 70.
+- Tao Hua Yuan Zhong (im Pfirsichgarten): 70.
+- Bing Fen San Lu (die Truppen teilen sich auf drei Wege): 72.
+- Jiang Yong Cao Ying (Offiziere drängen sich im Lager): 72.
+- Ceng Ceng She Fang (Verteidigung auf jeder Ebene): 102.
+- Feng Hui Lu Zhuan (der Weg windet sich um die Gipfel): 138.
+Die Zahlen sind die wenigsten Züge, gefunden von einem Computer, der jede Stellung ausprobiert hat.
+# Ein Zug
+Ein Klotz gleitet in leere Felder, ein Feld nach dem anderen, nach oben, unten, links oder rechts; er wird nie angehoben. Nach traditioneller Zählung ist ein Zug ein Klotz, der beliebig weit geschoben wird, auch um eine Ecke, bevor du einen anderen Klotz berührst.
+# Das Ende der Partie
+Steht der große Klotz in der Mitte der unteren Reihe, gleitet er in goldenem Licht durch die Öffnung hinaus: gelöst.
+# Spielen auf dem Gerät
+- Ziehe einen Klotz: Er folgt deinem Finger Feld für Feld.
+- Oder tippe einen Klotz an. Kann er nur an einen Platz, geht er dorthin. Kann er an mehrere, wird er ausgewählt, und Punkte zeigen die Felder, die er erreichen kann: Tippe eines an, und er geht auf dem kürzesten Weg dorthin.
+- Tippe ein leeres Feld an, das nur ein Klotz erreichen kann: Dieser Klotz kommt.
+Die Lampe neben dem Rahmen gibt einen Tipp: den ersten Zug eines kürzesten Wegs, in goldenem Licht. Rückgängig nimmt einen Zug nach dem anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge und am rechten Ende die wenigsten möglichen für diese Startstellung; sie leuchtet golden, wenn du sie erreichst.

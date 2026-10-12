@@ -1,0 +1,13 @@
+Kistenschuiver
+# Het doel
+Je bent de bewaarder van een pakhuis. Duw elke kist op een van de messing ringen in de vloer: er zijn evenveel ringen als kisten. Er zijn 60 levels in drie hoofdstukken, te beginnen met het makkelijkste. De levels zijn voor dit spel gemaakt: van elk is door een computer gecontroleerd dat het oplosbaar is, en het kleinste aantal duwen dat het nodig heeft, is bekend.
+# Een zet
+De bewaarder loopt één vakje tegelijk: omhoog, omlaag, naar links of naar rechts, nooit door muren of kisten heen. Loopt hij tegen een kist aan, dan duwt hij die één vakje verder, als het vakje erachter vrij is. Kisten worden nooit getrokken, en twee kisten op een rij zijn te zwaar om te duwen. Denk vooruit: een kist die in een hoek is geduwd, komt er nooit meer uit.
+# Het einde van het spel
+Het level is opgelost als elke kist op een ring staat: de kisten lichten goud op. Drie sterren als je het kleinst mogelijke aantal duwen hebt gebruikt, twee als je er dichtbij kwam, anders één.
+# Spelen op het apparaat
+Kies een level op het levelscherm; de opgeloste tonen hun sterren.
+- Veeg: de bewaarder stapt die kant op, zoveel vakjes als je veeg lang is, en duwt wat ervoor staat.
+- Tik op een vrij vakje: de bewaarder loopt erheen, om de kisten heen.
+- Tik op een kist naast de bewaarder: die wordt één vakje van de bewaarder af geduwd. Tik op een andere kist: stippen tonen waarheen hij in een rechte lijn kan worden geduwd; tik op een stip, en de bewaarder loopt eromheen en duwt hem daarheen.
+De lamp geeft een hint: de bewaarder doet de volgende duw van een kortste weg, in gouden licht. Zit een kist vast, dan gaat de hint eerst terug naar waar nog een weg is. Ongedaan maken neemt één actie tegelijk terug, helemaal tot het begin. De balk toont de stappen van de bewaarder en, aan het rechtereinde, de duwen.

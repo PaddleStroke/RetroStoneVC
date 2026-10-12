@@ -1,0 +1,12 @@
+Tangram
+# O objetivo
+O tangram é um antigo quebra-cabeça chinês: um quadrado cortado em sete peças, os tans. Dois triângulos grandes, um médio, dois pequenos, um quadrado e um paralelogramo. Use todos os sete para preencher a silhueta escura, sem nenhuma sobreposição. Escolha primeiro uma coleção: animais, pessoas ou objetos; cada uma traz 20 silhuetas feitas para este jogo, e uma nova partida escolhe uma delas.
+# Uma jogada
+Mova um tan, gire-o ou vire o paralelogramo ao contrário (os outros ficam iguais dos dois lados). Os tans ficam deitados e nunca se sobrepõem.
+# O fim da partida
+O quebra-cabeça está resolvido quando os sete tans cobrem exatamente a silhueta: uma luz dourada percorre os tans. Pode haver mais de uma maneira; qualquer maneira que preencha a silhueta vale.
+# Jogando no aparelho
+- Arraste um tan para a silhueta. Quando você solta, ele se encaixa na grade da silhueta, se estiver alinhado com ela.
+- Toque num tan: ele gira um oitavo de volta.
+- Toque duas vezes rápido no paralelogramo: ele vira ao contrário.
+O último tan que você tocou fica por cima. A lâmpada ao lado da mesa dá uma dica: desliza um tan para o seu lugar, em luz dourada. Desfazer volta uma ação de cada vez, até o começo. A barra mostra as suas ações.

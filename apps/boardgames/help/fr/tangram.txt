@@ -1,0 +1,12 @@
+Tangram
+# Le but
+Le tangram est un vieux casse-tête chinois : un carré découpé en sept pièces, les tans. Deux grands triangles, un moyen, deux petits, un carré et un parallélogramme. Utilise les sept pour remplir la silhouette sombre, sans aucun chevauchement. Choisis d'abord une série : animaux, personnages ou objets ; chacune contient 20 silhouettes faites pour ce jeu, et une nouvelle partie en choisit une.
+# Un coup
+Déplace un tan, fais-le tourner, ou retourne le parallélogramme (les autres sont pareils dans les deux sens). Les tans restent à plat et ne se chevauchent jamais.
+# La fin de la partie
+Le casse-tête est résolu quand les sept tans couvrent exactement la silhouette : une lumière dorée les parcourt. Il peut y avoir plus d'une façon ; toute façon qui remplit la silhouette compte.
+# Jouer sur l'appareil
+- Fais glisser un tan sur la silhouette. Quand tu le lâches, il se cale sur la grille de la silhouette, s'il est bien d'équerre avec elle.
+- Touche un tan : il tourne d'un huitième de tour.
+- Touche deux fois vite le parallélogramme : il se retourne.
+Le dernier tan touché est posé au-dessus. La lampe à côté de la table donne un indice : elle fait glisser un tan à sa place, dans une lumière dorée. Annuler reprend une action à la fois, jusqu'au début. La barre montre tes actions.

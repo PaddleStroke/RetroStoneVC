@@ -1,0 +1,28 @@
+Klotski
+# Tujuan
+Sepuluh balok kayu mengisi bingkai berukuran 4 × 5 petak, kecuali dua petak. Bawa balok merah besar turun ke celah di tengah tepi bawah, supaya ia bisa meluncur keluar. Ini teka-teki kuno Tiongkok Huarong Dao: balok besar adalah seorang jenderal, terjebak bersama perwira dan prajuritnya di jalur yang sempit.
+Pilih dulu posisi awalnya. Semuanya tradisional, masing-masing dengan nama Tionghoanya:
+- Heng Dao Li Ma (pedang dipegang melintang, kuda dikekang): yang klasik, 81 langkah.
+- Jie Zu Xian Deng (kaki yang cepat tiba lebih dulu): 32.
+- Yi Lu Shun Feng (angin baik sepanjang jalan): 39.
+- Yu Sheng Xi Li (rintik hujan): 47.
+- Zuo You Bu Bing (prajurit di kiri dan kanan): 54.
+- Yi Lu Jin Jun (pasukan berbaris dalam satu barisan): 58.
+- Qi Tou Bing Jin (semua berjajar): 60.
+- Cha Chi Nan Fei (bersayap pun tak bisa lolos): 62.
+- Zhi Hui Ruo Ding (tenang dalam memimpin): 70.
+- Tao Hua Yuan Zhong (di kebun persik): 70.
+- Bing Fen San Lu (pasukan terbagi tiga arah): 72.
+- Jiang Yong Cao Ying (perwira berdesakan di perkemahan): 72.
+- Ceng Ceng She Fang (pertahanan di setiap lapis): 102.
+- Feng Hui Lu Zhuan (jalan berkelok mengitari puncak): 138.
+Angka-angka itu adalah jumlah langkah paling sedikit, ditemukan komputer dengan mencoba setiap posisi.
+# Satu langkah
+Balok meluncur ke petak kosong, satu petak setiap kali, ke atas, bawah, kiri, atau kanan; balok tidak pernah diangkat. Menurut hitungan tradisi, satu langkah adalah satu balok yang digeser sejauh yang kamu mau, bahkan berbelok di sudut, sebelum kamu menyentuh balok lain.
+# Akhir permainan
+Saat balok besar berada di tengah baris bawah, ia meluncur keluar lewat celah dengan cahaya emas: terpecahkan.
+# Bermain di perangkat
+- Seret balok: balok mengikuti jarimu petak demi petak.
+- Atau ketuk balok. Jika hanya ada satu tempat yang bisa ditujunya, ia ke sana. Jika lebih, balok itu terpilih dan titik-titik menunjukkan petak yang bisa dicapainya: ketuk salah satunya, dan balok ke sana lewat jalan terpendek.
+- Ketuk petak kosong yang hanya bisa dicapai satu balok: balok itu datang.
+Lampu di samping bingkai memberi petunjuk: langkah pertama dari jalan terpendek, dengan cahaya emas. Urungkan membatalkan satu langkah setiap kali, sampai ke awal. Bilah menunjukkan langkahmu dan, di ujung kanannya, jumlah paling sedikit untuk posisi awal ini; bilah bersinar keemasan saat kamu menyamainya.

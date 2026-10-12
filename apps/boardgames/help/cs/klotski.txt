@@ -1,0 +1,28 @@
+Klotski
+# Cíl hry
+Deset dřevěných kostek vyplňuje rámeček o 4 × 5 polích, až na dvě. Dostaň velkou červenou kostku dolů k otvoru uprostřed spodního okraje, aby mohla vyklouznout ven. Je to starý čínský hlavolam Huarong Dao: velká kostka je generál, uvězněný se svými důstojníky a vojáky v úzkém průsmyku.
+Nejprve zvol výchozí rozestavení. Všechna jsou tradiční, každé se svým čínským názvem:
+- Heng Dao Li Ma (meč držený napříč, kůň s přitaženou uzdou): klasika, 81 tahů.
+- Jie Zu Xian Deng (rychlá noha dorazí první): 32.
+- Yi Lu Shun Feng (příznivý vítr po celou cestu): 39.
+- Yu Sheng Xi Li (ťukot deště): 47.
+- Zuo You Bu Bing (vojáci vlevo i vpravo): 54.
+- Yi Lu Jin Jun (vojsko pochodující v jednom zástupu): 58.
+- Qi Tou Bing Jin (všichni bok po boku): 60.
+- Cha Chi Nan Fei (ani s křídly není úniku): 62.
+- Zhi Hui Ruo Ding (klidný ve velení): 70.
+- Tao Hua Yuan Zhong (v broskvovém sadu): 70.
+- Bing Fen San Lu (vojsko se dělí na tři směry): 72.
+- Jiang Yong Cao Ying (důstojníci se tlačí v táboře): 72.
+- Ceng Ceng She Fang (obrana v každém patře): 102.
+- Feng Hui Lu Zhuan (cesta se vine kolem vrcholů): 138.
+Čísla udávají nejmenší počet tahů, který našel počítač vyzkoušením všech pozic.
+# Tah
+Kostka klouže do prázdných polí, po jednom poli, nahoru, dolů, doleva nebo doprava; nikdy se nezvedá. Podle tradičního počítání je jeden tah posunutí jedné kostky libovolně daleko, i za roh, než se dotkneš jiné kostky.
+# Konec hry
+Když velká kostka stojí uprostřed spodní řady, vyklouzne ve zlatém světle otvorem ven: vyřešeno.
+# Hra na zařízení
+- Táhni kostku: sleduje tvůj prst pole po poli.
+- Nebo na kostku klepni. Může-li jít jen na jedno místo, přesune se tam. Může-li na víc míst, vybere se a tečky ukážou pole, kam může dojet: klepni na jedno a kostka tam dojede nejkratší cestou.
+- Klepni na prázdné pole, kam může dojet jen jedna kostka: ta kostka přijede.
+Lampa vedle rámečku dá nápovědu: první tah nejkratší cesty, ve zlatém světle. Zpět vrací jeden tah po druhém, až na začátek. Lišta ukazuje tvé tahy a na pravém konci nejmenší možný počet pro toto rozestavení; když ho dosáhneš, rozzáří se zlatem.

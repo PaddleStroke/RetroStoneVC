@@ -1,0 +1,12 @@
+Tangram
+# Cíl hry
+Tangram je starý čínský hlavolam: čtverec rozřezaný na sedm dílků, tanů. Dva velké trojúhelníky, jeden střední, dva malé, čtverec a rovnoběžník. Použij všech sedm a vyplň tmavou siluetu tak, aby se nic nepřekrývalo. Nejprve zvol sadu: zvířata, lidé nebo věci; každá obsahuje 20 siluet vytvořených pro tuto hru a nová hra vybere jednu z nich.
+# Tah
+Posuň tan, otoč ho, nebo převrať rovnoběžník (ostatní vypadají z obou stran stejně). Tany leží naplocho a nikdy se nepřekrývají.
+# Konec hry
+Hlavolam je vyřešený, když sedm tanů přesně pokryje siluetu: přeběhne po nich zlaté světlo. Způsobů může být víc; platí každý, který siluetu vyplní.
+# Hra na zařízení
+- Přetáhni tan na siluetu. Když ho pustíš, usadí se do mřížky siluety, pokud je k ní rovně natočený.
+- Klepni na tan: otočí se o osminu otáčky.
+- Klepni rychle dvakrát na rovnoběžník: převrátí se.
+Naposledy dotčený tan leží navrchu. Lampa vedle stolu dá nápovědu: posune jeden tan na jeho místo, ve zlatém světle. Zpět vrací jednu akci po druhé, až na začátek. Lišta ukazuje tvé akce.

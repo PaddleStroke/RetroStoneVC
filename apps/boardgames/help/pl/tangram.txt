@@ -1,0 +1,12 @@
+Tangram
+# Cel gry
+Tangram to stara chińska łamigłówka: kwadrat pocięty na siedem części, zwanych tanami. Dwa duże trójkąty, jeden średni, dwa małe, kwadrat i równoległobok. Użyj wszystkich siedmiu, aby wypełnić ciemną sylwetkę, tak by nic na siebie nie nachodziło. Najpierw wybierz zestaw: zwierzęta, ludzie albo przedmioty; każdy zawiera 20 sylwetek stworzonych dla tej gry, a nowa gra wybiera jedną z nich.
+# Ruch
+Przesuń tan, obróć go albo odwróć równoległobok na drugą stronę (pozostałe wyglądają tak samo z obu stron). Tany leżą płasko i nigdy na siebie nie nachodzą.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy siedem tanów dokładnie pokrywa sylwetkę: przebiega po nich złote światło. Sposobów może być więcej niż jeden; liczy się każdy, który wypełnia sylwetkę.
+# Gra na urządzeniu
+- Przeciągnij tan na sylwetkę. Gdy go puścisz, ułoży się na siatce sylwetki, jeśli jest obrócony zgodnie z nią.
+- Dotknij tana: obraca się o jedną ósmą obrotu.
+- Dotknij szybko dwa razy równoległoboku: odwraca się na drugą stronę.
+Tan dotknięty jako ostatni leży na wierzchu. Lampa obok stołu daje podpowiedź: wsuwa jeden tan na jego miejsce, w złotym świetle. Cofnij cofa po jednej czynności, aż do początku. Pasek pokazuje twoje czynności.

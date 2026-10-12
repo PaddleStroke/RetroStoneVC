@@ -1,0 +1,12 @@
+Tangram
+# The aim
+The tangram is an old Chinese puzzle: a square cut into seven pieces, the tans. Two large triangles, a medium one, two small ones, a square and a parallelogram. Use all seven to fill the dark silhouette, without any overlap. Choose a set first: animals, people or things; each holds 20 silhouettes made for this game, and a new game picks one of them.
+# A move
+Move a tan, turn it, or turn the parallelogram over (the others look the same either way). Tans lie flat and never overlap.
+# The end of the game
+The puzzle is solved when the seven tans cover the silhouette exactly: gold light runs over them. There may be more than one way; any way that fills the silhouette counts.
+# Playing on the device
+- Drag a tan onto the silhouette. When you let go, it settles on the silhouette's grid, if it stands square to it.
+- Tap a tan: it turns an eighth of a turn.
+- Tap the parallelogram twice quickly: it turns over.
+The tan you touched last lies on top. The lamp beside the table gives a hint: it slides one tan into its place, in gold light. Undo takes back one action at a time, all the way to the start. The bar shows your actions.

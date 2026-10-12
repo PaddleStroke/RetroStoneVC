@@ -1,0 +1,16 @@
+Miinat
+# Tavoite
+Kentän puulaattojen alle on piilotettu miinoja. Nosta jokainen laatta, jonka alla ei ole miinaa. Valitse ensin kenttä: 9 × 9 ja 10 miinaa, 8 × 12 ja 15 (tehty pystyasennossa pidettävälle puhelimelle), 16 × 16 ja 40 tai 16 × 30 ja 99.
+Neljä ensimmäistä kuvaa ovat kenttiä ilman arvaamista: jokaisen voi raivata ensimmäisestä laatasta alkaen pelkällä päättelyllä, ei koskaan tuurilla. Nopalla merkityt kuvat arvotaan puhtaasti sattumalta, kuten klassisessa pelissä: silloin tällöin vain arvaus auttaa.
+# Siirto
+Nosta laatta. Sen alta löytyy miina tai numero: kuinka monen sen kahdeksasta naapurista alla on miina. Laatta, jonka ympärillä ei ole miinoja, nostaa naapurinsa itsestään, joten kokonaisia alueita aukeaa kerralla. Ensimmäinen laattasi ei ole koskaan miina, ja se avaa aina alueen.
+Laita lippu laattaan, jonka alla olet varma miinan olevan. Liput ovat muistiinpanoja sinulle; ne myös estävät nostamasta laattaa vahingossa. Kun numeron ympärillä ovat kaikki sen liput, napauta sitä nostaaksesi sen muut naapurit kerralla.
+# Pelin loppu
+Kenttä on raivattu, kun jokainen laatta ilman miinaa on nostettu: miinat näkyvät lippujensa alla, ja kultainen valoaalto kulkee kentän yli.
+Nostettu miina hehkuu punaisena. Mitään ei menetetä: Kumoa peruu sen, ja jatkat.
+# Pelaaminen laitteella
+- Napauta laattaa nostaaksesi sen.
+- Pidä sormea hetki laatan päällä laittaaksesi tai poistaaksesi lipun. Kentän vieressä oleva lippunappi saa napautukset laittamaan lippuja (silloin pitkä painallus nostaa).
+- Suurilla kentillä suurennuslasi tuo kentän lähemmäs: siirrä sitä sormella. Kehyksen reunoilla olevat ohuet viivat näyttävät, missä olet. Napauta suurennuslasia uudelleen nähdäksesi koko kentän.
+- Lamppu antaa vihjeen: se nostaa varman laatan, merkitsee varman miinan lipulla tai poistaa väärän lipun, kultaisessa valossa. Miinan jälkeen lamppu palaa ja peruu sen.
+Kumoa peruu yhden toiminnon kerrallaan, aina alkuun asti. Palkki näyttää toimintosi ja oikeassa päässä jäljellä olevat miinat: miinat vähennettyinä lipuillasi.

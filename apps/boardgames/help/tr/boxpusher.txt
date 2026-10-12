@@ -1,0 +1,13 @@
+Kasaları İt
+# Amaç
+Bir deponun bekçisisin. Her kasayı yere gömülü pirinç halkalardan birinin üstüne it: kasa sayısı kadar halka vardır. En kolayından başlayarak üç bölümde 60 seviye vardır. Seviyeler bu oyun için yapıldı: her birinin çözülebildiği bir bilgisayarla denetlendi ve gereken en az itiş sayısı bilinir.
+# Bir hamle
+Bekçi her seferinde bir kare yürür: yukarı, aşağı, sola ya da sağa; asla duvarların ya da kasaların içinden geçmez. Bir kasaya doğru yürümek, ötesindeki kare boşsa onu bir kare ileri iter. Kasalar asla çekilmez ve arka arkaya iki kasa itilemeyecek kadar ağırdır. İleriyi düşün: köşeye itilen bir kasa bir daha oradan çıkamaz.
+# Oyunun sonu
+Her kasa bir halkanın üstünde durduğunda seviye çözülür: kasalar altın ışıkla parlar. Mümkün olan en az itişi kullandıysan üç yıldız, yaklaştıysan iki, değilse bir yıldız.
+# Cihazda oynamak
+Seviye ekranında bir seviye seç; çözülenler yıldızlarını gösterir.
+- Kaydır: bekçi o yöne, kaydırman ne kadar uzunsa o kadar kare adım atar ve önündekini iter.
+- Boş bir kareye dokun: bekçi kasaların çevresinden dolaşarak oraya yürür.
+- Bekçinin yanındaki bir kasaya dokun: kasa bekçiden bir kare uzağa itilir. Başka herhangi bir kasaya dokun: noktalar onun düz bir çizgide nereye itilebileceğini gösterir; bir noktaya dokun, bekçi dolaşıp onu oraya iter.
+Lamba bir ipucu verir: bekçi en kısa yollardan birinin sonraki itişini altın ışıkla yapar. Bir kasa sıkışmışsa ipucu önce hâlâ bir yolun kaldığı yere geri döner. Geri al her seferinde bir işlemi geri alır, en başa kadar. Çubuk bekçinin adımlarını ve sağ ucunda itişleri gösterir.
