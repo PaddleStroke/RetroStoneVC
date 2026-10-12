@@ -219,6 +219,55 @@ SDL_Texture *ct_picture(void (*paint)(int kind, int size, uint8_t *rgba), int ki
     return pic(paint_user, paint, kind, 0, 0, 0, size < 4 ? 4 : size, size < 4 ? 4 : size);
 }
 
+/* ---- painting a game's own pictures ------------------------------------------------------------------------------ */
+void ct_paint_fig(uint8_t *rgba, int s, art_fig *f, const art_style *st)
+{
+    uint8_t *b = calloc((size_t)s * s, 4);
+    if (b) {
+        art_render(f, st, s, s, (float)s, 0, 0, b);
+        art_blend(rgba, s, s, b, s, s, 0, 0);
+        free(b);
+    }
+    art_fig_free(f);
+}
+
+void ct_paint_blend(uint8_t *rgba, int s, const uint8_t *src, int w, int h, int x, int y, float alpha)
+{
+    if (alpha >= 1) { art_blend(rgba, s, s, src, w, h, x, y); return; }
+    uint8_t *c = malloc((size_t)w * h * 4);
+    if (!c) return;
+    memcpy(c, src, (size_t)w * h * 4);
+    for (int i = 0; i < w * h; i++) c[i * 4 + 3] = (uint8_t)(c[i * 4 + 3] * alpha);
+    art_blend(rgba, s, s, c, w, h, x, y);
+    free(c);
+}
+
+void ct_paint_card(uint8_t *rgba, int s, int deck, int card, int w, int x, int y, float alpha)
+{
+    int h = (int)(w * cards_aspect(deck));
+    uint8_t *b = malloc((size_t)w * h * 4);
+    if (!b) return;
+    cards_paint(deck, card, w, h, b);
+    ct_paint_blend(rgba, s, b, w, h, x, y, alpha);
+    free(b);
+}
+
+void ct_paint_piece(uint8_t *rgba, int s, int type, const art_style *st, float k, float dy)
+{
+    int f = (int)(k * s);
+    uint8_t *b = calloc((size_t)f * f, 4);
+    if (!b) return;
+    art_piece_style(type, st, f, b);
+    art_blend(rgba, s, s, b, f, f, (s - f) / 2, (s - f) / 2 + (int)(dy * s));
+    free(b);
+}
+
+void ct_paint_ivory(uint8_t *rgba, int s)
+{
+    static const uint8_t ivory[3] = {244, 236, 216};
+    art_disc(s, ivory, 1, 0, rgba);
+}
+
 /* the calls' signs, white on clear, size x size (the marks cut out of the cards: clear holes) */
 static void paint_call(int kind, int size, uint8_t *rgba)
 {
@@ -650,10 +699,24 @@ int ct_on_pile(const ct_table *T, int tricks, float x, float y)
     return tricks > 0 && cards_in(T->px, T->py, T->pw * 1.5f, T->asp, x, y);
 }
 
+void ct_talon(int deck, float x, float y, float tx, float ty, float w, int n, int trump, int suit, int count)
+{
+    if (n > 0 && trump != CARD_NONE) cards_draw(deck, trump, tx, ty, w, 90, 0);
+    if (n > 1) cards_pile(deck, x, y, w, n - 1 > 6 ? 6 : n - 1, CARD_NONE, 0);
+    if (n > 1 && count) ui_number(x, y, 0.34f * w, n, 1);
+    if (n > 0) return;
+    float d = 0.75f * w;
+    ui_put_c(ct_suit(deck, suit, (int)d), tx, ty, d, d);
+}
+
 void ct_summary(const ct_table *T, int rows, float *x0, float *pw, float *y_row, float *rh)
 {
-    box b = T->b;
-    float u = T->u;
+    ct_summary_in(T->b, rows, x0, pw, y_row, rh);
+}
+
+void ct_summary_in(box b, int rows, float *x0, float *pw, float *y_row, float *rh)
+{
+    float u = ui.unit;
     *rh = fminf(1.15f * u, b.h * 0.8f / rows);
     *pw = fminf(b.w * 0.94f, 8.0f * u);
     float ph = *rh * rows + 0.5f * u, y0 = b.y + (b.h - ph) / 2;
@@ -661,6 +724,20 @@ void ct_summary(const ct_table *T, int rows, float *x0, float *pw, float *y_row,
     ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 80);
     ct_panel(*x0, y0, *pw, ph, 255);
     *y_row = y0 + 0.25f * u + *rh / 2;
+}
+
+void ct_dots(float cx, float y, float d, int n, int per, const uint8_t *who, int done)
+{
+    int groups = (n + per - 1) / per;
+    float span = n * 1.25f * d + (groups - 1) * d, x = cx - span / 2 + 0.62f * d;
+    for (int i = 0; i < n; i++) {
+        float dx = x + i * 1.25f * d + (i / per) * d;
+        if (i == done - 1) ui_mark_gold(dx, y, 2.2f * d);
+        SDL_Texture *t = ct_token(who[i], (int)d);
+        SDL_SetTextureAlphaMod(t, i < done ? 255 : 70);
+        ui_put_c(t, dx, y, d, d);
+        SDL_SetTextureAlphaMod(t, 255);
+    }
 }
 
 void ct_bar(box b, int deck, int cards, int score)
@@ -829,6 +906,29 @@ void ct_lower(ct_touch *t)
 
 int ct_dragged(const ct_touch *t) { return t->on && t->card != CARD_NONE ? t->at : -1; }
 
+/* ---- several cards chosen ---------------------------------------------------------------------------------------- */
+int ct_count(uint64_t mask)
+{
+    int k = 0;
+    for (; mask; mask &= mask - 1) k++;
+    return k;
+}
+
+void ct_chosen_hows(int n, unsigned mask, int glow, int *how)
+{
+    for (int i = 0; i < n; i++) how[i] = mask >> i & 1 ? CD_RAISED : glow ? CD_GLOW : 0;
+}
+
+int ct_toggle(const ct_table *T, int n, const int *how, unsigned *mask, int more, float x, float y)
+{
+    int i = ct_hand_hit(T, n, how, NULL, x, y);
+    if (i < 0) return 0;
+    if (!(*mask >> i & 1) && !more) { ui_sound(SND_DENY); return 1; }
+    *mask ^= 1u << i;
+    ui_sound(SND_TAP);
+    return 1;
+}
+
 void ct_draw_target(const ct_table *T)
 {
     ui_mark_gold(T->tx[T->me], T->ty[T->me], 1.6f * T->wt);
@@ -852,6 +952,223 @@ void ct_play(ct_moves *mv, const ct_table *T, const ct_touch *f, const uint8_t *
     if (f->on) x0 = f->x, y0 = f->y, d0 = 0;
     ct_rest(mv, ct_slide(mv, T->deck, card, x0, y0, T->wh, d0, 1, T->tx[me], T->ty[me], T->wt, T->tdeg[me], 1,
                          CT_SLIDE_MS, 0, CT_TRICK, me, -1, SND_PLACE), 200);
+}
+
+/* ---- a trick game's table, ready made ---------------------------------------------------------------------------- */
+void ct_game_reset(ct_game *U)
+{
+    U->show_last = 0;
+    ct_touch_reset(&U->F);
+}
+
+void ct_game_new(ct_game *U)
+{
+    ct_calm(&U->A);
+    U->fl.n = 0;
+    ct_game_reset(U);
+    U->floor_n = 0;
+    U->seen = 0;
+}
+
+void ct_game_hows(const ct_game *U, const uint8_t *h, int n, int mine, int (*ok)(int card), int *how)
+{
+    for (int i = 0; i < n; i++) {
+        how[i] = mine ? (ok(h[i]) ? CD_GLOW : CD_DIM) : 0;
+        if (ct_is_raised(&U->F, i)) how[i] = CD_RAISED;
+    }
+}
+
+void ct_game_look(ct_game *U, const uint8_t *h, int n, int start)
+{
+    if ((U->seen >> U->T.me & 1) || ui_handing()) return;
+    U->seen |= 1u << U->T.me;
+    if (start) ct_deal(&U->A, &U->T, h, n);
+}
+
+void ct_game_draw_middle(const ct_game *U, int tricks, const uint8_t *trick, const uint8_t *who, int ntrick,
+                         int leader, int target)
+{
+    ct_draw_pile(&U->T, tricks);
+    ct_draw_trick(&U->T, &U->A, trick, who, ntrick, leader);
+    if (U->F.raised != CARD_NONE && target) ct_draw_target(&U->T);
+}
+
+void ct_game_draw_hand(ct_game *U, const uint8_t *h, int n, int mine, int (*ok)(int card), int hide)
+{
+    int how[CT_HAND];
+    if (n > CT_HAND) n = CT_HAND;
+    if (hide) ct_hand_backs(&U->T, n);
+    else {
+        ct_game_hows(U, h, n, mine, ok, how);
+        ct_hand_draw(&U->T, &U->A, h, n, how, NULL, ct_dragged(&U->F));
+    }
+    ct_draw(&U->A);
+    if (!hide) ct_touch_draw(&U->F, &U->T);
+    const uint8_t pill[4] = {24, 30, 28, 255};
+    ct_floats_draw(&U->fl, ct_round((int)(1.5f * ui.unit), (int)(0.56f * ui.unit), 0.28f * ui.unit, pill), NULL);
+}
+
+void ct_game_draw_last(const ct_game *U, const uint8_t *last, const uint8_t *who, int n, int leader, int winner)
+{
+    if (U->show_last && winner >= 0 && winner < U->T.players) ct_draw_last(&U->T, last, who, n, leader, winner);
+}
+
+int ct_game_press_first(ct_game *U)
+{
+    U->F.card = CARD_NONE;
+    U->F.on = 0;
+    if (U->show_last) { U->show_last = 0; return 1; }
+    return ct_busy(&U->A);
+}
+
+int ct_game_press_pile(ct_game *U, int tricks, float x, float y)
+{
+    if (!ct_on_pile(&U->T, tricks, x, y)) return 0;
+    U->show_last = 1;
+    ui_sound(SND_TAP);
+    return 1;
+}
+
+void ct_game_press_card(ct_game *U, const uint8_t *h, int n, int (*ok)(int card), void (*send)(int card), float x,
+                        float y)
+{
+    if (U->F.raised != CARD_NONE && ct_on_target(&U->T, x, y)) { send(U->F.raised); return; }
+    int how[CT_HAND];
+    if (n > CT_HAND) n = CT_HAND;
+    ct_game_hows(U, h, n, 1, ok, how);
+    ct_touch_hand(&U->F, &U->T, h, n, how, NULL, x, y);
+}
+
+void ct_game_release(ct_game *U, int (*ok)(int card), void (*send)(int card), float x, float y)
+{
+    int c, r = ct_touch_up(&U->F, &U->T, x, y, &c);
+    if (r == CT_T_SEND) send(c);
+    else if (r == CT_T_TAP && ct_tap_play(&U->F, c, ok(c))) send(c);
+    U->F.on = 0;
+}
+
+void ct_game_played(ct_game *U, int card, const uint8_t *h, int n, const uint8_t *last, int leader, int winner)
+{
+    ct_play(&U->A, &U->T, &U->F, h, n, card);
+    if (last)
+        ct_gather(&U->A, &U->T, last, NULL, U->T.players, leader, winner, CT_SLIDE_MS + CT_LOOK_MS, CT_SLIDE_MS);
+}
+
+void ct_game_float(ct_game *U, int pl, int value, int badge)
+{
+    ct_float(&U->fl, &U->A, U->T.sx[pl], U->T.sy[pl] - 0.8f * U->T.tok, value, badge,
+             ui_ms() + CT_SLIDE_MS + CT_LOOK_MS + 300);
+}
+
+/* ---- the calls' pictures ----------------------------------------------------------------------------------------- */
+void ct_call_paint(int kind, int s, uint8_t *rgba)
+{
+    static const uint8_t ink[3] = {44, 40, 36};
+    float asp = cards_aspect(DECK_FRENCH);
+    memset(rgba, 0, (size_t)s * s * 4);
+    if (kind >= CT_CALL_CARD && kind < CT_CALL_FIG) {
+        int card = kind & 0xff, pair = kind >= CT_CALL_PAIR;
+        float w = 0.9f * s / asp * (pair ? 0.86f : 1);
+        if (pair) {
+            cards_paint_turned(rgba, s, DECK_FRENCH, card, 0.5f * s - 0.17f * w, 0.5f * s + 0.02f * s, w, -12);
+            cards_paint_turned(rgba, s, DECK_FRENCH, card, 0.5f * s + 0.17f * w, 0.5f * s - 0.02f * s, w, 12);
+        } else
+            cards_paint_turned(rgba, s, DECK_FRENCH, card, 0.5f * s, 0.5f * s, w, 0);
+        return;
+    }
+    if (kind == CT_CALL_ACES) {                 /* the four aces fanned */
+        static const int suit[4] = {SUIT_CLUBS, SUIT_HEARTS, SUIT_SPADES, SUIT_DIAMONDS};
+        float w = 0.62f * s / asp;
+        for (int i = 0; i < 4; i++)
+            cards_paint_turned(rgba, s, DECK_FRENCH, CARD(suit[i], RANK_ACE), 0.5f * s + (i - 1.5f) * 0.2f * s,
+                               0.54f * s + fabsf(i - 1.5f) * 0.03f * s, w, (i - 1.5f) * 14);
+        return;
+    }
+    ct_paint_ivory(rgba, s);
+    if (kind >= CT_CALL_FIG && kind < CT_CALL_UP)   /* a chess figure in amber */
+        ct_paint_piece(rgba, s, kind & 0xff, &art_player[4], 0.8f, 0);
+    else {                                      /* an arrow up or down */
+        art_fig *a = art_fig_new();
+        float d = kind == CT_CALL_UP ? -1 : 1;
+        art_band(a, ART_PART, 0.5f, 0.5f - 0.29f * d, 0.5f, 0.5f + 0.02f * d, 0.15f);
+        art_head(a, ART_PART, 0.5f, 0.5f + 0.17f * d, d < 0 ? 270 : 90, 0.38f);
+        art_fig_paint(rgba, s, a, ink, NULL, 0, 0);
+    }
+    cards_disc_cut(rgba, s);
+    cards_disc_rim(rgba, s);
+}
+
+SDL_Texture *ct_call_tex(int kind, float d)
+{
+    int s = (int)(d + 0.5f);
+    if (s < 4) s = 4;
+    return kind < 4 ? ct_suit(DECK_FRENCH, kind, s) : ct_picture(ct_call_paint, kind, s);
+}
+
+void ct_call(int kind, float x, float y, float d, Uint8 alpha)
+{
+    SDL_Texture *t = ct_call_tex(kind, d);
+    SDL_SetTextureAlphaMod(t, alpha);
+    ui_put_c(t, x, y, d, d);
+    SDL_SetTextureAlphaMod(t, 255);
+}
+
+void ct_strike(float x, float y, float d) { ct_pic(CT_SLASH, x, y, d, 0, 230, 70, 60, 255); }
+
+void ct_card_flat(int deck, int card, float x, float y, float h, int how)
+{
+    cards_draw(deck, card, x, y, h / cards_aspect(deck), 0, CD_FLAT | how);
+}
+
+/* ---- the summaries' pieces --------------------------------------------------------------------------------------- */
+float ct_chips(unsigned who, float x, float y, float d, Uint8 alpha)
+{
+    float cx = x;
+    int k = 0;
+    for (int q = 0; q < CT_MAXP; q++) {
+        if (!(who >> q & 1)) continue;
+        SDL_Texture *t = ct_token(q, (int)d);
+        SDL_SetTextureAlphaMod(t, alpha);
+        ui_put_c(t, cx, y, d, d);
+        SDL_SetTextureAlphaMod(t, 255);
+        cx += 0.78f * d;
+        k++;
+    }
+    return k ? d + (k - 1) * 0.78f * d : 0;
+}
+
+void ct_deal_list(float x0, float pw, float y, float rh, int N, int per, int done, const uint8_t *who,
+                  const uint8_t *made)
+{
+    float u = ui.unit, cs = floorf(fminf(0.56f * rh, (pw - 0.6f * u) / (per * 1.45f)));
+    for (int i = 0; i < N; i++) {
+        float cx = x0 + pw / 2 + (i % per - (per - 1) / 2.0f) * 1.45f * cs, cy = y + (i / per) * rh * 0.85f;
+        if (i >= done) { ct_pic(CT_DISC_DARK, cx, cy, 0.4f * cs, 0, 255, 255, 255, 160); continue; }
+        if (!who[i]) {
+            ct_pic(CT_DISC_OFF, cx, cy, cs, 0, 255, 255, 255, 255);
+            ct_pic(CT_DISC_DARK, cx, cy, 0.7f * cs, 0, 255, 255, 255, 255);
+            continue;
+        }
+        int k = 0;
+        for (int q = 0; q < CT_MAXP; q++) k += who[i] >> q & 1;
+        float d = k > 1 ? 0.8f * cs : cs, w = d + (k - 1) * 0.5f * d;
+        if (made[i]) ui_mark_gold(cx, cy, 1.7f * cs);
+        float x = cx - w / 2 + d / 2;
+        for (int q = 0; q < CT_MAXP; q++) {
+            if (!(who[i] >> q & 1)) continue;
+            SDL_Texture *t = ct_token(q, (int)d);
+            SDL_SetTextureAlphaMod(t, made[i] ? 255 : 110);
+            ui_put_c(t, x, cy - (k > 1 ? 0.12f * d : 0) + (x > cx ? 0.24f * d : 0), d, d);
+            SDL_SetTextureAlphaMod(t, 255);
+            x += 0.5f * d;
+        }
+    }
+}
+
+void ct_total(float r, float y, float h, int v)
+{
+    float w = ct_number_w(v, h, 0);
+    ui_number_signed(r - w / 2, y, h, v, 1, 0);
 }
 
 /* ---- the others along the top, the viewer's hand in a box -------------------------------------------------------- */
@@ -879,6 +1196,105 @@ void ct_label(SDL_Texture *token, float cx, float cy, float h, int n)
     float digits = n >= 10 ? 2 : 1, w = 1.15f * h + 0.62f * h * digits;
     ui_put_c(token, cx - w / 2 + h / 2, cy, h, h);
     ui_number(cx + w / 2 - 0.31f * h * digits, cy, 0.85f * h, n, 1);
+}
+
+void ct_others_layout(ct_others *O, box b, int deck, int players, int me, float hs)
+{
+    float u = ui.unit;
+    O->b = b;
+    O->deck = deck;
+    O->players = players;
+    O->me = me < 0 || me >= players ? 0 : me;
+    O->k = players > 1 ? players - 1 : 1;
+    O->asp = cards_aspect(deck);
+    O->sw = floorf(fminf(fminf(hs * 0.6f / O->asp, b.w / O->k * 0.3f), 0.85f * u));
+    O->sfan = fminf(b.w / O->k * 0.8f, O->sw * 3.0f);
+    O->sy = b.y + hs * 0.4f;
+    float ch = O->sw * O->asp;
+    O->lh = 0.48f * O->sw;
+    O->ly = O->sy + 0.5f * ch + 0.3f * O->sw + 0.12f * ch;
+}
+
+float ct_others_x(const ct_others *O, int q) { return ct_seat_x(O->b.x, O->b.w, O->k, ct_seat(q, O->me, O->players)); }
+
+void ct_others_end(const ct_others *O, int q, int count, float *x, float *y, float *deg)
+{
+    ct_backs_end(O->deck, ct_others_x(O, q), O->sy, O->sfan, O->sw, count, x, y, deg);
+}
+
+void ct_others_draw(const ct_others *O, int q, int n, int glow)
+{
+    float x = ct_others_x(O, q);
+    if (glow) ui_mark_gold(x, O->sy, 2.4f * O->sw);
+    if (n > 0) ct_backs(O->deck, x, O->sy, O->sfan, O->sw, n, 0);
+    else cards_place(O->deck, x, O->sy, O->sw);
+    ct_label(ct_token(q, (int)fmaxf(8, O->lh)), x, O->ly, O->lh, n);
+}
+
+void ct_others_badge(const ct_others *O, int q, int n, int side, float *x, float *y, float *d)
+{
+    float lw = 1.15f * O->lh + 0.62f * O->lh * (n >= 10 ? 2 : 1);
+    *d = 1.25f * O->lh;
+    *x = ct_others_x(O, q) + side * (lw / 2 + 0.7f * *d);
+    *y = O->ly;
+}
+
+float ct_bar_cards(box b, float x, int deck, int n)
+{
+    float u = ui.unit, cy = b.y + b.h / 2, hc = 0.36f * u, cw = 0.28f * u, wn = ct_number_w(n, hc, 0);
+    if (x + cw + 0.1f * u + wn > b.x + b.w) return x;
+    cards_draw(deck, CARD_NONE, x + cw / 2, cy, cw, 0, CD_DOWN | CD_FLAT);
+    x += cw + 0.1f * u;
+    ui_number(x + wn / 2, cy, hc, n, 1);
+    return x + wn;
+}
+
+void ct_drag_start(ct_drag *d, int moved, int card, float x, float y)
+{
+    d->on = 1, d->moved = moved, d->card = card;
+    d->x0 = d->x = x, d->y0 = d->y = y;
+}
+
+void ct_drag_move(ct_drag *d, float x, float y, float far)
+{
+    if (!d->on) return;
+    if (d->moved <= 0 && hypotf(x - d->x0, y - d->y0) > far) d->moved = 1;
+    d->x = x, d->y = y;
+    if (d->moved > 0) ui_animate();
+}
+
+float ct_columns_fit(box C, float wmax, int longest, float asp, float *step)
+{
+    float w = floorf(fminf(wmax, C.w / 4.35f)), hh = w * asp;
+    if (hh * (1 + 0.26f * (longest - 1)) > C.h) {
+        w = floorf(C.h / (asp * (1 + 0.26f * (longest - 1))));
+        hh = w * asp;
+    }
+    *step = longest > 1 ? fminf(0.36f * hh, (C.h - hh) / (longest - 1)) : 0;
+    return w;
+}
+
+int ct_columns(box C, float w, float step, float asp, const uint8_t *h, int n, int (*col_of)(int card),
+               uint8_t *cards, float *x, float *y)
+{
+    int k = 0;
+    for (int col = 0; col < 4; col++)
+        for (int j = n - 1, i = 0; j >= 0; j--) {
+            if (col_of(h[j]) != col) continue;
+            cards[k] = h[j];
+            x[k] = C.x + C.w / 2 + (col - 1.5f) * 1.08f * w;
+            y[k] = C.y + w * asp / 2 + i * step;
+            k++, i++;
+        }
+    return k;
+}
+
+int ct_columns_hit(const uint8_t *cards, const float *x, const float *y, int n, float w, float asp, int raised,
+                   float px, float py)
+{
+    for (int i = n - 1; i >= 0; i--)
+        if (cards_in(x[i], y[i] - (cards[i] == raised ? 0.12f * w : 0), w, asp, px, py)) return i;
+    return -1;
 }
 
 float ct_hand(box b, int n, float aspect, float wmax, cards_spot *spots)
