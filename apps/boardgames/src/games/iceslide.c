@@ -232,16 +232,30 @@ static void key(SDL_Keycode k)                  /* the arrow keys */
     if (w >= 0 && !ics_solved(&G)) push(w);
 }
 
-static void start(int variant)
+static void begin(void)
 {
-    ics_new(&G, variant, (uint32_t)ui_random(0x7fffffff) + 1u);
     serial++;
     calm();
     if (last_box.w > 0) layout(last_box);
 }
 
+static void start(int level)                    /* a designed level */
+{
+    if (!ics_level(&G, level)) ics_level(&G, 0);
+    begin();
+}
+
+static void start_random(int variant)           /* a puzzle made at random, of the variant's size */
+{
+    ics_new(&G, variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    begin();
+}
+
 static int status(void) { return ics_solved(&G) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
+static int score(void) { return G.moves; }      /* the pushes of the way kept (undo takes them back) */
+static int par(void) { return G.par > 0 ? G.par : 0; }
+static int level_stars(void) { return ui_par_stars(G.moves, par()); }
 
 static int busy(void)
 {
@@ -433,17 +447,14 @@ static void bar(int player, box b)
 }
 
 /* ---- the menu's and the picker's cards: a puzzle of that size, the puck at its start --------------------------- */
-static void thumb(int variant, int size, uint8_t *rgba)
+static void paint_puzzle(const ics_game *T, int size, uint8_t *rgba)
 {
-    ics_game T;
-    int v = variant < 0 ? 1 : variant;
-    ics_new(&T, v, 21u + (uint32_t)v);
-    int f = (int)(size * FRAME), sq = (size - 2 * f) / (T.b.w > T.b.h ? T.b.w : T.b.h);
-    int W = T.b.w * sq + 2 * f, H = T.b.h * sq + 2 * f, d = (int)(0.8f * sq);
+    int f = (int)(size * FRAME), sq = (size - 2 * f) / (T->b.w > T->b.h ? T->b.w : T->b.h);
+    int W = T->b.w * sq + 2 * f, H = T->b.h * sq + 2 * f, d = (int)(0.8f * sq);
     uint8_t *o = malloc((size_t)W * H * 4), *pk = calloc((size_t)d * d, 4), *sh = calloc((size_t)d * d, 4);
     if (o && pk && sh) {
-        paint_board(&T.b, sq, f, o);
-        float cx = f + (T.start % T.b.w + 0.5f) * sq, cy = f + (T.start / T.b.w + 0.5f) * sq;
+        paint_board(&T->b, sq, f, o);
+        float cx = f + (T->start % T->b.w + 0.5f) * sq, cy = f + (T->start / T->b.w + 0.5f) * sq;
         art_flat_shadow(d, sh);
         blend_c(o, W, H, sh, d, cx + 0.06f * d, cy + 0.08f * d, 0.6f);
         puck_pic(d, pk);
@@ -455,10 +466,38 @@ static void thumb(int variant, int size, uint8_t *rgba)
     free(sh);
 }
 
+static void thumb(int variant, int size, uint8_t *rgba)
+{
+    ics_game T;
+    int v = variant < 0 ? 1 : variant;
+    ics_new(&T, v, 21u + (uint32_t)v);
+    paint_puzzle(&T, size, rgba);
+}
+
+/* ---- the level screen: a level's board; a chapter's tab: bare ice of its size, the puck in a corner, the hole in
+ * the other ------------------------------------------------------------------------------------------------------ */
+static void level_thumb(int level, int size, uint8_t *rgba)
+{
+    ics_game T;
+    if (ics_level(&T, level)) paint_puzzle(&T, size, rgba);
+}
+
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    ics_game T;
+    if (!ics_level(&T, chapter * (ICS_LEVELS / ICS_CHAPTERS))) return;
+    memset(T.b.rock, 0, sizeof T.b.rock);
+    T.start = 0;
+    T.b.goal = T.b.w * T.b.h - 1;
+    paint_puzzle(&T, size, rgba);
+}
+
 static const game iceslide_game = {
     .id = "iceslide", .order = 423, .variants = ICS_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .key = key,
+    .levels = ICS_LEVELS, .chapters = ICS_CHAPTERS, .start_random = start_random, .chapter_icon = chapter_icon,
+    .level_thumb = level_thumb, .level_stars = level_stars, .score = score, .par = par,
 };
 REGISTER_GAME(iceslide_game)

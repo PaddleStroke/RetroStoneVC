@@ -139,6 +139,23 @@ int main(void)
         while (ics_undo(&g)) {}
         CHECK(g.puck == g.start && g.moves == 0);
     }
+    /* the levels: each one loads, its par is the one kept, no way is shorter, the shortest way reaches the hole; the
+     * ice never shrinks from one chapter to the next; no two alike */
+    int last_cells = 0;
+    for (int l = 0; l < ICS_LEVELS; l++) {
+        CHECK(ics_level(&g, l));
+        CHECK(g.par > 0 && g.par == ics_level_par[l] && g.puck == g.start && g.moves == 0);
+        CHECK(!way_within(&g.b, g.start, g.par - 1));
+        ics_game t = g;
+        CHECK(ics_script(&t, "=") && ics_solved(&t) && t.moves == g.par);
+        if (l % (ICS_LEVELS / ICS_CHAPTERS) == 0) {
+            CHECK(g.b.w * g.b.h >= last_cells);
+            last_cells = g.b.w * g.b.h;
+        }
+        for (int k = 0; k < l; k++) CHECK(strcmp(ics_levels[k], ics_levels[l]) != 0);
+    }
+    CHECK(!ics_level(&g, ICS_LEVELS) && !ics_level(&g, -1));
+
     if (fails) { printf("iceslide: %d failed\n", fails); return 1; }
     printf("iceslide: all passed\n");
     return 0;

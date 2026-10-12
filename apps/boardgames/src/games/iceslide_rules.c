@@ -140,7 +140,7 @@ int ics_load(ics_game *g, int w, int h, const char *rows)
     g->b.goal = g->start = -1;
     int c = 0;
     for (const char *p = rows; *p && c < w * h; p++) {
-        if (*p == ' ' || *p == '\n' || *p == '/') continue;
+        if (*p == ' ' || *p == '\n' || *p == '/' || *p == '|') continue;
         if (*p == '#') g->b.rock[c] = 1;
         else if (*p == 'P') g->start = c;
         else if (*p == 'O') g->b.goal = c;
@@ -152,6 +152,31 @@ int ics_load(ics_game *g, int w, int h, const char *rows)
     reset(g);
     return 1;
 }
+
+int ics_parse(ics_game *g, const char *rows)
+{
+    int w = 0, h = 0, k = 0;
+    for (const char *p = rows;; p++) {
+        if (*p && *p != '|') { k++; continue; }
+        if (!w) w = k;
+        else if (k != w) return 0;
+        h++;
+        k = 0;
+        if (!*p) break;
+    }
+    return ics_load(g, w, h, rows);
+}
+
+#ifndef ICS_GEN                                 /* not in the levels' tool (tools/iceslide_gen.c): it makes them */
+#include "games/iceslide_levels.h"
+
+int ics_level(ics_game *g, int level)
+{
+    if (level < 0 || level >= ICS_LEVELS || !ics_parse(g, ics_levels[level])) return 0;
+    g->variant = -1;
+    return 1;
+}
+#endif
 
 int ics_solved(const ics_game *g) { return g->puck == g->b.goal; }
 

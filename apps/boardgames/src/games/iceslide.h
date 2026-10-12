@@ -10,6 +10,8 @@
  * among the empty squares, and for every other empty square as the hole a search from the start: a hole whose shortest
  * way is that par is kept (drawn among them), else the rocks are laid again. A layout with too few places to rest (a
  * puzzle with no choices) is drawn again. The slowest puzzle takes about 10 ms on a PC.
+ * The levels: 150 boards of our own in six chapters, the ice growing from 5 x 5 to 10 x 9 and the par from 2 to 18
+ * pushes, made by tools/iceslide_gen.c (iceslide_levels.h: the rows, and each one's par checked by the tests).
  * Places: x + y * w from the top left. The notation (script, the screenshots, the tests): u r d l for the pushes,
  * "=" plays the rest of a shortest way from where the puck is, "=k" its next k pushes.
  */
@@ -24,6 +26,8 @@
 #define ICS_CELLS (ICS_MAXW * ICS_MAXH)
 #define ICS_HIST 1024
 #define ICS_LONGEST 64                          /* the longest way a search reports */
+#define ICS_LEVELS 150
+#define ICS_CHAPTERS 6
 
 enum { ICS_UP, ICS_RIGHT, ICS_DOWN, ICS_LEFT };
 
@@ -53,8 +57,13 @@ int  ics_solve(const ics_board *b, int from, int8_t *way);
 /* the places the puck can rest at, reached from `from` (the hole not counted): how many */
 int  ics_reach(const ics_board *b, int from);
 void ics_new(ics_game *g, int variant, uint32_t seed);
-/* a board from rows of text ('#' a rock, 'P' the puck, 'O' the hole, '.' ice), for the tests */
+/* a board from rows of text ('#' a rock, 'P' the puck, 'O' the hole, '.' ice; '|' between rows may be left out) */
 int  ics_load(ics_game *g, int w, int h, const char *rows);
+int  ics_parse(ics_game *g, const char *rows);  /* the same, its size read from the rows ("..#|P.O") */
+/* the designed levels (0..ICS_LEVELS-1): the board, its par; 0: none */
+extern const char *const ics_levels[ICS_LEVELS];
+extern const uint8_t ics_level_par[ICS_LEVELS];
+int  ics_level(ics_game *g, int level);
 int  ics_can(const ics_game *g, int dir);
 int  ics_move(ics_game *g, int dir);           /* the squares slid; 0: not allowed (solved, or blocked) */
 int  ics_undo(ics_game *g);                    /* 0: nothing to undo */
