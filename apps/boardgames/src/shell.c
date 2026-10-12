@@ -1743,6 +1743,10 @@ static void touch(Uint32 type, long long id, float x, float y)
             return;
         }
     if (!fingers_on()) return;                  /* the button left the game */
+    if (type == SDL_FINGERDOWN && games[cur]->status() != GS_PLAY && !over_hidden) {   /* as press(): the end card */
+        over_hidden = 1;
+        return;
+    }
     int phase = type == SDL_FINGERDOWN ? FINGER_DOWN : type == SDL_FINGERUP ? FINGER_UP : FINGER_MOVE;
     games[cur]->finger((int)(id & 0x7fffffff), phase, x, y);
 }
