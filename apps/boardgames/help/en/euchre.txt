@@ -1,0 +1,22 @@
+Euchre
+# The aim
+Two sides of two partners, sitting face to face: ivory and red against ebony and jade. The side that chooses trumps must take at least three of the five tricks. The first side to reach 10 points wins. For 4 players passing the device round; nobody sees the others' cards.
+# The deal
+The pack has 24 cards: 9, 10, jack, queen, king and ace of each suit. Each player gets 5 cards. Of the four cards left over, the kitty, the top one is turned face up. Jade deals first; the deal then moves on one seat each hand.
+# Making trumps
+- Round one, starting at the dealer's left: each player may order up the turned card. Its suit becomes trumps, and the dealer takes the card into his hand and lays one card away, face down. Or the player passes.
+- Round two, if all four passed: the card is turned down, and each player in turn may name another suit as trumps, or pass.
+- Stick the dealer: in round two the dealer may not pass; he must name a suit.
+- The player who makes trumps may go alone: his partner puts his cards down and sits out the hand. If the dealer's partner goes alone, the dealer sits out and does not take the turned card.
+# Trumps
+The jack of trumps is the highest card, the right bower. Next comes the other jack of the same colour, the left bower, then the ace, king, queen, 10 and 9 of trumps. The left bower is a trump, not a card of its own suit. The other suits rank A K Q J 10 9.
+# Playing
+The player at the dealer's left leads (the next player if he sits out). Follow suit if you can, otherwise play any card. The highest trump wins the trick, otherwise the highest card of the suit led. The winner leads next.
+# Scoring
+- The makers take 3 or 4 tricks: 1 point.
+- The makers take all 5 tricks, a march: 2 points; alone: 4 points.
+- The makers take fewer than 3 tricks: they are euchred, and the other side scores 2 points.
+# The end of the game
+The first side to reach 10 points wins.
+# Playing on the device
+Pass the device to the player whose token glows; they tap start and see their own hand. The kitty lies in the middle with the turned card on top. In round one, tap the tick (or the turned card) to order it up, or tap pass. In round two, tap a suit (the turned suit is greyed), then the tick, or tap pass; the dealer has no pass button. To go alone, first tap the button with your chip and your partner's struck through. The dealer who took the card taps the card to lay away, then taps it again or the kitty. The maker's seat shows the trump suit, a player sitting out is struck through, and each seat shows the tricks it has taken. To play, tap a glowing card so it rises, then tap it again or its place in the middle, or drag it there. Tap the pile at the bottom right to see the last trick. After each hand a table shows each side's tricks, the points of the hand and the total; tap it for the next hand. Each bar shows the cards in hand and the side's score. Undo takes back a choice not yet made, never one once the device has passed.

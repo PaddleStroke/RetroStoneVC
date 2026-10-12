@@ -1,0 +1,22 @@
+Euchre
+# O objetivo
+Duas equipas de dois parceiros sentados frente a frente: marfim e vermelho contra ébano e jade. A equipa que escolhe o trunfo tem de fazer pelo menos três das cinco vazas. Ganha a primeira equipa a chegar aos 10 pontos. Para 4 jogadores que passam o dispositivo; ninguém vê as cartas dos outros.
+# A distribuição
+O baralho tem 24 cartas: 9, 10, valete, dama, rei e ás de cada naipe. Cada jogador recebe 5 cartas. As quatro cartas que sobram formam o talão; a de cima é voltada para cima. O jade dá as cartas primeiro; depois quem dá as cartas avança um lugar em cada ronda.
+# Escolher o trunfo
+- Primeira volta, a começar à esquerda de quem deu as cartas: cada jogador pode mandar quem deu ficar com a carta voltada (order up). O naipe dela passa a ser trunfo; quem deu põe a carta na mão e põe de parte uma carta, voltada para baixo. Ou o jogador passa.
+- Segunda volta, se os quatro passaram: a carta é voltada para baixo, e cada um, à vez, pode escolher outro naipe para trunfo, ou passar.
+- Quem dá não escapa (stick the dealer): na segunda volta, quem deu as cartas não pode passar; tem de escolher um naipe.
+- Quem escolhe o trunfo pode jogar sozinho: o parceiro pousa as cartas e fica de fora nessa ronda. Se for o parceiro de quem deu as cartas a jogar sozinho, quem deu fica de fora e não fica com a carta voltada.
+# Os trunfos
+O valete de trunfo é a carta mais alta: o right bower (bower quer dizer valete). Segue-se o outro valete da mesma cor, vermelha ou preta: o left bower; depois o ás, o rei, a dama, o 10 e o 9 de trunfo. O left bower é trunfo, não uma carta do seu próprio naipe. Os outros naipes seguem a ordem ás, rei, dama, valete, 10, 9.
+# O jogo
+O jogador à esquerda de quem deu as cartas sai (o seguinte, se ele ficar de fora). Assiste ao naipe de saída se puderes; senão, joga qualquer carta. O trunfo mais alto ganha a vaza; senão, a carta mais alta do naipe de saída. Quem ganha sai na vaza seguinte.
+# A pontuação
+- Os tomadores (a equipa que escolheu o trunfo) fazem 3 ou 4 vazas: 1 ponto.
+- Os tomadores fazem as 5 vazas, uma march: 2 pontos; se um jogou sozinho: 4 pontos.
+- Os tomadores fazem menos de 3 vazas: levam euchre (são derrotados), e a outra equipa marca 2 pontos.
+# O fim do jogo
+Ganha a primeira equipa a chegar aos 10 pontos.
+# Jogar no dispositivo
+Passa o dispositivo ao jogador cuja peça brilha; ele toca no botão de início e vê a sua mão. O talão fica no centro, com a carta voltada por cima. Na primeira volta, toca no sinal de confirmação (ou na carta voltada) para mandar ficar com ela, ou toca em passar. Na segunda volta, toca num naipe (o da carta voltada aparece a cinzento) e depois no sinal de confirmação, ou toca em passar; quem deu as cartas não tem botão de passar. Para jogar sozinho, toca primeiro no botão com a tua ficha e a do teu parceiro riscada. Quem deu as cartas e ficou com a carta toca na carta a pôr de parte e depois toca-lhe outra vez ou no talão. O lugar do tomador mostra o naipe de trunfo, um jogador de fora aparece riscado, e cada lugar mostra as vazas que fez. Para jogar, toca numa carta que brilha para a levantar e toca-lhe outra vez ou no seu lugar no centro; ou arrasta-a até lá. Toca no monte em baixo à direita para ver a última vaza. Depois de cada ronda, uma tabela mostra as vazas de cada equipa, os pontos da ronda e o total; toca nela para a ronda seguinte. Cada barra mostra as cartas na mão e a pontuação da equipa. Anular desfaz uma escolha ainda não confirmada, nunca depois de o dispositivo passar.

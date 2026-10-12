@@ -1,0 +1,22 @@
+Euchre
+# Målet
+To hold med to makkere, der sidder over for hinanden: elfenben og rød mod ibenholt og jade. Det hold, der vælger trumf, skal tage mindst tre af de fem stik. Det første hold, der når 10 point, vinder. For 4 spillere, der sender enheden rundt; ingen ser de andres kort.
+# Kortgivningen
+Spillet har 24 kort: 9, 10, knægt, dame, konge og es i hver kulør. Hver spiller får 5 kort. Af de fire kort, der er tilbage, talonen, vendes det øverste med billedsiden opad. Jade giver først; derefter rykker giveren én plads videre for hvert giv.
+# Valg af trumf
+- Første runde, begyndende til venstre for giveren: hver spiller kan bestille det vendte kort (order up). Dets kulør bliver trumf, og giveren tager kortet på hånden og lægger et kort fra sig med bagsiden opad. Eller spilleren melder pas.
+- Anden runde, hvis alle fire meldte pas: kortet vendes om, og på skift kan hver spiller nævne en anden kulør som trumf eller melde pas.
+- Giveren skal vælge (Stick the Dealer): i anden runde må giveren ikke melde pas; han skal nævne en kulør.
+- Den, der vælger trumf, kan spille alene: hans makker lægger sine kort og sidder over i det giv. Spiller giverens makker alene, sidder giveren over og tager ikke det vendte kort.
+# Trumferne
+Trumfknægten er det højeste kort, right bower (højre knægt). Derefter kommer den anden knægt i samme farve, rød eller sort: left bower (venstre knægt). Så følger es, konge, dame, 10 og 9 i trumf. Left bower er en trumf, ikke et kort i sin egen kulør. De andre kulører rangerer es, konge, dame, knægt, 10, 9.
+# Spillet
+Spilleren til venstre for giveren spiller ud (den næste, hvis han sidder over). Bekend kulør, hvis du kan; ellers spil et vilkårligt kort. Den højeste trumf vinder stikket, ellers det højeste kort i den udspillede kulør. Vinderen spiller ud til næste stik.
+# Pointene
+- Trumfholdet tager 3 eller 4 stik: 1 point.
+- Trumfholdet tager alle 5 stik, en march: 2 point; alene: 4 point.
+- Trumfholdet tager færre end 3 stik: det er euchred, altså faldet, og det andet hold får 2 point.
+# Spillets afslutning
+Det første hold, der når 10 point, vinder.
+# Spil på enheden
+Giv enheden til spilleren, hvis brik lyser; han trykker på start og ser sin hånd. Talonen ligger i midten med det vendte kort øverst. I første runde trykker du på fluebenet (eller det vendte kort) for at bestille det, eller på pas. I anden runde trykker du på en kulør (det vendte korts kulør er grå) og så på fluebenet, eller på pas; giveren har ingen pas-knap. For at spille alene trykker du først på knappen med din brik og din makkers overstreget. Giveren, der tog kortet, trykker på det kort, han vil lægge fra sig, og så på det igen eller på talonen. Pladsen for den, der valgte trumf, viser trumfkuløren, en spiller, der sidder over, er overstreget, og hver plads viser de stik, den har taget. For at spille trykker du på et kort, der lyser, så det løfter sig, og trykker på det igen eller på dets plads i midten; eller træk det derhen. Tryk på bunken nederst til højre for at se det sidste stik. Efter hvert giv viser en tavle hvert holds stik, givets point og summen; tryk på den for næste giv. Hver bjælke viser kortene på hånden og holdets point. Fortryd tager et valg tilbage, der endnu ikke er bekræftet, aldrig et, når enheden er givet videre.

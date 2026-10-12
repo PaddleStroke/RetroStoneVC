@@ -1,0 +1,22 @@
+Euchre
+# Het doel
+Twee teams van twee partners die tegenover elkaar zitten: ivoor en rood tegen ebben en jade. Het team dat troef kiest, moet minstens drie van de vijf slagen halen. Het eerste team met 10 punten wint. Voor 4 spelers die het apparaat doorgeven; niemand ziet de kaarten van de anderen.
+# Het delen
+Er wordt gespeeld met 24 kaarten: 9, 10, boer, vrouw, heer en aas van elke kleur. Elke speler krijgt 5 kaarten. Van de vier overgebleven kaarten, de talon, wordt de bovenste opengedraaid. Jade geeft eerst; daarna schuift de gever elke ronde een plaats op.
+# Troef maken
+- Eerste rondgang, te beginnen links van de gever: elke speler mag de opengedraaide kaart bestellen (order up). Haar kleur wordt troef, en de gever neemt de kaart in zijn hand en legt er één gedekt weg. Of de speler past.
+- Tweede rondgang, als alle vier gepast hebben: de kaart wordt omgedraaid, en om de beurt mag elke speler een andere kleur als troef noemen, of passen.
+- De gever moet kiezen (Stick the Dealer): in de tweede rondgang mag de gever niet passen; hij moet een kleur noemen.
+- Wie troef maakt, mag alleen spelen: zijn partner legt zijn kaarten neer en doet die ronde niet mee. Speelt de partner van de gever alleen, dan doet de gever niet mee en neemt hij de opengedraaide kaart niet.
+# Troeven
+De troefboer is de hoogste kaart, de right bower (rechter boer). Dan komt de andere boer van dezelfde kleur, rood of zwart: de left bower (linker boer). Daarna volgen aas, heer, vrouw, 10 en 9 van troef. De left bower is een troef, geen kaart van zijn eigen kleur. De andere kleuren lopen aas, heer, vrouw, boer, 10, 9.
+# Het spel
+De speler links van de gever komt uit (de volgende als hij niet meedoet). Beken kleur als je kunt, anders speel je een willekeurige kaart. De hoogste troef wint de slag, anders de hoogste kaart van de gevraagde kleur. De winnaar komt uit in de volgende slag.
+# De telling
+- Het troefteam haalt 3 of 4 slagen: 1 punt.
+- Het troefteam haalt alle 5 slagen, een mars (march): 2 punten; alleen: 4 punten.
+- Het troefteam haalt minder dan 3 slagen: het is euchred, oftewel nat, en het andere team krijgt 2 punten.
+# Het einde van de partij
+Het eerste team met 10 punten wint.
+# Spelen op het apparaat
+Geef het apparaat aan de speler wiens fiche oplicht; die tikt op start en ziet zijn hand. De talon ligt in het midden, met de opengedraaide kaart erop. In de eerste rondgang tik je op het vinkje (of op de opengedraaide kaart) om haar te bestellen, of op pas. In de tweede rondgang tik je op een kleur (de kleur van de opengedraaide kaart is grijs), dan op het vinkje, of op pas; de gever heeft geen pasknop. Om alleen te spelen tik je eerst op de knop met jouw fiche en dat van je partner doorgestreept. De gever die de kaart nam, tikt op de kaart die hij weglegt en dan nog eens op die kaart of op de talon. De plaats van wie troef maakte, toont de troefkleur, een speler die niet meedoet is doorgestreept, en elke plaats toont de slagen die hij gehaald heeft. Om te spelen tik je een oplichtende kaart aan zodat hij omhoog komt, en tik je hem nog eens of zijn plek in het midden aan; of sleep hem erheen. Tik op het stapeltje rechtsonder om de laatste slag te zien. Na elke ronde toont een tabel de slagen van elk team, de punten van de ronde en het totaal; tik erop voor de volgende ronde. Elke balk toont de kaarten in de hand en de stand van het team. Ongedaan maken neemt een nog niet bevestigde keuze terug, nooit een keuze als het apparaat al doorgegeven is.

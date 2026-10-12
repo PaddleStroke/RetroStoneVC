@@ -1,0 +1,22 @@
+Euchre
+# Cíl hry
+Dvě dvojice spoluhráčů, kteří sedí naproti sobě: slonovinový a červený proti ebenovému a nefritovému. Dvojice, která určí trumfy, musí udělat aspoň tři z pěti štychů. Vyhrává dvojice, která první dosáhne 10 bodů. Pro 4 hráče, kteří si podávají zařízení; nikdo nevidí karty ostatních.
+# Rozdání
+Balíček má 24 karet: 9, 10, kluk, dáma, král a eso v každé barvě. Každý hráč dostane 5 karet. Ze čtyř zbylých karet, talonu, se horní otočí lícem nahoru. První rozdává nefritový hráč; pak se rozdávající každé rozdání posune o jedno místo.
+# Volba trumfů
+- První kolo, počínaje hráčem vlevo od rozdávajícího: každý si může otočenou kartu objednat (order up). Její barva se stane trumfy, rozdávající si kartu vezme do ruky a jednu kartu odloží rubem nahoru. Nebo hráč pasuje.
+- Druhé kolo, pokud všichni čtyři pasovali: karta se otočí rubem nahoru a každý může postupně určit jako trumfy jinou barvu, nebo pasovat.
+- Povinná volba rozdávajícího (stick the dealer): ve druhém kole rozdávající pasovat nesmí; musí barvu určit.
+- Hráč, který určí trumfy, smí hrát sám: jeho spoluhráč složí karty a rozdání vynechá. Hraje-li sám spoluhráč rozdávajícího, vynechá rozdání rozdávající a otočenou kartu si nevezme.
+# Trumfy
+Trumfový kluk je nejvyšší karta, pravý bower. Po něm jde druhý kluk téže barvy, červené či černé: levý bower, a pak trumfové eso, král, dáma, 10 a 9. Levý bower je trumf, ne karta své barvy. Ostatní barvy jdou v pořadí eso, král, dáma, kluk, 10, 9.
+# Hra
+Vynáší hráč vlevo od rozdávajícího (nebo další hráč, pokud ten rozdání vynechává). Přiznej barvu, pokud můžeš, jinak zahraj libovolnou kartu. Štych bere nejvyšší trumf, jinak nejvyšší karta vynesené barvy. Vítěz vynáší do dalšího štychu.
+# Počítání bodů
+- Dvojice, která určila trumfy, udělá 3 nebo 4 štychy: 1 bod.
+- Udělá všech 5 štychů, march: 2 body; hráč sám: 4 body.
+- Udělá méně než 3 štychy: dostane euchre a druhá dvojice získá 2 body.
+# Konec hry
+Vyhrává dvojice, která první dosáhne 10 bodů.
+# Hra na zařízení
+Podej zařízení hráči, jehož kámen svítí; ten klepne na start a uvidí svou ruku. Talon leží uprostřed s otočenou kartou navrchu. V prvním kole si kartu objednáš klepnutím na fajfku (nebo na otočenou kartu), nebo klepni na pas. Ve druhém kole klepni na barvu (barva otočené karty je šedá), pak na fajfku, nebo klepni na pas; rozdávající tlačítko Pas nemá. Chceš-li hrát sám, klepni nejdřív na tlačítko se svým žetonem a přeškrtnutým žetonem spoluhráče. Rozdávající, který vzal kartu, klepne na kartu k odložení a pak na ni znovu nebo na talon. Místo hráče, který určil trumfy, ukazuje trumfovou barvu, hráč, který rozdání vynechává, je přeškrtnutý, a u každého místa jsou vidět udělané štychy. Pro zahrání klepni na svítící kartu, aby se zvedla, a klepni na ni znovu nebo na její místo uprostřed; nebo ji tam přetáhni. Klepnutím na hromádku vpravo dole uvidíš poslední štych. Po každém rozdání ukáže tabulka štychy každé dvojice, body z rozdání a součet; klepnutím na ni začne další rozdání. Každý pruh ukazuje karty v ruce a body dvojice. Zpět vrátí ještě nepotvrzenou volbu, nikdy volbu učiněnou předtím, než se zařízení předalo.

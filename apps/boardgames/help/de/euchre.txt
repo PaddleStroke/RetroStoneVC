@@ -1,0 +1,22 @@
+Euchre
+# Das Ziel
+Zwei Teams aus je zwei Partnern, die einander gegenübersitzen: Elfenbein und Rot gegen Ebenholz und Jade. Das Team, das Trumpf bestimmt, muss mindestens drei der fünf Stiche machen. Das erste Team mit 10 Punkten gewinnt. Für 4 Spieler, die das Gerät herumreichen; niemand sieht die Karten der anderen.
+# Das Geben
+Gespielt wird mit 24 Karten: 9, 10, Bube, Dame, König und Ass jeder Farbe. Jeder Spieler bekommt 5 Karten. Von den vier übrigen Karten, dem Stock, wird die oberste aufgedeckt. Jade gibt zuerst; danach rückt der Geber mit jeder Runde einen Platz weiter.
+# Trumpf bestimmen
+- Erster Durchgang, beginnend links vom Geber: Jeder Spieler darf die aufgedeckte Karte bestellen. Ihre Farbe wird Trumpf, und der Geber nimmt die Karte auf die Hand und legt dafür eine Karte verdeckt ab. Oder der Spieler passt.
+- Zweiter Durchgang, wenn alle vier gepasst haben: Die Karte wird umgedreht, und reihum darf jeder Spieler eine andere Farbe zu Trumpf erklären oder passen.
+- Der Geber muss wählen (Stick the Dealer): Im zweiten Durchgang darf der Geber nicht passen; er muss eine Farbe nennen.
+- Wer Trumpf bestimmt, darf allein spielen: Sein Partner legt seine Karten weg und setzt in dieser Runde aus. Spielt der Partner des Gebers allein, setzt der Geber aus und nimmt die aufgedeckte Karte nicht.
+# Die Trümpfe
+Der Bube der Trumpffarbe ist die höchste Karte, der rechte Bube (Right Bower). Dann folgt der andere Bube in derselben Kartenfarbe, Rot oder Schwarz: der linke Bube (Left Bower). Danach kommen Ass, König, Dame, 10 und 9 in Trumpf. Der linke Bube ist ein Trumpf, keine Karte seiner eigenen Farbe. Die anderen Farben: Ass, König, Dame, Bube, 10, 9.
+# Das Spiel
+Der Spieler links vom Geber spielt aus (setzt er aus, der nächste). Wer kann, muss die ausgespielte Farbe bedienen, sonst darf er eine beliebige Karte spielen. Der höchste Trumpf gewinnt den Stich, sonst die höchste Karte der ausgespielten Farbe. Der Gewinner spielt zum nächsten Stich aus.
+# Die Wertung
+- Das Trumpfteam macht 3 oder 4 Stiche: 1 Punkt.
+- Das Trumpfteam macht alle 5 Stiche, einen Marsch (march): 2 Punkte; allein: 4 Punkte.
+- Das Trumpfteam macht weniger als 3 Stiche: Es ist „euchred“, also geschlagen, und das andere Team bekommt 2 Punkte.
+# Das Ende der Partie
+Das erste Team mit 10 Punkten gewinnt.
+# Spielen auf dem Gerät
+Gib das Gerät dem Spieler, dessen Stein leuchtet; er tippt auf Start und sieht seine Hand. Der Stock liegt in der Mitte, die aufgedeckte Karte obenauf. Im ersten Durchgang tippe auf den Haken (oder die aufgedeckte Karte), um sie zu bestellen, oder auf Passe. Im zweiten Durchgang tippe auf eine Farbe (die Farbe der aufgedeckten Karte ist ausgegraut), dann auf den Haken, oder auf Passe; der Geber hat keinen Passe-Knopf. Um allein zu spielen, tippe zuerst auf den Knopf mit deinem Stein und dem durchgestrichenen Stein deines Partners. Hat der Geber die Karte aufgenommen, tippt er die abzulegende Karte an, dann noch einmal oder auf den Stock. Der Platz dessen, der Trumpf bestimmt hat, zeigt die Trumpffarbe, ein aussetzender Spieler ist durchgestrichen, und jeder Platz zeigt die gemachten Stiche. Zum Spielen tippe eine leuchtende Karte an, damit sie sich hebt, dann tippe sie noch einmal oder ihren Platz in der Mitte an; oder ziehe sie dorthin. Tippe auf den Stapel unten rechts, um den letzten Stich zu sehen. Nach jeder Runde zeigt eine Tafel die Stiche jedes Teams, die Punkte der Runde und die Summe; tippe darauf für die nächste Runde. Jede Leiste zeigt die Karten auf der Hand und den Stand des Teams. Rückgängig nimmt eine noch nicht bestätigte Wahl zurück, nie eine, wenn das Gerät weitergegeben wurde.

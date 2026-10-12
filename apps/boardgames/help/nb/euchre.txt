@@ -1,0 +1,22 @@
+Euchre
+# Målet
+To lag med to makkere som sitter overfor hverandre: elfenben og rød mot ibenholt og jade. Laget som velger trumf, må ta minst tre av de fem stikkene. Det første laget som når 10 poeng, vinner. For 4 spillere som sender enheten rundt; ingen ser kortene til de andre.
+# Utdelingen
+Kortstokken har 24 kort: 9, 10, knekt, dame, konge og ess i hver farge. Hver spiller får 5 kort. Av de fire kortene som blir igjen, talongen, snus det øverste opp. Jade gir først; deretter flytter giveren én plass videre for hvert giv.
+# Velge trumf
+- Første runde, fra spilleren til venstre for giveren: hver spiller kan bestille det oppsnudde kortet (order up). Fargen blir trumf, og giveren tar kortet på hånden og legger bort ett kort med baksiden opp. Eller spilleren melder pass.
+- Andre runde, hvis alle fire meldte pass: kortet snus ned, og etter tur kan hver spiller nevne en annen farge som trumf, eller melde pass.
+- Giveren må velge (Stick the Dealer): i andre runde kan giveren ikke melde pass; han må nevne en farge.
+- Den som velger trumf, kan spille alene: makkeren hans legger ned kortene sine og står over givet. Spiller giverens makker alene, står giveren over og tar ikke det oppsnudde kortet.
+# Trumfene
+Trumfknekten er det høyeste kortet, right bower (høyre knekt). Deretter kommer den andre knekten med samme farge, rød eller svart: left bower (venstre knekt). Så følger ess, konge, dame, 10 og 9 i trumf. Left bower er trumf, ikke et kort i sin egen farge. De andre fargene går ess, konge, dame, knekt, 10, 9.
+# Spillet
+Spilleren til venstre for giveren spiller ut (den neste hvis han står over). Følg farge hvis du kan; ellers spill et hvilket som helst kort. Høyeste trumf vinner stikket, ellers det høyeste kortet i utspilt farge. Vinneren spiller ut til neste stikk.
+# Poengene
+- Trumflaget tar 3 eller 4 stikk: 1 poeng.
+- Trumflaget tar alle 5 stikkene, en march: 2 poeng; alene: 4 poeng.
+- Trumflaget tar færre enn 3 stikk: det er euchred, altså bet, og det andre laget får 2 poeng.
+# Slutten på spillet
+Det første laget som når 10 poeng, vinner.
+# Spill på enheten
+Gi enheten til spilleren som har brikken som lyser; han trykker på start og ser hånden sin. Talongen ligger i midten med det oppsnudde kortet øverst. I første runde trykker du på haken (eller det oppsnudde kortet) for å bestille det, eller på pass. I andre runde trykker du på en farge (fargen til det oppsnudde kortet er grå), så på haken, eller på pass; giveren har ingen pass-knapp. For å spille alene trykker du først på knappen med brikken din og makkerens overstrekt. Giveren som tok kortet, trykker på kortet han vil legge bort, og så på det igjen eller på talongen. Plassen til den som valgte trumf, viser trumffargen, en spiller som står over, er overstrekt, og hver plass viser stikkene den har tatt. For å spille trykker du på et kort som lyser, så det løfter seg, og trykker på det igjen eller på plassen dets i midten; eller dra det dit. Trykk på bunken nederst til høyre for å se det siste stikket. Etter hvert giv viser en tavle stikkene til hvert lag, poengene i givet og summen; trykk på den for neste giv. Hver linje viser kortene på hånden og poengene til laget. Angre tar tilbake et valg som ikke er bekreftet ennå, aldri et når enheten er gitt videre.

@@ -1,0 +1,22 @@
+Euchre
+# El objetivo
+Dos equipos de dos compañeros sentados frente a frente: marfil y rojo contra ébano y jade. El equipo que elige el triunfo debe ganar al menos tres de las cinco bazas. Gana el primer equipo que llega a 10 puntos. Para 4 jugadores que se pasan el dispositivo; nadie ve las cartas de los demás.
+# El reparto
+La baraja tiene 24 cartas: 9, 10, sota, reina, rey y as de cada palo. Cada jugador recibe 5 cartas. Las cuatro cartas que sobran forman el talón; la de arriba se pone boca arriba. Reparte primero el jade; después el que reparte avanza un puesto en cada mano.
+# Elegir el triunfo
+- Primera vuelta, empezando a la izquierda del que reparte: cada jugador puede mandar al que reparte que tome la carta vuelta (order up). Su palo pasa a ser el triunfo; el que reparte mete la carta en su mano y aparta una carta boca abajo. O el jugador pasa.
+- Segunda vuelta, si pasaron los cuatro: la carta se pone boca abajo, y por turnos cada uno puede nombrar otro palo como triunfo, o pasar.
+- El que reparte no se libra (stick the dealer): en la segunda vuelta, el que reparte no puede pasar; tiene que nombrar un palo.
+- Quien elige el triunfo puede jugar solo: su compañero deja sus cartas y no juega esa mano. Si juega solo el compañero del que reparte, el que reparte no juega y no toma la carta vuelta.
+# Los triunfos
+La sota de triunfo es la carta más alta: el right bower (bower quiere decir sota). Le sigue la otra sota del mismo color, rojo o negro: el left bower; después el as, el rey, la reina, el 10 y el 9 de triunfo. El left bower es triunfo, no una carta de su propio palo. Los demás palos se ordenan as, rey, reina, sota, 10, 9.
+# El juego
+Sale el jugador a la izquierda del que reparte (el siguiente si ese no juega). Sirve el palo de salida si puedes; si no, juega cualquier carta. El triunfo más alto gana la baza o, si no hay, la carta más alta del palo de salida. Quien gana sale en la siguiente baza.
+# La puntuación
+- Los tomadores (el equipo que eligió el triunfo) ganan 3 o 4 bazas: 1 punto.
+- Los tomadores ganan las 5 bazas, una march: 2 puntos; si uno jugó solo: 4 puntos.
+- Los tomadores ganan menos de 3 bazas: quedan euchred (derrotados), y el otro equipo se anota 2 puntos.
+# El final de la partida
+Gana el primer equipo que llega a 10 puntos.
+# Jugar en el dispositivo
+Pasa el dispositivo al jugador cuya ficha brilla; toca el botón de inicio y ve su mano. El talón está en el centro, con la carta vuelta encima. En la primera vuelta, toca la marca de visto (o la carta vuelta) para pedirla, o toca Paso. En la segunda vuelta, toca un palo (el de la carta vuelta aparece en gris) y luego la marca de visto, o toca Paso; el que reparte no tiene botón Paso. Para jugar solo, toca primero el botón con tu ficha y la de tu compañero tachada. El que reparte, si tomó la carta, toca la carta que aparta y luego vuelve a tocarla o toca el talón. El puesto del tomador muestra el palo de triunfo, un jugador que no juega la mano aparece tachado, y cada puesto muestra las bazas que ha ganado. Para jugar, toca una carta que brille para levantarla y vuelve a tocarla o toca su sitio en el centro; o arrástrala hasta allí. Toca el montón de abajo a la derecha para ver la última baza. Tras cada mano, una tabla muestra las bazas de cada equipo, los puntos de la mano y el total; tócala para la mano siguiente. Cada barra muestra las cartas en la mano y la puntuación del equipo. Deshacer anula una elección aún no confirmada, nunca una vez pasado el dispositivo.

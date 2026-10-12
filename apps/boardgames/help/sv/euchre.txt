@@ -1,0 +1,22 @@
+Euchre
+# Målet
+Två lag med två partner som sitter mittemot varandra: elfenben och rött mot ebenholts och jade. Laget som väljer trumf måste ta minst tre av de fem sticken. Första laget som når 10 poäng vinner. För 4 spelare som skickar enheten runt; ingen ser de andras kort.
+# Utdelningen
+Leken har 24 kort: 9, 10, knekt, dam, kung och ess i varje färg. Varje spelare får 5 kort. Av de fyra kort som blir över, talongen, vänds det översta upp. Jade ger först; sedan flyttar givaren en plats framåt för varje giv.
+# Välja trumf
+- Första rundan, med början till vänster om givaren: varje spelare får beställa det uppvända kortet (order up). Dess färg blir trumf, och givaren tar upp kortet på handen och lägger undan ett kort med baksidan upp. Eller så passar spelaren.
+- Andra rundan, om alla fyra passade: kortet vänds ned, och i tur och ordning får varje spelare välja en annan färg som trumf, eller passa.
+- Givaren måste välja (Stick the Dealer): i andra rundan får givaren inte passa; han måste välja en färg.
+- Den som väljer trumf får spela ensam: hans partner lägger ner sina kort och står över given. Spelar givarens partner ensam står givaren över och tar inte det uppvända kortet.
+# Trumfen
+Trumfknekten är det högsta kortet, right bower (högra knekten). Sedan kommer den andra knekten med samma färg, röd eller svart: left bower (vänstra knekten). Därefter följer ess, kung, dam, 10 och 9 i trumf. Left bower är trumf, inte ett kort i sin egen färg. De andra färgerna går ess, kung, dam, knekt, 10, 9.
+# Spelet
+Spelaren till vänster om givaren spelar ut (nästa spelare om han står över). Bekänn färg om du kan, annars spela valfritt kort. Högsta trumfen tar sticket, annars det högsta kortet i utspelad färg. Vinnaren spelar ut till nästa stick.
+# Poängen
+- Trumflaget tar 3 eller 4 stick: 1 poäng.
+- Trumflaget tar alla 5 stick, en march: 2 poäng; ensam: 4 poäng.
+- Trumflaget tar färre än 3 stick: det är euchred, alltså bet, och det andra laget får 2 poäng.
+# Partiets slut
+Första laget som når 10 poäng vinner.
+# Spela på enheten
+Ge enheten till spelaren vars bricka lyser; han trycker på start och ser sin hand. Talongen ligger i mitten med det uppvända kortet överst. I första rundan trycker du på bocken (eller på det uppvända kortet) för att beställa det, eller på pass. I andra rundan trycker du på en färg (det uppvända kortets färg är grå), sedan på bocken, eller på pass; givaren har ingen passknapp. För att spela ensam trycker du först på knappen med din bricka och din partners överstruken. Givaren som tog kortet trycker på kortet som ska läggas undan och sedan på det igen eller på talongen. Platsen för den som valde trumf visar trumffärgen, en spelare som står över är överstruken, och varje plats visar de stick den har tagit. För att spela trycker du på ett kort som lyser så att det lyfts, och trycker på det igen eller på dess plats i mitten; eller dra dit det. Tryck på högen längst ner till höger för att se det senaste sticket. Efter varje giv visar en tavla varje lags stick, givens poäng och summan; tryck på den för nästa giv. Varje list visar korten på handen och lagets poäng. Ångra tar tillbaka ett val som inte är bekräftat än, aldrig ett när enheten har skickats vidare.
