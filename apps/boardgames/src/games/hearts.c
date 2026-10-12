@@ -235,8 +235,7 @@ static void draw_summary(void)
 static void draw(void)
 {
     const hpos *p = &G.pos;
-    if (ui.viewer < 0) return;
-    int live = !ui_handing() && !tk_busy(&A), ph = p->phase;
+    int live = !ui_handing() && !tk_busy(&A), ph = p->phase, hide = ui.viewer < 0;   /* hide: the hand-off cover */
     if (!(seen >> T.me & 1) && !ui_handing()) {   /* the viewer's first look at this round's cards */
         seen |= 1u << T.me;
         if (p->tricks == 0 && p->ntrick == 0 && (ph == HP_PASS || p->dir == PASS_HOLD)) {
@@ -255,16 +254,17 @@ static void draw(void)
         ui_number(x, y, 0.5f * T.tok, p->taken[q], 1);
     }
     tk_draw_pile(&T, p->tricks);
-    if (ph == HP_PASS && p->turn == T.me) draw_pass(live);
+    if (ph == HP_PASS && p->turn == T.me && !hide) draw_pass(live);
     tk_draw_trick(&T, &A, p->trick, p->ntrick, p->leader);
     if (F.raised != CARD_NONE && live) tk_draw_target(&T);
     uint8_t h[TK_HAND];
     int how[TK_HAND];
     float lift[TK_HAND];
     int n = hand(h, how, lift, live);
-    tk_hand_draw(&T, &A, h, n, how, lift, F.on ? F.card : CARD_NONE);
+    if (hide) tk_hand_backs(&T, p->n[T.me]);   /* face down, the cards chosen to pass among them */
+    else tk_hand_draw(&T, &A, h, n, how, lift, F.on ? F.card : CARD_NONE);
     tk_draw_moves(&A);
-    tk_touch_draw(&F, &T);
+    if (!hide) tk_touch_draw(&F, &T);
     if (show_last && p->last_winner != TRICK_NONE)
         tk_draw_last(&T, p->last, p->players, p->last_leader, p->last_winner);
     if ((ph == HP_ROUND || ph == HP_OVER) && !tk_busy(&A)) draw_summary();

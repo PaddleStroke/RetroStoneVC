@@ -193,7 +193,7 @@ static int tok_made;
 static void draw(void)
 {
     const opos *p = &G.pos;
-    if (dealing) { dealing = 0; ct_calm(&MV); deal_slides(); }
+    if (dealing && ui.viewer >= 0) { dealing = 0; ct_calm(&MV); deal_slides(); }   /* the cover lifted: it flies */
     int over = p->phase == OP_OVER, o = om_offerer(p), mine = p->turn == T.me && !ui_handing();
     int ready = mine && !over && !ct_moving(&MV);
     ct_tokens(t_tok, &tok_made, (int)fmaxf(8, 0.5f * T.sw));
@@ -223,7 +223,7 @@ static void draw(void)
         for (int i = 0; i < p->n[o]; i++)
             cards_draw(DECK_FRENCH, CARD_NONE, s[i].x, s[i].y, w, s[i].deg, CD_DOWN | (ready ? CD_GLOW : 0));
     }
-    /* the hand, sorted */
+    /* the hand, sorted (under the hand-off cover: face down) */
     uint8_t order[OM_CARDS];
     cards_spot s[OM_CARDS];
     int n = shown(p, T.me, order);
@@ -231,6 +231,7 @@ static void draw(void)
     for (int i = 0; i < n; i++) {
         int c = p->hand[T.me][order[i]];
         if (ct_hides(&MV, H_HAND, T.me, c)) continue;
+        if (ui.viewer < 0) { cards_draw(DECK_FRENCH, CARD_NONE, s[i].x, s[i].y, w, s[i].deg, CD_DOWN); continue; }
         if (over && c == OM_ODD) ui_mark_glow(s[i].x, s[i].y, 1.6f * w);
         cards_draw(DECK_FRENCH, c, s[i].x, s[i].y, w, s[i].deg, 0);
     }

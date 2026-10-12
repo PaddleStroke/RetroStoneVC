@@ -130,7 +130,8 @@ static int hand_row(const gnpos *p, int pl, row *r)
     for (int m = 0, k = 0; m < a.nm; m++)
         for (int i = 0; i < a.mlen[m]; i++) meld_of[a.card[k++] & 127] = (int8_t)m;
     memset(r, 0, sizeof *r);
-    if (pl != T.me) {                          /* the other's, face down: as dealt and drawn (nothing told) */
+    if (pl != T.me || ui.viewer < 0) {         /* the other's (or under the hand-off cover): face down, as dealt and
+                                                * drawn (nothing told) */
         r->n = p->n[pl];
         memcpy(r->card, p->hand[pl], p->n[pl]);
         for (int i = 0; i < r->n; i++) r->grp[i] = -1;
@@ -447,7 +448,7 @@ static void draw_knock(const gnpos *p)
 static void draw_row(const gnpos *p, int pl, const row *r, float y, float w, int up, int dead_points)
 {
     Uint32 now = ui_ms();
-    int mine = pl == T.me && p->phase == GN_DISCARD && p->turn == T.me && !busy();
+    int mine = pl == T.me && p->phase == GN_DISCARD && p->turn == T.me && !busy() && up;
     if (up) row_marks(r, y, w, dead_points, pl != T.me);
     for (int i = 0; i < r->n; i++) {
         int c = r->card[i];
@@ -456,7 +457,7 @@ static void draw_row(const gnpos *p, int pl, const row *r, float y, float w, int
         if (r->laid[i] && t_lay && now < t_lay) continue;
         int how = up ? 0 : CD_DOWN;
         float cy = y;
-        if (pl == T.me && c == sel) how |= CD_RAISED, cy -= 0.18f * w;
+        if (pl == T.me && c == sel && up) how |= CD_RAISED, cy -= 0.18f * w;
         if (mine && c == p->taken) how |= CD_DIM;
         if (r->laid[i]) how |= CD_GLOW;
         cards_draw(deck, c, r->x[i], cy, w, 0, how);
@@ -515,7 +516,7 @@ static void draw_result(const gnpos *p)
 static void draw(void)
 {
     const gnpos *p = &G.pos;
-    if (dealing) { dealing = 0; deal_slides(); }
+    if (dealing && ui.viewer >= 0) { dealing = 0; deal_slides(); }   /* the cover lifted: the deal flies */
     textures();
     Uint32 now = ui_ms();
     int b = busy(), me = T.me, o = 1 - me, ph = p->phase, mine = p->turn == me && !ui_handing() && !b;
@@ -545,10 +546,10 @@ static void draw(void)
         draw_row(p, o, &r, T.oy, T.ow, 0, -1);
         int d = hand_row(p, me, &r);
         row_place(&r, T.b.x + T.b.w / 2, T.hw);
-        draw_row(p, me, &r, T.hy, T.hw, 1, ph == GN_END || ph == GN_OVER ? -1 : d);
+        draw_row(p, me, &r, T.hy, T.hw, ui.viewer >= 0, ph == GN_END || ph == GN_OVER ? -1 : d);   /* covered: down */
     }
     cm_draw(&M);
-    if (drag.on && drag.moved) cards_draw(deck, drag.card, drag.x, drag.y, T.hw, 0, CD_RAISED);
+    if (drag.on && drag.moved && ui.viewer >= 0) cards_draw(deck, drag.card, drag.x, drag.y, T.hw, 0, CD_RAISED);
     if ((ph == GN_END || ph == GN_OVER) && now >= t_panel && !(b && p->res.kind == GR_DEAD)) draw_result(p);
     cm_floats_draw(&M, t_pill, NULL);
     if (b) ui_animate();

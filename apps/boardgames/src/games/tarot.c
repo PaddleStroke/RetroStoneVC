@@ -694,7 +694,7 @@ static void draw_hand(void)
     float w;
     hand_spots(n, s, &w);
     for (int i = 0; i < n; i++) {
-        int c = p->hand[me][i], how = ph == TP_DOG ? CD_DOWN : 0;
+        int c = p->hand[me][i], how = ph == TP_DOG || ui.viewer < 0 ? CD_DOWN : 0;   /* the cover: face down */
         if (hides(H_HAND, c)) continue;
         if (mine && !b && ph == TP_PLAY && !tarot_legal(p, TACT(TA_PLAY, c))) how |= CD_DIM;
         if (mine && !b && ph == TP_DISCARD && !tarot_legal(p, TACT(TA_DISCARD, c))) how |= CD_DIM;
@@ -788,7 +788,8 @@ static void draw_middle(void)
         float w = ecart_w(), x, y, r;
         for (int i = 0; i < p->dogsize; i++) {
             float cx = row_x(p->dogsize, i, w, ecart_shift());
-            if (i < p->necart && !hides(H_ECART, p->ecart[i])) cards_draw(DK, p->ecart[i], cx, T.ty, w, 0, 0);
+            if (i < p->necart && !hides(H_ECART, p->ecart[i]))   /* the cover: the cards put aside face down */
+                cards_draw(DK, ui.viewer < 0 ? CARD_NONE : p->ecart[i], cx, T.ty, w, 0, ui.viewer < 0 ? CD_DOWN : 0);
             else cards_place(DK, cx, T.ty, w);
         }
         ok_button(&x, &y, &r);

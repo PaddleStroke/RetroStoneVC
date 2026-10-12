@@ -246,7 +246,7 @@ static void badges(SDL_Texture **t, int *made, int size)
 static void draw(void)
 {
     const fpos *p = &G.pos;
-    if (dealing) { dealing = 0; ct_calm(&MV); deal_slides(); }
+    if (dealing && ui.viewer >= 0) { dealing = 0; ct_calm(&MV); deal_slides(); }   /* the cover lifted: it flies */
     int mine = p->turn == T.me && !ui_handing() && p->phase == FP_ASK, ready = mine && !ct_moving(&MV);
     int to = asked();
     ct_tokens(t_tok, &tok_made, (int)(0.62f * T.aw));
@@ -291,13 +291,14 @@ static void draw(void)
             cards_draw(DECK_FRENCH, CARD_NONE, cx + 0.45f * T.aw, y + 0.5f * T.aw, 0.5f * T.aw, 12,
                        CD_DOWN | (p->answer == FAM_LUCKY ? CD_GLOW : 0));
     }
-    /* the hand: the family chosen raised */
+    /* the hand: the family chosen raised (under the hand-off cover: face down) */
     cards_spot s[FAM_CARDS];
     int n = p->n[T.me];
     float w = hand_spots(n, s);
     for (int i = 0; i < n; i++) {
         int c = p->hand[T.me][i];
         if (ct_hides(&MV, H_HAND, T.me, c)) continue;
+        if (ui.viewer < 0) { fam_draw(CARD_NONE, s[i].x, s[i].y, w, s[i].deg, CD_DOWN); continue; }
         int how = ready && chosen < 0 ? CD_GLOW : ready && FAM_FAMILY(c) == chosen ? CD_RAISED : 0;
         if (c == flash_card && ui_ms() < flash_t) { ui_mark_gold(s[i].x, s[i].y, 1.7f * w); ui_animate(); }
         fam_draw(c, s[i].x, s[i].y, w, s[i].deg, how);

@@ -377,7 +377,7 @@ static void put_suit(int s, float cx, float cy, float w, int how)
 static void draw(void)
 {
     const cpos *p = &G.pos;
-    if (dealing) { dealing = 0; ct_calm(&MV); deal_slides(); }
+    if (dealing && ui.viewer >= 0) { dealing = 0; ct_calm(&MV); deal_slides(); }   /* the cover lifted: it flies */
     textures();
     int deck = p->deck, mine = p->turn == T.me && !ui_handing(), moving = ct_moving(&MV), b = busy();
     int ph = p->phase, ready = mine && !moving && (ph == CP_PLAY || ph == CP_CHOOSE);
@@ -413,6 +413,7 @@ static void draw(void)
     for (int i = 0; i < n; i++) {
         if (ct_hides(&MV, H_HAND, T.me, i)) continue;
         int c = p->hand[T.me][i], how = ready && ph == CP_PLAY && ce_playable(p, c) ? CD_GLOW : 0;
+        if (ui.viewer < 0) c = CARD_NONE, how = CD_DOWN;   /* the hand-off cover: face down */
         cards_draw(deck, c, s[i].x, s[i].y, w, s[i].deg, how);
     }
     /* "last card": the button, while it matters (two cards, or one called) */

@@ -435,13 +435,17 @@ static void draw(void)
     draw_last();
     if (p->phase <= BP_AUCTION) draw_bidding(mine);
     else draw_trick();
-    /* the viewer's hand */
+    /* the viewer's hand (under the hand-off cover: face down, the player to come's seat) */
     uint8_t cards[BEL_HAND];
-    int n;
+    int n, hide = ui.viewer < 0;
     ft_hand h;
     hand_of(p, cards, &n, &h);
     for (int i = 0; i < n; i++) {
         if (ft_hides(TAG_HAND, cards[i], -1)) continue;
+        if (hide) {
+            cards_draw(DECK_FRENCH, CARD_NONE, h.spot[i].x, h.spot[i].y, h.w, h.spot[i].deg, CD_DOWN);
+            continue;
+        }
         if (drag.on && drag.moved && cards[i] == drag.card) continue;
         int how = 0;
         if (p->phase == BP_PLAY && p->turn == T.me && !ui_handing()) {
@@ -451,7 +455,7 @@ static void draw(void)
         cards_draw(DECK_FRENCH, cards[i], h.spot[i].x, h.spot[i].y, h.w, h.spot[i].deg, how);
     }
     ft_draw_moves();
-    if (drag.on && drag.moved) cards_draw(DECK_FRENCH, drag.card, drag.x, drag.y, h.w * 1.04f, 0, CD_RAISED);
+    if (drag.on && drag.moved && !hide) cards_draw(DECK_FRENCH, drag.card, drag.x, drag.y, h.w * 1.04f, 0, CD_RAISED);
     if ((p->phase == BP_DEAL || p->phase == BP_OVER) && !busy()) draw_summary();
 }
 

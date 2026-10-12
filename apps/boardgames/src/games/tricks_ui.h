@@ -420,6 +420,15 @@ static inline void tk_hand_draw(const tk_table *T, const tk_anim *a, const uint8
     }
 }
 
+/* the viewer's n cards face down (the hand-off cover is up: ui.viewer -1) */
+static inline void tk_hand_backs(const tk_table *T, int n)
+{
+    cards_spot s[TK_HAND];
+    if (n > TK_HAND) n = TK_HAND;
+    tk_fan(T, n, s);
+    for (int i = 0; i < n; i++) cards_draw(DECK_FRENCH, CARD_NONE, s[i].x, s[i].y, T->wh, s[i].deg, CD_DOWN);
+}
+
 /* the card under (x, y), the raised or lifted ones first (they stand out of the fan); CARD_NONE: none */
 static inline int tk_hand_at(const tk_table *T, const uint8_t *h, int n, const int *how, const float *lift, float x,
                              float y)

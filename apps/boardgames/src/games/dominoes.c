@@ -662,15 +662,16 @@ static void draw(void)
     /* the boneyard, the count */
     draw_yard(mine && !b && dom_legal(p, DA_DRAW));
     if (variant == DOM_FIVES) draw_count();
-    /* the hand */
+    /* the hand (under the hand-off cover: face down) */
     uint8_t h[DOM_BONES];
-    int n = hand_order(h), any = mine && dom_can_play(p);
+    int n = hand_order(h), any = mine && dom_can_play(p), hide = ui.viewer < 0;
     for (int i = 0; i < n; i++) {
         int bone = h[i];
-        if (drag.on && drag.moved && drag.bone == bone) continue;
+        if (drag.on && drag.moved && drag.bone == bone && !hide) continue;
         float x, y, d, l;
         int f;
         spr_now(bone, &x, &y, &d, &l, &f);
+        if (hide) { draw_bone(0, 0, x, y, l, d, 0, 0); continue; }
         int fits = 0;
         for (int e = 0; e <= END_C && !fits; e++) fits = (e <= END_S || e == END_C) && legal_end(bone, e);
         int how = bone == sel ? BD_RAISED : 0;
@@ -679,8 +680,8 @@ static void draw(void)
                                         l + 0.12f * l);
         draw_bone(dom_lo(bone), dom_hi(bone), x, y, l, d, f, how);
     }
-    if (drag.on && drag.moved) draw_bone(dom_lo(drag.bone), dom_hi(drag.bone), drag.x, drag.y, 2 * T.hs, 90, 1,
-                                         BD_RAISED);
+    if (drag.on && drag.moved && !hide)
+        draw_bone(dom_lo(drag.bone), dom_hi(drag.bone), drag.x, drag.y, 2 * T.hs, 90, 1, BD_RAISED);
     if (pop.v && ui_ms() >= pop.t0 && ui_ms() - pop.t0 < POP_MS) {   /* All Fives: the points, rising */
         float t = (float)(ui_ms() - pop.t0) / POP_MS, y = pop.y - t * 1.2f * ui.unit;
         ui_mark_gold(pop.x, y, 1.8f * ui.unit);

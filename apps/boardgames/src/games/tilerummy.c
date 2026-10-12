@@ -520,18 +520,19 @@ static void draw(void)
     button(B_SORT, 1);
     button(B_RESET, mine && changed);
     button(B_END, mine && check == TC_OK ? 2 : 0);
-    /* the rack */
+    /* the rack (under the hand-off cover: face down) */
     draw_rack();
     for (int t = 0; t < TR_TILES; t++) {
         if (T.vis[t] != 2 || dragging(t)) continue;
         float x, y, w;
         int f;
         spr_now(t, &x, &y, &w, &f);
+        if (ui.viewer < 0) f = 0;
         cards_draw(DECK_TILES, f ? tr_face(t) : CARD_NONE, x, y, w, 0, (f ? 0 : CD_DOWN) | (sel[t] ? CD_RAISED : 0));
     }
     for (int t = 0; t < TR_TILES; t++)          /* tiles on their way to elsewhere (back to the pool: none) */
         if (spr[t].on && !T.vis[t]) spr[t].on = 0;
-    if (drag.on && drag.moved) {                /* the tiles in the hand, under the finger */
+    if (drag.on && drag.moved && ui.viewer >= 0) {   /* the tiles in the hand, under the finger */
         int list[TR_TILES], n = 0;
         for (int t = 0; t < TR_TILES; t++)
             if (dragging(t)) list[n++] = t;

@@ -756,7 +756,7 @@ static void draw_stage(const cpos *p, int k)
 static void draw(void)
 {
     const cpos *p = &G.pos;
-    if (dealing) { dealing = 0; deal_slides(); }
+    if (dealing && ui.viewer >= 0) { dealing = 0; deal_slides(); }   /* the cover lifted: the deal flies */
     textures();
     Uint32 now = ui_ms();
     int b = busy(), me = T.me, ph = p->phase, mine = p->turn == me && !ui_handing() && !b;
@@ -815,6 +815,10 @@ static void draw(void)
             cards_draw(deck, p->kept[me][i], sp[i].x, sp[i].y, T.hw, sp[i].deg, 0);
             continue;
         }
+        if (ui.viewer < 0) {                    /* the hand-off cover: face down */
+            cards_draw(deck, CARD_NONE, sp[i].x, sp[i].y, T.hw, sp[i].deg, CD_DOWN);
+            continue;
+        }
         int h = 0;
         float y = sp[i].y;
         if (sel >> s & 1) h |= CD_RAISED, y -= 0.18f * T.hw;
@@ -822,7 +826,7 @@ static void draw(void)
         cards_draw(deck, card_of(p, me, s), sp[i].x, y, T.hw, sp[i].deg, h);
     }
     cm_draw(&M);
-    if (drag.on && drag.moved && !showing)  /* the card dragged, under the finger */
+    if (drag.on && drag.moved && !showing && ui.viewer >= 0)   /* the card dragged, under the finger */
         cards_draw(deck, card_of(p, me, drag.slot), drag.x, drag.y, T.hw, 0, CD_RAISED);
     cm_floats_draw(&M, t_pill, t_go);
     if (busy()) ui_animate();

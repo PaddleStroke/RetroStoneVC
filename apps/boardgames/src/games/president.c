@@ -455,12 +455,17 @@ static void draw(void)
     draw_discards();
     if (p->phase == PP_GIVE && p->turn == T.me && !ui_handing()) draw_exchange(ready);
     else draw_trick(ready && p->phase == PP_PLAY);
-    /* the hand: the cards received in the exchange glow (until the first trick is over) */
-    int held = 0;
+    /* the hand: the cards received in the exchange glow (until the first trick is over); under the hand-off cover:
+     * face down */
+    int held = 0, hide = ui.viewer < 0;
     for (int q = 0; q < p->players; q++) held += p->n[q];
     int first_trick = p->phase == PP_GIVE || (p->phase == PP_PLAY && 52 - held == p->npile);
     for (int i = 0; i < n; i++) {
         if (ft_hides(TAG_HAND, cards[i], -1)) continue;
+        if (hide) {
+            cards_draw(DECK_FRENCH, CARD_NONE, h.spot[i].x, h.spot[i].y, h.w, h.spot[i].deg, CD_DOWN);
+            continue;
+        }
         if (drag.on && drag.moved && chosen >> i & 1) continue;
         int how = chosen >> i & 1 ? CD_RAISED : 0;
         if (!how && first_trick)
@@ -469,7 +474,7 @@ static void draw(void)
         cards_draw(DECK_FRENCH, cards[i], h.spot[i].x, h.spot[i].y, h.w, h.spot[i].deg, how);
     }
     ft_draw_moves();
-    if (drag.on && drag.moved)
+    if (drag.on && drag.moved && !hide)
         for (int i = 0, k = 0, c = count_bits(chosen); i < n; i++)
             if (chosen >> i & 1)
                 cards_draw(DECK_FRENCH, cards[i], drag.x + (k++ - (c - 1) / 2.0f) * 0.4f * h.w, drag.y, h.w, 0,

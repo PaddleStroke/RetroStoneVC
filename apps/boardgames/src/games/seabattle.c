@@ -402,11 +402,12 @@ static void draw(void)
 {
     textures();
     int m = me(), mine = P->turn == m && !ui_handing() && P->phase != SP_OVER;
+    int own = ui.viewer >= 0;                   /* the hand-off cover: no fleet shown, only the ships sunk */
     if (fx.on && !busy()) fx.on = 0;
     if (fx.on) ui_animate();
     if (P->phase == SP_PLACE) {
-        draw_sea(0, m, 1, T.bx, T.by, T.sq, T.fr);
-        if (drag.on && drag.moved) {            /* the ship held: where it would land, and the ship */
+        draw_sea(0, m, own, T.bx, T.by, T.sq, T.fr);
+        if (drag.on && drag.moved && own) {     /* the ship held: where it would land, and the ship */
             const sbship *s = &P->ship[m][drag.ship];
             int x, y;
             drag_target(&x, &y);
@@ -432,7 +433,7 @@ static void draw(void)
         float cx = T.bx + T.fr + (aim[i] % SB_N + 0.5f) * T.sq, cy = T.by + T.fr + (aim[i] / SB_N + 0.5f) * T.sq;
         ui_put_c(t_aim, cx, cy, 0.9f * T.sq, 0.9f * T.sq);
     }
-    draw_sea(1, m, 1, T.sx, T.sy, T.ssq, T.sfr);
+    draw_sea(1, m, own, T.sx, T.sy, T.ssq, T.sfr);
     if (P->phase == SP_SHOOT) {
         int n = sb_shots(P), left = n - naim, ready = mine && naim == n && !busy();
         ga_button(&btn, t_fire, T.kx, T.ky, T.bd, 0.62f, ready ? GA_ON : GA_DIM);

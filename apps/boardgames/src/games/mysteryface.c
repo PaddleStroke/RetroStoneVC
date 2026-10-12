@@ -610,7 +610,8 @@ static void draw_secret(void)
     int s = P->secret[me()];
     float x = T.sx, y = T.sy;
     ui_fill(x + 2, y + 2, T.sw, T.sh, 0, 0, 0, 60);
-    if (s >= 0) ui_put(t_face[s], x, y, T.sw, T.sh);
+    if (ui.viewer < 0) ui_put(t_back, x, y, T.sw, T.sh);   /* the hand-off cover: kept face down */
+    else if (s >= 0) ui_put(t_face[s], x, y, T.sw, T.sh);
     else {
         SDL_SetTextureAlphaMod(t_back, 110);
         ui_put(t_back, x, y, T.sw, T.sh);
@@ -622,12 +623,13 @@ static void draw(void)
 {
     textures();
     int m = me(), ph = P->phase, mine = P->turn == m && !ui_handing() && ph != MF_OVER;
+    int hide = ui.viewer < 0;                   /* the hand-off cover: every face standing, none chosen */
     ui_put(t_plank, T.bx, T.by, T.bw, T.bh);
     float edge = fmaxf(2, 0.045f * T.fw);
     for (int f = 0; f < MF_FACES; f++) {
         float x, y;
         face_rect(f, &x, &y);
-        int down = ph != MF_PICK && (P->down[m] >> f & 1);
+        int down = ph != MF_PICK && !hide && (P->down[m] >> f & 1);
         if (ph == MF_OVER && f == P->guess && P->turn == m) {   /* the guess: right (gold) or wrong (red) */
             if (P->winner == m) ui_mark_gold(x + T.fw / 2, y + T.fh / 2, T.fh * 1.5f);
             else ui_mark_glow(x + T.fw / 2, y + T.fh / 2, T.fh * 1.4f);
@@ -637,7 +639,7 @@ static void draw(void)
             if (P->winner == m) outline(x, y, T.fw, T.fh, edge * 1.4f, 250, 214, 90, 255);
             else outline(x, y, T.fw, T.fh, edge * 1.4f, 220, 50, 36, 255);
         }
-        if (ph == MF_PICK && f == P->secret[m]) outline(x, y, T.fw, T.fh, edge * 1.4f, 250, 214, 90, 255);
+        if (ph == MF_PICK && f == P->secret[m] && !hide) outline(x, y, T.fw, T.fh, edge * 1.4f, 250, 214, 90, 255);
         else if (mine && guessing && !down) outline(x, y, T.fw, T.fh, edge, 250, 214, 90, 150);
     }
     /* the questions: one a turn (the one asked gold, the others faded once it is asked) */

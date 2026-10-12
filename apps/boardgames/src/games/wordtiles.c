@@ -229,10 +229,13 @@ static void glyph_at(uint8_t *o, int s, uint32_t cp, float em, float cx, float c
     free(t);
 }
 
-/* a tile s x s: an ivory face on a darker edge (thicker at the bottom), the letter, the value in a corner */
+/* a tile s x s: an ivory face on a darker edge (thicker at the bottom), the letter, the value in a corner; TILE_BACK:
+ * its back, plain wood */
+#define TILE_BACK 127
 static void tile_paint(int code, int s, uint8_t *o)
 {
-    static const uint8_t edge[4] = {164, 132, 92, 255}, face[4] = {244, 233, 208, 255};
+    static const uint8_t edge[4] = {164, 132, 92, 255}, ivory[4] = {244, 233, 208, 255}, wood[4] = {132, 96, 62, 255};
+    const uint8_t *face = code == TILE_BACK ? wood : ivory;
     memset(o, 0, (size_t)s * s * 4);
     art_roundrect(s, s, 0.15f * s, edge, o);
     int in = s / 16 > 1 ? s / 16 : 1, fw = s - 2 * in, fh = s - 2 * in - in;
@@ -248,6 +251,7 @@ static void tile_paint(int code, int s, uint8_t *o)
         art_blend(o, s, s, f, fw, fh, in, in / 2);
         free(f);
     }
+    if (code == TILE_BACK) return;
     uint32_t cp = wt_char(P, code);
     if (!cp) return;                            /* a blank on a rack: plain */
     int blank = code & WT_BLANK, v = blank ? 0 : wt_value(P, code);
@@ -842,6 +846,7 @@ static void draw_board(float ox, float oy, float sq, int target, int held)
         float x = ox + (cell % WT_N) * sq, y = oy + (cell / WT_N) * sq;
         if (i >= 0) {
             if (hidden(H_CELL, cell) || (fing.down && fing.src == SRC_BOARD && fing.moved && fing.idx == i)) continue;
+            if (ui.viewer < 0) continue;        /* placed this turn, still the player's: not under the cover */
             int s = pl[i].slot, code = P->rack[T.me][s];
             if (code == WT_BLANK) code = WT_BLANK | pl[i].letter;
             tile_rim(x + sq / 2, y + sq / 2, sq * 0.9f);   /* placed this turn, not played yet: a gold rim */
@@ -892,6 +897,10 @@ static void draw_rack(void)
     int over = P->phase == WP_OVER, can = mine() && P->phase == WP_PLAY;
     for (int s = 0; s < WT_RACK; s++) {
         int t = P->rack[T.me][s];
+        if (ui.viewer < 0) {                    /* the hand-off cover: every tile face down */
+            if (t) tile_at(TILE_BACK, T.rx[s], T.ry[s], T.rs, 1, 1);
+            continue;
+        }
         if (!t || placed_slot(s) >= 0 || hidden(H_SLOT, s)) continue;
         if (fing.down && fing.src == SRC_RACK && fing.moved && fing.slot == s) continue;
         int up = sel == s || (exch >> s & 1 && exch & 128);
@@ -1052,7 +1061,7 @@ static void draw(void)
                 on_board(fing.x, fing.y) ? 0.45f : 1, 1);
     }
     draw_loupe();
-    draw_pick();
+    if (ui.viewer >= 0) draw_pick();
     if (P->phase == WP_OVER && !busy()) draw_summary();
 }
 

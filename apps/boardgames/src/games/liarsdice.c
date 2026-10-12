@@ -444,10 +444,10 @@ static void draw_mine(void)
     float cx = b.x + b.w / 2 - 0.5f * s, cy = b.y + b.h / 2, x0 = cx - (n * s + (n - 1) * gap) / 2 + s / 2;
     float cs = 1.35f * s;
     if (!n) return;
-    if (!peek) {                                /* the cup down over the dice: tap it */
+    if (!peek || ui.viewer < 0) {               /* the cup down over the dice: tap it (the hand-off cover: down) */
         ui_shadow_flat(cx, cy + 0.35f * cs, 1.2f * cs, 0.3f * cs, 0.7f);
         ui_put_c(t_cup[me], cx, cy, cs * 1.2f, cs * 1.2f);
-        ui_mark_gold(cx, cy, 2.2f * cs);
+        if (ui.viewer >= 0) ui_mark_gold(cx, cy, 2.2f * cs);
         return;
     }
     if (rolled[me] != P->round + 1) { rolled[me] = P->round + 1; roll_t0 = ui_ms(); ui_sound(SND_DICE); }

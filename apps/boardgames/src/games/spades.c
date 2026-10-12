@@ -200,8 +200,7 @@ static void draw_summary(void)
 static void draw(void)
 {
     const spos *p = &G.pos;
-    if (ui.viewer < 0) return;
-    int live = !ui_handing() && !tk_busy(&A), ph = p->phase;
+    int live = !ui_handing() && !tk_busy(&A), ph = p->phase, hide = ui.viewer < 0;   /* hide: the hand-off cover */
     if (!(seen >> T.me & 1) && !ui_handing()) {
         seen |= 1u << T.me;
         if (ph == SP_BID) {
@@ -221,15 +220,16 @@ static void draw(void)
         ui_number(x, y, 0.5f * T.tok, p->won[q], 1);
     }
     tk_draw_pile(&T, p->tricks);
-    if (ph == SP_BID && p->turn == T.me) draw_pad(live);
+    if (ph == SP_BID && p->turn == T.me && !hide) draw_pad(live);
     tk_draw_trick(&T, &A, p->trick, p->ntrick, p->leader);
     if (F.raised != CARD_NONE && live) tk_draw_target(&T);
     uint8_t h[TK_HAND];
     int how[TK_HAND];
     int n = hand(h, how, live);
-    tk_hand_draw(&T, &A, h, n, how, NULL, F.on ? F.card : CARD_NONE);
+    if (hide) tk_hand_backs(&T, n);   /* face down */
+    else tk_hand_draw(&T, &A, h, n, how, NULL, F.on ? F.card : CARD_NONE);
     tk_draw_moves(&A);
-    tk_touch_draw(&F, &T);
+    if (!hide) tk_touch_draw(&F, &T);
     if (show_last && p->last_winner != TRICK_NONE)
         tk_draw_last(&T, p->last, SPADES_P, p->last_leader, p->last_winner);
     if ((ph == SP_ROUND || ph == SP_OVER) && !tk_busy(&A)) draw_summary();
