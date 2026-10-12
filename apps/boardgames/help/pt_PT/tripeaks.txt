@@ -1,0 +1,17 @@
+TriPeaks
+# O objetivo
+Esvaziar os três picos jogando as cartas deles no descarte, um valor acima ou abaixo. Um jogo para um jogador.
+# A disposição
+- 28 cartas em três picos lado a lado, em filas de 3, 6, 9 e 10 cartas; cada fila tapa metade da fila de cima. Só a fila de baixo está voltada para cima.
+- Uma carta voltada para cima no descarte; as outras 23 cartas formam o baralho, voltadas para baixo, ao lado.
+# Mover as cartas
+- Uma carta está livre quando já nenhuma carta a tapa. Uma carta livre vai para o descarte se tiver um valor a mais ou a menos do que a carta de cima do descarte, seja qual for o naipe: um 7 ou um 9 sobre um 8.
+- Em círculo (a regra clássica): o ás e o rei também se seguem. A outra opção: não se seguem.
+- Uma carta voltada para baixo vira-se assim que fica livre.
+- A sequência: o número ao lado do descarte conta as cartas que jogaste seguidas dos picos. Recomeça quando viras uma carta do baralho.
+# O baralho
+Quando nenhuma carta pode ir, toca no baralho para virar a carta de cima para o descarte. O baralho só é percorrido uma vez.
+# O fim do jogo
+Ganhas quando os três picos ficam vazios. O jogo está perdido quando o baralho está vazio e nenhuma carta pode ir. As cartas são baralhadas ao acaso, por isso nem todas as distribuições se podem ganhar.
+# Jogar no dispositivo
+Toca numa carta livre para a jogar no descarte, ou arrasta-a até lá. A lâmpada na tua barra mostra uma boa jogada: a carta que começa a sequência mais longa que ela vê. O número ao lado das tuas cartas conta as tuas jogadas. Anular desfaz as jogadas, até à distribuição.

@@ -1,11 +1,12 @@
 /*
- * The patience games (Klondike, FreeCell, Spider) on the screen: what they share, on top of the card kit. A game sets
- * where its piles go (solui.at[]), and the rest is here: the piles drawn (columns fanned down, the waste fanned
- * right, the stock and the foundations as piles), the cards sliding and turning over after each move (a move and
- * what the game then did by itself, chained), the finger (a tap sends a card or a run to its best place, a quick
- * second tap only to a foundation; a drag carries a run where the finger drops it), the hint (the move blinks), the
- * bar (the deal's number, the move counter, the hint button) and the win: the cards leaping off the foundations and
- * bouncing across the table, each with a trail of copies.
+ * The patience games (Klondike, FreeCell, Spider, Pyramid, TriPeaks) on the screen: what they share, on top of the
+ * card kit. A game sets where its piles go (solui.at[]), and the rest is here: the piles drawn (columns fanned down,
+ * the waste fanned right, the stock and the foundations as piles, the single cards of a layout), the cards sliding
+ * and turning over after each move (a move and what the game then did by itself, chained), the finger (a tap sends a
+ * card or a run to its best place, a quick second tap only to a foundation; a drag carries a run where the finger
+ * drops it; or, `pairs`, two taps pair two cards: the first one is lifted), the hint (the move blinks), the bar (the
+ * deal's number, the move counter, the hint button), the empty stock's arrow going round, and the win: the cards
+ * leaping off the foundations and bouncing across the table, each with a trail of copies.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #ifndef SOLITAIRE_UI_H
@@ -28,8 +29,9 @@
 #define SOLUI_LIFE_MS 2600                      /* a leaping card's longest flight */
 
 /* how a pile lies: stacked (its top card shows), a column fanned down, the waste (its last cards fanned right),
- * Spider's stock (a back for each row still to deal, from the right) */
-enum { SF_PILE, SF_COLUMN, SF_WASTE, SF_ROW };
+ * Spider's stock (a back for each row still to deal, from the right), a card of a layout (Pyramid, TriPeaks: one card
+ * or nothing, not even its place; drawn in the piles' order, so the later ones lie over the earlier ones) */
+enum { SF_PILE, SF_COLUMN, SF_WASTE, SF_ROW, SF_SLOT };
 
 typedef struct {
     float x, y;                                 /* its first card's centre */
@@ -61,6 +63,12 @@ typedef struct {
     box bar;
     int made_bar;
     SDL_Texture *t_disc, *t_bulb, *t_back;
+    /* pairs (Pyramid): a tap chooses a card (lifted), a tap on another plays the move from the first one's pile to
+     * the second one's (the game's rules pair them); a card that goes alone (a king) goes on one tap. sel: the chosen
+     * card's pile + 1 (0: none). */
+    int pairs, sel;
+    SDL_Texture *t_again;                       /* the empty stock's arrow (solui_again) */
+    int again_size;
 } solui;
 
 /* ---- where the cards lie ----------------------------------------------------------------------------------------- */
@@ -113,6 +121,7 @@ static inline void solui_calm(solui *u)
     u->hint = 0;
     u->drag = 0;
     u->pile = -1;
+    u->sel = 0;
 }
 
 /* a card from A to B, to card idx of pile in the end (-1: it moves on), drawn only from vis (ms; 0: at once) */
@@ -214,6 +223,17 @@ static inline void solui_animate(solui *u, const solpos *before, int first, cons
                             k % 2 ? -1 : SND_MOVE);
             t += 65 * n;
             break;
+        case SM_TURN: {                         /* a card uncovered turns up, once the one over it has gone */
+            int j = nxt.n[a] - 1, delay = t + 60;
+            float x, y;
+            if (j < 0) break;
+            solui_xy(u, &nxt, a, j, &x, &y);
+            int k = solui_slide(u, nxt.c[a][j], 0, x, y, 1, x, y, SOLUI_FLIP_MS, delay, a, j, 0);
+            u->slot[a][j] = (int16_t)k;
+            u->land[a][j] = (int16_t)(delay + SOLUI_FLIP_MS);
+            t += 30;
+            break;
+        }
         }
         cur = nxt;
     }
@@ -350,6 +370,8 @@ static inline int solui_glows(const solui *u, int pile, int i)  /* the hint's ca
     return (pile == m.from && i >= p->n[pile] - m.n) || (pile == m.to && i == p->n[pile] - 1);
 }
 
+static inline int solui_chosen(const solui *u, int pile) { return u->pairs && u->sel == pile + 1; }
+
 static inline void solui_draw_pile(const solui *u, int pile)
 {
     const solpos *p = &u->rec->pos;
@@ -374,9 +396,14 @@ static inline void solui_draw_pile(const solui *u, int pile)
         int top = !k || p->kind[pile] == SP_STOCK ? CARD_NONE : p->c[pile][s->first ? 0 : k - 1];
         int glow = solui_glows(u, pile, n - 1) || (!n && solui_glows(u, pile, -1));
         if (!k && glow) ui_mark_gold(s->x, s->y, 1.3f * w);
-        cards_pile(deck, s->x, s->y, w, k, top, glow ? CD_GLOW : 0);
+        cards_pile(deck, s->x, s->y, w, k, top, (glow ? CD_GLOW : 0) | (k && solui_chosen(u, pile) ? CD_RAISED : 0));
         break;
     }
+    case SF_SLOT:
+        if (!n || solui_hidden(u, pile, n - 1)) break;
+        cards_draw(deck, p->c[pile][n - 1], s->x, s->y, w, 0, (p->down[pile] >= n ? CD_DOWN : 0) |
+                   (solui_glows(u, pile, n - 1) ? CD_GLOW : 0) | (solui_chosen(u, pile) ? CD_RAISED : 0));
+        break;
     case SF_WASTE: {
         int k = n;
         while (k > 0 && solui_hidden(u, pile, k - 1)) k--;
@@ -437,9 +464,16 @@ static inline int solui_hit(const solui *u, float x, float y, int *idx)
 {
     const solpos *p = &u->rec->pos;
     float w = u->w, h = SOLUI_ASPECT * w, cx, cy;
+    for (int pile = p->npiles - 1; pile >= 0; pile--)   /* the cards of a layout: the one on top */
+        if (u->at[pile].fan == SF_SLOT && p->n[pile] &&
+            cards_in(u->at[pile].x, u->at[pile].y, w, SOLUI_ASPECT, x, y)) {
+            *idx = p->n[pile] - 1;
+            return pile;
+        }
     for (int pile = 0; pile < p->npiles; pile++) {
         const solspot *s = &u->at[pile];
         int n = p->n[pile];
+        if (s->fan == SF_SLOT) continue;
         if (s->fan == SF_COLUMN) {
             for (int i = n - 1; i >= 0; i--) {
                 solui_xy(u, p, pile, i, &cx, &cy);
@@ -505,6 +539,7 @@ static inline void solui_motion(solui *u, float x, float y)
             u->quiet = 0;
         }
         u->drag = 1;
+        u->sel = 0;
     }
     if (u->drag) ui_animate();
 }
@@ -516,7 +551,9 @@ static inline int solui_drop(const solui *u, int n)
     float w = u->w, h = SOLUI_ASPECT * w, x = u->fx - u->gx, y = u->fy - u->gy, best = 0;
     int to = -1;
     for (int b = 0; b < p->npiles; b++) {
-        if (b == u->pile || (p->kind[b] != SP_TAB && p->kind[b] != SP_FOUND && p->kind[b] != SP_CELL)) continue;
+        if (b == u->pile || (p->kind[b] != SP_TAB && p->kind[b] != SP_FOUND && p->kind[b] != SP_CELL &&
+                             !(u->pairs && p->kind[b] == SP_WASTE)))
+            continue;
         if (!u->R->legal(p, sol_mv(SM_MOVE, u->pile, b, n))) continue;
         float cx = u->at[b].x, cy0 = u->at[b].y, cy1 = cy0;
         if (p->n[b]) solui_xy(u, p, b, p->n[b] - 1, &cx, &cy1);
@@ -528,10 +565,30 @@ static inline int solui_drop(const solui *u, int n)
     return to;
 }
 
+/* pairs: a tap on card idx of pile (the top one): chosen, or played with the card chosen before, or alone (a king) */
+static inline void solui_pair_tap(solui *u, int pile, int idx)
+{
+    const solpos *p = &u->rec->pos;
+    int was = u->sel - 1;
+    u->sel = 0;
+    if (was == pile) { ui_sound(SND_TAP); return; }         /* the same card again: no longer chosen */
+    if (was >= 0) {
+        solmove m = sol_mv(SM_MOVE, was, pile, 1);
+        if (!u->R->legal(p, m) || !solui_play(u, m, NULL)) solui_deny();
+        return;
+    }
+    solmove m = u->R->tap(p, pile, idx, 0);
+    if (m.kind != SM_NONE) { if (!solui_play(u, m, NULL)) solui_deny(); return; }
+    if (!u->R->pickable(p, pile, idx)) { solui_deny(); return; }
+    u->sel = pile + 1;
+    ui_sound(SND_TAP);
+}
+
 static inline void solui_release(solui *u, float x, float y)
 {
     int pile = u->pile, idx = u->idx;
     u->pile = -1;
+    if (pile < 0 && !u->drag) u->sel = 0;       /* a tap on the table: nothing chosen */
     if (pile < 0 || u->won) { u->drag = 0; return; }
     const solpos *p = &u->rec->pos;
     if (u->drag) {                              /* the drop */
@@ -561,14 +618,43 @@ static inline void solui_release(solui *u, float x, float y)
     u->tap_y = y;
     if (p->kind[pile] == SP_STOCK) {
         solmove m = u->R->stock(p);
+        u->sel = 0;
         if (twice && m.kind == SM_NONE) return;
         if (m.kind == SM_NONE || !solui_play(u, m, NULL)) solui_deny();
         return;
     }
-    if (idx < 0) return;                        /* an empty place */
+    if (idx < 0) { u->sel = 0; return; }        /* an empty place */
+    if (u->pairs) { solui_pair_tap(u, pile, idx); return; }
     solmove m = u->R->tap(p, pile, idx, twice);
     if (m.kind == SM_NONE) { if (!twice) solui_deny(); return; }
     if (!solui_play(u, m, NULL)) solui_deny();
+}
+
+/* ---- the empty stock: an arrow going round (a tap there turns the waste back over) ------------------------------- */
+static inline void solui_again_pic(int size, uint8_t *o)
+{
+    art_style st = {{255, 255, 255}, {0, 0, 0}, {0, 0, 0}, {255, 255, 255}, 0, 0};
+    art_fig *f = art_fig_new();
+    art_arc(f, ART_PART, 0.5f, 0.5f, 0.19f, 0.27f, 70, 360);
+    const float head[] = {0.6f, 0.53f, 0.86f, 0.53f, 0.73f, 0.33f};
+    art_poly(f, ART_PART, head, 3);
+    art_render(f, &st, size, size, (float)size, 0, 0, o);
+    art_fig_free(f);
+}
+
+/* the arrow, faint cream, on the empty stock's place (x, y) */
+static inline void solui_again(solui *u, float x, float y)
+{
+    int d = (int)(0.8f * u->w);
+    if (u->again_size != d) {
+        u->again_size = d;
+        ui_free(&u->t_again);
+        solui_again_pic(d, ui_buf(d, d));
+        u->t_again = ui_tex(d, d, ui_buf(d, d));
+        SDL_SetTextureColorMod(u->t_again, 246, 238, 220);
+        SDL_SetTextureAlphaMod(u->t_again, 120);
+    }
+    ui_put_c(u->t_again, x, y, (float)d, (float)d);
 }
 
 /* ---- the bar: the deal's number (FreeCell), the moves, the hint button ------------------------------------------ */

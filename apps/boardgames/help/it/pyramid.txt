@@ -1,0 +1,20 @@
+Piramide
+# Lo scopo
+Svuotare la piramide di 28 carte togliendo coppie di carte che sommano 13. Un gioco per un giocatore.
+# La disposizione
+- 28 carte scoperte in una piramide di sette file; ogni fila copre per metà la fila sopra.
+- Le altre 24 carte formano il mazzo, coperto, sotto la piramide; accanto, la carta girata e gli scarti.
+- A destra, il mucchio delle carte tolte.
+# Muovere le carte
+- Una carta è libera quando nessuna carta la copre più. All'inizio è libera la fila in basso.
+- Togli due carte libere che sommano 13: l'asso vale 1, il fante 11, la donna 12. Una donna va con un asso, un fante con un 2, un 10 con un 3, un 9 con un 4, un 8 con un 5, un 7 con un 6.
+- Il re vale 13: se ne va da solo.
+- Anche la carta girata e quella in cima agli scarti sono libere: abbinale a una carta della piramide, o tra loro.
+# Il mazzo
+- Tocca il mazzo per girare la sua prima carta. Girando la successiva, la carta girata va sugli scarti.
+- Un giro: il mazzo si scorre una volta sola.
+- Tre giri: quando il mazzo è vuoto, tocca il suo posto per rigirare gli scarti e rifarne il mazzo. Il numero sotto il mazzo indica i giri rimasti.
+# La fine della partita
+Vinci appena la piramide è vuota, anche se restano carte nel mazzo o negli scarti. La partita è persa quando non resta nessuna mossa. Le carte sono mescolate a caso, quindi non tutte le smazzate si possono vincere.
+# Giocare sul dispositivo
+Tocca una carta per sollevarla, poi tocca la carta che fa 13 con lei; tocca di nuovo una carta sollevata per rimetterla giù. Un re se ne va con un solo tocco. Puoi anche trascinare una carta sulla sua compagna. La lampada nella tua barra mostra una mossa possibile; il numero accanto alle tue carte conta le tue mosse. Annulla ritira le mosse, fino alla smazzata.

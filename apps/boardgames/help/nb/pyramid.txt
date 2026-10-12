@@ -1,0 +1,20 @@
+Pyramide
+# Målet
+Rydd pyramiden av 28 kort ved å fjerne par av kort som til sammen blir 13. Et spill for én spiller.
+# Oppstillingen
+- 28 kort med bildesiden opp i en pyramide av sju rekker; hver rekke dekker halvparten av rekken over.
+- De andre 24 kortene er bunken, med baksiden opp, under pyramiden; ved siden av ligger det snudde kortet og kastebunken.
+- Til høyre ligger de fjernede kortene.
+# Flytte kort
+- Et kort er fritt når ingen kort ligger over det lenger. I starten er den nederste rekken fri.
+- Fjern to frie kort som til sammen blir 13: ess teller 1, knekt 11, dame 12. En dame går med et ess, en knekt med en 2-er, en 10-er med en 3-er, en 9-er med en 4-er, en 8-er med en 5-er, en 7-er med en 6-er.
+- En konge teller 13: den går alene.
+- Det snudde kortet og det øverste kortet i kastebunken er også frie: sett dem sammen med et kort fra pyramiden eller med hverandre.
+# Bunken
+- Trykk på bunken for å snu det øverste kortet. Når du snur det neste, legges det snudde kortet i kastebunken.
+- Én runde: bunken gås gjennom bare én gang.
+- Tre runder: når bunken er tom, trykker du på plassen dens for å snu kastebunken til en ny bunke. Tallet under bunken viser rundene som er igjen.
+# Slutten på spillet
+Du vinner så snart pyramiden er ryddet, selv om det er kort igjen i bunken eller kastebunken. Spillet er tapt når det ikke er flere trekk. Kortene stokkes tilfeldig, så ikke alle spill kan vinnes.
+# Spill på enheten
+Trykk på et kort for å løfte det, og trykk så på kortet som blir 13 sammen med det; trykk på et løftet kort igjen for å legge det tilbake. En konge går med ett trykk. Du kan også dra et kort over på makkeren sin. Lampen i panelet ditt viser et mulig trekk; tallet ved siden av kortene dine teller trekkene dine. Angre tar tilbake trekk, helt til kortene ble delt ut.

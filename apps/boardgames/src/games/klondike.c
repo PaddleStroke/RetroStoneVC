@@ -19,8 +19,6 @@ static solrec G;
 static solui U = {.R = &kl_rules, .rec = &G, .deck = DECK_FRENCH, .waste_fan = 1, .down_step = 0.13f,
                   .up_step = 0.4f, .pile = -1, .made_bar = -1};
 static int dealing;
-static SDL_Texture *t_again;
-static int again_size;
 
 /* ---- the table --------------------------------------------------------------------------------------------------- */
 static void layout(box b)
@@ -72,41 +70,14 @@ static int script(const char *s)
     return ok;
 }
 
-/* the empty stock: an arrow going round (tap: the waste comes back, turned over) */
-static void again_pic(int size, uint8_t *o)
-{
-    art_style st = {{255, 255, 255}, {0, 0, 0}, {0, 0, 0}, {255, 255, 255}, 0, 0};
-    art_fig *f = art_fig_new();
-    art_arc(f, ART_PART, 0.5f, 0.5f, 0.19f, 0.27f, 70, 360);
-    const float head[] = {0.6f, 0.53f, 0.86f, 0.53f, 0.73f, 0.33f};
-    art_poly(f, ART_PART, head, 3);
-    art_render(f, &st, size, size, (float)size, 0, 0, o);
-    art_fig_free(f);
-}
-
-static void draw_again(void)
-{
-    const solspot *s = &U.at[KL_STOCK];
-    if (G.pos.n[KL_STOCK] || !G.pos.n[KL_WASTE]) return;
-    int d = (int)(0.8f * U.w);
-    if (again_size != d) {
-        again_size = d;
-        ui_free(&t_again);
-        again_pic(d, ui_buf(d, d));
-        t_again = ui_tex(d, d, ui_buf(d, d));
-        SDL_SetTextureColorMod(t_again, 246, 238, 220);
-        SDL_SetTextureAlphaMod(t_again, 120);
-    }
-    ui_put_c(t_again, s->x, s->y, (float)d, (float)d);
-}
-
 static void draw(void)
 {
     if (dealing) {
         dealing = 0;
         solui_deal(&U, U.at[KL_STOCK].x, U.at[KL_STOCK].y, 40);
     }
-    draw_again();
+    /* the empty stock: an arrow going round (tap: the waste comes back, turned over) */
+    if (!G.pos.n[KL_STOCK] && G.pos.n[KL_WASTE]) solui_again(&U, U.at[KL_STOCK].x, U.at[KL_STOCK].y);
     solui_draw(&U);
 }
 

@@ -1,0 +1,20 @@
+Pyramidi
+# Tavoite
+Tyhjennä 28 kortin pyramidi poistamalla korttipareja, joiden summa on 13. Peli yhdelle pelaajalle.
+# Asetelma
+- 28 korttia kuvapuoli ylöspäin seitsemänrivisenä pyramidina; jokainen rivi peittää puolet yläpuolisesta rivistä.
+- Loput 24 korttia ovat pakka, kuvapuoli alaspäin, pyramidin alla; sen vieressä ovat käännetty kortti ja poistopino.
+- Oikealla on poistettujen korttien kasa.
+# Korttien siirtäminen
+- Kortti on vapaa, kun mikään kortti ei enää ole sen päällä. Alussa alin rivi on vapaa.
+- Poista kaksi vapaata korttia, joiden summa on 13: ässä on 1, sotilas 11, rouva 12. Rouva käy ässän kanssa, sotilas kakkosen, kymppi kolmosen, ysi nelosen, kasi vitosen ja seiska kutosen kanssa.
+- Kuningas on 13: se poistuu yksin.
+- Käännetty kortti ja poistopinon päällimmäinen kortti ovat myös vapaita: yhdistä ne pyramidin korttiin tai toisiinsa.
+# Pakka
+- Napauta pakkaa kääntääksesi sen päällimmäisen kortin. Kun käännät seuraavan, käännetty kortti siirtyy poistopinoon.
+- Yksi kierros: pakka käydään läpi vain kerran.
+- Kolme kierrosta: kun pakka on tyhjä, napauta sen paikkaa, niin poistopino käännetään uudeksi pakaksi. Pakan alla oleva luku näyttää jäljellä olevat kierrokset.
+# Pelin loppu
+Voitat heti, kun pyramidi on tyhjä, vaikka pakkaan tai poistopinoon jäisi kortteja. Peli on hävitty, kun siirtoja ei enää ole. Kortit sekoitetaan sattumanvaraisesti, joten kaikkia jakoja ei voi voittaa.
+# Pelaaminen laitteella
+Napauta korttia nostaaksesi sen ja napauta sitten korttia, jonka kanssa summa on 13; napauta nostettua korttia uudelleen laskeaksesi sen takaisin. Kuningas poistuu yhdellä napautuksella. Voit myös vetää kortin parinsa päälle. Lamppu palkissasi näyttää mahdollisen siirron; korttiesi vieressä oleva luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.

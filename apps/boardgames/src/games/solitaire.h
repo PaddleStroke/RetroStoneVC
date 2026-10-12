@@ -1,5 +1,6 @@
 /*
- * The patience games (Klondike, FreeCell, Spider): what their rules share. No SDL: the rules and their tests use it.
+ * The patience games (Klondike, FreeCell, Spider, Pyramid, TriPeaks): what their rules share. No SDL: the rules and
+ * their tests use it.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * A position is piles of cards: the tableau's columns (face-down cards at the bottom, then face-up ones), the
@@ -16,6 +17,11 @@
  *   "1h"  to a foundation (the one that takes it); a foundation as a source: A..H; free cells a..d; the waste w;
  *   "s"   the stock (draw, turn the waste over, deal a row); "?" the hint's move; "#n" a new game, deal n (its seed;
  *         FreeCell: its number).
+ *
+ * The layouts of single cards (Pyramid, TriPeaks): a pile for each card of the layout, holding it or nothing, in rows,
+ * each card covered by up to two cards of the next row (solslot); a card is free once they are gone. Their notation:
+ * a card of the layout is its row (1 the top) and its place in the row (a, b, c...): "7a"; the games write their own
+ * moves with it.
  */
 #ifndef SOLITAIRE_H
 #define SOLITAIRE_H
@@ -25,12 +31,17 @@
 
 #include "cards.h"
 
+/* the most piles a game has. A game with more (Pyramid, TriPeaks: 32) sets it in its own header, before including
+ * this one, so that all its files agree (the positions of the others stay small: their tests search deep) */
+#ifndef SOL_PILES
 #define SOL_PILES 20
+#endif
 #define SOL_CARDS 104                           /* the most a pile can hold (Spider's two packs) */
 #define SOL_MOVES 6000                          /* a game's moves, the automatic ones too */
 
 enum { SP_TAB, SP_FOUND, SP_CELL, SP_STOCK, SP_WASTE };
-enum { SM_NONE, SM_MOVE, SM_DRAW, SM_REDEAL, SM_DEAL };
+/* SM_TURN: the face-down card on top of pile `from` turns face up (TriPeaks: a card of a peak uncovered) */
+enum { SM_NONE, SM_MOVE, SM_DRAW, SM_REDEAL, SM_DEAL, SM_TURN };
 #define SM_AUTO 0x80                            /* a move the game made by itself */
 #define SM_KIND(k) ((k) & 0x7f)
 
@@ -38,6 +49,7 @@ typedef struct { uint8_t kind, from, to, n; } solmove;
 
 typedef struct {
     uint8_t npiles, variant, draw;              /* draw: Klondike's cards drawn at a time */
+    uint8_t redeals;                            /* the times the waste has been turned over (SM_REDEAL) */
     uint8_t kind[SOL_PILES], n[SOL_PILES], down[SOL_PILES];   /* down: the face-down cards at the pile's bottom */
     uint8_t c[SOL_PILES][SOL_CARDS];            /* bottom first */
 } solpos;
@@ -161,10 +173,14 @@ static inline void sol_apply(solpos *p, solmove m)
     case SM_REDEAL:                             /* the waste turned over: the stock again */
         for (int k = 0; k < n; k++) p->c[b][p->n[b]++] = p->c[a][--p->n[a]];
         p->down[b] = p->n[b];
+        p->redeals++;
         break;
     case SM_DEAL:                               /* one card face up on each of n columns from `to` */
         for (int k = 0; k < n; k++) p->c[b + k][p->n[b + k]++] = p->c[a][--p->n[a]];
         p->down[a] = p->n[a];
+        break;
+    case SM_TURN:
+        if (p->n[a] && p->down[a] >= p->n[a]) p->down[a] = (uint8_t)(p->n[a] - 1);
         break;
     }
 }
@@ -282,6 +298,44 @@ static inline int sol_script(solrec *r, const char *s, const solrules *R)
         s += k;
     }
     return 1;
+}
+
+/* ---- the layouts of single cards (Pyramid, TriPeaks) ------------------------------------------------------------- */
+/* a place of the layout: its row (0 the top) and place in the row, the places of the two cards lying over it (-1:
+ * none); its card is pile first + its index */
+typedef struct { int8_t row, col, cover[2]; } solslot;
+
+/* the card of place i is there and free: nothing lies over it any more */
+static inline int sol_slot_free(const solpos *p, const solslot *s, int first, int i)
+{
+    if (!p->n[first + i]) return 0;
+    for (int k = 0; k < 2; k++)
+        if (s[i].cover[k] >= 0 && p->n[first + s[i].cover[k]]) return 0;
+    return 1;
+}
+
+static inline int sol_slots_left(const solpos *p, int first, int n)   /* the cards still in the layout */
+{
+    int k = 0;
+    for (int i = 0; i < n; i++) k += p->n[first + i] > 0;
+    return k;
+}
+
+/* the notation: place i as "7a" (out: 3 chars) */
+static inline void sol_slot_write(const solslot *s, int i, char *out)
+{
+    out[0] = (char)('1' + s[i].row);
+    out[1] = (char)('a' + s[i].col);
+    out[2] = 0;
+}
+
+/* the place written at t ("7a"), one of n; -1: none */
+static inline int sol_slot_read(const solslot *s, int n, const char *t)
+{
+    if (t[0] < '1' || t[0] > '9' || t[1] < 'a' || t[1] > 'z') return -1;
+    for (int i = 0; i < n; i++)
+        if (s[i].row == t[0] - '1' && s[i].col == t[1] - 'a') return i;
+    return -1;
 }
 
 #endif

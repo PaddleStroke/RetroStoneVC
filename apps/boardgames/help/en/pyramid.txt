@@ -1,0 +1,20 @@
+Pyramid
+# The aim
+Clear the pyramid of 28 cards by taking off pairs of cards that add up to 13. A game for one player.
+# The layout
+- 28 cards face up in a pyramid of seven rows, each row lying over half of the row above.
+- The other 24 cards are the stock, face down, under the pyramid; next to it, the turned card and the waste.
+- At the right, the pile of the cards taken off.
+# Moving cards
+- A card is free when no card lies over it any more. At the start, the bottom row is free.
+- Take off two free cards that add up to 13: an ace counts 1, a jack 11, a queen 12. A queen goes with an ace, a jack with a 2, a 10 with a 3, a 9 with a 4, an 8 with a 5, a 7 with a 6.
+- A king counts 13: it goes off alone.
+- The turned card and the top card of the waste are free too: pair them with a card of the pyramid, or with each other.
+# The stock
+- Tap the stock to turn its top card face up. Turning the next one puts the turned card on the waste.
+- One pass: the stock is gone through only once.
+- Three passes: when the stock is empty, tap its place to turn the waste back over as the stock. The number under the stock shows the passes left.
+# The end of the game
+You win as soon as the pyramid is cleared, even if cards are left in the stock or the waste. The game is lost when no move is left. The deals are shuffled at random, so not every deal can be won.
+# Playing on the device
+Tap a card to lift it, then tap the card that makes 13 with it; tap a lifted card again to put it back. A king goes off with one tap. You can also drag a card onto its pair. The lamp in your bar shows a possible move; the number next to your cards counts your moves. Undo takes back moves, all the way to the deal.

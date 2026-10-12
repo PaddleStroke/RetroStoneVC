@@ -1,0 +1,17 @@
+TriPeaks
+# Tavoite
+Tyhjennä kolme huippua pelaamalla niiden kortit poistopinoon, yhtä arvoa suurempina tai pienempinä. Peli yhdelle pelaajalle.
+# Asetelma
+- 28 korttia kolmessa vierekkäisessä huipussa, riveissä 3, 6, 9 ja 10 korttia; jokainen rivi peittää puolet yläpuolisesta rivistä. Vain alin rivi on kuvapuoli ylöspäin.
+- Yksi kortti kuvapuoli ylöspäin poistopinossa; loput 23 korttia ovat pakka, kuvapuoli alaspäin, sen vieressä.
+# Korttien siirtäminen
+- Kortti on vapaa, kun mikään kortti ei enää ole sen päällä. Vapaa kortti menee poistopinoon, jos se on yhtä arvoa suurempi tai pienempi kuin poistopinon päällimmäinen kortti, maasta riippumatta: seiska tai ysi kasin päälle.
+- Ympäri (klassinen sääntö): ässä ja kuningas seuraavat myös toisiaan. Toinen vaihtoehto: ne eivät seuraa toisiaan.
+- Kuvapuoli alaspäin oleva kortti kääntyy heti, kun se on vapaa.
+- Putki: poistopinon vieressä oleva luku laskee kortit, jotka olet pelannut huipuilta peräkkäin. Se alkaa alusta, kun käännät kortin pakasta.
+# Pakka
+Kun mikään kortti ei sovi, napauta pakkaa kääntääksesi sen päällimmäisen kortin poistopinoon. Pakka käydään läpi vain kerran.
+# Pelin loppu
+Voitat, kun kolme huippua on tyhjennetty. Peli on hävitty, kun pakka on tyhjä eikä mikään kortti sovi. Kortit sekoitetaan sattumanvaraisesti, joten kaikkia jakoja ei voi voittaa.
+# Pelaaminen laitteella
+Napauta vapaata korttia pelataksesi sen poistopinoon, tai vedä se sinne. Lamppu palkissasi näyttää hyvän siirron: kortin, josta alkaa pisin putki, jonka se näkee. Korttiesi vieressä oleva luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.

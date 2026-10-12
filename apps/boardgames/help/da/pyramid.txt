@@ -1,0 +1,20 @@
+Pyramide
+# Målet
+Ryd pyramiden af 28 kort ved at fjerne par af kort, der tilsammen giver 13. Et spil for én spiller.
+# Opstillingen
+- 28 kort med billedsiden op i en pyramide af syv rækker; hver række dækker halvdelen af rækken ovenover.
+- De andre 24 kort er bunken, med bagsiden op, under pyramiden; ved siden af ligger det vendte kort og kastebunken.
+- Til højre ligger de fjernede kort.
+# Flyt kort
+- Et kort er frit, når intet kort ligger over det længere. I starten er den nederste række fri.
+- Fjern to frie kort, der tilsammen giver 13: et es tæller 1, en knægt 11, en dame 12. En dame går med et es, en knægt med en 2'er, en 10'er med en 3'er, en 9'er med en 4'er, en 8'er med en 5'er, en 7'er med en 6'er.
+- En konge tæller 13: den går alene.
+- Det vendte kort og det øverste kort i kastebunken er også frie: sæt dem sammen med et kort fra pyramiden eller med hinanden.
+# Bunken
+- Tryk på bunken for at vende dens øverste kort. Når du vender det næste, lægges det vendte kort i kastebunken.
+- Én gennemgang: bunken gennemgås kun én gang.
+- Tre gennemgange: når bunken er tom, så tryk på dens plads for at vende kastebunken om til en ny bunke. Tallet under bunken viser de gennemgange, der er tilbage.
+# Spillets afslutning
+Du vinder, så snart pyramiden er ryddet, også selv om der er kort tilbage i bunken eller kastebunken. Spillet er tabt, når der ikke er flere træk. Kortene blandes tilfældigt, så ikke alle spil kan vindes.
+# Spil på enheden
+Tryk på et kort for at løfte det, og tryk så på det kort, der giver 13 sammen med det; tryk igen på et løftet kort for at lægge det tilbage. En konge går med ét tryk. Du kan også trække et kort hen på dets makker. Lampen i dit panel viser et muligt træk; tallet ved siden af dine kort tæller dine træk. Fortryd tager træk tilbage, helt til kortene blev givet.

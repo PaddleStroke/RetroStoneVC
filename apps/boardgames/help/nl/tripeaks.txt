@@ -1,0 +1,17 @@
+TriPeaks
+# Het doel
+Maak de drie toppen leeg door hun kaarten op de aflegstapel te spelen, één rang hoger of lager. Een spel voor één speler.
+# De opstelling
+- 28 kaarten in drie toppen naast elkaar, in rijen van 3, 6, 9 en 10 kaarten; elke rij ligt half over de rij erboven. Alleen de onderste rij ligt open.
+- Eén open kaart op de aflegstapel; de andere 23 kaarten vormen de stapel, gedekt, ernaast.
+# Kaarten verplaatsen
+- Een kaart is vrij als er geen kaart meer over ligt. Een vrije kaart gaat op de aflegstapel als hij één rang hoger of lager is dan de bovenste kaart daar, welke kleur hij ook heeft: een 7 of een 9 op een 8.
+- Rond (de klassieke regel): een aas en een heer volgen ook op elkaar. De andere keuze: ze volgen niet op elkaar.
+- Een gedekte kaart gaat open zodra hij vrij is.
+- De reeks: het getal naast de aflegstapel telt de kaarten die je achter elkaar van de toppen hebt gespeeld. De reeks begint opnieuw als je een kaart van de stapel omdraait.
+# De stapel
+Als geen kaart kan, tik dan op de stapel om de bovenste kaart op de aflegstapel te leggen. De stapel gaat maar één keer rond.
+# Het einde van de partij
+Je wint als de drie toppen leeg zijn. De partij is verloren als de stapel leeg is en geen kaart meer kan. De kaarten worden willekeurig geschud, dus niet elk spel is te winnen.
+# Spelen op het apparaat
+Tik op een vrije kaart om hem op de aflegstapel te spelen, of sleep hem erheen. De lamp in je balk toont een goede zet: de kaart waarmee de langste reeks begint die hij ziet. Het getal naast je kaarten telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.

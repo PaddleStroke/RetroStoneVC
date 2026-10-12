@@ -1,0 +1,20 @@
+Pirâmide
+# O objetivo
+Esvaziar a pirâmide de 28 cartas tirando pares de cartas que somam 13. Um jogo para um jogador.
+# A disposição
+- 28 cartas voltadas para cima numa pirâmide de sete filas; cada fila tapa metade da fila de cima.
+- As outras 24 cartas formam o baralho, voltadas para baixo, por baixo da pirâmide; ao lado, a carta virada e o descarte.
+- À direita, o monte das cartas tiradas.
+# Mover as cartas
+- Uma carta está livre quando já nenhuma carta a tapa. No início, a fila de baixo está livre.
+- Tira duas cartas livres que somam 13: o ás vale 1, o valete 11, a dama 12. Uma dama vai com um ás, um valete com um 2, um 10 com um 3, um 9 com um 4, um 8 com um 5, um 7 com um 6.
+- O rei vale 13: sai sozinho.
+- A carta virada e a de cima do descarte também estão livres: junta-as a uma carta da pirâmide, ou uma à outra.
+# O baralho
+- Toca no baralho para virar a carta de cima. Ao virares a seguinte, a carta virada vai para o descarte.
+- Uma passagem: o baralho só é percorrido uma vez.
+- Três passagens: quando o baralho fica vazio, toca no lugar dele para voltar o descarte e usá-lo outra vez como baralho. O número por baixo do baralho mostra as passagens que restam.
+# O fim do jogo
+Ganhas assim que a pirâmide fica vazia, mesmo que sobrem cartas no baralho ou no descarte. O jogo está perdido quando já não há nenhuma jogada. As cartas são baralhadas ao acaso, por isso nem todas as distribuições se podem ganhar.
+# Jogar no dispositivo
+Toca numa carta para a levantar e depois na carta que soma 13 com ela; toca outra vez numa carta levantada para a pousar. Um rei sai com um só toque. Também podes arrastar uma carta até ao par dela. A lâmpada na tua barra mostra uma jogada possível; o número ao lado das tuas cartas conta as tuas jogadas. Anular desfaz as jogadas, até à distribuição.

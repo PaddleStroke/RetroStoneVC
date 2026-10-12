@@ -1,0 +1,20 @@
+Pyramide
+# Das Ziel
+Räume die Pyramide aus 28 Karten ab, indem du Paare von Karten ablegst, die zusammen 13 ergeben. Ein Spiel für einen Spieler.
+# Der Aufbau
+- 28 offene Karten in einer Pyramide aus sieben Reihen; jede Reihe deckt die Reihe darüber zur Hälfte ab.
+- Die übrigen 24 Karten sind der Stapel, verdeckt unter der Pyramide; daneben liegen die aufgedeckte Karte und die gezogenen Karten.
+- Rechts liegen die abgelegten Karten.
+# Karten bewegen
+- Eine Karte ist frei, wenn keine Karte mehr auf ihr liegt. Zu Beginn ist die unterste Reihe frei.
+- Lege zwei freie Karten ab, die zusammen 13 ergeben: das Ass zählt 1, der Bube 11, die Dame 12. Eine Dame geht mit einem Ass, ein Bube mit einer 2, eine 10 mit einer 3, eine 9 mit einer 4, eine 8 mit einer 5, eine 7 mit einer 6.
+- Der König zählt 13: Er geht allein.
+- Die aufgedeckte Karte und die oberste der gezogenen Karten sind ebenfalls frei: Bilde mit ihnen ein Paar mit einer Karte der Pyramide oder miteinander.
+# Der Stapel
+- Tippe auf den Stapel, um seine oberste Karte aufzudecken. Deckst du die nächste auf, kommt die aufgedeckte Karte zu den gezogenen Karten.
+- Ein Durchgang: Der Stapel wird nur einmal durchgespielt.
+- Drei Durchgänge: Ist der Stapel leer, tippe auf seinen Platz, um die gezogenen Karten umzudrehen und wieder als Stapel zu nehmen. Die Zahl unter dem Stapel zeigt die verbleibenden Durchgänge.
+# Das Ende der Partie
+Du gewinnst, sobald die Pyramide abgeräumt ist, auch wenn noch Karten im Stapel oder bei den gezogenen Karten liegen. Die Partie ist verloren, wenn kein Zug mehr möglich ist. Die Karten werden zufällig gemischt, darum ist nicht jedes Spiel zu gewinnen.
+# Spielen auf dem Gerät
+Tippe auf eine Karte, um sie anzuheben, dann auf die Karte, die mit ihr 13 ergibt; tippe erneut auf eine angehobene Karte, um sie zurückzulegen. Ein König geht mit einem Tippen. Du kannst eine Karte auch auf ihren Partner ziehen. Die Lampe in deiner Leiste zeigt einen möglichen Zug; die Zahl neben deinen Karten zählt deine Züge. Rückgängig nimmt Züge zurück, bis zum Geben.

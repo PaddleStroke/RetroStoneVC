@@ -1,0 +1,17 @@
+TriPeaks
+# Målet
+Töm de tre topparna genom att spela deras kort till slänghögen, ett steg högre eller lägre. Ett spel för en spelare.
+# Uppläggningen
+- 28 kort i tre toppar bredvid varandra, i rader om 3, 6, 9 och 10 kort; varje rad täcker halva raden ovanför. Bara den nedersta raden ligger med framsidan upp.
+- Ett kort med framsidan upp i slänghögen; de andra 23 korten är talongen, med baksidan upp, bredvid.
+# Flytta kort
+- Ett kort är fritt när inget kort ligger över det längre. Ett fritt kort går till slänghögen om det är ett steg högre eller lägre än det översta kortet där, oavsett färg: en sjua eller en nia på en åtta.
+- Runt hörnet (den klassiska regeln): ess och kung följer också på varandra. Det andra valet: de följer inte på varandra.
+- Ett kort med baksidan upp vänds så fort det är fritt.
+- Serien: talet bredvid slänghögen räknar korten du har spelat från topparna i rad. Den börjar om när du vänder ett kort från talongen.
+# Talongen
+När inget kort kan spelas trycker du på talongen för att vända dess översta kort till slänghögen. Talongen gås igenom bara en gång.
+# Partiets slut
+Du vinner när de tre topparna är tomma. Partiet är förlorat när talongen är tom och inget kort kan spelas. Korten blandas slumpvis, så alla givar går inte att vinna.
+# Spela på enheten
+Tryck på ett fritt kort för att spela det till slänghögen, eller dra dit det. Lampan i ditt fält visar ett bra drag: kortet som börjar den längsta serien den kan se. Talet bredvid dina kort räknar dina drag. Ångra tar tillbaka drag, ända till given.
