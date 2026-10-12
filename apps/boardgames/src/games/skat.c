@@ -1,17 +1,17 @@
 /*
  * Skat in RetroStone Board: three players passing the device round, each hand secret (VIEW_HIDDEN; the rules:
- * skat_rules.c, skat.h). The table (games/tricks_ui.h): the viewer's hand fanned at the bottom, the two others' seats
- * round the top, the trick with each card placed towards its player, the trick pile (tap it: the last trick). The
- * skat lies face down at the top of the table while the players bid.
- * Bidding (games/calls_ui.h): the one who says taps a value on a pad of the bid values (arrows: the higher ones), then
- * the tick, or the pass button; the one who hears sees the value said and taps the tick (hold) or pass. Each seat
- * shows its last word (the value in a dark disc; a tick: held; the pass icon). The declarer then taps the skat to
- * take it up, or names a hand game at once: a row of the games (the four suits, grand: the jack's figure, null: a
- * card crossed out), a row of announcements (90: schneider, 120: schwarz, the open cards: ouvert) and the tick. With
- * the skat taken up, he taps two cards to lay them away (tapped in the skat: back to the hand). An ouvert hand lies
- * face up at the declarer's seat for all to see. After each deal a table: the game, its bid, the matadors, the levels
- * times the base, the value, the skat and the card points, each player's score and Seeger-Fabian points and total,
- * and the list of deals (a chip of each declarer: gold, won; dimmed, lost; an empty ring, thrown in).
+ * skat_rules.c, skat.h). The table (the kit's cards_table.h): the viewer's hand fanned at the bottom, the two others'
+ * seats round the top, the trick with each card placed towards its player, the trick pile (tap it: the last trick). The
+ * skat lies face down at the top of the table while the players bid. Bidding (the kit's calls): the one who says taps a
+ * value on a pad of the bid values (arrows: the higher ones), then the tick, or the pass button; the one who hears sees
+ * the value said and taps the tick (hold) or pass. Each seat shows its last word (the value in a dark disc; a tick:
+ * held; the pass icon). The declarer then taps the skat to take it up, or names a hand game at once: a row of the games
+ * (the four suits, grand: the jack's figure, null: a card crossed out), a row of announcements (90: schneider, 120:
+ * schwarz, the open cards: ouvert) and the tick. With the skat taken up, he taps two cards to lay them away (tapped in
+ * the skat: back to the hand). An ouvert hand lies face up at the declarer's seat for all to see. After each deal a
+ * table: the game, its bid, the matadors, the levels times the base, the value, the skat and the card points, each
+ * player's score and Seeger-Fabian points and total, and the list of deals (a chip of each declarer: gold, won; dimmed,
+ * lost; an empty ring, thrown in).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -19,22 +19,20 @@
 #include <string.h>
 
 #include "cards.h"
-#include "games/calls_ui.h"
+#include "cards_table.h"
 #include "games/chess.h"
 #include "games/skat.h"
 #include "games/tricks.h"
-#include "games/tricks_ui.h"
 #include "shell.h"
 
 #define PAD 15                                  /* the bid values shown at once */
-enum { PIC_GRAND = CL_GAME, PIC_NULL, PIC_OUVERT };
+enum { PIC_GRAND = 8, PIC_NULL, PIC_OUVERT };      /* the games' pictures beyond the four suits */
 enum { TAG_SKAT = 10 };
 
 static skgame G;
-static tk_table T;
-static tk_anim A;
-static tk_gfx X;
-static tk_touch F;
+static ct_table T;
+static ct_moves A;
+static ct_touch F;
 static int floor_n, show_last, pick = -1, page, gtype = -1, gflags;
 static unsigned seen;
 static int16_t BIDS[80];
@@ -68,8 +66,8 @@ static void paint(int kind, int s, uint8_t *rgba)
             art_blend(rgba, s, s, b, f, f, (s - f) / 2, (s - f) / 2);
             free(b);
         }
-        cl_round(rgba, s);
-        cl_rim(rgba, s);
+        cards_disc_cut(rgba, s);
+        cards_disc_rim(rgba, s);
         return;
     }
     int n = kind == PIC_OUVERT ? 3 : 1, cw = (int)(s * (n == 3 ? 0.42f : 0.44f)), ch = (int)(cw * asp);
@@ -78,7 +76,7 @@ static void paint(int kind, int s, uint8_t *rgba)
     if (kind == PIC_NULL) {                     /* on an ivory disc, like the other games */
         static const uint8_t ivory[3] = {244, 236, 216};
         art_disc(s, ivory, 1, 0, rgba);
-        cl_rim(rgba, s);
+        cards_disc_rim(rgba, s);
     }
     static const int faces[3] = {CARD(SUIT_CLUBS, RANK_JACK), CARD(SUIT_HEARTS, RANK_ACE), CARD(SUIT_SPADES, 10)};
     for (int i = 0; i < n; i++) {               /* null: a card's back; ouvert: three cards face up */
@@ -97,10 +95,25 @@ static void paint(int kind, int s, uint8_t *rgba)
     blend_fig(f, &st, s, rgba);
 }
 
-static int game_kind(int type) { return type < 4 ? CL_SUIT + type : type == SG_GRAND ? PIC_GRAND : PIC_NULL; }
+static int game_kind(int type) { return type < 4 ? type : type == SG_GRAND ? PIC_GRAND : PIC_NULL; }
+
+/* a game's picture (a suit's sign, grand, null, ouvert) d wide, faded (alpha) */
+static SDL_Texture *game_pic(int kind, float d)
+{
+    int s = (int)(d + 0.5f);
+    return kind < 4 ? ct_suit(DECK_FRENCH, kind, s < 4 ? 4 : s) : ct_picture(paint, kind, s);
+}
+
+static void put_pic(int kind, float x, float y, float d, Uint8 alpha)
+{
+    SDL_Texture *t = game_pic(kind, d);
+    SDL_SetTextureAlphaMod(t, alpha);
+    ui_put_c(t, x, y, d, d);
+    SDL_SetTextureAlphaMod(t, 255);
+}
 
 /* ---- the table --------------------------------------------------------------------------------------------------- */
-static void layout(box b) { tk_layout(&T, b, SKAT_P, ui_bottom(), SKAT_HAND); }
+static void layout(box b) { ct_layout(&T, b, SKAT_P, ui_bottom(), SKAT_HAND); }
 
 static void reset_ui(void)
 {
@@ -109,7 +122,7 @@ static void reset_ui(void)
     gtype = -1;
     gflags = 0;
     show_last = 0;
-    tk_touch_reset(&F);
+    ct_touch_reset(&F);
 }
 
 static int hand(uint8_t *h, int *how, int live)
@@ -203,7 +216,7 @@ static void start(int v)
 {
     if (!nbids) nbids = skat_bids(BIDS);
     skat_new(&G, v, (uint32_t)ui_random(1 << 30));
-    tk_calm(&A);
+    ct_calm(&A);
     reset_ui();
     floor_n = 0;
     seen = 0;
@@ -226,8 +239,8 @@ static int turn(void) { return G.pos.turn; }
 /* where the viewer's card c lies in a hand of n (h) as fanned */
 static int spot_of(const uint8_t *h, int n, int c, cards_spot *s)
 {
-    cards_spot all[TK_HAND];
-    tk_fan(&T, n, all);
+    cards_spot all[CT_HAND];
+    ct_fan(&T, n, all);
     for (int i = 0; i < n; i++)
         if (h[i] == c) { *s = all[i]; return 1; }
     return 0;
@@ -246,26 +259,27 @@ static void animate(const skpos *b, uint32_t a, const uint8_t *h, int n)
     case SA_PICKUP:                             /* the skat's two cards into the hand, turning over */
         for (int i = 0; i < 2; i++)
             if (spot_of(p->hand[T.me], p->n[T.me], b->skat[i], &s))
-                tk_slide(&A, b->skat[i], K.skat[i].x, K.skat[i].y, K.sw, 0, 0, s.x, s.y, T.wh, s.deg, 1, TK_SLIDE_MS + 60,
-                         90 * i, TK_HAND_TAG, b->skat[i], 0, i == 0 ? SND_MOVE : -1, 0);
+                ct_slide(&A, DECK_FRENCH, b->skat[i], K.skat[i].x, K.skat[i].y, K.sw, 0, 0, s.x, s.y, T.wh, s.deg, 1,
+                         CT_SLIDE_MS + 60, 90 * i, CT_HAND_TAG, b->skat[i], -1, i == 0 ? SND_MOVE : -1);
         break;
     case SA_PUT:                                /* a card laid away: from the hand to its place in the skat */
         if (spot_of(h, n, k, &s))
-            tk_slide(&A, k, s.x, s.y, T.wh, s.deg, 1, K.skat[b->nskat].x, K.skat[b->nskat].y, K.sw, 0, 0, TK_SLIDE_MS,
-                     0, TAG_SKAT, b->nskat, 0, SND_PLACE, 0);
+            ct_slide(&A, DECK_FRENCH, k, s.x, s.y, T.wh, s.deg, 1, K.skat[b->nskat].x, K.skat[b->nskat].y, K.sw, 0, 0,
+                     CT_SLIDE_MS, 0, TAG_SKAT, b->nskat, -1, SND_PLACE);
         break;
     case SA_TAKE: {                             /* back to the hand */
         int i = b->skat[0] == k ? 0 : 1;
         if (spot_of(p->hand[T.me], p->n[T.me], k, &s))
-            tk_slide(&A, k, K.skat[i].x, K.skat[i].y, K.sw, 0, 0, s.x, s.y, T.wh, s.deg, 1, TK_SLIDE_MS, 0,
-                     TK_HAND_TAG, k, 0, SND_PLACE, 0);
+            ct_slide(&A, DECK_FRENCH, k, K.skat[i].x, K.skat[i].y, K.sw, 0, 0, s.x, s.y, T.wh, s.deg, 1, CT_SLIDE_MS,
+                     0, CT_HAND_TAG, k, -1, SND_PLACE);
         break;
     }
     case SA_GAME: ui_sound(SND_PLACE); break;
     case SA_PLAY:
-        tk_play(&A, &T, &F, h, n, k);
+        ct_play(&A, &T, &F, h, n, k);
         if (p->tricks != b->tricks || p->phase != b->phase)
-            tk_gather(&A, &T, p->last, SKAT_P, p->last_leader, p->last_winner, TK_SLIDE_MS + TK_LOOK_MS, TK_SLIDE_MS);
+            ct_gather(&A, &T, p->last, NULL, SKAT_P, p->last_leader, p->last_winner, CT_SLIDE_MS + CT_LOOK_MS,
+                      CT_SLIDE_MS);
         break;
     }
 }
@@ -273,11 +287,11 @@ static void animate(const skpos *b, uint32_t a, const uint8_t *h, int n)
 static void act(uint32_t a)
 {
     skpos before = G.pos;
-    uint8_t h[TK_HAND];
-    int how[TK_HAND];
+    uint8_t h[CT_HAND];
+    int how[CT_HAND];
     int n = hand(h, how, 0);
     if (!skat_play(&G, a)) { ui_sound(SND_DENY); return; }
-    tk_calm(&A);
+    ct_calm(&A);
     animate(&before, a, h, n);
     int keep_game = SKA_KIND(a) == SA_PUT || SKA_KIND(a) == SA_TAKE || SKA_KIND(a) == SA_PICKUP, gt = gtype, gf = gflags;
     reset_ui();
@@ -294,7 +308,7 @@ static int undo(void)
 {
     if (pick >= 0 || page || gtype >= 0 || gflags || F.raised != CARD_NONE || show_last) { reset_ui(); return 1; }
     if (G.n <= floor_n || !skat_undo(&G)) return 0;
-    tk_calm(&A);
+    ct_calm(&A);
     reset_ui();
     ui_handoff(G.pos.turn);
     return 1;
@@ -304,7 +318,7 @@ static int script(const char *s)
 {
     if (!nbids) nbids = skat_bids(BIDS);
     int ok = skat_script(&G, s);
-    tk_calm(&A);
+    ct_calm(&A);
     reset_ui();
     floor_n = G.n;
     seen = ~0u;
@@ -312,17 +326,17 @@ static int script(const char *s)
     return ok;
 }
 
-static int busy(void) { return tk_busy(&A); }
+static int busy(void) { return ct_busy(&A); }
 
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
 static void draw_flag(int i, float x, float y, float d, int on, int enabled)
 {
     if (on) ui_mark_gold(x, y, 1.8f * d);
-    tk_button(&X, x, y, d, on, -1, 0);
+    ct_button(x, y, d, on, -1, 0);
     Uint8 a = enabled ? 255 : 90;
-    if (FLAG_OF[i] == SF_OUVERT) { cl_put(PIC_OUVERT, x, y, 0.82f * d, paint, a); return; }
+    if (FLAG_OF[i] == SF_OUVERT) { put_pic(PIC_OUVERT, x, y, 0.82f * d, a); return; }
     ui_number(x, y, (i == 0 ? 0.42f : 0.34f) * d, i == 0 ? 90 : 120, 1);
-    if (!enabled) tk_put(&X, TK_DISC_OFF, x, y, d, 0, 255, 255, 255, 150);
+    if (!enabled) ct_pic(CT_DISC_OFF, x, y, d, 0, 255, 255, 255, 150);
 }
 
 static void draw_bid(int live)
@@ -331,29 +345,30 @@ static void draw_bid(int live)
     if (skat_saying(p)) {
         for (int i = 0; i < K.npad; i++) {
             int v = BIDS[K.first + i];
-            tk_button(&X, K.pad[i].x, K.pad[i].y, K.d, v == pick, -1, 0);
+            ct_button(K.pad[i].x, K.pad[i].y, K.d, v == pick, -1, 0);
             ui_number(K.pad[i].x, K.pad[i].y, (v >= 100 ? 0.36f : 0.44f) * K.d, v, 1);
         }
-        if (page > 0) tk_button(&X, K.prev.x, K.prev.y, 0.8f * K.d, 0, TK_ARROW, 180);
-        if (K.first + PAD < nbids) tk_button(&X, K.next.x, K.next.y, 0.8f * K.d, 0, TK_ARROW, 0);
-        cl_pass(&X, K.pass.x, K.pass.y, K.d, 0);
+        if (page > 0) ct_button(K.prev.x, K.prev.y, 0.8f * K.d, 0, CT_ARROW, 180);
+        if (K.first + PAD < nbids) ct_button(K.next.x, K.next.y, 0.8f * K.d, 0, CT_ARROW, 0);
+        ct_pass(K.pass.x, K.pass.y, K.d, 0);
         if (pick >= 0 && live) ui_mark_gold(K.ok.x, K.ok.y, 1.9f * K.d);
-        tk_button(&X, K.ok.x, K.ok.y, K.d, pick >= 0, TK_TICK, 0);
+        ct_button(K.ok.x, K.ok.y, K.d, pick >= 0, CT_TICK, 0);
         return;
     }
-    cl_badge(&X, K.held.x, K.held.y, 1.4f * K.d, p->bid);
-    cl_pass(&X, K.pass.x, K.pass.y, K.d, 0);
-    tk_button(&X, K.ok.x, K.ok.y, K.d, 1, TK_TICK, 0);
+    ct_badge(K.held.x, K.held.y, 1.4f * K.d, p->bid);
+    ct_pass(K.pass.x, K.pass.y, K.d, 0);
+    ct_button(K.ok.x, K.ok.y, K.d, 1, CT_TICK, 0);
 }
 
 static void draw_panel(int live)
 {
     const skpos *p = &G.pos;
-    for (int t = 0; t < SG_TYPES; t++) cl_choice(game_kind(t), K.type[t].x, K.type[t].y, K.d, t == gtype,
-                                                 type_enabled(t), paint);
-    for (int i = 0; i < 3; i++) draw_flag(i, K.flag[i].x, K.flag[i].y, K.d, (gflags & FLAG_OF[i]) != 0, flag_enabled(i));
+    for (int t = 0; t < SG_TYPES; t++) ct_choice(game_pic(game_kind(t), K.d), K.type[t].x, K.type[t].y, K.d,
+                                                 t == gtype, type_enabled(t));
+    for (int i = 0; i < 3; i++) draw_flag(i, K.flag[i].x, K.flag[i].y, K.d, (gflags & FLAG_OF[i]) != 0,
+                                          flag_enabled(i));
     if (game_ready() && live) ui_mark_gold(K.ok.x, K.ok.y, 1.9f * K.d);
-    tk_button(&X, K.ok.x, K.ok.y, K.d, game_ready(), TK_TICK, 0);
+    ct_button(K.ok.x, K.ok.y, K.d, game_ready(), CT_TICK, 0);
     (void)p;
 }
 
@@ -371,7 +386,8 @@ static void draw_skat(int live, int hide)
     }
     if (p->phase != SK_DISCARD) return;
     for (int i = 0; i < 2; i++) {
-        if (i >= p->nskat || tk_hides(&A, TAG_SKAT, i)) { cards_place(DECK_FRENCH, K.skat[i].x, K.skat[i].y, K.sw); continue; }
+        if (i >= p->nskat || ct_hides(&A, TAG_SKAT, i, -1)) { cards_place(DECK_FRENCH, K.skat[i].x, K.skat[i].y,
+                                                                          K.sw); continue; }
         cards_draw(DECK_FRENCH, mine ? p->skat[i] : CARD_NONE, K.skat[i].x, K.skat[i].y, K.sw, 0, mine ? 0 : CD_DOWN);
     }
 }
@@ -383,24 +399,25 @@ static void draw_words(void)
     float d = 0.95f * T.tok;
     for (int q = 0; q < SKAT_P; q++) {
         float x, y, x1, y1;
-        tk_seat_spot(&T, q, 0, &x, &y);
-        tk_seat_spot(&T, q, 1, &x1, &y1);
+        ct_seat_spot(&T, q, 0, &x, &y);
+        ct_seat_spot(&T, q, 1, &x1, &y1);
         if (p->phase == SK_BID) {
-            if (p->word[q] == SW_PASSED) cl_pass_badge(&X, x, y, d);
+            if (p->word[q] == SW_PASSED) ct_pass_badge(x, y, d);
             else if (p->word[q] != SW_NONE) {
-                cl_badge(&X, x, y, d, p->said[q]);
-                if (p->word[q] == SW_HELD) tk_put(&X, TK_TICK, x1, y1, 0.8f * d, 0, GOLD[0], GOLD[1], GOLD[2], 255);
+                ct_badge(x, y, d, p->said[q]);
+                if (p->word[q] == SW_HELD) ct_pic(CT_TICK, x1, y1, 0.8f * d, 0, GOLD[0], GOLD[1], GOLD[2], 255);
             }
             continue;
         }
         if (q != p->declarer || p->phase == SK_DEAL || p->phase == SK_OVER) continue;
-        cl_badge(&X, x, y, d, p->bid);
+        ct_badge(x, y, d, p->bid);
         if (p->phase != SK_PLAY) continue;
-        cl_put(game_kind(p->type), x1, y1, d, paint, 255);
+        put_pic(game_kind(p->type), x1, y1, d, 255);
         float x2 = x1 + (x1 - x), sw = 0.32f * d;
         if (p->hand_game)                       /* hand: the skat untouched, two backs */
             for (int i = 0; i < 2; i++)
-                cards_draw(DECK_FRENCH, CARD_NONE, x2 + (i - 0.5f) * 0.5f * sw, y1, sw, (i - 0.5f) * 10, CD_DOWN | CD_FLAT);
+                cards_draw(DECK_FRENCH, CARD_NONE, x2 + (i - 0.5f) * 0.5f * sw, y1, sw, (i - 0.5f) * 10,
+                           CD_DOWN | CD_FLAT);
         if (p->type != SG_NULL && (p->flags & SF_SCHNEIDER))
             ui_number(x2 + (x1 - x) * (p->hand_game ? 1 : 0), y1, 0.4f * d, p->flags & SF_SCHWARZ ? 120 : 90, 1);
     }
@@ -413,15 +430,16 @@ static void draw_open(int hide)
     int d = p->declarer;
     if (p->phase != SK_PLAY || !(p->flags & SF_OUVERT) || (d == T.me && !hide)) return;
     if (d == T.me) {                            /* under the cover: the viewer's own open hand, still face up */
-        uint8_t h[TK_HAND];
-        int how[TK_HAND];
-        tk_hand_draw(&T, &A, h, hand(h, how, 0), how, NULL, CARD_NONE);
+        uint8_t h[CT_HAND];
+        int how[CT_HAND];
+        ct_hand_draw(&T, &A, h, hand(h, how, 0), how, NULL, CARD_NONE);
         return;
     }
     int n = p->n[d];
     float y1 = T.sy[d] - 0.75f * T.tok, y0 = T.b.y + 0.08f * T.u;
     float w = floorf(fminf(0.55f * T.wt, (y1 - y0) / T.asp)), step = 0.52f * w;
-    float span = w + step * (n - 1), cx = clampf(T.sx[d], T.b.x + span / 2 + 0.1f * T.u, T.b.x + T.b.w - span / 2 - 0.1f * T.u);
+    float span = w + step * (n - 1), cx = clampf(T.sx[d], T.b.x + span / 2 + 0.1f * T.u,
+                                                 T.b.x + T.b.w - span / 2 - 0.1f * T.u);
     if (w < 8) return;
     for (int i = 0; i < n; i++)
         cards_draw(DECK_FRENCH, p->hand[d][i], cx - span / 2 + w / 2 + i * step, (y0 + y1) / 2, w, 0, 0);
@@ -430,8 +448,8 @@ static void draw_open(int hide)
 /* ---- the deal's table -------------------------------------------------------------------------------------------- */
 static void times(float x, float y, float h)    /* a times sign: two strokes crossing */
 {
-    tk_put(&X, TK_SLASH, x, y, h, 0, 246, 238, 220, 255);
-    tk_put(&X, TK_SLASH, x, y, h, -60, 246, 238, 220, 255);
+    ct_pic(CT_SLASH, x, y, h, 0, 246, 238, 220, 255);
+    ct_pic(CT_SLASH, x, y, h, -60, 246, 238, 220, 255);
 }
 
 static void draw_summary(void)
@@ -441,24 +459,24 @@ static void draw_summary(void)
     int N = skat_deals(p->variant), lrows = (N + 11) / 12, thrown = r->declarer == SKAT_NONE;
     int rows = (thrown ? 1 : 3) + SKAT_P + lrows;
     float x0, pw, y, rh, u = T.u;
-    tk_summary(&X, &T, rows, &x0, &pw, &y, &rh);
+    ct_summary(&T, rows, &x0, &pw, &y, &rh);
     float d = floorf(fminf(0.68f * rh, 0.8f * u)), L = x0 + 0.35f * u + d / 2, R = x0 + pw - 0.35f * u - d / 2;
     float nh = 0.42f * rh;
-    tk_tokens(&X, (int)d);
+    const int ts = (int)d;
     if (thrown) {                               /* everyone passed */
         for (int q = 0; q < SKAT_P; q++) {
             float x = x0 + pw * (q + 0.5f) / SKAT_P - 0.45f * d;
-            ui_put_c(X.tok[q], x, y, d, d);
-            cl_pass_badge(&X, x + 0.95f * d, y, 0.8f * d);
+            ui_put_c(ct_token(q, ts), x, y, d, d);
+            ct_pass_badge(x + 0.95f * d, y, 0.8f * d);
         }
-        tk_row_line(x0, pw, y + rh / 2, u);
+        ct_rule(x0 + 0.3f * u, y + rh / 2, pw - 0.6f * u);
         y += rh;
     } else {
         int dc = r->declarer;
         /* the game: the declarer, the game, hand, the announcements; the bid */
-        ui_put_c(X.tok[dc], L, y, d, d);
+        ui_put_c(ct_token(dc, ts), L, y, d, d);
         float x = L + 1.05f * d;
-        cl_put(game_kind(r->type), x, y, 0.9f * d, paint, 255);
+        put_pic(game_kind(r->type), x, y, 0.9f * d, 255);
         x += 0.95f * d;
         if (r->hand) {
             for (int i = 0; i < 2; i++)
@@ -474,9 +492,9 @@ static void draw_summary(void)
             ui_number(x + 0.15f * d, y, 0.5f * nh, 120, 1);
             x += 1.0f * d;
         }
-        if (r->flags & SF_OUVERT) cl_put(PIC_OUVERT, x + 0.2f * d, y, 0.8f * d, paint, 255);
-        cl_badge(&X, R, y, 0.9f * d, r->bid);
-        tk_row_line(x0, pw, y + rh / 2, u);
+        if (r->flags & SF_OUVERT) put_pic(PIC_OUVERT, x + 0.2f * d, y, 0.8f * d, 255);
+        ct_badge(R, y, 0.9f * d, r->bid);
+        ct_rule(x0 + 0.3f * u, y + rh / 2, pw - 0.6f * u);
         y += rh;
         /* the value: with or without (the club jack, dimmed and struck through: without) and how many; the levels
          * times the base; the value (raised to the bid when overbid: a red glow) */
@@ -484,20 +502,20 @@ static void draw_summary(void)
         if (r->type != SG_NULL) {
             float cw = 0.5f * d;
             cards_draw(DECK_FRENCH, CARD(SUIT_CLUBS, RANK_JACK), x, y, cw, 0, r->matadors < 0 ? CD_DIM : 0);
-            if (r->matadors < 0) tk_put(&X, TK_SLASH, x, y, 0.9f * cw * T.asp, 0, 230, 70, 60, 255);
+            if (r->matadors < 0) ct_pic(CT_SLASH, x, y, 0.9f * cw * T.asp, 0, 230, 70, 60, 255);
             ui_number(x + 0.85f * d, y, nh, abs(r->matadors), 1);
             float xl = x0 + pw * 0.42f;
             ui_number(xl, y, nh, r->levels, 1);
-            times(xl + 0.6f * nh + tk_number_w(r->levels, nh) / 2, y, 0.8f * nh);
-            float xb = xl + 1.2f * nh + tk_number_w(r->levels, nh) / 2 + tk_number_w(r->base, nh) / 2;
+            times(xl + 0.6f * nh + ct_number_w(r->levels, nh, 0) / 2, y, 0.8f * nh);
+            float xb = xl + 1.2f * nh + ct_number_w(r->levels, nh, 0) / 2 + ct_number_w(r->base, nh, 0) / 2;
             ui_number(xb, y, nh, r->base, 1);
-            tk_put(&X, TK_ARROW, xb + tk_number_w(r->base, nh) / 2 + 0.55f * nh, y, 0.8f * nh, 0, 246, 238, 220, 200);
+            ct_pic(CT_ARROW, xb + ct_number_w(r->base, nh, 0) / 2 + 0.55f * nh, y, 0.8f * nh, 0, 246, 238, 220, 200);
         } else
-            cl_put(PIC_NULL, x, y, 0.8f * d, paint, 255);
+            put_pic(PIC_NULL, x, y, 0.8f * d, 255);
         float vh = 0.5f * rh;
         if (r->overbid) ui_mark_glow(R, y, 1.4f * d);
         ui_number(R, y, vh, r->value, 1);
-        tk_row_line(x0, pw, y + rh / 2, u);
+        ct_rule(x0 + 0.3f * u, y + rh / 2, pw - 0.6f * u);
         y += rh;
         /* the skat, the declarer's card points (null: his tricks) and the outcome: a gold tick, or lost (a red glow) */
         float cw = 0.46f * d;
@@ -506,8 +524,8 @@ static void draw_summary(void)
         float px = x0 + pw * 0.42f;
         if (!r->won) ui_mark_glow(px, y, 1.3f * d);
         ui_number(px, y, nh, r->type == SG_NULL ? r->tricks : r->points, 1);
-        if (r->won) tk_put(&X, TK_TICK, R, y, 0.9f * d, 0, GOLD[0], GOLD[1], GOLD[2], 255);
-        tk_row_line(x0, pw, y + rh / 2, u);
+        if (r->won) ct_pic(CT_TICK, R, y, 0.9f * d, 0, GOLD[0], GOLD[1], GOLD[2], 255);
+        ct_rule(x0 + 0.3f * u, y + rh / 2, pw - 0.6f * u);
         y += rh;
     }
     /* each player: the deal's score, the Seeger-Fabian points, the total (the best in gold light) */
@@ -520,66 +538,67 @@ static void draw_summary(void)
             else sf = r->won ? 0 : 40;
         }
         if (skat_total(p, q) == best) ui_mark_gold(L, y, 1.8f * d);
-        ui_put_c(X.tok[q], L, y, d, d);
+        ui_put_c(ct_token(q, ts), L, y, d, d);
         if (sc) ui_number_signed(x0 + pw * 0.36f, y, nh, sc, 1, 1);
         if (sf) ui_number_signed(x0 + pw * 0.58f, y, 0.8f * nh, sf, 1, 1);
-        float th = 0.5f * rh, tw = tk_number_w(skat_total(p, q), th);
+        float th = 0.5f * rh, tw = ct_number_w(skat_total(p, q), th, 0);
         ui_number_signed(R + d / 2 - tw / 2, y, th, skat_total(p, q), 1, 0);
-        tk_row_line(x0, pw, y + rh / 2, u);
+        ct_rule(x0 + 0.3f * u, y + rh / 2, pw - 0.6f * u);
     }
     /* the list: a chip a deal, the declarer's (gold light: won; dimmed: lost; an empty ring: thrown in), then the
      * deals to come */
     float cs = floorf(fminf(0.62f * rh, (pw - 0.6f * u) / (12 * 1.3f)));
     for (int i = 0; i < N; i++) {
         float cx = x0 + pw / 2 + (i % 12 - 5.5f) * 1.3f * cs, cy = y + (i / 12) * rh * 0.85f;
-        if (i >= p->ndeals) { tk_put(&X, TK_DISC_DARK, cx, cy, 0.4f * cs, 0, 255, 255, 255, 160); continue; }
+        if (i >= p->ndeals) { ct_pic(CT_DISC_DARK, cx, cy, 0.4f * cs, 0, 255, 255, 255, 160); continue; }
         const skdeal *e = &p->list[i];
         if (e->declarer == SKAT_NONE) {
-            tk_put(&X, TK_DISC_OFF, cx, cy, cs, 0, 255, 255, 255, 255);
-            tk_put(&X, TK_DISC_DARK, cx, cy, 0.7f * cs, 0, 255, 255, 255, 255);
+            ct_pic(CT_DISC_OFF, cx, cy, cs, 0, 255, 255, 255, 255);
+            ct_pic(CT_DISC_DARK, cx, cy, 0.7f * cs, 0, 255, 255, 255, 255);
             continue;
         }
         if (e->won) ui_mark_gold(cx, cy, 1.7f * cs);
-        SDL_SetTextureAlphaMod(X.tok[e->declarer], e->won ? 255 : 110);
-        ui_put_c(X.tok[e->declarer], cx, cy, cs, cs);
-        SDL_SetTextureAlphaMod(X.tok[e->declarer], 255);
+        SDL_Texture *dt = ct_token(e->declarer, ts);
+        SDL_SetTextureAlphaMod(dt, e->won ? 255 : 110);
+        ui_put_c(dt, cx, cy, cs, cs);
     }
 }
 
 static void draw(void)
 {
     const skpos *p = &G.pos;
-    int live = !ui_handing() && !tk_busy(&A), ph = p->phase, hide = ui.viewer < 0;   /* hide: the hand-off cover */
+    int live = !ui_handing() && !ct_busy(&A), ph = p->phase, hide = ui.viewer < 0;   /* hide: the hand-off cover */
     if (!(seen >> T.me & 1) && !ui_handing()) {   /* the viewer's first look at this deal */
         seen |= 1u << T.me;
         if (ph == SK_BID) {
-            uint8_t h[TK_HAND];
-            int how[TK_HAND];
-            tk_deal(&A, &T, h, hand(h, how, 0));
+            uint8_t h[CT_HAND];
+            int how[CT_HAND];
+            ct_deal(&A, &T, h, hand(h, how, 0));
         }
     }
     controls();
-    tk_draw_seats(&X, &T, ph < SK_DEAL ? p->turn : -1);
+    ct_draw_seats(&T, ph < SK_DEAL ? p->turn : -1);
     draw_words();
-    tk_draw_pile(&T, p->tricks);
+    ct_draw_pile(&T, p->tricks);
     if (ph <= SK_DISCARD) draw_skat(live, hide);
     int mine = p->turn == T.me && !hide;
     if (mine && ph == SK_BID) draw_bid(live);
     if (mine && (ph == SK_SKAT || ph == SK_DISCARD)) draw_panel(live);
     draw_open(hide);
-    tk_draw_trick(&T, &A, p->trick, p->ntrick, p->leader);
-    if (F.raised != CARD_NONE && live && ph == SK_PLAY) tk_draw_target(&T);
-    uint8_t h[TK_HAND];
-    int how[TK_HAND];
-    int n = hand(h, how, live), summary = (ph == SK_DEAL || ph == SK_OVER) && !tk_busy(&A) && p->ndeals;
+    ct_draw_trick(&T, &A, p->trick, NULL, p->ntrick, p->leader);
+    if (F.raised != CARD_NONE && live && ph == SK_PLAY) ct_draw_target(&T);
+    uint8_t h[CT_HAND];
+    int how[CT_HAND];
+    int n = hand(h, how, live), summary = (ph == SK_DEAL || ph == SK_OVER) && !ct_busy(&A) && p->ndeals;
     if (summary) n = 0;                         /* a null lost early: the cards left, under the table */
     if (hide) {
-        if (!(ph == SK_PLAY && (p->flags & SF_OUVERT) && p->declarer == T.me)) tk_hand_backs(&T, n);
+        if (!(ph == SK_PLAY && (p->flags & SF_OUVERT) && p->declarer == T.me)) ct_hand_backs(&T, n);
     } else
-        tk_hand_draw(&T, &A, h, n, how, NULL, F.on ? F.card : CARD_NONE);
-    tk_draw_moves(&A);
-    if (!hide) tk_touch_draw(&F, &T);
-    if (show_last && p->last_winner != SKAT_NONE) tk_draw_last(&T, p->last, SKAT_P, p->last_leader, p->last_winner);
+        ct_hand_draw(&T, &A, h, n, how, NULL, F.on ? F.card : CARD_NONE);
+    ct_draw(&A);
+    if (!hide) ct_touch_draw(&F, &T);
+    if (show_last && p->last_winner != SKAT_NONE) ct_draw_last(&T, p->last, NULL, SKAT_P, p->last_leader,
+                                                               p->last_winner);
     if (summary) draw_summary();
 }
 
@@ -595,21 +614,21 @@ static void send(int card)
 static void press_bid(float x, float y)
 {
     const skpos *p = &G.pos;
-    if (cl_on(K.pass.x, K.pass.y, K.d, x, y)) { act(SA_PASS); return; }
+    if (ct_on(K.pass.x, K.pass.y, K.d, x, y)) { act(SA_PASS); return; }
     if (!skat_saying(p)) {
-        if (cl_on(K.ok.x, K.ok.y, K.d, x, y) || cl_on(K.held.x, K.held.y, 1.4f * K.d, x, y)) act(SA_HOLD);
+        if (ct_on(K.ok.x, K.ok.y, K.d, x, y) || ct_on(K.held.x, K.held.y, 1.4f * K.d, x, y)) act(SA_HOLD);
         else ui_sound(SND_DENY);
         return;
     }
     for (int i = 0; i < K.npad; i++)
-        if (cl_on(K.pad[i].x, K.pad[i].y, K.d, x, y)) {
+        if (ct_on(K.pad[i].x, K.pad[i].y, K.d, x, y)) {
             pick = BIDS[K.first + i];
             ui_sound(SND_TAP);
             return;
         }
-    if (page > 0 && cl_on(K.prev.x, K.prev.y, 0.8f * K.d, x, y)) { page--; ui_sound(SND_TAP); return; }
-    if (K.first + PAD < nbids && cl_on(K.next.x, K.next.y, 0.8f * K.d, x, y)) { page++; ui_sound(SND_TAP); return; }
-    if (cl_on(K.ok.x, K.ok.y, K.d, x, y) && pick > p->bid) { act(SA_SAY | (uint32_t)pick); return; }
+    if (page > 0 && ct_on(K.prev.x, K.prev.y, 0.8f * K.d, x, y)) { page--; ui_sound(SND_TAP); return; }
+    if (K.first + PAD < nbids && ct_on(K.next.x, K.next.y, 0.8f * K.d, x, y)) { page++; ui_sound(SND_TAP); return; }
+    if (ct_on(K.ok.x, K.ok.y, K.d, x, y) && pick > p->bid) { act(SA_SAY | (uint32_t)pick); return; }
     ui_sound(SND_DENY);
 }
 
@@ -633,7 +652,7 @@ static int press_panel(float x, float y)
 {
     const skpos *p = &G.pos;
     for (int t = 0; t < SG_TYPES; t++)
-        if (cl_on(K.type[t].x, K.type[t].y, K.d, x, y)) {
+        if (ct_on(K.type[t].x, K.type[t].y, K.d, x, y)) {
             if (!type_enabled(t)) { ui_sound(SND_DENY); return 1; }
             gtype = t;
             if (t == SG_NULL) gflags &= SF_OUVERT;
@@ -643,8 +662,8 @@ static int press_panel(float x, float y)
             return 1;
         }
     for (int i = 0; i < 3; i++)
-        if (cl_on(K.flag[i].x, K.flag[i].y, K.d, x, y)) { toggle(i); return 1; }
-    if (cl_on(K.ok.x, K.ok.y, K.d, x, y)) {
+        if (ct_on(K.flag[i].x, K.flag[i].y, K.d, x, y)) { toggle(i); return 1; }
+    if (ct_on(K.ok.x, K.ok.y, K.d, x, y)) {
         if (game_ready()) act(SKA_GAME(gtype, gflags));
         else ui_sound(SND_DENY);
         return 1;
@@ -665,45 +684,45 @@ static void press(float x, float y)
     F.card = CARD_NONE;
     F.on = 0;
     if (show_last) { show_last = 0; return; }
-    if (tk_busy(&A)) return;                    /* the cards still moving */
+    if (ct_busy(&A)) return;                    /* the cards still moving */
     if (p->phase == SK_DEAL) { act(SA_NEXT); return; }
     if (p->phase == SK_OVER) return;
-    if (tk_on_pile(&T, p->tricks, x, y)) { show_last = 1; ui_sound(SND_TAP); return; }
+    if (ct_on_pile(&T, p->tricks, x, y)) { show_last = 1; ui_sound(SND_TAP); return; }
     if (p->turn != T.me) { ui_sound(SND_DENY); return; }
     controls();
     if (p->phase == SK_BID) { press_bid(x, y); return; }
     if ((p->phase == SK_SKAT || p->phase == SK_DISCARD) && press_panel(x, y)) return;
     if (p->phase == SK_SKAT) { ui_sound(SND_DENY); return; }
-    if (p->phase == SK_PLAY && F.raised != CARD_NONE && tk_on_target(&T, x, y)) { send(F.raised); return; }
-    uint8_t h[TK_HAND];
-    int how[TK_HAND];
-    int n = hand(h, how, 1), c = tk_hand_at(&T, h, n, how, NULL, x, y);
+    if (p->phase == SK_PLAY && F.raised != CARD_NONE && ct_on_target(&T, x, y)) { send(F.raised); return; }
+    uint8_t h[CT_HAND];
+    int how[CT_HAND];
+    int n = hand(h, how, 1), c = ct_hand_at(&T, h, n, how, NULL, x, y);
     if (c == CARD_NONE) {
         if (F.raised != CARD_NONE) F.raised = CARD_NONE;
         else ui_sound(SND_DENY);
         return;
     }
-    tk_touch_down(&F, c, x, y);
+    ct_touch_down(&F, c, x, y);
 }
 
-static void motion(float x, float y) { tk_touch_move(&F, x, y); }
+static void motion(float x, float y) { ct_touch_move(&F, x, y); }
 
 static void release(float x, float y)
 {
-    int c, r = tk_touch_up(&F, &T, x, y, &c);
-    if (r == TK_T_SEND) send(c);
-    else if (r == TK_T_TAP) {
+    int c, r = ct_touch_up(&F, &T, x, y, &c);
+    if (r == CT_T_SEND) send(c);
+    else if (r == CT_T_TAP) {
         if (G.pos.phase == SK_DISCARD) {        /* a tap lays the card away */
             if (G.pos.nskat < 2) send(c);
             else ui_sound(SND_DENY);
-        } else if (tk_tap_play(&F, c, skat_can_play(&G.pos, c)))
+        } else if (ct_tap_play(&F, c, skat_can_play(&G.pos, c)))
             send(c);
     }
     F.on = 0;
 }
 
 /* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
-static void bar(int player, box b) { tk_bar(b, G.pos.n[player], skat_total(&G.pos, player)); }
+static void bar(int player, box b) { ct_bar(b, G.pos.n[player], skat_total(&G.pos, player)); }
 
 static void token(int player, int size, uint8_t *rgba) { cards_token(player, size, rgba); }
 
@@ -712,7 +731,7 @@ static void thumb(int v, int size, uint8_t *rgba)
 {
     static const int cards[4] = {CARD(SUIT_DIAMONDS, RANK_JACK), CARD(SUIT_HEARTS, RANK_JACK),
                                  CARD(SUIT_SPADES, RANK_JACK), CARD(SUIT_CLUBS, RANK_JACK)};
-    tk_thumb(cards, 4, size, rgba);
+    ct_thumb(cards, 4, size, rgba);
     if (v < 0) return;
     int cw = (int)(size * 0.2f), ch = (int)(cw * cards_aspect(DECK_FRENCH));
     uint8_t *b = malloc((size_t)cw * ch * 4);

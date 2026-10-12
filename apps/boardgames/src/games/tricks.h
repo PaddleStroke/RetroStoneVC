@@ -1,7 +1,7 @@
 /*
  * Trick-taking games, the rules they share (Hearts, Spades): no SDL. A hand kept sorted, following suit, the winner
  * of a trick (the led suit, or a trump), the cards in the scripts' notation. Static inline: each game takes what it
- * uses. The drawing side (the table, the trick, the hand, the round's summary) is games/tricks_ui.h.
+ * uses. The drawing side (the table, the trick, the hand, the round's summary) is the kit's cards_table.h.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Cards are cards.h's bytes (DECK_FRENCH: ace 1 .. king 13). In these games the ace ranks high: trick_rank() gives

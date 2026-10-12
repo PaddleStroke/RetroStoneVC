@@ -12,6 +12,7 @@
 #include <string.h>
 
 #include "cards.h"
+#include "cards_table.h"
 #include "games/golf.h"
 #include "shell.h"
 
@@ -109,46 +110,23 @@ static void slot_at(int pl, int s, float *x, float *y, float *w)
 
 /* ---- the moving cards -------------------------------------------------------------------------------------------- */
 enum { H_NONE, H_SLOT, H_PILE, H_HELD };
-#define MOVES 96
-static struct { cards_slide s; int hide, pl, slot; } mv[MOVES];
-static int nmv;
-static Uint32 quiet;                            /* busy until then (the last card landed, and a moment) */
+static ct_moves M = {.rest = REST_MS};
 
-static void calm(void)
-{
-    nmv = 0;
-    quiet = 0;
-}
+static void calm(void) { ct_calm(&M); }
 
 static void slide(int card, int up0, float x0, float y0, float w0, int up1, float x1, float y1, float w1, int ms,
                   int delay, int hide, int pl, int s, int sound)
 {
-    if (nmv >= MOVES) return;
-    cards_slide_start(&mv[nmv].s, G.pos.deck, card, x0, y0, w0, 0, up0, x1, y1, w1, 0, up1, ms, delay);
-    mv[nmv].hide = hide;
-    mv[nmv].pl = pl;
-    mv[nmv].slot = s;
-    nmv++;
-    Uint32 end = ui_ms() + (Uint32)(delay + ms + REST_MS);
-    if (end > quiet) quiet = end;
-    if (sound >= 0) ui_sound_later(sound, delay + ms - 40 > 0 ? delay + ms - 40 : 0);
+    ct_slide(&M, G.pos.deck, card, x0, y0, w0, 0, up0, x1, y1, w1, 0, up1, ms, delay, hide, pl, s, sound);
 }
 
+/* the cards on their way to a place (H_SLOT: that player's slot; the others: any) */
 static int hides(int kind, int pl, int s)
 {
-    int n = 0;
-    for (int i = 0; i < nmv; i++)
-        if (mv[i].hide == kind && cards_slide_busy(&mv[i].s) && (kind != H_SLOT || (mv[i].pl == pl && mv[i].slot == s)))
-            n++;
-    return n;
+    return kind == H_SLOT ? ct_hides(&M, kind, pl, s) : ct_hides(&M, kind, -1, -1);
 }
 
-static int busy(void)
-{
-    for (int i = 0; i < nmv; i++)
-        if (cards_slide_busy(&mv[i].s)) return 1;
-    return quiet && ui_ms() < quiet;
-}
+static int busy(void) { return ct_busy(&M); }
 
 /* the cards of a new round flying from the stock to every grid */
 static void deal_slides(void)
@@ -286,20 +264,6 @@ static int script(const char *s)
 }
 
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
-static SDL_Texture *t_tok[GOLF_MAXP], *t_panel, *t_cross;
-static int tok_size, panel_w, panel_h, cross_size;
-
-static void tokens(int size)
-{
-    if (tok_size == size) return;
-    tok_size = size;
-    for (int q = 0; q < GOLF_MAXP; q++) {
-        ui_free(&t_tok[q]);
-        cards_token(q, size, ui_buf(size, size));
-        t_tok[q] = ui_tex(size, size, ui_buf(size, size));
-    }
-}
-
 /* the round's scores: a row a player, their token, the points of the round (a cross and a 2 when doubled), the total;
  * the lowest total in gold light */
 static void draw_summary(void)
@@ -308,41 +272,24 @@ static void draw_summary(void)
     box b = T.b;
     float u = ui.unit, rh = fminf(1.05f * u, b.h * 0.8f / p->players), pw = fminf(b.w * 0.92f, 7.6f * u);
     float ph = rh * p->players + 0.5f * u, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
-    if (panel_w != (int)pw || panel_h != (int)ph) {
-        panel_w = (int)pw;
-        panel_h = (int)ph;
-        const uint8_t c[4] = {28, 34, 32, 250};
-        ui_free(&t_panel);
-        art_roundrect(panel_w, panel_h, 0.4f * u, c, ui_buf(panel_w, panel_h));
-        t_panel = ui_tex(panel_w, panel_h, ui_buf(panel_w, panel_h));
-    }
-    int cs = (int)(0.42f * rh);
-    if (cross_size != cs) {
-        cross_size = cs;
-        ui_free(&t_cross);
-        art_icon(ICON_CLOSE, cs, ui_buf(cs, cs));
-        t_cross = ui_tex(cs, cs, ui_buf(cs, cs));
-        SDL_SetTextureColorMod(t_cross, 250, 214, 90);
-    }
-    tokens((int)(0.6f * u));
+    int cs = (int)(0.42f * rh), ts = (int)(0.6f * u);
     ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 70);
-    ui_put(t_panel, x0, y0, pw, ph);
+    ct_panel(x0, y0, pw, ph, 250);
     int low = 0;
     for (int q = 1; q < p->players; q++)
         if (p->total[q] < p->total[low]) low = q;
     for (int q = 0; q < p->players; q++) {
         float cy = y0 + 0.25f * u + (q + 0.5f) * rh, tx = x0 + 0.75f * u, d = fminf(0.72f * rh, 0.8f * u);
         if (p->total[q] == p->total[low]) ui_mark_gold(tx, cy, 2.0f * d);
-        ui_put_c(t_tok[q], tx, cy, d, d);
+        ui_put_c(ct_token(q, ts), tx, cy, d, d);
         float nh = 0.42f * rh, rx = x0 + pw * 0.45f;
         ui_number_signed(rx, cy, nh, p->last[q], 1, 1);
         if (p->doubled && q == p->ender) {      /* doubled: a gold cross and a 2 */
-            ui_put_c(t_cross, rx + 1.35f * nh + 0.2f * nh, cy, 0.8f * nh, 0.8f * nh);
+            ui_put_c(ct_icon(ICON_CLOSE, cs, 250, 214, 90), rx + 1.35f * nh + 0.2f * nh, cy, 0.8f * nh, 0.8f * nh);
             ui_number(rx + 1.35f * nh + 0.95f * nh, cy, 0.8f * nh, 2, 1);
         }
         ui_number_signed(x0 + pw * 0.8f, cy, 0.56f * rh, p->total[q], 1, 0);
-        if (q < p->players - 1)
-            ui_fill(x0 + 0.3f * u, cy + rh / 2, pw - 0.6f * u, fmaxf(1, 0.02f * u), 246, 238, 220, 40);
+        if (q < p->players - 1) ct_rule(x0 + 0.3f * u, cy + rh / 2, pw - 0.6f * u);
     }
 }
 
@@ -360,13 +307,13 @@ static void draw(void)
     if (p->held != CARD_NONE && !hides(H_HELD, 0, 0)) cards_draw(deck, p->held, T.hx, T.hy, T.wp * 1.06f, 0, CD_RAISED);
     else if (ph == GP_DRAW || ph == GP_HOLD) cards_place(deck, T.hx, T.hy, T.wp);
     /* the grids */
-    tokens((int)fmaxf(4, T.tok));
+    int ts = (int)fmaxf(4, T.tok);
     for (int q = 0; q < p->players; q++) {
         float x, y, w;
         if (q != T.me) {                        /* the others: their token over their grid */
             float gx = T.ox[q] + grid_w(T.wo, p->cols) / 2, ty = T.oy[q] - T.tok * 0.7f;
             if (q == p->ender && ph != GP_ROUND && ph != GP_OVER) ui_mark_gold(gx, ty, 2.2f * T.tok);
-            ui_put_c(t_tok[q], gx, ty, T.tok, T.tok);
+            ui_put_c(ct_token(q, ts), gx, ty, T.tok, T.tok);
         }
         for (int s = 0; s < p->slots; s++) {
             if (p->gone[q] >> s & 1 || hides(H_SLOT, q, s)) continue;
@@ -376,7 +323,7 @@ static void draw(void)
             cards_draw(deck, p->card[q][s], x, y, w, 0, how);
         }
     }
-    for (int i = 0; i < nmv; i++) cards_slide_draw(&mv[i].s);
+    ct_draw(&M);
     if ((ph == GP_ROUND || ph == GP_OVER) && !b) draw_summary();
 }
 

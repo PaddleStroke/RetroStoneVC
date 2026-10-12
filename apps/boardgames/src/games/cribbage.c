@@ -14,7 +14,7 @@
 #include <string.h>
 
 #include "cards.h"
-#include "games/cardmoves.h"
+#include "cards_table.h"
 #include "games/cribbage.h"
 #include "shell.h"
 
@@ -265,7 +265,8 @@ static void draw_board(void)
 
 /* ---- the moving things: cards, floating points, leaps; what the last action showed ---------------------------- */
 enum { H_NONE, H_ROW, H_HAND, H_CRIB, H_STARTER, H_STAGE };
-static cm_table M;
+static ct_moves M = {.rest = 320};              /* the cards on the move: a moment after the last lands */
+static ct_floats F;                             /* points rising */
 static struct {
     int on;
     cpos b;                                     /* the position before the action */
@@ -278,22 +279,23 @@ static struct {
 
 static void calm(void)
 {
-    cm_calm(&M);
+    ct_calm(&M);
+    F.n = 0;
     nlp = 0;
     memset(&A, 0, sizeof A);
 }
 
-static int busy(void) { return cm_busy(&M); }
+static int busy(void) { return ct_busy(&M); }
 
 static void slide(int card, int up0, float x0, float y0, float w0, int up1, float x1, float y1, float w1, int ms,
                   int delay, int hide, int pl, int s, int sound)
 {
-    cm_slide(&M, deck, card, up0, x0, y0, w0, up1, x1, y1, w1, ms, delay, hide, pl, s, sound);
+    ct_slide(&M, deck, card, x0, y0, w0, 0, up0, x1, y1, w1, 0, up1, ms, delay, hide, pl, s, sound);
 }
 
-static int hides(int kind, int pl, int s) { return cm_hides(&M, kind, pl, s); }
+static int hides(int kind, int pl, int s) { return ct_hides(&M, kind, pl, s); }
 
-static void float_at(float x, float y, int value, int badge, Uint32 t0) { cm_float_at(&M, x, y, value, badge, t0); }
+static void float_at(float x, float y, int value, int badge, Uint32 t0) { ct_float(&F, &M, x, y, value, badge, t0); }
 
 /* a leap of the peg behind the player's front one */
 static void leap(int pl, int from, int to, Uint32 t0)
@@ -302,7 +304,7 @@ static void leap(int pl, int from, int to, Uint32 t0)
     if (pegs[pl][0] == from && pegs[pl][1] == from) k = 1;
     if (nlp < LEAPS) lp[nlp++] = (leaping){pl, k, pegs[pl][k], to, t0};
     pegs[pl][k] = to;
-    cm_until(&M, t0 + LEAP_MS + CM_REST);
+    ct_until(&M, t0 + LEAP_MS + M.rest);
     Uint32 now = ui_ms();
     ui_sound_later(SND_PLACE, (int)(t0 + LEAP_MS - 60 > now ? t0 + LEAP_MS - 60 - now : 0));
 }
@@ -527,7 +529,7 @@ static void animate(const cpos *b)
         t = show_events(p, t, stage_count());
         break;
     }
-    cm_until(&M, t + CM_REST);
+    ct_until(&M, t + M.rest);
 }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
@@ -744,7 +746,7 @@ static void draw_stage(const cpos *p, int k)
         cards_draw(deck, CARD_NONE, nx, hy, 0.36f * ui.unit, 0, CD_DOWN);
         nx += 0.5f * ui.unit;
     }
-    if (sum > 0) cm_plus(nx + 0.55f * ui.unit, hy, 0.5f * ui.unit, sum);
+    if (sum > 0) ct_plus(nx + 0.55f * ui.unit, hy, 0.5f * ui.unit, sum);
     else ui_number(nx + 0.3f * ui.unit, hy, 0.5f * ui.unit, 0, 1);
     if (!busy() && p->phase == CP_SHOW) {       /* tap to go on: a play sign */
         float px = T.b.x + T.b.w - 0.5f * ui.unit;
@@ -791,9 +793,9 @@ static void draw(void)
     draw_board();
     /* the crib, by the dealer's token */
     int ncrib = p->ncrib;
-    ncrib -= cm_hiding(&M, H_CRIB);
+    ncrib -= ct_hides(&M, H_CRIB, -1, -1);
     if (showing && sk >= p->players) ncrib = 0;
-    int full = ph == CP_DISCARD && p->turn == me && cm_bits(sel) == crib_away(p) && mine;
+    int full = ph == CP_DISCARD && p->turn == me && __builtin_popcount(sel) == crib_away(p) && mine;
     if (full) ui_mark_gold(T.kx, T.ky, T.pw * 1.9f);
     if (!showing) {
         cards_pile(deck, T.kx, T.ky, T.pw, ncrib < 0 ? 0 : ncrib, CARD_NONE, full ? CD_GLOW : 0);
@@ -825,10 +827,10 @@ static void draw(void)
         if (mine && ph == CP_PLAY) h |= crib_fits(p, me, s) ? (sel >> s & 1 ? 0 : CD_GLOW) : CD_DIM;
         cards_draw(deck, card_of(p, me, s), sp[i].x, y, T.hw, sp[i].deg, h);
     }
-    cm_draw(&M);
+    ct_draw(&M);
     if (drag.on && drag.moved && !showing && ui.viewer >= 0)   /* the card dragged, under the finger */
         cards_draw(deck, card_of(p, me, drag.slot), drag.x, drag.y, T.hw, 0, CD_RAISED);
-    cm_floats_draw(&M, t_pill, t_go);
+    ct_floats_draw(&F, t_pill, t_go);
     if (busy()) ui_animate();
 }
 
@@ -867,7 +869,7 @@ static void press(float x, float y)
     }
     if (p->phase == CP_CUT && cards_in(T.sx, T.sy, T.ow * 1.3f, aspect(), x, y)) { act(CA_CUT); return; }
     if (p->phase == CP_DISCARD && cards_in(T.kx, T.ky, T.pw * 1.2f, aspect(), x, y)) {
-        if (cm_bits(sel) == crib_away(p)) act((int)sel);
+        if (__builtin_popcount(sel) == crib_away(p)) act((int)sel);
         else ui_sound(SND_DENY);
         return;
     }
@@ -901,14 +903,14 @@ static void release(float x, float y)
             if (crib_fits(p, T.me, s)) act(CA_PLAY + s);
             else ui_sound(SND_DENY);
         } else if (p->phase == CP_DISCARD) {
-            if (!(sel >> s & 1) && cm_bits(sel) < n) sel |= 1u << s;
-            if (cm_bits(sel) == n) act((int)sel);
+            if (!(sel >> s & 1) && __builtin_popcount(sel) < n) sel |= 1u << s;
+            if (__builtin_popcount(sel) == n) act((int)sel);
         }
         return;
     }
     if (p->phase == CP_DISCARD) {
         if (sel >> s & 1) sel &= ~(1u << s);
-        else if (cm_bits(sel) < n) sel |= 1u << s, ui_sound(SND_TAP);
+        else if (__builtin_popcount(sel) < n) sel |= 1u << s, ui_sound(SND_TAP);
         else ui_sound(SND_DENY);
     } else if (p->phase == CP_PLAY) {
         if (!crib_fits(p, T.me, s)) ui_sound(SND_DENY);

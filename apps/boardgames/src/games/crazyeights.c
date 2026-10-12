@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "games/cardtable.h"
+#include "cards_table.h"
 #include "games/crazyeights.h"
 
 #define SLIDE_MS 300
@@ -23,7 +23,7 @@ static cgame G;
 static int dealing;                             /* the deal flies at the next frame (the view set) */
 static int caught = -1;                         /* the player just caught (a red glow on their hand a moment) */
 static Uint32 caught_t;
-static ct_moves MV;
+static ct_moves MV = {.rest = 300};
 enum { H_HAND = 1, H_SEAT, H_PILE, H_STOCK };
 
 /* ---- the table's geometry (it follows the viewer) ---------------------------------------------------------------- */
@@ -271,7 +271,7 @@ static void ring_pic(int size, uint8_t *rgba)
 }
 
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
-static SDL_Texture *t_tok[MAX_PLAYERS], *t_icon, *t_ring, *t_disc, *t_disc_on, *t_panel;
+static SDL_Texture *t_icon, *t_ring, *t_disc, *t_disc_on, *t_panel;
 static int tok_made, icon_made, ring_made, disc_made, panel_w, panel_h;
 
 static void textures(void)
@@ -332,7 +332,7 @@ static void draw_summary(void)
     for (int q = 0; q < p->players; q++) {
         float cy = y0 + 0.25f * u + (q + 0.5f) * rh, tx = x0 + 0.75f * u, d = fminf(0.72f * rh, 0.8f * u);
         if (q == p->winner) ui_mark_gold(tx, cy, 2.0f * d);
-        ui_put_c(t_tok[q], tx, cy, d, d);
+        ui_put_c(ct_token(q, tok_made), tx, cy, d, d);
         float nh = 0.42f * rh, rx = x0 + pw * 0.45f;
         if (q == p->winner) {
             ui_mark_gold(rx, cy, 1.6f * nh);
@@ -368,7 +368,7 @@ static void put_suit(int s, float cx, float cy, float w, int how)
 {
     if (G.pos.variant == CE_LAST) {
         if (how & CD_GLOW) ui_mark_gold(cx, cy, 1.5f * w);
-        ui_put_c(t_tok[2 + s], cx, cy, w, w);
+        ui_put_c(ct_token(2 + s, tok_made), cx, cy, w, w);
     } else {
         cards_draw(DECK_FRENCH, CARD(s, RANK_ACE), cx, cy, w, 0, how);
     }
@@ -381,7 +381,7 @@ static void draw(void)
     textures();
     int deck = p->deck, mine = p->turn == T.me && !ui_handing(), moving = ct_moving(&MV), b = busy();
     int ph = p->phase, ready = mine && !moving && (ph == CP_PLAY || ph == CP_CHOOSE);
-    ct_tokens(t_tok, &tok_made, (int)fmaxf(8, fmaxf(0.5f * T.sw, T.ow * 0.8f)));
+    tok_made = (int)fmaxf(8, fmaxf(0.5f * T.sw, T.ow * 0.8f));
     /* the ring (last card, three or more): which way the play goes */
     if (p->variant == CE_LAST && p->players > 2 && t_ring) {
         SDL_FRect d = {T.rx - T.ring / 2, T.cy - T.ring / 2, T.ring, T.ring};
@@ -402,7 +402,7 @@ static void draw(void)
         if (q == caught && ui_ms() - caught_t < 1200) { ui_mark_glow(x, T.sy, 2.4f * T.sw); ui_animate(); }
         ct_backs(deck, x, T.sy, T.sfan, T.sw, n, 0);
         if (n == 0) cards_place(deck, x, T.sy, T.sw);
-        ct_label(t_tok[q], x, T.sy + 0.5f * ch + 0.32f * T.sw + 0.12f * ch, 0.48f * T.sw, n);
+        ct_label(ct_token(q, tok_made), x, T.sy + 0.5f * ch + 0.32f * T.sw + 0.12f * ch, 0.48f * T.sw, n);
         if (p->variant == CE_LAST && p->called[q] && p->n[q] == 1)
             put_icon(x + 0.85f * T.sw, T.sy - 0.25f * ch, 0.9f * T.sw);
     }
@@ -423,7 +423,7 @@ static void draw(void)
         ui_put_c(on ? t_disc_on : t_disc, T.bx, T.by, 2 * T.br, 2 * T.br);
         put_icon(T.bx, T.by, 1.3f * T.br);
     }
-    ct_draw(&MV, NULL);
+    ct_draw(&MV);
     /* an eight or a wild played: the suits (colours) to name */
     if (ph == CP_CHOOSE && mine && !moving) {
         float h = T.ow * 1.4f * 1.25f;

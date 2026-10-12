@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "games/cardtable.h"
+#include "cards_table.h"
 #include "games/war.h"
 
 #define SLIDE_MS 280
@@ -19,7 +19,7 @@
 #define FLY_MS 420
 
 static wgame G;
-static ct_moves MV;
+static ct_moves MV = {.rest = 300};
 enum { H_PILE = 1, H_SPOT };
 static struct { int q; Uint32 from, to; float x, y; } win;   /* the winning card's gold light */
 
@@ -146,7 +146,7 @@ static int script(const char *s)
 }
 
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
-static SDL_Texture *t_disc, *t_tok[MAX_PLAYERS];
+static SDL_Texture *t_disc;
 static int disc_made, tok_made;
 
 static void draw(void)
@@ -167,7 +167,7 @@ static void draw(void)
         ui_number(cx, cy, 0.5f * u, WAR_SHORT_BATTLES - p->battles, 1);
     }
     int moving = ct_moving(&MV);
-    ct_tokens(t_tok, &tok_made, (int)(0.32f * T.wc));
+    tok_made = (int)(0.32f * T.wc);
     for (int q = 0; q < p->players; q++) {
         int n = p->n[q] - ct_hides(&MV, H_PILE, q, -1);
         cards_pile(DECK_FRENCH, T.px[q], T.py[q], T.wc, n, CARD_NONE, war_legal(p, q) && !busy() ? CD_GLOW : 0);
@@ -179,7 +179,7 @@ static void draw(void)
             nx = T.px[q] + (T.px[q] > cx + 1 ? -1.1f : 1.1f) * T.wc;
             ny = T.py[q] + 0.35f * T.wc;
         }
-        ct_label(t_tok[q], nx, ny, 0.32f * T.wc, war_cards(p, q) - ct_hides(&MV, H_PILE, q, -1));
+        ct_label(ct_token(q, tok_made), nx, ny, 0.32f * T.wc, war_cards(p, q) - ct_hides(&MV, H_PILE, q, -1));
         for (int i = 0; i < p->nt[q]; i++) {    /* the cards turned (the last ones of a war on top) */
             if (ct_hides(&MV, H_SPOT, q, i)) continue;
             float x, y;
@@ -191,7 +191,7 @@ static void draw(void)
     }
     Uint32 now = ui_ms();
     if (win.to && now >= win.from && now < win.to) { ui_mark_gold(win.x, win.y, 2.1f * T.wc); ui_animate(); }
-    ct_draw(&MV, NULL);
+    ct_draw(&MV);
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */

@@ -14,7 +14,7 @@
 #include <string.h>
 
 #include "cards.h"
-#include "games/cardmoves.h"
+#include "cards_table.h"
 #include "games/ginrummy.h"
 #include "shell.h"
 
@@ -198,21 +198,23 @@ static float row_w(int pl) { return pl == T.me ? T.hw : T.ow; }
 
 /* ---- the moving cards -------------------------------------------------------------------------------------------- */
 enum { H_NONE, H_HAND, H_PILE, H_LAY };
-static cm_table M;
+static ct_moves M = {.rest = 320};              /* the cards on the move: a moment after the last lands */
+static ct_floats F;                             /* points rising */
 static Uint32 t_flip, t_lay, t_panel;           /* the end of a hand: the cards turn up, the layoffs fly, the points */
 
 static void calm(void)
 {
-    cm_calm(&M);
+    ct_calm(&M);
+    F.n = 0;
     t_flip = t_lay = t_panel = 0;
 }
 
-static int busy(void) { return cm_busy(&M); }
+static int busy(void) { return ct_busy(&M); }
 
 static void slide(int card, int up0, float x0, float y0, float w0, int up1, float x1, float y1, float w1, int ms,
                   int delay, int hide, int pl, int s, int sound)
 {
-    cm_slide(&M, deck, card, up0, x0, y0, w0, up1, x1, y1, w1, ms, delay, hide, pl, s, sound);
+    ct_slide(&M, deck, card, x0, y0, w0, 0, up0, x1, y1, w1, 0, up1, ms, delay, hide, pl, s, sound);
 }
 
 /* a card's place in a player's hand as it is drawn now */
@@ -282,7 +284,7 @@ static void end_slides(const gnpos *b)
         t_panel = t_lay + 260 * n + LAY_MS;
     }
     if (!t_panel) t_panel = t_lay;
-    cm_until(&M, t_panel + 600);
+    ct_until(&M, t_panel + 600);
 }
 
 static void animate(const gnpos *b, int a)
@@ -452,7 +454,7 @@ static void draw_row(const gnpos *p, int pl, const row *r, float y, float w, int
     if (up) row_marks(r, y, w, dead_points, pl != T.me);
     for (int i = 0; i < r->n; i++) {
         int c = r->card[i];
-        if (cm_hides(&M, H_HAND, pl, c) || (r->laid[i] && cm_hides(&M, H_LAY, 0, c))) continue;
+        if (ct_hides(&M, H_HAND, pl, c) || (r->laid[i] && ct_hides(&M, H_LAY, 0, c))) continue;
         if (drag.on && drag.moved && drag.card == c && pl == T.me) continue;
         if (r->laid[i] && t_lay && now < t_lay) continue;
         int how = up ? 0 : CD_DOWN;
@@ -487,9 +489,9 @@ static void draw_result(const gnpos *p)
             for (int b = 0; b < p->boxes[q] && b < 8; b++)    /* the hands won: a small gold box each */
                 ui_fill(x + b * 0.22f * u - 0.08f * u, y - 0.08f * u, 0.16f * u, 0.16f * u, 250, 214, 90, 255);
             x += fmaxf(1, (float)(p->boxes[q] < 8 ? p->boxes[q] : 8)) * 0.22f * u + 0.65f * u;
-            if (p->boxes[q]) cm_plus(x, y, 0.4f * u, GIN_BOX * p->boxes[q]);
+            if (p->boxes[q]) ct_plus(x, y, 0.4f * u, GIN_BOX * p->boxes[q]);
             x += 1.3f * u;
-            if (w) cm_plus(x, y, 0.4f * u, GIN_GAME_BONUS);
+            if (w) ct_plus(x, y, 0.4f * u, GIN_GAME_BONUS);
             x += 1.2f * u;
             if (w && p->shutout) {
                 ui_put_c(t_cross, x - 0.15f * u, y, (float)cross_size, (float)cross_size);
@@ -504,12 +506,12 @@ static void draw_result(const gnpos *p)
     float x = cx - (bonus ? 1.6f : 1.0f) * u;
     ui_mark_gold(x, cy, 1.6f * u);
     ui_put_c(t_tok[w], x, cy, 0.9f * u, 0.9f * u);
-    cm_plus(x + 1.35f * u, cy, 0.56f * u, s->points - bonus);
+    ct_plus(x + 1.35f * u, cy, 0.56f * u, s->points - bonus);
     if (bonus) {                                /* gin, an undercut: the 25 apart, in a gold ring */
         float bx = x + 3.0f * u;
         ui_put_c(t_disc, bx, cy, 1.25f * u, 1.25f * u);
         ui_put_c(t_ring, bx, cy, 1.25f * u, 1.25f * u);
-        cm_plus(bx, cy, 0.4f * u, bonus);
+        ct_plus(bx, cy, 0.4f * u, bonus);
     }
 }
 
@@ -526,7 +528,7 @@ static void draw(void)
     if (piles && !(ph == GN_END && p->res.kind == GR_DEAD && !b)) {
         int glow = mine && (ph == GN_DRAW || ph == GN_OFFER);
         cards_pile(deck, T.sx, T.sy, T.pw, p->nstock, CARD_NONE, glow && ph == GN_DRAW ? CD_GLOW : 0);
-        int np = p->npile - cm_hiding(&M, H_PILE);
+        int np = p->npile - ct_hides(&M, H_PILE, -1, -1);
         int take = glow && (ph == GN_OFFER || p->passes < 2), drop = mine && ph == GN_DISCARD && sel != CARD_NONE &&
                                                                   sel != p->taken;
         cards_pile(deck, T.dx, T.dy, T.pw, np, np > 0 ? p->pile[np - 1] : CARD_NONE, take || drop ? CD_GLOW : 0);
@@ -548,10 +550,10 @@ static void draw(void)
         row_place(&r, T.b.x + T.b.w / 2, T.hw);
         draw_row(p, me, &r, T.hy, T.hw, ui.viewer >= 0, ph == GN_END || ph == GN_OVER ? -1 : d);   /* covered: down */
     }
-    cm_draw(&M);
+    ct_draw(&M);
     if (drag.on && drag.moved && ui.viewer >= 0) cards_draw(deck, drag.card, drag.x, drag.y, T.hw, 0, CD_RAISED);
     if ((ph == GN_END || ph == GN_OVER) && now >= t_panel && !(b && p->res.kind == GR_DEAD)) draw_result(p);
-    cm_floats_draw(&M, t_pill, NULL);
+    ct_floats_draw(&F, t_pill, NULL);
     if (b) ui_animate();
 }
 

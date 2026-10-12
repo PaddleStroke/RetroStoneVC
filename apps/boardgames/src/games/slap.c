@@ -18,7 +18,7 @@
 #include <string.h>
 
 #include "cards.h"
-#include "games/cardtable.h"
+#include "cards_table.h"
 #include "games/slap.h"
 #include "shell.h"
 
@@ -28,7 +28,7 @@
 #define CLAIM_WAIT 1300                         /* an unpaid tribute: the pile waits that long for a slap */
 
 static slgame G;
-static ct_moves MV;
+static ct_moves MV = {.rest = 300};
 static int variant;
 static Uint32 claim_at;                         /* when the pile became the claimer's (0: not yet seen) */
 static struct { int q, good; Uint32 t0; } flash;
@@ -41,8 +41,7 @@ static struct {
     box zone[SLAP_MAXP];
     int n;                                      /* the players the zones were made for */
     int top[SLAP_MAXP];                         /* the zone's player sits at the top of the board */
-    SDL_Texture *tok[MAX_PLAYERS];
-    int tok_made;
+    int tok_made;                               /* the tokens' size */
 } T;
 
 /* where each player sits (a point of the board): two face to face; three, one below and two across; four, one at
@@ -82,7 +81,8 @@ static void layout(box b)
     }
     T.wc = floorf(fminf(b.w * 0.2f, b.h * 0.15f));
     T.wp = floorf(fminf(fminf(zw * 0.32f, hh * 0.36f / T.asp), 0.9f * T.wc));
-    ct_tokens(T.tok, &T.tok_made, (int)fminf(1.0f * ui.unit, 0.62f * T.wp));
+    int ts = (int)fminf(1.0f * ui.unit, 0.62f * T.wp);
+    if (ts >= 4) T.tok_made = ts;
 }
 
 /* a point of player q's zone in its own frame (x across, 0..w; d from its edge, where its player sits), on the
@@ -239,9 +239,10 @@ static void draw_zone(int q, Uint32 now)
     zone_pt(q, z.w / 2 - side, 0.62f * T.wp * T.asp + 0.12f * u, &tx, &ty);
     zone_pt(q, z.w / 2 + side + 0.1f * ts, 0.62f * T.wp * T.asp + 0.12f * u, &nx, &ny);
     if (mine) ui_mark_gold(tx, ty, 2.2f * ts);
-    if (T.tok[q]) {
-        SDL_SetTextureAlphaMod(T.tok[q], out ? 90 : 255);
-        ui_put_rot(T.tok[q], tx, ty, ts, ts, deg);
+    if (T.tok_made) {
+        SDL_Texture *tk = ct_token(q, T.tok_made);
+        SDL_SetTextureAlphaMod(tk, out ? 90 : 255);
+        ui_put_rot(tk, tx, ty, ts, ts, deg);
     }
     ui_number_rot(nx, ny, 0.55f * ts, p->n[q], 1, deg);
     /* the tribute owed: a dot a try left, above the pile */
@@ -273,7 +274,7 @@ static void draw(void)
         centre_at(p, i, &x, &y, &deg);
         cards_draw(DECK_FRENCH, p->centre[i], x, y, T.wc, deg, i < p->buried ? CD_DOWN : i > from ? CD_FLAT : 0);
     }
-    ct_draw(&MV, NULL);
+    ct_draw(&MV);
     /* an unpaid tribute: the pile waits a moment for a slap, then goes to the face card's player */
     if (p->phase == SLP_CLAIM) {
         ui_animate();

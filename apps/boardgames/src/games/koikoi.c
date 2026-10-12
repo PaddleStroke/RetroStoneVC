@@ -18,6 +18,7 @@
 #include <string.h>
 
 #include "cards.h"
+#include "cards_table.h"
 #include "games/koikoi.h"
 #include "games/koikoi_deck.h"
 #include "shell.h"
@@ -218,53 +219,18 @@ static void spot(const kpos *p, int card, float *x, float *y, float *w, int *up)
 }
 
 /* ---- the moving cards: slides drawn from `show` ms on (a second leg waits for the first) ------------------------- */
-#define MOVES 64
-static struct { cards_slide s; Uint32 show; int card; } mv[MOVES];
-static int nmv;
-static Uint32 quiet;
+static ct_moves M = {.rest = REST_MS};
 
-static void calm(void)
-{
-    nmv = 0;
-    quiet = 0;
-}
+static void calm(void) { ct_calm(&M); }
 
 static void slide(int card, int up0, float x0, float y0, float w0, int up1, float x1, float y1, float w1, int ms,
                   int delay, int show, int sound)
 {
-    if (nmv >= MOVES) return;
-    cards_slide_start(&mv[nmv].s, HD, card, x0, y0, w0, 0, up0, x1, y1, w1, 0, up1, ms, delay);
-    mv[nmv].show = (Uint32)show;
-    mv[nmv].card = card;
-    nmv++;
-    Uint32 end = ui_ms() + (Uint32)(delay + ms + REST_MS);
-    if (end > quiet) quiet = end;
-    if (sound >= 0) ui_sound_later(sound, delay + ms > 40 ? delay + ms - 40 : 0);
+    ct_show(&M, ct_slide(&M, HD, card, x0, y0, w0, 0, up0, x1, y1, w1, 0, up1, ms, delay, 0, card, -1, sound), show);
 }
 
-static int moving(int card)
-{
-    for (int i = 0; i < nmv; i++)
-        if (mv[i].card == card && cards_slide_busy(&mv[i].s)) return 1;
-    return 0;
-}
-
-static int busy(void)
-{
-    for (int i = 0; i < nmv; i++)
-        if (cards_slide_busy(&mv[i].s)) return 1;
-    return quiet && ui_ms() < quiet;
-}
-
-static void moves_draw(void)
-{
-    Uint32 now = ui_ms();
-    for (int i = 0; i < nmv; i++) {
-        if (!mv[i].s.on) continue;
-        if (now - mv[i].s.t0 < mv[i].show) { ui_animate(); continue; }
-        cards_slide_draw(&mv[i].s);
-    }
-}
+static int moving(int card) { return ct_hides(&M, 0, card, -1) > 0; }
+static int busy(void) { return ct_busy(&M); }
 
 /* the deal: from the stock to the hands and the field, two at a time */
 static void deal_slides(void)
@@ -806,7 +772,7 @@ static void draw(void)
         badge_row(pts, p->koi[q], T.bad[seat(q)], 0, 1);
         draw_hand(p, q);
     }
-    moves_draw();
+    ct_draw(&M);
     if (drag.on && drag.moved && drag.card != KK_NONE) cards_draw(HD, drag.card, drag.x, drag.y, T.hw, 0, CD_RAISED);
     if (ph == KP_DECIDE && mine) draw_decide(p);
     if ((ph == KP_ROUND || ph == KP_OVER) && !b) draw_round(p);

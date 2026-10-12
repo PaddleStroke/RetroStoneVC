@@ -1,6 +1,6 @@
 /*
  * Hearts in RetroStone Board: 3 to 6 players passing the device round, each hand secret (VIEW_HIDDEN; the rules:
- * hearts_rules.c, hearts.h). The table (games/tricks_ui.h): the viewer's hand fanned at the bottom, the players'
+ * hearts_rules.c, hearts.h). The table (the kit's cards_table.h): the viewer's hand fanned at the bottom, the players'
  * seats round the middle (their tokens; the points each has taken this round beside them), the trick with each card
  * placed towards its player, the trick pile (tap it: the last trick). Passing: tap three cards (they go to the three
  * places in the middle; tap one there to take it back), then the arrow pointing to the player who gets them. Playing:
@@ -13,29 +13,28 @@
 #include <string.h>
 
 #include "cards.h"
+#include "cards_table.h"
 #include "games/hearts.h"
 #include "games/tricks.h"
-#include "games/tricks_ui.h"
 #include "shell.h"
 
 #define LIFT 0.16f                              /* the cards just received stand this much higher (card widths) */
 
 static hgame G;
-static tk_table T;
-static tk_anim A;
-static tk_gfx X;
-static tk_touch F;
+static ct_table T;
+static ct_moves A;
+static ct_touch F;
 static uint8_t sel[3];                          /* the cards chosen to pass, in the middle */
 static int nsel, floor_n, show_last;            /* floor_n: undo stops there (the last hand-off) */
 static unsigned seen;                           /* the players who have seen this round's deal */
 
-static void layout(box b) { tk_layout(&T, b, G.pos.players, ui_bottom(), G.pos.size); }
+static void layout(box b) { ct_layout(&T, b, G.pos.players, ui_bottom(), G.pos.size); }
 
 static void reset_ui(void)
 {
     nsel = 0;
     show_last = 0;
-    tk_touch_reset(&F);
+    ct_touch_reset(&F);
 }
 
 /* ---- the viewer's hand as shown: the cards chosen to pass are in the middle; how each is drawn ------------------- */
@@ -89,7 +88,7 @@ static void start(int v)
 {
     (void)v;
     hearts_new(&G, ui.players, (uint32_t)ui_random(1 << 30));
-    tk_calm(&A);
+    ct_calm(&A);
     reset_ui();
     floor_n = 0;
     seen = 0;
@@ -126,41 +125,43 @@ static void animate(const hpos *b, uint32_t a, const uint8_t *h, int n)
         for (int i = 0; i < 3; i++) {           /* the three cards to their taker's seat, face down */
             float x, y;
             slot_at(i, &x, &y);
-            tk_slide(&A, HA_CARD(a, i), x, y, T.wt, 0, 1, T.sx[to], T.sy[to], 0.45f * T.wt, T.tdeg[to], 0, TK_SLIDE_MS,
-                     60 * i, TK_NONE, 0, 0, i == 0 ? SND_MOVE : -1, 150);
+            ct_rest(&A, ct_slide(&A, DECK_FRENCH, HA_CARD(a, i), x, y, T.wt, 0, 1, T.sx[to], T.sy[to], 0.45f * T.wt,
+                                 T.tdeg[to], 0, CT_SLIDE_MS, 60 * i, CT_NONE, 0, -1, i == 0 ? SND_MOVE : -1), 150);
         }
         if (p->phase != HP_PLAY) return;
         /* the last to choose: the cards change hands, the viewer's come in from the giver's seat */
-        int from = 0, how[TK_HAND];
+        int from = 0, how[CT_HAND];
         for (int q = 0; q < p->players; q++)
             if (hearts_target(p, q) == me) from = q;
-        uint8_t nh[TK_HAND];
-        float lift[TK_HAND];
-        cards_spot ns[TK_HAND];
+        uint8_t nh[CT_HAND];
+        float lift[CT_HAND];
+        cards_spot ns[CT_HAND];
         int k = hand(nh, how, lift, 0), j = 0;
-        tk_fan(&T, k, ns);
+        ct_fan(&T, k, ns);
         for (int i = 0; i < k; i++)
             if (lift[i] > 0)
-                tk_slide(&A, nh[i], T.sx[from], T.sy[from], 0.45f * T.wt, T.tdeg[from], 0, ns[i].x,
-                         ns[i].y - LIFT * T.wh, T.wh, ns[i].deg, 1, TK_SLIDE_MS + 120, TK_SLIDE_MS + 200 + 90 * j,
-                         TK_HAND_TAG, nh[i], 0, j == 0 ? SND_PLACE : -1, 300), j++;
+                ct_rest(&A, ct_slide(&A, DECK_FRENCH, nh[i], T.sx[from], T.sy[from], 0.45f * T.wt, T.tdeg[from], 0,
+                                     ns[i].x, ns[i].y - LIFT * T.wh, T.wh, ns[i].deg, 1, CT_SLIDE_MS + 120,
+                                     CT_SLIDE_MS + 200 + 90 * j, CT_HAND_TAG, nh[i], -1, j == 0 ? SND_PLACE : -1),
+                        300), j++;
         return;
     }
     if (HA_KIND(a) != HA_PLAY) return;
-    tk_play(&A, &T, &F, h, n, HA_CARD(a, 2));
+    ct_play(&A, &T, &F, h, n, HA_CARD(a, 2));
     if (p->tricks != b->tricks)                 /* the trick is full: its winner gathers it */
-        tk_gather(&A, &T, p->last, p->players, p->last_leader, p->last_winner, TK_SLIDE_MS + TK_LOOK_MS, TK_SLIDE_MS);
+        ct_gather(&A, &T, p->last, NULL, p->players, p->last_leader, p->last_winner, CT_SLIDE_MS + CT_LOOK_MS,
+                  CT_SLIDE_MS);
 }
 
 static void act(uint32_t a)
 {
     hpos before = G.pos;
-    uint8_t h[TK_HAND];
-    int how[TK_HAND];
-    float lift[TK_HAND];
+    uint8_t h[CT_HAND];
+    int how[CT_HAND];
+    float lift[CT_HAND];
     int n = hand(h, how, lift, 0);
     if (!hearts_play(&G, a)) { ui_sound(SND_DENY); return; }
-    tk_calm(&A);
+    ct_calm(&A);
     animate(&before, a, h, n);
     reset_ui();
     const hpos *p = &G.pos;
@@ -173,7 +174,7 @@ static int undo(void)
 {
     if (nsel || F.raised != CARD_NONE || show_last) { reset_ui(); return 1; }   /* a choice not made yet */
     if (G.n <= floor_n || !hearts_undo(&G)) return 0;
-    tk_calm(&A);
+    ct_calm(&A);
     reset_ui();
     ui_handoff(G.pos.turn);
     return 1;
@@ -182,7 +183,7 @@ static int undo(void)
 static int script(const char *s)
 {
     int ok = hearts_script(&G, s);
-    tk_calm(&A);
+    ct_calm(&A);
     reset_ui();
     floor_n = G.n;
     seen = ~0u;
@@ -190,7 +191,7 @@ static int script(const char *s)
     return ok;
 }
 
-static int busy(void) { return tk_busy(&A); }
+static int busy(void) { return ct_busy(&A); }
 
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
 static void draw_pass(int live)
@@ -205,9 +206,9 @@ static void draw_pass(int live)
     int to = hearts_target(p, T.me);
     float bx, by, d;
     pass_button(&bx, &by, &d);
-    double deg = atan2(T.sy[to] - by, T.sx[to] - bx) * 180 / TK_PI;
+    double deg = atan2(T.sy[to] - by, T.sx[to] - bx) * 180 / 3.14159265f;
     if (nsel == 3 && live) ui_mark_gold(bx, by, 2.0f * d);
-    tk_button(&X, bx, by, d, nsel == 3, TK_ARROW, deg);
+    ct_button(bx, by, d, nsel == 3, CT_ARROW, deg);
 }
 
 /* the round's summary: a row a player, their token (the lowest total in gold light), the round's points (a moon:
@@ -216,58 +217,59 @@ static void draw_summary(void)
 {
     const hpos *p = &G.pos;
     float x0, pw, y, rh, u = T.u;
-    tk_summary(&X, &T, p->players, &x0, &pw, &y, &rh);
+    ct_summary(&T, p->players, &x0, &pw, &y, &rh);
     int low = 1 << 20;
     for (int q = 0; q < p->players; q++) low = p->total[q] < low ? p->total[q] : low;
     float d = fminf(0.72f * rh, 0.8f * u);
-    tk_tokens(&X, (int)d);
+    const int ts = (int)d;
     for (int q = 0; q < p->players; q++, y += rh) {
         float tx = x0 + 0.8f * u, nh = 0.42f * rh, rx = x0 + pw * 0.45f;
         if (p->total[q] == low) ui_mark_gold(tx, y, 2.0f * d);
-        ui_put_c(X.tok[q], tx, y, d, d);
+        ui_put_c(ct_token(q, ts), tx, y, d, d);
         ui_number_signed(rx, y, nh, p->score[q], 1, 1);
-        if (q == p->moon) tk_moon(&X, rx + tk_number_w(p->score[q], nh) / 2 + 0.8f * nh, y, 1.1f * nh);
+        if (q == p->moon) ct_pic(CT_MOON, rx + ct_number_w(p->score[q], nh, 0) / 2 + 0.8f * nh, y, 1.1f * nh, 0, 255,
+                                 255, 255, 255);
         ui_number_signed(x0 + pw * 0.8f, y, 0.56f * rh, p->total[q], 1, 0);
-        if (q < p->players - 1) tk_row_line(x0, pw, y + rh / 2, u);
+        if (q < p->players - 1) ct_rule(x0 + 0.3f * u, y + rh / 2, pw - 0.6f * u);
     }
 }
 
 static void draw(void)
 {
     const hpos *p = &G.pos;
-    int live = !ui_handing() && !tk_busy(&A), ph = p->phase, hide = ui.viewer < 0;   /* hide: the hand-off cover */
+    int live = !ui_handing() && !ct_busy(&A), ph = p->phase, hide = ui.viewer < 0;   /* hide: the hand-off cover */
     if (!(seen >> T.me & 1) && !ui_handing()) {   /* the viewer's first look at this round's cards */
         seen |= 1u << T.me;
         if (p->tricks == 0 && p->ntrick == 0 && (ph == HP_PASS || p->dir == PASS_HOLD)) {
-            uint8_t h[TK_HAND];
-            int how[TK_HAND];
-            float lift[TK_HAND];
-            tk_deal(&A, &T, h, hand(h, how, lift, 0));
+            uint8_t h[CT_HAND];
+            int how[CT_HAND];
+            float lift[CT_HAND];
+            ct_deal(&A, &T, h, hand(h, how, lift, 0));
         }
     }
     int pass_to = ph == HP_PASS && p->turn == T.me ? hearts_target(p, T.me) : -1;
-    tk_draw_seats(&X, &T, ph == HP_PLAY ? p->turn : pass_to);
+    ct_draw_seats(&T, ph == HP_PLAY ? p->turn : pass_to);
     for (int q = 0; q < p->players; q++) {     /* the points taken this round */
         if (!p->taken[q] || ph == HP_ROUND || ph == HP_OVER) continue;
         float x, y;
-        tk_seat_spot(&T, q, 0, &x, &y);
+        ct_seat_spot(&T, q, 0, &x, &y);
         ui_number(x, y, 0.5f * T.tok, p->taken[q], 1);
     }
-    tk_draw_pile(&T, p->tricks);
+    ct_draw_pile(&T, p->tricks);
     if (ph == HP_PASS && p->turn == T.me && !hide) draw_pass(live);
-    tk_draw_trick(&T, &A, p->trick, p->ntrick, p->leader);
-    if (F.raised != CARD_NONE && live) tk_draw_target(&T);
-    uint8_t h[TK_HAND];
-    int how[TK_HAND];
-    float lift[TK_HAND];
+    ct_draw_trick(&T, &A, p->trick, NULL, p->ntrick, p->leader);
+    if (F.raised != CARD_NONE && live) ct_draw_target(&T);
+    uint8_t h[CT_HAND];
+    int how[CT_HAND];
+    float lift[CT_HAND];
     int n = hand(h, how, lift, live);
-    if (hide) tk_hand_backs(&T, p->n[T.me]);   /* face down, the cards chosen to pass among them */
-    else tk_hand_draw(&T, &A, h, n, how, lift, F.on ? F.card : CARD_NONE);
-    tk_draw_moves(&A);
-    if (!hide) tk_touch_draw(&F, &T);
+    if (hide) ct_hand_backs(&T, p->n[T.me]);   /* face down, the cards chosen to pass among them */
+    else ct_hand_draw(&T, &A, h, n, how, lift, F.on ? F.card : CARD_NONE);
+    ct_draw(&A);
+    if (!hide) ct_touch_draw(&F, &T);
     if (show_last && p->last_winner != TRICK_NONE)
-        tk_draw_last(&T, p->last, p->players, p->last_leader, p->last_winner);
-    if ((ph == HP_ROUND || ph == HP_OVER) && !tk_busy(&A)) draw_summary();
+        ct_draw_last(&T, p->last, NULL, p->players, p->last_leader, p->last_winner);
+    if ((ph == HP_ROUND || ph == HP_OVER) && !ct_busy(&A)) draw_summary();
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
@@ -291,10 +293,10 @@ static void press(float x, float y)
     F.card = CARD_NONE;
     F.on = 0;
     if (show_last) { show_last = 0; return; }
-    if (tk_busy(&A)) return;                    /* the cards still moving */
+    if (ct_busy(&A)) return;                    /* the cards still moving */
     if (p->phase == HP_ROUND) { act(HA_NEXT); return; }
     if (p->phase == HP_OVER) return;
-    if (tk_on_pile(&T, p->tricks, x, y)) { show_last = 1; ui_sound(SND_TAP); return; }
+    if (ct_on_pile(&T, p->tricks, x, y)) { show_last = 1; ui_sound(SND_TAP); return; }
     if (p->turn != T.me) { ui_sound(SND_DENY); return; }
     if (p->phase == HP_PASS) {
         for (int i = 0; i < nsel; i++) {        /* a chosen card back to the hand */
@@ -314,34 +316,34 @@ static void press(float x, float y)
             return;
         }
     }
-    if (F.raised != CARD_NONE && tk_on_target(&T, x, y)) { send(F.raised); return; }
-    uint8_t h[TK_HAND];
-    int how[TK_HAND];
-    float lift[TK_HAND];
-    int n = hand(h, how, lift, 1), c = tk_hand_at(&T, h, n, how, lift, x, y);
+    if (F.raised != CARD_NONE && ct_on_target(&T, x, y)) { send(F.raised); return; }
+    uint8_t h[CT_HAND];
+    int how[CT_HAND];
+    float lift[CT_HAND];
+    int n = hand(h, how, lift, 1), c = ct_hand_at(&T, h, n, how, lift, x, y);
     if (c == CARD_NONE) {
         if (F.raised != CARD_NONE) F.raised = CARD_NONE;
         else ui_sound(SND_DENY);
         return;
     }
-    tk_touch_down(&F, c, x, y);                 /* a tap or a drag: the release says */
+    ct_touch_down(&F, c, x, y);                 /* a tap or a drag: the release says */
 }
 
-static void motion(float x, float y) { tk_touch_move(&F, x, y); }
+static void motion(float x, float y) { ct_touch_move(&F, x, y); }
 
 static void release(float x, float y)
 {
-    int c, r = tk_touch_up(&F, &T, x, y, &c);
-    if (r == TK_T_SEND) send(c);
-    else if (r == TK_T_TAP) {
+    int c, r = ct_touch_up(&F, &T, x, y, &c);
+    if (r == CT_T_SEND) send(c);
+    else if (r == CT_T_TAP) {
         if (G.pos.phase == HP_PASS) send(c);
-        else if (tk_tap_play(&F, c, hearts_can_play(&G.pos, c))) send(c);
+        else if (ct_tap_play(&F, c, hearts_can_play(&G.pos, c))) send(c);
     }
     F.on = 0;
 }
 
 /* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
-static void bar(int player, box b) { tk_bar(b, G.pos.n[player], G.pos.total[player]); }
+static void bar(int player, box b) { ct_bar(b, G.pos.n[player], G.pos.total[player]); }
 
 static void token(int player, int size, uint8_t *rgba) { cards_token(player, size, rgba); }
 
@@ -351,7 +353,7 @@ static void thumb(int v, int size, uint8_t *rgba)
     (void)v;
     static const int cards[4] = {CARD(SUIT_CLUBS, 2), CARD(SUIT_HEARTS, RANK_ACE), CARD(SUIT_HEARTS, RANK_KING),
                                  CARD(SUIT_SPADES, RANK_QUEEN)};
-    tk_thumb(cards, 4, size, rgba);
+    ct_thumb(cards, 4, size, rgba);
 }
 
 static const game hearts_game = {

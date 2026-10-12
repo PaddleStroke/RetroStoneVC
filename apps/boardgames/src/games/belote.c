@@ -16,8 +16,8 @@
 #include <string.h>
 
 #include "cards.h"
+#include "cards_table.h"
 #include "games/belote.h"
-#include "games/feltable.h"
 #include "shell.h"
 
 #define PLAY_MS 300
@@ -28,6 +28,7 @@
 enum { TAG_HAND = 1, TAG_SEAT, TAG_TRICK, TAG_TURNED };
 
 static bgame G;
+static ct_moves M = {.rest = 320};              /* the cards on the move: a moment after the last lands */
 static int variant, dealing, mark;              /* dealing: the deal flies at the next frame; mark: the history's
                                                  * length at the last hand-off (undo stops there) */
 static int sel = CARD_NONE, level = -1;         /* the card raised; coinche: the contract chosen */
@@ -61,8 +62,8 @@ static void layout(box b)
     T.asp = cards_aspect(DECK_FRENCH);
     float u = ui.unit;
     T.hw = floorf(fminf(fminf(b.w / 4.4f, b.w * 0.97f / (1 + 7 * 0.36f)), b.h * 0.3f / (T.asp * 1.2f)));
-    ft_hand h;
-    ft_hand_layout(&h, b, BEL_HAND, BEL_HAND, T.hw, b.h * 0.3f);
+    ct_rows h;
+    ct_rows_layout(&h, b, BEL_HAND, BEL_HAND, T.hw, b.h * 0.3f);
     T.hw = h.w;
     T.hand_top = h.top;
     T.cx = b.x + b.w / 2;
@@ -113,10 +114,10 @@ static int sorted_hand(const bpos *p, int pl, uint8_t *out)
     return n;
 }
 
-static void hand_of(const bpos *p, uint8_t *cards, int *n, ft_hand *h)
+static void hand_of(const bpos *p, uint8_t *cards, int *n, ct_rows *h)
 {
     *n = sorted_hand(p, T.me, cards);
-    ft_hand_layout(h, T.b, *n, BEL_HAND, T.hw, T.b.h * 0.3f);
+    ct_rows_layout(h, T.b, *n, BEL_HAND, T.hw, T.b.h * 0.3f);
 }
 
 static int spot_of(const uint8_t *cards, int n, int card)
@@ -131,26 +132,27 @@ static void deal_slides(const bpos *p, const bpos *before)
 {
     uint8_t cards[BEL_HAND];
     int n;
-    ft_hand h;
+    ct_rows h;
     hand_of(p, cards, &n, &h);
     int k = 0;
     for (int i = 0; i < n; i++) {               /* the viewer's new cards, from the middle, turning over */
         if (before && spot_of(before->hand[T.me], before->n[T.me], cards[i]) >= 0) continue;
         int from_turned = before && cards[i] == before->turned;
-        ft_slide(DECK_FRENCH, cards[i], from_turned, T.cx, T.cy, from_turned ? T.tw * 1.1f : T.tw, 0, 1, h.spot[i].x,
-                 h.spot[i].y, h.w, h.spot[i].deg, DEAL_MS, k * 90, 0, TAG_HAND, cards[i], 0, k % 3 == 0 ? SND_MOVE : -1);
+        ct_slide(&M, DECK_FRENCH, cards[i], T.cx, T.cy, from_turned ? T.tw * 1.1f : T.tw, 0, from_turned, h.spot[i].x,
+                 h.spot[i].y, h.w, h.spot[i].deg, 1, DEAL_MS, k * 90, TAG_HAND, cards[i], 0,
+                 k % 3 == 0 ? SND_MOVE : -1);
         k++;
     }
     for (int q = 0; q < BEL_P; q++) {           /* the others' backs, to their seats */
         if (q == T.me) continue;
         int s = seat(q), was = before ? before->n[q] : 0;
         for (int i = was; i < p->n[q]; i++, k++)
-            ft_slide(DECK_FRENCH, CARD_NONE, 0, T.cx, T.cy, T.tw, 0, 0, T.seat_x[s], T.seat_y[s], T.bw,
-                     s == 2 ? 0 : 90, DEAL_MS, k * 45, 0, TAG_SEAT, s, 0, -1);
+            ct_slide(&M, DECK_FRENCH, CARD_NONE, T.cx, T.cy, T.tw, 0, 0, T.seat_x[s], T.seat_y[s], T.bw,
+                     s == 2 ? 0 : 90, 0, DEAL_MS, k * 45, TAG_SEAT, s, 0, -1);
     }
     if (!before && p->turned != CARD_NONE)      /* classic: the turned card */
-        ft_slide(DECK_FRENCH, p->turned, 0, T.cx, T.cy, T.tw * 1.1f, 0, 1, T.cx, T.cy, T.tw * 1.1f, 0, 260,
-                 k * 45 + 120, 0, TAG_TURNED, 0, 0, SND_PLACE);
+        ct_slide(&M, DECK_FRENCH, p->turned, T.cx, T.cy, T.tw * 1.1f, 0, 0, T.cx, T.cy, T.tw * 1.1f, 0, 1, 260,
+                 k * 45 + 120, TAG_TURNED, 0, 0, SND_PLACE);
 }
 
 /* what an action moved, from the position before it */
@@ -168,23 +170,24 @@ static void animate(const bpos *b, int a)
         if (pl == T.me) {                       /* from the viewer's hand */
             uint8_t cards[BEL_HAND];
             int n;
-            ft_hand h;
+            ct_rows h;
             hand_of(b, cards, &n, &h);
             int i = spot_of(cards, n, card);
             if (i >= 0) x0 = h.spot[i].x, y0 = h.spot[i].y, w0 = h.w;
             if (drag.on && drag.moved) x0 = drag.x, y0 = drag.y;
         }
         int full = b->ntrick == BEL_P - 1;
-        ft_slide(DECK_FRENCH, card, 1, x0, y0, w0, 0, 1, T.spot_x[s], T.spot_y[s], T.tw, 0, PLAY_MS, 0, 0, TAG_TRICK,
+        ct_slide(&M, DECK_FRENCH, card, x0, y0, w0, 0, 1, T.spot_x[s], T.spot_y[s], T.tw, 0, 1, PLAY_MS, 0, TAG_TRICK,
                  b->ntrick, 0, SND_PLACE);
         if (!full) break;
         /* the full trick: shown a moment, its best card in gold light, then to its winner */
         int w = seat(p->last_winner), go = PLAY_MS + SHOW_MS;
         for (int i = 0; i < BEL_P; i++) {
             int si = seat((b->leader + i) % BEL_P), c = i < BEL_P - 1 ? b->trick[i] : card;
-            ft_slide(DECK_FRENCH, c, 1, T.spot_x[si], T.spot_y[si], T.tw, 0, 0, T.seat_x[w], T.seat_y[w],
-                     w == 0 ? T.hw * 0.7f : T.bw, w == 1 || w == 3 ? 90 : 0, FLY_MS, go + i * 40,
-                     i < BEL_P - 1 ? 0 : PLAY_MS, TAG_TRICK, 10 + i, 0, i == 0 ? SND_MOVE : -1);
+            int m = ct_slide(&M, DECK_FRENCH, c, T.spot_x[si], T.spot_y[si], T.tw, 0, 1, T.seat_x[w], T.seat_y[w],
+                             w == 0 ? T.hw * 0.7f : T.bw, w == 1 || w == 3 ? 90 : 0, 0, FLY_MS, go + i * 40, TAG_TRICK,
+                             10 + i, 0, i == 0 ? SND_MOVE : -1);
+            ct_show(&M, m, i < BEL_P - 1 ? 0 : PLAY_MS);   /* the last card shows once it has landed */
         }
         int sb = seat(p->last_winner);
         win_glow.from = ui_ms() + PLAY_MS;
@@ -197,14 +200,14 @@ static void animate(const bpos *b, int a)
 
 static void calm(void)
 {
-    ft_calm();
+    ct_calm(&M);
     win_glow.from = win_glow.to = 0;
     drag.on = 0;
     sel = CARD_NONE;
     level = -1;
 }
 
-static int busy(void) { return ft_busy(); }
+static int busy(void) { return ct_busy(&M); }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
 /* no shuffle between games either: a new game goes on from the cards of the last one, gathered as they lie (kept in
@@ -283,7 +286,7 @@ static float mult_w(float h) { return 1.7f * h; }
 static void draw_mult(float cx, float cy, float h, int coinche)
 {
     float x = cx - mult_w(h) / 2;
-    ui_put_c(ft_icon(1, ICON_CLOSE, (int)(0.9f * h), 250, 214, 90), x + 0.45f * h, cy, 0.9f * h, 0.9f * h);
+    ui_put_c(ct_icon(ICON_CLOSE, (int)(0.9f * h), 250, 214, 90), x + 0.45f * h, cy, 0.9f * h, 0.9f * h);
     ui_number(x + 1.3f * h, cy, h, coinche == 2 ? 4 : 2, 1);
 }
 
@@ -294,7 +297,7 @@ static void draw_seats(void)
     for (int q = 0; q < BEL_P; q++) {
         int s = seat(q);
         if (!s) continue;
-        int n = p->n[q] - ft_hides(TAG_SEAT, s, -1);
+        int n = p->n[q] - ct_hides(&M, TAG_SEAT, s, -1);
         float step = 0.26f * T.bw, x = T.seat_x[s], y = T.seat_y[s], span = (n - 1) * step;
         for (int i = 0; i < n; i++) {
             if (s == 2) cards_draw(DECK_FRENCH, CARD_NONE, x - span / 2 + i * step, y, T.bw, 0, CD_DOWN);
@@ -304,7 +307,7 @@ static void draw_seats(void)
         if (s == 2) tx = x - fmaxf(span / 2 + 0.5f * T.bw, 0.5f * T.bw) - 0.75f * T.tok, ty = y;
         else tx = x, ty = y - fmaxf(span / 2 + 0.5f * T.bw, 0.5f * T.bw) - 0.75f * T.tok;
         if (q == p->turn && p->phase <= BP_PLAY) ui_mark_gold(tx, ty, 2.0f * T.tok);
-        ui_put_c(ft_token(q, (int)T.tok), tx, ty, T.tok, T.tok);
+        ui_put_c(ct_token(q, (int)T.tok), tx, ty, T.tok, T.tok);
     }
 }
 
@@ -315,7 +318,7 @@ static void draw_trick(void)
     Uint32 now = ui_ms();
     if (win_glow.to && now >= win_glow.from && now < win_glow.to) ui_mark_gold(win_glow.x, win_glow.y, 1.9f * T.tw);
     for (int i = 0; i < p->ntrick; i++) {
-        if (ft_hides(TAG_TRICK, i, -1)) continue;
+        if (ct_hides(&M, TAG_TRICK, i, -1)) continue;
         int q = (p->leader + i) % BEL_P, s = seat(q), c = p->trick[i];
         if (q == p->belote && CARD_SUIT(c) == p->trump && (CARD_RANK(c) == RANK_KING || CARD_RANK(c) == RANK_QUEEN))
             ui_mark_gold(T.spot_x[s], T.spot_y[s], 1.7f * T.tw);
@@ -327,7 +330,7 @@ static void draw_trick(void)
 static void draw_last(void)
 {
     const bpos *p = &G.pos;
-    if (p->phase != BP_PLAY || p->last_winner == BEL_NONE || ft_hides(TAG_TRICK, -1, -1)) return;
+    if (p->phase != BP_PLAY || p->last_winner == BEL_NONE || ct_hides(&M, TAG_TRICK, -1, -1)) return;
     float lh = T.lw * T.asp;
     for (int i = 0; i < BEL_P; i++) {
         int q = (p->last_leader + i) % BEL_P, s = seat(q);
@@ -346,7 +349,7 @@ static void draw_bidding(int mine)
 {
     const bpos *p = &G.pos;
     if (p->phase == BP_BID1) {
-        if (!ft_hides(TAG_TURNED, -1, -1))
+        if (!ct_hides(&M, TAG_TURNED, -1, -1))
             cards_draw(DECK_FRENCH, p->turned, T.cx, T.cy, T.tw * 1.1f, 0, mine ? CD_GLOW : 0);
         return;
     }
@@ -364,7 +367,7 @@ static void draw_bidding(int mine)
     if (!p->coinche) {
         for (int l = 0; l < BEL_LEVELS; l++) {
             int ok = level_ok(p, l), on = l == level;
-            SDL_Texture *t = ft_round(on ? 2 : 1, (int)T.chip_w, (int)T.chip_h, 0.25f * T.chip_h, on ? CHIP_ON : CHIP);
+            SDL_Texture *t = ct_round((int)T.chip_w, (int)T.chip_h, 0.25f * T.chip_h, on ? CHIP_ON : CHIP);
             if (!ok) SDL_SetTextureAlphaMod(t, 90);
             ui_put_c(t, T.chip_x[l], T.chip_y[l], T.chip_w, T.chip_h);
             if (!ok) SDL_SetTextureAlphaMod(t, 255);
@@ -380,7 +383,7 @@ static void draw_bidding(int mine)
         float x = p->coinche ? T.cx : T.co_x, y = p->coinche ? T.cy : T.ace_y, d = T.co_d * (p->coinche ? 1.3f : 1);
         static const uint8_t DARK[4] = {24, 30, 28, 240};
         ui_mark_gold(x, y, 1.6f * d);
-        ui_put_c(ft_round(3, (int)d, (int)d, 0.5f * d, DARK), x, y, d, d);
+        ui_put_c(ct_round((int)d, (int)d, 0.5f * d, DARK), x, y, d, d);
         draw_mult(x, y, 0.36f * d, sur ? 2 : 1);
     }
 }
@@ -393,14 +396,15 @@ static void draw_summary(void)
     box b = T.b;
     float u = ui.unit, rh = fminf(1.5f * u, b.h * 0.3f), pw = fminf(b.w * 0.96f, 8.6f * u), ph = 2 * rh + 0.5f * u;
     float x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
-    ft_panel(b, x0, y0, pw, ph);
+    ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 70);
+    ct_panel(x0, y0, pw, ph, 250);
     int lead = p->total[1] > p->total[0];
     float col = pw / 8.6f;
     for (int t = 0; t < 2; t++) {
         float cy = y0 + 0.25f * u + (t + 0.5f) * rh, d = fminf(0.6f * rh, 0.62f * u), tx = x0 + 0.6f * col;
         if (t == lead && p->total[0] != p->total[1]) ui_mark_gold(tx + 0.45f * d, cy, 2.6f * d);
-        ui_put_c(ft_token(t, (int)d), tx, cy - 0.12f * d, d, d);
-        ui_put_c(ft_token(t + 2, (int)d), tx + 0.9f * d, cy + 0.12f * d, d, d);
+        ui_put_c(ct_token(t, (int)d), tx, cy - 0.12f * d, d, d);
+        ui_put_c(ct_token(t + 2, (int)d), tx + 0.9f * d, cy + 0.12f * d, d, d);
         float nh = fminf(0.36f * rh, 0.4f * u);
         if (bel_team(p->taker) == t) {          /* the contract */
             float ax = x0 + 2.25f * col;
@@ -410,12 +414,12 @@ static void draw_summary(void)
                 if (p->coinche) draw_mult(ax + 1.0f * col, cy + 0.55f * nh, 0.55f * nh, p->coinche);
             }
             if (!p->made)
-                ui_put_c(ft_icon(2, ICON_CLOSE, (int)(0.7f * rh), 214, 70, 60), ax, cy, 0.7f * rh, 0.7f * rh);
+                ui_put_c(ct_icon(ICON_CLOSE, (int)(0.7f * rh), 214, 70, 60), ax, cy, 0.7f * rh, 0.7f * rh);
         }
         ui_number(x0 + 4.4f * col, cy, nh, p->made_pts[t], 1);
         ui_number_signed(x0 + 5.85f * col, cy, nh, p->score[t], 1, 1);
         ui_number(x0 + 7.55f * col, cy, 1.3f * nh, p->total[t], 1);
-        if (!t) ft_rule(x0 + 0.3f * u, cy + rh / 2, pw - 0.6f * u);
+        if (!t) ct_rule(x0 + 0.3f * u, cy + rh / 2, pw - 0.6f * u);
     }
 }
 
@@ -431,10 +435,10 @@ static void draw(void)
     /* the viewer's hand (under the hand-off cover: face down, the player to come's seat) */
     uint8_t cards[BEL_HAND];
     int n, hide = ui.viewer < 0;
-    ft_hand h;
+    ct_rows h;
     hand_of(p, cards, &n, &h);
     for (int i = 0; i < n; i++) {
-        if (ft_hides(TAG_HAND, cards[i], -1)) continue;
+        if (ct_hides(&M, TAG_HAND, cards[i], -1)) continue;
         if (hide) {
             cards_draw(DECK_FRENCH, CARD_NONE, h.spot[i].x, h.spot[i].y, h.w, h.spot[i].deg, CD_DOWN);
             continue;
@@ -447,7 +451,7 @@ static void draw(void)
         }
         cards_draw(DECK_FRENCH, cards[i], h.spot[i].x, h.spot[i].y, h.w, h.spot[i].deg, how);
     }
-    ft_draw_moves();
+    ct_draw(&M);
     if (drag.on && drag.moved && !hide) cards_draw(DECK_FRENCH, drag.card, drag.x, drag.y, h.w * 1.04f, 0, CD_RAISED);
     if ((p->phase == BP_DEAL || p->phase == BP_OVER) && !busy()) draw_summary();
 }
@@ -502,9 +506,9 @@ static void press(float x, float y)
     case BP_PLAY: {
         uint8_t cards[BEL_HAND];
         int n;
-        ft_hand h;
+        ct_rows h;
         hand_of(p, cards, &n, &h);
-        int i = ft_hand_hit(&h, x, y);
+        int i = ct_rows_hit(&h, x, y);
         if (i < 0) {                            /* the table: play the raised card */
             if (sel != CARD_NONE && y < T.hand_top) play_card(sel);
             else if (sel != CARD_NONE) sel = CARD_NONE;
@@ -560,9 +564,9 @@ static void bar(int player, box b)
         word = 2;
         if (p->variant == BEL_COINCHE) value = bel_value(p->level), mult = p->coinche;
     }
-    float wt = ft_number_w(total, h, 0), gap = 0.22f * u;
-    float ww = word == 1 ? 0.55f * u : word == 2 ? ace + (value >= 0 ? 0.12f * u + ft_number_w(value, 0.8f * h, 0) : 0)
-                                                 : 0;
+    float wt = ct_number_w(total, floorf(h + 0.5f), 0), gap = 0.22f * u;
+    float vw0 = value >= 0 ? ct_number_w(value, floorf(0.8f * h + 0.5f), 0) : 0;
+    float ww = word == 1 ? 0.55f * u : word == 2 ? ace + (value >= 0 ? 0.12f * u + vw0 : 0) : 0;
     if (mult) ww += (ww > 0 ? gap : 0) + mult_w(0.7f * h);
     float need = wt + (ww > 0 ? gap + ww : 0), k = need > b.w ? b.w / need : 1;
     h *= k, gap *= k, ace *= k, wt *= k;
@@ -571,14 +575,14 @@ static void bar(int player, box b)
     x += wt + gap;
     if (word == 1) {
         float d = 0.55f * u * k;
-        ui_put_c(ft_icon(0, ICON_PASS, (int)d, 246, 238, 220), x + d / 2, cy, d, d);
+        ui_put_c(ct_icon(ICON_PASS, (int)d, 246, 238, 220), x + d / 2, cy, d, d);
         x += d;
     } else if (word == 2) {
         int suit = p->phase <= BP_AUCTION ? BA_ARG(p->said[player]) & 3 : p->trump;
         cards_draw(DECK_FRENCH, CARD(suit, RANK_ACE), x + ace / 2, cy, ace, 0, CD_FLAT);
         x += ace;
         if (value >= 0) {
-            float vw = ft_number_w(value, 0.8f * h, 0);
+            float vw = ct_number_w(value, floorf(0.8f * h + 0.5f), 0);
             ui_number(x + 0.12f * u * k + vw / 2, cy, 0.8f * h, value, 1);
             x += 0.12f * u * k + vw;
         }

@@ -868,16 +868,37 @@ void cards_suit_icon(int deck, int suit, int size, uint8_t *rgba)
     if (deck == DECK_ITALIAN) { cards_italian_symbol(suit, size, rgba); return; }
     int s = size, w = s < 52 ? s : (int)ceilf(s / 0.6f), h = (int)(w * cards_aspect(DECK_FRENCH));
     canvas c = {rgba, s, s};
+    int ix = (w - s) / 2, iy = (h - s) / 2;
     for (int i = 0; i < s * s; i++) memcpy(rgba + 4 * i, (const uint8_t[4]){IVORY[0], IVORY[1], IVORY[2], 255}, 4);
-    float x0 = (float)((w - s) / 2), y0 = (float)((h - s) / 2);
+    if (s < 52) {                               /* small: as wide as the card, its rim at the sides */
+        canvas f = {calloc((size_t)w * h, 4), w, h};
+        if (f.o) {
+            body(&f, IVORY, RIM);
+            for (int y = 0; y < s; y++)
+                memcpy(rgba + (size_t)y * s * 4, f.o + ((size_t)(y + iy) * w + ix) * 4, (size_t)s * 4);
+            for (int i = 0; i < s * s; i++) rgba[4 * i + 3] = 255;
+            free(f.o);
+        }
+    }
+    float x0 = (float)ix, y0 = (float)iy;
     put_suit(&c, suit & 3, w / 2.0f - x0, h / 2.0f - y0, (s < 52 ? 0.7f : 0.44f) * w, 0);
+    cards_disc_cut(rgba, s);
+    cards_disc_rim(rgba, s);
+}
+
+void cards_disc_cut(uint8_t *rgba, int s)
+{
     float r = s / 2.0f;
-    for (int y = 0; y < s; y++)                 /* the disc: everything outside its circle clear */
+    for (int y = 0; y < s; y++)
         for (int x = 0; x < s; x++) {
             float d = hypotf(x + 0.5f - r, y + 0.5f - r), a = clampf(r - d, 0, 1);
             uint8_t *p = rgba + ((size_t)y * s + x) * 4;
             p[3] = (uint8_t)(p[3] * a);
         }
+}
+
+void cards_disc_rim(uint8_t *rgba, int s)
+{
     static const uint8_t walnut[3] = {70, 48, 30};
     uint8_t *ring = malloc((size_t)s * s * 4);
     if (!ring) return;

@@ -20,6 +20,7 @@
 #include <string.h>
 
 #include "cards.h"
+#include "cards_table.h"
 #include "games/tarot.h"
 #include "shell.h"
 #include "text.h"
@@ -292,50 +293,19 @@ static float dog_band_x(int i)
 
 /* ---- the moving cards -------------------------------------------------------------------------------------------- */
 enum { H_NONE, H_HAND, H_TRICK, H_LAST, H_ASIDE, H_DOG, H_ECART };
-#define MOVES 160
-static struct { cards_slide s; int hide, card; } mv[MOVES];
-static int nmv;
-static Uint32 quiet;                            /* busy until then (the last card landed, and a moment) */
+static ct_moves M = {.rest = REST_MS};          /* the cards on the move: a moment after the last lands */
 
-static void calm(void)
-{
-    nmv = 0;
-    quiet = 0;
-}
+static void calm(void) { ct_calm(&M); }
 
 static void slide(int card, int up0, float x0, float y0, float w0, float a0, int up1, float x1, float y1, float w1,
                   float a1, int ms, int delay, int hide, int sound)
 {
-    if (nmv >= MOVES) return;
-    cards_slide_start(&mv[nmv].s, DK, card, x0, y0, w0, a0, up0, x1, y1, w1, a1, up1, ms, delay);
-    mv[nmv].hide = hide;
-    mv[nmv].card = card;
-    nmv++;
-    Uint32 end = ui_ms() + (Uint32)(delay + ms + REST_MS);
-    if (end > quiet) quiet = end;
-    if (sound >= 0) ui_sound_later(sound, delay + ms - 40 > 0 ? delay + ms - 40 : 0);
+    ct_slide(&M, DK, card, x0, y0, w0, a0, up0, x1, y1, w1, a1, up1, ms, delay, hide, card, -1, sound);
 }
 
-static void rest(int ms)
-{
-    Uint32 end = ui_ms() + (Uint32)ms;
-    if (end > quiet) quiet = end;
-}
-
-static int hides(int kind, int card)           /* card -1: how many of that kind */
-{
-    int n = 0;
-    for (int i = 0; i < nmv; i++)
-        if (mv[i].hide == kind && cards_slide_busy(&mv[i].s) && (card < 0 || mv[i].card == card)) n++;
-    return n;
-}
-
-static int busy(void)
-{
-    for (int i = 0; i < nmv; i++)
-        if (cards_slide_busy(&mv[i].s)) return 1;
-    return quiet && ui_ms() < quiet;
-}
+static void rest(int ms) { ct_until(&M, ui_ms() + (Uint32)ms); }
+static int hides(int kind, int card) { return ct_hides(&M, kind, card, -1); }   /* card -1: how many of that kind */
+static int busy(void) { return ct_busy(&M); }
 
 static int index_of(const uint8_t *c, int n, int card)
 {
@@ -966,7 +936,7 @@ static void draw(void)
     draw_band();
     if (!summary) draw_middle();
     draw_hand();
-    for (int i = 0; i < nmv; i++) cards_slide_draw(&mv[i].s);
+    ct_draw(&M);
     if (showlast && p->tricks > 0) draw_last();
     if (summary) draw_summary();
     if (p->phase == TP_VOID && !b && !pend_deal) draw_void();

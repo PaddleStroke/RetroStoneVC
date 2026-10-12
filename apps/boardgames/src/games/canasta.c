@@ -17,9 +17,8 @@
 #include <string.h>
 
 #include "cards.h"
+#include "cards_table.h"
 #include "games/canasta.h"
-#include "games/cardtable.h"
-#include "games/tricks_ui.h"
 #include "shell.h"
 
 #define SLIDE_MS 340
@@ -33,10 +32,7 @@ static int dealing, floor_n;                    /* floor_n: undo stops there (th
 static uint8_t selc[CA_ACT];                    /* the chosen cards (values: copies alike) */
 static int nsel;
 static struct { int on, moved, card; float x0, y0, x, y; } drag;
-static ct_moves M;
-static tk_gfx X;
-static SDL_Texture *t_tok[MAX_PLAYERS];
-static int tok_made;
+static ct_moves M = {.rest = 300};
 
 enum { TAG_HAND = 1, TAG_PILE, TAG_MELD, TAG_RED3, TAG_STOCK };
 
@@ -112,7 +108,8 @@ static void zone_measure(const capos *p)
     T.mw = floorf(fminf(fminf(T.colw[0], T.colw[1]) * 0.9f, h * 0.94f / (aspect() * (1 + 5 * CASCADE))));
 }
 
-static float col_x(int side, int col) { box z = T.zone[zone_of(side)]; return z.x + (col + 0.5f) * T.colw[zone_of(side)]; }
+static float col_x(int side,
+                   int col) { box z = T.zone[zone_of(side)]; return z.x + (col + 0.5f) * T.colw[zone_of(side)]; }
 static float zone_top(int side) { return T.zone[zone_of(side)].y + 0.03f * T.zone[zone_of(side)].h + T.mw * aspect() / 2; }
 
 static int order_of(int r)
@@ -297,7 +294,8 @@ static void animate(const capos *b, const ca_act *a)
         float x0, y0, w0, deg0;
         hand_spot(b, pl, a->card[0], 1, &x0, &y0, &w0, &deg0);
         if (drag.on && drag.moved) x0 = drag.x, y0 = drag.y;
-        ct_slide(&M, deck, p->pile[p->npile - 1], x0, y0, w0, deg0, up, T.dx, T.dy, T.pw, ca_wild(a->card[0]) ? 90 : 0, 1,
+        ct_slide(&M, deck, p->pile[p->npile - 1], x0, y0, w0, deg0, up, T.dx, T.dy, T.pw, ca_wild(a->card[0]) ? 90 : 0,
+                 1,
                  SLIDE_MS, 0, TAG_PILE, 0, 0, SND_PLACE);   /* a wild card lands crosswise */
         break;
     }
@@ -401,12 +399,6 @@ static int pile_act(ca_act *a)
 }
 
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
-static void textures(void)
-{
-    ct_tokens(t_tok, &tok_made, (int)(0.5f * T.u));
-    tk_tokens(&X, (int)(0.5f * T.u));
-}
-
 /* a side's row: its tokens and red 3s, its melds (the chosen cards' targets glowing), the free place, the count its
  * initial meld needs */
 static void draw_zone(const capos *p, int s)
@@ -420,7 +412,7 @@ static void draw_zone(const capos *p, int s)
         int two = p->players == 4;
         float x = tx + (two ? (k ? 0.27f : -0.27f) * T.colw[z] : 0);
         if (p->turn == pl && (p->phase == CP_DRAW || p->phase == CP_MELD)) ui_mark_gold(x, ty, 1.7f * tk);
-        ui_put_c(t_tok[pl], x, ty, tk, tk);
+        ui_put_c(ct_token(pl, (int)(0.5f * T.u)), x, ty, tk, tk);
         k++;
     }
     for (int i = 0; i < p->nred3[s]; i++) {
@@ -435,7 +427,8 @@ static void draw_zone(const capos *p, int s)
     for (int k = 0; k < n; k++) {
         int r = ranks[k], m = p->mn[s][r] - ct_hides(&M, TAG_MELD, s, r);
         float x = col_x(s, 1 + k), y;
-        int glow = mine && nsel && can(CA_MELD_IT, wild_only ? r : 0) && (wild_only || ca_meld_rank(selc, nsel, 0) == r);
+        int glow = mine && nsel && can(CA_MELD_IT, wild_only ? r : 0) && (wild_only || ca_meld_rank(selc, nsel,
+                                                                                                    0) == r);
         if (m <= 0) continue;
         if (p->mn[s][r] >= 7 && m >= 7) {       /* a canasta: a pile, a natural card on top (red if it can: natural;
                                                  * black: mixed), a wild card crosswise under a mixed one */
@@ -451,7 +444,7 @@ static void draw_zone(const capos *p, int s)
             else cards_draw(deck, wild, x, y + 0.1f * h, T.mw, 90, 0);
             cards_pile(deck, x, y, T.mw, p->mn[s][r], nat, glow ? CD_GLOW : 0);
             float d = 0.62f * T.mw;
-            tk_put(&X, TK_DISC_DARK, x, y + h / 2 + 0.36f * d, d, 0, 255, 255, 255, 255);
+            ct_pic(CT_DISC_DARK, x, y + h / 2 + 0.36f * d, d, 0, 255, 255, 255, 255);
             ui_number(x, y + h / 2 + 0.36f * d, 0.5f * d, p->mn[s][r], 1);
             continue;
         }
@@ -475,12 +468,12 @@ static void draw_zone(const capos *p, int s)
         box zb = T.zone[z];
         float d = fminf(0.8f * u, zb.h * 0.36f), x = zb.x + zb.w - d / 2 - 0.05f * u, y = zb.y + zb.h / 2;
         int v = ca_meld_points(p, s);
-        tk_put(&X, TK_DISC_DARK, x, y, d, 0, 255, 255, 255, 255);
+        ct_pic(CT_DISC_DARK, x, y, d, 0, 255, 255, 255, 255);
         ui_number(x, y, 0.38f * d, need, 1);
         if (v) {
             float x2 = x - 1.05f * d;
             if (v >= need) ui_mark_gold(x2, y, 1.6f * d);
-            tk_put(&X, TK_DISC_DARK, x2, y, d, 0, 255, 255, 255, 255);
+            ct_pic(CT_DISC_DARK, x2, y, d, 0, 255, 255, 255, 255);
             ui_number(x2, y, 0.38f * d, v, 1);
         }
     }
@@ -498,9 +491,10 @@ static void draw_others(const capos *p)
         ct_backs(deck, cx, cy, T.others.w / k * 0.7f, w, n, 0);
         float lh = fminf(0.4f * T.u, T.others.h * 0.3f);
         if (p->turn == q && (p->phase == CP_DRAW || p->phase == CP_MELD))
-            ui_mark_gold(cx - (1.15f * lh + 0.62f * lh * (n >= 10 ? 2 : 1)) / 2 + lh / 2, T.others.y + T.others.h - lh * 0.6f,
+            ui_mark_gold(cx - (1.15f * lh + 0.62f * lh * (n >= 10 ? 2 : 1)) / 2 + lh / 2,
+                         T.others.y + T.others.h - lh * 0.6f,
                          1.8f * lh);
-        ct_label(t_tok[q], cx, T.others.y + T.others.h - lh * 0.6f, lh, n);
+        ct_label(ct_token(q, (int)(0.5f * T.u)), cx, T.others.y + T.others.h - lh * 0.6f, lh, n);
     }
 }
 
@@ -521,8 +515,9 @@ static void draw_piles(const capos *p)
         cards_pile(deck, T.dx, T.dy, T.pw, np, top, glow ? CD_GLOW : 0);
     }
     if (p->npile > 0) {                         /* how many cards the pile holds */
-        float d = fminf(0.5f * T.pw, 0.62f * T.u), x = T.dx + T.pw * 0.5f, y = T.dy + T.pw * aspect() / 2;   /* its corner */
-        tk_put(&X, TK_DISC_DARK, x, y, d, 0, 255, 255, 255, 255);
+        float d = fminf(0.5f * T.pw,
+                        0.62f * T.u), x = T.dx + T.pw * 0.5f, y = T.dy + T.pw * aspect() / 2;   /* its corner */
+        ct_pic(CT_DISC_DARK, x, y, d, 0, 255, 255, 255, 255);
         ui_number(x, y, 0.5f * d, p->npile, 1);
     }
 }
@@ -558,7 +553,8 @@ static void draw_item(int row, float cx, float cy, float d)
     switch (row) {
     case 0:                                     /* the melds: three cards fanned */
         for (int i = -1; i <= 1; i++)
-            cards_draw(deck, CARD(i == 0 ? SUIT_HEARTS : SUIT_SPADES, RANK_KING), cx + i * 0.26f * d, cy + fabsf((float)i) *
+            cards_draw(deck, CARD(i == 0 ? SUIT_HEARTS : SUIT_SPADES, RANK_KING), cx + i * 0.26f * d,
+                       cy + fabsf((float)i) *
                        0.04f * d, w, i * 12.0f, CD_FLAT);
         break;
     case 1:                                     /* the canastas: a pile */
@@ -566,7 +562,7 @@ static void draw_item(int row, float cx, float cy, float d)
         cards_pile(deck, cx, cy, w, 7, CARD(SUIT_HEARTS, 7), 0);
         break;
     case 2: cards_draw(deck, CARD(SUIT_HEARTS, 3), cx, cy, w, 0, CD_FLAT); break;   /* the red 3s */
-    case 3: tk_put(&X, TK_ARROW, cx, cy, 0.7f * d, 0, 250, 214, 90, 255); break;   /* going out */
+    case 3: ct_pic(CT_ARROW, cx, cy, 0.7f * d, 0, 250, 214, 90, 255); break;   /* going out */
     case 4:                                     /* the cards left in the hands: backs */
         for (int i = -1; i <= 1; i++)
             cards_draw(deck, CARD_NONE, cx + i * 0.2f * d, cy, w, i * 10.0f, CD_DOWN | CD_FLAT);
@@ -580,7 +576,7 @@ static void draw_summary(const capos *p)
     float u = T.u, rh = fminf(0.86f * u, b.h * 0.88f / 8.6f), pw = fminf(b.w * 0.94f, 7.2f * u);
     float ph = rh * 8.4f, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
     ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 80);
-    tk_panel(&X, x0, y0, pw, ph);
+    ct_panel(x0, y0, pw, ph, 246);
     float cx[2] = {x0 + pw * 0.53f, x0 + pw * 0.82f}, ix = x0 + pw * 0.17f, y = y0 + 0.2f * rh + rh / 2;
     float tk = fminf(0.5f * u, 0.62f * rh), nh = fminf(0.38f * u, 0.46f * rh);
     int first = my_side(), lead = p->score[0] > p->score[1] ? 0 : p->score[1] > p->score[0] ? 1 : -1;
@@ -590,7 +586,7 @@ static void draw_summary(const capos *p)
             if (ca_side(p, pl) != s) continue;
             float x = cx[c] + (p->players == 4 ? (k ? 0.36f : -0.36f) * tk * 1.5f : 0);
             if (p->out == pl) ui_mark_gold(x, y, 1.8f * tk);
-            ui_put_c(t_tok[pl], x, y, tk, tk);
+            ui_put_c(ct_token(pl, (int)(0.5f * T.u)), x, y, tk, tk);
             k++;
         }
     }
@@ -604,14 +600,14 @@ static void draw_summary(const capos *p)
             else ui_fill(cx[c] - 0.12f * u, y, 0.24f * u, fmaxf(1, 0.03f * u), 246, 238, 220, 90);
         }
     }
-    tk_row_line(x0, pw, y - rh / 2, u);         /* the hand's points */
+    ct_rule(x0 + 0.3f * u, y - rh / 2, pw - 0.6f * u);         /* the hand's points */
     for (int c = 0; c < 2; c++) ui_number_signed(cx[c], y, nh * 1.1f, p->res[c ? 1 - first : first].total, 1, 1);
     y += rh * 1.2f;
     for (int c = 0; c < 2; c++) {               /* the totals */
         int s = c ? 1 - first : first;
         float d = 1.15f * rh;
         if (lead == s) ui_mark_gold(cx[c], y, 1.7f * d);
-        tk_put(&X, TK_DISC_DARK, cx[c], y, d, 0, 255, 255, 255, 255);
+        ct_pic(CT_DISC_DARK, cx[c], y, d, 0, 255, 255, 255, 255);
         ui_number_signed(cx[c], y, 0.34f * d, p->score[s], 1, 0);
     }
     float d = 0.9f * rh;                        /* the goal beside the totals */
@@ -622,13 +618,12 @@ static void draw(void)
 {
     const capos *p = &G.pos;
     if (dealing && ui.viewer >= 0) { dealing = 0; deal_slides(); }   /* the cover lifted: the hand flies in */
-    textures();
     zone_measure(p);
     draw_others(p);
     for (int s = 0; s < 2; s++) draw_zone(p, s);
     draw_piles(p);
     draw_hand(p);
-    ct_draw(&M, NULL);
+    ct_draw(&M);
     if (drag.on && drag.moved && ui.viewer >= 0) {   /* the dragged card(s) under the finger */
         uint8_t h[CA_CARDS];
         cards_spot sp[CA_CARDS];
@@ -777,7 +772,7 @@ static void release(float x, float y)
 }
 
 /* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
-static void bar(int player, box b) { tk_bar(b, G.pos.n[player], G.pos.score[ca_side(&G.pos, player)]); }
+static void bar(int player, box b) { ct_bar(b, G.pos.n[player], G.pos.score[ca_side(&G.pos, player)]); }
 
 static void token(int player, int size, uint8_t *rgba) { cards_token(player, size, rgba); }
 

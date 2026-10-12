@@ -16,17 +16,16 @@
 #include <string.h>
 
 #include "cards.h"
-#include "games/cardtable.h"
+#include "cards_table.h"
 #include "games/crapette.h"
 #include "shell.h"
 
 #define SLIDE_MS 260
 #define FLIP_MS 300
 #define DEAL_MS 380
-#define PI_F 3.14159265f
 
 static cgame G;
-static ct_moves MV;
+static ct_moves MV = {.rest = 300};
 static int dealing;
 enum { TAG_COL = 1, TAG_FOUND, TAG_CRAP, TAG_WASTE, TAG_HELD, TAG_TALON };
 /* the UI's places beyond the rules' ones: the player to move's talon and waste */
@@ -154,78 +153,28 @@ static void back_draw(int owner, float cx, float cy, float w, int how)
     cards_draw(deck_of(owner), CARD_NONE, cx, cy, w, 0, how | CD_DOWN);
 }
 
-/* a card turning over (t 0 its back, 1 its face) */
-static void flip_draw(int owner, int card, float cx, float cy, float w, float t)
-{
-    cards_draw_flip(deck_of(owner), card, cx, cy, w, 0, t, 0);
-}
-
 /* a pile of n backs, its thickness showing */
 static void backs_pile(int owner, float cx, float cy, float w, int n, int how)
 {
     if (n > 0) cards_pile(deck_of(owner), cx, cy, w, n, CARD_NONE, how);
 }
 
-/* ---- cards turning over on their way (the talon's, the deal's): drawn with their own pack's back ----------------- */
-#define FLIPS 16
-static struct { int on, owner, card, up0, up1, ms, delay, tag, a, b; float x0, y0, x1, y1, w; Uint32 t0; } fl[FLIPS];
+/* ---- cards turning over on their way (the talon's, the deal's): their own pack's back, a lower hop, no rest ------ */
+#define FLIP_TAG 16                             /* their tags: the table's (TAG_*) plus this */
 
 static void flip_start(int owner, int card, int up0, float x0, float y0, int up1, float x1, float y1, int ms,
                        int delay, int tag, int a, int b, int sound)
 {
-    for (int i = 0; i < FLIPS; i++) {
-        if (fl[i].on) continue;
-        fl[i].on = 1, fl[i].owner = owner, fl[i].card = card, fl[i].up0 = up0, fl[i].up1 = up1;
-        fl[i].x0 = x0, fl[i].y0 = y0, fl[i].x1 = x1, fl[i].y1 = y1, fl[i].w = T.w;
-        fl[i].ms = ms, fl[i].delay = delay, fl[i].tag = tag, fl[i].a = a, fl[i].b = b, fl[i].t0 = ui_ms();
-        if (sound >= 0) ui_sound_later(sound, delay + ms - 40 > 0 ? delay + ms - 40 : 0);
-        return;
-    }
+    int i = ct_slide(&MV, deck_of(owner), card, x0, y0, T.w, 0, up0, x1, y1, T.w, 0, up1, ms, delay, FLIP_TAG + tag, a,
+                     b, sound);
+    ct_rest(&MV, i, 0);
+    ct_hop(&MV, i, 0.15f, 0.1f);
 }
 
-static int flip_busy(int i) { return fl[i].on && ui_ms() - fl[i].t0 < (Uint32)(fl[i].ms + fl[i].delay); }
-
-static int flips_hide(int tag, int a)
-{
-    int n = 0;
-    for (int i = 0; i < FLIPS; i++) n += flip_busy(i) && fl[i].tag == tag && fl[i].a == a;
-    return n;
-}
-
-static int flips_hide_card(int tag, int a, int b)
-{
-    for (int i = 0; i < FLIPS; i++)
-        if (flip_busy(i) && fl[i].tag == tag && fl[i].a == a && fl[i].b == b) return 1;
-    return 0;
-}
-
-static void flips_draw(void)
-{
-    for (int i = 0; i < FLIPS; i++) {
-        if (!flip_busy(i)) { fl[i].on = 0; continue; }
-        ui_animate();
-        Uint32 el = ui_ms() - fl[i].t0;
-        float t = el < (Uint32)fl[i].delay ? 0 : (float)(el - fl[i].delay) / fl[i].ms, e = t * t * (3 - 2 * t);
-        float x = fl[i].x0 + (fl[i].x1 - fl[i].x0) * e, y = fl[i].y0 + (fl[i].y1 - fl[i].y0) * e;
-        y -= sinf(e * PI_F) * fminf(0.15f * fl[i].w, 0.1f * hypotf(fl[i].x1 - fl[i].x0, fl[i].y1 - fl[i].y0));
-        if (fl[i].up0 != fl[i].up1) flip_draw(fl[i].owner, fl[i].card, x, y, fl[i].w, fl[i].up1 ? e : 1 - e);
-        else if (fl[i].up0) cards_draw(DECK_FRENCH, fl[i].card, x, y, fl[i].w, 0, 0);
-        else back_draw(fl[i].owner, x, y, fl[i].w, 0);
-    }
-}
-
-static int busy(void)
-{
-    for (int i = 0; i < FLIPS; i++)
-        if (flip_busy(i)) return 1;
-    return ct_busy(&MV);
-}
-
-static void calm(void)
-{
-    ct_calm(&MV);
-    memset(fl, 0, sizeof fl);
-}
+static int flips_hide(int tag, int a) { return ct_hides(&MV, FLIP_TAG + tag, a, -1); }
+static int flips_hide_card(int tag, int a, int b) { return ct_hides(&MV, FLIP_TAG + tag, a, b) > 0; }
+static int busy(void) { return ct_busy(&MV); }
+static void calm(void) { ct_calm(&MV); }
 
 /* the deal: each house card flies from its owner's talon, turning over; then the crapettes' top cards turn */
 static void deal_slides(void)
@@ -463,8 +412,7 @@ static void draw(void)
     draw_found();
     draw_cols(live);
     for (int q = 0; q < 2; q++) draw_piles(q, live);
-    flips_draw();
-    ct_draw(&MV, NULL);
+    ct_draw(&MV);
     if (drag.on && drag.moved) {
         int c = crap_card_at(p, drag.place);
         if (c != CARD_NONE) cards_draw(DECK_FRENCH, c, drag.x, drag.y, T.w * 1.04f, 0, CD_RAISED);

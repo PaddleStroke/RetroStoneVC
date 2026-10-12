@@ -12,14 +12,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "games/cardtable.h"
+#include "cards_table.h"
 #include "games/families.h"
 
 #define SLIDE_MS 380
 
 static fgame G;
 static int dealing, target = -1, chosen = -1;   /* the player to ask, the family whose members show (-1) */
-static ct_moves MV;
+static ct_moves MV = {.rest = 300};
 static Uint32 flash_t;                          /* a card given (or the lucky draw): its gold light until then */
 static int flash_card = -1;
 enum { H_HAND = 1, H_SEAT, H_LAID };
@@ -229,7 +229,7 @@ static int script(const char *s)
 }
 
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
-static SDL_Texture *t_tok[MAX_PLAYERS], *t_badge[FAM_FAMILIES], *t_badge_s[FAM_FAMILIES];
+static SDL_Texture *t_badge[FAM_FAMILIES], *t_badge_s[FAM_FAMILIES];
 static int tok_made, badge_made, badge_s_made;
 
 static void badges(SDL_Texture **t, int *made, int size)
@@ -249,7 +249,7 @@ static void draw(void)
     if (dealing && ui.viewer >= 0) { dealing = 0; ct_calm(&MV); deal_slides(); }   /* the cover lifted: it flies */
     int mine = p->turn == T.me && !ui_handing() && p->phase == FP_ASK, ready = mine && !ct_moving(&MV);
     int to = asked();
-    ct_tokens(t_tok, &tok_made, (int)(0.62f * T.aw));
+    tok_made = (int)(0.62f * T.aw);
     badges(t_badge, &badge_made, (int)T.ls);
     badges(t_badge_s, &badge_s_made, (int)T.es);
     /* the stock */
@@ -262,7 +262,7 @@ static void draw(void)
         if (ready && q == to) ui_mark_gold(x, T.sy, 2.4f * T.sw);
         ct_backs(DECK_FRENCH, x, T.sy, T.sfan, T.sw, n, 0);
         if (!n) cards_place(DECK_FRENCH, x, T.sy, T.sw);
-        ct_label(t_tok[q], x, T.sy + 0.5f * ch + 0.32f * T.sw, 0.46f * T.sw, n);
+        ct_label(ct_token(q, tok_made), x, T.sy + 0.5f * ch + 0.32f * T.sw, 0.46f * T.sw, n);
         for (int i = 0; i < p->nlaid[q]; i++) {
             float bx, by, bs;
             laid_at(q, i, &bx, &by, &bs);
@@ -284,8 +284,8 @@ static void draw(void)
         }
     } else if (p->ask_from != FAM_NONE) {
         float cx = T.ax + 2.65f * 1.06f * T.aw, d = 0.62f * T.aw, gap = 1.25f * T.aw;
-        ui_put_c(t_tok[p->ask_from], cx - gap, y, d, d);
-        ui_put_c(t_tok[p->ask_to], cx + gap, y, d, d);
+        ui_put_c(ct_token(p->ask_from, tok_made), cx - gap, y, d, d);
+        ui_put_c(ct_token(p->ask_to, tok_made), cx + gap, y, d, d);
         cards_draw(fam_deck(), p->ask_card, cx, y, T.aw, 0, p->answer == FAM_MISSED ? CD_DIM : CD_GLOW);
         if (p->answer != FAM_GIVEN)             /* pioche: a back over the stock's way */
             cards_draw(DECK_FRENCH, CARD_NONE, cx + 0.45f * T.aw, y + 0.5f * T.aw, 0.5f * T.aw, 12,
@@ -303,7 +303,7 @@ static void draw(void)
         if (c == flash_card && ui_ms() < flash_t) { ui_mark_gold(s[i].x, s[i].y, 1.7f * w); ui_animate(); }
         cards_draw(fam_deck(), c, s[i].x, s[i].y, w, s[i].deg, how);
     }
-    ct_draw(&MV, NULL);
+    ct_draw(&MV);
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */

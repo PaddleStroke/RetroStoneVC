@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "games/cardtable.h"
+#include "cards_table.h"
 #include "games/oldmaid.h"
 
 #define SLIDE_MS 420
@@ -18,7 +18,7 @@
 
 static ogame G;
 static int dealing;
-static ct_moves MV;
+static ct_moves MV = {.rest = 300};
 enum { H_HAND = 1, H_SEAT, H_PILE };
 
 static struct {
@@ -187,7 +187,6 @@ static int script(const char *s)
 }
 
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
-static SDL_Texture *t_tok[MAX_PLAYERS];
 static int tok_made;
 
 static void draw(void)
@@ -196,7 +195,7 @@ static void draw(void)
     if (dealing && ui.viewer >= 0) { dealing = 0; ct_calm(&MV); deal_slides(); }   /* the cover lifted: it flies */
     int over = p->phase == OP_OVER, o = om_offerer(p), mine = p->turn == T.me && !ui_handing();
     int ready = mine && !over && !ct_moving(&MV);
-    ct_tokens(t_tok, &tok_made, (int)fmaxf(8, 0.5f * T.sw));
+    tok_made = (int)fmaxf(8, 0.5f * T.sw);
     /* the pairs */
     int np = p->npile - ct_hides(&MV, H_PILE, -1, -1);
     cards_pile(DECK_FRENCH, T.px, T.py, T.pw, np, np > 0 ? p->pile[np - 1] : CARD_NONE, 0);
@@ -215,7 +214,7 @@ static void draw(void)
             ct_backs(DECK_FRENCH, x, T.sy, T.sfan, T.sw, n, 0);
             if (!n) cards_place(DECK_FRENCH, x, T.sy, T.sw);
         }
-        ct_label(t_tok[q], x, T.sy + 0.5f * ch + 0.32f * T.sw + 0.12f * ch, 0.48f * T.sw, p->n[q]);
+        ct_label(ct_token(q, tok_made), x, T.sy + 0.5f * ch + 0.32f * T.sw + 0.12f * ch, 0.48f * T.sw, p->n[q]);
     }
     if (o >= 0) {
         cards_spot s[OM_CARDS];
@@ -235,7 +234,7 @@ static void draw(void)
         if (over && c == OM_ODD) ui_mark_glow(s[i].x, s[i].y, 1.6f * w);
         cards_draw(DECK_FRENCH, c, s[i].x, s[i].y, w, s[i].deg, 0);
     }
-    ct_draw(&MV, NULL);
+    ct_draw(&MV);
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */

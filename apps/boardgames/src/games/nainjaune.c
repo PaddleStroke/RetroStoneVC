@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "games/cardtable.h"
+#include "cards_table.h"
 #include "games/dicecup.h"
 #include "games/nainjaune.h"
 
@@ -26,7 +26,7 @@
 
 static njgame G;
 static int dealing, variant;
-static ct_moves MV;
+static ct_moves MV = {.rest = 300};
 enum { H_HAND = 1, H_SEAT, H_RUN };
 
 /* the wells: their centres and radii, fractions of the board */
@@ -141,8 +141,7 @@ static void fly_chips(float x0, float y0, float x1, float y1, int n, int delay)
     if (n <= 0 || nfly >= FLIGHTS) return;
     n = n > 8 ? 8 : n;                          /* a handful shows many */
     fly[nfly++] = (flight){x0, y0, x1, y1, n, ui_ms() + (Uint32)delay};
-    Uint32 end = ui_ms() + (Uint32)(delay + FLY_MS + FLY_GAP * (n - 1) + CT_REST);
-    if (end > MV.quiet) MV.quiet = end;
+    ct_until(&MV, ui_ms() + (Uint32)(delay + FLY_MS + FLY_GAP * (n - 1) + MV.rest));
     ui_sound_later(SND_PLACE, delay + FLY_MS - 30);
 }
 
@@ -326,7 +325,7 @@ static void board_pic(int n, uint8_t *o)
     }
 }
 
-static SDL_Texture *t_board, *t_chip, *t_chip_bar, *t_tok[MAX_PLAYERS], *t_panel;
+static SDL_Texture *t_board, *t_chip, *t_chip_bar, *t_panel;
 static int board_made, chip_made, chip_bar_made, tok_made, panel_w, panel_h;
 
 static SDL_Texture *chip_tex(SDL_Texture **t, int *made, int size)
@@ -351,7 +350,7 @@ static void textures(void)
         t_board = ui_tex(n, n, ui_buf(n, n));
     }
     chip_tex(&t_chip, &chip_made, (int)(0.075f * T.B));
-    ct_tokens(t_tok, &tok_made, (int)fmaxf(8, 0.5f * T.sw));
+    tok_made = (int)fmaxf(8, 0.5f * T.sw);
 }
 
 static void chip_at(float x, float y, float d)
@@ -402,11 +401,11 @@ static void draw_summary(void)
     cards_draw(DECK_FRENCH, nj_box_card[NJ_SEVEN], c2, hy, cw, 0, 0);
     chip_tex(&t_chip_bar, &chip_bar_made, (int)(0.6f * rh));
     if (t_chip_bar) ui_put_c(t_chip_bar, c3, hy, 0.6f * rh, 0.6f * rh);
-    ct_tokens(t_tok, &tok_made, (int)(0.6f * u));
+    tok_made = (int)(0.6f * u);
     for (int q = 0; q < p->players; q++) {
         float cy = hy + (q + 1) * rh, tx = x0 + 0.7f * u, d = fminf(0.7f * rh, 0.8f * u), nh = 0.42f * rh;
         if (q == p->out) ui_mark_gold(tx, cy, 2.0f * d);
-        ui_put_c(t_tok[q], tx, cy, d, d);
+        ui_put_c(ct_token(q, tok_made), tx, cy, d, d);
         ui_number_signed(c1, cy, nh, p->got_cards[q], 1, 1);
         int wells = p->got_boxes[q] + p->paid_again[q];
         if (q == p->out && p->opera) ui_mark_gold(c2, cy, 1.8f * nh);
@@ -444,7 +443,7 @@ static void draw(void)
         if (q == p->turn && p->phase == NP_PLAY) ui_mark_gold(x, T.sy, 2.2f * T.sw);
         ct_backs(DECK_FRENCH, x, T.sy, T.sfan, T.sw, k, 0);
         if (!k) cards_place(DECK_FRENCH, x, T.sy, T.sw);
-        ct_label(t_tok[q], x, T.sy + 0.5f * ch + 0.32f * T.sw + 0.12f * ch, 0.48f * T.sw, p->n[q]);
+        ct_label(ct_token(q, tok_made), x, T.sy + 0.5f * ch + 0.32f * T.sw + 0.12f * ch, 0.48f * T.sw, p->n[q]);
     }
     /* the hand, sorted: the cards that can be played glow (under the hand-off cover: face down) */
     uint8_t order[NJ_HAND];
@@ -458,7 +457,7 @@ static void draw(void)
         int how = mine && !moving && nj_legal(p, c) ? CD_GLOW : 0;
         cards_draw(DECK_FRENCH, c, s[i].x, s[i].y, w, s[i].deg, how);
     }
-    ct_draw(&MV, NULL);
+    ct_draw(&MV);
     /* the chips in the air */
     Uint32 now = ui_ms();
     int any = 0;

@@ -1,37 +1,36 @@
 /*
  * Briscola in RetroStoneBoard: 2 players, or 4 in two partnerships, passing the device round, each hand secret
  * (VIEW_HIDDEN; the rules: briscola_rules.c, briscola.h). The Italian pack (the card kit's DECK_ITALIAN) on the
- * trick-taking table (games/tricks_ui.h: the seats, the trick, the hand, the touch, the summary's panel). The stock at
- * the lower left, the briscola across under it, face up; once it is drawn, its suit's symbol stays in its place.
- * Playing: tap a card (it rises), then tap it again or its place in the middle; or drag it there. A full trick stays a
- * moment, then goes to its winner; then each player draws, the winner first. The trick pile at the lower right: tap it
- * to see the last trick. At the end, each side's counting cards (aces, threes, re, cavalli, fanti) in a row and its
- * points.
+ * trick-taking table (the kit's cards_table.h: the seats, the trick, the hand, the touch, the summary's panel). The
+ * stock at the lower left, the briscola across under it, face up; once it is drawn, its suit's symbol stays in its
+ * place. Playing: tap a card (it rises), then tap it again or its place in the middle; or drag it there. A full trick
+ * stays a moment, then goes to its winner; then each player draws, the winner first. The trick pile at the lower right:
+ * tap it to see the last trick. At the end, each side's counting cards (aces, threes, re, cavalli, fanti) in a row and
+ * its points.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "games/briscola.h"
 #include "cards_table.h"
-#include "games/tricks_ui.h"
+#include "cards_table.h"
+#include "games/briscola.h"
 #include "shell.h"
 
 #define DRAW_MS 320
 
 static brgame G;
-static tk_table T;
-static tk_anim A;
-static tk_gfx X;
-static tk_touch F;
+static ct_table T = {.deck = DECK_ITALIAN};
+static ct_moves A = {.rest = 200};             /* the draws' rest */
+static ct_touch F;
 static int floor_n, show_last;
 static unsigned seen;
 static float ws, stx, sty;                      /* the stock: its cards' width, centre */
 
 static void layout(box b)
 {
-    tk_layout(&T, b, G.pos.players, ui_bottom(), 5);   /* as for a hand of 5: the three spread out */
+    ct_layout(&T, b, G.pos.players, ui_bottom(), 5);   /* as for a hand of 5: the three spread out */
     ws = floorf(0.78f * T.wt);
     stx = b.x + 0.35f * T.u + 0.5f * ws * cards_aspect(DECK_ITALIAN);
     sty = T.hand_top - 0.5f * ws * cards_aspect(DECK_ITALIAN) - 0.1f * T.u;
@@ -40,7 +39,7 @@ static void layout(box b)
 static void reset_ui(void)
 {
     show_last = 0;
-    tk_touch_reset(&F);
+    ct_touch_reset(&F);
 }
 
 /* the briscola lying across under the stock: its centre */
@@ -55,8 +54,7 @@ static void start(int v)
 {
     (void)v;
     briscola_new(&G, ui.players, (uint32_t)ui_random(1 << 30));
-    tk_calm(&A);
-    A.deck = DECK_ITALIAN;
+    ct_calm(&A);
     reset_ui();
     floor_n = 0;
     seen = 0;
@@ -99,36 +97,37 @@ static void draws(const brpos *b, int delay)
         float x0 = stx, y0 = sty, a0 = 0;
         if (briscola) trump_at(&x0, &y0), a0 = 90;
         if (q == T.me) {                        /* the viewer's own: it turns up as it lands */
-            cards_spot s[TK_HAND];
-            tk_fan(&T, p->n[q], s);
+            cards_spot s[CT_HAND];
+            ct_fan(&T, p->n[q], s);
             int i = 0;
             while (i < p->n[q] - 1 && p->hand[q][i] != c) i++;
-            tk_slide(&A, c, x0, y0, ws, a0, briscola, s[i].x, s[i].y, T.wh, s[i].deg, 1, DRAW_MS, delay + 160 * k,
-                     TK_HAND_TAG, c, 0, SND_MOVE, 200);
+            ct_slide(&A, DECK_ITALIAN, c, x0, y0, ws, a0, briscola, s[i].x, s[i].y, T.wh, s[i].deg, 1, DRAW_MS,
+                     delay + 160 * k, CT_HAND_TAG, c, -1, SND_MOVE);
         } else
-            tk_slide(&A, c, x0, y0, ws, a0, briscola, T.sx[q], T.sy[q], 0.45f * T.wt, T.tdeg[q], 0, DRAW_MS,
-                     delay + 160 * k, TK_SEAT, q, 0, SND_MOVE, 200);
+            ct_slide(&A, DECK_ITALIAN, c, x0, y0, ws, a0, briscola, T.sx[q], T.sy[q], 0.45f * T.wt, T.tdeg[q], 0,
+                     DRAW_MS,
+                     delay + 160 * k, CT_SEAT, q, -1, SND_MOVE);
     }
 }
 
 static void animate(const brpos *b, int card, const uint8_t *h, int n)
 {
     const brpos *p = &G.pos;
-    tk_play(&A, &T, &F, h, n, card);
+    ct_play(&A, &T, &F, h, n, card);
     if (p->tricks == b->tricks) return;
-    int look = TK_SLIDE_MS + TK_LOOK_MS;
-    tk_gather(&A, &T, p->last, p->players, p->last_leader, p->last_winner, look, TK_SLIDE_MS);
+    int look = CT_SLIDE_MS + CT_LOOK_MS;
+    ct_gather(&A, &T, p->last, NULL, p->players, p->last_leader, p->last_winner, look, CT_SLIDE_MS);
     if (p->ndrew) draws(b, look + 360 + 30 * p->players + 100);
 }
 
 static void act(int card)
 {
     brpos before = G.pos;
-    uint8_t h[TK_HAND];
-    int how[TK_HAND];
+    uint8_t h[CT_HAND];
+    int how[CT_HAND];
     int n = hand(h, how, 0);
     if (!briscola_play(&G, card)) { ui_sound(SND_DENY); return; }
-    tk_calm(&A);
+    ct_calm(&A);
     animate(&before, card, h, n);
     reset_ui();
     floor_n = G.n;
@@ -139,7 +138,7 @@ static int undo(void)
 {
     if (F.raised != CARD_NONE || show_last) { reset_ui(); return 1; }
     if (G.n <= floor_n || !briscola_undo(&G)) return 0;
-    tk_calm(&A);
+    ct_calm(&A);
     reset_ui();
     ui_handoff(G.pos.turn);
     return 1;
@@ -148,7 +147,7 @@ static int undo(void)
 static int script(const char *s)
 {
     int ok = briscola_script(&G, s);
-    tk_calm(&A);
+    ct_calm(&A);
     reset_ui();
     floor_n = G.n;
     seen = ~0u;
@@ -156,34 +155,15 @@ static int script(const char *s)
     return ok;
 }
 
-static int busy(void) { return tk_busy(&A); }
+static int busy(void) { return ct_busy(&A); }
 
-/* ---- drawing: the trick table's parts with the Italian faces ----------------------------------------------------- */
-static void trick_draw(const brpos *p)
-{
-    for (int i = 0; i < p->ntrick; i++) {
-        int pl = (p->leader + i) % p->players;
-        if (!tk_hides(&A, TK_TRICK, pl)) cards_draw(DECK_ITALIAN, p->trick[i], T.tx[pl], T.ty[pl], T.wt, T.tdeg[pl], 0);
-    }
-}
-
-static void last_draw(const brpos *p)
-{
-    ui_fill(T.b.x, T.b.y, T.b.w, T.hand_top - T.b.y, 0, 0, 0, 90);
-    ui_mark_gold(T.sx[p->last_winner], T.sy[p->last_winner], 2.6f * T.tok);
-    for (int i = 0; i < p->players; i++) {
-        int pl = (p->last_leader + i) % p->players;
-        cards_draw(DECK_ITALIAN, p->last[i], T.tx[pl], T.ty[pl], T.wt, T.tdeg[pl],
-                   pl == p->last_winner ? CD_RAISED : 0);
-    }
-}
-
+/* ---- drawing (the trick table with the Italian pack: T.deck) -----------------------------------------------------*/
 /* the stock on the briscola lying across; once all is drawn, the trumps' symbol in its place */
 static void stock_draw(const brpos *p)
 {
     int n = p->nstock, gone = 0;
     for (int i = 0; i < A.n; i++)               /* the cards on their way out still show in the stock */
-        if (cards_slide_busy(&A.m[i].s) && (A.m[i].tag == TK_SEAT || A.m[i].tag == TK_HAND_TAG) &&
+        if (cards_slide_busy(&A.m[i].s) && (A.m[i].tag == CT_SEAT || A.m[i].tag == CT_HAND_TAG) &&
             ui_ms() < A.m[i].s.t0 + (Uint32)A.m[i].s.delay)
             gone++;
     n += gone;
@@ -204,16 +184,16 @@ static void draw_summary(void)
 {
     const brpos *p = &G.pos;
     float x0, pw, y, rh, u = T.u;
-    tk_summary(&X, &T, 2, &x0, &pw, &y, &rh);
+    ct_summary(&T, 2, &x0, &pw, &y, &rh);
     rh = fminf(rh, 1.5f * u);
     float d = fminf(0.6f * rh, 0.75f * u);
-    tk_tokens(&X, (int)d);
+    const int ts = (int)d;
     int w = briscola_winner(p), four = p->players == 4;
     static const int order[5] = {1, 3, IT_RE, IT_CAVALLO, IT_FANTE};
     for (int s = 0; s < 2; s++, y += rh) {
         float tx = x0 + 0.65f * u;
         if (s == w) ui_mark_gold(tx + (four ? 0.42f * d : 0), y, 2.0f * d);
-        for (int k = 0; k < (four ? 2 : 1); k++) ui_put_c(X.tok[s + 2 * k], tx + k * 0.85f * d, y, d, d);
+        for (int k = 0; k < (four ? 2 : 1); k++) ui_put_c(ct_token(s + 2 * k, ts), tx + k * 0.85f * d, y, d, d);
         uint8_t c[20];
         int n = 0;
         for (int r = 0; r < 5; r++)
@@ -224,41 +204,36 @@ static void draw_summary(void)
         float step = n > 1 ? fminf(1.05f * cw, (right - left - cw) / (n - 1)) : 0;
         for (int i = 0; i < n; i++) cards_draw(DECK_ITALIAN, c[i], left + cw / 2 + i * step, y, cw, 0, CD_FLAT);
         ui_number(x0 + pw - 0.85f * u, y, 0.5f * rh, p->points[s], 1);
-        if (s == 0) tk_row_line(x0, pw, y + rh / 2, u);
+        if (s == 0) ct_rule(x0 + 0.3f * u, y + rh / 2, pw - 0.6f * u);
     }
 }
 
 static void draw(void)
 {
     const brpos *p = &G.pos;
-    int hide = ui.viewer < 0, live = !ui_handing() && !tk_busy(&A) && p->phase == BR_PLAY;
+    int hide = ui.viewer < 0, live = !ui_handing() && !ct_busy(&A) && p->phase == BR_PLAY;
     if (T.me != ui_bottom() && ui_bottom() >= 0) layout(T.b);
     if (!(seen >> T.me & 1) && !ui_handing()) {   /* the deal, as each player first sees it */
         seen |= 1u << T.me;
-        uint8_t h[TK_HAND];
-        int how[TK_HAND];
-        tk_deal(&A, &T, h, hand(h, how, 0));
+        uint8_t h[CT_HAND];
+        int how[CT_HAND];
+        ct_deal(&A, &T, h, hand(h, how, 0));
     }
-    tk_draw_seats(&X, &T, p->phase == BR_PLAY ? p->turn : -1);
-    tk_draw_pile(&T, p->tricks);
+    ct_draw_seats(&T, p->phase == BR_PLAY ? p->turn : -1);
+    ct_draw_pile(&T, p->tricks);
     stock_draw(p);
-    trick_draw(p);
-    if (F.raised != CARD_NONE && live) tk_draw_target(&T);
-    uint8_t h[TK_HAND];
-    int how[TK_HAND];
+    ct_draw_trick(&T, &A, p->trick, NULL, p->ntrick, p->leader);
+    if (F.raised != CARD_NONE && live) ct_draw_target(&T);
+    uint8_t h[CT_HAND];
+    int how[CT_HAND];
     int n = hand(h, how, live);
-    if (hide) tk_hand_backs(&T, n);
-    else {
-        cards_spot s[TK_HAND];
-        tk_fan(&T, n, s);
-        for (int i = 0; i < n; i++)
-            if (!(F.on && h[i] == F.card) && !tk_hides(&A, TK_HAND_TAG, h[i]))
-                cards_draw(DECK_ITALIAN, h[i], s[i].x, s[i].y, T.wh, s[i].deg, how[i]);
-    }
-    tk_draw_moves(&A);
-    if (!hide && F.card != CARD_NONE && F.on) cards_draw(DECK_ITALIAN, F.card, F.x, F.y, T.wh, 0, CD_RAISED);
-    if (show_last && p->last_winner != BRISCOLA_NONE) last_draw(p);
-    if (p->phase == BR_OVER && !tk_busy(&A)) draw_summary();
+    if (hide) ct_hand_backs(&T, n);
+    else ct_hand_draw(&T, &A, h, n, how, NULL, F.on ? F.card : CARD_NONE);
+    ct_draw(&A);
+    if (!hide) ct_touch_draw(&F, &T);
+    if (show_last && p->last_winner != BRISCOLA_NONE)
+        ct_draw_last(&T, p->last, NULL, p->players, p->last_leader, p->last_winner);
+    if (p->phase == BR_OVER && !ct_busy(&A)) draw_summary();
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
@@ -268,28 +243,28 @@ static void press(float x, float y)
     F.card = CARD_NONE;
     F.on = 0;
     if (show_last) { show_last = 0; return; }
-    if (tk_busy(&A) || p->phase != BR_PLAY) return;
-    if (tk_on_pile(&T, p->tricks, x, y)) { show_last = 1; ui_sound(SND_TAP); return; }
+    if (ct_busy(&A) || p->phase != BR_PLAY) return;
+    if (ct_on_pile(&T, p->tricks, x, y)) { show_last = 1; ui_sound(SND_TAP); return; }
     if (p->turn != T.me) { ui_sound(SND_DENY); return; }
-    if (F.raised != CARD_NONE && tk_on_target(&T, x, y)) { act(F.raised); return; }
-    uint8_t h[TK_HAND];
-    int how[TK_HAND];
-    int n = hand(h, how, 1), c = tk_hand_at(&T, h, n, how, NULL, x, y);
+    if (F.raised != CARD_NONE && ct_on_target(&T, x, y)) { act(F.raised); return; }
+    uint8_t h[CT_HAND];
+    int how[CT_HAND];
+    int n = hand(h, how, 1), c = ct_hand_at(&T, h, n, how, NULL, x, y);
     if (c == CARD_NONE) {
         if (F.raised != CARD_NONE) F.raised = CARD_NONE;
         else ui_sound(SND_DENY);
         return;
     }
-    tk_touch_down(&F, c, x, y);
+    ct_touch_down(&F, c, x, y);
 }
 
-static void motion(float x, float y) { tk_touch_move(&F, x, y); }
+static void motion(float x, float y) { ct_touch_move(&F, x, y); }
 
 static void release(float x, float y)
 {
-    int c, r = tk_touch_up(&F, &T, x, y, &c);
-    if (r == TK_T_SEND) act(c);
-    else if (r == TK_T_TAP && tk_tap_play(&F, c, 1)) act(c);
+    int c, r = ct_touch_up(&F, &T, x, y, &c);
+    if (r == CT_T_SEND) act(c);
+    else if (r == CT_T_TAP && ct_tap_play(&F, c, 1)) act(c);
     F.on = 0;
 }
 

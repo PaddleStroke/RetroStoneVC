@@ -146,6 +146,9 @@ int cards_deck_add(const cards_deck_def *def);
 /* a suit's sign alone, size x size: the French suits' pip on an ivory disc in a thin walnut rim (a call, the trumps);
  * DECK_ITALIAN: the suit's symbol (a coin, a cup, a sword, a club) */
 void cards_suit_icon(int deck, int suit, int size, uint8_t *rgba);
+/* a picture of size x size made a disc: everything outside its circle cleared; a thin walnut rim round it */
+void cards_disc_cut(uint8_t *rgba, int size);
+void cards_disc_rim(uint8_t *rgba, int size);
 /* a card painted into a picture of size x size (the menu's cards), centred on (cx, cy), w wide; _turned: turned deg
  * degrees, sampled smoothly. CARD_NONE: its back. */
 void cards_paint_at(uint8_t *rgba, int size, int deck, int card, float cx, float cy, int w);

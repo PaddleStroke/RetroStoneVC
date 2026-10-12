@@ -13,7 +13,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "games/cardtable.h"
 #include "cards_table.h"
 #include "games/scopa.h"
 #include "shell.h"
@@ -27,7 +26,7 @@
 enum { H_NONE, H_HAND, H_TABLE, H_PILE, H_SEAT };
 
 static scgame G;
-static ct_moves MV;
+static ct_moves MV = {.rest = 300};
 static int floor_n, dealing, preview;   /* preview: the table made room for a card that takes nothing */
 static struct {                                 /* the viewer's finger and choice */
     int card, on, raised;                       /* the card touched, dragged far enough; the card risen (-1) */
@@ -359,8 +358,6 @@ static int go(int card, uint32_t picks)
 }
 
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
-static SDL_Texture *t_tok[MAX_PLAYERS], *t_big[MAX_PLAYERS], *t_panel;
-static int tok_size, big_size, panel_w, panel_h;
 
 static void draw_pile(int pl)
 {
@@ -389,16 +386,8 @@ static void draw_summary(void)
     box b = T.b;
     float u = ui.unit, pw = fminf(b.w * 0.96f, 9.4f * u), rh = fminf(1.25f * u, b.h * 0.2f), hh = 1.1f * rh;
     float ph = hh + 2 * rh + 0.4f * u, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
-    if (panel_w != (int)pw || panel_h != (int)ph) {
-        panel_w = (int)pw;
-        panel_h = (int)ph;
-        static const uint8_t c[4] = {28, 34, 32, 246};
-        ui_free(&t_panel);
-        art_roundrect(panel_w, panel_h, 0.4f * u, c, ui_buf(panel_w, panel_h));
-        t_panel = ui_tex(panel_w, panel_h, ui_buf(panel_w, panel_h));
-    }
     ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 80);
-    ui_put(t_panel, x0, y0, pw, ph);
+    ct_panel(x0, y0, pw, ph, 246);
     /* the columns: tokens, 5 counts, the round, the total */
     float tw = (p->players == 4 ? 2.1f : 1.0f) * 0.8f * rh, cw = (pw - tw - 0.4f * u) / 7.2f;
     float cx[8], hy = y0 + 0.2f * u + hh / 2, ic = fminf(0.62f * hh, 0.92f * cw);
@@ -416,12 +405,12 @@ static void draw_summary(void)
     cards_pile(DECK_FRENCH, cx[5], hy, 0.34f * ic, 4, CARD_NONE, CD_FLAT);
     ui_fill(x0 + 0.3f * u, y0 + 0.2f * u + hh, pw - 0.6f * u, fmaxf(1, 0.02f * u), 246, 238, 220, 60);
     int lead = p->score[0] == p->score[1] ? -1 : p->score[1] > p->score[0];
-    ct_tokens(t_big, &big_size, (int)fminf(0.66f * rh, 0.8f * u));
+    int big = (int)fminf(0.66f * rh, 0.8f * u);
     for (int s = 0; s < 2; s++) {
-        float y = y0 + 0.2f * u + hh + (s + 0.5f) * rh, d = (float)big_size, nh = 0.42f * rh;
+        float y = y0 + 0.2f * u + hh + (s + 0.5f) * rh, d = (float)big, nh = 0.42f * rh;
         if (s == lead) ui_mark_gold(cx[0], y, 1.6f * tw);
         for (int q = s, k = 0; q < p->players; q += 2, k++)
-            ui_put_c(t_big[q], cx[0] + (p->players == 4 ? (k ? 0.24f : -0.24f) * tw : 0), y, d, d);
+            ui_put_c(ct_token(q, big), cx[0] + (p->players == 4 ? (k ? 0.24f : -0.24f) * tw : 0), y, d, d);
         for (int k = 0; k < SCORE_KINDS; k++) {
             float x = cx[1 + k];
             if (p->won[s][k]) ui_mark_gold(x, y, 1.5f * fminf(cw, rh));
@@ -445,7 +434,7 @@ static void draw(void)
     if (dealing) { dealing = 0; deal_round(); }
     int hide = ui.viewer < 0, live = !hide && !ui_handing() && !busy() && p->phase == SC_PLAY && p->turn == T.me;
     float u = ui.unit;
-    ct_tokens(t_tok, &tok_size, (int)fmaxf(4, T.tok));
+    int ts = (int)fmaxf(4, T.tok);
     /* the stock, the piles, the others' hands */
     if (p->nstock) cards_pile(DECK_FRENCH, T.stx, T.sty, T.wp, p->nstock, CARD_NONE, 0);
     for (int q = 0; q < p->players; q++) {
@@ -454,7 +443,7 @@ static void draw(void)
         int n = p->n[q] - ct_hides(&MV, H_SEAT, q, -1);
         if (n > 0) ct_backs(DECK_FRENCH, T.sx[q], T.sy, 2.4f * T.sw, T.sw, n, 0);
         if (p->turn == q && p->phase == SC_PLAY) ui_mark_gold(T.sx[q], T.ty, 2.2f * T.tok);
-        ui_put_c(t_tok[q], T.sx[q], T.ty, T.tok, T.tok);
+        ui_put_c(ct_token(q, ts), T.sx[q], T.ty, T.tok, T.tok);
     }
     /* the table; a card that takes nothing, risen or dragged over the table: the others make room for it */
     int lone = F.on && F.card >= 0 ? (F.y < T.hand_top ? F.card : -1) : F.raised;
@@ -487,7 +476,7 @@ static void draw(void)
         int how = hide ? CD_DOWN : c == F.raised ? CD_RAISED : live && F.raised < 0 ? CD_GLOW : 0;
         cards_draw(DECK_ITALIAN, c, s[i].x, s[i].y, T.wh, s[i].deg, how);
     }
-    ct_draw(&MV, NULL);
+    ct_draw(&MV);
     if (F.on && F.card >= 0 && !hide) cards_draw(DECK_ITALIAN, F.card, F.x, F.y, T.wh, 0, CD_RAISED);
     (void)u;
     if ((p->phase == SC_ROUND || p->phase == SC_OVER) && !busy()) draw_summary();
