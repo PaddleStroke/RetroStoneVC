@@ -82,6 +82,11 @@ typedef struct game {
      * store (shell/levels/<id>; ui_level_best() reads it), and its end card offers the next level. The new game
      * button goes back to the level screen. */
     int levels;                                 /* how many (0: none, the picker as usual) */
+    /* optional, a game of levels that also makes puzzles at random: the level screen gets one more tab after the
+     * chapters (a die): the variant picker (its variants, thumb(), two axes), and a card picked there starts
+     * start_random(variant) instead of start(level); ui.level is then -1. Its end card's next button: a new random
+     * puzzle of that variant (replay: the same one). Stars are kept per level only. */
+    void (*start_random)(int variant);
     int chapters;                               /* the tabs: the levels split evenly (0, 1: one chapter) */
     int (*chapter_of)(int level);               /* optional: a level's chapter (0.., never going down): uneven ones */
     void (*chapter_icon)(int chapter, int size, uint8_t *rgba);   /* optional: a tab's picture (else its number) */
@@ -120,6 +125,8 @@ extern struct ui {
     float unit;                                 /* a ninth of the board's side: the size of the marks, the bars */
     int viewer;                                 /* VIEW_* games: whose view is shown (their hand at the bottom); -1
                                                  * while the hand-off cover is up (draw no hand) */
+    int level;                                  /* a game of levels: the level in play (0..levels-1); -1 a random game
+                                                 * (start_random), or a game without levels */
 } ui;
 
 static inline float clampf(float v, float lo, float hi) { return v < lo ? lo : v > hi ? hi : v; }

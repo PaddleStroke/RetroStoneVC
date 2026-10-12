@@ -9,13 +9,15 @@
  *   retrostoneboard --shot out.bmp [--size 720x1280] [--game chess] [--variant 0] [--moves "e2e4 e7e5"]
  *                   [--taps "0.5,0.9 0.5,0.7"] [--drag "0.1,0.9 0.5,0.5"] [--hold "0.5,0.5 800"] [--flip] [--f2f]
  *                   [--keep] [--pick] [--players n] [--reveal] [--at ms] [--level n] [--solved "1-12:3 13:2"]
- *                   [--keys "Up Left"] [--save DIR]
+ *                   [--keys "Up Left"] [--random] [--save DIR]
  *                                     one picture, no window: the menu (no --game), the picker (--pick) or a game
  *                                     after its moves (its own notation) and gestures (fractions of the board; of the
  *                                     screen on the menu and the pickers); the hand-off cover lifted (--reveal: the
  *                                     start button tapped); a clock of its own (the same picture every time); nothing
  *                                     kept from a past run (--save DIR: that folder's); a game with levels:
- *                                     --pick its level screen, --level n (1..) that level, --solved the progress
+ *                                     --pick its level screen, --level n (1..) that level, --solved the progress;
+ *                                     --random a random puzzle of a game of levels (--variant n); --pick --tab n,
+ *                                     n its chapters' count: its random tab
  * Keys: Esc / Back home (in the menu: quit), U undo, F flip, T face to face, N new game, M sound.
  */
 #include "shell.h"
@@ -31,7 +33,7 @@
 #define MAX_GAMES 256
 #define MAX_VARIANTS 15                         /* a picker card each (the thumbnails: one more, the menu's) */
 
-struct ui ui = {.players = 2};
+struct ui ui = {.players = 2, .level = -1};
 static const game *games[MAX_GAMES];
 static int ngames;
 static SDL_Window *win;
@@ -43,6 +45,11 @@ static int variant[MAX_GAMES], started[MAX_GAMES];   /* variant: a game with lev
 static int chosen[MAX_GAMES];                   /* a variant was chosen (this run, or kept from the last): the
                                                  * picker shows it in gold light */
 static int nplayers[MAX_GAMES];                 /* how many play each game (the picker's choice; 0: not chosen) */
+/* a game of levels that also plays at random (start_random): in random play (the level screen's last tab), and the
+ * variant picked there */
+static int rnd_mode[MAX_GAMES], rvariant[MAX_GAMES];
+static int has_random(int g) { return games[g]->levels > 0 && games[g]->start_random; }
+static int in_random(int g) { return has_random(g) && rnd_mode[g]; }
 
 /* the hand-off (VIEW_* games): whose view each game shows (kept while away in the menu); the cover (up: hiding the
  * screen until `player` taps start); a hand-off waiting for the last move to land (pending: the player, or -1) */
@@ -170,7 +177,7 @@ static struct {
     int g;                                      /* whose progress best[] holds (-1: none read yet) */
     uint8_t best[MAX_LEVELS];                   /* a level each: 0 not solved, else 1 + its best stars */
     int chapter, nch, first[MAX_CHAPTERS + 1];  /* the tab shown; the chapters (their first levels) */
-    box tabs[MAX_CHAPTERS], tiles[CHAPTER_MAX];
+    box tabs[MAX_CHAPTERS + 1], tiles[CHAPTER_MAX];   /* tabs: the chapters', then random play's */
     float grab_x, grab_y;
     int grabbing, moved;
 } LV = {.g = -1};
@@ -819,8 +826,10 @@ static void remember_game(int g)
     char k[96];
     game_key(g, k, sizeof k);
     int v = chosen[g] ? variant[g] + 1 : 0;
-    uint8_t b[3] = {(uint8_t)v, (uint8_t)(v >> 8), (uint8_t)nplayers[g]};
-    ui_save_set(k, b, 3);
+    /* a game of levels that also plays at random: the variant picked for it, and which way it was last played */
+    uint8_t b[5] = {(uint8_t)v, (uint8_t)(v >> 8), (uint8_t)nplayers[g], (uint8_t)(rvariant[g] + 1),
+                    (uint8_t)rnd_mode[g]};
+    ui_save_set(k, b, has_random(g) ? 5 : 3);
 }
 
 static void remember_mute(void)
@@ -832,19 +841,24 @@ static void remember_mute(void)
 /* the kept settings, each checked (a game gone, fewer variants: left as new) */
 static void settings_load(void)
 {
-    uint8_t b[3];
+    uint8_t b[5];
     if (ui_save_get("shell/mute", b, 1) == 1) snd_muted = b[0] == 1;
     if (ui_save_get("shell/tab", b, 1) == 1 && b[0] < SECTIONS) menu.tab = b[0];
     for (int g = 0; g < ngames; g++) {
         char k[96];
         game_key(g, k, sizeof k);
-        if (ui_save_get(k, b, 3) != 3) continue;
+        int len = ui_save_get(k, b, 5);
+        if (len < 3) continue;
         int v = (b[0] | b[1] << 8) - 1, most = games[g]->levels ? nlevels(g) : games[g]->variants;
         if (v >= 0 && v < most) {
             variant[g] = v;
             chosen[g] = 1;
         }
         if (b[2] >= 1 && b[2] <= MAX_PLAYERS && player_counts(g) >> b[2] & 1) nplayers[g] = b[2];
+        if (len == 5 && has_random(g) && b[3] >= 1 && b[3] <= games[g]->variants) {
+            rvariant[g] = b[3] - 1;
+            rnd_mode[g] = b[4] == 1;
+        }
     }
 }
 
@@ -921,7 +935,7 @@ static void levels_enter(int g)
 /* the level in play solved: its stars kept when better than before */
 static void level_check(void)
 {
-    if (screen != SCR_GAME || cur < 0 || !games[cur]->levels || !started[cur]) return;
+    if (screen != SCR_GAME || cur < 0 || !games[cur]->levels || !started[cur] || in_random(cur)) return;
     int l = variant[cur];
     if (l < 0 || l >= nlevels(cur) || games[cur]->status() != GS_WIN0) return;
     int s = games[cur]->level_stars ? games[cur]->level_stars() : 0;
@@ -1194,6 +1208,9 @@ static void tab_textures(int tw, int th)
     SDL_SetTextureColorMod(t_tabicon[SEC_PUZZLE], 246, 238, 220);
 }
 
+static float level_tabs(float head);
+static void draw_level_tabs(int on);
+
 /* the menu (all the games) or the picker (one game's variants): cards in a grid */
 static void layout_cards(int n)
 {
@@ -1213,6 +1230,11 @@ static void layout_cards(int n)
         for (int k = 0; k < L.ntabs; k++) L.tabs[k] = (box){floorf(tx + k * (tw + tg)), floorf(head), tw, th};
         head += th + floorf(g * 0.3f);
         tab_textures((int)tw, (int)th);
+    }
+    float below = top;                          /* where the pills and the cards may start */
+    if (screen == SCR_PICK && games[cur]->levels) {   /* random play's picker: the level screen's tabs over it */
+        chapters_make(cur);
+        head = below = level_tabs(head);
     }
     L.npills = 0;
     if (screen == SCR_PICK && many_counts(cur)) {   /* how many play: a row of pills under the buttons, each with
@@ -1299,7 +1321,7 @@ static void layout_cards(int n)
         menu.scroll = fminf(menu.max, fmaxf(0, menu.scroll));
     }
     if (L.npills) {                             /* the picker: the pills and the cards, one block in the middle */
-        float ph = L.pills[0].h, start = top + fmaxf(0, (ui.h - top - m - (ph + g + tall)) / 2);
+        float ph = L.pills[0].h, start = below + fmaxf(0, (ui.h - below - m - (ph + g + tall)) / 2);
         for (int k = 0; k < L.npills; k++) L.pills[k].y = floorf(start);
         y0 = start + ph + g;
     }
@@ -1331,28 +1353,38 @@ static void layout_cards(int n)
     }
 }
 
+/* the level screen's tabs (the chapters, then a die for random play when the game has it) under the top row's
+ * buttons, at head; where what is under them starts (head: no tabs, a single chapter) */
+static int level_ntabs(void) { return LV.nch + has_random(cur); }
+
+static float level_tabs(float head)
+{
+    float s = fminf(ui.w, ui.h), m = s * 0.05f, g = s * 0.04f;
+    int n = level_ntabs();
+    if (n <= 1) return head;
+    float th = floorf(s * 0.12f), tg = floorf(g * 0.4f);
+    float tw = floorf(fminf((ui.w - 2 * m - (n - 1) * tg) / n, 2.4f * th));
+    float tx = (ui.w - (n * tw + (n - 1) * tg)) / 2;
+    for (int k = 0; k < n; k++) LV.tabs[k] = (box){floorf(tx + k * (tw + tg)), floorf(head), tw, th};
+    tab_textures((int)tw, (int)th);
+    return head + th + g;
+}
+
 /* the level screen: home at the top left (the stars won at the right), the chapters' tabs under it (as the menu's),
- * then the chapter's tiles in a grid, as big as the room allows (at most a fifth of the screen's short side), the
- * same grid for every chapter */
+ * then the chapter's tiles in a grid right under them, as big as the room allows (at most 0.28 of the screen's short
+ * side), the same grid for every chapter */
 static void layout_levels(void)
 {
-    float s = fminf(ui.w, ui.h), m = s * 0.05f, g = s * 0.04f, head = s * 0.16f, top = head;
+    float s = fminf(ui.w, ui.h), m = s * 0.05f, head = s * 0.16f;
     chapters_make(cur);
     LV.chapter = LV.chapter >= LV.nch ? LV.nch - 1 : LV.chapter < 0 ? 0 : LV.chapter;
-    if (LV.nch > 1) {
-        float th = floorf(s * 0.12f), tg = floorf(g * 0.4f);
-        float tw = floorf(fminf((ui.w - 2 * m - (LV.nch - 1) * tg) / LV.nch, 2.4f * th));
-        float tx = (ui.w - (LV.nch * tw + (LV.nch - 1) * tg)) / 2;
-        for (int k = 0; k < LV.nch; k++) LV.tabs[k] = (box){floorf(tx + k * (tw + tg)), floorf(head), tw, th};
-        top = head + th + g;
-        tab_textures((int)tw, (int)th);
-    }
+    float top = level_tabs(head);
     int most = 1;
     for (int c = 0; c < LV.nch; c++) {
         int n = LV.first[c + 1] - LV.first[c];
         if (n > most) most = n < CHAPTER_MAX ? n : CHAPTER_MAX;
     }
-    float W = ui.w - 2 * m, H = ui.h - m - top, cap = s * 0.22f, bp = 0, bs = 0, ba = 0;
+    float W = ui.w - 2 * m, H = ui.h - m - top, cap = s * 0.28f, bp = 0, bs = 0, ba = 0;
     int cols = 1;
     for (int c = 1; c <= most; c++) {           /* big tiles, few gaps in the last row (25: five by five, not four
                                                  * by seven); even: the grid's shape nearest the room's */
@@ -1366,8 +1398,7 @@ static void layout_levels(void)
             ba = a;
         }
     }
-    int rows = (most + cols - 1) / cols;
-    float tile = floorf(bp * 0.84f), x0 = (ui.w - cols * bp) / 2, y0 = top + (H - rows * bp) / 2;
+    float tile = floorf(bp * 0.84f), x0 = (ui.w - cols * bp) / 2, y0 = top;   /* right under the tabs */
     for (int i = 0; i < most; i++)
         LV.tiles[i] = (box){floorf(x0 + (i % cols) * bp + (bp - tile) / 2),
                             floorf(y0 + (i / cols) * bp + (bp - tile) / 2), tile, tile};
@@ -1390,10 +1421,13 @@ static void layout(void)
 /* the picker comes before a new game when there is something to choose: a variant, how many play, a level */
 static int needs_picker(int g) { return games[g]->variants > 1 || many_counts(g) || games[g]->levels > 0; }
 
-/* the picker, or a game with levels its level screen */
+/* the picker, or a game with levels its level screen (random play: its picker, under the level screen's tabs) */
 static void show_picker(int g)
 {
-    if (games[g]->levels > 0) {
+    if (in_random(g) && (games[g]->variants > 1 || many_counts(g))) {   /* random play's picker, under the tabs */
+        chapters_make(g);
+        screen = SCR_PICK;
+    } else if (games[g]->levels > 0) {
         levels_enter(g);
         screen = SCR_LEVELS;
     } else {
@@ -1480,7 +1514,9 @@ static void start_game(int v, int same)
 {
     if (same) rng = start_rng[cur];
     else start_rng[cur] = rng;
-    games[cur]->start(v);
+    ui.level = games[cur]->levels && !in_random(cur) ? v : -1;
+    if (in_random(cur)) games[cur]->start_random(v);
+    else games[cur]->start(v);
     started[cur] = 1;
     card_t0 = 0;
 }
@@ -1492,7 +1528,8 @@ static void open_game(int i, int fresh_variant)
     solo_view();
     int fresh = 0;
     if (fresh_variant >= 0) {
-        variant[i] = fresh_variant;
+        if (in_random(i)) rvariant[i] = fresh_variant;
+        else variant[i] = fresh_variant;
         chosen[i] = 1;
         remember_game(i);
         start_game(fresh_variant, 0);
@@ -1526,7 +1563,7 @@ static void go_home(void)
 static void restart(int same)
 {
     armed = 0;
-    start_game(variant[cur], same);
+    start_game(in_random(cur) ? rvariant[cur] : variant[cur], same);
     view_start(1);
     over_hidden = 0;
     last_status = games[cur]->status();
@@ -1557,7 +1594,7 @@ static void level_next(void)
 static void card_replay(void) { restart(1); }
 static void card_next(void)
 {
-    if (games[cur]->levels) level_next();
+    if (games[cur]->levels && !in_random(cur)) level_next();
     else restart(0);
 }
 
@@ -1732,7 +1769,7 @@ static void draw_solved(float cx, float cy, float u)
     next_btn.x = cx + 1.05f * u;
     replay_btn.y = next_btn.y = by;
     replay_btn.d = next_btn.d = 1.1f * u;
-    int last = g->levels && variant[cur] + 1 >= nlevels(cur);
+    int last = g->levels && !in_random(cur) && variant[cur] + 1 >= nlevels(cur);
     ui_button(replay_btn.x, replay_btn.y, replay_btn.d, ICON_REPLAY, 0);
     ui_button(next_btn.x, next_btn.y, next_btn.d, last ? ICON_GRID : ICON_ARROW, UI_LIT);
 }
@@ -2014,6 +2051,7 @@ static void draw_cards(void)
         ui_put(s == menu.tab ? t_tab_on : t_tab, b.x, b.y, b.w, b.h);
         ui_put_c(t_tabicon[s], b.x + b.w / 2, b.y + b.h / 2, d, d);
     }
+    if (screen == SCR_PICK && games[cur]->levels) draw_level_tabs(LV.nch);   /* random play's picker */
     for (int k = 0; k < L.npills; k++) {       /* the picker: how many play */
         box b = L.pills[k];
         int np = L.pill_n[k];
@@ -2043,7 +2081,8 @@ static void draw_cards(void)
         if (c.y > ui.h || c.y + c.h * 1.2f < menu.top) continue;
         int gi = screen == SCR_MENU ? i : cur, v = screen == SCR_MENU ? -1 : i;
         if ((screen == SCR_MENU && started[i] && games[i]->status() == GS_PLAY) ||   /* a game in progress */
-            (screen == SCR_PICK && chosen[cur] && variant[cur] == i))   /* the variant chosen last */
+            (screen == SCR_PICK && (games[cur]->levels ? in_random(cur) && rvariant[cur] == i
+                                    : chosen[cur] && variant[cur] == i)))   /* the variant chosen last */
             ui_put_c(t_gold, c.x + c.w / 2, c.y + c.h / 2, c.w * 1.25f, c.h * 1.25f);
         ui_put(t_menu_card, c.x, c.y, c.w, c.h);
         float s = c.w * 0.86f;
@@ -2096,7 +2135,7 @@ static void draw_tile(int l, int i, box t, int next)
 {
     static const uint8_t dim[3] = {150, 120, 90};
     const game *G = games[cur];
-    int best = LV.best[l], open = level_open(cur, l), n = l - LV.first[LV.chapter] + 1, stars = best && G->level_stars;
+    int best = LV.best[l], open = level_open(cur, l), n = l + 1, stars = best && G->level_stars;
     float T = t.w, cx = t.x + T / 2, cy = t.y + T / 2;
     if (l == next && open) ui_mark_gold(cx, cy, 1.5f * T);
     ui_shadow_flat(cx + 0.04f * T, cy + 0.06f * T, T, T, 0.55f);
@@ -2110,7 +2149,8 @@ static void draw_tile(int l, int i, box t, int next)
             SDL_SetTextureAlphaMod(p, 255);
         }
         ui_put_c(btn_tex(paint_badge, 0, (int)bd), bx, by, bd, bd);
-        ui_number_ex(bx, by, 0.5f * bd, n, CREAM, open ? 255 : 140, UI_NUM_TIGHT);
+        float nh = fminf(0.5f * bd, 0.86f * bd / (0.66f * (n >= 100 ? 2 : n >= 10 ? 1 : 0) + 0.62f));   /* fits the disc */
+        ui_number_ex(bx, by, nh, n, CREAM, open ? 255 : 140, UI_NUM_TIGHT);
         for (int k = 0; stars && k < 3; k++)
             star_at(cx + (k - 1) * 0.25f * T, t.y + 0.85f * T, 0.25f * T, k < best - 1 ? 0 : 1);
         return;
@@ -2120,17 +2160,25 @@ static void draw_tile(int l, int i, box t, int next)
         star_at(cx + (k - 1) * 0.25f * T, cy + 0.28f * T, 0.24f * T, k < best - 1 ? 0 : 1);
 }
 
-static void draw_levels(void)
+/* the level screen's tabs (on: the one shown; LV.nch: random play) */
+static void draw_level_tabs(int on)
 {
     const game *G = games[cur];
+    if (level_ntabs() <= 1) return;
     progress_load(cur);
-    for (int k = 0; k < LV.nch && LV.nch > 1; k++) {   /* the chapters: the game's picture, else the number */
+    if (has_random(cur)) {                      /* random play: a die */
+        box b = LV.tabs[LV.nch];
+        float d = floorf(b.h * 0.66f);
+        ui_put(on == LV.nch ? t_tab_on : t_tab, b.x, b.y, b.w, b.h);
+        ui_put_c(t_tabicon[SEC_RACE], b.x + b.w / 2, b.y + b.h / 2, d, d);
+    }
+    for (int k = 0; k < LV.nch; k++) {          /* the chapters: the game's picture, else the number */
         box b = LV.tabs[k];
         int any = 0;
         for (int l = LV.first[k]; l < LV.first[k + 1] && !any; l++) any = level_open(cur, l);
         Uint8 a = any ? 255 : 90;
         float d = floorf(b.h * 0.66f), cy = b.y + b.h / 2, nh = floorf(b.h * 0.4f);
-        ui_put(k == LV.chapter ? t_tab_on : t_tab, b.x, b.y, b.w, b.h);
+        ui_put(k == on ? t_tab_on : t_tab, b.x, b.y, b.w, b.h);
         SDL_Texture *p = G->chapter_icon ? btn_tex(G->chapter_icon, k, (int)d) : NULL;
         if (!p) {
             ui_number_ex(b.x + b.w / 2, cy, nh, k + 1, CREAM, a, 0);
@@ -2143,6 +2191,13 @@ static void draw_levels(void)
         SDL_SetTextureAlphaMod(p, 255);
         if (nw) ui_number_ex(x0 + d + gap + nw / 2, cy, nh, k + 1, CREAM, a, 0);
     }
+}
+
+static void draw_levels(void)
+{
+    const game *G = games[cur];
+    progress_load(cur);
+    draw_level_tabs(LV.chapter);
     int first = LV.first[LV.chapter], n = LV.first[LV.chapter + 1] - first, next = first_unsolved(cur);
     if (n > CHAPTER_MAX) n = CHAPTER_MAX;
     for (int i = 0; i < n; i++) draw_tile(first + i, i, LV.tiles[i], next);
@@ -2299,10 +2354,27 @@ static void menu_step(int d)                    /* the tab on the left (-1) or t
         }
 }
 
+/* the level screen's last tab: random play. Its variant picker (the level screen's tabs over it), or a random
+ * puzzle at once when there is nothing to pick */
+static void random_tab(void)
+{
+    if (games[cur]->variants > 1 || many_counts(cur)) {
+        screen = SCR_PICK;
+        layout();
+        return;
+    }
+    rnd_mode[cur] = 1;
+    open_game(cur, 0);
+}
+
 static void levels_step(int d)                  /* the level screen's chapter on the left (-1) or the right (1) */
 {
-    if (LV.chapter + d < 0 || LV.chapter + d >= LV.nch) return;
+    if (LV.chapter + d < 0 || LV.chapter + d >= level_ntabs()) return;
     snd_play(SND_TAP);
+    if (LV.chapter + d == LV.nch) {             /* past the last chapter: random play */
+        random_tab();
+        return;
+    }
     LV.chapter += d;
     layout();
 }
@@ -2317,9 +2389,13 @@ static void levels_press(float x, float y)
         go_home();
         return;
     }
-    for (int k = 0; k < LV.nch && LV.nch > 1; k++)
+    for (int k = 0; k < level_ntabs() && level_ntabs() > 1; k++)
         if (in_box(LV.tabs[k], x, y)) {
             snd_play(SND_TAP);
+            if (k == LV.nch) {
+                random_tab();
+                return;
+            }
             LV.chapter = k;
             layout();
             return;
@@ -2344,6 +2420,7 @@ static void levels_release(float x, float y)
         if (in_box(LV.tiles[i], x, y)) {
             if (!level_open(cur, first + i)) { snd_play(SND_DENY); return; }
             snd_play(SND_TAP);
+            rnd_mode[cur] = 0;
             open_game(cur, first + i);
             return;
         }
@@ -2409,11 +2486,20 @@ static void press(float x, float y)
             menu.t = SDL_GetTicks();
             return;
         }
+        for (int k = 0; k < LV.nch && games[cur]->levels; k++)   /* random play's picker: back to a chapter */
+            if (in_box(LV.tabs[k], x, y)) {
+                snd_play(SND_TAP);
+                LV.chapter = k;
+                screen = SCR_LEVELS;
+                layout();
+                return;
+            }
         int n = games[cur]->variants;
         for (int i = 0; i < n; i++) {
             box c = L.cards[i];
             if (x >= c.x && x < c.x + c.w && y >= c.y && y < c.y + c.h) {
                 snd_play(SND_TAP);
+                if (games[cur]->levels) rnd_mode[cur] = 1;   /* random play */
                 open_game(cur, i);
                 return;
             }
@@ -2693,7 +2779,7 @@ static int shot_solved(const char *s)
 static int shot(int argc, char **argv)
 {
     const char *out = NULL, *id = NULL, *moves = NULL, *lang = NULL, *save_dir = NULL, *solved = NULL;
-    int v = 0, keep = 0, pick = 0, show_help = 0, np = 0, tab = -1, reveal = 0, level = 0;
+    int v = 0, keep = 0, pick = 0, show_help = 0, np = 0, tab = -1, reveal = 0, level = 0, rnd = 0;
     float scroll = 0;
     uint32_t seed = 1;
     int at = -1;                                /* --at ms: the picture that long after the last tap (else at rest) */
@@ -2727,6 +2813,7 @@ static int shot(int argc, char **argv)
         else if (!strcmp(argv[i], "--seed") && i + 1 < argc) seed = (uint32_t)strtoul(argv[++i], NULL, 10);
         else if (!strcmp(argv[i], "--at") && i + 1 < argc) at = atoi(argv[++i]);
         else if (!strcmp(argv[i], "--reveal")) reveal = 1;
+        else if (!strcmp(argv[i], "--random")) rnd = 1;
         else if (!strcmp(argv[i], "--save") && i + 1 < argc) save_dir = argv[++i];
         else if (!strcmp(argv[i], "--level") && i + 1 < argc) level = atoi(argv[++i]);
         else if (!strcmp(argv[i], "--solved") && i + 1 < argc) solved = argv[++i];
@@ -2752,12 +2839,15 @@ static int shot(int argc, char **argv)
         if (solved && !shot_solved(solved)) { fprintf(stderr, "bad --solved\n"); return 1; }
         if (pick) {                             /* the picker, or the level screen (--tab n: its chapter n, 0..) */
             show_picker(cur);
-            if (screen == SCR_LEVELS && tab >= 0) {
+            if (screen == SCR_LEVELS && tab >= 0 && tab == LV.nch && has_random(cur)) random_tab();
+            else if (screen == SCR_LEVELS && tab >= 0) {
                 LV.chapter = tab;
                 layout();
             }
         } else {
             if (level > nlevels(cur)) { fprintf(stderr, "no level %d\n", level); return 1; }
+            if (rnd && !has_random(cur)) { fprintf(stderr, "no random play\n"); return 1; }
+            rnd_mode[cur] = rnd;                /* --random: a game of levels at random (--variant n) */
             open_game(cur, level > 0 ? level - 1 : v);   /* --level n: level n (1..) */
             if (moves && (!games[cur]->script || !games[cur]->script(moves))) {
                 fprintf(stderr, "bad moves\n");
@@ -2815,6 +2905,12 @@ static void key(SDL_Keycode k, int repeat)
     if (k == SDLK_h || k == SDLK_F1) { if (!help.open) open_help(screen == SCR_GAME ? cur : -1); return; }
     if (screen == SCR_MENU && !help.open && (k == SDLK_LEFT || k == SDLK_RIGHT)) {   /* the tabs */
         menu_step(k == SDLK_RIGHT ? 1 : -1);
+        return;
+    }
+    if (screen == SCR_PICK && !help.open && k == SDLK_LEFT && games[cur]->levels) {   /* random play: the chapters */
+        LV.chapter = LV.nch - 1;
+        screen = SCR_LEVELS;
+        layout();
         return;
     }
     if (screen == SCR_LEVELS && !help.open && (k == SDLK_LEFT || k == SDLK_RIGHT)) {   /* the chapters */

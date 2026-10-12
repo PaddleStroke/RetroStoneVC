@@ -1,12 +1,13 @@
 /*
- * The level screen's test (make ... DEMO=1, never shipped): four tiny games for one player. Each level is
+ * The level screen's test (make ... DEMO=1, never shipped): five tiny games for one player. Each level is
  * a row of discs to turn gold, a tap each; a tap on a gold one turns it back (a move wasted).
  * - "levelsdemo": 40 levels in 4 even chapters (`chapters`), the tabs' pictures (`chapter_icon`), stars (3 with no
  *   move wasted, 2 with one or two, else 1);
  * - "levelsdemo2": 30 levels in 3 uneven chapters (`chapter_of`: 12, 10, 8), the tiles' pictures (`level_thumb`), no
  *   stars, all the levels open (`levels_open`);
  * - "scoredemo": no levels, the game's keys (`key`) and a score on its end card (`score`);
- * - "stardemo": no levels, a random puzzle, the stars card (`level_stars`, `score` beside `par`, replay, next).
+ * - "stardemo": no levels, a random puzzle, the stars card (`level_stars`, `score` beside `par`, replay, next);
+ * - "randomdemo": levels and random play (`start_random`, three variants).
  * The notation (script): "t3" taps disc 3 (from 1), "=" taps every dark one.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
@@ -221,3 +222,21 @@ static const game star_game = {
     .bar = bar, .script = script, .players = 1u << 1, .level_stars = stars, .score = moves_made, .par = par,
 };
 REGISTER_GAME(star_game)
+
+/* "randomdemo": levels and random play (`start_random`): 20 levels in 2 chapters with stars, and a random tab of three
+ * variants (3, 5 or 7 discs, some already gold: ui_random) */
+static void start_random(int variant)
+{
+    start(0);
+    n = 3 + 2 * (variant < 0 ? 0 : variant > 2 ? 2 : variant);
+    for (int i = 0; i < n - 1; i++) lit[i] = (uint8_t)ui_random(2);
+}
+
+static const game random_game = {
+    .id = "randomdemo", .order = 9004, .variants = 3,
+    .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
+    .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
+    .bar = bar, .script = script, .players = 1u << 1, .levels = 20, .chapters = 2, .level_stars = stars,
+    .start_random = start_random, .score = moves_made,
+};
+REGISTER_GAME(random_game)
