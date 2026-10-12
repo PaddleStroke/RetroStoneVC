@@ -557,7 +557,7 @@ void ct_hand_draw(const ct_table *T, const ct_moves *mv, const uint8_t *h, int n
     if (n > CT_HAND) n = CT_HAND;
     ct_fan(T, n, s);
     for (int i = 0; i < n; i++) {
-        if (h[i] == skip || ct_hides(mv, CT_HAND_TAG, h[i], -1)) continue;
+        if (i == skip || ct_hides(mv, CT_HAND_TAG, i, -1)) continue;
         float y = s[i].y;
         if (lift && lift[i] > 0 && !(how[i] & CD_RAISED)) {
             y -= lift[i] * T->wh;
@@ -575,17 +575,29 @@ void ct_hand_backs(const ct_table *T, int n)
     for (int i = 0; i < n; i++) cards_draw(T->deck, CARD_NONE, s[i].x, s[i].y, T->wh, s[i].deg, CD_DOWN);
 }
 
-int ct_hand_at(const ct_table *T, const uint8_t *h, int n, const int *how, const float *lift, float x, float y)
+int ct_hand_hit(const ct_table *T, int n, const int *how, const float *lift, float x, float y)
 {
     cards_spot s[CT_HAND];
     if (n > CT_HAND) n = CT_HAND;
     ct_fan(T, n, s);
     for (int i = 0; i < n; i++) {
         float up = how[i] & CD_RAISED ? 0.14f : lift && lift[i] > 0 ? lift[i] : 0;
-        if (up > 0 && cards_hit(&s[i], 1, T->wh, T->asp, x, y + up * T->wh)) return h[i];
+        if (up > 0 && cards_hit(&s[i], 1, T->wh, T->asp, x, y + up * T->wh) >= 0) return i;
     }
-    int i = cards_hit(s, n, T->wh, T->asp, x, y);
+    return cards_hit(s, n, T->wh, T->asp, x, y);
+}
+
+int ct_hand_at(const ct_table *T, const uint8_t *h, int n, const int *how, const float *lift, float x, float y)
+{
+    int i = ct_hand_hit(T, n, how, lift, x, y);
     return i < 0 ? CARD_NONE : h[i];
+}
+
+int ct_index(const uint8_t *h, int n, int card)
+{
+    for (int i = 0; i < n; i++)
+        if (h[i] == card) return i;
+    return -1;
 }
 
 void ct_deal(ct_moves *mv, const ct_table *T, const uint8_t *h, int n)
@@ -595,22 +607,37 @@ void ct_deal(ct_moves *mv, const ct_table *T, const uint8_t *h, int n)
     ct_fan(T, n, s);
     for (int i = 0; i < n; i++)
         ct_rest(mv, ct_slide(mv, T->deck, h[i], T->cx, T->cy, T->wt, 0, 0, s[i].x, s[i].y, T->wh, s[i].deg, 1,
-                             CT_DEAL_MS, 50 * i, CT_HAND_TAG, h[i], -1, i % 3 == 0 ? SND_MOVE : -1), 0);
+                             CT_DEAL_MS, 50 * i, CT_HAND_TAG, i, -1, i % 3 == 0 ? SND_MOVE : -1), 0);
 }
 
 /* ---- the finger -------------------------------------------------------------------------------------------------- */
 void ct_touch_reset(ct_touch *t)
 {
     t->card = t->raised = CARD_NONE;
+    t->at = t->raised_at = -1;
     t->on = 0;
 }
 
-void ct_touch_down(ct_touch *t, int card, float x, float y)
+void ct_touch_down(ct_touch *t, int at, int card, float x, float y)
 {
     t->card = card;
+    t->at = at;
     t->on = 0;
     t->x0 = t->x = x;
     t->y0 = t->y = y;
+}
+
+int ct_touch_hand(ct_touch *t, const ct_table *T, const uint8_t *h, int n, const int *how, const float *lift, float x,
+                  float y)
+{
+    int i = ct_hand_hit(T, n, how, lift, x, y);
+    if (i >= 0) {
+        ct_touch_down(t, i, h[i], x, y);
+        return 1;
+    }
+    if (t->raised != CARD_NONE) ct_lower(t);
+    else ui_sound(SND_DENY);
+    return 0;
 }
 
 void ct_touch_move(ct_touch *t, float x, float y)
@@ -640,11 +667,20 @@ void ct_touch_draw(const ct_touch *t, const ct_table *T)
 int ct_tap_play(ct_touch *t, int card, int legal)
 {
     if (!legal) { ui_sound(SND_DENY); return 0; }
-    if (t->raised == card) return 1;
+    if (t->raised == card && t->raised_at == t->at) return 1;
     t->raised = card;
+    t->raised_at = t->at;
     ui_sound(SND_TAP);
     return 0;
 }
+
+void ct_lower(ct_touch *t)
+{
+    t->raised = CARD_NONE;
+    t->raised_at = -1;
+}
+
+int ct_dragged(const ct_touch *t) { return t->on && t->card != CARD_NONE ? t->at : -1; }
 
 void ct_draw_target(const ct_table *T)
 {
@@ -662,8 +698,9 @@ void ct_play(ct_moves *mv, const ct_table *T, const ct_touch *f, const uint8_t *
     cards_spot s[CT_HAND];
     if (n > CT_HAND) n = CT_HAND;
     ct_fan(T, n, s);
-    int i = 0, me = T->me;
-    while (i < n && h[i] != card) i++;
+    int me = T->me, i = f->on ? f->at : f->raised_at;
+    if (i < 0 || i >= n || h[i] != card) i = ct_index(h, n, card);
+    if (i < 0) i = n;
     float x0 = i < n ? s[i].x : T->hx, y0 = i < n ? s[i].y - 0.14f * T->wh : T->hy, d0 = i < n ? s[i].deg : 0;
     if (f->on) x0 = f->x, y0 = f->y, d0 = 0;
     ct_rest(mv, ct_slide(mv, T->deck, card, x0, y0, T->wh, d0, 1, T->tx[me], T->ty[me], T->wt, T->tdeg[me], 1,

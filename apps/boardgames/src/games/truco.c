@@ -361,9 +361,9 @@ static void draw(void)
         cards_place(T.deck, x, y, K.wp);
     }
     int how[3];
-    for (int i = 0; i < n; i++) how[i] = h[i] == F.raised ? CD_RAISED : live && mine ? CD_GLOW : 0;
+    for (int i = 0; i < n; i++) how[i] = ct_is_raised(&F, i) ? CD_RAISED : live && mine ? CD_GLOW : 0;
     if (hide) ct_hand_backs(&T, n);
-    else ct_hand_draw(&T, &A, h, n, how, NULL, F.on ? F.card : CARD_NONE);
+    else ct_hand_draw(&T, &A, h, n, how, NULL, ct_dragged(&F));
     ct_draw(&A);
     if (!hide) {
         ct_touch_draw(&F, &T);
@@ -401,14 +401,10 @@ static void press(float x, float y)
     }
     uint8_t h[3];
     int how[3], n = hand(h);
-    for (int i = 0; i < n; i++) how[i] = h[i] == F.raised ? CD_RAISED : 0;
-    int c = ct_hand_at(&T, h, n, how, NULL, x, y);
-    if (c == CARD_NONE || !can) {
-        if (F.raised != CARD_NONE) F.raised = CARD_NONE;
-        else ui_sound(SND_DENY);
-        return;
-    }
-    ct_touch_down(&F, c, x, y);
+    for (int i = 0; i < n; i++) how[i] = ct_is_raised(&F, i) ? CD_RAISED : 0;
+    if (can) ct_touch_hand(&F, &T, h, n, how, NULL, x, y);
+    else if (F.raised != CARD_NONE) ct_lower(&F);
+    else ui_sound(SND_DENY);
 }
 
 static void motion(float x, float y) { ct_touch_move(&F, x, y); }

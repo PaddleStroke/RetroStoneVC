@@ -182,7 +182,7 @@ static int hand(uint8_t *h, int *how, int live)
         int c = p->hand[T.me][i];
         h[i] = (uint8_t)c;
         how[i] = mine ? (barbu_can_play(p, c) ? CD_GLOW : CD_DIM) : 0;
-        if (c == F.raised) how[i] = CD_RAISED;
+        if (ct_is_raised(&F, i)) how[i] = CD_RAISED;
     }
     return n;
 }
@@ -579,7 +579,7 @@ static void draw(void)
     int how[CT_HAND];
     int n = hand(h, how, live);
     if (hide) ct_hand_backs(&T, n);
-    else ct_hand_draw(&T, &A, h, n, how, NULL, F.on ? F.card : CARD_NONE);
+    else ct_hand_draw(&T, &A, h, n, how, NULL, ct_dragged(&F));
     ct_draw(&A);
     if (!hide) ct_touch_draw(&F, &T);
     if (show_last && p->last_winner != TRICK_NONE)
@@ -591,7 +591,7 @@ static void draw(void)
 static void send(int card)
 {
     if (barbu_can_play(&G.pos, card)) act(BBA_PLAY | card);
-    else { F.raised = CARD_NONE; ui_sound(SND_DENY); }
+    else { ct_lower(&F); ui_sound(SND_DENY); }
 }
 
 static int press_choice(float x, float y)
@@ -672,13 +672,8 @@ static void press(float x, float y)
     }
     uint8_t h[CT_HAND];
     int how[CT_HAND];
-    int n = hand(h, how, 1), c = ct_hand_at(&T, h, n, how, NULL, x, y);
-    if (c == CARD_NONE) {
-        if (F.raised != CARD_NONE) F.raised = CARD_NONE;
-        else ui_sound(SND_DENY);
-        return;
-    }
-    ct_touch_down(&F, c, x, y);
+    int n = hand(h, how, 1);
+    ct_touch_hand(&F, &T, h, n, how, NULL, x, y);   /* a tap or a drag: the release says */
 }
 
 static void motion(float x, float y) { ct_touch_move(&F, x, y); }

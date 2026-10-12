@@ -93,7 +93,7 @@ void ct_floats_draw(const ct_floats *fl, SDL_Texture *pill, SDL_Texture *icon);
 
 /* ---- the trick table --------------------------------------------------------------------------------------------- */
 #define CT_MAXP 6
-#define CT_HAND 24
+#define CT_HAND 52                              /* the most cards a hand of the kit holds (a whole pack) */
 #define CT_SLIDE_MS 300
 #define CT_LOOK_MS 900                          /* a full trick stays a moment before its winner gathers it */
 #define CT_DEAL_MS 260
@@ -134,30 +134,43 @@ void ct_bar(box b, int cards, int score);       /* a bar: a small back and the c
 void ct_thumb(const int *cards, int n, int size, uint8_t *rgba);   /* the menu's card: n cards, the last on top */
 
 /* the viewer's hand: each card drawn how[i] (CD_RAISED: chosen), lifted lift[i] card widths in gold light (cards just
- * received; NULL: none); `skip` (a card dragged) and the cards still on their way left out. Face down: under the
- * hand-off cover. The card under (x, y) (the raised or lifted ones first); CARD_NONE: none. */
+ * received; NULL: none); the card at index `skip` (dragged; -1: none) and the cards still on their way (CT_HAND_TAG,
+ * their index) left out. Face down: under the hand-off cover. Cards are told apart by their index in the hand as
+ * shown, never by their byte: a double pack holds two equal cards. ct_hand_hit: the index under (x, y) (the raised or
+ * lifted ones first; -1: none); ct_hand_at: its card (CARD_NONE: none). */
 void ct_hand_draw(const ct_table *T, const ct_moves *mv, const uint8_t *h, int n, const int *how, const float *lift,
                   int skip);
 void ct_hand_backs(const ct_table *T, int n);
+int  ct_hand_hit(const ct_table *T, int n, const int *how, const float *lift, float x, float y);
 int  ct_hand_at(const ct_table *T, const uint8_t *h, int n, const int *how, const float *lift, float x, float y);
 void ct_deal(ct_moves *mv, const ct_table *T, const uint8_t *h, int n);   /* the viewer's cards fly in, turn up */
+int  ct_index(const uint8_t *h, int n, int card);   /* the first index of the card in the hand (-1: none) */
 
 /* a finger on a card of the hand: a tap (it rises; tapped again, it goes) or a drag (released above the hand: it goes
- * to the middle) */
+ * to the middle). The cards by their index in the hand as shown (at, raised_at) and their bytes (card, raised). */
 typedef struct {
     int card, on, raised;                       /* the card touched, dragged (moved far enough), the one risen */
+    int at, raised_at;                          /* their indexes in the hand (-1: none) */
     float x0, y0, x, y;
 } ct_touch;
 enum { CT_T_NONE, CT_T_TAP, CT_T_SEND };
 void ct_touch_reset(ct_touch *t);
-void ct_touch_down(ct_touch *t, int card, float x, float y);
+void ct_touch_down(ct_touch *t, int at, int card, float x, float y);   /* the card at index `at` touched */
+/* a press on the viewer's hand (h, n as shown, drawn how, lift: ct_hand_draw's): the card under it touched (1); none:
+ * the risen card goes back down, or SND_DENY (0) */
+int  ct_touch_hand(ct_touch *t, const ct_table *T, const uint8_t *h, int n, const int *how, const float *lift, float x,
+                   float y);
 void ct_touch_move(ct_touch *t, float x, float y);
 int  ct_touch_up(ct_touch *t, const ct_table *T, float x, float y, int *card);   /* CT_T_*; *card: the card */
 void ct_touch_draw(const ct_touch *t, const ct_table *T);   /* the dragged card under the finger */
 int  ct_tap_play(ct_touch *t, int card, int legal);   /* a tap: it rises (0), or, risen, it goes (1); SND_DENY */
+void ct_lower(ct_touch *t);                     /* the risen card back down */
+int  ct_dragged(const ct_touch *t);             /* the index of the card dragged (ct_hand_draw's skip; -1: none) */
+static inline int ct_is_raised(const ct_touch *t, int i) { return t->raised != CARD_NONE && i == t->raised_at; }
 void ct_draw_target(const ct_table *T);         /* the risen card's place in the trick, in gold light */
 int  ct_on_target(const ct_table *T, float x, float y);
-/* the viewer plays `card`: from its place in their hand as shown (h, n; risen), or from the finger, to the trick */
+/* the viewer plays `card`: from its place in their hand as shown (h, n; the finger's or the risen card's index), or
+ * from the finger, to the trick */
 void ct_play(ct_moves *mv, const ct_table *T, const ct_touch *f, const uint8_t *h, int n, int card);
 
 /* ---- the others along the top, the viewer's hand in a box ---------------------------------------------------------

@@ -63,7 +63,7 @@ static int hand(uint8_t *h, int *how, float *lift, int live)
         if (chosen(c)) continue;
         h[n] = (uint8_t)c;
         how[n] = mine ? (hearts_can_play(p, c) ? CD_GLOW : CD_DIM) : 0;
-        if (c == F.raised) how[n] = CD_RAISED;
+        if (ct_is_raised(&F, n)) how[n] = CD_RAISED;
         lift[n] = received(c) ? LIFT : 0;
         n++;
     }
@@ -142,7 +142,7 @@ static void animate(const hpos *b, uint32_t a, const uint8_t *h, int n)
             if (lift[i] > 0)
                 ct_rest(&A, ct_slide(&A, DECK_FRENCH, nh[i], T.sx[from], T.sy[from], 0.45f * T.wt, T.tdeg[from], 0,
                                      ns[i].x, ns[i].y - LIFT * T.wh, T.wh, ns[i].deg, 1, CT_SLIDE_MS + 120,
-                                     CT_SLIDE_MS + 200 + 90 * j, CT_HAND_TAG, nh[i], -1, j == 0 ? SND_PLACE : -1),
+                                     CT_SLIDE_MS + 200 + 90 * j, CT_HAND_TAG, i, -1, j == 0 ? SND_PLACE : -1),
                         300), j++;
         return;
     }
@@ -264,7 +264,7 @@ static void draw(void)
     float lift[CT_HAND];
     int n = hand(h, how, lift, live);
     if (hide) ct_hand_backs(&T, p->n[T.me]);   /* face down, the cards chosen to pass among them */
-    else ct_hand_draw(&T, &A, h, n, how, lift, F.on ? F.card : CARD_NONE);
+    else ct_hand_draw(&T, &A, h, n, how, lift, ct_dragged(&F));
     ct_draw(&A);
     if (!hide) ct_touch_draw(&F, &T);
     if (show_last && p->last_winner != TRICK_NONE)
@@ -284,7 +284,7 @@ static void send(int card)
         return;
     }
     if (hearts_can_play(p, card)) act(HA_PLAY | (uint32_t)card);
-    else { F.raised = CARD_NONE; ui_sound(SND_DENY); }
+    else { ct_lower(&F); ui_sound(SND_DENY); }
 }
 
 static void press(float x, float y)
@@ -320,13 +320,8 @@ static void press(float x, float y)
     uint8_t h[CT_HAND];
     int how[CT_HAND];
     float lift[CT_HAND];
-    int n = hand(h, how, lift, 1), c = ct_hand_at(&T, h, n, how, lift, x, y);
-    if (c == CARD_NONE) {
-        if (F.raised != CARD_NONE) F.raised = CARD_NONE;
-        else ui_sound(SND_DENY);
-        return;
-    }
-    ct_touch_down(&F, c, x, y);                 /* a tap or a drag: the release says */
+    int n = hand(h, how, lift, 1);
+    ct_touch_hand(&F, &T, h, n, how, lift, x, y);   /* a tap or a drag: the release says */
 }
 
 static void motion(float x, float y) { ct_touch_move(&F, x, y); }

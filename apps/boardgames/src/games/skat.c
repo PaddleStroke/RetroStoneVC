@@ -135,7 +135,7 @@ static int hand(uint8_t *h, int *how, int live)
         how[i] = 0;
         if (mine && p->phase == SK_PLAY) how[i] = skat_can_play(p, c) ? CD_GLOW : CD_DIM;
         if (mine && p->phase == SK_DISCARD && p->nskat < 2) how[i] = CD_GLOW;
-        if (c == F.raised) how[i] = CD_RAISED;
+        if (ct_is_raised(&F, i)) how[i] = CD_RAISED;
     }
     return n;
 }
@@ -237,19 +237,19 @@ static unsigned winners(void) { return (unsigned)skat_winners(&G.pos); }
 static int turn(void) { return G.pos.turn; }
 
 /* where the viewer's card c lies in a hand of n (h) as fanned */
-static int spot_of(const uint8_t *h, int n, int c, cards_spot *s)
+static int spot_of(const uint8_t *h, int n, int c, cards_spot *s)   /* the card's index in the hand (-1: none) */
 {
     cards_spot all[CT_HAND];
     ct_fan(&T, n, all);
-    for (int i = 0; i < n; i++)
-        if (h[i] == c) { *s = all[i]; return 1; }
-    return 0;
+    int i = ct_index(h, n, c);
+    if (i >= 0) *s = all[i];
+    return i;
 }
 
 static void animate(const skpos *b, uint32_t a, const uint8_t *h, int n)
 {
     const skpos *p = &G.pos;
-    int k = SKA_ARG(a);
+    int k = SKA_ARG(a), at;
     cards_spot s;
     controls();
     switch (SKA_KIND(a)) {
@@ -258,20 +258,20 @@ static void animate(const skpos *b, uint32_t a, const uint8_t *h, int n)
     case SA_PASS: ui_sound(SND_TAP); break;
     case SA_PICKUP:                             /* the skat's two cards into the hand, turning over */
         for (int i = 0; i < 2; i++)
-            if (spot_of(p->hand[T.me], p->n[T.me], b->skat[i], &s))
+            if ((at = spot_of(p->hand[T.me], p->n[T.me], b->skat[i], &s)) >= 0)
                 ct_slide(&A, DECK_FRENCH, b->skat[i], K.skat[i].x, K.skat[i].y, K.sw, 0, 0, s.x, s.y, T.wh, s.deg, 1,
-                         CT_SLIDE_MS + 60, 90 * i, CT_HAND_TAG, b->skat[i], -1, i == 0 ? SND_MOVE : -1);
+                         CT_SLIDE_MS + 60, 90 * i, CT_HAND_TAG, at, -1, i == 0 ? SND_MOVE : -1);
         break;
     case SA_PUT:                                /* a card laid away: from the hand to its place in the skat */
-        if (spot_of(h, n, k, &s))
+        if (spot_of(h, n, k, &s) >= 0)
             ct_slide(&A, DECK_FRENCH, k, s.x, s.y, T.wh, s.deg, 1, K.skat[b->nskat].x, K.skat[b->nskat].y, K.sw, 0, 0,
                      CT_SLIDE_MS, 0, TAG_SKAT, b->nskat, -1, SND_PLACE);
         break;
     case SA_TAKE: {                             /* back to the hand */
         int i = b->skat[0] == k ? 0 : 1;
-        if (spot_of(p->hand[T.me], p->n[T.me], k, &s))
+        if ((at = spot_of(p->hand[T.me], p->n[T.me], k, &s)) >= 0)
             ct_slide(&A, DECK_FRENCH, k, K.skat[i].x, K.skat[i].y, K.sw, 0, 0, s.x, s.y, T.wh, s.deg, 1, CT_SLIDE_MS,
-                     0, CT_HAND_TAG, k, -1, SND_PLACE);
+                     0, CT_HAND_TAG, at, -1, SND_PLACE);
         break;
     }
     case SA_GAME: ui_sound(SND_PLACE); break;
@@ -594,7 +594,7 @@ static void draw(void)
     if (hide) {
         if (!(ph == SK_PLAY && (p->flags & SF_OUVERT) && p->declarer == T.me)) ct_hand_backs(&T, n);
     } else
-        ct_hand_draw(&T, &A, h, n, how, NULL, F.on ? F.card : CARD_NONE);
+        ct_hand_draw(&T, &A, h, n, how, NULL, ct_dragged(&F));
     ct_draw(&A);
     if (!hide) ct_touch_draw(&F, &T);
     if (show_last && p->last_winner != SKAT_NONE) ct_draw_last(&T, p->last, NULL, SKAT_P, p->last_leader,
@@ -608,7 +608,7 @@ static void send(int card)
     const skpos *p = &G.pos;
     if (p->phase == SK_DISCARD) { act(SA_PUT | (uint32_t)card); return; }
     if (skat_can_play(p, card)) act(SA_PLAY | (uint32_t)card);
-    else { F.raised = CARD_NONE; ui_sound(SND_DENY); }
+    else { ct_lower(&F); ui_sound(SND_DENY); }
 }
 
 static void press_bid(float x, float y)
@@ -696,13 +696,8 @@ static void press(float x, float y)
     if (p->phase == SK_PLAY && F.raised != CARD_NONE && ct_on_target(&T, x, y)) { send(F.raised); return; }
     uint8_t h[CT_HAND];
     int how[CT_HAND];
-    int n = hand(h, how, 1), c = ct_hand_at(&T, h, n, how, NULL, x, y);
-    if (c == CARD_NONE) {
-        if (F.raised != CARD_NONE) F.raised = CARD_NONE;
-        else ui_sound(SND_DENY);
-        return;
-    }
-    ct_touch_down(&F, c, x, y);
+    int n = hand(h, how, 1);
+    ct_touch_hand(&F, &T, h, n, how, NULL, x, y);   /* a tap or a drag: the release says */
 }
 
 static void motion(float x, float y) { ct_touch_move(&F, x, y); }

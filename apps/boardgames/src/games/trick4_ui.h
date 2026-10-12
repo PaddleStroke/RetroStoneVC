@@ -37,7 +37,6 @@ typedef struct {
 } tk4_ui;
 
 static const uint8_t TK4_GOLD[3] = {250, 214, 90};
-#define TK4_SKIP 254                            /* a card byte no deck uses: the hand's card under the finger */
 
 static inline void tk4u_reset(tk4_ui *U)
 {
@@ -57,16 +56,16 @@ static inline void tk4u_new(tk4_ui *U)
 static inline void tk4u_layout(tk4_ui *U, box b, int max_hand) { ct_layout(&U->T, b, TK4_P, ui_bottom(), max_hand); }
 
 /* the viewer's hand as shown (h) and how each card is drawn: while the viewer is to play (live), glowing if it may be
- * played (ok), else dimmed; the raised one (the first of two equal cards) */
+ * played (ok), else dimmed; the raised one (by its index: a double pack holds two equal cards) */
 static inline int tk4u_hand(const tk4_ui *U, const tk4_table *t, int live, int playing, int (*ok)(int card), uint8_t *h,
                             int *how)
 {
-    int me = U->T.me, n = t->n[me], mine = live && playing && tk4_turn(t) == me, raised = 0;
+    int me = U->T.me, n = t->n[me], mine = live && playing && tk4_turn(t) == me;
     for (int i = 0; i < n; i++) {
         int c = t->hand[me][i];
         h[i] = (uint8_t)c;
         how[i] = mine ? (ok(c) ? CD_GLOW : CD_DIM) : 0;
-        if (c == U->F.raised && !raised) how[i] = CD_RAISED, raised = 1;
+        if (ct_is_raised(&U->F, i)) how[i] = CD_RAISED;
     }
     return n;
 }
@@ -100,16 +99,7 @@ static inline void tk4u_draw_hand(tk4_ui *U, const tk4_table *t, int live, int p
     int how[CT_HAND];
     int n = none ? 0 : tk4u_hand(U, t, live, playing, ok, h, how);
     if (hide) ct_hand_backs(&U->T, n);
-    else {
-        int skip = CARD_NONE;
-        if (U->F.on && U->F.card != CARD_NONE)  /* the card dragged: only one of two equal ones leaves its place */
-            for (int i = 0; i < n; i++)
-                if (h[i] == U->F.card && (how[i] & CD_RAISED || U->F.raised != U->F.card)) {
-                    h[i] = TK4_SKIP, skip = TK4_SKIP;
-                    break;
-                }
-        ct_hand_draw(&U->T, &U->A, h, n, how, NULL, skip);
-    }
+    else ct_hand_draw(&U->T, &U->A, h, n, how, NULL, ct_dragged(&U->F));
     ct_draw(&U->A);
     if (!hide) ct_touch_draw(&U->F, &U->T);
     const uint8_t pill[4] = {24, 30, 28, 255};
@@ -144,13 +134,7 @@ static inline void tk4u_press_card(tk4_ui *U, const tk4_table *t, int (*ok)(int 
     if (U->F.raised != CARD_NONE && ct_on_target(&U->T, x, y)) { send(U->F.raised); return; }
     uint8_t h[CT_HAND];
     int how[CT_HAND];
-    int n = tk4u_hand(U, t, 1, 1, ok, h, how), c = ct_hand_at(&U->T, h, n, how, NULL, x, y);
-    if (c == CARD_NONE) {
-        if (U->F.raised != CARD_NONE) U->F.raised = CARD_NONE;
-        else ui_sound(SND_DENY);
-        return;
-    }
-    ct_touch_down(&U->F, c, x, y);
+    ct_touch_hand(&U->F, &U->T, h, tk4u_hand(U, t, 1, 1, ok, h, how), how, NULL, x, y);
 }
 
 static inline void tk4u_motion(tk4_ui *U, float x, float y) { ct_touch_move(&U->F, x, y); }

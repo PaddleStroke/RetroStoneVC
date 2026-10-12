@@ -71,16 +71,13 @@ static inline void parlour_hows(const uint8_t *h, int n, unsigned mask, int live
 static inline int parlour_toggle(const ct_table *T, const uint8_t *h, int n, const int *how, unsigned *mask, int more,
                                  float x, float y)
 {
-    int c = ct_hand_at(T, h, n, how, NULL, x, y);
-    if (c == CARD_NONE) return 0;
-    for (int i = 0; i < n; i++) {
-        if (h[i] != c) continue;
-        if (!(*mask >> i & 1) && !more) { ui_sound(SND_DENY); return 1; }
-        *mask ^= 1u << i;
-        ui_sound(SND_TAP);
-        return 1;
-    }
-    return 0;
+    int i = ct_hand_hit(T, n, how, NULL, x, y);
+    (void)h;
+    if (i < 0) return 0;
+    if (!(*mask >> i & 1) && !more) { ui_sound(SND_DENY); return 1; }
+    *mask ^= 1u << i;
+    ui_sound(SND_TAP);
+    return 1;
 }
 
 /* ---- the deals in a row of dots ------------------------------------------------------------------------------------

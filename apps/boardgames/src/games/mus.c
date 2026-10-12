@@ -164,7 +164,7 @@ static void act(int a)
             for (int q = 0; q < 4; q++) old |= before.hand[before.turn][q] == c && !(MA_ARG(a) >> q & 1);
             if (!old)
                 ct_slide(&A, T.deck, c, sx, K.mid_y, K.pw, 0, 0, s1[i].x, s1[i].y, T.wh, s1[i].deg, 1, CT_DEAL_MS + 60,
-                         CT_SLIDE_MS + 60 + 90 * j++, CT_HAND_TAG, c, -1, SND_MOVE);
+                         CT_SLIDE_MS + 60 + 90 * j++, CT_HAND_TAG, i, -1, SND_MOVE);
         }
     } else if (k == MA_MUS || k == MA_PASS)
         ui_sound(SND_TAP);
@@ -425,12 +425,10 @@ static void press(float x, float y)
     if (p->turn != T.me) { ui_sound(SND_DENY); return; }
     geometry();
     if (p->phase == MP_DISCARD) {
-        int h = ct_hand_at(&T, p->hand[T.me], 4, (int[4]){sel & 1 ? CD_RAISED : 0, sel & 2 ? CD_RAISED : 0,
-                                                          sel & 4 ? CD_RAISED : 0, sel & 8 ? CD_RAISED : 0},
-                           NULL, x, y);
-        if (h != CARD_NONE) {
-            for (int i = 0; i < 4; i++)
-                if (p->hand[T.me][i] == h) sel ^= 1 << i;
+        int i = ct_hand_hit(&T, 4, (int[4]){sel & 1 ? CD_RAISED : 0, sel & 2 ? CD_RAISED : 0, sel & 4 ? CD_RAISED : 0,
+                                            sel & 8 ? CD_RAISED : 0}, NULL, x, y);
+        if (i >= 0) {
+            sel ^= 1 << i;
             ui_sound(SND_TAP);
             return;
         }

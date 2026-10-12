@@ -198,7 +198,7 @@ static void draw(void)
 static void send(int card)
 {
     if (can_play(card)) act(KA_PLAY | card);
-    else { U.F.raised = CARD_NONE; ui_sound(SND_DENY); }
+    else { ct_lower(&U.F); ui_sound(SND_DENY); }
 }
 
 static void press_bidding(float x, float y)

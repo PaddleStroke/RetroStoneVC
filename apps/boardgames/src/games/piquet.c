@@ -129,7 +129,7 @@ static int hand(uint8_t *h, int *how, float *lift, int live)
         int c = p->hand[T.me][i];
         h[i] = (uint8_t)c;
         how[i] = mine && p->phase == PQ_PLAY ? (piquet_can_play(p, c) ? CD_GLOW : CD_DIM) : 0;
-        if (c == F.raised) how[i] = CD_RAISED;
+        if (ct_is_raised(&F, i)) how[i] = CD_RAISED;
         if (lift) lift[i] = fresh(c) ? LIFT : 0;
     }
     if (mine && p->phase == PQ_EXCHANGE) parlour_hows(h, n, pick, 1, parlour_count(pick) < piquet_throw_max(p), how);
@@ -190,7 +190,7 @@ static void animate_exchange(const piquet_pos *b, unsigned mask, const uint8_t *
         int c = p->hand[me][i];
         if (trick_find(b->hand[me], b->n[me], c) >= 0) continue;
         ct_rest(&A, ct_slide(&A, DECK_FRENCH, c, sx, sy, pile_w(), 0, 0, ns[i].x, ns[i].y - LIFT * T.wh, T.wh,
-                             ns[i].deg, 1, CT_SLIDE_MS + 100, CT_SLIDE_MS + 100 + 80 * k, CT_HAND_TAG, c, -1,
+                             ns[i].deg, 1, CT_SLIDE_MS + 100, CT_SLIDE_MS + 100 + 80 * k, CT_HAND_TAG, i, -1,
                              k == 0 ? SND_PLACE : -1), 250);
         k++;
     }
@@ -482,7 +482,7 @@ static void draw(void)
     float lift[CT_HAND];
     int n = hand(h, how, lift, live);
     if (hide) ct_hand_backs(&T, n);
-    else ct_hand_draw(&T, &A, h, n, how, lift, F.on ? F.card : CARD_NONE);
+    else ct_hand_draw(&T, &A, h, n, how, lift, ct_dragged(&F));
     ct_draw(&A);
     if (!hide) ct_touch_draw(&F, &T);
     if (show_last && p->last_winner != TRICK_NONE)
@@ -494,7 +494,7 @@ static void draw(void)
 static void send(int card)
 {
     if (piquet_can_play(&G.pos, card)) act(PQA_PLAY | card);
-    else { F.raised = CARD_NONE; ui_sound(SND_DENY); }
+    else { ct_lower(&F); ui_sound(SND_DENY); }
 }
 
 static void press(float x, float y)
@@ -533,13 +533,7 @@ static void press(float x, float y)
         return;
     }
     if (F.raised != CARD_NONE && ct_on_target(&T, x, y)) { send(F.raised); return; }
-    int c = ct_hand_at(&T, h, n, how, lift, x, y);
-    if (c == CARD_NONE) {
-        if (F.raised != CARD_NONE) F.raised = CARD_NONE;
-        else ui_sound(SND_DENY);
-        return;
-    }
-    ct_touch_down(&F, c, x, y);
+    ct_touch_hand(&F, &T, h, n, how, lift, x, y);   /* a tap or a drag: the release says */
 }
 
 static void motion(float x, float y) { ct_touch_move(&F, x, y); }

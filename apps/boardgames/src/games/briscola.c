@@ -82,7 +82,7 @@ static int hand(uint8_t *h, int *how, int live)
     int n = p->n[T.me];
     for (int i = 0; i < n; i++) {
         h[i] = p->hand[T.me][i];
-        how[i] = h[i] == F.raised ? CD_RAISED : live && p->turn == T.me ? CD_GLOW : 0;
+        how[i] = ct_is_raised(&F, i) ? CD_RAISED : live && p->turn == T.me ? CD_GLOW : 0;
     }
     return n;
 }
@@ -102,7 +102,7 @@ static void draws(const brpos *b, int delay)
             int i = 0;
             while (i < p->n[q] - 1 && p->hand[q][i] != c) i++;
             ct_slide(&A, DECK_ITALIAN, c, x0, y0, ws, a0, briscola, s[i].x, s[i].y, T.wh, s[i].deg, 1, DRAW_MS,
-                     delay + 160 * k, CT_HAND_TAG, c, -1, SND_MOVE);
+                     delay + 160 * k, CT_HAND_TAG, i, -1, SND_MOVE);
         } else
             ct_slide(&A, DECK_ITALIAN, c, x0, y0, ws, a0, briscola, T.sx[q], T.sy[q], 0.45f * T.wt, T.tdeg[q], 0,
                      DRAW_MS,
@@ -228,7 +228,7 @@ static void draw(void)
     int how[CT_HAND];
     int n = hand(h, how, live);
     if (hide) ct_hand_backs(&T, n);
-    else ct_hand_draw(&T, &A, h, n, how, NULL, F.on ? F.card : CARD_NONE);
+    else ct_hand_draw(&T, &A, h, n, how, NULL, ct_dragged(&F));
     ct_draw(&A);
     if (!hide) ct_touch_draw(&F, &T);
     if (show_last && p->last_winner != BRISCOLA_NONE)
@@ -249,13 +249,8 @@ static void press(float x, float y)
     if (F.raised != CARD_NONE && ct_on_target(&T, x, y)) { act(F.raised); return; }
     uint8_t h[CT_HAND];
     int how[CT_HAND];
-    int n = hand(h, how, 1), c = ct_hand_at(&T, h, n, how, NULL, x, y);
-    if (c == CARD_NONE) {
-        if (F.raised != CARD_NONE) F.raised = CARD_NONE;
-        else ui_sound(SND_DENY);
-        return;
-    }
-    ct_touch_down(&F, c, x, y);
+    int n = hand(h, how, 1);
+    ct_touch_hand(&F, &T, h, n, how, NULL, x, y);   /* a tap or a drag: the release says */
 }
 
 static void motion(float x, float y) { ct_touch_move(&F, x, y); }
