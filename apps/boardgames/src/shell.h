@@ -126,7 +126,7 @@ float ui_number_w(int value, float h);          /* how wide ui_number draws it *
 void ui_bar_count(box b, SDL_Texture *piece, int n);
 /* the same showing 0 too (a move counter), the piece optional (NULL); returns the x after the number */
 float ui_bar_number(box b, SDL_Texture *piece, int n);
-/* where a player's bar is on the screen (cards flying to it, a glow); upside: it is drawn turned round (face to face) */
+/* where a player's bar is on the screen (cards flying to it, a glow); upside: drawn turned round (face to face) */
 box  ui_bar_box(int player, int *upside);
 void ui_animate(void);                          /* draw the next frame too (an animation runs) */
 Uint32 ui_ms(void);                             /* the clock for animations: use it, not SDL_GetTicks (the picture

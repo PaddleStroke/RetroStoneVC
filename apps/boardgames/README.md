@@ -19,7 +19,9 @@ make -f apps/boardgames/Makefile win64           # dist/windows/RetroStoneBoard.
 |---|---|
 | `src/shell.c` `shell.h` | the app: the menu, the variant picker, the players' bars, the buttons (home, undo, flip, face to face, new game), the end-of-game card, the picture mode. Everything the games share, written once. |
 | `src/art.c` `art.h` | the pictures, drawn by code at the screen's resolution: shapes (`art_fig`; strokes `art_band`, arrow heads `art_head`, one-colour styles `art_flat`, a figure into a picture `art_fig_blend` / `art_fig_paint`), the house pieces (`art_piece` for chess, `art_counter` for discs, go stones, draughts men and kings, `art_die`), the wooden boards (`art_board_n`), carved holes (`art_recess`), the dice games' felt (`art_felt`), a flat piece and its shadow in a thumbnail (`art_flat_put`), icons. |
-| `src/cards.c` `cards.h` | the card and tile kit: five decks drawn by code, a texture cache, cards drawn and moved, hands, piles (see "Card and tile games"). |
+| `src/cards.c` `cards.h` | the card and tile kit: the house's decks drawn by code (and a game's own, `cards_deck_add`), a texture cache, cards drawn and moved, hands, piles (see "Card and tile games"). |
+| `src/cards_italian.c` | the Italian pack of 40 (`DECK_ITALIAN`), drawn by code. |
+| `src/cards_table.c` `cards_table.h` | the shared card table (prefix `ct_`): what card games draw round their cards, written once (see "Card and tile games"). |
 | `src/sound.c` | the sounds, made by code: `ui_sound(SND_MOVE / CAPTURE / PLACE / DROP / CHECK / END / TAP / DENY)`. |
 | `src/text.c` `text.h`, `help/<lang>/<id>.txt`, `tools/gen_text.py` | the texts: each game's rules (the ? button) and name (the menu card) in 22 languages, the device's language; Noto Sans CJK (and DejaVu Sans for the letters it lacks) cut down at build time to the characters used, drawn with stb_truetype. `help/<lang>/_app.txt`: the buttons, after every game's rules. |
 | `src/games/<id>.c` | a game: its board on the screen, its input; registers itself (`REGISTER_GAME`). |
@@ -44,8 +46,9 @@ One look across the app, like the Arcade games' house kit:
   stands).
 - **The menu's sections**, one tab each (a picture: a man, a knight, a die, a card, a question, a marble, a jigsaw
   piece; tap, swipe sideways or the arrow keys): strategy, chess family, dice & race, cards & tiles, guessing games,
-  solitaires, puzzles (their names in `help/<lang>/_menu.txt`, a line each, over the games). The shell's `SECTION_OF` table files
-  a game by its id (unlisted: strategy); within a section the games go by `order`. `--tab n` in the picture mode.
+  solitaires, puzzles (their names in `help/<lang>/_menu.txt`, a line each, over the games). The shell's
+  `SECTION_OF` table files a game by its id (unlisted: strategy); within a section the games go by `order`. `--tab n`
+  in the picture mode.
 - **Wood**: every board is the house wood (`art_board_n`: checkered squares, or one plain plank with lines drawn on
   it), in its walnut frame, on the shell's green table. The shared headers draw the boards of a kind: `grid.h` (go's
   points; `grid_lines` and `grid_ink` for any plank ruled in squares: makruk, shogi), `lines.h` (lines and points,

@@ -24,7 +24,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_GAMES 128
+#define MAX_GAMES 256
 #define MAX_VARIANTS 15                         /* a picker card each (the thumbnails: one more, the menu's) */
 
 struct ui ui = {.players = 2};
@@ -73,6 +73,15 @@ static const struct { const char *id; int section; } SECTION_OF[] = {
     {"starbattle", SEC_PUZZLE}, {"dominosa", SEC_PUZZLE}, {"watersort", SEC_PUZZLE}, {"ballsort", SEC_PUZZLE},
     {"samegame", SEC_PUZZLE}, {"iceslide", SEC_PUZZLE}, {"merge", SEC_PUZZLE}, {"chesspuzzles", SEC_PUZZLE},
     {"knightstour", SEC_PUZZLE}, {"queens", SEC_PUZZLE},
+    {"mines", SEC_PUZZLE}, {"klotski", SEC_PUZZLE}, {"boxpusher", SEC_PUZZLE}, {"calcudoku", SEC_PUZZLE},
+    {"kakuro", SEC_PUZZLE}, {"hashi", SEC_PUZZLE}, {"loop", SEC_PUZZLE}, {"lights", SEC_PUZZLE},
+    {"tangram", SEC_PUZZLE},
+    {"durak", SEC_CARDS}, {"barbu", SEC_CARDS}, {"rikiki", SEC_CARDS}, {"piquet", SEC_CARDS}, {"ecarte", SEC_CARDS},
+    {"bigtwo", SEC_CARDS}, {"tienlen", SEC_CARDS}, {"doppelkopf", SEC_CARDS}, {"schafkopf", SEC_CARDS},
+    {"jass", SEC_CARDS}, {"klaverjas", SEC_CARDS}, {"mus", SEC_CARDS}, {"truco", SEC_CARDS}, {"bridge", SEC_CARDS},
+    {"bellelucie", SEC_SOLO}, {"yukon", SEC_SOLO}, {"fortythieves", SEC_SOLO}, {"golfpatience", SEC_SOLO},
+    {"canfield", SEC_SOLO}, {"montana", SEC_SOLO}, {"clock", SEC_SOLO},
+    {"banqi", SEC_CHESS}, {"mexico", SEC_RACE}, {"pig", SEC_RACE}, {"shipcaptain", SEC_RACE},
 };
 
 static int section_of(const game *g)
