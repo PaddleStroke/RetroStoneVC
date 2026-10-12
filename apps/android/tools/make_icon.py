@@ -9,6 +9,12 @@ app: a navy tile; the full app (PROFILE=full): a ruby tile. The heroes: the conf
 Writes the legacy icons (mipmap-*/ic_launcher.png, 48..192 px), the adaptive icon (Android 8+: the tile's colour as
 the background and the foreground in mipmap-*/ic_launcher_foreground.png, mipmap-anydpi-v26/ic_launcher.xml) and,
 with --store, the 512x512 picture Google Play asks for (store_icon(), also used by make_store_art.py).
+
+RetroStone Board (ICON_STYLE=board in its .conf): the same gold frame around the app's green table, with the white
+knight, a die and a card on it, the app's own pictures (--art: knight.png, die.png, card.png, drawn by the app's code:
+apps/boardgames/android/icon_art.c, make -f apps/boardgames/Makefile icon-art):
+
+    make_icon.py --conf apps/android/app-board.conf --art build/android/board/icon-art --res build/android/board/res
 MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
 """
 import argparse
@@ -16,7 +22,7 @@ import os
 import sys
 
 import numpy as np
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFilter
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
 sys.path.insert(0, os.path.join(ROOT, "apps", "launcher", "tools"))
@@ -24,6 +30,7 @@ import cards  # noqa: E402  (the launcher cards: the game's pixels at 1x)
 
 NAVY, NAVY_D, FILL = (16, 24, 56), (12, 20, 44), (42, 68, 118)
 RUBY, RUBY_FILL = (72, 14, 36), (128, 34, 58)
+TABLE = (34, 52, 46)                        # RetroStone Board's table (apps/boardgames/src/shell.c: the dark green)
 GOLD_L, GOLD, GOLD_D, OUT = (255, 240, 150), (252, 216, 72), (186, 128, 22), (22, 18, 40)
 
 # each hero's close-up: the top-left corner of a HERO x HERO square in its card (96 x 72, cards.source())
@@ -62,15 +69,21 @@ def _rounded(size, box, radius, fill, img=None):
     return img
 
 
-def tile_icon(games, full=False):
-    """TILE x TILE, RGBA (clear outside the rounded frame): the gold frame, the tile, the 4 heroes' close-ups"""
-    tile = RUBY if full else NAVY
+def _frame(tile):
+    """the gold frame around a tile of one colour, SS times larger (the caller smooths it down)"""
     big = None
     # the frame, outside in: an outline, the gold lit from the top left (light) and shaded at the bottom right (dark)
     for box, r, col in (((0, 0, 479, 479), 60, OUT), ((5, 5, 474, 474), 56, GOLD_D), ((5, 5, 468, 468), 56, GOLD),
                         ((10, 10, 463, 463), 52, GOLD_L), ((15, 15, 463, 463), 48, GOLD),
                         ((22, 22, 457, 457), 42, OUT), ((26, 26, 453, 453), 38, tile)):
         big = _rounded(TILE, box, r, col + (255,), big)
+    return big
+
+
+def tile_icon(games, full=False):
+    """TILE x TILE, RGBA (clear outside the rounded frame): the gold frame, the tile, the 4 heroes' close-ups"""
+    tile = RUBY if full else NAVY
+    big = _frame(tile)
     for i in range(len(games)):             # each hero's dark outline
         x, y = INSET + (i % 2) * (CELL + GAP), INSET + (i // 2) * (CELL + GAP)
         _rounded(TILE, (x - 3, y - 3, x + CELL + 2, y + CELL + 2), 16, OUT + (255,), big)
@@ -86,11 +99,50 @@ def tile_icon(games, full=False):
     return im
 
 
-def store_icon(games, full=False):
-    """the 512 x 512 store icon: the tile on its colour (Google Play rounds the corners itself)"""
-    bg = RUBY if full else NAVY
+def _shadowed(im, picture, cx, cy, deg=0.0, shadow=0.5):
+    """lays picture (RGBA) on im centred at (cx, cy), turned deg degrees, over its soft shadow (the light from the top
+    left, as in the app)"""
+    p = picture.rotate(deg, Image.BICUBIC, expand=True) if deg else picture
+    x, y = int(round(cx - p.width / 2)), int(round(cy - p.height / 2))
+    pad = 24
+    a = Image.new("L", (p.width + 2 * pad, p.height + 2 * pad), 0)
+    a.paste(p.getchannel("A"), (pad, pad))
+    a = a.filter(ImageFilter.GaussianBlur(7)).point(lambda v: int(v * shadow))
+    sh = Image.new("RGBA", a.size, (0, 0, 0, 0))
+    sh.putalpha(a)
+    layer = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    layer.paste(sh, (x - pad + 7, y - pad + 9))
+    im.alpha_composite(layer)
+    layer = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    layer.paste(p, (x, y))
+    im.alpha_composite(layer)
+
+
+def board_icon(art):
+    """RetroStone Board: TILE x TILE, RGBA. The gold frame around the app's green table (lighter in the middle, as
+    the app draws it), on it a card (the ace of hearts), a die and the white knight: the app's own pictures (art: a
+    folder with knight.png, die.png, card.png, from apps/boardgames/android/icon_art.c)"""
+    im = _frame(TABLE).resize((TILE, TILE), Image.LANCZOS)
+    yy, xx = np.mgrid[0:TILE, 0:TILE].astype(np.float32)
+    d = np.sqrt((xx - 240) ** 2 + (yy - 200) ** 2) / 300
+    k = (1.25 - 0.45 * np.clip(d, 0, 1))[..., None]
+    felt = np.clip(np.array(TABLE, np.float32) * k, 0, 255).astype(np.uint8)
+    felt = Image.fromarray(np.dstack([felt, np.full((TILE, TILE), 255, np.uint8)]), "RGBA")
+    mask = _rounded(TILE, (26, 26, 453, 453), 38, 255, Image.new("L", (TILE * SS, TILE * SS), 0))
+    im.paste(felt, (0, 0), mask.resize((TILE, TILE), Image.LANCZOS))
+    load = lambda n: Image.open(os.path.join(art, n)).convert("RGBA")  # noqa: E731
+    _shadowed(im, load("card.png"), 322, 190, -14, 0.55)
+    _shadowed(im, load("die.png"), 356, 366, 16, 0.6)
+    _shadowed(im, load("knight.png"), 182, 258, 0, 0.6)
+    return im
+
+
+def store_icon(games, full=False, art=None):
+    """the 512 x 512 store icon: the tile on its colour (Google Play rounds the corners itself); art: RetroStone
+    Board's pictures (board_icon)"""
+    bg = TABLE if art else RUBY if full else NAVY
     store = Image.new("RGBA", (512, 512), bg + (255,))
-    t = tile_icon(games, full)
+    t = board_icon(art) if art else tile_icon(games, full)
     store.alpha_composite(t, (16, 16))
     return store.convert("RGB")
 
@@ -100,10 +152,14 @@ def main():
     ap.add_argument("--conf", required=True)
     ap.add_argument("--res", required=True)
     ap.add_argument("--store")
+    ap.add_argument("--art", help="ICON_STYLE=board: the folder of the app's pictures (knight.png, die.png, card.png)")
     a = ap.parse_args()
     games, full = conf_games(a.conf)
-    icon = tile_icon(games, full)
-    bg = RUBY if full else NAVY
+    board = read_conf(a.conf).get("ICON_STYLE") == "board"
+    if board and not a.art:
+        ap.error("ICON_STYLE=board needs --art")
+    icon = board_icon(a.art) if board else tile_icon(games, full)
+    bg = TABLE if board else RUBY if full else NAVY
     dens = {"mdpi": 1, "hdpi": 1.5, "xhdpi": 2, "xxhdpi": 3, "xxxhdpi": 4}
     for name, k in dens.items():
         d = os.path.join(a.res, f"mipmap-{name}")
@@ -129,7 +185,7 @@ def main():
                 '    <color name="ic_launcher_background">#%02x%02x%02x</color>\n</resources>\n' % bg)
     if a.store:
         os.makedirs(os.path.dirname(a.store), exist_ok=True)
-        store_icon(games, full).save(a.store)
+        store_icon(games, full, a.art if board else None).save(a.store)
 
 
 if __name__ == "__main__":

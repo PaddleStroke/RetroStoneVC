@@ -12,6 +12,9 @@ Two Android apps built from the same code, the RetroStone VC games in one progra
 | Debug APK | `dist/android/RetroStoneArcadeFree-debug.apk` | `dist/android/RetroStoneArcade-debug.apk` |
 | Desktop | `dist/windows/RetroStoneArcadeFree.exe` | `dist/windows/RetroStoneArcade.exe` |
 
+The same pipeline builds a third app, **RetroStone Board** (the board and card games for two on one device,
+`apps/boardgames`): section 7.
+
 The same launcher otherwise (described in [apps/launcher/README.md](../launcher/README.md)): the "i" in the menu's
 top-left corner opens **Credits & licences**, the "?" in its top-right corner a short **help** (touch is player 1,
 gamepads players 2 to 4, the pause and back buttons). The pad's A / B hints appear only when a gamepad is connected.
@@ -239,5 +242,32 @@ Everything else Google Play asks for is in [`store/`](store/):
   finger in the desktop apps was not tried by hand either), the drawn buttons' size, the audio latency, the integer
   scaling on the phone's real resolution, the display cutout, Bluetooth / USB pads, the Back gesture of gesture
   navigation, the Play Store link (the paid app is not on Google Play yet: the store says "not found").
+
+## 7. RetroStone Board
+
+The board games app (`apps/boardgames`, plain C + SDL2, its own README) is built by the same script, Gradle module
+and toolchain, from its config `apps/android/app-board.conf`:
+
+| | **RetroStone Board** |
+|---|---|
+| Package id | `com.eightbcraft.retrostoneboard` (a new app on Google Play, apart from the Arcade's) |
+| Build | `apps/android/build.sh board` (`--release`: the signed `.aab` and `.apk`, the same upload key) |
+| Debug APK | `dist/android/RetroStoneBoard-debug.apk` |
+| Desktop | `make -f apps/boardgames/Makefile win64`: `dist/windows/RetroStoneBoard.exe` |
+
+What its config changes (each key's default is the Arcade's, so app.conf and app-full.conf need none of them):
+
+| Key | RetroStone Board | The Arcade |
+|---|---|---|
+| `NATIVE` | `boardgames`: libmain.so from `make -f apps/boardgames/Makefile android ABI=<abi>` (in `build/android/board/native`) | `launcher`: `apps/launcher/bundle.mk` |
+| `JAVA_SRC`, `ACTIVITY` | `apps/boardgames/android/java`, `BoardActivity` (SDL's activity; ends the process when the app closes) | `app/src/main/java`, `ArcadeActivity` |
+| `ORIENTATION` | `fullUser`: portrait and landscape as the phone is held (then SDL applies the app's `SDL_HINT_ORIENTATIONS`) | `sensorLandscape` |
+| `PLAY_REVIEW` | `0`: no In-App Review library | `1` |
+| `ICON_STYLE` | `board`: the gold frame around the app's green table, its own knight, die and card, drawn by its code (`apps/boardgames/android/icon_art.c`, `make ... icon-art`) | the games' title screens |
+
+Everything the app needs is inside libmain.so (the fonts cut down to the texts, the rules in 22 languages, the tarot's
+pictures): no assets folder. The phone's language is read with `SDL_GetPreferredLocales`; touch reaches the games as
+the mouse (SDL's default) and, for the games that take several fingers (Bataille corse), as fingers; Back closes the
+rules page, then goes home, then leaves the app.
 
 MIT licence (the apps' code), (c) 2026 Pierre-Louis Boyer (8BCraft). The games' assets: CC BY-NC-SA 4.0.

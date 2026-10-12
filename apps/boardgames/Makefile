@@ -69,3 +69,34 @@ win64: dist/windows/RetroStoneBoard.exe
 dist/windows/RetroStoneBoard.exe: $(SRC) $(HDR)
 	@mkdir -p $(@D)
 	x86_64-w64-mingw32-gcc $(CFLAGS) -I$(SDL2_MINGW)/include/SDL2 -Dmain=SDL_main -o $@ $(SRC) $(WIN_LIBS)
+
+# ---- Android (apps/android/build.sh board: the app RetroStone Board, apps/android/app-board.conf) --------------------
+#   make -f apps/boardgames/Makefile android ABI=arm64-v8a NDK=<ndk>   $(B)/android-<abi>/libmain.so (SDL2 apart:
+#        build/android/sdl2/libs/<abi>/libSDL2.so, made by build.sh); also armeabi-v7a, x86_64
+#   make -f apps/boardgames/Makefile icon-art ICON_DIR=<dir>           the launcher icon's pictures (make_icon.py)
+ABI    ?= arm64-v8a
+NDK    ?= $(ANDROID_NDK_HOME)
+NDK_TRIPLE = $(if $(filter arm64-v8a,$(ABI)),aarch64-linux-android,$(if $(filter armeabi-v7a,$(ABI)),armv7a-linux-androideabi,x86_64-linux-android))
+NDK_CC  = $(NDK)/toolchains/llvm/prebuilt/linux-x86_64/bin/$(NDK_TRIPLE)24-clang
+SDL_SRC ?= build/deps/src/SDL2-2.32.10
+AB      = $(B)/android-$(ABI)
+.PHONY: android icon-art
+android: $(AB)/libmain.so
+
+$(AB)/obj/%.o: %.c $(HDR)
+	@mkdir -p $(@D)
+	$(NDK_CC) $(CFLAGS) -fPIC -I$(SDL_SRC)/include -c -o $@ $<
+
+$(AB)/libmain.so: $(patsubst %.c,$(AB)/obj/%.o,$(SRC))
+	$(NDK_CC) -shared -o $@ $^ -Wl,-soname,libmain.so -Wl,--no-undefined -Wl,-z,max-page-size=16384 \
+	    -Wl,--build-id=sha1 -Lbuild/android/sdl2/libs/$(ABI) -lSDL2 -llog -landroid -lm
+
+icon-art: $(B)/host/icon_art
+	@mkdir -p $(ICON_DIR)
+	$< $(ICON_DIR)
+
+$(B)/host/icon_art: $(D)/android/icon_art.c $(SRC) $(HDR)
+	@mkdir -p $(@D)
+	gcc $(CFLAGS) $(shell sdl2-config --cflags) -Dmain=board_main -c -o $(B)/host/icon_shell.o $(D)/src/shell.c
+	gcc $(CFLAGS) $(shell sdl2-config --cflags) -o $@ $< $(B)/host/icon_shell.o $(filter-out %/shell.c,$(SRC)) \
+	    $(shell sdl2-config --libs) -lm
