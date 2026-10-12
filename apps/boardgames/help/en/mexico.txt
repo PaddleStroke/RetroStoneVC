@@ -1,0 +1,19 @@
+Mexico
+# The aim
+Be the last player with lives left. Two dice are thrown under a cup that only the thrower looks into, and the value they announce may be the truth or a bluff. For 2 to 6 players, with 3 or 6 lives each (chosen before the game).
+# The values
+A throw of two dice is read with the higher die first: a 3 and a 5 make 53. From the lowest to the highest:
+- the plain values: 31, 32, 41, 42, 43, 51, 52, 53, 54, 61, 62, 63, 64, 65;
+- then the doubles, from 11 up to 66;
+- then 21, Mexico, the highest of all.
+# A round
+- The first player throws the two dice under the cup, looks at them alone and announces a value: the truth, or a bluff.
+- The cup goes to the next player, who either believes the value or calls it.
+- To believe it, throw the dice again under the cup without looking at what was there, look at your new throw and announce a value at least as high as the last one. If your throw is lower, you have to bluff.
+- The cup goes on round the table until someone calls.
+# The call
+The cup is lifted. If the dice show at least the value announced, the caller was wrong and loses a life. If they show less, it was a bluff, and the player who announced it loses a life. The player who lost a life starts the next round.
+# The end of the game
+A player with no lives left is out (if they lost the last round, the next player still in starts). The last player in wins.
+# Playing on the device
+Pass the device round: a cover hides the screen at every turn. At the top is the value to beat, with the chip of the player who announced it, and the round's earlier values under it. Tap the button with the die to throw: the cup tips aside and only you see your dice (tap the cup to put it back over them). Then tap a value on the pad and the check to announce it. The pad shows each value as its two dice, from the lowest at the top left to Mexico at the bottom right; the values below the one to beat are faded, and the value you threw glows. To call instead, tap the button with the lifted cup: everyone sees the dice, in gold if the value held, in red if it was a bluff, and the life lost fades away. Each bar shows the lives a player has left. Tap the arrow to start the next round.

@@ -1,0 +1,19 @@
+México
+# O objetivo
+Ser o último jogador com vidas. Dois dados são rolados sob um copo em que só quem rolou olha, e o valor que essa pessoa anuncia pode ser verdade ou um blefe. De 2 a 6 jogadores, com 3 ou 6 vidas cada um (escolha antes da partida).
+# Os valores
+Uma jogada de dois dados se lê com o dado maior primeiro: um 3 e um 5 fazem 53. Do menor ao maior:
+- os valores simples: 31, 32, 41, 42, 43, 51, 52, 53, 54, 61, 62, 63, 64, 65;
+- depois os pares, de 11 a 66;
+- depois o 21, o México, o maior de todos.
+# Uma rodada
+- O primeiro jogador rola os dois dados sob o copo, olha sozinho e anuncia um valor: a verdade ou um blefe.
+- O copo passa ao próximo jogador, que acredita no valor ou o desafia.
+- Para acreditar, role os dados de novo sob o copo sem olhar o que havia, olhe a sua nova jogada e anuncie um valor pelo menos igual ao anterior. Se a sua jogada for menor, você tem de blefar.
+- Assim o copo dá a volta na mesa até alguém desafiar.
+# O desafio
+O copo é levantado. Se os dados mostram pelo menos o valor anunciado, quem desafiou errou e perde uma vida. Se mostram menos, era um blefe, e o jogador que o anunciou perde uma vida. Quem perdeu uma vida começa a rodada seguinte.
+# O fim da partida
+Um jogador sem vidas é eliminado (se perdeu a última rodada, começa o próximo jogador ainda no jogo). O último jogador que sobrar vence.
+# Jogando no aparelho
+Passem o aparelho: uma tampa esconde a tela a cada vez. No alto fica o valor a superar, com a ficha de quem o anunciou, e embaixo os valores anteriores da rodada. Toque no botão do dado para rolar: o copo tomba para o lado e só você vê os seus dados (toque no copo para cobri-los de novo). Depois toque num valor do painel e no visto para anunciá-lo. O painel mostra cada valor com os seus dois dados, do menor no alto à esquerda ao México embaixo à direita; os valores menores que o valor a superar ficam apagados, e o valor que você tirou brilha. Para desafiar, toque no botão do copo levantado: todos veem os dados, dourados se o valor valia, vermelhos se era um blefe, e a vida perdida some. Cada barra mostra as vidas que restam a um jogador. Toque na seta para começar a rodada seguinte.

@@ -1,0 +1,19 @@
+Meksyk
+# Cel gry
+Zostać ostatnim graczem, któremu zostały życia. Pod kubkiem rzuca się dwiema kośćmi, pod które zagląda tylko rzucający, a wartość, którą ogłasza, może być prawdą albo blefem. Dla 2 do 6 graczy, każdy z 3 albo 6 życiami (wybór przed grą).
+# Wartości
+Rzut dwiema kośćmi czyta się od wyższej kości: 3 i 5 dają 53. Od najniższej do najwyższej:
+- zwykłe wartości: 31, 32, 41, 42, 43, 51, 52, 53, 54, 61, 62, 63, 64, 65;
+- potem pary, od 11 do 66;
+- potem 21, Meksyk, najwyższa ze wszystkich.
+# Runda
+- Pierwszy gracz rzuca obiema kośćmi pod kubkiem, ogląda je sam i ogłasza wartość: prawdę albo blef.
+- Kubek przechodzi do następnego gracza, który albo wierzy w tę wartość, albo ją sprawdza.
+- Jeśli wierzysz, rzuć kośćmi pod kubkiem jeszcze raz, nie patrząc, co tam było, obejrzyj nowy rzut i ogłoś wartość co najmniej tak wysoką jak poprzednia. Jeśli twój rzut jest niższy, musisz blefować.
+- Tak kubek krąży wokół stołu, aż ktoś sprawdzi.
+# Sprawdzenie
+Kubek się podnosi. Jeśli kości pokazują co najmniej ogłoszoną wartość, sprawdzający się pomylił i traci życie. Jeśli pokazują mniej, był to blef i życie traci gracz, który ją ogłosił. Kto stracił życie, zaczyna następną rundę.
+# Koniec gry
+Gracz bez żyć odpada (jeśli przegrał ostatnią rundę, zaczyna następny gracz, który jest jeszcze w grze). Wygrywa ostatni gracz, który zostanie.
+# Gra na urządzeniu
+Podawajcie sobie urządzenie: przy każdej turze ekran zakrywa zasłona. Na górze jest wartość do przebicia z żetonem gracza, który ją ogłosił, a pod nią wcześniejsze wartości rundy. Dotknij przycisku z kością, aby rzucić: kubek przechyla się na bok i tylko ty widzisz swoje kości (dotknij kubka, aby znów je przykryć). Potem dotknij wartości na tablicy i ptaszka, aby ją ogłosić. Tablica pokazuje każdą wartość jako jej dwie kości, od najniższej w lewym górnym rogu po Meksyk w prawym dolnym; wartości niższe od tej do przebicia są wyblakłe, a wartość, którą wyrzuciłeś, świeci. Aby sprawdzić, dotknij przycisku z podniesionym kubkiem: wszyscy widzą kości, złote, jeśli wartość się utrzymała, czerwone, jeśli był to blef, a stracone życie znika. Każdy pasek pokazuje, ile żyć zostało graczowi. Dotknij strzałki, aby zacząć następną rundę.

@@ -1,0 +1,15 @@
+Skib, kaptajn og besætning
+# Målet
+Vind 5 jetoner ved at laste den bedste last. Du skal have et skib, en kaptajn og en besætning, før du kan fragte noget. For 2 til 6 spillere.
+# En tur
+- Du har op til tre slag med fem terninger.
+- Du skal have en 6'er (skibet), så en 5'er (kaptajnen), så en 4'er (besætningen), i den rækkefølge: en 5'er tæller først, når du har skibet, og en 4'er først, når du har kaptajnen. Ét slag kan give to af dem eller alle tre.
+- De lægges til side, efterhånden som de kommer, og du slår igen med de andre terninger.
+- Med skib, kaptajn og besætning om bord er de to resterende terninger din last: deres sum er din score for turen. Har du et slag tilbage, må du stoppe eller slå begge lastterninger igen: det sidste slag tæller.
+- Uden skib, kaptajn og besætning efter tre slag har du ingen last.
+# En runde
+Hver spiller har én tur. Den højeste last vinder en jeton; ved lige høje laster vinder hver af dem en; har ingen en last, vinder ingen. Næste runde starter med den næste spiller.
+# Spillets afslutning
+Den første spiller med 5 jetoner ved slutningen af en runde vinder. Spillere, der når 5 i samme runde, deler sejren.
+# Spil på enheden
+Visningen drejer mod den spiller, der skal slå. Tryk på filten eller på knappen med en terning for at slå. Skibet, kaptajnen og besætningen glider ned i stativets tre fordybninger, der viser en bleg 6'er, 5'er og 4'er, så længe de er tomme. Din last vises så i guld under terningerne: tryk på fluebenet for at stoppe, eller slå igen. De tre små terninger under filten er de slag, der er tilbage. Øverst står hver spillers last i denne runde; når en runde er slut, lyser dens bedste last, til den næste begynder. Hver bjælke viser den spillers jetoner. Fortryd tager et stop tilbage, aldrig et slag.

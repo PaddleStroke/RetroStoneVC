@@ -1,0 +1,19 @@
+Messico
+# Lo scopo
+Essere l'ultimo giocatore con delle vite. Si lanciano due dadi sotto un bicchiere in cui guarda solo chi lancia, e il valore che dichiara può essere vero o un bluff. Da 2 a 6 giocatori, con 3 o 6 vite ciascuno (si sceglie prima della partita).
+# I valori
+Un lancio di due dadi si legge con il dado più alto per primo: un 3 e un 5 fanno 53. Dal più basso al più alto:
+- i valori semplici: 31, 32, 41, 42, 43, 51, 52, 53, 54, 61, 62, 63, 64, 65;
+- poi le coppie, da 11 a 66;
+- poi 21, il Messico, il più alto di tutti.
+# Una mano
+- Il primo giocatore lancia i due dadi sotto il bicchiere, li guarda da solo e dichiara un valore: la verità o un bluff.
+- Il bicchiere passa al giocatore successivo, che crede al valore oppure lo sfida.
+- Per crederci, rilancia i dadi sotto il bicchiere senza guardare cosa c'era, guarda il tuo nuovo lancio e dichiara un valore almeno alto quanto il precedente. Se il tuo lancio è più basso, devi bluffare.
+- Il bicchiere continua così il giro del tavolo finché qualcuno sfida.
+# La sfida
+Si alza il bicchiere. Se i dadi mostrano almeno il valore dichiarato, chi ha sfidato ha sbagliato e perde una vita. Se mostrano meno, era un bluff, e il giocatore che l'ha dichiarato perde una vita. Chi ha perso una vita inizia la mano successiva.
+# La fine della partita
+Un giocatore senza vite è eliminato (se ha perso l'ultima mano, inizia il giocatore successivo ancora in gioco). Vince l'ultimo giocatore rimasto.
+# Giocare sul dispositivo
+Passatevi il dispositivo: una copertura nasconde lo schermo a ogni turno. In alto c'è il valore da battere, con il gettone di chi l'ha dichiarato, e sotto i valori precedenti della mano. Tocca il pulsante con il dado per lanciare: il bicchiere si inclina di lato e solo tu vedi i tuoi dadi (tocca il bicchiere per rimetterlo sopra). Poi tocca un valore sul pannello e la spunta per dichiararlo. Il pannello mostra ogni valore con i suoi due dadi, dal più basso in alto a sinistra al Messico in basso a destra; i valori più bassi di quello da battere sono sbiaditi, e il valore che hai lanciato brilla. Per sfidare, tocca il pulsante con il bicchiere alzato: tutti vedono i dadi, in oro se il valore reggeva, in rosso se era un bluff, e la vita persa svanisce. Ogni barra mostra le vite che restano a un giocatore. Tocca la freccia per iniziare la mano successiva.

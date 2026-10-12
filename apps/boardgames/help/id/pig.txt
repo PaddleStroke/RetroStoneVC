@@ -1,0 +1,15 @@
+Babi
+# Tujuan
+Menjadi yang pertama mencapai 100 poin. Lemparlah selama kamu berani, tetapi angka 1 menghapus giliranmu. Untuk 2 sampai 6 pemain.
+# Satu giliran
+- Lempar dadu sebanyak yang kamu mau. Setiap lemparan menambahkan poinnya ke total giliranmu.
+- Kalau kamu melempar 1, kamu kehilangan total giliran itu dan giliran berpindah.
+- Atau berhenti: total giliran ditambahkan ke skormu dan dadu berpindah ke pemain berikutnya. Kamu harus melempar paling sedikit sekali dulu.
+# Babi dua dadu
+Dipilih sebelum bermain: sama, tetapi dengan dua dadu yang jumlahnya ditambahkan setiap lemparan.
+- Satu angka 1 menghilangkan total giliran dan mengakhiri giliran.
+- Dua angka 1 sekaligus juga menghilangkan seluruh skormu: kamu kembali ke 0.
+# Akhir permainan
+Pemain bergiliran mengelilingi meja, gading lebih dulu. Pemain pertama yang berhenti dengan 100 poin atau lebih langsung menang.
+# Bermain di perangkat
+Tampilan berputar ke pemain yang melempar. Ketuk kain hijau atau tombol bergambar dadu untuk melempar: total giliran tampil di bawah dadu, dan lemparan-lemparan giliran itu berjajar di rak. Tombol bergambar koin membuatmu berhenti. Di atas, dadu setiap pemain berjalan di sebuah alur dari 0 sampai tiang emas di 100; dadu pemain yang melempar bercahaya, dan total gilirannya berlari keemasan di depan dadunya. Angka 1 tampil dalam cahaya merah bersama poin yang hilang. Setiap bilah menunjukkan skor pemain itu. Urungkan membatalkan berhenti, tidak pernah lemparan.

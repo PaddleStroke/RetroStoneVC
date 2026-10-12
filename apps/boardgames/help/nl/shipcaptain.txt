@@ -1,0 +1,15 @@
+Schip, kapitein en bemanning
+# Het doel
+5 fiches winnen door de beste lading te laden. Je hebt een schip, een kapitein en een bemanning nodig voor je iets kunt vervoeren. Voor 2 tot 6 spelers.
+# Een beurt
+- Je hebt tot drie worpen met vijf stenen.
+- Je hebt een 6 nodig (het schip), dan een 5 (de kapitein), dan een 4 (de bemanning), in die volgorde: een 5 telt pas als je het schip hebt, en een 4 pas als je de kapitein hebt. Eén worp kan er twee brengen, of alle drie.
+- Ze gaan opzij zodra ze komen, en je gooit de andere stenen opnieuw.
+- Met schip, kapitein en bemanning aan boord zijn de twee overgebleven stenen je lading: hun som is je score voor de beurt. Heb je nog een worp, dan mag je stoppen of beide ladingstenen opnieuw gooien: de laatste worp telt.
+- Zonder schip, kapitein en bemanning na drie worpen heb je geen lading.
+# Een ronde
+Elke speler speelt één beurt. De hoogste lading wint een fiche; bij gelijke hoogste ladingen wint elk van hen er een; heeft niemand een lading, dan wint niemand. De volgende ronde begint bij de volgende speler.
+# Het einde van de partij
+Wie aan het einde van een ronde als eerste 5 fiches heeft, wint. Spelers die in dezelfde ronde 5 halen, delen de winst.
+# Spelen op het apparaat
+Het beeld draait naar de speler die gooit. Tik op het vilt of op de knop met de steen om te gooien. Het schip, de kapitein en de bemanning glijden in de drie kuiltjes van het rek, die een vage 6, 5 en 4 tonen zolang ze leeg zijn. Je lading verschijnt dan in goud onder de stenen: tik op het vinkje om te stoppen, of gooi opnieuw. De drie kleine stenen onder het vilt zijn de worpen die je nog hebt. Bovenaan de lading van elke speler in deze ronde; na een ronde licht de beste lading op tot de volgende begint. Elke balk toont de fiches van die speler. Ongedaan maken neemt een stop terug, nooit een worp.

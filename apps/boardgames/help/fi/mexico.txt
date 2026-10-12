@@ -1,0 +1,19 @@
+Meksiko
+# Tavoite
+Olla viimeinen pelaaja, jolla on vielä elämiä. Kaksi noppaa heitetään kupin alle, jonka alle katsoo vain heittäjä, ja hänen ilmoittamansa arvo voi olla tosi tai bluffi. 2–6 pelaajaa, kullakin 3 tai 6 elämää (valitaan ennen peliä).
+# Arvot
+Kahden nopan heitto luetaan suurempi noppa ensin: 3 ja 5 ovat 53. Pienimmästä suurimpaan:
+- tavalliset arvot: 31, 32, 41, 42, 43, 51, 52, 53, 54, 61, 62, 63, 64, 65;
+- sitten parit, 11:stä 66:een;
+- sitten 21, Meksiko, kaikista suurin.
+# Kierros
+- Ensimmäinen pelaaja heittää kaksi noppaa kupin alle, katsoo ne yksin ja ilmoittaa arvon: totuuden tai bluffin.
+- Kuppi siirtyy seuraavalle pelaajalle, joka joko uskoo arvon tai haastaa sen.
+- Jos uskot, heitä nopat uudelleen kupin alle katsomatta, mitä siellä oli, katso uusi heittosi ja ilmoita arvo, joka on vähintään yhtä suuri kuin edellinen. Jos heittosi on pienempi, sinun on bluffattava.
+- Näin kuppi kiertää pöydän ympäri, kunnes joku haastaa.
+# Haaste
+Kuppi nostetaan. Jos nopat näyttävät vähintään ilmoitetun arvon, haastaja erehtyi ja menettää elämän. Jos ne näyttävät vähemmän, kyse oli bluffista, ja arvon ilmoittanut pelaaja menettää elämän. Elämän menettänyt aloittaa seuraavan kierroksen.
+# Pelin loppu
+Pelaaja, jolla ei ole elämiä, putoaa pelistä (jos hän hävisi viimeisen kierroksen, aloittaa seuraava vielä mukana oleva pelaaja). Viimeinen mukana oleva pelaaja voittaa.
+# Pelaaminen laitteella
+Antakaa laite kiertää: peite kätkee näytön joka vuorolla. Ylhäällä on ylitettävä arvo sen ilmoittajan pelimerkin kanssa ja kierroksen aiemmat arvot sen alla. Heitä napauttamalla noppapainiketta: kuppi kallistuu sivuun ja vain sinä näet noppasi (napauta kuppia peittääksesi ne taas). Napauta sitten arvoa taulussa ja rastia ilmoittaaksesi sen. Taulu näyttää jokaisen arvon sen kahtena noppana, pienimmästä vasemmalla ylhäällä Meksikoon oikealla alhaalla; ylitettävää arvoa pienemmät ovat haaleita, ja heittämäsi arvo hehkuu. Haasta napauttamalla nostetun kupin painiketta: kaikki näkevät nopat, kultaisina jos arvo piti, punaisina jos se oli bluffi, ja menetetty elämä häipyy. Kukin palkki näyttää pelaajan jäljellä olevat elämät. Aloita seuraava kierros napauttamalla nuolta.

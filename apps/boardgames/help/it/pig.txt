@@ -1,0 +1,15 @@
+Il maiale
+# Lo scopo
+Essere il primo ad arrivare a 100 punti. Lancia finché osi, ma un 1 cancella il tuo turno. Da 2 a 6 giocatori.
+# Un turno
+- Lancia il dado quante volte vuoi. Ogni lancio aggiunge i suoi punti al totale del turno.
+- Se fai 1, perdi il totale del turno e il turno passa.
+- Oppure fermati: il totale del turno si aggiunge al tuo punteggio e il dado passa al giocatore successivo. Prima devi lanciare almeno una volta.
+# Il maiale a due dadi
+Si sceglie prima della partita: lo stesso con due dadi, la cui somma si aggiunge a ogni lancio.
+- Un solo 1 fa perdere il totale del turno e lo chiude.
+- Due 1 insieme fanno perdere anche tutto il punteggio: torni a 0.
+# La fine della partita
+I giocatori si alternano intorno al tavolo, iniziando dall'avorio. Il primo che si ferma con 100 punti o più vince subito.
+# Giocare sul dispositivo
+La vista si gira verso il giocatore che lancia. Tocca il panno o il pulsante con il dado per lanciare: il totale del turno compare sotto i dadi, e i lanci del turno si allineano nella rastrelliera. Il pulsante con le monete ti ferma. In alto, il dado di ogni giocatore corre in una scanalatura da 0 al paletto dorato del 100; quello di chi lancia brilla, e il totale del suo turno corre in oro davanti al suo dado. Un 1 appare in un bagliore rosso con i punti persi. Ogni barra mostra il punteggio di quel giocatore. Annulla riprende una fermata, mai un lancio.

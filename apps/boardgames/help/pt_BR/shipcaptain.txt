@@ -1,0 +1,15 @@
+Navio, capitão e tripulação
+# O objetivo
+Ganhar 5 fichas carregando a melhor carga. Você precisa de um navio, de um capitão e de uma tripulação antes de levar qualquer coisa. De 2 a 6 jogadores.
+# A sua vez
+- Você tem até três jogadas de cinco dados.
+- Você precisa de um 6 (o navio), depois de um 5 (o capitão), depois de um 4 (a tripulação), nessa ordem: um 5 só conta depois do navio, e um 4 só depois do capitão. Uma mesma jogada pode trazer dois deles, ou os três.
+- Eles são separados à medida que saem, e você rola os outros dados de novo.
+- Com navio, capitão e tripulação a bordo, os dois dados que sobram são a sua carga: a soma deles é a sua pontuação na vez. Se ainda tiver uma jogada, você pode parar ou rolar de novo os dois dados da carga: vale a última jogada.
+- Sem navio, capitão e tripulação depois de três jogadas, você fica sem carga.
+# Uma rodada
+Cada jogador joga uma vez. A maior carga ganha uma ficha; se houver empate na maior, cada um deles ganha uma; se ninguém tiver carga, ninguém ganha. A rodada seguinte começa pelo próximo jogador.
+# O fim da partida
+Vence o primeiro jogador que tiver 5 fichas no fim de uma rodada. Quem chegar a 5 na mesma rodada divide a vitória.
+# Jogando no aparelho
+A vista gira para o jogador da vez. Toque no feltro ou no botão do dado para rolar. O navio, o capitão e a tripulação deslizam para as três cavidades do suporte, que mostram um 6, um 5 e um 4 apagados enquanto estão vazias. A sua carga aparece então em dourado sob os dados: toque no visto para parar, ou role de novo. Os três dadinhos sob o feltro são as jogadas que restam. No alto, a carga de cada jogador na rodada; terminada uma rodada, a melhor carga dela brilha até a seguinte começar. Cada barra mostra as fichas desse jogador. Desfazer volta uma parada, nunca uma jogada.

@@ -1,0 +1,15 @@
+Gris
+# Målet
+Være den første som når 100 poeng. Kast så lenge du tør, men en 1 ødelegger turen din. For 2 til 6 spillere.
+# En tur
+- Kast terningen så mange ganger du vil. Hvert kast legger poengene sine til turens sum.
+- Kaster du en 1, mister du turens sum, og turen går videre.
+- Eller stopp: turens sum legges til poengsummen din, og terningen går videre. Du må ha kastet minst én gang først.
+# Gris med to terninger
+Velges før spillet: det samme med to terninger, der summen legges til ved hvert kast.
+- En enkelt 1 koster turens sum og avslutter turen.
+- To 1-ere på én gang koster også hele poengsummen din: du er tilbake på 0.
+# Slutten på spillet
+Turen går rundt bordet, elfenben først. Den første spilleren som stopper med 100 poeng eller mer, vinner med en gang.
+# Spill på enheten
+Visningen snur seg mot spilleren som skal kaste. Trykk på filten eller på knappen med en terning for å kaste: turens sum står under terningene, og turens kast stiller seg på rad i stativet. Knappen med myntene stopper. Øverst løper hver spillers terning i en rille fra 0 til den gylne stolpen ved 100; terningen til den som kaster, lyser, og turens sum løper i gull foran den. En 1 vises i et rødt skjær med poengene som gikk tapt. Hver linje viser poengsummen til den spilleren. Angre tar tilbake et stopp, aldri et kast.

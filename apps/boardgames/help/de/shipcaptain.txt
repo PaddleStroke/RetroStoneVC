@@ -1,0 +1,15 @@
+Schiff, Kapitän und Mannschaft
+# Das Ziel
+Mit der besten Ladung 5 Chips gewinnen. Du brauchst ein Schiff, einen Kapitän und eine Mannschaft, bevor du etwas laden kannst. Für 2 bis 6 Spieler.
+# Ein Zug
+- Du hast bis zu drei Würfe mit fünf Würfeln.
+- Du brauchst eine 6 (das Schiff), dann eine 5 (den Kapitän), dann eine 4 (die Mannschaft), in dieser Reihenfolge: Eine 5 zählt erst, wenn du das Schiff hast, und eine 4 erst, wenn du den Kapitän hast. Ein Wurf kann zwei davon bringen oder alle drei.
+- Sie werden beiseitegelegt, sobald sie kommen, und du wirfst die übrigen Würfel neu.
+- Mit Schiff, Kapitän und Mannschaft an Bord sind die zwei übrigen Würfel deine Ladung: Ihre Summe sind deine Punkte für den Zug. Hast du noch einen Wurf, darfst du aufhören oder beide Ladungswürfel neu werfen: Der letzte Wurf zählt.
+- Ohne Schiff, Kapitän und Mannschaft nach drei Würfen hast du keine Ladung.
+# Eine Runde
+Jeder Spieler hat einen Zug. Die höchste Ladung gewinnt einen Chip; bei gleich hohen Ladungen gewinnt jeder davon einen; hat niemand eine Ladung, gewinnt niemand. Die nächste Runde beginnt mit dem nächsten Spieler.
+# Das Ende der Partie
+Wer am Ende einer Runde als Erster 5 Chips hat, gewinnt. Erreichen mehrere in derselben Runde 5, teilen sie sich den Sieg.
+# Spielen auf dem Gerät
+Die Ansicht dreht sich zum Spieler, der würfelt. Tippe auf den Filz oder die Taste mit dem Würfel, um zu würfeln. Schiff, Kapitän und Mannschaft gleiten in die drei Mulden der Ablage, die eine blasse 6, 5 und 4 zeigen, solange sie leer sind. Deine Ladung erscheint dann golden unter den Würfeln: Tippe den Haken an, um aufzuhören, oder würfle weiter. Die drei kleinen Würfel unter dem Filz sind die übrigen Würfe. Oben steht die Ladung jedes Spielers in dieser Runde; ist eine Runde vorbei, leuchtet ihre beste Ladung, bis die nächste beginnt. Jede Leiste zeigt die Chips dieses Spielers. Rückgängig nimmt ein Aufhören zurück, nie einen Wurf.

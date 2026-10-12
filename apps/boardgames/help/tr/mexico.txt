@@ -1,0 +1,19 @@
+Meksika
+# Amaç
+Canı kalan son oyuncu olmak. İki zar, yalnızca atanın bakabildiği bir bardağın altında atılır ve atanın söylediği değer doğru da olabilir, blöf de. 2 ile 6 oyuncu için, her biri 3 ya da 6 canla (oyundan önce seçilir).
+# Değerler
+İki zarlık bir atış büyük zar önce okunur: 3 ile 5, 53 eder. En küçükten en büyüğe:
+- düz değerler: 31, 32, 41, 42, 43, 51, 52, 53, 54, 61, 62, 63, 64, 65;
+- sonra çiftler, 11'den 66'ya;
+- sonra 21, Meksika, hepsinin en büyüğü.
+# Bir el
+- İlk oyuncu iki zarı bardağın altında atar, onlara tek başına bakar ve bir değer söyler: doğruyu ya da bir blöfü.
+- Bardak sıradaki oyuncuya geçer; o, değere ya inanır ya da itiraz eder.
+- İnanırsan, orada ne olduğuna bakmadan zarları bardağın altında yeniden at, yeni atışına bak ve en az bir öncekinin kadar yüksek bir değer söyle. Atışın daha düşükse blöf yapmak zorundasın.
+- Bardak böylece biri itiraz edene kadar masanın çevresinde dolaşır.
+# Meydan okuma
+Bardak kaldırılır. Zarlar söylenen değeri en az tutuyorsa, itiraz eden yanılmıştır ve bir can kaybeder. Daha azını gösteriyorsa blöftür ve değeri söyleyen oyuncu bir can kaybeder. Can kaybeden, sonraki eli başlatır.
+# Oyunun sonu
+Canı kalmayan oyuncu oyundan çıkar (son eli o kaybettiyse, oyunda kalan sıradaki oyuncu başlar). Geriye kalan son oyuncu kazanır.
+# Cihazda oynamak
+Cihazı elden ele verin: her sırada bir perde ekranı gizler. Üstte, geçilmesi gereken değer, onu söyleyen oyuncunun puluyla birlikte durur; altında elin önceki değerleri vardır. Atmak için zarlı düğmeye dokun: bardak yana yatar ve zarlarını yalnızca sen görürsün (yeniden örtmek için bardağa dokun). Sonra paneldeki bir değere ve söylemek için onay işaretine dokun. Panel her değeri iki zarıyla gösterir, sol üstteki en küçükten sağ alttaki Meksika'ya kadar; geçilmesi gerekenden küçük değerler soluktur ve attığın değer parlar. İtiraz etmek için kaldırılmış bardaklı düğmeye dokun: herkes zarları görür, değer tuttuysa altın, blöfse kırmızı renkte, ve kaybedilen can söner. Her çubuk, bir oyuncunun kalan canlarını gösterir. Sonraki eli başlatmak için oka dokun.

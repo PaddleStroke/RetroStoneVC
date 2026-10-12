@@ -1,0 +1,19 @@
+Mäxchen
+# Das Ziel
+Als Letzter noch Leben übrig haben. Zwei Würfel werden unter einem Becher geworfen, in den nur der Werfer schaut, und der Wert, den er ansagt, kann stimmen oder geblufft sein. Für 2 bis 6 Spieler, mit je 3 oder 6 Leben (vor der Partie gewählt).
+# Die Werte
+Ein Wurf mit zwei Würfeln wird mit dem höheren Würfel zuerst gelesen: Eine 3 und eine 5 ergeben 53. Vom niedrigsten zum höchsten:
+- die einfachen Werte: 31, 32, 41, 42, 43, 51, 52, 53, 54, 61, 62, 63, 64, 65;
+- dann die Pasche, von 11 bis 66;
+- dann 21, das Mäxchen, der höchste von allen.
+# Eine Runde
+- Der erste Spieler wirft die beiden Würfel unter dem Becher, schaut sie allein an und sagt einen Wert an: die Wahrheit oder einen Bluff.
+- Der Becher geht an den nächsten Spieler, der den Wert entweder glaubt oder anzweifelt.
+- Wer ihn glaubt, wirft die Würfel unter dem Becher neu, ohne nachzusehen, was dort lag, schaut sich den neuen Wurf an und sagt einen Wert an, der mindestens so hoch ist wie der letzte. Ist der Wurf niedriger, musst du bluffen.
+- So geht der Becher reihum, bis jemand anzweifelt.
+# Die Anfechtung
+Der Becher wird gehoben. Zeigen die Würfel mindestens den angesagten Wert, hat sich der Zweifler geirrt und verliert ein Leben. Zeigen sie weniger, war es ein Bluff, und der Spieler, der ihn angesagt hat, verliert ein Leben. Wer ein Leben verloren hat, beginnt die nächste Runde.
+# Das Ende der Partie
+Wer kein Leben mehr hat, scheidet aus (hat er die letzte Runde verloren, beginnt der nächste Spieler, der noch dabei ist). Wer als Letzter übrig bleibt, gewinnt.
+# Spielen auf dem Gerät
+Gebt das Gerät reihum weiter: Bei jedem Zug verdeckt eine Abdeckung den Bildschirm. Oben steht der zu überbietende Wert mit dem Chip des Spielers, der ihn angesagt hat, darunter die früheren Werte der Runde. Tippe die Taste mit dem Würfel an, um zu werfen: Der Becher kippt zur Seite, und nur du siehst deine Würfel (tippe den Becher an, um ihn wieder darüberzustellen). Tippe dann einen Wert auf der Tafel an und den Haken, um ihn anzusagen. Die Tafel zeigt jeden Wert als seine zwei Würfel, vom niedrigsten oben links bis zum Mäxchen unten rechts; Werte unter dem zu überbietenden sind blass, und der Wert, den du geworfen hast, leuchtet. Um anzuzweifeln, tippe die Taste mit dem gehobenen Becher an: Alle sehen die Würfel, golden, wenn der Wert stimmte, rot, wenn es ein Bluff war, und das verlorene Leben verblasst. Jede Leiste zeigt die Leben, die ein Spieler noch hat. Tippe den Pfeil an, um die nächste Runde zu beginnen.

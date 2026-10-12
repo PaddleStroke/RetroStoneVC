@@ -1,0 +1,15 @@
+Świnka
+# Cel gry
+Jako pierwszy dojść do 100 punktów. Rzucaj, dopóki się odważysz, ale jedynka przekreśla twoją turę. Dla 2 do 6 graczy.
+# Tura
+- Rzucaj kostką tyle razy, ile chcesz. Każdy rzut dodaje swoje punkty do sumy tury.
+- Jeśli wyrzucisz jedynkę, tracisz sumę tury, a kolej przechodzi dalej.
+- Albo się zatrzymaj: suma tury dolicza się do twojego wyniku, a kostka idzie dalej. Najpierw musisz rzucić co najmniej raz.
+# Świnka z dwiema kostkami
+Wybór przed grą: to samo z dwiema kostkami, których suma dolicza się przy każdym rzucie.
+- Jedna jedynka kosztuje sumę tury i kończy turę.
+- Dwie jedynki naraz kosztują też cały twój wynik: wracasz do 0.
+# Koniec gry
+Gracze grają po kolei wokół stołu, zaczyna kość słoniowa. Kto pierwszy zatrzyma się ze 100 punktami lub więcej, od razu wygrywa.
+# Gra na urządzeniu
+Widok obraca się do gracza, który rzuca. Dotknij sukna albo przycisku z kostką, aby rzucić: suma tury pojawia się pod kostkami, a rzuty tury ustawiają się rzędem na stojaku. Przycisk z monetami zatrzymuje. Na górze kostka każdego gracza biegnie rowkiem od 0 do złotego słupka przy 100; kostka gracza, który rzuca, świeci, a suma jego tury biegnie złotem przed nią. Jedynka pokazuje się w czerwonej poświacie z utraconymi punktami. Każdy pasek pokazuje wynik tego gracza. Cofnij cofa zatrzymanie, nigdy rzut.

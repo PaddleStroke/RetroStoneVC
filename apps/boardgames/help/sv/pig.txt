@@ -1,0 +1,15 @@
+Gris
+# Målet
+Vara först med att nå 100 poäng. Slå så länge du vågar, men en etta förstör din tur. För 2 till 6 spelare.
+# En tur
+- Slå tärningen så många gånger du vill. Varje slag lägger till sina poäng i turens summa.
+- Slår du en etta förlorar du turens summa och turen går vidare.
+- Eller stanna: turens summa läggs till dina poäng och tärningen går vidare. Du måste ha slagit minst en gång först.
+# Gris med två tärningar
+Väljs före partiet: samma sak med två tärningar, vars summa läggs till vid varje slag.
+- En enda etta kostar turens summa och avslutar turen.
+- Två ettor på en gång kostar också alla dina poäng: du är tillbaka på 0.
+# Partiets slut
+Turen går runt bordet, elfenben först. Den första spelaren som stannar med 100 poäng eller mer vinner direkt.
+# Spela på enheten
+Vyn vänds mot spelaren som ska slå. Tryck på filten eller på knappen med en tärning för att slå: turens summa står under tärningarna, och turens slag ställer sig på rad i stället. Knappen med mynten stannar. Överst löper varje spelares tärning i ett spår från 0 till den gyllene stolpen vid 100; tärningen för den som slår lyser, och turens summa löper i guld framför den. En etta visas i ett rött sken med de förlorade poängen. Varje list visar spelarens poäng. Ångra tar tillbaka ett stopp, aldrig ett slag.

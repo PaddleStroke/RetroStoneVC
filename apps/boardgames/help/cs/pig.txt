@@ -1,0 +1,15 @@
+Prasátko
+# Cíl hry
+Dosáhnout jako první 100 bodů. Házej, dokud se odvážíš, ale jednička ti smaže tah. Pro 2 až 6 hráčů.
+# Tah
+- Házej kostkou, kolikrát chceš. Každý hod přičte své body k součtu tahu.
+- Hodíš-li jedničku, ztrácíš součet tahu a na řadě je další.
+- Nebo přestaň: součet tahu se připíše k tvému skóre a kostka jde dál. Předtím musíš aspoň jednou hodit.
+# Prasátko se dvěma kostkami
+Vybírá se před hrou: totéž se dvěma kostkami, jejichž součet se přičítá při každém hodu.
+- Jediná jednička tě stojí součet tahu a tah končí.
+- Dvě jedničky naráz tě stojí i celé skóre: vracíš se na 0.
+# Konec hry
+Hráči se střídají kolem stolu, slonovinový začíná. Kdo jako první přestane se 100 body nebo více, hned vyhrává.
+# Hra na zařízení
+Pohled se otočí k hráči, který hází. Klepnutím na plsť nebo na tlačítko s kostkou hodíš: součet tahu je pod kostkami a hody tahu se řadí do stojanu. Tlačítko s mincemi přestane. Nahoře běží kostka každého hráče žlábkem od 0 ke zlatému sloupku u 100; kostka hráče na tahu svítí a součet jeho tahu běží zlatě před ní. Jednička se ukáže v červené záři se ztracenými body. Každý pruh ukazuje skóre toho hráče. Zpět vrátí přestání, nikdy hod.

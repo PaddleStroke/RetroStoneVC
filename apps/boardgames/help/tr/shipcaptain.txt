@@ -1,0 +1,15 @@
+Gemi, Kaptan ve Tayfa
+# Amaç
+En iyi yükü yükleyerek 5 pul kazanmak. Bir şey taşıyabilmek için önce bir gemiye, bir kaptana ve bir tayfaya ihtiyacın var. 2 ile 6 oyuncu için.
+# Bir hamle
+- Beş zarla en fazla üç atış hakkın var.
+- Bir 6 (gemi), sonra bir 5 (kaptan), sonra bir 4 (tayfa) gerekir, bu sırayla: bir 5 ancak gemin varken, bir 4 ancak kaptanın varken sayılır. Tek atış bunlardan ikisini ya da üçünü birden getirebilir.
+- Geldikçe kenara ayrılırlar ve diğer zarları yeniden atarsın.
+- Gemi, kaptan ve tayfa güvertedeyken kalan iki zar yükündür: toplamları sıranın puanıdır. Hâlâ atış hakkın varsa durabilir ya da iki yük zarını yeniden atabilirsin: son atış sayılır.
+- Üç atıştan sonra gemi, kaptan ve tayfa yoksa yükün de yoktur.
+# Bir el
+Her oyuncu bir sıra oynar. En büyük yük bir pul kazanır; en büyükte eşitlik varsa her biri birer pul kazanır; kimsenin yükü yoksa kimse kazanmaz. Sonraki eli sıradaki oyuncu başlatır.
+# Oyunun sonu
+Bir elin sonunda 5 pula ilk ulaşan oyuncu kazanır. Aynı elde 5'e ulaşan oyuncular zaferi paylaşır.
+# Cihazda oynamak
+Görünüm, zar atacak oyuncuya döner. Atmak için çuhaya ya da zarlı düğmeye dokun. Gemi, kaptan ve tayfa rafın üç oyuğuna kayar; oyuklar boşken soluk bir 6, 5 ve 4 gösterir. Yükün o zaman zarların altında altın renginde görünür: durmak için onay işaretine dokun ya da yeniden at. Çuhanın altındaki üç küçük zar kalan atışlardır. Üstte her oyuncunun bu eldeki yükü durur; bir el bittiğinde en iyi yükü, sonraki el başlayana kadar parlar. Her çubuk o oyuncunun pullarını gösterir. Geri al bir durmayı geri alır, bir atışı asla.

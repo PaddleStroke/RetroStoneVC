@@ -1,0 +1,15 @@
+Kapal, Kapten, dan Awak
+# Tujuan
+Memenangkan 5 token dengan memuat muatan terbaik. Kamu butuh kapal, kapten, dan awak sebelum bisa mengangkut apa pun. Untuk 2 sampai 6 pemain.
+# Satu giliran
+- Kamu punya paling banyak tiga lemparan lima dadu.
+- Kamu butuh angka 6 (kapal), lalu 5 (kapten), lalu 4 (awak), dengan urutan itu: angka 5 baru dihitung kalau kamu sudah punya kapal, dan 4 baru dihitung kalau kamu sudah punya kapten. Satu lemparan bisa memberi dua di antaranya, atau ketiganya.
+- Mereka disisihkan begitu muncul, dan kamu melempar ulang dadu lainnya.
+- Dengan kapal, kapten, dan awak di atas kapal, dua dadu yang tersisa adalah muatanmu: jumlahnya adalah skormu untuk giliran itu. Kalau masih ada lemparan, kamu boleh berhenti atau melempar ulang kedua dadu muatan: lemparan terakhir yang dihitung.
+- Tanpa kapal, kapten, dan awak setelah tiga lemparan, kamu tidak punya muatan.
+# Satu ronde
+Setiap pemain bermain satu giliran. Muatan tertinggi memenangkan satu token; kalau muatan tertinggi seri, masing-masing mendapat satu; kalau tidak ada yang punya muatan, tidak ada yang menang. Ronde berikutnya dimulai oleh pemain berikutnya.
+# Akhir permainan
+Pemain pertama yang punya 5 token di akhir sebuah ronde menang. Pemain yang mencapai 5 di ronde yang sama berbagi kemenangan.
+# Bermain di perangkat
+Tampilan berputar ke pemain yang melempar. Ketuk kain hijau atau tombol bergambar dadu untuk melempar. Kapal, kapten, dan awak meluncur ke tiga lekukan di rak, yang menampilkan 6, 5, dan 4 samar selama masih kosong. Muatanmu lalu tampil keemasan di bawah dadu: ketuk tanda centang untuk berhenti, atau lempar lagi. Tiga dadu kecil di bawah kain hijau adalah sisa lemparan. Di atas, muatan setiap pemain di ronde ini; setelah ronde selesai, muatan terbaiknya bercahaya sampai ronde berikutnya dimulai. Setiap bilah menunjukkan token pemain itu. Urungkan membatalkan berhenti, tidak pernah lemparan.

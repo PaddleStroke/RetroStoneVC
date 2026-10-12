@@ -1,0 +1,15 @@
+Ship, Captain and Crew
+# The aim
+Win 5 chips by loading the best cargo. You need a ship, a captain and a crew before you can carry anything. For 2 to 6 players.
+# A turn
+- You have up to three rolls of five dice.
+- You need a 6 (the ship), then a 5 (the captain), then a 4 (the crew), in that order: a 5 only counts once you have the ship, and a 4 only once you have the captain. One roll may bring two of them, or all three.
+- They are set aside as they come, and you roll the other dice again.
+- With ship, captain and crew aboard, the two dice left are your cargo: their sum is your score for the turn. If you have a roll left, you may stop there, or roll both cargo dice again: the last roll counts.
+- Without ship, captain and crew after three rolls, you have no cargo.
+# A round
+Each player plays one turn. The highest cargo wins a chip; equal highest cargoes each win one; if nobody has a cargo, nobody does. The next round starts with the next player.
+# The end of the game
+The first player with 5 chips at the end of a round wins. Players who reach 5 in the same round share the win.
+# Playing on the device
+The view turns to the player to roll. Tap the felt or the button with a die to roll. The ship, the captain and the crew slide into the three slots of the rack, which show a faint 6, 5 and 4 until they are filled. Your cargo then shows in gold under the dice: tap the check to stop, or roll again. The three small dice under the felt are the rolls left. At the top, each player's cargo this round; once a round is over, its best cargo shines until the next one starts. Each bar shows that player's chips. Undo takes back a stop, never a roll.

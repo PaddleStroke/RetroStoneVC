@@ -1,0 +1,15 @@
+Nave, capitano e ciurma
+# Lo scopo
+Vincere 5 gettoni caricando il carico migliore. Ti servono una nave, un capitano e una ciurma prima di poter trasportare qualcosa. Da 2 a 6 giocatori.
+# Un turno
+- Hai fino a tre lanci di cinque dadi.
+- Ti servono un 6 (la nave), poi un 5 (il capitano), poi un 4 (la ciurma), in quest'ordine: un 5 conta solo quando hai la nave, e un 4 solo quando hai il capitano. Uno stesso lancio può portarne due, o tutti e tre.
+- Vengono messi da parte man mano che escono, e rilanci gli altri dadi.
+- Con nave, capitano e ciurma a bordo, i due dadi rimasti sono il tuo carico: la loro somma è il tuo punteggio del turno. Se ti resta un lancio, puoi fermarti o rilanciare entrambi i dadi del carico: conta l'ultimo lancio.
+- Senza nave, capitano e ciurma dopo tre lanci, non hai carico.
+# Una mano
+Ogni giocatore gioca un turno. Il carico più alto vince un gettone; a pari merito, ognuno dei migliori ne vince uno; se nessuno ha un carico, nessuno vince. La mano successiva inizia dal giocatore successivo.
+# La fine della partita
+Vince il primo giocatore che ha 5 gettoni alla fine di una mano. I giocatori che arrivano a 5 nella stessa mano condividono la vittoria.
+# Giocare sul dispositivo
+La vista si gira verso il giocatore che lancia. Tocca il panno o il pulsante con il dado per lanciare. La nave, il capitano e la ciurma scivolano nei tre incavi della rastrelliera, che mostrano un 6, un 5 e un 4 tenui finché sono vuoti. Il tuo carico compare allora in oro sotto i dadi: tocca la spunta per fermarti, oppure rilancia. I tre dadini sotto il panno sono i lanci rimasti. In alto, il carico di ogni giocatore nella mano; finita una mano, il suo carico migliore brilla finché non inizia la successiva. Ogni barra mostra i gettoni di quel giocatore. Annulla riprende una fermata, mai un lancio.

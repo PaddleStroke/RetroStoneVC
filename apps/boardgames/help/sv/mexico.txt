@@ -1,0 +1,19 @@
+Mexico
+# Målet
+Vara den sista spelaren som har liv kvar. Två tärningar kastas under en bägare som bara kastaren tittar in i, och värdet som sägs kan vara sant eller en bluff. För 2 till 6 spelare, med 3 eller 6 liv var (väljs före partiet).
+# Värdena
+Ett kast med två tärningar läses med den högsta tärningen först: en trea och en femma blir 53. Från det lägsta till det högsta:
+- de vanliga värdena: 31, 32, 41, 42, 43, 51, 52, 53, 54, 61, 62, 63, 64, 65;
+- sedan paren, från 11 till 66;
+- sedan 21, Mexico, det högsta av alla.
+# En omgång
+- Den första spelaren kastar de två tärningarna under bägaren, tittar på dem i hemlighet och säger ett värde: sanningen eller en bluff.
+- Bägaren går till nästa spelare, som antingen tror på värdet eller utmanar.
+- Tror du på det kastar du tärningarna igen under bägaren utan att titta på vad som låg där, tittar på ditt nya kast och säger ett värde som är minst lika högt som det förra. Är kastet lägre måste du bluffa.
+- Så går bägaren runt bordet tills någon utmanar.
+# Utmaningen
+Bägaren lyfts. Visar tärningarna minst det sagda värdet hade utmanaren fel och förlorar ett liv. Visar de mindre var det en bluff, och spelaren som sa värdet förlorar ett liv. Den som förlorade ett liv börjar nästa omgång.
+# Partiets slut
+En spelare utan liv är ute (förlorade spelaren den sista omgången börjar nästa spelare som fortfarande är med). Den sista spelaren kvar vinner.
+# Spela på enheten
+Skicka runt enheten: ett skydd döljer skärmen vid varje tur. Överst står värdet som ska överträffas, med markern från spelaren som sa det, och omgångens tidigare värden under det. Tryck på knappen med tärningen för att kasta: bägaren tippar åt sidan och bara du ser dina tärningar (tryck på bägaren för att ställa den över dem igen). Tryck sedan på ett värde på tavlan och på bocken för att säga det. Tavlan visar varje värde som dess två tärningar, från det lägsta uppe till vänster till Mexico nere till höger; värden under det som ska överträffas är bleka, och värdet du kastade lyser. Vill du utmana trycker du på knappen med den lyfta bägaren: alla ser tärningarna, i guld om värdet höll, i rött om det var en bluff, och det förlorade livet bleknar. Varje list visar hur många liv en spelare har kvar. Tryck på pilen för att börja nästa omgång.

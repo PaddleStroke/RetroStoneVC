@@ -1,0 +1,19 @@
+Meksiko
+# Tujuan
+Menjadi pemain terakhir yang masih punya nyawa. Dua dadu dilempar di bawah gelas yang hanya boleh diintip oleh pelemparnya, dan nilai yang ia sebutkan bisa jujur atau gertakan. Untuk 2 sampai 6 pemain, masing-masing dengan 3 atau 6 nyawa (dipilih sebelum bermain).
+# Nilai
+Lemparan dua dadu dibaca dengan dadu yang lebih besar lebih dulu: 3 dan 5 menjadi 53. Dari yang terendah sampai yang tertinggi:
+- nilai biasa: 31, 32, 41, 42, 43, 51, 52, 53, 54, 61, 62, 63, 64, 65;
+- lalu pasangan kembar, dari 11 sampai 66;
+- lalu 21, Meksiko, yang tertinggi dari semuanya.
+# Satu ronde
+- Pemain pertama melempar dua dadu di bawah gelas, melihatnya sendiri, lalu menyebutkan sebuah nilai: jujur atau gertakan.
+- Gelas berpindah ke pemain berikutnya, yang memercayai nilai itu atau menantangnya.
+- Kalau kamu percaya, lempar ulang dadu di bawah gelas tanpa melihat apa yang ada di sana, lihat lemparan barumu, lalu sebutkan nilai yang paling sedikit sama tinggi dengan nilai sebelumnya. Kalau lemparanmu lebih rendah, kamu harus menggertak.
+- Begitulah gelas berkeliling meja sampai ada yang menantang.
+# Tantangan
+Gelas diangkat. Kalau dadu menunjukkan paling sedikit nilai yang disebutkan, penantang keliru dan kehilangan satu nyawa. Kalau kurang, itu gertakan, dan pemain yang menyebutkannya kehilangan satu nyawa. Pemain yang kehilangan nyawa memulai ronde berikutnya.
+# Akhir permainan
+Pemain yang kehabisan nyawa tersingkir (kalau ia kalah di ronde terakhir, pemain berikutnya yang masih bermain yang memulai). Pemain terakhir yang tersisa menang.
+# Bermain di perangkat
+Gilirkan perangkat: setiap giliran, sebuah penutup menyembunyikan layar. Di atas ada nilai yang harus dilampaui, beserta token pemain yang menyebutkannya, dan di bawahnya nilai-nilai sebelumnya dalam ronde itu. Ketuk tombol bergambar dadu untuk melempar: gelas miring ke samping dan hanya kamu yang melihat dadumu (ketuk gelas untuk menutupnya lagi). Lalu ketuk sebuah nilai di papan nilai dan tanda centang untuk menyebutkannya. Papan nilai menampilkan setiap nilai sebagai dua dadunya, dari yang terendah di kiri atas sampai Meksiko di kanan bawah; nilai yang lebih rendah dari nilai yang harus dilampaui tampak pudar, dan nilai yang kamu lempar bercahaya. Untuk menantang, ketuk tombol bergambar gelas terangkat: semua orang melihat dadunya, keemasan kalau nilainya benar, merah kalau itu gertakan, dan nyawa yang hilang memudar. Setiap bilah menunjukkan sisa nyawa seorang pemain. Ketuk panah untuk memulai ronde berikutnya.

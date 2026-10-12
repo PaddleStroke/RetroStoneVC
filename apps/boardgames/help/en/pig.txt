@@ -1,0 +1,15 @@
+Pig
+# The aim
+Be the first to reach 100 points. Roll as long as you dare, but a 1 wipes out your turn. For 2 to 6 players.
+# A turn
+- Roll the die as many times as you like. Each roll adds its points to your turn's total.
+- If you roll a 1, you lose the turn's total and the turn passes.
+- Hold instead to add the turn's total to your score and pass the die. You must roll at least once first.
+# Two-dice pig
+Chosen before the game: the same with two dice, their sum added at each roll.
+- A single 1 loses the turn's total and ends the turn.
+- Two 1s at once also lose your whole score: you go back to 0.
+# The end of the game
+The players take turns round the table, Ivory first. The first player to hold with 100 points or more wins at once.
+# Playing on the device
+The view turns to the player to roll. Tap the felt or the button with a die to roll: the turn's total shows under the dice, and the turn's rolls line up in the rack. The button with the coins holds. At the top, each player's die runs along a groove from 0 to the gold post at 100; the player to roll shines, and their turn's total runs ahead of their die in gold. A 1 shows in a red glow with the points lost. Each bar shows that player's score. Undo takes back a hold, never a roll.

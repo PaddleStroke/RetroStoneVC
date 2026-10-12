@@ -1,0 +1,15 @@
+Loď, kapitán a posádka
+# Cíl hry
+Vyhrát 5 žetonů nejlepším nákladem. Než můžeš cokoli vézt, potřebuješ loď, kapitána a posádku. Pro 2 až 6 hráčů.
+# Tah
+- Máš nejvýš tři hody pěti kostkami.
+- Potřebuješ šestku (loď), pak pětku (kapitána), pak čtyřku (posádku), v tomto pořadí: pětka platí, až když máš loď, a čtyřka, až když máš kapitána. Jeden hod může přinést dvě z nich, nebo všechny tři.
+- Odkládají se, jak přicházejí, a ostatními kostkami házíš znovu.
+- S lodí, kapitánem a posádkou na palubě jsou dvě zbylé kostky tvým nákladem: jejich součet je tvé skóre za tah. Máš-li ještě hod, můžeš přestat, nebo hodit znovu oběma kostkami nákladu: platí poslední hod.
+- Bez lodi, kapitána a posádky po třech hodech nemáš žádný náklad.
+# Kolo
+Každý hráč odehraje jeden tah. Nejvyšší náklad získá žeton; při stejně vysokých nákladech získá žeton každý z nich; nemá-li nikdo náklad, nezíská nikdo nic. Další kolo začíná další hráč.
+# Konec hry
+Vyhrává první hráč, který má na konci kola 5 žetonů. Hráči, kteří dosáhnou 5 ve stejném kole, se o vítězství dělí.
+# Hra na zařízení
+Pohled se otočí k hráči, který hází. Klepnutím na plsť nebo na tlačítko s kostkou hodíš. Loď, kapitán a posádka sklouznou do tří důlků stojanu, které ukazují bledou šestku, pětku a čtyřku, dokud jsou prázdné. Tvůj náklad se pak ukáže zlatě pod kostkami: klepnutím na fajfku přestaneš, nebo hoď znovu. Tři malé kostky pod plstí jsou zbývající hody. Nahoře je náklad každého hráče v tomto kole; po skončení kola svítí jeho nejlepší náklad, dokud nezačne další. Každý pruh ukazuje žetony toho hráče. Zpět vrátí přestání, nikdy hod.

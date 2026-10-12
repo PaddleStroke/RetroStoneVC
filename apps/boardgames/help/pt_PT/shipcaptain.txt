@@ -1,0 +1,15 @@
+Navio, capitão e tripulação
+# O objetivo
+Ganhar 5 fichas a carregar a melhor carga. Precisas de um navio, de um capitão e de uma tripulação antes de poderes levar alguma coisa. De 2 a 6 jogadores.
+# A tua vez
+- Tens até três lançamentos de cinco dados.
+- Precisas de um 6 (o navio), depois de um 5 (o capitão), depois de um 4 (a tripulação), por esta ordem: um 5 só conta depois de teres o navio, e um 4 só depois de teres o capitão. Um mesmo lançamento pode trazer dois deles, ou os três.
+- Vão sendo postos de lado à medida que saem, e voltas a lançar os outros dados.
+- Com navio, capitão e tripulação a bordo, os dois dados que sobram são a tua carga: a soma deles é a tua pontuação da vez. Se ainda tiveres um lançamento, podes parar ou voltar a lançar os dois dados da carga: conta o último lançamento.
+- Sem navio, capitão e tripulação ao fim de três lançamentos, não tens carga.
+# Uma ronda
+Cada jogador joga uma vez. A carga mais alta ganha uma ficha; em caso de empate na mais alta, cada um deles ganha uma; se ninguém tiver carga, ninguém ganha. A ronda seguinte começa pelo jogador seguinte.
+# O fim do jogo
+Ganha o primeiro jogador que tiver 5 fichas no fim de uma ronda. Os jogadores que chegarem aos 5 na mesma ronda partilham a vitória.
+# Jogar no dispositivo
+A vista vira-se para o jogador que lança. Toca no feltro ou no botão do dado para lançar. O navio, o capitão e a tripulação deslizam para as três cavidades do suporte, que mostram um 6, um 5 e um 4 esbatidos enquanto estão vazias. A tua carga aparece então a dourado debaixo dos dados: toca no visto para parar, ou volta a lançar. Os três dados pequenos debaixo do feltro são os lançamentos que restam. No topo, a carga de cada jogador na ronda; terminada uma ronda, a melhor carga brilha até a seguinte começar. Cada barra mostra as fichas desse jogador. Anular desfaz uma paragem, nunca um lançamento.

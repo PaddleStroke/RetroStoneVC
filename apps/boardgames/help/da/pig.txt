@@ -1,0 +1,15 @@
+Gris
+# Målet
+Være den første, der når 100 point. Slå, så længe du tør, men en 1'er ødelægger din tur. For 2 til 6 spillere.
+# En tur
+- Slå med terningen så mange gange, du vil. Hvert slag lægger sine point til turens sum.
+- Slår du en 1'er, mister du turens sum, og turen går videre.
+- Eller stop: turens sum lægges til din score, og terningen går videre. Du skal have slået mindst én gang først.
+# Gris med to terninger
+Vælges før spillet: det samme med to terninger, hvis sum lægges til ved hvert slag.
+- En enkelt 1'er koster turens sum og afslutter turen.
+- To 1'ere på én gang koster også hele din score: du er tilbage på 0.
+# Spillets afslutning
+Turen går rundt om bordet, elfenben først. Den første spiller, der stopper med 100 point eller mere, vinder straks.
+# Spil på enheden
+Visningen drejer mod den spiller, der skal slå. Tryk på filten eller på knappen med en terning for at slå: turens sum står under terningerne, og turens slag stiller sig på række i stativet. Knappen med mønterne stopper. Øverst løber hver spillers terning i en rille fra 0 til den gyldne pæl ved 100; den, der slår, lyser, og turens sum løber i guld foran terningen. En 1'er vises i et rødt skær med de tabte point. Hver bjælke viser den spillers score. Fortryd tager et stop tilbage, aldrig et slag.
