@@ -325,8 +325,8 @@ static void board_pic(int n, uint8_t *o)
     }
 }
 
-static SDL_Texture *t_board, *t_chip, *t_chip_bar, *t_panel;
-static int board_made, chip_made, chip_bar_made, tok_made, panel_w, panel_h;
+static SDL_Texture *t_board, *t_chip, *t_chip_bar;
+static int board_made, chip_made, chip_bar_made, tok_made;
 
 static SDL_Texture *chip_tex(SDL_Texture **t, int *made, int size)
 {
@@ -385,16 +385,8 @@ static void draw_summary(void)
     box b = T.b;
     float u = ui.unit, rh = fminf(1.0f * u, b.h * 0.7f / (p->players + 1)), pw = fminf(b.w * 0.94f, 7.8f * u);
     float ph = rh * (p->players + 1) + 0.4f * u, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
-    if (panel_w != (int)pw || panel_h != (int)ph) {
-        panel_w = (int)pw;
-        panel_h = (int)ph;
-        const uint8_t c[4] = {28, 34, 32, 246};
-        ui_free(&t_panel);
-        art_roundrect(panel_w, panel_h, 0.4f * u, c, ui_buf(panel_w, panel_h));
-        t_panel = ui_tex(panel_w, panel_h, ui_buf(panel_w, panel_h));
-    }
     ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 70);
-    ui_put(t_panel, x0, y0, pw, ph);
+    ct_panel(x0, y0, pw, ph, 246);
     float c1 = x0 + pw * 0.36f, c2 = x0 + pw * 0.6f, c3 = x0 + pw * 0.84f, hy = y0 + 0.2f * u + rh / 2;
     float cw = 0.42f * rh;                      /* the column heads */
     cards_draw(DECK_FRENCH, CARD_NONE, c1, hy, cw, 0, CD_DOWN);
@@ -411,7 +403,7 @@ static void draw_summary(void)
         if (q == p->out && p->opera) ui_mark_gold(c2, cy, 1.8f * nh);
         ui_number_signed(c2, cy, nh, wells, 1, 1);
         ui_number(c3, cy, 0.52f * rh, p->chips[q], 1);
-        ui_fill(x0 + 0.3f * u, cy - rh / 2, pw - 0.6f * u, fmaxf(1, 0.02f * u), 246, 238, 220, 40);
+        ct_rule(x0 + 0.3f * u, cy - rh / 2, pw - 0.6f * u);
     }
 }
 

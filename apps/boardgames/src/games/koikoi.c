@@ -423,8 +423,8 @@ static int badge_n(int y)
     return y <= Y_GOKO ? 5 : y <= Y_AMESHIKO || y >= Y_TESHI ? 4 : y <= Y_AOTAN || y >= Y_TANE ? 3 : 2;
 }
 
-static SDL_Texture *t_badge[YAKU_N], *t_pill, *t_icon[2], *t_koi, *t_cross, *t_tok[2], *t_panel, *t_disc, *t_dot;
-static int badge_h, pill_h, icon_s, koi_s, cross_s, tok_s, panel_w, panel_h, disc_s;
+static SDL_Texture *t_badge[YAKU_N], *t_pill, *t_icon[2], *t_koi, *t_cross, *t_disc, *t_dot;
+static int badge_h, pill_h, icon_s, koi_s, cross_s, tok_s, disc_s;
 
 static float mini_w(float bh) { return floorf(0.8f * bh / ASP); }
 static float fan_w(int y, float bh) { return mini_w(bh) * (1 + 0.55f * (badge_n(y) - 1)); }
@@ -474,15 +474,7 @@ static void textures(void)
         t_cross = ui_tex(cs, cs, ui_buf(cs, cs));
         SDL_SetTextureColorMod(t_cross, 250, 214, 90);
     }
-    int ts = (int)(0.6f * u);
-    if (tok_s != ts) {
-        tok_s = ts;
-        for (int q = 0; q < 2; q++) {
-            ui_free(&t_tok[q]);
-            cards_token(q, ts, ui_buf(ts, ts));
-            t_tok[q] = ui_tex(ts, ts, ui_buf(ts, ts));
-        }
-    }
+    tok_s = (int)(0.6f * u);
     int ds = (int)(0.4f * u);
     if (disc_s != ds) {
         disc_s = ds;
@@ -643,17 +635,7 @@ static void draw_rounds(const kpos *p, const fgeo *g)
 
 static void dim(void) { ui_fill(T.b.x, T.b.y, T.b.w, T.b.h, 0, 0, 0, 110); }
 
-static void panel(float x, float y, float w, float h)
-{
-    if (panel_w != (int)w || panel_h != (int)h) {
-        panel_w = (int)w, panel_h = (int)h;
-        const uint8_t c[4] = {28, 34, 32, 248};
-        ui_free(&t_panel);
-        art_roundrect(panel_w, panel_h, 0.4f * ui.unit, c, ui_buf(panel_w, panel_h));
-        t_panel = ui_tex(panel_w, panel_h, ui_buf(panel_w, panel_h));
-    }
-    ui_put(t_panel, x, y, w, h);
-}
+static void panel(float x, float y, float w, float h) { ct_panel(x, y, w, h, 248); }
 
 /* the points of a stop now: the yaku added up, doubled at 7, doubled for the other's koi-koi */
 static int stop_points(const kpos *p, int pl)
@@ -719,10 +701,10 @@ static void draw_round(const kpos *p)
         int q = k ? 1 - T.me : T.me;
         float cy = y + (k + 0.5f) * rh, tx = px + 0.75f * u, d = 0.62f * u;
         if (r->winner == q) ui_mark_gold(tx, cy, 2.0f * d);
-        ui_put_c(t_tok[q], tx, cy, d, d);
+        ui_put_c(ct_token(q, tok_s), tx, cy, d, d);
         ui_number_signed(px + pw * 0.45f, cy, 0.42f * rh, r->winner == q ? r->points : 0, 1, 1);
         ui_number(px + pw * 0.8f, cy, 0.56f * rh, p->score[q], 1);
-        if (k == 0) ui_fill(px + 0.3f * u, cy + rh / 2, pw - 0.6f * u, fmaxf(1, 0.02f * u), 246, 238, 220, 40);
+        if (k == 0) ct_rule(px + 0.3f * u, cy + rh / 2, pw - 0.6f * u);
     }
 }
 

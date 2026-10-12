@@ -12,6 +12,7 @@
 #include <string.h>
 
 #include "cards.h"
+#include "cards_table.h"
 #include "games/dominoes.h"
 #include "shell.h"
 
@@ -534,19 +535,8 @@ static int script(const char *s)
 }
 
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
-static SDL_Texture *t_tok[DOM_MAXP], *t_panel, *t_disc, *t_piece;
-static int tok_size, panel_w, panel_h, disc_d, piece_d;
-
-static void tokens(int size)
-{
-    if (tok_size == size) return;
-    tok_size = size;
-    for (int q = 0; q < DOM_MAXP; q++) {
-        ui_free(&t_tok[q]);
-        cards_token(q, size, ui_buf(size, size));
-        t_tok[q] = ui_tex(size, size, ui_buf(size, size));
-    }
-}
+static SDL_Texture *t_disc, *t_piece;
+static int tok_size, disc_d, piece_d;
 
 static int legal_end(int bone, int e)
 {
@@ -563,21 +553,13 @@ static void draw_summary(void)
     box b = T.b;
     float u = ui.unit, rh = fminf(1.25f * u, b.h * 0.8f / p->players), pw = fminf(b.w * 0.94f, 8.2f * u);
     float ph = rh * p->players + 0.5f * u, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
-    if (panel_w != (int)pw || panel_h != (int)ph) {
-        panel_w = (int)pw;
-        panel_h = (int)ph;
-        const uint8_t c[4] = {28, 34, 32, 250};
-        ui_free(&t_panel);
-        art_roundrect(panel_w, panel_h, 0.4f * u, c, ui_buf(panel_w, panel_h));
-        t_panel = ui_tex(panel_w, panel_h, ui_buf(panel_w, panel_h));
-    }
-    tokens((int)(0.6f * u));
+    tok_size = (int)(0.6f * u);
     ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 70);
-    ui_put(t_panel, x0, y0, pw, ph);
+    ct_panel(x0, y0, pw, ph, 250);
     for (int q = 0; q < p->players; q++) {
         float cy = y0 + 0.25f * u + (q + 0.5f) * rh, tx = x0 + 0.6f * u, d = fminf(0.72f * rh, 0.8f * u);
         if (q == p->winner) ui_mark_gold(tx, cy, 2.0f * d);
-        ui_put_c(t_tok[q], tx, cy, d, d);
+        ui_put_c(ct_token(q, tok_size), tx, cy, d, d);
         float bl = fminf(0.62f * rh, 0.75f * u), bx = x0 + 1.15f * u, room_w = pw * 0.5f - 1.15f * u;
         int n = p->nhand[q];
         float stepx = n > 1 ? fminf(bl * 0.56f, (room_w - bl / 2) / (n - 1)) : 0;
@@ -587,7 +569,7 @@ static void draw_summary(void)
         ui_number_signed(x0 + pw * 0.62f, cy, nh, p->last[q] + p->made[q], 1, 1);
         ui_number(x0 + pw * 0.86f, cy, 0.52f * rh, p->total[q], 1);
         if (q < p->players - 1)
-            ui_fill(x0 + 0.3f * u, cy + rh / 2, pw - 0.6f * u, fmaxf(1, 0.02f * u), 246, 238, 220, 40);
+            ct_rule(x0 + 0.3f * u, cy + rh / 2, pw - 0.6f * u);
     }
 }
 

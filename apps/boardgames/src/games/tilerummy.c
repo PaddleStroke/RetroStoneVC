@@ -16,6 +16,7 @@
 #include <string.h>
 
 #include "cards.h"
+#include "cards_table.h"
 #include "games/tilerummy.h"
 #include "shell.h"
 
@@ -345,19 +346,8 @@ static void icon(int which, int size, uint8_t *rgba)
 }
 
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
-static SDL_Texture *t_tok[TR_MAXP], *t_panel, *t_icon[3], *t_disc, *t_disc_on, *t_disc_off, *t_rack, *t_piece;
-static int tok_size, panel_w, panel_h, icon_d, rack_w, rack_h, piece_d;
-
-static void tokens(int size)
-{
-    if (tok_size == size) return;
-    tok_size = size;
-    for (int q = 0; q < TR_MAXP; q++) {
-        ui_free(&t_tok[q]);
-        cards_token(q, size, ui_buf(size, size));
-        t_tok[q] = ui_tex(size, size, ui_buf(size, size));
-    }
-}
+static SDL_Texture *t_icon[3], *t_disc, *t_disc_on, *t_disc_off, *t_rack, *t_piece;
+static int tok_size, icon_d, rack_w, rack_h, piece_d;
 
 static void controls_textures(void)
 {
@@ -419,22 +409,14 @@ static void draw_summary(void)
     box b = T.b;
     float u = ui.unit, rh = fminf(1.4f * u, b.h * 0.8f / p->players), pw = fminf(b.w * 0.96f, 8.6f * u);
     float ph = rh * p->players + 0.5f * u, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
-    if (panel_w != (int)pw || panel_h != (int)ph) {
-        panel_w = (int)pw;
-        panel_h = (int)ph;
-        const uint8_t c[4] = {28, 34, 32, 250};
-        ui_free(&t_panel);
-        art_roundrect(panel_w, panel_h, 0.4f * u, c, ui_buf(panel_w, panel_h));
-        t_panel = ui_tex(panel_w, panel_h, ui_buf(panel_w, panel_h));
-    }
-    tokens((int)(0.6f * u));
+    tok_size = (int)(0.6f * u);
     ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 70);
-    ui_put(t_panel, x0, y0, pw, ph);
+    ct_panel(x0, y0, pw, ph, 250);
     int match = p->variant == TR_MATCH;
     for (int q = 0; q < p->players; q++) {
         float cy = y0 + 0.25f * u + (q + 0.5f) * rh, tx = x0 + 0.6f * u, d = fminf(0.7f * rh, 0.8f * u);
         if (q == p->winner) ui_mark_gold(tx, cy, 2.0f * d);
-        ui_put_c(t_tok[q], tx, cy, d, d);
+        ui_put_c(ct_token(q, tok_size), tx, cy, d, d);
         uint8_t t[TR_TILES];
         int n = tr_rack(p, q, 0, t);
         float room = pw * (match ? 0.56f : 0.68f) - 1.2f * u, tw = fminf(0.5f * rh, 0.55f * u);
@@ -443,7 +425,7 @@ static void draw_summary(void)
         ui_number_signed(x0 + pw * (match ? 0.7f : 0.84f), cy, 0.4f * rh, p->last[q], 1, 1);
         if (match) ui_number_signed(x0 + pw * 0.88f, cy, 0.5f * rh, p->total[q], 1, 0);
         if (q < p->players - 1)
-            ui_fill(x0 + 0.3f * u, cy + rh / 2, pw - 0.6f * u, fmaxf(1, 0.02f * u), 246, 238, 220, 40);
+            ct_rule(x0 + 0.3f * u, cy + rh / 2, pw - 0.6f * u);
     }
 }
 

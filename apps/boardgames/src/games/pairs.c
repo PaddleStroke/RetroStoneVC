@@ -13,6 +13,7 @@
 #include <string.h>
 
 #include "cards.h"
+#include "cards_table.h"
 #include "games/chess.h"
 #include "games/families_deck.h"
 #include "games/pairs.h"
@@ -94,7 +95,7 @@ static void paint_face(int pic, int w, int h, uint8_t *o)
     free(t);
 }
 
-static SDL_Texture *t_face[PR_POOL], *t_tok[PR_MAXP], *t_disc;
+static SDL_Texture *t_face[PR_POOL], *t_disc;
 static int face_w[PR_POOL], tok_size, disc_size;
 
 static SDL_Texture *face(int pic, int w)
@@ -246,15 +247,7 @@ static int script(const char *s)
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
 static void textures(void)
 {
-    int ts = (int)fmaxf(4, 0.3f * T.w);
-    if (ts != tok_size) {
-        tok_size = ts;
-        for (int q = 0; q < PR_MAXP; q++) {
-            ui_free(&t_tok[q]);
-            cards_token(q, ts, ui_buf(ts, ts));
-            t_tok[q] = ui_tex(ts, ts, ui_buf(ts, ts));
-        }
-    }
+    tok_size = (int)fmaxf(4, 0.3f * T.w);
     int ds = (int)(2.2f * ui.unit);
     if (ds != disc_size) {
         disc_size = ds;
@@ -291,7 +284,8 @@ static void draw(void)
             card(p->pic[i], x, y, T.w * 0.94f, 1, CD_FLAT, 170);
             if (p->players > 1) {
                 float d = (float)tok_size;
-                ui_put_c(t_tok[p->found[i]], x + T.w * 0.47f - d * 0.6f, y + T.w * aspect() * 0.47f - d * 0.6f, d, d);
+                ui_put_c(ct_token(p->found[i], tok_size), x + T.w * 0.47f - d * 0.6f, y + T.w * aspect() * 0.47f - d * 0.6f,
+                         d, d);
             }
             continue;
         }

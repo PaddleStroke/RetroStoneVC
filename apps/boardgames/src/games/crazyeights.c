@@ -271,43 +271,14 @@ static void ring_pic(int size, uint8_t *rgba)
 }
 
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
-static SDL_Texture *t_icon, *t_ring, *t_disc, *t_disc_on, *t_panel;
-static int tok_made, icon_made, ring_made, disc_made, panel_w, panel_h;
+static int tok_made;
 
-static void textures(void)
-{
-    int s = (int)(1.3f * T.br);
-    if (icon_made != s && s > 4) {
-        icon_made = s;
-        ui_free(&t_icon);
-        last_icon(s, ui_buf(s, s));
-        t_icon = ui_tex(s, s, ui_buf(s, s));
-    }
-    int r = (int)T.ring;
-    if (ring_made != r && r > 8) {
-        ring_made = r;
-        ui_free(&t_ring);
-        ring_pic(r, ui_buf(r, r));
-        t_ring = ui_tex(r, r, ui_buf(r, r));
-        SDL_SetTextureAlphaMod(t_ring, 120);
-    }
-    int d = (int)(2 * T.br);
-    if (disc_made != d && d > 4) {
-        disc_made = d;
-        static const uint8_t off[3] = {54, 72, 64}, on[3] = {150, 118, 46};
-        ui_free(&t_disc);
-        art_disc(d, off, 1, 0, ui_buf(d, d));
-        t_disc = ui_tex(d, d, ui_buf(d, d));
-        ui_free(&t_disc_on);
-        art_disc(d, on, 1, 0, ui_buf(d, d));
-        t_disc_on = ui_tex(d, d, ui_buf(d, d));
-    }
-}
+static void paint_pic(int kind, int size, uint8_t *rgba) { (kind ? ring_pic : last_icon)(size, rgba); }
 
 /* the "last card" icon with its 1 (turned with the card), size s */
 static void put_icon(float cx, float cy, float s)
 {
-    ui_put_c(t_icon, cx, cy, s, s);
+    ui_put_c(ct_picture(paint_pic, 0, (int)(1.3f * T.br)), cx, cy, s, s);
     ui_number_rot(cx + 0.02f * s, cy + 0.07f * s, 0.34f * s, 1, 0, -6);
 }
 
@@ -319,16 +290,8 @@ static void draw_summary(void)
     box b = T.b;
     float u = ui.unit, rh = fminf(1.05f * u, b.h * 0.8f / p->players), pw = fminf(b.w * 0.92f, 7.6f * u);
     float ph = rh * p->players + 0.5f * u, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
-    if (panel_w != (int)pw || panel_h != (int)ph) {
-        panel_w = (int)pw;
-        panel_h = (int)ph;
-        const uint8_t c[4] = {28, 34, 32, 246};
-        ui_free(&t_panel);
-        art_roundrect(panel_w, panel_h, 0.4f * u, c, ui_buf(panel_w, panel_h));
-        t_panel = ui_tex(panel_w, panel_h, ui_buf(panel_w, panel_h));
-    }
     ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 70);
-    ui_put(t_panel, x0, y0, pw, ph);
+    ct_panel(x0, y0, pw, ph, 246);
     for (int q = 0; q < p->players; q++) {
         float cy = y0 + 0.25f * u + (q + 0.5f) * rh, tx = x0 + 0.75f * u, d = fminf(0.72f * rh, 0.8f * u);
         if (q == p->winner) ui_mark_gold(tx, cy, 2.0f * d);
@@ -342,8 +305,7 @@ static void draw_summary(void)
             ui_number(rx + 0.25f * nh, cy, 0.8f * nh, p->left[q], 1);
         }
         ui_number(x0 + pw * 0.8f, cy, 0.56f * rh, p->score[q], 1);
-        if (q < p->players - 1)
-            ui_fill(x0 + 0.3f * u, cy + rh / 2, pw - 0.6f * u, fmaxf(1, 0.02f * u), 246, 238, 220, 40);
+        if (q < p->players - 1) ct_rule(x0 + 0.3f * u, cy + rh / 2, pw - 0.6f * u);
     }
 }
 
@@ -378,14 +340,15 @@ static void draw(void)
 {
     const cpos *p = &G.pos;
     if (dealing && ui.viewer >= 0) { dealing = 0; ct_calm(&MV); deal_slides(); }   /* the cover lifted: it flies */
-    textures();
     int deck = p->deck, mine = p->turn == T.me && !ui_handing(), moving = ct_moving(&MV), b = busy();
     int ph = p->phase, ready = mine && !moving && (ph == CP_PLAY || ph == CP_CHOOSE);
     tok_made = (int)fmaxf(8, fmaxf(0.5f * T.sw, T.ow * 0.8f));
     /* the ring (last card, three or more): which way the play goes */
-    if (p->variant == CE_LAST && p->players > 2 && t_ring) {
+    if (p->variant == CE_LAST && p->players > 2 && T.ring > 8) {
+        SDL_Texture *ring = ct_picture(paint_pic, 1, (int)T.ring);
         SDL_FRect d = {T.rx - T.ring / 2, T.cy - T.ring / 2, T.ring, T.ring};
-        SDL_RenderCopyExF(ui.r, t_ring, NULL, &d, 0, NULL, p->dir ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
+        SDL_SetTextureAlphaMod(ring, 120);
+        SDL_RenderCopyExF(ui.r, ring, NULL, &d, 0, NULL, p->dir ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
     }
     /* the stock and the discard (the cards on their way not yet there) */
     int ns = p->nstock + ct_hides(&MV, H_STOCK, -1, -1);
@@ -420,7 +383,8 @@ static void draw(void)
     if (p->variant == CE_LAST && mine && ph == CP_PLAY && (n == 2 || (n == 1 && p->called[T.me]))) {
         int can = !moving && ce_legal(p, CA_CALL), on = p->called[T.me];
         if (can) ui_mark_gold(T.bx, T.by, 3.0f * T.br);
-        ui_put_c(on ? t_disc_on : t_disc, T.bx, T.by, 2 * T.br, 2 * T.br);
+        static const uint8_t off[3] = {54, 72, 64}, lit[3] = {150, 118, 46};   /* the shell's button colours */
+        ui_put_c(ct_disc(on ? lit : off, 100, (int)(2 * T.br)), T.bx, T.by, 2 * T.br, 2 * T.br);
         put_icon(T.bx, T.by, 1.3f * T.br);
     }
     ct_draw(&MV);

@@ -533,24 +533,13 @@ static int script(const char *s)
 }
 
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
-static SDL_Texture *t_tok[TAROT_MAXP], *t_panel, *t_disc, *t_play, *t_pill[2], *t_dot;
-static int tok_size, panel_w, panel_h, disc_d, pill_w, pill_h, dot_d;
+static SDL_Texture *t_disc, *t_play, *t_pill[2], *t_dot;
+static int disc_d, pill_w, pill_h, dot_d;
 
-static SDL_Texture *tok(int q, float size)
+static void put_tok(int q, float cx, float cy, float d)
 {
-    int s = (int)fmaxf(4, size);
-    if (tok_size != s) {
-        tok_size = s;
-        for (int i = 0; i < TAROT_MAXP; i++) {
-            ui_free(&t_tok[i]);
-            cards_token(i, s, ui_buf(s, s));
-            t_tok[i] = ui_tex(s, s, ui_buf(s, s));
-        }
-    }
-    return t_tok[q];
+    ui_put_c(ct_token(q, (int)fmaxf(4, 0.6f * T.u)), cx, cy, d, d);
 }
-
-static void put_tok(int q, float cx, float cy, float d) { ui_put_c(tok(q, 0.6f * T.u), cx, cy, d, d); }
 
 /* the round gold button with the start icon: the discard done, the next deal */
 static void round_button(float cx, float cy, float r, int glow)
@@ -804,18 +793,7 @@ static SDL_Texture *cross(float size)          /* a gold cross: "times" */
     return t;
 }
 
-static void panel(float x, float y, float w, float h)
-{
-    if (panel_w != (int)w || panel_h != (int)h) {
-        panel_w = (int)w;
-        panel_h = (int)h;
-        const uint8_t c[4] = {28, 34, 32, 250};
-        ui_free(&t_panel);
-        art_roundrect(panel_w, panel_h, 0.4f * T.u, c, ui_buf(panel_w, panel_h));
-        t_panel = ui_tex(panel_w, panel_h, ui_buf(panel_w, panel_h));
-    }
-    ui_put(t_panel, x, y, w, h);
-}
+static void panel(float x, float y, float w, float h) { ct_panel(x, y, w, h, 250); }
 
 /* the deal's count: the contract, the taker's side's oudlers and points against the points needed, the bonuses,
  * then each player's points and total (the highest in gold light), the button for the next deal */

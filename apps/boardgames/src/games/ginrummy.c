@@ -374,21 +374,13 @@ static int can_pass(void) { return G.pos.phase == GN_OFFER && !busy(); }
 static void pass(void) { act(GNA_PASS); }
 
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
-static SDL_Texture *t_tok[2], *t_pill, *t_cross, *t_ring;
+static SDL_Texture *t_pill, *t_cross, *t_ring;
 static int tok_size, disc_size, pill_w, cross_size, ring_size;
 
 static void textures(void)
 {
     float u = ui.unit;
-    int ts = (int)(0.62f * u);
-    if (ts != tok_size) {
-        tok_size = ts;
-        for (int q = 0; q < 2; q++) {
-            ui_free(&t_tok[q]);
-            cards_token(q, ts, ui_buf(ts, ts));
-            t_tok[q] = ui_tex(ts, ts, ui_buf(ts, ts));
-        }
-    }
+    tok_size = (int)(0.62f * u);
     int ds = (int)(0.86f * u);
     if (ds != disc_size) {
         disc_size = ds;
@@ -482,7 +474,7 @@ static void draw_result(const gnpos *p)
             int q = k ? T.me : 1 - T.me, w = gin_winner(p) == q;
             float y = y0 + k * rh, x = T.b.x + 0.5f * u;
             if (w) ui_mark_gold(x, y, 1.3f * u);
-            ui_put_c(t_tok[q], x, y, (float)tok_size, (float)tok_size);
+            ui_put_c(ct_token(q, tok_size), x, y, (float)tok_size, (float)tok_size);
             x += 1.0f * u;
             ui_number(x, y, 0.44f * u, p->score[q], 1);
             x += 1.1f * u;
@@ -505,7 +497,7 @@ static void draw_result(const gnpos *p)
     int w = s->winner, bonus = s->bonus;
     float x = cx - (bonus ? 1.6f : 1.0f) * u;
     ui_mark_gold(x, cy, 1.6f * u);
-    ui_put_c(t_tok[w], x, cy, 0.9f * u, 0.9f * u);
+    ui_put_c(ct_token(w, tok_size), x, cy, 0.9f * u, 0.9f * u);
     ct_plus(x + 1.35f * u, cy, 0.56f * u, s->points - bonus);
     if (bonus) {                                /* gin, an undercut: the 25 apart, in a gold ring */
         float bx = x + 3.0f * u;

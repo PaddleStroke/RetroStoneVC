@@ -27,6 +27,7 @@
 #include <string.h>
 
 #include "cards.h"
+#include "cards_table.h"
 #include "games/knobs.h"
 #include "games/race.h"
 #include "games/wordtiles.h"
@@ -390,9 +391,8 @@ static void board_paint(int sq, int fr, uint8_t *o)
 }
 
 /* ---- the textures made for the layout ---------------------------------------------------------------------------- */
-static SDL_Texture *t_board, *t_plank, *t_bag, *t_arrow, *t_tok[WT_MAXP], *t_panel, *t_disc;
-static int made_board = -1, made_plank = -1, made_bag = -1, made_arrow = -1, made_tok = -1, made_disc = -1,
-           panel_w, panel_h;
+static SDL_Texture *t_board, *t_plank, *t_bag, *t_arrow, *t_disc;
+static int made_board = -1, made_plank = -1, made_bag = -1, made_arrow = -1, made_disc = -1;
 static knob_set KS;
 
 static void paint_knob(int kind, int s, uint8_t *o)
@@ -483,15 +483,6 @@ static void textures(void)
         art_poly(f, ART_PART, tri, 3);
         knob_paint(o, as, f, KNOB_CREAM, KNOB_DARK, 0.06f);
         t_arrow = ui_tex(as, as, o);
-    }
-    int ts = (int)(0.6f * ui.unit);
-    if (made_tok != ts) {
-        made_tok = ts;
-        for (int q = 0; q < WT_MAXP; q++) {
-            ui_free(&t_tok[q]);
-            cards_token(q, ts, ui_buf(ts, ts));
-            t_tok[q] = ui_tex(ts, ts, ui_buf(ts, ts));
-        }
     }
     int ds = (int)(0.66f * T.sq + 6);
     if (made_disc != ds) {
@@ -1007,28 +998,20 @@ static void draw_summary(void)
     box b = T.b;
     float u = ui.unit, rh = fminf(1.05f * u, b.h * 0.8f / P->players), pw = fminf(b.w * 0.92f, 7.6f * u);
     float ph = rh * P->players + 0.5f * u, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
-    if (panel_w != (int)pw || panel_h != (int)ph) {
-        panel_w = (int)pw;
-        panel_h = (int)ph;
-        const uint8_t c[4] = {28, 34, 32, 250};
-        ui_free(&t_panel);
-        art_roundrect(panel_w, panel_h, 0.4f * u, c, ui_buf(panel_w, panel_h));
-        t_panel = ui_tex(panel_w, panel_h, ui_buf(panel_w, panel_h));
-    }
     ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 70);
-    ui_put(t_panel, x0, y0, pw, ph);
+    ct_panel(x0, y0, pw, ph, 250);
     unsigned w = wt_winners(P);
     for (int q = 0; q < P->players; q++) {      /* a row each: the token, the tiles left (lost or gained), the score */
         float cy = y0 + 0.25f * u + (q + 0.5f) * rh, tx = x0 + 0.75f * u, d = fminf(0.72f * rh, 0.8f * u);
         if (w >> q & 1) ui_mark_gold(tx, cy, 2.0f * d);
-        ui_put_c(t_tok[q], tx, cy, d, d);
+        ui_put_c(ct_token(q, (int)(0.6f * ui.unit)), tx, cy, d, d);
         int k = 0;                              /* the tiles left on the rack, small */
         for (int s = 0; s < WT_RACK; s++)
             if (P->rack[q][s]) tile_at(P->rack[q][s], x0 + 1.55f * u + k++ * 0.42f * u, cy, 0.38f * u, 1, 0);
         if (P->left[q]) ui_number_signed(x0 + pw * 0.62f, cy, 0.36f * rh, P->left[q], 1, 1);
         ui_number_signed(x0 + pw * 0.84f, cy, 0.5f * rh, P->score[q], 1, 0);
         if (q < P->players - 1)
-            ui_fill(x0 + 0.3f * u, cy + rh / 2, pw - 0.6f * u, fmaxf(1, 0.02f * u), 246, 238, 220, 40);
+            ct_rule(x0 + 0.3f * u, cy + rh / 2, pw - 0.6f * u);
     }
 }
 

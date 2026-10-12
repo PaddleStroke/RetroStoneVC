@@ -617,20 +617,12 @@ static int script(const char *s)
 }
 
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
-static SDL_Texture *t_tok[CRIB_MAXP], *t_disc, *t_go, *t_play, *t_pill;
+static SDL_Texture *t_disc, *t_go, *t_play, *t_pill;
 static int tok_size, disc_size, go_size, play_size, pill_w, pill_h;
 
 static void textures(void)
 {
-    int ts = (int)(0.42f * ui.unit);
-    if (ts != tok_size) {
-        tok_size = ts;
-        for (int q = 0; q < CRIB_MAXP; q++) {
-            ui_free(&t_tok[q]);
-            cards_token(q, ts, ui_buf(ts, ts));
-            t_tok[q] = ui_tex(ts, ts, ui_buf(ts, ts));
-        }
-    }
+    tok_size = (int)(0.42f * ui.unit);
     int ds = (int)(0.86f * ui.unit);
     if (ds != disc_size) {
         disc_size = ds;
@@ -740,7 +732,7 @@ static void draw_stage(const cpos *p, int k)
     float hy = y0 - 0.5f * T.gw * aspect() - 0.62f * ui.unit, tx = x0 - 0.1f * T.gw;
     if (A.on && now < A.show + SLIDE_MS) return;
     ui_mark_gold(tx, hy, 1.1f * ui.unit);
-    ui_put_c(t_tok[pl], tx, hy, 0.62f * ui.unit, 0.62f * ui.unit);
+    ui_put_c(ct_token(pl, tok_size), tx, hy, 0.62f * ui.unit, 0.62f * ui.unit);
     float nx = tx + 0.62f * ui.unit;
     if (k >= p->players) {
         cards_draw(deck, CARD_NONE, nx, hy, 0.36f * ui.unit, 0, CD_DOWN);
@@ -787,7 +779,7 @@ static void draw(void)
         }
         if (p->players > 2) {
             float x = T.ox[q] - (n > 0 ? n - 1 : 0) / 2.0f * 0.5f * T.ow - 0.5f * T.ow - 0.3f * ui.unit;
-            ui_put_c(t_tok[q], x, T.oy, (float)tok_size, (float)tok_size);
+            ui_put_c(ct_token(q, tok_size), x, T.oy, (float)tok_size, (float)tok_size);
         }
     }
     draw_board();
@@ -799,7 +791,7 @@ static void draw(void)
     if (full) ui_mark_gold(T.kx, T.ky, T.pw * 1.9f);
     if (!showing) {
         cards_pile(deck, T.kx, T.ky, T.pw, ncrib < 0 ? 0 : ncrib, CARD_NONE, full ? CD_GLOW : 0);
-        ui_put_c(t_tok[p->dealer], T.kx - 0.42f * T.pw, T.ky + 0.62f * T.pw * aspect(), (float)tok_size,
+        ui_put_c(ct_token(p->dealer, tok_size), T.kx - 0.42f * T.pw, T.ky + 0.62f * T.pw * aspect(), (float)tok_size,
                  (float)tok_size);
         draw_row(p);
     } else draw_stage(p, sk);

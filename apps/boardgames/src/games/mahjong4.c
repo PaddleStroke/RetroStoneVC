@@ -23,6 +23,7 @@
 #include <string.h>
 
 #include "cards.h"
+#include "cards_table.h"
 #include "games/mahjong4.h"
 #include "games/mjtiles.h"
 #include "shell.h"
@@ -558,7 +559,7 @@ static void make_offers(void)
     }
 }
 
-static SDL_Texture *t_panel, *t_disc, *t_tok[M4_P];
+static SDL_Texture *t_panel, *t_disc;
 static int panel_w, panel_h, disc_d, tok_d;
 
 static void panel(float x, float y, float w, float h, Uint8 alpha)
@@ -619,17 +620,6 @@ static int offer_hit(float x, float y)
 }
 
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
-static void tokens(int d)
-{
-    if (tok_d == d) return;
-    tok_d = d;
-    for (int q = 0; q < M4_P; q++) {
-        ui_free(&t_tok[q]);
-        cards_token(q, d, ui_buf(d, d));
-        t_tok[q] = ui_tex(d, d, ui_buf(d, d));
-    }
-}
-
 /* the middle of the square: the prevailing wind, the dice, the tiles left in the live wall */
 static void draw_middle(void)
 {
@@ -700,28 +690,28 @@ static void draw_summary(void)
         y += th / 2 + 0.3f * u + 0.5f * u;
         gold_disc(T.cx, y, 0.95f * u);          /* the faan */
         ui_number(T.cx, y, 0.5f * u, r->score.faan, 0);
-        tokens((int)(0.62f * u));
+        tok_d = (int)(0.62f * u);
         ui_mark_gold(T.cx - 1.6f * u, y, 1.5f * u);
-        ui_put_c(t_tok[r->winner], T.cx - 1.6f * u, y, 0.62f * u, 0.62f * u);
+        ui_put_c(ct_token(r->winner, tok_d), T.cx - 1.6f * u, y, 0.62f * u, 0.62f * u);
         if (r->payer != M4_NONE) {              /* who paid most: their token, dimmed */
-            SDL_SetTextureAlphaMod(t_tok[r->payer], 150);
-            ui_put_c(t_tok[r->payer], T.cx + 1.6f * u, y, 0.5f * u, 0.5f * u);
-            SDL_SetTextureAlphaMod(t_tok[r->payer], 255);
+            SDL_Texture *pt = ct_token(r->payer, tok_d);
+            SDL_SetTextureAlphaMod(pt, 150);
+            ui_put_c(pt, T.cx + 1.6f * u, y, 0.5f * u, 0.5f * u);
         } else draw_tile(-1, T.cx + 1.6f * u, y, 0.36f * u, 0, TD_BACK);   /* self-drawn: from the wall */
     } else {                                    /* a drawn hand: the wall used up */
         for (int i = 0; i < 4; i++) draw_tile(-1, T.cx + (i - 1.5f) * 0.52f * u, y, 0.5f * u, 0, TD_BACK);
         y += th / 2 + 0.3f * u + 0.5f * u;
     }
     y += 0.5f * u + 0.2f * u;
-    tokens((int)(0.62f * u));
+    tok_d = (int)(0.62f * u);
     for (int q = 0; q < M4_P; q++, y += rh) {
         float cy = y + rh / 2, d = fminf(0.62f * u, 0.8f * rh);
         if (q == r->winner) ui_mark_gold(x0 + 0.7f * u, cy, 2.0f * d);
-        ui_put_c(t_tok[q], x0 + 0.7f * u, cy, d, d);
+        ui_put_c(ct_token(q, tok_d), x0 + 0.7f * u, cy, d, d);
         draw_tile(M4_WINDS + m4_seat(p, q), x0 + 1.6f * u, cy, 0.42f * rh, 0, TD_FLAT);
         if (r->pay[q]) ui_number_signed(x0 + pw * 0.5f, cy, 0.42f * rh, r->pay[q], 1, 1);
         ui_number_signed(x0 + pw * 0.8f, cy, 0.5f * rh, p->total[q], 1, 0);
-        if (q < M4_P - 1) ui_fill(x0 + 0.3f * u, y + rh, pw - 0.6f * u, fmaxf(1, 0.02f * u), 246, 238, 220, 40);
+        if (q < M4_P - 1) ct_rule(x0 + 0.3f * u, y + rh, pw - 0.6f * u);
     }
 }
 
