@@ -198,6 +198,17 @@ void art_head(art_fig *f, int role, float x, float y, float deg, float l)
     art_poly(f, role, q, 3);
 }
 
+void art_star(art_fig *f, int role, float cx, float cy, float r)
+{
+    float q[20];
+    for (int i = 0; i < 10; i++) {                  /* the points and the hollows between them, from the top */
+        float a = (-90 + 36 * i) * PI_F / 180, d = i & 1 ? 0.41f * r : r;
+        q[2 * i] = cx + d * cosf(a);
+        q[2 * i + 1] = cy + d * sinf(a);
+    }
+    art_poly(f, role, q, 10);
+}
+
 art_style art_flat(const uint8_t fill[3], const uint8_t ink[3], float line, float light)
 {
     art_style st = {{0}, {0}, {0}, {0}, light, line};
@@ -634,6 +645,15 @@ void art_icon(int which, int size, uint8_t *rgba)
         art_rect(f, ART_PART, 0.18f, 0.34f, 0.66f, 0.82f);
         art_ellipse(f, ART_PART, 0.42f, 0.26f, 0.11f, 0.1f);
         art_ellipse(f, ART_PART, 0.74f, 0.58f, 0.1f, 0.11f);
+        break;
+    case ICON_GRID:                                 /* the levels: nine tiles, three by three */
+        for (int k = 0; k < 9; k++) {
+            float x = 0.19f + (k % 3) * 0.225f, y = 0.19f + (k / 3) * 0.225f;
+            art_rect(f, ART_PART, x, y, x + 0.17f, y + 0.17f);
+        }
+        break;
+    case ICON_STAR:                                 /* a star */
+        art_star(f, ART_PART, 0.5f, 0.53f, 0.36f);
         break;
     case ICON_ARROW: {                              /* an arrow pointing right */
         const float head[] = {0.50f, 0.22f, 0.86f, 0.50f, 0.50f, 0.78f};

@@ -37,6 +37,8 @@ void art_fig_blend(uint8_t *rgba, int pw, int ph, const art_fig *f, const art_st
 void art_band(art_fig *f, int role, float x0, float y0, float x1, float y1, float wd);
 /* an arrow head at (x, y) pointing at deg (0 right, 90 down), l long */
 void art_head(art_fig *f, int role, float x, float y, float deg, float l);
+/* a five-pointed star centred on (cx, cy), its points r from the centre, one pointing up */
+void art_star(art_fig *f, int role, float cx, float cy, float r);
 /* a flat style: one fill colour, its outline `line` wide (of the unit square) in ink (marks in ink too), lit by
  * `light` (0: flat) */
 art_style art_flat(const uint8_t fill[3], const uint8_t ink[3], float line, float light);
@@ -95,9 +97,9 @@ float art_recess(float dx, float dy, float r, float b, float deep, float wall_li
 
 /* ICON_DEVICE: pass the device (a device and two arrows going round it: the hand-off cover); ICON_PLAY: start;
  * ICON_HINT: a lamp, lit (a hint); ICON_TICK: done, ready, check; ICON_ARROW: an arrow pointing right (next, on);
- * ICON_PUZZLE: a jigsaw piece (the menu's puzzles) */
+ * ICON_PUZZLE: a jigsaw piece (the menu's puzzles); ICON_GRID: nine tiles (the levels); ICON_STAR: a star */
 enum { ICON_UNDO, ICON_FLIP, ICON_NEW, ICON_HOME, ICON_F2F, ICON_PASS, ICON_SOUND, ICON_MUTE, ICON_HELP, ICON_CLOSE,
-       ICON_DEVICE, ICON_PLAY, ICON_HINT, ICON_TICK, ICON_ARROW, ICON_PUZZLE, ICONS };
+       ICON_DEVICE, ICON_PLAY, ICON_HINT, ICON_TICK, ICON_ARROW, ICON_PUZZLE, ICON_GRID, ICON_STAR, ICONS };
 /* a round button's icon (white: tint it), size x size */
 void art_icon(int which, int size, uint8_t *rgba);
 

@@ -11,13 +11,16 @@ make -f apps/boardgames/Makefile shots           # build/boardgames/shots/*.png
 make -f apps/boardgames/Makefile win64           # dist/windows/RetroStoneBoard.exe
 ```
 
-`GAMES="chess go"` builds only these games; `B=build/boardgames-go` another build directory (parallel work).
+`GAMES="chess go"` builds only these games; `B=build/boardgames-go` another build directory (parallel work). A game
+built on another one's rules names them in the Makefile (`NEEDS_chesspuzzles := .../chess.c`), so `GAMES="id"` alone
+links. `DEMO=1` adds `tests/levels_demo.c` (three tiny games: the level screen, the keys, the score; never shipped).
 
 ## The pieces
 
 | | |
 |---|---|
-| `src/shell.c` `shell.h` | the app: the menu, the variant picker, the players' bars, the buttons (home, undo, flip, face to face, new game), the end-of-game card, the picture mode. Everything the games share, written once. |
+| `src/shell.c` `shell.h` | the app: the menu, the variant picker, the players' bars, the buttons (home, undo, flip, face to face, new game), the end-of-game card, the level screen, the picture mode. Everything the games share, written once. |
+| `src/save.c` | what the app keeps between two runs (`ui_save_get` / `ui_save_set`): one small file on the device (see "What the app keeps"). |
 | `src/art.c` `art.h` | the pictures, drawn by code at the screen's resolution: shapes (`art_fig`; strokes `art_band`, arrow heads `art_head`, one-colour styles `art_flat`, a figure into a picture `art_fig_blend` / `art_fig_paint`), the house pieces (`art_piece` for chess, `art_counter` for discs, go stones, draughts men and kings, `art_die`), the wooden boards (`art_board_n`), carved holes (`art_recess`), the dice games' felt (`art_felt`), a flat piece and its shadow in a thumbnail (`art_flat_put`), icons. |
 | `src/cards.c` `cards.h` | the card and tile kit: the house's decks drawn by code (and a game's own, `cards_deck_add`), a texture cache, cards drawn and moved, hands, piles (see "Card and tile games"). |
 | `src/cards_italian.c` | the Italian pack of 40 (`DECK_ITALIAN`), drawn by code. |
@@ -100,6 +103,51 @@ One look across the app, like the Arcade games' house kit:
 - **Undo** goes back one move (all the way to the start), **status** says who won, **turn** who moves,
   **can_pass / pass** if the game has a pass (go), **bar** what a player's bar shows (pieces taken, a score),
   **script** plays moves in the game's own notation (the screenshots, the tests).
+- **Keys** (optional `key(k)`): a key pressed in the game (once, not its repeats) that the shell does not use itself
+  (Esc, Back, M, H, F1, U, Backspace, F, T, N are the shell's): the arrows for a push puzzle. Never while the rules
+  page or the hand-off cover is up, nor on another screen. No game watches SDL's events itself.
+- **A score** (optional `score()`, one player): the end card shows it in big digits beside the token (the final
+  score, the moves a puzzle took).
+
+## Levels
+
+A game of designed levels (Logic Gates, Box Pusher) declares them; the shell then shows its **level screen** instead
+of the picker, and keeps the progress.
+
+- `levels` (how many), `chapters` (split evenly; or `chapter_of(level)`, never going down, for uneven ones), optional
+  `chapter_icon(chapter, size, rgba)` (a tab's picture; else its number; a wide tab shows both), optional
+  `level_thumb(level, size, rgba)` (a tile's picture; else its number), `level_stars()` (the level solved: 0..3; NULL:
+  no stars), `levels_open` (the unsolved levels open at once; 0: 3).
+- The screen: home at the top left, the stars won at the right, the chapters' tabs (the menu's), then the chapter's
+  levels as tiles, numbered from 1 in each chapter: solved in gold with their stars, open in the house's wood, locked
+  in dim walnut; the next level to play in gold light. A tap on an open tile, a swipe or the arrow keys for another
+  chapter. It opens at the chapter of the level last played (else of the first one not solved).
+- A tile calls `start(level)` (0..`levels`-1): a new game of that level. Solved is `status()` `GS_WIN0`: the shell asks
+  `level_stars()` and keeps the best (`ui_level_best(level)` reads it: 0..3, -1 not solved). Its end card shows the
+  stars and a next button (after the last level: back to the level screen). The new game button shows the level
+  grid's icon and goes back to the level screen (a level in play: tapped twice, as usual).
+- The game draws no level grid, keeps no progress, and has no next-level button of its own; it shows its level (a
+  chapter's picture and number) and its moves as it likes.
+- `ui_star(cx, cy, d, lit)`: the shell's star (gold, or a hollow), for a game's bar.
+
+## What the app keeps
+
+`ui_save_get(key, buf, size)` / `ui_save_set(key, data, size)` (`src/save.c`): small values under keys namespaced by
+the game (`"logicgates/x"`; `"shell/..."` are the shell's), up to 4096 bytes each, written as bytes (numbers wider than
+a byte little-endian). The shell keeps the sound (`shell/mute`), the menu's tab (`shell/tab`), each game's choice
+(`shell/game/<id>`: its variant, the last level played, how many play; the picker then shows that count, and the
+variant chosen in gold light) and each game's levels (`shell/levels/<id>`: a byte a level, 0 not solved, else 1 + its
+stars).
+
+- **Where**: `board.sav` in `SDL_GetPrefPath("8BCraft", "RetroStoneBoard")`: Windows `%APPDATA%\8BCraft\RetroStoneBoard`,
+  Linux `~/.local/share/8BCraft/RetroStoneBoard`, Android the app's own files. `--save DIR` another folder.
+- **The file**: 20 bytes (`RSBS`, the version 1, three zeros, the records' count, their length, their CRC-32; little-
+  endian), then each record: the key's length (1 byte), the key, the value's length (2 bytes), the value. Written whole
+  to `board.sav.tmp`, flushed to the disk, then renamed over `board.sav` (a crash leaves the old file or the new one).
+  A file that does not read back exactly (magic, version, length, checksum, records) is ignored, with a line on
+  stderr: the app starts afresh, and the next change writes a good file over it. Written only when a value changed.
+- **Privacy**: nothing leaves the device. The file holds settings and progress only, no names, nothing about the
+  player; the app has no network code.
 
 ## Card and tile games
 
@@ -178,16 +226,23 @@ nor face to face (they mean nothing here). `layout(box)` gets the table: a recta
 ```
 retrostoneboard --shot out.bmp [--size 720x1280] [--game id] [--variant n] [--moves "..."] [--taps "fx,fy ..."]
                 [--drag "fx0,fy0 fx1,fy1"] [--hold "fx,fy ms"] [--flip] [--f2f] [--keep] [--pick] [--players n]
-                [--lang fr] [--help [--scroll px]] [--tab n] [--seed n] [--at ms] [--reveal]
+                [--lang fr] [--help [--scroll px]] [--tab n] [--seed n] [--at ms] [--reveal] [--keys "Up Left"]
+                [--level n] [--solved "1-12 13-14:2 15:0"] [--save DIR]
 ```
 
 No window: the menu (no `--game`; `--tab n` a section), a game's picker (`--pick`), or a game after its moves
 (`--moves`, the game's notation) and gestures; `--help` its rules page (in `--lang`, English by default). The app
 itself takes `--lang` too (else the device's language).
 
-- **Gestures**, in the order given, in fractions of the board's box (`0.5,0.5` its middle): `--taps` (several),
-  `--drag` (the finger down, slid to the second point, lifted), `--hold` (the finger down `ms` long; as the last
-  gesture, the picture is taken with the finger still down).
+- **Gestures**, in the order given, in fractions of the board's box (`0.5,0.5` its middle; on the menu, a picker or
+  the level screen: of the screen): `--taps` (several), `--drag` (the finger down, slid to the second point, lifted),
+  `--hold` (the finger down `ms` long; as the last gesture, the picture is taken with the finger still down), `--keys`
+  (keys by SDL's names: `Up`, `Left`, `Return`, `1`...).
+- **Levels**: `--pick` the level screen (`--tab n` its chapter, from 0), `--level n` level n (from 1) at once,
+  `--solved` the progress first (ranges, `:k` the stars, 3 by default).
+- **Nothing kept**: the picture mode reads and writes no file; its values live in memory, empty at first, so the
+  same picture comes out every time. `--save DIR` uses that folder's `board.sav` (read first, written at the end): the
+  tests of what the app keeps.
 - **The clock** is the picture mode's own: it stands still, so the same picture comes out every time. Before each
   gesture it moves on until the game's animations have ended (`busy()`, the dice: a deal, a slide), so no tap is
   lost; at the end it moves on until everything is at rest, or to `--at ms` after the last gesture (a slide, a flip,

@@ -75,6 +75,26 @@ typedef struct game {
     /* several fingers at once (bataille corse's slaps): each finger touching the board, with its own id; then press(),
      * motion() and release() get only the mouse (a computer). NULL: one touch at a time, as press() 's. */
     void (*finger)(int id, int phase, float x, float y);
+    /* designed levels (Logic Gates, Box Pusher): the shell's level screen comes instead of the picker. Chapter tabs,
+     * then the chapter's levels as numbered tiles: solved in gold with their stars, open in wood, locked dim (the
+     * first `levels_open` unsolved levels are open, 3 by default). A tile calls start(level) (0..levels-1): a new
+     * game of that level. Solved: status() GS_WIN0; the shell asks level_stars() and keeps the best in the save
+     * store (shell/levels/<id>; ui_level_best() reads it), and its end card offers the next level. The new game
+     * button goes back to the level screen. */
+    int levels;                                 /* how many (0: none, the picker as usual) */
+    int chapters;                               /* the tabs: the levels split evenly (0, 1: one chapter) */
+    int (*chapter_of)(int level);               /* optional: a level's chapter (0.., never going down): uneven ones */
+    void (*chapter_icon)(int chapter, int size, uint8_t *rgba);   /* optional: a tab's picture (else its number) */
+    void (*level_thumb)(int level, int size, uint8_t *rgba);      /* optional: a tile's picture (else its number) */
+    int  (*level_stars)(void);                  /* the level solved: its stars 0..3 (NULL: no stars, solved only) */
+    int levels_open;                            /* the unsolved levels open at once (0: 3) */
+    /* optional: a key pressed in the game (not its repeats while held), one the shell does not use itself (Esc, Back,
+     * M, H, F1, U, Backspace, F, T, N are the shell's): the arrows... Never while the rules page or the hand-off
+     * cover is up, nor on another screen. */
+    void (*key)(SDL_Keycode k);
+    /* optional, one player: the score the end card shows in big digits beside the token (a final score, the moves a
+     * puzzle took); read once the game is over */
+    int  (*score)(void);
 } game;
 
 enum { VIEW_BOARD, VIEW_OPEN, VIEW_HIDDEN };
@@ -211,11 +231,31 @@ void ui_handoff(int player);
 int  ui_handing(void);                          /* 1 while a hand-off waits or the cover is up (the game's input waits:
                                                  * the shell sends none) */
 
+/* what the app keeps between two runs, on the device only (save.c: one small file, written whole then renamed, a
+ * checksum; a damaged file is ignored): small values under a key, namespaced by the game ("logicgates/best"; the
+ * shell's own: "shell/..."). Keys: 1..63 printable ASCII characters, no spaces; values up to 4096 bytes, kept as
+ * bytes (write numbers wider than a byte in a fixed order: little-endian). ui_save_get copies at most size bytes
+ * and returns how many (0: none kept; buf NULL: the value's length); ui_save_set keeps a copy (size 0: removed),
+ * written to the file soon after. The picture mode keeps them in memory only, empty at first (--save DIR: that
+ * folder's file), so its pictures never depend on a past run. */
+int  ui_save_get(const char *key, void *buf, int size);
+void ui_save_set(const char *key, const void *data, int size);
+/* the open game's best for one of its levels (game.levels): its stars 0..3, or -1 not solved yet */
+int  ui_level_best(int level);
+/* the shell's star, d across centred on (cx, cy): gold (lit), or a hollow in the wood (not won) */
+void ui_star(float cx, float cy, float d, int lit);
+
 /* sound.c */
 void snd_init(void);
 void snd_play(int s);
 void snd_play_vol(int s, float volume);
 void snd_play_at(int s, float volume, int delay_ms);
 extern int snd_muted;
+
+/* save.c (the shell's side of ui_save_*): open the store in a folder (NULL: the device's, SDL_GetPrefPath; the
+ * picture mode opens none: memory only), write it out when something changed */
+void save_open(const char *dir);
+void save_flush(void);
+const char *save_path(void);                    /* the file (NULL: memory only) */
 
 #endif
