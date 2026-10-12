@@ -9,10 +9,11 @@
  * button dimmed. The lamp: the hint (a short look ahead): its push's button in gold light, and a gold light along the
  * side the tiles would go. Undo takes back one push, all the way to the start (the new tiles too: the same push again
  * brings the same tile).
- * The target made: a gold light pulses on that tile and runs over the others, and the end card shows (solved); a tap
- * hides it and the game goes on (the next push carries on playing: the status is back to playing). No push left: the
- * game is over; the buttons give way to a wooden plaque with the score burned in (in gold light when it is the best of
- * the session), and the end card shows the score beside the token: in gold when the target was made, else lying down.
+ * The target made: a gold light pulses on that tile and runs over the others, and the game goes on. No push left: the
+ * game is over (never lost); the buttons give way to a wooden plaque with the score burned in (in gold light when it
+ * is the best of the session), and the shell's card shows the stars and the score: three stars for the target made
+ * (or beyond), two for the tile just below it, one otherwise. No designed levels: every new tile is drawn by chance,
+ * so a level would only be a seed under another name, with no par to measure it by; the sizes are the difficulty.
  * The bar: the score, and at its right end the best score of the session (this size) by a gold star (narrow bars: the
  * two in two rows).
  */
@@ -47,7 +48,6 @@ static box last_box;
 static float bx, by, side, tx, ty;              /* the board's square; the tray's top left */
 static int fr, gap, tile, tw, made_key = -1, made_small = -1, made_tile = -1;
 static SDL_Texture *t_tray, *t_tile[MRG_TOP + 1], *t_small, *t_best, *t_plaque;
-static puz_font font;
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* 0: pale maple .. 1: dark walnut, the step before the target */
@@ -221,7 +221,6 @@ static void layout(box b)
         t_plaque = ui_tex(pw, ph, o);
         free(o);
     }
-    puz_font_make(&font, (int)(0.5f * ph), 1);
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;
@@ -237,10 +236,13 @@ static void layout(box b)
 }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
-static int status(void)
+static int status(void) { return mrg_over(&G) ? GS_WIN0 : GS_PLAY; }   /* over: done, never lost */
+
+/* the stars, by the largest tile made: the target or beyond 3, the one below it 2, else 1 */
+static int level_stars(void)
 {
-    if (mrg_over(&G)) return mrg_reached(&G) ? GS_WIN0 : GS_WIN1;
-    return mrg_just_reached(&G) ? GS_WIN0 : GS_PLAY;
+    int top = mrg_top(&G);
+    return top >= G.target ? 3 : top == G.target - 1 ? 2 : 1;
 }
 
 static int turn(void) { return 0; }
@@ -377,8 +379,8 @@ static void draw_plaque(void)
     ui_shadow_flat(cx + 0.02f * ph, cy + 0.06f * ph, pw, ph, 0.7f);
     ui_put_c(t_plaque, cx, cy, pw, ph);
     float dh = 0.5f * ph;
-    puz_number(&font, cx + 0.03f * dh, cy + 0.05f * dh, dh, (int)G.p.score, PUZ_CREAM, 140);
-    puz_number(&font, cx, cy, dh, (int)G.p.score, PUZ_INK, 255);
+    ui_number_ex(cx + 0.03f * dh, cy + 0.05f * dh, dh, (int)G.p.score, PUZ_CREAM, 140, UI_NUM_TIGHT);
+    ui_number_ex(cx, cy, dh, (int)G.p.score, PUZ_INK, 255, UI_NUM_TIGHT);
 }
 
 static void draw(void)
@@ -529,5 +531,6 @@ static const game merge_game = {
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .key = key, .score = score,
+    .level_stars = level_stars,
 };
 REGISTER_GAME(merge_game)
