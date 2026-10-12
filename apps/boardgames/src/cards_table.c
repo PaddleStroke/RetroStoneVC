@@ -496,7 +496,7 @@ void ct_gather(ct_moves *mv, const ct_table *T, const uint8_t *cards, const uint
 
 void ct_draw_pile(const ct_table *T, int tricks)
 {
-    if (tricks > 0) cards_pile(DECK_FRENCH, T->px, T->py, T->pw, tricks, CARD_NONE, 0);
+    if (tricks > 0) cards_pile(T->deck, T->px, T->py, T->pw, tricks, CARD_NONE, 0);
 }
 
 int ct_on_pile(const ct_table *T, int tricks, float x, float y)
@@ -513,35 +513,36 @@ void ct_summary(const ct_table *T, int rows, float *x0, float *pw, float *y_row,
     float ph = *rh * rows + 0.5f * u, y0 = b.y + (b.h - ph) / 2;
     *x0 = b.x + (b.w - *pw) / 2;
     ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 80);
-    ct_panel(*x0, y0, *pw, ph, 246);
+    ct_panel(*x0, y0, *pw, ph, 255);
     *y_row = y0 + 0.25f * u + *rh / 2;
 }
 
-void ct_bar(box b, int cards, int score)
+void ct_bar(box b, int deck, int cards, int score)
 {
-    float u = ui.unit, cy = b.y + b.h / 2, h = 0.46f * u, hc = 0.3f * u;
-    float cw = 0.26f * u, wc = ct_number_w(cards, hc, 0);
-    float need = cw + 0.08f * u + wc + 0.3f * u + ct_number_w(score, h, 0);
-    float x = b.x;
-    if (b.w >= need) {
-        cards_draw(DECK_FRENCH, CARD_NONE, x + cw / 2, cy, cw, 0, CD_DOWN | CD_FLAT);
-        x += cw + 0.08f * u;
+    float u = ui.unit, cy = b.y + b.h / 2, h = 0.46f * u, hc = 0.3f * u, cw = 0.26f * u, gap = 0.08f * u, sep = 0.3f * u;
+    float need = cw + gap + ct_number_w(cards, hc, 0) + sep + ct_number_w(score, h, 0);
+    float k = need > b.w ? b.w / need : 1, x = b.x;   /* a narrow bar (a wide score): all of it smaller */
+    if (k >= 0.55f) {                           /* too narrow even so: the score alone */
+        h *= k, hc *= k, cw *= k, gap *= k, sep *= k;
+        float wc = ct_number_w(cards, hc, 0);
+        cards_draw(deck, CARD_NONE, x + cw / 2, cy, cw, 0, CD_DOWN | CD_FLAT);
+        x += cw + gap;
         ui_number(x + wc / 2, cy, hc, cards, 1);
-        x += wc + 0.3f * u;
+        x += wc + sep;
     }
     float w = ct_number_w(score, 1, 0), hs = fminf(h, (b.x + b.w - x) / w * 0.95f);
     if (hs > 0) ui_number_signed(x + w * hs / 2, cy, hs, score, 1, 0);
 }
 
-void ct_thumb(const int *cards, int n, int size, uint8_t *rgba)
+void ct_thumb(int deck, const int *cards, int n, int size, uint8_t *rgba)
 {
-    float asp = cards_aspect(DECK_FRENCH), w = fminf(size * 0.44f, size * 0.8f / asp);
+    float asp = cards_aspect(deck), w = fminf(size * 0.44f, size * 0.8f / asp);
     int cw = (int)w, ch = (int)(w * asp);
     uint8_t *b = malloc((size_t)cw * ch * 4);
     memset(rgba, 0, (size_t)size * size * 4);
     if (!b) return;
     for (int i = 0; i < n; i++) {
-        cards_paint(DECK_FRENCH, cards[i], cw, ch, b);
+        cards_paint(deck, cards[i], cw, ch, b);
         int x = (int)(size * 0.06f + i * (size * 0.88f - cw) / (n > 1 ? n - 1 : 1));
         int y = (int)((size - ch) / 2 + size * 0.05f * (i == n - 1 ? -1 : 1 - i * 0.5f));
         art_blend(rgba, size, size, b, cw, ch, x, y);

@@ -21,7 +21,7 @@ static void thumb(int v, int size, uint8_t *rgba)
     (void)v;
     static const int cards[5] = {CARD(SUIT_HEARTS, 2), CARD(SUIT_SPADES, 9), CARD(SUIT_CLUBS, 9),
                                  CARD(SUIT_DIAMONDS, 9), CARD(SUIT_HEARTS, 9)};
-    ct_thumb(cards, 5, size, rgba);
+    ct_thumb(DECK_FRENCH, cards, 5, size, rgba);
 }
 
 static const game tienlen_game = {

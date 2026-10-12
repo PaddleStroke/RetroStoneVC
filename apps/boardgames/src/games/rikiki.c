@@ -309,7 +309,7 @@ static void release(float x, float y)
 }
 
 /* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
-static void bar(int player, box b) { ct_bar(b, G.pos.n[player], G.pos.total[player]); }
+static void bar(int player, box b) { ct_bar(b, T.deck, G.pos.n[player], G.pos.total[player]); }
 
 static void token(int player, int size, uint8_t *rgba) { cards_token(player, size, rgba); }
 
@@ -319,7 +319,7 @@ static void thumb(int v, int size, uint8_t *rgba)
     (void)v;
     static const int cards[4] = {CARD(SUIT_CLUBS, 2), CARD(SUIT_DIAMONDS, 7), CARD(SUIT_HEARTS, RANK_JACK),
                                  CARD(SUIT_DIAMONDS, RANK_ACE)};
-    ct_thumb(cards, 4, size, rgba);
+    ct_thumb(DECK_FRENCH, cards, 4, size, rgba);
 }
 
 static const game rikiki_game_def = {

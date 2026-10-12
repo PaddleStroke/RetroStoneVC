@@ -291,7 +291,7 @@ static void release(float x, float y)
 }
 
 /* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
-static void bar(int player, box b) { ct_bar(b, G.pos.n[player], G.pos.total[man_team(player)]); }
+static void bar(int player, box b) { ct_bar(b, T.deck, G.pos.n[player], G.pos.total[man_team(player)]); }
 
 static void token(int player, int size, uint8_t *rgba) { cards_token(player, size, rgba); }
 
@@ -301,7 +301,7 @@ static void thumb(int v, int size, uint8_t *rgba)
     (void)v;
     static const int cards[4] = {CARD(SUIT_DIAMONDS, RANK_QUEEN), CARD(SUIT_CLUBS, RANK_KING),
                                  CARD(SUIT_HEARTS, RANK_ACE), CARD(SUIT_HEARTS, 10)};
-    ct_thumb(cards, 4, size, rgba);
+    ct_thumb(DECK_FRENCH, cards, 4, size, rgba);
 }
 
 static const game manille_game = {

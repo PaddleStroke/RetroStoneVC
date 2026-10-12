@@ -337,7 +337,7 @@ static void motion(float x, float y) { tk4u_motion(&U, x, y); }
 static void release(float x, float y) { tk4u_release(&U, can_play, send, x, y); }
 
 /* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
-static void bar(int player, box b) { ct_bar(b, G.pos.t.n[player], G.pos.total[player]); }
+static void bar(int player, box b) { ct_bar(b, U.T.deck, G.pos.t.n[player], G.pos.total[player]); }
 
 static void token(int player, int size, uint8_t *rgba) { cards_token(player, size, rgba); }
 
@@ -346,7 +346,7 @@ static void token(int player, int size, uint8_t *rgba) { cards_token(player, siz
 static void thumb(int v, int size, uint8_t *rgba)
 {
     static const int cards[4] = {CARD(SUIT_DIAMONDS, RANK_ACE), CARD(SUIT_HEARTS, 10), QC, QC};
-    ct_thumb(cards, 4, size, rgba);
+    ct_thumb(DECK_FRENCH, cards, 4, size, rgba);
     if (v < 0) return;
     int cw = (int)(size * 0.2f), ch = (int)(cw * cards_aspect(DECK_FRENCH));
     uint8_t *b = malloc((size_t)cw * ch * 4);

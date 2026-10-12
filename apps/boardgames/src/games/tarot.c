@@ -793,7 +793,7 @@ static SDL_Texture *cross(float size)          /* a gold cross: "times" */
     return t;
 }
 
-static void panel(float x, float y, float w, float h) { ct_panel(x, y, w, h, 250); }
+static void panel(float x, float y, float w, float h) { ct_panel(x, y, w, h, 255); }
 
 /* the deal's count: the contract, the taker's side's oudlers and points against the points needed, the bonuses,
  * then each player's points and total (the highest in gold light), the button for the next deal */

@@ -387,7 +387,7 @@ static void draw_summary(void)
     float u = ui.unit, pw = fminf(b.w * 0.96f, 9.4f * u), rh = fminf(1.25f * u, b.h * 0.2f), hh = 1.1f * rh;
     float ph = hh + 2 * rh + 0.4f * u, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
     ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 80);
-    ct_panel(x0, y0, pw, ph, 246);
+    ct_panel(x0, y0, pw, ph, 255);
     /* the columns: tokens, 5 counts, the round, the total */
     float tw = (p->players == 4 ? 2.1f : 1.0f) * 0.8f * rh, cw = (pw - tw - 0.4f * u) / 7.2f;
     float cx[8], hy = y0 + 0.2f * u + hh / 2, ic = fminf(0.62f * hh, 0.92f * cw);

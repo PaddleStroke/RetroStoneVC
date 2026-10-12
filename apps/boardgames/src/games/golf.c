@@ -274,7 +274,7 @@ static void draw_summary(void)
     float ph = rh * p->players + 0.5f * u, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
     int cs = (int)(0.42f * rh), ts = (int)(0.6f * u);
     ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 70);
-    ct_panel(x0, y0, pw, ph, 250);
+    ct_panel(x0, y0, pw, ph, 255);
     int low = 0;
     for (int q = 1; q < p->players; q++)
         if (p->total[q] < p->total[low]) low = q;

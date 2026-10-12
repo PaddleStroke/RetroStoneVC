@@ -19,7 +19,7 @@ static void thumb(int v, int size, uint8_t *rgba)
 {
     (void)v;
     static const int cards[3] = {CARD(SUIT_DIAMONDS, 3), CARD(SUIT_HEARTS, 2), CARD(SUIT_SPADES, 2)};
-    ct_thumb(cards, 3, size, rgba);
+    ct_thumb(DECK_FRENCH, cards, 3, size, rgba);
 }
 
 static const game bigtwo_game = {

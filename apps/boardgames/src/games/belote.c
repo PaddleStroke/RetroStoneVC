@@ -397,7 +397,7 @@ static void draw_summary(void)
     float u = ui.unit, rh = fminf(1.5f * u, b.h * 0.3f), pw = fminf(b.w * 0.96f, 8.6f * u), ph = 2 * rh + 0.5f * u;
     float x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
     ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 70);
-    ct_panel(x0, y0, pw, ph, 250);
+    ct_panel(x0, y0, pw, ph, 255);
     int lead = p->total[1] > p->total[0];
     float col = pw / 8.6f;
     for (int t = 0; t < 2; t++) {

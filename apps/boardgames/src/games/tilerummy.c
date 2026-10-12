@@ -411,7 +411,7 @@ static void draw_summary(void)
     float ph = rh * p->players + 0.5f * u, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
     tok_size = (int)(0.6f * u);
     ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 70);
-    ct_panel(x0, y0, pw, ph, 250);
+    ct_panel(x0, y0, pw, ph, 255);
     int match = p->variant == TR_MATCH;
     for (int q = 0; q < p->players; q++) {
         float cy = y0 + 0.25f * u + (q + 0.5f) * rh, tx = x0 + 0.6f * u, d = fminf(0.7f * rh, 0.8f * u);

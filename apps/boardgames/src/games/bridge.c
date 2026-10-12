@@ -622,7 +622,6 @@ static void draw_info(void)
     float x0 = A.x + (A.w - pw) / 2, y0 = A.y + (A.h - ph) / 2;
     ui_fill(tb.x, tb.y, tb.w, tb.h, 0, 0, 0, 120);
     ct_panel(x0, y0, pw, ph, 255);
-    ct_panel(x0, y0, pw, ph, 255);              /* twice: the table hidden under it */
     float tw = floorf(fminf(0.7f * L.tw, ph * 0.4f / (2.1f * L.asp))), th = tw * L.asp;
     float trick_h = p->last_winner != BRG_NONE ? 2.2f * th : 0;
     box H = {x0 + 0.2f * u, y0 + 0.2f * u, pw - 0.4f * u, ph - 0.4f * u - trick_h};
@@ -676,7 +675,7 @@ static void draw_sheet(void)
     if (p->phase == BRG_SCORE && p->passed_out) {   /* passed out: each one's pass; tap: the cards dealt again */
         float pw = fminf(b.w * 0.9f, 6.5f * u), ph = 1.7f * u, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
         ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 80);
-        ct_panel(x0, y0, pw, ph, 246);
+        ct_panel(x0, y0, pw, ph, 255);
         for (int q = 0; q < BRG_P; q++) {
             float x = x0 + pw * (q + 0.5f) / 4, y = y0 + ph / 2, d = 0.7f * u;
             ui_put_c(ct_token(q, (int)d), x - 0.3f * d, y, d, d);
@@ -703,7 +702,7 @@ static void draw_sheet(void)
     }
     float ph = n * rh + 0.5f * u, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
     ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 80);
-    ct_panel(x0, y0, pw, ph, 246);
+    ct_panel(x0, y0, pw, ph, 255);
     int we = brg_side(L.me), they = we ^ 1;
     float c_no = x0 + 0.06f * pw, c_k = x0 + 0.12f * pw, c_we = x0 + 0.68f * pw, c_they = x0 + 0.88f * pw;
     float y = y0 + 0.25f * u, nh = fminf(0.42f * rh, 0.4f * u);
@@ -906,8 +905,8 @@ static void thumb(int v, int size, uint8_t *rgba)
                                 CARD(SUIT_SPADES, RANK_ACE)},
                      honours[5] = {CARD(SUIT_SPADES, 10), CARD(SUIT_SPADES, RANK_JACK), CARD(SUIT_SPADES, RANK_QUEEN),
                                    CARD(SUIT_SPADES, RANK_KING), CARD(SUIT_SPADES, RANK_ACE)};
-    if (v == BRG_RUBBER) ct_thumb(honours, 5, size, rgba);
-    else ct_thumb(aces, 4, size, rgba);
+    if (v == BRG_RUBBER) ct_thumb(DECK_FRENCH, honours, 5, size, rgba);
+    else ct_thumb(DECK_FRENCH, aces, 4, size, rgba);
 }
 
 static const game bridge_game = {

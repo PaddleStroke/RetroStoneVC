@@ -515,7 +515,7 @@ static void draw_table(void)
     float ph = 0.25f * u + hh + 0.15f * u + 4 * rh + 0.25f * u + dot + 0.35f * u;
     float x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
     ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 80);
-    ct_panel(x0, y0, pw, ph, 246);
+    ct_panel(x0, y0, pw, ph, 255);
     float y = y0 + 0.25f * u + hh / 2, cx[10];
     cx[0] = x0 + 0.75f * cw;
     for (int c = 0; c < 7; c++) cx[c + 1] = x0 + (1.6f + c) * cw + 0.5f * cw;
@@ -687,7 +687,7 @@ static void release(float x, float y)
 }
 
 /* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
-static void bar(int player, box b) { ct_bar(b, G.pos.n[player], G.pos.total[player]); }
+static void bar(int player, box b) { ct_bar(b, T.deck, G.pos.n[player], G.pos.total[player]); }
 
 static void token(int player, int size, uint8_t *rgba) { cards_token(player, size, rgba); }
 
@@ -699,8 +699,8 @@ static void thumb(int v, int size, uint8_t *rgba)
                                 CARD(SUIT_HEARTS, RANK_ACE), CARD(SUIT_HEARTS, RANK_KING)},
                      shrt[2] = {CARD(SUIT_SPADES, RANK_QUEEN), CARD(SUIT_HEARTS, RANK_KING)};
     if (v < 0) v = BARBU_FULL;
-    if (BARBU_IS_SHORT(v)) ct_thumb(shrt, 2, size, rgba);
-    else ct_thumb(full, 4, size, rgba);
+    if (BARBU_IS_SHORT(v)) ct_thumb(DECK_FRENCH, shrt, 2, size, rgba);
+    else ct_thumb(DECK_FRENCH, full, 4, size, rgba);
     if (!BARBU_DOUBLING(v)) return;
     int d = (int)(0.34f * size), k = (int)(0.24f * size);
     static const uint8_t dark[3] = {22, 30, 27};

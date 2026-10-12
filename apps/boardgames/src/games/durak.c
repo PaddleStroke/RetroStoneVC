@@ -655,8 +655,8 @@ static void thumb(int v, int size, uint8_t *rgba)
     static const int classic[4] = {CARD(SUIT_SPADES, 6), CARD(SUIT_HEARTS, 9), CARD(SUIT_HEARTS, RANK_JACK),
                                    CARD(SUIT_CLUBS, RANK_ACE)};
     static const int transfer[3] = {CARD(SUIT_CLUBS, 8), CARD(SUIT_DIAMONDS, 8), CARD(SUIT_SPADES, 8)};
-    if (v == DUR_TRANSFER) ct_thumb(transfer, 3, size, rgba);
-    else ct_thumb(classic, 4, size, rgba);
+    if (v == DUR_TRANSFER) ct_thumb(DECK_FRENCH, transfer, 3, size, rgba);
+    else ct_thumb(DECK_FRENCH, classic, 4, size, rgba);
 }
 
 static const game durak_game = {

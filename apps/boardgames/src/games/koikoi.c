@@ -635,7 +635,7 @@ static void draw_rounds(const kpos *p, const fgeo *g)
 
 static void dim(void) { ui_fill(T.b.x, T.b.y, T.b.w, T.b.h, 0, 0, 0, 110); }
 
-static void panel(float x, float y, float w, float h) { ct_panel(x, y, w, h, 248); }
+static void panel(float x, float y, float w, float h) { ct_panel(x, y, w, h, 255); }
 
 /* the points of a stop now: the yaku added up, doubled at 7, doubled for the other's koi-koi */
 static int stop_points(const kpos *p, int pl)

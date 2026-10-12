@@ -576,7 +576,7 @@ static void draw_summary(const capos *p)
     float u = T.u, rh = fminf(0.86f * u, b.h * 0.88f / 8.6f), pw = fminf(b.w * 0.94f, 7.2f * u);
     float ph = rh * 8.4f, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
     ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 80);
-    ct_panel(x0, y0, pw, ph, 246);
+    ct_panel(x0, y0, pw, ph, 255);
     float cx[2] = {x0 + pw * 0.53f, x0 + pw * 0.82f}, ix = x0 + pw * 0.17f, y = y0 + 0.2f * rh + rh / 2;
     float tk = fminf(0.5f * u, 0.62f * rh), nh = fminf(0.38f * u, 0.46f * rh);
     int first = my_side(), lead = p->score[0] > p->score[1] ? 0 : p->score[1] > p->score[0] ? 1 : -1;
@@ -772,7 +772,7 @@ static void release(float x, float y)
 }
 
 /* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
-static void bar(int player, box b) { ct_bar(b, G.pos.n[player], G.pos.score[ca_side(&G.pos, player)]); }
+static void bar(int player, box b) { ct_bar(b, DECK_FRENCH, G.pos.n[player], G.pos.score[ca_side(&G.pos, player)]); }
 
 static void token(int player, int size, uint8_t *rgba) { cards_token(player, size, rgba); }
 

@@ -717,7 +717,7 @@ static void release(float x, float y)
 }
 
 /* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
-static void bar(int player, box b) { ct_bar(b, G.pos.n[player], skat_total(&G.pos, player)); }
+static void bar(int player, box b) { ct_bar(b, T.deck, G.pos.n[player], skat_total(&G.pos, player)); }
 
 static void token(int player, int size, uint8_t *rgba) { cards_token(player, size, rgba); }
 
@@ -726,7 +726,7 @@ static void thumb(int v, int size, uint8_t *rgba)
 {
     static const int cards[4] = {CARD(SUIT_DIAMONDS, RANK_JACK), CARD(SUIT_HEARTS, RANK_JACK),
                                  CARD(SUIT_SPADES, RANK_JACK), CARD(SUIT_CLUBS, RANK_JACK)};
-    ct_thumb(cards, 4, size, rgba);
+    ct_thumb(DECK_FRENCH, cards, 4, size, rgba);
     if (v < 0) return;
     int cw = (int)(size * 0.2f), ch = (int)(cw * cards_aspect(DECK_FRENCH));
     uint8_t *b = malloc((size_t)cw * ch * 4);

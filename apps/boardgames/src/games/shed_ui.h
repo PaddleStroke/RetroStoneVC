@@ -294,7 +294,7 @@ static void shui_draw_summary(void)
     float u = ui.unit, rh = fminf(1.05f * u, b.h * 0.8f / p->players), pw = fminf(b.w * 0.92f, 7.0f * u);
     float ph = rh * p->players + 0.5f * u, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
     ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 70);
-    ct_panel(x0, y0, pw, ph, 246);
+    ct_panel(x0, y0, pw, ph, 255);
     for (int i = 0; i < p->nout; i++) {
         int q = p->out[i];
         float cy = y0 + 0.25f * u + (i + 0.5f) * rh, d = fminf(0.72f * rh, 0.8f * u), tx = x0 + 0.75f * u;

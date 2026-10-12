@@ -386,7 +386,7 @@ static void draw_summary(void)
     float u = ui.unit, rh = fminf(1.0f * u, b.h * 0.7f / (p->players + 1)), pw = fminf(b.w * 0.94f, 7.8f * u);
     float ph = rh * (p->players + 1) + 0.4f * u, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
     ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 70);
-    ct_panel(x0, y0, pw, ph, 246);
+    ct_panel(x0, y0, pw, ph, 255);
     float c1 = x0 + pw * 0.36f, c2 = x0 + pw * 0.6f, c3 = x0 + pw * 0.84f, hy = y0 + 0.2f * u + rh / 2;
     float cw = 0.42f * rh;                      /* the column heads */
     cards_draw(DECK_FRENCH, CARD_NONE, c1, hy, cw, 0, CD_DOWN);

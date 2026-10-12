@@ -410,7 +410,7 @@ static void draw_summary(void)
     float ph = 0.25f * u + hh + 2 * rh + 0.5f * u + (over ? 1.3f * u : 0) + 0.3f * u;
     float x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2, col = pw / 8.6f;
     ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 80);
-    ct_panel(x0, y0, pw, ph, 246);
+    ct_panel(x0, y0, pw, ph, 255);
     float y = y0 + 0.25f * u + hh / 2, cx[6] = {x0 + 0.75f * col, x0 + 2.2f * col, x0 + 3.55f * col, x0 + 4.9f * col,
                                                x0 + 6.25f * col, x0 + 7.75f * col};
     float id = 0.62f * u;
@@ -547,7 +547,7 @@ static void release(float x, float y)
 }
 
 /* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
-static void bar(int player, box b) { ct_bar(b, G.pos.n[player], G.pos.total[player]); }
+static void bar(int player, box b) { ct_bar(b, T.deck, G.pos.n[player], G.pos.total[player]); }
 
 static void token(int player, int size, uint8_t *rgba) { cards_token(player, size, rgba); }
 
@@ -557,7 +557,7 @@ static void thumb(int v, int size, uint8_t *rgba)
     (void)v;
     static const int cards[4] = {CARD(SUIT_SPADES, RANK_JACK), CARD(SUIT_SPADES, RANK_QUEEN),
                                  CARD(SUIT_SPADES, RANK_KING), CARD(SUIT_SPADES, RANK_ACE)};
-    ct_thumb(cards, 4, size, rgba);
+    ct_thumb(DECK_FRENCH, cards, 4, size, rgba);
 }
 
 static const game piquet_game_def = {

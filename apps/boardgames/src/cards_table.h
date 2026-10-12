@@ -80,7 +80,7 @@ void ct_pass_badge(float cx, float cy, float d);     /* the pass icon in a dark 
 void ct_choice(SDL_Texture *pic, float cx, float cy, float d, int chosen, int enabled);
 float ct_number_w(int v, float h, int plus);    /* the width of ui_number_signed(v, plus) at height h */
 void ct_rule(float x, float y, float w);        /* a faint cream line across a panel */
-void ct_panel(float x, float y, float w, float h, int alpha);   /* a dark panel (a round's summary) */
+void ct_panel(float x, float y, float w, float h, int alpha);   /* a dark panel: 255 opaque (a summary), less: a veil */
 void ct_plus(float cx, float cy, float h, int value);   /* points scored: a plus and the digits, cream */
 
 /* ---- points rising: a dark pill, a badge's number or an icon, a plus and the digits; they rise and fade ------- */
@@ -130,8 +130,8 @@ int  ct_on_pile(const ct_table *T, int tricks, float x, float y);
 /* the round's summary: the panel for `rows` rows over the table (dimmed); its left, its width, the first row's centre
  * and the row height */
 void ct_summary(const ct_table *T, int rows, float *x0, float *pw, float *y_row, float *rh);
-void ct_bar(box b, int cards, int score);       /* a bar: a small back and the cards in hand, then the score */
-void ct_thumb(const int *cards, int n, int size, uint8_t *rgba);   /* the menu's card: n cards, the last on top */
+void ct_bar(box b, int deck, int cards, int score);   /* a bar: a small back, the cards held, the score */
+void ct_thumb(int deck, const int *cards, int n, int size, uint8_t *rgba);   /* the menu's card: n cards, the last on top */
 
 /* the viewer's hand: each card drawn how[i] (CD_RAISED: chosen), lifted lift[i] card widths in gold light (cards just
  * received; NULL: none); the card at index `skip` (dragged; -1: none) and the cards still on their way (CT_HAND_TAG,

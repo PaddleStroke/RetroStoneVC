@@ -422,7 +422,7 @@ static void draw_summary(void)
     float u = ui.unit, rh = fminf(1.0f * u, b.h * 0.8f / p->players), pw = fminf(b.w * 0.92f, 7.0f * u);
     float ph = rh * p->players + 0.5f * u, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
     ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 70);
-    ct_panel(x0, y0, pw, ph, 250);
+    ct_panel(x0, y0, pw, ph, 255);
     int best = -1;
     for (int q = 0; q < p->players; q++) best = p->score[q] > best ? p->score[q] : best;
     for (int i = 0; i < p->nout; i++) {
