@@ -1,0 +1,16 @@
+Spor
+# Målet
+Legg én eneste jernbanelinje gjennom rutenettet, fra innkjørselen ved brettets kant til utkjørselen ved en annen kant. Velg først størrelse: 6 × 6, 8 × 8 eller 10 × 10.
+- Linjen går fra rute til rute gjennom sidene deres: hver rute den bruker, har et rett stykke eller en kurve. Den forgrener seg aldri og krysser aldri seg selv.
+- Tallet over hver kolonne og til venstre for hver rad sier hvor mange av rutene der linjen bruker.
+- Noen stykker er gitt, på mørkere ruter; ved innkjørselen og utkjørselen går linjen ut av brettet.
+Hver oppgave har nøyaktig én løsning, som finnes ved å resonnere. De større brettene krever mer: linjen kan aldri lukke seg i en sløyfe, og den krysser skjøten mellom to kolonner (eller to rader) et oddetall ganger når innkjørselen og utkjørselen ligger på hver sin side, ellers et partall.
+# Et trekk
+Legg et sporstykke i en rute, bytt det, eller sett et kryss i en rute du vet forblir tom. Kryssene er bare notater for deg.
+# Slutten på spillet
+Når linjen er hel og hvert tall stemmer, er oppgaven løst: et lite tog kjører fra innkjørselen til utkjørselen, og rutene lyser opp i gull bak det.
+# Spill på enheten
+- Dra fra rute til rute for å legge sporet under fingeren; det kobler seg til stykkene som allerede ligger der.
+- Trykk på en rute for et stykke (det som passer best til naboene kommer først), igjen for det neste; etter det sjette er ruten tom igjen.
+- Hold på en rute et øyeblikk for å krysse den av. Kryssknappen i linjen får trykk og dra til å sette kryss i stedet; den viser hva et trykk gjør.
+Et tall blekner når linjen dets har så mange stykker, og blir rødt ved for mange. Lampen i linjen er et hint: den setter én rute riktig og lyser den opp i gull. Angre tar tilbake én handling om gangen, helt til begynnelsen. Linjen viser trekkene dine.

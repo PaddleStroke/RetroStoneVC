@@ -1,0 +1,16 @@
+Gleise
+# Das Ziel
+Lege eine einzige Eisenbahnlinie durch das Gitter, von der Einfahrt am Rand des Bretts bis zur Ausfahrt an einem anderen Rand. Wähle zuerst die Größe: 6 × 6, 8 × 8 oder 10 × 10.
+- Die Linie führt von Feld zu Feld durch deren Seiten: Jedes Feld, das sie benutzt, trägt ein gerades Stück oder eine Kurve. Sie verzweigt sich nie und kreuzt sich nie.
+- Die Zahl über jeder Spalte und links von jeder Reihe sagt, wie viele ihrer Felder die Linie benutzt.
+- Einige Stücke sind vorgegeben, auf dunkleren Feldern; an der Einfahrt und der Ausfahrt läuft die Linie aus dem Brett.
+Jedes Rätsel hat genau eine Lösung, die man allein durch Überlegen findet. Die größeren Bretter verlangen mehr davon: Die Linie darf sich nie zu einer Schleife schließen, und sie überquert die Fuge zwischen zwei Spalten (oder zwei Reihen) ungerade oft, wenn Einfahrt und Ausfahrt auf verschiedenen Seiten liegen, sonst gerade oft.
+# Ein Zug
+Lege ein Gleisstück in ein Feld, ändere es, oder markiere ein Feld, das sicher leer bleibt, mit einem Kreuz. Die Kreuze sind nur Notizen für dich.
+# Das Ende der Partie
+Wenn die Linie vollständig ist und jede Zahl stimmt, ist das Rätsel gelöst: Ein kleiner Zug fährt von der Einfahrt zur Ausfahrt, und hinter ihm leuchten die Felder golden auf.
+# Spielen auf dem Gerät
+- Ziehe von Feld zu Feld, um das Gleis unter deinem Finger zu legen; es schließt an die vorhandenen Stücke an.
+- Tippe auf ein Feld für ein Stück (das am besten an die Nachbarn passende zuerst), erneut für das nächste; nach dem sechsten ist das Feld wieder leer.
+- Halte ein Feld einen Moment, um es anzukreuzen. Der Kreuzknopf in der Leiste lässt Tippen und Ziehen stattdessen ankreuzen; er zeigt, was ein Tippen bewirkt.
+Eine Zahl verblasst, wenn ihre Linie so viele Stücke hat, und wird rot, wenn es zu viele sind. Die Lampe in der Leiste ist ein Tipp: Sie setzt ein Feld richtig und lässt es golden aufleuchten. Rückgängig nimmt eine Aktion nach der anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge.

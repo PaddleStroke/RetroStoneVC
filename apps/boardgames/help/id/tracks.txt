@@ -1,0 +1,16 @@
+Rel
+# Tujuan
+Pasang satu jalur kereta api melintasi kisi, dari pintu masuk di tepi papan ke pintu keluar di tepi lain. Pilih ukurannya dulu: 6 × 6, 8 × 8, atau 10 × 10.
+- Jalur bergerak dari kotak ke kotak melalui sisi-sisinya: setiap kotak yang dipakainya berisi potongan lurus atau tikungan. Jalur tidak pernah bercabang dan tidak pernah memotong dirinya sendiri.
+- Angka di atas setiap kolom dan di kiri setiap baris menyatakan berapa kotaknya yang dipakai jalur.
+- Beberapa potongan sudah diberikan, di kotak yang lebih gelap; di pintu masuk dan pintu keluar jalur keluar dari papan.
+Setiap teka-teki punya tepat satu jawaban, yang ditemukan hanya dengan bernalar. Papan yang lebih besar menuntut lebih banyak: jalur tidak boleh menutup menjadi putaran, dan ia menyeberangi celah antara dua kolom (atau dua baris) sebanyak bilangan ganjil kali bila pintu masuk dan keluar berada di sisi yang berbeda, dan genap bila tidak.
+# Satu langkah
+Pasang potongan rel di sebuah kotak, ganti, atau tandai dengan silang kotak yang kamu tahu tetap kosong. Tanda silang hanya catatan untukmu.
+# Akhir permainan
+Saat jalur lengkap dan setiap angka cocok, teka-teki selesai: sebuah kereta kecil berjalan dari pintu masuk ke pintu keluar, dan kotak-kotak menyala emas di belakangnya.
+# Bermain di perangkat
+- Seret dari kotak ke kotak untuk memasang rel di bawah jarimu; rel tersambung dengan potongan yang sudah ada.
+- Ketuk kotak untuk sebuah potongan (yang paling cocok dengan tetangganya lebih dulu), ketuk lagi untuk potongan berikutnya; setelah yang keenam kotak kosong lagi.
+- Tahan kotak sebentar untuk menyilangnya. Tombol silang di bilah membuat ketukan dan seretan menyilang; tombol itu menunjukkan apa yang dilakukan ketukan.
+Sebuah angka memudar bila barisnya punya potongan sebanyak itu, dan memerah bila terlalu banyak. Lampu di bilah adalah petunjuk: ia membetulkan satu kotak dan menyinarinya dengan emas. Urungkan membatalkan satu tindakan setiap kali, sampai ke awal. Bilah menunjukkan langkahmu.

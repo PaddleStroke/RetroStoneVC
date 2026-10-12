@@ -1,0 +1,10 @@
+Reda ut
+# Målet
+Mässingsnålar sitter i brädet, förbundna med snören, och snörena korsar varandra. Flytta nålarna tills inga två snören korsar varandra. Välj först hur många nålar: 10, 20, 30 eller 45.
+Varje pussel går att reda ut: nålarna placerades först helt utan korsningar och ställdes sedan i en cirkel i blandad ordning.
+# Ett drag
+Flytta en nål vart som helst på brädet; dess snören följer med.
+# Partiets slut
+När inget snöre korsar ett annat eller rör en nål som inte är dess egen är pusslet löst: snörena blir gyllene och ett gyllene ljus löper över nålarna.
+# Spela på enheten
+Dra en nål med fingret. Medan du flyttar den lyser varje snöre som korsar ett annat rött; när inget finns kvar blir alla gyllene. Listen visar dina drag och de korsningar som återstår. Lampan i listen är en ledtråd: den flyttar en nål dit den tar bort flest korsningar eller, när inget enskilt drag hjälper, ställer den där den står i en uppställning utan korsningar; nålen glider dit i gyllene ljus. Ångra tar tillbaka ett drag i taget, ända till början.

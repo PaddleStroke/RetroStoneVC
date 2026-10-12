@@ -1,0 +1,10 @@
+Çöz
+# Amaç
+Tahtada iplerle birbirine bağlı pirinç iğneler durur ve ipler birbirini keser. İki ip birbirini kesmeyene dek iğneleri taşı. Önce iğne sayısını seç: 10, 20, 30 ya da 45.
+Her bulmaca çözülebilir: iğneler önce hiç kesişme olmadan dizildi, sonra karışık bir sırayla bir çemberin üzerine yerleştirildi.
+# Bir hamle
+Bir iğneyi tahtada istediğin yere taşı; ipleri onu izler.
+# Oyunun sonu
+Hiçbir ip bir başkasını kesmediğinde ve kendisine ait olmayan bir iğneye değmediğinde bulmaca çözülmüştür: ipler altın rengine döner ve iğnelerin üzerinden altın bir ışık geçer.
+# Cihazda oynamak
+Bir iğneyi parmağınla sürükle. Onu taşırken bir başkasını kesen her ip kırmızı yanar; hiç kalmayınca hepsi altın rengine döner. Çubuk hamlelerini ve kalan kesişmeleri gösterir. Çubuktaki lamba bir ipucudur: bir iğneyi en çok kesişmeyi kaldırdığı yere taşır ya da tek bir hamle yardımcı olmadığında, onu kesişmesiz bir dizilişteki yerine koyar; iğne oraya altın bir ışık içinde kayar. Geri al, her seferinde bir hamleyi en başa kadar geri alır.

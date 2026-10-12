@@ -1,0 +1,10 @@
+Districa
+# Lo scopo
+Spilli d'ottone sono piantati sul tavoliere, uniti da cordini, e i cordini si incrociano. Sposta gli spilli finché nessun cordino ne incrocia un altro. Scegli prima quanti spilli: 10, 20, 30 o 45.
+Ogni rompicapo si può districare: gli spilli sono stati disposti prima senza alcun incrocio, poi messi in cerchio in ordine mescolato.
+# Una mossa
+Sposta uno spillo in qualunque punto del tavoliere; i suoi cordini lo seguono.
+# La fine della partita
+Quando nessun cordino ne incrocia un altro né tocca uno spillo che non è suo, il rompicapo è risolto: i cordini diventano d'oro e una luce dorata corre sugli spilli.
+# Giocare sul dispositivo
+Trascina uno spillo con il dito. Mentre lo sposti, ogni cordino che ne incrocia un altro si accende di rosso; quando non ne resta nessuno, diventano tutti d'oro. La barra mostra le tue mosse e gli incroci rimasti. La lampada nella barra è un aiuto: sposta uno spillo dove toglie più incroci oppure, se nessuna mossa da sola aiuta, lo mette dove sta in una disposizione senza incroci; lo spillo vi scivola in una luce dorata. Annulla toglie una mossa alla volta, fino all'inizio.

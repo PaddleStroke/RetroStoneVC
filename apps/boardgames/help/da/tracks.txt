@@ -1,0 +1,16 @@
+Spor
+# Målet
+Læg én eneste jernbanelinje gennem gitteret, fra indkørslen ved brættets kant til udkørslen ved en anden kant. Vælg først størrelse: 6 × 6, 8 × 8 eller 10 × 10.
+- Linjen går fra felt til felt gennem deres sider: hvert felt, den bruger, har et lige stykke eller en kurve. Den forgrener sig aldrig og krydser aldrig sig selv.
+- Tallet over hver søjle og til venstre for hver række siger, hvor mange af dens felter linjen bruger.
+- Nogle stykker er givet, på mørkere felter; ved indkørslen og udkørslen løber linjen ud af brættet.
+Hver opgave har præcis én løsning, som findes ved at ræsonnere. De større brætter kræver mere: linjen må aldrig lukke sig i en løkke, og den krydser fugen mellem to søjler (eller to rækker) et ulige antal gange, når indkørslen og udkørslen ligger på hver sin side, ellers et lige antal.
+# Et træk
+Læg et sporstykke i et felt, skift det ud, eller sæt et kryds i et felt, du ved forbliver tomt. Krydsene er kun noter til dig selv.
+# Spillets afslutning
+Når linjen er hel og hvert tal passer, er opgaven løst: et lille tog kører fra indkørslen til udkørslen, og felterne lyser op i guld bag det.
+# Spil på enheden
+- Træk fra felt til felt for at lægge sporet under fingeren; det sætter sig til de stykker, der allerede ligger der.
+- Tryk på et felt for et stykke (det, der passer bedst til naboerne, kommer først), igen for det næste; efter det sjette er feltet tomt igen.
+- Hold på et felt et øjeblik for at krydse det af. Krydsknappen i bjælken får tryk og træk til at sætte kryds i stedet; den viser, hvad et tryk gør.
+Et tal blegner, når dets linje har så mange stykker, og bliver rødt ved for mange. Lampen i bjælken er et tip: den sætter ét felt rigtigt og lyser det op i guld. Fortryd tager én handling tilbage ad gangen, helt til begyndelsen. Bjælken viser dine træk.

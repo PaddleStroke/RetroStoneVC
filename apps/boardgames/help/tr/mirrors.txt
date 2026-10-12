@@ -1,0 +1,16 @@
+Aynalar
+# Amaç
+Pirinç bir lamba tahtanın üzerinden bir ışık ışını gönderir. Aynaları döndür ve yerleştir; ışın hiçbir bombaya dokunmadan bütün mücevherleri aydınlatsın. Önce seviyeyi seç (her resmin altındaki taşlar): kolay, orta, zor ya da uzman.
+- Bir ayna ışını dik açıyla çevirir. Ceviz bir mil üzerindeki aynalar karelerinde kalır: onları yalnızca bir yöne (/) ya da öbür yöne (\) döndürürsün.
+- Serbest aynalar tahtanın altındaki kutuda bekler: onları boş karelere koy.
+- Işın mücevherlerin ve boş karelerin içinden dümdüz geçer. Tahta bir blok onu durdurur, tahtanın kenarı da.
+- Zor seviyeden itibaren bir cam levha ışığın yarısını geçirir, öbür yarısını çevirir.
+Her bulmacanın tam olarak bir çözümü vardır; ışını izleyip akıl yürüterek bulunur.
+# Bir hamle
+Bir aynayı milinde döndür ya da serbest bir aynayı boş bir kareye koy, döndür, taşı veya geri al.
+# Oyunun sonu
+Bütün mücevherler aydınlandığında ve hiçbir bombaya dokunulmadığında bulmaca çözülmüştür: altın bir ışık lambadan başlayarak ışın boyunca koşar ve mücevherler parlar.
+# Cihazda oynamak
+- Mil üzerindeki bir aynaya dokunarak onu döndür.
+- Boş bir kareye dokunarak oraya serbest bir ayna koy; yeniden dokunarak döndür, üçüncü kez dokunarak kutuya geri gönder. Bir aynayı kutudan bir kareye, bir kareden ötekine ya da tahtanın dışına da sürükleyebilirsin.
+Işın her değişikliği hemen izler. Aydınlanan mücevher parıldar; ışının dokunduğu bomba kırmızı yanar. Çubuktaki lamba bir ipucudur: bir aynayı doğru yerleştirir ve altın renkle aydınlatır. Geri al, her seferinde bir işlemi en başa kadar geri alır. Çubuk hamlelerini gösterir.

@@ -1,0 +1,10 @@
+Desenredar
+# El objetivo
+Unos alfileres de latón están clavados en el tablero, unidos por cordones, y los cordones se cruzan. Mueve los alfileres hasta que ningún cordón cruce a otro. Elige primero cuántos alfileres: 10, 20, 30 o 45.
+Todo problema se puede desenredar: los alfileres se colocaron primero sin ningún cruce y luego se pusieron en círculo en orden mezclado.
+# Una jugada
+Mueve un alfiler a cualquier lugar del tablero; sus cordones lo siguen.
+# El final de la partida
+Cuando ningún cordón cruza a otro ni toca un alfiler que no es suyo, el problema está resuelto: los cordones se vuelven dorados y una luz dorada recorre los alfileres.
+# Jugar en el dispositivo
+Arrastra un alfiler con el dedo. Mientras lo mueves, cada cordón que cruza a otro se ilumina en rojo; cuando no queda ninguno, todos se vuelven dorados. La barra muestra tus jugadas y los cruces que quedan. La lámpara de la barra es una pista: mueve un alfiler adonde elimina más cruces o, si ningún movimiento solo ayuda, lo pone donde está en una disposición sin cruces; el alfiler se desliza hasta allí con una luz dorada. Deshacer anula una jugada cada vez, hasta el principio.

@@ -1,0 +1,10 @@
+Selvitä solmu
+# Tavoite
+Laudalla on messinkinastoja, joita yhdistävät narut, ja narut risteävät keskenään. Siirrä nastoja, kunnes mitkään kaksi narua eivät risteä. Valitse ensin nastojen määrä: 10, 20, 30 tai 45.
+Jokainen tehtävä on selvitettävissä: nastat asetettiin ensin ilman yhtään risteystä ja sitten ympyrään sekoitetussa järjestyksessä.
+# Siirto
+Siirrä yksi nasta mihin tahansa laudalla; sen narut seuraavat mukana.
+# Pelin loppu
+Kun mikään naru ei risteä toisen kanssa eikä kosketa vierasta nastaa, tehtävä on ratkaistu: narut muuttuvat kultaisiksi ja kultainen valo kulkee nastojen yli.
+# Pelaaminen laitteella
+Vedä nastaa sormella. Kun liikutat sitä, jokainen toisen kanssa risteävä naru hehkuu punaisena; kun niitä ei enää ole, kaikki muuttuvat kultaisiksi. Palkki näyttää siirtosi ja jäljellä olevat risteykset. Palkin lamppu on vihje: se siirtää yhden nastan kohtaan, jossa se poistaa eniten risteyksiä, tai, jos mikään yksittäinen siirto ei auta, paikalleen asetelmassa, jossa ei ole risteyksiä; nasta liukuu sinne kultaisessa valossa. Kumoa perää yhden siirron kerrallaan aina alkuun asti.

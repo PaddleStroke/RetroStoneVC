@@ -1,0 +1,16 @@
+Vías
+# El objetivo
+Tiende una sola línea de ferrocarril por la cuadrícula, desde la entrada en un borde del tablero hasta la salida en otro borde. Elige primero el tamaño: 6 × 6, 8 × 8 o 10 × 10.
+- La línea pasa de casilla en casilla por sus lados: cada casilla que usa lleva una vía recta o una curva. Nunca se bifurca ni se cruza consigo misma.
+- El número encima de cada columna y a la izquierda de cada fila dice cuántas de sus casillas usa la línea.
+- Algunas vías vienen dadas, en casillas más oscuras; la línea sale del tablero por la entrada y por la salida.
+Cada problema tiene una sola solución, que se encuentra razonando. Los tableros grandes piden más: la línea nunca puede cerrarse en un bucle, y cruza el hueco entre dos columnas (o dos filas) un número impar de veces cuando la entrada y la salida quedan a cada lado, y un número par si no.
+# Una jugada
+Pon un tramo de vía en una casilla, cámbialo, o marca con una cruz una casilla que sabes vacía. Las cruces son solo notas para ti.
+# El final de la partida
+Cuando la línea está completa y todos los números son correctos, el problema está resuelto: un trenecito recorre la vía de la entrada a la salida y las casillas se iluminan en dorado tras él.
+# Jugar en el dispositivo
+- Arrastra de casilla en casilla para tender la vía bajo tu dedo; se une a los tramos ya puestos.
+- Toca una casilla para poner una vía (primero la que mejor encaja con sus vecinas), otra vez para la siguiente; tras la sexta, la casilla queda vacía.
+- Mantén el dedo un momento sobre una casilla para marcarla con una cruz. El botón de la cruz en la barra hace que los toques y arrastres pongan cruces; muestra lo que hace un toque.
+Un número se apaga cuando su línea tiene esas vías, y se pone rojo si tiene demasiadas. La lámpara de la barra es una pista: arregla una casilla y la ilumina en dorado. Deshacer anula una acción cada vez, hasta el principio. La barra muestra tus jugadas.

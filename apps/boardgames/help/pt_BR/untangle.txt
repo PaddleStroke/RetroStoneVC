@@ -1,0 +1,10 @@
+Desembaraçar
+# O objetivo
+Alfinetes de latão estão espetados no tabuleiro, ligados por cordões, e os cordões se cruzam. Mova os alfinetes até que nenhum cordão cruze outro. Escolha primeiro quantos alfinetes: 10, 20, 30 ou 45.
+Todo problema pode ser desembaraçado: os alfinetes foram primeiro dispostos sem nenhum cruzamento e depois colocados em círculo, em ordem embaralhada.
+# Uma jogada
+Mova um alfinete para qualquer lugar do tabuleiro; seus cordões o acompanham.
+# O fim da partida
+Quando nenhum cordão cruza outro nem encosta num alfinete que não é o seu, o problema está resolvido: os cordões ficam dourados e uma luz dourada percorre os alfinetes.
+# Jogando no aparelho
+Arraste um alfinete com o dedo. Enquanto você o move, cada cordão que cruza outro acende em vermelho; quando não sobra nenhum, todos ficam dourados. A barra mostra suas jogadas e os cruzamentos que restam. A lâmpada da barra é uma dica: ela move um alfinete para onde ele tira mais cruzamentos ou, quando nenhum movimento sozinho ajuda, o põe onde ele fica numa disposição sem cruzamentos; o alfinete desliza até lá numa luz dourada. Desfazer volta uma jogada de cada vez, até o início.

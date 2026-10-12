@@ -1,0 +1,16 @@
+Spår
+# Målet
+Lägg en enda järnvägslinje genom rutnätet, från infarten vid brädets kant till utfarten vid en annan kant. Välj först storlek: 6 × 6, 8 × 8 eller 10 × 10.
+- Linjen går från ruta till ruta genom deras sidor: varje ruta den använder har en rak bit eller en kurva. Den förgrenar sig aldrig och korsar aldrig sig själv.
+- Talet ovanför varje kolumn och till vänster om varje rad säger hur många av dess rutor linjen använder.
+- Några bitar är givna, på mörkare rutor; vid infarten och utfarten löper linjen ut ur brädet.
+Varje pussel har exakt en lösning, som hittas genom att resonera. De större brädena kräver mer: linjen får aldrig sluta sig i en ögla, och den korsar skarven mellan två kolumner (eller två rader) ett udda antal gånger när infarten och utfarten ligger på var sin sida, annars ett jämnt antal.
+# Ett drag
+Lägg en spårbit i en ruta, byt den, eller markera med ett kryss en ruta du vet förblir tom. Kryssen är bara anteckningar för dig.
+# Partiets slut
+När linjen är hel och varje tal stämmer är pusslet löst: ett litet tåg kör från infarten till utfarten, och rutorna lyser upp i guld bakom det.
+# Spela på enheten
+- Dra från ruta till ruta för att lägga spåret under fingret; det ansluter till bitarna som redan ligger där.
+- Tryck på en ruta för en bit (den som passar grannarna bäst kommer först), igen för nästa; efter den sjätte är rutan tom igen.
+- Håll kvar på en ruta en stund för att kryssa den. Kryssknappen i listen gör att tryck och drag kryssar i stället; den visar vad ett tryck gör.
+Ett tal bleknar när dess linje har så många bitar, och blir rött när den har för många. Lampan i listen är en ledtråd: den sätter en ruta rätt och lyser upp den i guld. Ångra tar tillbaka en åtgärd i taget, ända till början. Listen visar dina drag.

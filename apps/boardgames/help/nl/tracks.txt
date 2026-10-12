@@ -1,0 +1,16 @@
+Sporen
+# Het doel
+Leg één spoorlijn door het rooster, van de ingang aan de rand van het bord naar de uitgang aan een andere rand. Kies eerst de grootte: 6 × 6, 8 × 8 of 10 × 10.
+- De lijn gaat van vak naar vak door hun zijden: elk vak dat ze gebruikt, bevat een recht stuk of een bocht. Ze vertakt nooit en kruist zichzelf nooit.
+- Het getal boven elke kolom en links van elke rij zegt hoeveel van haar vakken de lijn gebruikt.
+- Een paar stukken zijn gegeven, op donkerdere vakken; bij de ingang en de uitgang loopt de lijn van het bord af.
+Elke puzzel heeft precies één oplossing, alleen door redeneren te vinden. De grotere borden vragen daar meer van: de lijn mag nooit een lus vormen, en ze steekt de naad tussen twee kolommen (of twee rijen) een oneven aantal keren over als ingang en uitgang aan weerszijden liggen, anders een even aantal keren.
+# Een zet
+Leg een stuk spoor in een vak, verander het, of zet een kruisje in een vak waarvan je weet dat het leeg blijft. De kruisjes zijn alleen notities voor jezelf.
+# Het einde van het spel
+Als de lijn compleet is en elk getal klopt, is de puzzel opgelost: een treintje rijdt van de ingang naar de uitgang, en de vakken lichten achter hem goud op.
+# Spelen op het apparaat
+- Sleep van vak naar vak om het spoor onder je vinger te leggen; het sluit aan op de stukken die er al liggen.
+- Tik op een vak voor een stuk (het stuk dat het best bij de buren past eerst), nog eens voor het volgende; na het zesde is het vak weer leeg.
+- Houd een vak even vast om het aan te kruisen. De kruisknop in de balk laat tikken en slepen kruisjes zetten; hij toont wat een tik doet.
+Een getal vervaagt als zijn lijn zoveel stukken heeft, en wordt rood bij te veel. De lamp in de balk is een hint: hij zet één vak goed en laat het goud oplichten. Ongedaan maken neemt één actie tegelijk terug, helemaal tot het begin. De balk toont je zetten.

@@ -1,0 +1,16 @@
+Tracks
+# The aim
+Lay one railway line across the grid, from the entry on the edge of the board to the exit on another edge. Choose the size first: 6 × 6, 8 × 8 or 10 × 10.
+- The line goes from cell to cell through their sides: each cell it uses holds a straight piece or a curve. It never branches and never crosses itself.
+- The number above each column and left of each row says how many of its cells the line uses.
+- A few pieces are given, on darker cells; the line runs off the board at the entry and at the exit.
+Every puzzle has exactly one solution, found by reasoning alone. The bigger boards ask for more of it: the line can never close into a loop, and it crosses the gap between two columns (or two rows) an odd number of times when the entry and the exit lie on either side of it, an even number otherwise.
+# A move
+Lay a piece of track in a cell, change it, or mark with a cross a cell you know stays empty. The crosses are only notes for you.
+# The end of the game
+When the line is complete and every count is right, the puzzle is solved: a little train runs from the entry to the exit, and the cells light up in gold behind it.
+# Playing on the device
+- Drag from cell to cell to lay the track along your finger; it joins the pieces already there.
+- Tap a cell for a piece (the one that best meets its neighbours comes first), again for the next one; after the sixth the cell is empty again.
+- Hold a cell a moment to cross it. The cross button in the bar makes taps and drags cross instead; it shows what a tap does.
+A count fades when its line has that many pieces, and turns red when it has too many. The lamp in the bar is a hint: it sets one cell right and lights it in gold. Undo takes back one action at a time, all the way to the start. The bar shows your moves.

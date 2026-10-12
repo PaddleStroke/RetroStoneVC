@@ -1,0 +1,16 @@
+Speil
+# Målet
+En messinglampe sender en lysstråle over brettet. Drei og plasser speilene slik at strålen lyser opp alle edelsteinene uten å røre noen bombe. Velg først nivå (steinene under hvert bilde): lett, middels, vanskelig eller ekspert.
+- Et speil bøyer strålen i rett vinkel. Speilene på en dreietapp av valnøtt blir i ruten sin: du dreier dem bare den ene veien (/) eller den andre (\).
+- De løse speilene venter i skuffen under brettet: sett dem på tomme ruter.
+- Strålen går rett gjennom edelsteiner og tomme ruter. En trekloss stopper den, og det gjør kanten av brettet også.
+- Fra det vanskelige nivået slipper en glassplate gjennom halve lyset og bøyer av den andre halvdelen.
+Hver oppgave har nøyaktig én løsning, som man finner ved å følge strålen og tenke.
+# Et trekk
+Drei et speil på tappen, eller sett et løst speil på en tom rute, drei det, flytt det eller ta det tilbake.
+# Slutten på spillet
+Når alle edelsteinene lyser og ingen bombe blir truffet, er oppgaven løst: et gyllent lys løper langs strålen fra lampen, og edelsteinene glitrer.
+# Spill på enheten
+- Trykk på et speil på en tapp for å dreie det.
+- Trykk på en tom rute for å sette et løst speil der; trykk igjen for å dreie det og en tredje gang for å legge det tilbake i skuffen. Du kan også dra et speil fra skuffen til en rute, fra en rute til en annen eller av brettet.
+Strålen følger hver endring med en gang. En opplyst edelstein gløder; en bombe som strålen treffer, lyser rødt. Lampen i linjen er et hint: den setter ett speil riktig og lyser det opp i gull. Angre tar tilbake én handling om gangen, helt til begynnelsen. Linjen viser trekkene dine.

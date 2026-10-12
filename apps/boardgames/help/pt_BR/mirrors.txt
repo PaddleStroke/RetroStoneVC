@@ -1,0 +1,16 @@
+Espelhos
+# O objetivo
+Uma lâmpada de latão lança um raio de luz pelo tabuleiro. Gire e coloque os espelhos para que o raio ilumine todas as gemas sem tocar em nenhuma bomba. Escolha primeiro o nível (as pedras sob cada imagem): fácil, médio, difícil ou especialista.
+- Um espelho desvia o raio em ângulo reto. Os espelhos num pivô de nogueira ficam na sua casa: você só os gira para um lado (/) ou para o outro (\).
+- Os espelhos soltos esperam na bandeja sob o tabuleiro: coloque-os em casas vazias.
+- O raio segue reto através das gemas e das casas vazias. Um bloco de madeira o detém, assim como a borda do tabuleiro.
+- A partir do nível difícil, uma placa de vidro deixa passar metade da luz e desvia a outra metade.
+Cada problema tem uma única solução, encontrada seguindo o raio e raciocinando.
+# Uma jogada
+Gire um espelho no seu pivô, ou coloque um espelho solto numa casa vazia, gire-o, mova-o ou recolha-o.
+# O fim da partida
+Quando todas as gemas estão iluminadas e nenhuma bomba é tocada, o problema está resolvido: uma luz dourada percorre o raio a partir da lâmpada e as gemas cintilam.
+# Jogando no aparelho
+- Toque num espelho com pivô para girá-lo.
+- Toque numa casa vazia para colocar ali um espelho solto; toque de novo para girá-lo e uma terceira vez para devolvê-lo à bandeja. Você também pode arrastar um espelho da bandeja para uma casa, de uma casa para outra ou para fora do tabuleiro.
+O raio acompanha cada mudança na hora. Uma gema iluminada brilha; uma bomba tocada pelo raio acende em vermelho. A lâmpada da barra é uma dica: ela acerta um espelho e o ilumina em dourado. Desfazer volta uma ação de cada vez, até o início. A barra mostra suas jogadas.

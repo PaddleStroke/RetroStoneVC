@@ -1,0 +1,16 @@
+Lustra
+# Cel gry
+Mosiężna lampa wysyła promień światła przez planszę. Obracaj i ustawiaj lustra tak, aby promień oświetlił wszystkie klejnoty i nie dotknął żadnej bomby. Najpierw wybierz poziom (kamienie pod każdym obrazkiem): łatwy, średni, trudny albo ekspert.
+- Lustro odbija promień pod kątem prostym. Lustra na orzechowym czopie zostają w swoim polu: obracasz je tylko w jedną stronę (/) albo w drugą (\).
+- Luźne lustra czekają w korytku pod planszą: stawiaj je na pustych polach.
+- Promień biegnie prosto przez klejnoty i puste pola. Zatrzymuje go drewniany klocek, a także brzeg planszy.
+- Od poziomu trudnego szklana płytka przepuszcza połowę światła, a drugą połowę odbija.
+Każda łamigłówka ma dokładnie jedno rozwiązanie, które znajdziesz, śledząc promień i rozumując.
+# Ruch
+Obróć lustro na czopie albo postaw luźne lustro na pustym polu, obróć je, przenieś lub zabierz.
+# Koniec gry
+Gdy wszystkie klejnoty świecą i żadna bomba nie jest dotknięta, łamigłówka jest rozwiązana: złote światło biegnie wzdłuż promienia od lampy, a klejnoty migoczą.
+# Gra na urządzeniu
+- Dotknij lustra na czopie, aby je obrócić.
+- Dotknij pustego pola, aby postawić na nim luźne lustro; dotknij ponownie, aby je obrócić, a trzeci raz, aby odłożyć je do korytka. Możesz też przeciągnąć lustro z korytka na pole, z pola na pole albo poza planszę.
+Promień od razu podąża za każdą zmianą. Oświetlony klejnot lśni; bomba dotknięta promieniem świeci na czerwono. Lampa na pasku to podpowiedź: ustawia jedno lustro poprawnie i rozświetla je złotem. Cofnij cofa jedną czynność naraz, aż do początku. Pasek pokazuje twoje ruchy.

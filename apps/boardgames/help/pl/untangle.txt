@@ -1,0 +1,10 @@
+Rozplątywanie
+# Cel gry
+Na planszy stoją mosiężne szpilki połączone sznurkami, a sznurki się krzyżują. Przesuwaj szpilki, aż żadne dwa sznurki nie będą się krzyżować. Najpierw wybierz liczbę szpilek: 10, 20, 30 albo 45.
+Każdą łamigłówkę da się rozplątać: szpilki najpierw ustawiono bez żadnego skrzyżowania, a potem rozstawiono w kole w pomieszanej kolejności.
+# Ruch
+Przesuń jedną szpilkę w dowolne miejsce planszy; jej sznurki idą za nią.
+# Koniec gry
+Gdy żaden sznurek nie krzyżuje innego ani nie dotyka cudzej szpilki, łamigłówka jest rozwiązana: sznurki stają się złote, a po szpilkach przebiega złote światło.
+# Gra na urządzeniu
+Przeciągnij szpilkę palcem. Gdy ją przesuwasz, każdy sznurek krzyżujący inny świeci na czerwono; gdy nie zostanie żaden, wszystkie stają się złote. Pasek pokazuje twoje ruchy i pozostałe skrzyżowania. Lampa na pasku to podpowiedź: przesuwa jedną szpilkę tam, gdzie usuwa najwięcej skrzyżowań, albo, gdy żaden pojedynczy ruch nie pomaga, stawia ją tam, gdzie stoi w układzie bez skrzyżowań; szpilka przesuwa się tam w złotym świetle. Cofnij cofa jeden ruch naraz, aż do początku.

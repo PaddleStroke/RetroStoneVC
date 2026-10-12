@@ -1,0 +1,10 @@
+Untangle
+# The aim
+Brass pins stand on the board, joined by cords, and the cords cross each other. Move the pins until no two cords cross. Choose how many pins first: 10, 20, 30 or 45.
+Every puzzle can be untangled: the pins were first laid out with no crossing at all, then set round a circle in a shuffled order.
+# A move
+Move one pin anywhere on the board; its cords follow it.
+# The end of the game
+When no cord crosses another, nor touches a pin it does not belong to, the puzzle is solved: the cords turn gold and a gold light runs over the pins.
+# Playing on the device
+Drag a pin with your finger. While you move it, every cord that crosses another glows red; when none is left, they all turn gold. The bar shows your moves and the crossings left. The lamp in the bar is a hint: it moves one pin to where it removes the most crossings or, when no single move helps, puts a pin where it stands in a layout without any crossing; the pin slides there in gold light. Undo takes back one move at a time, all the way to the start.

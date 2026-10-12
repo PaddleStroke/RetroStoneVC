@@ -1,0 +1,16 @@
+Binari
+# Lo scopo
+Posa un'unica linea ferroviaria nella griglia, dall'ingresso su un bordo del tavoliere all'uscita su un altro bordo. Scegli prima la misura: 6 × 6, 8 × 8 o 10 × 10.
+- La linea passa da casella a casella attraverso i loro lati: ogni casella che usa porta un binario dritto o una curva. Non si dirama mai e non si incrocia mai.
+- Il numero sopra ogni colonna e a sinistra di ogni riga dice quante delle sue caselle usa la linea.
+- Alcuni binari sono dati, su caselle più scure; la linea esce dal tavoliere all'ingresso e all'uscita.
+Ogni rompicapo ha una sola soluzione, che si trova solo ragionando. I tavolieri grandi ne chiedono di più: la linea non può mai chiudersi ad anello, e attraversa lo spazio tra due colonne (o due righe) un numero dispari di volte quando ingresso e uscita stanno ai due lati, un numero pari altrimenti.
+# Una mossa
+Posa un pezzo di binario in una casella, cambialo, o segna con una croce una casella che sai vuota. Le croci sono solo appunti per te.
+# La fine della partita
+Quando la linea è completa e ogni numero torna, il rompicapo è risolto: un trenino corre dall'ingresso all'uscita e le caselle si accendono d'oro dietro di lui.
+# Giocare sul dispositivo
+- Trascina da casella a casella per posare il binario sotto il dito; si collega ai pezzi già posati.
+- Tocca una casella per un binario (prima quello che meglio si raccorda ai vicini), di nuovo per il successivo; dopo il sesto la casella torna vuota.
+- Tieni premuta una casella un istante per segnarla con una croce. Il pulsante con la croce nella barra fa segnare croci a tocchi e trascinamenti; mostra cosa fa un tocco.
+Un numero sbiadisce quando la sua linea ha quei binari, e diventa rosso quando ne ha troppi. La lampada nella barra è un aiuto: sistema una casella e la illumina d'oro. Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue mosse.

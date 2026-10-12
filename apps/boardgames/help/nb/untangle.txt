@@ -1,0 +1,10 @@
+Floke
+# Målet
+Messingnåler står i brettet, bundet sammen med snorer, og snorene krysser hverandre. Flytt nålene til ingen to snorer krysser hverandre. Velg først hvor mange nåler: 10, 20, 30 eller 45.
+Hver oppgave kan løses opp: nålene stod først helt uten kryssinger og ble så satt i en sirkel i blandet rekkefølge.
+# Et trekk
+Flytt én nål hvor som helst på brettet; snorene dens følger med.
+# Slutten på spillet
+Når ingen snor krysser en annen eller rører en nål som ikke er dens egen, er oppgaven løst: snorene blir gylne og et gyllent lys løper over nålene.
+# Spill på enheten
+Dra en nål med fingeren. Mens du flytter den, lyser hver snor som krysser en annen rødt; når ingen er igjen, blir alle gylne. Linjen viser trekkene dine og kryssingene som er igjen. Lampen i linjen er et hint: den flytter én nål dit den fjerner flest kryssinger, eller, når ingen enkelt flytting hjelper, setter den der den står i et oppsett uten kryssinger; nålen glir dit i gyllent lys. Angre tar tilbake ett trekk om gangen, helt til begynnelsen.

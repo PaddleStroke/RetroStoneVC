@@ -1,0 +1,16 @@
+Tory
+# Cel gry
+Ułóż jedną linię kolejową przez siatkę, od wjazdu na brzegu planszy do wyjazdu na innym brzegu. Najpierw wybierz rozmiar: 6 × 6, 8 × 8 albo 10 × 10.
+- Linia przechodzi z pola na pole przez ich boki: każde pole, którego używa, ma prosty odcinek albo łuk. Nigdy się nie rozgałęzia i nigdy się nie przecina.
+- Liczba nad każdą kolumną i z lewej strony każdego wiersza mówi, ile jego pól zajmuje linia.
+- Kilka odcinków jest danych, na ciemniejszych polach; przy wjeździe i wyjeździe linia wychodzi poza planszę.
+Każda łamigłówka ma dokładnie jedno rozwiązanie, które znajdziesz samym rozumowaniem. Większe plansze wymagają go więcej: linia nigdy nie może zamknąć się w pętlę, a szczelinę między dwiema kolumnami (lub wierszami) przekracza nieparzystą liczbę razy, gdy wjazd i wyjazd leżą po jej różnych stronach, a parzystą w przeciwnym razie.
+# Ruch
+Połóż odcinek toru na polu, zmień go albo oznacz krzyżykiem pole, o którym wiesz, że zostanie puste. Krzyżyki to tylko twoje notatki.
+# Koniec gry
+Gdy linia jest kompletna i każda liczba się zgadza, łamigłówka jest rozwiązana: mały pociąg jedzie od wjazdu do wyjazdu, a pola rozbłyskują za nim złotem.
+# Gra na urządzeniu
+- Przeciągaj z pola na pole, aby układać tor pod palcem; łączy się z odcinkami, które już leżą.
+- Dotknij pola, aby położyć odcinek (najpierw ten, który najlepiej pasuje do sąsiadów), ponownie dla następnego; po szóstym pole znów jest puste.
+- Przytrzymaj chwilę pole, aby postawić na nim krzyżyk. Przycisk z krzyżykiem na pasku sprawia, że dotknięcia i przeciągnięcia stawiają krzyżyki; pokazuje, co robi dotknięcie.
+Liczba blednie, gdy jej linia ma tyle odcinków, i czerwienieje, gdy ma ich za dużo. Lampa na pasku to podpowiedź: poprawia jedno pole i rozświetla je złotem. Cofnij cofa jedną czynność naraz, aż do początku. Pasek pokazuje twoje ruchy.

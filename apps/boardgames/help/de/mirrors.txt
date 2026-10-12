@@ -1,0 +1,16 @@
+Spiegel
+# Das Ziel
+Eine Messinglampe schickt einen Lichtstrahl über das Brett. Drehe und stelle die Spiegel so, dass der Strahl alle Edelsteine beleuchtet, ohne eine Bombe zu berühren. Wähle zuerst die Stufe (die Steine unter jedem Bild): leicht, mittel, schwer oder Experte.
+- Ein Spiegel lenkt den Strahl im rechten Winkel ab. Die Spiegel auf einem Nussbaumdrehteller bleiben in ihrem Feld: Du drehst sie nur in die eine Richtung (/) oder die andere (\).
+- Die losen Spiegel warten in der Leiste unter dem Brett: Stelle sie auf leere Felder.
+- Der Strahl geht geradeaus durch Edelsteine und leere Felder. Ein Holzblock hält ihn auf, ebenso der Rand des Bretts.
+- Ab der schweren Stufe lässt eine Glasplatte die Hälfte des Lichts durch und lenkt die andere Hälfte ab.
+Jedes Rätsel hat genau eine Lösung, die man findet, indem man dem Strahl folgt und überlegt.
+# Ein Zug
+Drehe einen Spiegel auf seinem Drehteller, oder stelle einen losen Spiegel auf ein leeres Feld, drehe ihn, versetze ihn oder nimm ihn zurück.
+# Das Ende der Partie
+Wenn alle Edelsteine leuchten und keine Bombe berührt wird, ist das Rätsel gelöst: Ein goldenes Licht läuft von der Lampe den Strahl entlang, und die Edelsteine funkeln.
+# Spielen auf dem Gerät
+- Tippe auf einen Spiegel auf einem Drehteller, um ihn zu drehen.
+- Tippe auf ein leeres Feld, um dort einen losen Spiegel aufzustellen; tippe erneut, um ihn zu drehen, ein drittes Mal, um ihn in die Leiste zurückzulegen. Du kannst einen Spiegel auch aus der Leiste auf ein Feld ziehen, von einem Feld auf ein anderes oder vom Brett herunter.
+Der Strahl folgt jeder Änderung sofort. Ein beleuchteter Edelstein glüht; eine vom Strahl berührte Bombe leuchtet rot. Die Lampe in der Leiste ist ein Tipp: Sie stellt einen Spiegel richtig und lässt ihn golden aufleuchten. Rückgängig nimmt eine Aktion nach der anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge.

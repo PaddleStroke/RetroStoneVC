@@ -1,0 +1,16 @@
+Speglar
+# Målet
+En mässingslampa skickar en ljusstråle över brädet. Vrid och placera speglarna så att strålen lyser upp alla ädelstenar utan att röra någon bomb. Välj först nivå (stenarna under varje bild): lätt, medel, svår eller expert.
+- En spegel böjer strålen i rät vinkel. Speglarna på en vridtapp av valnöt stannar i sin ruta: du vrider dem bara åt ena hållet (/) eller det andra (\).
+- De lösa speglarna väntar i facket under brädet: ställ dem på tomma rutor.
+- Strålen går rakt genom ädelstenar och tomma rutor. Ett träblock stoppar den, liksom brädets kant.
+- Från den svåra nivån släpper en glasskiva igenom halva ljuset och böjer av den andra halvan.
+Varje pussel har exakt en lösning, som man hittar genom att följa strålen och tänka.
+# Ett drag
+Vrid en spegel på sin tapp, eller ställ en lös spegel på en tom ruta, vrid den, flytta den eller ta tillbaka den.
+# Partiets slut
+När alla ädelstenar lyser och ingen bomb rörs är pusslet löst: ett gyllene ljus löper längs strålen från lampan och ädelstenarna glittrar.
+# Spela på enheten
+- Tryck på en spegel på en tapp för att vrida den.
+- Tryck på en tom ruta för att ställa en lös spegel där; tryck igen för att vrida den och en tredje gång för att lägga tillbaka den i facket. Du kan också dra en spegel från facket till en ruta, från en ruta till en annan eller av brädet.
+Strålen följer varje ändring direkt. En upplyst ädelsten glöder; en bomb som strålen rör lyser rött. Lampan i listen är en ledtråd: den ställer en spegel rätt och lyser upp den i guld. Ångra tar tillbaka en åtgärd i taget, ända till början. Listen visar dina drag.

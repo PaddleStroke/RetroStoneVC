@@ -1,0 +1,10 @@
+Démêler
+# Le but
+Des épingles de laiton sont plantées sur le plateau, reliées par des cordons, et les cordons se croisent. Déplace les épingles jusqu'à ce qu'aucun cordon n'en croise un autre. Choisis d'abord le nombre d'épingles : 10, 20, 30 ou 45.
+Chaque problème peut être démêlé : les épingles ont d'abord été disposées sans aucun croisement, puis placées en cercle dans un ordre mélangé.
+# Un coup
+Déplace une épingle n'importe où sur le plateau ; ses cordons la suivent.
+# La fin de la partie
+Quand aucun cordon n'en croise un autre ni ne touche une épingle qui n'est pas la sienne, le problème est résolu : les cordons deviennent dorés et une lumière dorée parcourt les épingles.
+# Jouer sur l'appareil
+Fais glisser une épingle avec le doigt. Pendant que tu la déplaces, chaque cordon qui en croise un autre s'éclaire en rouge ; quand il n'en reste plus, ils deviennent tous dorés. La barre montre tes coups et les croisements restants. La lampe de la barre est un indice : elle déplace une épingle là où elle supprime le plus de croisements ou, quand aucun déplacement seul n'aide, la pose où elle se trouve dans une disposition sans croisement ; l'épingle y glisse dans une lumière dorée. Annuler reprend un coup à la fois, jusqu'au début.

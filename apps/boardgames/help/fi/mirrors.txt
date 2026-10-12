@@ -1,0 +1,16 @@
+Peilit
+# Tavoite
+Messinkilamppu lähettää valonsäteen laudan yli. Käännä ja aseta peilit niin, että säde valaisee kaikki jalokivet koskematta yhteenkään pommiin. Valitse ensin taso (kivet kunkin kuvan alla): helppo, keskitaso, vaikea tai mestari.
+- Peili kääntää säteen suorassa kulmassa. Pähkinäpuisella tapilla olevat peilit pysyvät ruudussaan: käännät niitä vain toiseen (/) tai toiseen (\) asentoon.
+- Irtopeilit odottavat laudan alla olevassa lokerossa: aseta ne tyhjiin ruutuihin.
+- Säde kulkee suoraan jalokivien ja tyhjien ruutujen läpi. Puupalikka pysäyttää sen, samoin laudan reuna.
+- Vaikeasta tasosta alkaen lasilevy päästää puolet valosta läpi ja kääntää toisen puolen.
+Jokaisessa tehtävässä on täsmälleen yksi ratkaisu, joka löytyy sädettä seuraamalla ja päättelemällä.
+# Siirto
+Käännä peiliä sen tapilla, tai aseta irtopeili tyhjään ruutuun, käännä sitä, siirrä sitä tai ota se pois.
+# Pelin loppu
+Kun kaikki jalokivet loistavat eikä yhteenkään pommiin osu, tehtävä on ratkaistu: kultainen valo kulkee lampusta säteen mukana ja jalokivet välkkyvät.
+# Pelaaminen laitteella
+- Napauta tapilla olevaa peiliä kääntääksesi sitä.
+- Napauta tyhjää ruutua asettaaksesi siihen irtopeilin; napauta uudelleen kääntääksesi sitä ja kolmannen kerran palauttaaksesi sen lokeroon. Voit myös vetää peilin lokerosta ruutuun, ruudusta toiseen tai pois laudalta.
+Säde seuraa jokaista muutosta heti. Valaistu jalokivi hehkuu; pommi, johon säde osuu, hehkuu punaisena. Palkin lamppu on vihje: se asettaa yhden peilin oikein ja valaisee sen kultaisena. Kumoa perää yhden toiminnon kerrallaan aina alkuun asti. Palkki näyttää siirtosi.
