@@ -1,0 +1,46 @@
+Doppelkopf
+# Tujuan
+Permainan kartu kesayangan Jerman untuk empat pemain, dimainkan dengan dek ganda. Di setiap ronde, dua pemain yang memegang queen keriting, yaitu pihak Re, bermain melawan dua pemain lainnya, pihak Kontra; tetapi pada awalnya tak seorang pun tahu siapa bersama siapa. Satu pertandingan terdiri dari 12 atau 24 ronde, sesuai pilihan; total tertinggi di akhir pertandingan menang. Aturannya adalah aturan turnamen Liga Doppelkopf Jerman (DDV). Kartunya memakai jenis Prancis, seperti yang sering dipakai untuk Doppelkopf; jenis Jerman (biji ek, daun, hati, lonceng) mungkin menyusul. Untuk 4 pemain yang saling mengoper perangkat; tak seorang pun melihat kartu pemain lain.
+# Pembagian kartu
+Deknya berisi 48 kartu: 9, 10, jack, queen, king, dan as dari setiap jenis, masing-masing dua kali. Setiap pemain mendapat 12 kartu. Giok membagi lebih dulu; setelah itu pembagi kartu bergeser satu tempat setiap ronde. Pemain setelah pembagi berbicara pertama dan membuka trik pertama.
+# Reservasi
+- Sebelum kartu pertama, setiap pemain bergiliran menyatakan sehat (gesund) atau bahwa ia punya reservasi (Vorbehalt). Apa yang diinginkannya tetap rahasia: solo atau pernikahan.
+- Pemain yang memegang kedua queen keriting boleh mengumumkan pernikahan (Hochzeit). Itu pilihannya: ia juga boleh diam saja dan memainkan solo diam-diam melawan tiga pemain lainnya.
+- Solo pertama menurut giliran yang dimainkan; jika tidak ada, pernikahan; jika tidak ada juga, permainan biasa.
+# Truf
+- Dalam permainan biasa, 10 hati (Dulle) adalah truf tertinggi. Lalu queen dan jack, masing-masing dengan urutan keriting, sekop, hati, wajik, lalu as, 10, king, dan 9 wajik: 26 truf.
+- Jenis lainnya berurutan as, 10, king, 9; hati hanya punya as, king, dan 9.
+- Dari dua kartu yang sama dalam satu trik, yang dimainkan lebih dulu menang.
+# Kedua pihak
+- Pemegang queen keriting (die Alten, "para tetua") adalah Re, yang lain Kontra. Setiap pemain tahu pihaknya sendiri, bukan pihak pemain lain. Sebuah pihak terungkap saat queen keriting dimainkan atau saat seseorang mengumumkan.
+- Pernikahan: trik pertama di antara tiga trik pertama yang dimenangkan pemain lain menjadikan pemain itu pasangan sang pengantin. Jika pengantin mengambil ketiga trik itu, ia bermain sendirian, sebagai solo.
+# Solo
+Satu pemain, pemain solo (Re), bermain melawan tiga pemain lainnya (Kontra).
+- Solo queen: hanya kedelapan queen yang truf.
+- Solo jack: hanya kedelapan jack yang truf.
+- Solo jenis: truf permainan biasa, dengan jenis pilihan menggantikan wajik.
+- Tanpa daging (Fleischlos): tanpa truf; setiap jenis berurutan as, 10, king, queen, jack, 9.
+# Permainan
+Ikuti jenis kartu yang dibuka jika bisa (semua truf dihitung sebagai satu jenis); jika tidak, mainkan kartu apa saja. Truf tertinggi memenangkan trik; jika tidak ada truf, kartu tertinggi dari jenis yang dibuka. Pemenang membuka trik berikutnya.
+# Pengumuman
+- Sebelum memainkan kartu, pemain boleh mengumumkan untuk pihaknya: Re atau Kontra selama masih memegang setidaknya 11 kartu, tanpa 90 (keine 90) setidaknya 10, tanpa 60 (keine 60) setidaknya 9, tanpa 30 (keine 30) setidaknya 8, schwarz (tanpa satu trik pun) setidaknya 7. Setiap pengumuman mencakup yang di bawahnya.
+- Setelah pihak lawan mengumumkan, Re atau Kontra masih boleh diucapkan sebagai balasan, satu kartu lebih lambat dari batas pengumuman itu sendiri.
+- Dalam pernikahan tidak ada yang boleh diumumkan sebelum pasangannya ditemukan; batasnya lalu bergeser sebanyak trik yang dibutuhkan untuk menemukannya.
+- Di sini pemain mengumumkan pada gilirannya sendiri, saat perangkat ada di tangannya.
+# Menang
+- Poin kartu: as 11, 10 10, king 4, queen 3, jack 2: total 240.
+- Re menang dengan 121 poin, Kontra dengan 120. Jika hanya Kontra yang diumumkan, Re menang dengan 120 dan Kontra butuh 121.
+- Pihak yang mengumumkan tanpa 90 (tanpa 60, tanpa 30, schwarz) harus menahan pihak lawan di bawah 90 (60, 30, tanpa trik); jika tidak, pihak lawan menang. Jika kedua pihak gagal memenuhi pengumuman seperti itu, tidak ada yang menang.
+# Nilai permainan
+- Menang: 1. Pihak yang kalah di bawah 90, di bawah 60, di bawah 30, dan tanpa trik (schwarz): masing-masing 1.
+- Re diumumkan: 2. Kontra diumumkan: 2. Setiap tanpa 90, tanpa 60, tanpa 30, dan schwarz yang diumumkan: 1.
+- Mencapai 120 melawan tanpa 90 pihak lawan, 90 melawan tanpa 60, 60 melawan tanpa 30, 30 melawan schwarz: masing-masing 1.
+- Poin ekstra (Sonderpunkte), hanya dalam permainan biasa dan pernikahan, untuk pihak yang membuatnya: rubah tertangkap (Fuchs: as wajik lawan dalam trik yang kamu ambil), Doppelkopf (trik bernilai 40 poin atau lebih), Karlchen (trik terakhir dimenangkan dengan jack keriting), dan melawan para tetua (gegen die Alten: Kontra menang): masing-masing 1. Poin ekstra kedua pihak saling meniadakan.
+# Skor
+- Permainan biasa: setiap pemain Re mencatat nilai permainan jika Re menang (di bawah nol jika Kontra menang), ditambah poin ekstra Re, dikurangi poin ekstra Kontra; setiap pemain Kontra mencatat kebalikannya.
+- Solo: pemain solo mencatat tiga kali lipat, setiap lawan sekali.
+- Di sini tidak ada solo wajib.
+# Akhir permainan
+Setelah ronde terakhir dalam daftar, total tertinggi menang. Total yang sama berbagi kemenangan.
+# Bermain di perangkat
+Oper perangkat ke pemain yang bidaknya menyala; ia mengetuk tombol mulai dan melihat kartunya sendiri. Untuk menyatakan sehat, ketuk pas. Untuk reservasi, ketuk sebuah permainan, lalu tanda centang (atau permainan yang sama lagi): solo jenis (tanda jenisnya), solo queen (sebuah queen), solo jack (gajah, gambar jack), tanpa daging (empat as), atau pernikahan (dua queen keriting, hanya jika kamu memegang keduanya). Setiap kursi menunjukkan katanya: tanda pas untuk sehat, lampu untuk reservasi. Selama permainan, setiap kursi menunjukkan apa yang diketahui meja: queen keriting untuk Re, dicoret untuk Kontra, dalam cahaya emas setelah diumumkan; pihakmu sendiri selalu tampak di kursimu. Kursi pemain solo menunjukkan solonya, kursi pengantin menunjukkan pernikahan sampai pasangannya ditemukan; tanpa 90, tanpa 60, tanpa 30, dan schwarz tampil sebagai 90, 60, 30, dan 0 dalam cakram gelap. Saat kamu boleh mengumumkan, tombol di seberang tumpukan trik menunjukkan pengumumanmu berikutnya: ketuk tombol itu sebelum memainkan kartumu. Untuk bermain, ketuk kartu yang menyala agar terangkat, lalu ketuk lagi kartu itu atau tempatnya di tengah; atau seret ke sana. Ketuk tumpukan di kanan bawah untuk melihat trik terakhir. Setelah setiap ronde, sebuah tabel menunjukkan setiap pihak dengan poin kartunya, pengumumannya, poin ekstranya (as wajik: rubah; 40: Doppelkopf; jack keriting: Karlchen; queen yang dicoret: melawan para tetua) dan centang emas untuk pemenang; lalu nilai permainan, selisih poin ekstra, dan poin setiap pemain Re (dikali 3 untuk pemain solo); skor dan total setiap pemain; serta daftar ronde, dengan keping pemenang dalam cahaya emas. Ketuk untuk ronde berikutnya. Setiap bilah menunjukkan kartu di tangan dan total. Urungkan membatalkan pilihan yang belum dikonfirmasi, tidak pernah pilihan setelah perangkat dioper.

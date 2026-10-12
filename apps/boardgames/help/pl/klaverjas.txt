@@ -1,0 +1,32 @@
+Klaverjas
+# Cel gry
+Ulubiona gra karciana Holendrów: dwie pary partnerów siedzących naprzeciw siebie, kość słoniowa i czerwony przeciw hebanowi i nefrytowi. W każdym rozdaniu jedna para wybiera atut i musi potem zdobyć więcej niż połowę wszystkich punktów. Partia ma 16 rozdań; wygrywa wyższa suma na końcu. Obowiązują zasady rotterdamskie (Rotterdams): gdy nie możesz dołożyć do koloru, zawsze musisz zagrać atut. Dla 4 graczy, którzy podają sobie urządzenie; nikt nie widzi kart pozostałych.
+# Rozdanie
+Talia ma 32 karty, od siódemki do asa, w kolorach francuskich. Każdy gracz dostaje 8 kart. Pierwszy rozdaje nefryt; potem rozdający przesuwa się o jedno miejsce w każdym rozdaniu. Gracz po rozdającym (voorhand, „przodek”) mówi pierwszy i zawsze wychodzi do pierwszej lewy.
+# Atuty
+- Od gracza voorhand dookoła stołu każdy po kolei wskazuje kolor atutowy albo pasuje. Kto pierwszy go wskaże, ten gra: jego para musi wygrać grę.
+- Jeśli wszyscy czterej spasują, voorhand musi wskazać kolor (verplicht, „obowiązkowo”).
+# Kolejność kart
+- Atuty: walet 20, dziewiątka 14, as 11, dziesiątka 10, król 4, dama 3, ósemka, siódemka.
+- Pozostałe kolory: as 11, dziesiątka 10, król 4, dama 3, walet 2, dziewiątka, ósemka, siódemka.
+- Ostatnia lewa daje 10 punktów więcej: razem 162 punkty.
+# Rozgrywka
+- Dokładaj do koloru wyjścia, jeśli możesz.
+- Jeśli nie możesz, musisz zagrać atut, nawet gdy lewę wygrywa twój partner, i to wyższy niż najwyższy atut, który już leży w lewie, jeśli się da.
+- Jeśli nie możesz przebić wyżej, zagraj kartę innego koloru; niższy atut wolno ci dołożyć tylko wtedy, gdy masz same niższe atuty.
+- Gdy wyjście jest w atu, zagraj atut wyższy od najlepszego w lewie, jeśli możesz.
+- Lewę bierze najwyższy atut, a bez atutu najwyższa karta w kolorze wyjścia. Zdobywca lewy wychodzi do następnej.
+# Roem
+Roem (punkty premiowe) liczy się w każdej lewie tak, jak leży, dla pary, która ją bierze:
+- trzy kolejne karty w jednym kolorze 20, cztery 50 (kolejność 7, 8, 9, 10, walet, dama, król, as);
+- król i dama atutowe (stuk, „sztuka”) 20, także razem z sekwensem;
+- cztery asy, króle, damy lub dziesiątki 100; cztery walety 200.
+- Pit: para, która weźmie wszystkie osiem lew, dostaje 100 roem więcej.
+# Punktacja
+- Para grająca musi zdobyć więcej niż połowę wszystkich punktów: oczek obu par i roem razem.
+- Jeśli jej się uda, każda para zapisuje swoje oczka i roem.
+- Jeśli nie, jest nat („mokra”): druga para zapisuje wszystko, 162 i cały roem.
+# Koniec gry
+Po 16. rozdaniu wygrywa wyższa suma. Przy równych sumach zwycięstwo jest wspólne.
+# Gra na urządzeniu
+Podaj urządzenie graczowi, którego pionek świeci; dotyka on przycisku startu i widzi swoją rękę. Aby wskazać atut, dotknij koloru, a potem znaczka zatwierdzenia (albo jeszcze raz tego samego koloru); aby spasować, dotknij pasu. Gdy wszyscy czterej spasowali, voorhand nie ma przycisku pasowania. Każde miejsce pokazuje swój pas; potem gracz, który wskazał atut, pokazuje swój kolor. Roem unosi się w punktach od miejsca gracza, który go bierze. Aby zagrać, dotknij świecącej karty, żeby się uniosła, i dotknij jej jeszcze raz albo jej miejsca na środku; albo przeciągnij ją tam. Dotknij stosiku w prawym dolnym rogu, by zobaczyć ostatnią lewę. Po każdym rozdaniu tabela pokazuje dla każdej pary jej oczka (w złotym świetle przy picie), jej roem, wynik rozdania i sumę; atuty pary grającej są przekreślone, gdy jest nat. Poniżej lista 16 rozdań pokazuje żetony pary grającej, w złotym świetle, gdy wygrała grę. Dotknij jej, by przejść do następnego rozdania. Każdy pasek pokazuje karty w ręce i sumę pary. Cofnij wycofuje niezatwierdzony jeszcze wybór, nigdy wyboru sprzed podania urządzenia.

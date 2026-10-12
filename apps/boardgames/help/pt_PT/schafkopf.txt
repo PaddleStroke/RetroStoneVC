@@ -1,0 +1,36 @@
+Schafkopf
+# O objetivo
+O grande jogo de cartas da Baviera, para quatro. Em cada ronda, o jogador que ganha o leilão joga um jogo, com um parceiro que chama ou sozinho, contra os outros; o jogo paga-se em pontos segundo a tarifa. Uma partida é uma lista de 12 rondas; no fim, ganha o total mais alto. As regras são as da Baviera. Para 4 jogadores que passam o dispositivo; ninguém vê as cartas dos outros.
+# As cartas
+O baralho tem 32 cartas, do 7 ao ás. O Schafkopf joga-se com naipes alemães; aqui as cartas têm naipes franceses, também muito usados neste jogo: paus em vez de bolotas (Eichel), espadas em vez de folhas (Gras), copas em vez de copas (Herz), ouros em vez de guizos (Schellen). As damas são os Ober, os valetes os Unter, os ases as Sau. Os naipes alemães poderão chegar mais tarde.
+# A distribuição
+Cada jogador recebe 8 cartas. O jade dá as cartas primeiro; depois quem dá as cartas avança um lugar em cada ronda. O jogador a seguir a quem deu as cartas fala primeiro e sai na primeira vaza.
+# O leilão
+- Cada jogador, à vez, passa (weiter) ou diz que jogaria, escolhendo o seu jogo em segredo: um Rufspiel, um Wenz ou um Solo.
+- Rufspiel (jogo de chamada): chama o ás (a Sau) de um naipe (paus, espadas ou ouros, nunca copas) de que tem uma carta, mas não esse ás. Quem tem esse ás é o seu parceiro, desconhecido até o ás ser jogado.
+- Wenz e Solo: joga sozinho contra os outros três.
+- Joga-se o jogo mais alto: Solo, depois Wenz, depois Rufspiel; entre jogos iguais, o de quem falou primeiro. Se todos passarem, as cartas são deitadas fora ou, se o Ramsch foi escolhido, joga-se um Ramsch.
+# Os trunfos
+- Rufspiel: os quatro Ober (paus, espadas, copas, ouros) são os trunfos mais altos, depois os quatro Unter pela mesma ordem, depois as copas: ás, 10, rei, 9, 8, 7. 14 trunfos.
+- Solo: o mesmo, com o naipe escolhido no lugar de copas.
+- Wenz: só os quatro Unter são trunfo.
+- Os outros naipes seguem a ordem ás, 10, rei, (Ober), (Unter), 9, 8, 7.
+# O jogo
+- Assiste ao naipe de saída se puderes (todos os trunfos contam como um só naipe); senão, joga qualquer carta. O trunfo mais alto ganha a vaza; senão, a carta mais alta do naipe de saída. Quem ganha sai na vaza seguinte.
+- O ás chamado: na primeira vez que se sai no seu naipe, quem o tem tem de jogar o ás. Até lá, não pode baldar o ás noutro naipe e só pode sair nesse naipe com o ás, a não ser que tenha quatro ou mais cartas dele: pode então fugir (davonlaufen) com outra. Na última vaza, vale tudo.
+# Ganhar o jogo
+- Pontos das cartas: ás 11, 10 10, rei 4, Ober 3, Unter 2: 120 ao todo.
+- O jogador e o seu parceiro (ou o solista) ganham com 61 pontos ou mais.
+- Schneider: o lado que perde tem 30 pontos ou menos. Schwarz: o lado que perde não fez nenhuma vaza.
+# A tarifa
+- Rufspiel 10 pontos; Solo e Wenz 50.
+- Schneider, mais 10; Schwarz, mais 10.
+- Laufende (trunfos seguidos): a sequência seguida dos trunfos mais altos, do Ober de paus para baixo (no Wenz, do Unter de paus), que um lado tem, o que joga ou o outro: 10 cada, a partir de 3 (no Wenz, a partir de 2).
+- Rufspiel: cada vencedor marca o valor, cada perdedor perde-o. Solo e Wenz: o solista ganha ou perde o triplo do valor; cada um dos outros, uma vez.
+- Não se joga aqui: as dobras (Kontra, Re), o Tout (todas as vazas, anunciadas), o Sie (os oito trunfos mais altos na mão) nem outros jogos da casa.
+# O Ramsch
+Quando todos passam e o Ramsch foi escolhido, cada um joga por si, com os trunfos do Rufspiel. O jogador com mais pontos de cartas paga 10 a cada um dos outros; com pontos iguais, paga quem tem mais vazas e, se continuar o empate, paga cada um deles. Quem faz todas as vazas (Durchmarsch) recebe 50 de cada um.
+# O fim do jogo
+Depois da 12.ª ronda, ganha o total mais alto. Totais iguais partilham a vitória.
+# Jogar no dispositivo
+Passa o dispositivo ao jogador cuja peça brilha; ele toca no botão de início e vê a sua mão. Para fazer um lance, toca num jogo e depois no sinal de confirmação (ou outra vez no mesmo jogo): um dos três ases para um Rufspiel (a cinzento quando não o podes chamar), o bispo (a figura do Unter) para um Wenz, ou o símbolo de um naipe para esse Solo; para passar, toca em passar. Cada lugar mostra a palavra do seu jogador: o sinal de passar, ou um sinal de confirmação para quem jogaria. Durante o jogo, o lugar do jogador mostra o seu jogo: o ás chamado, o Wenz ou o naipe do Solo; o lugar do parceiro também mostra o ás depois de este ser jogado. Para jogar, toca numa carta que brilha para a levantar e toca-lhe outra vez ou no seu lugar no centro; ou arrasta-a até lá. Toca no monte em baixo à direita para ver a última vaza. Depois de cada ronda, uma tabela mostra o lado que joga com o seu jogo e os seus pontos de cartas (um sinal dourado: ganho), 90 para Schneider e 120 para Schwarz; o Ober de paus (no Wenz, o Unter de paus) com os Laufende contados, a tarifa (vezes 3 para um solista) e o valor; no Ramsch, os pontos de cartas de cada jogador, quem paga a vermelho. Depois, a pontuação e o total de cada jogador, e a lista das rondas, com as fichas dos jogadores a dourado quando ganharam. Toca nela para a ronda seguinte. Cada barra mostra as cartas na mão e o total. Anular desfaz uma escolha ainda não confirmada, nunca depois de o dispositivo passar.

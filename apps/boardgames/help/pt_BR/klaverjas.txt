@@ -1,0 +1,32 @@
+Klaverjas
+# O objetivo
+O jogo de cartas preferido da Holanda: duas duplas de parceiros sentados frente a frente, marfim e vermelho contra ébano e jade. Em cada rodada, uma dupla escolhe o trunfo e depois tem de fazer mais da metade de todos os pontos. Uma partida tem 16 rodadas; no fim, vence o maior total. As regras são as de Roterdã (Rotterdams): quem não pode seguir o naipe sempre tem de cortar. Para 4 jogadores passando o aparelho; ninguém vê as cartas dos outros.
+# A distribuição
+O baralho tem 32 cartas, do 7 ao ás, com naipes franceses. Cada jogador recebe 8 cartas. O jade dá as cartas primeiro; depois quem dá as cartas avança um lugar a cada rodada. O jogador depois de quem deu as cartas (voorhand, “a mão”) fala primeiro e sempre abre a primeira vaza.
+# Os trunfos
+- A partir de voorhand, dando a volta na mesa, cada jogador, na sua vez, escolhe um naipe de trunfo ou passa. O primeiro a escolher um joga: a sua dupla tem de cumprir o jogo.
+- Se os quatro passarem, voorhand tem de escolher um naipe (verplicht, “obrigado”).
+# A ordem das cartas
+- Trunfos: valete 20, nove 14, ás 11, dez 10, rei 4, dama 3, oito, sete.
+- Os outros naipes: ás 11, dez 10, rei 4, dama 3, valete 2, nove, oito, sete.
+- A última vaza vale 10 a mais: 162 pontos no total.
+# O jogo
+- Siga o naipe da saída se puder.
+- Se não puder, você tem de cortar, mesmo quando o seu parceiro está ganhando a vaza, e cobrir o trunfo mais alto que já está nela, se puder.
+- Se não puder cobri-lo, jogue uma carta de outro naipe; você só pode cortar por baixo quando não tem nada além de trunfos mais baixos.
+- Quando sai trunfo, jogue um trunfo mais alto que o melhor da vaza, se puder.
+- O trunfo mais alto ganha a vaza; senão, a carta mais alta do naipe da saída. Quem ganha abre a próxima vaza.
+# O roem
+O roem (pontos de bônus) é contado em cada vaza do jeito que ela fica na mesa, para a dupla que a ganha:
+- três cartas em sequência do mesmo naipe 20, quatro 50 (a ordem 7, 8, 9, 10, valete, dama, rei, ás);
+- o rei e a dama de trunfo (stuk) 20, também junto com uma sequência;
+- quatro ases, reis, damas ou dez 100; quatro valetes 200.
+- Pit (capote): uma dupla que faz as oito vazas ganha mais 100 de roem.
+# A pontuação
+- A dupla que joga tem de fazer mais da metade de todos os pontos: os pontos de cartas e o roem das duas duplas juntos.
+- Se conseguir, cada dupla marca os seus próprios pontos e o seu roem.
+- Se não, ela fica nat (“molhada”): a outra dupla marca tudo, 162 e todo o roem.
+# O fim da partida
+Depois da 16.ª rodada, vence o maior total. Totais iguais dividem a vitória.
+# Jogando no aparelho
+Passe o aparelho para o jogador cuja ficha brilha; ele toca no botão de início e vê a sua mão. Para escolher o trunfo, toque num naipe e depois no sinal de confirmação (ou no mesmo naipe de novo); para passar, toque em passar. Quando os quatro passaram, voorhand não tem botão de passar. Cada lugar mostra o seu passe; depois, o jogador que escolheu o trunfo mostra o seu naipe. O roem sobe em pontos a partir do lugar do jogador que o ganha. Para jogar, toque numa carta que brilha para levantá-la e toque nela de novo ou no lugar dela no centro; ou arraste-a até lá. Toque no monte embaixo à direita para ver a última vaza. Depois de cada rodada, uma tabela mostra para cada dupla os pontos de cartas (em luz dourada num pit), o roem, a pontuação da rodada e o total; o trunfo da dupla que joga aparece riscado quando ela fica nat. Embaixo, a série das 16 rodadas mostra as fichas da dupla que joga, em luz dourada quando ela cumpriu o jogo. Toque nela para a próxima rodada. Cada barra mostra as cartas na mão e o total da dupla. Desfazer cancela uma escolha ainda não confirmada, nunca depois que o aparelho passou.

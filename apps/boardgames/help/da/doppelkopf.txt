@@ -1,0 +1,46 @@
+Doppelkopf
+# Målet
+Tysklands mest elskede kortspil for fire, spillet med et dobbelt kortspil. I hvert giv spiller de to spillere med klør damerne, Re-holdet, mod de to andre, Kontra-holdet; men i starten ved ingen, hvem der spiller med hvem. Et parti er en liste på 12 eller 24 giv, efter valg; den højeste sum til sidst vinder. Reglerne er turneringsreglerne fra det tyske Doppelkopf-forbund (DDV). Kortene har franske kulører, som Doppelkopf ofte spilles med; tyske kulører (agern, blade, hjerter, bjælder) kommer måske senere. For 4 spillere, der sender enheden rundt; ingen ser de andres kort.
+# Kortgivningen
+Spillet har 48 kort: 9, 10, knægt, dame, konge og es i hver kulør, hvert kort to gange. Hver spiller får 12 kort. Jade giver først; derefter rykker giveren én plads videre for hvert giv. Spilleren efter giveren taler først og spiller ud til første stik.
+# Forbehold
+- Før det første kort siger hver spiller på skift rask (gesund) eller at han har et forbehold (Vorbehalt). Hvad han vil spille, forbliver hemmeligt: en solo eller et bryllup.
+- En spiller med begge klør damer kan melde bryllup (Hochzeit). Det er hans valg: han kan også tie og spille en stille solo mod de tre andre.
+- Den første solo i rækkefølgen spilles; ellers brylluppet; ellers det normale spil.
+# Trumferne
+- I det normale spil er hjerter 10 (Dulle) den højeste trumf. Derefter kommer damerne og knægtene, hver i rækkefølgen klør, spar, hjerter, ruder, og så ruder es, ruder 10, ruder konge og ruder 9: 26 trumfer.
+- De andre kulører rangerer es, 10, konge, 9; hjerter har kun es, konge og 9.
+- Af to ens kort i et stik vinder det, der blev spillet først.
+# Holdene
+- Spillerne med klør damerne (die Alten, de gamle) er Re, de andre Kontra. Hver spiller kender sit eget hold, ikke de andres. Et hold afslører sig, når en klør dame spilles, eller når nogen melder.
+- Bryllup: den første anden spiller, der vinder et af de tre første stik, bliver brudens makker. Tager bruden alle tre, spiller hun alene, som solo.
+# Solospil
+Én spiller, solisten (Re), spiller mod de tre andre (Kontra).
+- Damesolo: kun de otte damer er trumf.
+- Knægtesolo: kun de otte knægte er trumf.
+- Kulørsolo: det normale spils trumfer, med den valgte kulør i stedet for ruder.
+- Kødløs (Fleischlos): ingen trumf; hver kulør rangerer es, 10, konge, dame, knægt, 9.
+# Spillet
+Bekend kulør, hvis du kan (alle trumfer tæller som én kulør); ellers spil et vilkårligt kort. Den højeste trumf vinder stikket, ellers det højeste kort i den udspillede kulør. Vinderen spiller ud til næste stik.
+# Meldinger
+- Før han spiller et kort, kan en spiller melde for sit hold: Re eller Kontra, så længe han har mindst 11 kort, ingen 90 (keine 90) med mindst 10, ingen 60 (keine 60) med mindst 9, ingen 30 (keine 30) med mindst 8, schwarz (sort: modparten får ingen stik) med mindst 7. Hver melding omfatter dem under den.
+- Når det andet hold har meldt, kan Re eller Kontra stadig siges som svar, ét kort senere end den meldings egen grænse.
+- Ved bryllup må intet meldes, før makkeren er fundet; grænserne flytter sig så med det antal stik, det tog.
+- Her melder en spiller i sin egen tur, mens han har enheden i hænderne.
+# Vundet eller tabt
+- Kortpoint: es 11, 10 10, konge 4, dame 3, knægt 2: 240 i alt.
+- Re vinder med 121 point, Kontra med 120. Er kun Kontra meldt, vinder Re med 120, og Kontra skal have 121.
+- Et hold, der har meldt ingen 90 (ingen 60, ingen 30, schwarz), skal holde det andet hold under 90 (60, 30, uden stik), ellers vinder det andet hold. Klarer ingen af holdene sådanne meldinger, vinder ingen.
+# Spillets værdi
+- Vundet: 1. Taberne under 90, under 60, under 30 og uden stik (schwarz): 1 hver.
+- Re meldt: 2. Kontra meldt: 2. Hver meldt ingen 90, ingen 60, ingen 30 og schwarz: 1.
+- 120 nået mod det andet holds ingen 90, 90 mod ingen 60, 60 mod ingen 30, 30 mod schwarz: 1 hver.
+- Ekstrapoint (Sonderpunkte), kun i det normale spil og ved bryllup, til det hold, der tager dem: en fanget ræv (Fuchs: modstandernes ruder es i et stik, du tager), en Doppelkopf (et stik på 40 point eller mere), Karlchen (lille Karl: sidste stik vundet med klør knægt) og mod de gamle (gegen die Alten: Kontra vinder): 1 hver. De to holds ekstrapoint modregnes.
+# Pointene
+- Normalt spil: hver Re-spiller får spillets værdi, hvis Re vandt (i minus, hvis Kontra vandt), plus Re-holdets ekstrapoint, minus Kontra-holdets; hver Kontra-spiller får det modsatte.
+- Solo: solisten får tre gange så meget, hver modspiller én gang.
+- Her er der ingen tvungne soloer.
+# Spillets afslutning
+Efter listens sidste giv vinder den højeste sum. Ved lige sum deles sejren.
+# Spil på enheden
+Giv enheden til spilleren, hvis brik lyser; han trykker på start og ser sin hånd. For at sige rask trykker du på pas. For et forbehold trykker du på et spil og så på fluebenet (eller på samme spil igen): en kulørsolo (kulørens tegn), damesolo (en dame), knægtesolo (en løber, knægtens figur), kødløs (fire esser) eller bryllup (to klør damer, kun når du har begge). Hver plads viser spillerens ord: pastegnet for rask, en lampe for et forbehold. Under spillet viser hver plads, hvad bordet ved: klør dame for Re, overstreget for Kontra, i gyldent lys, når det er meldt; dit eget hold vises altid ved din plads. Solistens plads viser soloen, brudens plads brylluppet, indtil hendes makker er fundet; ingen 90, ingen 60, ingen 30 og schwarz vises som 90, 60, 30 og 0 i en mørk skive. Når du må melde, viser knappen over for stikbunken din næste melding: tryk på den, før du spiller dit kort. For at spille trykker du på et kort, der lyser, så det løfter sig, og trykker på det igen eller på dets plads i midten; eller træk det derhen. Tryk på bunken nederst til højre for at se det sidste stik. Efter hvert giv viser en tavle hvert hold med dets kortpoint, dets meldinger, dets ekstrapoint (ruder es: en ræv; 40: en Doppelkopf; klør knægt: Karlchen; den overstregede dame: mod de gamle) og et guldflueben for vinderne; så spillets værdi, saldoen af ekstrapoint og hver Re-spillers point (gange 3 for en solist); hver spillers point og sum; og listen over givene, med vindernes brikker i gyldent lys. Tryk på den for næste giv. Hver bjælke viser kortene på hånden og summen. Fortryd tager et valg tilbage, der endnu ikke er bekræftet, aldrig et, når enheden er givet videre.

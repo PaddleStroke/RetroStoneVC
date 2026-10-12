@@ -1,0 +1,36 @@
+Schafkopf
+# Målet
+Bayerns stora kortspel för fyra. I varje giv spelar den som vinner budgivningen ett spel mot de andra, med en partner som han kallar på eller ensam; spelet betalas i poäng enligt taxan. Ett parti är en lista på 12 giv; högsta summan i slutet vinner. Reglerna är de bayerska. För 4 spelare som skickar enheten runt; ingen ser de andras kort.
+# Korten
+Leken har 32 kort, 7 till ess. Schafkopf spelas med tyska färger; här har korten franska, som också används mycket till spelet: klöver för ekollon (Eichel), spader för löv (Gras), hjärter för hjärter (Herz), ruter för bjällror (Schellen). Damerna är Ober, knektarna Unter, essen Sau (sugga). Tyska färger kommer kanske senare.
+# Utdelningen
+Varje spelare får 8 kort. Jade ger först; sedan flyttar givaren en plats framåt för varje giv. Spelaren efter givaren talar först och spelar ut till första sticket.
+# Budgivningen
+- I tur och ordning passar varje spelare (weiter) eller säger att han vill spela, och väljer sitt spel i hemlighet: ett Rufspiel, en Wenz eller ett Solo.
+- Rufspiel (kallspel): han kallar på esset (Sau) i en färg (klöver, spader eller ruter, aldrig hjärter) som han har ett kort i, men inte själva esset. Den som har det är hans partner, okänd tills esset spelas.
+- Wenz och Solo: han spelar ensam mot de tre andra.
+- Det högsta spelet spelas: Solo, sedan Wenz, sedan Rufspiel; mellan lika spel den som talade först. Om alla passar kastas korten in, eller, om Ramsch är valt, spelas det Ramsch.
+# Trumfen
+- Rufspiel: de fyra Ober (klöver, spader, hjärter, ruter) är de högsta trumferna, sedan de fyra Unter i samma ordning, sedan hjärtrarna: ess, 10, kung, 9, 8, 7. 14 trumfer.
+- Solo: likadant, med den valda färgen i stället för hjärter.
+- Wenz: bara de fyra Unter är trumf.
+- De andra färgerna går ess, 10, kung, (Ober), (Unter), 9, 8, 7.
+# Spelet
+- Bekänn färg om du kan (alla trumfer räknas som en färg); annars spela valfritt kort. Högsta trumfen tar sticket, annars det högsta kortet i utspelad färg. Vinnaren spelar ut till nästa stick.
+- Det kallade esset: när dess färg spelas ut för första gången måste den som har esset lägga det. Fram till dess får han inte kasta esset på en annan färg, och han får bara spela ut den färgen med esset, om han inte har fyra eller fler kort i den: då får han springa ifrån (davonlaufen) med ett annat kort. I sista sticket är allt tillåtet.
+# Vunnet eller förlorat
+- Kortpoäng: ess 11, 10 10, kung 4, Ober 3, Unter 2: 120 totalt.
+- Spelaren och hans partner (eller solisten) vinner med 61 poäng eller mer.
+- Schneider: den förlorande sidan har 30 poäng eller mindre. Schwarz: den förlorande sidan tog inget stick.
+# Taxan
+- Rufspiel 10 poäng; Solo och Wenz 50.
+- Schneider 10 till, schwarz 10 till.
+- Laufende: den obrutna raden av högsta trumfer från klöver Ober och nedåt (i Wenz från klöver Unter) som en sida har, den spelande sidan eller den andra: 10 vardera, från 3 och uppåt (i Wenz från 2).
+- Rufspiel: varje vinnare får värdet, varje förlorare förlorar det. Solo och Wenz: solisten vinner eller förlorar tre gånger värdet, var och en av de andra en gång.
+- Spelas inte här: dubbling (Kontra, Re), Tout, Sie och andra husspel.
+# Ramsch
+När alla passar och Ramsch är valt spelar var och en för sig, med Rufspielets trumfer. Den som har flest kortpoäng betalar 10 till var och en av de andra; vid lika poäng betalar den som har flest stick, och är det också lika betalar var och en av dem. Den som tar alla stick (Durchmarsch, genommarsch) vinner 50 från var och en.
+# Partiets slut
+Efter den 12:e given vinner högsta summan. Vid lika summa delar spelarna segern.
+# Spela på enheten
+Ge enheten till spelaren vars bricka lyser; han trycker på start och ser sin hand. För att bjuda trycker du på ett spel och sedan på bocken (eller på samma spel igen): ett av de tre essen för ett Rufspiel (grått när du inte får kalla på det), löparen (Unterns figur) för en Wenz, eller en färgs tecken för det Solot; för att passa trycker du på pass. Varje plats visar spelarens ord: passtecknet, eller en bock för en spelare som vill spela. Under spelet visar spelarens plats hans spel: det kallade esset, Wenz eller Solots färg; partnerns plats visar också esset när det har spelats. För att spela trycker du på ett kort som lyser så att det lyfts, och trycker på det igen eller på dess plats i mitten; eller dra dit det. Tryck på högen längst ner till höger för att se det senaste sticket. Efter varje giv visar en tavla den spelande sidan med dess spel och kortpoäng (en guldbock: vunnet), 90 för schneider och 120 för schwarz; klöver Ober (i en Wenz klöver Unter) med de räknade Laufende, taxan (gånger 3 för en solist) och värdet; i en Ramsch varje spelares kortpoäng, de som betalar i rött. Sedan varje spelares poäng och summa, och listan över given, med spelarnas brickor i guld när de vann. Tryck på den för nästa giv. Varje list visar korten på handen och summan. Ångra tar tillbaka ett val som inte är bekräftat än, aldrig ett när enheten har skickats vidare.

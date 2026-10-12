@@ -1,0 +1,46 @@
+Doppelkopf
+# Målet
+Tysklands mest älskade kortspel för fyra, spelat med dubbel kortlek. I varje giv spelar de två spelarna med klöver damerna, Re-laget, mot de andra två, Kontra-laget; men i början vet ingen vem som hör ihop med vem. Ett parti är en lista på 12 eller 24 giv, efter val; högsta summan i slutet vinner. Reglerna är turneringsreglerna från det tyska Doppelkopfförbundet (DDV). Korten har franska färger, så som Doppelkopf ofta spelas; tyska färger (ekollon, löv, hjärter, bjällror) kommer kanske senare. För 4 spelare som skickar enheten runt; ingen ser de andras kort.
+# Utdelningen
+Leken har 48 kort: 9, 10, knekt, dam, kung och ess i varje färg, varje kort två gånger. Varje spelare får 12 kort. Jade ger först; sedan flyttar givaren en plats framåt för varje giv. Spelaren efter givaren talar först och spelar ut till första sticket.
+# Förbehåll
+- Före första kortet säger varje spelare i tur och ordning frisk (gesund) eller att han har ett förbehåll (Vorbehalt). Vad han vill spela förblir hemligt: ett solo eller ett bröllop.
+- En spelare som har båda klöver damerna får ropa ut bröllop (Hochzeit). Det är hans val: han får också tiga och spela ett tyst solo mot de tre andra.
+- Det första solot i turordningen spelas; annars bröllopet; annars det vanliga spelet.
+# Trumfen
+- I det vanliga spelet är hjärter tia (Dulle) den högsta trumfen. Sedan kommer damerna och knektarna, var för sig i ordningen klöver, spader, hjärter, ruter, och sedan ruter ess, ruter tia, ruter kung och ruter nia: 26 trumfer.
+- De andra färgerna går ess, 10, kung, 9; hjärter har bara ess, kung och 9.
+- Av två likadana kort i ett stick vinner det som spelades först.
+# Lagen
+- De som har klöver dam (die Alten, de gamla) är Re, de andra Kontra. Varje spelare känner sitt eget lag, inte de andras. Ett lag avslöjas när en klöver dam spelas eller när någon ropar ut.
+- Bröllop: den första andra spelaren som tar ett av de tre första sticken blir brudens partner. Tar bruden alla tre spelar hon ensam, som solo.
+# Solospel
+En spelare, solisten (Re), spelar mot de tre andra (Kontra).
+- Damsolo: bara de åtta damerna är trumf.
+- Knektsolo: bara de åtta knektarna är trumf.
+- Färgsolo: trumfen från det vanliga spelet, med den valda färgen i stället för ruter.
+- Köttlöst (Fleischlos): ingen trumf; varje färg går ess, 10, kung, dam, knekt, 9.
+# Spelet
+Bekänn färg om du kan (alla trumfer räknas som en färg); annars spela valfritt kort. Högsta trumfen tar sticket, annars det högsta kortet i utspelad färg. Vinnaren spelar ut till nästa stick.
+# Utrop
+- Innan han spelar ett kort får en spelare ropa ut för sitt lag: Re eller Kontra så länge han har minst 11 kort, ingen 90 (keine 90) med minst 10, ingen 60 (keine 60) med minst 9, ingen 30 (keine 30) med minst 8, schwarz (svart: motståndarna får inget stick) med minst 7. Varje utrop innefattar dem under det.
+- När det andra laget har ropat ut får Re eller Kontra ändå sägas som svar, ett kort senare än gränsen för just det utropet.
+- Vid bröllop får inget ropas ut innan partnern är hittad; gränserna flyttas då med så många stick som det tog.
+- Här ropar en spelare ut på sin egen tur, medan han har enheten i händerna.
+# Vunnet eller förlorat
+- Kortpoäng: ess 11, 10 10, kung 4, dam 3, knekt 2: 240 totalt.
+- Re vinner med 121 poäng, Kontra med 120. Om bara Kontra har ropats ut vinner Re med 120, och Kontra behöver 121.
+- Ett lag som har ropat ut ingen 90 (ingen 60, ingen 30, schwarz) måste hålla det andra laget under 90 (60, 30, utan stick), annars vinner det andra laget. Klarar inget av lagen sådana utrop vinner ingen.
+# Spelets värde
+- Vunnet: 1. Förlorarna under 90, under 60, under 30 och utan stick (schwarz): 1 vardera.
+- Re utropat: 2. Kontra utropat: 2. Varje utropat ingen 90, ingen 60, ingen 30 och schwarz: 1.
+- 120 nått mot det andra lagets ingen 90, 90 mot ingen 60, 60 mot ingen 30, 30 mot schwarz: 1 vardera.
+- Extrapoäng (Sonderpunkte), bara i det vanliga spelet och vid bröllop, till laget som tar dem: en fångad räv (Fuchs: motståndarnas ruter ess i ett stick du tar), en Doppelkopf (ett stick på 40 poäng eller mer), Karlchen (lille Karl: sista sticket vunnet med klöver knekt) och mot de gamla (gegen die Alten: Kontra vinner): 1 vardera. De två lagens extrapoäng tar ut varandra.
+# Poängen
+- Vanligt spel: varje Re-spelare får spelets värde om Re vann (i minus om Kontra vann), plus Re-lagets extrapoäng, minus Kontra-lagets; varje Kontra-spelare får det motsatta.
+- Solo: solisten får tre gånger så mycket, varje motspelare en gång.
+- Det finns inga tvingande solon här.
+# Partiets slut
+Efter listans sista giv vinner högsta summan. Vid lika summa delar spelarna segern.
+# Spela på enheten
+Ge enheten till spelaren vars bricka lyser; han trycker på start och ser sin hand. För att säga frisk trycker du på pass. För ett förbehåll trycker du på ett spel och sedan på bocken (eller på samma spel igen): ett färgsolo (färgens tecken), damsolo (en dam), knektsolo (en löpare, knektens figur), köttlöst (fyra ess) eller bröllop (två klöver damer, bara när du har båda). Varje plats visar spelarens ord: passtecknet för frisk, en lampa för ett förbehåll. Under spelet visar varje plats vad bordet vet: klöver dam för Re, överstruken för Kontra, i guldljus när det är utropat; ditt eget lag visas alltid vid din plats. Solistens plats visar solot, brudens plats bröllopet tills hennes partner är hittad; ingen 90, ingen 60, ingen 30 och schwarz visas som 90, 60, 30 och 0 i en mörk skiva. När du får ropa ut visar knappen mittemot stickhögen ditt nästa utrop: tryck på den innan du spelar ditt kort. För att spela trycker du på ett kort som lyser så att det lyfts, och trycker på det igen eller på dess plats i mitten; eller dra dit det. Tryck på högen längst ner till höger för att se det senaste sticket. Efter varje giv visar en tavla varje lag med dess kortpoäng, dess utrop, dess extrapoäng (ruter ess: en räv; 40: en Doppelkopf; klöver knekt: Karlchen; den överstrukna damen: mot de gamla) och en guldbock för vinnarna; sedan spelets värde, saldot av extrapoäng och varje Re-spelares poäng (gånger 3 för en solist); varje spelares poäng och summa; och listan över given, med vinnarnas brickor i guldljus. Tryck på den för nästa giv. Varje list visar korten på handen och summan. Ångra tar tillbaka ett val som inte är bekräftat än, aldrig ett när enheten har skickats vidare.

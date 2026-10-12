@@ -1,0 +1,36 @@
+Schafkopf
+# Het doel
+Het grote kaartspel van Beieren, voor vier. In elk spel speelt wie het bieden wint een spel, met een partner die hij roept of alleen, tegen de anderen; het spel wordt in punten betaald volgens het tarief. Een partij is een lijst van 12 spellen; wie aan het eind het hoogste totaal heeft, wint. De regels zijn de Beierse. Voor 4 spelers die het apparaat doorgeven; niemand ziet de kaarten van de anderen.
+# De kaarten
+Er wordt gespeeld met 32 kaarten, van 7 tot aas. Schafkopf wordt gespeeld met Duitse kleuren; hier hebben de kaarten Franse kleuren, die er ook veel voor gebruikt worden: klaveren voor eikels (Eichel), schoppen voor bladeren (Gras), harten voor harten (Herz), ruiten voor bellen (Schellen). De vrouwen zijn de Obers, de boeren de Unters, de azen de Sau (zeug). Duitse kleuren komen misschien later.
+# Het delen
+Elke speler krijgt 8 kaarten. Jade geeft eerst; daarna schuift de gever elk spel een plaats op. De speler na de gever spreekt als eerste en komt uit in de eerste slag.
+# Bieden
+- Om de beurt past elke speler (weiter, verder) of zegt dat hij zou willen spelen, en kiest zijn spel in het geheim: een Rufspiel, een Wenz of een Solo.
+- Rufspiel (roepspel): hij roept de aas (Sau) van een kleur (klaveren, schoppen of ruiten, nooit harten) waarvan hij een kaart heeft, maar niet die aas zelf. Wie die aas heeft, is zijn partner, onbekend tot de aas gespeeld wordt.
+- Wenz en Solo: hij speelt alleen tegen de drie anderen.
+- Het hoogste spel wordt gespeeld: Solo, dan Wenz, dan Rufspiel; bij gelijke spellen wie het eerst spreekt. Past iedereen, dan worden de kaarten ingegooid, of wordt er, als Ramsch gekozen is, een Ramsch gespeeld.
+# Troeven
+- Rufspiel: de vier Obers (klaveren, schoppen, harten, ruiten) zijn de hoogste troeven, dan de vier Unters in dezelfde volgorde, dan de harten: aas, 10, heer, 9, 8, 7. 14 troeven.
+- Solo: hetzelfde, met de gekozen kleur in plaats van harten.
+- Wenz: alleen de vier Unters zijn troef.
+- De andere kleuren lopen aas, 10, heer, (Ober), (Unter), 9, 8, 7.
+# Het spel
+- Beken kleur als je kunt (alle troeven tellen als één kleur); anders speel je een willekeurige kaart. De hoogste troef wint de slag, anders de hoogste kaart van de gevraagde kleur. De winnaar komt uit in de volgende slag.
+- De geroepen aas: wordt zijn kleur voor het eerst gevraagd, dan moet de houder de aas spelen. Tot dan mag hij de aas niet afgooien op een andere kleur, en mag hij met die kleur alleen uitkomen met de aas, tenzij hij er vier of meer kaarten van heeft: dan mag hij weglopen (davonlaufen) met een andere. In de laatste slag mag alles.
+# Winnen of verliezen
+- Kaartpunten: aas 11, 10 10, heer 4, Ober 3, Unter 2: samen 120.
+- De speler en zijn partner (of de solist) winnen met 61 punten of meer.
+- Schneider: de verliezende kant heeft 30 punten of minder. Schwarz: de verliezende kant haalde geen slag.
+# Het tarief
+- Rufspiel 10 punten; Solo en Wenz 50.
+- Schneider 10 meer, schwarz 10 meer.
+- Laufende (lopers): de ononderbroken reeks hoogste troeven vanaf klaveren-Ober omlaag (in de Wenz vanaf klaveren-Unter) die één kant heeft, de spelende kant of de andere: elk 10, vanaf 3 (in de Wenz vanaf 2).
+- Rufspiel: elke winnaar krijgt de waarde, elke verliezer verliest haar. Solo en Wenz: de solist wint of verliest drie keer de waarde, elke andere speler één keer.
+- Hier niet gespeeld: verdubbelen (Kontra, Re), Tout, Sie en andere huisspellen.
+# Ramsch
+Past iedereen en is Ramsch gekozen, dan speelt ieder voor zich, met de troeven van het Rufspiel. Wie de meeste kaartpunten heeft, betaalt elk van de anderen 10; bij gelijke punten betaalt wie meer slagen heeft, en is dat ook gelijk, dan betaalt ieder van hen. Wie alle slagen haalt (Durchmarsch, doormars), wint 50 van elke speler.
+# Het einde van de partij
+Na het 12e spel wint het hoogste totaal. Bij een gelijk totaal delen de spelers de winst.
+# Spelen op het apparaat
+Geef het apparaat aan de speler wiens fiche oplicht; die tikt op start en ziet zijn hand. Om te bieden tik je een spel aan en dan het vinkje (of nog eens hetzelfde spel): een van de drie azen voor een Rufspiel (grijs als je die niet mag roepen), de loper (de figuur van de Unter) voor een Wenz, of het teken van een kleur voor die Solo; om te passen tik je op pas. Elke plaats toont het woord van zijn speler: het pasteken, of een vinkje voor een speler die zou willen spelen. Tijdens het spel toont de plaats van de speler zijn spel: de geroepen aas, de Wenz of de kleur van de Solo; de plaats van de partner toont de aas ook, zodra die gespeeld is. Om te spelen tik je een oplichtende kaart aan zodat hij omhoog komt, en tik je hem nog eens of zijn plek in het midden aan; of sleep hem erheen. Tik op het stapeltje rechtsonder om de laatste slag te zien. Na elk spel toont een tabel de spelende kant met zijn spel en kaartpunten (een gouden vinkje: gewonnen), 90 voor schneider en 120 voor schwarz; de klaveren-Ober (in een Wenz de klaveren-Unter) met de getelde Laufende, het tarief (maal 3 voor een solist) en de waarde; bij een Ramsch de kaartpunten van elke speler, de betalers in rood. Dan de score en het totaal van elke speler, en de lijst van de spellen, met de fiches van de spelers in goud als ze gewonnen hebben. Tik erop voor het volgende spel. Elke balk toont de kaarten in de hand en het totaal. Ongedaan maken neemt een nog niet bevestigde keuze terug, nooit een keuze als het apparaat al doorgegeven is.

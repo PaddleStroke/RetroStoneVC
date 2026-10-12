@@ -1,0 +1,32 @@
+Klaverjas
+# Cíl hry
+Nejoblíbenější karetní hra Nizozemska: dvě dvojice spoluhráčů, kteří sedí naproti sobě, slonovinový a červený proti ebenovému a nefritovému. V každém rozdání jedna dvojice zvolí trumfy a pak musí uhrát víc než polovinu všech bodů. Partie má 16 rozdání; vyhrává vyšší součet na konci. Hraje se podle rotterdamských pravidel (Rotterdams): nemůžeš-li přiznat barvu, musíš vždy trumfovat. Pro 4 hráče, kteří si podávají zařízení; nikdo nevidí karty ostatních.
+# Rozdání
+Balíček má 32 karet, od sedmičky po eso, ve francouzských barvách. Každý hráč dostane 8 karet. První rozdává nefritový hráč; pak se rozdávající každé rozdání posune o jedno místo. Hráč po rozdávajícím (voorhand, „forhont“) mluví první a vždy vynáší do prvního štychu.
+# Trumfy
+- Počínaje hráčem voorhand a dál kolem stolu každý hráč postupně určí trumfovou barvu, nebo pasuje. Kdo ji určí první, hraje: jeho dvojice musí hru uhrát.
+- Pasují-li všichni čtyři, musí voorhand barvu určit (verplicht, „povinně“).
+# Pořadí karet
+- Trumfy: kluk 20, devítka 14, eso 11, desítka 10, král 4, dáma 3, osmička, sedmička.
+- Ostatní barvy: eso 11, desítka 10, král 4, dáma 3, kluk 2, devítka, osmička, sedmička.
+- Poslední štych má o 10 bodů víc: celkem 162 bodů.
+# Hra
+- Přiznej barvu, pokud můžeš.
+- Pokud nemůžeš, musíš trumfovat, i když štych vyhrává tvůj spoluhráč, a přebít nejvyšší trumf, který už ve štychu je, pokud to jde.
+- Nemůžeš-li ho přebít, zahraj kartu jiné barvy; podtrumfovat smíš, jen když nemáš nic jiného než nižší trumfy.
+- Když se vynášejí trumfy, zahraj vyšší trumf, než je nejlepší ve štychu, pokud můžeš.
+- Štych bere nejvyšší trumf, jinak nejvyšší karta vynesené barvy. Vítěz vynáší do dalšího štychu.
+# Roem
+Roem (prémiové body) se počítá v každém štychu tak, jak leží, pro dvojici, která ho vezme:
+- tři karty v postupce v jedné barvě 20, čtyři 50 (pořadí 7, 8, 9, 10, kluk, dáma, král, eso);
+- trumfový král a dáma (stuk, „kus“) 20, i spolu s postupkou;
+- čtyři esa, krále, dámy nebo desítky 100; čtyři kluci 200.
+- Pit: dvojice, která vezme všech osm štychů, dostane o 100 roem víc.
+# Počítání bodů
+- Hrající dvojice musí uhrát víc než polovinu všech bodů: oka obou dvojic a roem dohromady.
+- Pokud se jí to podaří, každá dvojice si zapíše svá oka a svůj roem.
+- Pokud ne, je nat („mokrá“): druhá dvojice si zapíše všechno, 162 a veškerý roem.
+# Konec hry
+Po 16. rozdání vyhrává vyšší součet. Při rovnosti se hráči o vítězství dělí.
+# Hra na zařízení
+Podej zařízení hráči, jehož kámen svítí; ten klepne na start a uvidí svou ruku. Při určení trumfů klepni na barvu, pak na fajfku (nebo znovu na tutéž barvu); chceš-li pasovat, klepni na pas. Když všichni čtyři pasovali, nemá voorhand tlačítko Pas. Každé místo ukazuje svůj pas; pak hráč, který určil trumfy, ukazuje svou barvu. Roem vystoupá v bodech od místa hráče, který ho vezme. Pro zahrání klepni na svítící kartu, aby se zvedla, a klepni na ni znovu nebo na její místo uprostřed; nebo ji tam přetáhni. Klepnutím na hromádku vpravo dole uvidíš poslední štych. Po každém rozdání ukáže tabulka pro každou dvojici její oka (ve zlatém světle při pitu), její roem, skóre rozdání a součet; trumfy hrající dvojice jsou přeškrtnuté, když je nat. Pod ní řada 16 rozdání ukazuje žetony hrající dvojice, ve zlatém světle, když hru uhrála. Klepnutím na ni začne další rozdání. Každý pruh ukazuje karty v ruce a součet dvojice. Zpět vrátí ještě nepotvrzenou volbu, nikdy volbu učiněnou předtím, než se zařízení předalo.

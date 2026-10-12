@@ -1,0 +1,32 @@
+Klaverjas
+# Lo scopo
+Il gioco di carte preferito nei Paesi Bassi: due squadre di due compagni seduti uno di fronte all'altro, avorio e rosso contro ebano e giada. In ogni smazzata una squadra sceglie la briscola e deve poi fare più della metà di tutti i punti. Una partita ha 16 smazzate; alla fine vince il totale più alto. Le regole sono quelle di Rotterdam (Rotterdams): quando non puoi rispondere al seme devi sempre tagliare. Per 4 giocatori che si passano il dispositivo; nessuno vede le carte degli altri.
+# La distribuzione
+Il mazzo ha 32 carte, dal 7 all'asso, con semi francesi. Ogni giocatore riceve 8 carte. Il primo mazziere è il giada; poi il mazziere avanza di un posto a ogni smazzata. Il giocatore dopo il mazziere (voorhand, «di mano») parla per primo ed esce sempre nella prima presa.
+# Le briscole
+- A partire da voorhand e girando intorno al tavolo, ogni giocatore a turno nomina un seme di briscola o passa. Il primo che ne nomina uno gioca: la sua squadra deve realizzare il gioco.
+- Se passano tutti e quattro, voorhand deve nominare un seme (verplicht, «obbligato»).
+# L'ordine delle carte
+- Briscole: fante 20, nove 14, asso 11, dieci 10, re 4, donna 3, otto, sette.
+- Gli altri semi: asso 11, dieci 10, re 4, donna 3, fante 2, nove, otto, sette.
+- L'ultima presa vale 10 in più: 162 punti in tutto.
+# Il gioco
+- Rispondi al seme d'uscita se puoi.
+- Se non puoi, devi tagliare con una briscola, anche quando la presa è del tuo compagno, e superare la briscola più alta già nella presa se puoi.
+- Se non puoi superarla, gioca una carta di un altro seme; puoi tagliare con una briscola più bassa solo quando non hai altro che briscole più basse.
+- Quando si esce in briscola, gioca una briscola più alta della migliore nella presa se puoi.
+- La briscola più alta vince la presa, altrimenti la carta più alta del seme d'uscita. Chi vince esce nella presa successiva.
+# Il roem
+Il roem (punti bonus) si conta in ogni presa così com'è sul tavolo, per la squadra che la vince:
+- tre carte in scala dello stesso seme 20, quattro 50 (l'ordine 7, 8, 9, 10, fante, donna, re, asso);
+- il re e la donna di briscola (stuk) 20, anche insieme a una scala;
+- quattro assi, re, donne o dieci 100; quattro fanti 200.
+- Pit (cappotto): una squadra che fa tutte e otto le prese riceve 100 di roem in più.
+# Il punteggio
+- La squadra che gioca deve fare più della metà di tutti i punti: i punti carta e il roem delle due squadre insieme.
+- Se ci riesce, ogni squadra segna i propri punti e il proprio roem.
+- Altrimenti è nat («bagnata»): l'altra squadra segna tutto, 162 e tutto il roem.
+# La fine della partita
+Dopo la 16ª smazzata vince il totale più alto. Chi è a pari totale divide la vittoria.
+# Giocare sul dispositivo
+Passa il dispositivo al giocatore di cui brilla la pedina; tocca il pulsante di avvio e vede la sua mano. Per nominare la briscola, tocca un seme, poi il segno di spunta (o di nuovo lo stesso seme); per passare, tocca passo. Quando tutti e quattro hanno passato, voorhand non ha il pulsante passo. Ogni posto mostra il suo passo; poi il giocatore che ha nominato la briscola mostra il suo seme. Il roem sale in punti dal posto del giocatore che lo prende. Per giocare, tocca una carta che brilla per sollevarla, poi toccala di nuovo o tocca il suo posto al centro; oppure trascinala lì. Tocca il mazzetto in basso a destra per rivedere l'ultima presa. Dopo ogni smazzata una tabella mostra per ogni squadra i punti carta (in luce dorata per un pit), il roem, il punteggio della smazzata e il totale; la briscola della squadra che gioca è barrata quando è nat. Sotto, la serie delle 16 smazzate mostra i gettoni della squadra che gioca, in luce dorata quando ha realizzato il gioco. Toccala per la smazzata successiva. Ogni barra mostra le carte in mano e il totale della squadra. Annulla ritira una scelta non ancora confermata, mai una volta passato il dispositivo.

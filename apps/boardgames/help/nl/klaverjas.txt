@@ -1,0 +1,32 @@
+Klaverjas
+# Het doel
+Het geliefdste kaartspel van Nederland: twee teams van twee partners die tegenover elkaar zitten, ivoor en rood tegen ebben en jade. In elk spel kiest één team troef en moet het dan meer dan de helft van alle punten halen. Een partij (een boom) telt 16 spellen; het hoogste totaal aan het eind wint. Er wordt Rotterdams gespeeld: wie geen kleur kan bekennen, moet altijd troeven. Voor 4 spelers die het apparaat doorgeven; niemand ziet de kaarten van de anderen.
+# Het delen
+Er wordt gespeeld met 32 kaarten, van 7 tot aas, in Franse kleuren. Elke speler krijgt 8 kaarten. Jade geeft eerst; daarna schuift de gever elk spel een plaats op. De speler na de gever (voorhand) spreekt als eerste en komt altijd uit in de eerste slag.
+# Troeven
+- Vanaf voorhand noemt om de beurt elke speler een troefkleur of past. Wie als eerste een kleur noemt, speelt: zijn team moet het spel halen.
+- Passen alle vier, dan moet voorhand een kleur kiezen (verplicht).
+# De rangorde van de kaarten
+- Troef: boer (jas) 20, negen (nel) 14, aas 11, tien 10, heer 4, vrouw 3, acht, zeven.
+- De andere kleuren: aas 11, tien 10, heer 4, vrouw 3, boer 2, negen, acht, zeven.
+- De laatste slag is 10 punten extra waard: samen 162 punten.
+# Het spel
+- Beken kleur als je kunt.
+- Kun je dat niet, dan moet je troeven, ook als je maat de slag heeft, en over de hoogste troef in de slag heen gaan als je kunt.
+- Kun je niet overtroeven, speel dan een kaart van een andere kleur; ondertroeven mag alleen als je niets anders hebt dan lagere troeven.
+- Wordt er troef gevraagd, speel dan een hogere troef dan de beste in de slag als je kunt.
+- De hoogste troef wint de slag, anders de hoogste kaart van de gevraagde kleur. De winnaar komt uit in de volgende slag.
+# Roem
+Roem (bonuspunten) wordt in elke slag geteld zoals hij ligt, voor het team dat de slag haalt:
+- drie opeenvolgende kaarten van één kleur 20, vier 50 (de volgorde 7 8 9 10 B V H A);
+- heer en vrouw van troef (stuk) 20, ook samen met een reeks;
+- vier azen, heren, vrouwen of tienen 100; vier boeren 200.
+- Pit: een team dat alle acht slagen haalt, krijgt 100 roem extra.
+# De telling
+- Het spelende team moet meer dan de helft van alle punten halen: de kaartpunten en de roem van beide teams samen.
+- Lukt dat, dan schrijft elk team zijn eigen punten en roem.
+- Zo niet, dan gaat het nat: het andere team krijgt alles, 162 en alle roem.
+# Het einde van de partij
+Na het 16e spel wint het hoogste totaal. Bij een gelijk totaal delen de teams de winst.
+# Spelen op het apparaat
+Geef het apparaat aan de speler wiens fiche oplicht; die tikt op start en ziet zijn hand. Om troef te maken tik je op een kleur en dan op het vinkje (of nog eens op dezelfde kleur); om te passen tik je op pas. Hebben alle vier gepast, dan heeft voorhand geen pasknop. Elke plaats toont zijn pas; daarna toont de plaats van wie troef maakte zijn kleur. Roem stijgt als punten op vanaf de plaats van de speler die de slag haalt. Om te spelen tik je een oplichtende kaart aan zodat hij omhoog komt, en tik je hem nog eens of zijn plek in het midden aan; of sleep hem erheen. Tik op het stapeltje rechtsonder om de laatste slag te zien. Na elk spel toont een tabel voor elk team de kaartpunten (in goudlicht bij pit), de roem, de score van het spel en het totaal; de troef van het spelende team is doorgestreept als het nat gaat. Daaronder toont de lijst van de 16 spellen de fiches van het spelende team, in goudlicht als het het spel haalde. Tik erop voor het volgende spel. Elke balk toont de kaarten in de hand en het totaal van het team. Ongedaan maken neemt een nog niet bevestigde keuze terug, nooit een keuze als het apparaat al doorgegeven is.

@@ -1,0 +1,36 @@
+Schafkopf
+# Cíl hry
+Velká bavorská karetní hra pro čtyři. V každém rozdání hraje hráč, který vyhraje dražbu, svou hru proti ostatním, buď se spoluhráčem, kterého si zavolá, nebo sám; hra se platí body podle sazebníku. Partie je řada 12 rozdání; vyhrává nejvyšší součet na konci. Hraje se podle bavorských pravidel. Pro 4 hráče, kteří si podávají zařízení; nikdo nevidí karty ostatních.
+# Karty
+Balíček má 32 karet, od sedmičky po eso. Schafkopf se hraje s německými barvami; zde mají karty francouzské, které se k němu také hojně používají: kříže za žaludy (Eichel), piky za listy (Gras), srdce za srdce (Herz), káry za kule (Schellen). Dámy jsou Obeři (svršci), kluci Unteři (spodci), esa Sau („svině“). Německé barvy mohou přijít později.
+# Rozdání
+Každý hráč dostane 8 karet. První rozdává nefritový hráč; pak se rozdávající každé rozdání posune o jedno místo. Hráč po rozdávajícím mluví první a vynáší do prvního štychu.
+# Dražba
+- Každý hráč postupně pasuje (weiter, „dál“), nebo řekne, že by hrál, a tajně zvolí svou hru: Rufspiel, Wenz, nebo Solo.
+- Rufspiel („volaná hra“): zavolá eso (Sau) barvy (kříže, piky nebo káry, nikdy srdce), z níž drží nějakou kartu, ale ne to eso. Kdo eso drží, je jeho spoluhráč, neznámý, dokud eso nepadne.
+- Wenz a Solo: hraje sám proti třem ostatním.
+- Hraje se nejvyšší hra: Solo, pak Wenz, pak Rufspiel; mezi stejnými hrami ten, kdo mluvil dřív. Pasují-li všichni, karty se zahodí, nebo, je-li zvolen Ramsch, hraje se Ramsch.
+# Trumfy
+- Rufspiel: nejvyššími trumfy jsou čtyři Obeři (kříže, piky, srdce, káry), pak čtyři Unteři ve stejném pořadí, pak srdce: eso, 10, král, 9, 8, 7. 14 trumfů.
+- Solo: totéž, se zvolenou barvou místo srdcí.
+- Wenz: trumfy jsou jen čtyři Unteři.
+- Ostatní barvy jdou v pořadí eso, 10, král, (Ober), (Unter), 9, 8, 7.
+# Hra
+- Přiznej barvu, pokud můžeš (všechny trumfy se počítají jako jedna barva); jinak zahraj libovolnou kartu. Štych bere nejvyšší trumf, jinak nejvyšší karta vynesené barvy. Vítěz vynáší do dalšího štychu.
+- Volané eso: když se jeho barva poprvé vynese, musí jeho držitel zahrát eso. Do té doby ho nesmí odhodit na jinou barvu a tu barvu smí vynést jen esem, ledaže z ní drží čtyři karty nebo víc: pak smí utéct (davonlaufen) s jinou kartou. V posledním štychu je dovoleno všechno.
+# Výhra
+- Oka: eso 11, 10 10, král 4, Ober 3, Unter 2: celkem 120.
+- Hráč a jeho spoluhráč (nebo sólista) vyhrávají s 61 oky a víc.
+- Schneider („krejčí“): poražená strana má 30 ok nebo méně. Schwarz („černá“): poražená strana neudělala žádný štych.
+# Sazebník
+- Rufspiel 10 bodů; Solo a Wenz 50.
+- Schneider o 10 víc, schwarz o dalších 10 víc.
+- Laufende („běžci“): nepřerušená řada nejvyšších trumfů od křížového Obera dolů (ve Wenzu od křížového Untera), kterou drží jedna strana, hrající, nebo ta druhá: po 10, od 3 výš (ve Wenzu od 2).
+- Rufspiel: každý vítěz získá hodnotu, každý poražený ji ztratí. Solo a Wenz: sólista získá nebo ztratí trojnásobek hodnoty, každý další hráč jednou.
+- Zde se nehraje: zdvojování (Kontra, Re), Tout, Sie a další domácí hry.
+# Ramsch
+Když všichni pasují a byl zvolen Ramsch, hraje každý sám za sebe, s trumfy Rufspielu. Hráč s nejvíce oky zaplatí 10 každému z ostatních; při stejném počtu ok platí ten s více štychy, a je-li i to stejné, platí každý z nich. Kdo udělá všechny štychy (Durchmarsch, „průchod“), získá 50 od každého.
+# Konec hry
+Po 12. rozdání vyhrává nejvyšší součet. Při rovnosti se hráči o vítězství dělí.
+# Hra na zařízení
+Podej zařízení hráči, jehož kámen svítí; ten klepne na start a uvidí svou ruku. Při dražbě klepni na hru, pak na fajfku (nebo znovu na tutéž hru): jedno ze tří es pro Rufspiel (šedé, když ho volat nesmíš), střelce (postava Untera) pro Wenz, nebo znak barvy pro Solo v té barvě; chceš-li pasovat, klepni na pas. U každého místa je vidět jeho slovo: znak pasu, nebo fajfka u hráče, který by hrál. Během hry ukazuje místo hrajícího jeho hru: volané eso, Wenz, nebo barvu Sola; místo spoluhráče ukazuje eso také, jakmile padne. Pro zahrání klepni na svítící kartu, aby se zvedla, a klepni na ni znovu nebo na její místo uprostřed; nebo ji tam přetáhni. Klepnutím na hromádku vpravo dole uvidíš poslední štych. Po každém rozdání ukáže tabulka hrající stranu s její hrou a oky (zlatá fajfka: vyhráno), 90 za schneider a 120 za schwarz; křížového Obera (ve Wenzu křížového Untera) se započtenými Laufende, sazbu (krát 3 u sólisty) a hodnotu; v Ramschi oka každého hráče, plátce červeně. Pak skóre a součet každého hráče a řadu rozdání, se žetony hráčů zlatě, když vyhráli. Klepnutím na ni začne další rozdání. Každý pruh ukazuje karty v ruce a součet. Zpět vrátí ještě nepotvrzenou volbu, nikdy volbu učiněnou předtím, než se zařízení předalo.

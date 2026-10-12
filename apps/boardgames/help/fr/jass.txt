@@ -1,0 +1,31 @@
+Jass
+# Le but
+Le Schieber (le chibre en Suisse romande), la façon préférée de jouer au Jass en Suisse : deux équipes de deux partenaires assis face à face, ivoire et rouge contre ébène et jade. Les deux équipes comptent les points qu'elles font ; la première équipe à 1000 points (ou 2500 dans la partie longue) gagne. Pour 4 joueurs qui se passent l'appareil ; personne ne voit les cartes des autres.
+# Les cartes
+Le jeu compte 36 cartes, du 6 à l'as. En Suisse alémanique, on joue surtout au Jass avec des couleurs suisses (grelots, écus, roses, glands) ; ici les cartes ont des couleurs françaises, comme dans l'ouest du pays. Les couleurs suisses viendront peut-être plus tard.
+# La donne
+Chaque joueur reçoit 9 cartes. Jade donne en premier ; ensuite le donneur avance d'une place à chaque donne. Le joueur après le donneur choisit le jeu et entame le premier pli.
+# Choisir le jeu
+- Celui qui choisit nomme une couleur d'atout, ou Obenabe (sans atout, l'as est le plus fort) ou Undeufe (sans atout, le six est le plus fort).
+- Ou il passe la main (schieben, « chibrer ») : son partenaire doit alors choisir. Le premier pli est quand même entamé par celui qui a passé la main.
+# Les atouts
+- Le valet d'atout, le Puur (le bour), est la plus forte carte (20 points), puis le 9, le Nell (14), puis l'as 11, le roi 4, la dame 3, le 10 10, le 8, le 7, le 6.
+- Les autres couleurs se classent as 11, roi 4, dame 3, valet 2, 10 10, 9, 8, 7, 6.
+- Obenabe : chaque couleur se classe de l'as au six, et les 8 valent 8. Undeufe : chaque couleur se classe du six à l'as, les 6 valent 11, les 8 valent 8 et les as rien.
+- Le dernier pli vaut 5 de plus : 157 points en tout. Un match (les neuf plis) vaut 257.
+# Le jeu
+- Fournis la couleur demandée, ou joue un atout à la place. Si tu ne peux pas fournir, joue n'importe quelle carte.
+- Pas de sous-coupe : quand une autre couleur a été demandée, tu ne peux pas jouer un atout plus faible qu'un atout déjà dans le pli, sauf si tu n'as que des atouts.
+- Quand atout est demandé, tu dois fournir atout, mais tu n'es jamais obligé de jouer le Puur : si tu n'as pas d'autre atout, tu peux jouer n'importe quelle carte.
+- En Obenabe et en Undeufe, fournis simplement la couleur si tu peux.
+# Weis et Stöck
+- Les Weis (annonces) se déclarent avec ta première carte : trois cartes qui se suivent dans une couleur 20, quatre 50, cinq 100, six 150, sept 200, huit 250, neuf 300 ; quatre valets 200, quatre neuf 150, quatre as, rois, dames ou dix 100. L'ordre d'une suite est 6, 7, 8, 9, 10, valet, dame, roi, as.
+- Seule l'équipe qui a le meilleur Weis marque, avec tous les Weis de ses deux joueurs. Le meilleur est celui qui vaut le plus de points ; à égalité, un carré bat une suite, puis la plus haute carte l'emporte, puis une suite à l'atout, puis le joueur qui a joué en premier.
+- Stöck : le roi et la dame d'atout dans une même main valent 20, comptés quand le second des deux est joué.
+# Le score
+- Chaque équipe marque ses points de cartes, ses Weis et son Stöck.
+- La partie longue (en 2500) multiplie tout : carreau et cœur une fois, pique et trèfle deux fois, Obenabe et Undeufe trois fois.
+# La fin de la partie
+La première équipe à 1000 (2500) points gagne. Le Stöck compte dès qu'il est joué, puis les Weis après le premier pli, puis les plis à la fin de la donne ; la donne est toujours jouée jusqu'au bout. Si les deux équipes passent la barre avec les plis d'une même donne, le plus gros total gagne.
+# Jouer sur l'appareil
+Passe l'appareil au joueur dont la pièce brille ; il touche le bouton de départ et voit sa main. Pour choisir le jeu, touche le signe d'une couleur, la flèche vers le haut (Obenabe) ou la flèche vers le bas (Undeufe), puis la coche (ou le même choix une seconde fois) ; pour passer la main, touche le bouton passer. La place de celui qui choisit montre le jeu, celle de celui qui a passé la main le signe de passe. Au premier pli, quand ta main contient des Weis, un bouton à l'opposé du paquet des plis montre leurs points : touche-le avant de jouer ta carte pour les déclarer. Chaque place montre les Weis déclarés, puis seulement ceux de l'équipe qui les marque, en éclat doré ; le Stöck s'affiche comme le roi et la dame d'atout à la place du joueur qui l'a marqué. Pour jouer, touche une carte qui brille pour la lever, puis touche-la encore ou touche sa place au milieu ; ou fais-la glisser jusque-là. Touche le paquet en bas à droite pour revoir le dernier pli. Après chaque donne, un tableau montre pour chaque équipe le jeu (avec son multiplicateur dans la partie longue), les points de cartes (en éclat doré pour un match), les Weis et le Stöck, le score de la donne et le total ; en dessous, les jetons des deux équipes sur le chemin de l'objectif. Touche-le pour la donne suivante. Chaque barre montre les cartes en main et le total de l'équipe. Annuler reprend un choix pas encore validé, jamais un choix une fois l'appareil passé.

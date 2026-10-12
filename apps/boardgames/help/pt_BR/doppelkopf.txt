@@ -1,0 +1,46 @@
+Doppelkopf
+# O objetivo
+O jogo de cartas preferido da Alemanha, para quatro, com um baralho duplo. Em cada rodada, os dois jogadores que têm as damas de paus, o lado Re, jogam contra os outros dois, o lado Kontra; mas no começo ninguém sabe quem está com quem. Uma partida é uma série de 12 ou 24 rodadas, à escolha; no fim, vence o maior total. As regras são as dos torneios da Liga Alemã de Doppelkopf (DDV). As cartas têm naipes franceses, como o Doppelkopf costuma ser jogado; os naipes alemães (bolotas, folhas, copas, guizos) talvez venham mais tarde. Para 4 jogadores passando o aparelho; ninguém vê as cartas dos outros.
+# A distribuição
+O baralho tem 48 cartas: 9, 10, valete, dama, rei e ás de cada naipe, cada carta duas vezes. Cada jogador recebe 12 cartas. O jade dá as cartas primeiro; depois quem dá as cartas avança um lugar a cada rodada. O jogador depois de quem deu as cartas fala primeiro e abre a primeira vaza.
+# As reservas
+- Antes da primeira carta, cada jogador, na sua vez, diz gesund (“são”: sem reserva) ou que tem uma reserva (Vorbehalt). O que ele quer jogar fica em segredo: um solo ou um casamento.
+- Um jogador com as duas damas de paus pode anunciar um casamento (Hochzeit). A escolha é dele: também pode ficar quieto e jogar um solo silencioso contra os outros três.
+- Joga-se o primeiro solo na ordem de fala; senão, o casamento; senão, o jogo normal.
+# Os trunfos
+- No jogo normal, o 10 de copas (a Dulle) é o trunfo mais alto. Depois vêm as damas e então os valetes, cada um na ordem paus, espadas, copas, ouros, e depois o ás, o 10, o rei e o 9 de ouros: 26 trunfos.
+- Os outros naipes seguem a ordem ás, 10, rei, 9; copas tem só ás, rei e 9.
+- De duas cartas iguais numa vaza, ganha a que foi jogada primeiro.
+# Os lados
+- Quem tem as damas de paus (as Alten, “as velhas”) é Re; os outros, Kontra. Cada jogador conhece o seu próprio lado, não o dos outros. Um lado se revela quando uma dama de paus é jogada ou quando alguém anuncia.
+- Casamento: o primeiro outro jogador que ganhar uma das três primeiras vazas vira parceiro da noiva. Se a noiva ganhar as três, ela joga sozinha, como num solo.
+# Os solos
+Um jogador, o solista (Re), joga contra os outros três (Kontra).
+- Solo de damas: só as oito damas são trunfos.
+- Solo de valetes: só os oito valetes são trunfos.
+- Solo de naipe: os trunfos do jogo normal, com o naipe escolhido no lugar de ouros.
+- Fleischlos (“sem carne”): não há trunfos; todo naipe segue a ordem ás, 10, rei, dama, valete, 9.
+# O jogo
+Siga o naipe da saída se puder (todos os trunfos contam como um só naipe); senão, jogue qualquer carta. O trunfo mais alto ganha a vaza; senão, a carta mais alta do naipe da saída. Quem ganha abre a próxima vaza.
+# Os anúncios
+- Antes de jogar uma carta, um jogador pode anunciar pelo seu lado: Re ou Kontra tendo pelo menos 11 cartas, sem 90 (keine 90) pelo menos 10, sem 60 (keine 60) pelo menos 9, sem 30 (keine 30) pelo menos 8, schwarz (nenhuma vaza) pelo menos 7. Cada anúncio inclui os anteriores.
+- Depois que o outro lado anunciou, ainda se pode responder Re ou Kontra, uma carta depois do limite próprio desse anúncio.
+- Num casamento, nada pode ser anunciado antes de o parceiro ser encontrado; os limites então avançam tantas vazas quantas foram necessárias.
+- Aqui, um jogador anuncia na sua própria vez, enquanto está com o aparelho nas mãos.
+# Ganhar a rodada
+- Pontos das cartas: ás 11, 10 10, rei 4, dama 3, valete 2: 240 no total.
+- Re ganha com 121 pontos; Kontra, com 120. Se só Kontra foi anunciado, Re ganha com 120 e Kontra precisa de 121.
+- Um lado que anunciou sem 90 (sem 60, sem 30, schwarz) tem de manter o outro lado abaixo de 90 (60, 30, sem nenhuma vaza); senão, o outro lado ganha. Se os dois lados falharem anúncios assim, ninguém ganha.
+# O valor do jogo
+- Ganho: 1. Os perdedores abaixo de 90, abaixo de 60, abaixo de 30 e sem nenhuma vaza (schwarz): 1 cada.
+- Re anunciado: 2. Kontra anunciado: 2. Cada sem 90, sem 60, sem 30 e schwarz anunciado: 1.
+- 120 alcançados contra o sem 90 do outro lado, 90 contra sem 60, 60 contra sem 30, 30 contra schwarz: 1 cada.
+- Pontos extras (Sonderpunkte), só no jogo normal e no casamento, para o lado que os faz: uma raposa capturada (Fuchs: um ás de ouros adversário numa vaza que você ganha), um Doppelkopf (uma vaza de 40 pontos ou mais), Karlchen (“Carlinhos”: a última vaza ganha com o valete de paus) e contra as velhas (gegen die Alten: Kontra ganha): 1 cada. Os pontos extras dos dois lados se anulam.
+# A pontuação
+- Jogo normal: cada jogador Re marca o valor do jogo se Re ganhou (negativo se Kontra ganhou), mais os pontos extras de Re, menos os de Kontra; cada jogador Kontra marca o contrário.
+- Solo: o solista marca o triplo; cada adversário, uma vez.
+- Aqui não há solos obrigatórios.
+# O fim da partida
+Depois da última rodada da série, vence o maior total. Totais iguais dividem a vitória.
+# Jogando no aparelho
+Passe o aparelho para o jogador cuja ficha brilha; ele toca no botão de início e vê a sua mão. Para dizer gesund, toque em passar. Para uma reserva, toque num jogo e depois no sinal de confirmação (ou no mesmo jogo de novo): um solo de naipe (o símbolo do naipe), o solo de damas (uma dama), o solo de valetes (um bispo, a figura do valete), Fleischlos (quatro ases) ou o casamento (duas damas de paus, só quando você tem as duas). Cada lugar mostra a fala do seu jogador: o sinal de passar para gesund, uma lâmpada para uma reserva. Durante o jogo, cada lugar mostra o que a mesa sabe: a dama de paus para Re, riscada para Kontra, em luz dourada depois de anunciado; o seu próprio lado sempre aparece no seu lugar. O lugar do solista mostra o solo; o da noiva, o casamento até o parceiro ser encontrado; sem 90, sem 60, sem 30 e schwarz aparecem como 90, 60, 30 e 0 num disco escuro. Quando você pode anunciar, o botão do lado oposto ao monte de vazas mostra o seu próximo anúncio: toque nele antes de jogar a sua carta. Para jogar, toque numa carta que brilha para levantá-la e toque nela de novo ou no lugar dela no centro; ou arraste-a até lá. Toque no monte embaixo à direita para ver a última vaza. Depois de cada rodada, uma tabela mostra cada lado com seus pontos de cartas, seus anúncios, seus pontos extras (o ás de ouros: uma raposa; 40: um Doppelkopf; o valete de paus: Karlchen; a dama riscada: contra as velhas) e um sinal dourado para os vencedores; depois o valor do jogo, o saldo de pontos extras e os pontos de cada jogador Re (vezes 3 para um solista); a pontuação e o total de cada jogador; e a série de rodadas, com as fichas dos vencedores em luz dourada. Toque nela para a próxima rodada. Cada barra mostra as cartas na mão e o total. Desfazer cancela uma escolha ainda não confirmada, nunca depois que o aparelho passou.

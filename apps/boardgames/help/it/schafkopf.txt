@@ -1,0 +1,36 @@
+Schafkopf
+# Lo scopo
+Il grande gioco di carte della Baviera, per quattro. In ogni smazzata il giocatore che vince l'asta gioca un gioco, con un compagno che chiama o da solo, contro gli altri; il gioco si paga in punti secondo la tariffa. Una partita è una serie di 12 smazzate; alla fine vince il totale più alto. Le regole sono quelle bavaresi. Per 4 giocatori che si passano il dispositivo; nessuno vede le carte degli altri.
+# Le carte
+Il mazzo ha 32 carte, dal 7 all'asso. Lo Schafkopf si gioca con semi tedeschi; qui le carte hanno semi francesi, molto usati anche per questo gioco: fiori per ghiande (Eichel), picche per foglie (Gras), cuori per cuori (Herz), quadri per sonagli (Schellen). Le donne sono gli Ober, i fanti gli Unter, gli assi le Sau. I semi tedeschi potrebbero arrivare più avanti.
+# La distribuzione
+Ogni giocatore riceve 8 carte. Il primo mazziere è il giada; poi il mazziere avanza di un posto a ogni smazzata. Il giocatore dopo il mazziere parla per primo ed esce nella prima presa.
+# L'asta
+- Ogni giocatore a turno passa (weiter) o dice che giocherebbe, scegliendo il suo gioco in segreto: un Rufspiel, un Wenz o un Solo.
+- Rufspiel (gioco a chiamata): chiama l'asso (la Sau) di un seme (fiori, picche o quadri, mai cuori) di cui ha una carta, ma non quell'asso. Il giocatore che lo ha è il suo compagno, sconosciuto finché l'asso non viene giocato.
+- Wenz e Solo: gioca da solo contro gli altri tre.
+- Si gioca il gioco più alto: Solo, poi Wenz, poi Rufspiel; tra giochi uguali, quello di chi ha parlato per primo. Se passano tutti, le carte si buttano oppure, se è stato scelto il Ramsch, si gioca un Ramsch.
+# Le briscole
+- Rufspiel: i quattro Ober (fiori, picche, cuori, quadri) sono le briscole più alte, poi i quattro Unter nello stesso ordine, poi i cuori: asso, 10, re, 9, 8, 7. 14 briscole.
+- Solo: lo stesso, con il seme scelto al posto dei cuori.
+- Wenz: sono briscola solo i quattro Unter.
+- Gli altri semi vanno in quest'ordine: asso, 10, re, (Ober), (Unter), 9, 8, 7.
+# Il gioco
+- Rispondi al seme d'uscita se puoi (tutte le briscole contano come un unico seme); altrimenti gioca una carta qualsiasi. La briscola più alta vince la presa, altrimenti la carta più alta del seme d'uscita. Chi vince esce nella presa successiva.
+- L'asso chiamato: la prima volta che si esce nel suo seme, chi lo ha deve giocare l'asso. Fino ad allora non può scartare l'asso su un altro seme, e può uscire in quel seme solo con l'asso, a meno che ne abbia quattro carte o più: allora può scappare (davonlaufen) con un'altra. Nell'ultima presa vale tutto.
+# Vincere il gioco
+- Punti delle carte: asso 11, 10 10, re 4, Ober 3, Unter 2: 120 in tutto.
+- Il giocatore e il suo compagno (o il solista) vincono con 61 punti o più.
+- Schneider: la parte che perde ha 30 punti o meno. Schwarz: la parte che perde non ha fatto nessuna presa.
+# La tariffa
+- Rufspiel 10 punti; Solo e Wenz 50.
+- Schneider 10 in più, Schwarz 10 in più.
+- Laufende (le briscole in fila): la serie continua delle briscole più alte dall'Ober di fiori in giù (nel Wenz dall'Unter di fiori) in mano a una parte, quella che gioca o l'altra: 10 ciascuna, da 3 in su (nel Wenz da 2 in su).
+- Rufspiel: ogni vincitore segna il valore, ogni perdente lo perde. Solo e Wenz: il solista vince o perde il triplo del valore, ogni altro giocatore una volta.
+- Non si giocano qui: i raddoppi (Kontra, Re), il Tout (tutte le prese, annunciate), il Sie (le otto briscole più alte in mano) e altri giochi della casa.
+# Il Ramsch
+Quando passano tutti ed è stato scelto il Ramsch, ognuno gioca per sé, con le briscole del Rufspiel. Il giocatore con più punti carta paga 10 a ciascuno degli altri; a pari punti paga chi ha più prese, e se c'è ancora parità paga ciascuno di loro. Chi fa tutte le prese (Durchmarsch) incassa 50 da ciascuno.
+# La fine della partita
+Dopo la 12ª smazzata vince il totale più alto. Chi è a pari totale divide la vittoria.
+# Giocare sul dispositivo
+Passa il dispositivo al giocatore di cui brilla la pedina; tocca il pulsante di avvio e vede la sua mano. Per dichiarare, tocca un gioco, poi il segno di spunta (o di nuovo lo stesso gioco): uno dei tre assi per un Rufspiel (grigio quando non puoi chiamarlo), l'alfiere (la figura dell'Unter) per un Wenz, o il segno di un seme per quel Solo; per passare, tocca passo. Ogni posto mostra la parola del suo giocatore: il segno di passo, o un segno di spunta per chi giocherebbe. Durante il gioco il posto del giocatore mostra il suo gioco: l'asso chiamato, il Wenz o il seme del Solo; anche il posto del compagno mostra l'asso, una volta giocato. Per giocare, tocca una carta che brilla per sollevarla, poi toccala di nuovo o tocca il suo posto al centro; oppure trascinala lì. Tocca il mazzetto in basso a destra per rivedere l'ultima presa. Dopo ogni smazzata una tabella mostra la parte che gioca con il suo gioco e i punti carta (un segno di spunta dorato: vinto), 90 per Schneider e 120 per Schwarz; l'Ober di fiori (nel Wenz l'Unter di fiori) con i Laufende contati, la tariffa (per 3 per un solista) e il valore; nel Ramsch i punti carta di ogni giocatore, chi paga in rosso. Poi il punteggio e il totale di ogni giocatore, e la serie delle smazzate, con i gettoni dei giocatori in oro quando hanno vinto. Toccala per la smazzata successiva. Ogni barra mostra le carte in mano e il totale. Annulla ritira una scelta non ancora confermata, mai una volta passato il dispositivo.

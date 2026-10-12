@@ -1,0 +1,36 @@
+Schafkopf
+# Tujuan
+Permainan kartu besar dari Bayern untuk empat pemain. Di setiap ronde, pemain yang memenangkan penawaran memainkan sebuah permainan, bersama rekan yang dipanggilnya atau sendirian, melawan pemain lainnya; permainan itu dibayar dengan poin menurut tarif. Satu pertandingan terdiri dari 12 ronde; total tertinggi di akhir pertandingan menang. Aturannya adalah aturan Bayern. Untuk 4 pemain yang saling mengoper perangkat; tak seorang pun melihat kartu pemain lain.
+# Kartu
+Deknya berisi 32 kartu, dari 7 sampai as. Schafkopf dimainkan dengan jenis Jerman; di sini kartunya memakai jenis Prancis, yang juga banyak dipakai untuk permainan ini: keriting untuk biji ek (Eichel), sekop untuk daun (Gras), hati untuk hati (Herz), wajik untuk lonceng (Schellen). Queen disebut Ober ("atas"), jack disebut Unter ("bawah"), dan as disebut Sau ("babi betina"). Jenis Jerman mungkin menyusul.
+# Pembagian kartu
+Setiap pemain mendapat 8 kartu. Giok membagi lebih dulu; setelah itu pembagi kartu bergeser satu tempat setiap ronde. Pemain setelah pembagi berbicara pertama dan membuka trik pertama.
+# Penawaran
+- Bergiliran, setiap pemain pas (weiter, "lanjut") atau menyatakan ingin bermain, sambil memilih permainannya secara rahasia: Rufspiel, Wenz, atau Solo.
+- Rufspiel (permainan panggil): ia memanggil as (Sau) dari satu jenis (keriting, sekop, atau wajik, tidak pernah hati) yang kartunya ia pegang, tetapi bukan as itu sendiri. Pemain yang memegang as itu menjadi rekannya, tanpa diketahui sampai as itu dimainkan.
+- Wenz dan Solo: ia bermain sendirian melawan tiga pemain lainnya.
+- Permainan tertinggi yang dimainkan: Solo, lalu Wenz, lalu Rufspiel; di antara permainan yang setara, yang berbicara lebih dulu. Jika semua pas, kartu dibatalkan, atau, jika Ramsch dipilih, dimainkan Ramsch.
+# Truf
+- Rufspiel: keempat Ober (keriting, sekop, hati, wajik) adalah truf tertinggi, lalu keempat Unter dengan urutan yang sama, lalu hati: as, 10, king, 9, 8, 7. Total 14 truf.
+- Solo: sama, dengan jenis pilihan menggantikan hati.
+- Wenz: hanya keempat Unter yang truf.
+- Jenis lainnya berurutan as, 10, king, (Ober), (Unter), 9, 8, 7.
+# Permainan
+- Ikuti jenis kartu yang dibuka jika bisa (semua truf dihitung sebagai satu jenis); jika tidak, mainkan kartu apa saja. Truf tertinggi memenangkan trik; jika tidak ada truf, kartu tertinggi dari jenis yang dibuka. Pemenang membuka trik berikutnya.
+- As yang dipanggil: saat jenisnya dibuka untuk pertama kali, pemegangnya harus memainkan as itu. Sebelum itu ia tidak boleh membuang as itu pada jenis lain, dan hanya boleh membuka jenis itu dengan as tersebut, kecuali ia memegang empat kartu atau lebih dari jenis itu: maka ia boleh kabur (davonlaufen) dengan kartu lain. Di trik terakhir semuanya boleh.
+# Menang
+- Poin kartu: as 11, 10 10, king 4, Ober 3, Unter 2: total 120.
+- Pemain dan rekannya (atau pemain solo) menang dengan 61 poin atau lebih.
+- Schneider: pihak yang kalah punya 30 poin atau kurang. Schwarz: pihak yang kalah tidak mengambil satu trik pun.
+# Tarif
+- Rufspiel 10 poin; Solo dan Wenz 50.
+- Schneider 10 lagi, schwarz 10 lagi.
+- Laufende ("yang berlari"): deretan truf teratas tanpa putus dari Ober keriting ke bawah (dalam Wenz dari Unter keriting) yang dipegang satu pihak, entah pihak yang bermain atau lawannya: masing-masing 10, mulai dari 3 (dalam Wenz mulai dari 2).
+- Rufspiel: setiap pemenang mencatat nilainya, setiap yang kalah kehilangan nilainya. Solo dan Wenz: pemain solo mendapat atau kehilangan tiga kali nilainya, setiap pemain lain sekali.
+- Tidak dimainkan di sini: penggandaan (Kontra, Re), Tout (mengumumkan akan mengambil semua trik), Sie (memegang keempat Ober dan keempat Unter), dan permainan rumahan lainnya.
+# Ramsch
+Jika semua pas dan Ramsch dipilih, setiap pemain bermain untuk dirinya sendiri, dengan truf Rufspiel. Pemain dengan poin kartu terbanyak membayar 10 kepada masing-masing pemain lain; jika poinnya sama, yang mengambil trik lebih banyak membayar, dan jika masih sama, masing-masing dari mereka membayar. Mengambil semua trik (Durchmarsch, "lewat terus") memenangkan 50 dari setiap pemain.
+# Akhir permainan
+Setelah ronde ke-12, total tertinggi menang. Total yang sama berbagi kemenangan.
+# Bermain di perangkat
+Oper perangkat ke pemain yang bidaknya menyala; ia mengetuk tombol mulai dan melihat kartunya sendiri. Untuk menawar, ketuk sebuah permainan, lalu tanda centang (atau permainan yang sama lagi): salah satu dari tiga as untuk Rufspiel (abu-abu jika kamu tidak boleh memanggilnya), gajah (gambar Unter) untuk Wenz, atau tanda sebuah jenis untuk Solo dengan jenis itu; untuk pas, ketuk pas. Setiap kursi menunjukkan katanya: tanda pas, atau tanda centang untuk pemain yang ingin bermain. Selama permainan, kursi pemain menunjukkan permainannya: as yang dipanggil, Wenz, atau jenis Solo; kursi rekannya juga menunjukkan as itu setelah dimainkan. Untuk bermain, ketuk kartu yang menyala agar terangkat, lalu ketuk lagi kartu itu atau tempatnya di tengah; atau seret ke sana. Ketuk tumpukan di kanan bawah untuk melihat trik terakhir. Setelah setiap ronde, sebuah tabel menunjukkan pihak yang bermain dengan permainan dan poin kartunya (centang emas: menang), 90 untuk schneider dan 120 untuk schwarz; Ober keriting (dalam Wenz, Unter keriting) dengan Laufende yang dihitung, tarif (dikali 3 untuk pemain solo), dan nilainya; dalam Ramsch, poin kartu setiap pemain, dengan yang membayar berwarna merah. Lalu skor dan total setiap pemain, serta daftar ronde, dengan keping pemain berwarna emas saat mereka menang. Ketuk untuk ronde berikutnya. Setiap bilah menunjukkan kartu di tangan dan total. Urungkan membatalkan pilihan yang belum dikonfirmasi, tidak pernah pilihan setelah perangkat dioper.

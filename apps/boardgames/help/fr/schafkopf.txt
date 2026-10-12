@@ -1,0 +1,36 @@
+Schafkopf
+# Le but
+Le grand jeu de cartes de Bavière, à quatre. À chaque donne, le joueur qui remporte les enchères joue un jeu, avec un partenaire qu'il appelle ou seul, contre les autres ; le jeu se paie en points selon le barème. Une partie est une liste de 12 donnes ; à la fin, le plus gros total gagne. Les règles sont les règles bavaroises. Pour 4 joueurs qui se passent l'appareil ; personne ne voit les cartes des autres.
+# Les cartes
+Le jeu compte 32 cartes, du 7 à l'as. Le Schafkopf se joue avec des couleurs allemandes ; ici les cartes ont des couleurs françaises, très utilisées pour ce jeu aussi : trèfle pour glands (Eichel), pique pour feuilles (Gras), cœur pour cœurs (Herz), carreau pour grelots (Schellen). Les dames sont les Ober, les valets les Unter, les as les Sau. Les couleurs allemandes viendront peut-être plus tard.
+# La donne
+Chaque joueur reçoit 8 cartes. Jade donne en premier ; ensuite le donneur avance d'une place à chaque donne. Le joueur après le donneur parle en premier et entame le premier pli.
+# Les enchères
+- Chaque joueur à son tour passe (weiter) ou dit qu'il jouerait, en choisissant son jeu en secret : un Rufspiel, un Wenz ou un Solo.
+- Rufspiel (jeu d'appel) : il appelle l'as (la Sau) d'une couleur (trèfle, pique ou carreau, jamais cœur) dont il a une carte, mais pas cet as. Le joueur qui a cet as est son partenaire, inconnu jusqu'à ce que l'as soit joué.
+- Wenz et Solo : il joue seul contre les trois autres.
+- Le jeu le plus fort est joué : Solo, puis Wenz, puis Rufspiel ; entre jeux égaux, celui qui a parlé le premier. Si tout le monde passe, on jette les cartes, ou, si le Ramsch a été choisi, on joue un Ramsch.
+# Les atouts
+- Rufspiel : les quatre Ober (trèfle, pique, cœur, carreau) sont les plus forts atouts, puis les quatre Unter dans le même ordre, puis les cœurs : as, 10, roi, 9, 8, 7. 14 atouts.
+- Solo : de même, la couleur choisie remplaçant le cœur.
+- Wenz : seuls les quatre Unter sont atouts.
+- Les autres couleurs se classent as, 10, roi, (Ober), (Unter), 9, 8, 7.
+# Le jeu
+- Fournis la couleur demandée si tu peux (tous les atouts comptent comme une seule couleur) ; sinon joue n'importe quelle carte. Le plus fort atout remporte le pli, sinon la plus forte carte de la couleur demandée. Le gagnant entame le pli suivant.
+- L'as appelé : la première fois que sa couleur est demandée, celui qui l'a doit jouer l'as. D'ici là, il ne peut pas défausser l'as sur une autre couleur, et ne peut entamer cette couleur qu'avec l'as, sauf s'il en a quatre cartes ou plus : il peut alors s'enfuir (davonlaufen) avec une autre. Au dernier pli, tout est permis.
+# Gagner son jeu
+- Les points des cartes : as 11, 10 10, roi 4, Ober 3, Unter 2 : 120 en tout.
+- Le joueur et son partenaire (ou le soliste) gagnent avec 61 points ou plus.
+- Schneider : le camp perdant a 30 points ou moins. Schwarz : le camp perdant n'a fait aucun pli.
+# Le barème
+- Rufspiel 10 points ; Solo et Wenz 50.
+- Schneider 10 de plus, Schwarz 10 de plus.
+- Laufende (les atouts qui se suivent) : la suite sans trou des plus forts atouts à partir de l'Ober de trèfle (au Wenz, de l'Unter de trèfle) que détient un camp, celui qui joue ou l'autre : 10 chacun, à partir de 3 (au Wenz, à partir de 2).
+- Rufspiel : chaque gagnant marque la valeur, chaque perdant la perd. Solo et Wenz : le soliste gagne ou perd trois fois la valeur, chacun des autres une fois.
+- Non joués ici : les contres (Kontra, Re), le Tout (gagner tous les plis, annoncé), le Sie (les huit plus forts atouts en main) et les autres jeux maison.
+# Le Ramsch
+Quand tout le monde passe et que le Ramsch a été choisi, chacun joue pour soi, avec les atouts du Rufspiel. Le joueur qui a le plus de points de cartes paie 10 à chacun des autres ; à égalité de points, celui qui a le plus de plis paie, et s'il y a encore égalité, chacun d'eux paie. Faire tous les plis (Durchmarsch) rapporte 50 de chacun.
+# La fin de la partie
+Après la 12e donne, le plus gros total gagne. Les joueurs à égalité se partagent la victoire.
+# Jouer sur l'appareil
+Passe l'appareil au joueur dont la pièce brille ; il touche le bouton de départ et voit sa main. Pour enchérir, touche un jeu, puis la coche (ou le même jeu une seconde fois) : l'un des trois as pour un Rufspiel (grisé quand tu ne peux pas l'appeler), le fou (la figure de l'Unter) pour un Wenz, ou le signe d'une couleur pour ce Solo ; pour passer, touche passer. Chaque place montre la parole de son joueur : le signe de passe, ou une coche pour un joueur qui jouerait. Pendant le jeu, la place du joueur montre son jeu : l'as appelé, le Wenz ou la couleur du Solo ; la place du partenaire montre aussi l'as une fois qu'il est joué. Pour jouer, touche une carte qui brille pour la lever, puis touche-la encore ou touche sa place au milieu ; ou fais-la glisser jusque-là. Touche le paquet en bas à droite pour revoir le dernier pli. Après chaque donne, un tableau montre le camp qui joue avec son jeu et ses points de cartes (une coche dorée : gagné), 90 pour Schneider et 120 pour Schwarz ; l'Ober de trèfle (au Wenz, l'Unter de trèfle) avec les Laufende comptés, le barème (fois 3 pour un soliste) et la valeur ; au Ramsch, les points de cartes de chaque joueur, ceux qui paient en rouge. Puis le score et le total de chaque joueur, et la liste des donnes, avec les jetons des joueurs en éclat doré quand ils ont gagné. Touche-le pour la donne suivante. Chaque barre montre les cartes en main et le total. Annuler reprend un choix pas encore validé, jamais un choix une fois l'appareil passé.

@@ -1,0 +1,36 @@
+Schafkopf
+# Målet
+Bayerns store kortspil for fire. I hvert giv spiller den, der vinder meldingen, et spil mod de andre, med en makker, han kalder, eller alene; spillet betales i point efter tariffen. Et parti er en liste på 12 giv; den højeste sum til sidst vinder. Reglerne er de bayerske. For 4 spillere, der sender enheden rundt; ingen ser de andres kort.
+# Kortene
+Spillet har 32 kort, 7 til es. Schafkopf spilles med tyske kulører; her har kortene franske, som også er udbredte til spillet: klør for agern (Eichel), spar for blade (Gras), hjerter for hjerter (Herz), ruder for bjælder (Schellen). Damerne er Ober, knægtene Unter, esserne Sau (so). Tyske kulører kommer måske senere.
+# Kortgivningen
+Hver spiller får 8 kort. Jade giver først; derefter rykker giveren én plads videre for hvert giv. Spilleren efter giveren taler først og spiller ud til første stik.
+# Meldingen
+- På skift melder hver spiller pas (weiter) eller siger, at han vil spille, og vælger sit spil i hemmelighed: et Rufspiel, en Wenz eller en Solo.
+- Rufspiel (kaldespil): han kalder esset (Sau) i en kulør (klør, spar eller ruder, aldrig hjerter), som han har et kort i, men ikke selve esset. Den, der har det, er hans makker, ukendt indtil esset spilles.
+- Wenz og Solo: han spiller alene mod de tre andre.
+- Det højeste spil spilles: Solo, så Wenz, så Rufspiel; mellem lige spil den, der talte først. Melder alle pas, smides kortene ind, eller, hvis Ramsch er valgt, spilles der Ramsch.
+# Trumferne
+- Rufspiel: de fire Ober (klør, spar, hjerter, ruder) er de højeste trumfer, derefter de fire Unter i samme rækkefølge, derefter hjerterne: es, 10, konge, 9, 8, 7. 14 trumfer.
+- Solo: det samme, med den valgte kulør i stedet for hjerter.
+- Wenz: kun de fire Unter er trumf.
+- De andre kulører rangerer es, 10, konge, (Ober), (Unter), 9, 8, 7.
+# Spillet
+- Bekend kulør, hvis du kan (alle trumfer tæller som én kulør); ellers spil et vilkårligt kort. Den højeste trumf vinder stikket, ellers det højeste kort i den udspillede kulør. Vinderen spiller ud til næste stik.
+- Det kaldte es: når dets kulør spilles ud første gang, skal den, der har det, lægge esset. Indtil da må han ikke smide esset på en anden kulør, og han må kun spille den kulør ud med esset, medmindre han har fire eller flere kort i den: så må han løbe væk (davonlaufen) med et andet. I sidste stik er alt tilladt.
+# Vundet eller tabt
+- Kortpoint: es 11, 10 10, konge 4, Ober 3, Unter 2: 120 i alt.
+- Spilleren og hans makker (eller solisten) vinder med 61 point eller mere.
+- Schneider: den tabende side har 30 point eller mindre. Schwarz: den tabende side tog intet stik.
+# Tariffen
+- Rufspiel 10 point; Solo og Wenz 50.
+- Schneider 10 mere, schwarz 10 mere.
+- Laufende: den ubrudte række af de højeste trumfer fra klør Ober og nedad (i Wenz fra klør Unter), som én side har, den spillende side eller den anden: 10 hver, fra 3 og op (i Wenz fra 2).
+- Rufspiel: hver vinder får værdien, hver taber mister den. Solo og Wenz: solisten vinder eller taber tre gange værdien, hver af de andre én gang.
+- Spilles ikke her: fordobling (Kontra, Re), Tout, Sie og andre husspil.
+# Ramsch
+Når alle melder pas, og Ramsch er valgt, spiller hver for sig selv, med Rufspiels trumfer. Spilleren med flest kortpoint betaler 10 til hver af de andre; ved lige point betaler den med flest stik, og er det også lige, betaler hver af dem. Den, der tager alle stik (Durchmarsch, gennemmarch), vinder 50 fra hver.
+# Spillets afslutning
+Efter 12. giv vinder den højeste sum. Ved lige sum deles sejren.
+# Spil på enheden
+Giv enheden til spilleren, hvis brik lyser; han trykker på start og ser sin hånd. For at melde trykker du på et spil og så på fluebenet (eller på samme spil igen): et af de tre esser for et Rufspiel (gråt, når du ikke må kalde det), løberen (Unterens figur) for en Wenz eller en kulørs tegn for den Solo; for at melde pas trykker du på pas. Hver plads viser spillerens ord: pastegnet, eller et flueben for en spiller, der vil spille. Under spillet viser spillerens plads hans spil: det kaldte es, Wenz eller Soloens kulør; makkerens plads viser også esset, når det er spillet. For at spille trykker du på et kort, der lyser, så det løfter sig, og trykker på det igen eller på dets plads i midten; eller træk det derhen. Tryk på bunken nederst til højre for at se det sidste stik. Efter hvert giv viser en tavle den spillende side med dens spil og kortpoint (et guldflueben: vundet), 90 for schneider og 120 for schwarz; klør Ober (i en Wenz klør Unter) med de talte Laufende, tariffen (gange 3 for en solist) og værdien; i en Ramsch hver spillers kortpoint, de betalende i rødt. Så hver spillers point og sum og listen over givene, med spillernes brikker i guld, når de vandt. Tryk på den for næste giv. Hver bjælke viser kortene på hånden og summen. Fortryd tager et valg tilbage, der endnu ikke er bekræftet, aldrig et, når enheden er givet videre.

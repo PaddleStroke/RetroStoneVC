@@ -1,0 +1,31 @@
+Jass
+# Målet
+Schieber, det mest älskade sättet att spela Jass i Schweiz: två lag med två partner som sitter mittemot varandra, elfenben och rött mot ebenholts och jade. Båda lagen räknar poängen de tar; första laget som når 1000 poäng (eller 2500 i det långa partiet) vinner. För 4 spelare som skickar enheten runt; ingen ser de andras kort.
+# Korten
+Leken har 36 kort, 6 till ess. I tyskspråkiga Schweiz spelas Jass mest med schweiziska färger (bjällror, sköldar, rosor, ekollon); här har korten franska färger, som i landets västra del. Schweiziska färger kommer kanske senare.
+# Utdelningen
+Varje spelare får 9 kort. Jade ger först; sedan flyttar givaren en plats framåt för varje giv. Spelaren efter givaren väljer spel och spelar ut till första sticket.
+# Välja spel
+- Den som väljer nämner en trumffärg, eller Obenabe (uppifrån: ingen trumf, esset är högst) eller Undeufe (nedifrån: ingen trumf, sexan är högst).
+- Eller så skjuter han över (schieben): då måste hans partner välja. Första sticket spelas ändå ut av spelaren som sköt över.
+# Trumfen
+- Trumfknekten, Puur, är det högsta kortet (20 poäng), sedan trumfnian, Nell (14), sedan ess 11, kung 4, dam 3, 10 10, 8, 7, 6.
+- De andra färgerna går ess 11, kung 4, dam 3, knekt 2, 10 10, 9, 8, 7, 6.
+- Obenabe: varje färg går från ess till sexa, och åttorna är värda 8. Undeufe: varje färg går från sexa till ess, sexorna är värda 11, åttorna 8 och essen ingenting.
+- Sista sticket är värt 5 till: 157 poäng totalt. En Match (alla nio stick) är värd 257.
+# Spelet
+- Bekänn färg, eller spela en trumf i stället. Kan du inte bekänna färg, spela valfritt kort.
+- Ingen undertrumfning: när en annan färg har spelats ut får du inte spela en trumf som är lägre än en som redan ligger i sticket, om du inte bara har trumf kvar.
+- När trumf spelas ut måste du bekänna med trumf, men Puur behöver du aldrig spela: har du ingen annan trumf får du spela valfritt kort.
+- I Obenabe och Undeufe bekänner du bara färg om du kan.
+# Weis och Stöck
+- Weis (poängkombinationer) ropas ut med ditt första kort: tre kort i följd i en färg 20, fyra 50, fem 100, sex 150, sju 200, åtta 250, nio 300; fyra knektar 200, fyra nior 150, fyra ess, kungar, damer eller tior 100. Ordningen i en följd är 6 7 8 9 10 Kn D K E.
+- Bara laget med den bästa enskilda weisen får poäng för weis, och då för alla weis från båda sina spelare. Den bästa har flest poäng; vid lika slår fyra lika en följd, sedan räknas det högsta toppkortet, sedan en följd i trumf, sedan spelaren som spelade först.
+- Stöck: trumfkung och trumfdam på samma hand är värda 20, räknat när det andra av dem spelas.
+# Poängen
+- Varje lag får sina kortpoäng, sina weis och sitt Stöck.
+- Det långa partiet (till 2500) multiplicerar allt: ruter och hjärter en gång, spader och klöver två gånger, Obenabe och Undeufe tre gånger.
+# Partiets slut
+Första laget som når 1000 (2500) poäng vinner. Stöck räknas så snart det har spelats, sedan weisen efter första sticket, sedan sticken när given är slut; given spelas alltid färdigt. Om båda lagen passerar gränsen med sticken i samma giv vinner högsta summan.
+# Spela på enheten
+Ge enheten till spelaren vars bricka lyser; han trycker på start och ser sin hand. För att välja spel trycker du på en färgs tecken, pilen uppåt (Obenabe) eller pilen nedåt (Undeufe), sedan på bocken (eller på samma igen); för att skjuta över trycker du på passknappen. Platsen för den som valde visar spelet, platsen för den som sköt över passtecknet. Har din hand weis i första sticket visar en knapp mittemot stickhögen dess poäng: tryck på den innan du spelar ditt kort för att ropa ut den. Varje plats visar de utropade weisen, sedan bara de från laget som får poäng för dem, i guldljus; Stöck visas som trumfkung och trumfdam vid den plats som fick det. För att spela trycker du på ett kort som lyser så att det lyfts, och trycker på det igen eller på dess plats i mitten; eller dra dit det. Tryck på högen längst ner till höger för att se det senaste sticket. Efter varje giv visar en tavla för varje lag spelet (i det långa partiet med sin multiplikator), kortpoängen (i guldljus vid en Match), weis och Stöck, givens poäng och summan; under den båda lagens brickor på väg mot målet. Tryck på den för nästa giv. Varje list visar korten på handen och lagets summa. Ångra tar tillbaka ett val som inte är bekräftat än, aldrig ett när enheten har skickats vidare.

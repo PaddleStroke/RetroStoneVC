@@ -1,0 +1,36 @@
+Schafkopf
+# Das Ziel
+Das große Kartenspiel Bayerns, für vier. In jedem Spiel spielt, wer das Reizen gewinnt, mit einem gerufenen Partner oder allein gegen die anderen; bezahlt wird in Punkten nach dem Tarif. Eine Partie ist eine Liste von 12 Spielen; am Ende gewinnt die höchste Summe. Es gelten die bayerischen Regeln. Für 4 Spieler, die das Gerät herumreichen; niemand sieht die Karten der anderen.
+# Die Karten
+Gespielt wird mit 32 Karten, von der 7 bis zum Ass. Schafkopf wird mit deutschem Blatt gespielt; hier haben die Karten französische Farben, die dafür ebenfalls weit verbreitet sind: Kreuz für Eichel, Pik für Gras, Herz für Herz, Karo für Schellen. Die Damen sind die Ober, die Buben die Unter, ein Ass heißt Sau. Deutsches Blatt kommt vielleicht später.
+# Das Geben
+Jeder Spieler bekommt 8 Karten. Jade gibt zuerst; danach rückt der Geber mit jedem Spiel einen Platz weiter. Der Spieler nach dem Geber spricht zuerst und spielt zum ersten Stich aus.
+# Das Reizen
+- Reihum sagt jeder Spieler „weiter“ oder dass er spielen würde, und wählt sein Spiel geheim: ein Rufspiel, einen Wenz oder ein Solo.
+- Rufspiel: Er ruft die Sau einer Farbe (Kreuz, Pik oder Karo, nie Herz), von der er eine Karte hat, aber nicht die Sau selbst. Wer sie hat, ist sein Partner, unerkannt, bis die Sau gespielt wird.
+- Wenz und Solo: Er spielt allein gegen die drei anderen.
+- Gespielt wird das höchste Spiel: Solo, dann Wenz, dann Rufspiel; bei gleichen Spielen der, der zuerst spricht. Sagen alle weiter, wird zusammengeworfen oder, wenn Ramsch gewählt ist, ein Ramsch gespielt.
+# Die Trümpfe
+- Rufspiel: Die vier Ober (Kreuz, Pik, Herz, Karo) sind die höchsten Trümpfe, dann die vier Unter in derselben Reihenfolge, dann die Herzkarten: Sau, 10, König, 9, 8, 7. 14 Trümpfe.
+- Solo: ebenso, mit der gewählten Farbe statt Herz.
+- Wenz: Nur die vier Unter sind Trumpf.
+- Die anderen Farben: Sau, 10, König, (Ober), (Unter), 9, 8, 7.
+# Das Spiel
+- Wer kann, muss die ausgespielte Farbe bedienen (alle Trümpfe zählen als eine Farbe); sonst darf er eine beliebige Karte spielen. Der höchste Trumpf gewinnt den Stich, sonst die höchste Karte der ausgespielten Farbe. Der Gewinner spielt zum nächsten Stich aus.
+- Die gerufene Sau: Wird ihre Farbe zum ersten Mal ausgespielt, muss ihr Besitzer die Sau zugeben. Bis dahin darf er sie nicht auf eine andere Farbe abwerfen, und er darf diese Farbe nur mit der Sau ausspielen, es sei denn, er hat vier oder mehr Karten davon: Dann darf er mit einer anderen davonlaufen. Im letzten Stich ist alles erlaubt.
+# Gewonnen oder verloren
+- Die Augen: Sau 11, Zehn 10, König 4, Ober 3, Unter 2: zusammen 120.
+- Der Spieler und sein Partner (oder der Solist) gewinnen mit 61 Augen oder mehr.
+- Schneider: Die verlierende Seite hat 30 Augen oder weniger. Schwarz: Die verlierende Seite hat keinen Stich gemacht.
+# Der Tarif
+- Rufspiel 10 Punkte; Solo und Wenz 50.
+- Schneider 10 mehr, Schwarz 10 mehr.
+- Laufende: die ununterbrochene Folge der höchsten Trümpfe vom Kreuz-Ober abwärts (im Wenz vom Kreuz-Unter), die eine Seite hält, die Spieler oder die Gegenspieler: je 10, ab 3 (im Wenz ab 2).
+- Rufspiel: Jeder Gewinner bekommt den Wert, jeder Verlierer zahlt ihn. Solo und Wenz: Der Solist gewinnt oder verliert den dreifachen Wert, jeder andere Spieler den einfachen.
+- Hier nicht gespielt: Verdoppeln (Kontra, Re), Tout, Sie und andere Hausspiele.
+# Ramsch
+Sagen alle weiter und ist Ramsch gewählt, spielt jeder für sich, mit den Trümpfen des Rufspiels. Wer die meisten Augen hat, zahlt jedem anderen 10; bei gleichen Augen zahlt, wer mehr Stiche hat, und bei weiterem Gleichstand zahlt jeder von ihnen. Wer alle Stiche macht (Durchmarsch), bekommt von jedem 50.
+# Das Ende der Partie
+Nach dem 12. Spiel gewinnt die höchste Summe. Bei gleicher Summe teilen sich die Spieler den Sieg.
+# Spielen auf dem Gerät
+Gib das Gerät dem Spieler, dessen Stein leuchtet; er tippt auf Start und sieht seine Hand. Zum Reizen tippe ein Spiel an, dann den Haken (oder noch einmal dasselbe Spiel): eine der drei Säue für ein Rufspiel (ausgegraut, wenn du sie nicht rufen darfst), den Läufer (die Figur des Unters) für einen Wenz oder das Zeichen einer Farbe für dieses Solo; für „weiter“ tippe auf Passe. Jeder Platz zeigt das Wort seines Spielers: das Passe-Zeichen oder einen Haken für einen Spieler, der spielen würde. Während des Spiels zeigt der Platz des Spielers sein Spiel: die gerufene Sau, den Wenz oder die Farbe des Solos; der Platz des Partners zeigt die Sau ebenfalls, sobald sie gespielt ist. Zum Spielen tippe eine leuchtende Karte an, damit sie sich hebt, dann tippe sie noch einmal oder ihren Platz in der Mitte an; oder ziehe sie dorthin. Tippe auf den Stapel unten rechts, um den letzten Stich zu sehen. Nach jedem Spiel zeigt eine Tafel die spielende Seite mit ihrem Spiel und ihren Augen (ein goldener Haken: gewonnen), 90 für Schneider und 120 für Schwarz; den Kreuz-Ober (im Wenz den Kreuz-Unter) mit den gezählten Laufenden, den Tarif (mal 3 für einen Solisten) und den Wert; beim Ramsch die Augen jedes Spielers, die Zahler in Rot. Dann Punkte und Summe jedes Spielers und die Liste der Spiele, mit den Steinen der Spieler in Gold, wenn sie gewonnen haben. Tippe darauf für das nächste Spiel. Jede Leiste zeigt die Karten auf der Hand und die Summe. Rückgängig nimmt eine noch nicht bestätigte Wahl zurück, nie eine, wenn das Gerät weitergegeben wurde.

@@ -1,0 +1,36 @@
+Schafkopf
+# Cel gry
+Wielka bawarska gra karciana dla czterech osób. W każdym rozdaniu gracz, który wygra licytację, rozgrywa swoją grę przeciw pozostałym, z partnerem, którego wywoła, albo sam; grę płaci się punktami według taryfy. Partia to lista 12 rozdań; wygrywa najwyższa suma na końcu. Obowiązują zasady bawarskie. Dla 4 graczy, którzy podają sobie urządzenie; nikt nie widzi kart pozostałych.
+# Karty
+Talia ma 32 karty, od siódemki do asa. W Schafkopfa gra się kartami w kolorach niemieckich; tu mają kolory francuskie, które też są do tej gry powszechnie używane: trefl zamiast żołędzi (Eichel), pik zamiast wina (Gras), kier zamiast czerwieni (Herz), karo zamiast dzwonków (Schellen). Damy to Obery (wyżniki), walety to Untery (niżniki), asy to Sau („świnie”). Kolory niemieckie mogą pojawić się później.
+# Rozdanie
+Każdy gracz dostaje 8 kart. Pierwszy rozdaje nefryt; potem rozdający przesuwa się o jedno miejsce w każdym rozdaniu. Gracz po rozdającym mówi pierwszy i wychodzi do pierwszej lewy.
+# Licytacja
+- Każdy gracz po kolei pasuje (weiter, „dalej”) albo mówi, że chce grać, i w tajemnicy wybiera grę: Rufspiel, Wenz albo Solo.
+- Rufspiel („gra z wywołaniem”): gracz wywołuje asa (Sau) w kolorze (trefl, pik albo karo, nigdy kier), w którym ma jakąś kartę, ale nie tego asa. Gracz, który go ma, jest jego partnerem, nieznanym, dopóki as nie padnie.
+- Wenz i Solo: gra sam przeciw trzem pozostałym.
+- Gra się najwyższą grę: Solo, potem Wenz, potem Rufspiel; przy równych grach ten, kto mówił pierwszy. Jeśli wszyscy pasują, karty się wrzuca albo, gdy wybrano Ramsch, gra się Ramsch.
+# Atuty
+- Rufspiel: najwyższymi atutami są cztery Obery (trefl, pik, kier, karo), potem cztery Untery w tej samej kolejności, potem kiery: as, 10, król, 9, 8, 7. 14 atutów.
+- Solo: tak samo, z wybranym kolorem w miejsce kierów.
+- Wenz: atutami są tylko cztery Untery.
+- Pozostałe kolory: as, 10, król, (Ober), (Unter), 9, 8, 7.
+# Rozgrywka
+- Dokładaj do koloru wyjścia, jeśli możesz (wszystkie atuty liczą się jako jeden kolor); jeśli nie, zagraj dowolną kartę. Lewę bierze najwyższy atut, a bez atutu najwyższa karta w kolorze wyjścia. Zdobywca lewy wychodzi do następnej.
+- Wywołany as: gdy ktoś po raz pierwszy wyjdzie w jego kolor, jego posiadacz musi zagrać asa. Do tego czasu nie wolno mu zrzucić asa na inny kolor, a wychodzić w ten kolor może tylko asem, chyba że ma w nim cztery karty lub więcej: wtedy może uciec (davonlaufen) inną kartą. W ostatniej lewie wolno wszystko.
+# Wygrana
+- Oczka: as 11, 10 10, król 4, Ober 3, Unter 2: razem 120.
+- Grający i jego partner (albo solista) wygrywają z 61 oczkami lub więcej.
+- Schneider („krawiec”): przegrana strona ma 30 oczek lub mniej. Schwarz („czarno”): przegrana strona nie wzięła żadnej lewy.
+# Taryfa
+- Rufspiel 10 punktów; Solo i Wenz 50.
+- Schneider 10 więcej, schwarz kolejne 10 więcej.
+- Laufende („biegnące”): nieprzerwany ciąg najwyższych atutów od Obera trefl w dół (w Wenzu od Untera trefl), który ma jedna strona, grająca albo przeciwna: po 10, od 3 wzwyż (w Wenzu od 2).
+- Rufspiel: każdy zwycięzca dostaje wartość, każdy przegrany ją traci. Solo i Wenz: solista dostaje albo traci trzykrotność wartości, każdy pozostały gracz raz.
+- Tutaj nie gra się: podwajania (Kontra, Re), Tout, Sie ani innych gier domowych.
+# Ramsch
+Gdy wszyscy pasują, a wybrano Ramsch, każdy gra sam na siebie, z atutami Rufspielu. Gracz z największą liczbą oczek płaci 10 każdemu z pozostałych; przy równych oczkach płaci ten, kto ma więcej lew, a gdy i to jest równe, płaci każdy z nich. Kto weźmie wszystkie lewy (Durchmarsch, „przemarsz”), dostaje 50 od każdego.
+# Koniec gry
+Po 12. rozdaniu wygrywa najwyższa suma. Przy równych sumach zwycięstwo jest wspólne.
+# Gra na urządzeniu
+Podaj urządzenie graczowi, którego pionek świeci; dotyka on przycisku startu i widzi swoją rękę. Aby licytować, dotknij gry, a potem znaczka zatwierdzenia (albo jeszcze raz tej samej gry): jednego z trzech asów dla Rufspielu (wyszarzonego, gdy nie wolno go wywołać), gońca (postać Untera) dla Wenza albo znaku koloru dla Sola w tym kolorze; aby spasować, dotknij pasu. Przy każdym miejscu widać słowo gracza: znak pasu albo znaczek zatwierdzenia u gracza, który chce grać. W trakcie rozgrywki miejsce grającego pokazuje jego grę: wywołanego asa, Wenza albo kolor Sola; miejsce partnera też pokazuje asa, gdy ten zostanie zagrany. Aby zagrać, dotknij świecącej karty, żeby się uniosła, i dotknij jej jeszcze raz albo jej miejsca na środku; albo przeciągnij ją tam. Dotknij stosiku w prawym dolnym rogu, by zobaczyć ostatnią lewę. Po każdym rozdaniu tabela pokazuje stronę grającą z jej grą i oczkami (złoty znaczek zatwierdzenia: wygrana), 90 za schneidra i 120 za schwarz; Obera trefl (w Wenzu Untera trefl) z policzonymi Laufende, taryfę (razy 3 dla solisty) i wartość; w Ramschu oczka każdego gracza, płacący na czerwono. Potem wynik i sumę każdego gracza oraz listę rozdań, z żetonami grających w złocie, gdy wygrali. Dotknij jej, by przejść do następnego rozdania. Każdy pasek pokazuje karty w ręce i sumę. Cofnij wycofuje niezatwierdzony jeszcze wybór, nigdy wyboru sprzed podania urządzenia.

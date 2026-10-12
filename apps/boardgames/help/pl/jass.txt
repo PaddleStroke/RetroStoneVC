@@ -1,0 +1,31 @@
+Jass
+# Cel gry
+Schieber, najpopularniejszy w Szwajcarii sposób gry w Jassa: dwie pary partnerów siedzących naprzeciw siebie, kość słoniowa i czerwony przeciw hebanowi i nefrytowi. Obie pary liczą zdobyte punkty; wygrywa para, która pierwsza dojdzie do 1000 punktów (albo 2500 w długiej grze). Dla 4 graczy, którzy podają sobie urządzenie; nikt nie widzi kart pozostałych.
+# Karty
+Talia ma 36 kart, od szóstki do asa. W niemieckojęzycznej Szwajcarii w Jassa gra się głównie kartami w kolorach szwajcarskich (dzwonki, tarcze, róże, żołędzie); tu karty mają kolory francuskie, jak na zachodzie kraju. Kolory szwajcarskie mogą pojawić się później.
+# Rozdanie
+Każdy gracz dostaje 9 kart. Pierwszy rozdaje nefryt; potem rozdający przesuwa się o jedno miejsce w każdym rozdaniu. Gracz po rozdającym wybiera grę i wychodzi do pierwszej lewy.
+# Wybór gry
+- Wybierający wskazuje kolor atutowy albo Obenabe („z góry w dół”: bez atutów, najwyższy jest as), albo Undeufe („z dołu w górę”: bez atutów, najwyższa jest szóstka).
+- Albo przesuwa (schieben): wtedy wybierać musi jego partner. Do pierwszej lewy wychodzi jednak nadal ten, kto przesunął.
+# Atuty
+- Walet atutowy, Puur, jest najwyższą kartą (20 oczek), potem dziewiątka, Nell (14), potem as 11, król 4, dama 3, 10 10, 8, 7, 6.
+- Pozostałe kolory: as 11, król 4, dama 3, walet 2, 10 10, 9, 8, 7, 6.
+- Obenabe: w każdym kolorze karty idą od asa do szóstki, a ósemki są warte 8. Undeufe: w każdym kolorze od szóstki do asa, szóstki są warte 11, ósemki 8, a asy nic.
+- Ostatnia lewa daje 5 oczek więcej: razem 157 oczek. Match (wszystkie dziewięć lew) jest wart 257.
+# Rozgrywka
+- Dokładaj do koloru wyjścia albo zamiast tego zagraj atut. Jeśli nie możesz dołożyć do koloru, zagraj dowolną kartę.
+- Zakaz podbijania niższym atutem: gdy wyjście było w inny kolor, nie wolno ci zagrać atutu niższego niż ten, który już leży w lewie, chyba że masz same atuty.
+- Gdy wyjście jest w atu, musisz dołożyć atut, ale Puura nigdy nie musisz zagrywać: jeśli nie masz innego atutu, możesz zagrać dowolną kartę.
+- W Obenabe i Undeufe po prostu dokładaj do koloru, jeśli możesz.
+# Weis i Stöck
+- Weis (meldunki) zgłasza się przy pierwszej karcie: trzy kolejne karty w jednym kolorze 20, cztery 50, pięć 100, sześć 150, siedem 200, osiem 250, dziewięć 300; cztery walety 200, cztery dziewiątki 150, cztery asy, króle, damy lub dziesiątki 100. Kolejność w sekwensie: 6, 7, 8, 9, 10, walet, dama, król, as.
+- Punkty dostaje tylko para z najlepszym pojedynczym meldunkiem, i to za wszystkie meldunki obu swoich graczy. Najlepszy jest ten z największą liczbą punktów; przy równości czwórka bije sekwens, potem wyższa najwyższa karta, potem sekwens w atutach, potem gracz, który zagrał wcześniej.
+- Stöck: król i dama atutowe w jednej ręce są warte 20, liczone, gdy padnie druga z tych kart.
+# Punktacja
+- Każda para zapisuje swoje oczka, meldunki i Stöck.
+- Długa gra (do 2500) wszystko mnoży: karo i kier raz, pik i trefl dwa razy, Obenabe i Undeufe trzy razy.
+# Koniec gry
+Wygrywa para, która pierwsza dojdzie do 1000 (2500) punktów. Stöck liczy się od razu po zagraniu, potem meldunki po pierwszej lewie, potem lewy na końcu rozdania; rozdanie zawsze rozgrywa się do końca. Jeśli obie pary przekroczą próg lewami z tego samego rozdania, wygrywa wyższa suma.
+# Gra na urządzeniu
+Podaj urządzenie graczowi, którego pionek świeci; dotyka on przycisku startu i widzi swoją rękę. Aby wybrać grę, dotknij znaku koloru, strzałki w górę (Obenabe) albo strzałki w dół (Undeufe), a potem znaczka zatwierdzenia (albo jeszcze raz tego samego); aby przesunąć, dotknij przycisku pasowania. Miejsce wybierającego pokazuje grę, a miejsce tego, kto przesunął, znak pasu. W pierwszej lewie, gdy masz w ręce meldunek, przycisk naprzeciw stosiku z lewami pokazuje jego punkty: dotknij go przed zagraniem karty, aby go zgłosić. Każde miejsce pokazuje zgłoszone meldunki, potem już tylko te pary, która je zapisuje, w złotym świetle; Stöck widać jako króla i damę atutowe przy miejscu, które go zapisało. Aby zagrać, dotknij świecącej karty, żeby się uniosła, i dotknij jej jeszcze raz albo jej miejsca na środku; albo przeciągnij ją tam. Dotknij stosiku w prawym dolnym rogu, by zobaczyć ostatnią lewę. Po każdym rozdaniu tabela pokazuje grę każdej pary (z mnożnikiem w długiej grze), oczka (w złotym świetle przy Matchu), meldunki i Stöck, wynik rozdania i sumę; pod nią żetony obu par w drodze do celu. Dotknij jej, by przejść do następnego rozdania. Każdy pasek pokazuje karty w ręce i sumę pary. Cofnij wycofuje niezatwierdzony jeszcze wybór, nigdy wyboru sprzed podania urządzenia.

@@ -1,0 +1,31 @@
+Jass
+# El objetivo
+El Schieber, la forma favorita de jugar al Jass en Suiza: dos equipos de dos compañeros sentados frente a frente, marfil y rojo contra ébano y jade. Los dos equipos cuentan los puntos que ganan; gana el primer equipo que llega a 1000 puntos (o a 2500 en la partida larga). Para 4 jugadores que se pasan el dispositivo; nadie ve las cartas de los demás.
+# Las cartas
+La baraja tiene 36 cartas, del 6 al as. En la Suiza de habla alemana, el Jass se juega sobre todo con palos suizos (cascabeles, escudos, rosas, bellotas); aquí las cartas tienen palos franceses, como en el oeste del país. Los palos suizos quizá lleguen más adelante.
+# El reparto
+Cada jugador recibe 9 cartas. Reparte primero el jade; después el que reparte avanza un puesto en cada ronda. El jugador que sigue al que reparte elige el juego y sale en la primera baza.
+# Elegir el juego
+- Quien elige nombra un palo de triunfo, u Obenabe (sin triunfo, el as es la carta más alta) o Undeufe (sin triunfo, el seis es la más alta).
+- O cede la elección (schieben, «empujar»): entonces tiene que elegir su compañero. La primera baza la sigue abriendo quien cedió.
+# Los triunfos
+- La sota de triunfo, el Puur, es la carta más alta (20 puntos); después el 9, el Nell (14); después as 11, rey 4, reina 3, 10 10, 8, 7, 6.
+- Los demás palos se ordenan as 11, rey 4, reina 3, sota 2, 10 10, 9, 8, 7, 6.
+- Obenabe: cada palo va del as al seis, y los 8 valen 8. Undeufe: cada palo va del seis al as, los 6 valen 11, los 8 valen 8 y los ases nada.
+- La última baza vale 5 más: 157 puntos en total. Un match (las nueve bazas) vale 257.
+# El juego
+- Sirve el palo de salida o, en su lugar, juega un triunfo. Si no puedes servir, juega cualquier carta.
+- Prohibido fallar por debajo: cuando se ha salido a otro palo, no puedes jugar un triunfo más bajo que uno que ya esté en la baza, salvo que solo tengas triunfos.
+- Cuando se sale a triunfo, debes servir con triunfo, pero nunca estás obligado a jugar el Puur: si no tienes otro triunfo, puedes jugar cualquier carta.
+- En Obenabe y Undeufe, simplemente sirve el palo si puedes.
+# Weis y Stöck
+- Los Weis (cantes) se declaran con tu primera carta: tres cartas seguidas de un palo 20, cuatro 50, cinco 100, seis 150, siete 200, ocho 250, nueve 300; cuatro sotas 200, cuatro nueves 150, cuatro ases, reyes, reinas o dieces 100. El orden de una escalera es 6, 7, 8, 9, 10, sota, reina, rey, as.
+- Solo puntúa el equipo con el mejor Weis, con todos los Weis de sus dos jugadores. El mejor es el que vale más puntos; si empatan, cuatro iguales ganan a una escalera, luego decide la carta más alta, luego una escalera de triunfo, luego el jugador que jugó primero.
+- Stöck: el rey y la reina de triunfo en una misma mano valen 20, que se cuentan cuando se juega la segunda de las dos.
+# La puntuación
+- Cada equipo se anota sus puntos de cartas, sus Weis y su Stöck.
+- La partida larga (a 2500) lo multiplica todo: diamantes y corazones por uno, picas y tréboles por dos, Obenabe y Undeufe por tres.
+# El final de la partida
+Gana el primer equipo que llega a 1000 (2500) puntos. El Stöck cuenta en cuanto se juega; después, los Weis tras la primera baza; después, las bazas al final de la ronda; la ronda siempre se juega entera. Si los dos equipos pasan la meta con las bazas de la misma ronda, gana el total más alto.
+# Jugar en el dispositivo
+Pasa el dispositivo al jugador cuya ficha brilla; toca el botón de inicio y ve su mano. Para elegir el juego, toca el signo de un palo, la flecha hacia arriba (Obenabe) o la flecha hacia abajo (Undeufe) y luego la marca de visto (o lo mismo otra vez); para ceder la elección, toca el botón Paso. El puesto de quien elige muestra el juego; el de quien cedió, el signo de paso. En la primera baza, si tu mano tiene Weis, un botón del lado opuesto al montón de bazas muestra sus puntos: tócalo antes de jugar tu carta para declararlos. Cada puesto muestra los Weis declarados y después solo los del equipo que los puntúa, con luz dorada; el Stöck aparece como el rey y la reina de triunfo en el puesto de quien lo anotó. Para jugar, toca una carta que brille para levantarla y vuelve a tocarla o toca su sitio en el centro; o arrástrala hasta allí. Toca el montón de abajo a la derecha para ver la última baza. Tras cada ronda, una tabla muestra para cada equipo el juego (con su multiplicador en la partida larga), los puntos de cartas (con luz dorada si hay match), los Weis y el Stöck, la puntuación de la ronda y el total; debajo, las fichas de los dos equipos en su camino hacia la meta. Tócala para la ronda siguiente. Cada barra muestra las cartas en la mano y el total del equipo. Deshacer anula una elección aún no confirmada, nunca una vez pasado el dispositivo.

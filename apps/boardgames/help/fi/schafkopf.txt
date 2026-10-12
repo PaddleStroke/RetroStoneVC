@@ -1,0 +1,36 @@
+Schafkopf
+# Tavoite
+Baijerin suuri korttipeli neljälle. Joka jaossa tarjoukset voittanut pelaaja pelaa pelin, kutsumansa parin kanssa tai yksin, muita vastaan; peli maksetaan pisteinä taksan mukaan. Peli on 12 jaon sarja; suurin yhteispistemäärä lopussa voittaa. Säännöt ovat baijerilaiset. 4 pelaajalle, jotka antavat laitetta kädestä käteen; kukaan ei näe muiden kortteja.
+# Kortit
+Pakassa on 32 korttia, seiskasta ässään. Schafkopfia pelataan saksalaisilla mailla; tässä korteissa on ranskalaiset maat, joita sille käytetään myös laajalti: risti tammenterhojen (Eichel) tilalla, pata lehtien (Gras), hertta sydänten (Herz) ja ruutu kulkusten (Schellen). Kuningattaret ovat Obereita ("ylempi"), jätkät Untereita ("alempi") ja ässät Sau ("emakko"). Saksalaiset maat voivat tulla myöhemmin.
+# Jako
+Jokainen saa 8 korttia. Jade jakaa ensin; sen jälkeen jakaja siirtyy joka jaossa yhden paikan eteenpäin. Jakajasta seuraava pelaaja puhuu ensin ja avaa ensimmäisen tikin.
+# Tarjoukset
+- Kukin vuorollaan passaa (weiter, "eteenpäin") tai sanoo pelaavansa ja valitsee pelinsä salaa: Rufspiel, Wenz tai Solo.
+- Rufspiel (kutsupeli): hän kutsuu jonkin maan (risti, pata tai ruutu, ei koskaan hertta) ässän (Sau); hänellä on oltava sen maan kortti, mutta ei itse ässää. Ässän haltija on hänen parinsa, tuntematon kunnes ässä pelataan.
+- Wenz ja Solo: hän pelaa yksin kolmea muuta vastaan.
+- Korkein peli pelataan: Solo, sitten Wenz, sitten Rufspiel; samanarvoisista se, joka puhui ensin. Jos kaikki passaavat, kortit heitetään kesken, tai jos Ramsch on valittu, pelataan Ramsch.
+# Valtit
+- Rufspiel: neljä Oberia (risti, pata, hertta, ruutu) ovat korkeimmat valtit, sitten neljä Unteria samassa järjestyksessä, sitten hertat: ässä, 10, kuningas, 9, 8, 7. Yhteensä 14 valttia.
+- Solo: samoin, mutta hertan tilalla valittu maa.
+- Wenz: valtteja ovat vain neljä Unteria.
+- Muiden maiden järjestys on ässä, 10, kuningas, (Ober), (Unter), 9, 8, 7.
+# Pelaaminen
+- Tunnusta maata, jos voit (kaikki valtit lasketaan yhdeksi maaksi); muuten pelaa mikä tahansa kortti. Korkein valtti voittaa tikin, muuten avatun maan korkein kortti. Voittaja avaa seuraavan tikin.
+- Kutsuttu ässä: kun sen maata avataan ensimmäisen kerran, ässän haltijan on pelattava ässä. Siihen asti hän ei saa heittää ässää pois toisen maan tikkiin, ja hän saa avata sitä maata vain ässällä, paitsi jos hänellä on siitä maasta neljä korttia tai enemmän: silloin hän saa juosta karkuun (davonlaufen) toisella kortilla. Viimeisessä tikissä kaikki käy.
+# Voitto
+- Korttipisteet eli silmät: ässä 11, 10 10, kuningas 4, Ober 3, Unter 2: yhteensä 120.
+- Pelaaja ja hänen parinsa (tai soolopelaaja) voittavat 61 silmällä tai enemmällä.
+- Schneider: hävinneellä puolella on 30 silmää tai vähemmän. Schwarz: hävinnyt puoli ei saanut yhtään tikkiä.
+# Taksa
+- Rufspiel 10 pistettä; Solo ja Wenz 50.
+- Schneider 10 lisää, schwarz 10 lisää.
+- Laufende ("juoksevat"): risti-Oberista (Wenzissä risti-Unterista) alaspäin katkeamaton korkeimpien valttien sarja, joka on samalla puolella, pelaavalla tai toisella: kustakin 10, kolmesta alkaen (Wenzissä kahdesta alkaen).
+- Rufspiel: jokainen voittaja saa arvon, jokainen häviäjä menettää sen. Solo ja Wenz: soolopelaaja saa tai menettää kolminkertaisen arvon, kukin muu pelaaja kerran.
+- Tässä ei pelata kahdennuksia (Kontra, Re), Toutia (kaikki tikit ilmoitettuna), Sietä (kaikki Oberit ja Unterit kädessä) eikä muita kotipelejä.
+# Ramsch
+Kun kaikki passaavat ja Ramsch on valittu, jokainen pelaa itselleen Rufspielin valteilla. Eniten silmiä saanut pelaaja maksaa 10 kullekin muulle; tasapisteissä maksaa se, jolla on enemmän tikkejä, ja jos sekin on tasan, maksaa jokainen heistä. Kaikkien tikkien ottaminen (Durchmarsch, "läpimarssi") tuo 50 jokaiselta.
+# Pelin loppu
+12. jaon jälkeen suurin yhteispistemäärä voittaa. Tasapisteissä voitto jaetaan.
+# Pelaaminen laitteella
+Anna laite pelaajalle, jonka nappula hehkuu; hän napauttaa aloitusta ja näkee oman kätensä. Tarjoa napauttamalla peliä ja sitten rastia (tai samaa peliä uudelleen): jokin kolmesta ässästä Rufspieliin (harmaana, kun et saa kutsua sitä), lähetti (Unterin hahmo) Wenziin tai maan merkki sen maan Soloon; passaa napauttamalla passia. Jokainen paikka näyttää pelaajansa sanan: passimerkin tai rastin pelaajalle, joka pelaisi. Pelin aikana pelaajan paikka näyttää hänen pelinsä: kutsutun ässän, Wenzin tai Solon maan; parin paikka näyttää ässän myös, kun se on pelattu. Pelaa napauttamalla hehkuvaa korttia, jolloin se nousee, ja napauta sitä uudelleen tai sen paikkaa keskellä; tai vedä se sinne. Napauta oikean alakulman pinoa nähdäksesi viimeisen tikin. Jokaisen jaon jälkeen taulukko näyttää pelaavan puolen pelin ja silmät (kultainen rasti: voitto), 90 schneiderille ja 120 schwarzille; risti-Oberin (Wenzissä risti-Unterin) ja lasketut Laufende, taksan (soolopelaajalla kertaa 3) ja arvon; Ramschissa jokaisen pelaajan silmät, maksajat punaisella. Sitten jokaisen pelaajan pisteet ja yhteispisteet sekä jakojen luettelon, jossa pelaajien merkit ovat kultaisia, kun he voittivat. Napauta taulukkoa seuraavaa jakoa varten. Jokainen palkki näyttää kädessä olevat kortit ja yhteispisteet. Kumoa peruu vahvistamattoman valinnan, ei koskaan valintaa sen jälkeen, kun laite on annettu eteenpäin.

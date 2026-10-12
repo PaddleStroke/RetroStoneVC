@@ -1,0 +1,31 @@
+Jass
+# Lo scopo
+Lo Schieber, il modo preferito di giocare a Jass in Svizzera: due squadre di due compagni seduti uno di fronte all'altro, avorio e rosso contro ebano e giada. Entrambe le squadre contano i punti che fanno; vince la prima squadra che arriva a 1000 punti (o a 2500 nella partita lunga). Per 4 giocatori che si passano il dispositivo; nessuno vede le carte degli altri.
+# Le carte
+Il mazzo ha 36 carte, dal 6 all'asso. Nella Svizzera tedesca il Jass si gioca soprattutto con i semi svizzeri (sonagli, scudi, rose, ghiande); qui le carte hanno semi francesi, come nell'ovest del paese. I semi svizzeri potrebbero arrivare più avanti.
+# La distribuzione
+Ogni giocatore riceve 9 carte. Il primo mazziere è il giada; poi il mazziere avanza di un posto a ogni smazzata. Il giocatore dopo il mazziere sceglie il gioco ed esce nella prima presa.
+# Scegliere il gioco
+- Chi sceglie nomina un seme di briscola, oppure Obenabe (senza briscola, la carta più alta è l'asso) o Undeufe (senza briscola, la più alta è il sei).
+- Oppure passa la scelta (schieben, «spingere»): allora deve scegliere il suo compagno. Nella prima presa esce comunque chi ha passato la scelta.
+# Le briscole
+- Il fante di briscola, il Puur, è la carta più alta (20 punti), poi il 9, il Nell (14), poi asso 11, re 4, donna 3, 10 10, 8, 7, 6.
+- Gli altri semi vanno in quest'ordine: asso 11, re 4, donna 3, fante 2, 10 10, 9, 8, 7, 6.
+- Obenabe: ogni seme va dall'asso al sei, e gli 8 valgono 8. Undeufe: ogni seme va dal sei all'asso, i 6 valgono 11, gli 8 valgono 8 e gli assi niente.
+- L'ultima presa vale 5 in più: 157 punti in tutto. Un match (tutte e nove le prese) vale 257.
+# Il gioco
+- Rispondi al seme d'uscita, oppure gioca invece una briscola. Se non puoi rispondere, gioca una carta qualsiasi.
+- Niente sottotaglio: quando si è usciti in un altro seme, non puoi giocare una briscola più bassa di una già nella presa, a meno che tu abbia solo briscole.
+- Quando si esce in briscola devi rispondere con una briscola, ma non sei mai obbligato a giocare il Puur: se non hai altre briscole, puoi giocare una carta qualsiasi.
+- In Obenabe e Undeufe rispondi semplicemente al seme se puoi.
+# Weis e Stöck
+- I Weis (combinazioni) si dichiarano con la tua prima carta: tre carte in scala dello stesso seme 20, quattro 50, cinque 100, sei 150, sette 200, otto 250, nove 300; quattro fanti 200, quattro nove 150, quattro assi, re, donne o dieci 100. L'ordine di una scala è 6, 7, 8, 9, 10, fante, donna, re, asso.
+- Segna solo la squadra con il miglior Weis singolo, con tutti i Weis dei suoi due giocatori. Il migliore è quello che vale più punti; a parità, un poker batte una scala, poi conta la carta più alta, poi una scala di briscola, poi il giocatore che ha giocato per primo.
+- Stöck: il re e la donna di briscola nella stessa mano valgono 20, contati quando si gioca la seconda delle due carte.
+# Il punteggio
+- Ogni squadra segna i suoi punti carta, i suoi Weis e il suo Stöck.
+- La partita lunga (a 2500) moltiplica tutto: quadri e cuori per uno, picche e fiori per due, Obenabe e Undeufe per tre.
+# La fine della partita
+Vince la prima squadra che arriva a 1000 (2500) punti. Lo Stöck conta appena viene giocato, poi i Weis dopo la prima presa, poi le prese alla fine della smazzata; la smazzata si gioca sempre fino in fondo. Se entrambe le squadre superano il traguardo con le prese della stessa smazzata, vince il totale più alto.
+# Giocare sul dispositivo
+Passa il dispositivo al giocatore di cui brilla la pedina; tocca il pulsante di avvio e vede la sua mano. Per scegliere il gioco, tocca il segno di un seme, la freccia in su (Obenabe) o la freccia in giù (Undeufe), poi il segno di spunta (o di nuovo la stessa scelta); per passare la scelta, tocca il pulsante passo. Il posto di chi sceglie mostra il gioco, quello di chi ha passato la scelta il segno di passo. Nella prima presa, se la tua mano contiene Weis, un pulsante dalla parte opposta al mazzetto delle prese ne mostra i punti: toccalo prima di giocare la carta per dichiararli. Ogni posto mostra i Weis dichiarati, poi solo quelli della squadra che li segna, in luce dorata; lo Stöck appare come il re e la donna di briscola al posto di chi l'ha segnato. Per giocare, tocca una carta che brilla per sollevarla, poi toccala di nuovo o tocca il suo posto al centro; oppure trascinala lì. Tocca il mazzetto in basso a destra per rivedere l'ultima presa. Dopo ogni smazzata una tabella mostra per ogni squadra il gioco (con il suo moltiplicatore nella partita lunga), i punti carta (in luce dorata per un match), i Weis e lo Stöck, il punteggio della smazzata e il totale; sotto, i gettoni delle due squadre lungo il cammino verso il traguardo. Toccala per la smazzata successiva. Ogni barra mostra le carte in mano e il totale della squadra. Annulla ritira una scelta non ancora confermata, mai una volta passato il dispositivo.

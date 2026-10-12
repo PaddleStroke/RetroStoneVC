@@ -1,0 +1,32 @@
+Klaverjas
+# Tujuan
+Permainan kartu kesayangan Belanda: dua tim berisi dua rekan yang duduk berhadapan, gading dan merah melawan eboni dan giok. Di setiap ronde, satu tim memilih truf dan lalu harus mendapat lebih dari separuh semua poin. Satu pertandingan terdiri dari 16 ronde; total yang lebih tinggi di akhir pertandingan menang. Aturannya mengikuti aturan Rotterdam (Rotterdams): kamu selalu harus memainkan truf jika tidak bisa mengikuti jenis yang dibuka. Untuk 4 pemain yang saling mengoper perangkat; tak seorang pun melihat kartu pemain lain.
+# Pembagian kartu
+Deknya berisi 32 kartu, dari 7 sampai as, dengan jenis Prancis. Setiap pemain mendapat 8 kartu. Giok membagi lebih dulu; setelah itu pembagi kartu bergeser satu tempat setiap ronde. Pemain setelah pembagi (voorhand, "tangan depan") berbicara pertama dan selalu membuka trik pertama.
+# Truf
+- Mulai dari voorhand, berkeliling meja, setiap pemain bergiliran menyebut jenis truf atau pas. Pemain pertama yang menyebut jenis akan bermain: timnya harus memenangkan permainan.
+- Jika keempatnya pas, voorhand harus menyebut satu jenis (verplicht, "wajib").
+# Urutan kartu
+- Truf: jack 20, sembilan 14, as 11, sepuluh 10, king 4, queen 3, delapan, tujuh.
+- Jenis lainnya: as 11, sepuluh 10, king 4, queen 3, jack 2, sembilan, delapan, tujuh.
+- Trik terakhir bernilai 10 poin tambahan: total 162 poin.
+# Permainan
+- Ikuti jenis yang dibuka jika bisa.
+- Jika tidak bisa, kamu harus memainkan truf, bahkan saat rekanmu sedang memenangkan trik, dan melampaui truf tertinggi yang sudah ada di trik itu jika bisa.
+- Jika tidak bisa melampauinya, mainkan kartu dari jenis lain; kamu boleh memainkan truf yang lebih rendah hanya jika kamu tidak memegang apa pun selain truf yang lebih rendah.
+- Saat truf dibuka, mainkan truf yang lebih tinggi dari truf terbaik di trik itu jika bisa.
+- Truf tertinggi memenangkan trik; jika tidak ada truf, kartu tertinggi dari jenis yang dibuka. Pemenang membuka trik berikutnya.
+# Roem
+Roem (poin bonus) dihitung di setiap trik sebagaimana kartunya terletak, untuk tim yang mengambil trik itu:
+- tiga kartu berurutan dalam satu jenis 20, empat 50 (urutannya 7 8 9 10 J Q K A);
+- king dan queen truf (stuk) 20, juga bersama sebuah deret;
+- empat as, king, queen, atau sepuluh 100; empat jack 200.
+- Pit (semua trik): tim yang mengambil kedelapan trik mendapat 100 roem lagi.
+# Skor
+- Tim yang bermain harus mendapat lebih dari separuh semua poin: poin kartu dan roem kedua tim digabung.
+- Jika berhasil, setiap tim mencatat poin dan roem-nya sendiri.
+- Jika tidak, tim itu nat ("basah"): tim lawan mencatat semuanya, 162 dan seluruh roem.
+# Akhir permainan
+Setelah ronde ke-16, total yang lebih tinggi menang. Total yang sama berbagi kemenangan.
+# Bermain di perangkat
+Oper perangkat ke pemain yang bidaknya menyala; ia mengetuk tombol mulai dan melihat kartunya sendiri. Untuk menyebut truf, ketuk sebuah jenis, lalu tanda centang (atau jenis yang sama lagi); untuk pas, ketuk pas. Jika keempatnya sudah pas, voorhand tidak punya tombol pas. Setiap kursi menunjukkan pas-nya; lalu kursi pemain yang menyebut truf menunjukkan jenisnya. Roem naik sebagai poin dari kursi pemain yang mengambil trik. Untuk bermain, ketuk kartu yang menyala agar terangkat, lalu ketuk lagi kartu itu atau tempatnya di tengah; atau seret ke sana. Ketuk tumpukan di kanan bawah untuk melihat trik terakhir. Setelah setiap ronde, sebuah tabel menunjukkan untuk setiap tim poin kartunya (dalam cahaya emas untuk pit), roem-nya, skor ronde itu, dan totalnya; truf tim yang bermain dicoret jika tim itu nat. Di bawahnya, daftar 16 ronde menunjukkan keping tim yang bermain, dalam cahaya emas jika tim itu memenangkan permainan. Ketuk untuk ronde berikutnya. Setiap bilah menunjukkan kartu di tangan dan total tim. Urungkan membatalkan pilihan yang belum dikonfirmasi, tidak pernah pilihan setelah perangkat dioper.

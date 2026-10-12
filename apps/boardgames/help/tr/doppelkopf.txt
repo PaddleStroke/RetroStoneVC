@@ -1,0 +1,46 @@
+Doppelkopf
+# Amaç
+Almanya'nın dört kişilik en sevilen kart oyunu; çift desteyle oynanır. Her dağıtımda sinek kızlarını tutan iki oyuncu, yani Re tarafı, diğer ikisine, Kontra tarafına karşı oynar; ama başta kimse kimin kiminle olduğunu bilmez. Bir parti, seçime göre 12 ya da 24 dağıtımlık bir listedir; sonunda toplamı en yüksek olan kazanır. Kurallar, Alman Doppelkopf Ligi'nin (DDV) turnuva kurallarıdır. Kartlar, Doppelkopf'un sık oynandığı gibi Fransız renklerindedir; Alman renkleri (meşe palamudu, yaprak, kalp, çıngırak) ileride gelebilir. Cihazı elden ele geçiren 4 oyuncu için; kimse başkalarının kartlarını görmez.
+# Dağıtım
+Destede 48 kart vardır: her rengin 9'u, 10'u, valesi, kızı, papazı ve ası, her kart iki kez. Her oyuncuya 12 kart verilir. İlk yeşim dağıtır; sonra her dağıtımda dağıtan bir kişi kayar. Dağıtandan sonraki oyuncu ilk konuşur ve ilk eli açar.
+# Çekinceler
+- İlk karttan önce her oyuncu sırayla sağlam (gesund) der ya da bir çekincesi (Vorbehalt) olduğunu söyler. Ne istediği gizli kalır: bir solo ya da bir düğün.
+- İki sinek kızını birden tutan oyuncu düğün (Hochzeit) ilan edebilir. Bu onun seçimidir: sesini çıkarmayıp diğer üçüne karşı sessiz bir solo da oynayabilir.
+- Sırada ilk gelen solo oynanır; yoksa düğün; o da yoksa normal oyun.
+# Kozlar
+- Normal oyunda kupa 10'u (Dulle) en büyük kozdur. Ardından kızlar ve valeler gelir, her biri sinek, maça, kupa, karo sırasıyla; sonra karonun ası, 10'u, papazı ve 9'u: toplam 26 koz.
+- Diğer renklerin sıralaması: as, 10, papaz, 9; kupada yalnızca as, papaz ve 9 vardır.
+- Bir eldeki iki aynı karttan önce oynanan kazanır.
+# Taraflar
+- Sinek kızlarını tutanlar (die Alten, "ihtiyarlar") Re'dir, diğerleri Kontra. Her oyuncu kendi tarafını bilir, başkalarınınkini bilmez. Taraf, bir sinek kızı oynandığında ya da biri ilan yaptığında belli olur.
+- Düğün: ilk üç el içinde başka bir oyuncunun aldığı ilk el, o oyuncuyu gelinin eşi yapar. Gelin üç eli de alırsa tek başına, solo olarak oynar.
+# Solo oyunlar
+Bir oyuncu, solocu (Re), diğer üçüne (Kontra) karşı oynar.
+- Kız solosu: yalnızca sekiz kız kozdur.
+- Vale solosu: yalnızca sekiz vale kozdur.
+- Renk solosu: normal oyunun kozları, karo yerine seçilen renkle.
+- Etsiz (Fleischlos): koz yoktur; her renkte sıralama as, 10, papaz, kız, vale, 9'dur.
+# Oyun
+Yapabiliyorsan açılan renkten kart at (bütün kozlar tek renk sayılır); yapamıyorsan istediğin kartı at. Eli en büyük koz alır; koz yoksa açılan rengin en büyük kartı. Eli alan bir sonrakini açar.
+# İlanlar
+- Bir oyuncu, kart oynamadan önce tarafı adına ilan yapabilir: elinde en az 11 kart varken Re ya da Kontra, en az 10 kartla 90 yok (keine 90), en az 9 kartla 60 yok (keine 60), en az 8 kartla 30 yok (keine 30), en az 7 kartla schwarz (hiç el yok). Her ilan, altındakileri de içerir.
+- Diğer taraf ilan yaptıktan sonra, cevap olarak Re ya da Kontra yine söylenebilir: o ilanın kendi sınırından bir kart sonrasına kadar.
+- Düğünde eş bulunmadan hiçbir şey ilan edilemez; sınırlar sonra, eşin bulunması için geçen el sayısı kadar kayar.
+- Burada oyuncu ilanını kendi sırasında, cihaz elindeyken yapar.
+# Kazanmak
+- Kart puanları: as 11, 10 10, papaz 4, kız 3, vale 2; toplam 240.
+- Re 121 puanla, Kontra 120 puanla kazanır. Yalnızca Kontra ilan edildiyse Re 120 puanla kazanır, Kontra'nın ise 121 puana ihtiyacı vardır.
+- 90 yok (60 yok, 30 yok, schwarz) ilan eden taraf, diğer tarafı 90'ın (60'ın, 30'un) altında tutmalı (schwarz'da ona hiç el aldırmamalı), yoksa diğer taraf kazanır. İki taraf da böyle ilanlarını tutturamazsa kimse kazanmaz.
+# Oyunun değeri
+- Kazanılan oyun: 1. Kaybedenler 90'ın altında, 60'ın altında, 30'un altında ve hiç el almadan (schwarz): her biri 1.
+- Re ilan edildi: 2. Kontra ilan edildi: 2. İlan edilen her 90 yok, 60 yok, 30 yok ve schwarz: 1.
+- Diğer tarafın 90 yok ilanına karşı 120'ye, 60 yok ilanına karşı 90'a, 30 yok ilanına karşı 60'a, schwarz ilanına karşı 30'a ulaşmak: her biri 1.
+- Ek puanlar (Sonderpunkte), yalnızca normal oyunda ve düğünde, onları yapan tarafa: yakalanan tilki (Fuchs: rakibin karo ası, senin aldığın bir elde), Doppelkopf (40 ya da daha fazla puanlık bir el), Karlchen (son eli sinek valesiyle almak) ve ihtiyarlara karşı (gegen die Alten: Kontra kazanır): her biri 1. İki tarafın ek puanları birbirini götürür.
+# Puanlama
+- Normal oyun: Re kazandıysa her Re oyuncusu oyunun değerini yazar (Kontra kazandıysa eksi olarak), artı Re'nin ek puanları, eksi Kontra'nınkiler; her Kontra oyuncusu bunun tersini yazar.
+- Solo: solocu üç katını yazar, her rakip bir katını.
+- Burada zorunlu solo yoktur.
+# Oyunun sonu
+Listenin son dağıtımından sonra toplamı en yüksek olan kazanır. Toplamları eşit olanlar galibiyeti paylaşır.
+# Cihazda oynamak
+Cihazı, pulu parlayan oyuncuya ver; başlat düğmesine dokunur ve kendi elini görür. Sağlam demek için pas'a dokun. Çekince için bir oyuna, sonra onay işaretine (ya da aynı oyuna yeniden) dokun: renk solosu (rengin işareti), kız solosu (bir kız), vale solosu (bir fil, valenin figürü), etsiz (dört as) ya da düğün (iki sinek kızı, yalnızca ikisi de sendeyse). Her oyuncunun yerinde sözü görünür: sağlam için pas işareti, çekince için bir lamba. Oyun sırasında her yer, masanın bildiğini gösterir: Re için sinek kızı, Kontra için üstü çizili sinek kızı, ilan edildiğinde altın ışıkta; kendi tarafın kendi yerinde her zaman görünür. Solocunun yerinde solo, gelinin yerinde eşi bulunana kadar düğün görünür; 90 yok, 60 yok, 30 yok ve schwarz, koyu bir diskte 90, 60, 30 ve 0 olarak görünür. İlan yapabildiğinde, el yığınının karşısındaki düğme sıradaki ilanını gösterir: kartını oynamadan önce ona dokun. Oynamak için parlayan bir karta dokun, kalksın; sonra ona ya da ortadaki yerine yeniden dokun; ya da onu oraya sürükle. Son eli görmek için sağ alttaki desteye dokun. Her dağıtımdan sonra bir tablo şunları gösterir: her tarafın kart puanları, ilanları, ek puanları (karo ası: tilki; 40: Doppelkopf; sinek valesi: Karlchen; üstü çizili kız: ihtiyarlara karşı) ve kazananlar için altın onay işareti; sonra oyunun değeri, ek puanların farkı ve her Re oyuncusunun puanı (solocu için 3 katı); her oyuncunun puanı ve toplamı; ve kazananların pulları altın ışıkta olan dağıtımlar listesi. Sonraki dağıtım için ona dokun. Her çubuk eldeki kartları ve toplamı gösterir. Geri al, henüz onaylanmamış bir seçimi geri alır; cihaz el değiştirdikten sonra asla geri almaz.

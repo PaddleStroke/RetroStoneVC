@@ -1,0 +1,46 @@
+Doppelkopf
+# El objetivo
+El juego de cartas favorito de Alemania, para cuatro, con una baraja doble. En cada ronda, los dos jugadores que tienen las reinas de tréboles, el bando Re, juegan contra los otros dos, el bando Kontra; pero al principio nadie sabe quién va con quién. Una partida es una lista de 12 o 24 rondas, a elegir; al final gana el total más alto. Las reglas son las de los torneos de la Liga Alemana de Doppelkopf (DDV). Las cartas tienen palos franceses, como se juega a menudo al Doppelkopf; los palos alemanes (bellotas, hojas, corazones, cascabeles) quizá lleguen más adelante. Para 4 jugadores que se pasan el dispositivo; nadie ve las cartas de los demás.
+# El reparto
+La baraja tiene 48 cartas: 9, 10, sota, reina, rey y as de cada palo, cada carta dos veces. Cada jugador recibe 12 cartas. Reparte primero el jade; después el que reparte avanza un puesto en cada ronda. El jugador que sigue al que reparte habla primero y sale en la primera baza.
+# Las reservas
+- Antes de la primera carta, cada jugador por turno dice gesund («sano»: sin reserva) o que tiene una reserva (Vorbehalt). Lo que quiere jugar queda en secreto: un solo o una boda.
+- Un jugador que tiene las dos reinas de tréboles puede anunciar una boda (Hochzeit). Él decide: también puede callarse y jugar un solo en silencio contra los otros tres.
+- Se juega el primer solo por orden de turno; si no hay, la boda; si no, el juego normal.
+# Los triunfos
+- En el juego normal, el 10 de corazones (la Dulle) es el triunfo más alto. Después vienen las reinas y luego las sotas, cada una en el orden tréboles, picas, corazones, diamantes, y después el as, el 10, el rey y el 9 de diamantes: 26 triunfos.
+- Los demás palos se ordenan as, 10, rey, 9; corazones solo tiene as, rey y 9.
+- De dos cartas iguales en una baza, gana la que se jugó primero.
+# Los bandos
+- Quienes tienen las reinas de tréboles (las Alten, «las viejas») son Re; los demás, Kontra. Cada jugador conoce su propio bando, no el de los demás. Un bando se descubre cuando se juega una reina de tréboles o cuando alguien anuncia.
+- Boda: el primer otro jugador que gana una de las tres primeras bazas pasa a ser el compañero de la novia. Si la novia gana las tres, juega sola, como en un solo.
+# Los solos
+Un jugador, el solista (Re), juega contra los otros tres (Kontra).
+- Solo de reinas: solo las ocho reinas son triunfo.
+- Solo de sotas: solo las ocho sotas son triunfo.
+- Solo de palo: los triunfos del juego normal, con el palo elegido en lugar de los diamantes.
+- Fleischlos («sin carne»): no hay triunfo; cada palo se ordena as, 10, rey, reina, sota, 9.
+# El juego
+Sirve el palo de salida si puedes (todos los triunfos cuentan como un solo palo); si no, juega cualquier carta. El triunfo más alto gana la baza o, si no hay, la carta más alta del palo de salida. Quien gana sale en la siguiente baza.
+# Los anuncios
+- Antes de jugar una carta, un jugador puede anunciar por su bando: Re o Kontra si le quedan al menos 11 cartas, sin 90 (keine 90) al menos 10, sin 60 (keine 60) al menos 9, sin 30 (keine 30) al menos 8, schwarz (ninguna baza) al menos 7. Cada anuncio incluye los anteriores.
+- Una vez que el otro bando ha anunciado, aún se puede responder Re o Kontra, una carta más tarde que el límite propio de ese anuncio.
+- En una boda no se puede anunciar nada antes de encontrar al compañero; los límites se retrasan entonces tantas bazas como hayan hecho falta.
+- Aquí un jugador anuncia en su propio turno, mientras tiene el dispositivo en las manos.
+# Ganar la ronda
+- Puntos de las cartas: as 11, 10 10, rey 4, reina 3, sota 2: 240 en total.
+- Re gana con 121 puntos; Kontra, con 120. Si solo se anunció Kontra, Re gana con 120 y Kontra necesita 121.
+- Un bando que anunció sin 90 (sin 60, sin 30, schwarz) debe dejar al otro bando por debajo de 90 (60, 30, sin ninguna baza); si no, gana el otro bando. Si los dos bandos fallan anuncios así, no gana nadie.
+# El valor del juego
+- Ganado: 1. Los perdedores por debajo de 90, de 60, de 30, y sin ninguna baza (schwarz): 1 cada uno.
+- Re anunciado: 2. Kontra anunciado: 2. Cada sin 90, sin 60, sin 30 y schwarz anunciado: 1.
+- 120 alcanzados contra el sin 90 del otro bando, 90 contra sin 60, 60 contra sin 30, 30 contra schwarz: 1 cada uno.
+- Puntos extra (Sonderpunkte), solo en el juego normal y en la boda, para el bando que los consigue: un zorro cazado (Fuchs: un as de diamantes rival en una baza que ganas), un Doppelkopf (una baza de 40 puntos o más), Karlchen («Carlitos»: la última baza ganada con la sota de tréboles) y contra las viejas (gegen die Alten: gana Kontra): 1 cada uno. Los puntos extra de los dos bandos se compensan.
+# La puntuación
+- Juego normal: cada jugador Re se anota el valor del juego si ganó Re (en negativo si ganó Kontra), más los puntos extra de Re y menos los de Kontra; cada jugador Kontra se anota lo contrario.
+- Solo: el solista se anota el triple; cada rival, una vez.
+- Aquí no hay solos obligatorios.
+# El final de la partida
+Tras la última ronda de la lista, gana el total más alto. Los totales empatados comparten la victoria.
+# Jugar en el dispositivo
+Pasa el dispositivo al jugador cuya ficha brilla; toca el botón de inicio y ve su mano. Para decir gesund, toca Paso. Para una reserva, toca un juego y luego la marca de visto (o el mismo juego otra vez): un solo de palo (el signo del palo), el solo de reinas (una reina), el solo de sotas (un alfil, la figura de la sota), Fleischlos (cuatro ases) o la boda (dos reinas de tréboles, solo si tienes las dos). Cada puesto muestra lo que dijo su jugador: el signo de paso para gesund, una lámpara para una reserva. Durante el juego, cada puesto muestra lo que sabe la mesa: la reina de tréboles para Re, tachada para Kontra, con luz dorada una vez anunciado; tu propio bando siempre aparece en tu puesto. El puesto del solista muestra el solo; el de la novia, la boda hasta que se encuentra a su compañero; sin 90, sin 60, sin 30 y schwarz aparecen como 90, 60, 30 y 0 en un disco oscuro. Cuando puedes anunciar, el botón del lado opuesto al montón de bazas muestra tu siguiente anuncio: tócalo antes de jugar tu carta. Para jugar, toca una carta que brille para levantarla y vuelve a tocarla o toca su sitio en el centro; o arrástrala hasta allí. Toca el montón de abajo a la derecha para ver la última baza. Tras cada ronda, una tabla muestra cada bando con sus puntos de cartas, sus anuncios, sus puntos extra (el as de diamantes: un zorro; 40: un Doppelkopf; la sota de tréboles: Karlchen; la reina tachada: contra las viejas) y una marca dorada para los ganadores; después, el valor del juego, el saldo de puntos extra y los puntos de cada jugador Re (por 3 para un solista); la puntuación y el total de cada jugador; y la lista de rondas, con las fichas de los ganadores en luz dorada. Tócala para la ronda siguiente. Cada barra muestra las cartas en la mano y el total. Deshacer anula una elección aún no confirmada, nunca una vez pasado el dispositivo.

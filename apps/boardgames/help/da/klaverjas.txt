@@ -1,0 +1,32 @@
+Klaverjas
+# Målet
+Nederlandenes mest elskede kortspil: to hold med to makkere, der sidder over for hinanden, elfenben og rød mod ibenholt og jade. I hvert giv vælger ét hold trumf og skal så tage mere end halvdelen af alle point. Et parti har 16 giv; den højeste sum til sidst vinder. Reglerne er de rotterdamske (Rotterdams): du skal altid trumfe, når du ikke kan bekende kulør. For 4 spillere, der sender enheden rundt; ingen ser de andres kort.
+# Kortgivningen
+Spillet har 32 kort, 7 til es, i franske kulører. Hver spiller får 8 kort. Jade giver først; derefter rykker giveren én plads videre for hvert giv. Spilleren efter giveren (voorhand, forhånd) taler først og spiller altid ud til første stik.
+# Trumferne
+- Fra voorhand og rundt om bordet nævner hver spiller på skift en trumfkulør eller melder pas. Den første, der nævner en, spiller: hans hold skal vinde spillet.
+- Melder alle fire pas, skal voorhand nævne en kulør (verplicht, tvunget).
+# Kortenes rækkefølge
+- Trumf: knægt 20, nier 14, es 11, tier 10, konge 4, dame 3, otter, syver.
+- De andre kulører: es 11, tier 10, konge 4, dame 3, knægt 2, nier, otter, syver.
+- Sidste stik er værd 10 mere: 162 point i alt.
+# Spillet
+- Bekend kulør, hvis du kan.
+- Kan du ikke, skal du trumfe, også når din makker vinder stikket, og stikke over den højeste trumf i stikket, hvis du kan.
+- Kan du ikke stikke over, så spil et kort i en anden kulør; du må kun undertrumfe, når du ikke har andet end lavere trumfer.
+- Når der spilles trumf ud, så spil en højere trumf end den bedste i stikket, hvis du kan.
+- Den højeste trumf vinder stikket, ellers det højeste kort i den udspillede kulør. Vinderen spiller ud til næste stik.
+# Roem
+Roem (bonuspoint) tælles i hvert stik, som det ligger, for det hold, der tager det:
+- tre kort i række i én kulør 20, fire 50 (rækkefølgen 7 8 9 10 Kn D K E);
+- trumfkonge og trumfdame (stuk) 20, også sammen med en række;
+- fire esser, konger, damer eller tiere 100; fire knægte 200.
+- Pit: et hold, der tager alle otte stik, får 100 roem mere.
+# Pointene
+- Det spillende hold skal tage mere end halvdelen af alle point: begge holds kortpoint og roem tilsammen.
+- Klarer det det, får hvert hold sine egne point og sin roem.
+- Ellers er det nat (vådt, altså faldet): det andet hold får det hele, 162 og al roem.
+# Spillets afslutning
+Efter 16. giv vinder den højeste sum. Ved lige sum deles sejren.
+# Spil på enheden
+Giv enheden til spilleren, hvis brik lyser; han trykker på start og ser sin hånd. For at nævne trumf trykker du på en kulør og så på fluebenet (eller på samme kulør igen); for at melde pas trykker du på pas. Når alle fire har meldt pas, har voorhand ingen pas-knap. Hver plads viser sit pas; derefter viser pladsen for den, der nævnte trumf, kuløren. Roem stiger op i point fra pladsen for den spiller, der tager stikket. For at spille trykker du på et kort, der lyser, så det løfter sig, og trykker på det igen eller på dets plads i midten; eller træk det derhen. Tryk på bunken nederst til højre for at se det sidste stik. Efter hvert giv viser en tavle for hvert hold dets kortpoint (i gyldent lys ved pit), dets roem, givets point og summen; det spillende holds trumf er overstreget, når det er nat. Nedenunder viser listen over de 16 giv det spillende holds brikker, i gyldent lys, når det vandt spillet. Tryk på den for næste giv. Hver bjælke viser kortene på hånden og holdets sum. Fortryd tager et valg tilbage, der endnu ikke er bekræftet, aldrig et, når enheden er givet videre.

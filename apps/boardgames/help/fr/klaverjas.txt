@@ -1,0 +1,32 @@
+Klaverjas
+# Le but
+Le jeu de cartes préféré des Néerlandais : deux équipes de deux partenaires assis face à face, ivoire et rouge contre ébène et jade. À chaque donne, une équipe choisit l'atout et doit ensuite faire plus de la moitié de tous les points. Une partie compte 16 donnes ; à la fin, le plus gros total gagne. Les règles sont celles de Rotterdam (Rotterdams) : on doit toujours couper quand on ne peut pas fournir. Pour 4 joueurs qui se passent l'appareil ; personne ne voit les cartes des autres.
+# La donne
+Le jeu compte 32 cartes, du 7 à l'as, aux couleurs françaises. Chaque joueur reçoit 8 cartes. Jade donne en premier ; ensuite le donneur avance d'une place à chaque donne. Le joueur après le donneur (voorhand, « la main ») parle en premier et entame toujours le premier pli.
+# Les atouts
+- À partir de voorhand, en faisant le tour de la table, chaque joueur à son tour nomme une couleur d'atout ou passe. Le premier qui en nomme une joue : son équipe doit réussir le jeu.
+- Si les quatre passent, voorhand doit nommer une couleur (verplicht, « obligé »).
+# L'ordre des cartes
+- Atouts : valet 20, neuf 14, as 11, dix 10, roi 4, dame 3, huit, sept.
+- Les autres couleurs : as 11, dix 10, roi 4, dame 3, valet 2, neuf, huit, sept.
+- Le dernier pli vaut 10 de plus : 162 points en tout.
+# Le jeu
+- Fournis la couleur demandée si tu peux.
+- Sinon, tu dois couper, même quand ton partenaire est maître du pli, et surcouper le plus fort atout déjà dans le pli si tu peux.
+- Si tu ne peux pas surcouper, joue une carte d'une autre couleur ; tu ne peux sous-couper que si tu n'as que des atouts plus faibles.
+- Quand atout est demandé, joue un atout plus fort que le meilleur du pli si tu peux.
+- Le plus fort atout remporte le pli, sinon la plus forte carte de la couleur demandée. Le gagnant entame le pli suivant.
+# Le roem
+Le roem (points de bonus) se compte dans chaque pli tel qu'il est posé, pour l'équipe qui le remporte :
+- trois cartes qui se suivent dans une couleur 20, quatre 50 (l'ordre 7, 8, 9, 10, valet, dame, roi, as) ;
+- le roi et la dame d'atout (stuk) 20, même avec une suite ;
+- quatre as, rois, dames ou dix 100 ; quatre valets 200.
+- Pit (capot) : une équipe qui fait les huit plis reçoit 100 de roem en plus.
+# Le score
+- L'équipe qui joue doit faire plus de la moitié de tous les points : les points de cartes et le roem des deux équipes ensemble.
+- Si elle y arrive, chaque équipe marque ses propres points et son roem.
+- Sinon, elle est nat (« mouillée ») : l'autre équipe marque tout, 162 et tout le roem.
+# La fin de la partie
+Après la 16e donne, le plus gros total gagne. Les équipes à égalité se partagent la victoire.
+# Jouer sur l'appareil
+Passe l'appareil au joueur dont la pièce brille ; il touche le bouton de départ et voit sa main. Pour nommer l'atout, touche une couleur, puis la coche (ou la même couleur une seconde fois) ; pour passer, touche passer. Quand les quatre ont passé, voorhand n'a pas de bouton passer. Chaque place montre son passe ; puis le joueur qui a nommé l'atout montre sa couleur. Le roem s'élève en points depuis la place du joueur qui le remporte. Pour jouer, touche une carte qui brille pour la lever, puis touche-la encore ou touche sa place au milieu ; ou fais-la glisser jusque-là. Touche le paquet en bas à droite pour revoir le dernier pli. Après chaque donne, un tableau montre pour chaque équipe ses points de cartes (en éclat doré pour un pit), son roem, le score de la donne et le total ; l'atout de l'équipe qui joue est barré quand elle est nat. En dessous, la liste des 16 donnes montre les jetons de l'équipe qui joue, en éclat doré quand elle a réussi le jeu. Touche-le pour la donne suivante. Chaque barre montre les cartes en main et le total de l'équipe. Annuler reprend un choix pas encore validé, jamais un choix une fois l'appareil passé.

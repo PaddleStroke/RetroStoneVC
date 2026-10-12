@@ -1,0 +1,31 @@
+Jass
+# Das Ziel
+Der Schieber, die beliebteste Jassform der Schweiz: zwei Teams aus je zwei Partnern, die einander gegenübersitzen, Elfenbein und Rot gegen Ebenholz und Jade. Beide Teams zählen die Punkte, die sie machen; das erste Team, das 1000 Punkte erreicht (oder 2500 in der langen Partie), gewinnt. Für 4 Spieler, die das Gerät herumreichen; niemand sieht die Karten der anderen.
+# Die Karten
+Gespielt wird mit 36 Karten, von der 6 bis zum Ass. In der Deutschschweiz wird meist mit Schweizer Farben gejasst (Schellen, Schilten, Rosen, Eicheln); hier haben die Karten französische Farben, wie im Westen des Landes. Schweizer Farben kommen vielleicht später.
+# Das Geben
+Jeder Spieler bekommt 9 Karten. Jade gibt zuerst; danach rückt der Geber mit jeder Runde einen Platz weiter. Der Spieler nach dem Geber wählt das Spiel und spielt zum ersten Stich aus.
+# Das Spiel wählen
+- Wer wählt, nennt eine Trumpffarbe, oder Obenabe (ohne Trumpf, das Ass ist am höchsten) oder Undeufe (ohne Trumpf, die Sechs ist am höchsten).
+- Oder er schiebt: Dann muss sein Partner wählen. Den ersten Stich spielt trotzdem der Spieler aus, der geschoben hat.
+# Die Trümpfe
+- Der Trumpfbube, der Puur, ist die höchste Karte (20 Punkte), dann die Trumpf-Neun, das Nell (14), dann Ass 11, König 4, Dame 3, 10 10, 8, 7, 6.
+- Die anderen Farben: Ass 11, König 4, Dame 3, Bube 2, 10 10, 9, 8, 7, 6.
+- Obenabe: Jede Farbe geht vom Ass bis zur Sechs, und die Achten zählen 8. Undeufe: Jede Farbe geht von der Sechs bis zum Ass, die Sechsen zählen 11, die Achten 8 und die Asse nichts.
+- Der letzte Stich zählt 5 extra: zusammen 157 Punkte. Ein Match (alle neun Stiche) zählt 257.
+# Das Spiel
+- Bediene die ausgespielte Farbe oder spiele stattdessen einen Trumpf. Kannst du nicht bedienen, spiel eine beliebige Karte.
+- Kein Untertrumpfen: Wurde eine andere Farbe ausgespielt, darfst du keinen Trumpf spielen, der niedriger ist als einer, der schon im Stich liegt, außer du hast nur noch Trümpfe.
+- Wird Trumpf ausgespielt, musst du Trumpf zugeben, aber den Puur musst du nie spielen: Hast du keinen anderen Trumpf, darfst du eine beliebige Karte spielen.
+- Bei Obenabe und Undeufe bedienst du einfach, wenn du kannst.
+# Weis und Stöck
+- Weis werden mit der ersten Karte gemeldet: drei Karten in Folge in einer Farbe 20, vier 50, fünf 100, sechs 150, sieben 200, acht 250, neun 300; vier Buben 200, vier Neunen 150, vier Asse, Könige, Damen oder Zehnen 100. Die Reihenfolge einer Folge ist 6 7 8 9 10 B D K A.
+- Nur das Team mit dem besten einzelnen Weis schreibt, und zwar alle Weis beider Spieler. Der beste hat die meisten Punkte; bei Gleichheit schlagen vier Gleiche eine Folge, dann zählt die höhere oberste Karte, dann eine Folge in Trumpf, dann der Spieler, der zuerst gespielt hat.
+- Stöck: Trumpfkönig und Trumpfdame in einer Hand zählen 20, geschrieben, wenn die zweite der beiden gespielt wird.
+# Die Wertung
+- Jedes Team schreibt seine Kartenpunkte, seine Weis und seine Stöck.
+- Die lange Partie (bis 2500) vervielfacht alles: Karo und Herz einfach, Pik und Kreuz doppelt, Obenabe und Undeufe dreifach.
+# Das Ende der Partie
+Das erste Team, das 1000 (2500) Punkte erreicht, gewinnt. Stöck zählen, sobald sie gespielt sind, dann die Weis nach dem ersten Stich, dann die Stiche am Ende der Runde; die Runde wird immer zu Ende gespielt. Überschreiten beide Teams die Marke mit den Stichen derselben Runde, gewinnt die höhere Summe.
+# Spielen auf dem Gerät
+Gib das Gerät dem Spieler, dessen Stein leuchtet; er tippt auf Start und sieht seine Hand. Zum Wählen tippe auf das Zeichen einer Farbe, den Pfeil nach oben (Obenabe) oder den Pfeil nach unten (Undeufe), dann auf den Haken (oder noch einmal auf dasselbe); zum Schieben tippe auf den Passe-Knopf. Der Platz dessen, der gewählt hat, zeigt das Spiel, der Platz dessen, der geschoben hat, das Passe-Zeichen. Hat deine Hand im ersten Stich Weis, zeigt ein Knopf gegenüber dem Stichstapel seine Punkte: Tippe darauf, bevor du deine Karte spielst, um ihn zu melden. Jeder Platz zeigt die gemeldeten Weis, danach nur die des Teams, das sie schreibt, in goldenem Licht; Stöck erscheinen als Trumpfkönig und Trumpfdame am Platz dessen, der sie geschrieben hat. Zum Spielen tippe eine leuchtende Karte an, damit sie sich hebt, dann tippe sie noch einmal oder ihren Platz in der Mitte an; oder ziehe sie dorthin. Tippe auf den Stapel unten rechts, um den letzten Stich zu sehen. Nach jeder Runde zeigt eine Tafel für jedes Team das Spiel (in der langen Partie mit seinem Multiplikator), die Kartenpunkte (in goldenem Licht bei einem Match), Weis und Stöck, die Punkte der Runde und die Summe; darunter die Steine beider Teams auf dem Weg zum Ziel. Tippe darauf für die nächste Runde. Jede Leiste zeigt die Karten auf der Hand und die Summe des Teams. Rückgängig nimmt eine noch nicht bestätigte Wahl zurück, nie eine, wenn das Gerät weitergegeben wurde.
