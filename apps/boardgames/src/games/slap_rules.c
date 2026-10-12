@@ -210,3 +210,11 @@ int slap_script(slgame *g, const char *s)
     }
     return 1;
 }
+
+int slap_touch(const slpos *p, int q, int on_pile)
+{
+    if (p->phase == SLP_OVER || q < 0 || q >= p->players || !alive(p, q)) return 0;
+    if (p->turn == q && p->phase == SLP_CLAIM) return SLA_CLAIM;   /* the face card's player takes the pile at once */
+    if (p->turn == q && p->phase == SLP_PLAY && on_pile) return SLA_PLAY;
+    return p->nc ? SLA_SLAP | q : 0;
+}

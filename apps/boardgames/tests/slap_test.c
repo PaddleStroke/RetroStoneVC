@@ -117,6 +117,33 @@ static void test_slaps(void)
     CHECK(!slap_legal(P, SLA_SLAP | 1) && !slap_legal(P, SLA_PLAY));
 }
 
+/* touches, as the fingers come (the app's finger() and press() call slap_touch then play what it says) */
+static int tap(int q, int on_pile)
+{
+    int a = slap_touch(P, q, on_pile);
+    return a && slap_play(&G, a) ? a : 0;
+}
+
+static void test_touches(void)
+{
+    static const char *const a[4] = {"K5", "Q5", "J3", "74"};
+    set(4, SLAP_DOUBLE, a);
+    CHECK(slap_touch(P, 1, 1) == 0);            /* not your turn, nothing in the middle: nothing */
+    CHECK(slap_touch(P, 0, 0) == 0);            /* your turn but not on your pile, nothing to slap */
+    CHECK(tap(0, 1) == SLA_PLAY && tap(1, 1) == SLA_PLAY);   /* 5, 5: a double */
+    /* three fingers come down on it: the first one (player 3) wins, the others are too late and cost nothing */
+    CHECK(tap(3, 0) == (SLA_SLAP | 3) && P->n[3] == 4 && P->turn == 3);
+    CHECK(tap(2, 0) == 0 && tap(0, 0) == 0 && P->n[2] == 2 && P->n[0] == 1);
+    /* a finger on your own pile out of turn slaps */
+    CHECK(tap(3, 1) == SLA_PLAY && tap(2, 1) == (SLA_SLAP | 2) && P->event == SLE_PENALTY && P->n[2] == 1);
+    /* an unpaid tribute: the face card's player's touch takes the pile at once */
+    static const char *const b[2] = {"5K", "823"};
+    set(2, SLAP_DOUBLE, b);
+    CHECK(tap(0, 1) && tap(1, 1) && tap(1, 1) && P->phase == SLP_PLAY && tap(1, 1));
+    CHECK(P->phase == SLP_CLAIM && P->turn == 0 && tap(0, 0) == SLA_CLAIM && P->n[0] == 5);
+    CHECK(slap_touch(P, 5, 0) == 0 && slap_touch(P, -1, 0) == 0);
+}
+
 static void test_random(void)
 {
     int over = 0, takes = 0, pens = 0;
@@ -156,6 +183,7 @@ int main(void)
     test_deal();
     test_tribute();
     test_slaps();
+    test_touches();
     test_random();
     printf("slap: %d checks, %d failed\n", checks, failed);
     return failed != 0;

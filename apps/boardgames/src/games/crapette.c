@@ -175,7 +175,8 @@ static void backs_pile(int owner, float cx, float cy, float w, int n, int how)
     if (n <= 0) return;
     int layers = n > 1 ? (n < 4 ? n - 1 : n < 20 ? 3 : 4) : 0;
     float step = fmaxf(1, 0.02f * w);
-    for (int k = layers; k >= 1; k--) back_draw(owner, cx + k * step * 0.4f, cy + k * step, w, k == layers ? 0 : CD_FLAT);
+    for (int k = layers; k >= 1; k--)
+        back_draw(owner, cx + k * step * 0.4f, cy + k * step, w, k == layers ? 0 : CD_FLAT);
     back_draw(owner, cx, cy, w, (layers ? CD_FLAT : 0) | how);
 }
 
@@ -485,7 +486,10 @@ static void draw(void)
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
-static int on(float cx, float cy, float x, float y) { return cards_in(cx, cy, T.w * 1.06f, cards_aspect(DECK_FRENCH), x, y); }
+static int on(float cx, float cy, float x, float y)
+{
+    return cards_in(cx, cy, T.w * 1.06f, cards_aspect(DECK_FRENCH), x, y);
+}
 
 /* a card of the player to move's under the finger: their crapette, their turned card, a house's top card */
 static int source_at(float x, float y)

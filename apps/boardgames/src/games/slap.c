@@ -1,14 +1,14 @@
 /*
  * Bataille corse (Egyptian Ratscrew) in RetroStone Board: 2 to 4 players round one device lying between them (the
- * rules: slap_rules.c, slap.h). Nobody holds a hand: the piles are face down for everyone (VIEW_OPEN, and the view
- * never turns: player 0 sits at the bottom). The table is cut into one zone a player, as large as it can be: halves
- * for two (the top one turned round for the player facing), the top half in two for three, quadrants for four (round
- * the table in turn order: bottom left, top left, top right, bottom right). Each zone shows its player's pile at their
- * edge, their token and how many cards they have, and the tribute they owe (a dot a try left); the centre pile is in
- * the middle for all to see.
+ * rules: slap_rules.c, slap.h). Nobody holds a hand and nothing is secret: a board everyone sees (the default view,
+ * no hand-off), each player seated by home() so that the shell puts their bar on their side. The board is cut into one
+ * zone a player, as large as it can be: halves for two, the top half in two for three, quadrants for four (round the
+ * table in turn order: bottom left, top left, top right, bottom right); face to face, the top zones are turned round
+ * for the players across. Each zone shows its player's pile at their edge, their token and how many cards they have,
+ * and the tribute they owe (a dot a try left); the centre pile is in the middle for all to see.
  * Tap your pile to turn a card when it is your turn (it glows); tap anywhere else in your zone to slap. Real time:
- * anyone may slap at any moment, even while cards fly; the first slap that reaches the app wins (the shell sends one
- * pointer: one finger at a time). A right slap: a gold light in the zone and the pile flies to its pile; a wrong
+ * anyone may slap at any moment, even while cards fly, with as many fingers as there are players (finger()); the
+ * first slap the device saw wins. A right slap: a gold light in the zone and the pile flies to its pile; a wrong
  * one: a red glow and a card goes under the centre. A tribute unpaid: the pile goes to the face card's player after
  * a moment (or at once if they tap their zone), so that a last double can still be slapped.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
@@ -40,10 +40,21 @@ static struct {
     float cx, cy, wc, wp, asp;                  /* the centre; the centre's cards' width, the piles' */
     box zone[SLAP_MAXP];
     int n;                                      /* the players the zones were made for */
-    int top[SLAP_MAXP];                         /* the zone's player sits across (it is drawn turned round) */
+    int top[SLAP_MAXP];                         /* the zone's player sits at the top of the board */
     SDL_Texture *tok[MAX_PLAYERS];
     int tok_made;
 } T;
+
+/* where each player sits (a point of the board): two face to face; three, one below and two across; four, one at
+ * each corner, round the table in turn order (bottom left, top left, top right, bottom right). The shell puts each
+ * player's bar on that side. */
+static void home(int player, float *fx, float *fy)
+{
+    static const float x4[4] = {0.25f, 0.25f, 0.75f, 0.75f}, y4[4] = {1, 0, 0, 1}, x3[3] = {0.5f, 0.25f, 0.75f};
+    int n = G.pos.players ? G.pos.players : 2, q = player & 3;
+    *fx = n == 4 ? x4[q] : n == 3 ? x3[q % 3] : 0.5f;
+    *fy = n == 4 ? y4[q] : q ? 0 : 1;
+}
 
 static void layout(box b)
 {
@@ -53,42 +64,42 @@ static void layout(box b)
     T.cx = b.x + b.w / 2;
     T.cy = b.y + b.h / 2;
     T.asp = cards_aspect(DECK_FRENCH);
-    float hw = b.w / 2, hh = b.h / 2;
-    for (int q = 0; q < SLAP_MAXP; q++) T.top[q] = 0;
-    if (n == 2) {
-        T.zone[0] = (box){b.x, b.y + hh, b.w, hh};
-        T.zone[1] = (box){b.x, b.y, b.w, hh};
-        T.top[1] = 1;
-    } else if (n == 3) {
-        T.zone[0] = (box){b.x, b.y + hh, b.w, hh};
-        T.zone[1] = (box){b.x, b.y, hw, hh};
-        T.zone[2] = (box){b.x + hw, b.y, hw, hh};
-        T.top[1] = T.top[2] = 1;
-    } else {
-        T.zone[0] = (box){b.x, b.y + hh, hw, hh};
-        T.zone[1] = (box){b.x, b.y, hw, hh};
-        T.zone[2] = (box){b.x + hw, b.y, hw, hh};
-        T.zone[3] = (box){b.x + hw, b.y + hh, hw, hh};
-        T.top[1] = T.top[2] = 1;
+    /* each player's zone on their side of the board (flipped with it), that side's players from the left */
+    float hh = b.h / 2, fx[SLAP_MAXP], zw = b.w;
+    for (int q = 0; q < n; q++) {
+        float hx, hy;
+        home(q, &hx, &hy);
+        fx[q] = ui.flipped ? 1 - hx : hx;
+        T.top[q] = ui.flipped ? hy > 0.5f : hy < 0.5f;
+    }
+    for (int q = 0; q < n; q++) {
+        int k = 0, left = 0;
+        for (int r = 0; r < n; r++)
+            if (T.top[r] == T.top[q]) k++, left += fx[r] < fx[q];
+        float w = b.w / k;
+        T.zone[q] = (box){b.x + left * w, T.top[q] ? b.y : b.y + hh, w, hh};
+        if (w < zw) zw = w;
     }
     T.wc = floorf(fminf(b.w * 0.2f, b.h * 0.15f));
-    float zw = n == 4 ? hw : n == 3 ? hw : b.w;
     T.wp = floorf(fminf(fminf(zw * 0.32f, hh * 0.36f / T.asp), 0.9f * T.wc));
     ct_tokens(T.tok, &T.tok_made, (int)fminf(1.0f * ui.unit, 0.62f * T.wp));
 }
 
-/* a point of player q's zone in its own frame (x across, 0..w; d from its outer edge, where its player sits),
- * on the screen */
+/* a point of player q's zone in its own frame (x across, 0..w; d from its edge, where its player sits), on the
+ * screen; face to face (ui_upside) the zone is turned round for the player across */
 static void zone_pt(int q, float x, float d, float *sx, float *sy)
 {
     box z = T.zone[q];
-    if (T.top[q]) *sx = z.x + z.w - x, *sy = z.y + d;
-    else *sx = z.x + x, *sy = z.y + z.h - d;
+    *sx = ui_upside(q) ? z.x + z.w - x : z.x + x;
+    *sy = T.top[q] ? z.y + d : z.y + z.h - d;
 }
 
-static float zone_deg(int q) { return T.top[q] ? 180 : 0; }
+static float zone_deg(int q) { return ui_upside(q) ? 180 : 0; }
 
-static void pile_at(int q, float *x, float *y) { zone_pt(q, T.zone[q].w / 2, 0.62f * T.wp * T.asp + 0.12f * ui.unit, x, y); }
+static void pile_at(int q, float *x, float *y)
+{
+    zone_pt(q, T.zone[q].w / 2, 0.62f * T.wp * T.asp + 0.12f * ui.unit, x, y);
+}
 
 static int zone_of(float x, float y)
 {
@@ -182,7 +193,6 @@ static int status(void)
 
 static int turn(void) { return G.pos.turn; }
 
-/* the view never turns: player 0 at the bottom, everyone round the device */
 static int undo(void)
 {
     if (!slap_undo(&G)) return 0;
@@ -251,9 +261,9 @@ static void draw(void)
     for (int q = 0; q < p->players; q++) draw_zone(q, now);
     /* the lines between the zones */
     float t = fmaxf(1, 0.03f * ui.unit);
-    if (p->players >= 2) ui_fill(T.b.x, T.cy - t / 2, T.b.w, t, 246, 238, 220, 50);
-    if (p->players >= 3) ui_fill(T.cx - t / 2, T.b.y, t, T.b.h / 2, 246, 238, 220, 50);
-    if (p->players == 4) ui_fill(T.cx - t / 2, T.cy, t, T.b.h / 2, 246, 238, 220, 50);
+    ui_fill(T.b.x, T.cy - t / 2, T.b.w, t, 246, 238, 220, 50);
+    for (int q = 0; q < p->players; q++)
+        if (T.zone[q].x > T.b.x + 1) ui_fill(T.zone[q].x - t / 2, T.zone[q].y, t, T.zone[q].h, 246, 238, 220, 50);
     /* the centre pile: the cards face down under it, then the last ones face up, askew */
     int nc = p->nc - ct_hides(&MV, TAG_CENTRE, -1, -1), from = nc > 7 ? nc - 7 : 0;
     if (!nc && !ct_hides(&MV, TAG_PILE, -1, -1)) cards_place(DECK_FRENCH, T.cx, T.cy, T.wc);
@@ -273,22 +283,29 @@ static void draw(void)
     }
 }
 
-/* ---- the pointer: your pile turns a card (your turn), anywhere else in your zone slaps -------------------------- */
-static void press(float x, float y)
+/* ---- touches: your pile turns a card (your turn), anywhere else in your zone slaps -------------------------------
+ * Each finger on the board comes on its own (finger(): its id), in the order the device saw them, so the first finger
+ * down on a double wins it; one coming after the pile is taken finds nothing to slap and costs nothing. The mouse (a
+ * computer) comes through press(). */
+static void touch(float x, float y)
 {
     const slpos *p = &G.pos;
     if (p->phase == SLP_OVER) return;
     int q = zone_of(x, y);
-    if (q < 0 || (p->out >> q & 1)) { ui_sound(SND_DENY); return; }
     float px, py;
-    pile_at(q, &px, &py);
-    int on_pile = cards_in(px, py, T.wp * 1.15f, T.asp, x, y);
-    if (p->turn == q && p->phase == SLP_CLAIM) { act(SLA_CLAIM); return; }
-    if (p->turn == q && p->phase == SLP_PLAY && on_pile) { act(SLA_PLAY); return; }
-    if (!p->nc) { ui_sound(SND_DENY); return; }  /* nothing to slap (too late: someone took it) */
-    act(SLA_SLAP | q);
+    if (q >= 0) pile_at(q, &px, &py);
+    int a = q < 0 ? 0 : slap_touch(p, q, cards_in(px, py, T.wp * 1.15f, T.asp, x, y));
+    if (a) act(a);
+    else ui_sound(SND_DENY);
 }
 
+static void finger(int id, int phase, float x, float y)
+{
+    (void)id;                                   /* every finger slaps alike: only the order counts */
+    if (phase == FINGER_DOWN) touch(x, y);
+}
+
+static void press(float x, float y) { touch(x, y); }
 static void motion(float x, float y) { (void)x, (void)y; }
 static void release(float x, float y) { (void)x, (void)y; }
 
@@ -307,7 +324,8 @@ static void token(int player, int size, uint8_t *rgba) { cards_token(player, siz
 static void thumb(int v, int size, uint8_t *rgba)
 {
     static const uint8_t dbl[3] = {CARD(SUIT_CLUBS, 4), CARD(SUIT_SPADES, 9), CARD(SUIT_HEARTS, 9)},
-                         sand[3] = {CARD(SUIT_CLUBS, RANK_KING), CARD(SUIT_DIAMONDS, 4), CARD(SUIT_HEARTS, RANK_KING)};
+                         sand[3] = {CARD(SUIT_CLUBS, RANK_KING), CARD(SUIT_DIAMONDS, 4),
+                                    CARD(SUIT_HEARTS, RANK_KING)};
     const uint8_t *c = v == SLAP_SANDWICH ? sand : dbl;
     float asp = cards_aspect(DECK_FRENCH), w = fminf(size * 0.5f, size * 0.8f / asp);
     int cw = (int)w, ch = (int)(w * asp);
@@ -326,7 +344,7 @@ static const game slap_game = {
     .id = "slap", .order = 306, .variants = SLAP_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy,
-    .players = 1 << 2 | 1 << 3 | 1 << 4, .players_usual = 2, .view = VIEW_OPEN,
+    .bar = bar, .script = script, .busy = busy, .home = home, .finger = finger,
+    .players = 1 << 2 | 1 << 3 | 1 << 4, .players_usual = 2,
 };
 REGISTER_GAME(slap_game)

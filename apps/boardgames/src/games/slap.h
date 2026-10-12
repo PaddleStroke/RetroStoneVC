@@ -70,6 +70,9 @@ int  slap_right(const slpos *p);                 /* a slap now would be right (a
 int  slap_legal(const slpos *p, int act);
 int  slap_play(slgame *g, int act);              /* 0: not allowed */
 int  slap_undo(slgame *g);                       /* back one action (a replay from the deal); 0: none */
+int  slap_touch(const slpos *p, int q, int on_pile);   /* what a touch in player q's zone does (on their pile or
+                                                 * not): a card turned, the pile gathered, a slap; 0: nothing (out,
+                                                 * the game over, no pile to slap: a late slap costs nothing) */
 int  slap_auto(const slpos *p);                  /* a plain action (the "." of the notation) */
 int  slap_script(slgame *g, const char *moves);  /* 0: an action is bad */
 
