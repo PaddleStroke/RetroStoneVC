@@ -1,0 +1,50 @@
+Koi-Koi
+# Målet
+Få flest point på 12 runder, én for hver af årets måneder, eller på 6 runder i det korte spil. For 2 spillere. Fang kort ved at matche deres måneder, og dan yaku, de kombinationer der giver point. Vælg så: stop og få point nu, eller sig koi-koi og spil videre efter flere.
+# Kortene
+Hanafuda-spillet har 48 kort: 12 måneder med 4 kort, hver måned med sin egen plante. Januar fyr, februar blomme, marts kirsebær, april blåregn, maj iris, juni pæon, juli buskkløver, august pampasgræs, september krysantemum, oktober ahorn, november pil, december kejsertræ.
+- Lys (5): tranen (januar), forhænget (marts), månen (august), manden i regnen (november) og føniks (december).
+- Dyr (9): buskrørsangeren, gøgen, broen, sommerfuglene, vildsvinet, gæssene, sakeskålen, hjorten og svalen.
+- Bånd (10): tre røde digtbånd med skrift (januar, februar, marts), tre blå bånd (juni, september, oktober) og fire glatte røde bånd (april, maj, juli, november).
+- Almindelige kort (24): alle de andre, blandt dem novembers lyn.
+# Kortgivningen
+Hver spiller får 8 kort, og 8 til lægges med billedsiden op på feltet; resten er bunken. Ligger alle fire kort fra en måned på feltet, gives der om. Giveren spiller først: den elfenbensfarvede spiller i første runde, derefter vinderen af sidste runde. Efter en runde uden vinder er giveren den samme.
+# En tur
+- Spil et kort fra hånden ud på feltet. Har et kort på feltet samme måned, fanger du dem begge. Har to det, vælger du, hvilket du tager. Har tre det, fanger du alle fire. Har intet det, bliver dit kort liggende på feltet.
+- Vend derefter bunkens øverste kort og spil det på samme måde.
+- De kort, du fanger, ligger med billedsiden op foran dig.
+# Yaku
+- Gokō: de 5 lys, 10 point.
+- Shikō: 4 lys uden manden i regnen, 8 point.
+- Ame-Shikō: 4 lys med manden i regnen, 7 point.
+- Sankō: 3 lys uden manden i regnen, 5 point. Tre lys med ham giver intet.
+- Inoshikachō: vildsvinet, hjorten og sommerfuglene, 5 point.
+- Akatan: de 3 digtbånd, 5 point.
+- Aotan: de 3 blå bånd, 5 point.
+- Hanami-zake: forhænget og sakeskålen, 5 point.
+- Tsukimi-zake: månen og sakeskålen, 5 point.
+- Tane: 5 dyr, 1 point, og 1 mere for hvert dyr derudover.
+- Tan: 5 bånd, 1 point, og 1 mere for hvert bånd derudover.
+- Kasu: 10 almindelige kort, 1 point, og 1 mere for hvert derudover.
+Af de fire lys-yaku tæller kun det bedste; alle andre yaku lægges sammen. Sakeskålen tæller både som dyr og som almindeligt kort. Hanami-zake og Tsukimi-zake tæller altid her.
+# Stop eller koi-koi
+Slutter din tur med et nyt yaku, eller med flere point fra dine yaku, vælger du:
+- Stop: runden slutter, og du får point.
+- Koi-koi: runden fortsætter. Du kan først stoppe igen, når dine point er steget igen. Stopper modstanderen først, får du intet, og modstanderens point fordobles.
+Har du ingen kort tilbage på hånden, stopper du.
+# Pointene
+- Pointene for alle dine yaku lagt sammen.
+- Fordoblet, hvis de når 7 eller mere.
+- Fordoblet igen, hvis modstanderen havde sagt koi-koi.
+- Er begge hænder spillet ud, uden at nogen har stoppet, får ingen point.
+- Teshi (fire kort fra én måned på den hånd, man får) og Kuttsuki (fire par af måneder på den hånd, man får) vinder runden med det samme, for 6 point. Giverens hånd ses først.
+# Spillets afslutning
+Efter sidste runde vinder spilleren med flest point.
+# Spil på enheden
+Hænderne er hemmelige: giv enheden videre, når skærmen beder om det, og den næste spiller trykker på startknappen. Din hånd er nederst, modstanderens med bagsiden op øverst; bunken og feltet er i midten, med en prik for hver runde under bunken. Hver spillers fangne kort er samlet efter slags: lys, dyr, bånd, almindelige kort, med antallet på hver gruppe. Dannede yaku vises som mærker med deres kort og point, og en rød skive viser et koi-koi. Hvad modstanderen gjorde i sin sidste tur, er markeret på bordet.
+- Tryk på et kort på hånden: feltets kort fra samme måned lyser. Tryk på et af dem, eller på dit kort igen, for at spille det; du kan også trække det ud på feltet. Passer intet, viser en prik, hvor det kommer til at ligge.
+- Passer to kort, så tryk på det, du tager.
+- Tryk derefter på bunken for at vende dens øverste kort.
+- Når du danner et yaku, kommer to store knapper frem: den åbne hånd stopper (tallet under den er det, du ville få nu), dobbeltpilen siger koi-koi.
+- Efter hver runde viser et panel yaku, fordoblingerne (et kryds og et 2-tal) og pointene; tryk på det for næste runde. Hver spillers samlede point står i deres bjælke.
+Fortryd tager dine egne træk tilbage, indtil du vender bunkens kort.

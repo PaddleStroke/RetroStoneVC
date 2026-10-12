@@ -1,0 +1,50 @@
+Koi-Koi
+# Cel gry
+Zdobyć najwięcej punktów w 12 rundach, po jednej na każdy miesiąc roku, albo w 6 rundach w krótkiej grze. Dla 2 graczy. Zbieraj karty, dopasowując ich miesiące, i układaj yaku, czyli punktowane kombinacje. Potem wybierz: zakończyć i od razu zapisać punkty, czy powiedzieć koi-koi i grać dalej o więcej.
+# Karty
+Talia hanafuda ma 48 kart: 12 miesięcy po 4 karty, każdy miesiąc z własną rośliną. Styczeń sosna, luty śliwa, marzec wiśnia, kwiecień glicynia, maj irys, czerwiec piwonia, lipiec koniczyna krzewiasta, sierpień trawa pampasowa, wrzesień chryzantema, październik klon, listopad wierzba, grudzień paulownia.
+- Światła (5): żuraw (styczeń), kurtyna (marzec), księżyc (sierpień), człowiek w deszczu (listopad) i feniks (grudzień).
+- Zwierzęta (9): wierzbówka, kukułka, most, motyle, dzik, gęsi, czarka sake, jeleń i jaskółka.
+- Wstęgi (10): trzy czerwone wstęgi z wierszem, zapisane (styczeń, luty, marzec), trzy niebieskie wstęgi (czerwiec, wrzesień, październik) i cztery gładkie czerwone wstęgi (kwiecień, maj, lipiec, listopad).
+- Zwykłe karty (24): wszystkie pozostałe, wśród nich listopadowa błyskawica.
+# Rozdanie
+Każdy gracz dostaje 8 kart, a kolejne 8 kładzie się odkryte na polu; reszta to stos. Jeśli na polu leżą wszystkie cztery karty jednego miesiąca, rozdaje się od nowa. Rozdający gra pierwszy: w pierwszej rundzie gracz w kolorze kości słoniowej, potem zwycięzca poprzedniej rundy. Po rundzie bez zwycięzcy rozdaje ten sam gracz.
+# Tura
+- Zagraj kartę z ręki na pole. Jeśli karta na polu jest z tego samego miesiąca, zbierasz obie. Jeśli są dwie takie, wybierasz, którą bierzesz. Jeśli są trzy, zbierasz wszystkie cztery. Jeśli nie ma żadnej, twoja karta zostaje na polu.
+- Potem odkryj wierzchnią kartę stosu i zagraj ją tak samo.
+- Zebrane karty leżą przed tobą odkryte.
+# Yaku
+- Gokō: 5 świateł, 10 punktów.
+- Shikō: 4 światła bez człowieka w deszczu, 8 punktów.
+- Ame-Shikō: 4 światła z człowiekiem w deszczu, 7 punktów.
+- Sankō: 3 światła bez człowieka w deszczu, 5 punktów. Trzy światła z nim nic nie dają.
+- Inoshikachō: dzik, jeleń i motyle, 5 punktów.
+- Akatan: 3 wstęgi z wierszem, 5 punktów.
+- Aotan: 3 niebieskie wstęgi, 5 punktów.
+- Hanami-zake: kurtyna i czarka sake, 5 punktów.
+- Tsukimi-zake: księżyc i czarka sake, 5 punktów.
+- Tane: 5 zwierząt, 1 punkt, i 1 więcej za każde kolejne zwierzę.
+- Tan: 5 wstęg, 1 punkt, i 1 więcej za każdą kolejną wstęgę.
+- Kasu: 10 zwykłych kart, 1 punkt, i 1 więcej za każdą kolejną.
+Z czterech yaku świateł liczy się tylko najlepsze; wszystkie pozostałe yaku się sumują. Czarka sake liczy się i jako zwierzę, i jako zwykła karta. Hanami-zake i Tsukimi-zake liczą się tu zawsze.
+# Zakończyć czy koi-koi
+Gdy twoja tura kończy się nowym yaku albo większą liczbą punktów z twoich yaku, wybierasz:
+- Zakończyć: runda się kończy i zapisujesz punkty.
+- Koi-koi: runda trwa dalej. Zakończyć możesz dopiero wtedy, gdy twoje punkty znów wzrosną. Jeśli przeciwnik zakończy pierwszy, nie dostajesz nic, a jego punkty są podwojone.
+Jeśli nie masz już kart w ręce, kończysz.
+# Punkty
+- Punkty wszystkich twoich yaku zsumowane.
+- Podwojone, jeśli jest ich 7 lub więcej.
+- Podwojone jeszcze raz, jeśli przeciwnik powiedział koi-koi.
+- Jeśli obie ręce zostaną rozegrane do końca i nikt nie zakończy, nikt nie dostaje punktów.
+- Teshi (cztery karty jednego miesiąca w rozdanej ręce) i Kuttsuki (cztery pary miesięcy w rozdanej ręce) od razu wygrywają rundę, za 6 punktów. Najpierw sprawdza się rękę rozdającego.
+# Koniec gry
+Po ostatniej rundzie wygrywa gracz z największą liczbą punktów.
+# Gra na urządzeniu
+Ręce są tajne: podaj urządzenie, gdy ekran o to poprosi, a następny gracz dotyka przycisku startu. Twoja ręka jest na dole, ręka przeciwnika zakryta na górze; stos i pole są pośrodku, a pod stosem jest kropka za każdą rundę. Zebrane karty każdego gracza są pogrupowane według rodzaju: światła, zwierzęta, wstęgi, zwykłe karty, z liczbą na każdej grupie. Ułożone yaku widać jako odznaki z ich kartami i punktami, a czerwony krążek pokazuje powiedziane koi-koi. To, co przeciwnik zrobił w swojej ostatniej turze, jest zaznaczone na stole.
+- Dotknij karty w ręce: karty na polu z tego samego miesiąca się podświetlają. Dotknij jednej z nich albo jeszcze raz swojej karty, aby ją zagrać; możesz też przeciągnąć ją na pole. Gdy nic nie pasuje, kropka pokazuje, gdzie się położy.
+- Gdy pasują dwie karty, dotknij tej, którą bierzesz.
+- Potem dotknij stosu, aby odkryć jego wierzchnią kartę.
+- Gdy ułożysz yaku, pojawiają się dwa duże przyciski: otwarta dłoń kończy (liczba pod nią to punkty, które dostałbyś teraz), podwójna strzałka mówi koi-koi.
+- Po każdej rundzie panel pokazuje yaku, podwojenia (krzyżyk i 2) oraz punkty; dotknij go, aby zacząć następną rundę. Suma każdego gracza jest na jego pasku.
+Cofnij cofa twoje własne ruchy, dopóki nie odkryjesz karty ze stosu.

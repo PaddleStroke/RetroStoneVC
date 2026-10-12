@@ -1,0 +1,50 @@
+Koi-Koi
+# Tavoite
+Kerää eniten pisteitä 12 kierroksen aikana, yksi kierros vuoden kutakin kuukautta kohden, tai 6 kierroksessa lyhyessä pelissä. Kahdelle pelaajalle. Kaappaa kortteja yhdistämällä samat kuukaudet ja muodosta yakuja, pisteitä tuovia yhdistelmiä. Valitse sitten: lopeta ja ota pisteet heti, tai sano koi-koi ja jatka saadaksesi lisää.
+# Kortit
+Hanafuda-pakassa on 48 korttia: 12 kuukautta, kussakin 4 korttia ja oma kasvinsa. Tammikuu mänty, helmikuu luumu, maaliskuu kirsikka, huhtikuu sinisade, toukokuu kurjenmiekka, kesäkuu pioni, heinäkuu pensasapila, elokuu pampasruoho, syyskuu krysanteemi, lokakuu vaahtera, marraskuu paju, joulukuu keisarinpuu.
+- Valot (5): kurki (tammikuu), verho (maaliskuu), kuu (elokuu), mies sateessa (marraskuu) ja feeniks (joulukuu).
+- Eläimet (9): pensaskerttu, käki, silta, perhoset, villisika, hanhet, sakemalja, hirvi ja pääsky.
+- Nauhat (10): kolme punaista runonauhaa, joissa on kirjoitusta (tammi-, helmi- ja maaliskuu), kolme sinistä nauhaa (kesä-, syys- ja lokakuu) ja neljä tavallista punaista nauhaa (huhti-, touko-, heinä- ja marraskuu).
+- Tavalliset kortit (24): kaikki muut, myös marraskuun salama.
+# Jako
+Kumpikin pelaaja saa 8 korttia, ja 8 korttia lisää pannaan kuvapuoli ylöspäin pelikentälle; loput ovat pakka. Jos kentällä on jonkin kuukauden kaikki neljä korttia, jaetaan uudelleen. Jakaja pelaa ensin: ensimmäisellä kierroksella norsunluunvärinen pelaaja, sitten edellisen kierroksen voittaja. Kierroksen jälkeen, jota kukaan ei voittanut, jakaja pysyy samana.
+# Vuoro
+- Pelaa kortti kädestäsi kentälle. Jos kentällä on saman kuukauden kortti, kaappaat molemmat. Jos niitä on kaksi, valitset kumman otat. Jos niitä on kolme, kaappaat kaikki neljä. Jos niitä ei ole, korttisi jää kentälle.
+- Käännä sitten pakan päällimmäinen kortti ja pelaa se samalla tavalla.
+- Kaappaamasi kortit jäävät eteesi kuvapuoli ylöspäin.
+# Yakut
+- Gokō: kaikki 5 valoa, 10 pistettä.
+- Shikō: 4 valoa ilman sateen miestä, 8 pistettä.
+- Ame-Shikō: 4 valoa, joissa sateen mies on mukana, 7 pistettä.
+- Sankō: 3 valoa ilman sateen miestä, 5 pistettä. Kolme valoa hänen kanssaan ei tuo mitään.
+- Inoshikachō: villisika, hirvi ja perhoset, 5 pistettä.
+- Akatan: 3 runonauhaa, 5 pistettä.
+- Aotan: 3 sinistä nauhaa, 5 pistettä.
+- Hanami-zake: verho ja sakemalja, 5 pistettä.
+- Tsukimi-zake: kuu ja sakemalja, 5 pistettä.
+- Tane: 5 eläintä, 1 piste, ja 1 lisää jokaisesta seuraavasta eläimestä.
+- Tan: 5 nauhaa, 1 piste, ja 1 lisää jokaisesta seuraavasta nauhasta.
+- Kasu: 10 tavallista korttia, 1 piste, ja 1 lisää jokaisesta seuraavasta.
+Neljästä valo-yakusta lasketaan vain paras; kaikki muut yakut lasketaan yhteen. Sakemalja lasketaan sekä eläimeksi että tavalliseksi kortiksi. Hanami-zake ja Tsukimi-zake lasketaan tässä aina.
+# Lopetus tai koi-koi
+Kun vuorosi päättyy uuteen yakuun tai yakujesi pisteiden kasvuun, valitset:
+- Lopeta: kierros päättyy ja saat pisteet.
+- Koi-koi: kierros jatkuu. Voit lopettaa uudelleen vasta, kun pisteesi ovat taas kasvaneet. Jos vastustaja lopettaa ensin, et saa mitään ja vastustajan pisteet tuplataan.
+Jos kädessäsi ei ole enää kortteja, lopetat.
+# Pisteet
+- Kaikkien yakujesi pisteet yhteen laskettuina.
+- Tuplataan, jos niitä on 7 tai enemmän.
+- Tuplataan vielä, jos vastustaja oli sanonut koi-koi.
+- Jos molemmat kädet pelataan loppuun eikä kukaan lopeta, kukaan ei saa pisteitä.
+- Teshi (saman kuukauden neljä korttia jaetussa kädessä) ja Kuttsuki (neljä kuukausiparia jaetussa kädessä) voittavat kierroksen heti, 6 pisteellä. Jakajan käsi katsotaan ensin.
+# Pelin loppu
+Viimeisen kierroksen jälkeen eniten pisteitä saanut pelaaja voittaa.
+# Pelaaminen laitteella
+Kädet ovat salaisia: anna laite eteenpäin, kun näyttö pyytää, ja seuraava pelaaja napauttaa aloituspainiketta. Oma kätesi on alhaalla, vastustajan kortit selkäpuoli ylöspäin ylhäällä; pakka ja kenttä ovat keskellä, ja pakan alla on piste jokaista kierrosta kohden. Kunkin pelaajan kaappaamat kortit on ryhmitelty lajeittain: valot, eläimet, nauhat, tavalliset kortit, ja jokaisessa ryhmässä näkyy määrä. Muodostetut yakut näkyvät merkkeinä korttiensa ja pisteidensä kanssa, ja punainen kiekko kertoo koi-koista. Se, mitä vastustaja teki viimeisellä vuorollaan, on merkitty pöytään.
+- Napauta kortti kädestäsi: kentän saman kuukauden kortit hehkuvat. Napauta jotakin niistä tai korttiasi uudelleen pelataksesi sen; voit myös vetää sen kentälle. Kun mikään ei sovi, piste näyttää, mihin se jää.
+- Kun kaksi korttia sopii, napauta sitä, jonka otat.
+- Napauta sitten pakkaa kääntääksesi sen päällimmäisen kortin.
+- Kun muodostat yakun, näkyviin tulee kaksi isoa painiketta: avoin käsi lopettaa (sen alla oleva luku on se, minkä saisit nyt), kaksoisnuoli sanoo koi-koi.
+- Jokaisen kierroksen jälkeen paneeli näyttää yakut, tuplaukset (risti ja 2) ja pisteet; napauta sitä seuraavaa kierrosta varten. Kunkin pelaajan yhteispisteet näkyvät hänen palkissaan.
+Kumoa peruu omat siirtosi siihen asti, kunnes käännät pakan kortin.

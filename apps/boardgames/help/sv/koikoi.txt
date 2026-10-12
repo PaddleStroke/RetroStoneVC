@@ -1,0 +1,50 @@
+Koi-Koi
+# Målet
+Få flest poäng under 12 omgångar, en för varje månad på året, eller under 6 omgångar i det korta spelet. För 2 spelare. Fånga kort genom att para ihop deras månader och bilda yaku, kombinationerna som ger poäng. Välj sedan: stanna och få poäng nu, eller säg koi-koi och spela vidare för mer.
+# Korten
+Hanafuda-leken har 48 kort: 12 månader med 4 kort, varje månad med sin egen växt. Januari tall, februari plommon, mars körsbär, april blåregn, maj iris, juni pion, juli buskväppling, augusti pampasgräs, september krysantemum, oktober lönn, november pil, december kejsarträd.
+- Ljus (5): tranan (januari), förhänget (mars), månen (augusti), mannen i regnet (november) och fågel Fenix (december).
+- Djur (9): busksångaren, göken, bron, fjärilarna, vildsvinet, gässen, sakeskålen, hjorten och svalan.
+- Band (10): tre röda diktband med skrift (januari, februari, mars), tre blå band (juni, september, oktober) och fyra enkla röda band (april, maj, juli, november).
+- Vanliga kort (24): alla de andra, bland dem novembers blixt.
+# Given
+Varje spelare får 8 kort och 8 till läggs med framsidan upp på fältet; resten är högen. Ligger alla fyra korten från en månad på fältet ges det om. Den som ger spelar först: den elfenbensfärgade spelaren i första omgången, sedan vinnaren av förra omgången. Efter en omgång utan vinnare är det samma givare.
+# En tur
+- Spela ett kort från handen ut på fältet. Har ett kort på fältet samma månad fångar du båda. Har två det väljer du vilket du tar. Har tre det fångar du alla fyra. Har inget det blir ditt kort liggande på fältet.
+- Vänd sedan högens översta kort och spela det på samma sätt.
+- Korten du fångar ligger med framsidan upp framför dig.
+# Yaku
+- Gokō: de 5 ljusen, 10 poäng.
+- Shikō: 4 ljus utan mannen i regnet, 8 poäng.
+- Ame-Shikō: 4 ljus med mannen i regnet, 7 poäng.
+- Sankō: 3 ljus utan mannen i regnet, 5 poäng. Tre ljus med honom ger ingenting.
+- Inoshikachō: vildsvinet, hjorten och fjärilarna, 5 poäng.
+- Akatan: de 3 diktbanden, 5 poäng.
+- Aotan: de 3 blå banden, 5 poäng.
+- Hanami-zake: förhänget och sakeskålen, 5 poäng.
+- Tsukimi-zake: månen och sakeskålen, 5 poäng.
+- Tane: 5 djur, 1 poäng, och 1 till för varje djur därutöver.
+- Tan: 5 band, 1 poäng, och 1 till för varje band därutöver.
+- Kasu: 10 vanliga kort, 1 poäng, och 1 till för varje därutöver.
+Av de fyra ljus-yaku räknas bara det bästa; alla andra yaku läggs ihop. Sakeskålen räknas både som djur och som vanligt kort. Hanami-zake och Tsukimi-zake räknas alltid här.
+# Stanna eller koi-koi
+När din tur slutar med ett nytt yaku, eller med fler poäng från dina yaku, väljer du:
+- Stanna: omgången slutar och du får poäng.
+- Koi-koi: omgången fortsätter. Du kan stanna igen först när dina poäng har stigit på nytt. Stannar motståndaren först får du ingenting, och motståndarens poäng fördubblas.
+Har du inga kort kvar på handen stannar du.
+# Poängen
+- Poängen för alla dina yaku sammanlagda.
+- Fördubblade om de når 7 eller mer.
+- Fördubblade igen om motståndaren hade sagt koi-koi.
+- Är båda händerna utspelade utan att någon har stannat får ingen poäng.
+- Teshi (fyra kort från en månad på den utdelade handen) och Kuttsuki (fyra par av månader på den utdelade handen) vinner omgången direkt, för 6 poäng. Givarens hand ses först.
+# Partiets slut
+Efter sista omgången vinner spelaren med flest poäng.
+# Spela på enheten
+Händerna är hemliga: lämna över enheten när skärmen ber om det, och nästa spelare trycker på startknappen. Din hand är längst ner, motståndarens med baksidan upp längst upp; högen och fältet är i mitten, med en prick för varje omgång under högen. Varje spelares fångade kort är sorterade efter sort: ljus, djur, band, vanliga kort, med antalet på varje grupp. Bildade yaku visas som märken med sina kort och poäng, och en röd skiva visar ett koi-koi. Det motståndaren gjorde under sin senaste tur är markerat på bordet.
+- Tryck på ett kort på handen: fältets kort från samma månad lyser. Tryck på ett av dem, eller på ditt kort igen, för att spela det; du kan också dra ut det på fältet. Passar inget visar en prick var det hamnar.
+- Passar två kort, tryck på det du tar.
+- Tryck sedan på högen för att vända dess översta kort.
+- När du bildar ett yaku visas två stora knappar: den öppna handen stannar (talet under är det du skulle få nu), dubbelpilen säger koi-koi.
+- Efter varje omgång visar en panel yaku, fördubblingarna (ett kryss och en 2:a) och poängen; tryck på den för nästa omgång. Varje spelares summa står i deras list.
+Ångra tar tillbaka dina egna drag, fram till att du vänder högens kort.

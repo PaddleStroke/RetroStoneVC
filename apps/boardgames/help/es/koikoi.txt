@@ -1,0 +1,50 @@
+Koi-Koi
+# El objetivo
+Conseguir más puntos a lo largo de 12 rondas, una por cada mes del año, o de 6 rondas en la partida corta. Para 2 jugadores. Captura cartas emparejando sus meses y forma yaku, las combinaciones que puntúan. Después elige: plantarte y puntuar ya, o cantar koi-koi y seguir jugando para ganar más.
+# Las cartas
+La baraja de hanafuda tiene 48 cartas: 12 meses de 4 cartas, cada mes con su planta. Enero pino, febrero ciruelo, marzo cerezo, abril glicina, mayo lirio, junio peonía, julio trébol de arbusto, agosto hierba de la pampa, septiembre crisantemo, octubre arce, noviembre sauce, diciembre paulonia.
+- Luces (5): la grulla (enero), la cortina (marzo), la luna (agosto), el hombre bajo la lluvia (noviembre) y el fénix (diciembre).
+- Animales (9): el ruiseñor japonés, el cuco, el puente, las mariposas, el jabalí, los gansos, la copa de sake, el ciervo y la golondrina.
+- Cintas (10): tres cintas rojas de poesía, con escritura (enero, febrero, marzo), tres cintas azules (junio, septiembre, octubre) y cuatro cintas rojas lisas (abril, mayo, julio, noviembre).
+- Cartas simples (24): todas las demás, entre ellas el relámpago de noviembre.
+# El reparto
+Cada jugador recibe 8 cartas y otras 8 se ponen boca arriba en el campo; el resto es el mazo. Si el campo tiene las cuatro cartas de un mes, se reparte de nuevo. El que reparte juega primero: el jugador marfil en la primera ronda y después el ganador de la ronda anterior. Tras una ronda sin ganador, repite el mismo.
+# Un turno
+- Juega una carta de tu mano al campo. Si una carta del campo es del mismo mes, capturas las dos. Si hay dos, eliges cuál te llevas. Si hay tres, capturas las cuatro. Si no hay ninguna, tu carta se queda en el campo.
+- Luego da la vuelta a la carta de arriba del mazo y juégala de la misma manera.
+- Las cartas que capturas se quedan delante de ti, boca arriba.
+# Los yaku
+- Gokō: las 5 luces, 10 puntos.
+- Shikō: 4 luces sin el hombre bajo la lluvia, 8 puntos.
+- Ame-Shikō: 4 luces con el hombre bajo la lluvia, 7 puntos.
+- Sankō: 3 luces sin el hombre bajo la lluvia, 5 puntos. Tres luces con él no valen nada.
+- Inoshikachō: el jabalí, el ciervo y las mariposas, 5 puntos.
+- Akatan: las 3 cintas de poesía, 5 puntos.
+- Aotan: las 3 cintas azules, 5 puntos.
+- Hanami-zake: la cortina y la copa de sake, 5 puntos.
+- Tsukimi-zake: la luna y la copa de sake, 5 puntos.
+- Tane: 5 animales, 1 punto, y 1 más por cada animal adicional.
+- Tan: 5 cintas, 1 punto, y 1 más por cada cinta adicional.
+- Kasu: 10 cartas simples, 1 punto, y 1 más por cada carta simple adicional.
+De los cuatro yaku de luces solo cuenta el mejor; todos los demás se suman. La copa de sake cuenta como animal y también como carta simple. Aquí Hanami-zake y Tsukimi-zake cuentan siempre.
+# Plantarse o koi-koi
+Cuando tu turno termina con un yaku nuevo, o con más puntos de tus yaku, eliges:
+- Plantarte: la ronda termina y puntúas.
+- Koi-koi: la ronda sigue. Solo podrás plantarte de nuevo cuando tus puntos hayan vuelto a subir. Si tu rival se planta antes, no puntúas nada y sus puntos se doblan.
+Si no te queda ninguna carta en la mano, te plantas.
+# Los puntos
+- Los puntos de todos tus yaku sumados.
+- Se doblan si llegan a 7 o más.
+- Se doblan otra vez si tu rival había cantado koi-koi.
+- Si las dos manos se juegan enteras y nadie se planta, nadie puntúa.
+- Teshi (cuatro cartas de un mes en la mano repartida) y Kuttsuki (cuatro parejas de meses en la mano repartida) ganan la ronda en el acto, con 6 puntos. Primero se mira la mano del que reparte.
+# El final de la partida
+Tras la última ronda gana el jugador con más puntos.
+# Jugar en el dispositivo
+Las manos son secretas: pasa el dispositivo cuando la pantalla lo pida, y el siguiente jugador toca el botón de inicio. Tu mano está abajo y la de tu rival boca abajo arriba; el mazo y el campo están en el centro, con un punto por ronda bajo el mazo. Las cartas capturadas de cada jugador se agrupan por tipo: luces, animales, cintas, cartas simples, con su número en cada grupo. Los yaku formados aparecen como insignias con sus cartas y sus puntos, y un disco rojo indica un koi-koi cantado. Lo que hizo tu rival en su último turno queda marcado en la mesa.
+- Toca una carta de tu mano: se iluminan las cartas del campo de su mes. Toca una de ellas, o de nuevo tu carta, para jugarla; también puedes arrastrarla al campo. Si no empareja con nada, un punto marca dónde quedará.
+- Si emparejan dos cartas, toca la que te llevas.
+- Después toca el mazo para dar la vuelta a su carta de arriba.
+- Cuando formas un yaku aparecen dos botones grandes: la mano abierta te planta (el número debajo es lo que puntuarías ahora) y la doble flecha canta koi-koi.
+- Tras cada ronda, un panel muestra los yaku, las dobladas (una cruz y un 2) y los puntos; tócalo para la ronda siguiente. El total de cada jugador está en su barra.
+Deshacer retira tus propias jugadas, hasta que das la vuelta a la carta del mazo.

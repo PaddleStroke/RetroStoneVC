@@ -1,0 +1,50 @@
+Koi-Koi
+# Amaç
+Yılın her ayı için bir tur olmak üzere 12 turda, kısa oyunda ise 6 turda en çok puanı toplamak. 2 oyuncu için. Aylarını eşleştirerek kart topla ve puan getiren kombinasyonlar olan yaku'ları oluştur. Sonra seç: durup hemen puan almak ya da koi-koi deyip daha fazlası için oynamaya devam etmek.
+# Kartlar
+Hanafuda destesinde 48 kart vardır: her biri 4 karttan oluşan 12 ay, her ayın kendi bitkisi. Ocak çam, şubat erik, mart kiraz, nisan mor salkım, mayıs süsen, haziran şakayık, temmuz çalı yoncası, ağustos pampa otu, eylül kasımpatı, ekim akçaağaç, kasım söğüt, aralık pavlonya.
+- Işıklar (5): turna (ocak), perde (mart), ay (ağustos), yağmurdaki adam (kasım) ve anka kuşu (aralık).
+- Hayvanlar (9): çalı ötleğeni, guguk kuşu, köprü, kelebekler, yaban domuzu, kazlar, sake kâsesi, geyik ve kırlangıç.
+- Kurdeleler (10): üç yazılı kırmızı şiir kurdelesi (ocak, şubat, mart), üç mavi kurdele (haziran, eylül, ekim) ve dört düz kırmızı kurdele (nisan, mayıs, temmuz, kasım).
+- Sade kartlar (24): geri kalanların hepsi, kasımın şimşeği de dahil.
+# Dağıtım
+Her oyuncu 8 kart alır, 8 kart daha açık olarak alana konur; kalanlar destedir. Alanda bir ayın dört kartı birden varsa kartlar yeniden dağıtılır. Dağıtan önce oynar: ilk turda fildişi oyuncu, sonra bir önceki turun kazananı. Kimsenin kazanmadığı bir turdan sonra dağıtan değişmez.
+# Bir sıra
+- Elinden bir kartı alana oyna. Alandaki bir kart aynı aydansa ikisini de alırsın. İki tane varsa hangisini alacağını seçersin. Üç tane varsa dördünü de alırsın. Hiç yoksa kartın alanda kalır.
+- Sonra destenin üstündeki kartı çevir ve aynı şekilde oyna.
+- Aldığın kartlar önünde açık durur.
+# Yaku
+- Gokō: 5 ışığın hepsi, 10 puan.
+- Shikō: yağmurdaki adam olmadan 4 ışık, 8 puan.
+- Ame-Shikō: yağmurdaki adamla birlikte 4 ışık, 7 puan.
+- Sankō: yağmurdaki adam olmadan 3 ışık, 5 puan. Onunla birlikte üç ışık bir şey getirmez.
+- Inoshikachō: yaban domuzu, geyik ve kelebekler, 5 puan.
+- Akatan: 3 şiir kurdelesi, 5 puan.
+- Aotan: 3 mavi kurdele, 5 puan.
+- Hanami-zake: perde ve sake kâsesi, 5 puan.
+- Tsukimi-zake: ay ve sake kâsesi, 5 puan.
+- Tane: 5 hayvan, 1 puan, sonraki her hayvan için 1 puan daha.
+- Tan: 5 kurdele, 1 puan, sonraki her kurdele için 1 puan daha.
+- Kasu: 10 sade kart, 1 puan, sonraki her biri için 1 puan daha.
+Dört ışık yaku'sundan yalnızca en iyisi sayılır; diğer bütün yaku'lar toplanır. Sake kâsesi hem hayvan hem de sade kart sayılır. Burada Hanami-zake ve Tsukimi-zake her zaman geçerlidir.
+# Durmak ya da koi-koi
+Sıran yeni bir yaku ile ya da yaku'larından daha çok puanla bittiğinde seçersin:
+- Durmak: tur biter ve puan alırsın.
+- Koi-koi: tur devam eder. Ancak puanın yeniden arttığında tekrar durabilirsin. Rakibin önce durursa hiçbir şey alamazsın ve onun puanı ikiye katlanır.
+Elinde kart kalmadıysa durursun.
+# Puanlama
+- Bütün yaku'larının puanları toplanır.
+- 7 veya daha fazlaysa ikiye katlanır.
+- Rakibin koi-koi demişse bir kez daha ikiye katlanır.
+- İki el de sonuna kadar oynanır ve kimse durmazsa kimse puan almaz.
+- Teshi (dağıtılan elde aynı aydan dört kart) ve Kuttsuki (dağıtılan elde dört ay çifti) turu hemen 6 puanla kazanır. Önce dağıtanın eline bakılır.
+# Oyunun sonu
+Son turdan sonra en çok puanı olan oyuncu kazanır.
+# Cihazda oynamak
+Eller gizlidir: ekran istediğinde cihazı devret, sıradaki oyuncu başlat düğmesine dokunsun. Senin elin altta, rakibinki kapalı olarak üstte; deste ve alan ortadadır, destenin altında her tur için bir nokta vardır. Her oyuncunun aldığı kartlar türlerine göre gruplanır: ışıklar, hayvanlar, kurdeleler, sade kartlar, her grubun üstünde sayısı yazar. Oluşan yaku'lar kartları ve puanlarıyla rozet olarak görünür, kırmızı bir disk de söylenmiş bir koi-koi'yi gösterir. Rakibinin son sırasında yaptıkları masada işaretlidir.
+- Elindeki bir karta dokun: alanda aynı aydan kartlar parlar. Oynamak için bunlardan birine ya da yeniden kendi kartına dokun; kartı alana sürükleyebilirsin de. Hiçbir şey eşleşmiyorsa bir nokta kartın nereye konacağını gösterir.
+- İki kart eşleşiyorsa alacağın karta dokun.
+- Sonra destenin üstündeki kartı çevirmek için desteye dokun.
+- Bir yaku oluşturduğunda iki büyük düğme çıkar: açık el durur (altındaki sayı şimdi alacağın puandır), çift ok koi-koi der.
+- Her turdan sonra bir pano yaku'ları, katlamaları (bir çarpı ve bir 2) ve puanları gösterir; sonraki tur için ona dokun. Her oyuncunun toplamı kendi çubuğundadır.
+Geri al, desteden kart çevirene kadar kendi hamlelerini geri alır.
