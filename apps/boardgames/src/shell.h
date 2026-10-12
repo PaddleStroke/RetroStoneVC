@@ -107,6 +107,21 @@ typedef struct game {
     /* optional, one player: the fewest moves the puzzle just solved can take (0: not known); the end card shows the
      * moves (score()) beside it */
     int  (*par)(void);
+    /* optional, the room on the screen. fill 1: layout() gets the whole rectangle between the bars and the buttons
+     * (portrait: the bars' width, all the height between them; landscape: all the width left of the side column), not
+     * the 9-unit square: a wide or tall board, a grid fitted with ui_grid_fit (VIEW_* games always get it). tools: how
+     * many round buttons of its own the game shows beside its board (0..UI_MAX_TOOLS: a flag mode, a hint, a
+     * magnifier, digits to enter): the shell lays them out where they cost the board least (ui_tool*), and their
+     * presses come to press() as any other. */
+    int fill;
+    int tools;
+    /* optional, variants on two axes (the logic grids: a size, then a level): axes {sizes, levels}, variant =
+     * size * axes[1] + level (the first axes[0] * axes[1] variants). The picker then shows the sizes (in rows; the one
+     * chosen in gold light, a tap chooses another) above a row of the levels (a tap starts that size at that level),
+     * instead of a card each. axis_pic[0](size, px, rgba), axis_pic[1](level, px, rgba): their pictures (NULL: a size
+     * is thumb() of that size at the level chosen last; a level is as many ebony stones, one easy .. three hard). */
+    int axes[2];
+    void (*axis_pic[2])(int i, int size, uint8_t *rgba);
 } game;
 
 enum { VIEW_BOARD, VIEW_OPEN, VIEW_HIDDEN };
@@ -160,8 +175,22 @@ float ui_number_w(int value, float h);          /* how wide ui_number draws it *
 void ui_bar_count(box b, SDL_Texture *piece, int n);
 /* the same showing 0 too (a move counter), the piece optional (NULL); returns the x after the number */
 float ui_bar_number(box b, SDL_Texture *piece, int n);
+/* the turns left before a draw (a quiet stretch counted, the count of an endgame), at the bar's right end: a small
+ * hourglass and the number, in soft cream (the rules say when to show it: the player to move, the last twenty or
+ * so); returns the bar's room left of it */
+box  ui_bar_countdown(box b, int left);
+/* a bar holding counts and round buttons, fitted (a puzzle's moves, what is left; its tools at the right end): the
+ * counts from the left (a small picture, or NULL, and the number in cream; the moves first) and room for nbtn buttons
+ * at the right end. A narrow bar (landscape's) first drops the first count's picture, then sets everything smaller.
+ * Draws the counts and returns the buttons' size; ui_bar_spot gives button i's centre, from the right end. */
+typedef struct { SDL_Texture *pic; int value; } ui_count;
+float ui_bar_fit(box b, const ui_count *counts, int nc, int nbtn);
+void ui_bar_spot(box b, int i, float d, float *cx, float *cy);
 /* where a player's bar is on the screen (cards flying to it, a glow); upside: drawn turned round (face to face) */
 box  ui_bar_box(int player, int *upside);
+/* the game's token() now paints other pictures (banqi: the colours decided by the first piece turned over): the bars',
+ * the end card's and the hand-off cover's tokens are made again */
+void ui_tokens_changed(void);
 void ui_animate(void);                          /* draw the next frame too (an animation runs) */
 Uint32 ui_ms(void);                             /* the clock for animations: use it, not SDL_GetTicks (the picture
                                                  * mode has a clock of its own: still, moved on past each gesture's
@@ -196,6 +225,31 @@ int  ui_button_hit(float cx, float cy, float d, float x, float y);   /* (x, y) o
  * picture on it (paint, k, how as above; how: UI_ON, UI_IVORY, UI_TINT) */
 void ui_button_pic(uint8_t *rgba, int w, int h, float cx, float cy, int d, ui_painter paint, int kind, float k,
                    int how);
+
+/* ---- the game's tools (game.tools): its round buttons, laid out by the shell ---------------------------------------
+ * Portrait: up to three at the right end of the bottom bar (when one bar is there: bar() gets the room left), more in
+ * a row (two past seven) between the board and that bar. Landscape: in the side column, between the top bar and the
+ * shell's buttons. Tool i keeps its place while the game shows it; the game draws them (ui_tool, ui_tool_paint: as
+ * ui_button, ui_button_paint) and finds them under a finger (ui_tool_hit) in press(). */
+#define UI_MAX_TOOLS 12
+void ui_tools_shown(int n);                     /* how many show now: the first n (a magnifier only on big fields);
+                                                 * laid out again at once; each layout() starts with all */
+int  ui_tool_at(int i, float *cx, float *cy, float *d);   /* tool i's centre and size; 0: not shown */
+void ui_tool(int i, int icon, int how);         /* tool i with one of the shell's icons (ICON_*, how: UI_*) */
+void ui_tool_paint(int i, ui_painter paint, int kind, float k, int how);   /* with the game's picture */
+int  ui_tool_hit(float x, float y);             /* the tool under the finger, else -1 */
+
+/* ---- a grid of square cells in a box (game.fill's room): cols x rows cells, `frame` cells of room on each side, as
+ * big as they go; turned a quarter (turned 1: the game's columns run down the screen, its rows across) when that
+ * makes the cells bigger (a 30 x 16 field on a phone held upright). Centred in the box. */
+typedef struct {
+    float x, y, cell;                           /* the cells' top left on the screen; a cell's side (whole pixels) */
+    int cols, rows;                             /* as on the screen (turned: the game's rows and columns swapped) */
+    int turned;
+} ui_grid;
+ui_grid ui_grid_fit(box b, int cols, int rows, float frame);
+void ui_grid_cell(const ui_grid *g, int col, int row, float *x, float *y);   /* the game's cell: its top left */
+int  ui_grid_hit(const ui_grid *g, float x, float y, int *col, int *row);    /* the game's cell there: 1, else 0 */
 
 /* a game's own words in the game (a bid, a call; no other words outside the rules page): line i of its words
  * (text_word: help/<lang>/<id>_words.txt, key "<id>_words") as a picture, bold, px pixels, no wider than maxw (made

@@ -703,6 +703,34 @@ void art_icon(int which, int size, uint8_t *rgba)
         art_poly(f, ART_PART, flag, 3);
         break;
     }
+    case ICON_EYE:                                  /* an eye: its two lids, the iris between them */
+        art_arc(f, ART_PART, 0.5f, 0.76f, 0.43f, 0.49f, 34, 146);
+        art_arc(f, ART_PART, 0.5f, 0.24f, 0.43f, 0.49f, 214, 326);
+        art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.14f, 0.14f);
+        break;
+    case ICON_PENCIL: {                             /* a pencil lying from the lower left up, its point, its cap */
+        const float tip[] = {0.335f, 0.745f, 0.255f, 0.665f, 0.17f, 0.83f};
+        art_band(f, ART_PART, 0.32f, 0.68f, 0.69f, 0.31f, 0.17f);
+        art_band(f, ART_PART, 0.725f, 0.275f, 0.81f, 0.19f, 0.17f);
+        art_poly(f, ART_PART, tip, 3);
+        break;
+    }
+    case ICON_ERASER: {                             /* an eraser leaning on the page: its rubber, its sleeve */
+        const float c = 0.819f, s = 0.574f, ax = 0.262f, ay = 0.60f, l = 0.58f;
+        art_band(f, ART_PART, ax, ay, ax + 0.36f * l * c, ay - 0.36f * l * s, 0.30f);
+        art_band(f, ART_PART, ax + 0.42f * l * c, ay - 0.42f * l * s, ax + l * c, ay - l * s, 0.30f);
+        art_rect(f, ART_PART, 0.18f, 0.80f, 0.82f, 0.845f);
+        break;
+    }
+    case ICON_HOURGLASS: {                          /* an hourglass: its two glasses between their boards */
+        const float up[] = {0.31f, 0.25f, 0.69f, 0.25f, 0.53f, 0.50f, 0.47f, 0.50f},
+                    down[] = {0.47f, 0.50f, 0.53f, 0.50f, 0.69f, 0.75f, 0.31f, 0.75f};
+        art_rect(f, ART_PART, 0.25f, 0.16f, 0.75f, 0.23f);
+        art_rect(f, ART_PART, 0.25f, 0.77f, 0.75f, 0.84f);
+        art_poly(f, ART_PART, up, 4);
+        art_poly(f, ART_PART, down, 4);
+        break;
+    }
     case ICON_ARROW: {                              /* an arrow pointing right */
         const float head[] = {0.50f, 0.22f, 0.86f, 0.50f, 0.50f, 0.78f};
         art_rect(f, ART_PART, 0.14f, 0.42f, 0.56f, 0.58f);
