@@ -6,6 +6,7 @@ Permainan kartu tarot dari Prancis, dengan 78 kartu: empat jenis berisi 14 kartu
 - Poin: oudler atau king 4,5, queen 3,5, kesatria 2,5, jack 1,5, kartu lainnya 0,5. Totalnya ada 91 poin.
 - Di meja, kartu dihitung berpasangan: king atau oudler dengan kartu kecil bernilai 5, queen dengan kartu kecil 4, kesatria 3, jack 2, dua kartu kecil 1. Hasilnya sama saja.
 # Pembagian kartu
+- Kartu tidak dikocok di antara pembagian: trik-trik dikumpulkan, dipotong, lalu dibagikan tiga-tiga, seperti di meja sungguhan.
 - Kartu dibagikan tiga-tiga, berkeliling meja, mulai dari pemain sesudah pembagi. Anjing (le chien) mendapat 6 kartu (3 jika berlima), satu per satu, tidak pernah kartu-kartu pertama atau terakhir.
 - Setiap pemain mendapat 24 kartu jika bertiga, 18 jika berempat, 15 jika berlima.
 - Pemain yang truf satu-satunya adalah Petit, tanpa Excuse (Petit sec), memperlihatkannya dan ronde dibatalkan. Pemain berikutnya membagi.

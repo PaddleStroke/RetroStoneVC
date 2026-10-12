@@ -6,6 +6,7 @@ The French card game of tarot, with 78 cards: four suits of 14 cards (jack, knig
 - Points: an oudler or a king 4.5, a queen 3.5, a knight 2.5, a jack 1.5, any other card 0.5. There are 91 points in all.
 - At the table the cards are counted in pairs: a king or an oudler with a small card makes 5, a queen with a small card 4, a knight 3, a jack 2, two small cards 1. It comes to the same.
 # The deal
+- The cards are not shuffled between deals: the tricks are gathered, cut and dealt three at a time, as at a real table.
 - The cards are dealt three at a time, round the table, starting with the player after the dealer. The dog gets 6 cards (3 with five players), one at a time, never the first or the last cards.
 - Each player gets 24 cards with three players, 18 with four, 15 with five.
 - A player whose only trump is the Petit, without the Excuse (the Petit sec), shows it and the deal is cancelled. The next player deals.

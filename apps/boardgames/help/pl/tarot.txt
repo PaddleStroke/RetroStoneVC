@@ -6,6 +6,7 @@ Francuska gra karciana tarot, na 78 kart: cztery kolory po 14 kart (walet, rycer
 - Punkty: karta kluczowa lub król 4,5, dama 3,5, rycerz (cavalier) 2,5, walet 1,5, każda inna karta 0,5. Razem jest 91 punktów.
 - Przy stole liczy się karty parami: król lub karta kluczowa z małą kartą daje 5, dama z małą kartą 4, rycerz 3, walet 2, dwie małe karty 1. Wychodzi na to samo.
 # Rozdawanie
+- Między rozdaniami kart się nie tasuje: zbiera się lewy, przekłada i rozdaje po trzy, jak przy prawdziwym stole.
 - Karty rozdaje się po trzy, dookoła stołu, zaczynając od gracza po rozdającym. Musik (le chien) dostaje 6 kart (3 przy pięciu graczach), po jednej, nigdy pierwsze ani ostatnie karty.
 - Każdy gracz dostaje 24 karty przy trzech graczach, 18 przy czterech, 15 przy pięciu.
 - Gracz, którego jedynym atutem jest Petit, bez Excuse (Petit sec), pokazuje go i rozdanie zostaje unieważnione. Rozdaje następny gracz.

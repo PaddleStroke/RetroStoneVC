@@ -6,6 +6,7 @@ Le jeu de tarot français, avec 78 cartes : quatre couleurs de 14 cartes (valet,
 - Les points : un bout ou un roi 4,5, une dame 3,5, un cavalier 2,5, un valet 1,5, toute autre carte 0,5. Il y a 91 points en tout.
 - À table, on compte les cartes par paires : un roi ou un bout avec une petite carte font 5, une dame avec une petite 4, un cavalier 3, un valet 2, deux petites cartes 1. Le résultat est le même.
 # La donne
+- Les cartes ne sont pas mélangées entre les donnes : on ramasse les plis, on coupe et on distribue 3 par 3, comme à une vraie table.
 - Les cartes sont distribuées trois par trois, en tournant, en commençant par le joueur qui suit le donneur. Le chien reçoit 6 cartes (3 à cinq joueurs), une à la fois, jamais les premières ni les dernières.
 - Chacun reçoit 24 cartes à trois joueurs, 18 à quatre, 15 à cinq.
 - Un joueur dont le seul atout est le Petit, sans l'Excuse (le Petit sec), le montre et la donne est annulée. Le joueur suivant donne.

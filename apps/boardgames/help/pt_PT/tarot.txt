@@ -6,6 +6,7 @@ O jogo de cartas francês tarot, com 78 cartas: quatro naipes de 14 cartas (vale
 - Pontos: uma carta-chave ou um rei 4,5, uma dama 3,5, um cavaleiro (cavalier) 2,5, um valete 1,5, qualquer outra carta 0,5. Há 91 pontos ao todo.
 - À mesa, as cartas contam-se aos pares: um rei ou uma carta-chave com uma carta pequena faz 5, uma dama com uma carta pequena 4, um cavaleiro 3, um valete 2, duas cartas pequenas 1. Dá o mesmo.
 # A distribuição
+- As cartas não são baralhadas entre as mãos: recolhem-se as vazas, corta-se e dá-se de três em três, como numa mesa a sério.
 - As cartas são dadas de três em três, à volta da mesa, a começar pelo jogador a seguir a quem dá. O cão (le chien) recebe 6 cartas (3 com cinco jogadores), uma de cada vez, nunca as primeiras nem as últimas.
 - Cada jogador recebe 24 cartas com três jogadores, 18 com quatro, 15 com cinco.
 - Um jogador cujo único trunfo é o Petit, sem a Desculpa (o Petit sec), mostra-o e a ronda é anulada. Dá as cartas o jogador seguinte.

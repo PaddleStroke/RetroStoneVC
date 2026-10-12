@@ -6,6 +6,7 @@ Det franska kortspelet tarot, med 78 kort: fyra färger om 14 kort (knekt, ridda
 - Poäng: ett nyckelkort eller en kung 4,5, en dam 3,5, en riddare 2,5, en knekt 1,5, alla andra kort 0,5. Totalt finns det 91 poäng.
 - Vid bordet räknas korten parvis: en kung eller ett nyckelkort med ett lågt kort ger 5, en dam med ett lågt kort 4, en riddare 3, en knekt 2, två låga kort 1. Det blir samma sak.
 # Given
+- Korten blandas inte mellan given: sticken samlas ihop, det kuperas och delas ut tre i taget, som vid ett riktigt bord.
 - Korten delas ut tre i taget, runt bordet, med början hos spelaren efter den som ger. Talongen (le chien) får 6 kort (3 med fem spelare), ett i taget, aldrig de första eller de sista korten.
 - Varje spelare får 24 kort med tre spelare, 18 med fyra, 15 med fem.
 - En spelare vars enda trumf är Petit, utan Narren (ensam Petit, Petit sec), visar upp den och given annulleras. Nästa spelare ger.

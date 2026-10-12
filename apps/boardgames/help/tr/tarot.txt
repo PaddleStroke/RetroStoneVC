@@ -6,6 +6,7 @@ Fransız tarotu
 - Puanlar: oudler ya da papaz 4,5, kız 3,5, şövalye 2,5, vale 1,5, diğer her kart 0,5. Toplam 91 puan vardır.
 - Masada kartlar ikişer ikişer sayılır: bir papaz ya da oudler ile küçük bir kart 5, bir kız ile küçük bir kart 4, şövalye 3, vale 2, iki küçük kart 1 eder. Sonuç aynıdır.
 # Dağıtım
+- Dağıtımlar arasında kartlar karılmaz: alınan löveler toplanır, kesilir ve gerçek bir masadaki gibi üçer üçer dağıtılır.
 - Kartlar, dağıtıcıdan sonraki oyuncudan başlayarak masanın etrafında üçer üçer dağıtılır. Gömüye (le chien) 6 kart (beş oyuncuyla 3) birer birer konur, ama asla ilk ya da son kartlar değil.
 - Üç oyuncuyla herkes 24 kart alır, dört oyuncuyla 18, beş oyuncuyla 15.
 - Tek kozu Petit olan ve Excuse da elinde olmayan oyuncu (yalnız Petit, Petit sec) onu gösterir ve el iptal olur. Sıradaki oyuncu dağıtır.

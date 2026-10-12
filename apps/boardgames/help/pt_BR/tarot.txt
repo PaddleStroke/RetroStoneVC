@@ -6,6 +6,7 @@ O jogo de cartas francês tarô, com 78 cartas: quatro naipes de 14 cartas (vale
 - Pontos: uma carta-chave ou um rei 4,5, uma dama 3,5, um cavaleiro (cavalier) 2,5, um valete 1,5, qualquer outra carta 0,5. São 91 pontos ao todo.
 - Na mesa as cartas são contadas aos pares: um rei ou uma carta-chave com uma carta pequena dá 5, uma dama com uma carta pequena 4, um cavaleiro 3, um valete 2, duas cartas pequenas 1. Dá no mesmo.
 # A distribuição
+- As cartas não são embaralhadas entre as mãos: as vazas são recolhidas, corta-se e distribui-se de três em três, como numa mesa de verdade.
 - As cartas são distribuídas de três em três, em volta da mesa, começando pelo jogador depois de quem dá as cartas. O cachorro (le chien) recebe 6 cartas (3 com cinco jogadores), uma de cada vez, nunca as primeiras nem as últimas cartas.
 - Cada jogador recebe 24 cartas com três jogadores, 18 com quatro, 15 com cinco.
 - Um jogador cujo único trunfo é o Petit, sem a Desculpa (o Petit sec), mostra a carta e a rodada é anulada. O próximo jogador dá as cartas.

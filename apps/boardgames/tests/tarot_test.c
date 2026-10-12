@@ -1,7 +1,8 @@
 /*
  * French Tarot: the rules' test (the deal in threes and the dog, the Petit sec, the bidding, the dog and the discard,
  * the king called, following, trumping, over-trumping, the Excuse, the count and the scores, petit au bout, poignées,
- * the chelem; whole random games from seeds for 3, 4 and 5 players; undo). No SDL.
+ * the chelem; whole random games from seeds for 3, 4 and 5 players; undo; no shuffle between deals: the gathering,
+ * the cut, the warm-up deal, how bunched the hands are against shuffled ones). No SDL.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -574,6 +575,185 @@ static void test_script(void)
     CHECK(tarot_parse_card(&s) == CARD_NONE);
 }
 
+/* ---- no shuffle between deals: gathered, cut, dealt -------------------------------------------------------------- */
+static int is_pack(const uint8_t *pack)          /* the 78 cards, once each */
+{
+    uint8_t all[CARDS_MAX];
+    int seen[256] = {0}, ok = 1;
+    for (int i = 0; i < 78; i++) seen[pack[i]]++;
+    for (int i = 0; i < cards_pack(PACK_TAROT, all); i++) ok &= seen[all[i]] == 1;
+    return ok;
+}
+
+static int dealt_from(const tpos *p, const uint8_t *pack)   /* the deal is the pack, cut, in order */
+{
+    if (p->cut < 4 || p->cut > 74) return 0;
+    for (int i = 0; i < 78; i++)
+        if (p->deal_card[i] != pack[(p->cut + i) % 78]) return 0;
+    return 1;
+}
+
+static void test_cut(void)
+{
+    uint8_t pack[78], cut[78];
+    cards_pack(PACK_TAROT, pack);
+    int lo = 99, hi = 0, ok = 1;
+    for (uint32_t seed = 0; seed < 5000; seed++) {
+        memcpy(cut, pack, 78);
+        int k = tarot_cut(cut, seed);
+        lo = k < lo ? k : lo;
+        hi = k > hi ? k : hi;
+        for (int i = 0; i < 78; i++) ok &= cut[i] == pack[(k + i) % 78];   /* the lower part on top */
+    }
+    CHECK(ok && lo == 4 && hi == 74);           /* more than 3 cards in each part, every cut possible */
+    for (int n = 3; n <= 5; n++) {              /* the cutter: the dealer's left, the player before them */
+        fresh(n, 3);
+        CHECK(P->cutter == (P->dealer + n - 1) % n && P->cut >= 4 && P->cut <= 74);
+        CHECK(dealt_from(P, G.start));
+    }
+}
+
+static void test_warmup(void)
+{
+    int done = 0, packs = 0, differ = 0;
+    uint8_t a[78], b[78], prev[78] = {0};
+    for (int n = 3; n <= 5; n++)
+        for (uint32_t seed = 1; seed <= 200; seed++) {
+            done += tarot_warmup(a, n, seed * 2654435761u);
+            packs += is_pack(a);
+            differ += memcmp(a, prev, 78) != 0;
+            memcpy(prev, a, 78);
+        }
+    CHECK(done == 600 && packs == 600 && differ == 600);
+    CHECK(tarot_warmup(a, 4, 77) && tarot_warmup(b, 4, 77) && !memcmp(a, b, 78));   /* a seed, a pack */
+    tarot_new(&G, 4, 77);
+    CHECK(!memcmp(G.start, a, 78) && dealt_from(P, a));
+}
+
+/* a deal played out: each side's pile bottom up (the aside, the tricks as won), the defence's on the taker's */
+static void test_gather(void)
+{
+    uint8_t pack[78], next[78];
+    fresh(4, 21);
+    CHECK(tarot_script(&G, "b2 p p p t") && P->phase == TP_DISCARD);
+    tarot_gather(P, pack);                      /* mid-deal too: every card, once */
+    CHECK(is_pack(pack));
+    CHECK(tarot_script(&G, ".7") && P->phase == TP_PLAY);
+    uint8_t ecart[6];
+    memcpy(ecart, P->ecart, 6);
+    CHECK(tarot_script(&G, ".5"));
+    tarot_gather(P, pack);
+    CHECK(is_pack(pack) && P->nheap[1] >= 6 && !memcmp(P->heap[1], ecart, 6));   /* the discard at the bottom */
+    CHECK(tarot_script(&G, "#") && P->phase == TP_SCORE);
+    tarot_gather(P, pack);
+    CHECK(is_pack(pack) && P->nheap[0] + P->nheap[1] == 78);
+    int ok = 1;                                 /* top first: the defence's pile reversed, then the taker's */
+    for (int i = 0; i < P->nheap[0]; i++) ok &= pack[i] == P->heap[0][P->nheap[0] - 1 - i];
+    for (int i = 0; i < P->nheap[1]; i++) ok &= pack[P->nheap[0] + i] == P->heap[1][P->nheap[1] - 1 - i];
+    CHECK(ok && pack[77] == ecart[0]);
+    /* the same game twice: the same next deal; and it is that pack, cut */
+    H = G;
+    CHECK(tarot_script(&G, "n") && tarot_script(&H, "n") && !memcmp(&G.pos, &H.pos, sizeof G.pos));
+    CHECK(dealt_from(P, pack));
+    /* Garde contre: the dog at the bottom of the defence's pile */
+    fresh(4, 21);
+    CHECK(tarot_script(&G, "p p p b4") && P->nheap[0] == 6 && !memcmp(P->heap[0], P->dog, 6) && P->nheap[1] == 0);
+    fresh(4, 21);
+    CHECK(tarot_script(&G, "b3 p p p") && P->nheap[1] == 6 && !memcmp(P->heap[1], P->dog, 6));
+    CHECK(tarot_script(&G, "#"));
+    tarot_gather(P, pack);
+    CHECK(is_pack(pack) && pack[77] == P->dog[0]);
+    /* a cancelled deal: the hands as held from the dealer's next, each on the one before, the dog on top */
+    fresh(4, 7);
+    CHECK(tarot_script(&G, "p p p p") && P->phase == TP_VOID);
+    tarot_gather(P, pack);
+    uint8_t want[78];
+    int k = 0;
+    for (int i = P->dogsize - 1; i >= 0; i--) want[k++] = P->dog[i];
+    for (int j = 3; j >= 0; j--) {
+        int pl = (P->dealer + 1 + j) % 4;
+        for (int i = P->nhand[pl] - 1; i >= 0; i--) want[k++] = P->hand[pl][i];
+    }
+    CHECK(k == 78 && !memcmp(pack, want, 78) && is_pack(pack));
+    CHECK(tarot_script(&G, "n") && dealt_from(P, want));
+    memcpy(next, pack, 78);
+    tarot_start(&H, 5, 1234, next);             /* a pack carries over to a game of any size */
+    CHECK(!memcmp(H.start, next, 78) && dealt_from(&H.pos, next) && H.pos.players == 5);
+}
+
+/* how bunched the hands are: the trumps per hand (their variance), the longest suit per hand, packets of one suit */
+typedef struct { double trumps, trumps2, longest, packets; int hands, deals, npk; } clump;
+
+static void measure(clump *m, const tpos *p)
+{
+    for (int q = 0; q < p->players; q++) {
+        int t = tarot_trumps(p, q), per[5] = {0}, top = 0;
+        for (int i = 0; i < p->nhand[q]; i++) per[CARD_SUIT(p->hand[q][i])]++;
+        for (int s = 0; s < 5; s++) top = per[s] > top ? per[s] : top;
+        m->trumps += t;
+        m->trumps2 += t * t;
+        m->longest += top;
+        m->hands++;
+    }
+    for (int i = 0; i + 2 < 78; i++) {          /* the packets of three: all of one suit (the trumps: one suit) */
+        if (p->deal_to[i] == TAROT_DOG || p->deal_to[i + 1] != p->deal_to[i] || p->deal_to[i + 2] != p->deal_to[i])
+            continue;
+        int s = CARD_SUIT(p->deal_card[i]);
+        m->packets += CARD_SUIT(p->deal_card[i + 1]) == s && CARD_SUIT(p->deal_card[i + 2]) == s;
+        m->npk++;
+        i += 2;
+    }
+    m->deals++;
+}
+
+static void report(const char *what, const clump *m)
+{
+    double mean = m->trumps / m->hands;
+    printf("tarot: %-26s %d deals: trumps per hand %.2f (variance %.2f), longest suit %.2f, packets of one suit "
+           "%.1f%%\n", what, m->deals, mean, m->trumps2 / m->hands - mean * mean, m->longest / m->hands,
+           100.0 * m->packets / m->npk);
+}
+
+static void test_clumps(void)
+{
+    static int acts[2600];
+    clump real = {0}, after_play = {0}, after_void = {0}, shuffled = {0};
+    uint8_t pack[78];
+    rng = 2026;
+    tarot_warmup(pack, 4, 99);
+    int prev_void = 0;
+    while (real.deals < 500) {                  /* games in a row, as in a session: each from the last one's cards */
+        tarot_start(&G, 4, (uint32_t)rnd(1 << 30), pack);
+        for (;;) {
+            measure(&real, P);
+            measure(prev_void ? &after_void : &after_play, P);
+            while (P->phase != TP_SCORE && P->phase != TP_VOID && P->phase != TP_OVER) {
+                int k = legal_acts(P, acts);
+                if (!k || !tarot_play(&G, pick(P, acts, k))) break;
+            }
+            prev_void = P->phase == TP_VOID;
+            if (P->phase == TP_OVER || real.deals >= 500) break;
+            tarot_play(&G, TACT(TA_NEXT, 0));
+        }
+        tarot_gather(P, pack);
+    }
+    for (uint32_t seed = 1; seed <= 500; seed++) {   /* the same deal from packs shuffled at random */
+        cards_pack(PACK_TAROT, pack);
+        cards_shuffle(pack, 78, seed * 40503u);
+        tarot_start(&H, 4, seed, pack);
+        measure(&shuffled, &H.pos);
+    }
+    report("gathered and cut:", &real);
+    report("  after a deal played:", &after_play);
+    report("  after a cancelled deal:", &after_void);
+    report("shuffled:", &shuffled);
+    double vr = real.trumps2 / real.hands - (real.trumps / real.hands) * (real.trumps / real.hands);
+    double vs = shuffled.trumps2 / shuffled.hands - (shuffled.trumps / shuffled.hands) * (shuffled.trumps / shuffled.hands);
+    CHECK(vr > vs && real.longest / real.hands > shuffled.longest / shuffled.hands);
+    CHECK(after_play.longest / after_play.hands > shuffled.longest / shuffled.hands);
+    CHECK(real.packets / real.npk > shuffled.packets / shuffled.npk);
+}
+
 int main(void)
 {
     test_deal();
@@ -589,6 +769,10 @@ int main(void)
     test_poignee();
     test_script();
     test_games();
+    test_cut();
+    test_warmup();
+    test_gather();
+    test_clumps();
     printf("tarot: %d checks, %d failed\n", checks, failed);
     return failed ? 1 : 0;
 }

@@ -6,6 +6,7 @@ El juego de cartas francés del tarot, con 78 cartas: cuatro palos de 14 cartas 
 - Puntos: un oudler o un rey 4,5, una reina 3,5, un caballo 2,5, una sota 1,5, cualquier otra carta 0,5. Hay 91 puntos en total.
 - En la mesa las cartas se cuentan por parejas: un rey o un oudler con una carta pequeña suman 5, una reina con una carta pequeña 4, un caballo 3, una sota 2, dos cartas pequeñas 1. El resultado es el mismo.
 # El reparto
+- Las cartas no se barajan entre una mano y otra: se recogen las bazas, se corta y se reparte de tres en tres, como en una mesa de verdad.
 - Las cartas se reparten de tres en tres, alrededor de la mesa, empezando por el jugador que sigue al que reparte. El perro (chien) recibe 6 cartas (3 con cinco jugadores), de una en una, nunca las primeras ni las últimas.
 - Cada jugador recibe 24 cartas con tres jugadores, 18 con cuatro, 15 con cinco.
 - Un jugador cuyo único triunfo es el Petit, sin la Excusa (Petit sec), lo muestra y la mano se anula. Reparte el jugador siguiente.

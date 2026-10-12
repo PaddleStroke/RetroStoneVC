@@ -6,6 +6,7 @@ Det franske kortspil tarot med 78 kort: fire kulører på 14 kort (knægt, rytte
 - Point: en oudler eller en konge 4,5, en dame 3,5, en rytter 2,5, en knægt 1,5, alle andre kort 0,5. Der er 91 point i alt.
 - Ved bordet tælles kortene parvis: en konge eller en oudler med et lille kort giver 5, en dame med et lille kort 4, en rytter 3, en knægt 2, to små kort 1. Det giver det samme.
 # Kortgivningen
+- Kortene blandes ikke mellem spillene: stikkene samles sammen, der tages af, og der gives tre ad gangen, som ved et rigtigt bord.
 - Kortene gives tre ad gangen, rundt om bordet, begyndende med spilleren efter giveren. Hunden (chien) får 6 kort (3 med fem spillere), ét ad gangen, aldrig de første eller de sidste kort.
 - Hver spiller får 24 kort med tre spillere, 18 med fire, 15 med fem.
 - En spiller, hvis eneste trumf er Petit, uden Excuse (Petit sec), viser den, og givet annulleres. Den næste spiller giver.

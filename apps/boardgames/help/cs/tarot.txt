@@ -6,6 +6,7 @@ Francouzská karetní hra tarot se 78 kartami: čtyři barvy po 14 kartách (klu
 - Body: oudler nebo král 4,5, dáma 3,5, jezdec 2,5, kluk 1,5, každá jiná karta 0,5. Celkem je ve hře 91 bodů.
 - U stolu se karty počítají po dvojicích: král nebo oudler s malou kartou dává 5, dáma s malou kartou 4, jezdec 3, kluk 2, dvě malé karty 1. Vyjde to nastejno.
 # Rozdávání
+- Mezi rozdáními se karty nemíchají: štychy se seberou, sejme se a rozdává se po třech, jako u skutečného stolu.
 - Karty se rozdávají po třech, dokola, počínaje hráčem po rozdávajícím. Talon (chien) dostane 6 karet (3 při pěti hráčích), po jedné, nikdy ne první ani poslední karty.
 - Každý hráč dostane 24 karet při třech hráčích, 18 při čtyřech, 15 při pěti.
 - Hráč, jehož jediným trumfem je Petit a nemá ani Excuse (holý Petit, Petit sec), ho ukáže a rozdání se ruší. Rozdává další hráč.

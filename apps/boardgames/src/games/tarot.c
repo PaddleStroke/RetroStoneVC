@@ -495,10 +495,15 @@ static void animate(const tpos *b, int act)
 }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
+/* no shuffle between games either: a new game goes on from the cards of the last one, gathered as they lie (kept in
+ * memory for the session); the session's first game, from an unseen warm-up deal */
 static void start(int v)
 {
     (void)v;
-    tarot_new(&G, ui.players, (uint32_t)ui_random(1 << 30));
+    uint8_t pack[78];
+    if (G.players) tarot_gather(&G.pos, pack);
+    else tarot_warmup(pack, ui.players, (uint32_t)ui_random(1 << 30));
+    tarot_start(&G, ui.players, (uint32_t)ui_random(1 << 30), pack);
     calm();
     mark = 0;
     pend_deal = 1;

@@ -6,6 +6,7 @@ Ranskalainen tarot on korttipeli, jossa on 78 korttia: neljä 14 kortin maata (k
 - Pisteet: oudler tai kuningas 4,5, kuningatar 3,5, ratsu 2,5, jätkä 1,5, muut kortit 0,5. Pisteitä on yhteensä 91.
 - Pöydässä kortit lasketaan pareittain: kuningas tai oudler ja pieni kortti tekevät 5, kuningatar ja pieni kortti 4, ratsu 3, jätkä 2, kaksi pientä korttia 1. Tulos on sama.
 # Jako
+- Kortteja ei sekoiteta jakojen välillä: tikit kerätään, pakasta nostetaan ja jaetaan kolme kerrallaan, kuten oikeassa pöydässä.
 - Kortit jaetaan kolme kerrallaan pöydän ympäri jakajasta seuraavasta alkaen. Koira (le chien), sivuun jaettava pino, saa 6 korttia (viidellä pelaajalla 3) yksi kerrallaan, mutta ei koskaan ensimmäisiä eikä viimeisiä kortteja.
 - Kukin saa 24 korttia kolmella pelaajalla, 18 neljällä ja 15 viidellä.
 - Pelaaja, jonka ainoa valtti on Petit ilman Excusea (Petit sec), näyttää sen, ja jako mitätöidään. Seuraava pelaaja jakaa.

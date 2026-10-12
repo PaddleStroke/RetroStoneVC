@@ -1,11 +1,30 @@
 /*
  * French Tarot (« Tarot »), for 3, 4 or 5 players on one device: the rules, after the French Tarot Federation's
- * (FFT). No SDL; every deal comes from the game's seed (cards.h's shuffle), so a game is its seed and its actions
- * (undo replays them).
+ * (FFT). No SDL; a game is its starting pack, its seed (the cuts, where the dog's cards fall) and its actions (undo
+ * replays them).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- * The 78 cards (cards.h DECK_TAROT). Players 0..n-1 sit in turn order (the next player is the one after). A game: as
- * many scored deals as players (a cancelled deal does not count, but the deal moves on); the highest total wins.
+ * The 78 cards (cards.h DECK_TAROT). Players 0..n-1 sit in turn order (the next player is the one after: the
+ * dealer's right, play going counter-clockwise as at the table). A game: as many scored deals as players (a cancelled
+ * deal does not count, but the deal moves on); the highest total wins.
+ * - No shuffle between deals, as at a real table: the cards are gathered as they lie, cut, and dealt in threes, so
+ *   suits and trumps stay bunched from the tricks (tarot_gather, tarot_cut). The pack is listed from its top (the
+ *   first card dealt):
+ *   - a deal played out: each side's pile is its aside at the bottom (Petite, Garde: the taker's discard; Garde sans:
+ *     the dog, the taker's; Garde contre: the dog, the defence's), then its tricks stacked as won, each trick's cards
+ *     in their order of play. The Excuse lies in its owner's side's pile, in the trick it was played in; the small
+ *     card given for it goes from the top of the owner's side's pile onto the other side's pile as soon as the owner's
+ *     side has one (at once, or at its next trick won; never, if it wins none). Five players: still two sides. Then
+ *     the defence's pile is put on the taker's: the defence's last trick is on top.
+ *   - a cancelled deal (a Petit sec, all passed): each hand as held (sorted, as on the screen), from the player after
+ *     the dealer round to the dealer, each put on the one before, then the dog on top. (A deal left unfinished, for a
+ *     new game: the sides' piles, the trick on the table, the hands, the dog or the discard, in that order upwards.)
+ *   - the cut (FFT: the dealer's left-hand neighbour, here the player before the dealer, cuts, lifting or leaving more
+ *     than 3 cards): 4..74 cards lifted at a random point (the seed), the lower part put on top.
+ *   - a game's first deal comes from the pack the caller gives (tarot_start): the UI keeps the last pack of the
+ *     session for its next game; the session's very first one comes from tarot_warmup: a whole deal from a shuffled
+ *     pack, never seen (the first player takes a Petite, the others pass, a random legal call, discard and play),
+ *     gathered as above. Any number of players: always the same 78 cards.
  * - The deal: in packets of three, from the player after the dealer round the table; the dog's cards (6; 3 with five
  *   players) go to it one at a time between two packets, never with the first nor the last packet. 3 players: 24
  *   cards each; 4: 18; 5: 15. A player whose only trump is the Petit (no other trump, no Excuse: the « Petit sec »)
@@ -91,6 +110,10 @@ typedef struct {
     uint8_t last[TAROT_MAXP], lastlead, lastwin;          /* the last trick completed (tricks > 0) */
     uint8_t pile[TAROT_MAXP][78], npile[TAROT_MAXP], won[TAROT_MAXP];   /* each player's tricks: cards, count */
     uint8_t xowner, xto;                        /* the Excuse kept by xowner, who owes xto's side a half point */
+    uint8_t xdebt;                              /* that side still owes the other side's pile its small card */
+    uint8_t heap[2][78], nheap[2];              /* each side's pile as it grows (1 the taker's side, 0 the
+                                                 * defence), bottom first: the aside, then the tricks as won */
+    uint8_t cutter, cut;                        /* who cut this deal's pack, the cards they lifted (0: shuffled) */
     uint8_t pab_by;                             /* the last trick's winner when the Petit is in it (TAROT_NONE) */
     tresult res;
     int16_t total[TAROT_MAXP], score[TAROT_MAXP];   /* the totals; the last deal's scores */
@@ -101,11 +124,19 @@ typedef struct {
     tpos pos;
     uint32_t seed;
     uint8_t players;
+    uint8_t start[78];                          /* the pack the game began from, top first (before its cut) */
     uint16_t act[TAROT_MAX_ACTS];
     int n;
 } tgame;
 
-void tarot_new(tgame *g, int players, uint32_t seed);
+void tarot_start(tgame *g, int players, uint32_t seed, const uint8_t *pack);   /* the first deal from this pack,
+                                                  * top first (cut first) */
+int  tarot_warmup(uint8_t *pack, int players, uint32_t seed);   /* a session's first pack: a whole deal played
+                                                  * from a shuffled pack, unseen, then gathered (1: played out) */
+void tarot_new(tgame *g, int players, uint32_t seed);           /* the warm-up, then tarot_start */
+void tarot_gather(const tpos *p, uint8_t *pack); /* the cards picked up as they lie, top first */
+int  tarot_cut(uint8_t *pack, uint32_t seed);    /* the cut: 4..74 cards lifted, the lower part on top; returns
+                                                  * how many were lifted */
 int  tarot_legal(const tpos *p, int act);
 int  tarot_play(tgame *g, int act);              /* 0: not allowed */
 int  tarot_undo(tgame *g);                       /* back one action (a replay from the start); 0: none */

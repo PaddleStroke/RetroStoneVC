@@ -6,6 +6,7 @@ Het Franse kaartspel tarot, met 78 kaarten: vier kleuren van 14 kaarten (boer, r
 - Punten: een oudler of een heer 4,5, een vrouw 3,5, een ruiter (cavalier) 2,5, een boer 1,5, elke andere kaart 0,5. Er zijn in totaal 91 punten.
 - Aan tafel tel je de kaarten per twee: een heer of een oudler met een kleine kaart is 5, een vrouw met een kleine kaart 4, een ruiter 3, een boer 2, twee kleine kaarten 1. Dat komt op hetzelfde neer.
 # Het delen
+- Tussen de spellen worden de kaarten niet geschud: de slagen worden verzameld, er wordt afgenomen en per drie gedeeld, zoals aan een echte tafel.
 - De kaarten worden per drie gedeeld, de tafel rond, te beginnen bij de speler na de gever. De hond (le chien) krijgt 6 kaarten (3 met vijf spelers), één tegelijk, nooit de eerste of de laatste kaarten.
 - Elke speler krijgt 24 kaarten met drie spelers, 18 met vier, 15 met vijf.
 - Een speler wiens enige troef de Petit is, zonder de Excuse (de Petit sec), laat die zien en de ronde vervalt. De volgende speler deelt.

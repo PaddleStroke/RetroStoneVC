@@ -6,6 +6,7 @@ Das französische Kartenspiel Tarot mit 78 Karten: vier Farben zu je 14 Karten (
 - Punkte: ein Oudler oder ein König 4,5, eine Dame 3,5, ein Reiter 2,5, ein Bube 1,5, jede andere Karte 0,5. Insgesamt gibt es 91 Punkte.
 - Am Tisch zählt man die Karten paarweise: ein König oder ein Oudler mit einer kleinen Karte ergibt 5, eine Dame mit einer kleinen Karte 4, ein Reiter 3, ein Bube 2, zwei kleine Karten 1. Das Ergebnis ist dasselbe.
 # Das Geben
+- Zwischen den Spielen wird nicht gemischt: Die Stiche werden eingesammelt, abgehoben und zu je dreien gegeben, wie an einem echten Tisch.
 - Die Karten werden zu je dreien reihum ausgeteilt, beginnend beim Spieler nach dem Geber. Der Hund (chien) bekommt 6 Karten (3 bei fünf Spielern), einzeln, nie die ersten oder letzten Karten.
 - Jeder Spieler bekommt 24 Karten bei drei Spielern, 18 bei vier, 15 bei fünf.
 - Wer als einzigen Trumpf den Petit hat, ohne die Excuse (Petit sec), zeigt ihn, und die Runde wird annulliert. Der nächste Spieler gibt.

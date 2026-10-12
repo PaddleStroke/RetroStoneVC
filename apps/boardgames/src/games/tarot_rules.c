@@ -112,12 +112,31 @@ static int petit_sec(const tpos *p, int pl)
     return tarot_trumps(p, pl) == 1 && find(p->hand[pl], p->nhand[pl], TAROT_PETIT) >= 0;
 }
 
-static void deal(tpos *p)
+int tarot_cut(uint8_t *pack, uint32_t seed)
+{
+    uint32_t s = mix(seed, 4242u);
+    int k = 4 + (int)(cards_rand(&s) % 71u);   /* more than 3 cards lifted, more than 3 left */
+    uint8_t t[78];
+    memcpy(t, pack + k, (size_t)(78 - k));     /* the lower part... */
+    memcpy(t + 78 - k, pack, (size_t)k);       /* ...on the lifted one */
+    memcpy(pack, t, 78);
+    return k;
+}
+
+/* the deal: from this pack, top first, once cut (NULL: a fresh pack, shuffled: the warm-up) */
+static void deal(tpos *p, const uint8_t *from)
 {
     uint8_t pack[CARDS_MAX];
-    cards_pack(PACK_TAROT, pack);
-    cards_shuffle(pack, 78, mix(p->seed, 100u + p->dealno));
     int n = p->players, packets = (78 - p->dogsize) / 3;
+    p->cutter = (uint8_t)((p->dealer + n - 1) % n);   /* the dealer's left */
+    if (from) {
+        memcpy(pack, from, 78);
+        p->cut = (uint8_t)tarot_cut(pack, mix(p->seed, 100u + p->dealno));
+    } else {
+        cards_pack(PACK_TAROT, pack);
+        cards_shuffle(pack, 78, mix(p->seed, 100u + p->dealno));
+        p->cut = 0;
+    }
     uint8_t after[32] = {0};                    /* a dog's card after these packets: never the first nor the last */
     uint32_t s = mix(p->seed, 7777u + p->dealno);
     for (int k = 0; k < p->dogsize;) {
@@ -154,6 +173,8 @@ static void deal(tpos *p)
     p->aside_attack = 0;
     p->ntrick = p->tricks = 0;
     p->xowner = p->xto = p->pab_by = TAROT_NONE;
+    p->xdebt = 0;
+    p->nheap[0] = p->nheap[1] = 0;
     p->sec = TAROT_NONE;
     p->turn = p->leader = (uint8_t)((p->dealer + 1) % n);
     p->phase = TP_BID;
@@ -163,8 +184,10 @@ static void deal(tpos *p)
     }
 }
 
-void tarot_new(tgame *g, int players, uint32_t seed)
+static void begin(tgame *g, int players, uint32_t seed, const uint8_t *pack)
 {
+    uint8_t from[78];
+    if (pack) memcpy(from, pack, 78);           /* it may be g->start (undo) */
     memset(g, 0, sizeof *g);
     tpos *p = &g->pos;
     g->seed = p->seed = seed;
@@ -173,7 +196,25 @@ void tarot_new(tgame *g, int players, uint32_t seed)
     p->dogsize = p->players == 5 ? 3 : 6;
     p->handsize = (uint8_t)((78 - p->dogsize) / p->players);
     p->dealer = (uint8_t)(p->players - 1);      /* player 0 bids and leads first */
-    deal(p);
+    if (pack) memcpy(g->start, from, 78);
+    deal(p, pack ? g->start : NULL);
+}
+
+void tarot_start(tgame *g, int players, uint32_t seed, const uint8_t *pack)
+{
+    uint8_t ok[78];                             /* a pack of the 78 cards, once each, or a fresh one */
+    int seen[256] = {0}, good = pack != NULL;
+    cards_pack(PACK_TAROT, ok);
+    for (int i = 0; good && i < 78; i++) good = ++seen[pack[i]] == 1;
+    for (int i = 0; good && i < 78; i++) good = seen[ok[i]] == 1;
+    begin(g, players, seed, good ? pack : ok);
+}
+
+void tarot_new(tgame *g, int players, uint32_t seed)
+{
+    uint8_t pack[78];
+    tarot_warmup(pack, players, seed);
+    tarot_start(g, players, seed, pack);
 }
 
 /* ---- the play ---------------------------------------------------------------------------------------------------- */
@@ -273,6 +314,8 @@ static void start_play(tpos *p)
     p->phase = TP_PLAY;
     p->turn = p->leader = (uint8_t)((p->dealer + 1) % p->players);
     p->ntrick = p->tricks = 0;
+    int s = p->aside_attack != 0;               /* the aside, at the bottom of its side's pile */
+    for (int i = 0; i < p->necart; i++) p->heap[s][p->nheap[s]++] = p->ecart[i];
 }
 
 /* after the bidding (and the call): the dog turned up, or put aside unseen */
@@ -335,6 +378,28 @@ static void score(tpos *p)
     p->phase = p->played >= p->deals ? TP_OVER : TP_SCORE;
 }
 
+/* the sides' piles as the cards lie on the table (tarot_gather) */
+static void to_heap(tpos *p, int pl, int c)
+{
+    int s = tarot_attack(p, pl);
+    p->heap[s][p->nheap[s]++] = (uint8_t)c;
+}
+
+/* the Excuse's small card: from the top of its owner's side's pile onto the other side's, once there is one */
+static void settle(tpos *p)
+{
+    if (!p->xdebt) return;
+    int s = tarot_attack(p, p->xowner);
+    for (int i = p->nheap[s] - 1; i >= 0; i--) {
+        int c = p->heap[s][i];
+        if (tarot_value2(c) != 1) continue;
+        take_out(p->heap[s], &p->nheap[s], i);
+        p->heap[!s][p->nheap[!s]++] = (uint8_t)c;
+        p->xdebt = 0;
+        return;
+    }
+}
+
 /* the trick is complete: who wins it, where its cards go */
 static void end_trick(tpos *p)
 {
@@ -352,12 +417,16 @@ static void end_trick(tpos *p)
         int c = p->trick[i];
         if (i == xi && owner >= 0) {            /* the Excuse stays with its owner, a half point owed */
             p->pile[owner][p->npile[owner]++] = (uint8_t)c;
-            if (tarot_attack(p, owner) != tarot_attack(p, win)) p->xowner = (uint8_t)owner, p->xto = (uint8_t)win;
+            to_heap(p, owner, c);
+            if (tarot_attack(p, owner) != tarot_attack(p, win))
+                p->xowner = (uint8_t)owner, p->xto = (uint8_t)win, p->xdebt = 1;
             continue;
         }
         p->pile[win][p->npile[win]++] = (uint8_t)c;
+        to_heap(p, win, c);
         if (c == TAROT_PETIT && last) p->pab_by = (uint8_t)win;
     }
+    settle(p);
     p->won[win]++;
     memcpy(p->last, p->trick, (size_t)n);
     p->lastlead = p->leader;
@@ -429,11 +498,14 @@ static void apply(tpos *p, int act)
             p->turn = (uint8_t)pl;              /* the count shows to whoever played last: no hand-off */
         }
         break;
-    case TA_NEXT:
+    case TA_NEXT: {
+        uint8_t pack[78];
+        tarot_gather(p, pack);                  /* no shuffle: gathered, cut, dealt */
         p->dealer = (uint8_t)((p->dealer + 1) % n);
         p->dealno++;
-        deal(p);
+        deal(p, pack);
         break;
+    }
     }
 }
 
@@ -451,9 +523,72 @@ int tarot_undo(tgame *g)
     int n = g->n - 1;
     static uint16_t acts[TAROT_MAX_ACTS];
     memcpy(acts, g->act, (size_t)n * sizeof acts[0]);
-    tarot_new(g, g->players, g->seed);
+    begin(g, g->players, g->seed, g->start);
     for (int i = 0; i < n; i++) tarot_play(g, acts[i]);
     return 1;
+}
+
+/* ---- the pack between deals -------------------------------------------------------------------------------------- */
+static void push(uint8_t *b, int *n, const uint8_t *c, int k)
+{
+    for (int i = 0; i < k && *n < 78; i++) b[(*n)++] = c[i];
+}
+
+void tarot_gather(const tpos *p, uint8_t *pack)
+{
+    uint8_t b[78];                              /* bottom first */
+    int n = 0, ph = p->phase, played = ph == TP_PLAY || ph == TP_SCORE || ph == TP_OVER;
+    if (played) {
+        push(b, &n, p->heap[1], p->nheap[1]);   /* the taker's side's pile, the defence's on it */
+        push(b, &n, p->heap[0], p->nheap[0]);
+    }
+    if (ph == TP_PLAY) push(b, &n, p->trick, p->ntrick);
+    for (int k = 0; k < p->players; k++) {      /* the hands as held, the dealer's next first */
+        int pl = (p->dealer + 1 + k) % p->players;
+        push(b, &n, p->hand[pl], p->nhand[pl]);
+    }
+    if (ph == TP_DISCARD) push(b, &n, p->ecart, p->necart);
+    else if (!played) push(b, &n, p->dog, p->dogsize);
+    int seen[256] = {0}, good = n == 78;
+    for (int i = 0; good && i < 78; i++) good = ++seen[b[i]] == 1;
+    if (!good) {                                /* never: a fresh pack rather than a wrong one */
+        cards_pack(PACK_TAROT, pack);
+        return;
+    }
+    for (int i = 0; i < 78; i++) pack[i] = b[77 - i];
+}
+
+/* the session's first pack: a whole deal from a shuffled pack, played by legal random choices, never seen */
+int tarot_warmup(uint8_t *pack, int players, uint32_t seed)
+{
+    static tgame w;
+    for (uint32_t k = 0;; k++) {                /* a deal that is not cancelled (no Petit sec) */
+        begin(&w, players, mix(seed, 9000u + k), NULL);
+        if (w.pos.phase == TP_BID) break;
+    }
+    tpos *p = &w.pos;
+    uint32_t s = mix(seed, 31337u);
+    for (int steps = 0; p->phase != TP_SCORE && p->phase != TP_OVER && steps < 1000; steps++) {
+        int pl = p->turn, act = 0, cand[TAROT_HAND], nc = 0;
+        switch (p->phase) {
+        case TP_BID: act = TACT(TA_BID, p->spoke == 0 ? TB_PETITE : TB_PASS); break;
+        case TP_CALL: act = TACT(TA_CALL, CARD(cards_rand(&s) % 4u, tarot_call_rank(p))); break;
+        case TP_DOG: act = TACT(TA_TAKE, 0); break;
+        case TP_DISCARD:
+            if (p->necart == p->dogsize) { act = TACT(TA_DONE, 0); break; }
+            for (int i = 0; i < p->nhand[pl]; i++)
+                if (discard_ok(p, p->hand[pl][i])) cand[nc++] = TACT(TA_DISCARD, p->hand[pl][i]);
+            break;
+        case TP_PLAY:
+            for (int i = 0; i < p->nhand[pl]; i++)
+                if (can_play(p, p->hand[pl][i])) cand[nc++] = TACT(TA_PLAY, p->hand[pl][i]);
+            break;
+        }
+        if (nc) act = cand[cards_rand(&s) % (uint32_t)nc];
+        if (!tarot_play(&w, act)) break;
+    }
+    tarot_gather(p, pack);
+    return p->phase == TP_SCORE || p->phase == TP_OVER;
 }
 
 int tarot_winner(const tpos *p)

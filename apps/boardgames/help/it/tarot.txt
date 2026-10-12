@@ -6,6 +6,7 @@ Il gioco di carte del tarot francese, con 78 carte: quattro semi di 14 carte (fa
 - Punti: un oudler o un re 4,5, una donna 3,5, un cavallo 2,5, un fante 1,5, ogni altra carta 0,5. In tutto ci sono 91 punti.
 - Al tavolo le carte si contano a coppie: un re o un oudler con una carta bassa fanno 5, una donna con una carta bassa 4, un cavallo 3, un fante 2, due carte basse 1. Il risultato è lo stesso.
 # La distribuzione
+- Tra una smazzata e l'altra le carte non si mescolano: si raccolgono le prese, si alza e si dà tre alla volta, come a un vero tavolo.
 - Le carte si danno tre alla volta, girando intorno al tavolo, a partire dal giocatore dopo il mazziere. Il cane (le chien) riceve 6 carte (3 in cinque), una alla volta, mai le prime né le ultime.
 - Ognuno riceve 24 carte in tre, 18 in quattro, 15 in cinque.
 - Un giocatore il cui unico atout è il Petit, senza l'Excuse (il Petit sec), lo mostra e la mano è annullata. Distribuisce il giocatore successivo.
