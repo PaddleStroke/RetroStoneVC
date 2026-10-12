@@ -22,7 +22,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_GAMES 64
+#define MAX_GAMES 128
+#define MAX_VARIANTS 15                         /* a picker card each (the thumbnails: one more, the menu's) */
 
 struct ui ui = {.players = 2};
 static const game *games[MAX_GAMES];
@@ -111,7 +112,7 @@ static struct {
 } L;
 
 static SDL_Texture *t_bg, *t_btn, *t_btn_armed, *t_btn_on, *t_icon[ICONS], *t_card, *t_gold, *t_shadow, *t_ring,
-    *t_glow, *t_tok[MAX_PLAYERS], *t_big[MAX_PLAYERS], *t_bartex, *t_menu_card, *t_thumb[MAX_GAMES][8],
+    *t_glow, *t_tok[MAX_PLAYERS], *t_big[MAX_PLAYERS], *t_bartex, *t_menu_card, *t_thumb[MAX_GAMES][MAX_VARIANTS + 1],
     *t_name[MAX_GAMES], *t_pill, *t_pill_on, *t_ptok[MAX_PLAYERS], *t_sec[SECTIONS],
     *t_tab, *t_tab_on, *t_tabicon[SECTIONS];
 static int made_unit = -1, made_game = -1, made_card = -1, made_pill = -1, made_tab = -1, bar_w, bar_h, bar_m;
@@ -856,7 +857,7 @@ static void layout_cards(int n)
         art_roundrect(L.card, h, 0.1f * L.card, back, ui_buf(L.card, h));
         t_menu_card = ui_tex(L.card, h, ui_buf(L.card, h));
         for (int i = 0; i < MAX_GAMES; i++)
-            for (int v = 0; v < 8; v++) ui_free(&t_thumb[i][v]);
+            for (int v = 0; v <= MAX_VARIANTS; v++) ui_free(&t_thumb[i][v]);
     }
 }
 
@@ -1252,7 +1253,7 @@ static void draw_game(void)
 static SDL_Texture *thumb(int i, int v)
 {
     int k = v + 1;                              /* -1: the game's card */
-    if (k < 0 || k >= 8) return NULL;
+    if (k < 0 || k > MAX_VARIANTS) return NULL;
     if (!t_thumb[i][k]) {                       /* its own buffer: the game may use ui_buf() while drawing */
         int s = (int)(L.card * 0.86f);
         uint8_t *b = calloc((size_t)s * s, 4);
