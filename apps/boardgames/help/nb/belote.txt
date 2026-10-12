@@ -1,6 +1,7 @@
 Belote
 # Målet
 Frankrikes kjæreste kortspill, for fire spillere i to lag: makkerne sitter rett overfor hverandre. Vinn stikk fulle av poeng, og vær det første laget som når målet: 501 poeng i Belote, 1000 i Coinche. Kortstokken har 32 kort, fra 7 til ess. Turen går fra spiller til spiller, og giveren flytter én plass videre for hvert giv.
+Kortene stokkes ikke mellom givene: stikkene samles, det tas av, og det gis, som ved et ekte bord.
 # Kortene
 - I trumf er rekkefølgen knekt, 9, ess, 10, konge, dame, 8, 7. De er verdt 20, 14, 11, 10, 4, 3, 0 og 0 poeng.
 - I de andre fargene er rekkefølgen ess, 10, konge, dame, knekt, 9, 8, 7. De er verdt 11, 10, 4, 3, 2, 0, 0 og 0 poeng.

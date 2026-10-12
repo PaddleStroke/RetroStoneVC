@@ -1,6 +1,7 @@
 Belot
 # Amaç
 Fransa'nın en sevilen kart oyunu; iki takım halinde dört oyuncuyla oynanır: eşler karşılıklı oturur. Bol puanlı eller al ve hedefe ilk ulaşan takım ol: Belot'ta 501, Coinche'ta 1000 puan. Destede 7'den asa kadar 32 kart vardır. Sıra oyuncudan oyuncuya geçer ve her dağıtımda dağıtan bir kişi kayar.
+Dağıtımlar arasında kartlar karılmaz: alınan eller toplanır, kesilir ve gerçek bir masadaki gibi dağıtılır.
 # Kartlar
 - Koz sıralaması: vale, 9, as, 10, papaz, kız, 8, 7. Değerleri 20, 14, 11, 10, 4, 3, 0 ve 0 puandır.
 - Diğer renklerde sıralama: as, 10, papaz, kız, vale, 9, 8, 7. Değerleri 11, 10, 4, 3, 2, 0, 0 ve 0 puandır.

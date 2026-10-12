@@ -1,6 +1,7 @@
 Belote
 # The aim
 France's favourite card game, for four players in two teams: partners sit opposite each other. Win tricks full of points, and be the first team to reach the target: 501 points in Belote, 1000 in Coinche. The pack has 32 cards, from 7 to ace. Play goes round from player to player, and the dealer moves on one seat each deal.
+The cards are not shuffled between deals: the tricks are gathered, cut and dealt, as at a real table.
 # The cards
 - Trumps rank jack, 9, ace, 10, king, queen, 8, 7. They are worth 20, 14, 11, 10, 4, 3, 0 and 0 points.
 - The other suits rank ace, 10, king, queen, jack, 9, 8, 7. They are worth 11, 10, 4, 3, 2, 0, 0 and 0 points.

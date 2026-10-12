@@ -104,24 +104,12 @@ static void layout(box b)
     if (dealing && ui.viewer >= 0) { dealing = 0; deal_slides(&G.pos, NULL); }   /* the cover lifted: the deal flies */
 }
 
-/* ---- the viewer's hand: sorted (suits black, red, black, red; the strongest first), fanned ------------------------ */
-static int order_key(const bpos *p, int c)
-{
-    static const int SUIT_ORDER[4] = {0, 1, 3, 2};   /* spades, hearts, clubs, diamonds */
-    int trump = p->trump == BEL_NONE ? -1 : p->trump;
-    return SUIT_ORDER[CARD_SUIT(c)] * 16 + (15 - bel_rank(c, trump));
-}
-
+/* ---- the viewer's hand: sorted (suits black, red, black, red; the strongest first: bel_sort), fanned -------------- */
 static int sorted_hand(const bpos *p, int pl, uint8_t *out)
 {
     int n = p->n[pl];
     memcpy(out, p->hand[pl], (size_t)n);
-    for (int i = 1; i < n; i++)
-        for (int j = i; j > 0 && order_key(p, out[j]) < order_key(p, out[j - 1]); j--) {
-            uint8_t t = out[j];
-            out[j] = out[j - 1];
-            out[j - 1] = t;
-        }
+    bel_sort(out, n, p->trump);
     return n;
 }
 
@@ -219,10 +207,15 @@ static void calm(void)
 static int busy(void) { return ft_busy(); }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
+/* no shuffle between games either: a new game goes on from the cards of the last one, gathered as they lie (kept in
+ * memory for the session, whichever the variant); the session's first game, from an unseen warm-up deal */
 static void start(int v)
 {
     variant = v == BEL_COINCHE ? BEL_COINCHE : BEL_CLASSIC;
-    bel_new(&G, variant, (uint32_t)ui_random(1 << 30));
+    uint8_t pack[32];
+    if (G.pos.dealt) bel_gather(&G.pos, pack);
+    else bel_warmup(pack, variant, (uint32_t)ui_random(1 << 30));
+    bel_start(&G, variant, (uint32_t)ui_random(1 << 30), pack);
     calm();
     dealing = 1;
     mark = 0;
@@ -251,7 +244,7 @@ static void act(int a)
     sel = CARD_NONE;
     level = -1;
     const bpos *p = &G.pos;
-    int fresh = p->shuffles != before.shuffles;     /* a new deal */
+    int fresh = p->dealt != before.dealt;       /* a new deal */
     if (fresh) dealing = 1;
     if (p->turn != before.turn || fresh) mark = G.n;
     if (p->phase != BP_DEAL && p->phase != BP_OVER) ui_handoff(p->turn);

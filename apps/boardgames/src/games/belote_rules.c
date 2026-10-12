@@ -135,11 +135,49 @@ static void give(bpos *p, int pl, int k)
     while (k-- > 0 && p->top < 32) p->hand[pl][p->n[pl]++] = p->pack[p->top++];
 }
 
-static void deal(bpos *p)
+int bel_cut(uint8_t *pack, uint32_t seed)
 {
-    cards_pack(PACK_32, p->pack);
-    cards_shuffle(p->pack, 32, mix(p->seed, 1000u + p->shuffles++));
+    uint32_t s = mix(seed, 4242u);
+    int k = 3 + (int)(cards_rand(&s) % 27u);    /* at least 3 cards lifted, at least 3 left */
+    uint8_t t[32];
+    memcpy(t, pack + k, (size_t)(32 - k));      /* the lower part... */
+    memcpy(t + 32 - k, pack, (size_t)k);        /* ...on the lifted one */
+    memcpy(pack, t, 32);
+    return k;
+}
+
+/* a hand as the screen shows it: spades, hearts, clubs, diamonds (black, red, black, red), the strongest first */
+static int order_key(int c, int trump)
+{
+    static const int SUIT_ORDER[4] = {0, 1, 3, 2};
+    return SUIT_ORDER[CARD_SUIT(c)] * 16 + (15 - bel_rank(c, trump == BEL_NONE ? -1 : trump));
+}
+
+void bel_sort(uint8_t *cards, int n, int trump)
+{
+    for (int i = 1; i < n; i++)
+        for (int j = i; j > 0 && order_key(cards[j], trump) < order_key(cards[j - 1], trump); j--) {
+            uint8_t t = cards[j];
+            cards[j] = cards[j - 1];
+            cards[j - 1] = t;
+        }
+}
+
+/* the deal: from this pack, top first, once cut (NULL: a fresh pack, shuffled: the warm-up) */
+static void deal(bpos *p, const uint8_t *from)
+{
+    p->cutter = (uint8_t)((p->dealer + BEL_P - 1) % BEL_P);   /* the dealer's left at a French table */
+    if (from) {
+        memcpy(p->pack, from, 32);
+        p->cut = (uint8_t)bel_cut(p->pack, mix(p->seed, 1000u + p->dealt));
+    } else {
+        cards_pack(PACK_32, p->pack);
+        cards_shuffle(p->pack, 32, mix(p->seed, 1000u + p->dealt));
+        p->cut = 0;
+    }
+    p->dealt++;
     p->top = 0;
+    p->nheap[0] = p->nheap[1] = 0;
     memset(p->n, 0, sizeof p->n);
     memset(p->said, 0, sizeof p->said);
     int first = next(p->dealer);
@@ -161,14 +199,34 @@ static void deal(bpos *p)
     p->belote_said = 0;
 }
 
-void bel_new(bgame *g, int variant, uint32_t seed)
+static void begin(bgame *g, int variant, uint32_t seed, const uint8_t *pack)
 {
+    uint8_t from[32];
+    if (pack) memcpy(from, pack, 32);           /* it may be g->start (undo) */
     memset(g, 0, sizeof *g);
     bpos *p = &g->pos;
     g->seed = p->seed = seed;
     g->variant = p->variant = (uint8_t)(variant == BEL_COINCHE ? BEL_COINCHE : BEL_CLASSIC);
     p->dealer = BEL_P - 1;
-    deal(p);
+    if (pack) memcpy(g->start, from, 32);
+    deal(p, pack ? g->start : NULL);
+}
+
+void bel_start(bgame *g, int variant, uint32_t seed, const uint8_t *pack)
+{
+    uint8_t ok[CARDS_MAX];                      /* a pack of the 32 cards, once each, or a fresh one */
+    int seen[256] = {0}, good = pack != NULL;
+    cards_pack(PACK_32, ok);
+    for (int i = 0; good && i < 32; i++) good = ++seen[pack[i]] == 1;
+    for (int i = 0; good && i < 32; i++) good = seen[ok[i]] == 1;
+    begin(g, variant, seed, good ? pack : ok);
+}
+
+void bel_new(bgame *g, int variant, uint32_t seed)
+{
+    uint8_t pack[32];
+    bel_warmup(pack, variant, seed);
+    bel_start(g, variant, seed, pack);
 }
 
 /* the contract is set: classic, the rest of the pack dealt (the taker: the turned card and 2); then the play */
@@ -191,10 +249,13 @@ static void begin_play(bpos *p, int taker, int trump)
     p->ntrick = 0;
 }
 
+/* the next deal: no shuffle, the cards gathered as they lie, cut, dealt */
 static void redeal(bpos *p)
 {
+    uint8_t pack[32];
+    bel_gather(p, pack);
     p->dealer = (uint8_t)next(p->dealer);
-    deal(p);
+    deal(p, pack);
 }
 
 /* ---- the score of a deal ----------------------------------------------------------------------------------------- */
@@ -256,6 +317,10 @@ static void play_card(bpos *p, int card)
     memcpy(p->last, p->trick, sizeof p->last);
     p->last_leader = p->leader;
     p->last_winner = (uint8_t)w;
+    for (int i = 0; i < BEL_P; i++) {           /* onto the winners' pile, in the order of play (bel_gather) */
+        int t = bel_team(w);
+        p->heap[t][p->nheap[t]++] = p->trick[i];
+    }
     p->won[bel_team(w)]++;
     p->points[bel_team(w)] = (int16_t)(p->points[bel_team(w)] + sum + (p->tricks == 7 ? 10 : 0));
     p->tricks++;
@@ -316,9 +381,60 @@ int bel_undo(bgame *g)
     int n = g->n - 1;
     static uint16_t acts[BEL_MAX_ACTS];
     memcpy(acts, g->act, (size_t)n * sizeof acts[0]);
-    bel_new(g, g->variant, g->seed);
+    begin(g, g->variant, g->seed, g->start);
     for (int i = 0; i < n; i++) bel_play(g, acts[i]);
     return 1;
+}
+
+/* ---- the pack between deals -------------------------------------------------------------------------------------- */
+static void push(uint8_t *b, int *n, const uint8_t *c, int k)
+{
+    for (int i = 0; i < k && *n < 32; i++) b[(*n)++] = c[i];
+}
+
+void bel_gather(const bpos *p, uint8_t *pack)
+{
+    uint8_t b[32];                              /* bottom first */
+    int n = 0, t = p->taker == BEL_NONE ? 0 : bel_team(p->taker);
+    push(b, &n, p->heap[t], p->nheap[t]);       /* the takers' pile, the defenders' on it */
+    push(b, &n, p->heap[1 - t], p->nheap[1 - t]);
+    if (p->phase == BP_PLAY) push(b, &n, p->trick, p->ntrick);
+    for (int k = 0; k < BEL_P; k++) {           /* the hands as held, the dealer's next first */
+        int pl = (p->dealer + 1 + k) % BEL_P;
+        uint8_t h[BEL_HAND];
+        memcpy(h, p->hand[pl], p->n[pl]);
+        bel_sort(h, p->n[pl], p->trump);
+        push(b, &n, h, p->n[pl]);
+    }
+    int rest = p->top - (p->variant == BEL_CLASSIC && p->taker == BEL_NONE);   /* the turned card: on the rest */
+    for (int i = 31; i >= rest; i--) push(b, &n, &p->pack[i], 1);
+    int seen[256] = {0}, good = n == 32;
+    for (int i = 0; good && i < 32; i++) good = ++seen[b[i]] == 1;
+    if (!good) {                                /* never: a fresh pack rather than a wrong one */
+        cards_pack(PACK_32, pack);
+        return;
+    }
+    for (int i = 0; i < 32; i++) pack[i] = b[31 - i];
+}
+
+/* the session's first pack: a whole deal from a shuffled pack, played by random legal choices, never seen */
+int bel_warmup(uint8_t *pack, int variant, uint32_t seed)
+{
+    static bgame w;
+    begin(&w, variant, mix(seed, 9000u), NULL);
+    bpos *p = &w.pos;
+    uint32_t s = mix(seed, 31337u);
+    int taker = (int)(cards_rand(&s) % BEL_P);  /* the player who takes (classic) or bids 80 (coinche) */
+    for (int steps = 0; p->phase != BP_DEAL && p->phase != BP_OVER && steps < 200; steps++) {
+        int act = BA_PASS, acts[64], k;
+        if (p->phase == BP_BID1 && p->turn == taker) act = BA_TAKE;
+        else if (p->phase == BP_AUCTION && p->bidder == BEL_NONE && p->turn == taker)
+            act = BA_BIDOF(0, (int)(cards_rand(&s) % 4u));
+        else if (p->phase == BP_PLAY && (k = bel_moves(p, acts)) > 0) act = acts[cards_rand(&s) % (uint32_t)k];
+        if (!bel_play(&w, act)) break;
+    }
+    bel_gather(p, pack);
+    return p->phase == BP_DEAL || p->phase == BP_OVER;
 }
 
 /* plain play: the first player takes (classic) or bids 80 in the suit of their first card (coinche), the others

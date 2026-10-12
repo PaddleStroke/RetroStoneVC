@@ -1,6 +1,7 @@
 Belote
 # Cíl hry
 Nejoblíbenější karetní hra Francie, pro čtyři hráče ve dvou týmech: spoluhráči sedí naproti sobě. Získávej štychy plné bodů a buď prvním týmem, který dosáhne cíle: 501 bodů v Belote, 1000 v Coinche. Balíček má 32 karet, od sedmičky po eso. Hraje se postupně od hráče k hráči a rozdávající se s každým rozdáním posune o jedno místo.
+Mezi rozdáními se karty nemíchají: štychy se seberou, sejme se a rozdává se, jako u skutečného stolu.
 # Karty
 - Trumfy jdou v pořadí kluk, 9, eso, 10, král, dáma, 8, 7. Mají hodnotu 20, 14, 11, 10, 4, 3, 0 a 0 bodů.
 - Ostatní barvy jdou v pořadí eso, 10, král, dáma, kluk, 9, 8, 7. Mají hodnotu 11, 10, 4, 3, 2, 0, 0 a 0 bodů.

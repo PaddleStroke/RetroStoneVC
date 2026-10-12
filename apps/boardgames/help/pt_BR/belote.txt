@@ -1,6 +1,7 @@
 Belote
 # O objetivo
 O jogo de cartas preferido da França, para quatro jogadores em duas duplas: os parceiros sentam frente a frente. Ganhe vazas cheias de pontos e seja a primeira dupla a chegar à meta: 501 pontos na Belote, 1000 na Coinche. O baralho tem 32 cartas, do 7 ao ás. A vez passa de jogador em jogador, e quem dá as cartas avança um lugar a cada rodada.
+As cartas não são embaralhadas entre as rodadas: as vazas são recolhidas, corta-se e distribui-se, como numa mesa de verdade.
 # As cartas
 - Ordem dos trunfos: valete, 9, ás, 10, rei, dama, 8, 7. Valem 20, 14, 11, 10, 4, 3, 0 e 0 pontos.
 - Ordem nos outros naipes: ás, 10, rei, dama, valete, 9, 8, 7. Valem 11, 10, 4, 3, 2, 0, 0 e 0 pontos.

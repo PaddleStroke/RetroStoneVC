@@ -1,6 +1,7 @@
 Belote
 # Cel gry
 Ulubiona gra karciana Francuzów, dla czterech graczy w dwóch drużynach: partnerzy siedzą naprzeciw siebie. Zdobywaj lewy pełne punktów i bądź pierwszą drużyną, która osiągnie cel: 501 punktów w Belote, 1000 w Coinche. Talia ma 32 karty, od 7 do asa. Kolejka przechodzi od gracza do gracza, a rozdający przesuwa się o jedno miejsce przy każdym rozdaniu.
+Między rozdaniami kart się nie tasuje: zbiera się lewy, przekłada i rozdaje, jak przy prawdziwym stole.
 # Karty
 - Atuty od najstarszego: walet, 9, as, 10, król, dama, 8, 7. Są warte 20, 14, 11, 10, 4, 3, 0 i 0 punktów.
 - Pozostałe kolory od najstarszej karty: as, 10, król, dama, walet, 9, 8, 7. Są warte 11, 10, 4, 3, 2, 0, 0 i 0 punktów.

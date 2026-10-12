@@ -1,6 +1,7 @@
 Belote
 # Målet
 Frankrikes favoritkortspel, för fyra spelare i två lag: partnerna sitter mitt emot varandra. Ta stick fulla av poäng och var det första laget som når målet: 501 poäng i Belote, 1000 i Coinche. Leken har 32 kort, från 7 till ess. Turen går från spelare till spelare, och den som ger flyttar en plats framåt för varje giv.
+Korten blandas inte mellan given: sticken samlas ihop, det kuperas och delas ut, som vid ett riktigt bord.
 # Korten
 - Trumf i rangordning: knekt, 9, ess, 10, kung, dam, 8, 7. De är värda 20, 14, 11, 10, 4, 3, 0 och 0 poäng.
 - I de andra färgerna: ess, 10, kung, dam, knekt, 9, 8, 7. De är värda 11, 10, 4, 3, 2, 0, 0 och 0 poäng.

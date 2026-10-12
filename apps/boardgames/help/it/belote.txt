@@ -1,6 +1,7 @@
 Belote
 # Lo scopo
 Il gioco di carte preferito dai francesi, per quattro giocatori in due squadre: i compagni siedono uno di fronte all'altro. Vinci prese ricche di punti e sii la prima squadra a raggiungere l'obiettivo: 501 punti nella Belote, 1000 nella Coinche. Il mazzo ha 32 carte, dal 7 all'asso. Il turno passa da un giocatore all'altro, e il mazziere avanza di un posto a ogni smazzata.
+Tra una smazzata e l'altra le carte non si mescolano: si raccolgono le prese, si alza e si dà, come a un vero tavolo.
 # Le carte
 - A briscola l'ordine è fante, 9, asso, 10, re, donna, 8, 7. Valgono 20, 14, 11, 10, 4, 3, 0 e 0 punti.
 - Negli altri semi l'ordine è asso, 10, re, donna, fante, 9, 8, 7. Valgono 11, 10, 4, 3, 2, 0, 0 e 0 punti.

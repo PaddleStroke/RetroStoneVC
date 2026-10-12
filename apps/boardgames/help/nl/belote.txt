@@ -1,6 +1,7 @@
 Belote
 # Het doel
 Het geliefdste kaartspel van Frankrijk, voor vier spelers in twee teams: partners zitten tegenover elkaar. Win slagen vol punten en wees het eerste team dat het doel haalt: 501 punten bij Belote, 1000 bij Coinche. Er wordt gespeeld met 32 kaarten, van 7 tot aas. De beurt gaat van speler tot speler, en de gever schuift elke ronde een plaats op.
+Tussen de rondes worden de kaarten niet geschud: de slagen worden verzameld, er wordt afgenomen en gedeeld, zoals aan een echte tafel.
 # De kaarten
 - In troef is de volgorde boer, 9, aas, 10, heer, vrouw, 8, 7. Ze zijn 20, 14, 11, 10, 4, 3, 0 en 0 punten waard.
 - In de andere kleuren is de volgorde aas, 10, heer, vrouw, boer, 9, 8, 7. Ze zijn 11, 10, 4, 3, 2, 0, 0 en 0 punten waard.

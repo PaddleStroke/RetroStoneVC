@@ -1,6 +1,7 @@
 Belote
 # Le but
 Le grand jeu de cartes français, à quatre joueurs en deux équipes : les partenaires sont assis face à face. Remporte des plis riches en points, et sois la première équipe à atteindre l'objectif : 501 points à la Belote, 1000 à la Coinche. Le jeu compte 32 cartes, du 7 à l'as. Le tour passe d'un joueur au suivant, et le donneur avance d'une place à chaque donne.
+Les cartes ne sont pas mélangées entre les donnes : on ramasse les plis, on coupe et on distribue, comme à une vraie table.
 # Les cartes
 - À l'atout : valet, 9, as, 10, roi, dame, 8, 7. Ils valent 20, 14, 11, 10, 4, 3, 0 et 0 points.
 - Dans les autres couleurs : as, 10, roi, dame, valet, 9, 8, 7. Ils valent 11, 10, 4, 3, 2, 0, 0 et 0 points.

@@ -1,6 +1,7 @@
 Belote
 # El objetivo
 El juego de cartas favorito de Francia, para cuatro jugadores en dos equipos: los compañeros se sientan uno frente al otro. Gana bazas llenas de puntos y sé el primer equipo en alcanzar la meta: 501 puntos en Belote, 1000 en Coinche. La baraja tiene 32 cartas, del 7 al as. El turno pasa de un jugador al siguiente, y el que reparte avanza un puesto en cada mano.
+Las cartas no se barajan entre una mano y otra: se recogen las bazas, se corta y se reparte, como en una mesa de verdad.
 # Las cartas
 - Los triunfos se ordenan así: sota, 9, as, 10, rey, reina, 8, 7. Valen 20, 14, 11, 10, 4, 3, 0 y 0 puntos.
 - Los demás palos se ordenan así: as, 10, rey, reina, sota, 9, 8, 7. Valen 11, 10, 4, 3, 2, 0, 0 y 0 puntos.

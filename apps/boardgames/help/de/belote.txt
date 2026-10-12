@@ -1,6 +1,7 @@
 Belote
 # Das Ziel
 Das Lieblingskartenspiel der Franzosen, für vier Spieler in zwei Teams: Partner sitzen einander gegenüber. Gewinne Stiche voller Punkte und erreiche mit deinem Team als Erstes das Ziel: 501 Punkte bei Belote, 1000 bei Coinche. Gespielt wird mit 32 Karten, von der 7 bis zum Ass. Es geht reihum von Spieler zu Spieler, und der Geber rückt mit jeder Runde einen Platz weiter.
+Zwischen den Runden wird nicht gemischt: Die Stiche werden eingesammelt, abgehoben und ausgeteilt, wie an einem echten Tisch.
 # Die Karten
 - Trümpfe in der Rangfolge Bube, 9, Ass, 10, König, Dame, 8, 7. Sie zählen 20, 14, 11, 10, 4, 3, 0 und 0 Punkte.
 - Die anderen Farben in der Rangfolge Ass, 10, König, Dame, Bube, 9, 8, 7. Sie zählen 11, 10, 4, 3, 2, 0, 0 und 0 Punkte.

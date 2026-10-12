@@ -1,6 +1,7 @@
 Belote
 # Målet
 Frankrigs yndlingskortspil, for fire spillere i to hold: makkerne sidder over for hinanden. Vind stik fulde af point, og vær det første hold, der når målet: 501 point i Belote, 1000 i Coinche. Spillet har 32 kort, fra 7 til es. Turen går fra spiller til spiller, og giveren rykker én plads videre for hvert giv.
+Kortene blandes ikke mellem givene: stikkene samles sammen, der tages af, og der gives, som ved et rigtigt bord.
 # Kortene
 - Trumf rangerer knægt, 9, es, 10, konge, dame, 8, 7. De er værd 20, 14, 11, 10, 4, 3, 0 og 0 point.
 - De andre kulører rangerer es, 10, konge, dame, knægt, 9, 8, 7. De er værd 11, 10, 4, 3, 2, 0, 0 og 0 point.

@@ -1,11 +1,28 @@
 /*
  * Belote, the French trick-taking game, for four players in two partnerships (partners sit opposite: players 0 and 2
- * against 1 and 3), on one device passed round: the rules. No SDL; the deal comes from a seed (cards.h's shuffle), so a
- * game is its seed and its actions (undo replays them).
+ * against 1 and 3), on one device passed round: the rules. No SDL; a game is its starting pack, its seed (the cuts) and
+ * its actions (undo replays them).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- * The 32-card pack (7 to ace). Play goes round in player order (0, 1, 2, 3); the player after the dealer speaks and
- * leads first, and the dealer moves on one seat each deal (player 3 deals first).
+ * The 32-card pack (7 to ace). Play goes round in player order (0, 1, 2, 3: the next player is the one after, the
+ * dealer's right at a French table, play going counter-clockwise; the screen shows the next player on the viewer's
+ * left, as Tarot does); the player after the dealer speaks and leads first, and the dealer moves on one seat each deal
+ * (player 3 deals first).
+ * - No shuffle between deals, as at a real table: the cards are gathered as they lie, cut, and dealt in the same
+ *   packets, so the suits stay bunched from the tricks (bel_gather, bel_cut). The pack is listed from its top (the
+ *   first card dealt):
+ *   - a deal played out: each team's pile is its tricks stacked as won (the first at the bottom), each trick's cards in
+ *     their order of play; then the defenders' pile is put on the takers': the defenders' last trick is on top.
+ *   - a deal passed out (all passed, twice in the classic game; four passes in the coinche): each hand as held (sorted,
+ *     as on the screen, the left-hand card at the bottom), from the player after the dealer round to the dealer, each
+ *     put on the one before; then, classic, the rest of the pack with the turned card where it lies, on its top. (A
+ *     deal left unfinished, for a new game: the teams' piles, the trick on the table, the hands, the rest of the pack,
+ *     in that order upwards.)
+ *   - the cut (the dealer's left-hand neighbour at a French table, here the player before the dealer, cuts, leaving at
+ *     least 3 cards in each part): 3..29 cards lifted at a random point (the seed), the lower part put on top.
+ *   - a game's first deal comes from the pack the caller gives (bel_start): the UI keeps the last pack of the session
+ *     for its next game; the session's very first one comes from bel_warmup: a whole deal from a shuffled pack, never
+ *     seen (a random player takes, or bids 80, the others pass; random legal cards), gathered as above.
  * BEL_CLASSIC: 3 then 2 cards each, and the next card turned up. Round one: each in turn takes the turned card's suit
  * as trumps, or passes; round two (all passed): each in turn names another suit, or passes; all pass again: a new
  * deal by the next dealer. Then 3 more cards each (the taker: the turned card and 2). The game: 501 points.
@@ -57,9 +74,11 @@ static inline int bel_team(int player) { return player & 1; }
 
 typedef struct {
     uint8_t variant, phase, dealer, turn;
-    uint8_t deal, shuffles;                     /* deals played (scored); every shuffle so far */
+    uint8_t deal, dealt;                        /* deals played (scored); every deal so far (passed out too) */
     uint8_t hand[BEL_P][BEL_HAND], n[BEL_P];
-    uint8_t pack[32], top;                      /* the shuffled pack and the next card to deal */
+    uint8_t pack[32], top;                      /* the deal's pack, cut, top first, and the next card to deal */
+    uint8_t cutter, cut;                        /* who cut it, the cards they lifted (0: shuffled, the warm-up) */
+    uint8_t heap[2][32], nheap[2];              /* each team's pile as it grows, bottom first: the tricks as won */
     uint8_t turned;                             /* classic: the turned card (CARD_NONE: none, or taken) */
     uint8_t taker, trump;                       /* BEL_NONE while bidding */
     uint8_t passes;                             /* passes in a row */
@@ -80,11 +99,22 @@ typedef struct {
     bpos pos;
     uint32_t seed;
     uint8_t variant;
+    uint8_t start[32];                          /* the pack the game began from, top first (before its cut) */
     uint16_t act[BEL_MAX_ACTS];
     int n;
 } bgame;
 
-void bel_new(bgame *g, int variant, uint32_t seed);
+void bel_start(bgame *g, int variant, uint32_t seed, const uint8_t *pack);   /* the first deal from this pack, top
+                                                  * first (cut first) */
+int  bel_warmup(uint8_t *pack, int variant, uint32_t seed);   /* a session's first pack: a whole deal played from a
+                                                  * shuffled pack, unseen, then gathered (1: played out) */
+void bel_new(bgame *g, int variant, uint32_t seed);   /* the warm-up, then bel_start */
+void bel_gather(const bpos *p, uint8_t *pack);  /* the cards picked up as they lie, top first */
+int  bel_cut(uint8_t *pack, uint32_t seed);     /* the cut: 3..29 cards lifted, the lower part on top; returns how
+                                                  * many were lifted */
+void bel_sort(uint8_t *cards, int n, int trump);   /* a hand as the screen shows it, left to right: spades, hearts,
+                                                  * clubs, diamonds, the strongest first (trump: BEL_NONE while
+                                                  * bidding) */
 int  bel_legal(const bpos *p, int act);
 int  bel_moves(const bpos *p, int *acts);       /* every legal action (at most 64); how many */
 int  bel_play(bgame *g, int act);               /* 0: not allowed */

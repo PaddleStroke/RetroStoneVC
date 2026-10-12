@@ -1,6 +1,7 @@
 Belote
 # Tavoite
 Ranskan rakastetuin korttipeli neljälle pelaajalle kahtena joukkueena: parit istuvat vastakkain. Voita pisteitä täynnä olevia tikkejä ja ole ensimmäinen joukkue, joka saavuttaa tavoitteen: 501 pistettä Belotessa, 1000 Coinchessa. Pakassa on 32 korttia, seiskasta ässään. Vuoro kiertää pelaajalta toiselle, ja jakaja siirtyy joka jaossa yhden paikan eteenpäin.
+Kortteja ei sekoiteta jakojen välillä: tikit kerätään, pakasta nostetaan ja jaetaan, kuten oikeassa pöydässä.
 # Kortit
 - Valttimaan järjestys on jätkä, 9, ässä, 10, kuningas, kuningatar, 8, 7. Ne ovat 20, 14, 11, 10, 4, 3, 0 ja 0 pisteen arvoisia.
 - Muiden maiden järjestys on ässä, 10, kuningas, kuningatar, jätkä, 9, 8, 7. Ne ovat 11, 10, 4, 3, 2, 0, 0 ja 0 pisteen arvoisia.

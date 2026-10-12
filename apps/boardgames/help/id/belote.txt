@@ -1,6 +1,7 @@
 Belote
 # Tujuan
 Permainan kartu kesayangan Prancis, untuk empat pemain dalam dua tim: pasangan duduk berhadapan. Menangkan trik yang penuh poin, dan jadilah tim pertama yang mencapai target: 501 poin di Belote, 1000 di Coinche. Deknya berisi 32 kartu, dari 7 sampai as. Giliran berpindah dari satu pemain ke pemain berikutnya, dan pembagi kartu bergeser satu tempat setiap ronde.
+Kartu tidak dikocok di antara ronde: trik-trik dikumpulkan, dipotong, lalu dibagikan, seperti di meja sungguhan.
 # Kartu
 - Urutan truf: jack, 9, as, 10, king, queen, 8, 7. Nilainya 20, 14, 11, 10, 4, 3, 0, dan 0 poin.
 - Urutan jenis kartu lainnya: as, 10, king, queen, jack, 9, 8, 7. Nilainya 11, 10, 4, 3, 2, 0, 0, dan 0 poin.
