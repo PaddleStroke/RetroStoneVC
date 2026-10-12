@@ -26,7 +26,7 @@
 #include "shell.h"
 
 #define PAD 15                                  /* the bid values shown at once */
-enum { PIC_GRAND = 8, PIC_NULL, PIC_OUVERT };      /* the games' pictures beyond the four suits */
+enum { PIC_NULL = 8, PIC_OUVERT };               /* the game's own pictures (grand: the kit's, the jack's figure) */
 enum { TAG_SKAT = 10 };
 
 static skgame G;
@@ -38,44 +38,16 @@ static unsigned seen;
 static int16_t BIDS[80];
 static int nbids;
 
-static const uint8_t GOLD[3] = {250, 214, 90};
-
 /* ---- the game's pictures ----------------------------------------------------------------------------------------- */
-static void blend_fig(art_fig *f, const art_style *st, int s, uint8_t *rgba)
-{
-    uint8_t *b = calloc((size_t)s * s, 4);
-    if (b) {
-        art_render(f, st, s, s, (float)s, 0, 0, b);
-        art_blend(rgba, s, s, b, s, s, 0, 0);
-        free(b);
-    }
-    art_fig_free(f);
-}
-
 static void paint(int kind, int s, uint8_t *rgba)
 {
     float asp = cards_aspect(DECK_FRENCH);
     memset(rgba, 0, (size_t)s * s * 4);
-    if (kind == PIC_GRAND) {                    /* the jacks alone: the jack's figure in amber on ivory */
-        static const uint8_t ivory[3] = {244, 236, 216};
-        art_disc(s, ivory, 1, 0, rgba);
-        int f = (int)(0.8f * s);
-        uint8_t *b = calloc((size_t)f * f, 4);
-        if (b) {
-            art_piece_style(BISHOP, &art_player[4], f, b);
-            art_blend(rgba, s, s, b, f, f, (s - f) / 2, (s - f) / 2);
-            free(b);
-        }
-        cards_disc_cut(rgba, s);
-        cards_disc_rim(rgba, s);
-        return;
-    }
     int n = kind == PIC_OUVERT ? 3 : 1, cw = (int)(s * (n == 3 ? 0.42f : 0.44f)), ch = (int)(cw * asp);
     uint8_t *b = malloc((size_t)cw * ch * 4);
     if (!b) return;
     if (kind == PIC_NULL) {                     /* on an ivory disc, like the other games */
-        static const uint8_t ivory[3] = {244, 236, 216};
-        art_disc(s, ivory, 1, 0, rgba);
+        ct_paint_ivory(rgba, s);
         cards_disc_rim(rgba, s);
     }
     static const int faces[3] = {CARD(SUIT_CLUBS, RANK_JACK), CARD(SUIT_HEARTS, RANK_ACE), CARD(SUIT_SPADES, 10)};
@@ -92,16 +64,15 @@ static void paint(int kind, int s, uint8_t *rgba)
     art_poly(f, ART_PART, a, 4);
     art_poly(f, ART_PART, c, 4);
     art_style st = {{196, 40, 34}, {70, 10, 8}, {70, 10, 8}, {0, 0, 0}, 0.25f, 0.025f};
-    blend_fig(f, &st, s, rgba);
+    ct_paint_fig(rgba, s, f, &st);
 }
 
-static int game_kind(int type) { return type < 4 ? type : type == SG_GRAND ? PIC_GRAND : PIC_NULL; }
+static int game_kind(int type) { return type < 4 ? type : type == SG_GRAND ? CT_CALL_FIG | BISHOP : PIC_NULL; }
 
 /* a game's picture (a suit's sign, grand, null, ouvert) d wide, faded (alpha) */
 static SDL_Texture *game_pic(int kind, float d)
 {
-    int s = (int)(d + 0.5f);
-    return kind < 4 ? ct_suit(DECK_FRENCH, kind, s < 4 ? 4 : s) : ct_picture(paint, kind, s);
+    return kind == PIC_NULL || kind == PIC_OUVERT ? ct_picture(paint, kind, (int)(d + 0.5f)) : ct_call_tex(kind, d);
 }
 
 static void put_pic(int kind, float x, float y, float d, Uint8 alpha)
@@ -405,7 +376,7 @@ static void draw_words(void)
             if (p->word[q] == SW_PASSED) ct_pass_badge(x, y, d);
             else if (p->word[q] != SW_NONE) {
                 ct_badge(x, y, d, p->said[q]);
-                if (p->word[q] == SW_HELD) ct_pic(CT_TICK, x1, y1, 0.8f * d, 0, GOLD[0], GOLD[1], GOLD[2], 255);
+                if (p->word[q] == SW_HELD) ct_pic(CT_TICK, x1, y1, 0.8f * d, 0, CT_GOLD[0], CT_GOLD[1], CT_GOLD[2], 255);
             }
             continue;
         }
@@ -432,7 +403,7 @@ static void draw_open(int hide)
     if (d == T.me) {                            /* under the cover: the viewer's own open hand, still face up */
         uint8_t h[CT_HAND];
         int how[CT_HAND];
-        ct_hand_draw(&T, &A, h, hand(h, how, 0), how, NULL, CARD_NONE);
+        ct_hand_draw(&T, &A, h, hand(h, how, 0), how, NULL, -1);
         return;
     }
     int n = p->n[d];
@@ -524,7 +495,7 @@ static void draw_summary(void)
         float px = x0 + pw * 0.42f;
         if (!r->won) ui_mark_glow(px, y, 1.3f * d);
         ui_number(px, y, nh, r->type == SG_NULL ? r->tricks : r->points, 1);
-        if (r->won) ct_pic(CT_TICK, R, y, 0.9f * d, 0, GOLD[0], GOLD[1], GOLD[2], 255);
+        if (r->won) ct_pic(CT_TICK, R, y, 0.9f * d, 0, CT_GOLD[0], CT_GOLD[1], CT_GOLD[2], 255);
         ct_rule(x0 + 0.3f * u, y + rh / 2, pw - 0.6f * u);
         y += rh;
     }
@@ -547,21 +518,12 @@ static void draw_summary(void)
     }
     /* the list: a chip a deal, the declarer's (gold light: won; dimmed: lost; an empty ring: thrown in), then the
      * deals to come */
-    float cs = floorf(fminf(0.62f * rh, (pw - 0.6f * u) / (12 * 1.3f)));
-    for (int i = 0; i < N; i++) {
-        float cx = x0 + pw / 2 + (i % 12 - 5.5f) * 1.3f * cs, cy = y + (i / 12) * rh * 0.85f;
-        if (i >= p->ndeals) { ct_pic(CT_DISC_DARK, cx, cy, 0.4f * cs, 0, 255, 255, 255, 160); continue; }
-        const skdeal *e = &p->list[i];
-        if (e->declarer == SKAT_NONE) {
-            ct_pic(CT_DISC_OFF, cx, cy, cs, 0, 255, 255, 255, 255);
-            ct_pic(CT_DISC_DARK, cx, cy, 0.7f * cs, 0, 255, 255, 255, 255);
-            continue;
-        }
-        if (e->won) ui_mark_gold(cx, cy, 1.7f * cs);
-        SDL_Texture *dt = ct_token(e->declarer, ts);
-        SDL_SetTextureAlphaMod(dt, e->won ? 255 : 110);
-        ui_put_c(dt, cx, cy, cs, cs);
+    uint8_t who[SKAT_DEALS_MAX], made[SKAT_DEALS_MAX];
+    for (int i = 0; i < p->ndeals; i++) {
+        who[i] = p->list[i].declarer == SKAT_NONE ? 0 : (uint8_t)(1u << p->list[i].declarer);
+        made[i] = (uint8_t)p->list[i].won;
     }
+    ct_deal_list(x0, pw, y, rh, N, 12, p->ndeals, who, made);
 }
 
 static void draw(void)
