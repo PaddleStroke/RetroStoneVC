@@ -211,16 +211,30 @@ static void calm(void)
     shake_t0 = 0;
 }
 
-static void start(int variant)
+static void begin(void)
 {
-    hn_new(&G, 4 + (variant < 0 || variant >= HN_VARIANTS ? 0 : variant));
     calm();
     made_key = -1;
     if (last_box.w > 0) layout(last_box);
 }
 
+static void start(int level)                    /* a designed level */
+{
+    if (!hn_level(&G, level)) hn_level(&G, 0);
+    begin();
+}
+
+static void start_random(int variant)           /* 4 to 7 discs scattered by chance, a goal peg */
+{
+    hn_random(&G, 4 + (variant < 0 || variant >= HN_VARIANTS ? 0 : variant), (uint32_t)ui_random(0x7fffffff) + 1u);
+    begin();
+}
+
 static int status(void) { return hn_solved(&G) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
+static int score(void) { return G.moves; }
+static int par(void) { return G.par; }
+static int level_stars(void) { return ui_par_stars(G.moves, G.par); }
 
 static Uint32 win_end(void) { return (Uint32)(G.n * WAVE_STEP + WAVE_LEN + 500); }
 
@@ -292,6 +306,8 @@ static void draw(void)
     if (made_key < 0) layout(last_box);
     Uint32 now = ui_ms();
     ui_put(t_board, bx, by, bw, bh);
+    if (G.goal >= 0 && !hn_solved(&G))         /* the goal peg: a soft gold light at its foot */
+        ui_mark_gold_a(peg_x(G.goal), yb - 0.2f * dh, 0.95f * pitch, 0.6f);
     float ft = fly.on ? (now - fly.t0) / (float)GLIDE_MS : 2;
     if (fly.on && ft >= 1) fly.on = 0;
     float wt = win.on ? (float)(now - win.t0) : -1;
@@ -310,8 +326,8 @@ static void draw(void)
         }
     if (wt >= 0) {
         float q = puz_pulse(wt, G.n * WAVE_STEP, WAVE_LEN + 500);
-        if (q > 0 && G.moves == hn_optimum(G.n)) {   /* the fewest moves: the whole tower in gold light */
-            int p = G.h[1] == G.n ? 1 : 2;
+        if (q > 0 && G.moves == G.par) {        /* the fewest moves: the whole tower in gold light */
+            int p = G.h[0] == G.n ? 0 : G.h[1] == G.n ? 1 : 2;
             ui_mark_gold(peg_x(p), slot_y(G.n / 2), 2.6f * pitch * q);
         }
         if (wt < win_end()) ui_animate();
@@ -436,7 +452,7 @@ static void bar(int player, box b)
 {
     (void)player;
     float u = ui.unit, dh2 = 0.46f * u, cy = b.y + b.h / 2, sz = 0.6f * u;
-    int best = hn_optimum(G.n);
+    int best = G.par;
     int digits = best >= 100 ? 3 : best >= 10 ? 2 : 1;
     float nw = (0.74f * (digits - 1) + 0.62f) * dh2, x = b.x + b.w - nw;
     /* a narrow bar (landscape): the moves without their picture, so the fewest still fit */
@@ -454,22 +470,26 @@ static void bar(int player, box b)
 }
 
 /* ---- the menu's and the picker's cards --------------------------------------------------------------------------- */
-static void thumb(int variant, int size, uint8_t *rgba)
+/* a position on the pegs (the goal peg's foot in gold light), the discs as large as the picture allows */
+static void paint_position(const hn_game *T, int size, uint8_t *rgba)
 {
-    int n = variant < 0 ? 4 : 4 + variant;     /* the cards: the discs as large as the board allows */
-    int f = (int)(size * FRAME), w = size, h = (int)(0.84f * size), oy = (size - h) / 2;
+    int n = T->n, f = (int)(size * FRAME), w = size, h = (int)(0.84f * size), oy = (size - h) / 2;
     float d = (h - 2.0f * f) / (n + 2.4f);
     uint8_t *b = calloc((size_t)w * w, 4);
     if (!b) return;
     paint_scene(b, w, h, f, n, d);
     art_blend(rgba, size, size, b, w, h, 0, oy);
-    hn_game T;
-    hn_new(&T, n);
-    if (variant < 0) hn_script(&T, "=6");
     float P = (w - 2.0f * f) / 3, foot = oy + h - f - 0.9f * d;
+    if (T->goal >= 0) {
+        static const uint8_t gold[3] = {255, 200, 90};
+        int g = (int)(0.95f * P);
+        memset(b, 0, (size_t)g * g * 4);
+        art_disc(g, gold, 0.6f, 1.6f, b);
+        art_blend(rgba, size, size, b, g, g, (int)(f + P * (T->goal + 0.5f) - g / 2.0f), (int)(foot - 0.2f * d - g / 2.0f));
+    }
     for (int p = 0; p < 3; p++)
-        for (int k = 0; k < T.h[p]; k++) {
-            int s = T.disc[p][k], dw = (int)disc_w(n, s, P), hh = (int)(0.96f * d);
+        for (int k = 0; k < T->h[p]; k++) {
+            int s = T->disc[p][k], dw = (int)disc_w(n, s, P), hh = (int)(0.96f * d);
             memset(b, 0, (size_t)dw * hh * 4);
             paint_disc(dw, hh, LACQUER[(s - 1) * (HN_MAX - 1) / (n - 1)], b);
             art_blend(rgba, size, size, b, dw, hh, (int)(f + P * (p + 0.5f) - dw / 2.0f),
@@ -478,10 +498,32 @@ static void thumb(int variant, int size, uint8_t *rgba)
     free(b);
 }
 
+/* the menu's card (the classic tower under way) and the picker's (that many discs scattered, a goal peg) */
+static void thumb(int variant, int size, uint8_t *rgba)
+{
+    hn_game T;
+    if (variant < 0) {
+        hn_new(&T, 4);
+        hn_script(&T, "=6");
+    } else hn_random(&T, 4 + variant, 5);
+    paint_position(&T, size, rgba);
+}
+
+/* the level screen: a level's position; a chapter's tab: the tower of its discs */
+static void level_thumb(int level, int size, uint8_t *rgba)
+{
+    hn_game T;
+    if (hn_level(&T, level)) paint_position(&T, size, rgba);
+}
+
+static void chapter_icon(int chapter, int size, uint8_t *rgba) { tower_pic(size, 3 + chapter, rgba); }
+
 static const game hanoi_game = {
     .id = "hanoi", .order = 365, .variants = HN_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1,
+    .levels = HN_LEVELS, .chapter_of = hn_chapter_of, .start_random = start_random, .chapter_icon = chapter_icon,
+    .level_thumb = level_thumb, .level_stars = level_stars, .score = score, .par = par,
 };
 REGISTER_GAME(hanoi_game)

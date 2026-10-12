@@ -29,9 +29,98 @@ static int well_stacked(const hn_game *g)
     return total == g->n;
 }
 
+/* a position as a number: disc d's peg the (d - 1)-th digit in base 3 */
+static int code_of(const hn_game *g)
+{
+    int c = 0, pow3[HN_MAX + 1] = {1};
+    for (int i = 1; i <= HN_MAX; i++) pow3[i] = 3 * pow3[i - 1];
+    for (int p = 0; p < 3; p++)
+        for (int i = 0; i < g->h[p]; i++) c += p * pow3[g->disc[p][i] - 1];
+    return c;
+}
+
+static void from_code(hn_game *g, int n, int code, int goal)
+{
+    int8_t peg[HN_MAX];
+    for (int d = 0; d < n; d++, code /= 3) peg[d] = (int8_t)(code % 3);
+    hn_set(g, n, peg, goal);
+}
+
+/* the fewest moves from every position to the tower on `goal`, breadth first from the tower (moves go both ways) */
+static int dist[2187];
+
+static void search(int n, int goal)
+{
+    int states = 1, q[2187], head = 0, tail = 0;
+    for (int i = 0; i < n; i++) states *= 3;
+    for (int i = 0; i < states; i++) dist[i] = -1;
+    int tower = 0;
+    for (int d = 0, p = 1; d < n; d++, p *= 3) tower += goal * p;
+    dist[tower] = 0;
+    q[tail++] = tower;
+    while (head < tail) {
+        int c = q[head++];
+        for (int f = 0; f < 3; f++)
+            for (int t = 0; t < 3; t++) {
+                hn_game g;
+                from_code(&g, n, c, goal);
+                if (!hn_move(&g, f, t)) continue;
+                int k = code_of(&g);
+                if (dist[k] < 0) { dist[k] = dist[c] + 1; q[tail++] = k; }
+            }
+    }
+}
+
 int main(void)
 {
     hn_game g;
+    /* the fewest moves from anywhere (3 to 7 discs, every goal) against a breadth-first search, and the hints played
+     * from there: each legal, solved in exactly that many */
+    for (int n = 3; n <= HN_MAX; n++)
+        for (int goal = 0; goal < 3; goal++) {
+            search(n, goal);
+            int states = 1, ok = 1;
+            for (int i = 0; i < n; i++) states *= 3;
+            for (int c = 0; c < states; c++) {
+                from_code(&g, n, c, goal);
+                if (hn_left(&g) != dist[c] || g.par != dist[c] || hn_solved(&g) != (dist[c] == 0)) ok = 0;
+                if (c % 7 && n > 5) continue;   /* the hints played from some of them */
+                int k = 0, f, t;
+                while (hn_hint(&g, &f, &t) && k <= dist[c]) {
+                    if (!hn_move(&g, f, t)) ok = 0;
+                    k++;
+                }
+                if (!hn_solved(&g) || k != dist[c] || !well_stacked(&g)) ok = 0;
+            }
+            CHECK(ok);
+        }
+    /* random positions: the largest disc must move, solvable by the hints, the same from the same seed */
+    for (uint32_t seed = 1; seed <= 400; seed++) {
+        int n = 4 + (int)(seed % HN_VARIANTS);
+        hn_random(&g, n, seed);
+        CHECK(g.n == n && well_stacked(&g) && g.goal >= 0 && g.par >= 1 << (n - 1) && !hn_solved(&g));
+        hn_game t = g, again;
+        CHECK(hn_script(&t, "=") && hn_solved(&t) && t.moves == g.par);
+        hn_random(&again, n, seed);
+        CHECK(!memcmp(&again, &g, sizeof g));
+    }
+    /* the levels: each loads, unsolved, its fewest moves kept; a chapter a number of discs (3..7), each ending with the
+     * classic tower; no two alike */
+    for (int l = 0; l < HN_LEVELS; l++) {
+        CHECK(hn_level(&g, l));
+        int ch = hn_chapter_of(l);
+        CHECK(ch >= 0 && ch < HN_CHAPTERS && g.n == 3 + ch && well_stacked(&g) && g.goal >= 0);
+        CHECK(!hn_solved(&g) && g.par > 0 && g.par == hn_level_par[l] && g.moves == 0);
+        if (l > 0) CHECK(hn_chapter_of(l - 1) <= ch);
+        if (l + 1 == HN_LEVELS || hn_chapter_of(l + 1) != ch) CHECK(g.par == hn_optimum(g.n));   /* the classic */
+        hn_game t = g;
+        CHECK(hn_script(&t, "=") && hn_solved(&t) && t.moves == g.par);
+        for (int k = 0; k < l; k++) CHECK(strcmp(hn_levels[k], hn_levels[l]) != 0);
+    }
+    for (int c = 0; c < HN_CHAPTERS; c++) CHECK(hn_chapter_of(hn_chapter_start(c)) == c);
+    CHECK(hn_chapter_start(HN_CHAPTERS) == HN_LEVELS);
+    CHECK(!hn_level(&g, HN_LEVELS) && !hn_parse(&g, "d:abc") && !hn_parse(&g, "a:ab"));
+
     for (int n = 4; n <= 7; n++) {
         hn_new(&g, n);
         CHECK(g.h[0] == n && g.h[1] == 0 && g.h[2] == 0 && hn_top(&g, 0) == 1 && g.disc[0][0] == n);
