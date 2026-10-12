@@ -6,10 +6,12 @@
  *
  *   retrostoneboard                   the app (a window; full screen on Android)
  *   retrostoneboard --shot out.bmp [--size 720x1280] [--game chess] [--variant 0] [--moves "e2e4 e7e5"]
- *                   [--taps "0.5,0.9 0.5,0.7"] [--flip] [--f2f] [--keep] [--pick] [--players n] [--reveal]
+ *                   [--taps "0.5,0.9 0.5,0.7"] [--drag "0.1,0.9 0.5,0.5"] [--hold "0.5,0.5 800"] [--flip] [--f2f]
+ *                   [--keep] [--pick] [--players n] [--reveal] [--at ms]
  *                                     one picture, no window: the menu (no --game), the picker (--pick) or a game
- *                                     after its moves (its own notation) and taps (fractions of the board); the
- *                                     hand-off cover lifted (--reveal: the start button tapped)
+ *                                     after its moves (its own notation) and gestures (fractions of the board); the
+ *                                     hand-off cover lifted (--reveal: the start button tapped); a clock of its own
+ *                                     (the same picture every time)
  * Keys: Esc / Back home (in the menu: quit), U undo, F flip, T face to face, N new game, M sound.
  */
 #include "shell.h"
@@ -170,8 +172,11 @@ static int seat_top(int p)
 }
 
 int ui_upside(int player) { return ui.f2f && !is_view() && seat_top(player); }
-static Uint32 ms_ahead;                         /* the picture mode: the clock moved on past the last tap */
-Uint32 ui_ms(void) { return SDL_GetTicks() + ms_ahead; }
+/* the picture mode's clock is its own (shot_clock): it stands still, and moves on only past a gesture (its
+ * animations have ended) or to --at ms after the last one, so the same picture comes out every time */
+static Uint32 ms_ahead;
+static int shot_clock;
+Uint32 ui_ms(void) { return (shot_clock ? 1000 : SDL_GetTicks()) + ms_ahead; }
 void ui_animate(void) { need_frame = 1; }
 
 SDL_Texture *ui_tex(int w, int h, const uint8_t *rgba)
@@ -1768,24 +1773,47 @@ static void shot_settle(int reveal, int advance)
     if (reveal && is_view() && hand.up) uncover();
 }
 
+/* before a gesture: the game's animations over (a deal, a slide, the dice), so the finger is not ignored */
+static void shot_wait(void)
+{
+    const game *g = games[cur];
+    for (int k = 0; k < 8 && ((g->busy && g->busy()) || ui_dice_busy()); k++) {
+        ms_ahead += 600000;
+        draw();
+    }
+}
+
+/* the picture mode's gestures, in the order given: --taps "fx,fy ...", --drag "fx0,fy0 fx1,fy1" (the finger down,
+ * moved, lifted), --hold "fx,fy ms" (the finger down that long; the last gesture: the picture with it still down).
+ * Fractions of the board's box. */
+enum { GE_TAP, GE_DRAG, GE_HOLD };
+#define MAX_GESTURES 16
+static struct { int kind; const char *s; } gesture[MAX_GESTURES];
+static int ngestures;
+
 static int shot(int argc, char **argv)
 {
-    const char *out = NULL, *id = NULL, *moves = NULL, *taps = NULL, *lang = NULL;
+    const char *out = NULL, *id = NULL, *moves = NULL, *lang = NULL;
     int v = 0, keep = 0, pick = 0, show_help = 0, np = 0, tab = -1, reveal = 0;
     float scroll = 0;
     uint32_t seed = 1;
     int at = -1;                                /* --at ms: the picture that long after the last tap (else at rest) */
-    int first = 1;
+    int first = 1, held = -1;                   /* held: the last gesture's hold (ms), the finger still down */
     Uint32 base = 0;                            /* the clock before the last tap */
     ui.w = 720;
     ui.h = 1280;
+    shot_clock = 1;
     for (int i = 1; i < argc; i++) {
         if (!strcmp(argv[i], "--shot") && i + 1 < argc) out = argv[++i];
         else if (!strcmp(argv[i], "--size") && i + 1 < argc) sscanf(argv[++i], "%dx%d", &ui.w, &ui.h);
         else if (!strcmp(argv[i], "--game") && i + 1 < argc) id = argv[++i];
         else if (!strcmp(argv[i], "--variant") && i + 1 < argc) v = atoi(argv[++i]);
         else if (!strcmp(argv[i], "--moves") && i + 1 < argc) moves = argv[++i];
-        else if (!strcmp(argv[i], "--taps") && i + 1 < argc) taps = argv[++i];
+        else if ((!strcmp(argv[i], "--taps") || !strcmp(argv[i], "--drag") || !strcmp(argv[i], "--hold")) &&
+                 i + 1 < argc && ngestures < MAX_GESTURES) {
+            gesture[ngestures].kind = argv[i][2] == 't' ? GE_TAP : argv[i][2] == 'd' ? GE_DRAG : GE_HOLD;
+            gesture[ngestures++].s = argv[++i];
+        }
         else if (!strcmp(argv[i], "--flip")) ui.flipped = 1;
         else if (!strcmp(argv[i], "--f2f")) ui.f2f = 1;
         else if (!strcmp(argv[i], "--keep")) keep = 1;
@@ -1822,18 +1850,36 @@ static int shot(int argc, char **argv)
             }
             draw();                             /* once before the taps, as the app always has: the bars' layout */
             if (reveal) shot_settle(1, 0);
-            for (const char *s = taps; s && *s; first = 0) {
-                float fx, fy;
-                int n = 0;
-                if (sscanf(s, "%f,%f%n", &fx, &fy, &n) < 2) break;
-                if (!first && is_view()) shot_settle(reveal, 1);   /* the last tap has landed, the device passed */
-                base = ms_ahead;
-                float x = L.board.x + fx * L.board.w, y = L.board.y + fy * L.board.h;
-                press(x, y);
-                release(x, y);
-                after_input();
-                s += n;
-                while (*s == ' ') s++;
+            for (int k = 0; k < ngestures; k++) {
+                for (const char *s = gesture[k].s; s && *s; first = 0) {
+                    float fx, fy, gx = 0, gy = 0;
+                    int n = 0, ms = 0, kind = gesture[k].kind;
+                    if (sscanf(s, "%f,%f%n", &fx, &fy, &n) < 2) break;
+                    s += n;
+                    if (kind == GE_DRAG && sscanf(s, " %f,%f%n", &gx, &gy, &n) < 2) break;
+                    if (kind == GE_HOLD && sscanf(s, " %d%n", &ms, &n) < 1) break;
+                    if (kind != GE_TAP) s += n;
+                    if (!first && is_view()) shot_settle(reveal, 1);   /* the last tap has landed, the device passed */
+                    shot_wait();
+                    base = ms_ahead;
+                    float x = L.board.x + fx * L.board.w, y = L.board.y + fy * L.board.h;
+                    press(x, y);
+                    if (kind == GE_DRAG) {          /* the finger slides there in steps, then lifts */
+                        float x1 = L.board.x + gx * L.board.w, y1 = L.board.y + gy * L.board.h;
+                        for (int i = 1; i <= 8; i++) motion(x + (x1 - x) * i / 8, y + (y1 - y) * i / 8);
+                        x = x1;
+                        y = y1;
+                    } else if (kind == GE_HOLD) {   /* held down: the clock moves on meanwhile */
+                        ms_ahead += (Uint32)(ms > 0 ? ms : 0);
+                        draw();
+                        while (*s == ' ') s++;
+                        held = k == ngestures - 1 && !*s ? ms : -1;
+                        if (held >= 0) break;       /* the last gesture: the picture with the finger down */
+                    }
+                    release(x, y);
+                    after_input();
+                    while (*s == ' ') s++;
+                }
             }
             over_hidden = keep;
         }
@@ -1842,7 +1888,8 @@ static int shot(int argc, char **argv)
         if (tab >= 0) menu_tab(tab);           /* --tab n: that section's tab (0 strategy .. 5 solitaires) */
         if (!show_help) menu_wheel(scroll);     /* --scroll px: further down the menu */
     }
-    ms_ahead = base + (at >= 0 ? (Uint32)at : 600000);   /* the taps' animations: over, or caught --at ms in */
+    /* the gestures' animations: over, or caught --at ms after the last one began (a hold: as long as it was held) */
+    ms_ahead = base + (at >= 0 ? (Uint32)at : held >= 0 ? (Uint32)held : 600000);
     if (id && !pick && reveal) shot_settle(1, 0);
     if (show_help) {                            /* the rules page (the game's, or the app's), scrolled by --scroll px */
         open_help(id ? cur : -1);

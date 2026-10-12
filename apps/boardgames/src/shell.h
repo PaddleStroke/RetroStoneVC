@@ -121,8 +121,8 @@ void ui_number_signed(float cx, float cy, float h, int value, int light, int plu
 void ui_bar_count(box b, SDL_Texture *piece, int n);
 void ui_animate(void);                          /* draw the next frame too (an animation runs) */
 Uint32 ui_ms(void);                             /* the clock for animations: use it, not SDL_GetTicks (the picture
-                                                 * mode moves it on so the last move's animation has ended, or to
-                                                 * --at ms after the last tap) */
+                                                 * mode has a clock of its own: still, moved on past each gesture's
+                                                 * animations, or to --at ms after the last one) */
 
 /* the shared marks, made for the board's size by the shell (a square of side `size`) */
 void ui_mark_last(float x, float y, float w, float h);   /* the last move's squares (a warm tint) */

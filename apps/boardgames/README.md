@@ -152,14 +152,20 @@ nor face to face (they mean nothing here). `layout(box)` gets the table: a recta
 
 ```
 retrostoneboard --shot out.bmp [--size 720x1280] [--game id] [--variant n] [--moves "..."] [--taps "fx,fy ..."]
-                [--flip] [--f2f] [--keep] [--pick] [--players n] [--lang fr] [--help [--scroll px]] [--seed n] [--at ms]
-                [--reveal]
+                [--drag "fx0,fy0 fx1,fy1"] [--hold "fx,fy ms"] [--flip] [--f2f] [--keep] [--pick] [--players n]
+                [--lang fr] [--help [--scroll px]] [--tab n] [--seed n] [--at ms] [--reveal]
 ```
 
-No window: the menu (no `--game`), a game's picker (`--pick`), or a game after its moves (`--moves`, the game's
-notation) and taps (fractions of the board's square: `0.5,0.5` its middle); `--help` its rules page (in `--lang`,
-English by default). The app itself takes `--lang` too (else the device's language).
+No window: the menu (no `--game`; `--tab n` a section), a game's picker (`--pick`), or a game after its moves
+(`--moves`, the game's notation) and gestures; `--help` its rules page (in `--lang`, English by default). The app
+itself takes `--lang` too (else the device's language).
 
-Card games: `--reveal` lifts the hand-off cover (as if start were tapped: before the taps, between them and at the
-end), so a picture shows either the cover or the hand; between taps the clock moves on (each tap's cards have landed
-and the device has passed); `--at ms` catches the last tap's slide or flip on its way.
+- **Gestures**, in the order given, in fractions of the board's box (`0.5,0.5` its middle): `--taps` (several),
+  `--drag` (the finger down, slid to the second point, lifted), `--hold` (the finger down `ms` long; as the last
+  gesture, the picture is taken with the finger still down).
+- **The clock** is the picture mode's own: it stands still, so the same picture comes out every time. Before each
+  gesture it moves on until the game's animations have ended (`busy()`, the dice: a deal, a slide), so no tap is
+  lost; at the end it moves on until everything is at rest, or to `--at ms` after the last gesture (a slide, a flip,
+  a throw on its way).
+- **Card games**: `--reveal` lifts the hand-off cover (as if start were tapped: before the taps, between them and at
+  the end), so a picture shows either the cover or the hand; between taps the device has passed.
