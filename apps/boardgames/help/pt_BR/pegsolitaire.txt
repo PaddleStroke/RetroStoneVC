@@ -1,12 +1,16 @@
 Resta Um
 # O objetivo
-As bolinhas enchem todos os buracos do tabuleiro menos um. Faça uma pular sobre a outra até sobrar só uma, de preferência no buraco de chegada do tabuleiro. Escolha primeiro o tabuleiro:
-- Inglês: a cruz de 33 buracos. O centro começa vazio, e é a chegada.
-- Francês: 37 buracos, a cruz e mais quatro. O segundo buraco da coluna do meio, contando de cima, começa vazio; a chegada é o segundo contando de baixo (neste tabuleiro nenhuma partida que comece com um só buraco vazio pode terminar no centro).
-- Triângulo: 15 buracos, uma partida mais curta. O buraco do topo começa vazio, e é a chegada.
+Há bolinhas nos buracos de um tabuleiro. Faça uma pular sobre a outra até sobrar só uma, no buraco de chegada: o que tem um anel de latão. Os tabuleiros:
+- Inglês: a cruz de 33 buracos.
+- Francês: 37 buracos, a cruz e mais quatro.
+- Losango: 41 buracos.
+- Wiegleb: a cruz larga de 45 buracos.
+- Triângulos: 15 buracos, e o grande de 21.
 # Uma jogada
-Uma bolinha pula por cima de uma bolinha vizinha, em linha reta, para o buraco vazio logo atrás dela. A bolinha pulada sai do tabuleiro. Nas cruzes se pula na horizontal e na vertical, nunca na diagonal; no triângulo, ao longo das suas três direções.
+Uma bolinha pula por cima de uma bolinha vizinha, em linha reta, para o buraco vazio logo atrás dela. A bolinha pulada sai do tabuleiro. Nas cruzes e no losango se pula na horizontal e na vertical, nunca na diagonal; nos triângulos, ao longo das suas três direções.
 # O fim da partida
-Quando não há mais nenhum pulo, a partida acaba. Sobrou uma só bolinha: resolvido, e com luz dourada se ela estiver no buraco de chegada. Senão, as bolinhas que sobraram são a sua pontuação: quanto menos, melhor.
+Sobrou uma só bolinha: resolvido, com luz dourada se ela estiver no buraco de chegada. Quando não há mais nenhum pulo e sobram várias bolinhas, elas brilham em vermelho: desfaça e tente outro caminho.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, de 3 bolinhas até os tabuleiros clássicos cheios (todos os buracos ocupados menos um), que fecham seus capítulos; todo nível pode terminar com uma bolinha no seu buraco de chegada. Escolha um na tela de níveis. A aba do dado, depois dos capítulos, monta uma posição ao acaso no tabuleiro que você escolher, uma que pode terminar no seu buraco de chegada. Uma bolinha na chegada e nenhuma dica: 3 estrelas; uma estrela a menos se a última bolinha ficar em outro lugar, e uma estrela a menos se você usar a dica (sempre pelo menos 1). Cada pulo tira uma bolinha, então toda partida até uma só bolinha leva o mesmo número de pulos: o que conta é onde a última termina.
 # Jogando no aparelho
-Toque numa bolinha: pontos mostram para onde ela pode pular. Toque num ponto ou arraste a bolinha até lá. Você também pode tocar num buraco vazio que só uma bolinha alcança. As bolinhas retiradas rolam para a canaleta em volta do tabuleiro. Desfazer volta um pulo, até o começo. A barra mostra as bolinhas que sobram e, à direita, a sua melhor partida neste tabuleiro desde que o app foi aberto (ela não é salva).
+Toque numa bolinha: pontos mostram para onde ela pode pular. Toque num ponto ou arraste a bolinha até lá. Você também pode tocar num buraco vazio que só uma bolinha alcança. As bolinhas retiradas rolam para a canaleta em volta do tabuleiro. A lâmpada no fim da barra dá uma dica: o pulo a fazer acende, em dourado enquanto levar a uma só bolinha na chegada; quando não resta nenhum caminho até uma só bolinha, as bolinhas brilham em vermelho. Desfazer volta um pulo, até o começo. A barra mostra as bolinhas que sobram.

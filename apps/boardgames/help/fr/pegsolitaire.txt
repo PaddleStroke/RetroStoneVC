@@ -1,12 +1,16 @@
 Solitaire
 # Le but
-Des billes remplissent tous les trous du plateau sauf un. Fais-les sauter les unes par-dessus les autres jusqu'à ce qu'il n'en reste qu'une, si possible dans le trou d'arrivée du plateau. Choisis d'abord le plateau :
-- Anglais : la croix de 33 trous. Le centre est vide au départ, et c'est l'arrivée.
-- Français : 37 trous, la croix et quatre de plus. Le deuxième trou de la colonne du milieu, en partant du haut, est vide au départ ; l'arrivée est le deuxième en partant du bas (sur ce plateau, aucune partie commencée avec un seul trou vide ne peut finir au centre).
-- Triangle : 15 trous, une partie plus courte. Le trou du sommet est vide au départ, et c'est l'arrivée.
+Des billes sont posées dans les trous d'un plateau. Fais-les sauter les unes par-dessus les autres jusqu'à ce qu'il n'en reste qu'une, dans le trou d'arrivée : celui qui porte un anneau de laiton. Les plateaux :
+- Anglais : la croix de 33 trous.
+- Français : 37 trous, la croix et quatre de plus.
+- Losange : 41 trous.
+- Wiegleb : la grande croix de 45 trous.
+- Triangles : 15 trous, et le grand de 21.
 # Un coup
-Une bille saute par-dessus une bille voisine, en ligne droite, dans le trou vide juste derrière. La bille sautée est retirée du plateau. Sur les croix, on saute en largeur et en hauteur, jamais en diagonale ; sur le triangle, le long de ses trois directions.
+Une bille saute par-dessus une bille voisine, en ligne droite, dans le trou vide juste derrière. La bille sautée est retirée du plateau. Sur les croix et le losange, on saute en largeur et en hauteur, jamais en diagonale ; sur les triangles, le long de leurs trois directions.
 # La fin de la partie
-Quand plus aucun saut n'est possible, la partie est finie. Une seule bille : réussi, et dans une lumière dorée si elle est dans le trou d'arrivée. Sinon, les billes qui restent sont ton score : moins il y en a, mieux c'est.
+Une seule bille : réussi, dans une lumière dorée si elle est dans le trou d'arrivée. Quand plus aucun saut n'est possible et qu'il reste plusieurs billes, elles s'éclairent en rouge : annule et essaie un autre chemin.
+# Niveaux et étoiles
+Il y a 150 niveaux en six chapitres, de 3 billes jusqu'aux plateaux classiques complets (tous les trous pleins sauf un), qui terminent leurs chapitres ; chaque niveau peut finir avec une seule bille dans son trou d'arrivée. Choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, dispose une position au hasard sur le plateau que tu choisis, une position qui peut finir dans son trou d'arrivée. Une bille dans le trou d'arrivée et aucun indice : 3 étoiles ; une étoile de moins si la dernière bille finit ailleurs, et une étoile de moins si tu utilises l'indice (toujours au moins 1). Chaque saut retire une bille, donc toutes les parties jusqu'à une seule bille demandent le même nombre de sauts : ce qui compte, c'est où finit la dernière.
 # Jouer sur l'appareil
-Touche une bille : des points montrent où elle peut sauter. Touche un point, ou fais glisser la bille jusque-là. Tu peux aussi toucher un trou vide qu'une seule bille peut atteindre. Les billes retirées roulent dans la rigole autour du plateau. Annuler reprend un saut, jusqu'au début. La barre montre les billes qui restent et, à droite, ta meilleure partie sur ce plateau depuis l'ouverture de l'appli (elle n'est pas enregistrée).
+Touche une bille : des points montrent où elle peut sauter. Touche un point, ou fais glisser la bille jusque-là. Tu peux aussi toucher un trou vide qu'une seule bille peut atteindre. Les billes retirées roulent dans la rigole autour du plateau. La lampe au bout de la barre donne un indice : le saut à faire s'éclaire, en or tant qu'il mène à une seule bille dans le trou d'arrivée ; quand plus aucun chemin ne mène à une seule bille, les billes s'éclairent en rouge. Annuler reprend un saut, jusqu'au début. La barre montre les billes qui restent.

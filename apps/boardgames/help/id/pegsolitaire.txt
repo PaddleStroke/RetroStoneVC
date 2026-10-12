@@ -1,12 +1,16 @@
 Solitaire
 # Tujuan
-Kelereng mengisi semua lubang papan kecuali satu. Lompatkan kelereng melewati satu sama lain sampai hanya tersisa satu, sebaiknya di lubang tujuan papan. Pilih papan dulu:
-- Inggris: salib dengan 33 lubang. Bagian tengah kosong di awal, dan itulah tujuannya.
-- Prancis: 37 lubang, salib ditambah empat. Lubang kedua di kolom tengah, dihitung dari atas, kosong di awal; tujuannya lubang kedua dari bawah (di papan ini tidak ada permainan yang dimulai dengan satu lubang kosong yang bisa berakhir di tengah).
-- Segitiga: 15 lubang, permainan lebih singkat. Lubang paling atas kosong di awal, dan itulah tujuannya.
+Kelereng berdiri di lubang-lubang sebuah papan. Lompatkan kelereng melewati satu sama lain sampai hanya tersisa satu, di lubang tujuan: lubang yang bercincin kuningan. Papan-papannya:
+- Inggris: salib dengan 33 lubang.
+- Prancis: 37 lubang, salib ditambah empat.
+- Belah ketupat: 41 lubang.
+- Wiegleb: salib lebar dengan 45 lubang.
+- Segitiga: 15 lubang, dan yang besar dengan 21.
 # Satu langkah
-Sebuah kelereng melompati kelereng di sebelahnya dalam garis lurus, masuk ke lubang kosong tepat di belakangnya. Kelereng yang dilompati diambil dari papan. Di papan salib, lompatan mendatar dan tegak, tidak pernah miring; di segitiga, sepanjang tiga arahnya.
+Sebuah kelereng melompati kelereng di sebelahnya dalam garis lurus, masuk ke lubang kosong tepat di belakangnya. Kelereng yang dilompati diambil dari papan. Di papan salib dan belah ketupat, lompatan mendatar dan tegak, tidak pernah miring; di segitiga, sepanjang tiga arahnya.
 # Akhir permainan
-Jika tidak ada lompatan lagi, permainan selesai. Tinggal satu kelereng: berhasil, dan bercahaya emas jika berada di lubang tujuan. Jika tidak, kelereng yang tersisa adalah skormu: makin sedikit, makin baik.
+Tinggal satu kelereng: berhasil, dan bercahaya emas jika berada di lubang tujuan. Jika tidak ada lompatan lagi dan masih tersisa beberapa kelereng, kelereng-kelereng itu menyala merah: urungkan dan coba jalan lain.
+# Level dan bintang
+Ada 150 level dalam enam bab, dari 3 kelereng sampai papan klasik yang penuh (semua lubang terisi kecuali satu), yang menutup babnya masing-masing; setiap level bisa berakhir dengan satu kelereng di lubang tujuannya. Pilih satu di kisi level. Tab dadu setelah bab-bab itu menata posisi acak di papan yang kamu pilih, posisi yang bisa berakhir di lubang tujuannya. Satu kelereng di lubang tujuan dan tanpa petunjuk: 3 bintang; kurang satu bintang jika kelereng terakhir berhenti di tempat lain, dan kurang satu bintang jika memakai petunjuk (selalu minimal 1). Setiap lompatan mengambil satu kelereng, jadi setiap permainan sampai tinggal satu kelereng memakai jumlah lompatan yang sama: yang penting adalah di mana kelereng terakhir berhenti.
 # Bermain di perangkat
-Ketuk sebuah kelereng: titik-titik menunjukkan ke mana ia bisa melompat. Ketuk sebuah titik, atau seret kelereng ke sana. Kamu juga bisa mengetuk lubang kosong yang hanya bisa dicapai satu kelereng. Kelereng yang diambil menggelinding ke parit di sekeliling papan. Urungkan membatalkan satu lompatan, sampai ke awal. Bilah menunjukkan kelereng yang tersisa dan, di kanan, permainan terbaikmu di papan ini sejak aplikasi dibuka (tidak disimpan).
+Ketuk sebuah kelereng: titik-titik menunjukkan ke mana ia bisa melompat. Ketuk sebuah titik, atau seret kelereng ke sana. Kamu juga bisa mengetuk lubang kosong yang hanya bisa dicapai satu kelereng. Kelereng yang diambil menggelinding ke parit di sekeliling papan. Lampu di ujung bilah memberi petunjuk: lompatan yang harus dibuat menyala, berwarna emas selama lompatan itu menuju satu kelereng di lubang tujuan; bila tidak ada lagi jalan menuju satu kelereng, kelereng-kelereng menyala merah. Urungkan membatalkan satu lompatan, sampai ke awal. Bilah menunjukkan kelereng yang tersisa.

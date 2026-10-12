@@ -1,12 +1,16 @@
 Solitér
 # Cíl hry
-Kuličky zaplňují všechny jamky desky kromě jedné. Přeskakuj je přes sebe, dokud nezůstane jen jedna, nejlépe v cílové jamce desky. Nejdřív si vyber desku:
-- Anglická: kříž o 33 jamkách. Střed je na začátku prázdný a je i cílem.
-- Francouzská: 37 jamek, kříž a čtyři navíc. Druhá jamka prostředního sloupce, počítáno shora, je na začátku prázdná; cílem je druhá zdola (na této desce žádná hra začínající jedinou prázdnou jamkou nemůže skončit uprostřed).
-- Trojúhelník: 15 jamek, kratší hra. Horní jamka je na začátku prázdná a je i cílem.
+Kuličky leží v jamkách desky. Přeskakuj je přes sebe, dokud nezůstane jen jedna, v cílové jamce: té s mosazným kroužkem. Desky:
+- Anglická: kříž o 33 jamkách.
+- Francouzská: 37 jamek, kříž a čtyři navíc.
+- Kosočtverec: 41 jamek.
+- Wieglebova: široký kříž o 45 jamkách.
+- Trojúhelníky: 15 jamek a velký o 21.
 # Tah
-Kulička přeskočí sousední kuličku v přímé linii do prázdné jamky hned za ní. Přeskočená kulička se z desky odebere. Na křížích se skáče vodorovně a svisle, nikdy šikmo; na trojúhelníku podél jeho tří směrů.
+Kulička přeskočí sousední kuličku v přímé linii do prázdné jamky hned za ní. Přeskočená kulička se z desky odebere. Na křížích a na kosočtverci se skáče vodorovně a svisle, nikdy šikmo; na trojúhelnících podél jejich tří směrů.
 # Konec hry
-Když už není žádný skok, hra končí. Zbyla jediná kulička: vyřešeno, a ve zlatém světle, pokud leží v cílové jamce. Jinak jsou zbylé kuličky tvým skóre: čím méně, tím lépe.
+Zbyla jediná kulička: vyřešeno, ve zlatém světle, pokud leží v cílové jamce. Když už není žádný skok a zbývá několik kuliček, svítí červeně: vrať tahy a zkus jinou cestu.
+# Úrovně a hvězdy
+Úrovní je 150 v šesti kapitolách, od 3 kuliček po plné klasické desky (všechny jamky plné kromě jedné), které své kapitoly uzavírají; každá úroveň může skončit jednou kuličkou ve své cílové jamce. Vyber si úroveň v přehledu úrovní. Záložka s kostkou za kapitolami rozestaví náhodnou pozici na desce, kterou si zvolíš, a to takovou, která může skončit ve své cílové jamce. Jedna kulička v cílové jamce a bez rady: 3 hvězdy; o hvězdu méně, když poslední kulička skončí jinde, a o hvězdu méně za použití rady (vždy aspoň 1). Každý skok odebere jednu kuličku, takže každá hra až do jedné kuličky trvá stejný počet skoků: počítá se, kde skončí ta poslední.
 # Hra na zařízení
-Klepni na kuličku: tečky ukážou, kam může skočit. Klepni na tečku, nebo tam kuličku přetáhni. Můžeš také klepnout na prázdnou jamku, kam dosáhne jen jedna kulička. Odebrané kuličky se skutálí do žlábku kolem desky. Zpět vrátí jeden skok, až na začátek. Lišta ukazuje zbylé kuličky a vpravo tvou nejlepší hru na této desce od spuštění aplikace (neukládá se).
+Klepni na kuličku: tečky ukážou, kam může skočit. Klepni na tečku, nebo tam kuličku přetáhni. Můžeš také klepnout na prázdnou jamku, kam dosáhne jen jedna kulička. Odebrané kuličky se skutálí do žlábku kolem desky. Lampa na konci lišty dává nápovědu: rozsvítí se skok, který máš udělat, zlatě, dokud vede k jedné kuličce v cílové jamce; když už žádná cesta k jedné kuličce nezbývá, kuličky svítí červeně. Zpět vrátí jeden skok, až na začátek. Lišta ukazuje zbylé kuličky.

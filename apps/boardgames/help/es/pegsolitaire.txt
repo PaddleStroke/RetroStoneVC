@@ -1,12 +1,16 @@
 Senku
 # El objetivo
-Las canicas llenan todos los agujeros del tablero menos uno. Hazlas saltar unas sobre otras hasta que solo quede una, a ser posible en el agujero de llegada del tablero. Elige primero el tablero:
-- Inglés: la cruz de 33 agujeros. El centro empieza vacío, y es la llegada.
-- Francés: 37 agujeros, la cruz y cuatro más. El segundo agujero de la columna central, contando desde arriba, empieza vacío; la llegada es el segundo contando desde abajo (en este tablero ninguna partida que empiece con un solo agujero vacío puede terminar en el centro).
-- Triángulo: 15 agujeros, una partida más corta. El agujero de arriba empieza vacío, y es la llegada.
+Hay canicas en los agujeros de un tablero. Hazlas saltar unas sobre otras hasta que solo quede una, en el agujero de llegada: el que tiene un anillo de latón. Los tableros:
+- Inglés: la cruz de 33 agujeros.
+- Francés: 37 agujeros, la cruz y cuatro más.
+- Rombo: 41 agujeros.
+- Wiegleb: la cruz ancha de 45 agujeros.
+- Triángulos: 15 agujeros, y el grande de 21.
 # Una jugada
-Una canica salta por encima de una canica vecina, en línea recta, al agujero vacío que hay justo detrás. La canica saltada se retira del tablero. En las cruces se salta a lo ancho y a lo alto, nunca en diagonal; en el triángulo, a lo largo de sus tres direcciones.
+Una canica salta por encima de una canica vecina, en línea recta, al agujero vacío que hay justo detrás. La canica saltada se retira del tablero. En las cruces y el rombo se salta a lo ancho y a lo alto, nunca en diagonal; en los triángulos, a lo largo de sus tres direcciones.
 # El final de la partida
-Cuando ya no queda ningún salto, la partida termina. Si queda una sola canica: resuelto, y con luz dorada si está en el agujero de llegada. Si no, las canicas que quedan son tu puntuación: cuantas menos, mejor.
+Una sola canica: resuelto, con luz dorada si está en el agujero de llegada. Cuando ya no queda ningún salto y quedan varias canicas, brillan en rojo: deshaz y prueba otro camino.
+# Niveles y estrellas
+Hay 150 niveles en seis capítulos, desde 3 canicas hasta los tableros clásicos completos (todos los agujeros llenos menos uno), que cierran sus capítulos; todos los niveles pueden terminar con una canica en su agujero de llegada. Elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, prepara una posición al azar en el tablero que elijas, una que puede terminar en su agujero de llegada. Una canica en la llegada y sin pistas: 3 estrellas; una estrella menos si la última canica queda en otro sitio, y una estrella menos si usas la pista (siempre al menos 1). Cada salto retira una canica, así que todas las partidas hasta una sola canica llevan el mismo número de saltos: lo que cuenta es dónde termina la última.
 # Jugar en el dispositivo
-Toca una canica: unos puntos muestran adónde puede saltar. Toca un punto, o arrastra la canica hasta allí. También puedes tocar un agujero vacío al que solo una canica puede llegar. Las canicas retiradas ruedan a la ranura que rodea el tablero. Deshacer anula un salto, hasta el principio. La barra muestra las canicas que quedan y, a la derecha, tu mejor partida en este tablero desde que se abrió la aplicación (no se guarda).
+Toca una canica: unos puntos muestran adónde puede saltar. Toca un punto, o arrastra la canica hasta allí. También puedes tocar un agujero vacío al que solo una canica puede llegar. Las canicas retiradas ruedan a la ranura que rodea el tablero. La lámpara al final de la barra da una pista: el salto que hay que hacer se ilumina, en dorado mientras lleve a una sola canica en la llegada; cuando ya no queda ningún camino hasta una sola canica, las canicas brillan en rojo. Deshacer anula un salto, hasta el principio. La barra muestra las canicas que quedan.

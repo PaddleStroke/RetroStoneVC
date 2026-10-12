@@ -1,12 +1,16 @@
 Solitaire
 # Målet
-Kuler fyller alle hullene på brettet unntatt ett. La dem hoppe over hverandre til det bare er én igjen, helst i brettets målhull. Velg først brettet:
-- Engelsk: korset med 33 hull. Midten er tom fra start, og den er målet.
-- Fransk: 37 hull, korset og fire til. Det andre hullet i den midterste kolonnen, regnet ovenfra, er tomt fra start; målet er det andre nedenfra (på dette brettet kan ingen runde som begynner med ett tomt hull, ende i midten).
-- Trekant: 15 hull, en kortere runde. Det øverste hullet er tomt fra start, og det er målet.
+Kuler står i hullene på et brett. La dem hoppe over hverandre til det bare er én igjen, i målhullet: hullet med en messingring. Brettene:
+- Engelsk: korset med 33 hull.
+- Fransk: 37 hull, korset og fire til.
+- Rombe: 41 hull.
+- Wieglebs: det brede korset med 45 hull.
+- Trekanter: 15 hull, og den store med 21.
 # Et trekk
-En kule hopper i rett linje over en nabokule og ned i det tomme hullet rett bak. Kulen det ble hoppet over, tas av brettet. På korsene hopper man vannrett og loddrett, aldri på skrå; på trekanten langs de tre retningene.
+En kule hopper i rett linje over en nabokule og ned i det tomme hullet rett bak. Kulen det ble hoppet over, tas av brettet. På korsene og romben hopper man vannrett og loddrett, aldri på skrå; på trekantene langs de tre retningene deres.
 # Slutten på spillet
-Når det ikke finnes flere hopp, er spillet over. Bare én kule igjen: løst, og i gyllent lys hvis den ligger i målhullet. Ellers er kulene som er igjen resultatet ditt: jo færre, jo bedre.
+Bare én kule igjen: løst, og i gyllent lys hvis den ligger i målhullet. Når det ikke finnes flere hopp og det fortsatt er flere kuler igjen, lyser de rødt: angre og prøv en annen vei.
+# Brett og stjerner
+Det er 150 brett i seks kapitler, fra 3 kuler opp til de fulle klassiske brettene (alle hull fylt unntatt ett), som avslutter kapitlene sine; hvert brett kan ende med én kule i målhullet sitt. Velg et i brettoversikten. Fanen med terningen etter kapitlene stiller opp en tilfeldig stilling på brettet du velger, en som kan ende i målhullet. Én kule i målhullet og uten hint: 3 stjerner; én stjerne mindre hvis den siste kulen havner et annet sted, og én stjerne mindre for å bruke hintet (alltid minst 1). Hvert hopp tar av én kule, så hvert spill ned til én kule krever like mange hopp: det som teller, er hvor den siste havner.
 # Spill på enheten
-Trykk på en kule: prikker viser hvor den kan hoppe. Trykk på en prikk, eller dra kulen dit. Du kan også trykke på et tomt hull som bare én kule kan nå. Kulene som tas av, triller ned i rennen rundt brettet. Angre tar tilbake ett hopp, helt til starten. Linjen viser kulene som er igjen og til høyre ditt beste spill på dette brettet siden appen ble åpnet (det lagres ikke).
+Trykk på en kule: prikker viser hvor den kan hoppe. Trykk på en prikk, eller dra kulen dit. Du kan også trykke på et tomt hull som bare én kule kan nå. Kulene som tas av, triller ned i rennen rundt brettet. Lampen ytterst i linjen gir et hint: hoppet du skal gjøre, lyser opp, i gull så lenge det fører til én kule i målhullet; når det ikke finnes noen vei til én kule lenger, lyser kulene rødt. Angre tar tilbake ett hopp, helt til starten. Linjen viser kulene som er igjen.
