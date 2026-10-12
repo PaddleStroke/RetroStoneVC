@@ -1,0 +1,19 @@
+Écarté
+# Le but
+Atteindre 5 points le premier en faisant la majorité des cinq plis de chaque donne. À deux joueurs qui se passent l'appareil ; personne ne voit les cartes de l'autre.
+# Les cartes
+32 cartes. Dans chaque couleur le roi est le plus fort, puis la dame, le valet, l'as, le 10, le 9, le 8, le 7. Chacun reçoit 5 cartes et la suivante est retournée : sa couleur est l'atout. Le reste forme le talon. La donne alterne ; celui qui ne donne pas est le premier en cartes.
+# Le roi
+- Un roi retourné rapporte 1 au donneur.
+- Le joueur qui tient le roi d'atout marque 1 avant le jeu (compté pour lui).
+# L'écart
+Le premier peut proposer de changer des cartes, ou jouer d'autorité. Le donneur accepte ou refuse ; s'il refuse, le jeu commence. S'il accepte, le premier écarte de 1 à 5 cartes et en prend autant au talon, puis le donneur peut en écarter et en prendre de 0 à 5. Le premier peut ensuite proposer de nouveau, tant qu'il reste des cartes au talon.
+# Le jeu
+Le premier entame. Il faut fournir la couleur demandée et prendre le pli si on le peut (avec une carte plus forte de cette couleur). Sans la couleur demandée, il faut couper si on le peut ; sinon on joue n'importe quelle carte. La plus forte carte de la couleur demandée gagne, ou l'atout ; le gagnant entame le pli suivant.
+# Le score
+- 3 ou 4 plis : 1 point. Les 5 plis (la vole) : 2 points.
+- Si le premier a joué d'autorité, ou si le donneur a refusé la première proposition, et que ce joueur fait moins de 3 plis, l'adversaire marque 2.
+# La fin de la partie
+Le premier à 5 points gagne, même grâce au point du roi avant le jeu.
+# Jouer sur l'appareil
+Passe l'appareil au joueur dont la pièce s'affiche ; il touche le bouton de départ et voit sa main en bas. Le talon et la carte retournée sont à gauche, les cartes écartées à droite. Pour proposer, touche le talon qui brille ; pour jouer d'autorité, joue une carte. Le donneur touche la coche pour accepter ou la croix pour refuser. Pour écarter, touche les cartes à jeter (elles se lèvent), puis la coche ; les nouvelles cartes restent un peu plus hautes. Le nombre à côté d'une pièce : les cartes que ce joueur a prises. Pendant le jeu, le nombre à côté d'une pièce compte ses plis, et un petit roi d'atout marque le joueur qui le tient. Pour jouer, touche une carte qui brille pour la lever, puis touche-la encore ou sa place au milieu ; ou fais-la glisser. Chaque barre montre les cartes en main et le score. Après chaque donne, un tableau montre le point du roi, les plis, les points et le total ; touche-le pour la donne suivante.

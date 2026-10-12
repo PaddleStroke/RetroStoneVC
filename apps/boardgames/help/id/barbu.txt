@@ -1,0 +1,22 @@
+Barbu
+# Tujuan
+Kumpulkan poin sebanyak mungkin selama tujuh kontrak, yang dipilih setiap pemain secara bergiliran. Untuk 4 pemain yang saling mengoper perangkat; tak seorang pun melihat kartu pemain lain.
+# Kartu
+Ke-52 kartu, 13 per orang. As adalah kartu tertinggi, lalu raja, ratu, jack, 10 dan seterusnya sampai 2.
+# Kontrak
+Deklarer memilih satu kontrak untuk setiap ronde dan harus memilih masing-masing dari ketujuh kontrak sekali:
+- Tanpa trik: minus 2 untuk setiap trik yang diambil.
+- Tanpa hati: minus 2 untuk setiap hati yang diambil, minus 6 untuk as hati. Tidak ada yang boleh membuka dengan hati selama masih punya jenis lain. Ronde berhenti begitu semua hati sudah diambil.
+- Tanpa ratu: minus 6 untuk setiap ratu yang diambil. Ronde berhenti begitu keempatnya sudah diambil.
+- Tanpa raja hati (si barbu): minus 20 bagi yang mengambilnya. Tidak ada yang boleh membuka dengan hati selama masih punya jenis lain, dan pemegang raja itu harus membuangnya begitu ia tidak bisa mengikuti jenis kartu yang dibuka. Ronde berhenti saat raja itu diambil.
+- Tanpa dua trik terakhir: minus 10 untuk trik kedua dari terakhir, minus 20 untuk trik terakhir.
+- Truf: deklarer menyebut jenis truf; plus 5 untuk setiap trik. Saat truf dibuka, kamu harus mengalahkan truf tertinggi jika bisa; jika tidak bisa mengikuti jenis kartu yang dibuka, kamu harus memainkan truf, lebih tinggi dari truf tertinggi jika bisa.
+- Domino: deklarer menyebut nilai awal. Bergiliran, setiap pemain meletakkan satu kartu: kartu bernilai itu memulai baris jenisnya, dan kartu satu nilai di atas atau di bawah ujung sebuah baris memperpanjangnya (as tinggi, baris tidak menyambung melingkar). Jika kamu bisa meletakkan kartu, kamu wajib meletakkannya; jika tidak, kamu pas. Pemain pertama yang kartunya habis mendapat 45, kedua 20, ketiga 5, terakhir minus 5.
+# Permainan
+Deklarer membuka trik pertama. Ikuti jenis kartu yang dibuka jika bisa; jika tidak, mainkan kartu apa saja (kecuali yang diatur kontrak). Kartu tertinggi dari jenis yang dibuka memenangkan trik, atau truf tertinggi; pemenangnya membuka trik berikutnya.
+# Double
+Dalam varian dengan double, setelah kontrak disebut, setiap pemain lain secara bergiliran boleh men-double siapa pun di antara pemain lain (pada truf dan domino hanya deklarer). Lalu setiap pemain yang di-double, deklarer paling akhir, boleh me-redouble pemain yang men-double-nya. Setelah ronde, setiap pasangan pemain yang terikat double membandingkan poin mereka di ronde itu: selisihnya berpindah dari yang lebih rendah ke yang lebih tinggi, dua kali lipat jika di-redouble. Kewajiban ala Prancis untuk men-double deklarer dua kali per permainan tidak dipakai.
+# Akhir permainan
+Permainan penuh terdiri dari 28 ronde: setiap pemain menjadi deklarer selama tujuh ronde berturut-turut. Permainan pendek terdiri dari 7 ronde: deklarer berganti setiap ronde dan setiap kontrak dimainkan sekali (tiga pemain pertama memilih dua, pemain keempat satu). Semua skor dalam satu permainan berjumlah nol. Total tertinggi menang; pemain yang seri berbagi kemenangan.
+# Bermain di perangkat
+Oper perangkat ke pemain yang bidaknya tampil; ia mengetuk tombol mulai dan melihat kartunya sendiri, terkipas di bawah. Untuk memilih kontrak, ketuk gambarnya (silang merah: kontrak penalti; empat jenis kartu: truf; deretan domino: domino), lalu jenis kartu atau nilai awal jika diminta, lalu tanda centang. Gambar yang pudar sudah dipilih. Untuk men-double, ketuk bidak yang dilingkari emas (muncul tanda silang emas dan angka 2; angka 4 untuk redouble), lalu tanda centang; tanda centang saja tidak men-double siapa pun. Daftar double ada di sudut kiri atas; kontrak dan deklarernya di sudut kanan atas (ketuk untuk melihat tabel skor). Untuk bermain, ketuk kartu yang menyala agar terangkat, lalu ketuk lagi kartu itu atau tempatnya; atau seret. Di domino, jika tidak ada kartu yang cocok, ketuk tombol pas di bilahmu. Di samping setiap bidak: poin ronde sejauh ini (domino: urutan habisnya kartu). Setelah setiap ronde, tabel skor menunjukkan poin setiap pemain di setiap kontrak (sel emas: kontrak yang ia pilih), ronde itu, dan total, dengan satu titik untuk setiap ronde; ketuk untuk ronde berikutnya.

@@ -1,0 +1,22 @@
+Barbu
+# Das Ziel
+Möglichst viele Punkte sammeln über eine Folge von sieben Kontrakten, die jeder Spieler reihum wählt. Für 4 Spieler, die das Gerät herumreichen; niemand sieht die Karten der anderen.
+# Die Karten
+Alle 52 Karten, 13 für jeden. Das Ass ist die höchste Karte, dann König, Dame, Bube, 10 und so weiter bis zur 2.
+# Die Kontrakte
+Der Ansager wählt für jede Runde einen Kontrakt und muss jeden der sieben einmal wählen:
+- Keine Stiche: minus 2 für jeden Stich, den man bekommt.
+- Keine Herzen: minus 2 für jedes Herz, das man bekommt, minus 6 für das Herz-Ass. Niemand darf Herz ausspielen, solange er eine andere Farbe hat. Die Runde endet, sobald alle Herzen vergeben sind.
+- Keine Damen: minus 6 für jede Dame, die man bekommt. Die Runde endet, sobald alle vier vergeben sind.
+- Kein Herz-König (der Barbu): minus 20 für den, der ihn bekommt. Niemand darf Herz ausspielen, solange er eine andere Farbe hat, und wer den König hält, muss ihn abwerfen, sobald er nicht bedienen kann. Die Runde endet, wenn er vergeben ist.
+- Keine letzten zwei Stiche: minus 10 für den vorletzten Stich, minus 20 für den letzten.
+- Trumpf: Der Ansager bestimmt die Trumpffarbe; plus 5 für jeden Stich. Wird Trumpf ausgespielt, musst du den höchsten Trumpf überstechen, wenn du kannst; kannst du nicht bedienen, musst du trumpfen, und zwar über den höchsten Trumpf, wenn du kannst.
+- Domino: Der Ansager nennt einen Startrang. Reihum legt jeder eine Karte: Eine Karte dieses Rangs eröffnet die Reihe ihrer Farbe, und eine Karte einen Rang über oder unter dem Ende einer Reihe verlängert sie (das Ass ist hoch, die Reihen gehen nicht im Kreis). Kannst du eine Karte legen, musst du es; sonst passt du. Wer zuerst alle Karten los ist, bekommt 45, der Zweite 20, der Dritte 5, der Letzte minus 5.
+# Das Spiel
+Der Ansager spielt zum ersten Stich aus. Bediene die ausgespielte Farbe, wenn du kannst; sonst spiel eine beliebige Karte (außer der Kontrakt verlangt etwas anderes). Die höchste Karte der ausgespielten Farbe gewinnt den Stich, oder der höchste Trumpf; ihr Gewinner spielt zum nächsten aus.
+# Doppeln
+In den Varianten mit Doppeln darf, sobald der Kontrakt genannt ist, jeder andere Spieler reihum beliebige der anderen doppeln (bei Trumpf und Domino nur den Ansager). Dann darf jeder gedoppelte Spieler, der Ansager zuletzt, die redoppeln, die ihn gedoppelt haben. Nach der Runde vergleicht jedes gedoppelte Paar seine Punkte dieser Runde: Die Differenz geht vom Niedrigeren zum Höheren, bei Redoppeln zweimal. Die französische Pflicht, den Ansager zweimal pro Partie zu doppeln, entfällt.
+# Das Ende der Partie
+Die volle Partie hat 28 Runden: Jeder Spieler ist sieben Runden hintereinander Ansager. Die kurze Partie hat 7 Runden: Der Ansager wechselt jede Runde, und jeder Kontrakt wird einmal gespielt (die ersten drei Spieler wählen zwei, der vierte einen). Alle Punkte einer Partie ergeben zusammen null. Die höchste Summe gewinnt; Spieler mit gleicher Summe teilen sich den Sieg.
+# Spielen auf dem Gerät
+Gib das Gerät dem Spieler, dessen Stein erscheint; er tippt auf Start und sieht seine Hand, unten aufgefächert. Um einen Kontrakt zu wählen, tippe auf sein Bild (ein rotes Kreuz: ein Strafkontrakt; die vier Farben: Trumpf; die Reihe Dominosteine: Domino), dann auf eine Farbe oder einen Startrang, falls gefragt, dann auf den Haken. Blasse Bilder sind schon gewählt. Zum Doppeln tippe auf die golden umrandeten Steine (ein goldenes Kreuz und eine 2 erscheinen; 4 zum Redoppeln), dann auf den Haken; der Haken allein doppelt niemanden. Die Doppel stehen oben links in der Ecke; der Kontrakt und sein Ansager oben rechts (tippe darauf, um die Punktetafel zu sehen). Zum Spielen tippe eine leuchtende Karte an, damit sie sich hebt, dann tippe sie noch einmal oder ihren Platz an; oder ziehe sie. Passt bei Domino keine Karte, tippe auf den Passen-Knopf in deiner Leiste. Neben jedem Stein: die bisherigen Punkte der Runde (bei Domino: die Reihenfolge, in der die Spieler ausgegangen sind). Nach jeder Runde zeigt die Punktetafel die Punkte jedes Spielers in jedem Kontrakt (goldene Felder: die Kontrakte, die er gewählt hat), die Runde und die Summe, mit einem Punkt für jede Runde; tippe darauf für die nächste Runde.

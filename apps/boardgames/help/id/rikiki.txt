@@ -1,0 +1,16 @@
+Rikiki
+# Tujuan
+Sebutkan dengan tepat berapa trik yang akan kamu ambil, lalu ambil tepat sebanyak itu. Untuk 3 sampai 6 pemain yang saling mengoper perangkat; tak seorang pun melihat kartu pemain lain.
+# Kartu
+52 kartu; as adalah kartu tertinggi. Pembagian pertama memberi 1 kartu per orang, berikutnya 2, dan seterusnya sampai maksimum (13; 10 untuk 5 pemain; 8 untuk 6), lalu turun lagi sampai 1. Setelah setiap pembagian, kartu berikutnya dari dek dibuka: jenisnya menjadi truf. Jika tidak ada kartu tersisa (4 pemain, 13 kartu per orang), ronde itu dimainkan tanpa truf.
+# Penawaran
+Pemain setelah pembagi menawar lebih dulu, pembagi paling akhir. Setiap pemain menyebut berapa trik yang akan ia ambil, dari 0 sampai jumlah kartu di tangan. Pembagi tidak boleh membuat jumlah semua tawaran sama dengan jumlah kartu setiap pemain: harus ada yang gagal (aturan pembagi, lazim di Prancis).
+# Permainan
+Pemain setelah pembagi membuka. Ikuti jenis kartu yang dibuka jika bisa; jika tidak, mainkan kartu apa saja (kamu tidak wajib memainkan truf). Truf tertinggi memenangkan trik, atau jika tidak ada, kartu tertinggi dari jenis yang dibuka; pemenangnya membuka trik berikutnya.
+# Skor
+- Tawaran tepat: 10 poin dan 1 lagi untuk setiap trik yang diambil.
+- Meleset: minus 1 untuk setiap trik yang kelebihan atau kekurangan.
+# Akhir permainan
+Setelah ronde terakhir dengan satu kartu, total tertinggi menang; pemain yang seri berbagi kemenangan.
+# Bermain di perangkat
+Oper perangkat ke pemain yang bidaknya tampil; ia mengetuk tombol mulai dan melihat kartunya sendiri, terkipas di bawah. Untuk menawar, ketuk sebuah angka pada papan angka (angka yang terlarang bagi pembagi dicoret), lalu tanda centang. Setiap bidak menampilkan tawarannya dalam cakram gelap dan trik yang sudah diambil di sebelahnya; punggung kartu kecil menandai pembagi. Kartu yang dibuka ada di sudut kiri bawah (dicoret: tanpa truf). Untuk bermain, ketuk kartu yang menyala agar terangkat, lalu ketuk lagi kartu itu atau tempatnya di tengah; atau seret ke sana. Ketuk tumpukan di kanan bawah untuk melihat trik terakhir. Setiap bilah menunjukkan kartu di tangan dan total. Setelah setiap ronde, sebuah tabel menunjukkan tawaran, trik (emas: tepat), poin, dan total setiap pemain; ketuk untuk ronde berikutnya. Urungkan membatalkan pilihan yang belum dikonfirmasi, tidak pernah kartu setelah perangkat dioper.

@@ -1,0 +1,16 @@
+Rikiki
+# El objetivo
+Declarar exactamente cuántas bazas harás y luego hacer exactamente esas. De 3 a 6 jugadores que se pasan el dispositivo; nadie ve las cartas de los demás.
+# Las cartas
+52 cartas; el as es la carta más alta. El primer reparto da 1 carta a cada uno, el siguiente 2, y así hasta el máximo (13; 10 con 5 jugadores; 8 con 6), y luego se vuelve a bajar hasta 1. Tras cada reparto, la carta siguiente de la baraja se pone boca arriba: su palo es el triunfo. Cuando no queda ninguna carta (4 jugadores, 13 cartas cada uno), la mano se juega sin triunfo.
+# La subasta
+Declara primero el jugador que sigue al que reparte, y el que reparte el último. Cada uno dice cuántas bazas hará, de 0 al número de cartas que tiene en la mano. El que reparte no puede hacer que las declaraciones sumen el número de cartas que tiene cada jugador: alguien no podrá cumplir (la regla del repartidor, habitual en Francia).
+# El juego
+Sale el jugador que sigue al que reparte. Sirve el palo de salida si puedes; si no, juega cualquier carta (no estás obligado a jugar triunfo). El triunfo más alto gana la baza o, si no hay, la carta más alta del palo de salida; quien la gana sale en la siguiente.
+# La puntuación
+- Declaración cumplida exactamente: 10 puntos y 1 más por cada baza hecha.
+- No cumplida: menos 1 por cada baza de más o de menos.
+# El final de la partida
+Tras el último reparto de una carta, gana el total más alto; los empatados comparten la victoria.
+# Jugar en el dispositivo
+Pasa el dispositivo al jugador cuya ficha aparece; toca el botón de inicio y ve su mano, en abanico abajo. Para declarar, toca un número del teclado (el número prohibido al que reparte aparece tachado) y luego la marca de visto. Cada ficha muestra su declaración en un disco oscuro y las bazas hechas al lado; un pequeño reverso de carta señala al que reparte. La carta vuelta está en la esquina de abajo a la izquierda (tachada: sin triunfo). Para jugar, toca una carta que brille para levantarla y vuelve a tocarla o toca su sitio en el centro; o arrástrala hasta allí. Toca el montón de abajo a la derecha para ver la última baza. Cada barra muestra las cartas en la mano y el total. Tras cada mano, una tabla muestra la declaración, las bazas (en dorado: cumplida exactamente), los puntos y el total de cada jugador; tócala para la mano siguiente. Deshacer anula una elección aún no confirmada, nunca una carta una vez pasado el dispositivo.

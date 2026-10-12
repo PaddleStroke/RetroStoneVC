@@ -1,0 +1,19 @@
+Écarté
+# Målet
+Bli først til 5 poeng ved å vinne flest av de fem stikkene i hvert giv. For to spillere som sender enheten over; ingen av dem ser kortene til den andre.
+# Kortene
+32 kort. I hver farge er kongen høyest, så dame, knekt, ess, 10, 9, 8, 7. Hver spiller får 5 kort, og neste kort snus opp: fargen er trumf. Resten er talongen. Man gir annenhver gang; den som ikke gir, er forhånd.
+# Kongen
+- En oppsnudd konge gir giveren 1.
+- Spilleren som har trumfkongen, får 1 før spillet (talt for ham).
+# Kortbyttet
+Forhånden kan foreslå å bytte kort, eller spille med en gang. Giveren sier ja eller nei; sier han nei, begynner spillet. Sier han ja, kaster forhånden 1 til 5 kort og trekker like mange fra talongen, og så kan giveren kaste og trekke 0 til 5. Deretter kan forhånden foreslå igjen, så lenge talongen rekker.
+# Spillet
+Forhånden spiller ut. Du må følge farge og vinne stikket hvis du kan (med et høyere kort i utspilt farge). Kan du ikke følge farge, må du trumfe hvis du kan; ellers spill hvilket som helst kort. Det høyeste kortet i utspilt farge vinner, eller trumfen; vinneren spiller ut til neste stikk.
+# Poengene
+- 3 eller 4 stikk: 1 poeng. Alle 5 stikkene (vole): 2 poeng.
+- Hvis forhånden spilte uten å foreslå, eller giveren avslo det første forslaget, og den spilleren så tar færre enn 3 stikk, får motstanderen 2.
+# Slutten på spillet
+Den første som når 5 poeng, vinner, også med et kongepoeng før spillet.
+# Spill på enheten
+Gi enheten til spilleren som har brikken sin på skjermen; han trykker på start og ser hånden sin nederst. Talongen og det oppsnudde kortet ligger til venstre, de kastede kortene til høyre. For å foreslå trykker du på talongen som lyser; for å spille med en gang spiller du et kort. Giveren trykker på haken for å si ja eller på krysset for å si nei. For å bytte trykker du på kortene du kaster (de løfter seg), og så på haken; de nye kortene står litt høyere. Tallet ved en brikke: kortene den spilleren trakk. Under spillet er tallet ved en brikke stikkene spilleren har tatt, og en liten trumfkonge markerer spilleren som har den. For å spille trykker du på et kort som lyser, så det løfter seg, og trykker på det igjen eller på plassen dets i midten; eller dra det dit. Hver linje viser kortene på hånden og stillingen. Etter hvert giv viser en tavle kongepoenget, stikkene, poengene og summen; trykk på den for neste giv.

@@ -1,0 +1,19 @@
+Écarté
+# O objetivo
+Ser o primeiro a chegar aos 5 pontos ganhando a maioria das cinco vazas de cada ronda. Para dois jogadores que passam o dispositivo; nenhum dos dois vê as cartas do outro.
+# As cartas
+32 cartas. Em cada naipe o rei é a mais alta, depois a dama, o valete, o ás, o 10, o 9, o 8, o 7. Cada jogador recebe 5 cartas e a carta seguinte é voltada para cima: o seu naipe é o trunfo. O resto é o monte. Quem dá as cartas alterna; quem não dá é o primeiro (a mão).
+# O rei
+- Um rei voltado vale 1 ponto para quem dá as cartas.
+- O jogador que tem o rei de trunfo marca 1 antes do jogo (contado a seu favor).
+# O descarte
+O primeiro pode propor trocar cartas, ou jogar logo. Quem dá as cartas aceita ou recusa; se recusar, o jogo começa. Se aceitar, o primeiro descarta de 1 a 5 cartas e compra outras tantas do monte, e depois quem dá as cartas pode descartar e comprar de 0 a 5. Depois o primeiro pode voltar a propor, enquanto houver cartas no monte.
+# O jogo
+O primeiro sai. Tens de assistir ao naipe de saída e ganhar a vaza se puderes (com uma carta mais alta do naipe de saída). Se não puderes assistir, tens de cortar se puderes; senão, joga qualquer carta. A carta mais alta do naipe de saída ganha, ou o trunfo; quem ganha sai na vaza seguinte.
+# A pontuação
+- 3 ou 4 vazas: 1 ponto. As 5 vazas todas (capote): 2 pontos.
+- Se o primeiro jogou sem propor, ou quem dá as cartas recusou a primeira proposta, e esse jogador depois faz menos de 3 vazas, o adversário marca 2.
+# O fim do jogo
+Ganha quem chegar primeiro aos 5 pontos, mesmo com o ponto do rei antes do jogo.
+# Jogar no dispositivo
+Passa o dispositivo ao jogador cuja peça aparece; ele toca no botão de início e vê a sua mão em baixo. O monte e a carta voltada ficam à esquerda, as cartas descartadas à direita. Para propor, toca no monte que brilha; para jogar logo, joga uma carta. Quem dá as cartas toca no sinal de confirmação para aceitar ou na cruz para recusar. Para trocar cartas, toca nas que deitas fora (levantam-se) e depois no sinal de confirmação; as cartas novas ficam um pouco mais altas. O número ao lado de uma peça: as cartas que esse jogador comprou. Durante o jogo, o número ao lado de uma peça são as vazas feitas, e um pequeno rei de trunfo marca o jogador que o tem. Para jogar, toca numa carta que brilha para a levantar e toca-lhe outra vez ou no seu lugar no centro; ou arrasta-a. Cada barra mostra as cartas na mão e a pontuação. Depois de cada ronda, uma tabela mostra o ponto do rei, as vazas, os pontos e o total; toca nela para a ronda seguinte.

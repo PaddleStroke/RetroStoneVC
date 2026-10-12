@@ -1,0 +1,19 @@
+Écarté
+# Tujuan
+Jadilah yang pertama mencapai 5 poin dengan memenangkan sebagian besar dari lima trik di setiap ronde. Untuk dua pemain yang saling mengoper perangkat; tak seorang pun melihat kartu lawannya.
+# Kartu
+32 kartu. Di setiap jenis, raja adalah yang tertinggi, lalu ratu, jack, as, 10, 9, 8, 7. Setiap pemain mendapat 5 kartu dan kartu berikutnya dibuka: jenisnya menjadi truf. Sisanya menjadi tumpukan. Pembagi bergantian; pemain yang tidak membagi adalah pemain pertama.
+# Raja
+- Raja yang dibuka bernilai 1 untuk pembagi.
+- Pemain yang memegang raja truf mendapat 1 sebelum permainan (dihitung untuknya).
+# Penukaran kartu
+Pemain pertama boleh mengusulkan penukaran kartu, atau langsung bermain. Pembagi menerima atau menolak; jika menolak, permainan dimulai. Jika menerima, pemain pertama membuang 1 sampai 5 kartu dan mengambil sebanyak itu dari tumpukan, lalu pembagi boleh membuang dan mengambil 0 sampai 5. Setelah itu pemain pertama boleh mengusulkan lagi, selama tumpukan masih ada.
+# Permainan
+Pemain pertama membuka. Kamu harus mengikuti jenis kartu yang dibuka dan memenangkan trik jika bisa (dengan kartu yang lebih tinggi dari jenis yang dibuka). Jika tidak bisa mengikuti, kamu harus memainkan truf jika bisa; jika tidak, mainkan kartu apa saja. Kartu yang lebih tinggi dari jenis yang dibuka menang, atau truf; pemenangnya membuka trik berikutnya.
+# Skor
+- 3 atau 4 trik: 1 poin. Kelima trik (vole): 2 poin.
+- Jika pemain pertama langsung bermain tanpa mengusulkan, atau pembagi menolak usulan pertama, dan pemain itu kemudian mengambil kurang dari 3 trik, lawannya mendapat 2.
+# Akhir permainan
+Siapa pun yang lebih dulu mencapai 5 poin menang, bahkan lewat poin raja sebelum permainan.
+# Bermain di perangkat
+Oper perangkat ke pemain yang bidaknya tampil; ia mengetuk tombol mulai dan melihat kartunya sendiri di bawah. Tumpukan dan kartu yang dibuka ada di kiri, kartu yang dibuang di kanan. Untuk mengusulkan, ketuk tumpukan yang menyala; untuk langsung bermain, mainkan sebuah kartu. Pembagi mengetuk tanda centang untuk menerima atau tanda silang untuk menolak. Untuk menukar kartu, ketuk kartu yang ingin dibuang (kartu terangkat), lalu tanda centang; kartu baru berdiri sedikit lebih tinggi. Angka di samping bidak: jumlah kartu yang diambil pemain itu. Selama permainan, angka di samping bidak adalah trik yang sudah diambil, dan raja truf kecil menandai pemain yang memegangnya. Untuk bermain, ketuk kartu yang menyala agar terangkat, lalu ketuk lagi kartu itu atau tempatnya di tengah; atau seret. Setiap bilah menunjukkan kartu di tangan dan skor. Setelah setiap ronde, sebuah tabel menunjukkan poin raja, trik, poin, dan total; ketuk untuk ronde berikutnya.

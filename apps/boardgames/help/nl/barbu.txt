@@ -1,0 +1,22 @@
+Barbu
+# Het doel
+Zo veel mogelijk punten halen over een reeks van zeven contracten, die elke speler om de beurt kiest. Voor 4 spelers die het apparaat doorgeven; niemand ziet de kaarten van de anderen.
+# De kaarten
+Alle 52 kaarten, 13 per speler. De aas is de hoogste kaart, dan heer, vrouw, boer, 10 en zo verder tot de 2.
+# De contracten
+De leider kiest elke ronde één contract en moet elk van de zeven één keer kiezen:
+- Geen slagen: min 2 voor elke slag die je haalt.
+- Geen harten: min 2 voor elke harten die je haalt, min 6 voor hartenaas. Niemand mag met harten uitkomen zolang hij een andere kleur heeft. De ronde stopt zodra alle harten gehaald zijn.
+- Geen vrouwen: min 6 voor elke vrouw die je haalt. De ronde stopt zodra alle vier gehaald zijn.
+- Geen hartenheer (de barbu): min 20 voor wie hem haalt. Niemand mag met harten uitkomen zolang hij een andere kleur heeft, en wie de heer heeft, moet hem afgooien zodra hij geen kleur kan bekennen. De ronde stopt als hij gehaald is.
+- Geen laatste twee slagen: min 10 voor de voorlaatste slag, min 20 voor de laatste.
+- Troef: de leider noemt de troefkleur; plus 5 voor elke slag. Wordt er troef gevraagd, dan moet je de hoogste troef overtroeven als je kunt; kun je geen kleur bekennen, dan moet je troeven, boven de hoogste troef als je kunt.
+- Domino: de leider noemt een beginwaarde. Om de beurt legt elke speler één kaart: een kaart van die waarde begint de rij van haar kleur, en een kaart één hoger of lager dan het eind van een rij verlengt die (de aas is hoog, de rijen lopen niet rond). Kun je een kaart leggen, dan moet je dat; anders pas je. Wie het eerst uit is, krijgt 45, de tweede 20, de derde 5, de laatste min 5.
+# Het spel
+De leider komt uit in de eerste slag. Beken kleur als je kunt; speel anders een willekeurige kaart (behalve als het contract iets anders eist). De hoogste kaart van de gevraagde kleur wint de slag, of de hoogste troef; de winnaar komt uit in de volgende.
+# Doubleren
+In de varianten met doubleren mag, zodra het contract genoemd is, elke andere speler om de beurt wie hij wil van de anderen doubleren (bij troef en domino alleen de leider). Daarna mag elke gedoubleerde speler, de leider als laatste, redoubleren tegen wie hem doubleerde. Na de ronde vergelijkt elk gedoubleerd paar zijn punten van die ronde: het verschil gaat van de laagste naar de hoogste, twee keer bij een redoublet. De Franse plicht om de leider twee keer per partij te doubleren is weggelaten.
+# Het einde van de partij
+De volledige partij telt 28 rondes: elke speler is zeven rondes achter elkaar leider. De korte partij telt 7 rondes: de leider wisselt elke ronde en elk contract wordt één keer gespeeld (de eerste drie spelers kiezen er twee, de vierde één). Alle punten van een partij tellen samen op tot nul. Het hoogste totaal wint; spelers die gelijk staan delen de winst.
+# Spelen op het apparaat
+Geef het apparaat aan de speler wiens fiche verschijnt; die tikt op start en ziet zijn hand, onderaan in een waaier. Om een contract te kiezen tik je op zijn plaatje (een rood kruis: een strafcontract; de vier kleuren: troef; de rij dominostenen: domino), dan op een kleur of een beginwaarde als daarom gevraagd wordt, en dan op het vinkje. Vervaagde plaatjes zijn al gekozen. Om te doubleren tik je op de fiches met een gouden ring (een gouden kruis en een 2 verschijnen; 4 om te redoubleren), en dan op het vinkje; alleen het vinkje doubleert niemand. De doubletten staan linksboven; het contract en zijn leider rechtsboven (tik erop om de scoretabel te zien). Om te spelen tik je een oplichtende kaart aan zodat hij omhoog komt, en tik je hem nog eens of zijn plek aan; of sleep hem. Past er bij domino geen kaart, tik dan op de pasknop in je balk. Naast elk fiche: de punten van de ronde tot nu toe (bij domino: de volgorde waarin de spelers uitgingen). Na elke ronde toont de scoretabel de punten van elke speler in elk contract (gouden vakjes: de contracten die hij koos), de ronde en het totaal, met een stip voor elke ronde; tik erop voor de volgende ronde.

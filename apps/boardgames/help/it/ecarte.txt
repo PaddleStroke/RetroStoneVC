@@ -1,0 +1,19 @@
+Écarté
+# Lo scopo
+Arrivare per primo a 5 punti vincendo la maggior parte delle cinque prese di ogni smazzata. Per due giocatori che si passano il dispositivo; nessuno dei due vede le carte dell'altro.
+# Le carte
+32 carte. In ogni seme il re è la carta più alta, poi la donna, il fante, l'asso, il 10, il 9, l'8, il 7. Ognuno riceve 5 carte e la carta successiva viene girata scoperta: il suo seme è briscola. Il resto è il tallone. La distribuzione si alterna; chi non distribuisce è il primo di mano.
+# Il re
+- Un re girato vale 1 punto per il mazziere.
+- Il giocatore che ha il re di briscola segna 1 prima del gioco (contato a suo favore).
+# Lo scarto
+Il primo può proporre di cambiare carte, oppure giocare subito. Il mazziere accetta o rifiuta; se rifiuta, il gioco comincia. Se accetta, il primo scarta da 1 a 5 carte e ne pesca altrettante dal tallone, poi il mazziere può scartarne e pescarne da 0 a 5. Poi il primo può proporre di nuovo, finché dura il tallone.
+# Il gioco
+Il primo esce. Devi rispondere al seme e vincere la presa se puoi (con una carta più alta del seme di uscita). Se non puoi rispondere al seme devi giocare briscola se puoi; altrimenti gioca una carta qualsiasi. Vince la carta più alta del seme di uscita, oppure la briscola; chi vince esce nella presa successiva.
+# Il punteggio
+- 3 o 4 prese: 1 punto. Tutte e 5 le prese (cappotto): 2 punti.
+- Se il primo ha giocato senza proporre, o il mazziere ha rifiutato la prima proposta, e quel giocatore poi fa meno di 3 prese, l'avversario segna 2.
+# La fine della partita
+Vince chi arriva prima a 5 punti, anche con il punto del re prima del gioco.
+# Giocare sul dispositivo
+Passa il dispositivo al giocatore di cui appare la pedina; tocca il pulsante di avvio e vede la sua mano in basso. Il tallone e la carta girata stanno a sinistra, le carte scartate a destra. Per proporre, tocca il tallone che brilla; per giocare subito, gioca una carta. Il mazziere tocca il segno di spunta per accettare o la croce per rifiutare. Per cambiare carte, tocca quelle da scartare (si sollevano), poi il segno di spunta; le carte nuove restano un po' più in alto. Il numero accanto a una pedina: le carte che quel giocatore ha pescato. Durante il gioco il numero accanto a una pedina indica le prese fatte, e un piccolo re di briscola indica il giocatore che lo ha. Per giocare, tocca una carta che brilla per sollevarla, poi toccala di nuovo o tocca il suo posto al centro; oppure trascinala. Ogni barra mostra le carte in mano e il punteggio. Dopo ogni smazzata una tabella mostra il punto del re, le prese, i punti e il totale; toccala per la smazzata successiva.

@@ -1,0 +1,16 @@
+Rikiki
+# Lo scopo
+Dichiarare esattamente quante prese farai, poi farne esattamente tante. Da 3 a 6 giocatori che si passano il dispositivo; nessuno vede le carte degli altri.
+# Le carte
+52 carte; l'asso è la carta più alta. La prima smazzata dà 1 carta a testa, la successiva 2, e così via fino al massimo (13; 10 in 5; 8 in 6), poi si ridiscende fino a 1. Dopo ogni distribuzione la carta successiva del mazzo viene girata scoperta: il suo seme è briscola. Quando non resta nessuna carta (in 4, 13 carte a testa) la smazzata si gioca senza briscola.
+# La dichiarazione
+Il giocatore dopo il mazziere dichiara per primo, il mazziere per ultimo. Ognuno dice quante prese farà, da 0 al numero di carte in mano. Il mazziere non può far sì che le dichiarazioni sommino il numero di carte che ha ogni giocatore: qualcuno deve andare sotto (la regola del mazziere, comune in Francia).
+# Il gioco
+Il giocatore dopo il mazziere esce. Rispondi al seme di uscita se puoi; altrimenti gioca una carta qualsiasi (non sei obbligato a giocare briscola). La briscola più alta vince la presa, altrimenti la carta più alta del seme di uscita; chi la vince esce nella successiva.
+# Il punteggio
+- Dichiarazione rispettata esattamente: 10 punti e 1 in più per ogni presa fatta.
+- Mancata: meno 1 per ogni presa in più o in meno.
+# La fine della partita
+Dopo l'ultima smazzata da una carta, vince il totale più alto; i giocatori a pari merito condividono la vittoria.
+# Giocare sul dispositivo
+Passa il dispositivo al giocatore di cui appare la pedina; tocca il pulsante di avvio e vede la sua mano, a ventaglio in basso. Per dichiarare, tocca un numero sul tastierino (il numero vietato al mazziere è barrato), poi il segno di spunta. Ogni pedina mostra la sua dichiarazione in un disco scuro e le prese fatte lì accanto; un piccolo dorso di carta indica il mazziere. La carta girata sta nell'angolo in basso a sinistra (barrata: senza briscola). Per giocare, tocca una carta che brilla per sollevarla, poi toccala di nuovo o tocca il suo posto al centro; oppure trascinala lì. Tocca il mazzetto in basso a destra per rivedere l'ultima presa. Ogni barra mostra le carte in mano e il totale. Dopo ogni smazzata una tabella mostra la dichiarazione, le prese (in oro: rispettata esattamente), i punti e il totale di ciascuno; toccala per la smazzata successiva. Annulla ritira una scelta non ancora confermata, mai una carta una volta passato il dispositivo.

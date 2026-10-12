@@ -1,0 +1,16 @@
+Rikiki
+# Het doel
+Zeg precies hoeveel slagen je haalt, en haal er dan precies zoveel. Voor 3 tot 6 spelers die het apparaat doorgeven; niemand ziet de kaarten van de anderen.
+# De kaarten
+52 kaarten; de aas is de hoogste kaart. In de eerste ronde krijgt iedereen 1 kaart, in de volgende 2, en zo verder tot het maximum (13; 10 met 5 spelers; 8 met 6), en dan weer terug tot 1. Na elke deling wordt de volgende kaart van de stapel opengedraaid: haar kleur is troef. Is er geen kaart meer over (4 spelers, 13 kaarten elk), dan wordt de ronde zonder troef gespeeld.
+# Bieden
+De speler na de gever biedt eerst, de gever als laatste. Elke speler zegt hoeveel slagen hij zal halen, van 0 tot het aantal kaarten in zijn hand. De gever mag de biedingen niet laten optellen tot het aantal kaarten dat elke speler heeft: iemand moet de mist ingaan (de geversregel, gebruikelijk in Frankrijk).
+# Het spel
+De speler na de gever komt uit. Beken kleur als je kunt; speel anders een willekeurige kaart (je hoeft niet te troeven). De hoogste troef wint de slag, en anders de hoogste kaart van de gevraagde kleur; de winnaar komt uit in de volgende.
+# De telling
+- Bod precies gehaald: 10 punten en 1 meer voor elke gehaalde slag.
+- Gemist: min 1 voor elke slag te veel of te weinig.
+# Het einde van de partij
+Na de laatste ronde van één kaart wint het hoogste totaal; spelers die gelijk staan delen de winst.
+# Spelen op het apparaat
+Geef het apparaat aan de speler wiens fiche verschijnt; die tikt op start en ziet zijn hand, onderaan in een waaier. Om te bieden tik je een getal aan op het toetsenblok (het verboden getal van de gever is doorgestreept) en dan het vinkje. Elk fiche toont zijn bod in een donkere schijf en de gehaalde slagen ernaast; een kleine kaartrug wijst de gever aan. De opengedraaide kaart ligt in de hoek linksonder (doorgestreept: geen troef). Om te spelen tik je een oplichtende kaart aan zodat hij omhoog komt, en tik je hem nog eens of zijn plek in het midden aan; of sleep hem erheen. Tik op het stapeltje rechtsonder om de laatste slag te zien. Elke balk toont de kaarten in de hand en het totaal. Na elke ronde toont een tabel ieders bod, slagen (in goud: precies gehaald), punten en totaal; tik erop voor de volgende ronde. Ongedaan maken neemt een nog niet bevestigde keuze terug, nooit een kaart als het apparaat al doorgegeven is.

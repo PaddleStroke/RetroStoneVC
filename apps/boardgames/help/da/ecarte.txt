@@ -1,0 +1,19 @@
+Écarté
+# Målet
+Vær den første, der når 5 point, ved at vinde flest af de fem stik i hvert giv. For to spillere, der sender enheden over; ingen af dem ser den andens kort.
+# Kortene
+32 kort. I hver kulør er kongen højest, så dame, knægt, es, 10, 9, 8, 7. Hver spiller får 5 kort, og det næste kort vendes: dets kulør er trumf. Resten er talonen. Man giver skiftevis; den, der ikke giver, er forhånd.
+# Kongen
+- En vendt konge giver giveren 1.
+- Den spiller, der har trumfkongen, får 1 før spillet (talt for ham).
+# Kortbyttet
+Forhånden kan foreslå at bytte kort eller spille med det samme. Giveren siger ja eller nej; siger han nej, begynder spillet. Siger han ja, lægger forhånden 1 til 5 kort fra sig og trækker lige så mange fra talonen, og så må giveren lægge 0 til 5 fra sig og trække. Derefter må forhånden foreslå igen, så længe talonen rækker.
+# Spillet
+Forhånden spiller ud. Du skal bekende kulør og vinde stikket, hvis du kan (med et højere kort i den udspillede kulør). Kan du ikke bekende kulør, skal du trumfe, hvis du kan; ellers spil et hvilket som helst kort. Det højeste kort i den udspillede kulør vinder, eller trumfen; vinderen spiller ud til næste stik.
+# Pointene
+- 3 eller 4 stik: 1 point. Alle 5 stik (vole): 2 point.
+- Hvis forhånden spillede uden at foreslå, eller giveren afslog det første forslag, og den spiller så tager færre end 3 stik, får modstanderen 2.
+# Spillets afslutning
+Den første, der når 5 point, vinder, også med et kongepoint før spillet.
+# Spil på enheden
+Giv enheden til spilleren, hvis brik vises; han trykker på start og ser sin hånd forneden. Talonen og det vendte kort ligger til venstre, de kort, der er lagt fra, til højre. For at foreslå trykker du på den lysende talon; for at spille med det samme spiller du et kort. Giveren trykker på fluebenet for at sige ja eller på krydset for at sige nej. For at bytte trykker du på de kort, du lægger fra dig (de løfter sig), og så på fluebenet; de nye kort står lidt højere. Tallet ved en brik: de kort, spilleren trak. Under spillet er tallet ved en brik de tagne stik, og en lille trumfkonge markerer den spiller, der har den. For at spille trykker du på et kort, der lyser, så det løfter sig, og trykker på det igen eller på dets plads i midten; eller træk det derhen. Hver bjælke viser kortene på hånden og stillingen. Efter hvert giv viser en tavle kongepointet, stikkene, pointene og summen; tryk på den for næste giv.

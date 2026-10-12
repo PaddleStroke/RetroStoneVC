@@ -1,0 +1,22 @@
+Barbu
+# Målet
+Ta flest poäng under en serie på sju kontrakt, som varje spelare väljer i tur och ordning. För 4 spelare som skickar enheten runt; ingen ser de andras kort.
+# Korten
+Alla 52 korten, 13 var. Esset är högsta kortet, sedan kung, dam, knekt, 10 och så vidare ner till 2.
+# Kontrakten
+Spelföraren väljer ett kontrakt för varje giv och måste välja vart och ett av de sju en gång:
+- Inga stick: minus 2 för varje stick man tar.
+- Inga hjärter: minus 2 för varje hjärter man tar, minus 6 för hjärter ess. Ingen får spela ut hjärter så länge han har en annan färg. Given slutar när alla hjärter är tagna.
+- Inga damer: minus 6 för varje dam man tar. Given slutar när alla fyra är tagna.
+- Ingen hjärter kung (barbun): minus 20 för den som tar honom. Ingen får spela ut hjärter så länge han har en annan färg, och den som har kungen måste kasta honom så snart han inte kan bekänna färg. Given slutar när han är tagen.
+- Inte de två sista sticken: minus 10 för näst sista sticket, minus 20 för det sista.
+- Trumf: spelföraren väljer trumffärg; plus 5 för varje stick. När trumf spelas ut måste du gå över den högsta trumfen om du kan; kan du inte bekänna färg måste du trumfa, över den högsta trumfen om du kan.
+- Domino: spelföraren väljer en startvalör. I tur och ordning lägger varje spelare ett kort: ett kort av den valören börjar raden i sin färg, och ett kort en valör över eller under änden av en rad förlänger den (esset är högt, raderna går inte runt). Kan du lägga ett kort måste du; annars passar du. Den som först blir av med sina kort får 45, den andra 20, den tredje 5, den sista minus 5.
+# Spelet
+Spelföraren spelar ut till första sticket. Bekänn färg om du kan; annars spela valfritt kort (utom när kontraktet kräver annat). Det högsta kortet i utspelad färg vinner sticket, eller den högsta trumfen; vinnaren spelar ut till nästa.
+# Dubbla
+I varianterna med dubbling får varje annan spelare i tur och ordning, när kontraktet är valt, dubbla vem han vill av de andra (i trumf och domino bara spelföraren). Sedan får varje dubblad spelare, spelföraren sist, redubbla dem som dubblade honom. Efter given jämför varje dubblat par sina poäng i given: skillnaden går från den lägre till den högre, två gånger om det är redubblat. Den franska plikten att dubbla spelföraren två gånger per parti är borttagen.
+# Partiets slut
+Hela partiet har 28 givar: varje spelare är spelförare i sju givar i rad. Det korta partiet har 7 givar: spelföraren byts varje giv och varje kontrakt spelas en gång (de tre första spelarna väljer två, den fjärde ett). Alla poäng i ett parti blir tillsammans noll. Högsta summan vinner; spelare som står lika delar segern.
+# Spela på enheten
+Ge enheten till spelaren vars bricka visas; han trycker på start och ser sin hand, solfjädrad längst ner. För att välja ett kontrakt trycker du på dess bild (ett rött kryss: ett straffkontrakt; de fyra färgerna: trumf; raden av dominobrickor: domino), sedan på en färg eller en startvalör om du blir tillfrågad, och sedan på bocken. Bleka bilder är redan valda. För att dubbla trycker du på brickorna med guldring (ett guldkryss och en 2 visas; 4 för att redubbla), och sedan på bocken; bocken ensam dubblar ingen. Dubblingarna står i hörnet uppe till vänster; kontraktet och dess spelförare uppe till höger (tryck på dem för att se poängtavlan). För att spela trycker du på ett kort som lyser så att det lyfts, och trycker på det igen eller på dess plats; eller dra det. I domino, när inget kort passar, trycker du på passknappen i din list. Vid varje bricka: givens poäng hittills (i domino: ordningen de gick ut i). Efter varje giv visar poängtavlan varje spelares poäng i varje kontrakt (guldrutor: kontrakten han valde), given och summan, med en prick för varje giv; tryck på den för nästa giv.

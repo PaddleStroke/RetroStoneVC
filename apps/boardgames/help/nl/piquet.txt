@@ -1,0 +1,23 @@
+Piket
+# Het doel
+Het klassieke Franse spel voor twee (rubicon-piket): haal in een partij van zes rondes meer punten dan je tegenstander, en minstens 100. Geef het apparaat door na elke beurt; geen van beiden ziet de kaarten van de ander.
+# De kaarten
+32 kaarten: aas (de hoogste), heer, vrouw, boer, 10, 9, 8, 7. Het delen wisselt af; wie niet deelt, is de voorhand. Elke speler krijgt 12 kaarten; de andere 8 vormen de talon.
+# Het ruilen
+De voorhand legt 1 tot 5 kaarten weg en neemt er evenveel van de bovenkant van de talon. Daarna mag de achterhand tot zoveel kaarten wegleggen als er nog over zijn (meestal 3) en die nemen. Kaarten die overblijven, blijven gedekt liggen, ongezien.
+# De meldingen
+Elke soort telt alleen voor de speler die de betere heeft; gelijke tellen niets:
+- Carte blanche: twaalf gedeelde kaarten zonder heer, vrouw of boer: 10.
+- Het punt: de meeste kaarten in één kleur (bij gelijkheid de hoogste waarde: aas 11, heer, vrouw en boer 10, de andere hun getal): 1 punt per kaart.
+- Reeksen: drie of meer opeenvolgende kaarten in één kleur. De langste wint (bij gelijkheid die met de hoogste bovenste kaart) en de eigenaar telt al zijn reeksen: 3 kaarten 3, 4 kaarten 4, 5 kaarten 15, 6 kaarten 16, 7 kaarten 17, 8 kaarten 18.
+- Drietallen en viertallen: drie of vier kaarten van dezelfde rang, 10 of hoger. Vier gaan boven drie, daarna wint de hoogste rang; de winnaar telt al de zijne: viertal 14, drietal 3.
+De voorhand meldt, de achterhand antwoordt: „goed” (die van de voorhand is beter), „niet goed” (die van de achterhand is beter) of „gelijk”. Hier is elke melding de beste die de hand heeft, worden beide gedaan vóór de eerste uitkomst, en worden de betere combinaties aan beide spelers getoond.
+# Het spel
+De voorhand komt uit. Beken kleur als je kunt, speel anders een willekeurige kaart; er is geen troef. De hoogste kaart van de gevraagde kleur wint en komt daarna uit. Uitkomen met een 10 of hoger levert 1 op; de uitkomst van je tegenstander winnen met een 10 of hoger levert 1 op; de laatste slag levert 1 extra op. De meeste slagen (7 of meer) leveren 10 op; alle 12 slagen (capot) leveren in plaats daarvan 40 op.
+# Pique en repique
+- Repique: 30 punten met alleen de meldingen (geteld in deze volgorde: carte blanche, punt, reeksen, drie- en viertallen) voordat de tegenstander iets telt: 60 extra.
+- Pique: de voorhand haalt 30 met meldingen en punten uit het spel (niet de 10 voor de meeste slagen en niet capot) voordat de achterhand iets telt: 30 extra. Alleen de voorhand kan pique maken.
+# Het einde van de partij
+Na zes rondes wint het hoogste totaal. Een verliezer onder de 100 blijft onder de rubicon: de winnaar krijgt beide totalen plus 100. Anders krijgt de winnaar het verschil plus 100. Gelijke totalen: remise.
+# Spelen op het apparaat
+Geef het apparaat aan de speler wiens fiche verschijnt; die tikt op start en ziet zijn hand, onderaan in een waaier. Om te ruilen tik je de kaarten aan die je weglegt (ze komen omhoog), dan het vinkje naast de talon; de nieuwe kaarten staan wat hoger. Het getal naast een fiche: de kaarten die die speler ruilde. De meldingen verschijnen op een bord: een kolom voor het punt (drie kaarten van één kleur), de reeksen (een trap van kaarten), de drie- en viertallen (drie azen) en carte blanche (een blanco kaart); een rij per speler, je tegenstander bovenaan. Het punt toont zijn aantal kaarten en zijn waarde, een reeks haar lengte en hoogste kaart, een drie- of viertal zijn grootte en rang. De voorhand ziet de eigen rij en tikt op het vinkje. Daarna ziet de achterhand beide rijen: een gouden vinkje en de punten naast de betere („goed” of „niet goed”), een isgelijkteken voor „gelijk”; zijn vinkje toont beide spelers de kaarten van de betere combinaties. Het bord blijft staan tot de voorhand uitkomt. Om te spelen tik je een oplichtende kaart aan zodat hij omhoog komt, en tik je hem nog eens of zijn plek in het midden aan; of sleep hem erheen. Het getal naast een fiche: de punten van die speler in deze ronde. Na elke ronde toont een tabel de meldingen, de punten uit het spel (een kroon: capot), pique of repique (het schoppenteken), de ronde en het totaal, en de zes rondes als stippen; na de zesde de score van de winnaar voor de partij (een doorgestreepte 100: de verliezer bleef onder de rubicon).

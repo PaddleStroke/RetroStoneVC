@@ -1,0 +1,16 @@
+Rikiki
+# Cíl hry
+Ohlásit přesně, kolik štychů uděláš, a pak jich udělat právě tolik. Pro 3 až 6 hráčů, kteří si podávají zařízení; nikdo nevidí karty ostatních.
+# Karty
+52 karet; eso je nejvyšší karta. První rozdání dá každému 1 kartu, další 2 a tak dále až po nejvíc (13; 10 při 5 hráčích; 8 při 6), pak zpět dolů až k 1. Po každém rozdání se další karta balíčku otočí lícem nahoru: její barva jsou trumfy. Když žádná karta nezbude (4 hráči, po 13 kartách), hraje se rozdání bez trumfů.
+# Hlášení
+Hráč po rozdávajícím hlásí první, rozdávající poslední. Každý ohlásí, kolik štychů udělá, od 0 do počtu karet v ruce. Rozdávající nesmí ohlásit tolik, aby se součet hlášení rovnal počtu karet, které má každý hráč: někdo musí selhat (pravidlo rozdávajícího, ve Francii obvyklé).
+# Hra
+Hráč po rozdávajícím vynáší. Přiznej barvu, pokud můžeš; jinak zahraj libovolnou kartu (trumfovat nemusíš). Štych bere nejvyšší trumf, jinak nejvyšší karta vynesené barvy; jeho vítěz vynáší do dalšího.
+# Počítání bodů
+- Hlášení splněné přesně: 10 bodů a 1 navíc za každý udělaný štych.
+- Nesplněné: minus 1 za každý štych navíc nebo chybějící.
+# Konec hry
+Po posledním rozdání po jedné kartě vyhrává nejvyšší součet; hráči se stejným součtem se o vítězství dělí.
+# Hra na zařízení
+Podej zařízení hráči, jehož kámen se ukáže; ten klepne na start a uvidí svou ruku rozloženou do vějíře dole. Pro hlášení klepni na číslo na číselníku (číslo zakázané rozdávajícímu je přeškrtnuté) a pak na fajfku. Každý kámen ukazuje své hlášení v tmavém kotouči a udělané štychy hned vedle; malý rub karty označuje rozdávajícího. Otočená karta leží v levém dolním rohu (přeškrtnutá: bez trumfů). Pro zahrání klepni na svítící kartu, aby se zvedla, a klepni na ni znovu nebo na její místo uprostřed; nebo ji tam přetáhni. Klepnutím na hromádku vpravo dole uvidíš poslední štych. Každý pruh ukazuje karty v ruce a součet. Po každém rozdání ukáže tabulka hlášení každého hráče, štychy (zlatě: splněno přesně), body a součet; klepnutím na ni začne další rozdání. Zpět vrátí ještě nepotvrzenou volbu, nikdy kartu poté, co se zařízení předalo.

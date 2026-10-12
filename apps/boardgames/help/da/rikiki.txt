@@ -1,0 +1,16 @@
+Rikiki
+# Målet
+Meld præcis, hvor mange stik du vil tage, og tag så præcis så mange. For 3 til 6 spillere, der sender enheden rundt; ingen ser de andres kort.
+# Kortene
+52 kort; esset er det højeste kort. I første giv får hver spiller 1 kort, i det næste 2 og så videre op til det højeste antal (13; 10 med 5 spillere; 8 med 6), og så ned igen til 1. Efter hver kortgivning vendes bunkens næste kort: dets kulør er trumf. Er der ingen kort tilbage (4 spillere, 13 kort hver), spilles givet uden trumf.
+# Meldingen
+Spilleren efter giveren melder først, giveren sidst. Hver spiller melder, hvor mange stik han vil tage, fra 0 til antallet af kort på hånden. Giveren må ikke melde, så meldingerne tilsammen giver det antal kort, hver spiller har: nogen skal falde (giverens regel, almindelig i Frankrig).
+# Spillet
+Spilleren efter giveren spiller ud. Bekend kulør, hvis du kan; ellers spil et hvilket som helst kort (du behøver ikke trumfe). Den højeste trumf vinder stikket, ellers det højeste kort i den udspillede kulør; vinderen spiller ud til det næste.
+# Pointene
+- Meldingen holdt præcis: 10 point og 1 mere for hvert taget stik.
+- Ikke holdt: minus 1 for hvert stik for meget eller for lidt.
+# Spillets afslutning
+Efter det sidste giv med ét kort vinder den højeste sum; spillere, der står lige, deler sejren.
+# Spil på enheden
+Giv enheden til spilleren, hvis brik vises; han trykker på start og ser sin hånd, viftet ud forneden. For at melde trykker du på et tal på tastaturet (giverens forbudte tal er streget over) og så på fluebenet. Hver brik viser sin melding i en mørk skive og de tagne stik ved siden af; en lille kortbagside markerer giveren. Det vendte kort ligger i hjørnet nederst til venstre (overstreget: uden trumf). For at spille trykker du på et kort, der lyser, så det løfter sig, og trykker på det igen eller på dets plads i midten; eller træk det derhen. Tryk på bunken nederst til højre for at se det sidste stik. Hver bjælke viser kortene på hånden og summen. Efter hvert giv viser en tavle hver spillers melding, stik (i guld: holdt præcis), point og sum; tryk på den for næste giv. Fortryd tager et valg tilbage, der endnu ikke er bekræftet, aldrig et kort, når enheden er givet videre.

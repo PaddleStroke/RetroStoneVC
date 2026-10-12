@@ -1,0 +1,16 @@
+Rikiki
+# O objetivo
+Declarar exatamente quantas vazas vais fazer e depois fazer exatamente essas. De 3 a 6 jogadores que passam o dispositivo; ninguém vê as cartas dos outros.
+# As cartas
+52 cartas; o ás é a carta mais alta. A primeira ronda dá 1 carta a cada um, a seguinte 2, e assim por diante até ao máximo (13; 10 com 5 jogadores; 8 com 6), e depois volta a descer até 1. Depois de cada distribuição, a carta seguinte do baralho é voltada para cima: o seu naipe é o trunfo. Quando não sobra nenhuma carta (4 jogadores, 13 cartas cada), a ronda joga-se sem trunfo.
+# As declarações
+O jogador a seguir a quem dá as cartas declara primeiro, e quem dá as cartas em último. Cada um diz quantas vazas vai fazer, de 0 ao número de cartas na mão. Quem dá as cartas não pode fazer com que as declarações somem o número de cartas de cada jogador: alguém tem de falhar (a regra do dador, habitual em França).
+# O jogo
+O jogador a seguir a quem dá as cartas sai. Assiste ao naipe de saída se puderes; senão, joga qualquer carta (não és obrigado a cortar). O trunfo mais alto ganha a vaza, ou então a carta mais alta do naipe de saída; quem a ganha sai na seguinte.
+# A pontuação
+- Declaração cumprida exatamente: 10 pontos e mais 1 por cada vaza feita.
+- Falhada: menos 1 por cada vaza a mais ou a menos.
+# O fim do jogo
+Depois da última ronda de uma carta, ganha o total mais alto; os empatados partilham a vitória.
+# Jogar no dispositivo
+Passa o dispositivo ao jogador cuja peça aparece; ele toca no botão de início e vê a sua mão, em leque em baixo. Para declarar, toca num número do teclado (o número proibido a quem dá as cartas aparece riscado) e depois no sinal de confirmação. Cada peça mostra a sua declaração num disco escuro e as vazas feitas ao lado; um pequeno verso de carta marca quem dá as cartas. A carta voltada fica no canto inferior esquerdo (riscada: sem trunfo). Para jogar, toca numa carta que brilha para a levantar e toca-lhe outra vez ou no seu lugar no centro; ou arrasta-a até lá. Toca no monte em baixo à direita para ver a última vaza. Cada barra mostra as cartas na mão e o total. Depois de cada ronda, uma tabela mostra a declaração, as vazas (a dourado: cumprida exatamente), os pontos e o total de cada um; toca nela para a ronda seguinte. Anular desfaz uma escolha ainda não confirmada, nunca uma carta depois de o dispositivo passar.

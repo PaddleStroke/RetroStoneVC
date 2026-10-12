@@ -1,0 +1,16 @@
+Rikiki
+# Das Ziel
+Sage genau an, wie viele Stiche du machst, und mach dann genau so viele. Für 3 bis 6 Spieler, die das Gerät herumreichen; niemand sieht die Karten der anderen.
+# Die Karten
+52 Karten; das Ass ist die höchste Karte. In der ersten Runde bekommt jeder 1 Karte, in der nächsten 2 und so weiter bis zum Höchstwert (13; 10 bei 5 Spielern; 8 bei 6), dann wieder abwärts bis 1. Nach jedem Geben wird die nächste Karte des Stapels aufgedeckt: Ihre Farbe ist Trumpf. Ist keine Karte übrig (4 Spieler, je 13 Karten), wird die Runde ohne Trumpf gespielt.
+# Die Ansage
+Der Spieler nach dem Geber sagt zuerst an, der Geber zuletzt. Jeder sagt an, wie viele Stiche er machen wird, von 0 bis zur Zahl seiner Karten. Der Geber darf nicht so ansagen, dass die Summe der Ansagen der Kartenzahl jedes Spielers entspricht: Jemand muss scheitern (die Geberregel, in Frankreich üblich).
+# Das Spiel
+Der Spieler nach dem Geber spielt aus. Bediene die ausgespielte Farbe, wenn du kannst; sonst spiel eine beliebige Karte (du musst nicht trumpfen). Der höchste Trumpf gewinnt den Stich, sonst die höchste Karte der ausgespielten Farbe; ihr Gewinner spielt zum nächsten aus.
+# Die Wertung
+- Ansage genau erfüllt: 10 Punkte und 1 mehr für jeden gemachten Stich.
+- Verfehlt: minus 1 für jeden Stich zu viel oder zu wenig.
+# Das Ende der Partie
+Nach der letzten Runde mit einer Karte gewinnt die höchste Summe; Spieler mit gleicher Summe teilen sich den Sieg.
+# Spielen auf dem Gerät
+Gib das Gerät dem Spieler, dessen Stein erscheint; er tippt auf Start und sieht seine Hand, unten aufgefächert. Zum Ansagen tippe eine Zahl auf dem Zahlenfeld an (die verbotene Zahl des Gebers ist durchgestrichen), dann den Haken. Jeder Stein zeigt seine Ansage in einer dunklen Scheibe und die gemachten Stiche daneben; ein kleiner Kartenrücken markiert den Geber. Die aufgedeckte Karte liegt in der Ecke unten links (durchgestrichen: ohne Trumpf). Zum Spielen tippe eine leuchtende Karte an, damit sie sich hebt, dann tippe sie noch einmal oder ihren Platz in der Mitte an; oder ziehe sie dorthin. Tippe auf den Stapel unten rechts, um den letzten Stich zu sehen. Jede Leiste zeigt die Karten auf der Hand und die Summe. Nach jeder Runde zeigt eine Tafel Ansage, Stiche (in Gold: genau erfüllt), Punkte und Summe jedes Spielers; tippe darauf für die nächste Runde. Rückgängig nimmt eine noch nicht bestätigte Wahl zurück, nie eine Karte, wenn das Gerät weitergegeben wurde.

@@ -1,0 +1,23 @@
+Piquet
+# Tavoite
+Klassinen ranskalainen kahden pelaajan peli (Rubicon-piquet): kerää kuuden jaon partiossa enemmän pisteitä kuin vastustajasi ja vähintään 100. Antakaa laite toisillenne joka vuorolla; kumpikaan ei näe toisen kortteja.
+# Kortit
+32 korttia: ässä (suurin), kuningas, rouva, sotilas, 10, 9, 8, 7. Jako vuorottelee; se, joka ei jaa, on etukäsi. Kumpikin saa 12 korttia; muut 8 muodostavat talonin.
+# Vaihto
+Etukäsi heittää 1–5 korttia ja ottaa yhtä monta talonin päältä. Sitten takakäsi voi heittää enintään niin monta korttia kuin on jäljellä (yleensä 3) ja ottaa ne. Ylimääräiset kortit jäävät kuvapuoli alaspäin kenenkään näkemättä.
+# Ilmoitukset
+Kukin laji lasketaan vain sille, jolla on parempi; tasatilanteessa kumpikaan ei saa mitään:
+- Carte blanche: kaksitoista korttia ilman kuningasta, rouvaa ja sotilasta: 10.
+- Pointti: eniten kortteja yhdessä maassa (tasan suurempi arvo: ässä 11, kuningas, rouva ja sotilas 10, muut numeronsa): 1 piste kortilta.
+- Sarjat: kolme tai useampi peräkkäistä korttia samassa maassa. Pisin voittaa (tasan korkein kortti), ja sen haltija laskee kaikki sarjansa: 3 korttia 3, 4 korttia 4, 5 korttia 15, 6 korttia 16, 7 korttia 17, 8 korttia 18.
+- Samanarvoiset: kolme tai neljä samanarvoista korttia, 10 tai suurempi. Neljä voittaa kolme, sitten korkeampi arvo; voittaja laskee kaikki omansa: neljä 14, kolme 3.
+Etukäsi ilmoittaa, takakäsi vastaa: "hyvä" (etukäden on parempi), "ei hyvä" (takakäden on parempi) tai "tasan". Tässä jokainen ilmoitus on käden paras, molemmat tehdään ennen ensimmäistä korttia, ja paremmat yhdistelmät näytetään molemmille.
+# Pelaaminen
+Etukäsi avaa. Tunnusta maata jos voit, muuten pelaa mikä tahansa kortti; valtteja ei ole. Avatun maan suurempi kortti voittaa ja avaa seuraavan. Avaus 10:llä tai suuremmalla: 1; vastustajan avauksen voittaminen 10:llä tai suuremmalla: 1; viimeinen tikki: 1 lisää. Eniten tikkejä (7 tai enemmän): 10; kaikki 12 tikkiä (capot): sen sijaan 40.
+# Pique ja repique
+- Repique: 30 pistettä pelkistä ilmoituksista (järjestyksessä: carte blanche, pointti, sarjat, samanarvoiset) ennen kuin vastustaja saa mitään: 60 lisää.
+- Pique: etukäsi pääsee 30:een ilmoituksilla ja pelin pisteillä (ei tikkien enemmistön 10:tä eikä capotia) ennen kuin takakäsi saa mitään: 30 lisää. Vain etukäsi voi tehdä piquen.
+# Pelin loppu
+Kuuden jaon jälkeen suurempi yhteissumma voittaa. Alle 100:n jäänyt häviäjä on "rubiconissa": voittaja saa molemmat summat ja 100. Muuten voittaja saa erotuksen ja 100. Tasapisteet: tasapeli.
+# Pelaaminen laitteella
+Anna laite pelaajalle, jonka nappula näkyy; hän napauttaa aloitusta ja näkee oman kätensä viuhkana alhaalla. Vaihda napauttamalla heitettäviä kortteja (ne nousevat), sitten talonin vieressä olevaa valintamerkkiä; uudet kortit ovat vähän muita korkeammalla. Nappulan vieressä oleva luku: pelaajan vaihtamat kortit. Ilmoitukset näkyvät taulussa: sarake pointille (kolme saman maan korttia), sarjoille (korttiporras), samanarvoisille (kolme ässää) ja carte blanchelle (tyhjä kortti); rivi kummallekin pelaajalle, vastustaja ylhäällä. Pointti näyttää korttiensa määrän ja arvon, sarja pituutensa ja korkeimman korttinsa, samanarvoiset kokonsa ja arvonsa. Etukäsi näkee oman rivinsä ja napauttaa valintamerkkiä. Takakäsi näkee sitten molemmat rivit: kultainen merkki ja pisteet paremman vieressä ("hyvä" tai "ei hyvä"), yhtäsuuruusmerkki "tasan"-tilanteessa; hänen valintamerkkinsä näyttää parempien yhdistelmien kortit molemmille. Taulu pysyy, kunnes etukäsi avaa. Pelaa napauttamalla hehkuvaa korttia, jolloin se nousee, ja napauta sitä uudelleen tai sen paikkaa keskellä; tai vedä se. Nappulan vieressä oleva luku: hänen pisteensä tässä jaossa. Jokaisen jaon jälkeen taulukko näyttää ilmoitukset, pelin pisteet (kruunu: capot), piquen tai repiquen (pata), jaon ja yhteissumman sekä kuusi jakoa pisteinä; kuudennen jälkeen voittajan partiopisteet (yliviivattu 100: häviäjä jäi rubiconiin).

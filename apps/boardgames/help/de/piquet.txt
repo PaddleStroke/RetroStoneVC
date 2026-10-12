@@ -1,0 +1,23 @@
+Piquet
+# Das Ziel
+Der französische Klassiker für zwei (Rubikon-Piquet): Mach in einer Partie von sechs Runden mehr Punkte als dein Gegner, und mindestens 100. Das Gerät wird nach jedem Zug weitergereicht; keiner sieht die Karten des anderen.
+# Die Karten
+32 Karten: Ass (die höchste), König, Dame, Bube, 10, 9, 8, 7. Das Geben wechselt ab; wer nicht gibt, ist die Vorhand. Jeder bekommt 12 Karten; die übrigen 8 sind der Talon.
+# Der Kartentausch
+Die Vorhand legt 1 bis 5 Karten ab und nimmt ebenso viele oben vom Talon. Dann darf die Hinterhand bis zu so viele Karten ablegen, wie noch übrig sind (meist 3), und sie nehmen. Übrige Karten bleiben verdeckt liegen, ungesehen.
+# Die Meldungen
+Jede Art zählt nur für den Spieler mit der besseren; gleiche zählen nichts:
+- Carte blanche: zwölf Karten ohne König, Dame oder Bube erhalten: 10.
+- Der Point: die meisten Karten einer Farbe (bei Gleichheit der höhere Wert: Ass 11, König, Dame und Bube 10, die anderen ihre Zahl): 1 Punkt pro Karte.
+- Sequenzen: drei oder mehr aufeinanderfolgende Karten einer Farbe. Die längste gewinnt (bei Gleichheit die mit der höheren obersten Karte), und ihr Besitzer zählt alle seine Sequenzen: 3 Karten (Terz) 3, 4 Karten (Quart) 4, 5 Karten (Quint) 15, 6 Karten 16, 7 Karten 17, 8 Karten 18.
+- Drillinge und Vierlinge: drei oder vier Karten eines Rangs, 10 oder höher. Vier schlagen drei, dann gewinnt der höhere Rang; der Gewinner zählt alle seine: Vierling 14, Drilling 3.
+Die Vorhand meldet, die Hinterhand antwortet: „gut“ (die Meldung der Vorhand ist besser), „nicht gut“ (die der Hinterhand ist besser) oder „gleich“. Hier ist jede Meldung das Beste, was die Hand hat, beide werden vor dem ersten Ausspielen gemacht, und die besseren Kombinationen werden beiden Spielern gezeigt.
+# Das Spiel
+Die Vorhand spielt aus. Bediene die ausgespielte Farbe, wenn du kannst, sonst spiel eine beliebige Karte; es gibt keine Trümpfe. Die höhere Karte der ausgespielten Farbe gewinnt und spielt als Nächste aus. Eine 10 oder höher auszuspielen bringt 1; das Ausspielen des Gegners mit einer 10 oder höher zu gewinnen bringt 1; der letzte Stich bringt 1 extra. Die meisten Stiche (7 oder mehr) bringen 10; alle 12 Stiche (Kapot) bringen stattdessen 40.
+# Pik und Repik
+- Repik: 30 Punkte allein aus den Meldungen (gezählt in der Reihenfolge Carte blanche, Point, Sequenzen, Drillinge und Vierlinge), bevor der Gegner etwas zählt: 60 extra.
+- Pik: Die Vorhand erreicht 30 mit Meldungen und Punkten im Spiel (nicht die 10 für die meisten Stiche und nicht Kapot), bevor die Hinterhand etwas zählt: 30 extra. Nur die Vorhand kann Pik machen.
+# Das Ende der Partie
+Nach sechs Runden gewinnt die höhere Summe. Ein Verlierer unter 100 bleibt unter dem Rubikon: Der Gewinner bekommt beide Summen plus 100. Sonst bekommt der Gewinner die Differenz plus 100. Gleiche Summen: unentschieden.
+# Spielen auf dem Gerät
+Gib das Gerät dem Spieler, dessen Stein erscheint; er tippt auf Start und sieht seine Hand, unten aufgefächert. Zum Tauschen tippe die Karten an, die du ablegst (sie heben sich), dann den Haken neben dem Talon; die neuen Karten stehen etwas höher. Die Zahl neben einem Stein: die Karten, die dieser Spieler getauscht hat. Die Meldungen erscheinen auf einer Tafel: eine Spalte für den Point (drei Karten einer Farbe), die Sequenzen (eine Treppe aus Karten), die Drillinge und Vierlinge (drei Asse) und Carte blanche (eine leere Karte); eine Zeile pro Spieler, dein Gegner oben. Der Point zeigt seine Kartenzahl und seinen Wert, eine Sequenz ihre Länge und ihre oberste Karte, ein Drilling oder Vierling seine Größe und seinen Rang. Die Vorhand sieht ihre eigene Zeile und tippt auf den Haken. Dann sieht die Hinterhand beide Zeilen: einen goldenen Haken und die Punkte neben der besseren („gut“ oder „nicht gut“), ein Gleichheitszeichen für „gleich“; ihr Haken zeigt beiden Spielern die Karten der besseren Kombinationen. Die Tafel bleibt, bis die Vorhand ausspielt. Zum Spielen tippe eine leuchtende Karte an, damit sie sich hebt, dann tippe sie noch einmal oder ihren Platz in der Mitte an; oder ziehe sie. Die Zahl neben einem Stein: seine Punkte in dieser Runde. Nach jeder Runde zeigt eine Tafel die Meldungen, die Punkte im Spiel (eine Krone: Kapot), Pik oder Repik (das Pik-Zeichen), die Runde und die Summe, und die sechs Runden als Punkte; nach der sechsten die Wertung des Gewinners für die Partie (eine durchgestrichene 100: der Verlierer blieb unter dem Rubikon).

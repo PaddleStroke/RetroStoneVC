@@ -1,0 +1,23 @@
+Piquet
+# Le but
+Le grand classique français à deux (le piquet Rubicon) : marquer plus que l'adversaire au cours d'une partie de six donnes, et au moins 100 points. On se passe l'appareil à chaque tour ; personne ne voit les cartes de l'autre.
+# Les cartes
+32 cartes : as (la plus forte), roi, dame, valet, 10, 9, 8, 7. La donne alterne ; celui qui ne donne pas est le premier en cartes. Chacun reçoit 12 cartes ; les 8 autres forment le talon.
+# L'écart
+Le premier écarte de 1 à 5 cartes et en prend autant sur le dessus du talon. Puis le second peut écarter jusqu'à autant de cartes qu'il en reste (en général 3) et les prendre. Les cartes restantes demeurent face cachée, sans être vues.
+# Les annonces
+Chaque sorte ne compte que pour celui qui a la meilleure ; à égalité, personne ne marque :
+- Carte blanche : douze cartes reçues sans roi, dame ni valet : 10.
+- Le point : le plus de cartes dans une couleur (à égalité, la plus forte valeur : as 11, roi, dame et valet 10, les autres leur chiffre) : 1 point par carte.
+- Les séquences : au moins trois cartes qui se suivent dans une couleur. La plus longue gagne (à égalité, la plus haute) et son détenteur marque toutes ses séquences : tierce 3, quatrième 4, quinte 15, sixième 16, septième 17, huitième 18.
+- Les brelans et quatorzes : trois ou quatre cartes de même hauteur, du 10 à l'as. Quatre battent trois, puis la plus haute gagne ; le gagnant marque tous les siens : quatorze 14, brelan 3.
+Le premier annonce, le second répond : « bon » (celle du premier est meilleure), « pas bon » (la sienne l'est) ou « égal ». Ici, chaque annonce est la meilleure de la main, les deux sont faites avant la première carte, et les meilleures combinaisons sont montrées aux deux joueurs.
+# Le jeu
+Le premier entame. Il faut fournir la couleur demandée, sinon on joue n'importe quelle carte ; il n'y a pas d'atout. La plus forte carte de la couleur demandée gagne et entame le pli suivant. Entamer avec un 10 ou plus rapporte 1 ; prendre l'entame adverse avec un 10 ou plus rapporte 1 ; le dernier pli rapporte 1 de plus. Faire le plus de plis (7 ou plus) rapporte 10 ; les 12 plis (capot) rapportent 40 à la place.
+# Pic et repic
+- Repic : 30 points avec les seules annonces (comptées dans l'ordre : carte blanche, point, séquences, brelans) avant que l'adversaire ne marque quoi que ce soit : 60 de plus.
+- Pic : le premier atteint 30 avec ses annonces et les points du jeu (sans les 10 des cartes ni le capot) avant que le second ne marque quoi que ce soit : 30 de plus. Seul le premier peut faire pic.
+# La fin de la partie
+Après six donnes, le plus grand total gagne. Un perdant sous les 100 points est rubiconné : le gagnant marque les deux totaux plus 100. Sinon, le gagnant marque la différence plus 100. Totaux égaux : partie nulle.
+# Jouer sur l'appareil
+Passe l'appareil au joueur dont la pièce s'affiche ; il touche le bouton de départ et voit sa main en éventail en bas. Pour écarter, touche les cartes à jeter (elles se lèvent), puis la coche à côté du talon ; les nouvelles cartes restent un peu plus hautes. Le nombre à côté d'une pièce : les cartes que ce joueur a changées. Les annonces s'affichent sur un tableau : une colonne pour le point (trois cartes d'une couleur), les séquences (un escalier de cartes), les brelans (trois as) et la carte blanche (une carte vierge) ; une ligne par joueur, l'adversaire en haut. Le point montre son nombre de cartes et sa valeur, une séquence sa longueur et sa plus haute carte, un brelan sa taille et sa hauteur. Le premier voit sa ligne et touche la coche. Le second voit alors les deux lignes : une coche dorée et les points à côté de la meilleure (« bon » ou « pas bon »), un signe égal pour « égal » ; sa coche montre aux deux joueurs les cartes des meilleures combinaisons. Le tableau reste jusqu'à l'entame du premier. Pour jouer, touche une carte qui brille pour la lever, puis touche-la encore ou sa place au milieu ; ou fais-la glisser. Le nombre à côté d'une pièce : ses points de la donne. Après chaque donne, un tableau montre les annonces, les points du jeu (une couronne : capot), le pic ou le repic (le pique), la donne et le total, et les six donnes en points ; après la sixième, le score du gagnant pour la partie (un 100 barré : le perdant est rubiconné).

@@ -1,0 +1,23 @@
+Pikieta
+# Cel gry
+Klasyczna francuska gra dla dwojga (pikieta rubikon): zdobyć więcej punktów niż przeciwnik w partii z sześciu rozdań, i co najmniej 100 punktów. Podawajcie sobie urządzenie między turami; żaden gracz nie widzi kart drugiego.
+# Karty
+32 karty: as (najwyższy), król, dama, walet, 10, 9, 8, 7. Gracze rozdają na zmianę; ten, kto nie rozdaje, jest przodkiem. Każdy dostaje 12 kart; pozostałe 8 to talon.
+# Wymiana
+Przodek odrzuca od 1 do 5 kart i bierze tyle samo z wierzchu talonu. Potem rozdający może odrzucić najwyżej tyle kart, ile zostało (zwykle 3), i je wziąć. Pozostałe karty leżą zakryte i nikt ich nie ogląda.
+# Meldunki
+Każdy rodzaj liczy się tylko dla gracza, który ma lepszy; równe nie dają nic:
+- Carte blanche: dwanaście rozdanych kart bez króla, damy i waleta: 10.
+- Point: najwięcej kart w jednym kolorze (przy równości wyższa wartość: as 11, król, dama i walet 10, pozostałe według swojej liczby): 1 punkt za kartę.
+- Sekwensy: trzy lub więcej kolejnych kart w jednym kolorze. Wygrywa najdłuższy (przy równości ten z wyższą najwyższą kartą), a jego posiadacz zapisuje wszystkie swoje sekwensy: 3 karty (tercja) 3, 4 karty (kwarta) 4, 5 kart (kwinta) 15, 6 kart 16, 7 kart 17, 8 kart 18.
+- Trójki i czwórki: trzy lub cztery karty tej samej wysokości, od 10 wzwyż. Czwórka bije trójkę, potem wygrywa wyższa wysokość; zwycięzca zapisuje wszystkie swoje: czwórka 14, trójka 3.
+Przodek melduje, rozdający odpowiada: „dobre” (meldunek przodka jest lepszy), „niedobre” (jego własny jest lepszy) albo „równe”. Tutaj każdy meldunek jest najlepszym, jaki ma ręka, oba padają przed pierwszym wyjściem, a lepsze układy są pokazywane obu graczom.
+# Rozgrywka
+Przodek wychodzi. Dokładaj do koloru wyjścia, jeśli możesz, jeśli nie, zagraj dowolną kartę; nie ma atutów. Wyższa karta w kolorze wyjścia bierze lewę i wychodzi do następnej. Wyjście dziesiątką lub wyższą kartą daje 1; wzięcie wyjścia przeciwnika dziesiątką lub wyższą kartą daje 1; ostatnia lewa daje 1 więcej. Najwięcej lew (7 lub więcej) daje 10; wszystkie 12 lew (capot) daje zamiast tego 40.
+# Pik i repik
+- Repik: 30 punktów z samych meldunków (liczonych po kolei: carte blanche, point, sekwensy, trójki i czwórki), zanim przeciwnik cokolwiek zapisze: 60 więcej.
+- Pik: przodek dochodzi do 30 z meldunków i punktów z rozgrywki (bez 10 za najwięcej lew i bez capot), zanim rozdający cokolwiek zapisze: 30 więcej. Pik może zrobić tylko przodek.
+# Koniec gry
+Po sześciu rozdaniach wygrywa wyższa suma. Przegrany z mniej niż 100 punktami nie przekroczył rubikonu: zwycięzca zapisuje obie sumy plus 100. W przeciwnym razie zwycięzca zapisuje różnicę plus 100. Równe sumy: remis.
+# Gra na urządzeniu
+Podaj urządzenie graczowi, którego pionek się pokazuje; dotyka on przycisku startu i widzi swoją rękę, rozłożoną w wachlarz na dole. Aby wymienić karty, dotknij kart, które odrzucasz (uniosą się), a potem znaczka zatwierdzenia obok talonu; nowe karty stoją nieco wyżej. Liczba obok pionka: ile kart ten gracz wymienił. Meldunki pojawiają się na planszy: kolumna dla pointu (trzy karty jednego koloru), sekwensów (schodki z kart), trójek i czwórek (trzy asy) i carte blanche (pusta karta); wiersz dla każdego gracza, przeciwnik na górze. Point pokazuje liczbę kart i wartość, sekwens swoją długość i najwyższą kartę, trójka lub czwórka swoją wielkość i wysokość. Przodek widzi swój wiersz i dotyka znaczka zatwierdzenia. Potem rozdający widzi oba wiersze: złoty znaczek i punkty obok lepszego meldunku („dobre” albo „niedobre”), znak równości dla „równe”; jego znaczek zatwierdzenia pokazuje obu graczom karty lepszych układów. Plansza zostaje do wyjścia przodka. Aby zagrać, dotknij świecącej karty, żeby się uniosła, i dotknij jej jeszcze raz albo jej miejsca na środku; albo ją przeciągnij. Liczba obok pionka: punkty tego gracza w tym rozdaniu. Po każdym rozdaniu tabela pokazuje meldunki, punkty z rozgrywki (korona: capot), pik lub repik (znak pika), rozdanie i sumę oraz sześć rozdań jako kropki; po szóstym wynik zwycięzcy za partię (przekreślone 100: przegrany nie przekroczył rubikonu).

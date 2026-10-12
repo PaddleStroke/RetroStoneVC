@@ -1,0 +1,23 @@
+Piquet
+# El objetivo
+El clásico juego francés para dos (el piquet Rubicón): sumar más que tu rival en una partida de seis manos, y al menos 100 puntos. Os pasáis el dispositivo en cada turno; ninguno ve las cartas del otro.
+# Las cartas
+32 cartas: as (la más alta), rey, reina, sota, 10, 9, 8, 7. El reparto se alterna; el que no reparte es el primero (es mano); el otro, el segundo. Cada jugador recibe 12 cartas; las 8 restantes forman el monte.
+# El descarte
+El primero descarta de 1 a 5 cartas y toma otras tantas de encima del monte. Luego el segundo puede descartar como mucho tantas cartas como queden (normalmente 3) y tomarlas. Las cartas sobrantes se quedan boca abajo, sin que nadie las vea.
+# Los cantes
+Cada tipo solo cuenta para el jugador que tiene el mejor; si son iguales, nadie se anota nada:
+- Carta blanca: doce cartas recibidas sin rey, reina ni sota: 10.
+- El punto: más cartas de un mismo palo (si hay igualdad, el valor más alto: as 11, rey, reina y sota 10, las demás su número): 1 punto por carta.
+- Las escaleras: tres o más cartas seguidas de un mismo palo. Gana la más larga (si hay igualdad, la de carta más alta) y su dueño se anota todas sus escaleras: 3 cartas 3, 4 cartas 4, 5 cartas 15, 6 cartas 16, 7 cartas 17, 8 cartas 18.
+- Los tríos y cuatros: tres o cuatro cartas del mismo rango, del 10 para arriba. Cuatro ganan a tres, y luego gana el rango más alto; el ganador se anota todos los suyos: cuatro 14, tres 3.
+El primero canta y el segundo responde: «buena» (la del primero es mejor), «no es buena» (la suya es mejor) o «igual». Aquí cada cante es el mejor que tiene la mano, los dos se hacen antes de la primera salida y las mejores combinaciones se muestran a los dos jugadores.
+# El juego
+Sale el primero. Sirve el palo de salida si puedes; si no, juega cualquier carta; no hay triunfo. La carta más alta del palo de salida gana y sale en la siguiente. Salir con un 10 o más vale 1; ganar la salida del rival con un 10 o más vale 1; la última baza vale 1 más. Hacer más bazas (7 o más) vale 10; las 12 bazas (capote) valen 40 en su lugar.
+# Pique y repique
+- Repique: 30 puntos solo con los cantes (contados en orden: carta blanca, punto, escaleras, tríos y cuatros) antes de que el rival se anote nada: 60 más.
+- Pique: el primero llega a 30 con los cantes y los puntos del juego (sin los 10 por más bazas ni el capote) antes de que el segundo se anote nada: 30 más. Solo el primero puede hacer pique.
+# El final de la partida
+Tras seis manos, gana el total más alto. Un perdedor con menos de 100 queda rubiconado: el ganador se anota los dos totales más 100. Si no, el ganador se anota la diferencia más 100. Totales iguales: empate.
+# Jugar en el dispositivo
+Pasa el dispositivo al jugador cuya ficha aparece; toca el botón de inicio y ve su mano, en abanico abajo. Para descartar, toca las cartas que tiras (se levantan) y luego la marca de visto junto al monte; las cartas nuevas quedan un poco más altas. El número junto a una ficha: las cartas que ese jugador cambió. Los cantes aparecen en un tablero: una columna para el punto (tres cartas de un palo), las escaleras (una escalera de cartas), los tríos y cuatros (tres ases) y la carta blanca (una carta en blanco); una fila por jugador, tu rival arriba. El punto muestra sus cartas y su valor, una escalera su longitud y su carta más alta, un trío o un cuatro su tamaño y su rango. El primero ve su propia fila y toca la marca de visto. Luego el segundo ve las dos filas: una marca dorada y los puntos junto a la mejor («buena» o «no es buena»), un signo igual para «igual»; su marca de visto muestra a los dos jugadores las cartas de las mejores combinaciones. El tablero se queda hasta que sale el primero. Para jugar, toca una carta que brille para levantarla y vuelve a tocarla o toca su sitio en el centro; o arrástrala. El número junto a una ficha: sus puntos en esta mano. Tras cada mano, una tabla muestra los cantes, los puntos del juego (una corona: capote), el pique o el repique (la pica), la mano y el total, y las seis manos como puntos; tras la sexta, la puntuación del ganador en la partida (un 100 tachado: el perdedor quedó rubiconado).

@@ -1,0 +1,19 @@
+Écarté
+# El objetivo
+Ser el primero en llegar a 5 puntos ganando la mayoría de las cinco bazas de cada mano. Para dos jugadores que se pasan el dispositivo; ninguno ve las cartas del otro.
+# Las cartas
+32 cartas. En cada palo el rey es la más alta, luego la reina, la sota, el as, el 10, el 9, el 8 y el 7. Cada jugador recibe 5 cartas y la siguiente se pone boca arriba: su palo es el triunfo. El resto es el monte. El reparto se alterna; el que no reparte es el primero (es mano).
+# El rey
+- Un rey vuelto da 1 punto al que reparte.
+- El jugador que tiene el rey de triunfo se anota 1 antes del juego (se cuenta a su favor).
+# El descarte
+El primero puede proponer cambiar cartas, o jugar enseguida. El que reparte acepta o rechaza; si rechaza, empieza el juego. Si acepta, el primero tira de 1 a 5 cartas y roba otras tantas del monte, y luego el que reparte puede tirar y robar de 0 a 5. Después el primero puede volver a proponer, mientras quede monte.
+# El juego
+Sale el primero. Debes servir el palo de salida y ganar la baza si puedes (con una carta más alta del palo de salida). Si no puedes servir, debes jugar triunfo si puedes; si no, juega cualquier carta. Gana la carta más alta del palo de salida, o el triunfo; quien gana sale en la baza siguiente.
+# La puntuación
+- 3 o 4 bazas: 1 punto. Las 5 bazas (capote): 2 puntos.
+- Si el primero jugó sin proponer, o el que reparte rechazó la primera propuesta, y ese jugador hace luego menos de 3 bazas, el rival se anota 2.
+# El final de la partida
+Gana quien llegue antes a 5 puntos, aunque sea con el punto del rey antes del juego.
+# Jugar en el dispositivo
+Pasa el dispositivo al jugador cuya ficha aparece; toca el botón de inicio y ve su mano abajo. El monte y la carta vuelta están a la izquierda, las cartas tiradas a la derecha. Para proponer, toca el monte que brilla; para jugar enseguida, juega una carta. El que reparte toca la marca de visto para aceptar o la cruz para rechazar. Para cambiar cartas, toca las que tiras (se levantan) y luego la marca de visto; las cartas nuevas quedan un poco más altas. El número junto a una ficha: las cartas que ese jugador robó. Durante el juego, el número junto a una ficha son las bazas hechas, y un pequeño rey de triunfo señala al jugador que lo tiene. Para jugar, toca una carta que brille para levantarla y vuelve a tocarla o toca su sitio en el centro; o arrástrala. Cada barra muestra las cartas en la mano y la puntuación. Tras cada mano, una tabla muestra el punto del rey, las bazas, los puntos y el total; tócala para la mano siguiente.

@@ -1,0 +1,16 @@
+Rikiki
+# Cel gry
+Zadeklarować dokładnie, ile lew się weźmie, a potem wziąć dokładnie tyle. Dla 3 do 6 graczy, którzy podają sobie urządzenie; nikt nie widzi kart pozostałych.
+# Karty
+52 karty; as jest najwyższą kartą. W pierwszym rozdaniu każdy dostaje 1 kartę, w następnym 2 i tak dalej aż do największej liczby (13; 10 przy 5 graczach; 8 przy 6), a potem z powrotem w dół do 1. Po każdym rozdaniu następna karta z talii zostaje odkryta: jej kolor jest atutem. Gdy nie zostaje żadna karta (4 graczy, po 13 kart), rozdanie jest bez atu.
+# Licytacja
+Gracz po rozdającym deklaruje pierwszy, rozdający ostatni. Każdy deklaruje, ile lew weźmie, od 0 do liczby kart w ręce. Rozdający nie może sprawić, by suma deklaracji była równa liczbie kart każdego gracza: ktoś musi chybić (zasada rozdającego, zwyczajowa we Francji).
+# Rozgrywka
+Gracz po rozdającym wychodzi. Dokładaj do koloru wyjścia, jeśli możesz; jeśli nie, zagraj dowolną kartę (nie musisz grać atutu). Lewę bierze najwyższy atut, a jeśli go nie ma, najwyższa karta w kolorze wyjścia; jej zdobywca wychodzi do następnej.
+# Punktacja
+- Deklaracja wypełniona dokładnie: 10 punktów i 1 więcej za każdą wziętą lewę.
+- Chybiona: minus 1 za każdą lewę za dużo lub za mało.
+# Koniec gry
+Po ostatnim rozdaniu z jedną kartą wygrywa najwyższa suma; gracze z równą sumą dzielą zwycięstwo.
+# Gra na urządzeniu
+Podaj urządzenie graczowi, którego pionek się pokazuje; dotyka on przycisku startu i widzi swoją rękę, rozłożoną w wachlarz na dole. Aby zadeklarować, dotknij liczby na klawiaturze (liczba zakazana rozdającemu jest przekreślona), a potem znaczka zatwierdzenia. Każdy pionek pokazuje swoją deklarację w ciemnym krążku, a wzięte lewy tuż obok; mały rewers karty oznacza rozdającego. Odkryta karta leży w lewym dolnym rogu (przekreślona: bez atu). Aby zagrać, dotknij świecącej karty, żeby się uniosła, i dotknij jej jeszcze raz albo jej miejsca na środku; albo przeciągnij ją tam. Dotknij stosiku w prawym dolnym rogu, by zobaczyć ostatnią lewę. Każdy pasek pokazuje karty w ręce i sumę. Po każdym rozdaniu tabela pokazuje deklarację każdego gracza, lewy (na złoto: wypełnione dokładnie), punkty i sumę; dotknij jej, by przejść do następnego rozdania. Cofnij wycofuje niezatwierdzony jeszcze wybór, nigdy kartę po podaniu urządzenia.

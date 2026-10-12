@@ -1,0 +1,16 @@
+Rikiki
+# Amaç
+Kaç el alacağını tam olarak söyle, sonra tam o kadar el al. Cihazı elden ele dolaştıran 3 ila 6 oyuncu için; kimse başkalarının kartlarını görmez.
+# Kartlar
+52 kart; en büyük kart as. İlk dağıtımda herkese 1 kart, sonrakinde 2 verilir ve böylece en çoğa kadar çıkılır (13; 5 oyuncuyla 10; 6 oyuncuyla 8), sonra yeniden 1'e inilir. Her dağıtımdan sonra destenin sıradaki kartı açılır: rengi kozdur. Hiç kart kalmazsa (4 oyuncu, herkese 13 kart) o dağıtım kozsuz oynanır.
+# Söyleme
+Dağıtıcıdan sonraki oyuncu ilk, dağıtıcı en son söyler. Herkes kaç el alacağını söyler, 0'dan elindeki kart sayısına kadar. Dağıtıcı, söylenenlerin toplamını her oyuncunun kart sayısına eşit yapamaz: biri mutlaka tutturamaz (dağıtıcı kuralı, Fransa'da yaygın).
+# Oyun
+Dağıtıcıdan sonraki oyuncu açar. Yapabiliyorsan renge uy; uyamıyorsan istediğin kartı oyna (koz atmak zorunda değilsin). En büyük koz eli alır, koz yoksa açılan rengin en büyük kartı; eli alan sonrakini açar.
+# Puanlama
+- Söylediğini tam tutturmak: 10 puan ve alınan her el için 1 fazla.
+- Tutturamamak: fazla ya da eksik her el için eksi 1.
+# Oyunun sonu
+Tek kartlık son dağıtımdan sonra en yüksek toplam kazanır; berabere kalanlar zaferi paylaşır.
+# Cihazda oynamak
+Cihazı, pulu görünen oyuncuya ver; başlat düğmesine dokunur ve kendi elini altta yelpaze gibi açılmış görür. Söylemek için tuş takımında bir sayıya (dağıtıcının yasak sayısı çizilidir), sonra onay işaretine dokun. Her pul söylediğini koyu bir dairede, yanında aldığı elleri gösterir; küçük bir kart arkası dağıtıcıyı belirtir. Açılan kart sol alt köşededir (çizili: kozsuz). Oynamak için parlayan bir karta dokun, kalksın; sonra ona ya da ortadaki yerine yeniden dokun; ya da onu oraya sürükle. Son eli görmek için sağ alttaki desteye dokun. Her çubuk eldeki kartları ve toplamı gösterir. Her dağıtımdan sonra bir tablo herkesin söylediğini, aldığı elleri (altın: tam tuttu), puanını ve toplamını gösterir; sonraki dağıtım için ona dokun. Geri al, henüz onaylanmamış bir seçimi geri alır; cihaz el değiştirdikten sonra asla bir kartı geri almaz.

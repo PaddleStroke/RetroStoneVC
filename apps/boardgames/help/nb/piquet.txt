@@ -1,0 +1,23 @@
+Piquet
+# Målet
+Det klassiske franske spillet for to (rubicon-piquet): få flere poeng enn motstanderen over et parti på seks giv, og minst 100. Send enheten over mellom turene; ingen av dere ser kortene til den andre.
+# Kortene
+32 kort: ess (høyest), konge, dame, knekt, 10, 9, 8, 7. Man gir annenhver gang; den som ikke gir, er forhånd. Hver spiller får 12 kort; de andre 8 er talongen.
+# Kortbyttet
+Forhånden kaster 1 til 5 kort og tar like mange fra toppen av talongen. Så kan bakhånden kaste opp til så mange kort som er igjen (vanligvis 3), og ta dem. Kort som blir igjen, blir liggende med baksiden opp, usett.
+# Meldingene
+Hver sort teller bare for spilleren som har den beste; like gode teller ingenting:
+- Carte blanche: tolv kort uten konge, dame eller knekt: 10.
+- Pointet: flest kort i én farge (står det likt, den høyeste verdien: ess 11, konge, dame og knekt 10, de andre tallet sitt): 1 poeng per kort.
+- Sekvenser: tre eller flere kort på rad i én farge. Den lengste vinner (står det likt, den med høyest toppkort), og eieren teller alle sekvensene sine: 3 kort 3, 4 kort 4, 5 kort 15, 6 kort 16, 7 kort 17, 8 kort 18.
+- Sett: tre eller fire kort av samme valør, 10 eller høyere. Fire slår tre, deretter vinner høyeste valør; vinneren teller alle sine: fire 14, tre 3.
+Forhånden melder, bakhånden svarer: «godt» (forhåndens er bedre), «ikke godt» (bakhåndens er bedre) eller «likt». Her er hver melding det beste hånden har, begge meldes før første utspill, og de beste kombinasjonene vises til begge spillerne.
+# Spillet
+Forhånden spiller ut. Følg farge hvis du kan, ellers spill hvilket som helst kort; det er ingen trumf. Det høyeste kortet i utspilt farge vinner og spiller ut til det neste. Å spille ut en 10 eller høyere gir 1; å vinne motstanderens utspill med en 10 eller høyere gir 1; siste stikk gir 1 ekstra. Flest stikk (7 eller flere) gir 10; alle 12 stikkene (capot) gir 40 i stedet.
+# Pique og repique
+- Repique: 30 poeng fra meldingene alene (talt i rekkefølgen carte blanche, pointet, sekvenser, sett) før motstanderen får noe: 60 ekstra.
+- Pique: forhånden når 30 med meldinger og poeng i spillet (ikke de 10 for flest stikk og ikke capot) før bakhånden får noe: 30 ekstra. Bare forhånden kan få pique.
+# Slutten på spillet
+Etter seks giv vinner den høyeste summen. En taper under 100 blir under rubicon: vinneren får begge summene pluss 100. Ellers får vinneren differansen pluss 100. Like summer: uavgjort.
+# Spill på enheten
+Gi enheten til spilleren som har brikken sin på skjermen; han trykker på start og ser hånden sin, viftet ut nederst. For å bytte trykker du på kortene du kaster (de løfter seg), og så på haken ved talongen; de nye kortene står litt høyere. Tallet ved en brikke: kortene den spilleren byttet. Meldingene vises på en tavle: en kolonne for pointet (tre kort i én farge), sekvenser (en trapp av kort), sett (tre ess) og carte blanche (et blankt kort); en rad for hver spiller, motstanderen din øverst. Pointet viser antall kort og verdien, en sekvens lengden og toppkortet, et sett størrelsen og valøren. Forhånden ser sin egen rad og trykker på haken. Så ser bakhånden begge radene: en gullhake og poengene ved den beste («godt» eller «ikke godt»), et likhetstegn for «likt»; haken hans viser kortene i de beste kombinasjonene til begge spillerne. Tavlen blir stående til forhånden spiller ut. For å spille trykker du på et kort som lyser, så det løfter seg, og trykker på det igjen eller på plassen dets i midten; eller dra det dit. Tallet ved en brikke: poengene til den spilleren i dette givet. Etter hvert giv viser en tavle meldingene, poengene i spillet (en krone: capot), pique eller repique (spar-tegnet), givet og summen, og de seks givene som prikker; etter det sjette vinnerens poeng for partiet (en overstrøket 100: taperen ble under rubicon).

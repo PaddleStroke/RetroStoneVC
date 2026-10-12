@@ -1,0 +1,22 @@
+Barbu
+# Cel gry
+Zdobyć najwięcej punktów w serii siedmiu kontraktów, które gracze wybierają po kolei. Dla 4 graczy, którzy podają sobie urządzenie; nikt nie widzi kart pozostałych.
+# Karty
+Wszystkie 52 karty, po 13 dla każdego. As jest najwyższą kartą, potem król, dama, walet, 10 i tak dalej aż do 2.
+# Kontrakty
+Rozgrywający wybiera jeden kontrakt na każde rozdanie i każdy z siedmiu musi wybrać jeden raz:
+- Nie brać lew: minus 2 za każdą wziętą lewę.
+- Nie brać kierów: minus 2 za każdego wziętego kiera, minus 6 za asa kier. Nie wolno wyjść w kiery, dopóki ma się inny kolor. Rozdanie kończy się, gdy wszystkie kiery zostaną wzięte.
+- Nie brać dam: minus 6 za każdą wziętą damę. Rozdanie kończy się, gdy wszystkie cztery zostaną wzięte.
+- Nie brać króla kier (barbu): minus 20 dla tego, kto go weźmie. Nie wolno wyjść w kiery, dopóki ma się inny kolor, a kto ma króla, musi go zrzucić, gdy tylko nie może dołożyć do koloru. Rozdanie kończy się, gdy król zostanie wzięty.
+- Nie brać dwóch ostatnich lew: minus 10 za przedostatnią lewę, minus 20 za ostatnią.
+- Atuty: rozgrywający wskazuje kolor atutowy; plus 5 za każdą lewę. Gdy wyjście jest w atut, musisz przebić najwyższy atut, jeśli możesz; jeśli nie możesz dołożyć do koloru, musisz zagrać atut, wyższy od najwyższego atutu, jeśli możesz.
+- Domino: rozgrywający wskazuje wysokość początkową. Po kolei każdy gracz wykłada jedną kartę: karta tej wysokości zaczyna rząd swojego koloru, a karta o jedną wysokość wyższa lub niższa od końca rzędu go przedłuża (as jest najwyższy, rzędy się nie zapętlają). Jeśli możesz wyłożyć kartę, musisz; jeśli nie, pasujesz. Pierwszy, kto pozbędzie się kart, dostaje 45, drugi 20, trzeci 5, ostatni minus 5.
+# Rozgrywka
+Rozgrywający wychodzi do pierwszej lewy. Dokładaj do koloru wyjścia, jeśli możesz; jeśli nie, zagraj dowolną kartę (chyba że kontrakt wymaga inaczej). Lewę bierze najwyższa karta w kolorze wyjścia albo najwyższy atut; jej zdobywca wychodzi do następnej.
+# Kontra
+W wariantach z kontrą, gdy kontrakt zostanie ogłoszony, każdy z pozostałych graczy po kolei może skontrować dowolnego z innych (w atutach i domino tylko rozgrywającego). Potem każdy skontrowany gracz, rozgrywający jako ostatni, może dać rekontrę tym, którzy go skontrowali. Po rozdaniu każda para połączona kontrą porównuje swoje punkty z tego rozdania: różnica przechodzi od niższego do wyższego, podwójnie przy rekontrze. Francuski obowiązek dwukrotnego skontrowania rozgrywającego w każdej grze został pominięty.
+# Koniec gry
+Pełna gra ma 28 rozdań: każdy gracz jest rozgrywającym przez siedem rozdań z rzędu. Krótka gra ma 7 rozdań: rozgrywający zmienia się co rozdanie i każdy kontrakt gra się raz (pierwsi trzej gracze wybierają po dwa, czwarty jeden). Wszystkie punkty jednej gry sumują się do zera. Wygrywa najwyższa suma; gracze z równą sumą dzielą zwycięstwo.
+# Gra na urządzeniu
+Podaj urządzenie graczowi, którego pionek się pokazuje; dotyka on przycisku startu i widzi swoją rękę, rozłożoną w wachlarz na dole. Aby wybrać kontrakt, dotknij jego obrazka (czerwony krzyżyk: kontrakt z karami; cztery kolory: atuty; rząd kostek domina: domino), potem koloru lub wysokości początkowej, jeśli gra o nie zapyta, a potem znaczka zatwierdzenia. Wyblakłe obrazki są już wybrane. Aby skontrować, dotknij pionków w złotych obwódkach (pojawia się złoty krzyżyk i 2; 4 to rekontra), a potem znaczka zatwierdzenia; sam znaczek zatwierdzenia nikogo nie kontruje. Kontry są wypisane w lewym górnym rogu; kontrakt i jego rozgrywający w prawym górnym (dotknij go, by zobaczyć tabelę wyników). Aby zagrać, dotknij świecącej karty, żeby się uniosła, i dotknij jej jeszcze raz albo jej miejsca; albo ją przeciągnij. W domino, gdy żadna karta nie pasuje, dotknij przycisku pasowania na swoim pasku. Obok każdego pionka: dotychczasowe punkty z rozdania (w domino: kolejność pozbycia się kart). Po każdym rozdaniu tabela wyników pokazuje punkty każdego gracza w każdym kontrakcie (złote pola: kontrakty, które wybrał), rozdanie i sumę, z kropką za każde rozdanie; dotknij jej, by przejść do następnego rozdania.

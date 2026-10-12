@@ -1,0 +1,22 @@
+Barbu
+# Amaç
+Her oyuncunun sırayla seçtiği yedi sözleşme boyunca en çok puanı toplamak. Cihazı elden ele dolaştıran 4 oyuncu için; kimse başkalarının kartlarını görmez.
+# Kartlar
+52 kartın hepsi, herkese 13. En büyük kart as, sonra papaz, kız, vale, 10 ve 2'ye kadar aşağı.
+# Sözleşmeler
+İlan eden oyuncu her elde bir sözleşme seçer ve yedisinin her birini bir kez seçmek zorundadır:
+- El yok: alınan her el için eksi 2.
+- Kupa yok: alınan her kupa için eksi 2, kupa ası için eksi 6. Başka renk tutan kupa ile açamaz. Bütün kupalar alınınca dağıtım biter.
+- Kız yok: alınan her kız için eksi 6. Dördü de alınınca dağıtım biter.
+- Kupa papazı yok (barbu): onu alana eksi 20. Başka renk tutan kupa ile açamaz; papazı tutan, renge uyamadığı ilk anda onu atmak zorundadır. Papaz alınınca dağıtım biter.
+- Son iki el yok: sondan bir önceki el eksi 10, son el eksi 20.
+- Koz: ilan eden koz rengini söyler; her el için artı 5. Koz açıldığında yapabiliyorsan en büyük kozu geçmelisin; renge uyamıyorsan koz atmalısın, yapabiliyorsan en büyük kozun üstüne.
+- Domino: ilan eden başlangıç değerini söyler. Sırayla her oyuncu bir kart koyar: o değerdeki bir kart kendi renginin sırasını açar, bir sıranın ucundaki karttan bir büyük ya da bir küçük kart sırayı uzatır (as büyüktür, sıralar dönmez). Kart koyabiliyorsan koymalısın; koyamıyorsan pas geçersin. Kartlarını ilk bitiren 45, ikinci 20, üçüncü 5 alır, sonuncu eksi 5.
+# Oyun
+İlk eli ilan eden açar. Yapabiliyorsan renge uy; uyamıyorsan istediğin kartı oyna (sözleşmenin istedikleri dışında). Açılan rengin en büyük kartı ya da en büyük koz eli alır; eli alan sonrakini açar.
+# Kontra
+Kontralı türlerde, sözleşme söylenince diğer oyuncular sırayla istedikleri oyunculara kontra diyebilir (kozda ve dominoda yalnızca ilan edene). Sonra kontra yiyen her oyuncu, ilan eden en son, kendisine kontra diyenlere rekontra diyebilir. Dağıtımdan sonra kontralı her çift o eldeki puanlarını karşılaştırır: fark düşük olandan yüksek olana geçer, rekontrada iki katı. Fransızların ilan edene oyunda iki kez kontra deme zorunluluğu burada yoktur.
+# Oyunun sonu
+Tam oyun 28 dağıtımdır: her oyuncu art arda yedi dağıtımda ilan edendir. Kısa oyun 7 dağıtımdır: ilan eden her dağıtımda değişir ve her sözleşme bir kez oynanır (ilk üç oyuncu ikişer, dördüncü bir tane seçer). Bir oyunun puanları toplamda sıfırdır. En yüksek toplam kazanır; berabere kalanlar zaferi paylaşır.
+# Cihazda oynamak
+Cihazı, pulu görünen oyuncuya ver; başlat düğmesine dokunur ve kendi elini altta yelpaze gibi açılmış görür. Sözleşme seçmek için resmine dokun (kırmızı çarpı: ceza sözleşmesi; dört renk: koz; domino sırası: domino), istenirse bir renge ya da başlangıç değerine, sonra onay işaretine dokun. Soluk resimler zaten seçilmiştir. Kontra için altın halkalı pullara dokun (altın bir çarpı ve 2 çıkar; rekontrada 4), sonra onay işaretine; yalnızca onay işareti kimseye kontra demez. Kontralar sol üstte listelenir; sözleşme ve ilan eden sağ üsttedir (puan tablosu için ona dokun). Oynamak için parlayan bir karta dokun, kalksın; sonra ona ya da yerine yeniden dokun; ya da sürükle. Dominoda hiçbir kart uymuyorsa çubuğundaki pas düğmesine dokun. Her pulun yanında: dağıtımın puanları (dominoda: bitirme sırası). Her dağıtımdan sonra puan tablosu herkesin her sözleşmedeki puanlarını (altın hücreler: seçtiği sözleşmeler), dağıtımı ve toplamı, her dağıtım için bir noktayla gösterir; sonraki dağıtım için ona dokun.
