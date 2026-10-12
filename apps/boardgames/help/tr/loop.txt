@@ -1,0 +1,8 @@
+Döngü
+# Amaç
+Karelerin kenarları boyunca, noktadan noktaya tek bir kapalı döngü çiz. Döngü hiçbir yerde kendini kesmez, kendine değmez ve açık ucu yoktur. Bir karedeki sayı, döngünün o karenin dört kenarından kaçını kullandığını söyler; sayısı olmayan karede istediği kadar olabilir. Her bulmacanın tek bir çözümü vardır ve yalnızca akıl yürüterek bulunur. Önce boyutu ve seviyeyi seç (her resmin altındaki taşlar):
+- Kolay: bir sayının kenarları, iki çizgisi olan ya da hiç olmayan nokta ve başka çizgiler kaldıkça küçük bir döngüyü asla kapatmamak her zaman yeter.
+- Orta: bir sayıya köşelerindeki noktalarla birlikte de bakman gerekecek (köşedeki bir 3, kenara dayalı bir 1).
+- Zor: daha uzun akıl yürütmeler: bir kenarı dene ve bir şey bozulana kadar izle.
+# Cihazda oynamak
+Çizgi çizmek için bir kenara dokun; çarpı için yeniden dokun (boş kalacağından emin olduğun kenar), temizlemek için bir kez daha. Ya da birkaç çizgiyi birden çizmek için parmağını noktalar boyunca sürükle; bir çizginin üzerinde başlayan sürükleme çizgileri siler. Bütün çizgileri çizilmiş sayı solar (bir 0, çevresi çarpılarla dolunca); fazlası olan kırmızıya döner. Çubuğun ucundaki lamba ipucu verir: yanlış bir işareti düzeltir, yoksa akıl yürütmenin bulduğu bir kenarı altın ışıkta işaretler. Geri al her seferinde bir işlemi (bütün bir sürüklemeyi bir kerede), en başa kadar geri alır. Çubuk hamlelerini gösterir. Döngü tamamlanınca tel altın rengine döner.

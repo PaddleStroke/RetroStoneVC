@@ -1,0 +1,8 @@
+Slinga
+# Målet
+Rita en enda sluten slinga längs rutornas sidor, från prick till prick. Slingan korsar eller rör aldrig sig själv och har inga lösa ändar. Ett tal i en ruta säger hur många av rutans fyra sidor slingan använder; en ruta utan tal får ha hur många som helst. Varje uppgift har exakt en lösning, som går att hitta bara genom att resonera. Välj först storlek och nivå (stenarna under varje bild):
+- Lätt: ett tals sidor, en prick med två streck eller inga, och att aldrig sluta en liten slinga medan andra streck finns kvar, räcker alltid.
+- Medel: du måste också se på ett tal tillsammans med prickarna i dess hörn (en 3:a i ett hörn, en 1:a mot kanten).
+- Svår: längre resonemang: pröva en sida och följ den tills något går sönder.
+# Spela på enheten
+Tryck på en sida för att rita ett streck; tryck igen för ett kryss (en sida du vet förblir tom), och en gång till för att tömma den. Eller dra fingret längs prickarna för att rita flera streck på en gång; ett drag som börjar på ett streck tar bort streck. Ett tal med alla sina streck ritade bleknar (en 0:a när den har kryss runt om); ett med för många blir rött. Lampan i slutet av listen ger en ledtråd: den rättar en felaktig markering, eller markerar annars en sida som resonemanget hittar, i gyllene ljus. Ångra tar tillbaka en handling i taget (ett helt drag på en gång), ända till början. Listen visar dina drag. När slingan är klar blir tråden gyllene.

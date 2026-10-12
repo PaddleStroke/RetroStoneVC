@@ -1,0 +1,8 @@
+Circuito
+# O objetivo
+Desenhe um único circuito fechado pelos lados das casas, de ponto em ponto. O circuito nunca se cruza nem se toca e não tem pontas soltas. Um número numa casa diz quantos dos seus quatro lados o circuito usa; uma casa sem número pode ter qualquer quantidade. Todo desafio tem uma única solução, encontrada só pelo raciocínio. Escolha primeiro o tamanho e o nível (as pedras sob cada figura):
+- Fácil: os lados de um número, um ponto com duas linhas ou nenhuma, e nunca fechar um circuito pequeno enquanto sobram outras linhas, sempre bastam.
+- Médio: você vai precisar também olhar um número junto com os pontos dos seus cantos (um 3 num canto, um 1 junto à borda).
+- Difícil: raciocínios mais longos: testar um lado e segui-lo até algo dar errado.
+# Jogando no aparelho
+Toque num lado para traçar uma linha; toque de novo para um X (um lado que você tem certeza de que fica vazio), e mais uma vez para apagá-lo. Ou arraste o dedo pelos pontos para traçar várias linhas de uma vez; um arrasto que começa sobre uma linha apaga as linhas. Um número com todas as suas linhas traçadas fica apagado (um 0, quando está cercado de X); um com linhas demais fica vermelho. A lâmpada no fim da barra dá uma dica: corrige uma marca errada ou, senão, marca um lado que o raciocínio encontra, com luz dourada. Desfazer volta uma ação por vez (um arrasto inteiro de uma vez), até o começo. A barra mostra as suas jogadas. Quando o circuito está completo, o arame fica dourado.

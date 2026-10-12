@@ -1,0 +1,8 @@
+Lus
+# Het doel
+Teken één gesloten lus langs de zijden van de vakjes, van punt tot punt. De lus kruist of raakt zichzelf nooit en heeft geen losse eindjes. Een getal in een vakje zegt hoeveel van zijn vier zijden de lus gebruikt; een vakje zonder getal mag er zoveel hebben als het wil. Elke puzzel heeft precies één oplossing, te vinden door alleen te redeneren. Kies eerst de grootte en het niveau (de stenen onder elk plaatje):
+- Makkelijk: de zijden van een getal, een punt met twee lijnen of geen, en nooit een kleine lus sluiten zolang er andere lijnen over zijn, zijn altijd genoeg.
+- Gemiddeld: je moet een getal ook samen met de punten op zijn hoeken bekijken (een 3 in een hoek, een 1 tegen de rand).
+- Moeilijk: langer redeneren: probeer een zijde en volg die tot er iets niet klopt.
+# Spelen op het apparaat
+Tik een zijde aan voor een lijn; nog eens voor een kruisje (een zijde waarvan je zeker weet dat ze leeg blijft), en nog eens om haar te wissen. Of sleep langs de punten om meerdere lijnen tegelijk te tekenen; een sleepbeweging die op een lijn begint, haalt lijnen weg. Een getal waarvan alle lijnen getekend zijn, vervaagt (een 0 zodra er rondom kruisjes staan); een met te veel wordt rood. De lamp aan het eind van de balk geeft een hint: hij verbetert een foute markering, of markeert anders een zijde die redeneren oplevert, in gouden licht. Ongedaan maken neemt telkens één handeling terug (een hele sleepbeweging in één keer), tot het begin. De balk toont je zetten. Is de lus rond, dan wordt de draad goud.

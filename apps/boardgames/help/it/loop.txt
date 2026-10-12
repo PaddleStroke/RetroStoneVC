@@ -1,0 +1,8 @@
+Anello
+# Lo scopo
+Traccia un solo anello chiuso lungo i lati delle caselle, da punto a punto. L'anello non si incrocia né si tocca mai e non ha estremità libere. Un numero in una casella dice quanti dei suoi quattro lati usa l'anello; una casella senza numero può averne quanti vuole. Ogni schema ha una sola soluzione, che si trova con il solo ragionamento. Scegli prima la dimensione e il livello (le pietre sotto ogni immagine):
+- Facile: i lati di un numero, un punto con due linee o nessuna, e non chiudere mai un piccolo anello finché restano altre linee, bastano sempre.
+- Medio: dovrai anche guardare un numero insieme ai punti dei suoi angoli (un 3 in un angolo, un 1 contro il bordo).
+- Difficile: ragionamenti più lunghi: provare un lato e seguirlo finché qualcosa non torna.
+# Giocare sul dispositivo
+Tocca un lato per tracciare una linea; toccalo di nuovo per una croce (un lato che sei sicuro resti vuoto), e ancora una volta per cancellarlo. Oppure trascina il dito lungo i punti per tracciare più linee insieme; un trascinamento che parte su una linea le cancella. Un numero con tutte le sue linee tracciate sbiadisce (uno 0 quando ha croci tutt'intorno); uno con troppe diventa rosso. La lampada in fondo alla barra dà un aiuto: corregge un segno sbagliato, oppure segna un lato che il ragionamento trova, in luce dorata. Annulla toglie un'azione alla volta (un intero trascinamento in un colpo), fino all'inizio. La barra mostra le tue mosse. Quando l'anello è completo, il filo diventa d'oro.

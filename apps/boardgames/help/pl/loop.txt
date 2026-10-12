@@ -1,0 +1,8 @@
+Pętla
+# Cel gry
+Narysuj jedną zamkniętą pętlę po bokach pól, od kropki do kropki. Pętla nigdy się nie przecina ani nie dotyka i nie ma wolnych końców. Liczba w polu mówi, ile z jego czterech boków wykorzystuje pętla; pole bez liczby może mieć ich dowolnie wiele. Każde zadanie ma dokładnie jedno rozwiązanie, które można znaleźć samym rozumowaniem. Najpierw wybierz rozmiar i poziom (kamienie pod każdym obrazkiem):
+- Łatwy: zawsze wystarczą boki liczby, kropka z dwiema liniami albo bez żadnej i zasada, by nie zamykać małej pętli, póki zostają inne linie.
+- Średni: trzeba też patrzeć na liczbę razem z kropkami w jej rogach (trójka w rogu, jedynka przy krawędzi).
+- Trudny: dłuższe rozumowanie: wypróbuj bok i śledź go, aż coś się nie zgodzi.
+# Gra na urządzeniu
+Stuknij bok, aby narysować linię; stuknij go znowu, by postawić krzyżyk (bok, który na pewno zostanie pusty), i jeszcze raz, by go wyczyścić. Albo przesuń palec wzdłuż kropek, by narysować kilka linii naraz; ruch zaczęty na linii usuwa linie. Liczba z narysowanymi wszystkimi liniami blednie (zero, gdy ma dookoła same krzyżyki); liczba z nadmiarem linii robi się czerwona. Lampa na końcu paska daje podpowiedź: poprawia błędny znak, a jeśli takiego nie ma, zaznacza bok znaleziony rozumowaniem, w złotym świetle. Cofnij cofa po jednej akcji (cały ruch palcem naraz), aż do początku. Pasek pokazuje twoje ruchy. Gdy pętla jest gotowa, drut staje się złoty.

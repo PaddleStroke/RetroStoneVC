@@ -1,0 +1,8 @@
+Boucle
+# Le but
+Trace une seule boucle fermée le long des côtés des cases, de point en point. La boucle ne se croise jamais, ne se touche jamais et n'a pas de bout libre. Un nombre dans une case dit combien de ses quatre côtés la boucle emprunte ; une case sans nombre peut en avoir autant qu'on veut. Chaque grille a une seule solution, qu'on trouve par le seul raisonnement. Choisis d'abord la taille et le niveau (les pions sous chaque image) :
+- Facile : les côtés d'un nombre, un point avec deux traits ou aucun, et ne jamais fermer une petite boucle tant qu'il reste d'autres traits, suffisent toujours.
+- Moyen : il faudra aussi regarder un nombre avec les points de ses coins (un 3 dans un coin, un 1 contre le bord).
+- Difficile : des raisonnements plus longs : essayer un côté et le suivre jusqu'à ce que quelque chose casse.
+# Jouer sur l'appareil
+Touche un côté pour tracer un trait ; touche-le encore pour une croix (un côté dont tu es sûr qu'il reste vide), et encore une fois pour l'effacer. Ou fais glisser le doigt le long des points pour tracer plusieurs traits d'un coup ; un glissement qui commence sur un trait efface les traits. Un nombre dont tous les traits sont tracés pâlit (un 0 une fois entouré de croix) ; un nombre qui en a trop devient rouge. La lampe au bout de la barre donne un indice : elle corrige une marque fausse, ou sinon marque un côté que le raisonnement trouve, dans une lumière dorée. Annuler reprend une action à la fois (tout un glissement d'un coup), jusqu'au début. La barre montre tes coups. Quand la boucle est complète, le fil devient doré.

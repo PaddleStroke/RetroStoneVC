@@ -1,0 +1,8 @@
+Silmukka
+# Tavoite
+Piirrä yksi suljettu silmukka ruutujen sivuja pitkin pisteestä pisteeseen. Silmukka ei koskaan risteä eikä kosketa itseään, eikä sillä ole irtonaisia päitä. Ruudun numero kertoo, kuinka monta sen neljästä sivusta silmukka käyttää; ruutu ilman numeroa voi saada niitä kuinka monta tahansa. Jokaisella tehtävällä on täsmälleen yksi ratkaisu, joka löytyy pelkällä päättelyllä. Valitse ensin koko ja taso (kivet kunkin kuvan alla):
+- Helppo: numeron sivut, piste, jossa on kaksi viivaa tai ei yhtään, ja se, ettei pientä silmukkaa saa sulkea, kun muita viivoja on jäljellä, riittävät aina.
+- Keskitaso: numeroa on katsottava myös yhdessä sen kulmien pisteiden kanssa (kolmonen nurkassa, ykkönen reunaa vasten).
+- Vaikea: pidempää päättelyä: kokeile sivua ja seuraa sitä, kunnes jokin menee rikki.
+# Pelaaminen laitteella
+Napauta sivua piirtääksesi viivan; napauta uudelleen ristiä varten (sivu, jonka tiedät jäävän tyhjäksi), ja vielä kerran tyhjentääksesi sen. Tai vedä sormea pisteitä pitkin piirtääksesi monta viivaa kerralla; viivalta alkava veto poistaa viivoja. Numero, jonka kaikki viivat on piirretty, haalistuu (nolla, kun sen ympärillä on pelkkiä ristejä); numero, jolla on liikaa viivoja, muuttuu punaiseksi. Palkin päässä oleva lamppu antaa vihjeen: se korjaa väärän merkinnän tai muuten merkitsee sivun, jonka päättely löytää, kultaisessa valossa. Kumoa perii takaisin yhden toimen kerrallaan (koko vedon kerralla), alkuun asti. Palkki näyttää siirtosi. Kun silmukka on valmis, lanka muuttuu kultaiseksi.
