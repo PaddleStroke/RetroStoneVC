@@ -1,0 +1,4 @@
+# Unicorn Hop's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 깡충깡충
+RAINBOW = 무지개!
+STARS_N[other] = 별 %d

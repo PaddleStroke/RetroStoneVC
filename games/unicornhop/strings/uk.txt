@@ -1,0 +1,6 @@
+# Unicorn Hop's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = СТРИБАТИ
+RAINBOW = ВЕСЕЛКА!
+STARS_N[one] = %d ЗІРКА
+STARS_N[few] = %d ЗІРКИ
+STARS_N[many] = %d ЗІРОК

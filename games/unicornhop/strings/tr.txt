@@ -1,0 +1,5 @@
+# Unicorn Hop's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ZIPLAMAK
+RAINBOW = GÖKKUŞAĞI!
+STARS_N[one] = %d YILDIZ
+STARS_N[other] = %d YILDIZ

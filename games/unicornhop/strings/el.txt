@@ -1,0 +1,5 @@
+# Unicorn Hop's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ΠΗΔΗΞΕΙΣ
+RAINBOW = ΟΥΡΑΝΙΟ ΤΟΞΟ!
+STARS_N[one] = %d ΑΣΤΕΡΙ
+STARS_N[other] = %d ΑΣΤΕΡΙΑ

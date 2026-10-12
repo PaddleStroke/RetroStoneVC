@@ -1,0 +1,6 @@
+# Unicorn Hop's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ПРЫГАТЬ
+RAINBOW = РАДУГА!
+STARS_N[one] = %d ЗВЕЗДА
+STARS_N[few] = %d ЗВЕЗДЫ
+STARS_N[many] = %d ЗВЁЗД

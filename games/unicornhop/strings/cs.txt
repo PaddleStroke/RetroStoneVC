@@ -1,0 +1,6 @@
+# Unicorn Hop's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SKÁKEJ
+RAINBOW = DUHA!
+STARS_N[one] = %d HVĚZDA
+STARS_N[few] = %d HVĚZDY
+STARS_N[other] = %d HVĚZD

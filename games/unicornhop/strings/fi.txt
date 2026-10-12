@@ -1,0 +1,5 @@
+# Unicorn Hop's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = HYPPÄÄ
+RAINBOW = SATEENKAARI!
+STARS_N[one] = %d TÄHTI
+STARS_N[other] = %d TÄHTEÄ

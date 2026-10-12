@@ -1,0 +1,5 @@
+# Unicorn Hop's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = PULAR
+RAINBOW = ARCO-ÍRIS!
+STARS_N[one] = %d ESTRELA
+STARS_N[other] = %d ESTRELAS

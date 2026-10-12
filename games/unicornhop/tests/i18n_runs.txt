@@ -1,0 +1,12 @@
+# Unicorn Hop: the screens of the language test (tools/i18n_test.sh, docs/i18n.md), one headless run per line:
+#   <name> <frames> <shot frame> [options] [; input lines]
+title     130  120
+title2    130  120  --opt players=2
+title4    130  120  --opt players=4
+join      130  90   ; 20 P2 tap A ; 40 P3 tap A ; 60 P4 tap A
+play      700  690  --opt bot=1 --opt seed=7 --opt ready=1
+play4     700  690  --opt bot=4 --opt players=4 --opt seed=9 --opt ready=1
+pause     640  630  --opt bot=1 --opt seed=7 --opt ready=1 ; 600 tap START
+rainbow   3060 3050 --opt bot=1 --opt seed=3 --opt ready=1
+over      870  860  --opt bot=1 --opt ready=1 --opt botstop=2 --opt botruns=2
+results   2360 2350 --opt bot=4 --opt players=4 --opt ready=1 --opt botstop=2

@@ -1,0 +1,5 @@
+# Unicorn Hop's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SAUTILLER
+RAINBOW = ARC-EN-CIEL !
+STARS_N[one] = %d ÉTOILE
+STARS_N[other] = %d ÉTOILES

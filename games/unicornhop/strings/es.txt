@@ -1,0 +1,5 @@
+# Unicorn Hop's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = BRINCAR
+RAINBOW = ¡ARCOÍRIS!
+STARS_N[one] = %d ESTRELLA
+STARS_N[other] = %d ESTRELLAS

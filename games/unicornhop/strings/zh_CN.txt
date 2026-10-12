@@ -1,0 +1,4 @@
+# Unicorn Hop's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 蹦跳
+RAINBOW = 彩虹!
+STARS_N[other] = 星星 %d

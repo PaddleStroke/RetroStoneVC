@@ -1,0 +1,5 @@
+# Unicorn Hop's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SALTELLARE
+RAINBOW = ARCOBALENO!
+STARS_N[one] = %d STELLA
+STARS_N[other] = %d STELLE

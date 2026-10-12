@@ -1,0 +1,4 @@
+# Unicorn Hop's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = はねる
+RAINBOW = にじ!
+STARS_N[other] = ほし %d

@@ -1,0 +1,14 @@
+# Unicorn Hop (games/unicornhop): its strings, the English source (docs/i18n.md).
+# Everything else comes from the house kit (games/common/strings/en.txt). The game's name is never translated.
+
+#. The title prompt's verb: PRESS A TO <VERB>. max 10
+VERB = HOP
+
+#. In play, every 25 clouds climbed: 2x letters (2 columns each) centred on row 5, over the sky, for 2.5 s.
+#. max 18
+RAINBOW = RAINBOW!
+
+#. The 1-player game-over panel: a line under the panel (hu_gameover_note), centred; %d is the stars caught.
+#. max 16
+STARS_N[one] = %d STAR
+STARS_N[other] = %d STARS

@@ -1,0 +1,6 @@
+# Unicorn Hop's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SKAKAĆ
+RAINBOW = TĘCZA!
+STARS_N[one] = %d GWIAZDKA
+STARS_N[few] = %d GWIAZDKI
+STARS_N[many] = %d GWIAZDEK

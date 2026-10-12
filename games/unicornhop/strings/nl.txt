@@ -1,0 +1,5 @@
+# Unicorn Hop's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = HUPPELEN
+RAINBOW = REGENBOOG!
+STARS_N[one] = %d STER
+STARS_N[other] = %d STERREN
