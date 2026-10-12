@@ -174,15 +174,31 @@ static void calm(void)
     memset(&push, 0, sizeof push);
 }
 
-static void start(int variant)
+static void begin(void)
 {
-    tq_new(&G, variant, (uint32_t)ui_random(0x7fffffff) + 1u);
     calm();
     if (last_box.w > 0) layout(last_box);
 }
 
+static void start(int level)                    /* a designed level */
+{
+    if (!tq_level(&G, level)) tq_level(&G, 0);
+    begin();
+}
+
+static void start_random(int variant)           /* a tray shuffled at random; its par found now */
+{
+    G.picture = 0;
+    tq_new(&G, variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    G.par = tq_par(&G);
+    begin();
+}
+
 static int status(void) { return tq_solved(&G) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
+static int score(void) { return G.moves; }     /* the tiles moved on the way kept */
+static int par(void) { return G.par; }
+static int level_stars(void) { return ui_par_stars(G.moves, G.par); }
 
 static Uint32 win_end(void)
 {
@@ -357,6 +373,8 @@ static void bar(int player, box b)
 }
 
 /* ---- the menu's and the picker's cards --------------------------------------------------------------------------- */
+static void paint_tray_of(const tq_game *g, int size, uint8_t *rgba);
+
 static void thumb(int variant, int size, uint8_t *rgba)
 {
     tq_game T;
@@ -370,6 +388,32 @@ static void thumb(int variant, int size, uint8_t *rgba)
         at[n * n - 1 - n] = 0;
         tq_load(&T, n, at);
     }
+    paint_tray_of(&T, size, rgba);
+}
+
+/* the level screen: a level's tray; a chapter's tab: the tray of its first level in order */
+static void level_thumb(int level, int size, uint8_t *rgba)
+{
+    tq_game T;
+    T.picture = 0;
+    if (tq_level(&T, level)) paint_tray_of(&T, size, rgba);
+}
+
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    tq_game T;
+    T.picture = 0;
+    if (!tq_level(&T, chapter * (TQ_LEVELS / TQ_CHAPTERS))) return;
+    int8_t at[TQ_PLACES];
+    for (int i = 0; i < T.n * T.n; i++) at[i] = (int8_t)((i + 1) % (T.n * T.n));
+    tq_load(&T, T.n, at);
+    paint_tray_of(&T, size, rgba);
+}
+
+/* a tray with its tiles where they are, size x size */
+static void paint_tray_of(const tq_game *P, int size, uint8_t *rgba)
+{
+    tq_game T = *P;
     int f, g, t;
     sizes(T.n, (float)size, &f, &g, &t);
     uint8_t *tray = malloc((size_t)size * size * 4), *src = malloc((size_t)T.n * t * T.n * t * 4);
@@ -394,5 +438,7 @@ static const game taquin_game = {
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1,
+    .levels = TQ_LEVELS, .chapters = TQ_CHAPTERS, .start_random = start_random, .chapter_icon = chapter_icon,
+    .level_thumb = level_thumb, .level_stars = level_stars, .score = score, .par = par,
 };
 REGISTER_GAME(taquin_game)

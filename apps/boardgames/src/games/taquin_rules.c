@@ -1,6 +1,6 @@
 /*
- * The 15 Puzzle: the rules (taquin.h): the parity, the shuffle, the slides and undo. No SDL: tested by
- * tests/taquin_test.c.
+ * The 15 Puzzle: the rules (taquin.h): the parity, the shuffle, the slides and undo, the search for the fewest moves,
+ * the levels. No SDL: tested by tests/taquin_test.c.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include "games/taquin.h"
@@ -151,3 +151,170 @@ int tq_script(tq_game *g, const char *s)
     }
     return 1;
 }
+
+/* ---- the search -------------------------------------------------------------------------------------------------- */
+typedef struct {
+    int n, gap, md, wq, len;
+    int8_t at[TQ_PLACES];
+    int lc[2][TQ_MAX];                          /* each row's (0) and column's (1) linear conflicts */
+    long nodes, budget;
+} srch;
+
+static int dist_of(int n, int tile, int place)
+{
+    int goal = tile - 1, dx = goal % n - place % n, dy = goal / n - place / n;
+    return (dx < 0 ? -dx : dx) + (dy < 0 ? -dy : dy);
+}
+
+/* a row (col 0) or a column's conflicts: of its tiles that belong to it, all but the longest run in order must leave
+ * it and come back (two moves each) */
+static int line_lc(const int8_t *at, int n, int col, int line)
+{
+    int v[TQ_MAX], k = 0;
+    for (int i = 0; i < n; i++) {
+        int place = col ? line + i * n : line * n + i, t = at[place];
+        if (!t) continue;
+        int gr = (t - 1) / n, gc = (t - 1) % n;
+        if (col ? gc == line : gr == line) v[k++] = col ? gr : gc;
+    }
+    int best = 0, run[TQ_MAX];
+    for (int i = 0; i < k; i++) {
+        run[i] = 1;
+        for (int j = 0; j < i; j++)
+            if (v[j] < v[i] && run[j] + 1 > run[i]) run[i] = run[j] + 1;
+        if (run[i] > best) best = run[i];
+    }
+    return 2 * (k - best);
+}
+
+int tq_bound(const int8_t *at, int n)
+{
+    int h = 0;
+    for (int p = 0; p < n * n; p++)
+        if (at[p]) h += dist_of(n, at[p], p);
+    for (int l = 0; l < n; l++) h += line_lc(at, n, 0, l) + line_lc(at, n, 1, l);
+    return h;
+}
+
+static int lc_all(const srch *s)
+{
+    int h = 0;
+    for (int l = 0; l < s->n; l++) h += s->lc[0][l] + s->lc[1][l];
+    return h;
+}
+
+/* depth first within the bound (quarters): 1 found (its length in s->len), 0 not within it (*next: the least f
+ * beyond), -1 out of budget */
+static int dfs(srch *s, int g, int bound, int prev, int lc, int *next)
+{
+    int h = s->md + lc, f = 4 * g + s->wq * h;
+    if (f > bound) {
+        if (f < *next) *next = f;
+        return 0;
+    }
+    if (!h) {
+        s->len = g;
+        return 1;
+    }
+    if (++s->nodes > s->budget) return -1;
+    int n = s->n, gap = s->gap, gx = gap % n, gy = gap / n;
+    static const int DX[4] = {0, 1, 0, -1}, DY[4] = {-1, 0, 1, 0};
+    for (int d = 0; d < 4; d++) {
+        int x = gx + DX[d], y = gy + DY[d];
+        if (x < 0 || y < 0 || x >= n || y >= n) continue;
+        int p = x + y * n;
+        if (p == prev) continue;
+        int t = s->at[p], dmd = dist_of(n, t, gap) - dist_of(n, t, p);
+        /* the tile goes from p into the gap: across (its column changes) or up and down (its row changes) */
+        int col = DY[d] == 0, a = col ? x : y, b = col ? gx : gy, oa = s->lc[col][a], ob = s->lc[col][b];
+        s->at[gap] = (int8_t)t;
+        s->at[p] = 0;
+        s->gap = p;
+        s->md += dmd;
+        s->lc[col][a] = line_lc(s->at, n, col, a);
+        s->lc[col][b] = line_lc(s->at, n, col, b);
+        int r = dfs(s, g + 1, bound, gap, lc - oa - ob + s->lc[col][a] + s->lc[col][b], next);
+        s->lc[col][a] = oa;
+        s->lc[col][b] = ob;
+        s->md -= dmd;
+        s->gap = gap;
+        s->at[p] = (int8_t)t;
+        s->at[gap] = 0;
+        if (r) return r;
+    }
+    return 0;
+}
+
+int tq_search(const int8_t *at, int n, int wq, long budget, long *looked)
+{
+    srch s;
+    memset(&s, 0, sizeof s);
+    s.n = n;
+    s.wq = wq < 4 ? 4 : wq;
+    s.budget = budget;
+    memcpy(s.at, at, (size_t)n * n);
+    for (int p = 0; p < n * n; p++) {
+        if (!at[p]) s.gap = p;
+        else s.md += dist_of(n, at[p], p);
+    }
+    for (int l = 0; l < n; l++) {
+        s.lc[0][l] = line_lc(at, n, 0, l);
+        s.lc[1][l] = line_lc(at, n, 1, l);
+    }
+    int lc = lc_all(&s), bound = s.wq * (s.md + lc), r = 0;
+    for (;;) {
+        int next = 1 << 30;
+        r = dfs(&s, 0, bound, -1, lc, &next);
+        if (r || next == 1 << 30) break;
+        bound = next;
+    }
+    if (looked) *looked = s.nodes;
+    return r == 1 ? s.len : -1;
+}
+
+int tq_par(const tq_game *g)
+{
+    if (g->n <= 3) return tq_search(g->at, g->n, 4, 50000000L, NULL);
+    static const int W4[] = {4, 6, 8, 12}, W5[] = {8, 12, 16, 24};
+    const int *w = g->n == 4 ? W4 : W5;
+    for (int i = 0; i < 4; i++) {
+        int len = tq_search(g->at, g->n, w[i], i ? 300000L : 600000L, NULL);
+        if (len >= 0) return len;
+    }
+    return 0;
+}
+
+/* ---- the levels -------------------------------------------------------------------------------------------------- */
+int tq_parse(tq_game *g, const char *level)
+{
+    static const char TILES[] = ".123456789abcdefghijklmno";
+    if ((level[0] != 'n' && level[0] != 'p') || level[1] != ':') return 0;
+    const char *s = level + 2;
+    int n = 0;
+    while (s[n] && s[n] != '|') n++;
+    if (n < 3 || n > TQ_MAX) return 0;
+    int8_t at[TQ_PLACES];
+    int k = 0, seen = 0;
+    for (; *s; s++) {
+        if (*s == '|') continue;
+        const char *c = strchr(TILES, *s);
+        if (!c || k >= n * n || c - TILES >= n * n || (seen >> (c - TILES) & 1)) return 0;
+        seen |= 1 << (c - TILES);
+        at[k++] = (int8_t)(c - TILES);
+    }
+    if (k != n * n || !tq_solvable(at, n)) return 0;
+    g->picture = level[0] == 'p';
+    tq_load(g, n, at);
+    return 1;
+}
+
+#ifndef TQ_GEN                                  /* not in the levels' tool (tools/taquin_gen.c): it makes them */
+#include "games/taquin_levels.h"
+
+int tq_level(tq_game *g, int level)
+{
+    if (level < 0 || level >= TQ_LEVELS || !tq_parse(g, tq_levels[level])) return 0;
+    g->par = tq_level_par[level];
+    return 1;
+}
+#endif

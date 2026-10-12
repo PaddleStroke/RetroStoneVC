@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "games/puzrand.h"
 #include "games/taquin.h"
@@ -156,8 +157,49 @@ int main(void)
         while (tq_undo(&g) >= 0) {}
         CHECK(!memcmp(g.at, first.at, sizeof g.at) && g.moves == 0);
     }
+    /* the search: on 3 x 3 trays (one in 61 of all the solvable ones) the bound never above the distance and the
+     * exact search equal to it; the weighted searches never shorter */
+    int exact = 1, weighted = 1;
+    for (int r = 0; r < N9; r += 61) {
+        if (dist[r] < 0) continue;
+        unrank9(r, at);
+        if (tq_bound(at, 3) > dist[r] || tq_search(at, 3, 4, 10000000L, NULL) != dist[r]) exact = 0;
+        int w = tq_search(at, 3, 8, 10000000L, NULL);
+        if (w < dist[r] || (w - dist[r]) % 2) weighted = 0;
+    }
+    CHECK(exact && weighted);
     free(dist);
     free(queue);
+
+    /* random trays: the par from a seed (exact on 3 x 3; on the larger ones the best found in time, never below the
+     * bound), and how long it takes */
+    double slowest[TQ_MAX + 1] = {0};
+    for (int v = 0; v < 3; v++)
+        for (uint32_t seed = 1; seed <= (v == 2 ? 20u : 40u); seed++) {
+            tq_new(&g, v, seed);
+            clock_t t0 = clock();
+            int par = tq_par(&g);
+            double ms = 1000.0 * (double)(clock() - t0) / CLOCKS_PER_SEC;
+            if (ms > slowest[g.n]) slowest[g.n] = ms;
+            CHECK(par == 0 || (par >= tq_bound(g.at, g.n) && (par - tq_bound(g.at, g.n)) % 2 == 0));
+            if (g.n == 3) CHECK(par > 0);
+        }
+    printf("taquin: the slowest par 3 x 3 %.0f ms, 4 x 4 %.0f ms, 5 x 5 %.0f ms\n", slowest[3], slowest[4], slowest[5]);
+
+    /* the levels: each loads, its par found again by the exact search, a chapter's trays all of one size, never
+     * smaller than the chapter before, no two alike */
+    int last_n = 0;
+    for (int l = 0; l < TQ_LEVELS; l++) {
+        CHECK(tq_level(&g, l));
+        CHECK(!tq_solved(&g) && g.moves == 0 && g.par == tq_level_par[l] && g.par > 0);
+        CHECK(tq_search(g.at, g.n, 4, 20000000L, NULL) == g.par);
+        if (l % (TQ_LEVELS / TQ_CHAPTERS)) CHECK(g.n == last_n);
+        else CHECK(g.n >= last_n);
+        last_n = g.n;
+        for (int k = 0; k < l; k++) CHECK(strcmp(tq_levels[k] + 1, tq_levels[l] + 1) != 0);
+    }
+    CHECK(!tq_level(&g, TQ_LEVELS) && !tq_parse(&g, "n:123|456|78") && !tq_parse(&g, "n:213|456|78."));
+    CHECK(tq_parse(&g, "p:123|456|7.8") && g.picture && g.n == 3 && tq_script(&g, "8") && tq_solved(&g));
 
     if (fails) {
         printf("taquin: %d failed\n", fails);
