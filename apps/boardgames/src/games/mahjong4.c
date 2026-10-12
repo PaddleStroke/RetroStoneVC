@@ -141,6 +141,8 @@ static struct {
     float rowout[M4_P], rowmax[M4_P];           /* the others' rows: from the middle; their longest */
     float hy, my;                               /* the hand's row, the melds' row (the faces' middles) */
     float oy;                                   /* the choices' row */
+    float side;                                 /* landscape: the column on the right for the melds and flowers (its
+                                                 * width; 0: they go in a row above the hand) */
 } T;
 
 static int rel(int q) { return (q - T.me + M4_P) % M4_P; }
@@ -166,16 +168,19 @@ static void geometry(box b)
     float hh = 1.43f * T.Wh, mh = 1.43f * T.Wm;
     T.hy = b.y + b.h - 0.06f * u - hh / 2;
     T.my = T.hy - hh / 2 - 0.16f * u - mh / 2;
-    float mine = b.y + b.h - (T.my - mh / 2) + 0.1f * u;
-    T.S = floorf(fminf((b.w - 0.1f * u) / 23.4f, (b.h - mine) / 21.5f));
+    /* landscape: the table is wider than the square needs; the melds and flowers go in a column on the right, so the
+     * square takes the height the melds' row took */
+    T.side = b.w > 1.25f * b.h ? floorf(4.4f * T.Wm + 0.3f * u) : 0;
+    float mine = T.side ? b.y + b.h - (T.hy - hh / 2) + 0.16f * u : b.y + b.h - (T.my - mh / 2) + 0.1f * u;
+    T.S = floorf(fminf((b.w - T.side - 0.1f * u) / 23.4f, (b.h - mine) / 21.5f));
     float S = T.S, rowd = 1.43f * S;
     T.D = 1.3f * S + 2.4f * thick((int)S);
     T.A = (18 * S + T.D) / 2;
-    T.cx = b.x + b.w / 2;
+    T.cx = b.x + (b.w - T.side) / 2;
     T.cy = b.y + rowd + 0.3f * S + T.A;
     T.rowout[2] = T.cy - (b.y + rowd / 2);
-    T.rowout[1] = T.rowout[3] = fminf(T.A + 0.3f * S + rowd / 2, b.w / 2 - rowd / 2);
-    float below = T.my - mh / 2 - 0.1f * u;
+    T.rowout[1] = T.rowout[3] = fminf(T.A + 0.3f * S + rowd / 2, (b.w - T.side) / 2 - rowd / 2);
+    float below = T.side ? T.hy - hh / 2 - 0.16f * u : T.my - mh / 2 - 0.1f * u;
     T.rowmax[1] = T.rowmax[3] = 2 * fminf(T.cy - (b.y + rowd + 0.2f * S), below - T.cy);
     T.rowmax[2] = 2 * (T.rowout[1] - rowd / 2 - 0.2f * S);
     float gap = below - (T.cy + T.A);           /* room between the square and the melds' row: the choices go there */
@@ -268,14 +273,29 @@ static void places(void)
                 hand_x(i, n, apart, &x);
                 at[o[i]] = (place){x, T.hy, 0, T.Wh, up, o[i] == sel ? TD_RAISED : 0, 6000 + i};
             }
-            float x = T.b.x + 0.15f * T.u + T.Wm / 2;
+            float x = T.b.x + 0.15f * T.u + T.Wm / 2, fw = floorf(0.8f * T.Wm);
+            if (T.side) {                       /* landscape: up the column on the right, from above the hand */
+                float x0 = T.b.x + T.b.w - T.side + 0.15f * T.u + T.Wm / 2, mh = 1.43f * T.Wm;
+                float y = T.hy - 0.715f * T.Wh - 0.25f * T.u - mh / 2;
+                for (int m = 0; m < p->nmeld[q]; m++, y -= mh + 0.12f * T.u) {
+                    const m4meld *md = &p->meld[q][m];
+                    for (int i = 0; i < md->n; i++)
+                        at[md->tile[i]] = (place){x0 + i * (T.Wm + 1), y, 0, T.Wm, meld_face(md, i), 0,
+                                                  5000 + m * 4 + i};
+                }
+                y += mh / 2 - 0.7f * fw - 0.05f * T.u;
+                for (int i = 0; i < p->nflower[q]; i++)   /* the flowers above, four a row */
+                    at[p->flower[q][i]] = (place){x0 - (T.Wm - fw) / 2 + i % 4 * (fw + 1),
+                                                  y - i / 4 * 1.5f * fw, 0, fw, 1, 0, 5100 + i};
+                continue;
+            }
             for (int m = 0; m < p->nmeld[q]; m++) {
                 const m4meld *md = &p->meld[q][m];
                 for (int i = 0; i < md->n; i++, x += T.Wm + 1)
                     at[md->tile[i]] = (place){x, T.my, 0, T.Wm, meld_face(md, i), 0, 5000 + m * 4 + i};
                 x += 0.3f * T.Wm;
             }
-            float fw = floorf(0.8f * T.Wm), fx = T.b.x + T.b.w - 0.15f * T.u - fw / 2;
+            float fx = T.b.x + T.b.w - 0.15f * T.u - fw / 2;
             for (int i = p->nflower[q] - 1; i >= 0; i--, fx -= fw + 1)
                 at[p->flower[q][i]] = (place){fx, T.my + 0.1f * T.Wm, 0, fw, 1, 0, 5100 + i};
             continue;
