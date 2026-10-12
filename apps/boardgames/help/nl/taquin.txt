@@ -1,0 +1,10 @@
+Vijftienpuzzel
+# Het doel
+Genummerde tegeltjes liggen door elkaar in een raam, met één plek vrij. Schuif ze terug op volgorde: 1, 2, 3... rij voor rij vanaf linksboven, met de vrije plek als laatste, rechtsonder. Kies eerst het raam: 3 × 3 (8 tegeltjes), 4 × 4 (de klassieke 15 tegeltjes) of 5 × 5 (24 tegeltjes), met getallen of uit een plaatje gesneden (een schaakpartij in volle gang, het nummer van elk tegeltje klein in de hoek).
+Elke schudding is op te lossen. De helft van alle manieren om de tegeltjes te mengen zou je nooit terug op volgorde kunnen schuiven, en die worden nooit gegeven.
+# Een zet
+Een tegeltje naast de vrije plek schuift erin. Tegeltjes schuiven alleen; ze worden nooit uit het raam gehaald.
+# Het einde van het spel
+Ligt elk tegeltje op zijn plek, dan is de puzzel opgelost: een gouden licht gaat op volgorde over de tegeltjes, en een plaatje krijgt zijn ontbrekende stukje.
+# Spelen op het apparaat
+Tik op een tegeltje in dezelfde rij of kolom als de vrije plek: het schuift, en de tegeltjes ertussen schuiven mee. Je kunt een tegeltje ook met je vinger naar de vrije plek duwen: voorbij de helft gaat het door, anders valt het terug. Ongedaan maken neemt één schuif tegelijk terug, helemaal tot het begin. De balk telt de verschoven tegeltjes: een schuif van drie tegeltjes telt drie.

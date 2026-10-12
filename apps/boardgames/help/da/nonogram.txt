@@ -1,0 +1,13 @@
+Nonogrammer
+# Målet
+Der er gemt et billede i gitteret. Tallene til venstre for hver række og over hver kolonne er ledetrådene: længderne af stykkerne af udfyldte felter i den linje, i rækkefølge, med mindst ét tomt felt mellem to stykker (0: linjen er tom). Udfyld felterne, så billedet kommer frem. Vælg først størrelsen: 5 × 5, 10 × 10 eller 15 × 15.
+Hvert billede kan findes ved at ræsonnere én linje ad gangen, uden at gætte. Nogle er husets egne tegninger (et hjerte, en båd, en kat...), andre er lavet tilfældigt.
+# Et træk
+Udfyld et felt, eller sæt et kryds i et felt, du ved er tomt. Krydsene er kun noter til dig selv.
+# Spillets afslutning
+Når hver række og hver kolonne passer med sine ledetråde, er opgaven løst: krydsene forsvinder, billedet kommer frem i sine farver, og et gyldent lys går hen over det.
+# Spil på enheden
+- Tryk på et felt for at udfylde det; tryk igen for at tømme det.
+- Hold fingeren et øjeblik på et felt for i stedet at sætte et kryds. Knappen yderst til højre i bjælken får tryk til at sætte kryds (eller udfylde igen); den viser, hvad et tryk gør.
+- Træk langs en række eller kolonne for at gøre det samme ved et helt stykke. Kun felter, der var som det første, ændres, så når du udfylder, springer du dine kryds over.
+Ledetrådene for de linjer, du rører, lyser op, og tallene blegner for en linje, hvis udfyldte felter passer med ledetråden. Fortryd tager ét tryk eller stykke tilbage ad gangen, helt til starten. Bjælken viser dine træk.

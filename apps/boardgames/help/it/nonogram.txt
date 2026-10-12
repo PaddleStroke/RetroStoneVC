@@ -1,0 +1,13 @@
+Nonogrammi
+# Lo scopo
+Nella griglia è nascosto un disegno. I numeri a sinistra di ogni riga e sopra ogni colonna sono i suoi indizi: le lunghezze dei tratti di caselle piene in quella linea, in ordine, con almeno una casella vuota fra due tratti (0: la linea è vuota). Riempi le caselle per far apparire il disegno. Scegli prima la misura: 5 × 5, 10 × 10 o 15 × 15.
+Ogni disegno si trova ragionando una linea alla volta, senza tirare a indovinare. Alcuni sono disegni della casa (un cuore, una barca, un gatto...), altri sono creati a caso.
+# Una mossa
+Riempi una casella, oppure segna con una croce una casella che sai vuota. Le croci sono solo note per te.
+# La fine della partita
+Quando ogni riga e ogni colonna corrisponde ai suoi indizi, lo schema è risolto: le croci spariscono, il disegno appare nei suoi colori e una luce dorata lo attraversa.
+# Giocare sul dispositivo
+- Tocca una casella per riempirla; toccala di nuovo per svuotarla.
+- Tieni il dito un momento su una casella per segnarla invece con una croce. Il pulsante in fondo alla barra fa mettere croci a ogni tocco (o di nuovo riempire); mostra che cosa fa un tocco.
+- Trascina lungo una riga o una colonna per fare lo stesso su tutto un tratto. Cambiano solo le caselle che erano come la prima: riempiendo passi sopra le tue croci.
+Gli indizi delle linee che tocchi si illuminano, e i numeri di una linea le cui caselle piene corrispondono all'indizio sbiadiscono. Annulla toglie un tocco o un tratto alla volta, fino all'inizio. La barra mostra le tue mosse.

@@ -1,0 +1,9 @@
+Torre de Hanói
+# O objetivo
+Uma torre de discos está no pino da esquerda, com o maior em baixo. Leva a torre inteira para outro pino: o do meio ou o da direita. Escolhe primeiro o número de discos: 4, 5, 6 ou 7.
+# Uma jogada
+Pega no disco de cima de um pino e põe-no noutro pino, vazio ou com um disco maior em cima. Um disco nunca vai para cima de um mais pequeno.
+# O fim do jogo
+O quebra-cabeças está resolvido quando a torre inteira está noutro pino. O mínimo de jogadas: 15 com 4 discos, 31 com 5, 63 com 6, 127 com 7 (cada disco a mais duplica-as, mais uma). Se o conseguires no mínimo, a torre inteira brilha dourada.
+# Jogar no dispositivo
+Toca num pino: o disco de cima levanta-se. Toca noutro pino: o disco vai para lá (se não puder ir, treme e fica no ar). Toca no seu próprio pino para o pousar de novo. Também podes arrastar um disco de um pino para outro. Anular desfaz uma jogada de cada vez, até ao início. A barra mostra as tuas jogadas e, na ponta direita, o mínimo possível.

@@ -1,0 +1,10 @@
+Jogo do 15
+# O objetivo
+Pecinhas numeradas estão misturadas numa moldura com um lugar vazio. Deslize-as até pô-las em ordem: 1, 2, 3... linha por linha a partir do canto de cima à esquerda, com o lugar vazio por último, embaixo à direita. Escolha primeiro a moldura: 3 × 3 (8 pecinhas), 4 × 4 (o clássico de 15 pecinhas) ou 5 × 5 (24 pecinhas), com números ou recortada de uma imagem (uma partida de xadrez em andamento, com o número de cada pecinha pequeno no canto).
+Toda mistura tem solução. Metade das formas de misturar as pecinhas nunca poderia voltar à ordem deslizando, e essas nunca são dadas.
+# Uma jogada
+Uma pecinha ao lado do lugar vazio desliza para ele. As pecinhas só deslizam; nunca saem da moldura.
+# O fim da partida
+Quando cada pecinha está no seu lugar, o jogo está resolvido: uma luz dourada percorre as pecinhas em ordem, e uma imagem ganha a peça que faltava.
+# Jogando no aparelho
+Toque numa pecinha da mesma linha ou coluna do lugar vazio: ela desliza, e as pecinhas entre ela e o lugar vazio vão junto. Você também pode empurrar uma pecinha com o dedo em direção ao lugar vazio: passando da metade ela continua, senão volta. Desfazer volta um deslize de cada vez, até o começo. A barra conta as pecinhas movidas: um deslize de três pecinhas conta três.

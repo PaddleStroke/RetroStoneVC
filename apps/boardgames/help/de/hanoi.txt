@@ -1,0 +1,9 @@
+Türme von Hanoi
+# Das Ziel
+Ein Turm aus Scheiben steht auf dem linken Stab, die größte unten. Versetze den ganzen Turm auf einen anderen Stab: den mittleren oder den rechten. Wähle zuerst die Zahl der Scheiben: 4, 5, 6 oder 7.
+# Ein Zug
+Nimm die oberste Scheibe eines Stabs und lege sie auf einen anderen Stab, der leer ist oder oben eine größere Scheibe trägt. Eine Scheibe kommt nie auf eine kleinere.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn der ganze Turm auf einem anderen Stab steht. Die wenigsten möglichen Züge: 15 mit 4 Scheiben, 31 mit 5, 63 mit 6, 127 mit 7 (jede Scheibe mehr verdoppelt sie, plus eins). Gelingt es mit den wenigsten Zügen, leuchtet der ganze Turm golden.
+# Spielen auf dem Gerät
+Tippe einen Stab an: Seine oberste Scheibe hebt sich. Tippe einen anderen Stab an: Die Scheibe kommt dorthin (darf sie nicht dorthin, wackelt sie und bleibt oben). Tippe ihren eigenen Stab an, um sie wieder abzulegen. Du kannst eine Scheibe auch von einem Stab zum anderen ziehen. Rückgängig nimmt einen Zug nach dem anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge und am rechten Ende die wenigsten möglichen.

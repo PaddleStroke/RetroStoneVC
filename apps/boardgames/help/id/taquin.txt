@@ -1,0 +1,10 @@
+Teka-teki 15
+# Tujuan
+Ubin-ubin bernomor teracak di dalam bingkai yang punya satu tempat kosong. Geser ubin-ubin itu sampai urut kembali: 1, 2, 3... baris demi baris dari kiri atas, dengan tempat kosong paling akhir, di kanan bawah. Pilih dulu bingkainya: 3 × 3 (8 ubin), 4 × 4 (yang klasik, 15 ubin), atau 5 × 5 (24 ubin), dengan angka atau dipotong dari sebuah gambar (permainan catur yang sedang berlangsung, nomor tiap ubin kecil di sudutnya).
+Setiap acakan bisa diselesaikan. Separuh dari semua cara mengacak ubin tidak akan pernah bisa digeser kembali ke urutannya, dan yang seperti itu tidak pernah diberikan.
+# Satu langkah
+Ubin di sebelah tempat kosong meluncur ke sana. Ubin hanya digeser; tidak pernah diangkat dari bingkai.
+# Akhir permainan
+Saat setiap ubin ada di tempatnya, teka-teki terpecahkan: cahaya emas menyapu ubin-ubin sesuai urutannya, dan gambar mendapatkan kepingnya yang hilang.
+# Bermain di perangkat
+Ketuk ubin di baris atau kolom yang sama dengan tempat kosong: ubin itu meluncur, dan ubin di antaranya dan tempat kosong ikut bergeser. Kamu juga bisa mendorong ubin dengan jari ke arah tempat kosong: lewat dari setengah jalan ia terus meluncur, kalau tidak ia kembali. Urungkan membatalkan satu geseran setiap kali, sampai ke awal. Bilah menghitung ubin yang dipindahkan: geseran tiga ubin dihitung tiga.

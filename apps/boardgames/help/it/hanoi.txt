@@ -1,0 +1,9 @@
+Torre di Hanoi
+# Lo scopo
+Una torre di dischi sta sul piolo di sinistra, il più grande in basso. Sposta tutta la torre su un altro piolo: quello centrale o quello di destra. Scegli prima il numero di dischi: 4, 5, 6 o 7.
+# Una mossa
+Prendi il disco in cima a un piolo e mettilo su un altro piolo, vuoto o con in cima un disco più grande. Un disco non va mai su uno più piccolo.
+# La fine della partita
+Il rompicapo è risolto quando tutta la torre sta su un altro piolo. Il minimo di mosse: 15 con 4 dischi, 31 con 5, 63 con 6, 127 con 7 (ogni disco in più le raddoppia, più una). Se ci riesci con il minimo, tutta la torre brilla d'oro.
+# Giocare sul dispositivo
+Tocca un piolo: il suo disco in cima si solleva. Tocca un altro piolo: il disco ci va (se non può andarci, trema e resta sollevato). Tocca il suo piolo per rimetterlo giù. Puoi anche trascinare un disco da un piolo all'altro. Annulla toglie una mossa alla volta, fino all'inizio. La barra mostra le tue mosse e, all'estremità destra, il minimo possibile.

@@ -1,0 +1,18 @@
+Sudoku
+# Het doel
+Vul het rooster van 9 × 9 vakjes zo dat elke rij, elke kolom en elk blok van 3 × 3 elk cijfer van 1 tot 9 één keer bevat. Een paar cijfers zijn gegeven. Elke puzzel heeft precies één oplossing, die je alleen door redeneren vindt. Kies eerst het niveau (de stenen onder elk plaatje):
+- Makkelijk: een vakje waar nog maar één cijfer in past, of een cijfer dat in zijn rij, kolom of blok nog maar één plek heeft, is altijd genoeg.
+- Gemiddeld: je hebt ook paren nodig, en cijfers waarvan alle plekken in een blok op één rij of kolom liggen.
+- Moeilijk: drietallen, en patronen over meerdere rijen en kolommen.
+- Expert: langere redeneringen achter elkaar.
+# Een zet
+Zet een cijfer in een leeg vakje. Je kunt het altijd veranderen of weghalen; de gegeven cijfers blijven staan. Kleine notities in een vakje helpen je onthouden welke cijfers er nog in kunnen.
+# Het einde van het spel
+De puzzel is opgelost als het rooster vol en goed is: een golf van gouden licht gaat over het bord.
+# Spelen op het apparaat
+Tik op een vakje en dan op een toets onder het bord: het cijfer komt erin, in blauwe inkt (de gegeven cijfers zijn donker). Tik nog eens op dezelfde toets om het weg te halen, of sleep een toets naar een vakje. De rij, de kolom en het blok van het vakje lichten zacht op, en alle vakjes met hetzelfde cijfer warmer. Is er geen leeg vakje gekozen, dan laat een toets de vakjes van zijn cijfer oplichten. De knoppen naast het bord:
+- Potlood: notities. De toetsen zetten dan kleine cijfers in het vakje, of halen ze weg. Een cijfer dat je invult, wist die notitie uit zijn rij, kolom en blok.
+- Gum: haalt het cijfer van het vakje weg, of de notities.
+- Lamp: een hint. Hij verbetert een fout cijfer, of vult anders het makkelijkste vakje in, in gouden licht.
+- Oog: toont botsingen (een cijfer dat al in zijn rij, kolom of blok staat, wordt rood). Het staat eerst aan; tik erop om ze te verbergen.
+Een toets vervaagt zodra alle negen cijfers ervan op het bord staan. Ongedaan maken neemt één actie tegelijk terug, helemaal tot het begin. De balk toont je zetten.

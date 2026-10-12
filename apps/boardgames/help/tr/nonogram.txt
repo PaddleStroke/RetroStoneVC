@@ -1,0 +1,13 @@
+Nonogram
+# Amaç
+Izgarada bir resim saklıdır. Her satırın solundaki ve her sütunun üstündeki sayılar onun ipuçlarıdır: o çizgideki dolu kare dizilerinin uzunlukları, sırasıyla; iki dizi arasında en az bir boş kare vardır (0: çizgi boştur). Resmi ortaya çıkarmak için kareleri doldur. Önce boyutu seç: 5 × 5, 10 × 10 ya da 15 × 15.
+Her resim, tahmin yürütmeden, çizgi çizgi akıl yürüterek bulunabilir. Bazıları evin kendi çizimleridir (bir kalp, bir tekne, bir kedi...), bazıları rastgele çizilir.
+# Bir hamle
+Bir kareyi doldur ya da boş olduğunu bildiğin bir kareyi çarpıyla işaretle. Çarpılar yalnızca senin notlarındır.
+# Oyunun sonu
+Her satır ve her sütun ipuçlarına uyduğunda bulmaca çözülür: çarpılar kaybolur, resim renkleriyle ortaya çıkar ve üzerinden altın renkli bir ışık geçer.
+# Cihazda oynamak
+- Bir kareyi doldurmak için ona dokun; boşaltmak için yeniden dokun.
+- Bunun yerine çarpı koymak için parmağını bir karenin üzerinde bir an tut. Çubuğun sağ ucundaki düğme dokunuşların çarpı koymasını (ya da yeniden doldurmasını) sağlar; bir dokunuşun ne yapacağını gösterir.
+- Bütün bir dizide aynısını yapmak için bir satır ya da sütun boyunca sürükle. Yalnızca ilk kare gibi olan kareler değişir; böylece doldururken çarpılarının üzerinden geçersin.
+Dokunduğun çizgilerin ipuçları aydınlanır; dolu kareleri ipucuna uyan bir çizginin sayıları solar. Geri al her seferinde bir dokunuşu ya da bir diziyi geri alır, en başa kadar. Çubuk hamlelerini gösterir.

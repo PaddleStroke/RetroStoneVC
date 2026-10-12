@@ -1,0 +1,10 @@
+Taquin
+# Le but
+Des carreaux numérotés sont mélangés dans un cadre où une place est vide. Fais-les glisser pour les remettre dans l'ordre : 1, 2, 3... ligne par ligne depuis le coin en haut à gauche, la place vide à la fin, en bas à droite. Choisis d'abord le cadre : 3 × 3 (8 carreaux), 4 × 4 (le taquin classique de 15 carreaux) ou 5 × 5 (24 carreaux), avec des numéros ou découpé dans une image (une partie d'échecs en cours, le numéro de chaque carreau en petit dans son coin).
+Chaque mélange a une solution. La moitié des façons de mélanger les carreaux ne pourraient jamais être remises en ordre en les faisant glisser : elles ne sont jamais données.
+# Un coup
+Un carreau voisin de la place vide glisse dans celle-ci. Les carreaux ne font que glisser ; on ne les sort jamais du cadre.
+# La fin de la partie
+Quand chaque carreau est à sa place, le taquin est résolu : une lumière dorée parcourt les carreaux dans l'ordre, et une image retrouve sa pièce manquante.
+# Jouer sur l'appareil
+Touche un carreau sur la même ligne ou la même colonne que la place vide : il glisse, et les carreaux entre lui et la place vide bougent avec lui. Tu peux aussi pousser un carreau du doigt vers la place vide : passé la moitié il continue, sinon il revient. Annuler reprend un glissement à la fois, jusqu'au début. La barre compte les carreaux déplacés : un glissement de trois carreaux compte trois.

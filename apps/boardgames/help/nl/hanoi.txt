@@ -1,0 +1,9 @@
+Torens van Hanoi
+# Het doel
+Een toren van schijven staat op de linkerpin, de grootste onderaan. Verplaats de hele toren naar een andere pin: de middelste of de rechter. Kies eerst het aantal schijven: 4, 5, 6 of 7.
+# Een zet
+Pak de bovenste schijf van een pin en leg hem op een andere pin, die leeg is of bovenaan een grotere schijf heeft. Een schijf komt nooit op een kleinere.
+# Het einde van het spel
+De puzzel is opgelost als de hele toren op een andere pin staat. Het kleinste aantal zetten: 15 met 4 schijven, 31 met 5, 63 met 6, 127 met 7 (elke schijf meer verdubbelt het, plus één). Lukt het in het kleinste aantal, dan gloeit de hele toren goud.
+# Spelen op het apparaat
+Tik op een pin: de bovenste schijf gaat omhoog. Tik op een andere pin: de schijf gaat erheen (mag hij daar niet heen, dan trilt hij en blijft hij omhoog). Tik op zijn eigen pin om hem terug te leggen. Je kunt een schijf ook van de ene pin naar de andere slepen. Ongedaan maken neemt één zet tegelijk terug, helemaal tot het begin. De balk toont je zetten en, aan het rechtereinde, het kleinste aantal.

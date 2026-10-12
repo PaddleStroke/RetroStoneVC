@@ -1,0 +1,9 @@
+Hanoin tornit
+# Tavoite
+Kiekkojen torni seisoo vasemmassa tapissa, suurin alimpana. Siirrä koko torni toiseen tappiin: keskimmäiseen tai oikeanpuoleiseen. Valitse ensin kiekkojen määrä: 4, 5, 6 tai 7.
+# Siirto
+Ota tapin päällimmäinen kiekko ja laita se toiseen tappiin, joka on tyhjä tai jonka päällimmäinen kiekko on suurempi. Kiekkoa ei koskaan laiteta pienemmän päälle.
+# Pelin loppu
+Tehtävä on ratkaistu, kun koko torni seisoo toisessa tapissa. Pienin mahdollinen siirtomäärä: 15 neljällä kiekolla, 31 viidellä, 63 kuudella, 127 seitsemällä (jokainen lisäkiekko kaksinkertaistaa sen ja lisää yhden). Jos onnistut pienimmällä määrällä, koko torni hehkuu kultaisena.
+# Pelaaminen laitteella
+Napauta tappia: sen päällimmäinen kiekko nousee. Napauta toista tappia: kiekko siirtyy sinne (jos se ei saa mennä sinne, se tärisee ja jää ylös). Napauta sen omaa tappia laskeaksesi sen takaisin. Voit myös vetää kiekon tapista toiseen. Kumoa peruu yhden siirron kerrallaan, aina alkuun asti. Palkki näyttää siirtosi ja oikeassa päässä pienimmän mahdollisen määrän.

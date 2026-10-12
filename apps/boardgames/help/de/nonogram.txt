@@ -1,0 +1,13 @@
+Nonogramme
+# Das Ziel
+Im Gitter ist ein Bild versteckt. Die Zahlen links neben jeder Zeile und über jeder Spalte sind ihre Hinweise: die Längen der Blöcke gefüllter Felder in dieser Linie, der Reihe nach, mit mindestens einem leeren Feld zwischen zwei Blöcken (0: die Linie ist leer). Fülle die Felder, damit das Bild erscheint. Wähle zuerst die Größe: 5 × 5, 10 × 10 oder 15 × 15.
+Jedes Bild lässt sich Linie für Linie erschließen, ohne zu raten. Manche sind Zeichnungen des Hauses (ein Herz, ein Boot, eine Katze...), andere sind zufällig entstanden.
+# Ein Zug
+Fülle ein Feld, oder markiere ein Feld, das sicher leer ist, mit einem Kreuz. Die Kreuze sind nur Notizen für dich.
+# Das Ende der Partie
+Passt jede Zeile und jede Spalte zu ihren Hinweisen, ist das Rätsel gelöst: Die Kreuze verschwinden, das Bild erscheint in seinen Farben, und ein goldenes Licht läuft darüber.
+# Spielen auf dem Gerät
+- Tippe ein Feld an, um es zu füllen; tippe es noch einmal an, um es zu leeren.
+- Halte ein Feld einen Moment gedrückt, um es stattdessen anzukreuzen. Der Knopf am rechten Ende der Leiste lässt Tippen ankreuzen (oder wieder füllen); er zeigt, was ein Tippen bewirkt.
+- Ziehe entlang einer Zeile oder Spalte, um dasselbe mit einem ganzen Block zu tun. Es ändern sich nur die Felder, die wie das erste waren: Beim Füllen bleiben deine Kreuze stehen.
+Die Hinweise der Linien, die du berührst, leuchten auf, und bei einer Linie, deren gefüllte Felder zu ihrem Hinweis passen, verblassen die Zahlen. Rückgängig nimmt ein Tippen oder einen Block nach dem anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge.

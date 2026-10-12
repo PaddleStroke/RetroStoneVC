@@ -1,0 +1,18 @@
+Sudoku
+# Cíl hry
+Vyplň mřížku 9 × 9 políček tak, aby každý řádek, každý sloupec a každý čtverec 3 × 3 obsahoval každou číslici od 1 do 9 právě jednou. Některé číslice jsou dané předem. Každá úloha má právě jedno řešení, které lze najít jen úvahou. Nejprve zvol obtížnost (kameny pod každým obrázkem):
+- Lehká: vždy stačí políčko, kam se vejde už jen jedna číslice, nebo číslice, která má ve svém řádku, sloupci či čtverci už jen jedno místo.
+- Střední: budeš potřebovat i dvojice a číslice, jejichž místa ve čtverci leží všechna v jednom řádku nebo sloupci.
+- Těžká: trojice a obrazce přes více řádků a sloupců.
+- Expert: delší řetězce úvah.
+# Tah
+Napiš číslici do prázdného políčka. Kdykoli ji můžeš změnit nebo smazat; dané číslice zůstávají. Malé poznámky v políčku ti pomohou zapamatovat si, které číslice tam ještě mohou být.
+# Konec hry
+Úloha je vyřešená, když je mřížka plná a správně: po desce přeběhne vlna zlatého světla.
+# Hra na zařízení
+Klepni na políčko a pak na klávesu pod deskou: její číslice se zapíše modrým inkoustem (dané číslice jsou tmavé). Dalším klepnutím na stejnou klávesu ji smažeš, nebo klávesu přetáhni na políčko. Řádek, sloupec a čtverec políčka se jemně rozsvítí a políčka se stejnou číslicí výrazněji. Když není vybrané žádné prázdné políčko, klávesa rozsvítí políčka své číslice. Tlačítka vedle desky:
+- Tužka: poznámky. Klávesy pak do políčka píší malé číslice, nebo je mažou. Zapsaná číslice smaže tuto poznámku ze svého řádku, sloupce a čtverce.
+- Guma: smaže číslici v políčku, nebo jeho poznámky.
+- Lampa: nápověda. Opraví špatnou číslici, jinak vyplní nejsnazší políčko, ve zlatém světle.
+- Oko: ukazuje střety (číslice, která už je v jejím řádku, sloupci či čtverci, zčervená). Na začátku je zapnuté; klepnutím ho vypneš.
+Klávesa vybledne, jakmile je všech devět jejích číslic na desce. Zpět vrací jednu akci po druhé, až na začátek. Lišta ukazuje tvé tahy.

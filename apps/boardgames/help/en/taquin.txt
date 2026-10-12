@@ -1,0 +1,10 @@
+15 Puzzle
+# The aim
+Numbered tiles lie mixed up in a tray with one place empty. Slide them back into order: 1, 2, 3... row by row from the top left, the empty place last, at the bottom right. Choose the tray first: 3 × 3 (8 tiles), 4 × 4 (the classic 15 tiles) or 5 × 5 (24 tiles), with numbers or cut from a picture (a chess game in progress, each tile's number small in its corner).
+Every shuffle can be solved. Half of all the ways to mix the tiles could never be slid back into order, and those are never dealt.
+# A move
+A tile next to the empty place slides into it. Tiles only slide; they are never lifted out.
+# The end of the game
+When every tile is in its place, the puzzle is solved: a gold light runs over the tiles in their order, and a picture gets its missing piece.
+# Playing on the device
+Tap a tile in the same row or column as the empty place: it slides, and the tiles between it and the empty place move with it. You can also push a tile towards the empty place with your finger: past halfway it goes on, otherwise it falls back. Undo takes back one slide at a time, all the way to the start. The bar counts the tiles moved: a slide of three tiles counts three.

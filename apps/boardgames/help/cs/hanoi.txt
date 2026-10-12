@@ -1,0 +1,9 @@
+Hanojské věže
+# Cíl hry
+Na levém kolíku stojí věž z kotoučů, největší dole. Přenes celou věž na jiný kolík: prostřední nebo pravý. Nejprve zvol počet kotoučů: 4, 5, 6 nebo 7.
+# Tah
+Vezmi horní kotouč z kolíku a polož ho na jiný kolík, prázdný nebo s větším kotoučem nahoře. Kotouč nikdy nesmí na menší.
+# Konec hry
+Hlavolam je vyřešený, když celá věž stojí na jiném kolíku. Nejmenší možný počet tahů: 15 se 4 kotouči, 31 s 5, 63 s 6, 127 se 7 (každý kotouč navíc ho zdvojnásobí a přidá jeden). Zvládneš-li to nejmenším počtem tahů, celá věž se rozzáří zlatem.
+# Hra na zařízení
+Klepni na kolík: jeho horní kotouč se zvedne. Klepni na jiný kolík: kotouč se tam přesune (když tam nesmí, zachvěje se a zůstane nahoře). Klepnutím na jeho vlastní kolík ho položíš zpět. Kotouč můžeš také přetáhnout z kolíku na kolík. Zpět vrací jeden tah po druhém, až na začátek. Lišta ukazuje tvé tahy a na pravém konci nejmenší možný počet.

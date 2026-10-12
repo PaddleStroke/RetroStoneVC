@@ -1,0 +1,9 @@
+Torres de Hanói
+# El objetivo
+Una torre de discos está en la varilla de la izquierda, con el más grande abajo. Lleva toda la torre a otra varilla: la del medio o la de la derecha. Elige primero el número de discos: 4, 5, 6 o 7.
+# Una jugada
+Toma el disco de arriba de una varilla y ponlo en otra varilla, vacía o con un disco más grande arriba. Un disco nunca va sobre uno más pequeño.
+# El final de la partida
+El rompecabezas está resuelto cuando toda la torre está en otra varilla. El mínimo de jugadas: 15 con 4 discos, 31 con 5, 63 con 6, 127 con 7 (cada disco más las duplica, más una). Si lo logras con el mínimo, toda la torre brilla en dorado.
+# Jugar en el dispositivo
+Toca una varilla: su disco de arriba se levanta. Toca otra varilla: el disco va allí (si no puede ir, tiembla y se queda arriba). Toca su propia varilla para volver a dejarlo. También puedes arrastrar un disco de una varilla a otra. Deshacer anula una jugada cada vez, hasta el principio. La barra muestra tus jugadas y, en su extremo derecho, el mínimo posible.

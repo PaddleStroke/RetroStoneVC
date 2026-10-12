@@ -1,0 +1,10 @@
+Gioco del 15
+# Lo scopo
+Delle tessere numerate sono mescolate in una cornice con un posto vuoto. Falle scorrere per rimetterle in ordine: 1, 2, 3... riga per riga dall'alto a sinistra, il posto vuoto per ultimo, in basso a destra. Scegli prima la cornice: 3 × 3 (8 tessere), 4 × 4 (il classico con 15 tessere) o 5 × 5 (24 tessere), con i numeri o ritagliata da un'immagine (una partita a scacchi in corso, il numero di ogni tessera piccolo nel suo angolo).
+Ogni mescolata ha una soluzione. La metà dei modi di mescolare le tessere non potrebbe mai essere rimessa in ordine facendole scorrere, e quelli non vengono mai dati.
+# Una mossa
+Una tessera accanto al posto vuoto scivola dentro. Le tessere scorrono soltanto; non si tolgono mai dalla cornice.
+# La fine della partita
+Quando ogni tessera è al suo posto, il gioco è risolto: una luce dorata percorre le tessere in ordine, e un'immagine ritrova il pezzo mancante.
+# Giocare sul dispositivo
+Tocca una tessera nella stessa riga o colonna del posto vuoto: scorre, e le tessere fra lei e il posto vuoto si muovono con lei. Puoi anche spingere una tessera col dito verso il posto vuoto: oltre metà strada prosegue, altrimenti torna indietro. Annulla toglie uno scorrimento alla volta, fino all'inizio. La barra conta le tessere mosse: uno scorrimento di tre tessere conta tre.

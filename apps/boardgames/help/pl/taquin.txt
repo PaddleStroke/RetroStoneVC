@@ -1,0 +1,10 @@
+Piętnastka
+# Cel gry
+Ponumerowane klocki leżą pomieszane w ramce, w której jedno miejsce jest wolne. Przesuwaj je, aż wrócą do kolejności: 1, 2, 3... wiersz po wierszu od lewego górnego rogu, z wolnym miejscem na końcu, w prawym dolnym rogu. Najpierw wybierz ramkę: 3 × 3 (8 klocków), 4 × 4 (klasyczna piętnastka) albo 5 × 5 (24 klocki), z liczbami albo pocięta z obrazka (trwająca partia szachów, numer każdego klocka mały w rogu).
+Każde pomieszanie da się ułożyć. Połowy wszystkich sposobów pomieszania klocków nigdy nie dałoby się przesunąć z powrotem do kolejności, więc takie nigdy nie są rozdawane.
+# Ruch
+Klocek obok wolnego miejsca wsuwa się w nie. Klocki tylko się przesuwa; nigdy nie wyjmuje się ich z ramki.
+# Koniec gry
+Gdy każdy klocek jest na swoim miejscu, łamigłówka jest rozwiązana: złote światło przebiega po klockach po kolei, a obrazek dostaje brakujący kawałek.
+# Gra na urządzeniu
+Dotknij klocka w tym samym wierszu lub tej samej kolumnie co wolne miejsce: przesuwa się, a klocki między nim a wolnym miejscem przesuwają się razem z nim. Możesz też pchać klocek palcem w stronę wolnego miejsca: za połową drogi jedzie dalej, inaczej wraca. Cofnij cofa po jednym przesunięciu, aż do początku. Pasek liczy przesunięte klocki: przesunięcie trzech klocków liczy się za trzy.

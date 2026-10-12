@@ -1,0 +1,13 @@
+Kuvaristikot
+# Tavoite
+Ruudukkoon on piilotettu kuva. Kunkin rivin vasemmalla ja kunkin sarakkeen yläpuolella olevat luvut ovat sen vihjeet: täytettyjen ruutujen jaksojen pituudet siinä linjassa, järjestyksessä, ja kahden jakson välissä on vähintään yksi tyhjä ruutu (0: linja on tyhjä). Täytä ruudut, niin kuva tulee esiin. Valitse ensin koko: 5 × 5, 10 × 10 tai 15 × 15.
+Jokaisen kuvan löytää päättelemällä linja kerrallaan, arvaamatta. Osa on talon omia piirroksia (sydän, vene, kissa...), osa syntyy sattumalta.
+# Siirto
+Täytä ruutu, tai merkitse ristillä ruutu, jonka tiedät tyhjäksi. Ristit ovat vain muistiinpanoja sinulle.
+# Pelin loppu
+Kun jokainen rivi ja sarake vastaa vihjeitään, ristikko on ratkaistu: ristit häviävät, kuva tulee esiin väreissään ja kultainen valo kulkee sen yli.
+# Pelaaminen laitteella
+- Napauta ruutua täyttääksesi sen; napauta uudelleen tyhjentääksesi sen.
+- Pidä sormea hetki ruudulla merkitäksesi sen sen sijaan ristillä. Palkin oikeassa päässä oleva nappi saa napautukset merkitsemään ristejä (tai taas täyttämään); se näyttää, mitä napautus tekee.
+- Vedä pitkin riviä tai saraketta tehdäksesi saman koko jaksolle. Vain ensimmäisen ruudun kaltaiset ruudut muuttuvat, joten täyttäessä ristisi jäävät paikalleen.
+Koskettamiesi linjojen vihjeet valaistuvat, ja linjan luvut haalistuvat, kun sen täytetyt ruudut vastaavat vihjettä. Kumoa peruu yhden napautuksen tai jakson kerrallaan, aina alkuun asti. Palkki näyttää siirtosi.

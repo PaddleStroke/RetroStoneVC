@@ -1,0 +1,9 @@
+Tower of Hanoi
+# The aim
+A tower of discs stands on the left peg, the largest at the bottom. Move the whole tower to another peg: the middle one or the right one. Choose the number of discs first: 4, 5, 6 or 7.
+# A move
+Take the top disc of a peg and put it on another peg, either empty or with a larger disc on top. A disc never goes on a smaller one.
+# The end of the game
+The puzzle is solved when the whole tower stands on another peg. The fewest moves possible: 15 with 4 discs, 31 with 5, 63 with 6, 127 with 7 (each disc more doubles them, plus one). Done in the fewest moves, the whole tower glows gold.
+# Playing on the device
+Tap a peg: its top disc lifts up. Tap another peg: the disc goes there (a disc that may not go there shakes and stays up). Tap its own peg to put it back down. You can also drag a disc from one peg to another. Undo takes back one move at a time, all the way to the start. The bar shows your moves and, at its right end, the fewest possible.

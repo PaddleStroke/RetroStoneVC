@@ -1,0 +1,18 @@
+Sudoku
+# The aim
+Fill the grid of 9 × 9 cells so that every row, every column and every box of 3 × 3 holds each digit from 1 to 9 once. Some digits are given at the start. Every puzzle has exactly one solution, found by reasoning alone. Choose the level first (the stones under each picture):
+- Easy: a cell with only one digit left, or a digit with only one place left in its row, column or box, is always enough.
+- Medium: you will also need pairs, and digits whose places in a box all lie in one row or column.
+- Hard: triples, and patterns across several rows and columns.
+- Expert: longer chains of reasoning.
+# A move
+Put a digit in an empty cell. You can change it or take it out at any time; the given digits stay. Small notes in a cell help you remember the digits it could still hold.
+# The end of the game
+The puzzle is solved when the grid is full and right: a wave of gold light runs over the board.
+# Playing on the device
+Tap a cell, then a key under the board: its digit goes in, in blue ink (the given digits are dark). Tap the same key again to take it out, or drag a key onto a cell. The cell's row, column and box are lit faintly, and every cell holding its digit more warmly. With no empty cell picked, a key lights the cells of its digit. The buttons beside the board:
+- Pencil: notes. The keys then put small digits in the cell, or take them out. A digit you put in clears that note from its row, column and box.
+- Eraser: takes out the cell's digit, or its notes.
+- Lamp: a hint. It puts a wrong digit right, or else fills the easiest cell, in gold light.
+- Eye: shows clashes (a digit already in its row, column or box turns red). It is on at first; tap it to hide them.
+A key fades once all nine of its digits are on the board. Undo takes back one action at a time, all the way to the start. The bar shows your moves.

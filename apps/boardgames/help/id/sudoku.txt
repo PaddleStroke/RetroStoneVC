@@ -1,0 +1,18 @@
+Sudoku
+# Tujuan
+Isi kisi 9 × 9 kotak sehingga setiap baris, setiap kolom, dan setiap blok 3 × 3 berisi setiap angka 1 sampai 9 tepat satu kali. Beberapa angka sudah diberikan sejak awal. Setiap teka-teki punya tepat satu jawaban, yang bisa ditemukan hanya dengan bernalar. Pilih dulu tingkatnya (batu di bawah setiap gambar):
+- Mudah: selalu cukup dengan kotak yang hanya bisa diisi satu angka, atau angka yang tinggal punya satu tempat di baris, kolom, atau bloknya.
+- Sedang: kamu juga perlu pasangan, dan angka yang semua tempatnya di satu blok berada di satu baris atau kolom.
+- Sulit: tripel, dan pola yang melintasi beberapa baris dan kolom.
+- Ahli: rantai penalaran yang lebih panjang.
+# Satu langkah
+Tulis angka di kotak kosong. Kamu boleh mengubah atau menghapusnya kapan saja; angka yang diberikan tetap. Catatan kecil di sebuah kotak membantumu mengingat angka yang masih mungkin di sana.
+# Akhir permainan
+Teka-teki terpecahkan saat kisi penuh dan benar: gelombang cahaya emas menyapu papan.
+# Bermain di perangkat
+Ketuk sebuah kotak, lalu tombol di bawah papan: angkanya masuk dengan tinta biru (angka yang diberikan berwarna gelap). Ketuk tombol yang sama lagi untuk menghapusnya, atau seret tombol ke sebuah kotak. Baris, kolom, dan blok kotak itu menyala samar, dan semua kotak dengan angka yang sama lebih terang. Jika tidak ada kotak kosong yang dipilih, tombol menyalakan kotak-kotak angkanya. Tombol di samping papan:
+- Pensil: catatan. Tombol angka lalu menaruh angka kecil di kotak, atau menghapusnya. Angka yang kamu tulis menghapus catatan itu dari baris, kolom, dan bloknya.
+- Penghapus: menghapus angka di kotak, atau catatannya.
+- Lampu: petunjuk. Lampu membetulkan angka yang salah, atau kalau tidak ada, mengisi kotak termudah dengan cahaya emas.
+- Mata: menunjukkan bentrokan (angka yang sudah ada di baris, kolom, atau bloknya menjadi merah). Awalnya menyala; ketuk untuk menyembunyikannya.
+Tombol memudar setelah kesembilan angkanya ada di papan. Urungkan membatalkan satu tindakan setiap kali, sampai ke awal. Bilah menunjukkan langkahmu.

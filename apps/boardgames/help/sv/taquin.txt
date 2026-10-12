@@ -1,0 +1,10 @@
+Femtonspel
+# Målet
+Numrerade brickor ligger hopblandade i en ram där en plats är tom. Skjut tillbaka dem i ordning: 1, 2, 3... rad för rad från övre vänstra hörnet, med den tomma platsen sist, längst ned till höger. Välj först ram: 3 × 3 (8 brickor), 4 × 4 (det klassiska femtonspelet) eller 5 × 5 (24 brickor), med siffror eller utskuret ur en bild (ett pågående schackparti, varje brickas nummer litet i hörnet).
+Varje blandning går att lösa. Hälften av alla sätt att blanda brickorna skulle aldrig gå att skjuta tillbaka i ordning, och de delas aldrig ut.
+# Ett drag
+En bricka bredvid den tomma platsen glider in i den. Brickorna glider bara; de lyfts aldrig ur ramen.
+# Partiets slut
+När varje bricka ligger på sin plats är pusslet löst: ett guldljus sveper över brickorna i ordning, och en bild får sin saknade bit.
+# Spela på enheten
+Tryck på en bricka i samma rad eller kolumn som den tomma platsen: den glider, och brickorna mellan den och den tomma platsen följer med. Du kan också skjuta en bricka med fingret mot den tomma platsen: efter halva vägen fortsätter den, annars faller den tillbaka. Ångra tar tillbaka en förskjutning i taget, ända till början. Listen räknar de flyttade brickorna: en förskjutning av tre brickor räknas som tre.

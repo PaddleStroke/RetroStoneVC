@@ -1,0 +1,18 @@
+Sudoku
+# Le but
+Remplis la grille de 9 × 9 cases pour que chaque ligne, chaque colonne et chaque carré de 3 × 3 contienne une fois chaque chiffre de 1 à 9. Certains chiffres sont donnés au départ. Chaque grille a une seule solution, qu'on trouve par le seul raisonnement. Choisis d'abord le niveau (les pions sous chaque image) :
+- Facile : une case où il ne reste qu'un chiffre possible, ou un chiffre qui n'a plus qu'une place dans sa ligne, sa colonne ou son carré, suffit toujours.
+- Moyen : il te faudra aussi des paires, et des chiffres dont les places dans un carré sont toutes sur une même ligne ou colonne.
+- Difficile : des triplets, et des figures sur plusieurs lignes et colonnes.
+- Expert : des raisonnements plus longs, enchaînés.
+# Un coup
+Mets un chiffre dans une case vide. Tu peux le changer ou l'enlever à tout moment ; les chiffres donnés restent. De petites notes dans une case t'aident à retenir les chiffres qu'elle peut encore recevoir.
+# La fin de la partie
+La grille est résolue quand elle est pleine et juste : une vague de lumière dorée parcourt le plateau.
+# Jouer sur l'appareil
+Touche une case, puis une touche sous le plateau : son chiffre s'y inscrit, à l'encre bleue (les chiffres donnés sont foncés). Touche encore la même touche pour l'enlever, ou fais glisser une touche sur une case. La ligne, la colonne et le carré de la case s'éclairent légèrement, et les cases qui portent son chiffre plus chaudement. Sans case vide choisie, une touche éclaire les cases de son chiffre. Les boutons à côté du plateau :
+- Crayon : les notes. Les touches mettent alors de petits chiffres dans la case, ou les enlèvent. Un chiffre posé efface cette note de sa ligne, sa colonne et son carré.
+- Gomme : enlève le chiffre de la case, ou ses notes.
+- Lampe : un indice. Elle corrige un chiffre faux, ou sinon remplit la case la plus facile, dans une lumière dorée.
+- Œil : montre les conflits (un chiffre déjà présent dans sa ligne, sa colonne ou son carré devient rouge). Il est allumé au départ ; touche-le pour les cacher.
+Une touche pâlit quand ses neuf chiffres sont tous sur le plateau. Annuler reprend une action à la fois, jusqu'au début. La barre montre tes coups.

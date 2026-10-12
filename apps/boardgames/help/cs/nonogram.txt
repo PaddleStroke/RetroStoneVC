@@ -1,0 +1,13 @@
+Malované křížovky
+# Cíl hry
+V mřížce je ukrytý obrázek. Čísla vlevo od každého řádku a nad každým sloupcem jsou jeho nápovědy: délky úseků vybarvených políček v tom řádku či sloupci, popořadě, a mezi dvěma úseky je aspoň jedno prázdné políčko (0: řada je prázdná). Vybarvuj políčka, až se obrázek objeví. Nejprve zvol velikost: 5 × 5, 10 × 10 nebo 15 × 15.
+Každý obrázek se dá najít úvahou řadu po řadě, bez hádání. Některé jsou kresby domu (srdce, loďka, kočka...), jiné vznikají náhodou.
+# Tah
+Vybarvi políčko, nebo označ křížkem políčko, o kterém víš, že je prázdné. Křížky jsou jen tvoje poznámky.
+# Konec hry
+Když každý řádek a každý sloupec odpovídá svým nápovědám, křížovka je vyřešená: křížky zmizí, obrázek se ukáže ve svých barvách a přeběhne po něm zlaté světlo.
+# Hra na zařízení
+- Klepnutím políčko vybarvíš; dalším klepnutím ho vyprázdníš.
+- Když na políčku chvíli podržíš prst, označíš ho místo toho křížkem. Tlačítko na pravém konci lišty přepíná klepnutí na křížky (a zpět na vybarvování); ukazuje, co klepnutí udělá.
+- Táhni prstem po řádku nebo sloupci a uděláš totéž s celým úsekem. Mění se jen políčka, která byla jako první, takže při vybarvování tvé křížky zůstanou.
+Nápovědy řad, kterých se dotýkáš, se rozsvítí, a čísla řady, jejíž vybarvená políčka odpovídají nápovědě, vyblednou. Zpět vrací jedno klepnutí nebo úsek po druhém, až na začátek. Lišta ukazuje tvé tahy.

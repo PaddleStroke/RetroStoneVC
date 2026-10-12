@@ -1,0 +1,10 @@
+15 Bulmacası
+# Amaç
+Numaralı karolar, bir yeri boş olan bir çerçevede karışık durur. Onları kaydırarak yeniden sıraya diz: 1, 2, 3... sol üst köşeden başlayıp satır satır, boş yer en sonda, sağ altta. Önce çerçeveyi seç: 3 × 3 (8 karo), 4 × 4 (klasik 15 karo) ya da 5 × 5 (24 karo); numaralı ya da bir resimden kesilmiş (süren bir satranç oyunu, her karonun numarası köşesinde küçük).
+Her karışım çözülebilir. Karoları karıştırmanın yollarının yarısı kaydırarak asla sıraya dönemez; bunlar hiç dağıtılmaz.
+# Bir hamle
+Boş yerin yanındaki bir karo oraya kayar. Karolar yalnızca kaydırılır; çerçeveden asla çıkarılmaz.
+# Oyunun sonu
+Her karo yerine oturduğunda bulmaca çözülür: karoların üzerinden sırayla altın renkli bir ışık geçer ve resim eksik parçasına kavuşur.
+# Cihazda oynamak
+Boş yerle aynı satırda ya da sütunda olan bir karoya dokun: kayar, onunla boş yer arasındaki karolar da onunla birlikte kayar. Bir karoyu parmağınla boş yere doğru da itebilirsin: yarı yolu geçince devam eder, yoksa geri döner. Geri al her seferinde bir kaydırmayı geri alır, en başa kadar. Çubuk taşınan karoları sayar: üç karoluk bir kaydırma üç sayılır.

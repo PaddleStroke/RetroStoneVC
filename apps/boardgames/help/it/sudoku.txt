@@ -1,0 +1,18 @@
+Sudoku
+# Lo scopo
+Riempi la griglia di 9 × 9 caselle in modo che ogni riga, ogni colonna e ogni riquadro di 3 × 3 contenga una volta ciascuna cifra da 1 a 9. Alcune cifre sono date all'inizio. Ogni schema ha una sola soluzione, che si trova solo ragionando. Scegli prima il livello (le pedine sotto ogni immagine):
+- Facile: basta sempre una casella in cui resta una sola cifra, o una cifra che ha un solo posto nella sua riga, colonna o riquadro.
+- Medio: serviranno anche coppie, e cifre i cui posti in un riquadro stanno tutti su una stessa riga o colonna.
+- Difficile: terne, e figure su più righe e colonne.
+- Esperto: catene di ragionamento più lunghe.
+# Una mossa
+Metti una cifra in una casella vuota. Puoi cambiarla o toglierla quando vuoi; le cifre date restano. Piccole note in una casella ti aiutano a ricordare le cifre che può ancora contenere.
+# La fine della partita
+Lo schema è risolto quando la griglia è piena e giusta: un'onda di luce dorata attraversa il tavoliere.
+# Giocare sul dispositivo
+Tocca una casella, poi un tasto sotto il tavoliere: la sua cifra entra, in inchiostro blu (le cifre date sono scure). Tocca di nuovo lo stesso tasto per toglierla, oppure trascina un tasto su una casella. La riga, la colonna e il riquadro della casella si illuminano appena, e le caselle con la sua cifra di più. Senza una casella vuota scelta, un tasto illumina le caselle della sua cifra. I pulsanti accanto al tavoliere:
+- Matita: le note. I tasti mettono allora piccole cifre nella casella, o le tolgono. Una cifra inserita cancella quella nota dalla sua riga, colonna e riquadro.
+- Gomma: toglie la cifra della casella, o le sue note.
+- Lampada: un aiuto. Corregge una cifra sbagliata, altrimenti riempie la casella più facile, in luce dorata.
+- Occhio: mostra i conflitti (una cifra già presente nella sua riga, colonna o riquadro diventa rossa). È acceso all'inizio; toccalo per nasconderli.
+Un tasto sbiadisce quando tutte e nove le sue cifre sono sul tavoliere. Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue mosse.

@@ -1,0 +1,18 @@
+Sudoku
+# El objetivo
+Rellena la cuadrícula de 9 × 9 casillas para que cada fila, cada columna y cada bloque de 3 × 3 contenga una vez cada cifra del 1 al 9. Algunas cifras vienen dadas. Cada sudoku tiene una sola solución, que se encuentra solo razonando. Elige primero el nivel (las fichas bajo cada imagen):
+- Fácil: siempre basta una casilla en la que solo cabe una cifra, o una cifra que solo tiene un sitio en su fila, columna o bloque.
+- Medio: también necesitarás parejas, y cifras cuyos sitios en un bloque están todos en una misma fila o columna.
+- Difícil: tríos, y figuras que cruzan varias filas y columnas.
+- Experto: cadenas de razonamiento más largas.
+# Una jugada
+Pon una cifra en una casilla vacía. Puedes cambiarla o quitarla cuando quieras; las cifras dadas se quedan. Unas notas pequeñas en una casilla te ayudan a recordar las cifras que aún puede llevar.
+# El final de la partida
+El sudoku está resuelto cuando la cuadrícula está llena y bien: una ola de luz dorada recorre el tablero.
+# Jugar en el dispositivo
+Toca una casilla y luego una tecla bajo el tablero: su cifra entra, en tinta azul (las cifras dadas son oscuras). Toca otra vez la misma tecla para quitarla, o arrastra una tecla hasta una casilla. La fila, la columna y el bloque de la casilla se iluminan un poco, y las casillas con su cifra, más. Sin ninguna casilla vacía elegida, una tecla ilumina las casillas de su cifra. Los botones junto al tablero:
+- Lápiz: notas. Las teclas ponen entonces cifras pequeñas en la casilla, o las quitan. Una cifra que pones borra esa nota de su fila, columna y bloque.
+- Goma: quita la cifra de la casilla, o sus notas.
+- Lámpara: una pista. Corrige una cifra equivocada o, si no hay ninguna, rellena la casilla más fácil, con luz dorada.
+- Ojo: muestra los choques (una cifra que ya está en su fila, columna o bloque se vuelve roja). Está encendido al principio; tócalo para ocultarlos.
+Una tecla se apaga cuando sus nueve cifras ya están en el tablero. Deshacer anula una acción cada vez, hasta el principio. La barra muestra tus jugadas.

@@ -1,0 +1,13 @@
+Nonogramas
+# El objetivo
+En la cuadrícula se esconde un dibujo. Los números a la izquierda de cada fila y encima de cada columna son sus pistas: las longitudes de los tramos de casillas rellenas de esa línea, en orden, con al menos una casilla vacía entre dos tramos (0: la línea está vacía). Rellena las casillas para descubrir el dibujo. Elige primero el tamaño: 5 × 5, 10 × 10 o 15 × 15.
+Cada dibujo se encuentra razonando línea a línea, sin adivinar. Algunos son dibujos de la casa (un corazón, un barco, un gato...), otros salen al azar.
+# Una jugada
+Rellena una casilla, o marca con una cruz una casilla que sabes vacía. Las cruces son solo notas para ti.
+# El final de la partida
+Cuando cada fila y cada columna cumple sus pistas, el nonograma está resuelto: las cruces se van, el dibujo aparece con sus colores y una luz dorada lo recorre.
+# Jugar en el dispositivo
+- Toca una casilla para rellenarla; tócala otra vez para vaciarla.
+- Mantén el dedo un momento sobre una casilla para marcarla con una cruz. El botón al final de la barra hace que cada toque ponga cruces (o vuelva a rellenar); muestra lo que hace un toque.
+- Arrastra a lo largo de una fila o columna para hacer lo mismo en todo un tramo. Solo cambian las casillas que estaban como la primera, así que al rellenar pasas por encima de tus cruces.
+Las pistas de las líneas que tocas se iluminan, y los números de una línea cuyas casillas rellenas cumplen su pista se apagan. Deshacer anula un toque o un tramo cada vez, hasta el principio. La barra muestra tus jugadas.

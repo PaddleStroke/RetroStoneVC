@@ -1,0 +1,10 @@
+15-peli
+# Tavoite
+Numeroidut laatat ovat sekaisin kehyksessä, jossa yksi paikka on tyhjä. Liu'uta ne takaisin järjestykseen: 1, 2, 3... rivi kerrallaan vasemmasta yläkulmasta alkaen, tyhjä paikka viimeisenä oikeassa alakulmassa. Valitse ensin kehys: 3 × 3 (8 laattaa), 4 × 4 (klassinen 15 laatan peli) tai 5 × 5 (24 laattaa), numeroilla tai kuvasta leikattuna (käynnissä oleva shakkipeli, kunkin laatan numero pienenä kulmassa).
+Jokainen sekoitus on ratkaistavissa. Puolta kaikista tavoista sekoittaa laatat ei voisi koskaan liu'uttaa takaisin järjestykseen, eikä sellaisia koskaan jaeta.
+# Siirto
+Tyhjän paikan vieressä oleva laatta liukuu siihen. Laattoja vain liu'utetaan; niitä ei koskaan nosteta pois kehyksestä.
+# Pelin loppu
+Kun jokainen laatta on paikallaan, peli on ratkaistu: kultainen valo kulkee laattojen yli järjestyksessä, ja kuva saa puuttuvan palansa.
+# Pelaaminen laitteella
+Napauta laattaa, joka on samalla rivillä tai samassa sarakkeessa kuin tyhjä paikka: se liukuu, ja sen ja tyhjän paikan välissä olevat laatat liukuvat mukana. Voit myös työntää laattaa sormella kohti tyhjää paikkaa: puolivälin jälkeen se jatkaa, muuten se palaa takaisin. Kumoa peruu yhden liu'utuksen kerrallaan, aina alkuun asti. Palkki laskee liikutetut laatat: kolmen laatan liu'utus lasketaan kolmeksi.

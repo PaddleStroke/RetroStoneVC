@@ -1,0 +1,18 @@
+Sudoku
+# Amaç
+9 × 9 karelik ızgarayı, her satırda, her sütunda ve her 3 × 3 kutuda 1'den 9'a kadar her rakam birer kez olacak şekilde doldur. Bazı rakamlar baştan verilir. Her bulmacanın tek bir çözümü vardır ve yalnızca akıl yürüterek bulunur. Önce seviyeyi seç (her resmin altındaki taşlar):
+- Kolay: yalnızca tek bir rakamın sığdığı bir kare ya da satırında, sütununda veya kutusunda tek bir yeri kalan bir rakam her zaman yeter.
+- Orta: çiftlere ve bir kutudaki bütün yerleri aynı satırda ya da sütunda olan rakamlara da ihtiyacın olacak.
+- Zor: üçlüler ve birkaç satır ile sütuna yayılan desenler.
+- Uzman: daha uzun akıl yürütme zincirleri.
+# Bir hamle
+Boş bir kareye bir rakam yaz. Onu istediğin zaman değiştirebilir ya da silebilirsin; verilen rakamlar kalır. Bir karedeki küçük notlar, oraya hâlâ hangi rakamların gelebileceğini hatırlamana yardım eder.
+# Oyunun sonu
+Izgara dolu ve doğru olduğunda bulmaca çözülür: tahtanın üzerinden altın renkli bir ışık dalgası geçer.
+# Cihazda oynamak
+Bir kareye, sonra tahtanın altındaki bir tuşa dokun: rakamı mavi mürekkeple yazılır (verilen rakamlar koyudur). Silmek için aynı tuşa yeniden dokun ya da bir tuşu bir kareye sürükle. Karenin satırı, sütunu ve kutusu hafifçe aydınlanır, aynı rakamı taşıyan kareler daha belirgin. Boş bir kare seçili değilse bir tuş, kendi rakamının olduğu kareleri aydınlatır. Tahtanın yanındaki düğmeler:
+- Kalem: notlar. Tuşlar o zaman kareye küçük rakamlar koyar ya da onları kaldırır. Yazdığın bir rakam, o notu satırından, sütunundan ve kutusundan siler.
+- Silgi: karedeki rakamı ya da notlarını siler.
+- Lamba: ipucu. Yanlış bir rakamı düzeltir, yoksa en kolay kareyi altın ışıkta doldurur.
+- Göz: çakışmaları gösterir (satırında, sütununda ya da kutusunda zaten bulunan bir rakam kırmızıya döner). Başta açıktır; gizlemek için ona dokun.
+Dokuz rakamının hepsi tahtada olan tuş solar. Geri al her seferinde bir işlemi geri alır, en başa kadar. Çubuk hamlelerini gösterir.

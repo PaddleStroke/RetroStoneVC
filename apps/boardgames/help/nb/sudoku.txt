@@ -1,0 +1,18 @@
+Sudoku
+# Målet
+Fyll rutenettet på 9 × 9 ruter slik at hver rad, hver kolonne og hver 3 × 3-boks inneholder hvert siffer fra 1 til 9 én gang. Noen sifre er gitt fra start. Hver oppgave har nøyaktig én løsning, som kan finnes bare ved å resonnere. Velg først nivå (steinene under hvert bilde):
+- Lett: en rute der bare ett siffer er mulig, eller et siffer med bare én plass igjen i raden, kolonnen eller boksen sin, er alltid nok.
+- Middels: du trenger også par, og sifre der alle plassene i en boks ligger i samme rad eller kolonne.
+- Vanskelig: tripler, og mønstre på tvers av flere rader og kolonner.
+- Ekspert: lengre kjeder av slutninger.
+# Et trekk
+Sett et siffer i en tom rute. Du kan endre det eller ta det bort når som helst; de gitte sifrene blir stående. Små notater i en rute hjelper deg å huske hvilke sifre den fortsatt kan få.
+# Slutten på spillet
+Oppgaven er løst når rutenettet er fullt og riktig: en bølge av gyllent lys går over brettet.
+# Spill på enheten
+Trykk på en rute og så på en tast under brettet: sifferet skrives inn med blått blekk (de gitte sifrene er mørke). Trykk på samme tast igjen for å ta det bort, eller dra en tast til en rute. Rutens rad, kolonne og boks lyser svakt, og alle ruter med samme siffer varmere. Er ingen tom rute valgt, lyser en tast opp rutene med sitt siffer. Knappene ved siden av brettet:
+- Blyant: notater. Tastene setter da små sifre i ruten, eller tar dem bort. Et siffer du skriver inn, sletter det notatet i raden, kolonnen og boksen sin.
+- Viskelær: tar bort sifferet i ruten, eller notatene.
+- Lampe: et hint. Den retter et feil siffer, eller fyller ellers den letteste ruten, i gyllent lys.
+- Øye: viser kollisjoner (et siffer som allerede står i raden, kolonnen eller boksen sin, blir rødt). Det er på fra start; trykk på det for å skjule dem.
+En tast blekner når alle ni sifrene dens er på brettet. Angre tar tilbake én handling om gangen, helt til starten. Linjen viser trekkene dine.

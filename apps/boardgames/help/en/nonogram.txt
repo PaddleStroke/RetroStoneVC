@@ -1,0 +1,13 @@
+Nonograms
+# The aim
+A picture is hidden in the grid. The numbers left of each row and above each column are its clues: the lengths of the runs of filled squares in that line, in order, with at least one empty square between two runs (0: the line is empty). Fill the squares to bring out the picture. Choose the size first: 5 × 5, 10 × 10 or 15 × 15.
+Every picture can be found by reasoning one line at a time, without guessing. Some are the house's own drawings (a heart, a boat, a cat...), others are drawn by chance.
+# A move
+Fill a square, or mark one you know is empty with a cross. The crosses are only notes for you.
+# The end of the game
+When every row and every column matches its clues, the puzzle is solved: the crosses go, the picture comes out in its colours and a gold light runs over it.
+# Playing on the device
+- Tap a square to fill it; tap it again to empty it.
+- Hold a square a moment to cross it instead. The button at the right end of the bar makes taps cross (or fill again); it shows what a tap does.
+- Drag along a row or a column to do the same to a whole run. It only changes the squares that were like the first one, so filling passes over your crosses.
+The clues of the lines you touch are lit, and a line whose filled squares match its clue has its numbers faded. Undo takes back one tap or run at a time, all the way to the start. The bar shows your moves.

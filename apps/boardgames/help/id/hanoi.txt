@@ -1,0 +1,9 @@
+Menara Hanoi
+# Tujuan
+Sebuah menara cakram berdiri di tiang kiri, yang terbesar di bawah. Pindahkan seluruh menara ke tiang lain: tiang tengah atau tiang kanan. Pilih dulu jumlah cakramnya: 4, 5, 6, atau 7.
+# Satu langkah
+Ambil cakram teratas dari sebuah tiang dan letakkan di tiang lain, yang kosong atau yang cakram teratasnya lebih besar. Cakram tidak pernah diletakkan di atas cakram yang lebih kecil.
+# Akhir permainan
+Teka-teki terpecahkan saat seluruh menara berdiri di tiang lain. Langkah paling sedikit: 15 dengan 4 cakram, 31 dengan 5, 63 dengan 6, 127 dengan 7 (setiap tambahan cakram menggandakannya, ditambah satu). Jika berhasil dengan langkah paling sedikit, seluruh menara bersinar keemasan.
+# Bermain di perangkat
+Ketuk sebuah tiang: cakram teratasnya terangkat. Ketuk tiang lain: cakram pindah ke sana (jika tidak boleh ke sana, cakram bergetar dan tetap terangkat). Ketuk tiangnya sendiri untuk menurunkannya kembali. Kamu juga bisa menyeret cakram dari satu tiang ke tiang lain. Urungkan membatalkan satu langkah setiap kali, sampai ke awal. Bilah menunjukkan langkahmu dan, di ujung kanannya, jumlah langkah paling sedikit.

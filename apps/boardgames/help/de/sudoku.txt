@@ -1,0 +1,18 @@
+Sudoku
+# Das Ziel
+Fülle das Gitter aus 9 × 9 Feldern so, dass jede Zeile, jede Spalte und jeder 3 × 3-Block jede Ziffer von 1 bis 9 genau einmal enthält. Einige Ziffern sind vorgegeben. Jedes Rätsel hat genau eine Lösung, die sich allein durch Nachdenken finden lässt. Wähle zuerst die Stufe (die Steine unter jedem Bild):
+- Leicht: Ein Feld, in das nur noch eine Ziffer passt, oder eine Ziffer, die in ihrer Zeile, Spalte oder ihrem Block nur noch einen Platz hat, reicht immer.
+- Mittel: Du brauchst auch Paare und Ziffern, deren Plätze in einem Block alle in einer Zeile oder Spalte liegen.
+- Schwer: Dreiergruppen und Muster über mehrere Zeilen und Spalten.
+- Experte: längere Ketten von Schlüssen.
+# Ein Zug
+Setze eine Ziffer in ein leeres Feld. Du kannst sie jederzeit ändern oder herausnehmen; die vorgegebenen Ziffern bleiben. Kleine Notizen in einem Feld helfen dir, dir die Ziffern zu merken, die dort noch möglich sind.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn das Gitter voll und richtig ist: Eine Welle goldenen Lichts läuft über das Brett.
+# Spielen auf dem Gerät
+Tippe ein Feld an, dann eine Taste unter dem Brett: Ihre Ziffer kommt hinein, in blauer Tinte (die vorgegebenen Ziffern sind dunkel). Tippe dieselbe Taste noch einmal, um sie herauszunehmen, oder ziehe eine Taste auf ein Feld. Zeile, Spalte und Block des Felds leuchten leicht auf, alle Felder mit seiner Ziffer wärmer. Ist kein leeres Feld gewählt, lässt eine Taste die Felder ihrer Ziffer aufleuchten. Die Knöpfe neben dem Brett:
+- Bleistift: Notizen. Die Tasten setzen dann kleine Ziffern ins Feld oder nehmen sie heraus. Eine gesetzte Ziffer löscht diese Notiz in ihrer Zeile, Spalte und ihrem Block.
+- Radiergummi: nimmt die Ziffer des Felds heraus oder seine Notizen.
+- Lampe: ein Tipp. Sie berichtigt eine falsche Ziffer oder füllt sonst das leichteste Feld, in goldenem Licht.
+- Auge: zeigt Konflikte (eine Ziffer, die schon in ihrer Zeile, Spalte oder ihrem Block steht, wird rot). Es ist zu Beginn an; tippe es an, um sie auszublenden.
+Eine Taste verblasst, sobald alle neun ihrer Ziffern auf dem Brett stehen. Rückgängig nimmt eine Aktion nach der anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge.

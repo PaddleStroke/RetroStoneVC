@@ -1,0 +1,13 @@
+Nonogrammer
+# Målet
+Et bilde er gjemt i rutenettet. Tallene til venstre for hver rad og over hver kolonne er hintene: lengdene på rekkene av fylte ruter i den linjen, i rekkefølge, med minst én tom rute mellom to rekker (0: linjen er tom). Fyll rutene så bildet kommer fram. Velg først størrelse: 5 × 5, 10 × 10 eller 15 × 15.
+Hvert bilde kan finnes ved å resonnere én linje om gangen, uten å gjette. Noen er husets egne tegninger (et hjerte, en båt, en katt...), andre er laget tilfeldig.
+# Et trekk
+Fyll en rute, eller merk en rute du vet er tom med et kryss. Kryssene er bare notater til deg selv.
+# Slutten på spillet
+Når hver rad og hver kolonne stemmer med hintene sine, er oppgaven løst: kryssene forsvinner, bildet kommer fram i fargene sine, og et gyllent lys går over det.
+# Spill på enheten
+- Trykk på en rute for å fylle den; trykk igjen for å tømme den.
+- Hold fingeren et øyeblikk på en rute for å krysse den i stedet. Knappen ytterst til høyre på linjen får trykk til å krysse (eller fylle igjen); den viser hva et trykk gjør.
+- Dra langs en rad eller kolonne for å gjøre det samme med en hel rekke. Bare ruter som var som den første endres, så når du fyller, hopper du over kryssene dine.
+Hintene for linjene du berører lyser opp, og tallene blekner for en linje der de fylte rutene stemmer med hintet. Angre tar tilbake ett trykk eller én rekke om gangen, helt til starten. Linjen viser trekkene dine.
