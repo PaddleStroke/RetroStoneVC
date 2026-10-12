@@ -1,0 +1,18 @@
+Briscola
+# The aim
+Win the tricks that hold the cards worth the most points: there are 120 points in all, and 61 win. For 2 players, or 4 in two partnerships sitting face to face (ivory and red against ebony and jade); nobody sees the others' cards.
+# The cards
+The Italian pack of 40 cards, in four suits: coins (denari), cups (coppe), swords (spade) and clubs (bastoni). From high to low: ace, 3, re, cavallo, fante, 7, 6, 5, 4, 2. Here the fante is a pawn, the cavallo a knight and the re a king.
+# The deal
+Each player gets 3 cards. The next card is turned face up: it is the briscola, and its suit is trumps for the whole game. It lies across under the stock and is the last card drawn.
+# Playing
+- Ivory leads the first trick. Each player in turn plays any card: you never have to follow suit.
+- The highest trump wins the trick; with no trump in it, the highest card of the suit led wins.
+- The winner takes the trick. While the stock lasts, each player then draws a card, the winner first.
+- The winner leads the next trick.
+# Scoring
+When all the cards have been played, each side counts the cards in its tricks: ace 11 points, three 10, re 4, cavallo 3, fante 2, the other cards nothing.
+# The end of the game
+A game is one deal. The side with 61 points or more wins; 60 each is a draw.
+# Playing on the device
+Pass the device to the player whose token shows; they tap start and see their own hand at the bottom. The tokens sit round the middle, your partner across from you, and each card played lies in front of its player's token. The stock is at the lower left with the briscola across under it; once the briscola is drawn, its suit stays in its place. Tap a card so it rises, then tap it again or its place in the middle; or drag it there. Tap the pile at the lower right to see the last trick. Each bar shows how many cards the side has taken. At the end, a table shows each side's counting cards and its points. Undo takes back a choice not yet made, never a card once the device has passed.

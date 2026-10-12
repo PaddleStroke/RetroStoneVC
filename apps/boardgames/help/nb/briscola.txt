@@ -1,0 +1,18 @@
+Briscola
+# Målet
+Vinn stikkene med de mest verdifulle kortene: det er 120 poeng i alt, og 61 vinner. For 2 spillere, eller 4 i to lag med makkere som sitter overfor hverandre (elfenben og rød mot ibenholt og jade); ingen ser kortene til de andre.
+# Kortene
+Den italienske kortstokken med 40 kort i fire farger: mynter (denari), begre (coppe), sverd (spade) og køller (bastoni). Fra høyest til lavest: ess, 3, re, cavallo, fante, 7, 6, 5, 4, 2. Her er fante en bonde, cavallo en springer og re en konge.
+# Utdelingen
+Hver spiller får 3 kort. Det neste kortet snus: det er briscolaen, og fargen er trumf hele spillet. Den ligger på tvers under stokken og er det siste kortet som trekkes.
+# Spillet
+- Elfenben spiller ut til første stikk. Etter tur spiller hver et hvilket som helst kort: man trenger aldri å følge farge.
+- Den høyeste trumfen vinner stikket; uten trumf vinner det høyeste kortet i fargen som ble spilt ut.
+- Vinneren tar stikket. Så lenge stokken rekker, trekker så hver spiller et kort, vinneren først.
+- Vinneren spiller ut til neste stikk.
+# Poengene
+Når alle kortene er spilt, teller hvert lag kortene i stikkene sine: ess 11 poeng, treer 10, re 4, cavallo 3, fante 2, de andre kortene ingenting.
+# Slutten på spillet
+Et spill er én utdeling. Laget med 61 poeng eller mer vinner; 60 hver er uavgjort.
+# Spill på enheten
+Gi enheten til spilleren som har brikken sin på skjermen; han trykker på start og ser hånden sin nederst. Brikkene til spillerne står rundt midten, makkeren din overfor deg, og hvert spilt kort ligger foran brikken til spilleren sin. Stokken ligger nede til venstre med briscolaen på tvers under; når den er trukket, blir fargen stående på plassen. Trykk på et kort så det løfter seg, og trykk så på det igjen eller på plassen i midten; eller dra det dit. Trykk på haugen nede til høyre for å se siste stikk. Hver linje viser hvor mange kort laget har tatt. Til slutt viser en tabell de tellende kortene til hvert lag og poengene. Angre tar tilbake et valg som ikke er bekreftet ennå, aldri et kort når enheten er gitt videre.

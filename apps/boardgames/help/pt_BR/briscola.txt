@@ -1,0 +1,18 @@
+Briscola
+# O objetivo
+Ganhar as vazas que trazem as cartas que mais valem: são 120 pontos ao todo, e 61 vencem. Para 2 jogadores, ou 4 em duas duplas de parceiros sentados frente a frente (marfim e vermelho contra ébano e jade); ninguém vê as cartas dos outros.
+# As cartas
+O baralho italiano de 40 cartas, em quatro naipes: ouros (denari), copas (coppe), espadas (spade) e paus (bastoni). Da mais alta para a mais baixa: ás, 3, re, cavallo, fante, 7, 6, 5, 4, 2. Aqui o fante é um peão, o cavallo um cavalo e o re um rei.
+# A distribuição
+Cada jogador recebe 3 cartas. A carta seguinte é virada para cima: é a briscola, e o seu naipe é o trunfo durante toda a partida. Ela fica atravessada embaixo do monte e é a última carta comprada.
+# O jogo
+- Marfim sai na primeira vaza. Cada um na sua vez joga qualquer carta: nunca é preciso seguir o naipe.
+- O trunfo mais alto ganha a vaza; sem trunfo, ganha a carta mais alta do naipe que saiu.
+- Quem ganha leva a vaza. Enquanto houver monte, cada jogador compra depois uma carta, começando por quem ganhou.
+- Quem ganhou sai na vaza seguinte.
+# A pontuação
+Quando todas as cartas foram jogadas, cada dupla conta as cartas das suas vazas: ás 11 pontos, três 10, re 4, cavallo 3, fante 2, as outras cartas nada.
+# O fim da partida
+Uma partida é uma só distribuição. Vence a dupla com 61 pontos ou mais; 60 a 60 é empate.
+# Jogando no aparelho
+Passe o aparelho para o jogador cuja ficha aparece; ele toca no botão de início e vê a sua mão embaixo. As fichas dos jogadores ficam em volta do centro, o seu parceiro na sua frente, e cada carta jogada fica diante da ficha do seu jogador. O monte fica embaixo à esquerda, com a briscola atravessada por baixo; depois que ela é comprada, o seu naipe continua à vista no lugar dela. Toque numa carta para ela subir e depois toque nela de novo ou no lugar dela no centro; ou arraste-a até lá. Toque no montinho embaixo à direita para rever a última vaza. Cada barra mostra quantas cartas a dupla já ganhou. No fim, uma tabela mostra as cartas que contam de cada dupla e os seus pontos. Desfazer cancela uma escolha ainda não confirmada, nunca uma carta depois que o aparelho passou.

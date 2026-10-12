@@ -1,0 +1,18 @@
+Briscola
+# Målet
+Vinn sticken med de mest värdefulla korten: det finns 120 poäng sammanlagt, och 61 vinner. För 2 spelare, eller 4 i två lag med partner som sitter mittemot varandra (elfenben och rött mot ebenholts och jade); ingen ser de andras kort.
+# Korten
+Den italienska kortleken med 40 kort i fyra färger: mynt (denari), bägare (coppe), svärd (spade) och klubbor (bastoni). Från högst till lägst: ess, 3, re, cavallo, fante, 7, 6, 5, 4, 2. Här är fante en bonde, cavallo en springare och re en kung.
+# Given
+Varje spelare får 3 kort. Nästa kort vänds upp: det är briscolan, och dess färg är trumf hela spelet. Den ligger på tvären under leken och är det sista kortet som dras.
+# Spelet
+- Elfenben spelar ut till första sticket. I tur och ordning spelar var och en valfritt kort: man behöver aldrig bekänna färg.
+- Den högsta trumfen vinner sticket; utan trumf vinner det högsta kortet i den utspelade färgen.
+- Vinnaren tar sticket. Så länge leken räcker drar sedan varje spelare ett kort, vinnaren först.
+- Vinnaren spelar ut till nästa stick.
+# Poängen
+När alla kort är spelade räknar varje lag korten i sina stick: ess 11 poäng, trea 10, re 4, cavallo 3, fante 2, de andra korten ingenting.
+# Partiets slut
+Ett parti är en enda giv. Laget med 61 poäng eller fler vinner; 60 var är oavgjort.
+# Spela på enheten
+Ge enheten till spelaren vars bricka visas; han trycker på start och ser sin hand längst ner. Spelarnas brickor står runt mitten, din partner mittemot dig, och varje spelat kort ligger framför sin spelares bricka. Leken ligger nere till vänster med briscolan på tvären under; när den är dragen syns dess färg kvar på platsen. Tryck på ett kort så att det lyfts, tryck sedan på det igen eller på dess plats i mitten; eller dra det dit. Tryck på högen nere till höger för att se det senaste sticket. Varje list visar hur många kort laget har tagit. På slutet visar en tabell varje lags räknande kort och dess poäng. Ångra tar tillbaka ett val som inte är bekräftat än, aldrig ett kort när enheten har skickats vidare.

@@ -1,0 +1,18 @@
+Briscola
+# Het doel
+De slagen winnen met de kaarten die het meest waard zijn: er zijn 120 punten in totaal, en met 61 win je. Voor 2 spelers, of 4 in twee teams van partners die tegenover elkaar zitten (ivoor en rood tegen ebben en jade); niemand ziet de kaarten van de anderen.
+# De kaarten
+Het Italiaanse spel van 40 kaarten in vier kleuren: munten (denari), bekers (coppe), zwaarden (spade) en staven (bastoni). Van hoog naar laag: aas, 3, re, cavallo, fante, 7, 6, 5, 4, 2. Hier is de fante een pion, de cavallo een paard en de re een koning.
+# Het delen
+Elke speler krijgt 3 kaarten. De volgende kaart wordt opengelegd: dat is de briscola, en zijn kleur is de hele partij troef. Hij ligt dwars onder de stapel en wordt als laatste gepakt.
+# Het spel
+- Ivoor komt uit in de eerste slag. Om de beurt speelt iedereen een kaart naar keuze: je hoeft nooit kleur te bekennen.
+- De hoogste troef wint de slag; zonder troef wint de hoogste kaart van de gevraagde kleur.
+- De winnaar neemt de slag. Zolang de stapel strekt, pakt daarna iedereen een kaart, de winnaar eerst.
+- De winnaar komt uit in de volgende slag.
+# De telling
+Als alle kaarten gespeeld zijn, telt elk team de kaarten in zijn slagen: aas 11 punten, drie 10, re 4, cavallo 3, fante 2, de andere kaarten niets.
+# Het einde van de partij
+Een partij is één keer delen. Het team met 61 punten of meer wint; 60 tegen 60 is gelijkspel.
+# Spelen op het apparaat
+Geef het apparaat aan de speler wiens fiche verschijnt; die tikt op start en ziet zijn hand onderaan. De fiches van de spelers liggen rond het midden, je partner tegenover je, en elke gespeelde kaart ligt voor het fiche van zijn speler. De stapel ligt linksonder met de briscola er dwars onder; is die gepakt, dan blijft zijn kleur op zijn plaats zichtbaar. Tik een kaart aan zodat hij omhoogkomt, tik hem dan nog eens aan of tik op zijn plaats in het midden; of sleep hem daarheen. Tik op het stapeltje rechtsonder om de laatste slag te zien. Elke balk toont hoeveel kaarten het team heeft gewonnen. Aan het eind toont een tabel de tellende kaarten van elk team en zijn punten. Ongedaan maken neemt een nog niet bevestigde keuze terug, nooit een kaart als het apparaat al doorgegeven is.

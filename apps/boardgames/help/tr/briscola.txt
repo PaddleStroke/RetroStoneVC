@@ -1,0 +1,18 @@
+Briscola
+# Amaç
+En değerli kartları içeren elleri kazan: toplam 120 puan vardır ve 61 kazanır. 2 oyuncu için, ya da karşılıklı oturan iki kişilik iki takım hâlinde 4 oyuncu için (fildişi ve kırmızı, abanoz ve yeşime karşı); kimse başkalarının kartlarını görmez.
+# Kartlar
+Dört renkten 40 kartlık İtalyan destesi: sikkeler (denari), kupalar (coppe), kılıçlar (spade) ve sopalar (bastoni). Büyükten küçüğe: as, 3, re, cavallo, fante, 7, 6, 5, 4, 2. Burada fante bir piyon, cavallo bir at, re de bir şahtır.
+# Dağıtım
+Her oyuncu 3 kart alır. Sonraki kart açılır: bu briscola'dır ve rengi bütün oyun boyunca kozdur. Destenin altında enine durur ve en son çekilen kart odur.
+# Oyun
+- İlk eli fildişi açar. Sırayla herkes istediği kartı oynar: renge uymak hiçbir zaman gerekmez.
+- Eli en büyük koz alır; koz yoksa, açılan rengin en büyük kartı alır.
+- Kazanan eli toplar. Deste yettiği sürece ardından herkes bir kart çeker, önce kazanan.
+- Sonraki eli kazanan açar.
+# Puanlama
+Bütün kartlar oynanınca her taraf aldığı ellerdeki kartları sayar: as 11 puan, üçlü 10, re 4, cavallo 3, fante 2, diğer kartlar hiçbir şey.
+# Oyunun sonu
+Bir oyun tek bir dağıtımdır. 61 ya da daha çok puanı olan taraf kazanır; 60'a 60 berabere.
+# Cihazda oynamak
+Cihazı, pulu görünen oyuncuya ver; başlat düğmesine dokunur ve elini altta görür. Oyuncuların pulları ortanın çevresindedir, ortağın tam karşında; oynanan her kart kendi oyuncusunun pulunun önüne düşer. Deste sol alttadır, briscola altında enine durur; çekildiğinde rengi yerinde görünmeye devam eder. Bir karta dokun, yükselsin; sonra ona yeniden ya da ortadaki yerine dokun; ya da onu oraya sürükle. Son eli görmek için sağ alttaki yığına dokun. Her çubuk tarafın kaç kart aldığını gösterir. Sonunda bir tablo her tarafın puanlı kartlarını ve puanlarını gösterir. Geri al, henüz onaylanmamış bir seçimi geri alır; cihaz el değiştirdikten sonra asla bir kartı geri almaz.

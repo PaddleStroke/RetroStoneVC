@@ -1,0 +1,18 @@
+Briscola
+# Cel gry
+Wygrywaj lewy z najcenniejszymi kartami: w sumie jest 120 punktów, a 61 wygrywa. Dla 2 graczy albo 4 w dwóch parach partnerów siedzących naprzeciw siebie (kość słoniowa i czerwony przeciw hebanowi i nefrytowi); nikt nie widzi kart pozostałych.
+# Karty
+Włoska talia 40 kart w czterech kolorach: monety (denari), kielichy (coppe), miecze (spade) i buławy (bastoni). Od najwyższej do najniższej: as, 3, re, cavallo, fante, 7, 6, 5, 4, 2. Tutaj fante to pionek, cavallo to skoczek, a re to król.
+# Rozdanie
+Każdy gracz dostaje 3 karty. Następną kartę się odkrywa: to briscola, a jej kolor jest atutowy przez całą grę. Leży w poprzek pod talią i jest dobierana jako ostatnia.
+# Rozgrywka
+- Kość słoniowa wychodzi do pierwszej lewy. Po kolei każdy zagrywa dowolną kartę: nigdy nie trzeba dokładać do koloru.
+- Lewę bierze najwyższy atut; bez atutu bierze ją najwyższa karta w kolorze wyjścia.
+- Zwycięzca zabiera lewę. Dopóki starcza talii, każdy gracz dobiera potem kartę, zaczynając od zwycięzcy.
+- Zwycięzca wychodzi do następnej lewy.
+# Punktacja
+Gdy wszystkie karty zostaną zagrane, każda strona liczy karty w swoich lewach: as 11 punktów, trójka 10, re 4, cavallo 3, fante 2, pozostałe karty nic.
+# Koniec gry
+Gra to jedno rozdanie. Wygrywa strona, która ma 61 punktów lub więcej; po 60 to remis.
+# Gra na urządzeniu
+Podaj urządzenie graczowi, którego pionek się pokazuje; dotyka on przycisku startu i widzi swoją rękę na dole. Pionki graczy stoją wokół środka, twój partner naprzeciw ciebie, a każda zagrana karta leży przed pionkiem swojego gracza. Talia leży w lewym dolnym rogu, a briscola w poprzek pod nią; gdy zostanie dobrana, jej kolor zostaje widoczny na jej miejscu. Dotknij karty, aby się uniosła, potem dotknij jej ponownie albo jej miejsca na środku; albo przeciągnij ją tam. Dotknij stosu w prawym dolnym rogu, aby zobaczyć ostatnią lewę. Każdy pasek pokazuje, ile kart zebrała strona. Na koniec tabela pokazuje liczące się karty każdej strony i jej punkty. Cofnij wycofuje niezatwierdzony jeszcze wybór, nigdy kartę po podaniu urządzenia.

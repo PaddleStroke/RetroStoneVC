@@ -1,0 +1,18 @@
+Briscola
+# Das Ziel
+Die Stiche mit den wertvollsten Karten gewinnen: es gibt insgesamt 120 Punkte, und 61 gewinnen. Für 2 Spieler, oder 4 in zwei Teams aus Partnern, die einander gegenübersitzen (Elfenbein und Rot gegen Ebenholz und Jade); niemand sieht die Karten der anderen.
+# Die Karten
+Das italienische Blatt mit 40 Karten in vier Farben: Münzen (denari), Kelche (coppe), Schwerter (spade) und Stäbe (bastoni). Von hoch nach niedrig: Ass, 3, Re, Cavallo, Fante, 7, 6, 5, 4, 2. Hier ist der Fante ein Bauer, der Cavallo ein Springer und der Re ein König.
+# Das Geben
+Jeder Spieler bekommt 3 Karten. Die nächste Karte wird aufgedeckt: das ist die Briscola, und ihre Farbe ist für das ganze Spiel Trumpf. Sie liegt quer unter dem Stapel und wird als letzte Karte gezogen.
+# Das Spiel
+- Elfenbein spielt zum ersten Stich aus. Reihum spielt jeder eine beliebige Karte: Farbe bekennen muss man nie.
+- Der höchste Trumpf gewinnt den Stich; ohne Trumpf gewinnt die höchste Karte der ausgespielten Farbe.
+- Der Gewinner nimmt den Stich. Solange der Stapel reicht, zieht danach jeder eine Karte, der Gewinner zuerst.
+- Der Gewinner spielt zum nächsten Stich aus.
+# Die Wertung
+Wenn alle Karten gespielt sind, zählt jedes Team die Karten seiner Stiche: Ass 11 Punkte, Drei 10, Re 4, Cavallo 3, Fante 2, die übrigen Karten nichts.
+# Das Ende der Partie
+Eine Partie ist ein einziges Geben. Das Team mit 61 Punkten oder mehr gewinnt; 60 zu 60 ist unentschieden.
+# Spielen auf dem Gerät
+Gib das Gerät dem Spieler, dessen Stein erscheint; er tippt auf Start und sieht seine Hand unten. Die Steine der Spieler sitzen rund um die Mitte, dein Partner dir gegenüber, und jede gespielte Karte liegt vor dem Stein ihres Spielers. Der Stapel liegt unten links, die Briscola quer darunter; ist sie gezogen, bleibt ihre Farbe an ihrem Platz zu sehen. Tippe eine Karte an, damit sie sich hebt, dann tippe sie noch einmal oder ihren Platz in der Mitte an; oder zieh sie dorthin. Tippe den Stapel unten rechts an, um den letzten Stich zu sehen. Jede Leiste zeigt, wie viele Karten das Team genommen hat. Am Ende zeigt eine Tabelle die zählenden Karten jedes Teams und seine Punkte. Rückgängig nimmt eine noch nicht bestätigte Wahl zurück, nie eine Karte, wenn das Gerät weitergegeben wurde.

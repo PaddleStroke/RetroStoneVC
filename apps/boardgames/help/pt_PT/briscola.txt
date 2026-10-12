@@ -1,0 +1,18 @@
+Briscola
+# O objetivo
+Ganhar as vazas com as cartas que mais valem: há 120 pontos ao todo, e 61 ganham. Para 2 jogadores, ou 4 em duas equipas de parceiros sentados frente a frente (marfim e vermelho contra ébano e jade); ninguém vê as cartas dos outros.
+# As cartas
+O baralho italiano de 40 cartas, em quatro naipes: ouros (denari), copas (coppe), espadas (spade) e paus (bastoni). Da mais alta para a mais baixa: ás, 3, re, cavallo, fante, 7, 6, 5, 4, 2. Aqui o fante é um peão, o cavallo um cavalo e o re um rei.
+# A distribuição
+Cada jogador recebe 3 cartas. A carta seguinte é virada para cima: é a briscola, e o seu naipe é trunfo durante todo o jogo. Fica atravessada debaixo do baralho e é a última carta a ser tirada.
+# O jogo
+- Marfim sai na primeira vaza. Cada um, na sua vez, joga qualquer carta: nunca é obrigatório assistir ao naipe.
+- O trunfo mais alto ganha a vaza; sem trunfos, ganha a carta mais alta do naipe que saiu.
+- Quem ganha leva a vaza. Enquanto houver baralho, cada jogador tira depois uma carta, a começar por quem ganhou.
+- Quem ganhou sai na vaza seguinte.
+# A pontuação
+Quando todas as cartas foram jogadas, cada equipa conta as cartas das suas vazas: ás 11 pontos, três 10, re 4, cavallo 3, fante 2, as outras cartas nada.
+# O fim do jogo
+Um jogo é uma só distribuição. Ganha a equipa com 61 pontos ou mais; 60 a 60 é empate.
+# Jogar no dispositivo
+Passa o dispositivo ao jogador cuja peça aparece; ele toca no botão de início e vê a sua mão em baixo. As peças dos jogadores ficam à volta do centro, o teu parceiro à tua frente, e cada carta jogada fica diante da peça do seu jogador. O baralho está em baixo à esquerda, com a briscola atravessada por baixo; depois de ser tirada, o seu naipe continua à vista no lugar dela. Toca numa carta para ela subir e depois toca-lhe outra vez ou no lugar dela ao centro; ou arrasta-a até lá. Toca no monte em baixo à direita para rever a última vaza. Cada barra mostra quantas cartas a equipa já ganhou. No fim, uma tabela mostra as cartas que contam de cada equipa e os seus pontos. Anular desfaz uma escolha ainda não confirmada, nunca uma carta depois de o dispositivo passar.

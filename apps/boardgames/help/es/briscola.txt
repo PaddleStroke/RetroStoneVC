@@ -1,0 +1,18 @@
+Briscola
+# El objetivo
+Ganar las bazas que contienen las cartas que más valen: hay 120 puntos en total, y con 61 se gana. Para 2 jugadores, o 4 en dos parejas sentadas frente a frente (marfil y rojo contra ébano y jade); nadie ve las cartas de los demás.
+# Las cartas
+La baraja italiana de 40 cartas, en cuatro palos: oros (denari), copas (coppe), espadas (spade) y bastos (bastoni). De la más alta a la más baja: as, 3, re, cavallo, fante, 7, 6, 5, 4, 2. Aquí el fante es un peón, el cavallo un caballo y el re un rey.
+# El reparto
+Cada jugador recibe 3 cartas. La siguiente se pone boca arriba: es la briscola, y su palo es el triunfo durante toda la partida. Queda atravesada bajo el mazo y es la última carta que se roba.
+# El juego
+- Marfil sale en la primera baza. Por turno, cada uno juega la carta que quiera: nunca hay que asistir al palo.
+- Gana la baza el triunfo más alto; si no hay triunfos, la carta más alta del palo que salió.
+- El ganador se lleva la baza. Mientras quede mazo, cada jugador roba luego una carta, empezando por el ganador.
+- El ganador sale en la baza siguiente.
+# La puntuación
+Cuando se han jugado todas las cartas, cada equipo cuenta las cartas de sus bazas: as 11 puntos, tres 10, re 4, cavallo 3, fante 2, las demás cartas nada.
+# El final de la partida
+Una partida es un solo reparto. Gana el equipo con 61 puntos o más; 60 a 60 es empate.
+# Jugar en el dispositivo
+Pasa el dispositivo al jugador cuya ficha aparece; toca el botón de inicio y ve su mano abajo. Las fichas de los jugadores rodean el centro, tu compañero enfrente de ti, y cada carta jugada queda delante de la ficha de su jugador. El mazo está abajo a la izquierda, con la briscola atravesada debajo; cuando se roba, su palo sigue a la vista en su lugar. Toca una carta para que se levante y luego tócala otra vez o toca su lugar en el centro; o arrástrala allí. Toca el montón de abajo a la derecha para ver la última baza. Cada barra muestra cuántas cartas ha ganado el equipo. Al final, una tabla muestra las cartas que cuentan de cada equipo y sus puntos. Deshacer anula una elección aún no confirmada, nunca una carta una vez pasado el dispositivo.

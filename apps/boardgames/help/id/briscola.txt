@@ -1,0 +1,18 @@
+Briscola
+# Tujuan
+Menangkan trik yang berisi kartu paling berharga: ada 120 poin seluruhnya, dan 61 menang. Untuk 2 pemain, atau 4 pemain dalam dua tim berisi dua rekan yang duduk berhadapan (gading dan merah melawan eboni dan giok); tak seorang pun melihat kartu pemain lain.
+# Kartu
+Kartu Italia berisi 40 kartu dalam empat jenis: koin (denari), piala (coppe), pedang (spade), dan tongkat (bastoni). Dari yang tertinggi ke terendah: as, 3, re, cavallo, fante, 7, 6, 5, 4, 2. Di sini fante berupa bidak pion, cavallo berupa kuda, dan re berupa raja.
+# Pembagian kartu
+Setiap pemain mendapat 3 kartu. Kartu berikutnya dibuka: itulah briscola, dan jenisnya menjadi truf sepanjang permainan. Kartu itu terletak melintang di bawah tumpukan dan menjadi kartu terakhir yang diambil.
+# Permainan
+- Gading memulai trik pertama. Bergiliran, setiap pemain memainkan kartu apa saja: tidak pernah wajib mengikuti jenis.
+- Truf tertinggi memenangkan trik; tanpa truf, kartu tertinggi dari jenis yang dimainkan pertama yang menang.
+- Pemenang mengambil trik itu. Selama tumpukan masih ada, setiap pemain lalu mengambil satu kartu, pemenang lebih dulu.
+- Pemenang memulai trik berikutnya.
+# Skor
+Setelah semua kartu dimainkan, setiap pihak menghitung kartu dalam triknya: as 11 poin, tiga 10, re 4, cavallo 3, fante 2, kartu lain nol.
+# Akhir permainan
+Satu permainan adalah satu kali pembagian. Pihak dengan 61 poin atau lebih menang; 60 lawan 60 berarti seri.
+# Bermain di perangkat
+Oper perangkat ke pemain yang bidaknya tampil; ia mengetuk tombol mulai dan melihat kartunya sendiri di bawah. Bidak para pemain mengelilingi bagian tengah, rekanmu di seberangmu, dan setiap kartu yang dimainkan diletakkan di depan bidak pemainnya. Tumpukan ada di kiri bawah dengan briscola melintang di bawahnya; setelah diambil, jenisnya tetap terlihat di tempatnya. Ketuk sebuah kartu agar naik, lalu ketuk lagi atau ketuk tempatnya di tengah; atau seret ke sana. Ketuk tumpukan di kanan bawah untuk melihat trik terakhir. Setiap bilah menunjukkan berapa kartu yang sudah diambil pihaknya. Di akhir, sebuah tabel menunjukkan kartu bernilai milik setiap pihak dan poinnya. Urungkan membatalkan pilihan yang belum dikonfirmasi, tidak pernah kartu setelah perangkat dioper.
