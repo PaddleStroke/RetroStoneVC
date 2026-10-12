@@ -288,30 +288,40 @@ static void paint_button(int kind, int size, uint8_t *o)   /* what a tap puts: a
     (kind == K_TENT ? tent_pic : grass_pic)(size, o);
 }
 
+static float btn_d;                             /* the bar's buttons' size, as fitted */
+
 static void bar(int player, box b)
 {
     (void)player;
     barbox = b;
-    gl_bar_moves(b, t_small, G.hist.moves, 2);
+    ui_count moves = {t_small, G.hist.moves};
+    btn_d = ui_bar_fit(b, &moves, 1, 2);         /* the moves, the two buttons: fitted to the bar */
     if (tn_solved(&G)) return;
-    float x, y, d;
-    gl_bar_spot(b, 1, 2, &x, &y, &d);
-    ui_button_paint(x, y, d, paint_button, grass ? K_GRASS : K_TENT, 0.72f, grass ? UI_ON : 0);
-    gl_bar_spot(b, 0, 2, &x, &y, &d);
-    ui_button(x, y, d, ICON_HINT, 0);
+    float x, y;
+    ui_bar_spot(b, 1, btn_d, &x, &y);
+    ui_button_paint(x, y, btn_d, paint_button, grass ? K_GRASS : K_TENT, 0.72f, grass ? UI_ON : 0);
+    ui_bar_spot(b, 0, btn_d, &x, &y);
+    ui_button(x, y, btn_d, ICON_HINT, 0);
+}
+
+static int bar_hit(int i, float x, float y)
+{
+    float cx, cy;
+    ui_bar_spot(barbox, i, btn_d, &cx, &cy);
+    return barbox.w > 0 && ui_button_hit(cx, cy, btn_d, x, y);
 }
 
 static int bar_press(int player, float x, float y)
 {
     (void)player;
     if (tn_solved(&G)) return 0;
-    if (gl_bar_hit(barbox, 1, 2, x, y)) {
+    if (bar_hit(1, x, y)) {
         grass = !grass;
         ui_sound(SND_TAP);
         ui_animate();
         return 1;
     }
-    if (!gl_bar_hit(barbox, 0, 2, x, y)) return 0;
+    if (!bar_hit(0, x, y)) return 0;
     int c = tn_hint(&G);
     if (c < 0) { ui_sound(SND_DENY); return 1; }
     gl_light_start(&hint, c);
@@ -322,11 +332,11 @@ static int bar_press(int player, float x, float y)
     return 1;
 }
 
-/* ---- the menu's and the picker's cards: a field of the size with its tents (the menu's: half of them); under the
- * picker's, its level in ebony stones ---------------------------------------------------------------------------- */
-static void thumb(int variant, int size, uint8_t *rgba)
+/* ---- the menu's and the picker's cards: a field of the size with its tents (the menu's: half of them) ------------
+ * The picker has two axes (game.axes): the sizes (the field at the medium level), then the levels (the shell's
+ * ebony stones). A field, side x side, at the top of the card (centred: half) */
+static void field_pic(int v, int size, int side, int half, uint8_t *rgba)
 {
-    int v = variant < 0 ? 1 : variant, side = variant < 0 ? size : (int)(0.84f * size);
     tn_puzzle p;
     uint8_t sol[TN_CELLS];
     tn_make(tn_size(v), tn_level(v), 2026u + (uint32_t)v, &p, sol);
@@ -338,7 +348,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
     paint_board(&g, &p, b);
     int n = p.n, q = g.cs;
     for (int c = 0; c < n * n; c++)
-        if (sol[c] && (variant >= 0 || c < n * n / 2))
+        if (sol[c] && (!half || c < n * n / 2))
             pic_into(b, side, tent_pic, g.ox + c % n * q, g.oy + c / n * q, q);
     if (q >= 9)
         for (int way = 0; way < 2; way++)
@@ -347,15 +357,26 @@ static void thumb(int variant, int size, uint8_t *rgba)
                 float y = way ? g.oy - BAND * q / 2 : g.oy + (i + 0.5f) * q;
                 puz_digits(b, side, side, p.count[way][i], x, y, 0.56f * q, COUNT, 1, 1);
             }
-    art_blend(rgba, size, size, b, side, side, (size - side) / 2, variant < 0 ? (size - side) / 2 : 0);
+    art_blend(rgba, size, size, b, side, side, (size - side) / 2, half ? (size - side) / 2 : 0);
     free(b);
+}
+
+/* the menu's card (variant -1); a variant's (with its level in ebony stones under it) */
+static void thumb(int variant, int size, uint8_t *rgba)
+{
+    int v = variant < 0 ? 1 : variant, side = variant < 0 ? size : (int)(0.84f * size);
+    field_pic(v, size, side, variant < 0, rgba);
     if (variant >= 0) gl_stones(rgba, size, tn_level(v), side);
 }
+
+/* the picker's sizes: the field at the medium level, the whole card */
+static void size_pic(int i, int size, uint8_t *rgba) { field_pic(i * 3 + 1, size, size, 0, rgba); }
 
 static const game tents_game = {
     .id = "tents", .order = 412, .variants = TN_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,
+    .axes = {TN_SIZES, 3}, .axis_pic = {size_pic, NULL},
 };
 REGISTER_GAME(tents_game)
