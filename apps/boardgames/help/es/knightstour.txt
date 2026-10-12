@@ -1,0 +1,9 @@
+Recorrido del caballo
+# El objetivo
+Mueve un caballo para que pase por todas las casillas del tablero una sola vez. Elige el tablero: 5 × 5, 6 × 6 u 8 × 8. El caballo sale de una casilla elegida para ti, siempre una desde la que existe un recorrido completo.
+# Una jugada
+El caballo salta como en el ajedrez: dos casillas en una dirección y luego una hacia el lado. Nunca puede caer en una casilla ya visitada.
+# El final de la partida
+El recorrido está completo cuando se han visitado todas las casillas. Si la última casilla está a un salto de caballo de la primera, el recorrido es cerrado: una línea dorada une sus extremos y un anillo dorado aparece en la barra. Si el caballo se queda sin jugadas antes del final, brilla en rojo: deshaz y prueba otro camino.
+# Jugar en el dispositivo
+Toca una casilla marcada con un punto, o arrastra el caballo hasta ella. Las casillas visitadas conservan su número. La lámpara sigue la regla de Warnsdorff: cada casilla a tu alcance muestra cuántos saltos quedarían desde ella, y la mejor se ilumina en dorado, elegida para que un recorrido completo siga siendo posible. Si ya no se puede terminar ningún recorrido, el caballo brilla en rojo. Deshacer anula un salto cada vez, hasta el inicio. La barra muestra las casillas visitadas del total.

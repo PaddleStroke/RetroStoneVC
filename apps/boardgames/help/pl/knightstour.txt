@@ -1,0 +1,9 @@
+Problem skoczka
+# Cel gry
+Prowadź skoczka tak, by odwiedził każde pole szachownicy dokładnie raz. Wybierz szachownicę: 5 × 5, 6 × 6 lub 8 × 8. Skoczek zaczyna z pola wybranego dla ciebie, zawsze takiego, z którego istnieje pełna trasa.
+# Ruch
+Skoczek skacze jak w szachach: dwa pola w jednym kierunku i jedno w bok. Nigdy nie może stanąć na polu, które już odwiedził.
+# Koniec gry
+Trasa jest pełna, gdy wszystkie pola zostały odwiedzone. Jeśli ostatnie pole jest o skok skoczka od pierwszego, trasa jest zamknięta: złota linia łączy jej końce, a na pasku pojawia się złoty pierścień. Jeśli skoczek nie ma już ruchu przed końcem, świeci na czerwono: cofnij i spróbuj innej drogi.
+# Gra na urządzeniu
+Dotknij pola oznaczonego kropką albo przeciągnij tam skoczka. Odwiedzone pola zachowują swój numer. Lampa stosuje regułę Warnsdorffa: każde osiągalne pole pokazuje, ile skoków zostałoby z niego, a najlepsze świeci na złoto, wybrane tak, by pełna trasa wciąż była możliwa. Gdy żadnej trasy nie da się już dokończyć, skoczek świeci na czerwono. Cofnij cofa po jednym skoku, aż do początku. Pasek pokazuje odwiedzone pola spośród wszystkich.

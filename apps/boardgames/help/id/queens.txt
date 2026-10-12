@@ -1,0 +1,9 @@
+Delapan ratu
+# Tujuan
+Letakkan N ratu di papan N × N sehingga tak satu pun menyerang yang lain: tidak pernah dua di baris, kolom, atau diagonal yang sama. Pilih papan: 5 × 5, 6 × 6, 8 × 8 (teka-teki klasik), atau 10 × 10. Satu ratu hitam sudah terpasang dan tidak bisa dipindahkan.
+# Satu langkah
+Taruh ratu di petak kosong, atau angkat salah satu ratumu.
+# Akhir permainan
+Teka-teki terpecahkan bila N ratu ada di papan dan tak satu pun menyerang yang lain. Setiap papan punya banyak solusi (92 pada 8 × 8): bilah menghitung solusi berbeda yang kamu temukan di sesi ini, dan permainan baru dimulai dengan ratu dari solusi yang belum kamu temukan.
+# Bermain di perangkat
+Ketuk petak untuk menaruh ratu, ketuk lagi untuk mengangkatnya. Petak yang diserang para ratu diberi bayangan; tombol bergambar sinar mematikan dan menyalakan bayangan itu. Ratu yang saling menyerang menyala merah. Lampu menyalakan emas petak tempat seorang ratu seharusnya berada, atau, bila ratu di papan tidak bisa lagi menuju solusi, melingkari ratu yang harus diangkat. Urungkan membatalkan satu ketukan setiap kali. Bilah menunjukkan ketukanmu dan solusi yang ditemukan dari seluruh solusi papan.

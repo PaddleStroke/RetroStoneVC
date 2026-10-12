@@ -1,0 +1,9 @@
+Passeio do cavalo
+# O objetivo
+Mova um cavalo para que ele passe por todas as casas do tabuleiro uma única vez. Escolha o tabuleiro: 5 × 5, 6 × 6 ou 8 × 8. O cavalo começa numa casa escolhida para você, sempre uma de onde existe um passeio completo.
+# Uma jogada
+O cavalo salta como no xadrez: duas casas numa direção e depois uma para o lado. Nunca pode cair numa casa já visitada.
+# O fim da partida
+O passeio está completo quando todas as casas foram visitadas. Se a última casa estiver a um salto de cavalo da primeira, o passeio é fechado: uma linha dourada liga as pontas e um anel dourado aparece na barra. Se o cavalo ficar sem lances antes do fim, ele brilha em vermelho: desfaça e tente outro caminho.
+# Jogando no aparelho
+Toque numa casa marcada com um ponto, ou arraste o cavalo até ela. As casas visitadas guardam seu número. A lâmpada segue a regra de Warnsdorff: cada casa ao alcance mostra quantos saltos restariam a partir dela, e a melhor acende em dourado, escolhida para que um passeio completo continue possível. Se nenhum passeio puder mais ser terminado, o cavalo brilha em vermelho. Desfazer volta um salto de cada vez, até o começo. A barra mostra as casas visitadas do total.

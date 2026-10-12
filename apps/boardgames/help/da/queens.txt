@@ -1,0 +1,9 @@
+Otte dronninger
+# Målet
+Stil N dronninger på et bræt med N × N felter, så ingen angriber en anden: aldrig to på samme række, linje eller diagonal. Vælg bræt: 5 × 5, 6 × 6, 8 × 8 (den klassiske opgave) eller 10 × 10. En sort dronning står allerede fast og kan ikke flyttes.
+# Et træk
+Stil en dronning på et tomt felt, eller fjern en af dine dronninger.
+# Spillets afslutning
+Opgaven er løst, når alle N dronninger står på brættet, og ingen angriber en anden. Hvert bræt har mange løsninger (92 på 8 × 8): bjælken tæller de forskellige løsninger, du har fundet i denne session, og et nyt spil starter med en dronning fra en løsning, du endnu ikke har fundet.
+# Spil på enheden
+Tryk på et felt for at stille en dronning der, og tryk igen for at fjerne den. De felter, dronningerne angriber, er skyggede; knappen med strålerne slår skyggen fra og til. Dronninger, der angriber hinanden, lyser rødt. Lampen lyser et felt op i guld, hvor en dronning hører hjemme, eller ringer, når dronningerne på brættet ikke længere kan føre til en løsning, den dronning ind, der skal væk. Fortryd tager ét tryk tilbage ad gangen. Bjælken viser dine tryk og de fundne løsninger ud af brættets alle.

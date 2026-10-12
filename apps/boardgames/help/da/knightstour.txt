@@ -1,0 +1,9 @@
+Springerproblemet
+# Målet
+Flyt en springer, så den besøger hvert felt på brættet nøjagtig én gang. Vælg bræt: 5 × 5, 6 × 6 eller 8 × 8. Springeren starter på et felt, der er valgt til dig, altid et felt, hvorfra en hel tur findes.
+# Et træk
+Springeren springer som i skak: to felter i én retning og så ét til siden. Den må aldrig lande på et felt, den allerede har besøgt.
+# Spillets afslutning
+Turen er færdig, når alle felter er besøgt. Ligger det sidste felt et springerspring fra det første, er turen lukket: en guldlinje forbinder enderne, og en guldring vises i bjælken. Har springeren ingen træk tilbage før enden, lyser den rødt: fortryd og prøv en anden vej.
+# Spil på enheden
+Tryk på et felt med en prik, eller træk springeren derhen. Besøgte felter beholder deres nummer. Lampen følger Warnsdorffs regel: hvert felt inden for rækkevidde viser, hvor mange spring der ville være tilbage derfra, og det bedste lyser i guld, valgt så en hel tur stadig er mulig. Kan ingen tur længere gøres færdig, lyser springeren rødt. Fortryd tager ét spring tilbage ad gangen, helt til starten. Bjælken viser de besøgte felter ud af alle.

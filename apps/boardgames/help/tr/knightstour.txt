@@ -1,0 +1,9 @@
+At turu
+# Amaç
+Bir atı, tahtanın her karesine tam bir kez uğrayacak şekilde oynat. Tahtayı seç: 5 × 5, 6 × 6 veya 8 × 8. At senin için seçilmiş bir kareden başlar; bu, her zaman tam bir turun mümkün olduğu bir karedir.
+# Bir hamle
+At satrançtaki gibi sıçrar: bir yönde iki kare, sonra yana bir kare. Daha önce uğradığı bir kareye asla konamaz.
+# Oyunun sonu
+Bütün karelere uğranınca tur tamamlanır. Son kare ilk kareden bir at sıçrayışı uzaktaysa tur kapalıdır: altın bir çizgi uçlarını birleştirir ve çubukta altın bir halka görünür. At sona gelmeden hamlesiz kalırsa kırmızı parlar: geri al ve başka bir yol dene.
+# Cihazda oynamak
+Noktalı bir kareye dokun ya da atı oraya sürükle. Uğranan kareler numaralarını korur. Lamba Warnsdorff kuralını izler: erişilebilen her kare oradan kaç sıçrayış kalacağını gösterir ve en iyisi altın renginde yanar; tam bir turun hâlâ mümkün kalacağı şekilde seçilir. Artık hiçbir tur tamamlanamıyorsa at kırmızı parlar. Geri al her seferinde bir sıçrayışı geri alır, en başa kadar. Çubuk uğranan kareleri tüm karelerle birlikte gösterir.

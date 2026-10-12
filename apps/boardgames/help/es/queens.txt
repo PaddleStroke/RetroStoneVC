@@ -1,0 +1,9 @@
+Ocho reinas
+# El objetivo
+Coloca N reinas en un tablero de N × N casillas sin que ninguna ataque a otra: nunca dos en la misma fila, columna o diagonal. Elige el tablero: 5 × 5, 6 × 6, 8 × 8 (el problema clásico) o 10 × 10. Una reina negra ya está colocada y no se puede mover.
+# Una jugada
+Pon una reina en una casilla vacía, o quita una de tus reinas.
+# El final de la partida
+El problema está resuelto cuando las N reinas están en el tablero y ninguna ataca a otra. Cada tablero tiene muchas soluciones (92 en el 8 × 8): la barra cuenta las distintas soluciones que has encontrado en esta sesión, y una partida nueva empieza con una reina de una solución que aún no has encontrado.
+# Jugar en el dispositivo
+Toca una casilla para poner una reina y tócala otra vez para quitarla. Las casillas que atacan las reinas aparecen sombreadas; el botón de los rayos quita o pone la sombra. Las reinas que se atacan brillan en rojo. La lámpara ilumina en dorado una casilla donde va una reina o, cuando las reinas del tablero ya no pueden llevar a una solución, rodea la que hay que quitar. Deshacer anula un toque cada vez. La barra muestra tus toques y las soluciones encontradas del total del tablero.

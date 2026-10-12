@@ -1,0 +1,9 @@
+Satranç bulmacaları
+# Amaç
+Gerçek oyunlardan alınmış konumlarda kazandıran hamleleri bul. Her bulmacanın kazandıran tek bir devamı vardır: bir mat, kazanılan bir taş ya da terfi eden bir piyon. Bir seri seç: başlangıç (puanı 1000'in altında), kolay (1000–1400), orta (1400–1800), zor (1800–2200), uzman (2200 ve üstü) ya da her seviyeden bir, iki veya üç hamlede mat.
+# Bir hamle
+Taşlar satrançtaki gibi oynar. Rakip ilk hamleyi kendisi yapar; sonra sıra sende: en iyi hamleyi bul. Her doğru hamlenden sonra rakip, devam bitene kadar kendiliğinden cevap verir. Piyonların her zaman vezire terfi eder.
+# Oyunun sonu
+Bütün devam oynandığında bulmaca çözülür. Mat eden bir hamle, beklenen hamle olmasa bile her zaman doğrudur. Yanlış bir hamle asla kaybettirmez: kırmızıya döner, geri alınır ve bir hata sayılır.
+# Cihazda oynamak
+Tahta, taşların altta olacak şekilde döner. Bir taşa, sonra bir kareye dokun ya da taşı sürükle. Çubuktaki lamba: ilk basış oynanacak taşı, ikincisi onun karesini de aydınlatır. Geri al son hamleni ve cevabı geri alır, en başa kadar. Çubuk bulmacanın puanını, serini (hatasız ve ipucusuz art arda çözülen bulmacalar) ve bu oturumda çözülen bulmacaları gösterir. Bulmaca çözülünce serideki bir sonrakine geçmek için tahtaya dokun.

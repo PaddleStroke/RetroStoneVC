@@ -1,0 +1,9 @@
+Ratsun matka
+# Tavoite
+Liikuta ratsua niin, että se käy jokaisessa laudan ruudussa täsmälleen kerran. Valitse lauta: 5 × 5, 6 × 6 tai 8 × 8. Ratsu aloittaa sinulle valitusta ruudusta, aina sellaisesta, josta koko kierros on mahdollinen.
+# Siirto
+Ratsu hyppää kuten shakissa: kaksi ruutua yhteen suuntaan ja sitten yksi sivulle. Se ei saa koskaan laskeutua ruutuun, jossa se on jo käynyt.
+# Pelin loppu
+Kierros on valmis, kun kaikissa ruuduissa on käyty. Jos viimeinen ruutu on ratsun hypyn päässä ensimmäisestä, kierros on suljettu: kultainen viiva yhdistää sen päät ja palkkiin ilmestyy kultainen rengas. Jos ratsulla ei ole siirtoja ennen loppua, se hehkuu punaisena: kumoa ja kokeile toista reittiä.
+# Pelaaminen laitteella
+Napauta pisteellä merkittyä ruutua tai vedä ratsu sinne. Käydyt ruudut säilyttävät numeronsa. Lamppu noudattaa Warnsdorffin sääntöä: jokainen ulottuvilla oleva ruutu näyttää, montako hyppyä sieltä jäisi, ja paras syttyy kultaiseksi, valittuna niin, että koko kierros on yhä mahdollinen. Jos mitään kierrosta ei voi enää saada valmiiksi, ratsu hehkuu punaisena. Kumoa peruu yhden hypyn kerrallaan, aina alkuun asti. Palkki näyttää käydyt ruudut kaikista.

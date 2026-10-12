@@ -1,0 +1,9 @@
+Eight Queens
+# The aim
+Place N queens on a board of N × N squares so that no queen attacks another: never two on the same row, column or diagonal. Choose the board: 5 × 5, 6 × 6, 8 × 8 (the classic puzzle) or 10 × 10. One black queen is already placed and cannot be moved.
+# A move
+Put a queen on an empty square, or take one of your queens off.
+# The end of the game
+The puzzle is solved when the N queens are on the board and none attacks another. Each board has many solutions (92 on 8 × 8): the bar counts the different ones you have found this session, and a new game starts from a queen of one you have not found yet.
+# Playing on the device
+Tap a square to put a queen on it, tap it again to take the queen off. The squares the queens attack are shaded; the button with the rays turns the shade off and on. Queens that attack each other glow red. The lamp lights up in gold a square where a queen belongs, or, when the queens on the board can no longer lead to a solution, rings the one to take off. Undo takes back one tap at a time. The bar shows your taps and the solutions found out of the board's total.

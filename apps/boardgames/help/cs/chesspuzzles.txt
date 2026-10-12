@@ -1,0 +1,9 @@
+Šachové úlohy
+# Cíl hry
+Najdi vítězné tahy v pozicích ze skutečných partií. Každá úloha má jedno vítězné pokračování: mat, získaný kámen nebo pěšce, který se promění. Vyber si sérii: začátečník (rating pod 1000), snadné (1000 až 1400), střední (1400 až 1800), těžké (1800 až 2200), expert (2200 a více), nebo maty jedním, dvěma či třemi tahy ze všech úrovní.
+# Tah
+Kameny táhnou jako v šachu. Soupeř zahraje první tah sám; pak jsi na tahu ty: najdi nejlepší tah. Po každém tvém správném tahu soupeř sám odpoví, dokud pokračování neskončí. Tvoji pěšci se vždy promění v dámu.
+# Konec hry
+Úloha je vyřešena, když je zahráno celé pokračování. Tah, který dává mat, je vždy správný, i když není ten očekávaný. Špatný tah nikdy neprohrává: zčervená, vezme se zpět a počítá se jako chyba.
+# Hra na zařízení
+Šachovnice se otočí tak, aby tvé kameny byly dole. Klepni na kámen a pak na pole, nebo kámen přetáhni. Lampa na liště: první stisk rozsvítí kámen, kterým se má táhnout, druhý i jeho pole. Zpět vrátí tvůj poslední tah i odpověď, až na začátek. Lišta ukazuje rating úlohy, tvou sérii (úlohy vyřešené za sebou bez chyby a bez nápovědy) a úlohy vyřešené v této relaci. Po vyřešení úlohy klepni na šachovnici a přijde další ze série.

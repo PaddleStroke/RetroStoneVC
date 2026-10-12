@@ -1,0 +1,9 @@
+Sekiz vezir
+# Amaç
+N × N karelik bir tahtaya N vezir yerleştir; hiçbiri diğerine saldırmasın: aynı satırda, sütunda ya da çaprazda asla iki vezir olmasın. Tahtayı seç: 5 × 5, 6 × 6, 8 × 8 (klasik bulmaca) veya 10 × 10. Siyah bir vezir zaten yerindedir ve oynatılamaz.
+# Bir hamle
+Boş bir kareye vezir koy ya da vezirlerinden birini kaldır.
+# Oyunun sonu
+N vezir tahtadayken hiçbiri diğerine saldırmıyorsa bulmaca çözülür. Her tahtanın birçok çözümü vardır (8 × 8'de 92): çubuk bu oturumda bulduğun farklı çözümleri sayar ve yeni bir oyun, henüz bulmadığın bir çözümün vezirinden başlar.
+# Cihazda oynamak
+Vezir koymak için bir kareye dokun, kaldırmak için yine dokun. Vezirlerin saldırdığı kareler gölgelidir; ışınlı düğme gölgeyi kapatıp açar. Birbirine saldıran vezirler kırmızı parlar. Lamba, bir vezirin ait olduğu kareyi altın renginde yakar ya da tahtadaki vezirler artık bir çözüme götüremiyorsa kaldırılacak olanı halkayla gösterir. Geri al her seferinde bir dokunuşu geri alır. Çubuk dokunuşlarını ve bulunan çözümleri tahtanın tüm çözümleriyle birlikte gösterir.

@@ -1,0 +1,9 @@
+Tour du cavalier
+# Le but
+Fais passer un cavalier sur chaque case de l'échiquier, une fois et une seule. Choisis l'échiquier : 5 × 5, 6 × 6 ou 8 × 8. Le cavalier part d'une case choisie pour toi, toujours une case d'où un tour complet existe.
+# Un coup
+Le cavalier saute comme aux échecs : deux cases dans une direction, puis une sur le côté. Il ne peut jamais retomber sur une case déjà visitée.
+# La fin de la partie
+Le tour est complet quand toutes les cases ont été visitées. Si la dernière case est à un saut de cavalier de la première, le tour est fermé : un trait doré relie ses deux bouts et un anneau doré apparaît dans la barre. Si le cavalier n'a plus de coup avant la fin, il s'éclaire en rouge : annule et essaie un autre chemin.
+# Jouer sur l'appareil
+Touche une case marquée d'un point, ou fais glisser le cavalier dessus. Les cases visitées gardent leur numéro. La lampe suit la règle de Warnsdorff : chaque case à portée montre combien de sauts il resterait depuis elle, et la meilleure s'éclaire en or, choisie pour qu'un tour complet reste possible. Si plus aucun tour ne peut être terminé, le cavalier s'éclaire en rouge. Annuler reprend un saut à la fois, jusqu'au départ. La barre montre les cases visitées sur le total.

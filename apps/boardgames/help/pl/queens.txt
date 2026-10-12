@@ -1,0 +1,9 @@
+Osiem hetmanów
+# Cel gry
+Ustaw N hetmanów na szachownicy N × N tak, by żaden nie atakował innego: nigdy dwóch w tym samym rzędzie, kolumnie ani na tej samej przekątnej. Wybierz szachownicę: 5 × 5, 6 × 6, 8 × 8 (klasyczna łamigłówka) lub 10 × 10. Jeden czarny hetman stoi już na miejscu i nie można go ruszyć.
+# Ruch
+Postaw hetmana na pustym polu albo zdejmij jednego ze swoich hetmanów.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy N hetmanów stoi na szachownicy i żaden nie atakuje innego. Każda szachownica ma wiele rozwiązań (92 na 8 × 8): pasek liczy różne rozwiązania znalezione w tej sesji, a nowa gra zaczyna się od hetmana z rozwiązania, którego jeszcze nie znalazłeś.
+# Gra na urządzeniu
+Dotknij pola, aby postawić hetmana, i dotknij ponownie, aby go zdjąć. Pola atakowane przez hetmany są zacienione; przycisk z promieniami wyłącza i włącza cień. Hetmany, które się atakują, świecą na czerwono. Lampa podświetla na złoto pole, na którym powinien stanąć hetman, albo, gdy hetmany na szachownicy nie mogą już prowadzić do rozwiązania, otacza tego, którego trzeba zdjąć. Cofnij cofa po jednym dotknięciu. Pasek pokazuje twoje dotknięcia i znalezione rozwiązania spośród wszystkich na tej szachownicy.

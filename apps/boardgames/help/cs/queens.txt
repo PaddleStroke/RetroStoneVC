@@ -1,0 +1,9 @@
+Osm dam
+# Cíl hry
+Rozestav N dam na šachovnici N × N tak, aby žádná neohrožovala jinou: nikdy dvě ve stejné řadě, sloupci ani na stejné diagonále. Vyber si šachovnici: 5 × 5, 6 × 6, 8 × 8 (klasický hlavolam) nebo 10 × 10. Jedna černá dáma už stojí na místě a nelze s ní hnout.
+# Tah
+Postav dámu na prázdné pole, nebo jednu ze svých dam odeber.
+# Konec hry
+Hlavolam je vyřešen, když na šachovnici stojí N dam a žádná neohrožuje jinou. Každá šachovnice má mnoho řešení (92 na 8 × 8): lišta počítá různá řešení nalezená v této relaci a nová hra začíná dámou z řešení, které jsi ještě nenašel.
+# Hra na zařízení
+Klepnutím na pole tam postavíš dámu, dalším klepnutím ji odebereš. Pole ohrožená dámami jsou zastíněná; tlačítko s paprsky stín vypíná a zapíná. Dámy, které se ohrožují, svítí červeně. Lampa rozsvítí zlatě pole, kam patří dáma, nebo, když dámy na šachovnici už nemohou vést k řešení, zakroužkuje tu, kterou je třeba odebrat. Zpět vrací jedno klepnutí po druhém. Lišta ukazuje tvá klepnutí a nalezená řešení ze všech na šachovnici.

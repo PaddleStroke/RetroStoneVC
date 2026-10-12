@@ -1,0 +1,9 @@
+Teka-teki catur
+# Tujuan
+Temukan langkah kemenangan dalam posisi dari permainan sungguhan. Setiap teka-teki punya satu rangkaian langkah yang menang: skakmat, buah yang direbut, atau pion yang berpromosi. Pilih seri: pemula (rating di bawah 1000), mudah (1000 sampai 1400), sedang (1400 sampai 1800), sulit (1800 sampai 2200), ahli (2200 ke atas), atau skakmat dalam satu, dua, atau tiga langkah dari semua tingkat.
+# Satu langkah
+Buah bergerak seperti dalam catur. Lawan memainkan langkah pertama sendiri; lalu giliranmu: temukan langkah terbaik. Setelah tiap langkahmu yang benar, lawan membalas sendiri, sampai rangkaian selesai. Pionmu selalu berpromosi menjadi menteri.
+# Akhir permainan
+Teka-teki terpecahkan bila seluruh rangkaian sudah dimainkan. Langkah yang memberi skakmat selalu benar, meski bukan yang diharapkan. Langkah yang salah tidak pernah membuat kalah: langkah itu memerah, dibatalkan, dan dihitung sebagai kesalahan.
+# Bermain di perangkat
+Papan berputar sehingga buahmu ada di bawah. Ketuk sebuah buah lalu sebuah petak, atau seret buahnya. Lampu di bilah: tekanan pertama menyalakan buah yang harus jalan, tekanan kedua juga petaknya. Urungkan membatalkan langkah terakhirmu beserta balasannya, sampai ke awal. Bilah menunjukkan rating teka-teki, rentetanmu (teka-teki yang dipecahkan berturut-turut tanpa salah dan tanpa petunjuk), dan teka-teki yang dipecahkan di sesi ini. Setelah teka-teki terpecahkan, ketuk papan untuk yang berikutnya dalam seri.

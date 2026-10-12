@@ -1,0 +1,9 @@
+Paardensprong
+# Het doel
+Beweeg een paard zo dat het elk veld van het bord precies één keer bezoekt. Kies het bord: 5 × 5, 6 × 6 of 8 × 8. Het paard begint op een veld dat voor je gekozen is, altijd een veld van waaruit een volledige rondgang bestaat.
+# Een zet
+Het paard springt zoals bij schaken: twee velden in één richting en dan één opzij. Het mag nooit landen op een veld waar het al geweest is.
+# Het einde van het spel
+De rondgang is compleet als alle velden bezocht zijn. Ligt het laatste veld een paardensprong van het eerste, dan is de rondgang gesloten: een gouden lijn verbindt de uiteinden en een gouden ring verschijnt in de balk. Heeft het paard voor het einde geen zet meer, dan licht het rood op: maak zetten ongedaan en probeer een andere weg.
+# Spelen op het apparaat
+Tik op een veld met een stip, of sleep het paard erheen. Bezochte velden houden hun nummer. De lamp volgt de regel van Warnsdorff: elk bereikbaar veld toont hoeveel sprongen er vandaar nog zouden overblijven, en het beste licht goud op, zo gekozen dat een volledige rondgang mogelijk blijft. Kan er geen rondgang meer worden afgemaakt, dan licht het paard rood op. Ongedaan maken neemt één sprong tegelijk terug, helemaal tot het begin. De balk toont de bezochte velden van het totaal.

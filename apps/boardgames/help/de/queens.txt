@@ -1,0 +1,9 @@
+Damenproblem
+# Das Ziel
+Stelle N Damen so auf ein Brett mit N × N Feldern, dass keine eine andere angreift: nie zwei auf derselben Reihe, Linie oder Diagonale. Wähle das Brett: 5 × 5, 6 × 6, 8 × 8 (das klassische Rätsel) oder 10 × 10. Eine schwarze Dame steht schon fest und lässt sich nicht bewegen.
+# Ein Zug
+Stelle eine Dame auf ein leeres Feld, oder nimm eine deiner Damen weg.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn alle N Damen auf dem Brett stehen und keine eine andere angreift. Jedes Brett hat viele Lösungen (92 auf 8 × 8): Die Leiste zählt die verschiedenen Lösungen, die du in dieser Sitzung gefunden hast, und ein neues Spiel beginnt mit einer Dame aus einer Lösung, die du noch nicht gefunden hast.
+# Spielen auf dem Gerät
+Tippe auf ein Feld, um eine Dame daraufzustellen, und noch einmal, um sie wegzunehmen. Die Felder, die die Damen angreifen, sind abgedunkelt; die Taste mit den Strahlen schaltet den Schatten aus und ein. Damen, die sich angreifen, leuchten rot. Die Lampe lässt ein Feld golden leuchten, auf das eine Dame gehört, oder, wenn die Damen auf dem Brett zu keiner Lösung mehr führen können, umringt sie die Dame, die weg muss. Rückgängig nimmt einen Tipp nach dem anderen zurück. Die Leiste zeigt deine Tipps und die gefundenen Lösungen von allen des Bretts.

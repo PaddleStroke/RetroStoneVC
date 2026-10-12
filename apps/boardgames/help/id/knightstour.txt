@@ -1,0 +1,9 @@
+Perjalanan kuda
+# Tujuan
+Gerakkan kuda sehingga ia mengunjungi setiap petak papan tepat satu kali. Pilih papan: 5 × 5, 6 × 6, atau 8 × 8. Kuda mulai dari petak yang dipilihkan untukmu, selalu petak yang memungkinkan perjalanan lengkap.
+# Satu langkah
+Kuda melompat seperti dalam catur: dua petak ke satu arah, lalu satu ke samping. Ia tidak boleh mendarat di petak yang sudah dikunjungi.
+# Akhir permainan
+Perjalanan selesai bila semua petak sudah dikunjungi. Jika petak terakhir berjarak satu lompatan kuda dari petak pertama, perjalanannya tertutup: garis emas menghubungkan kedua ujungnya dan cincin emas muncul di bilah. Jika kuda kehabisan langkah sebelum selesai, ia menyala merah: urungkan dan coba jalan lain.
+# Bermain di perangkat
+Ketuk petak yang bertanda titik, atau seret kuda ke sana. Petak yang sudah dikunjungi menyimpan nomornya. Lampu mengikuti aturan Warnsdorff: tiap petak yang terjangkau menunjukkan berapa lompatan yang tersisa dari sana, dan yang terbaik menyala emas, dipilih agar perjalanan lengkap tetap mungkin. Jika tidak ada lagi perjalanan yang bisa diselesaikan, kuda menyala merah. Urungkan membatalkan satu lompatan setiap kali, sampai ke awal. Bilah menunjukkan petak yang dikunjungi dari seluruhnya.

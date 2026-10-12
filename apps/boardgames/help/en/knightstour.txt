@@ -1,0 +1,9 @@
+Knight's Tour
+# The aim
+Move a knight so that it visits every square of the board exactly once. Choose the board: 5 × 5, 6 × 6 or 8 × 8. The knight starts on a square chosen for you, always one from which a whole tour exists.
+# A move
+The knight jumps as in chess: two squares in one direction, then one to the side. It may never land on a square it has already visited.
+# The end of the game
+The tour is complete when every square has been visited. When the last square is a knight's jump away from the first, the tour is closed: a gold line joins its ends and a gold ring shows in the bar. When the knight has no move left before the end, it glows red: undo and try another way.
+# Playing on the device
+Tap a square marked with a dot, or drag the knight there. Visited squares keep their number. The lamp follows Warnsdorff's rule: each square within reach shows how many jumps would be left from it, and the best one lights up in gold, chosen so that a whole tour stays possible. When no tour can be finished from here any more, the knight glows red. Undo takes back one jump at a time, all the way to the start. The bar shows the squares visited out of all.

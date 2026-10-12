@@ -1,0 +1,9 @@
+Giro del cavallo
+# Lo scopo
+Muovi un cavallo in modo che passi su ogni casa della scacchiera una volta sola. Scegli la scacchiera: 5 × 5, 6 × 6 o 8 × 8. Il cavallo parte da una casa scelta per te, sempre una da cui esiste un giro completo.
+# Una mossa
+Il cavallo salta come negli scacchi: due case in una direzione, poi una di lato. Non può mai finire su una casa già visitata.
+# La fine della partita
+Il giro è completo quando tutte le case sono state visitate. Se l'ultima casa è a un salto di cavallo dalla prima, il giro è chiuso: una linea dorata ne unisce le estremità e un anello dorato compare nella barra. Se il cavallo resta senza mosse prima della fine, si illumina di rosso: annulla e prova un'altra strada.
+# Giocare sul dispositivo
+Tocca una casa segnata da un punto, oppure trascinaci il cavallo. Le case visitate conservano il loro numero. La lampada segue la regola di Warnsdorff: ogni casa raggiungibile mostra quanti salti resterebbero da lì, e la migliore si illumina d'oro, scelta in modo che un giro completo resti possibile. Se nessun giro può più essere completato, il cavallo si illumina di rosso. Annulla riprende un salto alla volta, fino alla partenza. La barra mostra le case visitate sul totale.

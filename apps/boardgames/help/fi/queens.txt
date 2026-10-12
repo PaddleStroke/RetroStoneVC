@@ -1,0 +1,9 @@
+Kahdeksan kuningatarta
+# Tavoite
+Aseta N kuningatarta N × N -laudalle niin, ettei mikään uhkaa toista: ei koskaan kahta samalla rivillä, linjalla tai viistolla. Valitse lauta: 5 × 5, 6 × 6, 8 × 8 (klassinen pulma) tai 10 × 10. Yksi musta kuningatar on jo paikallaan, eikä sitä voi siirtää.
+# Siirto
+Aseta kuningatar tyhjään ruutuun tai poista yksi kuningattaristasi.
+# Pelin loppu
+Pulma on ratkaistu, kun kaikki N kuningatarta ovat laudalla eikä mikään uhkaa toista. Jokaisella laudalla on monta ratkaisua (8 × 8 -laudalla 92): palkki laskee eri ratkaisut, jotka olet löytänyt tällä kerralla, ja uusi peli alkaa kuningattaresta ratkaisussa, jota et ole vielä löytänyt.
+# Pelaaminen laitteella
+Napauta ruutua asettaaksesi siihen kuningattaren ja napauta uudestaan poistaaksesi sen. Kuningattarien uhkaamat ruudut on varjostettu; säteilevä painike kytkee varjon pois ja päälle. Toisiaan uhkaavat kuningattaret hehkuvat punaisina. Lamppu valaisee kultaisena ruudun, johon kuningatar kuuluu, tai, kun laudan kuningattaret eivät enää voi johtaa ratkaisuun, ympyröi poistettavan. Kumoa peruu yhden napautuksen kerrallaan. Palkki näyttää napautuksesi ja löydetyt ratkaisut laudan kaikista.

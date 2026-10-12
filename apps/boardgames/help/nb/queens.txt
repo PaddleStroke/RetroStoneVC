@@ -1,0 +1,9 @@
+Åtte dronninger
+# Målet
+Sett N dronninger på et brett med N × N ruter slik at ingen angriper en annen: aldri to på samme rad, linje eller diagonal. Velg brett: 5 × 5, 6 × 6, 8 × 8 (den klassiske oppgaven) eller 10 × 10. Én svart dronning står allerede fast og kan ikke flyttes.
+# Et trekk
+Sett en dronning på en tom rute, eller ta bort en av dronningene dine.
+# Slutten på spillet
+Oppgaven er løst når alle N dronningene står på brettet og ingen angriper en annen. Hvert brett har mange løsninger (92 på 8 × 8): linjen teller de ulike løsningene du har funnet i denne økten, og et nytt spill starter med en dronning fra en løsning du ennå ikke har funnet.
+# Spill på enheten
+Trykk på en rute for å sette en dronning der, og trykk igjen for å ta den bort. Rutene dronningene angriper, er skyggelagt; knappen med strålene slår skyggen av og på. Dronninger som angriper hverandre, lyser rødt. Lampen lyser opp en rute i gull der en dronning hører hjemme, eller ringer inn, når dronningene på brettet ikke lenger kan føre til en løsning, den som må bort. Angre tar tilbake ett trykk om gangen. Linjen viser trykkene dine og de funne løsningene av brettets alle.

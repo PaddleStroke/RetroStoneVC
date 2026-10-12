@@ -1,0 +1,9 @@
+Åtta damer
+# Målet
+Ställ N damer på ett bräde med N × N rutor så att ingen dam hotar en annan: aldrig två på samma rad, linje eller diagonal. Välj bräde: 5 × 5, 6 × 6, 8 × 8 (det klassiska problemet) eller 10 × 10. En svart dam står redan på plats och kan inte flyttas.
+# Ett drag
+Ställ en dam på en tom ruta, eller ta bort en av dina damer.
+# Partiets slut
+Problemet är löst när alla N damer står på brädet och ingen hotar en annan. Varje bräde har många lösningar (92 på 8 × 8): listen räknar de olika lösningar du har hittat under sessionen, och ett nytt parti börjar med en dam ur en lösning som du ännu inte har hittat.
+# Spela på enheten
+Tryck på en ruta för att ställa en dam där, och tryck igen för att ta bort den. Rutorna som damerna hotar är skuggade; knappen med strålarna slår av och på skuggan. Damer som hotar varandra lyser röda. Lampan lyser upp en ruta i guld där en dam hör hemma, eller ringar in, när damerna på brädet inte längre kan leda till en lösning, den dam som ska bort. Ångra tar tillbaka ett tryck i taget. Listen visar dina tryck och de hittade lösningarna av brädets alla.

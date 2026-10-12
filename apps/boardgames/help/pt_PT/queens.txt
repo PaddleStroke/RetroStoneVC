@@ -1,0 +1,9 @@
+Oito damas
+# O objetivo
+Coloca N damas num tabuleiro de N × N casas sem que nenhuma ataque outra: nunca duas na mesma fila, coluna ou diagonal. Escolhe o tabuleiro: 5 × 5, 6 × 6, 8 × 8 (o problema clássico) ou 10 × 10. Uma dama preta já está colocada e não pode ser movida.
+# Uma jogada
+Põe uma dama numa casa vazia, ou tira uma das tuas damas.
+# O fim do jogo
+O problema fica resolvido quando as N damas estão no tabuleiro e nenhuma ataca outra. Cada tabuleiro tem muitas soluções (92 no 8 × 8): a barra conta as soluções diferentes que encontraste nesta sessão, e um jogo novo começa com uma dama de uma solução ainda não encontrada.
+# Jogar no dispositivo
+Toca numa casa para pôr uma dama e toca outra vez para a tirar. As casas atacadas pelas damas ficam sombreadas; o botão com os raios tira ou põe a sombra. As damas que se atacam brilham a vermelho. A lâmpada acende a dourado uma casa onde cabe uma dama ou, quando as damas no tabuleiro já não podem levar a uma solução, rodeia a que deve sair. Anular desfaz um toque de cada vez. A barra mostra os teus toques e as soluções encontradas do total do tabuleiro.

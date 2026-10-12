@@ -1,0 +1,9 @@
+Schackproblem
+# Målet
+Hitta de vinnande dragen i ställningar från riktiga partier. Varje problem har en enda dragföljd som vinner: en matt, en vunnen pjäs, en bonde som förvandlas. Välj en serie: nybörjare (rating under 1000), lätt (1000 till 1400), medel (1400 till 1800), svår (1800 till 2200), expert (2200 och uppåt), eller matt i ett, två eller tre drag, på alla nivåer.
+# Ett drag
+Pjäserna går som i schack. Motståndaren gör det första draget själv; sedan är det din tur: hitta det bästa draget. Efter varje rätt drag av dig svarar motståndaren själv, tills dragföljden är slut. Dina bönder förvandlas alltid till dam.
+# Partiets slut
+Problemet är löst när hela dragföljden är spelad. Ett drag som ger schack matt är alltid rätt, även om det inte är det väntade. Ett fel drag förlorar aldrig: det blir rött, tas tillbaka och räknas som ett misstag.
+# Spela på enheten
+Brädet vänds så att dina pjäser står nederst. Tryck på en pjäs och sedan på en ruta, eller dra pjäsen dit. Lampan i listen: ett första tryck lyser upp pjäsen som ska flyttas, ett andra även dess ruta. Ångra tar tillbaka ditt senaste drag och svaret, ända till början. Listen visar problemets rating, din svit (problem lösta i rad utan misstag och utan tips) och problemen du har löst under sessionen. När ett problem är löst trycker du på brädet för nästa i serien.

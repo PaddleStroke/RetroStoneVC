@@ -1,0 +1,9 @@
+Huit dames
+# Le but
+Place N dames sur un échiquier de N × N cases sans qu'aucune n'en attaque une autre : jamais deux sur la même rangée, la même colonne ou la même diagonale. Choisis l'échiquier : 5 × 5, 6 × 6, 8 × 8 (le problème classique) ou 10 × 10. Une dame noire est déjà posée et ne peut pas bouger.
+# Un coup
+Pose une dame sur une case vide, ou retire une de tes dames.
+# La fin de la partie
+Le problème est résolu quand les N dames sont sur l'échiquier et qu'aucune n'en attaque une autre. Chaque échiquier a de nombreuses solutions (92 sur 8 × 8) : la barre compte les solutions différentes trouvées pendant la séance, et une nouvelle partie part d'une dame d'une solution pas encore trouvée.
+# Jouer sur l'appareil
+Touche une case pour y poser une dame, touche-la encore pour la retirer. Les cases attaquées par les dames sont assombries ; le bouton aux rayons enlève ou remet l'ombre. Les dames qui s'attaquent s'éclairent en rouge. La lampe éclaire en or une case où une dame a sa place, ou, quand les dames posées ne peuvent plus mener à une solution, entoure celle à retirer. Annuler reprend une touche à la fois. La barre montre tes touches et les solutions trouvées sur le total de l'échiquier.

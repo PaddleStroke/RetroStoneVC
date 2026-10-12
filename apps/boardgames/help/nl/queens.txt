@@ -1,0 +1,9 @@
+Acht koninginnen
+# Het doel
+Zet N koninginnen op een bord van N × N velden zodat geen enkele een andere aanvalt: nooit twee op dezelfde rij, kolom of diagonaal. Kies het bord: 5 × 5, 6 × 6, 8 × 8 (de klassieke puzzel) of 10 × 10. Eén zwarte koningin staat al vast en kan niet worden verplaatst.
+# Een zet
+Zet een koningin op een leeg veld, of haal een van je koninginnen weg.
+# Het einde van het spel
+De puzzel is opgelost als alle N koninginnen op het bord staan en geen enkele een andere aanvalt. Elk bord heeft veel oplossingen (92 op 8 × 8): de balk telt de verschillende oplossingen die je deze sessie vond, en een nieuw spel begint met een koningin uit een oplossing die je nog niet vond.
+# Spelen op het apparaat
+Tik op een veld om er een koningin op te zetten, en nog eens om haar weg te halen. De velden die de koninginnen aanvallen zijn verduisterd; de knop met de stralen zet die schaduw uit en aan. Koninginnen die elkaar aanvallen lichten rood op. De lamp laat een veld goud oplichten waar een koningin hoort, of omcirkelt, als de koninginnen op het bord niet meer tot een oplossing kunnen leiden, de koningin die weg moet. Ongedaan maken neemt één tik tegelijk terug. De balk toont je tikken en de gevonden oplossingen van het totaal van het bord.

@@ -1,0 +1,9 @@
+Otto regine
+# Lo scopo
+Metti N regine su una scacchiera di N × N case in modo che nessuna attacchi un'altra: mai due sulla stessa riga, colonna o diagonale. Scegli la scacchiera: 5 × 5, 6 × 6, 8 × 8 (il problema classico) o 10 × 10. Una regina nera è già al suo posto e non si può spostare.
+# Una mossa
+Metti una regina su una casa vuota, oppure togli una delle tue regine.
+# La fine della partita
+Il problema è risolto quando le N regine sono sulla scacchiera e nessuna attacca un'altra. Ogni scacchiera ha molte soluzioni (92 sull'8 × 8): la barra conta le soluzioni diverse trovate in questa sessione, e una nuova partita parte da una regina di una soluzione non ancora trovata.
+# Giocare sul dispositivo
+Tocca una casa per metterci una regina, toccala di nuovo per toglierla. Le case attaccate dalle regine sono in ombra; il pulsante con i raggi toglie o rimette l'ombra. Le regine che si attaccano si illuminano di rosso. La lampada illumina d'oro una casa dove va una regina oppure, quando le regine sulla scacchiera non possono più portare a una soluzione, cerchia quella da togliere. Annulla riprende un tocco alla volta. La barra mostra i tuoi tocchi e le soluzioni trovate sul totale della scacchiera.

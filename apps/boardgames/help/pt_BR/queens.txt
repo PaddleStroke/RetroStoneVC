@@ -1,0 +1,9 @@
+Oito rainhas
+# O objetivo
+Coloque N rainhas num tabuleiro de N × N casas sem que nenhuma ataque outra: nunca duas na mesma fileira, coluna ou diagonal. Escolha o tabuleiro: 5 × 5, 6 × 6, 8 × 8 (o problema clássico) ou 10 × 10. Uma rainha preta já está no lugar e não pode ser movida.
+# Uma jogada
+Ponha uma rainha numa casa vazia, ou tire uma das suas rainhas.
+# O fim da partida
+O problema está resolvido quando as N rainhas estão no tabuleiro e nenhuma ataca outra. Cada tabuleiro tem muitas soluções (92 no 8 × 8): a barra conta as soluções diferentes que você encontrou nesta sessão, e uma nova partida começa com uma rainha de uma solução ainda não encontrada.
+# Jogando no aparelho
+Toque numa casa para pôr uma rainha e toque de novo para tirá-la. As casas atacadas pelas rainhas ficam sombreadas; o botão com os raios tira ou põe a sombra. As rainhas que se atacam brilham em vermelho. A lâmpada acende em dourado uma casa onde cabe uma rainha ou, quando as rainhas no tabuleiro já não podem levar a uma solução, circula a que deve sair. Desfazer volta um toque de cada vez. A barra mostra seus toques e as soluções encontradas do total do tabuleiro.

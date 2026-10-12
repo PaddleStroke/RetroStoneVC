@@ -1,0 +1,9 @@
+Springerproblemet
+# Målet
+Flytt en springer slik at den besøker hver rute på brettet nøyaktig én gang. Velg brett: 5 × 5, 6 × 6 eller 8 × 8. Springeren starter på en rute som er valgt for deg, alltid en rute der en hel rundtur finnes.
+# Et trekk
+Springeren hopper som i sjakk: to ruter i én retning og så én til siden. Den kan aldri lande på en rute den allerede har besøkt.
+# Slutten på spillet
+Rundturen er ferdig når alle rutene er besøkt. Ligger den siste ruten et springerhopp fra den første, er rundturen lukket: en gullinje forbinder endene, og en gullring vises i linjen. Har springeren ingen trekk igjen før slutten, lyser den rødt: angre og prøv en annen vei.
+# Spill på enheten
+Trykk på en rute med en prikk, eller dra springeren dit. Besøkte ruter beholder nummeret sitt. Lampen følger Warnsdorffs regel: hver rute innen rekkevidde viser hvor mange hopp som ville være igjen derfra, og den beste lyser i gull, valgt slik at en hel rundtur fortsatt er mulig. Kan ingen rundtur lenger fullføres, lyser springeren rødt. Angre tar tilbake ett hopp om gangen, helt til starten. Linjen viser de besøkte rutene av alle.

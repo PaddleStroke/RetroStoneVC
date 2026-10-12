@@ -1,0 +1,9 @@
+Springerproblem
+# Das Ziel
+Ziehe einen Springer so, dass er jedes Feld des Bretts genau einmal betritt. Wähle das Brett: 5 × 5, 6 × 6 oder 8 × 8. Der Springer beginnt auf einem für dich gewählten Feld, immer einem, von dem aus eine vollständige Tour möglich ist.
+# Ein Zug
+Der Springer springt wie im Schach: zwei Felder in eine Richtung, dann eines zur Seite. Er darf nie auf ein Feld springen, das er schon besucht hat.
+# Das Ende der Partie
+Die Tour ist vollständig, wenn alle Felder besucht sind. Liegt das letzte Feld einen Springerzug vom ersten entfernt, ist die Tour geschlossen: Eine goldene Linie verbindet ihre Enden, und ein goldener Ring erscheint in der Leiste. Hat der Springer vor dem Ende keinen Zug mehr, leuchtet er rot: Nimm Züge zurück und versuche einen anderen Weg.
+# Spielen auf dem Gerät
+Tippe auf ein Feld mit Punkt, oder ziehe den Springer dorthin. Besuchte Felder behalten ihre Nummer. Die Lampe folgt der Warnsdorff-Regel: Jedes erreichbare Feld zeigt, wie viele Sprünge von dort noch blieben, und das beste leuchtet golden, so gewählt, dass eine vollständige Tour möglich bleibt. Lässt sich keine Tour mehr vollenden, leuchtet der Springer rot. Rückgängig nimmt einen Sprung nach dem anderen zurück, bis zum Start. Die Leiste zeigt die besuchten Felder von allen.

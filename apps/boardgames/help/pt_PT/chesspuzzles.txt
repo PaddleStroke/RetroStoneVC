@@ -1,0 +1,9 @@
+Problemas de xadrez
+# O objetivo
+Encontra os lances vencedores em posições tiradas de partidas reais. Cada problema tem uma única sequência que ganha: um mate, uma peça ganha, um peão que é promovido. Escolhe uma série: iniciado (classificação abaixo de 1000), fácil (1000 a 1400), médio (1400 a 1800), difícil (1800 a 2200), especialista (2200 ou mais), ou os mates em um, dois ou três lances, de todos os níveis.
+# Uma jogada
+As peças movem-se como no xadrez. O adversário faz sozinho o primeiro lance; depois é a tua vez: encontra o melhor lance. Depois de cada lance certo teu, o adversário responde sozinho, até ao fim da sequência. Os teus peões são sempre promovidos a dama.
+# O fim do jogo
+O problema fica resolvido quando toda a sequência foi jogada. Um lance que dá xeque-mate está sempre certo, mesmo que não seja o esperado. Um lance errado nunca faz perder: fica vermelho, é anulado e conta como um erro.
+# Jogar no dispositivo
+O tabuleiro roda para que as tuas peças fiquem em baixo. Toca numa peça e depois numa casa, ou arrasta a peça. A lâmpada na barra: um primeiro toque acende a peça a mover, um segundo também a sua casa. Anular desfaz o teu último lance e a resposta, até ao início. A barra mostra a classificação do problema, a tua série (problemas resolvidos seguidos sem erros nem ajudas) e os problemas resolvidos nesta sessão. Com o problema resolvido, toca no tabuleiro para passar ao seguinte da série.
