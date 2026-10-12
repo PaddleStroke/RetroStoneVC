@@ -1,6 +1,6 @@
 Yhdistä
 # Tavoite
-Numeroituja laattoja on ruudukolla. Työnnä ne kaikki yhteen suuntaan: kaksi samaa laattaa, jotka kohtaavat, yhdistyvät yhdeksi laataksi, jossa on kaksinkertainen luku. Tee laatta 2048 (3 × 3 -ruudukolla 256) ja jatka sen jälkeen paremman pistemäärän perään, jos haluat. Valitse ensin ruudukko: 4 × 4, 5 × 5 (enemmän tilaa, helpompi) tai 3 × 3 (vaikea).
+Numeroituja laattoja on ruudukolla. Työnnä ne kaikki yhteen suuntaan: kaksi samaa laattaa, jotka kohtaavat, yhdistyvät yhdeksi laataksi, jossa on kaksinkertainen luku. Tee tavoitelaatta, johon kaksi 1024-laattaa yhdistyy (3 × 3 -ruudukolla kaksi 128-laattaa) ja jatka sen jälkeen paremman pistemäärän perään, jos haluat. Valitse ensin ruudukko: 4 × 4, 5 × 5 (enemmän tilaa, helpompi) tai 3 × 3 (vaikea).
 # Siirto
 Työnnä ylös, alas, vasemmalle tai oikealle: jokainen laatta liukuu niin pitkälle kuin pääsee. Kaksi samaa laattaa, jotka kohtaavat, muuttuvat yhdeksi, ja sen luku lisätään pisteisiisi. Laatta yhdistyy vain kerran työnnössä. Jokaisen jotain liikuttaneen työnnön jälkeen tyhjään ruutuun ilmestyy uusi laatta, 2 tai joskus 4. Työntö, joka ei liikuttaisi mitään, ei ole sallittu.
 # Pelin loppu

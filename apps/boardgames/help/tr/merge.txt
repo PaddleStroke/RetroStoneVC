@@ -1,6 +1,6 @@
 Birleştir
 # Amaç
-Bir ızgaranın üstünde numaralı taşlar var. Hepsini bir yöne it: karşılaşan iki eş taş, sayısı iki katı olan tek bir taşa dönüşür. 2048 taşını yap (3 × 3 ızgarada 256), sonra istersen daha yüksek puan için oynamaya devam et. Önce ızgarayı seç: 4 × 4, 5 × 5 (daha çok yer, daha kolay) ya da 3 × 3 (zor).
+Bir ızgaranın üstünde numaralı taşlar var. Hepsini bir yöne it: karşılaşan iki eş taş, sayısı iki katı olan tek bir taşa dönüşür. İki 1024 taşı birleşince oluşan hedef taşı yap (3 × 3 ızgarada iki 128 taşı birleşince oluşanı), sonra istersen daha yüksek puan için oynamaya devam et. Önce ızgarayı seç: 4 × 4, 5 × 5 (daha çok yer, daha kolay) ya da 3 × 3 (zor).
 # Bir hamle
 Yukarı, aşağı, sola ya da sağa it: her taş gidebildiği kadar kayar. Karşılaşan iki eş taş tek taş olur ve sayısı puanına eklenir. Bir taş bir itişte yalnızca bir kez birleşir. Bir şeyi yerinden oynatan her itişten sonra boş bir karede yeni bir taş belirir: 2 ya da bazen 4. Hiçbir şeyi oynatmayan itişe izin verilmez.
 # Oyunun sonu

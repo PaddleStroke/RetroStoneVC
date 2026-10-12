@@ -1,6 +1,6 @@
 Łączenie
 # Cel gry
-Ponumerowane kafelki leżą na siatce. Przesuń je wszystkie w jedną stronę: dwa równe kafelki, które się spotkają, łączą się w jeden z podwojoną liczbą. Zrób kafelek 2048 (256 na siatce 3 × 3), a potem graj dalej o wyższy wynik, jeśli chcesz. Najpierw wybierz siatkę: 4 × 4, 5 × 5 (więcej miejsca, łatwiej) lub 3 × 3 (trudno).
+Ponumerowane kafelki leżą na siatce. Przesuń je wszystkie w jedną stronę: dwa równe kafelki, które się spotkają, łączą się w jeden z podwojoną liczbą. Zrób kafelek docelowy, ten, w który łączą się dwa kafelki 1024 (dwa kafelki 128 na siatce 3 × 3), a potem graj dalej o wyższy wynik, jeśli chcesz. Najpierw wybierz siatkę: 4 × 4, 5 × 5 (więcej miejsca, łatwiej) lub 3 × 3 (trudno).
 # Ruch
 Przesuń w górę, w dół, w lewo lub w prawo: każdy kafelek sunie tak daleko, jak może. Dwa równe kafelki, które się spotkają, stają się jednym, a jego liczba dolicza się do twojego wyniku. Kafelek łączy się tylko raz w jednym ruchu. Po każdym ruchu, który coś przesunął, na pustym polu pojawia się nowy kafelek: 2, a czasem 4. Ruch, który niczego nie przesuwa, jest niedozwolony.
 # Koniec gry

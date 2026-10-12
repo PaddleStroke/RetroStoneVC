@@ -1,6 +1,6 @@
 Gabung
 # Tujuan
-Ubin-ubin bernomor ada di sebuah petak. Dorong semuanya ke satu arah: dua ubin sama yang bertemu bergabung menjadi satu ubin dengan angka dua kali lipat. Buat ubin 2048 (256 di petak 3 × 3), lalu lanjutkan bermain untuk skor lebih tinggi jika mau. Pilih dulu petaknya: 4 × 4, 5 × 5 (lebih lapang, lebih mudah), atau 3 × 3 (sulit).
+Ubin-ubin bernomor ada di sebuah petak. Dorong semuanya ke satu arah: dua ubin sama yang bertemu bergabung menjadi satu ubin dengan angka dua kali lipat. Buat ubin sasaran, hasil gabungan dua ubin 1024 (dua ubin 128 di petak 3 × 3), lalu lanjutkan bermain untuk skor lebih tinggi jika mau. Pilih dulu petaknya: 4 × 4, 5 × 5 (lebih lapang, lebih mudah), atau 3 × 3 (sulit).
 # Satu langkah
 Dorong ke atas, ke bawah, ke kiri, atau ke kanan: setiap ubin meluncur sejauh mungkin. Dua ubin sama yang bertemu menjadi satu, dan angkanya ditambahkan ke skormu. Satu ubin hanya bergabung sekali dalam satu dorongan. Setelah setiap dorongan yang menggerakkan sesuatu, ubin baru, angka 2 atau kadang 4, muncul di kotak kosong. Dorongan yang tidak menggerakkan apa pun tidak diperbolehkan.
 # Akhir permainan

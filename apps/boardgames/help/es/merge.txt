@@ -1,6 +1,6 @@
 Fusión
 # El objetivo
-Hay fichas numeradas sobre una cuadrícula. Empújalas todas hacia un lado: dos fichas iguales que se encuentran se fusionan en una del doble. Consigue una ficha de 2048 (256 en la cuadrícula de 3 × 3) y luego sigue jugando para subir la puntuación, si quieres. Elige primero la cuadrícula: 4 × 4, 5 × 5 (más espacio, más fácil) o 3 × 3 (difícil).
+Hay fichas numeradas sobre una cuadrícula. Empújalas todas hacia un lado: dos fichas iguales que se encuentran se fusionan en una del doble. Consigue la ficha objetivo, la que forman dos fichas de 1024 al fusionarse (dos de 128 en la cuadrícula de 3 × 3) y luego sigue jugando para subir la puntuación, si quieres. Elige primero la cuadrícula: 4 × 4, 5 × 5 (más espacio, más fácil) o 3 × 3 (difícil).
 # Una jugada
 Empuja hacia arriba, abajo, la izquierda o la derecha: cada ficha se desliza todo lo que puede. Dos fichas iguales que se encuentran se convierten en una, y su número se suma a tu puntuación. Una ficha solo se fusiona una vez por empujón. Tras cada empujón que mueve algo, aparece una ficha nueva, un 2 o a veces un 4, en una casilla vacía. No se permite un empujón que no mueva nada.
 # El final de la partida

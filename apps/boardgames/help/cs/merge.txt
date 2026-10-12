@@ -1,6 +1,6 @@
 Slučování
 # Cíl hry
-Na mřížce leží očíslované kostičky. Posuň je všechny jedním směrem: dvě stejné kostičky, které se potkají, se sloučí do jedné s dvojnásobným číslem. Vytvoř kostičku 2048 (na mřížce 3 × 3 kostičku 256) a pak klidně hraj dál o vyšší skóre. Nejdřív si vyber mřížku: 4 × 4, 5 × 5 (víc místa, snazší) nebo 3 × 3 (těžká).
+Na mřížce leží očíslované kostičky. Posuň je všechny jedním směrem: dvě stejné kostičky, které se potkají, se sloučí do jedné s dvojnásobným číslem. Vytvoř cílovou kostičku, ve kterou splynou dvě kostičky 1024 (na mřížce 3 × 3 dvě kostičky 128) a pak klidně hraj dál o vyšší skóre. Nejdřív si vyber mřížku: 4 × 4, 5 × 5 (víc místa, snazší) nebo 3 × 3 (těžká).
 # Tah
 Posuň nahoru, dolů, doleva nebo doprava: každá kostička klouže, jak daleko to jde. Dvě stejné kostičky, které se potkají, se stanou jednou a její číslo se přičte k tvému skóre. Kostička se během jednoho posunu sloučí jen jednou. Po každém posunu, který něčím pohnul, se na prázdném poli objeví nová kostička, 2 nebo občas 4. Posun, který ničím nepohne, není povolen.
 # Konec hry

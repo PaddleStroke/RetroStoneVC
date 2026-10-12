@@ -1,6 +1,6 @@
 Fusione
 # Lo scopo
-Tessere numerate stanno su una griglia. Spingile tutte da una parte: due tessere uguali che si incontrano si fondono in una dal numero doppio. Ottieni una tessera 2048 (256 sulla griglia 3 × 3), poi continua per un punteggio più alto, se vuoi. Scegli prima la griglia: 4 × 4, 5 × 5 (più spazio, più facile) o 3 × 3 (difficile).
+Tessere numerate stanno su una griglia. Spingile tutte da una parte: due tessere uguali che si incontrano si fondono in una dal numero doppio. Ottieni la tessera obiettivo, quella che nasce dalla fusione di due tessere 1024 (di due tessere 128 sulla griglia 3 × 3), poi continua per un punteggio più alto, se vuoi. Scegli prima la griglia: 4 × 4, 5 × 5 (più spazio, più facile) o 3 × 3 (difficile).
 # Una mossa
 Spingi in su, in giù, a sinistra o a destra: ogni tessera scivola fin dove può. Due tessere uguali che si incontrano diventano una, e il suo numero si aggiunge al punteggio. Una tessera si fonde una sola volta per spinta. Dopo ogni spinta che ha mosso qualcosa, una nuova tessera, un 2 o talvolta un 4, compare su una casella vuota. Una spinta che non muove nulla non è permessa.
 # La fine della partita

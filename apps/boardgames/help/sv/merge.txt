@@ -1,6 +1,6 @@
 Slå ihop
 # Målet
-Numrerade brickor ligger på ett rutnät. Skjut alla åt ett håll: två lika brickor som möts slås ihop till en med dubbla talet. Gör en bricka på 2048 (256 på rutnätet 3 × 3) och spela sedan vidare för högre poäng om du vill. Välj först rutnät: 4 × 4, 5 × 5 (mer plats, lättare) eller 3 × 3 (svårt).
+Numrerade brickor ligger på ett rutnät. Skjut alla åt ett håll: två lika brickor som möts slås ihop till en med dubbla talet. Gör målbrickan, den som två brickor på 1024 slås ihop till (två på 128 på rutnätet 3 × 3) och spela sedan vidare för högre poäng om du vill. Välj först rutnät: 4 × 4, 5 × 5 (mer plats, lättare) eller 3 × 3 (svårt).
 # Ett drag
 Skjut uppåt, nedåt, åt vänster eller åt höger: varje bricka glider så långt den kan. Två lika brickor som möts blir en, och dess tal läggs till dina poäng. En bricka slås bara ihop en gång per skjut. Efter varje skjut som flyttade något dyker en ny bricka upp på en tom ruta, en 2:a eller ibland en 4:a. Ett skjut som inte flyttar något är inte tillåtet.
 # Partiets slut

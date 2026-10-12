@@ -1,6 +1,6 @@
 Fusion
 # Le but
-Des tuiles numérotées sont posées sur une grille. Pousse-les toutes dans un sens : deux tuiles égales qui se rencontrent fusionnent en une tuile du double. Fais une tuile 2048 (256 sur la grille 3 × 3), puis continue pour un meilleur score si tu veux. Choisis d'abord la grille : 4 × 4, 5 × 5 (plus de place, plus facile) ou 3 × 3 (difficile).
+Des tuiles numérotées sont posées sur une grille. Pousse-les toutes dans un sens : deux tuiles égales qui se rencontrent fusionnent en une tuile du double. Fais la tuile visée, celle que forment deux tuiles 1024 en fusionnant (deux tuiles 128 sur la grille 3 × 3), puis continue pour un meilleur score si tu veux. Choisis d'abord la grille : 4 × 4, 5 × 5 (plus de place, plus facile) ou 3 × 3 (difficile).
 # Un coup
 Pousse vers le haut, le bas, la gauche ou la droite : chaque tuile glisse aussi loin que possible. Deux tuiles égales qui se rencontrent n'en font plus qu'une, et son nombre s'ajoute à ton score. Une tuile ne fusionne qu'une fois par poussée. Après chaque poussée qui a bougé quelque chose, une nouvelle tuile, un 2 ou parfois un 4, apparaît sur une case vide. Une poussée qui ne bougerait rien n'est pas permise.
 # La fin de la partie

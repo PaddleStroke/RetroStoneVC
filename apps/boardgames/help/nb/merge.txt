@@ -1,6 +1,6 @@
 Slå sammen
 # Målet
-Nummererte brikker ligger på et rutenett. Skyv alle én vei: to like brikker som møtes, slås sammen til én med det doble tallet. Lag en brikke på 2048 (256 på rutenettet 3 × 3), og spill gjerne videre for høyere poeng etterpå. Velg først rutenett: 4 × 4, 5 × 5 (mer plass, lettere) eller 3 × 3 (vanskelig).
+Nummererte brikker ligger på et rutenett. Skyv alle én vei: to like brikker som møtes, slås sammen til én med det doble tallet. Lag målbrikken, den to brikker på 1024 smelter sammen til (to på 128 på rutenettet 3 × 3), og spill gjerne videre for høyere poeng etterpå. Velg først rutenett: 4 × 4, 5 × 5 (mer plass, lettere) eller 3 × 3 (vanskelig).
 # Et trekk
 Skyv opp, ned, til venstre eller til høyre: hver brikke glir så langt den kan. To like brikker som møtes, blir én, og tallet legges til poengene dine. En brikke slås bare sammen én gang per skyv. Etter hvert skyv som flyttet noe, dukker det opp en ny brikke på en tom rute, en 2 eller av og til en 4. Et skyv som ikke flytter noe, er ikke lov.
 # Slutten på spillet

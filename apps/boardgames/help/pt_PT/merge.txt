@@ -1,6 +1,6 @@
 Fusão
 # O objetivo
-Peças numeradas estão sobre uma grelha. Empurra-as todas para um lado: duas peças iguais que se encontram fundem-se numa peça com o dobro do número. Faz uma peça 2048 (256 na grelha 3 × 3) e depois continua a jogar para subir a pontuação, se quiseres. Escolhe primeiro a grelha: 4 × 4, 5 × 5 (mais espaço, mais fácil) ou 3 × 3 (difícil).
+Peças numeradas estão sobre uma grelha. Empurra-as todas para um lado: duas peças iguais que se encontram fundem-se numa peça com o dobro do número. Faz a peça-alvo, a que nasce da fusão de duas peças 1024 (de duas peças 128 na grelha 3 × 3) e depois continua a jogar para subir a pontuação, se quiseres. Escolhe primeiro a grelha: 4 × 4, 5 × 5 (mais espaço, mais fácil) ou 3 × 3 (difícil).
 # Uma jogada
 Empurra para cima, para baixo, para a esquerda ou para a direita: cada peça desliza o mais longe que puder. Duas peças iguais que se encontram passam a ser uma só, e o seu número soma-se à tua pontuação. Uma peça só se funde uma vez por empurrão. Depois de cada empurrão que moveu alguma coisa, aparece uma peça nova, um 2 ou às vezes um 4, numa casa vazia. Um empurrão que não move nada não é permitido.
 # O fim do jogo
