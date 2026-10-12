@@ -230,6 +230,7 @@ static void block(const face *fc, const char *s, const char *end, float x, float
         if (s >= end) break;
         const char *p = s, *brk = NULL;
         float sum = 0;
+        int prev = 0;
         while (p < end) {
             const char *q = p;
             int c = utf8(&q);
@@ -240,12 +241,15 @@ static void block(const face *fc, const char *s, const char *end, float x, float
             }
             sum += a;
             p = q;
-            if (c == ' ') brk = p;
-            else if (p < end) {                 /* between two characters of the scripts without spaces */
+            if (c == ' ') {                     /* not round a times sign: 3 × 3 stays on one line */
+                const char *r = p;
+                if (prev != 0xd7 && (p >= end || utf8(&r) != 0xd7)) brk = p;
+            } else if (p < end) {               /* between two characters of the scripts without spaces */
                 const char *r = p;
                 int next = utf8(&r);
                 if ((cjk(c) || cjk(next)) && !no_start(next) && !no_end(c) && next != ' ') brk = p;
             }
+            prev = c;
         }
         const char *e = p >= end ? end : brk;
         const char *t = e;

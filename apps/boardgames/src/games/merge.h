@@ -6,8 +6,8 @@
  * over when no push can move anything.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- * The variants: 0 4 x 4 (the target 2048), 1 5 x 5 (2048: more room, easier), 2 3 x 3 (256: hard). A tile is kept as
- * its power of two (1: 2, 2: 4 ... 11: 2048), 0 an empty square. Places: x + y * n from the top left.
+ * The variants: 0 4 x 4 (the target: power 11), 1 5 x 5 (power 11: more room, easier), 2 3 x 3 (256: hard). A tile is kept as
+ * its power of two (1: 2, 2: 4, 3: 8 ...), 0 an empty square. Places: x + y * n from the top left.
  * Chance: the new tiles come from the game's own seeded numbers (puzrand.h), kept with each position: undo takes them
  * back too, so a push undone and made again brings the same tile (undo cannot fish for a better one). Undo goes back
  * all the way to the start (the oldest half forgotten past MRG_HIST pushes).
@@ -33,7 +33,7 @@ typedef struct {
 } mrg_pos;
 
 typedef struct {
-    int n, variant, target;                     /* target: the power to make (11: 2048) */
+    int n, variant, target;                     /* target: the power to make (11 on 4 x 4 and 5 x 5) */
     mrg_pos p;
     int moves;
     mrg_pos hist[MRG_HIST];
