@@ -252,18 +252,6 @@ static int xy_hole(float x, float y)
 }
 
 /* ---- the board's picture ----------------------------------------------------------------------------------------- */
-/* a round recess carved into the wood, lit from the upper left: how much to darken or lighten a pixel (dx, dy) pixels
- * from its centre (r its radius, b its bevelled rim, pixels); 1: untouched */
-static float recess(float dx, float dy, float r, float b)
-{
-    float d = hypotf(dx, dy);
-    if (d >= r + b) return 1;
-    float lit = (dx + dy) / (1.4142f * d + 1e-3f);   /* 1 towards the lower right: the far wall, in the light */
-    float wall = 0.4f + 0.24f * lit * fminf(d / r, 1), rim = 1 + 0.22f * lit * clampf(1 - (d - r) / b, 0, 1);
-    float in = clampf(r - d + 0.5f, 0, 1);
-    return wall * in + rim * (1 - in);
-}
-
 /* the hexagon on the plank o (w pixels wide, its frame f, the spacing sp): the playing field a shade darker, its carved
  * outline, the holes, the two trays' cups */
 static void paint_field(uint8_t *o, int w, int f, float sp)
@@ -280,11 +268,12 @@ static void paint_field(uint8_t *o, int w, int f, float sp)
             if (mp_at(r, d) >= 0) {
                 float hx, hy;
                 plane(r, d, &hx, &hy);
-                k *= recess((x - hx) * sp, (hy - y) * sp, HOLE * sp, 0.08f * sp);
+                k *= art_recess((x - hx) * sp, (hy - y) * sp, HOLE * sp, 0.08f * sp, 0.4f, 0.24f, 0.22f);
             }
             for (int i = 0; i < 12; i++)
                 if (fabsf(x - cups[i][0]) < 0.5f && fabsf(y - cups[i][1]) < 0.5f)
-                    k *= recess((x - cups[i][0]) * sp, (cups[i][1] - y) * sp, CUP * sp, 0.07f * sp);
+                    k *= art_recess((x - cups[i][0]) * sp, (cups[i][1] - y) * sp, CUP * sp, 0.07f * sp, 0.4f, 0.24f,
+                                    0.22f);
             float ink = 0.8f * clampf(lw / 2 - fabsf(out - EDGE) * sp + 0.5f, 0, 1);
             uint8_t *p = o + 4 * (py * w + px);
             for (int j = 0; j < 3; j++) p[j] = (uint8_t)clampf(p[j] * k * (1 - ink) + INK[j] * ink + 0.5f, 0, 255);

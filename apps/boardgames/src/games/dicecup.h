@@ -26,30 +26,6 @@
 static const uint8_t CUP_INK[3] = {84, 56, 36}, CUP_CREAM[3] = {246, 238, 220};
 
 /* ---- pictures ---------------------------------------------------------------------------------------------------- */
-static inline float cup_noise(int x, int y)
-{
-    uint32_t h = (uint32_t)x * 73856093u ^ (uint32_t)y * 19349663u;
-    h ^= h >> 13;
-    h *= 0x5bd1e995u;
-    h ^= h >> 15;
-    return (h & 255) / 255.0f - 0.5f;
-}
-
-/* the green felt in a rectangle of a picture (w x h): fine fibres, darker towards its edges (under the walls) */
-static inline void cup_felt(uint8_t *o, int w, int h, int x0, int y0, int x1, int y1)
-{
-    static const float green[3] = {40, 116, 72};
-    float soft = 0.018f * (w > h ? w : h);
-    for (int y = y0 < 0 ? 0 : y0; y < y1 && y < h; y++)
-        for (int x = x0 < 0 ? 0 : x0; x < x1 && x < w; x++) {
-            float e = fminf(fminf((float)(x - x0), (float)(x1 - 1 - x)), fminf((float)(y - y0), (float)(y1 - 1 - y)));
-            float k = (1 - 0.5f * expf(-e / soft)) * (1 + 0.07f * cup_noise(x, y) + 0.03f * cup_noise(x / 3, y / 2));
-            uint8_t *p = o + 4 * ((size_t)y * w + x);
-            for (int c = 0; c < 3; c++) p[c] = (uint8_t)fminf(255, green[c] * k);
-            p[3] = 255;
-        }
-}
-
 /* a rectangle tinted over a picture (a line, a well): rgb at alpha a, clipped */
 static inline void cup_rect(uint8_t *o, int w, int h, float x0, float y0, float x1, float y1, const uint8_t rgb[3],
                             float a)
@@ -76,7 +52,7 @@ static inline void cup_board(uint8_t *o, int n)
 static inline void cup_well(uint8_t *o, int n, float x0, float y0, float x1, float y1)
 {
     int ix0 = (int)(x0 * n), iy0 = (int)(y0 * n), ix1 = (int)(x1 * n), iy1 = (int)(y1 * n);
-    cup_felt(o, n, n, ix0, iy0, ix1, iy1);
+    art_felt(o, n, n, ix0, iy0, ix1, iy1);
     float e = 0.004f * n;
     cup_rect(o, n, n, ix0 - e, iy0 - e, ix1 + e, iy0 + 0.5f * e, CUP_INK, 0.45f);
     cup_rect(o, n, n, ix0 - e, iy1 - 0.5f * e, ix1 + e, iy1 + e, CUP_INK, 0.45f);

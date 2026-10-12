@@ -286,10 +286,8 @@ static void thumb(int variant, int size, uint8_t *rgba)
         if (p.at[i] < 0) continue;
         float cx = o + lines_px(aq_x(i), (float)s, (float)f), cy = o + lines_py(AQ_SIDE, aq_y(i), (float)s, (float)f);
         uint8_t *one = ui_buf(d, d);
-        art_flat_shadow(d, one);
-        art_blend(rgba, size, size, one, d, d, (int)(cx + 0.06f * d - d / 2.0f), (int)(cy + 0.1f * d - d / 2.0f));
         art_counter(COUNTER_DISC, p.at[i], d, one);
-        art_blend(rgba, size, size, one, d, d, (int)(cx - d / 2.0f + 0.5f), (int)(cy - d / 2.0f + 0.5f));
+        art_flat_put(rgba, size, size, one, d, cx, cy);
     }
 }
 

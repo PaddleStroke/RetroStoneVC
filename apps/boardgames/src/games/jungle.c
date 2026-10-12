@@ -637,10 +637,8 @@ static void thumb(int variant, int size, uint8_t *rgba)
                                    {0, 3, JG_PC(0, JG_ELEPHANT)}, {3, 3, JG_PC(0, JG_LEOPARD)}};
     for (unsigned i = 0; i < sizeof place / sizeof place[0]; i++) {
         float cx = o + f + (place[i][0] + 0.5f) * s, cy = o + f + (place[i][1] + 0.5f) * s;
-        art_flat_shadow(d, one);
-        art_blend(rgba, size, size, one, d, d, (int)(cx + 0.06f * d - d / 2.0f), (int)(cy + 0.1f * d - d / 2.0f));
         paint_piece(place[i][2], d, one);
-        art_blend(rgba, size, size, one, d, d, (int)(cx - d / 2.0f + 0.5f), (int)(cy - d / 2.0f + 0.5f));
+        art_flat_put(rgba, size, size, one, d, cx, cy);
     }
     free(board);
     free(one);

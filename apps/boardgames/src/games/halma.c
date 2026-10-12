@@ -173,14 +173,8 @@ static void paint_star(uint8_t *o, int w, int f, float sp, int flip, int players
             if (hole >= 0) {
                 float hx = mid + (flip ? -1 : 1) * hl_x2(hole) / 2.0f * sp;
                 float hy = mid + (flip ? -1 : 1) * (8 - hl_row(hole)) * H * sp;
-                float dx = px + 0.5f - hx, dy = py + 0.5f - hy, d = hypotf(dx, dy);
-                if (d < R + bevel + 1) {
-                    float lit = (dx + dy) / (d * 1.4142f + 1e-3f);
-                    float rim = 1 + 0.28f * lit * clampf(1 - (d - R) / bevel, 0, 1);
-                    float inside = clampf(R - d + 0.5f, 0, 1), deep = 0.42f + 0.2f * lit * clampf(d / R, 0, 1);
-                    float k = rim * (1 - inside) + deep * inside;
-                    for (int i = 0; i < 3; i++) c[i] *= k;
-                }
+                float k = art_recess(px + 0.5f - hx, py + 0.5f - hy, R, bevel, 0.42f, 0.2f, 0.28f);
+                for (int i = 0; i < 3; i++) c[i] *= k;
             }
             for (int i = 0; i < 3; i++) p[i] = (uint8_t)clampf(c[i] + 0.5f, 0, 255);
         }

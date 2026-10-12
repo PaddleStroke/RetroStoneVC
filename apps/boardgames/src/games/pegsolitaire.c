@@ -169,18 +169,6 @@ static int script(const char *moves)
 static int busy(void) { return anim.on; }
 
 /* ---- the board's picture ----------------------------------------------------------------------------------------- */
-/* a round hole bored in the wood (r its radius, b its bevelled rim, pixels; dx, dy from its centre): how much to
- * darken or lighten the wood there, the far wall in the light from the upper left; 1 untouched */
-static float bore(float dx, float dy, float r, float b)
-{
-    float d = hypotf(dx, dy);
-    if (d >= r + b) return 1;
-    float lit = (dx + dy) / (1.4142f * d + 1e-3f);
-    float wall = 0.42f + 0.24f * lit * fminf(d / r, 1), rim = 1 + 0.2f * lit * clampf(1 - (d - r) / b, 0, 1);
-    float in = clampf(r - d + 0.5f, 0, 1);
-    return wall * in + rim * (1 - in);
-}
-
 /* the dish on the plank o (w pixels wide, its frame f): its floor a shade darker, the gutter round it (a groove, its
  * far side lit), the holes */
 static void paint_dish(uint8_t *o, int w, int f, int v)
@@ -207,7 +195,7 @@ static void paint_dish(uint8_t *o, int w, int f, int v)
             if (gx >= 0 && gy >= 0 && gx < PS_SIDE && gy < PS_SIDE && T.hole[gy * PS_SIDE + gx]) {
                 float hx, hy;
                 plane(v, gy * PS_SIDE + gx, &hx, &hy);
-                k *= bore((x - hx) * sp, (y - hy) * sp, HOLE * sp, 0.07f * sp);
+                k *= art_recess((x - hx) * sp, (y - hy) * sp, HOLE * sp, 0.07f * sp, 0.42f, 0.24f, 0.2f);
             }
             uint8_t *p = o + 4 * (py * w + px);
             for (int j = 0; j < 3; j++) p[j] = (uint8_t)clampf(p[j] * k + 0.5f, 0, 255);

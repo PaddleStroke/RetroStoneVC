@@ -61,6 +61,9 @@ void art_counter(int kind, int player, int size, uint8_t *rgba);
 /* the shadow of a flat piece lying on the wood (discs, stones, men): as wide as the piece, its edge soft; the shell's
  * ui_shadow_flat() draws it, a game's thumbnail can blend it */
 void art_flat_shadow(int size, uint8_t *rgba);
+/* a flat piece's picture (d x d) blended into a picture (w x h, a thumbnail) centred on (cx, cy), its shadow under it
+ * towards the lower right, as on the board */
+void art_flat_put(uint8_t *rgba, int w, int h, const uint8_t *piece, int d, float cx, float cy);
 
 /* a die showing 1..6, a player's colour (ivory with ebony pips, or ebony with ivory pips), seen from above,
  * size x size */
@@ -79,6 +82,16 @@ void art_piece_style(int type, const art_style *st, int size, uint8_t *rgba);
 void art_board(int sq, int fr, uint8_t *rgba);
 /* the same wood, n x m squares (light / dark: checkered; plain: one wood, no squares) */
 void art_board_n(int nx, int ny, int sq, int fr, int checkered, uint8_t *rgba);
+
+/* the green felt of the dice games over a rectangle [x0, x1) x [y0, y1) of a picture (w x h): fine fibres, darker
+ * towards its edges (under the walls) */
+void art_felt(uint8_t *rgba, int w, int h, int x0, int y0, int x1, int y1);
+/* a steady noise for a pixel, -0.5..0.5 (fibres, grain) */
+float art_noise(int x, int y);
+/* a round hole carved in the wood (its radius r and bevelled rim b, pixels), lit from the upper left: the factor for
+ * the wood's colour (dx, dy) pixels from its centre (1: untouched). Its floor `deep` dark, its far wall lit by
+ * wall_lit, its rim by rim_lit (marbles' recesses 0.4, 0.24, 0.22; pegs' holes 0.42, 0.24, 0.2) */
+float art_recess(float dx, float dy, float r, float b, float deep, float wall_lit, float rim_lit);
 
 /* ICON_DEVICE: pass the device (a device and two arrows going round it: the hand-off cover); ICON_PLAY: start;
  * ICON_HINT: a lamp, lit (a hint); ICON_TICK: done, ready, check; ICON_ARROW: an arrow pointing right (next, on) */

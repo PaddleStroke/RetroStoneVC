@@ -241,17 +241,8 @@ static void wood_back(uint8_t *o, const uint8_t *wood, int n, int x, int y, int 
 static void paint_fig(uint8_t *o, int n, const art_fig *f, const uint8_t rgb[3], float line, int x, int y, int w,
                       float a)
 {
-    art_style st = {{0}, {0}, {0}, {0}, 0, line};
-    for (int k = 0; k < 3; k++) {
-        st.fill[k] = rgb[k];
-        st.outer[k] = st.inner[k] = INK[k];
-    }
-    uint8_t *b = malloc((size_t)w * w * 4);
-    if (!b) return;
-    art_render(f, &st, w, w, (float)w, 0, 0, b);
-    for (int i = 0; i < w * w; i++) b[4 * i + 3] = (uint8_t)(b[4 * i + 3] * a);
-    art_blend(o, n, n, b, w, w, x, y);
-    free(b);
+    art_style st = art_flat(rgb, INK, line, 0);
+    art_fig_blend(o, n, n, f, &st, x, y, w, a);
 }
 
 static void paint_disc(uint8_t *o, int n, float cx, float cy, int d, const uint8_t rgb[3], float a, float ring)

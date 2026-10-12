@@ -391,6 +391,17 @@ void art_flat_shadow(int size, uint8_t *o)
         }
 }
 
+void art_flat_put(uint8_t *o, int w, int h, const uint8_t *piece, int d, float cx, float cy)
+{
+    uint8_t *sh = d > 0 ? malloc((size_t)d * d * 4) : NULL;
+    if (sh) {
+        art_flat_shadow(d, sh);
+        art_blend(o, w, h, sh, d, d, (int)(cx + 0.06f * d - d / 2.0f), (int)(cy + 0.1f * d - d / 2.0f));
+        free(sh);
+    }
+    art_blend(o, w, h, piece, d, d, (int)(cx - d / 2.0f + 0.5f), (int)(cy - d / 2.0f + 0.5f));
+}
+
 void art_die(int value, int player, int size, uint8_t *rgba)
 {
     static const float pip[7][6][2] = {         /* the pips of each face, in the die's unit square */
@@ -483,6 +494,39 @@ void art_board_n(int nx, int ny, int sq, int fr, int checkered, uint8_t *o)
 }
 
 void art_board(int sq, int fr, uint8_t *o) { art_board_n(8, 8, sq, fr, 1, o); }
+
+float art_noise(int x, int y)
+{
+    uint32_t h = (uint32_t)x * 73856093u ^ (uint32_t)y * 19349663u;
+    h ^= h >> 13;
+    h *= 0x5bd1e995u;
+    h ^= h >> 15;
+    return (h & 255) / 255.0f - 0.5f;
+}
+
+float art_recess(float dx, float dy, float r, float b, float deep, float wall_lit, float rim_lit)
+{
+    float d = hypotf(dx, dy);
+    if (d >= r + b) return 1;
+    float lit = (dx + dy) / (1.4142f * d + 1e-3f);  /* 1 towards the lower right: the far wall, in the light */
+    float wall = deep + wall_lit * lit * fminf(d / r, 1), rim = 1 + rim_lit * lit * clampf(1 - (d - r) / b, 0, 1);
+    float in = clampf(r - d + 0.5f, 0, 1);
+    return wall * in + rim * (1 - in);
+}
+
+void art_felt(uint8_t *o, int w, int h, int x0, int y0, int x1, int y1)
+{
+    static const float green[3] = {40, 116, 72};
+    float soft = 0.018f * (w > h ? w : h);
+    for (int y = y0 < 0 ? 0 : y0; y < y1 && y < h; y++)
+        for (int x = x0 < 0 ? 0 : x0; x < x1 && x < w; x++) {
+            float e = fminf(fminf((float)(x - x0), (float)(x1 - 1 - x)), fminf((float)(y - y0), (float)(y1 - 1 - y)));
+            float k = (1 - 0.5f * expf(-e / soft)) * (1 + 0.07f * art_noise(x, y) + 0.03f * art_noise(x / 3, y / 2));
+            uint8_t *p = o + 4 * ((size_t)y * w + x);
+            for (int c = 0; c < 3; c++) p[c] = (uint8_t)fminf(255, green[c] * k);
+            p[3] = 255;
+        }
+}
 
 /* ---- the buttons' icons ------------------------------------------------------------------------------------------ */
 void art_icon(int which, int size, uint8_t *rgba)

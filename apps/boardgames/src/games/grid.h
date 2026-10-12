@@ -2,7 +2,8 @@
  * The go board, for every game played with go stones on its points (go, gomoku): the wood with its lines and star
  * points, the stones with their flat shadows, the point <-> pixel mapping, the last stone's ring, and the two-tap ghost
  * stone (a tap shows a pale stone on the nearest point, a second tap on it plays it; a drag moves it, its release
- * does not play).
+ * does not play). Also the ink of every plank ruled with lines (makruk's and shogi's squares, xiangqi's and janggi's
+ * points: palace.h): a coverage map of the lines, inked in once.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Written once, here, as static inline functions: the build takes a game's own files only (GAMES="go" builds
@@ -57,6 +58,35 @@ static inline void grid_cover_disc(float *m, int w, float cx, float cy, float r)
         }
 }
 
+/* the lines of a ruled plank: nx x ny squares of s pixels from (x0, y0), the lines lw wide (the outer ones edge),
+ * running ext past the outer ones; open: no lines on the right and bottom (a corner of the board: the menu's card) */
+static inline void grid_lines(float *m, int st, float x0, float y0, int nx, int ny, int s, float lw, float edge,
+                              float ext, int open)
+{
+    float x1 = x0 + nx * s, y1 = y0 + ny * s;
+    for (int i = 0; i <= nx; i++) {
+        if (i == nx && open) continue;
+        float c = x0 + i * s, t = i == 0 || i == nx ? edge : lw;
+        grid_cover_rect(m, st, c - t / 2, y0 - ext, c + t / 2, y1 + (open ? 0 : ext));
+    }
+    for (int i = 0; i <= ny; i++) {
+        if (i == ny && open) continue;
+        float c = y0 + i * s, t = i == 0 || i == ny ? edge : lw;
+        grid_cover_rect(m, st, x0 - ext, c - t / 2, x1 + (open ? 0 : ext), c + t / 2);
+    }
+}
+
+/* the lines' coverage map (st wide) inked onto the picture (w x h) in ink, at opacity a */
+static inline void grid_ink(uint8_t *o, int w, int h, const float *m, int st, const uint8_t ink[3], float a)
+{
+    for (int y = 0; y < h; y++)
+        for (int x = 0; x < w; x++) {
+            float k = a * m[y * st + x];
+            uint8_t *p = o + 4 * (y * w + x);
+            for (int j = 0; j < 3; j++) p[j] = (uint8_t)(p[j] * (1 - k) + ink[j] * k + 0.5f);
+        }
+}
+
 /* the star points: the corners' and the middle's (9 x 9, 13 x 13, 15 x 15), nine on 19 x 19 */
 static inline int grid_hoshi(int size, int xy[9][2])
 {
@@ -89,10 +119,7 @@ static inline void grid_paint(uint8_t *o, int size, int s, int f, int corner)
     if (corner) xy[0][0] = xy[0][1] = 3;
     for (int i = 0; i < k; i++)
         grid_cover_disc(m, w, c0 + xy[i][0] * s, c0 + xy[i][1] * s, fmaxf(1.6f * lw, 0.11f * s));
-    for (int i = 0; i < w * w; i++) {
-        float a = 0.9f * m[i];
-        for (int j = 0; j < 3; j++) o[4 * i + j] = (uint8_t)(o[4 * i + j] * (1 - a) + INK[j] * a + 0.5f);
-    }
+    grid_ink(o, w, w, m, w, INK, 0.9f);
     free(m);
 }
 

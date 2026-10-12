@@ -113,20 +113,6 @@ static int script(const char *s)
 }
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
-/* a loop: the band of radius r (pixels, w wide) round (cx, cy), but for the quarter towards the board (qx, qy: the
- * signs of its direction); its ends meet the circuit's straight lines on the board's edge lines. To move to lines.h. */
-static void paint_loop(uint8_t *o, int n, float cx, float cy, float r, float w, int qx, int qy, const uint8_t c[3])
-{
-    for (int y = (int)floorf(cy - r - w); y <= (int)ceilf(cy + r + w); y++)
-        for (int x = (int)floorf(cx - r - w); x <= (int)ceilf(cx + r + w); x++) {
-            if (x < 0 || y < 0 || x >= n || y >= n) continue;
-            float d = hypotf(x + 0.5f - cx, y + 0.5f - cy), a = fminf(fmaxf(w / 2 - fabsf(d - r) + 0.5f, 0), 1);
-            float in = (qx > 0 ? lines_cover(cx, 1e9f, x) : lines_cover(-1e9f, cx, x)) *
-                       (qy > 0 ? lines_cover(cy, 1e9f, y) : lines_cover(-1e9f, cy, y));
-            if (a * (1 - in) > 0) lines_mix(o + 4 * (y * n + x), c, a * (1 - in));
-        }
-}
-
 /* the plank: the board's edge lines in ink, the circuits in colour with their loops, the 36 points; cells of s pixels
  * in a frame of f; (10 s + 2 f) squared */
 static void paint_board(int s, int f, uint8_t *o)
@@ -145,8 +131,8 @@ static void paint_board(int s, int f, uint8_t *o)
         }
         for (int i = 5; i < SK_TRACK; i += 6) {
             int k = sk_corner(c, i), qx = sk_x(k) ? -1 : 1, qy = sk_y(k) ? 1 : -1;   /* towards the board, y down */
-            paint_loop(o, n, lines_px(AT + sk_x(k), S, F), lines_py(CELLS, AT + sk_y(k), S, F), (c + 1) * S, cw, qx,
-                       qy, CIRCUIT[c]);
+            lines_arc(o, n, lines_px(AT + sk_x(k), S, F), lines_py(CELLS, AT + sk_y(k), S, F), (c + 1) * S, cw, qx,
+                      qy, CIRCUIT[c]);
         }
     }
     for (int pt = 0; pt < SK_POINTS; pt++)
@@ -383,10 +369,8 @@ static void thumb(int variant, int size, uint8_t *rgba)
         float cx = o + lines_px(AT + sk_x(i), (float)s, (float)f);
         float cy = o + lines_py(CELLS, AT + sk_y(i), (float)s, (float)f);
         uint8_t *one = ui_buf(d, d);
-        art_flat_shadow(d, one);
-        art_blend(rgba, size, size, one, d, d, (int)(cx + 0.06f * d - d / 2.0f), (int)(cy + 0.1f * d - d / 2.0f));
         art_counter(COUNTER_DISC, p.at[i], d, one);
-        art_blend(rgba, size, size, one, d, d, (int)(cx - d / 2.0f + 0.5f), (int)(cy - d / 2.0f + 0.5f));
+        art_flat_put(rgba, size, size, one, d, cx, cy);
     }
 }
 

@@ -129,18 +129,11 @@ static int paint_board(uint8_t *o, int n, int s, int f, int star)
     art_board_n(n, n, s + 2 * k, f, 0, o);
     float *cov = calloc((size_t)w * w, sizeof *cov);
     if (!cov) return w;
-    float lw = 0.8f + 0.018f * s, c0 = (float)(f + m), c1 = c0 + n * s;
-    for (int i = 0; i <= n; i++) {
-        float c = c0 + i * s, t = (i == 0 || i == n) ? 1.6f * lw : lw;
-        grid_cover_rect(cov, w, c - t / 2, c0 - 0.8f * lw, c + t / 2, c1 + 0.8f * lw);
-        grid_cover_rect(cov, w, c0 - 0.8f * lw, c - t / 2, c1 + 0.8f * lw, c + t / 2);
-    }
+    float lw = 0.8f + 0.018f * s, c0 = (float)(f + m);
+    grid_lines(cov, w, c0, c0, n, n, s, lw, 1.6f * lw, 0.8f * lw, 0);
     for (int i = 0; i < 4 && star; i++)
         grid_cover_disc(cov, w, c0 + (i & 1 ? 6 : 3) * s, c0 + (i & 2 ? 6 : 3) * s, fmaxf(1.5f * lw, 0.055f * s));
-    for (int i = 0; i < w * w; i++) {
-        float a = 0.88f * cov[i];
-        for (int j = 0; j < 3; j++) o[4 * i + j] = (uint8_t)(o[4 * i + j] * (1 - a) + INK[j] * a + 0.5f);
-    }
+    grid_ink(o, w, w, cov, w, INK, 0.88f);
     free(cov);
     return w;
 }

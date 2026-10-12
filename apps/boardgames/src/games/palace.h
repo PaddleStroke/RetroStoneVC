@@ -87,12 +87,7 @@ static inline void palace_paint(uint8_t *o, int x0, int y0, int nx, int ny, int 
 #undef RECT
 #undef PX
 #undef PY
-    for (int y = 0; y < h; y++)
-        for (int x = 0; x < w; x++) {
-            float a = 0.9f * m[y * st + x];
-            uint8_t *q = o + 4 * (y * w + x);
-            for (int j = 0; j < 3; j++) q[j] = (uint8_t)(q[j] * (1 - a) + LINE[j] * a + 0.5f);
-        }
+    grid_ink(o, w, h, m, st, LINE, 0.9f);
     free(m);
 }
 

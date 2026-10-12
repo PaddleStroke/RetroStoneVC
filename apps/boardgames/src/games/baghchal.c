@@ -130,14 +130,6 @@ static void paint_board(int s, int f, uint8_t *o)
                 fmaxf(2.0f, 0.045f * s), fmaxf(1.6f, 0.082f * s), o);
 }
 
-/* a figure painted over a picture size x size in one style */
-static void paint_fig(art_fig *f, const art_style *st, int size, uint8_t *rgba, uint8_t *tmp)
-{
-    art_render(f, st, size, size, (float)size, 0, 0, tmp);
-    art_blend(rgba, size, size, tmp, size, size, 0, 0);
-    art_fig_free(f);
-}
-
 /* mirrors a polygon's points left to right (the other half of a face) */
 static void mirror(const float *xy, int n, float *out)
 {
@@ -157,8 +149,6 @@ static void poly2(art_fig *f, int role, const float *xy, int n)   /* a polygon a
 static void paint_tiger(int size, uint8_t *rgba)
 {
     art_counter(COUNTER_DISC, 1, size, rgba);
-    uint8_t *tmp = malloc((size_t)size * size * 4);
-    if (!tmp) return;
     float line = fmaxf(0.014f, 1.0f / size);
     art_style fur = {{226, 128, 44}, {28, 16, 10}, {120, 60, 22}, {30, 18, 12}, 0.35f, line};
     art_fig *f = art_fig_new();
@@ -180,7 +170,8 @@ static void paint_tiger(int size, uint8_t *rgba)
     poly2(f, ART_MARK, s2, 4);
     poly2(f, ART_MARK, c1, 4);
     poly2(f, ART_MARK, c2, 4);
-    paint_fig(f, &fur, size, rgba, tmp);
+    art_fig_blend(rgba, size, size, f, &fur, 0, 0, size, 1);
+    art_fig_free(f);
     art_style white = {{246, 238, 222}, {28, 16, 10}, {150, 120, 96}, {24, 14, 10}, 0.2f, 0};
     f = art_fig_new();                          /* the white round the eyes and the muzzle; the eyes, the nose */
     const float brow[] = {0.355f, 0.43f, 0.40f, 0.405f, 0.445f, 0.43f, 0.43f, 0.465f, 0.37f, 0.465f};
@@ -192,15 +183,16 @@ static void paint_tiger(int size, uint8_t *rgba)
     art_ellipse(f, ART_MARK, 0.595f, 0.47f, 0.03f, 0.022f);
     const float nose[] = {0.455f, 0.555f, 0.545f, 0.555f, 0.50f, 0.605f};
     art_poly(f, ART_MARK, nose, 3);
-    paint_fig(f, &white, size, rgba, tmp);
+    art_fig_blend(rgba, size, size, f, &white, 0, 0, size, 1);
+    art_fig_free(f);
     art_style amber = {{240, 196, 60}, {0, 0, 0}, {0, 0, 0}, {18, 12, 8}, 0.1f, 0};
     f = art_fig_new();                          /* the eyes' amber, their pupils */
     art_ellipse(f, ART_PART, 0.405f, 0.47f, 0.022f, 0.016f);
     art_ellipse(f, ART_PART, 0.595f, 0.47f, 0.022f, 0.016f);
     art_ellipse(f, ART_MARK, 0.405f, 0.47f, 0.008f, 0.014f);
     art_ellipse(f, ART_MARK, 0.595f, 0.47f, 0.008f, 0.014f);
-    paint_fig(f, &amber, size, rgba, tmp);
-    free(tmp);
+    art_fig_blend(rgba, size, size, f, &amber, 0, 0, size, 1);
+    art_fig_free(f);
 }
 
 /* a goat: an ivory disc, a goat's head on it, seen from the front: a long brown face, the horns curving up and out,
@@ -208,15 +200,14 @@ static void paint_tiger(int size, uint8_t *rgba)
 static void paint_goat(int size, uint8_t *rgba)
 {
     art_counter(COUNTER_DISC, 0, size, rgba);
-    uint8_t *tmp = malloc((size_t)size * size * 4);
-    if (!tmp) return;
     float line = fmaxf(0.014f, 1.0f / size);
     art_style horn = {{126, 106, 86}, {34, 24, 16}, {80, 64, 50}, {0, 0, 0}, 0.4f, line};
     art_fig *f = art_fig_new();
     const float h[] = {0.445f, 0.355f, 0.415f, 0.285f, 0.375f, 0.225f, 0.325f, 0.19f, 0.30f, 0.20f,
                        0.345f, 0.24f, 0.375f, 0.30f, 0.39f, 0.365f};
     poly2(f, ART_PART, h, 8);
-    paint_fig(f, &horn, size, rgba, tmp);
+    art_fig_blend(rgba, size, size, f, &horn, 0, 0, size, 1);
+    art_fig_free(f);
     art_style coat = {{186, 140, 96}, {34, 22, 14}, {110, 76, 48}, {28, 18, 12}, 0.3f, line};
     f = art_fig_new();
     const float ear[] = {0.40f, 0.395f, 0.33f, 0.40f, 0.255f, 0.43f, 0.22f, 0.47f, 0.26f, 0.49f,
@@ -232,20 +223,22 @@ static void paint_goat(int size, uint8_t *rgba)
     art_ellipse(f, ART_MARK, 0.56f, 0.475f, 0.034f, 0.026f);
     art_ellipse(f, ART_MARK, 0.47f, 0.665f, 0.013f, 0.01f);
     art_ellipse(f, ART_MARK, 0.53f, 0.665f, 0.013f, 0.01f);
-    paint_fig(f, &coat, size, rgba, tmp);
+    art_fig_blend(rgba, size, size, f, &coat, 0, 0, size, 1);
+    art_fig_free(f);
     art_style pale = {{236, 216, 184}, {0, 0, 0}, {0, 0, 0}, {28, 18, 12}, 0.15f, 0};
     f = art_fig_new();                          /* a pale blaze down the face */
     const float blaze[] = {0.50f, 0.36f, 0.525f, 0.42f, 0.52f, 0.58f, 0.50f, 0.62f, 0.48f, 0.58f, 0.475f, 0.42f};
     art_poly(f, ART_PART, blaze, 6);
-    paint_fig(f, &pale, size, rgba, tmp);
+    art_fig_blend(rgba, size, size, f, &pale, 0, 0, size, 1);
+    art_fig_free(f);
     art_style amber = {{232, 184, 70}, {0, 0, 0}, {0, 0, 0}, {20, 14, 10}, 0.1f, 0};
     f = art_fig_new();                          /* the eyes' amber, a goat's flat pupils */
     art_ellipse(f, ART_PART, 0.44f, 0.475f, 0.024f, 0.017f);
     art_ellipse(f, ART_PART, 0.56f, 0.475f, 0.024f, 0.017f);
     art_rect(f, ART_MARK, 0.418f, 0.47f, 0.462f, 0.48f);
     art_rect(f, ART_MARK, 0.538f, 0.47f, 0.582f, 0.48f);
-    paint_fig(f, &amber, size, rgba, tmp);
-    free(tmp);
+    art_fig_blend(rgba, size, size, f, &amber, 0, 0, size, 1);
+    art_fig_free(f);
 }
 
 static void paint_piece(int who, int size, uint8_t *rgba)
@@ -426,10 +419,8 @@ static void thumb(int variant, int size, uint8_t *rgba)
         int pt = bc_point(place[i]), who = i < 4 ? BC_TIGER : BC_GOAT;
         float cx = o + lines_px(bc_x(pt), (float)s, (float)f), cy = o + lines_py(BC_SIDE, bc_y(pt), (float)s, (float)f);
         uint8_t *one = ui_buf(d, d);
-        art_flat_shadow(d, one);
-        art_blend(rgba, size, size, one, d, d, (int)(cx + 0.06f * d - d / 2.0f), (int)(cy + 0.1f * d - d / 2.0f));
         paint_piece(who, d, one);
-        art_blend(rgba, size, size, one, d, d, (int)(cx - d / 2.0f + 0.5f), (int)(cy - d / 2.0f + 0.5f));
+        art_flat_put(rgba, size, size, one, d, cx, cy);
     }
 }
 

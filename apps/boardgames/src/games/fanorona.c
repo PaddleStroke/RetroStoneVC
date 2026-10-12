@@ -20,11 +20,11 @@
 #define FADE_MS 220                             /* each piece taken: lifted, fading away */
 #define FADE_GAP 55                             /* one after the other along the line */
 
-/* the plank: 9 x 5 cells (a point in the middle of each), a frame of LINES_FRAME cells; x, y: the cells' top left */
-static struct { int sq, fr; float x, y; } P;
+/* the plank: 9 x 5 cells (a point in the middle of each), a frame of LINES_FRAME cells */
+static lines_geo P = {.cells = FN_COLS, .rows = FN_ROWS};
 static fngame G;
 static fnmove legal[FN_MAX_MOVES];
-static int nlegal, made_sq = -1, made_small = -1;
+static int nlegal, made_small = -1;
 static SDL_Texture *t_disc[2], *t_small[2], *t_board;
 static int sel = -1;
 static struct { int on, to, i[2]; } choice;     /* a step that approaches and withdraws: legal[i[0]], legal[i[1]] */
@@ -159,14 +159,8 @@ static void paint_board(int s, int f, uint8_t *o)
 
 static void layout(box b)
 {
-    int sq = (int)floorf(fminf(b.w / (FN_COLS + 2 * LINES_FRAME), b.h / (FN_ROWS + 2 * LINES_FRAME)));
-    P.sq = sq;
-    P.fr = (int)(sq * LINES_FRAME);
-    int w = FN_COLS * sq + 2 * P.fr, h = FN_ROWS * sq + 2 * P.fr;
-    P.x = floorf(b.x + (b.w - w) / 2) + P.fr;
-    P.y = floorf(b.y + (b.h - h) / 2) + P.fr;
-    if (made_sq != sq) {
-        made_sq = sq;
+    int changed = lines_fit(&P, b), sq = P.sq, w = (int)lines_side(&P), h = (int)lines_tall(&P);
+    if (changed) {
         ui_free(&t_board);
         paint_board(sq, P.fr, ui_buf(w, h));
         t_board = ui_tex(w, h, ui_buf(w, h));
@@ -191,18 +185,13 @@ static void layout(box b)
 /* ---- the board on the screen ------------------------------------------------------------------------------------- */
 static void pt_xy(int pt, float *x, float *y)   /* a point's centre (turned round when the board is flipped) */
 {
-    int c = fn_x(pt), r = FN_ROWS - 1 - fn_y(pt);
-    if (ui.flipped) { c = FN_COLS - 1 - c; r = FN_ROWS - 1 - r; }
-    *x = P.x + (c + 0.5f) * P.sq;
-    *y = P.y + (r + 0.5f) * P.sq;
+    lines_xy(&P, fn_x(pt), fn_y(pt), x, y);
 }
 
 static int xy_pt(float x, float y)              /* the point whose cell holds (x, y); -1 */
 {
-    int c = (int)floorf((x - P.x) / P.sq), r = (int)floorf((y - P.y) / P.sq);
-    if (c < 0 || c >= FN_COLS || r < 0 || r >= FN_ROWS) return -1;
-    if (ui.flipped) { c = FN_COLS - 1 - c; r = FN_ROWS - 1 - r; }
-    return c + FN_COLS * (FN_ROWS - 1 - r);
+    int gx, gy;
+    return lines_at(&P, x, y, &gx, &gy) ? gx + FN_COLS * gy : -1;
 }
 
 static void cell_mark(int pt, void (*mark)(float, float, float, float))

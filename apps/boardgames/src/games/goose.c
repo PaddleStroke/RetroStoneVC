@@ -364,7 +364,7 @@ static void garden(uint8_t *o, int n)
                 c[0] = 214 * lit, c[1] = 170 * lit, c[2] = 78 * lit;
             } else {
                 float k = (1 - 0.35f * powf(d / R, 3)) *
-                          (1 + 0.08f * cup_noise(x, y) + 0.05f * cup_noise(x / 3, y / 3));
+                          (1 + 0.08f * art_noise(x, y) + 0.05f * art_noise(x / 3, y / 3));
                 c[0] = 82 * k, c[1] = 142 * k, c[2] = 66 * k;
             }
             for (int ch = 0; ch < 3; ch++) p[ch] = (uint8_t)clampf(p[ch] + (c[ch] - p[ch]) * in, 0, 255);

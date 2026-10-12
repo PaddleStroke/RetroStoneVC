@@ -276,31 +276,6 @@ static void paint_round(uint8_t *o, int n, int q, float x0, float y0, float x1, 
     free(b);
 }
 
-static float noise(int x, int y)
-{
-    uint32_t h = (uint32_t)x * 73856093u ^ (uint32_t)y * 19349663u;
-    h ^= h >> 13;
-    h *= 0x5bd1e995u;
-    h ^= h >> 15;
-    return (h & 255) / 255.0f - 0.5f;
-}
-
-/* the green felt: fine fibres, darker under the ledges' walls */
-static void paint_felt(uint8_t *o, int n, float l, float t, float r, float b)
-{
-    static const float green[3] = {40, 116, 72};
-    int x0 = px(l, n), y0 = px(t, n), x1 = px(r, n), y1 = px(b, n);
-    float soft = 0.018f * n;
-    for (int y = y0; y < y1; y++)
-        for (int x = x0; x < x1; x++) {
-            float e = fminf(fminf((float)(x - x0), (float)(x1 - 1 - x)), fminf((float)(y - y0), (float)(y1 - 1 - y)));
-            float k = (1 - 0.5f * expf(-e / soft)) * (1 + 0.07f * noise(x, y) + 0.03f * noise(x / 3, y / 2));
-            uint8_t *p = o + 4 * ((size_t)y * n + x);
-            for (int c = 0; c < 3; c++) p[c] = (uint8_t)fminf(255, green[c] * k);
-            p[3] = 255;
-        }
-}
-
 /* a tile, w x h: standing (num: its number, painted in ink on maple) or lying (num 0: its plain back); the token: a
  * tile of a player's colour (face, ink) */
 static void tile_pic(int w, int h, int num, const float face[3], const float ink[3], uint8_t *o)
@@ -313,7 +288,7 @@ static void tile_pic(int w, int h, int num, const float face[3], const float ink
             uint8_t *p = o + 4 * ((size_t)y * w + x);
             if (!p[3]) continue;
             float fx = (x + 0.5f) / w, fy = (y + 0.5f) / h;
-            float k = 0.96f + 0.04f * sinf(fx * 29 + 2.5f * sinf(fy * 6 + fx * 4)) + 0.02f * noise(x, y / 4);
+            float k = 0.96f + 0.04f * sinf(fx * 29 + 2.5f * sinf(fy * 6 + fx * 4)) + 0.02f * art_noise(x, y / 4);
             if (y < band) k *= 1.13f;           /* the top edge, catching the light */
             else if (y < band + lw) k *= 0.9f;
             if (x >= w - 2 * lw) k *= 0.84f;    /* the right side, in the shade */
@@ -360,7 +335,7 @@ static void paint_box(uint8_t *o, int n, geom g, const int players[4])
     art_board_n(1, 1, n - 2 * fr, fr, 0, o);
     float l, t, r, b;
     felt(g, 0, &l, &t, &r, &b);
-    paint_felt(o, n, l, t, r, b);
+    art_felt(o, n, n, px(l, n), px(t, n), px(r, n), px(b, n));
     paint_round(o, n, 0, l - 0.004f, t - 0.004f, r + 0.004f, t + 0.002f, 0, INK, 0.45f);   /* the walls' edges */
     paint_round(o, n, 0, l - 0.004f, b - 0.002f, r + 0.004f, b + 0.004f, 0, INK, 0.45f);
     paint_round(o, n, 0, l - 0.004f, t, l + 0.002f, b, 0, INK, 0.45f);

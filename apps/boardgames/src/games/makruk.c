@@ -180,23 +180,9 @@ static void paint_board(uint8_t *o, int nx, int ny, int s, int f, int open)
     art_board_n(nx, ny, s, f, 0, o);
     float *cov = calloc((size_t)st * st, sizeof *cov);
     if (!cov) return;
-    float lw = 0.8f + 0.018f * s, x1 = (float)(f + nx * s), y1 = (float)(f + ny * s);
-    for (int i = 0; i <= nx; i++) {
-        float c = (float)(f + i * s), t = i == 0 || (i == nx && !open) ? 1.8f * lw : lw;
-        if (i == nx && open) continue;
-        grid_cover_rect(cov, st, c - t / 2, f - 0.9f * lw, c + t / 2, y1 + (open ? 0 : 0.9f * lw));
-    }
-    for (int i = 0; i <= ny; i++) {
-        float c = (float)(f + i * s), t = i == 0 || (i == ny && !open) ? 1.8f * lw : lw;
-        if (i == ny && open) continue;
-        grid_cover_rect(cov, st, f - 0.9f * lw, c - t / 2, x1 + (open ? 0 : 0.9f * lw), c + t / 2);
-    }
-    for (int y = 0; y < h; y++)
-        for (int x = 0; x < w; x++) {
-            float a = 0.85f * cov[y * st + x];
-            uint8_t *p = o + 4 * (y * w + x);
-            for (int j = 0; j < 3; j++) p[j] = (uint8_t)(p[j] * (1 - a) + INK[j] * a + 0.5f);
-        }
+    float lw = 0.8f + 0.018f * s;
+    grid_lines(cov, st, (float)f, (float)f, nx, ny, s, lw, 1.8f * lw, 0.9f * lw, open);
+    grid_ink(o, w, h, cov, st, INK, 0.85f);
     free(cov);
 }
 
