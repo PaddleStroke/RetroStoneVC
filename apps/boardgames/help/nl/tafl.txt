@@ -1,6 +1,6 @@
 Hnefatafl
 # Het doel
-Hnefatafl, het bordspel van de Vikingen, is een strijd tussen twee ongelijke kanten. De verdedigers, in het midden, moeten hun koning helpen ontsnappen. De aanvallers, twee keer zo veel, omsingelen hen en moeten de koning vangen. De aanvallers (donker) beginnen, daarna spelen de spelers om de beurt, elk één zet. Kies het bord voor de partij: Hnefatafl op 11 bij 11 velden, of Tablut op 9 bij 9.
+Hnefatafl, het bordspel van de Vikingen, is een strijd tussen twee ongelijke kanten. De verdedigers, in het midden, moeten hun koning helpen ontsnappen. De aanvallers, twee keer zo veel, omsingelen hen en moeten de koning vangen. De aanvallers (donker) beginnen, daarna spelen de spelers om de beurt, elk één zet. Kies het bord voor de partij: Hnefatafl op 11 bij 11 velden, Tablut op 9 bij 9 of Brandubh op 7 bij 7.
 # Hoe de stukken bewegen
 - Elk stuk, ook de koning, beweegt als een toren bij schaken: zoveel lege velden als je wilt over een rij of een kolom. Stukken springen nooit.
 - Het middelste veld is de troon. Alleen de koning mag erop stoppen. Als hij leeg is, mag elk stuk eroverheen gaan.
@@ -17,6 +17,10 @@ Hnefatafl, het bordspel van de Vikingen, is een strijd tussen twee ongelijke kan
 - 16 aanvallers tegen 8 verdedigers en de koning. De hoeken zijn gewone velden.
 - De verdedigers winnen als de koning een willekeurig veld aan de rand van het bord bereikt.
 - Op de troon of ernaast wordt de koning gevangen zoals bij Hnefatafl. Overal elders vangen twee aanvallers aan weerszijden hem, net als elk ander stuk.
+# Brandubh (7 bij 7)
+- Het Ierse spel: 8 aanvallers tegen 4 verdedigers en de koning, in een kruis.
+- De hoeken en de troon zijn als bij Hnefatafl: alleen de koning mag erop stoppen, en de verdedigers winnen als de koning een hoek bereikt.
+- Op de troon of ernaast wordt de koning gevangen zoals bij Hnefatafl. Overal elders wordt hij gevangen als elk ander stuk: door twee aanvallers aan weerszijden, of door één aanvaller met een hoek aan de andere kant.
 # Het einde van de partij
 - Een speler die niet kan zetten, verliest.
 - Als dezelfde stelling voor de derde keer terugkomt met dezelfde speler aan zet, eindigt de partij in remise. Een partij van 1000 zetten van elke speler is ook remise.

@@ -1,6 +1,6 @@
 Hnefatafl
 # Målet
-Hnefatafl, vikingenes brettspill, er en kamp mellom to ujevne sider. Forsvarerne, i midten, må hjelpe kongen sin å rømme. Angriperne, dobbelt så mange, omringer dem og må fange kongen. Angriperne (mørke) trekker først, deretter bytter spillerne på, ett trekk hver. Velg brett før spillet: Hnefatafl på 11×11 ruter, eller Tablut på 9×9.
+Hnefatafl, vikingenes brettspill, er en kamp mellom to ujevne sider. Forsvarerne, i midten, må hjelpe kongen sin å rømme. Angriperne, dobbelt så mange, omringer dem og må fange kongen. Angriperne (mørke) trekker først, deretter bytter spillerne på, ett trekk hver. Velg brett før spillet: Hnefatafl på 11×11 ruter, Tablut på 9×9 eller Brandubh på 7×7.
 # Slik går brikkene
 - Hver brikke, også kongen, går som et tårn i sjakk: så mange tomme ruter den vil langs en rad eller en kolonne. Brikkene hopper aldri.
 - Midtruten er tronen. Bare kongen kan stoppe på den. Når den er tom, kan alle brikker passere over den.
@@ -17,6 +17,10 @@ Hnefatafl, vikingenes brettspill, er en kamp mellom to ujevne sider. Forsvarerne
 - 16 angripere mot 8 forsvarere og kongen. Hjørnene er vanlige ruter.
 - Forsvarerne vinner når kongen når en hvilken som helst rute ved kanten av brettet.
 - På tronen eller ved siden av den fanges kongen som i Hnefatafl. Overalt ellers fanger to angripere på hver sin side ham, som enhver annen brikke.
+# Brandubh (7×7)
+- Det irske spillet: 8 angripere mot 4 forsvarere og kongen, i et kors.
+- Hjørnene og tronen er som i Hnefatafl: bare kongen kan stoppe på dem, og forsvarerne vinner når kongen når et hjørne.
+- På tronen eller ved siden av den fanges kongen som i Hnefatafl. Overalt ellers fanges han som enhver annen brikke: av to angripere på hver sin side, eller av én angriper med et hjørne på den andre siden.
 # Slutten på spillet
 - En spiller som ikke kan flytte, taper.
 - Når den samme stillingen kommer igjen for tredje gang med samme spiller i trekket, er spillet uavgjort. Et spill på 1000 trekk hver er også uavgjort.

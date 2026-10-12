@@ -1,6 +1,6 @@
 Hnefatafl
 # Amaç
-Vikinglerin masa oyunu Hnefatafl, eşit olmayan iki taraf arasındaki bir savaştır. Ortadaki savunanlar, krallarının kaçmasına yardım etmelidir. Sayıca iki kat fazla olan saldıranlar onları kuşatır ve kralı yakalamalıdır. Önce saldıranlar (koyu) oynar, sonra oyuncular sırayla birer hamle yapar. Oyundan önce tahtayı seç: 11×11 karede Hnefatafl ya da 9×9 karede Tablut.
+Vikinglerin masa oyunu Hnefatafl, eşit olmayan iki taraf arasındaki bir savaştır. Ortadaki savunanlar, krallarının kaçmasına yardım etmelidir. Sayıca iki kat fazla olan saldıranlar onları kuşatır ve kralı yakalamalıdır. Önce saldıranlar (koyu) oynar, sonra oyuncular sırayla birer hamle yapar. Oyundan önce tahtayı seç: 11×11 karede Hnefatafl, 9×9 karede Tablut ya da 7×7 karede Brandubh.
 # Taşlar nasıl hareket eder
 - Kral dahil her taş satrançtaki kale gibi hareket eder: yatay ya da dikey olarak istediği kadar boş kare. Taşlar asla atlamaz.
 - Ortadaki kare tahttır. Yalnızca kral orada durabilir. Taht boşken her taş üzerinden geçebilir.
@@ -17,6 +17,10 @@ Vikinglerin masa oyunu Hnefatafl, eşit olmayan iki taraf arasındaki bir savaş
 - 8 savunan ve krala karşı 16 saldıran. Köşeler sıradan karelerdir.
 - Kral tahtanın kenarındaki herhangi bir kareye ulaştığında savunanlar kazanır.
 - Kral, tahtta ya da tahtın yanında Hnefatafl'daki gibi yakalanır. Başka her yerde, karşılıklı iki yanındaki iki saldıran onu diğer taşlar gibi yakalar.
+# Brandubh (7×7)
+- İrlanda oyunu: 8 saldıran, haç biçiminde dizilmiş 4 savunan ve krala karşı.
+- Köşeler ve taht Hnefatafl'daki gibidir: yalnızca kral üzerlerinde durabilir ve kral bir köşeye ulaşınca savunanlar kazanır.
+- Kral, tahtta ya da tahtın yanında Hnefatafl'daki gibi yakalanır. Başka her yerde diğer taşlar gibi yakalanır: karşılıklı iki yanındaki iki saldıranla ya da öbür yanında köşe olan tek bir saldıranla.
 # Oyunun sonu
 - Hamle yapamayan oyuncu kaybeder.
 - Aynı pozisyon, sıra aynı oyuncudayken üçüncü kez tekrarlandığında oyun berabere biter. İki tarafın 1000'er hamle yaptığı bir oyun da berabere biter.

@@ -1,6 +1,6 @@
 /*
- * Hnefatafl's rules (Copenhagen, 11 x 11) and Tablut's (9 x 9): the moves, the captures, the king, the end of the game
- * (tafl.h).
+ * Hnefatafl's rules (Copenhagen, 11 x 11), Tablut's (9 x 9) and Brandubh's (7 x 7): the moves, the captures, the
+ * king, the end of the game (tafl.h).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <string.h>
@@ -8,7 +8,7 @@
 #include "games/tafl.h"
 
 /* the starting positions, the top row first: A an attacker, D a defender, K the king */
-static const char *const START[2] = {
+static const char *const START[3] = {
     "...AAAAA..."
     ".....A....."
     "..........."
@@ -29,17 +29,24 @@ static const char *const START[2] = {
     "....D...."
     "....A...."
     "...AAA...",
+    "...A..."
+    "...A..."
+    "...D..."
+    "AADKDAA"
+    "...D..."
+    "...A..."
+    "...A...",
 };
 
 static const int DX[4] = {1, -1, 0, 0}, DY[4] = {0, 0, 1, -1};
 
-int tf_size(int variant) { return variant == TF_TABLUT ? 9 : 11; }
+int tf_size(int variant) { return variant == TF_TABLUT ? 9 : variant == TF_BRANDUBH ? 7 : 11; }
 
 int tf_count(int variant, int piece)
 {
     int n = tf_size(variant), c = 0;
     char want = piece == TF_ATT ? 'A' : piece == TF_DEF ? 'D' : 'K';
-    for (int i = 0; i < n * n; i++) c += START[variant == TF_TABLUT][i] == want;
+    for (int i = 0; i < n * n; i++) c += START[variant][i] == want;
     return c;
 }
 
@@ -49,7 +56,7 @@ void tf_start(tpos *p, int variant)
     memset(p, 0, sizeof *p);
     for (int y = 0; y < n; y++)
         for (int x = 0; x < n; x++) {
-            char c = START[variant == TF_TABLUT][(n - 1 - y) * n + x];
+            char c = START[variant][(n - 1 - y) * n + x];
             p->sq[y * n + x] = c == 'A' ? TF_ATT : c == 'D' ? TF_DEF : c == 'K' ? TF_KING : TF_EMPTY;
         }
 }
@@ -121,9 +128,9 @@ static int king_taken(const tpos *p, int variant, int k, int from_dir)
 {
     int th = tf_throne(variant), near = k == th;
     for (int d = 0; d < 4; d++) near |= step(variant, k, d) == th;
-    if (variant == TF_TABLUT && !near) {        /* Tablut, away from the throne: a plain sandwich */
-        int b = step(variant, k, from_dir);
-        return b >= 0 && p->sq[b] == TF_ATT;
+    if (variant != TF_HNEFATAFL && !near) {     /* Tablut, Brandubh, away from the throne: a plain sandwich */
+        int b = step(variant, k, from_dir);     /* (Brandubh: a corner helps, as it does against any piece) */
+        return b >= 0 && (p->sq[b] == TF_ATT || (variant == TF_BRANDUBH && corner(variant, b)));
     }
     for (int d = 0; d < 4; d++) {               /* four sides: attackers, or the empty throne */
         int b = step(variant, k, d);

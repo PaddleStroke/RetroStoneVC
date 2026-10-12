@@ -1,6 +1,6 @@
 Hnefatafl
 # El objetivo
-El hnefatafl, el juego de tablero de los vikingos, es una batalla entre dos bandos desiguales. Los defensores, en el centro, deben ayudar a escapar a su rey. Los atacantes, el doble de numerosos, los rodean y deben capturar al rey. Empiezan los atacantes (oscuros); después los jugadores se turnan, una jugada cada uno. Elige el tablero antes de la partida: hnefatafl en 11 por 11 casillas, o tablut en 9 por 9.
+El hnefatafl, el juego de tablero de los vikingos, es una batalla entre dos bandos desiguales. Los defensores, en el centro, deben ayudar a escapar a su rey. Los atacantes, el doble de numerosos, los rodean y deben capturar al rey. Empiezan los atacantes (oscuros); después los jugadores se turnan, una jugada cada uno. Elige el tablero antes de la partida: hnefatafl en 11 por 11 casillas, tablut en 9 por 9 o brandubh en 7 por 7.
 # Cómo se mueven las piezas
 - Todas las piezas, también el rey, se mueven como una torre en el ajedrez: cualquier número de casillas vacías por una fila o una columna. Las piezas nunca saltan.
 - La casilla central es el trono. Solo el rey puede detenerse en él. Cuando está vacío, cualquier pieza puede pasar por encima.
@@ -17,6 +17,10 @@ El hnefatafl, el juego de tablero de los vikingos, es una batalla entre dos band
 - 16 atacantes contra 8 defensores y el rey. Las esquinas son casillas normales.
 - Los defensores ganan cuando el rey llega a cualquier casilla del borde del tablero.
 - En el trono o junto a él, el rey se captura como en el hnefatafl. En cualquier otro sitio, lo capturan dos atacantes en lados opuestos, como a cualquier otra pieza.
+# Brandubh (7 por 7)
+- El juego irlandés: 8 atacantes contra 4 defensores y el rey, en cruz.
+- Las esquinas y el trono son como en el hnefatafl: solo el rey puede detenerse en ellos, y los defensores ganan cuando el rey llega a una esquina.
+- En el trono o junto a él, el rey se captura como en el hnefatafl. En cualquier otro sitio se captura como cualquier otra pieza: con dos atacantes en lados opuestos, o con un atacante y una esquina al otro lado.
 # El final de la partida
 - Pierde el jugador que no puede mover.
 - Cuando la misma posición se repite por tercera vez con el mismo jugador al turno, la partida es un empate. Una partida de 1000 jugadas de cada uno también es un empate.

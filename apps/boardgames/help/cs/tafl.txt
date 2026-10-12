@@ -1,6 +1,6 @@
 Hnefatafl
 # Cíl hry
-Hnefatafl, desková hra Vikingů, je bitva dvou nerovných stran. Obránci uprostřed musí pomoci svému králi uniknout. Útočníci, dvakrát početnější, je obklíčí a musí krále zajmout. Útočníci (tmaví) táhnou první, potom se hráči střídají, každý jedním tahem. Před hrou si vyber desku: Hnefatafl na 11×11 polích, nebo Tablut na 9×9.
+Hnefatafl, desková hra Vikingů, je bitva dvou nerovných stran. Obránci uprostřed musí pomoci svému králi uniknout. Útočníci, dvakrát početnější, je obklíčí a musí krále zajmout. Útočníci (tmaví) táhnou první, potom se hráči střídají, každý jedním tahem. Před hrou si vyber desku: Hnefatafl na 11×11 polích, Tablut na 9×9, nebo Brandubh na 7×7.
 # Jak se figury pohybují
 - Každá figura, i král, táhne jako věž v šachu: o libovolný počet volných polí po řadě nebo sloupci. Figury nikdy nepřeskakují.
 - Prostřední pole je trůn. Zastavit se na něm smí jen král. Když je prázdný, smí přes něj projít kterákoli figura.
@@ -17,6 +17,10 @@ Hnefatafl, desková hra Vikingů, je bitva dvou nerovných stran. Obránci upros
 - 16 útočníků proti 8 obráncům a králi. Rohy jsou obyčejná pole.
 - Obránci vyhrají, když král dojde na kterékoli pole na okraji desky.
 - Na trůnu nebo vedle něj se král zajímá jako v Hnefataflu. Kdekoli jinde ho zajmou dva útočníci na protilehlých stranách, jako každou jinou figuru.
+# Brandubh (7×7)
+- Irská hra: 8 útočníků proti 4 obráncům a králi, do kříže.
+- Rohy a trůn jsou jako v Hnefataflu: zastavit se na nich smí jen král a obránci vyhrají, když král dojde do rohu.
+- Na trůnu nebo vedle něj se král zajímá jako v Hnefataflu. Kdekoli jinde se zajímá jako každá jiná figura: dvěma útočníky na protilehlých stranách, nebo jedním útočníkem, když má na druhé straně roh.
 # Konec hry
 - Hráč, který nemůže táhnout, prohrává.
 - Když se stejná pozice zopakuje potřetí se stejným hráčem na tahu, hra končí remízou. Partie o 1000 tazích každé strany je také remíza.

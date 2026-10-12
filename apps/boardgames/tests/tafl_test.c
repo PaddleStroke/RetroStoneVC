@@ -1,7 +1,7 @@
 /*
- * The Hnefatafl and Tablut rules on a few positions: the start, rook moves and the restricted squares, captures against
- * pieces, corners and the empty throne, the safe move between two enemies, the king's capture and escape, no move,
- * repetition, undo.
+ * The Hnefatafl, Tablut and Brandubh rules on a few positions: the start, rook moves and the restricted squares,
+ * captures against pieces, corners and the empty throne, the safe move between two enemies, the king's capture and
+ * escape, no move, repetition, undo; whole random games of each.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -11,6 +11,7 @@
 
 #define H TF_HNEFATAFL
 #define T TF_TABLUT
+#define B TF_BRANDUBH
 
 static int fails;
 static tgame G;
@@ -161,6 +162,68 @@ int main(void)
     ok("not yet a repetition", tf_status(&G) == TF_PLAY);
     tf_script(&G, "j8-j9");
     ok("the third repetition is a draw", tf_status(&G) == TF_DRAW && !tf_script(&G, "c3-c4"));
+
+    /* Brandubh, 7 x 7 */
+    tf_new(&G, B);
+    ok("brandubh: 8 attackers, 4 defenders, a king", tf_count(B, TF_ATT) == 8 && tf_count(B, TF_DEF) == 4 &&
+       tf_count(B, TF_KING) == 1 && at("d4") == TF_KING && at("d1") == TF_ATT && at("a4") == TF_ATT &&
+       at("c4") == TF_DEF && at("d5") == TF_DEF && tf_size(B) == 7);
+    ok("brandubh: 40 opening moves, the attackers first", tf_legal(tf_pos(&G), B, m) == 40 && can("d2", "a2") &&
+       !can("d1", "a1"));
+    setup(B, 0, "Kb2 Aa2 Ac5");
+    tf_script(&G, "c5-c2");
+    ok("brandubh: the king taken by two, away from the throne", at("b2") == TF_EMPTY && tf_status(&G) == TF_WON0);
+    setup(B, 0, "Kb1 Ac7 Ag6");
+    tf_script(&G, "c7-c1");
+    ok("brandubh: the king taken against a corner", at("b1") == TF_EMPTY && tf_status(&G) == TF_WON0);
+    setup(B, 0, "Kc4 Ab7 Ag1");
+    tf_script(&G, "b7-b4");
+    ok("brandubh: next to the throne, two are not enough", at("c4") == TF_KING && tf_status(&G) == TF_PLAY);
+    setup(B, 0, "Kc4 Ab4 Ac5 Ae3");
+    tf_script(&G, "e3-c3");
+    ok("brandubh: next to the throne, three and the throne", at("c4") == TF_EMPTY && tf_status(&G) == TF_WON0);
+    setup(B, 0, "Kd4 Ac4 Ae4 Ad5 Ag3");
+    tf_script(&G, "g3-d3");
+    ok("brandubh: on the throne, four sides", at("d4") == TF_EMPTY);
+    setup(B, 1, "Kc1 Ae7");
+    ok("brandubh: the king in a corner wins", tf_script(&G, "c1-a1") && tf_status(&G) == TF_WON1);
+    setup(B, 1, "Kc3 Ae7");
+    ok("brandubh: the edge is not enough", tf_script(&G, "c3-a3") && tf_status(&G) == TF_PLAY);
+    setup(B, 0, "Ab1 Ad7 Kg5");
+    ok("brandubh: not onto a corner", !can("b1", "a1") && can("d7", "b7") && !can("d7", "a7"));
+    setup(B, 0, "Ac4 Kg5");
+    ok("brandubh: over the empty throne, not onto it", can("c4", "e4") && !can("c4", "d4"));
+    setup(B, 1, "Dc3 Ab1 Kg5");
+    tf_script(&G, "c3-c1");
+    ok("brandubh: a capture against a corner", at("b1") == TF_EMPTY);
+
+    /* whole random games of each board, a seed each: no piece ever comes back, the game ends, undo to the start */
+    for (int v = 0; v < 3; v++) {
+        unsigned seed = 777u + (unsigned)v;
+        int bad = 0, ends[4] = {0};
+        for (int k = 0; k < 60; k++) {
+            tf_new(&G, v);
+            tpos first = *tf_pos(&G);
+            int att = tf_count(v, TF_ATT), def = tf_count(v, TF_DEF);
+            while (tf_status(&G) == TF_PLAY) {
+                int nm = tf_legal(tf_pos(&G), v, m);
+                seed = seed * 1103515245u + 12345u;
+                tmove mv = m[(seed >> 8) % (unsigned)nm];
+                if (!tf_play(&G, &mv)) { bad++; break; }
+                int a = 0, d = 0;
+                for (int s = 0; s < tf_size(v) * tf_size(v); s++)
+                    a += tf_pos(&G)->sq[s] == TF_ATT, d += tf_pos(&G)->sq[s] == TF_DEF;
+                bad += a > att || d > def || a + d + (tf_king(tf_pos(&G), v) >= 0) + mv.ncap != att + def + 1;
+                att = a, def = d;
+            }
+            ends[tf_status(&G)]++;
+            while (tf_undo(&G)) {}
+            bad += memcmp(&first, tf_pos(&G), sizeof first) != 0;
+        }
+        printf("%s 60 random games, board %d: %d won by the attackers, %d by the defenders, %d drawn\n",
+               bad ? "FAIL" : "ok  ", v, ends[TF_WON0], ends[TF_WON1], ends[TF_DRAW]);
+        fails += bad != 0;
+    }
 
     /* a game, undo */
     tf_new(&G, H);

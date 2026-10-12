@@ -1,6 +1,6 @@
 Hnefatafl
 # Cel gry
-Hnefatafl, gra planszowa wikingów, to bitwa dwóch nierównych stron. Obrońcy, pośrodku, muszą pomóc swojemu królowi uciec. Napastnicy, dwa razy liczniejsi, otaczają ich i muszą schwytać króla. Napastnicy (ciemni) zaczynają, potem gracze wykonują ruchy na zmianę, po jednym. Przed grą wybierz planszę: Hnefatafl na planszy 11×11 albo Tablut na 9×9.
+Hnefatafl, gra planszowa wikingów, to bitwa dwóch nierównych stron. Obrońcy, pośrodku, muszą pomóc swojemu królowi uciec. Napastnicy, dwa razy liczniejsi, otaczają ich i muszą schwytać króla. Napastnicy (ciemni) zaczynają, potem gracze wykonują ruchy na zmianę, po jednym. Przed grą wybierz planszę: Hnefatafl na planszy 11×11, Tablut na 9×9 albo Brandubh na 7×7.
 # Jak poruszają się pionki
 - Każdy pionek, także król, porusza się jak wieża w szachach: o dowolną liczbę wolnych pól w poziomie lub w pionie. Pionki nigdy nie przeskakują.
 - Środkowe pole to tron. Tylko król może się na nim zatrzymać. Gdy tron jest pusty, każdy pionek może przez niego przejść.
@@ -17,6 +17,10 @@ Hnefatafl, gra planszowa wikingów, to bitwa dwóch nierównych stron. Obrońcy,
 - 16 napastników przeciwko 8 obrońcom i królowi. Narożniki są zwykłymi polami.
 - Obrońcy wygrywają, gdy król dotrze do dowolnego pola na krawędzi planszy.
 - Na tronie lub obok niego króla chwyta się tak jak w Hnefatafl. Gdzie indziej chwytają go dwaj napastnicy po przeciwnych stronach, jak każdy inny pionek.
+# Brandubh (7×7)
+- Gra irlandzka: 8 napastników przeciwko 4 obrońcom i królowi, ustawionym w krzyż.
+- Narożniki i tron są jak w Hnefatafl: zatrzymać się na nich może tylko król, a obrońcy wygrywają, gdy król dotrze do narożnika.
+- Na tronie lub obok niego króla chwyta się tak jak w Hnefatafl. Gdzie indziej chwyta się go jak każdy inny pionek: dwoma napastnikami po przeciwnych stronach albo jednym napastnikiem, gdy po drugiej stronie jest narożnik.
 # Koniec gry
 - Gracz, który nie może wykonać ruchu, przegrywa.
 - Gdy ta sama pozycja powtórzy się po raz trzeci przy ruchu tego samego gracza, gra kończy się remisem. Partia licząca 1000 ruchów każdej ze stron też kończy się remisem.

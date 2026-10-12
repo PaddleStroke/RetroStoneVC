@@ -1,6 +1,6 @@
 Hnefatafl
 # Målet
-Hnefatafl, vikingarnas brädspel, är en strid mellan två ojämna sidor. Försvararna, i mitten, måste hjälpa sin kung att fly. Angriparna, dubbelt så många, omringar dem och måste fånga kungen. Angriparna (mörka) börjar, sedan turas spelarna om, ett drag var. Välj bräde före partiet: Hnefatafl på 11×11 rutor, eller Tablut på 9×9.
+Hnefatafl, vikingarnas brädspel, är en strid mellan två ojämna sidor. Försvararna, i mitten, måste hjälpa sin kung att fly. Angriparna, dubbelt så många, omringar dem och måste fånga kungen. Angriparna (mörka) börjar, sedan turas spelarna om, ett drag var. Välj bräde före partiet: Hnefatafl på 11×11 rutor, Tablut på 9×9 eller Brandubh på 7×7.
 # Hur pjäserna går
 - Varje pjäs, även kungen, går som ett torn i schack: hur många tomma rutor som helst längs en rad eller en kolumn. Pjäser hoppar aldrig.
 - Mittrutan är tronen. Bara kungen får stanna på den. När den är tom får vilken pjäs som helst passera över den.
@@ -17,6 +17,10 @@ Hnefatafl, vikingarnas brädspel, är en strid mellan två ojämna sidor. Försv
 - 16 angripare mot 8 försvarare och kungen. Hörnen är vanliga rutor.
 - Försvararna vinner när kungen når vilken ruta som helst vid brädets kant.
 - På tronen eller bredvid den fångas kungen som i Hnefatafl. Var som helst annars fångar två angripare på motsatta sidor honom, som vilken annan pjäs som helst.
+# Brandubh (7×7)
+- Det irländska spelet: 8 angripare mot 4 försvarare och kungen, i ett kors.
+- Hörnen och tronen är som i Hnefatafl: bara kungen får stanna på dem, och försvararna vinner när kungen når ett hörn.
+- På tronen eller bredvid den fångas kungen som i Hnefatafl. Överallt annars fångas han som vilken annan pjäs som helst: av två angripare på motsatta sidor, eller av en angripare med ett hörn på andra sidan.
 # Partiets slut
 - En spelare som inte kan flytta förlorar.
 - När samma ställning återkommer för tredje gången med samma spelare vid draget blir partiet oavgjort. Ett parti på 1000 drag var blir också oavgjort.

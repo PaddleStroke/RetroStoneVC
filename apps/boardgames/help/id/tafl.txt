@@ -1,6 +1,6 @@
 Hnefatafl
 # Tujuan
-Hnefatafl, permainan papan bangsa Viking, adalah pertempuran antara dua pihak yang tidak seimbang. Para pembela, di tengah, harus membantu rajanya meloloskan diri. Para penyerang, yang jumlahnya dua kali lipat, mengepung mereka dan harus menangkap sang raja. Penyerang (gelap) jalan lebih dulu, lalu para pemain bergiliran, masing-masing satu langkah. Pilih papan sebelum bermain: Hnefatafl di papan 11×11, atau Tablut di papan 9×9.
+Hnefatafl, permainan papan bangsa Viking, adalah pertempuran antara dua pihak yang tidak seimbang. Para pembela, di tengah, harus membantu rajanya meloloskan diri. Para penyerang, yang jumlahnya dua kali lipat, mengepung mereka dan harus menangkap sang raja. Penyerang (gelap) jalan lebih dulu, lalu para pemain bergiliran, masing-masing satu langkah. Pilih papan sebelum bermain: Hnefatafl di papan 11×11, Tablut di papan 9×9, atau Brandubh di papan 7×7.
 # Cara bidak bergerak
 - Setiap bidak, termasuk raja, bergerak seperti benteng dalam catur: berapa pun petak kosong sepanjang baris atau kolom. Bidak tidak pernah melompat.
 - Petak tengah adalah takhta. Hanya raja yang boleh berhenti di situ. Jika takhta kosong, bidak mana pun boleh melewatinya.
@@ -17,6 +17,10 @@ Hnefatafl, permainan papan bangsa Viking, adalah pertempuran antara dua pihak ya
 - 16 penyerang melawan 8 pembela dan raja. Petak sudut adalah petak biasa.
 - Pembela menang jika raja mencapai petak mana pun di tepi papan.
 - Di atas takhta atau di sebelahnya, raja ditangkap seperti dalam Hnefatafl. Di tempat lain, dua penyerang di sisi yang berseberangan menangkapnya, seperti bidak lainnya.
+# Brandubh (7×7)
+- Permainan Irlandia: 8 penyerang melawan 4 pembela dan raja, tersusun seperti salib.
+- Petak sudut dan takhta sama seperti dalam Hnefatafl: hanya raja yang boleh berhenti di sana, dan pembela menang kalau raja mencapai sebuah sudut.
+- Di atas takhta atau di sebelahnya, raja ditangkap seperti dalam Hnefatafl. Di tempat lain, ia ditangkap seperti bidak lainnya: oleh dua penyerang di sisi yang berseberangan, atau oleh satu penyerang dengan sudut di sisi seberangnya.
 # Akhir permainan
 - Pemain yang tidak bisa melangkah kalah.
 - Jika posisi yang sama muncul untuk ketiga kalinya dengan pemain yang sama mendapat giliran, permainan berakhir seri. Permainan yang mencapai 1000 langkah untuk masing-masing pihak juga berakhir seri.

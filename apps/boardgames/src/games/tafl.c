@@ -1,7 +1,7 @@
 /*
- * Hnefatafl (Viking chess) in RetroStone Board: Copenhagen Hnefatafl on 11 x 11 and Tablut on 9 x 9. The board with
- * its throne and corners inlaid, the attackers (ebony discs), the defenders (ivory discs) and their king (the ivory
- * chess king), tap or drag (the rules: tafl_rules.c, tafl.h).
+ * Hnefatafl (Viking chess) in RetroStone Board: Copenhagen Hnefatafl on 11 x 11, Tablut on 9 x 9 and Brandubh on
+ * 7 x 7. The board with its throne and corners inlaid, the attackers (ebony discs), the defenders (ivory discs) and
+ * their king (the ivory chess king), tap or drag (the rules: tafl_rules.c, tafl.h).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * The script's notation (the screenshots, the tests): "a4-d4 f4-e4 ...", a move from one square to another, the files
@@ -77,7 +77,7 @@ static void refresh(void)
 
 static void start(int variant)
 {
-    tf_new(&G, variant == 1 ? TF_TABLUT : TF_HNEFATAFL);
+    tf_new(&G, variant == 1 ? TF_TABLUT : variant == 2 ? TF_BRANDUBH : TF_HNEFATAFL);
     n = tf_size(G.variant);
     anim.on = 0;
     refresh();
@@ -189,7 +189,7 @@ static void layout(box b)
         }
         int w = n * sq + 2 * fr;
         ui_free(&t_board);
-        paint_board(n, G.variant == TF_HNEFATAFL, sq, fr, ui_buf(w, w));
+        paint_board(n, G.variant != TF_TABLUT, sq, fr, ui_buf(w, w));
         t_board = ui_tex(w, w, ui_buf(w, w));
     }
     int small = (int)(0.6f * ui.unit);
@@ -355,7 +355,7 @@ static void bar(int player, box b)
 static void token(int player, int size, uint8_t *rgba) { paint_piece(player ? TF_KING : TF_ATT, size, rgba); }
 
 /* the menu's card (-1): the throne and the king among his defenders, the attackers closing in; the picker's: the whole
- * board at the start (11 x 11, or Tablut's 9 x 9) */
+ * board at the start (11 x 11, Tablut's 9 x 9, or Brandubh's 7 x 7) */
 static void thumb(int variant, int size, uint8_t *rgba)
 {
     static const char *const CARD = ".A..."
@@ -363,10 +363,10 @@ static void thumb(int variant, int size, uint8_t *rgba)
                                     "ADK.."
                                     "...D."
                                     "..A..";
-    int v = variant == 1 ? TF_TABLUT : TF_HNEFATAFL, k = variant < 0 ? 5 : tf_size(v);
+    int v = variant == 1 ? TF_TABLUT : variant == 2 ? TF_BRANDUBH : TF_HNEFATAFL, k = variant < 0 ? 5 : tf_size(v);
     int s = (int)(size / (k + 2 * FRAME)), f = (int)(s * FRAME), w = k * s + 2 * f, o = (size - w) / 2;
     uint8_t *board = ui_buf(w, w);
-    paint_board(k, variant == 0, s, f, board);
+    paint_board(k, variant == 0 || variant == 2, s, f, board);
     art_blend(rgba, size, size, board, w, w, o, o);
     tpos p;
     memset(&p, 0, sizeof p);
@@ -385,7 +385,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
 static int busy(void) { return anim.on; }     /* the end waits for the last move: the slide, the pieces fading */
 
 static const game tafl_game = {
-    .id = "tafl", .order = 220, .variants = 2,
+    .id = "tafl", .order = 220, .variants = 3,      /* Hnefatafl, Tablut, Brandubh */
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy,

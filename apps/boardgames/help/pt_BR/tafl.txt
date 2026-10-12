@@ -1,6 +1,6 @@
 Hnefatafl
 # O objetivo
-O hnefatafl, o jogo de tabuleiro dos vikings, é uma batalha entre dois lados desiguais. Os defensores, no meio, precisam ajudar o seu rei a fugir. Os atacantes, que são o dobro, cercam-nos e precisam capturar o rei. Os atacantes (escuros) começam; depois os jogadores se alternam, um lance cada um. Escolha o tabuleiro antes da partida: Hnefatafl em 11 por 11 casas, ou Tablut em 9 por 9.
+O hnefatafl, o jogo de tabuleiro dos vikings, é uma batalha entre dois lados desiguais. Os defensores, no meio, precisam ajudar o seu rei a fugir. Os atacantes, que são o dobro, cercam-nos e precisam capturar o rei. Os atacantes (escuros) começam; depois os jogadores se alternam, um lance cada um. Escolha o tabuleiro antes da partida: Hnefatafl em 11 por 11 casas, Tablut em 9 por 9 ou Brandubh em 7 por 7.
 # Como as peças se movem
 - Todas as peças, inclusive o rei, andam como a torre no xadrez: quantas casas vazias quiserem por uma fileira ou uma coluna. As peças nunca pulam.
 - A casa do meio é o trono. Só o rei pode parar nele. Quando ele está vazio, qualquer peça pode passar por cima dele.
@@ -17,6 +17,10 @@ O hnefatafl, o jogo de tabuleiro dos vikings, é uma batalha entre dois lados de
 - 16 atacantes contra 8 defensores e o rei. Os cantos são casas comuns.
 - Os defensores vencem quando o rei chega a qualquer casa da borda do tabuleiro.
 - No trono ou ao lado dele, o rei é capturado como no Hnefatafl. Em qualquer outro lugar, dois atacantes em lados opostos o capturam, como qualquer outra peça.
+# Brandubh (7 por 7)
+- O jogo irlandês: 8 atacantes contra 4 defensores e o rei, em cruz.
+- Os cantos e o trono são como no Hnefatafl: só o rei pode parar neles, e os defensores vencem quando o rei chega a um canto.
+- No trono ou ao lado dele, o rei é capturado como no Hnefatafl. Em qualquer outro lugar, é capturado como qualquer outra peça: por dois atacantes em lados opostos, ou por um atacante com um canto do outro lado.
 # O fim da partida
 - Perde o jogador que não consegue se mover.
 - Quando a mesma posição se repete pela terceira vez com o mesmo jogador da vez, a partida termina empatada. Uma partida de 1000 lances de cada lado também termina empatada.

@@ -1,29 +1,33 @@
 /*
- * Hnefatafl (Viking chess) for two players on one device: the Copenhagen rules on 11 x 11, and Tablut on 9 x 9.
+ * Hnefatafl (Viking chess) for two players on one device: the Copenhagen rules on 11 x 11, Tablut on 9 x 9, and
+ * Brandubh, the Irish game, on 7 x 7.
  * No engine, no clock.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Squares: y * n + x on an n x n board, (0, 0) the bottom left corner (a1), x the file (a, b, c...), y the rank (1, 2,
  * 3...). Player 0: the attackers (ebony), who move first; player 1: the defenders and their king (ivory).
  *
- * The rules (Copenhagen; Tablut: the differences after "Tablut"):
+ * The rules (Copenhagen; Tablut and Brandubh: the differences after their names):
  * - every piece moves like a chess rook; only the king may stop on the throne (the centre) and the four corners; any
  *   piece may pass over the empty throne (Tablut: the corners are ordinary squares);
  * - a piece moved so that an enemy piece is between it and another of its pieces, or a hostile square (a corner, the
  *   empty throne), along a row or a column, captures it (several at once if so); moving between two enemies is safe;
  *   the king captures too;
  * - the king is captured by attackers on its four sides, or on three sides and the empty throne on the fourth; never
- *   on the edge (Tablut: away from the throne and its four neighbours, the king is captured like any other piece);
+ *   on the edge (Tablut: away from the throne and its four neighbours, the king is captured like any other piece;
+ *   Brandubh the same, by two attackers, or an attacker and a corner);
  * - the defenders win when the king reaches a corner (Tablut: any edge square); the attackers when they capture it;
  *   a player who cannot move loses; the same position for the third time (the same player to move) is a draw, and
  *   so is a game of TF_MAX_PLY moves. Left out: the shieldwall, edge forts and encirclement.
+ * - Brandubh: 8 attackers against 4 defenders and the king, in a cross; the corners and the throne as in Copenhagen
+ *   (the king escapes to a corner).
  */
 #ifndef TAFL_H
 #define TAFL_H
 
 #include <stdint.h>
 
-enum { TF_HNEFATAFL, TF_TABLUT };
+enum { TF_HNEFATAFL, TF_TABLUT, TF_BRANDUBH };
 enum { TF_EMPTY, TF_ATT, TF_DEF, TF_KING };     /* a piece: an attacker (player 0), a defender or the king (player 1) */
 #define TF_OWNER(pc)    ((pc) != TF_ATT)
 #define TF_MAX_N        11
@@ -41,11 +45,11 @@ typedef struct {
     uint8_t cap[4];
 } tmove;
 
-int  tf_size(int variant);                                 /* squares a side: 11 or 9 */
+int  tf_size(int variant);                                 /* squares a side: 11, 9 or 7 */
 int  tf_count(int variant, int piece);                     /* how many of a piece the game starts with */
 void tf_start(tpos *p, int variant);
 int  tf_throne(int variant);
-int  tf_restricted(int variant, int s);                    /* 1: the throne or (Hnefatafl) a corner */
+int  tf_restricted(int variant, int s);                    /* 1: the throne or (not Tablut) a corner */
 int  tf_escape(int variant, int s);                        /* 1: the king wins there (a corner; Tablut: the edge) */
 int  tf_legal(const tpos *p, int variant, tmove *out);     /* the legal moves of the player to move; their count */
 void tf_make(tpos *p, int variant, tmove *m);              /* plays a (legal) move, fills in what it takes */

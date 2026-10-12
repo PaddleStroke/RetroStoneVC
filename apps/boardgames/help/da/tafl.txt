@@ -1,6 +1,6 @@
 Hnefatafl
 # Målet
-Hnefatafl, vikingernes brætspil, er et slag mellem to ulige sider. Forsvarerne i midten skal hjælpe deres konge med at flygte. Angriberne, dobbelt så mange, omringer dem og skal fange kongen. Angriberne (mørke) trækker først, derefter skiftes spillerne, ét træk ad gangen. Vælg bræt før spillet: Hnefatafl på 11×11 felter eller Tablut på 9×9.
+Hnefatafl, vikingernes brætspil, er et slag mellem to ulige sider. Forsvarerne i midten skal hjælpe deres konge med at flygte. Angriberne, dobbelt så mange, omringer dem og skal fange kongen. Angriberne (mørke) trækker først, derefter skiftes spillerne, ét træk ad gangen. Vælg bræt før spillet: Hnefatafl på 11×11 felter, Tablut på 9×9 eller Brandubh på 7×7.
 # Sådan trækker brikkerne
 - Hver brik, også kongen, flytter som et tårn i skak: et vilkårligt antal tomme felter langs en række eller en kolonne. Brikker springer aldrig.
 - Det midterste felt er tronen. Kun kongen må standse på den. Når den er tom, må enhver brik passere hen over den.
@@ -17,6 +17,10 @@ Hnefatafl, vikingernes brætspil, er et slag mellem to ulige sider. Forsvarerne 
 - 16 angribere mod 8 forsvarere og kongen. Hjørnerne er almindelige felter.
 - Forsvarerne vinder, når kongen når et hvilket som helst felt på brættets kant.
 - På tronen eller ved siden af den fanges kongen som i Hnefatafl. Alle andre steder fanger to angribere på hver sin side den, ligesom enhver anden brik.
+# Brandubh (7×7)
+- Det irske spil: 8 angribere mod 4 forsvarere og kongen, i et kors.
+- Hjørnerne og tronen er som i Hnefatafl: kun kongen må stoppe på dem, og forsvarerne vinder, når kongen når et hjørne.
+- På tronen eller ved siden af den fanges kongen som i Hnefatafl. Alle andre steder fanges den som enhver anden brik: af to angribere på hver sin side eller af én angriber med et hjørne på den anden side.
 # Spillets afslutning
 - En spiller, der ikke kan flytte, taber.
 - Når den samme stilling opstår for tredje gang med den samme spiller i trækket, er spillet uafgjort. Et spil på 1000 træk hver er også uafgjort.
