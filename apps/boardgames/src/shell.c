@@ -540,6 +540,12 @@ int ui_par_stars(int moves, int par)
     return 2 * moves <= 3 * par ? 2 : 1;
 }
 
+int ui_logic_stars(int hints, int mistakes)
+{
+    int k = (hints > 0 ? hints : 0) + (mistakes > 0 ? mistakes : 0);
+    return k == 0 ? 3 : k <= 2 ? 2 : 1;
+}
+
 /* a level's tile: 0 gold (solved), 1 wood (open), 2 dark walnut (locked); rounded, a bevel lit from the upper left */
 static void paint_tile(int kind, int size, uint8_t *o)
 {
@@ -1707,7 +1713,8 @@ static void view_to(int player)
 {
     hand.pending = -1;
     view_of[cur] = player;
-    if (games[cur]->view == VIEW_HIDDEN && games[cur]->status() == GS_PLAY) {
+    const game *g = games[cur];
+    if ((g->hidden ? g->hidden() : g->view == VIEW_HIDDEN) && g->status() == GS_PLAY) {
         hand.up = 1;
         hand.player = player;
         ui.viewer = -1;

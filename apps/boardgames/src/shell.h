@@ -122,6 +122,10 @@ typedef struct game {
      * is thumb() of that size at the level chosen last; a level is as many ebony stones, one easy .. three hard). */
     int axes[2];
     void (*axis_pic[2])(int i, int size, uint8_t *rgba);
+    /* optional, a VIEW_* game whose hands are secret in some games only (open-hands Durak): 1 the hands are hidden
+     * (the cover at each hand-off, as VIEW_HIDDEN), 0 open (the view just turns, as VIEW_OPEN); asked instead of
+     * .view == VIEW_HIDDEN at each hand-off. Set .view to either VIEW_OPEN or VIEW_HIDDEN as well. */
+    int  (*hidden)(void);
 } game;
 
 enum { VIEW_BOARD, VIEW_OPEN, VIEW_HIDDEN };
@@ -315,6 +319,9 @@ void ui_star(float cx, float cy, float d, int lit);
 /* the stars for a puzzle solved in `moves` when it can be done in `par`: 3 at par (or par not known, 0), 2 up to half as
  * many again, else 1 */
 int  ui_par_stars(int moves, int par);
+/* the stars for a logic puzzle solved (the rule for all of them): 3 with no hint and no mistake, 2 with two of them
+ * at most, else 1 */
+int  ui_logic_stars(int hints, int mistakes);
 
 /* sound.c */
 void snd_init(void);
