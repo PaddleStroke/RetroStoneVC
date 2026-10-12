@@ -3,4 +3,5 @@ Sjakkfamilien
 Terninger og veddeløp
 Kort og brikker
 Gjettelek
-Kabaler og nøtter
+Kabaler
+Nøtter

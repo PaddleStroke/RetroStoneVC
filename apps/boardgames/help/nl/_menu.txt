@@ -3,4 +3,5 @@ De schaakfamilie
 Dobbel- en racespellen
 Kaarten en stenen
 Raadspellen
-Patience en puzzels
+Patience
+Puzzels

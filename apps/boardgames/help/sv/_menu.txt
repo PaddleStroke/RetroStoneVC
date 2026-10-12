@@ -3,4 +3,5 @@ Schackfamiljen
 Tärning och kapplöpning
 Kort och brickor
 Gissningslekar
-Patienser och pussel
+Patienser
+Pussel

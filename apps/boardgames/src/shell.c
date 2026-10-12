@@ -47,7 +47,7 @@ static unsigned winners_of(int st);
 
 /* the menu's sections, in this order: a heading (help/<lang>/_menu.txt, a line each), then their games by menu
  * order. The games not listed are strategy games. */
-enum { SEC_STRATEGY, SEC_CHESS, SEC_RACE, SEC_CARDS, SEC_GUESS, SEC_SOLO, SECTIONS };
+enum { SEC_STRATEGY, SEC_CHESS, SEC_RACE, SEC_CARDS, SEC_GUESS, SEC_SOLO, SEC_PUZZLE, SECTIONS };
 static const struct { const char *id; int section; } SECTION_OF[] = {
     {"chess", SEC_CHESS}, {"makruk", SEC_CHESS}, {"shogi", SEC_CHESS}, {"xiangqi", SEC_CHESS}, {"janggi", SEC_CHESS},
     {"jungle", SEC_CHESS},
@@ -65,8 +65,14 @@ static const struct { const char *id; int section; } SECTION_OF[] = {
     {"goose", SEC_RACE}, {"nainjaune", SEC_CARDS}, {"crapette", SEC_CARDS}, {"manille", SEC_CARDS}, {"slap", SEC_CARDS},
     {"mahjong4", SEC_CARDS}, {"koikoi", SEC_CARDS}, {"scopa", SEC_CARDS}, {"briscola", SEC_CARDS}, {"skat", SEC_CARDS},
     {"euchre", SEC_CARDS}, {"canasta", SEC_CARDS}, {"pairs", SEC_GUESS},
-    {"sudoku", SEC_SOLO}, {"nonogram", SEC_SOLO}, {"taquin", SEC_SOLO}, {"hanoi", SEC_SOLO}, {"pyramid", SEC_SOLO},
-    {"tripeaks", SEC_SOLO}, {"logicgates", SEC_SOLO},
+    {"pyramid", SEC_SOLO}, {"tripeaks", SEC_SOLO},
+    {"sudoku", SEC_PUZZLE}, {"nonogram", SEC_PUZZLE}, {"taquin", SEC_PUZZLE}, {"hanoi", SEC_PUZZLE},
+    {"logicgates", SEC_PUZZLE}, {"pipes", SEC_PUZZLE}, {"paths", SEC_PUZZLE}, {"mirrors", SEC_PUZZLE},
+    {"tracks", SEC_PUZZLE}, {"untangle", SEC_PUZZLE}, {"lightup", SEC_PUZZLE}, {"binairo", SEC_PUZZLE},
+    {"tents", SEC_PUZZLE}, {"skyscrapers", SEC_PUZZLE}, {"futoshiki", SEC_PUZZLE}, {"rectangles", SEC_PUZZLE},
+    {"starbattle", SEC_PUZZLE}, {"dominosa", SEC_PUZZLE}, {"watersort", SEC_PUZZLE}, {"ballsort", SEC_PUZZLE},
+    {"samegame", SEC_PUZZLE}, {"iceslide", SEC_PUZZLE}, {"merge", SEC_PUZZLE}, {"chesspuzzles", SEC_PUZZLE},
+    {"knightstour", SEC_PUZZLE}, {"queens", SEC_PUZZLE},
 };
 
 static int section_of(const game *g)
@@ -887,8 +893,12 @@ static void layout_game(void)
         box b = s ? top : bottom;
         for (int k = 0; k < n[s]; k++) {
             box c = b;
-            if (ui.w <= ui.h) {
-                float gap = (n[s] >= 5 ? 0.12f : 0.25f) * u;
+            if (ui.w <= ui.h && n[s] >= 5) {    /* five bars on a side: the screen's whole width, closer */
+                float gap = 0.08f * u, x0 = floorf(fminf(b.x, 0.012f * ui.w));
+                c.w = floorf((ui.w - 2 * x0 - (n[s] - 1) * gap) / n[s]);
+                c.x = x0 + k * (c.w + gap);
+            } else if (ui.w <= ui.h) {
+                float gap = 0.25f * u;
                 c.w = floorf((b.w - (n[s] - 1) * gap) / n[s]);
                 c.x = b.x + k * (c.w + gap);
             } else if (is_view()) {             /* the others' bars from the top, above the buttons */
@@ -914,13 +924,15 @@ static void layout_game(void)
     if (cur >= 0) games[cur]->layout(L.board);
 }
 
-/* a tab's picture: the pieces of its section (a draughts man, a knight, a die, a card, a question, a marble) */
+/* a tab's picture: the pieces of its section (a draughts man, a knight, a die, a card, a question, a marble, a jigsaw
+ * piece) */
 static void tab_icon(int s, int d, uint8_t *o)
 {
     memset(o, 0, (size_t)d * d * 4);
     if (s == SEC_STRATEGY) art_counter(COUNTER_MAN, 0, d, o);
     else if (s == SEC_CHESS) art_piece(KNIGHT, WHITE, d, o);
     else if (s == SEC_GUESS) art_icon(ICON_HELP, d, o);
+    else if (s == SEC_PUZZLE) art_icon(ICON_PUZZLE, d, o);
     else if (s == SEC_SOLO) art_counter(COUNTER_STONE, 5, d, o);
     else {                                      /* a die, a card: smaller, in the middle */
         int h = (int)(d * (s == SEC_RACE ? 0.78f : 0.92f));
@@ -953,6 +965,7 @@ static void tab_textures(int tw, int th)
     }
     free(b);
     SDL_SetTextureColorMod(t_tabicon[SEC_GUESS], 246, 238, 220);
+    SDL_SetTextureColorMod(t_tabicon[SEC_PUZZLE], 246, 238, 220);
 }
 
 /* the menu (all the games) or the picker (one game's variants): cards in a grid */
@@ -1254,13 +1267,14 @@ static void bar_content(int p, box b)
     const game *g = games[cur];
     int st = g->status(), turn = st == GS_PLAY && g->turn() == p;
     int won = (ui.players > 1 && (winners_of(st) >> p & 1)) || (ui.players == 1 && st == GS_WIN0);
-    int narrow = b.w < 1.9f * ui.unit;          /* five or six bars side by side: closer */
-    float cy = b.y + b.h / 2, tx = b.x + (narrow ? 0.06f : 0.15f) * ui.unit + L.tk / 2;
+    int narrow = b.w < 1.9f * ui.unit;          /* five bars side by side: closer, the token smaller */
+    float tk = narrow ? 0.6f * ui.unit : L.tk;
+    float cy = b.y + b.h / 2, tx = b.x + (narrow ? 0.04f : 0.15f) * ui.unit + tk / 2;
     if (turn || won) {                          /* the gold light: whose turn it is, or who won */
         float k = turn ? 1.8f : 2.3f;
-        ui_put_c(t_gold, tx, cy, L.tk * k, L.tk * k);
+        ui_put_c(t_gold, tx, cy, tk * k, tk * k);
     }
-    ui_put_c(t_tok[p], tx, cy, L.tk, L.tk);
+    ui_put_c(t_tok[p], tx, cy, tk, tk);
     float right = b.x + b.w;
     if (shows_pass(p)) {
         float r = 0.42f * ui.unit;
@@ -1268,7 +1282,7 @@ static void bar_content(int p, box b)
         right -= 2 * r + 0.25f * ui.unit;
     }
     if (g->bar) {
-        float x = tx + L.tk / 2 + (narrow ? 0.12f : 0.3f) * ui.unit;
+        float x = tx + tk / 2 + (narrow ? 0.08f : 0.3f) * ui.unit;
         g->bar(p, (box){x, b.y, right - x, b.h});
     }
 }
@@ -2117,7 +2131,7 @@ static int shot(int argc, char **argv)
         }
     } else {
         layout();
-        if (tab >= 0) menu_tab(tab);           /* --tab n: that section's tab (0 strategy .. 5 solitaires) */
+        if (tab >= 0) menu_tab(tab);           /* --tab n: that section's tab (0 strategy .. 6 puzzles) */
         if (!show_help) menu_wheel(scroll);     /* --scroll px: further down the menu */
     }
     /* the gestures' animations: over, or caught --at ms after the last one began (a hold: as long as it was held) */

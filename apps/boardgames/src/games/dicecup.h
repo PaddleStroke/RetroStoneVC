@@ -196,4 +196,35 @@ static inline void cup_token(int player, int size, uint8_t *rgba)
     free(b);
 }
 
+/* ---- kept for the games written with them (new code: ui_die, ui_die_thrown, art_die_blend, art_felt...) -------- */
+static inline float cup_noise(int x, int y) { return art_noise(x, y); }
+static inline void cup_felt(uint8_t *o, int w, int h, int x0, int y0, int x1, int y1)
+{
+    art_felt(o, w, h, x0, y0, x1, y1);
+}
+static inline void cup_blend_rot(uint8_t *o, int w, int h, const uint8_t *src, int sw, int sh, float cx, float cy,
+                                 float deg)
+{
+    art_blend_rot(o, w, h, src, sw, sh, cx, cy, deg);
+}
+static inline void cup_paint_die(uint8_t *o, int w, int h, float cx, float cy, int size, int player, int value,
+                                 float deg)
+{
+    art_die_blend(o, w, h, cx, cy, size, player, value, deg);
+}
+static inline void cup_die_ex(float cx, float cy, float size, int player, int value, float deg, float lift,
+                              float alpha, float shade)
+{
+    ui_die(cx, cy, size, player, value, deg, lift, alpha, shade);
+}
+static inline void cup_die(float cx, float cy, float size, int player, int value, float deg, float lift, float alpha)
+{
+    ui_die(cx, cy, size, player, value, deg, lift, alpha, 1);
+}
+static inline int cup_die_thrown(float cx, float cy, float size, int player, int value, float deg, int i, int t,
+                                 float shade)
+{
+    return ui_die_thrown(cx, cy, size, player, value, deg, i, t, shade);
+}
+
 #endif

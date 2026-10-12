@@ -3,4 +3,5 @@ Chess family
 Dice and race games
 Cards and tiles
 Guessing games
-Solitaires and puzzles
+Solitaires
+Puzzles

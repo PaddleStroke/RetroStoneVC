@@ -103,4 +103,31 @@ static inline void puz_burn(uint8_t *o, int w, int h, int value, float cx, float
     puz_digits(o, w, h, value, cx, cy, dh, PUZ_INK, 1, 1);
 }
 
+/* ---- kept for the puzzles written with them: the shell draws these now (ui_number_ex, ui_bar_number) ----------- */
+/* a digit font: its height and weight (the shell makes and keeps the digits) */
+typedef struct { int h, bold; SDL_Texture *t[10]; } puz_font;
+
+static inline void puz_font_make(puz_font *f, int h, int bold)
+{
+    f->h = h;
+    f->bold = bold;
+}
+
+/* a number centred at (cx, cy), dh high, the font's weight, set tight, tinted rgb, alpha a (0..255) */
+static inline void puz_number(const puz_font *f, float cx, float cy, float dh, int value, const uint8_t rgb[3],
+                              Uint8 a)
+{
+    ui_number_ex(cx, cy, dh, value, rgb, a, UI_NUM_TIGHT | (f->bold ? 0 : UI_NUM_REGULAR));
+}
+
+static inline float puz_number_w(int value, float dh)
+{
+    int n = 1;
+    for (int v = value; v >= 10; v /= 10) n++;
+    return 0.66f * dh * (n - 1) + 0.62f * dh;
+}
+
+/* the bar: a small picture (0.6 unit), then the moves (0 too) in cream; the x after them */
+static inline float puz_bar_moves(box b, SDL_Texture *icon, int moves) { return ui_bar_number(b, icon, moves); }
+
 #endif

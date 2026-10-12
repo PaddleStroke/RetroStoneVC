@@ -56,4 +56,17 @@ static inline float race_hash(int a, int b)
 static inline float race_ease(float f) { return f * f * (3 - 2 * f); }
 static inline float race_lift(float f) { return 0.35f * sinf(RACE_PI * f); }
 
+/* ---- kept for the games written with them (new code: art_flat, art_fig_blend, ui_die_tumble, UI_DICE_MS) ------- */
+#define RACE_TUMBLE_MS UI_DICE_MS
+static inline art_style race_style(const uint8_t rgb[3], const uint8_t ink[3], float line, float light)
+{
+    return art_flat(rgb, ink, line, light);
+}
+static inline void race_fig(uint8_t *o, int pw, int ph, const art_fig *f, const art_style *st, int x, int y, int w,
+                            float a)
+{
+    art_fig_blend(o, pw, ph, f, st, x, y, w, a);
+}
+static inline void race_tumble(int t, int i, float *turn, float *lift) { ui_die_tumble(t, i, turn, lift); }
+
 #endif

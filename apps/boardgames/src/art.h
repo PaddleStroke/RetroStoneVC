@@ -94,9 +94,10 @@ float art_noise(int x, int y);
 float art_recess(float dx, float dy, float r, float b, float deep, float wall_lit, float rim_lit);
 
 /* ICON_DEVICE: pass the device (a device and two arrows going round it: the hand-off cover); ICON_PLAY: start;
- * ICON_HINT: a lamp, lit (a hint); ICON_TICK: done, ready, check; ICON_ARROW: an arrow pointing right (next, on) */
+ * ICON_HINT: a lamp, lit (a hint); ICON_TICK: done, ready, check; ICON_ARROW: an arrow pointing right (next, on);
+ * ICON_PUZZLE: a jigsaw piece (the menu's puzzles) */
 enum { ICON_UNDO, ICON_FLIP, ICON_NEW, ICON_HOME, ICON_F2F, ICON_PASS, ICON_SOUND, ICON_MUTE, ICON_HELP, ICON_CLOSE,
-       ICON_DEVICE, ICON_PLAY, ICON_HINT, ICON_TICK, ICON_ARROW, ICONS };
+       ICON_DEVICE, ICON_PLAY, ICON_HINT, ICON_TICK, ICON_ARROW, ICON_PUZZLE, ICONS };
 /* a round button's icon (white: tint it), size x size */
 void art_icon(int which, int size, uint8_t *rgba);
 

@@ -42,9 +42,9 @@ One look across the app, like the Arcade games' house kit:
   stands them all in gold light together (a draw: standing, no gold) and lays the others down, dimmed; their bars all
   glow. The status stays `gs_win(any winner)` or `GS_DRAW`. Without it: `gs_winner(status)` alone (a draw: everyone
   stands).
-- **The menu's sections**, one tab each (a picture: a man, a knight, a die, a card, a question, a marble; tap,
-  swipe sideways or the arrow keys): strategy, chess family, dice & race, cards & tiles, guessing games, solitaires &
-  puzzles (their names in `help/<lang>/_menu.txt`, a line each, over the games). The shell's `SECTION_OF` table files
+- **The menu's sections**, one tab each (a picture: a man, a knight, a die, a card, a question, a marble, a jigsaw
+  piece; tap, swipe sideways or the arrow keys): strategy, chess family, dice & race, cards & tiles, guessing games,
+  solitaires, puzzles (their names in `help/<lang>/_menu.txt`, a line each, over the games). The shell's `SECTION_OF` table files
   a game by its id (unlisted: strategy); within a section the games go by `order`. `--tab n` in the picture mode.
 - **Wood**: every board is the house wood (`art_board_n`: checkered squares, or one plain plank with lines drawn on
   it), in its walnut frame, on the shell's green table. The shared headers draw the boards of a kind: `grid.h` (go's

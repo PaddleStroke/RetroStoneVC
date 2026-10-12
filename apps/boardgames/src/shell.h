@@ -154,7 +154,8 @@ enum { UI_LIT = 1, UI_DIM = 2, UI_ON = 4, UI_IVORY = 8, UI_TINT = 16, UI_UPSIDE 
 typedef void (*ui_painter)(int kind, int size, uint8_t *rgba);   /* paints kind's picture on a clear size x size */
 /* d across, centred on (cx, cy): one of the shell's icons (ICON_*, cream, 0.62 of d) */
 void ui_button(float cx, float cy, float d, int icon, int how);
-/* the same with the game's picture: paint(kind, (int)(k * d), ...), shown k * d wide (k 1: the whole disc) */
+/* the same with the game's picture: paint(kind, (int)(k * d), ...), shown k * d wide (k 1: the whole disc; paint
+ * NULL: the disc alone) */
 void ui_button_paint(float cx, float cy, float d, ui_painter paint, int kind, float k, int how);
 int  ui_button_hit(float cx, float cy, float d, float x, float y);   /* (x, y) on it, a finger's slack round it */
 /* a button's picture painted into a picture (a thumbnail's): its disc d across centred on (cx, cy), the game's

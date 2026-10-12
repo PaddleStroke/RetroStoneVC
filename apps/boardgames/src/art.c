@@ -630,6 +630,11 @@ void art_icon(int which, int size, uint8_t *rgba)
         art_poly(f, ART_PART, tick, 6);
         break;
     }
+    case ICON_PUZZLE:                               /* a jigsaw piece: a square, a knob on its top and its right */
+        art_rect(f, ART_PART, 0.18f, 0.34f, 0.66f, 0.82f);
+        art_ellipse(f, ART_PART, 0.42f, 0.26f, 0.11f, 0.1f);
+        art_ellipse(f, ART_PART, 0.74f, 0.58f, 0.1f, 0.11f);
+        break;
     case ICON_ARROW: {                              /* an arrow pointing right */
         const float head[] = {0.50f, 0.22f, 0.86f, 0.50f, 0.50f, 0.78f};
         art_rect(f, ART_PART, 0.14f, 0.42f, 0.56f, 0.58f);

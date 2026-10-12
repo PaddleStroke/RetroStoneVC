@@ -112,4 +112,36 @@ static inline void ga_end(ga_pen *p)
     p->f = NULL;
 }
 
+/* ---- kept for the games written with them (new code: ui_button, ui_button_paint, ICON_TICK) ---------------------- */
+static inline void ga_tick(int size, uint8_t *rgba) { art_icon(ICON_TICK, size, rgba); }
+
+enum { GA_ON = 1, GA_DIM = 2, GA_IVORY = 4 };
+typedef struct { int d; } ga_buttons;
+static inline void ga_buttons_make(ga_buttons *b, int d) { b->d = d; }
+
+/* a button centred on (cx, cy), d across, its icon (a texture) k times as wide: the shell's disc */
+static inline void ga_button(const ga_buttons *b, SDL_Texture *icon, float cx, float cy, float d, float k, int how)
+{
+    (void)b;
+    Uint8 a = how & GA_DIM ? 100 : 255;
+    ui_button_paint(cx, cy, d, NULL, 0, 1, (how & GA_ON ? UI_ON : 0) | (how & GA_DIM ? UI_DIM : 0) |
+                                           (how & GA_IVORY ? UI_IVORY : 0));
+    if (!icon) return;
+    SDL_SetTextureAlphaMod(icon, a);
+    ui_put_c(icon, cx, cy, d * k, d * k);
+    SDL_SetTextureAlphaMod(icon, 255);
+}
+
+static inline int ga_in(float cx, float cy, float d, float x, float y) { return ui_button_hit(cx, cy, d, x, y); }
+
+/* an icon texture from a painter (cream when tinted: the shell's icons) */
+static inline SDL_Texture *ga_icon(void (*paint)(int, uint8_t *), int size, int cream)
+{
+    uint8_t *o = ui_buf(size, size);
+    paint(size, o);
+    SDL_Texture *t = ui_tex(size, size, o);
+    if (t && cream) SDL_SetTextureColorMod(t, 252, 244, 226);
+    return t;
+}
+
 #endif
