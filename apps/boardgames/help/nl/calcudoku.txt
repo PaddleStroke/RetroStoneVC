@@ -1,0 +1,13 @@
+Calcudoku
+# Het doel
+Vul het rooster zo dat elke rij en elke kolom elk cijfer van 1 tot de grootte van het rooster precies één keer bevat. Dikke lijnen verdelen het rooster in kooien; elke kooi toont een uitkomst en een teken. De cijfers opgeteld (+) of vermenigvuldigd (×) geven de uitkomst; in een kooi van twee vakjes geeft het grootste min het kleinste (−) of het grootste gedeeld door het kleinste (÷) die. Een kooi van één vakje bevat zijn uitkomst. Een cijfer mag twee keer in een kooi staan, maar nooit twee keer in een rij of kolom. Elke puzzel heeft precies één oplossing, te vinden door alleen te redeneren. Kies eerst de grootte en het niveau (de stenen onder elk plaatje):
+- Makkelijk: de manieren om de uitkomst van elke kooi te maken, en een cijfer met nog maar één plek in zijn rij of kolom, zijn altijd genoeg.
+- Gemiddeld: je hebt ook de cijfers nodig die een kooi in één rij of kolom moet zetten, en paren.
+- Moeilijk: langer redeneren: probeer een cijfer en volg het tot er iets niet klopt.
+# Spelen op het apparaat
+Tik een vakje aan en dan een toets onder het bord: het cijfer komt erin, in blauwe inkt. Tik nog eens op dezelfde toets om het weg te halen, of sleep een toets naar een vakje. De rij en kolom van het vakje lichten zacht op, zijn kooi iets meer, en elk vakje met hetzelfde cijfer warm. Is er geen vakje gekozen, dan laat een toets de vakjes met zijn cijfer oplichten. De knoppen naast het bord:
+- Potlood: notities. De toetsen zetten dan kleine cijfers in het vakje of halen ze weg.
+- Gum: haalt het cijfer van het vakje weg, of de notities.
+- Lamp: een hint. Hij verbetert een fout cijfer, of vult anders een vakje dat redeneren oplevert, in gouden licht.
+- Oog: toont fouten in rood (een cijfer twee keer in een lijn, een volle kooi die zijn uitkomst mist). Het staat aan het begin aan.
+Ongedaan maken neemt telkens één handeling terug, helemaal tot het begin. De balk toont je zetten. Is het rooster vol en goed, dan gaat er een golf van gouden licht over het bord.

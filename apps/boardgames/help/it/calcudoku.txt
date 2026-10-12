@@ -1,0 +1,13 @@
+Calcudoku
+# Lo scopo
+Riempi la griglia in modo che ogni riga e ogni colonna contenga una volta ogni cifra da 1 alla dimensione della griglia. Linee spesse dividono la griglia in gabbie; ogni gabbia mostra un risultato e un segno. Le sue cifre sommate (+) o moltiplicate (×) danno il risultato; in una gabbia di due caselle lo dà la maggiore meno la minore (−) o la maggiore divisa per la minore (÷). Una gabbia di una sola casella contiene il suo risultato. Una cifra può ripetersi in una gabbia, ma mai in una riga o in una colonna. Ogni schema ha una sola soluzione, che si trova con il solo ragionamento. Scegli prima la dimensione e il livello (le pietre sotto ogni immagine):
+- Facile: i modi di ottenere il risultato di ogni gabbia, e una cifra con un solo posto libero nella sua riga o colonna, bastano sempre.
+- Medio: ti serviranno anche le cifre che una gabbia deve mettere in una stessa riga o colonna, e le coppie.
+- Difficile: ragionamenti più lunghi: provare una cifra e seguirla finché qualcosa non torna.
+# Giocare sul dispositivo
+Tocca una casella, poi un tasto sotto il tavoliere: la sua cifra entra, in inchiostro blu. Tocca di nuovo lo stesso tasto per toglierla, o trascina un tasto su una casella. La riga e la colonna della casella si illuminano appena, la sua gabbia un po' di più, e le caselle con la sua cifra con una luce calda. Senza una casella scelta, un tasto illumina le caselle della sua cifra. I pulsanti accanto al tavoliere:
+- Matita: le note. I tasti mettono allora piccole cifre nella casella, o le tolgono.
+- Gomma: toglie la cifra della casella, o le sue note.
+- Lampada: un aiuto. Corregge una cifra sbagliata, oppure riempie una casella che il ragionamento trova, in luce dorata.
+- Occhio: mostra gli errori in rosso (una cifra due volte in una linea, una gabbia piena che non dà il suo risultato). All'inizio è acceso.
+Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue mosse. Quando la griglia è piena e giusta, un'onda di luce dorata percorre il tavoliere.

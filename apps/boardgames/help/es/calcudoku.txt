@@ -1,0 +1,13 @@
+Calcudoku
+# El objetivo
+Rellena la cuadrícula para que cada fila y cada columna tenga una vez cada cifra del 1 al tamaño de la cuadrícula. Unas líneas gruesas dividen la cuadrícula en jaulas; cada jaula muestra un resultado y un signo. Sus cifras sumadas (+) o multiplicadas (×) dan el resultado; en una jaula de dos casillas lo da la mayor menos la menor (−) o la mayor dividida entre la menor (÷). Una jaula de una sola casilla contiene su resultado. Una cifra puede repetirse en una jaula, pero nunca en una fila o una columna. Cada problema tiene una única solución, que se encuentra solo razonando. Elige primero el tamaño y el nivel (las piedras bajo cada imagen):
+- Fácil: las formas de obtener el resultado de cada jaula, y una cifra con un solo hueco en su fila o columna, bastan siempre.
+- Medio: también te harán falta las cifras que una jaula debe poner en una misma fila o columna, y las parejas.
+- Difícil: razonamientos más largos: probar una cifra y seguirla hasta que algo falle.
+# Jugar en el dispositivo
+Toca una casilla y luego una tecla bajo el tablero: su cifra entra, en tinta azul. Toca otra vez la misma tecla para quitarla, o arrastra una tecla a una casilla. La fila y la columna de la casilla se iluminan un poco, su jaula algo más, y las casillas con su cifra con un tono cálido. Sin casilla elegida, una tecla ilumina las casillas de su cifra. Los botones junto al tablero:
+- Lápiz: notas. Las teclas ponen entonces cifras pequeñas en la casilla, o las quitan.
+- Goma: quita la cifra de la casilla, o sus notas.
+- Lámpara: una pista. Corrige una cifra equivocada o, si no, rellena una casilla que el razonamiento encuentra, con luz dorada.
+- Ojo: muestra los errores en rojo (una cifra dos veces en una línea, una jaula llena que no da su resultado). Empieza encendido.
+Deshacer quita una acción cada vez, hasta el principio. La barra muestra tus jugadas. Cuando la cuadrícula está llena y bien, una ola de luz dorada recorre el tablero.

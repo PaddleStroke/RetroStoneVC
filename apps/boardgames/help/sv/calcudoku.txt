@@ -1,0 +1,13 @@
+Calcudoku
+# Målet
+Fyll rutnätet så att varje rad och varje kolumn har varje siffra från 1 till rutnätets storlek en gång. Tjocka linjer delar rutnätet i burar; varje bur visar ett resultat och ett tecken. Burens siffror adderade (+) eller multiplicerade (×) ger resultatet; i en bur med två rutor ger den större minus den mindre (−) eller den större delad med den mindre (÷) det. En bur med en ruta innehåller sitt resultat. En siffra får stå två gånger i en bur, men aldrig två gånger i en rad eller kolumn. Varje uppgift har exakt en lösning, som går att hitta bara genom att resonera. Välj först storlek och nivå (stenarna under varje bild):
+- Lätt: sätten att bilda varje burs resultat, och en siffra med bara en plats kvar i sin rad eller kolumn, räcker alltid.
+- Medel: du behöver också siffrorna som en bur måste sätta i en och samma rad eller kolumn, och par.
+- Svår: längre resonemang: pröva en siffra och följ den tills något går sönder.
+# Spela på enheten
+Tryck på en ruta och sedan på en tangent under brädet: siffran skrivs in med blått bläck. Tryck på samma tangent igen för att ta bort den, eller dra en tangent till en ruta. Rutans rad och kolumn lyser svagt, buren lite mer, och alla rutor med samma siffra varmt. Utan vald ruta tänder en tangent rutorna med sin siffra. Knapparna bredvid brädet:
+- Penna: anteckningar. Tangenterna sätter då små siffror i rutan, eller tar bort dem.
+- Suddgummi: tar bort rutans siffra, eller anteckningarna.
+- Lampa: en ledtråd. Den rättar en felaktig siffra, eller fyller annars en ruta som resonemanget hittar, i gyllene ljus.
+- Öga: visar fel i rött (en siffra två gånger på en linje, en full bur som missar sitt resultat). Det är på från början.
+Ångra tar tillbaka en handling i taget, ända till början. Listen visar dina drag. När rutnätet är fullt och rätt sveper en våg av gyllene ljus över brädet.

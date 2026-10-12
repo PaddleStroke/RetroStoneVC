@@ -1,0 +1,13 @@
+Calcudoku
+# Amaç
+Tabloyu, her satırda ve her sütunda 1'den tablonun boyutuna kadar her rakam birer kez olacak biçimde doldur. Kalın çizgiler tabloyu kafeslere böler; her kafeste bir sonuç ve bir işaret vardır. Kafesin rakamları toplanınca (+) ya da çarpılınca (×) sonucu verir; iki kareli bir kafeste sonucu büyüğün küçükten farkı (−) ya da büyüğün küçüğe bölümü (÷) verir. Tek kareli bir kafes kendi sonucunu içerir. Bir rakam bir kafeste iki kez olabilir, ama bir satırda ya da sütunda asla. Her bulmacanın tek bir çözümü vardır ve yalnızca akıl yürüterek bulunur. Önce boyutu ve seviyeyi seç (her resmin altındaki taşlar):
+- Kolay: her kafesin sonucunu elde etmenin yolları ve satırında ya da sütununda tek bir yeri kalan rakam her zaman yeter.
+- Orta: bir kafesin aynı satıra ya da sütuna koymak zorunda olduğu rakamlar ve çiftler de gerekecek.
+- Zor: daha uzun akıl yürütmeler: bir rakamı dene ve bir şey bozulana kadar izle.
+# Cihazda oynamak
+Bir kareye, sonra tahtanın altındaki bir tuşa dokun: rakamı mavi mürekkeple yazılır. Silmek için aynı tuşa yeniden dokun ya da bir tuşu bir kareye sürükle. Karenin satırı ve sütunu hafifçe, kafesi biraz daha aydınlanır; aynı rakamı taşıyan kareler sıcak bir ışıkla parlar. Hiçbir kare seçili değilken bir tuş kendi rakamının karelerini aydınlatır. Tahtanın yanındaki düğmeler:
+- Kalem: notlar. Tuşlar o zaman kareye küçük rakamlar koyar ya da onları siler.
+- Silgi: karenin rakamını ya da notlarını siler.
+- Lamba: ipucu. Yanlış bir rakamı düzeltir, yoksa akıl yürütmenin bulduğu bir kareyi altın ışıkta doldurur.
+- Göz: hataları kırmızıyla gösterir (bir çizgide iki kez geçen rakam, sonucunu tutturamayan dolu kafes). Başta açıktır.
+Geri al her seferinde bir işlemi, en başa kadar geri alır. Çubuk hamlelerini gösterir. Tablo dolu ve doğru olunca tahtanın üzerinden altın renkli bir ışık dalgası geçer.

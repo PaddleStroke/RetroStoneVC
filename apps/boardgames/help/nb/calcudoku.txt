@@ -1,0 +1,13 @@
+Calcudoku
+# Målet
+Fyll rutenettet slik at hver rad og hver kolonne har hvert siffer fra 1 til nettets størrelse én gang. Tykke streker deler nettet i bur; hvert bur viser et resultat og et tegn. Burets sifre lagt sammen (+) eller ganget (×) gir resultatet; i et bur med to ruter gir det største minus det minste (−) eller det største delt på det minste (÷) det. Et bur med én rute inneholder resultatet sitt. Et siffer kan stå to ganger i et bur, men aldri to ganger i en rad eller kolonne. Hver oppgave har nøyaktig én løsning, som kan finnes bare ved resonnering. Velg først størrelse og nivå (steinene under hvert bilde):
+- Lett: måtene å lage hvert burs resultat på, og et siffer med bare én plass igjen i raden eller kolonnen, er alltid nok.
+- Middels: du trenger også sifrene et bur må sette i én rad eller kolonne, og par.
+- Vanskelig: lengre resonnementer: prøv et siffer og følg det til noe går galt.
+# Spill på enheten
+Trykk på en rute og så på en tast under brettet: sifferet kommer inn med blått blekk. Trykk på samme tast igjen for å fjerne det, eller dra en tast til en rute. Rutens rad og kolonne lyser svakt, buret litt mer, og alle ruter med samme siffer varmt. Uten valgt rute lyser en tast opp rutene med sifferet sitt. Knappene ved siden av brettet:
+- Blyant: notater. Tastene setter da små sifre i ruten, eller fjerner dem.
+- Viskelær: fjerner rutens siffer, eller notatene.
+- Lampe: et hint. Den retter et feil siffer, eller fyller ellers en rute som resonneringen finner, i gyllent lys.
+- Øye: viser feil i rødt (et siffer to ganger på en linje, et fullt bur som bommer på resultatet). Det er på fra start.
+Angre tar tilbake én handling om gangen, helt til starten. Linjen viser trekkene dine. Når nettet er fullt og riktig, går en bølge av gyllent lys over brettet.

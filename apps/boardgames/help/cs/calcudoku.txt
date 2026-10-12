@@ -1,0 +1,13 @@
+Calcudoku
+# Cíl hry
+Vyplň mřížku tak, aby každý řádek a každý sloupec obsahoval každou číslici od 1 do velikosti mřížky právě jednou. Silné čáry dělí mřížku na klece; každá klec ukazuje výsledek a znaménko. Její číslice sečtené (+) nebo vynásobené (×) dají výsledek; v kleci ze dvou políček ho dá větší minus menší (−) nebo větší děleno menším (÷). Klec z jednoho políčka obsahuje svůj výsledek. Číslice se v kleci smí opakovat, ale nikdy v řádku ani ve sloupci. Každá úloha má právě jedno řešení, které se dá najít jen úvahou. Nejprve vyber velikost a obtížnost (kameny pod každým obrázkem):
+- Lehká: vždy stačí způsoby, jak složit výsledek každé klece, a číslice, která má v řádku nebo sloupci už jen jedno místo.
+- Střední: budeš potřebovat i číslice, které klec musí dát do jednoho řádku nebo sloupce, a dvojice.
+- Těžká: delší úvahy: zkusit číslici a sledovat ji, dokud se něco nerozbije.
+# Hra na zařízení
+Klepni na políčko a potom na klávesu pod deskou: její číslice se zapíše modrým inkoustem. Dalším klepnutím na tutéž klávesu ji smažeš, nebo klávesu přetáhni na políčko. Řádek a sloupec políčka se slabě rozsvítí, jeho klec o něco víc a políčka se stejnou číslicí teple. Když není vybrané žádné políčko, klávesa rozsvítí políčka své číslice. Tlačítka vedle desky:
+- Tužka: poznámky. Klávesy pak píšou do políčka malé číslice, nebo je mažou.
+- Guma: smaže číslici políčka, nebo jeho poznámky.
+- Lampa: nápověda. Opraví špatnou číslici, jinak vyplní políčko, které najde úvaha, ve zlatém světle.
+- Oko: ukáže chyby červeně (číslice dvakrát v řadě, plná klec, která nedává svůj výsledek). Na začátku je zapnuté.
+Zpět vrací jednu akci po druhé, až na začátek. Lišta ukazuje tvé tahy. Když je mřížka plná a správně, přeběhne po desce vlna zlatého světla.

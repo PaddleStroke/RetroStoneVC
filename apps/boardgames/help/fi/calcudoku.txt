@@ -1,0 +1,13 @@
+Calcudoku
+# Tavoite
+Täytä ruudukko niin, että jokaisella rivillä ja jokaisessa sarakkeessa on kukin numero 1:stä ruudukon kokoon kerran. Paksut viivat jakavat ruudukon häkkeihin; jokaisessa häkissä on tulos ja merkki. Häkin numerot yhteen laskettuina (+) tai kerrottuina (×) antavat tuloksen; kahden ruudun häkissä sen antaa suurempi miinus pienempi (−) tai suurempi jaettuna pienemmällä (÷). Yhden ruudun häkissä on sen tulos. Numero saa esiintyä häkissä kahdesti, mutta ei koskaan kahdesti samalla rivillä tai sarakkeessa. Jokaisella tehtävällä on täsmälleen yksi ratkaisu, joka löytyy pelkällä päättelyllä. Valitse ensin koko ja taso (kivet kunkin kuvan alla):
+- Helppo: tavat muodostaa kunkin häkin tulos ja numero, jolle on rivillään tai sarakkeessaan enää yksi paikka, riittävät aina.
+- Keskitaso: tarvitset myös numerot, jotka häkin on pantava samalle riville tai sarakkeeseen, sekä pareja.
+- Vaikea: pidempää päättelyä: kokeile numeroa ja seuraa sitä, kunnes jokin menee rikki.
+# Pelaaminen laitteella
+Napauta ruutua ja sitten näppäintä laudan alla: numero kirjoittuu sinisellä musteella. Napauta samaa näppäintä uudelleen poistaaksesi sen, tai vedä näppäin ruutuun. Ruudun rivi ja sarake valaistuvat himmeästi, sen häkki hieman enemmän ja saman numeron ruudut lämpimästi. Kun ruutua ei ole valittu, näppäin valaisee numeronsa ruudut. Painikkeet laudan vieressä:
+- Lyijykynä: muistiinpanot. Näppäimet panevat silloin ruutuun pieniä numeroita tai poistavat niitä.
+- Pyyhekumi: poistaa ruudun numeron tai sen muistiinpanot.
+- Lamppu: vihje. Se korjaa väärän numeron tai muuten täyttää ruudun, jonka päättely löytää, kultaisessa valossa.
+- Silmä: näyttää virheet punaisina (numero kahdesti samalla rivillä tai sarakkeessa, täysi häkki, joka ei anna tulostaan). Se on aluksi päällä.
+Kumoa perii takaisin yhden toimen kerrallaan, alkuun asti. Palkki näyttää siirtosi. Kun ruudukko on täynnä ja oikein, kultaisen valon aalto kulkee laudan yli.

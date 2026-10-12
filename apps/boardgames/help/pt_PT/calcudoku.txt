@@ -1,0 +1,13 @@
+Calcudoku
+# O objetivo
+Preenche a grelha para que cada linha e cada coluna tenha uma vez cada algarismo de 1 até ao tamanho da grelha. Linhas grossas dividem a grelha em jaulas; cada jaula mostra um resultado e um sinal. Os seus algarismos somados (+) ou multiplicados (×) dão o resultado; numa jaula de duas casas, dá-o o maior menos o menor (−) ou o maior a dividir pelo menor (÷). Uma jaula de uma só casa contém o seu resultado. Um algarismo pode repetir-se numa jaula, mas nunca numa linha ou coluna. Cada problema tem uma única solução, que se encontra só a raciocinar. Escolhe primeiro o tamanho e o nível (as pedras debaixo de cada imagem):
+- Fácil: as maneiras de formar o resultado de cada jaula, e um algarismo com um só lugar livre na sua linha ou coluna, chegam sempre.
+- Médio: vais precisar também dos algarismos que uma jaula tem de pôr numa mesma linha ou coluna, e de pares.
+- Difícil: raciocínios mais longos: experimentar um algarismo e segui-lo até algo falhar.
+# Jogar no dispositivo
+Toca numa casa e depois numa tecla por baixo do tabuleiro: o algarismo entra, a tinta azul. Toca outra vez na mesma tecla para o tirar, ou arrasta uma tecla para uma casa. A linha e a coluna da casa acendem-se de leve, a jaula um pouco mais, e as casas com o mesmo algarismo num tom quente. Sem casa escolhida, uma tecla acende as casas do seu algarismo. Os botões ao lado do tabuleiro:
+- Lápis: notas. As teclas passam a pôr algarismos pequenos na casa, ou a tirá-los.
+- Borracha: tira o algarismo da casa, ou as notas.
+- Lâmpada: uma ajuda. Corrige um algarismo errado ou, senão, preenche uma casa que o raciocínio encontra, com luz dourada.
+- Olho: mostra os erros a vermelho (um algarismo duas vezes numa linha, uma jaula cheia que falha o resultado). Começa ligado.
+Anular desfaz uma ação de cada vez, até ao início. A barra mostra as tuas jogadas. Quando a grelha está cheia e certa, uma onda de luz dourada percorre o tabuleiro.
