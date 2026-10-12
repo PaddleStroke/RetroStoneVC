@@ -1,4 +1,4 @@
-RetroStone Arcade gathers 20 original arcade games made in the spirit of the 16-bit consoles: crisp pixel art, catchy music and quick rounds you can pick up in a second.
+RetroStone Arcade gathers 21 original arcade games made in the spirit of the 16-bit consoles: crisp pixel art, catchy music and quick rounds you can pick up in a second.
 
 THE GAMES
 • Beaver Rush: gnaw a giant tree log by log, from the left or the right
@@ -21,6 +21,7 @@ THE GAMES
 • Radish Rascals: shoo the rabbits from your vegetable beds, spare the hedgehogs
 • Snail Switch: flip above or below the vine to dodge thorns and caterpillars
 • Spider Swing: swing from flower to flower and climb ever higher
+• Unicorn Hop: hop up from cloud to cloud, one tap at just the right moment
 
 PLAY YOUR WAY
 • Simple touch controls, made for each game

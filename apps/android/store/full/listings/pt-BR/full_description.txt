@@ -1,4 +1,4 @@
-RetroStone Arcade reúne 20 jogos de fliperama originais no espírito dos consoles de 16 bits: pixel art caprichada, músicas que grudam e partidas rápidas que você entende num segundo.
+RetroStone Arcade reúne 21 jogos de fliperama originais no espírito dos consoles de 16 bits: pixel art caprichada, músicas que grudam e partidas rápidas que você entende num segundo.
 
 OS JOGOS
 • Beaver Rush
@@ -21,6 +21,7 @@ OS JOGOS
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 JOGUE DO SEU JEITO
 • Controles de toque simples, feitos para cada jogo

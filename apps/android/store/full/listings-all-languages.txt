@@ -1,16 +1,16 @@
-RetroStone: 20 Offline Games: Google Play store listing, 22 languages. Each language starts with a "=== LANGUAGE ===" line, then its three fields: App name, Short description, Full description.
+RetroStone: 21 Offline Games: Google Play store listing, 22 languages. Each language starts with a "=== LANGUAGE ===" line, then its three fields: App name, Short description, Full description.
 
 
 === English (United States) (en-US) ===
 
 App name:
-RetroStone: 20 Offline Games
+RetroStone: 21 Offline Games
 
 Short description:
-20 retro arcade games in one app. Play offline: no ads, no in-app purchases.
+21 retro arcade games in one app. Play offline: no ads, no in-app purchases.
 
 Full description:
-RetroStone Arcade gathers 20 original arcade games made in the spirit of the 16-bit consoles: crisp pixel art, catchy music and quick rounds you can pick up in a second.
+RetroStone Arcade gathers 21 original arcade games made in the spirit of the 16-bit consoles: crisp pixel art, catchy music and quick rounds you can pick up in a second.
 
 THE GAMES
 • Beaver Rush: gnaw a giant tree log by log, from the left or the right
@@ -33,6 +33,7 @@ THE GAMES
 • Radish Rascals: shoo the rabbits from your vegetable beds, spare the hedgehogs
 • Snail Switch: flip above or below the vine to dodge thorns and caterpillars
 • Spider Swing: swing from flower to flower and climb ever higher
+• Unicorn Hop: hop up from cloud to cloud, one tap at just the right moment
 
 PLAY YOUR WAY
 • Simple touch controls, made for each game
@@ -51,13 +52,13 @@ Made by 8BCraft. Code under the MIT licence, art and music under CC BY-NC-SA 4.0
 === Czech (cs-CZ) ===
 
 App name:
-RetroStone: 20 offline her
+RetroStone: 21 offline her
 
 Short description:
-20 retro arkádových her v jedné aplikaci. Hraj offline, bez reklam a nákupů.
+21 retro arkádových her v jedné aplikaci. Hraj offline, bez reklam a nákupů.
 
 Full description:
-RetroStone Arcade spojuje 20 původních arkádových her v duchu 16bitových konzolí: ostrý pixel art, chytlavou hudbu a krátká kola, která pochopíš za vteřinu.
+RetroStone Arcade spojuje 21 původních arkádových her v duchu 16bitových konzolí: ostrý pixel art, chytlavou hudbu a krátká kola, která pochopíš za vteřinu.
 
 HRY
 • Beaver Rush
@@ -80,6 +81,7 @@ HRY
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 HRAJ PO SVÉM
 • Jednoduché dotykové ovládání, navržené pro každou hru
@@ -98,13 +100,13 @@ Vytvořil 8BCraft. Kód pod licencí MIT, grafika a hudba pod CC BY-NC-SA 4.0: v
 === Danish (da-DK) ===
 
 App name:
-RetroStone: 20 offline-spil
+RetroStone: 21 offline-spil
 
 Short description:
-20 retro-arkadespil i én app. Spil offline, ingen reklamer, ingen køb i appen.
+21 retro-arkadespil i én app. Spil offline, ingen reklamer, ingen køb i appen.
 
 Full description:
-RetroStone Arcade samler 20 originale arkadespil i 16-bit-konsollernes ånd: skarp pixelgrafik, fængende musik og korte runder, du forstår på et sekund.
+RetroStone Arcade samler 21 originale arkadespil i 16-bit-konsollernes ånd: skarp pixelgrafik, fængende musik og korte runder, du forstår på et sekund.
 
 SPILLENE
 • Beaver Rush
@@ -127,6 +129,7 @@ SPILLENE
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 SPIL, SOM DU VIL
 • Enkel touchstyring, lavet til hvert spil
@@ -145,13 +148,13 @@ Lavet af 8BCraft. Kode under MIT-licensen, grafik og musik under CC BY-NC-SA 4.0
 === German (de-DE) ===
 
 App name:
-RetroStone: 20 Offline-Spiele
+RetroStone: 21 Offline-Spiele
 
 Short description:
-20 Retro-Arcade-Spiele in einer App. Offline spielbar, ohne Werbung und Käufe.
+21 Retro-Arcade-Spiele in einer App. Offline spielbar, ohne Werbung und Käufe.
 
 Full description:
-RetroStone Arcade vereint 20 originelle Arcade-Spiele im Geist der 16-Bit-Konsolen: knackige Pixel-Art, eingängige Musik und kurze Runden, die du sofort verstehst.
+RetroStone Arcade vereint 21 originelle Arcade-Spiele im Geist der 16-Bit-Konsolen: knackige Pixel-Art, eingängige Musik und kurze Runden, die du sofort verstehst.
 
 DIE SPIELE
 • Beaver Rush
@@ -174,6 +177,7 @@ DIE SPIELE
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 SPIEL, WIE DU WILLST
 • Einfache Touch-Steuerung, für jedes Spiel gemacht
@@ -192,13 +196,13 @@ Von 8BCraft. Code unter der MIT-Lizenz, Grafik und Musik unter CC BY-NC-SA 4.0: 
 === Greek (el-GR) ===
 
 App name:
-RetroStone: 20 Offline Games
+RetroStone: 21 Offline Games
 
 Short description:
-20 ρετρό παιχνίδια arcade σε μία εφαρμογή. Παίζει offline, χωρίς διαφημίσεις.
+21 ρετρό παιχνίδια arcade σε μία εφαρμογή. Παίζει offline, χωρίς διαφημίσεις.
 
 Full description:
-Το RetroStone Arcade συγκεντρώνει 20 πρωτότυπα παιχνίδια arcade στο πνεύμα των κονσολών 16-bit: καθαρό pixel art, μουσική που κολλάει και σύντομους γύρους που μαθαίνεις αμέσως.
+Το RetroStone Arcade συγκεντρώνει 21 πρωτότυπα παιχνίδια arcade στο πνεύμα των κονσολών 16-bit: καθαρό pixel art, μουσική που κολλάει και σύντομους γύρους που μαθαίνεις αμέσως.
 
 ΤΑ ΠΑΙΧΝΙΔΙΑ
 • Beaver Rush
@@ -221,6 +225,7 @@ Full description:
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 ΠΑΙΞΕ ΟΠΩΣ ΘΕΛΕΙΣ
 • Απλά χειριστήρια αφής, φτιαγμένα για κάθε παιχνίδι
@@ -239,13 +244,13 @@ Full description:
 === Spanish (Spain) (es-ES) ===
 
 App name:
-RetroStone: 20 juegos offline
+RetroStone: 21 juegos offline
 
 Short description:
-20 juegos arcade retro en una app. Sin conexión, sin anuncios ni compras.
+21 juegos arcade retro en una app. Sin conexión, sin anuncios ni compras.
 
 Full description:
-RetroStone Arcade reúne 20 juegos arcade originales con el espíritu de las consolas de 16 bits: pixel art nítido, música pegadiza y partidas cortas que entiendes en un segundo.
+RetroStone Arcade reúne 21 juegos arcade originales con el espíritu de las consolas de 16 bits: pixel art nítido, música pegadiza y partidas cortas que entiendes en un segundo.
 
 LOS JUEGOS
 • Beaver Rush
@@ -268,6 +273,7 @@ LOS JUEGOS
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 JUEGA A TU MANERA
 • Controles táctiles sencillos, pensados para cada juego
@@ -286,13 +292,13 @@ Creado por 8BCraft. Código con licencia MIT, gráficos y música con CC BY-NC-S
 === Finnish (fi-FI) ===
 
 App name:
-RetroStone: 20 offline-peliä
+RetroStone: 21 offline-peliä
 
 Short description:
-20 retro-arcade-peliä yhdessä sovelluksessa. Pelaa offline, ei mainoksia.
+21 retro-arcade-peliä yhdessä sovelluksessa. Pelaa offline, ei mainoksia.
 
 Full description:
-RetroStone Arcade kokoaa yhteen 20 alkuperäistä arcade-peliä 16-bittisten konsolien hengessä: terävää pikseligrafiikkaa, tarttuvaa musiikkia ja lyhyitä pelejä, jotka opit hetkessä.
+RetroStone Arcade kokoaa yhteen 21 alkuperäistä arcade-peliä 16-bittisten konsolien hengessä: terävää pikseligrafiikkaa, tarttuvaa musiikkia ja lyhyitä pelejä, jotka opit hetkessä.
 
 PELIT
 • Beaver Rush
@@ -315,6 +321,7 @@ PELIT
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 PELAA OMALLA TAVALLASI
 • Helpot kosketusohjaimet, jokaiselle pelille omansa
@@ -333,13 +340,13 @@ Tekijä 8BCraft. Koodi MIT-lisenssillä, grafiikka ja musiikki CC BY-NC-SA 4.0 -
 === French (France) (fr-FR) ===
 
 App name:
-RetroStone: 20 jeux hors ligne
+RetroStone: 21 jeux hors ligne
 
 Short description:
-20 jeux d'arcade rétro dans une appli. Hors ligne, sans pub ni achat intégré.
+21 jeux d'arcade rétro dans une appli. Hors ligne, sans pub ni achat intégré.
 
 Full description:
-RetroStone Arcade réunit 20 jeux d'arcade originaux dans l'esprit des consoles 16 bits : du pixel art soigné, des musiques entraînantes et des parties courtes que tu prends en main en une seconde.
+RetroStone Arcade réunit 21 jeux d'arcade originaux dans l'esprit des consoles 16 bits : du pixel art soigné, des musiques entraînantes et des parties courtes que tu prends en main en une seconde.
 
 LES JEUX
 • Beaver Rush : ronge l'arbre géant bûche après bûche, à gauche ou à droite
@@ -362,6 +369,7 @@ LES JEUX
 • Radish Rascals : chasse les lapins de ton potager, mais épargne les hérissons
 • Snail Switch : passe dessus ou dessous la liane pour éviter épines et chenilles
 • Spider Swing : balance-toi de fleur en fleur et grimpe toujours plus haut
+• Unicorn Hop : saute de nuage en nuage vers le ciel, en tapant juste au bon moment
 
 JOUE COMME TU VEUX
 • Des commandes tactiles simples, pensées pour chaque jeu
@@ -380,13 +388,13 @@ Créé par 8BCraft. Code sous licence MIT, graphismes et musiques sous CC BY-NC-
 === Indonesian (id) ===
 
 App name:
-RetroStone: 20 Game Offline
+RetroStone: 21 Game Offline
 
 Short description:
-20 game arcade retro dalam 1 aplikasi. Main offline, tanpa iklan & pembelian.
+21 game arcade retro dalam 1 aplikasi. Main offline, tanpa iklan & pembelian.
 
 Full description:
-RetroStone Arcade mengumpulkan 20 game arcade orisinal dengan semangat konsol 16-bit: pixel art yang tajam, musik yang mudah diingat, dan ronde singkat yang langsung kamu pahami.
+RetroStone Arcade mengumpulkan 21 game arcade orisinal dengan semangat konsol 16-bit: pixel art yang tajam, musik yang mudah diingat, dan ronde singkat yang langsung kamu pahami.
 
 GAME-NYA
 • Beaver Rush
@@ -409,6 +417,7 @@ GAME-NYA
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 MAIN SESUKAMU
 • Kontrol sentuh sederhana, dibuat untuk tiap game
@@ -427,13 +436,13 @@ Dibuat oleh 8BCraft. Kode berlisensi MIT, gambar dan musik berlisensi CC BY-NC-S
 === Italian (it-IT) ===
 
 App name:
-RetroStone: 20 giochi offline
+RetroStone: 21 giochi offline
 
 Short description:
-20 giochi arcade retrò in un'app. Anche offline, senza pubblicità né acquisti.
+21 giochi arcade retrò in un'app. Anche offline, senza pubblicità né acquisti.
 
 Full description:
-RetroStone Arcade riunisce 20 giochi arcade originali nello spirito delle console a 16 bit: pixel art curata, musiche orecchiabili e partite brevi che capisci in un attimo.
+RetroStone Arcade riunisce 21 giochi arcade originali nello spirito delle console a 16 bit: pixel art curata, musiche orecchiabili e partite brevi che capisci in un attimo.
 
 I GIOCHI
 • Beaver Rush
@@ -456,6 +465,7 @@ I GIOCHI
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 GIOCA COME VUOI
 • Comandi touch semplici, pensati per ogni gioco
@@ -474,13 +484,13 @@ Creato da 8BCraft. Codice con licenza MIT, grafica e musica con CC BY-NC-SA 4.0:
 === Japanese (ja-JP) ===
 
 App name:
-RetroStone: オフラインゲーム20本
+RetroStone: オフラインゲーム21本
 
 Short description:
-レトロなアーケードゲーム20本をひとつのアプリに。オフラインで遊べて、広告なし、課金なし。
+レトロなアーケードゲーム21本をひとつのアプリに。オフラインで遊べて、広告なし、課金なし。
 
 Full description:
-RetroStone Arcade は、16ビット機の魂を受け継いだオリジナルのアーケードゲーム20本を収録。くっきりしたドット絵、耳に残る音楽、一瞬でわかる短いプレイが楽しめます。
+RetroStone Arcade は、16ビット機の魂を受け継いだオリジナルのアーケードゲーム21本を収録。くっきりしたドット絵、耳に残る音楽、一瞬でわかる短いプレイが楽しめます。
 
 収録ゲーム
 • Beaver Rush
@@ -503,6 +513,7 @@ RetroStone Arcade は、16ビット機の魂を受け継いだオリジナルの
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 好きなように遊べる
 • ゲームごとに考えられたシンプルなタッチ操作
@@ -521,13 +532,13 @@ RetroStone Arcade は、16ビット機の魂を受け継いだオリジナルの
 === Korean (ko-KR) ===
 
 App name:
-RetroStone: 오프라인 게임 20종
+RetroStone: 오프라인 게임 21종
 
 Short description:
-레트로 아케이드 게임 20종을 앱 하나에. 오프라인 플레이, 광고 없음, 인앱 결제 없음.
+레트로 아케이드 게임 21종을 앱 하나에. 오프라인 플레이, 광고 없음, 인앱 결제 없음.
 
 Full description:
-RetroStone Arcade는 16비트 콘솔의 정신을 담은 오리지널 아케이드 게임 20종을 모았습니다. 선명한 픽셀 아트, 귀에 쏙 들어오는 음악, 바로 이해되는 짧은 판을 즐겨 보세요.
+RetroStone Arcade는 16비트 콘솔의 정신을 담은 오리지널 아케이드 게임 21종을 모았습니다. 선명한 픽셀 아트, 귀에 쏙 들어오는 음악, 바로 이해되는 짧은 판을 즐겨 보세요.
 
 수록 게임
 • Beaver Rush
@@ -550,6 +561,7 @@ RetroStone Arcade는 16비트 콘솔의 정신을 담은 오리지널 아케이�
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 원하는 대로 플레이
 • 게임마다 맞춘 간단한 터치 조작
@@ -568,13 +580,13 @@ RetroStone Arcade는 16비트 콘솔의 정신을 담은 오리지널 아케이�
 === Norwegian (no-NO) ===
 
 App name:
-RetroStone: 20 offline-spill
+RetroStone: 21 offline-spill
 
 Short description:
-20 retro-arkadespill i én app. Spill offline, uten reklame og kjøp i appen.
+21 retro-arkadespill i én app. Spill offline, uten reklame og kjøp i appen.
 
 Full description:
-RetroStone Arcade samler 20 originale arkadespill i 16-bitskonsollenes ånd: skarp pikselgrafikk, fengende musikk og korte runder du skjønner på et sekund.
+RetroStone Arcade samler 21 originale arkadespill i 16-bitskonsollenes ånd: skarp pikselgrafikk, fengende musikk og korte runder du skjønner på et sekund.
 
 SPILLENE
 • Beaver Rush
@@ -597,6 +609,7 @@ SPILLENE
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 SPILL SOM DU VIL
 • Enkel berøringsstyring, laget for hvert spill
@@ -615,13 +628,13 @@ Laget av 8BCraft. Kode under MIT-lisensen, grafikk og musikk under CC BY-NC-SA 4
 === Dutch (nl-NL) ===
 
 App name:
-RetroStone: 20 offline games
+RetroStone: 21 offline games
 
 Short description:
-20 retro-arcadegames in één app. Speel offline, zonder advertenties of aankopen.
+21 retro-arcadegames in één app. Speel offline, zonder advertenties of aankopen.
 
 Full description:
-RetroStone Arcade bundelt 20 originele arcadegames in de geest van de 16-bitconsoles: strakke pixelart, pakkende muziek en korte potjes die je meteen snapt.
+RetroStone Arcade bundelt 21 originele arcadegames in de geest van de 16-bitconsoles: strakke pixelart, pakkende muziek en korte potjes die je meteen snapt.
 
 DE GAMES
 • Beaver Rush
@@ -644,6 +657,7 @@ DE GAMES
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 SPEEL ZOALS JIJ WILT
 • Eenvoudige aanraakbediening, gemaakt voor elke game
@@ -662,13 +676,13 @@ Gemaakt door 8BCraft. Code onder de MIT-licentie, beeld en muziek onder CC BY-NC
 === Polish (pl-PL) ===
 
 App name:
-RetroStone: 20 gier offline
+RetroStone: 21 gier offline
 
 Short description:
-20 gier zręcznościowych retro w jednej aplikacji. Działa offline, bez reklam.
+21 gier zręcznościowych retro w jednej aplikacji. Działa offline, bez reklam.
 
 Full description:
-RetroStone Arcade zbiera 20 oryginalnych gier zręcznościowych w duchu konsol 16-bitowych: wyraźny pixel art, wpadająca w ucho muzyka i krótkie rozgrywki, które zrozumiesz w sekundę.
+RetroStone Arcade zbiera 21 oryginalnych gier zręcznościowych w duchu konsol 16-bitowych: wyraźny pixel art, wpadająca w ucho muzyka i krótkie rozgrywki, które zrozumiesz w sekundę.
 
 GRY
 • Beaver Rush
@@ -691,6 +705,7 @@ GRY
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 GRAJ PO SWOJEMU
 • Proste sterowanie dotykiem, zaprojektowane dla każdej gry
@@ -709,13 +724,13 @@ Autor: 8BCraft. Kod na licencji MIT, grafika i muzyka na licencji CC BY-NC-SA 4.
 === Portuguese (Brazil) (pt-BR) ===
 
 App name:
-RetroStone: 20 jogos offline
+RetroStone: 21 jogos offline
 
 Short description:
-20 jogos de fliperama retrô num app. Jogue offline, sem anúncios nem compras.
+21 jogos de fliperama retrô num app. Jogue offline, sem anúncios nem compras.
 
 Full description:
-RetroStone Arcade reúne 20 jogos de fliperama originais no espírito dos consoles de 16 bits: pixel art caprichada, músicas que grudam e partidas rápidas que você entende num segundo.
+RetroStone Arcade reúne 21 jogos de fliperama originais no espírito dos consoles de 16 bits: pixel art caprichada, músicas que grudam e partidas rápidas que você entende num segundo.
 
 OS JOGOS
 • Beaver Rush
@@ -738,6 +753,7 @@ OS JOGOS
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 JOGUE DO SEU JEITO
 • Controles de toque simples, feitos para cada jogo
@@ -756,13 +772,13 @@ Feito por 8BCraft. Código sob a licença MIT, arte e música sob CC BY-NC-SA 4.
 === Portuguese (Portugal) (pt-PT) ===
 
 App name:
-RetroStone: 20 jogos offline
+RetroStone: 21 jogos offline
 
 Short description:
-20 jogos arcade retro numa app. Joga offline, sem anúncios nem compras.
+21 jogos arcade retro numa app. Joga offline, sem anúncios nem compras.
 
 Full description:
-O RetroStone Arcade reúne 20 jogos arcade originais no espírito das consolas de 16 bits: pixel art cuidada, músicas que ficam no ouvido e partidas curtas que percebes num segundo.
+O RetroStone Arcade reúne 21 jogos arcade originais no espírito das consolas de 16 bits: pixel art cuidada, músicas que ficam no ouvido e partidas curtas que percebes num segundo.
 
 OS JOGOS
 • Beaver Rush
@@ -785,6 +801,7 @@ OS JOGOS
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 JOGA À TUA MANEIRA
 • Controlos tácteis simples, pensados para cada jogo
@@ -803,13 +820,13 @@ Feito por 8BCraft. Código sob a licença MIT, arte e música sob CC BY-NC-SA 4.
 === Russian (ru-RU) ===
 
 App name:
-RetroStone: 20 офлайн-игр
+RetroStone: 21 офлайн-игр
 
 Short description:
-20 ретро-аркад в одном приложении. Работает офлайн, без рекламы и покупок.
+21 ретро-аркад в одном приложении. Работает офлайн, без рекламы и покупок.
 
 Full description:
-RetroStone Arcade собрал 20 оригинальных аркад в духе 16-битных консолей: чёткий пиксель-арт, запоминающаяся музыка и короткие забеги, в которых разберёшься за секунду.
+RetroStone Arcade собрал 21 оригинальных аркад в духе 16-битных консолей: чёткий пиксель-арт, запоминающаяся музыка и короткие забеги, в которых разберёшься за секунду.
 
 ИГРЫ
 • Beaver Rush
@@ -832,6 +849,7 @@ RetroStone Arcade собрал 20 оригинальных аркад в дух�
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 ИГРАЙ КАК ХОЧЕШЬ
 • Простое сенсорное управление, продуманное для каждой игры
@@ -850,13 +868,13 @@ RetroStone Arcade собрал 20 оригинальных аркад в дух�
 === Swedish (sv-SE) ===
 
 App name:
-RetroStone: 20 offlinespel
+RetroStone: 21 offlinespel
 
 Short description:
-20 retroarkadspel i en app. Spela offline, ingen reklam, inga köp i appen.
+21 retroarkadspel i en app. Spela offline, ingen reklam, inga köp i appen.
 
 Full description:
-RetroStone Arcade samlar 20 originella arkadspel i 16-bitarskonsolernas anda: skarp pixelgrafik, medryckande musik och korta omgångar som du lär dig på en sekund.
+RetroStone Arcade samlar 21 originella arkadspel i 16-bitarskonsolernas anda: skarp pixelgrafik, medryckande musik och korta omgångar som du lär dig på en sekund.
 
 SPELEN
 • Beaver Rush
@@ -879,6 +897,7 @@ SPELEN
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 SPELA SOM DU VILL
 • Enkla pekkontroller, gjorda för varje spel
@@ -897,13 +916,13 @@ Gjort av 8BCraft. Kod under MIT-licensen, grafik och musik under CC BY-NC-SA 4.0
 === Turkish (tr-TR) ===
 
 App name:
-RetroStone: 20 Çevrimdışı Oyun
+RetroStone: 21 Çevrimdışı Oyun
 
 Short description:
-20 retro arcade oyunu tek uygulamada. Çevrimdışı oyna, reklam ve satın alma yok.
+21 retro arcade oyunu tek uygulamada. Çevrimdışı oyna, reklam ve satın alma yok.
 
 Full description:
-RetroStone Arcade, 16-bit konsolların ruhunu taşıyan 20 özgün arcade oyununu bir araya getiriyor: net piksel sanatı, akılda kalan müzikler ve bir saniyede kavrayacağın kısa turlar.
+RetroStone Arcade, 16-bit konsolların ruhunu taşıyan 21 özgün arcade oyununu bir araya getiriyor: net piksel sanatı, akılda kalan müzikler ve bir saniyede kavrayacağın kısa turlar.
 
 OYUNLAR
 • Beaver Rush
@@ -926,6 +945,7 @@ OYUNLAR
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 İSTEDİĞİN GİBİ OYNA
 • Her oyun için tasarlanmış basit dokunmatik kontroller
@@ -944,13 +964,13 @@ REKLAM YOK, TAKİP YOK
 === Ukrainian (uk) ===
 
 App name:
-RetroStone: 20 офлайн-ігор
+RetroStone: 21 офлайн-ігор
 
 Short description:
-20 ретро-аркад в одному застосунку. Працює офлайн, без реклами й покупок.
+21 ретро-аркад в одному застосунку. Працює офлайн, без реклами й покупок.
 
 Full description:
-RetroStone Arcade зібрав 20 оригінальних аркад у дусі 16-бітних консолей: чіткий піксель-арт, музика, що запам'ятовується, і короткі забіги, у яких розберешся за секунду.
+RetroStone Arcade зібрав 21 оригінальних аркад у дусі 16-бітних консолей: чіткий піксель-арт, музика, що запам'ятовується, і короткі забіги, у яких розберешся за секунду.
 
 ІГРИ
 • Beaver Rush
@@ -973,6 +993,7 @@ RetroStone Arcade зібрав 20 оригінальних аркад у дус�
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 ГРАЙ ЯК ХОЧЕШ
 • Просте сенсорне керування, продумане для кожної гри
@@ -991,13 +1012,13 @@ RetroStone Arcade зібрав 20 оригінальних аркад у дус�
 === Chinese (Simplified) (zh-CN) ===
 
 App name:
-RetroStone: 20款离线游戏
+RetroStone: 21款离线游戏
 
 Short description:
-20 款复古街机游戏，尽在一个应用。可离线游玩，无广告，无应用内购买。
+21 款复古街机游戏，尽在一个应用。可离线游玩，无广告，无应用内购买。
 
 Full description:
-RetroStone Arcade 汇集 20 款原创街机游戏，延续 16 位游戏机的精神：清晰的像素画、朗朗上口的音乐，还有一秒就能上手的短局。
+RetroStone Arcade 汇集 21 款原创街机游戏，延续 16 位游戏机的精神：清晰的像素画、朗朗上口的音乐，还有一秒就能上手的短局。
 
 游戏列表
 • Beaver Rush
@@ -1020,6 +1041,7 @@ RetroStone Arcade 汇集 20 款原创街机游戏，延续 16 位游戏机的精
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 随心畅玩
 • 为每款游戏量身设计的简单触控操作

@@ -1,4 +1,4 @@
-RetroStone Arcade 汇集 20 款原创街机游戏，延续 16 位游戏机的精神：清晰的像素画、朗朗上口的音乐，还有一秒就能上手的短局。
+RetroStone Arcade 汇集 21 款原创街机游戏，延续 16 位游戏机的精神：清晰的像素画、朗朗上口的音乐，还有一秒就能上手的短局。
 
 游戏列表
 • Beaver Rush
@@ -21,6 +21,7 @@ RetroStone Arcade 汇集 20 款原创街机游戏，延续 16 位游戏机的精
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 随心畅玩
 • 为每款游戏量身设计的简单触控操作

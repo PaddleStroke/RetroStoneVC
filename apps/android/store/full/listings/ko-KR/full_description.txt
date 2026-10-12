@@ -1,4 +1,4 @@
-RetroStone Arcade는 16비트 콘솔의 정신을 담은 오리지널 아케이드 게임 20종을 모았습니다. 선명한 픽셀 아트, 귀에 쏙 들어오는 음악, 바로 이해되는 짧은 판을 즐겨 보세요.
+RetroStone Arcade는 16비트 콘솔의 정신을 담은 오리지널 아케이드 게임 21종을 모았습니다. 선명한 픽셀 아트, 귀에 쏙 들어오는 음악, 바로 이해되는 짧은 판을 즐겨 보세요.
 
 수록 게임
 • Beaver Rush
@@ -21,6 +21,7 @@ RetroStone Arcade는 16비트 콘솔의 정신을 담은 오리지널 아케이�
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 원하는 대로 플레이
 • 게임마다 맞춘 간단한 터치 조작

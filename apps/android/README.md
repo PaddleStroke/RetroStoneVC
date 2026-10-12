@@ -105,14 +105,14 @@ corner, the back button in the top-left one: a finger that goes down on them nev
 (`dist/windows/*.exe`) the **mouse's left button is the finger**, to try the touch controls without a phone.
 
 Two kinds of games:
-- **App-level** (13 games): `apps/launcher/games.cfg` turns the touches into the virtual pad: screen zones that hold
+- **App-level** (14 games): `apps/launcher/games.cfg` turns the touches into the virtual pad: screen zones that hold
   pad buttons (the game's code knows only the pad).
 - **Game-side** (7 games): the game reads the touches itself, through the SDK's touch API (`rs_touch*()`,
   docs/spec.md "Touch"; the game declares `rs_game.touch_native`): the app passes it the fingers, in its screen
   pixels, with no zone and no drawn button. Its menus take taps too (a tap starts from the title, a tap on the
   game-over panel goes back to it).
 
-**All 20 schemes are final** (the owner's design), to be tuned after the owner's phone test:
+**All 21 schemes are final** (the owner's design), to be tuned after the owner's phone test:
 
 | Game | Touch controls | |
 |---|---|---|
@@ -124,6 +124,7 @@ Two kinds of games:
 | Mouse Espresso | hold anywhere = A | app |
 | Blueberry Tumble | tap anywhere = A | app |
 | Snail Switch | tap anywhere = A | app |
+| Unicorn Hop | tap anywhere = A (hop up) | app |
 | Penguin Slalom | hold the left / right half = Left / Right | app |
 | Otter Rapids | hold the left / right half = Left / Right | app |
 | Crab Coconut | hold the left / right half = Left / Right | app |

@@ -1,4 +1,4 @@
-RetroStone Arcade は、16ビット機の魂を受け継いだオリジナルのアーケードゲーム20本を収録。くっきりしたドット絵、耳に残る音楽、一瞬でわかる短いプレイが楽しめます。
+RetroStone Arcade は、16ビット機の魂を受け継いだオリジナルのアーケードゲーム21本を収録。くっきりしたドット絵、耳に残る音楽、一瞬でわかる短いプレイが楽しめます。
 
 収録ゲーム
 • Beaver Rush
@@ -21,6 +21,7 @@ RetroStone Arcade は、16ビット機の魂を受け継いだオリジナルの
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 好きなように遊べる
 • ゲームごとに考えられたシンプルなタッチ操作

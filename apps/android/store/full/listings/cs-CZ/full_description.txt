@@ -1,4 +1,4 @@
-RetroStone Arcade spojuje 20 původních arkádových her v duchu 16bitových konzolí: ostrý pixel art, chytlavou hudbu a krátká kola, která pochopíš za vteřinu.
+RetroStone Arcade spojuje 21 původních arkádových her v duchu 16bitových konzolí: ostrý pixel art, chytlavou hudbu a krátká kola, která pochopíš za vteřinu.
 
 HRY
 • Beaver Rush
@@ -21,6 +21,7 @@ HRY
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 HRAJ PO SVÉM
 • Jednoduché dotykové ovládání, navržené pro každou hru

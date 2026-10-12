@@ -1,4 +1,4 @@
-RetroStone Arcade mengumpulkan 20 game arcade orisinal dengan semangat konsol 16-bit: pixel art yang tajam, musik yang mudah diingat, dan ronde singkat yang langsung kamu pahami.
+RetroStone Arcade mengumpulkan 21 game arcade orisinal dengan semangat konsol 16-bit: pixel art yang tajam, musik yang mudah diingat, dan ronde singkat yang langsung kamu pahami.
 
 GAME-NYA
 • Beaver Rush
@@ -21,6 +21,7 @@ GAME-NYA
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 MAIN SESUKAMU
 • Kontrol sentuh sederhana, dibuat untuk tiap game

@@ -16,8 +16,8 @@ RetroStone Arcade Free は、16ビット機の魂を受け継いだオリジナ�
 • データは一切収集しません。オフラインで遊べます
 • 22言語に対応
 
-完全版の RetroStone Arcade には、さらに17本のゲームが待っています。買い切りで広告なし。メニューですべてのゲームを見られます。
+完全版の RetroStone Arcade には、さらに18本のゲームが待っています。買い切りで広告なし。メニューですべてのゲームを見られます。
 
-Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing, Unicorn Hop
 
 制作：8BCraft。コードは MIT ライセンス、グラフィックと音楽は CC BY-NC-SA 4.0 です。詳しくはアプリ内の「クレジットとライセンス」をご覧ください。

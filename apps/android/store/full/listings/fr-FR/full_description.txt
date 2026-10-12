@@ -1,4 +1,4 @@
-RetroStone Arcade réunit 20 jeux d'arcade originaux dans l'esprit des consoles 16 bits : du pixel art soigné, des musiques entraînantes et des parties courtes que tu prends en main en une seconde.
+RetroStone Arcade réunit 21 jeux d'arcade originaux dans l'esprit des consoles 16 bits : du pixel art soigné, des musiques entraînantes et des parties courtes que tu prends en main en une seconde.
 
 LES JEUX
 • Beaver Rush : ronge l'arbre géant bûche après bûche, à gauche ou à droite
@@ -21,6 +21,7 @@ LES JEUX
 • Radish Rascals : chasse les lapins de ton potager, mais épargne les hérissons
 • Snail Switch : passe dessus ou dessous la liane pour éviter épines et chenilles
 • Spider Swing : balance-toi de fleur en fleur et grimpe toujours plus haut
+• Unicorn Hop : saute de nuage en nuage vers le ciel, en tapant juste au bon moment
 
 JOUE COMME TU VEUX
 • Des commandes tactiles simples, pensées pour chaque jeu

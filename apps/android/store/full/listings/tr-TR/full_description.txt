@@ -1,4 +1,4 @@
-RetroStone Arcade, 16-bit konsolların ruhunu taşıyan 20 özgün arcade oyununu bir araya getiriyor: net piksel sanatı, akılda kalan müzikler ve bir saniyede kavrayacağın kısa turlar.
+RetroStone Arcade, 16-bit konsolların ruhunu taşıyan 21 özgün arcade oyununu bir araya getiriyor: net piksel sanatı, akılda kalan müzikler ve bir saniyede kavrayacağın kısa turlar.
 
 OYUNLAR
 • Beaver Rush
@@ -21,6 +21,7 @@ OYUNLAR
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 İSTEDİĞİN GİBİ OYNA
 • Her oyun için tasarlanmış basit dokunmatik kontroller

@@ -1,4 +1,4 @@
-RetroStone Arcade kokoaa yhteen 20 alkuperäistä arcade-peliä 16-bittisten konsolien hengessä: terävää pikseligrafiikkaa, tarttuvaa musiikkia ja lyhyitä pelejä, jotka opit hetkessä.
+RetroStone Arcade kokoaa yhteen 21 alkuperäistä arcade-peliä 16-bittisten konsolien hengessä: terävää pikseligrafiikkaa, tarttuvaa musiikkia ja lyhyitä pelejä, jotka opit hetkessä.
 
 PELIT
 • Beaver Rush
@@ -21,6 +21,7 @@ PELIT
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 PELAA OMALLA TAVALLASI
 • Helpot kosketusohjaimet, jokaiselle pelille omansa

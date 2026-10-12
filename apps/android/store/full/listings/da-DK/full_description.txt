@@ -1,4 +1,4 @@
-RetroStone Arcade samler 20 originale arkadespil i 16-bit-konsollernes ånd: skarp pixelgrafik, fængende musik og korte runder, du forstår på et sekund.
+RetroStone Arcade samler 21 originale arkadespil i 16-bit-konsollernes ånd: skarp pixelgrafik, fængende musik og korte runder, du forstår på et sekund.
 
 SPILLENE
 • Beaver Rush
@@ -21,6 +21,7 @@ SPILLENE
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 SPIL, SOM DU VIL
 • Enkel touchstyring, lavet til hvert spil

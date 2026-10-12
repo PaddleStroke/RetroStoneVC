@@ -16,8 +16,8 @@ INGEN REKLAME, INGEN SPORING
 • Ingen data samles inn; spilles offline
 • 22 språk
 
-17 spill til venter i RetroStone Arcade, fullversjonen: ett kjøp, ingen reklame. Du ser alle i menyen.
+18 spill til venter i RetroStone Arcade, fullversjonen: ett kjøp, ingen reklame. Du ser alle i menyen.
 
-Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing, Unicorn Hop
 
 Laget av 8BCraft. Kode under MIT-lisensen, grafikk og musikk under CC BY-NC-SA 4.0: se Kreditter og lisenser i appen.

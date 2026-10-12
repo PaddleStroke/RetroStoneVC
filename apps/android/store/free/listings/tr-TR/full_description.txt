@@ -16,8 +16,8 @@ REKLAM YOK, TAKİP YOK
 • Hiç veri toplanmaz; çevrimdışı çalışır
 • 22 dil
 
-17 oyun daha tam sürüm RetroStone Arcade'de seni bekliyor: tek satın alma, reklam yok. Hepsini menüde görebilirsin.
+18 oyun daha tam sürüm RetroStone Arcade'de seni bekliyor: tek satın alma, reklam yok. Hepsini menüde görebilirsin.
 
-Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing, Unicorn Hop
 
 8BCraft yapımı. Kod MIT lisansıyla, grafik ve müzik CC BY-NC-SA 4.0 lisansıyla: uygulamadaki Emeği Geçenler ve Lisanslar bölümüne bak.

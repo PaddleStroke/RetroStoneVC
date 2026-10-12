@@ -16,8 +16,8 @@ SANS PUB, SANS PISTAGE
 • Aucune donnée collectée ; ça marche hors ligne
 • 22 langues
 
-17 autres jeux t'attendent dans RetroStone Arcade, la version complète : un seul achat, pas de pub. Tu les vois tous dans le menu.
+18 autres jeux t'attendent dans RetroStone Arcade, la version complète : un seul achat, pas de pub. Tu les vois tous dans le menu.
 
-Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing, Unicorn Hop
 
 Créé par 8BCraft. Code sous licence MIT, graphismes et musiques sous CC BY-NC-SA 4.0 : voir Crédits et licences dans l'appli.

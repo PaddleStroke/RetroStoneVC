@@ -1,4 +1,4 @@
-RetroStone Arcade bundelt 20 originele arcadegames in de geest van de 16-bitconsoles: strakke pixelart, pakkende muziek en korte potjes die je meteen snapt.
+RetroStone Arcade bundelt 21 originele arcadegames in de geest van de 16-bitconsoles: strakke pixelart, pakkende muziek en korte potjes die je meteen snapt.
 
 DE GAMES
 • Beaver Rush
@@ -21,6 +21,7 @@ DE GAMES
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 SPEEL ZOALS JIJ WILT
 • Eenvoudige aanraakbediening, gemaakt voor elke game

@@ -91,6 +91,7 @@ LINES = {
         "radishrascals": "shoo the rabbits from your vegetable beds, spare the hedgehogs",
         "snailswitch": "flip above or below the vine to dodge thorns and caterpillars",
         "spiderswing": "swing from flower to flower and climb ever higher",
+        "unicornhop": "hop up from cloud to cloud, one tap at just the right moment",
     },
     "fr": {
         "beaverrush": "ronge l'arbre géant bûche après bûche, à gauche ou à droite",
@@ -113,6 +114,7 @@ LINES = {
         "radishrascals": "chasse les lapins de ton potager, mais épargne les hérissons",
         "snailswitch": "passe dessus ou dessous la liane pour éviter épines et chenilles",
         "spiderswing": "balance-toi de fleur en fleur et grimpe toujours plus haut",
+        "unicornhop": "saute de nuage en nuage vers le ciel, en tapant juste au bon moment",
     },
 }
 

@@ -1,4 +1,4 @@
-RetroStone Arcade zbiera 20 oryginalnych gier zręcznościowych w duchu konsol 16-bitowych: wyraźny pixel art, wpadająca w ucho muzyka i krótkie rozgrywki, które zrozumiesz w sekundę.
+RetroStone Arcade zbiera 21 oryginalnych gier zręcznościowych w duchu konsol 16-bitowych: wyraźny pixel art, wpadająca w ucho muzyka i krótkie rozgrywki, które zrozumiesz w sekundę.
 
 GRY
 • Beaver Rush
@@ -21,6 +21,7 @@ GRY
 • Radish Rascals
 • Snail Switch
 • Spider Swing
+• Unicorn Hop
 
 GRAJ PO SWOJEMU
 • Proste sterowanie dotykiem, zaprojektowane dla każdej gry

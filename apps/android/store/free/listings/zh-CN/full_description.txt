@@ -16,8 +16,8 @@ RetroStone Arcade Free 收录 3 款原创街机游戏，延续 16 位游戏机�
 • 不收集任何数据；可离线游玩
 • 支持 22 种语言
 
-完整版 RetroStone Arcade 中还有 17 款游戏等着你：一次购买，没有广告。在菜单中就能看到全部游戏。
+完整版 RetroStone Arcade 中还有 18 款游戏等着你：一次购买，没有广告。在菜单中就能看到全部游戏。
 
-Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing
+Biscuit Bandit, Blueberry Tumble, Crab Coconut, Duck Parade, Frog Reach, Hedgehog Hills, Mole Marbles, Moth Around, Mouse Espresso, Nutty Branch, Otter Rapids, Penguin Slalom, Pogo Mamie, Raccoon Recycler, Radish Rascals, Snail Switch, Spider Swing, Unicorn Hop
 
 由 8BCraft 制作。代码采用 MIT 许可证，美术和音乐采用 CC BY-NC-SA 4.0：详见应用中的“致谢与许可”。
