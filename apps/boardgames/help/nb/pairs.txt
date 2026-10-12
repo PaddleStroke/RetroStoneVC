@@ -1,0 +1,14 @@
+Finn parene
+# Målet
+Finn parene av bilder. For 1 til 4 spillere. Alene er det en gåte: finn alle med så få trekk som mulig.
+# Kortene
+- 12, 24 eller 36 kort ligger med baksiden opp i et rutenett. Hvert bilde finnes på to kort.
+- Bildene: dyrene fra familiespillet og sjakkbrikker i spillernes farger.
+# En tur
+- Snu to kort.
+- Et par: du beholder det og spiller igjen.
+- Ikke et par: begge kortene snus tilbake, og neste spiller har tur. Prøv å huske hvor de lå!
+# Slutten på spillet
+Når alle parene er funnet, vinner den som har flest; ved lik sum deles seieren. Alene er resultatet antall trekk: to snudde kort er ett trekk.
+# Spill på enheten
+Trykk på et kort for å snu det. Et par lyser gyllent og blir så liggende med bildet opp, dempet, med brikken til spilleren som fant det. To ulike kort snur seg tilbake av seg selv etter et øyeblikk, eller ved et trykk. Hver linje viser parene til den spilleren; alene viser den trekkene dine. Angre tar tilbake det sist snudde kortet.

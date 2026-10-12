@@ -1,0 +1,14 @@
+Muistipeli
+# Tavoite
+Löydä kuvaparit. 1–4 pelaajalle. Yksin se on pulma: löydä kaikki niin pienellä siirtomäärällä kuin pystyt.
+# Kortit
+- 12, 24 tai 36 korttia on kuvapuoli alaspäin ruudukossa. Jokainen kuva on kahdessa kortissa.
+- Kuvat: perhepelin eläimet ja shakkinappulat pelaajien väreissä.
+# Vuoro
+- Käännä kaksi korttia.
+- Pari: saat pitää sen ja pelaat uudestaan.
+- Ei pari: molemmat kortit käännetään takaisin ja seuraava pelaaja pelaa. Yritä muistaa, missä ne olivat!
+# Pelin loppu
+Kun kaikki parit on löydetty, eniten pareja kerännyt voittaa; tasapelissä voitto jaetaan. Yksin pelatessa tuloksesi on siirtojen määrä: kaksi käännettyä korttia on yksi siirto.
+# Pelaaminen laitteella
+Napauta korttia kääntääksesi sen. Pari hehkuu kultaisena ja jää sitten kuvapuoli ylöspäin, himmennettynä, löytäjänsä pelimerkki kulmassa. Kaksi erilaista korttia kääntyy takaisin itsestään hetken kuluttua tai napautuksesta. Jokainen palkki näyttää pelaajan parit; yksin pelatessa se näyttää siirtosi. Kumoa peruu viimeksi käännetyn kortin.

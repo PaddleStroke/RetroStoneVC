@@ -1,0 +1,14 @@
+Hitta paren
+# Målet
+Hitta paren av bilder. För 1 till 4 spelare. Ensam är det en gåta: hitta alla på så få drag som möjligt.
+# Korten
+- 12, 24 eller 36 kort ligger med baksidan upp i ett rutnät. Varje bild finns på två kort.
+- Bilderna: djuren från familjespelet och schackpjäser i spelarnas färger.
+# En tur
+- Vänd två kort.
+- Ett par: du behåller det och spelar igen.
+- Inte ett par: båda korten vänds tillbaka och nästa spelare spelar. Försök komma ihåg var de låg!
+# Partiets slut
+När alla par är hittade vinner den som har flest; vid lika många delas segern. Ensam är ditt resultat antalet drag: två vända kort är ett drag.
+# Spela på enheten
+Tryck på ett kort för att vända det. Ett par lyser guld och ligger sedan kvar med bilden upp, dämpat, med marken för spelaren som hittade det. Två olika kort vänder tillbaka av sig själva efter en stund, eller vid ett tryck. Varje list visar den spelarens par; ensam visar den dina drag. Ångra tar tillbaka det senast vända kortet.

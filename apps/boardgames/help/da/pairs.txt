@@ -1,0 +1,14 @@
+Vendespil
+# Målet
+Find parrene af billeder. For 1 til 4 spillere. Alene er det en gåde: find dem alle med så få træk som muligt.
+# Kortene
+- 12, 24 eller 36 kort ligger med bagsiden op i et gitter. Hvert billede findes på to kort.
+- Billederne: dyrene fra familiespillet og skakbrikker i spillernes farver.
+# En tur
+- Vend to kort.
+- Et par: du beholder det og spiller igen.
+- Ikke et par: begge kort vendes om igen, og næste spiller har tur. Prøv at huske, hvor de lå!
+# Spillets afslutning
+Når alle par er fundet, vinder den, der har flest; ved lige stilling deles sejren. Alene er dit resultat antallet af træk: to vendte kort er ét træk.
+# Spil på enheden
+Tryk på et kort for at vende det. Et par lyser gyldent og bliver så liggende med billedet op, dæmpet, med brikken fra den spiller, der fandt det. To forskellige kort vender sig selv om efter et øjeblik eller ved et tryk. Hver bjælke viser den spillers par; alene viser den dine træk. Fortryd tager det sidst vendte kort tilbage.

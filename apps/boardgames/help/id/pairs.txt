@@ -1,0 +1,14 @@
+Cari Pasangan
+# Tujuan
+Temukan pasangan gambar. Untuk 1 sampai 4 pemain. Sendirian, ini teka-teki: temukan semuanya dengan langkah sesedikit mungkin.
+# Kartu
+- 12, 24, atau 36 kartu tertutup dalam kisi. Setiap gambar ada di dua kartu.
+- Gambarnya: hewan dari permainan keluarga dan bidak catur dalam warna para pemain.
+# Satu giliran
+- Buka dua kartu.
+- Berpasangan: kamu menyimpannya dan bermain lagi.
+- Tidak berpasangan: kedua kartu ditutup lagi dan pemain berikutnya bermain. Coba ingat letaknya!
+# Akhir permainan
+Bila semua pasangan sudah ditemukan, pemain dengan pasangan terbanyak menang; yang jumlahnya sama berbagi kemenangan. Saat bermain sendiri, hasilmu adalah jumlah langkah: dua kartu yang dibuka adalah satu langkah.
+# Bermain di perangkat
+Ketuk kartu untuk membaliknya. Pasangan bercahaya emas, lalu tetap terbuka, lebih gelap, dengan bidak pemain yang menemukannya. Dua kartu yang berbeda tertutup lagi dengan sendirinya setelah sesaat, atau saat diketuk. Setiap bilah menunjukkan pasangan milik pemain itu; saat bermain sendiri, bilah menunjukkan langkahmu. Urungkan membatalkan kartu terakhir yang dibuka.

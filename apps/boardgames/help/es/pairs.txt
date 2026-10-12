@@ -1,0 +1,14 @@
+Parejas
+# El objetivo
+Encuentra las parejas de dibujos. Para 1 a 4 jugadores. Solo, es un rompecabezas: encuéntralas todas en el menor número de jugadas.
+# Las cartas
+- 12, 24 o 36 cartas están boca abajo en una cuadrícula. Cada dibujo está en dos cartas.
+- Los dibujos: los animales del juego de familias y piezas de ajedrez en los colores de los jugadores.
+# Un turno
+- Da la vuelta a dos cartas.
+- Una pareja: te la quedas y vuelves a jugar.
+- No es pareja: las dos cartas vuelven boca abajo y juega el siguiente. ¡Intenta recordar dónde estaban!
+# El final de la partida
+Cuando se han encontrado todas las parejas, gana quien tenga más; los empatados comparten la victoria. Jugando solo, tu resultado es el número de jugadas: dos cartas vueltas son una jugada.
+# Jugar en el dispositivo
+Toca una carta para darle la vuelta. Una pareja brilla en dorado y luego queda boca arriba, más oscura, con la ficha del jugador que la encontró. Dos cartas distintas se vuelven solas tras un momento, o al tocar. Cada barra muestra las parejas de ese jugador; jugando solo, muestra tus jugadas. Deshacer anula la última carta vuelta.
