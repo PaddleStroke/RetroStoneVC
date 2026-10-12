@@ -26,7 +26,6 @@
 #include "cards_table.h"
 #include "games/barbu.h"
 #include "games/chess.h"
-#include "games/parlour.h"
 #include "games/tricks.h"
 #include "shell.h"
 
@@ -40,8 +39,6 @@ static ct_touch F;
 static int floor_n, show_last, show_table, pick_c = -1, pick_x = -1;
 static unsigned pick_m, seen;                   /* pick_m: the players chosen to (re)double */
 
-static const uint8_t IVORY[3] = {244, 236, 216};
-
 /* ---- the contracts' pictures ------------------------------------------------------------------------------------- */
 static void red_cross(uint8_t *rgba, int s)    /* crossed out: two red bars corner to corner */
 {
@@ -52,17 +49,7 @@ static void red_cross(uint8_t *rgba, int s)    /* crossed out: two red bars corn
     art_poly(f, ART_PART, one, 4);
     art_poly(f, ART_PART, two, 4);
     art_style st = {{204, 44, 36}, {84, 14, 10}, {204, 44, 36}, {0, 0, 0}, 0.2f, 0.02f};
-    parlour_fig(rgba, s, f, &st);
-}
-
-static void figure(uint8_t *rgba, int s, int type, const art_style *st, float k, float dy)
-{
-    int f = (int)(k * s);
-    uint8_t *b = calloc((size_t)f * f, 4);
-    if (!b) return;
-    art_piece_style(type, st, f, b);
-    art_blend(rgba, s, s, b, f, f, (s - f) / 2, (s - f) / 2 + (int)(dy * s));
-    free(b);
+    ct_paint_fig(rgba, s, f, &st);
 }
 
 static void heart(art_fig *f, float cx, float cy, float k)   /* a heart k wide, centred */
@@ -77,7 +64,7 @@ static void paint_contract(int kind, int s, uint8_t *rgba)
 {
     float asp = cards_aspect(DECK_FRENCH);
     memset(rgba, 0, (size_t)s * s * 4);
-    art_disc(s, IVORY, 1, 0, rgba);
+    ct_paint_ivory(rgba, s);
     cards_disc_rim(rgba, s);
     switch (kind) {
     case BB_NOTRICKS: {                         /* a crown */
@@ -90,23 +77,23 @@ static void paint_contract(int kind, int s, uint8_t *rgba)
         art_ellipse(f, ART_PART, 0.5f, 0.25f, 0.045f, 0.045f);
         art_ellipse(f, ART_PART, 0.77f, 0.32f, 0.04f, 0.04f);
         art_style st = {{232, 186, 72}, {104, 72, 18}, {150, 110, 36}, {0, 0, 0}, 0.5f, 0.022f};
-        parlour_fig(rgba, s, f, &st);
+        ct_paint_fig(rgba, s, f, &st);
         break;
     }
     case BB_NOHEARTS: {
         art_fig *f = art_fig_new();
         heart(f, 0.5f, 0.5f, 0.56f);
         art_style st = {{206, 38, 44}, {96, 12, 16}, {206, 38, 44}, {0, 0, 0}, 0.45f, 0.022f};
-        parlour_fig(rgba, s, f, &st);
+        ct_paint_fig(rgba, s, f, &st);
         break;
     }
-    case BB_NOQUEENS: figure(rgba, s, QUEEN, &art_player[1], 0.74f, 0); break;
+    case BB_NOQUEENS: ct_paint_piece(rgba, s, QUEEN, &art_player[1], 0.74f, 0); break;
     case BB_KING: {                             /* the red king, a small heart at his foot */
-        figure(rgba, s, KING, &art_player[2], 0.7f, -0.03f);
+        ct_paint_piece(rgba, s, KING, &art_player[2], 0.7f, -0.03f);
         art_fig *f = art_fig_new();
         heart(f, 0.71f, 0.7f, 0.2f);
         art_style st = {{206, 38, 44}, {96, 12, 16}, {206, 38, 44}, {0, 0, 0}, 0.3f, 0.016f};
-        parlour_fig(rgba, s, f, &st);
+        ct_paint_fig(rgba, s, f, &st);
         break;
     }
     case BB_LASTTWO: {                          /* a row of five backs: the last two bright */
@@ -115,7 +102,7 @@ static void paint_contract(int kind, int s, uint8_t *rgba)
         if (!b) break;
         cards_paint(DECK_FRENCH, CARD_NONE, cw, ch, b);
         for (int i = 0; i < 5; i++)
-            parlour_blend(rgba, s, b, cw, ch, (int)((0.13f + i * 0.152f) * s), (s - ch) / 2, i < 3 ? 0.35f : 1);
+            ct_paint_blend(rgba, s, b, cw, ch, (int)((0.13f + i * 0.152f) * s), (s - ch) / 2, i < 3 ? 0.35f : 1);
         free(b);
         break;
     }
@@ -143,8 +130,8 @@ static void paint_contract(int kind, int s, uint8_t *rgba)
         }
         art_style st = {{250, 246, 236}, {60, 44, 30}, {60, 44, 30}, {0, 0, 0}, 0.25f, 0.018f};
         art_style dots = {{30, 30, 30}, {30, 30, 30}, {30, 30, 30}, {0, 0, 0}, 0, 0};
-        parlour_fig(rgba, s, f, &st);
-        parlour_fig(rgba, s, m, &dots);
+        ct_paint_fig(rgba, s, f, &st);
+        ct_paint_fig(rgba, s, m, &dots);
         break;
     }
     }
@@ -546,7 +533,7 @@ static void draw_table(void)
     y += -rh / 2 + 0.25f * u + 0.5f * dot;
     uint8_t who[BARBU_P * BARBU_CONTRACTS];
     for (int i = 0; i < n; i++) who[i] = (uint8_t)barbu_declarer_of(p->variant, i);
-    parlour_dots(x0 + pw / 2, y, dot, n, per, who, p->deal);
+    ct_dots(x0 + pw / 2, y, dot, n, per, who, p->deal);
 }
 
 static void draw(void)

@@ -24,7 +24,8 @@
 static mgame G;
 static ct_table T;
 static ct_moves A = {.rest = 250};
-static int floor_n, amount, sel;                /* the bet's amount on the stepper; the cards chosen to lay away */
+static int floor_n, amount;                     /* the bet's amount on the stepper */
+static unsigned sel;                            /* the cards chosen to lay away (bit i: the hand's i-th) */
 static unsigned seen;
 
 enum { B_MUS, B_CUT, B_OK, B_PASS, B_MINUS, B_BET, B_PLUS, B_ORDAGO, B_QUIERO, B_NOQUIERO, B_N };
@@ -405,10 +406,9 @@ static void draw(void)
     draw_strip();
     draw_middle();
     int how[4];
-    for (int i = 0; i < 4; i++) how[i] = sel >> i & 1 ? CD_RAISED : p->phase == MP_DISCARD && p->turn == T.me && live
-                                                                      ? CD_GLOW : 0;
+    ct_chosen_hows(4, sel, p->phase == MP_DISCARD && p->turn == T.me && live, how);
     if (hide) ct_hand_backs(&T, 4);
-    else ct_hand_draw(&T, &A, p->hand[T.me], 4, how, NULL, CARD_NONE);
+    else ct_hand_draw(&T, &A, p->hand[T.me], 4, how, NULL, -1);
     ct_draw(&A);
     if (!hide && p->phase < MP_HAND) draw_pad(live);
     if (p->phase >= MP_HAND && !ct_busy(&A)) draw_summary();
@@ -424,13 +424,9 @@ static void press(float x, float y)
     if (p->turn != T.me) { ui_sound(SND_DENY); return; }
     geometry();
     if (p->phase == MP_DISCARD) {
-        int i = ct_hand_hit(&T, 4, (int[4]){sel & 1 ? CD_RAISED : 0, sel & 2 ? CD_RAISED : 0, sel & 4 ? CD_RAISED : 0,
-                                            sel & 8 ? CD_RAISED : 0}, NULL, x, y);
-        if (i >= 0) {
-            sel ^= 1 << i;
-            ui_sound(SND_TAP);
-            return;
-        }
+        int how[4];
+        ct_chosen_hows(4, sel, 0, how);
+        if (ct_toggle(&T, 4, how, &sel, 1, x, y)) return;
     }
     switch (ct_btn_hit(K.b, K.nb, x, y)) {
     case B_MUS: act(MA_MUS); break;

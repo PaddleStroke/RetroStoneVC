@@ -22,7 +22,6 @@
 
 #include "cards.h"
 #include "cards_table.h"
-#include "games/parlour.h"
 #include "games/piquet.h"
 #include "games/tricks.h"
 #include "shell.h"
@@ -42,32 +41,31 @@ static uint8_t got[PIQUET_P][PIQUET_HAND];      /* the cards each drew from the 
 /* ---- the pictures: the declarations' columns ------------------------------------------------------------------- */
 static void paint(int kind, int s, uint8_t *rgba)
 {
-    static const uint8_t ivory[3] = {244, 236, 216};
     memset(rgba, 0, (size_t)s * s * 4);
-    art_disc(s, ivory, 1, 0, rgba);
+    ct_paint_ivory(rgba, s);
     cards_disc_rim(rgba, s);
     int w = (int)(0.3f * s), h = (int)(w * cards_aspect(DECK_FRENCH)), y = (s - h) / 2;
     switch (kind) {
     case PIC_POINT:                             /* three hearts fanned */
-        parlour_card(rgba, s, CARD(SUIT_HEARTS, 7), w, (int)(0.14f * s), y + s / 30, 1);
-        parlour_card(rgba, s, CARD(SUIT_HEARTS, 9), w, (int)(0.35f * s), y - s / 60, 1);
-        parlour_card(rgba, s, CARD(SUIT_HEARTS, RANK_KING), w, (int)(0.56f * s), y + s / 30, 1);
+        ct_paint_card(rgba, s, DECK_FRENCH, CARD(SUIT_HEARTS, 7), w, (int)(0.14f * s), y + s / 30, 1);
+        ct_paint_card(rgba, s, DECK_FRENCH, CARD(SUIT_HEARTS, 9), w, (int)(0.35f * s), y - s / 60, 1);
+        ct_paint_card(rgba, s, DECK_FRENCH, CARD(SUIT_HEARTS, RANK_KING), w, (int)(0.56f * s), y + s / 30, 1);
         break;
     case PIC_SEQUENCE:                          /* 8, 9, 10 of spades in a stair */
         for (int i = 0; i < 3; i++)
-            parlour_card(rgba, s, CARD(SUIT_SPADES, 8 + i), w, (int)((0.14f + 0.21f * i) * s),
-                         y + (int)((0.12f - 0.12f * i) * s), 1);
+            ct_paint_card(rgba, s, DECK_FRENCH, CARD(SUIT_SPADES, 8 + i), w, (int)((0.14f + 0.21f * i) * s),
+                          y + (int)((0.12f - 0.12f * i) * s), 1);
         break;
     case PIC_SETS:                              /* three aces */
-        parlour_card(rgba, s, CARD(SUIT_CLUBS, RANK_ACE), w, (int)(0.14f * s), y, 1);
-        parlour_card(rgba, s, CARD(SUIT_HEARTS, RANK_ACE), w, (int)(0.35f * s), y, 1);
-        parlour_card(rgba, s, CARD(SUIT_SPADES, RANK_ACE), w, (int)(0.56f * s), y, 1);
+        ct_paint_card(rgba, s, DECK_FRENCH, CARD(SUIT_CLUBS, RANK_ACE), w, (int)(0.14f * s), y, 1);
+        ct_paint_card(rgba, s, DECK_FRENCH, CARD(SUIT_HEARTS, RANK_ACE), w, (int)(0.35f * s), y, 1);
+        ct_paint_card(rgba, s, DECK_FRENCH, CARD(SUIT_SPADES, RANK_ACE), w, (int)(0.56f * s), y, 1);
         break;
     case PIC_BLANCHE: {                         /* a blank card */
         art_fig *f = art_fig_new();
         art_rect(f, ART_PART, 0.33f, 0.22f, 0.67f, 0.78f);
         art_style st = {{252, 250, 244}, {90, 64, 40}, {90, 64, 40}, {0, 0, 0}, 0.2f, 0.025f};
-        parlour_fig(rgba, s, f, &st);
+        ct_paint_fig(rgba, s, f, &st);
         break;
     }
     case PIC_CROWN: {                           /* capot: a gold crown, no disc */
@@ -77,7 +75,7 @@ static void paint(int kind, int s, uint8_t *rgba)
                                0.74f};
         art_poly(f, ART_PART, crown, 7);
         art_style st = {{232, 186, 72}, {104, 72, 18}, {150, 110, 36}, {0, 0, 0}, 0.5f, 0.03f};
-        parlour_fig(rgba, s, f, &st);
+        ct_paint_fig(rgba, s, f, &st);
         break;
     }
     }
@@ -132,7 +130,7 @@ static int hand(uint8_t *h, int *how, float *lift, int live)
         if (ct_is_raised(&F, i)) how[i] = CD_RAISED;
         if (lift) lift[i] = fresh(c) ? LIFT : 0;
     }
-    if (mine && p->phase == PQ_EXCHANGE) parlour_hows(h, n, pick, 1, parlour_count(pick) < piquet_throw_max(p), how);
+    if (mine && p->phase == PQ_EXCHANGE) ct_chosen_hows(n, pick, ct_count(pick) < piquet_throw_max(p), how);
     return n;
 }
 
@@ -358,7 +356,7 @@ static void draw_board(int step)
 static void draw_exchange(int live)
 {
     const piquet_pos *p = &G.pos;
-    int k = parlour_count(pick), ok = k >= piquet_throw_min(p) && k <= piquet_throw_max(p);
+    int k = ct_count(pick), ok = k >= piquet_throw_min(p) && k <= piquet_throw_max(p);
     float x, y, d;
     tick_at(&x, &y, &d);
     if (ok && live) ui_mark_gold(x, y, 1.8f * d);
@@ -433,7 +431,7 @@ static void draw_summary(void)
     uint8_t who[PIQUET_DEALS];
     for (int i = 0; i < PIQUET_DEALS; i++) who[i] = (uint8_t)(i % PIQUET_P);   /* each deal's elder */
     y += -rh / 2 + 0.25f * u;
-    parlour_dots(x0 + pw / 2, y, floorf(0.3f * u), PIQUET_DEALS, PIQUET_DEALS, who, p->deal);
+    ct_dots(x0 + pw / 2, y, floorf(0.3f * u), PIQUET_DEALS, PIQUET_DEALS, who, p->deal);
     if (!over) return;
     int w = piquet_winner(p), l = 1 - w;        /* the Rubicon: the winner's score; rubiconed: the loser's 100 struck */
     y += 0.25f * u + 0.65f * u;
@@ -516,12 +514,12 @@ static void press(float x, float y)
         float tx, ty, td;
         tick_at(&tx, &ty, &td);
         if (ct_on(tx, ty, td, x, y)) {
-            int k = parlour_count(pick);
+            int k = ct_count(pick);
             if (k >= piquet_throw_min(p) && k <= piquet_throw_max(p)) act(PQA_EXCHANGE | (int)pick);
             else ui_sound(SND_DENY);
             return;
         }
-        if (!parlour_toggle(&T, h, n, how, &pick, parlour_count(pick) < piquet_throw_max(p), x, y)) ui_sound(SND_DENY);
+        if (!ct_toggle(&T, n, how, &pick, ct_count(pick) < piquet_throw_max(p), x, y)) ui_sound(SND_DENY);
         return;
     }
     if (p->phase == PQ_DECLARE) {

@@ -20,7 +20,6 @@
 #include "cards.h"
 #include "cards_table.h"
 #include "games/ecarte.h"
-#include "games/parlour.h"
 #include "games/tricks.h"
 #include "shell.h"
 
@@ -85,7 +84,7 @@ static int hand(uint8_t *h, int *how, float *lift, int live)
         if (lift) lift[i] = fresh(c) ? LIFT : 0;
     }
     if (mine && p->phase == EC_DISCARD)
-        parlour_hows(h, n, pick, 1, parlour_count(pick) < ecarte_throw_max(p), how);
+        ct_chosen_hows(n, pick, ct_count(pick) < ecarte_throw_max(p), how);
     return n;
 }
 
@@ -246,7 +245,7 @@ static void draw_answer(int live)
 static void draw_throw(int live)
 {
     const ecarte_pos *p = &G.pos;
-    int k = parlour_count(pick), ok = k >= ecarte_throw_min(p) && k <= ecarte_throw_max(p);
+    int k = ct_count(pick), ok = k >= ecarte_throw_min(p) && k <= ecarte_throw_max(p);
     float d = 1.15f * T.u;
     if (ok && live) ui_mark_gold(T.cx, T.cy, 1.8f * d);
     ct_button(T.cx, T.cy, d, ok, CT_TICK, 0);
@@ -339,12 +338,12 @@ static void press(float x, float y)
     }
     case EC_DISCARD: {
         if (ct_on(T.cx, T.cy, 1.15f * T.u, x, y)) {
-            int k = parlour_count(pick);
+            int k = ct_count(pick);
             if (k >= ecarte_throw_min(p) && k <= ecarte_throw_max(p)) act(ECA_DISCARD | (int)pick);
             else ui_sound(SND_DENY);
             return;
         }
-        if (!parlour_toggle(&T, h, n, how, &pick, parlour_count(pick) < ecarte_throw_max(p), x, y))
+        if (!ct_toggle(&T, n, how, &pick, ct_count(pick) < ecarte_throw_max(p), x, y))
             ui_sound(SND_DENY);
         return;
     }
