@@ -1,8 +1,9 @@
 /*
  * Mines in RetroStone Board, for one player: a walnut tray of wooden tiles; under each a hollow in the plank, empty or
  * holding a number in coloured ink, or one of the house's ebony stones (a mine). Brass flags stand on the tiles the
- * player marks. Beside the board, the shell's buttons: the flag (taps then plant flags), the lamp (a hint) and, on the
- * larger fields, the magnifying glass (near or whole) (the rules: mines_rules.c).
+ * player marks. The field takes all the room the shell gives (game.fill), turned on its side when that makes the
+ * tiles bigger. The shell's tools: the flag (taps then plant flags), the lamp (a hint) and, when the tiles would be
+ * too small for a finger, the magnifying glass (near or whole) (the rules: mines_rules.c).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Tap a tile: it lifts away, and an empty hollow lifts its neighbours, spreading. Hold a finger on a tile (or tap it
@@ -45,7 +46,9 @@ static struct { int on, cell, moved, held, btn; float x0, y0, lx, ly; Uint32 t0;
 static int last_cell = -1;
 
 static box last_box;
-static pzt_column col;
+static box room;                                /* the shell's room for the field (game.fill) */
+static int turned, SW, SH;                      /* the field turned a quarter (its rows across the screen); its
+                                                 * columns and rows as on the screen */
 static float ox, oy;                            /* the view's offset into the field (pixels), near */
 static float vx, vy;                            /* the view's top left on the screen */
 static int cs, fr, vcols, vrows, fit_cs, near_cs, made_cs = -1, made_frame = -1, made_small = -1;
@@ -112,32 +115,50 @@ static void stone_pic(int size, uint8_t *rgba)
 /* ---- the geometry: whole (the field fitted) or near (larger cells, the view dragged round) ----------------------- */
 static void clamp_view(void)
 {
-    float mx = fmaxf(0, (float)(G.w * cs - vcols * cs)), my = fmaxf(0, (float)(G.h * cs - vrows * cs));
+    float mx = fmaxf(0, (float)(SW * cs - vcols * cs)), my = fmaxf(0, (float)(SH * cs - vrows * cs));
     ox = clampf(ox, 0, mx);
     oy = clampf(oy, 0, my);
 }
 
+/* the field in all the room (turned when that gives bigger cells: a wide field on a phone held upright); the
+ * magnifier only when the cells come out too small for a finger (under a twentieth of the screen's short side) */
 static void fit(void)
 {
-    box r = col.room;
+    box r = room;
     float S = fminf(r.w, r.h);
     fr = (int)(S * FRAME);
-    fit_cs = (int)fminf((r.w - 2 * fr) / G.w, (r.h - 2 * fr) / G.h);
-    zoomable = fit_cs < 0.62f * ui.unit;
+    ui_grid g = ui_grid_fit((box){r.x + fr, r.y + fr, r.w - 2 * fr, r.h - 2 * fr}, G.w, G.h, 0);
+    turned = g.turned;
+    SW = g.cols;
+    SH = g.rows;
+    fit_cs = (int)g.cell;
+    zoomable = fit_cs < 0.05f * fminf(ui.w, ui.h);
+    ui_tools_shown(zoomable ? BTNS : B_ZOOM);
     near_cs = (int)fmaxf((float)fit_cs, floorf(0.7f * ui.unit));
     if (!zoomable) zoom = 0;
     cs = zoom ? near_cs : fit_cs;
-    vcols = (int)fminf((float)G.w, floorf((r.w - 2 * fr) / cs));
-    vrows = (int)fminf((float)G.h, floorf((r.h - 2 * fr) / cs));
+    vcols = (int)fminf((float)SW, floorf((r.w - 2 * fr) / cs));
+    vrows = (int)fminf((float)SH, floorf((r.h - 2 * fr) / cs));
     vx = floorf(r.x + (r.w - vcols * cs) / 2);
     vy = floorf(r.y + (r.h - vrows * cs) / 2);
     clamp_view();
 }
 
+/* a cell's column and row on the screen (the field turned or not), and back */
+static void on_screen(int c, int *sx, int *sy)
+{
+    *sx = turned ? c / G.w : c % G.w;
+    *sy = turned ? c % G.w : c / G.w;
+}
+
+static int cell_of(int sx, int sy) { return turned ? sy + sx * G.w : sx + sy * G.w; }
+
 /* the view near, centred on a cell (or the field's middle) */
 static void centre_on(int c)
 {
-    float cx = c >= 0 ? (c % G.w + 0.5f) * cs : G.w * cs / 2.0f, cy = c >= 0 ? (c / G.w + 0.5f) * cs : G.h * cs / 2.0f;
+    int sx, sy;
+    if (c >= 0) on_screen(c, &sx, &sy);
+    float cx = c >= 0 ? (sx + 0.5f) * cs : SW * cs / 2.0f, cy = c >= 0 ? (sy + 0.5f) * cs : SH * cs / 2.0f;
     ox = cx - vcols * cs / 2.0f;
     oy = cy - vrows * cs / 2.0f;
     clamp_view();
@@ -145,12 +166,11 @@ static void centre_on(int c)
 
 static void layout(box b)
 {
-    last_box = b;
-    pzt_column_fit(&col, b, BTNS);
+    last_box = room = b;
     fit();
     if (fresh) {                                /* a new field: near at first when too small to tap whole */
         fresh = 0;
-        zoom = zoomable && fit_cs < 0.45f * ui.unit;
+        zoom = zoomable && fit_cs < 0.04f * fminf(ui.w, ui.h);
         fit();
         centre_on(-1);
     }
@@ -295,7 +315,9 @@ static void use_hint(void)
     hint.cell = c;
     hint.t0 = ui_ms();
     if (zoom && zoomable) {                     /* the hint's cell brought into view */
-        float cx = (c % G.w + 0.5f) * cs - ox, cy = (c / G.w + 0.5f) * cs - oy;
+        int sx, sy;
+        on_screen(c, &sx, &sy);
+        float cx = (sx + 0.5f) * cs - ox, cy = (sy + 0.5f) * cs - oy;
         if (cx < cs || cy < cs || cx > (vcols - 1) * cs || cy > (vrows - 1) * cs) centre_on(c);
     }
 }
@@ -331,16 +353,18 @@ static int script(const char *moves)
 /* ---- the board on the screen ------------------------------------------------------------------------------------- */
 static void cell_xy(int c, float *x, float *y)  /* its top left on the screen */
 {
-    *x = vx + (c % G.w) * cs - ox;
-    *y = vy + (c / G.w) * cs - oy;
+    int sx, sy;
+    on_screen(c, &sx, &sy);
+    *x = vx + sx * cs - ox;
+    *y = vy + sy * cs - oy;
 }
 
 static int cell_at(float x, float y)
 {
     if (x < vx || y < vy || x >= vx + vcols * cs || y >= vy + vrows * cs) return -1;
     int cx = (int)((x - vx + ox) / cs), cy = (int)((y - vy + oy) / cs);
-    if (cx < 0 || cy < 0 || cx >= G.w || cy >= G.h) return -1;
-    return cx + cy * G.w;
+    if (cx < 0 || cy < 0 || cx >= SW || cy >= SH) return -1;
+    return cell_of(cx, cy);
 }
 
 static void draw_cell(int c, float x, float y, Uint32 now, int solved)
@@ -387,12 +411,12 @@ static void draw(void)
     SDL_RenderSetClipRect(ui.r, &clip);
     int x0 = (int)(ox / cs), y0 = (int)(oy / cs);
     int x1 = (int)ceilf((ox + vcols * cs) / cs), y1 = (int)ceilf((oy + vrows * cs) / cs);
-    if (x1 > G.w) x1 = G.w;
-    if (y1 > G.h) y1 = G.h;
+    if (x1 > SW) x1 = SW;
+    if (y1 > SH) y1 = SH;
     float x, y;
     for (int cy = y0; cy < y1; cy++)
         for (int cx = x0; cx < x1; cx++) {
-            int c = cx + cy * G.w;
+            int c = cell_of(cx, cy);
             cell_xy(c, &x, &y);
             draw_cell(c, x, y, now, solved);
         }
@@ -417,7 +441,7 @@ static void draw(void)
         if (wt >= 0)
             for (int cy = y0; cy < y1; cy++)
                 for (int cx = x0; cx < x1; cx++) {
-                    int c = cx + cy * G.w;
+                    int c = cell_of(cx, cy);
                     float p = puz_pulse(wt, dist(c, win.from) * WAVE_STEP, WAVE_LEN);
                     if (p <= 0) continue;
                     cell_xy(c, &x, &y);
@@ -428,27 +452,27 @@ static void draw(void)
     }
     SDL_RenderSetClipRect(ui.r, NULL);
     if (zoom && zoomable) {                     /* where the view is: thin bars along the frame */
-        float fw = (float)(G.w * cs), fh = (float)(G.h * cs), vw = (float)(vcols * cs), vh = (float)(vrows * cs);
+        float fw = (float)(SW * cs), fh = (float)(SH * cs), vw = (float)(vcols * cs), vh = (float)(vrows * cs);
         float t = fmaxf(2, 0.18f * fr);
         if (fw > vw) ui_fill(vx + vw * ox / fw, vy + vh + fr * 0.5f - t / 2, vw * vw / fw, t, 246, 238, 220, 190);
         if (fh > vh) ui_fill(vx + vw + fr * 0.5f - t / 2, vy + vh * oy / fh, t, vh * vh / fh, 246, 238, 220, 190);
     }
-    ui_button_paint(col.x, col.y[B_FLAG], col.d, paint_btn, B_FLAG, 1, flag_mode ? UI_ON : 0);
-    ui_button(col.x, col.y[B_HINT], col.d, ICON_HINT, G.blast >= 0 ? UI_LIT : solved ? UI_DIM : 0);
-    if (zoomable) ui_button_paint(col.x, col.y[B_ZOOM], col.d, paint_btn, zoom ? B_ZOOM + 1 : B_ZOOM, 1, 0);
+    ui_tool_paint(B_FLAG, paint_btn, B_FLAG, 1, flag_mode ? UI_ON : 0);   /* the shell's tools: where it put them */
+    ui_tool(B_HINT, ICON_HINT, G.blast >= 0 ? UI_LIT : solved ? UI_DIM : 0);
+    if (zoomable) ui_tool_paint(B_ZOOM, paint_btn, zoom ? B_ZOOM + 1 : B_ZOOM, 1, 0);
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
 static void press(float x, float y)
 {
     memset(&ptr, 0, sizeof ptr);
-    int b = pzt_column_hit(&col, x, y);
+    int b = ui_tool_hit(x, y);
     if (b >= 0 && (b < B_ZOOM || zoomable)) {
         ptr.btn = 1;
         if (b == B_ZOOM) {
             int keep = last_cell;
             float cx = ox + vcols * cs / 2.0f, cy = oy + vrows * cs / 2.0f;   /* the middle of the view kept */
-            int mid = (int)(cx / cs) + (int)(cy / cs) * G.w;
+            int mid = cell_of((int)(cx / cs), (int)(cy / cs));
             zoom = !zoom;
             relayout();
             centre_on(zoom ? (keep >= 0 ? keep : -1) : mid);
@@ -589,6 +613,6 @@ static const game mines_game = {
     .id = "mines", .order = 440, .variants = MNS_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw_all,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .score = score,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .score = score, .fill = 1, .tools = BTNS,
 };
 REGISTER_GAME(mines_game)
