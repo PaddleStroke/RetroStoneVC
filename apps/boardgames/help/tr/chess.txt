@@ -32,5 +32,26 @@ Bir hamle türü daha eklenmiş satranç: aldığın taş taraf değiştirir ve 
 Satranç, ama üç kez şah çeken ilk oyuncu kazanır. Mat da kazandırır. Her şeritte üç yuva vardır ve oyuncunun çektiği her şah için bunlardan birinde kırmızı bir ışık yanar.
 # Tepenin Kralı
 Satranç, ama şahı dört merkez karesinden birine (altın çerçeveli d4, e4, d5, e5) ilk ulaşan oyuncu hemen kazanır. Mat da kazandırır. Şah yine de hiçbir zaman şah altındaki bir kareye gidemez.
+# Kaybeden kazanır
+Tersine satranç: amaç bütün taşlarını kaybetmektir.
+- Taş almak zorunludur: alabiliyorsan almalısın, ama hangisini alacağını sen seçersin.
+- Şah sıradan bir taştır: şah çekme yoktur, şah alınabilir ve rok yoktur. Bir piyon şaha da terfi edebilir (seçicinin beşinci seçeneği).
+- Hiç taşın kalmadığında ya da hamle yapamadığında kazanırsın.
+- Yalnızca filler kaldığında ve her tarafın filleri farklı renk karelerde durduğunda oyun berabere biter: birbirlerini asla alamazlar.
+# Atom satrancı
+Her alış bir patlamadır: alınan taş, alan taş ve çevredeki sekiz karede piyonlar dışındaki bütün taşlar tahtadan çıkar.
+- Rakip şahı patlatarak kazanırsın, kendi şahın şah altında olsa bile. Mat da kazandırır.
+- Şah taş alamaz ve hiçbir hamle kendi şahını patlatamaz.
+- İki şah yan yana durduğunda hiçbiri şah altında değildir: birini almak ikisini de patlatırdı.
+- Hiçbir tarafın kazanmaya yetecek taşı kalmadığında oyun berabere biter.
+# Şah yarışı
+Bütün taşlar ilk iki sırada, yan yana ve piyonsuz başlar. Hiçbir hamle şah çekemez.
+- Altınla çerçevelenmiş son sıraya ilk ulaşan şah kazanır.
+- Beyaz şah oraya önce varırsa siyahın bir hamlesi daha vardır: siyah şah da son sıraya ulaşırsa oyun berabere biter.
+# Sürü
+Beyazın 36 piyonu vardır ve şahı yoktur; karşısında siyahın her zamanki ordusu.
+- Beyaz, siyah şahı mat ederek kazanır; siyah, bütün beyaz taşları alarak kazanır.
+- İlk sıradaki beyaz piyonlar da iki kare ilerleyebilir (o zaman geçerken alınamazlar).
+- Beyazın şahı olmadığı için asla şah altında olmaz.
 # Cihazda oynamak
 Bir taşın nereye gidebileceğini görmek için ona dokun, sonra bir kareye dokun ya da taşı sürükle. Noktalar hamleleri, halkalar alınabilecek taşları gösterir. Şah çekilmiş şah kırmızı parlar. Rok yapmak için şahı kaleye doğru iki kare ya da kalenin üzerine götür.

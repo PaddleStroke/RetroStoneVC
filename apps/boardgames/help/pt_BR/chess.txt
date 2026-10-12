@@ -32,5 +32,26 @@ Xadrez com mais um tipo de lance: uma peça que você captura muda de lado e vai
 Xadrez, mas vence o primeiro jogador que der xeque três vezes. O xeque-mate também vence. Cada barra tem três espaços, e uma luz vermelha acende em um deles a cada xeque dado por aquele jogador.
 # Rei da colina
 Xadrez, mas vence na hora o primeiro jogador cujo rei chegar a uma das quatro casas centrais (d4, e4, d5, e5), emolduradas em dourado. O xeque-mate também vence. O rei continua sem poder se colocar em xeque.
+# Perde-ganha
+O xadrez de pernas para o ar: o objetivo é perder todas as suas peças.
+- Capturar é obrigatório: quando puder capturar, você deve, mas escolhe qual captura.
+- O rei é uma peça comum: não há xeque, o rei pode ser capturado e não há roque. Um peão também pode ser promovido a rei (a quinta opção do seletor).
+- Você vence quando não lhe resta nenhuma peça, ou quando não pode jogar.
+- A partida empata quando só restam bispos e os de cada lado estão em casas de cores diferentes: eles nunca poderão se capturar.
+# Atômico
+Cada captura é uma explosão: a peça capturada, a peça que captura e todas as peças, menos os peões, das oito casas em volta saem do tabuleiro.
+- Você vence explodindo o rei adversário, mesmo que o seu rei esteja em xeque. O xeque-mate também vence.
+- Um rei não pode capturar, e nenhum lance pode explodir o seu próprio rei.
+- Quando os dois reis estão lado a lado, nenhum está em xeque: capturar um explodiria os dois.
+- A partida empata quando nenhum lado tem peças suficientes para vencer.
+# Corrida de reis
+Todas as peças começam nas duas primeiras fileiras, lado a lado, sem peões. Nenhum lance pode dar xeque.
+- Vence o primeiro rei a chegar à última fileira, emoldurada em dourado.
+- Se o rei branco chegar primeiro, as pretas ainda jogam uma vez: se o rei preto também chegar à última fileira, a partida empata.
+# Horda
+As brancas têm 36 peões e nenhum rei, contra o exército habitual das pretas.
+- As brancas vencem dando xeque-mate no rei preto; as pretas vencem capturando todas as peças brancas.
+- Os peões brancos da primeira fileira também podem andar duas casas (aí não podem ser capturados en passant).
+- As brancas não têm rei, então nunca estão em xeque.
 # Jogando no aparelho
 Toque em uma peça para ver aonde ela pode ir e depois toque em uma casa, ou arraste a peça. Os pontos mostram os lances, os anéis as capturas. Um rei em xeque brilha em vermelho. Para fazer o roque, leve o rei duas casas em direção à torre, ou para cima da torre.

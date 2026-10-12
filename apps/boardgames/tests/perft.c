@@ -1,8 +1,9 @@
 /*
  * The rules against the standard perft counts (the number of move sequences of a given length): the start position
  * and the usual tricky ones (castling through check, en passant pins, promotions). Then the draw rules, then
- * Chess960: its perft suite, its 960 start positions, its castling. Then crazyhouse, three-check and king of the hill:
- * their published perft counts, their rules played out, and whole random games.
+ * Chess960: its perft suite, its 960 start positions, its castling. Then crazyhouse, three-check and king of the hill,
+ * and losing chess, atomic, racing kings and horde: their published perft counts, their rules played out, and whole
+ * random games.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -98,12 +99,14 @@ static void ok(const char *name, int good)
 }
 
 /* whole random games by each rules (a seed each): every position keeps its pieces (crazyhouse: on the board and in
- * the hands, 32 always), the checks given never pass three, the game ends by the rules' own way */
+ * the hands, 32 always), the checks given never pass three, the game ends by the rules' own way; losing chess: a
+ * capture whenever one can; atomic: nothing left on a capture's square; racing kings: never a check, no pawn; the
+ * horde: never a white king */
 static void random_games(int rules, int games)
 {
     static cgame g;
     unsigned seed = 12345u + (unsigned)rules;
-    int bad = 0, ends[ST_HILL + 1] = {0};
+    int bad = 0, ends[ST_HORDE + 1] = {0};
     for (int k = 0; k < games; k++) {
         game_new_rules(&g, rules);
         cstatus st;
@@ -111,7 +114,18 @@ static void random_games(int rules, int games)
             cmove m[MAX_MOVES];
             int n = chess_legal(game_pos(&g), m);
             seed = seed * 1103515245u + 12345u;
-            game_play(&g, m[(seed >> 8) % (unsigned)n]);
+            int caps = 0;
+            for (int i = 0; i < n; i++) caps += (m[i].flags & MV_CAPTURE) != 0;
+            if (rules == CR_ANTI && caps && caps != n) bad++;
+            cmove played = m[(seed >> 8) % (unsigned)n];
+            game_play(&g, played);
+            if (rules == CR_ATOMIC && (played.flags & MV_CAPTURE) && game_pos(&g)->sq[played.to]) bad++;
+            if (rules == CR_RACING && (chess_in_check(game_pos(&g), WHITE) || chess_in_check(game_pos(&g), BLACK)))
+                bad++;
+            for (int s = 0; s < 64; s++) {
+                int q = game_pos(&g)->sq[s];
+                if ((rules == CR_RACING && TYPE(q) == PAWN) || (rules == CR_HORDE && q == PC(WHITE, KING))) bad++;
+            }
             const cpos *p = game_pos(&g);
             int pieces = 0;
             for (int s = 0; s < 64; s++) pieces += p->sq[s] != 0;
@@ -126,11 +140,17 @@ static void random_games(int rules, int games)
         }
         ends[st]++;
         if ((st == ST_CHECKS && rules != CR_THREECHECK) || (st == ST_HILL && rules != CR_HILL)) bad++;
-        if (st == ST_INSUFFICIENT && (rules == CR_CRAZYHOUSE || rules == CR_HILL)) bad++;
+        if (st == ST_INSUFFICIENT && (rules == CR_CRAZYHOUSE || rules == CR_HILL || rules == CR_RACING ||
+                                      rules == CR_HORDE)) bad++;
+        if ((st == ST_ANTI && rules != CR_ANTI) || (st == ST_EXPLODED && rules != CR_ATOMIC) ||
+            ((st == ST_RACE || st == ST_RACE_DRAW) && rules != CR_RACING) || (st == ST_HORDE && rules != CR_HORDE) ||
+            (rules == CR_ANTI && (st == ST_CHECKMATE || st == ST_STALEMATE)))
+            bad++;
     }
     printf("%s %d random games, rules %d: %d mates, %d by the rules' own end, %d draws, %d bad\n", bad ? "FAIL" : "ok  ",
-           games, rules, ends[ST_CHECKMATE], ends[ST_CHECKS] + ends[ST_HILL],
-           ends[ST_STALEMATE] + ends[ST_INSUFFICIENT] + ends[ST_REPETITION] + ends[ST_FIFTY], bad);
+           games, rules, ends[ST_CHECKMATE], ends[ST_CHECKS] + ends[ST_HILL] +
+           ends[ST_ANTI] + ends[ST_EXPLODED] + ends[ST_RACE] + ends[ST_HORDE],
+           ends[ST_STALEMATE] + ends[ST_INSUFFICIENT] + ends[ST_REPETITION] + ends[ST_FIFTY] + ends[ST_RACE_DRAW], bad);
     fails += bad != 0;
 }
 
@@ -228,6 +248,149 @@ static void variants(void)
     random_games(CR_HILL, 40);
 }
 
+/* a position from a FEN played by those rules, then moves; its status (-1: a move not legal) */
+static cstatus after(int rules, const char *fen, const char *moves)
+{
+    static cgame g;
+    g.ply = 0;
+    chess_from_fen(&g.pos[0], fen);
+    g.pos[0].rules = (uint8_t)rules;
+    if (!play_all(&g, moves)) return (cstatus)-1;
+    return game_status(&g);
+}
+
+static int legal_count(int rules, const char *fen)
+{
+    cpos p;
+    cmove m[MAX_MOVES];
+    chess_from_fen(&p, fen);
+    p.rules = (uint8_t)rules;
+    return chess_legal(&p, m);
+}
+
+/* losing chess, atomic, racing kings, horde: python-chess's perft suites (examples/perft: giveaway.perft, whose
+ * antichess positions have no castling, atomic.perft, racingkings.perft, horde.perft; the deepest counts, past a few
+ * million moves, left out), then the rules played out */
+static void variants2(void)
+{
+    const char *start = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - 0 1";
+    check_rules("anti start", start, CR_ANTI, 1, 20);
+    check_rules("anti start", start, CR_ANTI, 2, 400);
+    check_rules("anti start", start, CR_ANTI, 3, 8067);
+    check_rules("anti start", start, CR_ANTI, 4, 153299);
+    const char *ab = "8/1p6/8/8/8/8/P7/8 w - -";
+    static const long abn[6] = {2, 4, 4, 3, 1, 0};
+    for (int d = 1; d <= 6; d++) check_rules("anti a-b", ab, CR_ANTI, d, abn[d - 1]);
+    const char *ac = "8/2p5/8/8/8/8/P7/8 w - -";
+    static const long acn[13] = {2, 4, 4, 4, 4, 4, 4, 4, 12, 36, 312, 2557, 30873};
+    for (int d = 1; d <= 13; d++) check_rules("anti a-c", ac, CR_ANTI, d, acn[d - 1]);
+
+    const char *a0 = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -";
+    static const long a0n[4] = {20, 400, 8902, 197326};
+    for (int d = 1; d <= 4; d++) check_rules("atomic start", a0, CR_ATOMIC, d, a0n[d - 1]);
+    const char *a1 = "rn2kb1r/1pp1p2p/p2q1pp1/3P4/2P3b1/4PN2/PP3PPP/R2QKB1R b KQkq -";
+    static const long a1n[4] = {40, 1238, 45237, 1434825};
+    for (int d = 1; d <= 4; d++) check_rules("atomic pf1", a1, CR_ATOMIC, d, a1n[d - 1]);
+    const char *a2 = "rn1qkb1r/p5pp/2p5/3p4/N3P3/5P2/PPP4P/R1BQK3 w Qkq -";
+    static const long a2n[4] = {28, 833, 23353, 714499};
+    for (int d = 1; d <= 4; d++) check_rules("atomic pf2", a2, CR_ATOMIC, d, a2n[d - 1]);
+    const char *a3 = "8/8/8/8/8/8/2k5/rR4KR w KQ -";
+    static const long a3n[5] = {18, 180, 4364, 61401, 1603055};
+    for (int d = 1; d <= 5; d++) check_rules("atomic castle1", a3, CR_ATOMIC, d, a3n[d - 1]);
+    const char *a4 = "r3k1rR/5K2/8/8/8/8/8/8 b kq -";
+    static const long a4n[5] = {25, 282, 6753, 98729, 2587730};
+    for (int d = 1; d <= 5; d++) check_rules("atomic castle2", a4, CR_ATOMIC, d, a4n[d - 1]);
+    const char *a5 = "Rr2k1rR/3K4/3p4/8/8/8/7P/8 w kq -";
+    static const long a5n[4] = {21, 465, 10631, 241478};
+    for (int d = 1; d <= 4; d++) check_rules("atomic castle3", a5, CR_ATOMIC, d, a5n[d - 1]);
+
+    const char *r0 = "8/8/8/8/8/8/krbnNBRK/qrbnNBRQ w - -";
+    static const long r0n[4] = {21, 421, 11264, 296242};
+    for (int d = 1; d <= 4; d++) check_rules("racing start", r0, CR_RACING, d, r0n[d - 1]);
+    const char *r1 = "4brn1/2K2k2/8/8/8/8/8/8 w - -";
+    static const long r1n[6] = {6, 33, 178, 3151, 12981, 265932};
+    for (int d = 1; d <= 6; d++) check_rules("racing goal", r1, CR_RACING, d, r1n[d - 1]);
+    const char *r2 = "8/8/1rk4K/8/8/8/2bnNBR1/qrbnNBRQ b - -";
+    static const long r2n[4] = {36, 697, 26592, 661533};
+    for (int d = 1; d <= 4; d++) check_rules("racing disc", r2, CR_RACING, d, r2n[d - 1]);
+
+    const char *h0 = "rnbqkbnr/pppppppp/8/1PP2PP1/PPPPPPPP/PPPPPPPP/PPPPPPPP/PPPPPPPP w kq -";
+    static const long h0n[4] = {8, 128, 1274, 23310};
+    for (int d = 1; d <= 4; d++) check_rules("horde start", h0, CR_HORDE, d, h0n[d - 1]);
+    const char *h1 = "4k3/pp4q1/3P2p1/8/P3PP2/PPP2r2/PPP5/PPPP4 b - -";
+    static const long h1n[4] = {30, 241, 6633, 56539};
+    for (int d = 1; d <= 4; d++) check_rules("horde flank", h1, CR_HORDE, d, h1n[d - 1]);
+    const char *h2 = "k7/5p2/4p2P/3p2P1/2p2P2/1p2P2P/p2P2P1/2P2P2 w - -";
+    static const long h2n[4] = {13, 172, 2205, 33781};
+    for (int d = 1; d <= 4; d++) check_rules("horde ep", h2, CR_HORDE, d, h2n[d - 1]);
+
+    /* the rules played out */
+    static cgame g;
+    cmove all[MAX_MOVES];
+    cpos z;
+    game_new_rules(&g, CR_ANTI);
+    ok("anti: no castling at the start", !game_pos(&g)->castle);
+    play_all(&g, "e2e4 d7d5");
+    ok("anti: the capture is compulsory", chess_legal(game_pos(&g), all) == 1 && (all[0].flags & MV_CAPTURE));
+    ok("anti: all pieces lost wins", after(CR_ANTI, "8/8/8/8/8/8/1p6/R7 b - - 0 1", "b2a1q") == ST_ANTI);
+    ok("anti: stalemated wins", after(CR_ANTI, "8/8/8/8/8/1p6/1P6/8 w - - 0 1", "") == ST_ANTI);
+    ok("anti: the king can be taken", after(CR_ANTI, "8/8/8/8/8/8/1k6/K7 w - - 0 1", "a1b2") == ST_ANTI);
+    chess_from_fen(&z, "8/P7/8/8/8/8/8/7k w - - 0 1");
+    z.rules = CR_ANTI;
+    int n = chess_legal(&z, all), kings = 0;
+    for (int i = 0; i < n; i++) kings += all[i].promo == KING;
+    ok("anti: a pawn promotes to a king too", n == 5 && kings == 1);
+    ok("anti: bishops that never meet draw", after(CR_ANTI, "8/8/8/8/8/1b6/8/B7 w - - 0 1", "") == ST_INSUFFICIENT &&
+       after(CR_ANTI, "8/8/8/8/8/2b5/8/B7 w - - 0 1", "") == ST_PLAY);
+
+    game_new_rules(&g, CR_ATOMIC);
+    play_all(&g, "e2e4 d7d5 e4d5");
+    ok("atomic: both pawns gone", !game_pos(&g)->sq[SQ(3, 4)] && !game_pos(&g)->sq[SQ(4, 3)]);
+    ok("atomic: the king never captures", legal_count(CR_ATOMIC, "8/8/8/8/8/8/1p6/K6k w - - 0 1") == 2);
+    ok("atomic: blowing up the king wins", after(CR_ATOMIC, "3qk3/8/8/8/8/8/8/3QK3 w - - 0 1", "d1d8") == ST_EXPLODED);
+    g.ply = 0;
+    chess_from_fen(&g.pos[0], "4k3/8/8/8/8/8/3PPq2/4K3 b - - 0 1");
+    g.pos[0].rules = CR_ATOMIC;
+    play_all(&g, "f2e2");
+    ok("atomic: the pawns round it stay", game_status(&g) == ST_EXPLODED &&
+       game_pos(&g)->sq[SQ(3, 1)] == PC(WHITE, PAWN) && !game_pos(&g)->sq[SQ(4, 1)]);
+    chess_from_fen(&z, "8/8/8/8/8/3k4/3K3r/8 w - - 0 1");
+    z.rules = CR_ATOMIC;
+    ok("atomic: kings side by side give no check", !chess_in_check(&z, WHITE));
+    game_new_rules(&g, CR_ATOMIC);
+    play_all(&g, "g1f3 d7d5 f3e5 d8d6 e5f7");
+    ok("atomic: an explosion takes the castling rights", (game_pos(&g)->castle & 12) == 0 &&
+       game_status(&g) == ST_EXPLODED);
+
+    game_new_rules(&g, CR_RACING);
+    ok("racing: the start", chess_legal(game_pos(&g), all) == 21 && game_pos(&g)->sq[SQ(7, 1)] == PC(WHITE, KING));
+    chess_from_fen(&z, "8/8/8/8/8/8/k7/6RK w - - 0 1");
+    z.rules = CR_RACING;
+    ok("racing: no check given", !find(&z, "g1g2").to && !find(&z, "g1a1").to && find(&z, "g1g3").to);
+    ok("racing: black may follow", after(CR_RACING, "8/K6k/8/8/8/8/8/8 w - - 0 1", "a7a8") == ST_PLAY);
+    ok("racing: both there, a draw", after(CR_RACING, "8/K6k/8/8/8/8/8/8 w - - 0 1", "a7a8 h7h8") == ST_RACE_DRAW);
+    ok("racing: black did not follow", after(CR_RACING, "8/K6k/8/8/8/8/8/8 w - - 0 1", "a7a8 h7h6") == ST_RACE);
+    ok("racing: black cannot follow", after(CR_RACING, "8/K7/8/8/8/8/7k/8 w - - 0 1", "a7a8") == ST_RACE);
+    ok("racing: black first", after(CR_RACING, "8/k6K/8/8/8/8/8/8 b - - 0 1", "a7a8") == ST_RACE);
+
+    game_new_rules(&g, CR_HORDE);
+    ok("horde: 36 pawns, no white king", chess_king(game_pos(&g), WHITE) < 0 &&
+       chess_legal(game_pos(&g), all) == 8 && game_pos(&g)->castle == 12);
+    ok("horde: two squares from the first rank", legal_count(CR_HORDE, "4k3/8/8/8/8/8/8/P7 w - - 0 1") == 2);
+    g.ply = 0;
+    chess_from_fen(&g.pos[0], "4k3/8/8/8/8/p7/8/1P6 w - - 0 1");
+    g.pos[0].rules = CR_HORDE;
+    play_all(&g, "b1b3");
+    ok("horde: no en passant after it", game_pos(&g)->ep < 0 && !find(game_pos(&g), "a3b2").to);
+    ok("horde: black takes the last piece", after(CR_HORDE, "4k3/8/8/8/8/8/1q6/P7 b - - 0 1", "b2a1") == ST_HORDE);
+    ok("horde: white mates", after(CR_HORDE, "k7/2P5/1P6/8/8/8/8/8 w - - 0 1", "c7c8") == ST_CHECKMATE);
+
+    random_games(CR_ANTI, 40);
+    random_games(CR_ATOMIC, 40);
+    random_games(CR_RACING, 40);
+    random_games(CR_HORDE, 20);
+}
+
 /* Chess960's 960 start positions: each legal (bishops on both colours, the king between the rooks, the same for
  * both sides, every castling right), all different, number 518 the standard one; and one castling played out */
 static void starts960(void)
@@ -318,6 +481,7 @@ int main(void)
 
     starts960();
     variants();
+    variants2();
     printf(fails ? "%d FAILED\n" : "all passed\n", fails);
     return fails != 0;
 }

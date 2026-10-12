@@ -1,12 +1,13 @@
 /*
  * Chess rules (chess.h). Pseudo-legal moves from a plain 64-square board, kept when the mover's king is safe after
  * them. Castling follows Chess960's rules, of which standard castling is one case. Checked against the standard and
- * the Chess960 perft counts (tests/perft.c).
+ * the Chess960 perft counts, and the variants' published ones (python-chess, Fairy-Stockfish: tests/perft.c).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include "chess.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 static const int8_t KN[8][2] = {{1, 2}, {2, 1}, {2, -1}, {1, -2}, {-1, -2}, {-2, -1}, {-2, 1}, {-1, 2}};
@@ -165,8 +166,16 @@ int chess_king(const cpos *p, int color)
     return -1;
 }
 
+/* atomic: the two kings side by side (neither can be taken: it would blow up its taker's king too) */
+static int kings_touch(const cpos *p)
+{
+    int a = chess_king(p, WHITE), b = chess_king(p, BLACK);
+    return a >= 0 && b >= 0 && abs(FILE_OF(a) - FILE_OF(b)) <= 1 && abs(RANK_OF(a) - RANK_OF(b)) <= 1;
+}
+
 int chess_in_check(const cpos *p, int color)
 {
+    if (p->rules == CR_ANTI || (p->rules == CR_ATOMIC && kings_touch(p))) return 0;
     int k = chess_king(p, color);
     return k >= 0 && chess_attacked(p, k, !color);
 }
@@ -181,10 +190,11 @@ static int add(cmove *out, int n, int from, int to, int flags, int promo)
     return n + 1;
 }
 
-static int pawn_add(cmove *out, int n, int from, int to, int flags, int promotes)
+/* promotes: to a queen, a knight, a rook or a bishop (losing chess, top KING: a king too) */
+static int pawn_add(cmove *out, int n, int from, int to, int flags, int promotes, int top)
 {
     if (!promotes) return add(out, n, from, to, flags, 0);
-    for (int t = QUEEN; t >= KNIGHT; t--) n = add(out, n, from, to, flags, t);
+    for (int t = top; t >= KNIGHT; t--) n = add(out, n, from, to, flags, t);
     return n;
 }
 
@@ -196,12 +206,44 @@ static int clear(const cpos *p, int a, int b, int k, int r)
     return 1;
 }
 
+/* atomic: square s attacked by `them` in q, but for the squares round their king (taking there would blow it up) */
+static int atomic_attacked(const cpos *q, int s, int them)
+{
+    int ek = chess_king(q, them);
+    if (ek >= 0 && abs(FILE_OF(ek) - FILE_OF(s)) <= 1 && abs(RANK_OF(ek) - RANK_OF(s)) <= 1) return 0;
+    return chess_attacked(q, s, them);
+}
+
+/* atomic's castling (python-chess's): the king's square and the squares it crosses safe with the king lifted (the
+ * rook still home), its destination safe with the rook on its own; a square next to the other king is always safe */
+static int castles_atomic(const cpos *p, int k, cmove *out, int n)
+{
+    int us = p->side, them = !us, hr = us == WHITE ? 0 : 7;
+    if (RANK_OF(k) != hr) return n;
+    for (int side = 0; side < 2; side++) {
+        int bit = us * 2 + side;
+        if (!(p->castle >> bit & 1)) continue;
+        int r = SQ(p->rook[bit], hr), kt = SQ(side ? 2 : 6, hr), rt = SQ(side ? 3 : 5, hr);
+        if (p->sq[r] != PC(us, ROOK) || !clear(p, k, kt, k, r) || !clear(p, r, rt, k, r)) continue;
+        cpos q = *p;
+        q.sq[k] = EMPTY;
+        int safe = !atomic_attacked(&q, k, them);
+        for (int s = (k < kt ? k : kt) + 1, e = k < kt ? kt : k; s < e && safe; s++)
+            safe = !atomic_attacked(&q, s, them);
+        q.sq[r] = EMPTY;
+        q.sq[rt] = PC(us, ROOK);
+        if (safe && !atomic_attacked(&q, kt, them)) n = add(out, n, k, r, MV_CASTLE, 0);
+    }
+    return n;
+}
+
 /* the king on k castles: onto the rook's square (chess.h). The king and the rook end on g and f (or c and d), the
  * squares they cross empty; the king not in check, crossing and reaching only squares no enemy attacks (seen with
  * the king and the rook off the board: a rook may hide an attack on the king's new square) */
 static int castles(const cpos *p, int k, cmove *out, int n)
 {
     int us = p->side, them = !us, hr = us == WHITE ? 0 : 7;
+    if (p->rules == CR_ATOMIC) return castles_atomic(p, k, out, n);
     if (RANK_OF(k) != hr || chess_attacked(p, k, them)) return n;
     for (int side = 0; side < 2; side++) {     /* 0: towards h, 1: towards a */
         int bit = us * 2 + side;
@@ -232,21 +274,25 @@ static int slide(const cpos *p, int s, const int8_t (*d)[2], int nd, cmove *out,
 
 static int pseudo(const cpos *p, cmove *out)
 {
-    int n = 0, us = p->side;
+    int n = 0, us = p->side, top = p->rules == CR_ANTI ? KING : QUEEN;
     for (int s = 0; s < 64; s++) {
         int pc = p->sq[s];
         if (!pc || COLOR(pc) != us) continue;
         int f = FILE_OF(s), r = RANK_OF(s), t = TYPE(pc);
         if (t == PAWN) {
             int dir = us == WHITE ? 1 : -1, start = us == WHITE ? 1 : 6, last = us == WHITE ? 7 : 0, r1 = r + dir;
+            if (!on(f, r1)) continue;
             if (!p->sq[SQ(f, r1)]) {
-                n = pawn_add(out, n, s, SQ(f, r1), 0, r1 == last);
+                n = pawn_add(out, n, s, SQ(f, r1), 0, r1 == last, top);
                 if (r == start && !p->sq[SQ(f, r1 + dir)]) n = add(out, n, s, SQ(f, r1 + dir), MV_DOUBLE, 0);
+                /* the horde: from the first rank too, two squares (no en passant after it) */
+                else if (p->rules == CR_HORDE && r == start - dir && !p->sq[SQ(f, r1 + dir)])
+                    n = add(out, n, s, SQ(f, r1 + dir), 0, 0);
             }
             for (int df = -1; df <= 1; df += 2) {
                 if (!on(f + df, r1)) continue;
                 int to = SQ(f + df, r1), q = p->sq[to];
-                if (q && COLOR(q) != us) n = pawn_add(out, n, s, to, MV_CAPTURE, r1 == last);
+                if (q && COLOR(q) != us) n = pawn_add(out, n, s, to, MV_CAPTURE, r1 == last, top);
                 else if (!q && to == p->ep) n = add(out, n, s, to, MV_CAPTURE | MV_EP, 0);
             }
         } else if (t == KNIGHT || t == KING) {
@@ -280,6 +326,25 @@ static int drops(const cpos *p, cmove *out, int n)
     return n;
 }
 
+/* racing kings: over when a king stands on the eighth rank, unless the white king got there and black, to move, can
+ * still bring its king there too (a square next to it on the eighth rank, not black's own, that white does not
+ * attack: python-chess's reading) */
+static int race_over(const cpos *p)
+{
+    int w = chess_king(p, WHITE), b = chess_king(p, BLACK), w8 = w >= 0 && RANK_OF(w) == 7,
+        b8 = b >= 0 && RANK_OF(b) == 7;
+    if (!w8 && !b8) return 0;
+    if (w8 && b8) return ST_RACE_DRAW;
+    if (b8 || p->side == WHITE || b < 0) return ST_RACE;
+    for (int i = 0; i < 8; i++) {
+        int f = FILE_OF(b) + KG[i][0], r = RANK_OF(b) + KG[i][1];
+        if (!on(f, r) || r != 7) continue;
+        int q = p->sq[SQ(f, r)];
+        if ((!q || COLOR(q) != BLACK) && !chess_attacked(p, SQ(f, r), WHITE)) return 0;
+    }
+    return ST_RACE;
+}
+
 int chess_over(const cpos *p)
 {
     if (p->rules == CR_THREECHECK && (p->checks[WHITE] >= 3 || p->checks[BLACK] >= 3)) return ST_CHECKS;
@@ -288,6 +353,13 @@ int chess_over(const cpos *p)
             int k = chess_king(p, c);
             if (k >= 0 && CHESS_HILL(k)) return ST_HILL;
         }
+    if (p->rules == CR_ATOMIC && (chess_king(p, WHITE) < 0 || chess_king(p, BLACK) < 0)) return ST_EXPLODED;
+    if (p->rules == CR_RACING) return race_over(p);
+    if (p->rules == CR_HORDE) {
+        for (int s = 0; s < 64; s++)
+            if (p->sq[s] && COLOR(p->sq[s]) == WHITE) return 0;
+        return ST_HORDE;
+    }
     return 0;
 }
 
@@ -297,10 +369,24 @@ int chess_legal(const cpos *p, cmove *out)
     if (p->rules != CR_CHESS && chess_over(p)) return 0;
     int n = pseudo(p, all), k = 0;
     if (p->rules == CR_CRAZYHOUSE) n = drops(p, all, n);
+    if (p->rules == CR_ANTI) {                  /* no check; a capture when there is one */
+        int some = 0, theirs = 0;
+        for (int s = 0; s < 64; s++) theirs |= p->sq[s] && COLOR(p->sq[s]) != p->side;
+        if (!theirs) return 0;                  /* they have nothing left: the game is over */
+        for (int i = 0; i < n; i++) some |= (all[i].flags & MV_CAPTURE) != 0;
+        for (int i = 0; i < n; i++)
+            if (!some || (all[i].flags & MV_CAPTURE)) out[k++] = all[i];
+        return k;
+    }
     for (int i = 0; i < n; i++) {
         cpos q = *p;
         chess_make(&q, all[i]);
-        if (!chess_in_check(&q, p->side)) out[k++] = all[i];
+        if (p->rules == CR_ATOMIC) {            /* our king still there; theirs blown up, or ours not in check */
+            if (chess_king(&q, p->side) < 0) continue;
+            if (chess_king(&q, !p->side) >= 0 && chess_in_check(&q, p->side)) continue;
+        } else if (chess_in_check(&q, p->side)) continue;
+        if (p->rules == CR_RACING && chess_in_check(&q, !p->side)) continue;   /* no check given */
+        out[k++] = all[i];
     }
     return k;
 }
@@ -311,6 +397,23 @@ static void to_hand(cpos *p, int s, int us)
     if (!p->sq[s]) return;
     p->hand[us][p->promoted >> s & 1 ? PAWN : TYPE(p->sq[s])]++;
     p->promoted &= ~(1ull << s);
+}
+
+/* atomic: the capture on s explodes: the piece that took, and every piece but a pawn round s; the castling rights of
+ * a rook or a king blown up go with it */
+static void explode(cpos *p, int s)
+{
+    p->sq[s] = EMPTY;
+    for (int i = 0; i < 8; i++) {
+        int f = FILE_OF(s) + KG[i][0], r = RANK_OF(s) + KG[i][1];
+        if (!on(f, r)) continue;
+        int t = SQ(f, r), q = p->sq[t];
+        if (q && TYPE(q) == PAWN) continue;
+        for (int b = 0; b < 4; b++)
+            if (t == SQ(p->rook[b], b < 2 ? 0 : 7)) p->castle &= (uint8_t)~(1 << b);
+        if (q && TYPE(q) == KING) p->castle &= (uint8_t)~(3 << COLOR(q) * 2);
+        p->sq[t] = EMPTY;
+    }
 }
 
 void chess_make(cpos *p, cmove m)
@@ -349,6 +452,7 @@ void chess_make(cpos *p, cmove m)
         int home = SQ(p->rook[i], i < 2 ? 0 : 7);
         if (m.from == home || m.to == home) p->castle &= (uint8_t)~(1 << i);
     }
+    if (p->rules == CR_ATOMIC && (m.flags & MV_CAPTURE)) explode(p, m.to);
     p->ep = -1;
     if (m.flags & MV_DOUBLE) {                      /* only when it can be taken: repeated positions compare right */
         int f = FILE_OF(m.to), r = RANK_OF(m.to);
@@ -377,7 +481,11 @@ void game_new960(cgame *g, int n)
 void game_new_rules(cgame *g, int rules)
 {
     g->ply = 0;
-    chess_start(&g->pos[0]);
+    if (rules == CR_RACING) chess_from_fen(&g->pos[0], "8/8/8/8/8/8/krbnNBRK/qrbnNBRQ w - - 0 1");
+    else if (rules == CR_HORDE)
+        chess_from_fen(&g->pos[0], "rnbqkbnr/pppppppp/8/1PP2PP1/PPPPPPPP/PPPPPPPP/PPPPPPPP/PPPPPPPP w kq - 0 1");
+    else chess_start(&g->pos[0]);
+    if (rules == CR_ANTI) g->pos[0].castle = 0; /* the king is a plain piece: it never castles */
     g->pos[0].rules = (uint8_t)rules;
 }
 
@@ -405,10 +513,62 @@ static int same(const cpos *a, const cpos *b)
 }
 
 /* no checkmate is possible: kings alone, a king and one minor piece, or bishops all on one colour of squares */
+/* the pieces by colour and type, and the bishops by colour and square colour (0: dark, a1's) */
+typedef struct { int n[2][7], bishops[2][2], all; } census;
+static census count_pieces(const cpos *p)
+{
+    census c;
+    memset(&c, 0, sizeof c);
+    for (int s = 0; s < 64; s++) {
+        int q = p->sq[s];
+        if (!q) continue;
+        c.n[COLOR(q)][TYPE(q)]++;
+        c.all++;
+        if (TYPE(q) == BISHOP) c.bishops[COLOR(q)][(FILE_OF(s) + RANK_OF(s)) & 1]++;
+    }
+    return c;
+}
+
+/* atomic: `color` can never win (python-chess's has_insufficient_material) */
+static int atomic_poor(const census *c, int color)
+{
+    int them = !color, ours = 0, theirs = 0;
+    for (int t = PAWN; t <= QUEEN; t++) ours += c->n[color][t], theirs += c->n[them][t];
+    if (!c->n[them][KING]) return 0;
+    if (!ours) return 1;                        /* a bare king */
+    if (theirs) {                               /* their pieces may blow up next to their king: unless bishops alone */
+        int b = c->n[0][BISHOP] + c->n[1][BISHOP], k = c->n[0][KING] + c->n[1][KING];
+        if (b + k == c->all) {
+            if (!c->bishops[WHITE][0]) return !c->bishops[BLACK][1];
+            if (!c->bishops[WHITE][1]) return !c->bishops[BLACK][0];
+        }
+        return 0;
+    }
+    int q = c->n[0][QUEEN] + c->n[1][QUEEN] + c->n[0][PAWN] + c->n[1][PAWN];
+    if (q) return 0;
+    int minor = 0, knights = c->n[0][KNIGHT] + c->n[1][KNIGHT];
+    for (int s = 0; s < 2; s++) minor += c->n[s][KNIGHT] + c->n[s][BISHOP] + c->n[s][ROOK];
+    if (minor == 1) return 1;
+    if (knights + c->n[0][KING] + c->n[1][KING] == c->all) return knights <= 2;
+    return 0;
+}
+
 static int insufficient(const cpos *p)
 {
     int minors = 0, bishops[2] = {0, 0};
     if (p->rules == CR_CRAZYHOUSE || p->rules == CR_HILL) return 0;   /* drops; a king walking to the hill */
+    if (p->rules == CR_RACING || p->rules == CR_HORDE) return 0;      /* a king can always run; the horde */
+    if (p->rules == CR_ATOMIC) {
+        census c = count_pieces(p);
+        return atomic_poor(&c, WHITE) && atomic_poor(&c, BLACK);
+    }
+    if (p->rules == CR_ANTI) {                  /* bishops alone, each side's on its own colour of squares */
+        census c = count_pieces(p);
+        if (c.n[0][BISHOP] + c.n[1][BISHOP] != c.all || !c.n[0][BISHOP] || !c.n[1][BISHOP]) return 0;
+        for (int sc = 0; sc < 2; sc++)
+            if (c.bishops[WHITE][sc] == c.n[WHITE][BISHOP] && c.bishops[BLACK][!sc] == c.n[BLACK][BISHOP]) return 1;
+        return 0;
+    }
     if (p->rules == CR_THREECHECK) {            /* any piece may still check */
         for (int s = 0; s < 64; s++)
             if (p->sq[s] && TYPE(p->sq[s]) != KING) return 0;
@@ -431,7 +591,10 @@ cstatus game_status(const cgame *g)
     cmove m[MAX_MOVES];
     int over = p->rules == CR_CHESS ? 0 : chess_over(p);
     if (over) return (cstatus)over;
-    if (!chess_legal(p, m)) return chess_in_check(p, p->side) ? ST_CHECKMATE : ST_STALEMATE;
+    if (!chess_legal(p, m)) {
+        if (p->rules == CR_ANTI) return ST_ANTI;   /* nothing left, or stalemated: the side to move won */
+        return chess_in_check(p, p->side) ? ST_CHECKMATE : ST_STALEMATE;
+    }
     if (insufficient(p)) return ST_INSUFFICIENT;
     if (p->halfmove >= 100) return ST_FIFTY;
     int seen = 0;

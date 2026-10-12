@@ -32,5 +32,26 @@ Sjakk med én type trekk til: en brikke du slår, bytter side og havner i reserv
 Sjakk, men den første som gir sjakk tre ganger, vinner. Sjakkmatt vinner også. Hvert panel har tre plasser, og et rødt lys tennes i én av dem for hvert sjakk spilleren gir.
 # Kongen på haugen
 Sjakk, men den første spilleren som får kongen sin til en av de fire midtrutene (d4, e4, d5, e5), som er innrammet i gull, vinner med en gang. Sjakkmatt vinner også. Kongen kan fortsatt aldri stille seg i sjakk.
+# Tapsjakk
+Sjakk snudd på hodet: målet er å miste alle brikkene sine.
+- Det er plikt å slå: kan du slå, må du, men du velger selv hvilket slag.
+- Kongen er en vanlig brikke: det finnes ingen sjakk, kongen kan slås, og det er ingen rokade. En bonde kan også forvandles til en konge (velgerens femte valg).
+- Du vinner når du ikke har flere brikker, eller når du ikke kan flytte.
+- Partiet er remis når det bare er løpere igjen og løperne til hver side står på felter med forskjellig farge: de kan aldri slå hverandre.
+# Atomsjakk
+Hvert slag er en eksplosjon: den slåtte brikken, brikken som slår, og alle brikker unntatt bønder på de åtte feltene rundt forsvinner fra brettet.
+- Du vinner ved å sprenge motstanderens konge, selv om din egen konge står i sjakk. Sjakkmatt vinner også.
+- En konge kan ikke slå, og ingen trekk kan sprenge din egen konge.
+- Står de to kongene side om side, står ingen av dem i sjakk: å slå den ene ville sprenge begge.
+- Partiet er remis når ingen av sidene har nok brikker igjen til å vinne.
+# Kongeløp
+Alle brikkene starter på de to første radene, side om side, uten bønder. Ingen trekk kan gi sjakk.
+- Den første kongen som når den siste raden, innrammet i gull, vinner.
+- Kommer den hvite kongen først, har svart fortsatt ett trekk: når den svarte kongen også den siste raden, er partiet remis.
+# Horde
+Hvit har 36 bønder og ingen konge, mot svarts vanlige hær.
+- Hvit vinner ved å sette den svarte kongen matt; svart vinner ved å slå alle de hvite brikkene.
+- Hvite bønder på første rad kan også gå to felter (da kan de ikke slås en passant).
+- Hvit har ingen konge og står derfor aldri i sjakk.
 # Spill på enheten
 Trykk på en brikke for å se hvor den kan gå, og trykk så på en rute, eller dra brikken. Prikker viser trekkene, ringer slagene. En konge i sjakk lyser rødt. For å rokere flytter du kongen to ruter mot tårnet, eller til tårnet.

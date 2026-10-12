@@ -32,5 +32,26 @@ Schaken met één soort zet meer: een stuk dat je slaat, wisselt van kant en gaa
 Schaken, maar wie als eerste drie keer schaak geeft, wint. Mat wint ook. Elke balk heeft drie vakjes, en bij elk schaak dat die speler geeft, gaat er in een ervan een rood licht aan.
 # Koning van de heuvel
 Schaken, maar wiens koning als eerste een van de vier middenvelden (d4, e4, d5, e5) bereikt, goud omlijst, wint meteen. Mat wint ook. De koning mag nog steeds nooit schaak komen te staan.
+# Slagschaak
+Schaken op zijn kop: het doel is al je stukken te verliezen.
+- Slaan is verplicht: als je kunt slaan, moet je dat doen, maar je kiest zelf welke slag.
+- De koning is een gewoon stuk: er is geen schaak, de koning mag geslagen worden en er wordt niet gerokeerd. Een pion mag ook promoveren tot koning (de vijfde keuze van de kiezer).
+- Je wint als je geen stukken meer hebt, of als je geen zet meer kunt doen.
+- De partij is remise als er alleen lopers over zijn en die van elke kant op velden van een andere kleur staan: ze kunnen elkaar nooit slaan.
+# Atoomschaak
+Elke slag is een ontploffing: het geslagen stuk, het slaande stuk en alle stukken behalve pionnen op de acht velden eromheen verdwijnen van het bord.
+- Je wint door de andere koning op te blazen, zelfs als je eigen koning schaak staat. Schaakmat wint ook.
+- Een koning mag niet slaan, en geen zet mag je eigen koning opblazen.
+- Staan de twee koningen naast elkaar, dan staat geen van beide schaak: de een slaan zou ze allebei opblazen.
+- De partij is remise als geen van beide kanten genoeg stukken heeft om te winnen.
+# Koningsrace
+Alle stukken beginnen op de eerste twee rijen, naast elkaar, zonder pionnen. Geen zet mag schaak geven.
+- De eerste koning die de laatste rij bereikt, met goud omrand, wint.
+- Komt de witte koning daar het eerst, dan heeft zwart nog één zet: bereikt de zwarte koning ook de laatste rij, dan is de partij remise.
+# Horde
+Wit heeft 36 pionnen en geen koning, tegen het gewone leger van zwart.
+- Wit wint door de zwarte koning mat te zetten; zwart wint door alle witte stukken te slaan.
+- Witte pionnen op de eerste rij mogen ook twee velden vooruit (ze kunnen dan niet en passant geslagen worden).
+- Wit heeft geen koning en staat dus nooit schaak.
 # Spelen op het apparaat
 Tik op een stuk om te zien waar het heen kan en tik dan op een veld, of sleep het stuk. Stippen tonen de zetten, ringen het slaan. Een koning die schaak staat, licht rood op. Om te rokeren zet je de koning twee velden naar de toren toe, of op de toren.

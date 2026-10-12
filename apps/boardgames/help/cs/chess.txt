@@ -32,5 +32,26 @@ Chess960 (Fischerovy náhodné šachy) se hraje podle stejných pravidel, ale fi
 Šachy, ale vyhrává ten, kdo jako první třikrát dá šach. Mat také vyhrává. Každá lišta má tři místa a za každý šach, který hráč dá, se v jednom z nich rozsvítí červené světlo.
 # Král kopce
 Šachy, ale okamžitě vyhrává hráč, jehož král jako první dojde na jedno ze čtyř středových polí (d4, e4, d5, e5), orámovaných zlatem. Mat také vyhrává. Král se ani tak nesmí postavit do šachu.
+# Kdo prohraje, vyhraje
+Šachy naruby: cílem je přijít o všechny své figury.
+- Brát je povinné: když můžeš brát, musíš, ale vybereš si, co vezmeš.
+- Král je obyčejná figura: šach neexistuje, krále lze vzít a rošáda není. Pěšec se může proměnit i v krále (pátá volba nabídky).
+- Vyhráváš, když ti nezbude žádná figura, nebo když nemůžeš táhnout.
+- Partie končí remízou, když zbydou jen střelci a střelci každé strany stojí na polích jiné barvy: nikdy se nemohou vzít.
+# Atomové šachy
+Každé braní je výbuch: braná figura, figura, která bere, a všechny figury kromě pěšců na osmi okolních polích zmizí z desky.
+- Vyhraješ, když vyhodíš do vzduchu soupeřova krále, i když je tvůj král v šachu. Vyhrává i mat.
+- Král nesmí brát a žádný tah nesmí vyhodit do vzduchu tvého vlastního krále.
+- Stojí-li oba králové vedle sebe, ani jeden není v šachu: braní jednoho by vyhodilo do vzduchu oba.
+- Partie končí remízou, když ani jedna strana nemá dost figur na výhru.
+# Závod králů
+Všechny figury začínají na prvních dvou řadách, vedle sebe, bez pěšců. Žádný tah nesmí dát šach.
+- Vyhrává první král, který dojde na poslední řadu, orámovanou zlatem.
+- Dojde-li tam první bílý král, černý má ještě jeden tah: dojde-li na poslední řadu i černý král, partie končí remízou.
+# Horda
+Bílý má 36 pěšců a žádného krále proti obvyklé armádě černého.
+- Bílý vyhraje, když dá matu černému králi; černý vyhraje, když vezme všechny bílé figury.
+- Bílí pěšci na první řadě smějí táhnout i o dvě pole (pak je nelze brát mimochodem).
+- Bílý nemá krále, takže nikdy není v šachu.
 # Hra na zařízení
 Klepni na figuru a uvidíš, kam může táhnout, potom klepni na pole, nebo figuru přetáhni. Tečky ukazují tahy, kroužky braní. Král v šachu svítí červeně. Chceš-li udělat rošádu, táhni králem o dvě pole směrem k věži, nebo na věž.

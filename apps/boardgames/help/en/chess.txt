@@ -32,5 +32,26 @@ Chess with one more kind of move: a piece you capture changes sides and goes int
 Chess, but the first player to give check three times wins. Checkmate also wins. Each bar has three slots, and a red light comes on in one of them for every check that player gives.
 # King of the Hill
 Chess, but the first player whose king reaches one of the four centre squares (d4, e4, d5, e5), framed in gold, wins at once. Checkmate also wins. The king may still never move into check.
+# Losing chess
+Chess turned upside down: the aim is to lose all your pieces.
+- Capturing is compulsory: when you can capture, you must, but you may choose which capture.
+- The king is an ordinary piece: there is no check, the king may be captured, and there is no castling. A pawn may also be promoted to a king (the fifth choice of the picker).
+- You win when you have no pieces left, or when you cannot move.
+- The game is a draw when only bishops are left and each side's stand on squares of a different colour, so that they can never capture each other.
+# Atomic
+Every capture is an explosion: the captured piece, the capturing piece and every piece except pawns on the eight squares around are removed from the board.
+- You win by blowing up the other king, even when your own king is in check. Checkmate also wins.
+- A king may not capture, and no move may blow up your own king.
+- When the two kings stand side by side, neither is in check: capturing one would blow up both.
+- The game is a draw when neither side has enough pieces left to win.
+# Racing Kings
+All the pieces start on the first two rows, side by side, with no pawns. No move may give check.
+- The first king to reach the last row, framed in gold, wins.
+- If the white king gets there first, Black still has one move: if the black king reaches the last row too, the game is a draw.
+# Horde
+White has 36 pawns and no king, against Black's usual army.
+- White wins by checkmating the black king; Black wins by capturing every white piece.
+- White's pawns on the first row may move two squares as well (they cannot be taken en passant then).
+- White has no king, so it is never in check.
 # Playing on the device
 Tap a piece to see where it can go, then tap a square, or drag the piece. Dots show the moves, rings the captures. A king in check glows red. To castle, move the king two squares towards the rook, or onto the rook.

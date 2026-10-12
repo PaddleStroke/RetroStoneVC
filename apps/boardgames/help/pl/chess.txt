@@ -32,5 +32,26 @@ Szachy z jeszcze jednym rodzajem ruchu: zbita przez ciebie bierka zmienia stron�
 Szachy, ale wygrywa gracz, który pierwszy da szacha trzy razy. Mat też wygrywa. Każdy pasek ma trzy miejsca i w jednym z nich zapala się czerwone światło za każdego szacha danego przez tego gracza.
 # Król wzgórza
 Szachy, ale od razu wygrywa gracz, którego król pierwszy dotrze na jedno z czterech środkowych pól (d4, e4, d5, e5), obramowanych złotem. Mat też wygrywa. Król nadal nie może wejść pod szacha.
+# Szachy na przegraną
+Szachy na odwrót: celem jest stracić wszystkie swoje bierki.
+- Bicie jest obowiązkowe: gdy możesz bić, musisz, ale sam wybierasz, które bicie.
+- Król jest zwykłą bierką: nie ma szacha, króla można zbić i nie ma roszady. Pionek może też awansować na króla (piąty wybór w okienku).
+- Wygrywasz, gdy nie zostanie ci żadna bierka albo gdy nie możesz wykonać ruchu.
+- Partia kończy się remisem, gdy zostały same gońce, a gońce każdej strony stoją na polach różnego koloru: nigdy nie mogą się zbić.
+# Szachy atomowe
+Każde bicie to wybuch: zbita bierka, bierka, która bije, i wszystkie bierki oprócz pionków na ośmiu sąsiednich polach znikają z szachownicy.
+- Wygrywasz, wysadzając króla przeciwnika, nawet jeśli twój król jest szachowany. Mat też wygrywa.
+- Król nie może bić i żaden ruch nie może wysadzić twojego własnego króla.
+- Gdy obaj królowie stoją obok siebie, żaden nie jest szachowany: zbicie jednego wysadziłoby obu.
+- Partia kończy się remisem, gdy żadna ze stron nie ma dość bierek, by wygrać.
+# Wyścig królów
+Wszystkie bierki zaczynają na dwóch pierwszych rzędach, obok siebie, bez pionków. Żaden ruch nie może dać szacha.
+- Wygrywa pierwszy król, który dotrze do ostatniego rzędu, obramowanego złotem.
+- Jeśli biały król dotrze tam pierwszy, czarne mają jeszcze jeden ruch: jeśli czarny król też dotrze do ostatniego rzędu, partia kończy się remisem.
+# Horda
+Białe mają 36 pionków i nie mają króla, przeciw zwykłej armii czarnych.
+- Białe wygrywają, dając mata czarnemu królowi; czarne wygrywają, zbijając wszystkie białe bierki.
+- Białe pionki z pierwszego rzędu mogą też iść o dwa pola (wtedy nie można ich zbić w przelocie).
+- Białe nie mają króla, więc nigdy nie są szachowane.
 # Gra na urządzeniu
 Dotknij bierki, aby zobaczyć, gdzie może się ruszyć, a potem dotknij pola, albo przeciągnij bierkę. Kropki pokazują ruchy, kółka bicia. Szachowany król świeci na czerwono. Aby wykonać roszadę, przesuń króla o dwa pola w stronę wieży albo na wieżę.

@@ -32,5 +32,26 @@ Ajedrez con un tipo de jugada más: una pieza que capturas cambia de bando y pas
 Ajedrez, pero gana el primer jugador que da jaque tres veces. El mate también gana. Cada barra tiene tres huecos, y se enciende una luz roja en uno de ellos por cada jaque que da ese jugador.
 # Rey de la colina
 Ajedrez, pero gana al instante el primer jugador cuyo rey llega a una de las cuatro casillas centrales (d4, e4, d5, e5), enmarcadas en oro. El mate también gana. El rey sigue sin poder ponerse en jaque.
+# Pierde gana
+El ajedrez al revés: el objetivo es perder todas tus piezas.
+- Capturar es obligatorio: cuando puedes capturar, debes hacerlo, pero eliges qué captura.
+- El rey es una pieza normal: no hay jaque, el rey puede ser capturado y no hay enroque. Un peón también puede coronar en rey (la quinta opción del selector).
+- Ganas cuando no te queda ninguna pieza o cuando no puedes mover.
+- La partida es tablas cuando solo quedan alfiles y los de cada bando están en casillas de distinto color: nunca podrán capturarse.
+# Atómico
+Cada captura es una explosión: la pieza capturada, la pieza que captura y todas las piezas, salvo los peones, de las ocho casillas de alrededor salen del tablero.
+- Ganas haciendo estallar al rey contrario, aunque tu propio rey esté en jaque. El jaque mate también gana.
+- Un rey no puede capturar, y ninguna jugada puede hacer estallar a tu propio rey.
+- Cuando los dos reyes están uno al lado del otro, ninguno está en jaque: capturar a uno haría estallar a los dos.
+- La partida es tablas cuando ningún bando tiene piezas suficientes para ganar.
+# Carrera de reyes
+Todas las piezas empiezan en las dos primeras filas, una al lado de otra, sin peones. Ninguna jugada puede dar jaque.
+- Gana el primer rey que llega a la última fila, enmarcada en oro.
+- Si el rey blanco llega primero, las negras aún juegan una vez: si el rey negro también llega a la última fila, la partida es tablas.
+# Horda
+Las blancas tienen 36 peones y ningún rey, contra el ejército habitual de las negras.
+- Las blancas ganan dando mate al rey negro; las negras ganan capturando todas las piezas blancas.
+- Los peones blancos de la primera fila también pueden avanzar dos casillas (entonces no se pueden capturar al paso).
+- Las blancas no tienen rey, así que nunca están en jaque.
 # Jugar en el dispositivo
 Toca una pieza para ver adónde puede ir y luego toca una casilla, o arrastra la pieza. Los puntos muestran las jugadas, los anillos las capturas. Un rey en jaque brilla en rojo. Para enrocar, mueve el rey dos casillas hacia la torre, o sobre la torre.

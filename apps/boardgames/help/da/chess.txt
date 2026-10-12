@@ -32,5 +32,26 @@ Skak med én slags træk mere: en brik, du slår, skifter side og kommer i din r
 Skak, men den første spiller, der giver skak tre gange, vinder. Skakmat vinder også. Hvert panel har tre pladser, og der tændes et rødt lys i en af dem for hver skak, spilleren giver.
 # Bakkens konge
 Skak, men den første spiller, hvis konge når et af de fire midterfelter (d4, e4, d5, e5), som er indrammet med guld, vinder med det samme. Skakmat vinder også. Kongen må stadig aldrig stille sig i skak.
+# Taberskak
+Skak på hovedet: målet er at miste alle sine brikker.
+- Det er pligt at slå: kan du slå, skal du, men du vælger selv hvilket slag.
+- Kongen er en almindelig brik: der er ingen skak, kongen kan slås, og der er ingen rokade. En bonde kan også forvandles til en konge (vælgerens femte valg).
+- Du vinder, når du ikke har flere brikker, eller når du ikke kan trække.
+- Partiet er remis, når der kun er løbere tilbage, og hver sides løbere står på felter af forskellig farve: de kan aldrig slå hinanden.
+# Atomskak
+Hvert slag er en eksplosion: den slåede brik, den slående brik og alle brikker undtagen bønder på de otte felter omkring forsvinder fra brættet.
+- Du vinder ved at sprænge modstanderens konge i luften, også selvom din egen konge står i skak. Skakmat vinder også.
+- En konge må ikke slå, og intet træk må sprænge din egen konge.
+- Står de to konger side om side, står ingen af dem i skak: at slå den ene ville sprænge dem begge.
+- Partiet er remis, når ingen af siderne har brikker nok til at vinde.
+# Kongeløb
+Alle brikker starter på de to første rækker, side om side, uden bønder. Intet træk må give skak.
+- Den første konge, der når den sidste række, indrammet i guld, vinder.
+- Kommer den hvide konge først, har sort stadig ét træk: når den sorte konge også den sidste række, er partiet remis.
+# Horde
+Hvid har 36 bønder og ingen konge mod sorts sædvanlige hær.
+- Hvid vinder ved at sætte den sorte konge mat; sort vinder ved at slå alle hvide brikker.
+- Hvide bønder på første række må også gå to felter (så kan de ikke slås en passant).
+- Hvid har ingen konge og står derfor aldrig i skak.
 # Spil på enheden
 Tryk på en brik for at se, hvor den kan gå hen, og tryk derefter på et felt, eller træk brikken. Prikker viser trækkene, ringe slagene. En konge i skak lyser rødt. For at rokere flytter du kongen to felter mod tårnet eller hen på tårnet.

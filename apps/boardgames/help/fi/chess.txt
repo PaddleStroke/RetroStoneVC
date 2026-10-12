@@ -32,5 +32,26 @@ Shakkia yhdellä lisäsiirtotavalla: lyömäsi nappula vaihtaa puolta ja siirtyy
 Shakkia, mutta voittaja on se, joka ensimmäisenä antaa shakin kolme kertaa. Myös matti voittaa. Kussakin palkissa on kolme paikkaa, ja yhteen niistä syttyy punainen valo jokaisesta pelaajan antamasta shakista.
 # Kukkulan kuningas
 Shakkia, mutta se, jonka kuningas ensimmäisenä pääsee johonkin neljästä keskiruudusta (d4, e4, d5, e5), jotka on kehystetty kullalla, voittaa heti. Myös matti voittaa. Kuningas ei silti koskaan saa siirtyä shakkiin.
+# Häviöshakki
+Shakki ylösalaisin: tavoitteena on menettää kaikki omat nappulat.
+- Lyöminen on pakollista: kun voit lyödä, sinun on lyötävä, mutta saat valita, minkä lyönnin teet.
+- Kuningas on tavallinen nappula: shakkia ei ole, kuninkaan voi lyödä, eikä linnoitusta ole. Sotilaan voi korottaa myös kuninkaaksi (valitsimen viides vaihtoehto).
+- Voitat, kun sinulla ei ole enää nappuloita tai kun et voi siirtää.
+- Peli päättyy tasapeliin, kun jäljellä on vain lähettejä ja kummankin puolen lähetit ovat eriväristen ruutujen päällä: ne eivät voi koskaan lyödä toisiaan.
+# Atomishakki
+Jokainen lyönti on räjähdys: lyöty nappula, lyövä nappula ja kaikki muut paitsi sotilaat ympäröivillä kahdeksalla ruudulla poistuvat laudalta.
+- Voitat räjäyttämällä vastustajan kuninkaan, vaikka oma kuninkaasi olisi shakissa. Myös matti voittaa.
+- Kuningas ei saa lyödä, eikä mikään siirto saa räjäyttää omaa kuningastasi.
+- Kun kuninkaat ovat vierekkäin, kumpikaan ei ole shakissa: toisen lyöminen räjäyttäisi molemmat.
+- Peli päättyy tasapeliin, kun kummallakaan ei ole tarpeeksi nappuloita voittoon.
+# Kuninkaiden kilpajuoksu
+Kaikki nappulat aloittavat kahdelta ensimmäiseltä riviltä rinnakkain, ilman sotilaita. Mikään siirto ei saa antaa shakkia.
+- Ensimmäinen kuningas, joka pääsee viimeiselle kultareunaiselle riville, voittaa.
+- Jos valkea kuningas ehtii ensin, mustalla on vielä yksi siirto: jos musta kuningas pääsee myös viimeiselle riville, peli päättyy tasapeliin.
+# Lauma
+Valkealla on 36 sotilasta eikä kuningasta mustan tavallista armeijaa vastaan.
+- Valkea voittaa tekemällä mustalle kuninkaalle matin; musta voittaa lyömällä kaikki valkeat nappulat.
+- Valkeat sotilaat ensimmäisellä rivillä saavat myös siirtyä kaksi ruutua (silloin niitä ei voi lyödä ohestalyönnillä).
+- Valkealla ei ole kuningasta, joten se ei ole koskaan shakissa.
 # Pelaaminen laitteella
 Napauta nappulaa nähdäksesi, minne se voi liikkua, ja napauta sitten ruutua, tai vedä nappulaa. Pisteet näyttävät siirrot, renkaat lyönnit. Shakissa oleva kuningas hehkuu punaisena. Linnoittaaksesi siirrä kuningasta kaksi ruutua tornia kohti tai tornin päälle.

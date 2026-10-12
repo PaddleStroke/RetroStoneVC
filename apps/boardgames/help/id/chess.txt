@@ -32,5 +32,26 @@ Catur dengan satu jenis langkah tambahan: buah yang kamu makan berganti pihak da
 Catur, tetapi pemain pertama yang memberi skak tiga kali menang. Skakmat juga menang. Setiap bilah punya tiga tempat, dan satu lampu merah menyala di salah satunya untuk setiap skak yang diberikan pemain itu.
 # Raja Bukit
 Catur, tetapi pemain pertama yang rajanya mencapai salah satu dari empat petak tengah (d4, e4, d5, e5), yang berbingkai emas, langsung menang. Skakmat juga menang. Raja tetap tidak boleh melangkah ke petak yang terkena skak.
+# Kalah jadi menang
+Catur terbalik: tujuannya adalah kehilangan semua bidakmu.
+- Memakan wajib: kalau kamu bisa memakan, kamu harus memakan, tetapi kamu boleh memilih yang mana.
+- Raja adalah bidak biasa: tidak ada skak, raja bisa dimakan, dan tidak ada rokade. Pion juga bisa dipromosikan menjadi raja (pilihan kelima di pemilih).
+- Kamu menang kalau bidakmu sudah habis, atau kalau kamu tidak bisa melangkah.
+- Permainan seri kalau yang tersisa hanya gajah dan gajah tiap pihak berdiri di petak berwarna berbeda: mereka tidak akan pernah bisa saling memakan.
+# Catur atom
+Setiap makan adalah ledakan: bidak yang dimakan, bidak yang memakan, dan semua bidak kecuali pion di delapan petak sekelilingnya keluar dari papan.
+- Kamu menang dengan meledakkan raja lawan, meskipun rajamu sendiri sedang diskak. Skakmat juga menang.
+- Raja tidak boleh memakan, dan tidak ada langkah yang boleh meledakkan rajamu sendiri.
+- Kalau kedua raja berdiri bersebelahan, tidak ada yang terkena skak: memakan salah satunya akan meledakkan keduanya.
+- Permainan seri kalau tidak ada pihak yang punya cukup bidak untuk menang.
+# Balapan raja
+Semua bidak mulai di dua baris pertama, berdampingan, tanpa pion. Tidak ada langkah yang boleh memberi skak.
+- Raja pertama yang mencapai baris terakhir, yang berbingkai emas, menang.
+- Kalau raja putih tiba lebih dulu, hitam masih punya satu langkah: kalau raja hitam juga mencapai baris terakhir, permainan seri.
+# Gerombolan
+Putih punya 36 pion dan tanpa raja, melawan pasukan biasa milik hitam.
+- Putih menang dengan men-skakmat raja hitam; hitam menang dengan memakan semua bidak putih.
+- Pion putih di baris pertama juga boleh maju dua petak (setelah itu tidak bisa dimakan en passant).
+- Putih tidak punya raja, jadi tidak pernah terkena skak.
 # Bermain di perangkat
 Ketuk bidak untuk melihat ke mana bidak itu bisa bergerak, lalu ketuk petak tujuan, atau seret bidaknya. Titik menunjukkan langkah, lingkaran menunjukkan bidak yang bisa dimakan. Raja yang diskak menyala merah. Untuk rokade, gerakkan raja dua petak ke arah benteng, atau ke atas benteng.

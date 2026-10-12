@@ -32,5 +32,26 @@ Schach mit einer weiteren Zugart: Eine Figur, die du schlägst, wechselt die Sei
 Schach, aber wer als Erster dreimal Schach gibt, gewinnt. Matt gewinnt ebenfalls. Jede Leiste hat drei Plätze, und für jedes Schach, das der Spieler gibt, leuchtet einer davon rot auf.
 # König des Hügels
 Schach, aber wessen König als Erster eines der vier Mittelfelder (d4, e4, d5, e5) erreicht, die golden umrahmt sind, gewinnt sofort. Matt gewinnt ebenfalls. Der König darf sich trotzdem nie ins Schach stellen.
+# Schlagschach
+Schach auf den Kopf gestellt: Ziel ist es, alle eigenen Figuren zu verlieren.
+- Schlagen ist Pflicht: Wenn du schlagen kannst, musst du es tun, aber du darfst wählen, was du schlägst.
+- Der König ist eine gewöhnliche Figur: Es gibt kein Schach, der König kann geschlagen werden, und es gibt keine Rochade. Ein Bauer kann auch in einen König umgewandelt werden (die fünfte Wahl der Auswahl).
+- Du gewinnst, wenn du keine Figur mehr hast oder nicht mehr ziehen kannst.
+- Die Partie ist remis, wenn nur noch Läufer übrig sind und die jeder Seite auf Feldern verschiedener Farbe stehen: Sie können einander nie schlagen.
+# Atomschach
+Jedes Schlagen ist eine Explosion: Die geschlagene Figur, die schlagende Figur und alle Figuren außer Bauern auf den acht Feldern ringsum verschwinden vom Brett.
+- Du gewinnst, indem du den gegnerischen König in die Luft sprengst, selbst wenn dein eigener König im Schach steht. Auch Schachmatt gewinnt.
+- Ein König darf nicht schlagen, und kein Zug darf den eigenen König sprengen.
+- Stehen die beiden Könige nebeneinander, steht keiner im Schach: Den einen zu schlagen, würde beide sprengen.
+- Die Partie ist remis, wenn keine Seite mehr genug Figuren zum Gewinnen hat.
+# Königsrennen
+Alle Figuren beginnen auf den ersten beiden Reihen, nebeneinander, ohne Bauern. Kein Zug darf Schach geben.
+- Der erste König, der die letzte Reihe erreicht, golden umrahmt, gewinnt.
+- Kommt der weiße König zuerst an, hat Schwarz noch einen Zug: Erreicht auch der schwarze König die letzte Reihe, ist die Partie remis.
+# Horde
+Weiß hat 36 Bauern und keinen König, gegen die übliche Armee von Schwarz.
+- Weiß gewinnt, indem es den schwarzen König mattsetzt; Schwarz gewinnt, indem es alle weißen Figuren schlägt.
+- Weiße Bauern auf der ersten Reihe dürfen auch zwei Felder ziehen (dann können sie nicht en passant geschlagen werden).
+- Weiß hat keinen König und steht deshalb nie im Schach.
 # Spielen auf dem Gerät
 Tippe auf eine Figur, um zu sehen, wohin sie ziehen kann, und dann auf ein Feld, oder schieb die Figur mit dem Finger dorthin. Punkte zeigen die Züge, Ringe das Schlagen. Ein König im Schach leuchtet rot. Zum Rochieren ziehst du den König zwei Felder auf den Turm zu oder auf den Turm.

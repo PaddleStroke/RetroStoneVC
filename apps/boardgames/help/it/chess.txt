@@ -32,5 +32,26 @@ Gli scacchi con un tipo di mossa in più: un pezzo che catturi cambia colore e v
 Gli scacchi, ma vince il primo giocatore che dà scacco tre volte. Anche lo scacco matto vince. Ogni barra ha tre caselle, e in una di esse si accende una luce rossa per ogni scacco dato da quel giocatore.
 # Re della collina
 Gli scacchi, ma vince subito il primo giocatore il cui re raggiunge una delle quattro case centrali (d4, e4, d5, e5), incorniciate d'oro. Anche lo scacco matto vince. Il re non può comunque mai mettersi sotto scacco.
+# Vinciperdi
+Gli scacchi alla rovescia: lo scopo è perdere tutti i propri pezzi.
+- Catturare è obbligatorio: quando puoi catturare devi farlo, ma scegli tu quale cattura.
+- Il re è un pezzo normale: non c'è scacco, il re può essere catturato e non c'è arrocco. Un pedone può anche essere promosso a re (la quinta scelta del selettore).
+- Vinci quando non ti resta nessun pezzo, o quando non puoi muovere.
+- La partita è patta quando restano solo alfieri e quelli di ciascun colore stanno su case di colore diverso: non potranno mai catturarsi.
+# Atomici
+Ogni cattura è un'esplosione: il pezzo catturato, il pezzo che cattura e tutti i pezzi, tranne i pedoni, delle otto case intorno lasciano la scacchiera.
+- Vinci facendo esplodere il re avversario, anche se il tuo re è sotto scacco. Anche lo scacco matto vince.
+- Un re non può catturare, e nessuna mossa può far esplodere il tuo re.
+- Quando i due re sono uno accanto all'altro, nessuno è sotto scacco: catturarne uno li farebbe esplodere entrambi.
+- La partita è patta quando nessuno dei due ha abbastanza pezzi per vincere.
+# Corsa dei re
+Tutti i pezzi partono dalle prime due traverse, fianco a fianco, senza pedoni. Nessuna mossa può dare scacco.
+- Vince il primo re che raggiunge l'ultima traversa, incorniciata d'oro.
+- Se arriva prima il re bianco, il Nero ha ancora una mossa: se anche il re nero raggiunge l'ultima traversa, la partita è patta.
+# Orda
+Il Bianco ha 36 pedoni e nessun re, contro il solito esercito del Nero.
+- Il Bianco vince dando scacco matto al re nero; il Nero vince catturando tutti i pezzi bianchi.
+- I pedoni bianchi della prima traversa possono anche avanzare di due case (in quel caso non si possono catturare en passant).
+- Il Bianco non ha re, quindi non è mai sotto scacco.
 # Giocare sul dispositivo
 Tocca un pezzo per vedere dove può andare, poi tocca una casella, oppure trascina il pezzo. I punti mostrano le mosse, gli anelli le catture. Un re sotto scacco si illumina di rosso. Per arroccare, sposta il re di due caselle verso la torre, oppure sulla torre.
