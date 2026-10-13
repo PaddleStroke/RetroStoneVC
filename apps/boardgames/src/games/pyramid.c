@@ -4,8 +4,9 @@
  * sideways) the stock, the turned card, the waste, and the pile of the cards taken off. A tap on a card lifts it, a
  * tap on another one pairs them (a king goes off on one tap); a card can also be dragged onto its pair. A tap on the
  * stock turns a card (an empty stock, marked by an arrow going round, turns the waste over while passes are left;
- * three passes: the passes left in digits under the stock). The bar: the moves; the hint
- * is the shell's tool.
+ * three passes: the passes left in digits under the stock). The bar: the moves; the hint is the shell's tool.
+ * Levels: 150 deals of our own in six chapters (pyramid_levels.h, made and proved winnable by tools/pyramid_gen.c), the
+ * level screen's die for a deal at random; the stars count the hints and undos (solitaire_ui.h).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -14,6 +15,7 @@
 
 #include "cards.h"
 #include "games/pyramid.h"
+#include "games/pyramid_levels.h"
 #include "games/solitaire_ui.h"
 #include "shell.h"
 
@@ -62,11 +64,24 @@ static void layout(box b)
     passes_y = wide ? U.at[PY_STOCK].y + 0.5f * h + 0.42f * w : U.at[PY_STOCK].y + 0.5f * h + 0.4f * w;
 }
 
-static void start(int v)
+static void begin(void)
 {
-    py_new(&G, v, (uint32_t)ui_random(1 << 30));
     solui_new(&U);
     dealing = 1;
+}
+
+static void start(int level)                    /* a designed level (pyramid_levels.h) */
+{
+    uint8_t deck[52];
+    int v = solui_level(py_levels, PY_LEVELS, level, deck, 52);
+    py_deal_cards(&G, v, deck);
+    begin();
+}
+
+static void start_random(int v)                 /* the level screen's die: a deal at random */
+{
+    py_new(&G, v, (uint32_t)ui_random(1 << 30));
+    begin();
 }
 
 static int status(void) { return py_won(&G.pos) ? GS_WIN0 : py_stuck(&G.pos) ? GS_WIN1 : GS_PLAY; }
@@ -142,5 +157,6 @@ static const game pyramid_game = {
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .view = VIEW_OPEN,
     .tools = 1, .level_stars = level_stars, .score = score,
+    .levels = PY_LEVELS, .chapters = PY_CHAPTERS, .start_random = start_random,
 };
 REGISTER_GAME(pyramid_game)

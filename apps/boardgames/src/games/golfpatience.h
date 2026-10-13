@@ -18,7 +18,7 @@
 #ifndef GOLFPATIENCE_H
 #define GOLFPATIENCE_H
 
-#include "games/solitaire.h"
+#include "games/sollevels.h"
 
 enum { PG_NOWRAP, PG_WRAP, PG_VARIANTS };
 enum { PG_TAB = 0, PG_STOCK = 7, PG_WASTE = 8, PG_PILES = 9 };
@@ -26,6 +26,7 @@ enum { PG_TAB = 0, PG_STOCK = 7, PG_WASTE = 8, PG_PILES = 9 };
 extern const solrules pg_rules;
 
 void pg_new(solrec *r, int variant, uint32_t seed);
+void pg_deal_cards(solrec *r, int variant, const uint8_t *deck);   /* the pack in the order dealt (seed 0) */
 int  pg_follows(const solpos *p, int card, int on);   /* card can go on `on`: one rank apart (wrap: king, ace too) */
 int  pg_legal(const solpos *p, solmove m);
 int  pg_play(solrec *r, solmove m);              /* 0: not legal */
@@ -34,5 +35,10 @@ int  pg_stuck(const solpos *p);                  /* over: no move left */
 int  pg_score(const solpos *p);                  /* the cards left in the columns, or minus the stock's once won */
 solmove pg_hint(const solpos *p);                /* SM_NONE: no move left */
 int  pg_script(solrec *r, const char *moves);    /* 0 at the first bad move */
+
+
+/* the search (sollevels.h): the moves worth trying, best first; the search itself */
+int  pg_cands(const solpos *p, solmove *list);
+extern const solsearch pg_search;
 
 #endif

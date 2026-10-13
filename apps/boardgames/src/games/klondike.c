@@ -5,6 +5,8 @@
  * foundation first), a quick second tap only to a foundation; a drag carries a run where it is dropped; a tap on
  * the stock draws (an empty stock, marked by an arrow going round, takes the waste back). The bar: the moves; the hint
  * is the shell's tool.
+ * Levels: 150 deals of our own in six chapters (klondike_levels.h, made and proved winnable by tools/klondike_gen.c),
+ * the level screen's die for a deal at random; the stars count the hints and undos (solitaire_ui.h).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -13,6 +15,7 @@
 
 #include "cards.h"
 #include "games/klondike.h"
+#include "games/klondike_levels.h"
 #include "games/solitaire_ui.h"
 #include "shell.h"
 
@@ -37,12 +40,25 @@ static void layout(box b)
     }
 }
 
-static void start(int v)
+static void begin(void)
 {
-    kl_new(&G, v, (uint32_t)ui_random(1 << 30));
     solui_new(&U);
     U.waste_fan = G.pos.draw;
     dealing = 1;
+}
+
+static void start(int level)                    /* a designed level (klondike_levels.h) */
+{
+    uint8_t deck[52];
+    int v = solui_level(kl_levels, KL_LEVELS, level, deck, 52);
+    kl_deal_cards(&G, v, deck);
+    begin();
+}
+
+static void start_random(int v)                 /* the level screen's die: a deal at random */
+{
+    kl_new(&G, v, (uint32_t)ui_random(1 << 30));
+    begin();
 }
 
 static int status(void) { return kl_won(&G.pos) ? GS_WIN0 : GS_PLAY; }
@@ -119,5 +135,6 @@ static const game klondike_game = {
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .view = VIEW_OPEN,
     .tools = 1, .level_stars = level_stars, .score = score,
+    .levels = KL_LEVELS, .chapters = KL_CHAPTERS, .start_random = start_random,
 };
 REGISTER_GAME(klondike_game)

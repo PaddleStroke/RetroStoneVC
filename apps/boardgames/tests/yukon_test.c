@@ -4,6 +4,8 @@
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include "games/yukon.h"
+#include "games/yukon_levels.h"
+#include "levels_check.h"
 #include "patience_check.h"
 
 static void clear(void)
@@ -94,6 +96,19 @@ static int sane(const solpos *p)
 
 static void new_game(solrec *r, uint32_t seed) { yk_new(r, seed); }
 
+/* ---- the levels: a deal from its cards is the shuffled deal; every level won by the search ---------------------- */
+static void test_levels(void)
+{
+    static solrec A, B;
+    uint8_t deck[104];
+    int n = cards_pack(PACK_52, deck);
+    cards_shuffle(deck, n, 77);
+    yk_new(&A, 77);
+    yk_deal_cards(&B, A.variant, deck);
+    CHECK(!memcmp(&A.pos, &B.pos, sizeof A.pos));
+    CHECK(lc_levels("yukon", yk_levels, YK_LEVELS, 52, yk_deal_cards, &yk_search, 300000) == YK_LEVELS);
+}
+
 int main(void)
 {
     test_deal();
@@ -104,6 +119,7 @@ int main(void)
     printf("ok   300 random games (%d with no move left, %d won)\n", ends, wins);
     int won = pc_hinted(&yk_rules, new_game, 200, 1500);
     printf("ok   the hint alone wins %d deals of 200\n", won);
+    test_levels();
     printf("yukon: %d checks, %d failed\n", checks, failed);
     return failed != 0;
 }

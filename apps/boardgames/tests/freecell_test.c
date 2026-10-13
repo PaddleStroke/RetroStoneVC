@@ -8,6 +8,8 @@
 #include <string.h>
 
 #include "games/freecell.h"
+#include "games/freecell_levels.h"
+#include "levels_check.h"
 
 static int checks, failed;
 #define CHECK(c) do { checks++; if (!(c)) { failed++; printf("FAIL line %d: %s\n", __LINE__, #c); } } while (0)
@@ -214,6 +216,18 @@ static void test_won(void)
     CHECK(sol_undo(&G) && !fc_won(P) && G.n == 0);
 }
 
+/* ---- the levels: a deal from its cards is the shuffled deal; every level won by the search ---------------------- */
+static void test_levels(void)
+{
+    static solrec A, B;
+    uint8_t deck[104];
+    fc_deal(77, deck);
+    fc_new(&A, 77);
+    fc_deal_cards(&B, A.variant, deck);
+    CHECK(!memcmp(&A.pos, &B.pos, sizeof A.pos));
+    CHECK(lc_levels("freecell", fc_levels, FC_LEVELS, 52, fc_deal_cards, &fc_search, 300000) == FC_LEVELS);
+}
+
 int main(void)
 {
     test_deal();
@@ -221,6 +235,7 @@ int main(void)
     test_supermoves();
     test_random();
     test_won();
+    test_levels();
     printf("freecell: %d checks, %d failed\n", checks, failed);
     return failed != 0;
 }

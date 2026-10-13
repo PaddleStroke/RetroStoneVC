@@ -26,16 +26,22 @@ const float tp_slot_x[TP_SLOTS] = {
 
 void tp_new(solrec *r, int variant, uint32_t seed)
 {
+    uint8_t deck[2 * 52];
+    int n = cards_pack(PACK_52, deck);
+    cards_shuffle(deck, n, seed);
+    tp_deal_cards(r, variant, deck);
+    r->seed = seed;
+}
+
+void tp_deal_cards(solrec *r, int variant, const uint8_t *deck)
+{
     memset(r, 0, sizeof *r);
     solpos *p = &r->pos;
-    r->seed = seed;
     r->variant = p->variant = (uint8_t)(variant == TP_NOWRAP ? TP_NOWRAP : TP_WRAP);
     p->draw = 1;
     p->npiles = TP_PILES;
     for (int i = 0; i < TP_PILES; i++) p->kind[i] = i < TP_STOCK ? SP_TAB : i == TP_STOCK ? SP_STOCK : SP_FOUND;
-    uint8_t deck[CARDS_MAX];
-    int n = cards_pack(PACK_52, deck), k = 0;
-    cards_shuffle(deck, n, seed);
+    int n = 52, k = 0;
     for (int i = 0; i < TP_SLOTS; i++) {
         p->c[TP_SLOT + i][p->n[TP_SLOT + i]++] = deck[k++];
         p->down[TP_SLOT + i] = tp_slots[i].row < 3;
@@ -220,3 +226,27 @@ int tp_script(solrec *r, const char *s)
     }
     return 1;
 }
+
+/* ---- the search (sollevels.h): the moves worth trying, best first ----------------------------------------------- */
+/* the cards that uncover a face-down one first, the lower rows first; the stock last (what a player sees: the
+ * face-down cards are not looked at) */
+int tp_cands(const solpos *p, solmove *list)
+{
+    solmove m[TP_SLOTS + 1];
+    int v[TP_SLOTS + 1], n = 0;
+    for (int i = 0; i < TP_SLOTS; i++) {
+        solmove mv = sol_mv(SM_MOVE, TP_SLOT + i, TP_WASTE, 1);
+        if (!tp_legal(p, mv)) continue;
+        solpos q = *p;
+        q.n[TP_SLOT + i] = 0;
+        int opens = 0;
+        for (int j = 0; j < TP_SLOTS; j++)
+            opens += p->n[TP_SLOT + j] && p->down[TP_SLOT + j] && sol_slot_free(&q, tp_slots, TP_SLOT, j);
+        m[n] = mv, v[n++] = 50 + 30 * opens + 5 * tp_slots[i].row;
+    }
+    solmove s = stock(p);
+    if (s.kind != SM_NONE) m[n] = s, v[n++] = 1;
+    return sol_best_first(m, v, n, list);
+}
+
+const solsearch tp_search = {&tp_rules, tp_cands, NULL, NULL, NULL};

@@ -10,6 +10,8 @@
 #include <string.h>
 
 #include "games/tripeaks.h"
+#include "games/tripeaks_levels.h"
+#include "levels_check.h"
 
 static int checks, failed;
 #define CHECK(c) do { checks++; if (!(c)) { failed++; printf("FAIL line %d: %s\n", __LINE__, #c); } } while (0)
@@ -265,6 +267,19 @@ static void test_solved(void)
     CHECK(solved >= 2);
 }
 
+/* ---- the levels: a deal from its cards is the shuffled deal; every level won by the search ---------------------- */
+static void test_levels(void)
+{
+    static solrec A, B;
+    uint8_t deck[104];
+    int n = cards_pack(PACK_52, deck);
+    cards_shuffle(deck, n, 77);
+    tp_new(&A, TP_NOWRAP, 77);
+    tp_deal_cards(&B, A.variant, deck);
+    CHECK(!memcmp(&A.pos, &B.pos, sizeof A.pos));
+    CHECK(lc_levels("tripeaks", tp_levels, TP_LEVELS, 52, tp_deal_cards, &tp_search, 300000) == TP_LEVELS);
+}
+
 int main(void)
 {
     test_deal();
@@ -274,6 +289,7 @@ int main(void)
     test_notation();
     test_random();
     test_solved();
+    test_levels();
     printf("tripeaks: %d checks, %d failed\n", checks, failed);
     return failed != 0;
 }

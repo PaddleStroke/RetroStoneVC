@@ -3,8 +3,8 @@
  * finger, the hint and the win: solitaire_ui.h). The stock, the waste and the eight foundations in a row at the top,
  * the ten columns under them, the cards narrow enough for a phone held upright. A tap sends a top card to its best
  * place (a foundation first, then the next card of its suit, then an empty column), a quick second tap only to a
- * foundation; a drag carries it where it is dropped; a tap on the stock turns a card. The bar: the moves; the hint
- * is the shell's tool.
+ * foundation; a drag carries it where it is dropped; a tap on the stock turns a card. The bar: the moves; the hint is
+ * the shell's tool.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>

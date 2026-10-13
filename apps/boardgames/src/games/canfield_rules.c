@@ -8,16 +8,23 @@
 
 void cn_new(solrec *r, uint32_t seed)
 {
+    uint8_t deck[2 * 52];
+    int n = cards_pack(PACK_52, deck);
+    cards_shuffle(deck, n, seed);
+    cn_deal_cards(r, 0, deck);
+    r->seed = seed;
+}
+
+void cn_deal_cards(solrec *r, int variant, const uint8_t *deck)
+{
+    (void)variant;
     memset(r, 0, sizeof *r);
     solpos *p = &r->pos;
-    r->seed = seed;
     p->npiles = CN_PILES;
     p->draw = 3;
     for (int i = 0; i < CN_PILES; i++)
         p->kind[i] = i < CN_FOUND ? SP_TAB : i < CN_STOCK ? SP_FOUND : i == CN_STOCK ? SP_STOCK : SP_WASTE;
-    uint8_t deck[CARDS_MAX];
-    int n = cards_pack(PACK_52, deck), k = 0;
-    cards_shuffle(deck, n, seed);
+    int n = 52, k = 0;
     while (p->n[CN_RESERVE] < 13) p->c[CN_RESERVE][p->n[CN_RESERVE]++] = deck[k++];
     p->down[CN_RESERVE] = 12;
     p->c[CN_FOUND][p->n[CN_FOUND]++] = deck[k++];
@@ -154,3 +161,40 @@ static void deal(solrec *r, uint32_t n) { cn_new(r, n); }
 const solrules cn_rules = {cn_legal, cn_play, stock, cn_hint, tap, pickable, cn_won, deal};
 
 int cn_script(solrec *r, const char *moves) { return sol_script(r, moves, &cn_rules); }
+
+/* ---- the search (sollevels.h): the moves worth trying, best first ----------------------------------------------- */
+/* up to a foundation (the reserve first); the reserve's card down; the waste's onto a pile; a whole pile onto
+ * another; the stock; the waste's to an empty pile last */
+int cn_cands(const solpos *p, solmove *list)
+{
+    static const int from[6] = {CN_RESERVE, 0, 1, 2, 3, CN_WASTE};
+    solmove m[64];
+    int v[64], n = 0, empty = -1;
+    for (int b = 0; b < 4; b++)
+        if (!p->n[b] && empty < 0) empty = b;
+    for (int k = 0; k < 6; k++) {
+        int a = from[k], f = p->n[a] ? cn_found_for(p, sol_top(p, a)) : -1;
+        if (f >= 0) m[n] = sol_mv(SM_MOVE, a, f, 1), v[n++] = a == CN_RESERVE ? 110 : 100;
+    }
+    for (int k = 0; k < 6; k++) {
+        int a = from[k];
+        if (!p->n[a]) continue;
+        for (int b = 0; b < 4; b++) {
+            int whole = a < CN_RESERVE, cnt = whole ? p->n[a] : 1, score;
+            solmove mv = sol_mv(SM_MOVE, a, b, cnt);
+            if (b == a || (!p->n[b] && b != empty) || !cn_legal(p, mv)) continue;
+            if (a == CN_RESERVE) score = 50;
+            else if (a == CN_WASTE) score = p->n[b] ? 30 : 4;
+            else score = p->n[b] ? 20 : 0;
+            m[n] = mv, v[n++] = score;
+        }
+    }
+    solmove s = stock(p);
+    if (s.kind != SM_NONE) m[n] = s, v[n++] = 8;
+    return sol_best_first(m, v, n, list);
+}
+
+/* the waste turned over as often as you like: the key leaves the count out */
+static uint64_t key(const solpos *p) { return sol_key_of(p, 0); }
+
+const solsearch cn_search = {&cn_rules, cn_cands, NULL, key, NULL};

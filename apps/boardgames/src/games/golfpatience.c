@@ -3,8 +3,10 @@
  * table, the finger, the hint and the win: solitaire_ui.h). The seven columns of five; under them the stock and the
  * waste, the score beside the waste (the cards left in the columns; once they are cleared, minus the stock's, in gold
  * light). A tap sends a column's top card onto the waste when it follows (a drag too); a tap on the stock turns its
- * next card. The bar: the moves; the hint
- * is the shell's tool.
+ * next card. The bar: the moves; the hint is the shell's tool.
+ * Levels: 150 deals of our own in six chapters (golfpatience_levels.h, made and proved winnable by
+ * tools/golfpatience_gen.c), the level screen's die for a deal at random; the stars count the hints and undos
+ * (solitaire_ui.h).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -13,6 +15,7 @@
 
 #include "cards.h"
 #include "games/golfpatience.h"
+#include "games/golfpatience_levels.h"
 #include "games/solitaire_ui.h"
 #include "shell.h"
 
@@ -47,11 +50,24 @@ static void layout(box b)
     }
 }
 
-static void start(int v)
+static void begin(void)
 {
-    pg_new(&G, v, (uint32_t)ui_random(1 << 30));
     solui_new(&U);
     dealing = 1;
+}
+
+static void start(int level)                    /* a designed level (golfpatience_levels.h) */
+{
+    uint8_t deck[52];
+    int v = solui_level(pg_levels, PG_LEVELS, level, deck, 52);
+    pg_deal_cards(&G, v, deck);
+    begin();
+}
+
+static void start_random(int v)                 /* the level screen's die: a deal at random */
+{
+    pg_new(&G, v, (uint32_t)ui_random(1 << 30));
+    begin();
 }
 
 static int status(void) { return pg_won(&G.pos) ? GS_WIN0 : pg_stuck(&G.pos) ? GS_WIN1 : GS_PLAY; }
@@ -140,5 +156,6 @@ static const game golfpatience_game = {
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .view = VIEW_OPEN,
     .tools = 1, .level_stars = level_stars, .score = score,
+    .levels = PG_LEVELS, .chapters = PG_CHAPTERS, .start_random = start_random,
 };
 REGISTER_GAME(golfpatience_game)

@@ -7,8 +7,7 @@
  * each fanned to the right and closing up when it grows long. A tap sends a top card to its best place (a foundation
  * first, then the fan it follows), a quick second tap only to a foundation; a drag carries it where it is dropped; on
  * the last deal, a tap on a buried card draws it out (the merci). A redeal and the merci fly each card to its new
- * place. The bar: the moves; the hint
- * is the shell's tool.
+ * place. The bar: the moves; the hint is the shell's tool.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>

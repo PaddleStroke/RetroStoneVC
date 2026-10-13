@@ -23,7 +23,7 @@
 #ifndef PYRAMID_H
 #define PYRAMID_H
 
-#include "games/solitaire.h"
+#include "games/sollevels.h"
 
 enum { PY_ONCE, PY_THRICE, PY_VARIANTS };
 enum { PY_SLOT = 0, PY_STOCK = 28, PY_TURN, PY_WASTE, PY_OUT, PY_PILES };
@@ -33,6 +33,7 @@ extern const solrules py_rules;
 extern const solslot py_slots[PY_SLOTS];
 
 void py_new(solrec *r, int variant, uint32_t seed);
+void py_deal_cards(solrec *r, int variant, const uint8_t *deck);   /* the pack in the order dealt (seed 0) */
 int  py_free(const solpos *p, int pile);         /* the card on top of pile can be taken off */
 int  py_passes(const solpos *p);                 /* the passes through the stock left, this one included */
 int  py_legal(const solpos *p, solmove m);
@@ -42,5 +43,10 @@ int  py_stuck(const solpos *p);                  /* no move left */
 solmove py_hint(const solpos *p);                /* SM_NONE: no move left */
 void py_write(const solpos *p, solmove m, char *out);   /* a move in the notation (out: 8 chars) */
 int  py_script(solrec *r, const char *moves);    /* 0 at the first bad move */
+
+
+/* the search (sollevels.h): the moves worth trying, best first; the search itself */
+int  py_cands(const solpos *p, solmove *list);
+extern const solsearch py_search;
 
 #endif

@@ -9,6 +9,8 @@
 #include <string.h>
 
 #include "games/pyramid.h"
+#include "games/pyramid_levels.h"
+#include "levels_check.h"
 
 static int checks, failed;
 #define CHECK(c) do { checks++; if (!(c)) { failed++; printf("FAIL line %d: %s\n", __LINE__, #c); } } while (0)
@@ -268,6 +270,19 @@ static void test_solved(void)
     CHECK(solved >= 1);
 }
 
+/* ---- the levels: a deal from its cards is the shuffled deal; every level won by the search ---------------------- */
+static void test_levels(void)
+{
+    static solrec A, B;
+    uint8_t deck[104];
+    int n = cards_pack(PACK_52, deck);
+    cards_shuffle(deck, n, 77);
+    py_new(&A, PY_THRICE, 77);
+    py_deal_cards(&B, A.variant, deck);
+    CHECK(!memcmp(&A.pos, &B.pos, sizeof A.pos));
+    CHECK(lc_levels("pyramid", py_levels, PY_LEVELS, 52, py_deal_cards, &py_search, 300000) == PY_LEVELS);
+}
+
 int main(void)
 {
     test_deal();
@@ -276,6 +291,7 @@ int main(void)
     test_notation();
     test_random();
     test_solved();
+    test_levels();
     printf("pyramid: %d checks, %d failed\n", checks, failed);
     return failed != 0;
 }

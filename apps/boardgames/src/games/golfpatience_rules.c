@@ -8,16 +8,22 @@
 
 void pg_new(solrec *r, int variant, uint32_t seed)
 {
+    uint8_t deck[2 * 52];
+    int n = cards_pack(PACK_52, deck);
+    cards_shuffle(deck, n, seed);
+    pg_deal_cards(r, variant, deck);
+    r->seed = seed;
+}
+
+void pg_deal_cards(solrec *r, int variant, const uint8_t *deck)
+{
     memset(r, 0, sizeof *r);
     solpos *p = &r->pos;
-    r->seed = seed;
     r->variant = p->variant = (uint8_t)(variant == PG_WRAP ? PG_WRAP : PG_NOWRAP);
     p->draw = 1;
     p->npiles = PG_PILES;
     for (int i = 0; i < PG_PILES; i++) p->kind[i] = i < PG_STOCK ? SP_TAB : i == PG_STOCK ? SP_STOCK : SP_FOUND;
-    uint8_t deck[CARDS_MAX];
-    int n = cards_pack(PACK_52, deck), k = 0;
-    cards_shuffle(deck, n, seed);
+    int n = 52, k = 0;
     for (int row = 0; row < 5; row++)
         for (int col = 0; col < 7; col++) p->c[col][p->n[col]++] = deck[k++];
     p->c[PG_WASTE][p->n[PG_WASTE]++] = deck[k++];
@@ -155,3 +161,18 @@ int pg_script(solrec *r, const char *s)
     }
     return 1;
 }
+
+/* ---- the search (sollevels.h): the moves worth trying, best first ----------------------------------------------- */
+/* a column's card to the waste, the longest column first; the stock last */
+int pg_cands(const solpos *p, solmove *list)
+{
+    solmove m[8];
+    int v[8], n = 0;
+    for (int c = 0; c < 7; c++)
+        if (pg_legal(p, sol_mv(SM_MOVE, c, PG_WASTE, 1))) m[n] = sol_mv(SM_MOVE, c, PG_WASTE, 1), v[n++] = 50 + p->n[c];
+    solmove s = stock(p);
+    if (s.kind != SM_NONE) m[n] = s, v[n++] = 1;
+    return sol_best_first(m, v, n, list);
+}
+
+const solsearch pg_search = {&pg_rules, pg_cands, NULL, NULL, NULL};

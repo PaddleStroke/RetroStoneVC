@@ -5,6 +5,8 @@
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include "games/canfield.h"
+#include "games/canfield_levels.h"
+#include "levels_check.h"
 #include "patience_check.h"
 
 static void put(int pile, int down, const int *cards, int n)
@@ -109,6 +111,19 @@ static int sane(const solpos *p)
 
 static void new_game(solrec *r, uint32_t seed) { cn_new(r, seed); }
 
+/* ---- the levels: a deal from its cards is the shuffled deal; every level won by the search ---------------------- */
+static void test_levels(void)
+{
+    static solrec A, B;
+    uint8_t deck[104];
+    int n = cards_pack(PACK_52, deck);
+    cards_shuffle(deck, n, 77);
+    cn_new(&A, 77);
+    cn_deal_cards(&B, A.variant, deck);
+    CHECK(!memcmp(&A.pos, &B.pos, sizeof A.pos));
+    CHECK(lc_levels("canfield", cn_levels, CN_LEVELS, 52, cn_deal_cards, &cn_search, 300000) == CN_LEVELS);
+}
+
 int main(void)
 {
     test_deal();
@@ -119,6 +134,7 @@ int main(void)
     printf("ok   300 random games (%d with no move left, %d won)\n", ends, wins);
     int won = pc_hinted(&cn_rules, new_game, 200, 800);
     printf("ok   the hint alone wins %d deals of 200\n", won);
+    test_levels();
     printf("canfield: %d checks, %d failed\n", checks, failed);
     return failed != 0;
 }

@@ -2,8 +2,10 @@
  * Yukon in RetroStone Board, for one player (the rules: yukon_rules.c, yukon.h; the table, the finger, the hint and
  * the win: solitaire_ui.h). The four foundations at the top right, the seven columns under them; no stock. A tap
  * sends a card, or any face-up card with all the cards on it, to its best place (a foundation first), a quick second
- * tap only to a foundation; a drag carries them where they are dropped. The bar: the moves; the hint
- * is the shell's tool.
+ * tap only to a foundation; a drag carries them where they are dropped. The bar: the moves; the hint is the shell's
+ * tool.
+ * Levels: 150 deals of our own in six chapters (yukon_levels.h, made and proved winnable by tools/yukon_gen.c), the
+ * level screen's die for a deal at random; the stars count the hints and undos (solitaire_ui.h).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -13,6 +15,7 @@
 #include "cards.h"
 #include "games/solitaire_ui.h"
 #include "games/yukon.h"
+#include "games/yukon_levels.h"
 #include "shell.h"
 
 static solrec G;
@@ -35,12 +38,25 @@ static void layout(box b)
     }
 }
 
-static void start(int v)
+static void begin(void)
+{
+    solui_new(&U);
+    dealing = 1;
+}
+
+static void start(int level)                    /* a designed level (yukon_levels.h) */
+{
+    uint8_t deck[52];
+    int v = solui_level(yk_levels, YK_LEVELS, level, deck, 52);
+    yk_deal_cards(&G, v, deck);
+    begin();
+}
+
+static void start_random(int v)                 /* the level screen's die: a deal at random */
 {
     (void)v;
     yk_new(&G, (uint32_t)ui_random(1 << 30));
-    solui_new(&U);
-    dealing = 1;
+    begin();
 }
 
 static int status(void) { return yk_won(&G.pos) ? GS_WIN0 : GS_PLAY; }
@@ -105,5 +121,6 @@ static const game yukon_game = {
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .view = VIEW_OPEN,
     .tools = 1, .level_stars = level_stars, .score = score,
+    .levels = YK_LEVELS, .chapters = YK_CHAPTERS, .start_random = start_random,
 };
 REGISTER_GAME(yukon_game)

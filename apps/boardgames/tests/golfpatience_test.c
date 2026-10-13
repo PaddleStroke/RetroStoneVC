@@ -5,6 +5,8 @@
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include "games/golfpatience.h"
+#include "games/golfpatience_levels.h"
+#include "levels_check.h"
 #include "patience_check.h"
 
 static int go(int col) { return pg_legal(P, sol_mv(SM_MOVE, col, PG_WASTE, 1)); }
@@ -106,6 +108,19 @@ static int sane(const solpos *p)
 
 static void new_game(solrec *r, uint32_t seed) { pg_new(r, seed % 2, seed); }
 
+/* ---- the levels: a deal from its cards is the shuffled deal; every level won by the search ---------------------- */
+static void test_levels(void)
+{
+    static solrec A, B;
+    uint8_t deck[104];
+    int n = cards_pack(PACK_52, deck);
+    cards_shuffle(deck, n, 77);
+    pg_new(&A, PG_WRAP, 77);
+    pg_deal_cards(&B, A.variant, deck);
+    CHECK(!memcmp(&A.pos, &B.pos, sizeof A.pos));
+    CHECK(lc_levels("golfpatience", pg_levels, PG_LEVELS, 52, pg_deal_cards, &pg_search, 300000) == PG_LEVELS);
+}
+
 int main(void)
 {
     test_deal();
@@ -136,6 +151,7 @@ int main(void)
         printf("ok   deal %u (%s) won: %s\n", seed, seed % 2 ? "round the corner" : "classic", script);
         break;
     }
+    test_levels();
     printf("golfpatience: %d checks, %d failed\n", checks, failed);
     return failed != 0;
 }

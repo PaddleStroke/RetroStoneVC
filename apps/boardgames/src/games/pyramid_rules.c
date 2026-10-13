@@ -20,18 +20,24 @@ const solslot py_slots[PY_SLOTS] = {
 
 void py_new(solrec *r, int variant, uint32_t seed)
 {
+    uint8_t deck[2 * 52];
+    int n = cards_pack(PACK_52, deck);
+    cards_shuffle(deck, n, seed);
+    py_deal_cards(r, variant, deck);
+    r->seed = seed;
+}
+
+void py_deal_cards(solrec *r, int variant, const uint8_t *deck)
+{
     memset(r, 0, sizeof *r);
     solpos *p = &r->pos;
-    r->seed = seed;
     r->variant = p->variant = (uint8_t)(variant == PY_THRICE ? PY_THRICE : PY_ONCE);
     p->draw = 1;
     p->npiles = PY_PILES;
     for (int i = 0; i < PY_PILES; i++)
         p->kind[i] = i < PY_STOCK ? SP_TAB : i == PY_STOCK ? SP_STOCK : i == PY_TURN ? SP_CELL :
                      i == PY_WASTE ? SP_WASTE : SP_FOUND;
-    uint8_t deck[CARDS_MAX];
-    int n = cards_pack(PACK_52, deck), k = 0;
-    cards_shuffle(deck, n, seed);
+    int n = 52, k = 0;
     for (int i = 0; i < PY_SLOTS; i++) p->c[PY_SLOT + i][p->n[PY_SLOT + i]++] = deck[k++];   /* row by row */
     while (k < n) p->c[PY_STOCK][p->n[PY_STOCK]++] = deck[k++];
     p->down[PY_STOCK] = p->n[PY_STOCK];
@@ -191,3 +197,30 @@ int py_script(solrec *r, const char *s)
     }
     return 1;
 }
+
+/* ---- the search (sollevels.h): the moves worth trying, best first ----------------------------------------------- */
+/* the pyramid's kings; its pairs, the lower rows first; a card of it with the turned card or the waste's; those two
+ * alone or together; the stock last */
+int py_cands(const solpos *p, solmove *list)
+{
+    static const int extra[2] = {PY_TURN, PY_WASTE};
+    solmove m[400];
+    int v[400], n = 0;
+    for (int a = PY_SLOT; a < PY_SLOT + PY_SLOTS; a++) {
+        int ra = py_slots[a - PY_SLOT].row;
+        if (py_legal(p, sol_mv(SM_MOVE, a, PY_OUT, 1))) m[n] = sol_mv(SM_MOVE, a, PY_OUT, 1), v[n++] = 100 + ra;
+        for (int b = a + 1; b < PY_SLOT + PY_SLOTS; b++)
+            if (py_legal(p, sol_mv(SM_MOVE, a, b, 1)))
+                m[n] = sol_mv(SM_MOVE, a, b, 1), v[n++] = 80 + ra + py_slots[b - PY_SLOT].row;
+        for (int k = 0; k < 2; k++)
+            if (py_legal(p, sol_mv(SM_MOVE, a, extra[k], 1))) m[n] = sol_mv(SM_MOVE, a, extra[k], 1), v[n++] = 60 + ra;
+    }
+    for (int k = 0; k < 2; k++)
+        if (py_legal(p, sol_mv(SM_MOVE, extra[k], PY_OUT, 1))) m[n] = sol_mv(SM_MOVE, extra[k], PY_OUT, 1), v[n++] = 40;
+    if (py_legal(p, sol_mv(SM_MOVE, PY_TURN, PY_WASTE, 1))) m[n] = sol_mv(SM_MOVE, PY_TURN, PY_WASTE, 1), v[n++] = 30;
+    solmove s = stock(p);
+    if (s.kind != SM_NONE) m[n] = s, v[n++] = 1;
+    return sol_best_first(m, v, n, list);
+}
+
+const solsearch py_search = {&py_rules, py_cands, NULL, NULL, NULL};

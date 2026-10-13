@@ -5,6 +5,8 @@
  * cell), a quick second tap only to a foundation; a drag carries a run where it is dropped. A new game deals a
  * numbered deal at random (1 to 32000); the bar shows its number by a small card back, then the moves; the hint is
  * the shell's tool.
+ * Levels: 150 deals of our own in six chapters (freecell_levels.h, made and proved winnable by tools/freecell_gen.c),
+ * the level screen's die for a deal at random; the stars count the hints and undos (solitaire_ui.h).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -13,6 +15,7 @@
 
 #include "cards.h"
 #include "games/freecell.h"
+#include "games/freecell_levels.h"
 #include "games/solitaire_ui.h"
 #include "shell.h"
 
@@ -39,12 +42,25 @@ static void layout(box b)
     }
 }
 
-static void start(int v)
+static void begin(void)
+{
+    solui_new(&U);
+    dealing = 1;
+}
+
+static void start(int level)                    /* a designed level (freecell_levels.h) */
+{
+    uint8_t deck[52];
+    int v = solui_level(fc_levels, FC_LEVELS, level, deck, 52);
+    fc_deal_cards(&G, v, deck);
+    begin();
+}
+
+static void start_random(int v)                 /* the level screen's die: a deal at random */
 {
     (void)v;
     fc_new(&G, 1 + ui_random(FC_DEALS));
-    solui_new(&U);
-    dealing = 1;
+    begin();
 }
 
 static int status(void) { return fc_won(&G.pos) ? GS_WIN0 : GS_PLAY; }
@@ -121,5 +137,6 @@ static const game freecell_game = {
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .view = VIEW_OPEN,
     .tools = 1, .level_stars = level_stars, .score = score,
+    .levels = FC_LEVELS, .chapters = FC_CHAPTERS, .start_random = start_random,
 };
 REGISTER_GAME(freecell_game)

@@ -8,14 +8,21 @@
 
 void yk_new(solrec *r, uint32_t seed)
 {
+    uint8_t deck[2 * 52];
+    int n = cards_pack(PACK_52, deck);
+    cards_shuffle(deck, n, seed);
+    yk_deal_cards(r, 0, deck);
+    r->seed = seed;
+}
+
+void yk_deal_cards(solrec *r, int variant, const uint8_t *deck)
+{
+    (void)variant;
     memset(r, 0, sizeof *r);
     solpos *p = &r->pos;
-    r->seed = seed;
     p->npiles = YK_PILES;
     for (int i = 0; i < YK_PILES; i++) p->kind[i] = i < YK_FOUND ? SP_TAB : SP_FOUND;
-    uint8_t deck[CARDS_MAX];
-    int n = cards_pack(PACK_52, deck), k = 0;
-    cards_shuffle(deck, n, seed);
+    int k = 0;
     for (int row = 0; row < 7; row++)           /* Klondike's triangle, the last of each column face up... */
         for (int col = row; col < 7; col++) p->c[col][p->n[col]++] = deck[k++];
     for (int row = 0; row < 4; row++)           /* ...then four more face up on each column but the first */
@@ -148,3 +155,39 @@ static void deal(solrec *r, uint32_t n) { yk_new(r, n); }
 const solrules yk_rules = {yk_legal, yk_play, stock, yk_hint, tap, pickable, yk_won, deal};
 
 int yk_script(solrec *r, const char *moves) { return sol_script(r, moves, &yk_rules); }
+
+/* ---- the search (sollevels.h): the moves worth trying, best first ----------------------------------------------- */
+/* up to a foundation; the cards from a face-down one's top (it turns up); those freeing a card for a foundation;
+ * those breaking a pile out of order; others onto a card where the moved one did not already sit in order (a king to
+ * the first empty column, not from its bottom); a card back down from a foundation last */
+int yk_cands(const solpos *p, solmove *list)
+{
+    solmove m[400];
+    int v[400], n = 0, empty = -1;
+    for (int b = 0; b < 7; b++)
+        if (!p->n[b] && empty < 0) empty = b;
+    for (int a = 0; a < 7; a++) {
+        int t = sol_top(p, a);
+        if (t != CARD_NONE && sol_found_for(p, t) >= 0) m[n] = sol_mv(SM_MOVE, a, sol_found_for(p, t), 1), v[n++] = 100;
+    }
+    for (int a = 0; a < 7; a++)
+        for (int i = p->down[a]; i < p->n[a]; i++) {
+            int score;
+            if (i == p->down[a] && i > 0) score = 50 + p->down[a];
+            else if (i > p->down[a] && sol_found_for(p, p->c[a][i - 1]) >= 0) score = 40;
+            else if (i > p->down[a] && !sol_fits(p->c[a][i], p->c[a][i - 1], 1)) score = 10;
+            else if (i > p->down[a]) score = 2;
+            else continue;                      /* a whole column */
+            for (int b = 0; b < 7 && n < 390; b++) {
+                if (b == a || (!p->n[b] && b != empty)) continue;
+                solmove mv = sol_mv(SM_MOVE, a, b, p->n[a] - i);
+                if (yk_legal(p, mv)) m[n] = mv, v[n++] = score + (p->n[b] ? 1 : 0);
+            }
+        }
+    for (int a = YK_FOUND; a < YK_PILES; a++)
+        for (int b = 0; b < 7 && n < 400; b++)
+            if (yk_legal(p, sol_mv(SM_MOVE, a, b, 1))) m[n] = sol_mv(SM_MOVE, a, b, 1), v[n++] = 1;
+    return sol_best_first(m, v, n, list);
+}
+
+const solsearch yk_search = {&yk_rules, yk_cands, NULL, NULL, NULL};

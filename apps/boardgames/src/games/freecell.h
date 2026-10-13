@@ -18,7 +18,7 @@
 #ifndef FREECELL_H
 #define FREECELL_H
 
-#include "games/solitaire.h"
+#include "games/sollevels.h"
 
 enum { FC_TAB = 0, FC_CELL = 8, FC_FOUND = 12, FC_PILES = 16 };
 #define FC_DEALS 32000
@@ -27,11 +27,16 @@ extern const solrules fc_rules;
 
 void fc_deal(int deal, uint8_t out[52]);         /* the deal's cards in the order dealt (column i % 8) */
 void fc_new(solrec *r, int deal);
+void fc_deal_cards(solrec *r, int variant, const uint8_t *deck);   /* the pack in the order dealt (52; deal 0) */
 int  fc_legal(const solpos *p, solmove m);
 int  fc_play(solrec *r, solmove m);              /* 0: not legal */
 int  fc_won(const solpos *p);
 int  fc_most(const solpos *p, int to);           /* the most cards a run can move to pile `to` */
 solmove fc_hint(const solpos *p);
 int  fc_script(solrec *r, const char *moves);
+
+/* the search (sollevels.h): the moves worth trying, best first; the search itself */
+int  fc_cands(const solpos *p, solmove *list);
+extern const solsearch fc_search;
 
 #endif

@@ -8,17 +8,23 @@
 
 void kl_new(solrec *r, int variant, uint32_t seed)
 {
+    uint8_t deck[CARDS_MAX];
+    int n = cards_pack(PACK_52, deck);
+    cards_shuffle(deck, n, seed);
+    kl_deal_cards(r, variant, deck);
+    r->seed = seed;
+}
+
+void kl_deal_cards(solrec *r, int variant, const uint8_t *deck)
+{
     memset(r, 0, sizeof *r);
     solpos *p = &r->pos;
-    r->seed = seed;
     r->variant = p->variant = (uint8_t)(variant == KL_DRAW3 ? KL_DRAW3 : KL_DRAW1);
     p->draw = p->variant == KL_DRAW3 ? 3 : 1;
     p->npiles = KL_PILES;
     for (int i = 0; i < KL_PILES; i++)
         p->kind[i] = i < KL_FOUND ? SP_TAB : i < KL_STOCK ? SP_FOUND : i == KL_STOCK ? SP_STOCK : SP_WASTE;
-    uint8_t deck[CARDS_MAX];
-    int n = cards_pack(PACK_52, deck), k = 0;
-    cards_shuffle(deck, n, seed);
+    int n = 52, k = 0;
     for (int row = 0; row < 7; row++)           /* dealt as at the table: a row at a time, one more column each */
         for (int col = row; col < 7; col++) p->c[col][p->n[col]++] = deck[k++];
     for (int col = 0; col < 7; col++) p->down[col] = (uint8_t)(p->n[col] - 1);
@@ -158,5 +164,37 @@ solmove kl_hint(const solpos *p)
 static void deal(solrec *r, uint32_t n) { kl_new(r, r->variant, n); }
 
 const solrules kl_rules = {kl_legal, kl_play, stock, kl_hint, tap, pickable, kl_won, deal};
+
+/* ---- the search (sollevels.h): the moves worth trying, best first --------------------------------------------- */
+/* up to a foundation; a run that uncovers a face-down card (or frees a card for a foundation); the waste's card to
+ * the tableau; the stock; a card back down from a foundation. A whole column never moves to an empty one. */
+int kl_cands(const solpos *p, solmove *list)
+{
+    int n = 0;
+    for (int a = 0; a < KL_PILES; a++) {
+        int t = p->kind[a] == SP_TAB || a == KL_WASTE ? sol_top(p, a) : CARD_NONE;
+        if (t != CARD_NONE && sol_found_for(p, t) >= 0) list[n++] = sol_mv(SM_MOVE, a, sol_found_for(p, t), 1);
+    }
+    for (int a = 0; a < 7; a++)
+        for (int i = p->down[a]; i < p->n[a]; i++) {
+            int useful = i == p->down[a] ? p->down[a] > 0 : sol_found_for(p, p->c[a][i - 1]) >= 0;
+            for (int b = 0; b < 7 && useful; b++)
+                if (b != a && kl_legal(p, sol_mv(SM_MOVE, a, b, p->n[a] - i)))
+                    list[n++] = sol_mv(SM_MOVE, a, b, p->n[a] - i);
+        }
+    for (int b = 0; b < 7; b++)
+        if (kl_legal(p, sol_mv(SM_MOVE, KL_WASTE, b, 1))) list[n++] = sol_mv(SM_MOVE, KL_WASTE, b, 1);
+    solmove s = stock(p);
+    if (s.kind != SM_NONE) list[n++] = s;
+    for (int a = KL_FOUND; a < KL_STOCK; a++)
+        for (int b = 0; b < 7; b++)
+            if (kl_legal(p, sol_mv(SM_MOVE, a, b, 1))) list[n++] = sol_mv(SM_MOVE, a, b, 1);
+    return n;
+}
+
+/* the waste turned over as often as you like: the key leaves the count out */
+static uint64_t key(const solpos *p) { return sol_key_of(p, 0); }
+
+const solsearch kl_search = {&kl_rules, kl_cands, NULL, key, NULL};
 
 int kl_script(solrec *r, const char *moves) { return sol_script(r, moves, &kl_rules); }

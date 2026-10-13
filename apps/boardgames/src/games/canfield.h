@@ -18,13 +18,14 @@
 #ifndef CANFIELD_H
 #define CANFIELD_H
 
-#include "games/solitaire.h"
+#include "games/sollevels.h"
 
 enum { CN_TAB = 0, CN_RESERVE = 4, CN_FOUND = 5, CN_STOCK = 9, CN_WASTE = 10, CN_PILES = 11 };
 
 extern const solrules cn_rules;
 
 void cn_new(solrec *r, uint32_t seed);
+void cn_deal_cards(solrec *r, int variant, const uint8_t *deck);   /* the pack in the order dealt (seed 0) */
 int  cn_base(const solpos *p);                   /* the foundations' first rank */
 int  cn_found_for(const solpos *p, int card);   /* the foundation that takes this card (-1: none) */
 int  cn_legal(const solpos *p, solmove m);
@@ -32,5 +33,10 @@ int  cn_play(solrec *r, solmove m);              /* 0: not legal */
 int  cn_won(const solpos *p);
 solmove cn_hint(const solpos *p);                /* SM_NONE: nothing useful seen */
 int  cn_script(solrec *r, const char *moves);    /* 0 at the first bad move */
+
+
+/* the search (sollevels.h): the moves worth trying, best first; the search itself */
+int  cn_cands(const solpos *p, solmove *list);
+extern const solsearch cn_search;
 
 #endif

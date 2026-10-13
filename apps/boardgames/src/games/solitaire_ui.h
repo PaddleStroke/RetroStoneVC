@@ -21,7 +21,7 @@
 
 #include "cards.h"
 #include "cards_table.h"
-#include "games/solitaire.h"
+#include "games/sollevels.h"
 #include "shell.h"
 
 #define SOLUI_ASPECT 1.4f
@@ -133,7 +133,7 @@ typedef struct { float w, pitch, x0, ty, cy, room; } soltable;
  * for a column's cards below its first one (a longer column closes up: ct_column_steps). So a phone held upright gets
  * cards as wide as the columns allow, and a wide screen cards as tall as its height allows, the table centred across.
  * The steps grow with the room left (a column of `longest` cards reaching down to the bottom), the face-up one up to
- * a little over half a card: an upright phone's height used, each card shown more. */
+ * three quarters of a card wide: an upright phone's height used, each card shown more. */
 static inline soltable solui_table(solui *u, box b, float across, float need, int longest)
 {
     soltable t;
@@ -145,9 +145,9 @@ static inline soltable solui_table(solui *u, box b, float across, float need, in
     t.ty = b.y + 0.06f * w + 0.7f * w;
     t.cy = t.ty + 1.58f * w;
     t.room = b.y + b.h - 0.72f * w - t.cy;
-    float up = clampf(t.room / w / (longest > 1 ? longest - 1 : 1), u->base_up, 0.56f);
+    float up = clampf(t.room / w / (longest > 1 ? longest - 1 : 1), u->base_up, 0.75f);
     u->up_step = up;
-    u->down_step = fminf(0.2f, u->base_down * up / u->base_up);
+    u->down_step = fminf(0.25f, u->base_down * up / u->base_up);
     return t;
 }
 
@@ -414,6 +414,14 @@ static inline void solui_new(solui *u)
     solui_calm(u);
     u->won = 0;
     u->hints = u->undos = 0;
+}
+
+/* a designed level (game.levels; clamped): its pack in the order dealt into deck (n cards); its variant */
+static inline int solui_level(const sollevel *levels, int count, int level, uint8_t *deck, int n)
+{
+    const sollevel *l = &levels[level < 0 ? 0 : level >= count ? count - 1 : level];
+    if (sol_cards_read(l->cards, deck, n) != n) memset(deck, 0, (size_t)n);
+    return l->variant;
 }
 
 /* the stars for a deal won (the family's rule, as the logic puzzles'): 3 without a hint or an undo, 2 with up to two

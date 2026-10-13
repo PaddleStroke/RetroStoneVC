@@ -9,6 +9,8 @@
 #include <string.h>
 
 #include "games/klondike.h"
+#include "games/klondike_levels.h"
+#include "levels_check.h"
 
 static int checks, failed;
 #define CHECK(c) do { checks++; if (!(c)) { failed++; printf("FAIL line %d: %s\n", __LINE__, #c); } } while (0)
@@ -373,6 +375,18 @@ static void test_solved(void)
     free(list);
 }
 
+/* ---- the levels: a deal from its cards is the shuffled deal; every level won by the search ---------------------- */
+static void test_levels(void)
+{
+    uint8_t deck[CARDS_MAX];
+    int n = cards_pack(PACK_52, deck);
+    cards_shuffle(deck, n, 77);
+    kl_new(&G, KL_DRAW3, 77);
+    kl_deal_cards(&H, KL_DRAW3, deck);
+    CHECK(!memcmp(&G.pos, &H.pos, sizeof G.pos));
+    CHECK(lc_levels("klondike", kl_levels, KL_LEVELS, 52, kl_deal_cards, &kl_search, 300000) == KL_LEVELS);
+}
+
 int main(void)
 {
     test_deal();
@@ -382,6 +396,7 @@ int main(void)
     test_finish();
     test_random();
     test_solved();
+    test_levels();
     printf("klondike: %d checks, %d failed\n", checks, failed);
     return failed != 0;
 }

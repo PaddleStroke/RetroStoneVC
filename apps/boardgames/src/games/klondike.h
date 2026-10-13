@@ -15,7 +15,7 @@
 #ifndef KLONDIKE_H
 #define KLONDIKE_H
 
-#include "games/solitaire.h"
+#include "games/sollevels.h"
 
 enum { KL_DRAW1, KL_DRAW3, KL_VARIANTS };
 enum { KL_TAB = 0, KL_FOUND = 7, KL_STOCK = 11, KL_WASTE = 12, KL_PILES = 13 };
@@ -23,10 +23,15 @@ enum { KL_TAB = 0, KL_FOUND = 7, KL_STOCK = 11, KL_WASTE = 12, KL_PILES = 13 };
 extern const solrules kl_rules;
 
 void kl_new(solrec *r, int variant, uint32_t seed);
+void kl_deal_cards(solrec *r, int variant, const uint8_t *deck);   /* the pack in the order dealt (52; seed 0) */
 int  kl_legal(const solpos *p, solmove m);
 int  kl_play(solrec *r, solmove m);              /* 0: not legal */
 int  kl_won(const solpos *p);
 solmove kl_hint(const solpos *p);
 int  kl_script(solrec *r, const char *moves);    /* solitaire.h's notation; 0 at the first bad move */
+
+/* the search (sollevels.h): the moves worth trying, best first; the search itself */
+int  kl_cands(const solpos *p, solmove *list);
+extern const solsearch kl_search;
 
 #endif

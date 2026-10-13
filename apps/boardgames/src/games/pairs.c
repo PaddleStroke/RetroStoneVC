@@ -279,8 +279,8 @@ static void draw(void)
             card(p->pic[i], x, y, T.w * 0.94f, 1, CD_FLAT | CD_DIM);
             if (p->players > 1) {
                 float d = (float)tok_size;
-                ui_put_c(ct_token(p->found[i], tok_size), x + T.w * 0.47f - d * 0.6f, y + T.w * aspect() * 0.47f - d * 0.6f,
-                         d, d);
+                ui_put_c(ct_token(p->found[i], tok_size), x + T.w * 0.47f - d * 0.6f,
+                         y + T.w * aspect() * 0.47f - d * 0.6f, d, d);
             }
             continue;
         }
@@ -340,7 +340,8 @@ static void token(int player, int size, uint8_t *rgba) { cards_token(player, siz
 static void thumb(int v, int size, uint8_t *rgba)
 {
     int cols = v < 0 ? 3 : v == PR_SMALL ? 3 : v == PR_MEDIUM ? 4 : 6, rows = v < 0 ? 2 : v == PR_SMALL ? 4 : 6;
-    float gap = 0.12f, w = fminf(size * 0.94f / (cols + (cols - 1) * gap), size * 0.94f / (rows * 1.4f + (rows - 1) * gap));
+    float gap = 0.12f;
+    float w = fminf(size * 0.94f / (cols + (cols - 1) * gap), size * 0.94f / (rows * 1.4f + (rows - 1) * gap));
     int cw = (int)w, ch = (int)(w * 1.4f);
     float x0 = (size - w * (cols + (cols - 1) * gap)) / 2, y0 = (size - w * (rows * 1.4f + (rows - 1) * gap)) / 2;
     uint8_t *back = malloc((size_t)cw * ch * 4), *bear = malloc((size_t)cw * ch * 4);

@@ -20,7 +20,7 @@
 #ifndef TRIPEAKS_H
 #define TRIPEAKS_H
 
-#include "games/solitaire.h"
+#include "games/sollevels.h"
 
 enum { TP_WRAP, TP_NOWRAP, TP_VARIANTS };
 enum { TP_SLOT = 0, TP_STOCK = 28, TP_WASTE, TP_PILES };
@@ -32,6 +32,7 @@ extern const float tp_slot_x[TP_SLOTS];          /* where each card lies across,
                                                  * row: 0..9) */
 
 void tp_new(solrec *r, int variant, uint32_t seed);
+void tp_deal_cards(solrec *r, int variant, const uint8_t *deck);   /* the pack in the order dealt (seed 0) */
 int  tp_follows(const solpos *p, int card, int on);   /* card can go on `on`: one rank apart (or king, ace: wrap) */
 int  tp_legal(const solpos *p, solmove m);
 int  tp_play(solrec *r, solmove m);              /* 0: not legal */
@@ -41,5 +42,10 @@ int  tp_streak(const solrec *r);                 /* the cards played from the pe
 int  tp_best_streak(const solrec *r);            /* the longest streak of the game */
 solmove tp_hint(const solpos *p);                /* SM_NONE: no move left */
 int  tp_script(solrec *r, const char *moves);    /* 0 at the first bad move */
+
+
+/* the search (sollevels.h): the moves worth trying, best first; the search itself */
+int  tp_cands(const solpos *p, solmove *list);
+extern const solsearch tp_search;
 
 #endif
