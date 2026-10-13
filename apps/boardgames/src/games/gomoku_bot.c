@@ -53,7 +53,8 @@ static int run(const gkb *s, int p, int c, int d)
 {
     int n = s->n, x0 = p % n, y0 = p / n, k = 1, who = c + 1;
     for (int sg = -1; sg <= 1; sg += 2)
-        for (int x = x0 + sg * DX[d], y = y0 + sg * DY[d]; x >= 0 && y >= 0 && x < n && y < n && s->pt[x + y * n] == who;
+        for (int x = x0 + sg * DX[d], y = y0 + sg * DY[d];
+             x >= 0 && y >= 0 && x < n && y < n && s->pt[x + y * n] == who;
              x += sg * DX[d], y += sg * DY[d])
             k++;
     return k;
@@ -417,6 +418,7 @@ int gkb_choose(const gkgame *g, int level, uint64_t seed, ai_stats *stats)
     ai_rng rng;
     ai_seed(&rng, ai_mix(seed, a_hash(s)));
     ai_opts o = {.budget = ai_level_budget(level), .rng = &rng, .tt_bits = 18};
+    o.budget.ms = o.budget.ms * 85 / 100;       /* a margin under the level's time (a slow or busy machine) */
     int vcf_depth = 0;
     switch (level <= AI_EASY ? AI_EASY : level >= AI_HARD ? AI_HARD : AI_MEDIUM) {
     case AI_EASY:

@@ -69,7 +69,8 @@ static int run_len(const darpos *p, int h, int gone, int who, int dx, int dy)
 {
     int n = 1, x0 = h % DAR_W, y0 = h / DAR_W;
     for (int s = -1; s <= 1; s += 2)
-        for (int x = x0 + s * dx, y = y0 + s * dy; x >= 0 && y >= 0 && x < DAR_W && y < DAR_H; x += s * dx, y += s * dy) {
+        for (int x = x0 + s * dx, y = y0 + s * dy; x >= 0 && y >= 0 && x < DAR_W && y < DAR_H;
+             x += s * dx, y += s * dy) {
             int q = DAR_AT(x, y);
             if (q == gone || p->c[q] != who) break;
             n++;
@@ -164,6 +165,7 @@ int drb_choose(const darpos *p, int level, uint64_t seed, darmove *m, ai_stats *
     ai_rng rng;
     ai_seed(&rng, ai_mix(seed, a_hash(p)));
     ai_opts o = {.budget = ai_level_budget(level), .rng = &rng, .tt_bits = 18};
+    o.budget.ms = o.budget.ms * 85 / 100;       /* a margin under the level's time (a slow or busy machine) */
     switch (level <= AI_EASY ? AI_EASY : level >= AI_HARD ? AI_HARD : AI_MEDIUM) {
     case AI_EASY:   o.budget.depth = 2; o.budget.nodes = 3000; o.budget.noise = 120; break;
     case AI_MEDIUM: o.budget.depth = 4; o.budget.nodes = 30000; o.budget.noise = 25; break;

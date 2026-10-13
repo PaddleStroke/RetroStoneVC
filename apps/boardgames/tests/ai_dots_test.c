@@ -150,9 +150,9 @@ int main(int argc, char **argv)
     };
     static const sp_pair P[] = {
         {AI_EASY, SP_RANDOM, 100, 85},
-        {AI_MEDIUM, AI_EASY, 100, 58},
-        {AI_HARD, AI_EASY, 60, 80},
-        {AI_HARD, AI_MEDIUM, 60, 60},
+        {AI_MEDIUM, AI_EASY, 300, 58},
+        {AI_HARD, AI_EASY, 200, 80},
+        {AI_HARD, AI_MEDIUM, 200, 60},
         {AI_HARD, AI_HARD, 20, 0},
     };
     int bad = 0;

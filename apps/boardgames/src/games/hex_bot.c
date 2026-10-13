@@ -168,7 +168,7 @@ int hxb_choose(const hexgame *g, int level, uint64_t seed, ai_stats *stats)
     }
     long iters = level == AI_EASY ? 300 : level == AI_MEDIUM ? 3000 : 2000000 / (n * n);   /* hard: about 0.3 s */
     float rate;
-    int m = rave_search(&RG, &s, iters, ai_level_budget(level).ms * 9 / 10, &rng, &rate, NULL, stats);
+    int m = rave_search(&RG, &s, iters, ai_level_budget(level).ms * 85 / 100, &rng, &rate, NULL, stats);
     return m < 0 ? HEX_NONE : m;
 }
 

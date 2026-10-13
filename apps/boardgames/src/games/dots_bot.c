@@ -447,6 +447,7 @@ int dtb_choose(const dpos *p, int level, uint64_t seed)
     } else if (nl - p->drawn <= (level == AI_HARD ? 16 : 8)) {   /* few lines left: every line searched */
         dst s = {*p, &m};
         ai_opts o = {.budget = ai_level_budget(level), .rng = &rng, .tt_bits = 18};
+        o.budget.ms = o.budget.ms * 85 / 100;       /* a margin under the level's time (a slow or busy machine) */
         o.budget.noise = 0;
         o.budget.depth = 0;
         o.budget.nodes = level == AI_HARD ? 200000 : 40000;
@@ -463,6 +464,7 @@ int dtb_choose(const dpos *p, int level, uint64_t seed)
     } else {
         dst s = {*p, &m};
         ai_opts o = {.budget = ai_level_budget(level), .rng = &rng, .tt_bits = 16};
+        o.budget.ms = o.budget.ms * 85 / 100;       /* a margin under the level's time (a slow or busy machine) */
         o.budget.nodes = 150000;                /* hard: about 0.3 s on a PC at most */
         line = ai_ab(&SAFE, &s, &o, NULL);
         if (line < 0) line = safe_l[ai_rand_n(&rng, ns)];

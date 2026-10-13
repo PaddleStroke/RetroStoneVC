@@ -195,6 +195,7 @@ int mrb_choose(const mpos *p, int level, uint64_t seed, mmove *m, ai_stats *stat
     ai_rng rng;
     ai_seed(&rng, ai_mix(seed, a_hash(p)));
     ai_opts o = {.budget = ai_level_budget(level), .rng = &rng, .tt_bits = 18};
+    o.budget.ms = o.budget.ms * 85 / 100;       /* a margin under the level's time (a slow or busy machine) */
     switch (level <= AI_EASY ? AI_EASY : level >= AI_HARD ? AI_HARD : AI_MEDIUM) {
     case AI_EASY:   o.budget.depth = 2; o.budget.nodes = 4000; o.budget.noise = 120; break;
     case AI_MEDIUM: o.budget.depth = 4; o.budget.nodes = 40000; o.budget.noise = 25; break;

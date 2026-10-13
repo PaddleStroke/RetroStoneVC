@@ -194,6 +194,7 @@ int ttb_choose(const tt_game *g, int level, uint64_t seed, ai_stats *stats)
     ai_rng rng;
     ai_seed(&rng, ai_mix(seed, a_hash(&s) ^ (uint64_t)s.n << 40 ^ (uint64_t)s.big[0] << 48));
     ai_opts o = {.budget = ai_level_budget(level), .rng = &rng};
+    o.budget.ms = o.budget.ms * 85 / 100;       /* a margin under the level's time (a slow or busy machine) */
     level = level <= AI_EASY ? AI_EASY : level >= AI_HARD ? AI_HARD : AI_MEDIUM;
     if (!s.ultimate) {
         o.tt_bits = 12;
@@ -207,7 +208,7 @@ int ttb_choose(const tt_game *g, int level, uint64_t seed, ai_stats *stats)
     switch (level) {
     case AI_EASY:   o.budget.nodes = 150; break;
     case AI_MEDIUM: o.budget.nodes = 3000; break;
-    default:        o.budget.nodes = 60000; break;     /* about 0.3 s on a PC */
+    default:        o.budget.nodes = 40000; break;     /* about 0.2 s on a PC */
     }
     return ai_mcts(&ULTIMATE, &s, &o, stats);
 }

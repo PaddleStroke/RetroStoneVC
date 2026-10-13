@@ -546,7 +546,7 @@ int gob_choose(const gogame *g, int level, uint64_t seed, ai_stats *stats)
     long iters = ITERS[n == 9 ? 0 : n == 13 ? 1 : 2][level] * (g->capture ? 2 : 3) / 3;   /* capture go: slower */
     s->own = own;
     float rate;
-    int m = rave_search(&RG, s, iters, ai_level_budget(level).ms * 9 / 10, &rng, &rate, NULL, stats);
+    int m = rave_search(&RG, s, iters, ai_level_budget(level).ms * 85 / 100, &rng, &rate, NULL, stats);
     long played = stats ? stats->nodes : iters;
     if (m < 0) res = g->capture ? GO_NONE : GO_PASS;
     else if (m == PASS) res = GO_PASS;
