@@ -33,6 +33,8 @@
 #define LU_CELLS (LU_MAX * LU_MAX)
 #define LU_WHITE (-2)                           /* lu_puzzle.wall: a white cell */
 #define LU_WALL (-1)                            /* a wall without a number (else 0..4) */
+#define LU_LEVELS 150                           /* the designed levels (lightup_levels.h), in six chapters */
+#define LU_CHAPTERS 6
 
 enum { LU_EMPTY, LU_LAMP, LU_DOT };            /* a white cell as the player left it */
 
@@ -56,9 +58,16 @@ int  lu_level(int variant);                     /* BENCH_EASY .. BENCH_HARD */
 int  lu_grade(const lu_puzzle *p, uint8_t *sol); /* BENCH_* (the solution in sol when it solves it; may be NULL) */
 int  lu_count(const lu_puzzle *p, int limit);   /* the solutions, up to limit */
 void lu_make(int n, int level, uint32_t seed, lu_puzzle *p, uint8_t *sol);
+/* the levels (lightup_levels.h, made by tools/lightup_gen.c): a puzzle as text, "<n>:" and a character a cell, row
+ * by row ('.' white, '#' a wall, '0'..'4' a numbered wall) */
+int  lu_encode(const lu_puzzle *p, char *out, int size);   /* its length; 0: no room */
+int  lu_decode(const char *s, lu_puzzle *p);    /* 1: a puzzle */
+/* the work a puzzle asks of the solver: its grade (BENCH_*), the passes (each tier tried once round) and the
+ * finds of the medium way */
+int  lu_effort(const lu_puzzle *p, long *passes, long *mediums);
 
 void lu_new(lu_game *g, int variant, uint32_t seed);
-void lu_load(lu_game *g, const lu_puzzle *p, int level);
+int  lu_load(lu_game *g, const lu_puzzle *p);    /* a puzzle given (a level), graded and solved; 1: it solves */
 int  lu_white(const lu_game *g, int c);
 /* the player's actions: a cell's state changed (cells: the drag's cells; the state each takes); 0: nothing changed */
 int  lu_tap_state(const lu_game *g, int c);     /* what a tap makes of the cell */

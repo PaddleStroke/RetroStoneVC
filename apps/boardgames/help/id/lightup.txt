@@ -9,11 +9,13 @@ Setiap teka-teki punya tepat satu jawaban, yang bisa ditemukan hanya dengan bern
 Pasang lampu di kotak putih, atau ambil lagi. Kamu juga bisa memberi titik pada sebuah kotak untuk mengingat bahwa di situ tidak ada lampu; titik-titik itu hanya catatan untukmu.
 # Akhir permainan
 Teka-teki selesai saat setiap kotak putih terang, tidak ada lampu yang menerangi lampu lain, dan setiap angka punya lampunya: gelombang cahaya emas menyapu papan.
+# Level dan bintang
+Ada 150 level dalam enam bab, dari 6 × 6 sampai 14 × 14, masing-masing dengan satu jawaban saja; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah lampu atau titik yang salah yang lalu kamu batalkan dengan Urungkan.
 # Bermain di perangkat
 - Ketuk kotak putih untuk memasang lampu; ketuk lagi untuk mengambilnya.
 - Tahan jari sebentar di sebuah kotak untuk memberi titik, atau menghapusnya.
 - Seret di sepanjang baris atau kolom untuk memberi titik pada satu deretan (atau menghapusnya dari deretan bertitik).
-Kotak yang terang bersinar hangat. Dua lampu yang saling menerangi bersinar merah; sebuah angka menjadi merah jika lampunya terlalu banyak, dan memudar setelah semua lampunya lengkap. Tombol di ujung kanan bilah:
+Kotak yang terang bersinar hangat. Dua lampu yang saling menerangi bersinar merah; sebuah angka menjadi merah jika lampunya terlalu banyak, dan memudar setelah semua lampunya lengkap. Tombol di ujung kanan bilah (dalam posisi mendatar, di kolom samping):
 - Lampu atau titik: apa yang dipasang oleh ketukan. Ketuk tombol ini untuk menukar ketukan dan tahanan.
 - Bola lampu: petunjuk. Memperbaiki kotak yang salah, atau menunjukkan kotak berikutnya yang ditemukan penalaran, dengan cahaya emas.
 Urungkan membatalkan satu tindakan setiap kali, sampai ke awal. Bilah menunjukkan langkahmu.

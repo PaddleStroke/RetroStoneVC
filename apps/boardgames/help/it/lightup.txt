@@ -9,11 +9,13 @@ Ogni schema ha una sola soluzione, che si trova solo ragionando. Scegli la dimen
 Metti una lampada in una casella bianca, o toglila. Puoi anche mettere un punto in una casella per ricordarti che lì non va nessuna lampada; i punti sono solo note per te.
 # La fine della partita
 Lo schema è risolto quando tutte le caselle bianche sono illuminate, nessuna lampada ne illumina un'altra e ogni numero ha le sue lampade: un'onda di luce dorata attraversa il tavoliere.
+# Livelli e stelle
+Ci sono 150 livelli in sei capitoli, dal 6 × 6 al 14 × 14, ognuno con una sola soluzione; scegline uno nella schermata dei livelli. La scheda del dado, dopo i capitoli, crea un nuovo rompicapo a caso, con la scelta descritta sopra. Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Un errore è una lampada o un punto nel posto sbagliato che poi togli con Annulla.
 # Giocare sul dispositivo
 - Tocca una casella bianca per metterci una lampada; toccala di nuovo per toglierla.
 - Tieni premuta una casella per un attimo per metterci un punto, o toglierlo.
 - Trascina lungo una riga o una colonna per mettere punti in un intero tratto (o toglierli da un tratto di punti).
-Le caselle illuminate prendono una luce calda. Due lampade che si illuminano a vicenda brillano di rosso; un numero diventa rosso quando ha troppe lampade, e sbiadisce quando le ha tutte. I pulsanti in fondo alla barra:
+Le caselle illuminate prendono una luce calda. Due lampade che si illuminano a vicenda brillano di rosso; un numero diventa rosso quando ha troppe lampade, e sbiadisce quando le ha tutte. I pulsanti in fondo alla barra (in orizzontale, nella colonna laterale):
 - Lampada o punto: ciò che mette un tocco. Toccalo per scambiare tocco e pressione prolungata.
 - Lampadina: un aiuto. Corregge una casella sbagliata, altrimenti mostra la prossima casella che il ragionamento trova, in luce dorata.
 Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue mosse.

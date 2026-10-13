@@ -9,11 +9,13 @@ Jedes Rätsel hat genau eine Lösung, die sich allein durch Nachdenken finden l�
 Setze eine Lampe in ein weißes Feld oder nimm sie heraus. Du kannst auch einen Punkt in ein Feld setzen, um dir zu merken, dass dort keine Lampe hinkommt; die Punkte sind nur Notizen für dich.
 # Das Ende der Partie
 Das Rätsel ist gelöst, wenn jedes weiße Feld beleuchtet ist, keine Lampe eine andere beleuchtet und jede Zahl ihre Lampen hat: Eine Welle goldenen Lichts läuft über das Brett.
+# Level und Sterne
+Es gibt 150 Level in sechs Kapiteln, von 6 × 6 bis 14 × 14, jedes mit nur einer Lösung; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Nimmst du eine falsche Lampe oder einen falschen Punkt mit Rückgängig zurück, zählt das als Fehler.
 # Spielen auf dem Gerät
 - Tippe ein weißes Feld an, um eine Lampe hineinzusetzen; tippe noch einmal, um sie herauszunehmen.
 - Halte ein Feld einen Moment, um einen Punkt hineinzusetzen oder ihn zu entfernen.
 - Ziehe entlang einer Zeile oder Spalte, um Punkte in einen ganzen Abschnitt zu setzen (oder sie aus einem Abschnitt voller Punkte zu entfernen).
-Beleuchtete Felder leuchten warm. Zwei Lampen, die sich gegenseitig beleuchten, glühen rot; eine Zahl wird rot, wenn sie zu viele Lampen hat, und verblasst, sobald sie alle hat. Die Knöpfe am rechten Ende der Leiste:
+Beleuchtete Felder leuchten warm. Zwei Lampen, die sich gegenseitig beleuchten, glühen rot; eine Zahl wird rot, wenn sie zu viele Lampen hat, und verblasst, sobald sie alle hat. Die Knöpfe am rechten Ende der Leiste (im Querformat in der Seitenspalte):
 - Lampe oder Punkt: was ein Tippen setzt. Tippe ihn an, um Tippen und Halten zu tauschen.
 - Glühbirne: ein Tipp. Sie berichtigt ein falsches Feld oder zeigt sonst das nächste Feld, das sich erschließen lässt, in goldenem Licht.
 Rückgängig nimmt eine Aktion nach der anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge.

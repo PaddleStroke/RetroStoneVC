@@ -9,11 +9,13 @@ Każda łamigłówka ma dokładnie jedno rozwiązanie, do którego dochodzi się
 Postaw lampę na białym polu albo ją zdejmij. Możesz też postawić na polu kropkę, by pamiętać, że nie ma tam lampy; kropki to tylko twoje notatki.
 # Koniec gry
 Łamigłówka jest rozwiązana, gdy każde białe pole jest oświetlone, żadna lampa nie oświetla innej, a każda liczba ma swoje lampy: po planszy przebiega fala złotego światła.
+# Poziomy i gwiazdki
+Jest 150 poziomów w sześciu rozdziałach, od 6 × 6 do 14 × 14, każdy z jednym rozwiązaniem; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Jeśli cofniesz przyciskiem Cofnij źle postawioną lampę lub kropkę, liczy się to jako błąd.
 # Gra na urządzeniu
 - Dotknij białego pola, aby postawić lampę; dotknij jeszcze raz, aby ją zdjąć.
 - Przytrzymaj chwilę palec na polu, aby postawić kropkę albo ją usunąć.
 - Przeciągnij wzdłuż wiersza lub kolumny, aby postawić kropki na całym odcinku (albo usunąć je z odcinka kropek).
-Oświetlone pola świecą ciepło. Dwie lampy, które oświetlają się nawzajem, świecą na czerwono; liczba robi się czerwona, gdy ma za dużo lamp, i blednie, gdy ma je wszystkie. Przyciski na prawym końcu paska:
+Oświetlone pola świecą ciepło. Dwie lampy, które oświetlają się nawzajem, świecą na czerwono; liczba robi się czerwona, gdy ma za dużo lamp, i blednie, gdy ma je wszystkie. Przyciski na prawym końcu paska (w poziomie w bocznej kolumnie):
 - Lampa albo kropka: co stawia dotknięcie. Dotknij go, aby zamienić dotknięcie z przytrzymaniem.
 - Żarówka: podpowiedź. Poprawia błędne pole albo pokazuje następne pole, do którego prowadzi rozumowanie, w złotym świetle.
 Cofnij cofa po jednej czynności, aż do początku. Pasek pokazuje twoje ruchy.

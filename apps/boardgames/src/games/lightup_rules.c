@@ -5,6 +5,7 @@
  */
 #include "games/lightup.h"
 
+#include <stdio.h>
 #include <string.h>
 
 #include "games/puzrand.h"
@@ -197,9 +198,13 @@ static int medium(bench_grid *g, const ctx *k)
     return 0;
 }
 
+static long finds[2];                           /* each tier's finds (lu_effort counts them) */
+
 static int deduce(bench_grid *g, int tier, void *c)
 {
-    return tier ? medium(g, (const ctx *)c) : easy(g, (const ctx *)c);
+    int res = tier ? medium(g, (const ctx *)c) : easy(g, (const ctx *)c);
+    if (res > 0) finds[tier ? 1 : 0]++;
+    return res;
 }
 
 static int valid(const bench_grid *g, void *c)
@@ -252,6 +257,49 @@ int lu_count(const lu_puzzle *p, int limit)
     bench_grid g;
     grid_of(&k, &g);
     return bench_search(&g, &r, limit, NULL, NULL, 0);
+}
+
+int lu_effort(const lu_puzzle *p, long *passes, long *mediums)
+{
+    static ctx k;
+    ctx_make(&k, p);
+    bench_rules r = rules_of(&k, NULL);
+    bench_grid g;
+    grid_of(&k, &g);
+    finds[1] = 0;
+    int lv = bench_grade(&g, &r, BENCH_HARD);
+    if (passes) *passes = r.passes;
+    if (mediums) *mediums = finds[1];
+    return lv;
+}
+
+/* ---- a puzzle as text (the levels) ------------------------------------------------------------------------------- */
+int lu_encode(const lu_puzzle *p, char *out, int size)
+{
+    int n = p->n, len = snprintf(out, (size_t)size, "%d:", n);
+    if (len < 0 || len + n * n + 1 > size) return 0;
+    for (int c = 0; c < n * n; c++) {
+        int w = p->wall[c];
+        out[len++] = w == LU_WHITE ? '.' : w == LU_WALL ? '#' : (char)('0' + w);
+    }
+    out[len] = 0;
+    return len;
+}
+
+int lu_decode(const char *s, lu_puzzle *p)
+{
+    memset(p, 0, sizeof *p);
+    int n = 0;
+    for (; *s >= '0' && *s <= '9'; s++) n = n * 10 + *s - '0';
+    if (*s++ != ':' || n < 2 || n > LU_MAX) return 0;
+    p->n = n;
+    for (int c = 0; c < n * n; c++, s++) {
+        if (*s == '.') p->wall[c] = LU_WHITE;
+        else if (*s == '#') p->wall[c] = LU_WALL;
+        else if (*s >= '0' && *s <= '4') p->wall[c] = (int8_t)(*s - '0');
+        else return 0;
+    }
+    return !*s;
 }
 
 /* ---- making a puzzle --------------------------------------------------------------------------------------------- */
@@ -368,12 +416,12 @@ void lu_make(int n, int level, uint32_t seed, lu_puzzle *p, uint8_t *sol)
 }
 
 /* ---- the player's grid ------------------------------------------------------------------------------------------- */
-void lu_load(lu_game *g, const lu_puzzle *p, int level)
+int lu_load(lu_game *g, const lu_puzzle *p)
 {
     memset(g, 0, sizeof *g);
     g->p = *p;
-    g->level = level;
-    lu_grade(p, g->sol);
+    g->level = lu_grade(p, g->sol);
+    return g->level >= BENCH_EASY && g->level <= BENCH_HARD;
 }
 
 void lu_new(lu_game *g, int variant, uint32_t seed)

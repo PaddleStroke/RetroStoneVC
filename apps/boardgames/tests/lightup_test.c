@@ -9,6 +9,7 @@
 #include <time.h>
 
 #include "games/lightup.h"
+#include "games/lightup_levels.h"
 #include "games/puzrand.h"
 
 static int fails;
@@ -204,6 +205,29 @@ int main(void)
         CHECK(lu_solved(&G));
         while (lu_undo(&G) >= 0) {}
         CHECK(!memcmp(G.st, start.st, sizeof G.st) && G.hist.moves == 0);
+    }
+
+    /* the levels: each decodes and encodes back, has one solution found by reasoning alone (easy in chapter 1, hard
+     * at the end), and the sizes never shrink */
+    {
+        int last_n = 0, grades[3] = {0, 0, 0};
+        clock_t t1 = clock();
+        for (int l = 0; l < LU_LEVELS; l++) {
+            lu_puzzle q;
+            static lu_game L;
+            char back[LU_CELLS + 8];
+            int ok = lu_decode(lu_levels[l], &q) && lu_load(&L, &q) && lu_count(&q, 2) == 1 && keeps_rules(&q, L.sol);
+            if (!ok) printf("lightup level %d: not one solution\n", l + 1);
+            CHECK(ok);
+            CHECK(lu_encode(&q, back, sizeof back) && !strcmp(back, lu_levels[l]));
+            CHECK(q.n >= last_n);
+            last_n = q.n;
+            if (ok) grades[L.level]++;
+            if (l < LU_LEVELS / LU_CHAPTERS) CHECK(L.level == BENCH_EASY);
+        }
+        CHECK(lu_decode(lu_levels[LU_LEVELS - 1], &p) && lu_grade(&p, NULL) == BENCH_HARD);
+        printf("lightup: %d levels, one solution each (easy %d, medium %d, hard %d) in %.1f s\n", LU_LEVELS, grades[0],
+               grades[1], grades[2], (double)(clock() - t1) / CLOCKS_PER_SEC);
     }
 
     if (fails) printf("lightup: %d checks failed\n", fails);

@@ -9,11 +9,13 @@ Hver oppgave har nøyaktig én løsning, som kan finnes bare ved å resonnere. V
 Sett en lampe i en hvit rute, eller ta den bort. Du kan også sette en prikk i en rute for å huske at det ikke skal stå en lampe der; prikkene er bare notater til deg selv.
 # Slutten på spillet
 Oppgaven er løst når hver hvit rute er opplyst, ingen lampe lyser opp en annen og hvert tall har lampene sine: En bølge av gyllent lys går over brettet.
+# Brett og stjerner
+Det er 150 brett i seks kapitler, fra 6 × 6 opp til 14 × 14, hvert med bare én løsning; velg et i brettoversikten. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en feil lampe eller prikk som du siden angrer.
 # Spill på enheten
 - Trykk på en hvit rute for å sette en lampe; trykk igjen for å ta den bort.
 - Hold fingeren et øyeblikk på en rute for å sette en prikk, eller ta den bort.
 - Dra langs en rad eller kolonne for å sette prikker i et helt stykke (eller ta dem bort fra et stykke med prikker).
-De opplyste rutene gløder varmt. To lamper som lyser opp hverandre, gløder rødt; et tall blir rødt når det har for mange lamper, og blekner når det har alle. Knappene ytterst til høyre på linjen:
+De opplyste rutene gløder varmt. To lamper som lyser opp hverandre, gløder rødt; et tall blir rødt når det har for mange lamper, og blekner når det har alle. Knappene ytterst til høyre på linjen (i liggende format i sidekolonnen):
 - Lampe eller prikk: hva et trykk setter. Trykk på den for å bytte om trykk og hold.
 - Lyspære: et hint. Den retter en feil rute eller viser ellers neste rute resonneringen finner, i gyllent lys.
 Angre tar tilbake én handling om gangen, helt til starten. Linjen viser trekkene dine.

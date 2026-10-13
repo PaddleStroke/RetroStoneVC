@@ -11,6 +11,8 @@
  * other glow red; a number with too many lamps round it turns red, one with all its lamps fades. Undo takes back one
  * action, all the way to the start. The bar: the moves. Solved: a wave of gold light runs over the board from the
  * last cell; the stars count the hints and the mistakes (bench.h).
+ * The shell's level screen chooses a level (150 in six chapters, made by tools/lightup_gen.c: lightup_levels.h), or its
+ * die tab a puzzle made at random (the variants).
  */
 #include <math.h>
 #include <stdlib.h>
@@ -19,6 +21,7 @@
 #include "shell.h"
 #include "games/bench_ui.h"
 #include "games/lightup.h"
+#include "games/lightup_levels.h"
 
 static const uint8_t BRASS[3] = {190, 140, 62}, GLASS[3] = {255, 238, 176}, NUMBER[3] = {246, 230, 196};
 
@@ -138,13 +141,25 @@ static void calm(void)
     win.on = 0;
 }
 
-static void start(int variant)
+static void begin(void)
 {
-    lu_new(&G, variant, (uint32_t)ui_random(0x7fffffff) + 1u);
     serial++;
     calm();
     dots = 0;
     if (last_box.w > 0) layout(last_box);
+}
+
+static void start(int level)                    /* a level of the shell's level screen */
+{
+    lu_puzzle p;
+    if (!lu_decode(lu_levels[level < 0 || level >= LU_LEVELS ? 0 : level], &p) || !lu_load(&G, &p)) lu_new(&G, 0, 1);
+    begin();
+}
+
+static void start_random(int variant)           /* a puzzle made at random (the die tab) */
+{
+    lu_new(&G, variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    begin();
 }
 
 static int status(void) { return lu_solved(&G) ? GS_WIN0 : GS_PLAY; }
@@ -279,14 +294,14 @@ static void bar(int player, box b)
     bench_bar_moves(b, t_small, G.hist.moves);
 }
 
-/* ---- the menu's and the picker's cards: a puzzle of the size, its lamps lit (the menu's: half of them); under the
- * picker's, its level in ebony stones --------------------------------------------------------------------------- */
-static void card(int variant, int size, int bare, uint8_t *rgba)
+/* ---- the pictures of puzzles: the menu's and the picker's cards (a puzzle of the size, its lamps lit; the menu's:
+ * half of them; under the picker's, its level in ebony stones), the chapters' tabs ------------------------------- */
+/* a puzzle with the lamps of sol lit (all, or the first half) on a side x side plank, at the top of a size x size
+ * picture (in its middle when mid) */
+static void paint_puzzle(const lu_puzzle *pp, const uint8_t *sol, int half, int size, int side, int mid,
+                         uint8_t *rgba)
 {
-    int v = variant < 0 ? 1 : variant, side = variant < 0 || bare ? size : (int)(0.84f * size);
-    lu_puzzle p;
-    uint8_t sol[LU_CELLS];
-    lu_make(lu_size(v), lu_level(v), 2026u + (uint32_t)v, &p, sol);
+    lu_puzzle p = *pp;
     bench_geo g;
     memset(&g, 0, sizeof g);
     g.cols = g.rows = p.n;
@@ -299,7 +314,7 @@ static void card(int variant, int size, int bare, uint8_t *rgba)
     T.p = p;
     int n = p.n, q = g.cs;
     for (int c = 0; c < n * n; c++)
-        if (sol[c] && (variant >= 0 || c < n * n / 2)) T.st[c] = LU_LAMP;
+        if (sol[c] && (!half || c < n * n / 2)) T.st[c] = LU_LAMP;
     uint8_t *lamp = calloc((size_t)q * q, 4);
     for (int c = 0; c < n * n; c++) {
         float x = g.ox + c % n * q, y = g.oy + c / n * q;
@@ -313,9 +328,18 @@ static void card(int variant, int size, int bare, uint8_t *rgba)
         }
     }
     free(lamp);
-    int ox = (size - side) / 2 + (int)g.bx, oy = (variant < 0 ? (size - side) / 2 : 0) + (int)g.by;
+    int ox = (size - side) / 2 + (int)g.bx, oy = (mid ? (size - side) / 2 : 0) + (int)g.by;
     art_blend(rgba, size, size, b, g.w, g.h, ox, oy);
     free(b);
+}
+
+static void card(int variant, int size, int bare, uint8_t *rgba)
+{
+    int v = variant < 0 ? 1 : variant, side = variant < 0 || bare ? size : (int)(0.84f * size);
+    lu_puzzle p;
+    uint8_t sol[LU_CELLS];
+    lu_make(lu_size(v), lu_level(v), 2026u + (uint32_t)v, &p, sol);
+    paint_puzzle(&p, sol, variant < 0, size, side, variant < 0, rgba);
     if (variant >= 0 && !bare) bench_stones(rgba, size, side, lu_level(v));
 }
 
@@ -324,12 +348,23 @@ static void thumb(int variant, int size, uint8_t *rgba) { card(variant, size, 0,
 /* the picker's sizes (game.axes, above the levels): a puzzle of the size at the medium level, on the whole card */
 static void size_pic(int i, int size, uint8_t *rgba) { card(i * 3 + 1, size, 1, rgba); }
 
+/* a chapter's tab: its last level (its biggest size), solved */
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    int ch = chapter < 0 ? 0 : chapter >= LU_CHAPTERS ? LU_CHAPTERS - 1 : chapter;
+    static lu_game T;
+    lu_puzzle p;
+    if (!lu_decode(lu_levels[(ch + 1) * LU_LEVELS / LU_CHAPTERS - 1], &p) || !lu_load(&T, &p)) return;
+    paint_puzzle(&p, T.sol, 0, size, (int)(0.92f * size), 1, rgba);
+}
+
 static const game lightup_game = {
     .id = "lightup", .order = 410, .variants = LU_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1,
     .axes = {LU_SIZES, 3}, .axis_pic = {size_pic, NULL},
+    .levels = LU_LEVELS, .chapters = LU_CHAPTERS, .chapter_icon = chapter_icon, .start_random = start_random,
     .score = score, .level_stars = stars, .fill = 1, .tools = TOOLS,
 };
 REGISTER_GAME(lightup_game)
