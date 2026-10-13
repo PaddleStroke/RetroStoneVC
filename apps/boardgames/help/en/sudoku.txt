@@ -10,9 +10,9 @@ Put a digit in an empty cell. You can change it or take it out at any time; the 
 # The end of the game
 The puzzle is solved when the grid is full and right: a wave of gold light runs over the board.
 # Levels and stars
-There are 150 levels in six chapters, each with one solution: the first ones need only singles and give many digits, the last ones ask you to try a digit and follow it until something breaks. Choose one on the level screen. The die tab after the chapters makes a new puzzle at random, at the level you choose. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong digit taken back with undo.
+There are 150 levels in six chapters, each with one solution: the first ones need only singles and give many digits, the last ones ask you to try a digit and follow it until something breaks. Choose one on the level screen. The die tab after the chapters makes a new puzzle at random, at the level you choose. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong digit that you take back with undo.
 # Playing on the device
-Tap a cell, then a key under the board: its digit goes in, in blue ink (the given digits are dark). Tap the same key again to take it out, or drag a key onto a cell. The cell's row, column and box are lit faintly, and every cell holding its digit more warmly. With no empty cell picked, a key lights the cells of its digit. The buttons beside the board:
+Tap a cell, then a key beside the board: its digit goes in, in blue ink (the given digits are dark). Tap the same key again to take it out, or drag a key onto a cell. The cell's row, column and box are lit faintly, and every cell holding its digit more warmly. With no empty cell picked, a key lights the cells of its digit. The buttons beside the board:
 - Pencil: notes. The keys then put small digits in the cell, or take them out. A digit you put in clears that note from its row, column and box.
 - Eraser: takes out the cell's digit, or its notes.
 - Lamp: a hint. It puts a wrong digit right, or else fills the easiest cell, in gold light.

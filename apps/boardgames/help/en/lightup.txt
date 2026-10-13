@@ -10,12 +10,12 @@ Put a lamp in a white cell, or take it out. You can also put a dot in a cell to 
 # The end of the game
 The puzzle is solved when every white cell is lit, no lamp lights another and every number has its lamps: a wave of gold light runs over the board.
 # Levels and stars
-There are 150 levels in six chapters, from 6 × 6 up to 14 × 14, each with one solution; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong lamp or dot that you then take back with undo.
+There are 150 levels in six chapters, from 6 × 6 up to 14 × 14, each with one solution; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong lamp or dot that you take back with undo.
 # Playing on the device
 - Tap a white cell to put a lamp in it; tap it again to take it out.
 - Hold a cell a moment to put a dot in it, or take the dot out.
 - Drag along a row or a column to put dots in a whole stretch (or take them out of a stretch of dots).
-The lit cells glow warm. Two lamps that light each other glow red; a number turns red when it has too many lamps, and fades once it has all of them. The buttons at the right end of the bar (in landscape, in the side column):
+The lit cells glow warm. Two lamps that light each other glow red; a number turns red when it has too many lamps, and fades once it has all of them. The buttons beside the board:
 - Lamp or dot: what a tap puts. Tap it to swap tap and hold.
 - Light bulb: a hint. It puts a wrong cell right, or else shows the next cell reasoning finds, in gold light.
 Undo takes back one action at a time, all the way to the start. The bar shows your moves.

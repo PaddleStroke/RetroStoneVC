@@ -7,7 +7,7 @@ Fill a square, or mark one you know is empty with a cross. The crosses are only 
 # The end of the game
 When every row and every column matches its clues, the puzzle is solved: the crosses go, the picture comes out in its colours and a gold light runs over it.
 # Levels and stars
-There are 150 levels in six chapters: little pictures drawn for the game, from 5 × 5 up to 15 × 15, each found line by line; choose one on the level screen. A level you have solved shows its picture on its tile. The die tab after the chapters draws a picture by chance, in the size you choose. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a square filled outside the picture, or a cross on it, taken back with undo.
+There are 150 levels in six chapters: little pictures drawn for the game, from 5 × 5 up to 15 × 15, each found line by line; choose one on the level screen. A level you have solved shows its picture on its tile. The die tab after the chapters draws a picture by chance, in the size you choose. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a square filled outside the picture, or a cross on it, which you take back with undo.
 # Playing on the device
 - Tap a square to fill it; tap it again to empty it.
 - Hold a square a moment to cross it instead. The cross button beside the board makes taps cross (or fill again); it shows what a tap does.

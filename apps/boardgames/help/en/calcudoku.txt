@@ -7,7 +7,7 @@ Fill the grid so that every row and every column holds each digit from 1 to the 
 # Levels and stars
 There are 150 levels in six chapters, from 4 × 4 up to 9 × 9, each with one solution; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong digit that you take back with undo.
 # Playing on the device
-Tap a cell, then a key under the board: its digit goes in, in blue ink. Tap the same key again to take it out, or drag a key onto a cell. The cell's row and column are lit faintly and its cage a little more; every cell holding its digit is lit warmly. With no cell picked, a key lights the cells of its digit. The buttons beside the board:
+Tap a cell, then a key beside the board: its digit goes in, in blue ink. Tap the same key again to take it out, or drag a key onto a cell. The cell's row and column are lit faintly and its cage a little more; every cell holding its digit is lit warmly. With no cell picked, a key lights the cells of its digit. The buttons beside the board:
 - Pencil: notes. The keys then put small digits in the cell, or take them out.
 - Eraser: takes out the cell's digit, or its notes.
 - Lamp: a hint. It puts a wrong digit right, or else fills a cell that reasoning finds, in gold light.

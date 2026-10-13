@@ -13,5 +13,5 @@ There are 150 levels in six chapters, from 5 × 5 up to 12 × 12, each with one 
 - Going back along a path shortens it. Crossing another path cuts it; it comes back if you back off before lifting your finger. A path never passes over a dot of another colour.
 - When a path reaches its other dot, the pair is joined and its dots ring.
 - With taps alone: tap a dot or a square of a path (its end is marked), then a square in the same row or column: the path runs straight there. Tap the marked end again to let it go.
-- The lamp at the right end of the bar gives a hint: it lays one pair's path as in the solution, in gold light.
+- The lamp gives a hint: it lays one pair's path as in the solution, in gold light.
 The squares a path covers are tinted in its colour. Undo takes back one stroke or hint at a time, all the way to the start. The bar shows your moves.

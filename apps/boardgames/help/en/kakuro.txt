@@ -7,7 +7,7 @@ Fill every white square with a digit from 1 to 9. A run is a line of white squar
 # Levels and stars
 There are 150 levels in six chapters, from 5 × 5 up to 12 × 12, each with one solution; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong digit that you take back with undo.
 # Playing on the device
-Tap a white square, then a key under the board: its digit goes in, in blue ink. Tap the same key again to take it out, or drag a key onto a square. The square's two runs are lit, their clues in gold, and every square holding its digit warmly. With no square picked, a key lights the squares of its digit. The buttons beside the board:
+Tap a white square, then a key beside the board: its digit goes in, in blue ink. Tap the same key again to take it out, or drag a key onto a square. The square's two runs are lit, their clues in gold, and every square holding its digit warmly. With no square picked, a key lights the squares of its digit. The buttons beside the board:
 - Pencil: notes. The keys then put small digits in the square, or take them out.
 - Eraser: takes out the square's digit, or its notes.
 - Lamp: a hint. It puts a wrong digit right, or else fills a square that reasoning finds, in gold light.

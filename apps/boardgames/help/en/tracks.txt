@@ -14,5 +14,5 @@ There are 150 levels in six chapters, from 5 × 5 up to 10 × 10, each with one 
 # Playing on the device
 - Drag from cell to cell to lay the track along your finger; it joins the pieces already there.
 - Tap a cell for a piece (the one that best meets its neighbours comes first), again for the next one; after the sixth the cell is empty again.
-- Hold a cell a moment to cross it. The cross button in the bar makes taps and drags cross instead; it shows what a tap does.
-A count fades when its line has that many pieces, and turns red when it has too many. The lamp in the bar is a hint: it sets one cell right and lights it in gold. Undo takes back one action at a time, all the way to the start. The bar shows your moves.
+- Hold a cell a moment to cross it. The cross button makes taps and drags cross instead; it shows what a tap does.
+A count fades when its line has that many pieces, and turns red when it has too many. The lamp is a hint: it sets one cell right and lights it in gold. Undo takes back one action at a time, all the way to the start. The bar shows your moves.

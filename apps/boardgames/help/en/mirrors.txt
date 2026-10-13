@@ -2,7 +2,7 @@ Mirrors
 # The aim
 A brass lamp sends a beam of light across the board. Turn and place the mirrors so that the beam lights every gem without touching a bomb. Choose the level first (the stones under each picture): easy, medium, hard or expert.
 - A mirror turns the beam by a right angle. The mirrors on a walnut pivot stay in their cells: you only turn them one way (/) or the other (\).
-- The loose mirrors wait in the tray under the board: stand them on empty cells.
+- The loose mirrors wait in the tray at the edge of the board: stand them on empty cells.
 - The beam goes straight on through gems and empty cells. A wooden block stops it, and so does the edge of the board.
 - From the hard level on, a glass plate lets half of the light through and turns the other half.
 Every puzzle has exactly one solution, found by following the beam and reasoning.
@@ -15,4 +15,4 @@ There are 150 levels in six chapters, from 5 × 5 boards with pivoting mirrors o
 # Playing on the device
 - Tap a mirror on a pivot to turn it.
 - Tap an empty cell to stand a loose mirror there; tap it again to turn it, a third time to send it back to the tray. You can also drag a mirror from the tray to a cell, from one cell to another, or off the board.
-The beam follows every change at once. A lit gem glows; a bomb touched by the beam glows red. The lamp in the bar is a hint: it sets one mirror right and lights it in gold. Undo takes back one action at a time, all the way to the start. The bar shows your moves.
+The beam follows every change at once. A lit gem glows; a bomb touched by the beam glows red. The lamp is a hint: it sets one mirror right and lights it in gold. Undo takes back one action at a time, all the way to the start. The bar shows your moves.

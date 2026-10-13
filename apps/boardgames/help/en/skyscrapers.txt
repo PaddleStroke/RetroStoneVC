@@ -10,9 +10,9 @@ Put a height in a cell, change it or take it out. Small notes in a cell help you
 # The end of the game
 The puzzle is solved when every cell has its building and the town keeps every rule: a wave of gold light runs over the board.
 # Levels and stars
-There are 150 levels in six chapters, from 4 × 4 up to 7 × 7, each with one solution; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong height that you then take back with undo.
+There are 150 levels in six chapters, from 4 × 4 up to 7 × 7, each with one solution; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong height that you take back with undo.
 # Playing on the device
-Tap a cell, then a key under the board: its height goes in (the same key again takes it out). You can also drag a key onto a cell. Tap the chosen cell again to raise its building by one; hold a cell a moment to clear it. The buildings are little wooden towers: the taller, the bigger. The buttons at the right end of the bar (in landscape, in the side column):
+Tap a cell, then a key beside the board: its height goes in (the same key again takes it out). You can also drag a key onto a cell. Tap the chosen cell again to raise its building by one; hold a cell a moment to clear it. The buildings are little wooden towers: the taller, the bigger. The buttons beside the board:
 - Pencil: notes. The keys then put small heights in the cell, or take them out. A height you put in clears that note from its row and column.
 - Light bulb: a hint. It puts a wrong height right, or else fills the next cell reasoning finds, in gold light.
 A height twice in a row or a column turns red. An edge number fades when its full line shows the right count, and turns red when it shows another. A key fades once its height is in every row. Undo takes back one action at a time, all the way to the start. The bar shows your moves.

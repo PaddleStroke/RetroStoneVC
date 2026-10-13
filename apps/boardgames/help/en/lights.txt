@@ -7,6 +7,6 @@ Press a lamp: it turns over (lit to dark, or dark to lit), and so do its neighbo
 # The end of the game
 The puzzle is solved when every lamp is dark: a wave of gold light runs over the board. The fewest presses possible are worked out for every board; match them if you can.
 # Levels and stars
-There are 150 levels in six chapters, from 3 × 3 lamps up to 7 × 7, many of them laid out in patterns; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. The par is the fewest presses. Solved at par: 3 stars; with up to half as many presses again: 2 stars; otherwise 1. Undo takes a press back, and it no longer counts.
+There are 150 levels in six chapters, from 3 × 3 lamps up to 7 × 7, many of them laid out in patterns; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. Each puzzle has a par: the fewest presses that solve it. Solved at par: 3 stars; with up to half as many presses again: 2 stars; otherwise 1. Undo takes a press back, and it no longer counts.
 # Playing on the device
 Tap a lamp to press it. The lamp beside the board gives a hint: it presses one lamp of the shortest way, in gold light. Undo takes back one press at a time, all the way to the start. The bar shows your presses and, at its right end, the fewest possible from the start; it glows gold when you match it.

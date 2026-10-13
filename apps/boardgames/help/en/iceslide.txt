@@ -7,7 +7,7 @@ Push the puck up, down, left or right. On ice it cannot stop by itself: it slide
 # The end of the game
 The puzzle is solved when the puck drops into the hole. Solved in the par, a gold light runs out over the ice.
 # Levels and stars
-There are 150 levels in six chapters, from 5 × 5 squares of ice up to 10 × 9; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. The par is the fewest pushes. Solved at par: 3 stars; with up to half as many pushes again: 2 stars; otherwise 1. Undo takes a push back, and it no longer counts.
+There are 150 levels in six chapters, from 5 × 5 squares of ice up to 10 × 9; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. Each puzzle has a par: the fewest pushes that solve it. Solved at par: 3 stars; with up to half as many pushes again: 2 stars; otherwise 1. Undo takes a push back, and it no longer counts.
 # Playing on the device
-Swipe on the ice the way you want the puck to go, or tap a square in the puck's row or column, or tap one of the four arrow buttons under the board (on a computer, the arrow keys work too). An arrow is dimmed when the puck cannot move that way.
+Swipe on the ice the way you want the puck to go, or tap a square in the puck's row or column, or tap one of the four arrow buttons beside the board (on a computer, the arrow keys work too). An arrow is dimmed when the puck cannot move that way.
 The lamp shows a hint: the next push of a shortest way, its arrow lit and its path dotted in gold. If the hole can no longer be reached from where the puck is, the hint first takes back the pushes that led there. Undo takes back one push at a time, all the way to the start. The bar shows your pushes and, at its right end, the par.
