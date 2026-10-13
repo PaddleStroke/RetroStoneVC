@@ -138,7 +138,7 @@ static struct {
     box cards[MAX_GAMES];
     float snd_x, snd_y, snd_r;
     box pills[MAX_PLAYERS + 1];                 /* the picker: how many players (pill_n[i] each) */
-    int npills, pill_n[MAX_PLAYERS + 1];
+    int npills, pill_n[MAX_PLAYERS + 1], pill_rows;
     float sec_y[SECTIONS], sec_x, sec_w, sec_h;   /* the menu's headings (sec_y -1: an empty section) */
     box tabs[SECTIONS];                         /* the menu's tabs, one a section with games */
     int ntabs, tab_sec[SECTIONS];
@@ -1634,12 +1634,21 @@ static void layout_cards(int n)
             if (cnt >> k & 1) { L.pill_n[L.npills++] = k; most = k; }
         float ph = fminf(ui.w, ui.h) * 0.12f, pw = ph * (0.5f + most * 0.44f), pg = ph * 0.3f;
         float fit = (ui.w - 2 * m) / (L.npills * pw + (L.npills - 1) * pg);
+        int per = L.npills;
+        if (fit < 0.75f && L.npills > 2) {      /* too small in one row (a phone upright, five counts): two rows */
+            per = (L.npills + 1) / 2;
+            fit = (ui.w - 2 * m) / (per * pw + (per - 1) * pg);
+        }
         if (fit < 1) { ph *= fit; pw *= fit; pg *= fit; }
         ph = floorf(ph);
         pw = floorf(pw);
-        float x = (ui.w - (L.npills * pw + (L.npills - 1) * pg)) / 2;
-        for (int k = 0; k < L.npills; k++) L.pills[k] = (box){floorf(x + k * (pw + pg)), floorf(head), pw, ph};
-        head += ph + g;
+        for (int k = 0; k < L.npills; k++) {     /* each row centred (the second one shorter) */
+            int r = k / per, inrow = r ? L.npills - per : per;
+            float x = (ui.w - (inrow * pw + (inrow - 1) * pg)) / 2;
+            L.pills[k] = (box){floorf(x + (k - r * per) * (pw + pg)), floorf(head + r * (ph + pg)), pw, ph};
+        }
+        L.pill_rows = (L.npills + per - 1) / per;
+        head += L.pill_rows * ph + (L.pill_rows - 1) * pg + g;
         int ts = (int)(ph * 0.56f), key = cur * 100000 + (int)pw * 100 + (int)ph;
         if (made_pill != key) {
             made_pill = key;
@@ -1714,8 +1723,9 @@ static void layout_cards(int n)
         menu.scroll = fminf(menu.max, fmaxf(0, menu.scroll));
     }
     if (L.npills) {                             /* the picker: the pills and the cards, one block in the middle */
-        float ph = L.pills[0].h, start = below + fmaxf(0, (ui.h - below - m - (ph + g + tall)) / 2);
-        for (int k = 0; k < L.npills; k++) L.pills[k].y = floorf(start);
+        float ph = L.pills[L.npills - 1].y + L.pills[0].h - L.pills[0].y;   /* their rows */
+        float start = below + fmaxf(0, (ui.h - below - m - (ph + g + tall)) / 2), dy = floorf(start) - L.pills[0].y;
+        for (int k = 0; k < L.npills; k++) L.pills[k].y += dy;
         y0 = start + ph + g;
     }
     for (int i = 0; i < n; i++) L.cards[i].y = floorf(L.cards[i].y + y0);
