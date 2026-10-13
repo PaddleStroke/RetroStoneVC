@@ -77,4 +77,12 @@ int  ecarte_winner(const ecarte_pos *p);        /* EC_OVER: who reached 5 (-1: n
 int  ecarte_auto(const ecarte_pos *p);
 int  ecarte_script(ecarte_game *g, const char *moves);
 
+/* the bot (ecarte_bot.c, bots.h), and what the screen (ecarte.c) gives it; a headless test defines those two */
+const ecarte_game *ecarte_live(void);           /* the game on the screen, read-only: the bot copies it at entry */
+int ecarte_show(const char *move);              /* main thread: plays one action of the notation as a tap does */
+struct ai_stats;
+struct tb_state;
+int ecb_choose(const ecarte_game *g, int seat, int level, uint64_t seed, struct ai_stats *stats);   /* 0: none */
+void ecb_view(const ecarte_game *g, int me, struct tb_state *v, ecarte_game *scratch);   /* seat me's knowledge */
+
 #endif
