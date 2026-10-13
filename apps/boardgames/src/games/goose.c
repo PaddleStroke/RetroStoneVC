@@ -540,6 +540,16 @@ static int script(const char *s)
     return ok;
 }
 
+/* ---- the bot (goose_bot.c) --------------------------------------------------------------------------------------- */
+const goo_game *goose_live(void) { return &G; }
+
+int goose_show(const char *move)
+{
+    if (strcmp(move, "roll") || status() != GS_PLAY || busy()) return 0;
+    throw_dice();
+    return 1;
+}
+
 /* ---- the board on the screen ------------------------------------------------------------------------------------- */
 static void layout(box b)
 {

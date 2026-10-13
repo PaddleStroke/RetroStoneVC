@@ -86,6 +86,16 @@ static int script(const char *s)
     return 1;
 }
 
+/* ---- the bot (snakes_bot.c) -------------------------------------------------------------------------------------- */
+const sn_game *snakes_live(void) { return &G; }
+
+int snakes_show(const char *move)
+{
+    if (strcmp(move, "roll") || status() != GS_PLAY || busy()) return 0;
+    throw_die();
+    return 1;
+}
+
 /* the player who threw each throw: a 6 throws again */
 static int last_throw(int player)
 {

@@ -52,4 +52,8 @@ void sn_cell(int square, int *col, int *row);   /* 1..100: column 0..9 from the 
 int  sn_hop(int from, int k);           /* the square k hops after from (bouncing back from 100) */
 int  sn_link_at(int square);            /* the link starting on a square, or -1 */
 
+/* the bot (snakes_bot.c, bots.h) */
+const sn_game *snakes_live(void);       /* the game on the screen, read-only: the bot reads whose turn it is */
+int  snakes_show(const char *move);     /* main thread: "roll" throws the die as a tap does; 0: not now */
+
 #endif

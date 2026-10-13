@@ -65,4 +65,10 @@ int  ur_move(ugame *g, int from);               /* 0: not allowed; else 1 + the 
 int  ur_undo(ugame *g);                         /* back to the last move's choice (with the throws after it) */
 int  ur_script(ugame *g, const char *moves);    /* plays throws and moves in the notation above; 0: one is bad */
 
+/* the bot (ur_bot.c, bots.h) */
+const ugame *ur_live(void);             /* the game on the screen, read-only: the bot copies its position at entry */
+/* main thread: plays a move as a tap does (animated): "roll" throws the dice (the game's own), a letter moves that
+ * piece; 0: not now, or not legal */
+int  ur_show(const char *move);
+
 #endif

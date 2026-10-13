@@ -68,4 +68,8 @@ int  goo_kind(int square);                       /* GK_* */
 int  goo_last_throw(const goo_game *g, int player, int *d1, int *d2);   /* the player's last throw; 0: none yet */
 int  goo_script(goo_game *g, const char *throws); /* 0: a throw is bad */
 
+/* the bot (goose_bot.c, bots.h) */
+const goo_game *goose_live(void);        /* the game on the screen, read-only: the bot reads whose turn it is */
+int  goose_show(const char *move);       /* main thread: "roll" throws the dice as a tap does; 0: not now */
+
 #endif

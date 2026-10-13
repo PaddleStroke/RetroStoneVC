@@ -196,6 +196,23 @@ static int script(const char *s)
     return ok;
 }
 
+/* ---- the bot (ur_bot.c) ------------------------------------------------------------------------------------------ */
+const ugame *ur_live(void) { return &G; }
+
+int ur_show(const char *move)
+{
+    if (busy()) return 0;
+    if (!strcmp(move, "roll")) {
+        if (G.pos.phase != UR_THROW) return 0;
+        throw_dice();
+        return 1;
+    }
+    int from = move[0] - 'a';
+    if (move[0] < 'a' || move[1] || G.pos.phase != UR_MOVE || ur_dest(&G.pos, from) < 0) return 0;
+    play(from, 1);
+    return 1;
+}
+
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* a rosette, the board's jewel: eight cream petals round a heart, in a ring of dots, on a tile of rosewood */
 static void paint_rosette(uint8_t *o, int pw, int ph, int x, int y, int w)
