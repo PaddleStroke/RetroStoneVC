@@ -439,6 +439,6 @@ static const game taquin_game = {
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1,
     .levels = TQ_LEVELS, .chapters = TQ_CHAPTERS, .start_random = start_random, .chapter_icon = chapter_icon,
-    .level_thumb = level_thumb, .level_stars = level_stars, .score = score, .par = par,
+    .level_thumb = level_thumb, .level_stars = level_stars, .score = score, .par = par, .fill = 1,
 };
 REGISTER_GAME(taquin_game)

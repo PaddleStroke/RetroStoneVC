@@ -43,10 +43,13 @@ static SDL_Texture *t_board, *t_disc[HN_MAX + 1], *t_small, *t_tower;
 /* ---- the geometry ------------------------------------------------------------------------------------------------ */
 static float disc_w(int n, int size, float p) { return p * (0.30f + 0.62f * (size - 1) / (float)(n - 1)); }
 
-static void fit(int n, float S, float *o_bh, float *o_dh)
+/* the scene in a W x H room (game.fill): as wide as it may be (no wider than half again its height), as tall as
+ * 0.9 of its width; the discs as thick as its height allows */
+static void fit(int n, float W, float H, float *o_bw, float *o_bh, float *o_dh)
 {
-    float h = 0.74f * S, f = (int)(S * FRAME), inner = h - 2 * f;
-    *o_dh = fminf(0.085f * S, inner / (n + 4.3f));
+    float w = floorf(fminf(W, 1.5f * H)), h = floorf(fminf(H, 0.9f * w)), f = (int)(fminf(w, h) * FRAME);
+    *o_dh = fminf(0.085f * w, (h - 2 * f) / (n + 4.3f));
+    *o_bw = w;
     *o_bh = h;
 }
 
@@ -161,18 +164,15 @@ static void token(int player, int size, uint8_t *rgba)
 static void layout(box b)
 {
     last_box = b;
-    float S = fminf(b.w, b.h);
-    fit(G.n, S, &bh, &dh);
-    fr = (int)(S * FRAME);
-    bw = floorf(S);
-    bh = floorf(bh);
+    fit(G.n, b.w, b.h, &bw, &bh, &dh);
+    fr = (int)(fminf(bw, bh) * FRAME);
     bx = floorf(b.x + (b.w - bw) / 2);
     by = floorf(b.y + (b.h - bh) / 2);
     pitch = (bw - 2 * fr) / 3;
     yb = by + bh - fr - 0.9f * dh;
     yp = yb - (G.n + 1.0f) * dh;
     hover = yp - 0.95f * dh;
-    int key = (int)bw * 16 + G.n;
+    int key = ((int)bw * 4096 + (int)bh) * 16 + G.n;
     if (made_key != key) {
         made_key = key;
         int w = (int)bw, h = (int)bh;
@@ -524,6 +524,6 @@ static const game hanoi_game = {
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1,
     .levels = HN_LEVELS, .chapter_of = hn_chapter_of, .start_random = start_random, .chapter_icon = chapter_icon,
-    .level_thumb = level_thumb, .level_stars = level_stars, .score = score, .par = par,
+    .level_thumb = level_thumb, .level_stars = level_stars, .score = score, .par = par, .fill = 1,
 };
 REGISTER_GAME(hanoi_game)

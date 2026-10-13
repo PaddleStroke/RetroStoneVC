@@ -4,15 +4,15 @@
  * lacquer with gold numbers (the rules: merge_rules.c).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- * Swipe on the tray, or tap one of the four round buttons under it, or use the arrow keys: every tile slides that
+ * Swipe on the tray, or tap one of the four arrows (the shell's tools), or use the arrow keys: every tile slides that
  * way, equal tiles meet and merge (a pop), and a new tile grows on an empty square. A way that moves nothing: its
  * button dimmed. The lamp: the hint (a short look ahead): its push's button in gold light, and a gold light along the
  * side the tiles would go. Undo takes back one push, all the way to the start (the new tiles too: the same push again
  * brings the same tile).
  * The target made: a gold light pulses on that tile and runs over the others, and the game goes on. No push left: the
- * game is over (never lost); the buttons give way to a wooden plaque with the score burned in (in gold light when it
- * is the best of the session), and the shell's card shows the stars and the score: three stars for the target made
- * (or beyond), two for the tile just below it, one otherwise. No designed levels: every new tile is drawn by chance,
+ * game is over (never lost); the arrows give way to a wooden plaque under the tray with the score burned in (in gold
+ * light when it is the best of the session), and the shell's card shows the stars and the score: three stars for the
+ * target made (or beyond), two for the tile just below it, one otherwise. No designed levels: every new tile is drawn by chance,
  * so a level would only be a seed under another name, with no par to measure it by; the sizes are the difficulty.
  * The bar: the score, and at its right end the best score of the session (this size) by a gold star (narrow bars: the
  * two in two rows).
@@ -27,7 +27,6 @@
 #include "shell.h"
 
 #define FRAME 0.035f
-#define STRIP 0.16f                             /* the buttons' row, a part of the board's square */
 #define SLIDE_MS 110
 #define POP_MS 160
 #define TARGET_MS 1500
@@ -42,10 +41,10 @@ static struct { int on; uint8_t prev[MRG_CELLS]; mrg_push how; Uint32 t0; } anim
 static struct { int on, end; Uint32 t0; } fx;   /* the target made, or the end: from t0 */
 static int hint_way = -1;
 static swp_swipe sw;
-static swp_pad pad = {.down = -1};
+static int down = -1;                           /* the tool held (its push, or SWP_HINT) */
 
 static box last_box;
-static float bx, by, side, tx, ty;              /* the board's square; the tray's top left */
+static float bx, by, side, tx, ty, plx, ply;    /* the board's square; the tray's top left; the plaque's centre */
 static int fr, gap, tile, tw, made_key = -1, made_small = -1, made_tile = -1;
 static SDL_Texture *t_tray, *t_tile[MRG_TOP + 1], *t_small, *t_best, *t_plaque;
 
@@ -180,7 +179,7 @@ static void best_pic(int size, uint8_t *rgba)    /* the best: a dark tile with a
 static void fit(float S, int n, int *f, int *g, int *T, int *w)
 {
     *f = (int)(S * FRAME);
-    float in = S * (1 - STRIP) - 2 * *f;
+    float in = S - 2 * *f;
     *g = (int)fmaxf(2, in * 0.024f);
     *T = (int)((in - (n + 1) * *g) / n);
     *w = n * *T + (n + 1) * *g + 2 * *f;
@@ -189,13 +188,16 @@ static void fit(float S, int n, int *f, int *g, int *T, int *w)
 static void layout(box b)
 {
     last_box = b;
-    float S = floorf(fminf(b.w, b.h)), strip = floorf(S * STRIP);
+    float S = floorf(fminf(b.w, b.h)), ph0 = floorf(0.125f * S);
+    if (b.h - S < ph0 && b.h > b.w) S = floorf(fminf(b.w, b.h - ph0));   /* upright: the plaque's room under it */
     side = S;
     bx = floorf(b.x + (b.w - S) / 2);
-    by = floorf(b.y + (b.h - S) / 2);
+    by = floorf(b.y + (b.h - S - (b.h > b.w ? ph0 : 0)) / 2);
     fit(S, G.n, &fr, &gap, &tile, &tw);
     tx = floorf(bx + (S - tw) / 2);
-    ty = floorf(by + (S - strip - tw) / 2);
+    ty = floorf(by + (S - tw) / 2);
+    plx = bx + S / 2;                           /* the plaque: under the tray, or over its foot when there is no room */
+    ply = b.y + b.h - (ty + tw) >= ph0 ? ty + tw + 0.6f * ph0 : ty + tw - fr - 0.6f * ph0;
     int key = tw * 8 + G.n;
     if (made_key != key) {
         made_key = key;
@@ -211,8 +213,7 @@ static void layout(box b)
         made_tile = tile * 32 + G.target;
         for (int p = 0; p <= MRG_TOP; p++) ui_free(&t_tile[p]);
     }
-    swp_place(&pad, (box){bx, by + S - strip, S, strip});
-    int pw = (int)(0.62f * S), ph = (int)(0.78f * strip);
+    int pw = (int)(0.62f * S), ph = (int)(0.78f * ph0);
     ui_free(&t_plaque);
     uint8_t *o = malloc((size_t)pw * pw * 4);
     if (o) {
@@ -261,7 +262,7 @@ static void calm(void)
     anim.on = fx.on = 0;
     hint_way = -1;
     sw.on = 0;
-    pad.down = -1;
+    down = -1;
 }
 
 static void keep_best(void)
@@ -372,8 +373,8 @@ static float glow(int i, float wt)
 
 static void draw_plaque(void)
 {
-    float cx = bx + side / 2, cy = pad.cy[SWP_UP];
-    float pw = 0.62f * side, ph = 0.78f * floorf(side * STRIP);
+    float cx = plx, cy = ply;
+    float pw = 0.62f * side, ph = 0.78f * floorf(0.125f * side);
     int newbest = G.p.score > best_before && G.p.score >= best[G.variant];
     for (int i = -1; newbest && i <= 1; i++) ui_mark_gold(cx + i * 0.3f * pw, cy, 0.62f * pw);
     ui_shadow_flat(cx + 0.02f * ph, cy + 0.06f * ph, pw, ph, 0.7f);
@@ -432,15 +433,15 @@ static void draw(void)
     unsigned can = 0;
     for (int w = 0; w < 4; w++)
         if (mrg_can(&G, w)) can |= 1u << w;
-    swp_draw(&pad, can, anim.on ? -1 : hint_way, can != 0);
+    swp_tools_draw(can, anim.on ? -1 : hint_way, can != 0, down);
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
 static void press(float x, float y)
 {
     sw.on = 0;
-    pad.down = mrg_over(&G) ? -1 : swp_hit(&pad, x, y);
-    if (pad.down >= 0) { ui_animate(); return; }
+    down = mrg_over(&G) ? -1 : swp_tool_hit(x, y);
+    if (down >= 0) { ui_animate(); return; }
     if (x >= bx && y >= by && x < bx + side && y < by + side) swp_begin(&sw, x, y);   /* anywhere on the board */
 }
 
@@ -452,11 +453,11 @@ static void motion(float x, float y)
 
 static void release(float x, float y)
 {
-    if (pad.down >= 0) {
-        int k = pad.down;
-        pad.down = -1;
+    if (down >= 0) {
+        int k = down;
+        down = -1;
         ui_animate();
-        if (swp_hit(&pad, x, y) != k) return;
+        if (swp_tool_hit(x, y) != k) return;
         if (k == SWP_HINT) hint();
         else push(k);
         return;
@@ -531,6 +532,6 @@ static const game merge_game = {
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .key = key, .score = score,
-    .level_stars = level_stars,
+    .level_stars = level_stars, .fill = 1, .tools = SWP_KNOBS,
 };
 REGISTER_GAME(merge_game)

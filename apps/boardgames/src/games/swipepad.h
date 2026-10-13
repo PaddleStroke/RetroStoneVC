@@ -1,6 +1,6 @@
 /*
- * What the push puzzles share on the screen (Ice Slide, Merge): a row of the shell's round buttons under the board (the
- * four pushes: the shell's arrow turned; then the hint: its lamp), the swipe on the board, and the arrow keys.
+ * What the push puzzles share on the screen (Ice Slide, Merge): the shell's tools for the four pushes (the shell's arrow
+ * turned) and the hint (its lamp), the swipe on the board, and the arrow keys.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Written once, here, as static inline functions: the build takes a game's own files only, so a shared .c file would
@@ -49,44 +49,29 @@ static inline void swp_arrow(int way, int size, uint8_t *o)
     free(b);
 }
 
-/* ---- the row of buttons: the shell's round buttons ------------------------------------------------------------- */
-typedef struct {
-    float cx[SWP_KNOBS], cy[SWP_KNOBS], d;
-    int down;                                   /* the button held (-1: none) */
-} swp_pad;
+/* ---- the buttons: the shell's tools (game.tools = SWP_KNOBS), left, up, down, right, then the lamp ------------- */
+static const int SWP_TOOL_WAY[SWP_KNOBS] = {SWP_LEFT, SWP_UP, SWP_DOWN, SWP_RIGHT, SWP_HINT};
 
-/* the buttons in a row across `strip`, left to right: left, up, down, right, then the lamp a little apart */
-static inline void swp_place(swp_pad *p, box strip)
+/* the push (or SWP_HINT) of the tool under the finger; -1: none */
+static inline int swp_tool_hit(float x, float y)
 {
-    static const int ORDER[SWP_KNOBS] = {SWP_LEFT, SWP_UP, SWP_DOWN, SWP_RIGHT, SWP_HINT};
-    float d = fminf(0.84f * strip.h, strip.w / 6.6f), pitch = 1.24f * d, apart = 0.5f * d;
-    float x = strip.x + (strip.w - 4 * pitch - apart) / 2, cy = strip.y + strip.h / 2;
+    int i = ui_tool_hit(x, y);
+    return i < 0 || i >= SWP_KNOBS ? -1 : SWP_TOOL_WAY[i];
+}
+
+/* all of them: can (bit k: push k moves something; the others dimmed), lit: the push in gold light (the hint's; -1:
+ * none), hint: the lamp usable, down: the button held (its gold disc; -1 none) */
+static inline void swp_tools_draw(unsigned can, int lit, int hint, int down)
+{
     for (int i = 0; i < SWP_KNOBS; i++) {
-        int k = ORDER[i];
-        p->cx[k] = x + i * pitch + (i == SWP_KNOBS - 1 ? apart : 0);
-        p->cy[k] = cy;
+        int k = SWP_TOOL_WAY[i];
+        if (k == SWP_HINT) {
+            ui_tool(i, ICON_HINT, (hint ? 0 : UI_DIM) | (down == k ? UI_ON : 0));
+            continue;
+        }
+        int how = UI_TINT | (k == lit ? UI_LIT : 0) | (can >> k & 1 ? 0 : UI_DIM) | (down == k ? UI_ON : 0);
+        ui_tool_paint(i, swp_arrow, k, 0.62f, how);
     }
-    p->d = d;
-    p->down = -1;
-}
-
-static inline int swp_hit(const swp_pad *p, float x, float y)
-{
-    for (int k = 0; k < SWP_KNOBS; k++)
-        if (ui_button_hit(p->cx[k], p->cy[k], p->d, x, y)) return k;
-    return -1;
-}
-
-/* the whole row: can (bit k: push k moves something; the others dimmed), lit: the button in gold light (the hint's
- * push; -1: none), hint: the lamp usable. The button held down shows the gold disc. */
-static inline void swp_draw(const swp_pad *p, unsigned can, int lit, int hint)
-{
-    for (int k = 0; k < SWP_HINT; k++) {
-        int how = UI_TINT | (k == lit ? UI_LIT : 0) | (can >> k & 1 ? 0 : UI_DIM) | (p->down == k ? UI_ON : 0);
-        ui_button_paint(p->cx[k], p->cy[k], p->d, swp_arrow, k, 0.62f, how);
-    }
-    ui_button(p->cx[SWP_HINT], p->cy[SWP_HINT], p->d, ICON_HINT,
-              (hint ? 0 : UI_DIM) | (p->down == SWP_HINT ? UI_ON : 0));
 }
 
 /* ---- the swipe --------------------------------------------------------------------------------------------------- */

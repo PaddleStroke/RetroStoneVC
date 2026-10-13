@@ -2,8 +2,7 @@
  * What Water Sort, Ball Sort and Same Game share on the screen: their twelve colours (the house's player colours
  * first: red lacquer, jade, amber, lapis, ivory, ebony; then plum, orange, turquoise, rose, leaf and walnut), a mark
  * for each (for the colour-blind: a dot, a triangle, a square, a diamond, a ring, a cross, a star, a plus, two bars, a
- * crescent, a chevron, a hexagon), lacquered wood in a colour, a glossy marble in a colour, and the hint's button
- * at the bar's right end.
+ * crescent, a chevron, a hexagon), lacquered wood in a colour, and a glossy marble in a colour.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Written once, here, as static inline functions: the build takes a game's own files only (GAMES="samegame" builds
@@ -180,36 +179,5 @@ static inline void hue_lacquer(uint8_t *o, int w, int h, int c)
         }
     }
 }
-
-/* ---- the hint's button: the shell's round button with its lamp (ICON_HINT), at the bar's right end -------------- */
-typedef struct { box bar; } hue_lamp;
-
-static inline void hue_lamp_spot(const hue_lamp *l, float *x, float *y, float *d)
-{
-    *d = 0.84f * ui.unit;
-    *x = l->bar.x + l->bar.w - *d / 2 - 0.05f * ui.unit;
-    *y = l->bar.y + l->bar.h / 2;
-}
-
-/* the button in the bar b; lit: the gold disc, blinking (a hint shown); none: a red glow (no hint from here) */
-static inline void hue_lamp_draw(hue_lamp *l, box b, int lit, int none)
-{
-    l->bar = b;
-    float x, y, d;
-    hue_lamp_spot(l, &x, &y, &d);
-    if (none) ui_mark_glow(x, y, 1.3f * d);
-    ui_button(x, y, d, ICON_HINT, lit ? UI_ON : 0);
-}
-
-static inline int hue_lamp_hit(const hue_lamp *l, float px, float py)
-{
-    if (!l->bar.w) return 0;
-    float x, y, d;
-    hue_lamp_spot(l, &x, &y, &d);
-    return ui_button_hit(x, y, d, px, py);
-}
-
-/* the width the lamp takes at the bar's right end (what is left for the count) */
-static inline float hue_lamp_room(void) { return 0.84f * ui.unit + 0.25f * ui.unit; }
 
 #endif

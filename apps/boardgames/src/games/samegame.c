@@ -1,12 +1,14 @@
 /*
  * Same Game in RetroStone Board, for one player: lacquered wooden tiles in a walnut tray, each colour with its mark
- * (hues.h) (the rules: samegame_rules.c).
+ * (hues.h) (the rules: samegame_rules.c). The tray takes all the room the shell gives, laid on its side when that
+ * makes the tiles bigger (a wide tray on a phone held upright: its columns run down the screen, the tiles fall to the
+ * left, the columns close up towards the top). The lamp is one of the shell's tools.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Tap a group of two or more tiles of one colour: it is chosen (a gold rim round its tiles, the others dimmed) and what
  * it would score shows over it; tap it again to take it away (a tap elsewhere chooses another group, or nothing). The
  * tiles go, those above fall, and the columns close up to the left. Undo takes back one removal, all the way to the
- * start. The bar: the score; the lamp: a hint (the group to take next, blinking gold, chosen as by a tap; on the way
+ * start. The bar: the score. The lamp: a hint (the group to take next, blinking gold, chosen as by a tap; on the way
  * that clears the board while there is one). The end, when no group is left: a board cleared lights up in gold, column
  * by column, and earns its bonus; else the tiles left fade. Either way the final score stands on a brass plaque at the
  * tray's top and the shell's end card follows: the game is over, never lost.
@@ -40,11 +42,12 @@ static struct {
 } anim;
 static struct { int on, cleared; Uint32 t0; } end;
 static struct { int on; uint8_t mask[SM_W][SM_H]; Uint32 t0; } hint;
-static hue_lamp lamp;
 static struct { int on, x, y; } tapd;
 
 static box last_box;
-static float bx, by, bw, bh, gx, gy0, q;        /* the tray; the grid's left and bottom, a cell's side */
+static float bx, by, bw, bh, gx, gy, q;         /* the tray; the grid's top left on the screen, a cell's side */
+static int turned;                              /* the tray on its side (upright in portrait): the columns run down
+                                                 * the screen from the top, the tiles fall to the left */
 static int fr, made_key = -1, made_small = -1;
 static SDL_Texture *t_tray, *t_tile[6], *t_small, *t_plaque;
 
@@ -67,14 +70,7 @@ static void paint_tile(int c, int d, uint8_t *o)
 /* the tray: the walnut frame, its floor sunk in shade (w x h) */
 static void paint_tray(int w, int h, int f, uint8_t *o)
 {
-    uint8_t *sq = malloc((size_t)w * w * 4);
-    if (!sq) return;
-    art_board_n(1, 1, w - 2 * f, f, 0, sq);
-    for (int y = 0; y < h; y++) {               /* the square board's top rows, then its frame's bottom rows */
-        int sy = y < h - f ? y : y + (w - h);
-        memcpy(o + 4 * (size_t)y * w, sq + 4 * (size_t)sy * w, (size_t)w * 4);
-    }
-    free(sq);
+    art_plank(w - 2 * f, h - 2 * f, f, o);      /* any shape: wide, or on its side */
     float sh = 0.04f * (h < w ? h : w);
     for (int y = f; y < h - f; y++)
         for (int x = f; x < w - f; x++) {
@@ -122,22 +118,29 @@ static void fit(int w, int h, float S, float *o_bw, float *o_bh, float *o_q, int
     *o_bh = floorf(h * cq + 2 * f + 2 * pad);
 }
 
+/* the tray in all the room (game.fill), turned on its side when that makes the tiles bigger */
 static void layout(box b)
 {
     last_box = b;
-    float S = floorf(fminf(b.w, b.h));
-    fit(G.w, G.h, S, &bw, &bh, &q, &fr);
-    bx = floorf(b.x + (b.w - bw) / 2);
-    by = floorf(b.y + (b.h - bh) / 2);
-    gx = bx + (bw - G.w * q) / 2;
-    gy0 = by + bh - (bh - G.h * q) / 2;
-    int key = ((int)S * 32 + G.w) * 16 + G.h;
+    float S = floorf(fminf(b.w, b.h)), pad = 0.012f * S;
+    fr = (int)(S * FRAME);
+    ui_grid g = ui_grid_fit((box){b.x + fr + pad, b.y + fr + pad, b.w - 2 * (fr + pad), b.h - 2 * (fr + pad)}, G.w, G.h,
+                            0);
+    turned = g.turned;
+    q = g.cell;
+    gx = g.x;
+    gy = g.y;
+    bw = floorf(g.cols * q + 2 * (fr + pad));
+    bh = floorf(g.rows * q + 2 * (fr + pad));
+    bx = floorf(gx - fr - pad);
+    by = floorf(gy - fr - pad);
+    int key = (((int)bw * 4096 + (int)bh) * 32 + G.w) * 16 + G.h;
     if (made_key != key) {
         made_key = key;
         int w = (int)bw, h = (int)bh;
         ui_free(&t_tray);
-        paint_tray(w, h, fr, ui_buf(w, w));
-        t_tray = ui_tex(w, h, ui_buf(w, w));
+        paint_tray(w, h, fr, ui_buf(w, h));
+        t_tray = ui_tex(w, h, ui_buf(w, h));
         int d = (int)q - (int)fmaxf(1, roundf(0.05f * q));
         for (int c = 1; c <= 5; c++) {
             ui_free(&t_tile[c]);
@@ -260,10 +263,15 @@ static void choose(int x, int y)
 }
 
 /* ---- the board on the screen ------------------------------------------------------------------------------------- */
-static void cell_xy(float x, float y, float *cx, float *cy)
+static void cell_xy(float x, float y, float *cx, float *cy)   /* a place (x from the left, y up) on the screen */
 {
+    if (turned) {                               /* on its side: x down the screen, y to the right */
+        *cx = gx + (y + 0.5f) * q;
+        *cy = gy + (x + 0.5f) * q;
+        return;
+    }
     *cx = gx + (x + 0.5f) * q;
-    *cy = gy0 - (y + 0.5f) * q;
+    *cy = gy + (G.h - y - 0.5f) * q;
 }
 
 static void tile_at(int c, float cx, float cy, float scale, Uint8 light, Uint8 alpha)
@@ -283,6 +291,7 @@ static void draw(void)
     if (made_key < 0) layout(last_box);
     Uint32 now = ui_ms();
     ui_put(t_tray, bx, by, bw, bh);
+    ui_tool(0, ICON_HINT, sm_over(&G) ? UI_DIM : hint.on && (now - hint.t0) / 320 % 2 == 0 ? UI_ON : 0);
     Uint32 at = anim.on ? now - anim.t0 : 0;
     if (anim.on && at >= anim_len()) anim.on = 0;
     float et = end.on && now >= end.t0 ? (float)(now - end.t0) : -1;
@@ -332,7 +341,9 @@ static void draw(void)
         cell_xy((float)tx, (float)ty, &cx, &cy);
         int pts = sm_points(sel.n);
         float w = puz_number_w(pts, h) + (pts > 0 ? 0.75f * h : 0) + 0.6f * h;
-        cy = fmaxf(cy - 0.5f * q, by + 0.4f * h);   /* a tag on the top tile's upper edge */
+        if (turned) cx += 0.5f * q;               /* a tag on the top tile's upper edge (on its side: its right) */
+        else cy -= 0.5f * q;
+        cy = clampf(cy, by + 0.4f * h, by + bh - 0.4f * h);
         cx = clampf(cx, bx + w / 2, bx + bw - w / 2);
         ui_fill(cx - w / 2, cy - 0.66f * h, w, 1.32f * h, 40, 28, 20, 225);
         ui_fill(cx - w / 2, cy - 0.66f * h, w, fmaxf(1, 0.08f * h), 230, 190, 90, 255);
@@ -366,16 +377,22 @@ static void draw(void)
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
 static int cell_at(float x, float y, int *cx, int *cy)
 {
-    float fx = (x - gx) / q, fy = (gy0 - y) / q;
+    float fx = turned ? (y - gy) / q : (x - gx) / q, fy = turned ? (x - gx) / q : G.h - (y - gy) / q;
     if (fx < 0 || fy < 0 || fx >= G.w || fy >= G.h) return 0;
     *cx = (int)fx;
     *cy = (int)fy;
     return 1;
 }
 
+static void use_hint(void);
+
 static void press(float x, float y)
 {
     tapd.on = 0;
+    if (ui_tool_hit(x, y) == 0) {               /* the lamp: the shell's tool */
+        if (!sm_over(&G)) use_hint();
+        return;
+    }
     if (anim.on) anim.on = 0;                   /* the last removal lands at once */
     if (sm_over(&G)) return;
     int cx, cy;
@@ -413,24 +430,18 @@ static void release(float x, float y)
     ui_animate();
 }
 
-/* ---- the bar: the score, the lamp -------------------------------------------------------------------------------- */
+/* ---- the bar: the score; the lamp: the shell's tool --------------------------------------------------------------- */
 static void bar(int player, box b)
 {
     (void)player;
-    box left = b;
-    left.w = b.w - hue_lamp_room();
-    puz_bar_moves(left, left.w > 2.4f * ui.unit ? t_small : NULL, G.score);
-    if (sm_over(&G)) { lamp.bar.w = 0; return; }
-    hue_lamp_draw(&lamp, b, hint.on && (ui_ms() - hint.t0) / 320 % 2 == 0, 0);
+    puz_bar_moves(b, b.w > 2.4f * ui.unit ? t_small : NULL, G.score);
 }
 
-static int bar_press(int player, float x, float y)
+static void use_hint(void)
 {
-    (void)player;
-    if (sm_over(&G) || !hue_lamp_hit(&lamp, x, y)) return 0;
     anim.on = 0;
     int hx, hy;
-    if (!sm_hint(&G, &hx, &hy)) { ui_sound(SND_DENY); return 1; }
+    if (!sm_hint(&G, &hx, &hy)) { ui_sound(SND_DENY); return; }
     memset(hint.mask, 0, sizeof hint.mask);
     sm_group(&G.b, G.w, G.h, hx, hy, hint.mask);
     hint.on = 1;
@@ -438,7 +449,6 @@ static int bar_press(int player, float x, float y)
     choose(hx, hy);                             /* chosen as by a tap: a second tap takes it */
     ui_sound(SND_TAP);
     ui_animate();
-    return 1;
 }
 
 /* ---- the pictures of the shell's screens: a board, size x size --------------------------------------------------- */
@@ -515,7 +525,7 @@ static const game samegame_game = {
     .id = "samegame", .order = 422, .variants = SM_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .fill = 1, .tools = 1,
     .score = score, .par = par, .level_stars = level_stars,
     .levels = SM_LEVELS, .chapters = SM_CHAPTERS, .start_random = start_random, .chapter_icon = chapter_icon,
     .level_thumb = level_thumb,

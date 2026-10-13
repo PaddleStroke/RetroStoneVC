@@ -4,8 +4,8 @@
  * dark well in a brass ring, the puck a red lacquer disc (the rules: iceslide_rules.c).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- * Swipe on the ice, or tap a square in the puck's row or column (it goes that way), or tap one of the four round
- * buttons under the board, or use the arrow keys: the puck slides until a rock or the edge stops it, or drops into the
+ * Swipe on the ice, or tap a square in the puck's row or column (it goes that way), or tap one of the four arrows
+ * (the shell's tools), or use the arrow keys: the puck slides until a rock or the edge stops it, or drops into the
  * hole on its way. A way it cannot go: its button dimmed. The lamp: the hint (the next push of a shortest way, its
  * button in gold light and the way it would slide dotted in gold; from a dead end, the hint first takes back the pushes
  * that led there). Undo takes back one push, all the way to the start.
@@ -22,7 +22,6 @@
 #include "shell.h"
 
 #define FRAME 0.035f
-#define STRIP 0.16f                             /* the buttons' row, a part of the board's square */
 #define BASE_MS 70                              /* a slide: this, and so much a square */
 #define CELL_MS 42
 #define DROP_MS 320
@@ -37,10 +36,10 @@ static struct { int on, from, len; Uint32 t0; } slide;
 static struct { int on; Uint32 t0; } win;      /* t0: the puck at the hole (the end of its slide) */
 static int hint_way = -1;
 static swp_swipe sw;
-static swp_pad pad = {.down = -1};
+static int down = -1;                           /* the tool held (its push, or SWP_HINT) */
 
 static box last_box;
-static float bx, by, side, ox, oy;              /* the board's square; the ice's top left, inside the frame */
+static float bx, by, ox, oy;                    /* the board's top left (its frame's); the ice's, inside the frame */
 static int fr, cell, bw, bh, serial, made_cell = -1, made_serial = -1, made_small = -1;
 static SDL_Texture *t_board, *t_puck, *t_small, *t_par;
 
@@ -153,24 +152,22 @@ static void par_pic(int size, uint8_t *rgba)
     free(b);
 }
 
-static void fit(float S, int w, int h, int *f, int *sq)
+static void fit(float W, float H, int w, int h, int *f, int *sq)   /* in a W x H room */
 {
-    *f = (int)(S * FRAME);
-    *sq = (int)fminf((S - 2 * *f) / w, (S * (1 - STRIP) - 2 * *f) / h);
+    *f = (int)(fminf(W, H) * FRAME);
+    *sq = (int)fminf((W - 2 * *f) / w, (H - 2 * *f) / h);
 }
 
 static void layout(box b)
 {
     last_box = b;
-    float S = floorf(fminf(b.w, b.h)), strip = floorf(S * STRIP);
-    side = S;
-    bx = floorf(b.x + (b.w - S) / 2);
-    by = floorf(b.y + (b.h - S) / 2);
-    fit(S, G.b.w, G.b.h, &fr, &cell);
+    fit(b.w, b.h, G.b.w, G.b.h, &fr, &cell);   /* the ice in all the room (game.fill) */
     bw = G.b.w * cell + 2 * fr;
     bh = G.b.h * cell + 2 * fr;
-    ox = floorf(bx + (S - bw) / 2) + fr;
-    oy = floorf(by + (S - strip - bh) / 2) + fr;
+    bx = floorf(b.x + (b.w - bw) / 2);
+    by = floorf(b.y + (b.h - bh) / 2);
+    ox = bx + fr;
+    oy = by + fr;
     if (made_cell != cell || made_serial != serial) {
         made_cell = cell;
         made_serial = serial;
@@ -187,7 +184,6 @@ static void layout(box b)
         puck_pic(d, ui_buf(d, d));
         t_puck = ui_tex(d, d, ui_buf(d, d));
     }
-    swp_place(&pad, (box){bx, by + S - strip, S, strip});
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;
@@ -222,7 +218,7 @@ static void calm(void)
     slide.on = win.on = 0;
     hint_way = -1;
     sw.on = 0;
-    pad.down = -1;
+    down = -1;
 }
 
 static void push(int way);
@@ -383,7 +379,7 @@ static void draw(void)
     unsigned can = 0;
     for (int w = 0; w < 4; w++)
         if (ics_can(&G, w)) can |= 1u << w;
-    swp_draw(&pad, can, slide.on ? -1 : hint_way, !ics_solved(&G));
+    swp_tools_draw(can, slide.on ? -1 : hint_way, !ics_solved(&G), down);
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
@@ -400,9 +396,9 @@ static void tap_at(float x, float y)
 static void press(float x, float y)
 {
     sw.on = 0;
-    pad.down = swp_hit(&pad, x, y);
-    if (pad.down >= 0) { ui_animate(); return; }
-    if (!ics_solved(&G) && x >= bx && y >= by && x < bx + side && y < by + side) swp_begin(&sw, x, y);
+    down = swp_tool_hit(x, y);
+    if (down >= 0) { ui_animate(); return; }
+    if (!ics_solved(&G) && x >= bx && y >= by && x < bx + bw && y < by + bh) swp_begin(&sw, x, y);
 }
 
 static void motion(float x, float y)
@@ -413,11 +409,11 @@ static void motion(float x, float y)
 
 static void release(float x, float y)
 {
-    if (pad.down >= 0) {
-        int k = pad.down;
-        pad.down = -1;
+    if (down >= 0) {
+        int k = down;
+        down = -1;
         ui_animate();
-        if (swp_hit(&pad, x, y) != k) return;
+        if (swp_tool_hit(x, y) != k) return;
         if (k == SWP_HINT) hint();
         else if (ics_solved(&G)) ui_sound(SND_DENY);
         else push(k);
@@ -498,6 +494,7 @@ static const game iceslide_game = {
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .key = key,
     .levels = ICS_LEVELS, .chapters = ICS_CHAPTERS, .start_random = start_random, .chapter_icon = chapter_icon,
-    .level_thumb = level_thumb, .level_stars = level_stars, .score = score, .par = par,
+    .level_thumb = level_thumb, .level_stars = level_stars, .score = score, .par = par, .fill = 1,
+    .tools = SWP_KNOBS,
 };
 REGISTER_GAME(iceslide_game)

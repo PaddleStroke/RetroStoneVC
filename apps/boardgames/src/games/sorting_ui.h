@@ -2,7 +2,8 @@
  * Water Sort's and Ball Sort's screen (one screen, the rules of sorting.h): the house plank in its walnut frame, one or
  * two walnut shelves with the glass tubes standing on them, the liquids (Water Sort) or the marbles (Ball Sort) in the
  * twelve colours of hues.h, each layer or ball with its mark, a cork in each tube once it holds one colour, the extra
- * tube's place at the end of the last shelf, the hint's lamp in the bar.
+ * tube's place at the end of the last shelf; the board in all the room the shell gives (one to three shelves, as give
+ * the widest tubes), the hint's lamp one of the shell's tools.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Tap a tube: it lifts (Water Sort), or its top ball rises over it (Ball Sort); tap another: the tube flies over to it,
@@ -42,6 +43,7 @@
 #define SUI_WAVE_LEN 560
 #define SUI_TILT_MAX 112.0f                     /* degrees */
 #define SUI_ARC 13                              /* the interior's points: 4 corners, 9 round its bottom */
+#define SUI_ROWS 3                              /* the shelves at most */
 
 typedef int (*sui_new_fn)(srt_game *g, int variant, uint32_t seed, srt_move *way);
 typedef int (*sui_level_fn)(srt_game *g, int level);
@@ -58,11 +60,11 @@ typedef struct {
     struct { int on, to, extra, none; Uint32 t0; } hint;
     Uint32 cork_t0[SRT_TUBES];                  /* when each tube's cork came (0: none) */
     Uint32 extra_t0;
-    hue_lamp lamp;
-    /* the layout */
+    /* the layout: the board bs x bh at (bx, by), the rows of tubes on it */
     box last_box;
-    int made_key, made_small, fr, rows, per[2], show;   /* show: the places drawn (the menu's card: a few); 0 all */
-    float bx, by, bs, pitch, tw, th, lh, gw, iw, base_y[2];
+    int made_key, made_small, fr, rows, per[SUI_ROWS], show;   /* show: the places drawn (the menu's card: a few); 0
+                                                                 * all */
+    float bx, by, bs, bh, pitch, tw, th, lh, gw, iw, base_y[SUI_ROWS];
     float area[SRT_CAP + 1];                    /* the interior's area below each layer's top, upright */
     float poly[2 * SUI_ARC];                    /* the interior, the tube's centre at 0, 0 */
     SDL_Texture *t_board, *t_back, *t_front, *t_cork, *t_band, *t_plus, *t_small, *t_ball[HUE_N + 1],
@@ -74,8 +76,8 @@ static inline int sui_slots(const sui *s) { return s->G.base + 1; }   /* the tub
 
 static inline void sui_slot_rc(const sui *s, int k, int *row, int *col)
 {
-    *row = k < s->per[0] ? 0 : 1;
-    *col = *row ? k - s->per[0] : k;
+    *row = k / s->per[0];
+    *col = k - *row * s->per[0];
 }
 
 static inline float sui_slot_x(const sui *s, int k)
@@ -85,7 +87,7 @@ static inline float sui_slot_x(const sui *s, int k)
     return s->bx + s->bs / 2 + (c - (s->per[r] - 1) / 2.0f) * s->pitch;
 }
 
-static inline int sui_row(const sui *s, int k) { return k < s->per[0] ? 0 : 1; }
+static inline int sui_row(const sui *s, int k) { return k / s->per[0]; }
 static inline float sui_rest_y(const sui *s, int k) { return s->base_y[sui_row(s, k)] - s->th / 2; }   /* centre */
 static inline float sui_mouth_y(const sui *s, int k) { return s->base_y[sui_row(s, k)] - s->th; }
 static inline float sui_floor_y(const sui *s, int k) { return s->base_y[sui_row(s, k)] - s->gw; }
@@ -93,15 +95,15 @@ static inline float sui_layer_y(const sui *s, int k, int i) { return sui_floor_y
 static inline float sui_hover_y(const sui *s, int k) { return sui_mouth_y(s, k) - 0.72f * s->lh; }   /* a ball up */
 static inline float sui_lift(const sui *s) { return 0.42f * s->lh; }
 
-/* the sizes for a board of side S: the frame, the rows, the tubes */
-static inline void sui_fit(sui *s, float S)
+/* the sizes for a board W x H on `rows` shelves: the frame, the rows, the tubes */
+static inline void sui_fit_rows(sui *s, float W, float H, int rows)
 {
     int n = s->show ? s->show : sui_slots(s);
-    s->rows = n > 8 ? 2 : 1;
-    s->per[0] = s->rows == 2 ? (n + 1) / 2 : n;
-    s->per[1] = n - s->per[0];
-    s->fr = (int)(S * SUI_FRAME);
-    float inner = S - 2 * s->fr, rh = inner / s->rows;
+    s->rows = rows;
+    s->per[0] = (n + rows - 1) / rows;
+    for (int r = 1; r < rows; r++) s->per[r] = n - r * s->per[0] < s->per[0] ? n - r * s->per[0] : s->per[0];
+    s->fr = (int)(fminf(W, H) * SUI_FRAME);
+    float inner = W - 2 * s->fr, rh = (H - 2 * s->fr) / s->rows;
     s->pitch = inner / (s->show ? n : s->per[0] < 6 ? 6 : s->per[0]);
     /* the layer's height and the lift, in tube widths: a ball's height; the liquid's as tall as the row allows, from
      * 0.95 to 1.45 */
@@ -117,6 +119,23 @@ static inline void sui_fit(sui *s, float S)
         float top = s->by + s->fr + r * rh, used = need * s->tw;
         s->base_y[r] = floorf(top + (rh - used) / 2 + lift * s->lh + s->th);
     }
+}
+
+/* the sizes for a board W x H: as many shelves (1 to 3, three tubes a shelf at least) as give the widest tubes, fewer
+ * when it is all the same */
+static inline void sui_fit(sui *s, float W, float H)
+{
+    int n = s->show ? s->show : sui_slots(s), best = 1;
+    float widest = -1;
+    for (int r = 1; r <= SUI_ROWS; r++) {
+        if (r > 1 && (n + r - 1) / r < 3) break;
+        sui_fit_rows(s, W, H, r);
+        if (s->tw > 1.04f * widest) {
+            widest = s->tw;
+            best = r;
+        }
+    }
+    sui_fit_rows(s, W, H, best);
 }
 
 /* the interior's outline round the tube's centre (y down): its mouth, its sides, its round bottom */
@@ -326,10 +345,10 @@ static inline void sui_paint_plus(int d, uint8_t *o)
     puz_ink_rect(o, d, d, 0.24f * d, 0.44f * d, 0.76f * d, 0.56f * d, PUZ_CREAM, 1);
 }
 
-/* the backdrop: the plank in its walnut frame (w x w), a walnut shelf along each row's foot */
-static inline void sui_paint_board(const sui *s, int w, uint8_t *o)
+/* the backdrop: the plank in its walnut frame (w x h), a walnut shelf along each row's foot */
+static inline void sui_paint_board(const sui *s, int w, int h, uint8_t *o)
 {
-    art_board_n(1, 1, w - 2 * s->fr, s->fr, 0, o);
+    art_plank(w - 2 * s->fr, h - 2 * s->fr, s->fr, o);
     static const uint8_t walnut[3] = {118, 78, 50};
     float sh = 0.34f * s->tw;
     for (int r = 0; r < s->rows; r++) {
@@ -347,13 +366,13 @@ static inline void sui_paint_board(const sui *s, int w, uint8_t *o)
                 float k = 0.78f + 0.22f * (y - ry - rh) / (0.7f * rh);
                 for (int i = 0; i < 3; i++) p[i] = (uint8_t)(p[i] * k);
             }
-        for (int y = (int)y0; y < (int)(y0 + sh) && y < w - s->fr; y++)
+        for (int y = (int)y0; y < (int)(y0 + sh) && y < h - s->fr; y++)
             for (int x = (int)x0; x < (int)x1; x++) {
                 uint8_t *p = o + 4 * (y * w + x);
                 float t = (y - y0) / sh, k = t < 0.3f ? 1.32f - 0.2f * t : t > 0.85f ? 0.72f : 1.02f;
                 sui_tint(p, walnut, k * 1.2f);
             }
-        for (int y = (int)(y0 + sh); y < (int)(y0 + 1.5f * sh) && y < w - s->fr; y++)   /* its shadow */
+        for (int y = (int)(y0 + sh); y < (int)(y0 + 1.5f * sh) && y < h - s->fr; y++)   /* its shadow */
             for (int x = (int)(x0 + 0.1f * sh); x < (int)(x1 + 0.1f * sh) && x < w - s->fr; x++) {
                 uint8_t *p = o + 4 * (y * w + x);
                 float k = 0.7f + 0.3f * (y - y0 - sh) / (0.5f * sh);
@@ -383,12 +402,12 @@ static inline void sui_paint_liquid(uint8_t *o, int W, int H, int ox, int oy, in
 /* ---- the layout ----------------------------------------------------------------------------------------------------- */
 static inline void sui_layout(sui *s, box b)
 {
-    s->last_box = b;
-    float S = floorf(fminf(b.w, b.h));
-    s->bs = S;
-    s->bx = floorf(b.x + (b.w - S) / 2);
-    s->by = floorf(b.y + (b.h - S) / 2);
-    sui_fit(s, S);
+    s->last_box = b;                            /* all the room (game.fill) */
+    s->bs = floorf(b.w);
+    s->bh = floorf(b.h);
+    s->bx = floorf(b.x);
+    s->by = floorf(b.y);
+    sui_fit(s, s->bs, s->bh);
     sui_interior(s, s->poly);
     float xy[2 * SUI_ARC], tmp[80];
     sui_turned(s, 0, 0, 0, xy);
@@ -396,13 +415,13 @@ static inline void sui_layout(sui *s, box b)
         int k = sui_clip(xy, SUI_ARC, s->th / 2 - s->gw - i * s->lh, 1e9f, tmp);
         s->area[i] = i ? sui_area(tmp, k) : 0;
     }
-    int key = ((int)S * 16 + s->G.base) * 2 + s->balls;
+    int key = (((int)s->bs * 4096 + (int)s->bh) * 16 + s->G.base) * 2 + s->balls;
     if (s->made_key != key) {
         s->made_key = key;
-        int w = (int)S, tw = (int)s->tw, th = (int)s->th;
+        int w = (int)s->bs, h = (int)s->bh, tw = (int)s->tw, th = (int)s->th;
         ui_free(&s->t_board);
-        sui_paint_board(s, w, ui_buf(w, w));
-        s->t_board = ui_tex(w, w, ui_buf(w, w));
+        sui_paint_board(s, w, h, ui_buf(w, h));
+        s->t_board = ui_tex(w, h, ui_buf(w, h));
         ui_free(&s->t_back);
         sui_paint_glass(tw, th, s->gw, 0, ui_buf(tw, th));
         s->t_back = ui_tex(tw, th, ui_buf(tw, th));
@@ -704,11 +723,13 @@ static inline void sui_units(const sui *s, int t, uint8_t *u)
     for (int i = 0; i < SRT_CAP; i++) u[i] = s->G.p.c[t][i];
 }
 
+static inline void sui_tool_draw(sui *s);
+
 static inline void sui_draw(sui *s)
 {
     if (s->made_key < 0) sui_layout(s, s->last_box);
     Uint32 now = ui_ms();
-    ui_put(s->t_board, s->bx, s->by, s->bs, s->bs);
+    ui_put(s->t_board, s->bx, s->by, s->bs, s->bh);
     Uint32 mt = s->mv.on ? now - s->mv.t0 : 0;
     if (s->mv.on && mt >= s->mv.len) s->mv.on = 0;
     float wt = s->win.on && now >= s->win.t0 ? (float)(now - s->win.t0) : -1;
@@ -795,6 +816,7 @@ static inline void sui_draw(sui *s)
         }
         if (s->drag.on && s->drag.moved && s->G.p.h[s->drag.tube])
             sui_ball(s, srt_top(&s->G.p, s->drag.tube), s->drag.x - s->drag.gx, s->drag.y - s->drag.gy);
+        sui_tool_draw(s);
         return;
     }
     if (s->mv.on) {                             /* the tube pouring: the stream, then the tube over it */
@@ -825,17 +847,18 @@ static inline void sui_draw(sui *s)
         sui_tube(s, s->drag.tube, s->drag.x - s->drag.gx, s->drag.y - s->drag.gy, 0, u, s->G.p.h[s->drag.tube],
                  s->G.p.h[s->drag.tube], 0);
     }
+    sui_tool_draw(s);
 }
 
 /* ---- the pointer ---------------------------------------------------------------------------------------------------- */
 static inline int sui_slot_at(const sui *s, float x, float y)
 {
-    if (x < s->bx || x >= s->bx + s->bs || y < s->by || y >= s->by + s->bs) return -1;
-    float rh = (s->bs - 2 * s->fr) / s->rows;
+    if (x < s->bx || x >= s->bx + s->bs || y < s->by || y >= s->by + s->bh) return -1;
+    float rh = (s->bh - 2 * s->fr) / s->rows;
     int r = (int)clampf((y - s->by - s->fr) / rh, 0, s->rows - 1);
     int c = (int)floorf((x - (s->bx + s->bs / 2)) / s->pitch + s->per[r] / 2.0f);
     if (c < 0 || c >= s->per[r]) return -1;
-    return r ? s->per[0] + c : c;
+    return r * s->per[0] + c;
 }
 
 static inline void sui_set_extra(sui *s)
@@ -882,10 +905,12 @@ static inline void sui_tap(sui *s, int k)
     else sui_go(s, from, k, x, sui_rest_y(s, from) - sui_lift(s));
 }
 
+static inline int sui_hint_press(sui *s, float x, float y);
+
 static inline void sui_press(sui *s, float x, float y)
 {
     memset(&s->drag, 0, sizeof s->drag);
-    if (srt_solved(&s->G)) return;
+    if (sui_hint_press(s, x, y) || srt_solved(&s->G)) return;
     if (s->mv.on) {                             /* the last move lands at once */
         s->mv.on = 0;
         for (int t = 0; t < SRT_TUBES; t++)
@@ -944,22 +969,29 @@ static inline void sui_release(sui *s, float x, float y)
     ui_sound(SND_DENY);
 }
 
-/* ---- the bar: the moves, the hint's lamp ---------------------------------------------------------------------------- */
+/* ---- the bar: the moves; the hint: the shell's tool 0 (its lamp) ---------------------------------------------------- */
 static inline void sui_bar(sui *s, box b)
 {
-    box left = b;
-    left.w = b.w - hue_lamp_room();
-    puz_bar_moves(left, left.w > 2.2f * ui.unit ? s->t_small : NULL, s->G.moves);
-    if (srt_solved(&s->G)) { s->lamp.bar.w = 0; return; }
-    Uint32 now = ui_ms();
-    int none = s->hint.none && now - s->hint.t0 < 1400;
-    if (none) ui_animate();
-    hue_lamp_draw(&s->lamp, b, s->hint.on && (now - s->hint.t0) / 320 % 2 == 0, none);
+    puz_bar_moves(b, b.w > 2.2f * ui.unit ? s->t_small : NULL, s->G.moves);
 }
 
-static inline int sui_bar_press(sui *s, float x, float y)
+static inline void sui_tool_draw(sui *s)
 {
-    if (srt_solved(&s->G) || !hue_lamp_hit(&s->lamp, x, y)) return 0;
+    Uint32 now = ui_ms();
+    int none = s->hint.none && now - s->hint.t0 < 1400;
+    float cx, cy, d;
+    if (none && ui_tool_at(0, &cx, &cy, &d)) {  /* nothing to do from here but undo: a red glow */
+        ui_mark_glow(cx, cy, 1.3f * d);
+        ui_animate();
+    }
+    int lit = s->hint.on && (now - s->hint.t0) / 320 % 2 == 0;
+    ui_tool(0, ICON_HINT, srt_solved(&s->G) ? UI_DIM : lit ? UI_ON : 0);
+}
+
+static inline int sui_hint_press(sui *s, float x, float y)
+{
+    if (ui_tool_hit(x, y) != 0) return 0;
+    if (srt_solved(&s->G)) return 1;
     if (s->mv.on) s->mv.on = 0;
     int from, to, extra;
     s->hint.t0 = ui_ms();
@@ -1049,11 +1081,11 @@ static inline void sui_rack_pic(int balls, const srt_game *G, int show, int size
     T.balls = balls;
     T.G = *G;
     T.show = show;
-    T.bs = (float)size;
-    sui_fit(&T, (float)size);
+    T.bs = T.bh = (float)size;
+    sui_fit(&T, (float)size, (float)size);
     uint8_t *b = malloc((size_t)size * size * 4);
     if (!b) return;
-    sui_paint_board(&T, size, b);
+    sui_paint_board(&T, size, size, b);
     art_blend(rgba, size, size, b, size, size, 0, 0);
     free(b);
     int tw = (int)T.tw, th = (int)T.th;
@@ -1124,12 +1156,11 @@ static inline void sui_chapter_icon(int balls, sui_level_fn level_of, int first,
     static int busy(void) { return sui_busy(&S); }                                                                  \
     static int script(const char *moves) { return sui_script(&S, moves); }                                          \
     static void bar(int player, box b) { (void)player; sui_bar(&S, b); }                                           \
-    static int bar_press(int player, float x, float y) { (void)player; return sui_bar_press(&S, x, y); }           \
     static const game NAME = {                                                                                      \
         .id = ID, .order = ORDER, .variants = SRT_VARIANTS,                                                         \
         .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,                             \
         .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,         \
-        .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,                     \
+        .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .fill = 1, .tools = 1,                      \
         .levels = LEVELS, .chapters = CHAPTERS, .start_random = start_random, .chapter_icon = chapter_icon,         \
         .level_thumb = level_thumb, .level_stars = level_stars, .score = score, .par = par,                         \
     };                                                                                                              \

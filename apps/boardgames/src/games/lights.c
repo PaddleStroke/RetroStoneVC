@@ -1,6 +1,7 @@
 /*
  * Lights in RetroStone Board, for one player: brass lamps set in the house plank, their glass domes glowing warm when
- * lit and smoky dark when not, and the shell's hint button beside the board (the rules: lights_rules.c).
+ * lit and smoky dark when not, in all the room the shell gives; the hint is one of the shell's tools (the rules:
+ * lights_rules.c).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Tap a lamp: it and its neighbours turn over, the pressed one first, the others a moment later. The hint presses a
@@ -33,7 +34,6 @@ static struct { int on, from; Uint32 t0; } win;
 static int down = -1;                           /* the lamp under the finger */
 
 static box last_box;
-static pzt_column col;
 static float gx, gy, gw;
 static int cs, fr, made_key = -1, made_small = -1;
 static SDL_Texture *t_board, *t_lit, *t_dark, *t_small, *t_par;
@@ -130,8 +130,7 @@ static void token(int player, int size, uint8_t *rgba)
 static void layout(box b)
 {
     last_box = b;
-    pzt_column_fit(&col, b, BTNS);
-    box r = col.room;
+    box r = b;                                  /* the whole room (game.fill); the hint is the shell's tool */
     float S = floorf(fminf(r.w, r.h) * 0.98f);
     fr = (int)(S * FRAME);
     cs = (int)((S - 2 * fr) / G.n);
@@ -317,7 +316,7 @@ static void draw(void)
         else win.on = 0;
     }
     int solved = lmp_solved(&G);
-    ui_button(col.x, col.y[B_HINT], col.d, ICON_HINT, solved ? UI_DIM : 0);
+    ui_tool(B_HINT, ICON_HINT, solved ? UI_DIM : 0);
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
@@ -325,7 +324,7 @@ static void press(float x, float y)
 {
     down = -1;
     if (lmp_solved(&G)) return;
-    if (pzt_column_hit(&col, x, y) == B_HINT) {
+    if (ui_tool_hit(x, y) == B_HINT) {
         int c = lmp_hint(&G);
         if (c < 0) { ui_sound(SND_DENY); return; }
         hint.cell = c;
@@ -420,6 +419,6 @@ static const game lights_game = {
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .score = score,
     .levels = LMP_LEVELS, .chapters = LMP_CHAPTERS, .start_random = start_random, .chapter_icon = chapter_icon,
-    .level_thumb = level_thumb, .level_stars = level_stars, .par = par,
+    .level_thumb = level_thumb, .level_stars = level_stars, .par = par, .fill = 1, .tools = BTNS,
 };
 REGISTER_GAME(lights_game)
