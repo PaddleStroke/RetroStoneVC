@@ -5,6 +5,7 @@
  */
 #include "games/starbattle.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -267,6 +268,7 @@ static int step(grid *g, int cap, int *cell)
 
 static int left_after;                          /* the cells rate_cap() left unknown when it got stuck (0: solved) */
 static cells stuck_open;                        /* which ones */
+static int effort;                              /* rate_cap's steps, weighed: 1, 3, 10, 30 by their tier */
 
 /* the hardest tier a puzzle needs, the grader going no further than cap; TIERS: stuck */
 static int rate_cap(const sbx_puz *p, int cap)
@@ -274,11 +276,13 @@ static int rate_cap(const sbx_puz *p, int cap)
     tables_load(p);
     grid g = {{0, 0}, {0, 0}};
     int tier = 0;
+    effort = 0;
     for (;;) {
         left_after = c_count(unknown(&g));
         if (broken(&g)) return TIERS;
         if (!left_after) return tier;
         int l = step(&g, cap, NULL);
+        effort += l == 0 ? 1 : l == 1 ? 3 : l == 2 ? 10 : l == 3 ? 30 : 0;
         if (l < 0) {
             stuck_open = unknown(&g);
             return TIERS;
@@ -294,6 +298,43 @@ int sbx_rate(const sbx_puz *p)
     for (int level = SBX_EASY; level <= SBX_HARD; level++)
         if (t <= TIER_HI[k2][level]) return level;
     return SBX_BEYOND;
+}
+
+int sbx_effort(const sbx_puz *p, int *steps)
+{
+    int r = sbx_rate(p);
+    if (steps) *steps = effort;
+    return r;
+}
+
+/* ---- the levels' code: "<n>/<k>:" and a letter a cell, row by row: its region ('a' the first...) ---------------- */
+int sbx_encode(const sbx_puz *p, char *out, int size)
+{
+    int n = p->n, k = snprintf(out, (size_t)size, "%d/%d:", n, p->k);
+    if (k < 0 || k + n * n + 1 > size) return 0;
+    for (int c = 0; c < n * n; c++) out[k++] = (char)('a' + p->region[c]);
+    out[k] = 0;
+    return 1;
+}
+
+int sbx_decode(const char *s, sbx_puz *p)
+{
+    int n = 0, k = 0, size[SBX_MAX] = {0};
+    while (*s >= '0' && *s <= '9') n = n * 10 + *s++ - '0';
+    if (*s++ != '/' || n < 4 || n > SBX_MAX) return 0;
+    while (*s >= '0' && *s <= '9') k = k * 10 + *s++ - '0';
+    if (*s++ != ':' || k < 1 || k > 2) return 0;
+    memset(p, 0, sizeof *p);
+    p->n = n;
+    p->k = k;
+    for (int c = 0; c < n * n; c++, s++) {
+        if (*s < 'a' || *s >= 'a' + n) return 0;
+        p->region[c] = (uint8_t)(*s - 'a');
+        size[p->region[c]]++;
+    }
+    for (int r = 0; r < n; r++)
+        if (!size[r]) return 0;
+    return !*s;
 }
 
 /* ---- counting solutions: the easy ways, then a cell of the tightest unit, a star or empty ------------------------ */
@@ -521,6 +562,15 @@ void sbx_load(sbx_game *g, int level, const sbx_puz *p, const uint8_t *sol)
     g->level = level;
     g->p = *p;
     memcpy(g->sol, sol, SBX_CELLS);
+}
+
+int sbx_open(sbx_game *g, const char *code)
+{
+    sbx_puz p;
+    uint8_t sol[SBX_CELLS];
+    if (!sbx_decode(code, &p) || sbx_count(&p, 2, sol) != 1) return 0;
+    sbx_load(g, -1, &p, sol);
+    return 1;
 }
 
 void sbx_new(sbx_game *g, int variant, uint32_t seed)

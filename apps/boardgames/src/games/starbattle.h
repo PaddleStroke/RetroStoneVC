@@ -39,6 +39,8 @@
 #define SBX_SIZES 3
 #define SBX_LEVELS 3
 #define SBX_VARIANTS (SBX_SIZES * SBX_LEVELS)
+#define SBX_STAGES 150                          /* the designed levels (starbattle_levels.h), in six chapters */
+#define SBX_CHAPTERS 6
 
 enum { SBX_EASY, SBX_MEDIUM, SBX_HARD, SBX_BEYOND };
 enum { SBX_NONE, SBX_STAR, SBX_DOT };           /* a cell as the player marked it */
@@ -66,11 +68,18 @@ typedef struct {
 int  sbx_count(const sbx_puz *p, int limit, uint8_t *sol);
 /* the grade of a puzzle (SBX_EASY..SBX_HARD; SBX_BEYOND: more than the grader's ways, or no single solution) */
 int  sbx_rate(const sbx_puz *p);
-/* a puzzle of the size, stars and level from the seed, and its solution */
+/* the same, and the grader's steps weighed by their tier (1, 3, 10, 30): its effort */
+int  sbx_effort(const sbx_puz *p, int *steps);
+/* the levels' code (starbattle_levels.h): "<n>/<k>:" and a letter a cell, row by row, its region ('a' the first);
+ * 0: does not fit, or not a puzzle */
+int  sbx_encode(const sbx_puz *p, char *out, int size);
+int  sbx_decode(const char *code, sbx_puz *p);
+/* a puzzle of the size (4..10), stars (1, 2) and level from the seed, and its solution */
 void sbx_make(int n, int k, int level, uint32_t seed, sbx_puz *p, uint8_t *sol);
 
 void sbx_new(sbx_game *g, int variant, uint32_t seed);
 void sbx_load(sbx_game *g, int level, const sbx_puz *p, const uint8_t *sol);
+int  sbx_open(sbx_game *g, const char *code); /* a level from its code (its solution found): 0 not one */
 int  sbx_set(sbx_game *g, int cell, int mark);  /* one cell marked; 0: nothing changed */
 int  sbx_tap(sbx_game *g, int cell);            /* nothing -> star -> dot -> nothing; 0: not a cell */
 /* the cells from a to b (one row or column) that are as a is, set to `to` (dots along a run, or taken away): one

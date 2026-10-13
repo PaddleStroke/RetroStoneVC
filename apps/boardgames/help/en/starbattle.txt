@@ -9,5 +9,7 @@ The two-star grid is a step harder at each level: its easy puzzles already need 
 Put a star in a cell, or a dot in a cell you know is empty. The dots are only notes for you.
 # The end of the game
 The puzzle is solved when all the stars are in place: a wave of gold light runs over the board.
+# Levels and stars
+There are 150 levels in six chapters, from 5 × 5 with one star in each line up to 10 × 10 with two, each with one solution; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong star or dot that you take back with undo.
 # Playing on the device
-Tap a cell to put a star in it, tap again for a dot, and once more to empty it. Drag along a row or a column from an empty cell to put dots in the empty cells on the way, or from a dot to take the dots away. Stars that touch, or too many stars in a line or region, turn red. The lamp at the right of the bar gives a hint: it takes away a wrong star or dot, or else places the easiest star, in gold light. Undo takes back one action at a time, all the way to the start. The bar shows your moves.
+Tap a cell to put a star in it, tap again for a dot, and once more to empty it. Drag along a row or a column from an empty cell to put dots in the empty cells on the way, or from a dot to take the dots away. Stars that touch, or too many stars in a line or region, turn red. The lamp button gives a hint: it takes away a wrong star or dot, or else places the easiest star, in gold light. Undo takes back one action at a time, all the way to the start. The bar shows your moves.

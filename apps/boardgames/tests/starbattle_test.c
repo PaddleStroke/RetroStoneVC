@@ -1,8 +1,8 @@
 /*
  * Star Battle's rules: the solver and the grader on a puzzle by hand, the puzzles made from many seeds at every size
  * and level (one solution, counted apart from the grader; regions in one piece, k stars each, none touching; the level
- * they were made for), the time the biggest take, the player's marks, runs of dots, clashes, hints and undo, and whole
- * games from a seed.
+ * they were made for), the time the biggest take, the 150 designed levels (one solution each, the chapters growing),
+ * the player's marks, runs of dots, clashes, hints and undo, and whole games from a seed.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -10,6 +10,7 @@
 #include <time.h>
 
 #include "games/starbattle.h"
+#include "games/starbattle_levels.h"
 
 static int fails;
 #define CHECK(c)                                                                                                    \
@@ -103,6 +104,35 @@ int main(void)
     sbx_new(&a, 4, 42);
     sbx_new(&b, 4, 42);
     CHECK(!memcmp(&a.p, &b.p, sizeof a.p) && !memcmp(a.sol, b.sol, SBX_CELLS));
+
+    /* the designed levels: each decodes (its code again the same), regions in one piece, one solution the grader finds;
+     * the chapters grow (their sizes and the grader's tiers: a two-star grid's easy needs tier 1) */
+    {
+        int last_n = 0, weight[SBX_CHAPTERS] = {0};
+        for (int i = 0; i < SBX_STAGES; i++) {
+            sbx_puz p;
+            uint8_t st[SBX_CELLS];
+            char again[SBX_CELLS + 8];
+            int ok = sbx_decode(sbx_levels[i], &p);
+            CHECK(ok);
+            if (!ok) continue;
+            for (int r = 0; r < p.n; r++) CHECK(connected(&p, r));
+            CHECK(sbx_count(&p, 2, st) == 1 && solution_ok(&p, st));
+            int r = sbx_rate(&p);
+            CHECK(r >= SBX_EASY && r <= SBX_HARD);
+            weight[i / (SBX_STAGES / SBX_CHAPTERS)] += p.n + 2 * (r + (p.k == 2));
+            CHECK(sbx_encode(&p, again, sizeof again) && !strcmp(again, sbx_levels[i]));
+            if (i % (SBX_STAGES / SBX_CHAPTERS) == 0) {
+                CHECK(p.n >= last_n);
+                last_n = p.n;
+            }
+        }
+        for (int c = 1; c < SBX_CHAPTERS; c++) CHECK(weight[c] > weight[c - 1]);
+        static sbx_game lv;
+        CHECK(sbx_open(&lv, sbx_levels[0]) && lv.p.n == 5 && !sbx_solved(&lv));
+        CHECK(sbx_script(&lv, "+5") && sbx_solved(&lv));
+        CHECK(!sbx_open(&lv, "4/1:aaaabbbbccccdddd") && !sbx_open(&lv, "4/1:aaaabbbbccccdddz"));
+    }
 
     /* the player's marks: the tap's cycle, runs of dots, clashes, undo */
     sbx_game G;

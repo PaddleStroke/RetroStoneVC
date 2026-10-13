@@ -9,6 +9,9 @@
  * in a row, column or region, turn red. The shell's tool, the lamp: a hint (a wrong star or dot taken away, else
  * the easiest star placed, in gold light). Undo takes back one action, all the way to the start. The bar: the moves.
  * Solved: a wave of gold light from the last star; the stars count the hints and the mistakes (bench.h).
+ *
+ * The shell's level screen chooses a level (150 in six chapters, starbattle_levels.h), or its die tab a puzzle made at
+ * random (the variants).
  */
 #include <math.h>
 #include <stdlib.h>
@@ -16,6 +19,7 @@
 
 #include "games/bench_ui.h"
 #include "games/starbattle.h"
+#include "games/starbattle_levels.h"
 #include "shell.h"
 
 static const uint8_t STAR_GOLD[3] = {236, 190, 70}, STAR_EDGE[3] = {120, 76, 20};
@@ -170,12 +174,26 @@ static void calm(void)
     memset(&touch, 0, sizeof touch);
 }
 
-static void start(int variant)
+static void begin(void)
 {
-    sbx_new(&G, variant < 0 || variant >= SBX_VARIANTS ? 3 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
     serial++;
     calm();
     if (last_box.w > 0) layout(last_box);
+}
+
+/* a level of the shell's level screen (starbattle_levels.h) */
+static void start(int level)
+{
+    level = level < 0 ? 0 : level >= SBX_STAGES ? SBX_STAGES - 1 : level;
+    if (!sbx_open(&G, sbx_levels[level])) sbx_new(&G, 0, 1);
+    begin();
+}
+
+/* a puzzle made at random (the level screen's die tab): a size and a level */
+static void start_random(int variant)
+{
+    sbx_new(&G, variant < 0 || variant >= SBX_VARIANTS ? 3 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    begin();
 }
 
 static int status(void) { return sbx_solved(&G) ? GS_WIN0 : GS_PLAY; }
@@ -287,27 +305,33 @@ static void bar(int player, box b)
 
 /* ---- the menu's and the picker's cards: a puzzle of the size and level, the stars of its first row (the menu's: of
  * its top half), and as many ebony stones as its level ------------------------------------------------------------- */
+/* a puzzle on a card S wide: the regions, the solution's stars of its first `rows` rows */
+static void paint_card(const sbx_puz *p, const uint8_t *sol, int rows, int S, uint8_t *b)
+{
+    int n = p->n, f = (int)(S * BENCH_FRAME);
+    float q = floorf((S - 2 * f - 0.25f * S / n) / n), o = floorf((S - n * q) / 2);
+    int ss = (int)(0.86f * q);
+    paint_board(b, S, f, p, q, o, o);
+    uint8_t *st = ss > 2 && rows ? malloc((size_t)ss * ss * 4) : NULL;
+    if (!st) return;
+    paint_star(ss, st);
+    for (int c = 0; c < n * n; c++)
+        if (sol[c] && c / n < rows)
+            art_blend(b, S, S, st, ss, ss, (int)(o + (c % n + 0.5f) * q - ss / 2.0f),
+                      (int)(o + (c / n + 0.5f) * q - ss / 2.0f));
+    free(st);
+}
+
 static void card(int variant, int size, int bare, uint8_t *rgba)
 {
     int v = variant < 0 ? 4 : variant, n = sbx_size_of(v);
     sbx_puz p;
     uint8_t sol[SBX_CELLS];
     sbx_make(n, sbx_stars_of(v), sbx_level_of(v), 2026u + (uint32_t)v, &p, sol);
-    int S = variant < 0 || bare ? size : (int)(0.84f * size), f = (int)(S * BENCH_FRAME);
-    float q = floorf((S - 2 * f - 0.25f * S / n) / n), o = floorf((S - n * q) / 2);
+    int S = variant < 0 || bare ? size : (int)(0.84f * size);
     uint8_t *b = calloc((size_t)S * S, 4);
-    int ss = (int)(0.86f * q);
-    uint8_t *st = ss > 2 ? malloc((size_t)ss * ss * 4) : NULL;
-    if (!b) { free(st); return; }
-    paint_board(b, S, f, &p, q, o, o);
-    if (st) {
-        paint_star(ss, st);
-        for (int c = 0; c < n * n; c++)
-            if (sol[c] && c / n < (variant < 0 ? n / 2 : 1))
-                art_blend(b, S, S, st, ss, ss, (int)(o + (c % n + 0.5f) * q - ss / 2.0f),
-                          (int)(o + (c / n + 0.5f) * q - ss / 2.0f));
-        free(st);
-    }
+    if (!b) return;
+    paint_card(&p, sol, variant < 0 ? n / 2 : 1, S, b);
     int ox = (size - S) / 2;
     art_blend(rgba, size, size, b, S, S, ox, variant < 0 ? ox : 0);
     free(b);
@@ -319,8 +343,23 @@ static void thumb(int variant, int size, uint8_t *rgba) { card(variant, size, 0,
 /* the picker's sizes (game.axes, above the levels): a puzzle of the size at the medium level, on the whole card */
 static void size_pic(int i, int size, uint8_t *rgba) { card(i * 3 + 1, size, 1, rgba); }
 
+/* a chapter's tab: its last level's regions (its biggest size), solved */
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    int ch = chapter < 0 ? 0 : chapter >= SBX_CHAPTERS ? SBX_CHAPTERS - 1 : chapter;
+    static sbx_game T;
+    if (!sbx_open(&T, sbx_levels[(ch + 1) * SBX_STAGES / SBX_CHAPTERS - 1])) return;
+    int S = (int)(0.92f * size);
+    uint8_t *b = calloc((size_t)S * S, 4);
+    if (!b) return;
+    paint_card(&T.p, T.sol, T.p.n, S, b);
+    art_blend(rgba, size, size, b, S, S, (size - S) / 2, (size - S) / 2);
+    free(b);
+}
+
 static const game starbattle_game = {
     .id = "starbattle", .order = 416, .variants = SBX_VARIANTS,
+    .levels = SBX_STAGES, .chapters = SBX_CHAPTERS, .chapter_icon = chapter_icon, .start_random = start_random,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1,
