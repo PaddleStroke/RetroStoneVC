@@ -32,4 +32,10 @@ int  bigt_classify(const uint8_t *cards, int n, shed_combo *c);
 int  bigt_beats(const shed_combo *a, const shed_combo *top);
 int  bigt_penalty(int left);                    /* the points for cards left: one each, doubled at ten or more */
 
+/* the bot (bigtwo_bot.c, bots.h) */
+const shed_game *bigtwo_live(void);             /* the game on the screen, read-only: the bot copies it at entry */
+int bigtwo_show(const char *move);              /* main thread: plays one action of the notation as a tap does */
+struct ai_stats;
+uint64_t bigtwo_bot_choose(const shed_game *g, int seat, int level, uint64_t seed, struct ai_stats *stats);
+
 #endif

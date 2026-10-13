@@ -306,6 +306,17 @@ static void act(uint32_t a)
     if (G.pos.phase == SC_PLAY) ui_handoff(G.pos.turn);
 }
 
+const scgame *scopa_live(void) { return &G; }
+
+int scopa_show(const char *move)
+{
+    static scgame t;
+    t = G;
+    if (!scopa_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 static int undo(void)
 {
     if (F.raised >= 0) { reset_ui(); return 1; }

@@ -246,6 +246,17 @@ static void act(int a)
     if (p->phase != GP_ROUND && p->phase != GP_OVER) ui_handoff(p->turn);   /* the device passes (after the cards) */
 }
 
+const ggame *golf_live(void) { return &G; }
+
+int golf_show(const char *move)
+{
+    static ggame t;
+    t = G;
+    if (!golf_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 static int undo(void)
 {
     if (!golf_undo(&G)) return 0;

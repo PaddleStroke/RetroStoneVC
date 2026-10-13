@@ -388,6 +388,17 @@ static void play(int c, int f)
     after(&before, KA_PLAY);
 }
 
+const kgame *koikoi_live(void) { return &G; }
+
+int koikoi_show(const char *move)
+{
+    static kgame t;
+    t = G;
+    if (!kk_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 static int undo(void)
 {
     if (G.n <= floor_n || !kk_undo(&G)) return 0;

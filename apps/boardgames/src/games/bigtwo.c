@@ -8,6 +8,10 @@
 #include "games/bigtwo.h"
 #include "games/shed_ui.h"
 
+/* the bot (bigtwo_bot.c, bots.h) */
+const shed_game *bigtwo_live(void) { return &SG; }
+int bigtwo_show(const char *move) { return shui_show(move); }
+
 static void start(int v)
 {
     (void)v;

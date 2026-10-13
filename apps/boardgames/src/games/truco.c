@@ -156,6 +156,17 @@ static void act(int a)
     if (p->phase == TP_PLAY) ui_handoff(truco_actor(p));
 }
 
+const tgame *truco_live(void) { return &G; }
+
+int truco_show(const char *move)
+{
+    static tgame t;
+    t = G;
+    if (!truco_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 static int undo(void)
 {
     if (F.raised != CARD_NONE) { reset_ui(); return 1; }

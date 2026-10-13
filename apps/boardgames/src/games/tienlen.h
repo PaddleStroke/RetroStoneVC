@@ -31,4 +31,10 @@ int  tln_beats(const shed_combo *a, const shed_combo *top);
 int  tln_bomb(const shed_combo *c);             /* a bomb's class (three pairs 1, four of a kind 2, four pairs 3,
                                                  * five pairs or more 4); 0: not a bomb */
 
+/* the bot (tienlen_bot.c, bots.h) */
+const shed_game *tienlen_live(void);            /* the game on the screen, read-only: the bot copies it at entry */
+int tienlen_show(const char *move);             /* main thread: plays one action of the notation as a tap does */
+struct ai_stats;
+uint64_t tienlen_bot_choose(const shed_game *g, int seat, int level, uint64_t seed, struct ai_stats *stats);
+
 #endif

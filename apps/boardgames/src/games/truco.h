@@ -104,4 +104,10 @@ int  truco_falta(const tpos *p, int side);      /* what a falta envido won by th
 int  truco_can_envido(const tpos *p);           /* the actor may call an envido now */
 int  truco_can_truco(const tpos *p);            /* the actor may call truco (or raise) now */
 
+/* the bot (truco_bot.c, bots.h) */
+const tgame *truco_live(void);                  /* the game on the screen, read-only: the bot copies it at entry */
+int truco_show(const char *move);               /* main thread: plays one action of the notation as a tap does */
+struct ai_stats;
+int trcb_choose(const tgame *g, int seat, int level, uint64_t seed, struct ai_stats *stats);   /* its action, 0: none */
+
 #endif

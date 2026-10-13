@@ -78,4 +78,10 @@ unsigned pres_winners(const ppos *p);           /* PP_OVER: the highest total's 
 int  pres_auto(const ppos *p);                  /* a plain action (the "." of the notation) */
 int  pres_script(pgame *g, const char *moves);  /* 0: an action is bad */
 
+/* the bot (president_bot.c, bots.h) */
+const pgame *president_live(void);              /* the game on the screen, read-only: the bot copies it at entry */
+int president_show(const char *move);           /* main thread: plays one action of the notation as a tap does */
+struct ai_stats;
+int prb_choose_act(const pgame *g, int seat, int level, uint64_t seed, struct ai_stats *stats);   /* the bot's action */
+
 #endif

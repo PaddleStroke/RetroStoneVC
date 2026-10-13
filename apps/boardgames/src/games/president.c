@@ -254,6 +254,17 @@ static void act(int a)
     if (p->phase == PP_GIVE || p->phase == PP_PLAY) ui_handoff(p->turn);
 }
 
+const pgame *president_live(void) { return &G; }
+
+int president_show(const char *move)
+{
+    static pgame t;
+    t = G;
+    if (!pres_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 /* several actions as one move (the cards given back): the history mark after the last */
 static int undo(void)
 {

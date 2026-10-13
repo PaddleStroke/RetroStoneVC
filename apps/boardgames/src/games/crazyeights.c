@@ -198,6 +198,17 @@ static void act(int a)
     if (G.pos.phase == CP_PLAY || G.pos.phase == CP_CHOOSE) ui_handoff(G.pos.turn);   /* after the cards land */
 }
 
+const cgame *crazyeights_live(void) { return &G; }
+
+int crazyeights_show(const char *move)
+{
+    static cgame t;
+    t = G;
+    if (!ce_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 static int undo(void)
 {
     if (!ce_undo(&G)) return 0;

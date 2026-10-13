@@ -178,6 +178,17 @@ static void act(int a)
     if (p->phase < MP_HAND) ui_handoff(p->turn);
 }
 
+const mgame *mus_live(void) { return &G; }
+
+int mus_show(const char *move)
+{
+    static mgame t;
+    t = G;
+    if (!mus_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 static int undo(void)
 {
     if (sel || amount != 2) { reset_ui(); return 1; }

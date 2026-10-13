@@ -204,6 +204,16 @@ static void shui_act(uint64_t a)
     if (SG.pos.phase == SP_PLAY) ui_handoff(SG.pos.turn);
 }
 
+/* the bot's move (bots.h: main thread): one action of the notation, played as a tap plays it */
+static int shui_show(const char *move)
+{
+    static shed_game t;
+    t = SG;
+    if (!shed_script(&t, SR, move) || t.n != SG.n + 1) return 0;
+    shui_act(t.act[SG.n]);
+    return 1;
+}
+
 static int shui_undo(void)
 {
     if (shui_chosen) { shui_chosen = 0; return 1; }   /* a choice not made yet */

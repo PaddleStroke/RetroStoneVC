@@ -344,6 +344,18 @@ static void act(uint64_t a)
     if (p->phase != DP_OVER) ui_handoff(p->turn);
 }
 
+const dgame *durak_live(void) { return &G; }
+int durak_open_hands(void) { return open_hands; }
+
+int durak_show(const char *move)
+{
+    static dgame t;
+    t = G;
+    if (!dur_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 static int undo(void)
 {
     if (chosen || raised != CARD_NONE) { chosen = 0, raised = CARD_NONE; return 1; }   /* a choice not made yet */

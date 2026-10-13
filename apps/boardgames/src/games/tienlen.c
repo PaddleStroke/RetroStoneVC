@@ -9,6 +9,10 @@
 #include "games/shed_ui.h"
 #include "games/tienlen.h"
 
+/* the bot (tienlen_bot.c, bots.h) */
+const shed_game *tienlen_live(void) { return &SG; }
+int tienlen_show(const char *move) { return shui_show(move); }
+
 static void start(int v)
 {
     (void)v;

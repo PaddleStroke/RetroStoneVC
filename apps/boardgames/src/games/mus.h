@@ -100,4 +100,9 @@ int  mus_cmp(int lance, int punto, const uint8_t *a, const uint8_t *b);   /* > 0
 int  mus_best(const mpos *p, int lance, unsigned players);   /* the best of these (ties: the nearer to the mano) */
 void mus_sort(uint8_t *h);
 
+/* the bot (mus_bot.c, bots.h) */
+const mgame *mus_live(void);                    /* the game on the screen, read-only: the bot copies it at entry */
+int mus_show(const char *move);                 /* main thread: plays one action of the notation as a tap does */
+int musb_choose(const mgame *g, int seat, int level, uint64_t seed);   /* its action, 0: none */
+
 #endif

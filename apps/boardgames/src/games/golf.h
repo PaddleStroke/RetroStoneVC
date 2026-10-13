@@ -76,4 +76,10 @@ int  golf_winner(const gpos *p);                 /* GP_OVER: the lowest total (-
 int  golf_auto(const gpos *p);                   /* a plain action (the "#" of the notation) */
 int  golf_script(ggame *g, const char *moves);   /* 0: an action is bad */
 
+/* the bot (golf_bot.c, bots.h) */
+const ggame *golf_live(void);                   /* the game on the screen, read-only: the bot copies it at entry */
+int golf_show(const char *move);                /* main thread: plays one action of the notation as a tap does */
+struct ai_stats;
+int glfb_choose(const gpos *live, int seat, int level, uint64_t seed, struct ai_stats *stats);   /* the bot's action */
+
 #endif

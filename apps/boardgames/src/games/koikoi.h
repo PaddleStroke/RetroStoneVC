@@ -128,4 +128,10 @@ int  kk_auto(const kpos *p);                    /* a plain action (the "#" of th
 int  kk_card_name(const char *s, int *card);    /* "8a": its length (0: not a card) */
 int  kk_script(kgame *g, const char *moves);    /* 0: an action is bad */
 
+/* the bot (koikoi_bot.c, bots.h) */
+const kgame *koikoi_live(void);                 /* the game on the screen, read-only: the bot copies it at entry */
+int koikoi_show(const char *move);              /* main thread: plays one action of the notation as a tap does */
+struct ai_stats;
+int kkb_choose(const kpos *live, int seat, int level, uint64_t seed, struct ai_stats *stats);
+
 #endif

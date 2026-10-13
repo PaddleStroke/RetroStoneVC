@@ -80,4 +80,10 @@ int  scopa_winner(const scpos *p);              /* SC_OVER: the winning side (-1
 uint32_t scopa_auto(const scpos *p);            /* a plain action (the "." of the notation) */
 int  scopa_script(scgame *g, const char *moves);   /* 0: an action is bad */
 
+/* the bot (scopa_bot.c, bots.h) */
+const scgame *scopa_live(void);                 /* the game on the screen, read-only: the bot copies it at entry */
+int scopa_show(const char *move);               /* main thread: plays one action of the notation as a tap does */
+struct ai_stats;
+uint32_t scob_choose(const scpos *live, int seat, int level, uint64_t seed, struct ai_stats *stats);   /* its action */
+
 #endif

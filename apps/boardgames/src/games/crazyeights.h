@@ -91,4 +91,10 @@ int  ce_winner(const cpos *p);                  /* CP_OVER: the winner (-1: not 
 int  ce_auto(const cpos *p);                    /* a plain action (the "a" of the notation) */
 int  ce_script(cgame *g, const char *moves);    /* 0: an action is bad */
 
+/* the bot (crazyeights_bot.c, bots.h) */
+const cgame *crazyeights_live(void);            /* the game on the screen, read-only: the bot copies it at entry */
+int crazyeights_show(const char *move);         /* main thread: plays one action of the notation as a tap does */
+struct ai_stats;
+int ceb_choose(const cgame *g, int seat, int level, uint64_t seed, struct ai_stats *stats);
+
 #endif

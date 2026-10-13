@@ -101,4 +101,11 @@ void dur_sort(const dpos *p, uint8_t *cards, int n);   /* a hand for the eye: by
 uint64_t dur_auto(const dpos *p);               /* a plain action (the "." of the notation) */
 int  dur_script(dgame *g, const char *moves);   /* 0: an action is bad */
 
+/* the bot (durak_bot.c, bots.h) */
+const dgame *durak_live(void);                  /* the game on the screen, read-only: the bot copies it at entry */
+int durak_show(const char *move);               /* main thread: plays one action of the notation as a tap does */
+int durak_open_hands(void);                      /* the hands face up for all (the variants with open hands) */
+struct ai_stats;
+uint64_t durb_choose(const dgame *g, int seat, int open, int level, uint64_t seed, struct ai_stats *stats);
+
 #endif
