@@ -1,15 +1,21 @@
 /*
  * Secret Code in RetroStone Board, for one player: the wooden board with its rows of holes, the hidden code under a
- * wooden lid at the top, a tray of coloured pegs at the side (the rules: secretcode_rules.c).
+ * wooden lid at the top, a tray of coloured pegs beside it or under it (the rules: secretcode_rules.c).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * The row being filled has a cursor (a hole in the select mark): a tap on a peg in the tray puts that colour there and
  * moves the cursor on to the next empty hole, so four taps fill a row; a tap on a hole moves the cursor there, a
  * second tap on it turns its peg to the next colour; a peg dragged from the tray goes in the hole it is dropped on.
- * The row full, a check button (in the bar, and in the row's key holes) checks it: the key pegs come one by one. Undo
- * takes back the last peg placed in the row being filled; a guess checked stays. At the end the lid slides away.
+ * The row full, a check button (the shell's tool, and in the row's key holes) checks it: the key pegs come one by one.
+ * Undo takes back the last peg placed in the row being filled; a guess checked stays. At the end the lid slides away.
  *
- * The board is measured in half rows (q pixels): a row is 2q high, a code hole 2q wide; its key holes 3q wide.
+ * The board takes all the room the shell gives (game.fill): upright, the tray beside it or under it (a row of cups),
+ * whichever gives the bigger holes; on a wide screen it lies turned a quarter (its rows across: the guesses from the
+ * left, the code at the right end under its lid), when that makes the holes bigger.
+ *
+ * The board is measured in half rows (q pixels): a row is 2q high, a code hole 2q wide; its key holes 3q wide. The
+ * geometry is worked out upright, (a, b) from the board's top left (a across a row, b down the rows), and turned on
+ * the screen when the board lies (b then runs from the right to the left, a down).
  */
 #include <math.h>
 #include <stdlib.h>
@@ -172,52 +178,69 @@ static void keys_xy(int P, int N, int q, int f, int row, float *x, float *y)   /
     *y = cy;
 }
 
-static void key_xy(int P, int N, int q, int f, int row, int k, float *x, float *y)
+/* key peg k of a row (the ebony ones first: from the top left as seen, the board upright or turned: t) */
+static void key_xy(int P, int N, int q, int f, int t, int row, int k, float *x, float *y)
 {
-    float cx, cy;
+    float cx, cy, s = t ? -1.0f : 1.0f;         /* turned: b runs right to left on the screen */
     keys_xy(P, N, q, f, row, &cx, &cy);
     if (P == 4) {                               /* two by two */
         *x = cx + (k & 1 ? 0.42f : -0.42f) * q;
-        *y = cy + (k & 2 ? 0.42f : -0.42f) * q;
+        *y = cy + s * (k & 2 ? 0.42f : -0.42f) * q;
     } else {                                    /* three, then two */
         *x = cx + (k < 3 ? (k - 1) * 0.8f : (k - 3.5f) * 0.8f) * q;
-        *y = cy + (k < 3 ? -0.42f : 0.42f) * q;
+        *y = cy + s * (k < 3 ? -0.42f : 0.42f) * q;
     }
 }
 
 static int board_w(int P, int q, int f) { return (2 * P + 3) * q + 2 * f; }
 static int board_h(int N, int q, int f) { return (2 * N + 3) * q + 2 * f; }
 
-static void make_board(int P, int N, int q, int f, uint8_t *o)
+/* a point (a, b) of the board upright, in its picture turned or not (t): the picture is board_h wide when turned */
+static void pic_xy(int N, int q, int f, int t, float a, float b, float *x, float *y)
 {
-    int w = board_w(P, q, f), h = board_h(N, q, f);
-    art_board_n(2 * P + 3, 2 * N + 3, q, f, 0, o);
+    *x = t ? board_h(N, q, f) - b : a;
+    *y = t ? a : b;
+}
+
+static void make_board(int P, int N, int q, int f, int t, uint8_t *o)
+{
+    int w = board_w(P, q, f), h = board_h(N, q, f), W = t ? h : w, H = t ? w : h;
+    art_board_n(t ? 2 * N + 3 : 2 * P + 3, t ? 2 * P + 3 : 2 * N + 3, q, f, 0, o);
     int gy = f + (int)(2.5f * q), gx = f + 2 * P * q;
-    groove(o, w, f, gy, w - f - 1, gy + 1);     /* under the code */
-    groove(o, w, gx, gy + 2, gx + 1, h - f - 1);    /* the key holes apart */
-    float x, y;
+    if (!t) {
+        groove(o, W, f, gy, w - f - 1, gy + 1);         /* under the code */
+        groove(o, W, gx, gy + 2, gx + 1, h - f - 1);    /* the key holes apart */
+    } else {                                            /* the same, the board turned */
+        groove(o, W, h - gy - 2, f, h - gy - 1, w - f - 1);
+        groove(o, W, f, gx, h - gy - 3, gx + 1);
+    }
+    float a, b, x, y;
     for (int i = 0; i < P; i++) {
-        code_xy(P, N, q, f, -1, i, &x, &y);
-        bore(o, w, h, x, y, HOLE_R * q);
+        code_xy(P, N, q, f, -1, i, &a, &b);
+        pic_xy(N, q, f, t, a, b, &x, &y);
+        bore(o, W, H, x, y, HOLE_R * q);
     }
     for (int r = 0; r < N; r++) {
         for (int i = 0; i < P; i++) {
-            code_xy(P, N, q, f, r, i, &x, &y);
-            bore(o, w, h, x, y, HOLE_R * q);
+            code_xy(P, N, q, f, r, i, &a, &b);
+            pic_xy(N, q, f, t, a, b, &x, &y);
+            bore(o, W, H, x, y, HOLE_R * q);
         }
         for (int k = 0; k < P; k++) {
-            key_xy(P, N, q, f, r, k, &x, &y);
-            bore(o, w, h, x, y, KEY_R * q);
+            key_xy(P, N, q, f, t, r, k, &a, &b);
+            pic_xy(N, q, f, t, a, b, &x, &y);
+            bore(o, W, H, x, y, KEY_R * q);
         }
     }
 }
 
-/* the tray: a narrow plank, a cup for each colour, top to bottom */
-static void make_tray(int K, int p, int f, uint8_t *o)
+/* the tray: a narrow plank, a cup for each colour, top to bottom (row: left to right) */
+static void make_tray(int K, int p, int f, int row, uint8_t *o)
 {
-    int w = p + 2 * f, h = K * p + 2 * f;
-    art_board_n(1, K, p, f, 0, o);
-    for (int c = 0; c < K; c++) bore(o, w, h, f + 0.5f * p, f + (c + 0.5f) * p, 0.40f * p);
+    int w = (row ? K : 1) * p + 2 * f, h = (row ? 1 : K) * p + 2 * f;
+    art_board_n(row ? K : 1, row ? 1 : K, p, f, 0, o);
+    for (int c = 0; c < K; c++)
+        bore(o, w, h, f + (row ? c + 0.5f : 0.5f) * p, f + (row ? 0.5f : c + 0.5f) * p, 0.40f * p);
 }
 
 /* the lid over the code: a small plank in its walnut frame, as wide as the board's inside */
@@ -244,11 +267,11 @@ static struct { int on; int row; Uint32 t0; } shown;   /* the last guess checked
 static struct { int on, colour, hole, moved; float x, y, x0, y0; } hold;  /* a finger on a tray peg or a hole */
 
 static int q, fr, pp, pf, made = -1, made_bar = -1;
+static int turned, trow;                        /* the board lying (its rows across); the tray a row under it */
 static float bx, by, tx, ty;                    /* the board's and the tray's top left corners */
 static box last_box;
 static SDL_Texture *t_board, *t_tray, *t_lid, *t_lid_shadow, *t_peg[SC_MAXCOLOURS], *t_tpeg[SC_MAXCOLOURS],
     *t_key[2], *t_row;
-static box barbox;                                 /* the bar's frame, for its check button */
 
 static void layout(box b);
 
@@ -339,38 +362,66 @@ static int script(const char *s)
 static int busy(void) { return shown.on && sc_status(&G) != SC_PLAY && (int)(ui_ms() - shown.t0) < lid_end(); }
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
+/* the board's and the tray's size on the screen */
+static float board_sw(void) { return (float)(turned ? board_h(N, q, fr) : board_w(P, q, fr)); }
+static float board_sh(void) { return (float)(turned ? board_w(P, q, fr) : board_h(N, q, fr)); }
+static float tray_sw(void) { return (float)((trow ? K : 1) * pp + 2 * pf); }
+static float tray_sh(void) { return (float)((trow ? 1 : K) * pp + 2 * pf); }
+
+/* the board in all the room: upright or lying (turned), the tray beside it or a row under it, whichever gives the
+ * bigger holes (lying only when they come out clearly bigger) */
 static void layout(box b)
 {
     last_box = b;
-    float u = ui.unit;
-    q = (int)floorf(0.97f * b.h / (2 * N + 3 + 2 * FRAME));
+    float u = ui.unit, gap = 0.45f * u, pp0 = 1.12f * u, T0 = 1.5f * pp0, best = 0;
+    float aw = 2 * P + 3 + 2 * FRAME, ah = 2 * N + 3 + 2 * FRAME;   /* the board upright, in half rows */
+    for (int t = 0; t < 2; t++)
+        for (int r = 0; r < 2; r++) {
+            float sw = t ? ah : aw, sh = t ? aw : ah;
+            float k = fminf((b.w - (r ? 0 : T0 + gap)) / sw, (b.h - (r ? T0 + gap : 0)) / sh) * (t ? 0.96f : 1);
+            if (k > best) best = k, turned = t, trow = r;
+        }
+    float sw = turned ? ah : aw, sh = turned ? aw : ah;
+    q = (int)floorf(0.97f * fminf((b.w - (trow ? 0 : T0 + gap)) / sw, (b.h - (trow ? T0 + gap : 0)) / sh));
     fr = (int)(FRAME * q + 0.5f);
     int w = board_w(P, q, fr), h = board_h(N, q, fr);
-    pp = (int)floorf(fminf(fminf(1.12f * u, 0.97f * b.h / (K + 0.5f)), (b.w - w - 0.6f * u) / 1.5f));
+    float bw = board_sw(), bh = board_sh();
+    float thick = trow ? b.h - bh - gap : b.w - bw - gap, len = trow ? b.w : b.h;   /* the tray's room */
+    pp = (int)floorf(fminf(fminf(thick / 1.5f, 0.97f * len / (K + 0.5f)), fmaxf(pp0, fminf(1.5f * u, PEG * q / 0.82f))));
     pf = (int)(0.25f * pp + 0.5f);
-    float gap = fminf(0.55f * u, (b.w - w - pp - 2 * pf) / 3), all = w + gap + pp + 2 * pf;
-    bx = floorf(b.x + (b.w - all) / 2);
-    by = floorf(b.y + (b.h - h) / 2);
-    tx = bx + w + gap;
-    ty = floorf(b.y + (b.h - (K * pp + 2 * pf)) / 2);
-    int key = (q * 4096 + pp) * 4 + var;        /* the pictures follow the sizes and the variant */
+    if (trow) {                                 /* the board, the tray under it: centred together */
+        float all = bh + gap + tray_sh();
+        bx = floorf(b.x + (b.w - bw) / 2);
+        by = floorf(b.y + (b.h - all) / 2);
+        tx = floorf(b.x + (b.w - tray_sw()) / 2);
+        ty = by + bh + gap;
+    } else {                                    /* the tray at the board's right */
+        float all = bw + gap + tray_sw();
+        bx = floorf(b.x + (b.w - all) / 2);
+        by = floorf(b.y + (b.h - bh) / 2);
+        tx = bx + bw + gap;
+        ty = floorf(b.y + (b.h - tray_sh()) / 2);
+    }
+    int key = ((q * 4096 + pp) * 4 + var) * 4 + turned * 2 + trow;   /* the pictures follow the sizes, the variant */
     if (made == key) return;
     made = key;
+    int W = turned ? h : w, H = turned ? w : h;
     ui_free(&t_board);
-    make_board(P, N, q, fr, ui_buf(w, h));
-    t_board = ui_tex(w, h, ui_buf(w, h));
-    int tw = pp + 2 * pf, th = K * pp + 2 * pf;
+    make_board(P, N, q, fr, turned, ui_buf(W, H));
+    t_board = ui_tex(W, H, ui_buf(W, H));
+    int tw = (int)tray_sw(), th = (int)tray_sh();
     ui_free(&t_tray);
-    make_tray(K, pp, pf, ui_buf(tw, th));
+    make_tray(K, pp, pf, trow, ui_buf(tw, th));
     t_tray = ui_tex(tw, th, ui_buf(tw, th));
     int lf = lid_f(q), lw = (2 * P + 3) * q + 2 * lf, lh = 2 * q + 2 * lf;
+    if (turned) { int s = lw; lw = lh; lh = s; }
     ui_free(&t_lid);
-    art_board_n(2 * P + 3, 2, q, lf, 0, ui_buf(lw, lh));
+    art_board_n(turned ? 2 : 2 * P + 3, turned ? 2 * P + 3 : 2, q, lf, 0, ui_buf(lw, lh));
     t_lid = ui_tex(lw, lh, ui_buf(lw, lh));
-    int sw = lw + 2 * q, sh = lh + 2 * q;
+    int sw2 = lw + 2 * q, sh2 = lh + 2 * q;
     ui_free(&t_lid_shadow);
-    soft_rect(sw, sh, 1.1f * q, 0.5f, ui_buf(sw, sh));
-    t_lid_shadow = ui_tex(sw, sh, ui_buf(sw, sh));
+    soft_rect(sw2, sh2, 1.1f * q, 0.5f, ui_buf(sw2, sh2));
+    t_lid_shadow = ui_tex(sw2, sh2, ui_buf(sw2, sh2));
     int d = (int)(PEG * q), dt = (int)(0.82f * pp), dk = (int)(KEY * q + 0.5f);
     for (int c = 0; c < SC_MAXCOLOURS; c++) {
         ui_free(&t_peg[c]);
@@ -410,11 +461,35 @@ static void bar_textures(void)
 }
 
 /* ---- the board on the screen ------------------------------------------------------------------------------------- */
-static void hole_at(int row, int i, float *x, float *y)
+/* a point (a, b) of the board upright: where it is on the screen */
+static void at(float a, float b, float *x, float *y)
 {
-    code_xy(P, N, q, fr, row, i, x, y);
+    pic_xy(N, q, fr, turned, a, b, x, y);
     *x += bx;
     *y += by;
+}
+
+/* a rectangle of the board upright (its top left (a, b), w across a row, h down the rows): on the screen */
+static void rect_at(float a, float b, float w, float h, float *x, float *y, float *sw, float *sh)
+{
+    *x = bx + (turned ? board_h(N, q, fr) - (b + h) : a);
+    *y = by + (turned ? a : b);
+    *sw = turned ? h : w;
+    *sh = turned ? w : h;
+}
+
+static void hole_at(int row, int i, float *x, float *y)
+{
+    float a, b;
+    code_xy(P, N, q, fr, row, i, &a, &b);
+    at(a, b, x, y);
+}
+
+/* the screen's point (x, y) on the board upright */
+static void board_ab(float x, float y, float *a, float *b)
+{
+    *a = turned ? y - by : x - bx;
+    *b = turned ? board_h(N, q, fr) - (x - bx) : y - by;
 }
 
 static float ease(float t) { t = clampf(t, 0, 1); return t * t * (3 - 2 * t); }
@@ -422,18 +497,24 @@ static float ease(float t) { t = clampf(t, 0, 1); return t * t * (3 - 2 * t); }
 /* the check button in the row's key holes: there when the row is full */
 static void key_button(float *x, float *y, float *r)
 {
-    keys_xy(P, N, q, fr, G.n, x, y);
-    *x += bx;
-    *y += by;
+    float a, b;
+    keys_xy(P, N, q, fr, G.n, &a, &b);
+    at(a, b, x, y);
     *r = 0.9f * q;
+}
+
+static void tray_xy(int c, float *x, float *y)  /* a cup's centre */
+{
+    *x = tx + pf + (trow ? c + 0.5f : 0.5f) * pp;
+    *y = ty + pf + (trow ? 0.5f : c + 0.5f) * pp;
 }
 
 static void draw(void)
 {
-    float x, y, d = PEG * q, dk = KEY * q;
+    float x, y, w, h, a, b, d = PEG * q, dk = KEY * q;
     int st = sc_status(&G), elapsed = shown.on ? (int)(ui_ms() - shown.t0) : 1 << 30;
     if (shown.on && elapsed < lid_end()) ui_animate();
-    ui_put(t_board, bx, by, (float)board_w(P, q, fr), (float)board_h(N, q, fr));
+    ui_put(t_board, bx, by, board_sw(), board_sh());
     float lid = 0;                              /* the lid: 0 shut, 1 gone */
     if (st != SC_PLAY) lid = shown.on ? ease((elapsed - (lid_end() - LID_MS)) / (float)LID_MS) : 1;
     if (st == SC_SOLVED && lid >= 1)            /* the code found: the winning row and the code in gold light */
@@ -442,8 +523,9 @@ static void draw(void)
             ui_mark_gold(x, y, 3.6f * q);
         }
     if (st == SC_PLAY) {                        /* the row being filled: a warm light */
-        hole_at(G.n, 0, &x, &y);
-        ui_mark_last(bx + fr, y - q, (float)(2 * P + 3) * q, 2.0f * q);
+        code_xy(P, N, q, fr, G.n, 0, &a, &b);
+        rect_at((float)fr, b - q, (float)(2 * P + 3) * q, 2.0f * q, &x, &y, &w, &h);
+        ui_mark_last(x, y, w, h);
         hole_at(G.n, cursor, &x, &y);           /* where the next colour goes: its light around the peg */
         ui_mark_select_round(x, y, 2.1f * q);
     }
@@ -457,15 +539,16 @@ static void draw(void)
     for (int r = 0; r < G.n; r++) {             /* their key pegs: the ebony ones first */
         int nb = G.black[r], n = nb + G.white[r];
         for (int k = 0; k < n; k++) {
-            float a = 1, s = 1;
+            float al = 1, s = 1;
             if (shown.on && r == shown.row) {
                 float t = (elapsed - 150 - k * KEY_STEP) / 110.0f;
                 if (t <= 0) continue;
-                a = clampf(t, 0, 1);
+                al = clampf(t, 0, 1);
                 s = 1.35f - 0.35f * ease(t);    /* set down from a little above */
             }
-            key_xy(P, N, q, fr, r, k, &x, &y);
-            ui_flat_at(t_key[k >= nb], bx + x, by + y, dk * s, a, 0);
+            key_xy(P, N, q, fr, turned, r, k, &a, &b);
+            at(a, b, &x, &y);
+            ui_flat_at(t_key[k >= nb], x, y, dk * s, al, 0);
         }
     }
     if (lid > 0)
@@ -473,29 +556,28 @@ static void draw(void)
             hole_at(-1, i, &x, &y);
             ui_flat_at(t_peg[G.code[i]], x, y, d, 1, 0);
         }
-    if (lid < 1) {                              /* it slides off to the left, fading */
+    if (lid < 1) {                              /* it slides off along its length (to the left; lying: up), fading */
         int lf = lid_f(q);
         float lw = (float)(2 * P + 3) * q + 2 * lf, lh = 2.0f * q + 2 * lf;
-        float lx = bx + fr - lf - lid * (lw + fr), ly = by + fr - lf;
-        Uint8 a = (Uint8)(255 * clampf(1 - (lid - 0.5f) * 2, 0, 1));
-        SDL_SetTextureAlphaMod(t_lid_shadow, a);
-        ui_put(t_lid_shadow, lx - q + 0.25f * q, ly - q + 0.4f * q, lw + 2 * q, lh + 2 * q);
-        SDL_SetTextureAlphaMod(t_lid, a);
-        ui_put(t_lid, lx, ly, lw, lh);
+        rect_at(fr - lf - lid * (lw + fr), (float)(fr - lf), lw, lh, &x, &y, &w, &h);
+        Uint8 al = (Uint8)(255 * clampf(1 - (lid - 0.5f) * 2, 0, 1));
+        SDL_SetTextureAlphaMod(t_lid_shadow, al);
+        ui_put(t_lid_shadow, x - q + 0.25f * q, y - q + 0.4f * q, w + 2 * q, h + 2 * q);
+        SDL_SetTextureAlphaMod(t_lid, al);
+        ui_put(t_lid, x, y, w, h);
         SDL_SetTextureAlphaMod(t_lid, 255);
     }
-    if (st == SC_PLAY) {
-        if (sc_full(&G)) {                      /* the row full: the check in its key holes */
-            float r;
-            key_button(&x, &y, &r);
-            ui_button(x, y, 2 * r, ICON_TICK, UI_ON);
-        }
+    if (st == SC_PLAY && sc_full(&G)) {         /* the row full: the check in its key holes */
+        float r;
+        key_button(&x, &y, &r);
+        ui_button(x, y, 2 * r, ICON_TICK, UI_ON);
     }
-    float tw = (float)(pp + 2 * pf);
-    ui_put(t_tray, tx, ty, tw, (float)(K * pp + 2 * pf));
+    ui_tool(0, ICON_TICK, st == SC_PLAY && sc_full(&G) ? UI_ON : UI_DIM);   /* the shell's tool: the same check */
+    ui_put(t_tray, tx, ty, tray_sw(), tray_sh());
     for (int c = 0; c < K; c++) {               /* the tray's pegs (the one held lifted out) */
-        float a = hold.on && hold.colour == c && hold.moved ? 0.35f : 1;
-        ui_flat_at(t_tpeg[c], tx + pf + 0.5f * pp, ty + pf + (c + 0.5f) * pp, 0.82f * pp, a, 0);
+        float al = hold.on && hold.colour == c && hold.moved ? 0.35f : 1;
+        tray_xy(c, &x, &y);
+        ui_flat_at(t_tpeg[c], x, y, 0.82f * pp, al, 0);
     }
     if (hold.on && hold.colour >= 0 && hold.moved) {   /* the peg carried, above the finger */
         float s = 0.9f * pp;
@@ -507,17 +589,21 @@ static void draw(void)
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
 static int tray_at(float x, float y)            /* the tray's colour under the pointer; -1: none */
 {
-    if (x < tx || x >= tx + pp + 2 * pf || y < ty + pf * 0.5f || y >= ty + K * pp + 1.5f * pf) return -1;
-    int c = (int)floorf((y - ty - pf) / pp);
+    float along = trow ? x - tx : y - ty, across = trow ? y - ty : x - tx;
+    if (across < 0 || across >= pp + 2 * pf || along < pf * 0.5f || along >= K * pp + 1.5f * pf) return -1;
+    int c = (int)floorf((along - pf) / pp);
     return c < 0 ? 0 : c >= K ? K - 1 : c;
 }
 
-static int hole_under(float x, float y, float reach)   /* the row being filled's hole under the pointer; -1 */
+/* the row being filled's hole under the pointer (reach: how far from the row's middle, in half rows); -1: none */
+static int hole_under(float x, float y, float reach)
 {
+    float a, b;
+    board_ab(x, y, &a, &b);
     for (int i = 0; i < P; i++) {
-        float hx, hy;
-        hole_at(G.n, i, &hx, &hy);
-        if (fabsf(x - hx) < q && fabsf(y - hy) < reach * q) return i;
+        float ha, hb;
+        code_xy(P, N, q, fr, G.n, i, &ha, &hb);
+        if (fabsf(a - ha) < q && fabsf(b - hb) < reach * q) return i;
     }
     return -1;
 }
@@ -526,6 +612,11 @@ static void press(float x, float y)
 {
     hold.on = 0;
     if (sc_status(&G) != SC_PLAY) return;
+    if (ui_tool_hit(x, y) == 0) {               /* the shell's tool: the check */
+        if (sc_full(&G)) check();
+        else ui_sound(SND_DENY);
+        return;
+    }
     int c = tray_at(x, y), h = hole_under(x, y, 1.0f);
     float kx, ky, kr;
     key_button(&kx, &ky, &kr);
@@ -534,7 +625,7 @@ static void press(float x, float y)
         return;
     }
     if (c < 0 && h < 0) {                       /* elsewhere on the board: not a place to play */
-        if (x >= bx && y >= by && x < bx + board_w(P, q, fr) && y < by + board_h(N, q, fr)) ui_sound(SND_DENY);
+        if (x >= bx && y >= by && x < bx + board_sw() && y < by + board_sh()) ui_sound(SND_DENY);
         return;
     }
     hold.on = 1;
@@ -573,39 +664,13 @@ static void release(float x, float y)
     ui_sound(SND_PLACE);
 }
 
-/* ---- the bar: the guesses left; the row full, the check button --------------------------------------------------- */
-/* the check button at the right end of the bar (the frame bar() drew in, kept: a press may come before the next
- * frame shows the row full) */
-static void bar_button(float *x, float *y, float *r)
-{
-    *r = 0.42f * ui.unit;
-    *x = barbox.x + barbox.w - *r - 0.05f * ui.unit;
-    *y = barbox.y + barbox.h / 2;
-}
-
+/* ---- the bar: the guesses left (the check is the shell's tool) --------------------------------------------------- */
 static void bar(int player, box b)
 {
     (void)player;
     bar_textures();
-    barbox = b;
     if (sc_status(&G) != SC_PLAY) return;
-    float x, y, r;
-    if (sc_full(&G)) {
-        bar_button(&x, &y, &r);
-        ui_button(x, y, 2 * r, ICON_TICK, UI_ON);
-        b.w -= 2 * r + 0.3f * ui.unit;
-    }
     ui_bar_count(b, t_row, sc_left(&G));
-}
-
-static int bar_press(int player, float x, float y)
-{
-    (void)player;
-    float kx, ky, r;
-    bar_button(&kx, &ky, &r);
-    if (!barbox.w || !sc_full(&G) || hypotf(x - kx, y - ky) > 1.1f * r) return 0;
-    check();
-    return 1;
 }
 
 /* ---- the menu's and the picker's cards --------------------------------------------------------------------------- */
@@ -624,7 +689,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
     int all = w + q2 + tp + 2 * tf, ox = (size - all) / 2, oy = (size - h) / 2;
     uint8_t *one = calloc((size_t)size * size, 4);
     if (!one) return;
-    make_board(p, n, q2, f, one);
+    make_board(p, n, q2, f, 0, one);
     art_blend(rgba, size, size, one, w, h, ox, oy);
     int d = (int)(PEG * q2), dk = (int)(KEY * q2 + 0.5f);
     float x, y;
@@ -638,7 +703,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
         }
     for (int r = 0; r < 3; r++)
         for (int j = 0; j < keyb[v][r][0] + keyb[v][r][1]; j++) {
-            key_xy(p, n, q2, f, r, j, &x, &y);
+            key_xy(p, n, q2, f, 0, r, j, &x, &y);
             key_pic(j < keyb[v][r][0], dk, one);
             art_blend(rgba, size, size, one, dk, dk, ox + (int)(x - dk / 2.0f), oy + (int)(y - dk / 2.0f));
         }
@@ -646,7 +711,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
     art_board_n(2 * p + 3, 2, q2, lf, 0, one);
     art_blend(rgba, size, size, one, lw, lh, ox + f - lf, oy + f - lf);
     int tw = tp + 2 * tf, th = k * tp + 2 * tf, tx0 = ox + w + q2, ty0 = (size - th) / 2;
-    make_tray(k, tp, tf, one);
+    make_tray(k, tp, tf, 0, one);
     art_blend(rgba, size, size, one, tw, th, tx0, ty0);
     int dt = (int)(0.82f * tp);
     for (int c = 0; c < k; c++) {
@@ -660,6 +725,6 @@ static const game secretcode_game = {
     .id = "secretcode", .order = 255, .variants = SC_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .fill = 1, .tools = 1,
 };
 REGISTER_GAME(secretcode_game)
