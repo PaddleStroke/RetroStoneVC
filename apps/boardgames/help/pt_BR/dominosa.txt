@@ -9,6 +9,6 @@ Junte duas casas vizinhas numa pedra, ou tire uma pedra. Uma pedra nova substitu
 # O fim da partida
 A grade está resolvida quando as pedras a cobrem, cada pedra do jogo uma vez: uma onda de luz dourada percorre o tabuleiro.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, do jogo até o 3-3 ao jogo até o 8-8, cada um com uma única solução; escolha um na tela de níveis. A aba do dado, depois dos capítulos, cria um novo quebra-cabeça ao acaso, com a escolha descrita acima. Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma pedra errada que você retira com Desfazer.
+Há 150 níveis em seis capítulos, do jogo até o 3-3 ao jogo até o 8-8, cada um com uma única solução; escolha um na tela de níveis. A aba do dado, depois dos capítulos, cria um novo quebra-cabeça ao acaso, com a escolha descrita acima. Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma pedra errada que você tira com Desfazer.
 # Jogando no aparelho
 Arraste o dedo de uma casa até a vizinha, ou toque numa e depois na outra: uma pedra de marfim é colocada sobre elas, com pontos que mostram os dois números. Toque numa pedra para tirá-la. Uma pedra colocada duas vezes fica vermelha. O botão da lâmpada dá uma dica: tira uma pedra errada ou, se não houver, coloca a certa mais fácil, numa luz dourada. Desfazer volta uma ação por vez, até o início. A barra mostra suas jogadas.

@@ -11,5 +11,5 @@ Há 150 níveis em seis capítulos, do 4 × 4 ao 11 × 11 e aos tabuleiros sem b
 # Jogando no aparelho
 - Toque numa peça para girá-la um quarto de volta.
 - A água corre do tanque por todos os canos ligados a ele. Onde chega a um cano aberto, ela vaza: procure as gotas.
-- A lâmpada no fim da barra dá uma dica: gira certo uma peça errada (ao lado da água quando possível), com luz dourada.
+- A lâmpada dá uma dica: gira certo uma peça errada (ao lado da água quando possível), com luz dourada.
 Desfazer volta um giro ou uma dica de cada vez, até o início. A barra mostra suas jogadas.

@@ -5,9 +5,9 @@ Preencha a grade para que cada linha e cada coluna tenha uma vez cada algarismo 
 - Médio: você vai precisar também dos algarismos que uma gaiola tem de pôr numa mesma linha ou coluna, e de pares.
 - Difícil: raciocínios mais longos: testar um algarismo e segui-lo até algo dar errado.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, do 4 × 4 ao 9 × 9, cada um com uma única solução; escolha um na tela de níveis. A aba do dado, depois dos capítulos, cria um novo quebra-cabeça ao acaso, com a escolha descrita acima. Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é um algarismo errado que você retira com Desfazer.
+Há 150 níveis em seis capítulos, do 4 × 4 ao 9 × 9, cada um com uma única solução; escolha um na tela de níveis. A aba do dado, depois dos capítulos, cria um novo quebra-cabeça ao acaso, com a escolha descrita acima. Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é um algarismo errado que você tira com Desfazer.
 # Jogando no aparelho
-Toque numa casa e depois numa tecla embaixo do tabuleiro: o algarismo entra, em tinta azul. Toque de novo na mesma tecla para tirá-lo, ou arraste uma tecla até uma casa. A linha e a coluna da casa se iluminam de leve, a gaiola um pouco mais, e as casas com o mesmo algarismo em tom quente. Sem casa escolhida, uma tecla ilumina as casas do seu algarismo. Os botões ao lado do tabuleiro:
+Toque numa casa e depois numa tecla ao lado do tabuleiro: o algarismo entra, em tinta azul. Toque de novo na mesma tecla para tirá-lo, ou arraste uma tecla até uma casa. A linha e a coluna da casa se iluminam de leve, a gaiola um pouco mais, e as casas com o mesmo algarismo em tom quente. Sem casa escolhida, uma tecla ilumina as casas do seu algarismo. Os botões ao lado do tabuleiro:
 - Lápis: anotações. As teclas então põem algarismos pequenos na casa, ou os tiram.
 - Borracha: tira o algarismo da casa, ou as anotações.
 - Lâmpada: uma dica. Corrige um algarismo errado ou, senão, preenche uma casa que o raciocínio encontra, com luz dourada.

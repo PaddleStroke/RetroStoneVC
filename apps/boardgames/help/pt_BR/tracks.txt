@@ -14,5 +14,5 @@ Há 150 níveis em seis capítulos, do 5 × 5 ao 10 × 10, cada um com uma únic
 # Jogando no aparelho
 - Arraste de casa em casa para assentar o trilho sob o dedo; ele se liga aos trilhos que já estão lá.
 - Toque numa casa para um trilho (primeiro o que melhor se encaixa nos vizinhos), de novo para o seguinte; depois do sexto, a casa fica vazia.
-- Segure uma casa por um instante para marcá-la com um X. O botão do X na barra faz os toques e arrastes marcarem X; ele mostra o que um toque faz.
-Um número esmaece quando sua linha tem essa quantidade de trilhos, e fica vermelho quando tem demais. A lâmpada da barra é uma dica: ela acerta uma casa e a ilumina em dourado. Desfazer volta uma ação de cada vez, até o início. A barra mostra suas jogadas.
+- Segure uma casa por um instante para marcá-la com um X. O botão do X faz os toques e arrastes marcarem X; ele mostra o que um toque faz.
+Um número esmaece quando sua linha tem essa quantidade de trilhos, e fica vermelho quando tem demais. A lâmpada é uma dica: ela acerta uma casa e a ilumina em dourado. Desfazer volta uma ação de cada vez, até o início. A barra mostra suas jogadas.

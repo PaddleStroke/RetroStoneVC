@@ -13,5 +13,5 @@ Há 150 níveis em seis capítulos, do 5 × 5 ao 12 × 12, cada um com uma únic
 - Voltar pelo caminho o encurta. Passar por outro caminho o corta; ele volta se você recuar antes de levantar o dedo. Um caminho nunca passa por um ponto de outra cor.
 - Quando um caminho chega ao outro ponto, o par fica ligado e seus pontos tocam.
 - Só com toques: toque num ponto ou numa casa de um caminho (a ponta fica marcada), depois numa casa da mesma linha ou coluna: o caminho vai reto até lá. Toque de novo na ponta marcada para soltá-la.
-- A lâmpada no fim da barra dá uma dica: traça o caminho de um par como na solução, com luz dourada.
+- A lâmpada dá uma dica: traça o caminho de um par como na solução, com luz dourada.
 As casas de um caminho ficam tingidas da sua cor. Desfazer volta um traço ou uma dica de cada vez, até o início. A barra mostra suas jogadas.

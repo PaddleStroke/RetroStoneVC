@@ -10,12 +10,12 @@ Coloque uma lâmpada numa casa branca, ou tire-a. Você também pode pôr um pon
 # O fim da partida
 O tabuleiro está resolvido quando todas as casas brancas estão iluminadas, nenhuma lâmpada ilumina outra e cada número tem as suas lâmpadas: uma onda de luz dourada percorre o tabuleiro.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, do 6 × 6 ao 14 × 14, cada um com uma única solução; escolha um na tela de níveis. A aba do dado, depois dos capítulos, cria um novo quebra-cabeça ao acaso, com a escolha descrita acima. Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma lâmpada ou um ponto no lugar errado que você depois tira com Desfazer.
+Há 150 níveis em seis capítulos, do 6 × 6 ao 14 × 14, cada um com uma única solução; escolha um na tela de níveis. A aba do dado, depois dos capítulos, cria um novo quebra-cabeça ao acaso, com a escolha descrita acima. Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma lâmpada ou um ponto no lugar errado que você tira com Desfazer.
 # Jogando no aparelho
 - Toque numa casa branca para pôr uma lâmpada; toque de novo para tirá-la.
 - Segure uma casa por um instante para pôr um ponto, ou tirá-lo.
 - Arraste ao longo de uma linha ou coluna para pôr pontos num trecho inteiro (ou tirá-los de um trecho de pontos).
-As casas iluminadas brilham num tom quente. Duas lâmpadas que se iluminam brilham em vermelho; um número fica vermelho quando tem lâmpadas demais, e fica apagado quando já tem todas. Os botões na ponta direita da barra (na horizontal, na coluna lateral):
+As casas iluminadas brilham num tom quente. Duas lâmpadas que se iluminam brilham em vermelho; um número fica vermelho quando tem lâmpadas demais, e fica apagado quando já tem todas. Os botões ao lado do tabuleiro:
 - Lâmpada ou ponto: o que um toque coloca. Toque nele para trocar tocar e segurar.
 - Lâmpada acesa: uma dica. Corrige uma casa errada ou, se não houver, mostra a próxima casa que o raciocínio encontra, com luz dourada.
 Desfazer volta uma ação de cada vez, até o começo. A barra mostra as suas jogadas.
